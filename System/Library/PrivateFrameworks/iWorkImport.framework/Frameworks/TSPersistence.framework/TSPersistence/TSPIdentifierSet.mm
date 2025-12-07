@@ -55,16 +55,15 @@
 {
   v4 = sub_276BDAEF4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_276BDAED4();
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC13TSPersistence16TSPIdentifierSet_identifierSet);
+  v8 = *(&self->super.isa + OBJC_IVAR____TtC13TSPersistence16TSPIdentifierSet_identifierSet);
   selfCopy = self;
-  LOBYTE(v9) = sub_276B02F00(v8, v9);
-  (*(v5 + 8))(v8, v4);
+  LOBYTE(v8) = sub_276B02F00(v7, v8);
+  (*(v5 + 8))(v7, v4);
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (id)formMergeWithIdentifierSet:(id)set

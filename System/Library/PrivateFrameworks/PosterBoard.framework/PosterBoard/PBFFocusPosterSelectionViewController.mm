@@ -238,22 +238,22 @@ LABEL_11:
   }
 
   compositionalLayout = [(PBFFocusPosterSelectionViewController *)self compositionalLayout];
-  v37.receiver = self;
-  v37.super_class = PBFFocusPosterSelectionViewController;
-  v21 = [(PBFFocusPosterSelectionViewController *)&v37 initWithCollectionViewLayout:compositionalLayout];
+  v38.receiver = self;
+  v38.super_class = PBFFocusPosterSelectionViewController;
+  v21 = [(PBFFocusPosterSelectionViewController *)&v38 initWithCollectionViewLayout:compositionalLayout];
 
   if (v21)
   {
-    v22 = PBFLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = PBFLogCommon(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [PBFFocusPosterSelectionViewController initWithActivityUUID:activityIdentifier:galleryDataProvider:dataStore:];
     }
 
     objc_storeStrong(&v21->_activityUUID, d);
-    v23 = [v17 copy];
+    v24 = [v17 copy];
     activityIdentifier = v21->_activityIdentifier;
-    v21->_activityIdentifier = v23;
+    v21->_activityIdentifier = v24;
 
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
     configurationsToMetadata = v21->_configurationsToMetadata;
@@ -261,22 +261,22 @@ LABEL_11:
 
     objc_storeStrong(&v21->_galleryDataProvider, provider);
     objc_storeStrong(&v21->_dataStore, store);
-    v27 = [[PBFApplicationStateNode alloc] initWithDescription:@"Focus Poster Selection View Controller"];
+    v28 = [[PBFApplicationStateNode alloc] initWithDescription:@"Focus Poster Selection View Controller"];
     state = v21->_state;
-    v21->_state = v27;
+    v21->_state = v28;
 
-    v29 = CACurrentMediaTime();
+    v30 = CACurrentMediaTime();
     [(PBFPosterExtensionDataStore *)v21->_dataStore addObserver:v21];
     dataStore = v21->_dataStore;
     uUIDString = [(NSUUID *)v21->_activityUUID UUIDString];
-    v32 = +[PBFGenericDisplayContext mainScreen];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke;
-    v34[3] = &unk_2782C56E8;
-    v35 = v21;
-    v36 = v29;
-    [(PBFPosterExtensionDataStore *)dataStore fetchPosterSuggestionsForFocusModeWithUUID:uUIDString context:v32 completion:v34];
+    v33 = +[PBFGenericDisplayContext mainScreen];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke;
+    v35[3] = &unk_2782C56E8;
+    v36 = v21;
+    v37 = v30;
+    [(PBFPosterExtensionDataStore *)dataStore fetchPosterSuggestionsForFocusModeWithUUID:uUIDString context:v33 completion:v35];
   }
 
   return v21;
@@ -286,10 +286,11 @@ void __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityI
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = PBFLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PBFLogCommon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke_cold_1();
     }
@@ -301,16 +302,16 @@ void __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityI
     block[1] = 3221225472;
     block[2] = __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke_138;
     block[3] = &unk_2782C56C0;
-    v9 = *(a1 + 32);
-    v10 = v5;
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 32);
+    v11 = v5;
+    v12 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v7 = v9;
+    v8 = v10;
   }
 }
 
-uint64_t __111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke_138(uint64_t a1)
+void *__111__PBFFocusPosterSelectionViewController_initWithActivityUUID_activityIdentifier_galleryDataProvider_dataStore___block_invoke_138(uint64_t a1)
 {
   *(*(a1 + 32) + 1088) = 1;
   objc_storeStrong((*(a1 + 32) + 1096), *(a1 + 40));
@@ -513,26 +514,26 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    if ([(NSMutableArray *)self->_nonFocusAssociatedConfigurations count]== 1 && [(NSMutableArray *)self->_nonFocusAssociatedConfigurations containsObject:v11])
+    if ([(NSMutableArray *)self->_nonFocusAssociatedConfigurations count]== 1 && (v18 = [(NSMutableArray *)self->_nonFocusAssociatedConfigurations containsObject:v11], v18))
     {
-      v18 = PBFLogCommon();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = PBFLogCommon(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "Cannot check checkbox because at least one Poster needs to be not associated with a focus.", buf, 2u);
+        _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "Cannot check checkbox because at least one Poster needs to be not associated with a focus.", buf, 2u);
       }
 
-      v19 = MEMORY[0x277D75110];
-      v20 = PBFLocalizedString(@"CANNOT_SET_POSTER_FOCUS_ALERT_TITLE");
-      v21 = PBFLocalizedString(@"CANNOT_SET_POSTER_FOCUS_ALERT_MESSAGE");
-      v22 = [v19 alertControllerWithTitle:v20 message:v21 preferredStyle:1];
+      v20 = MEMORY[0x277D75110];
+      v21 = PBFLocalizedString(@"CANNOT_SET_POSTER_FOCUS_ALERT_TITLE");
+      v22 = PBFLocalizedString(@"CANNOT_SET_POSTER_FOCUS_ALERT_MESSAGE");
+      v23 = [v20 alertControllerWithTitle:v21 message:v22 preferredStyle:1];
 
-      v23 = MEMORY[0x277D750F8];
-      v24 = PBFLocalizedString(@"OK");
-      v25 = [v23 actionWithTitle:v24 style:0 handler:0];
+      v24 = MEMORY[0x277D750F8];
+      v25 = PBFLocalizedString(@"OK");
+      v26 = [v24 actionWithTitle:v25 style:0 handler:0];
 
-      [v22 addAction:v25];
-      [(PBFFocusPosterSelectionViewController *)self presentViewController:v22 animated:1 completion:0];
+      [v23 addAction:v26];
+      [(PBFFocusPosterSelectionViewController *)self presentViewController:v23 animated:1 completion:0];
     }
 
     else
@@ -548,35 +549,35 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v37 = MEMORY[0x277D75110];
-      v27 = PBFLocalizedString(@"LINK_POSTER_CONFIRMATION_TITLE");
-      v28 = MEMORY[0x277CCACA8];
-      v39 = PBFBundle();
-      v29 = [v39 localizedStringForKey:@"LINK_POSTER_CONFIRMATION_MESSAGE" value:&stru_282CD3858 table:0];
+      v38 = MEMORY[0x277D75110];
+      v28 = PBFLocalizedString(@"LINK_POSTER_CONFIRMATION_TITLE");
+      v29 = MEMORY[0x277CCACA8];
+      v40 = PBFBundle(v28);
+      v30 = [v40 localizedStringForKey:@"LINK_POSTER_CONFIRMATION_MESSAGE" value:&stru_282CD3858 table:0];
       otherFocusDisplayName = [v12 otherFocusDisplayName];
-      v31 = [v28 localizedStringWithFormat:v29, otherFocusDisplayName];
-      v38 = [v37 alertControllerWithTitle:v27 message:v31 preferredStyle:1];
+      v32 = [v29 localizedStringWithFormat:v30, otherFocusDisplayName];
+      v39 = [v38 alertControllerWithTitle:v28 message:v32 preferredStyle:1];
 
-      v32 = MEMORY[0x277D750F8];
-      v33 = PBFLocalizedString(@"CANCEL");
-      v25 = [v32 actionWithTitle:v33 style:1 handler:0];
+      v33 = MEMORY[0x277D750F8];
+      v34 = PBFLocalizedString(@"CANCEL");
+      v26 = [v33 actionWithTitle:v34 style:1 handler:0];
 
-      v34 = MEMORY[0x277D750F8];
-      v22 = v38;
-      v35 = PBFLocalizedString(@"LINK");
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __81__PBFFocusPosterSelectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke;
-      v40[3] = &unk_2782C57A8;
-      v41 = v12;
+      v35 = MEMORY[0x277D750F8];
+      v23 = v39;
+      v36 = PBFLocalizedString(@"LINK");
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __81__PBFFocusPosterSelectionViewController_collectionView_didSelectItemAtIndexPath___block_invoke;
+      v41[3] = &unk_2782C57A8;
+      v42 = v12;
       selfCopy = self;
-      v43 = v11;
-      v44 = v10;
-      v36 = [v34 actionWithTitle:v35 style:0 handler:v40];
+      v44 = v11;
+      v45 = v10;
+      v37 = [v35 actionWithTitle:v36 style:0 handler:v41];
 
-      [v38 addAction:v25];
-      [v38 addAction:v36];
-      [(PBFFocusPosterSelectionViewController *)self presentViewController:v38 animated:1 completion:0];
+      [v39 addAction:v26];
+      [v39 addAction:v37];
+      [(PBFFocusPosterSelectionViewController *)self presentViewController:v39 animated:1 completion:0];
     }
 
 LABEL_19:
@@ -775,38 +776,38 @@ void __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___bloc
     if (v2)
     {
       [*(a1 + 64) setCachedSnapshot:*(a1 + 32)];
-      v4 = [*(*(a1 + 56) + 1080) indexPathForItemIdentifier:*(a1 + 72)];
-      if (v4)
+      v5 = [*(*(a1 + 56) + 1080) indexPathForItemIdentifier:*(a1 + 72)];
+      if (v5)
       {
-        v16 = v4;
-        v5 = [*(a1 + 56) collectionView];
-        v6 = [v5 cellForItemAtIndexPath:v16];
+        v17 = v5;
+        v6 = [*(a1 + 56) collectionView];
+        v7 = [v6 cellForItemAtIndexPath:v17];
 
-        [v6 setPosterImage:*(a1 + 32)];
-        v7 = [@"poster-uuid--" stringByAppendingString:*(a1 + 72)];
-        [v6 setCheckboxAssociatedPosterIdentifier:v7];
+        [v7 setPosterImage:*(a1 + 32)];
+        v8 = [@"poster-uuid--" stringByAppendingString:*(a1 + 72)];
+        [v7 setCheckboxAssociatedPosterIdentifier:v8];
 
-        v4 = v16;
+        v5 = v17;
       }
     }
 
     else
     {
-      v15 = PBFLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = PBFLogCommon(v4);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "Focus Poster Selection: Display context changed. Will need to requery.", buf, 2u);
+        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "Focus Poster Selection: Display context changed. Will need to requery.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v8 = PBFLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PBFLogCommon(a1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___block_invoke_2_cold_1(a1, v8, v9, v10, v11, v12, v13, v14);
+      __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___block_invoke_2_cold_1(a1, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 }
@@ -814,20 +815,20 @@ void __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___bloc
 - (void)_applySnapshotForCurrentStateWithAnimation:(BOOL)animation
 {
   animationCopy = animation;
-  v15[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   previews = [(PBFFocusPosterSuggestionData *)self->_suggestionData previews];
   v6 = [previews bs_compactMap:&__block_literal_global_205];
 
   v7 = [(NSArray *)self->_configurations bs_compactMap:&__block_literal_global_208];
   v8 = objc_alloc_init(MEMORY[0x277CFB890]);
-  v15[0] = @"Masthead";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v16[0] = @"Masthead";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [v8 appendSectionsWithIdentifiers:v9];
 
   if (self->_receivedSuggestionsResponse)
   {
-    v14 = @"Create";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v15 = @"Create";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     [v8 appendSectionsWithIdentifiers:v10];
 
     if ([v6 count])
@@ -836,8 +837,8 @@ void __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___bloc
     }
   }
 
-  v13 = @"Configured";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v14 = @"Configured";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   [v8 appendSectionsWithIdentifiers:v11];
 
   if (v7)
@@ -847,10 +848,10 @@ void __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___bloc
 
   else
   {
-    v12 = PBFLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = PBFLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [(PBFFocusPosterSelectionViewController *)&self->_configurations _applySnapshotForCurrentStateWithAnimation:v12];
+      [(PBFFocusPosterSelectionViewController *)&self->_configurations _applySnapshotForCurrentStateWithAnimation:v13];
     }
   }
 
@@ -996,9 +997,9 @@ LABEL_13:
   delegate = [(PBFFocusPosterSelectionViewController *)self delegate];
   if (delegate)
   {
-    v8 = delegate;
-    [delegate topButtonLayoutForFocusPosterSelectionViewController:self];
-    delegate = v8;
+    v7 = delegate;
+    objc_msgSend_topButtonLayoutForFocusPosterSelectionViewController_(delegate);
+    delegate = v7;
   }
 
   else
@@ -1147,39 +1148,39 @@ void __47__PBFFocusPosterSelectionViewController__done___block_invoke(uint64_t a
 
 - (void)_commitCheckedStates
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!self->_activityUUID)
   {
     return;
   }
 
   switcherConfiguration = [(PBFPosterExtensionDataStore *)self->_dataStore switcherConfiguration];
-  v26 = [switcherConfiguration mutableCopy];
-  v28 = 0u;
+  v27 = [switcherConfiguration mutableCopy];
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   obj = self->_configurations;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v3)
   {
-    LOBYTE(v25) = 0;
+    LOBYTE(v26) = 0;
     goto LABEL_20;
   }
 
   v4 = v3;
-  v25 = 0;
-  v5 = *v29;
+  v26 = 0;
+  v5 = *v30;
   do
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v29 != v5)
+      if (*v30 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v28 + 1) + 8 * i);
+      v7 = *(*(&v29 + 1) + 8 * i);
       v8 = [v7 loadFocusConfigurationWithError:0];
       v9 = [(NSMapTable *)self->_configurationsToMetadata objectForKey:v7];
       isChecked = [v9 isChecked];
@@ -1198,7 +1199,7 @@ void __47__PBFFocusPosterSelectionViewController__done___block_invoke(uint64_t a
         activeConfiguration = [switcherConfiguration activeConfiguration];
         v15 = [activeConfiguration isEqual:v7];
 
-        v16 = v15 | v25;
+        v16 = v15 | v26;
       }
 
       else
@@ -1217,38 +1218,39 @@ void __47__PBFFocusPosterSelectionViewController__done___block_invoke(uint64_t a
           goto LABEL_15;
         }
 
-        [v26 setSelectedConfiguration:v7];
+        [v27 setSelectedConfiguration:v7];
         v13 = 0;
         v16 = 1;
       }
 
-      v25 = v16;
+      v26 = v16;
 LABEL_15:
-      [v26 setFocusConfiguration:v13 forPosterConfiguration:v7];
+      [v27 setFocusConfiguration:v13 forPosterConfiguration:v7];
 
 LABEL_16:
     }
 
-    v4 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v4 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   }
 
   while (v4);
 LABEL_20:
 
   dataStore = self->_dataStore;
-  v27 = 0;
-  v20 = [(PBFPosterExtensionDataStore *)dataStore updateDataStoreForSwitcherConfiguration:v26 reason:@"Focus poster selection commit" error:&v27];
-  v21 = v27;
+  v28 = 0;
+  v20 = [(PBFPosterExtensionDataStore *)dataStore updateDataStoreForSwitcherConfiguration:v27 reason:@"Focus poster selection commit" error:&v28];
+  v21 = v28;
+  v22 = v21;
   if (v21)
   {
-    v22 = PBFLogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = PBFLogCommon(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [PBFFocusPosterSelectionViewController _commitCheckedStates];
     }
   }
 
-  else if (v25)
+  else if (v26)
   {
     [(PBFPosterExtensionDataStore *)self->_dataStore updateFocusModeForActivePosterChange];
   }
@@ -1390,72 +1392,9 @@ LABEL_20:
 
 - (void)_populateActivityMetadata
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (self->_activityUUID)
-  {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    mEMORY[0x277D0A9E8] = [MEMORY[0x277D0A9E8] sharedActivityManager];
-    availableActivities = [mEMORY[0x277D0A9E8] availableActivities];
-
-    v5 = [availableActivities countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v25;
-      while (2)
-      {
-        for (i = 0; i != v6; ++i)
-        {
-          if (*v25 != v7)
-          {
-            objc_enumerationMutation(availableActivities);
-          }
-
-          v9 = *(*(&v24 + 1) + 8 * i);
-          activityUniqueIdentifier = [v9 activityUniqueIdentifier];
-          v11 = [activityUniqueIdentifier isEqual:self->_activityUUID];
-
-          if (v11)
-          {
-            activitySymbolImageName = [v9 activitySymbolImageName];
-            activitySymbolImageName = self->_activitySymbolImageName;
-            self->_activitySymbolImageName = activitySymbolImageName;
-
-            activityColorName = [v9 activityColorName];
-            v21 = NSSelectorFromString(activityColorName);
-
-            if (objc_opt_respondsToSelector())
-            {
-              v22 = [MEMORY[0x277D75348] performSelector:v21];
-              activitySymbolColor = self->_activitySymbolColor;
-              self->_activitySymbolColor = v22;
-            }
-
-            goto LABEL_14;
-          }
-        }
-
-        v6 = [availableActivities countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v6)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    availableActivities = PBFLogCommon();
-    if (os_log_type_enabled(availableActivities, OS_LOG_TYPE_ERROR))
-    {
-      [(PBFFocusPosterSelectionViewController *)&self->_activityUUID _populateActivityMetadata:availableActivities];
-    }
-
-LABEL_14:
-  }
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "Could not find activity with UUID: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_logEditWithEditingViewController:(id)controller posterUUID:(id)d lastModifiedDate:(id)date
@@ -1502,10 +1441,11 @@ LABEL_14:
 void __103__PBFFocusPosterSelectionViewController__logEditWithEditingViewController_posterUUID_lastModifiedDate___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = PBFLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PBFLogCommon(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __103__PBFFocusPosterSelectionViewController__logEditWithEditingViewController_posterUUID_lastModifiedDate___block_invoke_cold_1();
     }
@@ -1680,7 +1620,7 @@ void __103__PBFFocusPosterSelectionViewController__logEditWithEditingViewControl
     v12 = delegate;
     if (delegate)
     {
-      [delegate topButtonLayoutForFocusPosterSelectionViewController:self];
+      objc_msgSend_topButtonLayoutForFocusPosterSelectionViewController_(delegate);
     }
 
     else
@@ -1812,7 +1752,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1820,7 +1760,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1830,7 +1770,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1838,7 +1778,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1848,7 +1788,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterGalleryDataProviderClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1856,7 +1796,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterGalleryDataProviderClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1866,7 +1806,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterExtensionDataStoreClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1874,7 +1814,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterExtensionDataStoreClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1891,7 +1831,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1899,7 +1839,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1909,7 +1849,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1917,7 +1857,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1927,7 +1867,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1935,7 +1875,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1945,7 +1885,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)initWithActivityUUID:(char *)a1 activityIdentifier:galleryDataProvider:dataStore:.cold.9(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1953,7 +1893,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1963,7 +1903,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)_reloadDataWithAnimation:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"uuidString != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1971,12 +1911,19 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"uuidString != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
+}
+
+void __66__PBFFocusPosterSelectionViewController__reloadDataWithAnimation___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "Focus Poster Selection: Could not fetch snapshot for configuration: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_applySnapshotForCurrentStateWithAnimation:(os_log_t)log .cold.1(void *a1, uint64_t a2, os_log_t log)
@@ -2007,7 +1954,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
 
 - (void)editingIngestionManager:(char *)a1 didAccept:userChoice:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[manager editingViewController] navigationController]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2015,7 +1962,7 @@ void __60__PBFFocusPosterSelectionViewController_compositionalLayout__block_invo
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[[manager editingViewController] navigationController]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -7,10 +7,10 @@
 
 + (id)makeSwiftUIView
 {
-  v2 = type metadata accessor for GCSEntryView();
+  v2 = type metadata accessor for GCSEntryView(0);
   __chkstk_darwin(v2 - 8);
   sub_48804(&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = objc_allocWithZone(sub_DC40(&qword_117250));
+  v4 = objc_allocWithZone(sub_DC40(&qword_117250, qword_DEA50));
   v5 = sub_D70A8();
 
   return v5;

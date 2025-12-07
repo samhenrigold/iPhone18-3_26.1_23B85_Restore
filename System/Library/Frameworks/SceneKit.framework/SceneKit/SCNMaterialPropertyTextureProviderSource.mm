@@ -37,7 +37,7 @@
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status
 {
   self->_engineContext = context;
-  RenderContext = C3DEngineContextGetRenderContext(context);
+  RenderContext = C3DEngineContextGetRenderContext(context, a2);
   v9 = RenderContext;
   if (self->_texture)
   {
@@ -59,7 +59,7 @@
 - (void)renderWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time
 {
   self->_engineContext = context;
-  RenderContext = C3DEngineContextGetRenderContext(context);
+  RenderContext = C3DEngineContextGetRenderContext(context, a2);
   textureProvider = self->_textureProvider;
   texture = self->_texture;
 
@@ -73,24 +73,24 @@
     *token = 0;
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __99__SCNMaterialPropertyTextureProviderSource_cachedTextureWithURL_token_didFallbackToDefaultTexture___block_invoke;
-  v17[3] = &unk_2782FD090;
-  v17[4] = l;
-  IfNeededForSource = C3DImageCopyCachedImageOrCreateIfNeededForSource(l, 1, v17);
-  v10 = IfNeededForSource;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __99__SCNMaterialPropertyTextureProviderSource_cachedTextureWithURL_token_didFallbackToDefaultTexture___block_invoke;
+  v19[3] = &unk_2782FD090;
+  v19[4] = l;
+  IfNeededForSource = C3DImageCopyCachedImageOrCreateIfNeededForSource(l, 1, v19);
+  v11 = IfNeededForSource;
   if (token)
   {
     *token = IfNeededForSource;
   }
 
-  v16 = 0;
-  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext);
+  v18 = 0;
+  RenderContext = C3DEngineContextGetRenderContext(self->_engineContext, v10);
   resourceManager = [(SCNMTLRenderContext *)RenderContext resourceManager];
-  v13 = [resourceManager renderResourceForImage:v10 sampler:C3DTextureSamplerGetDefault() options:0 engineContext:self->_engineContext didFallbackToDefaultTexture:&v16];
-  CFAutorelease(v10);
-  if (v16)
+  v15 = [resourceManager renderResourceForImage:v11 sampler:C3DTextureSamplerGetDefault(resourceManager options:v14) engineContext:0 didFallbackToDefaultTexture:{self->_engineContext, &v18}];
+  CFAutorelease(v11);
+  if (v18)
   {
     resourceManagerMonitor = [(SCNMTLRenderContext *)RenderContext resourceManagerMonitor];
     if (resourceManagerMonitor)
@@ -101,10 +101,10 @@
 
   if (texture)
   {
-    *texture = v16;
+    *texture = v18;
   }
 
-  return v13;
+  return v15;
 }
 
 @end

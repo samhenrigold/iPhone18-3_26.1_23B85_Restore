@@ -9,7 +9,7 @@
 
 - (id)activityTitle
 {
-  v2 = AEBundle();
+  v2 = AEBundle(self);
   v3 = [v2 localizedStringForKey:@"Copy to Books" value:&stru_1E7188 table:0];
 
   return v3;

@@ -282,7 +282,7 @@ void sub_100007C64(uint64_t a1)
   [WeakRetained fireTimer];
 }
 
-void sub_100007DC4()
+void sub_100007DC4(uint64_t result, uint64_t a2)
 {
   if (qword_100021410 != -1)
   {

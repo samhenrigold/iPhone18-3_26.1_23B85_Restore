@@ -105,7 +105,7 @@ void __52__MRNowPlayingSessionServiceClient_initWithService___block_invoke_3(uin
 
 - (void)mediaServicesResetNotification:(id)notification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = +[MRNowPlayingOriginClientManager sharedManager];
   destroyPlayerCallback = [v5 destroyPlayerCallback];
@@ -121,24 +121,22 @@ void __52__MRNowPlayingSessionServiceClient_initWithService___block_invoke_3(uin
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Destroying all players %@", buf, 0xCu);
     }
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __67__MRNowPlayingSessionServiceClient_mediaServicesResetNotification___block_invoke;
-  v13[3] = &unk_1E76A4C50;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __67__MRNowPlayingSessionServiceClient_mediaServicesResetNotification___block_invoke;
+  v12[3] = &unk_1E76A4C50;
   v10 = destroyPlayerCallback;
-  v14 = v10;
-  [v8 enumerateKeysAndObjectsUsingBlock:v13];
+  v13 = v10;
+  [v8 enumerateKeysAndObjectsUsingBlock:v12];
   v11 = selfCopy;
   objc_sync_enter(v11);
   [(NSMutableDictionary *)selfCopy->_playerPathsByOrigin removeAllObjects];
   objc_sync_exit(v11);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MRNowPlayingSessionServiceClient_mediaServicesResetNotification___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -156,7 +154,7 @@ void __67__MRNowPlayingSessionServiceClient_mediaServicesResetNotification___blo
 
 - (void)_handleDestroyPlayersForOrigin:(id)origin
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   originCopy = origin;
   v5 = +[MRNowPlayingOriginClientManager sharedManager];
   destroyPlayerCallback = [v5 destroyPlayerCallback];
@@ -180,23 +178,22 @@ void __67__MRNowPlayingSessionServiceClient_mediaServicesResetNotification___blo
   v9 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = v8;
-    v14 = 2112;
-    v15 = originCopy;
-    _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Destroying player %@ created for origin: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2112;
+    v14 = originCopy;
+    _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Destroying player %@ created for origin: %@", &v11, 0x16u);
   }
 
   v10 = +[MRNowPlayingOriginClientManager sharedManager];
   [v10 removeOrigin:originCopy];
 
 LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCreatePlayerForOrigin:(id)origin deviceInfo:(id)info completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   originCopy = origin;
   infoCopy = info;
   completionCopy = completion;
@@ -231,11 +228,11 @@ LABEL_8:
     {
       if (![originCopy isLocal])
       {
-        v27 = _MRLogForCategory(1uLL);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v26 = _MRLogForCategory(1uLL);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v28) = 0;
-          _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Not creating new player for origin because createNewPlayerCallback was not registered", &v28, 2u);
+          LOWORD(v27) = 0;
+          _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Not creating new player for origin because createNewPlayerCallback was not registered", &v27, 2u);
         }
 
         v24 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:14];
@@ -262,15 +259,13 @@ LABEL_12:
   v13 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138412290;
-    v29 = v12;
-    _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Not creating new player for origin because playerPath already exists: %@", &v28, 0xCu);
+    v27 = 138412290;
+    v28 = v12;
+    _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingSessionServiceClient] Not creating new player for origin because playerPath already exists: %@", &v27, 0xCu);
   }
 
   completionCopy[2](completionCopy, v12, 0);
 LABEL_13:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_existingPlayerPathForOrigin:(id)origin

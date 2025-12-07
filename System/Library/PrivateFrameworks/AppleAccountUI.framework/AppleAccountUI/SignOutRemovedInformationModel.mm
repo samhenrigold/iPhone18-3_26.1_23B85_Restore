@@ -27,7 +27,7 @@
 
 - (NSString)title
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C55610B4();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -48,30 +48,30 @@
 
 - (void)setTitle:(id)title
 {
-  MEMORY[0x1E69E5928](title);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](title, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (title)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](title);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](title);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C55611FC(v6, v7);
+  sub_1C55611FC(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)detailText
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5561528();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -92,30 +92,30 @@
 
 - (void)setDetailText:(id)text
 {
-  MEMORY[0x1E69E5928](text);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](text, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (text)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](text);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](text);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5561670(v6, v7);
+  sub_1C5561670(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)primaryButton
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C556199C();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -136,30 +136,30 @@
 
 - (void)setPrimaryButton:(id)button
 {
-  MEMORY[0x1E69E5928](button);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](button, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (button)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](button);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](button);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5561AE4(v6, v7);
+  sub_1C5561AE4(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)secondaryButton
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5561E20();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -180,30 +180,30 @@
 
 - (void)setSecondaryButton:(id)button
 {
-  MEMORY[0x1E69E5928](button);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](button, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (button)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](button);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](button);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5561F68(v6, v7);
+  sub_1C5561F68(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (int64_t)contentViewLayout
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C5562238();
   MEMORY[0x1E69E5920](self);
   return v4;
@@ -211,14 +211,14 @@
 
 - (void)setContentViewLayout:(int64_t)layout
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C55622F4(layout);
   MEMORY[0x1E69E5920](self);
 }
 
 - (UIImage)image
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C5562584();
   MEMORY[0x1E69E5920](self);
 
@@ -227,15 +227,15 @@
 
 - (void)setImage:(id)image
 {
-  MEMORY[0x1E69E5928](image);
-  MEMORY[0x1E69E5928](self);
-  sub_1C556265C(image);
+  MEMORY[0x1E69E5928](image, a2);
+  MEMORY[0x1E69E5928](self, v4);
+  sub_1C556265C(image, v5);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)imageName
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5562984();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -256,30 +256,30 @@
 
 - (void)setImageName:(id)name
 {
-  MEMORY[0x1E69E5928](name);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](name, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (name)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](name);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](name);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5562ACC(v6, v7);
+  sub_1C5562ACC(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (UIView)contentView
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C5562DAC();
   MEMORY[0x1E69E5920](self);
 
@@ -288,15 +288,15 @@
 
 - (void)setContentView:(id)view
 {
-  MEMORY[0x1E69E5928](view);
-  MEMORY[0x1E69E5928](self);
-  sub_1C5562E84(view);
+  MEMORY[0x1E69E5928](view, a2);
+  MEMORY[0x1E69E5928](self, v4);
+  sub_1C5562E84(view, v5);
   MEMORY[0x1E69E5920](self);
 }
 
 - (UIView)secondaryView
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C5563150();
   MEMORY[0x1E69E5920](self);
 
@@ -305,15 +305,15 @@
 
 - (void)setSecondaryView:(id)view
 {
-  MEMORY[0x1E69E5928](view);
-  MEMORY[0x1E69E5928](self);
-  sub_1C5563228(view);
+  MEMORY[0x1E69E5928](view, a2);
+  MEMORY[0x1E69E5928](self, v4);
+  sub_1C5563228(view, v5);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)helpLinkTitle
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5563550();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -334,30 +334,30 @@
 
 - (void)setHelpLinkTitle:(id)title
 {
-  MEMORY[0x1E69E5928](title);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](title, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (title)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](title);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](title);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5563698(v6, v7);
+  sub_1C5563698(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)helpLinkURL
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C55639D4();
   v7 = v2;
   MEMORY[0x1E69E5920](self);
@@ -378,24 +378,24 @@
 
 - (void)setHelpLinkURL:(id)l
 {
-  MEMORY[0x1E69E5928](l);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](l, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (l)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](l);
+    v5 = sub_1C5596574();
     v6 = v4;
+    MEMORY[0x1E69E5920](l);
     v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
   }
 
-  sub_1C5563B1C(v6, v7);
+  sub_1C5563B1C(v7, v8);
   MEMORY[0x1E69E5920](self);
 }
 

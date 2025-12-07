@@ -35,7 +35,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10045B9A8();
+  v12 = sub_10045B9A8(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -44,7 +44,7 @@
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
 {
-  v7 = sub_100140278(&qword_1008EDE68);
+  v7 = sub_100140278(&qword_1008EDE68, &unk_1006F1830);
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v19 - v9;
@@ -56,7 +56,7 @@
   viewCopy = view;
   selfCopy = self;
   sub_10045AADC(v10);
-  sub_1000059F8(0, &qword_1008EDED8);
+  sub_1000059F8(0, &qword_1008EDED8, UICollectionViewListCell_ptr);
   v17 = UICollectionView.dequeueConfiguredReusableSupplementary<A>(using:for:)();
 
   (*(v8 + 8))(v10, v7);
@@ -115,7 +115,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10045C5B8();
+  sub_10045C5B8(v9);
 
   (*(v7 + 8))(v9, v6);
 }

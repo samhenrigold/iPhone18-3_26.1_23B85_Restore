@@ -37,27 +37,27 @@
 
 - (id)setup
 {
-  v237[2] = *MEMORY[0x277D85DE8];
+  v235[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D759D8]);
   [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v3 setShowsHorizontalScrollIndicator:0];
   view = [(LAPSPasscodeViewController *)self view];
   [view addSubview:v3];
 
-  v214 = MEMORY[0x277CCAAD0];
+  v212 = MEMORY[0x277CCAAD0];
   centerXAnchor = [v3 centerXAnchor];
   view2 = [(LAPSPasscodeViewController *)self view];
   centerXAnchor2 = [view2 centerXAnchor];
   v8 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v237[0] = v8;
-  v213 = v3;
+  v235[0] = v8;
+  v211 = v3;
   widthAnchor = [v3 widthAnchor];
   view3 = [(LAPSPasscodeViewController *)self view];
   widthAnchor2 = [view3 widthAnchor];
   v12 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v237[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v237 count:2];
-  [v214 activateConstraints:v13];
+  v235[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v235 count:2];
+  [v212 activateConstraints:v13];
 
   selfCopy = self;
   if ([(LAPSPasscodeViewController *)self _shouldUseStandardKeyboardGuide])
@@ -75,18 +75,18 @@
 
   v18 = keyboardLayoutGuide;
 
-  v19 = v213;
-  bottomAnchor = [v213 bottomAnchor];
-  v209 = v18;
+  v19 = v211;
+  bottomAnchor = [v211 bottomAnchor];
+  v207 = v18;
   topAnchor = [v18 topAnchor];
   v22 = [bottomAnchor constraintEqualToAnchor:topAnchor];
 
-  v208 = v22;
+  v206 = v22;
   [v22 setActive:1];
   selfCopy2 = self;
   if (_UISolariumEnabled())
   {
-    topAnchor2 = [v213 topAnchor];
+    topAnchor2 = [v211 topAnchor];
     view5 = [(LAPSPasscodeViewController *)self view];
     topAnchor3 = [view5 topAnchor];
     v26 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
@@ -98,35 +98,35 @@
     view6 = [(LAPSPasscodeViewController *)self view];
     [view6 addLayoutGuide:topAnchor2];
 
-    v183 = MEMORY[0x277CCAAD0];
+    v181 = MEMORY[0x277CCAAD0];
     v23TopAnchor = [topAnchor2 topAnchor];
     view7 = [(LAPSPasscodeViewController *)self view];
     topAnchor4 = [view7 topAnchor];
-    v196 = [v23TopAnchor constraintEqualToAnchor:topAnchor4];
-    v236[0] = v196;
+    v194 = [v23TopAnchor constraintEqualToAnchor:topAnchor4];
+    v234[0] = v194;
     heightAnchor = [topAnchor2 heightAnchor];
     view8 = [(LAPSPasscodeViewController *)self view];
     heightAnchor2 = [view8 heightAnchor];
-    v179 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.5];
-    v236[1] = v179;
+    v177 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.5];
+    v234[1] = v177;
     leadingAnchor = [topAnchor2 leadingAnchor];
     view9 = [(LAPSPasscodeViewController *)self view];
     leadingAnchor2 = [view9 leadingAnchor];
     v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v236[2] = v31;
+    v234[2] = v31;
     trailingAnchor = [topAnchor2 trailingAnchor];
     view10 = [(LAPSPasscodeViewController *)selfCopy view];
     trailingAnchor2 = [view10 trailingAnchor];
     v35 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v236[3] = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v236 count:4];
-    [v183 activateConstraints:v36];
+    v234[3] = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v234 count:4];
+    [v181 activateConstraints:v36];
 
     selfCopy = selfCopy2;
-    v19 = v213;
+    v19 = v211;
 
     LODWORD(v31) = [(LAPSPasscodeViewControllerBase *)selfCopy2 isAccessibilityTextEnabled];
-    view5 = [v213 topAnchor];
+    view5 = [v211 topAnchor];
     if (v31)
     {
       topAnchor3 = [topAnchor2 topAnchor];
@@ -154,33 +154,33 @@
   [(LAPSPasscodeViewController *)selfCopy _mainStackSpacing];
   [v39 setSpacing:?];
   [v19 addSubview:v39];
-  v193 = MEMORY[0x277CCAAD0];
+  v191 = MEMORY[0x277CCAAD0];
   topAnchor5 = [v39 topAnchor];
   topAnchor6 = [v19 topAnchor];
-  v201 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
-  v235[0] = v201;
+  v199 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
+  v233[0] = v199;
   [v39 bottomAnchor];
-  v197 = v40 = v19;
+  v195 = v40 = v19;
   bottomAnchor2 = [v19 bottomAnchor];
-  v42 = [v197 constraintEqualToAnchor:bottomAnchor2];
-  v235[1] = v42;
+  v42 = [v195 constraintEqualToAnchor:bottomAnchor2];
+  v233[1] = v42;
   widthAnchor3 = [v39 widthAnchor];
   widthAnchor4 = [v19 widthAnchor];
   [(LAPSPasscodeViewController *)selfCopy _widthMultiplier];
   v45 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4 multiplier:?];
-  v235[2] = v45;
+  v233[2] = v45;
   centerXAnchor3 = [v39 centerXAnchor];
   centerXAnchor4 = [v40 centerXAnchor];
   v48 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v235[3] = v48;
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v235 count:4];
-  [v193 activateConstraints:v49];
+  v233[3] = v48;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v233 count:4];
+  [v191 activateConstraints:v49];
 
   p_isa = &selfCopy2->super.super.super.super.isa;
   [v39 setLayoutMarginsRelativeArrangement:1];
   [(LAPSPasscodeViewController *)selfCopy2 _mainStackInsets];
   [v39 setDirectionalLayoutMargins:?];
-  v212 = v39;
+  v210 = v39;
   if (_UISolariumEnabled())
   {
     v51 = objc_alloc_init(MEMORY[0x277D75D18]);
@@ -195,33 +195,33 @@
 
     [v54 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v51 addSubview:v54];
-    v184 = MEMORY[0x277CCAAD0];
+    v182 = MEMORY[0x277CCAAD0];
     widthAnchor5 = [v54 widthAnchor];
-    v202 = [widthAnchor5 constraintEqualToConstant:72.0];
-    v234[0] = v202;
+    v200 = [widthAnchor5 constraintEqualToConstant:72.0];
+    v232[0] = v200;
     heightAnchor3 = [v54 heightAnchor];
-    v194 = [heightAnchor3 constraintEqualToConstant:72.0];
-    v234[1] = v194;
+    v192 = [heightAnchor3 constraintEqualToConstant:72.0];
+    v232[1] = v192;
     centerXAnchor5 = [v54 centerXAnchor];
     centerXAnchor6 = [v51 centerXAnchor];
     v56 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-    v234[2] = v56;
+    v232[2] = v56;
     topAnchor7 = [v54 topAnchor];
     topAnchor8 = [v51 topAnchor];
     v59 = [topAnchor7 constraintEqualToAnchor:topAnchor8];
-    v234[3] = v59;
+    v232[3] = v59;
     bottomAnchor3 = [v54 bottomAnchor];
     bottomAnchor4 = [v51 bottomAnchor];
     v62 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v234[4] = v62;
-    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v234 count:5];
-    [v184 activateConstraints:v63];
+    v232[4] = v62;
+    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v232 count:5];
+    [v182 activateConstraints:v63];
 
     p_isa = &selfCopy2->super.super.super.super.isa;
-    v39 = v212;
+    v39 = v210;
 
-    [v212 addArrangedSubview:v51];
-    [v212 setCustomSpacing:v51 afterView:56.0];
+    [v210 addArrangedSubview:v51];
+    [v210 setCustomSpacing:v51 afterView:56.0];
   }
 
   v64 = objc_alloc_init(MEMORY[0x277D75A68]);
@@ -274,289 +274,286 @@
 
   LODWORD(v73) = 1144750080;
   [v68 setContentHuggingPriority:1 forAxis:v73];
-  v195 = v68;
+  v193 = v68;
   objc_storeWeak(p_isa + 130, v68);
   v74 = objc_alloc_init(MEMORY[0x277D756B8]);
   [v74 setNumberOfLines:0];
   v75 = MEMORY[0x277D74300];
   v76 = _UISolariumEnabled();
-  v77 = *v70;
-  v78 = *MEMORY[0x277D769D0];
+  v77 = *MEMORY[0x277D769D0];
   if (v76)
   {
-    v79 = *v70;
+    v78 = *v70;
   }
 
   else
   {
-    v79 = *MEMORY[0x277D769D0];
+    v78 = *MEMORY[0x277D769D0];
   }
 
-  v80 = [v75 preferredFontForTextStyle:v79];
-  [v74 setFont:v80];
+  v79 = [v75 preferredFontForTextStyle:v78];
+  [v74 setFont:v79];
 
   secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
   [v74 setTextColor:secondaryLabelColor];
 
   if (_UISolariumEnabled())
   {
-    v82 = 4;
+    v81 = 4;
   }
 
   else
   {
-    v82 = 1;
+    v81 = 1;
   }
 
-  [v74 setTextAlignment:v82];
+  [v74 setTextAlignment:v81];
   [v64 addArrangedSubview:v74];
-  LODWORD(v83) = 1144750080;
-  [v74 setContentHuggingPriority:1 forAxis:v83];
-  v191 = v74;
+  LODWORD(v82) = 1144750080;
+  [v74 setContentHuggingPriority:1 forAxis:v82];
+  v189 = v74;
   objc_storeWeak(p_isa + 131, v74);
-  v84 = objc_alloc(MEMORY[0x277D241D8]);
+  v83 = objc_alloc(MEMORY[0x277D241D8]);
   passcodeType = [p_isa passcodeType];
-  v86 = [v84 initWithStyle:{objc_msgSend(p_isa, "styleWithPasscodeType:", passcodeType)}];
+  v85 = [v83 initWithStyle:{objc_msgSend(p_isa, "styleWithPasscodeType:", passcodeType)}];
 
-  [v86 setCanShowInLockScreen:{objc_msgSend(p_isa, "_canShowWhileLocked")}];
-  [p_isa addChildViewController:v86];
-  view11 = [v86 view];
-  v207 = v64;
+  [v85 setCanShowInLockScreen:{objc_msgSend(p_isa, "_canShowWhileLocked")}];
+  [p_isa addChildViewController:v85];
+  view11 = [v85 view];
+  v205 = v64;
   [v64 addArrangedSubview:view11];
 
-  [v86 setDelegate:p_isa];
-  [v86 didMoveToParentViewController:p_isa];
-  v185 = v86;
-  objc_storeWeak(p_isa + 136, v86);
-  v88 = objc_alloc_init(MEMORY[0x277D75D18]);
+  [v85 setDelegate:p_isa];
+  [v85 didMoveToParentViewController:p_isa];
+  v183 = v85;
+  objc_storeWeak(p_isa + 136, v85);
+  v87 = objc_alloc_init(MEMORY[0x277D75D18]);
+  [v87 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v88 = objc_alloc_init(MEMORY[0x277D241A0]);
+  [v88 setNumberOfLines:0];
+  v89 = [MEMORY[0x277D74300] preferredFontForTextStyle:v77];
+  [v88 setFont:v89];
+
+  [v88 setStyle:1];
+  [v88 setTextAlignment:1];
   [v88 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v89 = objc_alloc_init(MEMORY[0x277D241A0]);
-  [v89 setNumberOfLines:0];
-  v90 = [MEMORY[0x277D74300] preferredFontForTextStyle:v78];
-  [v89 setFont:v90];
+  [v87 addSubview:v88];
+  v90 = MEMORY[0x277CCAAD0];
+  topAnchor9 = [v88 topAnchor];
+  topAnchor10 = [v87 topAnchor];
+  v93 = [topAnchor9 constraintEqualToAnchor:topAnchor10];
+  v231[0] = v93;
+  bottomAnchor5 = [v88 bottomAnchor];
+  bottomAnchor6 = [v87 bottomAnchor];
+  v96 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
+  v231[1] = v96;
+  v97 = [MEMORY[0x277CBEA60] arrayWithObjects:v231 count:2];
+  [v90 activateConstraints:v97];
 
-  [v89 setStyle:1];
-  [v89 setTextAlignment:1];
-  [v89 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v88 addSubview:v89];
-  v91 = MEMORY[0x277CCAAD0];
-  topAnchor9 = [v89 topAnchor];
-  topAnchor10 = [v88 topAnchor];
-  v94 = [topAnchor9 constraintEqualToAnchor:topAnchor10];
-  v233[0] = v94;
-  bottomAnchor5 = [v89 bottomAnchor];
-  bottomAnchor6 = [v88 bottomAnchor];
-  v97 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
-  v233[1] = v97;
-  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v233 count:2];
-  [v91 activateConstraints:v98];
-
-  v99 = v88;
+  v98 = v87;
   LODWORD(topAnchor10) = _UISolariumEnabled();
-  v181 = MEMORY[0x277CCAAD0];
-  leadingAnchor3 = [v89 leadingAnchor];
-  leadingAnchor4 = [v88 leadingAnchor];
-  v199 = v89;
-  v203 = v99;
+  v179 = MEMORY[0x277CCAAD0];
+  leadingAnchor3 = [v88 leadingAnchor];
+  leadingAnchor4 = [v87 leadingAnchor];
+  v197 = v88;
+  v201 = v98;
   if (topAnchor10)
   {
-    v102 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v232[0] = v102;
-    trailingAnchor3 = [v89 trailingAnchor];
-    trailingAnchor4 = [v99 trailingAnchor];
-    v105 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4];
-    v232[1] = v105;
-    centerXAnchor7 = [MEMORY[0x277CBEA60] arrayWithObjects:v232 count:2];
-    [v181 activateConstraints:centerXAnchor7];
+    v101 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v230[0] = v101;
+    trailingAnchor3 = [v88 trailingAnchor];
+    trailingAnchor4 = [v98 trailingAnchor];
+    v104 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4];
+    v230[1] = v104;
+    centerXAnchor7 = [MEMORY[0x277CBEA60] arrayWithObjects:v230 count:2];
+    [v179 activateConstraints:centerXAnchor7];
   }
 
   else
   {
-    v102 = [leadingAnchor3 constraintGreaterThanOrEqualToAnchor:leadingAnchor4];
-    v231[0] = v102;
-    trailingAnchor3 = [v89 trailingAnchor];
-    trailingAnchor4 = [v99 trailingAnchor];
-    v105 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4];
-    v231[1] = v105;
-    centerXAnchor7 = [v89 centerXAnchor];
-    centerXAnchor8 = [v99 centerXAnchor];
-    v108 = [centerXAnchor7 constraintEqualToAnchor:centerXAnchor8];
-    v231[2] = v108;
-    v109 = [MEMORY[0x277CBEA60] arrayWithObjects:v231 count:3];
-    [v181 activateConstraints:v109];
+    v101 = [leadingAnchor3 constraintGreaterThanOrEqualToAnchor:leadingAnchor4];
+    v229[0] = v101;
+    trailingAnchor3 = [v88 trailingAnchor];
+    trailingAnchor4 = [v98 trailingAnchor];
+    v104 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:trailingAnchor4];
+    v229[1] = v104;
+    centerXAnchor7 = [v88 centerXAnchor];
+    centerXAnchor8 = [v98 centerXAnchor];
+    v107 = [centerXAnchor7 constraintEqualToAnchor:centerXAnchor8];
+    v229[2] = v107;
+    v108 = [MEMORY[0x277CBEA60] arrayWithObjects:v229 count:3];
+    [v179 activateConstraints:v108];
 
-    v99 = v203;
-    v89 = v199;
+    v98 = v201;
+    v88 = v197;
   }
 
-  [v207 addArrangedSubview:v99];
-  objc_storeWeak(&selfCopy2->_errorCapsule, v89);
-  objc_storeWeak(&selfCopy2->_errorCapsuleContainer, v99);
-  v110 = objc_alloc_init(MEMORY[0x277D756B8]);
-  [v110 setNumberOfLines:0];
-  v111 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
-  [v110 setFont:v111];
+  [v205 addArrangedSubview:v98];
+  objc_storeWeak(&selfCopy2->_errorCapsule, v88);
+  objc_storeWeak(&selfCopy2->_errorCapsuleContainer, v98);
+  v109 = objc_alloc_init(MEMORY[0x277D756B8]);
+  [v109 setNumberOfLines:0];
+  v110 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76968]];
+  [v109 setFont:v110];
 
   secondaryLabelColor2 = [MEMORY[0x277D75348] secondaryLabelColor];
-  [v110 setTextColor:secondaryLabelColor2];
+  [v109 setTextColor:secondaryLabelColor2];
 
   if (_UISolariumEnabled())
   {
-    v113 = 4;
+    v112 = 4;
   }
 
   else
   {
-    v113 = 1;
+    v112 = 1;
   }
 
-  [v110 setTextAlignment:v113];
-  [v207 addArrangedSubview:v110];
-  LODWORD(v114) = 1144750080;
-  [v110 setContentHuggingPriority:1 forAxis:v114];
-  v182 = v110;
-  objc_storeWeak(&selfCopy2->_footerLabel, v110);
-  v115 = objc_alloc_init(MEMORY[0x277D75D18]);
+  [v109 setTextAlignment:v112];
+  [v205 addArrangedSubview:v109];
+  LODWORD(v113) = 1144750080;
+  [v109 setContentHuggingPriority:1 forAxis:v113];
+  v180 = v109;
+  objc_storeWeak(&selfCopy2->_footerLabel, v109);
+  v114 = objc_alloc_init(MEMORY[0x277D75D18]);
   view12 = [(LAPSPasscodeViewController *)selfCopy2 view];
   backgroundColor = [view12 backgroundColor];
-  [v115 setBackgroundColor:backgroundColor];
+  [v114 setBackgroundColor:backgroundColor];
 
-  [v115 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v114 setTranslatesAutoresizingMaskIntoConstraints:0];
   view13 = [(LAPSPasscodeViewController *)selfCopy2 view];
-  [view13 addSubview:v115];
+  [view13 addSubview:v114];
 
-  v119 = MEMORY[0x277CCAAD0];
-  v230 = v208;
-  v120 = [MEMORY[0x277CBEA60] arrayWithObjects:&v230 count:1];
-  [v119 deactivateConstraints:v120];
+  v118 = MEMORY[0x277CCAAD0];
+  v228 = v206;
+  v119 = [MEMORY[0x277CBEA60] arrayWithObjects:&v228 count:1];
+  [v118 deactivateConstraints:v119];
 
-  v169 = MEMORY[0x277CCAAD0];
-  topAnchor11 = [v115 topAnchor];
+  v167 = MEMORY[0x277CCAAD0];
+  topAnchor11 = [v114 topAnchor];
   WeakRetained = objc_loadWeakRetained(&selfCopy2->_scrollView);
   bottomAnchor7 = [WeakRetained bottomAnchor];
-  v173 = [topAnchor11 constraintEqualToAnchor:bottomAnchor7 constant:8.0];
-  v229[0] = v173;
-  bottomAnchor8 = [v115 bottomAnchor];
-  topAnchor12 = [v209 topAnchor];
-  v121 = [bottomAnchor8 constraintEqualToAnchor:topAnchor12];
-  v229[1] = v121;
-  leadingAnchor5 = [v115 leadingAnchor];
-  leadingAnchor6 = [v212 leadingAnchor];
-  v124 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v229[2] = v124;
-  trailingAnchor5 = [v115 trailingAnchor];
-  trailingAnchor6 = [v212 trailingAnchor];
-  v127 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v229[3] = v127;
-  v128 = [MEMORY[0x277CBEA60] arrayWithObjects:v229 count:4];
-  [v169 activateConstraints:v128];
+  v171 = [topAnchor11 constraintEqualToAnchor:bottomAnchor7 constant:8.0];
+  v227[0] = v171;
+  bottomAnchor8 = [v114 bottomAnchor];
+  topAnchor12 = [v207 topAnchor];
+  v120 = [bottomAnchor8 constraintEqualToAnchor:topAnchor12];
+  v227[1] = v120;
+  leadingAnchor5 = [v114 leadingAnchor];
+  leadingAnchor6 = [v210 leadingAnchor];
+  v123 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v227[2] = v123;
+  trailingAnchor5 = [v114 trailingAnchor];
+  trailingAnchor6 = [v210 trailingAnchor];
+  v126 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+  v227[3] = v126;
+  v127 = [MEMORY[0x277CBEA60] arrayWithObjects:v227 count:4];
+  [v167 activateConstraints:v127];
 
   if ([(LAPSPasscodeViewControllerBase *)selfCopy2 shouldShowPasscodeOptionsButton])
   {
-    v129 = [MEMORY[0x277D75220] buttonWithType:1];
-    titleLabel = [v129 titleLabel];
+    v128 = [MEMORY[0x277D75220] buttonWithType:1];
+    titleLabel = [v128 titleLabel];
     [titleLabel setNumberOfLines:0];
 
-    titleLabel2 = [v129 titleLabel];
+    titleLabel2 = [v128 titleLabel];
     if (_UISolariumEnabled())
     {
-      v132 = 4;
+      v131 = 4;
     }
 
     else
     {
-      v132 = 1;
+      v131 = 1;
     }
 
-    [titleLabel2 setTextAlignment:v132];
+    [titleLabel2 setTextAlignment:v131];
 
-    v133 = objc_alloc(MEMORY[0x277CCA898]);
+    v132 = objc_alloc(MEMORY[0x277CCA898]);
     config = [(LAPSPasscodeViewControllerBase *)selfCopy2 config];
     optionsConfiguration = [config optionsConfiguration];
     title = [optionsConfiguration title];
-    v227 = *MEMORY[0x277D740A8];
-    v137 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-    v228 = v137;
-    v138 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v228 forKeys:&v227 count:1];
-    v139 = [v133 initWithString:title attributes:v138];
-    [v129 setAttributedTitle:v139 forState:0];
+    v225 = *MEMORY[0x277D740A8];
+    v136 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
+    v226 = v136;
+    v137 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v226 forKeys:&v225 count:1];
+    v138 = [v132 initWithString:title attributes:v137];
+    [v128 setAttributedTitle:v138 forState:0];
 
-    [v129 addTarget:selfCopy2 action:sel__showPasscodeOptions_ forControlEvents:64];
-    [v115 addSubview:v129];
-    [v129 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v168 = MEMORY[0x277CCAAD0];
-    heightAnchor4 = [v129 heightAnchor];
-    titleLabel3 = [v129 titleLabel];
+    [v128 addTarget:selfCopy2 action:sel__showPasscodeOptions_ forControlEvents:64];
+    [v114 addSubview:v128];
+    [v128 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v166 = MEMORY[0x277CCAAD0];
+    heightAnchor4 = [v128 heightAnchor];
+    titleLabel3 = [v128 titleLabel];
     heightAnchor5 = [titleLabel3 heightAnchor];
-    v174 = [heightAnchor4 constraintEqualToAnchor:heightAnchor5];
-    v226[0] = v174;
-    topAnchor13 = [v129 topAnchor];
-    topAnchor14 = [v115 topAnchor];
-    v140 = [topAnchor13 constraintEqualToAnchor:topAnchor14];
-    v226[1] = v140;
-    trailingAnchor7 = [v129 trailingAnchor];
-    trailingAnchor8 = [v115 trailingAnchor];
-    v143 = [trailingAnchor7 constraintLessThanOrEqualToAnchor:trailingAnchor8 constant:-10.0];
-    v226[2] = v143;
-    [v129 bottomAnchor];
-    v145 = v144 = v115;
-    bottomAnchor9 = [v144 bottomAnchor];
-    v147 = [v145 constraintEqualToAnchor:bottomAnchor9 constant:-8.0];
-    v226[3] = v147;
-    v148 = [MEMORY[0x277CBEA60] arrayWithObjects:v226 count:4];
-    [v168 activateConstraints:v148];
+    v172 = [heightAnchor4 constraintEqualToAnchor:heightAnchor5];
+    v224[0] = v172;
+    topAnchor13 = [v128 topAnchor];
+    topAnchor14 = [v114 topAnchor];
+    v139 = [topAnchor13 constraintEqualToAnchor:topAnchor14];
+    v224[1] = v139;
+    trailingAnchor7 = [v128 trailingAnchor];
+    trailingAnchor8 = [v114 trailingAnchor];
+    v142 = [trailingAnchor7 constraintLessThanOrEqualToAnchor:trailingAnchor8 constant:-10.0];
+    v224[2] = v142;
+    [v128 bottomAnchor];
+    v144 = v143 = v114;
+    bottomAnchor9 = [v143 bottomAnchor];
+    v146 = [v144 constraintEqualToAnchor:bottomAnchor9 constant:-8.0];
+    v224[3] = v146;
+    v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v224 count:4];
+    [v166 activateConstraints:v147];
 
-    v115 = v144;
+    v114 = v143;
     LODWORD(trailingAnchor8) = _UISolariumEnabled();
-    v149 = MEMORY[0x277CCAAD0];
-    leadingAnchor7 = [v129 leadingAnchor];
-    leadingAnchor8 = [v144 leadingAnchor];
+    v148 = MEMORY[0x277CCAAD0];
+    leadingAnchor7 = [v128 leadingAnchor];
+    leadingAnchor8 = [v143 leadingAnchor];
     if (trailingAnchor8)
     {
-      v152 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8 constant:37.0];
-      v225 = v152;
-      centerXAnchor9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v225 count:1];
-      [v149 activateConstraints:centerXAnchor9];
+      v151 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8 constant:37.0];
+      v223 = v151;
+      centerXAnchor9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v223 count:1];
+      [v148 activateConstraints:centerXAnchor9];
     }
 
     else
     {
-      v152 = [leadingAnchor7 constraintGreaterThanOrEqualToAnchor:leadingAnchor8 constant:10.0];
-      v224[0] = v152;
-      centerXAnchor9 = [v129 centerXAnchor];
-      centerXAnchor10 = [v115 centerXAnchor];
-      v155 = [centerXAnchor9 constraintEqualToAnchor:centerXAnchor10];
-      v224[1] = v155;
-      v156 = [MEMORY[0x277CBEA60] arrayWithObjects:v224 count:2];
-      [v149 activateConstraints:v156];
+      v151 = [leadingAnchor7 constraintGreaterThanOrEqualToAnchor:leadingAnchor8 constant:10.0];
+      v222[0] = v151;
+      centerXAnchor9 = [v128 centerXAnchor];
+      centerXAnchor10 = [v114 centerXAnchor];
+      v154 = [centerXAnchor9 constraintEqualToAnchor:centerXAnchor10];
+      v222[1] = v154;
+      v155 = [MEMORY[0x277CBEA60] arrayWithObjects:v222 count:2];
+      [v148 activateConstraints:v155];
     }
 
-    objc_storeWeak(&selfCopy2->_optionsButton, v129);
+    objc_storeWeak(&selfCopy2->_optionsButton, v128);
   }
 
-  v216[0] = MEMORY[0x277D85DD0];
-  v216[1] = 3221225472;
-  v216[2] = __35__LAPSPasscodeViewController_setup__block_invoke;
-  v216[3] = &unk_278A653B8;
-  v217 = v195;
-  v218 = v191;
-  v219 = v182;
-  v220 = v213;
-  v221 = v199;
-  v222 = v203;
-  v223 = v185;
-  v157 = v185;
-  v158 = v203;
-  v159 = v199;
-  v160 = v213;
-  v161 = v182;
-  v162 = v191;
-  v163 = v195;
-  v164 = __35__LAPSPasscodeViewController_setup__block_invoke(v216);
+  v214[0] = MEMORY[0x277D85DD0];
+  v214[1] = 3221225472;
+  v214[2] = __35__LAPSPasscodeViewController_setup__block_invoke;
+  v214[3] = &unk_278A653B8;
+  v215 = v193;
+  v216 = v189;
+  v217 = v180;
+  v218 = v211;
+  v219 = v197;
+  v220 = v201;
+  v221 = v183;
+  v156 = v183;
+  v157 = v201;
+  v158 = v197;
+  v159 = v211;
+  v160 = v180;
+  v161 = v189;
+  v162 = v193;
+  v163 = __35__LAPSPasscodeViewController_setup__block_invoke(v214);
 
-  v165 = *MEMORY[0x277D85DE8];
-
-  return v164;
+  return v163;
 }
 
 LAPSPasscodeViewControllerManagedViews *__35__LAPSPasscodeViewController_setup__block_invoke(void *a1)

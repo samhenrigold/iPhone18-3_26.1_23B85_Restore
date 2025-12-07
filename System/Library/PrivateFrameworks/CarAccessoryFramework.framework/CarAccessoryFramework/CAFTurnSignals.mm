@@ -6,6 +6,7 @@
 - (CAFTurnSignalCharacteristic)turnSignalRightCharacteristic;
 - (unsigned)turnSignalLeft;
 - (unsigned)turnSignalRight;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -121,6 +122,56 @@
   turnSignalValue = [turnSignalRightCharacteristic turnSignalValue];
 
   return turnSignalValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000051000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    turnSignalLeftCharacteristic = [(CAFTurnSignals *)self turnSignalLeftCharacteristic];
+    uniqueIdentifier2 = [turnSignalLeftCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers turnSignalsService:self didUpdateTurnSignalLeft:{-[CAFTurnSignals turnSignalLeft](self, "turnSignalLeft")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000051000002"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  turnSignalRightCharacteristic = [(CAFTurnSignals *)self turnSignalRightCharacteristic];
+  uniqueIdentifier4 = [turnSignalRightCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers turnSignalsService:self didUpdateTurnSignalRight:{-[CAFTurnSignals turnSignalRight](self, "turnSignalRight")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFTurnSignals;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTurnSignalLeft

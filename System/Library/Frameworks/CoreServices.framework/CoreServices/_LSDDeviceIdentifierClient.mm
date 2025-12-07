@@ -87,53 +87,54 @@ LABEL_8:
 
 - (BOOL)canAccessAdvertisingIdentifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = +[LSApplicationRestrictionsManager sharedInstance];
-  if (([(LSApplicationRestrictionsManager *)v3 isAdTrackingEnabled]& 1) == 0)
+  isAdTrackingEnabled = [(LSApplicationRestrictionsManager *)v3 isAdTrackingEnabled];
+  if ((isAdTrackingEnabled & 1) == 0)
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _LSDefaultLog(isAdTrackingEnabled);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       xPCConnection = [(_LSDClient *)self XPCConnection];
       buf.val[0] = 67109120;
       buf.val[1] = [xPCConnection processIdentifier];
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because app tracking disabled by device management profile", &buf, 8u);
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because app tracking disabled by device management profile", &buf, 8u);
     }
 
 LABEL_6:
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v4 = getkTCCServiceUserTracking();
+  v5 = getkTCCServiceUserTracking();
   xPCConnection2 = [(_LSDClient *)self XPCConnection];
-  v6 = xPCConnection2;
+  v7 = xPCConnection2;
   if (xPCConnection2)
   {
-    [xPCConnection2 auditToken];
+    objc_msgSend_auditToken(xPCConnection2);
   }
 
   else
   {
-    memset(&v28, 0, sizeof(v28));
+    memset(&v31, 0, sizeof(v31));
   }
 
-  buf = v28;
-  v12 = softLinkTCCAccessPreflightWithAuditToken(v4, &buf, 0);
+  buf = v31;
+  v12 = softLinkTCCAccessPreflightWithAuditToken(v5, &buf, 0);
 
   if (v12)
   {
     if (v12 == 1)
     {
-      v7 = _LSDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = _LSDefaultLog(v13);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         xPCConnection3 = [(_LSDClient *)self XPCConnection];
         processIdentifier = [xPCConnection3 processIdentifier];
         buf.val[0] = 67109120;
         buf.val[1] = processIdentifier;
-        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because because user denided kTCCServiceUserTracking", &buf, 8u);
+        _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because because user denided kTCCServiceUserTracking", &buf, 8u);
       }
     }
 
@@ -141,67 +142,69 @@ LABEL_6:
     {
       if (v12 == 2)
       {
-        *v28.val = 0;
-        if ([LSATTrackingEnforcementManager shouldEnforceTrackingWithReasonCode:&v28])
+        *v31.val = 0;
+        v14 = [LSATTrackingEnforcementManager shouldEnforceTrackingWithReasonCode:&v31];
+        if (v14)
         {
-          v13 = _LSDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          v15 = _LSDefaultLog(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             xPCConnection4 = [(_LSDClient *)self XPCConnection];
             processIdentifier2 = [xPCConnection4 processIdentifier];
             buf.val[0] = 67109120;
             buf.val[1] = processIdentifier2;
-            _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because because app has not requested kTCCServiceUserTracking", &buf, 8u);
+            _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because because app has not requested kTCCServiceUserTracking", &buf, 8u);
           }
         }
 
         else
         {
-          v21 = _LSDefaultLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v23 = _LSDefaultLog(v14);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             buf.val[0] = 134217984;
-            *&buf.val[1] = *v28.val;
-            _os_log_impl(&dword_18162D000, v21, OS_LOG_TYPE_INFO, "Advertising identifier: AppTrackingTransparency enforcement is off (ATEnforcementServiceReasonCode %ld)", &buf, 0xCu);
+            *&buf.val[1] = *v31.val;
+            _os_log_impl(&dword_18162D000, v23, OS_LOG_TYPE_INFO, "Advertising identifier: AppTrackingTransparency enforcement is off (ATEnforcementServiceReasonCode %ld)", &buf, 0xCu);
           }
 
-          if (![(LSApplicationRestrictionsManager *)v3 isLimitAdTrackingForced])
+          isLimitAdTrackingForced = [(LSApplicationRestrictionsManager *)v3 isLimitAdTrackingForced];
+          if (!isLimitAdTrackingForced)
           {
-            v13 = _LSDefaultLog();
-            v9 = 1;
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+            v15 = _LSDefaultLog(isLimitAdTrackingForced);
+            v10 = 1;
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               xPCConnection5 = [(_LSDClient *)self XPCConnection];
               processIdentifier3 = [xPCConnection5 processIdentifier];
               buf.val[0] = 67109120;
               buf.val[1] = processIdentifier3;
-              _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access permitted because AppTrackingTransparency enforcement is off and LimitAdTracking is off", &buf, 8u);
+              _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access permitted because AppTrackingTransparency enforcement is off and LimitAdTracking is off", &buf, 8u);
 
-              v9 = 1;
+              v10 = 1;
             }
 
             goto LABEL_30;
           }
 
-          v13 = _LSDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          v15 = _LSDefaultLog(isLimitAdTrackingForced);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             xPCConnection6 = [(_LSDClient *)self XPCConnection];
             processIdentifier4 = [xPCConnection6 processIdentifier];
             buf.val[0] = 67109120;
             buf.val[1] = processIdentifier4;
-            _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because LimitAdTracking is on", &buf, 8u);
+            _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access denied because LimitAdTracking is on", &buf, 8u);
           }
         }
 
-        v9 = 0;
+        v10 = 0;
 LABEL_30:
 
         goto LABEL_7;
       }
 
-      v7 = _LSDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _LSDefaultLog(v13);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         xPCConnection7 = [(_LSDClient *)self XPCConnection];
         processIdentifier5 = [xPCConnection7 processIdentifier];
@@ -209,28 +212,27 @@ LABEL_30:
         buf.val[1] = processIdentifier5;
         LOWORD(buf.val[2]) = 1024;
         *(&buf.val[2] + 2) = v12;
-        _os_log_error_impl(&dword_18162D000, v7, OS_LOG_TYPE_ERROR, "Advertising identifier: PID %d access denied because because kTCCServiceUserTracking has invalid state %u", &buf, 0xEu);
+        _os_log_error_impl(&dword_18162D000, v8, OS_LOG_TYPE_ERROR, "Advertising identifier: PID %d access denied because because kTCCServiceUserTracking has invalid state %u", &buf, 0xEu);
       }
     }
 
     goto LABEL_6;
   }
 
-  v18 = _LSDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v20 = _LSDefaultLog(v13);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     xPCConnection8 = [(_LSDClient *)self XPCConnection];
     processIdentifier6 = [xPCConnection8 processIdentifier];
     buf.val[0] = 67109120;
     buf.val[1] = processIdentifier6;
-    _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access permitted because user granted kTCCServiceUserTracking", &buf, 8u);
+    _os_log_impl(&dword_18162D000, v20, OS_LOG_TYPE_INFO, "Advertising identifier: PID %d access permitted because user granted kTCCServiceUserTracking", &buf, 8u);
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_7:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 - (void)getClientProcessVendorNameBundleIdentifierAndRestrictedIDAccessWithType:(int64_t)type completionHandler:(id)handler
@@ -239,12 +241,12 @@ LABEL_7:
   handlerCopy = handler;
   if (type == 1 && (-[_LSDClient XPCConnection](self, "XPCConnection"), v7 = objc_claimAutoreleasedReturnValue(), [v7 _xpcConnection], v8 = objc_claimAutoreleasedReturnValue(), v9 = _LSCheckEntitlementForXPCConnectionQuiet(v8, @"com.apple.developer.exposure-notification"), v8, v7, v9))
   {
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _LSDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v16 = @"com.apple.developer.exposure-notification";
-      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Request for IDFA/IDFV from a process that has entitlement %{public}@; ignoring.", buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "Request for IDFA/IDFV from a process that has entitlement %{public}@; ignoring.", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 1);
@@ -252,17 +254,15 @@ LABEL_7:
 
   else
   {
-    v11 = _LSServer_DatabaseExecutionContext();
+    v12 = _LSServer_DatabaseExecutionContext();
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __120___LSDDeviceIdentifierClient_getClientProcessVendorNameBundleIdentifierAndRestrictedIDAccessWithType_completionHandler___block_invoke;
     v13[3] = &unk_1E6A1BC08;
     v13[4] = self;
     v14 = handlerCopy;
-    [(LSDBExecutionContext *)v11 syncRead:v13];
+    [(LSDBExecutionContext *)v12 syncRead:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getIdentifierOfType:(int64_t)type completionHandler:(id)handler
@@ -296,34 +296,32 @@ LABEL_7:
 
 - (void)generateIdentifiersWithVendorName:(id)name bundleIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   identifierCopy = identifier;
   v7 = identifierCopy;
   if (nameCopy && identifierCopy)
   {
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(identifierCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = nameCopy;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Generating identifiers for vendor %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = nameCopy;
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Generating identifiers for vendor %@", &v17, 0xCu);
     }
 
     v9 = +[_LSDeviceIdentifierManager sharedInstance];
-    sharedManager = [getUMUserManagerClass() sharedManager];
+    sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
     currentPersona = [sharedManager currentPersona];
     v12 = [v9 cacheForPersona:currentPersona];
     [v12 getIdentifierOfType:0 vendorName:nameCopy bundleIdentifier:v7 completionHandler:0];
 
     v13 = +[_LSDeviceIdentifierManager sharedInstance];
-    sharedManager2 = [getUMUserManagerClass() sharedManager];
+    sharedManager2 = [(objc_class *)getUMUserManagerClass() sharedManager];
     currentPersona2 = [sharedManager2 currentPersona];
     v16 = [v13 cacheForPersona:currentPersona2];
     [v16 getIdentifierOfType:1 vendorName:nameCopy bundleIdentifier:v7 completionHandler:0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearIdentifiersForUninstallationWithVendorName:(id)name bundleIdentifier:(id)identifier
@@ -334,29 +332,30 @@ LABEL_7:
   v8 = identifierCopy;
   if (nameCopy && identifierCopy)
   {
-    if ([(_LSDDeviceIdentifierClient *)self hasUninstallEntitlement])
+    hasUninstallEntitlement = [(_LSDDeviceIdentifierClient *)self hasUninstallEntitlement];
+    if (hasUninstallEntitlement)
     {
-      v9 = _LSDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _LSDefaultLog(hasUninstallEntitlement);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 138412546;
         v17 = nameCopy;
         v18 = 2112;
         v19 = v8;
-        _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Asking to clear identifiers for vendor %@/bundle %@", &v16, 0x16u);
+        _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Asking to clear identifiers for vendor %@/bundle %@", &v16, 0x16u);
       }
 
-      v10 = +[_LSDeviceIdentifierManager sharedInstance];
-      sharedManager = [getUMUserManagerClass() sharedManager];
+      v11 = +[_LSDeviceIdentifierManager sharedInstance];
+      sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
       currentPersona = [sharedManager currentPersona];
-      v13 = [v10 cacheForPersona:currentPersona];
-      [v13 clearIdentifiersForUninstallationWithVendorName:nameCopy bundleIdentifier:v8];
+      v14 = [v11 cacheForPersona:currentPersona];
+      [v14 clearIdentifiersForUninstallationWithVendorName:nameCopy bundleIdentifier:v8];
     }
 
     else
     {
-      v10 = _LSDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _LSDefaultLog(hasUninstallEntitlement);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         xPCConnection = [(_LSDClient *)self XPCConnection];
         v16 = 138412802;
@@ -365,12 +364,10 @@ LABEL_7:
         v19 = nameCopy;
         v20 = 2112;
         v21 = v8;
-        _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ to clear identifiers for vendor %@/bundle %@", &v16, 0x20u);
+        _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ to clear identifiers for vendor %@/bundle %@", &v16, 0x20u);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getIdentifierOfType:(int64_t)type vendorName:(id)name bundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -392,8 +389,8 @@ LABEL_8:
 
   if (!v15)
   {
-    v20 = _LSDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = _LSDefaultLog(v16);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       xPCConnection2 = [(_LSDClient *)self XPCConnection];
       v23 = 138412802;
@@ -402,55 +399,53 @@ LABEL_8:
       typeCopy = type;
       v27 = 2112;
       v28 = nameCopy;
-      _os_log_impl(&dword_18162D000, v20, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ for identifier type %i of vendor %@", &v23, 0x1Cu);
+      _os_log_impl(&dword_18162D000, v21, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ for identifier type %i of vendor %@", &v23, 0x1Cu);
     }
 
     goto LABEL_8;
   }
 
-  v16 = +[_LSDeviceIdentifierManager sharedInstance];
-  sharedManager = [getUMUserManagerClass() sharedManager];
+  v17 = +[_LSDeviceIdentifierManager sharedInstance];
+  sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
   currentPersona = [sharedManager currentPersona];
-  v19 = [v16 cacheForPersona:currentPersona];
-  [v19 getIdentifierOfType:type vendorName:nameCopy bundleIdentifier:identifierCopy completionHandler:handlerCopy];
+  v20 = [v17 cacheForPersona:currentPersona];
+  [v20 getIdentifierOfType:type vendorName:nameCopy bundleIdentifier:identifierCopy completionHandler:handlerCopy];
 
 LABEL_9:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearAllIdentifiersOfType:(int64_t)type
 {
   v17 = *MEMORY[0x1E69E9840];
   v5 = [(_LSDDeviceIdentifierClient *)self hasEntitlementToClearAllIdentifiersOfType:?];
-  v6 = _LSDefaultLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = v5;
+  v7 = _LSDefaultLog(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       v13 = 67109120;
       LODWORD(v14) = type;
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Asking to clear all identifiers of type %i", &v13, 8u);
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Asking to clear all identifiers of type %i", &v13, 8u);
     }
 
-    v6 = +[_LSDeviceIdentifierManager sharedInstance];
-    sharedManager = [getUMUserManagerClass() sharedManager];
+    v7 = +[_LSDeviceIdentifierManager sharedInstance];
+    sharedManager = [(objc_class *)getUMUserManagerClass() sharedManager];
     currentPersona = [sharedManager currentPersona];
-    v10 = [v6 cacheForPersona:currentPersona];
-    [v10 clearAllIdentifiersOfType:type];
+    v11 = [v7 cacheForPersona:currentPersona];
+    [v11 clearAllIdentifiersOfType:type];
   }
 
-  else if (v7)
+  else if (v8)
   {
     xPCConnection = [(_LSDClient *)self XPCConnection];
     v13 = 138412546;
     v14 = xPCConnection;
     v15 = 1024;
     typeCopy = type;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ to clear all identifiers of type %i", &v13, 0x12u);
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Unentitled request from XPC connection %@ to clear all identifiers of type %i", &v13, 0x12u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

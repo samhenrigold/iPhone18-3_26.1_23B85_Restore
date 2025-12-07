@@ -147,7 +147,7 @@
 - (id)forecastForTimeInterval:(double)interval from:(id)from
 {
   forecastMap = [from forecastMap];
-  if ([forecastMap count])
+  if (objc_msgSend_count(forecastMap))
   {
     v6 = +[NSMutableArray array];
     allKeys = [forecastMap allKeys];
@@ -158,7 +158,7 @@
     v10 = [NSArray arrayWithObjects:&v17 count:1];
     [v8 sortUsingDescriptors:v10];
 
-    v11 = [v8 count];
+    v11 = objc_msgSend_count(v8);
     if (v11 >= (interval / 900.0))
     {
       v12 = (interval / 900.0);
@@ -250,7 +250,7 @@
 {
   forecastCopy = forecast;
   dateCopy = date;
-  if (![forecastCopy count])
+  if (!objc_msgSend_count(forecastCopy))
   {
     v25 = 0;
     goto LABEL_26;
@@ -290,7 +290,7 @@ LABEL_24:
   }
 
   v26 = fmax(floor(size / 900.0) + -1.0, 0.0);
-  if ([forecastCopy count] >= v26)
+  if (objc_msgSend_count(forecastCopy) >= v26)
   {
     selfCopy = self;
     v46 = dateCopy;
@@ -304,7 +304,7 @@ LABEL_24:
       }
     }
 
-    if ([forecastCopy count] <= v26 || (v30 = objc_msgSend(forecastCopy, "count"), v30 == v26))
+    if (objc_msgSend_count(forecastCopy, selfCopy) <= v26 || (v30 = objc_msgSend_count(forecastCopy), v30 == v26))
     {
       v31 = 0;
     }

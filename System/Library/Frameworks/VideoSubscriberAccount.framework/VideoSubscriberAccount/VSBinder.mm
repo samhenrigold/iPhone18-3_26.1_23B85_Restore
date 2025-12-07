@@ -279,9 +279,12 @@ void __28__VSBinder_tearDownBinding___block_invoke(uint64_t a1, void *a2)
 
 uint64_t __28__VSBinder_valueForBinding___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [a2 value];
+  v3 = [a2 value];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (void)setValue:(id)value forBinding:(id)binding

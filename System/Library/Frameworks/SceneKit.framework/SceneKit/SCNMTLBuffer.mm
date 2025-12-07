@@ -9,16 +9,9 @@
 
 - (void)contents
 {
-  if (!self->_buffer)
-  {
-    v3 = scn_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
-    {
-      [(SCNMTLBuffer *)v3 contents:v4];
-    }
-  }
-
-  return ([(MTLBuffer *)self->_buffer contents]+ self->_offset);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_buffer";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)dealloc

@@ -299,14 +299,14 @@ LABEL_9:
 
 - (id)createSpeechSynthesisRequestWithContext:(id)context instanceContext:(id)instanceContext
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   instanceContextCopy = instanceContext;
   if ([(SVXAlarmAndTimerUtilities *)self getIsSpeakable:contextCopy])
   {
     orderedFiringAlarms = [contextCopy orderedFiringAlarms];
     orderedFiringTimers = [contextCopy orderedFiringTimers];
-    v30 = instanceContextCopy;
+    v29 = instanceContextCopy;
     if ([(SVXAlarmAndTimerUtilities *)self _isEndpoint:instanceContextCopy])
     {
       mEMORY[0x277CEF368] = [objc_alloc(MEMORY[0x277CEF368]) initWithInstanceContext:instanceContextCopy];
@@ -321,8 +321,8 @@ LABEL_9:
     if (!mEMORY[0x277CEF368])
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXAlarmAndTimerUtilities createSpeechSynthesisRequestWithContext:instanceContext:]"];
-      [currentHandler handleFailureInFunction:v29 file:@"SVXAlarmAndTimerUtilities.m" lineNumber:74 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
+      v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXAlarmAndTimerUtilities createSpeechSynthesisRequestWithContext:instanceContext:]"];
+      [currentHandler handleFailureInFunction:v28 file:@"SVXAlarmAndTimerUtilities.m" lineNumber:74 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
     }
 
     v12 = [(SVXSpeechSynthesisUtils *)self->_speechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:1 preferences:v11];
@@ -330,13 +330,13 @@ LABEL_9:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v34 = "[SVXAlarmAndTimerUtilities createSpeechSynthesisRequestWithContext:instanceContext:]";
-      v35 = 2112;
-      v36 = v12;
+      v33 = "[SVXAlarmAndTimerUtilities createSpeechSynthesisRequestWithContext:instanceContext:]";
+      v34 = 2112;
+      v35 = v12;
       _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s outputVoiceInfo = %@", buf, 0x16u);
     }
 
-    v31 = v11;
+    v30 = v11;
     languageCode = [v12 languageCode];
     gender = [v12 gender];
     if (!gender)
@@ -357,7 +357,7 @@ LABEL_9:
     v23 = [(SVXAlarmAndTimerUtilities *)self _textFromActiveTimersAndAlarms:orderedFiringTimers orderedFiringAlarms:orderedFiringAlarms concatenationString:v20];
     [v17 appendString:v23];
 
-    v24 = [(SVXAlarmAndTimerUtilities *)self _alarmsListTextWithFiringAlarms:orderedFiringAlarms concatenationString:v20 languageCode:languageCode preferences:v31];
+    v24 = [(SVXAlarmAndTimerUtilities *)self _alarmsListTextWithFiringAlarms:orderedFiringAlarms concatenationString:v20 languageCode:languageCode preferences:v30];
     v25 = [(SVXAlarmAndTimerUtilities *)self _textFromFiringAlarms:orderedFiringAlarms alarmsListText:v24 languageCode:languageCode gender:v16];
     [v17 appendString:v25];
 
@@ -371,15 +371,13 @@ LABEL_9:
       v10 = 0;
     }
 
-    instanceContextCopy = v30;
+    instanceContextCopy = v29;
   }
 
   else
   {
     v10 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

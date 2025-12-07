@@ -314,20 +314,20 @@ void __60__VNTrackerManager__trackerClassToNameMapTableObjectForKey___block_invo
   return v3;
 }
 
-void __49__VNTrackerManager__trackerTypeToClassDictionary__block_invoke()
+void __49__VNTrackerManager__trackerTypeToClassDictionary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[4] = *MEMORY[0x1E69E9840];
-  v2[0] = @"VNObjectTrackerRevision1Type";
-  v3[0] = objc_opt_class();
-  v2[1] = @"VNObjectTrackerRevision2Type";
-  v3[1] = objc_opt_class();
-  v2[2] = @"VNObjectTrackerRevisionLegacyFaceCoreType";
-  v3[2] = objc_opt_class();
-  v2[3] = @"VNRectangleTrackerType";
-  v3[3] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:4];
-  v1 = +[VNTrackerManager _trackerTypeToClassDictionary]::trackerTypeToClassDictionary;
-  +[VNTrackerManager _trackerTypeToClassDictionary]::trackerTypeToClassDictionary = v0;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v4[0] = @"VNObjectTrackerRevision1Type";
+  v5[0] = objc_opt_class();
+  v4[1] = @"VNObjectTrackerRevision2Type";
+  v5[1] = objc_opt_class();
+  v4[2] = @"VNObjectTrackerRevisionLegacyFaceCoreType";
+  v5[2] = objc_opt_class();
+  v4[3] = @"VNRectangleTrackerType";
+  v5[3] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
+  v3 = +[VNTrackerManager _trackerTypeToClassDictionary]::trackerTypeToClassDictionary;
+  +[VNTrackerManager _trackerTypeToClassDictionary]::trackerTypeToClassDictionary = v2;
 }
 
 + (id)trackerClassForOptions:(void *)options error:

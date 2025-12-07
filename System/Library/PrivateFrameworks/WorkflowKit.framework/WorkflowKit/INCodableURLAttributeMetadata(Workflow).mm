@@ -6,7 +6,7 @@
 
 - (WFURLStringParameterState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = objc_opt_class();
@@ -27,24 +27,22 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v20 = "WFEnforceClass";
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2114;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = v8;
-      v15 = v24;
+      v19 = "WFEnforceClass";
+      v20 = 2114;
+      v21 = v9;
+      v22 = 2114;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = v8;
+      v15 = v23;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = &off_1F4B058F8;
-  v13 = objc_msgSendSuper2(&v18, sel_wf_parameterStateForIntentValue_parameterDefinition_, v9, v7);
+  v17.receiver = self;
+  v17.super_class = &off_1F4B058F8;
+  v13 = objc_msgSendSuper2(&v17, sel_wf_parameterStateForIntentValue_parameterDefinition_, v9, v7);
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

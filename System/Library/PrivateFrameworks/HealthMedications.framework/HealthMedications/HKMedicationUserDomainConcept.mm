@@ -6,7 +6,6 @@
 - (HKMedicationUserDomainConcept)initWithCodingCollection:(id)collection supplementalPropertyCollection:(id)propertyCollection;
 - (HKMedicationUserDomainConcept)initWithConceptIdentifier:(id)identifier userSpecifiedName:(id)name userSpecifiedNotes:(id)notes;
 - (HKMedicationUserDomainConcept)initWithOntologyCoding:(id)coding userSpecifiedName:(id)name userSpecifiedNotes:(id)notes medicationVisualizationConfig:(id)config freeTextProperties:(id)properties;
-- (HKMedicationUserDomainConceptSemanticIdentifier)_computedPropertyLock_generateSemanticIdentifier;
 - (HKOntologyLocalizedEducationContent)localizedOntologyEducationContent;
 - (HKQuantity)freeTextMedicationStrengthQuantity;
 - (NSArray)freeTextMedicationIngredientNamedStrengthQuantities;
@@ -28,7 +27,6 @@
 - (NSString)userSpecifiedNotes;
 - (NSString)userVisualizationConfigJSONString;
 - (id)_computedPropertyLock_generateListOfLocalizedNamesWithPropertyType:(os_unfair_lock *)type;
-- (id)_computedPropertyLock_generateLocalizedNamesWithPropertyType:(const os_unfair_lock *)type;
 - (id)_dataDescriptionAllowedForPublic:(BOOL)public;
 - (id)_deepCopy;
 - (id)_generateDisplayNameComponents;
@@ -37,6 +35,8 @@
 - (id)canonicalDoseUnitString;
 - (id)copyMedicationByUpdatingUserSpecifiedName:(id)name userSpecifiedNotes:(id)notes userVisualizationConfigJSONString:(id)string;
 - (id)semanticIdentifier;
+- (os_unfair_lock)_computedPropertyLock_generateLocalizedNamesWithPropertyType:(os_unfair_lock *)type;
+- (os_unfair_lock)_computedPropertyLock_generateSemanticIdentifier;
 - (uint64_t)localizedOntologyBasicDoseForms;
 - (uint64_t)localizedOntologyBrandNames;
 - (uint64_t)localizedOntologyComponentNames;
@@ -707,27 +707,8 @@ id __46__HKMedicationUserDomainConcept_rxNormCodings__block_invoke(uint64_t a1, 
     freeTextMedicationIngredientNamedStrengthQuantities = [selfCopy freeTextMedicationIngredientNamedStrengthQuantities];
     firstObject = [freeTextMedicationIngredientNamedStrengthQuantities firstObject];
 
-    if (!firstObject)
+    if (!firstObject || (v13 = objc_alloc_init(MEMORY[0x277CCABB8]), [v13 setNumberStyle:1], objc_msgSend(v13, "setMaximumFractionDigits:", 2), objc_msgSend(v13, "setRoundingMode:", 6), v14 = MEMORY[0x277CCABB0], objc_msgSend(firstObject, "value"), objc_msgSend(v14, "numberWithDouble:"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "stringFromNumber:", v15), v16 = objc_claimAutoreleasedReturnValue(), v15, v17 = MEMORY[0x277CCACA8], objc_msgSend(firstObject, "unitString"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "stringWithFormat:", @"%@ %@", v16, v18), unlocalizedQuantifiedUnitStrengthPreferredDisplayString = objc_claimAutoreleasedReturnValue(), v18, v16, v13, !unlocalizedQuantifiedUnitStrengthPreferredDisplayString))
     {
-      goto LABEL_13;
-    }
-
-    v13 = objc_alloc_init(MEMORY[0x277CCABB8]);
-    [v13 setNumberStyle:1];
-    [v13 setMaximumFractionDigits:2];
-    [v13 setRoundingMode:6];
-    v14 = MEMORY[0x277CCABB0];
-    [firstObject value];
-    v15 = [v14 numberWithDouble:?];
-    v16 = [v13 stringFromNumber:v15];
-
-    v17 = MEMORY[0x277CCACA8];
-    unitString = [firstObject unitString];
-    unlocalizedQuantifiedUnitStrengthPreferredDisplayString = [v17 stringWithFormat:@"%@ %@", v16, unitString];
-
-    if (!unlocalizedQuantifiedUnitStrengthPreferredDisplayString)
-    {
-LABEL_13:
       unlocalizedQuantifiedUnitStrengthPreferredDisplayString = [selfCopy unlocalizedQuantifiedUnitStrengthPreferredDisplayString];
     }
 
@@ -806,7 +787,7 @@ LABEL_13:
 - (id)_generateMedicationConcept
 {
   selfCopy = self;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     freeTextMedicationFormCode = [self freeTextMedicationFormCode];
@@ -829,9 +810,9 @@ LABEL_13:
       v6 = HKLogHealthOntology();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138543362;
-        v17 = objc_opt_class();
-        _os_log_error_impl(&dword_2517E7000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Unable to resolve a general form for this medication, its likely this medicaiton has not been refreshed yet.", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = objc_opt_class();
+        _os_log_error_impl(&dword_2517E7000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Unable to resolve a general form for this medication, its likely this medicaiton has not been refreshed yet.", &v15, 0xCu);
       }
 
       lowercaseString = *MEMORY[0x277CCC400];
@@ -847,18 +828,16 @@ LABEL_13:
     selfCopy = [v8 initWithHealthConceptIdentifier:healthConceptIdentifier displayText:fullDisplayName generalForm:v7 relatedCodings:rxNormCodings];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
-- (HKMedicationUserDomainConceptSemanticIdentifier)_computedPropertyLock_generateSemanticIdentifier
+- (os_unfair_lock)_computedPropertyLock_generateSemanticIdentifier
 {
   selfCopy = self;
   if (self)
   {
     os_unfair_lock_assert_owner(self + 28);
-    firstOntologyCoding = [(HKMedicationUserDomainConceptSemanticIdentifier *)selfCopy firstOntologyCoding];
+    firstOntologyCoding = [(os_unfair_lock *)selfCopy firstOntologyCoding];
     v3 = [HKMedicationUserDomainConceptSemanticIdentifier alloc];
     v4 = v3;
     if (firstOntologyCoding)
@@ -868,7 +847,7 @@ LABEL_13:
 
     else
     {
-      uUID = [(HKMedicationUserDomainConceptSemanticIdentifier *)selfCopy UUID];
+      uUID = [(os_unfair_lock *)selfCopy UUID];
       selfCopy = [(HKMedicationUserDomainConceptSemanticIdentifier *)v4 initWithUUID:uUID medicalCoding:0];
     }
   }
@@ -876,13 +855,13 @@ LABEL_13:
   return selfCopy;
 }
 
-- (id)_computedPropertyLock_generateLocalizedNamesWithPropertyType:(const os_unfair_lock *)type
+- (os_unfair_lock)_computedPropertyLock_generateLocalizedNamesWithPropertyType:(os_unfair_lock *)type
 {
   typeCopy = type;
   if (type)
   {
     os_unfair_lock_assert_owner(type + 28);
-    propertyCollection = [typeCopy propertyCollection];
+    propertyCollection = [(os_unfair_lock *)typeCopy propertyCollection];
     v5 = [propertyCollection propertiesWithType:a2];
 
     if (v5 && [v5 count])
@@ -901,7 +880,7 @@ LABEL_13:
 
 - (id)_computedPropertyLock_generateListOfLocalizedNamesWithPropertyType:(os_unfair_lock *)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (type)
   {
     os_unfair_lock_assert_owner(type + 28);
@@ -911,26 +890,26 @@ LABEL_13:
     if (v5 && [v5 count])
     {
       v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
+            v12 = *(*(&v18 + 1) + 8 * i);
             locale = [v12 locale];
             stringValue = [v12 stringValue];
             v15 = [v6 objectForKeyedSubscript:locale];
@@ -943,7 +922,7 @@ LABEL_13:
             [v15 addObject:stringValue];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -962,8 +941,6 @@ LABEL_13:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

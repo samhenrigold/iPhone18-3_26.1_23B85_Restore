@@ -110,7 +110,7 @@ void __26__AMSCircularBuffer_count__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __31__AMSCircularBuffer_allObjects__block_invoke(uint64_t a1)
+void *__31__AMSCircularBuffer_allObjects__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) buffer];
   v3 = [v2 copy];

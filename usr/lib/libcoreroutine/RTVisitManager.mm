@@ -2059,7 +2059,7 @@ void __41__RTVisitManager__onVisitIncident_error___block_invoke(uint64_t a1, voi
   dispatch_async(queue, block);
 }
 
-uint64_t __40__RTVisitManager_onVisitIncident_error___block_invoke(uint64_t a1)
+void *__40__RTVisitManager_onVisitIncident_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) spoofMode];
   if ((result & 1) == 0)
@@ -2145,7 +2145,7 @@ void __54__RTVisitManager__onLowConfidenceVisitIncident_error___block_invoke(uin
   dispatch_async(queue, block);
 }
 
-uint64_t __53__RTVisitManager_onLowConfidenceVisitIncident_error___block_invoke(uint64_t a1)
+void *__53__RTVisitManager_onLowConfidenceVisitIncident_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) spoofMode];
   if ((result & 1) == 0)

@@ -245,9 +245,9 @@ LABEL_10:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         shortCode = [v9 shortCode];
-        v11 = [shortCode isEqualToString:codeCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(shortCode);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;

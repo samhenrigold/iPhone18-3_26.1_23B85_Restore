@@ -1,4 +1,5 @@
 @interface _PASArgOption
++ (id)optionWithName:(id)name shortName:(id)shortName argMetavar:(id)metavar help:(id)help required:(BOOL)required;
 - (_PASArgOption)initWithName:(id)name shortName:(id)shortName argMetavar:(id)metavar help:(id)help required:(BOOL)required;
 @end
 
@@ -56,6 +57,18 @@ LABEL_5:
   }
 
   return v18;
+}
+
++ (id)optionWithName:(id)name shortName:(id)shortName argMetavar:(id)metavar help:(id)help required:(BOOL)required
+{
+  requiredCopy = required;
+  helpCopy = help;
+  metavarCopy = metavar;
+  shortNameCopy = shortName;
+  nameCopy = name;
+  v16 = [[self alloc] initWithName:nameCopy shortName:shortNameCopy argMetavar:metavarCopy help:helpCopy required:requiredCopy];
+
+  return v16;
 }
 
 @end

@@ -1,499 +1,32 @@
-void static WK2_ForecastMinute.add(precipitationIntensity:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B5061C();
-}
-
-void sub_272B50768()
-{
-  OUTLINED_FUNCTION_226();
-  OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_96();
-  if (v4)
-  {
-    OUTLINED_FUNCTION_79();
-    if (!v4)
-    {
-LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_225();
-      return;
-    }
-  }
-
-  OUTLINED_FUNCTION_95();
-  if (v6 ^ v7 | v4)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v8 = *(v0 + 16);
-  if ((v8 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_25;
-  }
-
-  if (HIDWORD(v8))
-  {
-LABEL_25:
-    __break(1u);
-    goto LABEL_26;
-  }
-
-  v9 = OUTLINED_FUNCTION_3(v5, v8);
-  if (v6 != v7)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_20_0();
-  if (v6 != v7)
-  {
-    v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_1_0(v11);
-  if (!v4 & v14)
-  {
-LABEL_26:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
-  {
-    if (*(v15 + 32))
-    {
-      OUTLINED_FUNCTION_48(v15);
-      OUTLINED_FUNCTION_203();
-    }
-
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_201();
-    if (!(!v4 & v14))
-    {
-      v18 = v19;
-    }
-
-    *(v17 + 64) = v18;
-    goto LABEL_23;
-  }
-
-  __break(1u);
-}
-
-void static WK2_ForecastMinute.add(perceivedPrecipitationIntensity:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B50768();
-}
-
-void static WK2_ForecastMinute.add(startTime:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_DayWeatherConditions.add(forecastStart:_:)();
-}
-
-void static WK2_NextHourForecast.add(metadata:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_CurrentWeather.add(metadata:_:)();
-}
-
-void static WK2_NextHourForecast.addVectorOf(condition:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_Weather.add(currentWeather:_:)();
-}
-
-void static WK2_Weather.add(forecastDaily:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B50A44();
-}
-
-void sub_272B50A44()
-{
-  OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
-  if (!v2)
-  {
-    goto LABEL_28;
-  }
-
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  if (HIDWORD(v10))
-  {
-LABEL_30:
-    __break(1u);
-LABEL_31:
-    __break(1u);
-    goto LABEL_32;
-  }
-
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_119();
-  if (v13)
-  {
-    goto LABEL_31;
-  }
-
-  OUTLINED_FUNCTION_118();
-  if (v14)
-  {
-    OUTLINED_FUNCTION_79();
-    if (!v14)
-    {
-LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_218();
-      return;
-    }
-  }
-
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
-  {
-    OUTLINED_FUNCTION_186(v15);
-  }
-
-  OUTLINED_FUNCTION_27();
-  if (v8 != v9)
-  {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
-  {
-LABEL_32:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
-  {
-    if (*(v20 + 32))
-    {
-      OUTLINED_FUNCTION_57(v20);
-      OUTLINED_FUNCTION_193();
-    }
-
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_191();
-    if (!(!v14 & v19))
-    {
-      v23 = v24;
-    }
-
-    *(v22 + 64) = v23;
-    goto LABEL_28;
-  }
-
-  __break(1u);
-}
-
-void static WK2_NextHourForecast.addVectorOf(summary:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_Weather.add(forecastDaily:_:)();
-}
-
-void static WK2_NextHourForecast.addVectorOf(minutes:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_Weather.add(news:_:)();
-}
-
-void static WK2_NextHourForecast.add(forecastStart:_:)()
-{
-  OUTLINED_FUNCTION_219();
-  v22 = *MEMORY[0x277D85DE8];
-  if ((v3 & 0x100000000) != 0)
-  {
-LABEL_20:
-    v21 = *MEMORY[0x277D85DE8];
-    OUTLINED_FUNCTION_218();
-    return;
-  }
-
-  OUTLINED_FUNCTION_30(v3, v4);
-  if (v7 ^ v8 | v6)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v9 = *(v0 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  if (HIDWORD(v9))
-  {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  v10 = OUTLINED_FUNCTION_6(v5, v9);
-  if (v7 != v8)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_26();
-  if (v7 != v8)
-  {
-    v13 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
-    v12 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_5(v12);
-  if (!v6 & v15)
-  {
-LABEL_23:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v17 & 1) == 0)
-  {
-    if (*(v16 + 32))
-    {
-      OUTLINED_FUNCTION_41(v16);
-      OUTLINED_FUNCTION_203();
-    }
-
-    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_201();
-    if (!(!v6 & v15))
-    {
-      v19 = v20;
-    }
-
-    *(v18 + 64) = v19;
-    goto LABEL_20;
-  }
-
-  __break(1u);
-}
-
-void static WK2_LocationInfo.add(primaryName:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_Weather.add(forecastNextHour:_:)();
-}
-
-void static WK2_LocationInfo.add(metadata:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_CurrentWeather.add(metadata:_:)();
-}
-
-void static WK2_Weather.add(forecastHourly:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B50DEC();
-}
-
-void sub_272B50DEC()
-{
-  OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
-  if (!v2)
-  {
-    goto LABEL_28;
-  }
-
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  if (HIDWORD(v10))
-  {
-LABEL_30:
-    __break(1u);
-LABEL_31:
-    __break(1u);
-    goto LABEL_32;
-  }
-
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_119();
-  if (v13)
-  {
-    goto LABEL_31;
-  }
-
-  OUTLINED_FUNCTION_118();
-  if (v14)
-  {
-    OUTLINED_FUNCTION_79();
-    if (!v14)
-    {
-LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_218();
-      return;
-    }
-  }
-
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
-  {
-    OUTLINED_FUNCTION_186(v15);
-  }
-
-  OUTLINED_FUNCTION_27();
-  if (v8 != v9)
-  {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
-  {
-LABEL_32:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
-  {
-    if (*(v20 + 32))
-    {
-      OUTLINED_FUNCTION_57(v20);
-      OUTLINED_FUNCTION_203();
-    }
-
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_201();
-    if (!(!v14 & v19))
-    {
-      v23 = v24;
-    }
-
-    *(v22 + 64) = v23;
-    goto LABEL_28;
-  }
-
-  __break(1u);
-}
-
 void static WK2_LocationInfo.add(timeZone:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(forecastHourly:_:)();
 }
 
 void static WK2_LocationInfo.add(countryCode:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(forecastDaily:_:)();
 }
 
 void static WK2_WeatherChanges.add(metadata:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(metadata:_:)();
 }
 
 void static WK2_WeatherChanges.addVectorOf(changes:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(forecastHourly:_:)();
 }
 
-void static WK2_Weather.startWeather(_:)(_BYTE *a1)
+void static WK2_Weather.startWeather(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -532,9 +65,7 @@ LABEL_11:
 
 void static WK2_Weather.add(airQuality:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(metadata:_:)();
 }
@@ -542,27 +73,26 @@ void static WK2_Weather.add(airQuality:_:)()
 void static WK2_Weather.add(locationInfo:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -571,68 +101,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 22;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 22;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x16)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x16)
     {
-      LOWORD(v24) = 22;
+      LOWORD(v20) = 22;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -641,10 +170,8 @@ LABEL_32:
 
 void FlatBufferBuilder.finish(offset:addPrefix:)(uint64_t a1, char a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v4 = v2[2];
   OUTLINED_FUNCTION_11_0();
-  if (!(v8 ^ v9 | v7))
+  if (!(v7 ^ v8 | v6))
   {
     __break(1u);
 LABEL_36:
@@ -652,31 +179,30 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v10 = v2;
-  v11 = v2[8];
+  v9 = v2[8];
   if (a2)
   {
-    v12 = -8;
+    v10 = -8;
   }
 
   else
   {
-    v12 = -4;
+    v10 = -4;
   }
 
-  if ((v6 | v11) < 0)
+  if ((v5 | v9) < 0)
   {
     goto LABEL_36;
   }
 
-  if (v11 > 0xFFFFFFFFLL)
+  if (v9 > 0xFFFFFFFFLL)
   {
 LABEL_37:
     __break(1u);
     goto LABEL_38;
   }
 
-  if (!v11)
+  if (!v9)
   {
 LABEL_38:
     __break(1u);
@@ -685,27 +211,26 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v13 = *v5;
-  v14 = v6 + ((v12 - v6) & (v11 - 1));
-  v15 = v2[1];
+  v11 = *v4;
+  v12 = v5 + ((v10 - v5) & (v9 - 1));
   OUTLINED_FUNCTION_15_0();
-  if (v8 != v9)
+  if (v7 != v8)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v16, v17, v10[3]);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v14, v2[3]);
   }
 
-  v10[2] = v14;
-  if (v11 <= 3)
+  v2[2] = v12;
+  if (v9 <= 3)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  if ((v14 & 0x8000000000000000) != 0)
+  if ((v12 & 0x8000000000000000) != 0)
   {
     goto LABEL_39;
   }
 
-  if (HIDWORD(v14))
+  if (HIDWORD(v12))
   {
 LABEL_40:
     __break(1u);
@@ -716,79 +241,75 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v18 = (-v14 & 3) + v14;
+  v15 = (-v12 & 3) + v12;
   OUTLINED_FUNCTION_17_0();
-  if (v8 != v9)
+  if (v7 != v8)
   {
-    OUTLINED_FUNCTION_79_0(v19);
+    OUTLINED_FUNCTION_79_0(v16);
   }
 
-  v10[2] = v18;
-  if (HIDWORD(v18))
+  v2[2] = v15;
+  if (HIDWORD(v15))
   {
     goto LABEL_41;
   }
 
-  v20 = v18 - v13 + 4;
-  v21 = OUTLINED_FUNCTION_49_0() + v18;
+  v17 = v15 - v11 + 4;
+  v18 = OUTLINED_FUNCTION_49_0() + v15;
   OUTLINED_FUNCTION_105();
-  if (v8 != v9)
+  if (v7 != v8)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v22, v18, v10[3]);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v19, v15, v2[3]);
   }
 
-  v10[2] = v21;
-  v23 = v21 + 4;
+  v2[2] = v18;
+  v20 = v18 + 4;
   OUTLINED_FUNCTION_15_0();
-  if (v8 != v9)
+  if (v7 != v8)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(4, v21, v10[3]);
-    v24 = *(v15 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(4, v18, v2[3]);
   }
 
-  OUTLINED_FUNCTION_3_2(v24);
-  *(v25 - 4) = v20;
-  v10[2] = v23;
-  if (v21 > 0xFFFFFFFB)
+  OUTLINED_FUNCTION_3_2();
+  *(v21 - 4) = v17;
+  v2[2] = v20;
+  if (v18 > 0xFFFFFFFB)
   {
     goto LABEL_42;
   }
 
   if (a2)
   {
-    v26 = (-v21 & 3) + v23;
+    v22 = (-v18 & 3) + v20;
     OUTLINED_FUNCTION_5_1();
-    if (v8 != v9)
+    if (v7 != v8)
     {
-      OUTLINED_FUNCTION_79_0(v27);
+      OUTLINED_FUNCTION_79_0(v23);
     }
 
-    v10[2] = v26;
+    v2[2] = v22;
     OUTLINED_FUNCTION_105();
-    if (v8 != v9)
+    if (v7 != v8)
     {
-      v29 = v10[3];
-      v30 = OUTLINED_FUNCTION_23_0();
-      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v30, v31, v32);
-      v28 = *(v15 + 32);
+      v24 = OUTLINED_FUNCTION_23_0();
+      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v24, v25, v26);
     }
 
-    OUTLINED_FUNCTION_7_1(v28);
-    *(v33 - 4) = v23;
-    v10[2] = v26 + 4;
-    if (v26 > 0xFFFFFFFB)
+    OUTLINED_FUNCTION_7_1();
+    *(v27 - 4) = v20;
+    v2[2] = v22 + 4;
+    if (v22 > 0xFFFFFFFB)
     {
 LABEL_43:
       __break(1u);
     }
   }
 
-  v34 = *v10;
-  *(v34 + 64) = 0;
-  *(v34 + 72) = 0;
-  *(v34 + 80) = 0;
-  *(v10 + 56) = 1;
-  v35 = *MEMORY[0x277D85DE8];
+  v28 = *v2;
+  *(v28 + 64) = 0;
+  *(v28 + 72) = 0;
+  *(v28 + 80) = 0;
+  *(v2 + 56) = 1;
 }
 
 void *sub_272B51468(const void *a1, int64_t a2)
@@ -891,15 +412,17 @@ LABEL_5:
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t FlatBufferBuilder.VTableStorage.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -955,18 +478,18 @@ void Verifier.visitTable(at:)(unint64_t position@<X0>, unint64_t *a2@<X8>)
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3420, &qword_272B8AB78);
       v7 = sub_272B87730();
       v9 = v8;
-      sub_272B5C86C();
-      OUTLINED_FUNCTION_177();
-      *v10 = position;
-      *(v10 + 8) = v7;
-      *(v10 + 16) = v9;
+      v10 = sub_272B5C86C();
+      OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v10);
+      *v11 = position;
+      *(v11 + 8) = v7;
+      *(v11 + 16) = v9;
 LABEL_4:
-      v11 = *&__dst[2];
-      v12 = __dst[1];
-      *(v10 + 24) = __dst[0];
-      *(v10 + 40) = v12;
-      *(v10 + 56) = v11;
-      *(v10 + 64) = 0;
+      v12 = *&__dst[2];
+      v13 = __dst[1];
+      *(v11 + 24) = __dst[0];
+      *(v11 + 40) = v13;
+      *(v11 + 56) = v12;
+      *(v11 + 64) = 0;
 LABEL_18:
       swift_willThrow();
       return;
@@ -974,7 +497,7 @@ LABEL_18:
   }
 
   Verifier.rangeInBuffer(position:size:)(position, 4);
-  if (v13)
+  if (v14)
   {
     return;
   }
@@ -992,109 +515,109 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v14 = *(v2 + 5);
-  v15 = *(v14 + 24);
-  v16 = *(v15 + position);
-  v17 = __CFADD__(position, -v16);
-  v18 = (position - v16);
-  if (v16 <= 0)
+  v15 = *(v2 + 5);
+  v16 = *(v15 + 24);
+  v17 = *(v16 + position);
+  v18 = __CFADD__(position, -v17);
+  v19 = (position - v17);
+  if (v17 <= 0)
   {
-    v19 = v17;
+    v20 = v18;
   }
 
   else
   {
-    v19 = position < v16;
+    v20 = position < v17;
   }
 
-  if (v19 || *(v14 + 32) < v18)
+  if (v20 || *(v15 + 32) < v19)
   {
-    sub_272B5C86C();
-    OUTLINED_FUNCTION_177();
-    *v20 = v16;
-    *(v20 + 8) = position;
-    v22 = __dst[1];
-    v21 = __dst[2];
-    *(v20 + 16) = __dst[0];
-    *(v20 + 32) = v22;
-    *(v20 + 48) = v21;
-    v23 = 2;
+    v21 = sub_272B5C86C();
+    OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v21);
+    *v22 = v17;
+    *(v22 + 8) = position;
+    v24 = __dst[1];
+    v23 = __dst[2];
+    *(v22 + 16) = __dst[0];
+    *(v22 + 32) = v24;
+    *(v22 + 48) = v23;
+    v25 = 2;
 LABEL_17:
-    *(v20 + 64) = v23;
+    *(v22 + 64) = v25;
     goto LABEL_18;
   }
 
-  if ((v5 & (v15 + v18)) == 1)
+  if ((v5 & (v16 + v19)) == 1)
   {
     *&__dst[0] = MEMORY[0x277D84C58];
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
-    v24 = sub_272B87730();
-    v26 = v25;
-    sub_272B5C86C();
-    OUTLINED_FUNCTION_177();
-    *v10 = v18;
+    v26 = sub_272B87730();
+    v28 = v27;
+    v29 = sub_272B5C86C();
+    OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v29);
+    *v11 = v19;
 LABEL_22:
-    *(v10 + 8) = v24;
-    *(v10 + 16) = v26;
+    *(v11 + 8) = v26;
+    *(v11 + 16) = v28;
     goto LABEL_4;
   }
 
-  Verifier.rangeInBuffer(position:size:)(v18, 2);
-  if (!v27)
+  Verifier.rangeInBuffer(position:size:)(v19, 2);
+  if (!v30)
   {
-    v28 = *(v14 + 24);
-    v29 = *(v28 + v18);
-    if ((v5 & (v28 + v29 + v18)) == 1)
+    v31 = *(v15 + 24);
+    v32 = *(v31 + v19);
+    if ((v5 & (v31 + v32 + v19)) == 1)
     {
       *&__dst[0] = MEMORY[0x277D84C58];
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
-      v24 = sub_272B87730();
-      v26 = v30;
-      sub_272B5C86C();
-      OUTLINED_FUNCTION_177();
-      *v10 = v29 + v18;
+      v26 = sub_272B87730();
+      v28 = v33;
+      v34 = sub_272B5C86C();
+      OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v34);
+      *v11 = v32 + v19;
       goto LABEL_22;
     }
 
-    Verifier.rangeInBuffer(position:size:)(v18, v29);
-    if (!v31)
+    Verifier.rangeInBuffer(position:size:)(v19, v32);
+    if (!v35)
     {
-      v32 = *(v2 + 3);
-      v33 = __OFADD__(v32, 1);
-      v34 = v32 + 1;
-      if (!v33)
+      v36 = *(v2 + 3);
+      v37 = __OFADD__(v36, 1);
+      v38 = v36 + 1;
+      if (!v37)
       {
-        *(v2 + 3) = v34;
-        if (v34 > *(v2 + 17))
+        *(v2 + 3) = v38;
+        if (v38 > *(v2 + 17))
         {
-          sub_272B5C86C();
-          OUTLINED_FUNCTION_177();
-          v36 = 3;
+          v39 = sub_272B5C86C();
+          OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v39);
+          v41 = 3;
 LABEL_33:
-          OUTLINED_FUNCTION_0_5(v35, v36);
+          OUTLINED_FUNCTION_0_5(v40, v41);
           goto LABEL_17;
         }
 
-        v37 = *(v2 + 4);
-        v33 = __OFADD__(v37, 1);
-        v38 = v37 + 1;
-        if (!v33)
+        v42 = *(v2 + 4);
+        v37 = __OFADD__(v42, 1);
+        v43 = v42 + 1;
+        if (!v37)
         {
-          *(v2 + 4) = v38;
-          if (v38 <= *(v2 + 18))
+          *(v2 + 4) = v43;
+          if (v43 <= *(v2 + 18))
           {
             *a2 = position;
-            a2[1] = v18;
-            a2[2] = v29;
+            a2[1] = v19;
+            a2[2] = v32;
             memcpy(__dst, v2, 0x4DuLL);
             memcpy(a2 + 3, v2, 0x4DuLL);
-            sub_272B51B58(__dst, &v39);
+            sub_272B51B58(__dst, &v45);
             return;
           }
 
-          sub_272B5C86C();
-          OUTLINED_FUNCTION_177();
-          v36 = 4;
+          v44 = sub_272B5C86C();
+          OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v44);
+          v41 = 4;
           goto LABEL_33;
         }
 
@@ -1112,18 +635,17 @@ LABEL_37:
 
 uint64_t ByteBuffer.init(data:)(uint64_t a1, unint64_t a2)
 {
-  v8 = a1;
-  v9 = a2;
+  v7 = a1;
+  v8 = a2;
   sub_272B5226C(a1, a2);
   v4 = MEMORY[0x2743D49D0](a1, a2);
   type metadata accessor for ByteBuffer.Storage();
   OUTLINED_FUNCTION_0_6();
   v5 = swift_allocObject();
-  ByteBuffer.Storage.init(count:alignment:)(v4);
-  v10[0] = v5;
-  v6 = *(v5 + 32);
-  sub_272B52318(&v8, v10, a1, a2);
-  sub_272B52DF8(v8, v9);
+  ByteBuffer.Storage.init(count:alignment:)(v4, 1);
+  v9[0] = v5;
+  sub_272B52318(&v7, v9, a1, a2);
+  sub_272B52DF8(v7, v8);
   return v5;
 }
 
@@ -1469,157 +991,156 @@ LABEL_74:
   }
 }
 
-uint64_t sub_272B5226C(uint64_t a1, unint64_t a2)
+void sub_272B5226C(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
 
-uint64_t sub_272B52318(uint64_t *a1, uint64_t *a2, uint64_t a3, unint64_t a4)
+uint64_t sub_272B52318(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v4 = a1[1];
   switch(v4 >> 62)
   {
     case 1uLL:
-      v37 = v4 & 0x3FFFFFFFFFFFFFFFLL;
-      v38 = OUTLINED_FUNCTION_0_2();
+      v33 = v4 & 0x3FFFFFFFFFFFFFFFLL;
+      v34 = OUTLINED_FUNCTION_0_2();
+      sub_272B5226C(v34, v35);
+      v36 = OUTLINED_FUNCTION_0_2();
+      sub_272B5226C(v36, v37);
+      v38 = OUTLINED_FUNCTION_264();
       sub_272B5226C(v38, v39);
-      v40 = OUTLINED_FUNCTION_0_2();
-      sub_272B5226C(v40, v41);
-      v42 = OUTLINED_FUNCTION_264();
-      sub_272B5226C(v42, v43);
-      v44 = OUTLINED_FUNCTION_264();
-      sub_272B52DF8(v44, v45);
+      v40 = OUTLINED_FUNCTION_264();
+      sub_272B52DF8(v40, v41);
       *a1 = xmmword_272B89C20;
       sub_272B52DF8(0, 0xC000000000000000);
-      v46 = v5 >> 32;
+      v42 = v5 >> 32;
       if (swift_isUniquelyReferenced_nonNull_native())
       {
         goto LABEL_28;
       }
 
-      if (v46 < v5)
-      {
-        goto LABEL_42;
-      }
-
-      if (sub_272B875E0() && __OFSUB__(v5, sub_272B87600()))
-      {
-        goto LABEL_43;
-      }
-
-      v70 = sub_272B87610();
-      v71 = *(v70 + 48);
-      v72 = *(v70 + 52);
-      swift_allocObject();
-      v73 = sub_272B875D0();
-
-      v37 = v73;
-LABEL_28:
-      if (v46 < v5)
-      {
-        goto LABEL_40;
-      }
-
-      v74 = OUTLINED_FUNCTION_0_2();
-      sub_272B5226C(v74, v75);
-
-      v76 = sub_272B875E0();
-      if (!v76)
-      {
-        goto LABEL_53;
-      }
-
-      v77 = v76;
-      v78 = sub_272B87600();
-      v79 = v5 - v78;
-      if (__OFSUB__(v5, v78))
+      if (v42 < v5)
       {
         goto LABEL_41;
       }
 
+      if (sub_272B875E0() && __OFSUB__(v5, sub_272B87600()))
+      {
+        goto LABEL_42;
+      }
+
+      sub_272B87610();
+      swift_allocObject();
+      v66 = sub_272B875D0();
+
+      v33 = v66;
+LABEL_28:
+      if (v42 < v5)
+      {
+        goto LABEL_39;
+      }
+
+      v67 = OUTLINED_FUNCTION_0_2();
+      sub_272B5226C(v67, v68);
+
+      v69 = sub_272B875E0();
+      if (!v69)
+      {
+        goto LABEL_52;
+      }
+
+      v70 = v69;
+      v71 = sub_272B87600();
+      v72 = v5 - v71;
+      if (__OFSUB__(v5, v71))
+      {
+        goto LABEL_40;
+      }
+
       sub_272B875F0();
-      v80 = *a2;
-      v81 = 0;
+      v73 = 0;
       switch(a4 >> 62)
       {
         case 1uLL:
           OUTLINED_FUNCTION_4_0();
-          if (v31)
+          if (v29)
           {
-            goto LABEL_50;
+            goto LABEL_49;
           }
 
-          v81 = v82;
+          v73 = v74;
 LABEL_36:
-          ByteBuffer.Storage.copy(from:count:)((v77 + v79), v81);
-          v83 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v83, v84);
+          ByteBuffer.Storage.copy(from:count:)((v70 + v72), v73);
+          v75 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v75, v76);
 
-          v85 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v85, v86);
-          v87 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v87, v88);
-          v89 = OUTLINED_FUNCTION_0_2();
-          result = sub_272B52DF8(v89, v90);
-          v69 = v37 | 0x4000000000000000;
+          v77 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v77, v78);
+          v79 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v79, v80);
+          v81 = OUTLINED_FUNCTION_0_2();
+          result = sub_272B52DF8(v81, v82);
+          v65 = v33 | 0x4000000000000000;
           *a1 = v5;
           break;
         case 2uLL:
           OUTLINED_FUNCTION_3_1();
-          if (!v31)
+          if (!v29)
           {
             goto LABEL_36;
           }
 
-          goto LABEL_51;
+          goto LABEL_50;
         case 3uLL:
           goto LABEL_36;
         default:
-          v81 = BYTE6(a4);
+          v73 = BYTE6(a4);
           goto LABEL_36;
       }
 
       break;
     case 2uLL:
+      v15 = OUTLINED_FUNCTION_0_2();
+      sub_272B5226C(v15, v16);
       v17 = OUTLINED_FUNCTION_0_2();
       sub_272B5226C(v17, v18);
-      v19 = OUTLINED_FUNCTION_0_2();
+      v19 = OUTLINED_FUNCTION_264();
       sub_272B5226C(v19, v20);
       v21 = OUTLINED_FUNCTION_264();
-      sub_272B5226C(v21, v22);
-      v23 = OUTLINED_FUNCTION_264();
-      sub_272B52DF8(v23, v24);
+      sub_272B52DF8(v21, v22);
       *&__src = v5;
       *(&__src + 1) = v4 & 0x3FFFFFFFFFFFFFFFLL;
       *a1 = xmmword_272B89C20;
       sub_272B52DF8(0, 0xC000000000000000);
       sub_272B87640();
-      v25 = *(__src + 16);
-      v26 = OUTLINED_FUNCTION_0_2();
-      sub_272B5226C(v26, v27);
-      v28 = sub_272B875E0();
-      if (!v28)
+      v23 = *(__src + 16);
+      v24 = OUTLINED_FUNCTION_0_2();
+      sub_272B5226C(v24, v25);
+      v26 = sub_272B875E0();
+      if (!v26)
       {
         __break(1u);
-LABEL_53:
+LABEL_52:
         __break(1u);
         JUMPOUT(0x272B52860);
       }
 
-      v29 = v28;
-      v30 = sub_272B87600();
-      v31 = __OFSUB__(v25, v30);
-      v32 = v25 - v30;
-      if (v31)
+      v27 = v26;
+      v28 = sub_272B87600();
+      v29 = __OFSUB__(v23, v28);
+      v30 = v23 - v28;
+      if (v29)
       {
+        __break(1u);
+LABEL_39:
         __break(1u);
 LABEL_40:
         __break(1u);
@@ -1643,48 +1164,45 @@ LABEL_49:
         __break(1u);
 LABEL_50:
         __break(1u);
-LABEL_51:
-        __break(1u);
       }
 
       sub_272B875F0();
-      v33 = *a2;
-      v34 = 0;
+      v31 = 0;
       switch(a4 >> 62)
       {
         case 1uLL:
           OUTLINED_FUNCTION_4_0();
-          if (v31)
+          if (v29)
           {
-            goto LABEL_48;
+            goto LABEL_47;
           }
 
-          v34 = v60;
+          v31 = v56;
 LABEL_26:
-          ByteBuffer.Storage.copy(from:count:)((v29 + v32), v34);
+          ByteBuffer.Storage.copy(from:count:)((v27 + v30), v31);
+          v57 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v57, v58);
+          v59 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v59, v60);
           v61 = OUTLINED_FUNCTION_0_2();
           sub_272B52DF8(v61, v62);
           v63 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v63, v64);
-          v65 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v65, v66);
-          v67 = OUTLINED_FUNCTION_0_2();
-          result = sub_272B52DF8(v67, v68);
-          v69 = *(&__src + 1) | 0x8000000000000000;
+          result = sub_272B52DF8(v63, v64);
+          v65 = *(&__src + 1) | 0x8000000000000000;
           *a1 = __src;
           break;
         case 2uLL:
           OUTLINED_FUNCTION_3_1();
-          if (!v31)
+          if (!v29)
           {
             goto LABEL_26;
           }
 
-          goto LABEL_49;
+          goto LABEL_48;
         case 3uLL:
           goto LABEL_26;
         default:
-          v34 = BYTE6(a4);
+          v31 = BYTE6(a4);
           goto LABEL_26;
       }
 
@@ -1692,39 +1210,38 @@ LABEL_26:
     case 3uLL:
       *(&__src + 7) = 0;
       *&__src = 0;
-      v35 = *a2;
-      v36 = 0;
+      v32 = 0;
       switch(a4 >> 62)
       {
         case 1uLL:
           OUTLINED_FUNCTION_4_0();
-          if (v31)
+          if (v29)
           {
-            goto LABEL_44;
+            goto LABEL_43;
           }
 
-          v36 = v47;
+          v32 = v43;
 LABEL_20:
-          ByteBuffer.Storage.copy(from:count:)(&__src, v36);
-          v49 = OUTLINED_FUNCTION_0_2();
-          result = sub_272B52DF8(v49, v50);
+          ByteBuffer.Storage.copy(from:count:)(&__src, v32);
+          v45 = OUTLINED_FUNCTION_0_2();
+          result = sub_272B52DF8(v45, v46);
           break;
         case 2uLL:
           OUTLINED_FUNCTION_3_1();
-          if (!v31)
+          if (!v29)
           {
             goto LABEL_20;
           }
 
-          goto LABEL_46;
+          goto LABEL_45;
         case 3uLL:
           goto LABEL_20;
         default:
-          v36 = BYTE6(a4);
+          v32 = BYTE6(a4);
           goto LABEL_20;
       }
 
-      goto LABEL_38;
+      return result;
     default:
       v8 = OUTLINED_FUNCTION_0_2();
       sub_272B5226C(v8, v9);
@@ -1739,52 +1256,49 @@ LABEL_20:
       BYTE12(__src) = BYTE4(v4);
       BYTE13(__src) = BYTE5(v4);
       BYTE14(__src) = BYTE6(v4);
-      v14 = *a2;
-      v15 = 0;
+      v14 = 0;
       switch(a4 >> 62)
       {
         case 1uLL:
           OUTLINED_FUNCTION_4_0();
-          if (v31)
+          if (v29)
           {
-            goto LABEL_45;
+            goto LABEL_44;
           }
 
-          v15 = v48;
+          v14 = v44;
 LABEL_22:
-          ByteBuffer.Storage.copy(from:count:)(&__src, v15);
-          v52 = __src;
-          v53 = DWORD2(__src) | ((WORD6(__src) | (BYTE14(__src) << 16)) << 32);
+          ByteBuffer.Storage.copy(from:count:)(&__src, v14);
+          v48 = __src;
+          v49 = DWORD2(__src) | ((WORD6(__src) | (BYTE14(__src) << 16)) << 32);
+          v50 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v50, v51);
+          v52 = OUTLINED_FUNCTION_0_2();
+          sub_272B52DF8(v52, v53);
           v54 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v54, v55);
-          v56 = OUTLINED_FUNCTION_0_2();
-          sub_272B52DF8(v56, v57);
-          v58 = OUTLINED_FUNCTION_0_2();
-          result = sub_272B52DF8(v58, v59);
-          *a1 = v52;
-          a1[1] = v53;
+          result = sub_272B52DF8(v54, v55);
+          *a1 = v48;
+          a1[1] = v49;
           break;
         case 2uLL:
           OUTLINED_FUNCTION_3_1();
-          if (!v31)
+          if (!v29)
           {
             goto LABEL_22;
           }
 
-          goto LABEL_47;
+          goto LABEL_46;
         case 3uLL:
           goto LABEL_22;
         default:
-          v15 = BYTE6(a4);
+          v14 = BYTE6(a4);
           goto LABEL_22;
       }
 
-      goto LABEL_38;
+      return result;
   }
 
-  a1[1] = v69;
-LABEL_38:
-  v91 = *MEMORY[0x277D85DE8];
+  a1[1] = v65;
   return result;
 }
 
@@ -1986,15 +1500,15 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v4 = *(*(v2 + 40) + 32);
   if ((v4 & 0x8000000000000000) != 0 || v4 < v3)
   {
-    v9 = *(v2 + 8);
-    sub_272B5C86C();
-    OUTLINED_FUNCTION_177();
-    *v7 = v3;
-    *(v7 + 8) = v9;
-    *(v7 + 16) = v10;
-    *(v7 + 32) = v11;
-    *(v7 + 48) = v12;
-    v8 = 1;
+    v10 = *(v2 + 8);
+    v11 = sub_272B5C86C();
+    OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v11);
+    *v8 = v3;
+    *(v8 + 8) = v10;
+    *(v8 + 16) = v12;
+    *(v8 + 32) = v13;
+    *(v8 + 48) = v14;
+    v9 = 1;
     goto LABEL_11;
   }
 
@@ -2018,21 +1532,21 @@ LABEL_14:
     return;
   }
 
-  sub_272B5C86C();
-  OUTLINED_FUNCTION_177();
-  OUTLINED_FUNCTION_0_5(v6, 6);
+  v6 = sub_272B5C86C();
+  OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v6);
+  OUTLINED_FUNCTION_0_5(v7, 6);
 LABEL_11:
-  *(v7 + 64) = v8;
+  *(v8 + 64) = v9;
   swift_willThrow();
 }
 
-uint64_t sub_272B52DF8(uint64_t a1, unint64_t a2)
+uint64_t sub_272B52DF8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -2052,14 +1566,14 @@ void sub_272B52E68(Swift::Int position)
 {
   if (*v1 == 1 && (OUTLINED_FUNCTION_3_4(), ((v3 + position) & 1) != 0))
   {
-    *&v14 = MEMORY[0x277D84C58];
+    *&v15 = MEMORY[0x277D84C58];
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
     v4 = sub_272B87730();
-    sub_272B5C86C();
-    v5 = OUTLINED_FUNCTION_177();
-    *v6 = position;
-    v6[1] = v4;
-    OUTLINED_FUNCTION_1_4(v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16);
+    v5 = sub_272B5C86C();
+    v6 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v5);
+    *v7 = position;
+    v7[1] = v4;
+    OUTLINED_FUNCTION_1_4(v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17);
   }
 
   else
@@ -2072,41 +1586,41 @@ void static ForwardOffset.verify<A>(_:at:of:)(uint64_t a1, Swift::Int position, 
 {
   if (*a1 == 1 && ((*(*(a1 + 40) + 24) + position) & 3) != 0)
   {
-    v17.n128_u64[0] = MEMORY[0x277D84CC0];
+    v18.n128_u64[0] = MEMORY[0x277D84CC0];
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
     v10 = sub_272B87730();
     v12 = v11;
-    sub_272B5C86C();
-    OUTLINED_FUNCTION_177();
-    *v13 = position;
-    v13[1] = v10;
-    v13[2] = v12;
-    OUTLINED_FUNCTION_21(v13, v19, v18, v17);
+    v13 = sub_272B5C86C();
+    OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v13);
+    *v14 = position;
+    v14[1] = v10;
+    v14[2] = v12;
+    OUTLINED_FUNCTION_21(v14, v20, v19, v18);
     swift_willThrow();
   }
 
   else
   {
     Verifier.rangeInBuffer(position:size:)(position, 4);
-    if (!v14)
+    if (!v15)
     {
-      v15 = *(*(*(a1 + 40) + 24) + position) + position;
-      if (v15 < 0)
+      v16 = *(*(*(a1 + 40) + 24) + position) + position;
+      if (v16 < 0)
       {
-        v15 = -v15;
+        v16 = -v16;
       }
 
-      if (v15 >= 0x7FFFFFFFFFFFFFFFLL)
+      if (v16 >= 0x7FFFFFFFFFFFFFFFLL)
       {
-        v16 = 0x7FFFFFFFFFFFFFFFLL;
+        v17 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v16 = v15;
+        v17 = v16;
       }
 
-      (*(a6 + 8))(a1, v16, a4, a4, a6, a4, a6);
+      (*(a6 + 8))(a1, v17, a4, a4, a6, a4, a6);
     }
   }
 }
@@ -2366,7 +1880,7 @@ LABEL_86:
                                               sub_272B56000(48, 0x696C696269736976, 0xEA00000000007974, 0);
                                               if (!v3)
                                               {
-                                                sub_272B56308(0x32u, 0x65726944646E6977, 0xED00006E6F697463, 0);
+                                                sub_272B56308(50, 0x65726944646E6977, 0xED00006E6F697463, 0);
                                                 sub_272B56000(52, 0x74737547646E6977, 0xE800000000000000, 0);
                                                 sub_272B56000(54, 0x65657053646E6977, 0xE900000000000064, 0);
                                                 if (__OFSUB__(__src[7], 1))
@@ -2495,14 +2009,13 @@ LABEL_16:
   __break(1u);
 }
 
-uint64_t OUTLINED_FUNCTION_183()
+uint64_t OUTLINED_FUNCTION_183(uint64_t a1)
 {
-  v3 = *(v0 + 8);
 }
 
 void static WK2_Weather.verify<A>(_:at:of:)(int a1, unint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  OUTLINED_FUNCTION_92(a1, a2, a3, a4, a5, a6, a7, a8, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104);
+  OUTLINED_FUNCTION_92(a1, a2, a3, a4, a5, a6, a7, a8, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103);
   if (!v8)
   {
     OUTLINED_FUNCTION_153();
@@ -2566,8 +2079,8 @@ void static WK2_Weather.verify<A>(_:at:of:)(int a1, unint64_t a2, int a3, int a4
 
     else
     {
-      v105 = v89;
-      OUTLINED_FUNCTION_93(v81, v82, v83, v84, v85, v86, v87, v88, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104);
+      v104 = v89;
+      OUTLINED_FUNCTION_93(v81, v82, v83, v84, v85, v86, v87, v88, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103);
       sub_272B522C4(&v91);
     }
   }
@@ -2779,50 +2292,50 @@ Swift::Int sub_272B543C0(Swift::Int a1, Swift::Int position)
   v3 = position;
   if (*a1 == 1 && ((*(*(a1 + 40) + 24) + position) & 3) != 0)
   {
-    *&v21 = MEMORY[0x277D84CC0];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
-    OUTLINED_FUNCTION_199();
-    OUTLINED_FUNCTION_185();
-    v5 = OUTLINED_FUNCTION_177();
-    *v6 = v3;
-    v6[1] = a1;
-    v6[2] = v2;
-    OUTLINED_FUNCTION_18_1(v5, v6, v7, v8, v9, v10, v11, v12, v20, v21, v13, v22);
-    OUTLINED_FUNCTION_184(v14, v15);
+    *&v26 = MEMORY[0x277D84CC0];
+    v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
+    OUTLINED_FUNCTION_199(v5, v6);
+    v7 = OUTLINED_FUNCTION_185();
+    v8 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v7);
+    *v9 = v3;
+    v9[1] = a1;
+    v9[2] = v2;
+    v18 = OUTLINED_FUNCTION_18_1(v8, v9, v10, v11, v12, v13, v14, v15, v16, v25, v26, v17, v27);
+    OUTLINED_FUNCTION_184(v18, v19, v20);
   }
 
   else
   {
     Verifier.rangeInBuffer(position:size:)(position, 4);
-    if (!v16)
+    if (!v21)
     {
-      v17 = *(*(*(a1 + 40) + 24) + v3);
-      v18 = v3 + 4;
+      v22 = *(*(*(a1 + 40) + 24) + v3);
+      v23 = v3 + 4;
       if (v3 + 4 < 0)
       {
-        v18 = -4 - v3;
+        v23 = -4 - v3;
       }
 
-      if (v18 >= 0x7FFFFFFFFFFFFFFFLL)
+      if (v23 >= 0x7FFFFFFFFFFFFFFFLL)
       {
         v3 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v3 = v18;
+        v3 = v23;
       }
 
-      Verifier.rangeInBuffer(position:size:)(v3, v17);
+      Verifier.rangeInBuffer(position:size:)(v3, v22);
     }
   }
 
   return v3;
 }
 
-uint64_t OUTLINED_FUNCTION_184(uint64_t a1, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_184(__n128 a1, uint64_t a2, uint64_t a3)
 {
-  *(a2 + 64) = 0;
+  *(a3 + 64) = 0;
 
   return swift_willThrow();
 }
@@ -2831,72 +2344,71 @@ Swift::Int sub_272B54784(Swift::Int a1, Swift::Int a2)
 {
   v5 = sub_272B87720();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v31 - v11;
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v30 - v10;
   result = sub_272B543C0(a1, a2);
   if (!v2)
   {
-    v15 = result;
-    v16 = v14;
-    v34 = v6;
-    v17 = result + v14;
-    v18 = *(a1 + 8);
-    if (result + v14 >= v18)
+    v14 = result;
+    v15 = v13;
+    v33 = v6;
+    v16 = result + v13;
+    v17 = *(a1 + 8);
+    if (result + v13 >= v17)
     {
-      if (v17 >= 0)
+      if (v16 >= 0)
       {
-        v28 = result + v14;
+        v27 = result + v13;
       }
 
       else
       {
-        v28 = -v17;
+        v27 = -v16;
       }
 
       sub_272B5C86C();
       swift_allocError();
-      *v24 = v28;
-      *(v24 + 8) = v18;
-      v30 = v32;
-      v29 = v33;
-      *(v24 + 16) = v31;
-      *(v24 + 32) = v30;
-      *(v24 + 48) = v29;
-      v27 = 1;
+      *v23 = v27;
+      *(v23 + 8) = v17;
+      v29 = v31;
+      v28 = v32;
+      *(v23 + 16) = v30;
+      *(v23 + 32) = v29;
+      *(v23 + 48) = v28;
+      v26 = 1;
       goto LABEL_10;
     }
 
     if ((*(a1 + 76) & 1) == 0)
     {
-      v19 = *(a1 + 40);
-      if (*(*(v19 + 24) + v17))
+      v18 = *(a1 + 40);
+      if (*(*(v18 + 24) + v16))
       {
         sub_272B87710();
-        *&v31 = sub_272B51468((*(v19 + 24) + v15), v16);
-        v20 = v34;
-        (*(v34 + 16))(v10, v12, v5);
+        *&v30 = sub_272B51468((*(v18 + 24) + v14), v15);
+        v19 = v33;
+        (*(v33 + 16))(v9, v11, v5);
         __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3210, &qword_272B89868);
         sub_272B549E8();
-        v21 = sub_272B87700();
-        v23 = v22;
-        (*(v20 + 8))(v12, v5);
+        v20 = sub_272B87700();
+        v22 = v21;
+        (*(v19 + 8))(v11, v5);
 
         sub_272B5C86C();
         swift_allocError();
-        *v24 = a2;
-        *(v24 + 8) = v21;
-        *(v24 + 16) = v23;
-        v25 = v33;
-        v26 = v32;
-        *(v24 + 24) = v31;
-        *(v24 + 40) = v26;
-        *(v24 + 56) = v25;
-        v27 = 4;
+        *v23 = a2;
+        *(v23 + 8) = v20;
+        *(v23 + 16) = v22;
+        v24 = v32;
+        v25 = v31;
+        *(v23 + 24) = v30;
+        *(v23 + 40) = v25;
+        *(v23 + 56) = v24;
+        v26 = 4;
 LABEL_10:
-        *(v24 + 64) = v27;
+        *(v23 + 64) = v26;
         return swift_willThrow();
       }
     }
@@ -2923,37 +2435,36 @@ Swift::String_optional __swiftcall Table.directString(at:)(Swift::Int32 at)
   v2 = v1;
   v4 = sub_272B87720();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
-  v13 = v22 - v12;
-  v14 = *(v2 + 24);
-  v15 = *(v14 + at);
-  v16 = at + v15;
-  if (__OFADD__(at, v15))
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v12 = v21 - v11;
+  v13 = *(v2 + 24);
+  v14 = *(v13 + at);
+  v15 = at + v14;
+  if (__OFADD__(at, v14))
   {
     __break(1u);
   }
 
   else
   {
-    v17 = *(v14 + v16);
+    v16 = *(v13 + v15);
     sub_272B87710();
-    v22[1] = sub_272B51468((*(v2 + 24) + v16 + 4), v17);
-    (*(v5 + 16))(v9, v13, v4);
+    v21[1] = sub_272B51468((*(v2 + 24) + v15 + 4), v16);
+    (*(v5 + 16))(v8, v12, v4);
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3210, &qword_272B89868);
     sub_272B549E8();
-    v18 = sub_272B87700();
-    v20 = v19;
-    (*(v5 + 8))(v13, v4);
+    v17 = sub_272B87700();
+    v19 = v18;
+    (*(v5 + 8))(v12, v4);
 
-    v10 = v18;
-    v11 = v20;
+    v9 = v17;
+    v10 = v19;
   }
 
-  result.value._object = v11;
-  result.value._countAndFlagsBits = v10;
+  result.value._object = v10;
+  result.value._countAndFlagsBits = v9;
   return result;
 }
 
@@ -2997,16 +2508,16 @@ LABEL_9:
     if ((v13 & 0x8000000000000000) != 0 || v13 < v10)
     {
       v17 = *(a1 + 8);
-      sub_272B5C86C();
-      OUTLINED_FUNCTION_177();
-      *v18 = v10;
-      *(v18 + 8) = v17;
-      *(v18 + 16) = v32;
-      *(v18 + 32) = v33;
-      *(v18 + 48) = v34;
-      v19 = 1;
+      v18 = sub_272B5C86C();
+      OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v18);
+      *v19 = v10;
+      *(v19 + 8) = v17;
+      *(v19 + 16) = v44;
+      *(v19 + 32) = v45;
+      *(v19 + 48) = v46;
+      v20 = 1;
 LABEL_23:
-      *(v18 + 64) = v19;
+      *(v19 + 64) = v20;
       return swift_willThrow();
     }
 
@@ -3014,9 +2525,9 @@ LABEL_23:
     *(a1 + 16) = v14;
     if (*(a1 + 64) < v14)
     {
-      sub_272B5C86C();
-      v20 = OUTLINED_FUNCTION_177();
-      OUTLINED_FUNCTION_167(v20, v21);
+      v21 = sub_272B5C86C();
+      v22 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v21);
+      OUTLINED_FUNCTION_167(v22, v23);
       goto LABEL_23;
     }
 
@@ -3056,14 +2567,14 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  *&v32 = MEMORY[0x277D84CC0];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
-  v22 = OUTLINED_FUNCTION_195();
-  sub_272B5C86C();
-  v23 = OUTLINED_FUNCTION_177();
-  *v24 = v8;
-  v24[1] = v22;
-  OUTLINED_FUNCTION_9_0(v23, v24, v25, v26, v27, v28, v29, v30, v32, v31, v33);
+  *&v44 = MEMORY[0x277D84CC0];
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
+  v32 = OUTLINED_FUNCTION_195(v24, v25, v26, v27, v28, v29, v30, v31, v44);
+  v33 = sub_272B5C86C();
+  v34 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v33);
+  *v35 = v8;
+  v35[1] = v32;
+  OUTLINED_FUNCTION_9_0(v34, v35, v36, v37, v38, v39, v40, v41, v42, v44, v43, v45);
   return swift_willThrow();
 }
 
@@ -3072,60 +2583,60 @@ Swift::Int sub_272B54DD0(unsigned __int8 *a1, Swift::Int position)
   v5 = *a1;
   if (v5 == 1 && ((*(*(a1 + 5) + 24) + position) & 3) != 0)
   {
-    *&v27 = MEMORY[0x277D84CC0];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
-    OUTLINED_FUNCTION_199();
-    OUTLINED_FUNCTION_185();
-    v6 = OUTLINED_FUNCTION_177();
-    OUTLINED_FUNCTION_54(v6, v7);
+    *&v35 = MEMORY[0x277D84CC0];
+    v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
+    OUTLINED_FUNCTION_199(v6, v7);
+    v8 = OUTLINED_FUNCTION_185();
+    v9 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v8);
+    OUTLINED_FUNCTION_54(v9, v10);
 LABEL_15:
-    OUTLINED_FUNCTION_18_1(v8, v9, v10, v11, v12, v13, v14, v15, v26, v27, v16, v28);
-    OUTLINED_FUNCTION_184(v23, v24);
+    v30 = OUTLINED_FUNCTION_18_1(v11, v12, v13, v14, v15, v16, v17, v18, v19, v34, v35, v20, v36);
+    OUTLINED_FUNCTION_184(v30, v31, v32);
     return v2;
   }
 
   Verifier.rangeInBuffer(position:size:)(position, 4);
-  if (!v17)
+  if (!v21)
   {
-    v18 = *(*(a1 + 5) + 24);
-    v19 = position + 4;
+    v22 = *(*(a1 + 5) + 24);
+    v23 = position + 4;
     if (position + 4 < 0)
     {
-      v19 = -4 - position;
+      v23 = -4 - position;
     }
 
-    if (v19 >= 0x7FFFFFFFFFFFFFFFLL)
+    if (v23 >= 0x7FFFFFFFFFFFFFFFLL)
     {
       v2 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v2 = v19;
+      v2 = v23;
     }
 
-    if (((v18 + v2) & 3) != 0)
+    if (((v22 + v2) & 3) != 0)
     {
-      v20 = v5;
+      v24 = v5;
     }
 
     else
     {
-      v20 = 0;
+      v24 = 0;
     }
 
-    if (v20 != 1)
+    if (v24 != 1)
     {
-      Verifier.rangeInBuffer(position:size:)(v2, *(v18 + position));
+      Verifier.rangeInBuffer(position:size:)(v2, *(v22 + position));
       return v2;
     }
 
-    *&v27 = MEMORY[0x277D84CC0];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
-    OUTLINED_FUNCTION_199();
-    OUTLINED_FUNCTION_204();
-    v21 = OUTLINED_FUNCTION_177();
-    OUTLINED_FUNCTION_224(v21, v22);
+    *&v35 = MEMORY[0x277D84CC0];
+    v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3170, &unk_272B89910);
+    OUTLINED_FUNCTION_199(v25, v26);
+    v27 = OUTLINED_FUNCTION_204();
+    v28 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v27);
+    OUTLINED_FUNCTION_224(v28, v29);
     goto LABEL_15;
   }
 
@@ -3544,7 +3055,7 @@ LABEL_74:
           sub_272B56000(72, 0xD000000000000013, 0x8000000272B8B810, 0);
           sub_272B561D4(74, 0x7865646E497675, 0xE700000000000000, 0);
           sub_272B56000(76, 0x696C696269736976, 0xEA00000000007974, 0);
-          sub_272B56308(0x4Eu, 0x65726944646E6977, 0xED00006E6F697463, 0);
+          sub_272B56308(78, 0x65726944646E6977, 0xED00006E6F697463, 0);
           sub_272B56000(80, 0x74737547646E6977, 0xE800000000000000, 0);
           sub_272B56000(82, 0x65657053646E6977, 0xE900000000000064, 0);
           if (__OFSUB__(__src[7], 1))
@@ -3602,14 +3113,14 @@ void sub_272B55F28(Swift::Int position)
 {
   if (*v1 == 1 && (OUTLINED_FUNCTION_3_4(), ((v6 + position) & 3) != 0))
   {
-    *&v17 = v3;
+    *&v18 = v3;
     __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
     v7 = sub_272B87730();
-    sub_272B5C86C();
-    v8 = OUTLINED_FUNCTION_177();
-    *v9 = position;
-    v9[1] = v7;
-    OUTLINED_FUNCTION_1_4(v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
+    v8 = sub_272B5C86C();
+    v9 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v8);
+    *v10 = position;
+    v10[1] = v7;
+    OUTLINED_FUNCTION_1_4(v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
   else
@@ -3632,11 +3143,11 @@ void sub_272B56000(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
     OUTLINED_FUNCTION_273();
     if ((v17 + v16))
     {
-      v28.n128_u64[0] = MEMORY[0x277D84C58];
+      v30.n128_u64[0] = MEMORY[0x277D84C58];
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
       sub_272B87730();
-      OUTLINED_FUNCTION_204();
-      OUTLINED_FUNCTION_177();
+      v26 = OUTLINED_FUNCTION_204();
+      OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v26);
       *v22 = v16;
       v22[1] = v4;
       v22[2] = v6;
@@ -3644,9 +3155,9 @@ void sub_272B56000(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
     }
   }
 
-  v25 = v10;
-  v26 = v11;
-  v27 = v12;
+  v27 = v10;
+  v28 = v11;
+  v29 = v12;
   OUTLINED_FUNCTION_173(v16);
   if (v5)
   {
@@ -3658,31 +3169,30 @@ void sub_272B56000(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 LABEL_8:
     if (a4)
     {
-      sub_272B5C86C();
-      OUTLINED_FUNCTION_177();
-      *v23 = v8;
-      OUTLINED_FUNCTION_180(v23, v31);
-      *(v24 + 8) = v7;
-      *(v24 + 16) = v6;
-      OUTLINED_FUNCTION_37(v24, v30, v29, v28);
+      v23 = sub_272B5C86C();
+      OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v23);
+      *v24 = v8;
+      OUTLINED_FUNCTION_180(v24, v33);
+      *(v25 + 8) = v7;
+      *(v25 + 16) = v6;
+      OUTLINED_FUNCTION_37(v25, v32, v31, v30);
       swift_willThrow();
     }
   }
 
   else
   {
-    v18 = *v4;
     OUTLINED_FUNCTION_31();
-    if (v19 == 1)
+    if (v18 == 1)
     {
-      v28.n128_u64[0] = v25;
-      __swift_instantiateConcreteTypeFromMangledNameV2(v26, v27);
+      v30.n128_u64[0] = v27;
+      __swift_instantiateConcreteTypeFromMangledNameV2(v28, v29);
       sub_272B87730();
-      OUTLINED_FUNCTION_185();
-      v20 = OUTLINED_FUNCTION_177();
+      v19 = OUTLINED_FUNCTION_185();
+      v20 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v19);
       OUTLINED_FUNCTION_54(v20, v21);
 LABEL_11:
-      OUTLINED_FUNCTION_21(v22, v30, v29, v28);
+      OUTLINED_FUNCTION_21(v22, v32, v31, v30);
       swift_willThrow();
       return;
     }
@@ -3702,13 +3212,13 @@ void sub_272B561D4(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
       OUTLINED_FUNCTION_273();
       if ((v14 + v8))
       {
-        *&v38 = MEMORY[0x277D84C58];
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
-        OUTLINED_FUNCTION_195();
-        OUTLINED_FUNCTION_204();
-        v27 = OUTLINED_FUNCTION_177();
-        OUTLINED_FUNCTION_126(v27, v28);
-        OUTLINED_FUNCTION_11(v29, v30, v31, v32, v33, v34, v35, v36, v38, v37, v39);
+        *&v50 = MEMORY[0x277D84C58];
+        v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808A3160, &unk_272B87CC0);
+        OUTLINED_FUNCTION_195(v29, v30, v31, v32, v33, v34, v35, v36, v50);
+        v37 = OUTLINED_FUNCTION_204();
+        v38 = OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v37);
+        OUTLINED_FUNCTION_126(v38, v39);
+        OUTLINED_FUNCTION_11(v40, v41, v42, v43, v44, v45, v46, v47, v48, v50, v49, v51);
         swift_willThrow();
         return;
       }
@@ -3729,19 +3239,20 @@ void sub_272B561D4(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 
   if (a4)
   {
-    sub_272B5C86C();
-    OUTLINED_FUNCTION_177();
-    *v15 = v7;
-    OUTLINED_FUNCTION_180(v15, v40);
-    *(v16 + 8) = v6;
-    *(v16 + 16) = v5;
-    OUTLINED_FUNCTION_17(v17, v16, v18, v19, v20, v21, v22, v23, v38, v24, v39);
-    OUTLINED_FUNCTION_157(v25, v26);
+    v15 = sub_272B5C86C();
+    OUTLINED_FUNCTION_177(&type metadata for FlatbuffersErrors, v15);
+    *v16 = v7;
+    OUTLINED_FUNCTION_180(v16, v52);
+    *(v17 + 8) = v6;
+    *(v17 + 16) = v5;
+    OUTLINED_FUNCTION_17(v18, v17, v19, v20, v21, v22, v23, v24, v25, v50, v26, v51);
+    OUTLINED_FUNCTION_157(v27, v28);
   }
 }
 
-void sub_272B56308(unsigned __int16 a1, uint64_t a2, uint64_t a3, char a4)
+void sub_272B56308(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
+  v8 = a1;
   if (*(v4 + 16) <= a1)
   {
     goto LABEL_8;
@@ -3804,7 +3315,7 @@ LABEL_8:
     {
       sub_272B5C86C();
       swift_allocError();
-      *v19 = a1;
+      *v19 = v8;
       *(v19 + 6) = v27;
       *(v19 + 2) = v26;
       *(v19 + 8) = a2;
@@ -4047,46 +3558,46 @@ LABEL_47:
 void WK2_DayWeatherConditions.restOfDayForecast.getter()
 {
   OUTLINED_FUNCTION_14();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  OUTLINED_FUNCTION_132(v0);
-  if (v5 < 0x4B)
+  OUTLINED_FUNCTION_132();
+  if (v4 < 0x4B)
   {
 LABEL_8:
     v8 = OUTLINED_FUNCTION_107();
     goto LABEL_9;
   }
 
-  v1 = __OFADD__(v4, 74);
-  v6 = v4 + 74;
-  if (v1)
+  v0 = __OFADD__(v3, 74);
+  v5 = v3 + 74;
+  if (v0)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_8;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_108(v2);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v8 = OUTLINED_FUNCTION_183();
+    v8 = OUTLINED_FUNCTION_183(v7);
     v9 = v10;
 LABEL_9:
     OUTLINED_FUNCTION_51(v8, v9);
@@ -4097,26 +3608,26 @@ LABEL_13:
   __break(1u);
 }
 
-uint64_t WK2_DayWeatherConditions.daytimeForecast.getter()
+uint64_t WK2_DayWeatherConditions.daytimeForecast.getter(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_280();
-  if (v6)
+  if (v7)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v3 + v5) < 0x47u)
+  if (*(v4 + v6) < 0x47u)
   {
-    v8 = 0;
+    v9 = 0;
 LABEL_6:
-    v6 = __OFADD__(v8, v4);
-    v9 = v8 + v4;
-    if (!v6)
+    v7 = __OFADD__(v9, v5);
+    v10 = v9 + v5;
+    if (!v7)
     {
-      if (!__OFADD__(v9, *(v3 + v9)))
+      if (!__OFADD__(v10, *(v4 + v10)))
       {
-        return OUTLINED_FUNCTION_56(result, v2, *(v0 + 8));
+        return OUTLINED_FUNCTION_56(result, v3, *(v1 + 8));
       }
 
       goto LABEL_11;
@@ -4129,11 +3640,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v6 = __OFADD__(v5, 70);
-  v7 = v5 + 70;
-  if (!v6)
+  v7 = __OFADD__(v6, 70);
+  v8 = v6 + 70;
+  if (!v7)
   {
-    v8 = *(v3 + v7);
+    v9 = *(v4 + v8);
     goto LABEL_6;
   }
 
@@ -4148,9 +3659,11 @@ void _s11WeatherData08WK2_HourA10ConditionsV14snowfallAmountSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x25u)
@@ -4162,25 +3675,14 @@ LABEL_9:
   v4 = v2 + 36;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void OUTLINED_FUNCTION_196()
@@ -4901,7 +4403,7 @@ LABEL_10:
 
 void sub_272B581A8(int a1, unint64_t a2, int a3, int a4, uint64_t a5, int a6, int a7, int a8)
 {
-  OUTLINED_FUNCTION_92(a1, a2, a3, a4, a5, a6, a7, a8, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41);
+  OUTLINED_FUNCTION_92(a1, a2, a3, a4, a5, a6, a7, a8, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40);
   if (!v8)
   {
     OUTLINED_FUNCTION_24(v10, v11, v12, v13, sub_272B51C30);
@@ -4916,8 +4418,8 @@ void sub_272B581A8(int a1, unint64_t a2, int a3, int a4, uint64_t a5, int a6, in
 
     else
     {
-      v42 = v26;
-      OUTLINED_FUNCTION_93(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41);
+      v41 = v26;
+      OUTLINED_FUNCTION_93(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40);
       sub_272B522C4(&v28);
     }
   }
@@ -5111,46 +4613,46 @@ LABEL_10:
 void WK2_Weather.airQuality.getter()
 {
   OUTLINED_FUNCTION_14();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  OUTLINED_FUNCTION_132(v0);
-  if (v5 < 5)
+  OUTLINED_FUNCTION_132();
+  if (v4 < 5)
   {
 LABEL_8:
     v8 = OUTLINED_FUNCTION_107();
     goto LABEL_9;
   }
 
-  v1 = __OFADD__(v4, 4);
-  v6 = v4 + 4;
-  if (v1)
+  v0 = __OFADD__(v3, 4);
+  v5 = v3 + 4;
+  if (v0)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_8;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_108(v2);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v8 = OUTLINED_FUNCTION_183();
+    v8 = OUTLINED_FUNCTION_183(v7);
     v9 = v10;
 LABEL_9:
     OUTLINED_FUNCTION_51(v8, v9);
@@ -5433,42 +4935,36 @@ void WK2_Metadata.temporarilyUnavailable.getter()
   if (v3)
   {
     __break(1u);
+    goto LABEL_9;
   }
 
-  else
+  if (*(v0 + v2) < 0x17u)
   {
-    if (*(v0 + v2) < 0x17u)
-    {
-      goto LABEL_7;
-    }
-
-    v3 = __OFADD__(v2, 22);
-    v4 = v2 + 22;
-    if (!v3)
-    {
-      v5 = *(v0 + v4);
-      if (v5)
-      {
-        v3 = __OFADD__(v5, v1);
-        v6 = v5 + v1;
-        if (!v3)
-        {
-          v7 = *(v0 + v6);
-          return;
-        }
-
-        goto LABEL_10;
-      }
-
 LABEL_7:
-      OUTLINED_FUNCTION_32_0();
-      return;
-    }
+    OUTLINED_FUNCTION_32_0();
+    return;
   }
 
-  __break(1u);
+  v3 = __OFADD__(v2, 22);
+  v4 = v2 + 22;
+  if (v3)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v5 = *(v0 + v4);
+  if (!v5)
+  {
+    goto LABEL_7;
+  }
+
+  if (__OFADD__(v5, v1))
+  {
 LABEL_10:
-  __break(1u);
+    __break(1u);
+  }
 }
 
 void sub_272B58BA0(int a1, unint64_t position)
@@ -5618,9 +5114,11 @@ void _s11WeatherData011WK2_CurrentA0V26precipitationAmountNext24hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x23u)
@@ -5632,25 +5130,14 @@ LABEL_9:
   v4 = v2 + 34;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V20cloudCoverHighAltPcts4Int8Vvg_0()
@@ -5819,9 +5306,11 @@ void _s11WeatherData011WK2_CurrentA0V25precipitationAmountNext1hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x1Fu)
@@ -5833,25 +5322,14 @@ LABEL_9:
   v4 = v2 + 30;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_HourWeatherConditions.conditionCode.getter()
@@ -5905,9 +5383,11 @@ void _s11WeatherData011WK2_CurrentA0V16snowfallAmount6hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x39u)
@@ -5919,25 +5399,14 @@ LABEL_9:
   v4 = v2 + 56;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_DayWeatherConditions.sunsetCivil.getter()
@@ -6167,17 +5636,25 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t OUTLINED_FUNCTION_14()
+void *OUTLINED_FUNCTION_93(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  result = *v0;
-  v2 = *(*(*v0 + 24) + v0[6]);
-  return result;
-}
+  va_start(va1, a21);
+  va_start(__srca, a21);
+  __src = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  v28 = va_arg(va1, void);
+  v29 = va_arg(va1, void);
+  v30 = va_arg(va1, void);
+  v31 = va_arg(va1, void);
+  v32 = va_arg(va1, void);
+  v33 = va_arg(va1, void);
+  v34 = va_arg(va1, void);
+  v35 = va_arg(va1, void);
+  v36 = va_arg(va1, void);
 
-void *OUTLINED_FUNCTION_93(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char __src)
-{
-
-  return memcpy(&a9, &__src, 0x65uLL);
+  return memcpy(&a9, __srca, 0x65uLL);
 }
 
 void WK2_HourWeatherConditions.pressureTrend.getter()
@@ -6186,12 +5663,14 @@ void WK2_HourWeatherConditions.pressureTrend.getter()
   if (v4)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
     goto LABEL_9;
   }
 
   if (*(v1 + v3) < 0x21u)
   {
-LABEL_7:
+LABEL_6:
     OUTLINED_FUNCTION_89(v0);
     return;
   }
@@ -6200,26 +5679,16 @@ LABEL_7:
   v5 = v3 + 32;
   if (v4)
   {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
   v6 = *(v1 + v5);
-  if (!v6)
+  if (!v6 || !__OFADD__(v6, v2))
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v4 = __OFADD__(v6, v2);
-  v7 = v6 + v2;
-  if (!v4)
-  {
-    v8 = *(v1 + v7) == 1;
-    goto LABEL_7;
-  }
-
-LABEL_10:
+LABEL_9:
   __break(1u);
 }
 
@@ -6309,46 +5778,46 @@ uint64_t sub_272B596F8(uint64_t *a1, int a2)
 void WK2_Weather.forecastHourly.getter()
 {
   OUTLINED_FUNCTION_14();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  OUTLINED_FUNCTION_132(v0);
-  if (v5 < 0xB)
+  OUTLINED_FUNCTION_132();
+  if (v4 < 0xB)
   {
 LABEL_8:
     v8 = OUTLINED_FUNCTION_107();
     goto LABEL_9;
   }
 
-  v1 = __OFADD__(v4, 10);
-  v6 = v4 + 10;
-  if (v1)
+  v0 = __OFADD__(v3, 10);
+  v5 = v3 + 10;
+  if (v0)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_8;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_108(v2);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v8 = OUTLINED_FUNCTION_183();
+    v8 = OUTLINED_FUNCTION_183(v7);
     v9 = v10;
 LABEL_9:
     OUTLINED_FUNCTION_51(v8, v9);
@@ -6447,26 +5916,26 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t _s11WeatherData011WK2_CurrentA0V8metadataAA0C9_MetadataVSgvg_0()
+uint64_t _s11WeatherData011WK2_CurrentA0V8metadataAA0C9_MetadataVSgvg_0(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_280();
-  if (v6)
+  if (v7)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v3 + v5) < 5u)
+  if (*(v4 + v6) < 5u)
   {
-    v8 = 0;
+    v9 = 0;
 LABEL_6:
-    v6 = __OFADD__(v8, v4);
-    v9 = v8 + v4;
-    if (!v6)
+    v7 = __OFADD__(v9, v5);
+    v10 = v9 + v5;
+    if (!v7)
     {
-      if (!__OFADD__(v9, *(v3 + v9)))
+      if (!__OFADD__(v10, *(v4 + v10)))
       {
-        return OUTLINED_FUNCTION_56(result, v2, *(v0 + 8));
+        return OUTLINED_FUNCTION_56(result, v3, *(v1 + 8));
       }
 
       goto LABEL_11;
@@ -6479,11 +5948,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v6 = __OFADD__(v5, 4);
-  v7 = v5 + 4;
-  if (!v6)
+  v7 = __OFADD__(v6, 4);
+  v8 = v6 + 4;
+  if (!v7)
   {
-    v8 = *(v3 + v7);
+    v9 = *(v4 + v8);
     goto LABEL_6;
   }
 
@@ -6540,9 +6009,11 @@ void _s11WeatherData08WK2_HourA10ConditionsV19temperatureDewPointSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x2Du)
@@ -6554,25 +6025,14 @@ LABEL_9:
   v4 = v2 + 44;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_Metadata.reportedTime.getter()
@@ -6581,7 +6041,11 @@ void WK2_Metadata.reportedTime.getter()
   if (v3)
   {
     __break(1u);
-    goto LABEL_9;
+LABEL_9:
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    return;
   }
 
   if (*(v0 + v2) < 0x15u)
@@ -6593,24 +6057,12 @@ void WK2_Metadata.reportedTime.getter()
   v4 = v2 + 20;
   if (v3)
   {
-LABEL_9:
-    __break(1u);
-LABEL_10:
-    __break(1u);
-    return;
+    goto LABEL_9;
   }
 
   v5 = *(v0 + v4);
-  if (v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    v3 = __OFADD__(v5, v1);
-    v6 = v5 + v1;
-    if (!v3)
-    {
-      v7 = *(v0 + v6);
-      return;
-    }
-
     goto LABEL_10;
   }
 }
@@ -6663,9 +6115,11 @@ void _s11WeatherData08WK2_HourA10ConditionsV19temperatureApparentSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x29u)
@@ -6677,25 +6131,14 @@ LABEL_9:
   v4 = v2 + 40;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_Metadata.latitude.getter()
@@ -6704,9 +6147,11 @@ void WK2_Metadata.latitude.getter()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0xBu)
@@ -6718,25 +6163,14 @@ LABEL_9:
   v4 = v2 + 10;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_Metadata.expireTime.getter()
@@ -6784,20 +6218,20 @@ LABEL_10:
 void WK2_Metadata.language.getter()
 {
   OUTLINED_FUNCTION_65();
-  if (v4)
+  if (v3)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v2 + v3) < 9u)
+  if (*(v1 + v2) < 9u)
   {
     goto LABEL_7;
   }
 
-  v4 = __OFADD__(v3, 8);
-  v5 = v3 + 8;
-  if (v4)
+  v3 = __OFADD__(v2, 8);
+  v4 = v2 + 8;
+  if (v3)
   {
 LABEL_10:
     __break(1u);
@@ -6806,14 +6240,12 @@ LABEL_11:
     return;
   }
 
-  v6 = *(v2 + v5);
-  if (v6)
+  v5 = *(v1 + v4);
+  if (v5)
   {
-    if (!__OFADD__(v6, v1))
+    if (!__OFADD__(v5, v0))
     {
-      v7 = *(v0 + 8);
-      v8 = *(v0 + 16);
-      Table.directString(at:)(v6 + v1);
+      Table.directString(at:)(v5 + v0);
       return;
     }
 
@@ -6830,9 +6262,11 @@ void WK2_Metadata.longitude.getter()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0xDu)
@@ -6844,25 +6278,14 @@ LABEL_9:
   v4 = v2 + 12;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData08WK2_HourA10ConditionsV11temperatureSfvg_0()
@@ -6871,9 +6294,11 @@ void _s11WeatherData08WK2_HourA10ConditionsV11temperatureSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x27u)
@@ -6885,44 +6310,33 @@ LABEL_9:
   v4 = v2 + 38;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_Metadata.providerName.getter()
 {
   OUTLINED_FUNCTION_65();
-  if (v4)
+  if (v3)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v2 + v3) < 0x11u)
+  if (*(v1 + v2) < 0x11u)
   {
     goto LABEL_7;
   }
 
-  v4 = __OFADD__(v3, 16);
-  v5 = v3 + 16;
-  if (v4)
+  v3 = __OFADD__(v2, 16);
+  v4 = v2 + 16;
+  if (v3)
   {
 LABEL_10:
     __break(1u);
@@ -6931,14 +6345,12 @@ LABEL_11:
     return;
   }
 
-  v6 = *(v2 + v5);
-  if (v6)
+  v5 = *(v1 + v4);
+  if (v5)
   {
-    if (!__OFADD__(v6, v1))
+    if (!__OFADD__(v5, v0))
     {
-      v7 = *(v0 + 8);
-      v8 = *(v0 + 16);
-      Table.directString(at:)(v6 + v1);
+      Table.directString(at:)(v5 + v0);
       return;
     }
 
@@ -7047,20 +6459,20 @@ LABEL_12:
 void WK2_Metadata.providerLogo.getter()
 {
   OUTLINED_FUNCTION_65();
-  if (v4)
+  if (v3)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v2 + v3) < 0xFu)
+  if (*(v1 + v2) < 0xFu)
   {
     goto LABEL_7;
   }
 
-  v4 = __OFADD__(v3, 14);
-  v5 = v3 + 14;
-  if (v4)
+  v3 = __OFADD__(v2, 14);
+  v4 = v2 + 14;
+  if (v3)
   {
 LABEL_10:
     __break(1u);
@@ -7069,14 +6481,12 @@ LABEL_11:
     return;
   }
 
-  v6 = *(v2 + v5);
-  if (v6)
+  v5 = *(v1 + v4);
+  if (v5)
   {
-    if (!__OFADD__(v6, v1))
+    if (!__OFADD__(v5, v0))
     {
-      v7 = *(v0 + 8);
-      v8 = *(v0 + 16);
-      Table.directString(at:)(v6 + v1);
+      Table.directString(at:)(v5 + v0);
       return;
     }
 
@@ -7090,20 +6500,20 @@ LABEL_7:
 void WK2_Metadata.attributionUrl.getter()
 {
   OUTLINED_FUNCTION_65();
-  if (v4)
+  if (v3)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v2 + v3) < 5u)
+  if (*(v1 + v2) < 5u)
   {
     goto LABEL_7;
   }
 
-  v4 = __OFADD__(v3, 4);
-  v5 = v3 + 4;
-  if (v4)
+  v3 = __OFADD__(v2, 4);
+  v4 = v2 + 4;
+  if (v3)
   {
 LABEL_10:
     __break(1u);
@@ -7112,14 +6522,12 @@ LABEL_11:
     return;
   }
 
-  v6 = *(v2 + v5);
-  if (v6)
+  v5 = *(v1 + v4);
+  if (v5)
   {
-    if (!__OFADD__(v6, v1))
+    if (!__OFADD__(v5, v0))
     {
-      v7 = *(v0 + 8);
-      v8 = *(v0 + 16);
-      Table.directString(at:)(v6 + v1);
+      Table.directString(at:)(v5 + v0);
       return;
     }
 
@@ -7140,12 +6548,14 @@ void WK2_Metadata.sourceType.getter(_BYTE *a1@<X8>)
   if (v5)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
     goto LABEL_9;
   }
 
   if (*(v3 + v6) < 0x19u)
   {
-LABEL_7:
+LABEL_6:
     OUTLINED_FUNCTION_89(a1);
     return;
   }
@@ -7154,26 +6564,16 @@ LABEL_7:
   v7 = v6 + 24;
   if (v5)
   {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
   v8 = *(v3 + v7);
-  if (!v8)
+  if (!v8 || !__OFADD__(v8, v2))
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v5 = __OFADD__(v8, v2);
-  v9 = v8 + v2;
-  if (!v5)
-  {
-    v10 = *(v3 + v9) == 1;
-    goto LABEL_7;
-  }
-
-LABEL_10:
+LABEL_9:
   __break(1u);
 }
 
@@ -7452,9 +6852,11 @@ void _s11WeatherData07WK2_DayA10ConditionsV14temperatureMaxSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x35u)
@@ -7466,25 +6868,14 @@ LABEL_9:
   v4 = v2 + 52;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_DayWeatherConditions.sunset.getter()
@@ -7576,51 +6967,51 @@ LABEL_7:
 void WK2_AirQuality.pollutants(at:)()
 {
   OUTLINED_FUNCTION_10();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_16;
   }
 
-  OUTLINED_FUNCTION_137(v0);
-  if (v5 < 0xD)
+  OUTLINED_FUNCTION_137();
+  if (v4 < 0xD)
   {
 LABEL_13:
-    v13 = OUTLINED_FUNCTION_107();
+    v12 = OUTLINED_FUNCTION_107();
     goto LABEL_14;
   }
 
-  v1 = __OFADD__(v4, 12);
-  v6 = v4 + 12;
-  if (v1)
+  v0 = __OFADD__(v3, 12);
+  v5 = v3 + 12;
+  if (v0)
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_13;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  OUTLINED_FUNCTION_136(v2);
-  if (v1)
+  OUTLINED_FUNCTION_136();
+  if (v0)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  if (__OFADD__(v8, 4))
+  if (__OFADD__(v7, 4))
   {
 LABEL_19:
     __break(1u);
@@ -7630,25 +7021,25 @@ LABEL_20:
   }
 
   OUTLINED_FUNCTION_36_0();
-  if (!v12)
+  if (!v10)
   {
     goto LABEL_20;
   }
 
-  if (__OFADD__(v11, 4 * v10))
+  if (__OFADD__(v9, 4 * v8))
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  OUTLINED_FUNCTION_108(v9);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v13 = OUTLINED_FUNCTION_183();
-    v14 = v15;
+    v12 = OUTLINED_FUNCTION_183(v11);
+    v13 = v14;
 LABEL_14:
-    OUTLINED_FUNCTION_51(v13, v14);
+    OUTLINED_FUNCTION_51(v12, v13);
     return;
   }
 
@@ -7742,7 +7133,7 @@ LABEL_7:
   OUTLINED_FUNCTION_16(0);
 }
 
-uint64_t OUTLINED_FUNCTION_13_1()
+uint64_t OUTLINED_FUNCTION_13_1(uint64_t a1)
 {
 
   return swift_getWitnessTable();
@@ -7991,12 +7382,14 @@ void _s11WeatherData13WK2_PollutantV5unitsAA0c1_D4UnitOvg_0()
   if (v4)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
     goto LABEL_9;
   }
 
   if (*(v1 + v3) < 9u)
   {
-LABEL_7:
+LABEL_6:
     OUTLINED_FUNCTION_89(v0);
     return;
   }
@@ -8005,26 +7398,16 @@ LABEL_7:
   v5 = v3 + 8;
   if (v4)
   {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
   v6 = *(v1 + v5);
-  if (!v6)
+  if (!v6 || !__OFADD__(v6, v2))
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v4 = __OFADD__(v6, v2);
-  v7 = v6 + v2;
-  if (!v4)
-  {
-    v8 = *(v1 + v7);
-    goto LABEL_7;
-  }
-
-LABEL_10:
+LABEL_9:
   __break(1u);
 }
 
@@ -8034,9 +7417,11 @@ void _s11WeatherData12WK2_HourTideV6heightSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 7u)
@@ -8048,25 +7433,14 @@ LABEL_9:
   v4 = v2 + 6;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_DayWeatherConditions.conditionCode.getter()
@@ -8159,51 +7533,51 @@ LABEL_10:
 void _s11WeatherData14WK2_TideEventsV6events2atAA0c1_D5EventVSgs5Int32V_tF_0()
 {
   OUTLINED_FUNCTION_10();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_16;
   }
 
-  OUTLINED_FUNCTION_137(v0);
-  if (v5 < 7)
+  OUTLINED_FUNCTION_137();
+  if (v4 < 7)
   {
 LABEL_13:
-    v13 = OUTLINED_FUNCTION_107();
+    v12 = OUTLINED_FUNCTION_107();
     goto LABEL_14;
   }
 
-  v1 = __OFADD__(v4, 6);
-  v6 = v4 + 6;
-  if (v1)
+  v0 = __OFADD__(v3, 6);
+  v5 = v3 + 6;
+  if (v0)
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_13;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  OUTLINED_FUNCTION_136(v2);
-  if (v1)
+  OUTLINED_FUNCTION_136();
+  if (v0)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  if (__OFADD__(v8, 4))
+  if (__OFADD__(v7, 4))
   {
 LABEL_19:
     __break(1u);
@@ -8213,25 +7587,25 @@ LABEL_20:
   }
 
   OUTLINED_FUNCTION_36_0();
-  if (!v12)
+  if (!v10)
   {
     goto LABEL_20;
   }
 
-  if (__OFADD__(v11, 4 * v10))
+  if (__OFADD__(v9, 4 * v8))
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  OUTLINED_FUNCTION_108(v9);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v13 = OUTLINED_FUNCTION_183();
-    v14 = v15;
+    v12 = OUTLINED_FUNCTION_183(v11);
+    v13 = v14;
 LABEL_14:
-    OUTLINED_FUNCTION_51(v13, v14);
+    OUTLINED_FUNCTION_51(v12, v13);
     return;
   }
 
@@ -8337,20 +7711,20 @@ LABEL_11:
 void WK2_AirQuality.scale.getter()
 {
   OUTLINED_FUNCTION_65();
-  if (v4)
+  if (v3)
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  if (*(v2 + v3) < 0x13u)
+  if (*(v1 + v2) < 0x13u)
   {
     goto LABEL_7;
   }
 
-  v4 = __OFADD__(v3, 18);
-  v5 = v3 + 18;
-  if (v4)
+  v3 = __OFADD__(v2, 18);
+  v4 = v2 + 18;
+  if (v3)
   {
 LABEL_10:
     __break(1u);
@@ -8359,14 +7733,12 @@ LABEL_11:
     return;
   }
 
-  v6 = *(v2 + v5);
-  if (v6)
+  v5 = *(v1 + v4);
+  if (v5)
   {
-    if (!__OFADD__(v6, v1))
+    if (!__OFADD__(v5, v0))
     {
-      v7 = *(v0 + 8);
-      v8 = *(v0 + 16);
-      Table.directString(at:)(v6 + v1);
+      Table.directString(at:)(v5 + v0);
       return;
     }
 
@@ -8380,46 +7752,46 @@ LABEL_7:
 void WK2_Weather.currentWeather.getter()
 {
   OUTLINED_FUNCTION_14();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  OUTLINED_FUNCTION_132(v0);
-  if (v5 < 7)
+  OUTLINED_FUNCTION_132();
+  if (v4 < 7)
   {
 LABEL_8:
     v8 = OUTLINED_FUNCTION_107();
     goto LABEL_9;
   }
 
-  v1 = __OFADD__(v4, 6);
-  v6 = v4 + 6;
-  if (v1)
+  v0 = __OFADD__(v3, 6);
+  v5 = v3 + 6;
+  if (v0)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_8;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_108(v2);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v8 = OUTLINED_FUNCTION_183();
+    v8 = OUTLINED_FUNCTION_183(v7);
     v9 = v10;
 LABEL_9:
     OUTLINED_FUNCTION_51(v8, v9);
@@ -8433,46 +7805,46 @@ LABEL_13:
 void _s11WeatherData04WK2_A0V13forecastDailyAA0c1_E8ForecastVSgvg_0()
 {
   OUTLINED_FUNCTION_14();
-  if (v1)
+  if (v0)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  OUTLINED_FUNCTION_132(v0);
-  if (v5 < 9)
+  OUTLINED_FUNCTION_132();
+  if (v4 < 9)
   {
 LABEL_8:
     v8 = OUTLINED_FUNCTION_107();
     goto LABEL_9;
   }
 
-  v1 = __OFADD__(v4, 8);
-  v6 = v4 + 8;
-  if (v1)
+  v0 = __OFADD__(v3, 8);
+  v5 = v3 + 8;
+  if (v0)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v7 = *(v2 + v6);
-  if (!v7)
+  v6 = *(v1 + v5);
+  if (!v6)
   {
     goto LABEL_8;
   }
 
-  if (__OFADD__(v7, v3))
+  if (__OFADD__(v6, v2))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_108(v2);
-  if (!v1)
+  OUTLINED_FUNCTION_108();
+  if (!v0)
   {
-    v8 = OUTLINED_FUNCTION_183();
+    v8 = OUTLINED_FUNCTION_183(v7);
     v9 = v10;
 LABEL_9:
     OUTLINED_FUNCTION_51(v8, v9);
@@ -8699,9 +8071,11 @@ void _s11WeatherData011WK2_CurrentA0V19temperatureApparentSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x45u)
@@ -8713,25 +8087,14 @@ LABEL_9:
   v4 = v2 + 68;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V21snowfallAmountNext24hSfvg_0()
@@ -8740,9 +8103,11 @@ void _s11WeatherData011WK2_CurrentA0V21snowfallAmountNext24hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x41u)
@@ -8754,25 +8119,14 @@ LABEL_9:
   v4 = v2 + 64;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V16snowfallAmount1hSfvg_0()
@@ -8781,9 +8135,11 @@ void _s11WeatherData011WK2_CurrentA0V16snowfallAmount1hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x37u)
@@ -8795,25 +8151,14 @@ LABEL_9:
   v4 = v2 + 54;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_CurrentWeather.pressureTrend.getter()
@@ -8822,12 +8167,14 @@ void WK2_CurrentWeather.pressureTrend.getter()
   if (v4)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
     goto LABEL_9;
   }
 
   if (*(v1 + v3) < 0x35u)
   {
-LABEL_7:
+LABEL_6:
     OUTLINED_FUNCTION_89(v0);
     return;
   }
@@ -8836,26 +8183,16 @@ LABEL_7:
   v5 = v3 + 52;
   if (v4)
   {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
   v6 = *(v1 + v5);
-  if (!v6)
+  if (!v6 || !__OFADD__(v6, v2))
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v4 = __OFADD__(v6, v2);
-  v7 = v6 + v2;
-  if (!v4)
-  {
-    v8 = *(v1 + v7) == 1;
-    goto LABEL_7;
-  }
-
-LABEL_10:
+LABEL_9:
   __break(1u);
 }
 
@@ -8907,9 +8244,11 @@ void _s11WeatherData011WK2_CurrentA0V8pressureSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x33u)
@@ -8921,25 +8260,14 @@ LABEL_9:
   v4 = v2 + 50;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V31perceivedPrecipitationIntensitySfvg_0()
@@ -8948,9 +8276,11 @@ void _s11WeatherData011WK2_CurrentA0V31perceivedPrecipitationIntensitySfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x17u)
@@ -8962,25 +8292,14 @@ LABEL_9:
   v4 = v2 + 22;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V22precipitationIntensitySfvg_0()
@@ -8989,9 +8308,11 @@ void _s11WeatherData011WK2_CurrentA0V22precipitationIntensitySfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x31u)
@@ -9003,25 +8324,14 @@ LABEL_9:
   v4 = v2 + 48;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V13conditionCodeAA0c10_ConditionF0Ovg_0()
@@ -9259,9 +8569,11 @@ void WK2_CurrentWeather.precipitationAmount6h.getter()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x1Bu)
@@ -9273,25 +8585,14 @@ LABEL_9:
   v4 = v2 + 26;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_CurrentWeather.precipitationAmountPrevious1hByTypeCount.getter()
@@ -9350,9 +8651,11 @@ void _s11WeatherData011WK2_CurrentA0V21precipitationAmount1hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x19u)
@@ -9364,25 +8667,14 @@ LABEL_9:
   v4 = v2 + 24;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V25precipitationAmountNext6hSfvg_0()
@@ -9391,9 +8683,11 @@ void _s11WeatherData011WK2_CurrentA0V25precipitationAmountNext6hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x21u)
@@ -9405,25 +8699,14 @@ LABEL_9:
   v4 = v2 + 32;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_CurrentWeather.precipitationAmount24h.getter()
@@ -9432,9 +8715,11 @@ void WK2_CurrentWeather.precipitationAmount24h.getter()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x1Du)
@@ -9446,25 +8731,14 @@ LABEL_9:
   v4 = v2 + 28;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V20snowfallAmountNext6hSfvg_0()
@@ -9473,9 +8747,11 @@ void _s11WeatherData011WK2_CurrentA0V20snowfallAmountNext6hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x3Fu)
@@ -9487,25 +8763,14 @@ LABEL_9:
   v4 = v2 + 62;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void WK2_CurrentWeather.precipitationAmountPrevious24hByTypeCount.getter()
@@ -9664,9 +8929,11 @@ void _s11WeatherData011WK2_CurrentA0V17snowfallAmount24hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x3Bu)
@@ -9678,25 +8945,14 @@ LABEL_9:
   v4 = v2 + 58;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V20snowfallAmountNext1hSfvg_0()
@@ -9705,9 +8961,11 @@ void _s11WeatherData011WK2_CurrentA0V20snowfallAmountNext1hSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x3Du)
@@ -9719,25 +8977,14 @@ LABEL_9:
   v4 = v2 + 60;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
-
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
-  if (v3)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v7 = *(v0 + v6);
 }
 
 void _s11WeatherData011WK2_CurrentA0V11temperatureSfvg_0()
@@ -9746,9 +8993,11 @@ void _s11WeatherData011WK2_CurrentA0V11temperatureSfvg_0()
   if (v3)
   {
     __break(1u);
+LABEL_8:
+    __break(1u);
 LABEL_9:
     __break(1u);
-    goto LABEL_10;
+    return;
   }
 
   if (*(v0 + v2) < 0x43u)
@@ -9760,23 +9009,745 @@ LABEL_9:
   v4 = v2 + 66;
   if (v3)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v5 = *(v0 + v4);
-  if (!v5)
+  if (v5 && __OFADD__(v5, v1))
   {
-    return;
+    goto LABEL_9;
   }
+}
 
-  v3 = __OFADD__(v5, v1);
-  v6 = v5 + v1;
+void WK2_CurrentWeather.temperatureDewPoint.getter()
+{
+  OUTLINED_FUNCTION_103();
   if (v3)
   {
-LABEL_10:
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
     __break(1u);
     return;
   }
 
-  v7 = *(v0 + v6);
+  if (*(v0 + v2) < 0x49u)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 72);
+  v4 = v2 + 72;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+void WK2_CurrentWeather.visibility.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (*(v0 + v2) < 0x4Du)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 76);
+  v4 = v2 + 76;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+void WK2_CurrentWeather.windGust.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (*(v0 + v2) < 0x51u)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 80);
+  v4 = v2 + 80;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+void WK2_CurrentWeather.windSpeed.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (*(v0 + v2) < 0x53u)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 82);
+  v4 = v2 + 82;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+uint64_t WK2_DayWeatherConditions.overnightForecast.getter(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_280();
+  if (v7)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v4 + v6) < 0x49u)
+  {
+    v9 = 0;
+LABEL_6:
+    v7 = __OFADD__(v9, v5);
+    v10 = v9 + v5;
+    if (!v7)
+    {
+      if (!__OFADD__(v10, *(v4 + v10)))
+      {
+        return OUTLINED_FUNCTION_56(result, v3, *(v1 + 8));
+      }
+
+      goto LABEL_11;
+    }
+
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  v7 = __OFADD__(v6, 72);
+  v8 = v6 + 72;
+  if (!v7)
+  {
+    v9 = *(v4 + v8);
+    goto LABEL_6;
+  }
+
+LABEL_12:
+  __break(1u);
+  return result;
+}
+
+void WK2_DayPartForecast.daylight.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    if (*(v0 + v2) < 0x3Fu)
+    {
+      goto LABEL_7;
+    }
+
+    v3 = __OFADD__(v2, 62);
+    v4 = v2 + 62;
+    if (!v3)
+    {
+      v5 = *(v0 + v4);
+      if (v5)
+      {
+        if (!__OFADD__(v5, v1))
+        {
+          OUTLINED_FUNCTION_102(v0);
+          return;
+        }
+
+        goto LABEL_10;
+      }
+
+LABEL_7:
+      OUTLINED_FUNCTION_32_0();
+      return;
+    }
+  }
+
+  __break(1u);
+LABEL_10:
+  __break(1u);
+}
+
+void WK2_DayWeatherConditions.sunsetAstronomical.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 0x33u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 50);
+  v4 = v2 + 50;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
+}
+
+void WK2_DayPartForecast.windSpeed.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (*(v0 + v2) < 0x2Fu)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 46);
+  v4 = v2 + 46;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+void OUTLINED_FUNCTION_15_2()
+{
+  v3 = *(v0 + 24);
+
+  ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(4, v1, v3);
+}
+
+void WK2_DayWeatherConditions.moonset.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 0x15u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 20);
+  v4 = v2 + 20;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
+}
+
+void WK2_DayWeatherConditions.solarNoon.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 0x23u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 34);
+  v4 = v2 + 34;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
+}
+
+void WK2_DayWeatherConditions.solarMidnight.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 0x21u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 32);
+  v4 = v2 + 32;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
+}
+
+void WK2_HourWeatherConditions.perceivedPrecipitationIntensity.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (*(v0 + v2) < 0x15u)
+  {
+    return;
+  }
+
+  v3 = __OFADD__(v2, 20);
+  v4 = v2 + 20;
+  if (v3)
+  {
+    goto LABEL_8;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5 && __OFADD__(v5, v1))
+  {
+    goto LABEL_9;
+  }
+}
+
+void WK2_DayWeatherConditions.sunsetNautical.getter()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 0x31u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 48);
+  v4 = v2 + 48;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
+}
+
+void _s11WeatherData04WK2_A0V16forecastNextHourAA0c1_eF8ForecastVSgvg_0()
+{
+  OUTLINED_FUNCTION_14();
+  if (v0)
+  {
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  OUTLINED_FUNCTION_132();
+  if (v4 < 0xD)
+  {
+LABEL_8:
+    v8 = OUTLINED_FUNCTION_107();
+    goto LABEL_9;
+  }
+
+  v0 = __OFADD__(v3, 12);
+  v5 = v3 + 12;
+  if (v0)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  v6 = *(v1 + v5);
+  if (!v6)
+  {
+    goto LABEL_8;
+  }
+
+  if (__OFADD__(v6, v2))
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  OUTLINED_FUNCTION_108();
+  if (!v0)
+  {
+    v8 = OUTLINED_FUNCTION_183(v7);
+    v9 = v10;
+LABEL_9:
+    OUTLINED_FUNCTION_51(v8, v9);
+    return;
+  }
+
+LABEL_13:
+  __break(1u);
+}
+
+void WK2_Weather.weatherChanges.getter()
+{
+  OUTLINED_FUNCTION_14();
+  if (v0)
+  {
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  OUTLINED_FUNCTION_132();
+  if (v4 < 0x13)
+  {
+LABEL_8:
+    v8 = OUTLINED_FUNCTION_107();
+    goto LABEL_9;
+  }
+
+  v0 = __OFADD__(v3, 18);
+  v5 = v3 + 18;
+  if (v0)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  v6 = *(v1 + v5);
+  if (!v6)
+  {
+    goto LABEL_8;
+  }
+
+  if (__OFADD__(v6, v2))
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  OUTLINED_FUNCTION_108();
+  if (!v0)
+  {
+    v8 = OUTLINED_FUNCTION_183(v7);
+    v9 = v10;
+LABEL_9:
+    OUTLINED_FUNCTION_51(v8, v9);
+    return;
+  }
+
+LABEL_13:
+  __break(1u);
+}
+
+void _s11WeatherData20WK2_NextHourForecastV7minutes2atAA0c1_F6MinuteVSgs5Int32V_tF_0()
+{
+  OUTLINED_FUNCTION_10();
+  if (v0)
+  {
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  OUTLINED_FUNCTION_137();
+  if (v4 < 0xF)
+  {
+LABEL_13:
+    v12 = OUTLINED_FUNCTION_107();
+    goto LABEL_14;
+  }
+
+  v0 = __OFADD__(v3, 14);
+  v5 = v3 + 14;
+  if (v0)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v6 = *(v1 + v5);
+  if (!v6)
+  {
+    goto LABEL_13;
+  }
+
+  if (__OFADD__(v6, v2))
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  OUTLINED_FUNCTION_136();
+  if (v0)
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (__OFADD__(v7, 4))
+  {
+LABEL_19:
+    __break(1u);
+LABEL_20:
+    __break(1u);
+    goto LABEL_21;
+  }
+
+  OUTLINED_FUNCTION_36_0();
+  if (!v10)
+  {
+    goto LABEL_20;
+  }
+
+  if (__OFADD__(v9, 4 * v8))
+  {
+LABEL_21:
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  OUTLINED_FUNCTION_108();
+  if (!v0)
+  {
+    v12 = OUTLINED_FUNCTION_183(v11);
+    v13 = v14;
+LABEL_14:
+    OUTLINED_FUNCTION_51(v12, v13);
+    return;
+  }
+
+LABEL_22:
+  __break(1u);
+}
+
+void _s11WeatherData21WK2_ForecastConditionV7endTimes6UInt32VSgvg_0()
+{
+  OUTLINED_FUNCTION_103();
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*(v0 + v2) < 7u)
+  {
+    goto LABEL_7;
+  }
+
+  v3 = __OFADD__(v2, 6);
+  v4 = v2 + 6;
+  if (v3)
+  {
+LABEL_10:
+    __break(1u);
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  v5 = *(v0 + v4);
+  if (v5)
+  {
+    v3 = __OFADD__(v5, v1);
+    v6 = v5 + v1;
+    if (!v3)
+    {
+      OUTLINED_FUNCTION_16(*(v0 + v6));
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_7:
+  OUTLINED_FUNCTION_16(0);
 }

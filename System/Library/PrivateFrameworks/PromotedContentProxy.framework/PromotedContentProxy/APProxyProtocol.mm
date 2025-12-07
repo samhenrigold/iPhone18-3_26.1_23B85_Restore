@@ -66,7 +66,7 @@
 
 + (void)setProxyURL:(id)l
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (objc_msgSend_length(lCopy, v5, v6, v7, v8))
   {
@@ -83,14 +83,12 @@
       v17 = APLogForCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v27 = 138543362;
-        v28 = lCopy;
-        _os_log_impl(&dword_260F10000, v17, OS_LOG_TYPE_ERROR, "Could not form valid URL from %{public}@", &v27, 0xCu);
+        v26 = 138543362;
+        v27 = lCopy;
+        _os_log_impl(&dword_260F10000, v17, OS_LOG_TYPE_ERROR, "Could not form valid URL from %{public}@", &v26, 0xCu);
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)invalidateProxyDemultiplexerSessionForId:(id)id
@@ -237,7 +235,7 @@ LABEL_18:
 
 - (void)startLoading
 {
-  v212 = *MEMORY[0x277D85DE8];
+  v211 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_request(self, a2, v2, v3, v4);
   v11 = objc_msgSend_requestType(v6, v7, v8, v9, v10);
   objc_msgSend_setRequestType_(self, v12, v11, v13, v14);
@@ -306,26 +304,26 @@ LABEL_6:
     v145 = APLogForCategory();
     if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
     {
-      v202 = objc_msgSend_task(self, v146, v147, v148, v149);
-      v154 = objc_msgSend_taskDescription(v202, v150, v151, v152, v153);
+      v201 = objc_msgSend_task(self, v146, v147, v148, v149);
+      v154 = objc_msgSend_taskDescription(v201, v150, v151, v152, v153);
       objc_msgSend_task(self, v155, v156, v157, v158);
-      v159 = v203 = v115;
+      v159 = v202 = v115;
       v164 = objc_msgSend_description(v159, v160, v161, v162, v163);
       v169 = objc_msgSend_URL(v79, v165, v166, v167, v168);
       objc_msgSend_absoluteString(v169, v170, v171, v172, v173);
       v175 = v174 = v110;
       *buf = 136643587;
-      v205 = "[APProxyProtocol startLoading]";
-      v206 = 2114;
-      v207 = v154;
-      v208 = 2114;
-      v209 = v164;
-      v210 = 2114;
-      v211 = v175;
+      v204 = "[APProxyProtocol startLoading]";
+      v205 = 2114;
+      v206 = v154;
+      v207 = 2114;
+      v208 = v164;
+      v209 = 2114;
+      v210 = v175;
       _os_log_impl(&dword_260F10000, v145, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ starting request %{public}@ for %{public}@", buf, 0x2Au);
 
       v110 = v174;
-      v115 = v203;
+      v115 = v202;
     }
 
     v180 = objc_msgSend_task(self, v176, v177, v178, v179);
@@ -350,13 +348,11 @@ LABEL_6:
     v194 = objc_msgSend_client(self, v190, v191, v192, v193);
     objc_msgSend_URLProtocol_didFailWithError_(v194, v195, self, v79, v196);
   }
-
-  v201 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopLoading
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = APLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -365,13 +361,13 @@ LABEL_6:
     objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v14, v15, v16, v17);
     v19 = v18;
     objc_msgSend_startTime(self, v20, v21, v22, v23);
-    v56 = 136643331;
-    v57 = "[APProxyProtocol stopLoading]";
-    v58 = 2114;
-    v59 = v13;
-    v60 = 2048;
-    v61 = v19 - v24;
-    _os_log_impl(&dword_260F10000, v3, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ Request stopped after: (elapsed %.1f)", &v56, 0x20u);
+    v55 = 136643331;
+    v56 = "[APProxyProtocol stopLoading]";
+    v57 = 2114;
+    v58 = v13;
+    v59 = 2048;
+    v60 = v19 - v24;
+    _os_log_impl(&dword_260F10000, v3, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ Request stopped after: (elapsed %.1f)", &v55, 0x20u);
   }
 
   v29 = objc_msgSend_task(self, v25, v26, v27, v28);
@@ -387,8 +383,6 @@ LABEL_6:
 
     objc_msgSend_setTask_(self, v52, 0, v53, v54);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
@@ -410,7 +404,7 @@ LABEL_6:
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -426,13 +420,13 @@ LABEL_6:
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         v62 = objc_msgSend_taskDescription(taskCopy, v58, v59, v60, v61);
-        v68 = 136643331;
-        v69 = "[APProxyProtocol URLSession:task:didCompleteWithError:]";
-        v70 = 2114;
-        v71 = v62;
-        v72 = 2050;
-        v73 = objc_msgSend_statusCode(v30, v63, v64, v65, v66);
-        _os_log_impl(&dword_260F10000, v57, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ -- Finished load with HTTP error: %{public}ld", &v68, 0x20u);
+        v67 = 136643331;
+        v68 = "[APProxyProtocol URLSession:task:didCompleteWithError:]";
+        v69 = 2114;
+        v70 = v62;
+        v71 = 2050;
+        v72 = objc_msgSend_statusCode(v30, v63, v64, v65, v66);
+        _os_log_impl(&dword_260F10000, v57, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ -- Finished load with HTTP error: %{public}ld", &v67, 0x20u);
       }
     }
 
@@ -444,13 +438,13 @@ LABEL_6:
   {
     v20 = objc_msgSend_taskDescription(taskCopy, v16, v17, v18, v19);
     v25 = objc_msgSend_localizedDescription(errorCopy, v21, v22, v23, v24);
-    v68 = 136643331;
-    v69 = "[APProxyProtocol URLSession:task:didCompleteWithError:]";
-    v70 = 2114;
-    v71 = v20;
-    v72 = 2114;
-    v73 = v25;
-    _os_log_impl(&dword_260F10000, v15, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ -- Finished load with error: %{public}@", &v68, 0x20u);
+    v67 = 136643331;
+    v68 = "[APProxyProtocol URLSession:task:didCompleteWithError:]";
+    v69 = 2114;
+    v70 = v20;
+    v71 = 2114;
+    v72 = v25;
+    _os_log_impl(&dword_260F10000, v15, OS_LOG_TYPE_DEFAULT, "%{sensitive}s: %{public}@ -- Finished load with error: %{public}@", &v67, 0x20u);
   }
 
   v30 = objc_msgSend_domain(errorCopy, v26, v27, v28, v29);
@@ -471,13 +465,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   redirectionCopy = redirection;
   requestCopy = request;
@@ -489,30 +481,30 @@ LABEL_13:
   {
     if (v21)
     {
-      v150 = objc_msgSend_currentRequest(taskCopy, v22, v23, v24, v25);
-      v148 = objc_msgSend_URL(v150, v26, v27, v28, v29);
-      v34 = objc_msgSend_host(v148, v30, v31, v32, v33);
-      v146 = objc_msgSend_URL(requestCopy, v35, v36, v37, v38);
-      v43 = objc_msgSend_host(v146, v39, v40, v41, v42);
+      v149 = objc_msgSend_currentRequest(taskCopy, v22, v23, v24, v25);
+      v147 = objc_msgSend_URL(v149, v26, v27, v28, v29);
+      v34 = objc_msgSend_host(v147, v30, v31, v32, v33);
+      v145 = objc_msgSend_URL(requestCopy, v35, v36, v37, v38);
+      v43 = objc_msgSend_host(v145, v39, v40, v41, v42);
       v48 = objc_msgSend_currentRequest(taskCopy, v44, v45, v46, v47);
       v53 = objc_msgSend_URL(v48, v49, v50, v51, v52);
       objc_msgSend_absoluteString(v53, v54, v55, v56, v57);
-      v58 = v152 = redirectionCopy;
+      v58 = v151 = redirectionCopy;
       objc_msgSend_URL(requestCopy, v59, v60, v61, v62);
-      v63 = v154 = taskCopy;
+      v63 = v153 = taskCopy;
       v68 = objc_msgSend_absoluteString(v63, v64, v65, v66, v67);
       *buf = 138544130;
-      v157 = v34;
-      v158 = 2114;
-      v159 = v43;
-      v160 = 2114;
-      v161 = v58;
-      v162 = 2114;
-      v163 = v68;
+      v156 = v34;
+      v157 = 2114;
+      v158 = v43;
+      v159 = 2114;
+      v160 = v58;
+      v161 = 2114;
+      v162 = v68;
       _os_log_impl(&dword_260F10000, v20, OS_LOG_TYPE_INFO, "APProxyProtocol: A redirect '%{public}@'->'%{public}@' has been received. Original URL:\n%{public}@\nRedirected URL:\n%{public}@", buf, 0x2Au);
 
-      taskCopy = v154;
-      redirectionCopy = v152;
+      taskCopy = v153;
+      redirectionCopy = v151;
     }
 
     if (handlerCopy)
@@ -525,30 +517,30 @@ LABEL_13:
   {
     if (v21)
     {
-      v151 = objc_msgSend_currentRequest(taskCopy, v22, v23, v24, v25);
-      v149 = objc_msgSend_URL(v151, v69, v70, v71, v72);
-      v77 = objc_msgSend_host(v149, v73, v74, v75, v76);
-      v147 = objc_msgSend_URL(requestCopy, v78, v79, v80, v81);
-      objc_msgSend_host(v147, v82, v83, v84, v85);
-      v86 = v153 = redirectionCopy;
-      v145 = objc_msgSend_currentRequest(taskCopy, v87, v88, v89, v90);
-      objc_msgSend_URL(v145, v91, v92, v93, v94);
-      v95 = v155 = taskCopy;
+      v150 = objc_msgSend_currentRequest(taskCopy, v22, v23, v24, v25);
+      v148 = objc_msgSend_URL(v150, v69, v70, v71, v72);
+      v77 = objc_msgSend_host(v148, v73, v74, v75, v76);
+      v146 = objc_msgSend_URL(requestCopy, v78, v79, v80, v81);
+      objc_msgSend_host(v146, v82, v83, v84, v85);
+      v86 = v152 = redirectionCopy;
+      v144 = objc_msgSend_currentRequest(taskCopy, v87, v88, v89, v90);
+      objc_msgSend_URL(v144, v91, v92, v93, v94);
+      v95 = v154 = taskCopy;
       v100 = objc_msgSend_absoluteString(v95, v96, v97, v98, v99);
       v105 = objc_msgSend_URL(requestCopy, v101, v102, v103, v104);
       v110 = objc_msgSend_absoluteString(v105, v106, v107, v108, v109);
       *buf = 138544130;
-      v157 = v77;
-      v158 = 2114;
-      v159 = v86;
-      v160 = 2114;
-      v161 = v100;
-      v162 = 2114;
-      v163 = v110;
+      v156 = v77;
+      v157 = 2114;
+      v158 = v86;
+      v159 = 2114;
+      v160 = v100;
+      v161 = 2114;
+      v162 = v110;
       _os_log_impl(&dword_260F10000, v20, OS_LOG_TYPE_INFO, "APProxyProtocol: Blocked redirect '%{public}@'->'%{public}@'. Original URL:\n%{public}@\nRedirected URL:\n%{public}@", buf, 0x2Au);
 
-      taskCopy = v155;
-      redirectionCopy = v153;
+      taskCopy = v154;
+      redirectionCopy = v152;
     }
 
     v115 = objc_msgSend_mutableCopy(requestCopy, v111, v112, v113, v114);
@@ -568,13 +560,11 @@ LABEL_13:
       handlerCopy[2](handlerCopy, 0);
     }
   }
-
-  v144 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   challengeCopy = challenge;
   handlerCopy = handler;
@@ -584,9 +574,9 @@ LABEL_13:
     v16 = objc_msgSend_currentRequest(taskCopy, v12, v13, v14, v15);
     v21 = objc_msgSend_URL(v16, v17, v18, v19, v20);
     v26 = objc_msgSend_description(v21, v22, v23, v24, v25);
-    v67 = 138543362;
-    v68 = v26;
-    _os_log_impl(&dword_260F10000, v11, OS_LOG_TYPE_DEBUG, "Challenge received for url session with request to %{public}@.", &v67, 0xCu);
+    v66 = 138543362;
+    v67 = v26;
+    _os_log_impl(&dword_260F10000, v11, OS_LOG_TYPE_DEBUG, "Challenge received for url session with request to %{public}@.", &v66, 0xCu);
   }
 
   v31 = objc_msgSend_failureResponse(challengeCopy, v27, v28, v29, v30);
@@ -604,9 +594,9 @@ LABEL_13:
   v43 = APLogForCategory();
   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    v67 = 134217984;
-    v68 = v42;
-    _os_log_impl(&dword_260F10000, v43, OS_LOG_TYPE_DEBUG, "Challenge failure is related to url response with status code: %ld.", &v67, 0xCu);
+    v66 = 134217984;
+    v67 = v42;
+    _os_log_impl(&dword_260F10000, v43, OS_LOG_TYPE_DEBUG, "Challenge failure is related to url response with status code: %ld.", &v66, 0xCu);
   }
 
   if (v42 == 407)
@@ -624,8 +614,8 @@ LABEL_13:
     {
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v67) = 0;
-        _os_log_impl(&dword_260F10000, v64, OS_LOG_TYPE_DEBUG, "Signed credential was received for challenge.", &v67, 2u);
+        LOWORD(v66) = 0;
+        _os_log_impl(&dword_260F10000, v64, OS_LOG_TYPE_DEBUG, "Signed credential was received for challenge.", &v66, 2u);
       }
 
       handlerCopy[2](handlerCopy, 0, v62);
@@ -635,8 +625,8 @@ LABEL_13:
     {
       if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v67) = 0;
-        _os_log_impl(&dword_260F10000, v64, OS_LOG_TYPE_ERROR, "Signed credential was not received for challenge.", &v67, 2u);
+        LOWORD(v66) = 0;
+        _os_log_impl(&dword_260F10000, v64, OS_LOG_TYPE_ERROR, "Signed credential was not received for challenge.", &v66, 2u);
       }
 
       handlerCopy[2](handlerCopy, 2, 0);
@@ -649,14 +639,12 @@ LABEL_11:
     v65 = APLogForCategory();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v67) = 0;
-      _os_log_impl(&dword_260F10000, v65, OS_LOG_TYPE_DEBUG, "Challenge does not require proxy authentication.", &v67, 2u);
+      LOWORD(v66) = 0;
+      _os_log_impl(&dword_260F10000, v65, OS_LOG_TYPE_DEBUG, "Challenge does not require proxy authentication.", &v66, 2u);
     }
 
     handlerCopy[2](handlerCopy, 1, 0);
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentRunLoopModes

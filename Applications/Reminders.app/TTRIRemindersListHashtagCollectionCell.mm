@@ -88,7 +88,7 @@
 
   sub_100600A04(v6);
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (NSArray)accessibilityElements

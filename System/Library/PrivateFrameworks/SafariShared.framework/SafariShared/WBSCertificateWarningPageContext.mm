@@ -20,11 +20,11 @@
     return result == kSecTrustResultFatalTrustFailure || result == kSecTrustResultDeny;
   }
 
-  v4 = TrustResult;
-  v5 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v5 = TrustResult;
+  v6 = WBS_LOG_CHANNEL_PREFIXKeychain(TrustResult, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(WBSCertificateWarningPageContext *)v4 certificateWarningCannotBeBypassedForTrust:v5];
+    [(WBSCertificateWarningPageContext *)v5 certificateWarningCannotBeBypassedForTrust:v6];
   }
 
   return 1;

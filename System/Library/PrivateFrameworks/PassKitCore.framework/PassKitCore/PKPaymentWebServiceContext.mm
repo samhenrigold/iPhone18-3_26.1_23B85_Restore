@@ -1269,7 +1269,7 @@ void __86__PKPaymentWebServiceContext_applyServiceFeaturesForRegionMeetingEnable
                   objc_enumerationMutation(v17);
                 }
 
-                if ([v16 isEqualToString:{*(*(&v29 + 1) + 8 * j), v25}])
+                if (objc_msgSend_isEqualToString_(v16, v25))
                 {
                   v23 = v16;
 

@@ -31,16 +31,16 @@
 
 - (int64_t)transactionsCount
 {
-  swift_getKeyPath();
-  sub_1BD9936E8(&qword_1EBD5A270, type metadata accessor for PKDashboardFinanceKitProvider);
+  KeyPath = swift_getKeyPath();
+  sub_1BD9936E8(&qword_1EBD5A270, type metadata accessor for PKDashboardFinanceKitProvider, &protocol conformance descriptor for PKDashboardFinanceKitProvider);
   selfCopy = self;
   sub_1BE04B594();
-
-  v4 = OBJC_IVAR____TtC9PassKitUI29PKDashboardFinanceKitProvider__transactionsCount;
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = OBJC_IVAR____TtC9PassKitUI29PKDashboardFinanceKitProvider__transactionsCount;
   swift_beginAccess();
-  v5 = *(&selfCopy->super.isa + v4);
+  v13 = *(&selfCopy->super.isa + v12);
 
-  return v5;
+  return v13;
 }
 
 - (void)setTransactionsCount:(int64_t)count
@@ -65,16 +65,16 @@
 
 - (BOOL)loaded
 {
-  swift_getKeyPath();
-  sub_1BD9936E8(&qword_1EBD5A270, type metadata accessor for PKDashboardFinanceKitProvider);
+  KeyPath = swift_getKeyPath();
+  sub_1BD9936E8(&qword_1EBD5A270, type metadata accessor for PKDashboardFinanceKitProvider, &protocol conformance descriptor for PKDashboardFinanceKitProvider);
   selfCopy = self;
   sub_1BE04B594();
-
-  v4 = OBJC_IVAR____TtC9PassKitUI29PKDashboardFinanceKitProvider__loaded;
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = OBJC_IVAR____TtC9PassKitUI29PKDashboardFinanceKitProvider__loaded;
   swift_beginAccess();
-  LOBYTE(v4) = *(&selfCopy->super.isa + v4);
+  LOBYTE(v12) = *(&selfCopy->super.isa + v12);
 
-  return v4;
+  return v12;
 }
 
 - (void)setLoaded:(BOOL)loaded
@@ -97,41 +97,43 @@
   sub_1BE04B5C4();
   *(&self->super.isa + OBJC_IVAR____TtC9PassKitUI29PKDashboardFinanceKitProvider_pass) = passCopy;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for PKDashboardFinanceKitProvider();
+  v10.super_class = type metadata accessor for PKDashboardFinanceKitProvider(0);
   return [(PKDashboardFinanceKitProvider *)&v10 init];
 }
 
 - (id)dashboardItemForIndex:(int64_t)index
 {
   selfCopy = self;
-  v5 = sub_1BD98E4B4(index);
+  sub_1BD98E4B4(index);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (void)loadWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD3E580);
-  MEMORY[0x1EEE9AC00](v5 - 8, v6);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1BE0528D4();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD3E580, &unk_1BE0B9000);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v22 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1BE0528D4();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1BE109090;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1BE109090;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1BE107FA0;
-  v13[5] = v12;
+  v12[4] = &unk_1BE107FA0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1BD992D04(0, 0, v8, &unk_1BE0C7F30, v13);
+  v14 = sub_1BD992D04(0, 0, v7, &unk_1BE0C7F30, v12);
+  v14, v15, v16, v17, v18, v19, v20, v21;
 }
 
 - (_TtC9PassKitUI29PKDashboardFinanceKitProvider)init

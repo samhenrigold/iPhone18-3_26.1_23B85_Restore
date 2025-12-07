@@ -17,7 +17,7 @@
   if (v4)
   {
     v5 = MISCopyErrorStringForErrorCode();
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138543618;
@@ -49,7 +49,7 @@
     v10[5] = 0;
 
     v5 = MISCopyErrorStringForErrorCode();
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -77,30 +77,30 @@
 
   if ((v5 & 1) == 0)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C6C1C(fileCopy, v8);
+      sub_1000C6C1C(fileCopy, v9);
     }
 
     goto LABEL_8;
   }
 
-  v6 = MISProfileCreateWithFile();
-  if (!v6)
+  v7 = MISProfileCreateWithFile();
+  if (!v7)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C6C94(fileCopy, v8);
+      sub_1000C6C94(fileCopy, v9);
     }
 
 LABEL_8:
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 + (BOOL)installProvisioningProfile:(id)profile
@@ -115,7 +115,7 @@ LABEL_8:
     if (v6)
     {
       v8 = MISCopyErrorStringForErrorCode();
-      v9 = sub_100063A54();
+      v9 = sub_100063A54(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138543618;
@@ -152,7 +152,7 @@ LABEL_8:
 
     else
     {
-      v9 = sub_100063A54();
+      v9 = sub_100063A54(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = 138543362;

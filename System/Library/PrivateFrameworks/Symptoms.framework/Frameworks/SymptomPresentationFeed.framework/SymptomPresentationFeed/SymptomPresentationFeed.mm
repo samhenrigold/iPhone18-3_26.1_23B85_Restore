@@ -1,13 +1,13 @@
-id noiLogHandle()
+id noiLogHandle(uint64_t a1)
 {
   if (noiLogHandle_noiPred != -1)
   {
     noiLogHandle_cold_1();
   }
 
-  v1 = noiLogHandle_noiHandle;
+  v2 = noiLogHandle_noiHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __noiLogHandle_block_invoke()
@@ -25,28 +25,28 @@ void sub_1C85FA800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id networkperfLogHandle()
+id networkperfLogHandle(uint64_t a1)
 {
   if (networkperfLogHandle_networkperfPred != -1)
   {
     networkperfLogHandle_cold_1();
   }
 
-  v1 = networkperfLogHandle_networkperfHandle;
+  v2 = networkperfLogHandle_networkperfHandle;
 
-  return v1;
+  return v2;
 }
 
-id usageLogHandle()
+id usageLogHandle(uint64_t a1)
 {
   if (usageLogHandle_usagePred != -1)
   {
     usageLogHandle_cold_1();
   }
 
-  v1 = usageLogHandle_usageHandle;
+  v2 = usageLogHandle_usageHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy__53(uint64_t a1, uint64_t a2)
@@ -99,6 +99,13 @@ void sub_1C85FE638(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_1C8601198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __networkperfLogHandle_block_invoke()
 {
   networkperfLogHandle_networkperfHandle = os_log_create("com.apple.symptomsframework", "networkperf");
@@ -113,6 +120,20 @@ uint64_t __usageLogHandle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
+void sub_1C8609D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8612758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__577(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -120,17 +141,18 @@ uint64_t __Block_byref_object_copy__577(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C86142C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_1C86142C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
 {
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose((v44 - 248), 8);
-  _Block_object_dispose((v44 - 176), 8);
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v43 - 248), 8);
+  _Block_object_dispose((v43 - 176), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t countDescSortComparator_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = [v4 objectForKeyedSubscript:@"count"];
@@ -143,15 +165,15 @@ uint64_t countDescSortComparator_block_invoke(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v10 = usageLogHandle();
+    v10 = usageLogHandle(v7);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
     if (v6)
     {
       if (v11)
       {
-        v14 = 138412290;
-        v15 = v5;
-        _os_log_impl(&dword_1C85F9000, v10, OS_LOG_TYPE_DEBUG, "Missing 'count' value for entry: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v5;
+        _os_log_impl(&dword_1C85F9000, v10, OS_LOG_TYPE_DEBUG, "Missing 'count' value for entry: %@", &v13, 0xCu);
       }
 
       v9 = -1;
@@ -161,16 +183,15 @@ uint64_t countDescSortComparator_block_invoke(uint64_t a1, void *a2, void *a3)
     {
       if (v11)
       {
-        v14 = 138412290;
-        v15 = v4;
-        _os_log_impl(&dword_1C85F9000, v10, OS_LOG_TYPE_DEBUG, "Missing 'count' value for entry: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v4;
+        _os_log_impl(&dword_1C85F9000, v10, OS_LOG_TYPE_DEBUG, "Missing 'count' value for entry: %@", &v13, 0xCu);
       }
 
       v9 = 1;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -212,16 +233,24 @@ LABEL_5:
   return v4;
 }
 
-void sub_1C8616898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C8615E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  va_start(va, a13);
+  va_start(va, a40);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C8618750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1C8616898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 208), 8);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C8618750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 208), 8);
   _Unwind_Resume(a1);
 }

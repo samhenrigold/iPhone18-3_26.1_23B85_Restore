@@ -21,10 +21,10 @@
   v6 = !v5;
   if (v5)
   {
-    sub_10000E514();
+    v7 = sub_10000E514();
     sub_100009A98(0, &qword_100018E68, OS_os_log_ptr);
-    v7 = sub_10000E534();
-    sub_10000E424();
+    v8 = sub_10000E534();
+    sub_10000E424(v7, &dword_100000000, v8, "This platform does not have LocalStatusKit", 42, 2, &_swiftEmptyArrayStorage);
   }
 
   return v6;

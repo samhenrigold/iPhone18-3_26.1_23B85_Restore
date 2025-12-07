@@ -33,7 +33,7 @@
 
 - (id)fetchCurrentPickableAudioRoutesIfNeeded
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   _copyPickableRoutes = [(HURoutesManager *)self _copyPickableRoutes];
   if (!_copyPickableRoutes)
   {
@@ -57,19 +57,19 @@
         [(HURoutesManager *)v9 fetchCurrentPickableAudioRoutesIfNeeded];
       }
 
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke;
-      v30[3] = &unk_1E85CCD68;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke;
+      v29[3] = &unk_1E85CCD68;
       v11 = dictionary;
-      v31 = v11;
+      v30 = v11;
       selfCopy = self;
       v12 = fetchHearingAidsPeripheralUUIDs;
-      v33 = v12;
+      v32 = v12;
       v13 = array;
-      v34 = v13;
-      v27 = v9;
-      [v9 enumerateObjectsUsingBlock:v30];
+      v33 = v13;
+      v26 = v9;
+      [v9 enumerateObjectsUsingBlock:v29];
       v14 = [v11 objectForKeyedSubscript:@"AXSHARoutePicked"];
       v15 = [v11 objectForKeyedSubscript:@"AXSHARouteHeadset"];
       v16 = [v11 objectForKeyedSubscript:@"AXSHARouteHearingAid"];
@@ -97,12 +97,12 @@
           [(HURoutesManager *)v21 fetchCurrentPickableAudioRoutesIfNeeded];
         }
 
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke_24;
-        v28[3] = &unk_1E85CCA30;
-        v29 = v11;
-        [v21 enumerateObjectsUsingBlock:v28];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke_24;
+        v27[3] = &unk_1E85CCA30;
+        v28 = v11;
+        [v21 enumerateObjectsUsingBlock:v27];
       }
 
       if ([v11 count])
@@ -122,13 +122,11 @@
       {
         v24 = [v13 componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v36 = v24;
+        v35 = v24;
         _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_INFO, "Routes %@", buf, 0xCu);
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return _copyPickableRoutes;
 }
@@ -140,7 +138,7 @@ uint64_t __38__HURoutesManager__copyPickableRoutes__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __35__HURoutesManager_clearAudioRoutes__block_invoke(uint64_t a1)
@@ -160,7 +158,7 @@ void __35__HURoutesManager_clearAudioRoutes__block_invoke(uint64_t a1)
 
 void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 valueForKey:@"RouteCurrentlyPicked"];
   v5 = [v4 BOOLValue];
@@ -189,13 +187,13 @@ void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke
 
     else if (([v8 hasPrefix:@"Headset"] & 1) != 0 || (objc_msgSend(v8, "hasPrefix:", @"Headphone") & 1) != 0 || objc_msgSend(v8, "hasPrefix:", @"CarAudioOutput"))
     {
-      v16 = [v3 valueForKey:@"IsPreferredExternalRoute"];
-      v17 = [v16 BOOLValue];
+      v15 = [v3 valueForKey:@"IsPreferredExternalRoute"];
+      v16 = [v15 BOOLValue];
 
-      v18 = [v3 valueForKey:@"PreferredExternalRouteDetails_IsActive"];
-      v19 = [v18 BOOLValue];
+      v17 = [v3 valueForKey:@"PreferredExternalRouteDetails_IsActive"];
+      v18 = [v17 BOOLValue];
 
-      if (v17 && !v19)
+      if (v16 && !v18)
       {
         goto LABEL_16;
       }
@@ -223,9 +221,9 @@ void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke
   v12 = HCLogHearingHandoff();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v3;
-    _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Detected HA route: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v3;
+    _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Detected HA route: %@", &v19, 0xCu);
   }
 
 LABEL_16:
@@ -238,13 +236,11 @@ LABEL_16:
   {
     [*(a1 + 56) addObject:v8];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke_24(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 valueForKey:*MEMORY[0x1E69AEC18]];
   if ([v4 BOOLValue])
@@ -258,9 +254,9 @@ void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke
       v7 = HCLogHearingAids();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v9 = 138412290;
-        v10 = v3;
-        _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_INFO, "Found Live Listen route %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v3;
+        _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_INFO, "Found Live Listen route %@", &v8, 0xCu);
       }
     }
   }
@@ -268,8 +264,6 @@ void __58__HURoutesManager_fetchCurrentPickableAudioRoutesIfNeeded__block_invoke
   else
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCurrentPickableAudioRoutesIfNeededAsync:(id)async
@@ -397,7 +391,7 @@ uint64_t __34__HURoutesManager_mediaServerDied__block_invoke(uint64_t a1)
 
 - (void)registerNotifications
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   MRMediaRemoteSetWantsRouteChangeNotifications();
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel_pickableAudioRoutesDidChange_ name:*MEMORY[0x1E69B12A0] object:0];
@@ -407,16 +401,14 @@ uint64_t __34__HURoutesManager_mediaServerDied__block_invoke(uint64_t a1)
 
   mEMORY[0x1E69AED10] = [MEMORY[0x1E69AED10] sharedAVSystemController];
   v6 = MEMORY[0x1E69AECB8];
-  v12[0] = *MEMORY[0x1E69AECB8];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = *MEMORY[0x1E69AECB8];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   [mEMORY[0x1E69AED10] setAttribute:v7 forKey:*MEMORY[0x1E69AECD8] error:0];
 
   defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
   v9 = *v6;
   mEMORY[0x1E69AED10]2 = [MEMORY[0x1E69AED10] sharedAVSystemController];
   [defaultCenter3 addObserver:self selector:sel_mediaServerDied name:v9 object:mEMORY[0x1E69AED10]2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_savePickableRoutes:(id)routes
@@ -576,34 +568,34 @@ LABEL_31:
 
 - (BOOL)isRouteUIDHearingAidPeripheralUUID:(id)d inPeripheralUUIDs:(id)ds
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   dsCopy = ds;
-  v7 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [dsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        if ([dCopy containsString:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([dCopy containsString:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [dsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -615,28 +607,25 @@ LABEL_31:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)fetchCurrentPickableAudioRoutesIfNeeded
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "routesPlayAndRecord: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "routesPlayAndRecord: %@", &v2, 0xCu);
 }
 
 void __48__HURoutesManager_pickableAudioRoutesDidChange___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1DA5E2000, log, OS_LOG_TYPE_DEBUG, "pickableAudioRoutesDidChange\nold: %@\nnew: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1DA5E2000, log, OS_LOG_TYPE_DEBUG, "pickableAudioRoutesDidChange\nold: %@\nnew: %@", &v3, 0x16u);
 }
 
 @end

@@ -20,11 +20,11 @@
   if (v21)
   {
     objc_storeStrong(&v21->_value, value);
-    v23 = [keyCopy copy];
+    v23 = objc_msgSend_copy(keyCopy);
     key = v22->_key;
     v22->_key = v23;
 
-    v25 = [domainCopy copy];
+    v25 = objc_msgSend_copy(domainCopy);
     domain = v22->_domain;
     v22->_domain = v25;
 
@@ -40,31 +40,31 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = entriesCopy;
-  v51 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v50 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
   v7 = 0;
-  if (v51)
+  if (v50)
   {
-    v50 = *v56;
-    v48 = profileCopy;
+    v49 = *v55;
+    v47 = profileCopy;
     do
     {
       v8 = 0;
       do
       {
-        if (*v56 != v50)
+        if (*v55 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v55 + 1) + 8 * v8);
+        v9 = *(*(&v54 + 1) + 8 * v8);
         if (v9)
         {
           v10 = *(v9 + 32);
@@ -91,8 +91,8 @@
           v15 = 1;
         }
 
-        v52 = v13;
-        v53 = v11;
+        v51 = v13;
+        v52 = v11;
         if (v15 || v13 == 0)
         {
           _HKInitializeLogging();
@@ -102,7 +102,7 @@
             v39 = v17;
             v40 = objc_opt_class();
             *buf = 138543362;
-            v60 = v40;
+            v59 = v40;
             v41 = v40;
             _os_log_error_impl(&dword_228986000, v39, OS_LOG_TYPE_ERROR, "%{public}@: Invalid entity/key/value set", buf, 0xCu);
           }
@@ -165,9 +165,9 @@ LABEL_30:
         }
 
 LABEL_31:
-        v65 = v53;
-        v66 = v52;
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+        v64 = v52;
+        v65 = v51;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
         if (v9)
         {
           v31 = *(v9 + 56);
@@ -182,10 +182,10 @@ LABEL_31:
           v33 = 0;
         }
 
-        profileCopy = v48;
-        v54 = v7;
-        v34 = [(objc_class *)v23 _insertKeysAndValues:v30 modificationDate:v31 domain:v18 category:v10 provenance:v32 syncIdentity:persistentID updatePolicy:v33 profile:v48 error:&v54];
-        v35 = v54;
+        profileCopy = v47;
+        v53 = v7;
+        v34 = [(objc_class *)v23 _insertKeysAndValues:v30 modificationDate:v31 domain:v18 category:v10 provenance:v32 syncIdentity:persistentID updatePolicy:v33 profile:v47 error:&v53];
+        v35 = v53;
 
         if (v34)
         {
@@ -200,11 +200,11 @@ LABEL_31:
           v42 = v36;
           v43 = objc_opt_class();
           *buf = 138543874;
-          v60 = v43;
-          v61 = 2048;
-          v62 = v10;
-          v63 = 2114;
-          v64 = v35;
+          v59 = v43;
+          v60 = 2048;
+          v61 = v10;
+          v62 = 2114;
+          v63 = v35;
           v44 = v43;
           _os_log_error_impl(&dword_228986000, v42, OS_LOG_TYPE_ERROR, "%{public}@: Failed to apply value of category %ld, %{public}@", buf, 0x20u);
         }
@@ -217,7 +217,7 @@ LABEL_31:
         }
 
         daemon = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%ld", objc_opt_class(), v10];
-        autoBugCaptureReporter = [v48 daemon];
+        autoBugCaptureReporter = [v47 daemon];
         v20AutoBugCaptureReporter = [autoBugCaptureReporter autoBugCaptureReporter];
         if (v9)
         {
@@ -239,17 +239,15 @@ LABEL_42:
         ++v8;
       }
 
-      while (v51 != v8);
-      v46 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
-      v51 = v46;
+      while (v50 != v8);
+      v46 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
+      v50 = v46;
     }
 
     while (v46);
   }
 
 LABEL_52:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (_HDKeyValueJournalEntry)initWithCoder:(id)coder

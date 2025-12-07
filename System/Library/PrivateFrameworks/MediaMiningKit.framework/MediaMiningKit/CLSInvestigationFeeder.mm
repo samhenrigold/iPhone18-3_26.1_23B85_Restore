@@ -798,7 +798,7 @@ void __87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationCache
   }
 }
 
-uint64_t __87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationCache_progressBlock___block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationCache_progressBlock___block_invoke_4(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -838,7 +838,7 @@ uint64_t __87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationC
   return v7;
 }
 
-uint64_t __87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationCache_progressBlock___block_invoke_2_224(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__87__CLSInvestigationFeeder__prepareFeederWithServiceManager_locationCache_progressBlock___block_invoke_2_224(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

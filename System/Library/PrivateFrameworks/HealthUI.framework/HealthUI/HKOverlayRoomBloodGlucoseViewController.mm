@@ -800,7 +800,7 @@ HKInteractiveChartSinglePointData *__121__HKOverlayRoomBloodGlucoseViewControlle
   return v3;
 }
 
-__CFString *__92__HKOverlayRoomBloodGlucoseViewController__buildGranularAverageDataSourceTitleFromTimeScope__block_invoke(uint64_t a1, uint64_t a2)
+__CFString *__92__HKOverlayRoomBloodGlucoseViewController__buildGranularAverageDataSourceTitleFromTimeScope__block_invoke(uint64_t a1, unint64_t a2)
 {
   v4 = &stru_1F42FFBE0;
   if (a2 <= 3)
@@ -832,7 +832,7 @@ __CFString *__92__HKOverlayRoomBloodGlucoseViewController__buildGranularAverageD
 
   else
   {
-    if ((a2 - 4) < 3)
+    if (a2 - 4 < 3)
     {
       v5 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
       v6 = v5;
@@ -842,7 +842,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    if ((a2 - 7) >= 2)
+    if (a2 - 7 >= 2)
     {
       goto LABEL_13;
     }

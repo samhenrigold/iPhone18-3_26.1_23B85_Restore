@@ -9,6 +9,7 @@
 - (_LSDService)initWithXPCListener:(id)listener;
 - (id)clientForConnection:(id)connection;
 - (void)clientBorn:(id)born forNewConnection:(id)connection;
+- (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
 - (void)connectionWasInvalidated:(id)invalidated;
 @end
 
@@ -16,24 +17,25 @@
 
 + (id)XPCConnectionToService
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  v3 = [__LSDefaultsGetSharedInstance(self a2)];
+  if (v3)
   {
-    v3 = +[_LSDServiceDomain defaultServiceDomain];
-    v4 = _LSDServiceGetXPCConnection(self, v3);
+    v4 = +[_LSDServiceDomain defaultServiceDomain];
+    v5 = _LSDServiceGetXPCConnection(self, v4);
   }
 
   else
   {
-    v5 = _LSDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = _LSDefaultLog(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      +[(_LSDService *)v5];
+      +[(_LSDService *)v6];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)XPCProxyWithErrorHandler:(uint64_t)handler
@@ -141,6 +143,22 @@
   return v12;
 }
 
+- (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
+{
+  replyCopy = reply;
+  v9 = [(_LSDService *)self clientForConnection:?];
+  if (!v9)
+  {
+    v10 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      [_LSDService connection:connection handleInvocation:self isReply:v10];
+    }
+  }
+
+  [v9 handleXPCInvocation:invocation isReply:replyCopy];
+}
+
 + (unsigned)connectionType
 {
   v2 = MEMORY[0x1E695DF30];
@@ -176,13 +194,12 @@
 
 - (void)connection:(uint64_t)a1 handleInvocation:(uint64_t)a2 isReply:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_18162D000, log, OS_LOG_TYPE_FAULT, "client was unexpectedly nil for connection %@ for %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_18162D000, log, OS_LOG_TYPE_FAULT, "client was unexpectedly nil for connection %@ for %@", &v3, 0x16u);
 }
 
 @end

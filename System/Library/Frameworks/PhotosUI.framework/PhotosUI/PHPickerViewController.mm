@@ -14,6 +14,9 @@
 - (void)_handleRemoteViewControllerConnection:(id)connection extension:(id)extension extensionRequestIdentifier:(id)identifier error:(id)error completionHandler:(id)handler;
 - (void)_overrideSelectedItemsWithIdentifiers:(id)identifiers;
 - (void)_pickerDidFinishPicking:(id)picking action:(int64_t)action error:(id)error;
+- (void)_pickerDidSetModalInPresentation:(BOOL)presentation;
+- (void)_pickerDidSetOnboardingHeaderDismissed:(BOOL)dismissed;
+- (void)_pickerDidSetOnboardingOverlayDismissed:(BOOL)dismissed;
 - (void)_pickerUnavailableViewControllerCancelButtonTapped:(id)tapped;
 - (void)_pickerUnavailableViewControllerRetryButtonTapped:(id)tapped;
 - (void)_searchWithString:(id)string;
@@ -26,6 +29,7 @@
 - (void)moveItemWithIdentifier:(id)identifier afterItemWithIdentifier:(id)withIdentifier;
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
 - (void)scrollToInitialPosition;
+- (void)setModalInPresentation:(BOOL)presentation;
 - (void)updatePickerUsingConfiguration:(PHPickerUpdateConfiguration *)configuration;
 - (void)zoomIn;
 - (void)zoomOut;
@@ -104,6 +108,51 @@ LABEL_10:
   }
 }
 
+- (void)_pickerDidSetModalInPresentation:(BOOL)presentation
+{
+  presentationCopy = presentation;
+  if ([MEMORY[0x1E696AF00] isMainThread])
+  {
+    v8.receiver = self;
+    v8.super_class = PHPickerViewController;
+    [(PHPickerViewController *)&v8 setModalInPresentation:presentationCopy];
+  }
+
+  else
+  {
+    v5 = _PFAssertFailHandler();
+    [(PHPickerViewController *)v5 _pickerDidSetOnboardingHeaderDismissed:v6, v7];
+  }
+}
+
+- (void)_pickerDidSetOnboardingHeaderDismissed:(BOOL)dismissed
+{
+  dismissedCopy = dismissed;
+  configuration = [(PHPickerViewController *)self configuration];
+  _purposedLimitedLibraryApplicationIdentifier = [configuration _purposedLimitedLibraryApplicationIdentifier];
+
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v8 = standardUserDefaults;
+  if (_purposedLimitedLibraryApplicationIdentifier)
+  {
+    v7 = @"com.apple.photos.picker.limitedlibrary.header";
+  }
+
+  else
+  {
+    v7 = @"com.apple.photos.picker.header";
+  }
+
+  [standardUserDefaults setBool:dismissedCopy forKey:v7];
+}
+
+- (void)_pickerDidSetOnboardingOverlayDismissed:(BOOL)dismissed
+{
+  dismissedCopy = dismissed;
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  [standardUserDefaults setBool:dismissedCopy forKey:@"com.apple.photos.picker.overlay"];
+}
+
 - (void)_pickerUnavailableViewControllerRetryButtonTapped:(id)tapped
 {
   tappedCopy = tapped;
@@ -138,7 +187,7 @@ LABEL_7:
   {
 LABEL_20:
     v20 = _PFAssertFailHandler();
-    __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapped___block_invoke(v20);
+    __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapped___block_invoke(v20, v21);
     return;
   }
 
@@ -213,7 +262,7 @@ id __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapp
 
 - (void)_addOrReplaceChildViewController:(id)controller
 {
-  v35[4] = *MEMORY[0x1E69E9840];
+  v34[4] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   childViewControllers = [(PHPickerViewController *)self childViewControllers];
   v6 = [childViewControllers count];
@@ -235,7 +284,7 @@ id __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapp
     [firstObject removeFromParentViewController];
   }
 
-  v34 = firstObject;
+  v33 = firstObject;
   configuration = [(PHPickerViewController *)self configuration];
   _disabledPrivateCapabilities = [configuration _disabledPrivateCapabilities];
 
@@ -248,41 +297,39 @@ id __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapp
   [(PHPickerViewController *)self addChildViewController:controllerCopy];
   view2 = [(PHPickerViewController *)self view];
   v13 = controllerCopy;
-  v33 = controllerCopy;
+  v32 = controllerCopy;
   v14 = view2;
   view3 = [v13 view];
   [view3 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v14 bounds];
   [view3 setFrame:?];
   [v14 addSubview:view3];
-  v27 = MEMORY[0x1E696ACD8];
+  v26 = MEMORY[0x1E696ACD8];
   topAnchor = [view3 topAnchor];
   topAnchor2 = [v14 topAnchor];
-  v30 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v35[0] = v30;
+  v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v34[0] = v29;
   bottomAnchor = [view3 bottomAnchor];
   bottomAnchor2 = [v14 bottomAnchor];
-  v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v35[1] = v26;
+  v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v34[1] = v25;
   leadingAnchor = [view3 leadingAnchor];
   leadingAnchor2 = [v14 leadingAnchor];
   v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v35[2] = v18;
+  v34[2] = v18;
   trailingAnchor = [view3 trailingAnchor];
   trailingAnchor2 = [v14 trailingAnchor];
   v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v35[3] = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:4];
-  [v27 activateConstraints:v22];
+  v34[3] = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:4];
+  [v26 activateConstraints:v22];
 
-  [v33 didMoveToParentViewController:self];
-  v23 = [v33 contentScrollViewForEdge:1];
-  v24 = [v33 contentScrollViewForEdge:4];
+  [v32 didMoveToParentViewController:self];
+  v23 = [v32 contentScrollViewForEdge:1];
+  v24 = [v32 contentScrollViewForEdge:4];
   [(PHPickerViewController *)self setContentScrollView:v23 forEdge:1];
   [(PHPickerViewController *)self setContentScrollView:v24 forEdge:4];
   [(PHPickerViewController *)self setNeedsStatusBarAppearanceUpdate];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addOrReplaceChildUnavailableViewController:(unint64_t)controller error:(id)error
@@ -409,8 +456,7 @@ id __77__PHPickerViewController__pickerUnavailableViewControllerCancelButtonTapp
   if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
   {
     _PFAssertFailHandler();
-LABEL_22:
-    v33 = *(handler + 502);
+LABEL_24:
     v34 = objc_opt_class();
     NSStringFromClass(v34);
     objc_claimAutoreleasedReturnValue();
@@ -450,39 +496,38 @@ LABEL_22:
 
   [(PHPickerViewController *)self _cancelExistingExtensionRequestIfPossible];
   objc_initWeak(location, self);
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke;
-  v51[3] = &unk_1E83F7A38;
-  objc_copyWeak(&v53, location);
-  v19 = extensionCopy;
-  v52 = v19;
-  [v19 setRequestCancellationBlock:v51];
   v48[0] = MEMORY[0x1E69E9820];
   v48[1] = 3221225472;
-  v48[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_3;
-  v48[3] = &unk_1E83F7A88;
+  v48[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke;
+  v48[3] = &unk_1E83F7A38;
   objc_copyWeak(&v50, location);
-  v20 = v19;
-  v49 = v20;
-  [v20 setRequestInterruptionBlock:v48];
-  v39 = errorCopy;
+  v19 = extensionCopy;
+  v49 = v19;
+  [v19 setRequestCancellationBlock:v48];
   v45[0] = MEMORY[0x1E69E9820];
   v45[1] = 3221225472;
-  v45[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_5;
-  v45[3] = &unk_1E83F7AB0;
+  v45[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_3;
+  v45[3] = &unk_1E83F7A88;
   objc_copyWeak(&v47, location);
+  v20 = v19;
+  v46 = v20;
+  [v20 setRequestInterruptionBlock:v45];
+  v36 = errorCopy;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_5;
+  v42[3] = &unk_1E83F7AB0;
+  objc_copyWeak(&v44, location);
   v21 = v20;
-  v46 = v21;
-  [v21 setRequestCompletionBlock:v45];
+  v43 = v21;
+  [v21 setRequestCompletionBlock:v42];
   [(PHPickerViewController *)self _setExtension:v21];
   [(PHPickerViewController *)self _setExtensionRequestIdentifier:identifierCopy];
   v22 = identifierCopy;
-  handler = 0x1E696A000;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_22;
+    goto LABEL_24;
   }
 
   v23 = [v21 _extensionContextForUUID:v22];
@@ -515,24 +560,24 @@ LABEL_22:
 
         [remoteObjectProxy _hostModalInPresentationDidChange:{-[PHPickerViewController isModalInPresentation](self, "isModalInPresentation")}];
         configuration = [(PHPickerViewController *)self configuration];
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_7;
-        v40[3] = &unk_1E83F7B00;
-        objc_copyWeak(&v42, location);
-        objc_copyWeak(&v43, &from);
-        v41 = handlerCopy;
-        [remoteObjectProxy _updateConfiguration:configuration completionHandler:v40];
-        errorCopy = v39;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __125__PHPickerViewController__handleRemoteViewControllerConnection_extension_extensionRequestIdentifier_error_completionHandler___block_invoke_7;
+        v37[3] = &unk_1E83F7B00;
+        objc_copyWeak(&v39, location);
+        objc_copyWeak(&v40, &from);
+        v38 = handlerCopy;
+        [remoteObjectProxy _updateConfiguration:configuration completionHandler:v37];
+        errorCopy = v36;
 
-        objc_destroyWeak(&v43);
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v39);
 
         objc_destroyWeak(&from);
-        objc_destroyWeak(&v47);
+        objc_destroyWeak(&v44);
 
+        objc_destroyWeak(&v47);
         objc_destroyWeak(&v50);
-        objc_destroyWeak(&v53);
         objc_destroyWeak(location);
 LABEL_20:
 
@@ -540,23 +585,13 @@ LABEL_20:
       }
     }
 
-    v37 = objc_opt_class();
-    NSStringFromClass(v37);
-    objc_claimAutoreleasedReturnValue();
-    v38 = objc_opt_class();
-    NSStringFromClass(v38);
-    objc_claimAutoreleasedReturnValue();
-    _PFAssertFailHandler();
+    goto LABEL_24;
   }
 
-  else
-  {
-    v36 = objc_opt_class();
-    NSStringFromClass(v36);
-    objc_claimAutoreleasedReturnValue();
-    _PFAssertFailHandler();
-  }
-
+  v33 = objc_opt_class();
+  NSStringFromClass(v33);
+  objc_claimAutoreleasedReturnValue();
+  _PFAssertFailHandler();
 LABEL_25:
   __break(1u);
 }
@@ -761,26 +796,24 @@ void __66__PHPickerViewController__setupExtension_error_completionHandler___bloc
 
 - (void)_setup:(id)_setup
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   _setupCopy = _setup;
-  v13 = *MEMORY[0x1E696A2E0];
-  v14[0] = @"com.apple.mobileslideshow.photospicker";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x1E696A2E0];
+  v13[0] = @"com.apple.mobileslideshow.photospicker";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   objc_initWeak(&location, self);
   v6 = MEMORY[0x1E696ABD0];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __33__PHPickerViewController__setup___block_invoke;
-  v9[3] = &unk_1E83F7970;
-  objc_copyWeak(&v11, &location);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __33__PHPickerViewController__setup___block_invoke;
+  v8[3] = &unk_1E83F7970;
+  objc_copyWeak(&v10, &location);
   v7 = _setupCopy;
-  v10 = v7;
-  [v6 extensionsWithMatchingAttributes:v5 completion:v9];
+  v9 = v7;
+  [v6 extensionsWithMatchingAttributes:v5 completion:v8];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __33__PHPickerViewController__setup___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -817,17 +850,15 @@ void __33__PHPickerViewController__setup___block_invoke(uint64_t a1, void *a2, v
 
 void __44__PHPickerViewController__popViewController__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = PLPickerGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "Error getting synchronous remote object proxy: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "Error getting synchronous remote object proxy: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_searchWithString:(id)string
@@ -908,6 +939,19 @@ void __44__PHPickerViewController__popViewController__block_invoke(uint64_t a1, 
     v8 = _PFAssertFailHandler();
     [(PHPickerViewController *)v8 setModalInPresentation:v9, v10];
   }
+}
+
+- (void)setModalInPresentation:(BOOL)presentation
+{
+  presentationCopy = presentation;
+  v8.receiver = self;
+  v8.super_class = PHPickerViewController;
+  [(PHPickerViewController *)&v8 setModalInPresentation:?];
+  _extensionContext = [(PHPickerViewController *)self _extensionContext];
+  _auxiliaryConnection = [_extensionContext _auxiliaryConnection];
+  remoteObjectProxy = [_auxiliaryConnection remoteObjectProxy];
+
+  [remoteObjectProxy _hostModalInPresentationDidChange:presentationCopy];
 }
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container

@@ -641,7 +641,7 @@ LABEL_3:
   sendCopy = send;
   printCopy = print;
   v48 = *MEMORY[0x1E69E9840];
-  v7 = micro();
+  v7 = micro(self, a2);
   if (sendCopy)
   {
     v8.i32[0] = 1;
@@ -762,21 +762,21 @@ LABEL_3:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: init connection is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: init connection is nil", v2, v3, v4, v5);
 }
 
 - (void)initWithConnections:multiplexedConnection:error:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: failed to create AVCPacketRelayQueue", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: failed to create AVCPacketRelayQueue", v2, v3, v4, v5);
 }
 
 - (void)initWithConnections:multiplexedConnection:error:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: init connection has wrong type", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: init connection has wrong type", v2, v3, v4, v5);
 }
 
 - (void)initWithConnections:multiplexedConnection:error:.cold.4()
@@ -823,7 +823,7 @@ void __66__AVCPacketRelay_initWithConnections_multiplexedConnection_error___bloc
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: doesn't know how to forward packet", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelay: doesn't know how to forward packet", v2, v3, v4, v5);
 }
 
 uint64_t __23__AVCPacketRelay_start__block_invoke_cold_1(void *a1, id *a2, int a3)

@@ -13,23 +13,22 @@
 - (id)getObject
 {
   os_unfair_lock_lock(&self->_lock);
+  v3 = objc_opt_respondsToSelector();
   object = self->_object;
-  v4 = objc_opt_respondsToSelector();
-  v5 = self->_object;
-  if (v4)
+  if (v3)
   {
-    v6 = [v5 copyWithZone:0];
+    v5 = [object copyWithZone:0];
   }
 
   else
   {
-    v6 = v5;
+    v5 = object;
   }
 
-  v7 = v6;
+  v6 = v5;
   os_unfair_lock_unlock(&self->_lock);
 
-  return v7;
+  return v6;
 }
 
 - (EFLocked)initWithObject:(id)object

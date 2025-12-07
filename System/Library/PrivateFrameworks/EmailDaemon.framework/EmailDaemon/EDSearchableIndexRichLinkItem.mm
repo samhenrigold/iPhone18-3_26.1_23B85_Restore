@@ -37,7 +37,7 @@ void __36__EDSearchableIndexRichLinkItem_log__block_invoke(uint64_t a1)
 
 + (id)messageIDandRichLinkIDFromRichLinkIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [self richLinkItemIdentifierFromSearchableItemIdentifier:identifierCopy];
   v6 = [v5 componentsSeparatedByString:@"_"];
@@ -59,15 +59,13 @@ void __36__EDSearchableIndexRichLinkItem_log__block_invoke(uint64_t a1)
     v14 = +[EDSearchableIndexRichLinkItem log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Rich link identifier %@ could not be split up into messageID and rich link ID.", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = identifierCopy;
+      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Rich link identifier %@ could not be split up into messageID and rich link ID.", &v16, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -121,27 +119,27 @@ void __36__EDSearchableIndexRichLinkItem_log__block_invoke(uint64_t a1)
 
 - (id)searchableItem
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!self->_searchableItem && [(EDSearchableIndexRichLinkItem *)self requiresPreprocessing])
   {
     [(EDSearchableIndexRichLinkItem *)self setRequiresPreprocessing:0];
     metadatum = [(EDSearchableIndexRichLinkItem *)self metadatum];
-    v30 = objc_alloc_init(MEMORY[0x1E6964E90]);
+    v29 = objc_alloc_init(MEMORY[0x1E6964E90]);
     v4 = [EDSearchableRichLink alloc];
     accountIdentifier = [metadatum accountIdentifier];
     mailboxIdentifiers = [metadatum mailboxIdentifiers];
     messagePersistentID = [(EDSearchableIndexRichLinkItem *)self messagePersistentID];
     richLinkID = [metadatum richLinkID];
     title = [metadatum title];
-    v26 = [metadatum url];
+    v25 = [metadatum url];
     dateSent = [metadatum dateSent];
     dateReceived = [metadatum dateReceived];
     senderAddress = [metadatum senderAddress];
     recipientAddresses = [metadatum recipientAddresses];
-    v25 = messagePersistentID;
-    v11 = [(EDSearchableRichLink *)v4 initWithAccountIdentifier:accountIdentifier mailboxIdentifiers:mailboxIdentifiers messageID:messagePersistentID id:richLinkID title:title url:v26 dateSent:dateSent dateReceived:dateReceived sender:senderAddress recipients:recipientAddresses];
+    v24 = messagePersistentID;
+    v11 = [(EDSearchableRichLink *)v4 initWithAccountIdentifier:accountIdentifier mailboxIdentifiers:mailboxIdentifiers messageID:messagePersistentID id:richLinkID title:title url:v25 dateSent:dateSent dateReceived:dateReceived sender:senderAddress recipients:recipientAddresses];
 
-    [(EDSearchableRichLink *)v11 addToAttributes:v30];
+    [(EDSearchableRichLink *)v11 addToAttributes:v29];
     v12 = +[EDSearchableIndexRichLinkItem log];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
@@ -149,18 +147,18 @@ void __36__EDSearchableIndexRichLinkItem_log__block_invoke(uint64_t a1)
       identifier = [(EDSearchableIndexRichLinkItem *)self identifier];
       messagePersistentID2 = [(EDSearchableIndexRichLinkItem *)self messagePersistentID];
       *buf = 138412802;
-      v32 = richLinkID2;
-      v33 = 2114;
-      v34 = identifier;
-      v35 = 2114;
-      v36 = messagePersistentID2;
+      v31 = richLinkID2;
+      v32 = 2114;
+      v33 = identifier;
+      v34 = 2114;
+      v35 = messagePersistentID2;
       _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Creating rich link attribute set with rich link ID %@ uniqueIdentifier %{public}@ relatedUniqueIdentifier %{public}@", buf, 0x20u);
     }
 
     v16 = objc_alloc(MEMORY[0x1E6964E80]);
     identifier2 = [(EDSearchableIndexRichLinkItem *)self identifier];
     domainIdentifier = [(EDSearchableIndexRichLinkItem *)self domainIdentifier];
-    v19 = [v16 initWithUniqueIdentifier:identifier2 domainIdentifier:domainIdentifier attributeSet:v30];
+    v19 = [v16 initWithUniqueIdentifier:identifier2 domainIdentifier:domainIdentifier attributeSet:v29];
     searchableItem = self->_searchableItem;
     self->_searchableItem = v19;
 
@@ -169,7 +167,6 @@ void __36__EDSearchableIndexRichLinkItem_log__block_invoke(uint64_t a1)
   }
 
   v22 = self->_searchableItem;
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

@@ -52,9 +52,11 @@
 
 uint64_t __31__TVRUIButtonEvent_description__block_invoke()
 {
-  description_dateFormatter = objc_alloc_init(MEMORY[0x277CCA968]);
+  v0 = objc_alloc_init(MEMORY[0x277CCA968]);
+  v1 = description_dateFormatter;
+  description_dateFormatter = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

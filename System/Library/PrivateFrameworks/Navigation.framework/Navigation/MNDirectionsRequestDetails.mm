@@ -488,10 +488,9 @@ LABEL_36:
 {
   v3 = MEMORY[0x1E696AD60];
   v4 = [(NSArray *)self->_waypoints valueForKey:@"waypoint"];
-  maxRouteCount = self->_maxRouteCount;
-  v6 = [v3 stringWithFormat:@"\twaypoints: %@ |\n\tmaxRouteCount: %d |\n\trouteAttributes: %@", v4, maxRouteCount, self->_routeAttributes];
+  v5 = [v3 stringWithFormat:@"\twaypoints: %@ |\n\tmaxRouteCount: %d |\n\trouteAttributes: %@", v4, self->_maxRouteCount, self->_routeAttributes];
 
-  return v6;
+  return v5;
 }
 
 - (MNDirectionsRequestDetails)initWithTracePath:(id)path

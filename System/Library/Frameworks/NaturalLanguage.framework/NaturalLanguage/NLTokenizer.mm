@@ -88,16 +88,15 @@
     if (v5)
     {
       v6 = v5;
-      tokenizer = self->_tokenizer;
       NLTokenizerSetLocale();
       CFRelease(v6);
       v4 = localeIdentifier;
     }
   }
 
-  v8 = [(__CFString *)v4 copy];
-  v9 = self->_language;
-  self->_language = v8;
+  v7 = [(__CFString *)v4 copy];
+  v8 = self->_language;
+  self->_language = v7;
 }
 
 void __32__NLTokenizer__wordCharacterSet__block_invoke()
@@ -323,7 +322,7 @@ void __30__NLTokenizer_tokensForRange___block_invoke(uint64_t a1, uint64_t a2, u
   location = range.location;
   v7 = block;
   v8 = [(NSString *)self->_string length];
-  v41 = 0;
+  v39 = 0;
   unit = [(NLTokenizer *)self unit];
   _wordCharacterSet = [(NLTokenizer *)self _wordCharacterSet];
   if (enumerateTokensInRange_usingBlock__onceToken != -1)
@@ -336,7 +335,7 @@ void __30__NLTokenizer_tokensForRange___block_invoke(uint64_t a1, uint64_t a2, u
   {
     if ([(NLTokenizer *)self unit]== NLTokenUnitDocument)
     {
-      (*(v7 + 2))(v7, 0, v8, 0, &v41);
+      (*(v7 + 2))(v7, 0, v8, 0, &v39);
       goto LABEL_34;
     }
 
@@ -350,9 +349,9 @@ void __30__NLTokenizer_tokensForRange___block_invoke(uint64_t a1, uint64_t a2, u
     {
 LABEL_8:
       NextToken = v12;
-      v38 = unit;
-      v39 = _wordCharacterSet;
-      v40 = location;
+      v36 = unit;
+      v37 = _wordCharacterSet;
+      v38 = location;
       while (1)
       {
         v14 = NextToken[1];
@@ -374,56 +373,55 @@ LABEL_8:
         }
 
         [(NSString *)self->_string rangeOfCharacterFromSet:_wordCharacterSet options:0 range:*NextToken, NextToken[1]];
-        if (v20)
+        if (v19)
         {
           v18 = (NextToken[2] >> 3) & 1;
           if (v15 < v16)
           {
-            v21 = v15;
+            v20 = v15;
             do
             {
-              v22 = [(NSString *)self->_string rangeOfCharacterFromSet:enumerateTokensInRange_usingBlock__nonAlphanumericCharacterSet options:0 range:v21, v16 - v21];
-              if (!v23)
+              v21 = [(NSString *)self->_string rangeOfCharacterFromSet:enumerateTokensInRange_usingBlock__nonAlphanumericCharacterSet options:0 range:v20, v16 - v20];
+              if (!v22)
               {
                 break;
               }
 
+              v23 = v21;
               v24 = v22;
-              v25 = v23;
-              v26 = [(NSString *)self->_string rangeOfComposedCharacterSequenceAtIndex:v22];
-              if (v26 + v27 <= v16)
+              v25 = [(NSString *)self->_string rangeOfComposedCharacterSequenceAtIndex:v21];
+              if (v25 + v26 <= v16)
               {
-                v25 = v27;
                 v24 = v26;
+                v23 = v25;
               }
 
-              [(NSString *)self->_string rangeOfCharacterFromSet:enumerateTokensInRange_usingBlock__nonWordInternalCharacterSet options:0 range:v24, v25];
-              if (v28)
+              [(NSString *)self->_string rangeOfCharacterFromSet:enumerateTokensInRange_usingBlock__nonWordInternalCharacterSet options:0 range:v23, v24];
+              if (v27)
               {
-                v29 = [(NSString *)self->_string substringWithRange:v24, v25];
-                v30 = CEMStringContainsEmoji();
-                v31 = 4;
-                if (!v30)
+                v28 = [(NSString *)self->_string substringWithRange:v23, v24];
+                v29 = CEMStringContainsEmoji();
+                v30 = 4;
+                if (!v29)
                 {
-                  v31 = 2;
+                  v30 = 2;
                 }
 
-                v18 |= v31;
+                v18 |= v30;
               }
 
-              v21 = v24 + v25;
+              v20 = v23 + v24;
             }
 
-            while (v24 + v25 < v16);
+            while (v23 + v24 < v16);
           }
 
           goto LABEL_17;
         }
 
 LABEL_18:
-        if ((v41 & 1) == 0)
+        if ((v39 & 1) == 0)
         {
-          tokenizer = self->_tokenizer;
           NextToken = NLTokenizerGetNextToken();
           if (NextToken)
           {
@@ -436,28 +434,27 @@ LABEL_18:
 
       v18 = 0;
 LABEL_17:
-      (*(v7 + 2))(v7, v15, v14, v18, &v41);
-      _wordCharacterSet = v39;
-      location = v40;
-      unit = v38;
+      (*(v7 + 2))(v7, v15, v14, v18, &v39);
+      _wordCharacterSet = v37;
+      location = v38;
+      unit = v36;
       goto LABEL_18;
     }
 
     if ([(NLTokenizer *)self unit]== NLTokenUnitWord)
     {
-      v32 = location;
-      while (v32 < v11)
+      v31 = location;
+      while (v31 < v11)
       {
-        v33 = [(NSString *)self->_string rangeOfComposedCharacterSequenceAtIndex:v32];
-        v35 = v33 + v34;
-        if (v33 + v34 <= v32 || v35 >= v11)
+        v32 = [(NSString *)self->_string rangeOfComposedCharacterSequenceAtIndex:v31];
+        v34 = v32 + v33;
+        if (v32 + v33 <= v31 || v34 >= v11)
         {
           break;
         }
 
-        v37 = self->_tokenizer;
         v12 = NLTokenizerGoToTokenAtIndex();
-        v32 = v35;
+        v31 = v34;
         if (v12)
         {
           goto LABEL_8;

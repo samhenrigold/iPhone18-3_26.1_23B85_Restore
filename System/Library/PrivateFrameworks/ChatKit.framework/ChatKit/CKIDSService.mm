@@ -44,7 +44,7 @@
   typeCopy = type;
   dataCopy = data;
   serviceCopy = service;
-  v43 = [[IDSProtobuf alloc] initWithProtobufData:dataCopy type:typeCopy isResponse:0];
+  v42 = [[IDSProtobuf alloc] initWithProtobufData:dataCopy type:typeCopy isResponse:0];
   v12 = objc_alloc_init(NSMutableDictionary);
   v13 = v12;
   if (forgetCopy)
@@ -58,31 +58,30 @@
     v15 = dataCopy;
     devices = [serviceCopy devices];
     v17 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(devices, "count")}];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v18 = devices;
-    v19 = [v18 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v52;
+      v21 = *v51;
       do
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v52 != v21)
+          if (*v51 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v51 + 1) + 8 * i);
-          v24 = IDSCopyIDForDevice();
-          [v17 addObject:v24];
+          v23 = IDSCopyIDForDevice();
+          [v17 addObject:v23];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v20);
@@ -96,61 +95,61 @@
     v17 = [NSSet setWithObject:IDSDefaultPairedDevice];
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v25 = v17;
-  v26 = [v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
-  if (v26)
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v24 = v17;
+  v25 = [v24 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v25)
   {
-    v27 = v26;
-    v40 = v13;
-    v41 = dataCopy;
+    v26 = v25;
+    v39 = v13;
+    v40 = dataCopy;
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v30 = *v48;
-    obj = v25;
+    v29 = *v47;
+    obj = v24;
     while (2)
     {
-      v31 = 0;
+      v30 = 0;
+      v31 = v27;
       v32 = v28;
-      v33 = v29;
       do
       {
-        if (*v48 != v30)
+        if (*v47 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = v14;
-        v35 = [v14[96] setWithObject:*(*(&v47 + 1) + 8 * v31)];
-        v45 = v33;
-        v46 = v32;
-        v36 = [serviceCopy sendProtobuf:v43 toDestinations:v35 priority:200 options:0 identifier:&v46 error:&v45];
-        v28 = v46;
+        v33 = v14;
+        v34 = [v14[96] setWithObject:*(*(&v46 + 1) + 8 * v30)];
+        v44 = v32;
+        v45 = v31;
+        v35 = [serviceCopy sendProtobuf:v42 toDestinations:v34 priority:200 options:0 identifier:&v45 error:&v44];
+        v27 = v45;
 
-        v29 = v45;
-        if (!v36)
+        v28 = v44;
+        if (!v35)
         {
-          v25 = obj;
+          v24 = obj;
 
-          localizedDescription = [v29 localizedDescription];
+          localizedDescription = [v28 localizedDescription];
           NSLog(@"sendProtobufData failed - %@", localizedDescription);
-          v37 = 0;
+          v36 = 0;
           goto LABEL_23;
         }
 
-        v31 = v31 + 1;
+        v30 = v30 + 1;
+        v31 = v27;
         v32 = v28;
-        v33 = v29;
-        v14 = v34;
+        v14 = v33;
       }
 
-      while (v27 != v31);
-      v25 = obj;
-      v27 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
-      if (v27)
+      while (v26 != v30);
+      v24 = obj;
+      v26 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      if (v26)
       {
         continue;
       }
@@ -158,22 +157,22 @@
       break;
     }
 
-    v37 = 1;
+    v36 = 1;
     localizedDescription = obj;
 LABEL_23:
-    v13 = v40;
-    dataCopy = v41;
+    v13 = v39;
+    dataCopy = v40;
   }
 
   else
   {
-    v29 = 0;
     v28 = 0;
-    v37 = 1;
-    localizedDescription = v25;
+    v27 = 0;
+    v36 = 1;
+    localizedDescription = v24;
   }
 
-  return v37;
+  return v36;
 }
 
 - (BOOL)sendFile:(id)file onService:(id)service

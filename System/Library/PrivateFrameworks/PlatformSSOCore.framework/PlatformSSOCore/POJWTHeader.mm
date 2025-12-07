@@ -75,7 +75,7 @@ LABEL_6:
 id __31__POJWTHeader_initWithJWTData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error with JWT header data."];
-  v2 = PO_LOG_POJWTHeader();
+  v2 = PO_LOG_POJWTHeader(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -107,7 +107,7 @@ id __31__POJWTHeader_initWithJWTData___block_invoke(uint64_t a1)
 id __33__POJWTHeader_dataRepresentation__block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error with JWT body data representation."];
-  v2 = PO_LOG_POJWTHeader();
+  v2 = PO_LOG_POJWTHeader(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();

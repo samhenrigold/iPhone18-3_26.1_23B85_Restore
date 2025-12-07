@@ -46,7 +46,7 @@
 
   if (v8)
   {
-    v9 = VUIDefaultLogObject();
+    v9 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VUIActionPromise performWithTargetResponder:v9 completionHandler:?];

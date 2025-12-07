@@ -50,7 +50,7 @@
 
 - (id)buildBufferWithError:(id *)error
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   if (self->_itemType && (itemId = self->_itemId) != 0)
   {
     v9 = objc_msgSend_UTF8String(itemId, a2, error, v3, v4, v5);
@@ -118,13 +118,13 @@
     else
     {
       v58 = MEMORY[0x277CCA9B8];
-      v80 = *MEMORY[0x277CCA068];
+      v79 = *MEMORY[0x277CCA068];
       v59 = MEMORY[0x277CCACA8];
       v60 = objc_msgSend_length(v42, v53, v54, v55, v56, v57);
       v66 = KVItemTypeDescription(self->_itemType, v61, v62, v63, v64, v65);
       v71 = objc_msgSend_stringWithFormat_(v59, v67, @"Cannot build item with size: %lu exceeding the maximum allowed size: %lu. itemType: %@ itemId: %@", v68, v69, v70, v60, 51200, v66, self->_itemId);
-      v81 = v71;
-      v74 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v72, &v81, &v80, 1, v73);
+      v80 = v71;
+      v74 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v72, &v80, &v79, 1, v73);
       v77 = objc_msgSend_errorWithDomain_code_userInfo_(v58, v75, @"com.apple.koa.item.builder", 7, v74, v76);
       if (error && v77)
       {
@@ -139,9 +139,9 @@
   else
   {
     v20 = MEMORY[0x277CCA9B8];
-    v82 = *MEMORY[0x277CCA068];
-    v83[0] = @"required properties itemType and itemId are not set.";
-    v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v83, &v82, 1, v5);
+    v81 = *MEMORY[0x277CCA068];
+    v82[0] = @"required properties itemType and itemId are not set.";
+    v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v82, &v81, 1, v5);
     v24 = objc_msgSend_errorWithDomain_code_userInfo_(v20, v22, @"com.apple.koa.item.builder", 8, v21, v23);
     if (error && v24)
     {
@@ -153,23 +153,21 @@
     v30 = 0;
   }
 
-  v78 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (id)_addFieldWithType:(int64_t)type localeType:(int64_t)localeType label:(id)label value:(id)value error:(id *)error
 {
-  v164[1] = *MEMORY[0x277D85DE8];
+  v163[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   valueCopy = value;
   itemType = self->_itemType;
   if (!itemType || !self->_itemId)
   {
     v45 = MEMORY[0x277CCA9B8];
-    v163 = *MEMORY[0x277CCA068];
-    v164[0] = @"Cannot add field before setting required fields item type and itemId.";
-    v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v164, &v163, 1, v14);
+    v162 = *MEMORY[0x277CCA068];
+    v163[0] = @"Cannot add field before setting required fields item type and itemId.";
+    v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v163, &v162, 1, v14);
     v49 = objc_msgSend_errorWithDomain_code_userInfo_(v45, v47, @"com.apple.koa.item.builder", 8, v46, v48);
     v50 = v49;
     if (error && v49)
@@ -184,13 +182,13 @@
   if (KVItemTypeFromFieldType(type) != itemType)
   {
     v52 = MEMORY[0x277CCA9B8];
-    v161 = *MEMORY[0x277CCA068];
+    v160 = *MEMORY[0x277CCA068];
     v53 = MEMORY[0x277CCACA8];
     v46 = KVFieldTypeDescription(type);
     v50 = KVItemTypeDescription(self->_itemType, v54, v55, v56, v57, v58);
     v63 = objc_msgSend_stringWithFormat_(v53, v59, @"Cannot add field with invalid type: %@ to item of type: %@ itemId: %@", v60, v61, v62, v46, v50, self->_itemId);
-    v162 = v63;
-    v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v64, &v162, &v161, 1, v65);
+    v161 = v63;
+    v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v64, &v161, &v160, 1, v65);
     v69 = objc_msgSend_errorWithDomain_code_userInfo_(v52, v67, @"com.apple.koa.item.builder", 4, v66, v68);
     goto LABEL_22;
   }
@@ -201,14 +199,14 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v70 = MEMORY[0x277CCA9B8];
-      v159 = *MEMORY[0x277CCA068];
+      v158 = *MEMORY[0x277CCA068];
       v71 = MEMORY[0x277CCACA8];
       v72 = objc_opt_class();
       v46 = NSStringFromClass(v72);
       v50 = KVItemTypeDescription(self->_itemType, v73, v74, v75, v76, v77);
       v63 = objc_msgSend_stringWithFormat_(v71, v78, @"Cannot add field label of unsupported class: %@ to item of type: %@ with itemId: %@", v79, v80, v81, v46, v50, self->_itemId);
-      v160 = v63;
-      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v82, &v160, &v159, 1, v83);
+      v159 = v63;
+      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v82, &v159, &v158, 1, v83);
       v69 = objc_msgSend_errorWithDomain_code_userInfo_(v70, v84, @"com.apple.koa.item.builder", 3, v66, v85);
       goto LABEL_22;
     }
@@ -220,14 +218,14 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v98 = MEMORY[0x277CCA9B8];
-      v157 = *MEMORY[0x277CCA068];
+      v156 = *MEMORY[0x277CCA068];
       v99 = MEMORY[0x277CCACA8];
       v100 = objc_opt_class();
       v46 = NSStringFromClass(v100);
       v50 = KVItemTypeDescription(self->_itemType, v101, v102, v103, v104, v105);
       v63 = objc_msgSend_stringWithFormat_(v99, v106, @"Cannot add field value of unsupported class: %@ to item of type: %@ with itemId: %@", v107, v108, v109, v46, v50, self->_itemId);
-      v158 = v63;
-      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v110, &v158, &v157, 1, v111);
+      v157 = v63;
+      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v110, &v157, &v156, 1, v111);
       v69 = objc_msgSend_errorWithDomain_code_userInfo_(v98, v112, @"com.apple.koa.item.builder", 3, v66, v113);
 LABEL_22:
       if (error && v69)
@@ -243,12 +241,12 @@ LABEL_22:
   if (localeType >= 0x2D)
   {
     v86 = MEMORY[0x277CCA9B8];
-    v155 = *MEMORY[0x277CCA068];
+    v154 = *MEMORY[0x277CCA068];
     v87 = MEMORY[0x277CCACA8];
     v46 = KVLocaleTypeDescription(localeType, v17, v18, v19, v20, v21);
     v50 = objc_msgSend_stringWithFormat_(v87, v88, @"Cannot add field with invalid locale type: %@ itemId: %@", v89, v90, v91, v46, self->_itemId);
-    v156 = v50;
-    v63 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v92, &v156, &v155, 1, v93);
+    v155 = v50;
+    v63 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v92, &v155, &v154, 1, v93);
     v96 = objc_msgSend_errorWithDomain_code_userInfo_(v86, v94, @"com.apple.koa.item.builder", 9, v63, v95);
     v66 = v96;
     if (error && v96)
@@ -265,13 +263,13 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v154 = objc_msgSend_copy(labelCopy, v17, v18, v19, v20, v21);
-  v153 = objc_msgSend_copy(valueCopy, v22, v23, v24, v25, v26);
-  if (objc_msgSend_length(v154, v27, v28, v29, v30, v31) || objc_msgSend_length(v153, v32, v33, v34, v35, v36))
+  v153 = objc_msgSend_copy(labelCopy, v17, v18, v19, v20, v21);
+  v152 = objc_msgSend_copy(valueCopy, v22, v23, v24, v25, v26);
+  if (objc_msgSend_length(v153, v27, v28, v29, v30, v31) || objc_msgSend_length(v152, v32, v33, v34, v35, v36))
   {
-    if (objc_msgSend_length(v153, v32, v33, v34, v35, v36))
+    if (objc_msgSend_length(v152, v32, v33, v34, v35, v36))
     {
-      v42 = objc_msgSend_UTF8String(v153, v37, v38, v39, v40, v41);
+      v42 = objc_msgSend_UTF8String(v152, v37, v38, v39, v40, v41);
       v43 = strlen(v42);
       v44 = sub_2559A7B04(&self->_fbb, v42, v43);
     }
@@ -281,16 +279,16 @@ LABEL_27:
       v44 = 0;
     }
 
-    if (objc_msgSend_length(v154, v37, v38, v39, v40, v41))
+    if (objc_msgSend_length(v153, v37, v38, v39, v40, v41))
     {
-      v127 = objc_msgSend_UTF8String(v154, v122, v123, v124, v125, v126);
-      v128 = strlen(v127);
-      v129 = sub_2559A7B04(&self->_fbb, v127, v128);
+      v126 = objc_msgSend_UTF8String(v153, v121, v122, v123, v124, v125);
+      v127 = strlen(v126);
+      v128 = sub_2559A7B04(&self->_fbb, v126, v127);
     }
 
     else
     {
-      v129 = 0;
+      v128 = 0;
     }
 
     sub_2559A7BAC(&self->_fbb);
@@ -300,19 +298,19 @@ LABEL_27:
     buf = self->_fbb.buf_.buf_;
     sub_2559A7C64(&self->_fbb, 4, type);
     sub_2559A7C14(&self->_fbb, 6, v44);
-    sub_2559A7C14(&self->_fbb, 8, v129);
+    sub_2559A7C14(&self->_fbb, 8, v128);
     if (localeType || self->_fbb.force_defaults_)
     {
       sub_2559A86B4(&self->_fbb, 1uLL);
       sub_2559A8418(&self->_fbb, 1uLL);
+      v132 = self->_fbb.buf_.cur_;
+      self->_fbb.buf_.cur_ = v132 - 1;
+      *(v132 - 1) = localeType;
+      v134 = self->_fbb.buf_.buf_;
       v133 = self->_fbb.buf_.cur_;
-      self->_fbb.buf_.cur_ = v133 - 1;
-      *(v133 - 1) = localeType;
-      v135 = self->_fbb.buf_.buf_;
-      v134 = self->_fbb.buf_.cur_;
-      v136 = self->_fbb.buf_.reserved_;
+      v135 = self->_fbb.buf_.reserved_;
       sub_2559A8418(&self->_fbb, 8uLL);
-      *self->_fbb.buf_.scratch_ = (v136 - v134 + v135) | 0xA00000000;
+      *self->_fbb.buf_.scratch_ = (v135 - v133 + v134) | 0xA00000000;
       self->_fbb.buf_.scratch_ += 8;
       ++self->_fbb.num_field_loc;
       max_voffset = self->_fbb.max_voffset_;
@@ -324,78 +322,77 @@ LABEL_27:
       self->_fbb.max_voffset_ = max_voffset;
     }
 
-    v138 = sub_2559A7D18(&self->_fbb, reserved - cur + buf);
-    v139 = v138;
+    v137 = sub_2559A7D18(&self->_fbb, reserved - cur + buf);
+    v138 = v137;
     end = self->_fields.__end_;
     cap = self->_fields.__cap_;
     if (end >= cap)
     {
       begin = self->_fields.__begin_;
-      v144 = end - begin;
-      v145 = (end - begin) >> 2;
-      v146 = v145 + 1;
-      if ((v145 + 1) >> 62)
+      v143 = end - begin;
+      v144 = (end - begin) >> 2;
+      v145 = v144 + 1;
+      if ((v144 + 1) >> 62)
       {
         sub_2559ADF60();
       }
 
-      v147 = cap - begin;
-      if (v147 >> 1 > v146)
+      v146 = cap - begin;
+      if (v146 >> 1 > v145)
       {
-        v146 = v147 >> 1;
+        v145 = v146 >> 1;
       }
 
-      if (v147 >= 0x7FFFFFFFFFFFFFFCLL)
+      if (v146 >= 0x7FFFFFFFFFFFFFFCLL)
       {
-        v148 = 0x3FFFFFFFFFFFFFFFLL;
+        v147 = 0x3FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v148 = v146;
+        v147 = v145;
       }
 
-      if (v148)
+      if (v147)
       {
-        sub_2559ADF78(v148);
+        sub_2559ADF78(v147);
       }
 
-      v149 = v145;
-      v150 = (4 * v145);
-      v151 = &v150[-v149];
-      *v150 = v139;
-      v142 = v150 + 1;
-      memcpy(v151, begin, v144);
-      v152 = self->_fields.__begin_;
-      self->_fields.__begin_ = v151;
-      self->_fields.__end_ = v142;
+      v148 = v144;
+      v149 = (4 * v144);
+      v150 = &v149[-v148];
+      *v149 = v138;
+      v141 = v149 + 1;
+      memcpy(v150, begin, v143);
+      v151 = self->_fields.__begin_;
+      self->_fields.__begin_ = v150;
+      self->_fields.__end_ = v141;
       self->_fields.__cap_ = 0;
-      if (v152)
+      if (v151)
       {
-        operator delete(v152);
+        operator delete(v151);
       }
     }
 
     else
     {
-      *end = v138;
-      v142 = end + 4;
+      *end = v137;
+      v141 = end + 4;
     }
 
-    self->_fields.__end_ = v142;
+    self->_fields.__end_ = v141;
   }
 
   selfCopy = self;
 
 LABEL_28:
-  v120 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
 - (id)addFieldWithType:(int64_t)type localeType:(int64_t)localeType label:(id)label value:(id)value error:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   valueCopy = value;
   if (localeType)
@@ -406,12 +403,12 @@ LABEL_28:
   else
   {
     v20 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA068];
+    v40 = *MEMORY[0x277CCA068];
     v21 = MEMORY[0x277CCACA8];
     v22 = KVLocaleTypeDescription(0, v13, v14, v15, v16, v17);
     v27 = objc_msgSend_stringWithFormat_(v21, v23, @"Cannot add field with invalid locale type: %@ itemId: %@", v24, v25, v26, v22, self->_itemId);
-    v42[0] = v27;
-    v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v42, &v41, 1, v29);
+    v41[0] = v27;
+    v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v41, &v40, 1, v29);
     v33 = objc_msgSend_errorWithDomain_code_userInfo_(v20, v31, @"com.apple.koa.item.builder", 9, v30, v32);
     if (error && v33)
     {
@@ -422,8 +419,6 @@ LABEL_28:
     objc_msgSend__reset(self, v34, v35, v36, v37, v38);
     v19 = 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -437,7 +432,7 @@ LABEL_28:
 
 - (id)addFieldWithType:(int64_t)type localeType:(int64_t)localeType value:(id)value error:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (localeType)
   {
@@ -447,12 +442,12 @@ LABEL_28:
   else
   {
     v17 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA068];
+    v37 = *MEMORY[0x277CCA068];
     v18 = MEMORY[0x277CCACA8];
     v19 = KVLocaleTypeDescription(0, v10, v11, v12, v13, v14);
     v24 = objc_msgSend_stringWithFormat_(v18, v20, @"Cannot add field with invalid locale type: %@ itemId: %@", v21, v22, v23, v19, self->_itemId);
-    v39[0] = v24;
-    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v39, &v38, 1, v26);
+    v38[0] = v24;
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v38, &v37, 1, v26);
     v30 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v28, @"com.apple.koa.item.builder", 9, v27, v29);
     if (error && v30)
     {
@@ -463,8 +458,6 @@ LABEL_28:
     objc_msgSend__reset(self, v31, v32, v33, v34, v35);
     v16 = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -478,18 +471,18 @@ LABEL_28:
 
 - (id)setItemType:(int64_t)type itemId:(id)id error:(id *)error
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v15 = idCopy;
   if (type - 1 >= 0x1A)
   {
     v21 = MEMORY[0x277CCA9B8];
-    v51 = *MEMORY[0x277CCA068];
+    v50 = *MEMORY[0x277CCA068];
     v22 = MEMORY[0x277CCACA8];
     v23 = KVItemTypeDescription(type, v10, v11, v12, v13, v14);
     v28 = objc_msgSend_stringWithFormat_(v22, v24, @"Cannot set invalid item type: %@", v25, v26, v27, v23);
-    v52[0] = v28;
-    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v52, &v51, 1, v30);
+    v51[0] = v28;
+    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v51, &v50, 1, v30);
     v34 = objc_msgSend_errorWithDomain_code_userInfo_(v21, v32, @"com.apple.koa.item.builder", 1, v31, v33);
     if (error && v34)
     {
@@ -508,15 +501,15 @@ LABEL_28:
       goto LABEL_9;
     }
 
-    v42 = MEMORY[0x277CCA9B8];
+    v41 = MEMORY[0x277CCA9B8];
     v23 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v16, @"Cannot set invalid itemId: %@", v17, v18, v19, v15, *MEMORY[0x277CCA068]);
-    v50 = v23;
-    v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, &v50, &v49, 1, v44);
-    v47 = objc_msgSend_errorWithDomain_code_userInfo_(v42, v45, @"com.apple.koa.item.builder", 2, v28, v46);
-    v31 = v47;
-    if (error && v47)
+    v49 = v23;
+    v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v42, &v49, &v48, 1, v43);
+    v46 = objc_msgSend_errorWithDomain_code_userInfo_(v41, v44, @"com.apple.koa.item.builder", 2, v28, v45);
+    v31 = v46;
+    if (error && v46)
     {
-      v48 = v47;
+      v47 = v46;
       *error = v31;
     }
   }
@@ -524,8 +517,6 @@ LABEL_28:
   objc_msgSend__reset(self, v35, v36, v37, v38, v39);
   selfCopy = 0;
 LABEL_9:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -580,7 +571,7 @@ LABEL_9:
 
 + (id)buildFieldWithType:(int64_t)type label:(id)label value:(id)value error:(id *)error
 {
-  v120[1] = *MEMORY[0x277D85DE8];
+  v119[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   valueCopy = value;
   if (KVItemTypeFromFieldType(type))
@@ -588,13 +579,13 @@ LABEL_9:
     if (labelCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v44 = MEMORY[0x277CCA9B8];
-      v117 = *MEMORY[0x277CCA068];
+      v116 = *MEMORY[0x277CCA068];
       v45 = MEMORY[0x277CCACA8];
       v46 = objc_opt_class();
       v47 = NSStringFromClass(v46);
       v52 = objc_msgSend_stringWithFormat_(v45, v48, @"Cannot build field with label of unsupported class: %@", v49, v50, v51, v47);
-      v118 = v52;
-      v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, &v118, &v117, 1, v54);
+      v117 = v52;
+      v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, &v117, &v116, 1, v54);
       v58 = objc_msgSend_errorWithDomain_code_userInfo_(v44, v56, @"com.apple.koa.item.builder", 3, v55, v57);
       if (error && v58)
       {
@@ -607,21 +598,21 @@ LABEL_9:
     {
       if (!valueCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
+        v105 = 0;
         v106 = 0;
-        v107 = 0;
-        v108 = xmmword_2559D02C0;
+        v107 = xmmword_2559D02C0;
+        v108 = 0u;
         v109 = 0u;
-        v110 = 0u;
-        v111 = 0;
-        v112 = 1;
-        v113 = 256;
-        v114 = 0;
+        v110 = 0;
+        v111 = 1;
+        v112 = 256;
+        v113 = 0;
         if (objc_msgSend_length(valueCopy, v11, v12, v13, v14, v15))
         {
           v21 = valueCopy;
           v27 = objc_msgSend_UTF8String(v21, v22, v23, v24, v25, v26);
           v28 = strlen(v27);
-          v29 = sub_2559A7B04(&v106, v27, v28);
+          v29 = sub_2559A7B04(&v105, v27, v28);
         }
 
         else
@@ -634,7 +625,7 @@ LABEL_9:
           v75 = labelCopy;
           v81 = objc_msgSend_UTF8String(v75, v76, v77, v78, v79, v80);
           v82 = strlen(v81);
-          v83 = sub_2559A7B04(&v106, v81, v82);
+          v83 = sub_2559A7B04(&v105, v81, v82);
         }
 
         else
@@ -642,35 +633,35 @@ LABEL_9:
           v83 = 0;
         }
 
-        sub_2559A7BAC(&v106);
-        BYTE6(v111) = 1;
-        v84 = v110;
-        v85 = v109;
-        v86 = DWORD2(v109);
-        sub_2559A7C64(&v106, 4, type);
-        sub_2559A7C14(&v106, 6, v29);
-        sub_2559A7C14(&v106, 8, v83);
-        v87 = sub_2559A7D18(&v106, v85 - v84 + v86);
-        sub_2559A7FB4(&v106, v87, 0, 0);
+        sub_2559A7BAC(&v105);
+        BYTE6(v110) = 1;
+        v84 = v109;
+        v85 = v108;
+        v86 = DWORD2(v108);
+        sub_2559A7C64(&v105, 4, type);
+        sub_2559A7C14(&v105, 6, v29);
+        sub_2559A7C14(&v105, 8, v83);
+        v87 = sub_2559A7D18(&v105, v85 - v84 + v86);
+        sub_2559A7FB4(&v105, v87, 0, 0);
         v88 = objc_alloc(MEMORY[0x277CBEA90]);
-        v89 = sub_2559A80B8(&v106);
-        v93 = objc_msgSend_initWithBytes_length_(v88, v90, v89, (v109 - v110 + DWORD2(v109)), v91, v92);
+        v89 = sub_2559A80B8(&v105);
+        v93 = objc_msgSend_initWithBytes_length_(v88, v90, v89, (v108 - v109 + DWORD2(v108)), v91, v92);
         v94 = v93;
         v100 = objc_msgSend_bytes(v94, v95, v96, v97, v98, v99);
         v74 = objc_msgSend_fieldWithBuffer_root_(KVField, v101, v93, v100 + *v100, v102, v103);
 
-        sub_2559A811C(&v106);
+        sub_2559A811C(&v105);
         goto LABEL_26;
       }
 
       v59 = MEMORY[0x277CCA9B8];
-      v115 = *MEMORY[0x277CCA068];
+      v114 = *MEMORY[0x277CCA068];
       v60 = MEMORY[0x277CCACA8];
       v61 = objc_opt_class();
       v62 = NSStringFromClass(v61);
       v67 = objc_msgSend_stringWithFormat_(v60, v63, @"Cannot build field with value of unsupported class: %@", v64, v65, v66, v62);
-      v116 = v67;
-      v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v68, &v116, &v115, 1, v69);
+      v115 = v67;
+      v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v68, &v115, &v114, 1, v69);
       v73 = objc_msgSend_errorWithDomain_code_userInfo_(v59, v71, @"com.apple.koa.item.builder", 3, v70, v72);
       if (error && v73)
       {
@@ -683,12 +674,12 @@ LABEL_9:
   else
   {
     v30 = MEMORY[0x277CCA9B8];
-    v119 = *MEMORY[0x277CCA068];
+    v118 = *MEMORY[0x277CCA068];
     v31 = MEMORY[0x277CCACA8];
     v32 = KVFieldTypeDescription(type);
     v37 = objc_msgSend_stringWithFormat_(v31, v33, @"Cannot build field with invalid type: %@", v34, v35, v36, v32);
-    v120[0] = v37;
-    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v120, &v119, 1, v39);
+    v119[0] = v37;
+    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v119, &v118, 1, v39);
     v43 = objc_msgSend_errorWithDomain_code_userInfo_(v30, v41, @"com.apple.koa.item.builder", 4, v40, v42);
     if (error && v43)
     {
@@ -699,8 +690,6 @@ LABEL_9:
 
   v74 = 0;
 LABEL_26:
-
-  v104 = *MEMORY[0x277D85DE8];
 
   return v74;
 }

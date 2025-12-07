@@ -1349,512 +1349,60 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_110;
-  }
-
-  header = self->_header;
-  v9 = equalCopy[11];
-  if (header | v9)
-  {
-    if (!objc_msgSend_isEqual_(header, v7, v9))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  request = self->_request;
-  v11 = equalCopy[27];
-  if (request | v11)
-  {
-    if (!objc_msgSend_isEqual_(request, v7, v11))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneSaveRequest = self->_zoneSaveRequest;
-  v13 = equalCopy[53];
-  if (zoneSaveRequest | v13)
-  {
-    if (!objc_msgSend_isEqual_(zoneSaveRequest, v7, v13))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneRetrieveRequest = self->_zoneRetrieveRequest;
-  v15 = equalCopy[52];
-  if (zoneRetrieveRequest | v15)
-  {
-    if (!objc_msgSend_isEqual_(zoneRetrieveRequest, v7, v15))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneDeleteRequest = self->_zoneDeleteRequest;
-  v17 = equalCopy[49];
-  if (zoneDeleteRequest | v17)
-  {
-    if (!objc_msgSend_isEqual_(zoneDeleteRequest, v7, v17))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneRetrieveChangesRequest = self->_zoneRetrieveChangesRequest;
-  v19 = equalCopy[51];
-  if (zoneRetrieveChangesRequest | v19)
-  {
-    if (!objc_msgSend_isEqual_(zoneRetrieveChangesRequest, v7, v19))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneChildrenRetrieveRequest = self->_zoneChildrenRetrieveRequest;
-  v21 = equalCopy[48];
-  if (zoneChildrenRetrieveRequest | v21)
-  {
-    if (!objc_msgSend_isEqual_(zoneChildrenRetrieveRequest, v7, v21))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneRetrieveAncestorsRequest = self->_zoneRetrieveAncestorsRequest;
-  v23 = equalCopy[50];
-  if (zoneRetrieveAncestorsRequest | v23)
-  {
-    if (!objc_msgSend_isEqual_(zoneRetrieveAncestorsRequest, v7, v23))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordSaveRequest = self->_recordSaveRequest;
-  v25 = equalCopy[26];
-  if (recordSaveRequest | v25)
-  {
-    if (!objc_msgSend_isEqual_(recordSaveRequest, v7, v25))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordRetrieveRequest = self->_recordRetrieveRequest;
-  v27 = equalCopy[24];
-  if (recordRetrieveRequest | v27)
-  {
-    if (!objc_msgSend_isEqual_(recordRetrieveRequest, v7, v27))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordRetrieveVersionsRequest = self->_recordRetrieveVersionsRequest;
-  v29 = equalCopy[25];
-  if (recordRetrieveVersionsRequest | v29)
-  {
-    if (!objc_msgSend_isEqual_(recordRetrieveVersionsRequest, v7, v29))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordRetrieveChangesRequest = self->_recordRetrieveChangesRequest;
-  v31 = equalCopy[23];
-  if (recordRetrieveChangesRequest | v31)
-  {
-    if (!objc_msgSend_isEqual_(recordRetrieveChangesRequest, v7, v31))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordDeleteRequest = self->_recordDeleteRequest;
-  v33 = equalCopy[20];
-  if (recordDeleteRequest | v33)
-  {
-    if (!objc_msgSend_isEqual_(recordDeleteRequest, v7, v33))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordResolveTokenRequest = self->_recordResolveTokenRequest;
-  v35 = equalCopy[22];
-  if (recordResolveTokenRequest | v35)
-  {
-    if (!objc_msgSend_isEqual_(recordResolveTokenRequest, v7, v35))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  fetchArchivedRecordsRequest = self->_fetchArchivedRecordsRequest;
-  v37 = equalCopy[9];
-  if (fetchArchivedRecordsRequest | v37)
-  {
-    if (!objc_msgSend_isEqual_(fetchArchivedRecordsRequest, v7, v37))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  recordMoveRequest = self->_recordMoveRequest;
-  v39 = equalCopy[21];
-  if (recordMoveRequest | v39)
-  {
-    if (!objc_msgSend_isEqual_(recordMoveRequest, v7, v39))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  shareAccessRequest = self->_shareAccessRequest;
-  v41 = equalCopy[30];
-  if (shareAccessRequest | v41)
-  {
-    if (!objc_msgSend_isEqual_(shareAccessRequest, v7, v41))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  queryRetrieveRequest = self->_queryRetrieveRequest;
-  v43 = equalCopy[19];
-  if (queryRetrieveRequest | v43)
-  {
-    if (!objc_msgSend_isEqual_(queryRetrieveRequest, v7, v43))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  mergeableDeltaSaveRequest = self->_mergeableDeltaSaveRequest;
-  v45 = equalCopy[16];
-  if (mergeableDeltaSaveRequest | v45)
-  {
-    if (!objc_msgSend_isEqual_(mergeableDeltaSaveRequest, v7, v45))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  mergeableDeltaMetadataRetrieveRequest = self->_mergeableDeltaMetadataRetrieveRequest;
-  v47 = equalCopy[13];
-  if (mergeableDeltaMetadataRetrieveRequest | v47)
-  {
-    if (!objc_msgSend_isEqual_(mergeableDeltaMetadataRetrieveRequest, v7, v47))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  mergeableDeltaReplaceRequest = self->_mergeableDeltaReplaceRequest;
-  v49 = equalCopy[14];
-  if (mergeableDeltaReplaceRequest | v49)
-  {
-    if (!objc_msgSend_isEqual_(mergeableDeltaReplaceRequest, v7, v49))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  mergeableDeltaRetrieveRequest = self->_mergeableDeltaRetrieveRequest;
-  v51 = equalCopy[15];
-  if (mergeableDeltaRetrieveRequest | v51)
-  {
-    if (!objc_msgSend_isEqual_(mergeableDeltaRetrieveRequest, v7, v51))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  assetUploadTokenRetrieveRequest = self->_assetUploadTokenRetrieveRequest;
-  v53 = equalCopy[6];
-  if (assetUploadTokenRetrieveRequest | v53)
-  {
-    if (!objc_msgSend_isEqual_(assetUploadTokenRetrieveRequest, v7, v53))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  deleteContainerRequest = self->_deleteContainerRequest;
-  v55 = equalCopy[8];
-  if (deleteContainerRequest | v55)
-  {
-    if (!objc_msgSend_isEqual_(deleteContainerRequest, v7, v55))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userAvailableQuotaRequest = self->_userAvailableQuotaRequest;
-  v57 = equalCopy[40];
-  if (userAvailableQuotaRequest | v57)
-  {
-    if (!objc_msgSend_isEqual_(userAvailableQuotaRequest, v7, v57))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  bundlesForContainerRequest = self->_bundlesForContainerRequest;
-  v59 = equalCopy[7];
-  if (bundlesForContainerRequest | v59)
-  {
-    if (!objc_msgSend_isEqual_(bundlesForContainerRequest, v7, v59))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  webAuthTokenRetrieveRequest = self->_webAuthTokenRetrieveRequest;
-  v61 = equalCopy[47];
-  if (webAuthTokenRetrieveRequest | v61)
-  {
-    if (!objc_msgSend_isEqual_(webAuthTokenRetrieveRequest, v7, v61))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  updateMissingAssetStatusRequest = self->_updateMissingAssetStatusRequest;
-  v63 = equalCopy[39];
-  if (updateMissingAssetStatusRequest | v63)
-  {
-    if (!objc_msgSend_isEqual_(updateMissingAssetStatusRequest, v7, v63))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  anonymousShareAddRequest = self->_anonymousShareAddRequest;
-  v65 = equalCopy[3];
-  if (anonymousShareAddRequest | v65)
-  {
-    if (!objc_msgSend_isEqual_(anonymousShareAddRequest, v7, v65))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  anonymousShareRemoveRequest = self->_anonymousShareRemoveRequest;
-  v67 = equalCopy[4];
-  if (anonymousShareRemoveRequest | v67)
-  {
-    if (!objc_msgSend_isEqual_(anonymousShareRemoveRequest, v7, v67))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  subscriptionCreateRequest = self->_subscriptionCreateRequest;
-  v69 = equalCopy[34];
-  if (subscriptionCreateRequest | v69)
-  {
-    if (!objc_msgSend_isEqual_(subscriptionCreateRequest, v7, v69))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  subscriptionRetrieveRequest = self->_subscriptionRetrieveRequest;
-  v71 = equalCopy[36];
-  if (subscriptionRetrieveRequest | v71)
-  {
-    if (!objc_msgSend_isEqual_(subscriptionRetrieveRequest, v7, v71))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  subscriptionDeleteRequest = self->_subscriptionDeleteRequest;
-  v73 = equalCopy[35];
-  if (subscriptionDeleteRequest | v73)
-  {
-    if (!objc_msgSend_isEqual_(subscriptionDeleteRequest, v7, v73))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userRetrieveRequest = self->_userRetrieveRequest;
-  v75 = equalCopy[46];
-  if (userRetrieveRequest | v75)
-  {
-    if (!objc_msgSend_isEqual_(userRetrieveRequest, v7, v75))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userQueryRequest = self->_userQueryRequest;
-  v77 = equalCopy[45];
-  if (userQueryRequest | v77)
-  {
-    if (!objc_msgSend_isEqual_(userQueryRequest, v7, v77))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userPrivacySettingsRetrieveRequest = self->_userPrivacySettingsRetrieveRequest;
-  v79 = equalCopy[43];
-  if (userPrivacySettingsRetrieveRequest | v79)
-  {
-    if (!objc_msgSend_isEqual_(userPrivacySettingsRetrieveRequest, v7, v79))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userPrivacySettingsUpdateRequest = self->_userPrivacySettingsUpdateRequest;
-  v81 = equalCopy[44];
-  if (userPrivacySettingsUpdateRequest | v81)
-  {
-    if (!objc_msgSend_isEqual_(userPrivacySettingsUpdateRequest, v7, v81))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userPrivacySettingsResetRequest = self->_userPrivacySettingsResetRequest;
-  v83 = equalCopy[42];
-  if (userPrivacySettingsResetRequest | v83)
-  {
-    if (!objc_msgSend_isEqual_(userPrivacySettingsResetRequest, v7, v83))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  userPrivacySettingsBatchLookupRequest = self->_userPrivacySettingsBatchLookupRequest;
-  v85 = equalCopy[41];
-  if (userPrivacySettingsBatchLookupRequest | v85)
-  {
-    if (!objc_msgSend_isEqual_(userPrivacySettingsBatchLookupRequest, v7, v85))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  adopterCapabilitiesSaveRequest = self->_adopterCapabilitiesSaveRequest;
-  v87 = equalCopy[2];
-  if (adopterCapabilitiesSaveRequest | v87)
-  {
-    if (!objc_msgSend_isEqual_(adopterCapabilitiesSaveRequest, v7, v87))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  adopterCapabilitiesCheckRequest = self->_adopterCapabilitiesCheckRequest;
-  v89 = equalCopy[1];
-  if (adopterCapabilitiesCheckRequest | v89)
-  {
-    if (!objc_msgSend_isEqual_(adopterCapabilitiesCheckRequest, v7, v89))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  zoneUsageSaveRequest = self->_zoneUsageSaveRequest;
-  v91 = equalCopy[54];
-  if (zoneUsageSaveRequest | v91)
-  {
-    if (!objc_msgSend_isEqual_(zoneUsageSaveRequest, v7, v91))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  shareUsageSaveRequest = self->_shareUsageSaveRequest;
-  v93 = equalCopy[32];
-  if (shareUsageSaveRequest | v93)
-  {
-    if (!objc_msgSend_isEqual_(shareUsageSaveRequest, v7, v93))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  shareAcceptRequest = self->_shareAcceptRequest;
-  v95 = equalCopy[29];
-  if (shareAcceptRequest | v95)
-  {
-    if (!objc_msgSend_isEqual_(shareAcceptRequest, v7, v95))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  shareDeclineRequest = self->_shareDeclineRequest;
-  v97 = equalCopy[31];
-  if (shareDeclineRequest | v97)
-  {
-    if (!objc_msgSend_isEqual_(shareDeclineRequest, v7, v97))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  shareVettingInitiateRequest = self->_shareVettingInitiateRequest;
-  v99 = equalCopy[33];
-  if (shareVettingInitiateRequest | v99)
-  {
-    if (!objc_msgSend_isEqual_(shareVettingInitiateRequest, v7, v99))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  tokenRegistrationRequest = self->_tokenRegistrationRequest;
-  v101 = equalCopy[37];
-  if (tokenRegistrationRequest | v101)
-  {
-    if (!objc_msgSend_isEqual_(tokenRegistrationRequest, v7, v101))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  tokenUnregistrationRequest = self->_tokenUnregistrationRequest;
-  v103 = equalCopy[38];
-  if (tokenUnregistrationRequest | v103)
-  {
-    if (!objc_msgSend_isEqual_(tokenUnregistrationRequest, v7, v103))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  setBadgeCountRequest = self->_setBadgeCountRequest;
-  v105 = equalCopy[28];
-  if (setBadgeCountRequest | v105)
-  {
-    if (!objc_msgSend_isEqual_(setBadgeCountRequest, v7, v105))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  notificationSyncRequest = self->_notificationSyncRequest;
-  v107 = equalCopy[18];
-  if (notificationSyncRequest | v107)
-  {
-    if (!objc_msgSend_isEqual_(notificationSyncRequest, v7, v107))
-    {
-      goto LABEL_110;
-    }
-  }
-
-  if (((notificationMarkReadRequest = self->_notificationMarkReadRequest, v109 = equalCopy[17], !(notificationMarkReadRequest | v109)) || objc_msgSend_isEqual_(notificationMarkReadRequest, v7, v109)) && ((archiveRecordsRequest = self->_archiveRecordsRequest, v111 = equalCopy[5], !(archiveRecordsRequest | v111)) || objc_msgSend_isEqual_(archiveRecordsRequest, v7, v111)) && ((markAssetBrokenRequest = self->_markAssetBrokenRequest, v113 = equalCopy[12], !(markAssetBrokenRequest | v113)) || objc_msgSend_isEqual_(markAssetBrokenRequest, v7, v113)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5)
+    && ((header = self->_header, v9 = equalCopy[11], !(header | v9)) || objc_msgSend_isEqual_(header, v7, v9))
+    && ((request = self->_request, v11 = equalCopy[27], !(request | v11)) || objc_msgSend_isEqual_(request, v7, v11))
+    && ((zoneSaveRequest = self->_zoneSaveRequest, v13 = equalCopy[53], !(zoneSaveRequest | v13)) || objc_msgSend_isEqual_(zoneSaveRequest, v7, v13))
+    && ((zoneRetrieveRequest = self->_zoneRetrieveRequest, v15 = equalCopy[52], !(zoneRetrieveRequest | v15)) || objc_msgSend_isEqual_(zoneRetrieveRequest, v7, v15))
+    && ((zoneDeleteRequest = self->_zoneDeleteRequest, v17 = equalCopy[49], !(zoneDeleteRequest | v17)) || objc_msgSend_isEqual_(zoneDeleteRequest, v7, v17))
+    && ((zoneRetrieveChangesRequest = self->_zoneRetrieveChangesRequest, v19 = equalCopy[51], !(zoneRetrieveChangesRequest | v19)) || objc_msgSend_isEqual_(zoneRetrieveChangesRequest, v7, v19))
+    && ((zoneChildrenRetrieveRequest = self->_zoneChildrenRetrieveRequest, v21 = equalCopy[48], !(zoneChildrenRetrieveRequest | v21)) || objc_msgSend_isEqual_(zoneChildrenRetrieveRequest, v7, v21))
+    && ((zoneRetrieveAncestorsRequest = self->_zoneRetrieveAncestorsRequest, v23 = equalCopy[50], !(zoneRetrieveAncestorsRequest | v23)) || objc_msgSend_isEqual_(zoneRetrieveAncestorsRequest, v7, v23))
+    && ((recordSaveRequest = self->_recordSaveRequest, v25 = equalCopy[26], !(recordSaveRequest | v25)) || objc_msgSend_isEqual_(recordSaveRequest, v7, v25))
+    && ((recordRetrieveRequest = self->_recordRetrieveRequest, v27 = equalCopy[24], !(recordRetrieveRequest | v27)) || objc_msgSend_isEqual_(recordRetrieveRequest, v7, v27))
+    && ((recordRetrieveVersionsRequest = self->_recordRetrieveVersionsRequest, v29 = equalCopy[25], !(recordRetrieveVersionsRequest | v29)) || objc_msgSend_isEqual_(recordRetrieveVersionsRequest, v7, v29))
+    && ((recordRetrieveChangesRequest = self->_recordRetrieveChangesRequest, v31 = equalCopy[23], !(recordRetrieveChangesRequest | v31)) || objc_msgSend_isEqual_(recordRetrieveChangesRequest, v7, v31))
+    && ((recordDeleteRequest = self->_recordDeleteRequest, v33 = equalCopy[20], !(recordDeleteRequest | v33)) || objc_msgSend_isEqual_(recordDeleteRequest, v7, v33))
+    && ((recordResolveTokenRequest = self->_recordResolveTokenRequest, v35 = equalCopy[22], !(recordResolveTokenRequest | v35)) || objc_msgSend_isEqual_(recordResolveTokenRequest, v7, v35))
+    && ((fetchArchivedRecordsRequest = self->_fetchArchivedRecordsRequest, v37 = equalCopy[9], !(fetchArchivedRecordsRequest | v37)) || objc_msgSend_isEqual_(fetchArchivedRecordsRequest, v7, v37))
+    && ((recordMoveRequest = self->_recordMoveRequest, v39 = equalCopy[21], !(recordMoveRequest | v39)) || objc_msgSend_isEqual_(recordMoveRequest, v7, v39))
+    && ((shareAccessRequest = self->_shareAccessRequest, v41 = equalCopy[30], !(shareAccessRequest | v41)) || objc_msgSend_isEqual_(shareAccessRequest, v7, v41))
+    && ((queryRetrieveRequest = self->_queryRetrieveRequest, v43 = equalCopy[19], !(queryRetrieveRequest | v43)) || objc_msgSend_isEqual_(queryRetrieveRequest, v7, v43))
+    && ((mergeableDeltaSaveRequest = self->_mergeableDeltaSaveRequest, v45 = equalCopy[16], !(mergeableDeltaSaveRequest | v45)) || objc_msgSend_isEqual_(mergeableDeltaSaveRequest, v7, v45))
+    && ((mergeableDeltaMetadataRetrieveRequest = self->_mergeableDeltaMetadataRetrieveRequest, v47 = equalCopy[13], !(mergeableDeltaMetadataRetrieveRequest | v47)) || objc_msgSend_isEqual_(mergeableDeltaMetadataRetrieveRequest, v7, v47))
+    && ((mergeableDeltaReplaceRequest = self->_mergeableDeltaReplaceRequest, v49 = equalCopy[14], !(mergeableDeltaReplaceRequest | v49)) || objc_msgSend_isEqual_(mergeableDeltaReplaceRequest, v7, v49))
+    && ((mergeableDeltaRetrieveRequest = self->_mergeableDeltaRetrieveRequest, v51 = equalCopy[15], !(mergeableDeltaRetrieveRequest | v51)) || objc_msgSend_isEqual_(mergeableDeltaRetrieveRequest, v7, v51))
+    && ((assetUploadTokenRetrieveRequest = self->_assetUploadTokenRetrieveRequest, v53 = equalCopy[6], !(assetUploadTokenRetrieveRequest | v53)) || objc_msgSend_isEqual_(assetUploadTokenRetrieveRequest, v7, v53))
+    && ((deleteContainerRequest = self->_deleteContainerRequest, v55 = equalCopy[8], !(deleteContainerRequest | v55)) || objc_msgSend_isEqual_(deleteContainerRequest, v7, v55))
+    && ((userAvailableQuotaRequest = self->_userAvailableQuotaRequest, v57 = equalCopy[40], !(userAvailableQuotaRequest | v57)) || objc_msgSend_isEqual_(userAvailableQuotaRequest, v7, v57))
+    && ((bundlesForContainerRequest = self->_bundlesForContainerRequest, v59 = equalCopy[7], !(bundlesForContainerRequest | v59)) || objc_msgSend_isEqual_(bundlesForContainerRequest, v7, v59))
+    && ((webAuthTokenRetrieveRequest = self->_webAuthTokenRetrieveRequest, v61 = equalCopy[47], !(webAuthTokenRetrieveRequest | v61)) || objc_msgSend_isEqual_(webAuthTokenRetrieveRequest, v7, v61))
+    && ((updateMissingAssetStatusRequest = self->_updateMissingAssetStatusRequest, v63 = equalCopy[39], !(updateMissingAssetStatusRequest | v63)) || objc_msgSend_isEqual_(updateMissingAssetStatusRequest, v7, v63))
+    && ((anonymousShareAddRequest = self->_anonymousShareAddRequest, v65 = equalCopy[3], !(anonymousShareAddRequest | v65)) || objc_msgSend_isEqual_(anonymousShareAddRequest, v7, v65))
+    && ((anonymousShareRemoveRequest = self->_anonymousShareRemoveRequest, v67 = equalCopy[4], !(anonymousShareRemoveRequest | v67)) || objc_msgSend_isEqual_(anonymousShareRemoveRequest, v7, v67))
+    && ((subscriptionCreateRequest = self->_subscriptionCreateRequest, v69 = equalCopy[34], !(subscriptionCreateRequest | v69)) || objc_msgSend_isEqual_(subscriptionCreateRequest, v7, v69))
+    && ((subscriptionRetrieveRequest = self->_subscriptionRetrieveRequest, v71 = equalCopy[36], !(subscriptionRetrieveRequest | v71)) || objc_msgSend_isEqual_(subscriptionRetrieveRequest, v7, v71))
+    && ((subscriptionDeleteRequest = self->_subscriptionDeleteRequest, v73 = equalCopy[35], !(subscriptionDeleteRequest | v73)) || objc_msgSend_isEqual_(subscriptionDeleteRequest, v7, v73))
+    && ((userRetrieveRequest = self->_userRetrieveRequest, v75 = equalCopy[46], !(userRetrieveRequest | v75)) || objc_msgSend_isEqual_(userRetrieveRequest, v7, v75))
+    && ((userQueryRequest = self->_userQueryRequest, v77 = equalCopy[45], !(userQueryRequest | v77)) || objc_msgSend_isEqual_(userQueryRequest, v7, v77))
+    && ((userPrivacySettingsRetrieveRequest = self->_userPrivacySettingsRetrieveRequest, v79 = equalCopy[43], !(userPrivacySettingsRetrieveRequest | v79)) || objc_msgSend_isEqual_(userPrivacySettingsRetrieveRequest, v7, v79))
+    && ((userPrivacySettingsUpdateRequest = self->_userPrivacySettingsUpdateRequest, v81 = equalCopy[44], !(userPrivacySettingsUpdateRequest | v81)) || objc_msgSend_isEqual_(userPrivacySettingsUpdateRequest, v7, v81))
+    && ((userPrivacySettingsResetRequest = self->_userPrivacySettingsResetRequest, v83 = equalCopy[42], !(userPrivacySettingsResetRequest | v83)) || objc_msgSend_isEqual_(userPrivacySettingsResetRequest, v7, v83))
+    && ((userPrivacySettingsBatchLookupRequest = self->_userPrivacySettingsBatchLookupRequest, v85 = equalCopy[41], !(userPrivacySettingsBatchLookupRequest | v85)) || objc_msgSend_isEqual_(userPrivacySettingsBatchLookupRequest, v7, v85))
+    && ((adopterCapabilitiesSaveRequest = self->_adopterCapabilitiesSaveRequest, v87 = equalCopy[2], !(adopterCapabilitiesSaveRequest | v87)) || objc_msgSend_isEqual_(adopterCapabilitiesSaveRequest, v7, v87))
+    && ((adopterCapabilitiesCheckRequest = self->_adopterCapabilitiesCheckRequest, v89 = equalCopy[1], !(adopterCapabilitiesCheckRequest | v89)) || objc_msgSend_isEqual_(adopterCapabilitiesCheckRequest, v7, v89))
+    && ((zoneUsageSaveRequest = self->_zoneUsageSaveRequest, v91 = equalCopy[54], !(zoneUsageSaveRequest | v91)) || objc_msgSend_isEqual_(zoneUsageSaveRequest, v7, v91))
+    && ((shareUsageSaveRequest = self->_shareUsageSaveRequest, v93 = equalCopy[32], !(shareUsageSaveRequest | v93)) || objc_msgSend_isEqual_(shareUsageSaveRequest, v7, v93))
+    && ((shareAcceptRequest = self->_shareAcceptRequest, v95 = equalCopy[29], !(shareAcceptRequest | v95)) || objc_msgSend_isEqual_(shareAcceptRequest, v7, v95))
+    && ((shareDeclineRequest = self->_shareDeclineRequest, v97 = equalCopy[31], !(shareDeclineRequest | v97)) || objc_msgSend_isEqual_(shareDeclineRequest, v7, v97))
+    && ((shareVettingInitiateRequest = self->_shareVettingInitiateRequest, v99 = equalCopy[33], !(shareVettingInitiateRequest | v99)) || objc_msgSend_isEqual_(shareVettingInitiateRequest, v7, v99))
+    && ((tokenRegistrationRequest = self->_tokenRegistrationRequest, v101 = equalCopy[37], !(tokenRegistrationRequest | v101)) || objc_msgSend_isEqual_(tokenRegistrationRequest, v7, v101))
+    && ((tokenUnregistrationRequest = self->_tokenUnregistrationRequest, v103 = equalCopy[38], !(tokenUnregistrationRequest | v103)) || objc_msgSend_isEqual_(tokenUnregistrationRequest, v7, v103))
+    && ((setBadgeCountRequest = self->_setBadgeCountRequest, v105 = equalCopy[28], !(setBadgeCountRequest | v105)) || objc_msgSend_isEqual_(setBadgeCountRequest, v7, v105))
+    && ((notificationSyncRequest = self->_notificationSyncRequest, v107 = equalCopy[18], !(notificationSyncRequest | v107)) || objc_msgSend_isEqual_(notificationSyncRequest, v7, v107))
+    && ((notificationMarkReadRequest = self->_notificationMarkReadRequest, v109 = equalCopy[17], !(notificationMarkReadRequest | v109)) || objc_msgSend_isEqual_(notificationMarkReadRequest, v7, v109))
+    && ((archiveRecordsRequest = self->_archiveRecordsRequest, v111 = equalCopy[5], !(archiveRecordsRequest | v111)) || objc_msgSend_isEqual_(archiveRecordsRequest, v7, v111))
+    && ((markAssetBrokenRequest = self->_markAssetBrokenRequest, v113 = equalCopy[12], !(markAssetBrokenRequest | v113)) || objc_msgSend_isEqual_(markAssetBrokenRequest, v7, v113)))
   {
     functionInvokeRequest = self->_functionInvokeRequest;
     v115 = equalCopy[10];
@@ -1871,7 +1419,6 @@
 
   else
   {
-LABEL_110:
     isEqual = 0;
   }
 

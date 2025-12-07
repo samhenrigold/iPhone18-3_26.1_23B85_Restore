@@ -9,19 +9,19 @@
 - (TSTCellRegionRowMajorReverseIterator)initWithCellRegion:(id)region
 {
   regionCopy = region;
-  v15.receiver = self;
-  v15.super_class = TSTCellRegionRowMajorReverseIterator;
-  v5 = [(TSTCellRegionRowMajorReverseIterator *)&v15 init];
-  v8 = v5;
+  v13.receiver = self;
+  v13.super_class = TSTCellRegionRowMajorReverseIterator;
+  v5 = [(TSTCellRegionRowMajorReverseIterator *)&v13 init];
+  v7 = v5;
   if (v5)
   {
-    objc_msgSend_fillCellRangeRowMajorSet_leftToRight_(regionCopy, v6, &v5->super.mCellRangeSet, 0, v7);
-    v8->super.mBoundingCellRange.origin = objc_msgSend_boundingCellRange(regionCopy, v9, v10, v11, v12);
-    v8->super.mBoundingCellRange.size = v13;
-    v8->super.mCellID = *(v8->super.mCellRangeSet.__tree_.__begin_node_ + 28);
+    objc_msgSend_fillCellRangeRowMajorSet_leftToRight_(regionCopy, v6, &v5->super.mCellRangeSet, 0);
+    v7->super.mBoundingCellRange.origin = objc_msgSend_boundingCellRange(regionCopy, v8, v9, v10);
+    v7->super.mBoundingCellRange.size = v11;
+    v7->super.mCellID = *(v7->super.mCellRangeSet.__tree_.__begin_node_ + 28);
   }
 
-  return v8;
+  return v7;
 }
 
 - (TSUCellCoord)getNext

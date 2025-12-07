@@ -14,26 +14,22 @@ uint64_t ___UIMainMenuElementGroupStateEnumerateCommandStatesHelper_block_invoke
   return result;
 }
 
-uint64_t ___UIMainMenuElementGroupStateEnumerateCommandStatesHelper_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void ___UIMainMenuElementGroupStateEnumerateCommandStatesHelper_block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  result = _UIMainMenuElementGroupStateEnumerateCommandStatesHelper(a3, *(a1 + 32), *(a1 + 40));
+  _UIMainMenuElementGroupStateEnumerateCommandStatesHelper(a3, *(a1 + 32), *(a1 + 40));
   if (**(a1 + 40) == 1)
   {
     *a4 = 1;
   }
-
-  return result;
 }
 
-uint64_t ___UIMainMenuElementGroupStateEnumerateCommandStatesHelper_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void ___UIMainMenuElementGroupStateEnumerateCommandStatesHelper_block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  result = _UIMainMenuElementGroupStateEnumerateCommandStatesHelper(a3, *(a1 + 32), *(a1 + 40));
+  _UIMainMenuElementGroupStateEnumerateCommandStatesHelper(a3, *(a1 + 32), *(a1 + 40));
   if (**(a1 + 40) == 1)
   {
     *a4 = 1;
   }
-
-  return result;
 }
 
 @end

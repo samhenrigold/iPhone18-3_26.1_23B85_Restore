@@ -176,20 +176,18 @@ void __61__FAFamilyInvitationAcceptanceViewController__showErrorAlert__block_inv
 
 void __88__FAFamilyInvitationAcceptanceViewController_remoteUIController_didReceiveHTTPResponse___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = _AALogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIControllerDidDismiss:(id)dismiss
@@ -200,7 +198,7 @@ void __88__FAFamilyInvitationAcceptanceViewController_remoteUIController_didRece
 
 - (void)_loadiTunesLinkingRemoteUI
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ams_sharedAccountStore = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
   ams_activeiTunesAccount = [ams_sharedAccountStore ams_activeiTunesAccount];
 
@@ -218,7 +216,7 @@ void __88__FAFamilyInvitationAcceptanceViewController_remoteUIController_didRece
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "Will load Family Setup remote UI using request: %@", buf, 0xCu);
   }
 
@@ -230,34 +228,30 @@ void __88__FAFamilyInvitationAcceptanceViewController_remoteUIController_didRece
   [(AAUIRemoteUIController *)self->_remoteUIController setNavigationController:self];
   v13 = self->_remoteUIController;
   v14 = self->_startRemoteUIRequest;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __72__FAFamilyInvitationAcceptanceViewController__loadiTunesLinkingRemoteUI__block_invoke;
-  v16[3] = &unk_2782F3568;
-  v16[4] = self;
-  [(AAUIRemoteUIController *)v13 loadRequest:v14 completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __72__FAFamilyInvitationAcceptanceViewController__loadiTunesLinkingRemoteUI__block_invoke;
+  v15[3] = &unk_2782F3568;
+  v15[4] = self;
+  [(AAUIRemoteUIController *)v13 loadRequest:v14 completion:v15];
 }
 
 void __72__FAFamilyInvitationAcceptanceViewController__loadiTunesLinkingRemoteUI__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
     v6 = _AALogSystem();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
     }
 
     [*(a1 + 32) _showErrorAlert];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendUserToiTunesSettings

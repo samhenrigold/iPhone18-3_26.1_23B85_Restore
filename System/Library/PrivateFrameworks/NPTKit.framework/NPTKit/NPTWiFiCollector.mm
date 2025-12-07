@@ -99,14 +99,14 @@
 
 void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v134[1] = *MEMORY[0x277D85DE8];
+  v133[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v117 = objc_alloc_init(MEMORY[0x277CCA968]);
-  [v117 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSxxx"];
+  v116 = objc_alloc_init(MEMORY[0x277CCA968]);
+  [v116 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSxxx"];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(NPTMetadataEvent);
-  v118 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v117 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = [MEMORY[0x277CBEAA8] now];
   [(NPTMetadataEvent *)v6 setTimeStamp:v7];
 
@@ -134,10 +134,10 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       v16 = [v5 objectForKeyedSubscript:@"data"];
       if (v16)
       {
-        v129 = @"wifi_power";
+        v128 = @"wifi_power";
         v17 = [v5 objectForKeyedSubscript:@"data"];
-        v130 = v17;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+        v129 = v17;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
         [v5 setObject:v18 forKeyedSubscript:@"data"];
       }
 
@@ -167,10 +167,10 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       v86 = [v5 objectForKeyedSubscript:@"data"];
       if (v86)
       {
-        v131 = @"wifi_ssid";
+        v130 = @"wifi_ssid";
         v87 = [v5 objectForKeyedSubscript:@"data"];
-        v132 = v87;
-        v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+        v131 = v87;
+        v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
         [v5 setObject:v88 forKeyedSubscript:@"data"];
       }
 
@@ -184,16 +184,16 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       [(NPTMetadataEvent *)v6 setEventType:10];
       v35 = [WeakRetained interface];
       v36 = [v35 BSSID];
-      [v118 setObject:v36 forKeyedSubscript:@"wifi_bssid"];
+      [v117 setObject:v36 forKeyedSubscript:@"wifi_bssid"];
 
       v37 = [WeakRetained interface];
       v38 = [v37 BSSID];
       v39 = [NPTWiFiCollector convertBSSIDToOUI:v38];
-      [v118 setObject:v39 forKeyedSubscript:@"wifi_oui"];
+      [v117 setObject:v39 forKeyedSubscript:@"wifi_oui"];
 
-      if ([v118 count])
+      if ([v117 count])
       {
-        v40 = v118;
+        v40 = v117;
       }
 
       else
@@ -237,15 +237,15 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       }
 
       v74 = [v22 interfaceName];
-      [v118 setObject:v74 forKeyedSubscript:@"interface"];
+      [v117 setObject:v74 forKeyedSubscript:@"interface"];
 
       v75 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v22, "isLinkDown")}];
-      [v118 setObject:v75 forKeyedSubscript:@"link_down"];
+      [v117 setObject:v75 forKeyedSubscript:@"link_down"];
 
       v76 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v22, "reason")}];
-      [v118 setObject:v76 forKeyedSubscript:@"reason"];
+      [v117 setObject:v76 forKeyedSubscript:@"reason"];
 
-      [v5 setObject:v118 forKeyedSubscript:@"data"];
+      [v5 setObject:v117 forKeyedSubscript:@"data"];
       goto LABEL_93;
     case 7:
       [(NPTMetadataEvent *)v6 setEventType:16];
@@ -278,10 +278,10 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       v43 = [v5 objectForKeyedSubscript:@"data"];
       if (v43)
       {
-        v127 = @"wifi_interface_names";
+        v126 = @"wifi_interface_names";
         v44 = [v5 objectForKeyedSubscript:@"data"];
-        v128 = v44;
-        v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+        v127 = v44;
+        v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
         [v5 setObject:v45 forKeyedSubscript:@"data"];
       }
 
@@ -310,10 +310,10 @@ void __50__NPTWiFiCollector_startCollectingWithCompletion___block_invoke(uint64_
       v96 = [v5 objectForKeyedSubscript:@"data"];
       if (v96)
       {
-        v125 = @"wifi_interface_names";
+        v124 = @"wifi_interface_names";
         v97 = [v5 objectForKeyedSubscript:@"data"];
-        v126 = v97;
-        v98 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+        v125 = v97;
+        v98 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
         [v5 setObject:v98 forKeyedSubscript:@"data"];
       }
 
@@ -418,10 +418,10 @@ LABEL_93:
       v92 = [v5 objectForKeyedSubscript:@"data"];
       if (v92)
       {
-        v133 = @"wifi_network_service_name";
+        v132 = @"wifi_network_service_name";
         v93 = [v5 objectForKeyedSubscript:@"data"];
-        v134[0] = v93;
-        v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:&v133 count:1];
+        v133[0] = v93;
+        v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:&v132 count:1];
         [v5 setObject:v94 forKeyedSubscript:@"data"];
       }
 
@@ -449,10 +449,10 @@ LABEL_93:
       v79 = [v5 objectForKeyedSubscript:@"data"];
       if (v79)
       {
-        v121 = @"wifi_ipv4_addresses";
+        v120 = @"wifi_ipv4_addresses";
         v80 = [v5 objectForKeyedSubscript:@"data"];
-        v122 = v80;
-        v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+        v121 = v80;
+        v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
         [v5 setObject:v81 forKeyedSubscript:@"data"];
       }
 
@@ -480,10 +480,10 @@ LABEL_93:
       v69 = [v5 objectForKeyedSubscript:@"data"];
       if (v69)
       {
-        v119 = @"wifi_ipv6_addresses";
+        v118 = @"wifi_ipv6_addresses";
         v70 = [v5 objectForKeyedSubscript:@"data"];
-        v120 = v70;
-        v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+        v119 = v70;
+        v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
         [v5 setObject:v71 forKeyedSubscript:@"data"];
       }
 
@@ -511,10 +511,10 @@ LABEL_93:
       v101 = [v5 objectForKeyedSubscript:@"data"];
       if (v101)
       {
-        v123 = @"wifi_dns_addresses";
+        v122 = @"wifi_dns_addresses";
         v102 = [v5 objectForKeyedSubscript:@"data"];
-        v124 = v102;
-        v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+        v123 = v102;
+        v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
         [v5 setObject:v103 forKeyedSubscript:@"data"];
       }
 
@@ -528,14 +528,14 @@ LABEL_93:
       [(NPTMetadataEvent *)v6 setEventType:24];
       v50 = [WeakRetained interface];
       v51 = [v50 DHCPLeaseStartedAt];
-      v52 = [v117 stringFromDate:v51];
-      [v118 setObject:v52 forKeyedSubscript:@"wifi_dhcp_start_time"];
+      v52 = [v116 stringFromDate:v51];
+      [v117 setObject:v52 forKeyedSubscript:@"wifi_dhcp_start_time"];
 
       v53 = [WeakRetained interface];
       v54 = [v53 DHCPLeaseExpiresAt];
-      v55 = [v117 stringFromDate:v54];
-      v56 = v118;
-      [v118 setObject:v55 forKeyedSubscript:@"wifi_dhcp_expire_time"];
+      v55 = [v116 stringFromDate:v54];
+      v56 = v117;
+      [v117 setObject:v55 forKeyedSubscript:@"wifi_dhcp_expire_time"];
 
       goto LABEL_41;
     case 23:
@@ -554,12 +554,12 @@ LABEL_93:
       }
 
       v65 = [v61 stringWithUTF8String:v64];
-      [v118 setObject:v65 forKeyedSubscript:@"wifi_eap8021x_supplicant_state"];
+      [v117 setObject:v65 forKeyedSubscript:@"wifi_eap8021x_supplicant_state"];
 
       v53 = [WeakRetained interface];
       v66 = +[NPTWiFiCollector ControlModeToString:](NPTWiFiCollector, "ControlModeToString:", [v53 EAP8021XControlMode]);
-      v56 = v118;
-      [v118 setObject:v66 forKeyedSubscript:@"wifi_eap8021x_control_mode"];
+      v56 = v117;
+      [v117 setObject:v66 forKeyedSubscript:@"wifi_eap8021x_control_mode"];
 
 LABEL_41:
       if ([v56 count])
@@ -607,8 +607,6 @@ LABEL_94:
       v6 = 0;
       break;
   }
-
-  v116 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopCollecting

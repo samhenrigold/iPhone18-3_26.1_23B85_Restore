@@ -186,272 +186,272 @@
 
 - (CAMDynamicShutterControl)initWithMetalDevice:(id)device commandQueue:(id)queue layoutStyle:(int64_t)style liquidRenderingMethod:(int64_t)method
 {
-  v111[13] = *MEMORY[0x1E69E9840];
+  v110[13] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   queueCopy = queue;
-  v110.receiver = self;
-  v110.super_class = CAMDynamicShutterControl;
-  v10 = *MEMORY[0x1E695F058];
-  v11 = *(MEMORY[0x1E695F058] + 8);
-  v12 = *(MEMORY[0x1E695F058] + 16);
-  v13 = *(MEMORY[0x1E695F058] + 24);
-  v14 = [(CAMDynamicShutterControl *)&v110 initWithFrame:*MEMORY[0x1E695F058], v11, v12, v13];
-  v15 = v14;
-  if (v14)
+  v109.receiver = self;
+  v109.super_class = CAMDynamicShutterControl;
+  v9 = *MEMORY[0x1E695F058];
+  v10 = *(MEMORY[0x1E695F058] + 8);
+  v11 = *(MEMORY[0x1E695F058] + 16);
+  v12 = *(MEMORY[0x1E695F058] + 24);
+  v13 = [(CAMDynamicShutterControl *)&v109 initWithFrame:*MEMORY[0x1E695F058], v10, v11, v12];
+  v14 = v13;
+  if (v13)
   {
-    v14->__liquidRenderingMethod = method;
-    v14->__wantsLateralOuterViews = method == 0;
-    v14->_settings.idleColor = 0;
-    *&v14->_settings.allowsZoom = 0u;
-    *&v14->_settings.ringStyle = 0u;
-    *&v14->_settings.tapBehavior = 0u;
-    *&v14->_settings.dragRightBehavior = 0u;
-    v14->_privateSettings.allowPauseResume = 0;
-    objc_initWeak(&location, v14);
-    v16 = objc_alloc(MEMORY[0x1E6993840]);
-    v107[0] = MEMORY[0x1E69E9820];
-    v107[1] = 3221225472;
-    v107[2] = __95__CAMDynamicShutterControl_initWithMetalDevice_commandQueue_layoutStyle_liquidRenderingMethod___block_invoke;
-    v107[3] = &unk_1E76FDF58;
-    objc_copyWeak(&v108, &location);
-    v17 = [v16 initWithHandler:v107];
-    displayLinkTarget = v15->__displayLinkTarget;
-    v15->__displayLinkTarget = v17;
+    v13->__liquidRenderingMethod = method;
+    v13->__wantsLateralOuterViews = method == 0;
+    v13->_settings.idleColor = 0;
+    *&v13->_settings.allowsZoom = 0u;
+    *&v13->_settings.ringStyle = 0u;
+    *&v13->_settings.tapBehavior = 0u;
+    *&v13->_settings.dragRightBehavior = 0u;
+    v13->_privateSettings.allowPauseResume = 0;
+    objc_initWeak(&location, v13);
+    v15 = objc_alloc(MEMORY[0x1E6993840]);
+    v106[0] = MEMORY[0x1E69E9820];
+    v106[1] = 3221225472;
+    v106[2] = __95__CAMDynamicShutterControl_initWithMetalDevice_commandQueue_layoutStyle_liquidRenderingMethod___block_invoke;
+    v106[3] = &unk_1E76FDF58;
+    objc_copyWeak(&v107, &location);
+    v16 = [v15 initWithHandler:v106];
+    displayLinkTarget = v14->__displayLinkTarget;
+    v14->__displayLinkTarget = v16;
 
-    v19 = [MEMORY[0x1E6979330] displayLinkWithTarget:v15->__displayLinkTarget selector:sel_displayLinkDidFire_];
-    displayLink = v15->__displayLink;
-    v15->__displayLink = v19;
+    v18 = [MEMORY[0x1E6979330] displayLinkWithTarget:v14->__displayLinkTarget selector:sel_displayLinkDidFire_];
+    displayLink = v14->__displayLink;
+    v14->__displayLink = v18;
 
-    v21 = v15->__displayLink;
+    v20 = v14->__displayLink;
     mainRunLoop = [MEMORY[0x1E695DFD0] mainRunLoop];
-    [(CADisplayLink *)v21 addToRunLoop:mainRunLoop forMode:*MEMORY[0x1E695DA28]];
+    [(CADisplayLink *)v20 addToRunLoop:mainRunLoop forMode:*MEMORY[0x1E695DA28]];
 
-    _liquidRenderingMethod = [(CAMDynamicShutterControl *)v15 _liquidRenderingMethod];
+    _liquidRenderingMethod = [(CAMDynamicShutterControl *)v14 _liquidRenderingMethod];
     if (_liquidRenderingMethod)
     {
       if (_liquidRenderingMethod == 1)
       {
-        v24 = [_TtC8CameraUI20CAMLiquidShutterView alloc];
-        [(CAMDynamicShutterControl *)v15 bounds];
-        v25 = [(CAMLiquidShutterView *)v24 initWithFrame:?];
-        liquidShutterView = v15->_liquidShutterView;
-        v15->_liquidShutterView = v25;
+        v23 = [_TtC8CameraUI20CAMLiquidShutterView alloc];
+        [(CAMDynamicShutterControl *)v14 bounds];
+        v24 = [(CAMLiquidShutterView *)v23 initWithFrame:?];
+        liquidShutterView = v14->_liquidShutterView;
+        v14->_liquidShutterView = v24;
 
-        [(CAMLiquidShutterView *)v15->_liquidShutterView setUserInteractionEnabled:0];
-        [(CAMDynamicShutterControl *)v15 addSubview:v15->_liquidShutterView];
+        [(CAMLiquidShutterView *)v14->_liquidShutterView setUserInteractionEnabled:0];
+        [(CAMDynamicShutterControl *)v14 addSubview:v14->_liquidShutterView];
       }
     }
 
     else
     {
-      v27 = [[CAMLiquidShutterRenderer alloc] initWithDevice:deviceCopy commandQueue:queueCopy pixelFormat:80];
-      liquidShutterRenderer = v15->__liquidShutterRenderer;
-      v15->__liquidShutterRenderer = v27;
+      v26 = [[CAMLiquidShutterRenderer alloc] initWithDevice:deviceCopy commandQueue:queueCopy pixelFormat:80];
+      liquidShutterRenderer = v14->__liquidShutterRenderer;
+      v14->__liquidShutterRenderer = v26;
 
-      v29 = [[CAMMetalView alloc] initWithFrame:v10, v11, v12, v13];
-      metalView = v15->__metalView;
-      v15->__metalView = v29;
+      v28 = [[CAMMetalView alloc] initWithFrame:v9, v10, v11, v12];
+      metalView = v14->__metalView;
+      v14->__metalView = v28;
 
-      [(CAMMetalView *)v15->__metalView setMetalViewDelegate:v15];
-      metalLayer = [(CAMMetalView *)v15->__metalView metalLayer];
+      [(CAMMetalView *)v14->__metalView setMetalViewDelegate:v14];
+      metalLayer = [(CAMMetalView *)v14->__metalView metalLayer];
       [metalLayer setDevice:deviceCopy];
 
-      metalLayer2 = [(CAMMetalView *)v15->__metalView metalLayer];
+      metalLayer2 = [(CAMMetalView *)v14->__metalView metalLayer];
       [metalLayer2 setPixelFormat:80];
 
-      metalLayer3 = [(CAMMetalView *)v15->__metalView metalLayer];
-      [(CAMLiquidShutterRenderer *)v15->__liquidShutterRenderer setMetalLayer:metalLayer3];
+      metalLayer3 = [(CAMMetalView *)v14->__metalView metalLayer];
+      [(CAMLiquidShutterRenderer *)v14->__liquidShutterRenderer setMetalLayer:metalLayer3];
 
-      layer = [(CAMMetalView *)v15->__metalView layer];
+      layer = [(CAMMetalView *)v14->__metalView layer];
       [layer setOpaque:0];
 
-      [(CAMMetalView *)v15->__metalView setUserInteractionEnabled:0];
-      [(CAMDynamicShutterControl *)v15 addSubview:v15->__metalView];
-      [(CAMDynamicShutterControl *)v15 bringSubviewToFront:v15->__metalView];
+      [(CAMMetalView *)v14->__metalView setUserInteractionEnabled:0];
+      [(CAMDynamicShutterControl *)v14 addSubview:v14->__metalView];
+      [(CAMDynamicShutterControl *)v14 bringSubviewToFront:v14->__metalView];
     }
 
-    v15->__needsLiquidShutterUpdate = 1;
-    v15->__needsInitialOuterAndInnerLayerUpdate = 1;
-    v35 = objc_opt_class();
-    if (v35)
+    v14->__needsLiquidShutterUpdate = 1;
+    v14->__needsInitialOuterAndInnerLayerUpdate = 1;
+    v34 = objc_opt_class();
+    if (v34)
     {
-      [v35 shutterButtonSpecForLayoutStyle:style];
+      objc_msgSend_shutterButtonSpecForLayoutStyle_(v34);
     }
 
     else
     {
-      v106 = 0.0;
+      v105 = 0.0;
+      v103 = 0u;
       v104 = 0u;
-      v105 = 0u;
     }
 
+    v35 = v103;
     v36 = v104;
-    v37 = v105;
-    v15->__shutterButtonSpec.interRingSpacing = v106;
-    *&v15->__shutterButtonSpec.outerRingDiameter = v36;
-    *&v15->__shutterButtonSpec.stopSquareSideLength = v37;
-    v38 = CAMPixelWidthForView(v15);
-    CAMShutterButtonSpecMake(&v104, 55.0, 3.0 - v38, 0.0, 0.0, 2.0);
+    v14->__shutterButtonSpec.interRingSpacing = v105;
+    *&v14->__shutterButtonSpec.outerRingDiameter = v35;
+    *&v14->__shutterButtonSpec.stopSquareSideLength = v36;
+    v37 = CAMPixelWidthForView(v14);
+    CAMShutterButtonSpecMake(&v103, 55.0, 3.0 - v37, 0.0, 0.0, 2.0);
+    v38 = v103;
     v39 = v104;
-    v40 = v105;
-    v15->__lockButtonActiveSpec.interRingSpacing = v106;
-    *&v15->__lockButtonActiveSpec.outerRingDiameter = v39;
-    *&v15->__lockButtonActiveSpec.stopSquareSideLength = v40;
-    v41 = CAMPixelWidthForView(v15);
-    CAMShutterButtonSpecMake(&v104, 40.0, v41 + 1.0, 0.0, 0.0, 2.0);
+    v14->__lockButtonActiveSpec.interRingSpacing = v105;
+    *&v14->__lockButtonActiveSpec.outerRingDiameter = v38;
+    *&v14->__lockButtonActiveSpec.stopSquareSideLength = v39;
+    v40 = CAMPixelWidthForView(v14);
+    CAMShutterButtonSpecMake(&v103, 40.0, v40 + 1.0, 0.0, 0.0, 2.0);
+    v41 = v103;
     v42 = v104;
-    v43 = v105;
-    v15->__lockButtonInactiveSpec.interRingSpacing = v106;
-    *&v15->__lockButtonInactiveSpec.outerRingDiameter = v42;
-    *&v15->__lockButtonInactiveSpec.stopSquareSideLength = v43;
-    v44 = CAMPixelWidthForView(v15);
-    CAMShutterButtonSpecMake(&v104, 55.0, 3.0 - v44, 0.0, 0.0, 2.0);
+    v14->__lockButtonInactiveSpec.interRingSpacing = v105;
+    *&v14->__lockButtonInactiveSpec.outerRingDiameter = v41;
+    *&v14->__lockButtonInactiveSpec.stopSquareSideLength = v42;
+    v43 = CAMPixelWidthForView(v14);
+    CAMShutterButtonSpecMake(&v103, 55.0, 3.0 - v43, 0.0, 0.0, 2.0);
+    v44 = v103;
     v45 = v104;
-    v46 = v105;
-    v15->__pauseResumeButtonSpec.interRingSpacing = v106;
-    *&v15->__pauseResumeButtonSpec.outerRingDiameter = v45;
-    *&v15->__pauseResumeButtonSpec.stopSquareSideLength = v46;
-    v47 = [[CAMDynamicShutterGestureRecognizer alloc] initWithTarget:v15 action:sel__handlePress_];
-    gestureRecognizer = v15->__gestureRecognizer;
-    v15->__gestureRecognizer = v47;
+    v14->__pauseResumeButtonSpec.interRingSpacing = v105;
+    *&v14->__pauseResumeButtonSpec.outerRingDiameter = v44;
+    *&v14->__pauseResumeButtonSpec.stopSquareSideLength = v45;
+    v46 = [[CAMDynamicShutterGestureRecognizer alloc] initWithTarget:v14 action:sel__handlePress_];
+    gestureRecognizer = v14->__gestureRecognizer;
+    v14->__gestureRecognizer = v46;
 
-    [(CAMDynamicShutterGestureRecognizer *)v15->__gestureRecognizer setMinimumPressDuration:0.0];
-    [(CAMDynamicShutterGestureRecognizer *)v15->__gestureRecognizer setCancelsTouchesInView:0];
-    [(CAMDynamicShutterGestureRecognizer *)v15->__gestureRecognizer setDelaysTouchesEnded:0];
-    [(CAMDynamicShutterGestureRecognizer *)v15->__gestureRecognizer setDelegate:v15];
-    [(CAMDynamicShutterControl *)v15 addGestureRecognizer:v15->__gestureRecognizer];
-    v49 = +[CAMCaptureCapabilities capabilities];
-    allowHaptics = [v49 allowHaptics];
+    [(CAMDynamicShutterGestureRecognizer *)v14->__gestureRecognizer setMinimumPressDuration:0.0];
+    [(CAMDynamicShutterGestureRecognizer *)v14->__gestureRecognizer setCancelsTouchesInView:0];
+    [(CAMDynamicShutterGestureRecognizer *)v14->__gestureRecognizer setDelaysTouchesEnded:0];
+    [(CAMDynamicShutterGestureRecognizer *)v14->__gestureRecognizer setDelegate:v14];
+    [(CAMDynamicShutterControl *)v14 addGestureRecognizer:v14->__gestureRecognizer];
+    v48 = +[CAMCaptureCapabilities capabilities];
+    allowHaptics = [v48 allowHaptics];
 
     if (allowHaptics)
     {
-      v51 = +[CAMFeedbackController sharedController];
-      feedbackController = v15->__feedbackController;
-      v15->__feedbackController = v51;
+      v50 = +[CAMFeedbackController sharedController];
+      feedbackController = v14->__feedbackController;
+      v14->__feedbackController = v50;
     }
 
-    v15->__touchSequencePhase = 0;
-    v53 = [[CAMTrackingSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v15)];
-    dragHandleOffsetSpring = v15->__dragHandleOffsetSpring;
-    v15->__dragHandleOffsetSpring = v53;
+    v14->__touchSequencePhase = 0;
+    v52 = [[CAMTrackingSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v14)];
+    dragHandleOffsetSpring = v14->__dragHandleOffsetSpring;
+    v14->__dragHandleOffsetSpring = v52;
 
-    v55 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v15)];
-    dragHandleWidthSpring = v15->__dragHandleWidthSpring;
-    v15->__dragHandleWidthSpring = v55;
+    v54 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v14)];
+    dragHandleWidthSpring = v14->__dragHandleWidthSpring;
+    v14->__dragHandleWidthSpring = v54;
 
-    v57 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    dragHandleColorIsWhiteSpring = v15->__dragHandleColorIsWhiteSpring;
-    v15->__dragHandleColorIsWhiteSpring = v57;
+    v56 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    dragHandleColorIsWhiteSpring = v14->__dragHandleColorIsWhiteSpring;
+    v14->__dragHandleColorIsWhiteSpring = v56;
 
-    v59 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    dragHandleAlphaSpring = v15->__dragHandleAlphaSpring;
-    v15->__dragHandleAlphaSpring = v59;
+    v58 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    dragHandleAlphaSpring = v14->__dragHandleAlphaSpring;
+    v14->__dragHandleAlphaSpring = v58;
 
-    v61 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v15)];
-    innerShapeWidthSpring = v15->__innerShapeWidthSpring;
-    v15->__innerShapeWidthSpring = v61;
+    v60 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:CAMPixelWidthForView(v14)];
+    innerShapeWidthSpring = v14->__innerShapeWidthSpring;
+    v14->__innerShapeWidthSpring = v60;
 
-    v63 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:0.001 boundedBetween:2.0 and:6.0];
-    innerShapePowerSpring = v15->__innerShapePowerSpring;
-    v15->__innerShapePowerSpring = v63;
+    v62 = [[CAMSpring alloc] initWithTension:240.0 friction:30.0 epsilon:0.001 boundedBetween:2.0 and:6.0];
+    innerShapePowerSpring = v14->__innerShapePowerSpring;
+    v14->__innerShapePowerSpring = v62;
 
-    v65 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    innerShapeColorIsRedSpring = v15->__innerShapeColorIsRedSpring;
-    v15->__innerShapeColorIsRedSpring = v65;
+    v64 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    innerShapeColorIsRedSpring = v14->__innerShapeColorIsRedSpring;
+    v14->__innerShapeColorIsRedSpring = v64;
 
-    v67 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    innerShapeAlphaSpring = v15->__innerShapeAlphaSpring;
-    v15->__innerShapeAlphaSpring = v67;
+    v66 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    innerShapeAlphaSpring = v14->__innerShapeAlphaSpring;
+    v14->__innerShapeAlphaSpring = v66;
 
-    v69 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    counterLabelAlphaSpring = v15->__counterLabelAlphaSpring;
-    v15->__counterLabelAlphaSpring = v69;
+    v68 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    counterLabelAlphaSpring = v14->__counterLabelAlphaSpring;
+    v14->__counterLabelAlphaSpring = v68;
 
-    v71 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    drawLockUISpring = v15->__drawLockUISpring;
-    v15->__drawLockUISpring = v71;
+    v70 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    drawLockUISpring = v14->__drawLockUISpring;
+    v14->__drawLockUISpring = v70;
 
-    v73 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    expandLockRingSpring = v15->__expandLockRingSpring;
-    v15->__expandLockRingSpring = v73;
+    v72 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    expandLockRingSpring = v14->__expandLockRingSpring;
+    v14->__expandLockRingSpring = v72;
 
-    v75 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    drawPauseResumeUISpring = v15->__drawPauseResumeUISpring;
-    v15->__drawPauseResumeUISpring = v75;
+    v74 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    drawPauseResumeUISpring = v14->__drawPauseResumeUISpring;
+    v14->__drawPauseResumeUISpring = v74;
 
-    v77 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
-    pausedDuringVideoSpring = v15->__pausedDuringVideoSpring;
-    v15->__pausedDuringVideoSpring = v77;
+    v76 = [[CAMSpring alloc] initWithTension:400.0 friction:40.0 epsilon:0.001 boundedBetween:0.0 and:1.0];
+    pausedDuringVideoSpring = v14->__pausedDuringVideoSpring;
+    v14->__pausedDuringVideoSpring = v76;
 
-    _dragHandleOffsetSpring = [(CAMDynamicShutterControl *)v15 _dragHandleOffsetSpring];
-    v111[0] = _dragHandleOffsetSpring;
-    _dragHandleWidthSpring = [(CAMDynamicShutterControl *)v15 _dragHandleWidthSpring];
-    v111[1] = _dragHandleWidthSpring;
-    _dragHandleColorIsWhiteSpring = [(CAMDynamicShutterControl *)v15 _dragHandleColorIsWhiteSpring];
-    v111[2] = _dragHandleColorIsWhiteSpring;
-    _dragHandleAlphaSpring = [(CAMDynamicShutterControl *)v15 _dragHandleAlphaSpring];
-    v111[3] = _dragHandleAlphaSpring;
-    _innerShapeWidthSpring = [(CAMDynamicShutterControl *)v15 _innerShapeWidthSpring];
-    v111[4] = _innerShapeWidthSpring;
-    _innerShapePowerSpring = [(CAMDynamicShutterControl *)v15 _innerShapePowerSpring];
-    v111[5] = _innerShapePowerSpring;
-    _innerShapeAlphaSpring = [(CAMDynamicShutterControl *)v15 _innerShapeAlphaSpring];
-    v111[6] = _innerShapeAlphaSpring;
-    _counterLabelAlphaSpring = [(CAMDynamicShutterControl *)v15 _counterLabelAlphaSpring];
-    v111[7] = _counterLabelAlphaSpring;
-    _innerShapeColorIsRedSpring = [(CAMDynamicShutterControl *)v15 _innerShapeColorIsRedSpring];
-    v111[8] = _innerShapeColorIsRedSpring;
-    _drawLockUISpring = [(CAMDynamicShutterControl *)v15 _drawLockUISpring];
-    v111[9] = _drawLockUISpring;
-    _expandLockRingSpring = [(CAMDynamicShutterControl *)v15 _expandLockRingSpring];
-    v111[10] = _expandLockRingSpring;
-    _drawPauseResumeUISpring = [(CAMDynamicShutterControl *)v15 _drawPauseResumeUISpring];
-    v111[11] = _drawPauseResumeUISpring;
-    _pausedDuringVideoSpring = [(CAMDynamicShutterControl *)v15 _pausedDuringVideoSpring];
-    v111[12] = _pausedDuringVideoSpring;
-    v88 = [MEMORY[0x1E695DEC8] arrayWithObjects:v111 count:13];
-    springs = v15->__springs;
-    v15->__springs = v88;
+    _dragHandleOffsetSpring = [(CAMDynamicShutterControl *)v14 _dragHandleOffsetSpring];
+    v110[0] = _dragHandleOffsetSpring;
+    _dragHandleWidthSpring = [(CAMDynamicShutterControl *)v14 _dragHandleWidthSpring];
+    v110[1] = _dragHandleWidthSpring;
+    _dragHandleColorIsWhiteSpring = [(CAMDynamicShutterControl *)v14 _dragHandleColorIsWhiteSpring];
+    v110[2] = _dragHandleColorIsWhiteSpring;
+    _dragHandleAlphaSpring = [(CAMDynamicShutterControl *)v14 _dragHandleAlphaSpring];
+    v110[3] = _dragHandleAlphaSpring;
+    _innerShapeWidthSpring = [(CAMDynamicShutterControl *)v14 _innerShapeWidthSpring];
+    v110[4] = _innerShapeWidthSpring;
+    _innerShapePowerSpring = [(CAMDynamicShutterControl *)v14 _innerShapePowerSpring];
+    v110[5] = _innerShapePowerSpring;
+    _innerShapeAlphaSpring = [(CAMDynamicShutterControl *)v14 _innerShapeAlphaSpring];
+    v110[6] = _innerShapeAlphaSpring;
+    _counterLabelAlphaSpring = [(CAMDynamicShutterControl *)v14 _counterLabelAlphaSpring];
+    v110[7] = _counterLabelAlphaSpring;
+    _innerShapeColorIsRedSpring = [(CAMDynamicShutterControl *)v14 _innerShapeColorIsRedSpring];
+    v110[8] = _innerShapeColorIsRedSpring;
+    _drawLockUISpring = [(CAMDynamicShutterControl *)v14 _drawLockUISpring];
+    v110[9] = _drawLockUISpring;
+    _expandLockRingSpring = [(CAMDynamicShutterControl *)v14 _expandLockRingSpring];
+    v110[10] = _expandLockRingSpring;
+    _drawPauseResumeUISpring = [(CAMDynamicShutterControl *)v14 _drawPauseResumeUISpring];
+    v110[11] = _drawPauseResumeUISpring;
+    _pausedDuringVideoSpring = [(CAMDynamicShutterControl *)v14 _pausedDuringVideoSpring];
+    v110[12] = _pausedDuringVideoSpring;
+    v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:v110 count:13];
+    springs = v14->__springs;
+    v14->__springs = v87;
 
-    [(CAMSpring *)v15->__dragHandleWidthSpring resetToValue:45.0];
-    [(CAMSpring *)v15->__dragHandleAlphaSpring resetToValue:1.0];
-    v90 = v15->__innerShapeWidthSpring;
-    [(CAMDynamicShutterControl *)v15 _shutterButtonSpec];
-    [(CAMSpring *)v90 resetToValue:CAMShutterButtonSpecGetInnerCircleDiameter(&v104)];
-    [(CAMSpring *)v15->__innerShapePowerSpring resetToValue:2.0];
-    [(CAMSpring *)v15->__innerShapeAlphaSpring resetToValue:1.0];
-    [(CAMSpring *)v15->__counterLabelAlphaSpring resetToValue:0.0];
-    v15->__longPressVideoDuration = 0.55;
-    v15->__externalLongPressVideoDuration = 0.55;
-    v91 = +[CAMCaptureCapabilities capabilities];
-    LODWORD(_counterLabelAlphaSpring) = [v91 isTrueVideoSupported];
+    [(CAMSpring *)v14->__dragHandleWidthSpring resetToValue:45.0];
+    [(CAMSpring *)v14->__dragHandleAlphaSpring resetToValue:1.0];
+    v89 = v14->__innerShapeWidthSpring;
+    objc_msgSend__shutterButtonSpec(v14);
+    [(CAMSpring *)v89 resetToValue:CAMShutterButtonSpecGetInnerCircleDiameter(&v103)];
+    [(CAMSpring *)v14->__innerShapePowerSpring resetToValue:2.0];
+    [(CAMSpring *)v14->__innerShapeAlphaSpring resetToValue:1.0];
+    [(CAMSpring *)v14->__counterLabelAlphaSpring resetToValue:0.0];
+    v14->__longPressVideoDuration = 0.55;
+    v14->__externalLongPressVideoDuration = 0.55;
+    v90 = +[CAMCaptureCapabilities capabilities];
+    LODWORD(_counterLabelAlphaSpring) = [v90 isTrueVideoSupported];
 
     if (_counterLabelAlphaSpring)
     {
       AppIntegerValue = CFPreferencesGetAppIntegerValue(@"CAMLongPressVideoDurationMS", @"com.apple.camera", 0);
-      v93 = AppIntegerValue / 1000.0;
+      v92 = AppIntegerValue / 1000.0;
       if (AppIntegerValue <= 0)
       {
-        v93 = 0.416;
+        v92 = 0.416;
       }
 
-      v15->__longPressVideoDuration = v93;
-      v94 = CFPreferencesGetAppIntegerValue(@"CAMExternalLongPressVideoDurationMS", @"com.apple.camera", 0);
-      v95 = v94 / 1000.0;
-      if (v94 <= 0)
+      v14->__longPressVideoDuration = v92;
+      v93 = CFPreferencesGetAppIntegerValue(@"CAMExternalLongPressVideoDurationMS", @"com.apple.camera", 0);
+      v94 = v93 / 1000.0;
+      if (v93 <= 0)
       {
-        v95 = 0.416;
+        v94 = 0.416;
       }
 
-      v15->__externalLongPressVideoDuration = v95;
+      v14->__externalLongPressVideoDuration = v94;
     }
 
-    v96 = v15;
-    objc_destroyWeak(&v108);
+    v95 = v14;
+    objc_destroyWeak(&v107);
     objc_destroyWeak(&location);
   }
 
-  return v15;
+  return v14;
 }
 
 void __95__CAMDynamicShutterControl_initWithMetalDevice_commandQueue_layoutStyle_liquidRenderingMethod___block_invoke(uint64_t a1, void *a2)
@@ -506,7 +506,7 @@ void __95__CAMDynamicShutterControl_initWithMetalDevice_commandQueue_layoutStyle
 
 - (BOOL)_canDragCounter
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   if (v4 == 1)
   {
     return ![(CAMDynamicShutterControl *)self _isStartStopShutterState:[(CAMDynamicShutterControl *)self _shutterState]];
@@ -904,8 +904,8 @@ LABEL_35:
 
 - (CGSize)intrinsicContentSize
 {
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self, a2);
+  objc_msgSend__shutterButtonSpec(self);
   v3 = v5;
   v4 = v6;
   result.height = v3;
@@ -920,8 +920,8 @@ LABEL_35:
 
   [(CAMDynamicShutterControl *)self _centerOuterViewDiameter];
   v5 = v4;
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
+  objc_msgSend__shutterButtonSpec(self);
+  objc_msgSend__pauseResumeButtonSpec(self);
   CEKInterpolateClamped();
   v7 = v6;
   [(CAMDynamicShutterControl *)self _shutterButtonCenter];
@@ -982,8 +982,8 @@ LABEL_35:
   _pausedDuringVideoSpring = [(CAMDynamicShutterControl *)self _pausedDuringVideoSpring];
   [_pausedDuringVideoSpring value];
 
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
+  objc_msgSend__shutterButtonSpec(self);
+  objc_msgSend__pauseResumeButtonSpec(self);
   CEKInterpolateClamped();
   return result;
 }
@@ -1028,8 +1028,8 @@ LABEL_35:
   _videoLockImageView = [(CAMDynamicShutterControl *)self _videoLockImageView];
   [_videoLockImageView setCenter:{v14, v16}];
 
-  [(CAMDynamicShutterControl *)self settings];
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend_settings(self);
+  objc_msgSend__shutterButtonSpec(self);
   [(CAMDynamicShutterControl *)self _shutterButtonCenter];
   if (v35 == 2)
   {
@@ -1203,8 +1203,8 @@ LABEL_35:
 
 - (CGRect)_shutterButtonFrame
 {
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self, a2);
+  objc_msgSend__shutterButtonSpec(self);
   [(CAMDynamicShutterControl *)self _shutterButtonCenter];
   UIRectCenteredAboutPoint();
   result.size.height = v6;
@@ -1263,8 +1263,8 @@ LABEL_35:
 
 - (CGRect)_lockButtonFrame
 {
-  [(CAMDynamicShutterControl *)self _lockButtonActiveSpec];
-  [(CAMDynamicShutterControl *)self _lockButtonActiveSpec];
+  objc_msgSend__lockButtonActiveSpec(self, a2);
+  objc_msgSend__lockButtonActiveSpec(self);
   [(CAMDynamicShutterControl *)self _lockButtonCenter];
   UIRectCenteredAboutPoint();
   result.size.height = v6;
@@ -1308,8 +1308,8 @@ LABEL_35:
 
 - (CGRect)_pauseResumeButtonFrame
 {
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
+  objc_msgSend__pauseResumeButtonSpec(self, a2);
+  objc_msgSend__pauseResumeButtonSpec(self);
   [(CAMDynamicShutterControl *)self _pauseResumeButtonCenter];
   UIRectCenteredAboutPoint();
   result.size.height = v6;
@@ -1380,7 +1380,7 @@ LABEL_35:
   {
     v12 = 0u;
     v13 = 0u;
-    [(CAMDynamicShutterControl *)self _touchForPoint:x, y];
+    objc_msgSend__touchForPoint_(self, x, y);
     v11[0] = v12;
     v11[1] = v13;
     if ([(CAMDynamicShutterControl *)self _shouldReceiveTouch:v11]&& self->_delegateFlags.respondsToTouchAttemptedWhileDisabled)
@@ -1408,7 +1408,7 @@ LABEL_35:
   {
     v10 = 0u;
     v11 = 0u;
-    [(CAMDynamicShutterControl *)self _touchForPoint:x, y];
+    objc_msgSend__touchForPoint_(self, x, y);
     v9[0] = v10;
     v9[1] = v11;
     LOBYTE(v7) = [(CAMDynamicShutterControl *)self _shouldReceiveTouch:v9];
@@ -1481,7 +1481,7 @@ LABEL_35:
   [begin locationInView:self];
   v8 = 0u;
   v9 = 0u;
-  [(CAMDynamicShutterControl *)self _touchForPoint:?];
+  objc_msgSend__touchForPoint_(self);
   v7[0] = v8;
   v7[1] = v9;
   if (![(CAMDynamicShutterControl *)self _shouldReceiveTouch:v7]|| ![(CAMDynamicShutterControl *)self isEnabled])
@@ -1508,7 +1508,7 @@ LABEL_35:
     [pressCopy locationInView:self];
     *buf = 0u;
     v12 = 0u;
-    [(CAMDynamicShutterControl *)self _touchForPoint:?];
+    objc_msgSend__touchForPoint_(self);
     state = [pressCopy state];
     if (state <= 2)
     {
@@ -1589,9 +1589,9 @@ LABEL_23:
 
 - (BOOL)_shouldStartStopOnTouchDown
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   _shutterState = [(CAMDynamicShutterControl *)self _shutterState];
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   if (self->_delegateFlags.respondsToCanStartOnTouchDown)
   {
     delegate = [(CAMDynamicShutterControl *)self delegate];
@@ -1609,10 +1609,10 @@ LABEL_23:
 
 - (BOOL)_shouldShortPressOnTouchDown
 {
-  [(CAMDynamicShutterControl *)self settings];
-  v3 = v9;
+  objc_msgSend_settings(self, a2);
+  v3 = v9[0];
   v4 = v3 | [(CAMDynamicShutterControl *)self _shutterState];
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   v5 = v8;
   v6 = (v5 == 0) & ![(CAMDynamicShutterControl *)self _isDraggingEnabled];
   return !v4 && v6;
@@ -1620,10 +1620,10 @@ LABEL_23:
 
 - (BOOL)_shouldShortPressOnTouchUp
 {
-  [(CAMDynamicShutterControl *)self settings];
-  v3 = v9;
+  objc_msgSend_settings(self, a2);
+  v3 = v9[0];
   v4 = v3 | [(CAMDynamicShutterControl *)self _shutterState];
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   v5 = v8;
   v6 = (v5 != 0) | [(CAMDynamicShutterControl *)self _isDraggingEnabled];
   if (v4)
@@ -1785,8 +1785,8 @@ LABEL_34:
       v8 = [(CAMDynamicShutterControl *)self _isStartStopShutterState:[(CAMDynamicShutterControl *)self _shutterState]];
       if (_shouldStartStopOnTouchDown && !v8)
       {
-        [(CAMDynamicShutterControl *)self settings];
-        if (v18 || ([(CAMDynamicShutterControl *)self settings], v17))
+        objc_msgSend_settings(self);
+        if (v18 || (objc_msgSend_settings(self), v17))
         {
           v9 = os_log_create("com.apple.camera", "DynamicShutter");
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -1912,7 +1912,7 @@ LABEL_40:
   }
 
   v9 = v7 - y;
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   if (v18 == 1 && ![(CAMDynamicShutterControl *)self _didCancelZoomForCurrentGesture]&& fabs(v9) > 55.0 && ![(CAMDynamicShutterControl *)self isZooming])
   {
     [(CAMDynamicShutterControl *)self setZooming:1];
@@ -1958,14 +1958,14 @@ LABEL_40:
     [(CAMDynamicShutterControl *)self _setTouchSequencePhase:3];
   }
 
-  [(CAMDynamicShutterControl *)self _firstTouch];
+  objc_msgSend__firstTouch(self);
   v7 = v38 == 1 && [(CAMDynamicShutterControl *)self _isHandleWithinLockRing];
-  [(CAMDynamicShutterControl *)self _firstTouch];
+  objc_msgSend__firstTouch(self);
   v8 = v37 == 1 && ended->var2;
-  [(CAMDynamicShutterControl *)self _firstTouch];
+  objc_msgSend__firstTouch(self);
   v9 = v36;
   v10 = v36 != 1 || !ended->var4;
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   if (v7)
   {
     v11 = self->_delegateFlags.respondsToDidPressLockButton && v35 == 2;
@@ -1997,8 +1997,8 @@ LABEL_40:
 
     v16 = v15;
     var1 = ended->var1;
-    [(CAMDynamicShutterControl *)self _firstTouch];
-    [(CAMDynamicShutterControl *)self settings];
+    objc_msgSend__firstTouch(self);
+    objc_msgSend_settings(self);
     if (v33)
     {
       _isDraggingEnabled = var1 - v34 < v16;
@@ -2049,7 +2049,7 @@ LABEL_41:
       if (!_shutterState)
       {
 LABEL_49:
-        [(CAMDynamicShutterControl *)self settings];
+        objc_msgSend_settings(self);
         if (v31 == 1)
         {
           v22 = os_log_create("com.apple.camera", "DynamicShutter");
@@ -2126,7 +2126,7 @@ LABEL_61:
     goto LABEL_60;
   }
 
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   if (v30 == 2)
   {
     selfCopy2 = self;
@@ -2168,7 +2168,7 @@ LABEL_67:
 - (void)_touchSequenceCancelledForReset:(BOOL)reset
 {
   resetCopy = reset;
-  [(CAMDynamicShutterControl *)self _mostRecentTouch];
+  objc_msgSend__mostRecentTouch(self, a2);
   [(CAMDynamicShutterControl *)self _touchSequenceEnded:v7 forReset:resetCopy];
   if (self->_delegateFlags.respondsToGesturesDidCancel)
   {
@@ -2200,7 +2200,7 @@ LABEL_67:
 
 - (void)_handleTapToStartStop
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   if (v6 < 2)
   {
     selfCopy2 = self;
@@ -2243,7 +2243,7 @@ LABEL_6:
     [(CAMDynamicShutterControl *)self _shutterButtonCenter];
     *buf = 0u;
     v16 = 0u;
-    [(CAMDynamicShutterControl *)self _touchForPoint:?];
+    objc_msgSend__touchForPoint_(self);
     v13 = *buf;
     v14 = v16;
     [(CAMDynamicShutterControl *)self _setFirstTouch:&v13];
@@ -2284,7 +2284,7 @@ LABEL_6:
     *buf = 0u;
     v11 = 0u;
     [(CAMDynamicShutterControl *)self _shutterButtonCenter];
-    [(CAMDynamicShutterControl *)self _touchForPoint:?];
+    objc_msgSend__touchForPoint_(self);
     v8 = *buf;
     v9 = v11;
     [(CAMDynamicShutterControl *)self _touchSequenceEnded:&v8 forReset:0];
@@ -2352,7 +2352,7 @@ LABEL_6:
     *buf = 0u;
     v16 = 0u;
     [(CAMDynamicShutterControl *)self _lockButtonCenter];
-    [(CAMDynamicShutterControl *)self _touchForPoint:?];
+    objc_msgSend__touchForPoint_(self);
     v13 = *buf;
     v14 = v16;
     [(CAMDynamicShutterControl *)self _setFirstTouch:&v13];
@@ -2386,7 +2386,7 @@ LABEL_6:
     *buf = 0u;
     v8 = 0u;
     [(CAMDynamicShutterControl *)self _lockButtonCenter];
-    [(CAMDynamicShutterControl *)self _touchForPoint:?];
+    objc_msgSend__touchForPoint_(self);
     v5 = *buf;
     v6 = v8;
     [(CAMDynamicShutterControl *)self _touchSequenceEnded:&v5 forReset:0];
@@ -2539,26 +2539,26 @@ uint64_t __51__CAMDynamicShutterControl__counterNumberFormatter__block_invoke()
 
 - (BOOL)_isDraggingEnabled
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   if (v5)
   {
     return 1;
   }
 
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   return v4 != 0;
 }
 
 - (id)_outerImage
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   if (v13 == 1)
   {
-    [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+    objc_msgSend__shutterButtonSpec(self);
     v3 = objc_opt_class();
     if (v3)
     {
-      [v3 shutterButtonSpecForLayoutStyle:0];
+      objc_msgSend_shutterButtonSpecForLayoutStyle_(v3);
       v4 = v11;
     }
 
@@ -2594,9 +2594,9 @@ uint64_t __51__CAMDynamicShutterControl__counterNumberFormatter__block_invoke()
 - (void)_updateOuterAndInnerLayersAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   v5 = v37;
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
   v6 = v36;
   _liquidRenderingMethod = [(CAMDynamicShutterControl *)self _liquidRenderingMethod];
   v8 = v36 != 2 && v37 != 1;
@@ -2742,10 +2742,10 @@ void __63__CAMDynamicShutterControl__updateOuterAndInnerLayersAnimated___block_i
     [(CAMDynamicShutterControl *)self addSubview:_spinnerView];
     [(CAMDynamicShutterControl *)self _shutterButtonCenter];
     [_spinnerView setCenter:?];
-    [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+    objc_msgSend__shutterButtonSpec(self);
     InnerCircleDiameter = CAMShutterButtonSpecGetInnerCircleDiameter(v22);
     [_spinnerView setBounds:{0.0, 0.0, InnerCircleDiameter, InnerCircleDiameter}];
-    [(CAMDynamicShutterControl *)self settings];
+    objc_msgSend_settings(self);
     v11 = 0.8;
     if (v21 != 1)
     {
@@ -2795,7 +2795,7 @@ uint64_t __53__CAMDynamicShutterControl__updateSpinningAnimations__block_invoke(
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __53__CAMDynamicShutterControl__updateSpinningAnimations__block_invoke_2(uint64_t a1)
+void *__53__CAMDynamicShutterControl__updateSpinningAnimations__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isSpinning];
   if ((result & 1) == 0)
@@ -2926,7 +2926,7 @@ uint64_t __53__CAMDynamicShutterControl__updateSpinningAnimations__block_invoke_
 
 - (void)_updateCenterLegibilityView
 {
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self, a2);
   if (v5)
   {
     v3 = 1;
@@ -3131,15 +3131,15 @@ LABEL_20:
   if ((_shutterState == 5 || !_shutterState) && v4)
   {
     _isExternalShutterPressed = [(CAMDynamicShutterControl *)self _isExternalShutterPressed];
-    [(CAMDynamicShutterControl *)self settings];
+    objc_msgSend_settings(self);
     _externalShutterLongPressBehavior = [(CAMDynamicShutterControl *)self _externalShutterLongPressBehavior];
-    [(CAMDynamicShutterControl *)self settings];
+    objc_msgSend_settings(self);
     v8 = _externalShutterLongPressBehavior == 1 && _isExternalShutterPressed;
     v9 = v8 || !_isExternalShutterPressed;
     v10 = v18 == 1 ? v9 : 0;
     v11 = (v17 == 1 || v18 == 2) && _externalShutterLongPressBehavior == 2 && _isExternalShutterPressed;
     Current = CFAbsoluteTimeGetCurrent();
-    [(CAMDynamicShutterControl *)self _firstTouch];
+    objc_msgSend__firstTouch(self);
     v13 = Current - v16;
     if (_isExternalShutterPressed)
     {
@@ -3161,7 +3161,7 @@ LABEL_20:
       else if (v18 == 2 && !_isExternalShutterPressed || v11)
       {
         [(CAMDynamicShutterControl *)self _setShutterState:1];
-        [(CAMDynamicShutterControl *)self settings];
+        objc_msgSend_settings(self);
         if (v15 != 2)
         {
           [(CAMDynamicShutterControl *)self _setInnerShapeState:2 animated:1];
@@ -3415,9 +3415,9 @@ LABEL_18:
 
 - (void)_updateInnerShapeWidthTarget
 {
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self, a2);
   CAMShutterButtonSpecGetInnerCircleDiameter(v15);
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self);
   if ([(CAMDynamicShutterControl *)self _dragHandleState]== 3)
   {
     _dragHandleOffsetSpring = [(CAMDynamicShutterControl *)self _dragHandleOffsetSpring];
@@ -3437,7 +3437,7 @@ LABEL_18:
     _innerShapeState = [(CAMDynamicShutterControl *)self _innerShapeState];
     if (_innerShapeState == 1)
     {
-      [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+      objc_msgSend__shutterButtonSpec(self);
       InnerCircleDiameter = v14;
     }
 
@@ -3446,20 +3446,20 @@ LABEL_18:
       InnerCircleDiameter = 0.0;
       if (!_innerShapeState)
       {
-        [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+        objc_msgSend__shutterButtonSpec(self);
         InnerCircleDiameter = CAMShutterButtonSpecGetInnerCircleDiameter(v15);
       }
     }
 
     v9 = [(CAMDynamicShutterControl *)self _isActiveTouchSequencePhase:[(CAMDynamicShutterControl *)self _touchSequencePhase]];
-    [(CAMDynamicShutterControl *)self _mostRecentTouch];
+    objc_msgSend__mostRecentTouch(self);
     v8 = v9 & v13;
   }
 
   if ([(CAMDynamicShutterControl *)self isPausedDuringVideo])
   {
-    [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
-    [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+    objc_msgSend__pauseResumeButtonSpec(self);
+    objc_msgSend__shutterButtonSpec(self);
     InnerCircleDiameter = InnerCircleDiameter * (v12 / v11);
   }
 
@@ -3486,8 +3486,8 @@ LABEL_18:
 - (void)_updateInnerShapeColorIsRedTarget
 {
   v3 = [(CAMDynamicShutterControl *)self _isStartStopShutterState:[(CAMDynamicShutterControl *)self _shutterState]];
-  [(CAMDynamicShutterControl *)self settings];
-  [(CAMDynamicShutterControl *)self settings];
+  objc_msgSend_settings(self);
+  objc_msgSend_settings(self);
   if ((v3 & (v7 == 1)) != 0)
   {
     v4 = 1.0;
@@ -3946,7 +3946,7 @@ LABEL_9:
     v10 = v15;
     v11 = v16;
     [modelCopy setDynamicShutterHandleShape:&v10];
-    [(CAMDynamicShutterControl *)self _pauseResumeButtonShapeForView:self];
+    objc_msgSend__pauseResumeButtonShapeForView_(self);
     v12 = v7;
     v13 = v8;
     v14 = v9;
@@ -3996,7 +3996,7 @@ LABEL_9:
 
       [(CAMDynamicShutterControl *)self _shutterButtonCenter];
       v12 = v11;
-      [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+      objc_msgSend__shutterButtonSpec(self);
       [(CAMDynamicShutterControl *)self _dragHandleXPosition];
       v14 = fmax(v12 + v30 * -0.5 - v13 - v10, 0.0);
       [(CAMDynamicShutterControl *)self _dragHandleXPosition];
@@ -4043,7 +4043,7 @@ LABEL_9:
     v6 = 4.0 - CAMPixelWidthForView(self);
     [(CAMDynamicShutterControl *)self _shutterButtonCenter];
     v8 = v7;
-    [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+    objc_msgSend__shutterButtonSpec(self);
     v9 = v6 + v8 + v40 * 0.5;
     [(CAMDynamicShutterControl *)self _dragHandleXPosition];
     v11 = v10;
@@ -4058,8 +4058,8 @@ LABEL_9:
 
     [(CAMDynamicShutterControl *)self _shutterButtonCenter];
     v16 = v15 + -0.5;
-    [(CAMDynamicShutterControl *)self _lockButtonInactiveSpec];
-    [(CAMDynamicShutterControl *)self _lockButtonActiveSpec];
+    objc_msgSend__lockButtonInactiveSpec(self);
+    objc_msgSend__lockButtonActiveSpec(self);
     _expandLockRingSpring = [(CAMDynamicShutterControl *)self _expandLockRingSpring];
     [_expandLockRingSpring value];
     CEKInterpolate();
@@ -4152,8 +4152,8 @@ LABEL_9:
 
   if ([(CAMDynamicShutterControl *)self _wantsLateralOuterViews])
   {
-    [(CAMDynamicShutterControl *)self _lockButtonInactiveSpec];
-    [(CAMDynamicShutterControl *)self _lockButtonActiveSpec];
+    objc_msgSend__lockButtonInactiveSpec(self);
+    objc_msgSend__lockButtonActiveSpec(self);
     CEKInterpolate();
     v27 = v26;
     _lockButtonOuterView4 = [(CAMDynamicShutterControl *)self _lockButtonOuterView];
@@ -4169,8 +4169,8 @@ LABEL_9:
   _expandLockRingSpring = [(CAMDynamicShutterControl *)self _expandLockRingSpring];
   [_expandLockRingSpring value];
 
-  [(CAMDynamicShutterControl *)self _lockButtonInactiveSpec];
-  [(CAMDynamicShutterControl *)self _lockButtonActiveSpec];
+  objc_msgSend__lockButtonInactiveSpec(self);
+  objc_msgSend__lockButtonActiveSpec(self);
   CEKInterpolate();
   return result;
 }
@@ -4188,7 +4188,7 @@ LABEL_9:
   v8 = v7;
   CEKInterpolateClamped();
   v38 = v9;
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self);
   InnerCircleDiameter = CAMShutterButtonSpecGetInnerCircleDiameter(&v46.a);
   [(CAMDynamicShutterControl *)self _pauseResumeButtonBackgroundDiameter];
   v11 = v10;
@@ -4292,14 +4292,14 @@ LABEL_9:
   [_pausedDuringVideoSpring value];
 
   CEKInterpolateClamped();
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__shutterButtonSpec(self);
   CAMShutterButtonSpecGetInnerCircleDiameter(v6);
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
+  objc_msgSend__pauseResumeButtonSpec(self);
   CAMShutterButtonSpecGetInnerCircleDiameter(v6);
   CEKInterpolateClamped();
   CEKProgressClamped();
-  [(CAMDynamicShutterControl *)self _pauseResumeButtonSpec];
-  [(CAMDynamicShutterControl *)self _shutterButtonSpec];
+  objc_msgSend__pauseResumeButtonSpec(self);
+  objc_msgSend__shutterButtonSpec(self);
   CEKInterpolateClamped();
   CEKInterpolateClamped();
   return result;
@@ -4601,7 +4601,7 @@ LABEL_9:
     self->__counterLabel = v4;
 
     [(UILabel *)self->__counterLabel setUserInteractionEnabled:0];
-    [(CAMDynamicShutterControl *)self settings];
+    objc_msgSend_settings(self);
     whiteColor = [MEMORY[0x1E69DC888] whiteColor];
     [(UILabel *)self->__counterLabel setTextColor:whiteColor];
 

@@ -7,91 +7,91 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   tableUID = 0;
-  v59 = 0x7FFF7FFFFFFFLL;
+  v50 = 0x7FFF7FFFFFFFLL;
   v7 = **arguments;
-  v58 = 0;
-  v9 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v58);
-  v14 = v58;
-  if (v14)
+  v49 = 0;
+  v9 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v49);
+  v13 = v49;
+  if (v13)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v10, v14, v12, v13);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v12);
     goto LABEL_19;
   }
 
   if (v9)
   {
-    objc_msgSend_rangeRef(v9, v10, v11, v12, v13);
+    objc_msgSend_rangeRef(v9, v10, v11, v12);
   }
 
   else
   {
-    memset(&v57, 0, sizeof(v57));
+    memset(&v48, 0, sizeof(v48));
   }
 
-  if (TSCERangeRef::isSingleCell(&v57))
+  if (TSCERangeRef::isSingleCell(&v48))
   {
-    topLeft = v57.range._topLeft;
-    tableUID = v57._tableUID;
-    v59 = v57.range._topLeft;
+    topLeft = v48.range._topLeft;
+    tableUID = v48._tableUID;
+    v50 = v48.range._topLeft;
   }
 
   else
   {
-    topLeft = v59;
+    topLeft = v50;
   }
 
   if (topLeft.row != 0x7FFFFFFF && (*&topLeft & 0xFFFF00000000) != 0x7FFF00000000 && tableUID != 0uLL)
   {
-    v21 = objc_msgSend_calcEngine(context, v16, v17, v18, v19);
-    if (objc_msgSend_isArrayFormulaCell_(v21, v22, &v59, v23, v24))
+    v19 = objc_msgSend_calcEngine(context, v15, v16, v17);
+    if (objc_msgSend_isArrayFormulaCell_(v19, v20, &v50, v21))
     {
-      v56 = tableUID;
+      v47 = tableUID;
       if (tableUID == 0uLL)
       {
-        v56 = *objc_msgSend_containingTable(context, v25, v26, v27, v28);
+        v47 = *objc_msgSend_containingTable(context, v22, v23, v24);
       }
 
-      *v49 = v59;
-      objc_msgSend_spillChangedPrecedentForTableUID_spillOrigin_(TSCESpillOwner, v25, &v56, v49, v28);
-      *v49 = 0;
-      TSCERangeRef::TSCERangeRef(&v61, &v55);
-      *&v49[8] = v61;
-      v50 = 0;
-      v54 = 0;
-      v51 = 0;
-      v52 = 0;
-      v53 = 0;
-      objc_msgSend_addCalculatedPrecedent_(context, v29, v49, v30, v31);
+      *v40 = v50;
+      objc_msgSend_spillChangedPrecedentForTableUID_spillOrigin_(TSCESpillOwner, v22, &v47, v40);
+      *v40 = 0;
+      TSCERangeRef::TSCERangeRef(&v52, &v46);
+      *&v40[8] = v52;
+      v41 = 0;
+      v45 = 0;
+      v42 = 0;
+      v43 = 0;
+      v44 = 0;
+      objc_msgSend_addCalculatedPrecedent_(context, v25, v40, v26);
 
-      v61.range._topLeft = objc_msgSend_spillingRangeForFormulaAt_(v21, v32, &v59, v33, v34);
-      v61.range._bottomRight = v35;
-      v48 = tableUID;
-      TSCERangeRef::TSCERangeRef(v49, &v61, &v48);
-      v57 = *v49;
-      *v49 = 1;
-      *&v49[8] = v57;
-      v50 = 0;
-      v54 = 0;
-      v51 = 0;
-      v52 = 0;
-      v53 = 0;
-      objc_msgSend_addCalculatedPrecedent_(context, v36, v49, v37, v38);
+      v52.range._topLeft = objc_msgSend_spillingRangeForFormulaAt_(v19, v27, &v50, v28);
+      v52.range._bottomRight = v29;
+      v39 = tableUID;
+      TSCERangeRef::TSCERangeRef(v40, &v52, &v39);
+      v48 = *v40;
+      *v40 = 1;
+      *&v40[8] = v48;
+      v41 = 0;
+      v45 = 0;
+      v42 = 0;
+      v43 = 0;
+      v44 = 0;
+      objc_msgSend_addCalculatedPrecedent_(context, v30, v40, v31);
 
-      v39 = [TSCEReferenceValue alloc];
-      v49[0] = 0;
-      v15 = objc_msgSend_initWithContext_rangeRef_preserveFlags_(v39, v40, context, &v57, v49);
-      objc_msgSend_setPermitsAccessInsideMergeRegions_(v15, v41, 1, v42, v43);
+      v32 = [TSCEReferenceValue alloc];
+      v40[0] = 0;
+      v14 = objc_msgSend_initWithContext_rangeRef_preserveFlags_(v32, v33, context, &v48, v40);
+      objc_msgSend_setPermitsAccessInsideMergeRegions_(v14, v34, 1, v35);
       goto LABEL_18;
     }
   }
 
-  v21 = objc_msgSend_invalidReferenceError(TSCEError, v16, v17, v18, v19);
-  v15 = objc_msgSend_raiseErrorOrConvert_(context, v44, v21, v45, v46);
+  v19 = objc_msgSend_invalidReferenceError(TSCEError, v15, v16, v17);
+  v14 = objc_msgSend_raiseErrorOrConvert_(context, v36, v19, v37);
 LABEL_18:
 
 LABEL_19:
 
-  return v15;
+  return v14;
 }
 
 @end

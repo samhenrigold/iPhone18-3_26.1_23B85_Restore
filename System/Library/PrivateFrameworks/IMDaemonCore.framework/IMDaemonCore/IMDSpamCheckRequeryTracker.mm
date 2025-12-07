@@ -69,7 +69,7 @@
 
 - (void)startTrackingMessageGUID:(id)d chat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   chatCopy = chat;
   decisioningManager = [(IMDSpamCheckRequeryTracker *)self decisioningManager];
@@ -86,9 +86,9 @@
           v11 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            v17 = 138412290;
-            v18 = dCopy;
-            _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "startTrackingMessageGUID %@", &v17, 0xCu);
+            v16 = 138412290;
+            v17 = dCopy;
+            _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "startTrackingMessageGUID %@", &v16, 0xCu);
           }
         }
 
@@ -101,10 +101,10 @@
 
       else
       {
-        v16 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_22B7CF4C0(chatCopy, dCopy, v16);
+          sub_22B7CF4C0(chatCopy, dCopy, v15);
         }
       }
     }
@@ -113,13 +113,11 @@
   else
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTrackingRecord:(id)record
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   messageGUID = [recordCopy messageGUID];
   if ([messageGUID length])
@@ -134,9 +132,9 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v12 = 138412290;
-          v13 = messageGUID;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Tracking guid %@", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = messageGUID;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Tracking guid %@", &v11, 0xCu);
         }
       }
 
@@ -149,13 +147,11 @@
       [(IMDSpamCheckRequeryTracker *)self _startTimer];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingRecord:(id)record
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   messageGUID = [recordCopy messageGUID];
   if ([messageGUID length])
@@ -170,9 +166,9 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v13 = 138412290;
-          v14 = messageGUID;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping tracking of guid %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = messageGUID;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping tracking of guid %@", &v12, 0xCu);
         }
       }
 
@@ -188,8 +184,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimer
@@ -309,7 +303,7 @@
 
 - (void)_updateRecord:(id)record
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = +[IMDChatRegistry sharedInstance];
   chatGUID = [recordCopy chatGUID];
@@ -338,32 +332,30 @@
             {
               messageGUID2 = [recordCopy messageGUID];
               *buf = 138412290;
-              v28 = messageGUID2;
+              v27 = messageGUID2;
               _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Processing update for %@", buf, 0xCu);
             }
           }
 
-          v23 = self->_decisioningManager;
+          v22 = self->_decisioningManager;
           sender2 = [v10 sender];
           serviceName = [v7 serviceName];
           rcsAdvisedAction = [v10 rcsAdvisedAction];
           body = [v10 body];
           countryCode = [v10 countryCode];
           messageContainsOneTimeCode = [v10 messageContainsOneTimeCode];
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = sub_22B4E83C0;
-          v24[3] = &unk_2787029F0;
-          v25 = v7;
-          v26 = v10;
-          LOBYTE(v22) = messageContainsOneTimeCode;
-          [(IMDTrustKitDecisioningManager *)v23 requestDecisionForSender:sender2 service:serviceName trustIndicator:rcsAdvisedAction messageBody:body countryCode:countryCode requestReason:2 containsOneTimeCode:v22 completionHandler:v24];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = sub_22B4E83C0;
+          v23[3] = &unk_2787029F0;
+          v24 = v7;
+          v25 = v10;
+          LOBYTE(v21) = messageContainsOneTimeCode;
+          [(IMDTrustKitDecisioningManager *)v22 requestDecisionForSender:sender2 service:serviceName trustIndicator:rcsAdvisedAction messageBody:body countryCode:countryCode requestReason:2 containsOneTimeCode:v21 completionHandler:v23];
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

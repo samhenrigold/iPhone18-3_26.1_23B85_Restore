@@ -134,35 +134,35 @@
 
 - (id)description
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (HKShowSensitiveLogItems())
   {
     v3 = [HKMCPregnancyModel descriptionFromState:self->_state];
     v4 = [MEMORY[0x1E696AD60] stringWithString:&stru_1F05FF230];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     trimesters = [(HKMCPregnancyModel *)self trimesters];
-    v6 = [trimesters countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [trimesters countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(trimesters);
           }
 
-          v10 = [*(*(&v22 + 1) + 8 * i) description];
+          v10 = [*(*(&v21 + 1) + 8 * i) description];
           [v4 appendFormat:@"%@, ", v10];
         }
 
-        v7 = [trimesters countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [trimesters countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v7);
@@ -170,21 +170,19 @@
 
     v11 = MEMORY[0x1E696AEC0];
     v12 = objc_opt_class();
-    v20 = *&self->_estimatedDueDate;
-    v21 = *&self->_pregnancyStartDate;
+    v19 = *&self->_estimatedDueDate;
+    v20 = *&self->_pregnancyStartDate;
     physiologicalWashoutEndDate = self->_physiologicalWashoutEndDate;
     behavioralWashoutEndDate = self->_behavioralWashoutEndDate;
     educationalStepsCompletedDate = self->_educationalStepsCompletedDate;
     v16 = [(HKSample *)self->_sample description];
-    v17 = [v11 stringWithFormat:@"<%@:%p state:%@ | startDate:%@ | endDate:%@ | estimatedDueDate:%@ | duration:%@ | physiologicalWashoutEndDate:%@ | behavioralWashoutEndDate:%@ | trimesters:%@ | educationalStepsCompletedDate:%@ | sample:%@ ", v12, self, v3, v21, v20, physiologicalWashoutEndDate, behavioralWashoutEndDate, v4, educationalStepsCompletedDate, v16];
+    v17 = [v11 stringWithFormat:@"<%@:%p state:%@ | startDate:%@ | endDate:%@ | estimatedDueDate:%@ | duration:%@ | physiologicalWashoutEndDate:%@ | behavioralWashoutEndDate:%@ | trimesters:%@ | educationalStepsCompletedDate:%@ | sample:%@ ", v12, self, v3, v20, v19, physiologicalWashoutEndDate, behavioralWashoutEndDate, v4, educationalStepsCompletedDate, v16];
   }
 
   else
   {
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@:%p>", objc_opt_class(), self];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -223,40 +221,7 @@
     {
       v5 = equalCopy;
       state = [(HKMCPregnancyModel *)self state];
-      if (state != [(HKMCPregnancyModel *)v5 state])
-      {
-        goto LABEL_33;
-      }
-
-      pregnancyStartDate = self->_pregnancyStartDate;
-      v8 = v5->_pregnancyStartDate;
-      if (pregnancyStartDate != v8 && (!v8 || ![(NSDate *)pregnancyStartDate isEqualToDate:?]))
-      {
-        goto LABEL_33;
-      }
-
-      pregnancyEndDate = self->_pregnancyEndDate;
-      v10 = v5->_pregnancyEndDate;
-      if (pregnancyEndDate != v10 && (!v10 || ![(NSDate *)pregnancyEndDate isEqualToDate:?]))
-      {
-        goto LABEL_33;
-      }
-
-      estimatedDueDate = self->_estimatedDueDate;
-      v12 = v5->_estimatedDueDate;
-      if (estimatedDueDate != v12 && (!v12 || ![(NSDate *)estimatedDueDate isEqualToDate:?]))
-      {
-        goto LABEL_33;
-      }
-
-      pregnancyDuration = self->_pregnancyDuration;
-      v14 = v5->_pregnancyDuration;
-      if (pregnancyDuration != v14 && (!v14 || ![(NSDateInterval *)pregnancyDuration isEqualToDateInterval:?]))
-      {
-        goto LABEL_33;
-      }
-
-      if (((physiologicalWashoutEndDate = self->_physiologicalWashoutEndDate, v16 = v5->_physiologicalWashoutEndDate, physiologicalWashoutEndDate == v16) || v16 && [(NSDate *)physiologicalWashoutEndDate isEqualToDate:?]) && ((behavioralWashoutEndDate = self->_behavioralWashoutEndDate, v18 = v5->_behavioralWashoutEndDate, behavioralWashoutEndDate == v18) || v18 && [(NSDate *)behavioralWashoutEndDate isEqualToDate:?]) && ((trimesters = self->_trimesters, v20 = v5->_trimesters, trimesters == v20) || v20 && [(NSArray *)trimesters isEqualToArray:?]))
+      if (state == [(HKMCPregnancyModel *)v5 state]&& ((pregnancyStartDate = self->_pregnancyStartDate, v8 = v5->_pregnancyStartDate, pregnancyStartDate == v8) || v8 && [(NSDate *)pregnancyStartDate isEqualToDate:?]) && ((pregnancyEndDate = self->_pregnancyEndDate, v10 = v5->_pregnancyEndDate, pregnancyEndDate == v10) || v10 && [(NSDate *)pregnancyEndDate isEqualToDate:?]) && ((estimatedDueDate = self->_estimatedDueDate, v12 = v5->_estimatedDueDate, estimatedDueDate == v12) || v12 && [(NSDate *)estimatedDueDate isEqualToDate:?]) && ((pregnancyDuration = self->_pregnancyDuration, v14 = v5->_pregnancyDuration, pregnancyDuration == v14) || v14 && [(NSDateInterval *)pregnancyDuration isEqualToDateInterval:?]) && ((physiologicalWashoutEndDate = self->_physiologicalWashoutEndDate, v16 = v5->_physiologicalWashoutEndDate, physiologicalWashoutEndDate == v16) || v16 && [(NSDate *)physiologicalWashoutEndDate isEqualToDate:?]) && ((behavioralWashoutEndDate = self->_behavioralWashoutEndDate, v18 = v5->_behavioralWashoutEndDate, behavioralWashoutEndDate == v18) || v18 && [(NSDate *)behavioralWashoutEndDate isEqualToDate:?]) && ((trimesters = self->_trimesters, v20 = v5->_trimesters, trimesters == v20) || v20 && [(NSArray *)trimesters isEqualToArray:?]))
       {
         uUID = [(HKObject *)self->_sample UUID];
         uUID2 = [(HKObject *)v5->_sample UUID];
@@ -304,7 +269,6 @@
 
       else
       {
-LABEL_33:
         v28 = 0;
       }
     }
@@ -320,31 +284,31 @@ LABEL_33:
 
 - (unint64_t)hash
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
   v3 = self->_trimesters;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v19;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 ^= [*(*(&v20 + 1) + 8 * i) hash];
+        v7 ^= [*(*(&v18 + 1) + 8 * i) hash];
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -363,9 +327,7 @@ LABEL_33:
   v14 = [(NSDate *)self->_physiologicalWashoutEndDate hash];
   v15 = [(NSDate *)self->_behavioralWashoutEndDate hash];
   v16 = [(HKObject *)self->_sample hash];
-  v17 = [(NSDate *)self->_educationalStepsCompletedDate hash];
-  v18 = *MEMORY[0x1E69E9840];
-  return state ^ v7 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17;
+  return state ^ v7 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ [(NSDate *)self->_educationalStepsCompletedDate hash];
 }
 
 @end

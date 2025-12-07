@@ -4544,8 +4544,8 @@ unsigned __int8 *sub_275E44B80(uint64_t a1, unsigned __int8 *a2, google::protobu
 
     v544 = *(a1 + 980);
     *v543 = 2512;
-    *(v543 + 2) = v544;
-    a2 = (v543 + 3);
+    v543[2] = v544;
+    a2 = v543 + 3;
   }
 
   if ((*(a1 + 25) & 0x20) != 0)
@@ -6324,7 +6324,7 @@ unsigned __int8 *sub_275E44B80(uint64_t a1, unsigned __int8 *a2, google::protobu
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v755 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v755 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t sub_275E4A2C8(uint64_t a1)

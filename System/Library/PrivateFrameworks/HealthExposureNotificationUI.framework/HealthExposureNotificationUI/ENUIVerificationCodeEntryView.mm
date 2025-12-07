@@ -100,40 +100,39 @@
 
 - (void)_updateFonts:(id)fonts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   generatorFieldFont = [objc_opt_class() generatorFieldFont];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_generatorFields;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setFont:{generatorFieldFont, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setFont:{generatorFieldFont, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(ENUIVerificationCodeEntryView *)self setNeedsUpdateConstraints];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncStringValueToLabels
@@ -159,7 +158,7 @@
 
 - (void)updateConstraints
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   if (self->_activeConstraints)
   {
     [MEMORY[0x277CCAAD0] deactivateConstraints:?];
@@ -174,11 +173,11 @@
   if (v7 == NSOrderedDescending)
   {
     v8 = MEMORY[0x277D75C80];
-    v37[0] = traitCollection;
+    v36[0] = traitCollection;
     maximumContentSizeCategory2 = [objc_opt_class() maximumContentSizeCategory];
     v10 = [v8 traitCollectionWithPreferredContentSizeCategory:maximumContentSizeCategory2];
-    v37[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     v12 = [v8 traitCollectionWithTraitsFromCollections:v11];
 
     traitCollection = v12;
@@ -187,7 +186,7 @@
   v13 = MEMORY[0x277D75520];
   textStyle = [objc_opt_class() textStyle];
   v15 = [v13 metricsForTextStyle:textStyle];
-  v33 = traitCollection;
+  v32 = traitCollection;
   [v15 scaledValueForValue:traitCollection compatibleWithTraitCollection:25.0];
   v17 = v16;
 
@@ -205,10 +204,10 @@
 
     else
     {
-      v35 = @"generatorLabel";
+      v34 = @"generatorLabel";
       v21 = [(NSArray *)self->_generatorFields objectAtIndexedSubscript:0];
-      v36 = v21;
-      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v35 = v21;
+      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
       v23 = [v20 constraintsWithVisualFormat:@"V:|[generatorLabel]|" options:0 metrics:0 views:firstObject];
       [v3 addObjectsFromArray:v23];
     }
@@ -230,11 +229,9 @@
   self->_activeConstraints = v30;
 
   [MEMORY[0x277CCAAD0] activateConstraints:self->_activeConstraints];
-  v34.receiver = self;
-  v34.super_class = ENUIVerificationCodeEntryView;
-  [(ENUIVerificationCodeEntryView *)&v34 updateConstraints];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = ENUIVerificationCodeEntryView;
+  [(ENUIVerificationCodeEntryView *)&v33 updateConstraints];
 }
 
 - (void)emitCodeEnteredNotification

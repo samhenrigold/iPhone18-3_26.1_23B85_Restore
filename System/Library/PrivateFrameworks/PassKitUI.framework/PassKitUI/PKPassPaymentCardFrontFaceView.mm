@@ -200,9 +200,9 @@
 
 - (void)layoutSubviews
 {
-  v62.receiver = self;
-  v62.super_class = PKPassPaymentCardFrontFaceView;
-  [(PKPassFrontFaceView *)&v62 layoutSubviews];
+  v75.receiver = self;
+  v75.super_class = PKPassPaymentCardFrontFaceView;
+  [(PKPassFrontFaceView *)&v75 layoutSubviews];
   contentView = [(PKPassFaceView *)self contentView];
   [contentView bounds];
   balanceLabel = self->_balanceLabel;
@@ -214,36 +214,44 @@
     v12 = v7;
     [(UILabel *)balanceLabel sizeToFit];
     [(UILabel *)self->_balanceLabel frame];
+    v14 = v13;
+    v16 = v15;
     remainder.origin.x = v9;
     remainder.origin.y = v10;
     remainder.size.width = v11;
     remainder.size.height = v12;
     memset(&slice, 0, sizeof(slice));
-    v63.origin.x = v9;
-    v63.origin.y = v10;
-    v63.size.width = v11;
-    v63.size.height = v12;
-    CGRectDivide(v63, &slice, &remainder, 14.0, CGRectMinYEdge);
+    v76.origin.x = v9;
+    v76.origin.y = v10;
+    v76.size.width = v11;
+    v76.size.height = v12;
+    CGRectDivide(v76, &slice, &remainder, 14.0, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 20.0, CGRectMaxXEdge);
-    v13 = self->_balanceLabel;
-    PKSizeAlignedInRect();
-    [(UILabel *)v13 setFrame:?];
+    v17 = self->_balanceLabel;
+    v18.n128_u64[0] = *&remainder.origin.x;
+    v19.n128_u64[0] = *&remainder.origin.y;
+    v20.n128_u64[0] = *&remainder.size.width;
+    v21.n128_u64[0] = *&remainder.size.height;
+    v22.n128_u64[0] = v14;
+    v23.n128_u64[0] = v16;
+    PKSizeAlignedInRect(2, v22, v23, v18, v19, v20, v21, v24);
+    [(UILabel *)v17 setFrame:?];
   }
 
   viewExpanded = [(PKPassFaceView *)self viewExpanded];
   PKPassFrontFaceContentSize();
-  v16 = v15;
-  v18 = v17;
-  [(PKPassPaymentCardFrontFaceView *)self _barcodePadding];
-  v20 = v19;
-  if (v19 <= 20.0)
+  v27 = v26;
+  v29 = v28;
+  objc_msgSend__barcodePadding(self);
+  v31 = v30;
+  if (v30 <= 20.0)
   {
-    v21 = 16.0;
+    v32 = 16.0;
   }
 
   else
   {
-    v21 = 20.0;
+    v32 = 20.0;
   }
 
   backdropView = self->_backdropView;
@@ -251,15 +259,15 @@
   {
     if (viewExpanded)
     {
-      v23 = v16;
+      v34 = v27;
     }
 
     else
     {
-      v23 = v18;
+      v34 = v29;
     }
 
-    [(PKBackdropView *)backdropView setFrame:0.0, 0.0, v16, v23];
+    [(PKBackdropView *)backdropView setFrame:0.0, 0.0, v27, v34];
     layer = [(PKBackdropView *)self->_backdropView layer];
     PKPaymentStyleApplyCorners();
   }
@@ -269,15 +277,15 @@
   {
     if (viewExpanded)
     {
-      v26 = v16;
+      v37 = v27;
     }
 
     else
     {
-      v26 = v18;
+      v37 = v29;
     }
 
-    [(UIView *)scrimView setFrame:0.0, 0.0, v16, v26];
+    [(UIView *)scrimView setFrame:0.0, 0.0, v27, v37];
     layer2 = [(UIView *)self->_scrimView layer];
     PKPaymentStyleApplyCorners();
   }
@@ -287,7 +295,7 @@
   {
     [(UIButton *)fullScreenButton sizeToFit];
     [(UIButton *)self->_fullScreenButton frame];
-    [(UIButton *)self->_fullScreenButton setCenter:v16 - v29, v29 + 5.0];
+    [(UIButton *)self->_fullScreenButton setCenter:v27 - v40, v40 + 5.0];
   }
 
   compactBankLogoView = self->_compactBankLogoView;
@@ -297,8 +305,8 @@
     [image size];
 
     PKSizeAspectFit();
-    PKSizeRoundToPixel();
-    [(UIImageView *)self->_compactBankLogoView setFrame:16.0, 16.0, v32, v33];
+    PKSizeRoundToPixel(v43, v44);
+    [(UIImageView *)self->_compactBankLogoView setFrame:16.0, 16.0, v45, v46];
   }
 
   topBarcodeView = self->_topBarcodeView;
@@ -313,57 +321,57 @@
   }
 
   [(PKBarcodeStickerView *)topBarcodeView frame];
-  v39.n128_f64[0] = v18 + 256.0;
+  v52.n128_f64[0] = v29 + 256.0;
   if (viewExpanded)
   {
-    v39.n128_f64[0] = v20 + v21 + 24.0;
+    v52.n128_f64[0] = v31 + v32 + 24.0;
   }
 
-  v38.n128_f64[0] = v16 * 0.5;
-  v35.n128_f64[0] = v16 * 0.5 - v36.n128_f64[0] * 0.5;
-  PKRectRoundToPixel(v35, v39, v36, v37, v38);
-  v41 = v40;
-  v43 = v42;
-  v45 = v44;
-  v47 = v46;
+  v51.n128_f64[0] = v27 * 0.5;
+  v48.n128_f64[0] = v27 * 0.5 - v49.n128_f64[0] * 0.5;
+  PKRectRoundToPixel(v48, v52, v49, v50, v51);
+  v54 = v53;
+  v56 = v55;
+  v58 = v57;
+  v60 = v59;
   [(PKBarcodeStickerView *)self->_topBarcodeView setFrame:?];
   oldTopBarcodeViews = self->_oldTopBarcodeViews;
-  v59[0] = MEMORY[0x1E69E9820];
-  v59[1] = 3221225472;
-  v59[2] = __48__PKPassPaymentCardFrontFaceView_layoutSubviews__block_invoke;
-  v59[3] = &__block_descriptor_64_e37_v32__0__PKBarcodeStickerView_8Q16_B24l;
-  v59[4] = v41;
-  v59[5] = v43;
-  v59[6] = v45;
-  v59[7] = v47;
-  [(NSMutableArray *)oldTopBarcodeViews enumerateObjectsUsingBlock:v59];
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __48__PKPassPaymentCardFrontFaceView_layoutSubviews__block_invoke;
+  v72[3] = &__block_descriptor_64_e37_v32__0__PKBarcodeStickerView_8Q16_B24l;
+  v72[4] = v54;
+  v72[5] = v56;
+  v72[6] = v58;
+  v72[7] = v60;
+  [(NSMutableArray *)oldTopBarcodeViews enumerateObjectsUsingBlock:v72];
 LABEL_26:
   if (self->_bottomBarcodeView || [(NSMutableArray *)self->_oldBottomBarcodeViews count])
   {
     [(PKBarcodeStickerView *)self->_bottomBarcodeView frame];
     if (viewExpanded)
     {
-      v50.n128_f64[0] = v16 + v52 * -0.5 - v20 - v21;
+      v63.n128_f64[0] = v27 + v65 * -0.5 - v31 - v32;
     }
 
     else
     {
-      v50.n128_f64[0] = v18 + v16 + 256.0 + v52 * -0.5 + -24.0;
+      v63.n128_f64[0] = v29 + v27 + 256.0 + v65 * -0.5 + -24.0;
     }
 
-    v49.n128_f64[0] = v16 * 0.5;
-    PKPointRoundToPixel(v49, v50, v51);
-    v54 = v53;
-    v56 = v55;
+    v62.n128_f64[0] = v27 * 0.5;
+    PKPointRoundToPixel(v62, v63, v64);
+    v67 = v66;
+    v69 = v68;
     [(PKBarcodeStickerView *)self->_bottomBarcodeView setCenter:?];
     oldBottomBarcodeViews = self->_oldBottomBarcodeViews;
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __48__PKPassPaymentCardFrontFaceView_layoutSubviews__block_invoke_2;
-    v58[3] = &__block_descriptor_48_e37_v32__0__PKBarcodeStickerView_8Q16_B24l;
-    v58[4] = v54;
-    v58[5] = v56;
-    [(NSMutableArray *)oldBottomBarcodeViews enumerateObjectsUsingBlock:v58];
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __48__PKPassPaymentCardFrontFaceView_layoutSubviews__block_invoke_2;
+    v71[3] = &__block_descriptor_48_e37_v32__0__PKBarcodeStickerView_8Q16_B24l;
+    v71[4] = v67;
+    v71[5] = v69;
+    [(NSMutableArray *)oldBottomBarcodeViews enumerateObjectsUsingBlock:v71];
   }
 }
 
@@ -1208,72 +1216,73 @@ void __67__PKPassPaymentCardFrontFaceView__handlePeerPaymentAccountChanged___blo
   dynamicBarcodeData = [(PKPassFaceView *)self dynamicBarcodeData];
   v6 = PKEqualObjects();
 
-  v33.receiver = self;
-  v33.super_class = PKPassPaymentCardFrontFaceView;
-  [(PKPassFaceView *)&v33 setDynamicBarcodeData:dataCopy];
+  v37.receiver = self;
+  v37.super_class = PKPassPaymentCardFrontFaceView;
+  [(PKPassFaceView *)&v37 setDynamicBarcodeData:dataCopy];
   if ((v6 & 1) == 0)
   {
     PKPassFrontFaceContentSize();
-    v7 = self->_topBarcodeView;
+    v8 = v7;
+    v9 = self->_topBarcodeView;
     topBarcodeView = self->_topBarcodeView;
     self->_topBarcodeView = 0;
 
-    if (v7)
+    if (v9)
     {
-      [(NSMutableArray *)self->_oldTopBarcodeViews addObject:v7];
+      [(NSMutableArray *)self->_oldTopBarcodeViews addObject:v9];
       objc_initWeak(&location, self->_oldTopBarcodeViews);
-      v9 = MEMORY[0x1E69DD250];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke;
-      v30[3] = &unk_1E8010970;
-      v31 = v7;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_2;
-      v27[3] = &unk_1E8018F58;
-      v28 = v31;
-      objc_copyWeak(&v29, &location);
-      [v9 pkui_animateUsingOptions:4 animations:v30 completion:v27];
-      objc_destroyWeak(&v29);
+      v11 = MEMORY[0x1E69DD250];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke;
+      v34[3] = &unk_1E8010970;
+      v35 = v9;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_2;
+      v31[3] = &unk_1E8018F58;
+      v32 = v35;
+      objc_copyWeak(&v33, &location);
+      [v11 pkui_animateUsingOptions:4 animations:v34 completion:v31];
+      objc_destroyWeak(&v33);
 
       objc_destroyWeak(&location);
     }
 
-    v10 = self->_bottomBarcodeView;
+    v12 = self->_bottomBarcodeView;
     bottomBarcodeView = self->_bottomBarcodeView;
     self->_bottomBarcodeView = 0;
 
-    if (v10)
+    if (v12)
     {
-      [(NSMutableArray *)self->_oldBottomBarcodeViews addObject:v10];
+      [(NSMutableArray *)self->_oldBottomBarcodeViews addObject:v12];
       objc_initWeak(&location, self->_oldBottomBarcodeViews);
-      v12 = MEMORY[0x1E69DD250];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_3;
-      v25[3] = &unk_1E8010970;
-      v26 = v10;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_4;
-      v22[3] = &unk_1E8018F58;
-      v23 = v26;
-      objc_copyWeak(&v24, &location);
-      [v12 pkui_animateUsingOptions:4 animations:v25 completion:v22];
-      objc_destroyWeak(&v24);
+      v14 = MEMORY[0x1E69DD250];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_3;
+      v29[3] = &unk_1E8010970;
+      v30 = v12;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_4;
+      v26[3] = &unk_1E8018F58;
+      v27 = v30;
+      objc_copyWeak(&v28, &location);
+      [v14 pkui_animateUsingOptions:4 animations:v29 completion:v26];
+      objc_destroyWeak(&v28);
 
       objc_destroyWeak(&location);
     }
 
     if (dataCopy)
     {
-      v13 = objc_alloc_init(MEMORY[0x1E69B86B0]);
-      [v13 setFormat:1];
-      [v13 setMessageData:dataCopy];
-      v14 = [[PKBarcodeStickerView alloc] initWithBarcode:v13 validityState:0];
-      v15 = self->_bottomBarcodeView;
-      self->_bottomBarcodeView = v14;
+      v15 = objc_alloc_init(MEMORY[0x1E69B86B0]);
+      [v15 setFormat:1];
+      [v15 setMessageData:dataCopy];
+      v16 = [[PKBarcodeStickerView alloc] initWithBarcode:v15 validityState:0];
+      v17 = self->_bottomBarcodeView;
+      self->_bottomBarcodeView = v16;
 
       if ((PKShowBarcodeForScreenshotAndBroadcasting() & 1) == 0)
       {
@@ -1282,38 +1291,40 @@ void __67__PKPassPaymentCardFrontFaceView__handlePeerPaymentAccountChanged___blo
 
       [(PKBarcodeStickerView *)self->_bottomBarcodeView setShouldMatteCode:0];
       [(PKBarcodeStickerView *)self->_bottomBarcodeView setAccessibilityElementsHidden:1];
-      PKFloatRoundToPixel();
-      [(PKBarcodeStickerView *)self->_bottomBarcodeView setDesiredBarcodeSize:v16, v16];
+      v18.n128_u64[0] = 7.0;
+      v19.n128_f64[0] = v8 * 3.0 / 7.0;
+      PKFloatRoundToPixel(v19, v18);
+      [(PKBarcodeStickerView *)self->_bottomBarcodeView setDesiredBarcodeSize:v20, v20];
       [(UIView *)self->_scrimView addSubview:self->_bottomBarcodeView];
       [(PKBarcodeStickerView *)self->_bottomBarcodeView sizeToFit];
-      v17 = objc_alloc_init(MEMORY[0x1E69B86B0]);
-      [v17 setFormat:4];
-      [v17 setMessageData:dataCopy];
-      [v17 setShouldRemoveQuietZone:1];
-      v18 = [[PKBarcodeStickerView alloc] initWithBarcode:v17 validityState:0];
-      v19 = self->_topBarcodeView;
-      self->_topBarcodeView = v18;
+      v21 = objc_alloc_init(MEMORY[0x1E69B86B0]);
+      [v21 setFormat:4];
+      [v21 setMessageData:dataCopy];
+      [v21 setShouldRemoveQuietZone:1];
+      v22 = [[PKBarcodeStickerView alloc] initWithBarcode:v21 validityState:0];
+      v23 = self->_topBarcodeView;
+      self->_topBarcodeView = v22;
 
       if ((PKShowBarcodeForScreenshotAndBroadcasting() & 1) == 0)
       {
         [(UIView *)self->_topBarcodeView pkui_setExcludedFromScreenCapture:1 andBroadcasting:1];
       }
 
-      v20 = self->_topBarcodeView;
+      v24 = self->_topBarcodeView;
       [(PKPassPaymentCardFrontFaceView *)self _barcodeSize];
-      [(PKBarcodeStickerView *)v20 setDesiredBarcodeSize:?];
+      [(PKBarcodeStickerView *)v24 setDesiredBarcodeSize:?];
       [(PKBarcodeStickerView *)self->_topBarcodeView setShouldMatteCode:0];
       [(PKBarcodeStickerView *)self->_topBarcodeView setAccessibilityElementsHidden:1];
       [(UIView *)self->_scrimView addSubview:self->_topBarcodeView];
       [(PKBarcodeStickerView *)self->_topBarcodeView sizeToFit];
       [(PKPassPaymentCardFrontFaceView *)self setNeedsLayout];
       [(PKPassPaymentCardFrontFaceView *)self layoutIfNeeded];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_5;
-      v21[3] = &unk_1E8010970;
-      v21[4] = self;
-      [MEMORY[0x1E69DD250] pkui_animateUsingOptions:4 animations:v21 completion:0];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __56__PKPassPaymentCardFrontFaceView_setDynamicBarcodeData___block_invoke_5;
+      v25[3] = &unk_1E8010970;
+      v25[4] = self;
+      [MEMORY[0x1E69DD250] pkui_animateUsingOptions:4 animations:v25 completion:0];
     }
   }
 }

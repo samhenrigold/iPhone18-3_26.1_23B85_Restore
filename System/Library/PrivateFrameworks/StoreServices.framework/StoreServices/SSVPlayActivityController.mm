@@ -163,7 +163,7 @@ void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessi
 
 void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessionToken_withResult_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -174,16 +174,21 @@ void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessi
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -195,30 +200,29 @@ void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessi
     v10 = [*(a1 + 40) count];
     v11 = *(a1 + 56);
     v12 = *(a1 + 64);
-    v26 = 138413314;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v3;
-    v30 = 2048;
-    v31 = v10;
-    v32 = 2048;
-    v33 = v11;
-    v34 = 2048;
-    v35 = v12;
-    LODWORD(v22) = 52;
-    v13 = _os_log_send_and_compose_impl();
+    v25 = 138413314;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v3;
+    v29 = 2048;
+    v30 = v10;
+    v31 = 2048;
+    v32 = v11;
+    v33 = 2048;
+    v34 = v12;
+    v13 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ completing %lu play activity events with session token:%llu flushResult:%lu", &v25, 52);
 
     if (!v13)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v22}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v4, @"%@", v14, v15, v16, v17, v18, v19, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v20 = *(a1 + 48);
   if (v20)
   {
@@ -227,15 +231,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessionToken_withResult_completionHandler___block_invoke_47;
     block[3] = &unk_1E84AC338;
-    v25 = v20;
-    v24 = v3;
+    v24 = v20;
+    v23 = v3;
     dispatch_async(v21, block);
   }
 }
 
 void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessionToken_withResult_completionHandler___block_invoke_2_49(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -246,16 +250,21 @@ void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessi
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -267,30 +276,29 @@ void __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessi
     v10 = [*(a1 + 40) count];
     v11 = *(a1 + 56);
     v12 = *(a1 + 64);
-    v26 = 138413314;
-    v27 = v9;
-    v28 = 2048;
-    v29 = v10;
-    v30 = 2048;
-    v31 = v11;
-    v32 = 2048;
-    v33 = v12;
-    v34 = 2114;
-    v35 = v3;
-    LODWORD(v22) = 52;
-    v13 = _os_log_send_and_compose_impl();
+    v25 = 138413314;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2048;
+    v30 = v11;
+    v31 = 2048;
+    v32 = v12;
+    v33 = 2114;
+    v34 = v3;
+    v13 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Completed %lu play activity events with session token:%llu flushResult:%lu with error %{public}@", &v25, 52);
 
     if (!v13)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v22}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v4, @"%@", v14, v15, v16, v17, v18, v19, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v20 = *(a1 + 48);
   if (v20)
   {
@@ -299,8 +307,8 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __108__SSVPlayActivityController_completePendingPlayActivityEvents_forSessionToken_withResult_completionHandler___block_invoke_50;
     block[3] = &unk_1E84AC338;
-    v25 = v20;
-    v24 = v3;
+    v24 = v20;
+    v23 = v3;
     dispatch_async(v21, block);
   }
 }
@@ -374,9 +382,9 @@ void __120__SSVPlayActivityController_completePendingPlayActivityEventPersistent
   [v11 flushPlayActivityEventsForEndPointIdentifier:v13 withReplyBlock:v14];
 }
 
-void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
+void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -387,16 +395,21 @@ void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointI
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -405,28 +418,27 @@ void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointI
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 40);
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v3;
-    v28 = 2114;
-    v29 = v10;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v10 = a1[5];
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v3;
+    v27 = 2114;
+    v28 = v10;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ flushing play activity events for %{public}@", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
-  v18 = *(a1 + 48);
+LABEL_13:
+  v18 = a1[6];
   if (v18)
   {
     v19 = dispatch_get_global_queue(0, 0);
@@ -434,15 +446,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke_51;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
 
-void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
+void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -453,16 +465,21 @@ void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointI
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -471,28 +488,27 @@ void __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointI
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 40);
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v10;
-    v28 = 2114;
-    v29 = v3;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v10 = a1[5];
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v10;
+    v27 = 2114;
+    v28 = v3;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Finished flushing play activity events for %{public}@ with error %{public}@", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
-  v18 = *(a1 + 48);
+LABEL_13:
+  v18 = a1[6];
   if (v18)
   {
     v19 = dispatch_get_global_queue(0, 0);
@@ -500,8 +516,8 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __103__SSVPlayActivityController_flushPendingPlayActivityEventsForEndpointIdentifier_withCompletionHandler___block_invoke_52;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
@@ -733,16 +749,21 @@ uint64_t __96__SSVPlayActivityController_getPlayActivityEventsFromRevision_toRev
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
@@ -750,24 +771,24 @@ uint64_t __96__SSVPlayActivityController_getPlayActivityEventsFromRevision_toRev
   if (v10)
   {
     v12 = objc_opt_class();
-    NSStringFromClass(v12);
-    v30 = v29 = 138412546;
+    v13 = NSStringFromClass(v12);
+    v29 = 138412546;
+    v30 = v13;
     v31 = 2112;
     v32 = eventsCopy;
-    LODWORD(v23) = 22;
-    v13 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "[%@] Recording play activity events: %@", &v29, 22);
 
-    if (!v13)
+    if (!v14)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v29, v23}];
-    free(v13);
-    SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+    free(v14);
+    SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
   }
 
-LABEL_12:
+LABEL_13:
   if ([eventsCopy count])
   {
     serialQueue = self->_serialQueue;
@@ -780,27 +801,27 @@ LABEL_12:
     v26 = handlerCopy;
     dispatch_async(serialQueue, block);
 
-    v21 = v25;
-LABEL_16:
+    v22 = v25;
+LABEL_17:
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   if (handlerCopy)
   {
-    v22 = dispatch_get_global_queue(0, 0);
+    v23 = dispatch_get_global_queue(0, 0);
     v27[0] = MEMORY[0x1E69E9820];
     v27[1] = 3221225472;
     v27[2] = __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke;
     v27[3] = &unk_1E84ADED0;
     v28 = handlerCopy;
-    dispatch_async(v22, v27);
+    dispatch_async(v23, v27);
 
-    v21 = v28;
-    goto LABEL_16;
+    v22 = v28;
+    goto LABEL_17;
   }
 
-LABEL_17:
+LABEL_18:
 }
 
 void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke_2(uint64_t a1)
@@ -1040,7 +1061,7 @@ uint64_t __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletion
 
 void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke_6(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1051,16 +1072,21 @@ void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHand
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1070,26 +1096,25 @@ void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHand
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     v10 = [*(a1 + 40) count];
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v3;
-    v28 = 2048;
-    v29 = v10;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v3;
+    v27 = 2048;
+    v28 = v10;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ recording %lu play activity events", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v18 = *(a1 + 48);
   if (v18)
   {
@@ -1098,15 +1123,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke_70;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
 
 void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke_2_71(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1117,16 +1142,21 @@ void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHand
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1136,26 +1166,25 @@ void __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHand
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     v10 = [*(a1 + 40) count];
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2048;
-    v27 = v10;
-    v28 = 2114;
-    v29 = v3;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2048;
+    v26 = v10;
+    v27 = 2114;
+    v28 = v3;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Finished recording %lu play activity events with error %{public}@", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v18 = *(a1 + 48);
   if (v18)
   {
@@ -1164,8 +1193,8 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __76__SSVPlayActivityController_recordPlayActivityEvents_withCompletionHandler___block_invoke_72;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
@@ -1270,7 +1299,7 @@ LABEL_21:
 
 - (void)removePlayActivityEventsUpToRevision:(unint64_t)revision withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v7)
@@ -1305,14 +1334,13 @@ LABEL_21:
     goto LABEL_12;
   }
 
-  v25 = 134217984;
+  v24 = 134217984;
   revisionCopy = revision;
-  LODWORD(v21) = 12;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[SSVPlayActivityController] Removing play events up to revision: %llu", &v24);
 
   if (v12)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v25, v21}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
 LABEL_12:
@@ -1323,7 +1351,7 @@ LABEL_12:
   block[1] = 3221225472;
   block[2] = __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke;
   block[3] = &unk_1E84B2620;
-  v23 = handlerCopy;
+  v22 = handlerCopy;
   revisionCopy2 = revision;
   block[4] = self;
   v20 = handlerCopy;
@@ -1421,9 +1449,9 @@ uint64_t __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_wi
   return 1;
 }
 
-void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_4(uint64_t a1, void *a2)
+void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_4(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1434,16 +1462,21 @@ void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCo
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1452,28 +1485,27 @@ void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCo
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 48);
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v3;
-    v28 = 2048;
-    v29 = v10;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v10 = a1[6];
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v3;
+    v27 = 2048;
+    v28 = v10;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ removing play activity events upto revision %llu", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
-  v18 = *(a1 + 40);
+LABEL_13:
+  v18 = a1[5];
   if (v18)
   {
     v19 = dispatch_get_global_queue(0, 0);
@@ -1481,15 +1513,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_73;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
 
-void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_2_74(uint64_t a1, void *a2)
+void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_2_74(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1500,16 +1532,21 @@ void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCo
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1518,28 +1555,27 @@ void __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCo
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 48);
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2048;
-    v27 = v10;
-    v28 = 2114;
-    v29 = v3;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v10 = a1[6];
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2048;
+    v26 = v10;
+    v27 = 2114;
+    v28 = v3;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Finished removing play activity events upto revision %llu with error %{public}@", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
-  v18 = *(a1 + 40);
+LABEL_13:
+  v18 = a1[5];
   if (v18)
   {
     v19 = dispatch_get_global_queue(0, 0);
@@ -1547,8 +1583,8 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __88__SSVPlayActivityController_removePlayActivityEventsUpToRevision_withCompletionHandler___block_invoke_75;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
@@ -1680,7 +1716,7 @@ void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_fo
 
 void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_forEndpointIdentifier_withCompletionHandler___block_invoke_5(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1691,16 +1727,21 @@ void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_fo
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1712,30 +1753,29 @@ void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_fo
     v10 = a1[8];
     v11 = a1[5];
     v12 = a1[6];
-    v26 = 138413314;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v3;
-    v30 = 2048;
-    v31 = v10;
-    v32 = 2114;
-    v33 = v11;
-    v34 = 2114;
-    v35 = v12;
-    LODWORD(v22) = 52;
-    v13 = _os_log_send_and_compose_impl();
+    v25 = 138413314;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v3;
+    v29 = 2048;
+    v30 = v10;
+    v31 = 2114;
+    v32 = v11;
+    v33 = 2114;
+    v34 = v12;
+    v13 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ setting revision %llu, version token %{public}@ for end point identifier %{public}@", &v25, 52);
 
     if (!v13)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v22}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v4, @"%@", v14, v15, v16, v17, v18, v19, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v20 = a1[7];
   if (v20)
   {
@@ -1744,15 +1784,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_forEndpointIdentifier_withCompletionHandler___block_invoke_77;
     block[3] = &unk_1E84AC338;
-    v25 = v20;
-    v24 = v3;
+    v24 = v20;
+    v23 = v3;
     dispatch_async(v21, block);
   }
 }
 
 void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_forEndpointIdentifier_withCompletionHandler___block_invoke_2_78(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1763,16 +1803,21 @@ void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_fo
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1784,30 +1829,29 @@ void __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_fo
     v10 = a1[8];
     v11 = a1[5];
     v12 = a1[6];
-    v26 = 138413314;
-    v27 = v9;
-    v28 = 2048;
-    v29 = v10;
-    v30 = 2114;
-    v31 = v11;
-    v32 = 2114;
-    v33 = v12;
-    v34 = 2114;
-    v35 = v3;
-    LODWORD(v22) = 52;
-    v13 = _os_log_send_and_compose_impl();
+    v25 = 138413314;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v11;
+    v31 = 2114;
+    v32 = v12;
+    v33 = 2114;
+    v34 = v3;
+    v13 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Finished setting revision %llu, version token %{public}@ for end point identifier %{public}@ with error %{public}@", &v25, 52);
 
     if (!v13)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v22}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog(v4, @"%@", v14, v15, v16, v17, v18, v19, v7);
   }
 
-LABEL_12:
+LABEL_13:
   v20 = a1[7];
   if (v20)
   {
@@ -1816,8 +1860,8 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __113__SSVPlayActivityController_setCurrentRevision_revisionVersionToken_forEndpointIdentifier_withCompletionHandler___block_invoke_79;
     block[3] = &unk_1E84AC338;
-    v25 = v20;
-    v24 = v3;
+    v24 = v20;
+    v23 = v3;
     dispatch_async(v21, block);
   }
 }
@@ -1927,9 +1971,9 @@ void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpoi
   (*(*(a1 + 32) + 16))();
 }
 
-void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_4(uint64_t a1, void *a2)
+void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_4(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -1940,16 +1984,21 @@ void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpoi
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1958,28 +2007,27 @@ void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpoi
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v10 = *(a1 + 40);
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v3;
-    v28 = 2114;
-    v29 = v10;
-    LODWORD(v20) = 32;
-    v11 = _os_log_send_and_compose_impl();
+    v10 = a1[5];
+    v23 = 138412802;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v3;
+    v27 = 2114;
+    v28 = v10;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 2, "[%@] Error %{public}@ getting play activity events for end point identifier %{public}@", &v23, 32);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v24, v20}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
   }
 
-LABEL_12:
-  v18 = *(a1 + 48);
+LABEL_13:
+  v18 = a1[6];
   if (v18)
   {
     v19 = dispatch_get_global_queue(0, 0);
@@ -1987,15 +2035,15 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_81;
     block[3] = &unk_1E84AC338;
-    v23 = v18;
-    v22 = v3;
+    v22 = v18;
+    v21 = v3;
     dispatch_async(v19, block);
   }
 }
 
-void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_2_82(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_2_82(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = +[SSLogConfig sharedStoreServicesConfig];
@@ -2007,16 +2055,21 @@ void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpoi
   v10 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = v10 | 2;
+    LODWORD(v11) = v10 | 2;
   }
 
   else
   {
-    v11 = v10;
+    LODWORD(v11) = v10;
   }
 
   v12 = [v9 OSLogObject];
-  if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -2026,28 +2079,27 @@ void __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpoi
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     v15 = [v7 count];
-    v16 = *(a1 + 40);
-    v32 = 138412802;
-    v33 = v14;
-    v34 = 2048;
-    v35 = v15;
-    v36 = 2114;
-    v37 = v16;
-    LODWORD(v26) = 32;
-    v17 = _os_log_send_and_compose_impl();
+    v16 = a1[5];
+    v31 = 138412802;
+    v32 = v14;
+    v33 = 2048;
+    v34 = v15;
+    v35 = 2114;
+    v36 = v16;
+    v17 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, v12, 2, "[%@] Finished getting %lu play activity events for end point identifier %{public}@", &v31, 32);
 
     if (!v17)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v12 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v32, v26}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog(v9, @"%@", v18, v19, v20, v21, v22, v23, v12);
   }
 
-LABEL_12:
-  v24 = *(a1 + 48);
+LABEL_13:
+  v24 = a1[6];
   if (v24)
   {
     v25 = dispatch_get_global_queue(0, 0);
@@ -2055,17 +2107,17 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __148__SSVPlayActivityController__acquirePendingPlayActivityEventsForEndpointIdentifier_withStoreAccountID_shouldFilterStoreAccountID_completionHandler___block_invoke_83;
     block[3] = &unk_1E84B2698;
-    v30 = v24;
-    v28 = v7;
-    v31 = a3;
-    v29 = v8;
+    v29 = v24;
+    v27 = v7;
+    v30 = a3;
+    v28 = v8;
     dispatch_async(v25, block);
   }
 }
 
 - (void)_completePendingPlayEventsWithRevisionIndexSet:(id)set forSessionToken:(unint64_t)token withResult:(unint64_t)result completionHandler:(id)handler
 {
-  v142 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   setCopy = set;
   handlerCopy = handler;
   v12 = +[SSLogConfig sharedStoreServicesConfig];
@@ -2098,22 +2150,20 @@ LABEL_12:
 
   if (v16)
   {
-    v136 = 138412802;
-    v137 = setCopy;
-    v138 = 2048;
+    v133 = 138412802;
+    v134 = setCopy;
+    v135 = 2048;
     tokenCopy = token;
-    v140 = 2048;
+    v137 = 2048;
     resultCopy = result;
-    LODWORD(v122) = 32;
-    v118 = &v136;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[SSVPlayActivityController] Completing pending play events for revision index set: %@ session token: %llu with result: %lu", &v133, 32);
 
     if (!v17)
     {
       goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v136, v122}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog(v12, @"%@", v18, v19, v20, v21, v22, v23, oSLogObject);
   }
@@ -2152,18 +2202,17 @@ LABEL_13:
 
     if (v29)
     {
-      v136 = 138412290;
-      v137 = v24;
-      LODWORD(v122) = 12;
-      v119 = &v136;
-      v30 = _os_log_send_and_compose_impl();
+      v133 = 138412290;
+      v134 = v24;
+      LODWORD(v119) = 12;
+      v30 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "[SSVPlayActivityController] Session information: %@", &v133, v119);
 
       if (!v30)
       {
         goto LABEL_26;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v136, v122}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog(v25, @"%@", v31, v32, v33, v34, v35, v36, oSLogObject2);
     }
@@ -2174,18 +2223,18 @@ LABEL_26:
     {
       v83 = 0;
 LABEL_124:
-      v116 = dispatch_get_global_queue(0, 0);
-      v128[0] = MEMORY[0x1E69E9820];
-      v128[1] = 3221225472;
-      v128[2] = __121__SSVPlayActivityController__completePendingPlayEventsWithRevisionIndexSet_forSessionToken_withResult_completionHandler___block_invoke_86;
-      v128[3] = &unk_1E84B2710;
-      v133 = v83;
-      v129 = endpointIdentifier;
+      v117 = dispatch_get_global_queue(0, 0);
+      v125[0] = MEMORY[0x1E69E9820];
+      v125[1] = 3221225472;
+      v125[2] = __121__SSVPlayActivityController__completePendingPlayEventsWithRevisionIndexSet_forSessionToken_withResult_completionHandler___block_invoke_86;
+      v125[3] = &unk_1E84B2710;
+      v130 = v83;
+      v126 = endpointIdentifier;
       selfCopy = self;
-      v131 = 0;
-      v132 = handlerCopy;
-      v117 = endpointIdentifier;
-      dispatch_async(v116, v128);
+      v128 = 0;
+      v129 = handlerCopy;
+      v118 = endpointIdentifier;
+      dispatch_async(v117, v125);
 
       goto LABEL_125;
     }
@@ -2246,20 +2295,19 @@ LABEL_119:
 
     if (v44)
     {
-      v136 = 138412546;
-      v137 = setCopy;
-      v138 = 2112;
+      v133 = 138412546;
+      v134 = setCopy;
+      v135 = 2112;
       tokenCopy = v39;
-      LODWORD(v122) = 22;
-      v120 = &v136;
-      v45 = _os_log_send_and_compose_impl();
+      LODWORD(v119) = 22;
+      v45 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 1, "[SSVPlayActivityController] Removing pending revisions index set %@ from sessionInformation revisions index set: %@", &v133, v119);
 
       if (!v45)
       {
         goto LABEL_40;
       }
 
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:{4, &v136, v122}];
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:4];
       free(v45);
       SSFileLog(v40, @"%@", v46, v47, v48, v49, v50, v51, oSLogObject3);
     }
@@ -2296,24 +2344,23 @@ LABEL_40:
 
     if (v56)
     {
-      v136 = 138412290;
-      v137 = v39;
-      LODWORD(v122) = 12;
-      v121 = &v136;
-      v57 = _os_log_send_and_compose_impl();
+      v133 = 138412290;
+      v134 = v39;
+      LODWORD(v119) = 12;
+      v57 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &dword_1D48BA000, oSLogObject4, 1, "[SSVPlayActivityController] Resulting index set: %@", &v133, v119);
 
       if (!v57)
       {
         goto LABEL_52;
       }
 
-      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:{4, &v136, v122}];
+      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:4];
       free(v57);
       SSFileLog(v52, @"%@", v58, v59, v60, v61, v62, v63, oSLogObject4);
     }
 
 LABEL_52:
-    v124 = v39;
+    v121 = v39;
 
     v64 = endpointIdentifier;
     v65 = [(SSVPlayActivityController *)selfCopy2 _copyEndpointRevisionInformationForEndpointIdentifier:endpointIdentifier];
@@ -2323,9 +2370,9 @@ LABEL_52:
 
     if (v68)
     {
-      v123 = v65;
+      v120 = v65;
       additionalPendingRevisionsIndexSet = [v65 additionalPendingRevisionsIndexSet];
-      v125 = [additionalPendingRevisionsIndexSet mutableCopy];
+      v122 = [additionalPendingRevisionsIndexSet mutableCopy];
 
       v70 = +[SSLogConfig sharedStoreServicesConfig];
       if (!v70)
@@ -2358,29 +2405,28 @@ LABEL_52:
       endpointIdentifier = v64;
       if (v74)
       {
-        v136 = 138412290;
-        v137 = v125;
-        LODWORD(v122) = 12;
-        v119 = &v136;
-        v75 = _os_log_send_and_compose_impl();
+        v133 = 138412290;
+        v134 = v122;
+        LODWORD(v119) = 12;
+        v75 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &dword_1D48BA000, oSLogObject5, 1, "[SSVPlayActivityController] Existing additional pending revisions index set: %@", &v133, v119);
 
-        v39 = v124;
+        v39 = v121;
         if (!v75)
         {
 LABEL_81:
 
           if (result == 1)
           {
-            v104 = v125;
+            v105 = v122;
             self = selfCopy2;
-            if (!v125)
+            if (!v122)
             {
-              v104 = objc_alloc_init(MEMORY[0x1E696AD50]);
+              v105 = objc_alloc_init(MEMORY[0x1E696AD50]);
             }
 
-            [v104 addIndexes:{setCopy, v119}];
-            v126 = v104;
-            [v123 setAdditionalPendingRevisionsIndexSet:v104];
+            [v105 addIndexes:setCopy];
+            v123 = v105;
+            [v120 setAdditionalPendingRevisionsIndexSet:v105];
             v99 = +[SSLogConfig sharedStoreServicesConfig];
             if (!v99)
             {
@@ -2390,52 +2436,52 @@ LABEL_81:
             shouldLog6 = [v99 shouldLog];
             if ([v99 shouldLogToDisk])
             {
-              v106 = shouldLog6 | 2;
+              v107 = shouldLog6 | 2;
             }
 
             else
             {
-              v106 = shouldLog6;
+              v107 = shouldLog6;
             }
 
             oSLogObject6 = [v99 OSLogObject];
             if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
             {
-              v107 = v106;
+              v108 = v107;
             }
 
             else
             {
-              v107 = v106 & 2;
+              v108 = v107 & 2;
             }
 
-            if (v107)
+            if (v108)
             {
-              v136 = 138412290;
-              v137 = v126;
-              LODWORD(v122) = 12;
-              v119 = &v136;
+              v133 = 138412290;
+              v134 = v123;
+              LODWORD(v119) = 12;
+              v104 = _os_log_send_and_compose_impl(v108, 0, 0, 0, &dword_1D48BA000, oSLogObject6, 1, "[SSVPlayActivityController] New additional pending revisions index set from flush failure: %@", &v133, v119);
               goto LABEL_112;
             }
 
 LABEL_114:
-            v90 = v123;
+            v90 = v120;
             goto LABEL_115;
           }
 
-          v98 = v125;
+          v98 = v122;
           self = selfCopy2;
-          if (!result && v125)
+          if (!result && v122)
           {
-            [v125 removeIndexes:setCopy];
-            if (![v125 count])
+            [v122 removeIndexes:setCopy];
+            if (![v122 count])
             {
 
               v98 = 0;
             }
 
-            v126 = v98;
-            [v123 setAdditionalPendingRevisionsIndexSet:{v98, v119}];
+            v123 = v98;
+            [v120 setAdditionalPendingRevisionsIndexSet:v98];
             v99 = +[SSLogConfig sharedStoreServicesConfig];
             if (!v99)
             {
@@ -2466,25 +2512,25 @@ LABEL_114:
 
             if (v103)
             {
-              v136 = 138412290;
-              v137 = v126;
-              LODWORD(v122) = 12;
-              v119 = &v136;
+              v133 = 138412290;
+              v134 = v123;
+              LODWORD(v119) = 12;
+              v104 = _os_log_send_and_compose_impl(v103, 0, 0, 0, &dword_1D48BA000, oSLogObject6, 1, "[SSVPlayActivityController] New additional pending revisions index set from flush success: %@", &v133, v119);
 LABEL_112:
-              v108 = _os_log_send_and_compose_impl();
+              v109 = v104;
 
-              v90 = v123;
-              if (!v108)
+              v90 = v120;
+              if (!v109)
               {
-                v98 = v126;
+                v98 = v123;
                 goto LABEL_117;
               }
 
-              oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v108 encoding:{4, &v136, v122}];
-              free(v108);
-              SSFileLog(v99, @"%@", v109, v110, v111, v112, v113, v114, oSLogObject6);
+              oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v109 encoding:4];
+              free(v109);
+              SSFileLog(v99, @"%@", v110, v111, v112, v113, v114, v115, oSLogObject6);
 LABEL_115:
-              v98 = v126;
+              v98 = v123;
 
 LABEL_117:
               v83 = [(SSVPlayActivityController *)self _setEndpointRevisionInformation:v90 forEndpointIdentifier:endpointIdentifier];
@@ -2495,20 +2541,20 @@ LABEL_117:
           }
 
           v83 = 0;
-          v90 = v123;
+          v90 = v120;
 LABEL_118:
 
           goto LABEL_119;
         }
 
-        oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v75 encoding:{4, &v136, v122}];
+        oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v75 encoding:4];
         free(v75);
         SSFileLog(v70, @"%@", v76, v77, v78, v79, v80, v81, oSLogObject5);
       }
 
       else
       {
-        v39 = v124;
+        v39 = v121;
       }
 
       goto LABEL_81;
@@ -2544,14 +2590,13 @@ LABEL_118:
 
     if (v88)
     {
-      LOWORD(v136) = 0;
-      LODWORD(v122) = 2;
-      v119 = &v136;
-      v89 = _os_log_send_and_compose_impl();
+      LOWORD(v133) = 0;
+      LODWORD(v119) = 2;
+      v89 = _os_log_send_and_compose_impl(v88, 0, 0, 0, &dword_1D48BA000, oSLogObject7, 1, "[SSVPlayActivityController] Revisions version token has changed, clearing out.", &v133, v119);
 
       v90 = v65;
       endpointIdentifier = v64;
-      v91 = v124;
+      v91 = v121;
       if (!v89)
       {
 LABEL_99:
@@ -2563,7 +2608,7 @@ LABEL_99:
         goto LABEL_118;
       }
 
-      oSLogObject7 = [MEMORY[0x1E696AEC0] stringWithCString:v89 encoding:{4, &v136, v122}];
+      oSLogObject7 = [MEMORY[0x1E696AEC0] stringWithCString:v89 encoding:4];
       free(v89);
       SSFileLog(v84, @"%@", v92, v93, v94, v95, v96, v97, oSLogObject7);
     }
@@ -2572,7 +2617,7 @@ LABEL_99:
     {
       v90 = v65;
       endpointIdentifier = v64;
-      v91 = v124;
+      v91 = v121;
     }
 
     goto LABEL_99;
@@ -2585,10 +2630,10 @@ LABEL_99:
     block[1] = 3221225472;
     block[2] = __121__SSVPlayActivityController__completePendingPlayEventsWithRevisionIndexSet_forSessionToken_withResult_completionHandler___block_invoke;
     block[3] = &unk_1E84ADED0;
-    v135 = handlerCopy;
+    v132 = handlerCopy;
     dispatch_async(v82, block);
 
-    v24 = v135;
+    v24 = v132;
 LABEL_125:
   }
 }
@@ -2691,13 +2736,12 @@ void __68__SSVPlayActivityController__daemonPlayActivityControllerConnection__bl
     goto LABEL_12;
   }
 
-  v13[0] = 0;
-  LODWORD(v12) = 2;
-  v5 = _os_log_send_and_compose_impl();
+  v12[0] = 0;
+  v5 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v3, 1, "[SSVPlayActivityController] Connection to daemon play activity controller interrupted.", v12, 2);
 
   if (v5)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, v13, v12}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
     free(v5);
     SSFileLog(v0, @"%@", v6, v7, v8, v9, v10, v11, v3);
 LABEL_12:
@@ -2739,13 +2783,12 @@ void __68__SSVPlayActivityController__daemonPlayActivityControllerConnection__bl
     goto LABEL_12;
   }
 
-  v13[0] = 0;
-  LODWORD(v12) = 2;
-  v5 = _os_log_send_and_compose_impl();
+  v12[0] = 0;
+  v5 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v3, 1, "[SSVPlayActivityController] Connection to daemon play activity controller invalidated.", v12, 2);
 
   if (v5)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, v13, v12}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
     free(v5);
     SSFileLog(v0, @"%@", v6, v7, v8, v9, v10, v11, v3);
 LABEL_12:
@@ -3162,7 +3205,7 @@ void __156__SSVPlayActivityController__getFlushSessionInformationForEndpointIden
 
 - (void)_loadEndpointIdentifierInformationIfNeeded
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (self->_hasLoadedEndpointRevisionInformation)
   {
     return;
@@ -3178,33 +3221,33 @@ void __156__SSVPlayActivityController__getFlushSessionInformationForEndpointIden
     goto LABEL_33;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  v34 = v3;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v33 = v3;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (!v5)
   {
     goto LABEL_32;
   }
 
   v6 = v5;
-  v7 = *v40;
-  v36 = v4;
-  v37 = selfCopy;
-  v35 = *v40;
+  v7 = *v39;
+  v35 = v4;
+  v36 = selfCopy;
+  v34 = *v39;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v40 != v7)
+      if (*v39 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v39 + 1) + 8 * i);
+      v9 = *(*(&v38 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -3213,9 +3256,9 @@ void __156__SSVPlayActivityController__getFlushSessionInformationForEndpointIden
         {
           v11 = MEMORY[0x1E696ACD0];
           v12 = objc_opt_class();
-          v38 = 0;
-          v13 = [v11 unarchivedObjectOfClass:v12 fromData:v10 error:&v38];
-          v14 = v38;
+          v37 = 0;
+          v13 = [v11 unarchivedObjectOfClass:v12 fromData:v10 error:&v37];
+          v14 = v37;
           if (v14)
           {
             v15 = +[SSLogConfig sharedStoreServicesConfig];
@@ -3249,18 +3292,17 @@ void __156__SSVPlayActivityController__getFlushSessionInformationForEndpointIden
             if (v19)
             {
               v20 = objc_opt_class();
-              v43 = 138543618;
-              v44 = v20;
-              v45 = 2114;
-              v46 = v14;
+              v42 = 138543618;
+              v43 = v20;
+              v44 = 2114;
+              v45 = v14;
               v21 = v20;
-              LODWORD(v33) = 22;
-              v32 = &v43;
-              v22 = _os_log_send_and_compose_impl();
+              LODWORD(v32) = 22;
+              v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive revision information. Error = %{public}@", &v42, v32);
 
               if (v22)
               {
-                oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v43, v33}];
+                oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
                 free(v22);
                 SSFileLog(v15, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
                 goto LABEL_22;
@@ -3272,9 +3314,9 @@ void __156__SSVPlayActivityController__getFlushSessionInformationForEndpointIden
 LABEL_22:
             }
 
-            v4 = v36;
-            selfCopy = v37;
-            v7 = v35;
+            v4 = v35;
+            selfCopy = v36;
+            v7 = v34;
           }
 
           if (v13)
@@ -3289,7 +3331,7 @@ LABEL_22:
               endpointIdentifierToEndpointRevisionInformation = selfCopy->_endpointIdentifierToEndpointRevisionInformation;
             }
 
-            [(NSMutableDictionary *)endpointIdentifierToEndpointRevisionInformation setObject:v13 forKey:v9, v32];
+            [(NSMutableDictionary *)endpointIdentifierToEndpointRevisionInformation setObject:v13 forKey:v9];
           }
         }
 
@@ -3297,13 +3339,13 @@ LABEL_22:
       }
     }
 
-    v6 = [v4 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v38 objects:v46 count:16];
   }
 
   while (v6);
 LABEL_32:
 
-  v3 = v34;
+  v3 = v33;
 LABEL_33:
 }
 
@@ -3427,7 +3469,7 @@ LABEL_11:
 
 - (BOOL)_setEndpointRevisionInformation:(id)information forEndpointIdentifier:(id)identifier
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   informationCopy = information;
   identifierCopy = identifier;
   [(SSVPlayActivityController *)self _loadEndpointIdentifierInformationIfNeeded];
@@ -3436,7 +3478,7 @@ LABEL_11:
   if (v8 == informationCopy || ([v8 isEqual:informationCopy] & 1) != 0)
   {
     v10 = 0;
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   v11 = CFPreferencesCopyAppValue(@"SSVPlayActivityEndpointRevisionInformation", @"com.apple.itunesstored");
@@ -3462,7 +3504,7 @@ LABEL_11:
 
     v15 = [v11 mutableCopy];
     v16 = 0;
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   if (!endpointIdentifierToEndpointRevisionInformation)
@@ -3476,61 +3518,64 @@ LABEL_11:
 
   [(NSMutableDictionary *)endpointIdentifierToEndpointRevisionInformation setObject:informationCopy forKey:identifierCopy];
   v15 = [v11 mutableCopy];
-  v37 = 0;
-  v16 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:0 requiringSecureCoding:1 error:&v37];
-  v17 = v37;
+  v35 = 0;
+  v16 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:0 requiringSecureCoding:1 error:&v35];
+  v17 = v35;
   if (v17)
   {
-    v36 = v16;
+    v34 = v16;
     v18 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v18)
     {
       v18 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v18 shouldLog];
+    LODWORD(v19) = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v19) = v19 | 2;
     }
 
     oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v19 = v19;
     }
 
-    if (shouldLog)
+    else
+    {
+      v19 &= 2u;
+    }
+
+    if (v19)
     {
       v21 = objc_opt_class();
-      v38 = 138543618;
-      v39 = v21;
-      v40 = 2114;
-      v41 = v17;
-      v35 = v21;
-      LODWORD(v34) = 22;
-      v33 = &v38;
-      v22 = _os_log_send_and_compose_impl();
+      v36 = 138543618;
+      v37 = v21;
+      v38 = 2114;
+      v39 = v17;
+      v33 = v21;
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive revision information. Error = %{public}@", &v36, 22);
 
       if (!v22)
       {
-LABEL_21:
+LABEL_22:
 
-        v16 = v36;
-        goto LABEL_22;
+        v16 = v34;
+        goto LABEL_23;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v38, v34}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog(v18, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-LABEL_22:
+LABEL_23:
 
-LABEL_26:
+LABEL_27:
   if ([v16 length])
   {
     if (!v15)
@@ -3567,7 +3612,7 @@ LABEL_26:
   }
 
   v10 = 1;
-LABEL_38:
+LABEL_39:
 
   return v10;
 }

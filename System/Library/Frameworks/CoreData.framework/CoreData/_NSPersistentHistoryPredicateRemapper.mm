@@ -59,12 +59,10 @@
 
 - (id)replacementValueForValue:(uint64_t)value
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (!value)
   {
-LABEL_27:
-    v9 = 0;
-    goto LABEL_48;
+    return 0;
   }
 
   if (!a2)
@@ -73,12 +71,11 @@ LABEL_27:
     {
       *(value + 16) = 0;
       v4 = objc_alloc(MEMORY[0x1E696AD98]);
-      v5 = *MEMORY[0x1E69E9840];
 
       return [v4 initWithInt:0];
     }
 
-    goto LABEL_27;
+    return 0;
   }
 
   obj = a2;
@@ -98,17 +95,15 @@ LABEL_27:
       goto LABEL_13;
     }
 
-    obj = [objc_msgSend(obj "storeTokens")];
+    obj = objc_msgSend_valueForKey_([obj storeTokens]);
     if (obj)
     {
       goto LABEL_13;
     }
 
-    v9 = 0;
+    v7 = 0;
     *(value + 8) = 0;
-LABEL_48:
-    v25 = *MEMORY[0x1E69E9840];
-    return v9;
+    return v7;
   }
 
   _backingObjectID = [obj objectID];
@@ -118,154 +113,145 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = obj;
-    v8 = *MEMORY[0x1E69E9840];
+    v6 = obj;
 LABEL_15:
 
-    return v7;
+    return v6;
   }
 
   if ([obj isNSArray])
   {
-    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v10 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-    if (v10)
+    v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v8 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+    if (v8)
     {
-      v11 = v10;
-      v12 = *v38;
+      v9 = v8;
+      v10 = *v33;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v12)
+          if (*v33 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
-          [v9 addObject:v14];
+          v12 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
+          [v7 addObject:v12];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v9 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
-      while (v11);
+      while (v9);
     }
 
-    goto LABEL_48;
+    return v7;
   }
 
   if ([obj isNSSet])
   {
-    v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v33 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v15 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
-    if (v15)
+    v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v13 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
+    if (v13)
     {
-      v16 = v15;
-      v17 = *v34;
+      v14 = v13;
+      v15 = *v29;
       do
       {
-        for (j = 0; j != v16; ++j)
+        for (j = 0; j != v14; ++j)
         {
-          if (*v34 != v17)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
-          [v9 addObject:v19];
+          v17 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
+          [v7 addObject:v17];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v14 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
       }
 
-      while (v16);
+      while (v14);
     }
 
-    goto LABEL_48;
+    return v7;
   }
 
   if ([obj isNSOrderedSet])
   {
-    v9 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v20 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
-    if (v20)
+    v7 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v18 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
+    if (v18)
     {
-      v21 = v20;
-      v22 = *v30;
+      v19 = v18;
+      v20 = *v25;
       do
       {
-        for (k = 0; k != v21; ++k)
+        for (k = 0; k != v19; ++k)
         {
-          if (*v30 != v22)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
-          [v9 addObject:v24];
+          v22 = [(_NSPersistentHistoryPredicateRemapper *)value replacementValueForValue:?];
+          [v7 addObject:v22];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v19 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
       }
 
-      while (v21);
+      while (v19);
     }
 
-    goto LABEL_48;
+    return v7;
   }
 
   if (![obj isNSString])
   {
-    v27 = *MEMORY[0x1E69E9840];
-    v7 = obj;
+    v6 = obj;
     goto LABEL_15;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return [obj copy];
 }
 
 - (_BYTE)replacementValueForKeyPath:(_BYTE *)result
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  if (!result)
+  v8[4] = *MEMORY[0x1E69E9840];
+  if (result)
   {
-    goto LABEL_15;
-  }
-
-  v2 = result;
-  if ([a2 isNSString])
-  {
-    v9[0] = @"author";
-    v9[1] = @"bundleID";
-    v10[0] = @"AUTHORTS";
-    v10[1] = @"BUNDLEIDTS";
-    v9[2] = @"contextName";
-    v9[3] = @"processID";
-    v10[2] = @"CONTEXTNAMETS";
-    v10[3] = @"PROCESSIDTS";
-    v3 = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:{4), "objectForKey:", a2}];
-    if (v3)
+    v2 = result;
+    if ([a2 isNSString])
     {
-      result = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@", v3, @"NAME"];
-    }
+      v7[0] = @"author";
+      v7[1] = @"bundleID";
+      v8[0] = @"AUTHORTS";
+      v8[1] = @"BUNDLEIDTS";
+      v7[2] = @"contextName";
+      v7[3] = @"processID";
+      v8[2] = @"CONTEXTNAMETS";
+      v8[3] = @"PROCESSIDTS";
+      v3 = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:{4), "objectForKey:", a2}];
+      if (v3)
+      {
+        return [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.%@", v3, @"NAME"];
+      }
 
-    else
-    {
       if ([a2 isEqualToString:@"transactionNumber"] || (objc_msgSend(a2, "isEqualToString:", @"changeID") & 1) != 0 || objc_msgSend(a2, "isEqualToString:", @"token"))
       {
         if ([a2 isEqualToString:@"token"])
@@ -273,57 +259,56 @@ LABEL_15:
           v2[16] = 1;
         }
 
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = NSSQLPrimaryKeyPropertyName;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = NSSQLPrimaryKeyPropertyName;
       }
 
       else if ([a2 isEqualToString:@"timestamp"])
       {
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = PFPersistentHistoryTransactionTimestamp;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = PFPersistentHistoryTransactionTimestamp;
       }
 
       else if ([a2 isEqualToString:@"changeType"])
       {
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = PFPersistentHistoryChangeType;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = PFPersistentHistoryChangeType;
       }
 
       else if ([a2 isEqualToString:@"changedEntity"])
       {
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = PFPersistentHistoryChangeEntity;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = PFPersistentHistoryChangeEntity;
       }
 
       else if ([a2 isEqualToString:@"transaction"] && byte_1ED4BEECF == 1)
       {
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = PFPersistentHistoryChangeTransactionID;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = PFPersistentHistoryChangeTransactionID;
       }
 
       else
       {
         if (![a2 isEqualToString:@"changes"] || byte_1ED4BEECF != 1)
         {
-          result = [a2 copy];
-          goto LABEL_15;
+          return [a2 copy];
         }
 
-        v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v6 = PFPersistentHistoryTransactionChanges;
+        v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v5 = PFPersistentHistoryTransactionChanges;
       }
 
-      result = [v5 initWithString:*v6];
+      return [v4 initWithString:*v5];
     }
 
-LABEL_15:
-    v7 = *MEMORY[0x1E69E9840];
-    return result;
+    else
+    {
+
+      return a2;
+    }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
-  return a2;
+  return result;
 }
 
 - (void)visitPredicateExpression:(id)expression

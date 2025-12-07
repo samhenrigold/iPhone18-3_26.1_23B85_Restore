@@ -7,99 +7,92 @@ uint64_t sub_1348@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_137C(uint64_t a1)
 {
-  v56 = a1;
+  v49 = a1;
   v1 = sub_1D64();
-  v53 = *(v1 - 8);
-  v54 = v1;
-  v2 = *(v53 + 64);
-  (__chkstk_darwin)();
-  v51 = &v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = sub_1DD4();
-  v50 = *(v52 - 8);
-  v4 = *(v50 + 64);
-  v5 = (__chkstk_darwin)();
-  v46 = &v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v49 = &v41 - v7;
-  v8 = sub_1DA4();
-  v47 = *(v8 - 8);
-  v48 = v8;
-  v9 = *(v47 + 64);
-  __chkstk_darwin(v8);
-  v44 = &v41 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v45 = sub_1DC4();
+  v46 = *(v1 - 8);
+  v47 = v1;
+  __chkstk_darwin(v1);
+  v44 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = sub_1DD4();
   v43 = *(v45 - 8);
-  v11 = *(v43 + 64);
-  v12 = __chkstk_darwin(v45);
-  v41 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v42 = &v41 - v14;
-  v15 = sub_1D84();
-  v55 = *(v15 - 8);
-  v16 = *(v55 + 64);
-  __chkstk_darwin(v15);
-  v18 = &v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = sub_1DB4();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  v22 = __chkstk_darwin(v19);
-  v24 = &v41 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v22);
-  v26 = &v41 - v25;
-  v27 = sub_1DE4();
-  v28 = *(v27 - 8);
-  v29 = *(v28 + 64);
-  __chkstk_darwin(v27);
-  v31 = &v41 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v28 + 16))(v31, v56, v27);
-  v32 = (*(v28 + 88))(v31, v27);
-  if (v32 == enum case for SiriAlarmSnippetModels.alarmMulti(_:))
+  v3 = __chkstk_darwin(v45);
+  v39 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v42 = &v34 - v5;
+  v6 = sub_1DA4();
+  v40 = *(v6 - 8);
+  v41 = v6;
+  __chkstk_darwin(v6);
+  v37 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = sub_1DC4();
+  v36 = *(v38 - 8);
+  v8 = __chkstk_darwin(v38);
+  v34 = &v34 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v35 = &v34 - v10;
+  v11 = sub_1D84();
+  v48 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v13 = &v34 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = sub_1DB4();
+  v15 = *(v14 - 8);
+  v16 = __chkstk_darwin(v14);
+  v18 = &v34 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v20 = &v34 - v19;
+  v21 = sub_1DE4();
+  v22 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v24 = &v34 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v22 + 16))(v24, v49, v21);
+  v25 = (*(v22 + 88))(v24, v21);
+  if (v25 == enum case for SiriAlarmSnippetModels.alarmMulti(_:))
   {
-    (*(v28 + 96))(v31, v27);
-    (*(v20 + 32))(v26, v31, v19);
-    (*(v20 + 16))(v24, v26, v19);
+    (*(v22 + 96))(v24, v21);
+    (*(v15 + 32))(v20, v24, v14);
+    (*(v15 + 16))(v18, v20, v14);
     sub_1D74();
-    sub_1B10(&qword_8140, &type metadata accessor for AlarmSnippet);
-    v33 = sub_1DF4();
-    (*(v55 + 8))(v18, v15);
-    (*(v20 + 8))(v26, v19);
-    return v33;
+    sub_1B10(&qword_8140, &type metadata accessor for AlarmSnippet, &protocol conformance descriptor for AlarmSnippet);
+    v26 = sub_1DF4();
+    (*(v48 + 8))(v13, v11);
+    (*(v15 + 8))(v20, v14);
+    return v26;
   }
 
-  if (v32 == enum case for SiriAlarmSnippetModels.alarmSelector(_:))
+  if (v25 == enum case for SiriAlarmSnippetModels.alarmSelector(_:))
   {
-    (*(v28 + 96))(v31, v27);
-    v35 = v42;
-    v34 = v43;
-    v36 = v45;
-    (*(v43 + 32))(v42, v31, v45);
-    (*(v34 + 16))(v41, v35, v36);
-    v37 = v44;
+    (*(v22 + 96))(v24, v21);
+    v28 = v35;
+    v27 = v36;
+    v29 = v38;
+    (*(v36 + 32))(v35, v24, v38);
+    (*(v27 + 16))(v34, v28, v29);
+    v30 = v37;
     sub_1D94();
-    sub_1B10(&qword_8138, &type metadata accessor for AlarmSelector);
-    v38 = v48;
-    v33 = sub_1DF4();
-    v39 = v47;
+    sub_1B10(&qword_8138, &type metadata accessor for AlarmSelector, &protocol conformance descriptor for AlarmSelector);
+    v31 = v41;
+    v26 = sub_1DF4();
+    v32 = v40;
 LABEL_7:
-    (*(v39 + 8))(v37, v38);
-    (*(v34 + 8))(v35, v36);
-    return v33;
+    (*(v32 + 8))(v30, v31);
+    (*(v27 + 8))(v28, v29);
+    return v26;
   }
 
-  if (v32 == enum case for SiriAlarmSnippetModels.alarmConfirmation(_:))
+  if (v25 == enum case for SiriAlarmSnippetModels.alarmConfirmation(_:))
   {
-    (*(v28 + 96))(v31, v27);
-    v35 = v49;
-    v34 = v50;
-    v36 = v52;
-    (*(v50 + 32))(v49, v31, v52);
-    (*(v34 + 16))(v46, v35, v36);
-    v37 = v51;
+    (*(v22 + 96))(v24, v21);
+    v28 = v42;
+    v27 = v43;
+    v29 = v45;
+    (*(v43 + 32))(v42, v24, v45);
+    (*(v27 + 16))(v39, v28, v29);
+    v30 = v44;
     sub_1D54();
-    sub_1B10(&qword_8130, &type metadata accessor for AlarmConfirmation);
-    v38 = v54;
-    v33 = sub_1DF4();
-    v39 = v53;
+    sub_1B10(&qword_8130, &type metadata accessor for AlarmConfirmation, &protocol conformance descriptor for AlarmConfirmation);
+    v31 = v47;
+    v26 = sub_1DF4();
+    v32 = v46;
     goto LABEL_7;
   }
 
@@ -108,7 +101,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_1B10(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1B10(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -128,7 +121,7 @@ Swift::Int Placeholder.hashValue.getter()
   return sub_1E34();
 }
 
-Swift::Int sub_1BCC()
+Swift::Int sub_1BCC(uint64_t a1)
 {
   sub_1E14();
   sub_1E24(0);

@@ -1,6 +1,8 @@
 @interface MTMaterialViewInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
 - (void)layoutSubviews;
+- (void)setAccessibilityMaterialViewMimicsReduceTransparency:(BOOL)transparency;
+- (void)setContentReplacedWithSnapshot:(BOOL)snapshot;
 @end
 
 @implementation MTMaterialViewInvertColorsAccessibility
@@ -27,6 +29,14 @@
   }
 }
 
+- (void)setAccessibilityMaterialViewMimicsReduceTransparency:(BOOL)transparency
+{
+  v4.receiver = self;
+  v4.super_class = MTMaterialViewInvertColorsAccessibility;
+  [(MTMaterialViewInvertColorsAccessibility *)&v4 setAccessibilityMaterialViewMimicsReduceTransparency:transparency];
+  [(MTMaterialViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
+
 - (void)layoutSubviews
 {
   v3.receiver = self;
@@ -35,6 +45,43 @@
   if (([(MTMaterialViewInvertColorsAccessibility *)self _accessibilityBoolValueForKey:@"LoadingInvertColors"]& 1) == 0)
   {
     [(MTMaterialViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+  }
+}
+
+- (void)setContentReplacedWithSnapshot:(BOOL)snapshot
+{
+  snapshotCopy = snapshot;
+  v14 = 0;
+  objc_opt_class();
+  v5 = __UIAccessibilityCastAsClass();
+  if (AXProcessIsSpringBoard() && ([v5 superview], v6 = objc_claimAutoreleasedReturnValue(), AXSafeClassFromString(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  {
+    v14 = 0;
+    objc_opt_class();
+    v8 = [v5 safeValueForKey:@"_materialLayer"];
+    v9 = __UIAccessibilityCastAsClass();
+
+    v10 = [v9 valueForKeyPath:@"filters.InvertColorsDoubleInvert"];
+    v11 = v10 == 0;
+  }
+
+  else
+  {
+    v9 = 0;
+    v11 = 1;
+  }
+
+  v13.receiver = self;
+  v13.super_class = MTMaterialViewInvertColorsAccessibility;
+  [(MTMaterialViewInvertColorsAccessibility *)&v13 setContentReplacedWithSnapshot:snapshotCopy];
+  if (!_AXSInvertColorsEnabledGlobalCached() && !v11)
+  {
+    filters = [v9 filters];
+
+    if (!filters)
+    {
+      [AXInvertColorsAppHelper toggleInvertColors:v9 moveFilterToFront:1];
+    }
   }
 }
 

@@ -257,7 +257,7 @@
 
 - (void)accessibilityElementDidBecomeFocused
 {
-  [_UIScrollViewScrollIndicatorAccessibility setAccessibilityScrollIndicatorIsFocused:?];
+  [(_UIScrollViewScrollIndicatorAccessibility *)self setAccessibilityScrollIndicatorIsFocused:?];
   accessibilityScrollIndicatorDelegate = [(_UIScrollViewScrollIndicatorAccessibility *)self accessibilityScrollIndicatorDelegate];
   [accessibilityScrollIndicatorDelegate accessibilityScrollIndicator:self didBecomeFocused:1];
   MEMORY[0x29EDC9740](accessibilityScrollIndicatorDelegate);
@@ -265,7 +265,7 @@
 
 - (void)accessibilityElementDidLoseFocus
 {
-  [_UIScrollViewScrollIndicatorAccessibility setAccessibilityScrollIndicatorIsFocused:?];
+  [(_UIScrollViewScrollIndicatorAccessibility *)self setAccessibilityScrollIndicatorIsFocused:?];
   accessibilityScrollIndicatorDelegate = [(_UIScrollViewScrollIndicatorAccessibility *)self accessibilityScrollIndicatorDelegate];
   [accessibilityScrollIndicatorDelegate accessibilityScrollIndicator:self didBecomeFocused:0];
   MEMORY[0x29EDC9740](accessibilityScrollIndicatorDelegate);

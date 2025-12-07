@@ -107,38 +107,38 @@
 
 void __84__ATXBiomeStreamInspector__makeStreamJSONForStream_publisher_maxNumEvents_callback___block_invoke_2(void *a1, void *a2)
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   context = objc_autoreleasePoolPush();
-  v23 = [v3 eventBody];
-  v26[0] = @"timestamp";
+  v22 = [v3 eventBody];
+  v25[0] = @"timestamp";
   v4 = a1[4];
   v5 = MEMORY[0x277CBEAA8];
   [v3 timestamp];
   v6 = [v5 dateWithTimeIntervalSinceReferenceDate:?];
   v7 = [v4 stringFromDate:v6];
-  v27[0] = v7;
-  v26[1] = @"timestampRaw";
+  v26[0] = v7;
+  v25[1] = @"timestampRaw";
   v8 = MEMORY[0x277CCABB0];
   [v3 timestamp];
   v9 = [v8 numberWithDouble:?];
-  v27[1] = v9;
-  v26[2] = @"data_size";
+  v26[1] = v9;
+  v25[2] = @"data_size";
   v10 = MEMORY[0x277CCABB0];
   v11 = [v3 frame];
   v12 = [v11 data];
   v13 = [v10 numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
-  v27[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v26[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
   v15 = [v14 mutableCopy];
 
   if (objc_opt_respondsToSelector())
   {
     v16 = MEMORY[0x277CCAAA0];
-    v17 = [v23 json];
-    v25 = 0;
-    v18 = [v16 JSONObjectWithData:v17 options:2 error:&v25];
-    v19 = v25;
+    v17 = [v22 json];
+    v24 = 0;
+    v18 = [v16 JSONObjectWithData:v17 options:2 error:&v24];
+    v19 = v24;
 
     if (v19)
     {
@@ -164,7 +164,6 @@ void __84__ATXBiomeStreamInspector__makeStreamJSONForStream_publisher_maxNumEven
   [*(*(a1[5] + 8) + 40) addObject:v15];
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

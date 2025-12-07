@@ -35,14 +35,13 @@ LABEL_5:
 
 - (id)encoded
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"service";
-  v6[1] = @"sessionIdentifier";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"service";
+  v5[1] = @"sessionIdentifier";
   sessionIdentifier = self->_sessionIdentifier;
-  v7[0] = self->_serviceID;
-  v7[1] = sessionIdentifier;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = self->_serviceID;
+  v6[1] = sessionIdentifier;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

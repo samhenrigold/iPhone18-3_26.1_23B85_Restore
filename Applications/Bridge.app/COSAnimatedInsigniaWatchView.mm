@@ -257,7 +257,7 @@
   v7 = self->_magicCodeOutroPerMaterial;
   if (v7)
   {
-    [(AVPlayerItem *)v7 duration];
+    objc_msgSend_duration(v7);
   }
 
   memset(&v14, 0, sizeof(v14));

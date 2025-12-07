@@ -1,4 +1,5 @@
 @interface INStartVideoCallIntent
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data;
 - (INStartCallRequestMetadata)callRequestMetadata;
 - (INStartVideoCallIntent)initWithContacts:(NSArray *)contacts;
 - (NSArray)contacts;
@@ -16,6 +17,64 @@
 
 @implementation INStartVideoCallIntent
 
+- (BOOL)configureAttributeSet:(id)set includingData:(BOOL)data
+{
+  dataCopy = data;
+  v26 = *MEMORY[0x1E69E9840];
+  setCopy = set;
+  contacts = [(INStartVideoCallIntent *)self contacts];
+  v8 = objc_opt_new();
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v9 = contacts;
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v22;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v22 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = INPersonToCSPerson(*(*(&v21 + 1) + 8 * v13));
+        if (v14)
+        {
+          [v8 addObject:v14];
+        }
+
+        ++v13;
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v11);
+  }
+
+  [setCopy setPrimaryRecipients:v8];
+  v15 = NSStringFromSelector(sel_displayName);
+  v16 = [v8 valueForKey:v15];
+  [setCopy setRecipientNames:v16];
+
+  v17 = [v8 valueForKeyPath:@"handles.@distinctUnionOfArrays.self"];
+  [setCopy setRecipientAddresses:v17];
+
+  v20.receiver = self;
+  v20.super_class = INStartVideoCallIntent;
+  v18 = [(INIntent *)&v20 configureAttributeSet:setCopy includingData:dataCopy];
+
+  return v18;
+}
+
 - (void)_redactForMissingPrivacyEntitlementOptions:(unint64_t)options containingAppBundleId:(id)id
 {
   idCopy = id;
@@ -31,8 +90,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"contacts";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"contacts";
   contacts = [(INStartVideoCallIntent *)self contacts];
   null = contacts;
   if (!contacts)
@@ -40,13 +99,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!contacts)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

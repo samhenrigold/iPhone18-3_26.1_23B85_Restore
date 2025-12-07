@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for FollowUpViewController();
+  v2.super_class = type metadata accessor for FollowUpViewController(0);
   [(FollowUpViewController *)&v2 viewDidLoad];
 }
 
@@ -25,7 +25,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FollowUpViewController();
+  v5.super_class = type metadata accessor for FollowUpViewController(0);
   v4 = v5.receiver;
   [(FollowUpViewController *)&v5 viewWillDisappear:disappearCopy];
   [v4 finishProcessing];
@@ -36,15 +36,21 @@
   v8 = _Block_copy(completion);
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = sub_10000FE38;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   itemCopy = item;
   actionCopy = action;
   selfCopy = self;
   sub_10000C378(item, action, v8);
-  sub_10000FDF0(v8);
+  sub_10000FDF0(v8, v9);
 }
 
 - (_TtC19ADFollowUpExtension22FollowUpViewController)initWithNibName:(id)name bundle:(id)bundle

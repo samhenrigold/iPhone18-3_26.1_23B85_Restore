@@ -24,17 +24,16 @@
 - (void)setNeedsConfigurationUpdate
 {
   v3 = sub_70674(&qword_EF620, &qword_A5C38);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v9 - v5;
-  v7 = sub_9218C();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v8 - v4;
+  v6 = sub_9218C();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
 
-  sub_7C7A8(0, 0, v6, &unk_A5DD8, v8);
+  sub_7C7A8(0, 0, v5, &unk_A5DD8, v7);
 }
 
 @end

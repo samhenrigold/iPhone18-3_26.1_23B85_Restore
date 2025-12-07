@@ -21,10 +21,10 @@
 
 - (BasebandFlowInformer)init
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = BasebandFlowInformer;
-  v2 = [(BasebandFlowInformer *)&v12 init];
+  v14 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = BasebandFlowInformer;
+  v2 = [(BasebandFlowInformer *)&v11 init];
   v3 = v2;
   if (v2)
   {
@@ -45,12 +45,11 @@
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "BasebandFlowInformer created instance %p", buf, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -78,21 +77,19 @@
 
 - (void)_relayMessage:(id)message
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = messageCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "BasebandFlowInformer relays message %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = messageCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "BasebandFlowInformer relays message %@", &v7, 0xCu);
   }
 
   [(BasebandFlowInformer *)self trace:"relayMessage" item:messageCopy];
   v6 = +[CoreTelephonyShim sharedInstance];
   [v6 sendTaggedInfo:1 payload:messageCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendSingleDigest:(id)digest
@@ -119,7 +116,7 @@
 
 - (void)_receiveIndication:(id)indication
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   indicationCopy = indication;
   [(BasebandFlowInformer *)self trace:"rxIndication" item:@"indication"];
   if ([indicationCopy length] < 8)
@@ -136,11 +133,11 @@ LABEL_7:
     v9 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412546;
-      *v12 = v5;
-      *&v12[8] = 2112;
-      *&v12[10] = indicationCopy;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "BasebandFlowInformer _receiveIndication %@ %@", &v11, 0x16u);
+      v10 = 138412546;
+      *v11 = v5;
+      *&v11[8] = 2112;
+      *&v11[10] = indicationCopy;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "BasebandFlowInformer _receiveIndication %@ %@", &v10, 0x16u);
     }
 
     goto LABEL_9;
@@ -151,47 +148,45 @@ LABEL_7:
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
   {
     v8 = v7;
-    v11 = 67109378;
-    *v12 = [(BasebandFlowInformer *)self enabledViaBBIndication];
-    *&v12[4] = 2112;
-    *&v12[6] = indicationCopy;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "BasebandFlowInformer enabled %d after %@", &v11, 0x12u);
+    v10 = 67109378;
+    *v11 = [(BasebandFlowInformer *)self enabledViaBBIndication];
+    *&v11[4] = 2112;
+    *&v11[6] = indicationCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "BasebandFlowInformer enabled %d after %@", &v10, 0x12u);
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetOnError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(BasebandFlowInformer *)self trace:"_resetOnError" item:errorCopy];
   v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = errorCopy;
+    v22 = errorCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "BasebandFlowInformer reset on error %@", buf, 0xCu);
   }
 
-  v17 = errorCopy;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v16 = errorCopy;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = self->_flows;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
@@ -199,26 +194,25 @@ LABEL_9:
         v11 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           flows = self->_flows;
           v14 = v11;
           v15 = [(NSMutableDictionary *)flows objectForKeyedSubscript:v12];
           *buf = 138412546;
-          v23 = v12;
-          v24 = 2112;
-          v25 = v15;
+          v22 = v12;
+          v23 = 2112;
+          v24 = v15;
           _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "BasebandFlowInformer extant flow  %@ -> %@", buf, 0x16u);
         }
       }
 
-      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v8);
   }
 
   [(BasebandFlowInformer *)self reset];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setEnableForcedViaSymptom:(BOOL)symptom
@@ -252,7 +246,7 @@ LABEL_9:
 
 - (void)setInformImmediate:(BOOL)immediate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (self->_informImmediate != immediate)
   {
     immediateCopy = immediate;
@@ -265,29 +259,29 @@ LABEL_9:
       v7 = v6;
       if (v6)
       {
-        v20 = immediateCopy;
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
+        v19 = immediateCopy;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         obj = self->_pending;
-        v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v8 = [(NSMutableSet *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v8)
         {
           v9 = v8;
           v10 = 0;
           v11 = 0;
-          v12 = *v25;
+          v12 = *v24;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v25 != v12)
+              if (*v24 != v12)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v14 = *(*(&v24 + 1) + 8 * i);
+              v14 = *(*(&v23 + 1) + 8 * i);
               if (!v11)
               {
                 maxFlowsPerBBMessage = self->_maxFlowsPerBBMessage;
@@ -311,9 +305,9 @@ LABEL_9:
                   v7 = 0;
                 }
 
-                v22 = 1;
-                v23 = v10;
-                v11 = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytes:&v22 length:12];
+                v21 = 1;
+                v22 = v10;
+                v11 = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytes:&v21 length:12];
               }
 
               v16 = [(NSMutableDictionary *)self->_flows objectForKeyedSubscript:v14];
@@ -340,7 +334,7 @@ LABEL_9:
               }
             }
 
-            v9 = [(NSMutableSet *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v9 = [(NSMutableSet *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
             if (v9)
             {
               continue;
@@ -357,14 +351,12 @@ LABEL_26:
         }
 
         [(NSMutableSet *)self->_pending removeAllObjects];
-        LOBYTE(immediateCopy) = v20;
+        LOBYTE(immediateCopy) = v19;
       }
     }
 
     self->_informImmediate = immediateCopy;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)flowStart:(id)start digest:(id)digest
@@ -490,40 +482,40 @@ LABEL_10:
 
 - (id)getState
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"BasebandFlowInformer enabled %d (indication %d symptom %d) immediate %d", -[BasebandFlowInformer enabled](self, "enabled"), -[BasebandFlowInformer enabledViaBBIndication](self, "enabledViaBBIndication"), -[BasebandFlowInformer enableForcedViaSymptom](self, "enableForcedViaSymptom"), -[BasebandFlowInformer informImmediate](self, "informImmediate")];
   [v3 addObject:v4];
 
   if ([(NSMutableDictionary *)self->_flows count])
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v5 = self->_flows;
-    v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v41;
+      v8 = *v40;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v41 != v8)
+          if (*v40 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v40 + 1) + 8 * i);
+          v10 = *(*(&v39 + 1) + 8 * i);
           v11 = objc_alloc(MEMORY[0x277CCACA8]);
           v12 = [(NSMutableDictionary *)self->_flows objectForKeyedSubscript:v10];
           v13 = [v11 initWithFormat:@"tracking flow %@ -> %@", v10, v12];
           [v3 addObject:v13];
         }
 
-        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v7);
@@ -532,33 +524,33 @@ LABEL_10:
 
   if ([(NSMutableSet *)self->_pending count])
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v14 = self->_pending;
-    v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v37;
+      v17 = *v36;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v37 != v17)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v36 + 1) + 8 * j);
+          v19 = *(*(&v35 + 1) + 8 * j);
           v20 = objc_alloc(MEMORY[0x277CCACA8]);
           v21 = [(NSMutableDictionary *)self->_flows objectForKeyedSubscript:v19];
           v22 = [v20 initWithFormat:@"pending flow %@ -> %@", v19, v21];
           [v3 addObject:v22];
         }
 
-        v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v16);
@@ -607,8 +599,6 @@ LABEL_10:
       while (traceSeqno != v24);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

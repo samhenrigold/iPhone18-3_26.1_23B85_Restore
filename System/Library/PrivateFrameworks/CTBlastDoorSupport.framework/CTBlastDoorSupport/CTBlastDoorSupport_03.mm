@@ -1,196 +1,7 @@
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, __n128 *a2)
-{
-  v2 = *a1;
-  result = *a2;
-  v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
-  a2->n128_u64[0] = 0;
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(uint64_t *a1, __int128 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  *(v2 + 16) = *(a2 + 2);
-  *v2 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *a2 = 0;
-  result = *(a2 + 24);
-  *(v2 + 40) = *(a2 + 5);
-  *(v2 + 24) = result;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
-  *(a2 + 3) = 0;
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, uint64_t a2)
-{
-  v2 = *a1;
-  result = *a2;
-  v2[1].n128_u64[0] = *(a2 + 16);
-  *v2 = result;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v2[1].n128_u8[8] = 0;
-  v2[3].n128_u8[0] = 0;
-  if (*(a2 + 48) == 1)
-  {
-    result = *(a2 + 24);
-    v2[2].n128_u64[1] = *(a2 + 40);
-    *(v2 + 24) = result;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    v2[3].n128_u8[0] = 1;
-  }
-
-  v2[3].n128_u8[8] = 0;
-  v2[5].n128_u8[0] = 0;
-  if (*(a2 + 80) == 1)
-  {
-    result = *(a2 + 56);
-    v2[4].n128_u64[1] = *(a2 + 72);
-    *(v2 + 56) = result;
-    *(a2 + 64) = 0;
-    *(a2 + 72) = 0;
-    *(a2 + 56) = 0;
-    v2[5].n128_u8[0] = 1;
-  }
-
-  return result;
-}
-
-__n128 std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<void std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1>>(std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>>&,std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &&)::{lambda(std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings>,(std::__variant_detail::_Trait)1> &)#1} &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ctb::chatbot::SuggestedActionOpenUrlInWebView,ctb::chatbot::SuggestedActionOpenUrlInApplication,ctb::chatbot::SuggestedActionComposeText,ctb::chatbot::SuggestedActionComposeAudioRecording,ctb::chatbot::SuggestedActionComposeVideoRecording,ctb::chatbot::SuggestedActionShowLocation,ctb::chatbot::SuggestedActionRequestLocationPush,ctb::chatbot::SuggestedActionCalendar,ctb::chatbot::SuggestedActionDialVideoCall,ctb::chatbot::SuggestedActionDialEnrichedCall,ctb::chatbot::SuggestedActionDialPhoneNumber,ctb::chatbot::SuggestedActionDevice,ctb::chatbot::SuggestedActionSettings> &&>(__n128 **a1, uint64_t a2)
-{
-  v2 = *a1;
-  result = *a2;
-  v2[1].n128_u64[0] = *(a2 + 16);
-  *v2 = result;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v2[1].n128_u8[8] = 0;
-  v2[3].n128_u8[0] = 0;
-  if (*(a2 + 48) == 1)
-  {
-    result = *(a2 + 24);
-    v2[2].n128_u64[1] = *(a2 + 40);
-    *(v2 + 24) = result;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    v2[3].n128_u8[0] = 1;
-  }
-
-  return result;
-}
-
-__n128 std::__variant_detail::__alt<5ul,ctb::chatbot::SuggestedActionShowLocation>::__alt[abi:ne200100]<ctb::chatbot::SuggestedActionShowLocation>(__n128 *a1, uint64_t a2)
-{
-  result = *a2;
-  a1[1].n128_u64[0] = *(a2 + 16);
-  *a1 = result;
-  a1[1].n128_u8[8] = 0;
-  a1[3].n128_u8[0] = 0;
-  if (*(a2 + 48) == 1)
-  {
-    result = *(a2 + 24);
-    a1[2].n128_u64[1] = *(a2 + 40);
-    *(a1 + 24) = result;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    a1[3].n128_u8[0] = 1;
-  }
-
-  a1[3].n128_u8[8] = 0;
-  a1[5].n128_u8[0] = 0;
-  if (*(a2 + 80) == 1)
-  {
-    result = *(a2 + 56);
-    a1[4].n128_u64[1] = *(a2 + 72);
-    *(a1 + 56) = result;
-    *(a2 + 64) = 0;
-    *(a2 + 72) = 0;
-    *(a2 + 56) = 0;
-    a1[5].n128_u8[0] = 1;
-  }
-
-  a1[5].n128_u8[8] = 0;
-  a1[7].n128_u8[0] = 0;
-  if (*(a2 + 112) == 1)
-  {
-    result = *(a2 + 88);
-    a1[6].n128_u64[1] = *(a2 + 104);
-    *(a1 + 88) = result;
-    *(a2 + 96) = 0;
-    *(a2 + 104) = 0;
-    *(a2 + 88) = 0;
-    a1[7].n128_u8[0] = 1;
-  }
-
-  return result;
-}
-
-__n128 std::__variant_detail::__alt<7ul,ctb::chatbot::SuggestedActionCalendar>::__alt[abi:ne200100]<ctb::chatbot::SuggestedActionCalendar>(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  *(a1 + 16) = *(a2 + 2);
-  *a1 = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *a2 = 0;
-  v3 = *(a2 + 24);
-  *(a1 + 40) = *(a2 + 5);
-  *(a1 + 24) = v3;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
-  *(a2 + 3) = 0;
-  result = a2[3];
-  *(a1 + 64) = *(a2 + 8);
-  *(a1 + 48) = result;
-  *(a2 + 7) = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 6) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 96) = 0;
-  if (*(a2 + 96) == 1)
-  {
-    result = *(a2 + 72);
-    *(a1 + 88) = *(a2 + 11);
-    *(a1 + 72) = result;
-    *(a2 + 10) = 0;
-    *(a2 + 11) = 0;
-    *(a2 + 9) = 0;
-    *(a1 + 96) = 1;
-  }
-
-  *(a1 + 104) = 0;
-  *(a1 + 128) = 0;
-  if (*(a2 + 128) == 1)
-  {
-    result = *(a2 + 104);
-    *(a1 + 120) = *(a2 + 15);
-    *(a1 + 104) = result;
-    *(a2 + 14) = 0;
-    *(a2 + 15) = 0;
-    *(a2 + 13) = 0;
-    *(a1 + 128) = 1;
-  }
-
-  return result;
-}
-
 uint64_t sub_24267BA1C@<X0>(uint64_t a1@<X8>)
 {
   v26 = a1;
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DC8);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DC8, &qword_2426B48B0);
   MEMORY[0x28223BE20](v1 - 8);
   v29 = &v24 - v2;
   v28 = sub_2426A9960();
@@ -235,7 +46,7 @@ uint64_t sub_24267BA1C@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t sub_24267BE20@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_24267BE20@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -367,7 +178,7 @@ LABEL_18:
     v28 = sub_2426AB3F0();
     v29 = MEMORY[0x245D15020](v28);
     sub_24268D30C(v29, v30, &v95);
-    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8, &qword_2426B48A0);
     v72 = v65;
     v32 = *(*(v31 - 8) + 64);
     MEMORY[0x28223BE20](v31 - 8);
@@ -378,13 +189,13 @@ LABEL_18:
     v71 = v65;
     MEMORY[0x28223BE20](v35);
     v36 = v65 - v33;
-    sub_242664250(v65 - v33, v65 - v33, &qword_27ECB5DB8);
+    sub_242664250(v65 - v33, v65 - v33, &qword_27ECB5DB8, &qword_2426B48A0);
     v37 = sub_2426AB5C0();
     v38 = *(v37 - 8);
     v39 = (*(v38 + 48))(v65 - v33, 1, v37);
     if (v39 == 1)
     {
-      sub_2426642B8(v65 - v33, &qword_27ECB5DB8);
+      sub_2426642B8(v65 - v33, &qword_27ECB5DB8, &qword_2426B48A0);
       memset(v92, 0, sizeof(v92));
       v93 = 1;
     }
@@ -403,10 +214,10 @@ LABEL_18:
       sub_24268D30C(v56, v57, &v94);
       v58 = *(v38 + 8);
       v58(v65 - v53, v37);
-      ctb::bridging::makeOptional(&v94, v92);
+      ctb::bridging::makeOptional(v92, &v94);
       ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v94.__r_.__value_.__l.__data_);
       v58(v65 - v53, v37);
-      sub_2426642B8(v34, &qword_27ECB5DB8);
+      sub_2426642B8(v34, &qword_27ECB5DB8, &qword_2426B48A0);
       v93 = 0;
     }
 
@@ -417,12 +228,12 @@ LABEL_18:
     {
       type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_(0);
       v60 = v59;
-      v61 = sub_242682988(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_);
+      v61 = sub_242682988(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_, &unk_2426B2430);
       CxxOptional.init(nilLiteral:)(v60, v61);
       (*(v69 + 8))(v68, v70);
       if (v93 != 1)
       {
-        sub_2426642B8(v92, &qword_27ECB5DC0);
+        sub_2426642B8(v92, &qword_27ECB5DC0, &qword_2426B48A8);
       }
     }
 
@@ -629,7 +440,7 @@ uint64_t sub_24267D030@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 uint64_t sub_24267D190@<X0>(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
   v31 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v3 - 8);
   v32 = &v29 - v4;
   v5 = sub_2426A9920();
@@ -672,7 +483,7 @@ uint64_t sub_24267D190@<X0>(uint64_t a1@<X0>, std::string *a2@<X8>)
 
 void sub_24267D45C(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE0, &qword_2426B48B8);
   v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -680,13 +491,13 @@ void sub_24267D45C(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v8 = sub_2426AB820();
   MEMORY[0x28223BE20](v8);
   v9 = v25 - v6;
-  sub_242664250(v25 - v6, v25 - v6, &qword_27ECB5DE0);
+  sub_242664250(v25 - v6, v25 - v6, &qword_27ECB5DE0, &qword_2426B48B8);
   v10 = sub_2426AB810();
   v11 = *(v10 - 8);
   v12 = (*(v11 + 48))(v25 - v6, 1, v10);
   if (v12 == 1)
   {
-    v13 = sub_2426642B8(v25 - v6, &qword_27ECB5DE0);
+    v13 = sub_2426642B8(v25 - v6, &qword_27ECB5DE0, &qword_2426B48B8);
     v14 = 0;
   }
 
@@ -722,7 +533,7 @@ void sub_24267D45C(uint64_t a1@<X0>, uint64_t a2@<X8>)
     }
 
     (*(v11 + 8))(v25 - v16, v10);
-    v13 = sub_2426642B8(v7, &qword_27ECB5DE0);
+    v13 = sub_2426642B8(v7, &qword_27ECB5DE0, &qword_2426B48B8);
   }
 
   v19 = MEMORY[0x245D157D0](v13);
@@ -748,7 +559,7 @@ void sub_24267D45C(uint64_t a1@<X0>, uint64_t a2@<X8>)
     (*(*(v24 - 8) + 8))(a1, v24);
     if (v27 != 1)
     {
-      sub_2426642B8(&v26, &qword_27ECB5D10);
+      sub_2426642B8(&v26, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -761,7 +572,7 @@ void sub_24267D45C(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_24267D844@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v65 - v5;
   v7 = sub_2426AB7A0();
@@ -802,13 +613,13 @@ uint64_t sub_24267D844@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     (v68)(v21, v18);
     v78.fLatitude = v24;
     v78.fLongitude = v26;
-    ctb::bridging::makeOptional(v78, &v75);
+    ctb::bridging::makeOptional(&v75, v78);
     v67 = v75;
     v65 = v76;
     LODWORD(v66) = v77;
     type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowQuery_(0);
     v28 = v27;
-    v29 = sub_242682988(&qword_27ECB57E0, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowQuery_);
+    v29 = sub_242682988(&qword_27ECB57E0, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowQuery_, &unk_2426B2478);
     v30 = CxxOptional.init(nilLiteral:)(v28, v29);
     MEMORY[0x28223BE20](v30);
     v32 = &v65 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -847,7 +658,7 @@ LABEL_7:
     (*(v43 + 32))(v45, v14, v42);
     type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowCoordinates_(0);
     v47 = v46;
-    v48 = sub_242682988(&qword_27ECB57E8, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowCoordinates_);
+    v48 = sub_242682988(&qword_27ECB57E8, type metadata accessor for std.__1.optional_ctb.chatbot.SuggestedActionShowCoordinates_, &unk_2426B24C0);
     v49 = CxxOptional.init(nilLiteral:)(v47, v48);
     v66 = v75;
     v67 = v76;
@@ -860,7 +671,7 @@ LABEL_7:
     sub_24268D30C(v52, v53, &v74);
     v54 = *(v43 + 8);
     v54(v45, v42);
-    ctb::bridging::makeOptional(&v74, a2 + 24);
+    ctb::bridging::makeOptional((a2 + 24), &v74);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v74.__r_.__value_.__l.__data_);
     MEMORY[0x28223BE20](v55);
     v57 = &v65 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -934,7 +745,7 @@ uint64_t sub_24267E010@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v25 = MEMORY[0x245D14E40](v24);
     v27 = sub_24268D30C(v25, v26, &v113);
     v28 = MEMORY[0x245D14E50](v27);
-    sub_24268D30C(v28, v29, &v114);
+    sub_24268D30C(v28, v29, v114);
     v30 = *(v11 + 8);
     v30(v21, v10);
     ctb::bridging::makeSuggestedActionVariant(&v113, a3 + 64);
@@ -979,7 +790,7 @@ uint64_t sub_24267E010@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v95 = v39 + 104;
     v94 = v45;
     v45(v41, v43, v38);
-    v46 = sub_2426826A8(&qword_27ECB5DD0, MEMORY[0x282214E78]);
+    v46 = sub_2426826A8(&qword_27ECB5DD0, MEMORY[0x282214E78], MEMORY[0x282214E80]);
     sub_2426ABAD0();
     v93[1] = v46;
     sub_2426ABAD0();
@@ -1035,7 +846,7 @@ uint64_t sub_24267E010@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v102 = v93;
     MEMORY[0x28223BE20](v66);
     v68 = v93 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v69 = (v105)(v68, v8, v63);
+    v69 = v105(v68, v8, v63);
     v100 = v93;
     v70 = v96;
     MEMORY[0x28223BE20](v69);
@@ -1143,30 +954,30 @@ uint64_t sub_24267ED3C@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
 {
   v4 = MEMORY[0x245D15020]();
   sub_24268D30C(v4, v5, &v30);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DB8, &qword_2426B48A0);
   v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_2426AB090();
   MEMORY[0x28223BE20](v9);
-  sub_242664250(v8, v8, &qword_27ECB5DB8);
+  sub_242664250(v8, v8, &qword_27ECB5DB8, &qword_2426B48A0);
   v10 = sub_2426AB5C0();
   v11 = *(v10 - 8);
   v12 = (*(v11 + 48))(v8, 1, v10);
   if (v12 == 1)
   {
-    sub_2426642B8(v8, &qword_27ECB5DB8);
+    sub_2426642B8(v8, &qword_27ECB5DB8, &qword_2426B48A0);
     memset(v27, 0, sizeof(v27));
     v28 = 1;
     type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_(0);
     v21 = v20;
-    v22 = sub_242682988(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_);
+    v22 = sub_242682988(&qword_27ECB57D8, type metadata accessor for std.__1.optional_ctb.chatbot.PostbackData_, &unk_2426B2430);
     CxxOptional.init(nilLiteral:)(v21, v22);
     v23 = sub_2426AB0A0();
     (*(*(v23 - 8) + 8))(a1, v23);
     if (v28 != 1)
     {
-      sub_2426642B8(v27, &qword_27ECB5DC0);
+      sub_2426642B8(v27, &qword_27ECB5DC0, &qword_2426B48A8);
     }
   }
 
@@ -1183,10 +994,10 @@ uint64_t sub_24267ED3C@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
     sub_24268D30C(v17, v18, &v29);
     v19 = *(v11 + 8);
     v19(v26 - v14, v10);
-    ctb::bridging::makeOptional(&v29, v27);
+    ctb::bridging::makeOptional(v27, &v29);
     ctb::SIPConferenceInfo::SubjectExt::~SubjectExt(&v29.__r_.__value_.__l.__data_);
     v19(v26 - v14, v10);
-    sub_2426642B8(v8, &qword_27ECB5DB8);
+    sub_2426642B8(v8, &qword_27ECB5DB8, &qword_2426B48A0);
     v28 = 0;
     v24 = sub_2426AB0A0();
     (*(*(v24 - 8) + 8))(a1, v24);
@@ -1224,7 +1035,7 @@ uint64_t sub_24267F0F4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v91 = v16;
     v88 = v12;
     v89 = v15;
-    v15(v13, v9);
+    (v15)(v13, v9);
     v17 = sub_2426AB7F0();
     v82 = &v75;
     v18 = *(v17 - 8);
@@ -1242,7 +1053,7 @@ uint64_t sub_24267F0F4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v79 = v18 + 104;
     v78 = v23;
     v23(v20, v22, v17);
-    v24 = sub_2426826A8(&qword_27ECB5DD8, MEMORY[0x2822150C0]);
+    v24 = sub_2426826A8(&qword_27ECB5DD8, MEMORY[0x2822150C0], MEMORY[0x2822150D0]);
     sub_2426ABAD0();
     v77 = v24;
     sub_2426ABAD0();
@@ -1487,7 +1298,7 @@ uint64_t sub_24267FB9C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 
 uint64_t sub_24268009C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v68 - v7;
   v9 = sub_2426AAE80();
@@ -1569,7 +1380,7 @@ LABEL_10:
     sub_2426AAE40();
     sub_2426836A0(v45, v77);
     v46 = sub_2426AAE60();
-    sub_2426835F0(v46, v47, &v78);
+    sub_2426835F0(v46, v47, v78);
     v48 = *(v34 + 8);
     v48(&v68 - v36, v33);
     ctb::bridging::makeSuggestedActionVariant(&v76, a3 + 64);
@@ -1776,7 +1587,7 @@ LABEL_18:
     }
 
     v81 = v87;
-    ctb::bridging::makeSuggestedActionVariant(v90, (v87 + 16));
+    ctb::bridging::makeSuggestedActionVariant(v90, v87 + 64);
     ctb::chatbot::SuggestedActionCalendar::~SuggestedActionCalendar(v90);
     v82 = sub_2426AB440();
     (*(*(v82 - 8) + 8))(a1, v82);
@@ -2085,10 +1896,10 @@ uint64_t sub_242682258@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   }
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL0Content>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+_DWORD *std::vector<ctb::chatbot::MenuL0Content>::push_back[abi:ne200100](void *a1, _DWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::chatbot::MenuL0Content>::__emplace_back_slow_path<ctb::chatbot::MenuL0Content const&>(a1, a2);
   }
@@ -2097,11 +1908,11 @@ uint64_t std::vector<ctb::chatbot::MenuL0Content>::push_back[abi:ne200100](uint6
   {
     *v3 = *a2;
     std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL1>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100]((v3 + 2), (a2 + 2));
-    result = (v3 + 62);
-    *(a1 + 8) = v3 + 62;
+    result = v3 + 62;
+    a1[1] = v3 + 62;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -2269,8 +2080,7 @@ __n128 ctb::bridging::makeSuggestedActionVariant@<Q0>(__n128 *a1@<X0>, uint64_t 
   result = *a1;
   *(a2 + 8) = *a1;
   *(a2 + 24) = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   *(a2 + 144) = 4;
   return result;
@@ -2280,8 +2090,7 @@ __n128 ctb::bridging::makeSuggestedActionVariant@<Q0>(__n128 *a1@<X0>, uint64_t 
   result = *a1;
   *(a2 + 8) = *a1;
   *(a2 + 24) = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   *(a2 + 144) = 3;
   return result;
@@ -2291,14 +2100,13 @@ __n128 ctb::bridging::makeSuggestedActionVariant@<Q0>(__n128 *a1@<X0>, uint64_t 
   result = *a1;
   *(a2 + 8) = *a1;
   *(a2 + 24) = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   *(a2 + 144) = 1;
   return result;
 }
 
-uint64_t sub_2426826A8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2426826A8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2348,16 +2156,14 @@ __int128 *ctb::bridging::makeSuggestedActionVariant@<X0>(__int128 *result@<X0>, 
   *(a3 + 32) = 0;
   *(a3 + 8) = v3;
   *(a3 + 24) = *(result + 2);
-  *(result + 1) = 0;
-  *(result + 2) = 0;
+  *(result + 8) = 0uLL;
   *result = 0;
   *(a3 + 56) = 0;
   if (*(result + 48) == 1)
   {
     *(a3 + 32) = *(result + 24);
     *(a3 + 48) = *(result + 5);
-    *(result + 4) = 0;
-    *(result + 5) = 0;
+    result[2] = 0uLL;
     *(result + 3) = 0;
     *(a3 + 56) = 1;
   }
@@ -2372,16 +2178,14 @@ __int128 *ctb::bridging::makeSuggestedActionVariant@<X0>(__int128 *result@<X0>, 
   *(a2 + 32) = 0;
   *(a2 + 8) = v2;
   *(a2 + 24) = *(result + 2);
-  *(result + 1) = 0;
-  *(result + 2) = 0;
+  *(result + 8) = 0uLL;
   *result = 0;
   *(a2 + 56) = 0;
   if (*(result + 48) == 1)
   {
     *(a2 + 32) = *(result + 24);
     *(a2 + 48) = *(result + 5);
-    *(result + 4) = 0;
-    *(result + 5) = 0;
+    result[2] = 0uLL;
     *(result + 3) = 0;
     *(a2 + 56) = 1;
   }
@@ -2392,8 +2196,7 @@ __int128 *ctb::bridging::makeSuggestedActionVariant@<X0>(__int128 *result@<X0>, 
   {
     *(a2 + 64) = *(result + 56);
     *(a2 + 80) = *(result + 9);
-    *(result + 8) = 0;
-    *(result + 9) = 0;
+    result[4] = 0uLL;
     *(result + 7) = 0;
     *(a2 + 88) = 1;
   }
@@ -2420,7 +2223,7 @@ void ctb::chatbot::SuggestedActionDialEnrichedCall::~SuggestedActionDialEnriched
   }
 }
 
-uint64_t sub_242682988(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_242682988(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2433,10 +2236,10 @@ uint64_t sub_242682988(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL1Content>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+_DWORD *std::vector<ctb::chatbot::MenuL1Content>::push_back[abi:ne200100](void *a1, _DWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::chatbot::MenuL1Content>::__emplace_back_slow_path<ctb::chatbot::MenuL1Content const&>(a1, a2);
   }
@@ -2444,12 +2247,12 @@ uint64_t std::vector<ctb::chatbot::MenuL1Content>::push_back[abi:ne200100](uint6
   else
   {
     *v3 = *a2;
-    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100]((v3 + 2), a2 + 2);
-    result = (v3 + 62);
-    *(a1 + 8) = v3 + 62;
+    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100]((v3 + 2), (a2 + 2));
+    result = v3 + 62;
+    a1[1] = v3 + 62;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -2465,10 +2268,10 @@ uint64_t ctb::chatbot::MenuL1::~MenuL1(uint64_t a1, void (*a2)(uint64_t *))
   return a1;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL2Content>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+_DWORD *std::vector<ctb::chatbot::MenuL2Content>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ctb::chatbot::SuggestedChip>::__emplace_back_slow_path<ctb::chatbot::SuggestedChip const&>(a1, a2);
   }
@@ -2477,29 +2280,29 @@ uint64_t std::vector<ctb::chatbot::MenuL2Content>::push_back[abi:ne200100](uint6
   {
     *v3 = *a2;
     std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedAction,ctb::chatbot::SuggestedReply>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100]((v3 + 2), (a2 + 2));
-    result = (v3 + 58);
-    *(a1 + 8) = v3 + 58;
+    result = v3 + 58;
+    a1[1] = (v3 + 58);
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL0Content>::__emplace_back_slow_path<ctb::chatbot::MenuL0Content const&>(uint64_t a1, _DWORD *a2)
+uint64_t std::vector<ctb::chatbot::MenuL0Content>::__emplace_back_slow_path<ctb::chatbot::MenuL0Content const&>(void *a1, _DWORD *a2)
 {
-  v2 = 0xEF7BDEF7BDEF7BDFLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xEF7BDEF7BDEF7BDFLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x108421084210842)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xDEF7BDEF7BDEF7BELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xDEF7BDEF7BDEF7BELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xDEF7BDEF7BDEF7BELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xDEF7BDEF7BDEF7BELL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xEF7BDEF7BDEF7BDFLL * ((*(a1 + 16) - *a1) >> 3) >= 0x84210842108421)
+  if (0xEF7BDEF7BDEF7BDFLL * ((a1[2] - *a1) >> 3) >= 0x84210842108421)
   {
     v6 = 0x108421084210842;
   }
@@ -2521,14 +2324,14 @@ uint64_t std::vector<ctb::chatbot::MenuL0Content>::__emplace_back_slow_path<ctb:
   *v14 = *a2;
   std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL1>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](248 * v2 + 8, (a2 + 2));
   *&v15 = v15 + 248;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (v14 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctb::chatbot::MenuL0Content>,ctb::chatbot::MenuL0Content*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -2537,9 +2340,9 @@ uint64_t std::vector<ctb::chatbot::MenuL0Content>::__emplace_back_slow_path<ctb:
   return v12;
 }
 
-void sub_242682C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_242682C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ctb::chatbot::MenuL0Content>::~__split_buffer(va, std::__variant_detail::__dtor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL1>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]);
   _Unwind_Resume(a1);
 }
@@ -2559,7 +2362,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chat
   if (v5 != -1)
   {
     v6 = a1;
-    result = (off_2854FAAD8[v5])(&v6, a2);
+    result = (*(&off_2854FAAD8 + v5))(&v6, a2);
     *(a1 + 232) = v5;
   }
 
@@ -2579,8 +2382,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   v3 = *a2;
   *(v2 + 16) = *(a2 + 2);
   *v2 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(v2 + 24) = 0;
   *(v2 + 32) = 0;
@@ -2588,27 +2390,26 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   result = *(a2 + 24);
   *(v2 + 24) = result;
   *(v2 + 40) = *(a2 + 5);
-  *(a2 + 3) = 0;
-  *(a2 + 4) = 0;
+  *(a2 + 24) = 0uLL;
   *(a2 + 5) = 0;
   return result;
 }
 
-uint64_t std::vector<ctb::chatbot::MenuL1Content>::__emplace_back_slow_path<ctb::chatbot::MenuL1Content const&>(uint64_t a1, _DWORD *a2)
+uint64_t std::vector<ctb::chatbot::MenuL1Content>::__emplace_back_slow_path<ctb::chatbot::MenuL1Content const&>(void *a1, _DWORD *a2)
 {
-  v2 = 0xEF7BDEF7BDEF7BDFLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xEF7BDEF7BDEF7BDFLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x108421084210842)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xDEF7BDEF7BDEF7BELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xDEF7BDEF7BDEF7BELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xDEF7BDEF7BDEF7BELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xDEF7BDEF7BDEF7BELL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xEF7BDEF7BDEF7BDFLL * ((*(a1 + 16) - *a1) >> 3) >= 0x84210842108421)
+  if (0xEF7BDEF7BDEF7BDFLL * ((a1[2] - *a1) >> 3) >= 0x84210842108421)
   {
     v6 = 0x108421084210842;
   }
@@ -2628,16 +2429,16 @@ uint64_t std::vector<ctb::chatbot::MenuL1Content>::__emplace_back_slow_path<ctb:
   v14 = 248 * v2;
   v15 = 248 * v2;
   *v14 = *a2;
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](248 * v2 + 8, a2 + 2);
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](248 * v2 + 8, (a2 + 2));
   *&v15 = v15 + 248;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (v14 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctb::chatbot::MenuL1Content>,ctb::chatbot::MenuL1Content*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -2646,9 +2447,9 @@ uint64_t std::vector<ctb::chatbot::MenuL1Content>::__emplace_back_slow_path<ctb:
   return v12;
 }
 
-void sub_242682EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_242682EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ctb::chatbot::MenuL0Content>::~__split_buffer(va, std::__variant_detail::__dtor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]);
   _Unwind_Resume(a1);
 }
@@ -2683,7 +2484,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ct
   return result;
 }
 
-uint64_t std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](uint64_t a1, _DWORD *a2)
 {
   *a1 = 0;
   *(a1 + 232) = -1;
@@ -2691,10 +2492,10 @@ uint64_t std::__variant_detail::__move_constructor<std::__variant_detail::__trai
   return a1;
 }
 
-uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>>(uint64_t a1, uint64_t a2)
+uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>>::__generic_construct[abi:ne200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>>(uint64_t a1, _DWORD *a2)
 {
   result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ctb::chatbot::SuggestedChip,ctb::chatbot::MenuL2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
-  v5 = *(a2 + 232);
+  v5 = a2[58];
   if (v5 != -1)
   {
     v6 = a1;
@@ -2727,102 +2528,102 @@ double sub_2426830E4@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v4 = sub_2426A9D40();
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
-  (MEMORY[0x28223BE20])();
+  MEMORY[0x28223BE20](v4);
   v7 = (v6 + 15) & 0xFFFFFFFFFFFFFFF0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE8);
-  (MEMORY[0x28223BE20])();
-  v9 = &v34[-1] - v8;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE8, &qword_2426B48D0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v35[-1] - v9;
   sub_2426A9D50();
-  if ((*(v5 + 48))(v9, 1, v4) == 1)
+  if ((*(v5 + 48))(v10, 1, v4) == 1)
   {
-    sub_2426642B8(v9, &qword_27ECB5DE8);
-    v10 = 2;
+    sub_2426642B8(v10, &qword_27ECB5DE8, &qword_2426B48D0);
+    v11 = 2;
   }
 
   else
   {
-    v11 = *(v5 + 32);
-    v12 = v11(&v34[-1] - v7, v9, v4);
-    MEMORY[0x28223BE20](v12);
-    v11(&v34[-1] - v7, &v34[-1] - v7, v4);
-    v13 = (*(v5 + 88))(&v34[-1] - v7, v4);
-    if (MEMORY[0x277CF1F50] && v13 == *MEMORY[0x277CF1F50])
+    v12 = *(v5 + 32);
+    v13 = v12(&v35[-1] - v7, v10, v4);
+    MEMORY[0x28223BE20](v13);
+    v12(&v35[-1] - v7, &v35[-1] - v7, v4);
+    v14 = (*(v5 + 88))(&v35[-1] - v7, v4);
+    if (MEMORY[0x277CF1F50] && v14 == *MEMORY[0x277CF1F50])
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    else if (MEMORY[0x277CF1F48] && v13 == *MEMORY[0x277CF1F48])
+    else if (MEMORY[0x277CF1F48] && v14 == *MEMORY[0x277CF1F48])
     {
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      (*(v5 + 8))(&v34[-1] - v7, v4);
-      v10 = 1;
+      (*(v5 + 8))(&v35[-1] - v7, v4);
+      v11 = 1;
     }
   }
 
-  v14 = sub_2426A9D80();
-  v15 = *(v14 - 8);
-  MEMORY[0x28223BE20](v14);
-  v17 = &v34[-1] - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = sub_2426A9D80();
+  v16 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15);
+  v18 = &v35[-1] - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2426A9DB0();
-  v18 = (*(v15 + 88))(v17, v14);
-  if (MEMORY[0x277CF1F68] && v18 == *MEMORY[0x277CF1F68])
+  v19 = (*(v16 + 88))(v18, v15);
+  if (MEMORY[0x277CF1F68] && v19 == *MEMORY[0x277CF1F68])
   {
     goto LABEL_16;
   }
 
-  if (!MEMORY[0x277CF1F70] || v18 != *MEMORY[0x277CF1F70])
+  if (!MEMORY[0x277CF1F70] || v19 != *MEMORY[0x277CF1F70])
   {
-    (*(v15 + 8))(v17, v14);
+    (*(v16 + 8))(v18, v15);
 LABEL_16:
-    v19 = 0;
+    v20 = 0;
     goto LABEL_17;
   }
 
-  v19 = 1;
+  v20 = 1;
 LABEL_17:
-  v20 = sub_2426A9DA0();
-  v21 = sub_2426A9D90();
-  v23 = v22;
-  v24 = sub_2426A9D30();
-  v26 = v25;
-  v27 = type metadata accessor for FileInfo();
+  v21 = sub_2426A9DA0();
+  v22 = sub_2426A9D90();
+  v24 = v23;
+  v25 = sub_2426A9D30();
+  v27 = v26;
+  v28 = type metadata accessor for FileInfo(0);
   sub_2426A9D70();
   sub_2426A9DC0();
-  v28 = sub_2426A9DD0();
-  (*(*(v28 - 8) + 8))(a1, v28);
+  v29 = sub_2426A9DD0();
+  (*(*(v29 - 8) + 8))(a1, v29);
   *(a2 + 1) = 2;
-  v29 = a2 + *(v27 + 44);
-  v33 = xmmword_2426B48C0;
-  *v29 = xmmword_2426B48C0;
-  *(v29 + 16) = 0u;
-  *(v29 + 32) = 0u;
-  *(v29 + 48) = 0u;
-  *(v29 + 64) = 0;
-  *a2 = v19;
-  *(a2 + 1) = v10;
-  *(a2 + 8) = v20;
-  *(a2 + 16) = v21;
-  *(a2 + 24) = v23;
-  *(a2 + 32) = v24;
-  *(a2 + 40) = v26;
-  v30 = *(v29 + 48);
-  v34[2] = *(v29 + 32);
-  v34[3] = v30;
-  v35 = *(v29 + 64);
-  v31 = *(v29 + 16);
-  v34[0] = *v29;
-  v34[1] = v31;
-  sub_2426642B8(v34, &qword_27ECB5DF0);
+  v30 = a2 + *(v28 + 44);
+  v34 = xmmword_2426B48C0;
+  *v30 = xmmword_2426B48C0;
+  *(v30 + 16) = 0u;
+  *(v30 + 32) = 0u;
+  *(v30 + 48) = 0u;
+  *(v30 + 64) = 0;
+  *a2 = v20;
+  *(a2 + 1) = v11;
+  *(a2 + 8) = v21;
+  *(a2 + 16) = v22;
+  *(a2 + 24) = v24;
+  *(a2 + 32) = v25;
+  *(a2 + 40) = v27;
+  v31 = *(v30 + 48);
+  v35[2] = *(v30 + 32);
+  v35[3] = v31;
+  v36 = *(v30 + 64);
+  v32 = *(v30 + 16);
+  v35[0] = *v30;
+  v35[1] = v32;
+  sub_2426642B8(v35, &qword_27ECB5DF0, &qword_2426B4C50);
   result = 0.0;
-  *v29 = v33;
-  *(v29 + 16) = 0u;
-  *(v29 + 32) = 0u;
-  *(v29 + 48) = 0u;
-  *(v29 + 64) = 0;
+  *v30 = v34;
+  *(v30 + 16) = 0u;
+  *(v30 + 32) = 0u;
+  *(v30 + 48) = 0u;
+  *(v30 + 64) = 0;
   return result;
 }
 
@@ -2863,10 +2664,10 @@ uint64_t sub_2426835F0@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X
   {
 
     sub_24268D30C(a1, a2, &v10);
-    ctb::bridging::makeOptional(&v10, v11);
+    ctb::bridging::makeOptional(v11, &v10);
     std::string::~string(&v10);
 
-    v11[32] = 0;
+    v12 = 0;
     std::optional<std::string>::optional[abi:ne200100](a3, v11);
     return std::optional<std::string>::~optional(v11);
   }
@@ -2886,7 +2687,7 @@ uint64_t sub_2426836A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v17 - v9;
   sub_242683C98(a1, &v17 - v9);
@@ -2898,10 +2699,10 @@ uint64_t sub_2426836A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v12 = v11;
     v13 = sub_242683C40();
     CxxOptional.init(nilLiteral:)(v12, v13);
-    result = sub_2426642B8(a1, &qword_27ECB5CE0);
+    result = sub_2426642B8(a1, &qword_27ECB5CE0, &qword_2426B47C8);
     if (v20 != 1)
     {
-      return sub_2426642B8(v19, &qword_27ECB5B08);
+      return sub_2426642B8(v19, &qword_27ECB5B08, &qword_2426B4198);
     }
   }
 
@@ -2910,11 +2711,11 @@ uint64_t sub_2426836A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     (*(v5 + 32))(v7, v10, v4);
     v15 = sub_2426A9850();
     sub_24268D30C(v15, v16, &v18);
-    ctb::bridging::makeOptional(&v18, v19);
+    ctb::bridging::makeOptional(v19, &v18);
     std::string::~string(&v18);
     (*(v5 + 8))(v7, v4);
     v20 = 0;
-    sub_2426642B8(a1, &qword_27ECB5CE0);
+    sub_2426642B8(a1, &qword_27ECB5CE0, &qword_2426B47C8);
     std::optional<std::string>::optional[abi:ne200100](a2, v19);
     return std::optional<std::string>::~optional(v19);
   }
@@ -2922,29 +2723,29 @@ uint64_t sub_2426836A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void *sub_2426838D8@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+void sub_2426838D8(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   v6 = sub_2426A98A0();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  result = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](a3);
-  v11 = a2 >> 62;
+  std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](a3);
+  v10 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    v12 = 0;
-    if (v11 != 2)
+    v11 = 0;
+    if (v10 != 2)
     {
       goto LABEL_10;
     }
 
-    v14 = *(a1 + 16);
-    v13 = *(a1 + 24);
-    v12 = v13 - v14;
-    if (!__OFSUB__(v13, v14))
+    v13 = *(a1 + 16);
+    v12 = *(a1 + 24);
+    v11 = v12 - v13;
+    if (!__OFSUB__(v12, v13))
     {
       goto LABEL_10;
     }
@@ -2952,42 +2753,42 @@ void *sub_2426838D8@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
     __break(1u);
   }
 
-  else if (!v11)
+  else if (!v10)
   {
-    v12 = BYTE6(a2);
+    v11 = BYTE6(a2);
     goto LABEL_10;
   }
 
   if (__OFSUB__(HIDWORD(a1), a1))
   {
     __break(1u);
-    return result;
+    return;
   }
 
-  v12 = HIDWORD(a1) - a1;
+  v11 = HIDWORD(a1) - a1;
 LABEL_10:
-  std::vector<unsigned char>::reserve(a3, v12);
+  std::vector<unsigned char>::reserve(a3, v11);
   sub_242664F58(a1, a2);
   sub_2426A98B0();
   while (1)
   {
-    v15 = sub_2426A9890();
-    if ((v15 & 0x100) != 0)
+    v14 = sub_2426A9890();
+    if ((v14 & 0x100) != 0)
     {
       break;
     }
 
-    v17 = v15;
-    std::vector<unsigned char>::push_back[abi:ne200100](a3, &v17);
+    v16 = v14;
+    std::vector<unsigned char>::push_back[abi:ne200100](a3, &v16);
   }
 
   (*(v7 + 8))(v9, v6);
-  return sub_2426662F4(a1, a2);
+  sub_2426662F4(a1, a2);
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -2996,11 +2797,9 @@ void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -3072,7 +2871,7 @@ unint64_t sub_242683C40()
 
 uint64_t sub_242683C98(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5CE0, &qword_2426B47C8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3108,7 +2907,7 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-uint64_t sub_242683E04@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_242683E04@<X0>(uint64_t a1@<X0>, uint64_t **a2@<X8>)
 {
   v4 = *(a1 + 16);
   if (v4)
@@ -3159,7 +2958,7 @@ uint64_t sub_242683E04@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     do
     {
       std::string::basic_string(&v14, v12);
-      std::set<std::string>::insert[abi:ne200100](a2, &v14.__r_.__value_.__l.__data_);
+      std::set<std::string>::insert[abi:ne200100](a2, &v14);
       std::string::~string(&v14);
       ++v12;
       --v11;
@@ -3386,7 +3185,7 @@ void sub_2426841A0(uint64_t a1@<X0>, __n128 *a2@<X8>)
             v41 = *(v40 - 8);
             MEMORY[0x28223BE20](v40);
             v43 = &v75 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DF8);
+            v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DF8, &qword_2426B48D8);
             MEMORY[0x28223BE20](v44 - 8);
             v46 = &v75 - v45;
             sub_2426AAA10();
@@ -3407,7 +3206,7 @@ void sub_2426841A0(uint64_t a1@<X0>, __n128 *a2@<X8>)
               v48 = sub_2426AAA20();
               sub_2426838D8(v48, v49, &v110);
               v50 = std::vector<unsigned char>::vector[abi:ne200100](v104, &v110);
-              ctb::bridging::makeOptional(v50, v105);
+              ctb::bridging::makeOptional(v105, v50);
               std::vector<unsigned char>::~vector[abi:ne200100](v104);
               std::vector<unsigned char>::~vector[abi:ne200100](&v110);
               (*(v41 + 8))(v43, v40);
@@ -3456,13 +3255,13 @@ void sub_2426841A0(uint64_t a1@<X0>, __n128 *a2@<X8>)
         v56 = v90;
         if (v54)
         {
-          v57 = (v28 + 32);
+          v57 = v28 + 32;
           do
           {
             ctb::ClientAuthenticityRequest::Parameter::Parameter(&v110, v57);
             std::vector<ctb::ClientAuthenticityRequest::Parameter>::push_back[abi:ne200100](v105, &v110);
             std::optional<ctb::MLSFileTransfer>::~optional(&v110);
-            v57 = (v57 + 32);
+            v57 += 32;
             --v54;
           }
 
@@ -3601,28 +3400,28 @@ LABEL_38:
   __break(1u);
 }
 
-char *sub_242684C4C(char *a1, int64_t a2, char a3)
+char *sub_242684C4C(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242684DF8(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684C6C(void *a1, int64_t a2, char a3)
+void *sub_242684C6C(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242684F08(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684C8C(void *a1, int64_t a2, char a3)
+void *sub_242684C8C(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242685080(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684CAC(void *a1, int64_t a2, char a3)
+void *sub_242684CAC(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2426851F8(a1, a2, a3, *v3);
   *v3 = result;
@@ -3631,47 +3430,47 @@ void *sub_242684CAC(void *a1, int64_t a2, char a3)
 
 uint64_t sub_242684CCC(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DF8);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DF8, &qword_2426B48D8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void *sub_242684D38(void *a1, int64_t a2, char a3)
+void *sub_242684D38(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242685358(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684D58(void *a1, int64_t a2, char a3)
+void *sub_242684D58(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2426854C8(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684D78(void *a1, int64_t a2, char a3)
+void *sub_242684D78(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242685640(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684D98(void *a1, int64_t a2, char a3)
+void *sub_242684D98(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2426857A0(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684DB8(void *a1, int64_t a2, char a3)
+void *sub_242684DB8(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242685910(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_242684DD8(void *a1, int64_t a2, char a3)
+void *sub_242684DD8(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_242685A80(a1, a2, a3, *v3);
   *v3 = result;
@@ -3719,7 +3518,7 @@ char *sub_242684DF8(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5468);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5468, &qword_2426B0D40);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -3798,7 +3597,7 @@ void *sub_242684F08(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E30);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E30, &qword_2426B4910);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -3877,7 +3676,7 @@ void *sub_242685080(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E08);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E08, &qword_2426B48E8);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -3956,7 +3755,7 @@ void *sub_2426851F8(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E00);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E00, &qword_2426B48E0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -4041,7 +3840,7 @@ void *sub_242685358(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E18);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E18, &qword_2426B48F8);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -4120,7 +3919,7 @@ void *sub_2426854C8(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E20);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E20, &qword_2426B4900);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -4199,7 +3998,7 @@ void *sub_242685640(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E28);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E28, &qword_2426B4908);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -4284,7 +4083,7 @@ void *sub_2426857A0(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E10, &qword_2426B48F0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -4363,7 +4162,7 @@ void *sub_242685910(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E38);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E38, &qword_2426B4918);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -4442,7 +4241,7 @@ void *sub_242685A80(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E40, &unk_2426B4920);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -4492,7 +4291,7 @@ uint64_t sub_242685BF8@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   v489 = *(v491 - 8);
   MEMORY[0x28223BE20](v491);
   v488 = &v481 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E48);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E48, &qword_2426B4940);
   v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -4521,7 +4320,7 @@ uint64_t sub_242685BF8@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
       sub_2426A9C90();
       v20 = sub_2426A9A30();
       v21 = (*(*(v20 - 8) + 48))(v19, 1, v20);
-      v10 = sub_2426642B8(v19, &qword_27ECB5E48);
+      v10 = sub_2426642B8(v19, &qword_27ECB5E48, &qword_2426B4940);
       if (v21 != 1)
       {
         break;
@@ -4565,7 +4364,7 @@ LABEL_7:
     v28 = sub_2426A9C90();
     MEMORY[0x28223BE20](v28);
     v29 = &v481 - v25;
-    sub_242664250(&v481 - v25, &v481 - v25, &qword_27ECB5E48);
+    sub_242664250(&v481 - v25, &v481 - v25, &qword_27ECB5E48, &qword_2426B4940);
     v22 = sub_2426A9A30();
     v30 = *(v22 - 8);
     result = (*(v30 + 48))(v29, 1, v22);
@@ -4577,7 +4376,7 @@ LABEL_266:
     }
 
     (*(v30 + 32))(v11, v29, v22);
-    sub_2426642B8(v26, &qword_27ECB5E48);
+    sub_2426642B8(v26, &qword_27ECB5E48, &qword_2426B4940);
     (*(v30 + 56))(v11, 0, 1, v22);
   }
 
@@ -4596,7 +4395,7 @@ LABEL_266:
     (*(v32 + 56))(v536, 1, 1, v22);
     if (v33(v11, 1, v22) != 1)
     {
-      sub_2426642B8(v11, &qword_27ECB5E48);
+      sub_2426642B8(v11, &qword_27ECB5E48, &qword_2426B4940);
     }
   }
 
@@ -4609,7 +4408,7 @@ LABEL_266:
     (*(v37 + 56))(v38, 0, 1, v22);
   }
 
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E50);
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E50, &qword_2426B4948);
   v520 = &v481;
   v40 = *(*(v39 - 8) + 64);
   MEMORY[0x28223BE20](v39 - 8);
@@ -4638,7 +4437,7 @@ LABEL_266:
       sub_2426A9C80();
       v53 = sub_2426A9CF0();
       v54 = (*(*(v53 - 8) + 48))(v52, 1, v53);
-      v43 = sub_2426642B8(v52, &qword_27ECB5E50);
+      v43 = sub_2426642B8(v52, &qword_27ECB5E50, &qword_2426B4948);
       if (v54 != 1)
       {
         break;
@@ -4684,7 +4483,7 @@ LABEL_260:
   v61 = sub_2426A9C80();
   MEMORY[0x28223BE20](v61);
   v62 = &v481 - v58;
-  sub_242664250(&v481 - v58, &v481 - v58, &qword_27ECB5E50);
+  sub_242664250(&v481 - v58, &v481 - v58, &qword_27ECB5E50, &qword_2426B4948);
   v56 = sub_2426A9CF0();
   v63 = *(v56 - 8);
   result = (*(v63 + 48))(v62, 1, v56);
@@ -4696,7 +4495,7 @@ LABEL_267:
   }
 
   (*(v63 + 32))(v44, v62, v56);
-  sub_2426642B8(v59, &qword_27ECB5E50);
+  sub_2426642B8(v59, &qword_27ECB5E50, &qword_2426B4948);
   (*(v63 + 56))(v44, 0, 1, v56);
 LABEL_29:
 
@@ -4715,7 +4514,7 @@ LABEL_29:
     (*(v65 + 56))(v535, 1, 1, v56);
     if (v66(v44, 1, v56) != 1)
     {
-      sub_2426642B8(v44, &qword_27ECB5E50);
+      sub_2426642B8(v44, &qword_27ECB5E50, &qword_2426B4948);
     }
   }
 
@@ -4728,7 +4527,7 @@ LABEL_29:
     (*(v70 + 56))(v71, 0, 1, v56);
   }
 
-  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E58);
+  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E58, &qword_2426B4950);
   v515 = &v481;
   v73 = *(*(v72 - 8) + 64);
   MEMORY[0x28223BE20](v72 - 8);
@@ -4757,7 +4556,7 @@ LABEL_29:
       sub_2426A9BF0();
       v86 = sub_2426A9A50();
       v87 = (*(*(v86 - 8) + 48))(v85, 1, v86);
-      v76 = sub_2426642B8(v85, &qword_27ECB5E58);
+      v76 = sub_2426642B8(v85, &qword_27ECB5E58, &qword_2426B4950);
       if (v87 != 1)
       {
         break;
@@ -4803,7 +4602,7 @@ LABEL_261:
   v94 = sub_2426A9BF0();
   MEMORY[0x28223BE20](v94);
   v95 = &v481 - v91;
-  sub_242664250(&v481 - v91, &v481 - v91, &qword_27ECB5E58);
+  sub_242664250(&v481 - v91, &v481 - v91, &qword_27ECB5E58, &qword_2426B4950);
   v89 = sub_2426A9A50();
   v96 = *(v89 - 8);
   result = (*(v96 + 48))(v95, 1, v89);
@@ -4815,7 +4614,7 @@ LABEL_268:
   }
 
   (*(v96 + 32))(v77, v95, v89);
-  sub_2426642B8(v92, &qword_27ECB5E58);
+  sub_2426642B8(v92, &qword_27ECB5E58, &qword_2426B4950);
   (*(v96 + 56))(v77, 0, 1, v89);
 LABEL_45:
 
@@ -4834,7 +4633,7 @@ LABEL_45:
     (*(v98 + 56))(v534, 1, 1, v89);
     if (v99(v77, 1, v89) != 1)
     {
-      sub_2426642B8(v77, &qword_27ECB5E58);
+      sub_2426642B8(v77, &qword_27ECB5E58, &qword_2426B4950);
     }
   }
 
@@ -4847,7 +4646,7 @@ LABEL_45:
     (*(v103 + 56))(v104, 0, 1, v89);
   }
 
-  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E60);
+  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E60, &qword_2426B4958);
   v510 = &v481;
   v106 = *(*(v105 - 8) + 64);
   MEMORY[0x28223BE20](v105 - 8);
@@ -4876,7 +4675,7 @@ LABEL_45:
       sub_2426A9C20();
       v119 = sub_2426A9B40();
       v120 = (*(*(v119 - 8) + 48))(v118, 1, v119);
-      v109 = sub_2426642B8(v118, &qword_27ECB5E60);
+      v109 = sub_2426642B8(v118, &qword_27ECB5E60, &qword_2426B4958);
       if (v120 != 1)
       {
         break;
@@ -4922,7 +4721,7 @@ LABEL_262:
   v127 = sub_2426A9C20();
   MEMORY[0x28223BE20](v127);
   v128 = &v481 - v124;
-  sub_242664250(&v481 - v124, &v481 - v124, &qword_27ECB5E60);
+  sub_242664250(&v481 - v124, &v481 - v124, &qword_27ECB5E60, &qword_2426B4958);
   v122 = sub_2426A9B40();
   v129 = *(v122 - 8);
   result = (*(v129 + 48))(v128, 1, v122);
@@ -4934,7 +4733,7 @@ LABEL_269:
   }
 
   (*(v129 + 32))(v110, v128, v122);
-  sub_2426642B8(v125, &qword_27ECB5E60);
+  sub_2426642B8(v125, &qword_27ECB5E60, &qword_2426B4958);
   (*(v129 + 56))(v110, 0, 1, v122);
 LABEL_61:
 
@@ -4951,7 +4750,7 @@ LABEL_61:
     (*(v131 + 56))(v533, 1, 1, v122);
     if (v132(v110, 1, v122) != 1)
     {
-      sub_2426642B8(v110, &qword_27ECB5E60);
+      sub_2426642B8(v110, &qword_27ECB5E60, &qword_2426B4958);
     }
   }
 
@@ -4964,7 +4763,7 @@ LABEL_61:
     (*(v136 + 56))(v137, 0, 1, v122);
   }
 
-  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E68);
+  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E68, &qword_2426B4960);
   v506 = &v481;
   v139 = *(*(v138 - 8) + 64);
   MEMORY[0x28223BE20](v138 - 8);
@@ -4995,7 +4794,7 @@ LABEL_61:
       sub_2426A9C70();
       v152 = sub_2426A9BE0();
       v153 = (*(*(v152 - 8) + 48))(v151, 1, v152);
-      v142 = sub_2426642B8(v151, &qword_27ECB5E68);
+      v142 = sub_2426642B8(v151, &qword_27ECB5E68, &qword_2426B4960);
       if (v153 != 1)
       {
         break;
@@ -5038,7 +4837,7 @@ LABEL_263:
   v159 = sub_2426A9C70();
   MEMORY[0x28223BE20](v159);
   v160 = &v481 - v156;
-  sub_242664250(&v481 - v156, &v481 - v156, &qword_27ECB5E68);
+  sub_242664250(&v481 - v156, &v481 - v156, &qword_27ECB5E68, &qword_2426B4960);
   v154 = sub_2426A9BE0();
   v161 = *(v154 - 8);
   result = (*(v161 + 48))(v160, 1, v154);
@@ -5050,7 +4849,7 @@ LABEL_270:
   }
 
   (*(v161 + 32))(v143, v160, v154);
-  sub_2426642B8(v157, &qword_27ECB5E68);
+  sub_2426642B8(v157, &qword_27ECB5E68, &qword_2426B4960);
   (*(v161 + 56))(v143, 0, 1, v154);
 LABEL_77:
 
@@ -5066,7 +4865,7 @@ LABEL_77:
     (*(v163 + 56))(v532, 1, 1, v154);
     if (v164(v143, 1, v154) != 1)
     {
-      sub_2426642B8(v143, &qword_27ECB5E68);
+      sub_2426642B8(v143, &qword_27ECB5E68, &qword_2426B4960);
     }
   }
 
@@ -5080,7 +4879,7 @@ LABEL_77:
   v502 = v165;
   v504 = v163;
   v526 = v154;
-  v168 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E70);
+  v168 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E70, &qword_2426B4968);
   v501 = &v481;
   v169 = *(*(v168 - 8) + 64);
   MEMORY[0x28223BE20](v168 - 8);
@@ -5109,7 +4908,7 @@ LABEL_77:
       sub_2426A9C30();
       v182 = sub_2426A9AC0();
       v183 = (*(*(v182 - 8) + 48))(v181, 1, v182);
-      v172 = sub_2426642B8(v181, &qword_27ECB5E70);
+      v172 = sub_2426642B8(v181, &qword_27ECB5E70, &qword_2426B4968);
       if (v183 != 1)
       {
         break;
@@ -5157,7 +4956,7 @@ LABEL_265:
   v190 = sub_2426A9C30();
   MEMORY[0x28223BE20](v190);
   v191 = &v481 - v187;
-  sub_242664250(&v481 - v187, &v481 - v187, &qword_27ECB5E70);
+  sub_242664250(&v481 - v187, &v481 - v187, &qword_27ECB5E70, &qword_2426B4968);
   v185 = sub_2426A9AC0();
   v192 = *(v185 - 8);
   result = (*(v192 + 48))(v191, 1, v185);
@@ -5169,7 +4968,7 @@ LABEL_271:
   }
 
   (*(v192 + 32))(v173, v191, v185);
-  sub_2426642B8(v188, &qword_27ECB5E70);
+  sub_2426642B8(v188, &qword_27ECB5E70, &qword_2426B4968);
   (*(v192 + 56))(v173, 0, 1, v185);
 LABEL_93:
 
@@ -5186,7 +4985,7 @@ LABEL_93:
     (*(v194 + 56))(v531, 1, 1, v185);
     if (v195(v173, 1, v185) != 1)
     {
-      sub_2426642B8(v173, &qword_27ECB5E70);
+      sub_2426642B8(v173, &qword_27ECB5E70, &qword_2426B4968);
     }
   }
 
@@ -5229,7 +5028,7 @@ LABEL_93:
       v555 = *(v208 - 8);
       MEMORY[0x28223BE20](v208);
       v210 = &v481 - ((v209 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v211 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E78);
+      v211 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E78, &qword_2426B4970);
       MEMORY[0x28223BE20](v211 - 8);
       v213 = &v481 - v212;
       sub_2426A9C10();
@@ -5238,7 +5037,7 @@ LABEL_93:
       (*v546)(v206, v214);
       if ((v215[6])(v213, 1, v208) == 1)
       {
-        sub_2426642B8(v213, &qword_27ECB5E78);
+        sub_2426642B8(v213, &qword_27ECB5E78, &qword_2426B4970);
       }
 
       else
@@ -5254,7 +5053,7 @@ LABEL_93:
         v217 = *(v552 + 3);
         if (v218 >= v217 >> 1)
         {
-          v221 = sub_242656490(v217 > 1, v218 + 1, 1, v552);
+          v221 = sub_242656490((v217 > 1), v218 + 1, 1, v552);
           v219 = v210;
           v552 = v221;
         }
@@ -5282,7 +5081,7 @@ LABEL_93:
     v552 = MEMORY[0x277D84F90];
   }
 
-  v222 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E80);
+  v222 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E80, &qword_2426B4978);
   v497 = &v481;
   v223 = *(*(v222 - 8) + 64);
   MEMORY[0x28223BE20](v222 - 8);
@@ -5319,7 +5118,7 @@ LABEL_93:
       (*v545)(v230, v231);
       if ((*(v233 + 48))(v237, 1, v232) == 1)
       {
-        sub_2426642B8(v237, &qword_27ECB5E80);
+        sub_2426642B8(v237, &qword_27ECB5E80, &qword_2426B4978);
       }
 
       else
@@ -5342,7 +5141,7 @@ LABEL_93:
         v240 = v239[3];
         if (v241 >= v240 >> 1)
         {
-          v239 = sub_242656474(v240 > 1, v241 + 1, 1, v239);
+          v239 = sub_242656474((v240 > 1), v241 + 1, 1, v239);
         }
 
         v239[2] = v241 + 1;
@@ -5384,7 +5183,7 @@ LABEL_93:
     (*(*(v247 - 8) + 56))(v530, 1, 1, v247);
   }
 
-  v248 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E88);
+  v248 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E88, &qword_2426B4980);
   v496 = &v481;
   v550 = *(*(v248 - 8) + 64);
   MEMORY[0x28223BE20](v248 - 8);
@@ -5422,7 +5221,7 @@ LABEL_93:
       (*v544)(v257, v258);
       if ((*(v260 + 48))(v265, 1, v259) == 1)
       {
-        sub_2426642B8(v265, &qword_27ECB5E88);
+        sub_2426642B8(v265, &qword_27ECB5E88, &qword_2426B4980);
       }
 
       else
@@ -5445,7 +5244,7 @@ LABEL_93:
         v268 = v267[3];
         if (v269 >= v268 >> 1)
         {
-          v267 = sub_242656458(v268 > 1, v269 + 1, 1, v267);
+          v267 = sub_242656458((v268 > 1), v269 + 1, 1, v267);
         }
 
         v267[2] = v269 + 1;
@@ -5486,7 +5285,7 @@ LABEL_93:
     (*(*(v275 - 8) + 56))(v529, 1, 1, v275);
   }
 
-  v276 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E90);
+  v276 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E90, &qword_2426B4988);
   v495 = &v481;
   v549 = *(*(v276 - 8) + 64);
   MEMORY[0x28223BE20](v276 - 8);
@@ -5524,7 +5323,7 @@ LABEL_93:
       (*v543)(v285, v286);
       if ((*(v288 + 48))(v293, 1, v287) == 1)
       {
-        sub_2426642B8(v293, &qword_27ECB5E90);
+        sub_2426642B8(v293, &qword_27ECB5E90, &qword_2426B4988);
       }
 
       else
@@ -5547,7 +5346,7 @@ LABEL_93:
         v296 = v295[3];
         if (v297 >= v296 >> 1)
         {
-          v295 = sub_24265643C(v296 > 1, v297 + 1, 1, v295);
+          v295 = sub_24265643C((v296 > 1), v297 + 1, 1, v295);
         }
 
         v295[2] = v297 + 1;
@@ -5588,7 +5387,7 @@ LABEL_93:
     (*(*(v303 - 8) + 56))(v528, 1, 1, v303);
   }
 
-  v304 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E98);
+  v304 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5E98, &qword_2426B4990);
   v494 = &v481;
   v305 = *(*(v304 - 8) + 64);
   MEMORY[0x28223BE20](v304 - 8);
@@ -5627,7 +5426,7 @@ LABEL_93:
       (*v543)(v314, v315);
       if ((*(v317 + 48))(v321, 1, v316) == 1)
       {
-        sub_2426642B8(v321, &qword_27ECB5E98);
+        sub_2426642B8(v321, &qword_27ECB5E98, &qword_2426B4990);
       }
 
       else
@@ -5650,7 +5449,7 @@ LABEL_93:
         v324 = v323[3];
         if (v325 >= v324 >> 1)
         {
-          v323 = sub_242656420(v324 > 1, v325 + 1, 1, v323);
+          v323 = sub_242656420((v324 > 1), v325 + 1, 1, v323);
         }
 
         v323[2] = v325 + 1;
@@ -5707,7 +5506,7 @@ LABEL_93:
     v340 = &v481 - ((v339 + 15) & 0xFFFFFFFFFFFFFFF0);
     v341 = *(v338 + 32);
     v341(v340, v335, v337);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EB0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EB0, &qword_2426B49A0);
     v342 = (*(v338 + 80) + 32) & ~*(v338 + 80);
     v343 = swift_allocObject();
     *(v343 + 16) = xmmword_2426B4930;
@@ -5735,7 +5534,7 @@ LABEL_93:
   v346 = v538;
   MEMORY[0x28223BE20](v344);
   v348 = &v481 - ((v347 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v532, v348, &qword_27ECB5E68);
+  sub_242664250(v532, v348, &qword_27ECB5E68, &qword_2426B4960);
   v349 = v526;
   v350 = v503(v348, 1, v526);
   if (v350 == 1)
@@ -5812,7 +5611,7 @@ LABEL_93:
     }
 
     v567.__r_.__value_.__r.__words[0] = v356;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EA0, &qword_2426B4998);
     sub_24268BF44();
     v372 = sub_2426AB9D0();
     v374 = v373;
@@ -5824,7 +5623,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v350);
   v375 = &v481 - ((v346 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v536, v375, &qword_27ECB5E48);
+  sub_242664250(v536, v375, &qword_27ECB5E48, &qword_2426B4940);
   v376 = v524;
   v377 = v522(v375, 1, v524);
   if (v377 == 1)
@@ -5853,7 +5652,7 @@ LABEL_93:
     v386 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v569);
     if (v568 != 1)
     {
-      v386 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v386 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -5865,7 +5664,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v386);
   v387 = &v481 - ((v384 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v535, v387, &qword_27ECB5E50);
+  sub_242664250(v535, v387, &qword_27ECB5E50, &qword_2426B4948);
   v388 = v519;
   v389 = v385(v387, 1, v519);
   if (v389 == 1)
@@ -5894,7 +5693,7 @@ LABEL_93:
     v398 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v566);
     if (v568 != 1)
     {
-      v398 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v398 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -5906,7 +5705,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v398);
   v399 = &v481 - ((v396 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v534, v399, &qword_27ECB5E58);
+  sub_242664250(v534, v399, &qword_27ECB5E58, &qword_2426B4950);
   v400 = v514;
   v401 = v397(v399, 1, v514);
   if (v401 == 1)
@@ -5943,7 +5742,7 @@ LABEL_93:
     v412 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v565);
     if (v568 != 1)
     {
-      v412 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v412 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -5955,7 +5754,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v412);
   v413 = &v481 - ((v410 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v533, v413, &qword_27ECB5E60);
+  sub_242664250(v533, v413, &qword_27ECB5E60, &qword_2426B4958);
   v414 = v509;
   v415 = v411(v413, 1, v509);
   if (v415 == 1)
@@ -5985,7 +5784,7 @@ LABEL_93:
     std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v564);
     if (v568 != 1)
     {
-      sub_2426642B8(&v567, &qword_27ECB5D10);
+      sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -5995,14 +5794,14 @@ LABEL_93:
     std::string::~string(&v567);
   }
 
-  sub_242664250(&v570, &v567, &qword_27ECB5D10);
+  sub_242664250(&v570, &v567, &qword_27ECB5D10, &qword_2426B47F8);
   if (v568)
   {
     memset(&v563, 0, sizeof(v563));
     v425 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v563);
     if (v568 != 1)
     {
-      v425 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v425 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -6014,7 +5813,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v425);
   v426 = &v481 - ((v422 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v531, v426, &qword_27ECB5E70);
+  sub_242664250(v531, v426, &qword_27ECB5E70, &qword_2426B4968);
   v427 = v423(v426, 1, v424);
   if (v427 == 1)
   {
@@ -6041,7 +5840,7 @@ LABEL_93:
     v434 = v548;
     if (v568 != 1)
     {
-      v433 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v433 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -6054,7 +5853,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v433);
   v435 = &v481 - ((v434 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v530, v435, &qword_27ECB5E80);
+  sub_242664250(v530, v435, &qword_27ECB5E80, &qword_2426B4978);
   v436 = sub_2426A9BA0();
   v437 = *(v436 - 8);
   v438 = (*(v437 + 48))(v435, 1, v436);
@@ -6081,7 +5880,7 @@ LABEL_93:
     v444 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v561);
     if (v568 != 1)
     {
-      v444 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v444 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -6093,7 +5892,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v444);
   v446 = &v481 - ((v445 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v529, v446, &qword_27ECB5E88);
+  sub_242664250(v529, v446, &qword_27ECB5E88, &qword_2426B4980);
   v447 = sub_2426A9B80();
   v448 = *(v447 - 8);
   v449 = (*(v448 + 48))(v446, 1, v447);
@@ -6120,7 +5919,7 @@ LABEL_93:
     v455 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v560);
     if (v568 != 1)
     {
-      v455 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v455 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -6132,7 +5931,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v455);
   v457 = &v481 - ((v456 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v528, v457, &qword_27ECB5E90);
+  sub_242664250(v528, v457, &qword_27ECB5E90, &qword_2426B4988);
   v458 = sub_2426A9B60();
   v459 = *(v458 - 8);
   v460 = (*(v459 + 48))(v457, 1, v458);
@@ -6160,7 +5959,7 @@ LABEL_93:
     v467 = std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v559);
     if (v568 != 1)
     {
-      v467 = sub_2426642B8(&v567, &qword_27ECB5D10);
+      v467 = sub_2426642B8(&v567, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -6172,7 +5971,7 @@ LABEL_93:
 
   MEMORY[0x28223BE20](v467);
   v468 = &v481 - ((v466 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v527, v468, &qword_27ECB5E98);
+  sub_242664250(v527, v468, &qword_27ECB5E98, &qword_2426B4990);
   v469 = sub_2426A9A70();
   v470 = *(v469 - 8);
   v471 = (*(v470 + 48))(v468, 1, v469);
@@ -6220,32 +6019,32 @@ LABEL_256:
     std::string::~string(&v565);
     std::string::~string(&v566);
     std::string::~string(&v569);
-    sub_2426642B8(&v570, &qword_27ECB5D10);
-    sub_2426642B8(v527, &qword_27ECB5E98);
-    sub_2426642B8(v528, &qword_27ECB5E90);
-    sub_2426642B8(v529, &qword_27ECB5E88);
-    sub_2426642B8(v530, &qword_27ECB5E80);
-    sub_2426642B8(v531, &qword_27ECB5E70);
-    sub_2426642B8(v532, &qword_27ECB5E68);
-    sub_2426642B8(v533, &qword_27ECB5E60);
-    sub_2426642B8(v534, &qword_27ECB5E58);
-    sub_2426642B8(v535, &qword_27ECB5E50);
-    return sub_2426642B8(v536, &qword_27ECB5E48);
+    sub_2426642B8(&v570, &qword_27ECB5D10, &qword_2426B47F8);
+    sub_2426642B8(v527, &qword_27ECB5E98, &qword_2426B4990);
+    sub_2426642B8(v528, &qword_27ECB5E90, &qword_2426B4988);
+    sub_2426642B8(v529, &qword_27ECB5E88, &qword_2426B4980);
+    sub_2426642B8(v530, &qword_27ECB5E80, &qword_2426B4978);
+    sub_2426642B8(v531, &qword_27ECB5E70, &qword_2426B4968);
+    sub_2426642B8(v532, &qword_27ECB5E68, &qword_2426B4960);
+    sub_2426642B8(v533, &qword_27ECB5E60, &qword_2426B4958);
+    sub_2426642B8(v534, &qword_27ECB5E58, &qword_2426B4950);
+    sub_2426642B8(v535, &qword_27ECB5E50, &qword_2426B4948);
+    return sub_2426642B8(v536, &qword_27ECB5E48, &qword_2426B4940);
   }
 
   else
   {
-    sub_2426642B8(&v570, &qword_27ECB5D10);
-    sub_2426642B8(v527, &qword_27ECB5E98);
-    sub_2426642B8(v528, &qword_27ECB5E90);
-    sub_2426642B8(v529, &qword_27ECB5E88);
-    sub_2426642B8(v530, &qword_27ECB5E80);
-    sub_2426642B8(v531, &qword_27ECB5E70);
-    sub_2426642B8(v532, &qword_27ECB5E68);
-    sub_2426642B8(v533, &qword_27ECB5E60);
-    sub_2426642B8(v534, &qword_27ECB5E58);
-    sub_2426642B8(v535, &qword_27ECB5E50);
-    sub_2426642B8(v536, &qword_27ECB5E48);
+    sub_2426642B8(&v570, &qword_27ECB5D10, &qword_2426B47F8);
+    sub_2426642B8(v527, &qword_27ECB5E98, &qword_2426B4990);
+    sub_2426642B8(v528, &qword_27ECB5E90, &qword_2426B4988);
+    sub_2426642B8(v529, &qword_27ECB5E88, &qword_2426B4980);
+    sub_2426642B8(v530, &qword_27ECB5E80, &qword_2426B4978);
+    sub_2426642B8(v531, &qword_27ECB5E70, &qword_2426B4968);
+    sub_2426642B8(v532, &qword_27ECB5E68, &qword_2426B4960);
+    sub_2426642B8(v533, &qword_27ECB5E60, &qword_2426B4958);
+    sub_2426642B8(v534, &qword_27ECB5E58, &qword_2426B4950);
+    sub_2426642B8(v535, &qword_27ECB5E50, &qword_2426B4948);
+    sub_2426642B8(v536, &qword_27ECB5E48, &qword_2426B4940);
     v480 = v482;
     std::string::basic_string[abi:ne200100](v482, &v569);
     std::string::~string(&v569);
@@ -6274,9 +6073,9 @@ LABEL_256:
   }
 }
 
-uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
+uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
 {
-  v94 = x8_0;
+  v94 = a2;
   v3 = sub_2426A9920();
   v93 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
@@ -6306,13 +6105,13 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
       v28 = *(v27 - 8);
       v29 = *(v28 + 64);
       MEMORY[0x28223BE20](v27);
-      v30 = &v79 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v30 = (&v79 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
       v31 = (*(v28 + 32))(v30, v13, v27);
       MEMORY[0x28223BE20](v31);
       (*(v28 + 16))(v30, v30, v27);
       sub_24268CEBC(v30, &v97);
       ctb::bridging::makeEncapsulatedMessageContentVariant(&v97, v94);
-      ctb::CPMGroupManagement::~CPMGroupManagement(&v97);
+      ctb::CPMGroupManagement::~CPMGroupManagement(&v97.__r_.__value_.__l.__data_);
     }
 
     else if (MEMORY[0x277CF1DC0] && v18 == *MEMORY[0x277CF1DC0] || MEMORY[0x277CF1D88] && v18 == *MEMORY[0x277CF1D88])
@@ -6323,7 +6122,7 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
       v28 = *(v27 - 8);
       v32 = *(v28 + 64);
       MEMORY[0x28223BE20](v27);
-      v30 = &v79 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v30 = (&v79 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
       v33 = (*(v28 + 32))(v30, v13, v27);
       MEMORY[0x28223BE20](v33);
       (*(v28 + 16))(v30, v30, v27);
@@ -6340,13 +6139,13 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
       v28 = *(v27 - 8);
       v34 = *(v28 + 64);
       MEMORY[0x28223BE20](v27);
-      v30 = &v79 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v30 = (&v79 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0));
       v35 = (*(v28 + 32))(v30, v13, v27);
       MEMORY[0x28223BE20](v35);
       (*(v28 + 16))(v30, v30, v27);
       sub_242691840(v30, &v97);
       ctb::bridging::makeEncapsulatedMessageContentVariant(&v97, v94);
-      ctb::FileTransferDescriptor::~FileTransferDescriptor(&v97);
+      ctb::FileTransferDescriptor::~FileTransferDescriptor(&v97.__r_.__value_.__l.__data_);
     }
 
     else
@@ -6368,7 +6167,7 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
         v28 = *(v27 - 8);
         v37 = *(v28 + 64);
         MEMORY[0x28223BE20](v27);
-        v30 = &v79 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v30 = (&v79 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0));
         v38 = (*(v28 + 32))(v30, v13, v27);
         MEMORY[0x28223BE20](v38);
         (*(v28 + 16))(v30, v30, v27);
@@ -6413,7 +6212,7 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
           LODWORD(v92) = sub_24268F314(v48);
           v49 = v88;
           v50 = sub_2426AA760();
-          sub_24268D30C(v50, v51, &v99);
+          sub_24268D30C(v50, v51, v99);
           sub_2426AA750();
           sub_24267BA1C(v5);
           v52 = sub_2426A98C0();
@@ -6518,7 +6317,7 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
         v28 = *(v27 - 8);
         v57 = *(v28 + 64);
         MEMORY[0x28223BE20](v27);
-        v30 = &v79 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v30 = (&v79 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0));
         v58 = (*(v28 + 32))(v30, v13, v27);
         MEMORY[0x28223BE20](v58);
         (*(v28 + 16))(v30, v30, v27);
@@ -6558,7 +6357,7 @@ uint64_t sub_24268A62C@<X0>(uint64_t a1@<X0>, __n128 *x8_0@<X8>)
   return (*(v20 + 8))(&v79 - v22, v19);
 }
 
-void sub_24268B880(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void sub_24268B880(uint64_t a1@<X0>, void **a2@<X8>)
 {
   v3 = v2;
   *a2 = 0;
@@ -6686,7 +6485,7 @@ uint64_t sub_24268BBE0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
         std::vector<ctb::ProvisioningConfiguration::AccessControl::Server>::vector[abi:ne200100](&v32);
         if (v36 != 1)
         {
-          sub_2426642B8(&v35, &qword_27ECB5D10);
+          sub_2426642B8(&v35, &qword_27ECB5D10, &qword_2426B47F8);
         }
       }
 
@@ -6694,7 +6493,7 @@ uint64_t sub_24268BBE0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
       v21 = sub_2426A9850();
       v23 = v22;
       (*v17)(v6, v30);
-      sub_24268D30C(v21, v23, &v34);
+      sub_24268D30C(v21, v23, v34);
       v11 = v29;
       (*v18)(v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0), v29);
       std::string::basic_string[abi:ne200100](&v33, &v32);
@@ -6730,7 +6529,7 @@ unint64_t sub_24268BF44()
   result = qword_27ECB5EA8;
   if (!qword_27ECB5EA8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27ECB5EA0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27ECB5EA0, &qword_2426B4998);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27ECB5EA8);
   }
@@ -6738,7 +6537,7 @@ unint64_t sub_24268BF44()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6755,8 +6554,7 @@ uint64_t ctb::CPIMEncapsulatedMessage::CPIMEncapsulatedMessage(uint64_t a1, __in
   v3 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   std::__variant_detail::__move_constructor<std::__variant_detail::__traits<ctb::GeoPushLocation,ctb::CPIMMLSMessage,ctb::ServerMLSRCSContent,ctb::MLSFileTransfer,ctb::CPMGroupManagement,ctb::FileTransferDescriptor,ctb::chatbot::Message,ctb::IMCompositionIndication,ctb::IMDispositionNotification,std::string,ctb::SIPConferenceInfo>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1 + 32, (a2 + 2));
   return a1;
@@ -6771,7 +6569,7 @@ void ctb::CPIMEncapsulatedMessage::~CPIMEncapsulatedMessage(void **this)
   }
 }
 
-uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
+uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::push_back[abi:ne200100](void *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -6892,8 +6690,7 @@ __n128 ctb::bridging::makeEncapsulatedMessageContentVariant@<Q0>(__n128 *a1@<X0>
   result = *a1;
   *(a2 + 8) = *a1;
   *(a2 + 24) = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   *(a2 + 352) = 9;
   return result;
@@ -6904,8 +6701,7 @@ __n128 ctb::bridging::makeEncapsulatedMessageContentVariant@<Q0>(__n128 *a1@<X0>
   *(a2 + 8) = *a1;
   v3 = a1[1].n128_u64[0];
   v4 = a1[1].n128_u64[1];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   *(a2 + 24) = v3;
   *(a2 + 32) = v4;
@@ -6935,7 +6731,7 @@ uint64_t ctb::bridging::makeEncapsulatedMessageContentVariant@<X0>(ctb::bridging
   return result;
 }
 
-void *std::vector<ctb::CPIMNamespace>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<ctb::CPIMNamespace>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -6950,9 +6746,9 @@ void *std::vector<ctb::CPIMNamespace>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_24268C418(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24268C418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ctb::chatbot::AddressEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6995,8 +6791,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -7007,8 +6802,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   v2[1].n128_u64[1] = a2[1].n128_u64[1];
   return result;
@@ -7057,14 +6851,12 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatc
   v4 = a2[2];
   *(v2 + 48) = *(a2 + 6);
   *(v2 + 32) = v4;
-  *(a2 + 5) = 0;
-  *(a2 + 6) = 0;
+  *(a2 + 40) = 0uLL;
   *(a2 + 4) = 0;
   result = *(a2 + 56);
   *(v2 + 72) = *(a2 + 9);
   *(v2 + 56) = result;
-  *(a2 + 8) = 0;
-  *(a2 + 9) = 0;
+  a2[4] = 0uLL;
   *(a2 + 7) = 0;
   return result;
 }
@@ -7075,8 +6867,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -7116,7 +6907,7 @@ uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::__construct_one_at_end[abi:n
   return result;
 }
 
-uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::__emplace_back_slow_path<ctb::CPIMEncapsulatedMessage const&>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::__emplace_back_slow_path<ctb::CPIMEncapsulatedMessage const&>(void *a1, __int128 *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 7);
   v3 = v2 + 1;
@@ -7180,12 +6971,12 @@ uint64_t std::vector<ctb::CPIMEncapsulatedMessage>::__emplace_back_slow_path<ctb
   return v14;
 }
 
-void sub_24268C83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24268C83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 23) < 0)
+  va_start(va, a7);
+  if (*(v7 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   std::__split_buffer<ctb::CPIMEncapsulatedMessage>::~__split_buffer(va);
@@ -7250,7 +7041,7 @@ void sub_24268C950(uint64_t a1@<X0>, int *a2@<X8>)
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08, &qword_2426B47F0);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v12 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
@@ -7282,14 +7073,14 @@ void sub_24268C950(uint64_t a1@<X0>, int *a2@<X8>)
   sub_24268CE4C(v14, v12);
   if ((*(v6 + 48))(v12, 1, v5) == 1)
   {
-    sub_2426642B8(v14, &qword_27ECB5D08);
+    sub_2426642B8(v14, &qword_27ECB5D08, &qword_2426B47F0);
     memset(&v39, 0, sizeof(v39));
     v40 = 1;
     memset(&v41, 0, sizeof(v41));
     std::string::basic_string[abi:ne200100](&v41);
     if (v40 != 1)
     {
-      sub_2426642B8(&v39, &qword_27ECB5D10);
+      sub_2426642B8(&v39, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -7303,7 +7094,7 @@ void sub_24268C950(uint64_t a1@<X0>, int *a2@<X8>)
     (*(v35 + 8))(v22, v36);
     sub_24268D30C(v23, v25, &v39);
     (*(v6 + 8))(v8, v5);
-    sub_2426642B8(v14, &qword_27ECB5D08);
+    sub_2426642B8(v14, &qword_27ECB5D08, &qword_2426B47F0);
     v40 = 0;
     std::string::basic_string[abi:ne200100](&v41, &v39);
     std::string::~string(&v39);
@@ -7326,7 +7117,7 @@ void sub_24268C950(uint64_t a1@<X0>, int *a2@<X8>)
     std::string::basic_string[abi:ne200100](&v38);
     if ((v40 & 1) == 0)
     {
-      sub_2426642B8(&v39, &qword_27ECB5D10);
+      sub_2426642B8(&v39, &qword_27ECB5D10, &qword_2426B47F8);
     }
   }
 
@@ -7354,7 +7145,7 @@ void sub_24268C950(uint64_t a1@<X0>, int *a2@<X8>)
 
 uint64_t sub_24268CE4C(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5D08, &qword_2426B47F0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -7363,7 +7154,7 @@ void sub_24268CEBC(uint64_t a1@<X0>, __n128 *a2@<X8>)
 {
   v4 = sub_2426AA040();
   sub_24268D30C(v4, v5, &v32);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0, &qword_2426B49A8);
   v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = (v7 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7428,14 +7219,14 @@ LABEL_6:
 
 uint64_t sub_24268D1CC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0, &qword_2426B49A8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_24268D23C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC0, &qword_2426B49A8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7455,8 +7246,7 @@ unint64_t sub_24268D2A4()
 
 uint64_t sub_24268D30C@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   std::string::basic_string[abi:ne200100](a3);
   v6 = HIBYTE(a2) & 0xF;
@@ -7582,7 +7372,7 @@ void sub_24268D4F0(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_24268D30C(v6, v7, &v24);
   v8 = sub_2426AB930();
   sub_24268D30C(v8, v9, &v23);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC8, &qword_2426B49B0);
   v11 = *(*(v10 - 8) + 64);
   MEMORY[0x28223BE20](v10 - 8);
   sub_2426AB950();
@@ -7633,12 +7423,12 @@ void sub_24268D4F0(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_24268D77C(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EC8, &qword_2426B49B0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_24268D7EC(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_24268D7EC(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -7972,14 +7762,14 @@ LABEL_18:
   return v11;
 }
 
-unint64_t sub_24268E620(uint64_t a1)
+ctb *sub_24268E620(uint64_t a1)
 {
   v2 = sub_2426AA670();
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
   v5 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0, &qword_2426B49B8);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v69 - v7;
   sub_2426AA740();
@@ -8009,7 +7799,7 @@ unint64_t sub_24268E620(uint64_t a1)
       v77.n128_u64[1] = v19;
       v77.n128_u8[12] = BYTE4(v19);
       *&v79.fStatus = v77.n128_u64[1];
-      ctb::makeVariant(v77.n128_i64[0], v79, &v77);
+      ctb::makeVariant(&v77, v77.n128_u64[0], v79);
       v75 = v77;
       v76 = v78;
       ctb::makeOptional(&v75, &v77);
@@ -8069,7 +7859,7 @@ unint64_t sub_24268E620(uint64_t a1)
           v36 = 0xFFFFLL;
         }
 
-        ctb::makeVariant(v36, v35, &v77);
+        ctb::makeVariant(&v77, v36, v35);
         v75 = v77;
         v76 = v78;
         ctb::makeOptional(&v75, &v77);
@@ -8128,7 +7918,7 @@ unint64_t sub_24268E620(uint64_t a1)
           v50 = 4;
         }
 
-        ctb::makeVariant(v50, v49, &v77);
+        ctb::makeVariant(&v77, v50, v49);
         v75 = v77;
         v76 = v78;
         ctb::makeOptional(&v75, &v77);
@@ -8201,7 +7991,7 @@ unint64_t sub_24268E620(uint64_t a1)
           v64 = 4;
         }
 
-        ctb::makeVariant(v64, v63, &v77);
+        ctb::makeVariant(&v77, v64, v63);
         v75 = v77;
         v76 = v78;
         ctb::makeOptional(&v75, &v77);
@@ -8234,7 +8024,7 @@ uint64_t sub_24268F314(uint64_t a1)
   MEMORY[0x28223BE20](v2);
   v5 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
   v6 = &v59 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0, &qword_2426B49B8);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v59 - v8;
   sub_2426AA740();
@@ -8428,7 +8218,7 @@ LABEL_41:
 
 uint64_t sub_24268FF88(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED0, &qword_2426B49B8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8440,10 +8230,10 @@ _BYTE *std::optional<std::variant<ctb::IMDispositionNotification::Delivery,ctb::
   return result;
 }
 
-uint64_t ctb::makeVariant@<X0>(uint64_t this@<X0>, InterWorking a2@<0:W1>, _DWORD *a3@<X8>)
+uint64_t *ctb::makeVariant@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, InterWorking a3@<0:W1>)
 {
-  *a3 = this;
-  a3[4] = 3;
+  *a1 = this;
+  *(a1 + 4) = 3;
   return this;
 }
 
@@ -8456,25 +8246,25 @@ __n128 ctb::makeOptional@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-uint64_t ctb::makeVariant@<X0>(uint64_t this@<X0>, Processing a2@<0:W1>, _DWORD *a3@<X8>)
+uint64_t *ctb::makeVariant@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, Processing a3@<0:W1>)
 {
-  *a3 = this;
-  a3[4] = 2;
+  *a1 = this;
+  *(a1 + 4) = 2;
   return this;
 }
 
-uint64_t ctb::makeVariant@<X0>(uint64_t this@<X0>, Display a2@<0:W1.2>, uint64_t a3@<X8>)
+uint64_t *ctb::makeVariant@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, Display a3@<0:W1.2>)
 {
-  *a3 = this;
-  *(a3 + 16) = 1;
+  *a1 = this;
+  *(a1 + 4) = 1;
   return this;
 }
 
-uint64_t ctb::makeVariant@<X0>(uint64_t this@<X0>, Delivery a2@<0:X1, 8:X2>, uint64_t a3@<X8>)
+uint64_t *ctb::makeVariant@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, Delivery a3@<0:X1, 8:X2>)
 {
-  *a3 = this;
-  *(a3 + 8) = *&a2.fStatus;
-  *(a3 + 16) = 0;
+  *a1 = this;
+  a1[1] = *&a3.fStatus;
+  *(a1 + 4) = 0;
   return this;
 }
 
@@ -8557,15 +8347,15 @@ double sub_24269006C(uint64_t a1)
 
 uint64_t FileTransferInfo.init(fileInfo:thumbnailInfo:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(type metadata accessor for FileTransferInfo() + 20);
-  v7 = type metadata accessor for FileInfo();
+  v6 = *(type metadata accessor for FileTransferInfo(0) + 20);
+  v7 = type metadata accessor for FileInfo(0);
   (*(*(v7 - 8) + 56))(a3 + v6, 1, 1, v7);
   sub_242690768(a1, a3);
 
   return sub_242662888(a2, a3 + v6);
 }
 
-uint64_t type metadata accessor for FileTransferInfo()
+uint64_t type metadata accessor for FileTransferInfo(uint64_t a1)
 {
   result = qword_27ECB5F00;
   if (!qword_27ECB5F00)
@@ -8578,35 +8368,35 @@ uint64_t type metadata accessor for FileTransferInfo()
 
 uint64_t sub_242690768(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for FileInfo();
+  v4 = type metadata accessor for FileInfo(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_242690808(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for FileInfo();
+  v4 = type metadata accessor for FileInfo(0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t FileTransferInfo.thumbnailInfo.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for FileTransferInfo() + 20);
+  v3 = v1 + *(type metadata accessor for FileTransferInfo(0) + 20);
 
   return sub_2426908D0(v3, a1);
 }
 
 uint64_t sub_2426908D0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8, &qword_2426B49C0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t FileTransferInfo.thumbnailInfo.setter(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for FileTransferInfo() + 20);
+  v3 = v1 + *(type metadata accessor for FileTransferInfo(0) + 20);
 
   return sub_242662888(a1, v3);
 }
@@ -8674,7 +8464,7 @@ uint64_t sub_242690B58(uint64_t a1)
 
 uint64_t FileTransferInfo.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5ED8, &qword_2426B49C8);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v8[-v5];
@@ -8682,12 +8472,12 @@ uint64_t FileTransferInfo.encode(to:)(void *a1)
   sub_242690D44();
   sub_2426ABDF0();
   v8[15] = 0;
-  type metadata accessor for FileInfo();
-  sub_242691198(&qword_27ECB5EE8);
+  type metadata accessor for FileInfo(0);
+  sub_242691198(&qword_27ECB5EE8, &protocol conformance descriptor for FileInfo);
   sub_2426ABD10();
   if (!v1)
   {
-    type metadata accessor for FileTransferInfo();
+    type metadata accessor for FileTransferInfo(0);
     v8[14] = 1;
     sub_2426ABCE0();
   }
@@ -8710,18 +8500,18 @@ unint64_t sub_242690D44()
 uint64_t FileTransferInfo.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v20 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8, &qword_2426B49C0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v19 - v4;
-  v6 = type metadata accessor for FileInfo();
+  v6 = type metadata accessor for FileInfo(0);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v22 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EF0);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5EF0, &qword_2426B49D0);
   v21 = *(v23 - 8);
   MEMORY[0x28223BE20](v23);
   v10 = &v19 - v9;
-  v11 = type metadata accessor for FileTransferInfo();
+  v11 = type metadata accessor for FileTransferInfo(0);
   v12 = MEMORY[0x28223BE20](v11 - 8);
   v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = *(v12 + 28);
@@ -8739,7 +8529,7 @@ uint64_t FileTransferInfo.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   else
   {
     v26 = 0;
-    sub_242691198(&qword_27ECB5EF8);
+    sub_242691198(&qword_27ECB5EF8, &protocol conformance descriptor for FileInfo);
     sub_2426ABCB0();
     sub_242690768(v22, v14);
     v25 = 1;
@@ -8756,17 +8546,17 @@ uint64_t FileTransferInfo.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_242691130(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8, &qword_2426B49C0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_242691198(unint64_t *a1)
+uint64_t sub_242691198(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for FileInfo();
+    type metadata accessor for FileInfo(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8790,7 +8580,7 @@ uint64_t sub_242691244(uint64_t a1, uint64_t (*a2)(void))
 
 uint64_t sub_2426912E8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for FileInfo();
+  v6 = type metadata accessor for FileInfo(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -8801,7 +8591,7 @@ uint64_t sub_2426912E8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8, &qword_2426B49C0);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -8811,7 +8601,7 @@ uint64_t sub_2426912E8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_2426913F8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = type metadata accessor for FileInfo();
+  v8 = type metadata accessor for FileInfo(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -8822,7 +8612,7 @@ uint64_t sub_2426913F8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AD8, &qword_2426B49C0);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -8830,28 +8620,28 @@ uint64_t sub_2426913F8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-void sub_242691500()
+void sub_242691500(uint64_t a1)
 {
-  type metadata accessor for FileInfo();
-  if (v0 <= 0x3F)
+  type metadata accessor for FileInfo(319);
+  if (v1 <= 0x3F)
   {
-    sub_242691584();
-    if (v1 <= 0x3F)
+    sub_242691584(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_242691584()
+void sub_242691584(uint64_t a1)
 {
   if (!qword_27ECB5F10)
   {
-    type metadata accessor for FileInfo();
-    v0 = sub_2426ABB80();
-    if (!v1)
+    type metadata accessor for FileInfo(255);
+    v1 = sub_2426ABB80();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27ECB5F10);
+      atomic_store(v1, &qword_27ECB5F10);
     }
   }
 }
@@ -9065,18 +8855,18 @@ uint64_t sub_242691840@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v6 = &v29 - v30;
   sub_2426AA140();
   sub_242691FDC(v6, v46);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AE0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5AE0, &qword_2426B4168);
   v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
   v32 = a1;
   v10 = sub_2426AA160();
   MEMORY[0x28223BE20](v10);
-  sub_242664250(&v29 - v9, &v29 - v9, &qword_27ECB5AE0);
+  sub_242664250(&v29 - v9, &v29 - v9, &qword_27ECB5AE0, &qword_2426B4168);
   v11 = (*(v4 + 48))(&v29 - v9, 1, v3);
   if (v11 == 1)
   {
-    sub_2426642B8(&v29 - v9, &qword_27ECB5AE0);
+    sub_2426642B8(&v29 - v9, &qword_27ECB5AE0, &qword_2426B4168);
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
@@ -9090,12 +8880,12 @@ uint64_t sub_242691840@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v44 = 1;
     type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor_(0);
     v15 = v14;
-    v16 = sub_242692E74(&qword_27ECB5738, type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor_);
+    v16 = sub_242692E74(&qword_27ECB5738, type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor_, &unk_2426B1E90);
     CxxOptional.init(nilLiteral:)(v15, v16);
     v17 = v32;
     if (v44 != 1)
     {
-      sub_2426642B8(&v34, &qword_27ECB5F30);
+      sub_2426642B8(&v34, &qword_27ECB5F30, &qword_2426B4B68);
     }
   }
 
@@ -9110,9 +8900,9 @@ uint64_t sub_242691840@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     ctb::bridging::makeOptional(v45, &v34);
     ctb::FileTransferDescriptor::FileDescriptor::~FileDescriptor(v45);
     (*(v4 + 8))(&v29 - v12, v3);
-    sub_2426642B8(&v29 - v9, &qword_27ECB5AE0);
+    sub_2426642B8(&v29 - v9, &qword_27ECB5AE0, &qword_2426B4168);
     v44 = 0;
-    std::optional<ctb::FileTransferDescriptor::FileDescriptor>::optional[abi:ne200100](v45, &v34);
+    std::optional<ctb::FileTransferDescriptor::FileDescriptor>::optional[abi:ne200100](v45);
     std::optional<ctb::FileTransferDescriptor::FileDescriptor>::~optional(&v34);
     v17 = v32;
   }
@@ -9124,7 +8914,7 @@ uint64_t sub_242691840@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v21 = v19;
 
     sub_24268D30C(v20, v21, &v33);
-    ctb::bridging::makeOptional(&v33, &v34);
+    ctb::bridging::makeOptional(&v34, &v33);
     std::string::~string(&v33);
 
     LOBYTE(v36) = 0;
@@ -9141,20 +8931,20 @@ uint64_t sub_242691840@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     LOBYTE(v36) = 1;
     type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___(0);
     v24 = v23;
-    v25 = sub_242692E74(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___);
+    v25 = sub_242692E74(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___, &unk_2426B2508);
     CxxOptional.init(nilLiteral:)(v24, v25);
     v26 = sub_2426AA170();
     (*(*(v26 - 8) + 8))(v17, v26);
     if (v36 != 1)
     {
-      sub_2426642B8(&v34, &qword_27ECB5B08);
+      sub_2426642B8(&v34, &qword_27ECB5B08, &qword_2426B4198);
     }
   }
 
   v27 = v31;
   ctb::FileTransferDescriptor::FileDescriptor::FileDescriptor(v31, v46);
   ctb::FileTransferDescriptor::FileDescriptor::~FileDescriptor(v46);
-  std::optional<ctb::FileTransferDescriptor::FileDescriptor>::optional[abi:ne200100](v27 + 144, v45);
+  std::optional<ctb::FileTransferDescriptor::FileDescriptor>::optional[abi:ne200100]((v27 + 144));
   std::optional<ctb::FileTransferDescriptor::FileDescriptor>::~optional(v45);
   std::optional<std::string>::optional[abi:ne200100](v27 + 296, &v33);
   return std::optional<std::string>::~optional(&v33);
@@ -9182,7 +8972,7 @@ uint64_t sub_242691D44()
 
     if (v8)
     {
-      v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F38);
+      v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F38, &qword_2426B4B70);
       MEMORY[0x28223BE20](v9 - 8);
       v11 = &v18 - v10;
       v12 = sub_2426A99A0();
@@ -9192,7 +8982,7 @@ uint64_t sub_242691D44()
       sub_2426A9970();
       if ((*(v13 + 48))(v11, 1, v12) == 1)
       {
-        sub_2426642B8(v11, &qword_27ECB5F38);
+        sub_2426642B8(v11, &qword_27ECB5F38, &qword_2426B4B70);
       }
 
       else
@@ -9218,7 +9008,7 @@ uint64_t sub_242691D44()
 void sub_242691FDC(uint64_t a1@<X0>, int *a2@<X8>)
 {
   v81 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DC8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DC8, &qword_2426B48B0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = v78 - v4;
   v105 = sub_2426A9960();
@@ -9278,22 +9068,22 @@ LABEL_7:
   (*(v17 + 8))(v19, v16);
   v82 = 0;
 LABEL_9:
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE8);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5DE8, &qword_2426B48D0);
   v23 = *(*(v22 - 8) + 64);
   MEMORY[0x28223BE20](v22 - 8);
   v24 = v78 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   v25 = sub_2426A9D50();
   MEMORY[0x28223BE20](v25);
-  sub_242664250(v24, v24, &qword_27ECB5DE8);
+  sub_242664250(v24, v24, &qword_27ECB5DE8, &qword_2426B48D0);
   v26 = sub_2426A9D40();
   v27 = *(v26 - 8);
   v28 = (*(v27 + 48))(v24, 1, v26);
   if (v28 == 1)
   {
-    sub_2426642B8(v24, &qword_27ECB5DE8);
+    sub_2426642B8(v24, &qword_27ECB5DE8, &qword_2426B48D0);
     type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor.FileDisposition_(0);
     v30 = v29;
-    v31 = sub_242692E74(&qword_27ECB5730, type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor.FileDisposition_);
+    v31 = sub_242692E74(&qword_27ECB5730, type metadata accessor for std.__1.optional_ctb.FileTransferDescriptor.FileDescriptor.FileDisposition_, &unk_2426B1E48);
     CxxOptional.init(nilLiteral:)(v30, v31);
     Optional = v114;
     v80 = v115;
@@ -9334,7 +9124,7 @@ LABEL_9:
     a1 = v34;
     Optional = ctb::bridging::makeOptional(v40);
     (*(v27 + 8))(v37, v26);
-    sub_2426642B8(v24, &qword_27ECB5DE8);
+    sub_2426642B8(v24, &qword_27ECB5DE8, &qword_2426B48D0);
     v114 = Optional;
     v80 = HIDWORD(Optional);
     v115 = BYTE4(Optional);
@@ -9353,7 +9143,7 @@ LABEL_9:
     v47 = a1;
 
     sub_24268D30C(v45, v46, &v113);
-    ctb::bridging::makeOptional(&v113, v111);
+    ctb::bridging::makeOptional(v111, &v113);
     v48 = v41;
     std::string::~string(&v113);
 
@@ -9372,13 +9162,13 @@ LABEL_9:
     v112 = 1;
     type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___(0);
     v52 = v51;
-    v53 = sub_242692E74(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___);
+    v53 = sub_242692E74(&qword_27ECB57F0, type metadata accessor for std.__1.optional_std.__1.basic_string_CChar_ std.__1.char_traits_CChar__ std.__1.allocator_CChar___, &unk_2426B2508);
     CxxOptional.init(nilLiteral:)(v52, v53);
     v49 = v90;
     v50 = v89;
     if (v112 != 1)
     {
-      sub_2426642B8(v111, &qword_27ECB5B08);
+      sub_2426642B8(v111, &qword_27ECB5B08, &qword_2426B4198);
     }
   }
 
@@ -9412,7 +9202,7 @@ LABEL_9:
     {
       type metadata accessor for std.__1.optional_CUnsignedLong_(0);
       v68 = v67;
-      v69 = sub_242692E74(&qword_27ECB5770, type metadata accessor for std.__1.optional_CUnsignedLong_);
+      v69 = sub_242692E74(&qword_27ECB5770, type metadata accessor for std.__1.optional_CUnsignedLong_, &unk_2426B2088);
       CxxOptional.init(nilLiteral:)(v68, v69);
       v70 = sub_2426A9DD0();
       (*(*(v70 - 8) + 8))(v47, v70);
@@ -9425,7 +9215,7 @@ LABEL_28:
       v76[1] = v77;
       *(v76 + 8) = v80;
       *(v76 + 2) = v105;
-      std::optional<std::string>::optional[abi:ne200100](v76 + 6, &v113);
+      std::optional<std::string>::optional[abi:ne200100]((v76 + 6), &v113);
       std::optional<std::string>::~optional(&v113);
       std::string::basic_string[abi:ne200100]((v76 + 14), v111);
       std::string::~string(v111);
@@ -9457,7 +9247,7 @@ LABEL_28:
   __break(1u);
 }
 
-uint64_t sub_242692E74(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_242692E74(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9473,25 +9263,25 @@ uint64_t sub_242692E74(unint64_t *a1, void (*a2)(uint64_t))
 void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v117 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F40);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F40, &qword_2426B4B78);
   v118 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   v119 = &v107 - v4;
   sub_242694AC4(&v107 - v4);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F48);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F48, &qword_2426B4B80);
   v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v107 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v120 = a1;
   v8 = sub_2426AA780();
   MEMORY[0x28223BE20](v8);
-  sub_242664250(v7, v7, &qword_27ECB5F48);
+  sub_242664250(v7, v7, &qword_27ECB5F48, &qword_2426B4B80);
   v9 = sub_2426AA1B0();
   v10 = *(v9 - 8);
   v11 = (*(v10 + 48))(v7, 1, v9);
   if (v11 == 1)
   {
-    sub_2426642B8(v7, &qword_27ECB5F48);
+    sub_2426642B8(v7, &qword_27ECB5F48, &qword_2426B4B80);
     v125 = 0u;
     v126 = 0u;
     *&v127 = 0;
@@ -9501,7 +9291,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     std::optional<ctb::SIPConferenceInfo::ReferredInfo>::optional[abi:ne200100](v162);
     if (BYTE8(v127) != 1)
     {
-      sub_2426642B8(&v125, &qword_27ECB5F50);
+      sub_2426642B8(&v125, &qword_27ECB5F50, &qword_2426B4B88);
     }
   }
 
@@ -9518,28 +9308,28 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v17 = *(v10 + 8);
     v17(v13, v9);
     v156[0].n128_u64[0] = 0;
-    ctb::bridging::makeOptional(v156, &v125);
+    ctb::bridging::makeOptional(&v125, v156);
     ctb::ProvisioningConfiguration::Token::~Token(v156);
     v17(v13, v9);
-    sub_2426642B8(v7, &qword_27ECB5F48);
+    sub_2426642B8(v7, &qword_27ECB5F48, &qword_2426B4B80);
     BYTE8(v127) = 0;
     std::optional<ctb::ProvisioningConfiguration::Token>::optional[abi:ne200100](v162, &v125);
     std::optional<ctb::ProvisioningConfiguration::Token>::~optional(&v125);
   }
 
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F58);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F58, &qword_2426B4B90);
   v19 = *(*(v18 - 8) + 64);
   MEMORY[0x28223BE20](v18 - 8);
   v20 = &v107 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = sub_2426AA790();
   MEMORY[0x28223BE20](v21);
-  sub_242664250(v20, v20, &qword_27ECB5F58);
+  sub_242664250(v20, v20, &qword_27ECB5F58, &qword_2426B4B90);
   v22 = sub_2426AA440();
   v23 = *(v22 - 8);
   v24 = (*(v23 + 48))(v20, 1, v22);
   if (v24 == 1)
   {
-    sub_2426642B8(v20, &qword_27ECB5F58);
+    sub_2426642B8(v20, &qword_27ECB5F58, &qword_2426B4B90);
     v159 = 0;
     v160 = 0;
     v161 = 0;
@@ -9565,12 +9355,12 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v30 = *(v23 + 8);
     v30(v26, v22);
     v166.var0 = v29;
-    ctb::bridging::makeOptional(v28, v166, &v125);
+    ctb::bridging::makeOptional(&v125, v28, v166);
     v31 = *(&v125 + 1);
     v32 = v125;
     v33 = v126;
     v30(v26, v22);
-    sub_2426642B8(v20, &qword_27ECB5F58);
+    sub_2426642B8(v20, &qword_27ECB5F58, &qword_2426B4B90);
     v115 = v32;
     v116 = v31;
     v159 = v32;
@@ -9579,19 +9369,19 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     LOBYTE(v161) = v33;
   }
 
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F60);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F60, &qword_2426B4B98);
   v35 = *(*(v34 - 8) + 64);
   MEMORY[0x28223BE20](v34 - 8);
   v36 = &v107 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   v37 = sub_2426AA7B0();
   MEMORY[0x28223BE20](v37);
-  sub_242664250(v36, v36, &qword_27ECB5F60);
+  sub_242664250(v36, v36, &qword_27ECB5F60, &qword_2426B4B98);
   v38 = sub_2426AA930();
   v39 = *(v38 - 8);
   v40 = (*(v39 + 48))(v36, 1, v38);
   if (v40 == 1)
   {
-    sub_2426642B8(v36, &qword_27ECB5F60);
+    sub_2426642B8(v36, &qword_27ECB5F60, &qword_2426B4B98);
     v125 = 0u;
     v126 = 0u;
     v127 = 0u;
@@ -9612,7 +9402,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     ctb::bridging::makeOptional(v156, &v125);
     ctb::ProvisioningConfiguration::AccessControl::~AccessControl(v156);
     (*(v39 + 8))(&v107 - v42, v38);
-    sub_2426642B8(v36, &qword_27ECB5F60);
+    sub_2426642B8(v36, &qword_27ECB5F60, &qword_2426B4B98);
     BYTE8(v128) = 0;
   }
 
@@ -9623,7 +9413,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     std::optional<ctb::ProvisioningConfiguration::AccessControl>::optional[abi:ne200100](v157);
     if (BYTE8(v128) != 1)
     {
-      sub_2426642B8(&v125, &qword_27ECB5F68);
+      sub_2426642B8(&v125, &qword_27ECB5F68, &qword_2426B4BA0);
     }
   }
 
@@ -9633,19 +9423,19 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     std::optional<ctb::ProvisioningConfiguration::AccessControl>::~optional(&v125);
   }
 
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F70);
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F70, &qword_2426B4BA8);
   v45 = *(*(v44 - 8) + 64);
   MEMORY[0x28223BE20](v44 - 8);
   v46 = &v107 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
   v47 = sub_242694790(v46);
   MEMORY[0x28223BE20](v47);
-  sub_242664250(v46, v46, &qword_27ECB5F70);
+  sub_242664250(v46, v46, &qword_27ECB5F70, &qword_2426B4BA8);
   v48 = sub_2426AA390();
   v49 = *(v48 - 8);
   v50 = (*(v49 + 48))(v46, 1, v48);
   if (v50 == 1)
   {
-    sub_2426642B8(v46, &qword_27ECB5F70);
+    sub_2426642B8(v46, &qword_27ECB5F70, &qword_2426B4BA8);
     bzero(&v125, 0x218uLL);
     v155 = 1;
   }
@@ -9663,7 +9453,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     ctb::bridging::makeOptional(v156, &v125);
     ctb::ProvisioningConfiguration::IMS3GPP::~IMS3GPP(v156);
     (*(v49 + 8))(&v107 - v52, v48);
-    sub_2426642B8(v46, &qword_27ECB5F70);
+    sub_2426642B8(v46, &qword_27ECB5F70, &qword_2426B4BA8);
     v155 = 0;
   }
 
@@ -9675,7 +9465,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v56 = std::optional<ctb::ProvisioningConfiguration::IMS3GPP>::optional[abi:ne200100](v156);
     if (v155 != 1)
     {
-      v56 = sub_2426642B8(&v125, &qword_27ECB5F78);
+      v56 = sub_2426642B8(&v125, &qword_27ECB5F78, &qword_2426B4BB0);
     }
   }
 
@@ -9686,16 +9476,16 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
   }
 
   MEMORY[0x28223BE20](v56);
-  sub_242664250(v54, &v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40);
+  sub_242664250(v54, &v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40, &qword_2426B4B78);
   v57 = sub_2426AAB00();
   v58 = *(v57 - 8);
   v59 = v58[6];
-  v60 = (v59)(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), 1, v57);
+  v60 = v59(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), 1, v57);
   v112 = v58;
   v113 = v59;
   if (v60 == 1)
   {
-    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40);
+    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40, &qword_2426B4B78);
     v127 = 0u;
     v128 = 0u;
     v125 = 0u;
@@ -9706,7 +9496,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
   else
   {
     v111 = &v107;
-    v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5FA0);
+    v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5FA0, &qword_2426B4BD8);
     v110 = &v107;
     v62 = *(*(v61 - 8) + 64);
     MEMORY[0x28223BE20](v61 - 8);
@@ -9715,13 +9505,13 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v64 = (v58[1])(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), v57);
     v109 = &v107;
     MEMORY[0x28223BE20](v64);
-    sub_242664250(v63, v63, &qword_27ECB5FA0);
+    sub_242664250(v63, v63, &qword_27ECB5FA0, &qword_2426B4BD8);
     v65 = sub_2426AA4F0();
     v66 = *(v65 - 8);
     v67 = (*(v66 + 48))(v63, 1, v65);
     if (v67 == 1)
     {
-      sub_2426642B8(v63, &qword_27ECB5FA0);
+      sub_2426642B8(v63, &qword_27ECB5FA0, &qword_2426B4BD8);
       v125 = 0u;
       v126 = 0u;
       v127 = 0u;
@@ -9742,7 +9532,7 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
       ctb::bridging::makeOptional(v123, &v125);
       ctb::ProvisioningConfiguration::Services::~Services(v123);
       (*(v66 + 8))(&v107 - v69, v65);
-      sub_2426642B8(v63, &qword_27ECB5FA0);
+      sub_2426642B8(v63, &qword_27ECB5FA0, &qword_2426B4BD8);
       LOBYTE(v129) = 0;
     }
 
@@ -9762,15 +9552,15 @@ void sub_242692EBC(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v71 = std::optional<ctb::ProvisioningConfiguration::Services>::optional[abi:ne200100](v124);
   if (v129 != 1)
   {
-    v71 = sub_2426642B8(&v125, &qword_27ECB5F80);
+    v71 = sub_2426642B8(&v125, &qword_27ECB5F80, &qword_2426B4BB8);
   }
 
 LABEL_32:
   MEMORY[0x28223BE20](v71);
-  sub_242664250(v54, &v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40);
-  if ((v59)(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), 1, v57) == 1)
+  sub_242664250(v54, &v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40, &qword_2426B4B78);
+  if (v59(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), 1, v57) == 1)
   {
-    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40);
+    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40, &qword_2426B4B78);
     v153 = 0;
     v152 = 0u;
     v151 = 0u;
@@ -9806,7 +9596,7 @@ LABEL_32:
   else
   {
     v111 = &v107;
-    v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F98);
+    v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F98, &qword_2426B4BD0);
     v110 = &v107;
     v73 = *(*(v72 - 8) + 64);
     MEMORY[0x28223BE20](v72 - 8);
@@ -9815,13 +9605,13 @@ LABEL_32:
     v75 = (v58[1])(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), v57);
     v109 = &v107;
     MEMORY[0x28223BE20](v75);
-    sub_242664250(v74, v74, &qword_27ECB5F98);
+    sub_242664250(v74, v74, &qword_27ECB5F98, &qword_2426B4BD0);
     v76 = sub_2426AA600();
     v77 = *(v76 - 8);
     v78 = (*(v77 + 48))(v74, 1, v76);
     if (v78 == 1)
     {
-      sub_2426642B8(v74, &qword_27ECB5F98);
+      sub_2426642B8(v74, &qword_27ECB5F98, &qword_2426B4BD0);
       v125 = 0u;
       v126 = 0u;
       v127 = 0u;
@@ -9867,7 +9657,7 @@ LABEL_32:
       ctb::bridging::makeOptional(v123, &v125);
       ctb::ProvisioningConfiguration::Messaging::~Messaging(v123);
       (*(v77 + 8))(&v107 - v80, v76);
-      sub_2426642B8(v74, &qword_27ECB5F98);
+      sub_2426642B8(v74, &qword_27ECB5F98, &qword_2426B4BD0);
       v154 = 0;
     }
 
@@ -9887,22 +9677,22 @@ LABEL_32:
   v82 = std::optional<ctb::ProvisioningConfiguration::Messaging>::optional[abi:ne200100](v123);
   if (v154 != 1)
   {
-    v82 = sub_2426642B8(&v125, &qword_27ECB5F88);
+    v82 = sub_2426642B8(&v125, &qword_27ECB5F88, &qword_2426B4BC0);
   }
 
 LABEL_41:
   MEMORY[0x28223BE20](v82);
   v83 = &v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_242664250(v54, v83, &qword_27ECB5F40);
-  if ((v59)(v83, 1, v57) == 1)
+  sub_242664250(v54, v83, &qword_27ECB5F40, &qword_2426B4B78);
+  if (v59(v83, 1, v57) == 1)
   {
-    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40);
+    sub_2426642B8(&v107 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0), &qword_27ECB5F40, &qword_2426B4B78);
   }
 
   else
   {
     v118 = &v107;
-    v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F90);
+    v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECB5F90, &qword_2426B4BC8);
     v85 = *(*(v84 - 8) + 64);
     MEMORY[0x28223BE20](v84 - 8);
     v86 = (v85 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -9910,7 +9700,7 @@ LABEL_41:
     sub_2426AAAD0();
     v88 = (v58[1])(v83, v57);
     MEMORY[0x28223BE20](v88);
-    sub_242664250(&v107 - v86, &v107 - v86, &qword_27ECB5F90);
+    sub_242664250(&v107 - v86, &v107 - v86, &qword_27ECB5F90, &qword_2426B4BC8);
     v89 = sub_2426AA860();
     v90 = *(v89 - 8);
     v91 = (*(v90 + 48))(&v107 - v86, 1, v89);
@@ -9938,10 +9728,10 @@ LABEL_41:
       v103 = v100;
       v93 = v127;
       (*(v90 + 8))(v103, v89, Optional);
-      sub_2426642B8(v87, &qword_27ECB5F90);
+      sub_2426642B8(v87, &qword_27ECB5F90, &qword_2426B4BC8);
       v104 = sub_2426AA7C0();
       (*(*(v104 - 8) + 8))(v120, v104);
-      sub_2426642B8(v119, &qword_27ECB5F40);
+      sub_2426642B8(v119, &qword_27ECB5F40, &qword_2426B4B78);
       *(&v126 + 1) = v94;
       *&v126 = v95;
       *(&v125 + 1) = v96;
@@ -9951,7 +9741,7 @@ LABEL_41:
       goto LABEL_47;
     }
 
-    sub_2426642B8(&v107 - v86, &qword_27ECB5F90);
+    sub_2426642B8(&v107 - v86, &qword_27ECB5F90, &qword_2426B4BC8);
     v54 = v119;
   }
 
@@ -9961,7 +9751,7 @@ LABEL_41:
   sub_242694D6C(&v125);
   v92 = sub_2426AA7C0();
   (*(*(v92 - 8) + 8))(v120, v92);
-  sub_2426642B8(v54, &qword_27ECB5F40);
+  sub_2426642B8(v54, &qword_27ECB5F40, &qword_2426B4B78);
   v93 = v127;
   v94 = *(&v126 + 1);
   v95 = v126;
@@ -9990,4 +9780,143 @@ LABEL_47:
   *(v105 + 1176) = v97;
   *(v105 + 1208) = v93;
   *(v105 + 1216) = v98;
+}
+
+uint64_t sub_2426945B4@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, unint64_t *a3@<X2>, uint64_t (*a4)(uint64_t)@<X3>, uint64_t a5@<X4>, uint64_t **a6@<X8>)
+{
+  v35 = a4;
+  v36 = a5;
+  v34 = a3;
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v29 = a6;
+    v39 = MEMORY[0x277D84F90];
+    sub_242684C4C(0, v7, 0);
+    v9 = v39;
+    v10 = a2(0);
+    v11 = v10;
+    v12 = *(v10 - 1);
+    v13 = *(v12 + 16);
+    v32 = v12 + 16;
+    v33 = v13;
+    v14 = (*(v12 + 80) + 32) & ~*(v12 + 80);
+    v28 = a1;
+    v15 = a1 + v14;
+    v16 = *(v12 + 64);
+    v30 = *(v12 + 72);
+    v31 = v16;
+    v17 = (v12 + 8);
+    do
+    {
+      MEMORY[0x28223BE20](v10);
+      v19 = &v28 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v33(v19, v15, v11);
+      sub_24269A4A4(v34, v35, v36);
+      sub_2426ABAD0();
+      v10 = (*v17)(v19, v11);
+      v21 = v37;
+      v20 = v38;
+      v39 = v9;
+      v23 = *(v9 + 16);
+      v22 = *(v9 + 24);
+      if (v23 >= v22 >> 1)
+      {
+        v10 = sub_242684C4C((v22 > 1), v23 + 1, 1);
+        v9 = v39;
+      }
+
+      *(v9 + 16) = v23 + 1;
+      v24 = v9 + 16 * v23;
+      *(v24 + 32) = v21;
+      *(v24 + 40) = v20;
+      v15 += v30;
+      --v7;
+    }
+
+    while (v7);
+
+    v25 = v29;
+  }
+
+  else
+  {
+
+    v25 = a6;
+    v9 = MEMORY[0x277D84F90];
+  }
+
+  return sub_242683E04(v9, v25);
+}
+
+uint64_t sub_242694790@<X0>(uint64_t a1@<X8>)
+{
+  v22 = a1;
+  result = sub_2426AA7A0();
+  if (result)
+  {
+    v2 = result;
+  }
+
+  else
+  {
+    v2 = MEMORY[0x277D84F90];
+  }
+
+  v25 = *(v2 + 16);
+  if (v25)
+  {
+    v3 = 0;
+    v4 = MEMORY[0x277CF2620];
+    while (v3 < *(v2 + 16))
+    {
+      v5 = sub_2426AA630();
+      v6 = *(v5 - 8);
+      v7 = v2;
+      v8 = v2 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v3;
+      v9 = sub_2426AAB20();
+      v26 = &v21;
+      v23 = *(v9 - 8);
+      v24 = v9;
+      v10 = MEMORY[0x28223BE20](v9);
+      v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+      MEMORY[0x28223BE20](v10);
+      v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(v6 + 16))(v14, v8, v5);
+      v15 = (*(v6 + 88))(v14, v5);
+      if (v4 && v15 == *v4)
+      {
+
+        (*(v6 + 96))(v14, v5);
+        v17 = v23;
+        v16 = v24;
+        (*(v23 + 32))(v12, v14, v24);
+        v18 = v22;
+        sub_2426AAB10();
+        (*(v17 + 8))(v12, v16);
+        v19 = sub_2426AA390();
+        return (*(*(v19 - 8) + 56))(v18, 0, 1, v19);
+      }
+
+      ++v3;
+      result = (*(v6 + 8))(v14, v5);
+      v2 = v7;
+      if (v25 == v3)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_11:
+
+    v20 = sub_2426AA390();
+    return (*(*(v20 - 8) + 56))(v22, 1, 1, v20);
+  }
+
+  return result;
 }

@@ -516,10 +516,10 @@ void __63__SBPasscodeController__startListeningToTelephonyNotifications__block_i
   }
 }
 
-uint64_t __87__SBPasscodeController__startListeningToRestoreCompletedAlertStateChangedNotifications__block_invoke(uint64_t a1)
+_BYTE *__87__SBPasscodeController__startListeningToRestoreCompletedAlertStateChangedNotifications__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (*(result + 84) == 1)
+  if (result[84] == 1)
   {
     result = [result _isRestoreCompletedAlertActive];
     if ((result & 1) == 0)

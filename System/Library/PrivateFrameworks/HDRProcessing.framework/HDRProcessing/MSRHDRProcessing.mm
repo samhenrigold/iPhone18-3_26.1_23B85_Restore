@@ -17,6 +17,7 @@
 - (void)createCustomScalingTables;
 - (void)dealloc;
 - (void)decideStageStatus:(BOOL *)status MSRHDRContext:(MSRHDRContext *)context DMConfig:(id *)config;
+- (void)dovi_createLUTFromDMConfig:(id *)config DM:(id)m HDRControl:(id *)control LLDoVi:(BOOL)vi TMParam:(_DoViTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam HlgOOTFCombined:(BOOL)self0 HlgOOTFOnly:(BOOL)self1 IsDoVi84:(BOOL)self2 IsInternalDisplay:(BOOL)self3 tcCtrl:(ToneCurve_Control *)self4;
 - (void)dovi_getTmLutInput:(unint64_t)input lutInput:(float *)lutInput;
 - (void)dovi_mixLUTFromTCControl:(ToneCurve_Control *)control TCControlConstr:(ToneCurve_Control *)constr withFactor:(float)factor;
 - (void)dovi_tm_createLUTFromDMConfig:(id *)config HDRControl:(id *)control DM:(id)m LLDoVi:(BOOL)vi TMParam:(_DoViTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam HlgOOTFCombined:(BOOL)self0 HlgOOTFOnly:(BOOL)self1 IsDoVi84:(BOOL)self2 IsInternalDisplay:(BOOL)self3 tcCtrl:(ToneCurve_Control *)self4;
@@ -51,6 +52,7 @@
 - (void)populateMSRColorConfigStageB04_01:(id *)b04_01 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
 - (void)populateMSRColorConfigStageB04_02:(id *)b04_02 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
 - (void)populateMSRColorConfigStageB04_03:(id *)b04_03 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
+- (void)populateMSRColorConfigStageB04_04:(id *)b04_04 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
 - (void)populateMSRColorConfigStageB04_05:(id *)b04_05 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
 - (void)runPostFrameDumpActions:(id *)actions;
 - (void)setDegammaBuffer:(int64_t)buffer Buffer:(float *)a4 TableSize:(unint64_t)size LutInput:(float *)input Type:(int)type scalerForSrgbBeyondMax:(float)max InputScale:(float)scale OutputScale:(float)self0;
@@ -71,10 +73,10 @@
 
 - (MSRHDRProcessing)init
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = MSRHDRProcessing;
-  v2 = [(ProcessingEngine *)&v18 init];
+  v27 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MSRHDRProcessing;
+  v2 = [(ProcessingEngine *)&v16 init];
   if (v2)
   {
     v3 = [[MSRColorConfigMemoryPool alloc] initWithCapacity:16 Size:48400];
@@ -88,7 +90,7 @@
 
     else
     {
-      v5 = sDumpContext;
+      v5 = sDumpContext[0];
     }
 
     v2->_dump = v5;
@@ -103,20 +105,19 @@
     [(MSRHDRProcessing *)v2 createAdaptationLut];
     *entry = 0;
     cf = 0;
-    v6 = *MEMORY[0x277CBECE8];
     ServiceObject = IOSurfaceAcceleratorCreate();
     if (!ServiceObject)
     {
       ServiceObject = IOSurfaceAcceleratorGetServiceObject();
       if (!ServiceObject)
       {
-        v8 = IORegistryEntrySearchCFProperty(entry[1], "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
-        if (v8)
+        v7 = IORegistryEntrySearchCFProperty(entry[1], "IOService", @"IOSurfaceAcceleratorCapabilitiesDict", 0, 0);
+        if (v7)
         {
-          v9 = v8;
-          v10 = [v9 objectForKeyedSubscript:@"IOSurfaceAcceleratorHCUApiVersion"];
-          ServiceObject = [v10 intValue];
-          CFRelease(v9);
+          v8 = v7;
+          v9 = [v8 objectForKeyedSubscript:@"IOSurfaceAcceleratorHCUApiVersion"];
+          ServiceObject = [v9 intValue];
+          CFRelease(v8);
         }
 
         else
@@ -130,34 +131,34 @@
     {
       if (logInstanceID)
       {
-        v11 = logInstanceID;
+        v10 = logInstanceID;
       }
 
       else
       {
-        v11 = prevLogInstanceID;
+        v10 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218498;
-        v22 = WORD1(v11);
-        v23 = 2080;
-        v24 = "int getHDRCapability()";
-        v25 = 1024;
-        LODWORD(v26) = ServiceObject;
+        v20 = WORD1(v10);
+        v21 = 2080;
+        v22 = "int getHDRCapability()";
+        v23 = 1024;
+        LODWORD(v24) = ServiceObject;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx ++ %s: MSRApiVer=%d\n", buf, 0x1Cu);
       }
 
-      prevLogInstanceID = v11;
+      prevLogInstanceID = v10;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v22 = "int getHDRCapability()";
-      v23 = 1024;
-      LODWORD(v24) = ServiceObject;
+      v20 = "int getHDRCapability()";
+      v21 = 1024;
+      LODWORD(v22) = ServiceObject;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] ++ %s: MSRApiVer=%d\n", buf, 0x12u);
     }
 
@@ -168,65 +169,64 @@
 
     if (ServiceObject == 2)
     {
-      v12 = 1869769064;
+      v11 = 1869769064;
     }
 
     else
     {
-      v12 = 1869769063;
+      v11 = 1869769063;
     }
 
-    v2->_msrPlatform = v12;
+    v2->_msrPlatform = v11;
   }
 
   if (enableLogInstance)
   {
     if (logInstanceID)
     {
-      v13 = logInstanceID;
+      v12 = logInstanceID;
     }
 
     else
     {
-      v13 = prevLogInstanceID;
+      v12 = prevLogInstanceID;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       msrPlatform = v2->_msrPlatform;
       *buf = 134218754;
-      v22 = WORD1(v13);
-      v23 = 2080;
-      v24 = "[MSRHDRProcessing init]";
-      v25 = 2048;
-      v26 = v2;
-      v27 = 1024;
-      v28 = msrPlatform;
+      v20 = WORD1(v12);
+      v21 = 2080;
+      v22 = "[MSRHDRProcessing init]";
+      v23 = 2048;
+      v24 = v2;
+      v25 = 1024;
+      v26 = msrPlatform;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx ++ %s : MSR created! instance=%p, platform=0x%x\n", buf, 0x26u);
     }
 
-    prevLogInstanceID = v13;
+    prevLogInstanceID = v12;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v2->_msrPlatform;
+    v14 = v2->_msrPlatform;
     *buf = 136315650;
-    v22 = "[MSRHDRProcessing init]";
-    v23 = 2048;
-    v24 = v2;
-    v25 = 1024;
-    LODWORD(v26) = v15;
+    v20 = "[MSRHDRProcessing init]";
+    v21 = 2048;
+    v22 = v2;
+    v23 = 1024;
+    LODWORD(v24) = v14;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] ++ %s : MSR created! instance=%p, platform=0x%x\n", buf, 0x1Cu);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = 0x10u;
   do
   {
@@ -259,10 +259,10 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v10 = WORD1(v6);
-      v11 = 2080;
+      v9 = WORD1(v6);
+      v10 = 2080;
       selfCopy2 = "[MSRHDRProcessing dealloc]";
-      v13 = 2048;
+      v12 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx -- %s: MSR exit! instance=%p\n", buf, 0x20u);
     }
@@ -273,16 +273,15 @@
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[MSRHDRProcessing dealloc]";
-    v11 = 2048;
+    v9 = "[MSRHDRProcessing dealloc]";
+    v10 = 2048;
     selfCopy2 = self;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] -- %s: MSR exit! instance=%p\n", buf, 0x16u);
   }
 
-  v8.receiver = self;
-  v8.super_class = MSRHDRProcessing;
-  [(ProcessingEngine *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = MSRHDRProcessing;
+  [(ProcessingEngine *)&v7 dealloc];
 }
 
 - (void)initDMConfigCache
@@ -295,7 +294,7 @@
 
 - (void)createCustomScalingTables
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   getHorizontalScalingTableTapNumber = [(MSRHDRProcessing *)self getHorizontalScalingTableTapNumber];
   getVerticalScalingTableTapNumber = [(MSRHDRProcessing *)self getVerticalScalingTableTapNumber];
   getHorizontalScalingTablePhaseNumber = [(MSRHDRProcessing *)self getHorizontalScalingTablePhaseNumber];
@@ -316,9 +315,9 @@
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 134217984;
-        v19 = WORD1(v7);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: mid_tap_h >= 4 && mid_tap_v >= 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 245\n", &v18, 0xCu);
+        v17 = 134217984;
+        v18 = WORD1(v7);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: mid_tap_h >= 4 && mid_tap_v >= 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 245\n", &v17, 0xCu);
       }
 
       prevLogInstanceID = v7;
@@ -326,8 +325,8 @@
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: mid_tap_h >= 4 && mid_tap_v >= 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 245\n", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: mid_tap_h >= 4 && mid_tap_v >= 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 245\n", &v17, 2u);
     }
   }
 
@@ -355,7 +354,6 @@
   hScaleCoefficents[(v9 + 1)][v11] = -0.12793;
   hScaleCoefficents[(v9 + 2)][v11] = 0.022949;
   hScaleCoefficents[(v9 + 3)][v11] = 0.0053711;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAdaptationLut
@@ -384,7 +382,7 @@
 
 - (void)updateDegammaLUT:(MSRHDRContext *)t AdditionalScaler:(float)scaler tcControl:(ToneCurve_Control *)control
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   inputTransferFunction = t->inputTransferFunction;
   switch(inputTransferFunction)
   {
@@ -427,13 +425,13 @@
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 134218498;
-          v39 = WORD1(v25);
-          v40 = 2080;
-          v41 = "[MSRHDRProcessing updateDegammaLUT:AdditionalScaler:tcControl:]";
-          v42 = 1024;
-          v43 = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s : Not supported type=%d\n", &v38, 0x1Cu);
+          v37 = 134218498;
+          v38 = WORD1(v25);
+          v39 = 2080;
+          v40 = "[MSRHDRProcessing updateDegammaLUT:AdditionalScaler:tcControl:]";
+          v41 = 1024;
+          v42 = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s : Not supported type=%d\n", &v37, 0x1Cu);
         }
 
         v10 = 0;
@@ -447,11 +445,11 @@
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 136315394;
-          v39 = "[MSRHDRProcessing updateDegammaLUT:AdditionalScaler:tcControl:]";
-          v40 = 1024;
-          LODWORD(v41) = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s : Not supported type=%d\n", &v38, 0x12u);
+          v37 = 136315394;
+          v38 = "[MSRHDRProcessing updateDegammaLUT:AdditionalScaler:tcControl:]";
+          v39 = 1024;
+          LODWORD(v40) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s : Not supported type=%d\n", &v37, 0x12u);
         }
 
         v10 = 0;
@@ -558,11 +556,11 @@ LABEL_19:
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 134218240;
-          v39 = WORD1(v26);
-          v40 = 1024;
-          LODWORD(v41) = v13;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Not supported type=%d\n", &v38, 0x12u);
+          v37 = 134218240;
+          v38 = WORD1(v26);
+          v39 = 1024;
+          LODWORD(v40) = v13;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Not supported type=%d\n", &v37, 0x12u);
         }
 
         prevLogInstanceID = v26;
@@ -574,9 +572,9 @@ LABEL_19:
         inputSurfaceEDR = 1.0;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = 67109120;
-          LODWORD(v39) = v13;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Not supported type=%d\n", &v38, 8u);
+          v37 = 67109120;
+          LODWORD(v38) = v13;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Not supported type=%d\n", &v37, 8u);
         }
       }
     }
@@ -653,8 +651,6 @@ LABEL_63:
       free(v30);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDegammaLutInput:(float *)input
@@ -1110,7 +1106,7 @@ LABEL_15:
 
 - (void)setupMSRHDRContext:(id *)context TCControl:(ToneCurve_Control *)control DMData:(id *)data input:(__IOSurface *)input output:(__IOSurface *)output
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   p_msrHC = &self->_msrHC;
   self->_msrHC.contentType = context->var0;
   self->_msrHC.displayType = context->var10;
@@ -1175,9 +1171,9 @@ LABEL_7:
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 134217984;
-          v29 = WORD1(v19);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _msrHC.processingType == kHDRProcessingTypeConvert warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 741\n", &v28, 0xCu);
+          v27 = 134217984;
+          v28 = WORD1(v19);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: _msrHC.processingType == kHDRProcessingTypeConvert warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 741\n", &v27, 0xCu);
         }
 
         prevLogInstanceID = v19;
@@ -1185,8 +1181,8 @@ LABEL_7:
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: _msrHC.processingType == kHDRProcessingTypeConvert warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 741\n", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: _msrHC.processingType == kHDRProcessingTypeConvert warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 741\n", &v27, 2u);
       }
     }
 
@@ -1247,20 +1243,21 @@ LABEL_23:
     v25 = GetConfig();
     if (*(v25 + 3151))
     {
-      if ((v25[6300] & 0x80) != 0 && GetConfig())
+      if ((v25[6300] & 0x80) != 0)
       {
-        v26 = GetConfig();
-        HDRConfig::GetConfigEntryValue(v26, 0x8Fu, 0);
+        if (GetConfig())
+        {
+          v26 = GetConfig();
+          HDRConfig::GetConfigEntryValue(v26, 0x8Fu, 0);
+        }
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processFrameByMSRWithComposerData:(id *)data DM:(id)m constraintDM:(id)dM DMData:(id *)mData tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl hdr10InfoFrame:(id *)frame layer0:(__IOSurface *)self0 layer1:(__IOSurface *)self1 output:(__IOSurface *)self2 frameNumebr:(unint64_t)self3 computedNumber:(unint64_t *)self4 config:(id *)self5
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   mCopy = m;
   dMCopy = dM;
   getAlloc = [(MSRColorConfigMemoryPool *)self->_msrCUPool getAlloc];
@@ -1349,11 +1346,11 @@ LABEL_23:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v34 = WORD1(v26);
-      v35 = 2080;
-      v36 = "[MSRHDRProcessing processFrameByMSRWithComposerData:DM:constraintDM:DMData:tcControl:hdrControl:hdr10InfoFrame:layer0:layer1:output:frameNumebr:computedNumber:config:]";
-      v37 = 2048;
-      v38 = 48400;
+      v33 = WORD1(v26);
+      v34 = 2080;
+      v35 = "[MSRHDRProcessing processFrameByMSRWithComposerData:DM:constraintDM:DMData:tcControl:hdrControl:hdr10InfoFrame:layer0:layer1:output:frameNumebr:computedNumber:config:]";
+      v36 = 2048;
+      v37 = 48400;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx    %s: ERROR: Failed to allocate memory! size = %lu bytes", buf, 0x20u);
     }
 
@@ -1363,13 +1360,12 @@ LABEL_23:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v34 = "[MSRHDRProcessing processFrameByMSRWithComposerData:DM:constraintDM:DMData:tcControl:hdrControl:hdr10InfoFrame:layer0:layer1:output:frameNumebr:computedNumber:config:]";
-    v35 = 2048;
-    v36 = 48400;
+    v33 = "[MSRHDRProcessing processFrameByMSRWithComposerData:DM:constraintDM:DMData:tcControl:hdrControl:hdr10InfoFrame:layer0:layer1:output:frameNumebr:computedNumber:config:]";
+    v34 = 2048;
+    v35 = 48400;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]    %s: ERROR: Failed to allocate memory! size = %lu bytes", buf, 0x16u);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v22 != 0;
 }
 
@@ -1889,6 +1885,21 @@ LABEL_23:
   }
 }
 
+- (void)dovi_createLUTFromDMConfig:(id *)config DM:(id)m HDRControl:(id *)control LLDoVi:(BOOL)vi TMParam:(_DoViTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam HlgOOTFCombined:(BOOL)self0 HlgOOTFOnly:(BOOL)self1 IsDoVi84:(BOOL)self2 IsInternalDisplay:(BOOL)self3 tcCtrl:(ToneCurve_Control *)self4
+{
+  viCopy = vi;
+  mCopy = m;
+  if ([MSRHDRProcessing dovi_tm_configChanged:"dovi_tm_configChanged:HDRControl:DM:LLDoVi:EdrAdaptationParam:AmbAdaptationParam:tcCtrl:" HDRControl:config DM:control LLDoVi:ctrl EdrAdaptationParam:? AmbAdaptationParam:? tcCtrl:?])
+  {
+    BYTE3(v19) = display;
+    BYTE2(v19) = vi84;
+    LOWORD(v19) = __PAIR16__(only, combined);
+    [MSRHDRProcessing dovi_tm_createLUTFromDMConfig:"dovi_tm_createLUTFromDMConfig:HDRControl:DM:LLDoVi:TMParam:EdrAdaptationParam:AmbAdaptationParam:HlgOOTFCombined:HlgOOTFOnly:IsDoVi84:IsInternalDisplay:tcCtrl:" HDRControl:config DM:control LLDoVi:mCopy TMParam:viCopy EdrAdaptationParam:param AmbAdaptationParam:adaptationParam HlgOOTFCombined:ambAdaptationParam HlgOOTFOnly:v19 IsDoVi84:ctrl IsInternalDisplay:? tcCtrl:?];
+    [(MSRHDRProcessing *)self dovi_tm_reserveConfig:config HDRControl:control DM:mCopy LLDoVi:viCopy EdrAdaptationParam:adaptationParam AmbAdaptationParam:ambAdaptationParam tcCtrl:ctrl];
+    ++self->_computedFrames;
+  }
+}
+
 - (BOOL)dovi_tm_configChanged:(id *)changed HDRControl:(id *)control DM:(id)m LLDoVi:(BOOL)vi EdrAdaptationParam:(_EdrAdaptationParam *)param AmbAdaptationParam:(_AmbAdaptationParam *)adaptationParam tcCtrl:(ToneCurve_Control *)ctrl
 {
   mCopy = m;
@@ -2142,67 +2153,26 @@ LABEL_23:
 
 - (void)updateLUTFromDMConfig:(id *)config TCControl:(ToneCurve_Control *)control HDRControl:(id *)rControl
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   processingType = control->tmData.processingType;
-  switch(processingType)
+  if (processingType != 5)
   {
-    case 5:
-      if (rControl->var17 != 18)
+    if (processingType != 2)
+    {
+      if (processingType == 1)
       {
-LABEL_36:
-        v13 = *MEMORY[0x277D85DE8];
+
+        [(MSRHDRProcessing *)self hdr10_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer LumaMixFactorBuffer:self->_lumaMixFactorTableBuffer];
         return;
       }
 
-      if (control->targetTransferFunction == 18)
-      {
-        if (enableLogInstance)
-        {
-          if (logInstanceID)
-          {
-            v8 = logInstanceID;
-          }
-
-          else
-          {
-            v8 = prevLogInstanceID;
-          }
-
-          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134217984;
-            v16 = WORD1(v8);
-            _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 1770\n", buf, 0xCu);
-          }
-
-          prevLogInstanceID = v8;
-        }
-
-        else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 1770\n", buf, 2u);
-        }
-
-        goto LABEL_36;
-      }
-
-      break;
-    case 2:
-      break;
-    case 1:
-      v7 = *MEMORY[0x277D85DE8];
-
-      [(MSRHDRProcessing *)self hdr10_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer LumaMixFactorBuffer:self->_lumaMixFactorTableBuffer];
-      return;
-    default:
       if (processingType)
       {
         if (processingType == 4)
         {
           if (rControl->var17 == 18)
           {
-            v12 = !self->super._enableHwOOTF || !self->super._enableHwOotfForDolby84;
+            v10 = !self->super._enableHwOOTF || !self->super._enableHwOotfForDolby84;
             goto LABEL_35;
           }
         }
@@ -2211,22 +2181,22 @@ LABEL_36:
         {
           if (logInstanceID)
           {
-            v11 = logInstanceID;
+            v9 = logInstanceID;
           }
 
           else
           {
-            v11 = prevLogInstanceID;
+            v9 = prevLogInstanceID;
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v16 = WORD1(v11);
+            v13 = WORD1(v9);
             _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: processingType == kHDRProcessingTypeDoVi || processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 1773\n", buf, 0xCu);
           }
 
-          prevLogInstanceID = v11;
+          prevLogInstanceID = v9;
         }
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2236,16 +2206,56 @@ LABEL_36:
         }
       }
 
-      v12 = 0;
+      v10 = 0;
 LABEL_35:
-      LOBYTE(v14) = v12;
-      [(MSRHDRProcessing *)self dovi_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer ScalingFactorBufferSize:513 Sat2FactorBuffer:self->_sat2FactorTableBuffer Sat2FactorBufferSize:513 dmConfig:config HlgOOTFCombined:v14];
-      goto LABEL_36;
+      LOBYTE(v11) = v10;
+      [(MSRHDRProcessing *)self dovi_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer ScalingFactorBufferSize:513 Sat2FactorBuffer:self->_sat2FactorTableBuffer Sat2FactorBufferSize:513 dmConfig:config HlgOOTFCombined:v11];
+      return;
+    }
+
+    goto LABEL_16;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  if (rControl->var17 != 18)
+  {
+    return;
+  }
 
-  [(MSRHDRProcessing *)self hlg_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer];
+  if (control->targetTransferFunction != 18)
+  {
+LABEL_16:
+
+    [(MSRHDRProcessing *)self hlg_tm_updateLUT:6 ScalingFactorBuffer:self->_scalingFactorTableBuffer];
+    return;
+  }
+
+  if (enableLogInstance)
+  {
+    if (logInstanceID)
+    {
+      v7 = logInstanceID;
+    }
+
+    else
+    {
+      v7 = prevLogInstanceID;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v13 = WORD1(v7);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 1770\n", buf, 0xCu);
+    }
+
+    prevLogInstanceID = v7;
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 1770\n", buf, 2u);
+  }
 }
 
 - (unsigned)setLms2RgbScale2P:(const float *)p OutputScale:(float)scale
@@ -2305,7 +2315,7 @@ LABEL_35:
 
 - (void)decideStageStatus:(BOOL *)status MSRHDRContext:(MSRHDRContext *)context DMConfig:(id *)config
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   *&context->enableReshaping = 0;
   operation = context->operation;
   if (operation == 1)
@@ -2498,11 +2508,11 @@ LABEL_51:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v19 = context->operation;
-      v77 = 134218240;
-      v78 = WORD1(v16);
-      v79 = 1024;
-      v80 = v19;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx     ERROR: Not supported operation %d !!!", &v77, 0x12u);
+      v76 = 134218240;
+      v77 = WORD1(v16);
+      v78 = 1024;
+      v79 = v19;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx     ERROR: Not supported operation %d !!!", &v76, 0x12u);
     }
 
     prevLogInstanceID = v16;
@@ -2515,9 +2525,9 @@ LABEL_51:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v22 = context->operation;
-      v77 = 67109120;
-      LODWORD(v78) = v22;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]     ERROR: Not supported operation %d !!!", &v77, 8u);
+      v76 = 67109120;
+      LODWORD(v77) = v22;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]     ERROR: Not supported operation %d !!!", &v76, 8u);
     }
   }
 
@@ -2553,9 +2563,9 @@ LABEL_93:
         v38 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v77 = 134217984;
-          v78 = WORD1(v36);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: (msrHC->operation == ((HDRProcessingOperation)(kHDRProcessingReshape | kHDRProcessingToneMap))) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2516\n", &v77, 0xCu);
+          v76 = 134217984;
+          v77 = WORD1(v36);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: (msrHC->operation == ((HDRProcessingOperation)(kHDRProcessingReshape | kHDRProcessingToneMap))) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2516\n", &v76, 0xCu);
         }
 
         prevLogInstanceID = v36;
@@ -2567,8 +2577,8 @@ LABEL_93:
         v41 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v77) = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: (msrHC->operation == ((HDRProcessingOperation)(kHDRProcessingReshape | kHDRProcessingToneMap))) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2516\n", &v77, 2u);
+          LOWORD(v76) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: (msrHC->operation == ((HDRProcessingOperation)(kHDRProcessingReshape | kHDRProcessingToneMap))) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2516\n", &v76, 2u);
         }
       }
 
@@ -2643,9 +2653,9 @@ LABEL_168:
                 v68 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
                 {
-                  v77 = 134217984;
-                  v78 = WORD1(v66);
-                  _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: dm_config_ptr->dmVersion == 4 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2536\n", &v77, 0xCu);
+                  v76 = 134217984;
+                  v77 = WORD1(v66);
+                  _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: dm_config_ptr->dmVersion == 4 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2536\n", &v76, 0xCu);
                 }
 
                 prevLogInstanceID = v66;
@@ -2657,8 +2667,8 @@ LABEL_168:
                 v70 = MEMORY[0x277D86220];
                 if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
                 {
-                  LOWORD(v77) = 0;
-                  _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: dm_config_ptr->dmVersion == 4 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2536\n", &v77, 2u);
+                  LOWORD(v76) = 0;
+                  _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: dm_config_ptr->dmVersion == 4 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2536\n", &v76, 2u);
                 }
               }
             }
@@ -2798,9 +2808,9 @@ LABEL_179:
         v35 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          v77 = 134217984;
-          v78 = WORD1(v33);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: msrHC->enableConverting && !msrHC->enableToneMapping warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2491\n", &v77, 0xCu);
+          v76 = 134217984;
+          v77 = WORD1(v33);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: msrHC->enableConverting && !msrHC->enableToneMapping warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2491\n", &v76, 0xCu);
         }
 
         prevLogInstanceID = v33;
@@ -2812,8 +2822,8 @@ LABEL_179:
         v51 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v77) = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: msrHC->enableConverting && !msrHC->enableToneMapping warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2491\n", &v77, 2u);
+          LOWORD(v76) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: msrHC->enableConverting && !msrHC->enableToneMapping warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2491\n", &v76, 2u);
         }
       }
     }
@@ -2837,9 +2847,9 @@ LABEL_179:
         v55 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          v77 = 134217984;
-          v78 = WORD1(v53);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: isConversionInputRgb(msrHC) || isConversionInputYuv(msrHC) || isConversionInputIpt(msrHC) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2492\n", &v77, 0xCu);
+          v76 = 134217984;
+          v77 = WORD1(v53);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: isConversionInputRgb(msrHC) || isConversionInputYuv(msrHC) || isConversionInputIpt(msrHC) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2492\n", &v76, 0xCu);
         }
 
         prevLogInstanceID = v53;
@@ -2851,8 +2861,8 @@ LABEL_179:
         v57 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v77) = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: isConversionInputRgb(msrHC) || isConversionInputYuv(msrHC) || isConversionInputIpt(msrHC) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2492\n", &v77, 2u);
+          LOWORD(v76) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: isConversionInputRgb(msrHC) || isConversionInputYuv(msrHC) || isConversionInputIpt(msrHC) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 2492\n", &v76, 2u);
         }
       }
     }
@@ -2987,49 +2997,42 @@ LABEL_208:
 
 LABEL_209:
   status[15] = 1;
-  if (!GetConfig())
+  if (GetConfig())
   {
-    goto LABEL_221;
-  }
-
-  Config = GetConfig();
-  if ((*HDRConfig::GetConfigEntryValue(Config, 0x47u, 0) - 1) > 1)
-  {
-    goto LABEL_221;
-  }
-
-  v74 = context->outputFormat;
-  if (v74 > 1953903151)
-  {
-    if (v74 != 1953903152 && v74 != 1953903668)
+    Config = GetConfig();
+    if ((*HDRConfig::GetConfigEntryValue(Config, 0x47u, 0) - 1) <= 1)
     {
-      v75 = 1953903154;
-LABEL_218:
-      if (v74 != v75)
+      v74 = context->outputFormat;
+      if (v74 > 1953903151)
       {
-        goto LABEL_221;
+        if (v74 != 1953903152 && v74 != 1953903668)
+        {
+          v75 = 1953903154;
+LABEL_218:
+          if (v74 != v75)
+          {
+            return;
+          }
+        }
+      }
+
+      else if ((v74 - 1886680624) > 4 || ((1 << (v74 - 48)) & 0x15) == 0)
+      {
+        v75 = 1882468912;
+        goto LABEL_218;
+      }
+
+      if (context->outputTransferFunction == 16)
+      {
+        *(status + 11) = 257;
       }
     }
   }
-
-  else if ((v74 - 1886680624) > 4 || ((1 << (v74 - 48)) & 0x15) == 0)
-  {
-    v75 = 1882468912;
-    goto LABEL_218;
-  }
-
-  if (context->outputTransferFunction == 16)
-  {
-    *(status + 11) = 257;
-  }
-
-LABEL_221:
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateMSRColorConfigHeader:(id *)header Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v10 = qword_280C66108;
   if (qword_280C66108)
   {
@@ -3039,16 +3042,16 @@ LABEL_221:
 LABEL_27:
       fprintf(v10, "%scontrolpath[%d] = {}\n", prefix, frameNumber);
       fprintf(v10, "%s\n", prefix);
-      goto LABEL_28;
+      return;
     }
 
-    *v22 = 0u;
-    v23 = 0u;
-    v20 = time(0);
-    localtime_r(&v20, &v21);
-    asctime_r(&v21, v22);
+    *v21 = 0u;
+    v22 = 0u;
+    v19 = time(0);
+    localtime_r(&v19, &v20);
+    asctime_r(&v20, v21);
     fprintf(v10, "%s---## %s %s on %s FDM Control Path Parameters (operation=%d %s, convertType=%d %s)\n", prefix, contentTypeName[context->contentType], colorSpaceName[context->inputColorSpace], displayTypeName[context->displayType], context->operation, operationName[context->operation], context->convertType, convertTypeName[context->convertType]);
-    fprintf(v10, "%s---## Created on: %s", prefix, v22);
+    fprintf(v10, "%s---## Created on: %s", prefix, v21);
     if (dword_280C66100 == -1)
     {
       fprintf(v10, "%s---## Frames: all\n");
@@ -3137,9 +3140,6 @@ LABEL_26:
     v18 = "Linear";
     goto LABEL_26;
   }
-
-LABEL_28:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateMSRColorConfigStageB01_01:(id *)b01_01 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
@@ -3466,7 +3466,7 @@ LABEL_83:
   prefixCopy2 = prefix;
   b01_02Copy2 = b01_02;
   selfCopy2 = self;
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   contentType = context->contentType;
   if (context->contentType == 3)
   {
@@ -3518,9 +3518,9 @@ LABEL_17:
       v24 = -v24;
     }
 
-    v107 = 0xFFFFFFFF / (v23 << (16 - var11));
-    v108 = ((v24 * 16777000.0) + 0.5) & 0x7FFFFFFF | (v25 << 31);
-    v26 = vcvts_n_u32_f32((v23 * v107) / (1 << (var11 + 14)), 0x18uLL);
+    v106 = 0xFFFFFFFF / (v23 << (16 - var11));
+    v107 = ((v24 * 16777000.0) + 0.5) & 0x7FFFFFFF | (v25 << 31);
+    v26 = vcvts_n_u32_f32((v23 * v106) / (1 << (var11 + 14)), 0x18uLL);
     if (self->_msrPlatform == 1869769064)
     {
       v27 = 31;
@@ -3647,11 +3647,11 @@ LABEL_106:
     }
 
 LABEL_52:
-    v106 = v26;
+    v105 = v26;
     v37 = context->inputColorSpace;
     if (!v37 && context->processingType == 5)
     {
-      v104 = ~(-1 << var11);
+      v103 = ~(-1 << var11);
       v40 = v27;
       v41 = var11;
       v42 = isSupportedMSRColorConversion(context->inputFormat, context->outputFormat);
@@ -3660,12 +3660,12 @@ LABEL_52:
       b01_02Copy2 = b01_02;
       prefixCopy2 = prefix;
       selfCopy2 = self;
-      v23 = v104;
+      v23 = v103;
       if (v42)
       {
         if (contentType != 3)
         {
-          v26 = v106;
+          v26 = v105;
           if (contentType == 2)
           {
             p_displayType = &context->displayType;
@@ -3714,7 +3714,7 @@ LABEL_112:
               v86 = (*(&config->var0 + (v84 & 3)) * 0.25);
             }
 
-            v114[v84++] = v86;
+            v113[v84++] = v86;
           }
 
           while (v84 != 3);
@@ -3741,7 +3741,7 @@ LABEL_112:
               }
             }
 
-            *(&v109 + i * 4) = v88;
+            *(&v108 + i * 4) = v88;
           }
 
           *&info = 0x62675232767559;
@@ -3752,12 +3752,12 @@ LABEL_112:
             fprintf(v22, "%s--- %s ---\n", prefixCopy2, &info);
             fprintf(v22, "%scontrolpath[%d].PreCm3x3Enable = %d\n", prefixCopy2, selfCopy2->super._frameNumber, 1);
             fprintf(v22, "%scontrolpath[%d].OutputBitDepth = %d\n", prefixCopy2, selfCopy2->super._frameNumber, 16);
-            fprintf(v22, "%scontrolpath[%d].rangeMin = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v108);
+            fprintf(v22, "%scontrolpath[%d].rangeMin = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v107);
             fprintf(v22, "%scontrolpath[%d].range = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v75);
-            fprintf(v22, "%scontrolpath[%d].rangeInv = %u\n", prefixCopy2, selfCopy2->super._frameNumber, v107);
+            fprintf(v22, "%scontrolpath[%d].rangeInv = %u\n", prefixCopy2, selfCopy2->super._frameNumber, v106);
             fprintf(v22, "%scontrolpath[%d].m33Yuv2RgbScale2P = %d\n", prefixCopy2, selfCopy2->super._frameNumber, 13);
-            fprintf(v22, "%scontrolpath[%d].m33Yuv2Rgb = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefixCopy2, selfCopy2->super._frameNumber, v109, v110, SHIDWORD(v110), v111, SHIDWORD(v111), v112, SHIDWORD(v112), v113, SHIDWORD(v113));
-            fprintf(v22, "%scontrolpath[%d].v3Yuv2RgbOffInRgb = { %d, %d, %d }\n", prefixCopy2, selfCopy2->super._frameNumber, v114[0], v114[1], v114[2]);
+            fprintf(v22, "%scontrolpath[%d].m33Yuv2Rgb = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefixCopy2, selfCopy2->super._frameNumber, v108, v109, SHIDWORD(v109), v110, SHIDWORD(v110), v111, SHIDWORD(v111), v112, SHIDWORD(v112));
+            fprintf(v22, "%scontrolpath[%d].v3Yuv2RgbOffInRgb = { %d, %d, %d }\n", prefixCopy2, selfCopy2->super._frameNumber, v113[0], v113[1], v113[2]);
             fprintf(v22, "%s\n", prefixCopy2);
             v27 = v91;
           }
@@ -3766,7 +3766,7 @@ LABEL_112:
           *&b01_02Copy2->var2.var0.var1.sourceToRGB.mode = 0xD00000002;
           v93 = -1 << v27;
           coeff = b01_02Copy2->var2.var0.var1.sourceToRGB.src2rgb.coeff;
-          v95 = vcvts_n_f32_u32(-(v108 * v107) >> 16, 0x18uLL);
+          v95 = vcvts_n_f32_u32(-(v107 * v106) >> 16, 0x18uLL);
           if (v26 >= 0)
           {
             v96 = -1;
@@ -3780,13 +3780,13 @@ LABEL_112:
           v97 = vcvts_n_f32_u32(v26 & ~v93, 0x18uLL);
           v98 = v97 * v96;
           v99 = v97 * ((v26 >> 31) | 1);
-          v100 = &v109;
+          v100 = &v108;
           do
           {
             v101 = 0;
             b01_02Copy2->var2.var0.var0[v92 + 2317] = 0;
             b01_02Copy2->var2.var0.var0[v92 + 2320] = 1065353215;
-            b01_02Copy2->var2.var0.var1.sourceToRGB.src2rgb.offsetIn[v92] = -v114[v92] / (1 << v85);
+            b01_02Copy2->var2.var0.var1.sourceToRGB.src2rgb.offsetIn[v92] = -v113[v92] / (1 << v85);
             do
             {
               (*coeff)[v101] = v100[v101];
@@ -3802,11 +3802,11 @@ LABEL_112:
           }
 
           while (v92 != 3);
-          goto LABEL_134;
+          return;
         }
 
         inputColorSpace = 0;
-        v26 = v106;
+        v26 = v105;
         goto LABEL_104;
       }
     }
@@ -3815,18 +3815,18 @@ LABEL_112:
     {
       if (v37 != 2)
       {
-        goto LABEL_134;
+        return;
       }
 
       v44 = context->displayType;
       if (v44 <= 7 && v44 != 5)
       {
-        v105 = var11;
-        v111 = 0x100000000;
-        v110 = 0;
-        v112 = 0;
-        v113 = 0x100000000;
-        v109 = 1;
+        v104 = var11;
+        v110 = 0x100000000;
+        v109 = 0;
+        v111 = 0;
+        v112 = 0x100000000;
+        v108 = 1;
         if (context->processingType == 5)
         {
           v45 = selfCopy2;
@@ -3843,10 +3843,10 @@ LABEL_112:
 LABEL_78:
             v53 = 0;
             *&info = 0x534D4C32545049;
-            v54 = &v109;
+            v54 = &v108;
             v55 = &m33Ipt2LmsFlt;
-            v56 = v106;
-            v57 = v108;
+            v56 = v105;
+            v57 = v107;
             do
             {
               for (j = 0; j != 3; ++j)
@@ -3891,8 +3891,8 @@ LABEL_73:
 LABEL_87:
         v62 = 0;
         strcpy(&info, "IPT offsetting only");
-        v56 = v106;
-        v57 = v108;
+        v56 = v105;
+        v57 = v107;
 LABEL_88:
         if (v22)
         {
@@ -3903,17 +3903,17 @@ LABEL_88:
           fprintf(v22, "%scontrolpath[%d].OutputBitDepth = %d\n", prefixCopy2, selfCopy2->super._frameNumber, 16);
           fprintf(v22, "%scontrolpath[%d].rangeMin = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v57);
           fprintf(v22, "%scontrolpath[%d].range = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v23);
-          fprintf(v22, "%scontrolpath[%d].rangeInv = %u\n", prefixCopy2, selfCopy2->super._frameNumber, v107);
+          fprintf(v22, "%scontrolpath[%d].rangeInv = %u\n", prefixCopy2, selfCopy2->super._frameNumber, v106);
           fprintf(v22, "%scontrolpath[%d].m33Yuv2RgbScale2P = %d\n", prefixCopy2, selfCopy2->super._frameNumber, v62);
-          fprintf(v22, "%scontrolpath[%d].m33Yuv2Rgb = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefixCopy2, selfCopy2->super._frameNumber, v109, v110, HIDWORD(v110), v111, HIDWORD(v111), v112, HIDWORD(v112), v113, HIDWORD(v113));
-          fprintf(v22, "%scontrolpath[%d].v3Yuv2RgbOffInRgb = { %d, %d, %d }\n", prefixCopy2, selfCopy2->super._frameNumber, 0, 1 << (v105 - 3), 1 << (v105 - 3));
+          fprintf(v22, "%scontrolpath[%d].m33Yuv2Rgb = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefixCopy2, selfCopy2->super._frameNumber, v108, v109, HIDWORD(v109), v110, HIDWORD(v110), v111, HIDWORD(v111), v112, HIDWORD(v112));
+          fprintf(v22, "%scontrolpath[%d].v3Yuv2RgbOffInRgb = { %d, %d, %d }\n", prefixCopy2, selfCopy2->super._frameNumber, 0, 1 << (v104 - 3), 1 << (v104 - 3));
           fprintf(v22, "%s\n", prefixCopy2);
           v27 = v63;
         }
 
         b01_02Copy2->var2.var0.var0[2315] = 1;
         b01_02Copy2->var2.var0.var0[2316] = v62;
-        v64 = vcvts_n_f32_u32(-(v57 * v107) >> 16, 0x18uLL);
+        v64 = vcvts_n_f32_u32(-(v57 * v106) >> 16, 0x18uLL);
         if (v56 >= 0)
         {
           v65 = -1;
@@ -3934,7 +3934,7 @@ LABEL_88:
         for (k = 0; k != 3; ++k)
         {
           v71 = b01_02Copy2->var2.var0.var1.sourceToRGB.src2rgb.coeff[k];
-          v72 = &v109 + k * 12;
+          v72 = &v108 + k * 12;
           if (k * 12)
           {
             v73 = -0.5;
@@ -3953,32 +3953,32 @@ LABEL_88:
           *outputMaxClip++ = v68;
         }
 
-        goto LABEL_134;
+        return;
       }
     }
 
     else if (v37 != 2)
     {
-      goto LABEL_134;
+      return;
     }
 
     if (context->processingType != 5)
     {
-      goto LABEL_134;
+      return;
     }
 
     v50 = v27;
-    v105 = var11;
+    v104 = var11;
     if ((isSupportedMSRColorConversion(context->inputFormat, context->outputFormat) & 1) == 0)
     {
-      goto LABEL_134;
+      return;
     }
 
-    v111 = 0x100000000;
-    v110 = 0;
-    v112 = 0;
-    v113 = 0x100000000;
-    v109 = 1;
+    v110 = 0x100000000;
+    v109 = 0;
+    v111 = 0;
+    v112 = 0x100000000;
+    v108 = 1;
     v51 = isSupportedMSRColorConversion(context->inputFormat, context->outputFormat);
     v27 = v50;
     if (v51)
@@ -4002,8 +4002,6 @@ LABEL_88:
   }
 
   b01_02Copy2->var2.var0.var0[2315] = 0;
-LABEL_134:
-  v102 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateMSRColorConfigStageB01_03:(id *)b01_03 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
@@ -4098,7 +4096,7 @@ LABEL_134:
 
 - (void)populateMSRColorConfigStageB01_04:(id *)b01_04 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v13 = qword_280C66108;
   if (enabled)
   {
@@ -4147,14 +4145,14 @@ LABEL_19:
         v40 = *&config[1].var26;
         v41 = *&config[1].var30;
         v42 = *&config[1].var34;
-        v43 = v96;
+        v43 = v95;
         v44 = -3;
         do
         {
-          v91 = v40;
-          v45 = (&v89 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
-          v46 = (&v90 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
-          v47 = *(&v91 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
+          v90 = v40;
+          v45 = (&v88 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
+          v46 = (&v89 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
+          v47 = *(&v90 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v44 - 1) & 3)));
           v48 = v47 < 0.0;
           if (v47 < 0.0)
           {
@@ -4168,7 +4166,7 @@ LABEL_19:
           }
 
           *(v43 - 3) = v49;
-          v90 = v41;
+          v89 = v41;
           v50 = *v46;
           if (*v46 < 0.0)
           {
@@ -4182,7 +4180,7 @@ LABEL_19:
           }
 
           *v43 = v51;
-          v89 = v42;
+          v88 = v42;
           v52 = *v45;
           if (*v45 < 0.0)
           {
@@ -4210,14 +4208,14 @@ LABEL_19:
         v24 = *&config[1].var10;
         v25 = *&config[1].var14;
         v26 = *&config[1].var18;
-        v27 = v96;
+        v27 = v95;
         v28 = -3;
         do
         {
-          v88 = v24;
-          v29 = (&v86 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
-          v30 = (&v87 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
-          v31 = *(&v88 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
+          v87 = v24;
+          v29 = (&v85 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
+          v30 = (&v86 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
+          v31 = *(&v87 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v28 - 1) & 3)));
           v32 = v31 < 0.0;
           if (v31 < 0.0)
           {
@@ -4231,7 +4229,7 @@ LABEL_19:
           }
 
           *(v27 - 3) = v33;
-          v87 = v25;
+          v86 = v25;
           v34 = *v30;
           if (*v30 < 0.0)
           {
@@ -4245,7 +4243,7 @@ LABEL_19:
           }
 
           *v27 = v35;
-          v86 = v26;
+          v85 = v26;
           v36 = *v29;
           if (*v29 < 0.0)
           {
@@ -4272,7 +4270,7 @@ LABEL_51:
         fprintf(v13, "%s--- B01-04 Frame %d ---\n", prefix, self->super._frameNumber);
         fprintf(v13, "%s--- %s ---\n", prefix, &info);
         fprintf(v13, "%scontrolpath[%d].PostDeGamma3x3Enable = %d\n", prefix, self->super._frameNumber, 1);
-        fprintf(v13, "%scontrolpath[%d].m33Rgb2Lms = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefix, self->super._frameNumber, (v21 * v95[0]), (v21 * v95[1]), (v21 * v95[2]), (v21 * v96[0]), (v21 * v96[1]), (v21 * v96[2]), (v21 * v96[3]), (v21 * v96[4]), (v21 * v96[5]));
+        fprintf(v13, "%scontrolpath[%d].m33Rgb2Lms = { {%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d} }\n", prefix, self->super._frameNumber, (v21 * v94[0]), (v21 * v94[1]), (v21 * v94[2]), (v21 * v95[0]), (v21 * v95[1]), (v21 * v95[2]), (v21 * v95[3]), (v21 * v95[4]), (v21 * v95[5]));
         fprintf(v13, "%scontrolpath[%d].m33Rgb2LmsScale2P = %d\n", prefix, self->super._frameNumber, v22);
         fprintf(v13, "%scontrolpath[%d].Rgb2LmsOutMin = %d\n", prefix, self->super._frameNumber, 0);
         fprintf(v13, "%s\n", prefix);
@@ -4282,7 +4280,7 @@ LABEL_51:
       b01_04->var2.var0.var0[3887] = 1;
       b01_04->var2.var0.var0[3888] = v22;
       coeff = b01_04->var2.var0.var1.colorAtoCommonSpace.a2c.coeff;
-      v56 = v95;
+      v56 = v94;
       do
       {
         v57 = 0;
@@ -4304,7 +4302,7 @@ LABEL_51:
       }
 
       while (v54 != 3);
-      goto LABEL_57;
+      return;
     }
 
     var47_low = LOWORD(config[1].var47);
@@ -4314,26 +4312,26 @@ LABEL_51:
       if (context->inputColorSpace == 2 && LODWORD(config[1].var46) == 4)
       {
         displayType = context->displayType;
-        v64 = displayType > 7 || displayType == 5;
-        if (!v64 && context->enableToneMapping && context->enableReshaping)
+        v63 = displayType > 7 || displayType == 5;
+        if (!v63 && context->enableToneMapping && context->enableReshaping)
         {
           snprintf(&info, 0x3FFuLL, "LMS2%% to 4%% conversion");
           for (i = 0; i != 9; ++i)
           {
-            v66 = *&m33CrossTalkTwo2FourPercentFlt[i];
-            v67 = v66 < 0.0;
-            if (v66 < 0.0)
+            v65 = *&m33CrossTalkTwo2FourPercentFlt[i];
+            v66 = v65 < 0.0;
+            if (v65 < 0.0)
             {
-              v66 = -v66;
+              v65 = -v65;
             }
 
-            v68 = ((v66 * 16384.0) + 0.5);
-            if (v67)
+            v67 = ((v65 * 16384.0) + 0.5);
+            if (v66)
             {
-              v68 = -v68;
+              v67 = -v67;
             }
 
-            v95[i] = v68;
+            v94[i] = v67;
             v22 = 14;
           }
 
@@ -4359,7 +4357,7 @@ LABEL_51:
           goto LABEL_84;
         }
 
-        v62 = 1647534392;
+        v61 = 1647534392;
       }
 
       else
@@ -4369,25 +4367,25 @@ LABEL_51:
           goto LABEL_84;
         }
 
-        v62 = 1380411457;
+        v61 = 1380411457;
       }
 
-      if (inputFormat != v62)
+      if (inputFormat != v61)
       {
 LABEL_95:
         if (var47_low & 1) == 0 || (debugDM4DisableConf)
         {
           strcpy(&info, "RGBtoLMS from DM metadata");
-          v79 = __PAIR64__(*"DM metadata", 1.0);
+          v78 = __PAIR64__(*"DM metadata", 1.0);
           if (self->_msrHC.processingType == 4)
           {
             v22 = 14;
             if ((*&self->super._anon_90[484] & 0x80) == 0 || (debugDM4DisableConf & 0x80) != 0)
             {
-              v80 = [(MSRHDRProcessing *)self getRgb2LmsScale2P:COERCE_DOUBLE(__PAIR64__(*"DM metadata"];
+              v79 = [(MSRHDRProcessing *)self getRgb2LmsScale2P:COERCE_DOUBLE(__PAIR64__(*"DM metadata"];
               [(MSRHDRProcessing *)self getDolby84PostDegammaScale];
-              *&v79 = *&v79 / (1 << (14 - v80));
-              v22 = v80;
+              *&v78 = *&v78 / (1 << (14 - v79));
+              v22 = v79;
             }
           }
 
@@ -4398,52 +4396,52 @@ LABEL_95:
 
           for (j = 0; j != 9; ++j)
           {
-            v95[j] = ((data->var6[j] * *&v79) + 0.5);
+            v94[j] = ((data->var6[j] * *&v78) + 0.5);
           }
         }
 
         else
         {
-          v75 = ((debugDM4DisableConf & 0x40) == 0) & (var47_low >> 6);
+          v74 = ((debugDM4DisableConf & 0x40) == 0) & (var47_low >> 6);
           snprintf(&info, 0x3FFuLL, "RGBtoLMS from DM metadata with 4%% crosstalk");
           for (k = 0; k != 9; ++k)
           {
-            *&v94[k * 4] = data->var6[k] * 0.000061035;
+            *&v93[k * 4] = data->var6[k] * 0.000061035;
           }
 
-          v93 = 1064011039;
-          v92[0] = m33CrossTalkFourPercentFlt;
-          v92[1] = unk_2508CDAA0;
-          Matrix3x3_multmatrix(v92, v94);
-          if (v75)
+          v92 = 1064011039;
+          v91[0] = m33CrossTalkFourPercentFlt;
+          v91[1] = unk_2508CDAA0;
+          Matrix3x3_multmatrix(v91, v93);
+          if (v74)
           {
-            *&v77 = v21;
-            v22 = [(MSRHDRProcessing *)self getMatrixScale2P:v92 OutputScale:v77];
-            v78 = (1 << v22);
+            *&v76 = v21;
+            v22 = [(MSRHDRProcessing *)self getMatrixScale2P:v91 OutputScale:v76];
+            v77 = (1 << v22);
           }
 
           else
           {
             v22 = 14;
-            v78 = 16384.0;
+            v77 = 16384.0;
           }
 
           for (m = 0; m != 9; ++m)
           {
-            v83 = *(v92 + m * 4);
-            v84 = v83 < 0.0;
-            if (v83 < 0.0)
+            v82 = *(v91 + m * 4);
+            v83 = v82 < 0.0;
+            if (v82 < 0.0)
             {
-              v83 = -v83;
+              v82 = -v82;
             }
 
-            v85 = ((v78 * v83) + 0.5);
-            if (v84)
+            v84 = ((v77 * v82) + 0.5);
+            if (v83)
             {
-              v85 = -v85;
+              v84 = -v84;
             }
 
-            v95[m] = v85;
+            v94[m] = v84;
           }
         }
 
@@ -4457,30 +4455,30 @@ LABEL_95:
     }
 
 LABEL_84:
-    v69 = context->displayType;
-    if (v69 <= 7 && v69 != 5)
+    v68 = context->displayType;
+    if (v68 <= 7 && v68 != 5)
     {
-      v71 = 0;
+      v70 = 0;
       strcpy(&info, "RGBtoLMS from hdrCtrl");
       do
       {
-        v72 = hdrControl->var20[v71];
-        v73 = v72 < 0.0;
-        if (v72 < 0.0)
+        v71 = hdrControl->var20[v70];
+        v72 = v71 < 0.0;
+        if (v71 < 0.0)
         {
-          v72 = -v72;
+          v71 = -v71;
         }
 
-        v74 = ((v72 * 16384.0) + 0.5);
-        if (v73)
+        v73 = ((v71 * 16384.0) + 0.5);
+        if (v72)
         {
-          v74 = -v74;
+          v73 = -v73;
         }
 
-        v95[v71++] = v74;
+        v94[v70++] = v73;
       }
 
-      while (v71 != 9);
+      while (v70 != 9);
       v22 = 14;
       goto LABEL_51;
     }
@@ -4496,8 +4494,6 @@ LABEL_84:
   }
 
   b01_04->var2.var0.var0[3887] = 0;
-LABEL_57:
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateMSRColorConfigStageB01_05:(id *)b01_05 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
@@ -4769,7 +4765,7 @@ LABEL_10:
 
 - (void)populateMSRColorConfigStageB02:(id *)b02 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v13 = qword_280C66108;
   if (enabled)
   {
@@ -4798,24 +4794,24 @@ LABEL_10:
 
     if (!v20 && inputFormat != v21)
     {
-LABEL_65:
+LABEL_64:
       if (contentType == 1)
       {
         if (context->processingType == 4 && !context->inputColorSpace)
         {
-          v32 = context->displayType;
-          if (v32 <= 7 && v32 != 5)
+          v31 = context->displayType;
+          if (v31 <= 7 && v31 != 5)
           {
             goto LABEL_26;
           }
         }
 
-        goto LABEL_84;
+        goto LABEL_83;
       }
 
       if (contentType != 3)
       {
-        goto LABEL_84;
+        goto LABEL_83;
       }
 
       if (context->inputColorSpace)
@@ -4824,34 +4820,34 @@ LABEL_65:
         {
           if (inputFormat != 1815162994)
           {
-            v31 = 1647534392;
-LABEL_81:
-            if (inputFormat == v31)
+            v30 = 1647534392;
+LABEL_80:
+            if (inputFormat == v30)
             {
-              goto LABEL_82;
+              goto LABEL_81;
             }
 
-LABEL_84:
+LABEL_83:
             if (enableLogInstance)
             {
               if (logInstanceID)
               {
-                v35 = logInstanceID;
+                v34 = logInstanceID;
               }
 
               else
               {
-                v35 = prevLogInstanceID;
+                v34 = prevLogInstanceID;
               }
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134217984;
-                v37 = WORD1(v35);
+                v36 = WORD1(v34);
                 _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: isTonemappingEnabled(msrHC) warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 3848\n", buf, 0xCu);
               }
 
-              prevLogInstanceID = v35;
+              prevLogInstanceID = v34;
             }
 
             else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4906,7 +4902,7 @@ LABEL_26:
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 134217984;
-                      v37 = WORD1(v27);
+                      v36 = WORD1(v27);
                       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: msrHC->processingType == kHDRProcessingTypeDoVi || msrHC->processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingImpl.mm at line 3880\n", buf, 0xCu);
                     }
 
@@ -4931,25 +4927,25 @@ LABEL_26:
             [(MSRHDRProcessing *)self populateMSRColorConfigStageB02HLG:b02 hdrControl:hdrControl, prefix, config, data, control];
 LABEL_59:
             [(MSRHDRProcessing *)self writeMSRColorConfigFileStageB02Enabled:&b02->var2 Prefix:prefix Info:&info];
-            goto LABEL_60;
+            return;
           }
         }
 
         else if (inputFormat != 1378955371)
         {
-          v31 = 1380411457;
-          goto LABEL_81;
+          v30 = 1380411457;
+          goto LABEL_80;
         }
       }
 
-LABEL_82:
-      v34 = context->displayType;
-      if (v34 <= 7 && v34 != 5)
+LABEL_81:
+      v33 = context->displayType;
+      if (v33 <= 7 && v33 != 5)
       {
         goto LABEL_26;
       }
 
-      goto LABEL_84;
+      goto LABEL_83;
     }
 
     v23 = context->displayType;
@@ -4980,7 +4976,7 @@ LABEL_82:
 
     if (inputFormat != v28)
     {
-      goto LABEL_65;
+      goto LABEL_64;
     }
 
 LABEL_52:
@@ -4994,10 +4990,10 @@ LABEL_52:
       if (inputFormat != 1815162994)
       {
         v29 = 1647534392;
-LABEL_63:
+LABEL_62:
         if (inputFormat != v29)
         {
-          goto LABEL_65;
+          goto LABEL_64;
         }
       }
     }
@@ -5005,7 +5001,7 @@ LABEL_63:
     else if (inputFormat != 1378955371)
     {
       v29 = 1380411457;
-      goto LABEL_63;
+      goto LABEL_62;
     }
 
     if (v23 == 2)
@@ -5013,7 +5009,7 @@ LABEL_63:
       goto LABEL_26;
     }
 
-    goto LABEL_65;
+    goto LABEL_64;
   }
 
   if (qword_280C66108)
@@ -5024,8 +5020,6 @@ LABEL_63:
   }
 
   b02->var2.var0.var0[3946] = 0;
-LABEL_60:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateMSRColorConfigStageB04_01:(id *)b04_01 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
@@ -5234,17 +5228,17 @@ LABEL_10:
 
 - (void)populateMSRColorConfigStageB04_03:(id *)b04_03 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v12 = &b04_03->var2.var0.var0[5118];
   v13 = qword_280C66108;
   if (enabled)
   {
     controlCopy5 = control;
     b04_03Copy2 = b04_03;
-    v101 = 0x3F800000uLL;
-    *&v102[4] = 0;
-    *&v102[12] = 0x3F80000000000000;
-    *v102 = 1065353216;
+    v100 = 0x3F800000uLL;
+    *&v101[4] = 0;
+    *&v101[12] = 0x3F80000000000000;
+    *v101 = 1065353216;
     v18 = 1.0;
     if (control->atmEnable && (targetMaxLinear = control->targetMaxLinearOutput, targetMaxLinear > control->diffuseInNits))
     {
@@ -5371,9 +5365,9 @@ LABEL_35:
         if ((var47_low & 2) != 0 && (debugDM4DisableConf & 2) == 0)
         {
           v36 = v35[1];
-          v98 = *v35;
-          v99 = v36;
-          v100 = *(v35 + 8);
+          v97 = *v35;
+          v98 = v36;
+          v99 = *(v35 + 8);
           snprintf(&info, 0x3FFuLL, "lms2rgb: %s, with 4%% inverse crosstalk", v31);
           v37 = &m33InverseCrossTalkFourPercentFlt;
           goto LABEL_63;
@@ -5382,9 +5376,9 @@ LABEL_35:
         if ((LOWORD(config[1].var47) & 0x100) != 0 && (debugDM4DisableConf & 0x100) == 0)
         {
           v38 = v35[1];
-          v98 = *v35;
-          v99 = v38;
-          v100 = *(v35 + 8);
+          v97 = *v35;
+          v98 = v38;
+          v99 = *(v35 + 8);
           snprintf(&info, 0x3FFuLL, "lms2rgb: %s, with 2%% inverse crosstalk", v31);
           v37 = &m33InverseCrossTalkTwoPercentFlt;
           goto LABEL_63;
@@ -5392,24 +5386,24 @@ LABEL_35:
 
         if ((var47_low & 4) != 0 && (debugDM4DisableConf & 4) == 0)
         {
-          v85 = v35[1];
-          v98 = *v35;
-          v99 = v85;
-          v100 = *(v35 + 8);
+          v84 = v35[1];
+          v97 = *v35;
+          v98 = v84;
+          v99 = *(v35 + 8);
           if ((var47_low & 0x80) != 0 && (debugDM4DisableConf & 0x80) == 0)
           {
             snprintf(&info, 0x3FFuLL, "rgb2rgb: RGBtoLMS from DM metadata, 2%% crosstalk, and LMStoRGB");
-            v86 = 0;
+            v85 = 0;
             controlCopy5 = control;
             do
             {
-              *&buf[v86 * 4] = data->var6[v86] * 0.000061035;
-              ++v86;
+              *&buf[v85 * 4] = data->var6[v85] * 0.000061035;
+              ++v85;
             }
 
-            while (v86 != 9);
-            Matrix3x3_multmatrix(&v98, &m33CrossTalkTwoPercentFlt);
-            Matrix3x3_multmatrix(&v98, buf);
+            while (v85 != 9);
+            Matrix3x3_multmatrix(&v97, &m33CrossTalkTwoPercentFlt);
+            Matrix3x3_multmatrix(&v97, buf);
             v18 = 0.1;
             goto LABEL_64;
           }
@@ -5417,12 +5411,12 @@ LABEL_35:
           snprintf(&info, 0x3FFuLL, "lms2rgb: %s, with 4%%-to-2%% inverse crosstalk", v31);
           v37 = &m33CrossTalkFour2TwoPercentFlt;
 LABEL_63:
-          Matrix3x3_multmatrix(&v98, v37);
+          Matrix3x3_multmatrix(&v97, v37);
           controlCopy5 = control;
 LABEL_64:
-          *buf = v98;
+          *buf = v97;
+          v103 = v98;
           v104 = v99;
-          v105 = v100;
           goto LABEL_65;
         }
 
@@ -5434,39 +5428,39 @@ LABEL_64:
             if (context->enableToneMapping && context->enableReshaping)
             {
               snprintf(&info, 0x3FFuLL, "lms2rgb: %s, with 4%% inverse crosstalk", v31);
-              v88 = v35[1];
-              v98 = *v35;
-              v99 = v88;
-              v100 = *(v35 + 8);
-              v89 = &m33InverseCrossTalkFourPercentFlt;
+              v87 = v35[1];
+              v97 = *v35;
+              v98 = v87;
+              v99 = *(v35 + 8);
+              v88 = &m33InverseCrossTalkFourPercentFlt;
 LABEL_171:
-              Matrix3x3_multmatrix(&v98, v89);
-              *buf = v98;
-              v104 = v99;
-              v93 = v100;
+              Matrix3x3_multmatrix(&v97, v88);
+              *buf = v97;
+              v103 = v98;
+              v92 = v99;
               goto LABEL_169;
             }
 
             if (displayType == 7 && context->enableReshaping && !context->enableToneMapping)
             {
               snprintf(&info, 0x3FFuLL, "lms2rgb: %s, with 2%% inverse crosstalk", v31);
-              v94 = v35[1];
-              v98 = *v35;
-              v99 = v94;
-              v100 = *(v35 + 8);
-              v89 = &m33InverseCrossTalkTwoPercentFlt;
+              v93 = v35[1];
+              v97 = *v35;
+              v98 = v93;
+              v99 = *(v35 + 8);
+              v88 = &m33InverseCrossTalkTwoPercentFlt;
               goto LABEL_171;
             }
           }
         }
 
         snprintf(&info, 0x3FFuLL, "lms2rgb: %s", v31);
-        v92 = v35[1];
+        v91 = v35[1];
         *buf = *v35;
-        v104 = v92;
-        v93 = *(v35 + 8);
+        v103 = v91;
+        v92 = *(v35 + 8);
 LABEL_169:
-        v105 = v93;
+        v104 = v92;
         controlCopy5 = control;
 LABEL_65:
         v39 = 0;
@@ -5556,62 +5550,62 @@ LABEL_65:
             v53 = -v53;
           }
 
-          v54 = -(v18 * *v104.i32);
-          if ((v18 * *v104.i32) >= 0.0)
+          v54 = -(v18 * *v103.i32);
+          if ((v18 * *v103.i32) >= 0.0)
           {
-            v54 = v18 * *v104.i32;
+            v54 = v18 * *v103.i32;
           }
 
           v55 = ((v54 * v46) + 0.5);
-          if ((v18 * *v104.i32) < 0.0)
+          if ((v18 * *v103.i32) < 0.0)
           {
             v55 = -v55;
           }
 
-          v56 = v18 * *&v104.i32[1];
-          if ((v18 * *&v104.i32[1]) < 0.0)
+          v56 = v18 * *&v103.i32[1];
+          if ((v18 * *&v103.i32[1]) < 0.0)
           {
-            v56 = -(v18 * *&v104.i32[1]);
+            v56 = -(v18 * *&v103.i32[1]);
           }
 
           v57 = ((v56 * v46) + 0.5);
-          if ((v18 * *&v104.i32[1]) < 0.0)
+          if ((v18 * *&v103.i32[1]) < 0.0)
           {
             v57 = -v57;
           }
 
-          v58 = -(v18 * *&v104.i32[2]);
-          if ((v18 * *&v104.i32[2]) >= 0.0)
+          v58 = -(v18 * *&v103.i32[2]);
+          if ((v18 * *&v103.i32[2]) >= 0.0)
           {
-            v58 = v18 * *&v104.i32[2];
+            v58 = v18 * *&v103.i32[2];
           }
 
           v59 = ((v58 * v46) + 0.5);
-          if ((v18 * *&v104.i32[2]) < 0.0)
+          if ((v18 * *&v103.i32[2]) < 0.0)
           {
             v59 = -v59;
           }
 
-          v60 = v18 * *&v104.i32[3];
-          if ((v18 * *&v104.i32[3]) < 0.0)
+          v60 = v18 * *&v103.i32[3];
+          if ((v18 * *&v103.i32[3]) < 0.0)
           {
-            v60 = -(v18 * *&v104.i32[3]);
+            v60 = -(v18 * *&v103.i32[3]);
           }
 
           v61 = ((v60 * v46) + 0.5);
-          if ((v18 * *&v104.i32[3]) < 0.0)
+          if ((v18 * *&v103.i32[3]) < 0.0)
           {
             v61 = -v61;
           }
 
-          v62 = -(v18 * v105);
-          if ((v18 * v105) >= 0.0)
+          v62 = -(v18 * v104);
+          if ((v18 * v104) >= 0.0)
           {
-            v62 = v18 * v105;
+            v62 = v18 * v104;
           }
 
           v63 = ((v62 * v46) + 0.5);
-          if ((v18 * v105) < 0.0)
+          if ((v18 * v104) < 0.0)
           {
             v63 = -v63;
           }
@@ -5637,8 +5631,8 @@ LABEL_65:
         offsetIn = b04_03Copy2->var2.var0.var1.commonSpaceToColorB.c2b.offsetIn;
         coeff = b04_03Copy2->var2.var0.var1.commonSpaceToColorB.c2b.coeff;
         offsetOut = b04_03Copy2->var2.var0.var1.commonSpaceToColorB.c2b.offsetOut;
-        v96 = *v20;
-        v95 = *MEMORY[0x277CC4C18];
+        v95 = *v20;
+        v94 = *MEMORY[0x277CC4C18];
         v70 = b04_03Copy2;
         outputMinClip = b04_03Copy2->var2.var0.var1.commonSpaceToColorB.c2b.outputMinClip;
         outputMaxClip = v70->var2.var0.var1.commonSpaceToColorB.c2b.outputMaxClip;
@@ -5672,7 +5666,7 @@ LABEL_65:
           if (controlCopy5->targetTransferFunction == 16)
           {
             v78 = controlCopy5->targetColorPrimaries;
-            v80 = v78 != v96 && v78 != v95;
+            v80 = v78 != v95 && v78 != v94;
           }
 
           else
@@ -5700,7 +5694,7 @@ LABEL_65:
         }
 
         while (v64 != 3);
-        goto LABEL_134;
+        return;
       }
     }
 
@@ -5716,15 +5710,15 @@ LABEL_65:
         var15 = hdrControl->var15;
         if (var15 == 9)
         {
-          v90 = control->targetColorPrimaries;
-          if (v90 == *MEMORY[0x277CC4C30])
+          v89 = control->targetColorPrimaries;
+          if (v89 == *MEMORY[0x277CC4C30])
           {
             strcpy(&info, "postRGB2RGB: 2020 -> P3");
             v24 = &RGB2020toRGBP3_coeff;
             goto LABEL_153;
           }
 
-          if (v90 == *MEMORY[0x277CC4C20])
+          if (v89 == *MEMORY[0x277CC4C20])
           {
             strcpy(&info, "postRGB2RGB: 2020 -> 709");
             v24 = &RGB2020toRGB709_coeff;
@@ -5750,10 +5744,10 @@ LABEL_65:
           strcpy(&info, "postRGB2RGB: P3 -> 2020");
           v24 = &RGBP3toRGB2020_coeff;
 LABEL_153:
-          v91 = v24[1];
+          v90 = v24[1];
           *buf = *v24;
-          v104 = v91;
-          v105 = *(v24 + 8);
+          v103 = v90;
+          v104 = *(v24 + 8);
           if (context->outputTransferFunction == 16)
           {
             if (BYTE1(config[1].var49))
@@ -5782,7 +5776,7 @@ LABEL_153:
 
 LABEL_152:
         strcpy(&info, "postRGB2RGB: No conversion");
-        v24 = &v101;
+        v24 = &v100;
         goto LABEL_153;
       }
 
@@ -5807,12 +5801,12 @@ LABEL_152:
     HIDWORD(v25) = *&config[1].var30;
     v26 = *&config[1].var34;
     v27 = vextq_s8(vextq_s8(*&config[1].var30, *&config[1].var30, 0xCuLL), v26, 8uLL);
-    v101 = v25;
-    *v102 = v27;
-    *&v102[16] = v26.i32[2];
-    v105 = *&v26.i32[2];
+    v100 = v25;
+    *v101 = v27;
+    *&v101[16] = v26.i32[2];
+    v104 = *&v26.i32[2];
     *buf = v25;
-    v104 = v27;
+    v103 = v27;
     goto LABEL_65;
   }
 
@@ -5824,13 +5818,195 @@ LABEL_152:
   }
 
   v12[968] = 0;
-LABEL_134:
-  v84 = *MEMORY[0x277D85DE8];
+}
+
+- (void)populateMSRColorConfigStageB04_04:(id *)b04_04 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
+{
+  v12 = &b04_04->var2.var0.var0[5118];
+  v13 = qword_280C66108;
+  if (enabled)
+  {
+    [(MSRHDRProcessing *)self updateRegammaLUT:context, enabled, prefix, config, data, control];
+    type = self->_regamma.type;
+    v15 = "L2PQ";
+    v16 = "Unknown";
+    if (type == 3)
+    {
+      v16 = "LINEAR DPC";
+    }
+
+    if (type != 2)
+    {
+      v15 = v16;
+    }
+
+    if (type == 1)
+    {
+      v17 = "SRGB Regamma";
+    }
+
+    else
+    {
+      v17 = v15;
+    }
+
+    snprintf(&info, 0x3FFuLL, "%s", v17);
+    if (v13)
+    {
+      fprintf(v13, "%s--- B04-04 Frame %d ---\n", prefix, self->super._frameNumber);
+      fprintf(v13, "%s--- %s ---\n", prefix, &info);
+      fprintf(v13, "%scontrolpath[%d].ReGammaEnable = %d\n", prefix, self->super._frameNumber, 1);
+      fprintf(v13, "%scontrolpath[%d].custom_regamma_LUT = {\n", prefix, self->super._frameNumber);
+      [(ProcessingEngine *)self printArray:v13 Prefix:prefix Array:self->_regamma.lutForCModel Size:706 NumberPerLine:8 Format:0];
+      fprintf(v13, "%s\n", prefix);
+      fprintf(v13, "%s\n", prefix);
+    }
+
+    v12[997] = 2;
+    v18 = (v12 + 998);
+    memcpy(v12 + 998, self->_regamma.lut, 0x2118uLL);
+    if (GetConfig())
+    {
+      Config = GetConfig();
+      if ((*HDRConfig::GetConfigEntryValue(Config, 0x47u, 0) - 1) <= 1)
+      {
+        outputFormat = context->outputFormat;
+        if (outputFormat > 1953903151)
+        {
+          if (outputFormat != 1953903152 && outputFormat != 1953903668)
+          {
+            v21 = 1953903154;
+LABEL_24:
+            if (outputFormat != v21)
+            {
+              return;
+            }
+          }
+        }
+
+        else if ((outputFormat - 1886680624) > 4 || ((1 << (outputFormat - 48)) & 0x15) == 0)
+        {
+          v21 = 1882468912;
+          goto LABEL_24;
+        }
+
+        if (context->outputTransferFunction == 16)
+        {
+          v22 = 0.0;
+          if (GetConfig())
+          {
+            v23 = GetConfig();
+            v24 = *HDRConfig::GetConfigEntryValue(v23, 0x47u, 0);
+            if (v24 == 2)
+            {
+              v32 = 0.0;
+              v33 = 0.0;
+              if (GetConfig())
+              {
+                v34 = GetConfig();
+                v33 = *HDRConfig::GetConfigEntryValue(v34, 0x82u, 0);
+              }
+
+              if (GetConfig())
+              {
+                v35 = GetConfig();
+                v32 = *HDRConfig::GetConfigEntryValue(v35, 0x83u, 0);
+              }
+
+              v36 = v33 / 4095.0;
+              v37 = v32 / 4095.0;
+              if (GetConfig())
+              {
+                v38 = GetConfig();
+                v39 = *HDRConfig::GetConfigEntryValue(v38, 0x84u, 0);
+              }
+
+              else
+              {
+                v39 = 0.0;
+              }
+
+              v40 = (v39 / 4095.0) + -0.5;
+              v26 = (((v37 + -0.5) * 2.0e-17) + ((v36 + -0.0625) * 1.1687)) + (v40 * 1.6848);
+              v22 = (((v37 + -0.5) * -0.18802) + ((v36 + -0.0625) * 1.1687)) + (v40 * -0.65282);
+              v25 = (((v37 + -0.5) * 2.1496) + ((v36 + -0.0625) * 1.1687)) + (v40 * 9.0e-17);
+            }
+
+            else
+            {
+              v25 = 0.0;
+              v26 = 0.0;
+              if (v24 == 1)
+              {
+                v27 = 0.0;
+                if (GetConfig())
+                {
+                  v28 = GetConfig();
+                  v27 = *HDRConfig::GetConfigEntryValue(v28, 0x82u, 0);
+                }
+
+                if (GetConfig())
+                {
+                  v29 = GetConfig();
+                  v22 = *HDRConfig::GetConfigEntryValue(v29, 0x83u, 0);
+                }
+
+                if (GetConfig())
+                {
+                  v30 = GetConfig();
+                  v31 = *HDRConfig::GetConfigEntryValue(v30, 0x84u, 0);
+                }
+
+                else
+                {
+                  v31 = 0.0;
+                }
+
+                v26 = v27 / 4095.0;
+                v22 = v22 / 4095.0;
+                v25 = v31 / 4095.0;
+              }
+            }
+          }
+
+          else
+          {
+            v25 = 0.0;
+            v26 = 0.0;
+          }
+
+          v41 = 706;
+          do
+          {
+            *v18 = v26;
+            v18[706] = v22;
+            v18[1412] = v25;
+            ++v18;
+            --v41;
+          }
+
+          while (v41);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_280C66108)
+    {
+      fprintf(qword_280C66108, "%s--- B04-04 Frame %d ---\n", prefix, self->super._frameNumber);
+      fprintf(v13, "%scontrolpath[%d].ReGammaEnable = %d\n", prefix, self->super._frameNumber, 0);
+      fprintf(v13, "%s\n", prefix);
+    }
+
+    v12[997] = 0;
+  }
 }
 
 - (void)populateMSRColorConfigStageB04_05:(id *)b04_05 Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v12 = &b04_05->var2.var0.var1.gammaEncoding.gamma_LUT[2][662];
   v13 = qword_280C66108;
   if (!enabled)
@@ -5843,10 +6019,10 @@ LABEL_134:
     }
 
     v12[44] = 0.0;
-    goto LABEL_110;
+    return;
   }
 
-  memset(v67 + 4, 0, 32);
+  memset(v66 + 4, 0, 32);
   if (context->processingType != 5 || !isSupportedMSRColorConversion(context->inputFormat, context->outputFormat))
   {
     if (context->contentType == 1 && !context->inputColorSpace && !context->displayType && ((LOWORD(config[1].var47) & 0x20) == 0 || (debugDM4DisableConf & 0x20) != 0))
@@ -5969,23 +6145,23 @@ LABEL_42:
     }
   }
 
-  v64 = control->targetColorPrimaries;
-  if (*MEMORY[0x277CC4C20] == v64)
+  v63 = control->targetColorPrimaries;
+  if (*MEMORY[0x277CC4C20] == v63)
   {
-    v66 = "709";
+    v65 = "709";
   }
 
   else
   {
-    v65 = *MEMORY[0x277CC4C18] != v64 || *MEMORY[0x277CC4C30] == v64;
-    v66 = "P3";
-    if (!v65)
+    v64 = *MEMORY[0x277CC4C18] != v63 || *MEMORY[0x277CC4C30] == v63;
+    v65 = "P3";
+    if (!v64)
     {
-      v66 = "2020";
+      v65 = "2020";
     }
   }
 
-  snprintf(&info, 0x3FFuLL, "rgb2yuv: %s", v66);
+  snprintf(&info, 0x3FFuLL, "rgb2yuv: %s", v65);
   if (isFullRangeFromSurfaceFormat(context->outputFormat))
   {
     v18 = &qword_2508CDCB8;
@@ -6001,118 +6177,118 @@ LABEL_44:
   *buf = *v18;
   *&buf[8] = *(v18 + 2);
   v28 = RGBtoYUVMatrixForUITargetColorPrimary[1];
-  v67[0] = *RGBtoYUVMatrixForUITargetColorPrimary;
-  v67[1] = v28;
-  LODWORD(v67[2]) = *(RGBtoYUVMatrixForUITargetColorPrimary + 8);
+  v66[0] = *RGBtoYUVMatrixForUITargetColorPrimary;
+  v66[1] = v28;
+  LODWORD(v66[2]) = *(RGBtoYUVMatrixForUITargetColorPrimary + 8);
   if (v13)
   {
     fprintf(v13, "%s--- B04-05 Frame %d ---\n", prefix, self->super._frameNumber);
     fprintf(v13, "%s--- %s ---\n", prefix, &info);
     fprintf(v13, "%scontrolpath[%d].PostCm3x3Enable = %d\n", prefix, self->super._frameNumber, 1);
-    v29 = *(v67 + 1);
-    v30 = -*v67;
-    if (*v67 >= 0.0)
+    v29 = *(v66 + 1);
+    v30 = -*v66;
+    if (*v66 >= 0.0)
     {
-      v30 = *v67;
+      v30 = *v66;
     }
 
     v31 = ((v30 * 4095.0) + 0.5);
-    if (*v67 < 0.0)
+    if (*v66 < 0.0)
     {
       v31 = -v31;
     }
 
-    if (*(v67 + 1) < 0.0)
+    if (*(v66 + 1) < 0.0)
     {
-      v29 = -*(v67 + 1);
+      v29 = -*(v66 + 1);
     }
 
     v32 = ((v29 * 4095.0) + 0.5);
-    if (*(v67 + 1) < 0.0)
+    if (*(v66 + 1) < 0.0)
     {
       v32 = -v32;
     }
 
-    v33 = *(v67 + 2);
-    if (*(v67 + 2) < 0.0)
+    v33 = *(v66 + 2);
+    if (*(v66 + 2) < 0.0)
     {
-      v33 = -*(v67 + 2);
+      v33 = -*(v66 + 2);
     }
 
     v34 = ((v33 * 4095.0) + 0.5);
-    if (*(v67 + 2) < 0.0)
+    if (*(v66 + 2) < 0.0)
     {
       v34 = -v34;
     }
 
-    v35 = -*(v67 + 3);
-    if (*(v67 + 3) >= 0.0)
+    v35 = -*(v66 + 3);
+    if (*(v66 + 3) >= 0.0)
     {
-      v35 = *(v67 + 3);
+      v35 = *(v66 + 3);
     }
 
     v36 = ((v35 * 4095.0) + 0.5);
-    if (*(v67 + 3) < 0.0)
+    if (*(v66 + 3) < 0.0)
     {
       v36 = -v36;
     }
 
-    v37 = *&v67[1];
-    if (*&v67[1] < 0.0)
+    v37 = *&v66[1];
+    if (*&v66[1] < 0.0)
     {
-      v37 = -*&v67[1];
+      v37 = -*&v66[1];
     }
 
     v38 = ((v37 * 4095.0) + 0.5);
-    if (*&v67[1] < 0.0)
+    if (*&v66[1] < 0.0)
     {
       v38 = -v38;
     }
 
-    v39 = -*(&v67[1] + 1);
-    if (*(&v67[1] + 1) >= 0.0)
+    v39 = -*(&v66[1] + 1);
+    if (*(&v66[1] + 1) >= 0.0)
     {
-      v39 = *(&v67[1] + 1);
+      v39 = *(&v66[1] + 1);
     }
 
     v40 = ((v39 * 4095.0) + 0.5);
-    if (*(&v67[1] + 1) < 0.0)
+    if (*(&v66[1] + 1) < 0.0)
     {
       v40 = -v40;
     }
 
-    v41 = *(&v67[1] + 2);
-    if (*(&v67[1] + 2) < 0.0)
+    v41 = *(&v66[1] + 2);
+    if (*(&v66[1] + 2) < 0.0)
     {
-      v41 = -*(&v67[1] + 2);
+      v41 = -*(&v66[1] + 2);
     }
 
     v42 = ((v41 * 4095.0) + 0.5);
-    if (*(&v67[1] + 2) < 0.0)
+    if (*(&v66[1] + 2) < 0.0)
     {
       v42 = -v42;
     }
 
-    v43 = -*(&v67[1] + 3);
-    if (*(&v67[1] + 3) >= 0.0)
+    v43 = -*(&v66[1] + 3);
+    if (*(&v66[1] + 3) >= 0.0)
     {
-      v43 = *(&v67[1] + 3);
+      v43 = *(&v66[1] + 3);
     }
 
     v44 = ((v43 * 4095.0) + 0.5);
-    if (*(&v67[1] + 3) < 0.0)
+    if (*(&v66[1] + 3) < 0.0)
     {
       v44 = -v44;
     }
 
-    v45 = *&v67[2];
-    if (*&v67[2] < 0.0)
+    v45 = *&v66[2];
+    if (*&v66[2] < 0.0)
     {
-      v45 = -*&v67[2];
+      v45 = -*&v66[2];
     }
 
     v46 = ((v45 * 4095.0) + 0.5);
-    if (*&v67[2] < 0.0)
+    if (*&v66[2] < 0.0)
     {
       v46 = -v46;
     }
@@ -6128,7 +6304,7 @@ LABEL_44:
 
   v47 = 0;
   *(v12 + 22) = 0xC00000001;
-  v48 = v67;
+  v48 = v66;
   coeff = b04_05->var2.var0.var1.rgb2ycc.rgb2ycc.coeff;
   do
   {
@@ -6177,7 +6353,7 @@ LABEL_44:
 LABEL_99:
           if (outputFormat != v56)
           {
-            goto LABEL_110;
+            return;
           }
         }
       }
@@ -6222,9 +6398,6 @@ LABEL_99:
       }
     }
   }
-
-LABEL_110:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (int)getColorConfigSignatureString:(char *)string length:(int)length tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl
@@ -6451,32 +6624,31 @@ LABEL_60:
 
 - (void)populateMSRColorConfig:(id *)config DMConfig:(id *)mConfig DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
   v15 = *&mConfig[1].var42;
   *&context->dpcParam.alpha = *&mConfig[1].var38;
   *&context->dpcParam.on = v15;
-  [(MSRHDRProcessing *)self decideStageStatus:&v18 MSRHDRContext:context DMConfig:mConfig];
+  [(MSRHDRProcessing *)self decideStageStatus:&v17 MSRHDRContext:context DMConfig:mConfig];
   [(MSRHDRProcessing *)self checkNewFrameForDump];
-  [(MSRHDRProcessing *)self populateMSRColorConfigHeader:config Enabled:1 Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_01:config Enabled:v18 Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_02:config Enabled:BYTE1(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_03:config Enabled:BYTE2(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_04:config Enabled:BYTE3(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_05:config Enabled:BYTE4(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_06:config Enabled:BYTE5(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_01:config Enabled:v19 Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_02:config Enabled:BYTE1(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_03:config Enabled:BYTE2(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_04:config Enabled:BYTE3(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_05:config Enabled:BYTE4(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB02:config Enabled:BYTE6(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageB03:config Enabled:HIBYTE(v18) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageHwOOTF:config Enabled:BYTE6(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  [(MSRHDRProcessing *)self populateMSRColorConfigStageDownSampleFilter:config Enabled:HIBYTE(v19) Prefix:&v17 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
-  v16 = *MEMORY[0x277D85DE8];
+  [(MSRHDRProcessing *)self populateMSRColorConfigHeader:config Enabled:1 Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_01:config Enabled:v17 Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_02:config Enabled:BYTE1(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_03:config Enabled:BYTE2(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_04:config Enabled:BYTE3(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_05:config Enabled:BYTE4(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB01_06:config Enabled:BYTE5(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_01:config Enabled:v18 Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_02:config Enabled:BYTE1(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_03:config Enabled:BYTE2(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_04:config Enabled:BYTE3(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB04_05:config Enabled:BYTE4(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB02:config Enabled:BYTE6(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageB03:config Enabled:HIBYTE(v17) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageHwOOTF:config Enabled:BYTE6(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
+  [(MSRHDRProcessing *)self populateMSRColorConfigStageDownSampleFilter:config Enabled:HIBYTE(v18) Prefix:&v16 DMConfig:mConfig DMData:data tcControl:control hdrControl:hdrControl MSRHDRContext:context];
 }
 
 - (void)attachHDRMetaDataToOutputSurface:(__IOSurface *)surface withDMData:(id *)data withDMConfig:(id *)config withHdrControl:(id *)control withTcControl:(ToneCurve_Control *)tcControl withMSRHDRContext:(MSRHDRContext *)context withInfoFrame:(id *)frame
@@ -6495,12 +6667,83 @@ LABEL_60:
 
 - (void)attachDoViMetadataPacketTo:(__IOSurface *)to withDMData:(id *)data withDMConfig:(id *)config withHdrControl:(id *)control withMSRHDRContext:(MSRHDRContext *)context
 {
-  v52 = *MEMORY[0x277D85DE8];
-  if (control->var3 != 4)
+  v50 = *MEMORY[0x277D85DE8];
+  if (control->var3 == 4)
   {
-    v33 = convertMetaDataToPayLoad(data, &self->_payload);
-    self->_payLoadLength = v33;
+    if (control->var6)
+    {
+      value = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v11 = [MEMORY[0x277CCABB0] numberWithInt:context->outputTransferFunction];
+      [value setObject:v11 forKeyedSubscript:*MEMORY[0x277CD2A08]];
+
+      LOWORD(v12) = data->var21.var2;
+      *&v13 = v12 / 4095.0;
+      v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+      [value setObject:v14 forKeyedSubscript:*MEMORY[0x277CD2A18]];
+
+      LOWORD(v15) = data->var21.var1;
+      *&v16 = v15 / 4095.0;
+      v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+      [value setObject:v17 forKeyedSubscript:*MEMORY[0x277CD2A20]];
+
+      LOWORD(v18) = data->var21.var3;
+      *&v19 = v18 / 4095.0;
+      v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+      [value setObject:v20 forKeyedSubscript:*MEMORY[0x277CD2A10]];
+
+      if (data->var32.var0)
+      {
+        v21 = [MEMORY[0x277CCABB0] numberWithInt:data->var32.var2 + 2];
+        [value setObject:v21 forKeyedSubscript:*MEMORY[0x277CC4C70]];
+
+        if (data->var32.var2 == 2)
+        {
+          if (data->var23.var0)
+          {
+            v23 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var1];
+            [value setObject:v23 forKeyedSubscript:*MEMORY[0x277CC4C80]];
+
+            v24 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var2];
+            [value setObject:v24 forKeyedSubscript:*MEMORY[0x277CC4C78]];
+
+            v25 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var3];
+            [value setObject:v25 forKeyedSubscript:*MEMORY[0x277CC4C68]];
+          }
+
+          if (data->var24.var0)
+          {
+            LOWORD(v22) = data->var24.var2;
+            *&v22 = LODWORD(v22) / 4095.0;
+            v26 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
+            [value setObject:v26 forKeyedSubscript:*MEMORY[0x277CC4C60]];
+
+            LOWORD(v27) = data->var24.var1;
+            *&v28 = v27 / 4095.0;
+            v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+            [value setObject:v29 forKeyedSubscript:*MEMORY[0x277CC4C58]];
+          }
+        }
+      }
+
+      IOSurfaceSetValue(to, *MEMORY[0x277CD2A00], value);
+    }
+  }
+
+  else
+  {
+    v32 = convertMetaDataToPayLoad(data, &self->_payload);
+    self->_payLoadLength = v32;
     if (data->var25.var0)
+    {
+      v34 = 13;
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+
+    if (data->var26.var0)
     {
       v35 = 13;
     }
@@ -6510,74 +6753,64 @@ LABEL_60:
       v35 = 0;
     }
 
-    if (data->var26.var0)
-    {
-      v36 = 13;
-    }
-
-    else
-    {
-      v36 = 0;
-    }
-
-    v37 = v36 + v35;
-    if (v33 - (v36 + v35) >= 0x1E3)
+    v36 = v35 + v34;
+    if (v32 - (v35 + v34) >= 0x1E3)
     {
       metaDataReduceL2(data);
-      v38 = convertMetaDataToPayLoad(data, &self->_payload);
-      self->_payLoadLength = v38;
-      if (v38 - v37 >= 0x1E3 && data->var31.var0)
+      v37 = convertMetaDataToPayLoad(data, &self->_payload);
+      self->_payLoadLength = v37;
+      if (v37 - v36 >= 0x1E3 && data->var31.var0)
       {
         data->var31.var0 = 0;
         --data->var18;
-        v38 = convertMetaDataToPayLoad(data, &self->_payload);
-        self->_payLoadLength = v38;
+        v37 = convertMetaDataToPayLoad(data, &self->_payload);
+        self->_payLoadLength = v37;
       }
 
       if (enableLogInstance)
       {
         if (logInstanceID)
         {
-          v39 = logInstanceID;
+          v38 = logInstanceID;
         }
 
         else
         {
-          v39 = prevLogInstanceID;
+          v38 = prevLogInstanceID;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218754;
-          v46 = WORD1(v39);
-          v47 = 2080;
-          *v48 = "[MSRHDRProcessing attachDoViMetadataPacketTo:withDMData:withDMConfig:withHdrControl:withMSRHDRContext:]";
-          *&v48[8] = 1024;
-          v49 = v38 - v37;
-          v50 = 1024;
-          v51 = 482;
+          v44 = WORD1(v38);
+          v45 = 2080;
+          *v46 = "[MSRHDRProcessing attachDoViMetadataPacketTo:withDMData:withDMConfig:withHdrControl:withMSRHDRContext:]";
+          *&v46[8] = 1024;
+          v47 = v37 - v36;
+          v48 = 1024;
+          v49 = 482;
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx     %s : Warning: after md reduction, payLoadLength=%d, max packet size=%d", buf, 0x22u);
         }
 
-        prevLogInstanceID = v39;
+        prevLogInstanceID = v38;
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v46 = "[MSRHDRProcessing attachDoViMetadataPacketTo:withDMData:withDMConfig:withHdrControl:withMSRHDRContext:]";
-        v47 = 1024;
-        *v48 = v38 - v37;
-        *&v48[4] = 1024;
-        *&v48[6] = 482;
+        v44 = "[MSRHDRProcessing attachDoViMetadataPacketTo:withDMData:withDMConfig:withHdrControl:withMSRHDRContext:]";
+        v45 = 1024;
+        *v46 = v37 - v36;
+        *&v46[4] = 1024;
+        *&v46[6] = 482;
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]     %s : Warning: after md reduction, payLoadLength=%d, max packet size=%d", buf, 0x18u);
       }
     }
 
     if (context->contentType == 3)
     {
-      LODWORD(v34) = *&config->var66;
-      setTargitBrightnessInMetaData(&self->_payload, v34, control->var22, *&v34, control->var22);
+      LODWORD(v33) = *&config->var66;
+      setTargitBrightnessInMetaData(&self->_payload, v33, control->var22, *&v33, control->var22);
     }
 
     if (SLODWORD(config[1].var46) <= 3)
@@ -6596,106 +6829,22 @@ LABEL_60:
     self->_doviHDMIMetaData.version = 1;
     self->_doviHDMIMetaData.var0.v1.output_conversion.metadata_copies = 3;
     self->_doviHDMIMetaData.var0.v1.output_conversion.metadata_valid_packet = self->_numOfPackets;
-    v41 = CFDataCreate(*MEMORY[0x277CBECE8], &self->_doviHDMIMetaData, 524);
-    IOSurfaceSetValue(to, @"DolbyVisionHDMIData", v41);
-    CFRelease(v41);
-    goto LABEL_38;
+    v40 = CFDataCreate(*MEMORY[0x277CBECE8], &self->_doviHDMIMetaData, 524);
+    IOSurfaceSetValue(to, @"DolbyVisionHDMIData", v40);
+    CFRelease(v40);
   }
-
-  if (!control->var6)
-  {
-LABEL_38:
-    v42 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  value = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v11 = [MEMORY[0x277CCABB0] numberWithInt:context->outputTransferFunction];
-  [value setObject:v11 forKeyedSubscript:*MEMORY[0x277CD2A08]];
-
-  LOWORD(v12) = data->var21.var2;
-  *&v13 = v12 / 4095.0;
-  v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-  [value setObject:v14 forKeyedSubscript:*MEMORY[0x277CD2A18]];
-
-  LOWORD(v15) = data->var21.var1;
-  *&v16 = v15 / 4095.0;
-  v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  [value setObject:v17 forKeyedSubscript:*MEMORY[0x277CD2A20]];
-
-  LOWORD(v18) = data->var21.var3;
-  *&v19 = v18 / 4095.0;
-  v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  [value setObject:v20 forKeyedSubscript:*MEMORY[0x277CD2A10]];
-
-  if (data->var32.var0)
-  {
-    v21 = [MEMORY[0x277CCABB0] numberWithInt:data->var32.var2 + 2];
-    [value setObject:v21 forKeyedSubscript:*MEMORY[0x277CC4C70]];
-
-    if (data->var32.var2 == 2)
-    {
-      if (data->var23.var0)
-      {
-        v23 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var1];
-        [value setObject:v23 forKeyedSubscript:*MEMORY[0x277CC4C80]];
-
-        v24 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var2];
-        [value setObject:v24 forKeyedSubscript:*MEMORY[0x277CC4C78]];
-
-        v25 = [MEMORY[0x277CCABB0] numberWithInt:data->var23.var3];
-        [value setObject:v25 forKeyedSubscript:*MEMORY[0x277CC4C68]];
-      }
-
-      if (data->var24.var0)
-      {
-        LOWORD(v22) = data->var24.var2;
-        *&v22 = LODWORD(v22) / 4095.0;
-        v26 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-        [value setObject:v26 forKeyedSubscript:*MEMORY[0x277CC4C60]];
-
-        LOWORD(v27) = data->var24.var1;
-        *&v28 = v27 / 4095.0;
-        v29 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-        [value setObject:v29 forKeyedSubscript:*MEMORY[0x277CC4C58]];
-      }
-    }
-  }
-
-  IOSurfaceSetValue(to, *MEMORY[0x277CD2A00], value);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attachInfoFrameTo:(__IOSurface *)to withDMData:(id *)data withTcControl:(ToneCurve_Control *)control withInfoFrame:(id *)frame
 {
-  LODWORD(v14) = unk_2508CDD38;
-  if (frame->var0.var2 && frame->var1.var0)
-  {
-    v13 = *&frame->var0.var0;
-    v14 = *&frame->var0.var8;
-    var1 = frame->var1;
-  }
-
-  else if (data->var26.var0)
-  {
-    LODWORD(v14) = 10000 * data->var26.var1;
-    HIDWORD(v14) = data->var26.var2;
-    v9 = *&data->var26.var3;
-  }
-
-  else
+  if ((!frame->var0.var2 || !frame->var1.var0) && !data->var26.var0)
   {
     var16 = data->var16;
     if (var16 >= 0xC06)
     {
-      v12 = PQ12Bit2LinFloat(var16);
-      LODWORD(v14) = vcvt_u32_f32(vmul_f32(__PAIR64__(COERCE_UNSIGNED_INT(PQ12Bit2LinFloat(data->var15)), LODWORD(v12)), vdup_n_s32(0x461C4000u))).u32[0];
+      PQ12Bit2LinFloat(var16);
+      PQ12Bit2LinFloat(data->var15);
     }
-  }
-
-  if (control->dovi50toHDR10TVMode && v14 >= (control->targetMaxLinear * 10000.0))
-  {
-    v11 = (control->targetMaxLinear * 10000.0);
   }
 
   IOSurfaceSetBulkAttachments2();
@@ -6703,7 +6852,7 @@ LABEL_38:
 
 + (void)dolbyIOMFBMetadata:(id *)metadata withMinBrightness:(float)brightness maxBrightness:(float)maxBrightness
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   bzero(metadata, 0x20CuLL);
   if (maxBrightness <= brightness)
   {
@@ -6721,17 +6870,17 @@ LABEL_38:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134219010;
-        v16 = WORD1(v12);
-        v17 = 2080;
+        v14 = 134219010;
+        v15 = WORD1(v12);
+        v16 = 2080;
         maxBrightnessCopy2 = COERCE_DOUBLE("+[MSRHDRProcessing dolbyIOMFBMetadata:withMinBrightness:maxBrightness:]");
-        v19 = 2048;
+        v18 = 2048;
         brightnessCopy2 = maxBrightness;
-        v21 = 2048;
+        v20 = 2048;
         brightnessCopy = brightness;
-        v23 = 2048;
+        v22 = 2048;
         metadataCopy = metadata;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx     %s : error max=%f <= min=%f, metaData=%p", &v15, 0x34u);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx     %s : error max=%f <= min=%f, metaData=%p", &v14, 0x34u);
       }
 
       v11 = 0;
@@ -6744,15 +6893,15 @@ LABEL_38:
       v11 = 0;
       if (v13)
       {
-        v15 = 136315906;
-        v16 = "+[MSRHDRProcessing dolbyIOMFBMetadata:withMinBrightness:maxBrightness:]";
-        v17 = 2048;
+        v14 = 136315906;
+        v15 = "+[MSRHDRProcessing dolbyIOMFBMetadata:withMinBrightness:maxBrightness:]";
+        v16 = 2048;
         maxBrightnessCopy2 = maxBrightness;
-        v19 = 2048;
+        v18 = 2048;
         brightnessCopy2 = brightness;
-        v21 = 2048;
+        v20 = 2048;
         brightnessCopy = *&metadata;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]     %s : error max=%f <= min=%f, metaData=%p", &v15, 0x2Au);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]     %s : error max=%f <= min=%f, metaData=%p", &v14, 0x2Au);
         v11 = 0;
       }
     }
@@ -6781,7 +6930,6 @@ LABEL_38:
   metadata->var0 = 1;
   metadata->var1.var0.var0.var1 = 3;
   metadata->var1.var0.var0.var2 = v11;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dolbyIOMFBMetadata:(id *)metadata withFilteredMinPQ:(float)q FilteredMaxPQ:(float)pQ FilteredAvgPQ:(float)avgPQ EnableLevel4:(BOOL)level4 FilteredAvg:(float)avg FilteredStdDev:(float)dev

@@ -70,7 +70,7 @@
 
 - (void)discoverInitialPropertiesWithConsumer:(id)consumer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   consumerCopy = consumer;
   host = [(CardDAVAccount *)self host];
 
@@ -118,10 +118,10 @@
       checkValidityTaskGroup3 = [(CardDAVAccount *)self checkValidityTaskGroup];
       *buf = 138412802;
       selfCopy2 = self;
-      v26 = 2112;
-      v27 = checkValidityTaskGroup3;
-      v28 = 2112;
-      v29 = consumerCopy;
+      v25 = 2112;
+      v26 = checkValidityTaskGroup3;
+      v27 = 2112;
+      v28 = consumerCopy;
       _os_log_impl(&dword_24850D000, v16, v17, "account %@ is checking validity with group %@ on behalf of %@", buf, 0x20u);
     }
 
@@ -145,13 +145,11 @@
 
     [consumerCopy account:self isValid:0 validationError:0];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveryTask:(id)task gotAccountInfo:(id)info error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   infoCopy = info;
   errorCopy = error;
@@ -159,13 +157,13 @@
   v12 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v11, v12))
   {
-    v22 = 138412802;
-    v23 = taskCopy;
-    v24 = 2112;
-    v25 = infoCopy;
-    v26 = 2112;
-    v27 = errorCopy;
-    _os_log_impl(&dword_24850D000, v11, v12, "DiscoveryTaskGroup %@ got account info %@ with error %@", &v22, 0x20u);
+    v21 = 138412802;
+    v22 = taskCopy;
+    v23 = 2112;
+    v24 = infoCopy;
+    v25 = 2112;
+    v26 = errorCopy;
+    _os_log_impl(&dword_24850D000, v11, v12, "DiscoveryTaskGroup %@ got account info %@ with error %@", &v21, 0x20u);
   }
 
   checkValidityTaskGroup = [(CardDAVAccount *)self checkValidityTaskGroup];
@@ -197,8 +195,6 @@
 
     [(CardDAVAccount *)self setCheckValidityTaskGroup:0];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (DACoreDAVTaskManager)taskManager
@@ -240,7 +236,7 @@
 
 - (id)copyImageContentsAtURL:(id)l outError:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:lCopy options:2 error:error];
   if (!v6)
@@ -259,15 +255,14 @@
         v9 = 0;
       }
 
-      v12 = 138412546;
-      v13 = lCopy;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_24850D000, v7, v8, "Could not get photo data from url %@.  Error %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = lCopy;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_24850D000, v7, v8, "Could not get photo data from url %@.  Error %@", &v11, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -417,12 +412,11 @@ LABEL_25:
 
 - (id)spinnerIdentifiers
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D03708];
-  v6[0] = *MEMORY[0x277D03710];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277D03710];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }

@@ -489,9 +489,9 @@ LABEL_17:
   if ([keyCopy interactionType] == 14)
   {
     displayString = [contentsCopy displayString];
-    v41 = [displayString isEqualToString:@"+*#"];
+    isEqualToString = objc_msgSend_isEqualToString_(displayString);
 
-    if (v41)
+    if (isEqualToString)
     {
       renderConfig5 = [(UIKBRenderFactory *)self renderConfig];
       usesCompactKeycapsFont5 = [renderConfig5 usesCompactKeycapsFont];
@@ -598,7 +598,7 @@ LABEL_17:
 
 LABEL_18:
   displayString2 = [contentsCopy displayString];
-  v28 = [displayString2 isEqualToString:@"."];
+  v28 = objc_msgSend_isEqualToString_(displayString2);
 
   if (v28)
   {
@@ -610,13 +610,13 @@ LABEL_20:
   }
 
   displayString3 = [contentsCopy displayString];
-  if ([displayString3 isEqualToString:@"#"])
+  if (objc_msgSend_isEqualToString_(displayString3))
   {
     goto LABEL_24;
   }
 
   displayString4 = [contentsCopy displayString];
-  if ([displayString4 isEqualToString:@"*"])
+  if (objc_msgSend_isEqualToString_(displayString4))
   {
 
 LABEL_24:
@@ -658,7 +658,7 @@ LABEL_25:
   }
 
   displayString5 = [contentsCopy displayString];
-  v49 = [displayString5 isEqualToString:@"+"];
+  v49 = objc_msgSend_isEqualToString_(displayString5);
 
   if (v49)
   {
@@ -744,12 +744,12 @@ LABEL_31:
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   [v8 setUsesDarkAppearance:{objc_msgSend(renderConfig, "lightKeyboard") ^ 1}];
 
-  geometry = [v8 geometry];
+  v10 = objc_msgSend_geometry(v8);
   [(UIKBRenderFactory *)self keyCornerRadius];
-  [geometry setRoundRectRadius:?];
-  [geometry setRoundRectCorners:-1];
+  [v10 setRoundRectRadius:?];
+  [v10 setRoundRectCorners:-1];
   [keyplaneCopy frame];
-  [geometry adjustForConsistentGapsWithSize:6.0 inFrame:{6.0, v11, v12, v13, v14}];
+  [v10 adjustForConsistentGapsWithSize:6.0 inFrame:{6.0, v11, v12, v13, v14}];
   v15 = [(UIKBRenderFactory *)self displayContentsForKey:keyCopy];
   lightTextFontName = [(UIKBRenderFactoryNumberPad *)self lightTextFontName];
   lightTextFontFallbackName = [(UIKBRenderFactoryNumberPad *)self lightTextFontFallbackName];
@@ -894,9 +894,9 @@ LABEL_31:
   }
 
   displayString = [v71 displayString];
-  v70 = [displayString isEqualToString:@"."];
+  isEqualToString = objc_msgSend_isEqualToString_(displayString);
 
-  if (v70)
+  if (isEqualToString)
   {
 LABEL_28:
     renderConfig5 = defaultKeyBackgroundColorName;

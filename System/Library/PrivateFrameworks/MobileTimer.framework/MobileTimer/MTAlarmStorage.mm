@@ -71,6 +71,7 @@
 - (void)loadAlarmsSync;
 - (void)migrateDefaultsAlarmsToCoreData:(id)data sleepAlarms:(id)alarms;
 - (void)persistAlarmIntoCoreData:(id)data replacingAlarm:(id)alarm;
+- (void)persistAlarmKitSchedulingState:(BOOL)state;
 - (void)persistAlarmStorageVersion;
 - (void)persistCoreDataMigrationComplete;
 - (void)printDiagnostics;
@@ -82,6 +83,7 @@
 - (void)scheduler:(id)scheduler didFireAlarm:(id)alarm;
 - (void)setAllAlarms:(id)alarms sleepAlarms:(id)sleepAlarms source:(id)source;
 - (void)setScheduler:(id)scheduler;
+- (void)setupForCoreDataTestingWithStoreFail:(BOOL)fail;
 - (void)setupListeners;
 - (void)snoozeAlarmWithIdentifier:(id)identifier snoozeAction:(unint64_t)action withCompletion:(id)completion source:(id)source;
 - (void)snoozeAlarmWithIdentifier:(id)identifier snoozeDate:(id)date snoozeAction:(unint64_t)action withCompletion:(id)completion source:(id)source;
@@ -145,26 +147,26 @@
 
 - (MTAlarmStorage)initWithPersistence:(id)persistence migrator:(id)migrator serializer:(id)serializer callbackScheduler:(id)scheduler currentDateProvider:(id)provider
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   persistenceCopy = persistence;
   migratorCopy = migrator;
   serializerCopy = serializer;
   schedulerCopy = scheduler;
   providerCopy = provider;
-  v28.receiver = self;
-  v28.super_class = MTAlarmStorage;
-  v18 = [(MTAlarmStorage *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = MTAlarmStorage;
+  v18 = [(MTAlarmStorage *)&v27 init];
   if (v18)
   {
     v19 = MTLogForCategory(3);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v30 = v18;
-      v31 = 2114;
-      v32 = persistenceCopy;
-      v33 = 2114;
-      v34 = migratorCopy;
+      v29 = v18;
+      v30 = 2114;
+      v31 = persistenceCopy;
+      v32 = 2114;
+      v33 = migratorCopy;
       _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@ with persistence %{public}@ and migrator %{public}@", buf, 0x20u);
     }
 
@@ -186,7 +188,6 @@
     v18->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -356,13 +357,13 @@ LABEL_5:
 
 - (void)_clearOutInvalidToneIdentifiers
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Cleaning out invalid tone identifiers", &v9, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Cleaning out invalid tone identifiers", &v8, 0xCu);
   }
 
   v4 = +[MTUserDefaults sharedUserDefaults];
@@ -376,8 +377,6 @@ LABEL_5:
 
   v7 = +[MTUserDefaults sharedUserDefaults];
   [v7 removeObjectForKey:@"MTDefaultAlarmVibrationID"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetCurrentToneIdentifier
@@ -419,7 +418,7 @@ LABEL_5:
 
 uint64_t __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke(uint64_t a1)
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   v2 = [*(a1 + 32) persistence];
   v3 = v2 == 0;
@@ -458,12 +457,12 @@ uint64_t __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke(uint64_t 
     }
 
     v15 = *v1;
-    v92[0] = MEMORY[0x1E69E9820];
-    v92[1] = 3221225472;
-    v92[2] = __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_364;
-    v92[3] = &unk_1E7B0C9D8;
-    v92[4] = v15;
-    [v15 _withLock:v92];
+    v91[0] = MEMORY[0x1E69E9820];
+    v91[1] = 3221225472;
+    v91[2] = __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_364;
+    v91[3] = &unk_1E7B0C9D8;
+    v91[4] = v15;
+    [v15 _withLock:v91];
     if (v10 < 1.0)
     {
       v16 = MTLogForCategory(3);
@@ -513,7 +512,7 @@ LABEL_99:
       {
         if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
         {
-          __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_cold_2(v1);
+          __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_cold_2();
         }
       }
 
@@ -527,7 +526,7 @@ LABEL_99:
         *&buf[12] = 2050;
         *&buf[14] = v79;
         *&buf[22] = 2050;
-        v99 = v80;
+        v98 = v80;
         _os_log_impl(&dword_1B1F9F000, v77, OS_LOG_TYPE_DEFAULT, "%{public}@ loaded %{public}ld alarms, %{public}ld sleep alarms", buf, 0x20u);
       }
 
@@ -593,7 +592,7 @@ LABEL_99:
 
       v31 = v37;
 
-      v87 = [[MTStorageReader alloc] initWithEncodedDictionary:v31];
+      v86 = [[MTStorageReader alloc] initWithEncodedDictionary:v31];
     }
 
     else
@@ -621,9 +620,9 @@ LABEL_99:
 
       v31 = v30;
 
-      v91 = 0;
-      v87 = [[MTStorageReaderV1 alloc] initForReadingFromData:v31 error:&v91];
-      v32 = v91;
+      v90 = 0;
+      v86 = [[MTStorageReaderV1 alloc] initForReadingFromData:v31 error:&v90];
+      v32 = v90;
       if (v32)
       {
         v33 = MTLogForCategory(3);
@@ -634,9 +633,9 @@ LABEL_99:
       }
     }
 
-    v20 = [(MTStorageReader *)v87 decodeObjectForKey:@"MTAlarms"];
-    v21 = [(MTStorageReader *)v87 decodeObjectForKey:@"MTSleepAlarm"];
-    v22 = [(MTStorageReader *)v87 decodeObjectForKey:@"MTSleepAlarms"];
+    v20 = [(MTStorageReader *)v86 decodeObjectForKey:@"MTAlarms"];
+    v21 = [(MTStorageReader *)v86 decodeObjectForKey:@"MTSleepAlarm"];
+    v22 = [(MTStorageReader *)v86 decodeObjectForKey:@"MTSleepAlarms"];
     v23 = v10 < 2.3;
     if (v10 < 2.3)
     {
@@ -695,8 +694,8 @@ LABEL_99:
           _os_log_impl(&dword_1B1F9F000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ Migrating sleep alarm: %{public}@ ", buf, 0x16u);
         }
 
-        v97 = v21;
-        v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v97 count:1];
+        v96 = v21;
+        v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
 
         v45 = [*v1 persistence];
         v46 = [MEMORY[0x1E696AD98] numberWithBool:1];
@@ -723,47 +722,47 @@ LABEL_55:
     {
       if (v21)
       {
-        v93 = 0;
-        v94 = &v93;
-        v95 = 0x2050000000;
+        v92 = 0;
+        v93 = &v92;
+        v94 = 0x2050000000;
         v47 = getBMDiscoverabilitySignalEventClass_softClass;
-        v96 = getBMDiscoverabilitySignalEventClass_softClass;
+        v95 = getBMDiscoverabilitySignalEventClass_softClass;
         if (!getBMDiscoverabilitySignalEventClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getBMDiscoverabilitySignalEventClass_block_invoke;
-          v99 = &unk_1E7B0C600;
-          v100 = &v93;
+          v98 = &unk_1E7B0C600;
+          v99 = &v92;
           __getBMDiscoverabilitySignalEventClass_block_invoke(buf);
-          v47 = v94[3];
+          v47 = v93[3];
         }
 
         v48 = v47;
-        _Block_object_dispose(&v93, 8);
+        _Block_object_dispose(&v92, 8);
         v49 = [v47 alloc];
         v50 = [MEMORY[0x1E696AAE8] mainBundle];
         v51 = [v50 bundleIdentifier];
         v52 = [v49 initWithIdentifier:@"com.apple.mobiletimer.bedtime.migration.done" bundleID:v51 context:0];
 
-        v93 = 0;
-        v94 = &v93;
-        v95 = 0x2050000000;
+        v92 = 0;
+        v93 = &v92;
+        v94 = 0x2050000000;
         v53 = getBMStreamsClass_softClass;
-        v96 = getBMStreamsClass_softClass;
+        v95 = getBMStreamsClass_softClass;
         if (!getBMStreamsClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getBMStreamsClass_block_invoke;
-          v99 = &unk_1E7B0C600;
-          v100 = &v93;
+          v98 = &unk_1E7B0C600;
+          v99 = &v92;
           __getBMStreamsClass_block_invoke(buf);
-          v53 = v94[3];
+          v53 = v93[3];
         }
 
         v54 = v53;
-        _Block_object_dispose(&v93, 8);
+        _Block_object_dispose(&v92, 8);
         v55 = [v53 discoverabilitySignal];
         v56 = [v55 source];
 
@@ -795,12 +794,12 @@ LABEL_55:
 
     if (v10 < 3.3 && MTShouldHandleForEucalyptus())
     {
-      v86 = [MEMORY[0x1E699A1D8] serviceForClientIdentifier:@"com.apple.mobiletimer.bedtime-mode"];
-      v90 = 0;
-      v85 = [v86 invalidateActiveModeAssertionWithError:&v90];
-      v60 = v90;
-      v84 = v60;
-      if (v85)
+      v85 = [MEMORY[0x1E699A1D8] serviceForClientIdentifier:@"com.apple.mobiletimer.bedtime-mode"];
+      v89 = 0;
+      v84 = [v85 invalidateActiveModeAssertionWithError:&v89];
+      v60 = v89;
+      v83 = v60;
+      if (v84)
       {
         v61 = v60 == 0;
       }
@@ -821,9 +820,9 @@ LABEL_55:
           *buf = 138543874;
           *&buf[4] = v65;
           *&buf[12] = 2114;
-          *&buf[14] = v86;
+          *&buf[14] = v85;
           *&buf[22] = 2114;
-          v99 = v84;
+          v98 = v83;
           _os_log_error_impl(&dword_1B1F9F000, v64, OS_LOG_TYPE_ERROR, "%{public}@ Failed to release assertion with %{public}@, failure error:%{public}@", buf, 0x20u);
         }
       }
@@ -853,7 +852,7 @@ LABEL_55:
       {
         if (v21 || ([v22 firstObject], (v21 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v67 = [*v1 _convertSleepAlarmToRegular:{v21, v84}];
+          v67 = [*v1 _convertSleepAlarmToRegular:{v21, v83}];
           v68 = [v20 arrayByAddingObject:v67];
 
           v69 = MTLogForCategory(3);
@@ -865,7 +864,7 @@ LABEL_55:
             *&buf[12] = 2114;
             *&buf[14] = v21;
             *&buf[22] = 2114;
-            v99 = v67;
+            v98 = v67;
             _os_log_impl(&dword_1B1F9F000, v69, OS_LOG_TYPE_DEFAULT, "%{public}@ Migrating sleep alarm: %{public}@ to regular: %{public}@", buf, 0x20u);
           }
 
@@ -905,10 +904,9 @@ LABEL_111:
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v83 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -929,25 +927,23 @@ uint64_t __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_364(uint6
 
 - (void)didFinishLoadingStore
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ didFinishLoadingStore", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ didFinishLoadingStore", &v5, 0xCu);
   }
 
   [(MTAlarmStorage *)self loadAlarmsFromCoreDataSync];
   conductor = [(MTAlarmStorage *)self conductor];
   [conductor send];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerStoreLoadCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = +[MTFeatures supportsCoreData];
   v6 = MTLogForCategory(3);
@@ -959,21 +955,21 @@ uint64_t __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_364(uint6
       isReady = [(MTCDDataStore *)self->_coreDataStore isReady];
       *buf = 138543618;
       selfCopy3 = self;
-      v17 = 1024;
-      v18 = isReady;
+      v16 = 1024;
+      v17 = isReady;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_INFO, "%{public}@ registering alarm store load completion, core data store ready: %i", buf, 0x12u);
     }
 
     if (![(MTCDDataStore *)self->_coreDataStore isReady]|| ([(MTAlarmStorage *)self nullableAllAlarms], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
     {
       conductor = [(MTAlarmStorage *)self conductor];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __46__MTAlarmStorage_registerStoreLoadCompletion___block_invoke;
-      v13[3] = &unk_1E7B0CA28;
-      v13[4] = self;
-      v14 = completionCopy;
-      [conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __46__MTAlarmStorage_registerStoreLoadCompletion___block_invoke;
+      v12[3] = &unk_1E7B0CA28;
+      v12[4] = self;
+      v13 = completionCopy;
+      [conductor registerReplyPublisherWithTimeOut:v12 completion:5.0];
 
       goto LABEL_13;
     }
@@ -999,32 +995,28 @@ LABEL_10:
 
   completionCopy[2](completionCopy);
 LABEL_13:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__MTAlarmStorage_registerStoreLoadCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_INFO, "%{public}@ executing alarm store load completion with status: %i", &v8, 0x12u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_INFO, "%{public}@ executing alarm store load completion with status: %i", &v7, 0x12u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)loadAlarmsFromCoreDataSync
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   needsCoreDataMigration = [(MTAlarmStorage *)self needsCoreDataMigration];
   v4 = MTLogForCategory(3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
@@ -1050,17 +1042,15 @@ uint64_t __46__MTAlarmStorage_registerStoreLoadCompletion___block_invoke(uint64_
     }
 
     v6 = dispatch_semaphore_create(0);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__MTAlarmStorage_loadAlarmsFromCoreDataSync__block_invoke;
-    v9[3] = &unk_1E7B0C9D8;
-    v10 = v6;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __44__MTAlarmStorage_loadAlarmsFromCoreDataSync__block_invoke;
+    v8[3] = &unk_1E7B0C9D8;
+    v9 = v6;
     v7 = v6;
-    [(MTAlarmStorage *)self loadAlarmsFromCoreDataWithCompletion:v9];
+    [(MTAlarmStorage *)self loadAlarmsFromCoreDataWithCompletion:v8];
     dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)needsCoreDataMigration
@@ -1132,7 +1122,7 @@ void __50__MTAlarmStorage_persistCoreDataMigrationComplete__block_invoke(uint64_
 
 - (void)loadAlarmsFromCoreDataWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1143,16 +1133,14 @@ void __50__MTAlarmStorage_persistCoreDataMigrationComplete__block_invoke(uint64_
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke;
-  v9[3] = &unk_1E7B0CA00;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke;
+  v8[3] = &unk_1E7B0CA00;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [serializer performBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v8];
 }
 
 void __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke(uint64_t a1)
@@ -1171,47 +1159,45 @@ void __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke(ui
 
 void __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = [a2 na_map:&__block_literal_global_14];
   v4 = objc_opt_new();
   v5 = objc_opt_new();
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_4;
-  v19[3] = &unk_1E7B0CE10;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_4;
+  v18[3] = &unk_1E7B0CE10;
   v6 = v5;
-  v20 = v6;
+  v19 = v6;
   v7 = v4;
-  v21 = v7;
-  [v3 na_each:v19];
+  v20 = v7;
+  [v3 na_each:v18];
   v8 = MTLogForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
     *buf = 138543874;
-    v23 = v9;
-    v24 = 2114;
-    v25 = v7;
-    v26 = 2114;
-    v27 = v6;
+    v22 = v9;
+    v23 = 2114;
+    v24 = v7;
+    v25 = 2114;
+    v26 = v6;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ loaded regular alarms: %{public}@, sleep alarms: %{public}@", buf, 0x20u);
   }
 
   v10 = [*(a1 + 32) serializer];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_379;
-  v15[3] = &unk_1E7B0CC70;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_379;
+  v14[3] = &unk_1E7B0CC70;
   v11 = *(a1 + 40);
-  v15[4] = *(a1 + 32);
-  v16 = v7;
-  v17 = v6;
-  v18 = v11;
+  v14[4] = *(a1 + 32);
+  v15 = v7;
+  v16 = v6;
+  v17 = v11;
   v12 = v6;
   v13 = v7;
-  [v10 performBlock:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v10 performBlock:v14];
 }
 
 MTAlarm *__55__MTAlarmStorage_loadAlarmsFromCoreDataWithCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -1316,7 +1302,7 @@ uint64_t __62__MTAlarmStorage_migrateDefaultsAlarmsToCoreData_sleepAlarms___bloc
 
 void __62__MTAlarmStorage_migrateDefaultsAlarmsToCoreData_sleepAlarms___block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = MTLogForCategory(3);
@@ -1336,17 +1322,15 @@ void __62__MTAlarmStorage_migrateDefaultsAlarmsToCoreData_sleepAlarms___block_in
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = 138543362;
-      v10 = WeakRetained;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_INFO, "%{public}@ transferred alarms from defaults to core data successfully. Marking migration as complete", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = WeakRetained;
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_INFO, "%{public}@ transferred alarms from defaults to core data successfully. Marking migration as complete", &v8, 0xCu);
     }
 
     [WeakRetained persistCoreDataMigrationComplete];
     v7 = [MEMORY[0x1E696AD88] defaultCenter];
     [v7 postNotificationName:@"com.apple.MTAlarmStorage.updateSleepAlarms" object:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_resetAlarmsTo:(id)to sleepAlarms:(id)alarms
@@ -1746,7 +1730,7 @@ intptr_t __34__MTAlarmStorage_lastModifiedDate__block_invoke(void *a1)
 
 - (void)getAlarmsWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1760,23 +1744,21 @@ intptr_t __34__MTAlarmStorage_lastModifiedDate__block_invoke(void *a1)
   {
     nextAlarm = [(MTAlarmStorage *)self nextAlarm];
     serializer = [(MTAlarmStorage *)self serializer];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke;
-    v10[3] = &unk_1E7B0C5D8;
-    v10[4] = self;
-    v11 = nextAlarm;
-    v12 = completionCopy;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke;
+    v9[3] = &unk_1E7B0C5D8;
+    v9[4] = self;
+    v10 = nextAlarm;
+    v11 = completionCopy;
     v8 = nextAlarm;
-    [serializer performBlock:v10];
+    [serializer performBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(3);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
@@ -1786,7 +1768,7 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke_cold_1(a1);
+      __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke_cold_1();
     }
   }
 
@@ -1796,15 +1778,15 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
     v7 = [*(v6 + 24) valueForKey:@"alarmID"];
     v8 = [*(*(a1 + 32) + 32) valueForKey:@"alarmID"];
     v9 = [*(a1 + 40) alarmID];
-    v19 = 138544130;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v7;
-    v23 = 2114;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v9;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ returning ordered alarms: %{public}@, sleep alarms: %{public}@, next alarm: %{public}@", &v19, 0x2Au);
+    v14 = 138544130;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v8;
+    v20 = 2114;
+    v21 = v9;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ returning ordered alarms: %{public}@, sleep alarms: %{public}@, next alarm: %{public}@", &v14, 0x2Au);
   }
 
   v10 = MTLogForCategory(3);
@@ -1812,25 +1794,19 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   {
     v11 = *(a1 + 32);
     v12 = *(v11 + 24);
-    v19 = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion block with alarms %@", &v19, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v12;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ calling completion block with alarms %@", &v14, 0x16u);
   }
 
-  v13 = *(a1 + 40);
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 24);
-  v16 = *(v14 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)addAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -1840,8 +1816,8 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
     alarmID = [alarmCopy alarmID];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = alarmID;
+    v24 = 2114;
+    v25 = alarmID;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ adding alarm %{public}@", buf, 0x16u);
   }
 
@@ -1853,25 +1829,23 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __49__MTAlarmStorage_addAlarm_withCompletion_source___block_invoke;
-  v19[3] = &unk_1E7B0CB60;
-  v19[4] = self;
-  v20 = alarmCopy;
-  v21 = sourceCopy;
-  v22 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __49__MTAlarmStorage_addAlarm_withCompletion_source___block_invoke;
+  v18[3] = &unk_1E7B0CB60;
+  v18[4] = self;
+  v19 = alarmCopy;
+  v20 = sourceCopy;
+  v21 = completionCopy;
   v15 = sourceCopy;
   v16 = completionCopy;
   v17 = alarmCopy;
-  [serializer performBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v18];
 }
 
 - (void)updateAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -1881,8 +1855,8 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
     alarmID = [alarmCopy alarmID];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = alarmID;
+    v24 = 2114;
+    v25 = alarmID;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ updating alarm %{public}@", buf, 0x16u);
   }
 
@@ -1894,25 +1868,23 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __52__MTAlarmStorage_updateAlarm_withCompletion_source___block_invoke;
-  v19[3] = &unk_1E7B0CB60;
-  v19[4] = self;
-  v20 = alarmCopy;
-  v21 = sourceCopy;
-  v22 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __52__MTAlarmStorage_updateAlarm_withCompletion_source___block_invoke;
+  v18[3] = &unk_1E7B0CB60;
+  v18[4] = self;
+  v19 = alarmCopy;
+  v20 = sourceCopy;
+  v21 = completionCopy;
   v15 = sourceCopy;
   v16 = completionCopy;
   v17 = alarmCopy;
-  [serializer performBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v18];
 }
 
 - (void)updateAlarmWithIdentifier:(id)identifier changeSet:(id)set withCompletion:(id)completion source:(id)source
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   setCopy = set;
   completionCopy = completion;
@@ -1922,10 +1894,10 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   {
     *buf = 138543874;
     selfCopy = self;
-    v29 = 2114;
-    v30 = identifierCopy;
-    v31 = 2114;
-    v32 = setCopy;
+    v28 = 2114;
+    v29 = identifierCopy;
+    v30 = 2114;
+    v31 = setCopy;
     _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ updating %{public}@ with changes %{public}@", buf, 0x20u);
   }
 
@@ -1937,27 +1909,25 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __76__MTAlarmStorage_updateAlarmWithIdentifier_changeSet_withCompletion_source___block_invoke;
-  v22[3] = &unk_1E7B0D7D0;
-  v22[4] = self;
-  v23 = identifierCopy;
-  v25 = sourceCopy;
-  v26 = completionCopy;
-  v24 = setCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __76__MTAlarmStorage_updateAlarmWithIdentifier_changeSet_withCompletion_source___block_invoke;
+  v21[3] = &unk_1E7B0D7D0;
+  v21[4] = self;
+  v22 = identifierCopy;
+  v24 = sourceCopy;
+  v25 = completionCopy;
+  v23 = setCopy;
   v17 = sourceCopy;
   v18 = completionCopy;
   v19 = setCopy;
   v20 = identifierCopy;
-  [serializer performBlock:v22];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v21];
 }
 
 - (void)removeAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -1967,8 +1937,8 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
     alarmID = [alarmCopy alarmID];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = alarmID;
+    v24 = 2114;
+    v25 = alarmID;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ removing alarm %{public}@", buf, 0x16u);
   }
 
@@ -1980,25 +1950,23 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __52__MTAlarmStorage_removeAlarm_withCompletion_source___block_invoke;
-  v19[3] = &unk_1E7B0CB60;
-  v19[4] = self;
-  v20 = alarmCopy;
-  v21 = sourceCopy;
-  v22 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __52__MTAlarmStorage_removeAlarm_withCompletion_source___block_invoke;
+  v18[3] = &unk_1E7B0CB60;
+  v18[4] = self;
+  v19 = alarmCopy;
+  v20 = sourceCopy;
+  v21 = completionCopy;
   v15 = sourceCopy;
   v16 = completionCopy;
   v17 = alarmCopy;
-  [serializer performBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v18];
 }
 
 - (void)removeAlarmWithIdentifier:(id)identifier withCompletion:(id)completion source:(id)source
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   sourceCopy = source;
@@ -2007,31 +1975,29 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   {
     *buf = 138543618;
     selfCopy = self;
-    v23 = 2114;
-    v24 = identifierCopy;
+    v22 = 2114;
+    v23 = identifierCopy;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ removing alarm with ID %{public}@", buf, 0x16u);
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __66__MTAlarmStorage_removeAlarmWithIdentifier_withCompletion_source___block_invoke;
-  v17[3] = &unk_1E7B0CB60;
-  v17[4] = self;
-  v18 = identifierCopy;
-  v19 = sourceCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __66__MTAlarmStorage_removeAlarmWithIdentifier_withCompletion_source___block_invoke;
+  v16[3] = &unk_1E7B0CB60;
+  v16[4] = self;
+  v17 = identifierCopy;
+  v18 = sourceCopy;
+  v19 = completionCopy;
   v13 = sourceCopy;
   v14 = completionCopy;
   v15 = identifierCopy;
-  [serializer performBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v16];
 }
 
 - (void)removeAllAlarmsForSource:(id)source
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -2042,21 +2008,19 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __43__MTAlarmStorage_removeAllAlarmsForSource___block_invoke;
-  v9[3] = &unk_1E7B0C928;
-  v9[4] = self;
-  v10 = sourceCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __43__MTAlarmStorage_removeAllAlarmsForSource___block_invoke;
+  v8[3] = &unk_1E7B0C928;
+  v8[4] = self;
+  v9 = sourceCopy;
   v7 = sourceCopy;
-  [serializer performBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v8];
 }
 
 - (void)setAllAlarms:(id)alarms sleepAlarms:(id)sleepAlarms source:(id)source
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   sleepAlarmsCopy = sleepAlarms;
   sourceCopy = source;
@@ -2071,10 +2035,10 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
     {
       *buf = 138543874;
       selfCopy2 = self;
-      v26 = 2114;
-      v27 = alarmsCopy;
-      v28 = 2114;
-      v29 = sleepAlarmsCopy;
+      v25 = 2114;
+      v26 = alarmsCopy;
+      v27 = 2114;
+      v28 = sleepAlarmsCopy;
       _os_log_debug_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ setting all alarms %{public}@, sleep alarms %{public}@", buf, 0x20u);
     }
   }
@@ -2087,20 +2051,18 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __50__MTAlarmStorage_setAllAlarms_sleepAlarms_source___block_invoke;
-  v20[3] = &unk_1E7B0D7F8;
-  v20[4] = self;
-  v21 = alarmsCopy;
-  v22 = sleepAlarmsCopy;
-  v23 = sourceCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __50__MTAlarmStorage_setAllAlarms_sleepAlarms_source___block_invoke;
+  v19[3] = &unk_1E7B0D7F8;
+  v19[4] = self;
+  v20 = alarmsCopy;
+  v21 = sleepAlarmsCopy;
+  v22 = sourceCopy;
   v16 = sourceCopy;
   v17 = sleepAlarmsCopy;
   v18 = alarmsCopy;
-  [serializer performBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v19];
 }
 
 - (void)updateSleepAlarms:(id)alarms source:(id)source
@@ -2122,7 +2084,7 @@ uint64_t __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke(uint64_t a1
 
 void __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2144,21 +2106,19 @@ void __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke(uint64_t a1)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v10 = __Block_byref_object_copy__2;
-  v11 = __Block_byref_object_dispose__2;
-  v12 = 0;
+  v9 = __Block_byref_object_copy__2;
+  v10 = __Block_byref_object_dispose__2;
+  v11 = 0;
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke_401;
-  v8[3] = &unk_1E7B0CAC0;
-  v8[4] = v6;
-  v8[5] = buf;
-  [v6 _withLock:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke_401;
+  v7[3] = &unk_1E7B0CAC0;
+  v7[4] = v6;
+  v7[5] = buf;
+  [v6 _withLock:v7];
   [*(a1 + 32) _queue_setAllAlarms:*(*&buf[8] + 40) sleepAlarms:v5 source:*(a1 + 48) persist:1 notify:1 override:0];
   _Block_object_dispose(buf, 8);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke_401(uint64_t a1)
@@ -2173,7 +2133,7 @@ uint64_t __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke_401(uint64
 
 - (id)_queue_updateSleepAlarmsFromExistingAlarms:(id)alarms
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -2189,26 +2149,24 @@ uint64_t __43__MTAlarmStorage_updateSleepAlarms_source___block_invoke_401(uint64
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v13 = __Block_byref_object_copy__2;
-  v14 = __Block_byref_object_dispose__2;
-  v15 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __61__MTAlarmStorage__queue_updateSleepAlarmsFromExistingAlarms___block_invoke;
-  v11[3] = &unk_1E7B0CAC0;
-  v11[4] = self;
-  v11[5] = buf;
-  [(MTAlarmStorage *)self _withLock:v11];
+  v12 = __Block_byref_object_copy__2;
+  v13 = __Block_byref_object_dispose__2;
+  v14 = 0;
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
-  v10[2] = __61__MTAlarmStorage__queue_updateSleepAlarmsFromExistingAlarms___block_invoke_3;
-  v10[3] = &unk_1E7B0D840;
+  v10[2] = __61__MTAlarmStorage__queue_updateSleepAlarmsFromExistingAlarms___block_invoke;
+  v10[3] = &unk_1E7B0CAC0;
   v10[4] = self;
   v10[5] = buf;
-  v7 = [alarmsCopy na_map:v10];
+  [(MTAlarmStorage *)self _withLock:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __61__MTAlarmStorage__queue_updateSleepAlarmsFromExistingAlarms___block_invoke_3;
+  v9[3] = &unk_1E7B0D840;
+  v9[4] = self;
+  v9[5] = buf;
+  v7 = [alarmsCopy na_map:v9];
   _Block_object_dispose(buf, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2392,7 +2350,7 @@ uint64_t __34__MTAlarmStorage_activeSleepAlarm__block_invoke(uint64_t a1, void *
 
 - (void)snoozeAlarmWithIdentifier:(id)identifier snoozeAction:(unint64_t)action withCompletion:(id)completion source:(id)source
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   sourceCopy = source;
@@ -2430,23 +2388,22 @@ LABEL_11:
   v18 = MTLogForCategory(3);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138543618;
-    v23 = identifierCopy;
-    v24 = 2050;
-    v25 = v14;
-    _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ snoozing for %{public}lu minutes", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = identifierCopy;
+    v23 = 2050;
+    v24 = v14;
+    _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ snoozing for %{public}lu minutes", &v21, 0x16u);
   }
 
   v19 = (*(self->_currentDateProvider + 2))();
   v20 = [v19 dateByAddingTimeInterval:(60 * v14)];
 
   [(MTAlarmStorage *)self snoozeAlarmWithIdentifier:identifierCopy snoozeDate:v20 snoozeAction:action withCompletion:completionCopy source:sourceCopy];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)snoozeAlarmWithIdentifier:(id)identifier snoozeDate:(id)date snoozeAction:(unint64_t)action withCompletion:(id)completion source:(id)source
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   completionCopy = completion;
@@ -2456,9 +2413,9 @@ LABEL_11:
   {
     *buf = 138543874;
     selfCopy = self;
-    v32 = 2114;
-    v33 = identifierCopy;
-    v34 = 2048;
+    v31 = 2114;
+    v32 = identifierCopy;
+    v33 = 2048;
     actionCopy = action;
     _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ snoozing alarm with ID %{public}@ and action %ld", buf, 0x20u);
   }
@@ -2471,23 +2428,21 @@ LABEL_11:
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __90__MTAlarmStorage_snoozeAlarmWithIdentifier_snoozeDate_snoozeAction_withCompletion_source___block_invoke;
-  v24[3] = &unk_1E7B0D8E0;
-  v24[4] = self;
-  v25 = identifierCopy;
-  v28 = completionCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __90__MTAlarmStorage_snoozeAlarmWithIdentifier_snoozeDate_snoozeAction_withCompletion_source___block_invoke;
+  v23[3] = &unk_1E7B0D8E0;
+  v23[4] = self;
+  v24 = identifierCopy;
+  v27 = completionCopy;
   actionCopy2 = action;
-  v26 = dateCopy;
-  v27 = sourceCopy;
+  v25 = dateCopy;
+  v26 = sourceCopy;
   v19 = sourceCopy;
   v20 = completionCopy;
   v21 = dateCopy;
   v22 = identifierCopy;
-  [serializer performBlock:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v23];
 }
 
 - (void)dismissAlarmWithIdentifier:(id)identifier dismissAction:(unint64_t)action withCompletion:(id)completion source:(id)source
@@ -2503,7 +2458,7 @@ LABEL_11:
 
 - (void)dismissAlarmWithIdentifier:(id)identifier dismissDate:(id)date dismissAction:(unint64_t)action withCompletion:(id)completion source:(id)source
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   completionCopy = completion;
@@ -2514,10 +2469,10 @@ LABEL_11:
     v17 = MTDismissAlarmActionDescription(action);
     *buf = 138543874;
     selfCopy = self;
-    v33 = 2114;
-    v34 = identifierCopy;
-    v35 = 2114;
-    v36 = v17;
+    v32 = 2114;
+    v33 = identifierCopy;
+    v34 = 2114;
+    v35 = v17;
     _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing alarm with ID %{public}@ and action %{public}@", buf, 0x20u);
   }
 
@@ -2529,23 +2484,21 @@ LABEL_11:
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __93__MTAlarmStorage_dismissAlarmWithIdentifier_dismissDate_dismissAction_withCompletion_source___block_invoke;
-  v25[3] = &unk_1E7B0D8E0;
-  v25[4] = self;
-  v26 = identifierCopy;
-  v29 = completionCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __93__MTAlarmStorage_dismissAlarmWithIdentifier_dismissDate_dismissAction_withCompletion_source___block_invoke;
+  v24[3] = &unk_1E7B0D8E0;
+  v24[4] = self;
+  v25 = identifierCopy;
+  v28 = completionCopy;
   actionCopy = action;
-  v27 = dateCopy;
-  v28 = sourceCopy;
+  v26 = dateCopy;
+  v27 = sourceCopy;
   v20 = sourceCopy;
   v21 = completionCopy;
   v22 = dateCopy;
   v23 = identifierCopy;
-  [serializer performBlock:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v24];
 }
 
 - (void)alarmWithIdentifier:(id)identifier withCompletion:(id)completion
@@ -2581,7 +2534,7 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
 
 - (void)_queue_addAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -2594,16 +2547,16 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
     }
 
     v12 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22[0] = @"Alarm already exists!";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21[0] = @"Alarm already exists!";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v14 = [v12 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:1 userInfo:v13];
 
     v15 = MTLogForCategory(9);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Adding Alarm", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Adding Alarm", v18, 2u);
     }
   }
 
@@ -2611,15 +2564,15 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
   {
     v16 = [(MTAlarmStorage *)self _queuePersistAlarm:alarmCopy replacingAlarm:0];
 
-    v20 = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v19 = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
     [(MTAlarmStorage *)self _notifyObserversForAlarmAdd:v17 source:sourceCopy];
 
     v15 = MTLogForCategory(9);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "MTAlarmStorage - Finished Adding Alarm", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "MTAlarmStorage - Finished Adding Alarm", v18, 2u);
     }
 
     v14 = 0;
@@ -2630,13 +2583,11 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
   {
     completionCopy[2](completionCopy, v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_updateAlarmWithIdentifier:(id)identifier changeSet:(id)set withCompletion:(id)completion source:(id)source
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   setCopy = set;
   completionCopy = completion;
   sourceCopy = source;
@@ -2658,16 +2609,16 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
     }
 
     v18 = MEMORY[0x1E696ABC0];
-    v24 = *MEMORY[0x1E696A578];
-    v25[0] = @"Alarm does not exist!";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A578];
+    v24[0] = @"Alarm does not exist!";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v18 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v19];
 
     v21 = MTLogForCategory(9);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Updating Alarm", v23, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Updating Alarm", v22, 2u);
     }
 
     if (completionCopy)
@@ -2675,13 +2626,11 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
       completionCopy[2](completionCopy, v20);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_updateAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -2699,34 +2648,34 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
       v13 = 10;
     }
 
-    v38 = v13;
+    v37 = v13;
     if ((([v12 isSleepAlarm] & 1) != 0 || objc_msgSend(v12, "repeats")) && objc_msgSend(v12, "isFiring") && (objc_msgSend(alarmCopy, "isEnabled") & 1) == 0)
     {
-      v32 = (*(self->_currentDateProvider + 2))();
-      v33 = MTLogForCategory(3);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v31 = (*(self->_currentDateProvider + 2))();
+      v32 = MTLogForCategory(3);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         alarmIDString = [v12 alarmIDString];
         firedDate = [v12 firedDate];
         [v12 dismissedDate];
         *buf = 138544386;
         selfCopy2 = self;
-        v45 = 2114;
-        v46 = alarmIDString;
-        v47 = 2114;
-        v48 = firedDate;
-        v49 = 2114;
-        v50 = v32;
-        v52 = v51 = 2114;
-        v35 = v52;
-        _os_log_impl(&dword_1B1F9F000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm %{public}@ disabled while firing (%{public}@).  Dismissing: %{public}@ (last dismissed: %{public}@)", buf, 0x34u);
+        v44 = 2114;
+        v45 = alarmIDString;
+        v46 = 2114;
+        v47 = firedDate;
+        v48 = 2114;
+        v49 = v31;
+        v51 = v50 = 2114;
+        v34 = v51;
+        _os_log_impl(&dword_1B1F9F000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm %{public}@ disabled while firing (%{public}@).  Dismissing: %{public}@ (last dismissed: %{public}@)", buf, 0x34u);
       }
 
-      v36 = [alarmCopy mutableCopy];
-      [(MTAlarmStorage *)self _queue_dismissMutableAlarm:v36 dismissDate:v32 dismissAction:v13];
+      v35 = [alarmCopy mutableCopy];
+      [(MTAlarmStorage *)self _queue_dismissMutableAlarm:v35 dismissDate:v31 dismissAction:v13];
 
       v14 = 1;
-      alarmCopy = v36;
+      alarmCopy = v35;
     }
 
     else
@@ -2747,8 +2696,8 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
         alarmIDString2 = [v15 alarmIDString];
         *buf = 138543618;
         selfCopy2 = self;
-        v45 = 2114;
-        v46 = alarmIDString2;
+        v44 = 2114;
+        v45 = alarmIDString2;
         _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm %{public}@ modified during save.  Notifying everyone.", buf, 0x16u);
       }
 
@@ -2761,15 +2710,15 @@ uint64_t __53__MTAlarmStorage_alarmWithIdentifier_withCompletion___block_invoke(
       sourceCopy = 0;
     }
 
-    v42 = v15;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-    v41 = v12;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v41 = v15;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v40 = v12;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
     [(MTAlarmStorage *)self _notifyObserversForAlarmChange:v22 previousAlarms:v23 source:sourceCopy];
 
     if (v14)
     {
-      [(MTAlarmStorage *)self _notifyObserversForAlarmDismiss:v15 dismissAction:v38 source:sourceCopy];
+      [(MTAlarmStorage *)self _notifyObserversForAlarmDismiss:v15 dismissAction:v37 source:sourceCopy];
     }
 
     v24 = MTLogForCategory(9);
@@ -2789,23 +2738,23 @@ LABEL_21:
 
   else
   {
-    v28 = MTLogForCategory(3);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = MTLogForCategory(3);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [MTAlarmStorage _queue_updateAlarmWithIdentifier:changeSet:withCompletion:source:];
     }
 
-    v29 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A578];
-    v40 = @"Alarm does not exist!";
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-    v25 = [v29 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v30];
+    v28 = MEMORY[0x1E696ABC0];
+    v38 = *MEMORY[0x1E696A578];
+    v39 = @"Alarm does not exist!";
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v25 = [v28 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v29];
 
-    v31 = MTLogForCategory(9);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v30 = MTLogForCategory(9);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1F9F000, v31, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Updating Alarm", buf, 2u);
+      _os_log_impl(&dword_1B1F9F000, v30, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Updating Alarm", buf, 2u);
     }
 
     [MTAnalytics sendCriticalEvent:@"Alarm storage - trying to update alarm that does not exist"];
@@ -2815,8 +2764,6 @@ LABEL_21:
       goto LABEL_21;
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -2839,7 +2786,7 @@ LABEL_21:
 
 - (void)_queue_actuallyRemoveAlarm:(id)alarm withCompletion:(id)completion source:(id)source
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   sourceCopy = source;
@@ -2847,15 +2794,15 @@ LABEL_21:
   {
     v11 = [(MTAlarmStorage *)self _queuePersistAlarm:0 replacingAlarm:alarmCopy];
 
-    v23[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [(MTAlarmStorage *)self _notifyObserversForAlarmRemoval:v12 source:sourceCopy];
 
     v13 = MTLogForCategory(9);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "MTAlarmStorage - Finished Removing Alarm", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "MTAlarmStorage - Finished Removing Alarm", v19, 2u);
     }
 
     v14 = 0;
@@ -2868,23 +2815,23 @@ LABEL_5:
 
   else
   {
-    v16 = MTLogForCategory(3);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = MTLogForCategory(3);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [MTAlarmStorage _queue_updateAlarmWithIdentifier:changeSet:withCompletion:source:];
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22 = @"Alarm does not exist!";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v14 = [v17 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v18];
+    v16 = MEMORY[0x1E696ABC0];
+    v20 = *MEMORY[0x1E696A578];
+    v21 = @"Alarm does not exist!";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v14 = [v16 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v17];
 
-    v19 = MTLogForCategory(9);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v18 = MTLogForCategory(9);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Removing Alarm", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_INFO, "MTAlarmStorage - Failed Removing Alarm", v19, 2u);
     }
 
     [MTAnalytics sendCriticalEvent:@"Alarm storage - trying to remove alarm that does not exist"];
@@ -2893,8 +2840,6 @@ LABEL_5:
       goto LABEL_5;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queuePersistAlarm:(id)alarm replacingAlarm:(id)replacingAlarm
@@ -2980,7 +2925,7 @@ void __52__MTAlarmStorage__queuePersistAlarm_replacingAlarm___block_invoke(uint6
 
 - (void)persistAlarmIntoCoreData:(id)data replacingAlarm:(id)alarm
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   alarmCopy = alarm;
   v8 = MTLogForCategory(3);
@@ -2988,18 +2933,18 @@ void __52__MTAlarmStorage__queuePersistAlarm_replacingAlarm___block_invoke(uint6
   {
     *buf = 138543874;
     selfCopy = self;
-    v19 = 2114;
-    v20 = dataCopy;
-    v21 = 2114;
-    v22 = alarmCopy;
+    v18 = 2114;
+    v19 = dataCopy;
+    v20 = 2114;
+    v21 = alarmCopy;
     _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ Persisting into core data with updated alarm: %{public}@, existing alarm: %{public}@", buf, 0x20u);
   }
 
   if (dataCopy && alarmCopy)
   {
     coreDataStore = self->_coreDataStore;
-    v16 = dataCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = dataCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     [(MTCDDataStore *)coreDataStore updateAlarms:v10];
 LABEL_10:
 
@@ -3009,8 +2954,8 @@ LABEL_10:
   if (dataCopy)
   {
     v11 = self->_coreDataStore;
-    v15 = dataCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = dataCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     [(MTCDDataStore *)v11 addAlarms:v10];
     goto LABEL_10;
   }
@@ -3018,20 +2963,18 @@ LABEL_10:
   if (alarmCopy)
   {
     v12 = self->_coreDataStore;
-    v14 = alarmCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+    v13 = alarmCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
     [(MTCDDataStore *)v12 deleteAlarms:v10];
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_applyNecessaryChangesFromExistingAlarm:(id)alarm updatedAlarm:(id)updatedAlarm
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   updatedAlarmCopy = updatedAlarm;
   v8 = [updatedAlarmCopy mutableCopy];
@@ -3094,11 +3037,11 @@ LABEL_11:
 
         alarmID = [updatedAlarmCopy alarmID];
         keepOffUntilDate2 = [updatedAlarmCopy keepOffUntilDate];
-        v28 = 138543618;
-        v29 = alarmID;
-        v30 = 2114;
-        v31 = keepOffUntilDate2;
-        _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ was snoozed but early wake up was confirmed (%{public}@). Cancelling.", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = alarmID;
+        v29 = 2114;
+        v30 = keepOffUntilDate2;
+        _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ was snoozed but early wake up was confirmed (%{public}@). Cancelling.", &v27, 0x16u);
 
         goto LABEL_24;
       }
@@ -3107,11 +3050,11 @@ LABEL_11:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         alarmID = [updatedAlarmCopy alarmID];
-        v28 = 138543362;
-        v29 = alarmID;
+        v27 = 138543362;
+        v28 = alarmID;
         v20 = "%{public}@ was snoozed but had relevant changes. Cancelling.";
 LABEL_20:
-        _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, v20, &v28, 0xCu);
+        _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, v20, &v27, 0xCu);
 LABEL_24:
       }
     }
@@ -3122,8 +3065,8 @@ LABEL_24:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         alarmID = [updatedAlarmCopy alarmID];
-        v28 = 138543362;
-        v29 = alarmID;
+        v27 = 138543362;
+        v28 = alarmID;
         v20 = "%{public}@ was snoozed and isn't enabled anywhere. Cancelling.";
         goto LABEL_20;
       }
@@ -3147,8 +3090,6 @@ LABEL_25:
   }
 
 LABEL_29:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -3190,7 +3131,7 @@ uint64_t __50__MTAlarmStorage__queue_removeAllAlarmsForSource___block_invoke(uin
   overrideCopy = override;
   notifyCopy = notify;
   persistCopy = persist;
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   sleepAlarmsCopy = sleepAlarms;
   sourceCopy = source;
@@ -3199,37 +3140,37 @@ uint64_t __50__MTAlarmStorage__queue_removeAllAlarmsForSource___block_invoke(uin
   {
     *buf = 138544642;
     selfCopy2 = self;
-    v49 = 2114;
-    v50 = alarmsCopy;
-    v51 = 2114;
-    v52 = sleepAlarmsCopy;
-    v53 = 1024;
-    v54 = persistCopy;
-    v55 = 1024;
-    v56 = notifyCopy;
-    v57 = 1024;
-    v58 = overrideCopy;
+    v48 = 2114;
+    v49 = alarmsCopy;
+    v50 = 2114;
+    v51 = sleepAlarmsCopy;
+    v52 = 1024;
+    v53 = persistCopy;
+    v54 = 1024;
+    v55 = notifyCopy;
+    v56 = 1024;
+    v57 = overrideCopy;
     _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ setting alarms:%{public}@, sleep alarms: %{public}@, persist: %i, notify %i, override: %i", buf, 0x32u);
   }
 
-  v35 = notifyCopy;
-  v36 = overrideCopy;
-  v34 = persistCopy;
+  v34 = notifyCopy;
+  v35 = overrideCopy;
+  v33 = persistCopy;
 
   v17 = objc_opt_new();
   v18 = objc_opt_new();
   v19 = objc_opt_new();
   v20 = objc_opt_new();
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_override___block_invoke;
-  v45[3] = &unk_1E7B0C928;
-  v45[4] = self;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_override___block_invoke;
+  v44[3] = &unk_1E7B0C928;
+  v44[4] = self;
   v21 = v20;
-  v46 = v21;
-  [(MTAlarmStorage *)self _withLock:v45];
-  v37 = alarmsCopy;
-  v39 = sleepAlarmsCopy;
+  v45 = v21;
+  [(MTAlarmStorage *)self _withLock:v44];
+  v36 = alarmsCopy;
+  v38 = sleepAlarmsCopy;
   if ([sleepAlarmsCopy count])
   {
     v22 = [alarmsCopy arrayByAddingObjectsFromArray:sleepAlarmsCopy];
@@ -3241,19 +3182,19 @@ uint64_t __50__MTAlarmStorage__queue_removeAllAlarmsForSource___block_invoke(uin
   }
 
   v23 = v22;
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_override___block_invoke_4;
-  v40[3] = &unk_1E7B0D930;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_override___block_invoke_4;
+  v39[3] = &unk_1E7B0D930;
   v24 = v21;
-  v41 = v24;
+  v40 = v24;
   v25 = v18;
-  v42 = v25;
+  v41 = v25;
   v26 = v19;
-  v43 = v26;
+  v42 = v26;
   v27 = v17;
-  v44 = v27;
-  [v23 na_each:v40];
+  v43 = v27;
+  [v23 na_each:v39];
   allValues = [v24 allValues];
   v29 = [v27 count];
   v30 = [v25 count] + v29;
@@ -3263,29 +3204,27 @@ uint64_t __50__MTAlarmStorage__queue_removeAllAlarmsForSource___block_invoke(uin
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v49 = 1024;
-    LODWORD(v50) = v30 != v31;
+    v48 = 1024;
+    LODWORD(v49) = v30 != v31;
     _os_log_impl(&dword_1B1F9F000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ setting alarms - needs update: %i", buf, 0x12u);
   }
 
-  if (v36 || v30 != v31)
+  if (v35 || v30 != v31)
   {
-    [(MTAlarmStorage *)self _queue_resetAlarmsTo:v37 sleepAlarms:v39];
-    if (v34)
+    [(MTAlarmStorage *)self _queue_resetAlarmsTo:v36 sleepAlarms:v38];
+    if (v33)
     {
       [(MTAlarmStorage *)self _queue_persistAlarms];
     }
 
     [(MTAlarmStorage *)self _queue_sortAlarms];
-    if (v35)
+    if (v34)
     {
       [(MTAlarmStorage *)self _notifyObserversForAlarmRemoval:allValues source:sourceCopy];
       [(MTAlarmStorage *)self _notifyObserversForAlarmChange:v25 previousAlarms:v26 source:sourceCopy];
       [(MTAlarmStorage *)self _notifyObserversForAlarmAdd:v27 source:sourceCopy];
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_override___block_invoke(uint64_t a1)
@@ -3351,7 +3290,7 @@ void __81__MTAlarmStorage__queue_setAllAlarms_sleepAlarms_source_persist_notify_
 
 - (void)_queue_snoozeAlarmWithIdentifier:(id)identifier snoozeDate:(id)date snoozeAction:(unint64_t)action withCompletion:(id)completion source:(id)source
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   completionCopy = completion;
@@ -3403,11 +3342,11 @@ LABEL_21:
       {
         bedtimeSnoozeFireDate2 = [v18 bedtimeSnoozeFireDate];
         *buf = 138543874;
-        v39 = identifierCopy;
-        v40 = 2114;
-        v41 = bedtimeSnoozeFireDate2;
-        v42 = 2114;
-        v43 = dateCopy;
+        v38 = identifierCopy;
+        v39 = 2114;
+        v40 = bedtimeSnoozeFireDate2;
+        v41 = 2114;
+        v42 = dateCopy;
         _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ has a bed-time snooze fire date of %{public}@ and we want to snooze until %{public}@.  Picking later date", buf, 0x20u);
       }
 
@@ -3431,11 +3370,11 @@ LABEL_21:
       {
         snoozeFireDate2 = [v18 snoozeFireDate];
         *buf = 138543874;
-        v39 = identifierCopy;
-        v40 = 2114;
-        v41 = snoozeFireDate2;
-        v42 = 2114;
-        v43 = dateCopy;
+        v38 = identifierCopy;
+        v39 = 2114;
+        v40 = snoozeFireDate2;
+        v41 = 2114;
+        v42 = dateCopy;
         _os_log_impl(&dword_1B1F9F000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ has a snooze fire date of %{public}@ and we want to snooze until %{public}@.  Picking later date", buf, 0x20u);
       }
 
@@ -3455,9 +3394,9 @@ LABEL_21:
 
   [MTAnalytics sendCriticalEvent:@"Alarm storage - trying to snooze alarm that does not exist"];
   v25 = MEMORY[0x1E696ABC0];
-  v36 = *MEMORY[0x1E696A578];
-  v37 = @"Alarm does not exist!";
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+  v35 = *MEMORY[0x1E696A578];
+  v36 = @"Alarm does not exist!";
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
   v18 = [v25 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v26];
 
   if (completionCopy)
@@ -3473,13 +3412,11 @@ LABEL_21:
   }
 
 LABEL_27:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_dismissMutableAlarm:(id)alarm dismissDate:(id)date dismissAction:(unint64_t)action
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   dateCopy = date;
   if (MTDismissAlarmActionIsForBedtime(action))
@@ -3503,23 +3440,21 @@ LABEL_27:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         alarmID = [alarmCopy alarmID];
-        v13 = 138543618;
+        v12 = 138543618;
         selfCopy = self;
-        v15 = 2114;
-        v16 = alarmID;
-        _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting non-repeating alarm %{public}@ to disabled", &v13, 0x16u);
+        v14 = 2114;
+        v15 = alarmID;
+        _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting non-repeating alarm %{public}@ to disabled", &v12, 0x16u);
       }
 
       [alarmCopy setEnabled:0];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_dismissAlarmWithIdentifier:(id)identifier dismissDate:(id)date dismissAction:(unint64_t)action withCompletion:(id)completion source:(id)source
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   completionCopy = completion;
@@ -3535,10 +3470,10 @@ LABEL_27:
     {
       *buf = 138543874;
       selfCopy = self;
-      v33 = 2114;
-      v34 = v18;
-      v35 = 2114;
-      v36 = dateCopy;
+      v32 = 2114;
+      v33 = v18;
+      v34 = 2114;
+      v35 = dateCopy;
       _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissed alarm %{public}@ at %{public}@", buf, 0x20u);
     }
 
@@ -3573,9 +3508,9 @@ LABEL_27:
 
     [MTAnalytics sendCriticalEvent:@"Alarm storage - trying to dismiss alarm that does not exist"];
     v25 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A578];
-    v30 = @"Alarm does not exist!";
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @"Alarm does not exist!";
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v18 = [v25 errorWithDomain:@"com.apple.mobiletimerd.MTAlarmStorage" code:2 userInfo:v26];
 
     if (completionCopy)
@@ -3590,8 +3525,6 @@ LABEL_27:
       completionCopy[2](completionCopy, v18);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_sortAlarms
@@ -3630,7 +3563,7 @@ void __40__MTAlarmStorage__queue_sortSleepAlarms__block_invoke(uint64_t a1)
 
 - (void)_notifyObserversForAlarmAdd:(id)add source:(id)source
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   addCopy = add;
   sourceCopy = source;
   if ([addCopy count] && ((objc_opt_respondsToSelector() & 1) == 0 || (objc_msgSend(sourceCopy, "dontNotify") & 1) == 0))
@@ -3643,21 +3576,19 @@ void __40__MTAlarmStorage__queue_sortSleepAlarms__block_invoke(uint64_t a1)
       _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm addition", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __53__MTAlarmStorage__notifyObserversForAlarmAdd_source___block_invoke;
-    v10[3] = &unk_1E7B0D958;
-    v11 = sourceCopy;
-    v12 = addCopy;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __53__MTAlarmStorage__notifyObserversForAlarmAdd_source___block_invoke;
+    v9[3] = &unk_1E7B0D958;
+    v10 = sourceCopy;
+    v11 = addCopy;
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForAlarmChange:(id)change previousAlarms:(id)alarms source:(id)source
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   alarmsCopy = alarms;
   sourceCopy = source;
@@ -3671,17 +3602,15 @@ void __40__MTAlarmStorage__queue_sortSleepAlarms__block_invoke(uint64_t a1)
       _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm change", buf, 0xCu);
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source___block_invoke;
-    v13[3] = &unk_1E7B0D980;
-    v14 = sourceCopy;
-    v15 = changeCopy;
-    v16 = alarmsCopy;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source___block_invoke;
+    v12[3] = &unk_1E7B0D980;
+    v13 = sourceCopy;
+    v14 = changeCopy;
+    v15 = alarmsCopy;
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source___block_invoke(void *a1, void *a2)
@@ -3696,7 +3625,7 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
 
 - (void)_notifyObserversForAlarmRemoval:(id)removal source:(id)source
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   removalCopy = removal;
   sourceCopy = source;
   if ([removalCopy count] && ((objc_opt_respondsToSelector() & 1) == 0 || (objc_msgSend(sourceCopy, "dontNotify") & 1) == 0))
@@ -3709,21 +3638,19 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
       _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm removal", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __57__MTAlarmStorage__notifyObserversForAlarmRemoval_source___block_invoke;
-    v10[3] = &unk_1E7B0D958;
-    v11 = sourceCopy;
-    v12 = removalCopy;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __57__MTAlarmStorage__notifyObserversForAlarmRemoval_source___block_invoke;
+    v9[3] = &unk_1E7B0D958;
+    v10 = sourceCopy;
+    v11 = removalCopy;
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForAlarmSnooze:(id)snooze snoozeAction:(unint64_t)action source:(id)source
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   snoozeCopy = snooze;
   sourceCopy = source;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([sourceCopy dontNotify] & 1) == 0)
@@ -3736,22 +3663,20 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm snooze", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __69__MTAlarmStorage__notifyObserversForAlarmSnooze_snoozeAction_source___block_invoke;
-    v12[3] = &unk_1E7B0D9A8;
-    v13 = sourceCopy;
-    v14 = snoozeCopy;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __69__MTAlarmStorage__notifyObserversForAlarmSnooze_snoozeAction_source___block_invoke;
+    v11[3] = &unk_1E7B0D9A8;
+    v12 = sourceCopy;
+    v13 = snoozeCopy;
     actionCopy = action;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v12];
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForAlarmDismiss:(id)dismiss dismissAction:(unint64_t)action source:(id)source
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dismissCopy = dismiss;
   sourceCopy = source;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([sourceCopy dontNotify] & 1) == 0)
@@ -3764,22 +3689,20 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm dismissal", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __71__MTAlarmStorage__notifyObserversForAlarmDismiss_dismissAction_source___block_invoke;
-    v12[3] = &unk_1E7B0D9A8;
-    v13 = sourceCopy;
-    v14 = dismissCopy;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __71__MTAlarmStorage__notifyObserversForAlarmDismiss_dismissAction_source___block_invoke;
+    v11[3] = &unk_1E7B0D9A8;
+    v12 = sourceCopy;
+    v13 = dismissCopy;
     actionCopy = action;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v12];
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForAlarmFire:(id)fire triggerType:(unint64_t)type source:(id)source
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fireCopy = fire;
   sourceCopy = source;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([sourceCopy dontNotify] & 1) == 0)
@@ -3792,22 +3715,20 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for alarm fire", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __66__MTAlarmStorage__notifyObserversForAlarmFire_triggerType_source___block_invoke;
-    v12[3] = &unk_1E7B0D9A8;
-    v13 = sourceCopy;
-    v14 = fireCopy;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __66__MTAlarmStorage__notifyObserversForAlarmFire_triggerType_source___block_invoke;
+    v11[3] = &unk_1E7B0D9A8;
+    v12 = sourceCopy;
+    v13 = fireCopy;
     typeCopy = type;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v12];
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversForNextAlarmChange:(id)change source:(id)source
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   sourceCopy = source;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ([sourceCopy dontNotify] & 1) == 0)
@@ -3820,16 +3741,14 @@ void __71__MTAlarmStorage__notifyObserversForAlarmChange_previousAlarms_source__
       _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for next alarm change", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __60__MTAlarmStorage__notifyObserversForNextAlarmChange_source___block_invoke;
-    v10[3] = &unk_1E7B0D958;
-    v11 = sourceCopy;
-    v12 = changeCopy;
-    [(MTAlarmStorage *)self _notifyObserversWithBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __60__MTAlarmStorage__notifyObserversForNextAlarmChange_source___block_invoke;
+    v9[3] = &unk_1E7B0D958;
+    v10 = sourceCopy;
+    v11 = changeCopy;
+    [(MTAlarmStorage *)self _notifyObserversWithBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduler:(id)scheduler didChangeNextAlarm:(id)alarm
@@ -3972,7 +3891,7 @@ uint64_t __38__MTAlarmStorage__queue_persistAlarms__block_invoke(void *a1)
 
 - (void)timeListener:(id)listener didDetectSignificantTimeChangeWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3983,44 +3902,42 @@ uint64_t __38__MTAlarmStorage__queue_persistAlarms__block_invoke(void *a1)
   }
 
   serializer = [(MTAlarmStorage *)self serializer];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7B0CA00;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7B0CA00;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [serializer performBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [serializer performBlock:v9];
 }
 
 void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithCompletionBlock___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
-  v45 = objc_opt_new();
+  v44 = objc_opt_new();
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = [*(a1 + 32) _queue_allAlarms];
-  v3 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v3 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v3)
   {
     v4 = v3;
-    v44 = *v47;
-    v42 = v2;
+    v43 = *v46;
+    v41 = v2;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v47 != v44)
+        if (*v46 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v46 + 1) + 8 * i);
+        v6 = *(*(&v45 + 1) + 8 * i);
         v7 = (*(*(*(a1 + 32) + 80) + 16))();
         v8 = [v6 firedDate];
         v9 = [v8 mtIsAfterDate:v7];
@@ -4034,9 +3951,9 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
             v12 = *(a1 + 32);
             v13 = [v6 alarmID];
             *buf = 138543618;
-            v51 = v12;
-            v52 = 2114;
-            v53 = v13;
+            v50 = v12;
+            v51 = 2114;
+            v52 = v13;
             _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting firedDate on %{public}@ because it's in the future", buf, 0x16u);
           }
 
@@ -4053,9 +3970,9 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
               v17 = *(a1 + 32);
               v18 = [v6 alarmID];
               *buf = 138543618;
-              v51 = v17;
-              v52 = 2114;
-              v53 = v18;
+              v50 = v17;
+              v51 = 2114;
+              v52 = v18;
               _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting dismissedDate on %{public}@ because it's in the future", buf, 0x16u);
             }
 
@@ -4074,9 +3991,9 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
             v22 = *(a1 + 32);
             v23 = [v6 alarmID];
             *buf = 138543618;
-            v51 = v22;
-            v52 = 2114;
-            v53 = v23;
+            v50 = v22;
+            v51 = 2114;
+            v52 = v23;
             _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting bedtimeFiredDate on %{public}@ because it's in the future", buf, 0x16u);
           }
 
@@ -4093,10 +4010,10 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
               v28 = *(a1 + 32);
               v29 = [v6 alarmID];
               *buf = 138543618;
-              v51 = v28;
-              v2 = v42;
-              v52 = 2114;
-              v53 = v29;
+              v50 = v28;
+              v2 = v41;
+              v51 = 2114;
+              v52 = v29;
               _os_log_impl(&dword_1B1F9F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting bedtimeDismissedDate on %{public}@ because it's in the future", buf, 0x16u);
             }
 
@@ -4120,10 +4037,10 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
             v33 = *(a1 + 32);
             v34 = [v6 alarmID];
             *buf = 138543618;
-            v51 = v33;
-            v2 = v42;
-            v52 = 2114;
-            v53 = v34;
+            v50 = v33;
+            v2 = v41;
+            v51 = 2114;
+            v52 = v34;
             _os_log_impl(&dword_1B1F9F000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting lastModifiedDate on %{public}@ because it's in the future", buf, 0x16u);
           }
 
@@ -4135,7 +4052,7 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
 
         if ([v6 isSleepAlarm])
         {
-          v36 = v45;
+          v36 = v44;
         }
 
         else
@@ -4146,7 +4063,7 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
         [v36 addObject:v24];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v4 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v4);
@@ -4155,32 +4072,30 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
   if ([*(a1 + 32) shouldUseCoreData])
   {
     v37 = [v2 copy];
-    v38 = [v45 copy];
+    v38 = [v44 copy];
     v39 = [v37 arrayByAddingObjectsFromArray:v38];
 
     [*(*(a1 + 32) + 88) updateAlarms:v39];
   }
 
-  [*(a1 + 32) _queue_setAllAlarms:v2 sleepAlarms:v45 source:0 persist:1 notify:0];
+  [*(a1 + 32) _queue_setAllAlarms:v2 sleepAlarms:v44 source:0 persist:1 notify:0];
   v40 = [*(a1 + 32) scheduler];
   [v40 rescheduleAlarmsWithCompletion:*(a1 + 40)];
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotification:(id)notification ofType:(int64_t)type completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   completionCopy = completion;
   v9 = MTLogForCategory(3);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = notificationCopy;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ handling notification %{public}@", &v11, 0x16u);
+    v12 = 2114;
+    v13 = notificationCopy;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ handling notification %{public}@", &v10, 0x16u);
   }
 
   [(MTAlarmStorage *)self removeAllAlarmsForSource:0];
@@ -4188,36 +4103,34 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
   {
     completionCopy[2](completionCopy);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)printDiagnostics
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTAlarmStorage-----", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTAlarmStorage-----", &v10, 2u);
   }
 
   v4 = MTLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [(MTAlarmStorage *)self _diagnosticDictionaryForAlarms:self->_orderedAlarms];
-    v11 = 138543362;
-    v12 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Alarms: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Alarms: %{public}@", &v10, 0xCu);
   }
 
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [(MTAlarmStorage *)self _diagnosticDictionaryForAlarms:self->_sleepAlarms];
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Sleep Alarms: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Sleep Alarms: %{public}@", &v10, 0xCu);
   }
 
   if (![(MTAlarmStorage *)self shouldUseCoreData])
@@ -4226,26 +4139,24 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       lastModifiedDate = [(MTAlarmStorage *)self lastModifiedDate];
-      v11 = 138543362;
-      v12 = lastModifiedDate;
-      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "Last Modified: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = lastModifiedDate;
+      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "Last Modified: %{public}@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
-  v12[0] = @"Alarms";
+  v11[0] = @"Alarms";
   v4 = [(MTAlarmStorage *)self _diagnosticDictionaryForAlarms:self->_orderedAlarms];
-  v12[1] = @"Sleep Alarms";
-  v13[0] = v4;
+  v11[1] = @"Sleep Alarms";
+  v12[0] = v4;
   v5 = [(MTAlarmStorage *)self _diagnosticDictionaryForAlarms:self->_sleepAlarms];
-  v13[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v7 = [v3 dictionaryWithDictionary:v6];
 
   if (![(MTAlarmStorage *)self shouldUseCoreData])
@@ -4255,8 +4166,6 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
   }
 
   v9 = [v7 copy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4289,47 +4198,44 @@ void __81__MTAlarmStorage_timeListener_didDetectSignificantTimeChangeWithComplet
 
 intptr_t __49__MTAlarmStorage__diagnosticDictionaryForAlarms___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
-        v8 = *(a1 + 48);
-        v9 = [objc_opt_class() _diagnosticDictionaryForAlarm:{v7, v14}];
-        v10 = *(a1 + 40);
-        v11 = [v7 alarmIDString];
-        [v10 setObject:v9 forKeyedSubscript:v11];
+        v7 = *(*(&v12 + 1) + 8 * v6);
+        v8 = [objc_opt_class() _diagnosticDictionaryForAlarm:{v7, v12}];
+        v9 = *(a1 + 40);
+        v10 = [v7 alarmIDString];
+        [v9 setObject:v8 forKeyedSubscript:v10];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 56));
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 56));
 }
 
 + (id)_diagnosticDictionaryForAlarm:(id)alarm
@@ -4405,7 +4311,7 @@ intptr_t __49__MTAlarmStorage__diagnosticDictionaryForAlarms___block_invoke(uint
 
 - (void)_removeAlarmDataIfNecessary:(id)necessary
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = @"com.apple.mobiletimer";
   if (([necessary isEqualToString:v5] & 1) != 0 || !necessary && (+[MTApplicationWorkspaceObserver sharedWorkspaceObserver](MTApplicationWorkspaceObserver, "sharedWorkspaceObserver"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isApplicationInstalledForBundleIdentifier:", v5), v8, (v9 & 1) == 0))
   {
@@ -4418,15 +4324,13 @@ intptr_t __49__MTAlarmStorage__diagnosticDictionaryForAlarms___block_invoke(uint
     }
 
     serializer = [(MTAlarmStorage *)self serializer];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __46__MTAlarmStorage__removeAlarmDataIfNecessary___block_invoke;
-    v11[3] = &unk_1E7B0C9D8;
-    v11[4] = self;
-    [serializer performBlock:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __46__MTAlarmStorage__removeAlarmDataIfNecessary___block_invoke;
+    v10[3] = &unk_1E7B0C9D8;
+    v10[4] = self;
+    [serializer performBlock:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MTAlarmStorage__removeAlarmDataIfNecessary___block_invoke(uint64_t a1)
@@ -4474,6 +4378,15 @@ uint64_t __46__MTAlarmStorage__removeAlarmDataIfNecessary___block_invoke_2(void 
   return MEMORY[0x1EEE66BB8](v5, v7);
 }
 
+- (void)setupForCoreDataTestingWithStoreFail:(BOOL)fail
+{
+  v4 = [[_TtC11MobileTimer13MTCDDataStore alloc] initInMemoryStore:1 storeFailure:fail];
+  coreDataStore = self->_coreDataStore;
+  self->_coreDataStore = v4;
+
+  MEMORY[0x1EEE66BB8](v4, coreDataStore);
+}
+
 - (void)store_getAllAlarmsWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -4490,12 +4403,11 @@ uint64_t __46__MTAlarmStorage__removeAlarmDataIfNecessary___block_invoke_2(void 
 
 void __51__MTAlarmStorage_store_getAllAlarmsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = a2;
-  v5 = [objc_opt_class() alarmsFromCdAlarms:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() alarmsFromCdAlarms:v3];
 
-  (*(v2 + 16))(v2, v5);
+  (*(v2 + 16))(v2, v4);
 }
 
 - (void)store_getNonSleepAlarmsWithCompletion:(id)completion
@@ -4514,12 +4426,11 @@ void __51__MTAlarmStorage_store_getAllAlarmsWithCompletion___block_invoke(uint64
 
 void __56__MTAlarmStorage_store_getNonSleepAlarmsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = a2;
-  v5 = [objc_opt_class() alarmsFromCdAlarms:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() alarmsFromCdAlarms:v3];
 
-  (*(v2 + 16))(v2, v5);
+  (*(v2 + 16))(v2, v4);
 }
 
 - (void)store_getSleepAlarmsWithCompletion:(id)completion
@@ -4538,12 +4449,11 @@ void __56__MTAlarmStorage_store_getNonSleepAlarmsWithCompletion___block_invoke(u
 
 void __53__MTAlarmStorage_store_getSleepAlarmsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = a2;
-  v5 = [objc_opt_class() alarmsFromCdAlarms:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() alarmsFromCdAlarms:v3];
 
-  (*(v2 + 16))(v2, v5);
+  (*(v2 + 16))(v2, v4);
 }
 
 MTAlarm *__37__MTAlarmStorage_alarmsFromCdAlarms___block_invoke(uint64_t a1, void *a2)
@@ -4563,104 +4473,58 @@ MTAlarm *__37__MTAlarmStorage_alarmsFromCdAlarms___block_invoke(uint64_t a1, voi
   return persistence;
 }
 
-- (void)_cleanUpSnoozeFireDate:.cold.1()
+- (void)persistAlarmKitSchedulingState:(BOOL)state
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ cleaning up snooze fire date for sleep alarm %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_cleanUpSleepAlarmRepeat:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ cleaning up repeat schedule for sleep alarm %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  stateCopy = state;
+  persistence = [(MTAlarmStorage *)self persistence];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:stateCopy];
+  [persistence setObject:v4 forKey:@"MTAlarmStoredInAlarmKit"];
 }
 
 void __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ unexpected error reading data %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ unexpected error reading data %{public}@", v3, DWORD2(v3));
 }
 
-void __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_cold_2(uint64_t a1)
+void __44__MTAlarmStorage__loadAlarmsWithCompletion___block_invoke_cold_2()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = *(*a1 + 24);
-  v2 = *(*a1 + 32);
+  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
-  v9 = v3;
-  v10 = v4;
-  v11 = v5;
-  _os_log_debug_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ loaded %{public}@, sleep alarms %{public}@", v8, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ loaded %{public}@, sleep alarms %{public}@", v4, 0x20u);
 }
 
 void __51__MTAlarmStorage__queue_resetAlarmsTo_sleepAlarms___block_invoke_2_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ ignoring misplaced sleep alarm %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ ignoring misplaced sleep alarm %{public}@", v3, DWORD2(v3));
 }
 
 void __51__MTAlarmStorage__queue_resetAlarmsTo_sleepAlarms___block_invoke_397_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ ignoring misplaced regular alarm %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ ignoring misplaced regular alarm %{public}@", v3, DWORD2(v3));
 }
 
-void __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke_cold_1(uint64_t a1)
+void __42__MTAlarmStorage_getAlarmsWithCompletion___block_invoke_cold_1()
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(v1 + 24);
-  v4 = *(v1 + 32);
+  v11 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
-  v12 = v5;
-  v13 = v6;
-  v14 = v7;
-  v15 = v6;
-  v16 = v8;
-  _os_log_debug_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ returning ordered alarms: %{public}@, sleep alarms: %{public}@, next alarm: %{public}@", v11, 0x2Au);
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_updateAlarm:withCompletion:source:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_1B1F9F000, v0, v1, "%{public}@ Changes: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_snoozeAlarmWithIdentifier:snoozeDate:snoozeAction:withCompletion:source:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ couldn't find matching alarm to snooze for %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_dismissAlarmWithIdentifier:dismissDate:dismissAction:withCompletion:source:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v0, v1, "%{public}@ couldn't find matching alarm to dismiss for %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = v0;
+  v7 = v1;
+  v8 = v2;
+  v9 = v1;
+  v10 = v3;
+  _os_log_debug_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEBUG, "%{public}@ returning ordered alarms: %{public}@, sleep alarms: %{public}@, next alarm: %{public}@", v5, 0x2Au);
 }
 
 @end

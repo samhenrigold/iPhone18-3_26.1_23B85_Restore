@@ -55,7 +55,7 @@
 
 - (BOOL)harvestData:(id *)data error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [MXMInstrument activeInstrument:data];
   currentIteration = [v6 currentIteration];
 
@@ -80,9 +80,9 @@
       }
     }
 
-    v22 = *(currentIteration + 40);
-    v13 = [[MXMSampleTimeSeries alloc] initWithAbsoluteTimeSeries:&v22 length:2];
-    [v8 addObject:{v13, v22}];
+    v21 = *(currentIteration + 40);
+    v13 = [[MXMSampleTimeSeries alloc] initWithAbsoluteTimeSeries:&v21 length:2];
+    [v8 addObject:{v13, v21}];
 
 LABEL_6:
     v14 = self->_tag;
@@ -103,21 +103,18 @@ LABEL_10:
         v19 = [[MXMSampleData alloc] initWithSets:v8];
         *data = v19;
 
-        goto LABEL_11;
+        return currentIteration != 0;
       }
     }
 
-    v22 = *(currentIteration + 56);
-    v18 = [[MXMSampleTimeSeries alloc] initWithContinuousTimeSeries:&v22 length:2];
+    v21 = *(currentIteration + 56);
+    v18 = [[MXMSampleTimeSeries alloc] initWithContinuousTimeSeries:&v21 length:2];
     [v8 addObject:v18];
 
     goto LABEL_10;
   }
 
-LABEL_11:
-  result = currentIteration != 0;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return currentIteration != 0;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

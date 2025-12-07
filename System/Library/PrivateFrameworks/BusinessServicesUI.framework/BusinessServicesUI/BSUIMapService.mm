@@ -13,9 +13,9 @@
     dispatch_once(&qword_27EC8D538, &__block_literal_global);
   }
 
-  v0 = _MergedGlobals;
+  v1 = _MergedGlobals;
 
-  return v0;
+  return v1;
 }
 
 void __31__BSUIMapService_sharedService__block_invoke()

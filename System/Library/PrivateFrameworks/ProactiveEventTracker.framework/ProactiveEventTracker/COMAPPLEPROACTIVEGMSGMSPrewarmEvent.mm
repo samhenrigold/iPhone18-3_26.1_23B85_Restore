@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)outcomeAsString:(int)string;
 - (int)StringAsOutcome:(id)outcome;
 - (int)outcome;
 - (unint64_t)hash;
@@ -250,12 +251,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -274,15 +274,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  outcome = self->_outcome;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    latencyMillis = self->_latencyMillis;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -385,6 +383,21 @@ LABEL_5:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)outcomeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2DD0[string];
   }
 
   return v4;

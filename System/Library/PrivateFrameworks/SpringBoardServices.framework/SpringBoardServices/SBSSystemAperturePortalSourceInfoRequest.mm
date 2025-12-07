@@ -44,21 +44,21 @@
 
     if (remoteTarget)
     {
-      v16 = SBLogSystemApertureHosting();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = SBLogSystemApertureHosting(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19169D000, v16, OS_LOG_TYPE_DEFAULT, "System Aperture Portal Source request connection handled-requested.", buf, 2u);
+        _os_log_impl(&dword_19169D000, v17, OS_LOG_TYPE_DEFAULT, "System Aperture Portal Source request connection handled-requested.", buf, 2u);
       }
 
       remoteTarget2 = [v14 remoteTarget];
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_8;
-      v21 = &unk_1E73611A8;
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_8;
+      v22 = &unk_1E73611A8;
       selfCopy = self;
-      v22 = completionCopy;
-      [remoteTarget2 rootWindowPortalSourceWithCompletion:&v18];
+      v23 = completionCopy;
+      [remoteTarget2 rootWindowPortalSourceWithCompletion:&v19];
     }
 
     [v14 invalidate];
@@ -79,12 +79,12 @@ void __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCo
   [v4 setInvalidationHandler:&__block_literal_global_7_3];
 }
 
-void __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_2()
+void __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogSystemApertureHosting();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SBLogSystemApertureHosting(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_2_cold_1(v0);
+    __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCompletion___block_invoke_2_cold_1(v1);
   }
 }
 
@@ -93,7 +93,7 @@ void __81__SBSSystemAperturePortalSourceInfoRequest_rootWindowPortalSourceWithCo
   v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = SBLogSystemApertureHosting();
+  v7 = SBLogSystemApertureHosting(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {

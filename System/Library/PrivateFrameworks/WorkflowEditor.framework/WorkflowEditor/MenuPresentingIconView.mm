@@ -15,7 +15,7 @@
 - (CGSize)intrinsicContentSize
 {
   selfCopy = self;
-  v3 = sub_2744FA650();
+  v3 = sub_2744FA650(selfCopy);
   v5 = v4;
 
   v6 = v3;

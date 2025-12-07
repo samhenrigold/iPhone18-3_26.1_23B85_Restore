@@ -108,7 +108,7 @@
 
 - (WiFiAwareDataSessionStatisticsReport)initWithCoder:(id)coder
 {
-  v89[2] = *MEMORY[0x277D85DE8];
+  v88[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(WiFiAwareDataSessionStatisticsReport *)self init];
   if (v5)
@@ -122,9 +122,9 @@
     v5->_infrastructureChannel = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v89[0] = objc_opt_class();
-    v89[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
+    v88[0] = objc_opt_class();
+    v88[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"WiFiAwareDataSessionStatisticsReport.txCCAHistogram"];
@@ -277,7 +277,6 @@
     v5->_txPacketExpiryHistogram = v85;
   }
 
-  v87 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

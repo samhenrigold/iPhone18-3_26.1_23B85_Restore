@@ -14,13 +14,13 @@
   passwordCopy = password;
   if (!userCopy)
   {
-    [CASPasswordCredential initWithUser:a2 password:?];
+    [CASPasswordCredential initWithUser:a2 password:self];
   }
 
   v9 = passwordCopy;
   if (!passwordCopy)
   {
-    [CASPasswordCredential initWithUser:a2 password:?];
+    [CASPasswordCredential initWithUser:a2 password:self];
   }
 
   v16.receiver = self;
@@ -80,7 +80,7 @@
 
 - (CASPasswordCredential)initWithCoder:(id)coder
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_self();
   v6 = [coderCopy decodeObjectOfClass:v5 forKey:@"user"];
@@ -89,9 +89,9 @@
   {
     v10 = MEMORY[0x277CCA9B8];
     v11 = *MEMORY[0x277CCA050];
-    v21 = *MEMORY[0x277CCA470];
-    v22[0] = @"Failed to decode CASPasswordCredential: missing user value";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA470];
+    v21[0] = @"Failed to decode CASPasswordCredential: missing user value";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v12 = [v10 errorWithDomain:v11 code:4865 userInfo:v8];
     [coderCopy failWithError:v12];
 
@@ -107,9 +107,9 @@ LABEL_6:
   {
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA050];
-    v19 = *MEMORY[0x277CCA470];
-    v20 = @"Failed to decode CASPasswordCredential: missing password value";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA470];
+    v19 = @"Failed to decode CASPasswordCredential: missing password value";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v16 = [v13 errorWithDomain:v14 code:4865 userInfo:v15];
     [coderCopy failWithError:v16];
 
@@ -120,7 +120,6 @@ LABEL_6:
   selfCopy = self;
 LABEL_7:
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -132,46 +131,46 @@ LABEL_7:
   [coderCopy encodeObject:self->_password forKey:@"password"];
 }
 
-- (void)initWithUser:(const char *)a1 password:.cold.1(const char *a1)
+- (void)initWithUser:(const char *)a1 password:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"password != ((void*)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"password != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"CASPasswordCredential.m";
-    v9 = 1024;
-    v10 = 20;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"CASPasswordCredential.m";
+    v10 = 1024;
+    v11 = 20;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_243D1C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithUser:(const char *)a1 password:.cold.2(const char *a1)
+- (void)initWithUser:(const char *)a1 password:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"user != ((void*)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"user != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"CASPasswordCredential.m";
-    v9 = 1024;
-    v10 = 19;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"CASPasswordCredential.m";
+    v10 = 1024;
+    v11 = 19;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_243D1C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -2,7 +2,7 @@
 - (SCNCaptureDeviceOutputConsumerSource)initWithOptions:(id)options;
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status;
 - (void)_setPixelBuffer:(__CVBuffer *)buffer;
-- (void)_setSampleBuffer:(opaqueCMSampleBuffer *)ImageBuffer;
+- (void)_setSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (void)connectToProxy:(__C3DImageProxy *)proxy;
 - (void)dealloc;
 - (void)setPixelBuffer:(__CVBuffer *)buffer fromDevice:(id)device;
@@ -52,7 +52,7 @@
 
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   mtlTextureForRenderer = self->_data.mtlTextureForRenderer;
   if (mtlTextureForRenderer)
@@ -62,19 +62,19 @@
 
   else if (self->_data.var0)
   {
-    RenderContext = C3DEngineContextGetRenderContext(context);
-    v11 = RenderContext;
+    RenderContext = C3DEngineContextGetRenderContext(context, v9);
+    v12 = RenderContext;
     textureCache = self->_textureCache;
     if (!textureCache)
     {
       device = [(SCNMTLRenderContext *)RenderContext device];
-      v15 = *MEMORY[0x277CC4D50];
-      v16[0] = &unk_282E0F8E8;
-      CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1], &self->_textureCache);
+      v16 = *MEMORY[0x277CC4D50];
+      v17[0] = &unk_282E0F8E8;
+      CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1], &self->_textureCache);
       textureCache = self->_textureCache;
     }
 
-    SCNVideoTextureSourceCreateMetalTexture(&self->_data, v11, textureCache);
+    SCNVideoTextureSourceCreateMetalTexture(&self->_data, v12, textureCache);
     *status = 257;
     mtlTextureForRenderer = self->_data.mtlTextureForRenderer;
   }
@@ -98,49 +98,50 @@
   [(SCNCaptureDeviceOutputConsumerSource *)self _setSampleBuffer:buffer];
 }
 
-- (void)_setSampleBuffer:(opaqueCMSampleBuffer *)ImageBuffer
+- (void)_setSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  objc_sync_enter(self);
-  if (ImageBuffer)
+  ImageBuffer = objc_sync_enter(self);
+  if (buffer)
   {
-    ImageBuffer = CMSampleBufferGetImageBuffer(ImageBuffer);
+    ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
+    buffer = ImageBuffer;
   }
 
-  if (self->_data.var0 != ImageBuffer)
+  if (self->_data.var0 != buffer)
   {
     SCNVideoTextureSourceDiscardVideoData(&self->_data);
-    var0 = self->_data.var0;
-    if (var0 != ImageBuffer)
+    ImageBuffer = self->_data.var0;
+    if (ImageBuffer != buffer)
     {
-      if (var0)
+      if (ImageBuffer)
       {
-        CFRelease(var0);
+        CFRelease(ImageBuffer);
         self->_data.var0 = 0;
       }
 
-      if (ImageBuffer)
+      if (buffer)
       {
-        v6 = CFRetain(ImageBuffer);
+        ImageBuffer = CFRetain(buffer);
       }
 
       else
       {
-        v6 = 0;
+        ImageBuffer = 0;
       }
 
-      self->_data.var0 = v6;
+      self->_data.var0 = ImageBuffer;
     }
   }
 
-  if (ImageBuffer)
+  if (buffer)
   {
-    self->_width = CVPixelBufferGetWidth(ImageBuffer);
-    self->_height = CVPixelBufferGetHeight(ImageBuffer);
+    self->_width = CVPixelBufferGetWidth(buffer);
+    self->_height = CVPixelBufferGetHeight(buffer);
   }
 
   else
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(ImageBuffer, v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNAVPlayerSource metalTextureWithEngineContext:textureSampler:nextFrameTime:status:];
@@ -195,8 +196,8 @@
     self->_height = CVPixelBufferGetHeight(buffer);
     if (!CVPixelBufferGetIOSurface(buffer))
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = scn_default_log(0, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [SCNCaptureDeviceOutputConsumerSource _setPixelBuffer:];
       }

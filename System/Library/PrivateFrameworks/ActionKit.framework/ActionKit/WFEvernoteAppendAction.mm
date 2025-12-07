@@ -163,34 +163,34 @@ void __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_in
 
 void __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (v5)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v7 = [v5 resources];
-    v8 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v38;
+      v10 = *v37;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v38 != v10)
+          if (*v37 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(a1 + 40) addResource:*(*(&v37 + 1) + 8 * i)];
+          [*(a1 + 40) addResource:*(*(&v36 + 1) + 8 * i)];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v9);
@@ -247,22 +247,20 @@ void __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_in
     v30 = *(a1 + 40);
     v31 = *(a1 + 48);
     v32 = [*(a1 + 56) noteRef];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_invoke_4;
-    v35[3] = &unk_278C21730;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_invoke_4;
+    v34[3] = &unk_278C21730;
     v33 = *(a1 + 40);
-    v35[4] = *(a1 + 32);
-    v36 = v33;
-    [v29 uploadNote:v30 policy:1 toNotebook:v31 orReplaceNote:v32 progress:0 completion:v35];
+    v34[4] = *(a1 + 32);
+    v35 = v33;
+    [v29 uploadNote:v30 policy:1 toNotebook:v31 orReplaceNote:v32 progress:0 completion:v34];
   }
 
   else
   {
     [*(a1 + 32) finishRunningWithError:a3];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
@@ -327,26 +325,26 @@ void __62__WFEvernoteAppendAction_performSearch_inNotebook_maxResults___block_in
 
 void __53__WFEvernoteAppendAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 name];
         v9 = [v8 isEqualToString:*(a1 + 32)];
 
@@ -357,7 +355,7 @@ void __53__WFEvernoteAppendAction_runAsynchronouslyWithInput___block_invoke(uint
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -370,7 +368,6 @@ void __53__WFEvernoteAppendAction_runAsynchronouslyWithInput___block_invoke(uint
 LABEL_11:
 
   [*(a1 + 40) performSearch:*(a1 + 48) inNotebook:v4 maxResults:1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

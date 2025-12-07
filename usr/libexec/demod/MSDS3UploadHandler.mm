@@ -44,30 +44,31 @@
 {
   toCopy = to;
   headersCopy = headers;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_10000BF44;
-  v35 = sub_10000BF54;
-  v36 = 0;
-  if ([(MSDS3UploadHandler *)self uploadInProgress])
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_10000BF44;
+  v36 = sub_10000BF54;
+  v37 = 0;
+  uploadInProgress = [(MSDS3UploadHandler *)self uploadInProgress];
+  if (uploadInProgress)
   {
-    v19 = sub_100063A54();
-    sub_1000C5D98(v19, &v37);
+    v20 = sub_100063A54(uploadInProgress);
+    sub_1000C5D98(v20, &v38);
 LABEL_11:
 
-    v21 = (v32 + 5);
-    obj = v32[5];
+    v22 = (v33 + 5);
+    obj = v33[5];
     sub_1000C1390(&obj, 3727744742, @"Failed to upload MobileStoreDemo logs to S3.");
-    objc_storeStrong(v21, obj);
-    [(MSDS3UploadHandler *)self demoLogUploadCompleted:v32[5]];
+    objc_storeStrong(v22, obj);
+    [(MSDS3UploadHandler *)self demoLogUploadCompleted:v33[5]];
     goto LABEL_8;
   }
 
   if (!toCopy)
   {
-    v20 = sub_100063A54();
-    sub_1000C5D40(v20, &v37);
+    v21 = sub_100063A54(uploadInProgress);
+    sub_1000C5D40(v21, &v38);
     goto LABEL_11;
   }
 
@@ -77,40 +78,40 @@ LABEL_11:
 
   if (!demoLogUploadRequest)
   {
-    v14 = objc_alloc_init(NSMutableDictionary);
-    [v14 setObject:toCopy forKey:@"s3URL"];
-    v15 = [NSNumber numberWithInteger:attempts];
-    [v14 setObject:v15 forKey:@"maxRetry"];
+    v15 = objc_alloc_init(NSMutableDictionary);
+    [v15 setObject:toCopy forKey:@"s3URL"];
+    v16 = [NSNumber numberWithInteger:attempts];
+    [v15 setObject:v16 forKey:@"maxRetry"];
 
-    [v14 setObject:getDefaultLogFolderName forKey:@"folderName"];
-    v16 = [NSNumber numberWithUnsignedInteger:type];
-    [v14 setObject:v16 forKey:@"logType"];
+    [v15 setObject:getDefaultLogFolderName forKey:@"folderName"];
+    v17 = [NSNumber numberWithUnsignedInteger:type];
+    [v15 setObject:v17 forKey:@"logType"];
 
     if (headersCopy)
     {
-      [v14 setObject:headersCopy forKey:@"httpHeaders"];
+      [v15 setObject:headersCopy forKey:@"httpHeaders"];
     }
 
-    [(MSDS3UploadHandler *)self saveDemoLogUploadRequest:v14];
+    [(MSDS3UploadHandler *)self saveDemoLogUploadRequest:v15];
   }
 
-  v17 = dispatch_get_global_queue(9, 0);
+  v18 = dispatch_get_global_queue(9, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000BF5C;
   block[3] = &unk_100169DF0;
-  v24 = getDefaultLogFolderName;
+  v25 = getDefaultLogFolderName;
   typeCopy = type;
-  v25 = toCopy;
+  v26 = toCopy;
   attemptsCopy = attempts;
   selfCopy = self;
-  v28 = &v31;
-  v26 = headersCopy;
-  v18 = getDefaultLogFolderName;
-  dispatch_async(v17, block);
+  v29 = &v32;
+  v27 = headersCopy;
+  v19 = getDefaultLogFolderName;
+  dispatch_async(v18, block);
 
 LABEL_8:
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 - (void)uploadDemoLogsIfNeeded
@@ -128,11 +129,11 @@ LABEL_8:
     v10 = [v4 objectForKey:@"logType"];
     unsignedIntegerValue = [v10 unsignedIntegerValue];
 
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100063A54(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Demod was interrupted in between demo log upload to S3! Lets try again..", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Demod was interrupted in between demo log upload to S3! Lets try again..", v14, 2u);
     }
 
     [(MSDS3UploadHandler *)self uploadDemoLogsTo:v5 HttpHeaders:v7 andMaxAttempts:integerValue ofType:unsignedIntegerValue];

@@ -1,7 +1,7 @@
-uint64_t sub_26117AE40@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_26117AE40@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -130,10 +130,10 @@ uint64_t sub_2611877C4()
   }
 }
 
-uint64_t sub_261187824@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_261187824@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_26118B40C(a1, a2);
-  *a3 = result;
+  result = sub_26118B40C(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -158,7 +158,7 @@ uint64_t sub_2611878D8()
   return sub_26118C0C0();
 }
 
-uint64_t sub_261187944()
+uint64_t sub_261187944(uint64_t a1)
 {
   sub_26118C0A0();
   MEMORY[0x2666FACF0](0);
@@ -229,61 +229,56 @@ uint64_t sub_261187B48(uint64_t a1)
 uint64_t PCProximityHandoffClient.Identifier.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86000, &qword_26118DD90);
-  v31 = *(v3 - 8);
-  v32 = v3;
-  v4 = (*(v31 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v26 = *(v3 - 8);
+  v27 = v3;
   MEMORY[0x28223BE20]();
-  v30 = &v24 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86008, &qword_26118DD98);
-  v28 = *(v6 - 8);
-  v29 = v6;
-  v7 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v25 = &v19 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86008, &qword_26118DD98);
+  v23 = *(v5 - 8);
+  v24 = v5;
   MEMORY[0x28223BE20]();
-  v27 = &v24 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86010, &qword_26118DDA0);
-  v25 = *(v9 - 8);
-  v26 = v9;
-  v10 = (*(v25 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v22 = &v19 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86010, &qword_26118DDA0);
+  v20 = *(v7 - 8);
+  v21 = v7;
   MEMORY[0x28223BE20]();
-  v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86018, &qword_26118DDA8);
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = &v19 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86018, &qword_26118DDA8);
+  v11 = *(v10 - 8);
   MEMORY[0x28223BE20]();
-  v17 = &v24 - v16;
-  v18 = v1[1];
-  v24 = *v1;
-  v19 = a1[4];
+  v13 = &v19 - v12;
+  v14 = v1[1];
+  v19 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_261187FD4();
   sub_26118C0E0();
-  if (!v18)
+  if (!v14)
   {
-    v33 = 0;
+    v28 = 0;
     sub_2611880D0();
     sub_26118C040();
-    (*(v25 + 8))(v12, v26);
-    return (*(v14 + 8))(v17, v13);
+    (*(v20 + 8))(v9, v21);
+    return (*(v11 + 8))(v13, v10);
   }
 
-  if (v18 == 1)
+  if (v14 == 1)
   {
-    v34 = 1;
+    v29 = 1;
     sub_26118807C();
-    v20 = v27;
+    v15 = v22;
     sub_26118C040();
-    (*(v28 + 8))(v20, v29);
-    return (*(v14 + 8))(v17, v13);
+    (*(v23 + 8))(v15, v24);
+    return (*(v11 + 8))(v13, v10);
   }
 
-  v35 = 2;
+  v30 = 2;
   sub_261188028();
-  v22 = v30;
+  v17 = v25;
   sub_26118C040();
-  v23 = v32;
+  v18 = v27;
   sub_26118C060();
-  (*(v31 + 8))(v22, v23);
-  return (*(v14 + 8))(v17, v13);
+  (*(v26 + 8))(v17, v18);
+  return (*(v11 + 8))(v13, v10);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -291,7 +286,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -357,134 +351,129 @@ unint64_t sub_2611880D0()
   return result;
 }
 
-uint64_t PCProximityHandoffClient.Identifier.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t PCProximityHandoffClient.Identifier.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v49 = a2;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86040, &qword_26118DDB0);
-  v48 = *(v45 - 8);
-  v3 = (*(v48 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v43 = a2;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86040, &qword_26118DDB0);
+  v42 = *(v39 - 8);
   MEMORY[0x28223BE20]();
-  v50 = &v43 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86048, &qword_26118DDB8);
-  v6 = *(v5 - 8);
-  v46 = v5;
-  v47 = v6;
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v44 = &v37 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86048, &qword_26118DDB8);
+  v5 = *(v4 - 8);
+  v40 = v4;
+  v41 = v5;
   MEMORY[0x28223BE20]();
-  v9 = &v43 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86050, &qword_26118DDC0);
-  v44 = *(v10 - 8);
-  v11 = (*(v44 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = &v37 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86050, &qword_26118DDC0);
+  v38 = *(v8 - 8);
   MEMORY[0x28223BE20]();
-  v13 = &v43 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86058, &qword_26118DDC8);
-  v15 = *(v14 - 8);
-  v16 = (*(v15 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v37 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86058, &qword_26118DDC8);
+  v12 = *(v11 - 8);
   MEMORY[0x28223BE20]();
-  v18 = &v43 - v17;
-  v19 = a1[3];
-  v20 = a1[4];
-  v52 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v19);
+  v14 = &v37 - v13;
+  v15 = a1[3];
+  v46 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v15);
   sub_261187FD4();
-  v21 = v51;
+  v16 = v45;
   sub_26118C0D0();
-  if (!v21)
+  if (!v16)
   {
-    v43 = 0;
-    v51 = v15;
-    v22 = sub_26118C030();
-    v23 = *(v22 + 16);
-    if (!v23 || ((v24 = *(v22 + 32), v23 == 1) ? (v25 = v24 == 3) : (v25 = 1), v25))
+    v37 = 0;
+    v45 = v12;
+    v17 = sub_26118C030();
+    v18 = *(v17 + 16);
+    if (!v18 || ((v19 = *(v17 + 32), v18 == 1) ? (v20 = v19 == 3) : (v20 = 1), v20))
     {
-      v26 = sub_26118BFB0();
+      v21 = sub_26118BFB0();
       swift_allocError();
-      v27 = v14;
-      v29 = v28;
-      v30 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86060, &qword_26118DDD0) + 48);
-      *v29 = &type metadata for PCProximityHandoffClient.Identifier;
+      v22 = v11;
+      v24 = v23;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86060, &qword_26118DDD0);
+      *v24 = &type metadata for PCProximityHandoffClient.Identifier;
       sub_26118BFE0();
       sub_26118BFA0();
-      (*(*(v26 - 8) + 104))(v29, *MEMORY[0x277D84160], v26);
+      (*(*(v21 - 8) + 104))(v24, *MEMORY[0x277D84160], v21);
       swift_willThrow();
-      (*(v51 + 8))(v18, v27);
+      (*(v45 + 8))(v14, v22);
 LABEL_9:
       swift_unknownObjectRelease();
-      return __swift_destroy_boxed_opaque_existential_1Tm(v52);
+      return __swift_destroy_boxed_opaque_existential_1Tm(v46);
     }
 
-    if (!*(v22 + 32))
+    if (!*(v17 + 32))
     {
-      v53 = 0;
+      v47 = 0;
       sub_2611880D0();
-      v32 = v18;
-      v38 = v43;
+      v26 = v14;
+      v32 = v37;
       sub_26118BFD0();
-      if (!v38)
+      if (!v32)
       {
-        (*(v44 + 8))(v13, v10);
-        (*(v51 + 8))(v18, v14);
+        (*(v38 + 8))(v10, v8);
+        (*(v45 + 8))(v14, v11);
         swift_unknownObjectRelease();
-        v35 = 0;
-        v36 = 0;
-        v37 = v49;
+        v29 = 0;
+        v30 = 0;
+        v31 = v43;
         goto LABEL_22;
       }
 
-      v34 = v51;
+      v28 = v45;
       goto LABEL_17;
     }
 
-    if (v24 == 1)
+    if (v19 == 1)
     {
-      v54 = 1;
+      v48 = 1;
       sub_26118807C();
-      v32 = v18;
-      v33 = v43;
+      v26 = v14;
+      v27 = v37;
       sub_26118BFD0();
-      v34 = v51;
-      if (!v33)
+      v28 = v45;
+      if (!v27)
       {
-        (*(v47 + 8))(v9, v46);
-        (*(v34 + 8))(v18, v14);
+        (*(v41 + 8))(v7, v40);
+        (*(v28 + 8))(v14, v11);
         swift_unknownObjectRelease();
-        v35 = 0;
-        v36 = 1;
-        v37 = v49;
+        v29 = 0;
+        v30 = 1;
+        v31 = v43;
 LABEL_22:
-        *v37 = v35;
-        v37[1] = v36;
-        return __swift_destroy_boxed_opaque_existential_1Tm(v52);
+        *v31 = v29;
+        v31[1] = v30;
+        return __swift_destroy_boxed_opaque_existential_1Tm(v46);
       }
 
 LABEL_17:
-      (*(v34 + 8))(v32, v14);
+      (*(v28 + 8))(v26, v11);
       goto LABEL_9;
     }
 
-    v55 = 2;
+    v49 = 2;
     sub_261188028();
-    v39 = v43;
+    v33 = v37;
     sub_26118BFD0();
-    v37 = v49;
-    v40 = v51;
-    if (!v39)
+    v31 = v43;
+    v34 = v45;
+    if (!v33)
     {
-      v47 = v14;
-      v41 = v45;
-      v35 = sub_26118C000();
-      v36 = v42;
-      (*(v48 + 8))(v50, v41);
-      (*(v40 + 8))(v18, v47);
+      v41 = v11;
+      v35 = v39;
+      v29 = sub_26118C000();
+      v30 = v36;
+      (*(v42 + 8))(v44, v35);
+      (*(v34 + 8))(v14, v41);
       swift_unknownObjectRelease();
       goto LABEL_22;
     }
 
-    (*(v51 + 8))(v18, v14);
+    (*(v45 + 8))(v14, v11);
     swift_unknownObjectRelease();
   }
 
-  return __swift_destroy_boxed_opaque_existential_1Tm(v52);
+  return __swift_destroy_boxed_opaque_existential_1Tm(v46);
 }
 
 uint64_t PCProximityHandoffClient.clientIdentifier.getter@<X0>(uint64_t *a1@<X8>)
@@ -505,79 +494,76 @@ uint64_t sub_261188774(uint64_t a1, unint64_t a2)
   return result;
 }
 
-void *PCProximityHandoffClient.init(identifier:)(uint64_t *a1)
+uint64_t *PCProximityHandoffClient.init(identifier:)(uint64_t *a1)
 {
-  v29 = sub_26118BF50();
-  v3 = *(v29 - 8);
-  v4 = *(v3 + 64);
+  v24 = sub_26118BF50();
+  v3 = *(v24 - 8);
   MEMORY[0x28223BE20]();
-  v6 = v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(*(sub_26118BF40() - 8) + 64);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_26118BF40();
   MEMORY[0x28223BE20]();
-  v8 = *(*(sub_26118BF00() - 8) + 64);
+  sub_26118BF00();
   MEMORY[0x28223BE20]();
-  v10 = *a1;
-  v9 = a1[1];
-  v11 = v1;
+  v7 = *a1;
+  v6 = a1[1];
+  v8 = v1;
   swift_defaultActor_initialize();
-  v12 = sub_261188BC8();
-  v28[0] = "f keys found, expected one.";
-  v28[1] = v12;
+  v9 = sub_261188BC8();
+  v23[0] = "f keys found, expected one.";
+  v23[1] = v9;
   sub_26118BEF0();
-  v30 = MEMORY[0x277D84F90];
-  sub_26118A50C(&qword_27FE86070, MEMORY[0x277D85230]);
+  v25 = MEMORY[0x277D84F90];
+  sub_26118A50C(&qword_27FE86070, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE86078, &unk_26118DDD8);
   sub_261188C14();
-  v13 = v1;
+  v10 = v1;
   sub_26118BF80();
-  (*(v3 + 104))(v6, *MEMORY[0x277D85268], v29);
+  (*(v3 + 104))(v5, *MEMORY[0x277D85268], v24);
   *(v1 + 136) = sub_26118BF60();
   if (qword_27FE85FE0 != -1)
   {
     swift_once();
   }
 
-  v14 = sub_26118BE40();
-  __swift_project_value_buffer(v14, qword_27FE85FE8);
-  sub_261188774(v10, v9);
-  v15 = sub_26118BE20();
-  v16 = sub_26118BF30();
-  sub_261188CF8(v10, v9);
-  if (os_log_type_enabled(v15, v16))
+  v11 = sub_26118BE40();
+  __swift_project_value_buffer(v11, qword_27FE85FE8);
+  sub_261188774(v7, v6);
+  v12 = sub_26118BE20();
+  v13 = sub_26118BF30();
+  sub_261188CF8(v7, v6);
+  if (os_log_type_enabled(v12, v13))
   {
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v31 = v9;
-    v32 = v18;
-    *v17 = 136315138;
-    v30 = v10;
-    sub_261188774(v10, v9);
-    v19 = sub_26118BF10();
-    v21 = sub_261189EF8(v19, v20, &v32);
+    v14 = swift_slowAlloc();
+    v15 = swift_slowAlloc();
+    v26 = v6;
+    v27 = v15;
+    *v14 = 136315138;
+    v25 = v7;
+    sub_261188774(v7, v6);
+    v16 = sub_26118BF10();
+    v18 = sub_261189EF8(v16, v17, &v27);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&dword_261179000, v15, v16, "Init: %s", v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v18);
-    MEMORY[0x2666FB3E0](v18, -1, -1);
-    MEMORY[0x2666FB3E0](v17, -1, -1);
+    *(v14 + 4) = v18;
+    _os_log_impl(&dword_261179000, v12, v13, "Init: %s", v14, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v15);
+    MEMORY[0x2666FB3E0](v15, -1, -1);
+    MEMORY[0x2666FB3E0](v14, -1, -1);
   }
 
-  *(v11 + 120) = v10;
-  *(v11 + 128) = v9;
+  *(v8 + 120) = v7;
+  *(v8 + 128) = v6;
   sub_26118BEB0();
   sub_26118BEE0();
-  v22 = *(v13 + 136);
-  *(v13 + 112) = sub_26118BE90();
-  v23 = type metadata accessor for PCProximityHandoffClient();
-  v33.receiver = v13;
-  v33.super_class = v23;
-  v24 = objc_msgSendSuper2(&v33, sel_init);
-  v25 = v24[14];
-  v26 = v24;
+  v19 = *(v10 + 136);
+  *(v10 + 112) = sub_26118BE90();
+  v20 = type metadata accessor for PCProximityHandoffClient();
+  v28.receiver = v10;
+  v28.super_class = v20;
+  v21 = objc_msgSendSuper2(&v28, sel_init);
 
   sub_26118BEA0();
 
-  return v26;
+  return v21;
 }
 
 unint64_t sub_261188BC8()
@@ -611,7 +597,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -658,11 +643,7 @@ uint64_t PCProximityHandoffClient.deinit()
     MEMORY[0x2666FB3E0](v5, -1, -1);
   }
 
-  v6 = *(v1 + 112);
-
   sub_26118BE60();
-
-  v7 = *(v1 + 112);
 
   sub_261188CF8(*(v1 + 120), *(v1 + 128));
 
@@ -677,22 +658,20 @@ uint64_t PCProximityHandoffClient.__deallocating_deinit()
   return MEMORY[0x282200960](v0);
 }
 
-uint64_t sub_261188F2C(char a1, void (*a2)(void), unint64_t *a3, void (*a4)(uint64_t))
+uint64_t sub_261188F2C(char a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
-  v9 = sub_26118BE50();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v10 = sub_26118BE50();
+  v11 = *(v10 - 8);
   MEMORY[0x28223BE20]();
-  v13 = v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(v4 + 112);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   a2(0);
-  v18 = a1;
-  sub_26118A50C(a3, a4);
-  v15 = v17[1];
+  v17 = a1;
+  sub_26118A50C(a3, a4, a5);
+  v14 = v16[1];
   result = sub_26118BE70();
-  if (!v15)
+  if (!v14)
   {
-    return (*(v10 + 8))(v13, v9);
+    return (*(v11 + 8))(v13, v10);
   }
 
   return result;
@@ -704,9 +683,7 @@ uint64_t sub_261189068(uint64_t a1)
   v2[3] = v1;
   v3 = sub_26118BE50();
   v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[5] = *(v3 - 8);
   v2[6] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](sub_261189128, v1, 0);
@@ -714,61 +691,54 @@ uint64_t sub_261189068(uint64_t a1)
 
 uint64_t sub_261189128()
 {
-  v1 = *(v0[3] + 112);
-  v2 = type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction(0);
-  v3 = *(MEMORY[0x277D549F8] + 4);
-  v4 = swift_task_alloc();
-  v0[7] = v4;
-  v5 = sub_26118A50C(&qword_27FE86098, type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction);
-  *v4 = v0;
-  v4[1] = sub_261189220;
-  v6 = v0[6];
-  v7 = v0[2];
+  v1 = type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction(0);
+  v2 = swift_task_alloc();
+  v0[7] = v2;
+  v3 = sub_26118A50C(&qword_27FE86098, type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction, &protocol conformance descriptor for PCProximityHandoffServiceInvocations.UserAlertAction);
+  *v2 = v0;
+  v2[1] = sub_261189220;
+  v4 = v0[6];
+  v5 = v0[2];
 
-  return MEMORY[0x2821B5FC8](v6, v2, v7, v2, v5);
+  return MEMORY[0x2821B5FC8](v4, v1, v5, v1, v3);
 }
 
 uint64_t sub_261189220()
 {
   v2 = *v1;
-  v3 = *(*v1 + 56);
-  v8 = *v1;
   *(*v1 + 64) = v0;
 
   if (v0)
   {
-    v4 = v2[3];
-    v5 = sub_2611893B8;
+    v3 = v2[3];
+    v4 = sub_2611893B8;
   }
 
   else
   {
-    v6 = v2[3];
+    v5 = v2[3];
     (*(v2[5] + 8))(v2[6], v2[4]);
-    v5 = sub_261189354;
-    v4 = v6;
+    v4 = sub_261189354;
+    v3 = v5;
   }
 
-  return MEMORY[0x2822009F8](v5, v4, 0);
+  return MEMORY[0x2822009F8](v4, v3, 0);
 }
 
 uint64_t sub_261189354()
 {
-  v1 = *(v0 + 48);
 
-  v2 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_2611893B8()
 {
-  v1 = v0[6];
 
-  v2 = v0[1];
-  v3 = v0[8];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 void PCProximityHandoffClient.__allocating_init()()
@@ -803,11 +773,9 @@ uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.id.gett
 
 uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.textResponse.getter()
 {
-  v1 = (v0 + *(type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0) + 24));
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(v0 + *(type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0) + 24));
 
-  return v2;
+  return v1;
 }
 
 uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.init(id:actionIndex:textResponse:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -830,11 +798,11 @@ uint64_t sub_261189734()
   return sub_26118C0C0();
 }
 
-uint64_t sub_26118977C()
+uint64_t sub_26118977C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_26118C0A0();
-  MEMORY[0x2666FACF0](v1);
+  MEMORY[0x2666FACF0](v2);
   return sub_26118C0C0();
 }
 
@@ -857,10 +825,10 @@ uint64_t sub_2611897C0()
   }
 }
 
-uint64_t sub_261189820@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_261189820@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_26118B524(a1, a2);
-  *a3 = result;
+  result = sub_26118B524(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -880,54 +848,43 @@ uint64_t sub_261189884(uint64_t a1)
 
 uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE860A0, &qword_26118DDE8);
-  v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE860A0, &qword_26118DDE8);
+  v4 = *(v3 - 8);
   MEMORY[0x28223BE20]();
-  v9 = &v17[-v8];
-  v10 = a1[4];
+  v6 = &v8[-v5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_26118A5EC();
   sub_26118C0E0();
-  v17[15] = 0;
+  v8[15] = 0;
   sub_26118BE10();
-  sub_26118A50C(&qword_27FE860B0, MEMORY[0x277CC95F0]);
+  sub_26118A50C(&qword_27FE860B0, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
   sub_26118C080();
-  if (!v2)
+  if (!v1)
   {
-    v11 = type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0);
-    v12 = *(v3 + *(v11 + 20));
-    v17[14] = 1;
+    type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0);
+    v8[14] = 1;
     sub_26118C070();
-    v13 = (v3 + *(v11 + 24));
-    v14 = *v13;
-    v15 = v13[1];
-    v17[13] = 2;
+    v8[13] = 2;
     sub_26118C050();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v27 = a2;
+  v23 = a2;
   v4 = sub_26118BE10();
-  v29 = *(v4 - 8);
-  v5 = *(v29 + 64);
+  v25 = *(v4 - 8);
   MEMORY[0x28223BE20]();
-  v31 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE860B8, &qword_26118DDF0);
-  v28 = *(v30 - 8);
-  v7 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v27 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FE860B8, &qword_26118DDF0);
+  v24 = *(v26 - 8);
   MEMORY[0x28223BE20]();
-  v9 = &v26 - v8;
-  v10 = type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0);
-  v11 = *(*(v10 - 8) + 64);
+  v7 = &v22 - v6;
+  v8 = type metadata accessor for PCProximityHandoffServiceInvocations.UserAlertAction.Parameters(0);
   MEMORY[0x28223BE20]();
-  v13 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = a1[4];
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_26118A5EC();
   sub_26118C0D0();
@@ -936,30 +893,30 @@ uint64_t PCProximityHandoffServiceInvocations.UserAlertAction.Parameters.init(fr
     return __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  v26 = v13;
-  v16 = v28;
-  v15 = v29;
-  v34 = 0;
-  sub_26118A50C(&qword_27FE860C0, MEMORY[0x277CC95F0]);
-  v17 = v30;
+  v22 = v10;
+  v12 = v24;
+  v11 = v25;
+  v30 = 0;
+  sub_26118A50C(&qword_27FE860C0, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
+  v13 = v26;
   sub_26118C020();
-  (*(v15 + 32))(v26, v31, v4);
-  v33 = 1;
-  *&v26[*(v10 + 20)] = sub_26118C010();
-  v32 = 2;
-  v18 = sub_26118BFF0();
-  v31 = v19;
-  v20 = v18;
-  (*(v16 + 8))(v9, v17);
-  v22 = v26;
-  v21 = v27;
-  v23 = &v26[*(v10 + 24)];
-  v24 = v31;
-  *v23 = v20;
-  v23[1] = v24;
-  sub_26118A640(v22, v21);
+  (*(v11 + 32))(v22, v27, v4);
+  v29 = 1;
+  *&v22[*(v8 + 20)] = sub_26118C010();
+  v28 = 2;
+  v14 = sub_26118BFF0();
+  v27 = v15;
+  v16 = v14;
+  (*(v12 + 8))(v7, v13);
+  v18 = v22;
+  v17 = v23;
+  v19 = &v22[*(v8 + 24)];
+  v20 = v27;
+  *v19 = v16;
+  v19[1] = v20;
+  sub_26118A640(v18, v17);
   __swift_destroy_boxed_opaque_existential_1Tm(a1);
-  return sub_26118A6A4(v22);
+  return sub_26118A6A4(v18);
 }
 
 id _s16ProximityControl36PCProximityHandoffServiceInvocationsV08SuppressD6ActionCAEycfc_0()
@@ -983,7 +940,7 @@ id _s16ProximityControl36PCProximityHandoffServiceInvocationsV08SuppressD6Action
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t sub_261189EF8(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_261189EF8(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_261189FC4(v11, 0, 0, 1, a1, a2);
@@ -1081,16 +1038,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_26118A0D0(uint64_t a1, unint64_t a2)
+void *sub_26118A0D0(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_26118A11C(a1, a2);
+  v3 = sub_26118A11C(a1, a2);
   sub_26118A24C(&unk_2873A0B40);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_26118A11C(uint64_t a1, unint64_t a2)
+void *sub_26118A11C(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1187,7 +1142,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1201,15 +1155,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_26118A3AC(result, v12, 1, v3);
+  result = sub_26118A3AC(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1224,15 +1178,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1241,12 +1195,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1354,18 +1308,20 @@ char *sub_26118A3AC(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t sub_26118A50C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_26118A50C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1378,7 +1334,7 @@ uint64_t sub_26118A50C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_26118A5B4(uint64_t a1, uint64_t *a2)
+uint64_t sub_26118A5B4(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1418,24 +1374,22 @@ uint64_t sub_26118A6A4(uint64_t a1)
 uint64_t dispatch thunk of PCProximityHandoffClient.userAlertAction(params:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x277D85000] & *v1) + 0x88);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_26118A994;
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_26118A994;
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t sub_26118A994()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t get_enum_tag_for_layout_string_16ProximityControl24PCProximityHandoffClientC10IdentifierO(uint64_t a1)
@@ -1532,13 +1486,13 @@ void *sub_26118AB60(void *result, int a2)
   return result;
 }
 
-void sub_26118AC48()
+void sub_26118AC48(uint64_t a1)
 {
   sub_26118BE10();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_26118ACD4();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -2068,14 +2022,11 @@ uint64_t sub_26118B63C(uint64_t a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

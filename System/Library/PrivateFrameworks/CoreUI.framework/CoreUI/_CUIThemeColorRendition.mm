@@ -1,7 +1,7 @@
 @interface _CUIThemeColorRendition
 - (CGColor)cgColor;
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version;
-- (uint64_t)_colorSpaceWithID:(uint64_t)result;
+- (uint64_t)_colorSpaceWithID:(uint64_t)d;
 - (void)dealloc;
 @end
 
@@ -78,34 +78,34 @@
   return v6;
 }
 
-- (uint64_t)_colorSpaceWithID:(uint64_t)result
+- (uint64_t)_colorSpaceWithID:(uint64_t)d
 {
-  if (result)
+  if (d)
   {
     switch(a2)
     {
       case 2:
-        result = _CUIColorSpaceGetGrayGamma2_2();
+        d = _CUIColorSpaceGetGrayGamma2_2(d, a2);
         break;
       case 3:
-        result = _CUIColorSpaceGetDisplayP3();
+        d = _CUIColorSpaceGetDisplayP3(d, a2);
         break;
       case 4:
-        result = _CUIColorSpaceGetExtendedRangeSRGB();
+        d = _CUIColorSpaceGetExtendedRangeSRGB(d, a2);
         break;
       case 5:
-        result = _CUIColorSpaceGetExtendedLinearSRGB();
+        d = _CUIColorSpaceGetExtendedLinearSRGB(d, a2);
         break;
       case 6:
-        result = _CUIColorSpaceGetExtendedGray();
+        d = _CUIColorSpaceGetExtendedGray(d, a2);
         break;
       default:
-        result = _CUIColorSpaceGetSRGB();
+        d = _CUIColorSpaceGetSRGB(d, a2);
         break;
     }
   }
 
-  return result;
+  return d;
 }
 
 @end

@@ -180,7 +180,7 @@ void __34__FBKAnnouncement_fullHTMLContent__block_invoke()
 
 - (id)generateSearchText
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   body = [(FBKAnnouncement *)self body];
 
   if (body)

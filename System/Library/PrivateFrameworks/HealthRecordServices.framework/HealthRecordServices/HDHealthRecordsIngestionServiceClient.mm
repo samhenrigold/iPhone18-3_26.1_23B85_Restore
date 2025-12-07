@@ -315,16 +315,12 @@ void __94__HDHealthRecordsIngestionServiceClient_willDeleteSignedClinicalDataRec
 
 void __75__HDHealthRecordsIngestionServiceClient_didUpdateSignedClinicalDataRecord___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = NSStringFromSelector(*(a1 + 40));
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 40));
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2519FE000, v8, v9, "%{public}@ %{public}@ failed to connect to proxy: %{public}@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2519FE000, v7, v8, "%{public}@ %{public}@ failed to connect to proxy: %{public}@", v9, v10, v11, v12);
 }
 
 @end

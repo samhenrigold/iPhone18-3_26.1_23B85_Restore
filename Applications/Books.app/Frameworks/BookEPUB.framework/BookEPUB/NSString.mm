@@ -96,41 +96,42 @@ LABEL_7:
   selfCopy = self;
   if ([(NSString *)selfCopy hasPrefix:@"epubcfi(")]
   {
-    v10 = 0;
-    v3 = [NSRegularExpression regularExpressionWithPattern:@"\\[\\w+\\]" options:1 error:&v10];
-    v4 = v10;
+    v11 = 0;
+    v3 = [NSRegularExpression regularExpressionWithPattern:@"\\[\\w+\\]" options:1 error:&v11];
+    v4 = v11;
+    v5 = v4;
     if (!v3)
     {
-      v5 = _BookEPUBLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _BookEPUBLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v4;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Failed to create redaction regular expression: %{public}@", buf, 0xCu);
+        v13 = v5;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Failed to create redaction regular expression: %{public}@", buf, 0xCu);
       }
     }
 
-    v6 = [v3 stringByReplacingMatchesInString:selfCopy options:0 range:0 withTemplate:{-[NSString length](selfCopy, "length"), @"[redacted]"}];
+    v7 = [v3 stringByReplacingMatchesInString:selfCopy options:0 range:0 withTemplate:{-[NSString length](selfCopy, "length"), @"[redacted]"}];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = v6;
+    v8 = v7;
   }
 
   else
   {
-    v7 = selfCopy;
+    v8 = selfCopy;
   }
 
-  v8 = v7;
+  v9 = v8;
 
-  return v7;
+  return v8;
 }
 
 @end

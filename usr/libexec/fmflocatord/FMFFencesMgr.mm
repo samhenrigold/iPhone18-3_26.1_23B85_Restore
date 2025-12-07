@@ -146,7 +146,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000373C4(self);
@@ -192,7 +192,7 @@
 
 - (void)start
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -202,34 +202,35 @@
   v4 = +[AccountManager sharedInstance];
   v5 = [v4 allAccountsOfType:objc_opt_class()];
 
-  if ([v5 count] && (objc_msgSend(v5, "objectAtIndexedSubscript:", 0), (v6 = objc_claimAutoreleasedReturnValue()) != 0))
+  v6 = [v5 count];
+  if (v6 && ([v5 objectAtIndexedSubscript:0], (v6 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v7 = v6;
-    objc_initWeak(buf, self);
-    v8 = sub_100002830();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(buf, self);
+    v9 = sub_100002830(inited);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Scheduling FMFFenceMgr start completion after initialization is done.", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Scheduling FMFFenceMgr start completion after initialization is done.", v13, 2u);
     }
 
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000164CC;
-    v10[3] = &unk_10005D470;
-    objc_copyWeak(&v11, buf);
-    [(FMFFencesMgr *)self scheduleOnInitializationCompletion:v10];
-    objc_destroyWeak(&v11);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000164CC;
+    v11[3] = &unk_10005D470;
+    objc_copyWeak(&v12, buf);
+    [(FMFFencesMgr *)self scheduleOnInitializationCompletion:v11];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v9 = sub_100002830();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_100002830(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Removed all fences since there is no FMF account", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Removed all fences since there is no FMF account", buf, 2u);
     }
 
     [(FMFFencesMgr *)self setFencesToMonitor:0 withFenceVersion:0 triggerValidityDuration:0 andTriggerURL:0.0];
@@ -238,15 +239,14 @@
 
 - (void)stop
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Stopping FMFFencesMgr...", buf, 2u);
   }
 
-  [(FMFFencesMgr *)self setDelegate:0];
-  v4 = sub_100002830();
+  v4 = sub_100002830([(FMFFencesMgr *)self setDelegate:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -295,11 +295,11 @@
 {
   fenceCopy = fence;
   locationCopy = location;
-  v8 = sub_100002830();
+  v8 = sub_100002830(locationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[FMFFencesMgr triggerFence:atLocation:]";
+    v23 = "[FMFFencesMgr triggerFence:atLocation:]";
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: Sending trigger to FML", buf, 0xCu);
   }
 
@@ -308,29 +308,29 @@
 
   if (v10)
   {
-    v11 = [NSUUID alloc];
+    v12 = [NSUUID alloc];
     identifier = [v10 identifier];
-    v13 = [v11 initWithUUIDString:identifier];
+    v14 = [v12 initWithUUIDString:identifier];
 
-    if (v13)
+    if (v14)
     {
       findMyLocateSession = [(FMFFencesMgr *)self findMyLocateSession];
       lastTrigger = [fenceCopy lastTrigger];
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_100016AE8;
-      v17[3] = &unk_10005D8F0;
-      v18 = v10;
-      v19 = fenceCopy;
-      [findMyLocateSession triggerFenceWithID:v13 trigger:lastTrigger location:locationCopy completionHandler:v17];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100016AE8;
+      v19[3] = &unk_10005D8F0;
+      v20 = v10;
+      v21 = fenceCopy;
+      [findMyLocateSession triggerFenceWithID:v14 trigger:lastTrigger location:locationCopy completionHandler:v19];
 
-      v16 = v18;
+      v18 = v20;
     }
 
     else
     {
-      v16 = sub_100002830();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sub_100002830(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_100037448(v10);
       }
@@ -339,8 +339,8 @@
 
   else
   {
-    v13 = sub_100002830();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002830(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000374DC(fenceCopy);
     }
@@ -363,20 +363,20 @@
 {
   fencesCopy = fences;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v5 = sub_100002830();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002830(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     allFences = self->_allFences;
-    v8 = 136315650;
-    v9 = "[FMFFencesMgr setAllFences:]";
-    v10 = 2112;
-    v11 = allFences;
-    v12 = 2112;
-    v13 = fencesCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: old: %@ new: %@", &v8, 0x20u);
+    v9 = 136315650;
+    v10 = "[FMFFencesMgr setAllFences:]";
+    v11 = 2112;
+    v12 = allFences;
+    v13 = 2112;
+    v14 = fencesCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: old: %@ new: %@", &v9, 0x20u);
   }
 
-  v7 = self->_allFences;
+  v8 = self->_allFences;
   self->_allFences = fencesCopy;
 
   [(FMFFencesMgr *)self _updateMonitoredFences];
@@ -476,7 +476,7 @@
 - (void)setMonitoredFences:(id)fences
 {
   fencesCopy = fences;
-  v5 = sub_100002830();
+  v5 = sub_100002830(fencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     monitoredFences = self->_monitoredFences;
@@ -505,7 +505,7 @@
   locMgr = self->_locMgr;
   if (!locMgr)
   {
-    v4 = sub_100002830();
+    v4 = sub_100002830(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v8 = 0;
@@ -549,7 +549,7 @@
 
 - (void)_updateGeoFences
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -562,145 +562,146 @@
   locMgr = [(FMFFencesMgr *)self locMgr];
   monitoredRegions = [locMgr monitoredRegions];
 
-  v8 = sub_100002830();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100002830(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [v5 count];
-    v10 = [monitoredRegions count];
+    v10 = [v5 count];
+    v11 = [monitoredRegions count];
     *buf = 134218240;
-    v56 = v9;
-    v57 = 2048;
-    v58 = v10;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Number of current fences: fmflocatord=%ld CL=%ld", buf, 0x16u);
+    v59 = v10;
+    v60 = 2048;
+    v61 = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Number of current fences: fmflocatord=%ld CL=%ld", buf, 0x16u);
   }
 
-  v51 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v53 = 0u;
   obj = monitoredRegions;
-  v11 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v11)
+  v12 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  if (v12)
   {
-    v13 = v11;
-    v14 = *v50;
-    *&v12 = 138412290;
-    v42 = v12;
+    v14 = v12;
+    v15 = *v53;
+    *&v13 = 138412290;
+    v45 = v13;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v50 != v14)
+        if (*v53 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v49 + 1) + 8 * i);
-        identifier = [v16 identifier];
-        v18 = [v5 objectForKeyedSubscript:identifier];
+        v17 = *(*(&v52 + 1) + 8 * i);
+        identifier = [v17 identifier];
+        v19 = [v5 objectForKeyedSubscript:identifier];
 
-        v19 = sub_100002830();
-        v20 = v19;
-        if (v18)
+        v21 = sub_100002830(v20);
+        v22 = v21;
+        if (v19)
         {
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            fenceId = [v18 fenceId];
-            *buf = v42;
-            v56 = fenceId;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Fence is already monitored. No need to update monitored region of fence %@", buf, 0xCu);
+            fenceId = [v19 fenceId];
+            *buf = v45;
+            v59 = fenceId;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Fence is already monitored. No need to update monitored region of fence %@", buf, 0xCu);
           }
 
-          identifier2 = [v16 identifier];
+          identifier2 = [v17 identifier];
           [v5 removeObjectForKey:identifier2];
         }
 
         else
         {
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            identifier3 = [v16 identifier];
-            *buf = v42;
-            v56 = identifier3;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Fence %@ in CL is not present in fmflocatord. Unregistering it...", buf, 0xCu);
+            identifier3 = [v17 identifier];
+            *buf = v45;
+            v59 = identifier3;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Fence %@ in CL is not present in fmflocatord. Unregistering it...", buf, 0xCu);
           }
 
           identifier2 = [(FMFFencesMgr *)self locMgr];
-          [identifier2 stopMonitoringForRegion:v16];
+          [identifier2 stopMonitoringForRegion:v17];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v14 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  v47 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v24 = v5;
-  v25 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
-  if (v25)
+  v49 = 0u;
+  v26 = v5;
+  v27 = [v26 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  if (v27)
   {
-    v27 = v25;
-    v28 = *v46;
-    *&v26 = 138412290;
-    v43 = v26;
+    v29 = v27;
+    v30 = *v49;
+    *&v28 = 138412290;
+    v46 = v28;
     do
     {
-      for (j = 0; j != v27; j = j + 1)
+      for (j = 0; j != v29; j = j + 1)
       {
-        if (*v46 != v28)
+        if (*v49 != v30)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v26);
         }
 
-        v30 = [v24 objectForKeyedSubscript:{*(*(&v45 + 1) + 8 * j), v43}];
-        [v30 latitude];
-        v32 = v31;
-        [v30 longitude];
-        v59 = CLLocationCoordinate2DMake(v32, v33);
-        latitude = v59.latitude;
-        longitude = v59.longitude;
-        if (CLLocationCoordinate2DIsValid(v59))
+        v32 = [v26 objectForKeyedSubscript:{*(*(&v48 + 1) + 8 * j), v46}];
+        [v32 latitude];
+        v34 = v33;
+        [v32 longitude];
+        v62 = CLLocationCoordinate2DMake(v34, v35);
+        latitude = v62.latitude;
+        longitude = v62.longitude;
+        v38 = CLLocationCoordinate2DIsValid(v62);
+        if (v38)
         {
-          v36 = [CLCircularRegion alloc];
-          [v30 radius];
-          if (v37 >= 100.0)
+          v39 = [CLCircularRegion alloc];
+          [v32 radius];
+          if (v40 >= 100.0)
           {
-            v38 = v37;
+            v41 = v40;
           }
 
           else
           {
-            v38 = 100.0;
+            v41 = 100.0;
           }
 
-          fenceId2 = [v30 fenceId];
-          v40 = [v36 initWithCenter:fenceId2 radius:latitude identifier:{longitude, v38}];
+          fenceId2 = [v32 fenceId];
+          v43 = [v39 initWithCenter:fenceId2 radius:latitude identifier:{longitude, v41}];
 
           locMgr2 = [(FMFFencesMgr *)self locMgr];
-          [locMgr2 startMonitoringForRegion:v40];
+          [locMgr2 startMonitoringForRegion:v43];
         }
 
         else
         {
-          v40 = sub_100002830();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v43 = sub_100002830(v38);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v43;
-            v56 = v30;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Invalid 2D coord when attempting to create fence %@", buf, 0xCu);
+            *buf = v46;
+            v59 = v32;
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Invalid 2D coord when attempting to create fence %@", buf, 0xCu);
           }
         }
       }
 
-      v27 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v29 = [v26 countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
-    while (v27);
+    while (v29);
   }
 }
 
@@ -713,54 +714,54 @@
 
   if (v11)
   {
-    v12 = +[NSDate date];
-    v36 = 0;
-    v13 = [v11 shouldTrigger:_trigger forLocation:locationCopy atDate:v12 reason:&v36];
-    v14 = v36;
+    v13 = +[NSDate date];
+    v38 = 0;
+    v14 = [v11 shouldTrigger:_trigger forLocation:locationCopy atDate:v13 reason:&v38];
+    v15 = v38;
 
-    v15 = sub_100002830();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100002830(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = sub_100014AB8(_trigger);
+      v18 = sub_100014AB8(_trigger);
       *buf = 136316418;
       *&buf[4] = "[FMFFencesMgr _trigger:forRegionWithID:atLocation:]";
       *&buf[12] = 1024;
-      *&buf[14] = v13;
+      *&buf[14] = v14;
       *&buf[18] = 2112;
-      *&buf[20] = v16;
-      v40 = 2112;
-      v41 = v14;
+      *&buf[20] = v18;
       v42 = 2112;
-      v43 = locationCopy;
+      v43 = v15;
       v44 = 2112;
-      v45 = v11;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: shouldTrigger: %d status: %@ reason: %@ location: %@ forFence: %@", buf, 0x3Au);
+      v45 = locationCopy;
+      v46 = 2112;
+      v47 = v11;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: shouldTrigger: %d status: %@ reason: %@ location: %@ forFence: %@", buf, 0x3Au);
     }
 
-    if (v13)
+    if (v14)
     {
       [v11 setLastTrigger:_trigger];
-      v17 = +[NSDate date];
-      [v11 setLastTriggerTimestamp:v17];
+      v19 = +[NSDate date];
+      [v11 setLastTriggerTimestamp:v19];
 
       delegate = [(FMFFencesMgr *)self delegate];
       [delegate fenceTriggered:v11 atLocation:locationCopy];
 
-      v19 = [CLLocation alloc];
+      v21 = [CLLocation alloc];
       [v11 latitude];
-      v21 = v20;
+      v23 = v22;
       [v11 longitude];
-      v35 = [v19 initWithLatitude:v21 longitude:v22];
+      v37 = [v21 initWithLatitude:v23 longitude:v24];
       [locationCopy distanceFromLocation:?];
-      v24 = v23;
+      v26 = v25;
       [v11 radius];
-      v26 = v24 - v25;
+      v28 = v26 - v27;
       memset(buf, 0, 24);
-      v27 = +[SystemConfig sharedInstance];
-      v28 = v27;
-      if (v27)
+      v29 = +[SystemConfig sharedInstance];
+      v30 = v29;
+      if (v29)
       {
-        [v27 batteryStats];
+        objc_msgSend_batteryStats(v29);
       }
 
       else
@@ -768,28 +769,28 @@
         memset(buf, 0, 24);
       }
 
-      v37[0] = @"locationManagerMonitoringFenceTriggerDistance";
-      v29 = [NSNumber numberWithInteger:v26];
-      v38[0] = v29;
-      v37[1] = @"locationManagerMonitoringFenceTriggerType";
-      v30 = sub_100014AB8(_trigger);
-      v38[1] = v30;
-      v37[2] = @"locationManagerMonitoringFenceType";
-      v31 = sub_100014A90([v11 triggerType]);
-      v38[2] = v31;
-      v37[3] = @"locationManagerMonitoringFenceTriggerBatteryLevel";
-      LODWORD(v32) = *&buf[16];
-      v33 = [NSNumber numberWithFloat:v32];
-      v38[3] = v33;
-      v34 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:4];
+      v39[0] = @"locationManagerMonitoringFenceTriggerDistance";
+      v31 = [NSNumber numberWithInteger:v28];
+      v40[0] = v31;
+      v39[1] = @"locationManagerMonitoringFenceTriggerType";
+      v32 = sub_100014AB8(_trigger);
+      v40[1] = v32;
+      v39[2] = @"locationManagerMonitoringFenceType";
+      v33 = sub_100014A90([v11 triggerType]);
+      v40[2] = v33;
+      v39[3] = @"locationManagerMonitoringFenceTriggerBatteryLevel";
+      LODWORD(v34) = *&buf[16];
+      v35 = [NSNumber numberWithFloat:v34];
+      v40[3] = v35;
+      v36 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:4];
       AnalyticsSendEvent();
     }
   }
 
   else
   {
-    v14 = sub_100002830();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002830(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100037570();
     }
@@ -804,37 +805,37 @@
 
   if (v5)
   {
-    v6 = sub_100002830();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_100002830(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       fencesToMonitor2 = [(FMFFencesMgr *)self fencesToMonitor];
       *buf = 134217984;
-      v25 = [fencesToMonitor2 count];
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Saving %ld fences to cache...", buf, 0xCu);
+      v29 = [fencesToMonitor2 count];
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Saving %ld fences to cache...", buf, 0xCu);
     }
 
-    v8 = +[NSMutableDictionary dictionary];
+    v9 = +[NSMutableDictionary dictionary];
     fencesToMonitor3 = [(FMFFencesMgr *)self fencesToMonitor];
-    v10 = [fencesToMonitor3 fm_map:&stru_10005D998];
-    [v8 setObject:v10 forKeyedSubscript:@"fences"];
+    v11 = [fencesToMonitor3 fm_map:&stru_10005D998];
+    [v9 setObject:v11 forKeyedSubscript:@"fences"];
 
     triggerURL = [(FMFFencesMgr *)self triggerURL];
-    [v8 setObject:triggerURL forKeyedSubscript:@"triggerURL"];
+    [v9 setObject:triggerURL forKeyedSubscript:@"triggerURL"];
 
     [(FMFFencesMgr *)self triggerValidityDuration];
-    v12 = [NSNumber numberWithDouble:?];
-    [v8 setObject:v12 forKeyedSubscript:@"triggerValidityDuration"];
+    v13 = [NSNumber numberWithDouble:?];
+    [v9 setObject:v13 forKeyedSubscript:@"triggerValidityDuration"];
 
     fenceVersion = [(FMFFencesMgr *)self fenceVersion];
-    [v8 setObject:fenceVersion forKeyedSubscript:@"fenceVersion"];
+    [v9 setObject:fenceVersion forKeyedSubscript:@"fenceVersion"];
 
     dataArchiver = [(FMFFencesMgr *)self dataArchiver];
-    v15 = [dataArchiver saveDictionary:v8];
+    v16 = [dataArchiver saveDictionary:v9];
 
-    if (v15)
+    if (v16)
     {
-      v16 = sub_100002830();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sub_100002830(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_1000375EC();
       }
@@ -847,30 +848,30 @@
 
   if (fenceVersion2)
   {
-    v18 = +[NSFileManager defaultManager];
+    v20 = +[NSFileManager defaultManager];
     path = [_fencesCacheFileURL path];
-    v20 = [v18 fileExistsAtPath:path];
+    v22 = [v20 fileExistsAtPath:path];
 
-    if (v20)
+    if (v22)
     {
-      v21 = sub_100002830();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v24 = sub_100002830(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        sub_10003765C(v21);
+        sub_10003765C(v24);
       }
 
-      v22 = +[NSFileManager defaultManager];
-      v23 = 0;
-      [v22 removeItemAtURL:_fencesCacheFileURL error:&v23];
-      v8 = v23;
+      v25 = +[NSFileManager defaultManager];
+      v27 = 0;
+      [v25 removeItemAtURL:_fencesCacheFileURL error:&v27];
+      v9 = v27;
 
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_9;
       }
 
-      v15 = sub_100002830();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100002830(v26);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1000376A0();
       }
@@ -886,52 +887,52 @@ LABEL_9:
 {
   dataArchiver = [(FMFFencesMgr *)self dataArchiver];
   v4 = [NSSet setWithObject:objc_opt_class()];
-  v16 = 0;
-  v5 = [dataArchiver readDictionaryAndClasses:v4 error:&v16];
-  v6 = v16;
+  v18 = 0;
+  v5 = [dataArchiver readDictionaryAndClasses:v4 error:&v18];
+  v6 = v18;
 
-  v7 = sub_100002830();
-  v8 = v7;
+  v8 = sub_100002830(v7);
+  v9 = v8;
   if (v5)
   {
-    v9 = v6 == 0;
+    v10 = v6 == 0;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v9)
+  if (v10)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMFFencesMgr successfully read fences from disk.", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMFFencesMgr successfully read fences from disk.", v17, 2u);
     }
 
-    v10 = [v5 objectForKeyedSubscript:@"triggerURL"];
-    [(FMFFencesMgr *)self setTriggerURL:v10];
+    v11 = [v5 objectForKeyedSubscript:@"triggerURL"];
+    [(FMFFencesMgr *)self setTriggerURL:v11];
 
-    v11 = [v5 objectForKeyedSubscript:@"triggerValidityDuration"];
-    [v11 doubleValue];
+    v12 = [v5 objectForKeyedSubscript:@"triggerValidityDuration"];
+    [v12 doubleValue];
     [(FMFFencesMgr *)self setTriggerValidityDuration:?];
 
-    v12 = [v5 objectForKeyedSubscript:@"fenceVersion"];
-    [(FMFFencesMgr *)self setFenceVersion:v12];
+    v13 = [v5 objectForKeyedSubscript:@"fenceVersion"];
+    [(FMFFencesMgr *)self setFenceVersion:v13];
 
-    v8 = [v5 objectForKeyedSubscript:@"fences"];
-    v13 = [v8 fm_map:&stru_10005D9D8];
-    [(FMFFencesMgr *)self setFencesToMonitor:v13];
+    v9 = [v5 objectForKeyedSubscript:@"fences"];
+    v14 = [v9 fm_map:&stru_10005D9D8];
+    [(FMFFencesMgr *)self setFencesToMonitor:v14];
 
-    v14 = sub_100002830();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = sub_100002830(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_10003771C(self);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1000377A0();
   }
@@ -949,7 +950,7 @@ LABEL_9:
 
   else
   {
-    v6 = sub_100002830();
+    v6 = sub_100002830(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_100037810(v6);
@@ -960,8 +961,8 @@ LABEL_9:
 
   v7 = [v5 URLByAppendingPathComponent:@"com.apple.icloud.fmflocatord.fences.notbackedup.plist" isDirectory:0];
 
-  v8 = sub_100002830();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = sub_100002830(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_100037854();
   }
@@ -979,7 +980,7 @@ LABEL_9:
 
 - (void)fenceSchedulerCurrentSchedulesDidChange:(id)change
 {
-  v4 = sub_100002830();
+  v4 = sub_100002830(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -1011,7 +1012,7 @@ LABEL_9:
 {
   regionCopy = region;
   managerCopy = manager;
-  v8 = sub_100002830();
+  v8 = sub_100002830(managerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000378C8(regionCopy);
@@ -1031,7 +1032,7 @@ LABEL_9:
 {
   regionCopy = region;
   managerCopy = manager;
-  v8 = sub_100002830();
+  v8 = sub_100002830(managerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10003794C(regionCopy);
@@ -1051,7 +1052,7 @@ LABEL_9:
 {
   managerCopy = manager;
   regionCopy = region;
-  v10 = sub_100002830();
+  v10 = sub_100002830(regionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000379D0(regionCopy);
@@ -1061,23 +1062,23 @@ LABEL_9:
   {
     if (state == 1)
     {
-      v11 = 2;
+      v12 = 2;
     }
 
     else
     {
-      v11 = 3;
+      v12 = 3;
     }
 
     identifier = [regionCopy identifier];
     location = [managerCopy location];
-    [(FMFFencesMgr *)self _trigger:v11 forRegionWithID:identifier atLocation:location];
+    [(FMFFencesMgr *)self _trigger:v12 forRegionWithID:identifier atLocation:location];
   }
 
   else
   {
-    v14 = sub_100002830();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002830(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100037A54(regionCopy);
     }
@@ -1089,7 +1090,7 @@ LABEL_9:
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100002830();
+  v6 = sub_100002830(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     sub_100037AE8();
@@ -1106,7 +1107,7 @@ LABEL_9:
 {
   regionCopy = region;
   errorCopy = error;
-  v9 = sub_100002830();
+  v9 = sub_100002830(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     sub_100037B5C(regionCopy);
@@ -1126,7 +1127,7 @@ LABEL_9:
 - (void)locationManager:(id)manager didStartMonitoringForRegion:(id)region
 {
   regionCopy = region;
-  v5 = sub_100002830();
+  v5 = sub_100002830(regionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100037C04(regionCopy);

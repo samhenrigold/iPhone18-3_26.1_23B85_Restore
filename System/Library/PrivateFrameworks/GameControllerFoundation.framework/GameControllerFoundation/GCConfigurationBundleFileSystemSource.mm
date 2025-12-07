@@ -19,11 +19,11 @@
 
 - (id)configurationBundleURLsForType:(id)type
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v21 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  resourceURL = [v21 resourceURL];
+  v20 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  resourceURL = [v20 resourceURL];
   path = [resourceURL path];
   stringByResolvingSymlinksInPath = [path stringByResolvingSymlinksInPath];
 
@@ -35,50 +35,48 @@
     [(GCConfigurationBundleFileSystemSource *)log configurationBundleURLsForType:v9];
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __72__GCConfigurationBundleFileSystemSource_configurationBundleURLsForType___block_invoke;
-  v27[3] = &unk_1E8413C08;
-  v27[4] = self;
-  v22 = defaultManager;
-  v11 = [defaultManager enumeratorAtURL:v9 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:7 errorHandler:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __72__GCConfigurationBundleFileSystemSource_configurationBundleURLsForType___block_invoke;
+  v26[3] = &unk_1E8413C08;
+  v26[4] = self;
+  v21 = defaultManager;
+  v11 = [defaultManager enumeratorAtURL:v9 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:7 errorHandler:v26];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * i);
+        v16 = *(*(&v22 + 1) + 8 * i);
         v17 = self->_log;
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          [(GCConfigurationBundleFileSystemSource *)v28 configurationBundleURLsForType:v17, v16, &v29];
+          [(GCConfigurationBundleFileSystemSource *)v27 configurationBundleURLsForType:v17, v16, &v28];
         }
 
         [v4 addObject:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v22 objects:v29 count:16];
     }
 
     while (v13);
   }
 
   v18 = [GCFuture futureWithResult:v4];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -97,14 +95,12 @@ uint64_t __72__GCConfigurationBundleFileSystemSource_configurationBundleURLsForT
 
 - (void)configurationBundleURLsForType:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 path];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_debug_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_DEBUG, "Checking '%{public}@'...", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_debug_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_DEBUG, "Checking '%{public}@'...", &v5, 0xCu);
 }
 
 - (void)configurationBundleURLsForType:(void *)a3 .cold.2(uint8_t *a1, void *a2, void *a3, void *a4)
@@ -118,11 +114,10 @@ uint64_t __72__GCConfigurationBundleFileSystemSource_configurationBundleURLsForT
 
 void __72__GCConfigurationBundleFileSystemSource_configurationBundleURLsForType___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 @end

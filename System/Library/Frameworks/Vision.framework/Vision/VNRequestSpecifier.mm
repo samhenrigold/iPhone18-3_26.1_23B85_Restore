@@ -401,9 +401,9 @@
     dispatch_once(&_modelEquivalenciesRegistrar_onceToken, &__block_literal_global_2759);
   }
 
-  v0 = _modelEquivalenciesRegistrar_modelEquivalenciesRegistrar;
+  v1 = _modelEquivalenciesRegistrar_modelEquivalenciesRegistrar;
 
-  return v0;
+  return v1;
 }
 
 void __50__VNRequestSpecifier__modelEquivalenciesRegistrar__block_invoke()
@@ -607,11 +607,11 @@ void __51__VNRequestSpecifier_allAvailableRequestClassNames__block_invoke()
   allAvailableRequestClassNames_allAvailableRequestClassNames = v2;
 }
 
-uint64_t __51__VNRequestSpecifier_allAvailableRequestClassNames__block_invoke_2(uint64_t result, int a2, uint64_t a3, uint64_t a4)
+id *__51__VNRequestSpecifier_allAvailableRequestClassNames__block_invoke_2(id *result, int a2, uint64_t a3, uint64_t a4)
 {
   if ((a2 - 1) <= 1)
   {
-    return [*(result + 32) addObject:a4];
+    return [result[4] addObject:a4];
   }
 
   return result;
@@ -644,11 +644,11 @@ void __55__VNRequestSpecifier_availablePrivateRequestClassNames__block_invoke()
   availablePrivateRequestClassNames_availablePrivateRequestClassNames = v2;
 }
 
-uint64_t __55__VNRequestSpecifier_availablePrivateRequestClassNames__block_invoke_2(uint64_t result, int a2, uint64_t a3, uint64_t a4)
+id *__55__VNRequestSpecifier_availablePrivateRequestClassNames__block_invoke_2(id *result, int a2, uint64_t a3, uint64_t a4)
 {
   if (a2 == 2)
   {
-    return [*(result + 32) addObject:a4];
+    return [result[4] addObject:a4];
   }
 
   return result;
@@ -681,11 +681,11 @@ void __48__VNRequestSpecifier_availableRequestClassNames__block_invoke()
   availableRequestClassNames_availablePublicRequestClassNames = v2;
 }
 
-uint64_t __48__VNRequestSpecifier_availableRequestClassNames__block_invoke_2(uint64_t result, int a2, uint64_t a3, uint64_t a4)
+id *__48__VNRequestSpecifier_availableRequestClassNames__block_invoke_2(id *result, int a2, uint64_t a3, uint64_t a4)
 {
   if (a2 == 1)
   {
-    return [*(result + 32) addObject:a4];
+    return [result[4] addObject:a4];
   }
 
   return result;

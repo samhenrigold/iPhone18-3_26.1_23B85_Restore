@@ -28,11 +28,11 @@
   miniFlowDelegate = [(NCBSTinkerContactsIntroViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_INTRO_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_INTRO_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
@@ -40,16 +40,16 @@
   miniFlowDelegate = [(NCBSTinkerContactsIntroViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_INTRO_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_INTRO_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)suggestedButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_INTRO_BUTTON_SETUP" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;

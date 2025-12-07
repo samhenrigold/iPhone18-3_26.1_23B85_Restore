@@ -42,8 +42,12 @@
 
 - (void)setValue:(CGPoint)value
 {
+  y = value.y;
+  x = value.x;
   selfCopy = self;
-  PEPhotoStyleDPad.value.setter();
+  v5.n128_f64[0] = x;
+  v6.n128_f64[0] = y;
+  PEPhotoStyleDPad.value.setter(v5, v6);
 }
 
 - (CGPoint)defaultValue
@@ -61,8 +65,12 @@
 
 - (void)setDefaultValue:(CGPoint)value
 {
+  y = value.y;
+  x = value.x;
   selfCopy = self;
-  PEPhotoStyleDPad.defaultValue.setter();
+  v5.n128_f64[0] = x;
+  v6.n128_f64[0] = y;
+  PEPhotoStyleDPad.defaultValue.setter(v5, v6);
 }
 
 - (CGImage)backgroundImage
@@ -160,8 +168,9 @@
 
 - (void)setPulsingValueIndicator:(BOOL)indicator
 {
+  indicatorCopy = indicator;
   selfCopy = self;
-  PEPhotoStyleDPad.pulsingValueIndicator.setter();
+  PEPhotoStyleDPad.pulsingValueIndicator.setter(indicatorCopy);
 }
 
 - (BOOL)isDottedGridAnimated

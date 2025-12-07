@@ -1,4 +1,5 @@
 @interface WFGasQueryProxy
+- (void)_processGasResults:(id)results error:(int)error;
 - (void)gasQueryForRecords:(id)records request:(id)request handler:(id)handler;
 @end
 
@@ -14,7 +15,6 @@
   {
     [(WFGasQueryProxy *)self setHandler:handlerCopy];
 
-    device = self->_device;
     WiFiDeviceClientGasStartAsync();
   }
 
@@ -22,6 +22,14 @@
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
+}
+
+- (void)_processGasResults:(id)results error:(int)error
+{
+  v4 = *&error;
+  resultsCopy = results;
+  handler = [(WFGasQueryProxy *)self handler];
+  handler[2](handler, resultsCopy, v4);
 }
 
 @end

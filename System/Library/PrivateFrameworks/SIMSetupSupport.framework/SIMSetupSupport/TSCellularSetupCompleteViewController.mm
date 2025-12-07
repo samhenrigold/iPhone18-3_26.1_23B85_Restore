@@ -293,38 +293,37 @@ LABEL_35:
 
 - (void)_continueButtonTapped
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
   selfCopy = self;
-  v5 = 2080;
-  v6 = "[TSCellularSetupCompleteViewController _continueButtonTapped]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for predeparture install [%@] @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2080;
+  v5 = "[TSCellularSetupCompleteViewController _continueButtonTapped]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Failed to send travel metric for predeparture install [%@] @%s", &v2, 0x16u);
 }
 
 - (BOOL)_isPlanSelected:(id)selected selectedItems:(id)items
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selectedCopy = selected;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   itemsCopy = items;
-  v7 = [itemsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [itemsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        iccid = [*(*(&v15 + 1) + 8 * i) iccid];
+        iccid = [*(*(&v14 + 1) + 8 * i) iccid];
         targetIccid = [selectedCopy targetIccid];
         v12 = [iccid isEqualToString:targetIccid];
 
@@ -335,7 +334,7 @@ LABEL_35:
         }
       }
 
-      v7 = [itemsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [itemsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -347,7 +346,6 @@ LABEL_35:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

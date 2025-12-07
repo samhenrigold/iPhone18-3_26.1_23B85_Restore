@@ -48,7 +48,7 @@
   selfCopy = self;
   sub_10072E924();
 
-  sub_100014170(0, &qword_100CB3658);
+  sub_100014170(0, &qword_100CB3658, IDSQRProtoMaterial_ptr);
   v3.super.isa = sub_100936CD8().super.isa;
 
   return v3.super.isa;

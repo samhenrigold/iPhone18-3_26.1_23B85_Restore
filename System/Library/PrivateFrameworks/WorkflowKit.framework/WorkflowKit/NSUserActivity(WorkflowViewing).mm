@@ -8,9 +8,9 @@
 {
   v4 = a3;
   activityType = [self activityType];
-  v6 = [activityType isEqualToString:@"is.workflow.my.app.viewworkflow"];
+  isEqualToString = objc_msgSend_isEqualToString_(activityType);
 
-  if (v6)
+  if (isEqualToString)
   {
     userInfo = [self userInfo];
     v8 = [userInfo objectForKeyedSubscript:@"workflowID"];

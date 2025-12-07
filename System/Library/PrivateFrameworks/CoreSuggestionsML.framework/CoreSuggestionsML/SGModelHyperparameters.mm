@@ -30,12 +30,10 @@
 {
   v4 = MEMORY[0x277CCACA8];
   languageCopy = language;
-  v6 = [v4 alloc];
-  vectorNormalization = self->_vectorNormalization;
-  v8 = [v6 initWithFormat:@"VL=%lu&CL=%lu&CH=%lu&TL=%lu&TH=%lu&SN=%lu&IDL=%lu&IDS=%lu&VN=%ld&FV=%@", self->_vectorLength, self->_characterNGramRange.location, self->_characterNGramRange.length + self->_characterNGramRange.location, self->_tokenNGramRange.location, self->_tokenNGramRange.length + self->_tokenNGramRange.location, self->_vectorizerStrategy, self->_idVectorLength, self->_extraIdOptions, vectorNormalization, self->_featuresVersion];
-  v9 = [MEMORY[0x277D41F68] descriptorForName:self->_featuresModelId version:v8 locale:languageCopy];
+  v6 = [[v4 alloc] initWithFormat:@"VL=%lu&CL=%lu&CH=%lu&TL=%lu&TH=%lu&SN=%lu&IDL=%lu&IDS=%lu&VN=%ld&FV=%@", self->_vectorLength, self->_characterNGramRange.location, self->_characterNGramRange.length + self->_characterNGramRange.location, self->_tokenNGramRange.location, self->_tokenNGramRange.length + self->_tokenNGramRange.location, self->_vectorizerStrategy, self->_idVectorLength, self->_extraIdOptions, self->_vectorNormalization, self->_featuresVersion];
+  v7 = [MEMORY[0x277D41F68] descriptorForName:self->_featuresModelId version:v6 locale:languageCopy];
 
-  return v9;
+  return v7;
 }
 
 - (SGModelHyperparameters)initWithDictionary:(id)dictionary modelTypeName:(id)name
@@ -323,7 +321,7 @@ LABEL_52:
 
 + (unint64_t)strategyForString:(id)string modelTypeName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   nameCopy = name;
   uTF8String = [stringCopy UTF8String];
@@ -340,8 +338,8 @@ LABEL_52:
           goto LABEL_13;
         }
 
-        v14 = 138412290;
-        v15 = stringCopy;
+        v13 = 138412290;
+        v14 = stringCopy;
         v10 = MEMORY[0x277D86220];
         v11 = "Unknown strategy string %@ when initializing SGQuickResponsesConfig from plist.";
         goto LABEL_12;
@@ -358,19 +356,18 @@ LABEL_52:
   {
     if (([nameCopy isEqualToString:@"quickResponsesEspressoClassifierMultiLabel"] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v14 = 138412290;
-      v15 = nameCopy;
+      v13 = 138412290;
+      v14 = nameCopy;
       v10 = MEMORY[0x277D86220];
       v11 = "Unknown model type name %@ when initializing SGQuickResponsesConfig from plist.";
 LABEL_12:
-      _os_log_fault_impl(&dword_24799E000, v10, OS_LOG_TYPE_FAULT, v11, &v14, 0xCu);
+      _os_log_fault_impl(&dword_24799E000, v10, OS_LOG_TYPE_FAULT, v11, &v13, 0xCu);
     }
 
 LABEL_13:
     v9 = 4;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

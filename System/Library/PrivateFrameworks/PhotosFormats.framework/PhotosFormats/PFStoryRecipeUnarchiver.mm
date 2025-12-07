@@ -66,7 +66,7 @@ uint64_t __65__PFStoryRecipeUnarchiver__unarchivedDurationInfoWithJSONObject___b
     if (v7)
     {
       v10 = v8;
-      v7 = [v7 unarchiveTimeWithJSONObject:v8];
+      v7 = objc_msgSend_unarchiveTimeWithJSONObject_(v7, v8, v8);
       v8 = v10;
     }
 
@@ -99,22 +99,22 @@ uint64_t __65__PFStoryRecipeUnarchiver__unarchivedDurationInfoWithJSONObject___b
   v40 = 0uLL;
   v41 = 0;
   v10 = [objectCopy objectForKeyedSubscript:@"minimumDuration"];
-  [(PFStoryRecipeUnarchiver *)self unarchiveTimeWithJSONObject:v10];
+  objc_msgSend_unarchiveTimeWithJSONObject_(self);
 
   v38 = 0uLL;
   v39 = 0;
   v11 = [objectCopy objectForKeyedSubscript:@"idealDuration"];
-  [(PFStoryRecipeUnarchiver *)self unarchiveTimeWithJSONObject:v11];
+  objc_msgSend_unarchiveTimeWithJSONObject_(self);
 
   v36 = 0uLL;
   v37 = 0;
   v12 = [objectCopy objectForKeyedSubscript:@"maximumDuration"];
-  [(PFStoryRecipeUnarchiver *)self unarchiveTimeWithJSONObject:v12];
+  objc_msgSend_unarchiveTimeWithJSONObject_(self);
 
   v34 = 0uLL;
   v35 = 0;
   v13 = [objectCopy objectForKeyedSubscript:@"videoCueOffset"];
-  [(PFStoryRecipeUnarchiver *)self unarchiveTimeWithJSONObject:v13];
+  objc_msgSend_unarchiveTimeWithJSONObject_(self);
 
   v14 = +[PFStoryRecipeArchiver stringByClipMotionStyle];
   v15 = [objectCopy objectForKeyedSubscript:@"motionStyle"];
@@ -194,7 +194,7 @@ uint64_t __65__PFStoryRecipeUnarchiver__unarchivedDurationInfoWithJSONObject___b
     if (integerValue == 2)
     {
       v11 = [v6 objectForKeyedSubscript:@"specificDuration"];
-      [(PFStoryRecipeUnarchiver *)self _unarchivedDurationInfoWithJSONObject:v11];
+      objc_msgSend__unarchivedDurationInfoWithJSONObject_(self);
     }
 
     *&retstr->var1.var0.var3 = 0u;
@@ -435,7 +435,7 @@ void __63__PFStoryRecipeUnarchiver_unarchivedAssetWithJSONObject_error___block_i
     v61 = 0u;
     v59 = 0u;
     v16 = [objectCopy objectForKeyedSubscript:@"overallDuration"];
-    [(PFStoryRecipeUnarchiver *)self _unarchivedOverallDurationInfoWithJSONObject:v16];
+    objc_msgSend__unarchivedOverallDurationInfoWithJSONObject_(self);
 
     v17 = [objectCopy objectForKeyedSubscript:@"currentStyle"];
     v43 = [(PFStoryRecipeUnarchiver *)self _unarchivedStyleWithJSONObject:v17];

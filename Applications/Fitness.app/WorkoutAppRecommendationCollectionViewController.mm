@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100630DC0();
+  sub_100630DC0(selfCopy, v2, v3);
 }
 
 - (_TtC10FitnessApp48WorkoutAppRecommendationCollectionViewController)initWithCollectionViewLayout:(id)layout
@@ -79,7 +79,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1006317EC();
+  sub_1006317EC(v9);
 
   (*(v7 + 8))(v9, v6);
 }

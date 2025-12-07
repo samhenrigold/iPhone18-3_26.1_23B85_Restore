@@ -9,7 +9,6 @@
 - (int)decodeInt32;
 - (int64_t)decodeInt64;
 - (signed)decodeInt16;
-- (void)close;
 - (void)decodeBytes:(void *)bytes length:(unint64_t)length;
 - (void)reset;
 - (void)setOffset:(unint64_t)offset;
@@ -176,13 +175,6 @@ LABEL_6:
 
   self->_offset = mark;
   self->_mark = -1;
-}
-
-- (void)close
-{
-  data = self->_data;
-  self->_data = 0;
-  _objc_release_x1();
 }
 
 @end

@@ -30,39 +30,40 @@
 - (LSSystemBundleIdentity)initWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v15 = 0;
-  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:identifierCopy options:4 error:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:identifierCopy options:4 error:&v16];
+  v6 = v16;
+  v7 = v6;
   if (v5)
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
   }
 
   else
   {
-    v8 = _LSDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      computeIdentityString(v6, v8);
+      computeIdentityString(v7, v9);
     }
 
-    v7 = @"<ERROR>";
+    v8 = @"<ERROR>";
   }
 
-  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{v:2, b:%@, it:%lu}", v7, 1];
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{v:2, b:%@, it:%lu}", v8, 1];
 
-  v14.receiver = self;
-  v14.super_class = LSSystemBundleIdentity;
-  v10 = [(LSBundleIdentity *)&v14 initWithIdentityString:v9 personaUniqueString:0 personaType:4];
+  v15.receiver = self;
+  v15.super_class = LSSystemBundleIdentity;
+  v11 = [(LSBundleIdentity *)&v15 initWithIdentityString:v10 personaUniqueString:0 personaType:4];
 
-  if (v10)
+  if (v11)
   {
-    v11 = [identifierCopy copy];
-    bundleIdentifier = v10->_bundleIdentifier;
-    v10->_bundleIdentifier = v11;
+    v12 = [identifierCopy copy];
+    bundleIdentifier = v11->_bundleIdentifier;
+    v11->_bundleIdentifier = v12;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder

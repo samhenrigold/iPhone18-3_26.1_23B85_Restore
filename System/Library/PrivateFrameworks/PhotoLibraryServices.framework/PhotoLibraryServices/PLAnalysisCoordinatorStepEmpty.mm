@@ -22,7 +22,7 @@
 {
   handlerCopy = handler;
   progressCopy = progress;
-  [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + objc_msgSend(assets, "count")}];
+  [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + objc_msgSend_count(assets)}];
 
   v9 = MEMORY[0x1E69BF2D0];
   null = [MEMORY[0x1E695DFB0] null];

@@ -21,13 +21,13 @@
 
 - (GTFileWriterSessionCompressed)initWithFileEntries:(id)entries relativeToURL:(id)l options:(id)options error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   lCopy = l;
   optionsCopy = options;
-  v26.receiver = self;
-  v26.super_class = GTFileWriterSessionCompressed;
-  v13 = [(GTFileWriterSessionCompressed *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = GTFileWriterSessionCompressed;
+  v13 = [(GTFileWriterSessionCompressed *)&v25 init];
   if (!v13)
   {
     goto LABEL_11;
@@ -86,10 +86,10 @@ LABEL_11:
   if (error)
   {
     v21 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
+    v26 = *MEMORY[0x277CCA450];
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Compression failed: %@", @"Failed to initialize decode compression stream"];
-    v28[0] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     *error = [v21 errorWithDomain:@"com.apple.gputools.filewriter" code:0 userInfo:v23];
 
     goto LABEL_15;
@@ -97,7 +97,6 @@ LABEL_11:
 
 LABEL_16:
 
-  v24 = *MEMORY[0x277D85DE8];
   return error;
 }
 

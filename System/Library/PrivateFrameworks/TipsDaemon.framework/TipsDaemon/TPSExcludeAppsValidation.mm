@@ -62,12 +62,13 @@ void __51__TPSExcludeAppsValidation_validateWithCompletion___block_invoke(uint64
   }
 }
 
-uint64_t __51__TPSExcludeAppsValidation_validateWithCompletion___block_invoke_5(uint64_t a1, char a2)
+uint64_t __51__TPSExcludeAppsValidation_validateWithCompletion___block_invoke_5(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = [MEMORY[0x277D71778] targeting];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __52__TPSPairedAirTagValidation_validateWithCompletion___block_invoke_cold_1(a1, a2, v4);
+    __52__TPSPairedAirTagValidation_validateWithCompletion___block_invoke_cold_1(a1, v2, v4);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -75,11 +76,10 @@ uint64_t __51__TPSExcludeAppsValidation_validateWithCompletion___block_invoke_5(
 
 void __51__TPSExcludeAppsValidation_validateWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Unexpected value for exclude app condition: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Unexpected value for exclude app condition: %@", &v2, 0xCu);
 }
 
 @end

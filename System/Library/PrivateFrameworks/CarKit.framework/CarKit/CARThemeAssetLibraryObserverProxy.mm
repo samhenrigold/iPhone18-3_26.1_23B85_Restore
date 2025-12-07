@@ -49,7 +49,7 @@
 uint64_t __125__CARThemeAssetLibraryObserverProxy_service_foundNoMatchingAssetForVehicleIdentifier_nextRequiredCompatibilityVersion_reply___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -94,7 +94,7 @@ uint64_t __125__CARThemeAssetLibraryObserverProxy_service_foundNoMatchingAssetFo
 uint64_t __85__CARThemeAssetLibraryObserverProxy_service_attemptingDownloadForAssetVersion_reply___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -150,7 +150,7 @@ uint64_t __85__CARThemeAssetLibraryObserverProxy_service_attemptingDownloadForAs
 uint64_t __87__CARThemeAssetLibraryObserverProxy_service_failedDownloadForAssetVersion_error_reply___block_invoke(uint64_t a1)
 {
   v21 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -206,7 +206,7 @@ uint64_t __87__CARThemeAssetLibraryObserverProxy_service_failedDownloadForAssetV
 uint64_t __77__CARThemeAssetLibraryObserverProxy_service_completedDownloadForAsset_reply___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -257,7 +257,7 @@ uint64_t __77__CARThemeAssetLibraryObserverProxy_service_completedDownloadForAss
 uint64_t __99__CARThemeAssetLibraryObserverProxy_service_didUpdateFromAsset_toAsset_forVehicleIdentifier_reply___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
-  v2 = CarThemeAssetsLogging();
+  v2 = CarThemeAssetsLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);

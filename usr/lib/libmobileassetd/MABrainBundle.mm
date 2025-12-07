@@ -1113,7 +1113,7 @@ LABEL_23:
 - (NSString)currentBootOnlyTicketPath
 {
   bundlePath = self->_bundlePath;
-  v3 = BootSessionUUID();
+  v3 = BootSessionUUID(self);
   v4 = [NSString stringWithFormat:@"cryptex1ticket.%@.der", v3];
   v5 = [(NSString *)bundlePath stringByAppendingPathComponent:v4];
 

@@ -474,14 +474,14 @@ LABEL_18:
   v11 = v6 * self->_preallocatedPercentage;
   if (v8 == 0.0)
   {
-    if (![allKeys count])
+    if (!objc_msgSend_count(allKeys))
     {
       v12 = 0.0;
       goto LABEL_11;
     }
 
     v14 = v11 * self->_concurrencyLimit;
-    v12 = v14 / [v10 count];
+    v12 = v14 / objc_msgSend_count(v10);
     v13 = [_DASDaemonLogger logForCategory:@"dynamicRuntimeLimit"];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
@@ -492,7 +492,7 @@ LABEL_18:
   }
 
   v12 = v11 * self->_concurrencyLimit * 0.1 / v8;
-  if ([allKeys count])
+  if (objc_msgSend_count(allKeys))
   {
     v13 = [_DASDaemonLogger logForCategory:@"dynamicRuntimeLimit"];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -711,7 +711,7 @@ LABEL_11:
   dispatch_assert_queue_V2(queue);
 
   latestActivityRuntimeAllocationInfo = self->_latestActivityRuntimeAllocationInfo;
-  if (!latestActivityRuntimeAllocationInfo || ![(NSMutableDictionary *)latestActivityRuntimeAllocationInfo count])
+  if (!latestActivityRuntimeAllocationInfo || !objc_msgSend_count(latestActivityRuntimeAllocationInfo))
   {
     goto LABEL_11;
   }
@@ -998,7 +998,7 @@ LABEL_9:
       while (v17);
     }
 
-    v21 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v12 count]);
+    v21 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v12)];
     [v3 setObject:v21 forKeyedSubscript:@"activityCount"];
 
     goto LABEL_17;
@@ -1008,7 +1008,7 @@ LABEL_9:
   if (weights)
   {
     allKeys = [(NSDictionary *)weights allKeys];
-    v12 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [allKeys count]);
+    v12 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(allKeys)];
     [v3 setObject:v12 forKeyedSubscript:@"activityCount"];
 LABEL_17:
 
@@ -1271,7 +1271,7 @@ LABEL_34:
     else
     {
       allocationStatsPerActivity = [(_DASRuntimeTrackerManager *)selfCopy->_runtimeTrackerManager allocationStatsPerActivity];
-      v9 = [allocationStatsPerActivity count];
+      v9 = objc_msgSend_count(allocationStatsPerActivity);
       if (v9 != [(_DASRuntimeTrackerManager *)selfCopy->_runtimeTrackerManager activitiesTracked])
       {
         v10 = [_DASDaemonLogger logForCategory:@"dynamicRuntimeLimit"];

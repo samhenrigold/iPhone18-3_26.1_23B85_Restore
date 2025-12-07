@@ -14,6 +14,9 @@
 - (void)disconnectAll;
 - (void)disconnectEndpointID:(unint64_t)d;
 - (void)endpointMessageHandler:(id)handler data:(char *)data size:(unint64_t)size;
+- (void)endpointPacketHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side;
+- (void)remoteDeviceConfirmConnectHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side;
+- (void)remoteDeviceConnectHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side;
 - (void)setRefreshCountForEndpoint:(id)endpoint deviceID:(unint64_t)d count:(unint64_t)count;
 @end
 
@@ -155,8 +158,7 @@ void __36__HIDRemoteDeviceServer_description__block_invoke(uint64_t a1, void *a2
   [(NSMutableDictionary *)self->_endpoints removeAllObjects];
   [(NSMutableDictionary *)self->_refreshCounts removeAllObjects];
   os_unfair_recursive_lock_unlock();
-  [allValues enumerateObjectsUsingBlock:&__block_literal_global_159];
-  v4 = RemoteHIDLog();
+  v4 = RemoteHIDLog([allValues enumerateObjectsUsingBlock:&__block_literal_global_159]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(HIDRemoteDeviceServer *)v4 disconnectAll];
@@ -221,7 +223,7 @@ void __36__HIDRemoteDeviceServer_description__block_invoke(uint64_t a1, void *a2
 
 - (BOOL)createRemoteDevice:(id)device deviceID:(unint64_t)d property:(id)property
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   propertyCopy = property;
   [propertyCopy setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D0EF10]];
@@ -245,27 +247,27 @@ void __36__HIDRemoteDeviceServer_description__block_invoke(uint64_t a1, void *a2
   if (v17)
   {
     objc_initWeak(&location, v17);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke;
-    v37[3] = &unk_279AFD358;
-    objc_copyWeak(&v38, &location);
-    v37[4] = self;
-    [(HIDUserDevice *)v17 setSetReportHandler:v37];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179;
-    v35[3] = &unk_279AFD380;
-    objc_copyWeak(&v36, &location);
-    v35[4] = self;
-    [(HIDUserDevice *)v17 setGetReportHandler:v35];
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_181;
-    v33 = &unk_279AFD3A8;
-    objc_copyWeak(&v34, &location);
-    [(HIDUserDevice *)v17 setCancelHandler:&v30];
-    v18 = [propertyCopy objectForKeyedSubscript:{@"VersionNumber", v30, v31, v32, v33}];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke;
+    v36[3] = &unk_279AFD358;
+    objc_copyWeak(&v37, &location);
+    v36[4] = self;
+    [(HIDUserDevice *)v17 setSetReportHandler:v36];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179;
+    v34[3] = &unk_279AFD380;
+    objc_copyWeak(&v35, &location);
+    v34[4] = self;
+    [(HIDUserDevice *)v17 setGetReportHandler:v34];
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_181;
+    v32 = &unk_279AFD3A8;
+    objc_copyWeak(&v33, &location);
+    [(HIDUserDevice *)v17 setCancelHandler:&v29];
+    v18 = [propertyCopy objectForKeyedSubscript:{@"VersionNumber", v29, v30, v31, v32}];
     objc_opt_class();
     v19 = objc_opt_isKindOfClass();
 
@@ -290,38 +292,36 @@ void __36__HIDRemoteDeviceServer_description__block_invoke(uint64_t a1, void *a2
     [(HIDUserDevice *)v17 setDispatchQueue:queue];
 
     [(HIDUserDevice *)v17 activate];
-    [deviceCopy addDevice:v17];
-    v25 = RemoteHIDLog();
+    v25 = RemoteHIDLog([deviceCopy addDevice:v17]);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       deviceID = [(HIDRemoteDevice *)v17 deviceID];
       *buf = 138413058;
-      v41 = v17;
-      v42 = 2048;
-      v43 = deviceID;
-      v44 = 2112;
-      v45 = deviceCopy;
-      v46 = 2112;
-      v47 = propertyCopy;
+      v40 = v17;
+      v41 = 2048;
+      v42 = deviceID;
+      v43 = 2112;
+      v44 = deviceCopy;
+      v45 = 2112;
+      v46 = propertyCopy;
       _os_log_impl(&dword_261D9C000, v25, OS_LOG_TYPE_DEFAULT, "Create device:%@ with id:%llu for endpoint:%@ property:%@", buf, 0x2Au);
     }
 
-    objc_destroyWeak(&v34);
-    objc_destroyWeak(&v36);
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v27 = RemoteHIDLog();
+    v27 = RemoteHIDLog(0);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [HIDRemoteDeviceServer createRemoteDevice:deviceID:property:];
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v17 != 0;
 }
 
@@ -367,121 +367,122 @@ uint64_t __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___bloc
   return v16;
 }
 
-void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173(uint64_t a1)
+void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v33[0] = &v32;
-  v33[1] = 0x2020000000;
-  v34 = -1431655766;
-  v2 = RemoteHIDLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v44 = *MEMORY[0x277D85DE8];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = -1431655766;
+  v3 = RemoteHIDLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) deviceID];
-    v5 = *(a1 + 56);
-    v4 = *(a1 + 64);
-    v6 = *(*(*(a1 + 48) + 8) + 40);
+    v4 = [*(a1 + 32) deviceID];
+    v6 = *(a1 + 56);
+    v5 = *(a1 + 64);
+    v7 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 67109890;
-    v36 = v3;
-    v37 = 2048;
-    *v38 = v5;
-    *&v38[8] = 2048;
-    *&v38[10] = v4;
-    v39 = 2112;
-    v40 = v6;
-    _os_log_impl(&dword_261D9C000, v2, OS_LOG_TYPE_INFO, "[device:%d] setReport type:%ld reportID:%ld report:%@", buf, 0x26u);
+    v39 = v4;
+    v40 = 2048;
+    *v41 = v6;
+    *&v41[8] = 2048;
+    *&v41[10] = v5;
+    v42 = 2112;
+    v43 = v7;
+    _os_log_impl(&dword_261D9C000, v3, OS_LOG_TYPE_INFO, "[device:%d] setReport type:%ld reportID:%ld report:%@", buf, 0x26u);
   }
 
   [*(a1 + 32) setLastSetReportStatus:3758097084];
   [*(a1 + 32) setWaitForReport:1];
-  v7 = 3;
-  *&v8 = 67109634;
-  v25 = v8;
+  v8 = 3;
+  *&v9 = 67109634;
+  v27 = v9;
   while (1)
   {
-    v9 = [*(a1 + 40) queue];
+    v10 = [*(a1 + 40) queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_174;
     block[3] = &unk_279AFD308;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v27 = v10;
-    v28 = v11;
-    v31 = *(a1 + 56);
-    v29 = &v32;
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v29 = v11;
     v30 = v12;
-    dispatch_async(v9, block);
+    v33 = *(a1 + 56);
+    v31 = &v34;
+    v32 = v13;
+    dispatch_async(v10, block);
 
-    v13 = [*(a1 + 32) semaphore];
-    v14 = dispatch_time(0, 200000000);
-    v15 = dispatch_semaphore_wait(v13, v14);
+    v14 = [*(a1 + 32) semaphore];
+    v15 = dispatch_time(0, 200000000);
+    v16 = dispatch_semaphore_wait(v14, v15);
 
-    if (v15)
+    if (v16)
     {
-      *(v33[0] + 24) = -536870186;
-      [*(a1 + 32) setLastSetReportStatus:3758097110];
+      *(v35 + 6) = -536870186;
+      v17 = [*(a1 + 32) setLastSetReportStatus:3758097110];
     }
 
-    v16 = *(v33[0] + 24);
-    if (!v16)
+    v18 = *(v35 + 6);
+    if (!v18)
     {
       break;
     }
 
-    if (v16 == -536870208)
+    if (v18 == -536870208)
     {
-      v21 = RemoteHIDLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = RemoteHIDLog(v17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_1([*(a1 + 32) deviceID], v33);
+        [*(a1 + 32) deviceID];
+        __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_1();
       }
 
       break;
     }
 
-    v17 = RemoteHIDLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = RemoteHIDLog(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v18 = [*(a1 + 32) deviceID];
-      v19 = *(v33[0] + 24);
-      v20 = ", retrying";
-      if (v7 == 1)
+      v20 = [*(a1 + 32) deviceID];
+      v21 = *(v35 + 6);
+      v22 = ", retrying";
+      if (v8 == 1)
       {
-        v20 = "";
+        v22 = "";
       }
 
-      *buf = v25;
-      v36 = v18;
-      v37 = 1024;
-      *v38 = v19;
-      *&v38[4] = 2080;
-      *&v38[6] = v20;
-      _os_log_error_impl(&dword_261D9C000, v17, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x%s", buf, 0x18u);
+      *buf = v27;
+      v39 = v20;
+      v40 = 1024;
+      *v41 = v21;
+      *&v41[4] = 2080;
+      *&v41[6] = v22;
+      _os_log_error_impl(&dword_261D9C000, v19, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x%s", buf, 0x18u);
     }
 
-    if (!--v7)
+    if (!--v8)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_18:
-  v22 = [*(a1 + 32) lastSetReportStatus];
-  *(v33[0] + 24) = v22;
-  [*(a1 + 32) setWaitForReport:0];
-  if (*(v33[0] + 24))
+  v24 = [*(a1 + 32) lastSetReportStatus];
+  *(v35 + 6) = v24;
+  v25 = [*(a1 + 32) setWaitForReport:0];
+  if (*(v35 + 6))
   {
-    v23 = RemoteHIDLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = RemoteHIDLog(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_2([*(a1 + 32) deviceID], v33);
+      [*(a1 + 32) deviceID];
+      __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_2();
     }
   }
 
-  _Block_object_dispose(&v32, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
 }
 
 void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_174(uint64_t a1)
@@ -507,103 +508,103 @@ void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_in
 
 uint64_t __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v11 = WeakRetained;
   if (WeakRetained)
   {
-    v11 = RemoteHIDLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = RemoteHIDLog(WeakRetained);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v28[0] = 67109632;
-      v28[1] = [WeakRetained deviceID];
-      v29 = 2048;
-      v30 = a2;
+      v30[0] = 67109632;
+      v30[1] = [v11 deviceID];
       v31 = 2048;
-      v32 = a3;
-      _os_log_impl(&dword_261D9C000, v11, OS_LOG_TYPE_INFO, "[device:%d] getReport type:%ld reportID:%ld", v28, 0x1Cu);
+      v32 = a2;
+      v33 = 2048;
+      v34 = a3;
+      _os_log_impl(&dword_261D9C000, v12, OS_LOG_TYPE_INFO, "[device:%d] getReport type:%ld reportID:%ld", v30, 0x1Cu);
     }
 
-    v12 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:a4 length:*a5 freeWhenDone:0];
-    v13 = [v12 mutableCopy];
-    [WeakRetained setLastGetReport:0];
-    [WeakRetained setWaitForReport:1];
-    v14 = [*(a1 + 32) remoteDeviceGetReport:WeakRetained type:a2 reportID:a3 report:v13];
-    if (v14)
+    v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:a4 length:*a5 freeWhenDone:0];
+    v14 = [v13 mutableCopy];
+    [v11 setLastGetReport:0];
+    [v11 setWaitForReport:1];
+    v15 = [*(a1 + 32) remoteDeviceGetReport:v11 type:a2 reportID:a3 report:v14];
+    if (v15)
     {
-      v25 = v14;
-      v24 = RemoteHIDLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = v15;
+      v27 = RemoteHIDLog(v15);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_1(WeakRetained);
+        __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_1(v11);
       }
     }
 
     else
     {
-      v15 = [WeakRetained semaphore];
-      v16 = dispatch_time(0, 1000000000);
-      v17 = dispatch_semaphore_wait(v15, v16);
+      v16 = [v11 semaphore];
+      v17 = dispatch_time(0, 1000000000);
+      v18 = dispatch_semaphore_wait(v16, v17);
 
-      if (v17)
+      if (v18)
       {
-        v24 = RemoteHIDLog();
-        v25 = 3758097110;
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v27 = RemoteHIDLog(v19);
+        v28 = 3758097110;
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_2(WeakRetained);
+          __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_2(v11);
         }
       }
 
       else
       {
-        v18 = [WeakRetained lastGetReport];
+        v20 = [v11 lastGetReport];
 
-        if (v18)
+        if (v20)
         {
-          v19 = [v12 length];
-          v20 = [WeakRetained lastGetReport];
-          v21 = [v20 length];
+          v22 = [v13 length];
+          v23 = [v11 lastGetReport];
+          v24 = [v23 length];
 
-          if (v19 >= v21)
+          if (v22 >= v24)
           {
-            v22 = v21;
+            v25 = v24;
           }
 
           else
           {
-            v22 = v19;
+            v25 = v22;
           }
 
-          *a5 = v22;
-          v23 = [v12 bytes];
-          v24 = [WeakRetained lastGetReport];
-          memcpy(v23, [v24 bytes], *a5);
-          v25 = 0;
+          *a5 = v25;
+          v26 = [v13 bytes];
+          v27 = [v11 lastGetReport];
+          memcpy(v26, [v27 bytes], *a5);
+          v28 = 0;
         }
 
         else
         {
-          v24 = RemoteHIDLog();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v27 = RemoteHIDLog(v21);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_3(WeakRetained);
+            __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_3(v11);
           }
 
-          v25 = 3758097084;
+          v28 = 3758097084;
         }
       }
     }
 
-    [WeakRetained setWaitForReport:0];
+    [v11 setWaitForReport:0];
   }
 
   else
   {
-    v25 = 3758097088;
+    v28 = 3758097088;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v28;
 }
 
 void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_181(uint64_t a1)
@@ -628,17 +629,19 @@ void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_in
 - (BOOL)remoteDeviceReportHandler:(id)handler packet:(id *)packet
 {
   handlerCopy = handler;
-  v6 = (packet->var0 >> 7) & 0x3FF;
-  if (v6 > 5)
+  v6 = handlerCopy;
+  v7 = (packet->var0 >> 7) & 0x3FF;
+  if (v7 > 5)
   {
-    v7 = [MEMORY[0x277CBEA90] dataWithBytes:packet->var2 length:v6 - 5];
-    v12 = 0;
-    v8 = [handlerCopy handleReport:v7 error:&v12];
-    v9 = v12;
-    if ((v8 & 1) == 0)
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:packet->var2 length:v7 - 5];
+    v14 = 0;
+    v9 = [v6 handleReport:v8 error:&v14];
+    v10 = v14;
+    v11 = v10;
+    if ((v9 & 1) == 0)
     {
-      v10 = RemoteHIDLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = RemoteHIDLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [HIDRemoteDeviceServer remoteDeviceReportHandler:packet:];
       }
@@ -647,16 +650,16 @@ void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_in
 
   else
   {
-    v7 = RemoteHIDLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = RemoteHIDLog(handlerCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet packet:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)remoteDeviceReportHandler:(id)handler header:(id *)header
@@ -664,10 +667,10 @@ void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_in
   0x7FLL = [handler getDevice:*header & 0x7FLL];
   if (!0x7FLL)
   {
-    v9 = RemoteHIDLog();
+    v9 = RemoteHIDLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:header header:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:header:];
     }
 
     goto LABEL_8;
@@ -696,10 +699,10 @@ LABEL_9:
   var0 = packet->var0;
   if ((*&packet->var0 & 0x1FF80u) <= 0x27F)
   {
-    v8 = RemoteHIDLog();
+    v8 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet packet:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet:];
     }
 
 LABEL_15:
@@ -709,7 +712,7 @@ LABEL_15:
 
   if ((*&var0 & 0x200000) == 0)
   {
-    v8 = RemoteHIDLog();
+    v8 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [HIDRemoteDeviceServer remoteDeviceSetReportHandler:packet:];
@@ -722,10 +725,10 @@ LABEL_15:
   v8 = 0x7F;
   if (!0x7F)
   {
-    v12 = RemoteHIDLog();
+    v12 = RemoteHIDLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet header:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:header:];
     }
 
     goto LABEL_15;
@@ -750,10 +753,10 @@ LABEL_16:
   var0 = packet->var0;
   if ((*&packet->var0 & 0x1FF80u) <= 0x27F)
   {
-    v8 = RemoteHIDLog();
+    v8 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet packet:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet:];
     }
 
 LABEL_12:
@@ -763,7 +766,7 @@ LABEL_12:
 
   if ((*&var0 & 0x200000) == 0)
   {
-    v8 = RemoteHIDLog();
+    v8 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [HIDRemoteDeviceServer remoteDeviceSetReportHandler:packet:];
@@ -776,10 +779,10 @@ LABEL_12:
   v8 = 0x7F;
   if (!0x7F)
   {
-    v11 = RemoteHIDLog();
+    v11 = RemoteHIDLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [HIDRemoteDeviceServer remoteDeviceReportHandler:packet header:?];
+      [HIDRemoteDeviceServer remoteDeviceReportHandler:header:];
     }
 
     goto LABEL_12;
@@ -791,13 +794,172 @@ LABEL_13:
   return v10;
 }
 
+- (void)remoteDeviceConnectHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side
+{
+  sideCopy = side;
+  versionCopy = version;
+  handlerCopy = handler;
+  v11 = handlerCopy;
+  v12 = (packet->var0 >> 7) & 0x3FF;
+  if (v12 > 4)
+  {
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:packet->var1 length:v12 - 4];
+    if ([v13 length]>= 6 && ((v14 = [v13 bytes], *v14 == 1836597052) ? (v15 = *(v14 + 4) == 108) : (v15 = 0), v15))
+    {
+      v30 = 0;
+      TypeID = [MEMORY[0x277CCAC58] propertyListWithData:v13 options:2 format:0 error:&v30];
+      v17 = TypeID;
+      if (v30)
+      {
+        v22 = v30;
+        v18 = [v22 description];
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+    }
+
+    else
+    {
+      TypeID = [v13 length];
+      if (TypeID < 4 || (TypeID = [v13 bytes], *TypeID ^ 0xD3 | *(TypeID + 2)))
+      {
+        v17 = 0;
+        v18 = @"Unrecognized data format";
+        goto LABEL_12;
+      }
+
+      v29 = 0;
+      bytes = [v13 bytes];
+      v24 = [v13 length];
+      TypeID = IOCFUnserializeBinary(bytes, v24, *MEMORY[0x277CBECE8], 0, &v29);
+      v17 = TypeID;
+      if (TypeID && (v25 = CFGetTypeID(TypeID), TypeID = CFDictionaryGetTypeID(), v25 != TypeID))
+      {
+        CFRelease(v17);
+        v17 = 0;
+        v26 = @"Unserialized data is not a dictionary";
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      if (v29)
+      {
+        v18 = v29;
+      }
+
+      else
+      {
+        v18 = v26;
+      }
+    }
+
+    if (!v18 && v17)
+    {
+      objc_opt_class();
+      TypeID = objc_opt_isKindOfClass();
+      if (TypeID)
+      {
+        v21 = [v17 mutableCopy];
+        v27 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:versionCopy];
+        [v21 setObject:v27 forKeyedSubscript:@"VersionNumber"];
+
+        if (versionCopy)
+        {
+          if (sideCopy == 16)
+          {
+            v28 = &unk_28744E8A0;
+          }
+
+          else
+          {
+            v28 = &unk_28744E870;
+          }
+
+          [v21 setObject:v28 forKeyedSubscript:@"Side", v29];
+        }
+
+        [(HIDRemoteDeviceServer *)self setRefreshCountForEndpoint:v11 deviceID:*&packet->var0 & 0x7FLL count:0, v29];
+        [(HIDRemoteDeviceServer *)self createRemoteDevice:v11 deviceID:*&packet->var0 & 0x7FLL property:v21];
+        v18 = 0;
+        goto LABEL_16;
+      }
+
+      v18 = 0;
+    }
+
+LABEL_12:
+    v19 = RemoteHIDLog(TypeID);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      [HIDRemoteDeviceServer remoteDeviceConnectHandler:packet:transportVersion:side:];
+    }
+
+    v21 = RemoteHIDLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      [HIDRemoteDeviceServer remoteDeviceConnectHandler:v13 packet:v21 transportVersion:? side:?];
+    }
+
+LABEL_16:
+
+    goto LABEL_17;
+  }
+
+  v13 = RemoteHIDLog(handlerCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    [HIDRemoteDeviceServer remoteDeviceReportHandler:packet:];
+  }
+
+LABEL_17:
+}
+
+- (void)remoteDeviceConfirmConnectHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side
+{
+  sideCopy = side;
+  versionCopy = version;
+  handlerCopy = handler;
+  0x7FLL = [handlerCopy getDevice:*&packet->var0 & 0x7FLL];
+
+  if (!0x7FLL)
+  {
+    0x7FLL2 = [(HIDRemoteDeviceServer *)self getRefreshCountForEndpoint:handlerCopy deviceID:*&packet->var0 & 0x7FLL];
+    v13 = RemoteHIDLog(0x7FLL2);
+    v14 = v13;
+    if (0x7FLL2 < 0xA)
+    {
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        [HIDRemoteDeviceServer remoteDeviceConfirmConnectHandler:packet:transportVersion:side:];
+      }
+
+      [(HIDRemoteDeviceServer *)self setRefreshCountForEndpoint:handlerCopy deviceID:*&packet->var0 & 0x7FLL count:0x7FLL2 + 1];
+      [(HIDRemoteDeviceServer *)self remoteDeviceRefresh:handlerCopy deviceID:*&packet->var0 & 0x7FLL transportVersion:versionCopy side:sideCopy];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      {
+        [HIDRemoteDeviceServer remoteDeviceConfirmConnectHandler:packet:transportVersion:side:];
+      }
+    }
+  }
+}
+
 - (void)endpointMessageHandler:(id)handler data:(char *)data size:(unint64_t)size
 {
   handlerCopy = handler;
   v9 = handlerCopy;
   if (size < 8)
   {
-    v23 = RemoteHIDLog();
+    v23 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [HIDRemoteDeviceServer endpointMessageHandler:data data:size size:?];
@@ -883,7 +1045,7 @@ LABEL_13:
       }
     }
 
-    v23 = RemoteHIDLog();
+    v23 = RemoteHIDLog(handlerCopy);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [HIDRemoteDeviceServer endpointMessageHandler:data data:size size:?];
@@ -893,171 +1055,192 @@ LABEL_13:
 LABEL_24:
 }
 
+- (void)endpointPacketHandler:(id)handler packet:(id *)packet transportVersion:(unsigned __int8)version side:(unsigned __int8)side
+{
+  sideCopy = side;
+  versionCopy = version;
+  handlerCopy = handler;
+  v11 = RemoteHIDLog(handlerCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    [HIDRemoteDeviceServer endpointPacketHandler:packet packet:v11 transportVersion:? side:?];
+  }
+
+  v13 = (*packet >> 17) & 7;
+  if (v13 > 2)
+  {
+    switch(v13)
+    {
+      case 3u:
+        [(HIDRemoteDeviceServer *)self remoteDeviceSetReportHandler:handlerCopy packet:packet];
+        goto LABEL_19;
+      case 4u:
+        [(HIDRemoteDeviceServer *)self remoteDeviceGetReportHandler:handlerCopy packet:packet];
+        goto LABEL_19;
+      case 5u:
+        [(HIDRemoteDeviceServer *)self remoteDeviceConfirmConnectHandler:handlerCopy packet:packet transportVersion:versionCopy side:sideCopy];
+        goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    switch(v13)
+    {
+      case 0u:
+        [(HIDRemoteDeviceServer *)self remoteDeviceConnectHandler:handlerCopy packet:packet transportVersion:versionCopy side:sideCopy];
+        goto LABEL_19;
+      case 1u:
+        [handlerCopy removeDeviceID:*packet & 0x7FLL];
+        goto LABEL_19;
+      case 2u:
+        [(HIDRemoteDeviceServer *)self remoteDeviceReportHandler:handlerCopy header:packet];
+        goto LABEL_19;
+    }
+  }
+
+  v14 = RemoteHIDLog(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    [HIDRemoteDeviceServer endpointPacketHandler:packet:transportVersion:side:];
+  }
+
+LABEL_19:
+}
+
 - (void)createRemoteDevice:deviceID:property:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_1(uint64_t a1, uint64_t a2)
+void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_1()
 {
-  OUTLINED_FUNCTION_7_1(a1, a2);
-  OUTLINED_FUNCTION_6_1(v2, 1.5047e-36, v3, v4);
-  _os_log_error_impl(&dword_261D9C000, v6, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x, bailing", v5, 0xEu);
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_6_1(v0, 1.5047e-36, v1, v2);
+  _os_log_error_impl(&dword_261D9C000, v4, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x, bailing", v3, 0xEu);
 }
 
-void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_2(uint64_t a1, uint64_t a2)
+void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_173_cold_2()
 {
-  OUTLINED_FUNCTION_7_1(a1, a2);
-  OUTLINED_FUNCTION_6_1(v2, 1.5047e-36, v3, v4);
-  _os_log_error_impl(&dword_261D9C000, v6, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x", v5, 0xEu);
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_6_1(v0, 1.5047e-36, v1, v2);
+  _os_log_error_impl(&dword_261D9C000, v4, OS_LOG_TYPE_ERROR, "[device:%d] remoteDeviceSetReport:0x%x", v3, 0xEu);
 }
 
 void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 deviceID];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 deviceID];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HIDRemoteDeviceServer_createRemoteDevice_deviceID_property___block_invoke_179_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 deviceID];
-  v8 = [a1 lastGetReport];
+  v7 = [a1 lastGetReport];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteDeviceReportHandler:packet:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)remoteDeviceReportHandler:(unsigned int *)a1 packet:.cold.2(unsigned int *a1)
+- (void)remoteDeviceReportHandler:packet:.cold.2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_1(a1);
+  OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-- (void)remoteDeviceReportHandler:(_DWORD *)a1 header:.cold.1(_DWORD *a1)
+- (void)remoteDeviceReportHandler:header:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1(a1);
+  OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 - (void)remoteDeviceConnectHandler:packet:transportVersion:side:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteDeviceConnectHandler:(uint64_t)a1 packet:(NSObject *)a2 transportVersion:side:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:a1 encoding:1];
   OUTLINED_FUNCTION_8_0();
-  _os_log_debug_impl(&dword_261D9C000, a2, OS_LOG_TYPE_DEBUG, "HIDPacketDevice config data:%@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_261D9C000, a2, OS_LOG_TYPE_DEBUG, "HIDPacketDevice config data:%@", v4, 0xCu);
 }
 
-- (void)remoteDeviceConfirmConnectHandler:(_DWORD *)a1 packet:transportVersion:side:.cold.1(_DWORD *a1)
+- (void)remoteDeviceConfirmConnectHandler:packet:transportVersion:side:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1(a1);
+  OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-- (void)remoteDeviceConfirmConnectHandler:(_DWORD *)a1 packet:transportVersion:side:.cold.2(_DWORD *a1)
+- (void)remoteDeviceConfirmConnectHandler:packet:transportVersion:side:.cold.2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1(a1);
+  OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_1();
-  _os_log_fault_impl(&dword_261D9C000, v2, OS_LOG_TYPE_FAULT, "received confirm connect for missing device id:%d, retry limit exceeded", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_261D9C000, v0, OS_LOG_TYPE_FAULT, "received confirm connect for missing device id:%d, retry limit exceeded", v1, 8u);
 }
 
 - (void)endpointMessageHandler:(uint64_t)a1 data:(uint64_t)a2 size:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEA90] dataWithBytes:a1 length:a2];
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endpointMessageHandler:(uint64_t)a1 data:(uint64_t)a2 size:.cold.2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEA90] dataWithBytes:a1 length:a2];
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endpointPacketHandler:(_DWORD *)a1 packet:(NSObject *)a2 transportVersion:side:.cold.1(_DWORD *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *a1 & 0x7F;
   v3 = (*a1 >> 17) & 7;
   v4 = (*a1 >> 7) & 0x3FF;
-  v6[0] = 67109632;
-  v6[1] = v2;
-  v7 = 1024;
-  v8 = v3;
-  v9 = 1024;
-  v10 = v4;
-  _os_log_debug_impl(&dword_261D9C000, a2, OS_LOG_TYPE_DEBUG, "endpointPacketHandler deviceid:%u type:%d size:%u", v6, 0x14u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109632;
+  v5[1] = v2;
+  v6 = 1024;
+  v7 = v3;
+  v8 = 1024;
+  v9 = v4;
+  _os_log_debug_impl(&dword_261D9C000, a2, OS_LOG_TYPE_DEBUG, "endpointPacketHandler deviceid:%u type:%d size:%u", v5, 0x14u);
 }
 
-- (void)endpointPacketHandler:(unsigned int *)a1 packet:transportVersion:side:.cold.2(unsigned int *a1)
+- (void)endpointPacketHandler:packet:transportVersion:side:.cold.2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_1(a1);
+  OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 @end

@@ -20,6 +20,7 @@
 - (void)remoteDeviceDidCompleteRemoteAction:(BOOL)action remoteDeviceState:(id)state error:(id)error;
 - (void)remoteDeviceDidRemoveLockout:(BOOL)lockout error:(id)error;
 - (void)remoteDeviceDidUnlock;
+- (void)requestDeviceSetWristDetectionDisabled:(BOOL)disabled completion:(id)completion;
 - (void)requestRemoteDeviceRemoteAction:(int64_t)action type:(int64_t)type;
 - (void)requestRemoteDeviceRemoveLockout:(id)lockout;
 - (void)requestRemoteDeviceUnlockNotification;
@@ -286,6 +287,36 @@ void __49__PUConnection_requestRemoteDeviceRemoveLockout___block_invoke(uint64_t
   [v6 requestRemoteDeviceRemoveLockout];
 
   objc_destroyWeak(&to);
+}
+
+- (void)requestDeviceSetWristDetectionDisabled:(BOOL)disabled completion:(id)completion
+{
+  disabledCopy = disabled;
+  v17 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v7 = pu_log(completionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:disabledCopy];
+    *buf = 138412290;
+    v16 = v8;
+    _os_log_impl(&dword_25DF43000, v7, OS_LOG_TYPE_INFO, "connection requestDeviceSetWristDetectionDisabled: %@", buf, 0xCu);
+  }
+
+  objc_initWeak(buf, self);
+  delegateQueue = self->_delegateQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __66__PUConnection_requestDeviceSetWristDetectionDisabled_completion___block_invoke;
+  block[3] = &unk_2799FCD70;
+  objc_copyWeak(&v13, buf);
+  v14 = disabledCopy;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  dispatch_async(delegateQueue, block);
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(buf);
 }
 
 void __66__PUConnection_requestDeviceSetWristDetectionDisabled_completion___block_invoke(uint64_t a1)

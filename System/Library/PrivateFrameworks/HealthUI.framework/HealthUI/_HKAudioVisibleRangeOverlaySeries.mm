@@ -47,7 +47,7 @@
     coordinates = [graphSeriesCoordinates coordinates];
     if (firstObject)
     {
-      [firstObject graphSeriesPointTransform];
+      objc_msgSend_graphSeriesPointTransform(firstObject);
     }
 
     else
@@ -73,7 +73,7 @@
       v17 = 0.0;
       if (firstObject)
       {
-        [firstObject graphSeriesPointTransform];
+        objc_msgSend_graphSeriesPointTransform(firstObject, 0.0, 0.0, 0.0);
         v17 = *(&v29 + 1);
         v16 = *(&v30 + 1);
         v15 = *(&v31 + 1);

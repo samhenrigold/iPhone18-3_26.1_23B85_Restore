@@ -27,35 +27,35 @@
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)startPairing:()SM_extension isWED:output:.cold.2(uint64_t *a1)
+- (void)startPairing:()SM_extension isWED:output:.cold.2()
 {
-  v2 = OUTLINED_FUNCTION_2_6(a1);
-  *v3 = 136315906;
-  OUTLINED_FUNCTION_6_2(v2, v3);
-  OUTLINED_FUNCTION_5_5(v4, v5);
-  *(v6 + 20) = "false";
-  *(v6 + 28) = v7;
-  *(v6 + 30) = v8;
-  OUTLINED_FUNCTION_7_1(&_mh_execute_header, v9, v9, "%s:%d isWed = [%s] Current Node = [%s] no-op", v10);
-  if (*(v1 + 23) < 0)
+  OUTLINED_FUNCTION_2_6();
+  *v1 = 136315906;
+  OUTLINED_FUNCTION_6_2(v2, v1);
+  OUTLINED_FUNCTION_5_5(v3, v4);
+  *(v5 + 20) = "false";
+  *(v5 + 28) = v6;
+  *(v5 + 30) = v7;
+  OUTLINED_FUNCTION_7_1(&_mh_execute_header, v8, v8, "%s:%d isWed = [%s] Current Node = [%s] no-op", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-- (void)startPairing:()SM_extension isWED:output:.cold.3(uint64_t *a1)
+- (void)startPairing:()SM_extension isWED:output:.cold.3()
 {
-  v2 = OUTLINED_FUNCTION_2_6(a1);
-  *v3 = 136315906;
-  OUTLINED_FUNCTION_6_2(v2, v3);
-  OUTLINED_FUNCTION_5_5(v4, v5);
-  *(v6 + 20) = "true";
-  *(v6 + 28) = v7;
-  *(v6 + 30) = v8;
-  OUTLINED_FUNCTION_7_1(&_mh_execute_header, v9, v9, "%s:%d isWed = [%s] Current Node = [%s] no-op", v10);
-  if (*(v1 + 23) < 0)
+  OUTLINED_FUNCTION_2_6();
+  *v1 = 136315906;
+  OUTLINED_FUNCTION_6_2(v2, v1);
+  OUTLINED_FUNCTION_5_5(v3, v4);
+  *(v5 + 20) = "true";
+  *(v5 + 28) = v6;
+  *(v5 + 30) = v7;
+  OUTLINED_FUNCTION_7_1(&_mh_execute_header, v8, v8, "%s:%d isWed = [%s] Current Node = [%s] no-op", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -216,17 +216,17 @@
   }
 }
 
-- (void)provideExtendedMACAddress:()SM_extension output:.cold.5(uint64_t *a1)
+- (void)provideExtendedMACAddress:()SM_extension output:.cold.5()
 {
-  v2 = OUTLINED_FUNCTION_2_6(a1);
-  *v3 = 136315650;
-  OUTLINED_FUNCTION_6_2(v2, v3);
-  OUTLINED_FUNCTION_5_5(v4, v5);
-  *(v6 + 20) = v7;
-  _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s:%d Cmd received in state %s, Detach request rejected as there is no Wed Connected no-op", v9, 0x1Cu);
-  if (*(v1 + 23) < 0)
+  OUTLINED_FUNCTION_2_6();
+  *v1 = 136315650;
+  OUTLINED_FUNCTION_6_2(v2, v1);
+  OUTLINED_FUNCTION_5_5(v3, v4);
+  *(v5 + 20) = v6;
+  _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s:%d Cmd received in state %s, Detach request rejected as there is no Wed Connected no-op", v8, 0x1Cu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 

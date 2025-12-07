@@ -34,30 +34,30 @@
 
 - (SBSystemApertureViewControllerRotationTransitionContext)initWithTargetOrientation:(int64_t)orientation
 {
-  v10.receiver = self;
-  v10.super_class = SBSystemApertureViewControllerRotationTransitionContext;
-  v4 = [(_UIViewControllerTransitionContext *)&v10 init];
-  if (v4)
+  v9.receiver = self;
+  v9.super_class = SBSystemApertureViewControllerRotationTransitionContext;
+  v3 = [(_UIViewControllerTransitionContext *)&v9 init];
+  if (v3)
   {
-    v5 = objc_opt_class();
-    if (v5)
+    v4 = objc_opt_class();
+    if (v4)
     {
-      [v5 transformForRotationToInterfaceOrientation:orientation];
+      objc_msgSend_transformForRotationToInterfaceOrientation_(v4);
     }
 
     else
     {
-      v8 = 0u;
-      v9 = 0u;
       v7 = 0u;
+      v8 = 0u;
+      v6 = 0u;
     }
 
-    *(v4 + 184) = v8;
-    *(v4 + 200) = v9;
-    *(v4 + 168) = v7;
+    *(v3 + 184) = v7;
+    *(v3 + 200) = v8;
+    *(v3 + 168) = v6;
   }
 
-  return v4;
+  return v3;
 }
 
 - (CGAffineTransform)_affineTransform

@@ -242,22 +242,22 @@ void __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke(uint6
     v6 = [NSPredicate predicateWithFormat:@"deviceIdentifier == %@", v5];
     [v4 setPredicate:v6];
 
-    v26 = 0;
-    v7 = [v3 executeFetchRequest:v4 error:&v26];
-    v8 = v26;
-    if (!v8 && [v7 count] && (objc_msgSend(v7, "firstObject"), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
+    v24 = 0;
+    v7 = [v3 executeFetchRequest:v4 error:&v24];
+    v8 = v24;
+    if (!v8 && [v7 count] && (objc_msgSend(v7, "firstObject"), (v19 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v22 = v21;
-      v23 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v20 = v19;
+      v21 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v24 = *(a1 + 32);
+        v22 = *(a1 + 32);
         *buf = 138412290;
-        v28 = v24;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "update bookmark, %@", buf, 0xCu);
+        v26 = v22;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "update bookmark, %@", buf, 0xCu);
       }
 
-      [MOBookmarkMO setPropertiesOfBookmarkMO:v22 withBookmark:*(a1 + 32)];
+      [MOBookmarkMO setPropertiesOfBookmarkMO:v20 withBookmark:*(a1 + 32)];
     }
 
     else
@@ -267,33 +267,31 @@ void __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke(uint6
       {
         v10 = *(a1 + 32);
         *buf = 138412290;
-        v28 = v10;
+        v26 = v10;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "save bookmark, %@", buf, 0xCu);
       }
 
       v11 = [MOBookmarkMO managedObjectWithObject:*(a1 + 32) inManagedObjectContext:v3];
     }
 
-    v13 = *(a1 + 40);
-    v12 = a1 + 40;
-    v14 = *(v13 + 8);
-    obj = *(v14 + 40);
-    v15 = [v3 save:&obj];
-    objc_storeStrong((v14 + 40), obj);
-    v16 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
-    v17 = v16;
-    if (v15)
+    v12 = *(*(a1 + 40) + 8);
+    obj = *(v12 + 40);
+    v13 = [v3 save:&obj];
+    objc_storeStrong((v12 + 40), obj);
+    v14 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
+    v15 = v14;
+    if (v13)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "saving bookmark succeeded", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "saving bookmark succeeded", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke_cold_1(v12);
+      __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke_cold_1();
     }
 
     [v3 reset];
@@ -301,20 +299,20 @@ void __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke(uint6
 
   else
   {
-    v18 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v16 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "no bookmark to be saved", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "no bookmark to be saved", buf, 2u);
     }
 
-    v29 = NSDebugDescriptionErrorKey;
-    v30 = @"No bookmark passed.";
-    v4 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    v19 = [NSError errorWithDomain:@"MOErrorDomain" code:2 userInfo:v4];
-    v20 = *(*(a1 + 40) + 8);
-    v8 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v27 = NSDebugDescriptionErrorKey;
+    v28 = @"No bookmark passed.";
+    v4 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v17 = [NSError errorWithDomain:@"MOErrorDomain" code:2 userInfo:v4];
+    v18 = *(*(a1 + 40) + 8);
+    v8 = *(v18 + 40);
+    *(v18 + 40) = v17;
   }
 }
 
@@ -438,7 +436,7 @@ void __53__MOBookmarkStore_updateBookmarks_completionHandler___block_invoke(uint
 
     else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      __53__MOBookmarkStore_updateBookmarks_completionHandler___block_invoke_cold_1(v29 + 40);
+      __53__MOBookmarkStore_updateBookmarks_completionHandler___block_invoke_cold_1();
     }
 
     [v3 reset];
@@ -507,22 +505,22 @@ void __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_in
   [v4 setPredicate:v10];
 
   [v4 setReturnsObjectsAsFaults:0];
-  v35 = 0;
-  v11 = [v3 executeFetchRequest:v4 error:&v35];
-  v12 = v35;
+  v33 = 0;
+  v11 = [v3 executeFetchRequest:v4 error:&v33];
+  v12 = v33;
   v13 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v28 = NSStringFromSelector(*(a1 + 56));
-    v29 = [v11 count];
+    v26 = NSStringFromSelector(*(a1 + 56));
+    v27 = [v11 count];
     *buf = 138413058;
-    v38 = v28;
-    v39 = 2112;
-    v40 = v4;
-    v41 = 2048;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v12;
+    v36 = v26;
+    v37 = 2112;
+    v38 = v4;
+    v39 = 2048;
+    v40 = v27;
+    v41 = 2112;
+    v42 = v12;
     _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "%@, request, %@, results count, %lu, error, %@", buf, 0x2Au);
   }
 
@@ -537,32 +535,32 @@ void __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_in
 
   else if ([v11 count])
   {
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v32;
+      v18 = *v30;
       do
       {
         v19 = 0;
         do
         {
-          if (*v32 != v18)
+          if (*v30 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [v3 deleteObject:*(*(&v31 + 1) + 8 * v19)];
+          [v3 deleteObject:*(*(&v29 + 1) + 8 * v19)];
           v19 = v19 + 1;
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v17);
@@ -573,34 +571,56 @@ void __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_in
     {
       v21 = [v15 count];
       *buf = 134217984;
-      v38 = v21;
+      v36 = v21;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "trying to purge bookmark count %lu", buf, 0xCu);
     }
 
-    v23 = *(a1 + 48);
-    v22 = a1 + 48;
-    v24 = *(v23 + 8);
-    obj = *(v24 + 40);
-    v25 = [v3 save:&obj];
-    objc_storeStrong((v24 + 40), obj);
-    v26 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
-    v27 = v26;
-    if (v25)
+    v22 = *(*(a1 + 48) + 8);
+    obj = *(v22 + 40);
+    v23 = [v3 save:&obj];
+    objc_storeStrong((v22 + 40), obj);
+    v24 = _mo_log_facility_get_os_log(&MOLogFacilityBookmarkStore);
+    v25 = v24;
+    if (v23)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "bookmark purge operation succeeded", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "bookmark purge operation succeeded", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_invoke_cold_1(v22);
+      __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_invoke_cold_1();
     }
   }
 
   [v3 reset];
+}
+
+void __52__MOBookmarkStore_updateBookmark_completionHandler___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving bookmark error, %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void __53__MOBookmarkStore_updateBookmarks_completionHandler___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "saving bookmarks error, %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void __62__MOBookmarkStore_removeExpiredBookmarkWithCompletionHandler___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "bookmark purge operation error, %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

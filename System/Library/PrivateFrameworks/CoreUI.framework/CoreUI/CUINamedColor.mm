@@ -40,9 +40,9 @@
 
 - (CUINamedColor)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v17.receiver = self;
-  v17.super_class = CUINamedColor;
-  v6 = [(CUINamedLookup *)&v17 initWithName:name usingRenditionKey:key fromTheme:theme];
+  v11.receiver = self;
+  v11.super_class = CUINamedColor;
+  v6 = [(CUINamedLookup *)&v11 initWithName:name usingRenditionKey:key fromTheme:theme];
   v7 = v6;
   if (v6)
   {
@@ -59,7 +59,7 @@
 
     else
     {
-      _CUILog(4, "CoreUI: attempting to lookup a named color '%@' with a name that s not a color type in the AssetCatalog", v9, v10, v11, v12, v13, v14, name);
+      _CUILog(4, "CoreUI: attempting to lookup a named color '%@' with a name that s not a color type in the AssetCatalog", name);
 
       return 0;
     }

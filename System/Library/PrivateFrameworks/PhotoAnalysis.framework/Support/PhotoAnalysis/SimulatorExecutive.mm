@@ -8,7 +8,7 @@
 {
   Logger.init(subsystem:category:)();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SimulatorExecutive();
+  v4.super_class = type metadata accessor for SimulatorExecutive(0);
   return [(SimulatorExecutive *)&v4 init];
 }
 

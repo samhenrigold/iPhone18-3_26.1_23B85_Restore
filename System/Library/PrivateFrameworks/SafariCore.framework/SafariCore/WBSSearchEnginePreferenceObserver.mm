@@ -123,7 +123,7 @@ LABEL_9:
   }
 }
 
-uint64_t __84__WBSSearchEnginePreferenceObserver_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__84__WBSSearchEnginePreferenceObserver_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:@"SearchEngineStringSetting"])
   {

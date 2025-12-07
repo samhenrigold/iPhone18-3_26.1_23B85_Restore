@@ -52,10 +52,10 @@
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Dictionary();
-    if (!v4)
+    v4 = type metadata accessor for Dictionary();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }

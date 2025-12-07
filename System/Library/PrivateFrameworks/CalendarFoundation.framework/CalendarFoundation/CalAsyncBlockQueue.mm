@@ -90,32 +90,32 @@ uint64_t __46__CalAsyncBlockQueue_performAfterDelay_block___block_invoke(uint64_
 
 - (void)cancelAllPendingBlocks
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   pendingBlocks = [(CalAsyncBlockQueue *)self pendingBlocks];
-  v4 = [pendingBlocks countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [pendingBlocks countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(pendingBlocks);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) cancel];
+        [*(*(&v9 + 1) + 8 * v7++) cancel];
       }
 
       while (v5 != v7);
-      v5 = [pendingBlocks countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [pendingBlocks countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -123,8 +123,6 @@ uint64_t __46__CalAsyncBlockQueue_performAfterDelay_block___block_invoke(uint64_
 
   pendingBlocks2 = [(CalAsyncBlockQueue *)self pendingBlocks];
   [pendingBlocks2 removeAllObjects];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithBlockPerformer:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

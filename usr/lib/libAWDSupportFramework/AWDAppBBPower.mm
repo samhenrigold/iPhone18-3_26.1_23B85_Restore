@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rATAsString:(int)string;
 - (int)StringAsRAT:(id)t;
 - (int)rAT;
 - (unint64_t)hash;
@@ -49,6 +50,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)rATAsString:(int)string
+{
+  if (string >= 8)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32B28[string];
+  }
 }
 
 - (int)StringAsRAT:(id)t
@@ -140,7 +154,6 @@
 {
   if ((*&self->_has & 2) != 0)
   {
-    rAT = self->_rAT;
     PBDataWriterWriteInt32Field();
   }
 
@@ -151,7 +164,6 @@
 
   if (*&self->_has)
   {
-    powerMicroWatt = self->_powerMicroWatt;
 
     PBDataWriterWriteUint32Field();
   }
@@ -203,7 +215,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 24);
     if ((has & 2) != 0)
     {
       if ((*(equal + 24) & 2) == 0 || self->_rAT != *(equal + 5))

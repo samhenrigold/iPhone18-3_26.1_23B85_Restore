@@ -349,7 +349,7 @@
   [v3 appendName:@"startTime" object:v31];
 
   v32 = MEMORY[0x1E696AD98];
-  [(PLDetectedFace *)self duration];
+  objc_msgSend_duration(self);
   v33 = [v32 numberWithDouble:?];
   [v3 appendName:@"duration" object:v33];
 
@@ -382,7 +382,7 @@
   [(PLDetectedFace *)self startTime];
   if (v3 >= 0.0)
   {
-    [(PLDetectedFace *)self duration];
+    objc_msgSend_duration(self);
     if (v4 > 0.0)
     {
       return 1;
@@ -395,7 +395,7 @@
     return 0;
   }
 
-  [(PLDetectedFace *)self duration];
+  objc_msgSend_duration(self);
   return v7 == 0.0;
 }
 
@@ -859,10 +859,10 @@ LABEL_24:
   if (([(PLDetectedFace *)self isDeleted]& 1) == 0 && ![(PLDetectedFace *)self isTrainingFace])
   {
     v4 = [(PLDetectedFace *)self objectIDsForRelationshipNamed:@"assetForFace"];
-    if ([v4 count])
+    if (objc_msgSend_count(v4))
     {
       v5 = [(PLDetectedFace *)self objectIDsForRelationshipNamed:@"assetForTemporalDetectedFaces"];
-      v6 = [v5 count];
+      v6 = objc_msgSend_count(v5);
 
       if (!v6)
       {
@@ -875,14 +875,14 @@ LABEL_24:
     }
 
     v7 = [(PLDetectedFace *)self objectIDsForRelationshipNamed:@"assetForFace"];
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
     }
 
     else
     {
       v12 = [(PLDetectedFace *)self objectIDsForRelationshipNamed:@"assetForTemporalDetectedFaces"];
-      v13 = [v12 count];
+      v13 = objc_msgSend_count(v12);
 
       if (v13)
       {
@@ -963,13 +963,13 @@ LABEL_24:
 - (void)removeAllPersonRelationships
 {
   v20 = *MEMORY[0x1E69E9840];
-  entity = [(PLDetectedFace *)self entity];
-  v4 = +[PLPerson entity];
+  v3 = objc_msgSend_entity(self, a2);
+  v4 = objc_msgSend_entity(PLPerson);
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  relationshipsByName = [entity relationshipsByName];
+  relationshipsByName = [v3 relationshipsByName];
   allValues = [relationshipsByName allValues];
 
   v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
@@ -1275,7 +1275,7 @@ LABEL_44:
       pl_shortDescription = [(NSManagedObject *)self pl_shortDescription];
       [(PLDetectedFace *)self startTime];
       v11 = v10;
-      [(PLDetectedFace *)self duration];
+      objc_msgSend_duration(self);
       *buf = 138544130;
       v27 = pl_shortDescription;
       v28 = 2114;
@@ -1295,7 +1295,7 @@ LABEL_44:
       v15 = MEMORY[0x1E696AEC0];
       [(PLDetectedFace *)self startTime];
       v17 = v16;
-      [(PLDetectedFace *)self duration];
+      objc_msgSend_duration(self);
       v19 = [v15 stringWithFormat:@"There was a validation issue when attempting to %@ PLDetectedFace (startTime: %g, duration: %g)", operationCopy, v17, v18];
       v25 = v19;
       v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
@@ -1360,7 +1360,7 @@ LABEL_44:
   v10 = [self personIDsByAssetForPersonsVisibleWithPersonIDs:dsCopy inContext:contextCopy];
   [v9 resignCurrent];
   [v9 becomeCurrentWithPendingUnitCount:1];
-  v11 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(v10, "count")}];
+  v11 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(v10)];
   v26 = 0;
   v27 = &v26;
   v28 = 0x2020000000;
@@ -1407,9 +1407,9 @@ void __64__PLDetectedFace_assetIDsWithAllPersonsFromPersonIDs_inContext___block_
   }
 
   [*(a1 + 32) becomeCurrentWithPendingUnitCount:1];
-  v9 = [v8 count];
+  v9 = objc_msgSend_count(v8);
 
-  if (v9 == [*(a1 + 40) count])
+  if (v9 == objc_msgSend_count(*(a1 + 40)))
   {
     [*(a1 + 48) addObject:v10];
   }
@@ -1443,7 +1443,7 @@ void __64__PLDetectedFace_assetIDsWithAllPersonsFromPersonIDs_inContext___block_
   {
     v28 = v13;
     v30 = dsCopy;
-    v15 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(v12, "count")}];
+    v15 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(v12)];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -1911,7 +1911,7 @@ void __106__PLDetectedFace_batchFetchDetectedFacesByAssetUUIDWithAssetUUIDs_pred
     [v11 setFetchLimit:1];
     v16 = 0;
     v13 = [contextCopy executeFetchRequest:v11 error:&v16];
-    if ([v13 count])
+    if (objc_msgSend_count(v13))
     {
       firstObject = [v13 firstObject];
     }
@@ -2379,7 +2379,7 @@ void __45__PLDetectedFace_CPL__syncableFacesPredicate__block_invoke()
   v17 = 0;
   v9 = [MEMORY[0x1E69C07D8] sortedViableMergeCandidateFacesFor:dimensionCopy from:facesCopy ignoreSourceAssetDimensions:dimensionsCopy matchScores:&v17];
   v10 = v17;
-  if ([v9 count] >= 2)
+  if (objc_msgSend_count(v9) >= 2)
   {
     if (*MEMORY[0x1E6994D48])
     {
@@ -2401,7 +2401,7 @@ void __45__PLDetectedFace_CPL__syncableFacesPredicate__block_invoke()
     goto LABEL_11;
   }
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     goto LABEL_12;
   }
@@ -2410,7 +2410,7 @@ void __45__PLDetectedFace_CPL__syncableFacesPredicate__block_invoke()
   v12 = [MEMORY[0x1E69C07D8] sortedViableMergeCandidateTorsosFor:dimensionCopy from:facesCopy ignoreSourceAssetDimensions:dimensionsCopy matchScores:&v16];
   v13 = v16;
 
-  if ([v12 count] >= 2 && (*MEMORY[0x1E6994D48] & 1) == 0)
+  if (objc_msgSend_count(v12) >= 2 && (*MEMORY[0x1E6994D48] & 1) == 0)
   {
     v11 = __CPLAssetsdOSLogDomain();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))

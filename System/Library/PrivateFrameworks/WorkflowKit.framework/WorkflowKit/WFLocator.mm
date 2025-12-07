@@ -15,21 +15,21 @@
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   domain = [errorCopy domain];
   v7 = getkCLErrorDomain();
-  if (![domain isEqualToString:v7])
+  if (!objc_msgSend_isEqualToString_(domain))
   {
 
 LABEL_7:
     v10 = getWFWFLocatorLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[WFLocator locationManager:didFailWithError:]";
-      v18 = 2112;
-      v19 = errorCopy;
+      v15 = 136315394;
+      v16 = "[WFLocator locationManager:didFailWithError:]";
+      v17 = 2112;
+      v18 = errorCopy;
       v12 = "%s Locator failed with unknown location error (%@) — finishing";
       v13 = v10;
       v14 = 22;
@@ -56,13 +56,13 @@ LABEL_10:
   {
     if (v11)
     {
-      v16 = 136315138;
-      v17 = "[WFLocator locationManager:didFailWithError:]";
+      v15 = 136315138;
+      v16 = "[WFLocator locationManager:didFailWithError:]";
       v12 = "%s Locator failed with unknown location error — since we're using request location, finishing...";
       v13 = v10;
       v14 = 12;
 LABEL_9:
-      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
+      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, v12, &v15, v14);
       goto LABEL_10;
     }
 
@@ -71,28 +71,27 @@ LABEL_9:
 
   if (v11)
   {
-    v16 = 136315138;
-    v17 = "[WFLocator locationManager:didFailWithError:]";
-    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Locator failed with unknown location error — CoreLocation will continue trying to find a location", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[WFLocator locationManager:didFailWithError:]";
+    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Locator failed with unknown location error — CoreLocation will continue trying to find a location", &v15, 0xCu);
   }
 
 LABEL_11:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   locationsCopy = locations;
   v8 = getWFWFLocatorLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 136315394;
-    v32 = "[WFLocator locationManager:didUpdateLocations:]";
-    v33 = 2112;
-    v34 = locationsCopy;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s did update with locations: %@", &v31, 0x16u);
+    v30 = 136315394;
+    v31 = "[WFLocator locationManager:didUpdateLocations:]";
+    v32 = 2112;
+    v33 = locationsCopy;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s did update with locations: %@", &v30, 0x16u);
   }
 
   lastObject = [locationsCopy lastObject];
@@ -114,11 +113,11 @@ LABEL_5:
     v14 = getWFWFLocatorLogObject();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 136315138;
-      v32 = "[WFLocator locationManager:didUpdateLocations:]";
+      v30 = 136315138;
+      v31 = "[WFLocator locationManager:didUpdateLocations:]";
       v15 = "%s Ignoring location update due to stale location age";
 LABEL_23:
-      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, v15, &v31, 0xCu);
+      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, v15, &v30, 0xCu);
       goto LABEL_24;
     }
 
@@ -131,8 +130,8 @@ LABEL_23:
     v14 = getWFWFLocatorLogObject();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 136315138;
-      v32 = "[WFLocator locationManager:didUpdateLocations:]";
+      v30 = 136315138;
+      v31 = "[WFLocator locationManager:didUpdateLocations:]";
       v15 = "%s Ignoring location update since horizontal accuracy < 0";
       goto LABEL_23;
     }
@@ -157,8 +156,8 @@ LABEL_24:
       v14 = getWFWFLocatorLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136315138;
-        v32 = "[WFLocator locationManager:didUpdateLocations:]";
+        v30 = 136315138;
+        v31 = "[WFLocator locationManager:didUpdateLocations:]";
         v15 = "%s Dropping due to bad accuracy / not having a best effort location";
         goto LABEL_23;
       }
@@ -178,9 +177,9 @@ LABEL_24:
   {
     if (v29)
     {
-      v31 = 136315138;
-      v32 = "[WFLocator locationManager:didUpdateLocations:]";
-      _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Location is within desired accuracy, will finish", &v31, 0xCu);
+      v30 = 136315138;
+      v31 = "[WFLocator locationManager:didUpdateLocations:]";
+      _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Location is within desired accuracy, will finish", &v30, 0xCu);
     }
 
     goto LABEL_5;
@@ -188,27 +187,26 @@ LABEL_24:
 
   if (v29)
   {
-    v31 = 136315138;
-    v32 = "[WFLocator locationManager:didUpdateLocations:]";
-    _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Location is not within desired accuracy, dropping", &v31, 0xCu);
+    v30 = 136315138;
+    v31 = "[WFLocator locationManager:didUpdateLocations:]";
+    _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Location is not within desired accuracy, dropping", &v30, 0xCu);
   }
 
 LABEL_25:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishUpdatingLocation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = getWFWFLocatorLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     completionHandler = [(WFLocator *)self completionHandler];
     v5 = _Block_copy(completionHandler);
     *buf = 136315394;
-    v23 = "[WFLocator finishUpdatingLocation]";
-    v24 = 2112;
-    v25 = v5;
+    v22 = "[WFLocator finishUpdatingLocation]";
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s finishing with completion handler: %@", buf, 0x16u);
   }
 
@@ -249,29 +247,27 @@ LABEL_25:
       completionHandler4 = [(WFLocator *)self completionHandler];
       v14 = MEMORY[0x1E696ABC0];
       v15 = getkCLErrorDomain();
-      v20[0] = *MEMORY[0x1E696A588];
+      v19[0] = *MEMORY[0x1E696A588];
       v16 = WFLocalizedString(@"Shortcuts was unable to find your current location.");
-      v20[1] = *MEMORY[0x1E696A578];
-      v21[0] = v16;
-      v21[1] = completionHandler3;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-      v18 = [v14 errorWithDomain:v15 code:0 userInfo:{v17, v20[0]}];
+      v19[1] = *MEMORY[0x1E696A578];
+      v20[0] = v16;
+      v20[1] = completionHandler3;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v18 = [v14 errorWithDomain:v15 code:0 userInfo:{v17, v19[0]}];
       (completionHandler4)[2](completionHandler4, 0, v18);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingLocation
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = getWFWFLocatorLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[WFLocator startUpdatingLocation]";
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s startUpdatingLocation", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[WFLocator startUpdatingLocation]";
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s startUpdatingLocation", &v5, 0xCu);
   }
 
   locationManager = [(WFLocator *)self locationManager];
@@ -279,35 +275,32 @@ LABEL_25:
 
   [(WFLocator *)self timeout];
   [(WFLocator *)self performSelector:sel_finishUpdatingLocation withObject:0 afterDelay:?];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestLocation
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = getWFWFLocatorLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[WFLocator requestLocation]";
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s requestLocation", &v6, 0xCu);
-  }
-
-  locationManager = [(WFLocator *)self locationManager];
-  [locationManager requestLocation];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)start
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = getWFWFLocatorLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
-    v6 = "[WFLocator start]";
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting locator...", &v5, 0xCu);
+    v6 = "[WFLocator requestLocation]";
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s requestLocation", &v5, 0xCu);
+  }
+
+  locationManager = [(WFLocator *)self locationManager];
+  [locationManager requestLocation];
+}
+
+- (void)start
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = getWFWFLocatorLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 136315138;
+    v5 = "[WFLocator start]";
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting locator...", &v4, 0xCu);
   }
 
   if ([(WFLocator *)self useRequestLocation])
@@ -319,8 +312,6 @@ LABEL_25:
   {
     [(WFLocator *)self startUpdatingLocation];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

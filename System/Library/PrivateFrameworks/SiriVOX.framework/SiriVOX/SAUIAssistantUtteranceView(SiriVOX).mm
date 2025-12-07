@@ -22,7 +22,7 @@
 
 - (id)svx_parseableExpression
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   context = [self context];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -60,16 +60,15 @@
   {
     v11 = v10;
     context4 = [self context];
-    v15 = 136315394;
-    v16 = "[SAUIAssistantUtteranceView(SiriVOX) svx_parseableExpression]";
-    v17 = 2112;
-    v18 = context4;
-    _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s Don't know how to generate a parseable expression for context object: %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[SAUIAssistantUtteranceView(SiriVOX) svx_parseableExpression]";
+    v16 = 2112;
+    v17 = context4;
+    _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s Don't know how to generate a parseable expression for context object: %@", &v14, 0x16u);
   }
 
   v5 = 0;
 LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

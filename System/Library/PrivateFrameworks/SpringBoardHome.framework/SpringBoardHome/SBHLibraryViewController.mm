@@ -316,8 +316,7 @@ void __47__SBHLibraryViewController_iconModelDidLayout___block_invoke(uint64_t a
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__updateReduceTransparency name:*MEMORY[0x1E69DD920] object:0];
 
-  [(SBHLibrarySearchController *)self->_containerViewController beginAppearanceTransition:1 animated:appearCopy];
-  v6 = SBLogTelemetrySignposts();
+  v6 = SBLogTelemetrySignposts([(SBHLibrarySearchController *)self->_containerViewController beginAppearanceTransition:1 animated:appearCopy]);
   if (os_signpost_enabled(v6))
   {
     *v7 = 0;
@@ -332,8 +331,7 @@ void __47__SBHLibraryViewController_iconModelDidLayout___block_invoke(uint64_t a
   v6.receiver = self;
   v6.super_class = SBHLibraryViewController;
   [(SBNestingViewController *)&v6 viewDidAppear:appear];
-  [(SBHLibrarySearchController *)self->_containerViewController endAppearanceTransition];
-  v4 = SBLogTelemetrySignposts();
+  v4 = SBLogTelemetrySignposts([(SBHLibrarySearchController *)self->_containerViewController endAppearanceTransition]);
   if (os_signpost_enabled(v4))
   {
     *v5 = 0;
@@ -349,8 +347,7 @@ void __47__SBHLibraryViewController_iconModelDidLayout___block_invoke(uint64_t a
   v7.receiver = self;
   v7.super_class = SBHLibraryViewController;
   [(SBNestingViewController *)&v7 viewWillDisappear:?];
-  [(SBHLibrarySearchController *)self->_containerViewController beginAppearanceTransition:0 animated:disappearCopy];
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts([(SBHLibrarySearchController *)self->_containerViewController beginAppearanceTransition:0 animated:disappearCopy]);
   if (os_signpost_enabled(v5))
   {
     *v6 = 0;
@@ -413,8 +410,7 @@ void __56__SBHLibraryViewController__dismissDisplayedContextMenu__block_invoke(u
   v9.receiver = self;
   v9.super_class = SBHLibraryViewController;
   [(SBNestingViewController *)&v9 viewDidDisappear:?];
-  [(SBHLibrarySearchController *)self->_containerViewController endAppearanceTransition];
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts([(SBHLibrarySearchController *)self->_containerViewController endAppearanceTransition]);
   if (os_signpost_enabled(v5))
   {
     *v8 = 0;
@@ -456,7 +452,7 @@ void __56__SBHLibraryViewController__dismissDisplayedContextMenu__block_invoke(u
   if (reducedTransparencyBackgroundView)
   {
     superview = [(SBFolderControllerBackgroundView *)self->_reducedTransparencyBackgroundView superview];
-    [superview bounds];
+    objc_msgSend_bounds(superview);
     [(SBFolderControllerBackgroundView *)reducedTransparencyBackgroundView setFrame:?];
 
     view = [(SBHLibraryViewController *)self view];
@@ -603,17 +599,17 @@ LABEL_4:
 
   folder = [(SBFolderController *)self->_podFolderViewController folder];
   icons = [folder icons];
-  v13 = [icons objectAtIndex:index];
+  v12 = objc_msgSend_objectAtIndex_(icons);
 
-  category = [v13 category];
+  category = [v12 category];
   if (completionCopy)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __66__SBHLibraryViewController__expandPodAtIndex_animated_completion___block_invoke;
-    v15[3] = &unk_1E808E828;
-    v16 = completionCopy;
-    [(SBHLibraryViewController *)self presentPodWithCategory:category animated:animatedCopy completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __66__SBHLibraryViewController__expandPodAtIndex_animated_completion___block_invoke;
+    v14[3] = &unk_1E808E828;
+    v15 = completionCopy;
+    [(SBHLibraryViewController *)self presentPodWithCategory:category animated:animatedCopy completion:v14];
   }
 
   else
@@ -724,9 +720,9 @@ void __41__SBHLibraryViewController_setIconModel___block_invoke(uint64_t a1, voi
 {
   if (!self->_folderIconImageCache)
   {
-    iconImageCache = [(SBHLibraryViewController *)self iconImageCache];
+    v3 = objc_msgSend_iconImageCache(self, a2);
 
-    if (iconImageCache)
+    if (v3)
     {
       listLayoutProvider = [(SBHLibraryViewController *)self listLayoutProvider];
       v5 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationAppLibraryCategoryPodAdditionalItems"];
@@ -734,8 +730,8 @@ void __41__SBHLibraryViewController_setIconModel___block_invoke(uint64_t a1, voi
       if (v5)
       {
         v6 = [SBFolderIconImageCache alloc];
-        iconImageCache2 = [(SBHLibraryViewController *)self iconImageCache];
-        v8 = [(SBFolderIconImageCache *)v6 initWithListLayout:v5 iconImageCache:iconImageCache2];
+        v7 = objc_msgSend_iconImageCache(self);
+        v8 = [(SBFolderIconImageCache *)v6 initWithListLayout:v5 iconImageCache:v7];
         folderIconImageCache = self->_folderIconImageCache;
         self->_folderIconImageCache = v8;
       }
@@ -849,7 +845,7 @@ void __48__SBHLibraryViewController_popPresentationState__block_invoke(uint64_t 
     view = [(UIViewController *)v4 view];
 
     view2 = [(SBHLibraryViewController *)self view];
-    [view2 bounds];
+    objc_msgSend_bounds(view2);
     [view setFrame:?];
 
     [view setAutoresizingMask:18];
@@ -1224,7 +1220,7 @@ uint64_t __53__SBHLibraryViewController_podTopLevelDisplayedIcons__block_invoke(
   listLayoutProvider = [(SBHLibraryViewController *)self listLayoutProvider];
   v13 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationAppLibraryCategoryPod"];
   v14 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationAppLibraryCategoryPodAdditionalItems"];
-  [v13 iconImageInfo];
+  objc_msgSend_iconImageInfo(v13);
   [(SBHLibraryIconPrecachingInfo *)v3 setTopLevelImageInfo:?];
   [(SBHLibraryIconPrecachingInfo *)v3 setAdditionalImageInfo:SBHIconListLayoutFolderIconGridCellIconImageInfo(v14)];
 
@@ -1561,7 +1557,7 @@ uint64_t __64__SBHLibraryViewController_isDisplayingIcon_inLocation_options___bl
   return v9 & 1;
 }
 
-uint64_t __57__SBHLibraryViewController_isDisplayingIcon_inLocations___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__SBHLibraryViewController_isDisplayingIcon_inLocations___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isDisplayingIcon:a1[4] inLocations:a1[5]];
   if (result)
@@ -1603,7 +1599,7 @@ uint64_t __57__SBHLibraryViewController_isDisplayingIcon_inLocations___block_inv
   return v6 & 1;
 }
 
-uint64_t __45__SBHLibraryViewController_isDisplayingIcon___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__45__SBHLibraryViewController_isDisplayingIcon___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isDisplayingIcon:*(a1 + 32)];
   if (result)
@@ -1645,7 +1641,7 @@ uint64_t __45__SBHLibraryViewController_isDisplayingIcon___block_invoke(uint64_t
   return v6 & 1;
 }
 
-uint64_t __49__SBHLibraryViewController_isDisplayingIconView___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__49__SBHLibraryViewController_isDisplayingIconView___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isDisplayingIconView:*(a1 + 32)];
   if (result)
@@ -1685,7 +1681,7 @@ uint64_t __49__SBHLibraryViewController_isDisplayingIconView___block_invoke(uint
   return v9 & 1;
 }
 
-uint64_t __60__SBHLibraryViewController_isDisplayingIconView_inLocation___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__SBHLibraryViewController_isDisplayingIconView_inLocation___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isDisplayingIconView:a1[4] inLocation:a1[5]];
   if (result)
@@ -2131,9 +2127,9 @@ void *__77__SBHLibraryViewController_pushNestedViewController_animated_withCompl
 {
   animatedCopy = animated;
   viewControllerCopy = viewController;
-  v35.receiver = self;
-  v35.super_class = SBHLibraryViewController;
-  v11 = [(SBNestingViewController *)&v35 nestingViewController:controller animationControllerForOperation:operation onViewController:viewControllerCopy animated:animatedCopy];
+  v36.receiver = self;
+  v36.super_class = SBHLibraryViewController;
+  v11 = [(SBNestingViewController *)&v36 nestingViewController:controller animationControllerForOperation:operation onViewController:viewControllerCopy animated:animatedCopy];
   if (v11)
   {
     goto LABEL_20;
@@ -2146,58 +2142,59 @@ void *__77__SBHLibraryViewController_pushNestedViewController_animated_withCompl
     goto LABEL_20;
   }
 
-  v34 = self->_podFolderViewController;
+  v35 = self->_podFolderViewController;
   v12 = viewControllerCopy;
   folderDelegate = [v12 folderDelegate];
   folder = [v12 folder];
   icon = [folder icon];
 
   searchBar = [(SBHLibrarySearchController *)self->_containerViewController searchBar];
-  if (icon && ([icon folder], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "icons"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count"), v17, v16, v18))
+  v16 = searchBar;
+  if (icon && ([icon folder], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "icons"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "count"), v18, v17, v19))
   {
-    v19 = 0;
+    v20 = 0;
     if (!animatedCopy)
     {
 LABEL_6:
-      v20 = SBHLibraryPodImmediateAnimator;
+      v21 = SBHLibraryPodImmediateAnimator;
       goto LABEL_13;
     }
   }
 
   else
   {
-    v21 = SBLogLibrary();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = SBLogLibrary(searchBar);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(SBHLibraryViewController *)icon nestingViewController:v21 animationControllerForOperation:v22 onViewController:v23 animated:v24, v25, v26, v27];
+      [(SBHLibraryViewController *)icon nestingViewController:v22 animationControllerForOperation:v23 onViewController:v24 animated:v25, v26, v27, v28];
     }
 
-    v19 = 1;
+    v20 = 1;
     if (!animatedCopy)
     {
       goto LABEL_6;
     }
   }
 
-  if ((v19 | UIAccessibilityIsReduceMotionEnabled()) != 1)
+  if ((v20 | UIAccessibilityIsReduceMotionEnabled()) != 1)
   {
-    v28 = [[SBHLibraryPodIconZoomAnimator alloc] initWithAnimationContainer:v34 innerFolderController:v12 folderIcon:icon searchBar:searchBar libraryViewController:self];
+    v29 = [[SBHLibraryPodIconZoomAnimator alloc] initWithAnimationContainer:v35 innerFolderController:v12 folderIcon:icon searchBar:v16 libraryViewController:self];
     goto LABEL_15;
   }
 
-  v20 = SBHLibraryPodFadeAnimator;
+  v21 = SBHLibraryPodFadeAnimator;
 LABEL_13:
-  v28 = [[v20 alloc] initWithAnimationContainer:v34 innerFolderController:v12 searchBar:searchBar];
+  v29 = [[v21 alloc] initWithAnimationContainer:v35 innerFolderController:v12 searchBar:v16];
 LABEL_15:
-  v29 = v28;
-  if (v28)
+  v30 = v29;
+  if (v29)
   {
-    v11 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v28 childViewController:v12 operation:operation != 1];
+    v11 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v29 childViewController:v12 operation:operation != 1];
     [(SBHomeScreenIconTransitionAnimator *)v11 setInitialDelay:0.0];
     homeScreenIconTransitionAnimatorDelegate = [(SBHLibraryViewController *)self homeScreenIconTransitionAnimatorDelegate];
     [(SBHomeScreenIconTransitionAnimator *)v11 setDelegate:homeScreenIconTransitionAnimatorDelegate];
 
-    v31 = folderDelegate;
+    v32 = folderDelegate;
     if (objc_opt_respondsToSelector())
     {
       [folderDelegate folderController:self willUseIconTransitionAnimator:v11 forOperation:operation onViewController:v12 animated:animatedCopy];
@@ -2207,7 +2204,7 @@ LABEL_15:
   else
   {
     v11 = 0;
-    v31 = folderDelegate;
+    v32 = folderDelegate;
   }
 
 LABEL_20:
@@ -2509,12 +2506,12 @@ LABEL_6:
 - (id)_createIconViewControllerForCategoryIdentifier:(id)identifier
 {
   listLayoutProvider = [(SBHLibraryViewController *)self listLayoutProvider];
-  iconImageCache = [(SBHLibraryViewController *)self iconImageCache];
+  v5 = objc_msgSend_iconImageCache(self);
   folderIconImageCache = [(SBHLibraryViewController *)self folderIconImageCache];
   v7 = objc_alloc_init(SBHLibraryCategoryIconViewController);
   [(SBHLibraryCategoryIconViewController *)v7 setIconViewProvider:self];
   [(SBHLibraryCategoryIconViewController *)v7 setListLayoutProvider:listLayoutProvider];
-  [(SBHLibraryCategoryIconViewController *)v7 setIconImageCache:iconImageCache];
+  [(SBHLibraryCategoryIconViewController *)v7 setIconImageCache:v5];
   [(SBHLibraryCategoryIconViewController *)v7 setFolderIconImageCache:folderIconImageCache];
 
   return v7;
@@ -2866,8 +2863,8 @@ uint64_t __56__SBHLibraryViewController_iconViewDisplaysAccessories___block_invo
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    iconListViews = [(SBFolderController *)self->_podFolderViewController iconListViews];
-    v8 = [iconListViews countByEnumeratingWithState:&v18 objects:v28 count:16];
+    v7 = objc_msgSend_iconListViews(self->_podFolderViewController);
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v8)
     {
       v9 = *v19;
@@ -2877,7 +2874,7 @@ uint64_t __56__SBHLibraryViewController_iconViewDisplaysAccessories___block_invo
         {
           if (*v19 != v9)
           {
-            objc_enumerationMutation(iconListViews);
+            objc_enumerationMutation(v7);
           }
 
           v11 = *(*(&v18 + 1) + 8 * i);
@@ -2890,7 +2887,7 @@ uint64_t __56__SBHLibraryViewController_iconViewDisplaysAccessories___block_invo
           [v11 enumerateIconViewsUsingBlock:v15];
         }
 
-        v8 = [iconListViews countByEnumeratingWithState:&v18 objects:v28 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v8);
@@ -2938,8 +2935,8 @@ void __81__SBHLibraryViewController__additionalItemsIndicatorIconViewForFolderCo
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  iconListViews = [(SBFolderController *)self->_podFolderViewController iconListViews];
-  v5 = [iconListViews countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = objc_msgSend_iconListViews(self->_podFolderViewController);
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
@@ -2950,7 +2947,7 @@ void __81__SBHLibraryViewController__additionalItemsIndicatorIconViewForFolderCo
       {
         if (*v14 != v7)
         {
-          objc_enumerationMutation(iconListViews);
+          objc_enumerationMutation(v4);
         }
 
         v9 = *(*(&v13 + 1) + 8 * i);
@@ -2962,7 +2959,7 @@ void __81__SBHLibraryViewController__additionalItemsIndicatorIconViewForFolderCo
         [v9 enumerateIconViewsUsingBlock:v11];
       }
 
-      v6 = [iconListViews countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -3336,8 +3333,8 @@ void __85__SBHLibraryViewController__wrappedCompletionBlockForNestedTransitionWi
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  iconListViews = [(SBFolderController *)self->_podFolderViewController iconListViews];
-  v6 = [iconListViews countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v5 = objc_msgSend_iconListViews(self->_podFolderViewController);
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v6)
   {
     v7 = *v14;
@@ -3347,7 +3344,7 @@ LABEL_3:
     {
       if (*v14 != v7)
       {
-        objc_enumerationMutation(iconListViews);
+        objc_enumerationMutation(v5);
       }
 
       v9 = *(*(&v13 + 1) + 8 * v8);
@@ -3367,7 +3364,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [iconListViews countByEnumeratingWithState:&v13 objects:v21 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v21 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3403,7 +3400,7 @@ void __64__SBHLibraryViewController_enumeratePodIconListViewsUsingBlock___block_
 - (void)_setupIconTableViewController:(BOOL)controller
 {
   controllerCopy = controller;
-  v100[4] = *MEMORY[0x1E69E9840];
+  v101[4] = *MEMORY[0x1E69E9840];
   iconViewProvider = [(SBHLibraryViewController *)self iconViewProvider];
   iconModel = [(SBHLibraryViewController *)self iconModel];
   rootFolder = [iconModel rootFolder];
@@ -3426,22 +3423,23 @@ void __64__SBHLibraryViewController_enumeratePodIconListViewsUsingBlock___block_
 
   if (!v13)
   {
-    v93 = folderIconImageCache;
+    v94 = folderIconImageCache;
     v14 = [[_SBHLibraryCollectionOfModelThings alloc] initWithIconViewProvider:iconViewProvider iconModel:iconModel2 rootFolder:rootFolder listLayoutProvider:v7 iconImageCache:v8 folderIconImageCache:folderIconImageCache categoryMapProvider:v12];
-    v99 = 0;
-    v15 = [(_SBHLibraryCollectionOfModelThings *)v14 examineModelValidityWithError:&v99];
-    v91 = v99;
+    v100 = 0;
+    v15 = [(_SBHLibraryCollectionOfModelThings *)v14 examineModelValidityWithError:&v100];
+    v16 = v100;
+    v92 = v16;
     if (v15)
     {
       if ([(_SBHLibraryCollectionOfModelThings *)self->_model isEqual:v14])
       {
 LABEL_31:
 
-        folderIconImageCache = v93;
+        folderIconImageCache = v94;
         goto LABEL_32;
       }
 
-      v85 = rootFolder;
+      v86 = rootFolder;
       objc_storeStrong(&self->_model, v14);
       iconViewControllerForCategoryIdentifier = self->_iconViewControllerForCategoryIdentifier;
       self->_iconViewControllerForCategoryIdentifier = 0;
@@ -3450,88 +3448,88 @@ LABEL_31:
       if (categoriesFolder)
       {
         [(SBRootFolder *)categoriesFolder setDelegate:0];
-        v18 = self->_categoriesFolder;
+        v19 = self->_categoriesFolder;
         self->_categoriesFolder = 0;
       }
 
-      v89 = v12;
-      v90 = v14;
+      v90 = v12;
+      v91 = v14;
       [(SBHLibraryViewController *)self _dismissExpandedPods:0 completion:0];
       iconTableViewController = self->_iconTableViewController;
       if (iconTableViewController)
       {
         [(SBHIconLibraryTableViewController *)iconTableViewController setObserver:0];
-        v20 = self->_iconTableViewController;
+        v21 = self->_iconTableViewController;
         self->_iconTableViewController = 0;
       }
 
-      v82 = iconModel2;
-      v21 = objc_alloc_init(SBHIconLibraryTableViewController);
-      v22 = self->_iconTableViewController;
-      self->_iconTableViewController = v21;
+      v83 = iconModel2;
+      v22 = objc_alloc_init(SBHIconLibraryTableViewController);
+      v23 = self->_iconTableViewController;
+      self->_iconTableViewController = v22;
 
       [(SBHIconLibraryTableViewController *)self->_iconTableViewController setObserver:self];
       [(SBHIconLibraryTableViewController *)self->_iconTableViewController setListLayoutProvider:v7];
-      v86 = iconViewProvider;
+      v87 = iconViewProvider;
       [(SBHIconLibraryTableViewController *)self->_iconTableViewController setIconViewProvider:iconViewProvider];
       iconLocation = [(SBHLibraryViewController *)self iconLocation];
-      v88 = [(SBIconListLayoutProvider *)v7 layoutForIconLocation:?];
-      v80 = SBHIconListLayoutIconGridSizeClassSizes(v88, 1);
-      v23 = [(SBFolder *)[SBHLibraryCategoriesRootFolder alloc] initWithDisplayName:@"Categories Folder" maxListCount:1 listGridSize:4294901764 iconGridSizeClassSizes:v80];
-      v24 = self->_categoriesFolder;
-      self->_categoriesFolder = v23;
+      v89 = [(SBIconListLayoutProvider *)v7 layoutForIconLocation:?];
+      v81 = SBHIconListLayoutIconGridSizeClassSizes(v89, 1);
+      v24 = [(SBFolder *)[SBHLibraryCategoriesRootFolder alloc] initWithDisplayName:@"Categories Folder" maxListCount:1 listGridSize:4294901764 iconGridSizeClassSizes:v81];
+      v25 = self->_categoriesFolder;
+      self->_categoriesFolder = v24;
 
       [(SBRootFolder *)self->_categoriesFolder setModel:self->_iconModel];
       addEmptyList = [(SBFolder *)self->_categoriesFolder addEmptyList];
-      v26 = self->_categoriesFolder;
+      v27 = self->_categoriesFolder;
       rootFolder2 = [(SBHIconModel *)self->_iconModel rootFolder];
       delegate = [rootFolder2 delegate];
-      [(SBRootFolder *)v26 setDelegate:delegate];
+      [(SBRootFolder *)v27 setDelegate:delegate];
 
       [(SBHLibraryCategoriesRootFolder *)self->_categoriesFolder setSupportsBadging:[(SBHLibraryViewController *)self allowsBadging]];
-      v29 = self->_categoriesFolder;
+      v30 = self->_categoriesFolder;
       badgeBehaviorProvider = [(SBHLibraryViewController *)self badgeBehaviorProvider];
-      [(SBFolder *)v29 setBadgeBehaviorProvider:badgeBehaviorProvider];
+      [(SBFolder *)v30 setBadgeBehaviorProvider:badgeBehaviorProvider];
 
-      v31 = objc_alloc_init(SBHLibraryPodFolderControllerConfiguration);
-      [(SBFolderControllerConfiguration *)v31 setIconViewProvider:self];
-      [(SBFolderControllerConfiguration *)v31 setListLayoutProvider:v7];
-      [(SBFolderControllerConfiguration *)v31 setIconImageCache:v8];
-      [(SBFolderControllerConfiguration *)v31 setFolderIconImageCache:v93];
-      [(SBFolderControllerConfiguration *)v31 setLegibilitySettings:effectiveLegibilitySettings];
-      [(SBHLibraryPodFolderControllerConfiguration *)v31 setCategoryMapProvider:v89];
-      [(SBHLibraryPodFolderControllerConfiguration *)v31 setCategoriesFolder:self->_categoriesFolder];
-      [(SBFolderControllerConfiguration *)v31 setFolder:self->_categoriesFolder];
+      v32 = objc_alloc_init(SBHLibraryPodFolderControllerConfiguration);
+      [(SBFolderControllerConfiguration *)v32 setIconViewProvider:self];
+      [(SBFolderControllerConfiguration *)v32 setListLayoutProvider:v7];
+      [(SBFolderControllerConfiguration *)v32 setIconImageCache:v8];
+      [(SBFolderControllerConfiguration *)v32 setFolderIconImageCache:v94];
+      [(SBFolderControllerConfiguration *)v32 setLegibilitySettings:effectiveLegibilitySettings];
+      [(SBHLibraryPodFolderControllerConfiguration *)v32 setCategoryMapProvider:v90];
+      [(SBHLibraryPodFolderControllerConfiguration *)v32 setCategoriesFolder:self->_categoriesFolder];
+      [(SBFolderControllerConfiguration *)v32 setFolder:self->_categoriesFolder];
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
       userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
       if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
       {
-        v34 = 30;
+        v35 = 30;
       }
 
       else
       {
-        v34 = 2;
+        v35 = 2;
       }
 
-      [(SBFolderControllerConfiguration *)v31 setAllowedOrientations:v34];
-      [(SBFolderControllerConfiguration *)v31 setVertical:1];
+      [(SBFolderControllerConfiguration *)v32 setAllowedOrientations:v35];
+      [(SBFolderControllerConfiguration *)v32 setVertical:1];
       podFolderViewController = self->_podFolderViewController;
       if (podFolderViewController)
       {
         [(SBHLibraryPodFolderController *)podFolderViewController setPodFolderControllerDelegate:0];
         [(SBFolderController *)self->_podFolderViewController setFolder:0];
-        v36 = self->_podFolderViewController;
+        v37 = self->_podFolderViewController;
         self->_podFolderViewController = 0;
       }
 
-      v83 = effectiveLegibilitySettings;
-      v84 = v7;
-      v79 = v31;
-      v37 = [[SBHLibraryPodFolderController alloc] initWithConfiguration:v31];
-      v38 = self->_podFolderViewController;
-      self->_podFolderViewController = v37;
+      v84 = effectiveLegibilitySettings;
+      v85 = v7;
+      v80 = v32;
+      v38 = [[SBHLibraryPodFolderController alloc] initWithConfiguration:v32];
+      v39 = self->_podFolderViewController;
+      self->_podFolderViewController = v38;
 
       contentScrollView = [(SBHLibraryPodFolderController *)self->_podFolderViewController contentScrollView];
       [contentScrollView setShowsVerticalScrollIndicator:0];
@@ -3550,22 +3548,22 @@ LABEL_31:
         [view removeFromSuperview];
 
         [(SBHLibraryViewController *)self bs_removeChildViewController:self->_containerViewController];
-        v42 = self->_containerViewController;
+        v43 = self->_containerViewController;
         self->_containerViewController = 0;
       }
 
       bs_isAppearingOrAppeared = [(SBHLibraryViewController *)self bs_isAppearingOrAppeared];
-      appLibraryVisualConfiguration = [v88 appLibraryVisualConfiguration];
+      appLibraryVisualConfiguration = [v89 appLibraryVisualConfiguration];
       usesInsetPlatterSearchAppearance = [appLibraryVisualConfiguration usesInsetPlatterSearchAppearance];
 
-      v45 = [[SBHLibrarySearchController alloc] initWithSearchResultsController:self->_iconTableViewController contentViewController:self->_podFolderViewController usingPlatterAppearance:usesInsetPlatterSearchAppearance];
-      v46 = self->_containerViewController;
-      self->_containerViewController = v45;
+      v46 = [[SBHLibrarySearchController alloc] initWithSearchResultsController:self->_iconTableViewController contentViewController:self->_podFolderViewController usingPlatterAppearance:usesInsetPlatterSearchAppearance];
+      v47 = self->_containerViewController;
+      self->_containerViewController = v46;
 
       [(SBHLibrarySearchController *)self->_containerViewController setDelegate:self];
-      v47 = self->_containerViewController;
+      v48 = self->_containerViewController;
       iconLocation2 = [(SBHLibraryViewController *)self iconLocation];
-      [(SBHLibrarySearchController *)v47 setContainingIconLocation:iconLocation2];
+      [(SBHLibrarySearchController *)v48 setContainingIconLocation:iconLocation2];
 
       [(SBHLibrarySearchController *)self->_containerViewController setSearchResultsUpdater:self->_iconTableViewController];
       [(SBHLibraryViewController *)self addChildViewController:self->_containerViewController];
@@ -3575,25 +3573,25 @@ LABEL_31:
       [view2 addSubview:view3];
       leadingAnchor = [view3 leadingAnchor];
       leadingAnchor2 = [view2 leadingAnchor];
-      v74 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v100[0] = v74;
+      v75 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v101[0] = v75;
       trailingAnchor = [view3 trailingAnchor];
       trailingAnchor2 = [view2 trailingAnchor];
-      v51 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v100[1] = v51;
+      v52 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v101[1] = v52;
       topAnchor = [view3 topAnchor];
       topAnchor2 = [view2 topAnchor];
-      v54 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v100[2] = v54;
-      v87 = view3;
+      v55 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v101[2] = v55;
+      v88 = view3;
       bottomAnchor = [view3 bottomAnchor];
-      v78 = view2;
+      v79 = view2;
       bottomAnchor2 = [view2 bottomAnchor];
-      v57 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v100[3] = v57;
-      v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:4];
+      v58 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v101[3] = v58;
+      v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:4];
       containerViewControllerConstraints = self->_containerViewControllerConstraints;
-      self->_containerViewControllerConstraints = v58;
+      self->_containerViewControllerConstraints = v59;
 
       [MEMORY[0x1E696ACD8] activateConstraints:self->_containerViewControllerConstraints];
       [(SBHLibrarySearchController *)self->_containerViewController didMoveToParentViewController:self];
@@ -3602,29 +3600,29 @@ LABEL_31:
         [(SBHLibrarySearchController *)self->_containerViewController beginAppearanceTransition:1 animated:controllerCopy];
       }
 
-      v7 = v84;
-      [(SBHLibrarySearchController *)self->_containerViewController setListLayoutProvider:v84];
-      v94[0] = MEMORY[0x1E69E9820];
-      v94[1] = 3221225472;
-      v94[2] = __58__SBHLibraryViewController__setupIconTableViewController___block_invoke;
-      v94[3] = &unk_1E808EA48;
-      v95 = v84;
-      v96 = v8;
-      v97 = v93;
-      rootFolder = v85;
-      v98 = v85;
-      [(SBHLibraryViewController *)self _enumerateAllViewControllersUsingBlock:v94];
-      effectiveLegibilitySettings = v83;
-      if (v83)
+      v7 = v85;
+      [(SBHLibrarySearchController *)self->_containerViewController setListLayoutProvider:v85];
+      v95[0] = MEMORY[0x1E69E9820];
+      v95[1] = 3221225472;
+      v95[2] = __58__SBHLibraryViewController__setupIconTableViewController___block_invoke;
+      v95[3] = &unk_1E808EA48;
+      v96 = v85;
+      v97 = v8;
+      v98 = v94;
+      rootFolder = v86;
+      v99 = v86;
+      [(SBHLibraryViewController *)self _enumerateAllViewControllersUsingBlock:v95];
+      effectiveLegibilitySettings = v84;
+      if (v84)
       {
         [(SBHLibraryViewController *)self _updateViewControllerLegibility];
         [(SBHLibraryViewController *)self _updateSearchControllerLegibility];
       }
 
-      v60 = [SBHLegibilitySettings sharedInstanceForStyle:1];
-      [(SBHIconLibraryTableViewController *)self->_iconTableViewController setLegibilitySettings:v60];
-      primaryColor = [v60 primaryColor];
-      [v87 setTintColor:primaryColor];
+      v61 = [SBHLegibilitySettings sharedInstanceForStyle:1];
+      [(SBHIconLibraryTableViewController *)self->_iconTableViewController setLegibilitySettings:v61];
+      primaryColor = [v61 primaryColor];
+      [v88 setTintColor:primaryColor];
 
       tableView = [(SBHIconLibraryTableViewController *)self->_iconTableViewController tableView];
       [tableView setAccessibilityIdentifier:@"dewey-search-result-table-view"];
@@ -3632,7 +3630,7 @@ LABEL_31:
       view4 = [(SBHLibraryPodFolderController *)self->_podFolderViewController view];
       [view4 setAccessibilityIdentifier:@"dewey-pod-view"];
 
-      v12 = v89;
+      v12 = v90;
       if (bs_isAppearingOrAppeared)
       {
         [(SBHLibrarySearchController *)self->_containerViewController endAppearanceTransition];
@@ -3649,25 +3647,25 @@ LABEL_31:
         [(SBHLibraryViewController *)self _updateLibraryCategoryMap:0];
       }
 
-      iconModel2 = v82;
+      iconModel2 = v83;
       [(SBHLibraryCategoryMapProvider *)self->_categoryMapProvider addObserver:self];
       [(SBHLibraryViewController *)self _notifyObserversDataSourceDidChange];
 
-      iconViewProvider = v86;
-      v65 = iconLocation;
+      iconViewProvider = v87;
+      v66 = iconLocation;
     }
 
     else
     {
-      v90 = v14;
-      v65 = SBLogLibrary();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      v91 = v14;
+      v66 = SBLogLibrary(v16);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        [(SBHLibraryViewController *)v91 _setupIconTableViewController:v65, v66, v67, v68, v69, v70, v71];
+        [(SBHLibraryViewController *)v92 _setupIconTableViewController:v66, v67, v68, v69, v70, v71, v72];
       }
     }
 
-    v14 = v90;
+    v14 = v91;
     goto LABEL_31;
   }
 
@@ -3779,7 +3777,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
           v18 = 16.0;
         }
 
-        [v12 bounds];
+        objc_msgSend_bounds(v12);
         [v12 convertRect:contentScrollView toView:?];
         CGRectInset(v23, 0.0, -v18);
         [contentScrollView contentSize];
@@ -3838,7 +3836,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
     {
       v3 = [SBFolderControllerBackgroundView alloc];
       view = [(SBHLibraryViewController *)self view];
-      [view bounds];
+      objc_msgSend_bounds(view);
       v5 = [(SBFolderControllerBackgroundView *)v3 initWithFrame:?];
       reducedTransparencyBackgroundView = self->_reducedTransparencyBackgroundView;
       self->_reducedTransparencyBackgroundView = v5;
@@ -3898,7 +3896,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
 - (void)willPresentSearchController:(id)controller
 {
   controllerCopy = controller;
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts(controllerCopy);
   if (os_signpost_enabled(v5))
   {
     *v8 = 0;
@@ -3919,7 +3917,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
 - (void)didPresentSearchController:(id)controller
 {
   controllerCopy = controller;
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts(controllerCopy);
   if (os_signpost_enabled(v5))
   {
     *v6 = 0;
@@ -3933,7 +3931,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
 - (void)willDismissSearchController:(id)controller
 {
   controllerCopy = controller;
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts(controllerCopy);
   if (os_signpost_enabled(v5))
   {
     *v6 = 0;
@@ -3946,7 +3944,7 @@ void __58__SBHLibraryViewController__setupIconTableViewController___block_invoke
 - (void)didDismissSearchController:(id)controller
 {
   controllerCopy = controller;
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts(controllerCopy);
   if (os_signpost_enabled(v5))
   {
     *v6 = 0;
@@ -4331,7 +4329,7 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
 
 - (void)_updateLibraryCategoryMap:(id)map
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   if ([(SBHLibrarySearchController *)self->_containerViewController bs_isAppearingOrAppeared])
   {
@@ -4345,28 +4343,29 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
   }
 
   v8 = [(SBHLibraryViewController *)self _hiddenCategoriesDidChangeFromCurrentCategoryMap:self->_libraryCategoryMap toUpdatedCategoryMap:mapCopy];
+  v9 = v8;
   libraryCategoryMap = self->_libraryCategoryMap;
-  v10 = SBLogLibrary();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-  if (!libraryCategoryMap || v7 || v8)
+  v11 = SBLogLibrary(v8);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (!libraryCategoryMap || v7 || (v9 & 1) != 0)
   {
-    if (v11)
+    if (v12)
     {
-      v18 = 138412290;
-      v19 = mapCopy;
-      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "library category map update received: %@", &v18, 0xCu);
+      v21 = 138412290;
+      v22 = mapCopy;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "library category map update received: %@", &v21, 0xCu);
     }
 
     pendingLibraryCategoryMap = self->_pendingLibraryCategoryMap;
     self->_pendingLibraryCategoryMap = 0;
 
-    [(SBHLibraryViewController *)self _installCategoryMap:mapCopy];
+    v19 = [(SBHLibraryViewController *)self _installCategoryMap:mapCopy];
     if (!mapCopy)
     {
-      v17 = SBLogLibrary();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = SBLogLibrary(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [SBHLibraryViewController _updateLibraryCategoryMap:v17];
+        [SBHLibraryViewController _updateLibraryCategoryMap:v20];
       }
 
       [(SBHLibraryViewController *)self _enqueueAppLibraryUpdate];
@@ -4375,42 +4374,42 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
 
   else
   {
-    if (v11)
+    if (v12)
     {
-      v18 = 138412290;
-      v19 = mapCopy;
-      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Queuing up pending library category map: %@", &v18, 0xCu);
+      v21 = 138412290;
+      v22 = mapCopy;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Queuing up pending library category map: %@", &v21, 0xCu);
     }
 
     objc_storeStrong(&self->_pendingLibraryCategoryMap, map);
-    v12 = SBLogLibrary();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogLibrary(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "Setting up partial library category map update...", &v18, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "Setting up partial library category map update...", &v21, 2u);
     }
 
-    v13 = [objc_opt_class() _updateCategoryMap:self->_libraryCategoryMap withCategoryDataFrom:mapCopy];
-    v14 = SBLogLibrary();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-    if (v13)
+    v15 = [objc_opt_class() _updateCategoryMap:self->_libraryCategoryMap withCategoryDataFrom:mapCopy];
+    v16 = SBLogLibrary(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v15)
     {
-      if (v15)
+      if (v17)
       {
-        v18 = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "Successfully updated non-proactive special categories w/ new partial map: %@", &v18, 0xCu);
+        v21 = 138412290;
+        v22 = v15;
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Successfully updated non-proactive special categories w/ new partial map: %@", &v21, 0xCu);
       }
 
-      [(SBHLibraryViewController *)self _installCategoryMap:v13];
+      [(SBHLibraryViewController *)self _installCategoryMap:v15];
     }
 
     else
     {
-      if (v15)
+      if (v17)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "Could not amend map; partial update aborted.", &v18, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Could not amend map; partial update aborted.", &v21, 2u);
       }
     }
   }
@@ -4537,97 +4536,82 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
 
 - (void)_flushPendingLibraryCategoryMapUpdateIfNeeded
 {
-  pendingLibraryCategoryMap = self->_pendingLibraryCategoryMap;
-  v4 = SBLogLibrary();
-  v5 = v4;
-  if (pendingLibraryCategoryMap)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      [(SBHLibraryViewController *)&self->_pendingLibraryCategoryMap _flushPendingLibraryCategoryMapUpdateIfNeeded:v6];
-    }
-
-    [(SBHLibraryViewController *)self _installCategoryMap:self->_pendingLibraryCategoryMap];
-    v5 = self->_pendingLibraryCategoryMap;
-    self->_pendingLibraryCategoryMap = 0;
-  }
-
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *v12 = 0;
-    _os_log_impl(&dword_1BEB18000, &v5->super, OS_LOG_TYPE_DEFAULT, "No pending category map; bailing...", v12, 2u);
-  }
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_3(&dword_1BEB18000, a2, a3, "Installing pending category map: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_installCategoryMap:(id)map
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   mapCopy = map;
-  if ([(SBHLibraryViewController *)self isViewLoaded])
+  isViewLoaded = [(SBHLibraryViewController *)self isViewLoaded];
+  if (isViewLoaded)
   {
-    bs_isAppearingOrAppeared = [(SBHLibraryViewController *)self bs_isAppearingOrAppeared];
+    isViewLoaded = [(SBHLibraryViewController *)self bs_isAppearingOrAppeared];
+    v7 = isViewLoaded;
   }
 
   else
   {
-    bs_isAppearingOrAppeared = 0;
+    v7 = 0;
   }
 
-  v7 = SBLogLibrary();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogLibrary(isViewLoaded);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v26 = mapCopy;
-    v27 = 1024;
-    v28 = bs_isAppearingOrAppeared;
-    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Installing category map %@ - animated %{BOOL}u", buf, 0x12u);
+    v27 = mapCopy;
+    v28 = 1024;
+    v29 = v7;
+    _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Installing category map %@ - animated %{BOOL}u", buf, 0x12u);
   }
 
   objc_storeStrong(&self->_libraryCategoryMap, map);
-  v8 = [MEMORY[0x1E695DF70] arrayWithObject:self->_podFolderViewController];
+  v9 = [MEMORY[0x1E695DF70] arrayWithObject:self->_podFolderViewController];
   objc_opt_class();
   nestedViewController = [(SBNestingViewController *)self nestedViewController];
-  v10 = SBFSafeCast();
-  [v8 bs_safeAddObject:v10];
+  v11 = SBFSafeCast();
+  [v9 bs_safeAddObject:v11];
 
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v12)
+  v22 = 0u;
+  v12 = v9;
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v21;
+    v14 = v13;
+    v15 = *v22;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v14)
+        if (*v22 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
-        [v16 setLibraryCategoryMap:{self->_libraryCategoryMap, v20}];
-        if (bs_isAppearingOrAppeared)
+        v17 = *(*(&v21 + 1) + 8 * i);
+        [v17 setLibraryCategoryMap:{self->_libraryCategoryMap, v21}];
+        if (v7)
         {
-          [v16 layoutIconListsWithAnimationType:bs_isAppearingOrAppeared - 1 forceRelayout:1];
+          [v17 layoutIconListsWithAnimationType:v7 - 1 forceRelayout:1];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
   [(SBHIconLibraryTableViewController *)self->_iconTableViewController setLibraryCategoryMap:self->_libraryCategoryMap];
-  v17 = MEMORY[0x1E695DFD8];
+  v18 = MEMORY[0x1E695DFD8];
   categoryIdentifiers = [(SBHLibraryCategoryMap *)self->_libraryCategoryMap categoryIdentifiers];
-  v19 = [v17 setWithArray:categoryIdentifiers];
-  [(SBHLibraryViewController *)self _precacheIconViewControllersForCategories:v19];
+  v20 = [v18 setWithArray:categoryIdentifiers];
+  [(SBHLibraryViewController *)self _precacheIconViewControllersForCategories:v20];
 }
 
 - (void)libraryTableViewControllerDidAppear:(id)appear
@@ -4664,7 +4648,7 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
   }
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v6 = SBLogLibrary();
+  v6 = SBLogLibrary(uUID);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -4695,8 +4679,9 @@ void __59__SBHLibraryViewController__notifyObserversOfAcceptedDrop___block_invok
 
 void __70__SBHLibraryViewController__startLibraryViewControllerDismissalTimer___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if ([a2 isValid])
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = [a2 isValid];
+  if (v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained _dismissLibraryViewControllerForReason:*(a1 + 32) sessionIdentifier:*(a1 + 40)];
@@ -4704,36 +4689,36 @@ void __70__SBHLibraryViewController__startLibraryViewControllerDismissalTimer___
 
   else
   {
-    v3 = SBLogLibrary();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogLibrary(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
       *buf = 138543618;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "App Library view controller dismissal timer for reason %{public}@, session identifier %{public}@ -- was invalidated.  We're not going to do anything.", buf, 0x16u);
+      v9 = v5;
+      v10 = 2114;
+      v11 = v6;
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "App Library view controller dismissal timer for reason %{public}@, session identifier %{public}@ -- was invalidated.  We're not going to do anything.", buf, 0x16u);
     }
   }
 }
 
 - (void)_dismissLibraryViewControllerForReason:(id)reason sessionIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   identifierCopy = identifier;
   [(SBHLibraryViewController *)self invalidateSearchControllerAppLaunchResetTimer];
-  if ([(SBHLibraryViewController *)self bs_isAppearingOrAppeared]&& [(SBHLibraryViewController *)self contentVisibility]!= 2)
+  if ([(SBHLibraryViewController *)self bs_isAppearingOrAppeared]&& (v8 = [(SBHLibraryViewController *)self contentVisibility], v8 != 2))
   {
-    v9 = SBLogLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogLibrary(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
-      v11 = reasonCopy;
-      v12 = 2114;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "App Library view controller dismissal timer won't dismiss for reason %{public}@, session identifier %{public}@ -- container view controller is visible and it'd be really bad if we just changed the way the UI looked while they're using it", &v10, 0x16u);
+      v11 = 138543618;
+      v12 = reasonCopy;
+      v13 = 2114;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "App Library view controller dismissal timer won't dismiss for reason %{public}@, session identifier %{public}@ -- container view controller is visible and it'd be really bad if we just changed the way the UI looked while they're using it", &v11, 0x16u);
     }
   }
 
@@ -4756,7 +4741,7 @@ void __70__SBHLibraryViewController__startLibraryViewControllerDismissalTimer___
   v20 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v6 = SBLogLibrary();
+  v6 = SBLogLibrary(uUID);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -4787,8 +4772,9 @@ void __70__SBHLibraryViewController__startLibraryViewControllerDismissalTimer___
 
 void __54__SBHLibraryViewController__startAppLaunchResetTimer___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if ([a2 isValid])
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = [a2 isValid];
+  if (v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained _dismissSearchIfNotInUseForReason:*(a1 + 32) sessionIdentifier:*(a1 + 40)];
@@ -4796,56 +4782,61 @@ void __54__SBHLibraryViewController__startAppLaunchResetTimer___block_invoke(uin
 
   else
   {
-    v3 = SBLogLibrary();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogLibrary(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
       *buf = 138543618;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "App launch reset timer for reason %{public}@, session identifier %{public}@ -- was invalidated.  We're not going to do anything.", buf, 0x16u);
+      v9 = v5;
+      v10 = 2114;
+      v11 = v6;
+      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "App launch reset timer for reason %{public}@, session identifier %{public}@ -- was invalidated.  We're not going to do anything.", buf, 0x16u);
     }
   }
 }
 
 - (void)_dismissSearchIfNotInUseForReason:(id)reason sessionIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   identifierCopy = identifier;
   [(SBHLibraryViewController *)self invalidateSearchControllerAppLaunchResetTimer];
-  if ([(SBHLibrarySearchController *)self->_containerViewController bs_isAppearingOrAppeared]&& [(SBHLibraryViewController *)self contentVisibility]!= 2)
+  if ([(SBHLibrarySearchController *)self->_containerViewController bs_isAppearingOrAppeared])
   {
-    v8 = SBLogLibrary();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    contentVisibility = [(SBHLibraryViewController *)self contentVisibility];
+    if (contentVisibility != 2)
     {
-      v10 = 138543618;
-      v11 = reasonCopy;
-      v12 = 2114;
-      v13 = identifierCopy;
-      v9 = "App launch reset timer for reason %{public}@, session identifier %{public}@ -- container view controller is visible and it'd be really bad if we just changed the way the UI looked while they're using it";
-      goto LABEL_9;
-    }
+      v10 = SBLogLibrary(contentVisibility);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 138543618;
+        v13 = reasonCopy;
+        v14 = 2114;
+        v15 = identifierCopy;
+        v11 = "App launch reset timer for reason %{public}@, session identifier %{public}@ -- container view controller is visible and it'd be really bad if we just changed the way the UI looked while they're using it";
+        goto LABEL_9;
+      }
 
 LABEL_10:
 
-    goto LABEL_11;
+      goto LABEL_11;
+    }
   }
 
-  if (![(SBHLibrarySearchController *)self->_containerViewController isActive])
+  isActive = [(SBHLibrarySearchController *)self->_containerViewController isActive];
+  if ((isActive & 1) == 0)
   {
-    v8 = SBLogLibrary();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogLibrary(isActive);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
-      v11 = reasonCopy;
-      v12 = 2114;
-      v13 = identifierCopy;
-      v9 = "App launch won't dismiss search for reason %{public}@, session identifier %{public}@ -- search isn't active, so we can't dismiss something that isn't dismissable";
+      v12 = 138543618;
+      v13 = reasonCopy;
+      v14 = 2114;
+      v15 = identifierCopy;
+      v11 = "App launch won't dismiss search for reason %{public}@, session identifier %{public}@ -- search isn't active, so we can't dismiss something that isn't dismissable";
 LABEL_9:
-      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, v9, &v10, 0x16u);
+      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, v11, &v12, 0x16u);
       goto LABEL_10;
     }
 
@@ -5502,6 +5493,20 @@ LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_credenzaSettings);
 
   return WeakRetained;
+}
+
+- (void)nestingViewController:(uint64_t)a3 animationControllerForOperation:(uint64_t)a4 onViewController:(uint64_t)a5 animated:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1BEB18000, a2, a3, "Forcing cross-fade animation for folder transition for icon: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_setupIconTableViewController:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1BEB18000, a2, a3, "Failing to set up App Library: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

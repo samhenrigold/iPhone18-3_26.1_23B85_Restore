@@ -41,7 +41,7 @@
 
 + (id)fetchOrCreateLocalUserDeviceStateInContext:(id)context error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = [STCoreDevice fetchOrCreateLocalDeviceInContext:contextCopy error:error];
   if (v7)
@@ -80,11 +80,11 @@
           dsid = [(STCoreUser *)firstObject dsid];
           identifier = [v7 identifier];
           *buf = 136446722;
-          v29 = "+[STUserDeviceState fetchOrCreateLocalUserDeviceStateInContext:error:]";
-          v30 = 2112;
-          v31 = dsid;
-          v32 = 2112;
-          v33 = identifier;
+          v28 = "+[STUserDeviceState fetchOrCreateLocalUserDeviceStateInContext:error:]";
+          v29 = 2112;
+          v30 = dsid;
+          v31 = 2112;
+          v32 = identifier;
           _os_log_impl(&dword_1B831F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: Creating UserDeviceState for user: (%@), deviceIdentifier: (%@)", buf, 0x20u);
         }
 
@@ -120,14 +120,12 @@
     v10 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)fetchLocalUserDeviceStateInContext:(id)context error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   fetchRequestMatchingLocalUserDeviceState = [self fetchRequestMatchingLocalUserDeviceState];
   v7 = [fetchRequestMatchingLocalUserDeviceState execute:error];
   v8 = v7;
@@ -154,9 +152,9 @@
     else if (error)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"No local user device state found in the database";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"No local user device state found in the database";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       *error = [v14 errorWithDomain:@"STErrorDomain" code:12 userInfo:v15];
     }
   }
@@ -166,14 +164,12 @@
     firstObject = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)_getCoreDuetIdentifier
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (+[STUserDeviceState isUnitTestRunning])
   {
     v2 = @"testCoreDuetIndentifier";
@@ -181,9 +177,9 @@
 
   else
   {
-    v8 = 0;
-    v2 = [MEMORY[0x1E69DEFE0] getLocalDeviceIdentifierAndReturnError:&v8];
-    v3 = v8;
+    v7 = 0;
+    v2 = [MEMORY[0x1E69DEFE0] getLocalDeviceIdentifierAndReturnError:&v7];
+    v3 = v7;
     v4 = +[STLog usage];
     v5 = v4;
     if (v2)
@@ -191,7 +187,7 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v10 = v2;
+        v9 = v2;
         _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "STUserDeviceState setting coreduetIdentifier %{public}@", buf, 0xCu);
       }
     }
@@ -201,8 +197,6 @@
       +[(STUserDeviceState *)v3];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -242,7 +236,7 @@
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKeyedSubscript:@"capabilitiesPlist"];
   [(STUserDeviceState *)self setCapabilitiesPlist:v5];
@@ -315,14 +309,14 @@
   {
     v25 = [representationCopy objectForKeyedSubscript:@"installedApps"];
     objc_opt_class();
-    v76 = representationCopy;
-    v72 = v14;
-    v73 = v13;
-    v70 = v16;
-    v71 = v15;
-    v68 = device;
-    v69 = v18;
-    v67 = v25;
+    v75 = representationCopy;
+    v71 = v14;
+    v72 = v13;
+    v69 = v16;
+    v70 = v15;
+    v67 = device;
+    v68 = v18;
+    v66 = v25;
     if (objc_opt_isKindOfClass())
     {
       v26 = [MEMORY[0x1E695DFD8] setWithArray:v25];
@@ -338,42 +332,42 @@
     v29 = [installedApps valueForKeyPath:@"bundleIdentifier"];
     v30 = [v29 mutableCopy];
 
-    v74 = v30;
+    v73 = v30;
     v31 = [v30 mutableCopy];
-    v75 = v27;
+    v74 = v27;
     [v31 minusSet:v27];
     installedApps2 = [(STUserDeviceState *)self installedApps];
-    v66 = v31;
+    v65 = v31;
     v33 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K in %@", @"bundleIdentifier", v31];
     v34 = [installedApps2 filteredSetUsingPredicate:v33];
 
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
     v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
     obj = v34;
-    v35 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+    v35 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v88;
+      v37 = *v87;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v88 != v37)
+          if (*v87 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v87 + 1) + 8 * i);
+          v39 = *(*(&v86 + 1) + 8 * i);
           v40 = +[STLog screentime];
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446466;
-            v94 = "[STUserDeviceState updateWithDictionaryRepresentation:]";
-            v95 = 2112;
-            v96 = v39;
+            v93 = "[STUserDeviceState updateWithDictionaryRepresentation:]";
+            v94 = 2112;
+            v95 = v39;
             _os_log_impl(&dword_1B831F000, v40, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting app (%@)", buf, 0x16u);
           }
 
@@ -381,34 +375,34 @@
           [managedObjectContext deleteObject:v39];
         }
 
-        v36 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+        v36 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
       }
 
       while (v36);
     }
 
-    v42 = [v75 mutableCopy];
-    [v42 minusSet:v74];
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
+    v42 = [v74 mutableCopy];
+    [v42 minusSet:v73];
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     v43 = v42;
-    v44 = [v43 countByEnumeratingWithState:&v83 objects:v92 count:16];
+    v44 = [v43 countByEnumeratingWithState:&v82 objects:v91 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v84;
+      v46 = *v83;
       do
       {
         for (j = 0; j != v45; ++j)
         {
-          if (*v84 != v46)
+          if (*v83 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          v48 = *(*(&v83 + 1) + 8 * j);
+          v48 = *(*(&v82 + 1) + 8 * j);
           v49 = [STInstalledApp alloc];
           managedObjectContext2 = [(STUserDeviceState *)self managedObjectContext];
           v51 = [(STInstalledApp *)v49 initWithContext:managedObjectContext2];
@@ -417,35 +411,35 @@
           [(STInstalledApp *)v51 setUserDeviceState:self];
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v83 objects:v92 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v82 objects:v91 count:16];
       }
 
       while (v45);
     }
 
     v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.metadata", @"installedApps"];
-    v53 = [v76 objectForKeyedSubscript:v52];
+    v53 = [v75 objectForKeyedSubscript:v52];
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     installedApps3 = [(STUserDeviceState *)self installedApps];
-    v55 = [installedApps3 countByEnumeratingWithState:&v79 objects:v91 count:16];
+    v55 = [installedApps3 countByEnumeratingWithState:&v78 objects:v90 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v80;
+      v57 = *v79;
       do
       {
         for (k = 0; k != v56; ++k)
         {
-          if (*v80 != v57)
+          if (*v79 != v57)
           {
             objc_enumerationMutation(installedApps3);
           }
 
-          v59 = *(*(&v79 + 1) + 8 * k);
+          v59 = *(*(&v78 + 1) + 8 * k);
           displayName = [v59 displayName];
 
           if (!displayName)
@@ -461,31 +455,30 @@
           }
         }
 
-        v56 = [installedApps3 countByEnumeratingWithState:&v79 objects:v91 count:16];
+        v56 = [installedApps3 countByEnumeratingWithState:&v78 objects:v90 count:16];
       }
 
       while (v56);
     }
 
-    representationCopy = v76;
-    v14 = v72;
-    v13 = v73;
-    v16 = v70;
-    v15 = v71;
-    device = v68;
-    v18 = v69;
+    representationCopy = v75;
+    v14 = v71;
+    v13 = v72;
+    v16 = v69;
+    v15 = v70;
+    device = v67;
+    v18 = v68;
   }
 
-  v64 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)dictionaryRepresentation
 {
-  v62[3] = *MEMORY[0x1E69E9840];
-  v58.receiver = self;
-  v58.super_class = STUserDeviceState;
-  dictionaryRepresentation = [(STUniquedManagedObject *)&v58 dictionaryRepresentation];
+  v61[3] = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = STUserDeviceState;
+  dictionaryRepresentation = [(STUniquedManagedObject *)&v57 dictionaryRepresentation];
   capabilitiesPlist = [(STUserDeviceState *)self capabilitiesPlist];
   [dictionaryRepresentation setObject:capabilitiesPlist forKeyedSubscript:@"capabilitiesPlist"];
 
@@ -537,16 +530,16 @@ LABEL_7:
   }
 
   v16 = objc_alloc(MEMORY[0x1E695DF90]);
-  v61[0] = @"identifier";
+  v60[0] = @"identifier";
   identifier2 = [v13 identifier];
-  v62[0] = identifier2;
-  v61[1] = @"name";
+  v61[0] = identifier2;
+  v60[1] = @"name";
   name = [v13 name];
-  v62[1] = name;
-  v61[2] = @"platform";
+  v61[1] = name;
+  v60[2] = @"platform";
   v19 = [MEMORY[0x1E696AD98] numberWithShort:{objc_msgSend(v13, "platform")}];
-  v62[2] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:3];
+  v61[2] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:3];
   v21 = [v16 initWithDictionary:v20];
 
   if (_os_feature_enabled_impl())
@@ -575,41 +568,41 @@ LABEL_7:
 
   if (dsid)
   {
-    v51 = v21;
-    v52 = v13;
+    v50 = v21;
+    v51 = v13;
     v29 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"self" ascending:1];
     installedApps = [(STUserDeviceState *)self installedApps];
     v31 = [installedApps valueForKeyPath:@"bundleIdentifier"];
 
-    v50 = v29;
-    v60 = v29;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
+    v49 = v29;
+    v59 = v29;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
     v33 = [v31 sortedArrayUsingDescriptors:v32];
-    v53 = dictionaryRepresentation;
+    v52 = dictionaryRepresentation;
     [dictionaryRepresentation setObject:v33 forKeyedSubscript:@"installedApps"];
 
-    v49 = v31;
+    v48 = v31;
     v34 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v31, "count")}];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     installedApps2 = [(STUserDeviceState *)self installedApps];
-    v36 = [installedApps2 countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v36 = [installedApps2 countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v55;
+      v38 = *v54;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v55 != v38)
+          if (*v54 != v38)
           {
             objc_enumerationMutation(installedApps2);
           }
 
-          v40 = *(*(&v54 + 1) + 8 * i);
+          v40 = *(*(&v53 + 1) + 8 * i);
           v41 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
           displayName = [v40 displayName];
           [v41 setObject:displayName forKeyedSubscript:@"displayName"];
@@ -619,30 +612,28 @@ LABEL_7:
           [v34 setObject:v43 forKeyedSubscript:bundleIdentifier];
         }
 
-        v37 = [installedApps2 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v37 = [installedApps2 countByEnumeratingWithState:&v53 objects:v58 count:16];
       }
 
       while (v37);
     }
 
     v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.metadata", @"installedApps"];
-    dictionaryRepresentation = v53;
-    [v53 setObject:v34 forKeyedSubscript:v45];
+    dictionaryRepresentation = v52;
+    [v52 setObject:v34 forKeyedSubscript:v45];
 
-    v21 = v51;
-    v13 = v52;
+    v21 = v50;
+    v13 = v51;
   }
 
   v46 = [dictionaryRepresentation copy];
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v46;
 }
 
 + (id)fetchOrCreateWithDictionaryRepresentation:(id)representation inContext:(id)context error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   representationCopy = representation;
   v10 = [representationCopy objectForKeyedSubscript:@"user"];
@@ -695,17 +686,17 @@ LABEL_12:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         dsid = [v13 dsid];
-        v28 = v21;
+        v27 = v21;
         [v20 identifier];
         *buf = 136446722;
-        v30 = "+[STUserDeviceState fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
-        v31 = 2112;
-        v32 = dsid;
-        v34 = v33 = 2112;
-        v24 = v34;
+        v29 = "+[STUserDeviceState fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
+        v30 = 2112;
+        v31 = dsid;
+        v33 = v32 = 2112;
+        v24 = v33;
         _os_log_impl(&dword_1B831F000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: Creating UserDeviceState for user: (%@), deviceIdentifier: (%@)", buf, 0x20u);
 
-        v21 = v28;
+        v21 = v27;
       }
 
       firstObject = [[STUserDeviceState alloc] initWithContext:contextCopy];
@@ -721,7 +712,6 @@ LABEL_12:
 LABEL_13:
 
 LABEL_14:
-  v25 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -868,7 +858,7 @@ LABEL_9:
 
 - (BOOL)_validateLocalUserDeviceState:(id)state
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   device = [(STUserDeviceState *)self device];
   localDevice = [(STUserDeviceState *)self localDevice];
@@ -877,9 +867,9 @@ LABEL_9:
   if (device != localDevice)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22[0] = @"The local device must match the device of the UserDeviceState.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21[0] = @"The local device must match the device of the UserDeviceState.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = [v8 errorWithDomain:@"STErrorDomain" code:527 userInfo:v9];
     [stateCopy addObject:v10];
   }
@@ -890,30 +880,29 @@ LABEL_9:
   if (user != localUser)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v19 = *v7;
-    v20 = @"The local user must match the user of the UserDeviceState.";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *v7;
+    v19 = @"The local user must match the user of the UserDeviceState.";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v15 = [v13 errorWithDomain:@"STErrorDomain" code:527 userInfo:v14];
     [stateCopy addObject:v15];
   }
 
   v16 = [stateCopy count] == 0;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)_validateNumberOfLocalUserDeviceStates:(id)states
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v4 = +[STUserDeviceState fetchRequest];
   v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != NULL OR %K != NULL", @"localUser", @"localDevice"];
   [v4 setPredicate:v5];
 
-  v17 = 0;
-  v6 = [v4 execute:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [v4 execute:&v16];
+  v7 = v16;
   if (!v6)
   {
     [statesCopy addObject:v7];
@@ -925,9 +914,9 @@ LABEL_9:
   if ([v6 count] >= 2)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"There must be one and only local UserDeviceState.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"There must be one and only local UserDeviceState.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v10 = v8;
     v11 = 529;
 LABEL_8:
@@ -940,9 +929,9 @@ LABEL_8:
   if (![v6 count])
   {
     v13 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @"There must be a local user device state.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @"There must be a local user device state.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v10 = v13;
     v11 = 528;
     goto LABEL_8;
@@ -951,13 +940,12 @@ LABEL_8:
   v12 = 1;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)_validateCoreDuetIdentifier:(id)identifier
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   device = [(STUserDeviceState *)self device];
   platform = [device platform];
@@ -986,71 +974,64 @@ LABEL_8:
   }
 
   v10 = MEMORY[0x1E696ABC0];
-  v16 = *MEMORY[0x1E696A578];
-  v17[0] = @"There must be a CoreDuet identifier for UserDeviceStates.";
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = *MEMORY[0x1E696A578];
+  v16[0] = @"There must be a CoreDuet identifier for UserDeviceStates.";
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v12 = [v10 errorWithDomain:@"STErrorDomain" code:530 userInfo:v11];
   [identifierCopy addObject:v12];
 
   v13 = 0;
 LABEL_9:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (void)_getCoreDuetIdentifier
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "STUserDeviceState failed to fetch coreduetIdentifier %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "STUserDeviceState failed to fetch coreduetIdentifier %{public}@", &v2, 0xCu);
 }
 
 - (void)dictionaryRepresentation
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "[STUserDeviceState dictionaryRepresentation] called when device = nil : %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "[STUserDeviceState dictionaryRepresentation] called when device = nil : %{public}@", &v2, 0xCu);
 }
 
 - (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 136446466;
-  v5 = "[STUserDeviceState validateForUpdate:]";
-  v6 = 2114;
-  v7 = v2;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "%{public}s Built-in CoreData Validation for update on UserDeviceState failed with: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136446466;
+  v4 = "[STUserDeviceState validateForUpdate:]";
+  v5 = 2114;
+  v6 = v2;
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "%{public}s Built-in CoreData Validation for update on UserDeviceState failed with: %{public}@", &v3, 0x16u);
 }
 
 - (void)validateForUpdate:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for update on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for update on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)validateForInsert:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for insert on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for insert on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)validateForDelete:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for delete on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1B831F000, v0, v1, "%{public}s Validate for delete on UserDeviceState failed with error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

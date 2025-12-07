@@ -51,8 +51,8 @@
     return 0;
   }
 
-  [(AVPlannedSegmentConfiguration *)self duration];
-  [equal duration];
+  objc_msgSend_duration(self);
+  objc_msgSend_duration(equal);
   return CMTimeCompare(&time1, &v9) == 0;
 }
 
@@ -64,7 +64,7 @@
   frameCount = [(AVPlannedVideoSegmentConfiguration *)self frameCount];
   if (self)
   {
-    [(AVPlannedSegmentConfiguration *)self duration];
+    objc_msgSend_duration(self);
   }
 
   else

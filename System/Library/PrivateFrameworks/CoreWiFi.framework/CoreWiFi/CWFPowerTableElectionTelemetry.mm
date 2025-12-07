@@ -28,10 +28,10 @@
 
 - (CWFPowerTableElectionTelemetry)init
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = CWFPowerTableElectionTelemetry;
-  v2 = [(CWFPowerTableElectionTelemetry *)&v9 init];
+  v13 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = CWFPowerTableElectionTelemetry;
+  v2 = [(CWFPowerTableElectionTelemetry *)&v8 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AB78]);
@@ -46,18 +46,17 @@
 
   else
   {
-    v8 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v11 = "[CWFPowerTableElectionTelemetry init]";
-      v12 = 1024;
-      v13 = 83;
-      _os_log_impl(&dword_1E0BBF000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:CWFPowerTableElectionTelemetry super init failed", buf, 0x12u);
+      v10 = "[CWFPowerTableElectionTelemetry init]";
+      v11 = 1024;
+      v12 = 83;
+      _os_log_impl(&dword_1E0BBF000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:CWFPowerTableElectionTelemetry super init failed", buf, 0x12u);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -162,16 +161,16 @@
 
 - (void)sendTelemetryAndClear
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136446722;
-    v17 = "[CWFPowerTableElectionTelemetry sendTelemetryAndClear]";
-    v18 = 1024;
-    v19 = 164;
-    v20 = 2080;
-    v21 = "[CWFPowerTableElectionTelemetry sendTelemetryAndClear]";
+    v16 = "[CWFPowerTableElectionTelemetry sendTelemetryAndClear]";
+    v17 = 1024;
+    v18 = 164;
+    v19 = 2080;
+    v20 = "[CWFPowerTableElectionTelemetry sendTelemetryAndClear]";
     _os_log_impl(&dword_1E0BBF000, v3, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: Attempting to send telemetry", buf, 0x1Cu);
   }
 
@@ -210,8 +209,6 @@
 
   finalResultString = self->_finalResultString;
   self->_finalResultString = 0;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

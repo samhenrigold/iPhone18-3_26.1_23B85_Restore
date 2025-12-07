@@ -1,9 +1,70 @@
 @interface GEOImageServiceDiskSpaceProvider
 - (BOOL)_shouldPurgeForUrgency:(int)urgency;
 - (int)minimumUregency;
+- (unint64_t)freePurgableDiskSpace:(unint64_t)space urgency:(int)urgency;
+- (unint64_t)purgableDiskSpaceForUrgency:(int)urgency;
 @end
 
 @implementation GEOImageServiceDiskSpaceProvider
+
+- (unint64_t)freePurgableDiskSpace:(unint64_t)space urgency:(int)urgency
+{
+  v4 = *&urgency;
+  if (![(GEOImageServiceDiskSpaceProvider *)self _shouldPurgeForUrgency:*&urgency])
+  {
+    return 0;
+  }
+
+  v7 = [(GEODaemon *)self->_daemon startServerClassIfNecessary:objc_opt_class()];
+  if (!self->_persistence)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+    {
+      *v12 = 0;
+      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "Assertion failed: _persistence != ((void *)0)", v12, 2u);
+    }
+
+    return 0;
+  }
+
+  v8 = [(GEOImageServiceDiskSpaceProvider *)self purgableDiskSpaceForUrgency:v4];
+  if (v8 >= space)
+  {
+    v9 = v8 - space;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  persistence = self->_persistence;
+
+  return [(GEOImageServicePersistence *)persistence shrinkToSize:v9];
+}
+
+- (unint64_t)purgableDiskSpaceForUrgency:(int)urgency
+{
+  if (![(GEOImageServiceDiskSpaceProvider *)self _shouldPurgeForUrgency:*&urgency])
+  {
+    return 0;
+  }
+
+  v4 = [(GEODaemon *)self->_daemon startServerClassIfNecessary:objc_opt_class()];
+  persistence = self->_persistence;
+  if (!persistence)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+    {
+      *v7 = 0;
+      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "Assertion failed: _persistence != ((void *)0)", v7, 2u);
+    }
+
+    return 0;
+  }
+
+  return [(GEOImageServicePersistence *)persistence calculateFreeableSize];
+}
 
 - (BOOL)_shouldPurgeForUrgency:(int)urgency
 {
@@ -42,7 +103,6 @@ LABEL_2:
 
 - (int)minimumUregency
 {
-  v2 = GeoServicesConfig_ImageServiceSupported[1];
   if (GEOConfigGetBOOL())
   {
     return 3;

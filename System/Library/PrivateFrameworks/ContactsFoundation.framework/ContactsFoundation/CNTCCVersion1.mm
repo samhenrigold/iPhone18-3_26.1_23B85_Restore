@@ -36,10 +36,9 @@ LABEL_8:
 
   if (![(CNTCCVersion1 *)self isUnitTesting])
   {
-    v7 = *MEMORY[0x1E69D5500];
     simulateStatus2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:TCCAccessPreflight()];
-    v8 = [v3 objectForKeyedSubscript:simulateStatus2];
-    integerValue = [v8 integerValue];
+    v7 = [v3 objectForKeyedSubscript:simulateStatus2];
+    integerValue = [v7 integerValue];
 
     goto LABEL_8;
   }
@@ -52,19 +51,17 @@ LABEL_9:
 
 void __57__CNTCCVersion1_checkAuthorizationStatusOfCurrentProcess__block_invoke()
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  v4[0] = &unk_1EF464150;
-  v4[1] = &unk_1EF464180;
-  v5[0] = &unk_1EF464168;
-  v5[1] = &unk_1EF464198;
-  v4[2] = &unk_1EF4641B0;
-  v5[2] = &unk_1EF4641C8;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v4[3] = *MEMORY[0x1E69E9840];
+  v3[0] = &unk_1EF464150;
+  v3[1] = &unk_1EF464180;
+  v4[0] = &unk_1EF464168;
+  v4[1] = &unk_1EF464198;
+  v3[2] = &unk_1EF4641B0;
+  v4[2] = &unk_1EF4641C8;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
   v1 = [v0 copy];
   v2 = checkAuthorizationStatusOfCurrentProcess_cn_once_object_1;
   checkAuthorizationStatusOfCurrentProcess_cn_once_object_1 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)checkAuthorizationStatusOfAuditToken:(id *)token
@@ -84,20 +81,14 @@ void __57__CNTCCVersion1_checkAuthorizationStatusOfCurrentProcess__block_invoke(
     return 3;
   }
 
+  else if (TCCAccessCheckAuditToken())
+  {
+    return 3;
+  }
+
   else
   {
-    v9 = *MEMORY[0x1E69D5500];
-    v10 = *token->var0;
-    v11 = *&token->var0[4];
-    if (TCCAccessCheckAuditToken())
-    {
-      return 3;
-    }
-
-    else
-    {
-      return 1;
-    }
+    return 1;
   }
 }
 
@@ -114,7 +105,7 @@ void __57__CNTCCVersion1_checkAuthorizationStatusOfCurrentProcess__block_invoke(
   {
     if (tokenCopy)
     {
-      [tokenCopy audit_token];
+      objc_msgSend_audit_token(tokenCopy);
       checkAuthorizationStatusOfCurrentProcess = [(CNTCCVersion1 *)self checkAuthorizationStatusOfAuditToken:&v11];
     }
 
@@ -133,13 +124,7 @@ void __57__CNTCCVersion1_checkAuthorizationStatusOfCurrentProcess__block_invoke(
 {
   simulateStatus = [(CNTCCVersion1 *)self simulateStatus];
 
-  if (simulateStatus || [(CNTCCVersion1 *)self isUnitTesting])
-  {
-    return 0;
-  }
-
-  v5 = *MEMORY[0x1E69D5500];
-  return TCCAccessRestricted() != 0;
+  return !simulateStatus && ![(CNTCCVersion1 *)self isUnitTesting]&& TCCAccessRestricted() != 0;
 }
 
 - (void)requestAuthorization:(int64_t)authorization auditToken:(id)token assumedIdentity:(id)identity completionHandler:(id)handler
@@ -160,35 +145,32 @@ void __57__CNTCCVersion1_checkAuthorizationStatusOfCurrentProcess__block_invoke(
 
   else
   {
-    v10 = *MEMORY[0x1E69D5500];
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     TCCAccessRequest();
   }
 }
 
 - (id)authorizationRecords
 {
-  v3 = *MEMORY[0x1E69D5500];
-  v4 = TCCAccessCopyInformation();
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __37__CNTCCVersion1_authorizationRecords__block_invoke;
-  v7[3] = &unk_1E6ED63A0;
-  v7[4] = self;
-  v5 = [v4 _cn_compactMap:v7];
+  v3 = TCCAccessCopyInformation();
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __37__CNTCCVersion1_authorizationRecords__block_invoke;
+  v6[3] = &unk_1E6ED63A0;
+  v6[4] = self;
+  v4 = [v3 _cn_compactMap:v6];
 
-  return v5;
+  return v4;
 }
 
 id __37__CNTCCVersion1_authorizationRecords__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() createAppAuthorizationRecordFromTCCAppInfo:v3 bundleIdentifier:0];
+  v2 = a2;
+  v3 = [objc_opt_class() createAppAuthorizationRecordFromTCCAppInfo:v2 bundleIdentifier:0];
 
-  v5 = off_1EF4401A8(&__block_literal_global_2_2, v4);
+  v4 = off_1EF4401A8(&__block_literal_global_2_2, v3);
 
-  return v5;
+  return v4;
 }
 
 - (id)authorizationRecordForBundleIdentifier:(id)identifier

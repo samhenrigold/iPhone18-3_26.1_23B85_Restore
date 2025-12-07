@@ -80,7 +80,7 @@
     v17 = 1065353216;
     if (sampleUniformWithoutReplace<unsigned long,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(&v15, &self->_domainSize, &bitsCopy, &self->_rng))
     {
-      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v15, &indexCopy);
+      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v15, &indexCopy, &indexCopy);
       v8 = v7;
       std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__erase_unique<unsigned long>(&v15, &indexCopy);
       v9 = uniformRandomProbabilityExcludingOne();
@@ -162,53 +162,51 @@
 
 - (id)randomizeBitValues:(id)values forKey:(id)key
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   keyCopy = key;
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
   [v6 timeIntervalSinceReferenceDate];
   v8 = v7;
 
-  v19 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v18 = [MEMORY[0x277CBEBF8] mutableCopy];
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = valuesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if (([v13 isEqualToNumber:&unk_283975F10] & 1) == 0)
         {
           v14 = [(_DPOHEBitValueRandomizer *)self randomize:v13];
           v15 = -[_DPBitValueRecord initWithKey:clearBitValue:privateBitValueStr:creationDate:submitted:objectId:]([_DPBitValueRecord alloc], "initWithKey:clearBitValue:privateBitValueStr:creationDate:submitted:objectId:", keyCopy, [v13 shortValue], v14, 0, 0, v8);
           if (v15)
           {
-            [v19 addObject:v15];
+            [v18 addObject:v15];
           }
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (id).cxx_construct

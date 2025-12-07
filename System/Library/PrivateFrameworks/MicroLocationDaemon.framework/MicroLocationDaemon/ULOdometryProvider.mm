@@ -15,7 +15,7 @@
 
 - (ULOdometryProvider)initWithQueue:(id)queue odometrySourceType:(int64_t)type delegate:(ULOdometryProviderDelegate *)delegate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -38,14 +38,14 @@
 
     v11 = v10;
     *buf = 138412290;
-    v23 = v11;
+    v22 = v11;
     v12 = v9;
     _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "Odometry using %@", buf, 0xCu);
   }
 
-  v21.receiver = self;
-  v21.super_class = ULOdometryProvider;
-  v13 = [(ULOdometryProvider *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = ULOdometryProvider;
+  v13 = [(ULOdometryProvider *)&v20 init];
   dispatch_assert_queue_V2(queueCopy);
   if (!v13)
   {
@@ -90,7 +90,6 @@ LABEL_17:
 
 LABEL_18:
 
-  v19 = *MEMORY[0x277D85DE8];
   return type;
 }
 
@@ -285,7 +284,7 @@ LABEL_16:
 
 - (void)didReceiveOdometryUpdate:(id)update withError:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   errorCopy = error;
   queue = [(ULOdometryProvider *)self queue];
@@ -326,7 +325,7 @@ LABEL_16:
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = errorCopy;
+      v39 = errorCopy;
       _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "Received error from odometry, trajectory invalid until update, error: %@", buf, 0xCu);
     }
 
@@ -394,15 +393,15 @@ LABEL_16:
       deltaPositionZ = [(ULOdometryProvider *)self deltaPositionZ];
       trajectoryUUID2 = [(ULOdometryProvider *)self trajectoryUUID];
       *buf = 138413314;
-      v40 = v19;
-      v41 = 2112;
-      v42 = deltaPositionX;
-      v43 = 2112;
-      v44 = deltaPositionY;
-      v45 = 2112;
-      v46 = deltaPositionZ;
-      v47 = 2112;
-      v48 = trajectoryUUID2;
+      v39 = v19;
+      v40 = 2112;
+      v41 = deltaPositionX;
+      v42 = 2112;
+      v43 = deltaPositionY;
+      v44 = 2112;
+      v45 = deltaPositionZ;
+      v46 = 2112;
+      v47 = trajectoryUUID2;
       _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_DEFAULT, "#ad-debug sending odometry update with date: %@, deltaX: %@, deltaY: %@, deltaZ: %@, uuid: %@", buf, 0x34u);
     }
 
@@ -421,8 +420,6 @@ LABEL_16:
   }
 
 LABEL_28:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveOdometryProviderStateIsAvailable:(BOOL)available

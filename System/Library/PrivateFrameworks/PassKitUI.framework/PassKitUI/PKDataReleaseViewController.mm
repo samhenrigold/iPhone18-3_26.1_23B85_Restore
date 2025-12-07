@@ -23,7 +23,7 @@
 {
   requestCopy = request;
   swift_unknownObjectRetain();
-  return PKDataReleaseViewController.init(request:delegate:)(requestCopy);
+  return PKDataReleaseViewController.init(request:delegate:)(requestCopy, delegate);
 }
 
 - (_TtC9PassKitUI27PKDataReleaseViewController)initWithCoder:(id)coder
@@ -145,7 +145,7 @@
     v15 = sub_1BE04AAB4();
     [v14 dataReleaseViewController:selfCopy didAuthorizeWithExternalAuthorizationData:v15 dataToRelease:releaseCopy];
 
-    sub_1BD1245AC(v10, v12);
+    sub_1BD1245AC(v10, v12, v16, v17, v18, v19, v20, v21);
 
     swift_unknownObjectRelease();
   }
@@ -153,7 +153,7 @@
   else
   {
 
-    sub_1BD1245AC(v10, v12);
+    sub_1BD1245AC(v10, v12, v22, v23, v24, v25, v26, v27);
   }
 }
 
@@ -162,19 +162,20 @@
   v7 = swift_allocObject();
   *(v7 + 16) = self;
   *(v7 + 24) = error;
-  v14[4] = sub_1BD5BBE68;
-  v14[5] = v7;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 1107296256;
-  v14[2] = sub_1BD126964;
-  v14[3] = &block_descriptor_19_4;
-  v8 = _Block_copy(v14);
+  v22[4] = sub_1BD5BBE68;
+  v23 = v7;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 1107296256;
+  v22[2] = sub_1BD126964;
+  v22[3] = &block_descriptor_19_4;
+  v8 = _Block_copy(v22);
+  v9 = v23;
   selfCopy = self;
   errorCopy = error;
-  v11 = selfCopy;
-  v12 = errorCopy;
+  v12 = selfCopy;
+  v13 = errorCopy;
   controllerCopy = controller;
-
+  v9, v15, v16, v17, v18, v19, v20, v21;
   [controllerCopy dismissViewControllerAnimated:1 completion:v8];
 
   _Block_release(v8);

@@ -26,7 +26,7 @@
   dictionary = self->_dictionary;
   self->_changeType = 2;
   self->_dictionary = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, dictionary);
 }
 
 @end

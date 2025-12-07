@@ -32,7 +32,7 @@
   }
 
   v7 = sub_100461990(monitor, v5, v6);
-  sub_1000245E0(v5);
+  sub_1000245E0(v5, v6);
   return v7;
 }
 
@@ -100,7 +100,7 @@
 
   selfCopy = self;
   sub_10045F674(animated, v6, v7);
-  sub_1000245E0(v6);
+  sub_1000245E0(v6, v7);
 }
 
 - (void)showNotification:(id)notification

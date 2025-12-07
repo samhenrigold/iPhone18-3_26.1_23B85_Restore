@@ -18,7 +18,7 @@
 
 - (BOOL)_addUtteranceHelper:(id)helper toProfile:(id)profile withAnalyzer:(id)analyzer withPreTriggerAudioTime:(double)time withError:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   helperCopy = helper;
   profileCopy = profile;
   analyzerCopy = analyzer;
@@ -33,13 +33,13 @@ LABEL_26:
   }
 
   errorCopy = error;
-  v57 = profileCopy;
+  v56 = profileCopy;
   v14 = 0;
   v15 = 0;
-  v60 = *MEMORY[0x277D01B40];
-  v59 = *MEMORY[0x277D01B48];
+  v59 = *MEMORY[0x277D01B40];
+  v58 = *MEMORY[0x277D01B48];
   v16 = *MEMORY[0x277D01DF8];
-  v58 = helperCopy;
+  v57 = helperCopy;
   while (1)
   {
     inputRecordingSampleByteDepth = [MEMORY[0x277D016E0] inputRecordingSampleByteDepth];
@@ -64,10 +64,10 @@ LABEL_26:
 
     v22 = [v21 mutableCopy];
     deviceProductType = [MEMORY[0x277D018F8] deviceProductType];
-    [v22 setObject:deviceProductType forKeyedSubscript:v60];
+    [v22 setObject:deviceProductType forKeyedSubscript:v59];
 
     deviceProductVersion = [MEMORY[0x277D018F8] deviceProductVersion];
-    [v22 setObject:deviceProductVersion forKeyedSubscript:v59];
+    [v22 setObject:deviceProductVersion forKeyedSubscript:v58];
 
     v25 = [v22 objectForKeyedSubscript:v16];
     if (v25)
@@ -76,7 +76,7 @@ LABEL_26:
       v27 = [v22 objectForKeyedSubscript:v16];
       bOOLValue = [v27 BOOLValue];
 
-      helperCopy = v58;
+      helperCopy = v57;
       if (bOOLValue)
       {
         break;
@@ -98,11 +98,11 @@ LABEL_10:
         LOBYTE(v34) = 0;
         v13 = 0;
         v32 = 0;
-        profileCopy = v57;
+        profileCopy = v56;
         goto LABEL_38;
       }
 
-      profileCopy = v57;
+      profileCopy = v56;
       if (!v15)
       {
         LOBYTE(v34) = 0;
@@ -138,30 +138,30 @@ LABEL_10:
     v43 = 0;
   }
 
-  v61 = [v57 voiceProfileAudioDirPathForSpidType:1];
+  v60 = [v56 voiceProfileAudioDirPathForSpidType:1];
   v44 = [SSRUtils createDirectoryIfDoesNotExist:?];
-  v45 = [v57 voiceProfileAudioDirPathForSpidType:3];
+  v45 = [v56 voiceProfileAudioDirPathForSpidType:3];
   v13 = [SSRUtils createDirectoryIfDoesNotExist:v45];
 
-  if (v40 >= [v58 length])
+  if (v40 >= [v57 length])
   {
-    v40 = [v58 length] - 1;
+    v40 = [v57 length] - 1;
   }
 
-  v46 = [v58 subdataWithRange:{v43, v40 - v43 + 1}];
+  v46 = [v57 subdataWithRange:{v43, v40 - v43 + 1}];
   v47 = [v22 objectForKeyedSubscript:*MEMORY[0x277D01CF8]];
   v48 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v64 = "[SSRVoiceProfileComposer _addUtteranceHelper:toProfile:withAnalyzer:withPreTriggerAudioTime:withError:]";
-    v65 = 2112;
-    v66 = v47;
+    v63 = "[SSRVoiceProfileComposer _addUtteranceHelper:toProfile:withAnalyzer:withPreTriggerAudioTime:withError:]";
+    v64 = 2112;
+    v65 = v47;
     _os_log_debug_impl(&dword_225E12000, v48, OS_LOG_TYPE_DEBUG, "%s SSRVoiceProfileComposor adding phraseId: %@", buf, 0x16u);
   }
 
-  v49 = [SSREnrollmentDataManager saveUtteranceAndMetadata:v46 phId:v47 atDirectory:v61];
-  v50 = [v58 subdataWithRange:{v43, objc_msgSend(v58, "length") - v43}];
+  v49 = [SSREnrollmentDataManager saveUtteranceAndMetadata:v46 phId:v47 atDirectory:v60];
+  v50 = [v57 subdataWithRange:{v43, objc_msgSend(v57, "length") - v43}];
 
   v34 = v49 & [SSREnrollmentDataManager saveUtteranceAndMetadata:v50 phId:v47 atDirectory:v45];
   if (v34)
@@ -188,13 +188,13 @@ LABEL_10:
   if (v51)
   {
     v15 = 0;
-    profileCopy = v57;
-    helperCopy = v58;
+    profileCopy = v56;
+    helperCopy = v57;
     goto LABEL_38;
   }
 
-  profileCopy = v57;
-  helperCopy = v58;
+  profileCopy = v56;
+  helperCopy = v57;
   if (v13)
   {
     v52 = v13;
@@ -220,7 +220,6 @@ LABEL_37:
   v13 = 0;
 LABEL_38:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -320,7 +319,7 @@ LABEL_38:
 
 - (BOOL)addUtterance:(id)utterance toProfile:(id)profile withSecureAsset:(id)asset sessionUtteranceId:(id)id sessionMHUUID:(id)d phId:(unint64_t)phId
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   profileCopy = profile;
   idCopy = id;
@@ -337,23 +336,22 @@ LABEL_38:
     v20 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[SSRVoiceProfileComposer addUtterance:toProfile:withSecureAsset:sessionUtteranceId:sessionMHUUID:phId:]";
-      v25 = 2112;
-      v26 = idCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s utteranceId or mhUUID passed in are nil - utteranceId: %@ mhUUID: %@", &v23, 0x20u);
+      v22 = 136315650;
+      v23 = "[SSRVoiceProfileComposer addUtterance:toProfile:withSecureAsset:sessionUtteranceId:sessionMHUUID:phId:]";
+      v24 = 2112;
+      v25 = idCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s utteranceId or mhUUID passed in are nil - utteranceId: %@ mhUUID: %@", &v22, 0x20u);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)addUtterance:(id)utterance toProfile:(id)profile withAsset:(id)asset sessionUtteranceId:(id)id sessionMHUUID:(id)d phId:(unint64_t)phId
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   profileCopy = profile;
   idCopy = id;
@@ -370,17 +368,16 @@ LABEL_38:
     v20 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315650;
-      v24 = "[SSRVoiceProfileComposer addUtterance:toProfile:withAsset:sessionUtteranceId:sessionMHUUID:phId:]";
-      v25 = 2112;
-      v26 = idCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s utteranceId or mhUUID passed in are nil - utteranceId: %@ mhUUID: %@", &v23, 0x20u);
+      v22 = 136315650;
+      v23 = "[SSRVoiceProfileComposer addUtterance:toProfile:withAsset:sessionUtteranceId:sessionMHUUID:phId:]";
+      v24 = 2112;
+      v25 = idCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s utteranceId or mhUUID passed in are nil - utteranceId: %@ mhUUID: %@", &v22, 0x20u);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -412,7 +409,7 @@ LABEL_38:
 
 - (BOOL)addUtterance:(id)utterance toProfile:(id)profile
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   profileCopy = profile;
   v8 = +[SSRAssetManager sharedManager];
@@ -423,11 +420,11 @@ LABEL_38:
   v12 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315394;
-    v18 = "[SSRVoiceProfileComposer addUtterance:toProfile:]";
-    v19 = 2114;
-    v20 = defaultFallBackAssetForVoiceTrigger;
-    _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s CSVoiceTriggerAsset found: %{public}@", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SSRVoiceProfileComposer addUtterance:toProfile:]";
+    v18 = 2114;
+    v19 = defaultFallBackAssetForVoiceTrigger;
+    _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s CSVoiceTriggerAsset found: %{public}@", &v16, 0x16u);
   }
 
   if (!defaultFallBackAssetForVoiceTrigger)
@@ -435,9 +432,9 @@ LABEL_38:
     v13 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315138;
-      v18 = "[SSRVoiceProfileComposer addUtterance:toProfile:]";
-      _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Cannot find voicetrigger asset from asset manager, let's fallback to asset in the framework", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[SSRVoiceProfileComposer addUtterance:toProfile:]";
+      _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Cannot find voicetrigger asset from asset manager, let's fallback to asset in the framework", &v16, 0xCu);
     }
 
     defaultFallBackAssetForVoiceTrigger = [MEMORY[0x277D015F8] defaultFallBackAssetForVoiceTrigger];
@@ -445,7 +442,6 @@ LABEL_38:
 
   v14 = [(SSRVoiceProfileComposer *)self addUtterance:utteranceCopy toProfile:profileCopy withAsset:defaultFallBackAssetForVoiceTrigger error:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

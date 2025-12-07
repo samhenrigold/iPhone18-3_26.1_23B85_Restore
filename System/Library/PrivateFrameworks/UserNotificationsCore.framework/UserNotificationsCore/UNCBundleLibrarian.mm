@@ -72,33 +72,33 @@
 
 void __59__UNCBundleLibrarian_bootstrapLibraryForBundleIdentifiers___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _queue_loadBundleLibraryIfNeeded];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
     v5 = v3;
     v6 = 0;
-    v7 = *v17;
+    v7 = *v16;
     v8 = MEMORY[0x1E6983368];
     *&v4 = 138543618;
-    v15 = v4;
+    v14 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [*(*(a1 + 32) + 16) objectForKey:{v10, v15, v16}];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [*(*(a1 + 32) + 16) objectForKey:{v10, v14, v15}];
         if (!v11)
         {
           v12 = [MEMORY[0x1E696AFB0] UUID];
@@ -109,10 +109,10 @@ void __59__UNCBundleLibrarian_bootstrapLibraryForBundleIdentifiers___block_invok
           v13 = *v8;
           if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v15;
-            v21 = v10;
-            v22 = 2114;
-            v23 = v11;
+            *buf = v14;
+            v20 = v10;
+            v21 = 2114;
+            v22 = v11;
             _os_log_impl(&dword_1DA7A9000, v13, OS_LOG_TYPE_DEFAULT, "Creating library mapping from %{public}@ to %{public}@", buf, 0x16u);
           }
 
@@ -120,7 +120,7 @@ void __59__UNCBundleLibrarian_bootstrapLibraryForBundleIdentifiers___block_invok
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v5);
@@ -134,72 +134,66 @@ void __59__UNCBundleLibrarian_bootstrapLibraryForBundleIdentifiers___block_invok
   else
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)bundleIdentifierForUniqueIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__3;
+  v18 = __Block_byref_object_dispose__3;
+  v19 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __58__UNCBundleLibrarian_bundleIdentifierForUniqueIdentifier___block_invoke;
   block[3] = &unk_1E85D6F48;
-  v14 = &v15;
+  v13 = &v14;
   block[4] = self;
   v6 = identifierCopy;
-  v13 = v6;
+  v12 = v6;
   dispatch_sync(queue, block);
-  v7 = v16[5];
+  v7 = v15[5];
   if (!v7)
   {
     v8 = *MEMORY[0x1E6983368];
     if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "No bundleID for unique identifier %{public}@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v7 = v15[5];
   }
 
   v9 = v7;
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
 
 uint64_t __58__UNCBundleLibrarian_bundleIdentifierForUniqueIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_bundleIdentifierForUniqueIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_bundleIdentifierForUniqueIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)uniqueIdentifierForBundleIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__3;
+  v18 = __Block_byref_object_dispose__3;
+  v19 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -207,34 +201,33 @@ uint64_t __58__UNCBundleLibrarian_bundleIdentifierForUniqueIdentifier___block_in
   block[3] = &unk_1E85D7290;
   block[4] = self;
   v6 = identifierCopy;
-  v13 = v6;
-  v14 = &v15;
+  v12 = v6;
+  v13 = &v14;
   dispatch_sync(queue, block);
-  v7 = v16[5];
+  v7 = v15[5];
   if (!v7)
   {
     v8 = *MEMORY[0x1E6983368];
     if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "No unique identifier for bundleID %{public}@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v7 = v15[5];
   }
 
   v9 = v7;
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
 
 void __58__UNCBundleLibrarian_uniqueIdentifierForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _queue_bundleIdentifierForUniqueIdentifier:*(a1 + 40)];
 
   if (v2)
@@ -243,26 +236,20 @@ void __58__UNCBundleLibrarian_uniqueIdentifierForBundleIdentifier___block_invoke
     if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
-      v13 = 138543362;
-      v14 = v4;
-      _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "Unique identifier provided when requesting unique identifer for bundle identifier (%{public}@)", &v13, 0xCu);
+      v8 = 138543362;
+      v9 = v4;
+      _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "Unique identifier provided when requesting unique identifer for bundle identifier (%{public}@)", &v8, 0xCu);
     }
 
     v5 = [*(a1 + 40) copy];
     v6 = *(*(a1 + 48) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v9 = [*(a1 + 32) _queue_uniqueIdentifierForBundleIdentifier:*(a1 + 40)];
-    v10 = *(*(a1 + 48) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
-    v12 = *MEMORY[0x1E69E9840];
+    *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_uniqueIdentifierForBundleIdentifier:*(a1 + 40)];
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -284,19 +271,17 @@ void __58__UNCBundleLibrarian_uniqueIdentifierForBundleIdentifier___block_invoke
 
 uint64_t __55__UNCBundleLibrarian_removeMappingForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "Removing library mapping for %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "Removing library mapping for %{public}@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _queue_removeEntryForBundleIdentifier:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _queue_removeEntryForBundleIdentifier:*(a1 + 32)];
 }
 
 - (void)migrateLibraryFromDirectory:(id)directory toDirectory:(id)toDirectory
@@ -318,7 +303,7 @@ uint64_t __55__UNCBundleLibrarian_removeMappingForBundleIdentifier___block_invok
 
 void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   if ([v2 fileExistsAtPath:*(*(a1 + 32) + 8)])
   {
@@ -327,7 +312,7 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
     {
       v4 = *(*(a1 + 32) + 8);
       *buf = 138543362;
-      v25 = v4;
+      v24 = v4;
       _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "Library exists at %{public}@", buf, 0xCu);
     }
   }
@@ -347,37 +332,37 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
       if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v25 = v6;
+        v24 = v6;
         _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "Migrate library from %{public}@", buf, 0xCu);
       }
 
       v11 = [MEMORY[0x1E696AC08] defaultManager];
       v12 = *(*(a1 + 32) + 8);
-      v23 = 0;
-      v13 = [v11 moveItemAtPath:v6 toPath:v12 error:&v23];
-      v14 = v23;
+      v22 = 0;
+      v13 = [v11 moveItemAtPath:v6 toPath:v12 error:&v22];
+      v14 = v22;
 
       if ((v13 & 1) == 0)
       {
         v15 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
         {
-          v21 = *(*(a1 + 32) + 8);
+          v20 = *(*(a1 + 32) + 8);
           *buf = 138543874;
-          v25 = v6;
-          v26 = 2114;
-          v27 = v21;
-          v28 = 2114;
-          v29 = v14;
+          v24 = v6;
+          v25 = 2114;
+          v26 = v20;
+          v27 = 2114;
+          v28 = v14;
           _os_log_error_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_ERROR, "Could not move %{public}@ to %{public}@ as a part of library migration error: %{public}@", buf, 0x20u);
         }
       }
 
       v16 = [MEMORY[0x1E696AC08] defaultManager];
       v17 = *(a1 + 40);
-      v22 = 0;
-      v18 = [v16 removeItemAtPath:v17 error:&v22];
-      v19 = v22;
+      v21 = 0;
+      v18 = [v16 removeItemAtPath:v17 error:&v21];
+      v19 = v21;
 
       if ((v18 & 1) == 0 && os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
       {
@@ -393,46 +378,44 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
       [*(a1 + 32) _queue_migrateBundleDirectoriesInDirectory:*(a1 + 48)];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_removeUnknownDirectoriesFromLibrary
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [(UNCBundleLibrarian *)self _queue_loadBundleLibraryIfNeeded];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   allKeys = [(NSMutableDictionary *)self->_bundleToUUIDMap allKeys];
   v4 = [allKeys copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     v9 = MEMORY[0x1E6983368];
     *&v6 = 138543362;
-    v14 = v6;
+    v13 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([(UNCBundleLibrarian *)self _isUUIDString:v11, v14])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([(UNCBundleLibrarian *)self _isUUIDString:v11, v13])
         {
           v12 = *v9;
           if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
           {
-            *buf = v14;
-            v20 = v11;
+            *buf = v13;
+            v19 = v11;
             _os_log_error_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_ERROR, "Removing invalid library mapping for %{public}@", buf, 0xCu);
           }
 
@@ -440,43 +423,41 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_removeUnknownDirectoriesInDirectory:(id)directory
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   [(UNCBundleLibrarian *)self _queue_loadBundleLibraryIfNeeded];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v24 = directoryCopy;
+  v23 = directoryCopy;
   v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:0];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         v11 = [(NSMutableDictionary *)self->_uuidToBundleMap objectForKey:v10];
         if (v11)
         {
@@ -485,11 +466,11 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
 
         if ([(UNCBundleLibrarian *)self _isUUIDString:v10])
         {
-          v11 = [v24 stringByAppendingPathComponent:v10];
-          v26 = 0;
+          v11 = [v23 stringByAppendingPathComponent:v10];
+          v25 = 0;
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-          v13 = [defaultManager2 fileExistsAtPath:v11 isDirectory:&v26];
-          v14 = v26;
+          v13 = [defaultManager2 fileExistsAtPath:v11 isDirectory:&v25];
+          v14 = v25;
 
           if (v13 && (v14 & 1) != 0)
           {
@@ -497,15 +478,15 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
             if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v32 = v11;
+              v31 = v11;
               _os_log_error_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_ERROR, "Removing %{public}@ as it is a stale notification source", buf, 0xCu);
             }
 
-            v16 = [v24 stringByAppendingPathComponent:v10];
+            v16 = [v23 stringByAppendingPathComponent:v10];
             defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-            v25 = 0;
-            v18 = [defaultManager3 removeItemAtPath:v16 error:&v25];
-            v19 = v25;
+            v24 = 0;
+            v18 = [defaultManager3 removeItemAtPath:v16 error:&v24];
+            v19 = v24;
 
             if ((v18 & 1) == 0)
             {
@@ -513,9 +494,9 @@ void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_in
               if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v32 = v11;
-                v33 = 2114;
-                v34 = v19;
+                v31 = v11;
+                v32 = 2114;
+                v33 = v19;
                 _os_log_error_impl(&dword_1DA7A9000, v20, OS_LOG_TYPE_ERROR, "Could not remove %{public}@ in cleanup after library migration error: %{public}@", buf, 0x16u);
               }
             }
@@ -528,53 +509,51 @@ LABEL_7:
       }
 
       while (v7 != v9);
-      v21 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v21 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
       v7 = v21;
     }
 
     while (v21);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_migrateBundleDirectoriesInDirectory:(id)directory
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   v5 = MEMORY[0x1E6983368];
   v6 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v45 = directoryCopy;
+    v44 = directoryCopy;
     _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "Migrate library from bundle directory struction %{public}@", buf, 0xCu);
   }
 
   [(UNCBundleLibrarian *)self _queue_loadBundleLibraryIfNeeded];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   [defaultManager contentsOfDirectoryAtPath:directoryCopy error:0];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  obj = v43 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
+  obj = v42 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v41;
-    v34 = directoryCopy;
-    v35 = *v41;
+    v9 = *v40;
+    v33 = directoryCopy;
+    v34 = *v40;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v40 + 1) + 8 * i);
+        v11 = *(*(&v39 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_uuidToBundleMap objectForKey:v11];
         if (v12)
         {
@@ -583,18 +562,18 @@ LABEL_7:
           if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v45 = v11;
+            v44 = v11;
             _os_log_impl(&dword_1DA7A9000, v14, OS_LOG_TYPE_DEFAULT, "Do not migrate directory %{public}@", buf, 0xCu);
           }
         }
 
         else
         {
-          v39 = 0;
+          v38 = 0;
           v15 = [directoryCopy stringByAppendingPathComponent:v11];
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-          v17 = [defaultManager2 fileExistsAtPath:v15 isDirectory:&v39];
-          v18 = v39;
+          v17 = [defaultManager2 fileExistsAtPath:v15 isDirectory:&v38];
+          v18 = v38;
 
           if (v17 && (v18 & 1) != 0)
           {
@@ -604,14 +583,14 @@ LABEL_7:
               if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v45 = v15;
+                v44 = v15;
                 _os_log_error_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_ERROR, "Removing %{public}@ as it is a stale notification source", buf, 0xCu);
               }
 
               defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-              v38 = 0;
-              v21 = [defaultManager3 removeItemAtPath:v15 error:&v38];
-              v22 = v38;
+              v37 = 0;
+              v21 = [defaultManager3 removeItemAtPath:v15 error:&v37];
+              v22 = v37;
 
               if ((v21 & 1) == 0)
               {
@@ -619,9 +598,9 @@ LABEL_7:
                 if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543618;
-                  v45 = v15;
-                  v46 = 2114;
-                  v47 = v22;
+                  v44 = v15;
+                  v45 = 2114;
+                  v46 = v22;
                   _os_log_error_impl(&dword_1DA7A9000, v23, OS_LOG_TYPE_ERROR, "Could not remove %{public}@ in cleanup after library migration error: %{public}@", buf, 0x16u);
                 }
               }
@@ -637,17 +616,17 @@ LABEL_7:
               if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v45 = v13;
-                v46 = 2114;
-                v47 = v25;
+                v44 = v13;
+                v45 = 2114;
+                v46 = v25;
                 _os_log_impl(&dword_1DA7A9000, v26, OS_LOG_TYPE_DEFAULT, "Migrate directory from %{public}@ to %{public}@", buf, 0x16u);
               }
 
               v27 = [directoryCopy stringByAppendingPathComponent:v25];
               defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-              v37 = 0;
-              v29 = [defaultManager4 moveItemAtPath:v15 toPath:v27 error:&v37];
-              v30 = v37;
+              v36 = 0;
+              v29 = [defaultManager4 moveItemAtPath:v15 toPath:v27 error:&v36];
+              v30 = v36;
 
               if ((v29 & 1) == 0)
               {
@@ -655,16 +634,16 @@ LABEL_7:
                 if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543874;
-                  v45 = v15;
-                  v46 = 2114;
-                  v47 = v27;
-                  v48 = 2114;
-                  v49 = v30;
+                  v44 = v15;
+                  v45 = 2114;
+                  v46 = v27;
+                  v47 = 2114;
+                  v48 = v30;
                   _os_log_error_impl(&dword_1DA7A9000, v31, OS_LOG_TYPE_ERROR, "Could not move %{public}@ to %{public}@ as a part of library migration error: %{public}@", buf, 0x20u);
                 }
               }
 
-              directoryCopy = v34;
+              directoryCopy = v33;
             }
 
             v5 = MEMORY[0x1E6983368];
@@ -676,24 +655,22 @@ LABEL_7:
             if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v45 = v11;
+              v44 = v11;
               _os_log_impl(&dword_1DA7A9000, v24, OS_LOG_TYPE_DEFAULT, "Do not migrate file %{public}@", buf, 0xCu);
             }
 
             v13 = 0;
           }
 
-          v9 = v35;
+          v9 = v34;
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v8 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v8);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeBundleLibrary
@@ -736,7 +713,7 @@ void __42__UNCBundleLibrarian__removeBundleLibrary__block_invoke(uint64_t a1)
 
 - (id)_queue_uniqueIdentifierForBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [(UNCBundleLibrarian *)self _queue_loadBundleLibraryIfNeeded];
   v5 = [(NSMutableDictionary *)self->_bundleToUUIDMap objectForKey:identifierCopy];
@@ -749,17 +726,15 @@ void __42__UNCBundleLibrarian__removeBundleLibrary__block_invoke(uint64_t a1)
     v8 = *MEMORY[0x1E6983368];
     if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = identifierCopy;
-      v13 = 2114;
-      v14 = uUIDString;
-      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "No unique identifier for bundleID %{public}@ found; adding a mapping to %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = identifierCopy;
+      v12 = 2114;
+      v13 = uUIDString;
+      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "No unique identifier for bundleID %{public}@ found; adding a mapping to %{public}@", &v10, 0x16u);
     }
 
     [(UNCBundleLibrarian *)self _queue_addEntryForBundleIdentifier:identifierCopy uniqueIdentifier:uUIDString];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }
@@ -878,7 +853,7 @@ LABEL_8:
 
 - (BOOL)_queue_saveDictionary:(id)dictionary atPath:(id)path
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pathCopy = path;
   v7 = MEMORY[0x1E6983368];
@@ -887,9 +862,9 @@ LABEL_8:
   {
     v9 = v8;
     *buf = 138543618;
-    v26 = pathCopy;
-    v27 = 2048;
-    v28 = [dictionaryCopy count];
+    v25 = pathCopy;
+    v26 = 2048;
+    v27 = [dictionaryCopy count];
     _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Saving file at %{public}@ with %lu items", buf, 0x16u);
   }
 
@@ -897,24 +872,24 @@ LABEL_8:
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) == 0)
   {
-    v24 = 0;
-    v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
-    v13 = v24;
+    v23 = 0;
+    v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v23];
+    v13 = v23;
     if ((v12 & 1) == 0 && os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       [UNCBundleLibrarian _queue_saveDictionary:atPath:];
     }
   }
 
-  v23 = 0;
-  v14 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v22];
+  v15 = v22;
   v16 = v15;
   if (v14)
   {
-    v22 = v15;
-    v17 = [v14 writeToFile:pathCopy options:268435457 error:&v22];
-    v18 = v22;
+    v21 = v15;
+    v17 = [v14 writeToFile:pathCopy options:268435457 error:&v21];
+    v18 = v21;
 
     if (v17)
     {
@@ -944,7 +919,6 @@ LABEL_8:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -959,105 +933,67 @@ LABEL_8:
 
 void __62__UNCBundleLibrarian_migrateLibraryFromDirectory_toDirectory___block_invoke_cold_1(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_2_0();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v1, v2, "Could not remove %{public}@ in cleanup after library migration error: %{public}@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v1, v2, "Could not remove %{public}@ in cleanup after library migration error: %{public}@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 void __42__UNCBundleLibrarian__removeBundleLibrary__block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(*a1 + 8);
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(*a1 + 8);
   OUTLINED_FUNCTION_2_0();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v1, v2, "Could not remove bundle library at %{public}@; error: %{public}@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v1, v2, "Could not remove bundle library at %{public}@; error: %{public}@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 - (void)_queue_dictionaryAtPath:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543618;
-    v7 = a2;
+    v5 = 138543618;
+    v6 = a2;
     OUTLINED_FUNCTION_2_0();
-    v8 = v3;
-    _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v6, 0x16u);
+    v7 = v3;
+    _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v5, 0x16u);
   }
 
   objc_end_catch();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_dictionaryAtPath:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_0_1();
-  v9 = a3;
+  v8 = a3;
   v6 = v5;
-  _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Unexpected class %{public}@ decocded at %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_dataAtPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "No data found at %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_saveDictionary:atPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not create directory at %{public}@; error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Unexpected class %{public}@ decocded at %{public}@", v7, 0x16u);
 }
 
 - (void)_queue_saveDictionary:(uint64_t)a3 atPath:.cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = objc_begin_catch(a1);
   v5 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543618;
-    v8 = a3;
+    v6 = 138543618;
+    v7 = a3;
     OUTLINED_FUNCTION_2_0();
-    v9 = v4;
-    _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Unable to archive objects at %{public}@: %{public}@", &v7, 0x16u);
+    v8 = v4;
+    _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Unable to archive objects at %{public}@: %{public}@", &v6, 0x16u);
   }
 
   objc_end_catch();
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_saveDictionary:atPath:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not write objects to %{public}@; error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_queue_saveDictionary:atPath:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not encode object data at %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,13 +1,13 @@
 @interface UIImage(AMSUICommonImage)
 - (id)ams_imageCroppedTo:()AMSUICommonImage;
 - (id)ams_imageWithRenderingMode:()AMSUICommonImage;
-- (uint64_t)ams_aspectRatio;
 - (uint64_t)ams_imageScaledTo:()AMSUICommonImage;
+- (void)ams_aspectRatio;
 @end
 
 @implementation UIImage(AMSUICommonImage)
 
-- (uint64_t)ams_aspectRatio
+- (void)ams_aspectRatio
 {
   result = [self size];
   if (v3 != 0.0)

@@ -178,7 +178,6 @@ void __40__MOContextPersistenceManager_loadStore__block_invoke(uint64_t a1, uint
 void __44__MOContextPersistenceManager_performBlock___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -201,7 +200,6 @@ void __44__MOContextPersistenceManager_performBlock___block_invoke(uint64_t a1)
 void __51__MOContextPersistenceManager_performBlockAndWait___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -329,25 +327,7 @@ uint64_t __69__MOContextPersistenceManager_currentManagedObjectModelWithClientID
     v8 = [v7 stringByAppendingPathComponent:@"personalizedSensing"];
     v9 = [v8 stringByAppendingPathComponent:suffixCopy];
 
-    if (!v9)
-    {
-      goto LABEL_8;
-    }
-
-    v10 = +[NSFileManager defaultManager];
-    v11 = [v10 fileExistsAtPath:v9];
-
-    if (v11)
-    {
-      goto LABEL_8;
-    }
-
-    v12 = +[NSFileManager defaultManager];
-    v18 = 0;
-    v13 = [v12 createDirectoryAtPath:v9 withIntermediateDirectories:1 attributes:0 error:&v18];
-    v14 = v18;
-
-    if (!v13 || v14)
+    if (v9 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 fileExistsAtPath:v9], v10, (v11 & 1) == 0) && ((+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v12 = objc_claimAutoreleasedReturnValue(), v18 = 0, v13 = objc_msgSend(v12, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v9, 1, 0, &v18), v14 = v18, v12, !v13) || v14))
     {
       v17 = _mo_log_facility_get_os_log(&MOLogFacilityContextPersistence);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -360,7 +340,6 @@ uint64_t __69__MOContextPersistenceManager_currentManagedObjectModelWithClientID
 
     else
     {
-LABEL_8:
       v15 = v9;
     }
   }
@@ -569,6 +548,13 @@ LABEL_9:
   }
 
   return v12;
+}
+
+- (void)initWithClientID:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_3(&_mh_execute_header, a2, a3, "set up context, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)storeDirectoryPathWithSuffix:.cold.1()

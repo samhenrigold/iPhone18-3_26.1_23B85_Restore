@@ -108,7 +108,7 @@
   *(self + 7) = v4;
   *(self + 8) = v5;
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (BOOL)isHiddenActivityType:(id)type
@@ -132,8 +132,7 @@
 - (id)mostRecentOccurrenceDateForActivityType:(id)type
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = &v15 - v6;
   typeCopy = type;
 
@@ -155,34 +154,31 @@
 
 - (void)registerWorkoutOccurrenceWithActivityType:(id)type goal:(id)goal date:(id)date
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v19[-v9];
-  v11 = type metadata accessor for Date();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v19[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v17[-v8];
+  v10 = type metadata accessor for Date();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v17[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = objc_opt_self();
+  v15 = objc_opt_self();
   typeCopy = type;
 
-  if ([v16 isRunningInStoreDemoMode])
+  if ([v15 isRunningInStoreDemoMode])
   {
 
-    (*(v12 + 8))(v15, v11);
+    (*(v11 + 8))(v14, v10);
   }
 
   else
   {
-    v18 = *(self + 2);
-    (*(v12 + 16))(v10, v15, v11);
-    (*(v12 + 56))(v10, 0, 1, v11);
-    ActivityPickerListStore.addActivityType(_:date:)(typeCopy, v10);
+    (*(v11 + 16))(v9, v14, v10);
+    (*(v11 + 56))(v9, 0, 1, v10);
+    ActivityPickerListStore.addActivityType(_:date:)(typeCopy, v9);
 
-    _s10Foundation4DateVSgWOhTm_9(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-    (*(v12 + 8))(v15, v11);
+    _s10Foundation4DateVSgWOhTm_9(v9, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    (*(v11 + 8))(v14, v10);
   }
 }
 
@@ -198,9 +194,10 @@
 - (int64_t)inferLocationTypeForActivityTypeIdentifier:(unint64_t)identifier
 {
 
-  v4 = CompoundActivityTypeProvider.inferLocationType(for:)(identifier);
+  CompoundActivityTypeProvider.inferLocationType(for:)(identifier);
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 @end

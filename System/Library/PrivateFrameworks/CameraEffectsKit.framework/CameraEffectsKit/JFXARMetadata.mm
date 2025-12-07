@@ -5,9 +5,9 @@
 - (JFXARMetadata)initWithCoder:(id)coder;
 - (double)initWithAnchorTransform:(__n128)transform cameraTransform:(__n128)cameraTransform cameraIntrinsics:(__n128)intrinsics cameraImageResolution:(__n128)resolution;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)initWithFaceAnchor:(__n128)anchor cameraIntrinsics:(__n128)intrinsics;
 - (uint64_t)cameraProjectionForOutputSize:(float64_t)size interfaceOrientation:(double)orientation zNear:(double)near zFar:(uint64_t)far;
 - (uint64_t)cameraTransformForInterfaceOrientation:(uint64_t)orientation;
-- (uint64_t)initWithFaceAnchor:(__n128)anchor cameraIntrinsics:(__n128)intrinsics;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -168,7 +168,7 @@ LABEL_14:
 {
   v31.receiver = self;
   v31.super_class = JFXARMetadata;
-  v21 = [(JFXARMetadata *)&v31 init];
+  v21 = [(JFXARMetadata *)&v31 init:a11];
   if (v21)
   {
     result = a21;
@@ -197,13 +197,13 @@ LABEL_14:
   anchorCopy = anchor;
   anchors = [frameCopy anchors];
   firstObject = [anchors firstObject];
-  [firstObject transform];
+  objc_msgSend_transform(firstObject);
   v38 = v12;
   v39 = v11;
   v36 = v14;
   v37 = v13;
   camera = [frameCopy camera];
-  [camera transform];
+  objc_msgSend_transform(camera);
   v34 = v17;
   v35 = v16;
   v32 = v19;
@@ -227,10 +227,10 @@ LABEL_14:
   return v27;
 }
 
-- (uint64_t)initWithFaceAnchor:(__n128)anchor cameraIntrinsics:(__n128)intrinsics
+- (id)initWithFaceAnchor:(__n128)anchor cameraIntrinsics:(__n128)intrinsics
 {
   v8 = a6;
-  [v8 transform];
+  objc_msgSend_transform(v8);
   v28 = v10;
   v29 = v9;
   v27 = v11;

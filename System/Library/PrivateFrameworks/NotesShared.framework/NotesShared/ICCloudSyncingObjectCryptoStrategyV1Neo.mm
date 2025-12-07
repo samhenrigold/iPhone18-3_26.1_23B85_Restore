@@ -2217,7 +2217,7 @@ void __62__ICCloudSyncingObjectCryptoStrategyV1Neo_encryptSidecarData___block_in
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Saving encrypted values JSON… {object: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Saving encrypted values JSON… {object: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __60__ICCloudSyncingObjectCryptoStrategyV1Neo_saveEncryptedJSON__block_invoke_cold_2(void *a1)
@@ -2329,7 +2329,7 @@ void __65__ICCloudSyncingObjectCryptoStrategyV1Neo_isRecordAuthenticated___block
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Merging encrypted data from record… {object: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Merging encrypted data from record… {object: %@}%s:%d", v5, v6, v7, v8);
 }
 
 @end

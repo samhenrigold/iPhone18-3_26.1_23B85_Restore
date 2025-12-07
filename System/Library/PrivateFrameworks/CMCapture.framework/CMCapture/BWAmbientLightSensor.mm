@@ -10,7 +10,7 @@
 
 void __28__BWAmbientLightSensor_init__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  if ([a2 isEqualToString:@"RLuxOutput"])
+  if (objc_msgSend_isEqualToString_(a2, a2, @"RLuxOutput"))
   {
     v5 = [*(a1 + 32) referencedObject];
 

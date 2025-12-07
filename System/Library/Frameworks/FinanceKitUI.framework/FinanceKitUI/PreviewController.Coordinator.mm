@@ -45,11 +45,9 @@
   }
 
   v3 = self + OBJC_IVAR____TtCV12FinanceKitUI17PreviewController11Coordinator_parent;
-  v4 = &v3[*(type metadata accessor for PreviewController(0) + 20)];
-  v6 = *v4;
-  v5 = *(v4 + 1);
+  v4 = *&v3[*(type metadata accessor for PreviewController(0) + 20)];
 
-  v6(v7);
+  v4(v5);
 }
 
 @end

@@ -189,7 +189,7 @@ void __52__RERelevanceSignalUpdateScheduler__rescheduleTimer__block_invoke(uint6
   }
 }
 
-uint64_t __52__RERelevanceSignalUpdateScheduler__rescheduleTimer__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__52__RERelevanceSignalUpdateScheduler__rescheduleTimer__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {

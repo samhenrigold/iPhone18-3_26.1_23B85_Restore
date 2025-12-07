@@ -520,9 +520,9 @@ LABEL_64:
 - (VKVectorOverlayPolylineGroup)initWithPolylines:(id)polylines
 {
   polylinesCopy = polylines;
-  v9.receiver = self;
-  v9.super_class = VKVectorOverlayPolylineGroup;
-  v5 = [(VKVectorOverlayData *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = VKVectorOverlayPolylineGroup;
+  v5 = [(VKVectorOverlayData *)&v10 init];
   if (v5)
   {
     v6 = [polylinesCopy copy];
@@ -532,7 +532,7 @@ LABEL_64:
     v5->_miterLimit = 10.0;
     v5->_strokeStart = 0.0;
     v5->_strokeEnd = 1.0;
-    _ZNSt3__115allocate_sharedB8nn200100IN2md20PolylineOverlayStyleENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2md20PolylineOverlayStyleENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v9);
   }
 
   return 0;

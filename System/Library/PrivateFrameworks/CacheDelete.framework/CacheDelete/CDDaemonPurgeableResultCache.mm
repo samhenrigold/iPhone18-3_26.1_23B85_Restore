@@ -477,7 +477,7 @@ void __73__CDDaemonPurgeableResultCache_updateRecentInfoForServiceID_volume_info
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v90 = v2;
+      v88 = v2;
       _os_log_error_impl(&_mh_execute_header, obj, OS_LOG_TYPE_ERROR, "parameter error (volume). mInfo: %@", buf, 0xCu);
     }
 
@@ -498,17 +498,17 @@ void __73__CDDaemonPurgeableResultCache_updateRecentInfoForServiceID_volume_info
   }
 
   v11 = v9;
-  v77 = v7;
-  v76 = v4;
+  v75 = v7;
+  v74 = v4;
   if (!v5)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v103 = &off_100065608;
-      v104 = v6;
-      v12 = &v104;
-      v13 = &v103;
+      v101 = &off_100065608;
+      v102 = v6;
+      v12 = &v102;
+      v13 = &v101;
 LABEL_14:
       v14 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1];
       goto LABEL_26;
@@ -521,10 +521,10 @@ LABEL_14:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v101 = v5;
-      v102 = v6;
-      v12 = &v102;
-      v13 = &v101;
+      v99 = v5;
+      v100 = v6;
+      v12 = &v100;
+      v13 = &v99;
       goto LABEL_14;
     }
   }
@@ -532,44 +532,43 @@ LABEL_14:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v26 = [*(a1 + 48) recentPurgeableResults];
-    v27 = *(a1 + 56);
-    v28 = [*(a1 + 40) mountPoint];
-    [v26 removeServiceInfo:v27 forVolume:v28];
+    v24 = [*(a1 + 48) recentPurgeableResults];
+    v25 = *(a1 + 56);
+    v26 = [*(a1 + 40) mountPoint];
+    [v24 removeServiceInfo:v25 forVolume:v26];
 
-    v25 = 0;
+    v23 = 0;
     goto LABEL_28;
   }
 
-  v87 = 0u;
-  v88 = 0u;
   v85 = 0u;
   v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = v6;
-  v15 = [obj countByEnumeratingWithState:&v85 objects:v100 count:16];
+  v15 = [obj countByEnumeratingWithState:&v83 objects:v98 count:16];
   if (!v15)
   {
     goto LABEL_25;
   }
 
   v16 = v15;
-  v17 = *v86;
+  v17 = *v84;
   while (2)
   {
     for (i = 0; i != v16; i = i + 1)
     {
-      if (*v86 != v17)
+      if (*v84 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v85 + 1) + 8 * i);
-      v20 = v8[251];
+      v19 = *(*(&v83 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v59 = CDGetLogHandle();
-        if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v57 = CDGetLogHandle();
+        if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
 LABEL_58:
 
@@ -578,38 +577,37 @@ LABEL_58:
         }
 
         *buf = 138412290;
-        v90 = obj;
-        v60 = "bad key in amounts dictionary: %@";
+        v88 = obj;
+        v58 = "bad key in amounts dictionary: %@";
 LABEL_70:
-        _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, v60, buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, v58, buf, 0xCu);
         goto LABEL_58;
       }
 
-      v21 = [obj objectForKeyedSubscript:v19];
-      v22 = v8;
-      v23 = v8[251];
+      v20 = [obj objectForKeyedSubscript:v19];
+      v21 = v8;
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if ((isKindOfClass & 1) == 0)
       {
-        v59 = CDGetLogHandle();
-        if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v57 = CDGetLogHandle();
+        if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_58;
         }
 
         *buf = 138412290;
-        v90 = obj;
-        v60 = "bad value in amounts dictionary: %@";
+        v88 = obj;
+        v58 = "bad value in amounts dictionary: %@";
         goto LABEL_70;
       }
 
-      v8 = v22;
+      v8 = v21;
     }
 
-    v16 = [obj countByEnumeratingWithState:&v85 objects:v100 count:16];
-    v4 = v76;
+    v16 = [obj countByEnumeratingWithState:&v83 objects:v98 count:16];
+    v4 = v74;
     if (v16)
     {
       continue;
@@ -622,185 +620,185 @@ LABEL_25:
 
   v14 = obj;
 LABEL_26:
-  v25 = v14;
+  v23 = v14;
 LABEL_28:
   obj = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_ITEMIZED_NONPURGEABLE"];
   if (!obj)
   {
-    v29 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_NONPURGEABLE_AMOUNT"];
+    v27 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_NONPURGEABLE_AMOUNT"];
     obj = evaluateNumberProperty();
   }
 
-  v74 = v5;
-  v30 = CDGetLogHandle();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  v72 = v5;
+  v28 = CDGetLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    v70 = *(a1 + 56);
-    v71 = *(a1 + 40);
+    v68 = *(a1 + 56);
+    v69 = *(a1 + 40);
     *buf = 138412802;
-    v90 = v70;
+    v88 = v68;
+    v89 = 2112;
+    v90 = v69;
     v91 = 2112;
-    v92 = v71;
-    v93 = 2112;
-    v94 = v25;
-    _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Updating cache for service: %@, volume: %@, amounts: %@", buf, 0x20u);
+    v92 = v23;
+    _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "Updating cache for service: %@, volume: %@, amounts: %@", buf, 0x20u);
   }
 
-  v73 = v6;
-  v75 = v2;
+  v71 = v6;
+  v73 = v2;
 
-  v83 = 0u;
-  v84 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v10 = v25;
-  v31 = [v10 countByEnumeratingWithState:&v81 objects:v99 count:16];
-  if (v31)
+  v79 = 0u;
+  v80 = 0u;
+  v10 = v23;
+  v29 = [v10 countByEnumeratingWithState:&v79 objects:v97 count:16];
+  if (v29)
   {
-    v32 = v31;
-    v33 = 0;
-    v34 = "FALSE";
+    v30 = v29;
+    v31 = 0;
+    v32 = "FALSE";
     if (v4)
     {
-      v34 = "TRUE";
+      v32 = "TRUE";
     }
 
-    v78 = v34;
-    v79 = *v82;
+    v76 = v32;
+    v77 = *v80;
     do
     {
-      for (j = 0; j != v32; j = j + 1)
+      for (j = 0; j != v30; j = j + 1)
       {
-        if (*v82 != v79)
+        if (*v80 != v77)
         {
           objc_enumerationMutation(v10);
         }
 
-        v36 = *(*(&v81 + 1) + 8 * j);
-        v37 = v10;
-        v38 = [v10 objectForKeyedSubscript:v36];
-        v39 = CDGetLogHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v34 = *(*(&v79 + 1) + 8 * j);
+        v35 = v10;
+        v36 = [v10 objectForKeyedSubscript:v34];
+        v37 = CDGetLogHandle();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = *(a1 + 56);
-          v41 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
+          v38 = *(a1 + 56);
+          v39 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_SIGNING_ID"];
           *buf = 138413314;
+          v88 = v36;
+          v89 = 2112;
           v90 = v38;
           v91 = 2112;
-          v92 = v40;
+          v92 = v39;
           v93 = 2112;
-          v94 = v41;
-          v95 = 2112;
-          v96 = v36;
-          v97 = 2080;
-          v98 = v78;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Updating service info amount: %@, serviceID: %@ (%@), urgency: %@, pushed: %s", buf, 0x34u);
+          v94 = v34;
+          v95 = 2080;
+          v96 = v76;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Updating service info amount: %@, serviceID: %@ (%@), urgency: %@, pushed: %s", buf, 0x34u);
         }
 
-        v42 = [*(a1 + 48) recentPurgeableResults];
-        v43 = *(a1 + 56);
-        v44 = [*(a1 + 40) mountPoint];
-        v45 = [v42 updateServiceInfoAmount:v38 forService:v43 onVolume:v44 atUrgency:objc_msgSend(v36 withTimestamp:"intValue") nonPurgeableAmount:obj deductFromCurrentAmount:0 info:{v11, *(a1 + 32)}];
+        v40 = [*(a1 + 48) recentPurgeableResults];
+        v41 = *(a1 + 56);
+        v42 = [*(a1 + 40) mountPoint];
+        v43 = [v40 updateServiceInfoAmount:v36 forService:v41 onVolume:v42 atUrgency:objc_msgSend(v34 withTimestamp:"intValue") nonPurgeableAmount:obj deductFromCurrentAmount:0 info:{v11, *(a1 + 32)}];
 
-        v33 |= v45;
-        v10 = v37;
+        v31 |= v43;
+        v10 = v35;
       }
 
-      v32 = [v37 countByEnumeratingWithState:&v81 objects:v99 count:16];
+      v30 = [v35 countByEnumeratingWithState:&v79 objects:v97 count:16];
     }
 
-    while (v32);
+    while (v30);
   }
 
   else
   {
-    v33 = 0;
+    v31 = 0;
   }
 
-  if (v76)
+  if (v74)
   {
-    v46 = [*(a1 + 48) recentPurgeableResults];
-    v47 = [v46 pushingServices];
-    [v47 addObject:*(a1 + 56)];
+    v44 = [*(a1 + 48) recentPurgeableResults];
+    v45 = [v44 pushingServices];
+    [v45 addObject:*(a1 + 56)];
   }
 
-  v5 = v74;
-  v2 = v75;
-  v6 = v73;
-  if ((v33 & 1) != 0 && ([*(a1 + 48) updatedNotificationBlock], v48 = objc_claimAutoreleasedReturnValue(), v48, v48))
+  v5 = v72;
+  v2 = v73;
+  v6 = v71;
+  if ((v31 & 1) != 0 && ([*(a1 + 48) updatedNotificationBlock], v46 = objc_claimAutoreleasedReturnValue(), v46, v46))
   {
-    v72 = v10;
+    v70 = v10;
     if (qword_10006E2A8 != -1)
     {
       dispatch_once(&qword_10006E2A8, &__block_literal_global_62);
     }
 
-    v49 = qword_10006E2A0;
-    v50 = [*(a1 + 40) mountPoint];
-    v51 = [v49 objectForKeyedSubscript:v50];
-    v52 = evaluateNumberProperty();
+    v47 = qword_10006E2A0;
+    v48 = [*(a1 + 40) mountPoint];
+    v49 = [v47 objectForKeyedSubscript:v48];
+    v50 = evaluateNumberProperty();
 
-    if (v52)
+    if (v50)
     {
-      v53 = [*(a1 + 40) thresholds];
-      v54 = [v53 objectForKeyedSubscript:@"VERY_LOW_DISK_THRESHOLD"];
-      v55 = evaluateNumberProperty();
+      v51 = [*(a1 + 40) thresholds];
+      v52 = [v51 objectForKeyedSubscript:@"VERY_LOW_DISK_THRESHOLD"];
+      v53 = evaluateNumberProperty();
 
-      v56 = [v52 unsignedLongLongValue];
-      if (v56 <= [*(a1 + 40) freespace])
+      v54 = [v50 unsignedLongLongValue];
+      if (v54 <= [*(a1 + 40) freespace])
       {
-        v57 = [*(a1 + 40) freespace];
-        v58 = [v52 unsignedLongLongValue];
+        v55 = [*(a1 + 40) freespace];
+        v56 = [v50 unsignedLongLongValue];
       }
 
       else
       {
-        v57 = [v52 unsignedLongLongValue];
-        v58 = [*(a1 + 40) freespace];
+        v55 = [v50 unsignedLongLongValue];
+        v56 = [*(a1 + 40) freespace];
       }
 
-      v64 = v57 - v58;
-      if (v55 && [v55 unsignedLongLongValue] >> 22 <= 0x18)
+      v62 = v55 - v56;
+      if (v53 && [v53 unsignedLongLongValue] >> 22 <= 0x18)
       {
-        v65 = [v55 unsignedLongLongValue];
+        v63 = [v53 unsignedLongLongValue];
       }
 
       else
       {
-        v65 = 104857600;
+        v63 = 104857600;
       }
 
-      if (v64 > v65)
+      if (v62 > v63)
       {
-        v66 = [*(a1 + 48) updatedNotificationBlock];
-        v66[2](v66, 1);
+        v64 = [*(a1 + 48) updatedNotificationBlock];
+        v64[2](v64, 1);
 
-        v67 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 40) freespace]);
-        v68 = qword_10006E2A0;
-        v69 = [*(a1 + 40) mountPoint];
-        [v68 setObject:v67 forKeyedSubscript:v69];
+        v65 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 40) freespace]);
+        v66 = qword_10006E2A0;
+        v67 = [*(a1 + 40) mountPoint];
+        [v66 setObject:v65 forKeyedSubscript:v67];
       }
     }
 
     else
     {
-      v61 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 40) freespace]);
-      v62 = qword_10006E2A0;
-      v63 = [*(a1 + 40) mountPoint];
-      [v62 setObject:v61 forKeyedSubscript:v63];
+      v59 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [*(a1 + 40) freespace]);
+      v60 = qword_10006E2A0;
+      v61 = [*(a1 + 40) mountPoint];
+      [v60 setObject:v59 forKeyedSubscript:v61];
 
-      v55 = [*(a1 + 48) updatedNotificationBlock];
-      v55[2](v55, 1);
+      v53 = [*(a1 + 48) updatedNotificationBlock];
+      v53[2](v53, 1);
     }
 
-    v7 = v77;
-    v10 = v72;
+    v7 = v75;
+    v10 = v70;
   }
 
   else
   {
 LABEL_59:
-    v7 = v77;
+    v7 = v75;
   }
 
 LABEL_68:

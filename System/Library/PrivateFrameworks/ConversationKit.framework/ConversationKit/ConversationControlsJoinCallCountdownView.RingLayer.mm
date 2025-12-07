@@ -10,7 +10,7 @@
 - (void)setPercentage:(double)percentage
 {
   selfCopy = self;
-  ConversationControlsJoinCallCountdownView.RingLayer.percentage.setter(percentage);
+  ConversationControlsJoinCallCountdownView.RingLayer.percentage.setter(percentage, selfCopy, v4);
 }
 
 + (BOOL)needsDisplayForKey:(id)key

@@ -106,7 +106,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -126,12 +125,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  eventType = self->_eventType;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_4:
-    healthIssues = self->_healthIssues;
     PBDataWriterWriteUint64Field();
   }
 
@@ -235,7 +232,6 @@ LABEL_5:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 40);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 40) & 2) == 0 || self->_timestamp != *(equal + 2))

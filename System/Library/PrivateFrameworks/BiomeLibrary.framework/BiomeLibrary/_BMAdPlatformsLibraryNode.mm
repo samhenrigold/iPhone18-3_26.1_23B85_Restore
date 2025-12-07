@@ -7,15 +7,13 @@
 
 + (id)sublibraries
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   marketplaceHealth = [self MarketplaceHealth];
   oDML = [self ODML];
-  v9[1] = oDML;
+  v8[1] = oDML;
   policyInstrumentation = [self PolicyInstrumentation];
-  v9[2] = policyInstrumentation;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[2] = policyInstrumentation;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
 
   return v6;
 }

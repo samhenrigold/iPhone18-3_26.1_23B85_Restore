@@ -19,12 +19,14 @@
 
 + (id)URLOfModelInThisBundle
 {
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v2 pathForResource:@"FaceRecognizabilityFilterSVMDataScaler" ofType:@"mlmodelc"];
+  v2 = MEMORY[0x277CCA8D8];
+  objc_opt_class();
+  v3 = [v2 bundleForClass:?];
+  v4 = [v3 pathForResource:? ofType:?];
 
-  if (v3)
+  if (v4)
   {
-    v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:v3];
+    v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
   }
 
   else
@@ -34,10 +36,10 @@
       +[FaceRecognizabilityFilterSVMDataScaler URLOfModelInThisBundle];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (FaceRecognizabilityFilterSVMDataScaler)initWithMLModel:(id)model
@@ -69,7 +71,7 @@
 - (FaceRecognizabilityFilterSVMDataScaler)init
 {
   uRLOfModelInThisBundle = [objc_opt_class() URLOfModelInThisBundle];
-  v4 = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithContentsOfURL:uRLOfModelInThisBundle error:0];
+  v4 = [FaceRecognizabilityFilterSVMDataScaler initWithContentsOfURL:"initWithContentsOfURL:error:" error:?];
 
   return v4;
 }
@@ -78,17 +80,17 @@
 {
   configurationCopy = configuration;
   uRLOfModelInThisBundle = [objc_opt_class() URLOfModelInThisBundle];
-  v8 = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithContentsOfURL:uRLOfModelInThisBundle configuration:configurationCopy error:error];
+  v7 = [FaceRecognizabilityFilterSVMDataScaler initWithContentsOfURL:"initWithContentsOfURL:configuration:error:" configuration:? error:?];
 
-  return v8;
+  return v7;
 }
 
 - (FaceRecognizabilityFilterSVMDataScaler)initWithContentsOfURL:(id)l error:(id *)error
 {
-  v5 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:l error:error];
+  v5 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:? error:?];
   if (v5)
   {
-    self = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithMLModel:v5];
+    self = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithMLModel:?];
     selfCopy = self;
   }
 
@@ -102,10 +104,10 @@
 
 - (FaceRecognizabilityFilterSVMDataScaler)initWithContentsOfURL:(id)l configuration:(id)configuration error:(id *)error
 {
-  v6 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:l configuration:configuration error:error];
+  v6 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:? configuration:? error:?];
   if (v6)
   {
-    self = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithMLModel:v6];
+    self = [(FaceRecognizabilityFilterSVMDataScaler *)self initWithMLModel:?];
     selfCopy = self;
   }
 
@@ -122,20 +124,16 @@
   handlerCopy = handler;
   configurationCopy = configuration;
   uRLOfModelInThisBundle = [self URLOfModelInThisBundle];
-  [self loadContentsOfURL:uRLOfModelInThisBundle configuration:configurationCopy completionHandler:handlerCopy];
+  [self loadContentsOfURL:? configuration:? completionHandler:?];
 }
 
 + (void)loadContentsOfURL:(id)l configuration:(id)configuration completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v8 = MEMORY[0x277CBFF20];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuration_completionHandler___block_invoke;
-  v10[3] = &unk_278755E70;
-  v11 = handlerCopy;
-  v9 = handlerCopy;
-  [v8 loadContentsOfURL:l configuration:configuration completionHandler:v10];
+  v6 = MEMORY[0x277CBFF20];
+  v8 = handlerCopy;
+  v7 = handlerCopy;
+  [v6 loadContentsOfURL:? configuration:? completionHandler:?];
 }
 
 void __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuration_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -143,7 +141,7 @@ void __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuratio
   v4 = a2;
   if (v4)
   {
-    v3 = [[FaceRecognizabilityFilterSVMDataScaler alloc] initWithMLModel:v4];
+    v3 = [[FaceRecognizabilityFilterSVMDataScaler alloc] initWithMLModel:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -155,12 +153,12 @@ void __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuratio
 
 - (id)predictionFromFeatures:(id)features error:(id *)error
 {
-  v6 = MEMORY[0x277CBFF68];
+  v5 = MEMORY[0x277CBFF68];
   featuresCopy = features;
-  v8 = objc_alloc_init(v6);
-  v9 = [(FaceRecognizabilityFilterSVMDataScaler *)self predictionFromFeatures:featuresCopy options:v8 error:error];
+  v7 = objc_alloc_init(v5);
+  v8 = [FaceRecognizabilityFilterSVMDataScaler predictionFromFeatures:"predictionFromFeatures:options:error:" options:? error:?];
 
-  return v9;
+  return v8;
 }
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
@@ -168,22 +166,22 @@ void __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuratio
   optionsCopy = options;
   featuresCopy = features;
   model = [(FaceRecognizabilityFilterSVMDataScaler *)self model];
-  v11 = [model predictionFromFeatures:featuresCopy options:optionsCopy error:error];
+  v10 = [model predictionFromFeatures:? options:? error:?];
 
-  if (v11)
+  if (v10)
   {
-    v12 = [FaceRecognizabilityFilterSVMDataScalerOutput alloc];
-    v13 = [v11 featureValueForName:@"transformed_features"];
-    multiArrayValue = [v13 multiArrayValue];
-    v15 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v12 initWithTransformed_features:multiArrayValue];
+    v11 = [FaceRecognizabilityFilterSVMDataScalerOutput alloc];
+    v12 = [v10 featureValueForName:?];
+    multiArrayValue = [v12 multiArrayValue];
+    v14 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v11 initWithTransformed_features:?];
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (void)predictionFromFeatures:(id)features completionHandler:(id)handler
@@ -191,13 +189,13 @@ void __92__FaceRecognizabilityFilterSVMDataScaler_loadContentsOfURL_configuratio
   handlerCopy = handler;
   featuresCopy = features;
   model = [(FaceRecognizabilityFilterSVMDataScaler *)self model];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __83__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_completionHandler___block_invoke;
-  v10[3] = &unk_278755E98;
-  v11 = handlerCopy;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __83__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_completionHandler___block_invoke;
+  v13 = &unk_278755E98;
+  v14 = handlerCopy;
   v9 = handlerCopy;
-  [model predictionFromFeatures:featuresCopy completionHandler:v10];
+  [model predictionFromFeatures:? completionHandler:?];
 }
 
 void __83__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -207,9 +205,9 @@ void __83__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_complet
   {
     v5 = a3;
     v6 = [FaceRecognizabilityFilterSVMDataScalerOutput alloc];
-    v7 = [v12 featureValueForName:@"transformed_features"];
+    v7 = [v12 featureValueForName:?];
     v8 = [v7 multiArrayValue];
-    v9 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v6 initWithTransformed_features:v8];
+    v9 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v6 initWithTransformed_features:?];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -229,13 +227,13 @@ void __83__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_complet
   optionsCopy = options;
   featuresCopy = features;
   model = [(FaceRecognizabilityFilterSVMDataScaler *)self model];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __91__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_options_completionHandler___block_invoke;
-  v13[3] = &unk_278755E98;
-  v14 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __91__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_options_completionHandler___block_invoke;
+  v16 = &unk_278755E98;
+  v17 = handlerCopy;
   v12 = handlerCopy;
-  [model predictionFromFeatures:featuresCopy options:optionsCopy completionHandler:v13];
+  [model predictionFromFeatures:? options:? completionHandler:?];
 }
 
 void __91__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -245,9 +243,9 @@ void __91__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_options
   {
     v5 = a3;
     v6 = [FaceRecognizabilityFilterSVMDataScalerOutput alloc];
-    v7 = [v12 featureValueForName:@"transformed_features"];
+    v7 = [v12 featureValueForName:?];
     v8 = [v7 multiArrayValue];
-    v9 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v6 initWithTransformed_features:v8];
+    v9 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v6 initWithTransformed_features:?];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -264,42 +262,44 @@ void __91__FaceRecognizabilityFilterSVMDataScaler_predictionFromFeatures_options
 - (id)predictionFromInput:(id)input error:(id *)error
 {
   inputCopy = input;
-  v7 = [[FaceRecognizabilityFilterSVMDataScalerInput alloc] initWithInput:inputCopy];
+  v6 = [[FaceRecognizabilityFilterSVMDataScalerInput alloc] initWithInput:?];
 
-  v8 = [(FaceRecognizabilityFilterSVMDataScaler *)self predictionFromFeatures:v7 error:error];
+  v7 = [FaceRecognizabilityFilterSVMDataScaler predictionFromFeatures:"predictionFromFeatures:error:" error:?];
 
-  return v8;
+  return v7;
 }
 
 - (id)predictionsFromInputs:(id)inputs options:(id)options error:(id *)error
 {
   inputsCopy = inputs;
   optionsCopy = options;
-  v10 = [objc_alloc(MEMORY[0x277CBFEB0]) initWithFeatureProviderArray:inputsCopy];
+  v9 = [objc_alloc(MEMORY[0x277CBFEB0]) initWithFeatureProviderArray:?];
   model = [(FaceRecognizabilityFilterSVMDataScaler *)self model];
-  v12 = [model predictionsFromBatch:v10 options:optionsCopy error:error];
+  v11 = [model predictionsFromBatch:? options:? error:?];
 
-  if (v12)
+  if (v11)
   {
-    v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v12, "count")}];
-    if ([v12 count] >= 1)
+    v12 = MEMORY[0x277CBEB18];
+    [v11 count];
+    v13 = [v12 arrayWithCapacity:?];
+    if ([v11 count] >= 1)
     {
       v21 = optionsCopy;
       v22 = inputsCopy;
       v14 = 0;
       do
       {
-        v15 = [v12 featuresAtIndex:{v14, v21, v22}];
+        v15 = [v11 featuresAtIndex:{v21, v22}];
         v16 = [FaceRecognizabilityFilterSVMDataScalerOutput alloc];
-        v17 = [v15 featureValueForName:@"transformed_features"];
+        v17 = [v15 featureValueForName:?];
         multiArrayValue = [v17 multiArrayValue];
-        v19 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v16 initWithTransformed_features:multiArrayValue];
+        v19 = [(FaceRecognizabilityFilterSVMDataScalerOutput *)v16 initWithTransformed_features:?];
 
-        [v13 addObject:v19];
+        [v13 addObject:?];
         ++v14;
       }
 
-      while (v14 < [v12 count]);
+      while (v14 < [v11 count]);
       optionsCopy = v21;
       inputsCopy = v22;
     }

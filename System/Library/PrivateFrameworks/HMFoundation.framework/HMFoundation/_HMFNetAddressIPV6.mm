@@ -44,20 +44,19 @@
   {
     v9 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = HMFGetLogIdentifier(selfCopy);
+      v12 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid sockaddr, must be AF_INET6", buf, 0xCu);
+      v16 = v12;
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid sockaddr, must be AF_INET6", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -107,45 +106,43 @@
       {
         [MEMORY[0x277CCACA8] stringWithFormat:@"%s%%%u", v24, sin6_scope_id];
       }
-      v13 = ;
+      v14 = ;
     }
 
     else
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v24];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:v24];
     }
   }
 
   else
   {
     v5 = objc_autoreleasePoolPush();
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = HMFGetOSLogHandle(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = HMFGetLogIdentifier(0);
-      v8 = __error();
-      v9 = strerror(*v8);
-      v10 = *__error();
-      v11 = [(_HMFNetAddressIPV6 *)self dataUsingEncoding:1];
-      hmf_hexadecimalRepresentation = [v11 hmf_hexadecimalRepresentation];
+      v8 = HMFGetLogIdentifier(0);
+      v9 = __error();
+      v10 = strerror(*v9);
+      v11 = *__error();
+      v12 = [(_HMFNetAddressIPV6 *)self dataUsingEncoding:1];
+      hmf_hexadecimalRepresentation = [v12 hmf_hexadecimalRepresentation];
       *buf = 138544130;
-      v17 = v7;
+      v17 = v8;
       v18 = 2080;
-      v19 = v9;
+      v19 = v10;
       v20 = 1024;
-      v21 = v10;
+      v21 = v11;
       v22 = 2112;
       v23 = hmf_hexadecimalRepresentation;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@inet_ntop() failed  with '%s' (%d) for sockaddr_in6: %@", buf, 0x26u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@inet_ntop() failed  with '%s' (%d) for sockaddr_in6: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v5);
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (id)dataUsingEncoding:(unint64_t)encoding

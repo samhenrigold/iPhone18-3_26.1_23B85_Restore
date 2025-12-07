@@ -7,60 +7,62 @@
 
 + (id)bundleIDFromAuditToken:(id *)token
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v30 = 0;
   v4 = *&token->var0[4];
   *buf.val = *token->var0;
   *&buf.val[4] = v4;
-  if (!CPCopyBundleIdentifierAndTeamFromAuditToken())
+  v5 = CPCopyBundleIdentifierAndTeamFromAuditToken();
+  if (!v5)
   {
-    v10 = *MEMORY[0x1E695E480];
-    v11 = *&token->var0[4];
+    v14 = *MEMORY[0x1E695E480];
+    v15 = *&token->var0[4];
     *buf.val = *token->var0;
-    *&buf.val[4] = v11;
-    v12 = SecTaskCreateWithAuditToken(v10, &buf);
-    if (!v12)
+    *&buf.val[4] = v15;
+    v16 = SecTaskCreateWithAuditToken(v14, &buf);
+    if (!v16)
     {
-      v19 = *DMCLogObjects();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v25 = *DMCLogObjects(0, v17);
+      v8 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+      if (!v8)
       {
         goto LABEL_17;
       }
 
       LOWORD(buf.val[0]) = 0;
-      v6 = "Failed to create SecTask from audit token";
-      v7 = v19;
-      v8 = OS_LOG_TYPE_ERROR;
-      v9 = 2;
+      v10 = "Failed to create SecTask from audit token";
+      v11 = v25;
+      v12 = OS_LOG_TYPE_ERROR;
+      v13 = 2;
       goto LABEL_4;
     }
 
-    v13 = v12;
+    v18 = v16;
     cf = 0;
-    v14 = SecTaskCopySigningIdentifier(v12, &cf);
-    v25 = v14;
-    v15 = *DMCLogObjects();
-    if (v14)
+    v19 = SecTaskCopySigningIdentifier(v16, &cf);
+    v30 = v19;
+    v21 = *DMCLogObjects(v19, v20);
+    if (v19)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         buf.val[0] = 138543362;
-        *&buf.val[1] = v25;
-        v16 = "Looked up bundle ID %{public}@ using SecTask";
-        v17 = v15;
-        v18 = OS_LOG_TYPE_DEBUG;
+        *&buf.val[1] = v30;
+        v22 = "Looked up bundle ID %{public}@ using SecTask";
+        v23 = v21;
+        v24 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-        _os_log_impl(&dword_1B1630000, v17, v18, v16, &buf, 0xCu);
+        _os_log_impl(&dword_1B1630000, v23, v24, v22, &buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       buf.val[0] = 138543362;
       *&buf.val[1] = cf;
-      v16 = "Failed to look up bundle ID using SecTask with error: %{public}@";
-      v17 = v15;
-      v18 = OS_LOG_TYPE_ERROR;
+      v22 = "Failed to look up bundle ID using SecTask with error: %{public}@";
+      v23 = v21;
+      v24 = OS_LOG_TYPE_ERROR;
       goto LABEL_13;
     }
 
@@ -69,128 +71,128 @@ LABEL_13:
       CFRelease(cf);
     }
 
-    CFRelease(v13);
+    CFRelease(v18);
     goto LABEL_17;
   }
 
-  v5 = *DMCLogObjects();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = *DMCLogObjects(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
     buf.val[0] = 138543362;
-    *&buf.val[1] = v25;
-    v6 = "Looked up bundle ID %{public}@ from audit token using entitlement";
-    v7 = v5;
-    v8 = OS_LOG_TYPE_DEBUG;
-    v9 = 12;
+    *&buf.val[1] = v30;
+    v10 = "Looked up bundle ID %{public}@ from audit token using entitlement";
+    v11 = v7;
+    v12 = OS_LOG_TYPE_DEBUG;
+    v13 = 12;
 LABEL_4:
-    _os_log_impl(&dword_1B1630000, v7, v8, v6, &buf, v9);
+    _os_log_impl(&dword_1B1630000, v11, v12, v10, &buf, v13);
   }
 
 LABEL_17:
-  v20 = v25;
-  if (!v25)
+  v26 = v30;
+  if (!v30)
   {
-    v21 = *DMCLogObjects();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = *DMCLogObjects(v8, v9);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf.val[0]) = 0;
-      _os_log_impl(&dword_1B1630000, v21, OS_LOG_TYPE_ERROR, "Could not look up bundle identifier using audit token", &buf, 2u);
+      _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_ERROR, "Could not look up bundle identifier using audit token", &buf, 2u);
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v26;
 }
 
 + (id)teamIDFromAuditToken:(id *)token
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v29 = *MEMORY[0x1E69E9840];
+  v27 = 0;
   v4 = *&token->var0[4];
   *buf.val = *token->var0;
   *&buf.val[4] = v4;
-  if (!CPCopyBundleIdentifierAndTeamFromAuditToken())
+  v5 = CPCopyBundleIdentifierAndTeamFromAuditToken();
+  if (!v5)
   {
-    v10 = *MEMORY[0x1E695E480];
-    v11 = *&token->var0[4];
+    v14 = *MEMORY[0x1E695E480];
+    v15 = *&token->var0[4];
     *buf.val = *token->var0;
-    *&buf.val[4] = v11;
-    v12 = SecTaskCreateWithAuditToken(v10, &buf);
-    if (!v12)
+    *&buf.val[4] = v15;
+    v16 = SecTaskCreateWithAuditToken(v14, &buf);
+    if (!v16)
     {
-      v18 = *DMCLogObjects();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v24 = *DMCLogObjects(0, v17);
+      v8 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+      if (!v8)
       {
         goto LABEL_15;
       }
 
       LOWORD(buf.val[0]) = 0;
-      v6 = "Failed to create SecTask from audit token";
-      v7 = v18;
-      v8 = OS_LOG_TYPE_ERROR;
-      v9 = 2;
+      v10 = "Failed to create SecTask from audit token";
+      v11 = v24;
+      v12 = OS_LOG_TYPE_ERROR;
+      v13 = 2;
       goto LABEL_4;
     }
 
-    v13 = v12;
-    v22 = SecTaskCopyTeamIdentifier();
-    v14 = *DMCLogObjects();
-    if (v22)
+    v18 = v16;
+    v27 = SecTaskCopyTeamIdentifier();
+    v20 = *DMCLogObjects(v27, v19);
+    if (v27)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         buf.val[0] = 138543362;
-        *&buf.val[1] = v22;
-        v15 = "Looked up team ID %{public}@ using SecTask";
-        v16 = v14;
-        v17 = OS_LOG_TYPE_DEBUG;
+        *&buf.val[1] = v27;
+        v21 = "Looked up team ID %{public}@ using SecTask";
+        v22 = v20;
+        v23 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-        _os_log_impl(&dword_1B1630000, v16, v17, v15, &buf, 0xCu);
+        _os_log_impl(&dword_1B1630000, v22, v23, v21, &buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       buf.val[0] = 138543362;
       *&buf.val[1] = 0;
-      v15 = "Failed to look up team ID using SecTask with error: %{public}@";
-      v16 = v14;
-      v17 = OS_LOG_TYPE_ERROR;
+      v21 = "Failed to look up team ID using SecTask with error: %{public}@";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_ERROR;
       goto LABEL_13;
     }
 
-    CFRelease(v13);
+    CFRelease(v18);
     goto LABEL_15;
   }
 
-  v5 = *DMCLogObjects();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = *DMCLogObjects(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
   {
     buf.val[0] = 138543362;
     *&buf.val[1] = 0;
-    v6 = "Looked up team ID %{public}@ from audit token using entitlement";
-    v7 = v5;
-    v8 = OS_LOG_TYPE_DEBUG;
-    v9 = 12;
+    v10 = "Looked up team ID %{public}@ from audit token using entitlement";
+    v11 = v7;
+    v12 = OS_LOG_TYPE_DEBUG;
+    v13 = 12;
 LABEL_4:
-    _os_log_impl(&dword_1B1630000, v7, v8, v6, &buf, v9);
+    _os_log_impl(&dword_1B1630000, v11, v12, v10, &buf, v13);
   }
 
 LABEL_15:
-  if (!v22)
+  if (!v27)
   {
-    v19 = *DMCLogObjects();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v25 = *DMCLogObjects(v8, v9);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf.val[0]) = 0;
-      _os_log_impl(&dword_1B1630000, v19, OS_LOG_TYPE_ERROR, "Could not look up team identifier using audit token", &buf, 2u);
+      _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_ERROR, "Could not look up team identifier using audit token", &buf, 2u);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v27;
 }
 
 @end

@@ -96,7 +96,9 @@
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    _os_log_send_and_compose_impl();
+    v17 = 136315138;
+    v18 = "[CWFLocalDeviceDiscovery activate]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 1, "[corewifi] %s", &v17);
   }
 
   v6 = MEMORY[0x1EEE98818];
@@ -117,7 +119,9 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v17 = 136315138;
+      v18 = "[CWFLocalDeviceDiscovery activate]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] %s: libMRC available", &v17);
     }
 
     v12 = mrc_cached_local_records_inquiry_create();
@@ -128,7 +132,6 @@
     mrcQueue = [(CWFLocalDeviceDiscovery *)self mrcQueue];
     MEMORY[0x1E12EA050](v14, mrcQueue);
 
-    v16 = self->_mrcInquiry;
     mrc_cached_local_records_inquiry_set_result_handler();
     MEMORY[0x1E12EA020](self->_mrcInquiry);
   }
@@ -143,23 +146,23 @@
     else
     {
       v10 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v17 = 136315138;
+      v18 = "[CWFLocalDeviceDiscovery activate]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] %s: libMRC not available", &v17);
     }
 
     [(CWFLocalDeviceDiscovery *)self _callHandlerWithValidResults:0 filtered:0];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = CWFGetOSLog();
   if (v3)
   {
@@ -174,7 +177,9 @@
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    _os_log_send_and_compose_impl();
+    v7 = 136315138;
+    v8 = "[CWFLocalDeviceDiscovery invalidate]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 1, "[corewifi] %s", &v7);
   }
 
   [(CWFLocalDeviceDiscovery *)self setHandler:0];
@@ -184,13 +189,11 @@
     mrcInquiry = self->_mrcInquiry;
     self->_mrcInquiry = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callHandlerWithValidResults:(id)results filtered:(id)filtered
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   filteredCopy = filtered;
   handler = [(CWFLocalDeviceDiscovery *)self handler];
@@ -212,9 +215,9 @@
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = "[CWFLocalDeviceDiscovery _callHandlerWithValidResults:filtered:]";
-      _os_log_send_and_compose_impl();
+      v18 = 136315138;
+      v19 = "[CWFLocalDeviceDiscovery _callHandlerWithValidResults:filtered:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[corewifi] %s: calling handler", &v18);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -222,8 +225,8 @@
     block[2] = sub_1E0C5F5C0;
     block[3] = &unk_1E86E6060;
     block[4] = self;
-    v17 = resultsCopy;
-    v18 = filteredCopy;
+    v16 = resultsCopy;
+    v17 = filteredCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
@@ -242,78 +245,76 @@
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315138;
-      v20 = "[CWFLocalDeviceDiscovery _callHandlerWithValidResults:filtered:]";
-      _os_log_send_and_compose_impl();
+      v18 = 136315138;
+      v19 = "[CWFLocalDeviceDiscovery _callHandlerWithValidResults:filtered:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %s: handler is nil", &v18);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processMRCRecord:(id)record
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   recordCopy = record;
-  v91 = [MEMORY[0x1E695DFA8] set];
-  v80 = [MEMORY[0x1E695DFA8] set];
+  v89 = [MEMORY[0x1E695DFA8] set];
+  v78 = [MEMORY[0x1E695DFA8] set];
+  v99 = 0u;
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v83 = recordCopy;
+  v81 = recordCopy;
   obj = [recordCopy allKeys];
   selfCopy = self;
-  v84 = [obj countByEnumeratingWithState:&v101 objects:v113 count:16];
-  if (!v84)
+  v82 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
+  if (!v82)
   {
     goto LABEL_77;
   }
 
-  v82 = *v102;
+  v80 = *v100;
   do
   {
     v5 = 0;
     do
     {
-      if (*v102 != v82)
+      if (*v100 != v80)
       {
         objc_enumerationMutation(obj);
       }
 
-      v88 = v5;
-      v6 = *(*(&v101 + 1) + 8 * v5);
+      v86 = v5;
+      v6 = *(*(&v99 + 1) + 8 * v5);
       context = objc_autoreleasePoolPush();
-      v7 = [v83 objectForKey:v6];
-      v89 = [MEMORY[0x1E695DFA8] set];
+      v7 = [v81 objectForKey:v6];
+      v87 = [MEMORY[0x1E695DFA8] set];
       v8 = [MEMORY[0x1E695DFA8] set];
       v9 = objc_alloc_init(CWFLocalNetworkDevice);
-      v85 = v6;
+      v83 = v6;
       v10 = [MEMORY[0x1E695DFD8] setWithObject:v6];
-      v86 = v9;
+      v84 = v9;
       [(CWFLocalNetworkDevice *)v9 setSourceAddresses:v10];
 
-      v99 = 0u;
-      v100 = 0u;
       v97 = 0u;
       v98 = 0u;
-      v92 = v7;
-      v11 = [v92 countByEnumeratingWithState:&v97 objects:v112 count:16];
+      v95 = 0u;
+      v96 = 0u;
+      v90 = v7;
+      v11 = [v90 countByEnumeratingWithState:&v95 objects:v110 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v98;
+        v13 = *v96;
         do
         {
           v14 = 0;
           do
           {
-            if (*v98 != v13)
+            if (*v96 != v13)
             {
-              objc_enumerationMutation(v92);
+              objc_enumerationMutation(v90);
             }
 
-            v15 = *(*(&v97 + 1) + 8 * v14);
+            v15 = *(*(&v95 + 1) + 8 * v14);
             v16 = objc_autoreleasePoolPush();
             v17 = CWFGetOSLog();
             if (v17)
@@ -329,13 +330,12 @@
 
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              v106 = 136315394;
-              v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
-              v108 = 2112;
-              v109 = v15;
-              LODWORD(v79) = 22;
-              v78 = &v106;
-              _os_log_send_and_compose_impl();
+              v104 = 136315394;
+              v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+              v106 = 2112;
+              v107 = v15;
+              LODWORD(v77) = 22;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] %s: record='%@'", &v104, v77);
             }
 
             serviceName = [(CWFLocalNetworkDevice *)v15 serviceName];
@@ -347,9 +347,9 @@
               [v8 addObject:serviceName2];
             }
 
-            v23 = [(CWFLocalNetworkDevice *)v15 deviceName:v78];
-            _stringByReplacingHyphensWithSpaces = v23;
-            if (v23 && [(CWFLocalNetworkDevice *)v23 length])
+            deviceName = [(CWFLocalNetworkDevice *)v15 deviceName];
+            _stringByReplacingHyphensWithSpaces = deviceName;
+            if (deviceName && [(CWFLocalNetworkDevice *)deviceName length])
             {
               rawString = [(CWFLocalNetworkDevice *)v15 rawString];
               _stringContainsFilteredServiceName = [rawString _stringContainsFilteredServiceName];
@@ -371,23 +371,22 @@
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                 {
                   rawString2 = [(CWFLocalNetworkDevice *)v15 rawString];
-                  v106 = 136315650;
-                  v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v104 = 136315650;
+                  v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v106 = 2112;
+                  v107 = _stringByReplacingHyphensWithSpaces;
                   v108 = 2112;
-                  v109 = _stringByReplacingHyphensWithSpaces;
-                  v110 = 2112;
-                  v111 = rawString2;
-                  LODWORD(v79) = 32;
-                  v78 = &v106;
-                  _os_log_send_and_compose_impl();
+                  v109 = rawString2;
+                  LODWORD(v77) = 32;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 0, "[corewifi] %s: filtered='%@' (raw='%@') contains filtered service name", &v104, v77);
                 }
 
                 rawString3 = [(CWFLocalNetworkDevice *)v15 rawString];
                 v36 = rawString3;
                 v37 = 1;
 LABEL_48:
-                v45 = [CWFLocalNetworkFilteredName filteredName:v36 reason:v37, v78, v79];
-                [v91 addObject:v45];
+                v45 = [CWFLocalNetworkFilteredName filteredName:v36 reason:v37];
+                [v89 addObject:v45];
 
                 goto LABEL_49;
               }
@@ -409,15 +408,14 @@ LABEL_48:
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                 {
                   rawString4 = [(CWFLocalNetworkDevice *)v15 rawString];
-                  v106 = 136315650;
-                  v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v104 = 136315650;
+                  v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v106 = 2112;
+                  v107 = _stringByReplacingHyphensWithSpaces;
                   v108 = 2112;
-                  v109 = _stringByReplacingHyphensWithSpaces;
-                  v110 = 2112;
-                  v111 = rawString4;
-                  LODWORD(v79) = 32;
-                  v78 = &v106;
-                  _os_log_send_and_compose_impl();
+                  v109 = rawString4;
+                  LODWORD(v77) = 32;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v30, 0, "[corewifi] %s: filtered='%@' (raw='%@') contains generated name", &v104, v77);
                 }
 
                 rawString3 = [(CWFLocalNetworkDevice *)v15 rawString];
@@ -443,15 +441,14 @@ LABEL_48:
                 if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                 {
                   rawString5 = [(CWFLocalNetworkDevice *)v15 rawString];
-                  v106 = 136315650;
-                  v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v104 = 136315650;
+                  v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v106 = 2112;
+                  v107 = _stringByReplacingHyphensWithSpaces;
                   v108 = 2112;
-                  v109 = _stringByReplacingHyphensWithSpaces;
-                  v110 = 2112;
-                  v111 = rawString5;
-                  LODWORD(v79) = 32;
-                  v78 = &v106;
-                  _os_log_send_and_compose_impl();
+                  v109 = rawString5;
+                  LODWORD(v77) = 32;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 0, "[corewifi] %s: filtered='%@' (raw='%@') contains unwanted characters at start/end", &v104, v77);
                 }
 
                 rawString3 = [(CWFLocalNetworkDevice *)v15 rawString];
@@ -468,7 +465,7 @@ LABEL_48:
                 {
                   _stringByReplacingHyphensWithSpaces = [(CWFLocalNetworkDevice *)_stringByRemovingUnwantedCharacters _stringByReplacingHyphensWithSpaces];
 
-                  [v89 addObject:_stringByReplacingHyphensWithSpaces];
+                  [v87 addObject:_stringByReplacingHyphensWithSpaces];
                   goto LABEL_49;
                 }
 
@@ -486,18 +483,17 @@ LABEL_48:
 
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  v106 = 136315394;
-                  v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
-                  v108 = 2112;
-                  v109 = _stringByRemovingUnwantedCharacters;
-                  LODWORD(v79) = 22;
-                  v78 = &v106;
-                  _os_log_send_and_compose_impl();
+                  v104 = 136315394;
+                  v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+                  v106 = 2112;
+                  v107 = _stringByRemovingUnwantedCharacters;
+                  LODWORD(v77) = 22;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v40, 0, "[corewifi] %s: filtered='%@' by lexicon", &v104, v77);
                 }
 
                 rawString6 = [(CWFLocalNetworkDevice *)v15 rawString];
                 v48 = [CWFLocalNetworkFilteredName filteredName:rawString6 reason:4];
-                [v91 addObject:v48];
+                [v89 addObject:v48];
               }
 
               _stringByReplacingHyphensWithSpaces = _stringByRemovingUnwantedCharacters;
@@ -510,16 +506,16 @@ LABEL_49:
           }
 
           while (v12 != v14);
-          v49 = [v92 countByEnumeratingWithState:&v97 objects:v112 count:16];
+          v49 = [v90 countByEnumeratingWithState:&v95 objects:v110 count:16];
           v12 = v49;
         }
 
         while (v49);
       }
 
-      [(CWFLocalNetworkDevice *)v86 setServiceNames:v8];
+      [(CWFLocalNetworkDevice *)v84 setServiceNames:v8];
       self = selfCopy;
-      if ([v89 count])
+      if ([v87 count])
       {
         v50 = CWFGetOSLog();
         if (v50)
@@ -535,36 +531,35 @@ LABEL_49:
 
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          _prettyDescription = [v89 _prettyDescription];
-          v106 = 136315394;
-          v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
-          v108 = 2112;
-          v109 = _prettyDescription;
-          LODWORD(v79) = 22;
-          v78 = &v106;
-          _os_log_send_and_compose_impl();
+          _prettyDescription = [v87 _prettyDescription];
+          v104 = 136315394;
+          v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+          v106 = 2112;
+          v107 = _prettyDescription;
+          LODWORD(v77) = 22;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v51, 0, "[corewifi] %s: validNames='%@'", &v104, v77);
         }
 
-        if ([v89 count] == 1)
+        if ([v87 count] == 1)
         {
-          anyObject = [v89 anyObject];
-          [(CWFLocalNetworkDevice *)v86 setName:anyObject];
+          anyObject = [v87 anyObject];
+          [(CWFLocalNetworkDevice *)v84 setName:anyObject];
         }
 
         else
         {
-          allObjects = [v89 allObjects];
+          allObjects = [v87 allObjects];
           anyObject = [allObjects sortedArrayUsingComparator:&unk_1F5B89B50];
 
           firstObject = [anyObject firstObject];
-          [(CWFLocalNetworkDevice *)v86 setName:firstObject];
+          [(CWFLocalNetworkDevice *)v84 setName:firstObject];
         }
 
-        if ([v85 _isLocalAddress])
+        if ([v83 _isLocalAddress])
         {
-          name = [(CWFLocalNetworkDevice *)v86 name];
+          name = [(CWFLocalNetworkDevice *)v84 name];
           v58 = [CWFLocalNetworkFilteredName filteredName:name reason:5];
-          [v91 addObject:v58];
+          [v89 addObject:v58];
 
           v59 = CWFGetOSLog();
           if (v59)
@@ -580,34 +575,33 @@ LABEL_49:
 
           if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
           {
-            v106 = 136315394;
-            v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
-            v108 = 2112;
-            v109 = v86;
-            LODWORD(v79) = 22;
-            v78 = &v106;
-            _os_log_send_and_compose_impl();
+            v104 = 136315394;
+            v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+            v106 = 2112;
+            v107 = v84;
+            LODWORD(v77) = 22;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v60, 0, "[corewifi] %s: filtering current device='%@'", &v104, v77);
           }
         }
 
         else
         {
-          [v80 addObject:v86];
+          [v78 addObject:v84];
         }
       }
 
       objc_autoreleasePoolPop(context);
-      v5 = v88 + 1;
+      v5 = v86 + 1;
     }
 
-    while (v88 + 1 != v84);
-    v84 = [obj countByEnumeratingWithState:&v101 objects:v113 count:16];
+    while (v86 + 1 != v82);
+    v82 = [obj countByEnumeratingWithState:&v99 objects:v111 count:16];
   }
 
-  while (v84);
+  while (v82);
 LABEL_77:
 
-  v62 = [(CWFLocalDeviceDiscovery *)self _combineDevicesWithDifferentSourceAddresses:v80];
+  v62 = [(CWFLocalDeviceDiscovery *)self _combineDevicesWithDifferentSourceAddresses:v78];
   v63 = CWFGetOSLog();
   if (v63)
   {
@@ -623,34 +617,35 @@ LABEL_77:
   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     v66 = [v62 count];
-    v106 = 136315394;
-    v107 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
-    v108 = 2048;
-    v109 = v66;
-    _os_log_send_and_compose_impl();
+    v104 = 136315394;
+    v105 = "[CWFLocalDeviceDiscovery _processMRCRecord:]";
+    v106 = 2048;
+    v107 = v66;
+    LODWORD(v77) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v64, 0, "[corewifi] %s: valid local devices=%lu", &v104, v77);
   }
 
-  v95 = 0u;
-  v96 = 0u;
   v93 = 0u;
   v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   v67 = v62;
-  v68 = [v67 countByEnumeratingWithState:&v93 objects:v105 count:16];
+  v68 = [v67 countByEnumeratingWithState:&v91 objects:v103 count:16];
   if (v68)
   {
     v69 = v68;
-    v70 = *v94;
+    v70 = *v92;
     v71 = MEMORY[0x1E69E9C10];
     do
     {
       for (i = 0; i != v69; ++i)
       {
-        if (*v94 != v70)
+        if (*v92 != v70)
         {
           objc_enumerationMutation(v67);
         }
 
-        v73 = *(*(&v93 + 1) + 8 * i);
+        v73 = *(*(&v91 + 1) + 8 * i);
         v74 = CWFGetOSLog();
         if (v74)
         {
@@ -665,50 +660,50 @@ LABEL_77:
 
         if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
         {
-          v106 = 138412290;
-          v107 = v73;
-          _os_log_send_and_compose_impl();
+          v104 = 138412290;
+          v105 = v73;
+          LODWORD(v77) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v75, 0, "[corewifi] %@", &v104, v77);
         }
       }
 
-      v69 = [v67 countByEnumeratingWithState:&v93 objects:v105 count:16];
+      v69 = [v67 countByEnumeratingWithState:&v91 objects:v103 count:16];
     }
 
     while (v69);
   }
 
-  [(CWFLocalDeviceDiscovery *)selfCopy _callHandlerWithValidResults:v67 filtered:v91];
-  v77 = *MEMORY[0x1E69E9840];
+  [(CWFLocalDeviceDiscovery *)selfCopy _callHandlerWithValidResults:v67 filtered:v89];
 }
 
 - (id)_combineDevicesWithDifferentSourceAddresses:(id)addresses
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   if (addressesCopy)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v64 = 0u;
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v49 = addressesCopy;
+    v47 = addressesCopy;
     v5 = addressesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v66 objects:v76 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v64 objects:v74 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v67;
+      v8 = *v65;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v67 != v8)
+          if (*v65 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v66 + 1) + 8 * i);
+          v10 = *(*(&v64 + 1) + 8 * i);
           name = [v10 name];
 
           if (name)
@@ -746,50 +741,49 @@ LABEL_77:
 
             if (os_log_type_enabled(sanitizedName, OS_LOG_TYPE_DEFAULT))
             {
-              v72 = 136315394;
-              v73 = "[CWFLocalDeviceDiscovery _combineDevicesWithDifferentSourceAddresses:]";
-              v74 = 2112;
-              v75 = v10;
-              LODWORD(v48) = 22;
-              v47 = &v72;
-              _os_log_send_and_compose_impl();
+              v70 = 136315394;
+              v71 = "[CWFLocalDeviceDiscovery _combineDevicesWithDifferentSourceAddresses:]";
+              v72 = 2112;
+              v73 = v10;
+              LODWORD(v46) = 22;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, sanitizedName, 0, "[corewifi] %s: nil name for device='%@'", &v70, v46);
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v66 objects:v76 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v64 objects:v74 count:16];
       }
 
       while (v7);
     }
 
     v17 = [MEMORY[0x1E695DFA8] set];
+    v60 = 0u;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
     obj = [dictionary allKeys];
-    v18 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+    v18 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v63;
-      v51 = v17;
-      v52 = dictionary;
-      v50 = *v63;
+      v20 = *v61;
+      v49 = v17;
+      v50 = dictionary;
+      v48 = *v61;
       do
       {
         v21 = 0;
-        v53 = v19;
+        v51 = v19;
         do
         {
-          if (*v63 != v20)
+          if (*v61 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v62 + 1) + 8 * v21);
-          v23 = [dictionary objectForKey:{v22, v47, v48}];
+          v22 = *(*(&v60 + 1) + 8 * v21);
+          v23 = [dictionary objectForKey:v22];
           if ([v23 count] == 1)
           {
             anyObject = [v23 anyObject];
@@ -798,31 +792,31 @@ LABEL_77:
 
           else
           {
-            v55 = v22;
-            v57 = v21;
+            v53 = v22;
+            v55 = v21;
             anyObject = [MEMORY[0x1E695DFA8] set];
             v25 = [MEMORY[0x1E695DFA8] set];
+            v56 = 0u;
+            v57 = 0u;
             v58 = 0u;
             v59 = 0u;
-            v60 = 0u;
-            v61 = 0u;
-            v56 = v23;
+            v54 = v23;
             v26 = v23;
-            v27 = [v26 countByEnumeratingWithState:&v58 objects:v70 count:16];
+            v27 = [v26 countByEnumeratingWithState:&v56 objects:v68 count:16];
             if (v27)
             {
               v28 = v27;
-              v29 = *v59;
+              v29 = *v57;
               do
               {
                 for (j = 0; j != v28; ++j)
                 {
-                  if (*v59 != v29)
+                  if (*v57 != v29)
                   {
                     objc_enumerationMutation(v26);
                   }
 
-                  v31 = *(*(&v58 + 1) + 8 * j);
+                  v31 = *(*(&v56 + 1) + 8 * j);
                   serviceNames = [v31 serviceNames];
                   if (serviceNames)
                   {
@@ -854,45 +848,43 @@ LABEL_77:
                   }
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v58 objects:v70 count:16];
+                v28 = [v26 countByEnumeratingWithState:&v56 objects:v68 count:16];
               }
 
               while (v28);
             }
 
             v44 = objc_alloc_init(CWFLocalNetworkDevice);
-            [(CWFLocalNetworkDevice *)v44 setName:v55];
+            [(CWFLocalNetworkDevice *)v44 setName:v53];
             [(CWFLocalNetworkDevice *)v44 setServiceNames:anyObject];
             [(CWFLocalNetworkDevice *)v44 setSourceAddresses:v25];
-            v17 = v51;
-            [v51 addObject:v44];
+            v17 = v49;
+            [v49 addObject:v44];
 
-            dictionary = v52;
-            v19 = v53;
-            v20 = v50;
-            v23 = v56;
-            v21 = v57;
+            dictionary = v50;
+            v19 = v51;
+            v20 = v48;
+            v23 = v54;
+            v21 = v55;
           }
 
           ++v21;
         }
 
         while (v21 != v19);
-        v19 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+        v19 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
       }
 
       while (v19);
     }
 
-    addressesCopy = v49;
+    addressesCopy = v47;
   }
 
   else
   {
     v17 = 0;
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -920,7 +912,7 @@ LABEL_77:
     v46 = nameCopy;
     v47 = 2112;
     v48 = v7;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] %@ tokens -> %@", &v45, 22);
   }
 
   if ([v7 count])
@@ -986,7 +978,8 @@ LABEL_77:
         v54 = v20;
         v55 = 2112;
         v56 = v22;
-        _os_log_send_and_compose_impl();
+        LODWORD(v26) = 58;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 0, "[corewifi] %s: removing '%@' due lexicon (foundUnwantedWords: %d, lexiconMatches: %lu, lexiconNonMatches: %lu, noMatches: %@)", &v45, v26);
       }
 
       v23 = 1;
@@ -1020,27 +1013,26 @@ LABEL_77:
     {
       v45 = 138412290;
       v46 = nameCopy;
-      _os_log_send_and_compose_impl();
+      LODWORD(v26) = 12;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] failed to tokenize name='%@'", &v45, v26);
     }
 
     v23 = 1;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (id)_tokenizeStringForSpecialCharacters:(id)characters
 {
-  v21 = *MEMORY[0x1E69E9840];
   charactersCopy = characters;
-  v18 = [MEMORY[0x1E695DFA8] set];
+  v17 = [MEMORY[0x1E695DFA8] set];
   if ([charactersCopy length])
   {
     context = objc_autoreleasePoolPush();
-    v19 = [charactersCopy length];
-    v4 = v19 - 2;
-    if (v19 >= 2)
+    v18 = [charactersCopy length];
+    v4 = v18 - 2;
+    if (v18 >= 2)
     {
       v5 = 0;
       v6 = 0;
@@ -1053,7 +1045,7 @@ LABEL_77:
 
         if ((v4 == v5) | v8)
         {
-          v10 = v19;
+          v10 = v18;
           if (v4 != v5)
           {
             v10 = v5 + 1;
@@ -1066,7 +1058,7 @@ LABEL_77:
 
           if ([lowercaseString length] >= 2)
           {
-            [v18 addObject:lowercaseString];
+            [v17 addObject:lowercaseString];
           }
         }
 
@@ -1079,15 +1071,13 @@ LABEL_77:
         v6 = v7;
       }
 
-      while (v19 - 1 != v5);
+      while (v18 - 1 != v5);
     }
 
     objc_autoreleasePoolPop(context);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 @end

@@ -189,13 +189,13 @@ void __45__MFSoundController_lazyAlertWithType_topic___block_invoke_2(uint64_t a
   _Block_object_dispose(&v35, 8);
 }
 
-uint64_t __46__MFSoundController__playAlertWithType_topic___block_invoke(uint64_t a1)
+uint64_t __46__MFSoundController__playAlertWithType_topic___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BE819000, v2, OS_LOG_TYPE_INFO, "Background task expired (play alert)", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BE819000, v3, OS_LOG_TYPE_INFO, "Background task expired (play alert)", v5, 2u);
   }
 
   return [*(a1 + 32) endBackgroundTask:*(*(*(a1 + 40) + 8) + 24)];

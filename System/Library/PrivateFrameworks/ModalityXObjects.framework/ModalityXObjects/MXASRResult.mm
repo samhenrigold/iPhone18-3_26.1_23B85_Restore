@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)payloadAsString:(int)string;
 - (int)StringAsPayload:(id)payload;
 - (int)payload;
 - (unint64_t)hash;
@@ -47,6 +48,21 @@
   {
     return 0;
   }
+}
+
+- (id)payloadAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BE10[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPayload:(id)payload
@@ -226,7 +242,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_payload != *(equalCopy + 4))
@@ -238,7 +253,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -260,17 +275,17 @@ LABEL_13:
   finalSpeechRecognitionResponse = self->_finalSpeechRecognitionResponse;
   if (finalSpeechRecognitionResponse | *(equalCopy + 1))
   {
-    v9 = [(MXFinalSpeechRecognitionResponse *)finalSpeechRecognitionResponse isEqual:?];
+    v8 = [(MXFinalSpeechRecognitionResponse *)finalSpeechRecognitionResponse isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

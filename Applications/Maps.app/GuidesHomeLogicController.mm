@@ -223,7 +223,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  [v8 configuration];
+  objc_msgSend_configuration(v8);
 
   if (v27 > 3)
   {

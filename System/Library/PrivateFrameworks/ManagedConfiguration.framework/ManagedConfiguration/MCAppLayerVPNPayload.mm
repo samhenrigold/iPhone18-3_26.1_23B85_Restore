@@ -10,22 +10,21 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.vpn.managed.applayer";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.vpn.managed.applayer";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCAppLayerVPNPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v53.receiver = self;
-  v53.super_class = MCAppLayerVPNPayload;
-  v10 = [(MCVPNPayloadBase *)&v53 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v52.receiver = self;
+  v52.super_class = MCAppLayerVPNPayload;
+  v10 = [(MCVPNPayloadBase *)&v52 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   v11 = v10;
   if (!v10)
   {
@@ -33,9 +32,9 @@
   }
 
   v10->_restrictDomains = 0;
-  v52 = 0;
-  v12 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SafariDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v52}];
-  v13 = v52;
+  v51 = 0;
+  v12 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SafariDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v51}];
+  v13 = v51;
   SafariDomains = v11->_SafariDomains;
   v11->_SafariDomains = v12;
 
@@ -44,9 +43,9 @@
     goto LABEL_16;
   }
 
-  v51 = 0;
-  v15 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SMBDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v51}];
-  v13 = v51;
+  v50 = 0;
+  v15 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SMBDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v50}];
+  v13 = v50;
   SMBDomains = v11->_SMBDomains;
   v11->_SMBDomains = v15;
 
@@ -55,9 +54,9 @@
     goto LABEL_16;
   }
 
-  v50 = 0;
-  v17 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MailDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v50}];
-  v13 = v50;
+  v49 = 0;
+  v17 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MailDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v49}];
+  v13 = v49;
   mailDomains = v11->_mailDomains;
   v11->_mailDomains = v17;
 
@@ -66,9 +65,9 @@
     goto LABEL_16;
   }
 
-  v49 = 0;
-  v19 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CalendarDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v49}];
-  v13 = v49;
+  v48 = 0;
+  v19 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"CalendarDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v48}];
+  v13 = v48;
   calendarDomains = v11->_calendarDomains;
   v11->_calendarDomains = v19;
 
@@ -77,9 +76,9 @@
     goto LABEL_16;
   }
 
-  v48 = 0;
-  v21 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ContactsDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v48}];
-  v13 = v48;
+  v47 = 0;
+  v21 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ContactsDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v47}];
+  v13 = v47;
   contactsDomains = v11->_contactsDomains;
   v11->_contactsDomains = v21;
 
@@ -88,9 +87,9 @@
     goto LABEL_16;
   }
 
-  v47 = 0;
-  v23 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v47}];
-  v13 = v47;
+  v46 = 0;
+  v23 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v46}];
+  v13 = v46;
   excludedDomains = v11->_excludedDomains;
   v11->_excludedDomains = v23;
 
@@ -99,9 +98,9 @@
     goto LABEL_16;
   }
 
-  v46 = 0;
-  v25 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AssociatedDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v46}];
-  v13 = v46;
+  v45 = 0;
+  v25 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AssociatedDomains" isRequired:0 allowZeroLengthString:objc_msgSend(profileCopy outError:{"isStub"), &v45}];
+  v13 = v45;
   associatedDomains = v11->_associatedDomains;
   v11->_associatedDomains = v25;
 
@@ -121,16 +120,16 @@
       goto LABEL_15;
     }
 
-    v44 = 0;
-    v29 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNUUID" isRequired:0 outError:&v44];
-    v30 = v44;
+    v43 = 0;
+    v29 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNUUID" isRequired:0 outError:&v43];
+    v30 = v43;
   }
 
   else
   {
-    v45 = 0;
-    v29 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNUUID" isRequired:1 outError:&v45];
-    v30 = v45;
+    v44 = 0;
+    v29 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"VPNUUID" isRequired:1 outError:&v44];
+    v30 = v44;
   }
 
   v13 = v30;
@@ -157,9 +156,9 @@ LABEL_16:
       v37 = objc_opt_class();
       mCVerboseDescription = [v33 MCVerboseDescription];
       *buf = 138543618;
-      v55 = v37;
-      v56 = 2114;
-      v57 = mCVerboseDescription;
+      v54 = v37;
+      v55 = 2114;
+      v56 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v36, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -174,15 +173,14 @@ LABEL_16:
       v40 = v39;
       friendlyName = [(MCPayload *)v11 friendlyName];
       *buf = 138543618;
-      v55 = friendlyName;
-      v56 = 2114;
-      v57 = dictionaryCopy;
+      v54 = friendlyName;
+      v55 = 2114;
+      v56 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v40, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_25:
-  v42 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

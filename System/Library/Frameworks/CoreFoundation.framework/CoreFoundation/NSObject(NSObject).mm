@@ -85,7 +85,7 @@
 
 + (void)doesNotRecognizeSelector:()NSObject
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (cls)
   {
     Name = class_getName(cls);
@@ -115,7 +115,7 @@ LABEL_6:
   strlen(v6);
   v10 = _dyld_is_memory_immutable();
   v11 = _os_log_pack_size();
-  v12 = _os_log_pack_fill();
+  v12 = _os_log_pack_fill(&v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, 0, &dword_1830E6000, "+[%s %s]: unrecognized selector sent to class %p", v16, v17, v18);
   if (is_memory_immutable)
   {
     v13 = Name;
@@ -136,13 +136,13 @@ LABEL_6:
     v14 = "(dynamic selector)";
   }
 
-  v15 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:v8 userInfo:0 osLogPack:v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0) size:v11, __os_log_helper_1_2_3_8_32_8_32_8_0(v12, v13, v14, cls)];
+  v15 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:v8 userInfo:0 osLogPack:&v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0) size:v11, __os_log_helper_1_2_3_8_32_8_32_8_0(v12, v13, v14, cls)];
   objc_exception_throw(v15);
 }
 
 - (void)doesNotRecognizeSelector:()NSObject
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   if (v5)
   {
@@ -173,7 +173,7 @@ LABEL_6:
   strlen(v7);
   v11 = _dyld_is_memory_immutable();
   v12 = _os_log_pack_size();
-  v13 = _os_log_pack_fill();
+  v13 = _os_log_pack_fill(&v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v12, 0, &dword_1830E6000, "[%s %s]: unrecognized selector sent to instance %p", v17, v18, v19);
   if (is_memory_immutable)
   {
     v14 = Name;
@@ -194,7 +194,7 @@ LABEL_6:
     v15 = "(dynamic selector)";
   }
 
-  v16 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:v9 userInfo:0 osLogPack:v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0) size:v12, __os_log_helper_1_2_3_8_32_8_32_8_0(v13, v14, v15, self)];
+  v16 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:v9 userInfo:0 osLogPack:&v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0) size:v12, __os_log_helper_1_2_3_8_32_8_32_8_0(v13, v14, v15, self)];
   objc_exception_throw(v16);
 }
 
@@ -242,79 +242,75 @@ LABEL_6:
 
 - (uint64_t)__retain_OA
 {
-  v0 = _objc_rootRetain();
-  __CFRecordAllocationEvent();
-  return v0;
+  v2 = _objc_rootRetain();
+  __CFRecordAllocationEvent(12, self, 0, 0, 0);
+  return v2;
 }
 
 - (uint64_t)___tryRetain_OA
 {
-  v0 = _objc_rootTryRetain();
-  if (v0)
+  v2 = _objc_rootTryRetain();
+  if (v2)
   {
-    __CFRecordAllocationEvent();
+    __CFRecordAllocationEvent(22, self, 0, 0, 0);
   }
 
-  return v0;
+  return v2;
 }
 
 - (uint64_t)__release_OA
 {
-  __CFRecordAllocationEvent();
+  __CFRecordAllocationEvent(13, self, 0, 0, 0);
 
   return MEMORY[0x1EEE66848](self);
 }
 
 + (void)__allocWithZone_OA:()NSObject
 {
-  v0 = _objc_rootAllocWithZone();
-  v1 = v0;
-  if (v0)
+  v3 = _objc_rootAllocWithZone();
+  v4 = v3;
+  if (v3)
   {
-    object_getClassName(v0);
+    object_getClassName(v3);
     __CFSetLastAllocationEventName();
   }
 
-  return v1;
+  return v4;
 }
 
 - (void)__dealloc_zombie
 {
   name[1] = *MEMORY[0x1E69E9840];
-  if ((self & 0x8000000000000000) != 0)
+  if ((self & 0x8000000000000000) == 0)
   {
-LABEL_7:
-    v6 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (__CFZombieEnabled)
-  {
-    Class = object_getClass(self);
-    name[0] = 0;
-    v3 = class_getName(Class);
-    asprintf(name, "_NSZombie_%s", v3);
-    v4 = objc_lookUpClass(name[0]);
-    if (!v4)
+    if (__CFZombieEnabled)
     {
-      v5 = objc_lookUpClass("_NSZombie_");
-      v4 = objc_duplicateClass(v5, name[0], 0);
+      Class = object_getClass(self);
+      name[0] = 0;
+      v3 = class_getName(Class);
+      asprintf(name, "_NSZombie_%s", v3);
+      v4 = objc_lookUpClass(name[0]);
+      if (!v4)
+      {
+        v5 = objc_lookUpClass("_NSZombie_");
+        v4 = objc_duplicateClass(v5, name[0], 0);
+      }
+
+      free(name[0]);
+      objc_destructInstance(self);
+      object_setClass(self, v4);
+      if (__CFDeallocateZombies)
+      {
+        free(self);
+      }
     }
 
-    free(name[0]);
-    objc_destructInstance(self);
-    object_setClass(self, v4);
-    if (__CFDeallocateZombies)
+    else
     {
-      free(self);
+
+      MEMORY[0x1EEE66828]();
     }
-
-    goto LABEL_7;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  MEMORY[0x1EEE66828]();
 }
 
 + (objc_class)init

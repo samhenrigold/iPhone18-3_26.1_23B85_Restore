@@ -13,19 +13,2090 @@
 - (NSString)systemOSSerialNumber;
 - (id)_crsGetSharingRequest:(id *)request signature:(id *)signature;
 - (id)_crsSetSharingResult:(id)result signature:(id)signature;
+- (id)allocateSlot:(unsigned __int8)slot authorizingUser:(unsigned __int8)user authorizingUserToken:(id)token outToken:(id *)outToken outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
+- (id)authorizeUpdate:(BOOL)update slotIndex:(unsigned __int8)index userToken:(id)token outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
 - (id)checkPairing;
 - (id)checkPerBootAuthKeysAreStillPresent;
+- (id)deleteSlot:(unsigned __int8)slot outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
+- (id)derive:(unsigned __int8)derive userHash:(id)hash outData:(id *)data outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
 - (id)getData:(id *)data updateKUD:(char *)d outWriteLimit:(unsigned int *)limit outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
 - (id)getHash:(id *)hash appletResult:(unsigned __int16 *)result;
 - (id)negotiatePerBootAuthKeys;
 - (id)performSharing;
 - (id)recoverSLAM;
+- (id)resetCounter:(unsigned __int8)counter userToken:(id)token outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
+- (id)upgradeKey:(unsigned __int8)key inputData:(id)data outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result;
 - (unint64_t)_crsGetPersoState:(id *)state;
 - (unint64_t)getPairingVersion;
 - (unint64_t)supportedTechnologies;
 @end
 
 @implementation NFSecureElementWrapper
+
+- (id)allocateSlot:(unsigned __int8)slot authorizingUser:(unsigned __int8)user authorizingUserToken:(id)token outToken:(id *)outToken outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  userCopy = user;
+  slotCopy = slot;
+  tokenCopy = token;
+  v15 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+  v112 = 0;
+  v16 = sub_100158A6C(&self->super.isa, v15, &v112);
+  v17 = v112;
+
+  if (v16)
+  {
+    if ([v16 status] == 36864)
+    {
+      v111 = v17;
+      v18 = sub_100158334(&self->super.isa, 128, 0, slotCopy, userCopy, tokenCopy, &v111);
+      v19 = v111;
+
+      if (!v18)
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        Logger = NFLogGetLogger();
+        if (Logger)
+        {
+          v62 = Logger;
+          Class = object_getClass(self);
+          isMetaClass = class_isMetaClass(Class);
+          ClassName = object_getClassName(self);
+          Name = sel_getName(a2);
+          v66 = 45;
+          if (isMetaClass)
+          {
+            v66 = 43;
+          }
+
+          v62(3, "%c[%{public}s %{public}s]:%i Nil response", v66, ClassName, Name, 47);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v67 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        {
+          v68 = object_getClass(self);
+          if (class_isMetaClass(v68))
+          {
+            v69 = 43;
+          }
+
+          else
+          {
+            v69 = 45;
+          }
+
+          v70 = object_getClassName(self);
+          v71 = sel_getName(a2);
+          *buf = 67109890;
+          v126 = v69;
+          v127 = 2082;
+          v128 = v70;
+          v129 = 2082;
+          v130 = v71;
+          v131 = 1024;
+          v132 = 47;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+        }
+
+        if (v19 && [v19 code])
+        {
+          v72 = [NSError alloc];
+          v18 = [NSString stringWithUTF8String:"nfcd"];
+          code = [v19 code];
+          v117[0] = NSLocalizedDescriptionKey;
+          if ([v19 code] > 75)
+          {
+            code2 = 76;
+          }
+
+          else
+          {
+            code2 = [v19 code];
+          }
+
+          response3 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+          v118[0] = response3;
+          v118[1] = v19;
+          v117[1] = NSUnderlyingErrorKey;
+          v117[2] = @"Line";
+          v118[2] = &off_10032FCD0;
+          v117[3] = @"Method";
+          v101 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v118[3] = v101;
+          v117[4] = NSDebugDescriptionErrorKey;
+          v102 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 48];
+          v118[4] = v102;
+          v103 = [NSDictionary dictionaryWithObjects:v118 forKeys:v117 count:5];
+          v60 = [v72 initWithDomain:v18 code:code userInfo:v103];
+        }
+
+        else
+        {
+          v97 = [NSError alloc];
+          v18 = [NSString stringWithUTF8String:"nfcd"];
+          v115[0] = NSLocalizedDescriptionKey;
+          response3 = [NSString stringWithUTF8String:"Unknown Error"];
+          v116[0] = response3;
+          v116[1] = &off_10032FCD0;
+          v115[1] = @"Line";
+          v115[2] = @"Method";
+          v98 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v116[2] = v98;
+          v115[3] = NSDebugDescriptionErrorKey;
+          v99 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 48];
+          v116[3] = v99;
+          v100 = [NSDictionary dictionaryWithObjects:v116 forKeys:v115 count:4];
+          v60 = [v97 initWithDomain:v18 code:6 userInfo:v100];
+        }
+
+        goto LABEL_60;
+      }
+
+      *result = [v18 status];
+      response = [v18 response];
+      if ([response length] >= 0x14)
+      {
+        status = [v18 status];
+
+        if (status == 36864)
+        {
+          response2 = [v18 response];
+          *count = *[response2 bytes];
+
+          *count = bswap32(*count);
+          response3 = [v18 response];
+          [response3 subdataWithRange:{4, 16}];
+          *outToken = v60 = 0;
+LABEL_60:
+          v17 = v19;
+          goto LABEL_61;
+        }
+      }
+
+      else
+      {
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v77 = NFLogGetLogger();
+      if (v77)
+      {
+        v78 = v77;
+        v79 = object_getClass(self);
+        v80 = class_isMetaClass(v79);
+        v81 = object_getClassName(self);
+        v82 = sel_getName(a2);
+        response4 = [v18 response];
+        v109 = [response4 length];
+        v84 = 45;
+        if (v80)
+        {
+          v84 = 43;
+        }
+
+        v78(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v84, v81, v82, 55, v109);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v85 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+      {
+        v86 = object_getClass(self);
+        if (class_isMetaClass(v86))
+        {
+          v87 = 43;
+        }
+
+        else
+        {
+          v87 = 45;
+        }
+
+        v88 = object_getClassName(self);
+        v89 = sel_getName(a2);
+        response5 = [v18 response];
+        v91 = [response5 length];
+        *buf = 67110146;
+        v126 = v87;
+        v127 = 2082;
+        v128 = v88;
+        v129 = 2082;
+        v130 = v89;
+        v131 = 1024;
+        v132 = 55;
+        v133 = 2048;
+        v134 = v91;
+        _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+      }
+
+      v92 = [NSError alloc];
+      response3 = [NSString stringWithUTF8String:"nfcd"];
+      v113[0] = NSLocalizedDescriptionKey;
+      v93 = [NSString stringWithUTF8String:"Unexpected Result"];
+      v114[0] = v93;
+      v114[1] = &off_10032FCE8;
+      v113[1] = @"Line";
+      v113[2] = @"Method";
+      v94 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+      v114[2] = v94;
+      v113[3] = NSDebugDescriptionErrorKey;
+      v95 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 56];
+      v114[3] = v95;
+      v96 = [NSDictionary dictionaryWithObjects:v114 forKeys:v113 count:4];
+      v60 = [v92 initWithDomain:response3 code:13 userInfo:v96];
+
+      goto LABEL_60;
+    }
+
+    *result = [v16 status];
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v34 = NFLogGetLogger();
+    if (v34)
+    {
+      v35 = v34;
+      v36 = object_getClass(self);
+      v37 = class_isMetaClass(v36);
+      v38 = object_getClassName(self);
+      v39 = sel_getName(a2);
+      status2 = [v16 status];
+      v40 = 45;
+      if (v37)
+      {
+        v40 = 43;
+      }
+
+      v35(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v40, v38, v39, 33, status2, tokenCopy);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v41 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      v42 = object_getClass(self);
+      if (class_isMetaClass(v42))
+      {
+        v43 = 43;
+      }
+
+      else
+      {
+        v43 = 45;
+      }
+
+      v44 = object_getClassName(self);
+      v45 = sel_getName(a2);
+      status3 = [v16 status];
+      *buf = 67110146;
+      v126 = v43;
+      v127 = 2082;
+      v128 = v44;
+      v129 = 2082;
+      v130 = v45;
+      v131 = 1024;
+      v132 = 33;
+      v133 = 1024;
+      LODWORD(v134) = status3;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+    }
+
+    status4 = [v16 status];
+    v48 = [NSError alloc];
+    response3 = [NSString stringWithUTF8String:"nfcd"];
+    if (status4 == 26277)
+    {
+      v121[0] = NSLocalizedDescriptionKey;
+      v50 = [NSString stringWithUTF8String:"Restricted Mode"];
+      v122[0] = v50;
+      v122[1] = &off_10032FCA0;
+      v121[1] = @"Line";
+      v121[2] = @"Method";
+      v51 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+      v122[2] = v51;
+      v121[3] = NSDebugDescriptionErrorKey;
+      v52 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 35];
+      v122[3] = v52;
+      v53 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:4];
+      v54 = v48;
+      v55 = response3;
+      v56 = 24;
+    }
+
+    else
+    {
+      v119[0] = NSLocalizedDescriptionKey;
+      v50 = [NSString stringWithUTF8String:"Command Error"];
+      v120[0] = v50;
+      v120[1] = &off_10032FCB8;
+      v119[1] = @"Line";
+      v119[2] = @"Method";
+      v51 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+      v120[2] = v51;
+      v119[3] = NSDebugDescriptionErrorKey;
+      v52 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 37];
+      v120[3] = v52;
+      v53 = [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:4];
+      v54 = v48;
+      v55 = response3;
+      v56 = 16;
+    }
+
+    v60 = [v54 initWithDomain:v55 code:v56 userInfo:v53];
+
+    v18 = v16;
+  }
+
+  else
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v21 = NFLogGetLogger();
+    if (v21)
+    {
+      v22 = v21;
+      v23 = object_getClass(self);
+      v24 = class_isMetaClass(v23);
+      v105 = object_getClassName(self);
+      v106 = sel_getName(a2);
+      v25 = 45;
+      if (v24)
+      {
+        v25 = 43;
+      }
+
+      v22(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v25, v105, v106, 28, v17, tokenCopy);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v26 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v27 = object_getClass(self);
+      if (class_isMetaClass(v27))
+      {
+        v28 = 43;
+      }
+
+      else
+      {
+        v28 = 45;
+      }
+
+      v29 = object_getClassName(self);
+      v30 = sel_getName(a2);
+      *buf = 67110146;
+      v126 = v28;
+      v127 = 2082;
+      v128 = v29;
+      v129 = 2082;
+      v130 = v30;
+      v131 = 1024;
+      v132 = 28;
+      v133 = 2114;
+      v134 = v17;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+    }
+
+    v31 = [NSError alloc];
+    v18 = [NSString stringWithUTF8String:"nfcd"];
+    code3 = [v17 code];
+    v123[0] = NSLocalizedDescriptionKey;
+    if ([v17 code] > 75)
+    {
+      code4 = 76;
+    }
+
+    else
+    {
+      code4 = [v17 code];
+    }
+
+    response3 = [NSString stringWithUTF8String:off_1003158C8[code4]];
+    v124[0] = response3;
+    v124[1] = v17;
+    v123[1] = NSUnderlyingErrorKey;
+    v123[2] = @"Line";
+    v124[2] = &off_10032FC88;
+    v123[3] = @"Method";
+    v57 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v124[3] = v57;
+    v123[4] = NSDebugDescriptionErrorKey;
+    v58 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 29];
+    v124[4] = v58;
+    v59 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:5];
+    v60 = [v31 initWithDomain:v18 code:code3 userInfo:v59];
+  }
+
+LABEL_61:
+
+  return v60;
+}
+
+- (id)derive:(unsigned __int8)derive userHash:(id)hash outData:(id *)data outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  deriveCopy = derive;
+  hashCopy = hash;
+  v14 = hashCopy;
+  if (hashCopy && [hashCopy length] != 32)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v22 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v123 = [v14 length];
+      v27 = 45;
+      if (isMetaClass)
+      {
+        v27 = 43;
+      }
+
+      v22(3, "%c[%{public}s %{public}s]:%i Invalid user hash length : %u bytes", v27, ClassName, Name, 77, v123);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v28 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v29 = object_getClass(self);
+      if (class_isMetaClass(v29))
+      {
+        v30 = 43;
+      }
+
+      else
+      {
+        v30 = 45;
+      }
+
+      v31 = object_getClassName(self);
+      v32 = sel_getName(a2);
+      v33 = [v14 length];
+      *buf = 67110146;
+      v142 = v30;
+      v143 = 2082;
+      v144 = v31;
+      v145 = 2082;
+      v146 = v32;
+      v147 = 1024;
+      v148 = 77;
+      v149 = 1024;
+      LODWORD(v150) = v33;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid user hash length : %u bytes", buf, 0x28u);
+    }
+
+    *result = 0;
+    v34 = [NSError alloc];
+    v17 = [NSString stringWithUTF8String:"nfcd"];
+    v151[0] = NSLocalizedDescriptionKey;
+    v18 = [NSString stringWithUTF8String:"Invalid Parameter"];
+    v152[0] = v18;
+    v152[1] = &off_10032FD00;
+    v151[1] = @"Line";
+    v151[2] = @"Method";
+    response5 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v152[2] = response5;
+    v151[3] = NSDebugDescriptionErrorKey;
+    v36 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 79];
+    v152[3] = v36;
+    v37 = [NSDictionary dictionaryWithObjects:v152 forKeys:v151 count:4];
+    v38 = [v34 initWithDomain:v17 code:10 userInfo:v37];
+  }
+
+  else
+  {
+    v15 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+    v128 = 0;
+    v16 = sub_100158A6C(&self->super.isa, v15, &v128);
+    v17 = v128;
+
+    if (v16)
+    {
+      if ([v16 status] == 36864)
+      {
+        v127 = v17;
+        v18 = sub_100158334(&self->super.isa, 128, 1, deriveCopy, 0, v14, &v127);
+        v19 = v127;
+
+        if (v18)
+        {
+          *result = [v18 status];
+          response = [v18 response];
+          if ([response length] < 0x14)
+          {
+
+LABEL_58:
+            v126 = v19;
+            dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+            v94 = NFLogGetLogger();
+            if (v94)
+            {
+              v95 = v94;
+              v96 = object_getClass(self);
+              v97 = class_isMetaClass(v96);
+              v98 = object_getClassName(self);
+              v99 = sel_getName(a2);
+              response2 = [v18 response];
+              v125 = [response2 length];
+              v101 = 45;
+              if (v97)
+              {
+                v101 = 43;
+              }
+
+              v95(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v101, v98, v99, 113, v125);
+            }
+
+            dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+            v102 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+            {
+              v103 = object_getClass(self);
+              if (class_isMetaClass(v103))
+              {
+                v104 = 43;
+              }
+
+              else
+              {
+                v104 = 45;
+              }
+
+              v105 = object_getClassName(self);
+              v106 = sel_getName(a2);
+              response3 = [v18 response];
+              v108 = [response3 length];
+              *buf = 67110146;
+              v142 = v104;
+              v143 = 2082;
+              v144 = v105;
+              v145 = 2082;
+              v146 = v106;
+              v147 = 1024;
+              v148 = 113;
+              v149 = 2048;
+              v150 = v108;
+              _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+            }
+
+            v109 = [NSError alloc];
+            response5 = [NSString stringWithUTF8String:"nfcd"];
+            v129[0] = NSLocalizedDescriptionKey;
+            v110 = [NSString stringWithUTF8String:"Unexpected Result"];
+            v130[0] = v110;
+            v130[1] = &off_10032FD78;
+            v129[1] = @"Line";
+            v129[2] = @"Method";
+            v111 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+            v130[2] = v111;
+            v129[3] = NSDebugDescriptionErrorKey;
+            v112 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 114];
+            v130[3] = v112;
+            v113 = [NSDictionary dictionaryWithObjects:v130 forKeys:v129 count:4];
+            v38 = [v109 initWithDomain:response5 code:13 userInfo:v113];
+
+            v17 = v126;
+            goto LABEL_72;
+          }
+
+          status = [v18 status];
+
+          if (status != 36864)
+          {
+            goto LABEL_58;
+          }
+
+          response4 = [v18 response];
+          *count = *[response4 bytes];
+
+          *count = bswap32(*count);
+          response5 = [v18 response];
+          [response5 subdataWithRange:{4, 16}];
+          *data = v38 = 0;
+        }
+
+        else
+        {
+          v77 = v19;
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v78 = NFLogGetLogger();
+          if (v78)
+          {
+            v79 = v78;
+            v80 = object_getClass(self);
+            v81 = class_isMetaClass(v80);
+            v82 = object_getClassName(self);
+            v122 = sel_getName(a2);
+            v83 = 45;
+            if (v81)
+            {
+              v83 = 43;
+            }
+
+            v79(3, "%c[%{public}s %{public}s]:%i Nil response", v83, v82, v122, 105);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v84 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+          {
+            v85 = object_getClass(self);
+            if (class_isMetaClass(v85))
+            {
+              v86 = 43;
+            }
+
+            else
+            {
+              v86 = 45;
+            }
+
+            v87 = object_getClassName(self);
+            v88 = sel_getName(a2);
+            *buf = 67109890;
+            v142 = v86;
+            v143 = 2082;
+            v144 = v87;
+            v145 = 2082;
+            v146 = v88;
+            v147 = 1024;
+            v148 = 105;
+            _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+          }
+
+          v89 = [NSError alloc];
+          v17 = [NSString stringWithUTF8String:"nfcd"];
+          if (!v77)
+          {
+            v131[0] = NSLocalizedDescriptionKey;
+            v18 = [NSString stringWithUTF8String:"Unknown Error"];
+            v132[0] = v18;
+            v132[1] = &off_10032FD60;
+            v131[1] = @"Line";
+            v131[2] = @"Method";
+            response5 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+            v132[2] = response5;
+            v131[3] = NSDebugDescriptionErrorKey;
+            v114 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 106];
+            v132[3] = v114;
+            v115 = [NSDictionary dictionaryWithObjects:v132 forKeys:v131 count:4];
+            v38 = [v89 initWithDomain:v17 code:6 userInfo:v115];
+
+            goto LABEL_72;
+          }
+
+          v19 = v77;
+          code = [v77 code];
+          v133[0] = NSLocalizedDescriptionKey;
+          if ([v77 code] > 75)
+          {
+            code2 = 76;
+          }
+
+          else
+          {
+            code2 = [v77 code];
+          }
+
+          response5 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+          v134[0] = response5;
+          v134[1] = v77;
+          v133[1] = NSUnderlyingErrorKey;
+          v133[2] = @"Line";
+          v134[2] = &off_10032FD60;
+          v133[3] = @"Method";
+          v116 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v134[3] = v116;
+          v133[4] = NSDebugDescriptionErrorKey;
+          v117 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 106];
+          v134[4] = v117;
+          v118 = [NSDictionary dictionaryWithObjects:v134 forKeys:v133 count:5];
+          v38 = [v89 initWithDomain:v17 code:code userInfo:v118];
+
+          v18 = v17;
+        }
+
+        v17 = v19;
+        goto LABEL_72;
+      }
+
+      *result = [v16 status];
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v52 = NFLogGetLogger();
+      if (v52)
+      {
+        v53 = v52;
+        v54 = object_getClass(self);
+        v55 = class_isMetaClass(v54);
+        v56 = object_getClassName(self);
+        v57 = sel_getName(a2);
+        status2 = [v16 status];
+        v58 = 45;
+        if (v55)
+        {
+          v58 = 43;
+        }
+
+        v53(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v58, v56, v57, 91, status2);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v59 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      {
+        v60 = object_getClass(self);
+        if (class_isMetaClass(v60))
+        {
+          v61 = 43;
+        }
+
+        else
+        {
+          v61 = 45;
+        }
+
+        v62 = object_getClassName(self);
+        v63 = sel_getName(a2);
+        status3 = [v16 status];
+        *buf = 67110146;
+        v142 = v61;
+        v143 = 2082;
+        v144 = v62;
+        v145 = 2082;
+        v146 = v63;
+        v147 = 1024;
+        v148 = 91;
+        v149 = 1024;
+        LODWORD(v150) = status3;
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+      }
+
+      status4 = [v16 status];
+      v66 = [NSError alloc];
+      response5 = [NSString stringWithUTF8String:"nfcd"];
+      if (status4 == 26277)
+      {
+        v137[0] = NSLocalizedDescriptionKey;
+        v67 = [NSString stringWithUTF8String:"Restricted Mode"];
+        v138[0] = v67;
+        v138[1] = &off_10032FD30;
+        v137[1] = @"Line";
+        v137[2] = @"Method";
+        v68 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v138[2] = v68;
+        v137[3] = NSDebugDescriptionErrorKey;
+        v69 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 93];
+        v138[3] = v69;
+        v70 = [NSDictionary dictionaryWithObjects:v138 forKeys:v137 count:4];
+        v71 = v66;
+        v72 = response5;
+        v73 = 24;
+      }
+
+      else
+      {
+        v135[0] = NSLocalizedDescriptionKey;
+        v67 = [NSString stringWithUTF8String:"Command Error"];
+        v136[0] = v67;
+        v136[1] = &off_10032FD48;
+        v135[1] = @"Line";
+        v135[2] = @"Method";
+        v68 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v136[2] = v68;
+        v135[3] = NSDebugDescriptionErrorKey;
+        v69 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 95];
+        v136[3] = v69;
+        v70 = [NSDictionary dictionaryWithObjects:v136 forKeys:v135 count:4];
+        v71 = v66;
+        v72 = response5;
+        v73 = 16;
+      }
+
+      v38 = [v71 initWithDomain:v72 code:v73 userInfo:v70];
+
+      v18 = v16;
+    }
+
+    else
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v39 = NFLogGetLogger();
+      if (v39)
+      {
+        v40 = v39;
+        v41 = object_getClass(self);
+        v42 = class_isMetaClass(v41);
+        v120 = object_getClassName(self);
+        v121 = sel_getName(a2);
+        v43 = 45;
+        if (v42)
+        {
+          v43 = 43;
+        }
+
+        v40(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v43, v120, v121, 86, v17);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v44 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      {
+        v45 = object_getClass(self);
+        if (class_isMetaClass(v45))
+        {
+          v46 = 43;
+        }
+
+        else
+        {
+          v46 = 45;
+        }
+
+        v47 = object_getClassName(self);
+        v48 = sel_getName(a2);
+        *buf = 67110146;
+        v142 = v46;
+        v143 = 2082;
+        v144 = v47;
+        v145 = 2082;
+        v146 = v48;
+        v147 = 1024;
+        v148 = 86;
+        v149 = 2114;
+        v150 = v17;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+      }
+
+      v49 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      code3 = [v17 code];
+      v139[0] = NSLocalizedDescriptionKey;
+      if ([v17 code] > 75)
+      {
+        code4 = 76;
+      }
+
+      else
+      {
+        code4 = [v17 code];
+      }
+
+      response5 = [NSString stringWithUTF8String:off_1003158C8[code4]];
+      v140[0] = response5;
+      v140[1] = v17;
+      v139[1] = NSUnderlyingErrorKey;
+      v139[2] = @"Line";
+      v140[2] = &off_10032FD18;
+      v139[3] = @"Method";
+      v74 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+      v140[3] = v74;
+      v139[4] = NSDebugDescriptionErrorKey;
+      v75 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 87];
+      v140[4] = v75;
+      v76 = [NSDictionary dictionaryWithObjects:v140 forKeys:v139 count:5];
+      v38 = [v49 initWithDomain:v18 code:code3 userInfo:v76];
+    }
+  }
+
+LABEL_72:
+
+  return v38;
+}
+
+- (id)resetCounter:(unsigned __int8)counter userToken:(id)token outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  counterCopy = counter;
+  tokenCopy = token;
+  v12 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+  v118 = 0;
+  v13 = sub_100158A6C(&self->super.isa, v12, &v118);
+  v14 = v118;
+
+  if (v13)
+  {
+    if ([v13 status] == 36864)
+    {
+      v117 = v14;
+      v15 = sub_100158334(&self->super.isa, 128, 2, counterCopy, 0, tokenCopy, &v117);
+      v16 = v117;
+
+      if (v15)
+      {
+        *result = [v15 status];
+        response = [v15 response];
+        v18 = [response length];
+
+        if (v18 > 3)
+        {
+          response2 = [v15 response];
+          *count = *[response2 bytes];
+
+          v40 = 0;
+          *count = bswap32(*count);
+          v14 = v16;
+        }
+
+        else
+        {
+          v114 = v16;
+          v115 = tokenCopy;
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          Logger = NFLogGetLogger();
+          if (Logger)
+          {
+            v20 = Logger;
+            Class = object_getClass(self);
+            isMetaClass = class_isMetaClass(Class);
+            ClassName = object_getClassName(self);
+            Name = sel_getName(a2);
+            response3 = [v15 response];
+            v112 = [response3 length];
+            v26 = 45;
+            if (isMetaClass)
+            {
+              v26 = 43;
+            }
+
+            v20(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v26, ClassName, Name, 165, v112);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v27 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          {
+            v28 = object_getClass(self);
+            if (class_isMetaClass(v28))
+            {
+              v29 = 43;
+            }
+
+            else
+            {
+              v29 = 45;
+            }
+
+            v30 = object_getClassName(self);
+            v31 = sel_getName(a2);
+            response4 = [v15 response];
+            v33 = [response4 length];
+            *buf = 67110146;
+            v132 = v29;
+            v133 = 2082;
+            v134 = v30;
+            v135 = 2082;
+            v136 = v31;
+            v137 = 1024;
+            v138 = 165;
+            v139 = 2048;
+            v140 = v33;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+          }
+
+          v34 = [NSError alloc];
+          v35 = [NSString stringWithUTF8String:"nfcd"];
+          v119[0] = NSLocalizedDescriptionKey;
+          v36 = [NSString stringWithUTF8String:"Unexpected Result"];
+          v120[0] = v36;
+          v120[1] = &off_10032FDF0;
+          v119[1] = @"Line";
+          v119[2] = @"Method";
+          v37 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v120[2] = v37;
+          v119[3] = NSDebugDescriptionErrorKey;
+          v38 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 166];
+          v120[3] = v38;
+          v39 = [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:4];
+          v40 = [v34 initWithDomain:v35 code:13 userInfo:v39];
+
+          v14 = v114;
+          tokenCopy = v115;
+        }
+
+        goto LABEL_56;
+      }
+
+      v83 = v16;
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v84 = NFLogGetLogger();
+      if (v84)
+      {
+        v85 = v84;
+        v86 = object_getClass(self);
+        v87 = class_isMetaClass(v86);
+        v88 = object_getClassName(self);
+        v111 = sel_getName(a2);
+        v89 = 45;
+        if (v87)
+        {
+          v89 = 43;
+        }
+
+        v85(3, "%c[%{public}s %{public}s]:%i Nil response", v89, v88, v111, 157);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v90 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      {
+        v91 = object_getClass(self);
+        if (class_isMetaClass(v91))
+        {
+          v92 = 43;
+        }
+
+        else
+        {
+          v92 = 45;
+        }
+
+        v93 = object_getClassName(self);
+        v94 = sel_getName(a2);
+        *buf = 67109890;
+        v132 = v92;
+        v133 = 2082;
+        v134 = v93;
+        v135 = 2082;
+        v136 = v94;
+        v137 = 1024;
+        v138 = 157;
+        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+      }
+
+      v95 = [NSError alloc];
+      v14 = [NSString stringWithUTF8String:"nfcd"];
+      if (!v83)
+      {
+        v121[0] = NSLocalizedDescriptionKey;
+        v15 = [NSString stringWithUTF8String:"Unknown Error"];
+        v122[0] = v15;
+        v122[1] = &off_10032FDD8;
+        v121[1] = @"Line";
+        v121[2] = @"Method";
+        v101 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v122[2] = v101;
+        v121[3] = NSDebugDescriptionErrorKey;
+        v102 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 158];
+        v122[3] = v102;
+        v103 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:4];
+        v40 = [v95 initWithDomain:v14 code:6 userInfo:v103];
+
+        goto LABEL_56;
+      }
+
+      v96 = v83;
+      code = [v83 code];
+      v123[0] = NSLocalizedDescriptionKey;
+      v116 = tokenCopy;
+      v98 = v95;
+      if ([v83 code] > 75)
+      {
+        code2 = 76;
+      }
+
+      else
+      {
+        code2 = [v83 code];
+      }
+
+      v105 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+      v124[0] = v105;
+      v124[1] = v83;
+      v123[1] = NSUnderlyingErrorKey;
+      v123[2] = @"Line";
+      v124[2] = &off_10032FDD8;
+      v123[3] = @"Method";
+      v106 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+      v124[3] = v106;
+      v123[4] = NSDebugDescriptionErrorKey;
+      v107 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 158];
+      v124[4] = v107;
+      v108 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:5];
+      v40 = [v98 initWithDomain:v14 code:code userInfo:v108];
+
+      v15 = v14;
+      v14 = v96;
+    }
+
+    else
+    {
+      v116 = tokenCopy;
+      *result = [v13 status];
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v56 = NFLogGetLogger();
+      if (v56)
+      {
+        v57 = v56;
+        v58 = object_getClass(self);
+        v59 = class_isMetaClass(v58);
+        v60 = object_getClassName(self);
+        v61 = sel_getName(a2);
+        status = [v13 status];
+        v62 = 45;
+        if (v59)
+        {
+          v62 = 43;
+        }
+
+        v57(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v62, v60, v61, 143, status);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v63 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      {
+        v64 = object_getClass(self);
+        if (class_isMetaClass(v64))
+        {
+          v65 = 43;
+        }
+
+        else
+        {
+          v65 = 45;
+        }
+
+        v66 = object_getClassName(self);
+        v67 = sel_getName(a2);
+        status2 = [v13 status];
+        *buf = 67110146;
+        v132 = v65;
+        v133 = 2082;
+        v134 = v66;
+        v135 = 2082;
+        v136 = v67;
+        v137 = 1024;
+        v138 = 143;
+        v139 = 1024;
+        LODWORD(v140) = status2;
+        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+      }
+
+      status3 = [v13 status];
+      v70 = [NSError alloc];
+      v71 = [NSString stringWithUTF8String:"nfcd"];
+      if (status3 == 26277)
+      {
+        v127[0] = NSLocalizedDescriptionKey;
+        v72 = [NSString stringWithUTF8String:"Restricted Mode"];
+        v128[0] = v72;
+        v128[1] = &off_10032FDA8;
+        v127[1] = @"Line";
+        v127[2] = @"Method";
+        v73 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v128[2] = v73;
+        v127[3] = NSDebugDescriptionErrorKey;
+        v74 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 145];
+        v128[3] = v74;
+        v75 = [NSDictionary dictionaryWithObjects:v128 forKeys:v127 count:4];
+        v76 = v70;
+        v77 = v71;
+        v78 = 24;
+      }
+
+      else
+      {
+        v125[0] = NSLocalizedDescriptionKey;
+        v72 = [NSString stringWithUTF8String:"Command Error"];
+        v126[0] = v72;
+        v126[1] = &off_10032FDC0;
+        v125[1] = @"Line";
+        v125[2] = @"Method";
+        v73 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v126[2] = v73;
+        v125[3] = NSDebugDescriptionErrorKey;
+        v74 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 147];
+        v126[3] = v74;
+        v75 = [NSDictionary dictionaryWithObjects:v126 forKeys:v125 count:4];
+        v76 = v70;
+        v77 = v71;
+        v78 = 16;
+      }
+
+      v40 = [v76 initWithDomain:v77 code:v78 userInfo:v75];
+
+      v15 = v13;
+    }
+
+    tokenCopy = v116;
+    goto LABEL_56;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v41 = NFLogGetLogger();
+  if (v41)
+  {
+    v42 = v41;
+    v43 = object_getClass(self);
+    v44 = class_isMetaClass(v43);
+    v109 = object_getClassName(self);
+    v110 = sel_getName(a2);
+    v45 = 45;
+    if (v44)
+    {
+      v45 = 43;
+    }
+
+    v42(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v45, v109, v110, 138, v14);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v46 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  {
+    v47 = object_getClass(self);
+    if (class_isMetaClass(v47))
+    {
+      v48 = 43;
+    }
+
+    else
+    {
+      v48 = 45;
+    }
+
+    v49 = object_getClassName(self);
+    v50 = sel_getName(a2);
+    *buf = 67110146;
+    v132 = v48;
+    v133 = 2082;
+    v134 = v49;
+    v135 = 2082;
+    v136 = v50;
+    v137 = 1024;
+    v138 = 138;
+    v139 = 2114;
+    v140 = v14;
+    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+  }
+
+  v51 = a2;
+
+  v52 = [NSError alloc];
+  v15 = [NSString stringWithUTF8String:"nfcd"];
+  code3 = [v14 code];
+  v129[0] = NSLocalizedDescriptionKey;
+  v54 = tokenCopy;
+  if ([v14 code] > 75)
+  {
+    code4 = 76;
+  }
+
+  else
+  {
+    code4 = [v14 code];
+  }
+
+  v79 = [NSString stringWithUTF8String:off_1003158C8[code4]];
+  v130[0] = v79;
+  v130[1] = v14;
+  v129[1] = NSUnderlyingErrorKey;
+  v129[2] = @"Line";
+  v130[2] = &off_10032FD90;
+  v129[3] = @"Method";
+  v80 = [[NSString alloc] initWithFormat:@"%s", sel_getName(v51)];
+  v130[3] = v80;
+  v129[4] = NSDebugDescriptionErrorKey;
+  v81 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(v51), 139];
+  v130[4] = v81;
+  v82 = [NSDictionary dictionaryWithObjects:v130 forKeys:v129 count:5];
+  v40 = [v52 initWithDomain:v15 code:code3 userInfo:v82];
+
+  tokenCopy = v54;
+LABEL_56:
+
+  return v40;
+}
+
+- (id)authorizeUpdate:(BOOL)update slotIndex:(unsigned __int8)index userToken:(id)token outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  indexCopy = index;
+  updateCopy = update;
+  tokenCopy = token;
+  v13 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+  v114 = 0;
+  v14 = sub_100158A6C(&self->super.isa, v13, &v114);
+  v15 = v114;
+
+  if (v14)
+  {
+    if ([v14 status] == 36864)
+    {
+      v113 = v15;
+      v16 = sub_100158334(&self->super.isa, 128, 3, indexCopy, updateCopy, tokenCopy, &v113);
+      v17 = v113;
+
+      if (v16)
+      {
+        *result = [v16 status];
+        response = [v16 response];
+        v19 = [response length];
+
+        if (v19 > 3)
+        {
+          response2 = [v16 response];
+          *count = *[response2 bytes];
+
+          v41 = 0;
+          *count = bswap32(*count);
+          v15 = v17;
+        }
+
+        else
+        {
+          v111 = v17;
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          Logger = NFLogGetLogger();
+          if (Logger)
+          {
+            v21 = Logger;
+            Class = object_getClass(self);
+            isMetaClass = class_isMetaClass(Class);
+            ClassName = object_getClassName(self);
+            Name = sel_getName(a2);
+            response3 = [v16 response];
+            v109 = [response3 length];
+            v27 = 45;
+            if (isMetaClass)
+            {
+              v27 = 43;
+            }
+
+            v21(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v27, ClassName, Name, 215, v109);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v28 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            v29 = object_getClass(self);
+            if (class_isMetaClass(v29))
+            {
+              v30 = 43;
+            }
+
+            else
+            {
+              v30 = 45;
+            }
+
+            v31 = object_getClassName(self);
+            v32 = sel_getName(a2);
+            response4 = [v16 response];
+            v34 = [response4 length];
+            *buf = 67110146;
+            v128 = v30;
+            v129 = 2082;
+            v130 = v31;
+            v131 = 2082;
+            v132 = v32;
+            v133 = 1024;
+            v134 = 215;
+            v135 = 2048;
+            v136 = v34;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+          }
+
+          v35 = [NSError alloc];
+          v36 = [NSString stringWithUTF8String:"nfcd"];
+          v115[0] = NSLocalizedDescriptionKey;
+          v37 = [NSString stringWithUTF8String:"Unexpected Result"];
+          v116[0] = v37;
+          v116[1] = &off_10032FE68;
+          v115[1] = @"Line";
+          v115[2] = @"Method";
+          v38 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v116[2] = v38;
+          v115[3] = NSDebugDescriptionErrorKey;
+          v39 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 216];
+          v116[3] = v39;
+          v40 = [NSDictionary dictionaryWithObjects:v116 forKeys:v115 count:4];
+          v41 = [v35 initWithDomain:v36 code:13 userInfo:v40];
+
+          v15 = v111;
+        }
+      }
+
+      else
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v82 = NFLogGetLogger();
+        if (v82)
+        {
+          v83 = v82;
+          v84 = object_getClass(self);
+          v85 = class_isMetaClass(v84);
+          v86 = object_getClassName(self);
+          v108 = sel_getName(a2);
+          v87 = 45;
+          if (v85)
+          {
+            v87 = 43;
+          }
+
+          v83(3, "%c[%{public}s %{public}s]:%i Nil response", v87, v86, v108, 207);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v88 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+        {
+          v89 = object_getClass(self);
+          if (class_isMetaClass(v89))
+          {
+            v90 = 43;
+          }
+
+          else
+          {
+            v90 = 45;
+          }
+
+          v91 = object_getClassName(self);
+          v92 = sel_getName(a2);
+          *buf = 67109890;
+          v128 = v90;
+          v129 = 2082;
+          v130 = v91;
+          v131 = 2082;
+          v132 = v92;
+          v133 = 1024;
+          v134 = 207;
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+        }
+
+        v93 = [NSError alloc];
+        v15 = [NSString stringWithUTF8String:"nfcd"];
+        if (v17)
+        {
+          code = [v17 code];
+          v119[0] = NSLocalizedDescriptionKey;
+          if ([v17 code] > 75)
+          {
+            code2 = 76;
+          }
+
+          else
+          {
+            code2 = [v17 code];
+          }
+
+          v100 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+          v120[0] = v100;
+          v120[1] = v17;
+          v119[1] = NSUnderlyingErrorKey;
+          v119[2] = @"Line";
+          v120[2] = &off_10032FE50;
+          v119[3] = @"Method";
+          v101 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v120[3] = v101;
+          v119[4] = NSDebugDescriptionErrorKey;
+          v102 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 208];
+          v120[4] = v102;
+          [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:5];
+          v104 = v103 = v17;
+          v41 = [v93 initWithDomain:v15 code:code userInfo:v104];
+
+          v16 = v15;
+          v15 = v103;
+        }
+
+        else
+        {
+          v117[0] = NSLocalizedDescriptionKey;
+          v16 = [NSString stringWithUTF8String:"Unknown Error"];
+          v118[0] = v16;
+          v118[1] = &off_10032FE50;
+          v117[1] = @"Line";
+          v117[2] = @"Method";
+          v97 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v118[2] = v97;
+          v117[3] = NSDebugDescriptionErrorKey;
+          v98 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 208];
+          v118[3] = v98;
+          v99 = [NSDictionary dictionaryWithObjects:v118 forKeys:v117 count:4];
+          v41 = [v93 initWithDomain:v15 code:6 userInfo:v99];
+        }
+      }
+    }
+
+    else
+    {
+      *result = [v14 status];
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v55 = NFLogGetLogger();
+      if (v55)
+      {
+        v56 = v55;
+        v57 = object_getClass(self);
+        v58 = class_isMetaClass(v57);
+        v59 = object_getClassName(self);
+        v60 = sel_getName(a2);
+        status = [v14 status];
+        v61 = 45;
+        if (v58)
+        {
+          v61 = 43;
+        }
+
+        v56(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v61, v59, v60, 193, status);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v62 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      {
+        v63 = object_getClass(self);
+        if (class_isMetaClass(v63))
+        {
+          v64 = 43;
+        }
+
+        else
+        {
+          v64 = 45;
+        }
+
+        v65 = object_getClassName(self);
+        v66 = sel_getName(a2);
+        status2 = [v14 status];
+        *buf = 67110146;
+        v128 = v64;
+        v129 = 2082;
+        v130 = v65;
+        v131 = 2082;
+        v132 = v66;
+        v133 = 1024;
+        v134 = 193;
+        v135 = 1024;
+        LODWORD(v136) = status2;
+        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+      }
+
+      status3 = [v14 status];
+      v69 = [NSError alloc];
+      v70 = [NSString stringWithUTF8String:"nfcd"];
+      if (status3 == 26277)
+      {
+        v123[0] = NSLocalizedDescriptionKey;
+        v71 = [NSString stringWithUTF8String:"Restricted Mode"];
+        v124[0] = v71;
+        v124[1] = &off_10032FE20;
+        v123[1] = @"Line";
+        v123[2] = @"Method";
+        v72 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v124[2] = v72;
+        v123[3] = NSDebugDescriptionErrorKey;
+        v73 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 195];
+        v124[3] = v73;
+        v74 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:4];
+        v75 = v69;
+        v76 = v70;
+        v77 = 24;
+      }
+
+      else
+      {
+        v121[0] = NSLocalizedDescriptionKey;
+        v71 = [NSString stringWithUTF8String:"Command Error"];
+        v122[0] = v71;
+        v122[1] = &off_10032FE38;
+        v121[1] = @"Line";
+        v121[2] = @"Method";
+        v72 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v122[2] = v72;
+        v121[3] = NSDebugDescriptionErrorKey;
+        v73 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 197];
+        v122[3] = v73;
+        v74 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:4];
+        v75 = v69;
+        v76 = v70;
+        v77 = 16;
+      }
+
+      v41 = [v75 initWithDomain:v76 code:v77 userInfo:v74];
+
+      v16 = v14;
+    }
+  }
+
+  else
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v42 = NFLogGetLogger();
+    if (v42)
+    {
+      v43 = v42;
+      v44 = object_getClass(self);
+      v45 = class_isMetaClass(v44);
+      v106 = object_getClassName(self);
+      v107 = sel_getName(a2);
+      v46 = 45;
+      if (v45)
+      {
+        v46 = 43;
+      }
+
+      v43(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v46, v106, v107, 188, v15);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v47 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    {
+      v48 = object_getClass(self);
+      if (class_isMetaClass(v48))
+      {
+        v49 = 43;
+      }
+
+      else
+      {
+        v49 = 45;
+      }
+
+      v50 = object_getClassName(self);
+      v51 = sel_getName(a2);
+      *buf = 67110146;
+      v128 = v49;
+      v129 = 2082;
+      v130 = v50;
+      v131 = 2082;
+      v132 = v51;
+      v133 = 1024;
+      v134 = 188;
+      v135 = 2114;
+      v136 = v15;
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+    }
+
+    v52 = [NSError alloc];
+    v16 = [NSString stringWithUTF8String:"nfcd"];
+    code3 = [v15 code];
+    v125[0] = NSLocalizedDescriptionKey;
+    if ([v15 code] > 75)
+    {
+      code4 = 76;
+    }
+
+    else
+    {
+      code4 = [v15 code];
+    }
+
+    v78 = [NSString stringWithUTF8String:off_1003158C8[code4]];
+    v126[0] = v78;
+    v126[1] = v15;
+    v125[1] = NSUnderlyingErrorKey;
+    v125[2] = @"Line";
+    v126[2] = &off_10032FE08;
+    v125[3] = @"Method";
+    v79 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v126[3] = v79;
+    v125[4] = NSDebugDescriptionErrorKey;
+    v80 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 189];
+    v126[4] = v80;
+    v81 = [NSDictionary dictionaryWithObjects:v126 forKeys:v125 count:5];
+    v41 = [v52 initWithDomain:v16 code:code3 userInfo:v81];
+  }
+
+  return v41;
+}
+
+- (id)deleteSlot:(unsigned __int8)slot outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  slotCopy = slot;
+  v10 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+  v110 = 0;
+  v11 = sub_100158A6C(&self->super.isa, v10, &v110);
+  v12 = v110;
+
+  if (v11)
+  {
+    if ([v11 status] == 36864)
+    {
+      v109 = v12;
+      v13 = sub_100158334(&self->super.isa, 128, 4, slotCopy, 0, 0, &v109);
+      v14 = v109;
+
+      if (v13)
+      {
+        *result = [v13 status];
+        response = [v13 response];
+        v16 = [response length];
+
+        if (v16 > 3)
+        {
+          response2 = [v13 response];
+          *count = *[response2 bytes];
+
+          v38 = 0;
+          *count = bswap32(*count);
+          v12 = v14;
+        }
+
+        else
+        {
+          v108 = v14;
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          Logger = NFLogGetLogger();
+          if (Logger)
+          {
+            v18 = Logger;
+            Class = object_getClass(self);
+            isMetaClass = class_isMetaClass(Class);
+            ClassName = object_getClassName(self);
+            Name = sel_getName(a2);
+            response3 = [v13 response];
+            v106 = [response3 length];
+            v24 = 45;
+            if (isMetaClass)
+            {
+              v24 = 43;
+            }
+
+            v18(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v24, ClassName, Name, 263, v106);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v25 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          {
+            v26 = object_getClass(self);
+            if (class_isMetaClass(v26))
+            {
+              v27 = 43;
+            }
+
+            else
+            {
+              v27 = 45;
+            }
+
+            v28 = object_getClassName(self);
+            v29 = sel_getName(a2);
+            response4 = [v13 response];
+            v31 = [response4 length];
+            *buf = 67110146;
+            v124 = v27;
+            v125 = 2082;
+            v126 = v28;
+            v127 = 2082;
+            v128 = v29;
+            v129 = 1024;
+            v130 = 263;
+            v131 = 2048;
+            v132 = v31;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+          }
+
+          v32 = [NSError alloc];
+          v33 = [NSString stringWithUTF8String:"nfcd"];
+          v111[0] = NSLocalizedDescriptionKey;
+          v34 = [NSString stringWithUTF8String:"Unexpected Result"];
+          v112[0] = v34;
+          v112[1] = &off_10032FEE0;
+          v111[1] = @"Line";
+          v111[2] = @"Method";
+          v35 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v112[2] = v35;
+          v111[3] = NSDebugDescriptionErrorKey;
+          v36 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 264];
+          v112[3] = v36;
+          v37 = [NSDictionary dictionaryWithObjects:v112 forKeys:v111 count:4];
+          v38 = [v32 initWithDomain:v33 code:13 userInfo:v37];
+
+          v12 = v108;
+        }
+      }
+
+      else
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v79 = NFLogGetLogger();
+        if (v79)
+        {
+          v80 = v79;
+          v81 = object_getClass(self);
+          v82 = class_isMetaClass(v81);
+          v83 = object_getClassName(self);
+          v105 = sel_getName(a2);
+          v84 = 45;
+          if (v82)
+          {
+            v84 = 43;
+          }
+
+          v80(3, "%c[%{public}s %{public}s]:%i Nil response", v84, v83, v105, 255);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v85 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        {
+          v86 = object_getClass(self);
+          if (class_isMetaClass(v86))
+          {
+            v87 = 43;
+          }
+
+          else
+          {
+            v87 = 45;
+          }
+
+          v88 = object_getClassName(self);
+          v89 = sel_getName(a2);
+          *buf = 67109890;
+          v124 = v87;
+          v125 = 2082;
+          v126 = v88;
+          v127 = 2082;
+          v128 = v89;
+          v129 = 1024;
+          v130 = 255;
+          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+        }
+
+        v90 = [NSError alloc];
+        v12 = [NSString stringWithUTF8String:"nfcd"];
+        if (v14)
+        {
+          code = [v14 code];
+          v115[0] = NSLocalizedDescriptionKey;
+          if ([v14 code] > 75)
+          {
+            code2 = 76;
+          }
+
+          else
+          {
+            code2 = [v14 code];
+          }
+
+          v97 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+          v116[0] = v97;
+          v116[1] = v14;
+          v115[1] = NSUnderlyingErrorKey;
+          v115[2] = @"Line";
+          v116[2] = &off_10032FEC8;
+          v115[3] = @"Method";
+          v98 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v116[3] = v98;
+          v115[4] = NSDebugDescriptionErrorKey;
+          v99 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 256];
+          v116[4] = v99;
+          [NSDictionary dictionaryWithObjects:v116 forKeys:v115 count:5];
+          v101 = v100 = v14;
+          v38 = [v90 initWithDomain:v12 code:code userInfo:v101];
+
+          v13 = v12;
+          v12 = v100;
+        }
+
+        else
+        {
+          v113[0] = NSLocalizedDescriptionKey;
+          v13 = [NSString stringWithUTF8String:"Unknown Error"];
+          v114[0] = v13;
+          v114[1] = &off_10032FEC8;
+          v113[1] = @"Line";
+          v113[2] = @"Method";
+          v94 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+          v114[2] = v94;
+          v113[3] = NSDebugDescriptionErrorKey;
+          v95 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 256];
+          v114[3] = v95;
+          v96 = [NSDictionary dictionaryWithObjects:v114 forKeys:v113 count:4];
+          v38 = [v90 initWithDomain:v12 code:6 userInfo:v96];
+        }
+      }
+    }
+
+    else
+    {
+      *result = [v11 status];
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v52 = NFLogGetLogger();
+      if (v52)
+      {
+        v53 = v52;
+        v54 = object_getClass(self);
+        v55 = class_isMetaClass(v54);
+        v56 = object_getClassName(self);
+        v57 = sel_getName(a2);
+        status = [v11 status];
+        v58 = 45;
+        if (v55)
+        {
+          v58 = 43;
+        }
+
+        v53(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v58, v56, v57, 241, status);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v59 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      {
+        v60 = object_getClass(self);
+        if (class_isMetaClass(v60))
+        {
+          v61 = 43;
+        }
+
+        else
+        {
+          v61 = 45;
+        }
+
+        v62 = object_getClassName(self);
+        v63 = sel_getName(a2);
+        status2 = [v11 status];
+        *buf = 67110146;
+        v124 = v61;
+        v125 = 2082;
+        v126 = v62;
+        v127 = 2082;
+        v128 = v63;
+        v129 = 1024;
+        v130 = 241;
+        v131 = 1024;
+        LODWORD(v132) = status2;
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+      }
+
+      status3 = [v11 status];
+      v66 = [NSError alloc];
+      v67 = [NSString stringWithUTF8String:"nfcd"];
+      if (status3 == 26277)
+      {
+        v119[0] = NSLocalizedDescriptionKey;
+        v68 = [NSString stringWithUTF8String:"Restricted Mode"];
+        v120[0] = v68;
+        v120[1] = &off_10032FE98;
+        v119[1] = @"Line";
+        v119[2] = @"Method";
+        v69 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v120[2] = v69;
+        v119[3] = NSDebugDescriptionErrorKey;
+        v70 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 243];
+        v120[3] = v70;
+        v71 = [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:4];
+        v72 = v66;
+        v73 = v67;
+        v74 = 24;
+      }
+
+      else
+      {
+        v117[0] = NSLocalizedDescriptionKey;
+        v68 = [NSString stringWithUTF8String:"Command Error"];
+        v118[0] = v68;
+        v118[1] = &off_10032FEB0;
+        v117[1] = @"Line";
+        v117[2] = @"Method";
+        v69 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v118[2] = v69;
+        v117[3] = NSDebugDescriptionErrorKey;
+        v70 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 245];
+        v118[3] = v70;
+        v71 = [NSDictionary dictionaryWithObjects:v118 forKeys:v117 count:4];
+        v72 = v66;
+        v73 = v67;
+        v74 = 16;
+      }
+
+      v38 = [v72 initWithDomain:v73 code:v74 userInfo:v71];
+
+      v13 = v11;
+    }
+  }
+
+  else
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v39 = NFLogGetLogger();
+    if (v39)
+    {
+      v40 = v39;
+      v41 = object_getClass(self);
+      v42 = class_isMetaClass(v41);
+      v103 = object_getClassName(self);
+      v104 = sel_getName(a2);
+      v43 = 45;
+      if (v42)
+      {
+        v43 = 43;
+      }
+
+      v40(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v43, v103, v104, 236, v12);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v44 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      v45 = object_getClass(self);
+      if (class_isMetaClass(v45))
+      {
+        v46 = 43;
+      }
+
+      else
+      {
+        v46 = 45;
+      }
+
+      v47 = object_getClassName(self);
+      v48 = sel_getName(a2);
+      *buf = 67110146;
+      v124 = v46;
+      v125 = 2082;
+      v126 = v47;
+      v127 = 2082;
+      v128 = v48;
+      v129 = 1024;
+      v130 = 236;
+      v131 = 2114;
+      v132 = v12;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+    }
+
+    v49 = [NSError alloc];
+    v13 = [NSString stringWithUTF8String:"nfcd"];
+    code3 = [v12 code];
+    v121[0] = NSLocalizedDescriptionKey;
+    if ([v12 code] > 75)
+    {
+      code4 = 76;
+    }
+
+    else
+    {
+      code4 = [v12 code];
+    }
+
+    v75 = [NSString stringWithUTF8String:off_1003158C8[code4]];
+    v122[0] = v75;
+    v122[1] = v12;
+    v121[1] = NSUnderlyingErrorKey;
+    v121[2] = @"Line";
+    v122[2] = &off_10032FE80;
+    v121[3] = @"Method";
+    v76 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v122[3] = v76;
+    v121[4] = NSDebugDescriptionErrorKey;
+    v77 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 237];
+    v122[4] = v77;
+    v78 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:5];
+    v38 = [v49 initWithDomain:v13 code:code3 userInfo:v78];
+  }
+
+  return v38;
+}
 
 - (id)getData:(id *)data updateKUD:(char *)d outWriteLimit:(unsigned int *)limit outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
 {
@@ -836,6 +2907,384 @@ LABEL_63:
   }
 
   return v36;
+}
+
+- (id)upgradeKey:(unsigned __int8)key inputData:(id)data outWriteCount:(unsigned int *)count appletResult:(unsigned __int16 *)result
+{
+  keyCopy = key;
+  dataCopy = data;
+  v12 = [[NSData alloc] initWithBytes:&unk_100296BE0 length:8];
+  v107 = 0;
+  v13 = sub_100158A6C(&self->super.isa, v12, &v107);
+  v14 = v107;
+
+  if (!v13)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v41 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v44 = 45;
+      if (isMetaClass)
+      {
+        v44 = 43;
+      }
+
+      v41(3, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", v44, ClassName, Name, 389, v14);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v45 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    {
+      v46 = object_getClass(self);
+      if (class_isMetaClass(v46))
+      {
+        v47 = 43;
+      }
+
+      else
+      {
+        v47 = 45;
+      }
+
+      v48 = object_getClassName(self);
+      v49 = sel_getName(a2);
+      *buf = 67110146;
+      v119 = v47;
+      v120 = 2082;
+      v121 = v48;
+      v122 = 2082;
+      v123 = v49;
+      v124 = 1024;
+      v125 = 389;
+      v126 = 2114;
+      v127 = v14;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: %{public}@", buf, 0x2Cu);
+    }
+
+    v50 = a2;
+
+    v51 = [NSError alloc];
+    v15 = [NSString stringWithUTF8String:"nfcd"];
+    code = [v14 code];
+    v116[0] = NSLocalizedDescriptionKey;
+    v53 = dataCopy;
+    if ([v14 code] > 75)
+    {
+      code2 = 76;
+    }
+
+    else
+    {
+      code2 = [v14 code];
+    }
+
+    v78 = [NSString stringWithUTF8String:off_1003158C8[code2]];
+    v117[0] = v78;
+    v117[1] = v14;
+    v116[1] = NSUnderlyingErrorKey;
+    v116[2] = @"Line";
+    v117[2] = &off_10032FFE8;
+    v116[3] = @"Method";
+    v79 = [[NSString alloc] initWithFormat:@"%s", sel_getName(v50)];
+    v117[3] = v79;
+    v116[4] = NSDebugDescriptionErrorKey;
+    v80 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(v50), 390];
+    v117[4] = v80;
+    v81 = [NSDictionary dictionaryWithObjects:v117 forKeys:v116 count:5];
+    v82 = v51;
+    goto LABEL_55;
+  }
+
+  if ([v13 status] == 36864)
+  {
+    v106 = v14;
+    v15 = sub_100158334(&self->super.isa, 128, 7, keyCopy, 0, dataCopy, &v106);
+    v102 = v106;
+
+    if (v15)
+    {
+      *result = [v15 status];
+      response = [v15 response];
+      v17 = [response length];
+
+      if (v17 > 3)
+      {
+        response2 = [v15 response];
+        *count = *[response2 bytes];
+
+        v39 = 0;
+        *count = bswap32(*count);
+        v14 = v102;
+      }
+
+      else
+      {
+        v103 = dataCopy;
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v18 = NFLogGetLogger();
+        if (v18)
+        {
+          v19 = v18;
+          v20 = object_getClass(self);
+          v21 = class_isMetaClass(v20);
+          v22 = object_getClassName(self);
+          v23 = sel_getName(a2);
+          response3 = [v15 response];
+          v100 = [response3 length];
+          v25 = 45;
+          if (v21)
+          {
+            v25 = 43;
+          }
+
+          v19(3, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", v25, v22, v23, 416, v100);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v26 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        {
+          v27 = object_getClass(self);
+          if (class_isMetaClass(v27))
+          {
+            v28 = 43;
+          }
+
+          else
+          {
+            v28 = 45;
+          }
+
+          v29 = object_getClassName(self);
+          v30 = sel_getName(a2);
+          response4 = [v15 response];
+          v32 = [response4 length];
+          *buf = 67110146;
+          v119 = v28;
+          v120 = 2082;
+          v121 = v29;
+          v122 = 2082;
+          v123 = v30;
+          v124 = 1024;
+          v125 = 416;
+          v126 = 2048;
+          v127 = v32;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length: %lu", buf, 0x2Cu);
+        }
+
+        v33 = [NSError alloc];
+        v34 = [NSString stringWithUTF8String:"nfcd"];
+        v108[0] = NSLocalizedDescriptionKey;
+        v35 = [NSString stringWithUTF8String:"Unexpected Result"];
+        v109[0] = v35;
+        v109[1] = &off_100330048;
+        v108[1] = @"Line";
+        v108[2] = @"Method";
+        v36 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+        v109[2] = v36;
+        v108[3] = NSDebugDescriptionErrorKey;
+        v37 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 417];
+        v109[3] = v37;
+        v38 = [NSDictionary dictionaryWithObjects:v109 forKeys:v108 count:4];
+        v39 = [v33 initWithDomain:v34 code:13 userInfo:v38];
+
+        v14 = v102;
+        dataCopy = v103;
+      }
+
+      goto LABEL_56;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v83 = NFLogGetLogger();
+    if (v83)
+    {
+      v84 = v83;
+      v85 = object_getClass(self);
+      v86 = class_isMetaClass(v85);
+      v87 = object_getClassName(self);
+      v99 = sel_getName(a2);
+      v88 = 45;
+      if (v86)
+      {
+        v88 = 43;
+      }
+
+      v84(3, "%c[%{public}s %{public}s]:%i Nil response", v88, v87, v99, 408);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v89 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+    {
+      v90 = object_getClass(self);
+      if (class_isMetaClass(v90))
+      {
+        v91 = 43;
+      }
+
+      else
+      {
+        v91 = 45;
+      }
+
+      v92 = object_getClassName(self);
+      v93 = sel_getName(a2);
+      *buf = 67109890;
+      v119 = v91;
+      v120 = 2082;
+      v121 = v92;
+      v122 = 2082;
+      v123 = v93;
+      v124 = 1024;
+      v125 = 408;
+      _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Nil response", buf, 0x22u);
+    }
+
+    v105 = [NSError alloc];
+    v15 = [NSString stringWithUTF8String:"nfcd"];
+    code = [v102 code];
+    v110[0] = NSLocalizedDescriptionKey;
+    v53 = dataCopy;
+    if ([v102 code] > 75)
+    {
+      code3 = 76;
+    }
+
+    else
+    {
+      code3 = [v102 code];
+    }
+
+    v78 = [NSString stringWithUTF8String:off_1003158C8[code3]];
+    v111[0] = v78;
+    v111[1] = v102;
+    v110[1] = NSUnderlyingErrorKey;
+    v110[2] = @"Line";
+    v111[2] = &off_100330030;
+    v110[3] = @"Method";
+    v14 = v102;
+    v79 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v111[3] = v79;
+    v110[4] = NSDebugDescriptionErrorKey;
+    v80 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 409];
+    v111[4] = v80;
+    v81 = [NSDictionary dictionaryWithObjects:v111 forKeys:v110 count:5];
+    v82 = v105;
+LABEL_55:
+    v39 = [v82 initWithDomain:v15 code:code userInfo:v81];
+
+    dataCopy = v53;
+    goto LABEL_56;
+  }
+
+  v104 = dataCopy;
+  *result = [v13 status];
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v55 = NFLogGetLogger();
+  if (v55)
+  {
+    v56 = v55;
+    v57 = object_getClass(self);
+    v58 = class_isMetaClass(v57);
+    v59 = object_getClassName(self);
+    v60 = sel_getName(a2);
+    status = [v13 status];
+    v61 = 45;
+    if (v58)
+    {
+      v61 = 43;
+    }
+
+    v56(3, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", v61, v59, v60, 394, status);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v62 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+  {
+    v63 = object_getClass(self);
+    if (class_isMetaClass(v63))
+    {
+      v64 = 43;
+    }
+
+    else
+    {
+      v64 = 45;
+    }
+
+    v65 = object_getClassName(self);
+    v66 = sel_getName(a2);
+    status2 = [v13 status];
+    *buf = 67110146;
+    v119 = v64;
+    v120 = 2082;
+    v121 = v65;
+    v122 = 2082;
+    v123 = v66;
+    v124 = 1024;
+    v125 = 394;
+    v126 = 1024;
+    LODWORD(v127) = status2;
+    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to select applet: 0x%04x", buf, 0x28u);
+  }
+
+  status3 = [v13 status];
+  v69 = [NSError alloc];
+  v70 = [NSString stringWithUTF8String:"nfcd"];
+  if (status3 == 26277)
+  {
+    v114[0] = NSLocalizedDescriptionKey;
+    v71 = [NSString stringWithUTF8String:"Restricted Mode"];
+    v115[0] = v71;
+    v115[1] = &off_100330000;
+    v114[1] = @"Line";
+    v114[2] = @"Method";
+    v72 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v115[2] = v72;
+    v114[3] = NSDebugDescriptionErrorKey;
+    v73 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 396];
+    v115[3] = v73;
+    v74 = [NSDictionary dictionaryWithObjects:v115 forKeys:v114 count:4];
+    v75 = v69;
+    v76 = v70;
+    v77 = 24;
+  }
+
+  else
+  {
+    v112[0] = NSLocalizedDescriptionKey;
+    v71 = [NSString stringWithUTF8String:"Command Error"];
+    v113[0] = v71;
+    v113[1] = &off_100330018;
+    v112[1] = @"Line";
+    v112[2] = @"Method";
+    v72 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+    v113[2] = v72;
+    v112[3] = NSDebugDescriptionErrorKey;
+    v73 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 398];
+    v113[3] = v73;
+    v74 = [NSDictionary dictionaryWithObjects:v113 forKeys:v112 count:4];
+    v75 = v69;
+    v76 = v70;
+    v77 = 16;
+  }
+
+  v39 = [v75 initWithDomain:v76 code:v77 userInfo:v74];
+
+  v15 = v13;
+  dataCopy = v104;
+LABEL_56:
+
+  return v39;
 }
 
 - (id)recoverSLAM
@@ -2181,7 +4630,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (!sub_10022D900())
+  if (!sub_10022D900(NFSSEWrapper))
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     v26 = NFLogGetLogger();
@@ -2509,9 +4958,9 @@ LABEL_36:
     goto LABEL_34;
   }
 
-  if (!sub_10022D900())
+  if (!sub_10022D900(NFSSEWrapper))
   {
-    sub_10015C944();
+    sub_10015C944(NFSecureElementWrapper);
     checkPairing = [(NFSecureElementWrapper *)self checkPairing];
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     v36 = NFLogGetLogger();
@@ -2664,7 +5113,7 @@ LABEL_53:
       _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i V2 pairing not supported. Forcing entanglement.", buf, 0x22u);
     }
 
-    sub_10015C944();
+    sub_10015C944(NFSecureElementWrapper);
     checkPairing2 = [(NFSecureElementWrapper *)self checkPairing];
     goto LABEL_53;
   }

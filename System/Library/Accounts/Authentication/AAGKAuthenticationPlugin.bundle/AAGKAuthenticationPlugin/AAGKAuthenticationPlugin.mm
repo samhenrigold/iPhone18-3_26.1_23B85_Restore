@@ -1,6 +1,6 @@
-void sub_1230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -605,37 +605,36 @@ void sub_35AC(uint64_t a1, uint64_t a2, void *a3, void *a4)
   }
 }
 
-uint64_t sub_3D8C()
+uint64_t sub_3D8C(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_18E70;
-  v5 = qword_18E70;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_18E70;
+  v6 = qword_18E70;
   if (!qword_18E70)
   {
-    v6 = *off_14680;
-    v7 = *off_14690;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_18E70 = v3[3];
-    v0 = v3[3];
+    v7 = *off_14680;
+    v8 = *off_14690;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_18E70 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_3EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_3EB8(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_18E70 = *(*(*(a1 + 32) + 8) + 24);
@@ -644,11 +643,19 @@ uint64_t sub_3EB8(uint64_t a1)
 
 uint64_t sub_3F50()
 {
-  v0 = sub_3D8C();
+  v3 = 0;
+  v0 = sub_3D8C(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -673,9 +680,9 @@ uint64_t sub_3FAC()
   return v0;
 }
 
-void sub_4080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -724,9 +731,9 @@ uint64_t sub_4118()
   return v0;
 }
 
-void sub_41EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_41EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -740,7 +747,7 @@ void *sub_4204(uint64_t a1)
   return result;
 }
 
-uint64_t sub_4254()
+id sub_4254()
 {
   v0 = sub_4118();
   if (v0)
@@ -751,8 +758,8 @@ uint64_t sub_4254()
 
   else
   {
-    v2 = sub_B10C();
-    return sub_4284(v2);
+    sub_B10C();
+    return sub_4284();
   }
 }
 
@@ -780,9 +787,9 @@ id sub_4284()
   return v1;
 }
 
-void sub_434C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_434C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -799,8 +806,8 @@ Class sub_4364(uint64_t a1)
 
   else
   {
-    v3 = sub_B130();
-    return sub_43BC(v3);
+    sub_B130();
+    return sub_43BC();
   }
 
   return result;
@@ -825,9 +832,9 @@ uint64_t sub_43BC()
   return v0;
 }
 
-void sub_4490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -858,28 +865,28 @@ AAGKAuthenticationPlugin *sub_44F8()
   }
 }
 
-void sub_48F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_48F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_4918()
+id sub_4918(uint64_t a1)
 {
   if (qword_18EB0 != -1)
   {
     sub_B1C8();
   }
 
-  v1 = qword_18EA8;
+  v2 = qword_18EA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_495C(uint64_t a1)
 {
-  v2 = sub_4918();
+  v2 = sub_4918(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -894,10 +901,11 @@ void sub_49D8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 error];
+  v5 = v4;
   if (!v3)
   {
-    v6 = sub_4918();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_4918(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_B24C();
     }
@@ -905,26 +913,25 @@ void sub_49D8(uint64_t a1, void *a2)
     goto LABEL_7;
   }
 
-  v5 = sub_4918();
-  v6 = v5;
-  if (v4)
+  v6 = sub_4918(v4);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_B1DC();
     }
 
 LABEL_7:
 
-    v7 = *(*(*(a1 + 64) + 8) + 24);
     (*(*(a1 + 56) + 16))();
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Server auth was successful, not in Gray Mode anymore", buf, 2u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Server auth was successful, not in Gray Mode anymore", buf, 2u);
   }
 
   *(*(*(a1 + 64) + 8) + 24) = 0;
@@ -949,16 +956,16 @@ LABEL_11:
 void sub_4B84(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = sub_4918();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_4918(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_B2BC();
     }
   }
 
-  v7 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1005,10 +1012,11 @@ void sub_56C8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_4918();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_4918(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_B574();
     }
@@ -1018,33 +1026,35 @@ void sub_56C8(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = [v5 objectForKeyedSubscript:AKAuthenticationPasswordKey];
-    if (v8)
+    v9 = [v5 objectForKeyedSubscript:AKAuthenticationPasswordKey];
+    v10 = v9;
+    if (v9)
     {
-      v9 = sub_4918();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_4918(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 40) username];
-        v18 = 138412290;
-        v19 = v10;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v18, 0xCu);
+        v12 = [*(a1 + 40) username];
+        v21 = 138412290;
+        v22 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v21, 0xCu);
       }
 
-      [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:v8 store:*(a1 + 48) completion:*(a1 + 64)];
+      [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:v10 store:*(a1 + 48) completion:*(a1 + 64)];
     }
 
     else
     {
-      v11 = [v5 objectForKeyedSubscript:AKAuthenticationIDMSTokenKey];
-      v12 = [v11 allKeys];
+      v13 = [v5 objectForKeyedSubscript:AKAuthenticationIDMSTokenKey];
+      v14 = [v13 allKeys];
 
-      if ([*(a1 + 56) count] && objc_msgSend(v12, "count") && (+[NSSet setWithArray:](NSSet, "setWithArray:", *(a1 + 56)), v13 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v12), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isSubsetOfSet:", v14), v14, v13, v15))
+      v15 = [*(a1 + 56) count];
+      if (v15 && (v15 = [v14 count]) != 0 && (+[NSSet setWithArray:](NSSet, "setWithArray:", *(a1 + 56)), v16 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v14), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isSubsetOfSet:", v17), v17, v16, v18))
       {
-        v16 = sub_4918();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_4918(v15);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v18, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v21, 2u);
         }
 
         (*(*(a1 + 64) + 16))();
@@ -1052,8 +1062,8 @@ void sub_56C8(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v17 = sub_4918();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = sub_4918(v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           sub_B5E4();
         }
@@ -1067,6 +1077,7 @@ void sub_56C8(uint64_t a1, void *a2, void *a3)
 void sub_5BD0(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:a2 store:*(a1 + 48) completion:*(a1 + 56)];
@@ -1074,8 +1085,8 @@ void sub_5BD0(uint64_t a1, uint64_t a2, void *a3)
 
   else
   {
-    v6 = sub_4918();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_4918(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_B73C();
     }
@@ -1087,10 +1098,11 @@ void sub_5BD0(uint64_t a1, uint64_t a2, void *a3)
 void sub_5F0C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_4918();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_4918(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_B7AC();
     }
@@ -1100,14 +1112,14 @@ void sub_5F0C(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v7 = [a2 objectForKeyedSubscript:AKAuthenticationPasswordKey];
-    v8 = sub_4918();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [a2 objectForKeyedSubscript:AKAuthenticationPasswordKey];
+    v9 = sub_4918(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v10, 0xCu);
+      v10 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1143,25 +1155,26 @@ void sub_6634(uint64_t a1, uint64_t a2)
 void sub_66FC(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_4918();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_4918(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_B904();
     }
 
-    v5 = [*(a1 + 32) objectForKeyedSubscript:kACRenewCredentialsServicesKey];
-    v6 = *(a1 + 40);
-    v7 = [*(a1 + 48) username];
-    v8 = [*(a1 + 48) aa_altDSID];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_685C;
-    v9[3] = &unk_148F8;
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
-    [v6 _convertPasswordToPETForAppleID:v7 altDSID:v8 password:v3 services:v5 completion:v9];
+    v6 = [*(a1 + 32) objectForKeyedSubscript:kACRenewCredentialsServicesKey];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 48) username];
+    v9 = [*(a1 + 48) aa_altDSID];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_685C;
+    v10[3] = &unk_148F8;
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 64);
+    [v7 _convertPasswordToPETForAppleID:v8 altDSID:v9 password:v4 services:v6 completion:v10];
   }
 
   else
@@ -1173,13 +1186,14 @@ void sub_66FC(uint64_t a1, void *a2)
 void sub_685C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_4918();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_4918(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "AAGKAuthenticationPlugin: Password from companion was successfully exchanged for PET. Logging in...", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "AAGKAuthenticationPlugin: Password from companion was successfully exchanged for PET. Logging in...", v6, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1195,10 +1209,11 @@ void sub_6DBC(uint64_t a1, char a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (*(a1 + 56))
   {
-    v9 = sub_4918();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_4918(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_B9F4();
     }
@@ -1207,18 +1222,18 @@ void sub_6DBC(uint64_t a1, char a2, void *a3, void *a4)
     CFRelease(*(a1 + 56));
   }
 
-  v10 = *(a1 + 32);
-  objc_sync_enter(v10);
-  v11 = *(*(a1 + 32) + 8);
-  v12 = [*(a1 + 40) identifier];
-  [v11 removeObject:v12];
+  v11 = *(a1 + 32);
+  objc_sync_enter(v11);
+  v12 = *(*(a1 + 32) + 8);
+  v13 = [*(a1 + 40) identifier];
+  [v12 removeObject:v13];
 
   if ((a2 & 1) == 0)
   {
-    v15 = sub_4918();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_4918(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_BA30((a1 + 40));
+      sub_BA30();
     }
 
     goto LABEL_17;
@@ -1226,8 +1241,8 @@ void sub_6DBC(uint64_t a1, char a2, void *a3, void *a4)
 
   if (!v7)
   {
-    v15 = sub_4918();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_4918(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_BB18();
     }
@@ -1237,11 +1252,12 @@ void sub_6DBC(uint64_t a1, char a2, void *a3, void *a4)
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v14 = sub_4918();
-  v15 = v14;
-  if ((isKindOfClass & 1) == 0)
+  v16 = isKindOfClass;
+  v17 = sub_4918(isKindOfClass);
+  v18 = v17;
+  if ((v16 & 1) == 0)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_BAA8();
     }
@@ -1252,19 +1268,19 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 40);
-    v18 = 138412290;
-    v19 = v16;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v18, 0xCu);
+    v19 = *(a1 + 40);
+    v21 = 138412290;
+    v22 = v19;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v21, 0xCu);
   }
 
-  v17 = v7;
+  v20 = v7;
   (*(*(a1 + 48) + 16))();
 
 LABEL_18:
-  objc_sync_exit(v10);
+  objc_sync_exit(v11);
 }
 
 void sub_7330(uint64_t a1, int a2, void *a3)
@@ -1283,39 +1299,40 @@ void sub_7330(uint64_t a1, int a2, void *a3)
 
   if ([v5 code] != &stru_158.reloff + 1)
   {
-    if ([v6 code] == &stru_158.flags + 1 || objc_msgSend(v6, "code") == &stru_158.reloff + 3)
+    v8 = [v6 code];
+    if (v8 == &stru_158.flags + 1 || (v8 = [v6 code], v8 == &stru_158.reloff + 3))
     {
-      v8 = sub_4918();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_4918(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Got a 409/403, the account really is in Gray Mode", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Got a 409/403, the account really is in Gray Mode", v15, 2u);
       }
 
-      v9 = [*(a1 + 32) _frontmostApplicationId];
-      v10 = [v9 isEqualToString:@"com.apple.Preferences"];
+      v10 = [*(a1 + 32) _frontmostApplicationId];
+      v11 = [v10 isEqualToString:@"com.apple.Preferences"];
 
-      if (v10)
+      if (v11)
       {
-        v11 = *(*(a1 + 72) + 16);
+        v13 = *(*(a1 + 72) + 16);
 LABEL_18:
-        v11();
+        v13();
         goto LABEL_19;
       }
 
-      v12 = sub_4918();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_4918(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_BB54();
       }
     }
 
 LABEL_17:
-    v11 = *(*(a1 + 72) + 16);
+    v13 = *(*(a1 + 72) + 16);
     goto LABEL_18;
   }
 
-  v7 = sub_4918();
+  v7 = sub_4918(401);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1346,23 +1363,23 @@ void sub_789C(uint64_t a1)
 
   if (v6)
   {
-    v7 = sub_4918();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_4918(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: will try auth with cached password first...", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: will try auth with cached password first...", buf, 2u);
     }
 
-    v8 = [*(a1 + 32) _aa_rawPassword];
-    [v2 _setPassword:v8];
+    v9 = [*(a1 + 32) _aa_rawPassword];
+    [v2 _setPassword:v9];
 
     [v2 setAuthenticationType:1];
   }
 
   [v2 _setProxyingForApp:1];
-  v9 = [*(a1 + 48) client];
-  v10 = [v9 name];
-  [v2 _setProxiedAppName:v10];
+  v10 = [*(a1 + 48) client];
+  v11 = [v10 name];
+  [v2 _setProxiedAppName:v11];
 
   if (*(a1 + 56))
   {
@@ -1371,9 +1388,9 @@ void sub_789C(uint64_t a1)
 
   else
   {
-    v11 = [*(a1 + 48) client];
-    v12 = [v11 bundleID];
-    [v2 _setProxiedAppBundleID:v12];
+    v12 = [*(a1 + 48) client];
+    v13 = [v12 bundleID];
+    [v2 _setProxiedAppBundleID:v13];
   }
 
   if (*(a1 + 64))
@@ -1386,70 +1403,71 @@ void sub_789C(uint64_t a1)
     [v2 setAuthenticationType:1];
   }
 
-  v13 = *(a1 + 32);
-  v36[0] = @"account";
-  v36[1] = @"accountStore";
-  v14 = *(a1 + 48);
-  v37[0] = v13;
-  v37[1] = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
-  [v2 setClientInfo:v15];
+  v14 = *(a1 + 32);
+  v38[0] = @"account";
+  v38[1] = @"accountStore";
+  v15 = *(a1 + 48);
+  v39[0] = v14;
+  v39[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+  [v2 setClientInfo:v16];
 
   if (*(a1 + 112))
   {
-    [v2 setServiceType:?];
+    v17 = [v2 setServiceType:?];
   }
 
   if (*(a1 + 72))
   {
-    v16 = sub_4918();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = sub_4918(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_BBFC((a1 + 72));
+      sub_BBFC();
     }
 
     [v2 setServiceIdentifiers:*(a1 + 72)];
-    [v2 setShouldUpdatePersistentServiceTokens:1];
+    v17 = [v2 setShouldUpdatePersistentServiceTokens:1];
   }
 
-  v17 = sub_4918();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = sub_4918(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     sub_BC70();
   }
 
-  v18 = v6 != 0;
+  v20 = v6 != 0;
 
-  v19 = [*(a1 + 80) _authController];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_7CC0;
-  v23[3] = &unk_149E8;
-  v32 = v18;
-  v20 = *(a1 + 32);
-  v21 = *(a1 + 80);
-  v24 = v20;
-  v25 = v21;
-  v26 = *(a1 + 48);
-  v27 = *(a1 + 88);
-  v28 = *(a1 + 96);
-  v31 = *(a1 + 104);
-  v33 = *(a1 + 120);
-  v29 = *(a1 + 64);
-  v30 = v2;
-  v34 = *(a1 + 121);
-  v22 = v2;
-  [v19 authenticateWithContext:v22 completion:v23];
+  v21 = [*(a1 + 80) _authController];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_7CC0;
+  v25[3] = &unk_149E8;
+  v34 = v20;
+  v22 = *(a1 + 32);
+  v23 = *(a1 + 80);
+  v26 = v22;
+  v27 = v23;
+  v28 = *(a1 + 48);
+  v29 = *(a1 + 88);
+  v30 = *(a1 + 96);
+  v33 = *(a1 + 104);
+  v35 = *(a1 + 120);
+  v31 = *(a1 + 64);
+  v32 = v2;
+  v36 = *(a1 + 121);
+  v24 = v2;
+  [v21 authenticateWithContext:v24 completion:v25];
 }
 
 void sub_7CC0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6 && (*(a1 + 96) & 1) != 0)
   {
-    v7 = sub_4918();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_4918(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_BCAC();
     }
@@ -1461,42 +1479,42 @@ void sub_7CC0(uint64_t a1, void *a2, void *a3)
   else
   {
     objc_initWeak(&location, *(a1 + 40));
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_7F7C;
-    v23[3] = &unk_14998;
-    objc_copyWeak(&v32, &location);
-    v24 = *(a1 + 56);
-    v33 = *(a1 + 97);
-    v8 = v6;
-    v25 = v8;
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_7F7C;
+    v24[3] = &unk_14998;
+    objc_copyWeak(&v33, &location);
+    v25 = *(a1 + 56);
+    v34 = *(a1 + 97);
+    v9 = v7;
     v26 = v9;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
     v27 = v10;
     v28 = v11;
-    v29 = *(a1 + 72);
-    v30 = *(a1 + 80);
-    v31 = *(a1 + 88);
-    v12 = objc_retainBlock(v23);
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 80);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_811C;
-    v16[3] = &unk_149C0;
-    v16[4] = v13;
-    v17 = v5;
-    v18 = v8;
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 48);
-    v22 = *(a1 + 98);
-    v15 = v12;
-    v21 = v15;
-    [v13 _validateAuthenticationResults:v17 error:v18 forContext:v14 completion:v16];
+    v29 = v12;
+    v30 = *(a1 + 72);
+    v31 = *(a1 + 80);
+    v32 = *(a1 + 88);
+    v13 = objc_retainBlock(v24);
+    v14 = *(a1 + 40);
+    v15 = *(a1 + 80);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_811C;
+    v17[3] = &unk_149C0;
+    v17[4] = v14;
+    v18 = v5;
+    v19 = v9;
+    v20 = *(a1 + 32);
+    v21 = *(a1 + 48);
+    v23 = *(a1 + 98);
+    v16 = v13;
+    v22 = v16;
+    [v14 _validateAuthenticationResults:v18 error:v19 forContext:v15 completion:v17];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 }
@@ -1526,7 +1544,7 @@ void sub_7F7C(uint64_t a1, uint64_t a2, void *a3)
 
   if ([*(a1 + 40) ak_isUnableToPromptError] & 1) != 0 || (objc_msgSend(*(a1 + 40), "ak_isUserCancelError"))
   {
-    v10 = 1;
+    v10 = &dword_0 + 1;
     if (!a2)
     {
       goto LABEL_15;
@@ -1544,10 +1562,10 @@ void sub_7F7C(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v10 & v9) != 0)
   {
-    v11 = sub_4918();
+    v11 = sub_4918(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_BD1C(a1);
+      sub_BD1C();
     }
 
     v12 = [*(a1 + 56) _userInfoForRenewCredentialsFollowUpWithAccountStore:*(a1 + 64) proxiedDevice:*(a1 + 72)];
@@ -1568,7 +1586,7 @@ id sub_811C(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = sub_4918();
+    v3 = sub_4918(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -1593,7 +1611,7 @@ id sub_811C(uint64_t a1, int a2)
 void sub_86D4(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_4918();
+  v6 = sub_4918(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -1642,36 +1660,36 @@ void sub_8988(uint64_t a1)
 void sub_8CE8(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_4918();
+  v6 = sub_4918(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    LODWORD(v14[0]) = a2;
-    WORD2(v14[0]) = 2112;
-    *(v14 + 6) = v5;
+    LODWORD(v15[0]) = a2;
+    WORD2(v15[0]) = 2112;
+    *(v15 + 6) = v5;
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "AAGKAuthenticationPlugin: saving raw password result was %d. Error: %@", buf, 0x12u);
   }
 
   if (*(a1 + 32))
   {
-    v7 = sub_4918();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_4918(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412290;
-      v14[0] = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "AAGKAuthenticationPlugin setting raw password for iCloud account %@", buf, 0xCu);
+      v15[0] = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "AAGKAuthenticationPlugin setting raw password for iCloud account %@", buf, 0xCu);
     }
 
     [*(a1 + 32) _aa_setRawPassword:*(a1 + 40)];
-    v9 = *(a1 + 32);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_8E94;
-    v11[3] = &unk_148A8;
-    v10 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    [v10 saveVerifiedAccount:v9 withCompletionHandler:v11];
+    v10 = *(a1 + 32);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_8E94;
+    v12[3] = &unk_148A8;
+    v11 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    [v11 saveVerifiedAccount:v10 withCompletionHandler:v12];
   }
 
   else
@@ -1683,7 +1701,7 @@ void sub_8CE8(uint64_t a1, int a2, void *a3)
 void sub_8E94(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_4918();
+  v6 = sub_4918(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109378;
@@ -1752,40 +1770,39 @@ uint64_t sub_93AC(uint64_t a1)
 
   if (v3)
   {
-    v4 = [*v2 dirtyProperties];
-    v5 = [v4 count];
+    v5 = [*v2 dirtyProperties];
+    v6 = [v5 count];
 
-    if (v5)
+    if (v6)
     {
-      v6 = sub_4918();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = sub_4918(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         sub_BD90(v2);
       }
     }
 
     [*(a1 + 32) refresh];
-    v7 = [ACDKeychainManager credentialForAccount:*(a1 + 32) clientID:0];
-    [v7 setPassword:*(a1 + 40)];
-    [*(a1 + 32) setCredential:v7];
+    v9 = [ACDKeychainManager credentialForAccount:*(a1 + 32) clientID:0];
+    [v9 setPassword:*(a1 + 40)];
+    [*(a1 + 32) setCredential:v9];
   }
 
-  v8 = sub_4918();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_4918(v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v12, 2u);
   }
 
-  v9 = *(a1 + 48);
   return (*(*(a1 + 56) + 16))();
 }
 
-void sub_A504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_A504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v67 - 176), 8);
+  _Block_object_dispose((v65 - 176), 8);
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1806,8 +1823,8 @@ void sub_A584(void *a1, void *a2, uint64_t a3, _BYTE *a4)
   {
     *(*(a1[7] + 8) + 24) = 0;
     objc_storeStrong((*(a1[8] + 8) + 40), a2);
-    v10 = sub_4918();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_4918(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_C2BC(v7);
     }
@@ -1817,15 +1834,15 @@ void sub_A584(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 
   if (a1[5])
   {
-    v11 = [v7 accountPropertyForKey:@"altDSID"];
-    v12 = [v11 isEqualToString:a1[5]];
+    v12 = [v7 accountPropertyForKey:@"altDSID"];
+    v13 = [v12 isEqualToString:a1[5]];
 
-    if (v12)
+    if (v13)
     {
       *(*(a1[7] + 8) + 24) = 0;
       objc_storeStrong((*(a1[8] + 8) + 40), a2);
-      v13 = sub_4918();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = sub_4918(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         sub_C348();
       }
@@ -1836,15 +1853,15 @@ void sub_A584(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 
   if (a1[6])
   {
-    v14 = [v7 accountPropertyForKey:@"dsid"];
-    v15 = [v14 isEqualToString:a1[6]];
+    v16 = [v7 accountPropertyForKey:@"dsid"];
+    v17 = [v16 isEqualToString:a1[6]];
 
-    if (v15)
+    if (v17)
     {
       *(*(a1[7] + 8) + 24) = 0;
       objc_storeStrong((*(a1[8] + 8) + 40), a2);
-      v16 = sub_4918();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v19 = sub_4918(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         sub_C3EC();
       }
@@ -1871,8 +1888,8 @@ void sub_A760(void *a1, void *a2)
 
       if ((v9 & 4) != 0)
       {
-        v10 = sub_4918();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = sub_4918(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           sub_C490(v3);
         }
@@ -1887,7 +1904,7 @@ void sub_A760(void *a1, void *a2)
 void sub_A894(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = sub_4918();
+  v5 = sub_4918(v4);
   v6 = v5;
   if (v4)
   {
@@ -1908,7 +1925,7 @@ void sub_A894(uint64_t a1, uint64_t a2, void *a3)
 void sub_A920(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = sub_4918();
+  v5 = sub_4918(v4);
   v6 = v5;
   if (v4)
   {
@@ -1936,10 +1953,11 @@ void sub_AB6C(id a1)
   _objc_release_x1();
 }
 
-void sub_AC18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_AC18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_AC5C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1949,37 +1967,36 @@ void sub_AC5C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t sub_AC7C()
+uint64_t sub_AC7C(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_18EB8;
-  v5 = qword_18EB8;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_18EB8;
+  v6 = qword_18EB8;
   if (!qword_18EB8)
   {
-    v6 = *off_14B90;
-    v7 = *off_14BA0;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_18EB8 = v3[3];
-    v0 = v3[3];
+    v7 = *off_14B90;
+    v8 = *off_14BA0;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_18EB8 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_ADA8(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_18EB8 = *(*(*(a1 + 32) + 8) + 24);
@@ -1988,11 +2005,19 @@ uint64_t sub_ADA8(uint64_t a1)
 
 uint64_t sub_AE40()
 {
-  v0 = sub_AC7C();
+  v3 = 0;
+  v0 = sub_AC7C(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -2022,9 +2047,9 @@ id sub_AE9C()
   return v1;
 }
 
-void sub_AF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2067,9 +2092,9 @@ id sub_AFD4()
   return v1;
 }
 
-void sub_B09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_B09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2090,9 +2115,9 @@ Class sub_B0B4(uint64_t a1)
 
 uint64_t sub_B10C()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_B130(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return sub_B130();
 }
 
 void sub_B158()
@@ -2129,7 +2154,7 @@ void sub_B340()
   v1 = [v0 accountType];
   v2 = [v1 accountTypeDescription];
   sub_ABB0();
-  sub_AC18(&dword_0, v3, v4, "Unable to get credential for %@ account! Error = %@", v5, v6, v7, v8, v9);
+  sub_AC18(&dword_0, v3, v4, "Unable to get credential for %@ account! Error = %@", v5, v6, v7, v8);
 }
 
 void sub_B3E0()
@@ -2272,13 +2297,6 @@ void sub_B9F4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_BA30(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_AC50();
-  sub_AC5C(&dword_0, v2, v3, "Failed to obtain a password from ACRemoteDeviceProxy for account %@! Error: %@");
-}
-
 void sub_BAA8()
 {
   sub_ABC4();
@@ -2300,12 +2318,11 @@ void sub_BB54()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_BBFC(uint64_t *a1)
+void sub_BBFC()
 {
-  v1 = *a1;
   sub_AC50();
   sub_ABF8();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_BC70()
@@ -2322,12 +2339,11 @@ void sub_BCAC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_BD1C(uint64_t a1)
+void sub_BD1C()
 {
-  v1 = *(a1 + 48);
   sub_AC50();
   sub_ABE0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_BD90(id *a1)
@@ -2372,13 +2388,11 @@ void sub_BF9C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_C00C(uint64_t a1, uint64_t a2)
+void sub_C00C()
 {
-  *(*a1 + 24);
-  *(*a2 + 24);
   sub_AC50();
   sub_AC44();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_C0BC()
@@ -2436,21 +2450,19 @@ void sub_C2BC(void *a1)
 void sub_C348()
 {
   sub_AC38();
-  v2 = [v1 username];
-  v3 = *v0;
+  v1 = [v0 username];
   sub_ABC4();
   sub_ABD0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_C3EC()
 {
   sub_AC38();
-  v2 = [v1 username];
-  v3 = *v0;
+  v1 = [v0 username];
   sub_ABC4();
   sub_ABD0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_C490(void *a1)
@@ -2466,7 +2478,7 @@ void sub_C51C()
   sub_AC38();
   v1 = [sub_AC04(v0) shortDebugName];
   sub_ABB0();
-  sub_AC18(&dword_0, v2, v3, "Saving the game center account %@ failed. Error: %@", v4, v5, v6, v7, v8);
+  sub_AC18(&dword_0, v2, v3, "Saving the game center account %@ failed. Error: %@", v4, v5, v6, v7);
 }
 
 void sub_C5AC(uint64_t a1)

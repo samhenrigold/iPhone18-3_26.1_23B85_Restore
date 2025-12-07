@@ -12,7 +12,7 @@
   v7[3] = content;
   contentCopy = content;
   selfCopy = self;
-  sub_1BA1E0AA4(sub_1BA3438A8, v7);
+  sub_1BA1E0AA4(sub_1BA3438A8, v7, "HealthExperienceUI/SummarySharingProfileEscalatedDetailsProvider.swift", 70, 2u, 70);
 }
 
 - (_TtC18HealthExperienceUI49SummarySharingProfileTileEscalatedDetailsProvider)init

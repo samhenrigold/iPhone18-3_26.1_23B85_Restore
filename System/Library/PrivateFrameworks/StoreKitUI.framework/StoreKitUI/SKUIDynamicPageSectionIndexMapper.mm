@@ -7,7 +7,9 @@
 - (int64_t)totalNumberOfEntities;
 - (void)_loadDataIfNeeded;
 - (void)dealloc;
+- (void)numberOfSections;
 - (void)setEntityProvider:(id)provider;
+- (void)totalNumberOfEntities;
 @end
 
 @implementation SKUIDynamicPageSectionIndexMapper
@@ -309,6 +311,48 @@ LABEL_9:
 
     goto LABEL_9;
   }
+}
+
+- (void)numberOfSections
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper numberOfSections]";
+}
+
+- (void)setEntityProvider:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper setEntityProvider:]";
+}
+
+- (void)totalNumberOfEntities
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper totalNumberOfEntities]";
+}
+
+- (void)entityIndexPathForGlobalIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper entityIndexPathForGlobalIndex:]";
+}
+
+- (void)getItem:(uint64_t)a3 section:(uint64_t)a4 forGlobalIndex:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper getItem:section:forGlobalIndex:]";
+}
+
+- (void)globalIndexForEntityIndexPath:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper globalIndexForEntityIndexPath:]";
+}
+
+- (void)rangeForSectionAtIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicPageSectionIndexMapper rangeForSectionAtIndex:]";
 }
 
 @end

@@ -111,7 +111,7 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
 
 - (void)_requestTimelapseFileForDelegate:(id)delegate forHighQualityClip:(id)clip atOffset:(double)offset
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   delegateCopy = delegate;
   v10 = [(HFCameraPosterFrameProvider *)self _timelapseClipForHighQualityClip:clipCopy];
@@ -129,15 +129,13 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
     v12 = HFLogForCategory(0x19uLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = clipCopy;
-      _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "Error: Missing timelapse for clip %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = clipCopy;
+      _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "Error: Missing timelapse for clip %@", &v13, 0xCu);
     }
 
     [(HFCameraPosterFrameProvider *)self _updateDelegate:delegateCopy withPosterFrame:0 atOffset:clipCopy ForHighQualityClip:offset];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_timelapseClipForHighQualityClip:(id)clip
@@ -154,7 +152,7 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
 
 - (void)_requestTimelapsePosterFrameGenerationForTimelapseClip:(id)clip
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = MEMORY[0x277CBEB18];
   posterFrameRequests = [(HFCameraPosterFrameProvider *)self posterFrameRequests];
@@ -168,37 +166,37 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
 
     if (highQualityClip)
     {
-      v34 = clipCopy;
+      v33 = clipCopy;
       posterFrameGenerator = [(HFCameraPosterFrameProvider *)self posterFrameGenerator];
       [(HFCameraPosterFrameProvider *)self posterFrameSize];
       v12 = [posterFrameGenerator generatePosterFramesForHighQualityClip:highQualityClip withStep:1 atSize:?];
 
       v13 = [MEMORY[0x277CBEB58] set];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
-      v33 = v8;
+      v32 = v8;
       v14 = v8;
-      v15 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v40;
+        v17 = *v39;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v40 != v17)
+            if (*v39 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            offsetNumber = [*(*(&v39 + 1) + 8 * i) offsetNumber];
+            offsetNumber = [*(*(&v38 + 1) + 8 * i) offsetNumber];
             [v13 addObject:offsetNumber];
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
         while (v16);
@@ -206,26 +204,26 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
 
       selfCopy = self;
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v20 = v12;
-      v21 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v36;
+        v23 = *v35;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v36 != v23)
+            if (*v35 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v35 + 1) + 8 * j);
+            v25 = *(*(&v34 + 1) + 8 * j);
             if (([v13 containsObject:v25] & 1) == 0)
             {
               v26 = objc_alloc_init(HFCameraPosterFrameDelegateRequest);
@@ -237,7 +235,7 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
         }
 
         while (v22);
@@ -246,8 +244,8 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
       posterFrameRequests2 = [(HFCameraPosterFrameProvider *)selfCopy posterFrameRequests];
       [posterFrameRequests2 addRequestsForPosterFrameGeneration:v14 forHighQualityClip:highQualityClip];
 
-      v8 = v33;
-      clipCopy = v34;
+      v8 = v32;
+      clipCopy = v33;
     }
 
     else
@@ -257,7 +255,7 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
       {
         hf_prettyDescription = [clipCopy hf_prettyDescription];
         *buf = 138412290;
-        v46 = hf_prettyDescription;
+        v45 = hf_prettyDescription;
         _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "Error: Provider has no high quality clip for timelapse clip %@", buf, 0xCu);
       }
     }
@@ -270,17 +268,15 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
     {
       hf_prettyDescription2 = [clipCopy hf_prettyDescription];
       *buf = 138412290;
-      v46 = hf_prettyDescription2;
+      v45 = hf_prettyDescription2;
       _os_log_impl(&dword_20D9BF000, highQualityClip, OS_LOG_TYPE_DEFAULT, "REQUEST: Provider has no requests for timelapse clip: %@", buf, 0xCu);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDownloadVideoFileForClip:(id)clip toURL:(id)l
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   lCopy = l;
   if (+[HFUtilities isInternalTest])
@@ -290,7 +286,7 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
     {
       hf_prettyDescription = [clipCopy hf_prettyDescription];
       *buf = 138412290;
-      v16 = hf_prettyDescription;
+      v15 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Downloaded timelapse file for timelapse clip: %@", buf, 0xCu);
     }
 
@@ -301,36 +297,33 @@ void __85__HFCameraPosterFrameProvider_getPosterFrameForDelegate_forHighQualityC
   {
     objc_initWeak(buf, self);
     bookkeepingQueue = [(HFCameraPosterFrameProvider *)self bookkeepingQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __65__HFCameraPosterFrameProvider_didDownloadVideoFileForClip_toURL___block_invoke;
-    v12[3] = &unk_277DF3A68;
-    objc_copyWeak(&v14, buf);
-    v13 = clipCopy;
-    dispatch_async(bookkeepingQueue, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__HFCameraPosterFrameProvider_didDownloadVideoFileForClip_toURL___block_invoke;
+    v11[3] = &unk_277DF3A68;
+    objc_copyWeak(&v13, buf);
+    v12 = clipCopy;
+    dispatch_async(bookkeepingQueue, v11);
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HFCameraPosterFrameProvider_didDownloadVideoFileForClip_toURL___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) hf_prettyDescription];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Downloaded timelapse file for timelapse clip: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Downloaded timelapse file for timelapse clip: %@", &v5, 0xCu);
   }
 
   [WeakRetained _requestTimelapsePosterFrameGenerationForTimelapseClip:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)foundVideoFileForClip:(id)clip atURL:(id)l
@@ -361,19 +354,18 @@ void __65__HFCameraPosterFrameProvider_didDownloadVideoFileForClip_toURL___block
 
 void __59__HFCameraPosterFrameProvider_foundVideoFileForClip_atURL___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) hf_prettyDescription];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Found timelapse file for timelapse clip: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Found timelapse file for timelapse clip: %@", &v5, 0xCu);
   }
 
   [WeakRetained _requestTimelapsePosterFrameGenerationForTimelapseClip:*(a1 + 32)];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToDownloadVideoFileForClip:(id)clip
@@ -409,40 +401,40 @@ void __64__HFCameraPosterFrameProvider_failedToDownloadVideoFileForClip___block_
 
 - (void)_failedToDownloadVideoFileForClip:(id)clip
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     hf_prettyDescription = [clipCopy hf_prettyDescription];
     *buf = 138412290;
-    v26 = hf_prettyDescription;
+    v25 = hf_prettyDescription;
     _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Error: failed to download timelapse file for timelapse clip: %@", buf, 0xCu);
   }
 
   posterFrameRequests = [(HFCameraPosterFrameProvider *)self posterFrameRequests];
   v7 = [posterFrameRequests fulfillRequestsForTimelapseFileForTimelapseClip:clipCopy];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         offsetNumber = [v13 offsetNumber];
         [offsetNumber doubleValue];
         v16 = v15;
@@ -451,13 +443,11 @@ void __64__HFCameraPosterFrameProvider_failedToDownloadVideoFileForClip___block_
         [(HFCameraPosterFrameProvider *)self _updateDelegate:delegate withPosterFrame:0 atOffset:clipCopy ForHighQualityClip:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didGeneratePosterFrame:(id)frame forHighQualityClip:(id)clip atOffset:(double)offset withTimelapseOffset:(double)timelapseOffset
@@ -497,18 +487,18 @@ void __102__HFCameraPosterFrameProvider_didGeneratePosterFrame_forHighQualityCli
 
 - (void)_didGeneratePosterFrame:(id)frame forHighQualityClip:(id)clip atOffset:(double)offset withTimelapseOffset:(double)timelapseOffset
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   clipCopy = clip;
   v11 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = [clipCopy uniqueIdentifier];
-    v23 = 138412546;
-    v24 = uniqueIdentifier;
-    v25 = 2048;
+    v22 = 138412546;
+    v23 = uniqueIdentifier;
+    v24 = 2048;
     offsetCopy = offset;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Generated poster frame for clip: %@; offset: %f", &v23, 0x16u);
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Generated poster frame for clip: %@; offset: %f", &v22, 0x16u);
   }
 
   uniqueIdentifier2 = [clipCopy uniqueIdentifier];
@@ -529,8 +519,6 @@ void __102__HFCameraPosterFrameProvider_didGeneratePosterFrame_forHighQualityCli
     delegate2 = [v19 delegate];
     [(HFCameraPosterFrameProvider *)self _updateDelegate:delegate2 withPosterFrame:frameCopy atOffset:clipCopy ForHighQualityClip:offset];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToFindTimelapseClipForHighQualityClip:(id)clip
@@ -566,40 +554,40 @@ void __75__HFCameraPosterFrameProvider_failedToFindTimelapseClipForHighQualityCl
 
 - (void)_failedToFindTimelapseClipForHighQualityClip:(id)clip
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     hf_prettyDescription = [clipCopy hf_prettyDescription];
     *buf = 138412290;
-    v27 = hf_prettyDescription;
+    v26 = hf_prettyDescription;
     _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Error: Failed to find timelapse for clip: %@", buf, 0xCu);
   }
 
   posterFrameRequests = [(HFCameraPosterFrameProvider *)self posterFrameRequests];
   v7 = [posterFrameRequests fulfillAllRequestsForPosterFrameGenerationForHighQualityClip:clipCopy];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         delegate = [v13 delegate];
 
         if (delegate)
@@ -613,13 +601,11 @@ void __75__HFCameraPosterFrameProvider_failedToFindTimelapseClipForHighQualityCl
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToGeneratePosterFrameForHighQualityClip:(id)clip atOffset:(double)offset
@@ -656,17 +642,17 @@ void __86__HFCameraPosterFrameProvider_failedToGeneratePosterFrameForHighQuality
 
 - (void)_failedToGeneratePosterFrameForHighQualityClip:(id)clip atOffset:(double)offset
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v7 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     uniqueIdentifier = [clipCopy uniqueIdentifier];
-    v14 = 138412546;
-    v15 = uniqueIdentifier;
-    v16 = 2048;
+    v13 = 138412546;
+    v14 = uniqueIdentifier;
+    v15 = 2048;
     offsetCopy = offset;
-    _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Error: Failed generation for clip %@; offset %f", &v14, 0x16u);
+    _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Error: Failed generation for clip %@; offset %f", &v13, 0x16u);
   }
 
   posterFrameRequests = [(HFCameraPosterFrameProvider *)self posterFrameRequests];
@@ -679,8 +665,6 @@ void __86__HFCameraPosterFrameProvider_failedToGeneratePosterFrameForHighQuality
     delegate2 = [v9 delegate];
     [(HFCameraPosterFrameProvider *)self _updateDelegate:delegate2 withPosterFrame:0 atOffset:clipCopy ForHighQualityClip:offset];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDelegate:(id)delegate withPosterFrame:(id)frame atOffset:(double)offset ForHighQualityClip:(id)clip

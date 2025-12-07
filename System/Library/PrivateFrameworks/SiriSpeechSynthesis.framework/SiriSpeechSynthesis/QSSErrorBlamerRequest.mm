@@ -47,55 +47,55 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
 
 - (Offset<siri::speech::schema_fb::ErrorBlamerRequest>)addObjectToBuffer:(void *)buffer
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   start_speech_request = [(QSSErrorBlamerRequest *)self start_speech_request];
   v6 = [start_speech_request addObjectToBuffer:buffer];
 
-  memset(&v59, 0, sizeof(v59));
+  memset(&v55, 0, sizeof(v55));
   contextual_text = [(QSSErrorBlamerRequest *)self contextual_text];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v59, [contextual_text count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v55, [contextual_text count]);
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   contextual_text2 = [(QSSErrorBlamerRequest *)self contextual_text];
-  v9 = [contextual_text2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v9 = [contextual_text2 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v9)
   {
-    v10 = *v56;
+    v10 = *v52;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v56 != v10)
+        if (*v52 != v10)
         {
           objc_enumerationMutation(contextual_text2);
         }
 
-        uTF8String = [*(*(&v55 + 1) + 8 * i) UTF8String];
+        uTF8String = [*(*(&v51 + 1) + 8 * i) UTF8String];
         v13 = strlen(uTF8String);
         String = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v13);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v59, &String);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v55, &String);
       }
 
-      v9 = [contextual_text2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v9 = [contextual_text2 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v9);
   }
 
-  if (v59.__end_ == v59.__begin_)
+  if (v55.__end_ == v55.__begin_)
   {
     begin = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    begin = v59.__begin_;
+    begin = v55.__begin_;
   }
 
-  v48 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, begin, v59.__end_ - v59.__begin_);
+  v47 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, begin, v55.__end_ - v55.__begin_);
   left_context = [(QSSErrorBlamerRequest *)self left_context];
   v16 = left_context;
   if (!left_context)
@@ -105,7 +105,7 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
 
   uTF8String2 = [(__CFString *)left_context UTF8String];
   v18 = strlen(uTF8String2);
-  v47 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v18);
+  v46 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v18);
 
   right_context = [(QSSErrorBlamerRequest *)self right_context];
   v20 = right_context;
@@ -116,13 +116,13 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
 
   uTF8String3 = [(__CFString *)right_context UTF8String];
   v22 = strlen(uTF8String3);
-  v46 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v22);
+  v45 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v22);
 
   user_language_profile = [(QSSErrorBlamerRequest *)self user_language_profile];
-  v45 = [user_language_profile addObjectToBuffer:buffer];
+  v44 = [user_language_profile addObjectToBuffer:buffer];
 
   user_acoustic_profile = [(QSSErrorBlamerRequest *)self user_acoustic_profile];
-  v44 = [user_acoustic_profile addObjectToBuffer:buffer];
+  v43 = [user_acoustic_profile addObjectToBuffer:buffer];
 
   [(QSSErrorBlamerRequest *)self latitude];
   v26 = v25;
@@ -140,16 +140,11 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  memset(v49, 0, sizeof(v49));
   obj = [(QSSErrorBlamerRequest *)self audio_packets];
-  if ([obj countByEnumeratingWithState:&v50 objects:v60 count:16])
+  if ([obj countByEnumeratingWithState:v49 objects:v56 count:16])
   {
-    *v51;
-    *v51;
-    [**(&v50 + 1) addObjectToBuffer:buffer];
+    [**(&v49[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -172,11 +167,11 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
   v38 = *(buffer + 12);
   v39 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v6);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v48);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v47);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v46);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v45);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v44);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v47);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v46);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v45);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v44);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v43);
   flatbuffers::FlatBufferBuilder::AddElement<double>(buffer, 16, v26);
   flatbuffers::FlatBufferBuilder::AddElement<double>(buffer, 18, v28);
   if (v31)
@@ -187,12 +182,11 @@ flatbuffers::DetachedBuffer *__37__QSSErrorBlamerRequest_flatbuffData__block_inv
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 22, v36);
   v41.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v37 - v38 + v39);
-  if (v59.__begin_)
+  if (v55.__begin_)
   {
-    operator delete(v59.__begin_);
+    operator delete(v55.__begin_);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

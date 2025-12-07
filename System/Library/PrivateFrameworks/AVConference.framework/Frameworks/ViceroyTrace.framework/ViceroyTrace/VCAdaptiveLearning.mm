@@ -12,13 +12,13 @@
 
 - (VCAdaptiveLearning)initWithParameters:(id)parameters
 {
-  v79 = *MEMORY[0x277D85DE8];
-  v66.receiver = self;
-  v66.super_class = VCAdaptiveLearning;
-  v4 = [(VCAdaptiveLearning *)&v66 init];
+  v78 = *MEMORY[0x277D85DE8];
+  v65.receiver = self;
+  v65.super_class = VCAdaptiveLearning;
+  v4 = [(VCAdaptiveLearning *)&v65 init];
   if (!v4)
   {
-    goto LABEL_71;
+    return v4;
   }
 
   v5 = [objc_msgSend(parameters objectForKeyedSubscript:{sRTCReportingAdaptiveLearningState), "intValue"}];
@@ -57,15 +57,15 @@
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v70 = v27;
-            v71 = 2080;
-            v72 = "[VCAdaptiveLearning initWithParameters:]";
-            v73 = 1024;
-            v74 = 71;
-            v75 = 2048;
-            v76 = v6;
-            v77 = 2048;
-            v78 = v18;
+            v69 = v27;
+            v70 = 2080;
+            v71 = "[VCAdaptiveLearning initWithParameters:]";
+            v72 = 1024;
+            v73 = 71;
+            v74 = 2048;
+            v75 = v6;
+            v76 = 2048;
+            v77 = v18;
             v15 = " [%s] %s:%d AdaptiveLearning: Strategy C selected: current sampling factor %f is greater or equal to (Strategy A threshould + Strategy B threshould) %f";
             goto LABEL_21;
           }
@@ -79,15 +79,15 @@
         }
 
         *buf = 136316162;
-        v70 = v27;
-        v71 = 2080;
-        v72 = "[VCAdaptiveLearning initWithParameters:]";
-        v73 = 1024;
-        v74 = 71;
-        v75 = 2048;
-        v76 = v6;
-        v77 = 2048;
-        v78 = v18;
+        v69 = v27;
+        v70 = 2080;
+        v71 = "[VCAdaptiveLearning initWithParameters:]";
+        v72 = 1024;
+        v73 = 71;
+        v74 = 2048;
+        v75 = v6;
+        v76 = 2048;
+        v77 = v18;
         v28 = " [%s] %s:%d AdaptiveLearning: Strategy C selected: current sampling factor %f is greater or equal to (Strategy A threshould + Strategy B threshould) %f";
       }
 
@@ -113,15 +113,15 @@
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v70 = v23;
-            v71 = 2080;
-            v72 = "[VCAdaptiveLearning initWithParameters:]";
-            v73 = 1024;
-            v74 = 64;
-            v75 = 2048;
-            v76 = v6;
-            v77 = 2048;
-            v78 = v19;
+            v69 = v23;
+            v70 = 2080;
+            v71 = "[VCAdaptiveLearning initWithParameters:]";
+            v72 = 1024;
+            v73 = 64;
+            v74 = 2048;
+            v75 = v6;
+            v76 = 2048;
+            v77 = v19;
             v15 = " [%s] %s:%d AdaptiveLearning: Strategy B selected: current sampling factor %f is less than (Strategy A threshould + Strategy B threshould) %f";
             goto LABEL_21;
           }
@@ -129,31 +129,31 @@
 LABEL_30:
           v29 = [&unk_284FA5810 count];
           v4->_callHistory = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v29];
+          v60 = 0u;
           v61 = 0u;
           v62 = 0u;
           v63 = 0u;
-          v64 = 0u;
-          v30 = [&unk_284FA5810 countByEnumeratingWithState:&v61 objects:v68 count:16];
+          v30 = [&unk_284FA5810 countByEnumeratingWithState:&v60 objects:v67 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v62;
+            v32 = *v61;
             do
             {
               for (i = 0; i != v31; ++i)
               {
-                if (*v62 != v32)
+                if (*v61 != v32)
                 {
                   objc_enumerationMutation(&unk_284FA5810);
                 }
 
-                v34 = *(*(&v61 + 1) + 8 * i);
+                v34 = *(*(&v60 + 1) + 8 * i);
                 v35 = objc_alloc_init(VCSegmentCallHistory);
                 [(NSMutableDictionary *)v4->_callHistory setObject:v35 forKeyedSubscript:v34];
                 v36 = [(VCSegmentCallHistory *)v35 deserialize:0];
               }
 
-              v31 = [&unk_284FA5810 countByEnumeratingWithState:&v61 objects:v68 count:16];
+              v31 = [&unk_284FA5810 countByEnumeratingWithState:&v60 objects:v67 count:16];
             }
 
             while (v31);
@@ -174,11 +174,11 @@ LABEL_30:
               if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                v70 = v48;
-                v71 = 2080;
-                v72 = "[VCAdaptiveLearning initWithParameters:]";
-                v73 = 1024;
-                v74 = 127;
+                v69 = v48;
+                v70 = 2080;
+                v71 = "[VCAdaptiveLearning initWithParameters:]";
+                v72 = 1024;
+                v73 = 127;
                 _os_log_impl(&dword_23D4DF000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Call history database does not exists. Using table values", buf, 0x1Cu);
               }
             }
@@ -221,29 +221,29 @@ LABEL_30:
 
                 if (v44 == v41[v42])
                 {
-                  v59 = 0u;
-                  v60 = 0u;
-                  v57 = 0u;
                   v58 = 0u;
-                  v50 = [&unk_284FA5810 countByEnumeratingWithState:&v57 objects:v67 count:16];
+                  v59 = 0u;
+                  v56 = 0u;
+                  v57 = 0u;
+                  v50 = [&unk_284FA5810 countByEnumeratingWithState:&v56 objects:v66 count:16];
                   if (v50)
                   {
                     v51 = v50;
                     v52 = 0;
-                    v53 = *v58;
+                    v53 = *v57;
                     do
                     {
                       for (j = 0; j != v51; ++j)
                       {
-                        if (*v58 != v53)
+                        if (*v57 != v53)
                         {
                           objc_enumerationMutation(&unk_284FA5810);
                         }
 
-                        v52 += [-[NSMutableDictionary objectForKeyedSubscript:](v4->_callHistory objectForKeyedSubscript:{*(*(&v57 + 1) + 8 * j)), "deserialize:", &v41[v52]}];
+                        v52 += [-[NSMutableDictionary objectForKeyedSubscript:](v4->_callHistory objectForKeyedSubscript:{*(*(&v56 + 1) + 8 * j)), "deserialize:", &v41[v52]}];
                       }
 
-                      v51 = [&unk_284FA5810 countByEnumeratingWithState:&v57 objects:v67 count:16];
+                      v51 = [&unk_284FA5810 countByEnumeratingWithState:&v56 objects:v66 count:16];
                     }
 
                     while (v51);
@@ -285,7 +285,7 @@ LABEL_30:
           }
 
           v4->_stateQueue = dispatch_queue_create("com.apple.VideoConference.VCAdaptiveLearningQueue", 0);
-          goto LABEL_71;
+          return v4;
         }
 
         if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
@@ -294,15 +294,15 @@ LABEL_30:
         }
 
         *buf = 136316162;
-        v70 = v23;
-        v71 = 2080;
-        v72 = "[VCAdaptiveLearning initWithParameters:]";
-        v73 = 1024;
-        v74 = 64;
-        v75 = 2048;
-        v76 = v6;
-        v77 = 2048;
-        v78 = v19;
+        v69 = v23;
+        v70 = 2080;
+        v71 = "[VCAdaptiveLearning initWithParameters:]";
+        v72 = 1024;
+        v73 = 64;
+        v74 = 2048;
+        v75 = v6;
+        v76 = 2048;
+        v77 = v19;
         v28 = " [%s] %s:%d AdaptiveLearning: Strategy B selected: current sampling factor %f is less than (Strategy A threshould + Strategy B threshould) %f";
       }
     }
@@ -329,15 +329,15 @@ LABEL_30:
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          v70 = v13;
-          v71 = 2080;
-          v72 = "[VCAdaptiveLearning initWithParameters:]";
-          v73 = 1024;
-          v74 = 56;
-          v75 = 2048;
-          v76 = v6;
-          v77 = 2048;
-          v78 = v8;
+          v69 = v13;
+          v70 = 2080;
+          v71 = "[VCAdaptiveLearning initWithParameters:]";
+          v72 = 1024;
+          v73 = 56;
+          v74 = 2048;
+          v75 = v6;
+          v76 = 2048;
+          v77 = v8;
           v15 = " [%s] %s:%d AdaptiveLearning: Strategy A selected: current sampling factor %f is less than Strategy A threshould %f";
 LABEL_21:
           _os_log_impl(&dword_23D4DF000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0x30u);
@@ -353,15 +353,15 @@ LABEL_21:
       }
 
       *buf = 136316162;
-      v70 = v13;
-      v71 = 2080;
-      v72 = "[VCAdaptiveLearning initWithParameters:]";
-      v73 = 1024;
-      v74 = 56;
-      v75 = 2048;
-      v76 = v6;
-      v77 = 2048;
-      v78 = v8;
+      v69 = v13;
+      v70 = 2080;
+      v71 = "[VCAdaptiveLearning initWithParameters:]";
+      v72 = 1024;
+      v73 = 56;
+      v74 = 2048;
+      v75 = v6;
+      v76 = 2048;
+      v77 = v8;
       v28 = " [%s] %s:%d AdaptiveLearning: Strategy A selected: current sampling factor %f is less than Strategy A threshould %f";
     }
 
@@ -378,11 +378,11 @@ LABEL_21:
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v70 = v16;
-        v71 = 2080;
-        v72 = "[VCAdaptiveLearning initWithParameters:]";
-        v73 = 1024;
-        v74 = 41;
+        v69 = v16;
+        v70 = 2080;
+        v71 = "[VCAdaptiveLearning initWithParameters:]";
+        v72 = 1024;
+        v73 = 41;
         _os_log_impl(&dword_23D4DF000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Adaptive Learning for FaceTime disabled", buf, 0x1Cu);
       }
     }
@@ -393,13 +393,10 @@ LABEL_21:
     }
   }
 
-  v65.receiver = v4;
-  v65.super_class = VCAdaptiveLearning;
-  [(VCAdaptiveLearning *)&v65 release];
-  v4 = 0;
-LABEL_71:
-  v55 = *MEMORY[0x277D85DE8];
-  return v4;
+  v64.receiver = v4;
+  v64.super_class = VCAdaptiveLearning;
+  [(VCAdaptiveLearning *)&v64 release];
+  return 0;
 }
 
 - (void)dealloc
@@ -417,7 +414,7 @@ LABEL_71:
 
 + (id)segmentHistoryStorageFile
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA0] stringWithFormat:@"%@%s", NSHomeDirectory(), "/Library/Caches/com.apple.VideoConference/segmenthistory"];
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
@@ -426,18 +423,17 @@ LABEL_71:
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "+[VCAdaptiveLearning segmentHistoryStorageFile]";
-      v11 = 1024;
-      v12 = 144;
-      v13 = 2112;
-      v14 = v2;
+      v7 = v3;
+      v8 = 2080;
+      v9 = "+[VCAdaptiveLearning segmentHistoryStorageFile]";
+      v10 = 1024;
+      v11 = 144;
+      v12 = 2112;
+      v13 = v2;
       _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Call history storage=%@", buf, 0x26u);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -454,7 +450,7 @@ LABEL_71:
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 16))
   {
@@ -464,11 +460,11 @@ void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke(uint64_t a1)
       if ((__fd & 0x80000000) == 0)
       {
         __buf = -1;
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
-        v3 = [&unk_284FA5828 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v3 = [&unk_284FA5828 countByEnumeratingWithState:&v26 objects:v31 count:16];
         if (!v3)
         {
           goto LABEL_22;
@@ -476,18 +472,18 @@ void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke(uint64_t a1)
 
         v4 = v3;
         v5 = 0;
-        v6 = *v28;
+        v6 = *v27;
         v7 = -1;
         while (2)
         {
           for (i = 0; i != v4; ++i)
           {
-            if (*v28 != v6)
+            if (*v27 != v6)
             {
               objc_enumerationMutation(&unk_284FA5828);
             }
 
-            v9 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
+            v9 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(*(&v26 + 1) + 8 * i)];
             v10 = [v9 serialize:0];
             if (v10)
             {
@@ -537,11 +533,11 @@ void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke(uint64_t a1)
                 if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315650;
-                  v34 = v18;
-                  v35 = 2080;
-                  v36 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
-                  v37 = 1024;
-                  v38 = 186;
+                  v33 = v18;
+                  v34 = 2080;
+                  v35 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
+                  v36 = 1024;
+                  v37 = 186;
                   _os_log_error_impl(&dword_23D4DF000, v19, OS_LOG_TYPE_ERROR, " [%s] %s:%d AdaptiveLearning: Failed to write call history file - Serialization failed", buf, 0x1Cu);
                 }
               }
@@ -550,7 +546,7 @@ void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke(uint64_t a1)
             }
           }
 
-          v4 = [&unk_284FA5828 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v4 = [&unk_284FA5828 countByEnumeratingWithState:&v26 objects:v31 count:16];
           if (v4)
           {
             continue;
@@ -574,11 +570,11 @@ LABEL_22:
                 if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315650;
-                  v34 = v20;
-                  v35 = 2080;
-                  v36 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
-                  v37 = 1024;
-                  v38 = 195;
+                  v33 = v20;
+                  v34 = 2080;
+                  v35 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
+                  v36 = 1024;
+                  v37 = 195;
                   _os_log_impl(&dword_23D4DF000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Call history has been saved", buf, 0x1Cu);
                 }
               }
@@ -624,11 +620,11 @@ LABEL_44:
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v34 = v22;
-        v35 = 2080;
-        v36 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
-        v37 = 1024;
-        v38 = 151;
+        v33 = v22;
+        v34 = 2080;
+        v35 = "[VCAdaptiveLearning saveCallSegmentHistory]_block_invoke";
+        v36 = 1024;
+        v37 = 151;
         _os_log_impl(&dword_23D4DF000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Call history has not changed", buf, 0x1Cu);
       }
     }
@@ -638,8 +634,6 @@ LABEL_44:
       __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_1();
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (int)learntBitrateForSegment:(id)segment defaultValue:(int)value
@@ -665,34 +659,34 @@ LABEL_44:
 
 void __59__VCAdaptiveLearning_learntBitrateForSegment_defaultValue___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
   if (!v2)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 7)
     {
-      goto LABEL_18;
+      return;
     }
 
     v16 = VRTraceErrorLogLevelToCSTR(7u);
     v17 = gVRTraceOSLog;
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_18;
+      return;
     }
 
     v18 = *(a1 + 40);
     v19 = *(*(*(a1 + 48) + 8) + 24);
-    v33 = 136316162;
-    v34 = v16;
-    v35 = 2080;
-    v36 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
-    v37 = 1024;
-    v38 = 218;
-    v39 = 2112;
-    *v40 = v18;
-    *&v40[8] = 1024;
-    *&v40[10] = v19;
+    v32 = 136316162;
+    v33 = v16;
+    v34 = 2080;
+    v35 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
+    v36 = 1024;
+    v37 = 218;
+    v38 = 2112;
+    *v39 = v18;
+    *&v39[8] = 1024;
+    *&v39[10] = v19;
     v13 = " [%s] %s:%d AdaptiveLearning: Call history is absent for segment %@. Target Bitrate defaults to %d";
 LABEL_16:
     v14 = v17;
@@ -711,28 +705,28 @@ LABEL_16:
     *(*(*(a1 + 48) + 8) + 24) = (v22 * [v3 longTermAdjustmentTBR] + v20 * v21);
     if (VRTraceGetErrorLogLevelForModule("") < 7)
     {
-      goto LABEL_18;
+      return;
     }
 
     v23 = VRTraceErrorLogLevelToCSTR(7u);
     v17 = gVRTraceOSLog;
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_18;
+      return;
     }
 
     v24 = *(a1 + 40);
     v25 = *(*(*(a1 + 48) + 8) + 24);
-    v33 = 136316162;
-    v34 = v23;
-    v35 = 2080;
-    v36 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
-    v37 = 1024;
-    v38 = 210;
-    v39 = 1024;
-    *v40 = v25;
-    *&v40[4] = 2112;
-    *&v40[6] = v24;
+    v32 = 136316162;
+    v33 = v23;
+    v34 = 2080;
+    v35 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
+    v36 = 1024;
+    v37 = 210;
+    v38 = 1024;
+    *v39 = v25;
+    *&v39[4] = 2112;
+    *&v39[6] = v24;
     v13 = " [%s] %s:%d AdaptiveLearning: Adjusted (long + short term) Target Bitrate %d for segment=%@";
     goto LABEL_16;
   }
@@ -747,28 +741,28 @@ LABEL_16:
     *(*(*(a1 + 48) + 8) + 24) = (v28 * [v3 shortTermAdjustmentTBR] + v27 * v26);
     if (VRTraceGetErrorLogLevelForModule("") < 7)
     {
-      goto LABEL_18;
+      return;
     }
 
     v29 = VRTraceErrorLogLevelToCSTR(7u);
     v17 = gVRTraceOSLog;
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_18;
+      return;
     }
 
     v30 = *(a1 + 40);
     v31 = *(*(*(a1 + 48) + 8) + 24);
-    v33 = 136316162;
-    v34 = v29;
-    v35 = 2080;
-    v36 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
-    v37 = 1024;
-    v38 = 213;
-    v39 = 1024;
-    *v40 = v31;
-    *&v40[4] = 2112;
-    *&v40[6] = v30;
+    v32 = 136316162;
+    v33 = v29;
+    v34 = 2080;
+    v35 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
+    v36 = 1024;
+    v37 = 213;
+    v38 = 1024;
+    *v39 = v31;
+    *&v39[4] = 2112;
+    *&v39[6] = v30;
     v13 = " [%s] %s:%d AdaptiveLearning: Adjusted (short term) Target Bitrate %d for segment=%@";
     goto LABEL_16;
   }
@@ -782,28 +776,25 @@ LABEL_16:
       v10 = *(a1 + 40);
       v11 = [v3 historyLength];
       v12 = *(a1 + 56);
-      v33 = 136316418;
-      v34 = v8;
-      v35 = 2080;
-      v36 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
-      v37 = 1024;
-      v38 = 215;
-      v39 = 2112;
-      *v40 = v10;
-      *&v40[8] = 1024;
-      *&v40[10] = v11;
-      v41 = 1024;
-      v42 = v12;
+      v32 = 136316418;
+      v33 = v8;
+      v34 = 2080;
+      v35 = "[VCAdaptiveLearning learntBitrateForSegment:defaultValue:]_block_invoke";
+      v36 = 1024;
+      v37 = 215;
+      v38 = 2112;
+      *v39 = v10;
+      *&v39[8] = 1024;
+      *&v39[10] = v11;
+      v40 = 1024;
+      v41 = v12;
       v13 = " [%s] %s:%d AdaptiveLearning: Call history for segment %@ is too small (%d calls) for Target Bitrate adaptation. Target Bitrate defaults to %d";
       v14 = v9;
       v15 = 50;
 LABEL_17:
-      _os_log_impl(&dword_23D4DF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v33, v15);
+      _os_log_impl(&dword_23D4DF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v32, v15);
     }
   }
-
-LABEL_18:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSegment:(id)segment TBR:(int)r ISBTR:(int)tR SATXBR:(int)bR SARBR:(int)rBR BWE:(int)e
@@ -825,7 +816,7 @@ LABEL_18:
 
 void __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
   if (v3)
@@ -848,70 +839,75 @@ void __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_i
         v13 = *(a1 + 56);
         v14 = *(a1 + 60);
         v15 = *(a1 + 64);
-        v23 = 136317954;
-        v24 = v5;
-        v25 = 2080;
-        v26 = "[VCAdaptiveLearning updateSegment:TBR:ISBTR:SATXBR:SARBR:BWE:]_block_invoke";
-        v27 = 1024;
-        v28 = 230;
-        v29 = 2112;
-        v30 = v7;
-        v31 = 1024;
-        v32 = v8;
-        v33 = 1024;
-        v34 = v9;
-        v35 = 1024;
-        v36 = v10;
-        v37 = 1024;
-        v38 = v11;
-        v39 = 1024;
-        v40 = v12;
-        v41 = 1024;
-        v42 = v13;
-        v43 = 1024;
-        v44 = v14;
-        v45 = 1024;
-        v46 = v15;
+        v22 = 136317954;
+        v23 = v5;
+        v24 = 2080;
+        v25 = "[VCAdaptiveLearning updateSegment:TBR:ISBTR:SATXBR:SARBR:BWE:]_block_invoke";
+        v26 = 1024;
+        v27 = 230;
+        v28 = 2112;
+        v29 = v7;
+        v30 = 1024;
+        v31 = v8;
+        v32 = 1024;
+        v33 = v9;
+        v34 = 1024;
+        v35 = v10;
+        v36 = 1024;
+        v37 = v11;
+        v38 = 1024;
+        v39 = v12;
+        v40 = 1024;
+        v41 = v13;
+        v42 = 1024;
+        v43 = v14;
+        v44 = 1024;
+        v45 = v15;
         v16 = " [%s] %s:%d AdaptiveLearning: Call history changed for segment=%@ with length=%d, shortTermAdjustment=%d, longTermAdjustment=%d, newTBR=%d, newISBTR=%d, newSATXBR=%d, newSARBR=%d, newBWE=%d";
         v17 = v6;
         v18 = 86;
 LABEL_9:
-        _os_log_impl(&dword_23D4DF000, v17, OS_LOG_TYPE_DEFAULT, v16, &v23, v18);
+        _os_log_impl(&dword_23D4DF000, v17, OS_LOG_TYPE_DEFAULT, v16, &v22, v18);
       }
     }
   }
 
-  else if (VRTraceGetErrorLogLevelForModule("") >= 8)
+  else
   {
+    if (VRTraceGetErrorLogLevelForModule("") < 8)
+    {
+      return;
+    }
+
     v19 = VRTraceErrorLogLevelToCSTR(8u);
     v20 = gVRTraceOSLog;
     if (gVRTraceLogDebugAsInfo == 1)
     {
-      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *v2;
-        v23 = 136315906;
-        v24 = v19;
-        v25 = 2080;
-        v26 = "[VCAdaptiveLearning updateSegment:TBR:ISBTR:SATXBR:SARBR:BWE:]_block_invoke";
-        v27 = 1024;
-        v28 = 232;
-        v29 = 2112;
-        v30 = v21;
-        v16 = " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@";
-        v17 = v20;
-        v18 = 38;
-        goto LABEL_9;
+        return;
       }
+
+      v21 = *v2;
+      v22 = 136315906;
+      v23 = v19;
+      v24 = 2080;
+      v25 = "[VCAdaptiveLearning updateSegment:TBR:ISBTR:SATXBR:SARBR:BWE:]_block_invoke";
+      v26 = 1024;
+      v27 = 232;
+      v28 = 2112;
+      v29 = v21;
+      v16 = " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@";
+      v17 = v20;
+      v18 = 38;
+      goto LABEL_9;
     }
 
-    else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_invoke_cold_1(v19, v2);
+      __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_invoke_cold_1();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (int)getValueForSegment:(id)segment withBlock:(id)block
@@ -962,7 +958,7 @@ LABEL_9:
 
 void __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1 + 5;
   if ([*(a1[4] + 8) objectForKeyedSubscript:a1[5]])
   {
@@ -978,144 +974,114 @@ void __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke(void *
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *v2;
-        v7 = 136315906;
-        v8 = v3;
-        v9 = 2080;
-        v10 = "[VCAdaptiveLearning getValueForSegment:withBlock:]_block_invoke";
-        v11 = 1024;
-        v12 = 246;
-        v13 = 2112;
-        v14 = v5;
-        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@", &v7, 0x26u);
+        v6 = 136315906;
+        v7 = v3;
+        v8 = 2080;
+        v9 = "[VCAdaptiveLearning getValueForSegment:withBlock:]_block_invoke";
+        v10 = 1024;
+        v11 = 246;
+        v12 = 2112;
+        v13 = v5;
+        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@", &v6, 0x26u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke_cold_1(v3, v2);
+      __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke_cold_1();
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParameters:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history database size wrong. Ignoring learnt values...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history database size wrong. Ignoring learnt values...", v2, v3, v4, v5);
 }
 
 - (void)initWithParameters:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to read call history database. Ignoring learnt values...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to read call history database. Ignoring learnt values...", v2, v3, v4, v5);
 }
 
 - (void)initWithParameters:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Wrong CRC for call history database. Ignoring learnt values...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Wrong CRC for call history database. Ignoring learnt values...", v2, v3, v4, v5);
 }
 
 - (void)initWithParameters:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Adaptive Learning for FaceTime disabled", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Adaptive Learning for FaceTime disabled", v2, v3, v4, v5);
 }
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history has not changed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history has not changed", v2, v3, v4, v5);
 }
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to write call history file", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to write call history file", v2, v3, v4, v5);
 }
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to write CRC to call history file", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Failed to write CRC to call history file", v2, v3, v4, v5);
 }
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history has been saved", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history has been saved", v2, v3, v4, v5);
 }
 
 void __44__VCAdaptiveLearning_saveCallSegmentHistory__block_invoke_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history is empty", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history is empty", v2, v3, v4, v5);
 }
 
-void __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __63__VCAdaptiveLearning_updateSegment_TBR_ISBTR_SATXBR_SARBR_BWE___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v3, v4, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@");
 }
 
 - (void)getValueForSegment:withBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d block must not be nil", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d block must not be nil", v2, v3, v4, v5);
 }
 
 - (void)getValueForSegment:withBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentName must not be nil", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentName must not be nil", v2, v3, v4, v5);
 }
 
-void __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __51__VCAdaptiveLearning_getValueForSegment_withBlock___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_8_1();
-  OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v3, v4, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@");
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d AdaptiveLearning: Call history is absent for segment=%@");
 }
 
 @end

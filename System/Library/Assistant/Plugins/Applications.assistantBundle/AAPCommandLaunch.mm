@@ -7,10 +7,10 @@
 
 - (void)performWithCompletion:(id)completion serviceHelper:(id)helper executionInfo:(id)info
 {
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v24 = sub_1FFC;
-  v25 = &unk_20748;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v23 = sub_1FFC;
+  v24 = &unk_20748;
   selfCopy = self;
   completionCopy = completion;
   v7 = [(AAPCommandLaunch *)self launchId:completion];
@@ -19,8 +19,8 @@
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v29 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
-    v30 = 2112;
+    v28 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
+    v29 = 2112;
     infoCopy = info;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: ExecutionInfo: %@", buf, 0x16u);
   }
@@ -29,61 +29,60 @@
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_F514();
+      sub_F514(self);
     }
 
     goto LABEL_17;
   }
 
-  executionEnvironment = [(AAPCommandLaunch *)self executionEnvironment];
-  if ([executionEnvironment isEqualToString:SAAppsLaunchAppSTARK_EXECUTION_ENVValue])
+  if (objc_msgSend_isEqualToString_([(AAPCommandLaunch *)self executionEnvironment]))
   {
-    v11 = +[FBSOpenApplicationService dashboardService];
-    v12 = [FBSOpenApplicationOptions optionsWithDictionary:&__NSDictionary0__struct];
+    v10 = +[FBSOpenApplicationService dashboardService];
+    v11 = [FBSOpenApplicationOptions optionsWithDictionary:&__NSDictionary0__struct];
   }
 
   else
   {
-    v13 = objc_opt_new();
-    [v13 setObject:&__kCFBooleanTrue forKey:FBSOpenApplicationOptionKeyUnlockDevice];
-    [v13 setObject:&__kCFBooleanTrue forKey:FBSOpenApplicationOptionKeyPromptUnlockDevice];
-    [v13 addEntriesFromDictionary:{-[AAPCommandLaunch _siriDismissalOpenApplicationOptions](self, "_siriDismissalOpenApplicationOptions")}];
-    v11 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
-    v12 = +[FBSOpenApplicationOptions optionsWithDictionary:](FBSOpenApplicationOptions, "optionsWithDictionary:", [v13 copy]);
+    v12 = objc_opt_new();
+    [v12 setObject:&__kCFBooleanTrue forKey:FBSOpenApplicationOptionKeyUnlockDevice];
+    [v12 setObject:&__kCFBooleanTrue forKey:FBSOpenApplicationOptionKeyPromptUnlockDevice];
+    [v12 addEntriesFromDictionary:{-[AAPCommandLaunch _siriDismissalOpenApplicationOptions](self, "_siriDismissalOpenApplicationOptions")}];
+    v10 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
+    v11 = +[FBSOpenApplicationOptions optionsWithDictionary:](FBSOpenApplicationOptions, "optionsWithDictionary:", [v12 copy]);
   }
 
-  v14 = AFSiriLogContextPlugin;
-  if (!v11)
+  v13 = AFSiriLogContextPlugin;
+  if (!v10)
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_F460();
+      sub_F460(self);
     }
 
 LABEL_17:
-    v17 = objc_alloc_init(SACommandFailed);
-    v24(v23, [v17 dictionary]);
+    v16 = objc_alloc_init(SACommandFailed);
+    v23(v22, [v16 dictionary]);
 
     return;
   }
 
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
   {
-    v15 = objc_opt_class();
+    v14 = objc_opt_class();
     *buf = 136315906;
-    v29 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
-    v30 = 2114;
-    infoCopy = v15;
-    v32 = 2048;
+    v28 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
+    v29 = 2114;
+    infoCopy = v14;
+    v31 = 2048;
     selfCopy3 = self;
-    v34 = 2112;
-    v35 = v7;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> processing command for app (%@)", buf, 0x2Au);
+    v33 = 2112;
+    v34 = v7;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> processing command for app (%@)", buf, 0x2Au);
   }
 
   if (turnId)
   {
-    v16 = objc_alloc_init(SISchemaUEIUUFRReady);
+    v15 = objc_alloc_init(SISchemaUEIUUFRReady);
     [+[AFAnalytics sharedAnalytics](AFAnalytics "sharedAnalytics")];
 
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
@@ -94,38 +93,38 @@ LABEL_17:
 
   else
   {
-    v18 = AFSiriLogContextPlugin;
+    v17 = AFSiriLogContextPlugin;
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_F3DC(v18);
+      sub_F3DC(v17);
     }
   }
 
-  v19 = v11;
-  v20 = AFSiriLogContextPlugin;
+  v18 = v10;
+  v19 = AFSiriLogContextPlugin;
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
   {
-    v21 = objc_opt_class();
+    v20 = objc_opt_class();
     *buf = 136315906;
-    v29 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
-    v30 = 2114;
-    infoCopy = v21;
-    v32 = 2048;
+    v28 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]";
+    v29 = 2114;
+    infoCopy = v20;
+    v31 = 2048;
     selfCopy3 = self;
-    v34 = 2112;
-    v35 = v12;
-    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> launchOptions (%@)", buf, 0x2Au);
+    v33 = 2112;
+    v34 = v11;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> launchOptions (%@)", buf, 0x2Au);
   }
 
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_2178;
-  v22[3] = &unk_20770;
-  v22[4] = self;
-  v22[5] = v7;
-  v22[6] = v11;
-  v22[7] = v23;
-  [(FBSOpenApplicationService *)v11 openApplication:v7 withOptions:v12 completion:v22];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_2178;
+  v21[3] = &unk_20770;
+  v21[4] = self;
+  v21[5] = v7;
+  v21[6] = v10;
+  v21[7] = v22;
+  [(FBSOpenApplicationService *)v10 openApplication:v7 withOptions:v11 completion:v21];
 }
 
 - (id)_siriDismissalOpenApplicationOptions

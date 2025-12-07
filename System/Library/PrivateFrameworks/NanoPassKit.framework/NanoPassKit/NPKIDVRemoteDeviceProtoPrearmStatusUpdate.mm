@@ -3,10 +3,26 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prearmStatusAsString:(int)string;
 - (int)StringAsPrearmStatus:(id)status;
 @end
 
 @implementation NPKIDVRemoteDeviceProtoPrearmStatusUpdate
+
+- (id)prearmStatusAsString:(int)string
+{
+  if ((string + 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279949800[string + 1];
+  }
+
+  return v4;
+}
 
 - (int)StringAsPrearmStatus:(id)status
 {

@@ -537,21 +537,11 @@ LABEL_11:
 
       v19 = +[_OSLastLockPredictor predictor];
       v7 = v19;
-      if (!v19)
-      {
-        goto LABEL_15;
-      }
-
-      predictorType2 = [v19 predictorType];
-      predictor3 = [(OSLastLockPredictionService *)self predictor];
-      predictorType3 = [predictor3 predictorType];
-      v23 = [predictorType2 isEqualToString:predictorType3];
-
-      if (!v23)
+      if (v19 && (-[NSObject predictorType](v19, "predictorType"), v20 = objc_claimAutoreleasedReturnValue(), -[OSLastLockPredictionService predictor](self, "predictor"), v21 = objc_claimAutoreleasedReturnValue(), [v21 predictorType], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v20, "isEqualToString:", v22), v22, v21, v20, !v23))
       {
         [(OSLastLockPredictionService *)self setPredictor:v7];
-        predictor4 = [(OSLastLockPredictionService *)self predictor];
-        requireEnoughHistory2 = [predictor4 requireEnoughHistory];
+        predictor3 = [(OSLastLockPredictionService *)self predictor];
+        requireEnoughHistory2 = [predictor3 requireEnoughHistory];
 
         v29 = qword_1000B69E0;
         if (requireEnoughHistory2)
@@ -563,10 +553,10 @@ LABEL_11:
           }
 
           predictorType = v29;
-          predictor5 = [(OSLastLockPredictionService *)self predictor];
-          predictorType4 = [predictor5 predictorType];
+          predictor4 = [(OSLastLockPredictionService *)self predictor];
+          predictorType2 = [predictor4 predictorType];
           v33 = 138412290;
-          v34 = predictorType4;
+          v34 = predictorType2;
           _os_log_impl(&_mh_execute_header, predictorType, OS_LOG_TYPE_INFO, "Successfully upgraded the model to: %@", &v33, 0xCu);
 
 LABEL_4:
@@ -583,14 +573,13 @@ LABEL_23:
 
       else
       {
-LABEL_15:
         v24 = qword_1000B69E0;
         if (os_log_type_enabled(qword_1000B69E0, OS_LOG_TYPE_INFO))
         {
           v25 = v24;
-          predictorType5 = [v7 predictorType];
+          predictorType3 = [v7 predictorType];
           v33 = 138412290;
-          v34 = predictorType5;
+          v34 = predictorType3;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "New predictor is nil or type remains the same as old model: %@. Upgrade aborted.", &v33, 0xCu);
         }
       }

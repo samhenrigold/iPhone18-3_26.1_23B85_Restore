@@ -43,7 +43,7 @@
   v2();
 
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for PresenterServerConnection();
+  v4.super_class = type metadata accessor for PresenterServerConnection(0);
   [(ServerConnection *)&v4 dealloc];
 }
 
@@ -54,7 +54,7 @@
   v4 = type metadata accessor for UUID();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for PresenterServerConnection();
+  v6.super_class = type metadata accessor for PresenterServerConnection(0);
   return [(ServerConnection *)&v6 init];
 }
 
@@ -83,7 +83,7 @@
 
 - (void)retrieveOnboardingStateWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -108,7 +108,7 @@
 
 - (void)retrieveOnboardingStateLocalWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -133,7 +133,7 @@
 
 - (void)retrieveNotificationConfigurationWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -158,7 +158,7 @@
 
 - (id)retrieveUrlForToken:(id)token type:(id)type
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v22 - v6;
   v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();

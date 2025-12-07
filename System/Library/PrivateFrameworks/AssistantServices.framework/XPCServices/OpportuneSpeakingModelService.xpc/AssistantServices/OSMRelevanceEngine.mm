@@ -15,7 +15,6 @@
     if (feedback == 1 || feedback == 2)
     {
       self = [OSMRelevanceEngineTrainingContext trainWithUnmanagedElement:"trainWithUnmanagedElement:isPositiveEvent:interaction:" isPositiveEvent:? interaction:?];
-      currentElement = selfCopy->_currentElement;
     }
 
     selfCopy->_currentElement = 0;

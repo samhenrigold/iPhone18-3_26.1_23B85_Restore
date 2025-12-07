@@ -66,7 +66,7 @@ void __49__BLSAlwaysOnExplicitEntriesTimeline_description__block_invoke(uint64_t
 
 - (int64_t)requestedFidelityForStartEntryInDateInterval:(id)interval withPreviousEntry:(id)entry
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   entryCopy = entry;
   v7 = entryCopy;
@@ -77,32 +77,32 @@ void __49__BLSAlwaysOnExplicitEntriesTimeline_description__block_invoke(uint64_t
 
   else
   {
-    v20 = self->_explicitEntries;
-    if ([(NSArray *)v20 count])
+    v19 = self->_explicitEntries;
+    if ([(NSArray *)v19 count])
     {
-      firstObject = [(NSArray *)v20 firstObject];
+      firstObject = [(NSArray *)v19 firstObject];
       requestedFidelity = [firstObject requestedFidelity];
 
       startDate = [intervalCopy startDate];
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v11 = v20;
-      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v11 = v19;
+      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v12)
       {
-        v13 = *v23;
+        v13 = *v22;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v23 != v13)
+            if (*v22 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v22 + 1) + 8 * i);
+            v15 = *(*(&v21 + 1) + 8 * i);
             presentationTime = [v15 presentationTime];
             v17 = [presentationTime compare:startDate];
 
@@ -113,7 +113,7 @@ void __49__BLSAlwaysOnExplicitEntriesTimeline_description__block_invoke(uint64_t
             }
           }
 
-          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v12)
           {
             continue;
@@ -132,7 +132,6 @@ LABEL_14:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return requestedFidelity;
 }
 
@@ -170,8 +169,8 @@ LABEL_14:
     v19 = [(NSArray *)v16 subarrayWithRange:v18, v17];
   }
 
-  v20 = bls_timelines_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = bls_timelines_log(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     identifier = [(BLSAlwaysOnTimeline *)self identifier];
     v24 = [v19 count];
@@ -187,10 +186,8 @@ LABEL_14:
     v34 = bls_shortLoggingString;
     v35 = 2112;
     v36 = v26;
-    _os_log_debug_impl(&dword_21FE25000, v20, OS_LOG_TYPE_DEBUG, "%p:%{public}@ -> %d entries(subset) for %{public}@ : %@", &v27, 0x30u);
+    _os_log_debug_impl(&dword_21FE25000, v21, OS_LOG_TYPE_DEBUG, "%p:%{public}@ -> %d entries(subset) for %{public}@ : %@", &v27, 0x30u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

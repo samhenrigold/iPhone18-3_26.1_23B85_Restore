@@ -685,9 +685,9 @@ LABEL_102:
     {
       LODWORD(v156) = 0;
       twoLineBracketsEnumMap = [self twoLineBracketsEnumMap];
-      v114 = readEnumProperty<WDTwoLineBrackets>(from, "eastAsianLayout", "combineBrackets", twoLineBracketsEnumMap, &v156, stateCopy);
+      Enum = readEnumProperty<WDTwoLineBrackets>(from, "eastAsianLayout", "combineBrackets", twoLineBracketsEnumMap, &v156, stateCopy);
 
-      if (v114)
+      if (Enum)
       {
         [toCopy setBracketTwoLinesInOne:v156];
       }

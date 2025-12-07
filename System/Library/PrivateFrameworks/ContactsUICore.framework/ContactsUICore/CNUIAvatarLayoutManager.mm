@@ -32,15 +32,15 @@
   return v6;
 }
 
-void __75__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsDictionaryForType___block_invoke()
+void __75__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsDictionaryForType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v4 = [v0 pathForResource:@"CNUIIdentityAvatarConfiguration" ofType:@"json"];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v6 = [v2 pathForResource:@"CNUIIdentityAvatarConfiguration" ofType:@"json"];
 
-  v1 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v4];
-  v2 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v1 options:0 error:0];
-  v3 = avatarViewLayoutConfigurationsDictionaryForType__jsonContents;
-  avatarViewLayoutConfigurationsDictionaryForType__jsonContents = v2;
+  v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v6];
+  v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:0];
+  v5 = avatarViewLayoutConfigurationsDictionaryForType__jsonContents;
+  avatarViewLayoutConfigurationsDictionaryForType__jsonContents = v4;
 }
 
 + (id)layoutConfigurationsForType:(unint64_t)type withItemCount:(int64_t)count
@@ -165,28 +165,28 @@ LABEL_19:
   return v8;
 }
 
-uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke(uint64_t a1)
+uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke(uint64_t a1, uint64_t a2)
 {
   avatarViewLayoutConfigurationsForType__cn_once_object_2 = [objc_opt_class() avatarViewLayoutItemConfigurations:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_2(uint64_t a1)
+uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   avatarViewLayoutConfigurationsForType__cn_once_object_3 = [objc_opt_class() avatarViewLayoutItemConfigurations:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_3(uint64_t a1)
+uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   avatarViewLayoutConfigurationsForType__cn_once_object_4 = [objc_opt_class() avatarViewLayoutItemConfigurations:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_4(uint64_t a1)
+uint64_t __65__CNUIAvatarLayoutManager_avatarViewLayoutConfigurationsForType___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   avatarViewLayoutConfigurationsForType__cn_once_object_5 = [objc_opt_class() avatarViewLayoutItemConfigurations:*(a1 + 32)];
 
@@ -421,24 +421,24 @@ LABEL_9:
       if (!a12)
       {
         MinX = CGRectGetMinX(*&positionCopy);
-        v61.origin.x = position;
-        v61.origin.y = contextFrame;
-        v61.size.width = l;
-        v61.size.height = a8;
-        MinY = CGRectGetMinY(v61);
+        v57.origin.x = position;
+        v57.origin.y = contextFrame;
+        v57.size.width = l;
+        v57.size.height = a8;
+        MinY = CGRectGetMinY(v57);
         avatarFrame = avatarFrameCopy2;
         frame = frameCopy;
         goto LABEL_27;
       }
 
       MinX = CGRectGetMaxX(*&positionCopy) - frameCopy;
-      v56.origin.x = position;
-      v56.origin.y = contextFrame;
-      v56.size.width = l;
-      v56.size.height = a8;
-      v32 = CGRectGetMinY(v56);
+      v52.origin.x = position;
+      v52.origin.y = contextFrame;
+      v52.size.width = l;
+      v52.size.height = a8;
+      v28 = CGRectGetMinY(v52);
       frame = frameCopy;
-      MinY = v32;
+      MinY = v28;
       goto LABEL_19;
     }
 
@@ -448,16 +448,16 @@ LABEL_9:
     if (a12)
     {
       MinX = CGRectGetMinX(*&positionCopy2);
-      v57.origin.x = position;
-      v57.origin.y = contextFrame;
-      v57.size.width = l;
-      v57.size.height = a8;
-      MinY = CGRectGetMinY(v57);
-      v58.origin.x = a13;
-      v58.origin.y = a14;
-      v58.size.height = a16;
-      v58.size.width = a15;
-      if (!CGRectEqualToRect(v58, *MEMORY[0x1E695F058]))
+      v53.origin.x = position;
+      v53.origin.y = contextFrame;
+      v53.size.width = l;
+      v53.size.height = a8;
+      MinY = CGRectGetMinY(v53);
+      v54.origin.x = a13;
+      v54.origin.y = a14;
+      v54.size.height = a16;
+      v54.size.width = a15;
+      if (!CGRectEqualToRect(v54, *MEMORY[0x1E695F058]))
       {
         frame = frameCopy2;
         MinX = MinX - (a15 + frameCopy2 * -0.5);
@@ -470,16 +470,16 @@ LABEL_26:
     else
     {
       MinX = CGRectGetMaxX(*&positionCopy2) - frameCopy2;
-      v63.origin.x = position;
-      v63.origin.y = contextFrame;
-      v63.size.width = l;
-      v63.size.height = a8;
-      MinY = CGRectGetMinY(v63);
-      v64.origin.x = a13;
-      v64.origin.y = a14;
-      v64.size.height = a16;
-      v64.size.width = a15;
-      if (!CGRectEqualToRect(v64, *MEMORY[0x1E695F058]))
+      v59.origin.x = position;
+      v59.origin.y = contextFrame;
+      v59.size.width = l;
+      v59.size.height = a8;
+      MinY = CGRectGetMinY(v59);
+      v60.origin.x = a13;
+      v60.origin.y = a14;
+      v60.size.height = a16;
+      v60.size.width = a15;
+      if (!CGRectEqualToRect(v60, *MEMORY[0x1E695F058]))
       {
         frame = frameCopy2;
         MinX = a15 + frameCopy2 * -0.5 + MinX;
@@ -512,11 +512,11 @@ LABEL_26:
       MinX = CGRectGetMinX(*&positionCopy3);
     }
 
-    v62.origin.x = position;
-    v62.origin.y = contextFrame;
-    v62.size.width = l;
-    v62.size.height = a8;
-    MaxY = CGRectGetMaxY(v62);
+    v58.origin.x = position;
+    v58.origin.y = contextFrame;
+    v58.size.width = l;
+    v58.size.height = a8;
+    MaxY = CGRectGetMaxY(v58);
     frame = frameCopy3;
     MinY = MaxY - frameCopy3;
 LABEL_19:
@@ -530,46 +530,46 @@ LABEL_19:
   if (a12)
   {
     MinX = CGRectGetMinX(*&positionCopy4);
-    v59.origin.x = position;
-    v59.origin.y = contextFrame;
-    v59.size.width = l;
-    v59.size.height = a8;
-    v47 = frameCopy4;
-    MinY = CGRectGetMaxY(v59) - frameCopy4;
-    v60.origin.x = a13;
-    v60.origin.y = a14;
-    v60.size.height = a16;
-    v60.size.width = a15;
-    if (!CGRectEqualToRect(v60, *MEMORY[0x1E695F058]))
+    v55.origin.x = position;
+    v55.origin.y = contextFrame;
+    v55.size.width = l;
+    v55.size.height = a8;
+    v43 = frameCopy4;
+    MinY = CGRectGetMaxY(v55) - frameCopy4;
+    v56.origin.x = a13;
+    v56.origin.y = a14;
+    v56.size.height = a16;
+    v56.size.width = a15;
+    if (!CGRectEqualToRect(v56, *MEMORY[0x1E695F058]))
     {
-      MinX = MinX - (a15 + v47 * -0.5);
+      MinX = MinX - (a15 + v43 * -0.5);
     }
   }
 
   else
   {
     MinX = CGRectGetMaxX(*&positionCopy4) - frameCopy4;
-    v65.origin.x = position;
-    v47 = frameCopy4;
-    v65.origin.y = contextFrame;
-    v65.size.width = l;
-    v65.size.height = a8;
-    MinY = CGRectGetMaxY(v65) - frameCopy4;
-    v66.origin.x = a13;
-    v66.origin.y = a14;
-    v66.size.height = a16;
-    v66.size.width = a15;
-    if (!CGRectEqualToRect(v66, *MEMORY[0x1E695F058]))
+    v61.origin.x = position;
+    v43 = frameCopy4;
+    v61.origin.y = contextFrame;
+    v61.size.width = l;
+    v61.size.height = a8;
+    MinY = CGRectGetMaxY(v61) - frameCopy4;
+    v62.origin.x = a13;
+    v62.origin.y = a14;
+    v62.size.height = a16;
+    v62.size.width = a15;
+    if (!CGRectEqualToRect(v62, *MEMORY[0x1E695F058]))
     {
-      MinX = a15 + v47 * -0.5 + MinX;
+      MinX = a15 + v43 * -0.5 + MinX;
     }
   }
 
   avatarFrame = recta;
-  frame = v47;
+  frame = v43;
 LABEL_27:
-  v49 = MinX;
-  v50 = MinY;
+  v45 = MinX;
+  v46 = MinY;
 
   *&result = CGRectIntegral(*(&frame - 2));
   return result;

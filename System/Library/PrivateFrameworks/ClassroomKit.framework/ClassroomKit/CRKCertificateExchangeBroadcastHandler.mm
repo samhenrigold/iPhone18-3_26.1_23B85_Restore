@@ -25,7 +25,7 @@
 
 - (void)processMessage:(id)message senderAppleID:(id)d senderAddress:(id)address
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dCopy = d;
   addressCopy = address;
   v10 = [CRKIDSMessagePayload instanceWithDictionary:message];
@@ -51,19 +51,19 @@ LABEL_22:
 
       if (messageMetadata)
       {
-        v44 = addressCopy;
-        v17 = _CRKLogASM();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v47 = addressCopy;
+        v18 = _CRKLogASM(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
           *buf = 138543874;
-          v49 = v19;
-          v50 = 2048;
+          v52 = v20;
+          v53 = 2048;
           selfCopy3 = self;
-          v52 = 2114;
-          v53 = dCopy;
-          _os_log_impl(&dword_243550000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Received certificate request from (%{public}@)", buf, 0x20u);
+          v55 = 2114;
+          v56 = dCopy;
+          _os_log_impl(&dword_243550000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Received certificate request from (%{public}@)", buf, 0x20u);
         }
 
         delegate2 = [(CRKCertificateExchangeBroadcastHandler *)self delegate];
@@ -71,82 +71,83 @@ LABEL_22:
         destinationRole = [messageMetadata destinationRole];
         controlGroupIdentifier = [messageMetadata controlGroupIdentifier];
         destinationDeviceIdentifier = [messageMetadata destinationDeviceIdentifier];
-        v25 = messageMetadata;
-        v26 = destinationDeviceIdentifier;
-        v45 = v25;
-        requesterCertificate = [v25 requesterCertificate];
-        v47 = 0;
-        v28 = [delegate2 certificateExchangeHandler:self needsCertificatesForRequester:dCopy sourceRole:sourceRole destinationRole:destinationRole controlGroupIdentifier:controlGroupIdentifier destinationDeviceIdentifier:v26 requesterCertificate:requesterCertificate error:&v47];
-        v29 = v47;
+        v26 = messageMetadata;
+        v27 = destinationDeviceIdentifier;
+        v48 = v26;
+        requesterCertificate = [v26 requesterCertificate];
+        v50 = 0;
+        v29 = [delegate2 certificateExchangeHandler:self needsCertificatesForRequester:dCopy sourceRole:sourceRole destinationRole:destinationRole controlGroupIdentifier:controlGroupIdentifier destinationDeviceIdentifier:v27 requesterCertificate:requesterCertificate error:&v50];
+        v30 = v50;
 
-        if (v28)
+        if (v29)
         {
-          isValidRequest = [v28 isValidRequest];
-          v31 = _CRKLogASM();
-          v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-          if (isValidRequest)
+          isValidRequest = [v29 isValidRequest];
+          v33 = isValidRequest;
+          v34 = _CRKLogASM(isValidRequest);
+          v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+          if (v33)
           {
-            if (v32)
+            if (v35)
             {
-              v33 = objc_opt_class();
-              v34 = NSStringFromClass(v33);
+              v36 = objc_opt_class();
+              v37 = NSStringFromClass(v36);
               *buf = 138543618;
-              v49 = v34;
-              v50 = 2048;
+              v52 = v37;
+              v53 = 2048;
               selfCopy3 = self;
-              _os_log_impl(&dword_243550000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Valid cert request processed. Replying with cert.", buf, 0x16u);
+              _os_log_impl(&dword_243550000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Valid cert request processed. Replying with cert.", buf, 0x16u);
             }
 
-            v35 = [CRKRequestCertificatesResponseIDSMessage alloc];
-            requestIdentifier = [v45 requestIdentifier];
-            certificateDataCollection = [v28 certificateDataCollection];
-            v31 = [(CRKRequestCertificatesResponseIDSMessage *)v35 initWithRequestIdentifier:requestIdentifier certificateDataCollection:certificateDataCollection error:v29];
+            v38 = [CRKRequestCertificatesResponseIDSMessage alloc];
+            requestIdentifier = [v48 requestIdentifier];
+            certificateDataCollection = [v29 certificateDataCollection];
+            v34 = [(CRKRequestCertificatesResponseIDSMessage *)v38 initWithRequestIdentifier:requestIdentifier certificateDataCollection:certificateDataCollection error:v30];
 
-            v38 = [CRKIDSMessageCannon alloc];
+            v41 = [CRKIDSMessageCannon alloc];
             iDSPrimitives = [(CRKCertificateExchangeBroadcastHandler *)self IDSPrimitives];
-            v40 = [(CRKIDSMessageCannon *)v38 initWithIDSPrimitives:iDSPrimitives];
+            v43 = [(CRKIDSMessageCannon *)v41 initWithIDSPrimitives:iDSPrimitives];
 
-            messageMetadata = v45;
-            v41 = objc_opt_new();
-            [v41 setFireAndForget:1];
-            v46[0] = MEMORY[0x277D85DD0];
-            v46[1] = 3221225472;
-            v46[2] = __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke;
-            v46[3] = &unk_278DC0F68;
-            v46[4] = self;
-            [(CRKIDSMessageCannon *)v40 sendIDSMessage:v31 destinationAddress:v44 sourceAppleID:appleID options:v41 completion:v46];
+            messageMetadata = v48;
+            v44 = objc_opt_new();
+            [v44 setFireAndForget:1];
+            v49[0] = MEMORY[0x277D85DD0];
+            v49[1] = 3221225472;
+            v49[2] = __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke;
+            v49[3] = &unk_278DC0F68;
+            v49[4] = self;
+            [(CRKIDSMessageCannon *)v43 sendIDSMessage:v34 destinationAddress:v47 sourceAppleID:appleID options:v44 completion:v49];
 
-            addressCopy = v44;
+            addressCopy = v47;
           }
 
           else
           {
-            messageMetadata = v45;
-            if (v32)
+            messageMetadata = v48;
+            if (v35)
             {
-              v42 = objc_opt_class();
-              v43 = NSStringFromClass(v42);
+              v45 = objc_opt_class();
+              v46 = NSStringFromClass(v45);
               *buf = 138543618;
-              v49 = v43;
-              v50 = 2048;
+              v52 = v46;
+              v53 = 2048;
               selfCopy3 = self;
-              _os_log_impl(&dword_243550000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Cert request is invalid. Dropping message.", buf, 0x16u);
+              _os_log_impl(&dword_243550000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Cert request is invalid. Dropping message.", buf, 0x16u);
             }
 
-            addressCopy = v44;
+            addressCopy = v47;
           }
         }
 
         else
         {
-          v31 = _CRKLogASM();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v34 = _CRKLogASM(v31);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [CRKCertificateExchangeBroadcastHandler processMessage:v29 senderAppleID:? senderAddress:?];
+            [CRKCertificateExchangeBroadcastHandler processMessage:v30 senderAppleID:? senderAddress:?];
           }
 
-          addressCopy = v44;
-          messageMetadata = v45;
+          addressCopy = v47;
+          messageMetadata = v48;
         }
       }
 
@@ -160,12 +161,13 @@ LABEL_23:
 void __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _CRKLogASM();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CRKLogASM(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke_cold_1(a1, v3);
+      __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke_cold_1(a1, v4);
     }
   }
 }
@@ -183,7 +185,7 @@ void __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_s
   v4 = NSStringFromClass(v3);
   v5 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to acquire certificate to exchange. Error = %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to acquire certificate to exchange. Error = %{public}@", v8, v9, v10, v11);
 }
 
 void __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_senderAddress___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -192,7 +194,7 @@ void __85__CRKCertificateExchangeBroadcastHandler_processMessage_senderAppleID_s
   v4 = NSStringFromClass(v3);
   v5 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to respond to request cert message. Error = %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to respond to request cert message. Error = %{public}@", v8, v9, v10, v11);
 }
 
 @end

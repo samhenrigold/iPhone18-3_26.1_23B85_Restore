@@ -15,16 +15,17 @@
   v8 = +[SBProximityDomain rootSettings];
   [(SBProximityBacklightPolicyConfiguration *)v7 setProximitySettings:v8];
 
-  if (SBUIIsSystemApertureEnabled())
+  v9 = SBUIIsSystemApertureEnabled();
+  if (v9)
   {
-    v9 = SBLogProximitySensor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogProximitySensor(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Using SBSystemApertureProximityBacklightPolicy.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Using SBSystemApertureProximityBacklightPolicy.", buf, 2u);
     }
 
-    v10 = off_2783A2488;
+    v11 = off_2783A2488;
     goto LABEL_19;
   }
 
@@ -37,45 +38,55 @@
 
     else
     {
-      v12 = SBFEffectiveHomeButtonType();
+      v14 = SBFEffectiveHomeButtonType();
 
-      if (v12 == 2)
+      if (v14 == 2)
       {
         goto LABEL_13;
       }
     }
 
 LABEL_16:
-    v9 = SBLogProximitySensor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogProximitySensor(v12);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Using SBDefaultProximityBacklightPolicy.", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Using SBDefaultProximityBacklightPolicy.", v17, 2u);
     }
 
-    v10 = off_27839F8B8;
+    v11 = off_27839F8B8;
     goto LABEL_19;
   }
 
-  if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1 || SBFEffectiveHomeButtonType() != 2)
+  if (SBFEffectiveDeviceClass())
+  {
+    v12 = SBFEffectiveDeviceClass();
+    if (v12 != 1)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v12 = SBFEffectiveHomeButtonType();
+  if (v12 != 2)
   {
     goto LABEL_16;
   }
 
 LABEL_13:
-  v9 = SBLogProximitySensor();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogProximitySensor(v12);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Using SBNotchedStatusBarProximityBacklightPolicy.", v16, 2u);
+    *v18 = 0;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Using SBNotchedStatusBarProximityBacklightPolicy.", v18, 2u);
   }
 
-  v10 = off_2783A0F38;
+  v11 = off_2783A0F38;
 LABEL_19:
 
-  v13 = [objc_alloc(*v10) initWithConfiguration:v7];
+  v15 = [objc_alloc(*v11) initWithConfiguration:v7];
 
-  return v13;
+  return v15;
 }
 
 @end

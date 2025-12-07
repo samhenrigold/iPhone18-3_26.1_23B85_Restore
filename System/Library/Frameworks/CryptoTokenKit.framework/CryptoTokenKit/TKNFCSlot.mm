@@ -59,10 +59,10 @@
 - (void)startPollingWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000D174();
+  v5 = sub_10000D174(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001ECB4(self);
+    sub_10001ECB4();
   }
 
   [(TKNFCReaderManager *)self->_readerManager startPollingWithCompletion:completionCopy];
@@ -70,10 +70,10 @@
 
 - (BOOL)stopPollingWithError:(id *)error
 {
-  v5 = sub_10000D174();
+  v5 = sub_10000D174(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001ED30(self);
+    sub_10001ED30();
   }
 
   return [(TKNFCReaderManager *)self->_readerManager stopPollingWithError:error];
@@ -82,10 +82,10 @@
 - (void)endSessionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000D174();
+  v5 = sub_10000D174(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001ED98(self);
+    sub_10001ED98();
   }
 
   [(TKNFCReaderManager *)self->_readerManager endSessionWithCompletion:completionCopy];
@@ -111,20 +111,21 @@
 {
   connectedCopy = connected;
   tagCopy = tag;
-  v8 = sub_10000D174();
+  v8 = sub_10000D174(tagCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001EE00(self);
+    sub_10001EE00();
   }
 
   objc_storeStrong(&self->_connectedTag, tag);
-  if ([(TKNFCSlot *)self isCardConnected]!= connectedCopy && self->_slotEngine)
+  isCardConnected = [(TKNFCSlot *)self isCardConnected];
+  if (isCardConnected != connectedCopy && self->_slotEngine)
   {
     self->_isCardConnected = connectedCopy;
-    v9 = sub_10000D174();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_10000D174(isCardConnected);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001EE88(self, v9);
+      sub_10001EE88(self, v10);
     }
 
     [(TKSmartCardSlotEngine *)self->_slotEngine cardPresent:[(TKNFCSlot *)self isCardConnected]];
@@ -142,55 +143,57 @@
 - (id)engine:(id)engine transmit:(id)transmit
 {
   transmitCopy = transmit;
-  v6 = sub_10000D174();
+  v6 = sub_10000D174(transmitCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001EF24(self);
+    sub_10001EF24();
   }
 
-  if ([(TKNFCSlot *)self isCardConnected])
+  isCardConnected = [(TKNFCSlot *)self isCardConnected];
+  if (isCardConnected)
   {
     readerManager = self->_readerManager;
-    v13 = 0;
-    v8 = [(TKNFCReaderManager *)readerManager transceiveAPDU:transmitCopy error:&v13];
-    v9 = v13;
-    if (v9)
+    v15 = 0;
+    v9 = [(TKNFCReaderManager *)readerManager transceiveAPDU:transmitCopy error:&v15];
+    v10 = v15;
+    v11 = v10;
+    if (v10)
     {
-      v10 = sub_10000D174();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_10000D174(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_10001F010(self);
+        sub_10001F010();
       }
 
-      v11 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v11 = v8;
+      v13 = v9;
     }
   }
 
   else
   {
-    v9 = sub_10000D174();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_10000D174(isCardConnected);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10001EF9C(self);
+      sub_10001EF9C();
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)engineResetCard:(id)card
 {
-  v4 = sub_10000D174();
+  v4 = sub_10000D174(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001F078(self);
+    sub_10001F078();
   }
 
   isCardConnected = [(TKNFCSlot *)self isCardConnected];
@@ -205,10 +208,10 @@
 
   else
   {
-    v7 = sub_10000D174();
+    v7 = sub_10000D174(connectedTag);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001F0E0(self);
+      sub_10001F0E0();
     }
 
     v8 = 0;
@@ -221,21 +224,22 @@
 {
   managerCopy = manager;
   tagCopy = tag;
-  v8 = sub_10000D174();
+  v8 = sub_10000D174(tagCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001F148(self);
+    sub_10001F148();
   }
 
-  v13 = 0;
-  v9 = [managerCopy connectToTag:tagCopy error:&v13];
-  v10 = v13;
+  v15 = 0;
+  v9 = [managerCopy connectToTag:tagCopy error:&v15];
+  v10 = v15;
+  v11 = v10;
   if (v9)
   {
-    v11 = sub_10000D174();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_10000D174(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001F218(self);
+      sub_10001F218();
     }
 
     [(TKNFCSlot *)self setCardConnected:1 tag:tagCopy];
@@ -243,13 +247,13 @@
 
   else
   {
-    [(TKNFCSlot *)self setCardConnected:0 tag:0];
-    if (v10)
+    v13 = [(TKNFCSlot *)self setCardConnected:0 tag:0];
+    if (v11)
     {
-      v12 = sub_10000D174();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_10000D174(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10001F1B0(self);
+        sub_10001F1B0();
       }
     }
 
@@ -259,10 +263,10 @@
 
 - (void)readerManagerDidEndSession:(id)session
 {
-  v4 = sub_10000D174();
+  v4 = sub_10000D174(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001F280(self);
+    sub_10001F280();
   }
 
   [(TKNFCSlot *)self disconnectReaderAndCard];
@@ -271,19 +275,19 @@
 - (void)readerManager:(id)manager didEncounterError:(id)error
 {
   errorCopy = error;
-  v6 = sub_10000D174();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = sub_10000D174(errorCopy);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_10001F2E8(self);
+    sub_10001F2E8();
   }
 }
 
 - (void)readerManagerDidDisconnectTag:(id)tag
 {
-  v4 = sub_10000D174();
+  v4 = sub_10000D174(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001F350(self);
+    sub_10001F350();
   }
 
   [(TKNFCSlot *)self setCardConnected:0 tag:0];

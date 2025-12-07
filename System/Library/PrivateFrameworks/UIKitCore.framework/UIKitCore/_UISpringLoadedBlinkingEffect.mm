@@ -89,7 +89,7 @@ LABEL_10:
     v5 = self->_blinkLayer;
     self->_blinkLayer = v4;
 
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
     -[CALayer setBackgroundColor:](self->_blinkLayer, "setBackgroundColor:", [v6 CGColor]);
 
     LODWORD(v7) = 1045220557;

@@ -264,49 +264,47 @@ LABEL_17:
 
 + (id)catalogFileRepresentationOfSignature:(id)signature withID:(id)d
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"type";
-  v11[1] = @"id";
-  v12[0] = @"signature";
-  v12[1] = d;
-  v11[2] = @"data";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"type";
+  v10[1] = @"id";
+  v11[0] = @"signature";
+  v11[1] = d;
+  v10[2] = @"data";
   dCopy = d;
   dataRepresentation = [signature dataRepresentation];
   v7 = [dataRepresentation base64EncodedStringWithOptions:0];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }
 
 + (id)catalogFileRepresentationOfMediaItems:(id)items withID:(id)d error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   dCopy = d;
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = itemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        properties = [*(*(&v23 + 1) + 8 * i) properties];
+        properties = [*(*(&v22 + 1) + 8 * i) properties];
         v16 = [SHMediaItemSerialization serializationFormatForProperties:properties error:error];
 
         if (!v16)
@@ -317,19 +315,19 @@ LABEL_17:
         }
 
         v17 = MEMORY[0x277CBEB38];
-        v27[0] = @"type";
-        v27[1] = @"id";
-        v28[0] = @"media";
-        v28[1] = dCopy;
-        v27[2] = @"data";
-        v28[2] = v16;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+        v26[0] = @"type";
+        v26[1] = @"id";
+        v27[0] = @"media";
+        v27[1] = dCopy;
+        v26[2] = @"data";
+        v27[2] = v16;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
         v19 = [v17 dictionaryWithDictionary:v18];
 
         [v9 addObject:v19];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v12)
       {
         continue;
@@ -342,22 +340,19 @@ LABEL_17:
   v20 = [v9 copy];
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (id)outputFileHeader
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"type";
-  v5[1] = @"name";
-  v6[0] = @"header";
-  v6[1] = @"Shazam Catalog";
-  v5[2] = @"version";
-  v6[2] = &unk_2845D1528;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"type";
+  v4[1] = @"name";
+  v5[0] = @"header";
+  v5[1] = @"Shazam Catalog";
+  v4[2] = @"version";
+  v5[2] = &unk_2845D1528;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

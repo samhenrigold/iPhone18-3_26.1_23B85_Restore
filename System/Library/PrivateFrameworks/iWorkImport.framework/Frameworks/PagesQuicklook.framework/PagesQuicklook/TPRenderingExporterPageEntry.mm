@@ -8,16 +8,16 @@
 {
   v3 = MEMORY[0x277D811A8];
   v4 = objc_opt_class();
-  v10 = objc_msgSend_descriptionWithObject_class_(v3, v5, v6, v7, v8, v9, self, v4);
-  v16 = objc_msgSend_documentPageIndex(self, v11, v12, v13, v14, v15);
-  objc_msgSend_addField_format_(v10, v17, v18, v19, v20, v21, @"documentPageIndex", @"%ld", v16);
-  v27 = objc_msgSend_commentOverflowPageIndex(self, v22, v23, v24, v25, v26);
-  objc_msgSend_addField_format_(v10, v28, v29, v30, v31, v32, @"commentOverflowPageIndex", @"%ld", v27);
-  AnnotationNumber = objc_msgSend_firstAnnotationNumber(self, v33, v34, v35, v36, v37);
-  objc_msgSend_addField_format_(v10, v39, v40, v41, v42, v43, @"firstAnnotationNumber", @"%ld", AnnotationNumber);
-  v49 = objc_msgSend_descriptionString(v10, v44, v45, v46, v47, v48);
+  v12 = objc_msgSend_descriptionWithObject_class_(v3, v5, v8, v9, v10, v11, self, v4, v6, v7);
+  v22 = objc_msgSend_documentPageIndex(self, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  objc_msgSend_addField_format_(v12, v23, v26, v27, v28, v29, @"documentPageIndex", @"%ld", v24, v25, v22);
+  v39 = objc_msgSend_commentOverflowPageIndex(self, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+  objc_msgSend_addField_format_(v12, v40, v43, v44, v45, v46, @"commentOverflowPageIndex", @"%ld", v41, v42, v39);
+  AnnotationNumber = objc_msgSend_firstAnnotationNumber(self, v47, v52, v53, v54, v55, v48, v49, v50, v51);
+  objc_msgSend_addField_format_(v12, v57, v60, v61, v62, v63, @"firstAnnotationNumber", @"%ld", v58, v59, AnnotationNumber);
+  v73 = objc_msgSend_descriptionString(v12, v64, v69, v70, v71, v72, v65, v66, v67, v68);
 
-  return v49;
+  return v73;
 }
 
 @end

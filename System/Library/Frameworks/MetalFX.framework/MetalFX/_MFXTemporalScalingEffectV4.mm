@@ -3,10 +3,6 @@
 - (CGPoint)motionVectorScale;
 - (CGPoint)previousJitterOffset;
 - (_MFXTemporalScalingEffectV4)initWithDevice:(id)device descriptor:(id)descriptor history:(id)history;
-- (__n128)currentViewToClipMatrix;
-- (__n128)currentWorldToViewMatrix;
-- (__n128)previousViewToClipMatrix;
-- (__n128)previousWorldToViewMatrix;
 - (__n128)setCurrentViewToClipMatrix:(__n128)matrix;
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix;
 - (__n128)setPreviousViewToClipMatrix:(__n128)matrix;
@@ -58,9 +54,9 @@
   deviceCopy = device;
   descriptorCopy = descriptor;
   obj = history;
-  v111.receiver = self;
-  v111.super_class = _MFXTemporalScalingEffectV4;
-  v10 = [(_MTLFXEffectBase *)&v111 init];
+  v109.receiver = self;
+  v109.super_class = _MFXTemporalScalingEffectV4;
+  v10 = [(_MTLFXEffectBase *)&v109 init];
   objc_storeStrong(v10 + 6, device);
   *(v10 + 14) = [descriptorCopy colorTextureFormat];
   *(v10 + 15) = [descriptorCopy depthTextureFormat];
@@ -71,29 +67,30 @@
   *(v10 + 8) = [descriptorCopy inputHeight];
   *(v10 + 9) = [descriptorCopy outputWidth];
   *(v10 + 10) = [descriptorCopy outputHeight];
-  v10[62] = 1065353216;
-  *(v10 + 288) = 1;
+  *(v10 + 62) = 1065353216;
+  v10[288] = 1;
   v11 = *(v10 + 7);
   *&v12 = -v11;
-  v10[66] = v12;
+  *(v10 + 66) = v12;
   v13 = *(v10 + 8);
   *(&v12 + 1) = -v13;
   *(v10 + 33) = v12;
-  *(v10 + 289) = 1;
-  *(v10 + 291) = 1;
-  *(v10 + 293) = [descriptorCopy isReactiveMaskTextureEnabled];
-  *(v10 + 292) = 1;
-  *(v10 + 294) = 1;
-  getFeatureConfiguration();
-  v14 = getenv("MTLFX_FORCE_GPU");
-  if (!v14)
+  v10[289] = 1;
+  v10[291] = 1;
+  isReactiveMaskTextureEnabled = [descriptorCopy isReactiveMaskTextureEnabled];
+  v10[293] = isReactiveMaskTextureEnabled;
+  v10[292] = 1;
+  v10[294] = 1;
+  getFeatureConfiguration(isReactiveMaskTextureEnabled, v15);
+  v16 = getenv("MTLFX_FORCE_GPU");
+  if (!v16)
   {
-    v14 = "0";
+    v16 = "0";
   }
 
-  if (strtol(v14, 0, 0))
+  if (strtol(v16, 0, 0))
   {
-    *(v10 + 291) = 0;
+    v10[291] = 0;
   }
 
   if (isInternalBuild(void)::once != -1)
@@ -103,38 +100,38 @@
 
   if (isInternalBuild(void)::isInternal == 1)
   {
-    v15 = getenv("MTLFX_PRE_BICUBIC");
-    if (!v15)
+    v17 = getenv("MTLFX_PRE_BICUBIC");
+    if (!v17)
     {
-      v15 = "0";
+      v17 = "0";
     }
 
-    if (strtol(v15, 0, 0))
+    if (strtol(v17, 0, 0))
     {
-      *(v10 + 292) = 0;
+      v10[292] = 0;
     }
   }
 
-  v16 = getenv("MTLFX_DISABLE_LATE_LATCH");
-  if (!v16)
+  v18 = getenv("MTLFX_DISABLE_LATE_LATCH");
+  if (!v18)
   {
-    v16 = "0";
+    v18 = "0";
   }
 
-  if (strtol(v16, 0, 0))
+  if (strtol(v18, 0, 0))
   {
-    *(v10 + 294) = 0;
+    v10[294] = 0;
   }
 
-  v17 = getenv("MTLFX_EXECUTION_MODE");
-  if (!v17)
+  v19 = getenv("MTLFX_EXECUTION_MODE");
+  if (!v19)
   {
-    v17 = "0";
+    v19 = "0";
   }
 
-  if (strtol(v17, 0, 0) == 1)
+  if (strtol(v19, 0, 0) == 1)
   {
-    *(v10 + 291) = 0;
+    v10[291] = 0;
   }
 
   *(v10 + 18) = 1;
@@ -142,43 +139,43 @@
   *(v10 + 20) = 1;
   *(v10 + 21) = 1;
   *(v10 + 22) = 7;
-  v99 = [MEMORY[0x277CD7838] deviceWithMTLDevice:*(v10 + 6)];
-  v97 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v96 = [v97 pathForResource:@"default" ofType:@"metallib"];
-  v18 = [MEMORY[0x277CBEBC0] URLWithString:v96];
-  v110 = 0;
-  v98 = [deviceCopy newLibraryWithURL:v18 error:&v110];
-  v95 = v110;
+  v97 = [MEMORY[0x277CD7838] deviceWithMTLDevice:*(v10 + 6)];
+  v95 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v94 = [v95 pathForResource:@"default" ofType:@"metallib"];
+  v20 = [MEMORY[0x277CBEBC0] URLWithString:v94];
+  v108 = 0;
+  v96 = [deviceCopy newLibraryWithURL:v20 error:&v108];
+  v93 = v108;
 
-  v100 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:*(v10 + 9) height:*(v10 + 10) mipmapped:0];
-  [v100 setUsage:3];
-  [v100 setCompressionMode:1];
-  v19 = obj;
-  v20 = obj;
+  v98 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:*(v10 + 9) height:*(v10 + 10) mipmapped:0];
+  [v98 setUsage:3];
+  [v98 setCompressionMode:1];
+  v21 = obj;
+  v22 = obj;
   if (!obj)
   {
-    v20 = [*(v10 + 6) newTextureWithDescriptor:v100];
-    v19 = 0;
+    v22 = [*(v10 + 6) newTextureWithDescriptor:v98];
+    v21 = 0;
   }
 
-  objc_storeStrong(v10 + 29, v20);
-  if (!v19)
+  objc_storeStrong(v10 + 29, v22);
+  if (!v21)
   {
   }
 
-  if (*(v10 + 293) == 1)
+  if (v10[293] == 1)
   {
-    v21 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:*(v10 + 17) width:*(v10 + 9) height:*(v10 + 10) mipmapped:0];
-    [v21 setUsage:3];
-    [v21 setCompressionMode:1];
-    v22 = [*(v10 + 6) newTextureWithDescriptor:v21];
-    v23 = *(v10 + 30);
-    *(v10 + 30) = v22;
+    v23 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:*(v10 + 17) width:*(v10 + 9) height:*(v10 + 10) mipmapped:0];
+    [v23 setUsage:3];
+    [v23 setCompressionMode:1];
+    v24 = [*(v10 + 6) newTextureWithDescriptor:v23];
+    v25 = *(v10 + 30);
+    *(v10 + 30) = v24;
   }
 
-  v24 = dispatch_semaphore_create(1);
-  v25 = *(v10 + 68);
-  *(v10 + 68) = v24;
+  v26 = dispatch_semaphore_create(1);
+  v27 = *(v10 + 68);
+  *(v10 + 68) = v26;
 
   if (!*(v10 + 68))
   {
@@ -187,113 +184,109 @@
 
   *(v10 + 11) = *(v10 + 7);
   *(v10 + 12) = *(v10 + 8);
-  *(v10 + 290) = [descriptorCopy isAutoExposureEnabled];
-  v26 = getenv("MTLFX_FORCE_AUTO_EXPOSURE");
-  if (!v26)
+  v10[290] = [descriptorCopy isAutoExposureEnabled];
+  v28 = getenv("MTLFX_FORCE_AUTO_EXPOSURE");
+  if (!v28)
   {
-    v26 = "0";
+    v28 = "0";
   }
 
-  if (strtol(v26, 0, 0))
+  if (strtol(v28, 0, 0))
   {
-    *(v10 + 290) = 1;
+    v10[290] = 1;
   }
 
   if ([descriptorCopy isInputContentPropertiesEnabled])
   {
     [descriptorCopy inputContentMinScale];
-    v10[26] = v27;
+    *(v10 + 26) = v29;
     [descriptorCopy inputContentMaxScale];
-    *(v10 + 27) = v28;
-    v29 = *(v10 + 26);
-    v30 = v28;
+    *(v10 + 27) = v30;
+    v31 = *(v10 + 26);
+    v32 = v30;
   }
 
   else
   {
-    v31 = *(v10 + 9);
-    v32 = *(v10 + 7);
-    v33 = v31 / v32;
-    v34 = *(v10 + 10);
-    v35 = *(v10 + 8);
-    v36 = v34 / v35;
-    v29 = fminf(v33, v36);
-    v28 = fmaxf(v33, v36);
-    *(v10 + 26) = v29;
-    *(v10 + 27) = v28;
-    v30 = fmaxf(v31 / (v32 + 1), v34 / (v35 + 1));
+    v33 = *(v10 + 9);
+    v34 = *(v10 + 7);
+    v35 = v33 / v34;
+    v36 = *(v10 + 10);
+    v37 = *(v10 + 8);
+    v38 = v36 / v37;
+    v31 = fminf(v35, v38);
+    v30 = fmaxf(v35, v38);
+    *(v10 + 26) = v31;
+    *(v10 + 27) = v30;
+    v32 = fmaxf(v33 / (v34 + 1), v36 / (v37 + 1));
   }
 
-  if (v29 >= 1.0 && v30 <= 3.0)
+  if (v31 >= 1.0 && v32 <= 3.0)
   {
-    v39 = v10[16];
-    v93 = v10[16];
-    v94 = v10[14];
-    if (v28 <= 2.0)
+    if (v30 <= 2.0)
     {
-      v42 = v10[18];
-      v44 = v10[20];
+      v43 = *(v10 + 18);
+      v45 = *(v10 + 20);
     }
 
     else if ([descriptorCopy isInputContentPropertiesEnabled])
     {
-      v40 = *(v10 + 27);
-      v41 = ceilf(*(v10 + 9) / v40);
-      v42 = (v41 + v41);
-      v43 = ceilf(*(v10 + 10) / v40);
-      v44 = (v43 + v43);
+      v41 = *(v10 + 27);
+      v42 = ceilf(*(v10 + 9) / v41);
+      v43 = (v42 + v42);
+      v44 = ceilf(*(v10 + 10) / v41);
+      v45 = (v44 + v44);
     }
 
     else
     {
-      v42 = 2 * v10[14];
-      v44 = 2 * v10[16];
+      v43 = 2 * *(v10 + 14);
+      v45 = 2 * *(v10 + 16);
     }
 
-    v45 = objc_opt_new();
-    [(MPSGraphCompilationDescriptor *)v45 setOptimizationLevel:1];
-    if (*(v10 + 291) == 1)
+    v46 = objc_opt_new();
+    [(MPSGraphCompilationDescriptor *)v46 setOptimizationLevel:1];
+    if (v10[291] == 1)
     {
-      v46 = objc_opt_new();
-      v47 = v46;
-      v92 = v46;
-      if (*(v10 + 294) == 1)
+      v47 = objc_opt_new();
+      v48 = v47;
+      v92 = v47;
+      if (v10[294] == 1)
       {
-        [v46 setEnableLowLatencySignalSharedEvent:1];
-        [v47 setEnableLowLatencyWaitSharedEvent:1];
-        [v47 setDisableIOFencing:1];
+        [v47 setEnableLowLatencySignalSharedEvent:1];
+        [v48 setEnableLowLatencyWaitSharedEvent:1];
+        [v48 setDisableIOFencing:1];
       }
 
       v91 = *(v10 + 6);
-      v48 = [v91 newCommandQueueWithDescriptor:v47];
-      v49 = *(v10 + 56);
-      *(v10 + 56) = v48;
+      v49 = [v91 newCommandQueueWithDescriptor:v48];
+      v50 = *(v10 + 56);
+      *(v10 + 56) = v49;
 
       newEvent = [*(v10 + 6) newEvent];
-      v51 = *(v10 + 57);
+      v52 = *(v10 + 57);
       *(v10 + 57) = newEvent;
 
       newEvent2 = [*(v10 + 6) newEvent];
-      v53 = *(v10 + 58);
+      v54 = *(v10 + 58);
       *(v10 + 58) = newEvent2;
 
       newEvent3 = [*(v10 + 6) newEvent];
-      v55 = *(v10 + 59);
+      v56 = *(v10 + 59);
       *(v10 + 59) = newEvent3;
 
       newEvent4 = [*(v10 + 6) newEvent];
-      v57 = *(v10 + 60);
+      v58 = *(v10 + 60);
       *(v10 + 60) = newEvent4;
 
       newSharedEvent = [*(v10 + 6) newSharedEvent];
-      v59 = *(v10 + 61);
+      v60 = *(v10 + 61);
       *(v10 + 61) = newSharedEvent;
 
       newSharedEvent2 = [*(v10 + 6) newSharedEvent];
-      v61 = *(v10 + 62);
+      v62 = *(v10 + 62);
       *(v10 + 62) = newSharedEvent2;
 
-      v62 = *(v10 + 58);
       if (objc_opt_respondsToSelector())
       {
         [*(v10 + 58) setEnableBarrier:0];
@@ -309,16 +302,16 @@
       v68 = *(v10 + 66);
       *(v10 + 66) = v67;
 
-      getDefaultBRNetDescriptor(3, v42, v44, &v105);
-      *(v10 + 22) = v105;
-      *(v10 + 23) = v106;
-      *(v10 + 24) = v107;
-      *(v10 + 25) = v108;
+      getDefaultBRNetDescriptor(3, v43, v45, &v103);
+      *(v10 + 22) = v103;
+      *(v10 + 23) = v104;
+      *(v10 + 24) = v105;
+      *(v10 + 25) = v106;
       v69 = *(v10 + 52);
-      *(v10 + 52) = v109;
+      *(v10 + 52) = v107;
 
-      [(MPSGraphCompilationDescriptor *)v45 setAllowedComputeDevices:7];
-      [(MPSGraphCompilationDescriptor *)v45 setPreferredDevice:2];
+      [(MPSGraphCompilationDescriptor *)v46 setAllowedComputeDevices:7];
+      [(MPSGraphCompilationDescriptor *)v46 setPreferredDevice:2];
       if ([deviceCopy supportsFamily:1008])
       {
         v70 = 3;
@@ -329,20 +322,20 @@
         v70 = 2;
       }
 
-      [(MPSGraphCompilationDescriptor *)v45 setAneCompilerSpatialSplitting:v70];
-      if (*(v10 + 294) == 1)
+      [(MPSGraphCompilationDescriptor *)v46 setAneCompilerSpatialSplitting:v70];
+      if (v10[294] == 1)
       {
-        [(MPSGraphCompilationDescriptor *)v45 setEnableANELateLatch:1];
-        [(MPSGraphCompilationDescriptor *)v45 setEnableANEFWToFWSignal:1];
+        [(MPSGraphCompilationDescriptor *)v46 setEnableANELateLatch:1];
+        [(MPSGraphCompilationDescriptor *)v46 setEnableANEFWToFWSignal:1];
       }
 
-      v71 = getMPSGraphExecutable((v10 + 88), v45);
+      v71 = getMPSGraphExecutable((v10 + 352), v46);
       v72 = *(v10 + 38);
       *(v10 + 38) = v71;
 
-      [(MPSGraphCompilationDescriptor *)v45 setAllowedComputeDevices:1];
-      [(MPSGraphCompilationDescriptor *)v45 setPreferredDevice:1];
-      v73 = getMPSGraphExecutable((v10 + 88), v45);
+      [(MPSGraphCompilationDescriptor *)v46 setAllowedComputeDevices:1];
+      [(MPSGraphCompilationDescriptor *)v46 setPreferredDevice:1];
+      v73 = getMPSGraphExecutable((v10 + 352), v46);
       v74 = *(v10 + 39);
       *(v10 + 39) = v73;
 
@@ -373,52 +366,52 @@
       *(v10 + 62) = 0;
 
       TemporalScalarBRNetVersionOverride = getTemporalScalarBRNetVersionOverride(4);
-      getDefaultBRNetDescriptor(TemporalScalarBRNetVersionOverride, v42, v44, &v105);
-      *(v10 + 22) = v105;
-      *(v10 + 23) = v106;
-      *(v10 + 24) = v107;
-      *(v10 + 25) = v108;
+      getDefaultBRNetDescriptor(TemporalScalarBRNetVersionOverride, v43, v45, &v103);
+      *(v10 + 22) = v103;
+      *(v10 + 23) = v104;
+      *(v10 + 24) = v105;
+      *(v10 + 25) = v106;
       v84 = *(v10 + 52);
-      *(v10 + 52) = v109;
+      *(v10 + 52) = v107;
 
-      [(MPSGraphCompilationDescriptor *)v45 setAllowedComputeDevices:1];
-      [(MPSGraphCompilationDescriptor *)v45 setPreferredDevice:1];
+      [(MPSGraphCompilationDescriptor *)v46 setAllowedComputeDevices:1];
+      [(MPSGraphCompilationDescriptor *)v46 setPreferredDevice:1];
       v85 = *(v10 + 38);
       *(v10 + 38) = 0;
 
-      v86 = getMPSGraphExecutable((v10 + 88), v45);
+      v86 = getMPSGraphExecutable((v10 + 352), v46);
       v75 = *(v10 + 39);
       *(v10 + 39) = v86;
     }
 
-    v104 = 0;
-    v103 = 0;
-    v87 = makeMPSTensorDataWithData(v99, v10[95], v10[96], v10[97], 0, &v104, 0, *(v10 + 51));
+    v102 = 0;
+    v101 = 0;
+    v87 = makeMPSTensorDataWithData(v97, *(v10 + 95), *(v10 + 96), *(v10 + 97), 0, &v102, 0, *(v10 + 51));
     v88 = *(v10 + 54);
     *(v10 + 54) = v87;
 
     if (*(v10 + 54))
     {
-      v89 = makeMPSTensorDataWithData(v99, v10[99], v10[100], v10[101], 0, &v103, 0, *(v10 + 51));
+      v89 = makeMPSTensorDataWithData(v97, *(v10 + 99), *(v10 + 100), *(v10 + 101), 0, &v101, 0, *(v10 + 51));
       v90 = *(v10 + 55);
       *(v10 + 55) = v89;
 
       if (*(v10 + 55))
       {
-        v105 = deviceCopy;
-        v106 = 0uLL;
+        v103 = deviceCopy;
+        v104 = 0uLL;
         operator new();
       }
     }
 
-    v37 = obj;
+    v39 = obj;
   }
 
   else
   {
 LABEL_37:
     MTLReportFailure();
-    v37 = obj;
+    v39 = obj;
   }
 
   return 0;
@@ -447,8 +440,8 @@ LABEL_37:
 - (void)encodeToCommandBuffer:(id)buffer
 {
   bufferCopy = buffer;
-  v37 = self->_device;
-  memset(v38, 0, 24);
+  v23 = self->_device;
+  memset(v24, 0, 24);
   [(_MTLFXEffectBase *)self _beginEncode];
   *(self->_filter + 136) = *(self->_filter + 136) == 0;
   v5 = bufferCopy;
@@ -463,7 +456,7 @@ LABEL_37:
     [v6 markCommandBuffer:v5 component:3];
   }
 
-  MetalFxScopedSignpost::MetalFxScopedSignpost(v36, 0, self, 7, self->super.super.super._encodeID, 0);
+  MetalFxScopedSignpost::MetalFxScopedSignpost(v22, 0, self, 7, self->super.super.super._encodeID, 0);
   if (MTLReportFailureTypeEnabled())
   {
     checkInputOutputTextures(self->_colorTexture, self->_depthTexture, self->_motionTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat);
@@ -476,41 +469,32 @@ LABEL_37:
     v14 = fminf(outputWidth / inputContentWidth, outputHeight / inputContentHeight);
     if (v14 < inputContentMinScale)
     {
-      v27 = v14;
-      v28 = inputContentMinScale;
+      v17 = v14;
+      v18 = inputContentMinScale;
       MTLReportFailure();
     }
 
     v15 = fmaxf(outputWidth / (inputContentWidth + 1), outputHeight / (inputContentHeight + 1));
     if (v15 > inputContentMaxScale)
     {
-      v27 = v15;
-      v28 = inputContentMaxScale;
+      v17 = v15;
+      v18 = inputContentMaxScale;
       MTLReportFailure();
     }
 
-    if ([(MTLTexture *)self->_outputTexture storageMode:*&v27]!= 2)
+    if ([(MTLTexture *)self->_outputTexture storageMode:*&v17]!= 2)
     {
       MTLReportFailure();
     }
   }
 
   encodeID = self->super.super.super._encodeID;
-  v32 = HIDWORD(*&self->_jitterOffset[4]);
-  reset = self->_reset;
-  reversedDepth = self->_reversedDepth;
-  preExposure = self->_preExposure;
-  v17 = *&self->_motionVectorScale[4];
-  v18 = self->_inputContentWidth;
-  v19 = self->_inputContentHeight;
   self->_colorTexture;
   self->_depthTexture;
   self->_motionTexture;
   self->_outputTexture;
   self->_exposureTexture;
   self->_reactiveMaskTexture;
-  v20 = self->_inputContentWidth;
-  v21 = self->_inputContentHeight;
   if (MTLTraceEnabled())
   {
     [(_MFXTemporalScalingEffectV4 *)self outputWidth];
@@ -531,12 +515,10 @@ LABEL_37:
     inputEventValue = self->_inputEventValue;
     [v5 encodeSignalEvent:self->_inputEvent value:inputEventValue];
     [v5 encodeWaitForEvent:self->_midProcessingStartEvent value:2 * inputEventValue];
-    MFXComputeEncoder3::beginEncoding(v38, v5);
-    v34 = v38[0];
-    [v34 setLabel:@"MetalFX_Temporal_MidProcessing"];
-    [(_MTLFXEffect *)self _didCreateComputeCommandEncoder:v34 forEncode:encodeID];
-    filter = self->_filter;
-    history = self->_history;
+    MFXComputeEncoder3::beginEncoding(v24, v5);
+    v20 = v24[0];
+    [v20 setLabel:@"MetalFX_Temporal_MidProcessing"];
+    [(_MTLFXEffect *)self _didCreateComputeCommandEncoder:v20 forEncode:encodeID];
     BRNet_v3_Filter<MFXDevice3>::encodeMid();
   }
 
@@ -551,21 +533,18 @@ LABEL_37:
     NSLog(&cfstr_DumpTensorsEnc.isa);
   }
 
-  MFXComputeEncoder3::beginEncoding(v38, v5);
-  v35 = v38[0];
-  [v35 setLabel:@"MetalFX_Temporal_PreProcessing"];
-  [(_MTLFXEffect *)self _didCreateComputeCommandEncoder:v35 forEncode:encodeID];
+  MFXComputeEncoder3::beginEncoding(v24, v5);
+  v21 = v24[0];
+  [v21 setLabel:@"MetalFX_Temporal_PreProcessing"];
+  [(_MTLFXEffect *)self _didCreateComputeCommandEncoder:v21 forEncode:encodeID];
   if (self->_fence)
   {
-    [v35 waitForFence:?];
+    [v21 waitForFence:?];
   }
 
-  v25 = self->_filter;
-  v26 = self->_history;
   [(MPSGraphTensorData *)self->_input_TensorData mpsndarray];
   [objc_claimAutoreleasedReturnValue() buffer];
   objc_claimAutoreleasedReturnValue();
-  autoExposureEnabled = self->_autoExposureEnabled;
   BRNet_v3_Filter<MFXDevice3>::encodePre();
 }
 
@@ -578,30 +557,12 @@ LABEL_37:
   return result;
 }
 
-- (__n128)currentWorldToViewMatrix
-{
-  result = *(self + 560);
-  v2 = *(self + 576);
-  v3 = *(self + 592);
-  v4 = *(self + 608);
-  return result;
-}
-
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix
 {
   result[35] = a2;
   result[36] = matrix;
   result[37] = a4;
   result[38] = a5;
-  return result;
-}
-
-- (__n128)currentViewToClipMatrix
-{
-  result = *(self + 624);
-  v2 = *(self + 640);
-  v3 = *(self + 656);
-  v4 = *(self + 672);
   return result;
 }
 
@@ -614,30 +575,12 @@ LABEL_37:
   return result;
 }
 
-- (__n128)previousWorldToViewMatrix
-{
-  result = *(self + 688);
-  v2 = *(self + 704);
-  v3 = *(self + 720);
-  v4 = *(self + 736);
-  return result;
-}
-
 - (__n128)setPreviousWorldToViewMatrix:(__n128)matrix
 {
   result[43] = a2;
   result[44] = matrix;
   result[45] = a4;
   result[46] = a5;
-  return result;
-}
-
-- (__n128)previousViewToClipMatrix
-{
-  result = *(self + 752);
-  v2 = *(self + 768);
-  v3 = *(self + 784);
-  v4 = *(self + 800);
   return result;
 }
 

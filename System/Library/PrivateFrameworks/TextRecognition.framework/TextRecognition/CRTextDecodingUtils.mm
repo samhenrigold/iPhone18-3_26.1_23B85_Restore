@@ -175,170 +175,170 @@ LABEL_20:
 
 + (void)getBoundariesForRanges:(void *)ranges topPoints:(void *)points bottomPoints:(void *)bottomPoints imageSize:(void *)size scale:(int)scale featureImageSize:(int)imageSize rect:(float64_t)rect rotatedRoi:(float64_t)self0 radians:(float)self1 model:(double)self2 configuration:(double)self3 paddingLeft:(double)self4 paddingRight:(double)self5 rangeOffset:(double)self6
 {
-  v94 = *MEMORY[0x1E69E9840];
-  v73 = a2;
+  v98 = *MEMORY[0x1E69E9840];
+  v77 = a2;
   bottomPointsCopy = bottomPoints;
   sizeCopy = size;
   objc_opt_self();
-  v31 = a23;
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  v32 = *&a22 == 0.0;
+  v35 = a23;
+  v94 = 0;
+  v95 = 0;
+  v96 = 0;
+  v36 = *&a22 == 0.0;
   if (*&a23 == 0.0)
   {
-    v32 = 1;
+    v36 = 1;
   }
 
-  if (v32)
+  if (v36)
   {
-    v33 = a19;
+    v37 = a19;
   }
 
   else
   {
-    v33 = a22;
+    v37 = a22;
   }
 
-  if (v32)
+  if (v36)
   {
-    v31 = a20;
+    v35 = a20;
   }
 
-  v76 = *&v31;
+  v80 = *&v35;
   outputWidthDownscale = [bottomPointsCopy outputWidthDownscale];
   [outputWidthDownscale floatValue];
-  v36 = v35;
+  v40 = v39;
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v37 = v73;
-  v38 = [v37 countByEnumeratingWithState:&v86 objects:v93 count:16];
-  if (v38)
+  v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v41 = v77;
+  v42 = [v41 countByEnumeratingWithState:&v90 objects:v97 count:16];
+  if (v42)
   {
-    v39 = *&v33;
-    v40 = v36 / (model * radians / v39);
-    v41 = *v87;
-    v42 = v40;
-    v43 = MEMORY[0x1E695EFF8];
+    v43 = *&v37;
+    v44 = v40 / (model * radians / v43);
+    v45 = *v91;
+    v46 = v44;
+    v47 = MEMORY[0x1E695EFF8];
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v42; ++i)
       {
-        if (*v87 != v41)
+        if (*v91 != v45)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v41);
         }
 
-        rangeValue = [*(*(&v86 + 1) + 8 * i) rangeValue];
-        *v84 = *v43;
-        *__p = *v84;
-        v46 = *&a25 + (rangeValue + a27) * v42;
-        v48 = *&a26 + ((rangeValue + v47) + a27) * v42;
-        if (v47 == 0x7FFFFFFFFFFFFFFFLL)
+        rangeValue = [*(*(&v90 + 1) + 8 * i) rangeValue];
+        *v88 = *v47;
+        *__p = *v88;
+        v50 = *&a25 + (rangeValue + a27) * v46;
+        v52 = *&a26 + ((rangeValue + v51) + a27) * v46;
+        if (v51 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v46 = (v40 * rangeValue);
-          v48 = v46;
+          v50 = (v44 * rangeValue);
+          v52 = v50;
         }
 
-        v84[0] = *&v46;
-        __p[0] = *&v48;
-        std::vector<CGPoint>::push_back[abi:ne200100](&v90, v84);
-        std::vector<CGPoint>::push_back[abi:ne200100](&v90, __p);
+        v88[0] = *&v50;
+        __p[0] = *&v52;
+        std::vector<CGPoint>::push_back[abi:ne200100](&v94, v88);
+        std::vector<CGPoint>::push_back[abi:ne200100](&v94, __p);
       }
 
-      v38 = [v37 countByEnumeratingWithState:&v86 objects:v93 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v90 objects:v97 count:16];
     }
 
-    while (v38);
+    while (v42);
   }
 
-  v84[0] = 0;
-  v84[1] = 0;
-  v85 = 0;
+  v88[0] = 0;
+  v88[1] = 0;
+  v89 = 0;
   __p[0] = 0;
   __p[1] = 0;
-  v83 = 0;
+  v87 = 0;
   [sizeCopy angleThresholdForRotatedCrops];
-  if (v49 >= fabsf(*&a24))
+  if (v53 >= fabsf(*&a24))
   {
-    v62 = v90;
-    v63 = v91;
-    if (v90 != v91)
+    v66 = v94;
+    v67 = v95;
+    if (v94 != v95)
     {
-      v64.f64[0] = a17;
-      v64.f64[1] = *&a18 + *&a20;
-      v77 = v64;
-      v64.f64[0] = rect;
-      v64.f64[1] = roi;
-      v75 = v64;
+      v68.f64[0] = a17;
+      v68.f64[1] = *&a18 + *&a20;
+      v81 = v68;
+      v68.f64[0] = rect;
+      v68.f64[1] = roi;
+      v79 = v68;
       do
       {
-        v81 = *v62;
-        v80 = *v62;
-        v81.f64[0] = (a17 + v81.f64[0]) / rect;
-        v81.f64[1] = *&a18 / roi;
-        v80 = vdivq_f64(vaddq_f64(v77, v80), v75);
-        std::vector<CGPoint>::push_back[abi:ne200100](v84, &v81);
-        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v80);
-        ++v62;
+        v85 = *v66;
+        v84 = *v66;
+        v85.f64[0] = (a17 + v85.f64[0]) / rect;
+        v85.f64[1] = *&a18 / roi;
+        v84 = vdivq_f64(vaddq_f64(v81, v84), v79);
+        std::vector<CGPoint>::push_back[abi:ne200100](v88, &v85);
+        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v84);
+        ++v66;
       }
 
-      while (v62 != v63);
+      while (v66 != v67);
     }
   }
 
   else
   {
-    v50 = v90;
-    v51 = v91;
-    if (v90 != v91)
+    v54 = v94;
+    v55 = v95;
+    if (v94 != v95)
     {
-      v52 = v76;
-      v53 = *&a19 * 0.5;
-      v54 = *&a20 * 0.5;
-      v55 = __sincosf_stret(*&a24);
-      v56 = a21.f64[1] + v52 - *&a20 * 0.5;
-      cosval = v55.__cosval;
-      sinval = v55.__sinval;
-      v74 = -(v56 * v55.__sinval);
-      v59 = v56 * v55.__cosval;
+      v56 = v80;
+      v57 = *&a19 * 0.5;
+      v58 = *&a20 * 0.5;
+      v59 = __sincosf_stret(*&a24);
+      v60 = a21.f64[1] + v56 - *&a20 * 0.5;
+      cosval = v59.__cosval;
+      sinval = v59.__sinval;
+      v78 = -(v60 * v59.__sinval);
+      v63 = v60 * v59.__cosval;
       do
       {
-        v81 = a21;
-        v81.f64[0] = a21.f64[0] + *v50;
-        v80 = a21;
-        v60 = v81.f64[0] - v53;
-        v61 = a21.f64[0] + *v50 - v53;
-        v81.f64[0] = (a17 + v53 + (v81.f64[0] - v53) * cosval - (a21.f64[1] - *&a20 * 0.5) * v55.__sinval) / rect;
-        v81.f64[1] = (*&a18 + v54 + (a21.f64[1] - *&a20 * 0.5) * v55.__cosval + v60 * sinval) / roi;
-        v80.f64[0] = (a17 + v53 + v74 + v61 * cosval) / rect;
-        v80.f64[1] = (*&a18 + v54 + v59 + v61 * sinval) / roi;
-        std::vector<CGPoint>::push_back[abi:ne200100](v84, &v81);
-        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v80);
-        v50 += 2;
+        v85 = a21;
+        v85.f64[0] = a21.f64[0] + *v54;
+        v84 = a21;
+        v64 = v85.f64[0] - v57;
+        v65 = a21.f64[0] + *v54 - v57;
+        v85.f64[0] = (a17 + v57 + (v85.f64[0] - v57) * cosval - (a21.f64[1] - *&a20 * 0.5) * v59.__sinval) / rect;
+        v85.f64[1] = (*&a18 + v58 + (a21.f64[1] - *&a20 * 0.5) * v59.__cosval + v64 * sinval) / roi;
+        v84.f64[0] = (a17 + v57 + v78 + v65 * cosval) / rect;
+        v84.f64[1] = (*&a18 + v58 + v63 + v65 * sinval) / roi;
+        std::vector<CGPoint>::push_back[abi:ne200100](v88, &v85);
+        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v84);
+        v54 += 2;
       }
 
-      while (v50 != v51);
+      while (v54 != v55);
     }
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v66 = v84[0];
-  for (j = v84[1]; v66 != j; v66 += 2)
+  v70 = v88[0];
+  for (j = v88[1]; v70 != j; v70 += 2)
   {
-    v68 = [MEMORY[0x1E696B098] valueWithPoint:{*v66, v66[1]}];
-    [array addObject:v68];
+    v72 = [MEMORY[0x1E696B098] valueWithPoint:{*v70, v70[1]}];
+    [array addObject:v72];
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v70 = __p[0];
-  for (k = __p[1]; v70 != k; v70 += 2)
+  v74 = __p[0];
+  for (k = __p[1]; v74 != k; v74 += 2)
   {
-    v72 = [MEMORY[0x1E696B098] valueWithPoint:{*v70, v70[1]}];
-    [array2 addObject:v72];
+    v76 = [MEMORY[0x1E696B098] valueWithPoint:{*v74, v74[1]}];
+    [array2 addObject:v76];
   }
 
   if (ranges)
@@ -357,16 +357,16 @@ LABEL_20:
     operator delete(__p[0]);
   }
 
-  if (v84[0])
+  if (v88[0])
   {
-    v84[1] = v84[0];
-    operator delete(v84[0]);
+    v88[1] = v88[0];
+    operator delete(v88[0]);
   }
 
-  if (v90)
+  if (v94)
   {
-    v91 = v90;
-    operator delete(v90);
+    v95 = v94;
+    operator delete(v94);
   }
 }
 
@@ -1976,7 +1976,7 @@ LABEL_81:
 
       if (v51 >= *(v14 + 8 * *(a2 - 1)))
       {
-        v67 = v10 + 1;
+        v67 = (v10 + 1);
         do
         {
           v10 = v67;
@@ -1985,7 +1985,7 @@ LABEL_81:
             break;
           }
 
-          ++v67;
+          v67 += 8;
         }
 
         while (v51 >= *(v14 + 8 * *v10));

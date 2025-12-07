@@ -359,7 +359,7 @@ LABEL_8:
 
   bulletinsOnLockScreen = self->_bulletinsOnLockScreen;
   internalID = [v7 internalID];
-  v10 = [(NSMutableDictionary *)bulletinsOnLockScreen objectForKey:internalID];
+  v10 = objc_msgSend_objectForKey_(bulletinsOnLockScreen);
 
   [v7 setAvailableOnLockScreen:{objc_msgSend(v10, "availableOnLockScreen")}];
   [v7 setSupportsSpokenNotification:{objc_msgSend(v10, "supportsSpokenNotification")}];

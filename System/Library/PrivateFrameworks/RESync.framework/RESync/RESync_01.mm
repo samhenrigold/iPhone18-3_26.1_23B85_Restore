@@ -1,3 +1,409 @@
+void *re::introspect_uint16_t(re *this, const re::IntrospectionBase *a2)
+{
+  v2 = this;
+  {
+    re::IntrospectionBasic::IntrospectionBasic(&re::introspect_uint16_t(BOOL)::info, "uint16_t", 2, 2, 1, 1);
+  }
+
+  if (v2)
+  {
+    if (re::introspect_uint16_t(BOOL)::isInitialized)
+    {
+      return &re::introspect_uint16_t(BOOL)::info;
+    }
+  }
+
+  else
+  {
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v8);
+    v3 = re::introspect_uint16_t(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v8);
+    if (v3)
+    {
+      return &re::introspect_uint16_t(BOOL)::info;
+    }
+
+    re::introspectionSharedMutex(v4);
+    std::__shared_mutex_base::lock(&re::introspectionSharedMutex(void)::mutex);
+    if (re::introspect_uint16_t(BOOL)::isInitialized)
+    {
+LABEL_11:
+      re::introspectionSharedMutex(v5);
+      std::__shared_mutex_base::unlock(&re::introspectionSharedMutex(void)::mutex);
+      return &re::introspect_uint16_t(BOOL)::info;
+    }
+  }
+
+  re::introspect_uint16_t(BOOL)::isInitialized = 1;
+  re::IntrospectionRegistry::add(&re::introspect_uint16_t(BOOL)::info, a2);
+  v7[0] = 0x607DD0D4E68;
+  v7[1] = "uint16_t";
+  xmmword_27FEB8168 = v8;
+  if (v7[0])
+  {
+    if (v7[0])
+    {
+    }
+  }
+
+  if ((v2 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  return &re::introspect_uint16_t(BOOL)::info;
+}
+
+void *re::introspect_uint32_t(re *this, const re::IntrospectionBase *a2)
+{
+  v2 = this;
+  {
+    re::IntrospectionBasic::IntrospectionBasic(&re::introspect_uint32_t(BOOL)::info, "uint32_t", 4, 4, 1, 1);
+  }
+
+  if (v2)
+  {
+    if (re::introspect_uint32_t(BOOL)::isInitialized)
+    {
+      return &re::introspect_uint32_t(BOOL)::info;
+    }
+  }
+
+  else
+  {
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v8);
+    v3 = re::introspect_uint32_t(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v8);
+    if (v3)
+    {
+      return &re::introspect_uint32_t(BOOL)::info;
+    }
+
+    re::introspectionSharedMutex(v4);
+    std::__shared_mutex_base::lock(&re::introspectionSharedMutex(void)::mutex);
+    if (re::introspect_uint32_t(BOOL)::isInitialized)
+    {
+LABEL_11:
+      re::introspectionSharedMutex(v5);
+      std::__shared_mutex_base::unlock(&re::introspectionSharedMutex(void)::mutex);
+      return &re::introspect_uint32_t(BOOL)::info;
+    }
+  }
+
+  re::introspect_uint32_t(BOOL)::isInitialized = 1;
+  re::IntrospectionRegistry::add(&re::introspect_uint32_t(BOOL)::info, a2);
+  v7[0] = 0x607DD0F01DCLL;
+  v7[1] = "uint32_t";
+  xmmword_27FEB81B8 = v8;
+  if (v7[0])
+  {
+    if (v7[0])
+    {
+    }
+  }
+
+  if ((v2 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  return &re::introspect_uint32_t(BOOL)::info;
+}
+
+void *re::introspect_uint64_t(re *this, const re::IntrospectionBase *a2)
+{
+  v2 = this;
+  {
+    re::IntrospectionBasic::IntrospectionBasic(&re::introspect_uint64_t(BOOL)::info, "uint64_t", 8, 8, 1, 1);
+  }
+
+  if (v2)
+  {
+    if (re::introspect_uint64_t(BOOL)::isInitialized)
+    {
+      return &re::introspect_uint64_t(BOOL)::info;
+    }
+  }
+
+  else
+  {
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v8);
+    v3 = re::introspect_uint64_t(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v8);
+    if (v3)
+    {
+      return &re::introspect_uint64_t(BOOL)::info;
+    }
+
+    re::introspectionSharedMutex(v4);
+    std::__shared_mutex_base::lock(&re::introspectionSharedMutex(void)::mutex);
+    if (re::introspect_uint64_t(BOOL)::isInitialized)
+    {
+LABEL_11:
+      re::introspectionSharedMutex(v5);
+      std::__shared_mutex_base::unlock(&re::introspectionSharedMutex(void)::mutex);
+      return &re::introspect_uint64_t(BOOL)::info;
+    }
+  }
+
+  re::introspect_uint64_t(BOOL)::isInitialized = 1;
+  re::IntrospectionRegistry::add(&re::introspect_uint64_t(BOOL)::info, a2);
+  v7[0] = 0x607DD11CB1ALL;
+  v7[1] = "uint64_t";
+  xmmword_27FEB8208 = v8;
+  if (v7[0])
+  {
+    if (v7[0])
+    {
+    }
+  }
+
+  if ((v2 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  return &re::introspect_uint64_t(BOOL)::info;
+}
+
+void *re::appendPrettyTypeName(uint64_t a1, const re::IntrospectionBase *a2, re::DynamicString *a3)
+{
+  switch(*(a1 + 16))
+  {
+    case 0:
+    case 8:
+    case 9:
+    case 0xB:
+      v5 = *(a1 + 48);
+      v6 = strlen(v5);
+      v7 = a2;
+      v8 = v5;
+      goto LABEL_15;
+    case 1:
+      re::appendPrettyTypeName(*(a1 + 48), a2, a3);
+      v8 = "*";
+      goto LABEL_14;
+    case 2:
+      re::appendPrettyTypeName(*(a1 + 48), a2, a3);
+      return re::DynamicString::appendf(a2, "[%d]", *(a1 + 64));
+    case 3:
+      v9 = "DynamicArray<";
+      v10 = a2;
+      v11 = 13;
+      goto LABEL_12;
+    case 4:
+      v9 = "FixedArray<";
+      v10 = a2;
+      v11 = 11;
+      goto LABEL_12;
+    case 5:
+      v9 = "DataArray<";
+      v10 = a2;
+      v11 = 10;
+      goto LABEL_12;
+    case 6:
+      v8 = "DynamicString";
+      v7 = a2;
+      v6 = 13;
+      goto LABEL_15;
+    case 7:
+      re::DynamicString::append(a2, "HashTable<", 0xAuLL);
+      re::appendPrettyTypeName(*(a1 + 48), a2, v12);
+      re::DynamicString::append(a2, ",", 1uLL);
+      v14 = *(a1 + 64);
+      goto LABEL_13;
+    case 0xA:
+      v8 = "StringID";
+      v7 = a2;
+      v6 = 8;
+      goto LABEL_15;
+    case 0xD:
+      v9 = "Optional<";
+      v10 = a2;
+      v11 = 9;
+LABEL_12:
+      re::DynamicString::append(v10, v9, v11);
+      v14 = *(a1 + 48);
+LABEL_13:
+      re::appendPrettyTypeName(v14, a2, v13);
+      v8 = ">";
+LABEL_14:
+      v7 = a2;
+      v6 = 1;
+LABEL_15:
+
+      result = re::DynamicString::append(v7, v8, v6);
+      break;
+    default:
+      re::internal::assertLog(4, a2, a3, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "appendPrettyTypeName", 618);
+      result = _os_crash("assertion failure: (!Unreachable code) ");
+      __break(1u);
+      break;
+  }
+
+  return result;
+}
+
+void *re::getPrettyTypeName@<X0>(_anonymous_namespace_ *a1@<X0>, const re::IntrospectionBase *a2@<X8>)
+{
+  *(a2 + 1) = 0;
+  *(a2 + 2) = 0;
+  *(a2 + 3) = 0;
+  re::DynamicString::setCapacity(a2, 0);
+
+  return re::appendPrettyTypeName(a1, a2, v4);
+}
+
+re::IntrospectionBase *re::introspectionAllocPointer(re *a1, _anonymous_namespace_ *a2, re::Allocator *a3)
+{
+  v6 = *(a3 + 5);
+  v7 = *(a3 + 6);
+  if (v6 <= 8)
+  {
+    v6 = 8;
+  }
+
+  v8 = (*(*a1 + 32))(a1, v6, v7);
+  re::introspectionCallConstructor(a2, a3, v8);
+  re::introspectionInitElement(a1, v9, a3, v8);
+  return v8;
+}
+
+void re::introspectionDestroyAllocatedMemory(re::DynamicString **a1, uint64_t a2, void *a3, re::PolymorphicData *a4)
+{
+  v7 = *(a4 + 4);
+  if (v7 <= 4)
+  {
+    if (v7 <= 2)
+    {
+      if (v7 == 1)
+      {
+        v13 = *a1;
+        if (*a1)
+        {
+          v14 = *(a4 + 6);
+
+          re::introspectionReleasePointer(v13, a2, a3, v14);
+        }
+      }
+
+      else if (v7 == 2 && *(a4 + 16) >= 1)
+      {
+        v9 = 0;
+        do
+        {
+          re::introspectionDestroyAllocatedMemory((a1 + *(*(a4 + 6) + 20) * v9++), a2, a3, *(a4 + 6));
+        }
+
+        while (v9 < *(a4 + 16));
+      }
+
+      return;
+    }
+
+    if (v7 == 3)
+    {
+      v10 = *(*a4 + 56);
+      v11 = a4;
+      v12 = a1;
+    }
+
+    else
+    {
+      v10 = *(*a4 + 56);
+      v11 = a4;
+      v12 = a1;
+    }
+
+LABEL_36:
+    v10(v11, v12);
+    return;
+  }
+
+  if (v7 <= 6)
+  {
+    if (v7 != 5)
+    {
+
+      re::DynamicString::deinit(a1);
+      return;
+    }
+
+    v10 = *(*a4 + 56);
+    v11 = a4;
+    v12 = a1;
+
+    goto LABEL_36;
+  }
+
+  switch(v7)
+  {
+    case 7:
+      v10 = *(*a4 + 56);
+      v11 = a4;
+      v12 = a1;
+
+      goto LABEL_36;
+    case 8:
+      v15 = *(a4 + 12);
+      if (v15)
+      {
+
+        v15();
+      }
+
+      else
+      {
+        re::PolymorphicData::makeWithPointer(a4, a1, &__src);
+        v16 = v24;
+        v17 = a4;
+        if (v24)
+        {
+          v17 = a4;
+          if (v23)
+          {
+            v17 = a4;
+            if (__src)
+            {
+              v21 = 0;
+              memcpy(&v21, __src, *(v23 + 20));
+              v18 = *v16;
+              v17 = a4;
+              if (v18)
+              {
+                v19 = (*(v16 + 1) + 24);
+                while (*v19 != v21)
+                {
+                  v19 += 5;
+                  if (!--v18)
+                  {
+                    v17 = a4;
+                    goto LABEL_50;
+                  }
+                }
+
+                v17 = *(v19 - 2);
+              }
+            }
+          }
+        }
+
+LABEL_50:
+        v20 = *(v17 + 10);
+        if (v20)
+        {
+          v20(a4, a3, a1);
+        }
+      }
+
+      break;
+    case 10:
+
+      re::StringID::destroyString(a1);
+      break;
+  }
+}
+
 uint64_t re::PolymorphicData::makeWithPointer@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (*(result + 16) != 8)
@@ -68,7 +474,7 @@ LABEL_19:
   return result;
 }
 
-void re::introspectionReleasePointer(re::DynamicString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void re::introspectionReleasePointer(re::DynamicString **a1, uint64_t a2, void *a3, uint64_t a4)
 {
   re::introspectionDestroyAllocatedMemory(a1, a2, a3, a4);
   if (*(a4 + 16) != 8 || !*(a4 + 96))
@@ -182,9 +588,7 @@ void re::introspectionCallConstructor(_anonymous_namespace_ *a1, uint64_t a2, ui
           v11 = 0;
           do
           {
-            v12 = *(*(a2 + 48) + 20);
-            re::introspectionCallConstructor(a1);
-            ++v11;
+            re::introspectionCallConstructor(a1, *(a2 + 48), a3 + *(*(a2 + 48) + 20) * v11++);
           }
 
           while (v11 < *(a2 + 64));
@@ -232,9 +636,9 @@ LABEL_28:
       v7 = *(a2 + 72);
       if (!v7)
       {
-        v13 = *(a2 + 20);
+        v12 = *(a2 + 20);
 
-        bzero(a3, v13);
+        bzero(a3, v12);
         return;
       }
 
@@ -276,7 +680,7 @@ re *re::introspectionInitElement(re *this, int a2, re::Allocator *a3, re::Intros
   return re::introspectionInitMember(this, a3, a4, a4);
 }
 
-re::DynamicString *re::introspectionDeepCopy(re *a1, _anonymous_namespace_ *a2, re::Allocator *a3, uint64_t a4)
+re::DynamicString **re::introspectionDeepCopy(re *a1, _anonymous_namespace_ *a2, re::Allocator *a3, uint64_t *a4)
 {
   v8 = re::introspectionAllocPointer(a1, a2, a3);
   if ((re::introspectionDoDeepCopy(a1, a2, a3, a4, v8) & 1) == 0)
@@ -290,7 +694,7 @@ re::DynamicString *re::introspectionDeepCopy(re *a1, _anonymous_namespace_ *a2, 
 
 uint64_t re::introspectionDoDeepCopy(re *a1, _anonymous_namespace_ *a2, uint64_t a3, uint64_t *a4, void *a5)
 {
-  v68[3] = *MEMORY[0x277D85DE8];
+  v67[3] = *MEMORY[0x277D85DE8];
   v6 = a5;
   switch(*(a3 + 16))
   {
@@ -301,14 +705,14 @@ uint64_t re::introspectionDoDeepCopy(re *a1, _anonymous_namespace_ *a2, uint64_t
       v29 = *(a3 + 48);
       if (*(v29 + 16) != 8 || !*(v29 + 88))
       {
-        v62 = *a4;
+        v61 = *a4;
         if (*a4)
         {
-          result = re::introspectionDeepCopy(a1, a2, *(a3 + 48), v62);
+          result = re::introspectionDeepCopy(a1, a2, *(a3 + 48), v61);
           __dst = result;
           if (!result)
           {
-            goto LABEL_78;
+            return result;
           }
 
           v10 = *(a3 + 20);
@@ -325,14 +729,12 @@ LABEL_2:
         }
 
         memcpy(v11, p_dst, v10);
-        goto LABEL_77;
+        return 1;
       }
 
       memcpy(a5, a4, *(a3 + 20));
       (*(v29 + 88))(*v6);
-LABEL_77:
-      result = 1;
-      goto LABEL_78;
+      return 1;
     case 2:
       if (*(*(a3 + 48) + 28))
       {
@@ -341,30 +743,31 @@ LABEL_77:
 
       if (*(a3 + 64) < 1)
       {
-        goto LABEL_77;
+        return 1;
       }
 
       v27 = 0;
       while (1)
       {
         v28 = (*(*a3 + 40))(a3, 0);
-        if ((re::introspectionDoDeepCopy(a1, a2, v28, a4 + *(*(a3 + 48) + 20) * v27, v6 + *(*(a3 + 48) + 20) * v27) & 1) == 0)
+        if ((re::introspectionDoDeepCopy(a1, a2, v28, (a4 + *(*(a3 + 48) + 20) * v27), (v6 + *(*(a3 + 48) + 20) * v27)) & 1) == 0)
         {
-          goto LABEL_79;
+          break;
         }
 
         if (++v27 >= *(a3 + 64))
         {
-          goto LABEL_77;
+          return 1;
         }
       }
 
+      return 0;
     case 3:
       v13 = (*(*a3 + 88))(a3, a4);
       (*(*a3 + 72))(a3, a1, a2, v6, v13);
       if (!v13)
       {
-        goto LABEL_77;
+        return 1;
       }
 
       v14 = 0;
@@ -375,21 +778,22 @@ LABEL_77:
         v17 = (*(*a3 + 96))(a3, v6, v14);
         if ((re::introspectionDoDeepCopy(a1, a2, v15, v16, v17) & 1) == 0)
         {
-          goto LABEL_79;
+          break;
         }
 
         if (v13 == ++v14)
         {
-          goto LABEL_77;
+          return 1;
         }
       }
 
+      return 0;
     case 4:
       v22 = (*(*a3 + 80))(a3, a4);
       (*(*a3 + 64))(a3, v6, a1, a2, v22);
       if (!v22)
       {
-        goto LABEL_77;
+        return 1;
       }
 
       v23 = 0;
@@ -400,25 +804,26 @@ LABEL_77:
         v26 = (*(*a3 + 96))(a3, v6, v23);
         if ((re::introspectionDoDeepCopy(a1, a2, v24, v25, v26) & 1) == 0)
         {
-          goto LABEL_79;
+          break;
         }
 
         if (v22 == ++v23)
         {
-          goto LABEL_77;
+          return 1;
         }
       }
 
+      return 0;
     case 5:
       v30 = (*(*a3 + 96))(a3, a4);
       v32 = v31;
       __dst = (*(*a3 + 88))(a3, a4);
-      LODWORD(v68[0]) = v33;
+      LODWORD(v67[0]) = v33;
       v34 = v32;
       v35 = HIWORD(v32);
       if (__dst == v30 && v33 == v32 && HIWORD(v33) == HIWORD(v32))
       {
-        goto LABEL_77;
+        return 1;
       }
 
       while (1)
@@ -429,19 +834,20 @@ LABEL_77:
         result = re::introspectionDoDeepCopy(a1, a2, v38, v39, v40);
         if (!result)
         {
-          goto LABEL_78;
+          break;
         }
 
         re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&__dst);
-        if (__dst == v30 && LOWORD(v68[0]) == v34 && WORD1(v68[0]) == v35)
+        if (__dst == v30 && LOWORD(v67[0]) == v34 && WORD1(v67[0]) == v35)
         {
-          goto LABEL_77;
+          return 1;
         }
       }
 
+      return result;
     case 6:
       re::DynamicString::operator=(a5, a4);
-      goto LABEL_77;
+      return 1;
     case 7:
       v60 = (*(*a3 + 80))(a3, a4);
       (*(*a3 + 72))(a3, v6, v60);
@@ -449,7 +855,7 @@ LABEL_77:
     case 8:
       if (!*(a3 + 56))
       {
-        goto LABEL_77;
+        return 1;
       }
 
       v47 = 0;
@@ -484,7 +890,7 @@ LABEL_77:
 LABEL_74:
             if (++v47 >= *(a3 + 56))
             {
-              goto LABEL_77;
+              return 1;
             }
 
             continue;
@@ -494,77 +900,70 @@ LABEL_74:
           {
             goto LABEL_74;
           }
+        }
 
-          goto LABEL_63;
+        else if (v49)
+        {
+          if (v49 != 1)
+          {
+            goto LABEL_74;
+          }
+
+          v50 = *(v48 + 64);
+          v51 = *(v48 + 48);
+          __dst = 0;
+          memcpy(&__dst, a4 + v50, *(v51 + 20));
+          v52 = __dst;
+          v53 = (*(*a1 + 32))(a1, __dst * *(*(v48 + 16) + 20), 0);
+          if (v53)
+          {
+            v54 = v53;
+            *(v6 + *(v48 + 36)) = v53;
+            v55 = *(a4 + *(v48 + 36));
+            v56 = *(a3 + 48);
+            if (*(v56 + 28))
+            {
+              memcpy(v53, *(a4 + *(v48 + 36)), v52 * *(v56 + 20));
+LABEL_73:
+              v6 = a5;
+              memcpy(a5 + *(v48 + 64), &__dst, *(*(v48 + 48) + 20));
+              goto LABEL_74;
+            }
+
+            v59 = v52 - v47;
+            if (v52 <= v47)
+            {
+              goto LABEL_73;
+            }
+
+            while (re::introspectionDoDeepCopy(a1, a2, v56, v55, v54))
+            {
+              if (!--v59)
+              {
+                v47 = v52;
+                goto LABEL_73;
+              }
+            }
+          }
+
+          return 0;
         }
 
         break;
       }
 
-      if (!v49)
-      {
-LABEL_63:
-        if (re::introspectionDoDeepCopy(a1, a2, *(v48 + 16), a4 + *(v48 + 36), v6 + *(v48 + 36)))
-        {
-          goto LABEL_74;
-        }
-
-        goto LABEL_79;
-      }
-
-      if (v49 != 1)
+      if (re::introspectionDoDeepCopy(a1, a2, *(v48 + 16), (a4 + *(v48 + 36)), (v6 + *(v48 + 36))))
       {
         goto LABEL_74;
       }
 
-      v50 = *(v48 + 64);
-      v51 = *(v48 + 48);
-      __dst = 0;
-      memcpy(&__dst, a4 + v50, *(v51 + 20));
-      v52 = __dst;
-      v53 = (*(*a1 + 32))(a1, __dst * *(*(v48 + 16) + 20), 0);
-      if (v53)
-      {
-        v54 = v53;
-        *(v6 + *(v48 + 36)) = v53;
-        v55 = *(a4 + *(v48 + 36));
-        v56 = *(a3 + 48);
-        if (*(v56 + 28))
-        {
-          memcpy(v53, *(a4 + *(v48 + 36)), v52 * *(v56 + 20));
-LABEL_73:
-          v6 = a5;
-          memcpy(a5 + *(v48 + 64), &__dst, *(*(v48 + 48) + 20));
-          goto LABEL_74;
-        }
-
-        v59 = v52 - v47;
-        if (v52 <= v47)
-        {
-          goto LABEL_73;
-        }
-
-        while (re::introspectionDoDeepCopy(a1, a2, v56, v55, v54))
-        {
-          if (!--v59)
-          {
-            v47 = v52;
-            goto LABEL_73;
-          }
-        }
-      }
-
-LABEL_79:
-      result = 0;
-LABEL_78:
-      v61 = *MEMORY[0x277D85DE8];
-      return result;
+      return 0;
     case 0xA:
       re::StringID::operator=(a5, a4);
-      goto LABEL_77;
+      return 1;
     case 0xB:
       (*(a3 + 88))(a1, a2, a3, a4, a5);
-      goto LABEL_77;
+      return 1;
     case 0xD:
       v18 = (*(*a3 + 56))(a3, a4);
       (*(*a3 + 64))(a3, v6, v18);
@@ -576,36 +975,36 @@ LABEL_78:
         re::introspectionDoDeepCopy(a1, a2, v19, v20, v21);
       }
 
-      goto LABEL_77;
+      return 1;
     default:
       v44 = *re::foundationIntrospectionLogObjects(a1);
       result = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_78;
+        return result;
       }
 
       re::DynamicString::DynamicString(&__dst);
       re::appendPrettyTypeName(a3, &__dst, v45);
-      if (v68[0])
+      if (v67[0])
       {
-        v46 = v68[1];
+        v46 = v67[1];
       }
 
       else
       {
-        v46 = v68 + 1;
+        v46 = v67 + 1;
       }
 
       *buf = 136315138;
-      v66 = v46;
+      v65 = v46;
       _os_log_error_impl(&dword_26168F000, v44, OS_LOG_TYPE_ERROR, "introspectionDeepCopy cannot copy '%s'", buf, 0xCu);
-      if (__dst && (v68[0] & 1) != 0)
+      if (__dst && (v67[0] & 1) != 0)
       {
         (*(*__dst + 40))();
       }
 
-      goto LABEL_79;
+      return 0;
   }
 }
 
@@ -640,7 +1039,7 @@ void re::IntrospectionBasic::~IntrospectionBasic(re::IntrospectionBasic *this)
 void re::IntrospectionBasic::childInfo(re::IntrospectionBasic *this, uint64_t a2)
 {
   re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Type does not have nested types.", "!Unreachable code", "childInfo", 438);
-  _os_crash();
+  _os_crash("assertion failure: (!Unreachable code) Type does not have nested types.");
   __break(1u);
 }
 
@@ -839,7 +1238,7 @@ void re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>
     v6 = v4 >> 1;
     v7 = &v5[v4 >> 1];
     v9 = *v7;
-    v8 = v7 + 1;
+    v8 = (v7 + 1);
     v4 += ~(v4 >> 1);
     if (v9 < a3)
     {
@@ -874,7 +1273,7 @@ void re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>
   else
   {
     re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
-    _os_crash();
+    _os_crash("assertion failure: (temp) Out of memory.");
     __break(1u);
   }
 }
@@ -917,7 +1316,7 @@ void re::TypeRegistry::~TypeRegistry(re::TypeRegistry *this)
       v8 = v7 + 56 * v3;
       if (*(v8 + 40))
       {
-        re::TypeRegistry::typeInfo(this, *(v7 + 56 * v3 + 8), v17);
+        re::TypeRegistry::typeInfo(this, *(v7 + 56 * v3 + 8), &v17);
         re::TypeInfo::releaseInstance(&v18, *(v8 + 32), *(this + 2), 0);
         v6 = *(this + 200);
       }
@@ -1034,295 +1433,501 @@ LABEL_18:
 
 unsigned int *re::TypeRegistry::typeInfo@<X0>(void *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   result = re::DataArray<re::internal::TypeInfoIndex>::tryGet((a1 + 4), a2);
   if (!result || (v7 = *result, v8 = *result & 0xFFFFFF, (*result & 0xFFFFFF) == 0xFFFFFF))
   {
     *a3 = 0;
-LABEL_35:
-    v14 = *MEMORY[0x277D85DE8];
     return result;
   }
 
   v9 = HIBYTE(v7);
-  if (HIBYTE(v7) <= 4u)
+  if (HIBYTE(v7) > 4u)
   {
-    if (HIBYTE(v7) > 2u)
+    if (HIBYTE(v7) > 6u)
     {
-      if (v9 != 3)
+      if (v9 != 7)
       {
-        if (v9 != 4)
+        if (v9 != 8)
         {
-          goto LABEL_47;
+          if (v9 == 9)
+          {
+            v10 = v8;
+            v11 = a1[93];
+            if (v11 > v8)
+            {
+              v12 = a1[95];
+              v13 = 112;
+LABEL_33:
+              v18 = v12 + v10 * v13;
+              goto LABEL_34;
+            }
+
+LABEL_70:
+            v69 = 0;
+            v81 = 0u;
+            v82 = 0u;
+            v79 = 0u;
+            v80 = 0u;
+            v78 = 0u;
+            v62 = MEMORY[0x277D86220];
+            v63 = v10;
+            v64 = v11;
+            v65 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+            v70 = 136315906;
+            v71 = "operator[]";
+            v72 = 1024;
+            if (v65)
+            {
+              v66 = 3;
+            }
+
+            else
+            {
+              v66 = 2;
+            }
+
+            v73 = 797;
+            v74 = 2048;
+            v75 = v63;
+            v76 = 2048;
+            v77 = v64;
+            _os_log_send_and_compose_impl(v66, &v69, &v78, 80, &dword_26168F000, v62, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+            _os_crash_msg();
+            __break(1u);
+          }
+
+LABEL_74:
+          re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) Invalid type category.", "!Unreachable code", "typeInfo", 310);
+          result = _os_crash("assertion failure: (!Unreachable code) Invalid type category.");
+          __break(1u);
+          return result;
         }
 
-        v10 = *result & 0xFFFFFF;
-        if (a1[53] > v8)
+        v10 = v8;
+        v22 = a1[78];
+        if (v22 > v8)
         {
-          v11 = a1[55];
-          goto LABEL_32;
-        }
-
-LABEL_41:
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_42:
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_43:
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_44:
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_45:
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_46;
-      }
-
-      v10 = *result & 0xFFFFFF;
-      if (a1[48] > v8)
-      {
-        v11 = a1[50];
-        goto LABEL_32;
-      }
-    }
-
-    else
-    {
-      if (v9 != 1)
-      {
-        if (v9 != 2)
-        {
-          goto LABEL_47;
-        }
-
-        v10 = *result & 0xFFFFFF;
-        if (a1[38] > v8)
-        {
-          v11 = a1[40];
-LABEL_32:
-          v12 = 104;
+          v12 = a1[80];
+          v13 = 176;
           goto LABEL_33;
         }
 
-        goto LABEL_40;
+LABEL_66:
+        v69 = 0;
+        v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v78 = 0u;
+        v57 = MEMORY[0x277D86220];
+        v58 = v10;
+        v59 = v22;
+        v60 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        v70 = 136315906;
+        v71 = "operator[]";
+        v72 = 1024;
+        if (v60)
+        {
+          v61 = 3;
+        }
+
+        else
+        {
+          v61 = 2;
+        }
+
+        v73 = 797;
+        v74 = 2048;
+        v75 = v58;
+        v76 = 2048;
+        v77 = v59;
+        _os_log_send_and_compose_impl(v61, &v69, &v78, 80, &dword_26168F000, v57, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+        _os_crash_msg();
+        __break(1u);
+        goto LABEL_70;
       }
 
-      if (a1[33] > v8)
+      v10 = v8;
+      v21 = a1[68];
+      if (v21 > v8)
       {
-        v13 = a1[35] + 88 * v8;
-LABEL_34:
-        re::TypeInfo::TypeInfo(&v15, a1, v9, v13);
-        *a3 = 1;
-        result = re::TypeInfo::TypeInfo((a3 + 8), &v15);
-        goto LABEL_35;
+        v12 = a1[70];
+        goto LABEL_32;
       }
 
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v15 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
+      goto LABEL_58;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_40:
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v15 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_41;
-  }
-
-  if (HIBYTE(v7) <= 6u)
-  {
     if (v9 != 5)
     {
       if (v9 != 6)
       {
-        goto LABEL_47;
+        goto LABEL_74;
       }
 
-      v10 = *result & 0xFFFFFF;
-      if (a1[63] > v8)
+      v10 = v8;
+      v16 = a1[63];
+      if (v16 > v8)
       {
-        v11 = a1[65];
-        v12 = 168;
+        v12 = a1[65];
+        v13 = 168;
         goto LABEL_33;
       }
 
-      goto LABEL_44;
+      goto LABEL_62;
     }
 
-    v10 = *result & 0xFFFFFF;
-    if (a1[58] > v8)
+    v10 = v8;
+    v20 = a1[58];
+    if (v20 > v8)
     {
-      v11 = a1[60];
-      v12 = 136;
+      v12 = a1[60];
+      v13 = 136;
       goto LABEL_33;
+    }
+
+LABEL_54:
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v42 = MEMORY[0x277D86220];
+    v43 = v10;
+    v44 = v20;
+    v45 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (v45)
+    {
+      v46 = 3;
+    }
+
+    else
+    {
+      v46 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v43;
+    v76 = 2048;
+    v77 = v44;
+    _os_log_send_and_compose_impl(v46, &v69, &v78, 80, &dword_26168F000, v42, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+LABEL_58:
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v47 = MEMORY[0x277D86220];
+    v48 = v10;
+    v49 = v21;
+    v50 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (v50)
+    {
+      v51 = 3;
+    }
+
+    else
+    {
+      v51 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v48;
+    v76 = 2048;
+    v77 = v49;
+    _os_log_send_and_compose_impl(v51, &v69, &v78, 80, &dword_26168F000, v47, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+LABEL_62:
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v52 = MEMORY[0x277D86220];
+    v53 = v10;
+    v54 = v16;
+    v55 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (v55)
+    {
+      v56 = 3;
+    }
+
+    else
+    {
+      v56 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v53;
+    v76 = 2048;
+    v77 = v54;
+    _os_log_send_and_compose_impl(v56, &v69, &v78, 80, &dword_26168F000, v52, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_66;
+  }
+
+  if (HIBYTE(v7) > 2u)
+  {
+    if (v9 != 3)
+    {
+      if (v9 != 4)
+      {
+        goto LABEL_74;
+      }
+
+      v10 = v8;
+      v15 = a1[53];
+      if (v15 > v8)
+      {
+        v12 = a1[55];
+        goto LABEL_32;
+      }
+
+LABEL_50:
+      v69 = 0;
+      v81 = 0u;
+      v82 = 0u;
+      v79 = 0u;
+      v80 = 0u;
+      v78 = 0u;
+      v37 = MEMORY[0x277D86220];
+      v38 = v10;
+      v39 = v15;
+      v40 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v70 = 136315906;
+      v71 = "operator[]";
+      v72 = 1024;
+      if (v40)
+      {
+        v41 = 3;
+      }
+
+      else
+      {
+        v41 = 2;
+      }
+
+      v73 = 797;
+      v74 = 2048;
+      v75 = v38;
+      v76 = 2048;
+      v77 = v39;
+      _os_log_send_and_compose_impl(v41, &v69, &v78, 80, &dword_26168F000, v37, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_54;
+    }
+
+    v10 = v8;
+    v19 = a1[48];
+    if (v19 > v8)
+    {
+      v12 = a1[50];
+      goto LABEL_32;
     }
 
     goto LABEL_42;
   }
 
-  switch(v9)
+  if (v9 != 1)
   {
-    case 7:
-      v10 = *result & 0xFFFFFF;
-      if (a1[68] > v8)
-      {
-        v11 = a1[70];
-        goto LABEL_32;
-      }
+    if (v9 != 2)
+    {
+      goto LABEL_74;
+    }
 
-      goto LABEL_43;
-    case 8:
-      v10 = *result & 0xFFFFFF;
-      if (a1[78] > v8)
-      {
-        v11 = a1[80];
-        v12 = 176;
-        goto LABEL_33;
-      }
+    v10 = v8;
+    v14 = a1[38];
+    if (v14 > v8)
+    {
+      v12 = a1[40];
+LABEL_32:
+      v13 = 104;
+      goto LABEL_33;
+    }
 
-      goto LABEL_45;
-    case 9:
-      v10 = *result & 0xFFFFFF;
-      if (a1[93] > v8)
-      {
-        v11 = a1[95];
-        v12 = 112;
-LABEL_33:
-        v13 = v11 + v10 * v12;
-        goto LABEL_34;
-      }
-
-LABEL_46:
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v15 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      break;
+    goto LABEL_46;
   }
 
-LABEL_47:
-  re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) Invalid type category.", "!Unreachable code", "typeInfo", 310);
-  result = _os_crash();
-  __break(1u);
-  return result;
+  v17 = a1[33];
+  if (v17 <= v8)
+  {
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v23 = MEMORY[0x277D86220];
+    v24 = v8;
+    v25 = v17;
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v26 = 3;
+    }
+
+    else
+    {
+      v26 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v24;
+    v76 = 2048;
+    v77 = v25;
+    _os_log_send_and_compose_impl(v26, &v69, &v78, 80, &dword_26168F000, v23, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+LABEL_42:
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v27 = MEMORY[0x277D86220];
+    v28 = v10;
+    v29 = v19;
+    v30 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (v30)
+    {
+      v31 = 3;
+    }
+
+    else
+    {
+      v31 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v28;
+    v76 = 2048;
+    v77 = v29;
+    _os_log_send_and_compose_impl(v31, &v69, &v78, 80, &dword_26168F000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+LABEL_46:
+    v69 = 0;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v78 = 0u;
+    v32 = MEMORY[0x277D86220];
+    v33 = v10;
+    v34 = v14;
+    v35 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v70 = 136315906;
+    v71 = "operator[]";
+    v72 = 1024;
+    if (v35)
+    {
+      v36 = 3;
+    }
+
+    else
+    {
+      v36 = 2;
+    }
+
+    v73 = 797;
+    v74 = 2048;
+    v75 = v33;
+    v76 = 2048;
+    v77 = v34;
+    _os_log_send_and_compose_impl(v36, &v69, &v78, 80, &dword_26168F000, v32, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v70, 38, v67, v68);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_50;
+  }
+
+  v18 = a1[35] + 88 * v8;
+LABEL_34:
+  re::TypeInfo::TypeInfo(&v78, a1, v9, v18);
+  *a3 = 1;
+  return re::TypeInfo::TypeInfo((a3 + 8), &v78);
 }
 
 uint64_t re::DataArray<re::internal::TypeInfoIndex>::deinit(uint64_t result)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (!*(result + 44))
   {
-    goto LABEL_28;
+    return result;
   }
 
   v2 = result;
-  v12 = result;
+  v29 = result;
   if (*(result + 40))
   {
-    LODWORD(v13) = 0;
+    LODWORD(v30) = 0;
     if (!*(result + 16))
     {
-      goto LABEL_33;
+      goto LABEL_48;
     }
 
     v3 = result;
     if (!**(*(result + 32) + 8))
     {
-      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v12);
-      v3 = v12;
+      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v29);
+      v3 = v29;
     }
   }
 
   else
   {
-    LODWORD(v13) = -1;
+    LODWORD(v30) = -1;
     v3 = result;
   }
 
-  v12 = v3;
-  if (v3 != v2 || v13 != 0xFFFFFFFFLL)
+  v29 = v3;
+  if (v3 != v2 || v30 != 0xFFFFFFFFLL)
   {
-    v4 = v13;
-    v5 = WORD1(v13);
+    v4 = v30;
+    v5 = WORD1(v30);
     do
     {
-      v1 = v3[2];
+      v1 = *(v3 + 16);
       if (v1 <= v5)
       {
-        goto LABEL_31;
+        goto LABEL_40;
       }
 
-      v6 = re::DataArray<re::internal::TypeInfoIndex>::tryGet(v2, ((*(*(v3[4] + 16 * v5 + 8) + 4 * v4) & 0xFFFFFF) << 32) | (v5 << 16) | v4);
+      v6 = re::DataArray<re::internal::TypeInfoIndex>::tryGet(v2, ((*(*(*(v3 + 32) + 16 * v5 + 8) + 4 * v4) & 0xFFFFFF) << 32) | (v5 << 16) | v4);
       if (v6)
       {
         v1 = v2[2];
         if (v1 <= v5)
         {
-          goto LABEL_32;
+          goto LABEL_44;
         }
 
         *(*(v2[4] + 16 * v5 + 8) + 4 * v4) = 0;
@@ -1332,20 +1937,20 @@ uint64_t re::DataArray<re::internal::TypeInfoIndex>::deinit(uint64_t result)
         --*(v2 + 10);
       }
 
-      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v12);
-      v3 = v12;
-      v4 = v13;
-      v5 = WORD1(v13);
+      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v29);
+      v3 = v29;
+      v4 = v30;
+      v5 = WORD1(v30);
     }
 
-    while (v12 != v2 || v13 != 0xFFFFLL || WORD1(v13) != 0xFFFFLL);
+    while (v29 != v2 || v30 != 0xFFFFLL || WORD1(v30) != 0xFFFFLL);
   }
 
   v7 = v2[2];
   v5 = v7 - 1;
   if (v7 == 1)
   {
-    goto LABEL_26;
+    goto LABEL_29;
   }
 
   v8 = 16 * v7 - 16;
@@ -1353,98 +1958,153 @@ uint64_t re::DataArray<re::internal::TypeInfoIndex>::deinit(uint64_t result)
   {
     if (v7 <= v5)
     {
-      v12 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 789;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v7;
-      _os_log_send_and_compose_impl();
+      v29 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v13 = MEMORY[0x277D86220];
+      v14 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v14)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v35 = 789;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v7;
+      _os_log_send_and_compose_impl(v15, &v29, &v40, 80, &dword_26168F000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
       _os_crash_msg();
       __break(1u);
-LABEL_30:
-      v12 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "removeAt";
-      v17 = 1024;
-      v18 = 931;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v1;
-      _os_log_send_and_compose_impl();
+LABEL_36:
+      v29 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v16 = MEMORY[0x277D86220];
+      v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "removeAt";
+      v34 = 1024;
+      if (v17)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v35 = 931;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v1;
+      _os_log_send_and_compose_impl(v18, &v29, &v40, 80, &dword_26168F000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
       _os_crash_msg();
       __break(1u);
-LABEL_31:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 797;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v1;
-      _os_log_send_and_compose_impl();
+LABEL_40:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v19 = MEMORY[0x277D86220];
+      v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v20)
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
+      v35 = 797;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v1;
+      _os_log_send_and_compose_impl(v21, &v31, &v40, 80, &dword_26168F000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
-LABEL_32:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 789;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v1;
-      _os_log_send_and_compose_impl();
+LABEL_44:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v22 = MEMORY[0x277D86220];
+      v23 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v23)
+      {
+        v24 = 3;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v35 = 789;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v1;
+      _os_log_send_and_compose_impl(v24, &v31, &v40, 80, &dword_26168F000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
-LABEL_33:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 797;
-      v19 = 2048;
-      v20 = 0;
-      v21 = 2048;
-      v22 = 0;
-      _os_log_send_and_compose_impl();
+LABEL_48:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v25 = MEMORY[0x277D86220];
+      v26 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v26)
+      {
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      v35 = 797;
+      v36 = 2048;
+      v37 = 0;
+      v38 = 2048;
+      v39 = 0;
+      _os_log_send_and_compose_impl(v27, &v31, &v40, 80, &dword_26168F000, v25, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
     }
@@ -1455,7 +2115,7 @@ LABEL_33:
     v1 = v2[2];
     if (v1 <= v5)
     {
-      goto LABEL_30;
+      goto LABEL_36;
     }
 
     v7 = v1 - 1;
@@ -1475,85 +2135,93 @@ LABEL_33:
   v2[6] = 0xFFFFFFFF00000000;
   if (!v7)
   {
-    v12 = 0;
-    v27 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
+    v29 = 0;
+    v44 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v2 = MEMORY[0x277D86220];
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v15 = 136315906;
-    v16 = "operator[]";
-    v17 = 1024;
-    v18 = 789;
-    v19 = 2048;
-    v20 = 0;
-    v21 = 2048;
-    v22 = 0;
-    _os_log_send_and_compose_impl();
+    v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v32 = 136315906;
+    v33 = "operator[]";
+    v34 = 1024;
+    if (v10)
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v35 = 789;
+    v36 = 2048;
+    v37 = 0;
+    v38 = 2048;
+    v39 = 0;
+    _os_log_send_and_compose_impl(v11, &v29, &v40, 80, &dword_26168F000, v2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
     _os_crash_msg();
     __break(1u);
-LABEL_26:
+LABEL_29:
     v2[6] = 0xFFFFFFFF00000000;
   }
 
-  v10 = v2[4];
-  (*(**v2 + 40))(*v2, *v10);
-  (*(**v2 + 40))(*v2, v10[1]);
+  v12 = v2[4];
+  (*(**v2 + 40))(*v2, *v12);
+  (*(**v2 + 40))(*v2, v12[1]);
   result = re::DynamicArray<re::internal::PerFrameAllocatorChunk *>::deinit(v2);
   *(v2 + 11) = 0;
-LABEL_28:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t re::DataArray<re::TypeRegistry::TypeNameAndVersion>::deinit(uint64_t result)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (!*(result + 44))
   {
-    goto LABEL_28;
+    return result;
   }
 
   v3 = result;
-  v12 = result;
+  v29 = result;
   if (*(result + 40))
   {
-    LODWORD(v13) = 0;
+    LODWORD(v30) = 0;
     if (!*(result + 16))
     {
-      goto LABEL_33;
+      goto LABEL_48;
     }
 
     v4 = result;
     if (!**(*(result + 32) + 8))
     {
-      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v12);
-      v4 = v12;
+      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v29);
+      v4 = v29;
     }
   }
 
   else
   {
-    LODWORD(v13) = -1;
+    LODWORD(v30) = -1;
     v4 = result;
   }
 
-  v12 = v4;
-  if (v4 != v3 || v13 != 0xFFFFFFFFLL)
+  v29 = v4;
+  if (v4 != v3 || v30 != 0xFFFFFFFFLL)
   {
-    v1 = v13;
-    v5 = WORD1(v13);
+    v1 = v30;
+    v5 = WORD1(v30);
     do
     {
-      v6 = v4[2];
+      v6 = *(v4 + 16);
       if (v6 <= v5)
       {
-        goto LABEL_31;
+        goto LABEL_40;
       }
 
-      v7 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(v3, ((*(*(v4[4] + 16 * v5 + 8) + 4 * v1) & 0xFFFFFF) << 32) | (v5 << 16) | v1);
+      v7 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(v3, ((*(*(*(v4 + 32) + 16 * v5 + 8) + 4 * v1) & 0xFFFFFF) << 32) | (v5 << 16) | v1);
       if (v7)
       {
         v8 = v7;
@@ -1561,7 +2229,7 @@ uint64_t re::DataArray<re::TypeRegistry::TypeNameAndVersion>::deinit(uint64_t re
         v2 = v3[2];
         if (v2 <= v5)
         {
-          goto LABEL_32;
+          goto LABEL_44;
         }
 
         *(*(v3[4] + 16 * v5 + 8) + 4 * v1) = 0;
@@ -1571,20 +2239,20 @@ uint64_t re::DataArray<re::TypeRegistry::TypeNameAndVersion>::deinit(uint64_t re
         --*(v3 + 10);
       }
 
-      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v12);
-      v4 = v12;
-      v1 = v13;
-      v5 = WORD1(v13);
+      re::DataArray<re::PerFrameAllocatorImpl>::DataArrayIterator<re::PerFrameAllocatorImpl,re::PerFrameAllocatorImpl&>::increment(&v29);
+      v4 = v29;
+      v1 = v30;
+      v5 = WORD1(v30);
     }
 
-    while (v12 != v3 || v13 != 0xFFFFLL || WORD1(v13) != 0xFFFFLL);
+    while (v29 != v3 || v30 != 0xFFFFLL || WORD1(v30) != 0xFFFFLL);
   }
 
   v5 = v3[2];
   v6 = v5 - 1;
   if (v5 == 1)
   {
-    goto LABEL_26;
+    goto LABEL_29;
   }
 
   v9 = 16 * v5 - 16;
@@ -1592,98 +2260,153 @@ uint64_t re::DataArray<re::TypeRegistry::TypeNameAndVersion>::deinit(uint64_t re
   {
     if (v5 <= v6)
     {
-      v12 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 789;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      v22 = v5;
-      _os_log_send_and_compose_impl();
+      v29 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v13 = MEMORY[0x277D86220];
+      v14 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v14)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v35 = 789;
+      v36 = 2048;
+      v37 = v6;
+      v38 = 2048;
+      v39 = v5;
+      _os_log_send_and_compose_impl(v15, &v29, &v40, 80, &dword_26168F000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
       _os_crash_msg();
       __break(1u);
-LABEL_30:
-      v12 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "removeAt";
-      v17 = 1024;
-      v18 = 931;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      v22 = v1;
-      _os_log_send_and_compose_impl();
+LABEL_36:
+      v29 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v16 = MEMORY[0x277D86220];
+      v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "removeAt";
+      v34 = 1024;
+      if (v17)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v35 = 931;
+      v36 = 2048;
+      v37 = v6;
+      v38 = 2048;
+      v39 = v1;
+      _os_log_send_and_compose_impl(v18, &v29, &v40, 80, &dword_26168F000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
       _os_crash_msg();
       __break(1u);
-LABEL_31:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 797;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v6;
-      _os_log_send_and_compose_impl();
+LABEL_40:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v19 = MEMORY[0x277D86220];
+      v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v20)
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
+      v35 = 797;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v6;
+      _os_log_send_and_compose_impl(v21, &v31, &v40, 80, &dword_26168F000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
-LABEL_32:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 789;
-      v19 = 2048;
-      v20 = v5;
-      v21 = 2048;
-      v22 = v2;
-      _os_log_send_and_compose_impl();
+LABEL_44:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v22 = MEMORY[0x277D86220];
+      v23 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v23)
+      {
+        v24 = 3;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v35 = 789;
+      v36 = 2048;
+      v37 = v5;
+      v38 = 2048;
+      v39 = v2;
+      _os_log_send_and_compose_impl(v24, &v31, &v40, 80, &dword_26168F000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
-LABEL_33:
-      v14 = 0;
-      v27 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v15 = 136315906;
-      v16 = "operator[]";
-      v17 = 1024;
-      v18 = 797;
-      v19 = 2048;
-      v20 = 0;
-      v21 = 2048;
-      v22 = 0;
-      _os_log_send_and_compose_impl();
+LABEL_48:
+      v31 = 0;
+      v44 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v25 = MEMORY[0x277D86220];
+      v26 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v32 = 136315906;
+      v33 = "operator[]";
+      v34 = 1024;
+      if (v26)
+      {
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      v35 = 797;
+      v36 = 2048;
+      v37 = 0;
+      v38 = 2048;
+      v39 = 0;
+      _os_log_send_and_compose_impl(v27, &v31, &v40, 80, &dword_26168F000, v25, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28, v29);
       _os_crash_msg();
       __break(1u);
     }
@@ -1694,7 +2417,7 @@ LABEL_33:
     v1 = v3[2];
     if (v1 <= v6)
     {
-      goto LABEL_30;
+      goto LABEL_36;
     }
 
     v5 = v1 - 1;
@@ -1714,36 +2437,44 @@ LABEL_33:
   v3[6] = 0xFFFFFFFF00000000;
   if (!v5)
   {
-    v12 = 0;
-    v27 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
+    v29 = 0;
+    v44 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v3 = MEMORY[0x277D86220];
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v15 = 136315906;
-    v16 = "operator[]";
-    v17 = 1024;
-    v18 = 789;
-    v19 = 2048;
-    v20 = 0;
-    v21 = 2048;
-    v22 = 0;
-    _os_log_send_and_compose_impl();
+    v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v32 = 136315906;
+    v33 = "operator[]";
+    v34 = 1024;
+    if (v10)
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v35 = 789;
+    v36 = 2048;
+    v37 = 0;
+    v38 = 2048;
+    v39 = 0;
+    _os_log_send_and_compose_impl(v11, &v29, &v40, 80, &dword_26168F000, v3, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v32, 38, v28);
     _os_crash_msg();
     __break(1u);
-LABEL_26:
+LABEL_29:
     v3[6] = 0xFFFFFFFF00000000;
   }
 
-  v10 = v3[4];
-  (*(**v3 + 40))(*v3, *v10);
-  (*(**v3 + 40))(*v3, v10[1]);
+  v12 = v3[4];
+  (*(**v3 + 40))(*v3, *v12);
+  (*(**v3 + 40))(*v3, v12[1]);
   result = re::DynamicArray<re::internal::PerFrameAllocatorChunk *>::deinit(v3);
   *(v3 + 11) = 0;
-LABEL_28:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1861,15 +2592,15 @@ double re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoInde
 
 void re::TypeRegistry::declareType(re::StringID *a1@<X2>, uint64_t a2@<X0>, int a3@<W1>, unsigned int a4@<W3>, char a5@<W4>, void *a6@<X8>)
 {
-  v80 = *MEMORY[0x277D85DE8];
-  re::TypeRegistry::typeID(a2, a1, &v66);
-  v12 = v66;
-  if (v66)
+  v95 = *MEMORY[0x277D85DE8];
+  re::TypeRegistry::typeID(&v81, a2, a1);
+  v12 = v81;
+  if (v81)
   {
-    v13 = v67;
+    v13 = v82;
     if ((a5 & 1) == 0)
     {
-      v14 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(a2 + 96, v67);
+      v14 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(a2 + 96, v82);
       v15 = v14 ? *(v14 + 4) : -1;
       if (v15 > a4)
       {
@@ -1933,9 +2664,9 @@ void re::TypeRegistry::declareType(re::StringID *a1@<X2>, uint64_t a2@<X0>, int 
         *&buf[4] = v23;
         *&buf[12] = 1024;
         *&buf[14] = v25;
-        v57 = "Duplicate types. A type with the same name (%s) and version (%u) has already been declared.";
-        v58 = v22;
-        v59 = 18;
+        v56 = "Duplicate types. A type with the same name (%s) and version (%u) has already been declared.";
+        v57 = v22;
+        v58 = 18;
         goto LABEL_63;
       }
 
@@ -1948,24 +2679,24 @@ void re::TypeRegistry::declareType(re::StringID *a1@<X2>, uint64_t a2@<X0>, int 
       v55 = *re::foundationIntrospectionLogObjects(v26);
       if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
-        v60 = *(a1 + 1);
+        v59 = *(a1 + 1);
         *buf = 136315138;
-        *&buf[4] = v60;
-        v57 = "An type with the same name (%s) but with a different type category has already been declared.";
-        v58 = v55;
-        v59 = 12;
+        *&buf[4] = v59;
+        v56 = "An type with the same name (%s) but with a different type category has already been declared.";
+        v57 = v55;
+        v58 = 12;
 LABEL_63:
-        _os_log_error_impl(&dword_26168F000, v58, OS_LOG_TYPE_ERROR, v57, buf, v59);
+        _os_log_error_impl(&dword_26168F000, v57, OS_LOG_TYPE_ERROR, v56, buf, v58);
       }
 
 LABEL_54:
       *a6 = 0;
       a6[1] = 0xFFFFFFFFLL;
-      goto LABEL_59;
+      return;
     }
   }
 
-  re::TypeRegistry::makeStringID(a2, a1, v65);
+  re::TypeRegistry::makeStringID(v80, a2, a1);
   v28 = *(a2 + 88);
   if ((v28 + 1) >> 24)
   {
@@ -2001,94 +2732,138 @@ LABEL_54:
         goto LABEL_32;
       }
 
-LABEL_66:
+LABEL_72:
       re::internal::assertLog(5, v27, "assertion failure: '%s' (%s:line %i) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", "!overflow", "create", 601, v30);
-      _os_crash();
+      _os_crash("assertion failure: (!overflow) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", v76);
       __break(1u);
-LABEL_67:
-      v68 = 0;
-      v78 = 0u;
-      v79 = 0u;
+LABEL_73:
+      v83 = 0;
+      v93 = 0u;
+      v94 = 0u;
       memset(buf, 0, sizeof(buf));
-      v62 = v41;
-      v63 = v47;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v69 = 136315906;
-      v70 = "operator[]";
-      v71 = 1024;
-      v72 = 789;
-      v73 = 2048;
-      v74 = v62;
-      v75 = 2048;
-      v76 = v63;
-      _os_log_send_and_compose_impl();
+      v67 = MEMORY[0x277D86220];
+      v68 = v41;
+      v69 = v47;
+      v70 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v84 = 136315906;
+      v85 = "operator[]";
+      v86 = 1024;
+      if (v70)
+      {
+        v71 = 3;
+      }
+
+      else
+      {
+        v71 = 2;
+      }
+
+      v87 = 789;
+      v88 = 2048;
+      v89 = v68;
+      v90 = 2048;
+      v91 = v69;
+      _os_log_send_and_compose_impl(v71, &v83, buf, 80, &dword_26168F000, v67, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v84, 38, v78, v79);
       _os_crash_msg();
       __break(1u);
-LABEL_68:
-      v68 = 0;
-      v78 = 0u;
-      v79 = 0u;
+LABEL_77:
+      v83 = 0;
+      v93 = 0u;
+      v94 = 0u;
       memset(buf, 0, sizeof(buf));
-      v64 = v43;
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v69 = 136315906;
-      v70 = "operator[]";
-      v71 = 1024;
-      v72 = 789;
-      v73 = 2048;
-      v74 = v64;
-      v75 = 2048;
-      v76 = 0;
-      _os_log_send_and_compose_impl();
+      v72 = MEMORY[0x277D86220];
+      v73 = v43;
+      v74 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      v84 = 136315906;
+      v85 = "operator[]";
+      v86 = 1024;
+      if (v74)
+      {
+        v75 = 3;
+      }
+
+      else
+      {
+        v75 = 2;
+      }
+
+      v87 = 789;
+      v88 = 2048;
+      v89 = v73;
+      v90 = 2048;
+      v91 = 0;
+      _os_log_send_and_compose_impl(v75, &v83, buf, 80, &dword_26168F000, v72, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v84, 38, v78, v79);
       _os_crash_msg();
       __break(1u);
-LABEL_69:
+LABEL_81:
       re::internal::assertLog(5, v27, "assertion failure: '%s' (%s:line %i) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", "!overflow", "create", 601, v44);
-      _os_crash();
+      _os_crash("assertion failure: (!overflow) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", v77);
       __break(1u);
     }
 
-LABEL_65:
-    v68 = 0;
-    v78 = 0u;
-    v79 = 0u;
+LABEL_68:
+    v83 = 0;
+    v93 = 0u;
+    v94 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v69 = 136315906;
-    v70 = "operator[]";
-    v71 = 1024;
-    v72 = 789;
-    v73 = 2048;
-    v74 = v31;
-    v75 = 2048;
-    v76 = 0;
-    _os_log_send_and_compose_impl();
+    v64 = MEMORY[0x277D86220];
+    v65 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v84 = 136315906;
+    v85 = "operator[]";
+    v86 = 1024;
+    if (v65)
+    {
+      v66 = 3;
+    }
+
+    else
+    {
+      v66 = 2;
+    }
+
+    v87 = 789;
+    v88 = 2048;
+    v89 = v31;
+    v90 = 2048;
+    v91 = 0;
+    _os_log_send_and_compose_impl(v66, &v83, buf, 80, &dword_26168F000, v64, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v84, 38, v78, v79);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_66;
+    goto LABEL_72;
   }
 
   v35 = *(a2 + 48);
   if (v35 <= v31)
   {
-    v68 = 0;
-    v78 = 0u;
-    v79 = 0u;
+    v83 = 0;
+    v93 = 0u;
+    v94 = 0u;
     memset(buf, 0, sizeof(buf));
+    v60 = MEMORY[0x277D86220];
     v61 = v35;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v69 = 136315906;
-    v70 = "operator[]";
-    v71 = 1024;
-    v72 = 789;
-    v73 = 2048;
-    v74 = v31;
-    v75 = 2048;
-    v76 = v61;
-    _os_log_send_and_compose_impl();
+    v62 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v84 = 136315906;
+    v85 = "operator[]";
+    v86 = 1024;
+    if (v62)
+    {
+      v63 = 3;
+    }
+
+    else
+    {
+      v63 = 2;
+    }
+
+    v87 = 789;
+    v88 = 2048;
+    v89 = v31;
+    v90 = 2048;
+    v91 = v61;
+    _os_log_send_and_compose_impl(v63, &v83, buf, 80, &dword_26168F000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v84, 38, v78, v79);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_65;
+    goto LABEL_68;
   }
 
   v36 = (*(a2 + 64) + 16 * v31);
@@ -2125,7 +2900,7 @@ LABEL_32:
       goto LABEL_44;
     }
 
-    goto LABEL_67;
+    goto LABEL_73;
   }
 
   if (*(a2 + 144) >= *(a2 + 140))
@@ -2137,13 +2912,13 @@ LABEL_32:
   v43 = (v42 - 1);
   if (!v42)
   {
-    goto LABEL_68;
+    goto LABEL_77;
   }
 
   v44 = *(a2 + 144);
   if (v44 >= 0x10000)
   {
-    goto LABEL_69;
+    goto LABEL_81;
   }
 
   v45 = (*(a2 + 128) + 16 * v43);
@@ -2153,29 +2928,29 @@ LABEL_32:
 LABEL_44:
   v49 = v30 + (v31 << 16) + ((v37 & 0xFFFFFF) << 32);
   ++*(a2 + 136);
-  v50 = re::StringID::StringID(v46, v65);
+  v50 = re::StringID::StringID(v46, v80);
   *(v50 + 4) = a4;
-  v51 = v65[0];
-  if (v65[0] < 0xFFFFFFFFFFFFFFFELL || (v65[0] & 1) != 0 || *v65[1])
+  v51 = v80[0];
+  if (v80[0] < 0xFFFFFFFFFFFFFFFELL || (v80[0] & 1) != 0 || *v80[1])
   {
     if (!v12)
     {
       goto LABEL_51;
     }
 
-    v50 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(a2 + 96, v67);
+    v50 = re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(a2 + 96, v82);
     if (v50 && *(v50 + 4) < a4)
     {
-      v51 = v65[0];
+      v51 = v80[0];
 LABEL_51:
       memset(buf, 0, 24);
       v52 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v51 >> 31) ^ (v51 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v51 >> 31) ^ (v51 >> 1))) >> 27));
-      v50 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a2 + 200, v65, v52 ^ (v52 >> 31), buf);
+      v50 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a2 + 200, v80, v52 ^ (v52 >> 31), buf);
       v53 = *&buf[12];
       if (*&buf[12] == 0x7FFFFFFF)
       {
         v54 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a2 + 200, *&buf[8], *buf);
-        v50 = re::StringID::StringID((v54 + 8), v65);
+        v50 = re::StringID::StringID((v54 + 8), v80);
         *(v54 + 24) = v49;
         ++*(a2 + 240);
       }
@@ -2191,47 +2966,44 @@ LABEL_51:
   ++*(a2 + 24);
   *a6 = a2;
   a6[1] = v49;
-  if (v65[0])
+  if (v80[0])
   {
-    if (v65[0])
+    if (v80[0])
     {
     }
   }
-
-LABEL_59:
-  v56 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t re::TypeRegistry::typeID@<X0>(re::TypeRegistry *this@<X0>, const re::StringID *a2@<X1>, re::TypeRegistry **a3@<X8>)
+uint64_t *re::TypeRegistry::typeID@<X0>(re::TypeRegistry **__return_ptr a1@<X8>, re::TypeRegistry *this@<X0>, const re::StringID *a3@<X1>)
 {
   v3 = this;
-  v5 = 0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1));
-  result = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 200, a2, (0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31), v7);
+  v5 = 0xBF58476D1CE4E5B9 * ((*a3 >> 31) ^ (*a3 >> 1));
+  result = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 200, a3, (0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31), &v7);
   if (v8 == 0x7FFFFFFF)
   {
     v3 = 0;
-    a3[1] = 0xFFFFFFFFLL;
+    a1[1] = 0xFFFFFFFFLL;
   }
 
   else
   {
-    a3[1] = *(*(v3 + 27) + 32 * v8 + 24);
+    a1[1] = *(*(v3 + 27) + 32 * v8 + 24);
   }
 
-  *a3 = v3;
+  *a1 = v3;
   return result;
 }
 
-unint64_t *re::TypeRegistry::makeStringID@<X0>(re::TypeRegistry *this@<X0>, const char **a2@<X1>, unint64_t *a3@<X8>)
+unint64_t *re::TypeRegistry::makeStringID@<X0>(unint64_t *__return_ptr a1@<X8>, re::TypeRegistry *this@<X0>, const char **a3@<X1>)
 {
-  if (*a2)
+  if (*a3)
   {
-    return re::TypeRegistry::makeStringID(this, a2[1], a3);
+    return re::TypeRegistry::makeStringID(a1, this, a3[1]);
   }
 
   else
   {
-    return re::StringID::StringID(a3, a2);
+    return re::StringID::StringID(a1, a3);
   }
 }
 
@@ -2240,7 +3012,7 @@ void re::TypeRegistry::declareTypeAlias(re::TypeRegistry *this, re::TypeRegistry
   if (!*a2)
   {
     re::internal::assertLog(4, a2, a3, "assertion failure: '%s' (%s:line %i) Invalid type ID.", "typeID.isValid()", "declareTypeAlias", 144);
-    _os_crash();
+    _os_crash("assertion failure: (typeID.isValid()) Invalid type ID.");
     __break(1u);
     goto LABEL_8;
   }
@@ -2249,12 +3021,12 @@ void re::TypeRegistry::declareTypeAlias(re::TypeRegistry *this, re::TypeRegistry
   {
 LABEL_8:
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Wrong type registry.", "typeID.registry() == this", "declareTypeAlias", 145);
-    _os_crash();
+    _os_crash("assertion failure: (typeID.registry() == this) Wrong type registry.");
     __break(1u);
     return;
   }
 
-  re::TypeRegistry::makeStringID(this, a3, &v6);
+  re::TypeRegistry::makeStringID(&v6, this, a3);
   re::DynamicArray<re::StringID>::add((this + 160), &v6);
   v5 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::addNew(this + 200, &v6, a2 + 1);
   ++*(this + 6);
@@ -2357,7 +3129,7 @@ uint64_t re::DataArray<re::TypeRegistry::TypeNameAndVersion>::tryGet(uint64_t a1
   }
 }
 
-unint64_t *re::TypeRegistry::makeStringID@<X0>(re::TypeRegistry *this@<X0>, const char *__s@<X1>, unint64_t *a3@<X8>)
+unint64_t *re::TypeRegistry::makeStringID@<X0>(unint64_t *__return_ptr a1@<X8>, re::TypeRegistry *this@<X0>, const char *__s@<X1>)
 {
   if (__s)
   {
@@ -2366,7 +3138,7 @@ unint64_t *re::TypeRegistry::makeStringID@<X0>(re::TypeRegistry *this@<X0>, cons
     {
       v12 = (*(**(this + 2) + 32))(*(this + 2), result + 1, 0);
       strcpy(v12, __s);
-      result = re::DynamicArray<re::Allocator const*>::add(this + 102, &v12);
+      result = re::DynamicArray<re::Allocator const*>::add((this + 816), &v12);
       v7 = v12;
       if (v12)
       {
@@ -2394,21 +3166,21 @@ unint64_t *re::TypeRegistry::makeStringID@<X0>(re::TypeRegistry *this@<X0>, cons
         v8 = 0;
       }
 
-      *a3 = 2 * v8;
-      a3[1] = v7;
+      *a1 = 2 * v8;
+      a1[1] = v7;
     }
 
     else
     {
-      *a3 = 0;
-      a3[1] = "";
+      *a1 = 0;
+      a1[1] = "";
     }
   }
 
   else
   {
 
-    return re::StringID::invalid(a3);
+    return re::StringID::invalid(a1);
   }
 
   return result;
@@ -2421,7 +3193,7 @@ _anonymous_namespace_ *re::DataArray<re::internal::TypeInfoIndex>::allocBlock(vo
   if (!v4)
   {
     re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.elements", "allocBlock", 520, v3, *(*a1 + 8));
-    _os_crash();
+    _os_crash("assertion failure: (block.elements) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v16, v18);
     __break(1u);
     goto LABEL_16;
   }
@@ -2433,7 +3205,7 @@ _anonymous_namespace_ *re::DataArray<re::internal::TypeInfoIndex>::allocBlock(vo
   {
 LABEL_16:
     re::internal::assertLog(6, v8, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.allocationCounters", "allocBlock", 528, v1, *(*a1 + 8));
-    result = _os_crash();
+    result = _os_crash("assertion failure: (block.allocationCounters) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
     __break(1u);
     return result;
   }
@@ -2493,7 +3265,7 @@ _anonymous_namespace_ *re::DataArray<re::TypeRegistry::TypeNameAndVersion>::allo
   if (!v4)
   {
     re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.elements", "allocBlock", 520, v3, *(*a1 + 8));
-    _os_crash();
+    _os_crash("assertion failure: (block.elements) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v16, v18);
     __break(1u);
     goto LABEL_16;
   }
@@ -2505,7 +3277,7 @@ _anonymous_namespace_ *re::DataArray<re::TypeRegistry::TypeNameAndVersion>::allo
   {
 LABEL_16:
     re::internal::assertLog(6, v8, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.allocationCounters", "allocBlock", 528, v1, *(*a1 + 8));
-    result = _os_crash();
+    result = _os_crash("assertion failure: (block.allocationCounters) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
     __break(1u);
     return result;
   }
@@ -2579,7 +3351,7 @@ void *re::DynamicArray<re::StringID>::setCapacity(void *result, unint64_t a2)
         if (a2 >> 60)
         {
           re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 16, a2);
-          _os_crash();
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v13, v15);
           __break(1u);
         }
 
@@ -2600,7 +3372,7 @@ void *re::DynamicArray<re::StringID>::setCapacity(void *result, unint64_t a2)
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v14, v16);
         __break(1u);
         return result;
       }
@@ -2732,21 +3504,21 @@ uint64_t re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIn
 
         if (!v10 && (v7 & 0x80000000) == 0)
         {
-          memset(v27, 0, 36);
-          *&v27[36] = 0x7FFFFFFFLL;
-          re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v27, v9, v8);
-          v11 = *v27;
-          *v27 = *a1;
+          memset(v28, 0, 36);
+          *&v28[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v28, v9, v8);
+          v11 = *v28;
+          *v28 = *a1;
           *a1 = v11;
-          v12 = *&v27[16];
+          v12 = *&v28[16];
           v13 = *(a1 + 16);
-          *&v27[16] = v13;
+          *&v28[16] = v13;
           *(a1 + 16) = v12;
-          v15 = *&v27[24];
-          *&v27[24] = *(a1 + 24);
-          v14 = *&v27[32];
+          v15 = *&v28[24];
+          *&v28[24] = *(a1 + 24);
+          v14 = *&v28[32];
           *(a1 + 24) = v15;
-          ++*&v27[40];
+          ++*&v28[40];
           v16 = v14;
           if (v14)
           {
@@ -2756,14 +3528,15 @@ uint64_t re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIn
               if ((*(v17 - 2) & 0x80000000) != 0)
               {
                 v18 = 0xBF58476D1CE4E5B9 * ((*(v17 - 1) >> 31) ^ (*(v17 - 1) >> 1));
-                v19 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a1, ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) ^ ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) >> 31)) % *(a1 + 24));
-                v20 = *(v17 - 1);
-                v19[1] = v19[1] & 0xFFFFFFFFFFFFFFFELL | v20 & 1;
-                v19[1] = *(v17 - 1) & 0xFFFFFFFFFFFFFFFELL | v20 & 1;
-                v19[2] = *v17;
+                v19 = (0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) ^ ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) >> 31);
+                v20 = re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a1, v19 % *(a1 + 24), v19);
+                v21 = *(v17 - 1);
+                v20[1] = v20[1] & 0xFFFFFFFFFFFFFFFELL | v21 & 1;
+                v20[1] = *(v17 - 1) & 0xFFFFFFFFFFFFFFFELL | v21 & 1;
+                v20[2] = *v17;
                 *(v17 - 1) = 0;
                 *v17 = "";
-                v19[3] = v17[1];
+                v20[3] = v17[1];
               }
 
               v17 += 4;
@@ -2773,7 +3546,7 @@ uint64_t re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIn
             while (v16);
           }
 
-          re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v27);
+          re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIndex>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v28);
         }
       }
 
@@ -2781,12 +3554,12 @@ uint64_t re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIn
       {
         if (v8)
         {
-          v23 = 2 * v7;
+          v24 = 2 * v7;
         }
 
         else
         {
-          v23 = 3;
+          v24 = 3;
         }
       }
 
@@ -2795,29 +3568,29 @@ uint64_t re::HashTable<re::StringID,re::DataArrayHandle<re::internal::TypeInfoIn
     }
 
     *(a1 + 32) = v5 + 1;
-    v21 = *(a1 + 16);
-    v22 = *(v21 + 32 * v4);
+    v22 = *(a1 + 16);
+    v23 = *(v22 + 32 * v4);
   }
 
   else
   {
-    v21 = *(a1 + 16);
-    v22 = *(v21 + 32 * v4);
-    *(a1 + 36) = v22 & 0x7FFFFFFF;
+    v22 = *(a1 + 16);
+    v23 = *(v22 + 32 * v4);
+    *(a1 + 36) = v23 & 0x7FFFFFFF;
   }
 
-  v24 = 32 * v4;
-  *(v21 + v24) = v22 | 0x80000000;
-  v25 = *(a1 + 8);
-  *(v21 + v24) = *(v25 + 4 * a2) | 0x80000000;
-  *(v25 + 4 * a2) = v4;
+  v25 = 32 * v4;
+  *(v22 + v25) = v23 | 0x80000000;
+  v26 = *(a1 + 8);
+  *(v22 + v25) = *(v26 + 4 * a2) | 0x80000000;
+  *(v26 + 4 * a2) = v4;
   ++*(a1 + 28);
-  return v21 + 32 * v4;
+  return v22 + 32 * v4;
 }
 
-void *re::DynamicArray<re::StringID>::growCapacity(void *this, unint64_t a2)
+_anonymous_namespace_ *re::DynamicArray<re::StringID>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
 {
-  v2 = this[1];
+  v2 = *(this + 1);
   if (v2 < a2)
   {
     v3 = a2;
@@ -2850,7 +3623,7 @@ void *re::DynamicArray<re::StringID>::growCapacity(void *this, unint64_t a2)
   return this;
 }
 
-void re::ArrayAccessor::reset(re::ArrayAccessor *this, void **a2, re::Allocator *a3, const re::TypeInfo *a4)
+void re::ArrayAccessor::reset(re::ArrayAccessor *this, void ***a2, re::Allocator *a3, const re::TypeInfo *a4)
 {
   v8 = *this;
   re::TypeRegistry::typeInfo(*this, *(*(this + 2) + 80), v28);
@@ -2893,7 +3666,7 @@ void re::ArrayAccessor::reset(re::ArrayAccessor *this, void **a2, re::Allocator 
         {
           v20 = re::ArrayAccessor::elementAtUnchecked(this, a2, v19);
           re::TypeInfo::construct(v26, v20, a3, 0);
-          ++v19;
+          v19 = (v19 + 1);
         }
 
         while (a4 != v19);
@@ -2930,7 +3703,7 @@ LABEL_19:
   }
 }
 
-uint64_t re::ArrayAccessor::elementAtUnchecked(re::ArrayAccessor *this, void **a2, uint64_t a3)
+uint64_t re::ArrayAccessor::elementAtUnchecked(re::ArrayAccessor *this, void ***a2, uint64_t a3)
 {
   re::TypeRegistry::typeInfo(*this, *(*(this + 2) + 80), v9);
   re::TypeInfo::TypeInfo(v7, &v10);
@@ -2987,7 +3760,7 @@ uint64_t re::internal::readUnsigned(re::internal *this, void *a2, const re::Type
   }
 
   re::internal::assertLog(5, a2, a3, "assertion failure: '%s' (%s:line %i) Unsupported integer type. Size of type in bytes: %zu", "!Unreachable code", "readUnsigned", 29, v3);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (!Unreachable code) Unsupported integer type. Size of type in bytes: %zu", v5);
   __break(1u);
   return result;
 }
@@ -3026,12 +3799,12 @@ _DWORD *re::internal::writeUnsigned(_DWORD *this, void *a2, const re::TypeInfo *
   }
 
   re::internal::assertLog(5, a2, a3, "assertion failure: '%s' (%s:line %i) Unsupported integer type. Size of type in bytes: %zu", "!Unreachable code", "writeUnsigned", 55, v3);
-  this = _os_crash();
+  this = _os_crash("assertion failure: (!Unreachable code) Unsupported integer type. Size of type in bytes: %zu", v4);
   __break(1u);
   return this;
 }
 
-uint64_t re::internal::checkedArraySize(unint64_t this, unint64_t a2)
+unint64_t re::internal::checkedArraySize(unint64_t this, unint64_t a2)
 {
   if (is_mul_ok(this, a2))
   {
@@ -3039,14 +3812,14 @@ uint64_t re::internal::checkedArraySize(unint64_t this, unint64_t a2)
   }
 
   re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in array. Element size = %zu bytes, count = %zu", "!overflow", "checkedArraySize", 65, this, a2, v2, v3);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (!overflow) Size overflow in array. Element size = %zu bytes, count = %zu", v5, v6);
   __break(1u);
   return result;
 }
 
-void re::TypeBuilderHelper::registerPointer(re::TypeRegistry *a1@<X0>, const re::StringID *a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, void *a5@<X8>)
+void re::TypeBuilderHelper::registerPointer(re::TypeRegistry *a1@<X0>, const re::StringID *a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, __int128 *a5@<X8>)
 {
-  re::TypeRegistry::typeID(a1, a2, &v26);
+  re::TypeRegistry::typeID(&v26, a1, a2);
   if (v26)
   {
     *a5 = v26;
@@ -3082,32 +3855,32 @@ void re::TypeBuilderHelper::registerPointer(re::TypeRegistry *a1@<X0>, const re:
   }
 }
 
-void re::TypeBuilderHelper::registerCString(re::TypeBuilderHelper *this@<X0>, void *a2@<X8>)
+void re::TypeBuilderHelper::registerCString(__int128 *__return_ptr a1@<X8>, re::TypeBuilderHelper *this@<X0>)
 {
-  v11[0] = 189247272;
-  v11[1] = "char*";
-  v5 = re::TypeRegistry::typeID(this, v11, &v10);
-  if (v10)
+  v10[0] = 189247272;
+  v10[1] = "char*";
+  v4 = re::TypeRegistry::typeID(&v9, this, v10);
+  if (v9)
   {
-    *a2 = v10;
+    *a1 = v9;
   }
 
   else
   {
-    re::StackScratchAllocator::StackScratchAllocator(v9);
-    re::TypeBuilder::TypeBuilder(v8, v9);
-    v7[0] = 0;
-    v7[1] = 0xFFFFFFFFLL;
-    re::TypeBuilder::beginObjectType(v8, v11, 1, 1, 8uLL, 8uLL, v7);
-    re::TypeBuilder::setHasKnownSize(v8, 0);
-    re::TypeBuilder::commitTo(v8, this, a2);
-    re::TypeBuilder::~TypeBuilder(v8, v6);
-    re::StackScratchAllocator::~StackScratchAllocator(v9);
+    re::StackScratchAllocator::StackScratchAllocator(v8);
+    re::TypeBuilder::TypeBuilder(v7, v8);
+    v6[0] = 0;
+    v6[1] = 0xFFFFFFFFLL;
+    re::TypeBuilder::beginObjectType(v7, v10, 1, 1, 8uLL, 8uLL, v6);
+    re::TypeBuilder::setHasKnownSize(v7, 0);
+    re::TypeBuilder::commitTo(v7, this, a1);
+    re::TypeBuilder::~TypeBuilder(v7, v5);
+    re::StackScratchAllocator::~StackScratchAllocator(v8);
   }
 
-  if (v11[0])
+  if (v10[0])
   {
-    if (v11[0])
+    if (v10[0])
     {
     }
   }
@@ -3140,7 +3913,7 @@ uint64_t RESyncCommitListGetEntryCount(uint64_t result)
   return result;
 }
 
-uint64_t RESyncCommitListGetEntry(uint64_t result, unint64_t a2)
+unint64_t RESyncCommitListGetEntry(unint64_t result, unint64_t a2)
 {
   if (result)
   {
@@ -3487,9 +4260,9 @@ uint64_t re::DynamicArray<re::SyncCommit>::deinit(uint64_t a1)
   return result;
 }
 
-void *re::DynamicArray<re::SyncCommit>::growCapacity(void *this, unint64_t a2)
+_anonymous_namespace_ *re::DynamicArray<re::SyncCommit>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
 {
-  v2 = this[1];
+  v2 = *(this + 1);
   if (v2 < a2)
   {
     v3 = a2;
@@ -3559,12 +4332,12 @@ void *re::DynamicArray<re::SyncCommit>::setCapacity(void *result, unint64_t a2)
         else
         {
           re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 72, a2);
-          _os_crash();
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v12, v14);
           __break(1u);
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v13, v15);
         __break(1u);
         return result;
       }
@@ -3789,12 +4562,12 @@ void *re::DynamicArray<re::internal::SyncSnapshotEntry>::setCapacity(void *resul
         else
         {
           re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 24, a2);
-          _os_crash();
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v13, v15);
           __break(1u);
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v14, v16);
         __break(1u);
         return result;
       }
@@ -3866,7 +4639,7 @@ void re::SharedPtr<re::SyncObject>::reset(uint64_t *a1, uint64_t a2)
 
 uint64_t RESyncSessionSend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v4 = a2 == 0;
@@ -3888,13 +4661,13 @@ uint64_t RESyncSessionSend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 
     else
     {
-      a1 = MEMORY[0x28223BE20]();
-      v7 = v10;
-      v11 = 0u;
-      v12 = 0;
-      memset(v10, 0, sizeof(v10));
-      a4 = v10;
-      HIDWORD(v11) = 0x7FFFFFFF;
+      a1 = MEMORY[0x28223BE20](a1);
+      v7 = v9;
+      v10 = 0u;
+      v11 = 0;
+      memset(v9, 0, sizeof(v9));
+      a4 = v9;
+      HIDWORD(v10) = 0x7FFFFFFF;
     }
 
     *a4 = a1;
@@ -3905,119 +4678,114 @@ uint64_t RESyncSessionSend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t RESyncSessionSendRaw(re *a1, re *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v8 = *re::networkLogObjects(0);
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = *re::networkLogObjects(0);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v10 = 136315394;
-    v11 = "RESyncSessionSendRaw";
-    v12 = 2080;
-    v13 = "service != __null";
+    v8 = 136315394;
+    v9 = "RESyncSessionSendRaw";
+    v10 = 2080;
+    v11 = "service != __null";
 LABEL_16:
-    _os_log_error_impl(&dword_26168F000, v8, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", &v10, 0x16u);
-    goto LABEL_17;
+    _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", &v8, 0x16u);
+    return 0;
   }
 
   if (!this)
   {
-    v8 = *re::networkLogObjects(a1);
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = *re::networkLogObjects(a1);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v10 = 136315394;
-    v11 = "RESyncSessionSendRaw";
-    v12 = 2080;
-    v13 = "session != __null";
+    v8 = 136315394;
+    v9 = "RESyncSessionSendRaw";
+    v10 = 2080;
+    v11 = "session != __null";
     goto LABEL_16;
   }
 
   if (!a3)
   {
-    v8 = *re::networkLogObjects(a1);
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = *re::networkLogObjects(a1);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v10 = 136315394;
-    v11 = "RESyncSessionSendRaw";
-    v12 = 2080;
-    v13 = "peerID != kRESyncInvalidPeerID";
+    v8 = 136315394;
+    v9 = "RESyncSessionSendRaw";
+    v10 = 2080;
+    v11 = "peerID != kRESyncInvalidPeerID";
     goto LABEL_16;
   }
 
   if (!a4)
   {
-    v8 = *re::networkLogObjects(a1);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "RESyncSessionSendRaw";
-      v12 = 2080;
-      v13 = "data != __null";
+      v8 = 136315394;
+      v9 = "RESyncSessionSendRaw";
+      v10 = 2080;
+      v11 = "data != __null";
       goto LABEL_16;
     }
 
-LABEL_17:
-    v9 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   v5 = *(*this + 96);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5(this, a3, a4, a5);
 }
 
 BOOL RESyncSessionSendAll(re *a1, uint64_t a2, re **a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v14 = *re::networkLogObjects(0);
-    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    v13 = *re::networkLogObjects(0);
+    result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_14;
+      return result;
     }
 
     *buf = 136315394;
-    v19 = "RESyncSessionSendAll";
-    v20 = 2080;
-    v21 = "service != __null";
-LABEL_19:
-    _os_log_error_impl(&dword_26168F000, v14, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", buf, 0x16u);
-    result = 0;
-    goto LABEL_14;
+    v18 = "RESyncSessionSendAll";
+    v19 = 2080;
+    v20 = "service != __null";
+    goto LABEL_19;
   }
 
   if (!a2)
   {
-    v14 = *re::networkLogObjects(a1);
-    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    v13 = *re::networkLogObjects(a1);
+    result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_14;
+      return result;
     }
 
     *buf = 136315394;
-    v19 = "RESyncSessionSendAll";
-    v20 = 2080;
-    v21 = "commits != __null";
-    goto LABEL_19;
+    v18 = "RESyncSessionSendAll";
+    v19 = 2080;
+    v20 = "commits != __null";
+LABEL_19:
+    _os_log_error_impl(&dword_26168F000, v13, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", buf, 0x16u);
+    return 0;
   }
 
   v4 = a3;
@@ -4028,13 +4796,13 @@ LABEL_19:
 
   else
   {
-    a1 = MEMORY[0x28223BE20]();
-    v4 = v15;
-    v16 = 0u;
-    v17 = 0;
-    memset(v15, 0, sizeof(v15));
-    v5 = v15;
-    HIDWORD(v16) = 0x7FFFFFFF;
+    a1 = MEMORY[0x28223BE20](a1);
+    v4 = v14;
+    v15 = 0u;
+    v16 = 0;
+    memset(v14, 0, sizeof(v14));
+    v5 = v14;
+    HIDWORD(v15) = 0x7FFFFFFF;
   }
 
   *v4 = a1;
@@ -4065,64 +4833,60 @@ LABEL_19:
     re::HashTable<unsigned long long,void *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v5 + 5);
   }
 
-  result = 1;
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 BOOL RESyncSessionReceive(re *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v7 = *re::networkLogObjects(0);
-    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v6 = *re::networkLogObjects(0);
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_10;
+      return result;
     }
 
     *buf = 136315394;
-    v11 = "RESyncSessionReceive";
-    v12 = 2080;
-    v13 = "service != __null";
-LABEL_17:
-    _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", buf, 0x16u);
-    result = 0;
-    goto LABEL_10;
+    v10 = "RESyncSessionReceive";
+    v11 = 2080;
+    v12 = "service != __null";
+    goto LABEL_17;
   }
 
   if (!a2)
   {
-    v7 = *re::networkLogObjects(a1);
-    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v6 = *re::networkLogObjects(a1);
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_10;
+      return result;
     }
 
     *buf = 136315394;
-    v11 = "RESyncSessionReceive";
-    v12 = 2080;
-    v13 = "session != __null";
+    v10 = "RESyncSessionReceive";
+    v11 = 2080;
+    v12 = "session != __null";
     goto LABEL_17;
   }
 
   if (!a4)
   {
-    v7 = *re::networkLogObjects(a1);
-    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v6 = *re::networkLogObjects(a1);
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_10;
+      return result;
     }
 
     *buf = 136315394;
-    v11 = "RESyncSessionReceive";
-    v12 = 2080;
-    v13 = "handler != __null";
-    goto LABEL_17;
+    v10 = "RESyncSessionReceive";
+    v11 = 2080;
+    v12 = "handler != __null";
+LABEL_17:
+    _os_log_error_impl(&dword_26168F000, v6, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", buf, 0x16u);
+    return 0;
   }
 
   if (a3)
@@ -4132,11 +4896,11 @@ LABEL_17:
 
   else
   {
-    MEMORY[0x28223BE20]();
-    v9 = 0u;
-    memset(v8, 0, sizeof(v8));
-    DWORD1(v9) = 0x7FFFFFFF;
-    v4 = v8;
+    MEMORY[0x28223BE20](a1);
+    v8 = 0u;
+    memset(v7, 0, sizeof(v7));
+    DWORD1(v8) = 0x7FFFFFFF;
+    v4 = v7;
   }
 
   (*(*a2 + 72))(a2, a4);
@@ -4145,73 +4909,67 @@ LABEL_17:
     re::HashTable<unsigned long long,void *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v4 + 4);
   }
 
-  result = 1;
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t RESyncSessionReceiveRaw(re *a1, re *this, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v6 = *re::networkLogObjects(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = *re::networkLogObjects(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "RESyncSessionReceiveRaw";
-      v10 = 2080;
-      v11 = "service != __null";
+      v6 = 136315394;
+      v7 = "RESyncSessionReceiveRaw";
+      v8 = 2080;
+      v9 = "service != __null";
       goto LABEL_14;
     }
 
-LABEL_12:
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   if (!this)
   {
-    v6 = *re::networkLogObjects(a1);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "RESyncSessionReceiveRaw";
-      v10 = 2080;
-      v11 = "session != __null";
+      v6 = 136315394;
+      v7 = "RESyncSessionReceiveRaw";
+      v8 = 2080;
+      v9 = "session != __null";
       goto LABEL_14;
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
   if (!a3)
   {
-    v6 = *re::networkLogObjects(a1);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = *re::networkLogObjects(a1);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_12;
+      return 0;
     }
 
-    v8 = 136315394;
-    v9 = "RESyncSessionReceiveRaw";
-    v10 = 2080;
-    v11 = "handler != __null";
+    v6 = 136315394;
+    v7 = "RESyncSessionReceiveRaw";
+    v8 = 2080;
+    v9 = "handler != __null";
 LABEL_14:
-    _os_log_error_impl(&dword_26168F000, v6, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", &v8, 0x16u);
-    goto LABEL_12;
+    _os_log_error_impl(&dword_26168F000, v5, OS_LOG_TYPE_ERROR, "%s: Invalid parameter not satisfying %s.", &v6, 0x16u);
+    return 0;
   }
 
   v3 = *(*this + 80);
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3(this, a3);
 }
 
 uint64_t RESyncSessionReceiveAll(uint64_t a1, _BYTE *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = a3 == 0;
@@ -4233,12 +4991,12 @@ uint64_t RESyncSessionReceiveAll(uint64_t a1, _BYTE *a2, uint64_t a3)
 
     else
     {
-      a1 = MEMORY[0x28223BE20]();
-      v6 = v16;
-      v17 = 0u;
-      memset(v16, 0, sizeof(v16));
-      DWORD1(v17) = 0x7FFFFFFF;
-      v7 = v16;
+      a1 = MEMORY[0x28223BE20](a1);
+      v6 = v15;
+      v16 = 0u;
+      memset(v15, 0, sizeof(v15));
+      DWORD1(v16) = 0x7FFFFFFF;
+      v7 = v15;
     }
 
     v8 = (*(*a1 + 128))(a1);
@@ -4269,7 +5027,6 @@ uint64_t RESyncSessionReceiveAll(uint64_t a1, _BYTE *a2, uint64_t a3)
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4288,13 +5045,13 @@ uint64_t RESyncSessionSetViewFilterCB(uint64_t a1, uint64_t a2)
   v3 = !v2;
   if (!v2)
   {
-    (*(*a1 + 48))(a1);
+    (*(*a1 + 48))(a1, a2);
   }
 
   return v3;
 }
 
-uint64_t RESyncSessionHasViewFilterCB(uint64_t result)
+BOOL RESyncSessionHasViewFilterCB(_BOOL8 result)
 {
   if (result)
   {
@@ -4624,18 +5381,18 @@ LABEL_11:
   re::Event<re::SyncViewManager,re::SyncView *>::raise(this + 24, this);
 }
 
-void re::Event<re::SyncViewManager,re::SyncView *>::raise(uint64_t a1, uint64_t a2)
+void re::Event<re::SyncViewManager,re::SyncView *>::raise(uint64_t result, uint64_t a2)
 {
-  v3 = *(a1 + 80);
-  *(a1 + 80) = v3 + 1;
-  if (*(a1 + 16))
+  v3 = *(result + 80);
+  *(result + 80) = v3 + 1;
+  if (*(result + 16))
   {
     v5 = 0;
     do
     {
-      if ((*(*(a1 + 32) + 32 * v5 + 24))(a2) == 1)
+      if ((*(*(result + 32) + 32 * v5 + 24))(a2) == 1)
       {
-        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStableAt(a1, v5);
+        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStableAt(result, v5);
       }
 
       else
@@ -4644,18 +5401,18 @@ void re::Event<re::SyncViewManager,re::SyncView *>::raise(uint64_t a1, uint64_t 
       }
     }
 
-    while (v5 < *(a1 + 16));
-    v3 = *(a1 + 80) - 1;
+    while (v5 < *(result + 16));
+    v3 = *(result + 80) - 1;
   }
 
-  *(a1 + 80) = v3;
+  *(result + 80) = v3;
   if (!v3)
   {
-    re::Event<re::SyncViewManager,re::SyncView *>::doDeferredActions(a1);
+    re::Event<re::SyncViewManager,re::SyncView *>::doDeferredActions(result);
   }
 }
 
-void re::SyncViewManager::removeView(uint64_t a1, uint64_t a2)
+void re::SyncViewManager::removeView(uint64_t a1, unint64_t a2)
 {
   v4 = a2;
   if (a2)
@@ -4669,7 +5426,7 @@ void re::SyncViewManager::removeView(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(uint64_t a1, uint64_t *a2)
+uint64_t re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(uint64_t a1, unint64_t *a2)
 {
   v2 = *(a1 + 24);
   if (!v2)
@@ -4925,7 +5682,7 @@ LABEL_24:
   return re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::remove(this + 160, &v16);
 }
 
-uint64_t re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::remove(uint64_t a1, uint64_t *a2)
+uint64_t re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::remove(uint64_t a1, unint64_t *a2)
 {
   v2 = *(a1 + 24);
   if (!v2)
@@ -5109,7 +5866,7 @@ void *re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscripti
         if (a2 >> 59)
         {
           re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 32, a2);
-          _os_crash();
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v8, v10);
           __break(1u);
         }
 
@@ -5136,7 +5893,7 @@ LABEL_8:
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v9, v11);
         __break(1u);
       }
 
@@ -5194,15 +5951,15 @@ uint64_t re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>
           v19 = v17;
           if (v17)
           {
-            v20 = v16 + 16;
+            v20 = (v16 + 16);
             do
             {
-              if ((*(v20 - 8) & 0x80000000) != 0)
+              if ((*(v20 - 1) & 0x80000000) != 0)
               {
-                re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::addAsMove(a1, *(v20 - 16) % *(a1 + 24), *(v20 - 16), v20, v20);
+                re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::addAsMove(a1, *(v20 - 2) % *(a1 + 24), *(v20 - 2), v20, v20);
               }
 
-              v20 += 24;
+              v20 += 3;
               --v19;
             }
 
@@ -5255,88 +6012,117 @@ uint64_t re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>
 
 void *re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStableAt(void *result, unint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = result[2];
-  if (v2 <= a2)
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = result[2];
+  if (v3 <= a2)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v11 = 0;
+    memset(v20, 0, sizeof(v20));
+    v8 = MEMORY[0x277D86220];
+    v12 = 136315906;
+    v13 = "removeStableAt";
+    v14 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    v15 = 969;
+    v16 = 2048;
+    v17 = a2;
+    v18 = 2048;
+    v19 = v3;
+    _os_log_send_and_compose_impl(v9, &v11, v20, 80, &dword_26168F000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v12, 38, v10);
     _os_crash_msg();
     __break(1u);
   }
 
-  v3 = result;
-  v4 = v2 - 1;
-  if (v2 - 1 > a2)
+  v4 = result;
+  v5 = v3 - 1;
+  if (v3 - 1 > a2)
   {
-    v5 = result[4];
-    result = (v5 + 32 * a2);
-    v6 = (v5 + 32 * v2);
-    if (v6 != (result + 4))
+    v6 = result[4];
+    result = (v6 + 32 * a2);
+    v7 = (v6 + 32 * v3);
+    if (v7 != (result + 4))
     {
-      result = memmove(result, result + 4, v6 - (result + 4));
-      v4 = v3[2] - 1;
+      result = memmove(result, result + 4, v7 - (result + 4));
+      v5 = v4[2] - 1;
     }
   }
 
-  v3[2] = v4;
-  ++*(v3 + 6);
-  v7 = *MEMORY[0x277D85DE8];
+  v4[2] = v5;
+  ++*(v4 + 6);
   return result;
 }
 
-void re::Event<re::SyncViewManager,re::SyncView *>::doDeferredActions(_anonymous_namespace_ *a1)
+void re::Event<re::SyncViewManager,re::SyncView *>::doDeferredActions(_anonymous_namespace_ *result)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 7);
+  v25 = *MEMORY[0x277D85DE8];
+  v1 = *(result + 7);
   if (v1)
   {
     v3 = 0;
     for (i = 0; i != v1; ++i)
     {
-      v5 = *(a1 + 7);
+      v5 = *(result + 7);
       if (v5 <= i)
       {
-        memset(v20, 0, sizeof(v20));
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        v12 = 136315906;
-        v13 = "operator[]";
-        v14 = 1024;
-        v15 = 789;
-        v16 = 2048;
-        v17 = i;
-        v18 = 2048;
-        v19 = v5;
-        _os_log_send_and_compose_impl();
+        v13 = 0;
+        memset(v24, 0, sizeof(v24));
+        v9 = MEMORY[0x277D86220];
+        v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (v10)
+        {
+          v11 = 3;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        v19 = 789;
+        v20 = 2048;
+        v21 = i;
+        v22 = 2048;
+        v23 = v5;
+        _os_log_send_and_compose_impl(v11, &v13, v24, 80, &dword_26168F000, v9, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v12);
         _os_crash_msg();
         __break(1u);
       }
 
-      v6 = *(a1 + 9) + v3;
+      v6 = *(result + 9) + v3;
       v7 = *(v6 + 32);
       v8 = *(v6 + 16);
-      v10[0] = *v6;
-      v10[1] = v8;
-      v11 = v7;
-      if (LOBYTE(v10[0]) == 1)
+      v14[0] = *v6;
+      v14[1] = v8;
+      v15 = v7;
+      if (LOBYTE(v14[0]) == 1)
       {
-        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::indexOf(a1, v10 + 1, v20);
-        if ((v20[0] & 1) == 0)
+        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::indexOf(result, v14 + 1, v24);
+        if ((v24[0] & 1) == 0)
         {
-          re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::add(a1, v10 + 8);
+          re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::add(result, v14 + 8);
         }
       }
 
       else
       {
-        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStable(a1, v10 + 1);
+        re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStable(result, v14 + 1);
       }
 
       v3 += 40;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 __n128 re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::add(_anonymous_namespace_ *this, uint64_t a2)
@@ -5410,9 +6196,9 @@ LABEL_13:
   return result;
 }
 
-void *re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::growCapacity(void *this, unint64_t a2)
+_anonymous_namespace_ *re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
 {
-  v2 = this[1];
+  v2 = *(this + 1);
   if (v2 < a2)
   {
     v3 = a2;
@@ -5480,19 +6266,19 @@ uint64_t re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAs
   return v8;
 }
 
-void re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
+void re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::setCapacity(__int128 *a1, unsigned int a2)
 {
   v4 = *a1;
   if (*a1)
   {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
+    if (a2 && *(a1 + 6) != a2 && *(a1 + 7) <= a2)
     {
       memset(v22, 0, 36);
       *&v22[36] = 0x7FFFFFFFLL;
       re::HashSetBase<re::IntrospectionBase const*,re::IntrospectionBase const*,re::internal::ValueAsKey<re::IntrospectionBase const*>,re::Hash<re::IntrospectionBase const*>,re::EqualTo<re::IntrospectionBase const*>,true,false>::init(v22, v4, a2);
       v5 = *a1;
       *a1 = *v22;
-      v6 = *(a1 + 16);
+      v6 = *(a1 + 2);
       v7 = *&v22[8];
       *v22 = v5;
       *&v22[16] = v6;
@@ -5512,41 +6298,41 @@ void re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<
           if ((*(v13 - 1) & 0x80000000) != 0)
           {
             v14 = *(v13 - 2);
-            v15 = *(a1 + 24);
+            v15 = *(a1 + 6);
             v16 = v14 % v15;
-            v17 = *(a1 + 36);
+            v17 = *(a1 + 9);
             if (v17 == 0x7FFFFFFF)
             {
-              v17 = *(a1 + 32);
+              v17 = *(a1 + 8);
               v18 = v17;
               if (v17 == v15)
               {
-                re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::setCapacity(a1, (2 * v11));
-                v16 = v14 % *(a1 + 24);
-                v18 = *(a1 + 32);
-                v12 = *(a1 + 8);
+                re::HashSetBase<re::SyncViewer *,re::SyncViewer *,re::internal::ValueAsKey<re::SyncViewer *>,re::Hash<re::SyncViewer *>,re::EqualTo<re::SyncViewer *>,true,false>::setCapacity(a1, 2 * v11);
+                v16 = v14 % *(a1 + 6);
+                v18 = *(a1 + 8);
+                v12 = *(a1 + 1);
               }
 
-              *(a1 + 32) = v18 + 1;
-              v19 = *(a1 + 16);
+              *(a1 + 8) = v18 + 1;
+              v19 = *(a1 + 2);
               v20 = *(v19 + 24 * v17 + 8);
             }
 
             else
             {
-              v19 = *(a1 + 16);
+              v19 = *(a1 + 2);
               v20 = *(v19 + 24 * v17 + 8);
-              *(a1 + 36) = v20 & 0x7FFFFFFF;
+              *(a1 + 9) = v20 & 0x7FFFFFFF;
             }
 
             *(v19 + 24 * v17 + 8) = v20 | 0x80000000;
-            *(*(a1 + 16) + 24 * v17 + 8) = *(*(a1 + 16) + 24 * v17 + 8) & 0x80000000 | *(v12 + 4 * v16);
-            *(*(a1 + 16) + 24 * v17) = v14;
-            *(*(a1 + 16) + 24 * v17 + 16) = *v13;
-            v12 = *(a1 + 8);
+            *(*(a1 + 2) + 24 * v17 + 8) = *(*(a1 + 2) + 24 * v17 + 8) & 0x80000000 | *(v12 + 4 * v16);
+            *(*(a1 + 2) + 24 * v17) = v14;
+            *(*(a1 + 2) + 24 * v17 + 16) = *v13;
+            v12 = *(a1 + 1);
             *(v12 + 4 * v16) = v17;
-            v11 = *(a1 + 28) + 1;
-            *(a1 + 28) = v11;
+            v11 = *(a1 + 7) + 1;
+            *(a1 + 7) = v11;
           }
 
           v13 += 3;
@@ -5722,7 +6508,7 @@ uint64_t re::UnicastStream::send(re::UnicastStream *this, re::Packet *a2)
 
 uint64_t re::SharedAppUnicast::SharedAppUnicast(uint64_t a1, id *a2, re *a3, uint64_t a4, uint64_t a5, uint64_t a6, id *a7, char a8, char a9)
 {
-  v35 = a4;
+  v34 = a4;
   *a1 = 0;
   objc_copyWeak(a1, a2);
   *(a1 + 8) = 0;
@@ -5738,18 +6524,18 @@ uint64_t re::SharedAppUnicast::SharedAppUnicast(uint64_t a1, id *a2, re *a3, uin
   *(a1 + 80) = 0;
   *(a1 + 84) = 0x7FFFFFFFLL;
   *(a1 + 96) = 0x8000000000000000;
-  v33 = 0;
-  v32 = 1;
+  v32 = 0;
   v31 = 1;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 0x40000000;
-  v29[2] = ___ZN2re16SharedAppUnicastC2ENS_10ArcWeakPtrINS_11SyncSessionEEENS1_INS_9TransportEEEyyyNS1_INS_15SyncObjectStoreEEEbb_block_invoke;
-  v29[3] = &__block_descriptor_tmp;
-  v29[4] = a1;
-  v30 = v29;
-  re::make::shared::object<re::UnicastStream,re::ArcWeakPtr<re::Transport> &,unsigned long long &,re::DeliveryMethod,BOOL,re::SyncStreamID::{unnamed type#1},void({block_pointer})(unsigned long long)>(a3, &v35, &v33, &v32, &v31, &v30, &v34);
-  v16 = v34;
-  v17 = v35;
+  v30 = 1;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 0x40000000;
+  v28[2] = ___ZN2re16SharedAppUnicastC2ENS_10ArcWeakPtrINS_11SyncSessionEEENS1_INS_9TransportEEEyyyNS1_INS_15SyncObjectStoreEEEbb_block_invoke;
+  v28[3] = &__block_descriptor_tmp;
+  v28[4] = a1;
+  v29 = v28;
+  re::make::shared::object<re::UnicastStream,re::ArcWeakPtr<re::Transport> &,unsigned long long &,re::DeliveryMethod,BOOL,re::SyncStreamID::{unnamed type#1},void({block_pointer})(unsigned long long)>(a3, &v34, &v32, &v31, &v30, &v29, &v33);
+  v16 = v33;
+  v17 = v34;
   if (*a3)
   {
     v18 = (*a3 - 8);
@@ -5771,74 +6557,73 @@ uint64_t re::SharedAppUnicast::SharedAppUnicast(uint64_t a1, id *a2, re *a3, uin
     v20 = 0;
   }
 
-  (*(*v20 + 32))(&v34, v20);
-  v21 = *(v34 + 820);
-  v22 = re::Transport::registerStream(v18, v16, 1uLL, v17);
-  if (v34)
+  (*(*v20 + 32))(&v33, v20);
+  v21 = re::Transport::registerStream(v18, v16, 1uLL, v17);
+  if (v33)
   {
 
-    v34 = 0;
+    v33 = 0;
   }
 
-  if (v22)
+  if (v21)
   {
-    v23 = *(a1 + 8);
+    v22 = *(a1 + 8);
     *(a1 + 8) = v16;
-    v16 = v23;
+    v16 = v22;
   }
 
-  v34 = 0;
+  v33 = 0;
   if (*a3)
   {
-    v24 = *a3 - 8;
+    v23 = *a3 - 8;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  if (re::Transport::receive(v24, v35, 1u, &v34))
+  if (re::Transport::receive(v23, v34, 1u, &v33))
   {
     do
     {
       if (*a3)
       {
-        v25 = (*a3 - 8);
+        v24 = (*a3 - 8);
       }
 
       else
       {
-        v25 = 0;
+        v24 = 0;
       }
 
-      if (re::Transport::dispatchPacketToStream(v25, v34, v35))
+      if (re::Transport::dispatchPacketToStream(v24, v33, v34))
       {
         if (*a3)
         {
-          v26 = *a3 - 8;
+          v25 = *a3 - 8;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
 
-        re::PacketPool::free(*(v26 + 384), v34);
+        re::PacketPool::free(*(v25 + 384), v33);
       }
 
       if (*a3)
       {
-        v27 = *a3 - 8;
+        v26 = *a3 - 8;
       }
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
     }
 
-    while (re::Transport::receive(v27, v35, 1u, &v34));
+    while (re::Transport::receive(v26, v34, 1u, &v33));
   }
 
   if (v16)
@@ -5848,19 +6633,19 @@ uint64_t re::SharedAppUnicast::SharedAppUnicast(uint64_t a1, id *a2, re *a3, uin
   return a1;
 }
 
-void re::SharedAppUnicast::send(id *location, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void re::SharedAppUnicast::send(id *location, re **a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   if (location[1])
   {
-    re::SyncCommitDump::log(*a2, *(a2 + 8), "SendCommit");
-    v104 = 0;
-    v101[1] = 0;
-    v102 = 0;
-    v101[0] = 0;
+    re::SyncCommitDump::log(*a2, a2[1], "SendCommit");
     v103 = 0;
+    v100[1] = 0;
+    v101 = 0;
+    v100[0] = 0;
+    v102 = 0;
     v9 = *a2;
-    v10 = *(a2 + 8);
+    v10 = a2[1];
     if (*(location + 42) == 1)
     {
       if (v10)
@@ -5914,18 +6699,18 @@ void re::SharedAppUnicast::send(id *location, uint64_t a2, uint64_t a3, uint64_t
       {
         v26.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
         location[12] = (v26.__d_.__rep_ + 5000000000);
-        LODWORD(v90) = 0;
+        LODWORD(v89) = 0;
         *buf = 0u;
-        v89 = 0u;
-        *(&v90 + 4) = 0x7FFFFFFFLL;
-        v27 = *(a2 + 8);
+        v88 = 0u;
+        *(&v89 + 4) = 0x7FFFFFFFLL;
+        v27 = a2[1];
         if (v27)
         {
           v28 = *a2;
-          v86 = *a2 + 72 * v27;
+          v85 = *a2 + 72 * v27;
           while (1)
           {
-            v87 = v28;
+            v86 = v28;
             v29 = *(v28 + 6);
             if (v29)
             {
@@ -5933,8 +6718,8 @@ void re::SharedAppUnicast::send(id *location, uint64_t a2, uint64_t a3, uint64_t
             }
 
 LABEL_43:
-            v28 = (v87 + 72);
-            if ((v87 + 72) == v86)
+            v28 = (v86 + 72);
+            if (v86 + 72 == v85)
             {
               goto LABEL_44;
             }
@@ -5945,15 +6730,15 @@ LABEL_43:
           while (1)
           {
             v32 = *(*(*v30 + 88) + 16);
-            v33 = re::Hash<re::DynamicString>::operator()(&v97, v32 + 40);
+            v33 = re::Hash<re::DynamicString>::operator()(&v96, v32 + 40);
             v34 = v33;
-            if (DWORD2(v89))
+            if (DWORD2(v88))
             {
-              v35 = v33 % DWORD2(v89);
+              v35 = v33 % DWORD2(v88);
               v36 = *(*&buf[8] + 4 * v35);
               if (v36 != 0x7FFFFFFF)
               {
-                v37 = v89;
+                v37 = v88;
                 do
                 {
                   v26.__d_.__rep_ = re::DynamicString::operator==(v37 + 48 * v36 + 16, v32 + 40);
@@ -5975,7 +6760,7 @@ LABEL_43:
             }
 
             v26.__d_.__rep_ = re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addAsCopy(buf, v35, v34, v32 + 40, (v32 + 40));
-            ++DWORD2(v90);
+            ++DWORD2(v89);
 LABEL_42:
             v30 += 24;
             if (v30 == v31)
@@ -5986,15 +6771,15 @@ LABEL_42:
         }
 
 LABEL_44:
+        v97 = 0;
         v98 = 0;
         v99 = 0;
-        v100 = 0;
-        re::DynamicString::setCapacity(&v97, 0);
-        v38 = v90;
-        if (v90)
+        re::DynamicString::setCapacity(&v96, 0);
+        v38 = v89;
+        if (v89)
         {
           v39 = 0;
-          v40 = (v89 + 8);
+          v40 = (v88 + 8);
           while (1)
           {
             v41 = *v40;
@@ -6004,9 +6789,9 @@ LABEL_44:
               break;
             }
 
-            if (v90 == ++v39)
+            if (v89 == ++v39)
             {
-              LODWORD(v39) = v90;
+              LODWORD(v39) = v89;
               break;
             }
           }
@@ -6017,9 +6802,9 @@ LABEL_44:
           LODWORD(v39) = 0;
         }
 
-        if (v39 != v90)
+        if (v39 != v89)
         {
-          v62 = v89;
+          v62 = v88;
           do
           {
             v63 = v62 + 48 * v39;
@@ -6049,23 +6834,23 @@ LABEL_44:
               v71 = v69;
             }
 
-            re::DynamicString::append(&v97, v68, v71);
-            re::DynamicString::append(&v97, " ", 1uLL);
-            v62 = v89;
-            if (v90 <= v39 + 1)
+            re::DynamicString::append(&v96, v68, v71);
+            re::DynamicString::append(&v96, " ", 1uLL);
+            v62 = v88;
+            if (v89 <= v39 + 1)
             {
               v72 = v39 + 1;
             }
 
             else
             {
-              v72 = v90;
+              v72 = v89;
             }
 
             while (v72 - 1 != v39)
             {
               LODWORD(v39) = v39 + 1;
-              if ((*(v89 + 48 * v39 + 8) & 0x80000000) != 0)
+              if ((*(v88 + 48 * v39 + 8) & 0x80000000) != 0)
               {
                 goto LABEL_105;
               }
@@ -6091,10 +6876,10 @@ LABEL_105:
         }
 
         v75 = v74 + 8;
-        (*(*v74 + 32))(v105);
-        v76 = *(*v105 + 3272);
+        (*(*v74 + 32))(v104);
+        v76 = *(*v104 + 3272);
 
-        *v105 = 0;
+        *v104 = 0;
         if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
         {
           v77 = objc_loadWeakRetained(location);
@@ -6108,8 +6893,8 @@ LABEL_105:
             v78 = 0;
           }
 
-          (*(*v78 + 32))(&v96, v78);
-          v79 = re::Session::peerID(v96);
+          (*(*v78 + 32))(&v95, v78);
+          v79 = re::Session::peerID(v95);
           v80 = location[1];
           v81 = v80[4];
           if (v81)
@@ -6122,49 +6907,52 @@ LABEL_105:
             v82 = 0;
           }
 
-          re::Transport::connectionAddress(v82, v80[5], &v93);
-          if (v94)
+          re::Transport::connectionAddress(&v92, v82, v80[5]);
+          if (v93)
           {
-            v83 = *&v95[7];
+            v83 = *&v94[7];
           }
 
           else
           {
-            v83 = v95;
+            v83 = v94;
           }
 
-          if (v98)
+          if (v97)
           {
-            v84 = v99;
+            v84 = v98;
           }
 
           else
           {
-            v84 = &v98 + 1;
+            v84 = &v97 + 1;
           }
 
-          *v105 = 134218498;
-          *&v105[4] = v79;
-          v106 = 2080;
-          v107 = v83;
-          v108 = 2080;
-          v109 = v84;
-          _os_log_impl(&dword_26168F000, v76, OS_LOG_TYPE_INFO, "Sending sync data on paused connection to %llx ('%s'): %s", v105, 0x20u);
-          if (v93 && (v94 & 1) != 0)
+          *v104 = 134218498;
+          *&v104[4] = v79;
+          v105 = 2080;
+          v106 = v83;
+          v107 = 2080;
+          v108 = v84;
+          _os_log_impl(&dword_26168F000, v76, OS_LOG_TYPE_INFO, "Sending sync data on paused connection to %llx ('%s'): %s", v104, 0x20u);
+          if (v92 && (v93 & 1) != 0)
           {
-            (*(*v93 + 40))();
+            (*(*v92 + 40))();
           }
 
-          if (v96)
+          if (v95)
           {
 
-            v96 = 0;
+            v95 = 0;
           }
         }
 
-        if (v97 && (v98 & 1) != 0)
+        if (v96)
         {
-          (*(*v97 + 40))();
+          if (v97)
+          {
+            (*(*v96 + 40))();
+          }
         }
 
         re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(buf);
@@ -6224,11 +7012,11 @@ LABEL_56:
           LODWORD(v23) = v42;
         }
 
-        v92 = 0;
-        v90 = 0u;
-        v91 = 0u;
-        *buf = 0u;
+        v91 = 0;
         v89 = 0u;
+        v90 = 0u;
+        *buf = 0u;
+        v88 = 0u;
         buf[0] = 1;
         v43 = *(location + 20);
         if (v43)
@@ -6264,7 +7052,7 @@ LABEL_64:
           v50 = *(v47 + 1);
           v49 = v47 + 8;
           v48 = v50;
-          v97 = v50;
+          v96 = v50;
           if (v50)
           {
             v51 = v48 + 1;
@@ -6276,10 +7064,10 @@ LABEL_64:
             v52 = 0;
           }
 
-          v98 = re::SyncObject::latestStateHandle(v52);
-          LOBYTE(v99) = v49[8];
-          re::DynamicArray<re::internal::SyncSnapshotEntry>::add(&v90, &v97);
-          if (v97)
+          v97 = re::SyncObject::latestStateHandle(v52);
+          LOBYTE(v98) = v49[8];
+          re::DynamicArray<re::internal::SyncSnapshotEntry>::add(&v89, &v96);
+          if (v96)
           {
           }
 
@@ -6302,15 +7090,15 @@ LABEL_64:
         }
 
         re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotEvents,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::clear((location + 6));
-        re::DynamicArray<re::SyncCommit>::add(v101, buf);
-        v54 = *(a2 + 8);
+        re::DynamicArray<re::SyncCommit>::add(v100, buf);
+        v54 = a2[1];
         if (v54)
         {
           v55 = *a2;
           v56 = 72 * v54;
           do
           {
-            re::DynamicArray<re::SyncCommit>::add(v101, v55);
+            re::DynamicArray<re::SyncCommit>::add(v100, v55);
             v55 = (v55 + 72);
             v56 -= 72;
           }
@@ -6318,60 +7106,60 @@ LABEL_64:
           while (v56);
         }
 
-        v9 = v104;
-        v10 = v102;
-        re::DynamicArray<re::internal::SyncSnapshotEntry>::deinit(&v90);
+        v9 = v103;
+        v10 = v101;
+        re::DynamicArray<re::internal::SyncSnapshotEntry>::deinit(&v89);
       }
 
       v57 = location[1] + 24;
-      LODWORD(v89) = 0;
-      BYTE4(v89) = 0;
-      *(&v89 + 1) = 0;
-      *&v90 = 0;
+      LODWORD(v88) = 0;
+      BYTE4(v88) = 0;
+      *(&v88 + 1) = 0;
+      *&v89 = 0;
       *buf = &unk_2873F4D10;
       *&buf[8] = 0;
-      *(&v90 + 1) = v57;
-      *&v91 = 0;
-      LOBYTE(v97) = 0;
+      *(&v89 + 1) = v57;
+      *&v90 = 0;
+      LOBYTE(v96) = 0;
       if (v10)
       {
         v58 = 72 * v10;
         do
         {
-          re::SharedAppSyncPacker::packCommit(&v97, v9, buf, a5, 0);
+          re::SharedAppSyncPacker::packCommit(&v96, v9, buf, a5, 0);
           v9 = (v9 + 72);
           v58 -= 72;
         }
 
         while (v58);
-        v59 = DWORD2(v89);
-        v60 = v91;
-        if (HIDWORD(v89))
+        v59 = DWORD2(v88);
+        v60 = v90;
+        if (HIDWORD(v88))
         {
-          v59 = DWORD2(v89) + 1;
+          v59 = DWORD2(v88) + 1;
         }
 
         if (v59)
         {
           v61 = location[1];
-          *(v91 + 24) = v59;
-          *(&v89 + 1) = 0;
-          *&v90 = 0;
+          *(v90 + 24) = v59;
+          *(&v88 + 1) = 0;
+          *&v89 = 0;
           *&buf[8] = 0;
-          LODWORD(v89) = 0;
-          *&v91 = 0;
+          LODWORD(v88) = 0;
+          *&v90 = 0;
           (*(*v61 + 48))(v61);
-          v60 = v91;
+          v60 = v90;
         }
 
         if (v60)
         {
-          (*(**(&v90 + 1) + 24))(*(&v90 + 1));
+          (*(**(&v89 + 1) + 24))(*(&v89 + 1));
         }
       }
     }
 
-    re::DynamicArray<re::SyncCommit>::deinit(v101);
+    re::DynamicArray<re::SyncCommit>::deinit(v100);
   }
 
   else
@@ -6398,8 +7186,6 @@ LABEL_64:
       _os_log_error_impl(&dword_26168F000, v21, OS_LOG_TYPE_ERROR, "Transport is destroyed but trying to send.", buf, 2u);
     }
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotEvents,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::addOrReplace(uint64_t a1, uint64_t *a2, _BYTE *a3)
@@ -6484,25 +7270,25 @@ void re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotEvent
 
 BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v4 = location[1];
   if (v4)
   {
     if (*(location + 43) == 1 && (*(location + 43) = 0, (v6 = (*(*v4 + 56))(v4)) != 0))
     {
       v7 = v6;
-      v51 = a2;
+      v50 = a2;
       do
       {
         v8 = *(v7 + 16);
-        v50 = v7;
+        v49 = v7;
         v9 = *(v7 + 24);
-        v68 = v8;
-        v69 = v9;
+        v67 = v8;
+        v68 = v9;
+        v69 = 0;
         v70 = 0;
         v71 = 0;
-        v72 = 0;
-        while (v69 != v71)
+        while (v68 != v70)
         {
           WeakRetained = objc_loadWeakRetained(location + 4);
           v11 = WeakRetained - 8;
@@ -6512,32 +7298,32 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
           }
 
           v12 = *(location + 20);
-          *v61 = v11;
-          v62 = *(location + 1);
+          *v60 = v11;
+          v61 = *(location + 1);
+          v62 = 0u;
           v63 = 0u;
-          v64 = 0u;
-          v65 = 0;
-          v66 = 0x7FFFFFFFLL;
-          v67 = v12;
+          v64 = 0;
+          v65 = 0x7FFFFFFFLL;
+          v66 = v12;
           if (WeakRetained)
           {
           }
 
-          v55[0] = 0;
-          v60 = 0;
-          memset(v58, 0, sizeof(v58));
+          v54[0] = 0;
           v59 = 0;
-          v56 = 0;
-          v57[0] = 0;
-          *(v57 + 5) = 0;
-          v53 = re::SharedAppSyncUnpacker::unpackCommit(v61, &v68, v55, a2);
-          if (v53)
+          memset(v57, 0, sizeof(v57));
+          v58 = 0;
+          v55 = 0;
+          v56[0] = 0;
+          *(v56 + 5) = 0;
+          v52 = re::SharedAppSyncUnpacker::unpackCommit(v60, &v67, v54, a2);
+          if (v52)
           {
-            v13 = v65;
-            if (v65)
+            v13 = v64;
+            if (v64)
             {
               v14 = 0;
-              v15 = v64;
+              v15 = v63;
               while (1)
               {
                 v16 = *v15;
@@ -6547,9 +7333,9 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
                   break;
                 }
 
-                if (v65 == ++v14)
+                if (v64 == ++v14)
                 {
-                  LODWORD(v14) = v65;
+                  LODWORD(v14) = v64;
                   break;
                 }
               }
@@ -6560,9 +7346,9 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
               LODWORD(v14) = 0;
             }
 
-            if (v14 != v65)
+            if (v14 != v64)
             {
-              v24 = v64;
+              v24 = v63;
               do
               {
                 v25 = v24 + 40 * v14;
@@ -6580,15 +7366,15 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
                   v30 = 0;
                 }
 
-                re::SyncObjectStore::findObject(v30, v26, v27, v73);
+                re::SyncObjectStore::findObject(v72, v30, v26, v27);
                 if (v29)
                 {
                 }
 
-                v31 = *v73;
-                if (*v73)
+                v31 = *v72;
+                if (*v72)
                 {
-                  re::SyncObject::bindWithParent(*(v25 + 8), *v73);
+                  re::SyncObject::bindWithParent(*(v25 + 8), *v72);
                 }
 
                 else
@@ -6606,8 +7392,8 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
 
                     v37 = *(v25 + 8);
                     *buf = *(v37 + 24);
-                    v54 = *(*(*(v37 + 88) + 16) + 32);
-                    v38 = re::SyncObjectTombstoneInfo::contains((v36 + 120), buf, &v54);
+                    v53 = *(*(*(v37 + 88) + 16) + 32);
+                    v38 = re::SyncObjectTombstoneInfo::contains((v36 + 120), buf, &v53);
                     if (v35)
                     {
                     }
@@ -6620,29 +7406,29 @@ BOOL re::SharedAppUnicast::receive(id *location, uint64_t a2, uint64_t a3)
                         v41 = *(*(v25 + 8) + 24);
                         *buf = 134218240;
                         *&buf[4] = v41;
-                        v77 = 2048;
-                        *v78 = v27;
+                        v76 = 2048;
+                        *v77 = v27;
                         _os_log_error_impl(&dword_26168F000, v40, OS_LOG_TYPE_ERROR, "BindFailure: Object %llu with parent %llu", buf, 0x16u);
                       }
                     }
                   }
                 }
 
-                if (v65 <= v14 + 1)
+                if (v64 <= v14 + 1)
                 {
                   v32 = v14 + 1;
                 }
 
                 else
                 {
-                  v32 = v65;
+                  v32 = v64;
                 }
 
-                v24 = v64;
+                v24 = v63;
                 while (v32 - 1 != v14)
                 {
                   LODWORD(v14) = v14 + 1;
-                  if ((*(v64 + 40 * v14) & 0x80000000) != 0)
+                  if ((*(v63 + 40 * v14) & 0x80000000) != 0)
                   {
                     goto LABEL_48;
                   }
@@ -6656,9 +7442,9 @@ LABEL_48:
               while (v14 != v13);
             }
 
-            re::SyncCommitDump::log(v55, 1, "RecvCommit");
-            a2 = v51;
-            (*(a3 + 16))(a3, v55, v51);
+            re::SyncCommitDump::log(v54, 1, "RecvCommit");
+            a2 = v50;
+            (*(a3 + 16))(a3, v54, v50);
           }
 
           else
@@ -6675,7 +7461,7 @@ LABEL_48:
               v19 = 0;
             }
 
-            re::Transport::connectionAddress(v19, v17[5], buf);
+            re::Transport::connectionAddress(buf, v19, v17[5]);
             v20 = objc_loadWeakRetained(location);
             if (v20)
             {
@@ -6688,42 +7474,42 @@ LABEL_48:
             }
 
             v22 = v21 + 8;
-            (*(*v21 + 32))(v73);
-            v23 = *(*v73 + 3272);
+            (*(*v21 + 32))(v72);
+            v23 = *(*v72 + 3272);
 
-            *v73 = 0;
+            *v72 = 0;
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               v42 = location[2];
               v43 = &buf[9];
               if (buf[8])
               {
-                v43 = *&v78[2];
+                v43 = *&v77[2];
               }
 
-              *v73 = 134218242;
-              *&v73[4] = v42;
-              v74 = 2082;
-              v75 = v43;
-              _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, "Failed to parse incoming packet. Will drop peer.(peerID=%llu, address=%{public}s)", v73, 0x16u);
+              *v72 = 134218242;
+              *&v72[4] = v42;
+              v73 = 2082;
+              v74 = v43;
+              _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, "Failed to parse incoming packet. Will drop peer.(peerID=%llu, address=%{public}s)", v72, 0x16u);
             }
 
-            (*(*location[1] + 40))(location[1], v50);
+            (*(*location[1] + 40))(location[1], v49);
             if (*buf && (buf[8] & 1) != 0)
             {
               (*(**buf + 40))();
             }
           }
 
-          re::DynamicArray<re::internal::SyncSnapshotEntry>::deinit(v58);
-          re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,unsigned long long,true>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::deinit(&v63);
-          if (!v53)
+          re::DynamicArray<re::internal::SyncSnapshotEntry>::deinit(v57);
+          re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,unsigned long long,true>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::deinit(&v62);
+          if (!v52)
           {
-            goto LABEL_69;
+            return 0;
           }
         }
 
-        (*(*location[1] + 40))(location[1], v50);
+        (*(*location[1] + 40))(location[1], v49);
         v7 = (*(*location[1] + 56))(location[1]);
         result = 1;
       }
@@ -6733,7 +7519,7 @@ LABEL_48:
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
@@ -6751,21 +7537,19 @@ LABEL_48:
     }
 
     v47 = v46 + 8;
-    (*(*v46 + 32))(v61);
-    v48 = *(*v61 + 3272);
+    (*(*v46 + 32))(v60);
+    v48 = *(*v60 + 3272);
 
-    *v61 = 0;
+    *v60 = 0;
     result = os_log_type_enabled(v48, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      *v61 = 0;
-      _os_log_error_impl(&dword_26168F000, v48, OS_LOG_TYPE_ERROR, "Transport is destroyed but trying to receive.", v61, 2u);
-LABEL_69:
-      result = 0;
+      *v60 = 0;
+      _os_log_error_impl(&dword_26168F000, v48, OS_LOG_TYPE_ERROR, "Transport is destroyed but trying to receive.", v60, 2u);
+      return 0;
     }
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6809,12 +7593,12 @@ double re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAs
   return result;
 }
 
-double re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,unsigned long long,true>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::deinit(uint64_t a1)
+double re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,unsigned long long,true>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::deinit(uint64_t *a1)
 {
   v2 = *a1;
   if (v2)
   {
-    if (*(a1 + 32))
+    if (*(a1 + 8))
     {
       v3 = 0;
       do
@@ -6822,14 +7606,14 @@ double re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,u
         re::HashTable<re::SharedPtr<re::SyncObject>,re::Pair<unsigned long long,unsigned long long,true>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::free(a1, v3++);
       }
 
-      while (v3 < *(a1 + 32));
+      while (v3 < *(a1 + 8));
       v2 = *a1;
     }
 
-    (*(*v2 + 40))(v2, *(a1 + 8));
-    *(a1 + 32) = 0;
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
     *a1 = 0u;
-    *(a1 + 16) = 0u;
+    *(a1 + 1) = 0u;
     *&result = 0x7FFFFFFFLL;
     *(a1 + 36) = 0x7FFFFFFFLL;
   }
@@ -7023,7 +7807,7 @@ uint64_t re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotE
       v7 = *(a2 + 16);
       if ((*(v7 + v5) & 0x80000000) != 0)
       {
-        result = re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotEvents,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::allocEntry(v4, *(v7 + v5 + 24) % *(v4 + 24));
+        result = re::HashTable<re::SharedPtr<re::SyncObject>,re::internal::SyncSnapshotEvents,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::allocEntry(v4, *(v7 + v5 + 24) % *(v4 + 24), *(v7 + v5 + 24));
         v8 = *(a2 + 16) + v5;
         *(result + 8) = *(v8 + 8);
         *(v8 + 8) = 0;
@@ -7090,7 +7874,7 @@ uint64_t re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::Value
     v10 = v9;
     if (v9 == *(a1 + 24))
     {
-      re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
+      re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(a1, (2 * *(a1 + 28)));
       a2 = a3 % *(a1 + 24);
       v10 = *(a1 + 32);
     }
@@ -7116,26 +7900,27 @@ uint64_t re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::Value
   return v9;
 }
 
-void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
+void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(uint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
+    if (v2 && *(a1 + 6) != v2 && *(a1 + 7) <= v2)
     {
       memset(v13, 0, 36);
       *&v13[36] = 0x7FFFFFFFLL;
-      re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(v13, v4, a2);
+      re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(v13, v4, v2);
       v5 = *v13;
       *v13 = *a1;
       *a1 = v5;
       v6 = *&v13[16];
-      *&v13[16] = *(a1 + 16);
-      *(a1 + 16) = v6;
+      *&v13[16] = a1[2];
+      a1[2] = v6;
       v8 = *&v13[24];
-      *&v13[24] = *(a1 + 24);
+      *&v13[24] = *(a1 + 3);
       v7 = *&v13[32];
-      *(a1 + 24) = v8;
+      *(a1 + 3) = v8;
       v9 = v7;
       if (v7)
       {
@@ -7145,7 +7930,7 @@ void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKe
         {
           if ((*(*&v13[16] + v10 + 8) & 0x80000000) != 0)
           {
-            re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addAsMove(a1, *(*&v13[16] + v10) % *(a1 + 24), *(*&v13[16] + v10), *&v13[16] + v10 + 16, (*&v13[16] + v10 + 16));
+            re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKey<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addAsMove(a1, *(*&v13[16] + v10) % *(a1 + 6), *(*&v13[16] + v10), *&v13[16] + v10 + 16, (*&v13[16] + v10 + 16));
             v9 = *&v13[32];
           }
 
@@ -7162,9 +7947,9 @@ void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKe
 
   else
   {
-    if (a2)
+    if (v2)
     {
-      v12 = a2;
+      v12 = v2;
     }
 
     else
@@ -7183,7 +7968,7 @@ void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKe
     v6 = v4 >> 1;
     v7 = &v5[v4 >> 1];
     v9 = *v7;
-    v8 = v7 + 1;
+    v8 = (v7 + 1);
     v4 += ~(v4 >> 1);
     if (v9 < a3)
     {
@@ -7218,7 +8003,7 @@ void re::HashSetBase<re::DynamicString,re::DynamicString,re::internal::ValueAsKe
   else
   {
     re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 601);
-    _os_crash();
+    _os_crash("assertion failure: (temp) Out of memory.");
     __break(1u);
   }
 }
@@ -7347,7 +8132,7 @@ uint64_t re::UnreliableAckedUnicastStream::UnreliableAckedUnicastStream(uint64_t
   return a1;
 }
 
-char *re::UnreliableAckedUnicastStream::createPacket(re::UnreliableAckedUnicastStream *this, int a2)
+re::Packet *re::UnreliableAckedUnicastStream::createPacket(re::UnreliableAckedUnicastStream *this, int a2)
 {
   v2 = *(this + 4);
   if (v2)
@@ -7383,7 +8168,7 @@ uint64_t re::Packet::offsetBy(uint64_t this, uint64_t a2)
   if ((a2 & 0x80000000) == 0 || (v7 = *(this + 16), v7 - *(this + 8) < -a2))
   {
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "capacity() >= offset || (offset < 0 && -offset <= (static_cast<uint8_t*>(m_data) - static_cast<uint8_t*>(m_buffer)))", "offsetBy", 117, v2, v3);
-    this = _os_crash();
+    this = _os_crash("assertion failure: (capacity() >= offset || (offset < 0 && -offset <= (static_cast<uint8_t*>(m_data) - static_cast<uint8_t*>(m_buffer)))) ");
     __break(1u);
 LABEL_5:
     v7 = *(this + 16);
@@ -7455,7 +8240,7 @@ uint64_t re::UnreliableAckedUnicastStream::writeHeader(re::UnreliableAckedUnicas
   if (v2 <= 0x23)
   {
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "packet.capacity() >= kHeaderSize", "writeHeader", 142);
-    _os_crash();
+    _os_crash("assertion failure: (packet.capacity() >= kHeaderSize) ");
     __break(1u);
     goto LABEL_5;
   }
@@ -7473,7 +8258,7 @@ uint64_t re::UnreliableAckedUnicastStream::writeHeader(re::UnreliableAckedUnicas
   {
 LABEL_5:
     re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "!writer.isOverflow()", "writeHeader", 148);
-    result = _os_crash();
+    result = _os_crash("assertion failure: (!writer.isOverflow()) ");
     __break(1u);
   }
 
@@ -7482,24 +8267,24 @@ LABEL_5:
 
 uint64_t re::UnreliableAckedUnicastStream::receive(int8x16_t *this)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v2 = re::PacketQueue::dequeue(&this[4]);
   if (!v2)
   {
-    goto LABEL_122;
+    return v2;
   }
 
-  v67 = &this[7].i8[8];
+  v66 = &this[7].i8[8];
   v3 = this + 10;
   while (2)
   {
-    *&v74[16] = 0u;
-    v75 = 0u;
+    *&v73[16] = 0u;
+    v74 = 0u;
     v4 = *(v2 + 16);
     v5 = *(v2 + 24);
     if ((v5 & 0x1FFFFFFE) != 0)
     {
-      *v74 = *v4;
+      *v73 = *v4;
       if ((v5 & 0x1FFFFFFE) != 2)
       {
         v7 = 0;
@@ -7514,7 +8299,7 @@ uint64_t re::UnreliableAckedUnicastStream::receive(int8x16_t *this)
     else
     {
       v6 = 0;
-      *v74 = 0;
+      *v73 = 0;
     }
 
     v7 = 1;
@@ -7523,14 +8308,14 @@ LABEL_9:
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    *&v74[8] = v6;
+    *&v73[8] = v6;
     do
     {
       while ((v7 & 1) != 0)
       {
         v12 = 0;
 LABEL_22:
-        *&v74[8 * v11++ + 16] = v12;
+        *&v73[8 * v11++ + 16] = v12;
         v7 = 1;
         if (v11 == 4)
         {
@@ -7538,8 +8323,8 @@ LABEL_22:
           v33 = *re::networkLogObjects(v32);
           if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            *v74 = 0;
-            _os_log_error_impl(&dword_26168F000, v33, OS_LOG_TYPE_ERROR, "Corrupt packet received. Will drop.", v74, 2u);
+            *v73 = 0;
+            _os_log_error_impl(&dword_26168F000, v33, OS_LOG_TYPE_ERROR, "Corrupt packet received. Will drop.", v73, 2u);
           }
 
           goto LABEL_49;
@@ -7604,25 +8389,25 @@ LABEL_22:
 
       v7 = 0;
       v9 = v18 - 32;
-      *&v74[8 * v11++ + 16] = v10 | (v17 << 32);
+      *&v73[8 * v11++ + 16] = v10 | (v17 << 32);
       v10 = HIDWORD(v17);
     }
 
     while (v11 != 4);
     v21 = re::Packet::offsetBy(v2, 36);
-    v70 = v75;
-    v69 = *&v74[16];
-    v68 = *v74;
-    v22 = *v74;
+    v69 = v74;
+    v68 = *&v73[16];
+    v67 = *v73;
+    v22 = *v73;
     v23 = this[7].u16[0];
-    v24 = v23 - *v74;
-    if (v23 >= *v74 && v24 < 0x8000 || v23 < *v74 && *v74 - v23 >= 0x8000)
+    v24 = v23 - *v73;
+    if (v23 >= *v73 && v24 < 0x8000 || v23 < *v73 && *v73 - v23 >= 0x8000)
     {
       v25 = v24 >= 0x8000 ? v24 + 0x10000 : v24;
       if (v25 <= 0xFF)
       {
-        v21 = re::Bitset<256>::toWordIndex(v67, v25);
-        if ((*&v67[8 * v21] >> v25))
+        v21 = re::Bitset<256>::toWordIndex(v66, v25);
+        if ((*&v66[8 * v21] >> v25))
         {
           v26 = *re::networkLogObjects(v21);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -7638,24 +8423,24 @@ LABEL_22:
               v28 = 0;
             }
 
-            re::Transport::connectionAddress(v28, this[2].i64[1], v74);
-            v29 = &v74[9];
-            if (v74[8])
+            re::Transport::connectionAddress(v73, v28, this[2].i64[1]);
+            v29 = &v73[9];
+            if (v73[8])
             {
-              v29 = *&v74[16];
+              v29 = *&v73[16];
             }
 
             *buf = 134218242;
-            *&buf[4] = v68;
-            v72 = 2082;
-            v73[0] = v29;
+            *&buf[4] = v67;
+            v71 = 2082;
+            v72[0] = v29;
             _os_log_impl(&dword_26168F000, v26, OS_LOG_TYPE_DEFAULT, "Received duplicate packet with seqNo=%zu. Ignoring.(address=%{public}s)", buf, 0x16u);
-            v30 = *v74;
-            if (*v74)
+            v30 = *v73;
+            if (*v73)
             {
-              if (v74[8])
+              if (v73[8])
               {
-                v31 = *&v74[16];
+                v31 = *&v73[16];
                 goto LABEL_77;
               }
             }
@@ -7664,13 +8449,13 @@ LABEL_22:
           goto LABEL_121;
         }
 
-        v22 = v68;
+        v22 = v67;
         v23 = this[7].u16[0];
-        v24 = v23 - v68;
+        v24 = v23 - v67;
       }
     }
 
-    if (v23 >= v22 && v24 < 0x8000 || v23 < v22 && v22 - v23 >= 0x8000) && (v23 != v22 || (*v67))
+    if (v23 >= v22 && v24 < 0x8000 || v23 < v22 && v22 - v23 >= 0x8000) && (v23 != v22 || (*v66))
     {
       v42 = *re::networkLogObjects(v21);
       if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
@@ -7687,28 +8472,28 @@ LABEL_22:
           v45 = 0;
         }
 
-        re::Transport::connectionAddress(v45, this[2].i64[1], buf);
+        re::Transport::connectionAddress(buf, v45, this[2].i64[1]);
         v46 = &buf[9];
         if (buf[8])
         {
-          v46 = *(v73 + 2);
+          v46 = *(v72 + 2);
         }
 
-        *v74 = 134218754;
-        *&v74[4] = v68;
-        *&v74[12] = 2048;
-        *&v74[14] = v43 - 256;
-        *&v74[22] = 2048;
-        *&v74[24] = v43;
-        v75.i16[0] = 2082;
-        *(v75.i64 + 2) = v46;
-        _os_log_impl(&dword_26168F000, v42, OS_LOG_TYPE_INFO, "Received out of order packet with seqNo=%zu. Ignoring.Current window=[%zu, %zu].(address=%{public}s)", v74, 0x2Au);
+        *v73 = 134218754;
+        *&v73[4] = v67;
+        *&v73[12] = 2048;
+        *&v73[14] = v43 - 256;
+        *&v73[22] = 2048;
+        *&v73[24] = v43;
+        v74.i16[0] = 2082;
+        *(v74.i64 + 2) = v46;
+        _os_log_impl(&dword_26168F000, v42, OS_LOG_TYPE_INFO, "Received out of order packet with seqNo=%zu. Ignoring.Current window=[%zu, %zu].(address=%{public}s)", v73, 0x2Au);
         v30 = *buf;
         if (*buf)
         {
           if (buf[8])
           {
-            v31 = *(v73 + 2);
+            v31 = *(v72 + 2);
 LABEL_77:
             (*(*v30 + 40))(v30, v31);
           }
@@ -7721,7 +8506,7 @@ LABEL_49:
       v2 = re::PacketQueue::dequeue(&this[4]);
       if (!v2)
       {
-        goto LABEL_122;
+        return v2;
       }
 
       continue;
@@ -7731,11 +8516,11 @@ LABEL_49:
   }
 
   v35 = this[9].u16[4];
-  v36 = WORD4(v68);
-  if (v69.i8[0])
+  v36 = WORD4(v67);
+  if (v68.i8[0])
   {
-    v37 = v35 - WORD4(v68);
-    if (v35 >= WORD4(v68) && v37 < 0x8000 || (v38 = WORD4(v68) - v35, v35 < WORD4(v68)) && v38 >= 0x8000)
+    v37 = v35 - WORD4(v67);
+    if (v35 >= WORD4(v67) && v37 < 0x8000 || (v38 = WORD4(v67) - v35, v35 < WORD4(v67)) && v38 >= 0x8000)
     {
       if (v37 >= 0x8000)
       {
@@ -7754,12 +8539,12 @@ LABEL_49:
         goto LABEL_87;
       }
 
-      v38 = WORD4(v68) - v35;
+      v38 = WORD4(v67) - v35;
     }
 
-    if (v35 <= WORD4(v68) && v38 < 0x8000 || v35 > WORD4(v68) && v37 >= 0x8000)
+    if (v35 <= WORD4(v67) && v38 < 0x8000 || v35 > WORD4(v67) && v37 >= 0x8000)
     {
-      v47 = WORD4(v68) + (v35 ^ 0xFFFF);
+      v47 = WORD4(v67) + (v35 ^ 0xFFFF);
       if (v38 >= 0x8000)
       {
         v48 = (v47 + 1);
@@ -7770,17 +8555,17 @@ LABEL_49:
         v48 = v38;
       }
 
-      this[9].i16[4] = WORD4(v68);
-      re::Bitset<256>::operator<<(v74, this[10].i64, v48);
-      v49 = *&v74[16];
-      *v3 = *v74;
+      this[9].i16[4] = WORD4(v67);
+      re::Bitset<256>::operator<<(v73, &this[10], v48);
+      v49 = *&v73[16];
+      *v3 = *v73;
       this[11] = v49;
       v41 = this + 10;
       v40 = 1;
 LABEL_87:
       v41->i64[0] |= v40;
       v35 = this[9].u16[4];
-      v36 = WORD4(v68);
+      v36 = WORD4(v67);
     }
   }
 
@@ -7789,16 +8574,16 @@ LABEL_87:
     v51 = 0;
     while (1)
     {
-      v52 = WORD4(v68) - v51;
-      v53 = (WORD4(v68) - v51);
-      v54 = WORD4(v68) - v53;
-      if ((WORD4(v68) < v51 || v54 >= 0x8000) && (WORD4(v68) >= v51 || v53 - WORD4(v68) < 0x8000))
+      v52 = WORD4(v67) - v51;
+      v53 = (WORD4(v67) - v51);
+      v54 = WORD4(v67) - v53;
+      if ((WORD4(v67) < v51 || v54 >= 0x8000) && (WORD4(v67) >= v51 || v53 - WORD4(v67) < 0x8000))
       {
         goto LABEL_119;
       }
 
       v55 = v54 >= 0x8000 ? v54 + 0x10000 : v54;
-      if (v55 > 0xFF || ((v69.i64[re::Bitset<256>::toWordIndex(&v69, v55)] >> v55) & 1) == 0)
+      if (v55 > 0xFF || ((v68.i64[re::Bitset<256>::toWordIndex(&v68, v55)] >> v55) & 1) == 0)
       {
         goto LABEL_119;
       }
@@ -7844,9 +8629,9 @@ LABEL_87:
       }
 
       this[9].i16[4] = v52;
-      re::Bitset<256>::operator<<(v74, this[10].i64, v63);
-      v64 = *&v74[16];
-      *v3 = *v74;
+      re::Bitset<256>::operator<<(v73, &this[10], v63);
+      v64 = *&v73[16];
+      *v3 = *v73;
       this[11] = v64;
       v61 = this + 10;
       v60 = 1;
@@ -7860,8 +8645,8 @@ LABEL_119:
     }
   }
 
-  v50 = vorrq_s8(this[11], v70);
-  this[10] = vorrq_s8(this[10], v69);
+  v50 = vorrq_s8(this[11], v69);
+  this[10] = vorrq_s8(this[10], v68);
   this[11] = v50;
 LABEL_120:
   if (!*(v2 + 24))
@@ -7869,8 +8654,6 @@ LABEL_120:
     goto LABEL_121;
   }
 
-LABEL_122:
-  v65 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -7911,7 +8694,7 @@ LABEL_19:
     v10 = a2 + (v3 ^ 0xFFFF);
     if (v5 >= 0x8000)
     {
-      v11 = v10 + 1;
+      v11 = (v10 + 1);
     }
 
     else
@@ -7921,7 +8704,7 @@ LABEL_19:
 
     *(this + 112) = a2;
     v9 = (this + 120);
-    this = re::Bitset<256>::operator<<(v13, this + 120, v11);
+    this = re::Bitset<256>::operator<<(v13, (this + 120), v11);
     v12 = v13[1];
     *(v2 + 120) = v13[0];
     *(v2 + 136) = v12;
@@ -7932,7 +8715,7 @@ LABEL_19:
   return this;
 }
 
-char *re::UnreliableAckedUnicastStream::update(re::UnreliableAckedUnicastStream *this)
+re::Packet *re::UnreliableAckedUnicastStream::update(re::UnreliableAckedUnicastStream *this)
 {
   v2 = *(this + 4);
   if (v2)
@@ -7946,7 +8729,7 @@ char *re::UnreliableAckedUnicastStream::update(re::UnreliableAckedUnicastStream 
   }
 
   result = (*(**(v3 + 568) + 32))(*(v3 + 568));
-  if (&result[-*(this + 25)] >= 0xA)
+  if (result - *(this + 25) >= 0xA)
   {
     v5 = result;
     v6 = *(this + 4);
@@ -8007,7 +8790,7 @@ void non-virtual thunk tore::UnreliableAckedUnicastStream::~UnreliableAckedUnica
   JUMPOUT(0x266708EC0);
 }
 
-uint64_t re::Bitset<256>::toWordIndex(uint64_t a1, unint64_t a2)
+unint64_t re::Bitset<256>::toWordIndex(uint64_t a1, unint64_t a2)
 {
   if (a2 < 0x100)
   {
@@ -8015,12 +8798,12 @@ uint64_t re::Bitset<256>::toWordIndex(uint64_t a1, unint64_t a2)
   }
 
   re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %d.", "b < kBitCount", "toWordIndex", 345, a2, 256, v2, v3);
-  result = _os_crash();
+  result = _os_crash("assertion failure: (b < kBitCount) Index out of range. index = %zu, size = %d.", v5, v6);
   __break(1u);
   return result;
 }
 
-_OWORD *re::Bitset<256>::operator<<(_OWORD *result, uint64_t a2, unint64_t a3)
+_OWORD *re::Bitset<256>::operator<<(_OWORD *result, unint64_t *a2, unint64_t a3)
 {
   *result = 0u;
   result[1] = 0u;
@@ -8224,7 +9007,7 @@ uint64_t re::SyncObjectManager::SyncObjectManager(uint64_t a1, __int128 *a2)
 
 void re::SyncObjectManager::~SyncObjectManager(re::SyncObjectManager *this)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   *this = &unk_2873F41F8;
   if (*(this + 456) != 1)
   {
@@ -8235,11 +9018,11 @@ void re::SyncObjectManager::~SyncObjectManager(re::SyncObjectManager *this)
   v2 = *(this + 53);
   if (v2)
   {
-    v40 = this;
-    *&v41 = re::SyncObjectManager::onViewAdded;
-    *(&v41 + 1) = 0;
-    *&v42 = re::Event<re::SyncViewManager,re::SyncView *>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::SyncViewManager*,re::SyncView *))::{lambda(re::SyncViewManager*,re::Event<re::SyncViewManager,re::SyncView *>::Subscription const&,re::SyncView *&&)#1}::__invoke;
-    re::Event<re::SyncViewManager,re::SyncView *>::removeSubscription(v2 + 24, &v40);
+    v39 = this;
+    *&v40 = re::SyncObjectManager::onViewAdded;
+    *(&v40 + 1) = 0;
+    *&v41 = re::Event<re::SyncViewManager,re::SyncView *>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::SyncViewManager*,re::SyncView *))::{lambda(re::SyncViewManager*,re::Event<re::SyncViewManager,re::SyncView *>::Subscription const&,re::SyncView *&&)#1}::__invoke;
+    re::Event<re::SyncViewManager,re::SyncView *>::removeSubscription(v2 + 24, &v39);
   }
 
   v3 = *(this + 51);
@@ -8259,17 +9042,17 @@ void re::SyncObjectManager::~SyncObjectManager(re::SyncObjectManager *this)
       if (*v6)
       {
         v9 = (v8 + 8);
-        v39 = v8;
+        v38 = v8;
         v10 = (v8 + 8);
-        re::SyncObjectManager::removePeerStateForParticipant(this, &v39);
+        re::SyncObjectManager::removePeerStateForParticipant(this, &v38);
 
-        v39 = 0;
+        v38 = 0;
       }
 
       else
       {
-        v39 = 0;
-        re::SyncObjectManager::removePeerStateForParticipant(this, &v39);
+        v38 = 0;
+        re::SyncObjectManager::removePeerStateForParticipant(this, &v38);
       }
 
       ++v6;
@@ -8295,11 +9078,11 @@ void re::SyncObjectManager::~SyncObjectManager(re::SyncObjectManager *this)
           goto LABEL_18;
         }
 
-        LOBYTE(v40) = 0;
+        LOBYTE(v39) = 0;
         v15 = *v14;
-        v42 = *(v14 + 1);
-        v41 = v15;
-        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v12 + 264), &v40);
+        v41 = *(v14 + 1);
+        v40 = v15;
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v12 + 264), &v39);
       }
 
       ++v13;
@@ -8312,8 +9095,8 @@ LABEL_18:
     }
   }
 
-  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>(v11 + 2056, this);
-  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>(*(this + 51) + 1968, this);
+  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>((v11 + 2056), this);
+  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>((*(this + 51) + 1968), this);
   v16 = *(this + 51);
   if (!*(v16 + 400))
   {
@@ -8331,11 +9114,11 @@ LABEL_18:
 
     if (*(v16 + 464))
     {
-      LOBYTE(v40) = 0;
+      LOBYTE(v39) = 0;
       v19 = *v18;
-      v42 = *(v18 + 16);
-      v41 = v19;
-      re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 424), &v40);
+      v41 = *(v18 + 16);
+      v40 = v19;
+      re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 424), &v39);
 LABEL_26:
       ++v17;
       continue;
@@ -8360,11 +9143,11 @@ LABEL_30:
     {
       if (*(v16 + 376))
       {
-        LOBYTE(v40) = 0;
+        LOBYTE(v39) = 0;
         v22 = *v21;
-        v42 = *(v21 + 1);
-        v41 = v22;
-        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 336), &v40);
+        v41 = *(v21 + 1);
+        v40 = v22;
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 336), &v39);
         goto LABEL_35;
       }
 
@@ -8400,11 +9183,11 @@ LABEL_39:
     {
       if (*(v16 + 288))
       {
-        LOBYTE(v40) = 0;
+        LOBYTE(v39) = 0;
         v25 = *v24;
-        v42 = *(v24 + 1);
-        v41 = v25;
-        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 248), &v40);
+        v41 = *(v24 + 1);
+        v40 = v25;
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((v16 + 248), &v39);
         goto LABEL_44;
       }
 
@@ -8427,8 +9210,8 @@ LABEL_44:
 
   v16 = *(this + 51);
 LABEL_48:
-  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>(v16 + 120, this);
-  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>(*(this + 51) + 32, this);
+  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>((v16 + 120), this);
+  re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>((*(this + 51) + 32), this);
 LABEL_49:
   v26 = *(this + 76);
   if (v26)
@@ -8509,7 +9292,6 @@ LABEL_49:
   }
 
   re::SyncSession::~SyncSession(this);
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -8532,7 +9314,7 @@ void re::SyncSession::~SyncSession(re::SyncSession *this)
 
 uint64_t (***re::SyncObjectManager::startSync(re::SyncObjectManager *this))(void)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = (*(**(this + 51) + 40))(*(this + 51));
   if (v3)
   {
@@ -8549,11 +9331,11 @@ uint64_t (***re::SyncObjectManager::startSync(re::SyncObjectManager *this))(void
       v8 = *(v6 + 152);
       if (v8 && ((*(*v8 + 48))(v8) & 1) == 0)
       {
-        v21 = v6;
+        v20 = v6;
         v9 = (v6 + 8);
-        re::SyncObjectManager::addPeerStateForParticipant(this, &v21);
+        re::SyncObjectManager::addPeerStateForParticipant(this, &v20);
 
-        v21 = 0;
+        v20 = 0;
       }
 
       ++v4;
@@ -8564,86 +9346,82 @@ uint64_t (***re::SyncObjectManager::startSync(re::SyncObjectManager *this))(void
   }
 
   v10 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onSessionWillDeinit;
-  v24 = 0;
-  v25 = re::Event<re::Session>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*))::{lambda(re::Session*,re::Event<re::Session>::Subscription const&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v10 + 32), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onSessionWillDeinit;
+  v22 = 0;
+  v23 = re::Event<re::Session>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*))::{lambda(re::Session*,re::Event<re::Session>::Subscription const&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v10 + 32), &v21);
   v11 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onSessionStarted;
-  v24 = 0;
-  v25 = re::Event<re::Session>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*))::{lambda(re::Session*,re::Event<re::Session>::Subscription const&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v11 + 120), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onSessionStarted;
+  v22 = 0;
+  v23 = re::Event<re::Session>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*))::{lambda(re::Session*,re::Event<re::Session>::Subscription const&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v11 + 120), &v21);
   v12 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onSessionStopped;
-  v24 = 0;
-  v25 = re::Event<re::Session,re::SessionError>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SessionError))::{lambda(re::Session*,re::Event<re::Session,re::SessionError>::Subscription const&,re::SessionError&&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v12 + 208), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onSessionStopped;
+  v22 = 0;
+  v23 = re::Event<re::Session,re::SessionError>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SessionError))::{lambda(re::Session*,re::Event<re::Session,re::SessionError>::Subscription const&,re::SessionError&&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v12 + 208), &v21);
   v13 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onPeerJoined;
-  v24 = 0;
-  v25 = re::Event<re::Session,re::SharedPtr<re::SessionParticipant>>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SharedPtr<re::SessionParticipant>))::{lambda(re::Session*,re::Event<re::Session,re::SharedPtr<re::SessionParticipant>>::Subscription const&,re::SharedPtr<re::SessionParticipant>&&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v13 + 296), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onPeerJoined;
+  v22 = 0;
+  v23 = re::Event<re::Session,re::SharedPtr<re::SessionParticipant>>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SharedPtr<re::SessionParticipant>))::{lambda(re::Session*,re::Event<re::Session,re::SharedPtr<re::SessionParticipant>>::Subscription const&,re::SharedPtr<re::SessionParticipant>&&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v13 + 296), &v21);
   v14 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onPeerLeft;
-  v24 = 0;
-  v25 = re::Event<re::Session,re::SharedPtr<re::SessionParticipant>,re::ParticipantError>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SharedPtr<re::SessionParticipant>,re::ParticipantError))::{lambda(re::Session*,re::Event<re::Session,re::SharedPtr<re::SessionParticipant>,re::ParticipantError>::Subscription const&,re::SharedPtr<re::SessionParticipant>&&,re::ParticipantError&&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v14 + 384), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onPeerLeft;
+  v22 = 0;
+  v23 = re::Event<re::Session,re::SharedPtr<re::SessionParticipant>,re::ParticipantError>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,re::SharedPtr<re::SessionParticipant>,re::ParticipantError))::{lambda(re::Session*,re::Event<re::Session,re::SharedPtr<re::SessionParticipant>,re::ParticipantError>::Subscription const&,re::SharedPtr<re::SessionParticipant>&&,re::ParticipantError&&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v14 + 384), &v21);
   v15 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onPeerPaused;
-  v24 = 0;
-  v25 = re::Event<re::Session,unsigned long long>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,unsigned long long))::{lambda(re::Session*,re::Event<re::Session,unsigned long long>::Subscription const&,unsigned long long &&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v15 + 1968), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onPeerPaused;
+  v22 = 0;
+  v23 = re::Event<re::Session,unsigned long long>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,unsigned long long))::{lambda(re::Session*,re::Event<re::Session,unsigned long long>::Subscription const&,unsigned long long &&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v15 + 1968), &v21);
   v16 = *(this + 51);
-  v22 = this;
-  v23 = re::SyncObjectManager::onPeerResumed;
-  v24 = 0;
-  v25 = re::Event<re::Session,unsigned long long>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,unsigned long long))::{lambda(re::Session*,re::Event<re::Session,unsigned long long>::Subscription const&,unsigned long long &&)#1}::__invoke;
-  re::Event<re::Session>::addSubscription((v16 + 2056), &v22);
+  *&v21 = this;
+  *(&v21 + 1) = re::SyncObjectManager::onPeerResumed;
+  v22 = 0;
+  v23 = re::Event<re::Session,unsigned long long>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::Session*,unsigned long long))::{lambda(re::Session*,re::Event<re::Session,unsigned long long>::Subscription const&,unsigned long long &&)#1}::__invoke;
+  re::Event<re::Session>::addSubscription((v16 + 2056), &v21);
   v17 = *(*(this + 51) + 7520);
   if (v17)
   {
-    v22 = this;
-    v23 = re::SyncObjectManager::handleCongestionEvent;
-    v24 = 0;
-    v25 = re::Event<re::PacketStatsFilter,re::CongestionEventData const&>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::PacketStatsFilter*,re::CongestionEventData const&))::{lambda(re::PacketStatsFilter*,re::Event<re::PacketStatsFilter,re::CongestionEventData const&>::Subscription const&,re::CongestionEventData const&)#1}::__invoke;
-    re::Event<re::Session>::addSubscription((v17 + 224), &v22);
+    *&v21 = this;
+    *(&v21 + 1) = re::SyncObjectManager::handleCongestionEvent;
+    v22 = 0;
+    v23 = re::Event<re::PacketStatsFilter,re::CongestionEventData const&>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::PacketStatsFilter*,re::CongestionEventData const&))::{lambda(re::PacketStatsFilter*,re::Event<re::PacketStatsFilter,re::CongestionEventData const&>::Subscription const&,re::CongestionEventData const&)#1}::__invoke;
+    re::Event<re::Session>::addSubscription((v17 + 224), &v21);
   }
 
   v18 = *(this + 53);
   if (v18)
   {
-    v22 = this;
-    v23 = re::SyncObjectManager::onViewAdded;
-    v24 = 0;
-    v25 = re::Event<re::SyncViewManager,re::SyncView *>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::SyncViewManager*,re::SyncView *))::{lambda(re::SyncViewManager*,re::Event<re::SyncViewManager,re::SyncView *>::Subscription const&,re::SyncView *&&)#1}::__invoke;
-    re::Event<re::Session>::addSubscription((v18 + 24), &v22);
+    *&v21 = this;
+    *(&v21 + 1) = re::SyncObjectManager::onViewAdded;
+    v22 = 0;
+    v23 = re::Event<re::SyncViewManager,re::SyncView *>::createSubscription<re::SyncObjectManager>(re::SyncObjectManager *,REEventHandlerResult (re::SyncObjectManager::*)(re::SyncViewManager*,re::SyncView *))::{lambda(re::SyncViewManager*,re::Event<re::SyncViewManager,re::SyncView *>::Subscription const&,re::SyncView *&&)#1}::__invoke;
+    re::Event<re::Session>::addSubscription((v18 + 24), &v21);
   }
 
   *(this + 456) = 1;
-  result = re::SyncObjectManager::reevaluateAllViewers(this);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return re::SyncObjectManager::reevaluateAllViewers(this);
 }
 
 uint64_t (***re::SyncObjectManager::reevaluateAllViewers(re::SyncObjectManager *this))(void)
 {
-  v6[5] = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
   v2 = *(this + 53);
   v3 = re::globalAllocators(this)[2];
-  v6[0] = &unk_2873F42A8;
-  v6[1] = this;
-  v6[3] = v3;
-  v6[4] = v6;
-  re::SyncViewManager::forEachView(v2, v6);
-  result = re::FunctionBase<24ul,void ()(re::SyncView *)>::destroyCallable(v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_2873F42A8;
+  v5[1] = this;
+  v5[3] = v3;
+  v5[4] = v5;
+  re::SyncViewManager::forEachView(v2, v5);
+  return re::FunctionBase<24ul,void ()(re::SyncView *)>::destroyCallable(v5);
 }
 
 uint64_t (***re::SyncObjectManager::setViewFilter(uint64_t a1, void *aBlock))(void)
@@ -8667,7 +9445,7 @@ uint64_t (***re::SyncObjectManager::setViewFilter(uint64_t a1, void *aBlock))(vo
 
 void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v4 = *re::networkLogObjects(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v5)
@@ -8678,7 +9456,7 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
     _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "Adding new peer state. PeerID=%llu.", buf, 0xCu);
   }
 
-  v63 = 0;
+  v62 = 0;
   v7 = *(a1 + 472);
   v8 = *(a1 + 480);
   if (v8 >= v7)
@@ -8724,9 +9502,9 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
   memset(buf, 0, sizeof(buf));
   *(v14 + 16) = 0u;
   *(v14 + 32) = 0;
-  *v61 = 0u;
-  v62 = 0;
-  *&v61[16] = 1;
+  *v60 = 0u;
+  v61 = 0;
+  *&v60[16] = 1;
   *(v14 + 40) = 1;
   *(v14 + 48) = 0u;
   ++*(a1 + 480);
@@ -8771,7 +9549,7 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
 
       v27 = *(a1 + 408);
       v28 = *(*v20 + 24);
-      v56 = *(*v20 + 32);
+      v55 = *(*v20 + 32);
       v29 = re::Session::peerID(v27);
       v30 = *(a1 + 416);
       v31 = (*(*v20 + 72) >> 1) & 1;
@@ -8799,8 +9577,8 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
         v34 = 0;
       }
 
-      objc_initWeak(&v58, v34);
-      re::SyncReliableOrderedUnicast::SyncReliableOrderedUnicast(v24, buf, &location, v56, v28, v29, &v58, *(a1 + 400), v31, *(a1 + 448));
+      objc_initWeak(&v57, v34);
+      re::SyncReliableOrderedUnicast::SyncReliableOrderedUnicast(v24, buf, &location, v55, v28, v29, &v57, *(a1 + 400), v31, *(a1 + 448));
     }
 
     else
@@ -8813,7 +9591,7 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
 
       v35 = *(a1 + 408);
       v36 = *(*v20 + 24);
-      v57 = *(*v20 + 32);
+      v56 = *(*v20 + 32);
       v37 = re::Session::peerID(v35);
       v38 = *(a1 + 416);
       v39 = (*(*v20 + 72) >> 1) & 1;
@@ -8841,12 +9619,12 @@ void re::SyncObjectManager::addPeerStateForParticipant(uint64_t a1, uint64_t *a2
         v42 = 0;
       }
 
-      objc_initWeak(&v58, v42);
-      re::SyncSelectiveAckedUnicast::SyncSelectiveAckedUnicast(v24, buf, &location, v57, v36, v37, &v58, *(a1 + 400), v39, *(a1 + 448), *(a1 + 444));
+      objc_initWeak(&v57, v42);
+      re::SyncSelectiveAckedUnicast::SyncSelectiveAckedUnicast(v24, buf, &location, v56, v36, v37, &v57, *(a1 + 400), v39, *(a1 + 448), *(a1 + 444));
     }
 
-    objc_destroyWeak(&v58);
-    v58 = 0;
+    objc_destroyWeak(&v57);
+    v57 = 0;
     objc_destroyWeak(&location);
     location = 0;
     objc_destroyWeak(buf);
@@ -8911,30 +9689,30 @@ LABEL_22:
         v52 = (v51 + 8);
       }
 
-      v53 = re::DynamicArray<re::SyncOwnershipRequest>::DynamicArray(v61, (v15 - 48));
-      v64 = *(v15 - 8);
-      v66 = re::globalAllocators(v53)[2];
-      v54 = (*(*v66 + 32))(v66, 80, 0);
+      v53 = re::DynamicArray<re::SyncOwnershipRequest>::DynamicArray(v60, (v15 - 48));
+      v63 = *(v15 - 8);
+      v65 = re::globalAllocators(v53)[2];
+      v54 = (*(*v65 + 32))(v65, 80, 0);
       *v54 = &unk_2873F4358;
       *(v54 + 8) = *buf;
       *(v54 + 24) = *&buf[16];
       *&buf[8] = 0u;
       *(v54 + 56) = 0;
-      *(v54 + 32) = *v61;
-      *v61 = 0;
-      *(v54 + 40) = *&v61[8];
+      *(v54 + 32) = *v60;
+      *v60 = 0;
+      *(v54 + 40) = *&v60[8];
       *(v54 + 48) = 0;
-      *(v54 + 48) = *&v61[16];
-      *&v61[8] = 0u;
-      *(v54 + 64) = v63;
-      v63 = 0;
-      LODWORD(v62) = v62 + 1;
+      *(v54 + 48) = *&v60[16];
+      *&v60[8] = 0u;
+      *(v54 + 64) = v62;
+      v62 = 0;
+      LODWORD(v61) = v61 + 1;
       *(v54 + 56) = 1;
-      *(v54 + 72) = v64;
-      v67 = v54;
-      re::SyncViewManager::forEachView(v48, v65);
-      re::FunctionBase<24ul,void ()(re::SyncView *)>::destroyCallable(v65);
-      re::DynamicArray<re::SyncOwnershipRequest>::deinit(v61);
+      *(v54 + 72) = v63;
+      v66 = v54;
+      re::SyncViewManager::forEachView(v48, v64);
+      re::FunctionBase<24ul,void ()(re::SyncView *)>::destroyCallable(v64);
+      re::DynamicArray<re::SyncOwnershipRequest>::deinit(v60);
       if (*&buf[16])
       {
 
@@ -8951,45 +9729,41 @@ LABEL_22:
   {
     *(v15 - 8) = v46;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::SyncObjectManager::onSessionStarted(re::SyncObjectManager *this, re::Session *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *re::networkLogObjects(this);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = a2;
-    _os_log_impl(&dword_26168F000, v3, OS_LOG_TYPE_DEFAULT, "SyncObjectManager: session started (%p).", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = a2;
+    _os_log_impl(&dword_26168F000, v3, OS_LOG_TYPE_DEFAULT, "SyncObjectManager: session started (%p).", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t re::SyncObjectManager::onSessionStopped(re *a1, uint64_t a2, int a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = *re::networkLogObjects(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218240;
-    v9 = a2;
-    v10 = 1024;
-    v11 = a3;
-    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "SyncObjectManager: session stopped (%p) with error: %d.", &v8, 0x12u);
+    v7 = 134218240;
+    v8 = a2;
+    v9 = 1024;
+    v10 = a3;
+    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "SyncObjectManager: session stopped (%p) with error: %d.", &v7, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t re::SyncObjectManager::onPeerJoined(re *a1, uint64_t a2, uint64_t *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = *re::networkLogObjects(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -9017,886 +9791,26 @@ uint64_t re::SyncObjectManager::onPeerJoined(re *a1, uint64_t a2, uint64_t *a3)
     }
 
     *buf = 134218498;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v7;
-    v20 = 2080;
-    v21 = v10;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v7;
+    v19 = 2080;
+    v20 = v10;
     _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "New peer joined object syncing. PeerID=%llu. Address='%s'. Identity='%s'.", buf, 0x20u);
   }
 
   v11 = *a3;
-  v15 = v11;
+  v14 = v11;
   if (v11)
   {
     v12 = (v11 + 8);
-    re::SyncObjectManager::addPeerStateForParticipant(a1, &v15);
+    re::SyncObjectManager::addPeerStateForParticipant(a1, &v14);
   }
 
   else
   {
-    re::SyncObjectManager::addPeerStateForParticipant(a1, &v15);
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-uint64_t re::SyncObjectManager::onPeerLeft(re *a1, uint64_t a2, uint64_t *a3)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v5 = *re::networkLogObjects(a1);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = *a3;
-    if (*(*a3 + 48))
-    {
-      v7 = v6[7];
-    }
-
-    else
-    {
-      v7 = v6 + 49;
-    }
-
-    v8 = v6[3];
-    v9 = v6[19];
-    if (v9)
-    {
-      v10 = (*(*v9 + 32))(v9);
-    }
-
-    else
-    {
-      v10 = "nullptr";
-    }
-
-    *buf = 134218498;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v7;
-    v20 = 2080;
-    v21 = v10;
-    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "Peer left syncing. PeerID=%llu. Address='%s'. Identity='%s'.", buf, 0x20u);
-  }
-
-  v11 = *a3;
-  v15 = v11;
-  if (v11)
-  {
-    v12 = (v11 + 8);
-    re::SyncObjectManager::removePeerStateForParticipant(a1, &v15);
-  }
-
-  else
-  {
-    re::SyncObjectManager::removePeerStateForParticipant(a1, &v15);
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-uint64_t re::SyncObjectManager::onPeerPaused(re::SyncObjectManager *this, re::Session *a2, uint64_t a3)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v5 = *re::networkLogObjects(this);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 134217984;
-    v9 = a3;
-    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "Pausing peerID %llu.", &v8, 0xCu);
-  }
-
-  (*(*this + 120))(this, a3);
-  v6 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-uint64_t re::SyncObjectManager::onPeerResumed(re::SyncObjectManager *this, re::Session *a2, uint64_t a3)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v5 = *re::networkLogObjects(this);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 134217984;
-    v9 = a3;
-    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "Resuming peerID %llu", &v8, 0xCu);
-  }
-
-  (*(*this + 128))(this, a3);
-  v6 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-uint64_t re::SyncObjectManager::handleCongestionEvent(re *a1, uint64_t a2, void *a3)
-{
-  v4 = *re::networkLogObjects(a1);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    *v9 = 0;
-    _os_log_debug_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEBUG, "Emiting congestion event.", v9, 2u);
-  }
-
-  if (re::internal::enableSignposts(0, 0))
-  {
-    v6 = a3[2];
-    v5 = a3[3];
-    v7 = a3[1];
-    kdebug_trace();
+    re::SyncObjectManager::addPeerStateForParticipant(a1, &v14);
   }
 
   return 0;
-}
-
-void re::SyncObjectManager::removePeerStateForParticipant(uint64_t a1, uint64_t a2)
-{
-  v89 = *MEMORY[0x277D85DE8];
-  v4 = *re::networkLogObjects(a1);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *(*a2 + 24);
-    *buf = 134217984;
-    *&buf[4] = v5;
-    _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "Removing peer state. PeerID=%llu.", buf, 0xCu);
-  }
-
-  v6 = *(a1 + 480);
-  if (v6)
-  {
-    v7 = 0;
-    v8 = *(*a2 + 24);
-    v9 = v6 << 6;
-    while (*(*(*(a1 + 496) + v7) + 24) != v8)
-    {
-      v7 += 64;
-      if (v9 == v7)
-      {
-        goto LABEL_98;
-      }
-    }
-
-    v82 = *(a1 + 496);
-    re::SyncObjectStore::types(*(a1 + 416), buf);
-    if (*&buf[16])
-    {
-      v11 = 0;
-      v12 = v86;
-      v83 = (v86 + 8 * *&buf[16]);
-      while (1)
-      {
-        v13 = *v12;
-        if (*(*(*v12 + 16) + 73) == 1)
-        {
-          v14 = *(v13 + 64);
-          if (v14)
-          {
-            break;
-          }
-        }
-
-LABEL_67:
-        if (++v12 == v83)
-        {
-          goto LABEL_70;
-        }
-      }
-
-      v15 = *(v13 + 80);
-      v16 = &v15[v14];
-      while (re::SyncObject::fromPeerID(*v15) != v8)
-      {
-        v17 = *v15;
-        v18 = *(*v15 + 10);
-        if (v18)
-        {
-          v19 = *(*v15 + 10);
-          v20 = *v15;
-          do
-          {
-            v21 = v20;
-            v20 = v19;
-            if (*(*(*(v21 + 11) + 16) + 73))
-            {
-              break;
-            }
-
-            v19 = *(v19 + 10);
-            v21 = v20;
-          }
-
-          while (v19);
-          if (*(v21 + 20) == v8)
-          {
-            break;
-          }
-
-          do
-          {
-            v22 = v17;
-            v17 = v18;
-            if (*(*(*(v22 + 11) + 16) + 73))
-            {
-              break;
-            }
-
-            v18 = *(v18 + 10);
-            v22 = v17;
-          }
-
-          while (v18);
-        }
-
-        else
-        {
-          v22 = *v15;
-          if (*(v17 + 20) == v8)
-          {
-            break;
-          }
-        }
-
-        v23 = *(v22 + 17);
-        if (v23)
-        {
-          v24 = v23 == v8;
-        }
-
-        else
-        {
-          v24 = 0;
-        }
-
-        if (v24)
-        {
-          break;
-        }
-
-LABEL_66:
-        if (++v15 == v16)
-        {
-          goto LABEL_67;
-        }
-      }
-
-      v25 = re::Session::peerID(*(a1 + 408));
-      v26 = *v15;
-      v27 = *(*v15 + 10);
-      v28 = *v15;
-      if (!v27)
-      {
-        goto LABEL_33;
-      }
-
-      v29 = *v15;
-      do
-      {
-        v28 = v29;
-        v29 = v27;
-        if (*(*(*(v28 + 11) + 16) + 73))
-        {
-          break;
-        }
-
-        v27 = *(v27 + 10);
-        v28 = v29;
-      }
-
-      while (v27);
-      if (v26)
-      {
-LABEL_33:
-        v30 = *(v28 + 20);
-        v31 = *v15;
-        while ((*(*(*(v31 + 11) + 16) + 74) & 1) == 0)
-        {
-          v31 = *(v31 + 10);
-          if (!v31)
-          {
-            goto LABEL_46;
-          }
-        }
-
-        v32 = *(v31 + 12);
-        if (v32)
-        {
-          v33 = *(v32 + 104);
-          if (v33)
-          {
-            v34 = *(v32 + 120);
-            v35 = 8 * v33;
-            do
-            {
-              v36 = *v34++;
-              v37 = *(v36 + 56);
-              if (v25 - 1 >= v37 && v37 != v30)
-              {
-                v25 = v37;
-              }
-
-              v35 -= 8;
-            }
-
-            while (v35);
-          }
-        }
-      }
-
-LABEL_46:
-      v39 = re::SyncObject::latestStateHandle(v26);
-      if (v39 == -1)
-      {
-        v48 = *re::networkLogObjects(0xFFFFFFFFFFFFFFFFLL);
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-        {
-          v49 = *(*v15 + 3);
-          v50 = *(*(*v15 + 11) + 16);
-          v51 = v50[4];
-          v52 = v50[6];
-          v53 = v50[7];
-          v54 = v50 + 49;
-          if (v52)
-          {
-            v54 = v53;
-          }
-
-          *v84 = 134218498;
-          *&v84[4] = v49;
-          *&v84[12] = 2048;
-          *&v84[14] = v51;
-          *&v84[22] = 2080;
-          *&v84[24] = v54;
-          _os_log_error_impl(&dword_26168F000, v48, OS_LOG_TYPE_ERROR, "Sync object without snapshot while gathering orphans (id: %llu, type: %llu[%s]).", v84, 0x20u);
-        }
-
-        goto LABEL_64;
-      }
-
-      v40 = *(a1 + 400);
-      v41 = re::Session::peerID(*(a1 + 408));
-      v42 = *v15;
-      v43 = *(*v15 + 10);
-      v44 = *v15;
-      if (v43)
-      {
-        v45 = *v15;
-        do
-        {
-          v44 = v45;
-          v45 = v43;
-          if (*(*(*(v44 + 11) + 16) + 73))
-          {
-            break;
-          }
-
-          v43 = *(v43 + 10);
-          v44 = v45;
-        }
-
-        while (v43);
-      }
-
-      if (*(v44 + 171) == 1)
-      {
-        if (v41 == v25)
-        {
-          v46 = 0;
-        }
-
-        else
-        {
-          v46 = v25;
-        }
-
-        *(v42 + 17) = 0;
-        *(v42 + 20) = v46;
-        *(v42 + 170) = (v41 == v25) | v40 & 1;
-        *v84 = v42;
-        v47 = 4;
-      }
-
-      else
-      {
-        *(v42 + 128) |= 4u;
-        v42 = *v15;
-        *v84 = v42;
-        v47 = 2;
-        if (!v42)
-        {
-          goto LABEL_62;
-        }
-      }
-
-      v55 = v42 + 8;
-LABEL_62:
-      *&v84[8] = v39;
-      v84[16] = v47;
-      re::DynamicArray<re::internal::SyncSnapshotEntry>::add((a1 + 624), v84);
-      if (*v84)
-      {
-      }
-
-LABEL_64:
-      if (v39 != -1)
-      {
-        ++v11;
-      }
-
-      goto LABEL_66;
-    }
-
-    v11 = 0;
-LABEL_70:
-    v56 = *buf;
-    if (*buf)
-    {
-      v10 = v86;
-      if (v86)
-      {
-        v56 = (*(**buf + 40))();
-      }
-    }
-
-    v57 = *(a1 + 640);
-    if (v57)
-    {
-      v58 = *(a1 + 656);
-      v59 = 24 * v57;
-      do
-      {
-        if ((*(*v58 + 128) & 4) != 0)
-        {
-          re::SyncObjectManager::destroyObject(v58);
-        }
-
-        v58 += 24;
-        v59 -= 24;
-      }
-
-      while (v59);
-    }
-
-    if (v11)
-    {
-      v60 = *re::networkLogObjects(v56);
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-      {
-        v61 = re::Session::peerID(*(a1 + 408));
-        *buf = 134218240;
-        *&buf[4] = v11;
-        *&buf[12] = 2048;
-        *&buf[14] = v61;
-        _os_log_impl(&dword_26168F000, v60, OS_LOG_TYPE_DEFAULT, "Found %zu orphaned objects. localPeerID=%llu. ", buf, 0x16u);
-      }
-    }
-
-    v62 = *(v82 + v7 + 56);
-    v63 = *(a1 + 424);
-    if (v63)
-    {
-      v63 = re::SyncViewManager::removeViewer(v63, *(v82 + v7 + 56), 0);
-    }
-
-    if (v62)
-    {
-      v64 = re::globalAllocators(v63)[2];
-      (**v62)(v62);
-      (*(*v64 + 40))(v64, v62);
-    }
-
-    *(v82 + v7 + 56) = 0;
-    v65 = *(a1 + 496);
-    v66 = (v82 - v65 + v7) >> 6;
-    v67 = *(a1 + 480);
-    if (v67 <= v66)
-    {
-      v87 = 0u;
-      v88 = 0u;
-      v86 = 0u;
-      memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      *v84 = 136315906;
-      *&v84[4] = "removeAt";
-      *&v84[12] = 1024;
-      *&v84[14] = 931;
-      *&v84[18] = 2048;
-      *&v84[20] = v66;
-      *&v84[28] = 2048;
-      *&v84[30] = v67;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-      if (v67 - 1 <= v66)
-      {
-LABEL_93:
-        v78 = v65 + (v67 << 6);
-        re::DynamicArray<re::SyncOwnershipRequest>::deinit(v78 - 48);
-        v79 = *(v78 - 56);
-        if (v79)
-        {
-
-          *(v78 - 56) = 0;
-        }
-
-        v80 = *(v78 - 64);
-        if (v80)
-        {
-
-          *(v78 - 64) = 0;
-        }
-
-        --*(a1 + 480);
-        ++*(a1 + 488);
-        goto LABEL_98;
-      }
-
-      v68 = v65 + (v67 << 6);
-      v69 = (v82 + v7);
-      v70 = *(v82 + v7);
-      *v69 = *(v68 - 64);
-      *(v68 - 64) = v70;
-      v71 = *(v82 + v7 + 8);
-      v69[1] = *(v68 - 56);
-      *(v68 - 56) = v71;
-      if (v82 + v7 - v68 == -64)
-      {
-LABEL_92:
-        v69[7] = *(v68 - 8);
-        v65 = *(a1 + 496);
-        goto LABEL_93;
-      }
-
-      v72 = v69[2];
-      v73 = *(v68 - 48);
-      if (!v72 || !v73 || v72 == v73)
-      {
-        v69[2] = v73;
-        *(v68 - 48) = v72;
-        v74 = v82 + v7;
-        v75 = *(v82 + v7 + 24);
-        *(v74 + 24) = *(v68 - 40);
-        *(v68 - 40) = v75;
-        v76 = *(v82 + v7 + 32);
-        *(v74 + 32) = *(v68 - 32);
-        *(v68 - 32) = v76;
-        v77 = *(v82 + v7 + 48);
-        *(v74 + 48) = *(v68 - 16);
-        *(v68 - 16) = v77;
-        ++*(v68 - 24);
-        *(v74 + 40) = *(v82 + v7 + 40) + 1;
-        v67 = *(a1 + 480);
-        goto LABEL_92;
-      }
-    }
-
-    re::internal::assertLog(4, v10, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 503);
-    _os_crash();
-    __break(1u);
-  }
-
-LABEL_98:
-  v81 = *MEMORY[0x277D85DE8];
-}
-
-void re::Event<re::Session,unsigned long long>::unsubscribe<re::SyncObjectManager>(uint64_t a1, uint64_t a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 16))
-  {
-    v4 = 0;
-    do
-    {
-      v5 = (*(a1 + 32) + 32 * v4);
-      if (*v5 == a2)
-      {
-        if (!*(a1 + 80))
-        {
-          re::DynamicArray<re::Event<re::SyncViewManager,re::SyncView *>::Subscription>::removeStableAt(a1, v4);
-          continue;
-        }
-
-        v8[0] = 0;
-        v6 = *v5;
-        v10 = v5[1];
-        v9 = v6;
-        re::DynamicArray<re::Pair<BOOL,re::Event<re::Session>::Subscription,true>>::add((a1 + 40), v8);
-      }
-
-      ++v4;
-    }
-
-    while (v4 < *(a1 + 16));
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t re::SyncObjectManager::onViewAdded(re::SyncObjectManager *this, re::SyncViewManager *a2, re::SyncView *a3)
-{
-  v9[5] = *MEMORY[0x277D85DE8];
-  v6 = re::globalAllocators(this)[2];
-  v9[2] = a3;
-  v9[3] = v6;
-  v9[0] = &unk_2873F4300;
-  v9[1] = this;
-  v9[4] = v9;
-  re::SyncViewManager::forEachViewer(a2, v9);
-  re::FunctionBase<24ul,void ()(re::SyncViewer *)>::destroyCallable(v9);
-  v7 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-void re::SyncObjectManager::receive(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v53 = *MEMORY[0x277D85DE8];
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v47, 6008, a1);
-  *a3 = a1;
-  v5 = *(a1 + 480);
-  if (v5)
-  {
-    v6 = *(a1 + 496);
-    v7 = &v6[8 * v5];
-    v8 = MEMORY[0x277D85DD0];
-    while (1)
-    {
-      v9 = *v6;
-      *(a3 + 8) = *(*v6 + 24);
-      *(a3 + 24) = *(v9 + 72);
-      v10 = v6[1];
-      v46[0] = v8;
-      v46[1] = 0x40000000;
-      v46[2] = ___ZN2re17SyncObjectManager7receiveEU13block_pointerFbP13RESyncSessionPK12RESyncCommitERNS_21SyncObjectReadContextE_block_invoke;
-      v46[3] = &unk_279AE3AE8;
-      v46[5] = a1;
-      v46[6] = a3;
-      v46[4] = a2;
-      v11 = (*(*v10 + 40))(v10, a3, v46);
-      if ((v11 & 1) == 0)
-      {
-        break;
-      }
-
-      v12 = v6[1];
-      v13 = *(*v6 + 24);
-      v14 = re::globalAllocators(v11)[2];
-      *&v49[16] = v13;
-      *&v49[24] = v14;
-      *v49 = &unk_2873F43B0;
-      *&v49[8] = a1;
-      v50[0] = v49;
-      LOBYTE(v12) = (*(*v12 + 56))(v12, v49);
-      v15 = re::FunctionBase<24ul,void ()(re::SyncOwnershipRequest const&)>::destroyCallable(v49);
-      if ((v12 & 1) == 0)
-      {
-        v16 = *re::networkLogObjects(v15);
-        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-        if (v17)
-        {
-          *buf = 0;
-          _os_log_error_impl(&dword_26168F000, v16, OS_LOG_TYPE_ERROR, "[Ownership] Corrupt ownership request.", buf, 2u);
-        }
-
-        v18 = *re::networkLogObjects(v17);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          if (*(v9 + 48))
-          {
-            v19 = *(v9 + 56);
-          }
-
-          else
-          {
-            v19 = v9 + 49;
-          }
-
-          v20 = *(v9 + 24);
-          v21 = *(v9 + 152);
-          v22 = "nullptr";
-          if (v21)
-          {
-            v44 = *(v9 + 24);
-            v22 = (*(*v21 + 32))(v21);
-            v20 = v44;
-          }
-
-          *v49 = 134218498;
-          *&v49[4] = v20;
-          *&v49[12] = 2082;
-          *&v49[14] = v19;
-          *&v49[22] = 2082;
-          *&v49[24] = v22;
-          _os_log_error_impl(&dword_26168F000, v18, OS_LOG_TYPE_ERROR, "Failed to parse ownership requests. Will drop peer.(peerID=%llu, address=%{public}s, identity=%{public}s)", v49, 0x20u);
-        }
-
-        re::Transport::disconnect((*(a1 + 408) + 2320), *(v9 + 32), 0);
-      }
-
-      v6 += 8;
-      if (v6 == v7)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    v23 = *re::networkLogObjects(v11);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      if (*(v9 + 48))
-      {
-        v40 = *(v9 + 56);
-      }
-
-      else
-      {
-        v40 = v9 + 49;
-      }
-
-      v41 = *(v9 + 24);
-      v42 = *(v9 + 152);
-      if (v42)
-      {
-        v43 = (*(*v42 + 32))(v42);
-      }
-
-      else
-      {
-        v43 = "nullptr";
-      }
-
-      *v49 = 134218498;
-      *&v49[4] = v41;
-      *&v49[12] = 2082;
-      *&v49[14] = v40;
-      *&v49[22] = 2082;
-      *&v49[24] = v43;
-      _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, "Failed to parse incoming packet. Will drop peer.(peerID=%llu, address=%{public}s, identity=%{public}s)", v49, 0x20u);
-    }
-
-    re::Transport::disconnect((*(a1 + 408) + 2320), *(v9 + 32), 0);
-  }
-
-LABEL_19:
-  if (*(a1 + 640))
-  {
-    v49[0] = 0;
-    v52 = 0;
-    memset(v50, 0, sizeof(v50));
-    v51 = 0;
-    *&v49[8] = 0;
-    *&v49[16] = 0;
-    *&v49[21] = 0;
-    re::DynamicArray<re::internal::SyncSnapshotEntry>::operator=(v50, (a1 + 624));
-    (*(a2 + 16))(a2, a1, v49);
-    re::DynamicArray<re::internal::SyncSnapshotEntry>::clear(a1 + 624);
-    re::DynamicArray<re::internal::SyncSnapshotEntry>::deinit(v50);
-  }
-
-  v24 = *(a1 + 544);
-  if (v24)
-  {
-    v25 = 0;
-    v26 = *(a1 + 528);
-    while (1)
-    {
-      v27 = *v26;
-      v26 += 8;
-      if (v27 < 0)
-      {
-        break;
-      }
-
-      if (v24 == ++v25)
-      {
-        LODWORD(v25) = *(a1 + 544);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v25) = 0;
-  }
-
-  while (v25 != v24)
-  {
-    v29 = *(a1 + 528) + 32 * v25;
-    v30.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-    if (*(v29 + 16) < v30.__d_.__rep_)
-    {
-      v31 = *re::networkLogObjects(v30.__d_.__rep_);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
-      {
-        v39 = *(*(v29 + 8) + 24);
-        *v49 = 134217984;
-        *&v49[4] = v39;
-        _os_log_debug_impl(&dword_26168F000, v31, OS_LOG_TYPE_DEBUG, "[Ownership] Ownership response for: %llu timed out", v49, 0xCu);
-      }
-
-      v32 = *(a1 + 432);
-      if (v32)
-      {
-        v33 = (*(*v32 + 56))(v32);
-        v34 = *(v29 + 8);
-        if (v34)
-        {
-          v35 = *(v34 + 80);
-          if (v35)
-          {
-            do
-            {
-              v36 = v34;
-              v34 = v35;
-              if (*(*(*(v36 + 88) + 16) + 73))
-              {
-                break;
-              }
-
-              v35 = *(v35 + 80);
-              v36 = v34;
-            }
-
-            while (v35);
-          }
-
-          else
-          {
-            v36 = *(v29 + 8);
-          }
-
-          v37 = *(v36 + 160);
-        }
-
-        re::Event<re::SyncSession,re::SharedPtr<re::SyncObject> const&,unsigned long long,re::OwnershipResponseResult>::raise(v33, a1);
-      }
-
-      re::HashTable<re::SharedPtr<re::SyncObject>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,re::Hash<re::SharedPtr<re::SyncObject>>,re::EqualTo<re::SharedPtr<re::SyncObject>>,true,false>::remove(a1 + 512, *(v29 + 8));
-    }
-
-    v38 = *(a1 + 544);
-    if (v38 <= v25 + 1)
-    {
-      v38 = v25 + 1;
-    }
-
-    while (v38 - 1 != v25)
-    {
-      LODWORD(v25) = v25 + 1;
-      if ((*(*(a1 + 528) + 32 * v25) & 0x80000000) != 0)
-      {
-        goto LABEL_50;
-      }
-    }
-
-    LODWORD(v25) = v38;
-LABEL_50:
-    ;
-  }
-
-  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v47);
-  v28 = *MEMORY[0x277D85DE8];
 }

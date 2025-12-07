@@ -1794,7 +1794,7 @@ LABEL_3:
 
   if (isWritingToolsActive)
   {
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v6 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_textContentStorageAddedUnsupportedAttribute____s_category) + 8);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -2108,9 +2108,9 @@ LABEL_3:
   endLocation = [documentRange endLocation];
 
   endLocation2 = [v7 endLocation];
-  v12 = [endLocation2 isEqual:endLocation];
+  isEqual = objc_msgSend_isEqual_(endLocation2);
 
-  if (v12)
+  if (isEqual)
   {
     v13 = [[off_1E70ECBF0 alloc] initWithLocation:endLocation];
     v14 = self->_textLayoutManager;

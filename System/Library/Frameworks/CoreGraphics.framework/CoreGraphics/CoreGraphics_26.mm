@@ -1,10 +1,28 @@
+uint64_t sub_183FCDA2C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a1 + 32);
+
+  LOBYTE(a3) = v5(a2, a3);
+
+  return a3 & 1;
+}
+
+uint64_t sub_183FCDA88(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a1 + 32);
+
+  v6 = v5(a2, a3);
+
+  return v6;
+}
+
 void sub_183FCDAE4(void **a1, uint64_t **a2, uint64_t *a3, void (*a4)(uint64_t, uint64_t, void, uint64_t *, __n128))
 {
   v5 = *a1;
   v6 = *a2;
   v7 = *a3;
   type metadata accessor for CFError(0);
-  sub_183FCE950(&qword_1EA854BB0, type metadata accessor for CFError);
+  sub_183FCE950(&qword_1EA854BB0, type metadata accessor for CFError, MEMORY[0x1E6969E70]);
   v8 = swift_allocError();
   *v9 = v5;
   v10 = v5;
@@ -13,7 +31,7 @@ void sub_183FCDAE4(void **a1, uint64_t **a2, uint64_t *a3, void (*a4)(uint64_t, 
   v13 = *v6;
   v14 = *(v6 + 8);
   v15 = *(v6 + 9);
-  v16.n128_u32[0] = *(v6 + 3);
+  v16.n128_u32[0] = *(v6 + 12);
   v18 = v7;
   if (v15)
   {
@@ -36,28 +54,28 @@ void sub_183FCDBE0(uint64_t a1, void *a2)
   v3();
 }
 
-uint64_t _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:)(size_t a1, size_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:)(size_t a1, size_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v12 = *a3;
+  v10 = *a3;
   if (*a3 == 5)
   {
-    v13 = 0;
+    v11 = 0;
     if (a4)
     {
 LABEL_3:
-      v14 = swift_allocObject();
-      *(v14 + 16) = a4;
-      *(v14 + 24) = a5;
-      v15 = swift_allocObject();
-      *(v15 + 16) = sub_183FCE9B0;
-      *(v15 + 24) = v14;
-      v21[4] = sub_183FCE9C4;
-      v21[5] = v15;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 1107296256;
-      v21[2] = sub_183FCDA2C;
-      v21[3] = &block_descriptor_40;
-      v16 = _Block_copy(v21);
+      v12 = swift_allocObject();
+      *(v12 + 16) = a4;
+      *(v12 + 24) = a5;
+      v13 = swift_allocObject();
+      *(v13 + 16) = sub_183FCE9B0;
+      *(v13 + 24) = v12;
+      v19[4] = sub_183FCE9C4;
+      v19[5] = v13;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 1107296256;
+      v19[2] = sub_183FCDA2C;
+      v19[3] = &block_descriptor_40;
+      v14 = _Block_copy(v19);
 
       goto LABEL_6;
     }
@@ -65,18 +83,18 @@ LABEL_3:
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854B90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854B90, &qword_18439C360);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_18439C350;
     *(inited + 32) = @"kCGAdaptiveMaximumBitDepth";
-    *(inited + 40) = v12;
-    v18 = @"kCGAdaptiveMaximumBitDepth";
+    *(inited + 40) = v10;
+    v16 = @"kCGAdaptiveMaximumBitDepth";
     sub_183FCE438(inited);
     swift_setDeallocating();
     sub_183FCE528(inited + 32);
     type metadata accessor for CFString(0);
-    sub_183FCE950(&qword_1EA8541E0, type metadata accessor for CFString);
-    v13 = sub_18438FC18();
+    sub_183FCE950(&qword_1EA8541E0, type metadata accessor for CFString, &unk_18439820C);
+    v11 = sub_18438FC18();
 
     if (a4)
     {
@@ -84,11 +102,11 @@ LABEL_3:
     }
   }
 
-  v16 = 0;
+  v14 = 0;
 LABEL_6:
-  Adaptive = CGBitmapContextCreateAdaptive(a1, a2, v13, v16, 0, 0, 0, a8);
-  sub_183F742A0(a4);
-  _Block_release(v16);
+  Adaptive = CGBitmapContextCreateAdaptive(a1, a2, v11, v14, 0, 0, 0);
+  sub_183F742A0(a4, a5);
+  _Block_release(v14);
 
   if (Adaptive)
   {
@@ -108,50 +126,50 @@ uint64_t CGContextRef.AuxiliaryInfo.hashValue.getter()
   return sub_184390348();
 }
 
-uint64_t sub_183FCDF70@<X0>(size_t a1@<X0>, size_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t sub_183FCDF70@<X0>(size_t a1@<X0>, size_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  result = _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:onAllocate:onRelease:onError:)(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12);
+  result = _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:onAllocate:onRelease:onError:)(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12, a13);
   *a9 = result;
   return result;
 }
 
-uint64_t sub_183FCDFB0@<X0>(size_t a1@<X0>, size_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>)
+uint64_t sub_183FCDFB0@<X0>(size_t a1@<X0>, size_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
-  result = _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:)(a1, a2, a3, a4, a5, a6, a7, a8);
-  *a9 = result;
+  result = _CGContextInit<>.init(width:height:auxiliaryInfo:onResolve:)(a1, a2, a3, a4, a5, a6);
+  *a7 = result;
   return result;
 }
 
-void CGContextRef.contentToneMappingInfo.getter(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
+void CGContextRef.contentToneMappingInfo.getter(uint64_t a1@<X8>)
 {
-  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(v8, a1, a2, a3, a4, a5, a6, a7);
-  if (v10)
+  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(v1);
+  if (v3)
   {
-    v12 = v10;
-    v13 = v10;
-    v10 = v12;
+    v5 = v3;
+    v6 = v3;
+    v3 = v5;
   }
 
-  sub_183F875C0(ContentToneMappingInfo, v10, a8);
+  sub_183F875C0(ContentToneMappingInfo, v3, a1);
 }
 
-double sub_183FCE034@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+double sub_183FCE034@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(*a1, a2, a3, a4, a5, a6, a7, a8);
-  if (v10)
+  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(*a1);
+  if (v3)
   {
-    v12 = v10;
-    v13 = v10;
-    v10 = v12;
+    v5 = v3;
+    v6 = v3;
+    v3 = v5;
   }
 
-  sub_183F875C0(ContentToneMappingInfo, v10, &v17);
-  v14 = v18;
-  v15 = v19;
-  result = *&v17;
-  *a9 = v17;
-  *(a9 + 20) = v15;
-  *(a9 + 16) = v14;
+  sub_183F875C0(ContentToneMappingInfo, v3, &v10);
+  v7 = v11;
+  v8 = v12;
+  result = *&v10;
+  *a2 = v10;
+  *(a2 + 20) = v8;
+  *(a2 + 16) = v7;
   return result;
 }
 
@@ -190,8 +208,8 @@ void sub_183FCE0A4(uint64_t a1, uint64_t *a2)
     }
   }
 
-  v9 = sub_183F87038();
-  CGContextSetContentToneMappingInfo(v2, v3, v9, v4, v5, v6, v7, v8);
+  v4 = sub_183F87038();
+  CGContextSetContentToneMappingInfo(v2, v3, v4);
 }
 
 void CGContextRef.contentToneMappingInfo.setter(uint64_t a1)
@@ -228,22 +246,22 @@ void CGContextRef.contentToneMappingInfo.setter(uint64_t a1)
     }
   }
 
-  v8 = sub_183F87038();
-  CGContextSetContentToneMappingInfo(v1, v2, v8, v3, v4, v5, v6, v7);
+  v3 = sub_183F87038();
+  CGContextSetContentToneMappingInfo(v1, v2, v3);
 }
 
-void (*CGContextRef.contentToneMappingInfo.modify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(__int128 *a1, char a2)
+void (*CGContextRef.contentToneMappingInfo.modify(uint64_t a1))(__int128 *a1, char a2)
 {
-  *(a1 + 24) = v8;
-  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(v8, a2, a3, a4, a5, a6, a7, a8);
-  if (v10)
+  *(a1 + 24) = v1;
+  ContentToneMappingInfo = CGContextGetContentToneMappingInfo(v1);
+  if (v3)
   {
-    v12 = v10;
-    v13 = v10;
-    v10 = v12;
+    v5 = v3;
+    v6 = v3;
+    v3 = v5;
   }
 
-  sub_183F875C0(ContentToneMappingInfo, v10, a1);
+  sub_183F875C0(ContentToneMappingInfo, v3, a1);
   return sub_183FCE2E4;
 }
 
@@ -267,7 +285,7 @@ unint64_t sub_183FCE330(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8544A8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8544A8, &qword_18439C460);
     v3 = sub_184390158();
     v4 = a1 + 32;
 
@@ -319,7 +337,7 @@ unint64_t sub_183FCE438(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854BB8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854BB8, &unk_18439C470);
     v3 = sub_184390158();
 
     for (i = (a1 + 40); ; i += 2)
@@ -366,16 +384,18 @@ LABEL_10:
 
 uint64_t sub_183FCE528(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854B98);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854B98, &qword_18439C368);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t block_copy_helper_4(uint64_t a1, uint64_t a2)
+double block_copy_helper_4(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 void sub_183FCE5B4(id *a1, uint64_t a2, __n128 a3)
@@ -513,12 +533,12 @@ uint64_t _s13AuxiliaryInfoVwst(uint64_t result, int a2, int a3)
 
 uint64_t sub_183FCE8E0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854BA8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA854BA8, &qword_18439C468);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_183FCE950(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_183FCE950(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1004,15 +1024,16 @@ double build_sbt(int *a1, uint64_t a2, uint64_t a3)
 {
   do
   {
-    if (*(a3 + 8))
+    v6 = *(a3 + 8);
+    if (v6)
     {
-      build_sbt(a1, a2);
+      build_sbt(a1, a2, v6);
     }
 
     result = *a3;
-    v7 = *a1;
-    *(a2 + 8 * v7) = *a3;
-    *a1 = v7 + 1;
+    v8 = *a1;
+    *(a2 + 8 * v8) = *a3;
+    *a1 = v8 + 1;
     a3 = *(a3 + 16);
   }
 
@@ -1024,8 +1045,8 @@ void free_sbtree(void **a1)
 {
   if (*a1)
   {
-    free_sbtree(*a1 + 8);
-    free_sbtree(*a1 + 16);
+    free_sbtree(*a1 + 1);
+    free_sbtree(*a1 + 2);
     if (*a1)
     {
       free(*a1);
@@ -1222,7 +1243,7 @@ char *create_contour_bboxes(int *a1)
     {
       v9 = &result[32 * v5];
       *v9 = v7;
-      v9[1] = v8;
+      *(v9 + 1) = v8;
       v10 = (v6 + 16 * v5);
       v11 = *v10;
       if (v11 >= 1)
@@ -1237,26 +1258,26 @@ char *create_contour_bboxes(int *a1)
           v17 = *(v12 - 1);
           if (v17 < v16)
           {
-            *v9->i64 = v17;
+            *v9 = v17;
             v16 = v17;
           }
 
           v18 = *v12;
           if (*v12 < v13)
           {
-            *&v9->i64[1] = v18;
+            *(v9 + 1) = v18;
             v13 = v18;
           }
 
           if (v17 > v15)
           {
-            *v9[1].i64 = v17;
+            *(v9 + 2) = v17;
             v15 = v17;
           }
 
           if (v18 > v14)
           {
-            *&v9[1].i64[1] = v18;
+            *(v9 + 3) = v18;
             v14 = v18;
           }
 
@@ -1802,7 +1823,7 @@ float32x4_t *resample_vertical<float,float,3,(AlphaStyle)3>(float32x4_t *result,
   v6 = *a5;
   v7 = a5[1];
   v8 = result->i32[1];
-  v9 = &result->f32[2];
+  v9 = &result->i64[1];
   __asm { FMOV            V0.2S, #1.0 }
 
   if (a4 >= 2)
@@ -1849,7 +1870,8 @@ float32x4_t *resample_vertical<float,float,3,(AlphaStyle)3>(float32x4_t *result,
       *v6 = v18;
       v6[1].i64[0] = vextq_s8(v19, v19, 4uLL).u64[0];
       v6 = (v6 + 24);
-      *v7++ = v29;
+      *v7->f32 = v29;
+      v7 = (v7 + 8);
       v16 += 2;
     }
 
@@ -1910,7 +1932,7 @@ float32x4_t *resample_vertical<float,float,1,(AlphaStyle)3>(float32x4_t *result,
   v6 = *a5;
   v7 = a5[1];
   v8 = result->i32[1];
-  v9 = &result->f32[2];
+  v9 = &result->i64[1];
   if (a4 >= 4)
   {
     v11 = 0;
@@ -3211,9 +3233,9 @@ uint64_t resample_vertical<float,float,3,(AlphaStyle)0>(uint64_t result, double 
           v22 = v20.i32[2];
           v21 = v20.i32[1];
           a5 = vmlaq_lane_f32(vmlaq_n_f32(a5, v33, v35.f32[0]), v34[2], v35, 1);
-          v27 = a5.u32[3];
-          v25 = a5.u32[2];
-          v24 = a5.u32[1];
+          v27 = a5.i32[3];
+          v25 = a5.i32[2];
+          v24 = a5.i32[1];
           v29 += 2;
           v28 += 2;
         }
@@ -3253,9 +3275,9 @@ uint64_t resample_vertical<float,float,3,(AlphaStyle)0>(uint64_t result, double 
         v22 = v20.i32[2];
         v21 = v20.i32[1];
         a5 = vaddq_f32(vmlaq_n_f32(a5, *(result + 32), *v26), 0);
-        v27 = a5.u32[3];
-        v25 = a5.u32[2];
-        v24 = a5.u32[1];
+        v27 = a5.i32[3];
+        v25 = a5.i32[2];
+        v24 = a5.i32[1];
       }
 
       v20.i32[1] = v21;
@@ -3370,8 +3392,8 @@ uint64_t resample_vertical<float,float,1,(AlphaStyle)0>(uint64_t result, double 
 
       if (v11)
       {
-        v23 = *(a10 - 8 + 8 * v11) + 4 * v14;
-        a5 = *(v23 + 16);
+        v23 = (*(a10 - 8 + 8 * v11) + 4 * v14);
+        a5 = v23[1];
         a4 = vaddq_f32(vmlaq_n_f32(a4, a5, *v17), 0);
         v16 = vaddq_f32(vmlaq_n_f32(v16, *v23, *v17), 0);
       }
@@ -3462,12 +3484,12 @@ uint64_t resample_vertical<float,float,1,(AlphaStyle)0>(uint64_t result, double 
   return result;
 }
 
-uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2, double a3, double a4, double a5, float32x4_t _Q4, double a7, double a8, float32x4_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14)
+float32x2_t *resample_vertical<half,half,4,(AlphaStyle)3>(float32x2_t *result, double a2, double a3, double a4, double a5, float32x4_t _Q4, double a7, double a8, float32x4_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, float32x2_t *a14)
 {
   v17 = *a13;
   v18 = *(a13 + 8);
-  v19 = *(result + 4);
-  v20 = (result + 8);
+  v19 = result->i32[1];
+  v20 = &result[1];
   if (a12 >= 4)
   {
     v22 = 0;
@@ -3478,7 +3500,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
       v25 = 0;
       if (v19 >= 2)
       {
-        v41 = (a14 + 8);
+        v41 = a14 + 1;
         v42 = 2;
         v26 = 0;
         result = v20;
@@ -3500,14 +3522,13 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
         v40 = 0;
         do
         {
-          v43 = *(v41 - 1) + 10 * v22;
+          v43 = *&v41[-1] + 10 * v22;
           v45 = *v43;
           v44 = *(v43 + 16);
           v46 = *(v43 + 32);
           v47 = *v41 + 10 * v22;
           v48 = *(v47 + 16);
-          v49 = *result;
-          result += 8;
+          v49 = *result++;
           v37.i32[1] = v38;
           v37.i64[1] = __PAIR64__(v40, v39);
           v33.i32[1] = v34;
@@ -3569,7 +3590,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
 
       if (v19)
       {
-        v50 = *(a14 - 8 + 8 * v19) + 10 * v22;
+        v50 = *&a14[v19 - 1] + 10 * v22;
         v51 = *(v50 + 16);
         v37.i32[1] = v38;
         v37.i64[1] = __PAIR64__(v40, v39);
@@ -3581,23 +3602,23 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
         v27.i64[1] = __PAIR64__(v29, v15.u32[0]);
         v24.i32[1] = v14.i32[0];
         v24.i64[1] = __PAIR64__(v26, v25);
-        v24 = vaddq_f32(vmlaq_n_f32(v24, vcvtq_f32_f16(*v50), *result), 0);
+        v24 = vaddq_f32(vmlaq_n_f32(v24, vcvtq_f32_f16(*v50), result->f32[0]), 0);
         v26 = v24.i32[3];
         v25 = v24.i32[2];
         v14.i32[0] = v24.i32[1];
-        v27 = vaddq_f32(vmlaq_n_f32(v27, vcvt_hight_f32_f16(*v50), *result), 0);
+        v27 = vaddq_f32(vmlaq_n_f32(v27, vcvt_hight_f32_f16(*v50), result->f32[0]), 0);
         v29 = v27.i32[3];
         v15.i32[0] = v27.i32[2];
         v28.i32[0] = v27.i32[1];
-        v30 = vaddq_f32(vmlaq_n_f32(v30, vcvtq_f32_f16(*v51.i8), *result), 0);
+        v30 = vaddq_f32(vmlaq_n_f32(v30, vcvtq_f32_f16(*v51.i8), result->f32[0]), 0);
         v32 = v30.i32[3];
         v16.i32[0] = v30.i32[2];
         v31 = v30.i32[1];
-        v33 = vaddq_f32(vmlaq_n_f32(v33, vcvt_hight_f32_f16(v51), *result), 0);
+        v33 = vaddq_f32(vmlaq_n_f32(v33, vcvt_hight_f32_f16(v51), result->f32[0]), 0);
         v36.i32[0] = v33.i32[3];
         v35 = v33.i32[2];
         v34 = v33.i32[1];
-        v37 = vaddq_f32(vmlaq_n_f32(v37, vcvtq_f32_f16(*(v50 + 32)), *result), 0);
+        v37 = vaddq_f32(vmlaq_n_f32(v37, vcvtq_f32_f16(*(v50 + 32)), result->f32[0]), 0);
         v40 = v37.i32[3];
         v39 = v37.i32[2];
         v38 = v37.i32[1];
@@ -3641,7 +3662,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
       v58.i32[0] = 0;
       if (v19 >= 2)
       {
-        result = a14 + 8;
+        result = a14 + 1;
         v62 = 2;
         v61 = v20;
         a9.i64[0] = 0;
@@ -3650,7 +3671,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
         _Q4.i64[0] = 0;
         do
         {
-          v63 = *(result - 8) + 10 * v21;
+          v63 = *&result[-1] + 10 * v21;
           v64 = *v63;
           v14.i16[0] = *(v63 + 8);
           v65 = (*result + 10 * v21);
@@ -3668,7 +3689,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
           v59.i32[0] = v58.i32[2];
           a9.i32[0] = v58.i32[1];
           v62 += 2;
-          result += 16;
+          result += 2;
         }
 
         while (v62 <= v19);
@@ -3685,8 +3706,8 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)3>(uint64_t result, double a2
 
       if (v19)
       {
-        result = *(a14 - 8 + 8 * v19) + 10 * v21;
-        v14.i16[0] = *(result + 8);
+        result = (*&a14[v19 - 1] + 10 * v21);
+        v14.i16[0] = result[1].i16[0];
         v14 = vcvtq_f32_f16(*v14.f32);
         v58.i32[1] = a9.i32[0];
         a9.f32[0] = *v61;
@@ -3834,10 +3855,10 @@ uint64_t resample_vertical<half,half,3,(AlphaStyle)3>(uint64_t result, int8x16_t
   return result;
 }
 
-uint64_t resample_vertical<half,half,1,(AlphaStyle)3>(uint64_t result, double a2, double a3, double a4, float16x4_t _D3, float32x4_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11)
+uint64_t resample_vertical<half,half,1,(AlphaStyle)3>(uint64_t result, double a2, double a3, double a4, float16x4_t _D3, float32x4_t a6, uint64_t a7, uint64_t a8, int a9, float16x4_t **a10, uint64_t a11)
 {
   v11 = *a10;
-  v12 = *(a10 + 8);
+  v12 = a10[1];
   v13 = *(result + 4);
   v14 = (result + 8);
   if (a9 >= 4)
@@ -3883,7 +3904,7 @@ uint64_t resample_vertical<half,half,1,(AlphaStyle)3>(uint64_t result, double a2
       a6 = vuzp1q_s32(v23, v24);
       v32 = vmaxnmq_f32(vminnmq_f32(vmaxnmq_f32(vuzp2q_s32(v23, v24), 0), _Q1), a6);
       _D3 = vcvt_f16_f32(a6);
-      *v11++ = *&_D3;
+      *v11++ = _D3;
       *v12++ = vcvt_f16_f32(v32);
       v17 += 4;
       v16 += 4;
@@ -3938,7 +3959,7 @@ uint64_t resample_vertical<half,half,1,(AlphaStyle)3>(uint64_t result, double a2
       _D3 = vmaxnm_f32(vminnm_f32(vmaxnm_f32(vdup_lane_s32(_D2, 1), 0), _D1), _D2);
       __asm { FCVT            H2, S2 }
 
-      *v11 = _H2;
+      v11->i16[0] = _H2;
       v11 = (v11 + 2);
       __asm { FCVT            H2, S3 }
 
@@ -4014,9 +4035,9 @@ uint64_t resample_vertical<half,half,5,(AlphaStyle)2>(uint64_t result, double a2
           v25 = v23.i32[2];
           v24 = v23.i32[1];
           a9 = vmlaq_lane_f32(vmlaq_n_f32(a9, vcvt_hight_f32_f16(v45), v49.f32[0]), vcvt_hight_f32_f16(*v47), v49, 1);
-          v28 = a9.u32[3];
-          v27 = a9.u32[2];
-          v26 = a9.u32[1];
+          v28 = a9.i32[3];
+          v27 = a9.i32[2];
+          v26 = a9.i32[1];
           v14 = vmlaq_lane_f32(vmlaq_n_f32(v14, vcvtq_f32_f16(*v44.i8), v49.f32[0]), vcvtq_f32_f16(*v48.i8), v49, 1);
           v31 = v14.i32[3];
           v30 = v14.i32[2];
@@ -4077,9 +4098,9 @@ uint64_t resample_vertical<half,half,5,(AlphaStyle)2>(uint64_t result, double a2
         v25 = v23.i32[2];
         v24 = v23.i32[1];
         a9 = vaddq_f32(vmlaq_n_f32(a9, vcvt_hight_f32_f16(*result), *v39), 0);
-        v28 = a9.u32[3];
-        v27 = a9.u32[2];
-        v26 = a9.u32[1];
+        v28 = a9.i32[3];
+        v27 = a9.i32[2];
+        v26 = a9.i32[1];
         v14 = vaddq_f32(vmlaq_n_f32(v14, vcvtq_f32_f16(*v50.i8), *v39), 0);
         v31 = v14.i32[3];
         v30 = v14.i32[2];
@@ -4540,9 +4561,9 @@ uint64_t resample_vertical<half,half,5,(AlphaStyle)1>(uint64_t result, double a2
           v25 = v23.i32[2];
           v24 = v23.i32[1];
           a9 = vmlaq_lane_f32(vmlaq_n_f32(a9, vcvt_hight_f32_f16(v45), v49.f32[0]), vcvt_hight_f32_f16(*v47), v49, 1);
-          v28 = a9.u32[3];
-          v27 = a9.u32[2];
-          v26 = a9.u32[1];
+          v28 = a9.i32[3];
+          v27 = a9.i32[2];
+          v26 = a9.i32[1];
           v14 = vmlaq_lane_f32(vmlaq_n_f32(v14, vcvtq_f32_f16(*v44.i8), v49.f32[0]), vcvtq_f32_f16(*v48.i8), v49, 1);
           v31 = v14.i32[3];
           v30 = v14.i32[2];
@@ -4603,9 +4624,9 @@ uint64_t resample_vertical<half,half,5,(AlphaStyle)1>(uint64_t result, double a2
         v25 = v23.i32[2];
         v24 = v23.i32[1];
         a9 = vaddq_f32(vmlaq_n_f32(a9, vcvt_hight_f32_f16(*result), *v39), 0);
-        v28 = a9.u32[3];
-        v27 = a9.u32[2];
-        v26 = a9.u32[1];
+        v28 = a9.i32[3];
+        v27 = a9.i32[2];
+        v26 = a9.i32[1];
         v14 = vaddq_f32(vmlaq_n_f32(v14, vcvtq_f32_f16(*v50.i8), *v39), 0);
         v31 = v14.i32[3];
         v30 = v14.i32[2];
@@ -4884,7 +4905,7 @@ uint64_t resample_vertical<half,half,4,(AlphaStyle)1>(uint64_t result, uint64_t 
   return result;
 }
 
-uint64_t resample_vertical<half,half,2,(AlphaStyle)1>(uint64_t result, double a2, double a3, double a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, uint64_t a8, uint64_t a9, int a10, __n128 **a11, uint64_t a12)
+uint64_t resample_vertical<half,half,2,(AlphaStyle)1>(uint64_t result, double a2, double a3, double a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, uint64_t a8, uint64_t a9, int a10, float32x4_t **a11, uint64_t a12)
 {
   v12 = *a11;
   v13 = *(result + 4);
@@ -4995,7 +5016,7 @@ uint64_t resample_vertical<half,half,2,(AlphaStyle)1>(uint64_t result, double a2
       }
 
       a5.f32[0] = v34;
-      v12->n128_u32[0] = vcvt_f16_f32(a5).u32[0];
+      v12->i32[0] = vcvt_f16_f32(a5).u32[0];
       v12 = (v12 + 4);
       ++v15;
     }
@@ -5150,9 +5171,9 @@ uint64_t resample_vertical<half,half,3,(AlphaStyle)0>(uint64_t result, double a2
           v22 = v20.i32[2];
           v21 = v20.i32[1];
           a5 = vmlaq_lane_f32(vmlaq_n_f32(a5, vcvtq_f32_f16(v32), v34.f32[0]), vcvtq_f32_f16(v33[2]), v34, 1);
-          v27 = a5.u32[3];
-          v25 = a5.u32[2];
-          v24 = a5.u32[1];
+          v27 = a5.i32[3];
+          v25 = a5.i32[2];
+          v24 = a5.i32[1];
           v29 += 2;
           v28 += 2;
         }
@@ -5192,9 +5213,9 @@ uint64_t resample_vertical<half,half,3,(AlphaStyle)0>(uint64_t result, double a2
         v22 = v20.i32[2];
         v21 = v20.i32[1];
         a5 = vaddq_f32(vmlaq_n_f32(a5, vcvtq_f32_f16(*(result + 16)), *v26), 0);
-        v27 = a5.u32[3];
-        v25 = a5.u32[2];
-        v24 = a5.u32[1];
+        v27 = a5.i32[3];
+        v25 = a5.i32[2];
+        v24 = a5.i32[1];
       }
 
       v16.i32[1] = v17;
@@ -5411,7 +5432,7 @@ uint64_t resample_vertical<half,half,1,(AlphaStyle)0>(uint64_t result, double a2
   return result;
 }
 
-uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, double a2, double a3, double a4, int32x4_t a5, double a6, uint16x8_t a7, double a8, int32x4_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14)
+uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, double a2, double a3, double a4, int32x4_t a5, double a6, uint16x8_t a7, double a8, int32x4_t a9, uint64_t a10, uint64_t a11, unsigned int a12, uint64_t a13, uint64_t a14)
 {
   v16 = *a13;
   v17 = *(a13 + 8);
@@ -5509,9 +5530,9 @@ uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, 
           v35 = v64.i32[1];
           v34 = v64.i32[0];
           v65 = vmlal_s16(vmlal_s16(vaddq_s32(v56, v60), *v15.i8, v54), veor_s8(vmovn_s32(v51[4]), *a5.i8), *v47.i8);
-          v41 = v65.u32[3];
-          v40 = v65.u32[2];
-          v39 = v65.u32[1];
+          v41 = v65.i32[3];
+          v40 = v65.i32[2];
+          v39 = v65.i32[1];
           v38 = v65.i32[0];
           v44 += 2;
           v43 += 2;
@@ -5563,10 +5584,10 @@ uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, 
         v30 = v78.i32[0];
         v35 = v79.i32[1];
         a9 = vmlal_s16(v71, veor_s8(vmovn_s32(v66[4]), *a5.i8), v67);
-        v41 = a9.u32[3];
+        v41 = a9.i32[3];
         v34 = v79.i32[0];
-        v40 = a9.u32[2];
-        v39 = a9.u32[1];
+        v40 = a9.i32[2];
+        v39 = a9.i32[1];
         v38 = a9.i32[0];
       }
 
@@ -5656,8 +5677,8 @@ uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, 
           v108 = vmlal_s16(vaddq_s32(vshll_n_s16(v105, 0xFuLL), v15), veor_s8(vmovn_s32(v102), 0x8000800080008000), v105);
           v109 = vaddq_s32(vmlal_s16(v107, veor_s8(vmovn_s32(a5), 0x8000800080008000), *a9.i8), vshll_n_s16(*v14.i8, 0xFuLL));
           a5 = vmlal_s16(vaddq_s32(v108, vshll_n_s16(v106, 0xFuLL)), veor_s8(vmovn_s32(*v103), 0x8000800080008000), v106);
-          v96 = a5.u32[3];
-          v95 = a5.u32[2];
+          v96 = a5.i32[3];
+          v95 = a5.i32[2];
           result = a5.u32[1];
           v94 = a5.i32[0];
           v97 = vmlal_s16(v109, *a7.i8, *v14.i8).u32[0];
@@ -5691,8 +5712,8 @@ uint64_t resample_vertical<int,unsigned short,4,(AlphaStyle)3>(uint64_t result, 
         v113 = vaddq_s32(vshll_n_s16(v112, 0xFuLL), a9);
         a9.i32[0] = v97;
         v114 = vmlal_s16(v113, veor_s8(vmovn_s32(*v110), 0x8000800080008000), v112);
-        v96 = v114.u32[3];
-        v95 = v114.u32[2];
+        v96 = v114.i32[3];
+        v95 = v114.i32[2];
         result = v114.u32[1];
         v94 = v114.i32[0];
         v97 = vmlal_s16(vaddq_s32(vshll_n_s16(*a7.i8, 0xFuLL), a9), *a5.i8, *a7.i8).u32[0];
@@ -5722,7 +5743,7 @@ int32x4_t *resample_vertical<int,unsigned short,3,(AlphaStyle)3>(int32x4_t *resu
   v6 = *a5;
   v7 = a5[1];
   v8 = result->i32[1];
-  v9 = &result->i16[4];
+  v9 = &result->i64[1];
   if (a4 >= 2)
   {
     v11 = 0;
@@ -5848,7 +5869,7 @@ int32x4_t *resample_vertical<int,unsigned short,1,(AlphaStyle)3>(int32x4_t *resu
   v6 = *a5;
   v7 = a5[1];
   v8 = result->i32[1];
-  v9 = &result->i16[4];
+  v9 = &result->i64[1];
   if (a4 >= 4)
   {
     v11 = 0;
@@ -6213,9 +6234,9 @@ uint64_t resample_vertical<int,unsigned short,5,(AlphaStyle)2>(uint64_t result, 
           v110 = vmlal_s16(vaddq_s32(vshll_n_s16(v107, 0xFuLL), v16), veor_s8(vmovn_s32(v104), 0x8000800080008000), v107);
           v111 = vaddq_s32(vmlal_s16(v109, veor_s8(vmovn_s32(a8), 0x8000800080008000), *v14.i8), vshll_n_s16(v15, 0xFuLL));
           a8 = vmlal_s16(vaddq_s32(v110, vshll_n_s16(v108, 0xFuLL)), veor_s8(vmovn_s32(*v105), 0x8000800080008000), v108);
-          v99 = a8.u32[3];
-          v98 = a8.u32[2];
-          v97 = a8.u32[1];
+          v99 = a8.i32[3];
+          v98 = a8.i32[2];
+          v97 = a8.i32[1];
           v96 = a8.i32[0];
           result = vmlal_s16(v111, *v13.i8, v15).u32[0];
           v102 += 2;
@@ -6248,9 +6269,9 @@ uint64_t resample_vertical<int,unsigned short,5,(AlphaStyle)2>(uint64_t result, 
         v115 = vaddq_s32(vshll_n_s16(v114, 0xFuLL), v14);
         v14.i32[0] = result;
         v116 = vmlal_s16(v115, veor_s8(vmovn_s32(*v112), 0x8000800080008000), v114);
-        v99 = v116.u32[3];
-        v98 = v116.u32[2];
-        v97 = v116.u32[1];
+        v99 = v116.i32[3];
+        v98 = v116.i32[2];
+        v97 = v116.i32[1];
         v96 = v116.i32[0];
         result = vmlal_s16(vaddq_s32(vshll_n_s16(*v13.i8, 0xFuLL), v14), *a8.i8, *v13.i8).u32[0];
       }
@@ -6760,9 +6781,9 @@ uint64_t resample_vertical<int,unsigned short,5,(AlphaStyle)1>(uint64_t result, 
           v110 = vmlal_s16(vaddq_s32(vshll_n_s16(v107, 0xFuLL), v16), veor_s8(vmovn_s32(v104), 0x8000800080008000), v107);
           v111 = vaddq_s32(vmlal_s16(v109, veor_s8(vmovn_s32(a8), 0x8000800080008000), *v14.i8), vshll_n_s16(v15, 0xFuLL));
           a8 = vmlal_s16(vaddq_s32(v110, vshll_n_s16(v108, 0xFuLL)), veor_s8(vmovn_s32(*v105), 0x8000800080008000), v108);
-          v99 = a8.u32[3];
-          v98 = a8.u32[2];
-          v97 = a8.u32[1];
+          v99 = a8.i32[3];
+          v98 = a8.i32[2];
+          v97 = a8.i32[1];
           v96 = a8.i32[0];
           result = vmlal_s16(v111, *v13.i8, v15).u32[0];
           v102 += 2;
@@ -6795,9 +6816,9 @@ uint64_t resample_vertical<int,unsigned short,5,(AlphaStyle)1>(uint64_t result, 
         v115 = vaddq_s32(vshll_n_s16(v114, 0xFuLL), v14);
         v14.i32[0] = result;
         v116 = vmlal_s16(v115, veor_s8(vmovn_s32(*v112), 0x8000800080008000), v114);
-        v99 = v116.u32[3];
-        v98 = v116.u32[2];
-        v97 = v116.u32[1];
+        v99 = v116.i32[3];
+        v98 = v116.i32[2];
+        v97 = v116.i32[1];
         v96 = v116.i32[0];
         result = vmlal_s16(vaddq_s32(vshll_n_s16(*v13.i8, 0xFuLL), v14), *a8.i8, *v13.i8).u32[0];
       }
@@ -7543,7 +7564,7 @@ uint64_t resample_vertical<int,unsigned short,1,(AlphaStyle)0>(uint64_t result, 
   return result;
 }
 
-uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, double a2, double a3, int32x4_t a4, double a5, int32x4_t a6, int32x4_t a7, uint8x8_t a8, int32x4_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14)
+uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, double a2, double a3, int32x4_t a4, double a5, int32x4_t a6, int32x4_t a7, uint8x8_t a8, int32x4_t a9, uint64_t a10, uint64_t a11, unsigned int a12, uint64_t a13, uint64_t a14)
 {
   v14 = *a13;
   v15 = *(a13 + 8);
@@ -7631,14 +7652,14 @@ uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, d
           v25 = v63.i32[1];
           v24 = v63.i32[0];
           v64 = vmlal_s16(v56, vmovn_s32(v49[2]), v61);
-          v31 = v64.u32[3];
-          v30 = v64.u32[2];
-          v29 = v64.u32[1];
+          v31 = v64.i32[3];
+          v30 = v64.i32[2];
+          v29 = v64.i32[1];
           v28 = v64.i32[0];
           a9 = vmlal_s16(v54, vmovn_s32(v49[3]), v61);
-          v35 = a9.u32[3];
-          v34 = a9.u32[2];
-          v33 = a9.u32[1];
+          v35 = a9.i32[3];
+          v34 = a9.i32[2];
+          v33 = a9.i32[1];
           v32 = a9.i32[0];
           v65 = vmlal_s16(v53, vmovn_s32(v49[4]), v61);
           v39 = v65.i32[3];
@@ -7676,16 +7697,16 @@ uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, d
         v72.i64[0] = __PAIR64__(v29, v28);
         v72.i64[1] = __PAIR64__(v31, v30);
         a7 = vmlal_s16(v72, vmovn_s32(v66[2]), v67);
-        v31 = a7.u32[3];
-        v30 = a7.u32[2];
-        v29 = a7.u32[1];
+        v31 = a7.i32[3];
+        v30 = a7.i32[2];
+        v29 = a7.i32[1];
         v73.i64[0] = __PAIR64__(v33, v32);
         v21 = v69.i32[0];
         v73.i64[1] = __PAIR64__(v35, v34);
         a9 = vmlal_s16(v73, vmovn_s32(v66[3]), v67);
-        v35 = a9.u32[3];
-        v34 = a9.u32[2];
-        v33 = a9.u32[1];
+        v35 = a9.i32[3];
+        v34 = a9.i32[2];
+        v33 = a9.i32[1];
         v24 = v71.i32[0];
         v74.i64[0] = __PAIR64__(v37, v36);
         v74.i64[1] = __PAIR64__(v39, v38);
@@ -7773,8 +7794,8 @@ uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, d
           v100 = vmlal_s16(v99, vmovn_s32(v95), *a7.i8);
           a7.i32[0] = HIWORD(v97);
           a4 = vmlal_s16(v100, vmovn_s32(*v96), vdup_n_s16(HIWORD(v97)));
-          v89 = a4.u32[3];
-          v88 = a4.u32[2];
+          v89 = a4.i32[3];
+          v88 = a4.i32[2];
           result = a4.u32[1];
           v87 = a4.i32[0];
           a9 = vmlal_s16(v98, *a6.i8, *a7.i8);
@@ -7807,8 +7828,8 @@ uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)3>(uint64_t result, d
         v103.i64[1] = __PAIR64__(v89, v88);
         a7.i32[0] = *v91;
         a6 = vmlal_s16(v103, *v102.i8, vdup_n_s16(a7.u32[0]));
-        v89 = a6.u32[3];
-        v88 = a6.u32[2];
+        v89 = a6.i32[3];
+        v88 = a6.i32[2];
         result = a6.u32[1];
         v87 = a6.i32[0];
         v102.i32[0] = v90;
@@ -7971,7 +7992,7 @@ int32x4_t *resample_vertical<int,unsigned char,1,(AlphaStyle)3>(int32x4_t *resul
   v9 = *a8;
   v10 = *(a8 + 8);
   v11 = result->i32[1];
-  v12 = &result->i16[4];
+  v12 = &result->i64[1];
   if (a7 >= 4)
   {
     v14 = 0;
@@ -8105,7 +8126,7 @@ uint64_t resample_vertical<int,unsigned char,5,(AlphaStyle)2>(uint64_t result, d
     v20 = 4;
     v21.i64[0] = 0x200000002000;
     v21.i64[1] = 0x200000002000;
-    *&a4 = NAN;
+    a4 = -15923197;
     a6.i32[1] = -1;
     a8 = xmmword_18439C590;
     v109 = a12;
@@ -8327,9 +8348,9 @@ uint64_t resample_vertical<int,unsigned char,5,(AlphaStyle)2>(uint64_t result, d
           v103 = vmlal_s16(v102, vmovn_s32(v98), a9);
           a9.i32[0] = HIWORD(v100);
           a6 = vmlal_s16(v103, vmovn_s32(*v99), vdup_n_s16(HIWORD(v100)));
-          v93 = a6.u32[3];
-          v92 = a6.u32[2];
-          v91 = a6.u32[1];
+          v93 = a6.i32[3];
+          v92 = a6.i32[2];
+          v91 = a6.i32[1];
           v90 = a6.i32[0];
           v15 = vmlal_s16(v101, *a8.i8, a9);
           result = v15.u32[0];
@@ -8361,9 +8382,9 @@ uint64_t resample_vertical<int,unsigned char,5,(AlphaStyle)2>(uint64_t result, d
         v106.i64[1] = __PAIR64__(v93, v92);
         a9.i32[0] = *v94;
         a8 = vmlal_s16(v106, *v105.i8, vdup_n_s16(a9.u32[0]));
-        v93 = a8.u32[3];
-        v92 = a8.u32[2];
-        v91 = a8.u32[1];
+        v93 = a8.i32[3];
+        v92 = a8.i32[2];
+        v91 = a8.i32[1];
         v90 = a8.i32[0];
         v105.i32[0] = result;
         result = vmlal_s16(v105, *a6.i8, a9).u32[0];
@@ -8628,11 +8649,11 @@ uint64_t resample_vertical<int,unsigned char,2,(AlphaStyle)2>(uint64_t result, u
   return result;
 }
 
-__int8 *resample_vertical<int,unsigned char,5,(AlphaStyle)1>(__int8 *result, double a2, double a3, uint8x8_t a4, double a5, int32x4_t a6, double a7, int32x4_t a8, int16x4_t a9, uint64_t a10, uint64_t a11, int a12, uint8x16_t **a13, uint64_t a14)
+__int8 *resample_vertical<int,unsigned char,5,(AlphaStyle)1>(__int8 *result, double a2, double a3, uint8x8_t a4, double a5, int32x4_t a6, double a7, int32x4_t a8, int16x4_t a9, uint64_t a10, uint64_t a11, unsigned int a12, uint8x16_t **a13, uint64_t a14)
 {
   v16 = *a13;
   v17 = *(result + 1);
-  v119 = (result + 8);
+  v119 = result + 8;
   if (a12 >= 4)
   {
     v19 = 0;
@@ -8642,7 +8663,7 @@ __int8 *resample_vertical<int,unsigned char,5,(AlphaStyle)1>(__int8 *result, dou
     v20 = 4;
     v21.i64[0] = 0x200000002000;
     v21.i64[1] = 0x200000002000;
-    *&a4 = NAN;
+    a4 = -15923197;
     a6.i32[1] = -1;
     a8 = xmmword_18439C5A0;
     v113 = a12;
@@ -8861,9 +8882,9 @@ __int8 *resample_vertical<int,unsigned char,5,(AlphaStyle)1>(__int8 *result, dou
           v106 = vmlal_s16(v105, vmovn_s32(v101), a9);
           a9.i32[0] = HIWORD(v103);
           a6 = vmlal_s16(v106, vmovn_s32(*v102), vdup_n_s16(HIWORD(v103)));
-          v95 = a6.u32[3];
-          v94 = a6.u32[2];
-          v93 = a6.u32[1];
+          v95 = a6.i32[3];
+          v94 = a6.i32[2];
+          v93 = a6.i32[1];
           v92 = a6.i32[0];
           v15 = vmlal_s16(v104, *a8.i8, a9);
           v96 = v15.i32[0];
@@ -8895,9 +8916,9 @@ __int8 *resample_vertical<int,unsigned char,5,(AlphaStyle)1>(__int8 *result, dou
         v109.i64[1] = __PAIR64__(v95, v94);
         a9.i32[0] = *v97;
         a8 = vmlal_s16(v109, *v108.i8, vdup_n_s16(a9.u32[0]));
-        v95 = a8.u32[3];
-        v94 = a8.u32[2];
-        v93 = a8.u32[1];
+        v95 = a8.i32[3];
+        v94 = a8.i32[2];
+        v93 = a8.i32[1];
         v92 = a8.i32[0];
         v108.i32[0] = v96;
         v96 = vmlal_s16(v108, *a6.i8, a9).u32[0];
@@ -9151,7 +9172,7 @@ uint64_t resample_vertical<int,unsigned char,4,(AlphaStyle)0>(uint64_t result, u
   return result;
 }
 
-float32x2_t *resample_horizontal<float,float,4,true>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, double a7, float32x4_t a8, uint64_t a9, int a10, uint64_t a11, uint64_t *a12, int *a13, int a14)
+float32x2_t *resample_horizontal<float,float,4,true>(float32x2_t *result, unsigned int a2, double a3, double a4, double a5, double a6, double a7, float32x4_t a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12, int *a13, unsigned int a14)
 {
   if (a10 >= 1 && a14 >= 1)
   {
@@ -9596,7 +9617,7 @@ LABEL_63:
   return result;
 }
 
-int *resample_horizontal<float,float,3,true>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t *a8, int *a9, int a10)
+int *resample_horizontal<float,float,3,true>(int *result, unsigned int a2, double a3, double a4, uint64_t a5, int a6, uint64_t a7, uint64_t *a8, int *a9, unsigned int a10)
 {
   if (a6 >= 1 && a10 >= 1)
   {

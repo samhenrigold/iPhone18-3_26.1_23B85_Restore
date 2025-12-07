@@ -141,11 +141,11 @@
 
 - (CPUINowPlayingSnapshot)initWithResponse:(id)response
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v54.receiver = self;
-  v54.super_class = CPUINowPlayingSnapshot;
-  v6 = [(CPUINowPlayingSnapshot *)&v54 init];
+  v55.receiver = self;
+  v55.super_class = CPUINowPlayingSnapshot;
+  v6 = [(CPUINowPlayingSnapshot *)&v55 init];
   if (v6)
   {
     playerPath = [responseCopy playerPath];
@@ -157,43 +157,43 @@
     tracklist = [responseCopy tracklist];
     playingItemIndexPath = [tracklist playingItemIndexPath];
 
-    v12 = CarPlayUIGeneralLogging();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = CarPlayUIGeneralLogging(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     if (playingItemIndexPath)
     {
-      if (v13)
+      if (v14)
       {
         bundleIdentifier = [(CPUINowPlayingSnapshot *)v6 bundleIdentifier];
         *buf = 138543618;
         *&buf[4] = bundleIdentifier;
         *&buf[12] = 2114;
         *&buf[14] = playingItemIndexPath;
-        _os_log_impl(&dword_243134000, v12, OS_LOG_TYPE_DEFAULT, "Received MPRequestResponseController response for %{public}@ with playing index path %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_243134000, v13, OS_LOG_TYPE_DEFAULT, "Received MPRequestResponseController response for %{public}@ with playing index path %{public}@", buf, 0x16u);
       }
 
       tracklist2 = [responseCopy tracklist];
       items = [tracklist2 items];
-      v12 = [items itemAtIndexPath:playingItemIndexPath];
+      v13 = [items itemAtIndexPath:playingItemIndexPath];
 
-      objc_storeStrong(&v6->_responseItem, v12);
-      v57 = 0;
-      v56 = 0u;
+      objc_storeStrong(&v6->_responseItem, v13);
+      v58 = 0;
+      v57 = 0u;
       memset(buf, 0, sizeof(buf));
-      if (v12)
+      if (v13)
       {
-        [v12 duration];
+        objc_msgSend_duration(v13);
       }
 
-      metadataObject = [v12 metadataObject];
+      metadataObject = [v13 metadataObject];
       anyObject = [metadataObject anyObject];
 
       tracklist3 = [responseCopy tracklist];
       items2 = [tracklist3 items];
-      v21 = [items2 sectionAtIndex:{objc_msgSend(playingItemIndexPath, "section")}];
+      v22 = [items2 sectionAtIndex:{objc_msgSend(playingItemIndexPath, "section")}];
 
-      if (v21)
+      if (v22)
       {
-        metadataObject2 = [v21 metadataObject];
+        metadataObject2 = [v22 metadataObject];
         v6->_isRadioPlayback = [metadataObject2 type] == 13;
       }
 
@@ -215,56 +215,56 @@
       {
         [anyObject artist];
       }
-      v25 = ;
-      name = [v25 name];
+      v26 = ;
+      name = [v26 name];
       artist = v6->_artist;
       v6->_artist = name;
 
       if (v6->_isRadioPlayback)
       {
-        metadataObject3 = [v21 metadataObject];
+        metadataObject3 = [v22 metadataObject];
         radioStation = [metadataObject3 radioStation];
         attributionLabel = [radioStation attributionLabel];
 
         if (attributionLabel)
         {
-          v31 = attributionLabel;
-          v32 = v6->_artist;
-          v6->_artist = v31;
+          v32 = attributionLabel;
+          v33 = v6->_artist;
+          v6->_artist = v32;
         }
 
         else
         {
-          v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
           artist = [anyObject artist];
           name2 = [artist name];
 
           if ([name2 length])
           {
-            [(NSString *)v32 addObject:name2];
+            [(NSString *)v33 addObject:name2];
           }
 
-          v53 = name2;
+          v54 = name2;
           composer = [anyObject composer];
           name3 = [composer name];
 
           if ([anyObject shouldShowComposer] && objc_msgSend(name3, "length"))
           {
-            v37 = MEMORY[0x277CCACA8];
-            v52 = CPUILocalizedStringForKey(@"COMPOSED_BY_TITLE_%@");
-            v38 = [v37 localizedStringWithFormat:v52, name3];
+            v38 = MEMORY[0x277CCACA8];
+            v53 = CPUILocalizedStringForKey(@"COMPOSED_BY_TITLE_%@");
+            v39 = [v38 localizedStringWithFormat:v53, name3];
 
-            [(NSString *)v32 addObject:v38];
+            [(NSString *)v33 addObject:v39];
           }
 
-          v39 = [(NSString *)v32 count];
-          if (v39)
+          v40 = [(NSString *)v33 count];
+          if (v40)
           {
-            v39 = [(NSString *)v32 componentsJoinedByString:@" — "];
+            v40 = [(NSString *)v33 componentsJoinedByString:@" — "];
           }
 
-          v40 = v6->_artist;
-          v6->_artist = v39;
+          v41 = v6->_artist;
+          v6->_artist = v40;
         }
       }
 
@@ -277,11 +277,11 @@
       artworkCatalog = v6->_artworkCatalog;
       v6->_artworkCatalog = artworkCatalog;
 
-      v46 = *&buf[16];
+      v47 = *&buf[16];
       *&v6->_durationSnapshot.snapshotTime = *buf;
-      *&v6->_durationSnapshot.endTime = v46;
-      *&v6->_durationSnapshot.elapsedDuration = v56;
-      *&v6->_durationSnapshot.isLiveContent = v57;
+      *&v6->_durationSnapshot.endTime = v47;
+      *&v6->_durationSnapshot.elapsedDuration = v57;
+      *&v6->_durationSnapshot.isLiveContent = v58;
       v6->_state = [responseCopy state];
       tracklist4 = [responseCopy tracklist];
       tracklist = v6->_tracklist;
@@ -289,13 +289,13 @@
 
       song = v6->_song;
       v6->_song = anyObject;
-      v50 = anyObject;
+      v51 = anyObject;
     }
 
-    else if (v13)
+    else if (v14)
     {
       *buf = 0;
-      _os_log_impl(&dword_243134000, v12, OS_LOG_TYPE_DEFAULT, "Received MPRequestResponseController response without any available now playing item.", buf, 2u);
+      _os_log_impl(&dword_243134000, v13, OS_LOG_TYPE_DEFAULT, "Received MPRequestResponseController response without any available now playing item.", buf, 2u);
     }
   }
 
@@ -328,29 +328,29 @@ void __44__CPUINowPlayingSnapshot_knownJumpIntervals__block_invoke()
 
   if (stop)
   {
-    [(CPUINowPlayingSnapshot *)self durationSnapshot];
-    if (v9 != 1)
+    v7 = objc_msgSend_durationSnapshot(self);
+    if (v11 != 1)
     {
       return 0;
     }
 
-    v6 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = CarPlayUIGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Playing livestreaming content.";
+      v9 = "Playing livestreaming content.";
 LABEL_7:
-      _os_log_impl(&dword_243134000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+      _os_log_impl(&dword_243134000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
     }
   }
 
   else
   {
-    v6 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = CarPlayUIGeneralLogging(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Stop command is disabled.";
+      v9 = "Stop command is disabled.";
       goto LABEL_7;
     }
   }

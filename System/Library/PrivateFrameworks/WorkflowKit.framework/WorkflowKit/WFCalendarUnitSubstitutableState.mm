@@ -45,30 +45,30 @@
 
 void __93__WFCalendarUnitSubstitutableState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a5;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = &unk_1F4A9B620;
-  v9 = [&unk_1F4A9B620 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [&unk_1F4A9B620 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(&unk_1F4A9B620);
         }
 
-        v13 = WFLabelForCalendarUnit([*(*(&v17 + 1) + 8 * v12) unsignedIntegerValue], 0, 1);
+        v13 = WFLabelForCalendarUnit([*(*(&v16 + 1) + 8 * v12) unsignedIntegerValue], 0, 1);
         v14 = [v6 rangeOfString:v13 options:1];
 
         if (v14 != 0x7FFFFFFFFFFFFFFFLL)
@@ -82,7 +82,7 @@ void __93__WFCalendarUnitSubstitutableState_processWithContext_userInputRequired
       }
 
       while (v10 != v12);
-      v10 = [&unk_1F4A9B620 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [&unk_1F4A9B620 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -94,8 +94,6 @@ void __93__WFCalendarUnitSubstitutableState_processWithContext_userInputRequired
 
   (*(*(a1 + 32) + 16))();
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

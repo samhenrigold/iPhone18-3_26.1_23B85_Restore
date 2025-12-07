@@ -1264,10 +1264,11 @@ LABEL_15:
 void __47__TVRUIUpNextViewController_markItemAsWatched___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TVRUINowPlayingLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __47__TVRUIUpNextViewController_markItemAsWatched___block_invoke_cold_1();
     }
@@ -1290,10 +1291,11 @@ void __47__TVRUIUpNextViewController_markItemAsWatched___block_invoke(uint64_t a
 void __50__TVRUIUpNextViewController_removeItemFromUpNext___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TVRUINowPlayingLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __50__TVRUIUpNextViewController_removeItemFromUpNext___block_invoke_cold_1();
     }
@@ -1448,7 +1450,7 @@ void __47__TVRUIUpNextViewController_playItem_animated___block_invoke(id *a1)
 void __47__TVRUIUpNextViewController_playItem_animated___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _TVRUINowPlayingLog();
+  v3 = _TVRUINowPlayingLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __47__TVRUIUpNextViewController_playItem_animated___block_invoke_2_cold_1();

@@ -90,7 +90,7 @@
 
 - (void)_updateUI
 {
-  [(PKPaletteHandwritingToolView *)self _toolLabelImageViewTransform];
+  objc_msgSend__toolLabelImageViewTransform(self, a2);
   toolLabel = [(PKPaletteHandwritingToolView *)self toolLabel];
   v6[0] = v6[3];
   v6[1] = v6[4];

@@ -205,22 +205,19 @@ uint64_t __38__ICNAServerEnvironment_defaultAMSBag__block_invoke(uint64_t a1)
 
 - (void)init
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   targetURL = [self targetURL];
-  v5 = 138412290;
-  v6 = targetURL;
-  _os_log_debug_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_DEBUG, "Analytics Server URL is %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = targetURL;
+  _os_log_debug_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_DEBUG, "Analytics Server URL is %@", &v4, 0xCu);
 }
 
 void __29__ICNAServerEnvironment_init__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "No URL found for Upload Session Processor: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "No URL found for Upload Session Processor: %@", &v2, 0xCu);
 }
 
 @end

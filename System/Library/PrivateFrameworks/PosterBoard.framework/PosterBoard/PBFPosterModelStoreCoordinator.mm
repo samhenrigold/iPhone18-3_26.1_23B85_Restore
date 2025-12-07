@@ -60,7 +60,7 @@
 
 + (id)createNewStoreCoordinatorWithPath:(id)path error:(id *)error
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   identity = [pathCopy identity];
   provider = [identity provider];
@@ -115,20 +115,20 @@
   {
     v18 = PRPosterRoleLookupForExtensionBundleIdentifier(v15, v17);
 
-    v19 = PBFLogPosterContents();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = PBFLogPosterContents(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v94 = "+[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:]";
-      v95 = 2112;
-      v96 = v18;
-      _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "[Invalid Role][%{public}s] role was invalid, recovered: %@", buf, 0x16u);
+      v95 = "+[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:]";
+      v96 = 2112;
+      v97 = v18;
+      _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "[Invalid Role][%{public}s] role was invalid, recovered: %@", buf, 0x16u);
     }
   }
 
-  v20 = v18;
+  v21 = v18;
   NSClassFromString(&cfstr_Nsstring.isa);
-  if (!v20)
+  if (!v21)
   {
     [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:a2 error:?];
   }
@@ -143,90 +143,90 @@
     [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:a2 error:?];
   }
 
-  v68 = a2;
+  v69 = a2;
   selfCopy = self;
-  v21 = objc_opt_new();
+  v22 = objc_opt_new();
   identifierURL = [pathCopy identifierURL];
-  v23 = [MEMORY[0x277CBEBC0] pf_providerInfoFileURLForIdentifierURL:identifierURL];
-  v24 = [MEMORY[0x277CBEBC0] pf_versionsURLForIdentifierURL:identifierURL];
+  v24 = [MEMORY[0x277CBEBC0] pf_providerInfoFileURLForIdentifierURL:identifierURL];
+  v25 = [MEMORY[0x277CBEBC0] pf_versionsURLForIdentifierURL:identifierURL];
   if (![identifierURL checkResourceIsReachableAndReturnError:0])
   {
-    v76 = v16;
-    v77 = v23;
+    v77 = v16;
+    v78 = v24;
     errorCopy = error;
-    v66 = v20;
-    v67 = v17;
-    v64 = v15;
-    v73 = pathCopy;
+    v67 = v21;
+    v68 = v17;
+    v65 = v15;
+    v74 = pathCopy;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __74__PBFPosterModelStoreCoordinator_createNewStoreCoordinatorWithPath_error___block_invoke;
     aBlock[3] = &unk_2782C58B0;
-    v75 = v21;
-    v29 = v21;
-    v87 = v29;
-    v30 = identifierURL;
+    v76 = v22;
+    v30 = v22;
     v88 = v30;
-    v31 = _Block_copy(aBlock);
-    v82 = 0u;
+    v31 = identifierURL;
+    v89 = v31;
+    v32 = _Block_copy(aBlock);
     v83 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v63 = v30;
-    v89[0] = v30;
-    v89[1] = v24;
-    v74 = v24;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
-    v33 = [v32 countByEnumeratingWithState:&v82 objects:v90 count:16];
-    v72 = v31;
-    if (v33)
+    v86 = 0u;
+    v64 = v31;
+    v90[0] = v31;
+    v90[1] = v25;
+    v75 = v25;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+    v34 = [v33 countByEnumeratingWithState:&v83 objects:v91 count:16];
+    v73 = v32;
+    if (v34)
     {
-      v34 = v33;
-      v27 = 0;
-      v35 = *v83;
+      v35 = v34;
+      v28 = 0;
+      v36 = *v84;
       while (2)
       {
-        v36 = 0;
-        v37 = v27;
+        v37 = 0;
+        v38 = v28;
         do
         {
-          if (*v83 != v35)
+          if (*v84 != v36)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v33);
           }
 
-          v38 = *(*(&v82 + 1) + 8 * v36);
-          v39 = PFFileProtectionNoneAttributes();
-          v81 = v37;
-          LOBYTE(v38) = [v29 createDirectoryAtURL:v38 withIntermediateDirectories:1 attributes:v39 error:&v81];
-          v27 = v81;
+          v39 = *(*(&v83 + 1) + 8 * v37);
+          v40 = PFFileProtectionNoneAttributes();
+          v82 = v38;
+          LOBYTE(v39) = [v30 createDirectoryAtURL:v39 withIntermediateDirectories:1 attributes:v40 error:&v82];
+          v28 = v82;
 
-          if ((v38 & 1) == 0)
+          if ((v39 & 1) == 0)
           {
             if (errorCopy)
             {
-              v40 = v27;
-              *errorCopy = v27;
+              v41 = v28;
+              *errorCopy = v28;
             }
 
-            v31 = v72;
-            v72[2](v72);
+            v32 = v73;
+            v73[2](v73);
             error = 0;
-            pathCopy = v73;
-            v15 = v64;
-            v20 = v66;
-            v17 = v67;
+            pathCopy = v74;
+            v15 = v65;
+            v21 = v67;
+            v17 = v68;
             goto LABEL_66;
           }
 
-          ++v36;
-          v37 = v27;
+          ++v37;
+          v38 = v28;
         }
 
-        while (v34 != v36);
-        v34 = [v32 countByEnumeratingWithState:&v82 objects:v90 count:16];
-        v31 = v72;
-        if (v34)
+        while (v35 != v37);
+        v35 = [v33 countByEnumeratingWithState:&v83 objects:v91 count:16];
+        v32 = v73;
+        if (v35)
         {
           continue;
         }
@@ -237,168 +237,169 @@
 
     else
     {
-      v27 = 0;
+      v28 = 0;
     }
 
-    v17 = v67;
-    if (v67)
+    v17 = v68;
+    if (v68)
     {
-      v41 = MEMORY[0x277CBEBC0];
-      identity4 = [v73 identity];
-      v32 = [v41 pf_descriptorIdentifierURLForType:objc_msgSend(identity4 identifierURL:{"type"), v63}];
+      v42 = MEMORY[0x277CBEBC0];
+      identity4 = [v74 identity];
+      v33 = [v42 pf_descriptorIdentifierURLForType:objc_msgSend(identity4 identifierURL:{"type"), v64}];
 
-      v20 = v66;
-      if (![v67 length])
+      v21 = v67;
+      if (![v68 length])
       {
-        [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:v68 error:?];
+        [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:v69 error:?];
       }
 
-      v43 = [v67 dataUsingEncoding:4];
-      v80 = v27;
-      v44 = [v43 writeToURL:v32 options:268435457 error:&v80];
-      v45 = v80;
+      v44 = [v68 dataUsingEncoding:4];
+      v81 = v28;
+      v45 = [v44 writeToURL:v33 options:268435457 error:&v81];
+      v46 = v81;
 
-      if ((v44 & 1) == 0)
+      if ((v45 & 1) == 0)
       {
         if (errorCopy)
         {
-          v57 = v45;
-          *errorCopy = v45;
+          v60 = v46;
+          *errorCopy = v46;
         }
 
-        v31[2](v31);
+        v32[2](v32);
 
         error = 0;
-        v27 = v45;
-        pathCopy = v73;
-        v15 = v64;
+        v28 = v46;
+        pathCopy = v74;
+        v15 = v65;
         goto LABEL_66;
       }
     }
 
     else
     {
-      v45 = v27;
-      v20 = v66;
+      v46 = v28;
+      v21 = v67;
     }
 
-    v46 = MEMORY[0x277CBEBC0];
-    identity5 = [v73 identity];
-    v32 = [v46 pf_roleIdentifierURLForType:objc_msgSend(identity5 identifierURL:{"type"), v63}];
+    v47 = MEMORY[0x277CBEBC0];
+    identity5 = [v74 identity];
+    v33 = [v47 pf_roleIdentifierURLForType:objc_msgSend(identity5 identifierURL:{"type"), v64}];
 
-    v48 = [v20 dataUsingEncoding:4];
-    if (![v48 length])
+    v49 = [v21 dataUsingEncoding:4];
+    if (![v49 length])
     {
-      [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:v68 error:?];
+      [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:v69 error:?];
     }
 
-    v79 = v45;
-    v49 = [v48 writeToURL:v32 options:268435457 error:&v79];
-    v27 = v79;
-
-    if ((v49 & 1) == 0)
-    {
-      if (errorCopy)
-      {
-        v55 = v27;
-        *errorCopy = v27;
-      }
-
-      v56 = PBFLogPosterContents();
-      pathCopy = v73;
-      v15 = v64;
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
-      {
-        +[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:];
-      }
-
-      v31[2](v31);
-      error = 0;
-      goto LABEL_65;
-    }
-
-    [MEMORY[0x277CCAAB0] bs_secureDataFromObject:MEMORY[0x277CBEC10]];
-    v69 = v78 = v27;
-    v50 = [v69 writeToURL:v77 options:268435457 error:&v78];
-    v51 = v78;
+    v80 = v46;
+    v50 = [v49 writeToURL:v33 options:268435457 error:&v80];
+    v28 = v80;
 
     if ((v50 & 1) == 0)
     {
       if (errorCopy)
       {
-        v58 = v51;
-        *errorCopy = v51;
+        v51 = v28;
+        *errorCopy = v28;
       }
 
-      v59 = PBFLogPosterContents();
-      v54 = v69;
+      v59 = PBFLogPosterContents(v51);
+      pathCopy = v74;
+      v15 = v65;
       if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         +[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:];
       }
 
-      v31 = v72;
-      v72[2](v72);
+      v32[2](v32);
       error = 0;
-      v15 = v64;
+      goto LABEL_65;
+    }
+
+    [MEMORY[0x277CCAAB0] bs_secureDataFromObject:MEMORY[0x277CBEC10]];
+    v70 = v79 = v28;
+    v52 = [v70 writeToURL:v78 options:268435457 error:&v79];
+    v53 = v79;
+
+    if ((v52 & 1) == 0)
+    {
+      if (errorCopy)
+      {
+        v54 = v53;
+        *errorCopy = v53;
+      }
+
+      v61 = PBFLogPosterContents(v54);
+      v58 = v70;
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      {
+        +[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:];
+      }
+
+      v32 = v73;
+      v73[2](v73);
+      error = 0;
+      v15 = v65;
       goto LABEL_64;
     }
 
-    v15 = v64;
-    v52 = [[selfCopy alloc] initWithProvider:v64 identifierURL:v63 posterUUID:v76];
-    v71 = v52;
-    if (v52)
+    v15 = v65;
+    v55 = [[selfCopy alloc] initWithProvider:v65 identifierURL:v64 posterUUID:v77];
+    v72 = v55;
+    if (v55)
     {
-      checkEnvironmentConsistency = [(objc_class *)v52 checkEnvironmentConsistency];
+      checkEnvironmentConsistency = [(objc_class *)v55 checkEnvironmentConsistency];
 
-      v54 = v69;
+      v58 = v70;
       if (checkEnvironmentConsistency)
       {
         goto LABEL_57;
       }
 
-      checkEnvironmentConsistency = [(objc_class *)v71 ensureFileSystemIntegrity];
+      ensureFileSystemIntegrity = [(objc_class *)v72 ensureFileSystemIntegrity];
+      checkEnvironmentConsistency = ensureFileSystemIntegrity;
     }
 
     else
     {
       checkEnvironmentConsistency = [MEMORY[0x277CCA9B8] pbf_descriptorStoreCoordinatorErrorWithCode:-3329 userInfo:0];
 
-      v54 = v69;
+      v58 = v70;
     }
 
     if (!checkEnvironmentConsistency)
     {
-      error = v71;
+      error = v72;
 LABEL_63:
 
-      v51 = checkEnvironmentConsistency;
-      v31 = v72;
+      v53 = checkEnvironmentConsistency;
+      v32 = v73;
 LABEL_64:
 
-      v27 = v51;
-      pathCopy = v73;
+      v28 = v53;
+      pathCopy = v74;
 LABEL_65:
 
 LABEL_66:
-      v28 = v87;
+      v29 = v88;
       goto LABEL_67;
     }
 
 LABEL_57:
     if (errorCopy)
     {
-      v60 = checkEnvironmentConsistency;
+      ensureFileSystemIntegrity = checkEnvironmentConsistency;
       *errorCopy = checkEnvironmentConsistency;
     }
 
-    v61 = PBFLogPosterContents();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v62 = PBFLogPosterContents(ensureFileSystemIntegrity);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
       +[PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:error:];
     }
 
-    (v72[2])();
+    (v73[2])();
     error = 0;
     goto LABEL_63;
   }
@@ -408,26 +409,26 @@ LABEL_57:
     goto LABEL_68;
   }
 
-  v74 = v24;
-  v75 = v21;
-  v76 = v16;
-  v77 = v23;
+  v75 = v25;
+  v76 = v22;
+  v77 = v16;
+  v78 = v24;
   errorCopy2 = error;
-  v26 = MEMORY[0x277CCA9B8];
-  v91[0] = @"posterUUID";
-  v27 = [MEMORY[0x277CCAD78] pf_nonnullUUIDStringOrSentinel:v16];
-  v91[1] = @"identifierURL";
-  v92[0] = v27;
-  v92[1] = identifierURL;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
-  [v26 pbf_descriptorStoreCoordinatorErrorWithCode:-3332 userInfo:v28];
+  v27 = MEMORY[0x277CCA9B8];
+  v92[0] = @"posterUUID";
+  v28 = [MEMORY[0x277CCAD78] pf_nonnullUUIDStringOrSentinel:v16];
+  v92[1] = @"identifierURL";
+  v93[0] = v28;
+  v93[1] = identifierURL;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
+  [v27 pbf_descriptorStoreCoordinatorErrorWithCode:-3332 userInfo:v29];
   *errorCopy2 = error = 0;
 LABEL_67:
 
-  v21 = v75;
-  v16 = v76;
-  v23 = v77;
-  v24 = v74;
+  v22 = v76;
+  v16 = v77;
+  v24 = v78;
+  v25 = v75;
 LABEL_68:
 
   return error;
@@ -622,7 +623,7 @@ uint64_t __41__PBFPosterModelStoreCoordinator_dealloc__block_invoke(uint64_t a1)
 
 - (void)_accessQueue_correctPermissionsForInternalDirectories:(id *)directories
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if ([(NSURL *)self->_identifierURL checkResourceIsReachableAndReturnError:?])
   {
     type = [objc_opt_class() type];
@@ -631,7 +632,7 @@ uint64_t __41__PBFPosterModelStoreCoordinator_dealloc__block_invoke(uint64_t a1)
     expectedURLResourceValuesForFiles = [objc_opt_class() expectedURLResourceValuesForFiles];
     v9 = [expectedURLResourceValuesForFiles objectForKey:*MEMORY[0x277CBE878]];
 
-    v44 = v9;
+    v49 = v9;
     if (v9)
     {
       bOOLValue = [v9 BOOLValue];
@@ -646,177 +647,181 @@ uint64_t __41__PBFPosterModelStoreCoordinator_dealloc__block_invoke(uint64_t a1)
     v11 = [expectedURLResourceValuesForFiles2 objectForKey:*MEMORY[0x277CBE7F8]];
 
     v12 = *MEMORY[0x277CBE800];
-    v43 = v11;
+    v48 = v11;
     if (v11)
     {
       v12 = v11;
     }
 
     v13 = v12;
-    v14 = PBFLogPosterContents();
+    v14 = PBFLogPosterContents(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       identifierURL = self->_identifierURL;
       *buf = 138412290;
-      *v60 = identifierURL;
+      *v65 = identifierURL;
       _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> securing file system permissions for URLs under: %@", buf, 0xCu);
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     selfCopy = self;
-    v47 = v6;
-    v61[0] = self->_identifierURL;
-    v61[1] = v6;
-    v45 = v7;
-    v61[2] = v7;
-    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
-    v16 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+    v52 = v6;
+    v66[0] = self->_identifierURL;
+    v66[1] = v6;
+    v50 = v7;
+    v66[2] = v7;
+    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:3];
+    v16 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v56;
+      v18 = *v61;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v56 != v18)
+          if (*v61 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v55 + 1) + 8 * i);
-          v54 = 0;
-          v21 = [v20 pbf_setFileProtection:v13 error:&v54];
-          v22 = v54;
+          v20 = *(*(&v60 + 1) + 8 * i);
+          v59 = 0;
+          v21 = [v20 pbf_setFileProtection:v13 error:&v59];
+          v22 = v59;
           v23 = v22;
           if ((v21 & 1) == 0)
           {
             pf_isFileNotFoundError = [v22 pf_isFileNotFoundError];
-            v25 = PBFLogPosterContents();
-            v26 = v25;
-            if (pf_isFileNotFoundError)
+            v25 = pf_isFileNotFoundError;
+            v26 = PBFLogPosterContents(pf_isFileNotFoundError);
+            v27 = v26;
+            if (v25)
             {
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *v60 = v20;
-                _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> skipping nonexistent file: %@", buf, 0xCu);
+                *v65 = v20;
+                _os_log_impl(&dword_21B526000, v27, OS_LOG_TYPE_DEFAULT, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> skipping nonexistent file: %@", buf, 0xCu);
               }
 
               goto LABEL_39;
             }
 
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543874;
-              *v60 = v13;
-              *&v60[8] = 2112;
-              *&v60[10] = v20;
-              *&v60[18] = 2114;
-              *&v60[20] = v23;
-              _os_log_error_impl(&dword_21B526000, v26, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> failed to correct file protection (%{public}@) for file %@: %{public}@", buf, 0x20u);
+              *v65 = v13;
+              *&v65[8] = 2112;
+              *&v65[10] = v20;
+              *&v65[18] = 2114;
+              *&v65[20] = v23;
+              _os_log_error_impl(&dword_21B526000, v27, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> failed to correct file protection (%{public}@) for file %@: %{public}@", buf, 0x20u);
             }
           }
 
-          v53 = 0;
-          v27 = [v20 pbf_setPurgable:0 error:&v53];
-          v26 = v53;
-          if ((v27 & 1) == 0)
+          v58 = 0;
+          v28 = [v20 pbf_setPurgable:0 error:&v58];
+          v29 = v58;
+          v27 = v29;
+          if ((v28 & 1) == 0)
           {
-            v28 = PBFLogPosterContents();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v30 = PBFLogPosterContents(v29);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *v60 = v20;
-              *&v60[8] = 2114;
-              *&v60[10] = v26;
-              _os_log_error_impl(&dword_21B526000, v28, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> failed to correct file purgable for file %@: %{public}@", buf, 0x16u);
+              *v65 = v20;
+              *&v65[8] = 2114;
+              *&v65[10] = v27;
+              _os_log_error_impl(&dword_21B526000, v30, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories]> failed to correct file purgable for file %@: %{public}@", buf, 0x16u);
             }
           }
 
-          v52 = 0;
-          v29 = [v20 pf_setExcludedFromBackup:bOOLValue error:&v52];
-          v30 = v52;
-          if ((v29 & 1) == 0)
+          v57 = 0;
+          v31 = [v20 pf_setExcludedFromBackup:bOOLValue error:&v57];
+          v32 = v57;
+          v33 = v32;
+          if ((v31 & 1) == 0)
           {
-            v31 = PBFLogPosterContents();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v34 = PBFLogPosterContents(v32);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109634;
-              *v60 = bOOLValue;
-              *&v60[4] = 2112;
-              *&v60[6] = v20;
-              *&v60[14] = 2114;
-              *&v60[16] = v30;
-              _os_log_error_impl(&dword_21B526000, v31, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct exclude-from-backup (%{BOOL}u) for file %@: %{public}@", buf, 0x1Cu);
+              *v65 = bOOLValue;
+              *&v65[4] = 2112;
+              *&v65[6] = v20;
+              *&v65[14] = 2114;
+              *&v65[16] = v33;
+              _os_log_error_impl(&dword_21B526000, v34, OS_LOG_TYPE_ERROR, "[PBFPosterModelStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct exclude-from-backup (%{BOOL}u) for file %@: %{public}@", buf, 0x1Cu);
             }
           }
 
-          if (directories && v26 | v30 | v23)
+          if (directories && v27 | v33 | v23)
           {
-            if (v30)
+            if (v33)
             {
-              v32 = v30;
+              v35 = v33;
             }
 
             else
             {
-              v32 = v23;
+              v35 = v23;
             }
 
-            if (v26)
+            if (v27)
             {
-              v33 = v26;
+              v36 = v27;
             }
 
             else
             {
-              v33 = v32;
+              v36 = v35;
             }
 
-            *directories = v33;
+            *directories = v36;
           }
 
 LABEL_39:
         }
 
-        v17 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+        v17 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
       }
 
       while (v17);
     }
 
-    v34 = [MEMORY[0x277CBEBC0] pf_posterPathScratchURLForInstanceURL:selfCopy->_identifierURL];
-    if (([v34 checkResourceIsReachableAndReturnError:0] & 1) == 0)
+    v37 = [MEMORY[0x277CBEBC0] pf_posterPathScratchURLForInstanceURL:selfCopy->_identifierURL];
+    if (([v37 checkResourceIsReachableAndReturnError:0] & 1) == 0)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v36 = PFFileProtectionNoneAttributes();
-      v51 = 0;
-      v37 = [defaultManager createDirectoryAtURL:v34 withIntermediateDirectories:1 attributes:v36 error:&v51];
-      v38 = v51;
+      v39 = PFFileProtectionNoneAttributes();
+      v56 = 0;
+      v40 = [defaultManager createDirectoryAtURL:v37 withIntermediateDirectories:1 attributes:v39 error:&v56];
+      v41 = v56;
 
-      if ((v37 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v39 = PBFLogPosterContents();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v43 = PBFLogPosterContents(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          [PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories:];
+          [PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories:selfCopy];
         }
       }
     }
 
-    v50 = 0;
-    v40 = [v34 pf_setExcludedFromBackup:1 error:&v50];
-    v41 = v50;
-    if ((v40 & 1) == 0)
+    v55 = 0;
+    v44 = [v37 pf_setExcludedFromBackup:1 error:&v55];
+    v45 = v55;
+    v46 = v45;
+    if ((v44 & 1) == 0)
     {
-      v42 = PBFLogPosterContents();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v47 = PBFLogPosterContents(v45);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        [PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories:];
+        [PBFPosterModelStoreCoordinator _accessQueue_correctPermissionsForInternalDirectories:selfCopy];
       }
     }
   }
@@ -982,7 +987,7 @@ uint64_t __101__PBFPosterModelStoreCoordinator__accessQueue_contentsOfURLWithinS
   else
   {
     v3 = PRPosterRoleLookupForExtensionBundleIdentifier(self->_extensionIdentifier, self->_descriptorIdentifier);
-    v4 = PBFLogPosterContents();
+    v4 = PBFLogPosterContents(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       role = self->_role;
@@ -1372,7 +1377,7 @@ void __57__PBFPosterModelStoreCoordinator__posterPathForIdentity___block_invoke(
   return v3;
 }
 
-uint64_t __50__PBFPosterModelStoreCoordinator_hasKnownVersions__block_invoke(uint64_t a1)
+void *__50__PBFPosterModelStoreCoordinator_hasKnownVersions__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 96) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -1439,11 +1444,11 @@ void __67__PBFPosterModelStoreCoordinator_reapEverythingExceptLatestVersion__blo
   }
 }
 
-uint64_t __67__PBFPosterModelStoreCoordinator_reapEverythingExceptLatestVersion__block_invoke_3(uint64_t result, uint64_t a2)
+id *__67__PBFPosterModelStoreCoordinator_reapEverythingExceptLatestVersion__block_invoke_3(id *result, id a2)
 {
-  if (*(result + 40) != *(result + 48) || *(result + 56) != a2)
+  if (result[5] != result[6] || result[7] != a2)
   {
-    return [*(result + 32) _accessQueue_removeSupplement:a2 forVersion:? error:?];
+    return [result[4] _accessQueue_removeSupplement:a2 forVersion:? error:?];
   }
 
   return result;
@@ -1495,10 +1500,11 @@ uint64_t __67__PBFPosterModelStoreCoordinator_reapEverythingExceptLatestVersion_
     {
       if (error)
       {
+        v10 = v10;
         *error = v10;
       }
 
-      v11 = PBFLogPosterContents();
+      v11 = PBFLogPosterContents(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator addNewVersionWithContents:error:];
@@ -1562,10 +1568,11 @@ void __66__PBFPosterModelStoreCoordinator_addNewVersionWithContents_error___bloc
     {
       if (error)
       {
+        v6 = v6;
         *error = v6;
       }
 
-      v7 = PBFLogPosterContents();
+      v7 = PBFLogPosterContents(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator addNewSupplementWithError:];
@@ -1631,10 +1638,11 @@ void __60__PBFPosterModelStoreCoordinator_addNewSupplementWithError___block_invo
     {
       if (error)
       {
+        v10 = v10;
         *error = v10;
       }
 
-      v11 = PBFLogPosterContents();
+      v11 = PBFLogPosterContents(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator stageNewVersionWithContents:error:];
@@ -1698,10 +1706,11 @@ void __68__PBFPosterModelStoreCoordinator_stageNewVersionWithContents_error___bl
     {
       if (error)
       {
+        v6 = v6;
         *error = v6;
       }
 
-      v7 = PBFLogPosterContents();
+      v7 = PBFLogPosterContents(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator stageNewSupplementWithError:];
@@ -2048,10 +2057,11 @@ void __56__PBFPosterModelStoreCoordinator_commitStagedWithError___block_invoke_3
     {
       if (error)
       {
+        v7 = v7;
         *error = v7;
       }
 
-      v8 = PBFLogPosterContents();
+      v8 = PBFLogPosterContents(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator removeSupplement:forVersion:error:];
@@ -2209,50 +2219,36 @@ LABEL_3:
 
 - (id)_accessQueue_checkEnvironmentConsistency
 {
-  v174 = *MEMORY[0x277D85DE8];
-  v4 = PBFLogPosterContents();
+  v186 = *MEMORY[0x277D85DE8];
+  v4 = PBFLogPosterContents(self);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = PBFLogPosterContents();
-  v7 = v6;
+  v7 = PBFLogPosterContents(v6);
+  v8 = v7;
   spid = v5;
-  v118 = v5 - 1;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v130 = v5 - 1;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     extensionIdentifier = self->_extensionIdentifier;
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
     *buf = 138543618;
-    v159 = extensionIdentifier;
-    v160 = 2114;
-    v161 = v10;
-    _os_signpost_emit_with_name_impl(&dword_21B526000, v7, OS_SIGNPOST_INTERVAL_BEGIN, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@", buf, 0x16u);
+    v171 = extensionIdentifier;
+    v172 = 2114;
+    v173 = v11;
+    _os_signpost_emit_with_name_impl(&dword_21B526000, v8, OS_SIGNPOST_INTERVAL_BEGIN, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@", buf, 0x16u);
   }
 
-  v11 = self->_providerInfoURL;
-  v12 = self->_containerVersionsURL;
+  v12 = self->_providerInfoURL;
+  v13 = self->_containerVersionsURL;
   selfCopy = self;
-  v14 = self->_identifierURL;
-  v15 = selfCopy->_providerURL;
-  v16 = selfCopy->_posterUUID;
-  v17 = selfCopy->_extensionIdentifier;
-  v137 = selfCopy;
-  v135 = selfCopy->_fileManager;
-  v18 = v15;
-  NSClassFromString(&cfstr_Nsurl.isa);
-  if (!v18)
-  {
-    [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
-  }
-
-  v117 = v18;
-
-  v19 = v11;
+  v15 = self->_identifierURL;
+  v16 = selfCopy->_providerURL;
+  v17 = selfCopy->_posterUUID;
+  v18 = selfCopy->_extensionIdentifier;
+  v149 = selfCopy;
+  v147 = selfCopy->_fileManager;
+  v19 = v16;
   NSClassFromString(&cfstr_Nsurl.isa);
   if (!v19)
   {
@@ -2264,7 +2260,7 @@ LABEL_3:
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v119 = v19;
+  v129 = v19;
 
   v20 = v12;
   NSClassFromString(&cfstr_Nsurl.isa);
@@ -2278,39 +2274,39 @@ LABEL_3:
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v120 = v20;
+  v131 = v20;
 
-  v21 = v14;
+  v21 = v13;
   NSClassFromString(&cfstr_Nsurl.isa);
   if (!v21)
   {
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v22 = v137;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v121 = v21;
+  v132 = v21;
 
-  v23 = v16;
-  NSClassFromString(&cfstr_Nsuuid.isa);
-  if (!v23)
+  v22 = v15;
+  NSClassFromString(&cfstr_Nsurl.isa);
+  if (!v22)
   {
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
+  v23 = v149;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v132 = v23;
+  v133 = v22;
 
   v24 = v17;
-  NSClassFromString(&cfstr_Nsstring.isa);
+  NSClassFromString(&cfstr_Nsuuid.isa);
   if (!v24)
   {
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
@@ -2321,106 +2317,121 @@ LABEL_3:
     [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
   }
 
-  v131 = v24;
+  v144 = v24;
 
-  v157 = 0;
-  v25 = [(NSURL *)v121 checkResourceIsReachableAndReturnError:&v157];
-  v26 = v157;
-  v27 = v26;
+  v25 = v18;
+  NSClassFromString(&cfstr_Nsstring.isa);
   if (!v25)
   {
-    v38 = PBFLogPosterContents();
-    v39 = v38;
-    if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+    [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
+  }
+
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    [(PBFPosterModelStoreCoordinator *)a2 _accessQueue_checkEnvironmentConsistency];
+  }
+
+  v143 = v25;
+
+  v169 = 0;
+  v26 = [(NSURL *)v133 checkResourceIsReachableAndReturnError:&v169];
+  v27 = v169;
+  v28 = v27;
+  if (!v26)
+  {
+    v42 = PBFLogPosterContents(v27);
+    v43 = v42;
+    if (v130 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
     {
-      v40 = v137->_extensionIdentifier;
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
+      v44 = v149->_extensionIdentifier;
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
       *buf = 138543874;
-      v159 = v40;
-      v160 = 2114;
-      v161 = v42;
-      v162 = 2114;
-      v163 = v27;
-      _os_signpost_emit_with_name_impl(&dword_21B526000, v39, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
+      v171 = v44;
+      v172 = 2114;
+      v173 = v46;
+      v174 = 2114;
+      v175 = v28;
+      _os_signpost_emit_with_name_impl(&dword_21B526000, v43, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
     }
 
-    v43 = v27;
+    v47 = v28;
     goto LABEL_35;
   }
 
-  v156 = v26;
-  v28 = [(NSURL *)v120 checkResourceIsReachableAndReturnError:&v156];
-  v29 = v156;
+  v168 = v27;
+  v29 = [(NSURL *)v132 checkResourceIsReachableAndReturnError:&v168];
+  v30 = v168;
 
-  if (!v28)
+  if (!v29)
   {
-    v44 = PBFLogPosterContents();
-    v45 = v44;
-    if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+    v48 = PBFLogPosterContents(v31);
+    v49 = v48;
+    if (v130 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
     {
-      v46 = v137->_extensionIdentifier;
-      v47 = objc_opt_class();
-      v48 = NSStringFromClass(v47);
+      v50 = v149->_extensionIdentifier;
+      v51 = objc_opt_class();
+      v52 = NSStringFromClass(v51);
       *buf = 138543874;
-      v159 = v46;
-      v160 = 2114;
-      v161 = v48;
-      v162 = 2114;
-      v163 = v29;
-      _os_signpost_emit_with_name_impl(&dword_21B526000, v45, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
+      v171 = v50;
+      v172 = 2114;
+      v173 = v52;
+      v174 = 2114;
+      v175 = v30;
+      _os_signpost_emit_with_name_impl(&dword_21B526000, v49, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
     }
 
-    v43 = v29;
+    v47 = v30;
 LABEL_35:
-    v49 = v43;
-    v50 = v43;
+    v53 = v47;
+    v54 = v47;
     goto LABEL_103;
   }
 
-  if ([(NSURL *)v119 checkResourceIsReachableAndReturnError:0])
+  if ([(NSURL *)v131 checkResourceIsReachableAndReturnError:0])
   {
-    v155 = 0;
-    v30 = [(PBFPosterModelStoreCoordinator *)v137 _accessQueue_providerInfoWithError:&v155];
-    v31 = v155;
-    if (v31)
+    v167 = 0;
+    v32 = [(PBFPosterModelStoreCoordinator *)v149 _accessQueue_providerInfoWithError:&v167];
+    v33 = v167;
+    v34 = v33;
+    if (v33)
     {
-      v32 = PBFLogPosterContents();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v35 = PBFLogPosterContents(v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency];
       }
 
-      v33 = PBFLogPosterContents();
-      v34 = v33;
-      if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+      v37 = PBFLogPosterContents(v36);
+      v38 = v37;
+      if (v130 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
-        v35 = v137->_extensionIdentifier;
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v39 = v149->_extensionIdentifier;
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
         *buf = 138543874;
-        v159 = v35;
-        v22 = v137;
-        v160 = 2114;
-        v161 = v37;
-        v162 = 2114;
-        v163 = v31;
-        _os_signpost_emit_with_name_impl(&dword_21B526000, v34, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
+        v171 = v39;
+        v23 = v149;
+        v172 = 2114;
+        v173 = v41;
+        v174 = 2114;
+        v175 = v34;
+        _os_signpost_emit_with_name_impl(&dword_21B526000, v38, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    [(PBFPosterModelStoreCoordinator *)v137 _accessQueue_writeProviderInfo:MEMORY[0x277CBEC10] error:0];
+    [(PBFPosterModelStoreCoordinator *)v149 _accessQueue_writeProviderInfo:MEMORY[0x277CBEC10] error:0];
   }
 
-  v154 = v29;
-  v115 = [(NSFileManager *)v135 contentsOfDirectoryAtURL:v120 includingPropertiesForKeys:0 options:1 error:&v154];
-  v51 = v154;
+  v166 = v30;
+  v127 = [(NSFileManager *)v147 contentsOfDirectoryAtURL:v132 includingPropertiesForKeys:0 options:1 error:&v166];
+  v55 = v166;
 
-  v113 = v51;
-  if (!v51)
+  v125 = v55;
+  if (!v55)
   {
     if (_accessQueue_checkEnvironmentConsistency___once != -1)
     {
@@ -2428,236 +2439,238 @@ LABEL_35:
     }
 
     indexSet = [MEMORY[0x277CCAB58] indexSet];
-    v150 = 0u;
-    v151 = 0u;
-    v152 = 0u;
-    v153 = 0u;
-    obj = v115;
-    v57 = [obj countByEnumeratingWithState:&v150 objects:v173 count:16];
-    if (!v57)
+    v162 = 0u;
+    v163 = 0u;
+    v164 = 0u;
+    v165 = 0u;
+    obj = v127;
+    v62 = [obj countByEnumeratingWithState:&v162 objects:v185 count:16];
+    if (!v62)
     {
 LABEL_98:
 
-      v106 = __knownVersions(v22->_accessQueue_posterIdentityBySupplementByVersion);
-      [v106 removeIndexes:indexSet];
-      v138[0] = MEMORY[0x277D85DD0];
-      v138[1] = 3221225472;
-      v138[2] = __74__PBFPosterModelStoreCoordinator__accessQueue_checkEnvironmentConsistency__block_invoke_101;
-      v138[3] = &unk_2782C74F8;
-      v138[4] = v22;
-      [v106 enumerateIndexesUsingBlock:v138];
-      [(NSMutableDictionary *)v22->_accessQueue_stagedPosterIdentityBySupplementByVersion removeAllObjects];
-      v107 = PBFLogPosterContents();
-      v108 = v107;
-      if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v107))
+      v118 = __knownVersions(v23->_accessQueue_posterIdentityBySupplementByVersion);
+      [v118 removeIndexes:indexSet];
+      v150[0] = MEMORY[0x277D85DD0];
+      v150[1] = 3221225472;
+      v150[2] = __74__PBFPosterModelStoreCoordinator__accessQueue_checkEnvironmentConsistency__block_invoke_101;
+      v150[3] = &unk_2782C74F8;
+      v150[4] = v23;
+      [v118 enumerateIndexesUsingBlock:v150];
+      v119 = PBFLogPosterContents([(NSMutableDictionary *)v23->_accessQueue_stagedPosterIdentityBySupplementByVersion removeAllObjects]);
+      v120 = v119;
+      if (v130 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v119))
       {
-        v109 = v22->_extensionIdentifier;
-        v110 = objc_opt_class();
-        v111 = NSStringFromClass(v110);
+        v121 = v23->_extensionIdentifier;
+        v122 = objc_opt_class();
+        v123 = NSStringFromClass(v122);
         *buf = 138543874;
-        v159 = v109;
-        v160 = 2114;
-        v161 = v111;
-        v162 = 2114;
-        v163 = 0;
-        _os_signpost_emit_with_name_impl(&dword_21B526000, v108, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
+        v171 = v121;
+        v172 = 2114;
+        v173 = v123;
+        v174 = 2114;
+        v175 = 0;
+        _os_signpost_emit_with_name_impl(&dword_21B526000, v120, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
       }
 
-      v50 = 0;
-      v49 = v114;
+      v54 = 0;
+      v53 = v126;
       goto LABEL_102;
     }
 
-    v58 = v57;
-    v130 = *v151;
+    v63 = v62;
+    v142 = *v163;
     while (1)
     {
-      v59 = 0;
-      v123 = v58;
+      v64 = 0;
+      v135 = v63;
       do
       {
-        if (*v151 != v130)
+        if (*v163 != v142)
         {
           objc_enumerationMutation(obj);
         }
 
-        v60 = *(*(&v150 + 1) + 8 * v59);
-        lastPathComponent = [v60 lastPathComponent];
-        v62 = [_accessQueue_checkEnvironmentConsistency_numberFormatter numberFromString:lastPathComponent];
-        unsignedLongLongValue = [v62 unsignedLongLongValue];
+        v65 = *(*(&v162 + 1) + 8 * v64);
+        lastPathComponent = [v65 lastPathComponent];
+        v67 = [_accessQueue_checkEnvironmentConsistency_numberFormatter numberFromString:lastPathComponent];
+        unsignedLongLongValue = [v67 unsignedLongLongValue];
 
-        v64 = _accessQueue_checkEnvironmentConsistency_numberFormatter;
-        v65 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue];
-        v66 = [v64 stringFromNumber:v65];
-        v67 = [lastPathComponent isEqualToString:v66];
+        v69 = _accessQueue_checkEnvironmentConsistency_numberFormatter;
+        v70 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue];
+        v71 = [v69 stringFromNumber:v70];
+        v72 = [lastPathComponent isEqualToString:v71];
 
-        if (!v67)
+        if (!v72)
         {
           goto LABEL_88;
         }
 
-        v68 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementContainerURLForInstanceURL:v60];
-        if (([v68 checkResourceIsReachableAndReturnError:0] & 1) == 0)
+        v74 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementContainerURLForInstanceURL:v65];
+        v75 = [v74 checkResourceIsReachableAndReturnError:0];
+        if ((v75 & 1) == 0)
         {
-          v69 = PBFLogPosterContents();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+          v76 = PBFLogPosterContents(v75);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315906;
-            v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-            v160 = 2112;
-            v161 = v131;
-            v162 = 2112;
-            v163 = v132;
-            v164 = 2048;
-            v165 = unsignedLongLongValue;
-            _os_log_impl(&dword_21B526000, v69, OS_LOG_TYPE_DEFAULT, "%s> creating migration supplement for provider=%@ uuid=%@ version=%llu", buf, 0x2Au);
+            v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+            v172 = 2112;
+            v173 = v143;
+            v174 = 2112;
+            v175 = v144;
+            v176 = 2048;
+            v177 = unsignedLongLongValue;
+            _os_log_impl(&dword_21B526000, v76, OS_LOG_TYPE_DEFAULT, "%s> creating migration supplement for provider=%@ uuid=%@ version=%llu", buf, 0x2Au);
           }
 
-          v70 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v60 supplement:0];
-          v71 = PFFileProtectionNoneAttributes();
-          v149 = 0;
-          [(NSFileManager *)v135 createDirectoryAtURL:v70 withIntermediateDirectories:1 attributes:v71 error:&v149];
-          v72 = v149;
+          v77 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v65 supplement:0];
+          v78 = PFFileProtectionNoneAttributes();
+          v161 = 0;
+          [(NSFileManager *)v147 createDirectoryAtURL:v77 withIntermediateDirectories:1 attributes:v78 error:&v161];
+          v79 = v161;
 
-          if (v72)
+          if (v79)
           {
-            v73 = PBFLogPosterContents();
-            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+            v81 = PBFLogPosterContents(v80);
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-              v160 = 2112;
-              v161 = v72;
-              _os_log_error_impl(&dword_21B526000, v73, OS_LOG_TYPE_ERROR, "%s> error creating migration supplement: %@", buf, 0x16u);
+              v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+              v172 = 2112;
+              v173 = v79;
+              _os_log_error_impl(&dword_21B526000, v81, OS_LOG_TYPE_ERROR, "%s> error creating migration supplement: %@", buf, 0x16u);
             }
           }
         }
 
-        v128 = lastPathComponent;
-        v148 = 0;
-        v74 = [(NSFileManager *)v135 contentsOfDirectoryAtURL:v68 includingPropertiesForKeys:0 options:1 error:&v148];
-        v75 = v148;
-        if (v75)
+        v140 = lastPathComponent;
+        v160 = 0;
+        v82 = [(NSFileManager *)v147 contentsOfDirectoryAtURL:v74 includingPropertiesForKeys:0 options:1 error:&v160];
+        v83 = v160;
+        v84 = v83;
+        if (v83)
         {
-          v76 = PBFLogPosterContents();
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+          v85 = PBFLogPosterContents(v83);
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-            v160 = 2112;
-            v161 = v75;
-            _os_log_error_impl(&dword_21B526000, v76, OS_LOG_TYPE_ERROR, "%s> error fetching supplements from filesystem: %@", buf, 0x16u);
+            v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+            v172 = 2112;
+            v173 = v84;
+            _os_log_error_impl(&dword_21B526000, v85, OS_LOG_TYPE_ERROR, "%s> error fetching supplements from filesystem: %@", buf, 0x16u);
           }
         }
 
-        v125 = v75;
-        v126 = v68;
-        v136 = unsignedLongLongValue;
-        v127 = v60;
-        v129 = v59;
+        v137 = v84;
+        v138 = v74;
+        v148 = unsignedLongLongValue;
+        v139 = v65;
+        v141 = v64;
         indexSet2 = [MEMORY[0x277CCAB58] indexSet];
-        v144 = 0u;
-        v145 = 0u;
-        v146 = 0u;
-        v147 = 0u;
-        v77 = v74;
-        v78 = [v77 countByEnumeratingWithState:&v144 objects:v172 count:16];
-        if (v78)
+        v156 = 0u;
+        v157 = 0u;
+        v158 = 0u;
+        v159 = 0u;
+        v86 = v82;
+        v87 = [v86 countByEnumeratingWithState:&v156 objects:v184 count:16];
+        if (v87)
         {
-          v79 = v78;
-          v80 = *v145;
+          v88 = v87;
+          v89 = *v157;
           do
           {
-            for (i = 0; i != v79; ++i)
+            for (i = 0; i != v88; ++i)
             {
-              if (*v145 != v80)
+              if (*v157 != v89)
               {
-                objc_enumerationMutation(v77);
+                objc_enumerationMutation(v86);
               }
 
-              v82 = *(*(&v144 + 1) + 8 * i);
-              lastPathComponent2 = [v82 lastPathComponent];
-              v84 = [_accessQueue_checkEnvironmentConsistency_numberFormatter numberFromString:lastPathComponent2];
-              unsignedLongLongValue2 = [v84 unsignedLongLongValue];
+              v91 = *(*(&v156 + 1) + 8 * i);
+              lastPathComponent2 = [v91 lastPathComponent];
+              v93 = [_accessQueue_checkEnvironmentConsistency_numberFormatter numberFromString:lastPathComponent2];
+              unsignedLongLongValue2 = [v93 unsignedLongLongValue];
 
-              v86 = _accessQueue_checkEnvironmentConsistency_numberFormatter;
-              v87 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue2];
-              v88 = [v86 stringFromNumber:v87];
-              v89 = [lastPathComponent2 isEqualToString:v88];
+              v95 = _accessQueue_checkEnvironmentConsistency_numberFormatter;
+              v96 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue2];
+              v97 = [v95 stringFromNumber:v96];
+              v98 = [lastPathComponent2 isEqualToString:v97];
 
-              if (v89)
+              if (v98)
               {
-                v143 = 0;
-                v22 = v137;
-                v90 = [(PBFPosterModelStoreCoordinator *)v137 _accessQueue_fetchIdentityForVersion:v136 supplement:unsignedLongLongValue2 error:&v143];
-                v91 = v143;
-                if (v90)
+                v155 = 0;
+                v23 = v149;
+                v100 = [(PBFPosterModelStoreCoordinator *)v149 _accessQueue_fetchIdentityForVersion:v148 supplement:unsignedLongLongValue2 error:&v155];
+                v101 = v155;
+                if (v100)
                 {
-                  v92 = v91 == 0;
+                  v102 = v101 == 0;
                 }
 
                 else
                 {
-                  v92 = 0;
+                  v102 = 0;
                 }
 
-                if (v92)
+                if (v102)
                 {
                   [indexSet2 addIndex:unsignedLongLongValue2];
                   goto LABEL_83;
                 }
 
-                v93 = v91;
-                v94 = PBFLogPosterContents();
-                if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+                v103 = v101;
+                v104 = PBFLogPosterContents(v101);
+                if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
                 {
                   [objc_opt_class() type];
-                  v133 = NSStringFromPFServerPosterType();
+                  v145 = NSStringFromPFServerPosterType();
                   *buf = 136316674;
-                  v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-                  v160 = 2112;
-                  v161 = v131;
-                  v162 = 2112;
-                  v163 = v132;
-                  v164 = 2112;
-                  v165 = v133;
-                  v166 = 2048;
-                  v167 = v136;
-                  v168 = 2048;
-                  v169 = unsignedLongLongValue2;
-                  v170 = 2112;
-                  v171 = v93;
-                  _os_log_error_impl(&dword_21B526000, v94, OS_LOG_TYPE_ERROR, "%s> error loading supplement from filesystem: provider=%@ uuid=%@ type=%@ version=%llu supplement=%llu : error=%@", buf, 0x48u);
+                  v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+                  v172 = 2112;
+                  v173 = v143;
+                  v174 = 2112;
+                  v175 = v144;
+                  v176 = 2112;
+                  v177 = v145;
+                  v178 = 2048;
+                  v179 = v148;
+                  v180 = 2048;
+                  v181 = unsignedLongLongValue2;
+                  v182 = 2112;
+                  v183 = v103;
+                  _os_log_error_impl(&dword_21B526000, v104, OS_LOG_TYPE_ERROR, "%s> error loading supplement from filesystem: provider=%@ uuid=%@ type=%@ version=%llu supplement=%llu : error=%@", buf, 0x48u);
                 }
               }
 
-              v22 = v137;
-              if (v137->_readonly)
+              v23 = v149;
+              if (v149->_readonly)
               {
                 goto LABEL_84;
               }
 
-              v95 = PBFLogReaper();
-              if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+              v105 = PBFLogReaper(v99);
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v159 = v82;
-                _os_log_impl(&dword_21B526000, v95, OS_LOG_TYPE_DEFAULT, "REAPING %{public}@", buf, 0xCu);
+                v171 = v91;
+                _os_log_impl(&dword_21B526000, v105, OS_LOG_TYPE_DEFAULT, "REAPING %{public}@", buf, 0xCu);
               }
 
-              v142 = 0;
-              [(NSFileManager *)v135 removeItemAtURL:v82 error:&v142];
-              v90 = v142;
-              if (v90)
+              v154 = 0;
+              [(NSFileManager *)v147 removeItemAtURL:v91 error:&v154];
+              v106 = v154;
+              v100 = v106;
+              if (v106)
               {
-                v96 = PBFLogPosterContents();
-                if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+                v107 = PBFLogPosterContents(v106);
+                if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315394;
-                  v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-                  v160 = 2112;
-                  v161 = v90;
-                  _os_log_error_impl(&dword_21B526000, v96, OS_LOG_TYPE_ERROR, "%s> error removing invalid supplement: %@", buf, 0x16u);
+                  v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+                  v172 = 2112;
+                  v173 = v100;
+                  _os_log_error_impl(&dword_21B526000, v107, OS_LOG_TYPE_ERROR, "%s> error removing invalid supplement: %@", buf, 0x16u);
                 }
               }
 
@@ -2666,102 +2679,103 @@ LABEL_83:
 LABEL_84:
             }
 
-            v79 = [v77 countByEnumeratingWithState:&v144 objects:v172 count:16];
+            v88 = [v86 countByEnumeratingWithState:&v156 objects:v184 count:16];
           }
 
-          while (v79);
+          while (v88);
         }
 
-        v97 = [indexSet2 count];
-        accessQueue_posterIdentityBySupplementByVersion = v22->_accessQueue_posterIdentityBySupplementByVersion;
-        v99 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v136];
-        v100 = [(NSMutableDictionary *)accessQueue_posterIdentityBySupplementByVersion objectForKey:v99];
+        v108 = [indexSet2 count];
+        accessQueue_posterIdentityBySupplementByVersion = v23->_accessQueue_posterIdentityBySupplementByVersion;
+        v110 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v148];
+        v111 = [(NSMutableDictionary *)accessQueue_posterIdentityBySupplementByVersion objectForKey:v110];
 
-        v101 = __knownVersions(v100);
-        [v101 removeIndexes:indexSet2];
-        v140[0] = MEMORY[0x277D85DD0];
-        v140[1] = 3221225472;
-        v140[2] = __74__PBFPosterModelStoreCoordinator__accessQueue_checkEnvironmentConsistency__block_invoke_100;
-        v140[3] = &unk_2782C74F8;
-        v141 = v100;
-        v102 = v100;
-        [v101 enumerateIndexesUsingBlock:v140];
+        v112 = __knownVersions(v111);
+        [v112 removeIndexes:indexSet2];
+        v152[0] = MEMORY[0x277D85DD0];
+        v152[1] = 3221225472;
+        v152[2] = __74__PBFPosterModelStoreCoordinator__accessQueue_checkEnvironmentConsistency__block_invoke_100;
+        v152[3] = &unk_2782C74F8;
+        v153 = v111;
+        v113 = v111;
+        [v112 enumerateIndexesUsingBlock:v152];
 
-        v58 = v123;
-        lastPathComponent = v128;
-        v59 = v129;
-        v60 = v127;
-        if (v97)
+        v63 = v135;
+        lastPathComponent = v140;
+        v64 = v141;
+        v65 = v139;
+        if (v108)
         {
-          [indexSet addIndex:v136];
+          [indexSet addIndex:v148];
         }
 
         else
         {
 LABEL_88:
-          if (!v22->_readonly)
+          if (!v23->_readonly)
           {
-            v103 = PBFLogReaper();
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+            v114 = PBFLogReaper(v73);
+            if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v159 = v60;
-              _os_log_impl(&dword_21B526000, v103, OS_LOG_TYPE_DEFAULT, "REAPING instance %{public}@", buf, 0xCu);
+              v171 = v65;
+              _os_log_impl(&dword_21B526000, v114, OS_LOG_TYPE_DEFAULT, "REAPING instance %{public}@", buf, 0xCu);
             }
 
-            v139 = 0;
-            [(NSFileManager *)v135 removeItemAtURL:v60 error:&v139];
-            v104 = v139;
-            if (v104)
+            v151 = 0;
+            [(NSFileManager *)v147 removeItemAtURL:v65 error:&v151];
+            v115 = v151;
+            v116 = v115;
+            if (v115)
             {
-              v105 = PBFLogPosterContents();
-              if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+              v117 = PBFLogPosterContents(v115);
+              if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v159 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
-                v160 = 2112;
-                v161 = v104;
-                _os_log_error_impl(&dword_21B526000, v105, OS_LOG_TYPE_ERROR, "%s> error removing invalid version: %@", buf, 0x16u);
+                v171 = "[PBFPosterModelStoreCoordinator _accessQueue_checkEnvironmentConsistency]";
+                v172 = 2112;
+                v173 = v116;
+                _os_log_error_impl(&dword_21B526000, v117, OS_LOG_TYPE_ERROR, "%s> error removing invalid version: %@", buf, 0x16u);
               }
             }
           }
         }
 
-        ++v59;
+        ++v64;
       }
 
-      while (v59 != v58);
-      v58 = [obj countByEnumeratingWithState:&v150 objects:v173 count:16];
-      if (!v58)
+      while (v64 != v63);
+      v63 = [obj countByEnumeratingWithState:&v162 objects:v185 count:16];
+      if (!v63)
       {
         goto LABEL_98;
       }
     }
   }
 
-  v52 = PBFLogPosterContents();
-  v53 = v52;
-  if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+  v57 = PBFLogPosterContents(v56);
+  v58 = v57;
+  if (v130 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
   {
-    v54 = v22->_extensionIdentifier;
-    v55 = objc_opt_class();
-    v56 = NSStringFromClass(v55);
+    v59 = v23->_extensionIdentifier;
+    v60 = objc_opt_class();
+    v61 = NSStringFromClass(v60);
     *buf = 138543874;
-    v159 = v54;
-    v160 = 2114;
-    v161 = v56;
-    v162 = 2114;
-    v163 = v113;
-    _os_signpost_emit_with_name_impl(&dword_21B526000, v53, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
+    v171 = v59;
+    v172 = 2114;
+    v173 = v61;
+    v174 = 2114;
+    v175 = v125;
+    _os_signpost_emit_with_name_impl(&dword_21B526000, v58, OS_SIGNPOST_INTERVAL_END, spid, "checkEnvironmentConsistency", "extension: %{public}@; class: %{public}@; failed? %{public}@", buf, 0x20u);
   }
 
-  v49 = v113;
-  v50 = v113;
+  v53 = v125;
+  v54 = v125;
 LABEL_102:
 
 LABEL_103:
 
-  return v50;
+  return v54;
 }
 
 void __74__PBFPosterModelStoreCoordinator__accessQueue_checkEnvironmentConsistency__block_invoke()
@@ -2981,7 +2995,7 @@ void __61__PBFPosterModelStoreCoordinator__accessQueue_allPosterPaths__block_inv
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"nextIdentity=%@ must be a newer form of latestIdentity=%@", v12, v11];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        [PBFPosterModelStoreCoordinator _accessQueue_setupNewVersionWithOptions:a2 contents:? error:?];
+        [PBFPosterModelStoreCoordinator _accessQueue_setupNewVersionWithOptions:a2 contents:self error:?];
       }
 
       [v13 UTF8String];
@@ -3038,7 +3052,7 @@ LABEL_18:
   }
 
   instanceURL = [v15 instanceURL];
-  v22 = PBFLogReaper();
+  v22 = PBFLogReaper(instanceURL);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -3448,7 +3462,7 @@ uint64_t __94__PBFPosterModelStoreCoordinator__accessQueue_configureFileSystemFo
       v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"nextIdentity=%@ must be a newer form of latestIdentity=%@", v10, v9];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        [PBFPosterModelStoreCoordinator _accessQueue_setupNewSupplementWithOptions:a2 error:?];
+        [PBFPosterModelStoreCoordinator _accessQueue_setupNewSupplementWithOptions:a2 error:self];
       }
 
       [v31 UTF8String];
@@ -3497,7 +3511,7 @@ uint64_t __94__PBFPosterModelStoreCoordinator__accessQueue_configureFileSystemFo
         v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"posterIdentityBySupplement should be guaranteed nonnull here : identity=%@ _posterIdentityBySupplementByVersion=%@", v10, v13];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          [PBFPosterModelStoreCoordinator _accessQueue_setupNewSupplementWithOptions:v33 error:?];
+          [PBFPosterModelStoreCoordinator _accessQueue_setupNewSupplementWithOptions:v33 error:self];
         }
 
         [v32 UTF8String];
@@ -3529,7 +3543,7 @@ uint64_t __94__PBFPosterModelStoreCoordinator__accessQueue_configureFileSystemFo
       }
 
       supplementURL3 = [v11 supplementURL];
-      v27 = PBFLogReaper();
+      v27 = PBFLogReaper(supplementURL3);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -3581,10 +3595,10 @@ LABEL_23:
 
 - (void)_accessQueue_removeSupplement:(unint64_t)supplement forVersion:(unint64_t)version error:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v55 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_buildIdentityForVersion:version supplement:supplement];
+  v61 = *MEMORY[0x277D85DE8];
+  v51 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_buildIdentityForVersion:version supplement:supplement];
   [(PBFPosterModelStoreCoordinator *)self _accessQueue_invalidateSnapshotCoordinatorForIdentity:?];
-  v58 = [MEMORY[0x277CBEBC0] pf_posterPathInstanceURLForProviderURL:self->_providerURL type:objc_msgSend(objc_opt_class() posterUUID:"type") version:{self->_posterUUID, version}];
+  v54 = [MEMORY[0x277CBEBC0] pf_posterPathInstanceURLForProviderURL:self->_providerURL type:objc_msgSend(objc_opt_class() posterUUID:"type") version:{self->_posterUUID, version}];
   accessQueue_posterIdentityBySupplementByVersion = self->_accessQueue_posterIdentityBySupplementByVersion;
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
   v10 = [(NSMutableDictionary *)accessQueue_posterIdentityBySupplementByVersion objectForKey:v9];
@@ -3596,161 +3610,160 @@ LABEL_23:
   {
     if ([v10 count] >= 2)
     {
-      v13 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v58 supplement:supplement];
-      v14 = PBFLogReaper();
+      v13 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v54 supplement:supplement];
+      v14 = PBFLogReaper(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v64 = v13;
+        v60 = v13;
         _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "REAPING supplementURL %{public}@", buf, 0xCu);
       }
 
       fileManager = self->_fileManager;
-      v62 = 0;
-      [(NSFileManager *)fileManager removeItemAtURL:v13 error:&v62];
-      v16 = v62;
+      v58 = 0;
+      [(NSFileManager *)fileManager removeItemAtURL:v13 error:&v58];
+      v16 = v58;
       v17 = v16;
       if (v16)
       {
         if (error)
         {
-          v18 = v16;
+          v16 = v16;
           *error = v17;
         }
 
-        v19 = PBFLogPosterContents();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v18 = PBFLogPosterContents(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterModelStoreCoordinator _accessQueue_removeSupplement:forVersion:error:];
         }
       }
     }
 
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
-    [v10 removeObjectForKey:v20];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
+    [v10 removeObjectForKey:v19];
   }
 
-  v21 = MEMORY[0x277CBEBC0];
-  v22 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_buildIdentityForVersion:version supplement:supplement];
-  v23 = __stagedProviderURLForIdentity(v22);
-  v57 = [v21 pf_posterPathInstanceURLForProviderURL:v23 type:objc_msgSend(objc_opt_class() posterUUID:"type") version:{self->_posterUUID, version}];
+  v20 = MEMORY[0x277CBEBC0];
+  v21 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_buildIdentityForVersion:version supplement:supplement];
+  v22 = __stagedProviderURLForIdentity(v21);
+  v53 = [v20 pf_posterPathInstanceURLForProviderURL:v22 type:objc_msgSend(objc_opt_class() posterUUID:"type") version:{self->_posterUUID, version}];
 
   accessQueue_stagedPosterIdentityBySupplementByVersion = self->_accessQueue_stagedPosterIdentityBySupplementByVersion;
-  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
-  v26 = [(NSMutableDictionary *)accessQueue_stagedPosterIdentityBySupplementByVersion objectForKey:v25];
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
+  v25 = [(NSMutableDictionary *)accessQueue_stagedPosterIdentityBySupplementByVersion objectForKey:v24];
 
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
-  v28 = [v26 objectForKey:v27];
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
+  v27 = [v25 objectForKey:v26];
 
-  if (v28)
+  if (v27)
   {
     if ([v10 count] >= 2)
     {
-      v29 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v57 supplement:supplement];
-      v30 = PBFLogReaper();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v28 = [MEMORY[0x277CBEBC0] pf_posterPathSupplementURLForInstanceURL:v53 supplement:supplement];
+      v29 = PBFLogReaper(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v64 = v29;
-        _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "REAPING supplementURL %{public}@", buf, 0xCu);
+        v60 = v28;
+        _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "REAPING supplementURL %{public}@", buf, 0xCu);
       }
 
-      v31 = self->_fileManager;
-      v61 = 0;
-      [(NSFileManager *)v31 removeItemAtURL:v29 error:&v61];
-      v32 = v61;
-      v33 = v32;
-      if (v32)
+      v30 = self->_fileManager;
+      v57 = 0;
+      [(NSFileManager *)v30 removeItemAtURL:v28 error:&v57];
+      v31 = v57;
+      v32 = v31;
+      if (v31)
       {
         if (error)
         {
-          v34 = v32;
-          *error = v33;
+          v31 = v31;
+          *error = v32;
         }
 
-        v35 = PBFLogPosterContents();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v33 = PBFLogPosterContents(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterModelStoreCoordinator _accessQueue_removeSupplement:forVersion:error:];
         }
       }
     }
 
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
-    [v10 removeObjectForKey:v36];
+    v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:supplement];
+    [v10 removeObjectForKey:v34];
   }
 
-  v37 = [v10 count];
-  if (v12 && !v37)
+  v35 = [v10 count];
+  if (v12 && !v35)
   {
-    [(PBFPosterModelStoreCoordinator *)self _accessQueue_invalidateSnapshotCoordinatorForIdentity:v55];
-    v38 = PBFLogReaper();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v36 = PBFLogReaper([(PBFPosterModelStoreCoordinator *)self _accessQueue_invalidateSnapshotCoordinatorForIdentity:v51]);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v64 = v58;
-      _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "REAPING instanceURL %{public}@", buf, 0xCu);
+      v60 = v54;
+      _os_log_impl(&dword_21B526000, v36, OS_LOG_TYPE_DEFAULT, "REAPING instanceURL %{public}@", buf, 0xCu);
     }
 
-    v39 = self->_fileManager;
-    v60 = 0;
-    [(NSFileManager *)v39 removeItemAtURL:v58 error:&v60];
-    v40 = v60;
-    v41 = v40;
-    if (v40)
+    v37 = self->_fileManager;
+    v56 = 0;
+    [(NSFileManager *)v37 removeItemAtURL:v54 error:&v56];
+    v38 = v56;
+    v39 = v38;
+    if (v38)
     {
       if (error)
       {
-        v42 = v40;
-        *error = v41;
+        v38 = v38;
+        *error = v39;
       }
 
-      v43 = PBFLogPosterContents();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v40 = PBFLogPosterContents(v38);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator _accessQueue_removeSupplement:forVersion:error:];
       }
     }
 
-    v44 = self->_accessQueue_posterIdentityBySupplementByVersion;
-    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
-    [(NSMutableDictionary *)v44 removeObjectForKey:v45];
+    v41 = self->_accessQueue_posterIdentityBySupplementByVersion;
+    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
+    [(NSMutableDictionary *)v41 removeObjectForKey:v42];
   }
 
-  v46 = [v26 count];
-  if (v28 && !v46)
+  v43 = [v25 count];
+  if (v27 && !v43)
   {
-    v47 = PBFLogReaper();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v44 = PBFLogReaper(0);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v64 = v57;
-      _os_log_impl(&dword_21B526000, v47, OS_LOG_TYPE_DEFAULT, "REAPING stagedInstanceURL %{public}@", buf, 0xCu);
+      v60 = v53;
+      _os_log_impl(&dword_21B526000, v44, OS_LOG_TYPE_DEFAULT, "REAPING stagedInstanceURL %{public}@", buf, 0xCu);
     }
 
-    v48 = self->_fileManager;
-    v59 = 0;
-    [(NSFileManager *)v48 removeItemAtURL:v57 error:&v59];
-    v49 = v59;
-    v50 = v49;
-    if (v49)
+    v45 = self->_fileManager;
+    v55 = 0;
+    [(NSFileManager *)v45 removeItemAtURL:v53 error:&v55];
+    v46 = v55;
+    v47 = v46;
+    if (v46)
     {
       if (error)
       {
-        v51 = v49;
-        *error = v50;
+        v46 = v46;
+        *error = v47;
       }
 
-      v52 = PBFLogPosterContents();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v48 = PBFLogPosterContents(v46);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterModelStoreCoordinator _accessQueue_removeSupplement:forVersion:error:];
       }
     }
 
-    v53 = self->_accessQueue_stagedPosterIdentityBySupplementByVersion;
-    v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
-    [(NSMutableDictionary *)v53 removeObjectForKey:v54];
+    v49 = self->_accessQueue_stagedPosterIdentityBySupplementByVersion;
+    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:version];
+    [(NSMutableDictionary *)v49 removeObjectForKey:v50];
   }
 }
 
@@ -3786,7 +3799,7 @@ LABEL_23:
 - (void)_accessQueue_fixupResourceValuesWithinURL:(id)l synchronous:(BOOL)synchronous
 {
   synchronousCopy = synchronous;
-  v66 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!self->_readonly)
   {
@@ -3794,7 +3807,7 @@ LABEL_23:
     expectedURLResourceValuesForDirectories = [objc_opt_class() expectedURLResourceValuesForDirectories];
     if ([expectedURLResourceValuesForFiles count] || objc_msgSend(expectedURLResourceValuesForDirectories, "count"))
     {
-      v43 = synchronousCopy;
+      v45 = synchronousCopy;
       if (!lCopy)
       {
         lCopy = self->_identifierURL;
@@ -3805,142 +3818,142 @@ LABEL_23:
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       v12 = self->_posterUUID;
-      v47 = self->_extensionIdentifier;
-      v13 = PBFLogPosterContents();
+      v49 = self->_extensionIdentifier;
+      v13 = PBFLogPosterContents(v49);
       v14 = os_signpost_id_generate(v13);
 
-      v15 = PBFLogPosterContents();
-      v16 = v15;
-      v39 = v14 - 1;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      v16 = PBFLogPosterContents(v15);
+      v17 = v16;
+      v41 = v14 - 1;
+      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         *buf = 138544386;
-        v57 = v47;
-        v58 = 2114;
-        v59 = v11;
+        v59 = v49;
         v60 = 2114;
-        v61 = v12;
+        v61 = v11;
         v62 = 2114;
-        v63 = v9;
+        v63 = v12;
         v64 = 2114;
-        v65 = lCopy;
-        _os_signpost_emit_with_name_impl(&dword_21B526000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "gather resources for fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URL: %{public}@", buf, 0x34u);
+        v65 = v9;
+        v66 = 2114;
+        v67 = lCopy;
+        _os_signpost_emit_with_name_impl(&dword_21B526000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "gather resources for fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URL: %{public}@", buf, 0x34u);
       }
 
       spid = v14;
-      v40 = v12;
-      v41 = v11;
-      v42 = v9;
+      v42 = v12;
+      v43 = v11;
+      v44 = v9;
 
-      v17 = [MEMORY[0x277CBEB58] setWithObject:*MEMORY[0x277CBE818]];
+      v18 = [MEMORY[0x277CBEB58] setWithObject:*MEMORY[0x277CBE818]];
       allKeys = [expectedURLResourceValuesForFiles allKeys];
-      [v17 addObjectsFromArray:allKeys];
+      [v18 addObjectsFromArray:allKeys];
 
       allKeys2 = [expectedURLResourceValuesForDirectories allKeys];
-      [v17 addObjectsFromArray:allKeys2];
+      [v18 addObjectsFromArray:allKeys2];
 
-      v20 = MEMORY[0x277CCAC30];
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __88__PBFPosterModelStoreCoordinator__accessQueue_fixupResourceValuesWithinURL_synchronous___block_invoke;
-      v52[3] = &unk_2782C7598;
-      v44 = expectedURLResourceValuesForDirectories;
-      v37 = expectedURLResourceValuesForDirectories;
-      v53 = v37;
-      v45 = expectedURLResourceValuesForFiles;
-      v36 = expectedURLResourceValuesForFiles;
-      v54 = v36;
-      v21 = [v20 predicateWithBlock:v52];
-      v46 = lCopy;
-      v22 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_contentsOfURLWithinStore:lCopy resourceKeys:v17 standardizeURLs:0];
-      v38 = v21;
-      v23 = [v22 filteredOrderedSetUsingPredicate:v21];
+      v21 = MEMORY[0x277CCAC30];
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __88__PBFPosterModelStoreCoordinator__accessQueue_fixupResourceValuesWithinURL_synchronous___block_invoke;
+      v54[3] = &unk_2782C7598;
+      v46 = expectedURLResourceValuesForDirectories;
+      v39 = expectedURLResourceValuesForDirectories;
+      v55 = v39;
+      v47 = expectedURLResourceValuesForFiles;
+      v38 = expectedURLResourceValuesForFiles;
+      v56 = v38;
+      v22 = [v21 predicateWithBlock:v54];
+      v48 = lCopy;
+      v23 = [(PBFPosterModelStoreCoordinator *)self _accessQueue_contentsOfURLWithinStore:lCopy resourceKeys:v18 standardizeURLs:0];
+      v40 = v22;
+      v24 = [v23 filteredOrderedSetUsingPredicate:v22];
 
+      v52 = 0u;
+      v53 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v24 = v23;
-      v25 = [v24 countByEnumeratingWithState:&v48 objects:v55 count:16];
-      if (v25)
+      v25 = v24;
+      v26 = [v25 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      if (v26)
       {
-        v26 = v25;
-        v27 = 0;
+        v27 = v26;
         v28 = 0;
-        v29 = *v49;
+        v29 = 0;
+        v30 = *v51;
         do
         {
-          for (i = 0; i != v26; ++i)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v49 != v29)
+            if (*v51 != v30)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v25);
             }
 
-            v31 = *(*(&v48 + 1) + 8 * i);
-            if ([v31 pbf_isDirectory])
+            v32 = *(*(&v50 + 1) + 8 * i);
+            if ([v32 pbf_isDirectory])
             {
-              if (v27)
+              if (v28)
               {
-                v32 = v27;
+                v33 = v28;
               }
 
               else
               {
-                v32 = objc_opt_new();
-                v27 = v32;
+                v33 = objc_opt_new();
+                v28 = v33;
               }
             }
 
-            else if (v28)
+            else if (v29)
             {
-              v32 = v28;
+              v33 = v29;
             }
 
             else
             {
-              v32 = objc_opt_new();
-              v28 = v32;
+              v33 = objc_opt_new();
+              v29 = v33;
             }
 
-            [v32 addObject:v31];
+            [v33 addObject:v32];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v48 objects:v55 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v50 objects:v57 count:16];
         }
 
-        while (v26);
+        while (v27);
       }
 
       else
       {
-        v27 = 0;
         v28 = 0;
+        v29 = 0;
       }
 
-      v33 = PBFLogPosterContents();
-      v34 = v33;
-      lCopy = v46;
-      if (v39 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+      v35 = PBFLogPosterContents(v34);
+      v36 = v35;
+      lCopy = v48;
+      if (v41 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
         *buf = 138544386;
-        v57 = v47;
-        v58 = 2114;
-        v59 = v41;
+        v59 = v49;
         v60 = 2114;
-        v61 = v40;
+        v61 = v43;
         v62 = 2114;
         v63 = v42;
         v64 = 2114;
-        v65 = v46;
-        _os_signpost_emit_with_name_impl(&dword_21B526000, v34, OS_SIGNPOST_INTERVAL_END, spid, "gather resources for fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URL: %{public}@", buf, 0x34u);
+        v65 = v44;
+        v66 = 2114;
+        v67 = v48;
+        _os_signpost_emit_with_name_impl(&dword_21B526000, v36, OS_SIGNPOST_INTERVAL_END, spid, "gather resources for fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URL: %{public}@", buf, 0x34u);
       }
 
-      [(PBFPosterModelStoreCoordinator *)self _accessQueue_applyResourceValuesForURLs:v28 expectedResourceValues:v36 synchronous:v43];
-      [(PBFPosterModelStoreCoordinator *)self _accessQueue_applyResourceValuesForURLs:v27 expectedResourceValues:v37 synchronous:v43];
+      [(PBFPosterModelStoreCoordinator *)self _accessQueue_applyResourceValuesForURLs:v29 expectedResourceValues:v38 synchronous:v45];
+      [(PBFPosterModelStoreCoordinator *)self _accessQueue_applyResourceValuesForURLs:v28 expectedResourceValues:v39 synchronous:v45];
 
-      expectedURLResourceValuesForDirectories = v44;
-      expectedURLResourceValuesForFiles = v45;
+      expectedURLResourceValuesForDirectories = v46;
+      expectedURLResourceValuesForFiles = v47;
     }
   }
 }
@@ -3981,7 +3994,7 @@ uint64_t __88__PBFPosterModelStoreCoordinator__accessQueue_fixupResourceValuesWi
     v12 = NSStringFromClass(v11);
     v13 = self->_posterUUID;
     v14 = self->_extensionIdentifier;
-    v15 = PBFLogPosterContents();
+    v15 = PBFLogPosterContents(v14);
     v16 = os_signpost_id_generate(v15);
 
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -4015,8 +4028,8 @@ uint64_t __88__PBFPosterModelStoreCoordinator__accessQueue_fixupResourceValuesWi
 
 void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForURLs_expectedResourceValues_synchronous___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v2 = PBFLogPosterContents();
+  v48 = *MEMORY[0x277D85DE8];
+  v2 = PBFLogPosterContents(a1);
   v3 = v2;
   v4 = *(a1 + 80);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -4027,63 +4040,63 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v8 = *(a1 + 56);
     v9 = *(a1 + 64);
     *buf = 138544386;
-    v38 = v5;
-    v39 = 2114;
-    v40 = v6;
-    v41 = 2114;
-    v42 = v7;
-    v43 = 2114;
-    v44 = v8;
-    v45 = 2114;
-    v46 = v9;
+    v39 = v5;
+    v40 = 2114;
+    v41 = v6;
+    v42 = 2114;
+    v43 = v7;
+    v44 = 2114;
+    v45 = v8;
+    v46 = 2114;
+    v47 = v9;
     _os_signpost_emit_with_name_impl(&dword_21B526000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v4, "fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URLs: %{public}@", buf, 0x34u);
   }
 
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v10 = *(a1 + 64);
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v33;
+    v14 = *v34;
     *&v12 = 138412546;
-    v30 = v12;
+    v31 = v12;
     do
     {
       v15 = 0;
       do
       {
-        if (*v33 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * v15);
+        v16 = *(*(&v33 + 1) + 8 * v15);
         v17 = *(a1 + 72);
-        v31 = 0;
-        v18 = [v16 setResourceValues:v17 error:{&v31, v30}];
-        v19 = v31;
-        v20 = PBFLogPosterContents();
+        v32 = 0;
+        v18 = [v16 setResourceValues:v17 error:{&v32, v31}];
+        v19 = v32;
+        v20 = PBFLogPosterContents(v19);
         v21 = v20;
         if (v18)
         {
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v38 = v16;
+            v39 = v16;
             _os_log_debug_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEBUG, "Corrected resource values for %@", buf, 0xCu);
           }
         }
 
         else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          *buf = v30;
-          v38 = v16;
-          v39 = 2114;
-          v40 = v19;
+          *buf = v31;
+          v39 = v16;
+          v40 = 2114;
+          v41 = v19;
           _os_log_error_impl(&dword_21B526000, v21, OS_LOG_TYPE_ERROR, "Failed to correct resource values for %@: %{public}@", buf, 0x16u);
         }
 
@@ -4091,33 +4104,33 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
       }
 
       while (v13 != v15);
-      v13 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v13);
   }
 
-  v22 = PBFLogPosterContents();
-  v23 = v22;
-  v24 = *(a1 + 80);
-  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v23 = PBFLogPosterContents(v22);
+  v24 = v23;
+  v25 = *(a1 + 80);
+  if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 40);
-    v27 = *(a1 + 48);
-    v28 = *(a1 + 56);
-    v29 = *(a1 + 64);
+    v26 = *(a1 + 32);
+    v27 = *(a1 + 40);
+    v28 = *(a1 + 48);
+    v29 = *(a1 + 56);
+    v30 = *(a1 + 64);
     *buf = 138544386;
-    v38 = v25;
-    v39 = 2114;
-    v40 = v26;
-    v41 = 2114;
-    v42 = v27;
-    v43 = 2114;
-    v44 = v28;
-    v45 = 2114;
-    v46 = v29;
-    _os_signpost_emit_with_name_impl(&dword_21B526000, v23, OS_SIGNPOST_INTERVAL_END, v24, "fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URLs: %{public}@", buf, 0x34u);
+    v39 = v26;
+    v40 = 2114;
+    v41 = v27;
+    v42 = 2114;
+    v43 = v28;
+    v44 = 2114;
+    v45 = v29;
+    v46 = 2114;
+    v47 = v30;
+    _os_signpost_emit_with_name_impl(&dword_21B526000, v24, OS_SIGNPOST_INTERVAL_END, v25, "fixupResourceValues", "extension: %{public}@; class: %{public}@; posterUUID %{public}@; type %{public}@; URLs: %{public}@", buf, 0x34u);
   }
 }
 
@@ -4186,7 +4199,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4194,7 +4207,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4204,7 +4217,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4212,7 +4225,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4222,7 +4235,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4230,7 +4243,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4240,7 +4253,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4248,7 +4261,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4258,7 +4271,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"PFPosterRoleIsValid(role)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4266,7 +4279,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PFPosterRoleIsValid(role)", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4276,7 +4289,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[descriptorIdentifier length] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4284,7 +4297,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[descriptorIdentifier length] > 0", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4292,9 +4305,30 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
   __break(0);
 }
 
++ (void)createNewStoreCoordinatorWithPath:error:.cold.7()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
+}
+
++ (void)createNewStoreCoordinatorWithPath:error:.cold.8()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "writeToProvider %s> error: %@", v2, v3, v4, v5, v6);
+}
+
++ (void)createNewStoreCoordinatorWithPath:error:.cold.9()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "storeCoordinator %s> error: %@", v2, v3, v4, v5, v6);
+}
+
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.10(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[roleIdentifierData length] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4302,7 +4336,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[roleIdentifierData length] > 0", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4312,7 +4346,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.11(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4320,7 +4354,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4330,7 +4364,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.12(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4338,7 +4372,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4348,7 +4382,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 + (void)createNewStoreCoordinatorWithPath:(char *)a1 error:.cold.13(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4356,7 +4390,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4364,25 +4398,25 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
   __break(0);
 }
 
-- (void)_accessQueue_correctPermissionsForInternalDirectories:.cold.1()
+- (void)_accessQueue_correctPermissionsForInternalDirectories:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_13_0();
-  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@ _accessQueue_correctPermissionsForInternalDirectories]> could not setup scratch URL: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_16(&dword_21B526000, v3, v4, "[%{public}@ _accessQueue_correctPermissionsForInternalDirectories]> could not setup scratch URL: %{public}@", v5, v6, v7, v8);
 }
 
-- (void)_accessQueue_correctPermissionsForInternalDirectories:.cold.2()
+- (void)_accessQueue_correctPermissionsForInternalDirectories:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_13_0();
-  OUTLINED_FUNCTION_16(&dword_21B526000, v2, v3, "[%{public}@ _accessQueue_correctPermissionsForInternalDirectories]> could not exclude scratch URL from backup: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_16(&dword_21B526000, v3, v4, "[%{public}@ _accessQueue_correctPermissionsForInternalDirectories]> could not exclude scratch URL from backup: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)setObject:(char *)a1 forKeyedSubscript:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(NSSecureCoding)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4390,7 +4424,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(NSSecureCoding)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4400,7 +4434,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 - (void)setObject:(char *)a1 forKeyedSubscript:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(NSCopying)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4408,7 +4442,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(NSCopying)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4418,7 +4452,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 
 - (void)setObject:(char *)a1 forKeyedSubscript:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4426,7 +4460,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4437,41 +4471,46 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
 - (void)addNewVersionWithContents:error:.cold.1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)addNewSupplementWithError:.cold.1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)stageNewVersionWithContents:error:.cold.1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)stageNewSupplementWithError:.cold.1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeSupplement:forVersion:error:.cold.1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_8_0(&dword_21B526000, v0, v1, "%s> error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_accessQueue_checkEnvironmentConsistency
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(self);
@@ -4479,7 +4518,7 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4487,37 +4526,37 @@ void __109__PBFPosterModelStoreCoordinator__accessQueue_applyResourceValuesForUR
   __break(0);
 }
 
-- (void)_accessQueue_setupNewVersionWithOptions:(const char *)a1 contents:error:.cold.1(const char *a1)
+- (void)_accessQueue_setupNewVersionWithOptions:(const char *)a1 contents:(uint64_t)a2 error:.cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
-- (void)_accessQueue_setupNewSupplementWithOptions:(const char *)a1 error:.cold.1(const char *a1)
+- (void)_accessQueue_setupNewSupplementWithOptions:(const char *)a1 error:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
-- (void)_accessQueue_setupNewSupplementWithOptions:(const char *)a1 error:.cold.2(const char *a1)
+- (void)_accessQueue_setupNewSupplementWithOptions:(const char *)a1 error:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_14(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_accessQueue_removeSupplement:forVersion:error:.cold.1()

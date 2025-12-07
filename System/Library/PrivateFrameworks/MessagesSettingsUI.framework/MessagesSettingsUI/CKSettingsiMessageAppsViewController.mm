@@ -102,7 +102,7 @@
 
 - (id)_iMessageOnlyAppsSpecifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   deletableiMessageOnlyApps = [(CKSettingsiMessageAppManager *)self->_appManager deletableiMessageOnlyApps];
   if ([deletableiMessageOnlyApps count])
@@ -110,30 +110,30 @@
     v5 = MessagesSettingsLocalizedString(@"IMESSAGE_ONLY_APPS_SECTION_HEADER");
     v6 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"IMESSAGE_ONLY_APPS" name:v5];
     [v3 addObject:v6];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = deletableiMessageOnlyApps;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [(CKSettingsiMessageAppsViewController *)self _specifierForApp:*(*(&v16 + 1) + 8 * i), v16];
+          v12 = [(CKSettingsiMessageAppsViewController *)self _specifierForApp:*(*(&v15 + 1) + 8 * i), v15];
           [v3 addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -142,48 +142,46 @@
 
   v13 = [v3 copy];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_appsWithiMessageAppsSpecifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   deletableAppsWithiMessageApp = [(CKSettingsiMessageAppManager *)self->_appManager deletableAppsWithiMessageApp];
   if ([deletableAppsWithiMessageApp count])
   {
     v5 = MessagesSettingsLocalizedString(@"APPS_WITH_IMESSAGE_APPS_SECTION_HEADER");
     v6 = MessagesSettingsLocalizedString(@"APPS_WITH_IMESSAGE_APPS_SECTION_FOOTER");
-    v17 = v5;
+    v16 = v5;
     v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"APPS_WITH_IMESSAGE_APPS" name:v5];
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF88]];
     [v3 addObject:v7];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = deletableAppsWithiMessageApp;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [(CKSettingsiMessageAppsViewController *)self _specifierForApp:*(*(&v18 + 1) + 8 * i)];
+          v13 = [(CKSettingsiMessageAppsViewController *)self _specifierForApp:*(*(&v17 + 1) + 8 * i)];
           [v3 addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -191,8 +189,6 @@
   }
 
   v14 = [v3 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -212,7 +208,7 @@
 
 void __51__CKSettingsiMessageAppsViewController__deleteApp___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMOSLoggingEnabled();
   if (v3)
@@ -223,11 +219,11 @@ void __51__CKSettingsiMessageAppsViewController__deleteApp___block_invoke(uint64
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = *(a1 + 32);
-        v9 = 138412546;
-        v10 = v6;
-        v11 = 2112;
-        v12 = v3;
-        _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Error uninstalling app: %@. Error: %@", &v9, 0x16u);
+        v8 = 138412546;
+        v9 = v6;
+        v10 = 2112;
+        v11 = v3;
+        _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Error uninstalling app: %@. Error: %@", &v8, 0x16u);
       }
 
 LABEL_9:
@@ -240,15 +236,13 @@ LABEL_9:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Uninstalled app with bundleID: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Uninstalled app with bundleID: %@", &v8, 0xCu);
     }
 
     goto LABEL_9;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installediMessageAppsDidChange:(id)change
@@ -320,7 +314,7 @@ LABEL_9:
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   if (style == 1)
@@ -332,17 +326,15 @@ LABEL_9:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v15 = 138412290;
-        v16 = identifier;
-        _os_log_impl(&dword_258D24000, v12, OS_LOG_TYPE_INFO, "User requested uninstall of app with bundleID: %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = identifier;
+        _os_log_impl(&dword_258D24000, v12, OS_LOG_TYPE_INFO, "User requested uninstall of app with bundleID: %@", &v14, 0xCu);
       }
     }
 
     v13 = [(CKSettingsiMessageAppManager *)self->_appManager appWithBundleID:identifier];
     [(CKSettingsiMessageAppsViewController *)self _deleteApp:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

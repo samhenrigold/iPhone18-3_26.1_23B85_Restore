@@ -213,7 +213,7 @@
 
 - (void)sizeToFit
 {
-  [(CLKUICurvedColoringLabel *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v19))
   {
     [(CLKUICurvedColoringLabel *)self frame];
@@ -259,7 +259,7 @@
   v10 = 0u;
   v11 = 0u;
   v9 = 0u;
-  [(CLKUICurvedColoringLabel *)self transform];
+  objc_msgSend_transform(self, a2);
   v3 = *(MEMORY[0x1E695EFD0] + 16);
   v6 = *MEMORY[0x1E695EFD0];
   v7 = v3;
@@ -292,7 +292,7 @@
   result = self->_curvedLabel;
   if (result)
   {
-    return [(CGAffineTransform *)result transformForImage];
+    return objc_msgSend_transformForImage(result, a3);
   }
 
   *&retstr->c = 0u;

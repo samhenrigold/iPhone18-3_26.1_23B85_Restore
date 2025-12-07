@@ -861,7 +861,7 @@ void __62__SKUIProductPageHeaderViewController__itemOfferButtonAction___block_in
 {
   v4 = [*(a1 + 32) error];
   WeakRetained = [v4 domain];
-  if ([WeakRetained isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(WeakRetained))
   {
     v3 = [v4 code];
 
@@ -895,7 +895,7 @@ void __62__SKUIProductPageHeaderViewController__itemOfferButtonAction___block_in
 {
   v4 = [*(a1 + 32) error];
   WeakRetained = [v4 domain];
-  if ([WeakRetained isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(WeakRetained))
   {
     v3 = [v4 code];
 
@@ -929,7 +929,7 @@ void __62__SKUIProductPageHeaderViewController__itemOfferButtonAction___block_in
 {
   v4 = [*(a1 + 32) error];
   WeakRetained = [v4 domain];
-  if ([WeakRetained isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(WeakRetained))
   {
     v3 = [v4 code];
 
@@ -963,7 +963,7 @@ void __62__SKUIProductPageHeaderViewController__itemOfferButtonAction___block_in
 {
   v4 = [*(a1 + 32) error];
   WeakRetained = [v4 domain];
-  if ([WeakRetained isEqualToString:*MEMORY[0x277D6A110]])
+  if (objc_msgSend_isEqualToString_(WeakRetained))
   {
     v3 = [v4 code];
 

@@ -59,7 +59,7 @@
   [coder encodeObject:error forKey:@"error"];
 }
 
-uint64_t __44__CDDCloudKitResponse_supportedErrorClasses__block_invoke()
+void *__44__CDDCloudKitResponse_supportedErrorClasses__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();

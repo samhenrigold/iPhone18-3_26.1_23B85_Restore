@@ -275,7 +275,7 @@
 
   if ((v5 & 1) == 0)
   {
-    [(MKMapSnapshotOptions *)self _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(self);
     if (v7 == 2)
     {
       showsBuildings = 0;
@@ -538,7 +538,7 @@ uint64_t __43__MKMapSnapshotOptions__setShowsNightMode___block_invoke(uint64_t a
   *&retstr->var2 = 0u;
   *&retstr->var4 = 0u;
   *&retstr->var6 = 0;
-  [MKMapConfiguration _cartographicConfigurationForMapConfiguration:v7];
+  objc_msgSend__cartographicConfigurationForMapConfiguration_(MKMapConfiguration);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -1055,7 +1055,7 @@ void __50__MKMapSnapshotOptions__encodableOverlayRenderers__block_invoke(uint64_
   v15 = 0u;
   v16 = 0u;
   v14 = 0u;
-  [(MKMapSnapshotOptions *)self _cartographicConfiguration];
+  objc_msgSend__cartographicConfiguration(self);
   [coderCopy encodeInteger:v14 forKey:@"mapStyle"];
   [coderCopy encodeInteger:*(&v14 + 1) forKey:@"mapEmphasis"];
   [coderCopy encodeInteger:v15 forKey:@"mapProjection"];

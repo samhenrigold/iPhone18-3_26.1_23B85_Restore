@@ -147,12 +147,12 @@
   [(PKApplyActionContentActionItemCell *)&v4 layoutSubviews];
   contentView = [(PKApplyActionContentActionItemCell *)self contentView];
   [contentView bounds];
-  [(PKApplyActionContentActionItemCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKApplyActionContentActionItemCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -188,48 +188,56 @@
   {
     [(UIImageView *)disclosureView sizeThatFits:v13, 3.40282347e38];
     v18 = v17;
+    v20 = v19;
   }
 
   else
   {
     v18 = *MEMORY[0x1E695F060];
+    v20 = *(MEMORY[0x1E695F060] + 8);
   }
 
-  memset(&v50, 0, sizeof(v50));
-  memset(&v49, 0, sizeof(v49));
+  memset(&v80, 0, sizeof(v80));
+  memset(&v79, 0, sizeof(v79));
   if (v18 <= 0.0)
   {
-    v19 = v13;
+    v21 = v13;
   }
 
   else
   {
-    v19 = v13 - v18 + -15.0;
+    v21 = v13 - v18 + -15.0;
   }
 
-  v43 = *(MEMORY[0x1E695F058] + 16);
-  v44 = *MEMORY[0x1E695F058];
+  v73 = *(MEMORY[0x1E695F058] + 16);
+  v74 = *MEMORY[0x1E695F058];
   slice.origin = *MEMORY[0x1E695F058];
-  slice.size = v43;
+  slice.size = v73;
   if (v18 > 0.0)
   {
-    v52.origin.x = v11;
-    v52.origin.y = v12;
-    v52.size.width = v13;
-    v52.size.height = v14;
-    CGRectDivide(v52, &slice, &remainder, v18, v15);
-    CGRectDivide(remainder, &v50, &remainder, 15.0, v15);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    slice.origin.x = v20;
-    slice.origin.y = v21;
-    slice.size.width = v22;
-    slice.size.height = v23;
+    v82.origin.x = v11;
+    v82.origin.y = v12;
+    v82.size.width = v13;
+    v82.size.height = v14;
+    CGRectDivide(v82, &slice, &remainder, v18, v15);
+    CGRectDivide(remainder, &v80, &remainder, 15.0, v15);
+    v22 = PKContentAlignmentMake();
+    v23.n128_u64[0] = *&slice.origin.x;
+    v24.n128_u64[0] = *&slice.origin.y;
+    v25.n128_u64[0] = *&slice.size.width;
+    v26.n128_u64[0] = *&slice.size.height;
+    v27.n128_f64[0] = v18;
+    v28.n128_u64[0] = v20;
+    PKSizeAlignedInRect(v22, v27, v28, v23, v24, v25, v26, v29);
+    slice.origin.x = v30;
+    slice.origin.y = v31;
+    slice.size.width = v32;
+    slice.size.height = v33;
   }
 
   if (![(NSArray *)self->_titleLabels count])
   {
-    v40 = 24.0;
+    v70 = 24.0;
     if (layout)
     {
       goto LABEL_21;
@@ -238,50 +246,64 @@
     goto LABEL_20;
   }
 
-  v24 = 0;
-  v25 = 0.0;
+  v34 = 0;
+  v35 = 0.0;
   do
   {
-    v26 = [(NSArray *)self->_titleLabels objectAtIndexedSubscript:v24];
-    v46.origin = v44;
-    v46.size = v43;
-    [v26 sizeThatFits:{v19, 3.40282347e38}];
-    v28 = v27;
-    v29 = [(NSArray *)self->_subtitleLabels objectAtIndexedSubscript:v24];
-    v45.origin = v44;
-    v45.size = v43;
-    [v29 sizeThatFits:{v19, 3.40282347e38}];
-    v31 = v30;
-    CGRectDivide(remainder, &v46, &remainder, v28, CGRectMinYEdge);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v46.origin.x = v32;
-    v46.origin.y = v33;
-    v46.size.width = v34;
-    v46.size.height = v35;
-    CGRectDivide(remainder, &v45, &remainder, v31, CGRectMinYEdge);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v45.origin.x = v36;
-    v45.origin.y = v37;
-    v45.size.width = v38;
-    v45.size.height = v39;
+    v36 = [(NSArray *)self->_titleLabels objectAtIndexedSubscript:v34];
+    v76.origin = v74;
+    v76.size = v73;
+    [v36 sizeThatFits:{v21, 3.40282347e38}];
+    v38 = v37;
+    v40 = v39;
+    v41 = [(NSArray *)self->_subtitleLabels objectAtIndexedSubscript:v34];
+    v75.origin = v74;
+    v75.size = v73;
+    [v41 sizeThatFits:{v21, 3.40282347e38}];
+    v43 = v42;
+    v45 = v44;
+    CGRectDivide(remainder, &v76, &remainder, v40, CGRectMinYEdge);
+    v46 = PKContentAlignmentMake();
+    v47.n128_u64[0] = *&v76.origin.x;
+    v48.n128_u64[0] = *&v76.origin.y;
+    v49.n128_u64[0] = *&v76.size.width;
+    v50.n128_u64[0] = *&v76.size.height;
+    v51.n128_u64[0] = v38;
+    v52.n128_f64[0] = v40;
+    PKSizeAlignedInRect(v46, v51, v52, v47, v48, v49, v50, v53);
+    v76.origin.x = v54;
+    v76.origin.y = v55;
+    v76.size.width = v56;
+    v76.size.height = v57;
+    CGRectDivide(remainder, &v75, &remainder, v45, CGRectMinYEdge);
+    v58 = PKContentAlignmentMake();
+    v59.n128_u64[0] = *&v75.origin.x;
+    v60.n128_u64[0] = *&v75.origin.y;
+    v61.n128_u64[0] = *&v75.size.width;
+    v62.n128_u64[0] = *&v75.size.height;
+    v63.n128_u64[0] = v43;
+    v64.n128_f64[0] = v45;
+    PKSizeAlignedInRect(v58, v63, v64, v59, v60, v61, v62, v65);
+    v75.origin.x = v66;
+    v75.origin.y = v67;
+    v75.size.width = v68;
+    v75.size.height = v69;
     if (!layout)
     {
-      [v26 setFrame:{v46.origin.x, v46.origin.y, v46.size.width, v46.size.height}];
-      [v29 setFrame:{v45.origin.x, v45.origin.y, v45.size.width, v45.size.height}];
+      [v36 setFrame:{v76.origin.x, v76.origin.y, v76.size.width, v76.size.height}];
+      [v41 setFrame:{v75.origin.x, v75.origin.y, v75.size.width, v75.size.height}];
     }
 
-    v25 = v25 + v28 + v31;
-    if (++v24 < [(NSArray *)self->_titleLabels count])
+    v35 = v35 + v40 + v45;
+    if (++v34 < [(NSArray *)self->_titleLabels count])
     {
-      CGRectDivide(remainder, &v49, &remainder, 8.0, CGRectMinYEdge);
-      v25 = v25 + 8.0;
+      CGRectDivide(remainder, &v79, &remainder, 8.0, CGRectMinYEdge);
+      v35 = v35 + 8.0;
     }
   }
 
-  while (v24 < [(NSArray *)self->_titleLabels count]);
-  v40 = v25 + 24.0;
+  while (v34 < [(NSArray *)self->_titleLabels count]);
+  v70 = v35 + 24.0;
   if (!layout)
   {
 LABEL_20:
@@ -289,10 +311,10 @@ LABEL_20:
   }
 
 LABEL_21:
-  v41 = width;
-  v42 = v40;
-  result.height = v42;
-  result.width = v41;
+  v71 = width;
+  v72 = v70;
+  result.height = v72;
+  result.width = v71;
   return result;
 }
 

@@ -39,7 +39,7 @@
 - (void)removeOldFiles
 {
   v38[1] = *MEMORY[0x277D85DE8];
-  v2 = ha_get_log();
+  v2 = ha_get_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -92,27 +92,27 @@
 
             if (v15)
             {
-              v17 = ha_get_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v18 = ha_get_log(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 lastPathComponent = [v8 lastPathComponent];
                 *buf = 138543362;
                 v34 = lastPathComponent;
-                _os_log_impl(&dword_2588F5000, v17, OS_LOG_TYPE_DEFAULT, "deleted %{public}@", buf, 0xCu);
+                _os_log_impl(&dword_2588F5000, v18, OS_LOG_TYPE_DEFAULT, "deleted %{public}@", buf, 0xCu);
               }
             }
 
             else
             {
-              v17 = ha_get_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v18 = ha_get_log(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 lastPathComponent2 = [v8 lastPathComponent];
                 *buf = 138543618;
                 v34 = lastPathComponent2;
                 v35 = 2114;
                 v36 = v16;
-                _os_log_impl(&dword_2588F5000, v17, OS_LOG_TYPE_DEFAULT, "failed to delete %{public}@ with error: %{public}@", buf, 0x16u);
+                _os_log_impl(&dword_2588F5000, v18, OS_LOG_TYPE_DEFAULT, "failed to delete %{public}@ with error: %{public}@", buf, 0x16u);
               }
             }
           }
@@ -129,8 +129,6 @@
 
     while (v5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (MAIDiagnosticLogger)init
@@ -152,23 +150,24 @@
       notify_register_check([v6 UTF8String], v3 + 2);
       if (*p_notifyToken != -1)
       {
-        if ([v3 notifyState] & 1) != 0 || (ha_sensitive_logging_is_enabled())
+        is_enabled = [v3 notifyState];
+        if (is_enabled & 1) != 0 || (is_enabled = ha_sensitive_logging_is_enabled(), (is_enabled))
         {
-          v8 = ha_get_log();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = ha_get_log(is_enabled);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_2588F5000, v8, OS_LOG_TYPE_DEFAULT, "logging is enabled", buf, 2u);
+            _os_log_impl(&dword_2588F5000, v9, OS_LOG_TYPE_DEFAULT, "logging is enabled", buf, 2u);
           }
 
           nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(&__p, 0, 0, 0, 2);
         }
 
-        v9 = ha_get_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = ha_get_log(is_enabled);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_2588F5000, v9, OS_LOG_TYPE_DEFAULT, "logging is disabled", buf, 2u);
+          _os_log_impl(&dword_2588F5000, v10, OS_LOG_TYPE_DEFAULT, "logging is disabled", buf, 2u);
         }
 
         [v3 removeOldFiles];
@@ -176,97 +175,90 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)beginPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
 {
-  v13 = *MEMORY[0x277D85DE8];
-  [(MAIDiagnosticLogger *)self inputJson];
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-  }
-
+  v12 = *MEMORY[0x277D85DE8];
+  objc_msgSend_inputJson(self, a2);
   if (v11)
   {
-    [(MAIDiagnosticLogger *)self inputJson];
-    [(MAIDiagnosticLogger *)self jsonObjectName];
-    v5 = std::string::append(&v8, ".beginPhase", 0xBuLL);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+  }
+
+  if (v10)
+  {
+    objc_msgSend_inputJson(self);
+    objc_msgSend_jsonObjectName(self);
+    v5 = std::string::append(&v7, ".beginPhase", 0xBuLL);
     v6 = *&v5->__r_.__value_.__l.__data_;
-    v10 = v5->__r_.__value_.__r.__words[2];
-    *v9 = v6;
+    v9 = v5->__r_.__value_.__r.__words[2];
+    *v8 = v6;
     v5->__r_.__value_.__l.__size_ = 0;
     v5->__r_.__value_.__r.__words[2] = 0;
     v5->__r_.__value_.__r.__words[0] = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(&v11);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(&v10, v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endPhase:(unsigned __int8)phase onJulianDay:(unsigned int)day
 {
-  v13 = *MEMORY[0x277D85DE8];
-  [(MAIDiagnosticLogger *)self inputJson];
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v12);
-  }
-
+  v12 = *MEMORY[0x277D85DE8];
+  objc_msgSend_inputJson(self, a2);
   if (v11)
   {
-    [(MAIDiagnosticLogger *)self inputJson];
-    [(MAIDiagnosticLogger *)self jsonObjectName];
-    v5 = std::string::append(&v8, ".endPhase", 9uLL);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+  }
+
+  if (v10)
+  {
+    objc_msgSend_inputJson(self);
+    objc_msgSend_jsonObjectName(self);
+    v5 = std::string::append(&v7, ".endPhase", 9uLL);
     v6 = *&v5->__r_.__value_.__l.__data_;
-    v10 = v5->__r_.__value_.__r.__words[2];
-    *v9 = v6;
+    v9 = v5->__r_.__value_.__r.__words[2];
+    *v8 = v6;
     v5->__r_.__value_.__l.__size_ = 0;
     v5->__r_.__value_.__r.__words[2] = 0;
     v5->__r_.__value_.__r.__words[0] = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(&v11);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string,std::string,0>(&v10, v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendDay:(id)day
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7[8] = *MEMORY[0x277D85DE8];
   dayCopy = day;
-  [(MAIDiagnosticLogger *)self inputJson];
-  if (v7)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v7);
-  }
-
+  objc_msgSend_inputJson(self);
   if (v6)
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v8);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  if (v5)
+  {
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(v7, "julianDay");
+  }
 }
 
 - (void)appendDay:
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v2);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[12],char [12],0>(v3, "sampleCount");
 }
 
 - (void)dealloc
 {
-  [(MAIDiagnosticLogger *)self inputFile];
+  objc_msgSend_inputFile(self, a2);
   if (*buf)
   {
-    [(MAIDiagnosticLogger *)self inputJson];
-    v3 = v7 != 0;
-    if (v8)
+    objc_msgSend_inputJson(self);
+    v3 = v8 != 0;
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v8);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v9);
     }
   }
 
@@ -275,26 +267,26 @@
     v3 = 0;
   }
 
-  if (v10)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
   }
 
   if (v3)
   {
-    [(MAIDiagnosticLogger *)self inputFile];
-    [(MAIDiagnosticLogger *)self inputJson];
-    nlohmann::operator<<(*buf);
+    objc_msgSend_inputFile(self);
+    objc_msgSend_inputJson(self);
+    nlohmann::operator<<(*buf, v8);
   }
 
-  [(MAIDiagnosticLogger *)self outputFile];
+  objc_msgSend_outputFile(self);
   if (*buf)
   {
-    [(MAIDiagnosticLogger *)self outputJson];
-    v4 = v7 != 0;
-    if (v8)
+    objc_msgSend_outputJson(self);
+    v4 = v8 != 0;
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v8);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v9);
     }
   }
 
@@ -303,34 +295,35 @@
     v4 = 0;
   }
 
-  if (v10)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v11);
   }
 
   if (v4)
   {
-    [(MAIDiagnosticLogger *)self outputFile];
-    [(MAIDiagnosticLogger *)self outputJson];
-    nlohmann::operator<<(*buf);
+    objc_msgSend_outputFile(self);
+    objc_msgSend_outputJson(self);
+    nlohmann::operator<<(*buf, v8);
   }
 
-  if ([(MAIDiagnosticLogger *)self notifyToken]!= -1)
+  notifyToken = [(MAIDiagnosticLogger *)self notifyToken];
+  if (notifyToken != -1)
   {
-    v5 = ha_get_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ha_get_log(notifyToken);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2588F5000, v5, OS_LOG_TYPE_DEFAULT, "clearing the logging notification state", buf, 2u);
+      _os_log_impl(&dword_2588F5000, v6, OS_LOG_TYPE_DEFAULT, "clearing the logging notification state", buf, 2u);
     }
 
     [(MAIDiagnosticLogger *)self setNotifyState:0];
     notify_cancel([(MAIDiagnosticLogger *)self notifyToken]);
   }
 
-  v6.receiver = self;
-  v6.super_class = MAIDiagnosticLogger;
-  [(MAIDiagnosticLogger *)&v6 dealloc];
+  v7.receiver = self;
+  v7.super_class = MAIDiagnosticLogger;
+  [(MAIDiagnosticLogger *)&v7 dealloc];
 }
 
 - (shared_ptr<nlohmann::basic_json<>>)inputJson
@@ -476,11 +469,10 @@
 
 - (void)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_2588F5000, a2, OS_LOG_TYPE_ERROR, "failed to create directory: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2588F5000, a2, OS_LOG_TYPE_ERROR, "failed to create directory: %{public}@", &v2, 0xCu);
 }
 
 @end

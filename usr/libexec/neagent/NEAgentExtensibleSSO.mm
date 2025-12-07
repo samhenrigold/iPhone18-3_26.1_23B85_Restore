@@ -104,19 +104,8 @@
   protocol = [v10 protocol];
   serverAddress = [protocol serverAddress];
 
-  if (serverAddress)
+  if (serverAddress || (!self ? (v14 = 0) : (v14 = objc_getProperty(self, v13, 40, 1)), [v14 appVPN], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "protocol"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "serverAddress"), serverAddress = objc_claimAutoreleasedReturnValue(), v16, v15, serverAddress))
   {
-    goto LABEL_7;
-  }
-
-  v14 = self ? objc_getProperty(self, v13, 40, 1) : 0;
-  appVPN = [v14 appVPN];
-  protocol2 = [appVPN protocol];
-  serverAddress = [protocol2 serverAddress];
-
-  if (serverAddress)
-  {
-LABEL_7:
     v26[0] = @"X-SSO-Net-Authorization-Type";
     v26[1] = @"X-SSO-Net-Authorization";
     v27[0] = @"IKEv2";

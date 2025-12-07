@@ -5,17 +5,15 @@
 
 uint64_t ____CFGetUGIDs_block_invoke()
 {
-  v2[1] = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
-  if (pthread_getugid_np(v2, v2 + 1))
+  v1[1] = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
+  if (pthread_getugid_np(v1, v1 + 1))
   {
-    LODWORD(v2[0]) = geteuid();
-    HIDWORD(v2[0]) = getegid();
+    LODWORD(v1[0]) = geteuid();
+    HIDWORD(v1[0]) = getegid();
   }
 
-  result = v2[0];
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return v1[0];
 }
 
 uint64_t ____CFGetUGIDs_block_invoke_2(uint64_t a1)

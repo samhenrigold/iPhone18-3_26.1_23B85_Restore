@@ -8,6 +8,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setCalibration_offset:(float)calibration_offset;
 - (void)setCalibration_scale:(float)calibration_scale;
+- (void)setProcessed:(BOOL)processed;
 - (void)setScore:(double)score;
 - (void)setThreshold:(double)threshold;
 - (void)setVersion:(id)version;
@@ -46,6 +47,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setProcessed:(BOOL)processed
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:processed];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setVersion:(id)version

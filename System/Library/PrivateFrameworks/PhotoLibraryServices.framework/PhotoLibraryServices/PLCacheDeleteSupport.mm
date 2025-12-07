@@ -69,7 +69,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  if (![v13 count])
+  if (!objc_msgSend_count(v13))
   {
     v15 = PLResourceCachingGetLog();
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -179,7 +179,7 @@ LABEL_23:
 - (void)markAsNotLocallyAvailableForResourcesWithFileIDsToPath:(id)path
 {
   pathCopy = path;
-  if ([pathCopy count])
+  if (objc_msgSend_count(pathCopy))
   {
     _newShortLivedPhotoLibrary = [(PLCacheDeleteSupport *)self _newShortLivedPhotoLibrary];
     v9[0] = MEMORY[0x1E69E9820];
@@ -205,7 +205,7 @@ uint64_t __79__PLCacheDeleteSupport_markAsNotLocallyAvailableForResourcesWithFil
   v2 = PLResourceCachingGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) count];
+    v3 = objc_msgSend_count(*(a1 + 32));
     v4 = [*(*(a1 + 40) + 16) libraryURL];
     v6 = 134218242;
     v7 = v3;
@@ -834,7 +834,7 @@ void __120__PLCacheDeleteSupport_clearPurgeableIsCloneStateOnPurgeableResourcesO
     v11 = PLResourceCachingGetLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [v41 count];
+      v12 = objc_msgSend_count(v41);
       *buf = 134217984;
       v83 = v12;
       _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "Verifying localAvailability for %ld resources presumed to be local...", buf, 0xCu);
@@ -896,7 +896,7 @@ void __120__PLCacheDeleteSupport_clearPurgeableIsCloneStateOnPurgeableResourcesO
       *verify = v60[3];
     }
 
-    if ([v38 count])
+    if (objc_msgSend_count(v38))
     {
       string = [MEMORY[0x1E696AD60] string];
       v46 = 0u;

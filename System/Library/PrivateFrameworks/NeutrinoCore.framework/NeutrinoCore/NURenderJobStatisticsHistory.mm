@@ -247,7 +247,7 @@
   v21 = v20;
   +[NURenderJobStatisticsHistory totalSchedulerTimeExecutingComplete];
   [NURenderJobStatisticsHistory setTotalSchedulerTimeExecutingComplete:v21 + v22];
-  [historyCopy duration];
+  objc_msgSend_duration(historyCopy);
   v24 = v23;
   +[NURenderJobStatisticsHistory totalSchedulerTimeExecuting];
   [NURenderJobStatisticsHistory setTotalSchedulerTimeExecuting:v24 + v25];
@@ -257,7 +257,7 @@
   self->_totalTimeExecutingRender = v27 + self->_totalTimeExecutingRender;
   [historyCopy completeDuration];
   self->_totalTimeExecutingComplete = v28 + self->_totalTimeExecutingComplete;
-  [historyCopy duration];
+  objc_msgSend_duration(historyCopy);
   self->_totalTimeExecuting = v29 + self->_totalTimeExecuting;
 }
 

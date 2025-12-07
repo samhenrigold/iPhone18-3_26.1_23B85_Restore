@@ -128,7 +128,7 @@ uint64_t __48__SBHIconImageCacheRequest_addDependentRequest___block_invoke_2(uin
       self[16] = v34;
 
       iconImageCacheIdentifier = [v17 iconImageCacheIdentifier];
-      [cancellationCopy iconImageInfo];
+      objc_msgSend_iconImageInfo(cancellationCopy);
       v37 = [SBHIconImageIdentity alloc];
       v38 = OUTLINED_FUNCTION_8();
       v40 = [v39 initWithIconIdentifier:v38 iconImageInfo:? imageGeneration:? imageAppearance:?];

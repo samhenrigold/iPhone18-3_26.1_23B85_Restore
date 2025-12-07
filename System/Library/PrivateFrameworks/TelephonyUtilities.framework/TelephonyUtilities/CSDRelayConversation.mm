@@ -178,7 +178,7 @@
 
   else
   {
-    delegate = sub_100004778();
+    delegate = sub_100004778(0);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
       sub_100479148(delegate);

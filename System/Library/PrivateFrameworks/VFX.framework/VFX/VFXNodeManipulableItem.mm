@@ -5,12 +5,12 @@
 - (id)cloneForManipulators;
 - (id)parentItem;
 - (uint64_t)scale;
-- (uint64_t)setTransform:(uint64_t)transform;
-- (uint64_t)setWorldTransform:(uint64_t)transform;
-- (uint64_t)transform;
-- (uint64_t)worldTransform;
 - (void)initializeDraggedTransform;
+- (void)setTransform:(__n128)transform;
+- (void)setWorldTransform:(double)transform;
+- (void)transform;
 - (void)validateClone;
+- (void)worldTransform;
 @end
 
 @implementation VFXNodeManipulableItem
@@ -19,95 +19,95 @@
 {
   v6 = objc_alloc_init(VFXNodeManipulableItem);
   *&v7 = size;
-  objc_msgSend_setScreenSize_(v6, v8, v9, v10, v7);
-  objc_msgSend_setNode_(v6, v11, node, v12);
+  objc_msgSend_setScreenSize_(v6, v8, v9, v7);
+  objc_msgSend_setNode_(v6, v10, node);
 
   return v6;
 }
 
-- (uint64_t)transform
+- (void)transform
 {
-  v4 = objc_msgSend_node(self, a2, a3, a4);
-  v8 = objc_msgSend_presentationNode(v4, v5, v6, v7);
+  v3 = objc_msgSend_node(self, v1, v2);
+  v6 = objc_msgSend_presentationNode(v3, v4, v5);
 
-  return objc_msgSend_transform(v8, v9, v10, v11);
+  return objc_msgSend_transform(v6, v7, v8);
 }
 
 - (void)initializeDraggedTransform
 {
-  v4 = self + 1;
-  v5 = objc_msgSend_node(self, a2, v2, v3);
-  v9 = objc_msgSend_presentationNode(v5, v6, v7, v8);
-  objc_msgSend_transform(v9, v10, v11, v12);
-  *&v4->super.super.isa = v13;
-  *&v4->super.node = v14;
-  *&v4->super.elementIndex = v15;
-  *v4->_anon_30 = v16;
+  v3 = self + 1;
+  v4 = objc_msgSend_node(self, a2, v2);
+  v7 = objc_msgSend_presentationNode(v4, v5, v6);
+  objc_msgSend_transform(v7, v8, v9);
+  *&v3->super.super.isa = v10;
+  *&v3->super.node = v11;
+  *&v3->super.elementIndex = v12;
+  *v3->_anon_30 = v13;
 }
 
-- (uint64_t)setTransform:(uint64_t)transform
+- (void)setTransform:(__n128)transform
 {
-  v16 = a8.n128_f64[0];
-  v14 = a6.n128_f64[0];
-  v15 = a7.n128_f64[0];
-  v13 = a5.n128_f64[0];
-  self[7] = a5;
-  self[8] = a6;
-  self[9] = a7;
-  self[10] = a8;
-  v8 = objc_msgSend_node(self, a2, transform, a4);
+  v14 = a5.n128_f64[0];
+  v12 = transform.n128_f64[0];
+  v13 = a4.n128_f64[0];
+  v11 = a2.n128_f64[0];
+  self[7] = a2;
+  self[8] = transform;
+  self[9] = a4;
+  self[10] = a5;
+  v7 = objc_msgSend_node(self, v5, v6);
 
-  return objc_msgSend_setTransform_(v8, v9, v10, v11, v13, v14, v15, v16);
+  return objc_msgSend_setTransform_(v7, v8, v9, v11, v12, v13, v14);
 }
 
-- (uint64_t)worldTransform
+- (void)worldTransform
 {
-  v4 = objc_msgSend_node(self, a2, a3, a4);
-  v8 = objc_msgSend_presentationNode(v4, v5, v6, v7);
+  v3 = objc_msgSend_node(self, v1, v2);
+  v6 = objc_msgSend_presentationNode(v3, v4, v5);
 
-  return objc_msgSend_worldTransform(v8, v9, v10, v11);
+  return objc_msgSend_worldTransform(v6, v7, v8);
 }
 
-- (uint64_t)setWorldTransform:(uint64_t)transform
+- (void)setWorldTransform:(double)transform
 {
-  v9 = objc_msgSend_node(self, a2, transform, a4);
-  if (objc_msgSend_parentNode(v9, v10, v11, v12))
+  v8 = objc_msgSend_node(self, v5, v6);
+  if (objc_msgSend_parentNode(v8, v9, v10))
   {
-    v16 = objc_msgSend_node(self, v13, v14, v15);
-    v20 = objc_msgSend_parentNode(v16, v17, v18, v19);
-    objc_msgSend_convertTransform_fromNode_(v20, v21, 0, v22, a5, a6, a7, a8);
+    v13 = objc_msgSend_node(self, v11, v12);
+    v16 = objc_msgSend_parentNode(v13, v14, v15);
+    objc_msgSend_convertTransform_fromNode_(v16, v17, 0, a2, transform, a4, a5);
   }
 
   else
   {
-    v26 = a8;
-    v24 = a6;
-    v25 = a7;
-    v23 = a5;
+    v21 = a5;
+    transformCopy = transform;
+    v20 = a4;
+    v18 = a2;
   }
 
-  return objc_msgSend_setTransform_(self, v13, v14, v15, v23, v24, v25, v26);
+  return objc_msgSend_setTransform_(self, v11, v12, v18, transformCopy, v20, v21);
 }
 
 - (uint64_t)scale
 {
-  v4 = objc_msgSend_node(self, a2, a3, a4);
-  v8 = objc_msgSend_presentationNode(v4, v5, v6, v7);
+  v3 = objc_msgSend_node(self, a2, a3);
+  v6 = objc_msgSend_presentationNode(v3, v4, v5);
 
-  return objc_msgSend_scale(v8, v9, v10, v11);
+  return objc_msgSend_scale(v6, v7, v8);
 }
 
 - (id)parentItem
 {
-  v5 = objc_msgSend_node(self, a2, v2, v3);
-  result = objc_msgSend_parentNode(v5, v6, v7, v8);
+  v4 = objc_msgSend_node(self, a2, v2);
+  result = objc_msgSend_parentNode(v4, v5, v6);
   if (result)
   {
-    v13 = objc_msgSend_node(self, v10, v11, v12);
-    v17 = objc_msgSend_parentNode(v13, v14, v15, v16);
-    objc_msgSend_screenSize(self, v18, v19, v20);
+    v10 = objc_msgSend_node(self, v8, v9);
+    v13 = objc_msgSend_parentNode(v10, v11, v12);
+    objc_msgSend_screenSize(self, v14, v15);
 
-    return objc_msgSend_nodeManipulatorItemWithNode_screenSize_(VFXNodeManipulableItem, v21, v17, v22);
+    return objc_msgSend_nodeManipulatorItemWithNode_screenSize_(VFXNodeManipulableItem, v16, v13);
   }
 
   return result;
@@ -115,101 +115,101 @@
 
 - (id)cloneForManipulators
 {
-  v5 = objc_msgSend_node(self, a2, v2, v3);
-  v9 = objc_msgSend_clone(v5, v6, v7, v8);
-  objc_msgSend_opacity(v9, v10, v11, v12);
-  *&v14 = v13 * 0.5;
-  objc_msgSend_setOpacity_(v9, v15, v16, v17, v14);
-  objc_msgSend_setGizmo_(v9, v18, 1, v19);
-  v23 = objc_msgSend_node(self, v20, v21, v22);
-  objc_msgSend_convertTransform_toNode_(v23, v24, 0, v25, *&VFXMatrix4Identity, unk_1AFE48510, 0.0, unk_1AFE48530);
-  objc_msgSend_setTransform_(v9, v26, v27, v28);
-  objc_msgSend_screenSize(self, v29, v30, v31);
+  v4 = objc_msgSend_node(self, a2, v2);
+  v7 = objc_msgSend_clone(v4, v5, v6);
+  objc_msgSend_opacity(v7, v8, v9);
+  *&v11 = v10 * 0.5;
+  objc_msgSend_setOpacity_(v7, v12, v13, v11);
+  objc_msgSend_setGizmo_(v7, v14, 1);
+  v17 = objc_msgSend_node(self, v15, v16);
+  objc_msgSend_convertTransform_toNode_(v17, v18, 0, *&VFXMatrix4Identity, 0.0078125, 0.0, 0.0);
+  objc_msgSend_setTransform_(v7, v19, v20);
+  objc_msgSend_screenSize(self, v21, v22);
 
-  return objc_msgSend_nodeManipulatorItemWithNode_screenSize_(VFXNodeManipulableItem, v32, v9, v33);
+  return objc_msgSend_nodeManipulatorItemWithNode_screenSize_(VFXNodeManipulableItem, v23, v7);
 }
 
 + (void)addItems:(id)items toWorld:(id)world
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(items, a2, &v21, v25, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(items, a2, &v18, v22, 16);
   if (v6)
   {
-    v10 = v6;
-    v11 = *v22;
+    v9 = v6;
+    v10 = *v19;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(items);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
-        v14 = objc_msgSend_rootNode(world, v7, v8, v9);
-        v18 = objc_msgSend_node(v13, v15, v16, v17);
-        objc_msgSend_addChildNode_(v14, v19, v18, v20);
-        ++v12;
+        v12 = *(*(&v18 + 1) + 8 * v11);
+        v13 = objc_msgSend_rootNode(world, v7, v8);
+        v16 = objc_msgSend_node(v12, v14, v15);
+        objc_msgSend_addChildNode_(v13, v17, v16);
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(items, v7, &v21, v25, 16);
+      while (v9 != v11);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(items, v7, &v18, v22, 16);
     }
 
-    while (v10);
+    while (v9);
   }
 }
 
 + (void)removeItemsFromWorld:(id)world
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(world, a2, &v15, v19, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(world, a2, &v13, v17, 16);
   if (v4)
   {
-    v8 = v4;
-    v9 = *v16;
+    v7 = v4;
+    v8 = *v14;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(world);
         }
 
-        v11 = objc_msgSend_node(*(*(&v15 + 1) + 8 * v10), v5, v6, v7);
-        objc_msgSend_removeFromParentNode(v11, v12, v13, v14);
-        ++v10;
+        v10 = objc_msgSend_node(*(*(&v13 + 1) + 8 * v9), v5, v6);
+        objc_msgSend_removeFromParentNode(v10, v11, v12);
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(world, v5, &v15, v19, 16);
+      while (v7 != v9);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(world, v5, &v13, v17, 16);
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
 - (void)validateClone
 {
-  v5 = objc_msgSend_node(self, a2, v2, v3);
-  objc_msgSend_setGizmo_(v5, v6, 0, v7);
-  v11 = objc_msgSend_node(self, v8, v9, v10);
-  objc_msgSend_opacity(v11, v12, v13, v14);
-  *&v18 = *&v18 + *&v18;
+  v4 = objc_msgSend_node(self, a2, v2);
+  objc_msgSend_setGizmo_(v4, v5, 0);
+  v8 = objc_msgSend_node(self, v6, v7);
+  objc_msgSend_opacity(v8, v9, v10);
+  *&v13 = *&v13 + *&v13;
 
-  objc_msgSend_setOpacity_(v11, v15, v16, v17, v18);
+  objc_msgSend_setOpacity_(v8, v11, v12, v13);
 }
 
 @end

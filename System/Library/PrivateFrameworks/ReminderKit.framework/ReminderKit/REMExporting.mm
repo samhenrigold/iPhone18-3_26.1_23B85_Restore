@@ -18,38 +18,38 @@
 
 + (id)_icsCalendarItemsFromReminders:(id)reminders exportingOption:(int64_t)option
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   remindersCopy = reminders;
   v7 = remindersCopy;
   if (remindersCopy && [remindersCopy count])
   {
-    v18 = v7;
-    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v17 = v7;
+    v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [self icsTodoFromReminder:*(*(&v20 + 1) + 8 * v12) exportingOption:{option, v18}];
+          v13 = [self icsTodoFromReminder:*(*(&v19 + 1) + 8 * v12) exportingOption:{option, v17}];
           if (v13 && ([MEMORY[0x1E695DEC8] arrayWithObject:v13], (v14 = objc_claimAutoreleasedReturnValue()) != 0))
           {
             v15 = v14;
-            [v19 addObjectsFromArray:v14];
+            [v18 addObjectsFromArray:v14];
           }
 
           else
@@ -65,29 +65,27 @@
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
     }
 
-    v7 = v18;
+    v7 = v17;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 + (id)icsTodoFromReminder:(id)reminder exportingOption:(int64_t)option
 {
   optionCopy = option;
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   reminderCopy = reminder;
   importedICSData = [reminderCopy importedICSData];
 
@@ -97,9 +95,9 @@
   }
 
   importedICSData2 = [reminderCopy importedICSData];
-  v55 = 0;
-  v9 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:importedICSData2 options:0 error:&v55];
-  v10 = v55;
+  v54 = 0;
+  v9 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:importedICSData2 options:0 error:&v54];
+  v10 = v54;
   if (v10 || !v9)
   {
     v13 = +[REMLogStore read];
@@ -116,27 +114,27 @@
     calendar = [v9 calendar];
     components = [calendar components];
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v13 = components;
-    v14 = [v13 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v50 objects:v56 count:16];
     if (v14)
     {
       v15 = v14;
-      v50 = optionCopy;
-      v16 = *v52;
+      v49 = optionCopy;
+      v16 = *v51;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v52 != v16)
+          if (*v51 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v51 + 1) + 8 * i);
+          v18 = *(*(&v50 + 1) + 8 * i);
           v19 = objc_opt_class();
           v20 = REMDynamicCast(v19, v18);
           if (v20)
@@ -146,7 +144,7 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v50 objects:v56 count:16];
         if (v15)
         {
           continue;
@@ -157,7 +155,7 @@
 
       v21 = 0;
 LABEL_17:
-      optionCopy = v50;
+      optionCopy = v49;
     }
 
     else
@@ -207,8 +205,8 @@ LABEL_21:
 
     else
     {
-      v49 = [objc_alloc(MEMORY[0x1E69E3C90]) initWithYear:objc_msgSend(dueDateComponents month:"year") day:objc_msgSend(dueDateComponents hour:"month") minute:objc_msgSend(dueDateComponents second:{"day"), objc_msgSend(dueDateComponents, "hour"), objc_msgSend(dueDateComponents, "minute"), objc_msgSend(dueDateComponents, "second")}];
-      [v21 setDue:v49];
+      v48 = [objc_alloc(MEMORY[0x1E69E3C90]) initWithYear:objc_msgSend(dueDateComponents month:"year") day:objc_msgSend(dueDateComponents hour:"month") minute:objc_msgSend(dueDateComponents second:{"day"), objc_msgSend(dueDateComponents, "hour"), objc_msgSend(dueDateComponents, "minute"), objc_msgSend(dueDateComponents, "second")}];
+      [v21 setDue:v48];
     }
   }
 
@@ -302,8 +300,8 @@ LABEL_51:
       if (userActivityData)
       {
         v37 = [objc_alloc(MEMORY[0x1E69E3CD0]) initWithValue:userActivityData type:5013];
-        v56 = v37;
-        v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+        v55 = v37;
+        v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
         [v21 setX_apple_activity:v38];
       }
     }
@@ -318,8 +316,6 @@ LABEL_51:
   }
 
 LABEL_58:
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -676,20 +672,20 @@ LABEL_78:
 
           if (!trigger2)
           {
-            v76 = REMInvalidICSAlarmDateComponents();
-            v77 = objc_alloc(MEMORY[0x1E69E3C98]);
-            year = [v76 year];
-            month = [v76 month];
-            v80 = [v76 day];
-            hour = [v76 hour];
-            minute = [v76 minute];
-            second = [v76 second];
-            v84 = month;
+            v77 = REMInvalidICSAlarmDateComponents(v76);
+            v78 = objc_alloc(MEMORY[0x1E69E3C98]);
+            year = [v77 year];
+            month = [v77 month];
+            v81 = [v77 day];
+            hour = [v77 hour];
+            minute = [v77 minute];
+            second = [v77 second];
+            v85 = month;
             trigger = v247;
-            v85 = minute;
+            v86 = minute;
             trigger4 = v251;
-            v86 = [v77 initWithYear:year month:v84 day:v80 hour:hour minute:v85 second:second];
-            v66 = [objc_alloc(MEMORY[0x1E69E3D08]) initWithDate:v86];
+            v87 = [v78 initWithYear:year month:v85 day:v81 hour:hour minute:v86 second:second];
+            v66 = [objc_alloc(MEMORY[0x1E69E3D08]) initWithDate:v87];
 
             if (v66)
             {
@@ -703,9 +699,9 @@ LABEL_80:
             [v49 setAction:1];
           }
 
-          v87 = [v49 description];
-          v88 = 0x1E695D000;
-          if (v87)
+          v88 = [v49 description];
+          v89 = 0x1E695D000;
+          if (v88)
           {
           }
 
@@ -726,161 +722,161 @@ LABEL_80:
             makeUID = [MEMORY[0x1E69E3C80] makeUID];
             [v49 setUid:makeUID];
             [v49 setX_wr_alarmuid:makeUID];
-            v91 = +[REMLogStore read];
-            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+            v92 = +[REMLogStore read];
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
             {
               +[REMExporting(ICSExport) _updateICSComponentWithReminder:icsCalendarItem:];
             }
 
-            v88 = 0x1E695D000uLL;
+            v89 = 0x1E695D000uLL;
           }
 
-          v92 = objc_opt_class();
-          v93 = REMDynamicCast(v92, trigger);
-          v94 = objc_opt_class();
-          v95 = REMDynamicCast(v94, trigger);
-          v96 = v95;
-          v237 = v93;
+          v93 = objc_opt_class();
+          v94 = REMDynamicCast(v93, trigger);
+          v95 = objc_opt_class();
+          v96 = REMDynamicCast(v95, trigger);
+          v97 = v96;
+          v237 = v94;
           v239 = alarmUID3;
-          if (v93)
+          if (v94)
           {
-            proximity = [v93 proximity];
+            proximity = [v94 proximity];
             if (proximity == 1)
             {
-              v98 = MEMORY[0x1E69E4078];
+              v99 = MEMORY[0x1E69E4078];
 LABEL_101:
-              v101 = *v98;
+              v102 = *v99;
             }
 
             else
             {
               if (proximity == 2)
               {
-                v98 = MEMORY[0x1E69E4088];
+                v99 = MEMORY[0x1E69E4088];
                 goto LABEL_101;
               }
 
-              v101 = 0;
+              v102 = 0;
             }
 
-            [v49 setX_apple_proximity:v101];
+            [v49 setX_apple_proximity:v102];
 
-            v102 = v49;
-            structuredLocation = [v93 structuredLocation];
+            v103 = v49;
+            structuredLocation = [v94 structuredLocation];
             contactLabel = [structuredLocation contactLabel];
             [structuredLocation longitude];
-            if (fabs(v105) < 2.22044605e-16)
+            if (fabs(v106) < 2.22044605e-16)
             {
-              v106 = 0;
+              v107 = 0;
               goto LABEL_106;
             }
 
             [structuredLocation latitude];
-            v106 = fabs(v107) >= 2.22044605e-16;
-            if (!v106)
+            v107 = fabs(v108) >= 2.22044605e-16;
+            if (!v107)
             {
 LABEL_106:
               if (!contactLabel)
               {
-                v108 = 0;
+                v109 = 0;
 LABEL_109:
                 title = [structuredLocation title];
-                [v108 setTitle:title];
+                [v109 setTitle:title];
 
                 address = [structuredLocation address];
-                [v108 setAddress:address];
+                [v109 setAddress:address];
 
                 routing = [structuredLocation routing];
-                [v108 setRouting:routing];
+                [v109 setRouting:routing];
 
-                if (v106)
+                if (v107)
                 {
-                  v112 = MEMORY[0x1E696AEC0];
+                  v113 = MEMORY[0x1E696AEC0];
                   [structuredLocation latitude];
-                  v114 = v113;
+                  v115 = v114;
                   [structuredLocation longitude];
-                  v115 = [v112 stringWithFormat:@"geo:%f, %f", v114, v115];
-                  v117 = [MEMORY[0x1E695DFF8] URLWithString:v115];
-                  [v108 setValue:v117 type:5013];
+                  v116 = [v113 stringWithFormat:@"geo:%f, %f", v115, v116];
+                  v118 = [MEMORY[0x1E695DFF8] URLWithString:v116];
+                  [v109 setValue:v118 type:5013];
 
                   referenceFrameString = [structuredLocation referenceFrameString];
 
                   if (referenceFrameString)
                   {
                     referenceFrameString2 = [structuredLocation referenceFrameString];
-                    [v108 setParameterValue:referenceFrameString2 forName:@"X-APPLE-REFERENCEFRAME"];
+                    [v109 setParameterValue:referenceFrameString2 forName:@"X-APPLE-REFERENCEFRAME"];
                   }
                 }
 
                 else
                 {
-                  [v108 setValue:0 type:5013];
-                  [v108 setParameterValue:0 forName:@"X-APPLE-REFERENCEFRAME"];
+                  [v109 setValue:0 type:5013];
+                  [v109 setParameterValue:0 forName:@"X-APPLE-REFERENCEFRAME"];
                 }
 
-                [v108 setParameterValue:contactLabel forName:@"X-APPLE-ABUID"];
-                v120 = MEMORY[0x1E696AD98];
+                [v109 setParameterValue:contactLabel forName:@"X-APPLE-ABUID"];
+                v121 = MEMORY[0x1E696AD98];
                 [structuredLocation radius];
-                v121 = [v120 numberWithDouble:?];
-                stringValue = [v121 stringValue];
-                [v108 setParameterValue:stringValue forName:@"X-APPLE-RADIUS"];
+                v122 = [v121 numberWithDouble:?];
+                stringValue = [v122 stringValue];
+                [v109 setParameterValue:stringValue forName:@"X-APPLE-RADIUS"];
 
                 mapKitHandle = [structuredLocation mapKitHandle];
                 if (mapKitHandle)
                 {
                   v229 = contactLabel;
-                  v124 = v96;
-                  [v108 setMapKitHandle:mapKitHandle];
-                  v125 = [v108 ICSStringWithOptions:0];
-                  uTF8String = [v125 UTF8String];
+                  v125 = v97;
+                  [v109 setMapKitHandle:mapKitHandle];
+                  v126 = [v109 ICSStringWithOptions:0];
+                  uTF8String = [v126 UTF8String];
                   if (uTF8String && strlen(uTF8String) >= 0x3DF)
                   {
-                    v127 = +[REMLogStore read];
-                    if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+                    v128 = +[REMLogStore read];
+                    if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
                     {
-                      [(REMExporting(ICSExport) *)&v262 _updateICSComponentWithReminder:v263 icsCalendarItem:v127];
+                      [(REMExporting(ICSExport) *)&v262 _updateICSComponentWithReminder:v263 icsCalendarItem:v128];
                     }
 
-                    [v108 setMapKitHandle:0];
+                    [v109 setMapKitHandle:0];
                     trigger4 = v251;
                   }
 
-                  v96 = v124;
+                  v97 = v125;
                   contactLabel = v229;
                 }
 
-                v88 = 0x1E695D000;
+                v89 = 0x1E695D000;
                 goto LABEL_127;
               }
             }
 
-            v108 = objc_alloc_init(MEMORY[0x1E69E3CE8]);
-            [v102 setX_apple_structured_location:v108];
+            v109 = objc_alloc_init(MEMORY[0x1E69E3CE8]);
+            [v103 setX_apple_structured_location:v109];
             goto LABEL_109;
           }
 
-          if (v95)
+          if (v96)
           {
-            event = [v95 event];
+            event = [v96 event];
             if (event == 1)
             {
-              v100 = MEMORY[0x1E69E4080];
+              v101 = MEMORY[0x1E69E4080];
 LABEL_123:
-              v128 = *v100;
+              v129 = *v101;
             }
 
             else
             {
               if (event == 2)
               {
-                v100 = MEMORY[0x1E69E4090];
+                v101 = MEMORY[0x1E69E4090];
                 goto LABEL_123;
               }
 
-              v128 = 0;
+              v129 = 0;
             }
 
-            [v49 setX_apple_proximity:v128];
+            [v49 setX_apple_proximity:v129];
           }
 
           [v49 setX_apple_structured_location:0];
@@ -889,31 +885,31 @@ LABEL_127:
           acknowledgedDate = [v48 acknowledgedDate];
           if (acknowledgedDate)
           {
-            v227 = [*(v88 + 4072) timeZoneWithName:@"UTC"];
+            v227 = [*(v89 + 4072) timeZoneWithName:@"UTC"];
             [acknowledgedDate timeIntervalSinceReferenceDate];
-            v131 = rem_DateComponentsFromAbsoluteTime(v227, v130);
+            v132 = rem_DateComponentsFromAbsoluteTime(v227, v131);
             v225 = objc_alloc(MEMORY[0x1E69E3C98]);
-            v230 = v96;
-            year2 = [v131 year];
-            month2 = [v131 month];
-            v134 = [v131 day];
-            v135 = v43;
-            v136 = v48;
-            hour2 = [v131 hour];
-            v138 = v49;
-            minute2 = [v131 minute];
-            second2 = [v131 second];
-            v141 = year2;
-            v96 = v230;
-            v142 = v134;
+            v230 = v97;
+            year2 = [v132 year];
+            month2 = [v132 month];
+            v135 = [v132 day];
+            v136 = v43;
+            v137 = v48;
+            hour2 = [v132 hour];
+            v139 = v49;
+            minute2 = [v132 minute];
+            second2 = [v132 second];
+            v142 = year2;
+            v97 = v230;
+            v143 = v135;
             trigger4 = v251;
-            v143 = hour2;
-            v48 = v136;
-            v43 = v135;
-            v144 = [v225 initWithYear:v141 month:month2 day:v142 hour:v143 minute:minute2 second:second2];
-            [v138 setAcknowledged:v144];
+            v144 = hour2;
+            v48 = v137;
+            v43 = v136;
+            v145 = [v225 initWithYear:v142 month:month2 day:v143 hour:v144 minute:minute2 second:second2];
+            [v139 setAcknowledged:v145];
 
-            v49 = v138;
+            v49 = v139;
           }
 
           else
@@ -942,7 +938,7 @@ LABEL_131:
             {
 
 LABEL_140:
-              v148 = v249;
+              v149 = v249;
               goto LABEL_141;
             }
           }
@@ -953,7 +949,7 @@ LABEL_140:
           {
           }
 
-          v148 = v249;
+          v149 = v249;
           if (!dtstart)
           {
             [v62 setTrigger:_setSubcomponentsOnICSComponent_sInvalidTrigger];
@@ -963,20 +959,20 @@ LABEL_140:
 LABEL_141:
           if (v62)
           {
-            v149 = v254;
+            v150 = v254;
           }
 
           else
           {
-            v149 = 1;
+            v150 = 1;
           }
 
-          if ((v149 & 1) == 0)
+          if ((v150 & 1) == 0)
           {
             [v43 addObject:v62];
           }
 
-          v30 = v148 + 1;
+          v30 = v149 + 1;
           reminderCopy = v241;
         }
 
@@ -990,99 +986,99 @@ LABEL_141:
 
   [v242 setComponents:array];
 
-  v150 = v222;
+  v151 = v222;
   v228 = v242;
-  recurrenceRules = [v150 recurrenceRules];
+  recurrenceRules = [v151 recurrenceRules];
   if (!recurrenceRules)
   {
-    v214 = 0;
+    v215 = 0;
     goto LABEL_218;
   }
 
-  v152 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recurrenceRules, "count")}];
+  v153 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recurrenceRules, "count")}];
   v264 = 0u;
   v265 = 0u;
   v266 = 0u;
   v267 = 0u;
   v226 = recurrenceRules;
   v240 = recurrenceRules;
-  v153 = [v240 countByEnumeratingWithState:&v264 objects:v283 count:16];
-  if (!v153)
+  v154 = [v240 countByEnumeratingWithState:&v264 objects:v283 count:16];
+  if (!v154)
   {
     goto LABEL_213;
   }
 
-  v154 = v153;
-  v155 = *v265;
-  v234 = v150;
+  v155 = v154;
+  v156 = *v265;
+  v234 = v151;
   v236 = *v265;
-  v232 = v152;
+  v232 = v153;
   do
   {
-    v156 = 0;
-    v238 = v154;
+    v157 = 0;
+    v238 = v155;
     do
     {
-      if (*v265 != v155)
+      if (*v265 != v156)
       {
         objc_enumerationMutation(v240);
       }
 
-      v157 = *(*(&v264 + 1) + 8 * v156);
-      v158 = v150;
-      v252 = v158;
-      if (!v157)
+      v158 = *(*(&v264 + 1) + 8 * v157);
+      v159 = v151;
+      v252 = v159;
+      if (!v158)
       {
-        v161 = 0;
+        v162 = 0;
         goto LABEL_206;
       }
 
-      v246 = v156;
-      frequency = [v157 frequency];
+      v246 = v157;
+      frequency = [v158 frequency];
       if (frequency >= 5)
       {
-        v162 = v157;
-        v163 = +[REMLogStore read];
-        if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
+        v163 = v158;
+        v164 = +[REMLogStore read];
+        if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
         {
           +[REMExporting(ICSExport) _updateICSComponentWithReminder:icsCalendarItem:];
         }
 
-        v160 = 4;
-        v157 = v162;
+        v161 = 4;
+        v158 = v163;
       }
 
       else
       {
-        v160 = qword_19A231338[frequency];
+        v161 = qword_19A231338[frequency];
       }
 
-      v255 = [objc_alloc(MEMORY[0x1E69E3CD8]) initWithFrequency:v160];
-      interval = [v157 interval];
+      v255 = [objc_alloc(MEMORY[0x1E69E3CD8]) initWithFrequency:v161];
+      interval = [v158 interval];
       if (interval > 1)
       {
-        v165 = [MEMORY[0x1E696AD98] numberWithInteger:interval];
-        [v255 setInterval:v165];
+        v166 = [MEMORY[0x1E696AD98] numberWithInteger:interval];
+        [v255 setInterval:v166];
       }
 
-      if ([v157 firstDayOfTheWeek] >= 1 && objc_msgSend(v157, "firstDayOfTheWeek") != 2)
+      if ([v158 firstDayOfTheWeek] >= 1 && objc_msgSend(v158, "firstDayOfTheWeek") != 2)
       {
-        v166 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v157, "firstDayOfTheWeek")}];
-        [v255 setWkst:v166];
+        v167 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v158, "firstDayOfTheWeek")}];
+        [v255 setWkst:v167];
       }
 
-      recurrenceEnd = [v157 recurrenceEnd];
+      recurrenceEnd = [v158 recurrenceEnd];
       endDate = [recurrenceEnd endDate];
 
-      v250 = v157;
-      recurrenceEnd2 = [v157 recurrenceEnd];
+      v250 = v158;
+      recurrenceEnd2 = [v158 recurrenceEnd];
       occurrenceCount = [recurrenceEnd2 occurrenceCount];
 
       v248 = endDate;
       if (occurrenceCount)
       {
-        v171 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:occurrenceCount];
-        [v255 setCount:v171];
+        v172 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:occurrenceCount];
+        [v255 setCount:v172];
       }
 
       else
@@ -1096,83 +1092,83 @@ LABEL_141:
 
         if (timeZone2)
         {
-          v173 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"UTC"];
-          v174 = rem_ICSDateFromNSDateInTimezone(endDate, v173);
+          v174 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"UTC"];
+          v175 = rem_ICSDateFromNSDateInTimezone(endDate, v174);
         }
 
         else if ([v252 allDay])
         {
           [endDate timeIntervalSinceReferenceDate];
-          v173 = rem_DateComponentsFromAbsoluteTime(0, v175);
-          v176 = objc_alloc(MEMORY[0x1E69E3C90]);
-          year3 = [v173 year];
-          month3 = [v173 month];
-          v179 = [v173 day];
-          v180 = month3;
-          v155 = v236;
-          v174 = [v176 initWithYear:year3 month:v180 day:v179];
+          v174 = rem_DateComponentsFromAbsoluteTime(0, v176);
+          v177 = objc_alloc(MEMORY[0x1E69E3C90]);
+          year3 = [v174 year];
+          month3 = [v174 month];
+          v180 = [v174 day];
+          v181 = month3;
+          v156 = v236;
+          v175 = [v177 initWithYear:year3 month:v181 day:v180];
         }
 
         else
         {
-          v173 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"UTC"];
-          v174 = rem_ICSFloatingDateTimeFromNSDateInTimezone(endDate, v173);
+          v174 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"UTC"];
+          v175 = rem_ICSFloatingDateTimeFromNSDateInTimezone(endDate, v174);
         }
 
-        v171 = v174;
+        v172 = v175;
 
-        v181 = +[REMLogStore read];
-        if (os_log_type_enabled(v181, OS_LOG_TYPE_DEBUG))
+        v182 = +[REMLogStore read];
+        if (os_log_type_enabled(v182, OS_LOG_TYPE_DEBUG))
         {
-          value2 = [v171 value];
+          value2 = [v172 value];
           *buf = 138412546;
           v285 = value2;
           v286 = 2112;
           v287 = endDate;
-          _os_log_debug_impl(&dword_19A0DB000, v181, OS_LOG_TYPE_DEBUG, "Setting ICS recurrence until date: untilDate=%@ remEndDate=%@)", buf, 0x16u);
+          _os_log_debug_impl(&dword_19A0DB000, v182, OS_LOG_TYPE_DEBUG, "Setting ICS recurrence until date: untilDate=%@ remEndDate=%@)", buf, 0x16u);
         }
 
-        value3 = [v171 value];
+        value3 = [v172 value];
         [v255 setUntil:value3];
 
-        v154 = v238;
+        v155 = v238;
       }
 
 LABEL_179:
-      v157 = v250;
+      v158 = v250;
       daysOfTheWeek = [v250 daysOfTheWeek];
       v243 = daysOfTheWeek;
       if (daysOfTheWeek)
       {
-        v184 = daysOfTheWeek;
+        v185 = daysOfTheWeek;
         if ([daysOfTheWeek count])
         {
-          v185 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v186 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v268 = 0u;
           v269 = 0u;
           v270 = 0u;
           v271 = 0u;
-          v186 = v184;
-          v187 = [v186 countByEnumeratingWithState:&v268 objects:buf count:16];
-          if (v187)
+          v187 = v185;
+          v188 = [v187 countByEnumeratingWithState:&v268 objects:buf count:16];
+          if (v188)
           {
-            v188 = v187;
-            v189 = *v269;
+            v189 = v188;
+            v190 = *v269;
             do
             {
-              for (m = 0; m != v188; ++m)
+              for (m = 0; m != v189; ++m)
               {
-                if (*v269 != v189)
+                if (*v269 != v190)
                 {
-                  objc_enumerationMutation(v186);
+                  objc_enumerationMutation(v187);
                 }
 
-                v191 = *(*(&v268 + 1) + 8 * m);
-                dayOfTheWeek = [v191 dayOfTheWeek];
+                v192 = *(*(&v268 + 1) + 8 * m);
+                dayOfTheWeek = [v192 dayOfTheWeek];
                 if ((dayOfTheWeek - 1) >= 7)
                 {
-                  v193 = +[REMLogStore read];
-                  if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
+                  v194 = +[REMLogStore read];
+                  if (os_log_type_enabled(v194, OS_LOG_TYPE_ERROR))
                   {
                     +[REMExporting(ICSExport) _updateICSComponentWithReminder:icsCalendarItem:];
                   }
@@ -1180,139 +1176,138 @@ LABEL_179:
                   dayOfTheWeek = 1;
                 }
 
-                v194 = objc_alloc(MEMORY[0x1E69E3C60]);
-                v195 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v191, "weekNumber")}];
-                v196 = [v194 initWithWeekday:dayOfTheWeek number:v195];
+                v195 = objc_alloc(MEMORY[0x1E69E3C60]);
+                v196 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v192, "weekNumber")}];
+                v197 = [v195 initWithWeekday:dayOfTheWeek number:v196];
 
-                [v185 addObject:v196];
+                [v186 addObject:v197];
               }
 
-              v188 = [v186 countByEnumeratingWithState:&v268 objects:buf count:16];
+              v189 = [v187 countByEnumeratingWithState:&v268 objects:buf count:16];
             }
 
-            while (v188);
+            while (v189);
           }
 
-          v197 = +[REMLogStore read];
-          if (os_log_type_enabled(v197, OS_LOG_TYPE_DEBUG))
+          v198 = +[REMLogStore read];
+          if (os_log_type_enabled(v198, OS_LOG_TYPE_DEBUG))
           {
             *v280 = 138412546;
-            *&v280[4] = v185;
+            *&v280[4] = v186;
             *&v280[12] = 2112;
-            *&v280[14] = v186;
-            _os_log_debug_impl(&dword_19A0DB000, v197, OS_LOG_TYPE_DEBUG, "Setting ICS byday days array: %@ %@", v280, 0x16u);
+            *&v280[14] = v187;
+            _os_log_debug_impl(&dword_19A0DB000, v198, OS_LOG_TYPE_DEBUG, "Setting ICS byday days array: %@ %@", v280, 0x16u);
           }
 
-          [v255 setByday:v185];
+          [v255 setByday:v186];
           reminderCopy = v241;
-          v152 = v232;
-          v150 = v234;
-          v155 = v236;
-          v154 = v238;
-          v157 = v250;
+          v153 = v232;
+          v151 = v234;
+          v156 = v236;
+          v155 = v238;
+          v158 = v250;
         }
       }
 
-      monthsOfTheYear = [v157 monthsOfTheYear];
+      monthsOfTheYear = [v158 monthsOfTheYear];
 
       if (monthsOfTheYear)
       {
-        monthsOfTheYear2 = [v157 monthsOfTheYear];
+        monthsOfTheYear2 = [v158 monthsOfTheYear];
         [v255 setBymonth:monthsOfTheYear2];
       }
 
-      daysOfTheMonth = [v157 daysOfTheMonth];
+      daysOfTheMonth = [v158 daysOfTheMonth];
 
       if (daysOfTheMonth)
       {
-        daysOfTheMonth2 = [v157 daysOfTheMonth];
+        daysOfTheMonth2 = [v158 daysOfTheMonth];
         [v255 setBymonthday:daysOfTheMonth2];
       }
 
-      weeksOfTheYear = [v157 weeksOfTheYear];
+      weeksOfTheYear = [v158 weeksOfTheYear];
 
       if (weeksOfTheYear)
       {
-        weeksOfTheYear2 = [v157 weeksOfTheYear];
+        weeksOfTheYear2 = [v158 weeksOfTheYear];
         [v255 setByweekno:weeksOfTheYear2];
       }
 
-      daysOfTheYear = [v157 daysOfTheYear];
+      daysOfTheYear = [v158 daysOfTheYear];
 
       if (daysOfTheYear)
       {
-        daysOfTheYear2 = [v157 daysOfTheYear];
+        daysOfTheYear2 = [v158 daysOfTheYear];
         [v255 setByyearday:daysOfTheYear2];
       }
 
-      setPositions = [v157 setPositions];
+      setPositions = [v158 setPositions];
 
       if (setPositions)
       {
-        setPositions2 = [v157 setPositions];
+        setPositions2 = [v158 setPositions];
         [v255 setBysetpos:setPositions2];
       }
 
-      v156 = v246;
-      v158 = v252;
-      v161 = v255;
+      v157 = v246;
+      v159 = v252;
+      v162 = v255;
 LABEL_206:
 
-      if (v161)
+      if (v162)
       {
-        [v152 addObject:v161];
+        [v153 addObject:v162];
       }
 
       else
       {
-        v208 = v156;
-        v209 = +[REMLogStore read];
-        if (os_log_type_enabled(v209, OS_LOG_TYPE_ERROR))
+        v209 = v157;
+        v210 = +[REMLogStore read];
+        if (os_log_type_enabled(v210, OS_LOG_TYPE_ERROR))
         {
           objectID = [v252 objectID];
-          v211 = v157;
-          v212 = objectID;
+          v212 = v158;
+          v213 = objectID;
           *buf = 138412546;
-          v285 = v211;
+          v285 = v212;
           v286 = 2112;
           v287 = objectID;
-          _os_log_error_impl(&dword_19A0DB000, v209, OS_LOG_TYPE_ERROR, "Couldn't create an ICSRecurrence from REMRecurrenceRule %@ {reminderID: %@}", buf, 0x16u);
+          _os_log_error_impl(&dword_19A0DB000, v210, OS_LOG_TYPE_ERROR, "Couldn't create an ICSRecurrence from REMRecurrenceRule %@ {reminderID: %@}", buf, 0x16u);
         }
 
-        v156 = v208;
+        v157 = v209;
       }
 
-      ++v156;
+      ++v157;
     }
 
-    while (v156 != v154);
-    v154 = [v240 countByEnumeratingWithState:&v264 objects:v283 count:16];
+    while (v157 != v155);
+    v155 = [v240 countByEnumeratingWithState:&v264 objects:v283 count:16];
   }
 
-  while (v154);
+  while (v155);
 LABEL_213:
 
-  if ([v152 count])
+  if ([v153 count])
   {
-    v214 = [v152 copy];
+    v215 = [v153 copy];
   }
 
   else
   {
-    v214 = 0;
+    v215 = 0;
   }
 
   v23 = v244;
   recurrenceRules = v226;
 
 LABEL_218:
-  [v228 setRrule:v214];
+  [v228 setRrule:v215];
 
   v9 = v220;
   itemCopy = v223;
 LABEL_219:
 
-  v215 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

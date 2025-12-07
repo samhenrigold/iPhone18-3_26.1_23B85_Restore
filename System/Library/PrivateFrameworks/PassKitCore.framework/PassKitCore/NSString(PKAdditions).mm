@@ -1,5 +1,6 @@
 @interface NSString(PKAdditions)
 + (id)pk_stringWithBCData:()PKAdditions;
+- (char)pk_posixStringDecimalPlaces;
 - (id)pk_attributedString;
 - (id)pk_capitalizedStringForPreferredLocale;
 - (id)pk_decodeHexadecimal;
@@ -15,7 +16,6 @@
 - (id)pk_uppercaseFirstStringForPreferredLocale;
 - (id)pk_uppercaseStringForPreferredLocale;
 - (id)pk_zString;
-- (uint64_t)pk_posixStringDecimalPlaces;
 - (void)pk_normalizedLevenshteinDistanceFromString:()PKAdditions decimalPlaces:;
 @end
 
@@ -263,7 +263,7 @@ LABEL_6:
   return v5;
 }
 
-- (uint64_t)pk_posixStringDecimalPlaces
+- (char)pk_posixStringDecimalPlaces
 {
   v2 = [self rangeOfString:@"." options:4];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -273,7 +273,7 @@ LABEL_6:
 
   else
   {
-    return [self length] - (v2 + v3);
+    return ([self length] - (v2 + v3));
   }
 }
 

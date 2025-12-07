@@ -8,12 +8,12 @@
 
 - (FAParentalControlsPushHandler)init
 {
-  *(&self->super.isa + OBJC_IVAR___FAParentalControlsPushHandler_parentalControlsOperation) = [objc_allocWithZone(type metadata accessor for FAParentalControlsOperation()) init];
+  *(&self->super.isa + OBJC_IVAR___FAParentalControlsPushHandler_parentalControlsOperation) = [objc_allocWithZone(type metadata accessor for FAParentalControlsOperation(0 a2))];
   v3 = [objc_allocWithZone(FAAgeRangeController) init];
   *(&self->super.isa + OBJC_IVAR___FAParentalControlsPushHandler_ageRangeController) = v3;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for ParentalControlsPushHandler();
-  return [(FAParentalControlsPushHandler *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for ParentalControlsPushHandler(v3, v4);
+  return [(FAParentalControlsPushHandler *)&v6 init];
 }
 
 - (BOOL)shouldProcess:(id)process

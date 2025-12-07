@@ -71,14 +71,12 @@
 
 - (id)description
 {
-  v8.receiver = self;
-  v8.super_class = AFUserUtteranceSelectionResults;
-  v3 = [(AFUserUtteranceSelectionResults *)&v8 description];
-  v4 = *&self->_combinedRank;
-  v5 = *&self->_originalRank;
-  v6 = [v3 stringByAppendingFormat:@"combinedRank: %@ combinedScore: %@ interactionId: %@ onDeviceUtterancesPresent: %@ originalRank: %@ originalScore: %@ previousUtterance %@ sessionId: %@ utteranceSource: %@", self->_combinedRank, self->_combinedScore, self->_interactionId, self->_onDeviceUtterancesPresent, self->_originalRank, self->_originalScore, self->_previousUtterance, self->_sessionId, self->_utteranceSource];;
+  v6.receiver = self;
+  v6.super_class = AFUserUtteranceSelectionResults;
+  v3 = [(AFUserUtteranceSelectionResults *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@"combinedRank: %@ combinedScore: %@ interactionId: %@ onDeviceUtterancesPresent: %@ originalRank: %@ originalScore: %@ previousUtterance %@ sessionId: %@ utteranceSource: %@", self->_combinedRank, self->_combinedScore, self->_interactionId, self->_onDeviceUtterancesPresent, self->_originalRank, self->_originalScore, self->_previousUtterance, self->_sessionId, self->_utteranceSource];;
 
-  return v6;
+  return v4;
 }
 
 @end

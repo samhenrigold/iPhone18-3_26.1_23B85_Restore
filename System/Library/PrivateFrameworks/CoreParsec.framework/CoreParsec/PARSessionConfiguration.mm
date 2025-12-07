@@ -64,13 +64,13 @@
   v7 = v6;
   v9 = v8;
   v10 = v5;
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v12 = v11;
   v13 = v9;
   v14 = v7;
-  v39.receiver = v10;
-  v39.super_class = PARSessionConfiguration;
-  v15 = [(PARSessionConfiguration *)&v39 init];
+  v38.receiver = v10;
+  v38.super_class = PARSessionConfiguration;
+  v15 = [(PARSessionConfiguration *)&v38 init];
   if (!v15)
   {
     goto LABEL_29;
@@ -93,14 +93,14 @@
     v20 = PARLogHandleForCategory_logHandles_2;
     if (os_log_type_enabled(PARLogHandleForCategory_logHandles_2, OS_LOG_TYPE_ERROR))
     {
-      v32 = v20;
-      v33 = __error();
-      v34 = strerror(*v33);
+      v31 = v20;
+      v32 = __error();
+      v33 = strerror(*v32);
       *buf = 67109378;
       *&buf[4] = v17;
-      LOWORD(v41[0]) = 2080;
-      *(v41 + 2) = v34;
-      _os_log_error_impl(&dword_1B1064000, v32, OS_LOG_TYPE_ERROR, "error getting path for pid [%d] %s", buf, 0x12u);
+      LOWORD(v40[0]) = 2080;
+      *(v40 + 2) = v33;
+      _os_log_error_impl(&dword_1B1064000, v31, OS_LOG_TYPE_ERROR, "error getting path for pid [%d] %s", buf, 0x12u);
     }
 
     lastPathComponent = @"com.apple.parsec.defaultClient";
@@ -117,16 +117,16 @@
   {
     v22 = @"com.apple.spotlight";
     *buf = @"_identifier";
-    v41[0] = @"_userAgent";
+    v40[0] = @"_userAgent";
     v23 = @"Spotlight/1";
     goto LABEL_19;
   }
 
-  v35 = @"Safari";
+  v34 = @"Safari";
   if ([(__CFString *)v21 containsString:@"Safari"])
   {
     *buf = @"_identifier";
-    v41[0] = @"_userAgent";
+    v40[0] = @"_userAgent";
     v23 = @"Safari/1";
   }
 
@@ -136,7 +136,7 @@
     {
       v22 = @"com.apple.lookup";
       *buf = @"_identifier";
-      v41[0] = @"_userAgent";
+      v40[0] = @"_userAgent";
       v23 = @"Lookup/1";
       goto LABEL_19;
     }
@@ -145,19 +145,19 @@
     {
       v22 = @"Messages-searchToShare-session";
       *buf = @"_identifier";
-      v41[0] = @"_userAgent";
+      v40[0] = @"_userAgent";
       v23 = @"Messages/1";
       goto LABEL_19;
     }
 
     lowercaseString = [(__CFString *)v21 lowercaseString];
-    v37 = [lowercaseString containsString:@"news"];
+    v36 = [lowercaseString containsString:@"news"];
 
-    if (v37)
+    if (v36)
     {
       v22 = @"com.apple.news";
       *buf = @"_identifier";
-      v41[0] = @"_userAgent";
+      v40[0] = @"_userAgent";
       v23 = @"News/1";
       goto LABEL_19;
     }
@@ -166,7 +166,7 @@
     {
       v22 = @"com.apple.siri";
       *buf = @"_identifier";
-      v41[0] = @"_userAgent";
+      v40[0] = @"_userAgent";
       v23 = @"Siri/1";
       goto LABEL_19;
     }
@@ -175,19 +175,19 @@
     {
       v22 = @"com.apple.proactive.trystero";
       *buf = @"_identifier";
-      v41[0] = @"_userAgent";
+      v40[0] = @"_userAgent";
       v23 = @"Trystero/1";
       goto LABEL_19;
     }
 
-    v35 = @"reversetemplated";
+    v34 = @"reversetemplated";
     if (([(__CFString *)v21 isEqualToString:@"reversetemplated"]& 1) == 0 && ![(__CFString *)v21 containsString:@"suggest_tool"])
     {
       if ([(__CFString *)v21 isEqualToString:@"duetexpertd"])
       {
         v22 = @"com.apple.notifications.logging";
         *buf = @"_identifier";
-        v41[0] = @"_userAgent";
+        v40[0] = @"_userAgent";
         v23 = @"DuetExpert/1";
       }
 
@@ -204,7 +204,7 @@
           {
             v22 = @"com.apple.photopicker";
             *buf = @"_identifier";
-            v41[0] = @"_userAgent";
+            v40[0] = @"_userAgent";
             v23 = @"PhotoPicker/1";
             goto LABEL_19;
           }
@@ -213,24 +213,24 @@
           {
             v22 = @"com.apple.photos";
             *buf = @"_identifier";
-            v41[0] = @"_userAgent";
+            v40[0] = @"_userAgent";
             v23 = @"Photos/1";
             goto LABEL_19;
           }
 
           if (([(__CFString *)v21 isEqualToString:@"Tamale"]& 1) == 0 && ([(__CFString *)v21 isEqualToString:@"VisualIntelligenceCamera"]& 1) == 0 && ![(__CFString *)v21 isEqualToString:@"ScreenshotServicesService"])
           {
-            v38 = PARLogHandleForCategory();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v37 = PARLogHandleForCategory();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buffer[0]) = 138412290;
               *(buffer + 4) = v21;
-              _os_log_error_impl(&dword_1B1064000, v38, OS_LOG_TYPE_ERROR, "unhandled process %@", buffer, 0xCu);
+              _os_log_error_impl(&dword_1B1064000, v37, OS_LOG_TYPE_ERROR, "unhandled process %@", buffer, 0xCu);
             }
 
             v22 = @"default";
             *buf = @"_identifier";
-            v41[0] = @"_userAgent";
+            v40[0] = @"_userAgent";
             v23 = @"parsecd/1.0";
             goto LABEL_19;
           }
@@ -239,7 +239,7 @@
         }
 
         *buf = @"_identifier";
-        v41[0] = @"_userAgent";
+        v40[0] = @"_userAgent";
         v23 = @"VisualIntelligence/1";
       }
 
@@ -249,11 +249,11 @@ LABEL_19:
     }
 
     *buf = @"_identifier";
-    v41[0] = @"_userAgent";
+    v40[0] = @"_userAgent";
     v23 = @"CoreSuggestions/1";
   }
 
-  *&buffer[0] = v35;
+  *&buffer[0] = v34;
 LABEL_20:
   *(&buffer[0] + 1) = v23;
   v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buffer forKeys:buf count:2];
@@ -300,7 +300,6 @@ LABEL_22:
   v15->_parsecEnabled = 1;
 
 LABEL_29:
-  v30 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

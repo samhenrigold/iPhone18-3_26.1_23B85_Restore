@@ -606,7 +606,7 @@ void __65__CKFullScreenBalloonViewControllerPhone_updateStickersAnimated___block
     v16 = v15;
     if (v15)
     {
-      [v15 transform];
+      objc_msgSend_transform(v15);
     }
 
     else
@@ -718,7 +718,7 @@ void __97__CKFullScreenBalloonViewControllerPhone__parentStickerChatItemGUIDToMi
     v26 = 0u;
     if (v14)
     {
-      [v14 transform];
+      objc_msgSend_transform(v14);
     }
 
     v17 = *(MEMORY[0x1E695EFD0] + 16);
@@ -731,7 +731,7 @@ void __97__CKFullScreenBalloonViewControllerPhone__parentStickerChatItemGUIDToMi
     v23 = 0u;
     if (internalView)
     {
-      [internalView transform];
+      objc_msgSend_transform(internalView);
     }
 
     v20 = v19;
@@ -1471,7 +1471,7 @@ LABEL_4:
     goto LABEL_18;
   }
 
-  v11 = CKIsRunningInMessagesNotificationExtension();
+  v11 = CKIsRunningInMessagesNotificationExtension(0);
 
   if (v11)
   {
@@ -1906,9 +1906,9 @@ uint64_t __80__CKFullScreenBalloonViewControllerPhone_livePhotoView_didEndPlayba
     titleLabel2 = [v18 titleLabel];
     [titleLabel2 setAdjustsFontForContentSizeCategory:1];
 
-    v28 = CKFrameworkBundle();
-    v29 = [v28 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v18 setTitle:v29 forState:0];
+    v29 = CKFrameworkBundle(v28);
+    v30 = [v29 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v18 setTitle:v30 forState:0];
 
     v21 = +[CKUIBehavior sharedBehaviors];
     secondaryLabelColor = [v21 theme];

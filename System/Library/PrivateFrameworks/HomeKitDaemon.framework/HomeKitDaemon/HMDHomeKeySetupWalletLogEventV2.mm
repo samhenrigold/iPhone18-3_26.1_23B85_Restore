@@ -10,21 +10,18 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC13HomeKitDaemon31HMDHomeKeySetupWalletLogEventV2_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC13HomeKitDaemon31HMDHomeKeySetupWalletLogEventV2_coreAnalyticsEventName + 8);
 
-  v4 = sub_22A4DD5AC();
+  v2 = sub_22A4DD5AC();
 
-  return v4;
+  return v2;
 }
 
 - (void)setCoreAnalyticsEventName:(id)name
 {
   v4 = sub_22A4DD5EC();
   v5 = (self + OBJC_IVAR____TtC13HomeKitDaemon31HMDHomeKeySetupWalletLogEventV2_coreAnalyticsEventName);
-  v6 = *(self + OBJC_IVAR____TtC13HomeKitDaemon31HMDHomeKeySetupWalletLogEventV2_coreAnalyticsEventName + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary

@@ -227,106 +227,104 @@ LABEL_16:
   return dictionary;
 }
 
-id *__49__TSWPPropertyConverter_propertyMapToDictionary___block_invoke(id *result, int a2, uint64_t a3, void *a4)
+void __49__TSWPPropertyConverter_propertyMapToDictionary___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v5 = result;
   if (a2 <= 25)
   {
     switch(a2)
     {
       case 16:
-        [result[4] floatValueForProperty:17];
-        v9 = v8;
-        v10 = ([v5[4] intValueForProperty:19] & 0x7FFFFFFF) != 0;
-        v11 = ([v5[4] intValueForProperty:20] & 0x7FFFFFFF) != 0;
-        v12 = [objc_msgSend(MEMORY[0x277D6C2E8] fontWithName:a4 size:{v9), "convertFontToBold:italic:", v10, v11}];
-        if (v12)
+        [*(a1 + 32) floatValueForProperty:17];
+        v10 = v9;
+        v11 = ([*(a1 + 32) intValueForProperty:19] & 0x7FFFFFFF) != 0;
+        v12 = ([*(a1 + 32) intValueForProperty:20] & 0x7FFFFFFF) != 0;
+        v13 = [objc_msgSend(MEMORY[0x277D6C2E8] fontWithName:a4 size:{v10), "convertFontToBold:italic:", v11, v12}];
+        if (v13)
         {
-          v13 = [v12 platformFont];
-          [v5[5] setObject:v13 forKeyedSubscript:*MEMORY[0x277D740A8]];
+          v14 = [v13 platformFont];
+          [*(a1 + 40) setObject:v14 forKeyedSubscript:*MEMORY[0x277D740A8]];
         }
 
         break;
       case 18:
         objc_opt_class();
-        result = TSUDynamicCast();
-        if (!result)
+        v21 = TSUDynamicCast();
+        if (!v21)
         {
-          return result;
+          return;
         }
 
-        v6 = [result platformColor];
-        v7 = MEMORY[0x277D740C0];
+        v7 = [v21 platformColor];
+        v8 = MEMORY[0x277D740C0];
         goto LABEL_27;
       case 22:
         break;
       default:
-        return result;
+        return;
     }
 
-    v14 = [a4 integerValue];
-    v15 = 9;
-    if (v14 != 2)
+    v15 = [a4 integerValue];
+    v16 = 9;
+    if (v15 != 2)
     {
-      v15 = 1;
+      v16 = 1;
     }
 
-    if (v14)
+    if (v15)
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v16];
-    v7 = MEMORY[0x277D741F0];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
+    v8 = MEMORY[0x277D741F0];
 LABEL_27:
-    v20 = v5[5];
-    v21 = *v7;
+    v22 = *(a1 + 40);
+    v23 = *v8;
 
-    return [v20 setObject:v6 forKeyedSubscript:v21];
+    [v22 setObject:v7 forKeyedSubscript:v23];
+    return;
   }
 
   if (a2 == 26)
   {
-    v17 = [a4 integerValue];
-    v18 = 9;
-    if (v17 != 2)
+    v18 = [a4 integerValue];
+    v19 = 9;
+    if (v18 != 2)
     {
-      v18 = 1;
+      v19 = 1;
     }
 
-    if (v17)
+    if (v18)
     {
-      v19 = v18;
+      v20 = v19;
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19];
-    v7 = MEMORY[0x277D74150];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20];
+    v8 = MEMORY[0x277D74150];
     goto LABEL_27;
   }
 
   if (a2 == 37 || a2 == 98)
   {
     objc_opt_class();
-    result = TSUDynamicCast();
-    if (result)
+    v6 = TSUDynamicCast();
+    if (v6)
     {
-      v6 = [result platformColor];
-      v7 = MEMORY[0x277D74068];
+      v7 = [v6 platformColor];
+      v8 = MEMORY[0x277D74068];
       goto LABEL_27;
     }
   }
-
-  return result;
 }
 
 + (void)mapCharacterPropertiesFromStyle:(id)style secondaryStyle:(id)secondaryStyle toNS:(id)s stickyFont:(id *)font scale:(double)scale

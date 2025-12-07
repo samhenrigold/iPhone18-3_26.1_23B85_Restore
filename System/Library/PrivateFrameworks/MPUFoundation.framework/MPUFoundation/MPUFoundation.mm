@@ -148,15 +148,15 @@ void sub_257972BF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(__n128 *a1, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(uint64_t *a1, uint64_t a2, unint64_t a3)
 {
   v4 = a2;
-  v6 = a1->n128_u64[1];
-  v7 = a1[1].n128_u64[0];
+  v6 = a1[1];
+  v7 = a1[2];
   if (v6 >= v7)
   {
-    v11 = a1->n128_u64[0];
-    v12 = ((v6 - a1->n128_u64[0]) >> 5) + 1;
+    v11 = *a1;
+    v12 = ((v6 - *a1) >> 5) + 1;
     if (v12 >> 59)
     {
       std::vector<MPU::LayoutInterpolator::Entry>::__throw_length_error[abi:ne200100]();
@@ -167,7 +167,7 @@ void *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(__n128 *a1,
     v15 = v14 >> 4;
     if (v14 >> 4 <= v12)
     {
-      v15 = ((v6 - a1->n128_u64[0]) >> 5) + 1;
+      v15 = ((v6 - *a1) >> 5) + 1;
     }
 
     if (v14 >= 0x7FFFFFFFFFFFFFE0)
@@ -188,8 +188,8 @@ void *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(__n128 *a1,
     }
 
     v19[0] = 0;
-    v19[1] = (32 * v17);
-    v19[2] = (32 * v17);
+    v19[1] = 32 * v17;
+    v19[2] = 32 * v17;
     v19[3] = 0;
     std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::emplace_back<MPU::LayoutInterpolator::EntriesContainer const&>(v19, a3);
     v4 = std::vector<MPU::LayoutInterpolator::EntriesContainer>::__swap_out_circular_buffer(a1, v19, v4);
@@ -204,7 +204,7 @@ void *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(__n128 *a1,
   else
   {
     std::vector<MPU::LayoutInterpolator::EntriesContainer>::__move_range(a1, a2, v6, a2 + 32);
-    v8 = a1->n128_u64[1] <= a3 || v4 > a3;
+    v8 = a1[1] <= a3 || v4 > a3;
     v9 = 32;
     if (v8)
     {
@@ -223,9 +223,9 @@ void *std::vector<MPU::LayoutInterpolator::EntriesContainer>::insert(__n128 *a1,
   return v4;
 }
 
-void sub_257972D60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257972D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -350,14 +350,14 @@ __n128 *std::vector<MPU::Point3D>::insert(void *a1, __n128 *__src, __n128 *a3)
   else if (__src == v6)
   {
     v17 = *a3;
-    v6[1].n128_u64[0] = a3[1].n128_u64[0];
+    *(v6 + 16) = a3[1].n128_u64[0];
     *v6 = v17;
     a1[1] = v6 + 24;
   }
 
   else
   {
-    v8 = (__src + 24);
+    v8 = &__src[1].n128_i8[8];
     if (v6 < 0x18)
     {
       v9 = a1[1];
@@ -365,9 +365,9 @@ __n128 *std::vector<MPU::Point3D>::insert(void *a1, __n128 *__src, __n128 *a3)
 
     else
     {
-      v9 = &v6[1].n128_i8[8];
+      v9 = (v6 + 24);
       v10 = *(v6 - 24);
-      v6[1].n128_u64[0] = v6[-1].n128_u64[1];
+      *(v6 + 16) = *(v6 - 8);
       *v6 = v10;
     }
 
@@ -425,7 +425,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__assign_with_size[abi:ne200100]<MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(uint64_t *a1, uint64_t a2, uint64_t *a3, unint64_t a4)
+void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__assign_with_size[abi:ne200100]<MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(uint64_t **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
   if (a4 > (a1[2] - *a1) >> 5)
@@ -488,7 +488,7 @@ void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__assign_with_size[
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *>(&v19, a2, a2 + v12, v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(a1, (a2 + v12), a3, a1[1]);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(a1, a2 + v12, a3, a1[1]);
   }
 }
 
@@ -504,7 +504,7 @@ void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__vdeallocate(uint6
   }
 }
 
-void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -514,7 +514,7 @@ void std::vector<MPU::LayoutInterpolator::EntriesContainer>::__vallocate[abi:ne2
   std::vector<MPU::LayoutInterpolator::Entry>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*,MPU::LayoutInterpolator::EntriesContainer*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -531,9 +531,9 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(v4, *v6, v6[1], (v6[1] - *v6) >> 4);
-      v4[3] = v6[3];
-      v6 += 4;
+      std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 4);
+      v4[3] = *(v6 + 24);
+      v6 += 32;
       v4 = v11 + 4;
       v11 += 4;
     }
@@ -546,7 +546,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<MPU:
   return v4;
 }
 
-uint64_t std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -568,7 +568,7 @@ void sub_257973DD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MPU::LayoutInterpolator::Entry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MPU::LayoutInterpolator::Entry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -623,7 +623,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<MPU::LayoutInterpolator::
   }
 }
 
-uint64_t std::__copy_impl::operator()[abi:ne200100]<MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *>(int a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t std::__copy_impl::operator()[abi:ne200100]<MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *,MPU::LayoutInterpolator::EntriesContainer *>(int a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -647,7 +647,7 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<MPU::LayoutInterpolator::Ent
   return v5;
 }
 
-void *std::vector<MPU::LayoutInterpolator::Entry>::__assign_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<MPU::LayoutInterpolator::Entry>::__assign_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -823,7 +823,7 @@ double std::vector<MPU::LayoutInterpolator::EntriesContainer>::__move_range(uint
   return result;
 }
 
-double std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::emplace_back<MPU::LayoutInterpolator::EntriesContainer const&>(__n128 **a1, uint64_t a2)
+double std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::emplace_back<MPU::LayoutInterpolator::EntriesContainer const&>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -840,7 +840,7 @@ double std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::emplace_b
 
       else
       {
-        v9 = v4 - *a1;
+        v9 = (v4 - *a1) >> 4;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>>(a1[4], v9);
@@ -853,51 +853,51 @@ double std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::emplace_b
       do
       {
         std::vector<MPU::LayoutInterpolator::Entry>::__move_assign(v5, v6);
-        v5[1].n128_u64[1] = v6[1].n128_u64[1];
+        v5[3] = v6[1].n128_i64[1];
         v6 += 2;
-        v5 += 2;
+        v5 += 4;
       }
 
       while (v6 != v4);
       v6 = a1[1];
     }
 
-    a1[1] = &v6[2 * v8];
+    a1[1] = v6[2 * v8].n128_u64;
     a1[2] = v5;
   }
 
-  v5->n128_u64[0] = 0;
-  v5->n128_u64[1] = 0;
-  v5[1].n128_u64[0] = 0;
+  *v5 = 0;
+  v5[1] = 0;
+  v5[2] = 0;
   std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(v5, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
   result = *(a2 + 24);
-  v5[1].n128_f64[1] = result;
-  a1[2] += 2;
+  *(v5 + 3) = result;
+  a1[2] += 32;
   return result;
 }
 
-uint64_t std::vector<MPU::LayoutInterpolator::EntriesContainer>::__swap_out_circular_buffer(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t std::vector<MPU::LayoutInterpolator::EntriesContainer>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v6 = *(a2 + 8);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*>(a1, a3, a1[1], *(a2 + 16));
+  v6 = a2[1];
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
-  v8 = *(a2 + 8);
-  *(a2 + 16) += a1[1] - a3;
+  v8 = a2[1];
+  a2[2] += a1[1] - a3;
   a1[1] = a3;
   v9 = (v8 + v7 - a3);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MPU::LayoutInterpolator::EntriesContainer>,MPU::LayoutInterpolator::EntriesContainer*>(a1, v7, a3, v9);
-  *(a2 + 8) = v9;
+  a2[1] = v9;
   v10 = *a1;
   a1[1] = *a1;
-  *a1 = *(a2 + 8);
-  *(a2 + 8) = v10;
+  *a1 = a2[1];
+  a2[1] = v10;
   v11 = a1[1];
-  a1[1] = *(a2 + 16);
-  *(a2 + 16) = v11;
+  a1[1] = a2[2];
+  a2[2] = v11;
   v12 = a1[2];
-  a1[2] = *(a2 + 24);
-  *(a2 + 24) = v12;
-  *a2 = *(a2 + 8);
+  a1[2] = a2[3];
+  a2[3] = v12;
+  *a2 = a2[1];
   return v6;
 }
 
@@ -1004,7 +1004,7 @@ void std::__split_buffer<MPU::LayoutInterpolator::EntriesContainer>::__destruct_
   }
 }
 
-__n128 std::__split_buffer<MPU::Point3D>::emplace_back<MPU::Point3D const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<MPU::Point3D>::emplace_back<MPU::Point3D const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -1036,14 +1036,14 @@ __n128 std::__split_buffer<MPU::Point3D>::emplace_back<MPU::Point3D const&>(__n1
     }
 
     v4 = &v8[v9];
-    a1[1] = (v5 + 24 * v7);
+    a1[1] = &v5->n128_u64[3 * v7];
     a1[2] = &v8[v9];
   }
 
   result = *a2;
   v4[1].n128_u64[0] = a2[1].n128_u64[0];
   *v4 = result;
-  a1[2] = (a1[2] + 24);
+  a1[2] += 24;
   return result;
 }
 
@@ -1424,36 +1424,36 @@ uint64_t MPU::Point3D::resolveEquationOfPlaneDefinedByFirstThreePointsInVector(d
 
 uint64_t MPU::_ResolveEquationOfPlaneDefinedBy3DPoints(double *a1, double *a2, double *a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
 {
-  v26 = a8 - a5;
+  v23 = a8 - a5;
   if (MPUFloatEqualToFloat(a8 - a5, 0.0))
   {
     return 0;
   }
 
-  v27 = a13 - a8;
-  v28 = a7 - a4;
-  v29 = -v27 / v26;
-  v30 = a12 - a7 + v29 * (a7 - a4);
-  if (MPUFloatEqualToFloat(v30, 0.0))
+  v24 = a13 - a8;
+  v25 = a7 - a4;
+  v26 = -v24 / v23;
+  v27 = a12 - a7 + v26 * (a7 - a4);
+  if (MPUFloatEqualToFloat(v27, 0.0))
   {
     return 0;
   }
 
-  v32 = (a14 - a9 + v29 * (a9 - a6)) / v30;
+  v29 = (a14 - a9 + v26 * (a9 - a6)) / v27;
   if (a1)
   {
-    *a1 = v32;
+    *a1 = v29;
   }
 
-  v33 = (a9 - a6 - v32 * v28) / v26;
+  v30 = (a9 - a6 - v29 * v25) / v23;
   if (a2)
   {
-    *a2 = v33;
+    *a2 = v30;
   }
 
   if (a3)
   {
-    *a3 = a6 - v32 * a4 - v33 * a5;
+    *a3 = a6 - v29 * a4 - v30 * a5;
   }
 
   return 1;
@@ -1488,7 +1488,7 @@ uint64_t CoreTextLibrary()
   v1 = v3[0];
   if (!CoreTextLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1501,7 +1501,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __CoreTextLibraryCore_block_invoke()
+uint64_t __CoreTextLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreTextLibraryCore_frameworkLibrary = result;
@@ -1805,7 +1805,7 @@ void sub_257977F18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *MPU::LayoutInterpolator::_EntriesContainerAppendEntryDescriptionToStringStream(uint64_t a1, void *a2, double a3, double a4)
+double MPU::LayoutInterpolator::_EntriesContainerAppendEntryDescriptionToStringStream(uint64_t a1, void *a2, double a3, double a4)
 {
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, "(referenceMetric: ", 18);
   MEMORY[0x259C68DF0](v8, *(a1 + 24));
@@ -1818,7 +1818,8 @@ void *MPU::LayoutInterpolator::_EntriesContainerAppendEntryDescriptionToStringSt
   v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, ", value: ", 9);
   v11 = MEMORY[0x259C68DF0](v10, a4);
 
-  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ")", 1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ")", 1);
+  return result;
 }
 
 uint64_t MPU::LayoutInterpolator::EntriesContainer::EntriesContainer(uint64_t this, double a2)
@@ -1838,26 +1839,26 @@ uint64_t MPU::LayoutInterpolator::EntriesContainer::EntriesContainer(uint64_t th
   return this;
 }
 
-uint64_t MPU::LayoutInterpolator::EntriesContainer::copyEntriesVector@<X0>(MPU::LayoutInterpolator::EntriesContainer *this@<X0>, void *a2@<X8>)
+uint64_t *MPU::LayoutInterpolator::EntriesContainer::copyEntriesVector@<X0>(uint64_t *__return_ptr a1@<X8>, MPU::LayoutInterpolator::EntriesContainer *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(a2, *this, *(this + 1), (*(this + 1) - *this) >> 4);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<MPU::LayoutInterpolator::Entry>::__init_with_size[abi:ne200100]<MPU::LayoutInterpolator::Entry*,MPU::LayoutInterpolator::Entry*>(a1, *this, *(this + 1), (*(this + 1) - *this) >> 4);
 }
 
-void MPU::LayoutInterpolator::EntriesContainer::insertEntry(MPU::LayoutInterpolator::EntriesContainer *this@<X0>, __n128 a2@<0:D0, 8:D1>, uint64_t a3@<X8>)
+void MPU::LayoutInterpolator::EntriesContainer::insertEntry(uint64_t *__return_ptr a1@<X8>, MPU::LayoutInterpolator::EntriesContainer *this@<X0>, __n128 a3@<0:D0, 8:D1>)
 {
-  v3 = a2.n128_f64[1];
-  v4 = a2.n128_f64[0];
-  v27 = a2;
-  *a3 = 0;
-  *(a3 + 31) = 0;
-  *(a3 + 8) = 0;
-  v7 = a3 + 8;
+  v3 = a3.n128_f64[1];
+  v4 = a3.n128_f64[0];
+  v27 = a3;
+  *a1 = 0;
+  *(a1 + 31) = 0;
+  *(a1 + 8) = 0;
+  v7 = a1 + 1;
   v9 = *this;
   v8 = *(this + 1);
-  if (MPUFloatEqualToFloat(a2.n128_f64[0], -1.13427449e38))
+  if (MPUFloatEqualToFloat(a3.n128_f64[0], -1.13427449e38))
   {
     if (v8 != v9)
     {
@@ -1885,9 +1886,9 @@ void MPU::LayoutInterpolator::EntriesContainer::insertEntry(MPU::LayoutInterpola
 
 LABEL_12:
       v15 = v24;
-      *a3 = v24;
+      *a1 = v24;
       *v7 = v25;
-      *(v7 + 16) = v26;
+      v7[2] = v26;
       if (v15)
       {
         return;
@@ -1919,9 +1920,9 @@ LABEL_12:
     do
     {
       v19 = v18 >> 1;
-      n128_f64 = v17[v18 >> 1].n128_f64;
-      v22 = *n128_f64;
-      v21 = (n128_f64 + 2);
+      v20 = &v17[2 * (v18 >> 1)];
+      v22 = *v20;
+      v21 = v20 + 2;
       v18 += ~(v18 >> 1);
       if (v22 < v4)
       {
@@ -1937,14 +1938,14 @@ LABEL_12:
     while (v18);
   }
 
-  if (v16 == v17 || !MPUFloatEqualToFloat(v17->n128_f64[0], v4))
+  if (v16 == v17 || !MPUFloatEqualToFloat(*v17, v4))
   {
     std::vector<MPU::LayoutInterpolator::Entry>::insert(this, v17, &v27);
   }
 
   else
   {
-    if (MPUFloatEqualToFloat(v17->n128_f64[1], v27.n128_f64[1]))
+    if (MPUFloatEqualToFloat(v17[1], v27.n128_f64[1]))
     {
       v23 = 1;
     }
@@ -1954,19 +1955,19 @@ LABEL_12:
       v23 = 2;
     }
 
-    MPU::LayoutInterpolator::_EntriesContainerMakeInsertionError(this, v23, &v24, v27.n128_f64[0], v27.n128_f64[1], v17->n128_f64[0], v17->n128_f64[1]);
-    *a3 = v24;
-    if (*(a3 + 31) < 0)
+    MPU::LayoutInterpolator::_EntriesContainerMakeInsertionError(this, v23, &v24, v27.n128_f64[0], v27.n128_f64[1], *v17, v17[1]);
+    *a1 = v24;
+    if (*(a1 + 31) < 0)
     {
       operator delete(*v7);
     }
 
     *v7 = v25;
-    *(v7 + 16) = v26;
+    v7[2] = v26;
   }
 }
 
-__n128 *std::vector<MPU::LayoutInterpolator::Entry>::insert(void *a1, __n128 *__src, __n128 *a3)
+char *std::vector<MPU::LayoutInterpolator::Entry>::insert(void *a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -1974,13 +1975,13 @@ __n128 *std::vector<MPU::LayoutInterpolator::Entry>::insert(void *a1, __n128 *__
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = ((v6 - *a1) >> 4) + 1;
+    v11 = (&v6[-*a1] >> 4) + 1;
     if (v11 >> 60)
     {
       std::vector<MPU::LayoutInterpolator::Entry>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 3 > v11)
     {
@@ -2036,12 +2037,12 @@ __n128 *std::vector<MPU::LayoutInterpolator::Entry>::insert(void *a1, __n128 *__
   else if (__src == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = v6 + 16;
   }
 
   else
   {
-    v8 = __src + 1;
+    v8 = __src + 16;
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -2049,14 +2050,14 @@ __n128 *std::vector<MPU::LayoutInterpolator::Entry>::insert(void *a1, __n128 *__
 
     else
     {
-      v9 = v6 + 1;
-      *v6 = v6[-1];
+      v9 = (v6 + 16);
+      *v6 = *(v6 - 1);
     }
 
     a1[1] = v9;
     if (v6 != v8)
     {
-      memmove(&__src[1], __src, v6 - v8);
+      memmove(__src + 16, __src, v6 - v8);
       v9 = a1[1];
     }
 
@@ -2194,16 +2195,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -2226,9 +2227,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_25797882C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_25797882C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259C68DD0](&a10);
+  MEMORY[0x259C68DD0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -2413,7 +2414,7 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-__n128 std::__split_buffer<MPU::LayoutInterpolator::Entry>::emplace_back<MPU::LayoutInterpolator::Entry const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<MPU::LayoutInterpolator::Entry>::emplace_back<MPU::LayoutInterpolator::Entry const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -2446,13 +2447,13 @@ __n128 std::__split_buffer<MPU::LayoutInterpolator::Entry>::emplace_back<MPU::La
     }
 
     v4 = (v9 + v10);
-    a1[1] = &v5[v7];
-    a1[2] = (v9 + v10);
+    a1[1] = v5[v7].n128_u64;
+    a1[2] = v9->n128_u64 + v10;
   }
 
   result = *a2;
   *v4 = *a2;
-  ++a1[2];
+  a1[2] += 16;
   return result;
 }
 
@@ -2470,7 +2471,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t _MPUStackViewApplyLayoutToItem(uint64_t a1, void *a2, uint64_t a3, float64x2_t a4, float64_t a5)
+void *_MPUStackViewApplyLayoutToItem(uint64_t a1, void *a2, uint64_t a3, float64x2_t a4, float64_t a5)
 {
   v6 = a3;
   v7 = -a3;
@@ -2542,11 +2543,11 @@ LABEL_10:
   return result;
 }
 
-void sub_2579800BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2579800BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2723,10 +2724,10 @@ __CFString *MPUFontLeadingAdjustmentGetDescription(unint64_t a1)
   }
 }
 
-void *__getkCTFontDescriptorTextStyleHeavySymbolLoc_block_invoke(uint64_t a1)
+void *__getkCTFontDescriptorTextStyleHeavySymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CoreTextLibrary_0();
-  result = dlsym(v2, "kCTFontDescriptorTextStyleHeavy");
+  v3 = CoreTextLibrary_0();
+  result = dlsym(v3, "kCTFontDescriptorTextStyleHeavy");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2752,7 +2753,7 @@ uint64_t CoreTextLibrary_0()
   v1 = v3[0];
   if (!CoreTextLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2765,7 +2766,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __CoreTextLibraryCore_block_invoke_0()
+uint64_t __CoreTextLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreTextLibraryCore_frameworkLibrary_0 = result;
@@ -2855,9 +2856,9 @@ uint64_t MPUNowPlayingIndicatorPlaybackStateFromMPPlaybackState(uint64_t a1)
   }
 }
 
-void sub_25798746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25798746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

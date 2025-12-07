@@ -28,7 +28,7 @@
 
 - (BOOL)run:(id)run output:(id)output
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   runCopy = run;
   outputCopy = output;
@@ -49,132 +49,132 @@
       selfCopy->_options = v26;
     }
 
-    sub_24BD29B54(v90);
-    LODWORD(v90[0]) = objc_msgSend_outputFaceNumber(selfCopy->_options, v28, v29, v30);
-    BYTE4(v90[0]) = objc_msgSend_enableSimplify(selfCopy->_options, v31, v32, v33);
-    v93[0] = objc_msgSend_textureResolution(selfCopy->_options, v34, v35, v36);
+    sub_24BD29B54(v89);
+    LODWORD(v89[0]) = objc_msgSend_outputFaceNumber(selfCopy->_options, v28, v29, v30);
+    BYTE4(v89[0]) = objc_msgSend_enableSimplify(selfCopy->_options, v31, v32, v33);
+    v92[0] = objc_msgSend_textureResolution(selfCopy->_options, v34, v35, v36);
     v40 = objc_msgSend_textureTransferOptions(selfCopy->_options, v37, v38, v39);
     v44 = objc_msgSend_inputTangentialSpaceType(v40, v41, v42, v43);
-    v91 = sub_24BE74A64(v44);
+    v90 = sub_24BE74A64(v44);
 
     v48 = objc_msgSend_textureTransferOptions(selfCopy->_options, v45, v46, v47);
     v52 = objc_msgSend_outputTangentialSpaceType(v48, v49, v50, v51);
-    v92 = sub_24BE74A64(v52);
+    v91 = sub_24BE74A64(v52);
 
     if (objc_msgSend_materialImpl(runCopy, v53, v54, v55))
     {
-      v78 = 0;
-      v80 = 0;
-      v82 = 0;
+      v77 = 0;
+      v79 = 0;
+      v81 = 0;
+      v83 = 0;
       v84 = 0;
-      v85 = 0;
       v56 = selfCopy;
       if (selfCopy->_progress_cb)
       {
-        v100 = &unk_285F95260;
-        v101 = &selfCopy;
-        v102 = &v100;
-        sub_24BCA3290(&v100, &v77);
-        sub_24BC9F00C(&v100);
+        v99 = &unk_285F95260;
+        v100 = &selfCopy;
+        v101 = &v99;
+        sub_24BCA3290(&v99, &v76);
+        sub_24BC9F00C(&v99);
         v56 = selfCopy;
       }
 
       if (v56->_error_cb)
       {
-        v100 = &unk_285F952A8;
-        v101 = &selfCopy;
-        v102 = &v100;
-        sub_24BCA4ECC(&v100, v79);
-        sub_24BC9F08C(&v100);
+        v99 = &unk_285F952A8;
+        v100 = &selfCopy;
+        v101 = &v99;
+        sub_24BCA4ECC(&v99, v78);
+        sub_24BC9F08C(&v99);
       }
 
-      v100 = &unk_285F952F0;
-      v101 = &selfCopy;
-      v102 = &v100;
-      sub_24BD2B348(&v100, v83);
-      sub_24BD2A57C(&v100);
-      v64 = objc_msgSend_materialImpl(runCopy, v61, v62, v63);
-      if (!objc_msgSend_materialImpl(outputCopy, v65, v66, v67))
+      v99 = &unk_285F952F0;
+      v100 = &selfCopy;
+      v101 = &v99;
+      sub_24BD2B348(&v99, v82);
+      sub_24BD2A57C(&v99);
+      v63 = objc_msgSend_materialImpl(runCopy, v60, v61, v62);
+      if (!objc_msgSend_materialImpl(outputCopy, v64, v65, v66))
       {
         operator new();
       }
 
-      v71 = objc_msgSend_materialImpl(outputCopy, v68, v69, v70);
-      sub_24BD2A3AC(v76, &v77);
-      sub_24BE3B310(v18, v64, v25, v71, v90, v76);
+      v70 = objc_msgSend_materialImpl(outputCopy, v67, v68, v69);
+      sub_24BD2A3AC(v75, &v76);
+      sub_24BE3B310(v18, v63, v25, v70, v89, v75);
     }
 
-    v78 = 0;
-    v80 = 0;
-    v82 = 0;
-    v84 = 0;
-    v60 = selfCopy;
+    v77 = 0;
+    v79 = 0;
+    v81 = 0;
+    v83 = 0;
+    v59 = selfCopy;
     if (selfCopy->_progress_cb)
     {
-      v100 = &unk_285F95188;
-      v101 = &selfCopy;
-      v102 = &v100;
-      sub_24BCA3290(&v100, &v77);
-      sub_24BC9F00C(&v100);
-      v60 = selfCopy;
+      v99 = &unk_285F95188;
+      v100 = &selfCopy;
+      v101 = &v99;
+      sub_24BCA3290(&v99, &v76);
+      sub_24BC9F00C(&v99);
+      v59 = selfCopy;
     }
 
-    if (v60->_error_cb)
+    if (v59->_error_cb)
     {
-      v100 = &unk_285F951D0;
-      v101 = &selfCopy;
-      v102 = &v100;
-      sub_24BCA4ECC(&v100, v79);
-      sub_24BC9F08C(&v100);
+      v99 = &unk_285F951D0;
+      v100 = &selfCopy;
+      v101 = &v99;
+      sub_24BCA4ECC(&v99, v78);
+      sub_24BC9F08C(&v99);
     }
 
-    v100 = &unk_285F95218;
-    v101 = &selfCopy;
-    v102 = &v100;
-    sub_24BD2AD18(&v100, v83);
-    sub_24BD2A32C(&v100);
-    sub_24BCA1524(v86, &v77);
-    sub_24BCA2D38(v87, v79);
-    sub_24BCA2DD0(v88, v81);
-    sub_24BD2A294(v89, v83);
-    v72 = sub_24BE3A780(v18, v25, v90, v86);
-    sub_24BD2A32C(v89);
-    sub_24BC9F10C(v88);
-    sub_24BC9F08C(v87);
-    sub_24BC9F00C(v86);
-    sub_24BD2A32C(v83);
-    sub_24BC9F10C(v81);
-    sub_24BC9F08C(v79);
-    sub_24BC9F00C(&v77);
-    if (v72)
+    v99 = &unk_285F95218;
+    v100 = &selfCopy;
+    v101 = &v99;
+    sub_24BD2AD18(&v99, v82);
+    sub_24BD2A32C(&v99);
+    sub_24BCA1524(v85, &v76);
+    sub_24BCA2D38(v86, v78);
+    sub_24BCA2DD0(v87, v80);
+    sub_24BD2A294(v88, v82);
+    v71 = sub_24BE3A780(v18, v25, v89, v85);
+    sub_24BD2A32C(v88);
+    sub_24BC9F10C(v87);
+    sub_24BC9F08C(v86);
+    sub_24BC9F00C(v85);
+    sub_24BD2A32C(v82);
+    sub_24BC9F10C(v80);
+    sub_24BC9F08C(v78);
+    sub_24BC9F00C(&v76);
+    if (v71)
     {
-      objc_msgSend_setAlgStatus_(selfCopy, v73, 3, v74);
+      objc_msgSend_setAlgStatus_(selfCopy, v72, 3, v73);
       v57 = 1;
     }
 
     else
     {
-      objc_msgSend_setAlgStatus_(selfCopy, v73, 2, v74);
+      objc_msgSend_setAlgStatus_(selfCopy, v72, 2, v73);
       v57 = 0;
     }
 
-    if (v99 < 0)
+    if (v98 < 0)
     {
       operator delete(__p);
     }
 
-    if (v97 < 0)
+    if (v96 < 0)
     {
-      operator delete(v96);
+      operator delete(v95);
     }
 
-    if (v94)
+    if (v93)
     {
-      v95 = v94;
-      operator delete(v94);
+      v94 = v93;
+      operator delete(v93);
     }
 
-    sub_24BD2A138(v93);
+    sub_24BD2A138(v92);
   }
 
   else
@@ -183,7 +183,6 @@
     v57 = 0;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
   return v57;
 }
 

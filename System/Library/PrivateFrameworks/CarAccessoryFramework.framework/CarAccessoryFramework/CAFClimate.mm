@@ -372,14 +372,12 @@
 
 - (NSArray)autoClimateControls
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   autoClimateControlServices = [(CAFClimate *)self autoClimateControlServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [autoClimateControlServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -403,14 +401,12 @@
 
 - (NSArray)climateControlsLockeds
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   climateControlsLockedServices = [(CAFClimate *)self climateControlsLockedServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [climateControlsLockedServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -434,14 +430,12 @@
 
 - (NSArray)defrosts
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   defrostServices = [(CAFClimate *)self defrostServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [defrostServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -465,14 +459,12 @@
 
 - (NSArray)temperatures
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   temperatureServices = [(CAFClimate *)self temperatureServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [temperatureServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -496,14 +488,12 @@
 
 - (NSArray)vents
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   ventServices = [(CAFClimate *)self ventServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [ventServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -527,14 +517,12 @@
 
 - (NSArray)fans
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   fanServices = [(CAFClimate *)self fanServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [fanServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -558,14 +546,12 @@
 
 - (NSArray)zonesSynceds
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   zonesSyncedServices = [(CAFClimate *)self zonesSyncedServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [zonesSyncedServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -589,14 +575,12 @@
 
 - (NSArray)zoneOns
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   zoneOnServices = [(CAFClimate *)self zoneOnServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [zoneOnServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -620,14 +604,12 @@
 
 - (NSArray)temperatureLevels
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   temperatureLevelServices = [(CAFClimate *)self temperatureLevelServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [temperatureLevelServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

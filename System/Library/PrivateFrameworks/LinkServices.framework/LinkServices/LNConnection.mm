@@ -13,6 +13,7 @@
 - (BOOL)shouldRefreshWithOptions:(id)options;
 - (BOOL)targetIsBeingDebugged;
 - (LNConnection)initWithBundleIdentifier:(id)identifier metadataVersion:(int64_t)version error:(id *)error;
+- (LNConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error;
 - (LNConnectionHostInterface)connectionInterface;
 - (LNWatchdogTimer)idleTimer;
 - (NSMapTable)executors;
@@ -22,6 +23,7 @@
 - (NSString)logPrefix;
 - (NSURL)bundleURL;
 - (id)executorForAction:(id)action interactionMode:(int64_t)mode label:(id)label delegate:(id)delegate;
+- (id)executorForAction:(id)action interactionMode:(int64_t)mode label:(id)label source:(unsigned __int16)source delegate:(id)delegate;
 - (id)executorForAction:(id)action label:(id)label delegate:(id)delegate;
 - (id)executorForAction:(id)action metadata:(id)metadata appBundleIdentifier:(id)identifier options:(id)options delegate:(id)delegate;
 - (id)executorForAction:(id)action metadata:(id)metadata options:(id)options delegate:(id)delegate;
@@ -110,7 +112,7 @@
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (([(LNConnection *)self isMemberOfClass:objc_opt_class()]& 1) == 0 && ([(LNConnection *)self isMemberOfClass:objc_opt_class()]& 1) == 0)
   {
     v3 = getLNLogCategoryConnection();
@@ -118,7 +120,7 @@
     {
       logPrefix = [(LNConnection *)self logPrefix];
       *buf = 138543362;
-      v15 = logPrefix;
+      v14 = logPrefix;
       _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "%{public}@ Invalidating RunningBoard Assertions", buf, 0xCu);
     }
 
@@ -130,9 +132,9 @@
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v15 = logPrefix2;
-      v16 = 2114;
-      v17 = v8;
+      v14 = logPrefix2;
+      v15 = 2114;
+      v16 = v8;
       _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Invalidating XPC connection on %{public}@ dealloc", buf, 0x16u);
     }
 
@@ -142,7 +144,7 @@
     {
       logPrefix3 = [(LNConnection *)self logPrefix];
       *buf = 138543362;
-      v15 = logPrefix3;
+      v14 = logPrefix3;
       _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_INFO, "%{public}@ Invalidating process monitor on dealloc", buf, 0xCu);
     }
 
@@ -150,10 +152,9 @@
     [processMonitor invalidate];
   }
 
-  v13.receiver = self;
-  v13.super_class = LNConnection;
-  [(LNConnection *)&v13 dealloc];
-  v12 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = LNConnection;
+  [(LNConnection *)&v12 dealloc];
 }
 
 - (void)setConnected
@@ -1382,23 +1383,23 @@ void __90__LNConnection_FetchSuggestedActions__fetchSuggestedActionsFromViewWith
 
 - (void)updateAppShortcutParametersWithCompletionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __88__LNConnection_AppShortcutParameters__updateAppShortcutParametersWithCompletionHandler___block_invoke;
-  v11[3] = &unk_1E74B1980;
-  v11[4] = self;
-  if ([LNEntitlementsValidator validateEntitlement:@"com.apple.private.appintents.update-app-shortcut-apps" forCurrentTaskWithValidator:v11])
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __88__LNConnection_AppShortcutParameters__updateAppShortcutParametersWithCompletionHandler___block_invoke;
+  v10[3] = &unk_1E74B1980;
+  v10[4] = self;
+  if ([LNEntitlementsValidator validateEntitlement:@"com.apple.private.appintents.update-app-shortcut-apps" forCurrentTaskWithValidator:v10])
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __88__LNConnection_AppShortcutParameters__updateAppShortcutParametersWithCompletionHandler___block_invoke_9;
-    v9[3] = &unk_1E74B1AC0;
-    v9[4] = self;
-    v10 = handlerCopy;
-    [(LNConnection *)self getConnectionInterfaceWithOptions:0 completionHandler:v9];
-    v5 = v10;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __88__LNConnection_AppShortcutParameters__updateAppShortcutParametersWithCompletionHandler___block_invoke_9;
+    v8[3] = &unk_1E74B1AC0;
+    v8[4] = self;
+    v9 = handlerCopy;
+    [(LNConnection *)self getConnectionInterfaceWithOptions:0 completionHandler:v8];
+    v5 = v9;
   }
 
   else
@@ -1408,15 +1409,13 @@ void __90__LNConnection_FetchSuggestedActions__fetchSuggestedActionsFromViewWith
     {
       bundleIdentifier = [(LNConnection *)self bundleIdentifier];
       *buf = 138543362;
-      v13 = bundleIdentifier;
+      v12 = bundleIdentifier;
       _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Unable to update App Shortcuts for %{public}@ because the current process isn't entitled to do so.", buf, 0xCu);
     }
 
     v5 = LNConnectionErrorWithCode(1004);
     (*(handlerCopy + 2))(handlerCopy, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __88__LNConnection_AppShortcutParameters__updateAppShortcutParametersWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1743,7 +1742,7 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
 
 + (void)resolveEntitiesForInteractionIDs:(id)ds bundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -1762,9 +1761,9 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
   aBlock[1] = 3221225472;
   aBlock[2] = __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bundleIdentifier_completionHandler___block_invoke;
   aBlock[3] = &unk_1E74B2040;
-  v47 = v11;
+  v46 = v11;
   v14 = handlerCopy;
-  v46 = v14;
+  v45 = v14;
   v15 = _Block_copy(aBlock);
   if (+[LNFeatureFlags isViewActionAnnotationEnabled])
   {
@@ -1778,9 +1777,9 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v49 = v16;
-        v50 = 2112;
-        v51 = v17;
+        v48 = v16;
+        v49 = 2112;
+        v50 = v17;
         _os_log_impl(&dword_19763D000, v20, OS_LOG_TYPE_INFO, "Requesting entities for identifiers %@ from %@", buf, 0x16u);
       }
 
@@ -1796,14 +1795,14 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
       }
 
       v25 = [LNConnectionPolicy policyWithBundleIdentifier:v17];
-      v44 = 0;
-      v26 = [v25 connectionWithError:&v44];
-      v39 = v44;
+      v43 = 0;
+      v26 = [v25 connectionWithError:&v43];
+      v38 = v43;
       v27 = getLNLogCategoryView();
       v28 = v27;
       if (v26)
       {
-        v38 = v25;
+        v37 = v25;
         if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
         {
           *buf = 0;
@@ -1817,9 +1816,9 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
         if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v49 = v17;
-          v50 = 2112;
-          v51 = v16;
+          v48 = v17;
+          v49 = 2112;
+          v50 = v16;
           _os_log_impl(&dword_19763D000, v30, OS_LOG_TYPE_INFO, "Fetching entities from %@ for interactionIDs %@", buf, 0x16u);
         }
 
@@ -1834,32 +1833,32 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
           _os_signpost_emit_with_name_impl(&dword_19763D000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v32, "LinkServices_fetchViewEntitiesWithOptions", "", buf, 2u);
         }
 
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bundleIdentifier_completionHandler___block_invoke_35;
-        v40[3] = &unk_1E74B21E8;
-        v43 = v32;
-        v41 = v17;
-        v42 = v15;
-        [v26 fetchViewEntitiesWithOptions:v29 interactionIDs:v16 completionHandler:v40];
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bundleIdentifier_completionHandler___block_invoke_35;
+        v39[3] = &unk_1E74B21E8;
+        v42 = v32;
+        v40 = v17;
+        v41 = v15;
+        [v26 fetchViewEntitiesWithOptions:v29 interactionIDs:v16 completionHandler:v39];
 
-        v25 = v38;
-        v35 = v39;
+        v25 = v37;
+        v35 = v38;
       }
 
       else
       {
-        v35 = v39;
+        v35 = v38;
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v49 = v17;
-          v50 = 2114;
-          v51 = v39;
+          v48 = v17;
+          v49 = 2114;
+          v50 = v38;
           _os_log_impl(&dword_19763D000, v28, OS_LOG_TYPE_ERROR, "Error establishing connection with %@ to fetch view entities: %{public}@", buf, 0x16u);
         }
 
-        (*(v15 + 2))(v15, MEMORY[0x1E695E0F0], v39);
+        (*(v15 + 2))(v15, MEMORY[0x1E695E0F0], v38);
       }
     }
 
@@ -1886,8 +1885,6 @@ void __96__LNConnection_FetchViewObjects__fetchViewEntitiesWithOptions_interacti
 
     (*(v15 + 2))(v15, MEMORY[0x1E695E0F0], 0);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bundleIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1908,7 +1905,7 @@ void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bund
 
 void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bundleIdentifier_completionHandler___block_invoke_35(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getLNLogCategoryView();
@@ -1916,8 +1913,8 @@ void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bund
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "LinkServices_fetchViewEntitiesWithOptions", "", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "LinkServices_fetchViewEntitiesWithOptions", "", &v12, 2u);
   }
 
   if (v6)
@@ -1926,22 +1923,20 @@ void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bund
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = a1[4];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_ERROR, "Error fetching entities from %@: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_ERROR, "Error fetching entities from %@: %@", &v12, 0x16u);
     }
   }
 
   (*(a1[5] + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchEntitiesFromActiveApplicationsWithInteractionIDs:(id)ds bundleIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   identifiersCopy = identifiers;
   handlerCopy = handler;
@@ -1959,7 +1954,7 @@ void __102__LNConnection_FetchViewObjects__resolveEntitiesForInteractionIDs_bund
   aBlock[3] = &unk_1E74B20B8;
   selfCopy = self;
   v13 = handlerCopy;
-  v81 = v13;
+  v80 = v13;
   v14 = _Block_copy(aBlock);
   if (+[LNFeatureFlags isViewActionAnnotationEnabled])
   {
@@ -1980,88 +1975,88 @@ LABEL_18:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v84 = __Block_byref_object_copy__12786;
-      v85 = __Block_byref_object_dispose__12787;
-      v86 = objc_alloc_init(MEMORY[0x1E695DFD8]);
+      v83 = __Block_byref_object_copy__12786;
+      v84 = __Block_byref_object_dispose__12787;
+      v85 = objc_alloc_init(MEMORY[0x1E695DFD8]);
       v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v74 = 0;
-      v75 = &v74;
-      v76 = 0x2810000000;
-      v77 = &unk_197781967;
-      v78 = 0;
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x3032000000;
-      v71 = __Block_byref_object_copy__12786;
-      v72 = __Block_byref_object_dispose__12787;
       v73 = 0;
-      v62 = 0;
-      v63 = &v62;
-      v64 = 0x3032000000;
-      v65 = __Block_byref_object_copy__12786;
-      v66 = __Block_byref_object_dispose__12787;
+      v74 = &v73;
+      v75 = 0x2810000000;
+      v76 = &unk_197781967;
+      v77 = 0;
       v67 = 0;
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_15;
-      v61[3] = &unk_1E74B26D0;
-      v61[4] = &v68;
-      v26 = _Block_copy(v61);
+      v68 = &v67;
+      v69 = 0x3032000000;
+      v70 = __Block_byref_object_copy__12786;
+      v71 = __Block_byref_object_dispose__12787;
+      v72 = 0;
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x3032000000;
+      v64 = __Block_byref_object_copy__12786;
+      v65 = __Block_byref_object_dispose__12787;
+      v66 = 0;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_15;
+      v60[3] = &unk_1E74B26D0;
+      v60[4] = &v67;
+      v26 = _Block_copy(v60);
       configurationForDefaultMainDisplayMonitor = [MEMORY[0x1E699FAF8] configurationForDefaultMainDisplayMonitor];
       [configurationForDefaultMainDisplayMonitor setNeedsUserInteractivePriority:1];
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_2;
-      v50[3] = &unk_1E74B2170;
-      v56 = &v74;
-      v57 = &v68;
-      v58 = &v62;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_2;
+      v49[3] = &unk_1E74B2170;
+      v55 = &v73;
+      v56 = &v67;
+      v57 = &v61;
       v28 = v26;
-      v54 = v28;
-      v59 = buf;
+      v53 = v28;
+      v58 = buf;
       identifiersCopy = v15;
-      v51 = identifiersCopy;
+      v50 = identifiersCopy;
       v29 = v25;
-      v52 = v29;
-      v53 = dsCopy;
+      v51 = v29;
+      v52 = dsCopy;
       selfCopy2 = self;
       v30 = v14;
-      v55 = v30;
-      [configurationForDefaultMainDisplayMonitor setTransitionHandler:v50];
+      v54 = v30;
+      [configurationForDefaultMainDisplayMonitor setTransitionHandler:v49];
       v31 = getLNLogCategoryView();
       v32 = v31;
       if (self + 1 >= 2 && os_signpost_enabled(v31))
       {
-        *v49 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19763D000, v32, OS_SIGNPOST_INTERVAL_BEGIN, self, "LinkServices_invokeFBSDisplayLayoutMonitor", "", v49, 2u);
+        *v48 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19763D000, v32, OS_SIGNPOST_INTERVAL_BEGIN, self, "LinkServices_invokeFBSDisplayLayoutMonitor", "", v48, 2u);
       }
 
-      os_unfair_lock_lock(v75 + 8);
+      os_unfair_lock_lock(v74 + 8);
       v33 = [MEMORY[0x1E699FAE0] monitorWithConfiguration:configurationForDefaultMainDisplayMonitor];
-      v34 = v69[5];
-      v69[5] = v33;
+      v34 = v68[5];
+      v68[5] = v33;
 
       v35 = [LNWatchdogTimer alloc];
-      v41 = MEMORY[0x1E69E9820];
-      v42 = 3221225472;
-      v43 = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_32;
-      v44 = &unk_1E74B2198;
-      v47 = &v74;
-      v48 = &v68;
+      v40 = MEMORY[0x1E69E9820];
+      v41 = 3221225472;
+      v42 = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_32;
+      v43 = &unk_1E74B2198;
+      v46 = &v73;
+      v47 = &v67;
       v36 = v28;
-      v45 = v36;
-      v46 = v30;
-      v37 = [(LNWatchdogTimer *)v35 initWithTimeoutInterval:&v41 timeoutHandler:0.5];
-      v38 = v63[5];
-      v63[5] = v37;
+      v44 = v36;
+      v45 = v30;
+      v37 = [(LNWatchdogTimer *)v35 initWithTimeoutInterval:&v40 timeoutHandler:0.5];
+      v38 = v62[5];
+      v62[5] = v37;
 
-      [v63[5] start];
-      os_unfair_lock_unlock(v75 + 8);
+      [v62[5] start];
+      os_unfair_lock_unlock(v74 + 8);
 
-      _Block_object_dispose(&v62, 8);
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v61, 8);
+      _Block_object_dispose(&v67, 8);
 
-      _Block_object_dispose(&v74, 8);
+      _Block_object_dispose(&v73, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_25;
@@ -2083,9 +2078,9 @@ LABEL_18:
     }
 
     v20 = objc_alloc_init(LNMetadataProvider);
-    v79 = 0;
-    v15 = [(LNMetadataProvider *)v20 bundlesWithError:&v79];
-    v21 = v79;
+    v78 = 0;
+    v15 = [(LNMetadataProvider *)v20 bundlesWithError:&v78];
+    v21 = v78;
 
     v22 = getLNLogCategoryView();
     v23 = v22;
@@ -2125,8 +2120,6 @@ LABEL_18:
   }
 
 LABEL_25:
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2159,18 +2152,18 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
 
 void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v90 = *MEMORY[0x1E69E9840];
-  v59 = a2;
+  v89 = *MEMORY[0x1E69E9840];
+  v58 = a2;
   v7 = a3;
   v8 = a4;
   os_unfair_lock_lock((*(*(a1 + 72) + 8) + 32));
-  v60 = v7;
+  v59 = v7;
   if (*(*(*(a1 + 80) + 8) + 40))
   {
     os_unfair_lock_unlock((*(*(a1 + 72) + 8) + 32));
     if (v7)
     {
-      v58 = v8;
+      v57 = v8;
       os_unfair_lock_lock((*(*(a1 + 72) + 8) + 32));
       [*(*(*(a1 + 88) + 8) + 40) cancel];
       (*(*(a1 + 56) + 16))();
@@ -2190,25 +2183,25 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
         _os_log_impl(&dword_19763D000, v15, OS_LOG_TYPE_INFO, "Querying all entities for each application", &buf, 2u);
       }
 
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
       v76 = 0u;
+      v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
       v16 = *(a1 + 32);
-      v17 = [v16 countByEnumeratingWithState:&v75 objects:v89 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v74 objects:v88 count:16];
       if (v17)
       {
-        v18 = *v76;
+        v18 = *v75;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v76 != v18)
+            if (*v75 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = *(*(&v75 + 1) + 8 * i);
+            v20 = *(*(&v74 + 1) + 8 * i);
             if ([*(*(*(a1 + 96) + 8) + 40) containsObject:v20])
             {
               v21 = *(a1 + 48);
@@ -2236,7 +2229,7 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v75 objects:v89 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v74 objects:v88 count:16];
         }
 
         while (v17);
@@ -2272,9 +2265,9 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
         _os_signpost_emit_with_name_impl(&dword_19763D000, v33, OS_SIGNPOST_INTERVAL_END, v34, "LinkServices_establishViewFetchConnections", "", &buf, 2u);
       }
 
-      v62 = objc_opt_new();
-      [v62 setSceneless:0];
-      [v62 setOpenApplicationPriority:2];
+      v61 = objc_opt_new();
+      [v61 setSceneless:0];
+      [v61 setOpenApplicationPriority:2];
       v35 = getLNLogCategoryView();
       v36 = v35;
       v37 = *(a1 + 104);
@@ -2295,31 +2288,31 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v85 = 0x3032000000;
-      v86 = __Block_byref_object_copy__12786;
-      v87 = __Block_byref_object_dispose__12787;
-      v88 = objc_alloc_init(LNViewEntityAggregationResult);
+      v84 = 0x3032000000;
+      v85 = __Block_byref_object_copy__12786;
+      v86 = __Block_byref_object_dispose__12787;
+      v87 = objc_alloc_init(LNViewEntityAggregationResult);
       v40 = dispatch_group_create();
+      v70 = 0u;
       v71 = 0u;
       v72 = 0u;
       v73 = 0u;
-      v74 = 0u;
       obj = v31;
-      v41 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
+      v41 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
       if (v41)
       {
-        v42 = *v72;
+        v42 = *v71;
         do
         {
           v43 = 0;
           do
           {
-            if (*v72 != v42)
+            if (*v71 != v42)
             {
               objc_enumerationMutation(obj);
             }
 
-            v44 = *(*(&v71 + 1) + 8 * v43);
+            v44 = *(*(&v70 + 1) + 8 * v43);
             dispatch_group_enter(v40);
             v45 = *(a1 + 40);
             v46 = [v44 bundleIdentifier];
@@ -2329,19 +2322,19 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
             if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
             {
               v49 = [v44 bundleIdentifier];
-              *v79 = 138412546;
-              v80 = v49;
-              v81 = 2112;
-              v82 = v47;
-              _os_log_impl(&dword_19763D000, v48, OS_LOG_TYPE_INFO, "Fetching entities from %@ for interactionIDs %@", v79, 0x16u);
+              *v78 = 138412546;
+              v79 = v49;
+              v80 = 2112;
+              v81 = v47;
+              _os_log_impl(&dword_19763D000, v48, OS_LOG_TYPE_INFO, "Fetching entities from %@ for interactionIDs %@", v78, 0x16u);
             }
 
             v50 = getLNLogCategoryView();
             v51 = v50;
             if (v44 + 1 >= 2 && os_signpost_enabled(v50))
             {
-              *v79 = 0;
-              _os_signpost_emit_with_name_impl(&dword_19763D000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v44, "LinkServices_fetchViewEntitiesWithOptions", "", v79, 2u);
+              *v78 = 0;
+              _os_signpost_emit_with_name_impl(&dword_19763D000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v44, "LinkServices_fetchViewEntitiesWithOptions", "", v78, 2u);
             }
 
             if ([v47 count])
@@ -2354,21 +2347,21 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
               v52 = 0;
             }
 
-            v67[0] = MEMORY[0x1E69E9820];
-            v67[1] = 3221225472;
-            v67[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_27;
-            v67[3] = &unk_1E74B2120;
+            v66[0] = MEMORY[0x1E69E9820];
+            v66[1] = 3221225472;
+            v66[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_27;
+            v66[3] = &unk_1E74B2120;
             p_buf = &buf;
-            v67[4] = v44;
-            v68 = v40;
-            v70 = v44;
-            [v44 fetchViewEntitiesWithOptions:v62 interactionIDs:v52 completionHandler:v67];
+            v66[4] = v44;
+            v67 = v40;
+            v69 = v44;
+            [v44 fetchViewEntitiesWithOptions:v61 interactionIDs:v52 completionHandler:v66];
 
             ++v43;
           }
 
           while (v41 != v43);
-          v53 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
+          v53 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
           v41 = v53;
         }
 
@@ -2380,13 +2373,13 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
       block[1] = 3221225472;
       block[2] = __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_28;
       block[3] = &unk_1E74B2148;
-      v66 = *(a1 + 104);
-      v64 = *(a1 + 64);
-      v65 = &buf;
+      v65 = *(a1 + 104);
+      v63 = *(a1 + 64);
+      v64 = &buf;
       dispatch_group_notify(v40, v54, block);
 
       _Block_object_dispose(&buf, 8);
-      v8 = v58;
+      v8 = v57;
     }
   }
 
@@ -2403,8 +2396,6 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
     os_unfair_lock_unlock((*(*(a1 + 72) + 8) + 32));
     v8 = v55;
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_32(void *a1)
@@ -2489,26 +2480,24 @@ void __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWi
 
 id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWithInteractionIDs_bundleIdentifiers_completionHandler___block_invoke_21(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [LNConnectionPolicy policyWithBundleIdentifier:v2];
-  v9 = 0;
-  v4 = [v3 connectionWithError:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v3 connectionWithError:&v8];
+  v5 = v8;
   if (!v4)
   {
     v6 = getLNLogCategoryView();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v11 = v2;
-      v12 = 2114;
-      v13 = v5;
+      v10 = v2;
+      v11 = 2114;
+      v12 = v5;
       _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Error establishing connection with %@ to fetch view entities: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2544,7 +2533,7 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
 
 - (void)invalidateAssertionsForConnectionOperation:(id)operation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -2554,9 +2543,9 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
   {
     logPrefix = [(LNConnection *)self logPrefix];
     *buf = 138543618;
-    v19 = logPrefix;
-    v20 = 2114;
-    v21 = operationCopy;
+    v18 = logPrefix;
+    v19 = 2114;
+    v20 = operationCopy;
     _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_INFO, "%{public}@ Invalidating assertions for %{public}@", buf, 0x16u);
   }
 
@@ -2568,9 +2557,9 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
     [v9 removeObserver:self];
     if ([v9 isValid])
     {
-      v17 = 0;
-      v10 = [v9 invalidateWithError:&v17];
-      v11 = v17;
+      v16 = 0;
+      v10 = [v9 invalidateWithError:&v16];
+      v11 = v16;
       if ((v10 & 1) == 0)
       {
         v12 = getLNLogCategoryConnection();
@@ -2578,11 +2567,11 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
         {
           logPrefix2 = [(LNConnection *)self logPrefix];
           *buf = 138543874;
-          v19 = logPrefix2;
-          v20 = 2114;
-          v21 = operationCopy;
-          v22 = 2114;
-          v23 = v11;
+          v18 = logPrefix2;
+          v19 = 2114;
+          v20 = operationCopy;
+          v21 = 2114;
+          v22 = v11;
           _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_ERROR, "%{public}@ Failed to invalidate process assertion for %{public}@: %{public}@", buf, 0x20u);
         }
       }
@@ -2604,19 +2593,17 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
     {
       logPrefix3 = [(LNConnection *)self logPrefix];
       *buf = 138543618;
-      v19 = logPrefix3;
-      v20 = 2114;
-      v21 = operationCopy;
+      v18 = logPrefix3;
+      v19 = 2114;
+      v20 = operationCopy;
       _os_log_impl(&dword_19763D000, v11, OS_LOG_TYPE_INFO, "%{public}@ %{public}@ has no priority and thus no associated assertion", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireAssertionsForConnectionOperation:(id)operation
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -2624,12 +2611,12 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
   if ([operationCopy priority])
   {
     v6 = MEMORY[0x1E698E620];
-    [(LNConnection *)self auditToken];
+    objc_msgSend_auditToken(self);
     logPrefix6 = [v6 tokenFromAuditToken:buf];
     v8 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(logPrefix6, "pid")}];
-    v41 = 0;
-    v9 = [MEMORY[0x1E69C75D0] handleForIdentifier:v8 error:&v41];
-    v10 = v41;
+    v40 = 0;
+    v9 = [MEMORY[0x1E69C75D0] handleForIdentifier:v8 error:&v40];
+    v10 = v40;
     if (!v9)
     {
       v13 = getLNLogCategoryConnection();
@@ -2637,11 +2624,11 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
       {
         logPrefix = [(LNConnection *)self logPrefix];
         *buf = 138543874;
-        v44 = logPrefix;
-        v45 = 2114;
-        v46 = v8;
-        v47 = 2114;
-        v48 = v10;
+        v43 = logPrefix;
+        v44 = 2114;
+        v45 = v8;
+        v46 = 2114;
+        v47 = v10;
         _os_log_impl(&dword_19763D000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get process handle for pid %{public}@, %{public}@", buf, 0x20u);
       }
 
@@ -2656,9 +2643,9 @@ id __124__LNConnection_FetchViewObjects__fetchEntitiesFromActiveApplicationsWith
       {
         logPrefix2 = [(LNConnection *)self logPrefix];
         *buf = 138543618;
-        v44 = logPrefix2;
-        v45 = 2114;
-        v46 = v8;
+        v43 = logPrefix2;
+        v44 = 2114;
+        v45 = v8;
         _os_log_impl(&dword_19763D000, v11, OS_LOG_TYPE_INFO, "%{public}@ pid %{public}@ is a daemon; assertion is not required", buf, 0x16u);
       }
 
@@ -2678,13 +2665,13 @@ LABEL_29:
       {
         logPrefix3 = [(LNConnection *)self logPrefix];
         *buf = 138543362;
-        v44 = logPrefix3;
+        v43 = logPrefix3;
         _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, "%{public}@ Will acquire extension assertion due to the connection type", buf, 0xCu);
       }
 
       v20 = @"com.apple.siri";
       v21 = @"com.apple.siri";
-      v39 = @"Extension connection";
+      v38 = @"Extension connection";
       v22 = 3;
     }
 
@@ -2698,7 +2685,7 @@ LABEL_29:
 
       v20 = v23;
       v22 = priority - 1;
-      v39 = @"Application connection";
+      v38 = @"Application connection";
       if ((priority - 1) > 3)
       {
         v24 = 0;
@@ -2708,19 +2695,19 @@ LABEL_29:
 
     v24 = off_1E74B0A08[v22];
 LABEL_21:
-    v37 = v24;
-    v38 = v20;
+    v36 = v24;
+    v37 = v20;
     v25 = [MEMORY[0x1E69C7560] attributeWithDomain:v20 name:?];
-    v42 = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+    v41 = v25;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
 
     v27 = objc_alloc(MEMORY[0x1E69C7548]);
     v28 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v9];
-    v29 = [v27 initWithExplanation:v39 target:v28 attributes:v26];
+    v29 = [v27 initWithExplanation:v38 target:v28 attributes:v26];
 
-    v40 = 0;
-    LOBYTE(v28) = [v29 acquireWithError:&v40];
-    v10 = v40;
+    v39 = 0;
+    LOBYTE(v28) = [v29 acquireWithError:&v39];
+    v10 = v39;
     v30 = getLNLogCategoryConnection();
     v31 = v30;
     if (v28)
@@ -2729,11 +2716,11 @@ LABEL_21:
       {
         logPrefix4 = [(LNConnection *)self logPrefix];
         *buf = 138543874;
-        v44 = logPrefix4;
-        v45 = 2114;
-        v46 = v8;
-        v47 = 2114;
-        v48 = operationCopy;
+        v43 = logPrefix4;
+        v44 = 2114;
+        v45 = v8;
+        v46 = 2114;
+        v47 = operationCopy;
         _os_log_impl(&dword_19763D000, v31, OS_LOG_TYPE_INFO, "%{public}@ Successfully acquired process assertion (pid: %{public}@) for %{public}@", buf, 0x20u);
       }
 
@@ -2741,21 +2728,21 @@ LABEL_21:
       assertionsMapTable = [(LNConnection *)self assertionsMapTable];
       [assertionsMapTable setObject:v29 forKey:operationCopy];
 
-      v34 = v37;
+      v34 = v36;
     }
 
     else
     {
-      v34 = v37;
+      v34 = v36;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         logPrefix5 = [(LNConnection *)self logPrefix];
         *buf = 138543874;
-        v44 = logPrefix5;
-        v45 = 2114;
-        v46 = v37;
-        v47 = 2114;
-        v48 = v10;
+        v43 = logPrefix5;
+        v44 = 2114;
+        v45 = v36;
+        v46 = 2114;
+        v47 = v10;
         _os_log_impl(&dword_19763D000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Failed to acquire assertion %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -2771,12 +2758,10 @@ LABEL_21:
   {
     logPrefix6 = [(LNConnection *)self logPrefix];
     *buf = 138543362;
-    v44 = logPrefix6;
+    v43 = logPrefix6;
     _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_INFO, "%{public}@ Connection has no background or foreground priority; assertion not required", buf, 0xCu);
 LABEL_30:
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error
@@ -2805,42 +2790,42 @@ LABEL_30:
 
 void __49__LNConnection_assertion_didInvalidateWithError___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v2 = [*(a1 + 32) processMonitor];
   v3 = [v2 states];
 
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (!v4)
   {
 
 LABEL_12:
     v9 = LNConnectionErrorWithCode(1003);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v12 = [*(a1 + 32) assertionsMapTable];
     v10 = [v12 copy];
 
-    v13 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v13 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * i);
+          v17 = *(*(&v21 + 1) + 8 * i);
           v18 = [*(a1 + 32) assertionsMapTable];
           v19 = [v18 objectForKey:v17];
           v20 = *(a1 + 48);
@@ -2851,7 +2836,7 @@ LABEL_12:
           }
         }
 
-        v14 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v14);
@@ -2861,21 +2846,21 @@ LABEL_12:
   }
 
   v5 = v4;
-  v6 = *v27;
+  v6 = *v26;
   v7 = 1;
   do
   {
     for (j = 0; j != v5; ++j)
     {
-      if (*v27 != v6)
+      if (*v26 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v7 &= [*(*(&v26 + 1) + 8 * j) taskState];
+      v7 &= [*(*(&v25 + 1) + 8 * j) taskState];
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v25 objects:v34 count:16];
   }
 
   while (v5);
@@ -2891,14 +2876,12 @@ LABEL_12:
     v10 = [*(a1 + 32) logPrefix];
     v11 = *(a1 + 40);
     *buf = 138543618;
-    v32 = v10;
-    v33 = 2114;
-    v34 = v11;
+    v31 = v10;
+    v32 = 2114;
+    v33 = v11;
     _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Application process assertion was dropped after timeout: %{public}@", buf, 0x16u);
 LABEL_21:
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (NSMapTable)executors
@@ -2949,7 +2932,7 @@ LABEL_21:
   v3 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -3006,7 +2989,7 @@ uint64_t __55__LNConnection_allowsExtendingTimeoutOnProgressUpdates__block_invok
 
 void __31__LNConnection_closeWithError___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = getLNLogCategoryConnection();
   v4 = v3;
@@ -3020,9 +3003,9 @@ void __31__LNConnection_closeWithError___block_invoke(uint64_t a1)
     v5 = [*(a1 + 40) bundleIdentifier];
     v6 = *(a1 + 32);
     *buf = 138543618;
-    v26 = v5;
-    v27 = 2114;
-    v28 = v6;
+    v25 = v5;
+    v26 = 2114;
+    v27 = v6;
     v7 = "Connection to %{public}@ closed due to error %{public}@";
     v8 = v4;
     v9 = OS_LOG_TYPE_ERROR;
@@ -3038,7 +3021,7 @@ void __31__LNConnection_closeWithError___block_invoke(uint64_t a1)
 
     v5 = [*(a1 + 40) bundleIdentifier];
     *buf = 138543362;
-    v26 = v5;
+    v25 = v5;
     v7 = "Connection to %{public}@ closed";
     v8 = v4;
     v9 = OS_LOG_TYPE_INFO;
@@ -3049,29 +3032,29 @@ void __31__LNConnection_closeWithError___block_invoke(uint64_t a1)
 
 LABEL_7:
   [*(a1 + 40) cancelIdleTimeout];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = [*(a1 + 40) currentConnectionOperations];
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v20 + 1) + 8 * i) finishWithError:*(a1 + 32)];
+        [*(*(&v19 + 1) + 8 * i) finishWithError:*(a1 + 32)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -3085,8 +3068,6 @@ LABEL_7:
     v18 = [*(a1 + 40) manager];
     [v18 connection:*(a1 + 40) didCloseWithError:*(a1 + 32)];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelIdleTimeout
@@ -3105,27 +3086,25 @@ LABEL_7:
 
 void __28__LNConnection_setIdleTimer__block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained && ([(os_activity_t *)WeakRetained targetIsBeingDebugged]& 1) == 0)
   {
-    v5.opaque[0] = 0;
-    v5.opaque[1] = 0;
-    os_activity_scope_enter(v2[20], &v5);
+    v4.opaque[0] = 0;
+    v4.opaque[1] = 0;
+    os_activity_scope_enter(v2[20], &v4);
     v3 = getLNLogCategoryConnection();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v7 = v2;
+      v6 = v2;
       _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Closing idle connection (%{public}@)", buf, 0xCu);
     }
 
     [(os_activity_t *)v2 closeWithError:0];
-    os_activity_scope_leave(&v5);
+    os_activity_scope_leave(&v4);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionOperation:(id)operation didFinishWithError:(id)error
@@ -3179,7 +3158,7 @@ void __28__LNConnection_setIdleTimer__block_invoke_2(uint64_t a1)
 
 - (void)fetchListenerEndpointFromApplicationServiceWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -3190,9 +3169,9 @@ void __28__LNConnection_setIdleTimer__block_invoke_2(uint64_t a1)
     logPrefix = [(LNConnection *)self logPrefix];
     processInstanceIdentifier = [(LNConnection *)self processInstanceIdentifier];
     *buf = 138543618;
-    v23 = logPrefix;
-    v24 = 2114;
-    v25 = processInstanceIdentifier;
+    v22 = logPrefix;
+    v23 = 2114;
+    v24 = processInstanceIdentifier;
     _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_INFO, "%{public}@ Fetching XPC listener endpoint for processInstanceIdentifier: %{public}@ from ApplicationService", buf, 0x16u);
   }
 
@@ -3204,32 +3183,32 @@ void __28__LNConnection_setIdleTimer__block_invoke_2(uint64_t a1)
     v11 = LNDaemonApplicationXPCInterface();
     [v10 setRemoteObjectInterface:v11];
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke;
-    v21[3] = &unk_1E74B2318;
-    v21[4] = self;
-    [v10 setInvalidationHandler:v21];
     v20[0] = MEMORY[0x1E69E9820];
     v20[1] = 3221225472;
-    v20[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_115;
+    v20[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke;
     v20[3] = &unk_1E74B2318;
     v20[4] = self;
-    [v10 setInterruptionHandler:v20];
+    [v10 setInvalidationHandler:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_115;
+    v19[3] = &unk_1E74B2318;
+    v19[4] = self;
+    [v10 setInterruptionHandler:v19];
     queue2 = [(LNConnection *)self queue];
     [v10 _setQueue:queue2];
 
     [v10 resume];
     remoteObjectProxy = [v10 remoteObjectProxy];
     processInstanceIdentifier3 = [(LNConnection *)self processInstanceIdentifier];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_116;
-    v17[3] = &unk_1E74B2410;
-    v18 = v10;
-    v19 = handlerCopy;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_116;
+    v16[3] = &unk_1E74B2410;
+    v17 = v10;
+    v18 = handlerCopy;
     v15 = v10;
-    [remoteObjectProxy fetchListenerEndpointForProcessInstanceIdentifier:processInstanceIdentifier3 reply:v17];
+    [remoteObjectProxy fetchListenerEndpointForProcessInstanceIdentifier:processInstanceIdentifier3 reply:v16];
   }
 
   else
@@ -3237,38 +3216,32 @@ void __28__LNConnection_setIdleTimer__block_invoke_2(uint64_t a1)
     v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"LNConnectionErrorDomain" code:2302 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) logPrefix];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "%{public}@ ApplicationService connection invalidated", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "%{public}@ ApplicationService connection invalidated", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_115(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) logPrefix];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "%{public}@ ApplicationService connection interrupted", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "%{public}@ ApplicationService connection interrupted", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletionHandler___block_invoke_116(uint64_t a1, void *a2, void *a3)
@@ -3282,7 +3255,7 @@ void __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletio
 
 - (BOOL)connectUsingProcessIdentifierWithOptions:(id)options
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -3296,23 +3269,21 @@ void __81__LNConnection_fetchListenerEndpointFromApplicationServiceWithCompletio
       logPrefix = [(LNConnection *)self logPrefix];
       processInstanceIdentifier2 = [(LNConnection *)self processInstanceIdentifier];
       *buf = 138543618;
-      v13 = logPrefix;
-      v14 = 2114;
-      v15 = processInstanceIdentifier2;
+      v12 = logPrefix;
+      v13 = 2114;
+      v14 = processInstanceIdentifier2;
       _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_INFO, "%{public}@ Connecting using processInstanceIdentifier: %{public}@ from ApplicationService", buf, 0x16u);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke;
-    v11[3] = &unk_1E74B23D8;
-    v11[4] = self;
-    [(LNConnection *)self fetchListenerEndpointFromApplicationServiceWithCompletionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke;
+    v10[3] = &unk_1E74B23D8;
+    v10[4] = self;
+    [(LNConnection *)self fetchListenerEndpointFromApplicationServiceWithCompletionHandler:v10];
   }
 
-  result = processInstanceIdentifier != 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return processInstanceIdentifier != 0;
 }
 
 void __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -3323,7 +3294,7 @@ void __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke(
   if (v5)
   {
     v8 = [v5 xpcListenerEndpoint];
-    [v6 auditToken];
+    objc_msgSend_auditToken(v6);
     [v7 connectUsingListenerEndpoint:v8 auditToken:&v9];
   }
 
@@ -3335,7 +3306,7 @@ void __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke(
 
 - (void)connectUsingListenerEndpoint:(id)endpoint auditToken:(id *)token
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -3363,7 +3334,7 @@ void __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke(
 
   v11 = *&token->var0[4];
   *buf = *token->var0;
-  v25 = v11;
+  v24 = v11;
   [(LNConnection *)self setAuditToken:buf];
   v12 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:endpointCopy];
   [(LNConnection *)self setXPCConnection:v12];
@@ -3381,21 +3352,19 @@ void __57__LNConnection_connectUsingProcessIdentifierWithOptions___block_invoke(
   [xpcConnection3 resume];
 
   objc_initWeak(buf, self);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke;
-  v22[3] = &unk_1E74B2778;
-  objc_copyWeak(&v23, buf);
-  [(LNConnection *)self setUpConnectionContextWithCompletionHandler:v22];
-  objc_destroyWeak(&v23);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke;
+  v21[3] = &unk_1E74B2778;
+  objc_copyWeak(&v22, buf);
+  [(LNConnection *)self setUpConnectionContextWithCompletionHandler:v21];
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -3404,9 +3373,9 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
     v6 = getLNLogCategoryConnection();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Failed to set connection context: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Failed to set connection context: %@", &v8, 0xCu);
     }
 
     v7 = [v5 xpcConnection];
@@ -3419,13 +3388,11 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
   {
     [WeakRetained setConnected];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUpConnectionContextWithCompletionHandler:(id)handler
 {
-  v91[1] = *MEMORY[0x1E69E9840];
+  v90[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -3447,7 +3414,7 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
     v12 = 0;
   }
 
-  v71 = handlerCopy;
+  v70 = handlerCopy;
   if (v8)
   {
     effectiveBundleIdentifier3 = [(LNConnection *)self effectiveBundleIdentifier];
@@ -3477,20 +3444,20 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
         }
       }
 
-      v69 = v24;
+      v68 = v24;
 
       v12 = v15;
     }
 
     else
     {
-      v69 = 0;
+      v68 = 0;
     }
   }
 
   else
   {
-    v69 = 0;
+    v68 = 0;
   }
 
   v25 = @"IntentStartupGrant";
@@ -3499,17 +3466,17 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
   {
     logPrefix = [(LNConnection *)self logPrefix];
     *buf = 138543362;
-    v84 = logPrefix;
+    v83 = logPrefix;
     _os_log_impl(&dword_19763D000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ [Context Setup] Process assertions requested for context setup", buf, 0xCu);
   }
 
   v28 = MEMORY[0x1E698E620];
-  [(LNConnection *)self auditToken];
-  v70 = [v28 tokenFromAuditToken:buf];
-  v29 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v70, "pid")}];
-  v82 = 0;
-  v30 = [MEMORY[0x1E69C75D0] handleForIdentifier:v29 error:&v82];
-  v31 = v82;
+  objc_msgSend_auditToken(self);
+  v69 = [v28 tokenFromAuditToken:buf];
+  v29 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v69, "pid")}];
+  v81 = 0;
+  v30 = [MEMORY[0x1E69C75D0] handleForIdentifier:v29 error:&v81];
+  v31 = v81;
   if ([v30 isDaemon])
   {
     v32 = getLNLogCategoryConnection();
@@ -3518,11 +3485,11 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
       [(LNConnection *)self logPrefix];
       v34 = v33 = v12;
       *buf = 138543874;
-      v84 = v34;
-      v85 = 2114;
-      v86 = v29;
-      v87 = 2114;
-      v88 = @"IntentStartupGrant";
+      v83 = v34;
+      v84 = 2114;
+      v85 = v29;
+      v86 = 2114;
+      v87 = @"IntentStartupGrant";
       _os_log_impl(&dword_19763D000, v32, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] pid %{public}@ is a daemon; assertion %{public}@ is NOT required", buf, 0x20u);
 
       v12 = v33;
@@ -3530,12 +3497,12 @@ void __56__LNConnection_connectUsingListenerEndpoint_auditToken___block_invoke(u
 
 LABEL_27:
     v44 = 0;
-    v68 = v31;
+    v67 = v31;
 LABEL_28:
 
     v50 = [LNConnectionContext alloc];
     userIdentity = [(LNConnection *)self userIdentity];
-    if ((v12 | v69))
+    if ((v12 | v68))
     {
       effectiveBundleIdentifier5 = [(LNConnection *)self effectiveBundleIdentifier];
       v53 = [(LNConnectionContext *)v50 initWithUserIdentity:userIdentity effectiveBundleIdentifier:effectiveBundleIdentifier5];
@@ -3553,38 +3520,38 @@ LABEL_28:
     {
       logPrefix2 = [(LNConnection *)self logPrefix];
       *buf = 138543618;
-      v84 = logPrefix2;
-      v85 = 2112;
-      v86 = v53;
+      v83 = logPrefix2;
+      v84 = 2112;
+      v85 = v53;
       _os_log_impl(&dword_19763D000, v55, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Updating connection connection context with: %@", buf, 0x16u);
     }
 
     xpcConnection = [(LNConnection *)self xpcConnection];
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke;
-    v77[3] = &unk_1E74B2388;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke;
+    v76[3] = &unk_1E74B2388;
     v58 = v44;
-    v78 = v58;
+    v77 = v58;
     selfCopy = self;
     v59 = @"IntentStartupGrant";
-    v80 = @"IntentStartupGrant";
-    v60 = [xpcConnection remoteObjectProxyWithErrorHandler:v77];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke_104;
-    v72[3] = &unk_1E74B23B0;
+    v79 = @"IntentStartupGrant";
+    v60 = [xpcConnection remoteObjectProxyWithErrorHandler:v76];
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke_104;
+    v71[3] = &unk_1E74B23B0;
     v61 = v58;
-    v73 = v61;
+    v72 = v61;
     selfCopy2 = self;
     v62 = @"IntentStartupGrant";
-    v75 = @"IntentStartupGrant";
-    v63 = v71;
-    v76 = v71;
-    [v60 updateConnectionContext:v53 completionHandler:v72];
+    v74 = @"IntentStartupGrant";
+    v63 = v70;
+    v75 = v70;
+    [v60 updateConnectionContext:v53 completionHandler:v71];
 
-    v37 = v78;
-    v45 = v68;
+    v37 = v77;
+    v45 = v67;
     goto LABEL_34;
   }
 
@@ -3595,25 +3562,25 @@ LABEL_28:
     {
       logPrefix3 = [(LNConnection *)self logPrefix];
       *buf = 138544130;
-      v84 = logPrefix3;
-      v85 = 2114;
-      v86 = v29;
-      v87 = 2114;
-      v88 = v31;
-      v89 = 2114;
-      v90 = @"IntentStartupGrant";
+      v83 = logPrefix3;
+      v84 = 2114;
+      v85 = v29;
+      v86 = 2114;
+      v87 = v31;
+      v88 = 2114;
+      v89 = @"IntentStartupGrant";
       _os_log_impl(&dword_19763D000, v32, OS_LOG_TYPE_ERROR, "%{public}@ [Context Setup] Unable to get process handle for pid %{public}@, %{public}@; Process assertion %{public}@ was NOT acquired", buf, 0x2Au);
     }
 
     goto LABEL_27;
   }
 
-  v66 = v12;
-  v67 = v8;
+  v65 = v12;
+  v66 = v8;
   v35 = @"com.apple.siri";
   v36 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.siri" name:@"IntentStartupGrant"];
-  v91[0] = v36;
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:1];
+  v90[0] = v36;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:1];
 
   v38 = objc_alloc(MEMORY[0x1E69C7548]);
   v39 = MEMORY[0x1E696AEC0];
@@ -3623,59 +3590,57 @@ LABEL_28:
   v43 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v30];
   v44 = [v38 initWithExplanation:v42 target:v43 attributes:v37];
 
-  v81 = 0;
-  LOBYTE(v41) = [v44 acquireWithError:&v81];
-  v45 = v81;
+  v80 = 0;
+  LOBYTE(v41) = [v44 acquireWithError:&v80];
+  v45 = v80;
 
   v46 = getLNLogCategoryConnection();
   v47 = v46;
   if (v41)
   {
-    v68 = v45;
-    v8 = v67;
+    v67 = v45;
+    v8 = v66;
     if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       logPrefix4 = [(LNConnection *)self logPrefix];
       *buf = 138543874;
-      v84 = logPrefix4;
-      v85 = 2114;
-      v86 = @"IntentStartupGrant";
-      v87 = 2114;
-      v88 = v29;
+      v83 = logPrefix4;
+      v84 = 2114;
+      v85 = @"IntentStartupGrant";
+      v86 = 2114;
+      v87 = v29;
       _os_log_impl(&dword_19763D000, v47, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Successfully acquired process assertion %{public}@ (pid: %{public}@)", buf, 0x20u);
     }
 
     v32 = @"com.apple.siri";
-    v12 = v66;
+    v12 = v65;
     goto LABEL_28;
   }
 
-  v54 = v67;
+  v54 = v66;
   if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
     logPrefix5 = [(LNConnection *)self logPrefix];
     *buf = 138543874;
-    v84 = logPrefix5;
-    v85 = 2114;
-    v86 = @"IntentStartupGrant";
-    v87 = 2114;
-    v88 = v45;
+    v83 = logPrefix5;
+    v84 = 2114;
+    v85 = @"IntentStartupGrant";
+    v86 = 2114;
+    v87 = v45;
     _os_log_impl(&dword_19763D000, v47, OS_LOG_TYPE_ERROR, "%{public}@ [Context Setup] Failed to acquire assertion %{public}@: %{public}@", buf, 0x20u);
   }
 
   [v44 invalidate];
-  v63 = v71;
-  (v71)[2](v71, v45);
+  v63 = v70;
+  (v70)[2](v70, v45);
   v61 = 0;
   v53 = @"com.apple.siri";
 LABEL_34:
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = getLNLogCategoryConnection();
@@ -3686,13 +3651,13 @@ void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invo
     {
       v7 = [*(a1 + 40) logPrefix];
       v8 = *(a1 + 48);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v3;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Remote object proxy error: %{public}@; Process assertion %{public}@ invalidated", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v3;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Remote object proxy error: %{public}@; Process assertion %{public}@ invalidated", &v10, 0x20u);
     }
 
     [*(a1 + 32) invalidate];
@@ -3703,20 +3668,18 @@ void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invo
     if (v6)
     {
       v9 = [*(a1 + 40) logPrefix];
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Remote object proxy error: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Remote object proxy error: %{public}@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invoke_104(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 32))
   {
@@ -3725,11 +3688,11 @@ void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invo
     {
       v5 = [*(a1 + 40) logPrefix];
       v6 = *(a1 + 48);
-      v15 = 138543618;
-      v16 = v5;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Process assertion %{public}@ invalidated", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v5;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "%{public}@ [Context Setup] Process assertion %{public}@ invalidated", &v14, 0x16u);
     }
 
     [*(a1 + 32) invalidate];
@@ -3742,24 +3705,24 @@ void __60__LNConnection_setUpConnectionContextWithCompletionHandler___block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = [*(a1 + 40) logPrefix];
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v3;
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v3;
       v10 = "%{public}@ [Context Setup] Finished context setup with error: %{public}@";
       v11 = v8;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 22;
 LABEL_10:
-      _os_log_impl(&dword_19763D000, v11, v12, v10, &v15, v13);
+      _os_log_impl(&dword_19763D000, v11, v12, v10, &v14, v13);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = [*(a1 + 40) logPrefix];
-    v15 = 138543362;
-    v16 = v9;
+    v14 = 138543362;
+    v15 = v9;
     v10 = "%{public}@ [Context Setup] Finished context setup";
     v11 = v8;
     v12 = OS_LOG_TYPE_INFO;
@@ -3768,19 +3731,18 @@ LABEL_10:
   }
 
   (*(*(a1 + 56) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDaemon
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698E620];
-  [(LNConnection *)self auditToken];
+  objc_msgSend_auditToken(self, a2);
   v4 = [v3 tokenFromAuditToken:buf];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v4, "pid")}];
-  v13 = 0;
-  v6 = [MEMORY[0x1E69C75D0] handleForIdentifier:v5 error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [MEMORY[0x1E69C75D0] handleForIdentifier:v5 error:&v12];
+  v7 = v12;
   if (v6)
   {
     isDaemon = [v6 isDaemon];
@@ -3793,18 +3755,17 @@ LABEL_10:
     {
       logPrefix = [(LNConnection *)self logPrefix];
       *buf = 138543874;
-      v15 = logPrefix;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v7;
+      v14 = logPrefix;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v7;
       _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get process handle for pid %{public}@, %{public}@", buf, 0x20u);
     }
 
     isDaemon = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return isDaemon;
 }
 
@@ -3831,7 +3792,7 @@ uint64_t __47__LNConnection_isPerformActionOperationPending__block_invoke(uint64
 
 - (BOOL)targetIsBeingDebugged
 {
-  [(LNConnection *)self auditToken];
+  objc_msgSend_auditToken(self, a2);
   if (LNPIDForAuditToken(&v3) < 1)
   {
     return 0;
@@ -3865,7 +3826,7 @@ uint64_t __47__LNConnection_isPerformActionOperationPending__block_invoke(uint64
 
 void __56__LNConnection_extendTimeoutForOperationWithIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) operationWithIdentifier:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -3883,15 +3844,13 @@ void __56__LNConnection_extendTimeoutForOperationWithIdentifier___block_invoke(u
     {
       v5 = [*(a1 + 32) logPrefix];
       v6 = *(a1 + 40);
-      v8 = 138543618;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Operation not found: unable to extend timeout for operation with identifier %{public}@.", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Operation not found: unable to extend timeout for operation with identifier %{public}@.", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelTimeoutForOperationWithIdentifier:(id)identifier
@@ -3916,7 +3875,7 @@ void __56__LNConnection_extendTimeoutForOperationWithIdentifier___block_invoke(u
 
 void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) operationWithIdentifier:*(a1 + 40)];
   if (v2)
   {
@@ -3932,15 +3891,13 @@ void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(u
     {
       v4 = [*(a1 + 32) logPrefix];
       v5 = *(a1 + 40);
-      v7 = 138543618;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_ERROR, "%{public}@ Operation not found: unable to cancel timeout for operation with identifier %{public}@.", &v7, 0x16u);
+      v6 = 138543618;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_ERROR, "%{public}@ Operation not found: unable to cancel timeout for operation with identifier %{public}@.", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)currentConnectionOperations
@@ -3956,7 +3913,7 @@ void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(u
 
 - (id)operationWithIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -3967,25 +3924,25 @@ void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(u
     [currentHandler handleFailureInMethod:a2 object:self file:@"LNConnection.m" lineNumber:521 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   connectionOperations = [(LNConnection *)self connectionOperations];
-  v8 = [connectionOperations countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [connectionOperations countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(connectionOperations);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         identifier = [v11 identifier];
         v13 = [identifier isEqual:identifierCopy];
 
@@ -3996,7 +3953,7 @@ void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(u
         }
       }
 
-      v8 = [connectionOperations countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [connectionOperations countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -4007,8 +3964,6 @@ void __56__LNConnection_cancelTimeoutForOperationWithIdentifier___block_invoke(u
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -4057,7 +4012,7 @@ LABEL_13:
 
 - (BOOL)shouldRefreshWithOptions:(id)options
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -4078,7 +4033,7 @@ LABEL_13:
   effectiveBundleIdentifier = [(LNConnection *)self effectiveBundleIdentifier];
   if (effectiveBundleIdentifier)
   {
-    v12 = effectiveBundleIdentifier;
+    v11 = effectiveBundleIdentifier;
     effectiveBundleIdentifier2 = [(LNConnection *)self effectiveBundleIdentifier];
     type = [effectiveBundleIdentifier2 type];
 
@@ -4089,15 +4044,15 @@ LABEL_13:
   }
 
   currentOptions = [(LNConnection *)self currentOptions];
-  v16 = optionsCopy;
-  v17 = v16;
-  if (currentOptions != v16)
+  v15 = optionsCopy;
+  v16 = v15;
+  if (currentOptions != v15)
   {
-    if (v16 && currentOptions)
+    if (v15 && currentOptions)
     {
-      v18 = [currentOptions isEqual:v16];
+      v17 = [currentOptions isEqual:v15];
 
-      if (v18)
+      if (v17)
       {
         goto LABEL_14;
       }
@@ -4113,18 +4068,17 @@ LABEL_4:
   }
 
 LABEL_14:
-  v19 = getLNLogCategoryConnection();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v18 = getLNLogCategoryConnection();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v22 = v17;
-    _os_log_impl(&dword_19763D000, v19, OS_LOG_TYPE_INFO, "Options %{public}@ haven't changed, skipping refresh", buf, 0xCu);
+    v21 = v16;
+    _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, "Options %{public}@ haven't changed, skipping refresh", buf, 0xCu);
   }
 
   v8 = 0;
 LABEL_5:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -4144,7 +4098,7 @@ LABEL_5:
 
 - (void)completeWithError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -4177,11 +4131,11 @@ LABEL_5:
         logPrefix = [(LNConnection *)self logPrefix];
         localizedDescription = [errorCopy localizedDescription];
         *buf = 138543874;
-        v20 = logPrefix;
-        v21 = 2114;
-        v22 = errorCopy;
-        v23 = 2114;
-        v24 = localizedDescription;
+        v19 = logPrefix;
+        v20 = 2114;
+        v21 = errorCopy;
+        v22 = 2114;
+        v23 = localizedDescription;
         _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get connection interface: %{public}@ (%{public}@)", buf, 0x20u);
       }
 
@@ -4200,13 +4154,11 @@ LABEL_5:
   }
 
   os_activity_scope_leave(&state);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setGetConnectionInterfaceCompletionHandler:0];
   v2 = [*(a1 + 32) getConnectionInterfaceQueue];
   [v2 setSuspended:0];
@@ -4215,17 +4167,15 @@ void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = [*(a1 + 32) logPrefix];
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "%{public}@ Resuming the getConnectionInterface queue", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "%{public}@ Resuming the getConnectionInterface queue", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performGetConnectionInterfaceWithOptions:(id)options completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   queue = [(LNConnection *)self queue];
@@ -4236,9 +4186,9 @@ void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
   {
     logPrefix = [(LNConnection *)self logPrefix];
     *buf = 138543618;
-    v30 = logPrefix;
-    v31 = 2114;
-    v32 = optionsCopy;
+    v29 = logPrefix;
+    v30 = 2114;
+    v31 = optionsCopy;
     _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_INFO, "%{public}@ Getting connection interface with options: %{public}@", buf, 0x16u);
   }
 
@@ -4258,9 +4208,9 @@ void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
     }
 
     *buf = 138543618;
-    v30 = logPrefix2;
-    v31 = 2114;
-    v32 = v14;
+    v29 = logPrefix2;
+    v30 = 2114;
+    v31 = v14;
   }
 
   v15 = [handlerCopy copy];
@@ -4277,7 +4227,7 @@ void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
   aBlock[3] = &unk_1E74B27A0;
   aBlock[4] = self;
   v16 = optionsCopy;
-  v28 = v16;
+  v27 = v16;
   v17 = _Block_copy(aBlock);
   if ([(__CFString *)v16 authenticationPolicy]== 1)
   {
@@ -4285,23 +4235,21 @@ void __34__LNConnection_completeWithError___block_invoke(uint64_t a1)
     queue2 = [(LNConnection *)self queue];
     v20 = [(LNUnlockService *)v18 initWithQueue:queue2];
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __75__LNConnection_performGetConnectionInterfaceWithOptions_completionHandler___block_invoke_2;
-    v23[3] = &unk_1E74B2340;
-    v24 = v20;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __75__LNConnection_performGetConnectionInterfaceWithOptions_completionHandler___block_invoke_2;
+    v22[3] = &unk_1E74B2340;
+    v23 = v20;
     selfCopy = self;
-    v26 = v17;
+    v25 = v17;
     v21 = v20;
-    [(LNUnlockService *)v21 requestUnlockIfNeeded:v23];
+    [(LNUnlockService *)v21 requestUnlockIfNeeded:v22];
   }
 
   else
   {
     v17[2](v17);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__LNConnection_performGetConnectionInterfaceWithOptions_completionHandler___block_invoke(uint64_t a1)
@@ -4421,7 +4369,7 @@ uint64_t __68__LNConnection_getConnectionInterfaceWithOptions_completionHandler_
 
 void __35__LNConnection_connectionInterface__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = getLNLogCategoryConnection();
@@ -4429,47 +4377,45 @@ void __35__LNConnection_connectionInterface__block_invoke(uint64_t a1, void *a2)
   {
     v6 = [WeakRetained logPrefix];
     *buf = 138543618;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v3;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v3;
     _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Remote object proxy error: %{public}@", buf, 0x16u);
   }
 
   if ([WeakRetained state] == 3)
   {
     [WeakRetained setDisconnectedWithError:v3];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = [WeakRetained currentConnectionOperations];
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) finishWithError:v3];
+          [*(*(&v12 + 1) + 8 * v11++) finishWithError:v3];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setXPCConnection:(id)connection
@@ -4508,7 +4454,7 @@ void __35__LNConnection_connectionInterface__block_invoke(uint64_t a1, void *a2)
 
 void __33__LNConnection_setXPCConnection___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 32), &state);
@@ -4518,7 +4464,7 @@ void __33__LNConnection_setXPCConnection___block_invoke(uint64_t a1)
   {
     v4 = [WeakRetained logPrefix];
     *buf = 138543362;
-    v20 = v4;
+    v19 = v4;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_ERROR, "%{public}@ XPC connection has been interrupted", buf, 0xCu);
   }
 
@@ -4529,26 +4475,26 @@ void __33__LNConnection_setXPCConnection___block_invoke(uint64_t a1)
 
     [WeakRetained setXPCConnection:0];
     [WeakRetained setState:0];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = [WeakRetained currentConnectionOperations];
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * v9);
+          v10 = *(*(&v12 + 1) + 8 * v9);
           v11 = LNConnectionErrorWithCode(1004);
           [v10 finishWithError:v11];
 
@@ -4556,7 +4502,7 @@ void __33__LNConnection_setXPCConnection___block_invoke(uint64_t a1)
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v7);
@@ -4564,12 +4510,11 @@ void __33__LNConnection_setXPCConnection___block_invoke(uint64_t a1)
   }
 
   os_activity_scope_leave(&state);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __33__LNConnection_setXPCConnection___block_invoke_69(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 32), &state);
@@ -4579,7 +4524,7 @@ void __33__LNConnection_setXPCConnection___block_invoke_69(uint64_t a1)
   {
     v4 = *(a1 + 40);
     *buf = 138543362;
-    v19 = v4;
+    v18 = v4;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "[%{public}@] XPC connection has been invalidated", buf, 0xCu);
   }
 
@@ -4587,26 +4532,26 @@ void __33__LNConnection_setXPCConnection___block_invoke_69(uint64_t a1)
   {
     [WeakRetained setXPCConnection:0];
     [WeakRetained setState:0];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = [WeakRetained currentConnectionOperations];
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * v8);
+          v9 = *(*(&v11 + 1) + 8 * v8);
           v10 = LNConnectionErrorWithCode(1005);
           [v9 finishWithError:v10];
 
@@ -4614,7 +4559,7 @@ void __33__LNConnection_setXPCConnection___block_invoke_69(uint64_t a1)
         }
 
         while (v6 != v8);
-        v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v6);
@@ -4622,19 +4567,18 @@ void __33__LNConnection_setXPCConnection___block_invoke_69(uint64_t a1)
   }
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setState:(int64_t)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
   state = self->_state;
   if (state == state)
   {
-    goto LABEL_27;
+    return;
   }
 
   if (state > 1)
@@ -4711,16 +4655,14 @@ LABEL_18:
     }
 
     *buf = 138543874;
-    v17 = logPrefix;
-    v18 = 2114;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v14;
+    v16 = logPrefix;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v14;
   }
 
   self->_state = state;
-LABEL_27:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)optionsForAction:(id)action interactionMode:(int64_t)mode source:(unsigned __int16)source sourceOverride:(id)override assistantDismissalPolicy:(int64_t)policy
@@ -4763,58 +4705,248 @@ LABEL_5:
 
 - (void)_invalidateAllAssertions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   objectEnumerator = [(NSMapTable *)self->_assertionsMapTable objectEnumerator];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 removeObserver:self];
         [v8 invalidate];
       }
 
-      v5 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(NSMapTable *)self->_assertionsMapTable removeAllObjects];
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (LNConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error
+{
+  onlyCopy = only;
+  v66 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  instanceIdentifierCopy = instanceIdentifier;
+  identityCopy = identity;
+  bundleIdentifier = [identifierCopy bundleIdentifier];
+  if ([(LNConnection *)self isMemberOfClass:objc_opt_class()])
+  {
+    if (identifierCopy)
+    {
+      if ([identifierCopy type] == 3)
+      {
+        if (!bundleIdentifierCopy)
+        {
+          v21 = [LNFrameworkConnection alloc];
+          v22 = identifierCopy;
+          v23 = 0;
+          goto LABEL_24;
+        }
+
+        v20 = bundleIdentifierCopy;
+
+        onlyCopy = 0;
+        bundleIdentifier = v20;
+      }
+
+      if ([identifierCopy type] == 2)
+      {
+        v21 = [LNDaemonConnection alloc];
+        v22 = identifierCopy;
+        v23 = bundleIdentifierCopy;
+LABEL_24:
+        selfCopy = [(LNConnection *)v21 initWithEffectiveBundleIdentifier:v22 appBundleIdentifier:v23 processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:onlyCopy userIdentity:identityCopy error:error];
+        goto LABEL_32;
+      }
+    }
+
+    v61 = 0;
+    v48 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v61];
+    v49 = v61;
+    if (v48)
+    {
+      if (!onlyCopy || ([v48 ln_isAppIntentsEnabled] & 1) != 0)
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v50 = off_1E74AF308;
+        }
+
+        else
+        {
+          objc_opt_class();
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            selfCopy = 0;
+            goto LABEL_30;
+          }
+
+          v50 = off_1E74AF488;
+        }
+
+        selfCopy = [objc_alloc(*v50) initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:onlyCopy userIdentity:identityCopy error:error];
+LABEL_30:
+        [(LNConnection *)selfCopy setBundleIdentifier:bundleIdentifier];
+        goto LABEL_31;
+      }
+
+      v53 = getLNLogCategoryGeneral();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v63 = bundleIdentifier;
+        _os_log_impl(&dword_19763D000, v53, OS_LOG_TYPE_ERROR, "Connection request for non-AppIntents enabled bundle %{public}@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v51 = getLNLogCategoryGeneral();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        v63 = bundleIdentifier;
+        v64 = 2114;
+        v65 = v49;
+        _os_log_impl(&dword_19763D000, v51, OS_LOG_TYPE_ERROR, "Unable to create a bundle record for %{public}@: %{public}@", buf, 0x16u);
+      }
+
+      if (error)
+      {
+        v52 = v49;
+        selfCopy = 0;
+        *error = v49;
+LABEL_31:
+
+        goto LABEL_32;
+      }
+    }
+
+    selfCopy = 0;
+    goto LABEL_31;
+  }
+
+  v60.receiver = self;
+  v60.super_class = LNConnection;
+  v24 = [(LNConnection *)&v60 init];
+  if (v24)
+  {
+    v25 = v24;
+    objc_storeStrong(&v24->_bundleIdentifier, bundleIdentifier);
+    objc_storeStrong(&v25->_appBundleIdentifier, bundleIdentifier);
+    objc_storeStrong(&v25->_effectiveBundleIdentifier, identifier);
+    v25->_state = 0;
+    v26 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    connectionOperations = v25->_connectionOperations;
+    v25->_connectionOperations = v26;
+
+    v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v29 = dispatch_queue_attr_make_with_qos_class(v28, QOS_CLASS_USER_INITIATED, 0);
+    v30 = dispatch_queue_create("com.apple.link.LNConnection.internal-queue", v29);
+    queue = v25->_queue;
+    v25->_queue = v30;
+
+    strongToWeakObjectsMapTable = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+    executors = v25->_executors;
+    v25->_executors = strongToWeakObjectsMapTable;
+
+    v25->_executorsLock._os_unfair_lock_opaque = 0;
+    v34 = _os_activity_create(&dword_19763D000, "appintents:connection", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    activity = v25->_activity;
+    v25->_activity = v34;
+
+    v36 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+    getConnectionInterfaceQueue = v25->_getConnectionInterfaceQueue;
+    v25->_getConnectionInterfaceQueue = v36;
+
+    [(NSOperationQueue *)v25->_getConnectionInterfaceQueue setUnderlyingQueue:v25->_queue];
+    [(NSOperationQueue *)v25->_getConnectionInterfaceQueue setMaxConcurrentOperationCount:1];
+    strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+    assertionsMapTable = v25->_assertionsMapTable;
+    v25->_assertionsMapTable = strongToStrongObjectsMapTable;
+
+    v40 = [instanceIdentifierCopy copy];
+    processInstanceIdentifier = v25->_processInstanceIdentifier;
+    v25->_processInstanceIdentifier = v40;
+
+    v42 = MEMORY[0x1E69C75F8];
+    v55 = MEMORY[0x1E69E9820];
+    v56 = 3221225472;
+    v57 = __137__LNConnection_initWithEffectiveBundleIdentifier_appBundleIdentifier_processInstanceIdentifier_appIntentsEnabledOnly_userIdentity_error___block_invoke;
+    v58 = &unk_1E74B22A0;
+    bundleIdentifier = bundleIdentifier;
+    v59 = bundleIdentifier;
+    v43 = [v42 monitorWithConfiguration:&v55];
+    processMonitor = v25->_processMonitor;
+    v25->_processMonitor = v43;
+
+    v45 = [identityCopy copy];
+    userIdentity = v25->_userIdentity;
+    v25->_userIdentity = v45;
+
+    self = v25;
+    selfCopy = self;
+LABEL_32:
+
+    goto LABEL_33;
+  }
+
+  selfCopy = 0;
+LABEL_33:
+
+  return selfCopy;
 }
 
 void __137__LNConnection_initWithEffectiveBundleIdentifier_appBundleIdentifier_processInstanceIdentifier_appIntentsEnabledOnly_userIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69C7610];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v2 predicateMatchingBundleIdentifier:v3];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [v4 setPredicates:v6];
 
   v7 = [MEMORY[0x1E69C7630] descriptor];
   [v7 setValues:1];
   [v4 setStateDescriptor:v7];
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (id)executorForAction:(id)action interactionMode:(int64_t)mode label:(id)label source:(unsigned __int16)source delegate:(id)delegate
+{
+  sourceCopy = source;
+  delegateCopy = delegate;
+  labelCopy = label;
+  actionCopy = action;
+  v15 = objc_opt_new();
+  [v15 setClientLabel:labelCopy];
+
+  [v15 setInteractionMode:mode];
+  [v15 setSource:sourceCopy];
+  v16 = [(LNConnection *)self executorForAction:actionCopy options:v15 delegate:delegateCopy];
+
+  return v16;
 }
 
 - (id)executorForAction:(id)action interactionMode:(int64_t)mode label:(id)label delegate:(id)delegate

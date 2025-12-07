@@ -1,1811 +1,41 @@
-__n128 std::__function::__func<std::__bind<void mlx::core::inverse_impl<float>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>,std::allocator<std::__bind<void mlx::core::inverse_impl<float>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFE598;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  *(a2 + 33) = 0;
-  *(a2 + 36) = 0;
-  return result;
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::inverse_impl<float>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>,std::allocator<std::__bind<void mlx::core::inverse_impl<float>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = (*(a1 + 10) + 1) % 10;
-  *(a1 + 10) = v3;
-  v4 = a2[1];
-  v10 = *a2;
-  v11 = v4;
-  v5 = mlx::core::scheduler::scheduler(a1);
-  if (v3)
-  {
-    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>(*(v5[1] + 8 * *a1), &v10);
-  }
-
-  mlx::core::scheduler::Scheduler::notify_new_task(v5);
-  *&v8[0] = *a1;
-  DWORD2(v8[0]) = *(a1 + 2);
-  v8[1] = v10;
-  v8[2] = v11;
-  v9 = v12;
-  v7 = mlx::core::scheduler::scheduler(v6);
-  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(*(v7[1] + 8 * *a1), v8);
-}
-
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>(mlx::core::scheduler *a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = (*(a1 + 10) + 1) % 10;
-  *(a1 + 10) = v3;
-  *v9 = *a2;
-  *&v9[16] = *(a2 + 16);
-  v4 = mlx::core::scheduler::scheduler(a1);
-  if (v3)
-  {
-    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>(*(v4[1] + 8 * *a1), v9);
-  }
-
-  mlx::core::scheduler::Scheduler::notify_new_task(v4);
-  *&v7 = *a1;
-  DWORD2(v7) = *(a1 + 2);
-  v8[0] = *v9;
-  *(v8 + 9) = *&v9[9];
-  v6 = mlx::core::scheduler::scheduler(v5);
-  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2} &&)::{lambda(void)#1}>(*(v6[1] + 8 * *a1), &v7);
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A2BB8(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, __int128 *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = a2[2];
-  v12 = *(a2 + 6);
-  *(v8 + 24) = 0;
-  operator new();
-}
-
-__n128 _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE7__cloneEPNS0_6__baseISM_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFE690;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  v4 = *(a1 + 40);
-  *(a2 + 56) = *(a1 + 56);
-  *(a2 + 40) = v4;
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEEclEv(uint64_t a1)
-{
-  std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(a1 + 24);
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
-{
-  if (*(a1 + 16))
-  {
-    v2 = 0;
-    do
-    {
-      mlx::core::tri_inv<double>((*a1 + 8 * (*(a1 + 8) * v2++ * *(a1 + 8))), *(a1 + 8), *(a1 + 24));
-    }
-
-    while (*(a1 + 16) > v2);
-  }
-}
-
-void mlx::core::tri_inv<double>(char *a1, int a2, int a3)
-{
-  v3 = a3;
-  v15 = a2;
-  if (a3)
-  {
-    v5 = 76;
-  }
-
-  else
-  {
-    v5 = 85;
-  }
-
-  v14 = v5;
-  v13 = 78;
-  v12 = 0;
-  dtrtri_NEWLAPACK();
-  if (v3)
-  {
-    if (v15 >= 1)
-    {
-      v6 = 0;
-      v7 = 8 * v15;
-      do
-      {
-        if (v6)
-        {
-          bzero(a1, v6);
-        }
-
-        v6 += 8;
-        a1 += v7;
-      }
-
-      while (v7 != v6);
-    }
-  }
-
-  else if (v15 >= 1)
-  {
-    v8 = 0;
-    v9 = 8 * v15;
-    v10 = a1 + 8;
-    do
-    {
-      v11 = v9 + v8 - 8;
-      if (v11 >= 1)
-      {
-        bzero(v10, v11);
-      }
-
-      v8 -= 8;
-      v10 += 8 * v15 + 8;
-    }
-
-    while (v9 + v8);
-  }
-}
-
-void sub_25A5A3080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v16 & 1) == 0)
-    {
-LABEL_6:
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v15);
-  goto LABEL_6;
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A3168(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = *(a2 + 4);
-  *(v8 + 24) = 0;
-  operator new();
-}
-
-__n128 std::__function::__func<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFE710;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  *(a2 + 41) = 0;
-  *(a2 + 44) = 0;
-  return result;
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2} &&)::{lambda(void)#1}>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A34C0(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>(void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2} &&)::{lambda(void)#1}>(void *a1, __int128 *a2)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  v9 = *a2;
-  v10 = a2[1];
-  v11 = a2[2];
-  *(v8 + 24) = 0;
-  operator new();
-}
-
-__n128 _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE0_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE7__cloneEPNS0_6__baseISM_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFE808;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE0_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEEclEv(uint64_t a1)
-{
-  std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>::operator()[abi:ne200100]<>(a1 + 24);
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12inverse_implIdEEvRKNS3_5arrayERS8_bbNS3_6StreamEEUlvE0_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>::operator()[abi:ne200100]<>(uint64_t a1)
-{
-  if (*(a1 + 16))
-  {
-    v2 = 0;
-    do
-    {
-      mlx::core::general_inv<double>(*a1 + 8 * (*(a1 + 8) * v2++ * *(a1 + 8)), *(a1 + 8));
-    }
-
-    while (*(a1 + 16) > v2);
-  }
-}
-
-void mlx::core::general_inv<double>(uint64_t a1, int a2)
-{
-  v12[4] = *MEMORY[0x277D85DE8];
-  v5 = 0;
-  v6 = a2;
-  v10[0] = &unk_286BE3468;
-  v10[1] = mlx::core::allocator::free;
-  v10[3] = v10;
-  v11 = mlx::core::allocator::malloc((4 * a2));
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](v12, v10);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v10);
-  mlx::core::allocator::Buffer::raw_ptr(&v11);
-  dgetrf_NEWLAPACK();
-  v4 = 0;
-  dgetri_NEWLAPACK();
-  v3 = 0.0;
-  v7[0] = &unk_286BE3468;
-  v7[1] = mlx::core::allocator::free;
-  v7[3] = v7;
-  v8 = mlx::core::allocator::malloc((8 * 0.0));
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::__value_func[abi:ne200100](&v9, v7);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](v7);
-  mlx::core::allocator::Buffer::raw_ptr(&v11);
-  mlx::core::allocator::Buffer::raw_ptr(&v8);
-  dgetri_NEWLAPACK();
-  mlx::core::array::Data::~Data(&v8);
-  mlx::core::array::Data::~Data(&v11);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A5A3B14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v18 & 1) == 0)
-    {
-LABEL_6:
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17);
-      mlx::core::array::Data::~Data((v19 - 152));
-      mlx::core::array::Data::~Data((v19 - 80));
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v18)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v17);
-  goto LABEL_6;
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A3CA0(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>(void *a1, __int128 *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  v9 = *a2;
-  v10 = a2[1];
-  *(v8 + 24) = 0;
-  operator new();
-}
-
-__n128 std::__function::__func<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>,std::allocator<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFE888;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  *(a2 + 33) = 0;
-  *(a2 + 36) = 0;
-  return result;
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>,std::allocator<std::__bind<void mlx::core::inverse_impl<double>(mlx::core::array const&,mlx::core::array&,BOOL,BOOL,mlx::core::Stream)::{lambda(void)#2}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::matmul_general(mlx::core::array *a1, mlx::core::array *a2, uint64_t a3, uint64_t a4, int a5, float a6, float a7)
-{
-  v27 = 0uLL;
-  v28 = 0;
-  v24 = a4;
-  v25 = a5;
-  v26 = &v27;
-  mlx::core::matmul_general(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,mlx::core::Stream,float,float)::$_0::operator()(&v24, a1, &v21);
-  mlx::core::matmul_general(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,mlx::core::Stream,float,float)::$_0::operator()(&v24, a2, v18);
-  if (v23[0][1] - *v23[0] <= 4uLL)
-  {
-    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v14 = v20[0][1];
-  if (v14 == *v20[0])
-  {
-    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  *v23[0];
-  if (*(v23[0][1] - 8))
-  {
-    v15 = *(v14 - 4) == 0;
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  if (!v15)
-  {
-    v16 = *(*a3 + 56);
-    if (v16 > 10)
-    {
-      if (v16 == 11)
-      {
-        mlx::core::matmul_dispatch<double>(v23, v20, a3, v21, v18[0], v22, v19, a6, a7, v13, a4, a5);
-      }
-
-      if (v16 == 12)
-      {
-        mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(v23, v20, a3, v21, v18[0], v22, v19, a6, a7, v13, a4, a5);
-      }
-    }
-
-    else
-    {
-      if (v16 == 9)
-      {
-        mlx::core::matmul_dispatch<half>(v23, v20, a3, v21, v18[0], v22, v19, a6, a7, v13, a4, a5);
-      }
-
-      if (v16 == 10)
-      {
-        mlx::core::matmul_dispatch<float>(v23, v20, a3, v21, v18[0], v22, v19, a6, a7, v13, a4, a5);
-      }
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "[Matmul::eval_cpu] Invalid type.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  mlx::core::array::~array(v20);
-  mlx::core::array::~array(v23);
-  v21 = &v27;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v21);
-}
-
-void sub_25A5A41C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
-{
-  __cxa_free_exception(v18);
-  mlx::core::array::~array((v20 + 16));
-  mlx::core::array::~array((v19 + 16));
-  a18 = v21 - 96;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a18);
-  _Unwind_Resume(a1);
-}
-
-uint64_t mlx::core::matmul_general(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,mlx::core::Stream,float,float)::$_0::operator()@<X0>(uint64_t result@<X0>, mlx::core::array *a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = *a2;
-  v6 = **a2;
-  v7 = v5[1];
-  v8 = v7 - v6;
-  if (v7 == v6)
-  {
-    goto LABEL_21;
-  }
-
-  v9 = v8 >> 2;
-  v10 = (v8 >> 2) - 2;
-  v11 = (v8 >> 2) - 1;
-  v12 = v5[3];
-  v13 = *(v12 + 8 * v10);
-  v14 = *(v12 + 8 * v11);
-  if (v13 == *(v6 + 4 * v11) && v14 == 1)
-  {
-    *a3 = 0;
-    *(a3 + 8) = v13;
-    goto LABEL_11;
-  }
-
-  v16 = result;
-  if (v13 == 1)
-  {
-    if (v9 <= 1)
-    {
-      goto LABEL_21;
-    }
-
-    if (v14 == *(v6 + 4 * v10))
-    {
-      *a3 = 1;
-      *(a3 + 8) = v14;
-LABEL_11:
-      *(a3 + 16) = v5;
-      v17 = *(a2 + 1);
-      goto LABEL_18;
-    }
-  }
-
-  v18 = *(result + 16);
-  v28 = 0;
-  v29 = 0;
-  __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v6, v7, v9);
-  v19 = *(*a2 + 56);
-  v25 = 0;
-  v26 = 0;
-  memset(v24, 0, sizeof(v24));
-  mlx::core::array::array(v30, &__p, v19 & 0xFFFFFFFFFFLL, &v25, v24);
-  std::vector<mlx::core::array>::push_back[abi:ne200100](v18, v30);
-  mlx::core::array::~array(v30);
-  v31 = v24;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v31);
-  if (v26)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-  }
-
-  if (__p)
-  {
-    v28 = __p;
-    operator delete(__p);
-  }
-
-  result = mlx::core::copy(a2, (*(*(v16 + 16) + 8) - 16), 2u, *v16, *(v16 + 8));
-  v20 = *(*a2 + 8);
-  if (v20 == **a2)
-  {
-LABEL_21:
-    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v21 = *(v20 - 4);
-  v22 = *(*(v16 + 16) + 8);
-  *a3 = 0;
-  v23 = *(v22 - 16);
-  v17 = *(v22 - 8);
-  *(a3 + 8) = v21;
-  *(a3 + 16) = v23;
-LABEL_18:
-  *(a3 + 24) = v17;
-  if (v17)
-  {
-    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void sub_25A5A43C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, void *__p, uint64_t a16)
-{
-  mlx::core::array::~array((v16 - 56));
-  *(v16 - 40) = &a10;
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v16 - 40));
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
-  }
-
-  if (__p)
-  {
-    a16 = __p;
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::matmul_dispatch<float>(uint64_t **a1, uint64_t **a2, uint64_t a3, char a4, char a5, uint64_t a6, uint64_t a7, float a8, float a9, uint64_t a10, uint64_t a11, int a12)
-{
-  v12 = *(*a3 + 8);
-  if (v12 != **a3)
-  {
-    v14 = *a1;
-    if (((*a1)[1] - **a1) > 4)
-    {
-      v21 = v14[19];
-      v22 = (*a2)[19];
-      v23 = *(*a3 + 152);
-      v24 = *(v12 - 4);
-      v25 = v14[6] / (*((*a1)[1] - 4) * *((*a1)[1] - 8));
-      command_encoder = mlx::core::cpu::get_command_encoder(a11, a12);
-      v32[0] = v21;
-      v32[1] = v22;
-      v32[2] = v23;
-      v33 = a4;
-      v34 = a5;
-      v35 = a6;
-      v36 = a7;
-      v37 = v24;
-      v38 = a8;
-      v39 = a9;
-      v26 = *a1;
-      v40 = v25;
-      memset(v41, 0, sizeof(v41));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v41, *v26, v26[1], (v26[1] - *v26) >> 2);
-      v27 = *a1;
-      memset(v42, 0, sizeof(v42));
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v42, v27[3], v27[4], (v27[4] - v27[3]) >> 3);
-      v28 = *a2;
-      memset(v43, 0, sizeof(v43));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v43, *v28, v28[1], (v28[1] - *v28) >> 2);
-      v29 = *a2;
-      memset(__p, 0, 24);
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v29[3], v29[4], (v29[4] - v29[3]) >> 3);
-      mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, v32);
-    }
-  }
-
-  std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-}
-
-void mlx::core::matmul_dispatch<half>(uint64_t **a1, uint64_t **a2, uint64_t a3, char a4, char a5, uint64_t a6, uint64_t a7, float a8, float a9, uint64_t a10, uint64_t a11, int a12)
-{
-  v12 = *(*a3 + 8);
-  if (v12 != **a3)
-  {
-    v14 = *a1;
-    if (((*a1)[1] - **a1) > 4)
-    {
-      v21 = v14[19];
-      v22 = (*a2)[19];
-      v23 = *(*a3 + 152);
-      v24 = *(v12 - 4);
-      v25 = v14[6] / (*((*a1)[1] - 4) * *((*a1)[1] - 8));
-      command_encoder = mlx::core::cpu::get_command_encoder(a11, a12);
-      v32[0] = v21;
-      v32[1] = v22;
-      v32[2] = v23;
-      v33 = a4;
-      v34 = a5;
-      v35 = a6;
-      v36 = a7;
-      v37 = v24;
-      v38 = a8;
-      v39 = a9;
-      v26 = *a1;
-      v40 = v25;
-      memset(v41, 0, sizeof(v41));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v41, *v26, v26[1], (v26[1] - *v26) >> 2);
-      v27 = *a1;
-      memset(v42, 0, sizeof(v42));
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v42, v27[3], v27[4], (v27[4] - v27[3]) >> 3);
-      v28 = *a2;
-      memset(v43, 0, sizeof(v43));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v43, *v28, v28[1], (v28[1] - *v28) >> 2);
-      v29 = *a2;
-      memset(__p, 0, 24);
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v29[3], v29[4], (v29[4] - v29[3]) >> 3);
-      mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, v32);
-    }
-  }
-
-  std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-}
-
-void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(uint64_t **a1, uint64_t **a2, uint64_t a3, char a4, char a5, uint64_t a6, uint64_t a7, float a8, float a9, uint64_t a10, uint64_t a11, int a12)
-{
-  v12 = *(*a3 + 8);
-  if (v12 != **a3)
-  {
-    v14 = *a1;
-    if (((*a1)[1] - **a1) > 4)
-    {
-      v21 = v14[19];
-      v22 = (*a2)[19];
-      v23 = *(*a3 + 152);
-      v24 = *(v12 - 4);
-      v25 = v14[6] / (*((*a1)[1] - 4) * *((*a1)[1] - 8));
-      command_encoder = mlx::core::cpu::get_command_encoder(a11, a12);
-      v32[0] = v21;
-      v32[1] = v22;
-      v32[2] = v23;
-      v33 = a4;
-      v34 = a5;
-      v35 = a6;
-      v36 = a7;
-      v37 = v24;
-      v38 = a8;
-      v39 = a9;
-      v26 = *a1;
-      v40 = v25;
-      memset(v41, 0, sizeof(v41));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v41, *v26, v26[1], (v26[1] - *v26) >> 2);
-      v27 = *a1;
-      memset(v42, 0, sizeof(v42));
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v42, v27[3], v27[4], (v27[4] - v27[3]) >> 3);
-      v28 = *a2;
-      memset(v43, 0, sizeof(v43));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v43, *v28, v28[1], (v28[1] - *v28) >> 2);
-      v29 = *a2;
-      memset(__p, 0, 24);
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v29[3], v29[4], (v29[4] - v29[3]) >> 3);
-      mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, v32);
-    }
-  }
-
-  std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-}
-
-void mlx::core::matmul_dispatch<double>(uint64_t **a1, uint64_t **a2, uint64_t a3, char a4, char a5, uint64_t a6, uint64_t a7, float a8, float a9, uint64_t a10, uint64_t a11, int a12)
-{
-  v12 = *(*a3 + 8);
-  if (v12 != **a3)
-  {
-    v14 = *a1;
-    if (((*a1)[1] - **a1) > 4)
-    {
-      v21 = v14[19];
-      v22 = (*a2)[19];
-      v23 = *(*a3 + 152);
-      v24 = *(v12 - 4);
-      v25 = v14[6] / (*((*a1)[1] - 4) * *((*a1)[1] - 8));
-      command_encoder = mlx::core::cpu::get_command_encoder(a11, a12);
-      v32[0] = v21;
-      v32[1] = v22;
-      v32[2] = v23;
-      v33 = a4;
-      v34 = a5;
-      v35 = a6;
-      v36 = a7;
-      v37 = v24;
-      v38 = a8;
-      v39 = a9;
-      v26 = *a1;
-      v40 = v25;
-      memset(v41, 0, sizeof(v41));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v41, *v26, v26[1], (v26[1] - *v26) >> 2);
-      v27 = *a1;
-      memset(v42, 0, sizeof(v42));
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v42, v27[3], v27[4], (v27[4] - v27[3]) >> 3);
-      v28 = *a2;
-      memset(v43, 0, sizeof(v43));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v43, *v28, v28[1], (v28[1] - *v28) >> 2);
-      v29 = *a2;
-      memset(__p, 0, 24);
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(__p, v29[3], v29[4], (v29[4] - v29[3]) >> 3);
-      mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, v32);
-    }
-  }
-
-  std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
-}
-
-void mlx::core::Matmul::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5[4] = *MEMORY[0x277D85DE8];
-  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
-  v5[0] = &unk_286BE3468;
-  v5[1] = mlx::core::allocator::free;
-  v5[3] = v5;
-  mlx::core::array::set_data(a3, v4);
-}
-
-void sub_25A5A5028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
-{
-  __cxa_free_exception(v13);
-  std::mutex::unlock(v12);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::AddMM::eval_cpu(uint64_t a1, mlx::core::array **a2, mlx::core::array *a3)
-{
-  if (*(*a3 + 56) != 10)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "[AddMM::eval_cpu] Currently only supports float32.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v6 = *(*a2 + 4);
-  if (*(v6 + 160) == 1)
-  {
-    v7 = 0;
-  }
-
-  else if ((*(v6 + 168) & 2) != 0)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 2;
-  }
-
-  mlx::core::copy((*a2 + 32), a3, v7, *(a1 + 8), *(a1 + 16));
-  v8 = *a2;
-  v9 = *(a1 + 8);
-  v10 = *(a1 + 16);
-  v11 = *(a1 + 20);
-  v12 = *(a1 + 24);
-  v13 = (*a2 + 16);
-
-  mlx::core::matmul_general(v8, v13, a3, v9, v10, v11, v12);
-}
-
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
-{
-  v41 = *MEMORY[0x277D85DE8];
-  *(a1 + 10) = (*(a1 + 10) + 1) % 10;
-  v3 = *(a2 + 48);
-  v30 = *(a2 + 32);
-  v31 = v3;
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 16);
-  v28 = *a2;
-  v29 = v5;
-  v33 = *(a2 + 72);
-  v6 = *(a2 + 88);
-  v32 = v4;
-  v34 = v6;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  *v35 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = 0;
-  v37 = *(a2 + 120);
-  v8 = *(a2 + 136);
-  v36 = v7;
-  v38 = v8;
-  *(a2 + 120) = 0;
-  *(a2 + 128) = 0;
-  *v39 = *(a2 + 144);
-  v40 = *(a2 + 160);
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 152) = 0;
-  *(a2 + 160) = 0;
-  if (*(a1 + 10))
-  {
-    v9 = mlx::core::scheduler::scheduler(a1);
-    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(*(v9[1] + 8 * *a1), &v28);
-  }
-
-  v10 = mlx::core::scheduler::scheduler(a1);
-  mlx::core::scheduler::Scheduler::notify_new_task(v10);
-  v13 = *a1;
-  v14 = *(a1 + 2);
-  v19 = v32;
-  v21 = v34;
-  v23 = v36;
-  v17 = v30;
-  v18 = v31;
-  v15 = v28;
-  v16 = v29;
-  *v20 = v33;
-  v33 = 0uLL;
-  *v22 = *v35;
-  v34 = 0;
-  v35[0] = 0;
-  v35[1] = 0;
-  v36 = 0;
-  *v24 = v37;
-  v25 = v38;
-  v37 = 0uLL;
-  *__p = *v39;
-  v27 = v40;
-  v38 = 0;
-  v39[0] = 0;
-  v39[1] = 0;
-  v40 = 0;
-  v12 = mlx::core::scheduler::scheduler(v11);
-  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(*(v12[1] + 8 * *a1), &v13);
-}
-
-void sub_25A5A5400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
-{
-  mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(&a9);
-  std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(&a33);
-  _Unwind_Resume(a1);
-}
-
-void *mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(void *a1)
-{
-  v2 = a1[20];
-  if (v2)
-  {
-    a1[21] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[17];
-  if (v3)
-  {
-    a1[18] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[14];
-  if (v4)
-  {
-    a1[15] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[11];
-  if (v5)
-  {
-    a1[12] = v5;
-    operator delete(v5);
-  }
-
-  return a1;
-}
-
-void *std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(void *a1)
-{
-  v2 = a1[18];
-  if (v2)
-  {
-    a1[19] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[15];
-  if (v3)
-  {
-    a1[16] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[12];
-  if (v4)
-  {
-    a1[13] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[9];
-  if (v5)
-  {
-    a1[10] = v5;
-    operator delete(v5);
-  }
-
-  return a1;
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(std::mutex *a1, uint64_t *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A558C(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(v8, a2);
-}
-
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  v6 = *(a2 + 3);
-  v7 = *(a2 + 4);
-  v8 = a2[10];
-  v5 = *(a2 + 2);
-  v4 = *(a2 + 1);
-  *v9 = *(a2 + 11);
-  v10 = a2[13];
-  a2[11] = 0;
-  a2[12] = 0;
-  *__p = *(a2 + 7);
-  v12 = a2[16];
-  a2[13] = 0;
-  a2[14] = 0;
-  a2[15] = 0;
-  a2[16] = 0;
-  v13 = *(a2 + 17);
-  v14 = a2[19];
-  a2[17] = 0;
-  a2[18] = 0;
-  v15 = *(a2 + 10);
-  v16 = a2[22];
-  a2[19] = 0;
-  a2[20] = 0;
-  a2[21] = 0;
-  a2[22] = 0;
-  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchIfEEvRKNS6_5arrayESD_RSB_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISM_EEEESI_RKT0_(a1);
-}
-
-void sub_25A5A57B0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(va);
-  _Unwind_Resume(a1);
-}
-
-void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEED1Ev(void *a1)
-{
-  *a1 = &unk_286BFEA90;
-  v2 = a1[21];
-  if (v2)
-  {
-    a1[22] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[18];
-  if (v3)
-  {
-    a1[19] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[15];
-  if (v4)
-  {
-    a1[16] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[12];
-  if (v5)
-  {
-    a1[13] = v5;
-    operator delete(v5);
-  }
-
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEED0Ev(void *a1)
-{
-  *a1 = &unk_286BFEA90;
-  v2 = a1[21];
-  if (v2)
-  {
-    a1[22] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[18];
-  if (v3)
-  {
-    a1[19] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[15];
-  if (v4)
-  {
-    a1[16] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[12];
-  if (v5)
-  {
-    a1[13] = v5;
-    operator delete(v5);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE7__cloneEPNS0_6__baseISM_EE(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFEA90;
-  v2 = *(a1 + 8);
-  *(a2 + 16) = *(a1 + 16);
-  *(a2 + 8) = v2;
-  return mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}::Stream(a2 + 24, a1 + 24);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE18destroy_deallocateEv(void *a1)
-{
-  _ZNSt3__110__function12__alloc_funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE7destroyB8ne200100Ev(a1 + 1);
-
-  operator delete(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEEclEv(uint64_t a1)
-{
-  v1 = std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(a1 + 24);
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}::Stream(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 32);
-  v6 = *(a2 + 48);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 32) = v5;
-  *(a1 + 48) = v6;
-  *(a1 + 16) = v4;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
-  *(a1 + 120) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 136) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 120, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
-  *(a1 + 144) = 0;
-  *(a1 + 152) = 0;
-  *(a1 + 160) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
-  return a1;
-}
-
-void sub_25A5A5C38(_Unwind_Exception *exception_object)
-{
-  v6 = *v4;
-  if (*v4)
-  {
-    v1[16] = v6;
-    operator delete(v6);
-  }
-
-  v7 = *v3;
-  if (*v3)
-  {
-    v1[13] = v7;
-    operator delete(v7);
-  }
-
-  v8 = *v2;
-  if (*v2)
-  {
-    v1[10] = v8;
-    operator delete(v8);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void _ZNSt3__110__function12__alloc_funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_15matmul_dispatchIfEEvRKNS3_5arrayESA_RS8_bbmmffNS3_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISJ_EEFvvEE7destroyB8ne200100Ev(void *a1)
-{
-  v2 = a1[20];
-  if (v2)
-  {
-    a1[21] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[17];
-  if (v3)
-  {
-    a1[18] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[14];
-  if (v4)
-  {
-    a1[15] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[11];
-  if (v5)
-  {
-    a1[12] = v5;
-
-    operator delete(v5);
-  }
-}
-
-uint64_t std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 60);
-  return mlx::core::matmul<float>(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 25), *(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 64), (a1 + 72), (a1 + 96), (a1 + 120), (a1 + 144));
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A5DFC(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
-}
-
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = *(a2 + 8);
-  v2 = *a2;
-  v3 = a2[1];
-  *v7 = *(a2 + 72);
-  v8 = *(a2 + 11);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
-  *v9 = a2[6];
-  v10 = *(a2 + 14);
-  *(a2 + 11) = 0;
-  *(a2 + 12) = 0;
-  *(a2 + 13) = 0;
-  *(a2 + 14) = 0;
-  *__p = *(a2 + 120);
-  v12 = *(a2 + 17);
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
-  v13 = a2[9];
-  v14 = *(a2 + 20);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1);
-}
-
-void sub_25A5A6008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286BFEB10;
-  v2 = a1[19];
-  if (v2)
-  {
-    a1[20] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[16];
-  if (v3)
-  {
-    a1[17] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[13];
-  if (v4)
-  {
-    a1[14] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286BFEB10;
-  v2 = a1[19];
-  if (v2)
-  {
-    a1[20] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[16];
-  if (v3)
-  {
-    a1[17] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[13];
-  if (v4)
-  {
-    a1[14] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BFEB10;
-  result = mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}::Stream(a2 + 8, a1 + 8);
-  *(a2 + 180) = 0;
-  *(a2 + 177) = 0;
-  return result;
-}
-
-void std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy_deallocate(void *a1)
-{
-  std::__function::__alloc_func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy[abi:ne200100](a1 + 1);
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__alloc_func<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::destroy[abi:ne200100](void *a1)
-{
-  v2 = a1[18];
-  if (v2)
-  {
-    a1[19] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[15];
-  if (v3)
-  {
-    a1[16] = v3;
-    operator delete(v3);
-  }
-
-  v4 = a1[12];
-  if (v4)
-  {
-    a1[13] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[9];
-  if (v5)
-  {
-    a1[10] = v5;
-
-    operator delete(v5);
-  }
-}
-
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
-{
-  v41 = *MEMORY[0x277D85DE8];
-  *(a1 + 10) = (*(a1 + 10) + 1) % 10;
-  v3 = *(a2 + 48);
-  v30 = *(a2 + 32);
-  v31 = v3;
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 16);
-  v28 = *a2;
-  v29 = v5;
-  v33 = *(a2 + 72);
-  v6 = *(a2 + 88);
-  v32 = v4;
-  v34 = v6;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  *v35 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = 0;
-  v37 = *(a2 + 120);
-  v8 = *(a2 + 136);
-  v36 = v7;
-  v38 = v8;
-  *(a2 + 120) = 0;
-  *(a2 + 128) = 0;
-  *v39 = *(a2 + 144);
-  v40 = *(a2 + 160);
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 152) = 0;
-  *(a2 + 160) = 0;
-  if (*(a1 + 10))
-  {
-    v9 = mlx::core::scheduler::scheduler(a1);
-    mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(*(v9[1] + 8 * *a1), &v28);
-  }
-
-  v10 = mlx::core::scheduler::scheduler(a1);
-  mlx::core::scheduler::Scheduler::notify_new_task(v10);
-  v13 = *a1;
-  v14 = *(a1 + 2);
-  v19 = v32;
-  v21 = v34;
-  v23 = v36;
-  v17 = v30;
-  v18 = v31;
-  v15 = v28;
-  v16 = v29;
-  *v20 = v33;
-  v33 = 0uLL;
-  *v22 = *v35;
-  v34 = 0;
-  v35[0] = 0;
-  v35[1] = 0;
-  v36 = 0;
-  *v24 = v37;
-  v25 = v38;
-  v37 = 0uLL;
-  *__p = *v39;
-  v27 = v40;
-  v38 = 0;
-  v39[0] = 0;
-  v39[1] = 0;
-  v40 = 0;
-  v12 = mlx::core::scheduler::scheduler(v11);
-  mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(*(v12[1] + 8 * *a1), &v13);
-}
-
-void sub_25A5A6648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
-{
-  mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(&a9);
-  std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(&a33);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(std::mutex *a1, uint64_t *a2)
-{
-  std::mutex::lock(a1);
-  if (a1[2].__m_.__opaque[24] != 1)
-  {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A5A670C(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  std::mutex::unlock(v1);
-  _Unwind_Resume(a1);
-}
-
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = 16 * (v5 - v4) - 1;
-  if (v5 == v4)
-  {
-    v6 = 0;
-  }
-
-  if (v6 == a1[5] + a1[4])
-  {
-    std::deque<std::function<void ()(void)>>::__add_back_capacity(a1);
-    v4 = a1[1];
-    v5 = a1[2];
-  }
-
-  if (v5 == v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v7 = a1[5] + a1[4];
-    v8 = *(v4 + ((v7 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v7 & 0x7F);
-  }
-
-  std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(v8, a2);
-}
-
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  v6 = *(a2 + 3);
-  v7 = *(a2 + 4);
-  v8 = a2[10];
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
   v5 = *(a2 + 2);
-  v4 = *(a2 + 1);
-  *v9 = *(a2 + 11);
-  v10 = a2[13];
+  v2 = *(a2 + 4);
+  v8 = *(a2 + 3);
+  v9 = v2;
+  v10 = a2[10];
+  v3 = *(a2 + 1);
+  v7 = *(a2 + 2);
+  v6 = v3;
+  *v11 = *(a2 + 11);
+  v12 = a2[13];
   a2[11] = 0;
   a2[12] = 0;
   *__p = *(a2 + 7);
-  v12 = a2[16];
+  v14 = a2[16];
   a2[13] = 0;
   a2[14] = 0;
   a2[15] = 0;
   a2[16] = 0;
-  v13 = *(a2 + 17);
-  v14 = a2[19];
+  v15 = *(a2 + 17);
+  v16 = a2[19];
   a2[17] = 0;
   a2[18] = 0;
-  v15 = *(a2 + 10);
-  v16 = a2[22];
+  v17 = *(a2 + 10);
+  v18 = a2[22];
   a2[19] = 0;
   a2[20] = 0;
   a2[21] = 0;
   a2[22] = 0;
-  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchIDhEEvRKNS6_5arrayESD_RSB_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISM_EEEESI_RKT0_(a1);
+  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchIDhEEvRKNS6_5arrayESD_RSB_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISM_EEEESI_RKT0_(a1, &v4);
 }
 
-void sub_25A5A6930(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A5A6930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(va);
   _Unwind_Resume(a1);
 }
@@ -1927,19 +157,19 @@ uint64_t mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::arr
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 120, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 120), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 144), *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
   return a1;
 }
 
@@ -1969,12 +199,12 @@ void sub_25A5A6DB8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
+void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, uint64_t a2)
 {
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -1989,7 +219,7 @@ void sub_25A5A6F04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2020,40 +250,42 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
   std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
 }
 
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
+void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = *(a2 + 8);
-  v2 = *a2;
-  v3 = a2[1];
-  *v7 = *(a2 + 72);
-  v8 = *(a2 + 11);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
-  *v9 = a2[6];
-  v10 = *(a2 + 14);
-  *(a2 + 11) = 0;
-  *(a2 + 12) = 0;
-  *(a2 + 13) = 0;
-  *(a2 + 14) = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = *(a2 + 48);
+  v4[2] = *(a2 + 32);
+  v4[3] = v2;
+  v5 = *(a2 + 64);
+  v3 = *(a2 + 16);
+  v4[0] = *a2;
+  v4[1] = v3;
+  *v6 = *(a2 + 72);
+  v7 = *(a2 + 88);
+  *(a2 + 72) = 0;
+  *(a2 + 80) = 0;
+  *v8 = *(a2 + 96);
+  v9 = *(a2 + 112);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  *(a2 + 112) = 0;
   *__p = *(a2 + 120);
-  v12 = *(a2 + 17);
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
-  v13 = a2[9];
-  v14 = *(a2 + 20);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1);
+  v11 = *(a2 + 136);
+  *(a2 + 120) = 0;
+  *(a2 + 128) = 0;
+  v12 = *(a2 + 144);
+  v13 = *(a2 + 160);
+  *(a2 + 136) = 0;
+  *(a2 + 144) = 0;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1, v4);
 }
 
-void sub_25A5A7110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25A5A7110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(va);
   _Unwind_Resume(a1);
 }
@@ -2154,41 +386,35 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<hal
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v41 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
-  v3 = *(a2 + 48);
-  v30 = *(a2 + 32);
+  v3 = a2[3];
+  v30 = a2[2];
   v31 = v3;
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 16);
+  v4 = *(a2 + 8);
+  v5 = a2[1];
   v28 = *a2;
   v29 = v5;
   v33 = *(a2 + 72);
-  v6 = *(a2 + 88);
+  v6 = *(a2 + 11);
   v32 = v4;
   v34 = v6;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  *v35 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = 0;
+  *(a2 + 72) = 0uLL;
+  *v35 = a2[6];
+  v7 = *(a2 + 14);
+  *(a2 + 88) = 0uLL;
+  *(a2 + 104) = 0uLL;
   v37 = *(a2 + 120);
-  v8 = *(a2 + 136);
+  v8 = *(a2 + 17);
   v36 = v7;
   v38 = v8;
-  *(a2 + 120) = 0;
-  *(a2 + 128) = 0;
-  *v39 = *(a2 + 144);
-  v40 = *(a2 + 160);
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 152) = 0;
-  *(a2 + 160) = 0;
+  *(a2 + 120) = 0uLL;
+  *v39 = a2[9];
+  v40 = *(a2 + 20);
+  *(a2 + 136) = 0uLL;
+  *(a2 + 152) = 0uLL;
   if (*(a1 + 10))
   {
     v9 = mlx::core::scheduler::scheduler(a1);
@@ -2238,7 +464,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2253,7 +479,7 @@ void sub_25A5A779C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2286,40 +512,42 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  v6 = *(a2 + 3);
-  v7 = *(a2 + 4);
-  v8 = a2[10];
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
   v5 = *(a2 + 2);
-  v4 = *(a2 + 1);
-  *v9 = *(a2 + 11);
-  v10 = a2[13];
+  v2 = *(a2 + 4);
+  v8 = *(a2 + 3);
+  v9 = v2;
+  v10 = a2[10];
+  v3 = *(a2 + 1);
+  v7 = *(a2 + 2);
+  v6 = v3;
+  *v11 = *(a2 + 11);
+  v12 = a2[13];
   a2[11] = 0;
   a2[12] = 0;
   *__p = *(a2 + 7);
-  v12 = a2[16];
+  v14 = a2[16];
   a2[13] = 0;
   a2[14] = 0;
   a2[15] = 0;
   a2[16] = 0;
-  v13 = *(a2 + 17);
-  v14 = a2[19];
+  v15 = *(a2 + 17);
+  v16 = a2[19];
   a2[17] = 0;
   a2[18] = 0;
-  v15 = *(a2 + 10);
-  v16 = a2[22];
+  v17 = *(a2 + 10);
+  v18 = a2[22];
   a2[19] = 0;
   a2[20] = 0;
   a2[21] = 0;
   a2[22] = 0;
-  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchINS6_13_MLX_BFloat16EEEvRKNS6_5arrayESE_RSC_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISN_EEEESJ_RKT0_(a1);
+  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchINS6_13_MLX_BFloat16EEEvRKNS6_5arrayESE_RSC_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISN_EEEESJ_RKT0_(a1, &v4);
 }
 
-void sub_25A5A79C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A5A79C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(va);
   _Unwind_Resume(a1);
 }
@@ -2441,19 +669,19 @@ uint64_t mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array c
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 120, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 120), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 144), *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
   return a1;
 }
 
@@ -2483,12 +711,12 @@ void sub_25A5A7E48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
+void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, uint64_t a2)
 {
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2503,7 +731,7 @@ void sub_25A5A7F94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2534,40 +762,42 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
   std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
 }
 
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
+void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = *(a2 + 8);
-  v2 = *a2;
-  v3 = a2[1];
-  *v7 = *(a2 + 72);
-  v8 = *(a2 + 11);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
-  *v9 = a2[6];
-  v10 = *(a2 + 14);
-  *(a2 + 11) = 0;
-  *(a2 + 12) = 0;
-  *(a2 + 13) = 0;
-  *(a2 + 14) = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = *(a2 + 48);
+  v4[2] = *(a2 + 32);
+  v4[3] = v2;
+  v5 = *(a2 + 64);
+  v3 = *(a2 + 16);
+  v4[0] = *a2;
+  v4[1] = v3;
+  *v6 = *(a2 + 72);
+  v7 = *(a2 + 88);
+  *(a2 + 72) = 0;
+  *(a2 + 80) = 0;
+  *v8 = *(a2 + 96);
+  v9 = *(a2 + 112);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  *(a2 + 112) = 0;
   *__p = *(a2 + 120);
-  v12 = *(a2 + 17);
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
-  v13 = a2[9];
-  v14 = *(a2 + 20);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1);
+  v11 = *(a2 + 136);
+  *(a2 + 120) = 0;
+  *(a2 + 128) = 0;
+  v12 = *(a2 + 144);
+  v13 = *(a2 + 160);
+  *(a2 + 136) = 0;
+  *(a2 + 144) = 0;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<mlx::core::_MLX_BFloat16>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1, v4);
 }
 
-void sub_25A5A81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25A5A81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(va);
   _Unwind_Resume(a1);
 }
@@ -2668,41 +898,35 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::matmul_dispatch<mlx
   }
 }
 
-void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, uint64_t a2)
+void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(mlx::core::scheduler *a1, __int128 *a2)
 {
   v41 = *MEMORY[0x277D85DE8];
   *(a1 + 10) = (*(a1 + 10) + 1) % 10;
-  v3 = *(a2 + 48);
-  v30 = *(a2 + 32);
+  v3 = a2[3];
+  v30 = a2[2];
   v31 = v3;
-  v4 = *(a2 + 64);
-  v5 = *(a2 + 16);
+  v4 = *(a2 + 8);
+  v5 = a2[1];
   v28 = *a2;
   v29 = v5;
   v33 = *(a2 + 72);
-  v6 = *(a2 + 88);
+  v6 = *(a2 + 11);
   v32 = v4;
   v34 = v6;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  *v35 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  *(a2 + 88) = 0;
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = 0;
+  *(a2 + 72) = 0uLL;
+  *v35 = a2[6];
+  v7 = *(a2 + 14);
+  *(a2 + 88) = 0uLL;
+  *(a2 + 104) = 0uLL;
   v37 = *(a2 + 120);
-  v8 = *(a2 + 136);
+  v8 = *(a2 + 17);
   v36 = v7;
   v38 = v8;
-  *(a2 + 120) = 0;
-  *(a2 + 128) = 0;
-  *v39 = *(a2 + 144);
-  v40 = *(a2 + 160);
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  *(a2 + 152) = 0;
-  *(a2 + 160) = 0;
+  *(a2 + 120) = 0uLL;
+  *v39 = a2[9];
+  v40 = *(a2 + 20);
+  *(a2 + 136) = 0uLL;
+  *(a2 + 152) = 0uLL;
   if (*(a1 + 10))
   {
     v9 = mlx::core::scheduler::scheduler(a1);
@@ -2752,7 +976,7 @@ void mlx::core::scheduler::StreamThread::enqueue<void mlx::core::cpu::CommandEnc
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2767,7 +991,7 @@ void sub_25A5A882C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(void *a1, uint64_t *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}>(unint64_t *a1, uint64_t *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2800,40 +1024,42 @@ void std::deque<std::function<void ()(void)>>::emplace_back<void mlx::core::cpu:
 
 void std::construct_at[abi:ne200100]<std::function<void ()(void)>,void mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1},std::function<void ()(void)>*>(uint64_t a1, uint64_t *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  v6 = *(a2 + 3);
-  v7 = *(a2 + 4);
-  v8 = a2[10];
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
   v5 = *(a2 + 2);
-  v4 = *(a2 + 1);
-  *v9 = *(a2 + 11);
-  v10 = a2[13];
+  v2 = *(a2 + 4);
+  v8 = *(a2 + 3);
+  v9 = v2;
+  v10 = a2[10];
+  v3 = *(a2 + 1);
+  v7 = *(a2 + 2);
+  v6 = v3;
+  *v11 = *(a2 + 11);
+  v12 = a2[13];
   a2[11] = 0;
   a2[12] = 0;
   *__p = *(a2 + 7);
-  v12 = a2[16];
+  v14 = a2[16];
   a2[13] = 0;
   a2[14] = 0;
   a2[15] = 0;
   a2[16] = 0;
-  v13 = *(a2 + 17);
-  v14 = a2[19];
+  v15 = *(a2 + 17);
+  v16 = a2[19];
   a2[17] = 0;
   a2[18] = 0;
-  v15 = *(a2 + 10);
-  v16 = a2[22];
+  v17 = *(a2 + 10);
+  v18 = a2[22];
   a2[19] = 0;
   a2[20] = 0;
   a2[21] = 0;
   a2[22] = 0;
-  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchIdEEvRKNS6_5arrayESD_RSB_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISM_EEEESI_RKT0_(a1);
+  _ZNSt3__110__function12__value_funcIFvvEEC2B8ne200100IZN3mlx4core3cpu14CommandEncoder8dispatchIZNS6_15matmul_dispatchIdEEvRKNS6_5arrayESD_RSB_bbmmffNS6_6StreamEEUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISM_EEEESI_RKT0_(a1, &v4);
 }
 
-void sub_25A5A8A50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A5A8A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlx::core::cpu::CommandEncoder::dispatch<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>(void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1} &&)::{lambda(void)#1}::~dispatch(va);
   _Unwind_Resume(a1);
 }
@@ -2955,19 +1181,19 @@ uint64_t mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::a
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 120, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 120), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 144, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 144), *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
   return a1;
 }
 
@@ -2997,19 +1223,12 @@ void sub_25A5A8ED8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 60);
-  return mlx::core::matmul<double>(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 25), *(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 64), (a1 + 72), (a1 + 96), (a1 + 120), (a1 + 144));
-}
-
-void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, __int128 *a2)
+void mlx::core::scheduler::StreamThread::enqueue<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(std::mutex *a1, uint64_t a2)
 {
   std::mutex::lock(a1);
   if (a1[2].__m_.__opaque[24] != 1)
   {
-    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1].__m_.__sig, a2);
+    std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(&a1[1], a2);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3024,7 +1243,7 @@ void sub_25A5A9024(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(void *a1, __int128 *a2)
+void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -3055,40 +1274,42 @@ void std::deque<std::function<void ()(void)>>::emplace_back<std::__bind<void mlx
   std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(v8, a2);
 }
 
-void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, __int128 *a2)
+void std::construct_at[abi:ne200100]<std::function<void ()(void)>,std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::function<void ()(void)>*>(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = *(a2 + 8);
-  v2 = *a2;
-  v3 = a2[1];
-  *v7 = *(a2 + 72);
-  v8 = *(a2 + 11);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
-  *v9 = a2[6];
-  v10 = *(a2 + 14);
-  *(a2 + 11) = 0;
-  *(a2 + 12) = 0;
-  *(a2 + 13) = 0;
-  *(a2 + 14) = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = *(a2 + 48);
+  v4[2] = *(a2 + 32);
+  v4[3] = v2;
+  v5 = *(a2 + 64);
+  v3 = *(a2 + 16);
+  v4[0] = *a2;
+  v4[1] = v3;
+  *v6 = *(a2 + 72);
+  v7 = *(a2 + 88);
+  *(a2 + 72) = 0;
+  *(a2 + 80) = 0;
+  *v8 = *(a2 + 96);
+  v9 = *(a2 + 112);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  *(a2 + 112) = 0;
   *__p = *(a2 + 120);
-  v12 = *(a2 + 17);
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
-  v13 = a2[9];
-  v14 = *(a2 + 20);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1);
+  v11 = *(a2 + 136);
+  *(a2 + 120) = 0;
+  *(a2 + 128) = 0;
+  v12 = *(a2 + 144);
+  v13 = *(a2 + 160);
+  *(a2 + 136) = 0;
+  *(a2 + 144) = 0;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::matmul_dispatch<double>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>>>(a1, v4);
 }
 
-void sub_25A5A9230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25A5A9230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__bind<void mlx::core::matmul_dispatch<float>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,BOOL,BOOL,unsigned long,unsigned long,float,float,mlx::core::Stream)::{lambda(void)#1}>::~__bind(va);
   _Unwind_Resume(a1);
 }
@@ -3243,7 +1464,7 @@ uint64_t std::__function::__func<std::__bind<mlx::core::Matmul::eval_cpu(std::ve
   }
 }
 
-void mlx::core::FFT::eval_cpu(uint64_t a1, uint64_t **a2, uint64_t a3)
+void mlx::core::FFT::eval_cpu(uint64_t a1, uint64_t **a2, int ***a3)
 {
   v21[60] = *MEMORY[0x277D85DE8];
   v4 = *a2;
@@ -3253,7 +1474,7 @@ void mlx::core::FFT::eval_cpu(uint64_t a1, uint64_t **a2, uint64_t a3)
   v19[1] = 0;
   v20 = 0;
   v19[0] = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(v19, v6, v7, (v7 - v6) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(v19, v6, v7, v7 - v6);
   v8 = v19[0];
   v9 = v19[1];
   if (v19[0] != v19[1])
@@ -3267,12 +1488,12 @@ void mlx::core::FFT::eval_cpu(uint64_t a1, uint64_t **a2, uint64_t a3)
     while (v8 != v9);
   }
 
-  v11 = *(*a3 + 24);
-  v12 = *(*a3 + 32);
+  v11 = (*a3)[3];
+  v12 = (*a3)[4];
   v17[1] = 0;
   v18 = 0;
   v17[0] = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(v17, v11, v12, (v12 - v11) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(v17, v11, v12, v12 - v11);
   v13 = v17[0];
   v14 = v17[1];
   v15 = *a3;
@@ -3281,19 +1502,19 @@ void mlx::core::FFT::eval_cpu(uint64_t a1, uint64_t **a2, uint64_t a3)
     *v13++ *= *(v15 + 60);
   }
 
-  v16 = mlx::core::allocator::malloc((*(v15 + 60) * *(v15 + 48)));
+  v16 = mlx::core::allocator::malloc((*(v15 + 60) * v15[6]));
   v21[0] = &unk_286BE3468;
   v21[1] = mlx::core::allocator::free;
   v21[3] = v21;
-  mlx::core::array::set_data(a3, v16);
+  mlx::core::array::set_data(a3, v16, v21);
 }
 
 void sub_25A5AA824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  __cxa_free_exception(v68);
-  std::mutex::unlock(v67);
+  __cxa_free_exception(v66);
+  std::mutex::unlock(v65);
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::FFT::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1>(mlx::core::FFT::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_1 &&)::{lambda(void)#1}::~dispatch(&a48);
-  std::tuple<std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,int,BOOL>::~tuple(&a67);
+  std::tuple<std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,int,BOOL>::~tuple(&a65);
   std::tuple<std::vector<int>,std::vector<int>,std::vector<int>,std::vector<int>,int,BOOL>::~tuple(&a17);
   if (__p)
   {
@@ -3339,7 +1560,7 @@ void mlx::core::FFT::~FFT(mlx::core::FFT *this)
   JUMPOUT(0x25F851760);
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3397,7 +1618,8 @@ char *std::vector<unsigned long>::__insert_with_size[abi:ne200100]<std::__wrap_i
       do
       {
         v26 = *v7++;
-        *v25++ = v26;
+        *v25 = v26;
+        v25 += 8;
       }
 
       while (v7 != v24);
@@ -3450,7 +1672,8 @@ char *std::vector<unsigned long>::__insert_with_size[abi:ne200100]<std::__wrap_i
         do
         {
           v43 = *v7++;
-          *v42++ = v43;
+          *v42 = v43;
+          v42 += 8;
         }
 
         while (v7 != v17);
@@ -3696,7 +1919,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_3FFT8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__1JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
 {
-  pocketfft::detail::c2c<float>((a1 + 24), (a1 + 48), (a1 + 72), (a1 + 96), (*(a1 + 120) & 1) == 0, *(a1 + 128), *(a1 + 136), 1uLL, *(a1 + 144));
+  pocketfft::detail::c2c<float>((a1 + 24), a1 + 48, a1 + 72, (a1 + 96), (*(a1 + 120) & 1) == 0, *(a1 + 128), *(a1 + 136), 1uLL, *(a1 + 144));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -3723,15 +1946,15 @@ uint64_t std::__bind<mlx::core::FFT::eval_cpu(std::vector<mlx::core::array> cons
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1 + 48, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>((a1 + 48), *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 3);
   v4 = *(a2 + 96);
   *(a1 + 108) = *(a2 + 108);
   *(a1 + 96) = v4;
@@ -3764,7 +1987,7 @@ void sub_25A5AB274(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3786,7 +2009,7 @@ void sub_25A5AB320(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void pocketfft::detail::c2c<float>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t **a4, char a5, uint64_t a6, uint64_t a7, unint64_t a8, float a9)
+void pocketfft::detail::c2c<float>(uint64_t **a1, uint64_t a2, uint64_t a3, unint64_t **a4, char a5, uint64_t a6, uint64_t a7, unint64_t a8, float a9)
 {
   v18 = *a1;
   v19 = a1[1];
@@ -3839,27 +2062,28 @@ LABEL_5:
   }
 }
 
-void sub_25A5AB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25A5AB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::tuple<std::vector<int>,std::vector<int>,BOOL>::~tuple(va);
   std::tuple<std::vector<int>,std::vector<int>,BOOL>::~tuple(va1);
   _Unwind_Resume(a1);
 }
 
-void pocketfft::detail::util::sanity_check(void *a1, uint64_t a2, uint64_t a3, int a4, unint64_t **a5)
+void pocketfft::detail::util::sanity_check(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t **a5)
 {
   pocketfft::detail::util::sanity_check(a1, a2, a3, a4);
   v7 = (a1[1] - *a1) >> 3;
-  std::vector<unsigned long>::vector[abi:ne200100](__p, v7);
+  v14 = 0;
+  std::vector<unsigned long>::vector[abi:ne200100](__p, v7, &v14);
   v8 = *a5;
   v9 = a5[1];
   if (*a5 != v9)
@@ -4003,17 +2227,17 @@ LABEL_10:
   return result;
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<int,int>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<int,int>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25A5AB8E0(_Unwind_Exception *exception_object)
@@ -4028,16 +2252,16 @@ void sub_25A5AB8E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *pocketfft::detail::arr_info::arr_info(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *pocketfft::detail::arr_info::arr_info(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1 + 3, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   return a1;
 }
 
@@ -4056,7 +2280,7 @@ void sub_25A5AB95C(_Unwind_Exception *exception_object)
 void pocketfft::detail::threading::thread_map<void pocketfft::detail::general_nd<pocketfft::detail::pocketfft_c<float>,pocketfft::detail::cmplx<float>,float,pocketfft::detail::ExecC2C>(pocketfft::detail::cndarr<pocketfft::detail::cmplx<float>> const&,pocketfft::detail::ndarr<pocketfft::detail::cmplx<float>> &,std::vector<unsigned long> const&,float,unsigned long,pocketfft::detail::ExecC2C const&,BOOL)::{lambda(void)#1}>(uint64_t a1, uint64_t a2)
 {
   v3 = a1;
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v3 = pocketfft::detail::threading::max_threads(0);
@@ -4064,7 +2288,6 @@ void pocketfft::detail::threading::thread_map<void pocketfft::detail::general_nd
 
   if (v3 == 1)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     pocketfft::detail::general_nd<pocketfft::detail::pocketfft_c<float>,pocketfft::detail::cmplx<float>,float,pocketfft::detail::ExecC2C>(pocketfft::detail::cndarr<pocketfft::detail::cmplx<float>> const&,pocketfft::detail::ndarr<pocketfft::detail::cmplx<float>> &,std::vector<unsigned long> const&,float,unsigned long,pocketfft::detail::ExecC2C const&,BOOL)::{lambda(void)#1}::operator()(a2);
   }
@@ -4072,34 +2295,33 @@ void pocketfft::detail::threading::thread_map<void pocketfft::detail::general_nd
   else
   {
     {
-      if (v6)
+      if (v4)
       {
-        v7 = pocketfft::detail::threading::max_threads(v6);
-        pocketfft::detail::threading::thread_pool::thread_pool(&pocketfft::detail::threading::get_pool(void)::pool, v7);
+        v5 = pocketfft::detail::threading::max_threads(v4);
+        pocketfft::detail::threading::thread_pool::thread_pool(&pocketfft::detail::threading::get_pool(void)::pool, v5);
         __cxa_atexit(pocketfft::detail::threading::thread_pool::~thread_pool, &pocketfft::detail::threading::get_pool(void)::pool, &dword_25A232000);
       }
     }
 
-    v11 = v3;
-    v12.__m_.__sig = 850045863;
-    memset(v12.__m_.__opaque, 0, sizeof(v12.__m_.__opaque));
-    v13.__cv_.__sig = 1018212795;
-    memset(v13.__cv_.__opaque, 0, sizeof(v13.__cv_.__opaque));
-    v8.__ptr_ = 0;
+    v9 = v3;
     v10.__m_.__sig = 850045863;
     memset(v10.__m_.__opaque, 0, sizeof(v10.__m_.__opaque));
+    v11.__cv_.__sig = 1018212795;
+    memset(v11.__cv_.__opaque, 0, sizeof(v11.__cv_.__opaque));
+    v6.__ptr_ = 0;
+    v8.__m_.__sig = 850045863;
+    memset(v8.__m_.__opaque, 0, sizeof(v8.__m_.__opaque));
     if (v3)
     {
-      v9 = 0;
+      v7 = 0;
       operator new();
     }
 
-    pocketfft::detail::threading::latch::wait(&v11);
+    pocketfft::detail::threading::latch::wait(&v9);
+    std::mutex::~mutex(&v8);
+    std::exception_ptr::~exception_ptr(&v6);
+    std::condition_variable::~condition_variable(&v11);
     std::mutex::~mutex(&v10);
-    std::exception_ptr::~exception_ptr(&v8);
-    std::condition_variable::~condition_variable(&v13);
-    std::mutex::~mutex(&v12);
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4162,12 +2384,12 @@ unint64_t pocketfft::detail::util::thread_count(unint64_t result, uint64_t **a2,
   return result;
 }
 
-void *std::__shared_ptr_emplace<pocketfft::detail::pocketfft_c<float>>::__shared_ptr_emplace[abi:ne200100]<unsigned long &,std::allocator<pocketfft::detail::pocketfft_c<float>>,0>(void *a1, void *a2)
+void *std::__shared_ptr_emplace<pocketfft::detail::pocketfft_c<float>>::__shared_ptr_emplace[abi:ne200100]<unsigned long &,std::allocator<pocketfft::detail::pocketfft_c<float>>,0>(void *a1, pocketfft::detail::util **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_286BFF2E0;
-  pocketfft::detail::pocketfft_c<float>::pocketfft_c(a1 + 3, *a2);
+  pocketfft::detail::pocketfft_c<float>::pocketfft_c(a1 + 24, *a2);
   return a1;
 }
 
@@ -4447,19 +2669,19 @@ void sub_25A5AC298(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void pocketfft::detail::cfftp<float>::factorize(unint64_t *a1)
+void pocketfft::detail::cfftp<float>::factorize(unint64_t *result)
 {
-  v2 = *a1;
-  if ((*a1 & 7) != 0)
+  v2 = *result;
+  if ((*result & 7) != 0)
   {
-    v3 = *a1;
+    v3 = *result;
   }
 
   else
   {
     do
     {
-      pocketfft::detail::cfftp<float>::add_factor(a1, 8);
+      pocketfft::detail::cfftp<float>::add_factor(result, 8);
       v3 = v2 >> 3;
       v4 = (v2 & 0x38) == 0;
       v2 >>= 3;
@@ -4477,7 +2699,7 @@ void pocketfft::detail::cfftp<float>::factorize(unint64_t *a1)
   {
     do
     {
-      pocketfft::detail::cfftp<float>::add_factor(a1, 4);
+      pocketfft::detail::cfftp<float>::add_factor(result, 4);
       v5 = v3 >> 2;
       v4 = (v3 & 0xC) == 0;
       v3 >>= 2;
@@ -4489,9 +2711,9 @@ void pocketfft::detail::cfftp<float>::factorize(unint64_t *a1)
   if ((v5 & 1) == 0)
   {
     v5 >>= 1;
-    pocketfft::detail::cfftp<float>::add_factor(a1, 2);
-    v6 = a1[3];
-    v7 = a1[4];
+    pocketfft::detail::cfftp<float>::add_factor(result, 2);
+    v6 = result[3];
+    v7 = result[4];
     v8 = *v6;
     *v6 = *(v7 - 24);
     *(v7 - 24) = v8;
@@ -4504,7 +2726,7 @@ void pocketfft::detail::cfftp<float>::factorize(unint64_t *a1)
     {
       while (!(v5 % v9))
       {
-        pocketfft::detail::cfftp<float>::add_factor(a1, v9);
+        pocketfft::detail::cfftp<float>::add_factor(result, v9);
         v5 /= v9;
       }
 
@@ -4517,7 +2739,7 @@ void pocketfft::detail::cfftp<float>::factorize(unint64_t *a1)
   if (v5 > 1)
   {
 
-    pocketfft::detail::cfftp<float>::add_factor(a1, v5);
+    pocketfft::detail::cfftp<float>::add_factor(result, v5);
   }
 }
 
@@ -4573,7 +2795,7 @@ uint64_t pocketfft::detail::cfftp<float>::twsize(unint64_t *a1)
   return result;
 }
 
-void pocketfft::detail::cfftp<float>::comp_twiddle(void *a1)
+void pocketfft::detail::cfftp<float>::comp_twiddle(uint64_t *a1)
 {
   pocketfft::detail::sincos_2pibyn<float>::sincos_2pibyn(v26, *a1);
   v2 = a1[3];
@@ -4775,26 +2997,26 @@ float pocketfft::detail::sincos_2pibyn<float>::operator[](void *a1, unint64_t a2
   }
 }
 
-unint64_t *pocketfft::detail::sincos_2pibyn<float>::sincos_2pibyn(unint64_t *a1, unint64_t a2)
+uint64_t pocketfft::detail::sincos_2pibyn<float>::sincos_2pibyn(uint64_t a1, unint64_t a2)
 {
   v4 = 0;
-  *(a1 + 3) = 0u;
-  *(a1 + 5) = 0u;
-  v5 = a1 + 5;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 0u;
+  v5 = (a1 + 40);
   *a1 = a2;
   v6 = a2;
   v7 = (a2 + 2) >> 1;
   do
   {
-    v8 = 1 << ++v4;
+    v8 = (1 << ++v4);
   }
 
   while (1 << v4 << v4 < v7);
-  a1[1] = v8 - 1;
-  a1[2] = v4;
-  pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize(a1 + 3, v8);
-  v9 = a1[4];
-  *a1[3] = xmmword_25A9DF900;
+  *(a1 + 8) = v8 - 1;
+  *(a1 + 16) = v4;
+  pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize((a1 + 24), v8);
+  v9 = *(a1 + 32);
+  **(a1 + 24) = xmmword_25A9DF900;
   v10 = 0.785398163 / v6;
   if (v9 >= 2)
   {
@@ -4802,25 +3024,25 @@ unint64_t *pocketfft::detail::sincos_2pibyn<float>::sincos_2pibyn(unint64_t *a1,
     for (i = 1; i < v14; ++i)
     {
       v13 = pocketfft::detail::sincos_2pibyn<float>::calc(i, a2, v10);
-      v14 = a1[4];
-      v15 = a1[3] + v11;
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 24) + v11;
       *(v15 + 16) = v13;
       *(v15 + 24) = v16;
       v11 += 16;
     }
   }
 
-  pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize(v5, (a1[1] + v7) / (a1[1] + 1));
-  v17 = a1[6];
-  *a1[5] = xmmword_25A9DF900;
+  pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize(v5, ((*(a1 + 8) + v7) / (*(a1 + 8) + 1)));
+  v17 = *(a1 + 48);
+  **(a1 + 40) = xmmword_25A9DF900;
   if (v17 >= 2)
   {
     v18 = 0;
     for (j = 1; j < v21; ++j)
     {
-      v20 = pocketfft::detail::sincos_2pibyn<float>::calc(j + j * a1[1], a2, v10);
-      v21 = a1[6];
-      v22 = a1[5] + v18;
+      v20 = pocketfft::detail::sincos_2pibyn<float>::calc(j + j * *(a1 + 8), a2, v10);
+      v21 = *(a1 + 48);
+      v22 = *(a1 + 40) + v18;
       *(v22 + 16) = v20;
       *(v22 + 24) = v23;
       v18 += 16;
@@ -4837,7 +3059,7 @@ void sub_25A5ACA14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize(void *result, uint64_t a2)
+void **pocketfft::detail::arr<pocketfft::detail::cmplx<double>>::resize(void **result, void *a2)
 {
   if (result[1] != a2)
   {
@@ -4968,13 +3190,13 @@ unint64_t *pocketfft::detail::fftblue<float>::fftblue(unint64_t *a1, unint64_t a
   *a1 = a2;
   v3 = pocketfft::detail::util::good_size_cmplx(2 * a2 - 1);
   a1[1] = v3;
-  pocketfft::detail::cfftp<float>::cfftp(a1 + 2, v3);
+  pocketfft::detail::cfftp<float>::cfftp((a1 + 2), v3);
   v4 = (*a1 + (a1[1] >> 1) + 1);
   v5 = pocketfft::detail::arr<pocketfft::detail::cmplx<float>>::ralloc(v4);
   a1[8] = v5;
   a1[9] = v4;
   v6 = *a1;
-  v7 = &v5[8 * *a1];
+  v7 = v5 + 8 * *a1;
   a1[10] = v5;
   a1[11] = v7;
   pocketfft::detail::sincos_2pibyn<float>::sincos_2pibyn(v30, 2 * v6);
@@ -5070,7 +3292,7 @@ void sub_25A5ACE8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<float>>(void *a1, float32x2_t *a2, float a3)
+void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<float>>(char **a1, float32x2_t *a2, float a3)
 {
   v3 = a2;
   v5 = *a1;
@@ -5095,14 +3317,14 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
   v13 = v3;
   do
   {
-    v14 = *(v8 + v9);
+    v14 = *&v8[v9];
     v15 = v14 * v11;
     v16 = *a1 / (v14 * v11);
     if (v14 <= 4)
     {
       if (v14 == 2)
       {
-        pocketfft::detail::cfftp<float>::pass2<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+        pocketfft::detail::cfftp<float>::pass2<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
         v17 = v13;
         v13 = v12;
         goto LABEL_22;
@@ -5112,7 +3334,7 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
       {
         if (v14 == 4)
         {
-          pocketfft::detail::cfftp<float>::pass4<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass4<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
@@ -5121,7 +3343,7 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
         goto LABEL_18;
       }
 
-      pocketfft::detail::cfftp<float>::pass3<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass3<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5132,7 +3354,7 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
       {
         if (v14 == 11)
         {
-          pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
@@ -5141,7 +3363,7 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
         goto LABEL_18;
       }
 
-      pocketfft::detail::cfftp<float>::pass8<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass8<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5152,19 +3374,19 @@ void pocketfft::detail::cfftp<float>::pass_all<true,pocketfft::detail::cmplx<flo
       {
         if (v14 == 7)
         {
-          pocketfft::detail::cfftp<float>::pass7<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass7<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
         }
 
 LABEL_18:
-        pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>>(a1, v16, v14, v11, v13, v12, *(v8 + v9 + 8), *(v8 + v9 + 16));
+        pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>>(a1, v16, v14, v11, v13, v12, *&v8[v9 + 8], *&v8[v9 + 16]);
         v17 = v12;
         goto LABEL_22;
       }
 
-      pocketfft::detail::cfftp<float>::pass5<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass5<true,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5208,17 +3430,10 @@ LABEL_22:
 LABEL_29:
   if (a3 != 1.0)
   {
-    v21 = *a1;
-    if (*a1)
+    for (i = *a1; i; --i)
     {
-      do
-      {
-        *v3 = vmul_n_f32(*v3, a3);
-        ++v3;
-        --v21;
-      }
-
-      while (v21);
+      *v3 = vmul_n_f32(*v3, a3);
+      ++v3;
     }
   }
 
@@ -5227,7 +3442,7 @@ LABEL_35:
   free(v7);
 }
 
-void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<float>>(void *a1, float32x2_t *a2, float a3)
+void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<float>>(char **a1, float32x2_t *a2, float a3)
 {
   v3 = a2;
   v5 = *a1;
@@ -5252,14 +3467,14 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
   v13 = v3;
   do
   {
-    v14 = *(v8 + v9);
+    v14 = *&v8[v9];
     v15 = v14 * v11;
     v16 = *a1 / (v14 * v11);
     if (v14 <= 4)
     {
       if (v14 == 2)
       {
-        pocketfft::detail::cfftp<float>::pass2<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+        pocketfft::detail::cfftp<float>::pass2<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
         v17 = v13;
         v13 = v12;
         goto LABEL_22;
@@ -5269,7 +3484,7 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
       {
         if (v14 == 4)
         {
-          pocketfft::detail::cfftp<float>::pass4<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass4<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
@@ -5278,7 +3493,7 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
         goto LABEL_18;
       }
 
-      pocketfft::detail::cfftp<float>::pass3<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass3<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5289,7 +3504,7 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
       {
         if (v14 == 11)
         {
-          pocketfft::detail::cfftp<float>::pass11<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass11<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
@@ -5298,7 +3513,7 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
         goto LABEL_18;
       }
 
-      pocketfft::detail::cfftp<float>::pass8<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass8<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5309,19 +3524,19 @@ void pocketfft::detail::cfftp<float>::pass_all<false,pocketfft::detail::cmplx<fl
       {
         if (v14 == 7)
         {
-          pocketfft::detail::cfftp<float>::pass7<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+          pocketfft::detail::cfftp<float>::pass7<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
           v17 = v13;
           v13 = v12;
           goto LABEL_22;
         }
 
 LABEL_18:
-        pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float>>(a1, v16, v14, v11, v13, v12, *(v8 + v9 + 8), *(v8 + v9 + 16));
+        pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float>>(a1, v16, v14, v11, v13, v12, *&v8[v9 + 8], *&v8[v9 + 16]);
         v17 = v12;
         goto LABEL_22;
       }
 
-      pocketfft::detail::cfftp<float>::pass5<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *(v8 + v9 + 8));
+      pocketfft::detail::cfftp<float>::pass5<false,pocketfft::detail::cmplx<float>>(a1, v16, v11, v13, v12, *&v8[v9 + 8]);
       v17 = v13;
       v13 = v12;
     }
@@ -5365,17 +3580,10 @@ LABEL_22:
 LABEL_29:
   if (a3 != 1.0)
   {
-    v21 = *a1;
-    if (*a1)
+    for (i = *a1; i; --i)
     {
-      do
-      {
-        *v3 = vmul_n_f32(*v3, a3);
-        ++v3;
-        --v21;
-      }
-
-      while (v21);
+      *v3 = vmul_n_f32(*v3, a3);
+      ++v3;
     }
   }
 
@@ -5450,25 +3658,25 @@ void pocketfft::detail::cfftp<float>::pass4<true,pocketfft::detail::cmplx<float>
       a5[(v18 + 2 * a3) * a2] = vsub_f32(v33, v37);
       v39 = &a5[(v18 + a3) * a2];
       v40 = &a5[(v18 + 3 * a3) * a2];
-      *v39 = v34.f32[0] + v38.f32[1];
-      v39[1] = v34.f32[1] - v38.f32[0];
-      *v40 = v34.f32[0] - v38.f32[1];
-      v40[1] = v34.f32[1] + v38.f32[0];
+      v39->f32[0] = v34.f32[0] + v38.f32[1];
+      v39->f32[1] = v34.f32[1] - v38.f32[0];
+      v40->f32[0] = v34.f32[0] - v38.f32[1];
+      v40->f32[1] = v34.f32[1] + v38.f32[0];
       if (a2)
       {
         v41 = 0;
         v42 = a2 - 1;
         do
         {
-          v43 = v19[v41 / 8];
-          v44 = *(v22 + v41);
-          v45 = *(v23 + v41);
-          v46 = *(v24 + v41);
+          v43 = v19[v41];
+          v44 = v22[v41];
+          v45 = v23[v41];
+          v46 = v24[v41];
           v47 = vadd_f32(v43, v45);
           v48 = vadd_f32(v44, v46);
-          v25[v41 / 8] = vadd_f32(v47, v48);
-          v49 = *(v29 + v41);
-          v50 = *(v29 + v41 + 4);
+          v25[v41] = vadd_f32(v47, v48);
+          v49 = *(v29 + v41 * 8);
+          v50 = *(v29 + v41 * 8 + 4);
           v51 = vsub_f32(v43, v45);
           v52 = vrev64_s32(vsub_f32(v44, v46));
           v53 = vadd_f32(v51, v52);
@@ -5478,16 +3686,15 @@ void pocketfft::detail::cfftp<float>::pass4<true,pocketfft::detail::cmplx<float>
           v53.i32[1] = v54.i32[1];
           v57.i32[0] = vdup_lane_s32(v54, 1).u32[0];
           v57.f32[1] = -v53.f32[0];
-          v46.i32[0] = *(v27 + v41);
-          v58 = *(v27 + v41 + 4);
-          *(v30 + v41) = vmla_n_f32(vmul_n_f32(v57, *(a6 + v41 + 4)), v53, *(a6 + v41));
+          v46.i32[0] = *(v27 + v41 * 8);
+          v58 = *(v27 + v41 * 8 + 4);
+          v30[v41] = vmla_n_f32(vmul_n_f32(v57, *(a6 + v41 * 8 + 4)), v53, *(a6 + v41 * 8));
           v59 = vsub_f32(v47, v48);
           v60.i32[0] = vdup_lane_s32(v59, 1).u32[0];
           v60.f32[1] = -v59.f32[0];
-          *(v28 + v41) = vmla_n_f32(vmul_n_f32(v60, v50), v59, v49);
+          v28[v41] = vmla_n_f32(vmul_n_f32(v60, v50), v59, v49);
           v56.f32[1] = -*v54.i32;
-          *(v26 + v41) = vmla_n_f32(vmul_n_f32(v56, v58), v55, v46.f32[0]);
-          v41 += 8;
+          v26[v41++] = vmla_n_f32(vmul_n_f32(v56, v58), v55, v46.f32[0]);
           --v42;
         }
 
@@ -5496,13 +3703,13 @@ void pocketfft::detail::cfftp<float>::pass4<true,pocketfft::detail::cmplx<float>
 
       ++v18;
       v19 = (v19 + v20);
-      v22 += v20;
-      v23 += v20;
-      v24 += v20;
+      v22 = (v22 + v20);
+      v23 = (v23 + v20);
+      v24 = (v24 + v20);
       v25 = (v25 + v21);
-      v26 += v21;
-      v28 += v21;
-      v30 += v21;
+      v26 = (v26 + v21);
+      v28 = (v28 + v21);
+      v30 = (v30 + v21);
     }
 
     while (v18 != a3);
@@ -5918,15 +4125,15 @@ uint64_t pocketfft::detail::cfftp<float>::pass2<true,pocketfft::detail::cmplx<fl
         v21 = a2 - 1;
         do
         {
-          v22 = v11[v20 / 8];
-          v23 = *(v14 + v20);
-          v15[v20 / 8] = vadd_f32(v22, v23);
-          result = a6 + v20;
+          v22 = v11[v20];
+          v23 = v14[v20];
+          v15[v20] = vadd_f32(v22, v23);
+          result = a6 + v20 * 8;
           v24 = vsub_f32(v22, v23);
           v25.i32[0] = vdup_lane_s32(v24, 1).u32[0];
           v25.f32[1] = -v24.f32[0];
-          *(v16 + v20) = vmla_n_f32(vmul_n_f32(v25, *(a6 + v20 + 4)), v24, *(a6 + v20));
-          v20 += 8;
+          v16[v20] = vmla_n_f32(vmul_n_f32(v25, *(a6 + v20 * 8 + 4)), v24, *(a6 + v20 * 8));
+          ++v20;
           --v21;
         }
 
@@ -5935,9 +4142,9 @@ uint64_t pocketfft::detail::cfftp<float>::pass2<true,pocketfft::detail::cmplx<fl
 
       ++v10;
       v11 = (v11 + v12);
-      v14 += v12;
+      v14 = (v14 + v12);
       v15 = (v15 + v13);
-      v16 += v13;
+      v16 = (v16 + v13);
     }
 
     while (v10 != a3);
@@ -6004,24 +4211,23 @@ void pocketfft::detail::cfftp<float>::pass3<true,pocketfft::detail::cmplx<float>
         v32 = a2 - 1;
         do
         {
-          v33 = v15[v31 / 8];
-          v34 = *(v18 + v31);
-          v35 = *(v19 + v31);
+          v33 = v15[v31];
+          v34 = v18[v31];
+          v35 = v19[v31];
           v36 = vadd_f32(v34, v35);
-          v20[v31 / 8] = vadd_f32(v33, v36);
-          v37 = *(v22 + v31);
-          v38 = *(v22 + v31 + 4);
+          v20[v31] = vadd_f32(v33, v36);
+          v37 = *(v22 + v31 * 8);
+          v38 = *(v22 + v31 * 8 + 4);
           v39 = vadd_f32(v33, vmul_f32(v36, 0xBF000000BF000000));
           v40 = vrev64_s32(vmul_f32(vsub_f32(v34, v35), 0x3F5DB3D7BF5DB3D7));
           v41 = vadd_f32(v40, v39);
           v42.i32[0] = vdup_lane_s32(v41, 1).u32[0];
           v42.f32[1] = -v41.f32[0];
-          *(v23 + v31) = vmla_n_f32(vmul_n_f32(v42, *(a6 + v31 + 4)), v41, *(a6 + v31));
+          v23[v31] = vmla_n_f32(vmul_n_f32(v42, *(a6 + v31 * 8 + 4)), v41, *(a6 + v31 * 8));
           v43 = vsub_f32(v39, v40);
           v41.i32[0] = vdup_lane_s32(v43, 1).u32[0];
           v41.f32[1] = -v43.f32[0];
-          *(v21 + v31) = vmla_n_f32(vmul_n_f32(v41, v38), v43, v37);
-          v31 += 8;
+          v21[v31++] = vmla_n_f32(vmul_n_f32(v41, v38), v43, v37);
           --v32;
         }
 
@@ -6030,11 +4236,11 @@ void pocketfft::detail::cfftp<float>::pass3<true,pocketfft::detail::cmplx<float>
 
       ++v14;
       v15 = (v15 + v16);
-      v18 += v16;
-      v19 += v16;
+      v18 = (v18 + v16);
+      v19 = (v19 + v16);
       v20 = (v20 + v17);
-      v21 += v17;
-      v23 += v17;
+      v21 = (v21 + v17);
+      v23 = (v23 + v17);
     }
 
     while (v14 != a3);
@@ -6368,14 +4574,14 @@ void pocketfft::detail::cfftp<float>::pass7<true,pocketfft::detail::cmplx<float>
         do
         {
           v95 = v45[v93 / 8];
-          v96 = *(v46 + v93);
-          v97 = *(v47 + v93);
-          v98 = *(v48 + v93);
+          v96 = v46[v93 / 8];
+          v97 = v47[v93 / 8];
+          v98 = v48[v93 / 8];
           v99 = vadd_f32(v96, v97);
-          v100 = *(v50 + v93);
+          v100 = v50[v93 / 8];
           v101 = vadd_f32(v98, v100);
-          v102 = *(v51 + v93);
-          v103 = *(v53 + v93);
+          v102 = v51[v93 / 8];
+          v103 = v53[v93 / 8];
           v104 = vadd_f32(v102, v103);
           v105 = vsub_f32(v96, v97);
           v106 = vsub_f32(v98, v100);
@@ -6430,12 +4636,12 @@ void pocketfft::detail::cfftp<float>::pass7<true,pocketfft::detail::cmplx<float>
 
       ++v44;
       v45 = (v45 + v131);
-      v46 += v131;
-      v47 += v131;
-      v48 += v131;
-      v50 += v131;
-      v51 += v131;
-      v53 += v131;
+      v46 = (v46 + v131);
+      v47 = (v47 + v131);
+      v48 = (v48 + v131);
+      v50 = (v50 + v131);
+      v51 = (v51 + v131);
+      v53 = (v53 + v131);
       v49 += v130;
       v55 += v130;
       v52 += v130;
@@ -6680,21 +4886,21 @@ void pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float
         do
         {
           v147 = v64[v145 / 8];
-          v148 = *(v94 + v145);
+          v148 = v94[v145 / 8];
           v149 = v142;
-          v150 = *(v222 + v145);
+          v150 = v222[v145 / 8];
           v151 = vadd_f32(v148, v150);
-          v152 = *(v95 + v145);
-          v153 = *(v65 + v145);
+          v152 = v95[v145 / 8];
+          v153 = v65[v145 / 8];
           v154 = vadd_f32(v152, v153);
-          v155 = *(v66 + v145);
-          v156 = *(v231 + v145);
+          v155 = v66[v145 / 8];
+          v156 = v231[v145 / 8];
           v157 = vadd_f32(v155, v156);
-          v158 = *(v97 + v145);
-          v159 = *(v221 + v145);
-          v160 = *(v223 + v145);
+          v158 = v97[v145 / 8];
+          v159 = v221[v145 / 8];
+          v160 = v223[v145 / 8];
           v161 = vadd_f32(v158, v159);
-          v162 = *(v67 + v145);
+          v162 = v67[v145 / 8];
           v163 = vadd_f32(v160, v162);
           v164 = v144;
           v165 = vsub_f32(v148, v150);
@@ -6786,14 +4992,14 @@ void pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float
 
       ++v63;
       v64 = (v64 + v214);
-      v94 += v214;
-      v222 += v214;
-      v66 += v214;
-      v96 = v231 + v214;
-      v97 += v214;
-      v221 += v214;
-      v223 += v214;
-      v67 += v214;
+      v94 = (v94 + v214);
+      v222 = (v222 + v214);
+      v66 = (v66 + v214);
+      v96 = &v231[v214 / 8];
+      v97 = (v97 + v214);
+      v221 = (v221 + v214);
+      v223 = (v223 + v214);
+      v67 = (v67 + v214);
       v68 += v205;
       v69 += v205;
       v71 += v205;
@@ -6807,7 +5013,7 @@ void pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float
       v79 += v205;
       v70 = v218;
       a5 = v219;
-      v65 += v214;
+      v65 = (v65 + v214);
       v90 = v228;
       v85 = v230;
       v82 = v143;
@@ -6817,7 +5023,7 @@ void pocketfft::detail::cfftp<float>::pass11<true,pocketfft::detail::cmplx<float
       v92 = v141;
       v93 = v142;
       v88 = v144;
-      v95 += v214;
+      v95 = (v95 + v214);
     }
 
     while (v220 + 1 != v218);
@@ -6831,7 +5037,7 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
   *v13 = 1065353216;
   if (a3 >= 2)
   {
-    v15 = a3 - 1;
+    v15 = (a3 - 1);
     v16 = (a8 + 12);
     v17 = v13 + 3;
     do
@@ -6916,8 +5122,8 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
       }
 
       ++v32;
-      v27 += v25;
-      v28 -= v25;
+      v27 += 8 * v25;
+      v28 -= 8 * v25;
       v29 = (v29 + v21);
       v31 -= a2;
     }
@@ -6960,7 +5166,7 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
       }
 
       ++v46;
-      v47 = (v47 + v21);
+      v47 += v21;
     }
 
     while (v46 != a4);
@@ -7026,7 +5232,7 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
           }
 
           v75 = v73 - v74;
-          v76 = v73 - v74 + v58;
+          v76 = (v73 - v74 + v58);
           if (v76 <= a3)
           {
             v77 = 0;
@@ -7100,8 +5306,8 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
             {
               v56[v92] = vmla_f32(v56[v92], v95, *&v88[v92 * 8]);
               v97 = &v57[v92];
-              v98 = v57[v92].f32[1] + (*(v89 + v92 * 8 - 4) * v94);
-              *v97 = v57[v92].f32[0] - (*(v89 + v92 * 8) * v94);
+              v98 = v57[v92].f32[1] + (*&v89[v92 * 8 - 4] * v94);
+              *v97 = v57[v92].f32[0] - (*&v89[v92 * 8] * v94);
               v97[1] = v98;
               ++v92;
               --v96;
@@ -7126,8 +5332,8 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
     while (v58 != v26);
     if (a2 == 1)
     {
-      v99 = &a5[v25 * v143] + 4;
-      v100 = &a5[v25] + 4;
+      v99 = &a5[v25 * v143] + 1;
+      v100 = &a5[v25] + 1;
       v101 = 1;
       do
       {
@@ -7149,8 +5355,8 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
         }
 
         ++v101;
-        v99 -= 8 * v25;
-        v100 += v55;
+        v99 -= 2 * v25;
+        v100 = (v100 + v55);
       }
 
       while (v101 != v26);
@@ -7158,7 +5364,7 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
 
     else
     {
-      v110 = &a5[v25 + 1] + 4;
+      v110 = &a5[v25 + 1] + 1;
       v111 = 1;
       v112 = (a7 + 4);
       v113 = a3 - 1;
@@ -7168,22 +5374,22 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
         {
           v114 = 0;
           v115 = v113 * a4;
-          v116 = v113 - 1;
-          v117 = &a5[1] + v55 * v113 + 4;
+          v116 = (v113 - 1);
+          v117 = (&a5[1] + v55 * v113 + 4);
           v118 = v110;
           do
           {
             v119 = &a5[(v114 + v111 * a4) * a2];
-            v120 = *v119;
-            v121 = v119[1];
+            v120 = v119->f32[0];
+            v121 = v119->f32[1];
             v122 = &a5[(v114 + v115) * a2];
-            v123 = *v122;
-            v124 = v122[1];
-            *v119 = *v119 + *v122;
-            v119[1] = v121 + v124;
+            v123 = v122->f32[0];
+            v124 = v122->f32[1];
+            v119->f32[0] = v119->f32[0] + v122->f32[0];
+            v119->f32[1] = v121 + v124;
             v125 = (a7 + 4 + 8 * (a2 - 1) * v116);
-            *v122 = v120 - v123;
-            v122[1] = v121 - v124;
+            v122->f32[0] = v120 - v123;
+            v122->f32[1] = v121 - v124;
             v126 = v118;
             v127 = v112;
             v128 = v117;
@@ -7219,7 +5425,7 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
             }
 
             ++v114;
-            v117 += v21;
+            v117 = (v117 + v21);
             v118 = (v118 + v21);
           }
 
@@ -7228,12 +5434,12 @@ void pocketfft::detail::cfftp<float>::passg<true,pocketfft::detail::cmplx<float>
 
         else
         {
-          v116 = v113 - 1;
+          v116 = (v113 - 1);
         }
 
         ++v111;
         v112 = (v112 + v21 - 8);
-        v110 += v55;
+        v110 = (v110 + v55);
         v113 = v116;
       }
 
@@ -7309,19 +5515,19 @@ void pocketfft::detail::cfftp<float>::pass4<false,pocketfft::detail::cmplx<float
       a5[(v19 + 2 * a3) * a2] = vsub_f32(v32, v36);
       v38 = &a5[(v19 + a3) * a2];
       v39 = &a5[(v19 + 3 * a3) * a2];
-      *v38 = v33.f32[0] - v37.f32[1];
-      v38[1] = v33.f32[1] + v37.f32[0];
-      *v39 = v33.f32[0] + v37.f32[1];
-      v39[1] = v33.f32[1] - v37.f32[0];
+      v38->f32[0] = v33.f32[0] - v37.f32[1];
+      v38->f32[1] = v33.f32[1] + v37.f32[0];
+      v39->f32[0] = v33.f32[0] + v37.f32[1];
+      v39->f32[1] = v33.f32[1] - v37.f32[0];
       if (a2)
       {
         v40 = 0;
         do
         {
           v41 = v21[v40];
-          v42 = *(v23 + 8 * v40);
-          v43 = *(v24 + 8 * v40);
-          v44 = *(v25 + 8 * v40);
+          v42 = v23[v40];
+          v43 = v24[v40];
+          v44 = v25[v40];
           v45 = vadd_f32(v41, v43);
           v46 = vadd_f32(v42, v44);
           v47 = vsub_f32(vext_s8(v41, v42, 4uLL), vext_s8(v43, v44, 4uLL));
@@ -7331,14 +5537,14 @@ void pocketfft::detail::cfftp<float>::pass4<false,pocketfft::detail::cmplx<float
           v26[v40] = vadd_f32(v45, v46);
           v44.f32[0] = vaddv_f32(v47);
           v44.f32[1] = -v44.f32[0];
-          *(v27 + 8 * v40) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 8 * v40), v44)), *(a6 + 8 * v40), v48.f32[0] - v48.f32[1]);
+          v27[v40] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 8 * v40), v44)), *(a6 + 8 * v40), v48.f32[0] - v48.f32[1]);
           v49 = *(a6 + 8 * a2 - 8 + 8 * v40);
           v50 = vsub_f32(v45, v46);
-          *(v29 + 8 * v40) = vmla_n_f32(vmul_f32(vrev64_s32(v49), vext_s8(vneg_f32(v50), vdup_lane_s32(v50, 1), 4uLL)), v49, v50.f32[0]);
+          v29[v40] = vmla_n_f32(vmul_f32(vrev64_s32(v49), vext_s8(vneg_f32(v50), vdup_lane_s32(v50, 1), 4uLL)), v49, v50.f32[0]);
           v49.f32[0] = v47.f32[0] - v47.f32[1];
           v51 = *(a6 + 16 * v6 + 8 * v40);
           v49.f32[1] = -(v47.f32[0] - v47.f32[1]);
-          *(v28 + 8 * v40++) = vmla_n_f32(vrev64_s32(vmul_f32(v51, v49)), v51, vaddv_f32(v48));
+          v28[v40++] = vmla_n_f32(vrev64_s32(vmul_f32(v51, v49)), v51, vaddv_f32(v48));
         }
 
         while (v6 != v40);
@@ -7346,13 +5552,13 @@ void pocketfft::detail::cfftp<float>::pass4<false,pocketfft::detail::cmplx<float
 
       ++v19;
       v21 = (v21 + v22);
-      v23 += v22;
-      v24 += v22;
-      v25 += v22;
+      v23 = (v23 + v22);
+      v24 = (v24 + v22);
+      v25 = (v25 + v22);
       v26 = (v26 + v20);
-      v27 += v20;
-      v29 += v20;
-      v28 += v20;
+      v27 = (v27 + v20);
+      v29 = (v29 + v20);
+      v28 = (v28 + v20);
     }
 
     while (v19 != a3);
@@ -7612,31 +5818,31 @@ void pocketfft::detail::cfftp<float>::pass8<false,pocketfft::detail::cmplx<float
           v186.f32[0] = v182 - v155;
           v187 = *(a6 + 24 * a2 - 24 + v136);
           v186.f32[1] = -v186.f32[0];
-          *(v78 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(v187, v186)), v187, v181 - v154);
+          *&v78[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(v187, v186)), v187, v181 - v154);
           v188.f32[0] = v156 + v184;
           v189 = *(a6 + 8 * a2 - 8 + v136);
           v188.f32[1] = -(v156 + v184);
-          *(v77 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(v189, v188)), v189, v183 - v157);
+          *&v77[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(v189, v188)), v189, v183 - v157);
           v190.f32[0] = v184 - v156;
           v191 = *(a6 + 40 * a2 - 40 + v136);
           v190.f32[1] = -v190.f32[0];
-          *(v75 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(v191, v190)), v191, v157 + v183);
+          *&v75[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(v191, v190)), v191, v157 + v183);
           v192 = v171 - v180;
           v190.f32[0] = v172 + v179;
           v193 = v171 + v180;
           v194 = v172 - v179;
           v195.f32[0] = v162 + v190.f32[0];
           v195.f32[1] = -(v162 + v190.f32[0]);
-          *(v73 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + v136), v195)), *(a6 + v136), v161 + v192);
+          *&v73[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + v136), v195)), *(a6 + v136), v161 + v192);
           v196.f32[0] = v190.f32[0] - v162;
           v196.f32[1] = -v196.f32[0];
-          *(v71 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 32 * v198 + v136), v196)), *(a6 + 32 * v198 + v136), v192 - v161);
+          *&v71[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 32 * v198 + v136), v196)), *(a6 + 32 * v198 + v136), v192 - v161);
           v196.f32[0] = v164 + v194;
           v196.f32[1] = -(v164 + v194);
-          *(v69 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 16 * v198 + v136), v196)), *(a6 + 16 * v198 + v136), v163 + v193);
+          *&v69[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 16 * v198 + v136), v196)), *(a6 + 16 * v198 + v136), v163 + v193);
           v197.f32[0] = v194 - v164;
           v197.f32[1] = -v197.f32[0];
-          *(v67 + v136) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 48 * a2 - 48 + v136), v197)), *(a6 + 48 * a2 - 48 + v136), v193 - v163);
+          *&v67[v136 / 4] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 48 * a2 - 48 + v136), v197)), *(a6 + 48 * a2 - 48 + v136), v193 - v163);
           v136 += 8;
           --v137;
         }
@@ -7645,22 +5851,22 @@ void pocketfft::detail::cfftp<float>::pass8<false,pocketfft::detail::cmplx<float
       }
 
       ++v66;
-      v67 += v200;
+      v67 = (v67 + v200);
       v68 += v199;
-      v69 += v200;
+      v69 = (v69 + v200);
       v70 += v199;
-      v71 += v200;
+      v71 = (v71 + v200);
       v72 += v199;
-      v73 += v200;
+      v73 = (v73 + v200);
       v74 += v199;
-      v75 += v200;
+      v75 = (v75 + v200);
       a4 += v199;
       v76 += v199;
       v79 += v199;
       v80 += v199;
-      v77 += v200;
+      v77 = (v77 + v200);
       a5 = (a5 + v200);
-      v78 += v200;
+      v78 = (v78 + v200);
     }
 
     while (v66 != v208);
@@ -7712,10 +5918,10 @@ uint64_t pocketfft::detail::cfftp<float>::pass2<false,pocketfft::detail::cmplx<f
         do
         {
           v21 = v11[v20];
-          v22 = *(v14 + 8 * v20);
+          v22 = v14[v20];
           v15[v20] = vadd_f32(v21, v22);
           v23 = vsub_f32(v21, v22);
-          *(v16 + 8 * v20) = vmla_n_f32(vmul_f32(vrev64_s32(*(a6 + 8 * v20)), vext_s8(vneg_f32(v23), vdup_lane_s32(v23, 1), 4uLL)), *(a6 + 8 * v20), v23.f32[0]);
+          v16[v20] = vmla_n_f32(vmul_f32(vrev64_s32(*(a6 + 8 * v20)), vext_s8(vneg_f32(v23), vdup_lane_s32(v23, 1), 4uLL)), *(a6 + 8 * v20), v23.f32[0]);
           ++v20;
         }
 
@@ -7724,9 +5930,9 @@ uint64_t pocketfft::detail::cfftp<float>::pass2<false,pocketfft::detail::cmplx<f
 
       ++v10;
       v11 = (v11 + v12);
-      v14 += v12;
+      v14 = (v14 + v12);
       v15 = (v15 + v13);
-      v16 += v13;
+      v16 = (v16 + v13);
     }
 
     while (v10 != a3);
@@ -7792,8 +5998,8 @@ void pocketfft::detail::cfftp<float>::pass3<false,pocketfft::detail::cmplx<float
         do
         {
           v31 = v16[v30];
-          v32 = *(v18 + 8 * v30);
-          v33 = *(v19 + 8 * v30);
+          v32 = v18[v30];
+          v33 = v19[v30];
           v34 = vadd_f32(v32, v33);
           v35 = vsub_f32(v32, v33);
           v20[v30] = vadd_f32(v31, v34);
@@ -7803,12 +6009,12 @@ void pocketfft::detail::cfftp<float>::pass3<false,pocketfft::detail::cmplx<float
           v35.f32[0] = 0.86603 * v35.f32[0];
           v36.f32[0] = v35.f32[0] + v31.f32[0];
           v36.f32[1] = -(v35.f32[0] + v31.f32[0]);
-          *(v21 + 8 * v30) = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 8 * v30), v36)), *(a6 + 8 * v30), v33.f32[0] + v34.f32[0]);
+          v21[v30] = vmla_n_f32(vrev64_s32(vmul_f32(*(a6 + 8 * v30), v36)), *(a6 + 8 * v30), v33.f32[0] + v34.f32[0]);
           v33.f32[0] = v33.f32[0] - v34.f32[0];
           v31.f32[0] = v31.f32[0] - v35.f32[0];
           v37 = *(a6 + 8 * a2 - 8 + 8 * v30);
           v31.f32[1] = -v31.f32[0];
-          *(v22 + 8 * v30++) = vmla_n_f32(vrev64_s32(vmul_f32(v37, v31)), v37, v33.f32[0]);
+          v22[v30++] = vmla_n_f32(vrev64_s32(vmul_f32(v37, v31)), v37, v33.f32[0]);
         }
 
         while (a2 - 1 != v30);
@@ -7816,11 +6022,11 @@ void pocketfft::detail::cfftp<float>::pass3<false,pocketfft::detail::cmplx<float
 
       ++v14;
       v16 = (v16 + v17);
-      v18 += v17;
-      v19 += v17;
+      v18 = (v18 + v17);
+      v19 = (v19 + v17);
       v20 = (v20 + v15);
-      v21 += v15;
-      v22 += v15;
+      v21 = (v21 + v15);
+      v22 = (v22 + v15);
     }
 
     while (v14 != a3);
@@ -8156,16 +6362,16 @@ void pocketfft::detail::cfftp<float>::pass7<false,pocketfft::detail::cmplx<float
         do
         {
           v97 = v45[v96];
-          v98 = *(v52 + 8 * v96);
-          v99 = *(v46 + 8 * v96);
+          v98 = v52[v96];
+          v99 = v46[v96];
           _D17 = vadd_f32(v98, v99);
-          v101 = *(v55 + 8 * v96);
+          v101 = v55[v96];
           _D16 = vsub_f32(v98, v99);
-          _D18 = *(v58 + 8 * v96);
+          _D18 = v58[v96];
           _D21 = vadd_f32(v101, _D18);
-          _D22 = *(v61 + 8 * v96);
+          _D22 = v61[v96];
           _D18.f32[0] = vsub_f32(v101, _D18).f32[0];
-          v106 = *(v67 + 8 * v96);
+          v106 = v67[v96];
           _D23 = vadd_f32(_D22, v106);
           _D19 = vsub_f32(_D22, v106);
           *(v47 + 8 * v96) = vadd_f32(vadd_f32(vadd_f32(v97, _D17), _D21), _D23);
@@ -8247,12 +6453,12 @@ void pocketfft::detail::cfftp<float>::pass7<false,pocketfft::detail::cmplx<float
 
       ++v44;
       v45 = (v45 + v133);
-      v52 += v133;
-      v46 += v133;
-      v55 += v133;
-      v58 += v133;
-      v61 += v133;
-      v67 += v133;
+      v52 = (v52 + v133);
+      v46 = (v46 + v133);
+      v55 = (v55 + v133);
+      v58 = (v58 + v133);
+      v61 = (v61 + v133);
+      v67 = (v67 + v133);
       v47 += v132;
       v63 += v132;
       v48 += v132;
@@ -8476,24 +6682,24 @@ void pocketfft::detail::cfftp<float>::pass11<false,pocketfft::detail::cmplx<floa
           v128 = 0;
           do
           {
-            v129 = *(v82 + 8 * v128);
-            v130 = *(v81 + 8 * v128);
+            v129 = v82[v128];
+            v130 = v81[v128];
             v131 = vadd_f32(v129, v130);
             _D22 = vsub_f32(v129, v130);
-            v133 = *(v83 + 8 * v128);
-            v134 = *(v65 + 8 * v128);
+            v133 = v83[v128];
+            v134 = v65[v128];
             v135 = vadd_f32(v133, v134);
             v136 = vsub_f32(v133, v134).f32[0];
-            v137 = *(v66 + 8 * v128);
-            v138 = *(v84 + 8 * v128);
+            v137 = v66[v128];
+            v138 = v84[v128];
             v139 = vadd_f32(v137, v138);
             _D24 = vsub_f32(v137, v138);
-            v141 = *(v85 + 8 * v128);
-            v142 = *(v208 + 8 * v128);
+            v141 = v85[v128];
+            v142 = v208[v128];
             v143 = vadd_f32(v141, v142);
             _D25 = vsub_f32(v141, v142);
-            v145 = *(v209 + 8 * v128);
-            _D6 = *(v67 + 8 * v128);
+            v145 = v209[v128];
+            _D6 = v67[v128];
             v147 = vadd_f32(v145, _D6);
             _D26 = vsub_f32(v145, _D6);
             v149 = v64[v128];
@@ -8599,11 +6805,11 @@ void pocketfft::detail::cfftp<float>::pass11<false,pocketfft::detail::cmplx<floa
         }
 
         ++v63;
-        v81 += v195;
-        v65 += v195;
-        v208 += v195;
-        v209 += v195;
-        v67 += v195;
+        v81 = (v81 + v195);
+        v65 = (v65 + v195);
+        v208 = (v208 + v195);
+        v209 = (v209 + v195);
+        v67 = (v67 + v195);
         v68 += v182;
         v69 += v182;
         v80 += v182;
@@ -8616,11 +6822,11 @@ void pocketfft::detail::cfftp<float>::pass11<false,pocketfft::detail::cmplx<floa
         v78 += v182;
         v79 += v182;
         v64 = (v64 + v195);
-        v82 += v195;
-        v83 += v195;
-        v66 += v195;
-        v84 += v195;
-        v85 += v195;
+        v82 = (v82 + v195);
+        v83 = (v83 + v195);
+        v66 = (v66 + v195);
+        v84 = (v84 + v195);
+        v85 = (v85 + v195);
       }
 
       while (v206 + 1 != a3);
@@ -8635,7 +6841,7 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
   *v13 = 1065353216;
   if (a3 >= 2)
   {
-    v15 = a3 - 1;
+    v15 = (a3 - 1);
     v16 = (a8 + 8);
     v17 = v13 + 1;
     do
@@ -8716,8 +6922,8 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
       }
 
       ++v31;
-      v26 += v24;
-      v27 -= v24;
+      v26 += 8 * v24;
+      v27 -= 8 * v24;
       v28 = (v28 + v20);
       v30 -= a2;
     }
@@ -8760,7 +6966,7 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
       }
 
       ++v45;
-      v46 = (v46 + v20);
+      v46 += v20;
     }
 
     while (v45 != a4);
@@ -8826,7 +7032,7 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
           }
 
           v74 = v72 - v73;
-          v75 = v72 - v73 + v56;
+          v75 = (v72 - v73 + v56);
           if (v75 <= a3)
           {
             v76 = 0;
@@ -8900,8 +7106,8 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
             {
               v57[v91] = vmla_f32(v57[v91], v94, *&v87[v91 * 8]);
               v96 = &v55[v91];
-              v97 = v55[v91].f32[1] + (*(v88 + v91 * 8 - 4) * v93);
-              *v96 = v55[v91].f32[0] - (*(v88 + v91 * 8) * v93);
+              v97 = v55[v91].f32[1] + (*&v88[v91 * 8 - 4] * v93);
+              *v96 = v55[v91].f32[0] - (*&v88[v91 * 8] * v93);
               v96[1] = v97;
               ++v91;
               --v95;
@@ -8926,8 +7132,8 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
     while (v56 != v25);
     if (a2 == 1)
     {
-      v98 = &a5[v24 * v134] + 4;
-      v99 = &a5[v24] + 4;
+      v98 = &a5[v24 * v134] + 1;
+      v99 = &a5[v24] + 1;
       v100 = 1;
       do
       {
@@ -8949,8 +7155,8 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
         }
 
         ++v100;
-        v98 -= 8 * v24;
-        v99 += v54;
+        v98 -= 2 * v24;
+        v99 = (v99 + v54);
       }
 
       while (v100 != v25);
@@ -8968,22 +7174,22 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
         {
           v113 = 0;
           v114 = v110 * a4;
-          v115 = v110 - 1;
+          v115 = (v110 - 1);
           v116 = a7 + 8 * (a2 - 1) * (v110 - 1);
           v117 = v112;
           v118 = a5 + v54 * v110;
           do
           {
             v119 = &a5[(v113 + v109 * a4) * a2];
-            v120 = *v119;
-            v121 = v119[1];
+            v120 = v119->f32[0];
+            v121 = v119->f32[1];
             v122 = &a5[(v113 + v114) * a2];
-            v123 = *v122;
-            v124 = v122[1];
-            *v119 = *v119 + *v122;
-            v119[1] = v121 + v124;
-            *v122 = v120 - v123;
-            v122[1] = v121 - v124;
+            v123 = v122->f32[0];
+            v124 = v122->f32[1];
+            v119->f32[0] = v119->f32[0] + v122->f32[0];
+            v119->f32[1] = v121 + v124;
+            v122->f32[0] = v120 - v123;
+            v122->f32[1] = v121 - v124;
             if (a2)
             {
               v125 = 0;
@@ -9017,7 +7223,7 @@ void pocketfft::detail::cfftp<float>::passg<false,pocketfft::detail::cmplx<float
 
         else
         {
-          v115 = v110 - 1;
+          v115 = (v110 - 1);
         }
 
         ++v109;
@@ -9057,7 +7263,7 @@ uint64_t *std::unique_ptr<pocketfft::detail::fftblue<float>>::reset[abi:ne200100
 
 uint64_t pocketfft::detail::threading::max_threads(pocketfft::detail::threading *this)
 {
-  if ((atomic_load_explicit(&qword_27FA06038, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27FA06038, memory_order_acquire) & 1) == 0)
   {
     pocketfft::detail::threading::max_threads();
   }
@@ -9112,7 +7318,7 @@ void pocketfft::detail::general_nd<pocketfft::detail::pocketfft_c<float>,pocketf
 
 void pocketfft::detail::threading::thread_pool::submit(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 120));
   v4 = atomic_load((a1 + 208));
   if (v4)
@@ -9128,9 +7334,9 @@ void pocketfft::detail::threading::thread_pool::submit(uint64_t a1, uint64_t a2)
   if (v6 == v5)
   {
 LABEL_6:
-    std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v11, a2);
-    pocketfft::detail::threading::concurrent_queue<std::function<void ()(void)>>::push(a1, v11);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
+    std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v10, a2);
+    pocketfft::detail::threading::concurrent_queue<std::function<void ()(void)>>::push(a1, v10);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
   }
 
   else
@@ -9154,7 +7360,6 @@ LABEL_6:
   }
 
   std::mutex::unlock((a1 + 120));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A5B3300(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -9246,7 +7451,7 @@ uint64_t *pocketfft::detail::multi_iter<4ul>::advance(uint64_t *result, unint64_
   return result;
 }
 
-void _ZNK9pocketfft6detail7ExecC2CclIfNS0_5cmplxIDv4_fEELm4EEEvRKNS0_10multi_iterIXT1_EEERKNS0_6cndarrINS3_IT_EEEERNS0_5ndarrISC_EEPT0_RKNS0_11pocketfft_cISB_EESB_(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, uint64_t a6, float a7)
+void _ZNK9pocketfft6detail7ExecC2CclIfNS0_5cmplxIDv4_fEELm4EEEvRKNS0_10multi_iterIXT1_EEERKNS0_6cndarrINS3_IT_EEEERNS0_5ndarrISC_EEPT0_RKNS0_11pocketfft_cISB_EESB_(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, unint64_t **a6, float a7)
 {
   v10 = *(**(a2 + 24) + 8 * *(a2 + 136));
   if (v10)
@@ -9315,7 +7520,7 @@ void _ZNK9pocketfft6detail7ExecC2CclIfNS0_5cmplxIDv4_fEELm4EEEvRKNS0_10multi_ite
   }
 }
 
-uint64_t pocketfft::detail::ExecC2C::operator()<float,pocketfft::detail::cmplx<float>,4ul>(unsigned __int8 *a1, void *a2, uint64_t a3, uint64_t a4, float32x2_t *a5, void **a6, float a7)
+uint64_t pocketfft::detail::ExecC2C::operator()<float,pocketfft::detail::cmplx<float>,4ul>(unsigned __int8 *a1, void *a2, uint64_t a3, uint64_t a4, float32x2_t *a5, char ***a6, float a7)
 {
   pocketfft::detail::copy_input<pocketfft::detail::cmplx<float>,4ul>(a2, a3, a5);
   pocketfft::detail::pocketfft_c<float>::exec<float>(a6, a5, *a1, a7);
@@ -9325,100 +7530,102 @@ uint64_t pocketfft::detail::ExecC2C::operator()<float,pocketfft::detail::cmplx<f
 
 uint64_t *pocketfft::detail::multi_iter<4ul>::multi_iter(uint64_t *a1, uint64_t **a2, uint64_t a3, uint64_t a4)
 {
-  v8 = std::vector<unsigned long>::vector[abi:ne200100](a1, a2[1] - *a2);
-  v8[3] = a2;
-  v8[4] = a3;
-  v8[5] = 0;
-  v8[10] = a2[3][a4];
-  v8[11] = 0;
-  v8[16] = *(*(a3 + 24) + 8 * a4);
-  v8[17] = a4;
-  v9 = a2[1];
-  v10 = 1;
-  if (*a2 != v9)
+  v8 = a2[1] - *a2;
+  v34 = 0;
+  v9 = std::vector<unsigned long>::vector[abi:ne200100](a1, v8, &v34);
+  v9[3] = a2;
+  v9[4] = a3;
+  v9[5] = 0;
+  v9[10] = a2[3][a4];
+  v9[11] = 0;
+  v9[16] = *(*(a3 + 24) + 8 * a4);
+  v9[17] = a4;
+  v10 = a2[1];
+  v11 = 1;
+  if (*a2 != v10)
   {
-    v11 = *a2;
+    v12 = *a2;
     do
     {
-      v12 = *v11++;
-      v10 *= v12;
+      v13 = *v12++;
+      v11 *= v13;
     }
 
-    while (v11 != v9);
+    while (v12 != v10);
   }
 
-  a1[18] = v10 / (*a2)[a4];
-  v13 = pocketfft::detail::threading::num_threads(void)::num_threads_();
-  if (*v13 != 1)
+  a1[18] = v11 / (*a2)[a4];
+  v14 = pocketfft::detail::threading::num_threads(void)::num_threads_();
+  if (*v14 != 1)
   {
-    if (!*v13)
+    if (!*v14)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "can't run with zero threads");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v19 = *pocketfft::detail::threading::thread_id(void)::thread_id_();
-    if (v19 >= v18)
+    v20 = *pocketfft::detail::threading::thread_id(void)::thread_id_();
+    if (v20 >= v19)
     {
-      v32 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v32, "impossible share requested");
-      __cxa_throw(v32, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v33 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v33, "impossible share requested");
+      __cxa_throw(v33, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v20 = v17 / v18;
-    v21 = v17 % v18;
-    if (v19 >= v17 % v18)
+    v21 = v18 / v19;
+    v22 = v18 % v19;
+    if (v20 >= v18 % v19)
     {
-      v22 = v17 / v18;
+      v23 = v18 / v19;
     }
 
     else
     {
-      v22 = v20 + 1;
+      v23 = v21 + 1;
     }
 
-    v23 = *a1;
-    v24 = a1[1];
-    v25 = v24 - *a1;
-    if (v24 != *a1)
+    v24 = *a1;
+    v25 = a1[1];
+    v26 = v25 - *a1;
+    if (v25 != *a1)
     {
-      v26 = 0;
-      v27 = v25 >> 3;
-      if (v19 < v21)
+      v27 = 0;
+      v28 = v26 >> 3;
+      if (v20 < v22)
       {
-        v21 = v19;
+        v22 = v20;
       }
 
-      v28 = v21 + v20 * v19;
-      if (v27 <= 1)
+      v29 = v22 + v21 * v20;
+      if (v28 <= 1)
       {
-        v29 = 1;
+        v30 = 1;
       }
 
       else
       {
-        v29 = v27;
+        v30 = v28;
       }
 
       do
       {
-        if (v26 != a1[17])
+        if (v27 != a1[17])
         {
-          v17 /= *(v16 + 8 * v26);
-          *(v23 + 8 * v26) += v28 / v17;
-          a1[5] += *(v14 + 8 * v26) * (v28 / v17);
-          a1[11] += *(v15 + 8 * v26) * (v28 / v17);
-          v28 %= v17;
+          v18 /= *(v17 + 8 * v27);
+          *(v24 + 8 * v27) += v29 / v18;
+          a1[5] += *(v15 + 8 * v27) * (v29 / v18);
+          a1[11] += *(v16 + 8 * v27) * (v29 / v18);
+          v29 %= v18;
         }
 
-        ++v26;
+        ++v27;
       }
 
-      while (v29 != v26);
+      while (v30 != v27);
     }
 
-    a1[18] = v22;
+    a1[18] = v23;
   }
 
   return a1;
@@ -9475,7 +7682,7 @@ uint64_t *pocketfft::detail::multi_iter<4ul>::advance_i(uint64_t *result)
   return result;
 }
 
-void _ZNK9pocketfft6detail11pocketfft_cIfE4execIDv4_fEEvPNS0_5cmplxIT_EEfb(uint64_t a1, float32x4_t *a2, int a3, float a4)
+void _ZNK9pocketfft6detail11pocketfft_cIfE4execIDv4_fEEvPNS0_5cmplxIT_EEfb(unint64_t **a1, float32x4_t *a2, int a3, float a4)
 {
   v5 = *a1;
   if (v5)
@@ -9493,7 +7700,7 @@ void _ZNK9pocketfft6detail11pocketfft_cIfE4execIDv4_fEEvPNS0_5cmplxIT_EEfb(uint6
 
   else
   {
-    v6 = *(a1 + 8);
+    v6 = a1[1];
     if (a3)
     {
       _ZNK9pocketfft6detail7fftblueIfE3fftILb1EDv4_fEEvPNS0_5cmplxIT0_EEf(v6, a2, a4);
@@ -9506,7 +7713,7 @@ void _ZNK9pocketfft6detail11pocketfft_cIfE4execIDv4_fEEvPNS0_5cmplxIT_EEfb(uint6
   }
 }
 
-void _ZNK9pocketfft6detail5cfftpIfE8pass_allILb1ENS0_5cmplxIDv4_fEEEEvPT0_f(uint64_t *a1, float32x4_t *a2, float a3)
+void _ZNK9pocketfft6detail5cfftpIfE8pass_allILb1ENS0_5cmplxIDv4_fEEEEvPT0_f(unint64_t *a1, float32x4_t *a2, float a3)
 {
   if (*a1 == 1)
   {
@@ -9666,7 +7873,7 @@ LABEL_36:
   free(v25);
 }
 
-void _ZNK9pocketfft6detail5cfftpIfE8pass_allILb0ENS0_5cmplxIDv4_fEEEEvPT0_f(uint64_t *a1, float32x4_t *a2, float a3)
+void _ZNK9pocketfft6detail5cfftpIfE8pass_allILb0ENS0_5cmplxIDv4_fEEEEvPT0_f(unint64_t *a1, float32x4_t *a2, float a3)
 {
   if (*a1 == 1)
   {
@@ -10012,5 +8219,1771 @@ void _ZNK9pocketfft6detail5cfftpIfE5pass4ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PK
     }
 
     while (v27 != a3);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE5pass8ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  v262 = a4;
+  v6 = a3;
+  v251 = a2 - 1;
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v7 = a4 + 8;
+      v8 = vdupq_n_s32(0x3F3504F3u);
+      do
+      {
+        v9 = v7[-6];
+        v10 = v7[-5];
+        v11 = v7[2];
+        v12 = v7[3];
+        v13 = vaddq_f32(v9, v11);
+        v14 = vaddq_f32(v10, v12);
+        v15 = vsubq_f32(v9, v11);
+        v16 = vsubq_f32(v10, v12);
+        v17 = v7[-2];
+        v18 = v7[-1];
+        v19 = v7[6];
+        v20 = v7[7];
+        v21 = vaddq_f32(v17, v19);
+        v22 = vaddq_f32(v18, v20);
+        v23 = vsubq_f32(v17, v19);
+        v24 = vsubq_f32(v18, v20);
+        v25 = vaddq_f32(v13, v21);
+        v26 = vaddq_f32(v14, v22);
+        v27 = vsubq_f32(v13, v21);
+        v28 = vsubq_f32(v14, v22);
+        v29 = vaddq_f32(v15, v24);
+        v30 = vsubq_f32(v16, v23);
+        v31 = vsubq_f32(v15, v24);
+        v32 = vaddq_f32(v16, v23);
+        v33 = vmulq_f32(vaddq_f32(v30, v29), v8);
+        v34 = vmulq_f32(vsubq_f32(v30, v29), v8);
+        v35 = vmulq_f32(vsubq_f32(v32, v31), v8);
+        v36 = vmulq_f32(vsubq_f32(vnegq_f32(v31), v32), v8);
+        v37 = v7[-8];
+        v38 = v7[-7];
+        v39 = v7[1];
+        v40 = vaddq_f32(v37, *v7);
+        v41 = vaddq_f32(v38, v39);
+        v42 = vsubq_f32(v37, *v7);
+        v43 = vsubq_f32(v38, v39);
+        v44 = v7[-4];
+        v45 = v7[-3];
+        v46 = v7[4];
+        v47 = v7[5];
+        v48 = vaddq_f32(v44, v46);
+        v49 = vaddq_f32(v45, v47);
+        v50 = vsubq_f32(v44, v46);
+        v51 = vsubq_f32(v45, v47);
+        v52 = &a5[8 * a3];
+        v53 = vaddq_f32(v40, v48);
+        v54 = vaddq_f32(v41, v49);
+        *a5 = vaddq_f32(v25, v53);
+        a5[1] = vaddq_f32(v26, v54);
+        *v52 = vsubq_f32(v53, v25);
+        v52[1] = vsubq_f32(v54, v26);
+        v55 = &a5[4 * a3];
+        v56 = (a5 + ((192 * a3) | 0x10));
+        v57 = vsubq_f32(v40, v48);
+        v58 = vsubq_f32(v41, v49);
+        *v55 = vaddq_f32(v28, v57);
+        v55[1] = vsubq_f32(v58, v27);
+        v56[-1] = vsubq_f32(v57, v28);
+        *v56 = vaddq_f32(v27, v58);
+        v59 = &a5[2 * a3];
+        v60 = (a5 + ((160 * a3) | 0x10));
+        v61 = vaddq_f32(v42, v51);
+        v62 = vsubq_f32(v43, v50);
+        *v59 = vaddq_f32(v33, v61);
+        v59[1] = vaddq_f32(v34, v62);
+        v60[-1] = vsubq_f32(v61, v33);
+        *v60 = vsubq_f32(v62, v34);
+        v63 = (a5 + ((96 * a3) | 0x10));
+        v64 = (a5 + ((224 * a3) | 0x10));
+        v65 = vsubq_f32(v42, v51);
+        v66 = vaddq_f32(v43, v50);
+        v63[-1] = vaddq_f32(v35, v65);
+        *v63 = vaddq_f32(v36, v66);
+        v64[-1] = vsubq_f32(v65, v35);
+        *v64 = vsubq_f32(v66, v36);
+        v7 += 16;
+        a5 += 2;
+        --v6;
+      }
+
+      while (v6);
+    }
+  }
+
+  else if (a3)
+  {
+    v67 = 0;
+    v256 = 2 * a3;
+    v257 = 4 * a3;
+    v258 = 3 * a3;
+    v255 = 6 * a3;
+    v254 = 7 * a3;
+    v68 = &a5[14 * a3 * a2];
+    v69 = &a4[2 * a2 + 3];
+    v70 = &a4[10 * a2 + 3];
+    v71 = &a5[6 * a3 * a2];
+    v73 = &a4[6 * a2 + 3];
+    v74 = 32 * a2;
+    v75 = &a4[14 * a2 + 3];
+    v252 = 5 * a3;
+    v253 = a2 << 8;
+    v76 = &a5[10 * a3 * a2];
+    v77 = &a4[8 * a2];
+    v78 = &a4[12 * a2];
+    v250 = (a6 + 4);
+    v79 = &a4[4 * a2];
+    v80 = &a5[12 * a3 * a2];
+    v81 = &a5[2 * a3 * a2];
+    v82 = 24 * a2 - 20;
+    v83 = 8 * a2 - 8;
+    v84 = &a5[4 * a3 * a2];
+    v85 = vdupq_n_s32(0x3F3504F3u);
+    v86 = a5;
+    v87 = &a5[8 * a3 * a2];
+    v260 = a5;
+    do
+    {
+      v88 = &v262[2 * ((8 * v67) | 1) * a2];
+      v89 = *v88;
+      v90 = v88[1];
+      v91 = &v262[2 * ((8 * v67) | 5) * a2];
+      v92 = v91[1];
+      v93 = vaddq_f32(v89, *v91);
+      v94 = vaddq_f32(v90, v92);
+      v95 = vsubq_f32(v89, *v91);
+      v96 = vsubq_f32(v90, v92);
+      v97 = &v262[2 * ((8 * v67) | 3) * a2];
+      v98 = *v97;
+      v99 = v97[1];
+      v100 = &v262[2 * ((8 * v67) | 7) * a2];
+      v101 = v100[1];
+      v102 = vaddq_f32(v98, *v100);
+      v103 = vaddq_f32(v99, v101);
+      v104 = vsubq_f32(v98, *v100);
+      v105 = vsubq_f32(v99, v101);
+      v106 = vaddq_f32(v93, v102);
+      v107 = vaddq_f32(v94, v103);
+      v108 = vsubq_f32(v93, v102);
+      v109 = vsubq_f32(v94, v103);
+      v110 = vaddq_f32(v95, v105);
+      v111 = vsubq_f32(v96, v104);
+      v112 = vsubq_f32(v95, v105);
+      v113 = vaddq_f32(v96, v104);
+      v114 = vmulq_f32(vaddq_f32(v111, v110), v85);
+      v115 = vmulq_f32(vsubq_f32(v111, v110), v85);
+      v116 = vmulq_f32(vsubq_f32(v113, v112), v85);
+      v117 = vmulq_f32(vsubq_f32(vnegq_f32(v112), v113), v85);
+      v118 = &v262[2 * 8 * v67 * a2];
+      v119 = *v118;
+      v120 = v118[1];
+      v121 = &v262[2 * ((8 * v67) | 4) * a2];
+      v122 = v121[1];
+      v123 = vaddq_f32(v119, *v121);
+      v124 = vaddq_f32(v120, v122);
+      v125 = vsubq_f32(v119, *v121);
+      v126 = vsubq_f32(v120, v122);
+      v127 = &v262[2 * ((8 * v67) | 2) * a2];
+      v128 = *v127;
+      v129 = v127[1];
+      v130 = &v262[2 * ((8 * v67) | 6) * a2];
+      v131 = v130[1];
+      v132 = vaddq_f32(v128, *v130);
+      v133 = vaddq_f32(v129, v131);
+      v134 = vsubq_f32(v128, *v130);
+      v135 = vsubq_f32(v129, v131);
+      v136 = &a5[2 * v67 * a2];
+      v137 = &a5[2 * (v67 + v257) * a2];
+      v138 = vaddq_f32(v123, v132);
+      v139 = vaddq_f32(v124, v133);
+      *v136 = vaddq_f32(v106, v138);
+      v136[1] = vaddq_f32(v107, v139);
+      *v137 = vsubq_f32(v138, v106);
+      v137[1] = vsubq_f32(v139, v107);
+      v140 = &a5[2 * (v67 + v256) * a2];
+      v141 = &a5[2 * (v67 + v255) * a2];
+      v142 = vsubq_f32(v123, v132);
+      v143 = vsubq_f32(v124, v133);
+      *v140 = vaddq_f32(v109, v142);
+      v140[1] = vsubq_f32(v143, v108);
+      *v141 = vsubq_f32(v142, v109);
+      v141[1] = vaddq_f32(v108, v143);
+      v144 = &a5[2 * (v67 + v6) * a2];
+      v145 = &a5[2 * (v67 + v252) * a2];
+      v146 = vaddq_f32(v125, v135);
+      v147 = vsubq_f32(v126, v134);
+      *v144 = vaddq_f32(v114, v146);
+      v144[1] = vaddq_f32(v115, v147);
+      *v145 = vsubq_f32(v146, v114);
+      v145[1] = vsubq_f32(v147, v115);
+      v148 = &a5[2 * (v67 + v258) * a2];
+      v149 = &a5[2 * (v67 + v254) * a2];
+      v150 = vsubq_f32(v125, v135);
+      v151 = vaddq_f32(v126, v134);
+      *v148 = vaddq_f32(v116, v150);
+      v148[1] = vaddq_f32(v117, v151);
+      *v149 = vsubq_f32(v150, v116);
+      v149[1] = vsubq_f32(v151, v117);
+      if (a2)
+      {
+        v152 = 0;
+        v153 = v250;
+        v154 = v251;
+        do
+        {
+          v155 = v69[v152 - 1];
+          v156 = v69[v152];
+          v157 = v70[v152 - 1];
+          v158 = v70[v152];
+          v159 = vaddq_f32(v155, v157);
+          v160 = vaddq_f32(v156, v158);
+          v161 = vsubq_f32(v155, v157);
+          v162 = v73[v152 - 1];
+          v163 = v73[v152];
+          v164 = vsubq_f32(v156, v158);
+          v166 = v75[v152 - 1];
+          v165 = v75[v152];
+          v167 = vaddq_f32(v162, v166);
+          v168 = vaddq_f32(v163, v165);
+          v169 = vsubq_f32(v162, v166);
+          v170 = vsubq_f32(v163, v165);
+          v171 = vaddq_f32(v159, v167);
+          v172 = vaddq_f32(v160, v168);
+          v173 = vsubq_f32(v159, v167);
+          v174 = vsubq_f32(v160, v168);
+          v175 = vaddq_f32(v161, v170);
+          v176 = vsubq_f32(v164, v169);
+          v177 = vsubq_f32(v161, v170);
+          v178 = vaddq_f32(v164, v169);
+          v179 = vaddq_f32(v176, v175);
+          v180 = a4[v152 + 2];
+          v181 = a4[v152 + 3];
+          v182 = vsubq_f32(v176, v175);
+          v183 = v77[v152 + 2];
+          v184 = v77[v152 + 3];
+          v185 = vaddq_f32(v180, v183);
+          v186 = vaddq_f32(v181, v184);
+          v187 = vsubq_f32(v178, v177);
+          v188 = vsubq_f32(v180, v183);
+          v189 = vsubq_f32(v181, v184);
+          v190 = v79[v152 + 2];
+          v191 = v79[v152 + 3];
+          v192 = v78[v152 + 2];
+          v193 = v78[v152 + 3];
+          v194 = vaddq_f32(v190, v192);
+          v195 = vaddq_f32(v191, v193);
+          v196 = vsubq_f32(vnegq_f32(v177), v178);
+          v197 = vsubq_f32(v190, v192);
+          v198 = vsubq_f32(v191, v193);
+          v199 = vaddq_f32(v185, v194);
+          v200 = vaddq_f32(v186, v195);
+          v201 = vsubq_f32(v185, v194);
+          v202 = vmulq_f32(v179, v85);
+          v203 = vsubq_f32(v186, v195);
+          v204 = &v86[v152];
+          v204[2] = vaddq_f32(v171, v199);
+          v204[3] = vaddq_f32(v172, v200);
+          v205 = vsubq_f32(v199, v171);
+          v206 = vsubq_f32(v200, v172);
+          v172.f32[0] = *(v153 + v82 - 8);
+          v200.f32[0] = *(v153 + v82 - 4);
+          v207 = vmlaq_n_f32(vmulq_n_f32(v206, v200.f32[0]), v205, v172.f32[0]);
+          v208 = vaddq_f32(v174, v201);
+          v209 = vsubq_f32(v203, v173);
+          v210 = vmulq_n_f32(vnegq_f32(v205), v200.f32[0]);
+          v211 = *(v153 + v83 - 4);
+          v205.f32[0] = *(v153 + v83);
+          v212 = vmlaq_n_f32(vmulq_n_f32(v209, v205.f32[0]), v208, v211);
+          v213 = vmulq_n_f32(vnegq_f32(v208), v205.f32[0]);
+          v214 = vmulq_f32(v182, v85);
+          v215 = vmulq_f32(v187, v85);
+          v216 = vmulq_f32(v196, v85);
+          v217 = &v87[v152];
+          v218 = &v84[v152];
+          v219 = vmlaq_n_f32(v210, v206, v172.f32[0]);
+          v220 = vsubq_f32(v201, v174);
+          v221 = vaddq_f32(v173, v203);
+          v206.f32[0] = v153[10 * v251 - 1];
+          v172.f32[0] = v153[10 * v251];
+          v222 = &v80[v152];
+          v223 = vmlaq_n_f32(vmulq_n_f32(v221, v172.f32[0]), v220, v206.f32[0]);
+          v217[2] = v207;
+          v217[3] = v219;
+          v224 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v220), v172.f32[0]), v221, v206.f32[0]);
+          v225 = vaddq_f32(v188, v198);
+          v226 = vsubq_f32(v189, v197);
+          v218[2] = v212;
+          v218[3] = vmlaq_n_f32(v213, v209, v211);
+          v227 = vsubq_f32(v188, v198);
+          v228 = vaddq_f32(v189, v197);
+          v229 = vaddq_f32(v202, v225);
+          v198.f32[0] = *(v153 - 1);
+          v222[2] = v223;
+          v222[3] = v224;
+          v230 = &v81[v152];
+          v231 = v153;
+          v233 = vld1q_dup_f32(v231);
+          v72 = 12 * v251;
+          v232 = &v231[v72];
+          v234 = vaddq_f32(v214, v226);
+          v235 = vmlaq_n_f32(vmulq_f32(v234, v233), v229, v198.f32[0]);
+          v236 = vsubq_f32(v225, v202);
+          v237 = vmlaq_n_f32(vmulq_f32(v233, vnegq_f32(v229)), v234, v198.f32[0]);
+          v238 = vsubq_f32(v226, v214);
+          v229.f32[0] = v153[v74 / 4 - 9];
+          v198.f32[0] = v153[v74 / 4 - 8];
+          v230[2] = v235;
+          v230[3] = v237;
+          v239 = &v76[v152];
+          v240 = vmulq_n_f32(v238, v198.f32[0]);
+          v241 = vmulq_n_f32(vnegq_f32(v236), v198.f32[0]);
+          v242 = vaddq_f32(v215, v227);
+          v243 = vmlaq_n_f32(v240, v236, v229.f32[0]);
+          v244 = vaddq_f32(v216, v228);
+          v226.f32[0] = v153[4 * v251 - 1];
+          v234.f32[0] = v153[4 * v251];
+          v245 = &v71[v152];
+          v239[2] = v243;
+          v239[3] = vmlaq_n_f32(v241, v238, v229.f32[0]);
+          v246 = vsubq_f32(v227, v215);
+          v247 = vsubq_f32(v228, v216);
+          v245[2] = vmlaq_n_f32(vmulq_n_f32(v244, v234.f32[0]), v242, v226.f32[0]);
+          v245[3] = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v242), v234.f32[0]), v244, v226.f32[0]);
+          v244.f32[0] = *(v232 - 1);
+          v248 = &v68[v152];
+          v249 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v246), *v232), v247, v244.f32[0]);
+          v248[2] = vmlaq_n_f32(vmulq_n_f32(v247, *v232), v246, v244.f32[0]);
+          v248[3] = v249;
+          v152 += 2;
+          v153 += 2;
+          --v154;
+        }
+
+        while (v154);
+      }
+
+      ++v67;
+      v68 = (v68 + v74);
+      v69 = (v69 + v253);
+      v70 = (v70 + v253);
+      v71 = (v71 + v74);
+      v73 = (v73 + v253);
+      v75 = (v75 + v253);
+      v76 = (v76 + v74);
+      a4 = (a4 + v253);
+      v77 = (v77 + v253);
+      v79 = (v79 + v253);
+      v78 = (v78 + v253);
+      v86 = (v86 + v74);
+      v81 = (v81 + v74);
+      v80 = (v80 + v74);
+      v84 = (v84 + v74);
+      v87 = (v87 + v74);
+      v6 = a3;
+      a5 = v260;
+    }
+
+    while (v67 != a3);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE5pass2ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v6 = a4 + 2;
+      v7 = a5 + 1;
+      v8 = &a5[2 * a3 + 1];
+      do
+      {
+        v9 = v6[-2];
+        v10 = v6[-1];
+        v11 = *v6;
+        v12 = v6[1];
+        v6 += 4;
+        v7[-1] = vaddq_f32(v9, v11);
+        *v7 = vaddq_f32(v10, v12);
+        v8[-1] = vsubq_f32(v9, v11);
+        *v8 = vsubq_f32(v10, v12);
+        v8 += 2;
+        v7 += 2;
+        --a3;
+      }
+
+      while (a3);
+    }
+  }
+
+  else if (a3)
+  {
+    v13 = 0;
+    v14 = &a5[2 * a3 * a2];
+    v15 = 32 * a2;
+    v16 = a2 << 6;
+    v17 = &a4[2 * a2];
+    v18 = (a6 + 4);
+    v19 = a5;
+    v20 = a4;
+    do
+    {
+      v21 = &a4[2 * 2 * v13 * a2];
+      v22 = &a4[2 * ((2 * v13) | 1) * a2];
+      v23 = *v21;
+      v24 = v21[1];
+      v25 = *v22;
+      v26 = v22[1];
+      v27 = vaddq_f32(*v21, *v22);
+      v28 = &a5[2 * v13 * a2];
+      *v28 = v27;
+      v28[1] = vaddq_f32(v24, v26);
+      v29 = &a5[2 * (v13 + a3) * a2];
+      *v29 = vsubq_f32(v23, v25);
+      v29[1] = vsubq_f32(v24, v26);
+      if (a2)
+      {
+        v30 = 0;
+        v31 = v18;
+        v32 = a2 - 1;
+        do
+        {
+          v33 = v20[v30 + 2];
+          v34 = v20[v30 + 3];
+          v35 = v17[v30 + 2];
+          v36 = v17[v30 + 3];
+          v37 = &v19[v30];
+          v37[2] = vaddq_f32(v33, v35);
+          v37[3] = vaddq_f32(v34, v36);
+          v38 = vsubq_f32(v33, v35);
+          v39 = vsubq_f32(v34, v36);
+          v35.f32[0] = *(v31 - 1);
+          v40 = &v14[v30];
+          v41 = vmlaq_n_f32(vmulq_n_f32(v39, *v31), v38, v35.f32[0]);
+          v42 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v38), *v31), v39, v35.f32[0]);
+          v40[2] = v41;
+          v40[3] = v42;
+          v30 += 2;
+          v31 += 2;
+          --v32;
+        }
+
+        while (v32);
+      }
+
+      ++v13;
+      v14 = (v14 + v15);
+      v20 = (v20 + v16);
+      v17 = (v17 + v16);
+      v19 = (v19 + v15);
+    }
+
+    while (v13 != a3);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE5pass3ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v6 = a5 + 1;
+      v7 = 2 * a3;
+      v8 = &a5[4 * a3 + 1];
+      v9 = a4 + 3;
+      v10.i64[0] = 0x3F0000003F000000;
+      v10.i64[1] = 0x3F0000003F000000;
+      v11 = vdupq_n_s32(0x3F5DB3D7u);
+      v12 = vdupq_n_s32(0xBF5DB3D7);
+      do
+      {
+        v13 = v9[-3];
+        v14 = v9[-2];
+        v15 = v9[-1];
+        v16 = v9[1];
+        v17 = v9[2];
+        v18 = vaddq_f32(v15, v16);
+        v19 = vaddq_f32(*v9, v17);
+        v20 = vsubq_f32(*v9, v17);
+        v6[-1] = vaddq_f32(v13, v18);
+        *v6 = vaddq_f32(v14, v19);
+        v21 = vsubq_f32(v13, vmulq_f32(v18, v10));
+        v22 = vsubq_f32(v14, vmulq_f32(v19, v10));
+        v23 = vmulq_f32(v20, v11);
+        v24 = vmulq_f32(vsubq_f32(v15, v16), v12);
+        v25 = &v6[v7];
+        v25[-1] = vaddq_f32(v21, v23);
+        *v25 = vaddq_f32(v24, v22);
+        v8[-1] = vsubq_f32(v21, v23);
+        *v8 = vsubq_f32(v22, v24);
+        v6 += 2;
+        v8 += 2;
+        v9 += 6;
+        --a3;
+      }
+
+      while (a3);
+    }
+  }
+
+  else if (a3)
+  {
+    v26 = 0;
+    v27 = &a5[4 * a3 * a2];
+    v28 = 32 * a2;
+    v29 = 96 * a2;
+    v30 = &a4[2 * a2];
+    v31 = a6 + 8 * a2 - 4;
+    v32 = (a6 + 4);
+    v33.i64[0] = 0x3F0000003F000000;
+    v33.i64[1] = 0x3F0000003F000000;
+    v34 = vdupq_n_s32(0x3F5DB3D7u);
+    v35 = &a4[4 * a2];
+    v36 = vdupq_n_s32(0xBF5DB3D7);
+    v37 = a5;
+    v38 = a4;
+    v39 = &a5[2 * a3 * a2];
+    do
+    {
+      v40 = 3 * v26 * a2;
+      v41 = &a4[2 * v40];
+      v42 = *v41;
+      v43 = v41[1];
+      v44 = &a4[2 * a2 + 2 * v40];
+      v45 = v44[1];
+      v46 = &a4[2 * (3 * v26 + 2) * a2];
+      v47 = v46[1];
+      v48 = vaddq_f32(*v44, *v46);
+      v49 = vaddq_f32(v45, v47);
+      v50 = vsubq_f32(*v44, *v46);
+      v51 = &a5[2 * v26 * a2];
+      *v51 = vaddq_f32(*v41, v48);
+      v51[1] = vaddq_f32(v43, v49);
+      v52 = vsubq_f32(v42, vmulq_f32(v48, v33));
+      v53 = vsubq_f32(v43, vmulq_f32(v49, v33));
+      v54 = vmulq_f32(vsubq_f32(v45, v47), v34);
+      v55 = vmulq_f32(v50, v36);
+      v56 = &a5[2 * (v26 + a3) * a2];
+      v57 = &a5[2 * (v26 + 2 * a3) * a2];
+      *v56 = vaddq_f32(v52, v54);
+      v56[1] = vaddq_f32(v55, v53);
+      *v57 = vsubq_f32(v52, v54);
+      v57[1] = vsubq_f32(v53, v55);
+      if (a2)
+      {
+        v58 = 0;
+        v59 = v32;
+        v60 = v31;
+        v61 = a2 - 1;
+        do
+        {
+          v62 = v38[v58 + 2];
+          v63 = v38[v58 + 3];
+          v64 = v30[v58 + 2];
+          v65 = v30[v58 + 3];
+          v66 = v35[v58 + 2];
+          v67 = v35[v58 + 3];
+          v68 = vaddq_f32(v64, v66);
+          v69 = vaddq_f32(v65, v67);
+          v70 = &v37[v58];
+          v70[2] = vaddq_f32(v62, v68);
+          v70[3] = vaddq_f32(v63, v69);
+          v71 = vsubq_f32(v62, vmulq_f32(v68, v33));
+          v72 = vsubq_f32(v63, vmulq_f32(v69, v33));
+          v73 = vmulq_f32(vsubq_f32(v65, v67), v34);
+          v74 = vmulq_f32(vsubq_f32(v64, v66), v36);
+          v75 = vaddq_f32(v71, v73);
+          v76 = vaddq_f32(v74, v72);
+          v68.f32[0] = *(v59 - 1);
+          v77 = &v39[v58];
+          v78 = vmlaq_n_f32(vmulq_n_f32(v76, *v59), v75, v68.f32[0]);
+          v79 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v75), *v59), v76, v68.f32[0]);
+          v77[2] = v78;
+          v77[3] = v79;
+          v80 = vsubq_f32(v71, v73);
+          v81 = vsubq_f32(v72, v74);
+          v74.f32[0] = *(v60 - 1);
+          v82 = &v27[v58];
+          v83 = vmlaq_n_f32(vmulq_n_f32(v81, *v60), v80, v74.f32[0]);
+          v84 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v80), *v60), v81, v74.f32[0]);
+          v82[2] = v83;
+          v82[3] = v84;
+          v58 += 2;
+          v60 += 2;
+          v59 += 2;
+          --v61;
+        }
+
+        while (v61);
+      }
+
+      ++v26;
+      v27 = (v27 + v28);
+      v38 = (v38 + v29);
+      v30 = (v30 + v29);
+      v35 = (v35 + v29);
+      v37 = (v37 + v28);
+      v39 = (v39 + v28);
+    }
+
+    while (v26 != a3);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE5pass5ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  v6 = a2 - 1;
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v7 = a5 + 1;
+      v8 = 2 * a3;
+      v9 = &a5[6 * a3 + 1];
+      v10 = vdupq_n_s32(0x3E9E377Au);
+      v11 = vdupq_n_s32(0xBF4F1BBD);
+      v12 = a4 + 5;
+      v13 = vdupq_n_s32(0xBF167918);
+      v14 = &a5[8 * a3 + 1];
+      v15 = vdupq_n_s32(0xBF737871);
+      v16 = &a5[4 * a3 + 1];
+      v17 = vdupq_n_s32(0x3F737871u);
+      do
+      {
+        v18 = v12[-5];
+        v19 = v12[-4];
+        v20 = v12[-3];
+        v21 = v12[-2];
+        v22 = v12[3];
+        v23 = v12[4];
+        v24 = vaddq_f32(v20, v22);
+        v25 = vaddq_f32(v21, v23);
+        v26 = vsubq_f32(v20, v22);
+        v27 = vsubq_f32(v21, v23);
+        v28 = v12[-1];
+        v29 = v12[1];
+        v30 = v12[2];
+        v31 = vaddq_f32(v28, v29);
+        v32 = vaddq_f32(*v12, v30);
+        v33 = vsubq_f32(v28, v29);
+        v34 = vsubq_f32(*v12, v30);
+        v7[-1] = vaddq_f32(vaddq_f32(v18, v24), v31);
+        *v7 = vaddq_f32(vaddq_f32(v19, v25), v32);
+        v35 = vmlaq_f32(vmlaq_f32(v18, v10, v24), v11, v31);
+        v36 = vmlaq_f32(vmlaq_f32(v19, v10, v25), v11, v32);
+        v37 = vmlaq_f32(vmulq_f32(v33, v13), v15, v26);
+        v38 = vmlaq_f32(vmulq_f32(v34, v13), v15, v27);
+        v39 = &v7[v8];
+        v39[-1] = vsubq_f32(v35, v38);
+        *v39 = vaddq_f32(v36, v37);
+        v14[-1] = vaddq_f32(v35, v38);
+        *v14 = vsubq_f32(v36, v37);
+        v40 = vmlaq_f32(vmlaq_f32(v18, v11, v24), v10, v31);
+        v41 = vmlaq_f32(vmlaq_f32(v19, v11, v25), v10, v32);
+        v42 = vmlaq_f32(vmulq_f32(v33, v17), v13, v26);
+        v43 = vmlaq_f32(vmulq_f32(v34, v17), v13, v27);
+        v16[-1] = vsubq_f32(v40, v43);
+        *v16 = vaddq_f32(v41, v42);
+        v7 += 2;
+        v14 += 2;
+        v9[-1] = vaddq_f32(v40, v43);
+        *v9 = vsubq_f32(v41, v42);
+        v16 += 2;
+        v9 += 2;
+        v12 += 10;
+        --a3;
+      }
+
+      while (a3);
+    }
+  }
+
+  else if (a3)
+  {
+    v44 = 0;
+    v45 = 32 * a2;
+    v46 = &a5[6 * a3 * a2];
+    v47 = 160 * a2;
+    v48 = &a4[2 * a2];
+    v49 = &a4[8 * a2];
+    v50 = &a4[4 * a2];
+    v51 = &a4[6 * a2];
+    v155 = (a6 + 24 * v6);
+    v154 = a6 + 8 * a2 - 4;
+    v52 = vdupq_n_s32(0x3E9E377Au);
+    v53 = &a5[4 * a3 * a2];
+    v153 = (a6 + 4);
+    v54 = vdupq_n_s32(0xBF4F1BBD);
+    v152 = (a6 + 16 * v6);
+    v55 = vdupq_n_s32(0xBF167918);
+    v56 = vdupq_n_s32(0xBF737871);
+    v57 = &a5[8 * a3 * a2];
+    v58 = vdupq_n_s32(0x3F737871u);
+    v59 = a5;
+    v60 = a4;
+    v61 = &a5[2 * a3 * a2];
+    do
+    {
+      v62 = 5 * v44 * a2;
+      v63 = &a4[2 * v62];
+      v64 = *v63;
+      v65 = v63[1];
+      v66 = &a4[2 * a2 + 2 * v62];
+      v67 = *v66;
+      v68 = v66[1];
+      v69 = &a4[2 * (5 * v44 + 4) * a2];
+      v70 = v69[1];
+      v71 = vaddq_f32(v67, *v69);
+      v72 = vaddq_f32(v68, v70);
+      v73 = vsubq_f32(v67, *v69);
+      v74 = vsubq_f32(v68, v70);
+      v75 = &a4[2 * (5 * v44 + 2) * a2];
+      v76 = v75[1];
+      v77 = &a4[2 * (5 * v44 + 3) * a2];
+      v78 = v77[1];
+      v79 = vaddq_f32(*v75, *v77);
+      v80 = vaddq_f32(v76, v78);
+      v81 = vsubq_f32(*v75, *v77);
+      v82 = vsubq_f32(v76, v78);
+      v83 = &a5[2 * v44 * a2];
+      *v83 = vaddq_f32(vaddq_f32(*v63, v71), v79);
+      v83[1] = vaddq_f32(vaddq_f32(v65, v72), v80);
+      v84 = vmlaq_f32(vmlaq_f32(v64, v52, v71), v54, v79);
+      v85 = vmlaq_f32(vmlaq_f32(v65, v52, v72), v54, v80);
+      v86 = vmlaq_f32(vmulq_f32(v81, v55), v56, v73);
+      v87 = vmlaq_f32(vmulq_f32(v82, v55), v56, v74);
+      v88 = &a5[2 * (v44 + a3) * a2];
+      v89 = &a5[2 * (v44 + 4 * a3) * a2];
+      *v88 = vsubq_f32(v84, v87);
+      v88[1] = vaddq_f32(v85, v86);
+      *v89 = vaddq_f32(v84, v87);
+      v89[1] = vsubq_f32(v85, v86);
+      v90 = vmlaq_f32(vmlaq_f32(v64, v54, v71), v52, v79);
+      v91 = vmlaq_f32(vmlaq_f32(v65, v54, v72), v52, v80);
+      v92 = vmlaq_f32(vmulq_f32(v81, v58), v55, v73);
+      v93 = vmlaq_f32(vmulq_f32(v82, v58), v55, v74);
+      v94 = &a5[2 * (v44 + 2 * a3) * a2];
+      v95 = &a5[2 * (v44 + 3 * a3) * a2];
+      *v94 = vsubq_f32(v90, v93);
+      v94[1] = vaddq_f32(v91, v92);
+      *v95 = vaddq_f32(v90, v93);
+      v95[1] = vsubq_f32(v91, v92);
+      if (a2)
+      {
+        v96 = 0;
+        v97 = v153;
+        v98 = v154;
+        v99 = v155;
+        v100 = v152;
+        v101 = a2 - 1;
+        do
+        {
+          v103 = v60[v96 + 2];
+          v102 = v60[v96 + 3];
+          v104 = v48[v96 + 2];
+          v105 = v48[v96 + 3];
+          v106 = v49[v96 + 2];
+          v107 = v49[v96 + 3];
+          v108 = vaddq_f32(v104, v106);
+          v109 = vaddq_f32(v105, v107);
+          v110 = vsubq_f32(v104, v106);
+          v111 = v50[v96 + 2];
+          v112 = v50[v96 + 3];
+          v113 = v51[v96 + 2];
+          v114 = v51[v96 + 3];
+          v115 = vsubq_f32(v105, v107);
+          v116 = vaddq_f32(v111, v113);
+          v117 = vaddq_f32(v112, v114);
+          v118 = vsubq_f32(v111, v113);
+          v119 = vsubq_f32(v112, v114);
+          v120 = &v59[v96];
+          v121 = vmlaq_f32(vmlaq_f32(v103, v52, v108), v54, v116);
+          v122 = vmlaq_f32(vmlaq_f32(v102, v52, v109), v54, v117);
+          v120[2] = vaddq_f32(vaddq_f32(v103, v108), v116);
+          v120[3] = vaddq_f32(vaddq_f32(v102, v109), v117);
+          v123 = vmlaq_f32(vmulq_f32(v118, v55), v56, v110);
+          v124 = vmlaq_f32(vmulq_f32(v119, v55), v56, v115);
+          v125 = vsubq_f32(v121, v124);
+          v126 = vaddq_f32(v122, v123);
+          v127 = *(v97 - 1);
+          v128 = &v61[v96];
+          v129 = vmlaq_n_f32(vmulq_n_f32(v126, *v97), v125, v127);
+          v130 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v125), *v97), v126, v127);
+          v131 = vaddq_f32(v121, v124);
+          v132 = vsubq_f32(v122, v123);
+          v128[2] = v129;
+          v128[3] = v130;
+          v133 = v99;
+          v134 = vld1q_dup_f32(v133++);
+          v135 = &v57[v96];
+          v136 = vmlaq_f32(vmlaq_f32(v103, v54, v108), v52, v116);
+          v137 = vmlaq_f32(vmulq_n_f32(v132, *v133), v134, v131);
+          v138 = vmlaq_f32(vmlaq_f32(v102, v54, v109), v52, v117);
+          v139 = vmlaq_f32(vmulq_f32(v118, v58), v55, v110);
+          v140 = vmlaq_f32(vmulq_n_f32(vnegq_f32(v131), *v133), v134, v132);
+          v141 = vmlaq_f32(vmulq_f32(v119, v58), v55, v115);
+          v142 = vsubq_f32(v136, v141);
+          v143 = vaddq_f32(v138, v139);
+          v119.f32[0] = *(v98 - 1);
+          v144 = &v53[v96];
+          v145 = vmlaq_n_f32(vmulq_n_f32(v143, *v98), v142, v119.f32[0]);
+          v146 = vmulq_n_f32(vnegq_f32(v142), *v98);
+          v135[2] = v137;
+          v135[3] = v140;
+          v144[2] = v145;
+          v144[3] = vmlaq_n_f32(v146, v143, v119.f32[0]);
+          v147 = vaddq_f32(v136, v141);
+          v148 = v100;
+          v149 = vsubq_f32(v138, v139);
+          v150 = vld1q_dup_f32(v148++);
+          v146.f32[0] = *v148;
+          v151 = &v46[v96];
+          v96 += 2;
+          v100 += 2;
+          v151[2] = vmlaq_f32(vmulq_n_f32(v149, v146.f32[0]), v150, v147);
+          v151[3] = vmlaq_f32(vmulq_n_f32(vnegq_f32(v147), v146.f32[0]), v150, v149);
+          v99 += 2;
+          v98 += 2;
+          v97 += 2;
+          --v101;
+        }
+
+        while (v101);
+      }
+
+      ++v44;
+      v46 = (v46 + v45);
+      v60 = (v60 + v47);
+      v48 = (v48 + v47);
+      v49 = (v49 + v47);
+      v50 = (v50 + v47);
+      v51 = (v51 + v47);
+      v59 = (v59 + v45);
+      v53 = (v53 + v45);
+      v57 = (v57 + v45);
+      v61 = (v61 + v45);
+    }
+
+    while (v44 != a3);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE5pass7ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  v230 = a5;
+  v231 = a4;
+  v221 = a2 - 1;
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v6 = a5 + 1;
+      v7 = 2 * a3;
+      v8 = vdupq_n_s32(0x3F1F9D07u);
+      v9 = vdupq_n_s32(0xBE63DC87);
+      v10 = &a5[12 * a3 + 1];
+      v11 = &a5[10 * a3 + 1];
+      v12 = vdupq_n_s32(0xBF66A5E5);
+      v13 = &a5[6 * a3 + 1];
+      v14 = a4 + 7;
+      v15 = vdupq_n_s32(0xBF7994E0);
+      v16 = &a5[4 * a3 + 1];
+      v17 = vdupq_n_s32(0xBF48261C);
+      v18 = &a5[8 * a3 + 1];
+      v19 = vdupq_n_s32(0xBEDE2602);
+      v20 = vdupq_n_s32(0x3EDE2602u);
+      v21 = vdupq_n_s32(0x3F48261Cu);
+      do
+      {
+        v22 = v14[-7];
+        v23 = v14[-6];
+        v24 = v14[-5];
+        v25 = v14[-4];
+        v26 = v14[5];
+        v27 = v14[6];
+        v28 = vaddq_f32(v24, v26);
+        v29 = vaddq_f32(v25, v27);
+        v30 = vsubq_f32(v24, v26);
+        v31 = vsubq_f32(v25, v27);
+        v32 = v14[-3];
+        v33 = v14[-2];
+        v34 = v14[3];
+        v35 = v14[4];
+        v36 = vaddq_f32(v32, v34);
+        v37 = vaddq_f32(v33, v35);
+        v38 = vsubq_f32(v32, v34);
+        v39 = vsubq_f32(v33, v35);
+        v40 = v14[-1];
+        v41 = v14[1];
+        v42 = v14[2];
+        v43 = vaddq_f32(v40, v41);
+        v44 = vaddq_f32(*v14, v42);
+        v45 = vsubq_f32(v40, v41);
+        v46 = vsubq_f32(*v14, v42);
+        v6[-1] = vaddq_f32(vaddq_f32(vaddq_f32(v22, v28), v36), v43);
+        *v6 = vaddq_f32(vaddq_f32(vaddq_f32(v23, v29), v37), v44);
+        v47 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v22, v8, v28), v9, v36), v12, v43);
+        v48 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v23, v8, v29), v9, v37), v12, v44);
+        v49 = vmlaq_f32(vmlaq_f32(vmulq_f32(v38, v15), v17, v30), v19, v45);
+        v50 = vmlaq_f32(vmlaq_f32(vmulq_f32(v39, v15), v17, v31), v19, v46);
+        v51 = &v6[v7];
+        v51[-1] = vsubq_f32(v47, v50);
+        *v51 = vaddq_f32(v49, v48);
+        v10[-1] = vaddq_f32(v47, v50);
+        *v10 = vsubq_f32(v48, v49);
+        v52 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v22, v9, v28), v12, v36), v8, v43);
+        v53 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v23, v9, v29), v12, v37), v8, v44);
+        v54 = vmlaq_f32(vmlaq_f32(vmulq_f32(v38, v20), v15, v30), v21, v45);
+        v55 = vmlaq_f32(vmlaq_f32(vmulq_f32(v39, v20), v15, v31), v21, v46);
+        v16[-1] = vsubq_f32(v52, v55);
+        *v16 = vaddq_f32(v54, v53);
+        v11[-1] = vaddq_f32(v52, v55);
+        *v11 = vsubq_f32(v53, v54);
+        v56 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v22, v12, v28), v8, v36), v9, v43);
+        v57 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v23, v12, v29), v8, v37), v9, v44);
+        v58 = vmlaq_f32(vmlaq_f32(vmulq_f32(v38, v21), v19, v30), v15, v45);
+        v59 = vmlaq_f32(vmlaq_f32(vmulq_f32(v39, v21), v19, v31), v15, v46);
+        v13[-1] = vsubq_f32(v56, v59);
+        *v13 = vaddq_f32(v58, v57);
+        v6 += 2;
+        v10 += 2;
+        v16 += 2;
+        v11 += 2;
+        v18[-1] = vaddq_f32(v56, v59);
+        *v18 = vsubq_f32(v57, v58);
+        v13 += 2;
+        v18 += 2;
+        v14 += 14;
+        --a3;
+      }
+
+      while (a3);
+    }
+  }
+
+  else if (a3)
+  {
+    v60 = 0;
+    v228 = 3 * a3;
+    v226 = 2 * a3;
+    v227 = 6 * a3;
+    v225 = 4 * a3;
+    v62 = &a4[12 * a2];
+    v224 = 32 * a2;
+    v63 = &a4[10 * a2];
+    v64 = &a4[6 * a2];
+    v65 = &a5[6 * a3 * a2];
+    v66 = &a5[8 * a3 * a2];
+    v220 = (a6 + 4);
+    v67 = &a5[10 * a3 * a2];
+    v68 = vdupq_n_s32(0x3F1F9D07u);
+    v222 = 224 * a2;
+    v223 = 5 * a3;
+    v69 = 8 * a2 - 8;
+    v70 = vdupq_n_s32(0xBE63DC87);
+    v71 = &a4[2 * a2];
+    v72 = vdupq_n_s32(0xBF66A5E5);
+    v73 = vdupq_n_s32(0xBF7994E0);
+    v74 = &a4[4 * a2];
+    v75 = &a5[12 * a3 * a2];
+    v76 = vdupq_n_s32(0xBF48261C);
+    v77 = &a4[8 * a2];
+    v78 = vdupq_n_s32(0xBEDE2602);
+    v79 = vdupq_n_s32(0x3EDE2602u);
+    v80 = &a5[4 * a3 * a2];
+    v81 = vdupq_n_s32(0x3F48261Cu);
+    v82 = &a5[2 * a3 * a2];
+    v229 = a3;
+    v232 = v78;
+    v233 = v76;
+    v234 = v79;
+    v239 = v81;
+    do
+    {
+      v83 = 7 * v60 * a2;
+      v84 = &v231[2 * v83];
+      v85 = *v84;
+      v86 = v84[1];
+      v87 = &v231[2 * a2 + 2 * v83];
+      v88 = *v87;
+      v89 = v87[1];
+      v90 = &v231[2 * (7 * v60 + 6) * a2];
+      v91 = v90[1];
+      v92 = vaddq_f32(v88, *v90);
+      v93 = vaddq_f32(v89, v91);
+      v94 = vsubq_f32(v88, *v90);
+      v95 = vsubq_f32(v89, v91);
+      v96 = &v231[2 * (7 * v60 + 2) * a2];
+      v97 = *v96;
+      v98 = v96[1];
+      v99 = &v231[2 * (7 * v60 + 5) * a2];
+      v100 = v99[1];
+      v101 = vaddq_f32(v97, *v99);
+      v102 = vaddq_f32(v98, v100);
+      v103 = vsubq_f32(v97, *v99);
+      v104 = vsubq_f32(v98, v100);
+      v105 = &v231[2 * (7 * v60 + 3) * a2];
+      v106 = v105[1];
+      v107 = &v231[2 * (7 * v60 + 4) * a2];
+      v108 = v107[1];
+      v109 = vaddq_f32(*v105, *v107);
+      v110 = vaddq_f32(v106, v108);
+      v111 = vsubq_f32(*v105, *v107);
+      v112 = vsubq_f32(v106, v108);
+      v113 = &v230[2 * v60 * a2];
+      *v113 = vaddq_f32(vaddq_f32(vaddq_f32(*v84, v92), v101), v109);
+      v113[1] = vaddq_f32(vaddq_f32(vaddq_f32(v86, v93), v102), v110);
+      v114 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v85, v68, v92), v70, v101), v72, v109);
+      v115 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v86, v68, v93), v70, v102), v72, v110);
+      v116 = vmlaq_f32(vmlaq_f32(vmulq_f32(v103, v73), v76, v94), v78, v111);
+      v117 = vmlaq_f32(vmlaq_f32(vmulq_f32(v104, v73), v76, v95), v78, v112);
+      v118 = &v230[2 * (v60 + a3) * a2];
+      v119 = &v230[2 * (v60 + v227) * a2];
+      *v118 = vsubq_f32(v114, v117);
+      v118[1] = vaddq_f32(v116, v115);
+      *v119 = vaddq_f32(v114, v117);
+      v119[1] = vsubq_f32(v115, v116);
+      v120 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v85, v70, v92), v72, v101), v68, v109);
+      v121 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v86, v70, v93), v72, v102), v68, v110);
+      v122 = vmlaq_f32(vmlaq_f32(vmulq_f32(v103, v79), v73, v94), v81, v111);
+      v123 = vmlaq_f32(vmlaq_f32(vmulq_f32(v104, v79), v73, v95), v81, v112);
+      v124 = &v230[2 * (v60 + v226) * a2];
+      v125 = &v230[2 * (v60 + v223) * a2];
+      *v124 = vsubq_f32(v120, v123);
+      v124[1] = vaddq_f32(v122, v121);
+      *v125 = vaddq_f32(v120, v123);
+      v125[1] = vsubq_f32(v121, v122);
+      v126 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v85, v72, v92), v68, v101), v70, v109);
+      v127 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v86, v72, v93), v68, v102), v70, v110);
+      v128 = vmlaq_f32(vmlaq_f32(vmulq_f32(v103, v81), v78, v94), v73, v111);
+      v129 = vmlaq_f32(vmlaq_f32(vmulq_f32(v104, v81), v78, v95), v73, v112);
+      v130 = &v230[2 * (v60 + v228) * a2];
+      v131 = &v230[2 * (v60 + v225) * a2];
+      *v130 = vsubq_f32(v126, v129);
+      v130[1] = vaddq_f32(v128, v127);
+      *v131 = vaddq_f32(v126, v129);
+      v131[1] = vsubq_f32(v127, v128);
+      v132 = v81;
+      if (a2)
+      {
+        v133 = 0;
+        v134 = v220;
+        v135 = a2 - 1;
+        do
+        {
+          v136 = v71[v133 + 2];
+          v137 = v71[v133 + 3];
+          v138 = v62[v133 + 2];
+          v139 = v62[v133 + 3];
+          v140 = vaddq_f32(v136, v138);
+          v141 = vaddq_f32(v137, v139);
+          v142 = vsubq_f32(v136, v138);
+          v143 = v74[v133 + 2];
+          v144 = v74[v133 + 3];
+          v145 = vsubq_f32(v137, v139);
+          v146 = v63[v133 + 2];
+          v147 = v63[v133 + 3];
+          v148 = vaddq_f32(v143, v146);
+          v149 = vaddq_f32(v144, v147);
+          v150 = v64[v133 + 2];
+          v151 = v64[v133 + 3];
+          v152 = v77[v133 + 2];
+          v153 = v77[v133 + 3];
+          v154 = vsubq_f32(v144, v147);
+          v155 = vaddq_f32(v150, v152);
+          v156 = vaddq_f32(v151, v153);
+          v157 = a4[v133 + 2];
+          v158 = a4[v133 + 3];
+          v159 = vsubq_f32(v150, v152);
+          v160 = vsubq_f32(v151, v153);
+          v161 = &a5[v133];
+          v162 = vaddq_f32(vaddq_f32(vaddq_f32(v157, v140), v148), v155);
+          v163 = vaddq_f32(vaddq_f32(vaddq_f32(v158, v141), v149), v156);
+          v164 = v140;
+          v235 = v140;
+          v236 = v149;
+          v165 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v157, v68, v140), v70, v148), v72, v155);
+          v166 = v141;
+          v237 = v141;
+          v238 = v142;
+          v167 = v73;
+          v168 = vsubq_f32(v143, v146);
+          v169 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v158, v68, v141), v70, v236), v72, v156);
+          v170 = vmlaq_f32(vmlaq_f32(vmulq_f32(v168, v73), v76, v142), v78, v159);
+          v171 = v145;
+          v172 = vmlaq_f32(vmlaq_f32(vmulq_f32(v154, v167), v76, v145), v78, v160);
+          v161[2] = v162;
+          v161[3] = v163;
+          v173 = vsubq_f32(v165, v172);
+          v174 = vaddq_f32(v170, v169);
+          v175 = vaddq_f32(v165, v172);
+          v172.f32[0] = *(v134 - 1);
+          v176 = v134;
+          v177 = vsubq_f32(v169, v170);
+          v179 = vld1q_dup_f32(v176);
+          v61 = 6 * v221;
+          v178 = &v176[v61];
+          v180 = v72;
+          v181 = v70;
+          v182 = v68;
+          v183 = vnegq_f32(v173);
+          v169.f32[0] = v134[10 * v221 - 1];
+          v141.f32[0] = v134[10 * v221];
+          v184 = vmlaq_f32(v157, v181, v164);
+          v185 = vnegq_f32(v175);
+          v186 = vmlaq_f32(vmlaq_f32(v184, v180, v148), v182, v155);
+          v187 = vmlaq_n_f32(vmulq_f32(v174, v179), v173, v172.f32[0]);
+          v188 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v158, v181, v166), v180, v236), v182, v156);
+          v189 = vmlaq_f32(vmlaq_f32(vmulq_f32(v168, v234), v167, v142), v239, v159);
+          v190 = v154;
+          v191 = vmulq_f32(v179, v183);
+          v192 = vmlaq_f32(vmlaq_f32(vmulq_f32(v154, v234), v167, v171), v239, v160);
+          v193 = vsubq_f32(v186, v192);
+          v194 = vaddq_f32(v189, v188);
+          v195 = vaddq_f32(v186, v192);
+          v196 = vmlaq_n_f32(vmulq_n_f32(v177, v141.f32[0]), v175, v169.f32[0]);
+          v197 = vsubq_f32(v188, v189);
+          v188.f32[0] = *(v134 + v69 - 4);
+          v175.f32[0] = *(v134 + v69);
+          v198 = vmlaq_n_f32(vmulq_n_f32(v194, v175.f32[0]), v193, v188.f32[0]);
+          v199 = vnegq_f32(v193);
+          v68 = v182;
+          v70 = v181;
+          v72 = v180;
+          v200 = vmulq_n_f32(v199, v175.f32[0]);
+          v201 = vmlaq_n_f32(v191, v174, v172.f32[0]);
+          v175.f32[0] = v134[8 * v221 - 1];
+          v174.f32[0] = v134[8 * v221];
+          v202 = vmlaq_n_f32(vmulq_n_f32(v197, v174.f32[0]), v195, v175.f32[0]);
+          v203 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v157, v180, v235), v68, v148), v70, v155);
+          v204 = &v82[v133];
+          v205 = &v75[v133];
+          v206 = vmlaq_n_f32(v200, v194, v188.f32[0]);
+          v207 = &v80[v133];
+          v208 = &v67[v133];
+          v209 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v158, v180, v237), v68, v236), v70, v156);
+          v210 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v195), v174.f32[0]), v197, v175.f32[0]);
+          v132 = v239;
+          v78 = v232;
+          v211 = vmlaq_f32(vmlaq_f32(vmulq_f32(v168, v239), v232, v238), v167, v159);
+          v204[2] = v187;
+          v204[3] = v201;
+          v73 = v167;
+          v212 = vmlaq_f32(vmlaq_f32(vmulq_f32(v190, v239), v232, v171), v167, v160);
+          v213 = vsubq_f32(v203, v212);
+          v214 = vaddq_f32(v211, v209);
+          v205[2] = v196;
+          v205[3] = vmlaq_n_f32(vmulq_n_f32(v185, v141.f32[0]), v177, v169.f32[0]);
+          v215 = vaddq_f32(v203, v212);
+          v216 = vsubq_f32(v209, v211);
+          v207[2] = v198;
+          v207[3] = v206;
+          v203.f32[0] = v134[4 * v221 - 1];
+          v206.f32[0] = v134[4 * v221];
+          v217 = &v65[v133];
+          v208[2] = v202;
+          v208[3] = v210;
+          v217[2] = vmlaq_n_f32(vmulq_n_f32(v214, v206.f32[0]), v213, v203.f32[0]);
+          v217[3] = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v213), v206.f32[0]), v214, v203.f32[0]);
+          v206.f32[0] = *(v178 - 1);
+          v218 = &v66[v133];
+          v219 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v215), *v178), v216, v206.f32[0]);
+          v218[2] = vmlaq_n_f32(vmulq_n_f32(v216, *v178), v215, v206.f32[0]);
+          v218[3] = v219;
+          v76 = v233;
+          v133 += 2;
+          v134 += 2;
+          --v135;
+        }
+
+        while (v135);
+      }
+
+      ++v60;
+      v66 = (v66 + v224);
+      a4 = (a4 + v222);
+      v71 = (v71 + v222);
+      v62 = (v62 + v222);
+      v74 = (v74 + v222);
+      v63 = (v63 + v222);
+      v64 = (v64 + v222);
+      v77 = (v77 + v222);
+      a5 = (a5 + v224);
+      v65 = (v65 + v224);
+      v67 = (v67 + v224);
+      v80 = (v80 + v224);
+      v82 = (v82 + v224);
+      v75 = (v75 + v224);
+      a3 = v229;
+      v79 = v234;
+      v81 = v132;
+    }
+
+    while (v60 != v229);
+  }
+}
+
+void _ZNK9pocketfft6detail5cfftpIfE6pass11ILb1ENS0_5cmplxIDv4_fEEEEvmmPKT0_PS7_PKNS4_IfEE(uint64_t a1, uint64_t a2, uint64_t a3, float32x4_t *a4, float32x4_t *a5, uint64_t a6)
+{
+  v321 = a2 - 1;
+  if (a2 == 1)
+  {
+    if (a3)
+    {
+      v6 = 20 * a3;
+      v7 = a3 << 6;
+      v353 = vdupq_n_s32(0x3F75A155u);
+      v8 = 18 * a3;
+      v357 = vdupq_n_s32(0xBF68DDA4);
+      v9 = 6 * a3;
+      v10 = a3 << 8;
+      v407 = vdupq_n_s32(0xBF7D64F0);
+      v11 = a3 << 7;
+      v352 = vdupq_n_s32(0xBF4178CE);
+      v12 = 10 * a3;
+      v13 = 12 * a3;
+      v384 = vdupq_n_s32(0xBE903F40);
+      v386 = vdupq_n_s32(0xBF0A6770);
+      v14 = a4 + 11;
+      v15 = 14 * a3;
+      v16 = (32 * a3) | 0x10;
+      v378 = vdupq_n_s32(0x3F0A6770u);
+      v381 = vdupq_n_s32(0x3F7D64F0u);
+      v355 = vdupq_n_s32(0x3F68DDA4u);
+      v356 = vdupq_n_s32(0x3E903F40u);
+      v18 = vdupq_n_s32(0x3ED4B147u);
+      v17 = vdupq_n_s32(0x3F575C64u);
+      v19 = vdupq_n_s32(0x3F27A4F4u);
+      v20 = vdupq_n_s32(0x3E11BAFBu);
+      do
+      {
+        v21 = v14[-9];
+        v22 = v14[-8];
+        v23 = v14[9];
+        v24 = v14[10];
+        v25 = vaddq_f32(v21, v23);
+        v26 = vaddq_f32(v22, v24);
+        v375 = vsubq_f32(v21, v23);
+        v27 = v14[-7];
+        v28 = v14[-6];
+        v29 = vsubq_f32(v22, v24);
+        v31 = v14[7];
+        v30 = v14[8];
+        v32 = vaddq_f32(v27, v31);
+        v33 = vaddq_f32(v28, v30);
+        v34 = vsubq_f32(v27, v31);
+        v404 = vsubq_f32(v28, v30);
+        v35 = v14[-5];
+        v36 = v14[-4];
+        v37 = v14[5];
+        v38 = v14[6];
+        v39 = vaddq_f32(v35, v37);
+        v40 = vaddq_f32(v36, v38);
+        v360 = vsubq_f32(v35, v37);
+        v402 = vsubq_f32(v36, v38);
+        v41 = v14[-3];
+        v42 = v14[-2];
+        v43 = v14[3];
+        v44 = v14[4];
+        v45 = vaddq_f32(v41, v43);
+        v46 = vaddq_f32(v42, v44);
+        v398 = vsubq_f32(v41, v43);
+        v47 = v14[-1];
+        v48 = vsubq_f32(v42, v44);
+        v49 = v14[1];
+        v50 = v14[2];
+        v51 = vaddq_f32(v47, v49);
+        v52 = vaddq_f32(*v14, v50);
+        v370 = vsubq_f32(v47, v49);
+        v373 = v48;
+        v53 = v14[-11];
+        v54 = v14[-10];
+        v55 = vsubq_f32(*v14, v50);
+        v390 = v25;
+        v393 = v33;
+        v56 = v33;
+        v364 = v46;
+        v57 = vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v54, v26), v33), v40), v46);
+        v58 = vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v53, vmulq_f32(v25, v17)), vmulq_f32(v32, v18)), vmulq_f32(v39, v20)), vmulq_f32(v45, v19)), vmulq_f32(v51, v353));
+        v59 = vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v54, vmulq_f32(v26, v17)), vmulq_f32(v56, v18)), vmulq_f32(v40, v20)), vmulq_f32(v46, v19)), vmulq_f32(v52, v353));
+        v60 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v34, v357), v386, v375), v407, v360), v352, v398), v384, v370);
+        *a5 = vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v53, v25), v32), v39), v45), v51);
+        a5[1] = vaddq_f32(v57, v52);
+        v61 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v404, v357), v386, v29), v407, v402), v352, v373), v384, v55);
+        v62 = (a5 + v16);
+        v63 = &a5[v6];
+        v64 = vsubq_f32(v58, v61);
+        v65 = vaddq_f32(v58, v61);
+        v62[-1] = v64;
+        *v62 = vaddq_f32(v60, v59);
+        v66 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v53, vmulq_f32(v390, v18)), vmulq_f32(v32, v19)), vmulq_f32(v39, v353)), vmulq_f32(v45, v20)), vmulq_f32(v51, v17));
+        v67 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v54, vmulq_f32(v26, v18)), vmulq_f32(v56, v19)), vmulq_f32(v40, v353)), vmulq_f32(v46, v20)), vmulq_f32(v52, v17));
+        *v63 = v65;
+        v63[1] = vsubq_f32(v59, v60);
+        v68 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v34, v352), v357, v375), v356, v360), v381, v398), v378, v370);
+        v69 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v404, v352), v357, v29), v356, v402), v381, v373), v378, v55);
+        v70 = (a5 + v7);
+        v71 = &a5[v8];
+        v72 = vsubq_f32(v66, v69);
+        v73 = vaddq_f32(v66, v69);
+        *v70 = v72;
+        v70[1] = vaddq_f32(v68, v67);
+        v74 = vsubq_f32(v67, v68);
+        v75 = v39;
+        v76 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v53, vmulq_f32(v390, v20)), vmulq_f32(v32, v353)), vmulq_f32(v39, v18)), vmulq_f32(v45, v17)), vmulq_f32(v51, v19));
+        v77 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v54, vmulq_f32(v26, v20)), vmulq_f32(v56, v353)), vmulq_f32(v40, v18)), vmulq_f32(v46, v17)), vmulq_f32(v52, v19));
+        v78 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v34, v356), v407, v375), v355, v360), v386, v398), v352, v370);
+        *v71 = v73;
+        v71[1] = v74;
+        v79 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v404, v356), v407, v29), v355, v402), v386, v373), v352, v55);
+        v80 = &a5[v9];
+        v81 = (a5 + v10);
+        v82 = vsubq_f32(v76, v79);
+        v83 = vaddq_f32(v76, v79);
+        v84 = vsubq_f32(v77, v78);
+        *v80 = v82;
+        v80[1] = vaddq_f32(v78, v77);
+        v85 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v53, vmulq_f32(v390, v19)), vmulq_f32(v32, v20)), vmulq_f32(v75, v17)), vmulq_f32(v45, v353)), vmulq_f32(v51, v18));
+        v86 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v54, vmulq_f32(v26, v19)), vmulq_f32(v393, v20)), vmulq_f32(v40, v17)), vmulq_f32(v46, v353)), vmulq_f32(v52, v18));
+        v87 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v34, v381), v352, v375), v386, v360), v384, v398), v355, v370);
+        *v81 = v83;
+        v81[1] = v84;
+        v88 = v55;
+        v89 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v404, v381), v352, v29), v386, v402), v384, v373), v355, v55);
+        v90 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v53, vmulq_f32(v390, v353)), vmulq_f32(v32, v17)), vmulq_f32(v75, v19)), vmulq_f32(v45, v18)), vmulq_f32(v51, v20));
+        v91 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v54, vmulq_f32(v26, v353)), vmulq_f32(v393, v17)), vmulq_f32(v40, v19)), vmulq_f32(v364, v18)), vmulq_f32(v52, v20));
+        v92 = (a5 + v11);
+        *v92 = vsubq_f32(v85, v89);
+        v92[1] = vaddq_f32(v87, v86);
+        v93 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v34, v378), v384, v375), v352, v360), v355, v398), v407, v370);
+        v94 = &a5[v15];
+        *v94 = vaddq_f32(v85, v89);
+        v94[1] = vsubq_f32(v86, v87);
+        v95 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v404, v378), v384, v29), v352, v402), v355, v373), v407, v88);
+        v96 = &a5[v12];
+        *v96 = vsubq_f32(v90, v95);
+        v96[1] = vaddq_f32(v93, v91);
+        v97 = &a5[v13];
+        *v97 = vaddq_f32(v90, v95);
+        v97[1] = vsubq_f32(v91, v93);
+        a5 += 2;
+        v14 += 22;
+        --a3;
+      }
+
+      while (a3);
+    }
+  }
+
+  else if (a3)
+  {
+    v99 = 0;
+    v335 = 9 * a3;
+    v343 = &a5[12 * a3 * a2];
+    v333 = 352 * a2;
+    v342 = &a4[20 * a2];
+    v100 = &a4[18 * a2];
+    v101 = &a4[6 * a2];
+    v336 = 5 * a3;
+    v102 = &a4[14 * a2];
+    v331 = 2 * a3;
+    v332 = 10 * a3;
+    v103 = &a4[2 * a2];
+    v104 = vdupq_n_s32(0x3F575C64u);
+    v105 = &a5[8 * a3 * a2];
+    v106 = vdupq_n_s32(0x3ED4B147u);
+    v107 = vdupq_n_s32(0x3E11BAFBu);
+    v108 = vdupq_n_s32(0x3F27A4F4u);
+    v109 = &a5[16 * a3 * a2];
+    v330 = vdupq_n_s32(0x3F75A155u);
+    v346 = vdupq_n_s32(0xBF68DDA4);
+    v385 = vdupq_n_s32(0xBF0A6770);
+    v350 = vdupq_n_s32(0xBF7D64F0);
+    v401 = vdupq_n_s32(0xBE903F40);
+    v403 = vdupq_n_s32(0xBF4178CE);
+    v110 = &a5[2 * a3 * a2];
+    v344 = vdupq_n_s32(0x3F7D64F0u);
+    v345 = vdupq_n_s32(0x3E903F40u);
+    v399 = vdupq_n_s32(0x3F0A6770u);
+    v400 = vdupq_n_s32(0x3F68DDA4u);
+    v111 = &a5[14 * a3 * a2];
+    v112 = &a5[6 * a3 * a2];
+    v113 = &a5[4 * a3 * a2];
+    v114 = &a5[20 * a3 * a2];
+    v115 = &a5[18 * a3 * a2];
+    v116 = &a5[10 * a3 * a2];
+    v117 = &a4[10 * a2];
+    v118 = &a4[12 * a2];
+    v328 = 8 * a2 - 8;
+    v334 = 3 * a3;
+    v325 = 6 * a3;
+    v326 = 4 * a3;
+    v324 = 32 * a2;
+    v323 = a2 << 6;
+    v327 = 8 * a3;
+    v322 = 7 * a3;
+    v119 = &a4[4 * a2];
+    v120 = &a4[16 * a2];
+    v121 = a5;
+    v122 = a4;
+    v123 = &a4[8 * a2];
+    v337 = a3;
+    v338 = a5;
+    v405 = v106;
+    v406 = v108;
+    v408 = v107;
+    v349 = v104;
+    do
+    {
+      v347 = v110;
+      v348 = v122;
+      v124 = 11 * v99 * a2;
+      v125 = &a4[2 * a2 + 2 * v124];
+      v126 = *v125;
+      v127 = v125[1];
+      v128 = v104;
+      v129 = &a4[2 * (11 * v99 + 10) * a2];
+      v130 = v129[1];
+      v131 = vaddq_f32(v126, *v129);
+      v132 = vaddq_f32(v127, v130);
+      v371 = vsubq_f32(v126, *v129);
+      v133 = vsubq_f32(v127, v130);
+      v134 = &a4[2 * (11 * v99 + 2) * a2];
+      v135 = *v134;
+      v136 = v134[1];
+      v137 = &a4[2 * (11 * v99 + 9) * a2];
+      v138 = v137[1];
+      v139 = vaddq_f32(v135, *v137);
+      v140 = vaddq_f32(v136, v138);
+      v141 = vsubq_f32(v135, *v137);
+      v366 = vsubq_f32(v136, v138);
+      v142 = &a4[2 * (11 * v99 + 3) * a2];
+      v143 = *v142;
+      v144 = v142[1];
+      v145 = &a4[2 * (11 * v99 + 8) * a2];
+      v146 = v145[1];
+      v147 = vaddq_f32(v143, *v145);
+      v148 = vaddq_f32(v144, v146);
+      v396 = vsubq_f32(v143, *v145);
+      v388 = vsubq_f32(v144, v146);
+      v149 = &a4[2 * (11 * v99 + 4) * a2];
+      v150 = *v149;
+      v151 = v149[1];
+      v152 = &a4[2 * (11 * v99 + 7) * a2];
+      v153 = v152[1];
+      v154 = vaddq_f32(v150, *v152);
+      v368 = vsubq_f32(v150, *v152);
+      v155 = vsubq_f32(v151, v153);
+      v156 = &a4[2 * (11 * v99 + 5) * a2];
+      v157 = v156[1];
+      v158 = &a4[2 * (11 * v99 + 6) * a2];
+      v159 = v158[1];
+      v160 = vaddq_f32(*v156, *v158);
+      v161 = vaddq_f32(v157, v159);
+      v162 = vsubq_f32(v157, v159);
+      v163 = &a4[2 * v124];
+      v164 = v163[1];
+      v165 = v154;
+      v391 = vaddq_f32(v151, v153);
+      v394 = v154;
+      v166 = vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(*v163, v131), v139), v147), v154), v160);
+      v167 = v132;
+      v379 = v132;
+      v168 = vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v164, v132), v140), v148), v391), v161);
+      v169 = *v163;
+      v376 = v160;
+      v170 = vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(vaddq_f32(*v163, vmulq_f32(v131, v128)), vmulq_f32(v139, v106)), vmulq_f32(v147, v107)), vmulq_f32(v165, v108)), vmulq_f32(v160, v330));
+      v171 = vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v164, vmulq_f32(v167, v128)), vmulq_f32(v140, v106)), vmulq_f32(v148, v107)), vmulq_f32(v391, v108)), vmulq_f32(v161, v330));
+      v382 = vsubq_f32(*v156, *v158);
+      v172 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v141, v346), v385, v371), v350, v396), v403, v368), v401, v382);
+      v173 = &a5[2 * v99 * a2];
+      *v173 = v166;
+      v173[1] = v168;
+      v174 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v366, v346), v385, v133), v350, v388), v403, v155), v401, v162);
+      v175 = &a5[2 * (v99 + a3) * a2];
+      v176 = &a5[2 * (v99 + v332) * a2];
+      *v175 = vsubq_f32(v170, v174);
+      v175[1] = vaddq_f32(v172, v171);
+      *v176 = vaddq_f32(v170, v174);
+      v176[1] = vsubq_f32(v171, v172);
+      v177 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v169, vmulq_f32(v131, v106)), vmulq_f32(v139, v108)), vmulq_f32(v147, v330)), vmulq_f32(v394, v107)), vmulq_f32(v376, v349));
+      v178 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v164, vmulq_f32(v379, v106)), vmulq_f32(v140, v108)), vmulq_f32(v148, v330)), vmulq_f32(v391, v107)), vmulq_f32(v161, v349));
+      v179 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v141, v403), v346, v371), v345, v396), v344, v368), v399, v382);
+      v180 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v366, v403), v346, v133), v345, v388), v344, v155), v399, v162);
+      v181 = &a5[2 * (v99 + v331) * a2];
+      v182 = &a5[2 * (v99 + v335) * a2];
+      *v181 = vsubq_f32(v177, v180);
+      v181[1] = vaddq_f32(v179, v178);
+      *v182 = vaddq_f32(v177, v180);
+      v182[1] = vsubq_f32(v178, v179);
+      v183 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v169, vmulq_f32(v131, v107)), vmulq_f32(v139, v330)), vmulq_f32(v147, v405)), vmulq_f32(v394, v349)), vmulq_f32(v376, v406));
+      v184 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v164, vmulq_f32(v379, v107)), vmulq_f32(v140, v330)), vmulq_f32(v148, v405)), vmulq_f32(v391, v349)), vmulq_f32(v161, v406));
+      v185 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v141, v345), v350, v371), v400, v396), v385, v368), v403, v382);
+      v186 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v366, v345), v350, v133), v400, v388), v385, v155), v403, v162);
+      v187 = &a5[2 * (v99 + v334) * a2];
+      v188 = &a5[2 * (v99 + v327) * a2];
+      *v187 = vsubq_f32(v183, v186);
+      v187[1] = vaddq_f32(v185, v184);
+      *v188 = vaddq_f32(v183, v186);
+      v188[1] = vsubq_f32(v184, v185);
+      v189 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v169, vmulq_f32(v131, v406)), vmulq_f32(v139, v107)), vmulq_f32(v147, v349)), vmulq_f32(v394, v330)), vmulq_f32(v376, v405));
+      v190 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v164, vmulq_f32(v379, v406)), vmulq_f32(v140, v107)), vmulq_f32(v148, v349)), vmulq_f32(v391, v330)), vmulq_f32(v161, v405));
+      v191 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v141, v344), v403, v371), v385, v396), v401, v368), v400, v382);
+      v192 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v366, v344), v403, v133), v385, v388), v401, v155), v400, v162);
+      v193 = &a5[2 * (v99 + v326) * a2];
+      *v193 = vsubq_f32(v189, v192);
+      v193[1] = vaddq_f32(v191, v190);
+      v194 = &a5[2 * (v99 + v322) * a2];
+      *v194 = vaddq_f32(v189, v192);
+      v194[1] = vsubq_f32(v190, v191);
+      v195 = v401;
+      v196 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v169, vmulq_f32(v131, v330)), vmulq_f32(v139, v349)), vmulq_f32(v147, v406)), vmulq_f32(v394, v405)), vmulq_f32(v376, v107));
+      v197 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v164, vmulq_f32(v379, v330)), vmulq_f32(v140, v349)), vmulq_f32(v148, v406)), vmulq_f32(v391, v405)), vmulq_f32(v161, v107));
+      v198 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v141, v399), v401, v371), v403, v396), v400, v368), v350, v382);
+      v199 = &a5[2 * (v99 + v336) * a2];
+      v200 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v366, v399), v401, v133), v403, v388), v400, v155), v350, v162);
+      *v199 = vsubq_f32(v196, v200);
+      v199[1] = vaddq_f32(v198, v197);
+      v341 = v99;
+      v201 = &a5[2 * (v99 + v325) * a2];
+      *v201 = vaddq_f32(v196, v200);
+      v201[1] = vsubq_f32(v197, v198);
+      v202 = v405;
+      v108 = v406;
+      if (a2)
+      {
+        v203 = v403;
+        v204 = v350;
+        v205 = 0;
+        v207 = (a6 + 4);
+        v206 = v321;
+        do
+        {
+          v208 = v103[v205 + 2];
+          v209 = v103[v205 + 3];
+          v210 = v342[v205 + 2];
+          v211 = v342[v205 + 3];
+          v212 = vaddq_f32(v208, v210);
+          v213 = vaddq_f32(v209, v211);
+          v214 = vsubq_f32(v208, v210);
+          v215 = v119[v205 + 2];
+          v216 = v119[v205 + 3];
+          v217 = vsubq_f32(v209, v211);
+          v218 = v100[v205 + 2];
+          v219 = v100[v205 + 3];
+          v220 = vaddq_f32(v215, v218);
+          v221 = vaddq_f32(v216, v219);
+          v395 = v214;
+          v397 = vsubq_f32(v215, v218);
+          v222 = v101[v205 + 2];
+          v223 = v101[v205 + 3];
+          v224 = v120[v205 + 2];
+          v225 = v120[v205 + 3];
+          v226 = vsubq_f32(v216, v219);
+          v227 = vaddq_f32(v222, v224);
+          v228 = vaddq_f32(v223, v225);
+          v229 = vsubq_f32(v222, v224);
+          v387 = vsubq_f32(v223, v225);
+          v230 = v123[v205 + 2];
+          v231 = v123[v205 + 3];
+          v232 = v102[v205 + 2];
+          v233 = v102[v205 + 3];
+          v234 = vaddq_f32(v230, v232);
+          v235 = vaddq_f32(v231, v233);
+          v358 = vsubq_f32(v230, v232);
+          v236 = v117[v205 + 2];
+          v237 = v117[v205 + 3];
+          v238 = vsubq_f32(v231, v233);
+          v239 = v118[v205 + 2];
+          v240 = v118[v205 + 3];
+          v241 = vaddq_f32(v236, v239);
+          v242 = vaddq_f32(v237, v240);
+          v392 = vsubq_f32(v236, v239);
+          v351 = vsubq_f32(v237, v240);
+          v244 = v348[v205 + 2];
+          v243 = v348[v205 + 3];
+          v245 = vaddq_f32(vaddq_f32(vaddq_f32(v243, v213), v221), v228);
+          v246 = v243;
+          v389 = v220;
+          v247 = &v121[v205];
+          v248 = vaddq_f32(vaddq_f32(v243, vmulq_f32(v213, v349)), vmulq_f32(v221, v405));
+          v249 = vmulq_f32(v234, v108);
+          v250 = vmulq_f32(v235, v108);
+          v251 = v235;
+          v252 = vsubq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v244, vmulq_f32(v212, v349)), vmulq_f32(v220, v405)), vmulq_f32(v227, v408)), v249);
+          v253 = vaddq_f32(vaddq_f32(v245, v235), v242);
+          v254 = vsubq_f32(v252, vmulq_f32(v241, v330));
+          v255 = vsubq_f32(vsubq_f32(vsubq_f32(v248, vmulq_f32(v228, v408)), v250), vmulq_f32(v242, v330));
+          v256 = v204;
+          v257 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v397, v346), v385, v214), v204, v229), v203, v358), v195, v392);
+          v354 = v217;
+          v247[2] = vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(vaddq_f32(v244, v212), v220), v227), v234), v241);
+          v247[3] = v253;
+          v258 = v217;
+          v259 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v226, v346), v385, v217), v256, v387), v203, v238), v195, v351);
+          v260 = vsubq_f32(v254, v259);
+          v261 = vaddq_f32(v257, v255);
+          v256.f32[0] = *(v207 - 1);
+          v262 = v207;
+          v264 = vld1q_dup_f32(v262);
+          v329 = 10 * v321;
+          v263 = &v262[v329];
+          v383 = vmlaq_n_f32(vmulq_f32(v261, v264), v260, v256.f32[0]);
+          v380 = vmlaq_n_f32(vmulq_f32(v264, vnegq_f32(v260)), v261, v256.f32[0]);
+          v260.f32[0] = v207[18 * v321 - 1];
+          v261.f32[0] = v207[18 * v321];
+          v265 = vaddq_f32(v254, v259);
+          v266 = vsubq_f32(v255, v257);
+          v267 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v244, vmulq_f32(v212, v405)), vmulq_f32(v220, v406)), vmulq_f32(v227, v330)), vmulq_f32(v234, v408)), vmulq_f32(v241, v349));
+          v268 = vnegq_f32(v265);
+          v377 = vmlaq_n_f32(vmulq_n_f32(v266, v261.f32[0]), v265, v260.f32[0]);
+          v269 = v242;
+          v270 = vaddq_f32(vsubq_f32(vsubq_f32(vsubq_f32(vaddq_f32(v246, vmulq_f32(v213, v405)), vmulq_f32(v221, v406)), vmulq_f32(v228, v330)), vmulq_f32(v251, v408)), vmulq_f32(v242, v349));
+          v271 = vmulq_n_f32(v268, v261.f32[0]);
+          v272 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v226, v403), v346, v258), v345, v387), v344, v238), v399, v351);
+          v273 = vsubq_f32(v267, v272);
+          v274 = vaddq_f32(v267, v272);
+          v275 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v397, v403), v346, v214), v345, v229), v344, v358), v399, v392);
+          v276 = vaddq_f32(v275, v270);
+          v277 = vsubq_f32(v270, v275);
+          v278 = vmlaq_n_f32(v271, v266, v260.f32[0]);
+          v260.f32[0] = *(v207 + v328 - 4);
+          v266.f32[0] = *(v207 + v328);
+          v372 = vmlaq_n_f32(vmulq_n_f32(v276, v266.f32[0]), v273, v260.f32[0]);
+          v374 = v278;
+          v369 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v273), v266.f32[0]), v276, v260.f32[0]);
+          v260.f32[0] = *(v207 + v323 - 68);
+          v266.f32[0] = *(v207 + v323 - 64);
+          v365 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v274), v266.f32[0]), v277, v260.f32[0]);
+          v367 = vmlaq_n_f32(vmulq_n_f32(v277, v266.f32[0]), v274, v260.f32[0]);
+          v279 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v244, vmulq_f32(v212, v408)), vmulq_f32(v389, v330)), vmulq_f32(v227, v405)), vmulq_f32(v234, v349)), vmulq_f32(v241, v406));
+          v280 = vsubq_f32(vaddq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v246, vmulq_f32(v213, v408)), vmulq_f32(v221, v330)), vmulq_f32(v228, v405)), vmulq_f32(v251, v349)), vmulq_f32(v269, v406));
+          v204 = v350;
+          v281 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v397, v345), v350, v214), v400, v229), v385, v358), v403, v392);
+          v282 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v226, v345), v350, v354), v400, v387), v385, v238), v403, v351);
+          v283 = vsubq_f32(v279, v282);
+          v284 = vaddq_f32(v281, v280);
+          v260.f32[0] = v207[4 * v321 - 1];
+          v276.f32[0] = v207[4 * v321];
+          v362 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v283), v276.f32[0]), v284, v260.f32[0]);
+          v363 = vmlaq_n_f32(vmulq_n_f32(v284, v276.f32[0]), v283, v260.f32[0]);
+          v285 = vaddq_f32(v279, v282);
+          v286 = vsubq_f32(v280, v281);
+          v281.f32[0] = v207[14 * v321 - 1];
+          v282.f32[0] = v207[14 * v321];
+          v359 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v285), v282.f32[0]), v286, v281.f32[0]);
+          v361 = vmlaq_n_f32(vmulq_n_f32(v286, v282.f32[0]), v285, v281.f32[0]);
+          v287 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v244, vmulq_f32(v212, v406)), vmulq_f32(v389, v408)), vmulq_f32(v227, v349)), vmulq_f32(v234, v330)), vmulq_f32(v241, v405));
+          v288 = vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(vsubq_f32(v246, vmulq_f32(v213, v406)), vmulq_f32(v221, v408)), vmulq_f32(v228, v349)), vmulq_f32(v251, v330)), vmulq_f32(v269, v405));
+          v289 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v397, v344), v403, v214), v385, v229), v401, v358), v400, v392);
+          v290 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v226, v344), v403, v354), v385, v387), v401, v238), v400, v351);
+          v291 = vsubq_f32(v287, v290);
+          v292 = vaddq_f32(v289, v288);
+          v282.f32[0] = v207[6 * v321 - 1];
+          v286.f32[0] = v207[6 * v321];
+          v293 = vmlaq_n_f32(vmulq_n_f32(v292, v286.f32[0]), v291, v282.f32[0]);
+          v294 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v291), v286.f32[0]), v292, v282.f32[0]);
+          v295 = vaddq_f32(v287, v290);
+          v296 = vsubq_f32(v288, v289);
+          v292.f32[0] = v207[12 * v321 - 1];
+          v288.f32[0] = v207[12 * v321];
+          v297 = vmlaq_n_f32(vmulq_n_f32(v296, v288.f32[0]), v295, v292.f32[0]);
+          v298 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v295), v288.f32[0]), v296, v292.f32[0]);
+          v202 = v405;
+          v299 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v244, vmulq_f32(v212, v330)), vmulq_f32(v389, v349)), vmulq_f32(v227, v406)), vmulq_f32(v234, v405)), vmulq_f32(v241, v408));
+          v300 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v397, v399), v401, v395), v403, v229), v400, v358), v350, v392);
+          v107 = v408;
+          v301 = vsubq_f32(vaddq_f32(vsubq_f32(vaddq_f32(vsubq_f32(v246, vmulq_f32(v213, v330)), vmulq_f32(v221, v349)), vmulq_f32(v228, v406)), vmulq_f32(v251, v405)), vmulq_f32(v269, v408));
+          v287.f32[0] = v207[8 * v321 - 1];
+          v234.f32[0] = v207[8 * v321];
+          v302 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v226, v399), v401, v354), v403, v387), v400, v238), v350, v351);
+          v303 = vsubq_f32(v299, v302);
+          v304 = vaddq_f32(v300, v301);
+          v305 = vaddq_f32(v299, v302);
+          v306 = vmlaq_n_f32(vmulq_n_f32(v304, v234.f32[0]), v303, v287.f32[0]);
+          v307 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v303), v234.f32[0]), v304, v287.f32[0]);
+          v287.f32[0] = *(v263 - 1);
+          v308 = vsubq_f32(v301, v300);
+          v309 = vmlaq_n_f32(vmulq_n_f32(v308, *v263), v305, v287.f32[0]);
+          v310 = vmlaq_n_f32(vmulq_n_f32(vnegq_f32(v305), *v263), v308, v287.f32[0]);
+          v311 = &v347[v205];
+          v311[2] = v383;
+          v311[3] = v380;
+          v312 = &v114[v205];
+          v312[2] = v377;
+          v312[3] = v374;
+          v313 = &v113[v205];
+          v313[2] = v372;
+          v313[3] = v369;
+          v314 = &v115[v205];
+          v314[2] = v367;
+          v314[3] = v365;
+          v315 = &v112[v205];
+          v315[2] = v363;
+          v315[3] = v362;
+          v316 = &v109[v205];
+          v316[2] = v361;
+          v316[3] = v359;
+          v317 = &v105[v205];
+          v317[2] = v293;
+          v317[3] = v294;
+          v195 = v401;
+          v203 = v403;
+          v318 = &v111[v205];
+          v318[2] = v297;
+          v318[3] = v298;
+          v319 = &v116[v205];
+          v319[2] = v306;
+          v319[3] = v307;
+          v108 = v406;
+          v320 = &v343[v205];
+          v320[2] = v309;
+          v320[3] = v310;
+          v205 += 2;
+          v207 += 2;
+          --v206;
+        }
+
+        while (v206);
+      }
+
+      ++v99;
+      v103 = (v103 + v333);
+      v342 = (v342 + v333);
+      v343 = (v343 + v324);
+      v100 = (v100 + v333);
+      v101 = (v101 + v333);
+      v102 = (v102 + v333);
+      v117 = (v117 + v333);
+      v118 = (v118 + v333);
+      v116 = (v116 + v324);
+      v111 = (v111 + v324);
+      v105 = (v105 + v324);
+      v109 = (v109 + v324);
+      v110 = &v347[v324 / 0x10];
+      v113 = (v113 + v324);
+      v115 = (v115 + v324);
+      a3 = v337;
+      a5 = v338;
+      v104 = v349;
+      v106 = v202;
+      v112 = (v112 + v324);
+      v114 = (v114 + v324);
+      v119 = (v119 + v333);
+      v120 = (v120 + v333);
+      v121 = (v121 + v324);
+      v122 = &v348[v333 / 0x10];
+      v123 = (v123 + v333);
+    }
+
+    while (v341 + 1 != v337);
   }
 }

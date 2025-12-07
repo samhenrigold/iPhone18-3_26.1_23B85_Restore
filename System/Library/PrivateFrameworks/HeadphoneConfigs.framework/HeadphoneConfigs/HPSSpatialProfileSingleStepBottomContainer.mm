@@ -2,7 +2,9 @@
 - (_TtC16HeadphoneConfigs42HPSSpatialProfileSingleStepBottomContainer)initWithBudsInEarString:(id)string;
 - (_TtC16HeadphoneConfigs42HPSSpatialProfileSingleStepBottomContainer)initWithCoder:(id)coder;
 - (_TtC16HeadphoneConfigs42HPSSpatialProfileSingleStepBottomContainer)initWithFrame:(CGRect)frame;
+- (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep;
 - (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep animateInAlongSide:(id *)side animateOutAlongSide:(id *)alongSide animatedCompletion:(id)completion;
+- (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep completionAction:(id)action;
 - (void)showContinueButton:(BOOL)button;
 - (void)updateContinueButtonActionWithTarget:(id)target selector:(SEL)selector;
 - (void)updateContinueButtonTitleWithTitle:(id)title;
@@ -34,13 +36,48 @@
 
 - (void)updateContinueButtonTitleWithTitle:(id)title
 {
-  sub_25121179C();
+  v4 = sub_25121179C();
+  v6 = v5;
   selfCopy = self;
-  sub_2511F50B4();
+  sub_2511F50B4(v4, v6);
+}
+
+- (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep
+{
+  v4 = *&toStep;
+  v5 = *&step;
+  v6 = *((*MEMORY[0x277D85000] & self->super.super.super.isa) + 0x138);
+  selfCopy = self;
+  v6(v5, v4, 0, 0);
+}
+
+- (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep completionAction:(id)action
+{
+  v5 = *&toStep;
+  v6 = *&step;
+  v8 = _Block_copy(action);
+  if (v8)
+  {
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
+    v8 = sub_2511C68F0;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = *((*MEMORY[0x277D85000] & self->super.super.super.isa) + 0x140);
+  selfCopy = self;
+  v10(v6, v5, 0, 0, v8, v9);
+
+  sub_251146DF4(v8, v9);
 }
 
 - (void)moveToEnrollmentFromStep:(int)step toStep:(int)toStep animateInAlongSide:(id *)side animateOutAlongSide:(id *)alongSide animatedCompletion:(id)completion
 {
+  v10 = *&step;
   v12 = _Block_copy(completion);
   if (v12)
   {
@@ -55,8 +92,8 @@
   }
 
   selfCopy = self;
-  sub_2511F5440(step, toStep, side, alongSide, v12, v13);
-  sub_251146DF4(v12);
+  sub_2511F5440(v10, toStep, side, alongSide, v12, v13);
+  sub_251146DF4(v12, v13);
 }
 
 - (_TtC16HeadphoneConfigs42HPSSpatialProfileSingleStepBottomContainer)initWithCoder:(id)coder

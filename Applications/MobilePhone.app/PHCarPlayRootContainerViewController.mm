@@ -83,26 +83,26 @@
   viewControllers = [controllerCopy viewControllers];
   v10 = [viewControllers objectAtIndex:0];
 
-  v11 = PHDefaultLog();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = PHDefaultLog(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (v10 == viewControllerCopy)
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      v13 = "-> Hiding the navigation bar.";
-      v14 = buf;
+      v14 = "-> Hiding the navigation bar.";
+      v15 = buf;
       goto LABEL_6;
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v15 = 0;
-    v13 = "-> Showing the navigation bar.";
-    v14 = &v15;
+    v16 = 0;
+    v14 = "-> Showing the navigation bar.";
+    v15 = &v16;
 LABEL_6:
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
   }
 
   [controllerCopy setNavigationBarHidden:v10 == viewControllerCopy animated:animatedCopy];

@@ -2,9 +2,9 @@
 - (uint64_t)doc_displaysSearchResults;
 - (uint64_t)doc_isObserving;
 - (uint64_t)doc_restartObservation;
-- (uint64_t)doc_startObservationIfNeeded;
 - (uint64_t)doc_stopObserving;
 - (void)doc_setIsObserving:()DOCUtils;
+- (void)doc_startObservationIfNeeded;
 - (void)doc_startObserving;
 @end
 
@@ -12,7 +12,7 @@
 
 - (void)doc_startObserving
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = docLogHandle;
   if (!docLogHandle)
   {
@@ -22,17 +22,15 @@
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "Start observing collection %@", &v5, 0xCu);
+    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "Start observing collection %@", &v4, 0xCu);
   }
 
   [self doc_setIsObserving:1];
   [self startObserving];
   v3 = +[DOCFPItemCollectionManager sharedManager];
   [v3 collectionDidStartObserving:self];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)doc_displaysSearchResults
@@ -52,7 +50,7 @@
   return isKindOfClass & 1;
 }
 
-- (uint64_t)doc_startObservationIfNeeded
+- (void)doc_startObservationIfNeeded
 {
   result = [self doc_displaysSearchResults];
   if ((result & 1) == 0)
@@ -93,7 +91,7 @@
 
 - (uint64_t)doc_stopObserving
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = docLogHandle;
   if (!docLogHandle)
   {
@@ -103,18 +101,16 @@
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "Stop observing collection %@", &v6, 0xCu);
+    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "Stop observing collection %@", &v5, 0xCu);
   }
 
   v3 = +[DOCFPItemCollectionManager sharedManager];
   [v3 collectionDidStopObserving:self];
 
   [self doc_setIsObserving:0];
-  result = [self stopObserving];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [self stopObserving];
 }
 
 - (uint64_t)doc_restartObservation

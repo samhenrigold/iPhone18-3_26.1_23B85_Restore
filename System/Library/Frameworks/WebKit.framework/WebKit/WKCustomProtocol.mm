@@ -156,14 +156,14 @@ LABEL_11:
   if (v2.m_value.m_identifier)
   {
     m_identifier = v2.m_value.m_identifier;
-    v4 = WTF::fastMalloc(0x10);
-    *v4 = &unk_1F10EC2C0;
-    v4[1] = m_identifier;
-    v5 = v4;
+    v5 = WTF::fastMalloc(v3, 0x10);
+    *v5 = &unk_1F10EC2C0;
+    v5[1] = m_identifier;
+    v6 = v5;
     WTF::ensureOnMainRunLoop();
-    if (v5)
+    if (v6)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v6 + 8))(v6);
     }
   }
 

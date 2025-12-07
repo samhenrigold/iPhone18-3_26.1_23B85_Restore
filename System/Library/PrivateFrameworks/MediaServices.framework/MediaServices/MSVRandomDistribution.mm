@@ -10,27 +10,27 @@
 
 - (unint64_t)nextIntWithUpperBound:(unint64_t)bound
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   lowestValue = self->_lowestValue;
   v4 = lowestValue & ~(lowestValue >> 63);
   if (v4 > bound)
   {
-    v9 = MEMORY[0x1E695DF30];
-    v10 = *MEMORY[0x1E695D940];
-    v19[0] = @"lowestInclusive";
-    v13 = [MEMORY[0x1E696AD98] numberWithInteger:lowestValue];
-    v20[0] = v13;
-    v19[1] = @"highestInclusive";
-    v14 = [MEMORY[0x1E696AD98] numberWithInteger:self->_highestValue];
-    v20[1] = v14;
-    v19[2] = @"upper";
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:bound];
-    v20[2] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-    v17 = [v9 exceptionWithName:v10 reason:@"upper bound provided is less than lowestInclusive" userInfo:v16];
-    v18 = v17;
+    v7 = MEMORY[0x1E695DF30];
+    v8 = *MEMORY[0x1E695D940];
+    v17[0] = @"lowestInclusive";
+    v11 = [MEMORY[0x1E696AD98] numberWithInteger:lowestValue];
+    v18[0] = v11;
+    v17[1] = @"highestInclusive";
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:self->_highestValue];
+    v18[1] = v12;
+    v17[2] = @"upper";
+    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:bound];
+    v18[2] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v15 = [v7 exceptionWithName:v8 reason:@"upper bound provided is less than lowestInclusive" userInfo:v14];
+    v16 = v15;
 
-    objc_exception_throw(v17);
+    objc_exception_throw(v15);
   }
 
   v5 = self->_highestValue & ~(self->_highestValue >> 63);
@@ -39,9 +39,7 @@
     v5 = bound - 1;
   }
 
-  v6 = [(MSVRandom *)self->_source nextIntWithUpperBound:v5 - lowestValue + 1];
-  v7 = *MEMORY[0x1E69E9840];
-  return v6 + v4;
+  return [(MSVRandom *)self->_source nextIntWithUpperBound:v5 - lowestValue + 1]+ v4;
 }
 
 - (void)encodeWithCoder:(id)coder

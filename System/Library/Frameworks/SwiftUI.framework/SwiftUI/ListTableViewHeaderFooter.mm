@@ -20,26 +20,27 @@
     selfCopy = self;
     contentView = [(ListTableViewHeaderFooter *)selfCopy contentView];
     [contentView bounds];
-
-    specialized PlatformListViewBase<>.hostSizeThatFits(width:)();
     v6 = v5;
-    v8 = v7;
 
-    v9 = v8;
-    v10 = v6;
+    specialized PlatformListViewBase<>.hostSizeThatFits(width:)(v6);
+    v8 = v7;
+    v10 = v9;
+
+    v11 = v10;
+    v12 = v8;
   }
 
   else
   {
     height = fits.height;
     width = fits.width;
-    v13.receiver = self;
-    v13.super_class = type metadata accessor for ListTableViewHeaderFooter();
-    [(ListTableViewHeaderFooter *)&v13 sizeThatFits:width, height];
+    v15.receiver = self;
+    v15.super_class = type metadata accessor for ListTableViewHeaderFooter();
+    [(ListTableViewHeaderFooter *)&v15 sizeThatFits:width, height];
   }
 
-  result.height = v9;
-  result.width = v10;
+  result.height = v11;
+  result.width = v12;
   return result;
 }
 

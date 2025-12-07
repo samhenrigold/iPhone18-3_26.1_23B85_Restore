@@ -43,7 +43,7 @@
 
 - (void)downloadManager:(id)manager didCancelAssets:(id)assets
 {
-  sub_13C80(0, &qword_DE8ED0);
+  sub_13C80(0, &qword_DE8ED0, OS_dispatch_queue_ptr);
   v5 = swift_allocObject();
   *(v5 + 16) = self;
   selfCopy = self;

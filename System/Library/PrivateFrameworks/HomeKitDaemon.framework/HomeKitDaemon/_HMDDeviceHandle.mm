@@ -29,16 +29,16 @@
 
 - (_HMDDeviceHandle)initWithIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v15.receiver = self;
-    v15.super_class = _HMDDeviceHandle;
-    v5 = [(_HMDDeviceHandle *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = _HMDDeviceHandle;
+    v5 = [(_HMDDeviceHandle *)&v14 init];
     if (v5)
     {
-      v6 = [identifierCopy copy];
+      v6 = objc_msgSend_copy(identifierCopy);
       identifier = v5->_identifier;
       v5->_identifier = v6;
     }
@@ -56,7 +56,7 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing required parameter 'identifier'", buf, 0xCu);
     }
 
@@ -64,7 +64,6 @@
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

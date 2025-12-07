@@ -80,7 +80,7 @@ LABEL_19:
               _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[%@] Starting purchases for redownload", buf, 0xCu);
             }
 
-            v31 = sub_1001DFF60();
+            v31 = sub_1001DFF60(PurchaseManager);
             v60[0] = _NSConcreteStackBlock;
             v60[1] = 3221225472;
             v60[2] = sub_1003465F0;
@@ -196,7 +196,7 @@ LABEL_26:
       _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[%@] Starting purchase for redownload", buf, 0xCu);
     }
 
-    v43 = sub_1001DFF60();
+    v43 = sub_1001DFF60(PurchaseManager);
     v69[0] = _NSConcreteStackBlock;
     v69[1] = 3221225472;
     v69[2] = sub_1003462E8;

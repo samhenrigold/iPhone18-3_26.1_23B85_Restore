@@ -12,9 +12,9 @@
   dataCopy = data;
   doubleHeightStatus = [dataCopy doubleHeightStatus];
   text = [(UILabel *)self->_textLabel text];
-  v9 = [text isEqualToString:doubleHeightStatus];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     textLabel = self->_textLabel;
     if (!doubleHeightStatus || textLabel)

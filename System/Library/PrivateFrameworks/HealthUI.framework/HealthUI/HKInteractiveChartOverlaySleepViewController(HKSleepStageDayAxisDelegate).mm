@@ -13,14 +13,14 @@
   _os_log_debug_impl(&dword_1C3942000, v4, OS_LOG_TYPE_DEBUG, "[%{public}@] Finding sleep day summary for date %{public}@", v7, 0x16u);
 }
 
-- (void)sleepDaySummaryForDate:()HKSleepStageDayAxisDelegate .cold.2(void *a1)
+- (void)sleepDaySummaryForDate:()HKSleepStageDayAxisDelegate .cold.2(void *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v3 = 138543362;
-  v4 = objc_opt_class();
-  v2 = v4;
-  _os_log_error_impl(&dword_1C3942000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Display type not interactive", &v3, 0xCu);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1C3942000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Display type not interactive", &v4, 0xCu);
 }
 
 - (void)sleepDaySummaryForDate:()HKSleepStageDayAxisDelegate .cold.3(void *a1, uint64_t a2, void *a3)

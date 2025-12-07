@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (unint64_t)hash;
@@ -67,6 +68,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDFFF | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898CC00[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -501,7 +517,6 @@ LABEL_19:
   toCopy = to;
   if ((*&self->_has & 0x800) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -513,7 +528,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 0x2000) != 0)
   {
-    networkType = self->_networkType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -533,7 +547,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  epochs = self->_epochs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -548,7 +561,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  totalStaySecs = self->_totalStaySecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -563,7 +575,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  faultyStaySecs = self->_faultyStaySecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -578,7 +589,6 @@ LABEL_10:
   }
 
 LABEL_26:
-  connAttempts = self->_connAttempts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -593,7 +603,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  connSuccess = self->_connSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -608,7 +617,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  packetsIn = self->_packetsIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -623,7 +631,6 @@ LABEL_13:
   }
 
 LABEL_29:
-  packetsOut = self->_packetsOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -638,7 +645,6 @@ LABEL_14:
   }
 
 LABEL_30:
-  bytesIn = self->_bytesIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -653,7 +659,6 @@ LABEL_15:
   }
 
 LABEL_31:
-  bytesOut = self->_bytesOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -668,7 +673,6 @@ LABEL_16:
   }
 
 LABEL_32:
-  secsSinceLastTrimmed = self->_secsSinceLastTrimmed;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -683,12 +687,10 @@ LABEL_17:
   }
 
 LABEL_33:
-  dnsPartialFailures = self->_dnsPartialFailures;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_18:
-    dnsCompleteFailures = self->_dnsCompleteFailures;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1104,7 +1106,6 @@ LABEL_16:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 62);
   if ((has & 0x800) != 0)
   {
     if ((*(equalCopy + 62) & 0x800) == 0 || self->_timestamp != *(equalCopy + 12))
@@ -1124,14 +1125,14 @@ LABEL_16:
     if (![(NSString *)identifier isEqual:?])
     {
 LABEL_75:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_76;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 62);
+  v7 = *(equalCopy + 62);
   if ((has & 0x2000) != 0)
   {
     if ((*(equalCopy + 62) & 0x2000) == 0 || self->_networkType != *(equalCopy + 30))
@@ -1147,13 +1148,13 @@ LABEL_75:
 
   if ((has & 0x40) != 0)
   {
-    if ((v8 & 0x40) == 0 || self->_epochs != *(equalCopy + 7))
+    if ((v7 & 0x40) == 0 || self->_epochs != *(equalCopy + 7))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 0x40) != 0)
+  else if ((v7 & 0x40) != 0)
   {
     goto LABEL_75;
   }
@@ -1173,39 +1174,39 @@ LABEL_75:
 
   if ((has & 0x80) != 0)
   {
-    if ((v8 & 0x80) == 0 || self->_faultyStaySecs != *(equalCopy + 8))
+    if ((v7 & 0x80) == 0 || self->_faultyStaySecs != *(equalCopy + 8))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 0x80) != 0)
+  else if ((v7 & 0x80) != 0)
   {
     goto LABEL_75;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v8 & 4) == 0 || self->_connAttempts != *(equalCopy + 3))
+    if ((v7 & 4) == 0 || self->_connAttempts != *(equalCopy + 3))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 4) != 0)
+  else if ((v7 & 4) != 0)
   {
     goto LABEL_75;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v8 & 8) == 0 || self->_connSuccess != *(equalCopy + 4))
+    if ((v7 & 8) == 0 || self->_connSuccess != *(equalCopy + 4))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 8) != 0)
+  else if ((v7 & 8) != 0)
   {
     goto LABEL_75;
   }
@@ -1238,26 +1239,26 @@ LABEL_75:
 
   if (has)
   {
-    if ((v8 & 1) == 0 || self->_bytesIn != *(equalCopy + 1))
+    if ((v7 & 1) == 0 || self->_bytesIn != *(equalCopy + 1))
     {
       goto LABEL_75;
     }
   }
 
-  else if (v8)
+  else if (v7)
   {
     goto LABEL_75;
   }
 
   if ((has & 2) != 0)
   {
-    if ((v8 & 2) == 0 || self->_bytesOut != *(equalCopy + 2))
+    if ((v7 & 2) == 0 || self->_bytesOut != *(equalCopy + 2))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 2) != 0)
+  else if ((v7 & 2) != 0)
   {
     goto LABEL_75;
   }
@@ -1277,35 +1278,35 @@ LABEL_75:
 
   if ((has & 0x20) != 0)
   {
-    if ((v8 & 0x20) == 0 || self->_dnsPartialFailures != *(equalCopy + 6))
+    if ((v7 & 0x20) == 0 || self->_dnsPartialFailures != *(equalCopy + 6))
     {
       goto LABEL_75;
     }
   }
 
-  else if ((v8 & 0x20) != 0)
+  else if ((v7 & 0x20) != 0)
   {
     goto LABEL_75;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v8 & 0x10) == 0 || self->_dnsCompleteFailures != *(equalCopy + 5))
+    if ((v7 & 0x10) == 0 || self->_dnsCompleteFailures != *(equalCopy + 5))
     {
       goto LABEL_75;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = (v8 & 0x10) == 0;
+    v8 = (v7 & 0x10) == 0;
   }
 
 LABEL_76:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

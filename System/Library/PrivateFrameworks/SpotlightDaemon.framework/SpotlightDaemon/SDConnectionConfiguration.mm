@@ -6,11 +6,11 @@
 
 - (SDConnectionConfiguration)initWithConnection:(id)connection isPrivate:(BOOL)private isManaged:(BOOL)managed
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v52.receiver = self;
-  v52.super_class = SDConnectionConfiguration;
-  v10 = [(SDConnectionConfiguration *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = SDConnectionConfiguration;
+  v10 = [(SDConnectionConfiguration *)&v51 init];
   v11 = v10;
   if (!v10)
   {
@@ -108,28 +108,27 @@
         {
           objc_storeStrong(&v11->_bundleID, v18);
           *token.val = 0;
-          v27 = *p_bundleID;
           if (CPCopyBundleIdentifierAndTeamFromApplicationIdentifier())
           {
             if (*token.val)
             {
-              v28 = objc_alloc(MEMORY[0x277CC1E50]);
-              v51 = [v28 initWithBundleIdentifier:*token.val error:0];
-              containingBundleRecord = [v51 containingBundleRecord];
+              v27 = objc_alloc(MEMORY[0x277CC1E50]);
+              v50 = [v27 initWithBundleIdentifier:*token.val error:0];
+              containingBundleRecord = [v50 containingBundleRecord];
               bundleIdentifier = [containingBundleRecord bundleIdentifier];
 
               if (bundleIdentifier)
               {
-                v31 = bundleIdentifier;
+                v30 = bundleIdentifier;
               }
 
               else
               {
-                v31 = *token.val;
+                v30 = *token.val;
               }
 
-              v32 = *p_bundleID;
-              *p_bundleID = v31;
+              v31 = *p_bundleID;
+              *p_bundleID = v30;
             }
           }
         }
@@ -138,9 +137,9 @@
 
     if (v11->_bundleID && [&unk_2846C90F8 containsObject:?])
     {
-      v33 = checkBooleanEntitlement(v14, @"com.apple.private.corespotlight.allownotifications");
-      v11->_allowNotifications = v33;
-      if (v33)
+      v32 = checkBooleanEntitlement(v14, @"com.apple.private.corespotlight.allownotifications");
+      v11->_allowNotifications = v32;
+      if (v32)
       {
 LABEL_37:
         if (v11->_bundleID)
@@ -182,10 +181,10 @@ LABEL_37:
 
     if ([(NSSet *)v11->_allowedBundleIDs containsObject:@"com.apple.usernotificationsd"])
     {
-      v34 = [(NSSet *)v11->_allowedBundleIDs mutableCopy];
-      [v34 removeObject:@"com.apple.usernotificationsd"];
-      objc_storeStrong(&v11->_allowedBundleIDs, v34);
-      v35 = logForCSLogCategoryDefault();
+      v33 = [(NSSet *)v11->_allowedBundleIDs mutableCopy];
+      [v33 removeObject:@"com.apple.usernotificationsd"];
+      objc_storeStrong(&v11->_allowedBundleIDs, v33);
+      v35 = logForCSLogCategoryDefault(v34);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         [SDConnectionConfiguration initWithConnection:v35 isPrivate:? isManaged:?];
@@ -207,7 +206,7 @@ LABEL_45:
 
   if (v11->_bundleID || v11->_searchInternal)
   {
-    v46 = logForCSLogCategoryDefault();
+    v46 = logForCSLogCategoryDefault(v13);
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       pid = v11->_pid;
@@ -222,7 +221,7 @@ LABEL_45:
 
   else
   {
-    v46 = logForCSLogCategoryDefault();
+    v46 = logForCSLogCategoryDefault(v13);
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       [SDConnectionConfiguration initWithConnection:connectionCopy isPrivate:v46 isManaged:?];
@@ -230,27 +229,24 @@ LABEL_45:
   }
 
 LABEL_55:
-  v49 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)initWithConnection:(uint64_t *)a1 isPrivate:(NSObject *)a2 isManaged:.cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Unallowing notifications for bid %@ not in allow list", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Unallowing notifications for bid %@ not in allow list", &v3, 0xCu);
 }
 
 - (void)initWithConnection:(uint64_t)a1 isPrivate:(NSObject *)a2 isManaged:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Could not resolve bundle from %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "Could not resolve bundle from %@", &v2, 0xCu);
 }
 
 @end

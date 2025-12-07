@@ -52,7 +52,7 @@
 {
   deviceCopy = device;
   contentsCopy = contents;
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   contentsCopy2 = contents;
   groupCopy = group;
   v67.receiver = self;
@@ -65,7 +65,7 @@
     v63 = 0u;
     v64 = 0u;
     v12 = contentsCopy2;
-    v13 = [v12 countByEnumeratingWithState:&v63 objects:v74 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v63 objects:v73 count:16];
     v59 = v12;
     if (v13)
     {
@@ -96,7 +96,7 @@ LABEL_4:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v71 = v21;
+            v70 = v21;
             _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_INFO, "Found specifiedABGroup of %@", buf, 0xCu);
           }
 
@@ -114,9 +114,9 @@ LABEL_4:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v71 = v20;
-              v72 = 2112;
-              v73 = v62;
+              v70 = v20;
+              v71 = 2112;
+              v72 = v62;
               _os_log_error_impl(&dword_1BF549000, v17, OS_LOG_TYPE_ERROR, "Detected more than one Default* ABGroup, skipping %@ and keeping %@", buf, 0x16u);
             }
           }
@@ -163,7 +163,7 @@ LABEL_29:
         v60 = v15;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
-          [ATXAssetsABHelper initWithAssetContents:v68 specifiedABGroup:v20 indexForDevice:&v69];
+          [ATXAssetsABHelper initWithAssetContents:v68 specifiedABGroup:v20 indexForDevice:&v68[4]];
         }
 
         v26 = v25;
@@ -228,7 +228,7 @@ LABEL_40:
 LABEL_30:
         if (v14 == ++v19)
         {
-          v44 = [v18 countByEnumeratingWithState:&v63 objects:v74 count:16];
+          v44 = [v18 countByEnumeratingWithState:&v63 objects:v73 count:16];
           v14 = v44;
           if (v44)
           {
@@ -317,7 +317,7 @@ LABEL_57:
       {
         groupIdentifier = v11->_groupIdentifier;
         *buf = 138412290;
-        v71 = groupIdentifier;
+        v70 = groupIdentifier;
         _os_log_impl(&dword_1BF549000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "ABGroup identifier: %@", buf, 0xCu);
       }
     }

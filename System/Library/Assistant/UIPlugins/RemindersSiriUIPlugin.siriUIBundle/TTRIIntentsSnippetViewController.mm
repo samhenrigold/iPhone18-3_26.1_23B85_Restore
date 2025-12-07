@@ -22,15 +22,14 @@
 {
   v6 = sub_1FFAC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1FF6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_E718(v10);
+  v13 = sub_E718(v9, v12);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
   return v13;
 }
@@ -45,15 +44,14 @@
 {
   v6 = sub_1FFAC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1FF6C();
   viewCopy = view;
   selfCopy = self;
   sub_EB48();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (_TtC21RemindersSiriUIPlugin32TTRIIntentsSnippetViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -120,14 +118,20 @@
 
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
     v9 = sub_F94C;
+  }
+
+  else
+  {
+    v10 = 0;
   }
 
   interactionCopy = interaction;
   selfCopy = self;
-  sub_F668(parameters, interaction, v9, v12, v13);
-  sub_F904(v9);
+  sub_F668(parameters, interaction, v9, v13, v14);
+  sub_F904(v9, v10);
 }
 
 @end

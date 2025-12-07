@@ -8,6 +8,7 @@
 - (ATXPredictionItem)predictionItemForAction:(SEL)action;
 - (id).cxx_construct;
 - (unordered_map<ATXAction)_getActionToIndexMap;
+- (void)enumerateActionsAndPredictionItemsForConsumerSubtype:(unsigned __int8)subtype limit:(unint64_t)limit block:(id)block;
 - (void)enumerateExtraPredictionItemsWithBlock:(id)block;
 - (void)failAndLog:(id)log;
 @end
@@ -24,32 +25,32 @@
   if (v5)
   {
     v6 = [chunksCopy count];
-    if (v6 == [(ATXActionCacheClientReader *)v5 chunkCount])
+    chunkCount = [(ATXActionCacheClientReader *)v5 chunkCount];
+    if (v6 == chunkCount)
     {
-      v7 = objc_autoreleasePoolPush();
-      [(ATXActionCacheReader *)v5 _getActionToIndexMap];
+      v8 = objc_autoreleasePoolPush();
+      objc_msgSend__getActionToIndexMap(v5);
       std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::__move_assign(&v5->_actionToIndexMap, buf);
       std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::~__hash_table(buf);
-      v8 = [chunksCopy objectAtIndexedSubscript:2];
-      [ATXActionCacheReader _getIndexToPredictionItemMapWithChunk:v8 withPredictionCount:v5->_actionToIndexMap.__table_.__size_ map:&v5->_predictionItems abGroup:&v5->_abGroup assetVersion:&v5->_assetVersion];
+      v9 = [chunksCopy objectAtIndexedSubscript:2];
+      [ATXActionCacheReader _getIndexToPredictionItemMapWithChunk:v9 withPredictionCount:v5->_actionToIndexMap.__table_.__size_ map:&v5->_predictionItems abGroup:&v5->_abGroup assetVersion:&v5->_assetVersion];
 
-      v9 = [chunksCopy objectAtIndexedSubscript:3];
-      [ATXActionCacheReader _getExtraPredictionsFromChunk:v9 map:&v5->_extraPredictionItems abGroup:0 assetVersion:0];
+      v10 = [chunksCopy objectAtIndexedSubscript:3];
+      [ATXActionCacheReader _getExtraPredictionsFromChunk:v10 map:&v5->_extraPredictionItems abGroup:0 assetVersion:0];
 
-      objc_autoreleasePoolPop(v7);
+      objc_autoreleasePoolPop(v8);
     }
 
     else
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(chunkCount);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        -[ATXActionCacheReader initWithChunks:].cold.1(buf, [chunksCopy count], -[ATXActionCacheClientReader chunkCount](v5, "chunkCount"), v10);
+        -[ATXActionCacheReader initWithChunks:].cold.1(buf, [chunksCopy count], -[ATXActionCacheClientReader chunkCount](v5, "chunkCount"), v11);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -63,16 +64,16 @@
 
 - (ATXPredictionItem)predictionItemForAction:(SEL)action
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v21 = a4;
-  v6 = std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::find<ATXAction * {__strong}>(&self->_actionToIndexMap.__table_.__bucket_list_.__ptr_, &v21);
+  v22 = *MEMORY[0x277D85DE8];
+  v20 = a4;
+  v6 = std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::find<ATXAction * {__strong}>(&self->_actionToIndexMap.__table_.__bucket_list_.__ptr_, &v20);
   if (v6)
   {
     v7 = *(v6 + 6);
     begin = self->_predictionItems.__begin_;
     if (0x13A524387AC82261 * ((self->_predictionItems.__end_ - begin) >> 3) <= v7)
     {
-      v13 = __atxlog_handle_default();
+      v13 = __atxlog_handle_default(v6);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         v14 = objc_opt_class();
@@ -102,7 +103,7 @@
 
   else
   {
-    [(ATXActionCacheReader *)self failAndLog:v21];
+    [(ATXActionCacheReader *)self failAndLog:v20];
     v10.i32[1] = -1059153344;
     *v10.i32 = -31337.0;
     retstr->key = 0;
@@ -115,7 +116,6 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -204,59 +204,59 @@
 
   for (i = self->_actionToIndexMap.__table_.__first_node_.__next_; i; i = *i)
   {
-    v22 = __atxlog_handle_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_default(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(i + 6);
+      v24 = *(i + 6);
       bundleId2 = [*(i + 2) bundleId];
       intent2 = [logCopy intent];
       _className2 = [intent2 _className];
-      v25 = _className2;
+      v26 = _className2;
       if (_className2)
       {
-        v26 = _className2;
+        v27 = _className2;
       }
 
       else
       {
-        v26 = @"No intent name";
+        v27 = @"No intent name";
       }
 
       userActivity2 = [logCopy userActivity];
       activityType2 = [userActivity2 activityType];
-      v29 = activityType2;
+      v30 = activityType2;
       if (activityType2)
       {
-        v30 = activityType2;
+        v31 = activityType2;
       }
 
       else
       {
-        v30 = @"No activity type";
+        v31 = @"No activity type";
       }
 
-      v31 = [*(i + 2) isEqual:v47];
-      v32 = [*(i + 2) hash];
+      v32 = [*(i + 2) isEqual:v47];
+      v33 = [*(i + 2) hash];
       *buf = 67110402;
-      *v49 = v23;
+      *v49 = v24;
       *&v49[4] = 2112;
       *&v49[6] = bundleId2;
       *&v49[14] = 2112;
-      *&v49[16] = v26;
+      *&v49[16] = v27;
       *&v49[24] = 2112;
-      *&v49[26] = v30;
+      *&v49[26] = v31;
       *&v49[34] = 1024;
-      *&v49[36] = v31;
+      *&v49[36] = v32;
       *v50 = 2048;
-      *&v50[2] = v32;
-      _os_log_error_impl(&dword_2263AA000, v22, OS_LOG_TYPE_ERROR, "Action %d in _actionToIndexMap: bundleID: %@, Intent name: %@, activity type: %@, equal to action: %{BOOL}d, hash: %lu", buf, 0x36u);
+      *&v50[2] = v33;
+      _os_log_error_impl(&dword_2263AA000, v23, OS_LOG_TYPE_ERROR, "Action %d in _actionToIndexMap: bundleID: %@, Intent name: %@, activity type: %@, equal to action: %{BOOL}d, hash: %lu", buf, 0x36u);
 
       logCopy = v47;
     }
   }
 
-  v33 = __atxlog_handle_default();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+  v34 = __atxlog_handle_default(v21);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
   {
     v35 = [logCopy hash];
     *buf = 138414850;
@@ -281,10 +281,8 @@
     v59 = v37;
     v60 = 2048;
     v61 = v36;
-    _os_log_fault_impl(&dword_2263AA000, v33, OS_LOG_TYPE_FAULT, "Failed to find action in _secondStage. Self-equality, hash-equality: %@, %@, bundleID: %@, Intent name: %@, activity type: %@, hash: %lu, map items: %lu, nil in map: %@. lock, filtered, unfiltered: %lu %lu %lu", buf, 0x70u);
+    _os_log_fault_impl(&dword_2263AA000, v34, OS_LOG_TYPE_FAULT, "Failed to find action in _secondStage. Self-equality, hash-equality: %@, %@, bundleID: %@, Intent name: %@, activity type: %@, hash: %lu, map items: %lu, nil in map: %@. lock, filtered, unfiltered: %lu %lu %lu", buf, 0x70u);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateExtraPredictionItemsWithBlock:(id)block
@@ -300,77 +298,106 @@
   }
 }
 
+- (void)enumerateActionsAndPredictionItemsForConsumerSubtype:(unsigned __int8)subtype limit:(unint64_t)limit block:(id)block
+{
+  subtypeCopy = subtype;
+  blockCopy = block;
+  if (subtypeCopy == 22)
+  {
+    v9 = [(ATXActionCacheClientReader *)self actionsWithLimit:limit shouldFilterRestrictedAppsAndRecentEngagements:0];
+    v10 = [(ATXActionCacheClientReader *)self lockscreenPredictionIndicesUpToLimit:limit];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __89__ATXActionCacheReader_enumerateActionsAndPredictionItemsForConsumerSubtype_limit_block___block_invoke;
+    v15[3] = &unk_27859C0C8;
+    v11 = v9;
+    v16 = v11;
+    selfCopy = self;
+    v18 = blockCopy;
+    [v10 enumerateIndexesUsingBlock:v15];
+  }
+
+  else
+  {
+    v11 = [(ATXActionCacheClientReader *)self actionsWithConsumerSubType:subtypeCopy limit:limit];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __89__ATXActionCacheReader_enumerateActionsAndPredictionItemsForConsumerSubtype_limit_block___block_invoke_29;
+    v12[3] = &unk_27859C0F0;
+    v12[4] = self;
+    v13 = blockCopy;
+    v14 = subtypeCopy;
+    [v11 enumerateObjectsUsingBlock:v12];
+  }
+}
+
 void __89__ATXActionCacheReader_enumerateActionsAndPredictionItemsForConsumerSubtype_limit_block___block_invoke(uint64_t a1, unint64_t a2)
 {
-  v13[417] = *MEMORY[0x277D85DE8];
+  v12[417] = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) objectAtIndexedSubscript:a2];
-  v5 = *(*(a1 + 40) + 64);
-  if (0x13A524387AC82261 * ((*(*(a1 + 40) + 72) - v5) >> 3) <= a2)
+  v5 = v4;
+  v6 = *(*(a1 + 40) + 64);
+  if (0x13A524387AC82261 * ((*(*(a1 + 40) + 72) - v6) >> 3) <= a2)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v9 = *(a1 + 40);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = 0x13A524387AC82261 * ((*(*(a1 + 40) + 72) - *(*(a1 + 40) + 64)) >> 3);
-      LODWORD(v13[0]) = 138412802;
-      *(v13 + 4) = v11;
-      WORD2(v13[1]) = 2048;
-      *(&v13[1] + 6) = a2;
-      HIWORD(v13[2]) = 2048;
-      v13[3] = v12;
-      _os_log_fault_impl(&dword_2263AA000, v7, OS_LOG_TYPE_FAULT, "%@ - lockscreen prediction index (%lu) is out of range of _predictionItems (%li)", v13, 0x20u);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = 0x13A524387AC82261 * ((*(*(a1 + 40) + 72) - *(*(a1 + 40) + 64)) >> 3);
+      LODWORD(v12[0]) = 138412802;
+      *(v12 + 4) = v10;
+      WORD2(v12[1]) = 2048;
+      *(&v12[1] + 6) = a2;
+      HIWORD(v12[2]) = 2048;
+      v12[3] = v11;
+      _os_log_fault_impl(&dword_2263AA000, v8, OS_LOG_TYPE_FAULT, "%@ - lockscreen prediction index (%lu) is out of range of _predictionItems (%li)", v12, 0x20u);
     }
   }
 
   else
   {
-    v6 = (v5 + 3336 * a2);
-    v13[0] = *v6;
-    memcpy(&v13[1], v6 + 1, 0xCFEuLL);
+    v7 = (v6 + 3336 * a2);
+    v12[0] = *v7;
+    memcpy(&v12[1], v7 + 1, 0xCFEuLL);
     (*(*(a1 + 48) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ATXActionCacheReader_enumerateActionsAndPredictionItemsForConsumerSubtype_limit_block___block_invoke_29(uint64_t a1, void *a2, unint64_t a3)
 {
-  v15[417] = *MEMORY[0x277D85DE8];
+  v14[417] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = *(*(a1 + 32) + 64);
-  if (0x13A524387AC82261 * ((*(*(a1 + 32) + 72) - v6) >> 3) <= a3)
+  v6 = v5;
+  v7 = *(*(a1 + 32) + 64);
+  if (0x13A524387AC82261 * ((*(*(a1 + 32) + 72) - v7) >> 3) <= a3)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 48)];
-      v14 = 0x13A524387AC82261 * ((*(*(a1 + 32) + 72) - *(*(a1 + 32) + 64)) >> 3);
-      LODWORD(v15[0]) = 138413058;
-      *(v15 + 4) = v12;
-      WORD2(v15[1]) = 2112;
-      *(&v15[1] + 6) = v13;
-      HIWORD(v15[2]) = 2048;
-      v15[3] = a3;
-      LOWORD(v15[4]) = 2048;
-      *(&v15[4] + 2) = v14;
-      _os_log_fault_impl(&dword_2263AA000, v8, OS_LOG_TYPE_FAULT, "%@ - %@ prediction index (%lu) is out of range of _predictionItems (%li)", v15, 0x2Au);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 48)];
+      v13 = 0x13A524387AC82261 * ((*(*(a1 + 32) + 72) - *(*(a1 + 32) + 64)) >> 3);
+      LODWORD(v14[0]) = 138413058;
+      *(v14 + 4) = v11;
+      WORD2(v14[1]) = 2112;
+      *(&v14[1] + 6) = v12;
+      HIWORD(v14[2]) = 2048;
+      v14[3] = a3;
+      LOWORD(v14[4]) = 2048;
+      *(&v14[4] + 2) = v13;
+      _os_log_fault_impl(&dword_2263AA000, v9, OS_LOG_TYPE_FAULT, "%@ - %@ prediction index (%lu) is out of range of _predictionItems (%li)", v14, 0x2Au);
     }
   }
 
   else
   {
-    v7 = (v6 + 3336 * a3);
-    v15[0] = *v7;
-    memcpy(&v15[1], v7 + 1, 0xCFEuLL);
+    v8 = (v7 + 3336 * a3);
+    v14[0] = *v8;
+    memcpy(&v14[1], v8 + 1, 0xCFEuLL);
     (*(*(a1 + 40) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_getExtraPredictionsFromChunk:(id)chunk map:(void *)map abGroup:(id *)group assetVersion:(int64_t *)version
@@ -405,7 +432,7 @@ void __89__ATXActionCacheReader_enumerateActionsAndPredictionItemsForConsumerSub
 
 void __79__ATXActionCacheReader__getExtraPredictionsFromChunk_map_abGroup_assetVersion___block_invoke(uint64_t a1, float a2, uint64_t a3, void *a4, uint64_t a5, const void *a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v10 = a4;
   v11 = *(a1 + 32);
   v12 = v10;
@@ -437,25 +464,25 @@ void __79__ATXActionCacheReader__getExtraPredictionsFromChunk_map_abGroup_assetV
       v19 = v18;
     }
 
-    v22[4] = v11;
+    v21[4] = v11;
     if (v19)
     {
       std::__allocate_at_least[abi:ne200100]<std::allocator<ATXPredictionItem>>(v11, v19);
     }
 
     v20 = 3336 * v16;
-    v22[0] = 0;
-    v22[1] = v20;
-    v22[3] = 0;
+    v21[0] = 0;
+    v21[1] = v20;
+    v21[3] = 0;
     *v20 = v12;
     *(v20 + 8) = a5;
     memcpy((v20 + 16), __dst, 0xCF0uLL);
     *(v20 + 3328) = a2;
     *(v20 + 3332) = 0;
-    v22[2] = v20 + 3336;
-    std::vector<ATXPredictionItem>::__swap_out_circular_buffer(v11, v22);
+    v21[2] = v20 + 3336;
+    std::vector<ATXPredictionItem>::__swap_out_circular_buffer(v11, v21);
     v15 = v11[1];
-    std::__split_buffer<ATXPredictionItem>::~__split_buffer(v22);
+    std::__split_buffer<ATXPredictionItem>::~__split_buffer(v21);
   }
 
   else
@@ -469,8 +496,6 @@ void __79__ATXActionCacheReader__getExtraPredictionsFromChunk_map_abGroup_assetV
   }
 
   v11[1] = v15;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (unordered_map<NSString)getActionKeyToPredictionItemMapFromChunk:()ATXNSStringHash
@@ -505,15 +530,16 @@ void __79__ATXActionCacheReader__getExtraPredictionsFromChunk_map_abGroup_assetV
   }
 }
 
-void __91__ATXActionCacheReader__getActionKeyToPredictionItemMapFromChunk_map_abGroup_assetVersion___block_invoke(uint64_t a1, float a2, uint64_t a3, void *a4, uint64_t a5, const void *a6)
+void __91__ATXActionCacheReader__getActionKeyToPredictionItemMapFromChunk_map_abGroup_assetVersion___block_invoke(uint64_t a1, float a2, uint64_t a3, void *a4, void *a5, const void *a6)
 {
-  v14 = a4;
-  v9 = *(a1 + 32);
-  v10 = v14;
-  v12 = a2;
-  v13 = 0;
-  memcpy(v11, a6, sizeof(v11));
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,ATXPredictionItem>(v9, &v14);
+  v15 = a4;
+  v10 = *(a1 + 32);
+  v11[0] = v15;
+  v11[1] = a5;
+  v13 = a2;
+  v14 = 0;
+  memcpy(v12, a6, sizeof(v12));
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,ATXPredictionItem>(v10, &v15, &v15, v11);
 }
 
 + (void)_getIndexToPredictionItemMapWithChunk:(id)chunk withPredictionCount:(int64_t)count map:(void *)map abGroup:(id *)group assetVersion:(int64_t *)version
@@ -544,33 +570,33 @@ void __91__ATXActionCacheReader__getActionKeyToPredictionItemMapFromChunk_map_ab
 
 void __107__ATXActionCacheReader__getIndexToPredictionItemMapWithChunk_withPredictionCount_map_abGroup_assetVersion___block_invoke(uint64_t a1, float a2, uint64_t a3, void *a4, uint64_t a5, const void *a6, char a7, char a8)
 {
-  v25[415] = *MEMORY[0x277D85DE8];
+  v24[415] = *MEMORY[0x277D85DE8];
   v14 = a4;
   v15 = [v14 integerValue];
   v16 = v15;
-  if (v15 >= *(a1 + 32) || v15 >= 0x13A524387AC82261 * ((*(*(a1 + 40) + 8) - **(a1 + 40)) >> 3))
+  if (v15 >= *(a1 + 32) || v15 >= (0x13A524387AC82261 * ((*(*(a1 + 40) + 8) - **(a1 + 40)) >> 3)))
   {
-    v20 = __atxlog_handle_default();
+    v20 = __atxlog_handle_default(v15);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      v22 = NSStringFromClass(*(a1 + 48));
-      v23 = *(a1 + 32);
-      v24 = 0x13A524387AC82261 * ((*(*(a1 + 40) + 8) - **(a1 + 40)) >> 3);
-      LODWORD(v25[0]) = 138413058;
-      *(v25 + 4) = v22;
-      WORD2(v25[1]) = 2048;
-      *(&v25[1] + 6) = v23;
-      HIWORD(v25[2]) = 2048;
-      v25[3] = v16;
-      LOWORD(v25[4]) = 2048;
-      *(&v25[4] + 2) = v24;
-      _os_log_fault_impl(&dword_2263AA000, v20, OS_LOG_TYPE_FAULT, "%@ - feedback data shouldn't have data which isn't included in the prediction set. (count: %li, index: %li, map size: %li)", v25, 0x2Au);
+      v21 = NSStringFromClass(*(a1 + 48));
+      v22 = *(a1 + 32);
+      v23 = 0x13A524387AC82261 * ((*(*(a1 + 40) + 8) - **(a1 + 40)) >> 3);
+      LODWORD(v24[0]) = 138413058;
+      *(v24 + 4) = v21;
+      WORD2(v24[1]) = 2048;
+      *(&v24[1] + 6) = v22;
+      HIWORD(v24[2]) = 2048;
+      v24[3] = v16;
+      LOWORD(v24[4]) = 2048;
+      *(&v24[4] + 2) = v23;
+      _os_log_fault_impl(&dword_2263AA000, v20, OS_LOG_TYPE_FAULT, "%@ - feedback data shouldn't have data which isn't included in the prediction set. (count: %li, index: %li, map size: %li)", v24, 0x2Au);
     }
   }
 
   else
   {
-    memcpy(v25, a6, 0xCF0uLL);
+    memcpy(v24, a6, 0xCF0uLL);
     v17 = **(a1 + 40);
     if (0x13A524387AC82261 * ((*(*(a1 + 40) + 8) - v17) >> 3) <= v16)
     {
@@ -582,56 +608,53 @@ void __107__ATXActionCacheReader__getIndexToPredictionItemMapWithChunk_withPredi
     *v18 = &stru_2839A6058;
 
     *(v18 + 8) = a5;
-    memcpy((v18 + 16), v25, 0xCF0uLL);
+    memcpy((v18 + 16), v24, 0xCF0uLL);
     *(v18 + 3328) = a2;
     *(v18 + 3332) = a7;
     *(v18 + 3333) = a8;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unordered_map<ATXAction)_getActionToIndexMap
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   retstr->__table_.__bucket_list_ = 0u;
   *&retstr->__table_.__first_node_.__next_ = 0u;
   retstr->__table_.__max_load_factor_ = 1.0;
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [(ATXActionCacheClientReader *)self actionsWithLimit:0x7FFFFFFFLL shouldFilterRestrictedAppsAndRecentEngagements:0];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        predictedItem = [*(*(&v11 + 1) + 8 * v7) predictedItem];
-        std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::__emplace_unique_key_args<ATXAction * {__strong},ATXAction * {__strong},long &>(retstr, &predictedItem);
+        predictedItem = [*(*(&v10 + 1) + 8 * v7) predictedItem];
+        std::__hash_table<std::__hash_value_type<ATXAction * {__strong},int>,std::__unordered_map_hasher<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionHash,ATXActionEqual,true>,std::__unordered_map_equal<ATXAction * {__strong},std::__hash_value_type<ATXAction * {__strong},int>,ATXActionEqual,ATXActionHash,true>,std::allocator<std::__hash_value_type<ATXAction * {__strong},int>>>::__emplace_unique_key_args<ATXAction * {__strong},ATXAction * {__strong},long &>(retstr, &predictedItem, &predictedItem, &v14);
 
-        ++v15;
+        ++v14;
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

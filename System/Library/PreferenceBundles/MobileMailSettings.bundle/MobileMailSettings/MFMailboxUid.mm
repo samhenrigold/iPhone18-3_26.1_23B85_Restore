@@ -179,23 +179,8 @@
     }
   }
 
-  if (!accountCopy)
+  if (!accountCopy || (v13 = -[MFMailboxUid type](self, "type"), (v13 - 2) >= 4) && v13 != &dword_4 + 3 || (-[MFMailboxUid account](self, "account"), v14 = objc_claimAutoreleasedReturnValue(), [v14 displayName], v15 = objc_claimAutoreleasedReturnValue(), v14, !v15) || (sub_ABA4(1, v8), v16 = objc_claimAutoreleasedReturnValue(), +[NSString stringWithFormat:](NSString, "stringWithFormat:", v16, v15, displayNameUsingSpecialNames), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, !v17))
   {
-    goto LABEL_12;
-  }
-
-  type = [(MFMailboxUid *)self type];
-  if ((type - 2) >= 4 && type != &dword_4 + 3)
-  {
-    goto LABEL_12;
-  }
-
-  account = [(MFMailboxUid *)self account];
-  displayName = [account displayName];
-
-  if (!displayName || (sub_ABA4(1, v8), v16 = objc_claimAutoreleasedReturnValue(), [NSString stringWithFormat:v16, displayName, displayNameUsingSpecialNames], v17 = objc_claimAutoreleasedReturnValue(), v16, displayName, !v17))
-  {
-LABEL_12:
     v18 = sub_ABA4(0, v8);
     v17 = [NSString stringWithFormat:v18, displayNameUsingSpecialNames];
   }

@@ -1,5 +1,6 @@
 @interface CVAFilterMaskedVariableBlur
 + (void)prewarmGaussianPyramid:(id)pyramid device:(id)device commandBuffer:(id)buffer;
+- (CVAFilterMaskedVariableBlur)initWithFigMetalContext:(id)context commandQueue:(id)queue kernelSize:(int)size error:(id *)error;
 - (void)encodeBlurPyramidInPlaceToCommandBuffer:(id)buffer inoutTexture:(id)texture;
 - (void)encodeToCommandBuffer:(id)buffer source:(id)source destination:(id)destination mask:(id)mask maxBlurRadius:(float)radius;
 @end
@@ -34,6 +35,49 @@
 {
   textureCopy = texture;
   [(MPSImageGaussianPyramid *)self->_gaussianPyramid encodeToCommandBuffer:buffer inPlaceTexture:&textureCopy fallbackCopyAllocator:0];
+}
+
+- (CVAFilterMaskedVariableBlur)initWithFigMetalContext:(id)context commandQueue:(id)queue kernelSize:(int)size error:(id *)error
+{
+  v6 = *&size;
+  contextCopy = context;
+  queueCopy = queue;
+  v23.receiver = self;
+  v23.super_class = CVAFilterMaskedVariableBlur;
+  v11 = [(CVAFilterMaskedVariableBlur *)&v23 init];
+  if (v11 && (v12 = objc_opt_class(), NSStringFromClass(v12), v13 = objc_claimAutoreleasedReturnValue(), label = v11->_label, v11->_label = v13, label, [contextCopy device], v15 = objc_claimAutoreleasedReturnValue(), device = v11->_device, v11->_device = v15, device, sub_1DED422A0(&v11->_maskedVariableBlurKernel, contextCopy, @"maskedVariableBlurWithUpsample", 0), v11->_maskedVariableBlurKernel))
+  {
+    if (!sub_1DED5D1F8(@"harvesting.enabled", @"com.apple.coremedia", 0))
+    {
+      if (v6)
+      {
+        operator new();
+      }
+
+      v18 = [objc_alloc(MEMORY[0x1E69745C8]) initWithDevice:v11->_device kernelWidth:0 kernelHeight:0 weights:0];
+      gaussianPyramid = v11->_gaussianPyramid;
+      v11->_gaussianPyramid = v18;
+
+      [(MPSImageGaussianPyramid *)v11->_gaussianPyramid setEdgeMode:1];
+      [(MPSImageGaussianPyramid *)v11->_gaussianPyramid setOptions:2];
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GaussianPyramid%ix%i", v6, v6];
+      [(MPSImageGaussianPyramid *)v11->_gaussianPyramid setLabel:v20];
+
+      commandBuffer = [queueCopy commandBuffer];
+      [commandBuffer setLabel:@"GaussianPyramid"];
+      [CVAFilterMaskedVariableBlur prewarmGaussianPyramid:v11->_gaussianPyramid device:v11->_device commandBuffer:commandBuffer];
+      [commandBuffer commit];
+    }
+
+    v17 = v11;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 + (void)prewarmGaussianPyramid:(id)pyramid device:(id)device commandBuffer:(id)buffer

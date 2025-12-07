@@ -68,19 +68,19 @@
   equalCopy = equal;
   dominantLanguage = [(UIDictationMultilingualResults *)self dominantLanguage];
   dominantLanguage2 = [equalCopy dominantLanguage];
-  if ([dominantLanguage isEqualToString:dominantLanguage2])
+  if (objc_msgSend_isEqualToString_(dominantLanguage))
   {
     phrases = [(UIDictationMultilingualResults *)self phrases];
     phrases2 = [equalCopy phrases];
-    v9 = [phrases isEqual:phrases2];
+    isEqual = objc_msgSend_isEqual_(phrases);
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
   }
 
-  return v9;
+  return isEqual;
 }
 
 - (unint64_t)hash

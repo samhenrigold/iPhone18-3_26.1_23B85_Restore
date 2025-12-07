@@ -40,7 +40,7 @@
 
 - (NSString)name
 {
-  [(CSConnectionMessage *)self message];
+  objc_msgSend_message(self, a2);
   v3 = v7;
   if (v8)
   {
@@ -49,7 +49,7 @@
 
   if (v7)
   {
-    [(CSConnectionMessage *)self message];
+    objc_msgSend_message(self);
     v4 = CLConnectionMessage::name(v7);
     v5 = *(v4 + 23) >= 0 ? v4 : *v4;
     v3 = [NSString stringWithUTF8String:v5];
@@ -64,7 +64,7 @@
 
 - (BOOL)isReply
 {
-  [(CSConnectionMessage *)self message];
+  objc_msgSend_message(self, a2);
   if (v6)
   {
     sub_100009A48(v6);
@@ -75,7 +75,7 @@
     return 0;
   }
 
-  [(CSConnectionMessage *)self message];
+  objc_msgSend_message(self);
   isReply = CLConnectionMessage::isReply(v5);
   if (v6)
   {
@@ -87,7 +87,7 @@
 
 - (NSSecureCoding)payloadObject
 {
-  [(CSConnectionMessage *)self message];
+  objc_msgSend_message(self, a2);
   if (v6)
   {
     sub_100009A48(v6);
@@ -95,7 +95,7 @@
 
   if (v5)
   {
-    [(CSConnectionMessage *)self message];
+    objc_msgSend_message(self);
     v3 = CLConnectionMessage::getDictionary(v5);
     if (v6)
     {
@@ -114,7 +114,7 @@
 - (void)sendReply:(id)reply
 {
   replyCopy = reply;
-  [(CSConnectionMessage *)self message];
+  objc_msgSend_message(self);
   if (v6)
   {
     sub_100009A48(v6);
@@ -122,7 +122,7 @@
 
   if (v5)
   {
-    [(CSConnectionMessage *)self message];
+    objc_msgSend_message(self);
     CLConnectionMessage::sendReply();
     if (v6)
     {

@@ -48,7 +48,7 @@
 
 - (void)residentSyncContextualizeConditions:(id)conditions userContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   conditionsCopy = conditions;
   contextCopy = context;
   v8 = contextCopy[1];
@@ -64,9 +64,9 @@
     v15 = [v10 predicateWithFormat:@"SUBQUERY(%K, $p, $p.entity = %@ AND( $p.%K = %@ OR  $p.%K = %@ OR  SUBQUERY($p.%K, $u, $u = %@).@count > 0)).@count > 0", @"events_", v11, @"presenceType", v12, @"presenceType", v13, @"users_", targetUser];
     [v9 setPredicate:v15];
 
-    v27 = 0;
-    v16 = [v9 execute:&v27];
-    v17 = v27;
+    v26 = 0;
+    v16 = [v9 execute:&v26];
+    v17 = v26;
     if (v16)
     {
       v18 = [MEMORY[0x277CBEB98] setWithArray:v16];
@@ -81,9 +81,9 @@
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v29 = v22;
-        v30 = 2114;
-        v31 = v17;
+        v28 = v22;
+        v29 = 2114;
+        v30 = v17;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch relevant triggers: %{public}@", buf, 0x16u);
       }
 
@@ -104,8 +104,6 @@
   {
     [conditionsCopy addCondition:@"triggerIsRelevant"];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createEventsRelationOfType:(id)type modelID:(id)d

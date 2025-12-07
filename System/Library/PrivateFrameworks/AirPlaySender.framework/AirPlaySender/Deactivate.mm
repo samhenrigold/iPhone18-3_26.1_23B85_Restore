@@ -97,14 +97,16 @@ void __carEndpoint_Deactivate_block_invoke_3(uint64_t a1)
   {
     if (gLogCategory_APEndpointCarPlay <= 30 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
     {
-LABEL_13:
-      __carEndpoint_Deactivate_block_invoke_3_cold_1();
+      v4 = "[%{ptr}] Deactivate callback completed, dissociatedActivationSeed=%d\n";
+LABEL_14:
+      __carEndpoint_Deactivate_block_invoke_3_cold_1(v2, v2 - 24, v4);
     }
   }
 
   else if (gLogCategory_APEndpointCarPlay <= 30 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_13;
+    v4 = "[%{ptr}] Deactivate callback completed, activationSeed=%d\n";
+    goto LABEL_14;
   }
 }
 

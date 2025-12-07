@@ -57,13 +57,13 @@
 
 - (WBDevice)initWithBookmark:(id)bookmark unnamedTabGroups:(id)groups profileIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   bookmarkCopy = bookmark;
   groupsCopy = groups;
   identifierCopy = identifier;
-  v30.receiver = self;
-  v30.super_class = WBDevice;
-  v12 = [(WBDevice *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = WBDevice;
+  v12 = [(WBDevice *)&v29 init];
   v13 = v12;
   if (v12)
   {
@@ -77,31 +77,31 @@
     profileIdentifier = v13->_profileIdentifier;
     v13->_profileIdentifier = v16;
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v18 = groupsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v27;
+      v21 = *v26;
       do
       {
         v22 = 0;
         do
         {
-          if (*v27 != v21)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [*(*(&v26 + 1) + 8 * v22++) setProfileIdentifier:{identifierCopy, v26}];
+          [*(*(&v25 + 1) + 8 * v22++) setProfileIdentifier:{identifierCopy, v25}];
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v20);
@@ -110,7 +110,6 @@
     v23 = v13;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -143,40 +142,38 @@
 
 - (NSArray)tabs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_unnamedTabGroups;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        tabs = [*(*(&v13 + 1) + 8 * i) tabs];
+        tabs = [*(*(&v12 + 1) + 8 * i) tabs];
         v10 = [tabs safari_filterObjectsUsingBlock:&__block_literal_global_23];
 
         [array addObjectsFromArray:v10];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }

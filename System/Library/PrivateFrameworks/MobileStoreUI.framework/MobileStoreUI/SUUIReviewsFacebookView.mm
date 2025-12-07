@@ -108,10 +108,10 @@
     v7->_separatorView = v34;
 
     v36 = v7->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v37 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v37)
     {
-      [(UIView *)v36 setBackgroundColor:primaryTextColor];
+      [(UIView *)v36 setBackgroundColor:v37];
     }
 
     else
@@ -147,10 +147,10 @@
     }
 
     separatorView = self->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v10)
     {
-      [(UIView *)separatorView setBackgroundColor:primaryTextColor];
+      [(UIView *)separatorView setBackgroundColor:v10];
     }
 
     else
@@ -589,16 +589,16 @@ LABEL_53:
   v6 = *MEMORY[0x277D740C0];
   v13[1] = v5;
   v13[2] = v6;
-  primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-  v8 = primaryTextColor;
-  if (!primaryTextColor)
+  v7 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v8 = v7;
+  if (!v7)
   {
     v8 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.800000012];
   }
 
   v14[2] = v8;
   v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  if (!primaryTextColor)
+  if (!v7)
   {
   }
 

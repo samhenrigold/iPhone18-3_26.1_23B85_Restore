@@ -80,17 +80,15 @@ void __35__PET2LoggingOutlet_sharedInstance__block_invoke()
 
 void __55__PET2LoggingOutlet_logErrorForEvent_featureId_reason___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [PETStringPairs alloc];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:3];
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 48);
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:3];
   v4 = [(PETStringPairs *)v2 initWithKeys:&unk_1F5AB6CD8 values:v3];
 
   v5 = [PETLoggingUtils keyStringForEvent:@"error" featureId:@"framework" stringifiedProperties:v4 metaData:0];
   [*(a1 + 56) _dispatchBatchForKey:v5 value:1 isUpdate:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logDoubleValue:(double)value forEvent:(id)event featureId:(id)id stringifiedProperties:(id)properties metaData:(id)data
@@ -178,36 +176,36 @@ void __86__PET2LoggingOutlet_logDoubleValue_forEvent_featureId_stringifiedProper
 
 - (id)_findBucketsForKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_pet1HistogramBuckets;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ([keyCopy hasPrefix:{v10, v14}])
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ([keyCopy hasPrefix:{v10, v13}])
         {
           v11 = [(NSDictionary *)self->_pet1HistogramBuckets objectForKeyedSubscript:v10];
           goto LABEL_11;
         }
       }
 
-      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -219,8 +217,6 @@ void __86__PET2LoggingOutlet_logDoubleValue_forEvent_featureId_stringifiedProper
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -335,31 +331,31 @@ void __95__PET2LoggingOutlet_logUnsignedIntegerValue_forEvent_featureId_stringif
 
 void __57__PET2LoggingOutlet__dispatchBatchForKey_value_isUpdate___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v50 = *MEMORY[0x1E69E9840];
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v42;
+    v6 = *v41;
     v7 = MEMORY[0x1E69E9C10];
     *&v4 = 138412546;
-    v35 = v4;
+    v34 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v42 != v6)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v41 + 1) + 8 * v8);
+        v9 = *(*(&v40 + 1) + 8 * v8);
         v10 = objc_opt_new();
         [v10 setKey:v9];
         v11 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v9];
@@ -367,10 +363,10 @@ void __57__PET2LoggingOutlet__dispatchBatchForKey_value_isUpdate___block_invoke(
 
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v35;
-          v47 = v9;
-          v48 = 1024;
-          v49 = v12;
+          *buf = v34;
+          v46 = v9;
+          v47 = 1024;
+          v48 = v12;
           _os_log_debug_impl(&dword_1DF726000, v7, OS_LOG_TYPE_DEBUG, "Batch adding key: %@, value: %d", buf, 0x12u);
         }
 
@@ -381,36 +377,36 @@ void __57__PET2LoggingOutlet__dispatchBatchForKey_value_isUpdate___block_invoke(
       }
 
       while (v5 != v8);
-      v5 = [v2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
     while (v5);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v14 = *(*(a1 + 32) + 32);
-  v15 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v15)
   {
     v17 = v15;
-    v18 = *v38;
+    v18 = *v37;
     v19 = MEMORY[0x1E69E9C10];
     *&v16 = 138412546;
-    v36 = v16;
+    v35 = v16;
     do
     {
       v20 = 0;
       do
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * v20);
+        v21 = *(*(&v36 + 1) + 8 * v20);
         v22 = objc_opt_new();
         [v22 setKey:v21];
         v23 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:v21];
@@ -418,21 +414,21 @@ void __57__PET2LoggingOutlet__dispatchBatchForKey_value_isUpdate___block_invoke(
 
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v36;
-          v47 = v21;
-          v48 = 1024;
-          v49 = v24;
+          *buf = v35;
+          v46 = v21;
+          v47 = 1024;
+          v48 = v24;
           _os_log_debug_impl(&dword_1DF726000, v19, OS_LOG_TYPE_DEBUG, "Batch updating key: %@, value: %d", buf, 0x12u);
         }
 
-        v25 = [PETEventTracker2 sharedInstance:v36];
+        v25 = [PETEventTracker2 sharedInstance:v35];
         [v25 trackScalarForMessage:v22 updateCount:v24];
 
         ++v20;
       }
 
       while (v17 != v20);
-      v17 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v17 = [v14 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v17);
@@ -451,8 +447,6 @@ void __57__PET2LoggingOutlet__dispatchBatchForKey_value_isUpdate___block_invoke(
   v32 = *(a1 + 32);
   v33 = *(v32 + 40);
   *(v32 + 40) = 0;
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -114,8 +114,30 @@
 
   if (*ptr[-v3 + 4].var0)
   {
-    v6 = &ptr[*ptr[-v3 + 4].var0];
-    v7 = &v6[*v6->var0];
+    valid = AFBIsValidUTF8();
+    if (!valid)
+    {
+      return valid;
+    }
+
+    ptr = self->_ptr;
+    v7 = *ptr->var0;
+    v8 = -v7;
+    v4 = *ptr[-v7].var0;
+  }
+
+  else
+  {
+    v8 = -v3;
+  }
+
+  if (v4 < 7)
+  {
+    goto LABEL_19;
+  }
+
+  if (*ptr[v8 + 6].var0)
+  {
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -124,34 +146,8 @@
 
     ptr = self->_ptr;
     v9 = *ptr->var0;
-    v10 = -v9;
+    v8 = -v9;
     v4 = *ptr[-v9].var0;
-  }
-
-  else
-  {
-    v10 = -v3;
-  }
-
-  if (v4 < 7)
-  {
-    goto LABEL_19;
-  }
-
-  if (*ptr[v10 + 6].var0)
-  {
-    v11 = &ptr[*ptr[v10 + 6].var0];
-    v12 = &v11[*v11->var0];
-    valid = AFBIsValidUTF8();
-    if (!valid)
-    {
-      return valid;
-    }
-
-    ptr = self->_ptr;
-    v13 = *ptr->var0;
-    v10 = -v13;
-    v4 = *ptr[-v13].var0;
   }
 
   if (v4 < 9)
@@ -159,10 +155,8 @@
     goto LABEL_19;
   }
 
-  if (*ptr[v10 + 8].var0)
+  if (*ptr[v8 + 8].var0)
   {
-    v14 = &ptr[*ptr[v10 + 8].var0];
-    v15 = &v14[*v14->var0];
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -170,19 +164,17 @@
     }
 
     ptr = self->_ptr;
-    v16 = *ptr->var0;
-    v10 = -v16;
-    v4 = *ptr[-v16].var0;
+    v10 = *ptr->var0;
+    v8 = -v10;
+    v4 = *ptr[-v10].var0;
   }
 
-  if (v4 < 0x11 || (v17 = *ptr[v10 + 16].var0) == 0)
+  if (v4 < 0x11 || !*ptr[v8 + 16].var0)
   {
 LABEL_19:
     LOBYTE(valid) = 1;
     return valid;
   }
-
-  v18 = &ptr[v17 + 4 + *ptr[v17].var0];
 
   LOBYTE(valid) = AFBIsValidUTF8();
   return valid;
@@ -839,61 +831,7 @@ LABEL_32:
       v7 = objc_autoreleasePoolPush();
       type = [(TRIFBMobileAssetReference *)self type];
       type2 = [v6 type];
-      if (type | type2)
-      {
-        v10 = [type isEqual:type2];
-
-        if (!v10)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      specifier = [(TRIFBMobileAssetReference *)self specifier];
-      specifier2 = [v6 specifier];
-      if (specifier | specifier2)
-      {
-        v13 = [specifier isEqual:specifier2];
-
-        if (!v13)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      version = [(TRIFBMobileAssetReference *)self version];
-      version2 = [v6 version];
-      if (version | version2)
-      {
-        v16 = [version isEqual:version2];
-
-        if (!v16)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      fileType = [(TRIFBMobileAssetReference *)self fileType];
-      if (fileType != [v6 fileType])
-      {
-        goto LABEL_17;
-      }
-
-      isOnDemand = [(TRIFBMobileAssetReference *)self isOnDemand];
-      if (isOnDemand != [v6 isOnDemand])
-      {
-        goto LABEL_17;
-      }
-
-      downloadSize = [(TRIFBMobileAssetReference *)self downloadSize];
-      if (downloadSize != [v6 downloadSize])
-      {
-        goto LABEL_17;
-      }
-
-      assetName = [(TRIFBMobileAssetReference *)self assetName];
-      assetName2 = [v6 assetName];
-      if (!(assetName | assetName2) || (v22 = [assetName isEqual:assetName2], assetName2, assetName, v22))
+      if ((!(type | type2) || (v10 = [type isEqual:type2], type2, type, v10)) && ((-[TRIFBMobileAssetReference specifier](self, "specifier"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "specifier"), v12 = objc_claimAutoreleasedReturnValue(), !(v11 | v12)) || (v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, v13)) && ((-[TRIFBMobileAssetReference version](self, "version"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "version"), v15 = objc_claimAutoreleasedReturnValue(), !(v14 | v15)) || (v16 = objc_msgSend(v14, "isEqual:", v15), v15, v14, v16)) && (v17 = -[TRIFBMobileAssetReference fileType](self, "fileType"), v17 == objc_msgSend(v6, "fileType")) && (v18 = -[TRIFBMobileAssetReference isOnDemand](self, "isOnDemand"), v18 == objc_msgSend(v6, "isOnDemand")) && (v19 = -[TRIFBMobileAssetReference downloadSize](self, "downloadSize"), v19 == objc_msgSend(v6, "downloadSize")) && ((-[TRIFBMobileAssetReference assetName](self, "assetName"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "assetName"), v21 = objc_claimAutoreleasedReturnValue(), !(v20 | v21)) || (v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, v22)))
       {
         hasOnDemandFlag = [(TRIFBMobileAssetReference *)self hasOnDemandFlag];
         v24 = hasOnDemandFlag ^ [v6 hasOnDemandFlag] ^ 1;
@@ -901,7 +839,6 @@ LABEL_32:
 
       else
       {
-LABEL_17:
         LOBYTE(v24) = 0;
       }
 

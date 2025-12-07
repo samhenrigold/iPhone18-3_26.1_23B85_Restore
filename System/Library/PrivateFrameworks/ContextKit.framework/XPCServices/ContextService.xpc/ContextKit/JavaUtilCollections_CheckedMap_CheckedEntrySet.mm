@@ -45,11 +45,12 @@
 - (id)toArray
 {
   v3 = [(JavaUtilCollections_CheckedMap_CheckedEntrySet *)self size];
-  v4 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_()];
+  v4 = v3;
+  v6 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_(v3, v5)];
   iterator = [(JavaUtilCollections_CheckedMap_CheckedEntrySet *)self iterator];
-  if (v3 >= 1)
+  if (v4 >= 1)
   {
-    v6 = iterator;
+    v8 = iterator;
     if (!iterator)
     {
       JreThrowNullPointerException();
@@ -59,7 +60,7 @@
     }
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)toArrayWithNSObjectArray:(id)array

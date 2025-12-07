@@ -48,7 +48,7 @@
   video9 = [(AVCMediaStreamConfig *)self video];
   [string appendFormat:@"video.rxMinBitrate    = %tu\n", objc_msgSend(video9, "rxMinBitrate")];
 
-  v20 = [string copy];
+  v20 = objc_msgSend_copy(string);
 
   return v20;
 }

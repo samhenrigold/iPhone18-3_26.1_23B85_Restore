@@ -368,9 +368,9 @@ LABEL_3:
 
       if (identifierCopy && itemIdentifier)
       {
-        v14 = [itemIdentifier isEqualToString:v12];
+        isEqualToString = objc_msgSend_isEqualToString_(itemIdentifier);
 
-        if (v14)
+        if (isEqualToString)
         {
           goto LABEL_16;
         }
@@ -666,19 +666,19 @@ uint64_t __59__PKDiscoveryDataSource__addDismissActionToArticleLayouts___block_i
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 void __59__PKDiscoveryDataSource__addDismissActionToArticleLayouts___block_invoke_3(id *a1, void *a2)
@@ -788,9 +788,9 @@ void __59__PKDiscoveryDataSource__addDismissActionToArticleLayouts___block_invok
 
   if (identifierCopy && @"a4be4dda-fe45-4fa5-a7ae-ca229ad3445e")
   {
-    v5 = [(__CFString *)identifierCopy isEqualToString:@"a4be4dda-fe45-4fa5-a7ae-ca229ad3445e"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
 
-    if ((v5 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -817,7 +817,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v9 = [(__CFString *)v7 isEqualToString:@"c9a14ea5-c283-4963-9f51-f3ed2de75b53"];
+    v9 = objc_msgSend_isEqualToString_(v7);
 
     if (!v9)
     {

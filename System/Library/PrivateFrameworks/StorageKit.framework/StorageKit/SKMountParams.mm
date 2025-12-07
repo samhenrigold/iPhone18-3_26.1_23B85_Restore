@@ -44,7 +44,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   allParams = [(SKMountParams *)self allParams];
   v4 = [allParams mutableCopy];
 
@@ -59,21 +59,21 @@
   }
 
   v5 = MEMORY[0x277CBEB38];
-  v17[0] = @"kSKDiskMountOptionToolOptions";
+  v16[0] = @"kSKDiskMountOptionToolOptions";
   allObjects = [v4 allObjects];
-  v18[0] = allObjects;
-  v17[1] = @"kSKDiskMountOptionRecursive";
+  v17[0] = allObjects;
+  v16[1] = @"kSKDiskMountOptionRecursive";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[SKMountParams recursive](self, "recursive")}];
-  v18[1] = v7;
-  v17[2] = @"kSKDiskMountOptionRecursiveRAID";
+  v17[1] = v7;
+  v16[2] = @"kSKDiskMountOptionRecursiveRAID";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[SKMountParams raidTraverse](self, "raidTraverse")}];
-  v18[2] = v8;
-  v17[3] = @"kSKDiskMountOptionForce";
+  v17[2] = v8;
+  v16[3] = @"kSKDiskMountOptionForce";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[SKMountParams force](self, "force")}];
-  v17[4] = kSKDiskMountOptionWithoutEFI;
-  v18[3] = v9;
-  v18[4] = MEMORY[0x277CBEC38];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v16[4] = kSKDiskMountOptionWithoutEFI;
+  v17[3] = v9;
+  v17[4] = MEMORY[0x277CBEC38];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
   v11 = [v5 dictionaryWithDictionary:v10];
 
   mountPoint = [(SKMountParams *)self mountPoint];
@@ -84,8 +84,6 @@
     path = [mountPoint2 path];
     [v11 setObject:path forKeyedSubscript:@"kSKDiskMountOptionMountPoint"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

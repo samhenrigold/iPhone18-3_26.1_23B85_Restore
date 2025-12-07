@@ -40,21 +40,21 @@
 
 - (void)operationDidFinishWithItemIDs:(id)ds resultItems:(id)items error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   itemsCopy = items;
   errorCopy = error;
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "itemIDs"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "itemIDs"];
     *buf = 136315906;
-    v18 = "[FCCKPrivateDatabaseCKOperationResults operationDidFinishWithItemIDs:resultItems:error:]";
-    v19 = 2080;
-    v20 = "FCCKPrivateDatabaseOperation.m";
-    v21 = 1024;
-    v22 = 227;
-    v23 = 2114;
-    v24 = v16;
+    v17 = "[FCCKPrivateDatabaseCKOperationResults operationDidFinishWithItemIDs:resultItems:error:]";
+    v18 = 2080;
+    v19 = "FCCKPrivateDatabaseOperation.m";
+    v20 = 1024;
+    v21 = 227;
+    v22 = 2114;
+    v23 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -70,8 +70,6 @@
 
   group = [(FCCKPrivateDatabaseCKOperationResults *)self group];
   dispatch_group_leave(group);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyWhenFinishWithQoS:(int64_t)s completionHandler:(id)handler
@@ -107,7 +105,7 @@ void __83__FCCKPrivateDatabaseCKOperationResults_notifyWhenFinishWithQoS_complet
 
 - (NSError)combinedError
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   threadSafeErrorsAndItemIDs = [(FCCKPrivateDatabaseCKOperationResults *)self threadSafeErrorsAndItemIDs];
   readOnlyArray = [threadSafeErrorsAndItemIDs readOnlyArray];
 
@@ -135,26 +133,24 @@ LABEL_2:
     }
 
     v8 = MEMORY[0x1E695DF20];
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4;
-    v19 = &unk_1E7C36EC8;
-    v20 = readOnlyArray;
-    v9 = [v8 fc_dictionary:&v16];
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4;
+    v18 = &unk_1E7C36EC8;
+    v19 = readOnlyArray;
+    v9 = [v8 fc_dictionary:&v15];
     v10 = MEMORY[0x1E696ABC0];
     v11 = *MEMORY[0x1E695B740];
     v12 = *MEMORY[0x1E696A578];
-    v21[0] = *MEMORY[0x1E695B798];
-    v21[1] = v12;
-    v22[0] = v9;
-    v22[1] = @"Some private database CK operations failed.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{2, v16, v17, v18, v19}];
+    v20[0] = *MEMORY[0x1E695B798];
+    v20[1] = v12;
+    v21[0] = v9;
+    v21[1] = @"Some private database CK operations failed.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:{2, v15, v16, v17, v18}];
     second = [v10 errorWithDomain:v11 code:2 userInfo:v13];
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return second;
 }
@@ -185,33 +181,33 @@ BOOL __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_3(u
 
 void __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v30 objects:v43 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v29 objects:v42 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v31;
-    v25 = *MEMORY[0x1E695B798];
+    v8 = *v30;
+    v24 = *MEMORY[0x1E695B798];
     *&v6 = 136315906;
-    v23 = v6;
+    v22 = v6;
     do
     {
       v9 = 0;
-      v24 = v7;
+      v23 = v7;
       do
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * v9);
+        v10 = *(*(&v29 + 1) + 8 * v9);
         v11 = [v10 first];
         v12 = [v10 second];
         v13 = v12;
@@ -220,19 +216,19 @@ void __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4(u
           if ([v12 code] == 2)
           {
             v14 = [v13 userInfo];
-            v15 = [v14 objectForKeyedSubscript:v25];
+            v15 = [v14 objectForKeyedSubscript:v24];
 
             if (!v15 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"all partial failures should have a dictionary from IDs to errors"];
-              *buf = v23;
-              v36 = "[FCCKPrivateDatabaseCKOperationResults combinedError]_block_invoke_4";
-              v37 = 2080;
-              v38 = "FCCKPrivateDatabaseOperation.m";
-              v39 = 1024;
-              v40 = 298;
-              v41 = 2114;
-              v42 = v21;
+              *buf = v22;
+              v35 = "[FCCKPrivateDatabaseCKOperationResults combinedError]_block_invoke_4";
+              v36 = 2080;
+              v37 = "FCCKPrivateDatabaseOperation.m";
+              v38 = 1024;
+              v39 = 298;
+              v40 = 2114;
+              v41 = v21;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -241,35 +237,35 @@ void __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4(u
 
           else
           {
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
             v27 = 0u;
+            v28 = 0u;
+            v25 = 0u;
+            v26 = 0u;
             v15 = v11;
-            v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v16)
             {
               v17 = v16;
               v18 = v8;
-              v19 = *v27;
+              v19 = *v26;
               do
               {
                 for (i = 0; i != v17; ++i)
                 {
-                  if (*v27 != v19)
+                  if (*v26 != v19)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  [v3 setObject:v13 forKey:*(*(&v26 + 1) + 8 * i)];
+                  [v3 setObject:v13 forKey:*(*(&v25 + 1) + 8 * i)];
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
               }
 
               while (v17);
               v8 = v18;
-              v7 = v24;
+              v7 = v23;
             }
           }
         }
@@ -278,13 +274,11 @@ void __54__FCCKPrivateDatabaseCKOperationResults_combinedError__block_invoke_4(u
       }
 
       while (v9 != v7);
-      v7 = [v4 countByEnumeratingWithState:&v30 objects:v43 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v29 objects:v42 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -66,7 +66,7 @@
 
 - (BOOL)hasUniformPowerLevel:(float)level
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   segments = [(RCWaveform *)selfCopy segments];
@@ -74,33 +74,33 @@
 
   if (v6)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     segments2 = [(RCWaveform *)selfCopy segments];
-    v8 = [segments2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [segments2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v10 = *v15;
+      v10 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(segments2);
           }
 
           *&v9 = level;
-          if (([*(*(&v14 + 1) + 8 * i) hasUniformPowerLevel:v9] & 1) == 0)
+          if (([*(*(&v13 + 1) + 8 * i) hasUniformPowerLevel:v9] & 1) == 0)
           {
             LOBYTE(v6) = 0;
             goto LABEL_12;
           }
         }
 
-        v8 = [segments2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [segments2 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -116,7 +116,6 @@ LABEL_12:
 
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -217,37 +216,37 @@ LABEL_12:
 
 - (unint64_t)averagePowerLevelsRate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   segments = [(RCWaveform *)selfCopy segments];
-  v4 = [segments countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [segments countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v17;
+    v6 = *v16;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(segments);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         averagePowerLevelsCount = [v9 averagePowerLevelsCount];
-        [v9 timeRange];
+        objc_msgSend_timeRange(v9);
         v5 += averagePowerLevelsCount;
         v7 = v7 + RCTimeRangeDeltaWithExactPrecision(v11, v12);
       }
 
-      v4 = [segments countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [segments countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
@@ -263,16 +262,13 @@ LABEL_12:
   objc_sync_exit(selfCopy);
   if (v7 >= 0.00000011920929)
   {
-    result = fmax(v13 / v7, 1.0);
+    return fmax(v13 / v7, 1.0);
   }
 
   else
   {
-    result = 1;
+    return 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (id)waveformURLForAVURL:(id)l trackIndex:(unint64_t)index
@@ -439,10 +435,10 @@ LABEL_7:
 uint64_t __64__RCWaveform_rangeOfSegmentsIntersectingTimeRange_withSegments___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  [a2 timeRange];
+  objc_msgSend_timeRange(a2);
   v6 = v5;
   v8 = v7;
-  [v4 timeRange];
+  objc_msgSend_timeRange(v4);
   if (v10 < v8)
   {
     v11 = 0;
@@ -472,19 +468,19 @@ uint64_t __64__RCWaveform_rangeOfSegmentsIntersectingTimeRange_withSegments___bl
   objc_sync_enter(selfCopy);
   segments = [(RCWaveform *)selfCopy segments];
   firstObject = [segments firstObject];
-  [firstObject timeRange];
-  v6 = v5;
+  objc_msgSend_timeRange(firstObject);
   segments2 = [(RCWaveform *)selfCopy segments];
   lastObject = [segments2 lastObject];
-  [lastObject timeRange];
-  v10 = RCTimeRangeMake(v6, v9);
-  v12 = v11;
+  objc_msgSend_timeRange(lastObject);
+  RCTimeRangeMake();
+  v8 = v7;
+  v10 = v9;
 
   objc_sync_exit(selfCopy);
-  v13 = v10;
-  v14 = v12;
-  result.var1 = v14;
-  result.var0 = v13;
+  v11 = v8;
+  v12 = v10;
+  result.var1 = v12;
+  result.var0 = v11;
   return result;
 }
 
@@ -660,13 +656,12 @@ void __65__RCWaveform__mutableSegmentsByClippingToTimeRange_withSegments___block
 
 - (void)saveContentsToURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCWaveform saveContentsToURL:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- ERROR:  archiving waveform:  %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCWaveform saveContentsToURL:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- ERROR:  archiving waveform:  %@", &v2, 0x16u);
 }
 
 @end

@@ -11,14 +11,15 @@
 - (BOOL)showText
 {
   v3 = *(&self->super.super.super.isa + OBJC_IVAR___TUIGenmojiButton_viewModel);
-  swift_getKeyPath();
-  sub_190005098(&qword_1EAD34D60, type metadata accessor for GenmojiButtonView.ViewModel);
+  KeyPath = swift_getKeyPath();
+  sub_190005098(&qword_1EAD34D60, type metadata accessor for GenmojiButtonView.ViewModel, &unk_1900C0644);
   selfCopy = self;
 
   sub_1900B0BF0();
+  KeyPath, v6, v7, v8, v9, v10, v11, v12;
 
-  LOBYTE(selfCopy) = *(v3 + 16);
-
+  LOBYTE(selfCopy) = v3->internalTextComposerClient[0];
+  v3, v13, v14, v15, v16, v17, v18, v19;
   return selfCopy;
 }
 
@@ -32,7 +33,7 @@
 {
   v3 = _Block_copy(action);
   v4 = swift_allocObject();
-  *(v4 + 16) = v3;
+  *v4->internalTextComposerClient = v3;
   return sub_190002BF4(sub_190005088, v4);
 }
 

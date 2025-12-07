@@ -17,12 +17,29 @@
 + (id)swooshConsumer;
 + (id)updatesConsumer;
 + (id)wishlistConsumer;
++ (void)cardConsumer;
++ (void)chartsConsumer;
++ (void)giftComposeConsumer;
++ (void)giftComposeLetterboxConsumer;
++ (void)giftComposePosterConsumer;
++ (void)giftResultConsumer;
++ (void)giftThemeConsumer;
++ (void)giftThemeLetterboxConsumer;
++ (void)giftThemePosterConsumer;
++ (void)gridConsumer;
++ (void)productPageConsumer;
++ (void)purchasedConsumer;
++ (void)smartBannerConsumer;
++ (void)swooshConsumer;
++ (void)updatesConsumer;
++ (void)wishlistConsumer;
 - (CGSize)iconSize;
 - (CGSize)imageSize;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)imageForColor:(id)color;
 - (id)imageForColor:(id)color size:(CGSize)size;
 - (id)imageForImage:(id)image;
+- (void)imageSize;
 @end
 
 @implementation SKUIProductImageDataConsumer
@@ -671,6 +688,144 @@ void __51__SKUIProductImageDataConsumer_imageForColor_size___block_invoke(uint64
   result.height = height;
   result.width = width;
   return result;
+}
+
++ (void)consumerWithSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer consumerWithSize:]";
+}
+
++ (void)gridConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer gridConsumer]";
+}
+
++ (void)lockupConsumerWithSize:(uint64_t)a3 itemKind:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer lockupConsumerWithSize:itemKind:]";
+}
+
++ (void)cardConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer cardConsumer]";
+}
+
++ (void)chartsConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer chartsConsumer]";
+}
+
++ (void)updatesConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer updatesConsumer]";
+}
+
++ (void)purchasedConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer purchasedConsumer]";
+}
+
++ (void)productPageConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer productPageConsumer]";
+}
+
++ (void)swooshConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer swooshConsumer]";
+}
+
++ (void)giftComposeConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftComposeConsumer]";
+}
+
++ (void)giftComposeLetterboxConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftComposeLetterboxConsumer]";
+}
+
++ (void)giftComposePosterConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftComposePosterConsumer]";
+}
+
++ (void)giftThemeConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftThemeConsumer]";
+}
+
++ (void)giftThemeLetterboxConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftThemeLetterboxConsumer]";
+}
+
++ (void)giftThemePosterConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftThemePosterConsumer]";
+}
+
++ (void)giftResultConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer giftResultConsumer]";
+}
+
++ (void)smartBannerConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer smartBannerConsumer]";
+}
+
++ (void)wishlistConsumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIProductImageDataConsumer wishlistConsumer]";
+}
+
+- (void)imageSize
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductImageDataConsumer imageSize]";
+}
+
+- (void)imageForColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductImageDataConsumer imageForColor:]";
+}
+
+- (void)imageForColor:(uint64_t)a3 size:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductImageDataConsumer imageForColor:size:]";
+}
+
+- (void)imageForImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductImageDataConsumer imageForImage:]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductImageDataConsumer copyWithZone:]";
 }
 
 @end

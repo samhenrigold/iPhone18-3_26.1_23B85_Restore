@@ -22,9 +22,9 @@
     JreThrowNullPointerException();
   }
 
-  v8 = [v7 addAttributeWithIOSClass:OrgApacheLuceneSearchBoostAttribute_class_()];
+  v9 = [v7 addAttributeWithIOSClass:{OrgApacheLuceneSearchBoostAttribute_class_(v7, v8)}];
 
-  JreStrongAssign(&self->boostAtt_, v8);
+  JreStrongAssign(&self->boostAtt_, v9);
 }
 
 - (BOOL)compareToLastTermWithOrgApacheLuceneUtilBytesRef:(id)ref

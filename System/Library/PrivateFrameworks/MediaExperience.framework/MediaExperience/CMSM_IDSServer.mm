@@ -20,7 +20,7 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v9 = [message objectForKey:{kMXSession_IDSMessage_TypeKey, account}];
   if (dword_1EB75DE40)
   {
@@ -39,7 +39,7 @@
   if (FigCFEqual())
   {
     outgoingResponseIdentifier = [context outgoingResponseIdentifier];
-    v13 = CMSM_IDSConnection_CopyMXCoreSession();
+    v13 = CMSM_IDSConnection_CopyMXCoreSession(outgoingResponseIdentifier);
     if (cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_onceToken != -1)
     {
       [CMSM_IDSServer service:account:incomingMessage:fromID:context:];
@@ -52,91 +52,91 @@
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v18 = [message objectForKey:{kMXSession_IDSMessage_SessionWillPlayInfoKey, v30, v32}];
-    if (!v18)
+    v19 = [message objectForKey:kMXSession_IDSMessage_SessionWillPlayInfoKey];
+    if (!v19)
     {
-      v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v20 = [v18 objectForKey:{@"AudioCategory", v31, v33}];
-    if (!v20)
-    {
-      v20 = [MEMORY[0x1E696AEC0] stringWithString:@"MediaPlayback"];
-    }
-
-    v21 = [v18 objectForKey:@"AudioMode"];
+    v21 = [v19 objectForKey:@"AudioCategory"];
     if (!v21)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithString:@"Default"];
+      v21 = [MEMORY[0x1E696AEC0] stringWithString:@"MediaPlayback"];
     }
 
-    v22 = [v18 objectForKey:?];
+    v22 = [v19 objectForKey:@"AudioMode"];
     if (!v22)
     {
-      v22 = [MEMORY[0x1E696AD98] numberWithInt:0];
+      v22 = [MEMORY[0x1E696AEC0] stringWithString:@"Default"];
     }
 
-    v23 = [v18 objectForKey:kMXSession_IDSMessage_HandoverInterruption];
+    v23 = [v19 objectForKey:?];
     if (!v23)
     {
-      v23 = [MEMORY[0x1E696AD98] numberWithBool:0];
+      v23 = [MEMORY[0x1E696AD98] numberWithInt:0];
     }
 
-    v24 = [v18 objectForKey:@"ClientName"];
-    if (v24)
+    v24 = [v19 objectForKey:kMXSession_IDSMessage_HandoverInterruption];
+    if (!v24)
     {
-      v25 = v24;
+      v24 = [MEMORY[0x1E696AD98] numberWithBool:0];
+    }
+
+    v25 = [v19 objectForKey:@"ClientName"];
+    if (v25)
+    {
+      v26 = v25;
     }
 
     else
     {
-      v25 = @"Unknown";
+      v26 = @"Unknown";
     }
 
-    if (![v20 isEqualToString:cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioCategory] || !objc_msgSend(v21, "isEqualToString:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioMode) || !objc_msgSend(v22, "isEqualToNumber:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientPriority) || !objc_msgSend(v23, "isEqualToNumber:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldHandoverInterruption) || (-[__CFString isEqualToString:](v25, "isEqualToString:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientName) & 1) == 0)
+    if (![v21 isEqualToString:cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioCategory] || !objc_msgSend(v22, "isEqualToString:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioMode) || !objc_msgSend(v23, "isEqualToNumber:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientPriority) || !objc_msgSend(v24, "isEqualToNumber:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldHandoverInterruption) || (-[__CFString isEqualToString:](v26, "isEqualToString:", cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientName) & 1) == 0)
     {
       CMSessionSetProperty(v13, @"DoesntActuallyPlayAudio", [MEMORY[0x1E696AD98] numberWithBool:0]);
-      CMSessionSetProperty(v13, @"ClientName", [MEMORY[0x1E696AEC0] stringWithFormat:@"IDSMXCoreSession (%@)", v25]);
+      CMSessionSetProperty(v13, @"ClientName", [MEMORY[0x1E696AEC0] stringWithFormat:@"IDSMXCoreSession (%@)", v26]);
       CMSessionSetProperty(v13, @"IAmIDSMXCoreSession", [MEMORY[0x1E696AD98] numberWithBool:1]);
-      CMSessionSetProperty(v13, @"AudioCategory", v20);
-      CMSessionSetProperty(v13, @"AudioMode", v21);
-      CMSessionSetProperty(v13, @"ClientPriority", v22);
+      CMSessionSetProperty(v13, @"AudioCategory", v21);
+      CMSessionSetProperty(v13, @"AudioMode", v22);
+      CMSessionSetProperty(v13, @"ClientPriority", v23);
       CMSessionSetProperty(v13, @"AudioHardwareControlFlags", [MEMORY[0x1E696AD98] numberWithUnsignedInt:0]);
-      CMSessionSetProperty(v13, @"HandsOverInterruptionsToInterruptor", v23);
+      CMSessionSetProperty(v13, @"HandsOverInterruptionsToInterruptor", v24);
       CMSessionSetProperty(v13, @"DoesntActuallyPlayAudio", [MEMORY[0x1E696AD98] numberWithBool:1]);
 
-      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioCategory = v20;
-      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioMode = v21;
+      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioCategory = v21;
+      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioMode = v22;
 
-      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientPriority = v22;
-      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldHandoverInterruption = v23;
+      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientPriority = v23;
+      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldHandoverInterruption = v24;
 
-      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientName = v25;
+      cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldClientName = v26;
     }
 
-    v26 = CMSessionBeginInterruption(v13);
-    CMSM_IDSClient_NotifyRemote_InterruptionDone(v26, outgoingResponseIdentifier);
-    v27 = MXGetNotificationSenderQueue();
-    v35 = MEMORY[0x1E69E9820];
-    v36 = 3221225472;
-    v37 = __cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_block_invoke_130;
-    v38 = &__block_descriptor_40_e5_v8__0l;
-    v39 = v13;
-    MXDispatchAsync("cmsm_IDSServer_ProcessRemoteInterruptionStartMessage", "CMSessionManager_IDSServer.m", 306, 0, 0, v27, &v35);
+    v27 = CMSessionBeginInterruption(v13);
+    v28 = CMSM_IDSClient_NotifyRemote_InterruptionDone(v27, outgoingResponseIdentifier);
+    v30 = MXGetNotificationSenderQueue(v28, v29);
+    v33 = MEMORY[0x1E69E9820];
+    v34 = 3221225472;
+    v35 = __cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_block_invoke_130;
+    v36 = &__block_descriptor_40_e5_v8__0l;
+    v37 = v13;
+    MXDispatchAsync("cmsm_IDSServer_ProcessRemoteInterruptionStartMessage", "CMSessionManager_IDSServer.m", 306, 0, 0, v30, &v33);
   }
 
   else if (FigCFEqual())
   {
     Value = CFDictionaryGetValue(message, kMXSession_IDSMessage_IdentifierKey);
-    MessagingQueue = CMSM_IDSConnection_GetMessagingQueue();
-    v35 = MEMORY[0x1E69E9820];
-    v36 = 3221225472;
-    v37 = __cmsm_IDSServer_ProcessRemoteInterruptionDoneMessage_block_invoke;
-    v38 = &__block_descriptor_40_e5_v8__0l;
-    v39 = Value;
-    MXDispatchSync("cmsm_IDSServer_ProcessRemoteInterruptionDoneMessage", "CMSessionManager_IDSServer.m", 323, 0, 0, MessagingQueue, &v35);
+    MessagingQueue = CMSM_IDSConnection_GetMessagingQueue(Value, v16);
+    v33 = MEMORY[0x1E69E9820];
+    v34 = 3221225472;
+    v35 = __cmsm_IDSServer_ProcessRemoteInterruptionDoneMessage_block_invoke;
+    v36 = &__block_descriptor_40_e5_v8__0l;
+    v37 = Value;
+    MXDispatchSync("cmsm_IDSServer_ProcessRemoteInterruptionDoneMessage", "CMSessionManager_IDSServer.m", 323, 0, 0, MessagingQueue, &v33);
   }
 
   else if (FigCFEqual())
@@ -147,8 +147,8 @@
 
   else if (FigCFEqual())
   {
-    v29 = CFDictionaryGetValue(message, kMXSession_IDSMessage_BTDeviceIsConnectedKey) == *MEMORY[0x1E695E4D0];
-    CMSM_IDSConnection_UpdateSharedAudioRouteIsConnectedToRemote(v29);
+    v31 = CFDictionaryGetValue(message, kMXSession_IDSMessage_BTDeviceIsConnectedKey) == *MEMORY[0x1E695E4D0];
+    CMSM_IDSConnection_UpdateSharedAudioRouteIsConnectedToRemote(v31);
   }
 
   else if (FigCFEqual())
@@ -191,8 +191,6 @@
   {
     cmsm_IDSServer_ProcessUpdateSharedAudioRouteMacAddress(message);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

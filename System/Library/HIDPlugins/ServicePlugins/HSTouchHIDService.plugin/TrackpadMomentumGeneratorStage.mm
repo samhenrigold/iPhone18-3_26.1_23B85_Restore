@@ -60,19 +60,19 @@
 - (void)dispatch:(id)dispatch
 {
   dispatchCopy = dispatch;
-  v5 = MTLoggingPlugin();
-  if (os_signpost_enabled(v5))
+  v6 = MTLoggingPlugin(dispatchCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 134349314;
     signpostBeginTime = [(TrackpadMomentumGeneratorStage *)self signpostBeginTime];
-    v9 = 2080;
+    v10 = 2080;
     ClassName = object_getClassName(dispatchCopy);
-    _os_signpost_emit_with_name_impl(&dword_0, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadMomentumGeneratorStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadMomentumGeneratorStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = TrackpadMomentumGeneratorStage;
-  [(HSStage *)&v6 handleConsume:dispatchCopy];
+  v7.receiver = self;
+  v7.super_class = TrackpadMomentumGeneratorStage;
+  [(HSStage *)&v7 handleConsume:dispatchCopy];
   [(TrackpadMomentumGeneratorStage *)self setSignpostBeginTime:mach_continuous_time()];
 }
 
@@ -198,22 +198,22 @@
 - (void)handleMomentumRequestEvent:(id)event
 {
   eventCopy = event;
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = MTLoggingPlugin(eventCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v9 = "";
-    v10 = 2080;
-    v11 = "";
-    v12 = 2080;
-    v13 = "[TrackpadMomentumGeneratorStage handleMomentumRequestEvent:]";
-    v14 = 2112;
-    v15 = eventCopy;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Momentum request event received: %@", buf, 0x2Au);
+    v10 = "";
+    v11 = 2080;
+    v12 = "";
+    v13 = 2080;
+    v14 = "[TrackpadMomentumGeneratorStage handleMomentumRequestEvent:]";
+    v15 = 2112;
+    v16 = eventCopy;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Momentum request event received: %@", buf, 0x2Au);
   }
 
-  v6 = eventCopy[2];
-  switch(v6)
+  v7 = eventCopy[2];
+  switch(v7)
   {
     case 2:
       [(TrackpadMomentumGeneratorStage *)self cancelMomentumTimerWithInterrupted:1];
@@ -226,31 +226,31 @@
       break;
   }
 
-  v7.receiver = self;
-  v7.super_class = TrackpadMomentumGeneratorStage;
-  [(HSStage *)&v7 handleConsume:eventCopy];
+  v8.receiver = self;
+  v8.super_class = TrackpadMomentumGeneratorStage;
+  [(HSStage *)&v8 handleConsume:eventCopy];
 }
 
 - (void)handleMomentumStateEvent:(id)event
 {
   eventCopy = event;
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = MTLoggingPlugin(eventCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v8 = "";
-    v9 = 2080;
-    v10 = "";
-    v11 = 2080;
-    v12 = "[TrackpadMomentumGeneratorStage handleMomentumStateEvent:]";
-    v13 = 2112;
-    v14 = eventCopy;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Momentum state event received: %@", buf, 0x2Au);
+    v9 = "";
+    v10 = 2080;
+    v11 = "";
+    v12 = 2080;
+    v13 = "[TrackpadMomentumGeneratorStage handleMomentumStateEvent:]";
+    v14 = 2112;
+    v15 = eventCopy;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Momentum state event received: %@", buf, 0x2Au);
   }
 
-  v6.receiver = self;
-  v6.super_class = TrackpadMomentumGeneratorStage;
-  [(HSStage *)&v6 handleConsume:eventCopy];
+  v7.receiver = self;
+  v7.super_class = TrackpadMomentumGeneratorStage;
+  [(HSStage *)&v7 handleConsume:eventCopy];
 }
 
 - (void)handleSetPropertyEvent:(id)event
@@ -448,16 +448,16 @@ LABEL_12:
 
       if (!v10)
       {
-        v11 = MTLoggingPlugin();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = MTLoggingPlugin(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v26 = "[Error] ";
-          v27 = 2080;
-          v28 = "";
+          v28 = "[Error] ";
           v29 = 2080;
-          v30 = "[TrackpadMomentumGeneratorStage startMomentumTimerWithMomentumRequest:]";
-          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Tried to start new momentum timer without ending the previous one", buf, 0x20u);
+          v30 = "";
+          v31 = 2080;
+          v32 = "[TrackpadMomentumGeneratorStage startMomentumTimerWithMomentumRequest:]";
+          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Tried to start new momentum timer without ending the previous one", buf, 0x20u);
         }
 
         momentumTimer3 = [(TrackpadMomentumGeneratorStage *)self momentumTimer];
@@ -466,16 +466,16 @@ LABEL_12:
     }
 
     queue = [(TrackpadMomentumGeneratorStage *)self queue];
-    v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
-    [(TrackpadMomentumGeneratorStage *)self setMomentumTimer:v14];
+    v16 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
+    [(TrackpadMomentumGeneratorStage *)self setMomentumTimer:v16];
 
     momentumTimer4 = [(TrackpadMomentumGeneratorStage *)self momentumTimer];
     momentumCurve3 = [(TrackpadMomentumGeneratorStage *)self momentumCurve];
     [momentumCurve3 currentInterval];
-    v18 = dispatch_time(0, (v17 * 1000000000.0));
+    v20 = dispatch_time(0, (v19 * 1000000000.0));
     momentumCurve4 = [(TrackpadMomentumGeneratorStage *)self momentumCurve];
     [momentumCurve4 currentInterval];
-    dispatch_source_set_timer(momentumTimer4, v18, (v20 * 1000000000.0), 0);
+    dispatch_source_set_timer(momentumTimer4, v20, (v22 * 1000000000.0), 0);
 
     objc_initWeak(buf, self);
     momentumTimer5 = [(TrackpadMomentumGeneratorStage *)self momentumTimer];
@@ -483,14 +483,14 @@ LABEL_12:
     handler[1] = 3221225472;
     handler[2] = __72__TrackpadMomentumGeneratorStage_startMomentumTimerWithMomentumRequest___block_invoke;
     handler[3] = &unk_1091A0;
-    objc_copyWeak(&v24, buf);
+    objc_copyWeak(&v26, buf);
     dispatch_source_set_event_handler(momentumTimer5, handler);
 
     [(TrackpadMomentumGeneratorStage *)self setMomentumState:0];
     momentumTimer6 = [(TrackpadMomentumGeneratorStage *)self momentumTimer];
     dispatch_resume(momentumTimer6);
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 }
@@ -700,7 +700,7 @@ void __72__TrackpadMomentumGeneratorStage_startMomentumTimerWithMomentumRequest_
   }
 
   self->_scrollMomentumDispatchRate = rateCopy;
-  v6 = MTLoggingPlugin();
+  v6 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     scrollMomentumDispatchRate = self->_scrollMomentumDispatchRate;

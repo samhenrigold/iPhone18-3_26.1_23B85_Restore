@@ -19,7 +19,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  DestinationQueryController.delegate.setter();
+  DestinationQueryController.delegate.setter(delegate);
 }
 
 - (void)handleIDSStatusChanged

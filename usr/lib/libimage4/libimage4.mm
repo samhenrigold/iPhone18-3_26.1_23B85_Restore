@@ -1,154 +1,146 @@
-uint64_t _boot_ephemeral_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _boot_ephemeral_enforceable(const char **a1, uint64_t *a2)
 {
-  v4 = *(a2 + 16);
+  v4 = a2[2];
   result = odometer_policy_get_chip_property(a1, v4);
   if (!result)
   {
-    v25 = *a2;
-    name = chip_get_name(*(a2 + 16));
-    v45 = *a1;
-    v24 = 1;
-    expert_log(v25, 1uLL, "odometer[%s:%s]: chip has no property for policy", v27, v28, v29, v30, v31, name);
-    return v24;
+    v9 = *a2;
+    name = chip_get_name(a2[2]);
+    v16 = *a1;
+    v8 = 1;
+    expert_log(v9, 1uLL, "odometer[%s:%s]: chip has no property for policy", name, v16);
+    return v8;
   }
 
   if (*(v4 + 208))
   {
-    if (manifest_get_restore_info(*(a2 + 8), v6, v7, v8, v9, v10, v11, v12))
+    if (manifest_get_restore_info(a2[1]))
     {
-      v17 = *a2;
-      v43 = chip_get_name(*(a2 + 16));
-      v44 = *a1;
-      v23 = "odometer[%s:%s]: boot object has restore info";
+      v6 = *a2;
+      v14 = chip_get_name(a2[2]);
+      v15 = *a1;
+      v7 = "odometer[%s:%s]: boot object has restore info";
     }
 
-    else if (*(a2 + 960))
+    else if (*(a2 + 480))
     {
-      if (*(a2 + 864))
+      if (*(a2 + 432))
       {
-        v32 = odometer_enforce_property(a2, a1, *(v4 + 208), (a2 + 760), v13, v14, v15, v16);
-        v17 = *a2;
-        v33 = chip_get_name(*(a2 + 16));
-        v34 = *a1;
-        if (!v32)
+        v11 = odometer_enforce_property(a2, a1, *(v4 + 208), a2 + 190);
+        v6 = *a2;
+        v12 = chip_get_name(a2[2]);
+        if (!v11)
         {
-          v49 = *a1;
-          expert_log(v17, 1uLL, "odometer[%s:%s]: policy is enforceable", v18, v19, v20, v21, v22, v33);
+          expert_log(v6, 1uLL, "odometer[%s:%s]: policy is enforceable", v12, *a1);
           return 0;
         }
 
-        v43 = v33;
-        v46 = *a1;
-        v23 = "odometer[%s:%s]: switch constraint not satisfied";
+        v14 = v12;
+        v15 = *a1;
+        v7 = "odometer[%s:%s]: switch constraint not satisfied";
       }
 
       else
       {
-        v17 = *a2;
-        v43 = chip_get_name(*(a2 + 16));
-        v48 = *a1;
-        v23 = "odometer[%s:%s]: no manifest constraint for policy selection";
+        v6 = *a2;
+        v14 = chip_get_name(a2[2]);
+        v15 = *a1;
+        v7 = "odometer[%s:%s]: no manifest constraint for policy selection";
       }
     }
 
     else
     {
-      v17 = *a2;
-      v43 = chip_get_name(*(a2 + 16));
-      v47 = *a1;
-      v23 = "odometer[%s:%s]: manifest has no constraint for policy";
+      v6 = *a2;
+      v14 = chip_get_name(a2[2]);
+      v15 = *a1;
+      v7 = "odometer[%s:%s]: manifest has no constraint for policy";
     }
 
-    v24 = 1;
-    expert_log(v17, 1uLL, v23, v18, v19, v20, v21, v22, v43);
-    return v24;
+    v8 = 1;
+    expert_log(v6, 1uLL, v7, v14, v15);
+    return v8;
   }
 
   if (v4 < v4 + 264)
   {
-    v35 = chip_get_name(v4);
-    __panic_npx("panic: illegal chip configuration: %s", v36, v37, v38, v39, v40, v41, v42, v35);
+    v13 = chip_get_name(v4);
+    __panic_npx("panic: illegal chip configuration: %s", v13);
   }
 
   __break(0x5519u);
   return result;
 }
 
-uint64_t _boot_ephemeral_enforce(uint64_t a1, uint64_t a2)
+uint64_t _boot_ephemeral_enforce(const char **a1, uint64_t *a2)
 {
-  v67[3] = *MEMORY[0x29EDCA608];
+  v25[3] = *MEMORY[0x29EDCA608];
   v4 = *a2;
-  chip_property = odometer_policy_get_chip_property(a1, *(a2 + 16));
-  if (!*(a2 + 960))
+  chip_property = odometer_policy_get_chip_property(a1, a2[2]);
+  if (!*(a2 + 480))
   {
-    __panic_npx("panic: optional not set", v6, v7, v8, v9, v10, v11, v12, v60);
+    __panic_npx("panic: optional not set");
   }
 
-  v13 = chip_property;
-  v14 = *(a2 + 16);
-  v15 = *(a2 + 872);
-  memset(v67, 0, 24);
-  memset(v66, 0, sizeof(v66));
-  memset(v65, 0, sizeof(v65));
-  live_nonce = odometer_query_live_nonce(a2, a1, v15, v67, v9, v10, v11, v12);
+  v6 = chip_property;
+  v7 = a2[2];
+  v8 = *(a2 + 218);
+  memset(v25, 0, 24);
+  memset(v24, 0, sizeof(v24));
+  memset(v23, 0, sizeof(v23));
+  live_nonce = odometer_query_live_nonce(a2, a1, v8, v25);
   if (live_nonce)
   {
-    v17 = live_nonce;
-    v18 = *a2;
-    name = chip_get_name(*(a2 + 16));
-    v61 = *a1;
-    expert_log(v18, 0, "odometer[%s:%s]: failed to query nonce: %d", v20, v21, v22, v23, v24, name);
+    v10 = live_nonce;
+    v11 = *a2;
+    name = chip_get_name(a2[2]);
+    expert_log(v11, 0, "odometer[%s:%s]: failed to query nonce: %d", name, *a1, v10);
   }
 
   else
   {
-    v32 = expert_entangle_nonce(v4, v14, v15, v67, v66);
-    if (v32)
+    v13 = expert_entangle_nonce(v4, v7, v8, v25, v24);
+    if (v13)
     {
-      v17 = v32;
-      v33 = *a2;
-      v34 = chip_get_name(*(a2 + 16));
-      v62 = *a1;
-      expert_log(v33, 0, "odometer[%s:%s]: failed to entangle nonce: %d", v35, v36, v37, v38, v39, v34);
+      v10 = v13;
+      v14 = *a2;
+      chip_get_name(a2[2]);
+      expert_log(v14, 0, "odometer[%s:%s]: failed to entangle nonce: %d");
     }
 
     else
     {
-      odometer_compute_nonce_hash(v4, v14, v66, v65);
-      if (!property_constrain_digest(v13, v4, a2 + 880, v65, v40, v41, v42, v43))
+      odometer_compute_nonce_hash(v4, v7, v24, v23);
+      if (!property_constrain_digest(v6, v4, (a2 + 110), v23, v15, v16, v17, v18))
       {
-        v53 = *a2;
-        v54 = chip_get_name(*(a2 + 16));
-        v64 = *a1;
-        expert_log(v53, 1uLL, "odometer[%s:%s]: manifest is current", v55, v56, v57, v58, v59, v54);
-        v17 = 0;
-        goto LABEL_9;
+        v21 = *a2;
+        v22 = chip_get_name(a2[2]);
+        expert_log(v21, 1uLL, "odometer[%s:%s]: manifest is current", v22, *a1);
+        return 0;
       }
 
-      v17 = *(a1 + 24);
-      v44 = *a2;
-      v45 = chip_get_name(*(a2 + 16));
-      v63 = *a1;
-      expert_log(v44, 0, "odometer[%s:%s]: anti-replay violation: %d", v46, v47, v48, v49, v50, v45);
+      v10 = *(a1 + 6);
+      v19 = *a2;
+      chip_get_name(a2[2]);
+      expert_log(v19, 0, "odometer[%s:%s]: anti-replay violation: %d");
     }
   }
 
-  if (v17 >= 0x6B)
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v25, v26, v27, v28, v29, v30, v31, v17);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-LABEL_9:
-  v51 = *MEMORY[0x29EDCA608];
-  return v17;
+  return v10;
 }
 
-void __panic_npx(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __panic_npx(const char *a1, ...)
 {
-  v11 = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a1);
+  v3 = 0xAAAAAAAAAAAAAAAALL;
   bzero(__str, 0x800uLL);
-  v11 = &a9;
-  vsnprintf(__str, 0x800uLL, a1, &a9);
+  va_copy(v3, va);
+  vsnprintf(__str, 0x800uLL, a1, va);
   _os_crash();
   __break(1u);
 }
@@ -214,77 +206,73 @@ LABEL_9:
 
 unint64_t darwin_read_iokit_BOOL(io_registry_entry_t a1, const char *a2, BOOL *a3)
 {
-  v4 = a2;
-  v15 = 0;
-  v14 = 4;
-  result = darwin_read_iokit_node(a1, a2, &v15, &v14);
-  v13 = 0;
+  v8 = 0;
+  v7 = 4;
+  result = darwin_read_iokit_node(a1, a2, &v8, &v7);
+  v6 = 0;
   if (result != 2)
   {
     if (result)
     {
-      __panic_npx("panic: failed to read property: %s: %d", v6, v7, v8, v9, v10, v11, v12, v4);
+      __panic_npx("panic: failed to read property: %s: %d", a2, result);
     }
 
-    v13 = v15 != 0;
+    v6 = v8 != 0;
   }
 
-  *a3 = v13;
+  *a3 = v6;
   return result;
 }
 
 unint64_t darwin_read_iokit_u32(io_registry_entry_t a1, const char *a2, _DWORD *a3)
 {
-  v4 = a2;
-  v15 = 0;
-  v14 = 4;
-  result = darwin_read_iokit_node(a1, a2, &v15, &v14);
-  v13 = 0;
+  v8 = 0;
+  v7 = 4;
+  result = darwin_read_iokit_node(a1, a2, &v8, &v7);
+  v6 = 0;
   if (result != 2)
   {
     if (result)
     {
-      __panic_npx("panic: failed to read property: %s: %d", v6, v7, v8, v9, v10, v11, v12, v4);
+      __panic_npx("panic: failed to read property: %s: %d", a2, result);
     }
 
-    v13 = v15;
+    v6 = v8;
   }
 
-  *a3 = v13;
+  *a3 = v6;
   return result;
 }
 
 unint64_t darwin_read_iokit_u64(io_registry_entry_t a1, const char *a2, void *a3)
 {
-  v4 = a2;
-  v14 = 8;
-  v15 = 0;
-  result = darwin_read_iokit_node(a1, a2, &v15, &v14);
-  v13 = 0;
+  v7 = 8;
+  v8 = 0;
+  result = darwin_read_iokit_node(a1, a2, &v8, &v7);
+  v6 = 0;
   if (result != 2)
   {
     if (result)
     {
-      __panic_npx("panic: failed to read property: %s: %d", v6, v7, v8, v9, v10, v11, v12, v4);
+      __panic_npx("panic: failed to read property: %s: %d", a2, result);
     }
 
-    v13 = v15;
+    v6 = v8;
   }
 
-  *a3 = v13;
+  *a3 = v6;
   return result;
 }
 
-unint64_t darwin_read_iokit_cstr(io_registry_entry_t a1, const char *a2, char *a3)
+size_t darwin_read_iokit_cstr(io_registry_entry_t a1, const char *a2, char *a3)
 {
-  v4 = a2;
-  v19 = *MEMORY[0x29EDCA608];
-  v17 = 0u;
-  v18 = 0u;
+  v11 = *MEMORY[0x29EDCA608];
+  v9 = 0u;
+  v10 = 0u;
   *__source = 0u;
-  v16 = 0u;
-  v14 = 64;
-  result = darwin_read_iokit_node(a1, a2, __source, &v14);
+  v8 = 0u;
+  v6 = 64;
+  result = darwin_read_iokit_node(a1, a2, __source, &v6);
   if (result == 2)
   {
     *a3 = 0;
@@ -294,128 +282,121 @@ unint64_t darwin_read_iokit_cstr(io_registry_entry_t a1, const char *a2, char *a
   {
     if (result)
     {
-      __panic_npx("panic: failed to read property: %s: %d", v6, v7, v8, v9, v10, v11, v12, v4);
+      __panic_npx("panic: failed to read property: %s: %d", a2, result);
     }
 
-    result = strlcpy(a3, __source, 0x40uLL);
+    return strlcpy(a3, __source, 0x40uLL);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t _null_enforceable(uint64_t *a1, uint64_t *a2)
+uint64_t _null_enforceable(const char **a1, uint64_t *a2)
 {
   v3 = *a2;
   name = chip_get_name(a2[2]);
-  v11 = *a1;
-  expert_log(v3, 1uLL, "odometer[%s:%s]: policy is enforceable", v5, v6, v7, v8, v9, name);
+  expert_log(v3, 1uLL, "odometer[%s:%s]: policy is enforceable", name, *a1);
   return 0;
 }
 
 void _prepare(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v4 = *(*a3 + 24);
   v5 = *(v4 + 8);
-  memset(v15, 0, sizeof(v15));
+  memset(v9, 0, sizeof(v9));
   __n = 0;
-  memset(v14, 0, sizeof(v14));
-  nonce_digest = image4_environment_callout_query_nonce_digest(v4, v15, &__n);
+  memset(v8, 0, sizeof(v8));
+  nonce_digest = image4_environment_callout_query_nonce_digest(v4, v9, &__n);
   if (nonce_digest)
   {
     if (nonce_digest != 45)
     {
-      expert_log(v5, 0, "failed to get nonce digest from callback: %d", v7, v8, v9, v10, v11, nonce_digest);
+      expert_log(v5, 0, "failed to get nonce digest from callback: %d", nonce_digest);
     }
-
-    goto LABEL_6;
   }
 
-  if (__n <= 0x40)
+  else if (__n > 0x40)
   {
-    digest_init(v14, v15, __n, v7, v8, v9, v10, v11);
-    odometer_prepare_nonce_hash(a2, v14);
-LABEL_6:
-    v12 = *MEMORY[0x29EDCA608];
-    return;
+    __break(0x5519u);
   }
 
-  __break(0x5519u);
+  else
+  {
+    digest_init(v8, v9, __n);
+    odometer_prepare_nonce_hash(a2, v8);
+  }
 }
 
-uint64_t _chain_future_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _chain_future_enforceable(const char **a1, uint64_t *a2)
 {
-  if (odometer_policy_get_chip_property(a1, *(a2 + 16)))
+  if (odometer_policy_get_chip_property(a1, a2[2]))
   {
-    v4 = *(a2 + 528);
+    v4 = *(a2 + 264);
     v5 = *a2;
-    name = chip_get_name(*(a2 + 16));
-    v12 = *a1;
+    name = chip_get_name(a2[2]);
+    v7 = *a1;
     if (v4)
     {
-      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", v7, v8, v9, v10, v11, name);
+      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", name, v7);
       return 0;
     }
 
     else
     {
-      v13 = 1;
-      expert_log(v5, 1uLL, "odometer[%s:%s]: no caller-supplied boot manifest hash", v7, v8, v9, v10, v11, name);
+      v8 = 1;
+      expert_log(v5, 1uLL, "odometer[%s:%s]: no caller-supplied boot manifest hash", name, v7);
     }
   }
 
   else
   {
+    v9 = *a2;
+    v10 = chip_get_name(a2[2]);
+    v12 = *a1;
+    v8 = 1;
+    expert_log(v9, 1uLL, "odometer[%s:%s]: chip has no property for policy", v10, v12);
+  }
+
+  return v8;
+}
+
+uint64_t _chain_future_enforce(const char **a1, uint64_t *a2)
+{
+  v20 = *MEMORY[0x29EDCA608];
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = a2[2];
+  chip_property = odometer_policy_get_chip_property(a1, v6);
+  memset(v19, 0, sizeof(v19));
+  if (!*(a2 + 264))
+  {
+    __panic_npx("panic: optional not set");
+  }
+
+  v8 = chip_property;
+  manifest_measure(v5, v6, v19);
+  if (property_constrain_digest(v8, v4, v19, (a2 + 56), v9, v10, v11, v12))
+  {
+    v13 = *(a1 + 6);
     v14 = *a2;
-    v15 = chip_get_name(*(a2 + 16));
-    v22 = *a1;
-    v13 = 1;
-    expert_log(v14, 1uLL, "odometer[%s:%s]: chip has no property for policy", v16, v17, v18, v19, v20, v15);
+    name = chip_get_name(a2[2]);
+    expert_log(v14, 0, "odometer[%s:%s]: boot chain integrity violation: %d", name, *a1, v13);
+    if (v13 >= 0x6B)
+    {
+      __panic_npx("panic: error not set to valid posix code: %d", v13);
+    }
+  }
+
+  else
+  {
+    v16 = *a2;
+    v17 = chip_get_name(a2[2]);
+    expert_log(v16, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v17, *a1);
+    return 0;
   }
 
   return v13;
-}
-
-uint64_t _chain_future_enforce(uint64_t a1, uint64_t a2)
-{
-  v48 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  chip_property = odometer_policy_get_chip_property(a1, v6);
-  memset(v47, 0, sizeof(v47));
-  if (!*(a2 + 528))
-  {
-    __panic_npx("panic: optional not set", v8, v9, v10, v11, v12, v13, v14, v44);
-  }
-
-  v15 = chip_property;
-  manifest_measure(v5, v6, v47);
-  if (property_constrain_digest(v15, v4, v47, a2 + 448, v16, v17, v18, v19))
-  {
-    v20 = *(a1 + 24);
-    v21 = *a2;
-    name = chip_get_name(*(a2 + 16));
-    v45 = *a1;
-    expert_log(v21, 0, "odometer[%s:%s]: boot chain integrity violation: %d", v23, v24, v25, v26, v27, name);
-    if (v20 >= 0x6B)
-    {
-      __panic_npx("panic: error not set to valid posix code: %d", v28, v29, v30, v31, v32, v33, v34, v20);
-    }
-  }
-
-  else
-  {
-    v35 = *a2;
-    v36 = chip_get_name(*(a2 + 16));
-    v46 = *a1;
-    expert_log(v35, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v37, v38, v39, v40, v41, v36);
-    v20 = 0;
-  }
-
-  v42 = *MEMORY[0x29EDCA608];
-  return v20;
 }
 
 char *property_get_from_identifier(char *result)
@@ -430,24 +411,24 @@ char *property_get_from_identifier(char *result)
   return result;
 }
 
-unint64_t image4_environment_get_secure_boot(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t image4_environment_get_secure_boot(uint64_t a1)
 {
-  v18 = 0;
+  v4 = 0;
   result = *(a1 + 40);
   if (result >= 5)
   {
-    __panic_npx("panic: invalid secure boot level: actual = %llu, expected <= %llu", a2, a3, a4, a5, a6, a7, a8, result);
+    __panic_npx("panic: invalid secure boot level: actual = %llu, expected <= %llu", result, 4);
   }
 
   if (result == 4)
   {
-    secure_boot = expert_get_secure_boot(*(a1 + 8), &v18);
+    secure_boot = expert_get_secure_boot(*(a1 + 8), &v4);
     if (secure_boot)
     {
-      __panic_npx("panic: failed to get secure boot level: %d", v11, v12, v13, v14, v15, v16, v17, secure_boot);
+      __panic_npx("panic: failed to get secure boot level: %d", secure_boot);
     }
 
-    return v18;
+    return v4;
   }
 
   return result;
@@ -456,32 +437,32 @@ unint64_t image4_environment_get_secure_boot(uint64_t a1, uint64_t a2, uint64_t 
 unint64_t image4_environment_get_nonce_domain(uint64_t a1)
 {
   v2 = *(a1 + 8);
-  v13 = 0;
+  v5 = 0;
   result = *(a1 + 48);
   if (result == -1)
   {
     result = image4_coprocessor_select(*(a1 + 16), 0, a1);
     if (!result)
     {
-      __panic_npx("panic: could not resolve chip for environment", v4, v5, v6, v7, v8, v9, v10, v12);
+      __panic_npx("panic: could not resolve chip for environment");
     }
 
-    v11 = *(result + 200);
-    if (v11)
+    v4 = *(result + 200);
+    if (v4)
     {
       if (result >= result + 264)
       {
         __break(0x5519u);
       }
 
-      else if (expert_query_property_uint32(v2, result, v11, &v13))
+      else if (expert_query_property_uint32(v2, result, v4, &v5))
       {
         return 0xFFFFFFFFLL;
       }
 
       else
       {
-        return v13;
+        return v5;
       }
     }
 
@@ -522,21 +503,21 @@ uint64_t image4_environment_callout_query_nonce_digest(uint64_t a1, uint64_t a2,
   }
 }
 
-uint64_t _image4_environment_init(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_environment_init(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a3 == 0xFFFF)
   {
-    __panic_npx("panic: null coprocessor handle", a2, 0xFFFFLL, a4, a5, a6, a7, a8, v12);
+    __panic_npx("panic: null coprocessor handle", a2, 0xFFFFLL, a4);
   }
 
   if (a3 >= 0xC)
   {
-    __panic_npx("panic: invalid coprocessor handle: actual = %llu, expected < %u", a2, a3, a4, a5, a6, a7, a8, a3);
+    __panic_npx("panic: invalid coprocessor handle: actual = %llu, expected < %u", a3, 12);
   }
 
   if (a4)
   {
-    __panic_npx("panic: unsupported struct version: actual = %hu, expected <= %u", a2, a3, a4, a5, a6, a7, a8, a4);
+    __panic_npx("panic: unsupported struct version: actual = %hu, expected <= %u", a4, 0);
   }
 
   *(a1 + 64) = 0;
@@ -559,18 +540,18 @@ uint64_t image4_environment_new(uint64_t a1, unint64_t a2)
   result = _expert_alloc_type(v4, &_image4_type_environment);
   if (result)
   {
-    result = _image4_environment_init(result, a1, a2, 0, v6, v7, v8, v9);
+    result = _image4_environment_init(result, a1, a2, 0);
     *(result + 32) = &_image4_type_environment;
   }
 
   return result;
 }
 
-uint64_t image4_environment_set_secure_boot(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_environment_set_secure_boot(uint64_t result, unint64_t a2)
 {
   if (a2 > 3)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "secure_boot");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "secure_boot", a2);
   }
 
   *(result + 40) = a2;
@@ -584,175 +565,167 @@ uint64_t image4_environment_set_callbacks(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t image4_environment_identify(uint64_t a1)
+int64_t image4_environment_identify(uint64_t a1)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v2 = generic_expert_current();
-  v33[0] = _property_filter_expert;
-  v33[1] = 0;
-  v33[2] = -1;
+  v17[0] = _property_filter_expert;
+  v17[1] = 0;
+  v17[2] = -1;
   v3 = image4_coprocessor_select(*(a1 + 16), 0, a1);
   if (!v3)
   {
-    __panic_npx("panic: could not resolve chip for environment", v4, v5, v6, v7, v8, v9, v10, v31);
+    __panic_npx("panic: could not resolve chip for environment");
   }
 
-  v11 = v3;
-  result = property_iterator_next(v33, v4, v5, v6, v7, v8, v9, v10);
-  if (!result)
+  v4 = v3;
+  result = property_iterator_next(v17);
+  if (result)
   {
-LABEL_37:
-    v30 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  v13 = result;
-  memset(v32, 170, sizeof(v32));
-  while (1)
-  {
-    v34 = 0;
-    v37 = v32[3];
-    v38 = v32[2];
-    v39 = v32[1];
-    v40 = v32[0];
-    *__s = xmmword_298EF77C0;
-    v36 = unk_298EF77D0;
-    v41 = 0xAAAAAAAAAAAAAAAALL;
-    constraint = chip_get_constraint(v11, v13, 0);
-    v22 = image4_identifier_init(&v34, constraint);
-    if (constraint != *(v11 + 200) || *(a1 + 48) == -1)
+    v6 = result;
+    memset(v16, 170, sizeof(v16));
+    do
     {
-      v23 = **(constraint + 40);
-      if (v23 <= 1)
+      v18 = 0;
+      v21 = v16[3];
+      v22 = v16[2];
+      v23 = v16[1];
+      v24 = v16[0];
+      *__s = xmmword_298EF77C0;
+      v20 = unk_298EF77D0;
+      v25 = 0xAAAAAAAAAAAAAAAALL;
+      constraint = chip_get_constraint(v4, v6, 0);
+      v8 = image4_identifier_init(&v18, constraint);
+      if (constraint != *(v4 + 200) || *(a1 + 48) == -1)
       {
-        if (v23)
+        v9 = **(constraint + 40);
+        if (v9 <= 1)
         {
-          if (v23 != 1)
+          if (v9)
           {
+            if (v9 != 1)
+            {
 LABEL_38:
-            __panic_npx("panic: version property iterated during identification: p = %s, fourcc = %s", v15, v16, v17, v18, v19, v20, v21, *constraint);
+              __panic_npx("panic: version property iterated during identification: p = %s, fourcc = %s", *constraint, (constraint + 28));
+            }
+
+            if (expert_query_property_uint32(v2, v4, constraint, __s))
+            {
+              goto LABEL_36;
+            }
           }
 
-          if (expert_query_property_uint32(v2, v11, constraint, __s))
+          else if (expert_query_property_BOOL(v2, v4, constraint, __s))
           {
             goto LABEL_36;
           }
         }
 
-        else if (expert_query_property_BOOL(v2, v11, constraint, __s))
+        else
         {
-          goto LABEL_36;
+          switch(v9)
+          {
+            case 2:
+              if (expert_query_property_uint64(v2, v4, constraint, __s))
+              {
+                goto LABEL_36;
+              }
+
+              break;
+            case 3:
+              goto LABEL_36;
+            case 4:
+              if (expert_query_property_version(v2, v4, constraint, __s))
+              {
+                goto LABEL_36;
+              }
+
+              break;
+            default:
+              goto LABEL_38;
+          }
         }
       }
 
       else
       {
-        switch(v23)
+        *__s = *(a1 + 48);
+      }
+
+      v10 = *(a1 + 56);
+      if (v10)
+      {
+        v11 = **(*v8 + 40);
+        if (v11 <= 1)
         {
-          case 2:
-            if (expert_query_property_uint64(v2, v11, constraint, __s))
+          if (!v11)
+          {
+            v15 = v10[3];
+            if (v15)
             {
-              goto LABEL_36;
+              v15(a1, v8, __s[0], *(a1 + 64));
             }
 
-            break;
-          case 3:
             goto LABEL_36;
-          case 4:
-            if (expert_query_property_version(v2, v11, constraint, __s))
+          }
+
+          if (v11 != 1)
+          {
+            goto LABEL_39;
+          }
+
+          v12 = v10[4];
+          if (!v12)
+          {
+            goto LABEL_36;
+          }
+
+          v13 = *__s;
+          goto LABEL_35;
+        }
+
+        if (v11 == 2)
+        {
+          v12 = v10[4];
+          if (v12)
+          {
+            v13 = *__s;
+LABEL_35:
+            v12(a1, v8, v13, *(a1 + 64));
+          }
+        }
+
+        else
+        {
+          if (v11 != 4)
+          {
+LABEL_39:
+            __panic_npx("panic: unreachable case: %s = 0x%llx", "id4->id_p->p_type->pt_switchable", v11);
+          }
+
+          v14 = v10[5];
+          if (v14)
+          {
+            result = strlen(__s);
+            if (result < 1)
             {
-              goto LABEL_36;
+              __break(0x5519u);
+              return result;
             }
 
-            break;
-          default:
-            goto LABEL_38;
+            v14(a1, v8, __s, v23 + 1, *(a1 + 64));
+          }
         }
       }
-    }
-
-    else
-    {
-      *__s = *(a1 + 48);
-    }
-
-    v24 = *(a1 + 56);
-    if (!v24)
-    {
-      goto LABEL_36;
-    }
-
-    v25 = **(*v22 + 40);
-    if (v25 <= 1)
-    {
-      if (!v25)
-      {
-        v29 = v24[3];
-        if (v29)
-        {
-          v29(a1, v22, __s[0], *(a1 + 64));
-        }
-
-        goto LABEL_36;
-      }
-
-      if (v25 != 1)
-      {
-        goto LABEL_39;
-      }
-
-      v26 = v24[4];
-      if (!v26)
-      {
-        goto LABEL_36;
-      }
-
-      v27 = *__s;
-      goto LABEL_35;
-    }
-
-    if (v25 != 2)
-    {
-      break;
-    }
-
-    v26 = v24[4];
-    if (v26)
-    {
-      v27 = *__s;
-LABEL_35:
-      v26(a1, v22, v27, *(a1 + 64));
-    }
 
 LABEL_36:
-    result = property_iterator_next(v33, v15, v16, v17, v18, v19, v20, v21);
-    v13 = result;
-    if (!result)
-    {
-      goto LABEL_37;
+      result = property_iterator_next(v17);
+      v6 = result;
     }
+
+    while (result);
   }
 
-  if (v25 != 4)
-  {
-LABEL_39:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v15, v16, v17, v18, v19, v20, v21, "id4->id_p->p_type->pt_switchable");
-  }
-
-  v28 = v24[5];
-  if (!v28)
-  {
-    goto LABEL_36;
-  }
-
-  result = strlen(__s);
-  if (result >= 1)
-  {
-    v28(a1, v22, __s, v39 + 1, *(a1 + 64));
-    goto LABEL_36;
-  }
-
-  __break(0x5519u);
   return result;
 }
 
@@ -761,12 +734,12 @@ uint64_t image4_environment_get_digest_info(uint64_t a1)
   v1 = image4_coprocessor_select(*(a1 + 16), 0, a1);
   if (!v1)
   {
-    __panic_npx("panic: could not resolve chip for environment", v2, v3, v4, v5, v6, v7, v8, vars0);
+    __panic_npx("panic: could not resolve chip for environment");
   }
 
-  v9 = *(v1 + 48);
+  v2 = *(v1 + 48);
 
-  return v9();
+  return v2();
 }
 
 uint64_t *image4_environment_destroy(uint64_t *result)
@@ -784,20 +757,20 @@ uint64_t _BootPolicyClosureComputeDigest(uint64_t a1, uint64_t a2, uint64_t a3, 
   v9 = **(*(a5 + 32) + 16);
   if (*v9 > a4)
   {
-    v11 = *v9;
-    __panic_npx_0(v9, a2, a1, a4, a5, a6, a7, a8, a4);
+    __panic_npx_0(v9, a2, a1, a4, a5, a6, a7, a8, a4, *v9);
   }
 
   ccdigest();
   return 0;
 }
 
-void __panic_npx_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __panic_npx_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a8);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
   bzero(__str, 0x800uLL);
-  v10 = &a9;
-  vsnprintf(__str, 0x800uLL, "panic: digest buffer overflow: actual = %lu, expected >= %lu", &a9);
+  va_copy(v9, va);
+  vsnprintf(__str, 0x800uLL, "panic: digest buffer overflow: actual = %lu, expected >= %lu", va);
   _os_crash();
   __break(1u);
 }
@@ -807,8 +780,7 @@ uint64_t _BootPolicyClosureComputeDigest_0(uint64_t a1, uint64_t a2, uint64_t a3
   v9 = **(*(a5 + 32) + 16);
   if (*v9 > a4)
   {
-    v11 = *v9;
-    __panic_npx_0(v9, a2, a1, a4, a5, a6, a7, a8, a4);
+    __panic_npx_0(v9, a2, a1, a4, a5, a6, a7, a8, a4, *v9);
   }
 
   ccdigest();
@@ -817,62 +789,61 @@ uint64_t _BootPolicyClosureComputeDigest_0(uint64_t a1, uint64_t a2, uint64_t a3
 
 void _prepare_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v30[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   v4 = *(*a3 + 24);
   v5 = *(v4 + 8);
-  v30[0] = 0;
-  v30[1] = 0;
-  v25 = 0;
+  v13[0] = 0;
+  v13[1] = 0;
+  v8 = 0;
   __n = 0;
-  memset(v29, 0, sizeof(v29));
-  memset(v28, 0, sizeof(v28));
-  memset(v27, 0, sizeof(v27));
-  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v30, &__n);
-  if (boot_nonce)
+  memset(v12, 0, sizeof(v12));
+  memset(v11, 0, sizeof(v11));
+  memset(v10, 0, sizeof(v10));
+  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v13, &__n);
+  if (!boot_nonce)
   {
-    if (boot_nonce != 45)
+    if (__n <= 0x10)
     {
-      expert_log(v5, 0, "failed to get boot nonce from callback: %d", v7, v8, v9, v10, v11, boot_nonce);
-      goto LABEL_11;
-    }
-
-    nonce_digest = image4_environment_callout_query_nonce_digest(v4, v28, &v25);
-    if (nonce_digest == 45)
-    {
-LABEL_11:
-      v24 = *MEMORY[0x29EDCA608];
+      nonce_init(v12, v13, __n);
+      odometer_prepare_nonce(a2, v12);
       return;
     }
 
-    if (nonce_digest)
-    {
-      expert_log(v5, 0, "failed to get nonce digest from callback: %d", v13, v14, v15, v16, v17, nonce_digest);
-      goto LABEL_11;
-    }
-
-    if (v25 <= 0x40)
-    {
-      digest_init(v27, v28, v25, v13, v14, v15, v16, v17);
-      odometer_prepare_nonce_hash(a2, v27);
-      goto LABEL_11;
-    }
+    goto LABEL_12;
   }
 
-  else if (__n <= 0x10)
+  if (boot_nonce != 45)
   {
-    nonce_init(v29, v30, __n, v7, v8, v9, v10, v11);
-    odometer_prepare_nonce(a2, v29, v18, v19, v20, v21, v22, v23);
-    goto LABEL_11;
+    expert_log(v5, 0, "failed to get boot nonce from callback: %d");
+    return;
   }
 
-  __break(0x5519u);
+  nonce_digest = image4_environment_callout_query_nonce_digest(v4, v11, &v8);
+  if (nonce_digest != 45)
+  {
+    if (!nonce_digest)
+    {
+      if (v8 <= 0x40)
+      {
+        digest_init(v10, v11, v8);
+        odometer_prepare_nonce_hash(a2, v10);
+        return;
+      }
+
+LABEL_12:
+      __break(0x5519u);
+      return;
+    }
+
+    expert_log(v5, 0, "failed to get nonce digest from callback: %d");
+  }
 }
 
 uint64_t _extract_payload_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v7 = *(a3 + 528);
-  memset(&v13[3], 0, 32);
+  memset(&v12[3], 0, 32);
   if (v7)
   {
     v8 = a3 + 528;
@@ -883,7 +854,7 @@ uint64_t _extract_payload_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     v8 = 0;
   }
 
-  memset(&v13[1], 0, 32);
+  memset(&v12[1], 0, 32);
   if (v7)
   {
     v9 = a3 + 72;
@@ -894,23 +865,22 @@ uint64_t _extract_payload_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     v9 = 0;
   }
 
-  v13[0] = 0uLL;
-  v10 = manifest_measure(a3, a2, v13);
+  v12[0] = 0uLL;
+  v10 = manifest_measure(a3, a2, v12);
   *a5 = *(*(a2 + 48))(v10);
   if (v9 + 456 > v8)
   {
     __break(0x5519u);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9 + 328;
 }
 
-void *nonce_init(void *a1, const void *a2, size_t __n, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *nonce_init(void *a1, const void *a2, size_t __n)
 {
   if (__n >= 0x11)
   {
-    __panic_npx("panic: nonce too large: actual = %lu, expected <= %ld", a2, __n, a4, a5, a6, a7, a8, __n);
+    __panic_npx("panic: nonce too large: actual = %lu, expected <= %ld", __n, 16);
   }
 
   memcpy(a1, a2, __n);
@@ -918,12 +888,12 @@ void *nonce_init(void *a1, const void *a2, size_t __n, uint64_t a4, uint64_t a5,
   return a1;
 }
 
-void *nonce_init_copy(void *result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *nonce_init_copy(void *result, void *a2)
 {
-  v8 = a2[2];
-  if (v8 < 0x11)
+  v2 = a2[2];
+  if (v2 < 0x11)
   {
-    return nonce_init(result, a2, v8, a4, a5, a6, a7, a8);
+    return nonce_init(result, a2, v2);
   }
 
   __break(0x5519u);
@@ -957,23 +927,23 @@ uint64_t nonce_compare_buff(void *a1, const void *a2, size_t a3)
   }
 }
 
-void *nonce_copy_out(void *__src, void *__dst, size_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *nonce_copy_out(void *__src, void *__dst, size_t *a3)
 {
-  v9 = *a3;
-  v10 = __src[2];
-  if (v9 < v10)
+  v4 = *a3;
+  v5 = __src[2];
+  if (v4 < v5)
   {
 LABEL_6:
-    __panic_npx("panic: nonce length overflow: actual = %lu, expected >= %lu", __dst, v10, a4, a5, a6, a7, a8, v9);
+    __panic_npx("panic: nonce length overflow: actual = %lu, expected >= %lu", v4, v5);
   }
 
-  if (v10 > 0x10 || (result = memcpy(__dst, __src, v10), v9 = __src[2], v9 > *a3))
+  if (v5 > 0x10 || (result = memcpy(__dst, __src, v5), v4 = __src[2], v4 > *a3))
   {
     __break(0x5519u);
     goto LABEL_6;
   }
 
-  *a3 = v9;
+  *a3 = v4;
   return result;
 }
 
@@ -984,89 +954,70 @@ void *nonce_init_uint64(void *result, unint64_t a2)
   return result;
 }
 
-unint64_t nonce_get_uint64(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t nonce_get_uint64(unint64_t *a1)
 {
-  v8 = a1[2];
-  if (v8 >= 9)
+  v1 = a1[2];
+  if (v1 >= 9)
   {
-    __panic_npx("panic: nonce cannot fit into 64-bit integer: actual = %lu, expected <= %lu", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: nonce cannot fit into 64-bit integer: actual = %lu, expected <= %lu", v1, 8);
   }
 
   return bswap64(*a1);
 }
 
-unint64_t nonce_print_cstr(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t nonce_print_cstr(unint64_t result, unint64_t a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
-  strcpy(v24, "0123456789abcdef");
-  v8 = (result + 16);
-  v9 = *(result + 16);
-  if (v9 > 0x21)
+  v18 = *MEMORY[0x29EDCA608];
+  strcpy(v17, "0123456789abcdef");
+  v2 = (result + 16);
+  v3 = *(result + 16);
+  if (v3 > 0x21)
   {
 LABEL_34:
-    __panic_npx("panic: bogus nonce length: actual = %lu, expected <= %lu", a2, a3, a4, a5, a6, a7, a8, v9);
+    __panic_npx("panic: bogus nonce length: actual = %lu, expected <= %lu", v3, 33);
   }
 
   *a2 = 0;
   *(a2 + 8) = 0;
-  if (!*v8)
+  if (!*v2)
   {
     goto LABEL_31;
   }
 
-  v9 = 0;
-  v10 = a2 + 33;
-  v11 = a2;
+  v3 = 0;
+  v4 = a2 + 33;
+  v5 = a2;
   do
   {
-    v12 = (result + v9);
-    if (result + v9 >= v8 || v12 < result)
+    v6 = (result + v3);
+    v7 = result + v3 < v2 && v6 >= result;
+    if (!v7 || ((v8 = *v6, v9 = (v17 | (v8 >> 4)), v9 < &v17[17]) ? (v10 = v9 < v17) : (v10 = 1), v10 || ((*v5 = *v9, v11 = v5 + 1, v12 = (v17 | v8 & 0xF), v12 < &v17[17]) ? (v13 = v12 < v17) : (v13 = 1), !v13 ? (v14 = v11 >= v4) : (v14 = 1), !v14 ? (v15 = v11 >= a2) : (v15 = 0), !v15 || ((*v11 = *v12, v5 = v11 + 1, v5 < v4) ? (v16 = v5 >= a2) : (v16 = 0), !v16))))
     {
-      goto LABEL_33;
-    }
-
-    v14 = *v12;
-    v15 = (v24 | (v14 >> 4));
-    if (v15 >= &v24[17] || v15 < v24)
-    {
-      goto LABEL_33;
-    }
-
-    *v11 = *v15;
-    v17 = v11 + 1;
-    v18 = (v24 | v14 & 0xF);
-    v19 = v18 >= &v24[17] || v18 < v24;
-    v20 = v19 || v17 >= v10;
-    v21 = !v20 && v17 >= a2;
-    if (!v21 || ((*v17 = *v18, v11 = v17 + 1, v11 < v10) ? (v22 = v11 >= a2) : (v22 = 0), !v22))
-    {
-LABEL_33:
       __break(0x5519u);
       goto LABEL_34;
     }
 
-    *v11 = 0;
-    ++v9;
+    *v5 = 0;
+    ++v3;
   }
 
-  while (v9 < *v8);
-  if (!*v8)
+  while (v3 < *v2);
+  if (!*v2)
   {
 LABEL_31:
     strcpy(a2, "null");
   }
 
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 unint64_t sprintdgst_npx(unint64_t result, unsigned __int8 *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  strcpy(v21, "0123456789abcdef");
+  v21 = *MEMORY[0x29EDCA608];
+  strcpy(v20, "0123456789abcdef");
   if (a3 > 0x40)
   {
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   *(result + 128) = 0;
@@ -1086,16 +1037,16 @@ unint64_t sprintdgst_npx(unint64_t result, unsigned __int8 *a2, unint64_t a3, ui
     {
       v11 = *a2++;
       v10 = v11;
-      v12 = (v21 | (v11 >> 4));
-      if (v12 >= &v21[17] || v12 < v21)
+      v12 = (v20 | (v11 >> 4));
+      if (v12 >= &v20[17] || v12 < v20)
       {
         break;
       }
 
       *v9 = *v12;
       v14 = v9 + 1;
-      v15 = (v21 | v10 & 0xF);
-      v16 = v15 >= &v21[17] || v15 < v21;
+      v15 = (v20 | v10 & 0xF);
+      v16 = v15 >= &v20[17] || v15 < v20;
       v17 = v16 || v14 >= v8;
       if (v17 || v14 < result)
       {
@@ -1112,167 +1063,171 @@ unint64_t sprintdgst_npx(unint64_t result, unsigned __int8 *a2, unint64_t a3, ui
       *v9 = 0;
       if (!--a3)
       {
-        goto LABEL_27;
+        return result;
       }
     }
 
     __break(0x5519u);
-LABEL_29:
+LABEL_28:
     __panic_npx_1(result, a2, a3, a4, a5, a6, a7, a8, a3);
   }
 
   strcpy(result, "null");
-LABEL_27:
-  v20 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void __panic_npx_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __panic_npx_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a8);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
   bzero(__str, 0x800uLL);
-  v10 = &a9;
-  vsnprintf(__str, 0x800uLL, "panic: bogus digest length: %lu", &a9);
+  va_copy(v9, va);
+  vsnprintf(__str, 0x800uLL, "panic: bogus digest length: %lu", va);
   _os_crash();
   __break(1u);
 }
 
-uint64_t _chain_pivot_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _chain_pivot_enforceable(const char **a1, uint64_t *a2)
 {
-  if (odometer_policy_get_chip_property(a1, *(a2 + 16)))
+  if (odometer_policy_get_chip_property(a1, a2[2]))
   {
-    v4 = *(a2 + 432);
+    v4 = *(a2 + 216);
     v5 = *a2;
-    name = chip_get_name(*(a2 + 16));
-    v12 = *a1;
+    name = chip_get_name(a2[2]);
+    v7 = *a1;
     if (v4)
     {
-      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", v7, v8, v9, v10, v11, name);
+      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", name, v7);
       return 0;
     }
 
     else
     {
-      v13 = 1;
-      expert_log(v5, 1uLL, "odometer[%s:%s]: manifest has no pivot constraint", v7, v8, v9, v10, v11, name);
+      v8 = 1;
+      expert_log(v5, 1uLL, "odometer[%s:%s]: manifest has no pivot constraint", name, v7);
     }
   }
 
   else
   {
-    v14 = *a2;
-    v15 = chip_get_name(*(a2 + 16));
-    v22 = *a1;
-    v13 = 1;
-    expert_log(v14, 1uLL, "odometer[%s:%s]: chip has no property for policy", v16, v17, v18, v19, v20, v15);
+    v9 = *a2;
+    v10 = chip_get_name(a2[2]);
+    v12 = *a1;
+    v8 = 1;
+    expert_log(v9, 1uLL, "odometer[%s:%s]: chip has no property for policy", v10, v12);
   }
 
-  return v13;
+  return v8;
 }
 
-uint64_t _chain_pivot_enforce(uint64_t *a1, unint64_t a2)
+uint64_t _chain_pivot_enforce(const char **a1, uint64_t *a2)
 {
-  chip_property = odometer_policy_get_chip_property(a1, *(a2 + 16));
-  if (*(a2 + 432))
+  chip_property = odometer_policy_get_chip_property(a1, a2[2]);
+  if (*(a2 + 216))
   {
-    v9 = (a2 + 328);
+    v5 = (a2 + 41);
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
   }
 
-  v10 = odometer_enforce_property(a2, a1, chip_property, v9, v5, v6, v7, v8);
-  if (!v10)
+  v6 = odometer_enforce_property(a2, a1, chip_property, v5);
+  if (!v6)
   {
     goto LABEL_13;
   }
 
-  v17 = v10;
-  if (v10 == 2)
+  v7 = v6;
+  if (v6 == 2)
   {
-    if (!odometer_check_fuse(a2, &_odometer_cylinder_production_status, v11, v12, v13, v14, v15, v16))
+    if (!odometer_check_fuse(a2, &_odometer_cylinder_production_status))
     {
-      v24 = "odometer[%s:%s]: development silicon; not enforcing policy";
+      v8 = "odometer[%s:%s]: development silicon; not enforcing policy";
       goto LABEL_12;
     }
 
-    if (odometer_check_fuse(a2, &_odometer_cylinder_internal_use, v18, v19, v20, v21, v22, v23))
+    if (odometer_check_fuse(a2, &_odometer_cylinder_internal_use))
     {
-      v24 = "odometer[%s:%s]: internal unit; not enforcing policy";
+      v8 = "odometer[%s:%s]: internal unit; not enforcing policy";
 LABEL_12:
-      v40 = *a2;
-      name = chip_get_name(*(a2 + 16));
-      v56 = *a1;
-      expert_log(v40, 1uLL, v24, v42, v43, v44, v45, v46, name);
+      v19 = *a2;
+      name = chip_get_name(a2[2]);
+      expert_log(v19, 1uLL, v8, name, *a1);
 LABEL_13:
-      v47 = *a2;
-      v48 = chip_get_name(*(a2 + 16));
-      v57 = *a1;
-      expert_log(v47, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v49, v50, v51, v52, v53, v48);
+      v21 = *a2;
+      v22 = chip_get_name(a2[2]);
+      expert_log(v21, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v22, *a1);
       return 0;
     }
   }
 
-  v25 = *a2;
-  v26 = chip_get_name(*(a2 + 16));
-  v55 = *a1;
-  v32 = expert_log(v25, 0, "odometer[%s:%s]: boot chain integrity violation: %d", v27, v28, v29, v30, v31, v26);
-  if (v17 >= 0x6B)
+  v9 = *a2;
+  v10 = chip_get_name(a2[2]);
+  v11 = expert_log(v9, 0, "odometer[%s:%s]: boot chain integrity violation: %d", v10, *a1, v7);
+  if (v7 >= 0x6B)
   {
-    __panic_npx_2(v32, v33, v34, v35, v36, v37, v38, v39, v17);
+    __panic_npx_2(v11, v12, v13, v14, v15, v16, v17, v18, v7);
   }
 
-  return v17;
+  return v7;
 }
 
-void __panic_npx_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __panic_npx_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a8);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
   bzero(__str, 0x800uLL);
-  v10 = &a9;
-  vsnprintf(__str, 0x800uLL, "panic: error not set to valid posix code: %d", &a9);
+  va_copy(v9, va);
+  vsnprintf(__str, 0x800uLL, "panic: error not set to valid posix code: %d", va);
   _os_crash();
   __break(1u);
 }
 
-uint64_t expert_map(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t expert_map(void *a1)
 {
-  v8 = a1[1];
-  if (v8 <= 0x11F)
+  v1 = a1[1];
+  if (v1 <= 0x11F)
   {
-    __panic_npx("panic: insufficient memory for expert: actual = %lu, expected >= %lu", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: insufficient memory for expert: actual = %lu, expected >= %lu", v1, 288);
   }
 
   return *a1;
 }
 
-uint64_t _expert_assert(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _expert_assert(uint64_t result, unsigned int a2, const char *a3)
 {
-  if (*(result + 8) != a2)
+  v5 = *(result + 8);
+  if (v5 != a2)
   {
-    __panic_npx("panic: unexpected expert: op = %s, actual = %s, expected = %s", a2, a3, a4, a5, a6, a7, a8, a3);
+    v10 = v3;
+    v11 = v4;
+    v9 = 0;
+    v8 = bswap32(v5);
+    v7 = 0;
+    v6 = bswap32(a2);
+    __panic_npx("panic: unexpected expert: op = %s, actual = %s, expected = %s", a3, &v8, &v6);
   }
 
   return result;
 }
 
-char *expert_log_level_cstr_lower(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *expert_log_level_cstr_lower(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "lvl");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "lvl", a1);
   }
 
   return off_29EEFE100[a1];
 }
 
-char *expert_log_level_cstr_upper(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *expert_log_level_cstr_upper(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "lvl");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "lvl", a1);
   }
 
   return off_29EEFE120[a1];
@@ -1283,16 +1238,16 @@ uint64_t _expert_alloc_type(uint64_t a1, uint64_t a2)
   (*(a1 + 240))();
   if (!type_get_size(a2))
   {
-    __panic_npx("panic: type not available", v4, v5, v6, v7, v8, v9, v10, v13);
+    __panic_npx("panic: type not available");
   }
 
-  v11 = *(a1 + 64);
-  if (!v11)
+  v4 = *(a1 + 64);
+  if (!v4)
   {
     return 0;
   }
 
-  return v11(a1, a2);
+  return v4(a1, a2);
 }
 
 uint64_t _expert_dealloc_type(uint64_t result, uint64_t a2, uint64_t *a3)
@@ -1358,282 +1313,294 @@ uint64_t expert_dealloc_data(uint64_t result, uint64_t a2, uint64_t *a3)
 
 uint64_t expert_dump(uint64_t a1)
 {
-  v147 = *MEMORY[0x29EDCA608];
-  v121[0] = _property_filter_expert;
-  v121[1] = 0;
-  v121[2] = -1;
-  v120 = 0;
-  v133 = 0;
-  v132 = 0;
-  memset(v134, 0, sizeof(v134));
+  v65 = *MEMORY[0x29EDCA608];
+  v39[0] = _property_filter_expert;
+  v39[1] = 0;
+  v39[2] = -1;
+  v38 = 0;
+  v51 = 0;
+  v50 = 0;
+  memset(v52, 0, sizeof(v52));
   (*(a1 + 240))();
   (*(a1 + 240))(a1);
-  if ((*(a1 + 120))(a1, &v120))
+  if ((*(a1 + 120))(a1, &v38))
   {
-    v120 = 3;
+    v38 = 3;
   }
 
   else
   {
-    v9 = v120;
-    if (v120 >= 3)
+    v2 = v38;
+    if (v38 >= 3)
     {
-      if (v120 != 3)
+      if (v38 != 3)
       {
-        __panic_npx("panic: unreachable case: %s = 0x%llx", v2, v3, v4, v5, v6, v7, v8, "sb");
+        __panic_npx("panic: unreachable case: %s = 0x%llx", "sb", v38);
       }
 
-      v9 = 3;
+      v2 = 3;
     }
 
-    snprintf(__str, 0x20uLL, "0x%llx", v9);
+    snprintf(__str, 0x20uLL, "0x%llx", v2);
   }
 
-  v10 = bswap32(*(a1 + 8));
-  v131 = 0;
-  *__str = v10;
+  v3 = bswap32(*(a1 + 8));
+  v49 = 0;
+  *__str = v3;
+  v4 = "n/a";
   if (*a1)
   {
-    v11 = *a1;
+    v5 = *a1;
   }
 
-  expert_log(a1, 1uLL, "%6s  %-36s : %s", v4, v5, v6, v7, v8, "");
-  expert_log(a1, 1uLL, "%6s  %-36s : %s", v12, v13, v14, v15, v16, "");
-  expert_log(a1, 1uLL, "%s %-36s : 0x%x", v17, v18, v19, v20, v21, "  🔥🌸 ");
-  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", v22, v23, v24, v25, v26, "");
-  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", v27, v28, v29, v30, v31, "");
-  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", v32, v33, v34, v35, v36, "");
-  v37 = v120;
-  (*(a1 + 240))(a1);
-  v38 = (*(a1 + 128))(a1, v37);
-  chip_get_name(v38);
-  expert_log(a1, 1uLL, "%6s  %-36s : %s", v39, v40, v41, v42, v43, "");
-  (*(a1 + 240))(a1);
-  v49 = *(a1 + 104);
-  if (v49)
+  else
   {
-    v50 = v49(a1);
-    if (v50 >= 7)
+    v5 = "n/a";
+  }
+
+  expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "expert", v5);
+  expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "expert magic", __str);
+  expert_log(a1, 1uLL, "%s %-36s : 0x%x", "  🔥🌸 ", "bounds safety", 1);
+  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", "", "debug level", 3);
+  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", "", "diagnostic level", 0);
+  expert_log(a1, 1uLL, "%6s  %-36s : 0x%llx", "", "secure boot", v38);
+  v6 = v38;
+  (*(a1 + 240))(a1);
+  v7 = (*(a1 + 128))(a1, v6);
+  name = chip_get_name(v7);
+  if (name)
+  {
+    v9 = name;
+  }
+
+  else
+  {
+    v9 = "n/a";
+  }
+
+  expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "boot chip", v9);
+  (*(a1 + 240))(a1);
+  v10 = *(a1 + 104);
+  if (v10)
+  {
+    v11 = v10(a1);
+    if (v11 >= 7)
     {
-      goto LABEL_50;
+      goto LABEL_55;
     }
 
-    v53 = off_29EEFE140[v50];
+    v4 = off_29EEFE140[v11];
   }
 
-  expert_log(a1, 1uLL, "%6s  %-36s : %s", v44, v45, v46, v47, v48, "");
+  expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "exception level", v4);
   (*(a1 + 240))(a1);
-  v54 = *(a1 + 112);
-  if (!v54)
+  v12 = *(a1 + 112);
+  if (v12)
   {
-    goto LABEL_16;
+    v11 = v12(a1);
+    if (v11 < 7)
+    {
+      v13 = off_29EEFE140[v11];
+      goto LABEL_21;
+    }
+
+LABEL_55:
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "lvl", v11);
   }
 
-  v55 = v54(a1);
-  if (v55 >= 7)
+  v13 = "GL2";
+LABEL_21:
+  expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "unprivileged limit", v13);
+  v14 = property_iterator_next(v39);
+  if (v14)
   {
-LABEL_50:
-    v118 = "lvl";
-    goto LABEL_51;
-  }
-
-  v56 = off_29EEFE140[v55];
-LABEL_16:
-  expert_log(a1, 1uLL, "%6s  %-36s : %s", v44, v45, v46, v47, v48, "");
-  v64 = property_iterator_next(v121, v57, v58, v59, v60, v61, v62, v63);
-  if (v64)
-  {
-    v65 = v64;
+    v15 = v14;
     do
     {
-      v66 = v65 + 13;
-      memset(v146, 0, sizeof(v146));
-      v145 = 0u;
-      v144 = 0u;
-      v143 = 0u;
-      v142 = 0u;
-      v141 = 0u;
-      v140 = 0u;
+      v16 = v15 + 13;
+      memset(v64, 0, sizeof(v64));
+      v63 = 0u;
+      v62 = 0u;
+      v61 = 0u;
+      v60 = 0u;
+      v59 = 0u;
+      v58 = 0u;
       qmemcpy(__dst, "n/a", sizeof(__dst));
-      LOBYTE(v137[0]) = 0;
-      LODWORD(v138[0]) = 0;
-      *v135 = 0;
-      memset(v129, 0, sizeof(v129));
-      v128 = 0x3E800000000;
-      v126 = 0u;
-      v127 = 0u;
-      v124 = 0u;
-      v125 = 0u;
+      LOBYTE(v55[0]) = 0;
+      LODWORD(v56[0]) = 0;
+      *v53 = 0;
+      memset(v47, 0, sizeof(v47));
+      v46 = 0x3E800000000;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       *__source = 0u;
-      v123 = 0u;
-      v67 = *v65[5];
-      if (v67 <= 1)
+      v41 = 0u;
+      v17 = *v15[5];
+      if (v17 <= 1)
       {
-        if (!v67)
+        if (!v17)
         {
-          if (v65 >= v66)
+          if (v15 >= v16)
           {
-            goto LABEL_48;
+            goto LABEL_53;
           }
 
-          if (expert_query_property_BOOL(a1, v38, v65, v137))
+          if (expert_query_property_BOOL(a1, v7, v15, v55))
           {
-            goto LABEL_39;
+            goto LABEL_44;
           }
 
-LABEL_38:
+LABEL_43:
           snprintf(__dst, 0x81uLL, "%#x");
-          goto LABEL_39;
+          goto LABEL_44;
         }
 
-        if (v67 != 1)
+        if (v17 != 1)
         {
-          goto LABEL_49;
+          goto LABEL_54;
         }
 
-        if (v65 >= v66)
+        if (v15 >= v16)
         {
-LABEL_48:
+LABEL_53:
           __break(0x5519u);
-LABEL_49:
-          v118 = "pi->p_type->pt_switchable";
-LABEL_51:
-          __panic_npx("panic: unreachable case: %s = 0x%llx", v51, v52, v44, v45, v46, v47, v48, v118);
+LABEL_54:
+          __panic_npx("panic: unreachable case: %s = 0x%llx", "pi->p_type->pt_switchable", v17);
         }
 
-        if (!expert_query_property_uint32(a1, v38, v65, v138))
+        if (!expert_query_property_uint32(a1, v7, v15, v56))
         {
-          goto LABEL_38;
+          goto LABEL_43;
         }
       }
 
       else
       {
-        switch(v67)
+        switch(v17)
         {
           case 2:
-            if (v65 >= v66)
+            if (v15 >= v16)
             {
-              goto LABEL_48;
+              goto LABEL_53;
             }
 
-            if (!expert_query_property_uint64(a1, v38, v65, v135))
+            if (!expert_query_property_uint64(a1, v7, v15, v53))
             {
               snprintf(__dst, 0x81uLL, "%#llx");
             }
 
             break;
           case 3:
-            if (v65 >= v66)
+            if (v15 >= v16)
             {
-              goto LABEL_48;
+              goto LABEL_53;
             }
 
-            if (!expert_query_property_digest(a1, v38, v65, v129))
+            if (!expert_query_property_digest(a1, v7, v15, v47))
             {
-              digest_print_cstr(v129, __dst, v73, v68, v69, v70, v71, v72);
+              digest_print_cstr(v47, __dst, v18, v19, v20, v21, v22, v23);
             }
 
             break;
           case 4:
-            if (v65 >= v66)
+            if (v15 >= v16)
             {
-              goto LABEL_48;
+              goto LABEL_53;
             }
 
-            if (!expert_query_property_version(a1, v38, v65, __source))
+            if (!expert_query_property_version(a1, v7, v15, __source))
             {
               version_copyout(__source, __dst);
             }
 
             break;
           default:
-            goto LABEL_49;
+            goto LABEL_54;
         }
       }
 
-LABEL_39:
-      v119 = *v65;
-      expert_log(a1, 1uLL, "%6s  %-36s : %s", v68, v69, v70, v71, v72, v65 + 28);
-      v65 = property_iterator_next(v121, v74, v75, v76, v77, v78, v79, v80);
+LABEL_44:
+      expert_log(a1, 1uLL, "%6s  %-36s : %s", v15 + 28, *v15, __dst);
+      v15 = property_iterator_next(v39);
     }
 
-    while (v65);
+    while (v15);
   }
 
-  memset(v138, 0, sizeof(v138));
-  memset(v137, 0, sizeof(v137));
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
+  memset(v56, 0, sizeof(v56));
+  memset(v55, 0, sizeof(v55));
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   *__source = 0u;
-  *(v129 + 11) = 0;
-  BYTE4(v129[0]) = 0;
-  *(v129 + 5) = 0;
-  *(v129 + 7) = 0;
-  *(&v129[1] + 9) = 0;
-  *(&v129[1] + 3) = 0;
-  strcpy(v129, "n/a");
-  *&v135[11] = 0;
-  v135[4] = 0;
-  *&v135[5] = 0;
-  *&v135[7] = 0;
-  *(v136 + 6) = 0;
-  v136[0] = 0;
-  strcpy(v135, "n/a");
-  memset(v146, 0, sizeof(v146));
-  v145 = 0u;
-  v144 = 0u;
-  v143 = 0u;
-  v142 = 0u;
-  v141 = 0u;
-  v140 = 0u;
+  *(v47 + 11) = 0;
+  BYTE4(v47[0]) = 0;
+  *(v47 + 5) = 0;
+  *(v47 + 7) = 0;
+  *(&v47[1] + 9) = 0;
+  *(&v47[1] + 3) = 0;
+  strcpy(v47, "n/a");
+  *&v53[11] = 0;
+  v53[4] = 0;
+  *&v53[5] = 0;
+  *&v53[7] = 0;
+  *(v54 + 6) = 0;
+  v54[0] = 0;
+  strcpy(v53, "n/a");
+  memset(v64, 0, sizeof(v64));
+  v63 = 0u;
+  v62 = 0u;
+  v61 = 0u;
+  v60 = 0u;
+  v59 = 0u;
+  v58 = 0u;
   qmemcpy(__dst, "n/a", sizeof(__dst));
   (*(a1 + 240))(a1);
-  if (!(*(a1 + 144))(a1, 0, 0, v138))
+  if (!(*(a1 + 144))(a1, 0, 0, v56))
   {
-    nonce_print_cstr(v138, v129, v81, v82, v83, v84, v85, v86);
+    nonce_print_cstr(v56, v47);
     (*(a1 + 240))(a1);
-    if (!(*(a1 + 152))(a1, 0, 0, v138, v137))
+    if (!(*(a1 + 152))(a1, 0, 0, v56, v55))
     {
-      nonce_print_cstr(v137, v135, v87, v82, v83, v84, v85, v86);
+      nonce_print_cstr(v55, v53);
       (*(a1 + 240))(a1);
-      v88 = (*(a1 + 128))(a1, 0);
-      odometer_compute_nonce_hash(a1, v88, v137, __source);
-      digest_print_cstr(__source, __dst, v89, v90, v91, v92, v93, v94);
+      v24 = (*(a1 + 128))(a1, 0);
+      odometer_compute_nonce_hash(a1, v24, v55, __source);
+      digest_print_cstr(__source, __dst, v25, v26, v27, v28, v29, v30);
     }
   }
 
-  expert_log(a1, 2uLL, "%6s  %-36s : %s", v82, v83, v84, v85, v86, "");
-  expert_log(a1, 2uLL, "%6s  %-36s : %s", v95, v96, v97, v98, v99, "");
-  expert_log(a1, 2uLL, "%6s  %-36s : %s", v100, v101, v102, v103, v104, "");
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
+  expert_log(a1, 2uLL, "%6s  %-36s : %s", "", "boot nonce", v47);
+  expert_log(a1, 2uLL, "%6s  %-36s : %s", "", "entangled boot nonce", v53);
+  expert_log(a1, 2uLL, "%6s  %-36s : %s", "", "boot nonce hash", __dst);
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   *__source = 0u;
-  memset(v146, 0, sizeof(v146));
-  v145 = 0u;
-  v144 = 0u;
-  v143 = 0u;
-  v142 = 0u;
-  v141 = 0u;
-  v140 = 0u;
+  memset(v64, 0, sizeof(v64));
+  v63 = 0u;
+  v62 = 0u;
+  v61 = 0u;
+  v60 = 0u;
+  v59 = 0u;
+  v58 = 0u;
   qmemcpy(__dst, "n/a", sizeof(__dst));
   if (!expert_query_property_digest(a1, 0, &_property_bmfh, __source))
   {
-    digest_print_cstr(__source, __dst, v105, v106, v107, v108, v109, v110);
+    digest_print_cstr(__source, __dst, v31, v32, v33, v34, v35, v36);
   }
 
-  result = expert_log(a1, 1uLL, "%6s  %-36s : %s", v106, v107, v108, v109, v110, "");
+  result = expert_log(a1, 1uLL, "%6s  %-36s : %s", "", "boot manifest hash", __dst);
   if (*(a1 + 56))
   {
-    expert_log(a1, 1uLL, "%s %-36s", v112, v113, v114, v115, v116, "");
-    result = (*(a1 + 56))(a1, 1);
+    expert_log(a1, 1uLL, "%s %-36s", "", "expert state");
+    return (*(a1 + 56))(a1, 1);
   }
 
-  v117 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1645,13 +1612,14 @@ uint64_t expert_get_secure_boot(uint64_t a1, uint64_t a2)
   return v4(a1, a2);
 }
 
-uint64_t expert_log(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t expert_log(uint64_t a1, unint64_t a2, const char *a3, ...)
 {
+  va_start(va, a3);
   if (a2 >= 3)
   {
     if (a2 != 3)
     {
-      __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "level");
+      __panic_npx("panic: unreachable case: %s = 0x%llx", "level", a2);
     }
   }
 
@@ -1660,7 +1628,7 @@ uint64_t expert_log(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_
     (*(a1 + 240))(a1);
   }
 
-  return (*(a1 + 48))(a1, a2, a3, &a9);
+  return (*(a1 + 48))(a1, a2, a3, va);
 }
 
 uint64_t expert_query_chip(uint64_t a1, uint64_t a2)
@@ -1697,39 +1665,37 @@ uint64_t expert_get_unprivileged_limit(uint64_t a1)
 
 uint64_t expert_query_property_BOOL(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
-  v50 = *MEMORY[0x29EDCA608];
-  v44 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   (*(a1 + 240))();
   _expert_query_resolve_debug(a1, a2, a3);
   v8 = chip_select_property_expert(a2, a3, a1);
-  v41 = *v8;
-  v43 = *a1;
-  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", v9, v10, v11, v12, v13, a3 + 28);
+  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", (a3 + 28), *v8, *a1);
   if (v8 >= v8 + 288)
   {
     __break(0x5519u);
   }
 
-  v14 = (*(v8 + 200))(v8, a2, a3, &v44);
-  v20 = v14;
-  if (v14 > 18)
+  v9 = (*(v8 + 200))(v8, a2, a3, &v20);
+  v10 = v9;
+  if (v9 > 18)
   {
-    if (v14 != 45 && v14 != 19)
+    if (v9 != 45 && v9 != 19)
     {
       goto LABEL_5;
     }
 
 LABEL_11:
-    expert_log(a1, 2uLL, "property not present: %s: %d", v15, v16, v17, v18, v19, *a3);
+    expert_log(a1, 2uLL, "property not present: %s: %d", *a3, v9);
     goto LABEL_12;
   }
 
-  if (v14)
+  if (v9)
   {
-    if (v14 != 2)
+    if (v9 != 2)
     {
 LABEL_5:
-      expert_log(a1, 0, "failed to query property: %s: %d", v15, v16, v17, v18, v19, *a3);
+      expert_log(a1, 0, "failed to query property: %s: %d");
       goto LABEL_13;
     }
 
@@ -1737,108 +1703,115 @@ LABEL_5:
   }
 
 LABEL_12:
-  expert_log(a1, 2uLL, "queried property: %s => 0x%x", v15, v16, v17, v18, v19, a3 + 28);
+  expert_log(a1, 2uLL, "queried property: %s => 0x%x");
 LABEL_13:
-  v29 = *(a3 + 88);
-  memset(v49, 0, sizeof(v49));
-  v48 = 0u;
-  v47 = 0u;
+  v12 = *(a3 + 88);
+  memset(v25, 0, sizeof(v25));
+  v24 = 0u;
+  v23 = 0u;
   qmemcpy(__str, "n/a", sizeof(__str));
-  v45 = v44;
-  if (*(a3 + 48) == &_property_constraint_un)
+  v21 = v20;
+  v13 = *(a3 + 48);
+  if (v13 == &_property_constraint_un)
   {
-    v30 = _expert_post_process_unconstrain_BOOL;
+    v14 = "unconstrain";
   }
 
   else
   {
-    v30 = v29;
+    v14 = "absence";
   }
 
-  if (v20 != 2)
+  if (v13 == &_property_constraint_un)
   {
-    if (v20)
+    v15 = _expert_post_process_unconstrain_BOOL;
+  }
+
+  else
+  {
+    v15 = v12;
+  }
+
+  if (v10 != 2)
+  {
+    if (v10)
     {
-      goto LABEL_22;
+      goto LABEL_25;
     }
 
-    v30 = *(a3 + 96);
-    snprintf(__str, 0x40uLL, "0x%x", v44);
+    v15 = *(a3 + 96);
+    snprintf(__str, 0x40uLL, "0x%x", v20);
+    v14 = "post-process";
   }
 
-  if (v30)
+  if (v15)
   {
-    v31 = v30(a3, a2, &v45);
-    if (v31)
+    v16 = v15(a3, a2, &v21);
+    if (v16)
     {
-      v37 = v31;
-      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", v32, v33, v34, v35, v36, a3 + 28);
-      v20 = v37;
-      goto LABEL_23;
+      v17 = v16;
+      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", (a3 + 28), v14, v16);
+      v10 = v17;
+      goto LABEL_26;
     }
 
-    v42 = *(*(a3 + 40) + 8);
-    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%x], error = [%d => %d]", v32, v33, v34, v35, v36, a3 + 28);
-    v38 = v45;
-LABEL_27:
-    v20 = 0;
-    *a4 = v38;
-    goto LABEL_28;
+    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%x], error = [%d => %d]", (a3 + 28), *(*(a3 + 40) + 8), v14, __str, v21, v10, 0);
+    v18 = v21;
+LABEL_30:
+    v10 = 0;
+    *a4 = v18;
+    return v10;
   }
 
-LABEL_22:
-  if (!v20)
+LABEL_25:
+  if (!v10)
   {
-    v38 = v44;
-    goto LABEL_27;
+    v18 = v20;
+    goto LABEL_30;
   }
 
-LABEL_23:
-  if (v20 >= 0x6B)
+LABEL_26:
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v21, v22, v23, v24, v25, v26, v27, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-LABEL_28:
-  v39 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v10;
 }
 
 uint64_t expert_query_property_uint32(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v50 = *MEMORY[0x29EDCA608];
-  v44 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   (*(a1 + 240))();
   _expert_query_resolve_debug(a1, a2, a3);
   v8 = chip_select_property_expert(a2, a3, a1);
-  v41 = *v8;
-  v43 = *a1;
-  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", v9, v10, v11, v12, v13, a3 + 28);
+  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", (a3 + 28), *v8, *a1);
   if (v8 >= v8 + 288)
   {
     __break(0x5519u);
   }
 
-  v14 = (*(v8 + 208))(v8, a2, a3, &v44);
-  v20 = v14;
-  if (v14 > 18)
+  v9 = (*(v8 + 208))(v8, a2, a3, &v20);
+  v10 = v9;
+  if (v9 > 18)
   {
-    if (v14 != 45 && v14 != 19)
+    if (v9 != 45 && v9 != 19)
     {
       goto LABEL_5;
     }
 
 LABEL_11:
-    expert_log(a1, 2uLL, "property not present: %s: %d", v15, v16, v17, v18, v19, *a3);
+    expert_log(a1, 2uLL, "property not present: %s: %d", *a3, v9);
     goto LABEL_12;
   }
 
-  if (v14)
+  if (v9)
   {
-    if (v14 != 2)
+    if (v9 != 2)
     {
 LABEL_5:
-      expert_log(a1, 0, "failed to query property: %s: %d", v15, v16, v17, v18, v19, *a3);
+      expert_log(a1, 0, "failed to query property: %s: %d");
       goto LABEL_13;
     }
 
@@ -1846,108 +1819,115 @@ LABEL_5:
   }
 
 LABEL_12:
-  expert_log(a1, 2uLL, "queried property: %s => 0x%x", v15, v16, v17, v18, v19, a3 + 28);
+  expert_log(a1, 2uLL, "queried property: %s => 0x%x");
 LABEL_13:
-  v29 = *(a3 + 88);
-  memset(v49, 0, sizeof(v49));
-  v48 = 0u;
-  v47 = 0u;
+  v12 = *(a3 + 88);
+  memset(v25, 0, sizeof(v25));
+  v24 = 0u;
+  v23 = 0u;
   qmemcpy(__str, "n/a", sizeof(__str));
-  v45 = v44;
-  if (*(a3 + 48) == &_property_constraint_un)
+  v21 = v20;
+  v13 = *(a3 + 48);
+  if (v13 == &_property_constraint_un)
   {
-    v30 = _expert_post_process_unconstrain_uint32;
+    v14 = "unconstrain";
   }
 
   else
   {
-    v30 = v29;
+    v14 = "absence";
   }
 
-  if (v20 != 2)
+  if (v13 == &_property_constraint_un)
   {
-    if (v20)
+    v15 = _expert_post_process_unconstrain_uint32;
+  }
+
+  else
+  {
+    v15 = v12;
+  }
+
+  if (v10 != 2)
+  {
+    if (v10)
     {
-      goto LABEL_22;
+      goto LABEL_25;
     }
 
-    v30 = *(a3 + 96);
-    snprintf(__str, 0x40uLL, "0x%x", v44);
+    v15 = *(a3 + 96);
+    snprintf(__str, 0x40uLL, "0x%x", v20);
+    v14 = "post-process";
   }
 
-  if (v30)
+  if (v15)
   {
-    v31 = v30(a3, a2, &v45);
-    if (v31)
+    v16 = v15(a3, a2, &v21);
+    if (v16)
     {
-      v37 = v31;
-      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", v32, v33, v34, v35, v36, a3 + 28);
-      v20 = v37;
-      goto LABEL_23;
+      v17 = v16;
+      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", (a3 + 28), v14, v16);
+      v10 = v17;
+      goto LABEL_26;
     }
 
-    v42 = *(*(a3 + 40) + 8);
-    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%x], error = [%d => %d]", v32, v33, v34, v35, v36, a3 + 28);
-    v38 = v45;
-LABEL_27:
-    v20 = 0;
-    *a4 = v38;
-    goto LABEL_28;
+    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%x], error = [%d => %d]", (a3 + 28), *(*(a3 + 40) + 8), v14, __str, v21, v10, 0);
+    v18 = v21;
+LABEL_30:
+    v10 = 0;
+    *a4 = v18;
+    return v10;
   }
 
-LABEL_22:
-  if (!v20)
+LABEL_25:
+  if (!v10)
   {
-    v38 = v44;
-    goto LABEL_27;
+    v18 = v20;
+    goto LABEL_30;
   }
 
-LABEL_23:
-  if (v20 >= 0x6B)
+LABEL_26:
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v21, v22, v23, v24, v25, v26, v27, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-LABEL_28:
-  v39 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v10;
 }
 
 uint64_t expert_query_property_uint64(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v50 = *MEMORY[0x29EDCA608];
-  v44 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   (*(a1 + 240))();
   _expert_query_resolve_debug(a1, a2, a3);
   v8 = chip_select_property_expert(a2, a3, a1);
-  v41 = *v8;
-  v43 = *a1;
-  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", v9, v10, v11, v12, v13, a3 + 28);
+  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", (a3 + 28), *v8, *a1);
   if (v8 >= v8 + 288)
   {
     __break(0x5519u);
   }
 
-  v14 = (*(v8 + 216))(v8, a2, a3, &v44);
-  v20 = v14;
-  if (v14 > 18)
+  v9 = (*(v8 + 216))(v8, a2, a3, &v20);
+  v10 = v9;
+  if (v9 > 18)
   {
-    if (v14 != 45 && v14 != 19)
+    if (v9 != 45 && v9 != 19)
     {
       goto LABEL_5;
     }
 
 LABEL_11:
-    expert_log(a1, 2uLL, "property not present: %s: %d", v15, v16, v17, v18, v19, *a3);
+    expert_log(a1, 2uLL, "property not present: %s: %d", *a3, v9);
     goto LABEL_12;
   }
 
-  if (v14)
+  if (v9)
   {
-    if (v14 != 2)
+    if (v9 != 2)
     {
 LABEL_5:
-      expert_log(a1, 0, "failed to query property: %s: %d", v15, v16, v17, v18, v19, *a3);
+      expert_log(a1, 0, "failed to query property: %s: %d");
       goto LABEL_13;
     }
 
@@ -1955,95 +1935,102 @@ LABEL_5:
   }
 
 LABEL_12:
-  expert_log(a1, 2uLL, "queried property: %s => 0x%llx", v15, v16, v17, v18, v19, a3 + 28);
+  expert_log(a1, 2uLL, "queried property: %s => 0x%llx");
 LABEL_13:
-  v29 = *(a3 + 88);
-  memset(v49, 0, sizeof(v49));
-  v48 = 0u;
-  v47 = 0u;
+  v12 = *(a3 + 88);
+  memset(v25, 0, sizeof(v25));
+  v24 = 0u;
+  v23 = 0u;
   qmemcpy(__str, "n/a", sizeof(__str));
-  v45 = v44;
-  if (*(a3 + 48) == &_property_constraint_un)
+  v21 = v20;
+  v13 = *(a3 + 48);
+  if (v13 == &_property_constraint_un)
   {
-    v30 = _expert_post_process_unconstrain_uint64;
+    v14 = "unconstrain";
   }
 
   else
   {
-    v30 = v29;
+    v14 = "absence";
   }
 
-  if (v20 != 2)
+  if (v13 == &_property_constraint_un)
   {
-    if (v20)
+    v15 = _expert_post_process_unconstrain_uint64;
+  }
+
+  else
+  {
+    v15 = v12;
+  }
+
+  if (v10 != 2)
+  {
+    if (v10)
     {
-      goto LABEL_22;
+      goto LABEL_25;
     }
 
-    v30 = *(a3 + 96);
-    snprintf(__str, 0x40uLL, "0x%llx", v44);
+    v15 = *(a3 + 96);
+    snprintf(__str, 0x40uLL, "0x%llx", v20);
+    v14 = "post-process";
   }
 
-  if (v30)
+  if (v15)
   {
-    v31 = v30(a3, a2, &v45);
-    if (v31)
+    v16 = v15(a3, a2, &v21);
+    if (v16)
     {
-      v37 = v31;
-      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", v32, v33, v34, v35, v36, a3 + 28);
-      v20 = v37;
-      goto LABEL_23;
+      v17 = v16;
+      expert_log(a1, 1uLL, "transform not applied: p = %s, kind = %s: %d", (a3 + 28), v14, v16);
+      v10 = v17;
+      goto LABEL_26;
     }
 
-    v42 = *(*(a3 + 40) + 8);
-    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%llx], error = [%d => %d]", v32, v33, v34, v35, v36, a3 + 28);
-    v38 = v45;
-LABEL_27:
-    v20 = 0;
-    *a4 = v38;
-    goto LABEL_28;
+    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => 0x%llx], error = [%d => %d]", (a3 + 28), *(*(a3 + 40) + 8), v14, __str, v21, v10, 0);
+    v18 = v21;
+LABEL_30:
+    v10 = 0;
+    *a4 = v18;
+    return v10;
   }
 
-LABEL_22:
-  if (!v20)
+LABEL_25:
+  if (!v10)
   {
-    v38 = v44;
-    goto LABEL_27;
+    v18 = v20;
+    goto LABEL_30;
   }
 
-LABEL_23:
-  if (v20 >= 0x6B)
+LABEL_26:
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v21, v22, v23, v24, v25, v26, v27, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-LABEL_28:
-  v39 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v10;
 }
 
 uint64_t expert_query_property_digest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v64 = *MEMORY[0x29EDCA608];
-  memset(v52, 0, sizeof(v52));
-  v51 = 0;
-  memset(v50, 0, sizeof(v50));
+  v38 = *MEMORY[0x29EDCA608];
+  memset(v26, 0, sizeof(v26));
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
   (*(a1 + 240))();
   _expert_query_resolve_debug(a1, a2, a3);
   v8 = chip_select_property_expert(a2, a3, a1);
-  v47 = *v8;
-  v49 = *a1;
-  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", v9, v10, v11, v12, v13, a3 + 28);
+  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", (a3 + 28), *v8, *a1);
   if (v8 >= v8 + 288)
   {
     __break(0x5519u);
   }
 
-  v14 = (*(v8 + 224))(v8, a2, a3, v52);
-  v21 = v14;
-  if (v14 > 18)
+  v9 = (*(v8 + 224))(v8, a2, a3, v26);
+  v16 = v9;
+  if (v9 > 18)
   {
-    if (v14 != 45 && v14 != 19)
+    if (v9 != 45 && v9 != 19)
     {
       goto LABEL_16;
     }
@@ -2051,89 +2038,82 @@ uint64_t expert_query_property_digest(uint64_t a1, uint64_t a2, uint64_t a3, uin
     goto LABEL_8;
   }
 
-  if (!v14)
+  if (!v9)
   {
 LABEL_9:
-    digest_print_cstr(v52, v50, v15, v16, v17, v18, v19, v20);
-    expert_log(a1, 2uLL, "queried property: %s => %s", v22, v23, v24, v25, v26, a3 + 28);
+    digest_print_cstr(v26, v24, v10, v11, v12, v13, v14, v15);
+    expert_log(a1, 2uLL, "queried property: %s => %s");
     goto LABEL_10;
   }
 
-  if (v14 == 2)
+  if (v9 == 2)
   {
 LABEL_8:
-    expert_log(a1, 2uLL, "property not present: %s: %d", v16, v17, v18, v19, v20, *a3);
+    expert_log(a1, 2uLL, "property not present: %s: %d", *a3, v9);
     goto LABEL_9;
   }
 
 LABEL_16:
-  expert_log(a1, 0, "failed to query property: %s: %d", v16, v17, v18, v19, v20, *a3);
+  expert_log(a1, 0, "failed to query property: %s: %d");
 LABEL_10:
-  memset(v63, 0, sizeof(v63));
-  v62 = 0u;
-  v61 = 0u;
-  v60 = 0u;
-  v59 = 0u;
-  v58 = 0u;
-  v57 = 0u;
-  qmemcpy(v56, "n/a", sizeof(v56));
-  v54 = 0;
-  memset(v53, 0, sizeof(v53));
-  if (v21 == 2)
+  memset(v37, 0, sizeof(v37));
+  v36 = 0u;
+  v35 = 0u;
+  v34 = 0u;
+  v33 = 0u;
+  v32 = 0u;
+  v31 = 0u;
+  qmemcpy(v30, "n/a", sizeof(v30));
+  v28 = 0;
+  memset(v27, 0, sizeof(v27));
+  if (v16 == 2)
   {
     if (*(a3 + 48) != &_property_constraint_un)
     {
-      v21 = 2;
-      goto LABEL_19;
+      return 2;
     }
 
-    memset(v55, 0, sizeof(v55));
-    digest_print_cstr(v52, v53, v28, v29, v30, v31, v32, v33);
-    v48 = *(*(a3 + 40) + 8);
-    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => %s], error = [%d => %d]", v34, v35, v36, v37, v38, a3 + 28);
-    digest_copy(v52, v55, v39, v40, v41, v42, v43, v44);
+    memset(v29, 0, sizeof(v29));
+    digest_print_cstr(v26, v27, v17, v18, v19, v20, v21, v22);
+    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => %s], error = [%d => %d]", (a3 + 28), *(*(a3 + 40) + 8), "unconstrained absence", v30, v27, 2, 0);
+    digest_copy(v26, v29);
 LABEL_18:
-    digest_copy(a4, v52, v28, v29, v30, v31, v32, v33);
-    v21 = 0;
-    goto LABEL_19;
+    digest_copy(a4, v26);
+    return 0;
   }
 
-  if (!v21)
+  if (!v16)
   {
     goto LABEL_18;
   }
 
-  if (v21 >= 0x6B)
+  if (v16 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v27, v28, v29, v30, v31, v32, v33, v21);
+    __panic_npx("panic: error not set to valid posix code: %d", v16);
   }
 
-LABEL_19:
-  v45 = *MEMORY[0x29EDCA608];
-  return v21;
+  return v16;
 }
 
 uint64_t expert_query_property_version(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v45 = *MEMORY[0x29EDCA608];
-  v34 = 0x3E800000000;
-  memset(v33, 0, sizeof(v33));
+  v24 = *MEMORY[0x29EDCA608];
+  v13 = 0x3E800000000;
+  memset(v12, 0, sizeof(v12));
   (*(a1 + 240))();
   _expert_query_resolve_debug(a1, a2, a3);
   v8 = chip_select_property_expert(a2, a3, a1);
-  v30 = *v8;
-  v32 = *a1;
-  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", v9, v10, v11, v12, v13, a3 + 28);
+  expert_log(a1, 2uLL, "selected property expert: property = %s, selected = %s, base = %s", (a3 + 28), *v8, *a1);
   if (v8 >= v8 + 288)
   {
     __break(0x5519u);
   }
 
-  v14 = (*(v8 + 232))(v8, a2, a3, v33);
-  v20 = v14;
-  if (v14 > 18)
+  v9 = (*(v8 + 232))(v8, a2, a3, v12);
+  v10 = v9;
+  if (v9 > 18)
   {
-    if (v14 != 45 && v14 != 19)
+    if (v9 != 45 && v9 != 19)
     {
       goto LABEL_16;
     }
@@ -2141,87 +2121,83 @@ uint64_t expert_query_property_version(uint64_t a1, uint64_t a2, uint64_t a3, ui
     goto LABEL_8;
   }
 
-  if (!v14)
+  if (!v9)
   {
 LABEL_9:
-    expert_log(a1, 2uLL, "queried property: %s => %s", v15, v16, v17, v18, v19, a3 + 28);
+    expert_log(a1, 2uLL, "queried property: %s => %s");
     goto LABEL_10;
   }
 
-  if (v14 == 2)
+  if (v9 == 2)
   {
 LABEL_8:
-    expert_log(a1, 2uLL, "property not present: %s: %d", v15, v16, v17, v18, v19, *a3);
+    expert_log(a1, 2uLL, "property not present: %s: %d", *a3, v9);
     goto LABEL_9;
   }
 
 LABEL_16:
-  expert_log(a1, 0, "failed to query property: %s: %d", v15, v16, v17, v18, v19, *a3);
+  expert_log(a1, 0, "failed to query property: %s: %d");
 LABEL_10:
-  memset(v44, 0, sizeof(v44));
-  v43 = 0u;
-  v42 = 0u;
-  v41 = 0u;
-  v40 = 0u;
-  v39 = 0u;
-  v38 = 0u;
-  qmemcpy(v37, "n/a", sizeof(v37));
-  if (v20 == 2)
+  memset(v23, 0, sizeof(v23));
+  v22 = 0u;
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  qmemcpy(v16, "n/a", sizeof(v16));
+  if (v10 == 2)
   {
     if (*(a3 + 48) != &_property_constraint_un)
     {
-      v20 = 2;
-      goto LABEL_19;
+      return 2;
     }
 
-    v36 = 0x3E800000000;
-    memset(v35, 0, sizeof(v35));
-    v31 = *(*(a3 + 40) + 8);
-    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => %s], error = [%d => %d]", v23, v24, v25, v26, v27, a3 + 28);
-    version_copy(v33, v35);
+    v15 = 0x3E800000000;
+    memset(v14, 0, sizeof(v14));
+    expert_log(a1, 2uLL, "applied transform: p = %s, type = %s, xf kind = %s, value = [%s => %s], error = [%d => %d]", (a3 + 28), *(*(a3 + 40) + 8), "unconstrained absence", v16, v14, 2, 0);
+    version_copy(v12, v14);
 LABEL_18:
-    version_copy(a4, v33);
-    v20 = 0;
-    goto LABEL_19;
+    version_copy(a4, v12);
+    return 0;
   }
 
-  if (!v20)
+  if (!v10)
   {
     goto LABEL_18;
   }
 
-  if (v20 >= 0x6B)
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v21, v22, v23, v24, v25, v26, v27, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-LABEL_19:
-  v28 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v10;
 }
 
 uint64_t expert_get_image4_certificate_type(uint64_t a1, unsigned int *a2)
 {
-  v11 = 0;
+  v7 = 0;
   (*(a1 + 240))();
-  if ((*(a1 + 208))(a1, 0, &_property_i4ct, &v11))
+  v4 = (*(a1 + 208))(a1, 0, &_property_i4ct, &v7);
+  if (v4)
   {
-    expert_log(a1, 1uLL, "[non-fatal] failed to query prop: %s: %d", v4, v5, v6, v7, v8, 0x298F0CE4ELL);
-    v9 = 0;
+    expert_log(a1, 1uLL, "[non-fatal] failed to query prop: %s: %d", "image4 certificate type", v4);
+    v5 = 0;
   }
 
   else
   {
-    v9 = v11;
-    if (v11 > 1)
+    v5 = v7;
+    if (v7 > 1)
     {
-      expert_log(a1, 0, "unsupported image4-cert-type: %u", v4, v5, v6, v7, v8, v11);
+      expert_log(a1, 0, "unsupported image4-cert-type: %u", v7);
       return 45;
     }
   }
 
   result = 0;
-  *a2 = v9;
+  *a2 = v5;
   return result;
 }
 
@@ -2337,10 +2313,8 @@ uint64_t _expert_query_resolve_debug(uint64_t result, uint64_t a2, uint64_t a3)
     result = chip_expert(a2);
     if (result)
     {
-      chip_get_name(a2);
-      v11 = *(a2 + 16);
-      v12 = *(a3 + 80);
-      return expert_log(v5, 2uLL, "querying property with chip expert resolution: p = %s, chip = %s, chip type = 0x%llx, chip expert authority >= 0x%llx", v6, v7, v8, v9, v10, a3 + 28);
+      name = chip_get_name(a2);
+      return expert_log(v5, 2uLL, "querying property with chip expert resolution: p = %s, chip = %s, chip type = 0x%llx, chip expert authority >= 0x%llx", (a3 + 28), name, *(a2 + 16), *(a3 + 80));
     }
   }
 
@@ -2390,23 +2364,22 @@ unint64_t expert_unlock(unint64_t *a1)
 
 uint64_t expert_get_boot_nonce_hash(uint64_t a1, uint64_t a2)
 {
-  v7[3] = *MEMORY[0x29EDCA608];
-  memset(v7, 0, 24);
-  memset(v6, 0, sizeof(v6));
+  v6[3] = *MEMORY[0x29EDCA608];
+  memset(v6, 0, 24);
+  memset(v5, 0, sizeof(v5));
   (*(a1 + 240))();
-  result = (*(a1 + 144))(a1, 0, 0, v7);
+  result = (*(a1 + 144))(a1, 0, 0, v6);
   if (!result)
   {
     (*(a1 + 240))(a1);
-    result = (*(a1 + 152))(a1, 0, 0, v7, v6);
+    result = (*(a1 + 152))(a1, 0, 0, v6, v5);
     if (!result)
     {
-      odometer_compute_nonce_hash(a1, 0, v6, a2);
-      result = 0;
+      odometer_compute_nonce_hash(a1, 0, v5, a2);
+      return 0;
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2441,23 +2414,23 @@ BOOL expert_compute_data_only(uint64_t a1)
 
 uint64_t expert_compute_udid(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = 0;
-  v15 = 0;
-  result = expert_query_property_uint32(a1, a2, &_property_CHIP, &v14 + 1);
-  if (result || (result = expert_query_property_uint64(a1, a2, &_property_ECID, &v15), result))
+  v7 = 0;
+  v8 = 0;
+  result = expert_query_property_uint32(a1, a2, &_property_CHIP, &v7 + 1);
+  if (result || (result = expert_query_property_uint64(a1, a2, &_property_ECID, &v8), result))
   {
     if (result >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v7, v8, v9, v10, v11, v12, v13, result);
+      __panic_npx("panic: error not set to valid posix code: %d", result);
     }
   }
 
   else
   {
-    LODWORD(v14) = 0;
-    HIDWORD(v14) = bswap32(HIDWORD(v14));
-    v15 = bswap64(v15);
-    digest_init(a3, &v14, 0x10uLL, v9, v10, v11, v12, v13);
+    LODWORD(v7) = 0;
+    HIDWORD(v7) = bswap32(HIDWORD(v7));
+    v8 = bswap64(v8);
+    digest_init(a3, &v7, 0x10uLL);
     return 0;
   }
 
@@ -2471,14 +2444,14 @@ uint64_t expert_compute_eieiou(uint64_t a1, uint64_t a2, _DWORD *a3)
   while (1)
   {
     v8 = expert_compute_eieiou_ps[v6];
-    v18 = 0;
-    result = expert_query_property_BOOL(a1, a2, v8, &v18);
+    v11 = 0;
+    result = expert_query_property_BOOL(a1, a2, v8, &v11);
     if (result > 0x2D || ((1 << result) & 0x200000000005) == 0)
     {
       break;
     }
 
-    v7 += v18;
+    v7 += v11;
     if (++v6 == 3)
     {
       result = 0;
@@ -2489,7 +2462,7 @@ uint64_t expert_compute_eieiou(uint64_t a1, uint64_t a2, _DWORD *a3)
 
   if (result >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v10, v11, v12, v13, v14, v15, v16, result);
+    __panic_npx("panic: error not set to valid posix code: %d", result);
   }
 
   return result;
@@ -2497,62 +2470,60 @@ uint64_t expert_compute_eieiou(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 uint64_t expert_compute_eieiou_BOOL(uint64_t a1, uint64_t a2, BOOL *a3)
 {
-  v12 = 0;
-  result = expert_compute_eieiou(a1, a2, &v12);
+  v5 = 0;
+  result = expert_compute_eieiou(a1, a2, &v5);
   if (result)
   {
     if (result >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v5, v6, v7, v8, v9, v10, v11, result);
+      __panic_npx("panic: error not set to valid posix code: %d", result);
     }
   }
 
   else
   {
-    *a3 = v12 != 0;
+    *a3 = v5 != 0;
   }
 
   return result;
 }
 
-uint64_t _boot_precomp_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _boot_precomp_enforceable(const char **a1, uint64_t a2)
 {
   if (!odometer_policy_get_chip_property(a1, *(a2 + 16)))
   {
-    v14 = *a2;
+    v8 = *a2;
     name = chip_get_name(*(a2 + 16));
-    v25 = *a1;
-    v13 = 1;
-    expert_log(v14, 1uLL, "odometer[%s:%s]: chip has no property for policy", v16, v17, v18, v19, v20, name);
-    return v13;
+    v13 = *a1;
+    v7 = 1;
+    expert_log(v8, 1uLL, "odometer[%s:%s]: chip has no property for policy", name, v13);
+    return v7;
   }
 
   if (!*(a2 + 144))
   {
     v5 = *a2;
-    v23 = chip_get_name(*(a2 + 16));
-    v26 = *a1;
-    v21 = "odometer[%s:%s]: manifest has no constraint for policy";
+    v12 = chip_get_name(*(a2 + 16));
+    v14 = *a1;
+    v10 = "odometer[%s:%s]: manifest has no constraint for policy";
 LABEL_8:
-    v13 = 1;
-    expert_log(v5, 1uLL, v21, v7, v8, v9, v10, v11, v23);
-    return v13;
+    v7 = 1;
+    expert_log(v5, 1uLL, v10, v12, v14);
+    return v7;
   }
 
   v4 = *(a2 + 232);
   v5 = *a2;
   v6 = chip_get_name(*(a2 + 16));
-  v12 = *a1;
   if (!v4)
   {
-    v23 = v6;
-    v27 = *a1;
-    v21 = "odometer[%s:%s]: no caller-supplied nonce hash";
+    v12 = v6;
+    v14 = *a1;
+    v10 = "odometer[%s:%s]: no caller-supplied nonce hash";
     goto LABEL_8;
   }
 
-  v24 = *a1;
-  expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", v7, v8, v9, v10, v11, v6);
+  expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", v6, *a1);
   return 0;
 }
 
@@ -2585,37 +2556,36 @@ uint64_t _boot_precomp_enforce(uint64_t a1, uint64_t a2)
     v12 = *(a1 + 24);
     v13 = *a2;
     name = chip_get_name(*(a2 + 16));
-    v36 = *a1;
-    v20 = expert_log(v13, 0, "odometer[%s:%s]: anti-replay violation: %d", v15, v16, v17, v18, v19, name);
+    v15 = expert_log(v13, 0, "odometer[%s:%s]: anti-replay violation: %d", name, *a1, v12);
     if (v12 >= 0x6B)
     {
-      __panic_npx_2(v20, v21, v22, v23, v24, v25, v26, v27, v12);
+      __panic_npx_2(v15, v16, v17, v18, v19, v20, v21, v22, v12);
     }
   }
 
   else
   {
-    v28 = *a2;
-    v29 = chip_get_name(*(a2 + 16));
-    expert_log(v28, 1uLL, "odometer[%s]: manifest is current", v30, v31, v32, v33, v34, v29);
+    v23 = *a2;
+    v24 = chip_get_name(*(a2 + 16));
+    expert_log(v23, 1uLL, "odometer[%s]: manifest is current", v24);
     return 0;
   }
 
   return v12;
 }
 
-uint64_t _boot_sideload_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _boot_sideload_enforceable(const char **a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
   result = odometer_policy_get_chip_property(a1, v4);
   if (!result)
   {
-    v16 = *a2;
+    v11 = *a2;
     name = chip_get_name(*(a2 + 16));
-    v31 = *a1;
-    v15 = 1;
-    expert_log(v16, 1uLL, "odometer[%s:%s]: chip has no property for policy", v18, v19, v20, v21, v22, name);
-    return v15;
+    v14 = *a1;
+    v10 = 1;
+    expert_log(v11, 1uLL, "odometer[%s:%s]: chip has no property for policy", name, v14);
+    return v10;
   }
 
   if (!*(v4 + 160))
@@ -2623,238 +2593,227 @@ uint64_t _boot_sideload_enforceable(uint64_t *a1, uint64_t a2)
     v6 = *(a2 + 144);
     v7 = *a2;
     v8 = chip_get_name(*(a2 + 16));
-    v14 = *a1;
+    v9 = *a1;
     if (v6)
     {
-      expert_log(v7, 1uLL, "odometer[%s:%s]: policy is enforceable", v9, v10, v11, v12, v13, v8);
+      expert_log(v7, 1uLL, "odometer[%s:%s]: policy is enforceable", v8, v9);
       return 0;
     }
 
     else
     {
-      v15 = 1;
-      expert_log(v7, 1uLL, "odometer[%s:%s]: manifest has no constraint for policy", v9, v10, v11, v12, v13, v8);
+      v10 = 1;
+      expert_log(v7, 1uLL, "odometer[%s:%s]: manifest has no constraint for policy", v8, v9);
     }
 
-    return v15;
+    return v10;
   }
 
   if (v4 < v4 + 264)
   {
-    v23 = chip_get_name(v4);
-    __panic_npx("panic: illegal chip definition: anti-reply and sideload policies defined: %s", v24, v25, v26, v27, v28, v29, v30, v23);
+    v13 = chip_get_name(v4);
+    __panic_npx("panic: illegal chip definition: anti-reply and sideload policies defined: %s", v13);
   }
 
   __break(0x5519u);
   return result;
 }
 
-uint64_t _boot_sideload_enforce(uint64_t a1, uint64_t a2)
+uint64_t _boot_sideload_enforce(const char **a1, uint64_t a2)
 {
-  v74[13] = *MEMORY[0x29EDCA608];
+  v24[13] = *MEMORY[0x29EDCA608];
   v4 = *a2;
   chip_property = odometer_policy_get_chip_property(a1, *(a2 + 16));
   if (!*(a2 + 144))
   {
-    __panic_npx("panic: optional not set", v6, v7, v8, v9, v10, v11, v12, v68);
+    __panic_npx("panic: optional not set");
   }
 
-  v13 = chip_property;
+  v6 = chip_property;
   if (*(a2 + 232))
   {
-    v14 = *a2;
+    v7 = *a2;
     name = chip_get_name(*(a2 + 16));
-    v69 = *a1;
-    expert_log(v14, 1uLL, "odometer[%s:%s]: using caller-provided nonce hash", v16, v17, v18, v19, v20, name);
-    if (property_constrain_digest(v13, v4, a2 + 64, a2 + 152, v21, v22, v23, v24))
+    expert_log(v7, 1uLL, "odometer[%s:%s]: using caller-provided nonce hash", name, *a1);
+    if (property_constrain_digest(v6, v4, a2 + 64, a2 + 152, v9, v10, v11, v12))
     {
-      v25 = *(a1 + 24);
-      v26 = *a2;
-      v27 = chip_get_name(*(a2 + 16));
-      v70 = *a1;
-      expert_log(v26, 0, "odometer[%s:%s]: anti-replay violation: %d", v28, v29, v30, v31, v32, v27);
+      v13 = *(a1 + 6);
+      v14 = *a2;
+      v15 = chip_get_name(*(a2 + 16));
+      expert_log(v14, 0, "odometer[%s:%s]: anti-replay violation: %d", v15, *a1, v13);
       goto LABEL_7;
     }
 
 LABEL_9:
-    v59 = *a2;
-    v60 = chip_get_name(*(a2 + 16));
-    v73 = *a1;
-    expert_log(v59, 1uLL, "odometer[%s:%s]: manifest is current", v61, v62, v63, v64, v65, v60);
-    v25 = 0;
-    goto LABEL_10;
+    v21 = *a2;
+    v22 = chip_get_name(*(a2 + 16));
+    expert_log(v21, 1uLL, "odometer[%s:%s]: manifest is current", v22, *a1);
+    return 0;
   }
 
-  *v74 = xmmword_298EF7980;
-  memset(&v74[2], 170, 88);
-  digest_copy(v74, a2 + 64, v7, v8, v9, v10, v11, v12);
-  v40 = *a2;
-  v41 = chip_get_name(*(a2 + 16));
-  v71 = *a1;
-  expert_log(v40, 1uLL, "odometer[%s:%s]: enforcing nonce hash directly", v42, v43, v44, v45, v46, v41);
-  v51 = odometer_enforce_property(a2, a1, v13, v74, v47, v48, v49, v50);
-  if (!v51)
+  *v24 = xmmword_298EF7980;
+  memset(&v24[2], 170, 88);
+  digest_copy(v24, a2 + 64);
+  v16 = *a2;
+  v17 = chip_get_name(*(a2 + 16));
+  expert_log(v16, 1uLL, "odometer[%s:%s]: enforcing nonce hash directly", v17, *a1);
+  v18 = odometer_enforce_property(a2, a1, v6, v24);
+  if (!v18)
   {
     goto LABEL_9;
   }
 
-  v25 = v51;
-  v52 = *a2;
-  v53 = chip_get_name(*(a2 + 16));
-  v72 = *a1;
-  expert_log(v52, 0, "odometer[%s:%s]: anti-replay violation: %d", v54, v55, v56, v57, v58, v53);
+  v13 = v18;
+  v19 = *a2;
+  v20 = chip_get_name(*(a2 + 16));
+  expert_log(v19, 0, "odometer[%s:%s]: anti-replay violation: %d", v20, *a1, v13);
 LABEL_7:
-  if (v25 >= 0x6B)
+  if (v13 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v33, v34, v35, v36, v37, v38, v39, v25);
+    __panic_npx("panic: error not set to valid posix code: %d", v13);
   }
 
-LABEL_10:
-  v66 = *MEMORY[0x29EDCA608];
-  return v25;
+  return v13;
 }
 
-uint64_t image4_trust_evaluate_leaf(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_evaluate_leaf(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 744))
   {
 LABEL_23:
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v35);
+    __panic_npx("panic: optional not set", a2, a3);
   }
 
-  v11 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v12 = *(a1 + 1320);
-  v13 = (a1 + 752);
+  v6 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  v7 = *(a1 + 1320);
+  v8 = (a1 + 752);
   if (*(a1 + 1320))
   {
-    v14 = a1 + 752;
+    v9 = a1 + 752;
   }
 
   else
   {
-    v14 = 0;
+    v9 = 0;
   }
 
-  v39[1] = a3;
-  v40[0] = _image4_trust_property_callback_BOOL;
-  v40[1] = _image4_trust_property_callback_integer;
-  v40[2] = _image4_trust_property_callback_data;
-  v40[3] = _image4_trust_violation;
-  memset(&v40[4], 0, 24);
-  v39[0] = a1;
-  v36 = *(v11 + 24);
-  v38 = *v10;
-  expert_log(a2, 2uLL, "performing leaf trust evaluation: coprocessor = %s, handle = %llx, evaluation type = %s", a4, a5, a6, a7, a8, **(v11 + 16));
-  if (v11 >= v11 + 72)
+  v18[1] = a3;
+  v19[0] = _image4_trust_property_callback_BOOL;
+  v19[1] = _image4_trust_property_callback_integer;
+  v19[2] = _image4_trust_property_callback_data;
+  v19[3] = _image4_trust_violation;
+  memset(&v19[4], 0, 24);
+  v18[0] = a1;
+  expert_log(a2, 2uLL, "performing leaf trust evaluation: coprocessor = %s, handle = %llx, evaluation type = %s", **(v6 + 16), *(v6 + 24), *v5);
+  if (v6 >= v6 + 72)
   {
     goto LABEL_22;
   }
 
-  v15 = image4_environment_resolve(v11);
-  if (!v15)
+  v10 = image4_environment_resolve(v6);
+  if (!v10)
   {
-    v32 = 45;
-    v37 = *(v11 + 24);
-    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", a4, a5, a6, a7, a8, **(v11 + 16));
-    return v32;
+    v15 = 45;
+    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", **(v6 + 16), *(v6 + 24), 45);
+    return v15;
   }
 
-  v16 = v15;
-  if (v12)
+  v11 = v10;
+  if (v7)
   {
-    v17 = payload_parse(v13);
-    if (v17)
+    v12 = payload_parse(v8);
+    if (v12)
     {
-      v18 = v17;
-      if (v17 != 92 && v17 != 33)
+      v13 = v12;
+      if (v12 != 92 && v12 != 33)
       {
-        expert_log(a2, 0, "failed to parse payload: %d", a4, a5, a6, a7, a8, v17);
+        expert_log(a2, 0, "failed to parse payload: %d");
         goto LABEL_19;
       }
 
-      expert_log(a2, 1uLL, "treating payload as non-Image4 wrapped", a4, a5, a6, a7, a8, v35);
+      expert_log(a2, 1uLL, "treating payload as non-Image4 wrapped");
     }
   }
 
-  if (v10 >= v10 + 6)
+  if (v5 >= v5 + 6)
   {
 LABEL_22:
     __break(0x5519u);
     goto LABEL_23;
   }
 
-  image4_trust_evaluation_prepare_manifest_callbacks(v10, v40);
-  manifest_set_callbacks(a1 + 152, v39, v40);
-  v19 = manifest_parse(a1 + 152);
-  if (!v19)
+  image4_trust_evaluation_prepare_manifest_callbacks(v5, v19);
+  manifest_set_callbacks(a1 + 152, v18, v19);
+  v14 = manifest_parse(a1 + 152);
+  if (!v14)
   {
-    v33 = img4_runtime_alloc(v10);
-    v32 = manifest_impose((a1 + 152), v16, v14, v33);
-    if (!v32)
+    v16 = img4_runtime_alloc(v5);
+    v15 = manifest_impose((a1 + 152), v11, v9, v16);
+    if (!v15)
     {
-      _image4_trust_post_properties(a1, v25, v26, v27, v28, v29, v30, v31);
-      return v32;
+      _image4_trust_post_properties(a1);
+      return v15;
     }
 
     goto LABEL_20;
   }
 
-  v18 = v19;
-  expert_log(a2, 0, "failed to parse manifest: %d", v20, v21, v22, v23, v24, v19);
+  v13 = v14;
+  expert_log(a2, 0, "failed to parse manifest: %d");
 LABEL_19:
-  v32 = v18;
+  v15 = v13;
 LABEL_20:
-  if (v32 >= 0x6B)
+  if (v15 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v25, v26, v27, v28, v29, v30, v31, v32);
+    __panic_npx("panic: error not set to valid posix code: %d", v15);
   }
 
-  return v32;
+  return v15;
 }
 
-uint64_t _image4_trust_property_callback_BOOL(uint64_t *a1, unsigned int *a2, uint64_t a3, char a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_property_callback_BOOL(uint64_t *a1, const char *a2, uint64_t a3, char a4, uint64_t *a5)
 {
-  result = _image4_trust_find_record(*a5, a3, 1, *a2, a5, a6, a7, a8);
+  result = _image4_trust_find_record(*a5, a3, 1, *a2);
   if (!result)
   {
-    return expert_log(*a1, 2uLL, "no BOOLean record for tag: %s", v12, v13, v14, v15, v16, (a2 + 1));
+    return expert_log(*a1, 2uLL, "no BOOLean record for tag: %s", a2 + 4);
   }
 
   **(result + 24) = a4;
-  v17 = *(result + 40);
-  if (v17)
+  v9 = *(result + 40);
+  if (v9)
   {
-    *v17 = *(result + 24);
+    *v9 = *(result + 24);
   }
 
   return result;
 }
 
-uint64_t _image4_trust_property_callback_integer(uint64_t *a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_property_callback_integer(uint64_t *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  result = _image4_trust_find_record(*a5, a3, 2, *a2, a5, a6, a7, a8);
+  result = _image4_trust_find_record(*a5, a3, 2, *a2);
   if (!result)
   {
-    return expert_log(*a1, 2uLL, "no integer record for tag: %s", v12, v13, v14, v15, v16, (a2 + 1));
+    return expert_log(*a1, 2uLL, "no integer record for tag: %s", a2 + 4);
   }
 
   **(result + 24) = a4;
-  v17 = *(result + 40);
-  if (v17)
+  v9 = *(result + 40);
+  if (v9)
   {
-    *v17 = *(result + 24);
+    *v9 = *(result + 24);
   }
 
   return result;
 }
 
-uint64_t _image4_trust_property_callback_data(uint64_t *a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_property_callback_data(uint64_t *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  result = _image4_trust_find_record(*a6, a3, 4, *a2, a5, a6, a7, a8);
+  result = _image4_trust_find_record(*a6, a3, 4, *a2);
   if (!result)
   {
-    return expert_log(*a1, 2uLL, "no data record for tag: %s", v13, v14, v15, v16, v17, (a2 + 1));
+    return expert_log(*a1, 2uLL, "no data record for tag: %s", a2 + 4);
   }
 
   if (a4 && !a5)
@@ -2878,53 +2837,58 @@ void _image4_trust_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4
   {
     if (*(v4 + 1320))
     {
-      v5 = *(v4 + 760) + 4;
+      v5 = (*(v4 + 760) + 4);
+    }
+
+    else
+    {
+      v5 = "n/a";
     }
 
     name = chip_get_name(a2);
-    __panic_npx("panic: critical trust evaluation failure: chip = %s, p = %s, payload = %s", v7, v8, v9, v10, v11, v12, v13, name);
+    __panic_npx("panic: critical trust evaluation failure: chip = %s, p = %s, payload = %s", name, (a3 + 28), v5);
   }
 }
 
-uint64_t _image4_trust_post_properties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_post_properties(uint64_t a1)
 {
-  v9 = a1 + 1912;
-  v32 = a1 + 1384;
-  v10 = 4;
-  v11 = 1;
+  v2 = a1 + 1912;
+  v13 = a1 + 1384;
+  v3 = 4;
+  v4 = 1;
   do
   {
-    v33 = v11;
+    v14 = v4;
     if (!*(a1 + 744))
     {
       goto LABEL_15;
     }
 
-    v12 = *(a1 + 16);
-    expert_log(v12, 2uLL, "posting properties for container: 0x%x", a4, a5, a6, a7, a8, v10);
-    v13 = qword_298EF7A10[v10];
-    Img4DecodeGetQueryForContainer(v10, v14, v15, v16, v17, v18, v19, v20);
-    v21 = v32;
-    v22 = 12;
+    v5 = *(a1 + 16);
+    expert_log(v5, 2uLL, "posting properties for container: 0x%x", v3);
+    v6 = qword_298EF7A10[v3];
+    Img4DecodeGetQueryForContainer(v3);
+    v7 = v13;
+    v8 = 12;
     do
     {
-      if (v21 > v9)
+      if (v7 > v2)
       {
         __break(0x5519u);
 LABEL_15:
-        __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v30);
+        __panic_npx("panic: optional not set");
       }
 
-      v23 = *(v21 - 48);
-      v24 = *(v21 - 32);
-      v35 = 0;
-      v34 = 0;
-      result = fourcc_init(&v34, v24);
-      if (*(v21 - 40) == v13)
+      v9 = *(v7 - 48);
+      v10 = *(v7 - 32);
+      v16 = 0;
+      v15 = 0;
+      result = fourcc_init(&v15, v10);
+      if (*(v7 - 40) == v6)
       {
-        if (v10 == 4)
+        if (v3 == 4)
         {
-          v26 = 0;
+          v12 = 0;
         }
 
         else
@@ -2934,101 +2898,97 @@ LABEL_15:
             goto LABEL_11;
           }
 
-          v26 = *(a1 + 856);
+          v12 = *(a1 + 856);
         }
 
-        expert_log(v12, 2uLL, "posting property callback: container = %x, type = %x, tag = %s", a4, a5, a6, a7, a8, v10);
-        result = manifest_post_property_callback(a1 + 152, v10, v26, v23, &v34, v27, v28, v29, v31);
+        expert_log(v5, 2uLL, "posting property callback: container = %x, type = %x, tag = %s", v3, v9, &v15 + 4);
+        result = manifest_post_property_callback(a1 + 152, v3, v12, v9, &v15);
       }
 
 LABEL_11:
-      v21 += 48;
-      --v22;
+      v7 += 48;
+      --v8;
     }
 
-    while (v22);
-    v11 = 0;
-    v10 = 5;
+    while (v8);
+    v4 = 0;
+    v3 = 5;
   }
 
-  while ((v33 & 1) != 0);
+  while ((v14 & 1) != 0);
   return result;
 }
 
-uint64_t image4_trust_evaluate_audit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_evaluate_audit(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 744))
   {
 LABEL_21:
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v40);
+    __panic_npx("panic: optional not set", a2, a3);
   }
 
-  v11 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v12 = *(a1 + 1320);
-  v13 = (a1 + 752);
+  v6 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  v7 = *(a1 + 1320);
+  v8 = (a1 + 752);
   if (*(a1 + 1320))
   {
-    v14 = a1 + 752;
+    v9 = a1 + 752;
   }
 
   else
   {
-    v14 = 0;
+    v9 = 0;
   }
 
-  v45[1] = a3;
-  v46[0] = _image4_trust_property_callback_BOOL;
-  v46[1] = _image4_trust_property_callback_integer;
-  v46[2] = _image4_trust_property_callback_data;
-  v46[3] = _image4_trust_violation;
-  v46[4] = 0;
-  v46[5] = _image4_trust_override_decode;
-  v46[6] = _image4_trust_audit;
-  v45[0] = a1;
-  v43 = *(v11 + 40);
-  v44 = *v10;
-  v41 = *(v11 + 24);
-  expert_log(a2, 2uLL, "performing audit trust evaluation: coprocessor = %s, handle = %llx, secure boot level = %llx, evaluation type = %s", a4, a5, a6, a7, a8, **(v11 + 16));
-  if (v11 >= v11 + 72)
+  v18[1] = a3;
+  v19[0] = _image4_trust_property_callback_BOOL;
+  v19[1] = _image4_trust_property_callback_integer;
+  v19[2] = _image4_trust_property_callback_data;
+  v19[3] = _image4_trust_violation;
+  v19[4] = 0;
+  v19[5] = _image4_trust_override_decode;
+  v19[6] = _image4_trust_audit;
+  v18[0] = a1;
+  expert_log(a2, 2uLL, "performing audit trust evaluation: coprocessor = %s, handle = %llx, secure boot level = %llx, evaluation type = %s", **(v6 + 16), *(v6 + 24), *(v6 + 40), *v5);
+  if (v6 >= v6 + 72)
   {
 LABEL_20:
     __break(0x5519u);
     goto LABEL_21;
   }
 
-  v15 = image4_environment_resolve(v11);
-  if (!v15)
+  v10 = image4_environment_resolve(v6);
+  if (!v10)
   {
-    v33 = 45;
-    v42 = *(v11 + 24);
-    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", a4, a5, a6, a7, a8, **(v11 + 16));
-    return v33;
+    v16 = 45;
+    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", **(v6 + 16), *(v6 + 24), 45);
+    return v16;
   }
 
-  v16 = v15;
-  if (!v12 || (v17 = payload_parse(v13), !v17))
+  v11 = v10;
+  if (!v7 || (v12 = payload_parse(v8), !v12))
   {
 LABEL_11:
-    if (v10 < v10 + 6)
+    if (v5 < v5 + 6)
     {
-      image4_trust_evaluation_prepare_manifest_callbacks(v10, v46);
-      manifest_set_callbacks(a1 + 152, v45, v46);
-      v19 = manifest_parse(a1 + 152);
-      if (v19)
+      image4_trust_evaluation_prepare_manifest_callbacks(v5, v19);
+      manifest_set_callbacks(a1 + 152, v18, v19);
+      v14 = manifest_parse(a1 + 152);
+      if (v14)
       {
-        v25 = v19;
-        expert_log(a2, 0, "failed to parse manifest: %d", v20, v21, v22, v23, v24, v19);
-        v33 = v25;
+        v15 = v14;
+        expert_log(a2, 0, "failed to parse manifest: %d", v14);
+        v16 = v15;
       }
 
       else
       {
-        v33 = manifest_audit((a1 + 152), v16, v14);
-        if (!v33)
+        v16 = manifest_audit((a1 + 152), v11, v9);
+        if (!v16)
         {
-          _image4_trust_post_properties(a1, v26, v27, v28, v29, v30, v31, v32);
-          expert_log(a2, 1uLL, "forcing failure after audit completion: %d", v34, v35, v36, v37, v38, 0);
+          _image4_trust_post_properties(a1);
+          expert_log(a2, 1uLL, "forcing failure after audit completion: %d", 0);
           return 35;
         }
       }
@@ -3039,179 +2999,175 @@ LABEL_11:
     goto LABEL_20;
   }
 
-  v18 = v17;
-  if (v17 == 92)
+  v13 = v12;
+  if (v12 == 92)
   {
-    expert_log(a2, 1uLL, "treating payload as non-Image4 wrapped", a4, a5, a6, a7, a8, v40);
+    expert_log(a2, 1uLL, "treating payload as non-Image4 wrapped");
     goto LABEL_11;
   }
 
-  expert_log(a2, 0, "failed to parse payload: %d", a4, a5, a6, a7, a8, v17);
-  v33 = v18;
+  expert_log(a2, 0, "failed to parse payload: %d", v12);
+  v16 = v13;
 LABEL_18:
-  if (v33 >= 0x6B)
+  if (v16 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v26, v27, v28, v29, v30, v31, v32, v33);
+    __panic_npx("panic: error not set to valid posix code: %d", v16);
   }
 
-  return v33;
+  return v16;
 }
 
-uint64_t image4_trust_evaluate_boot(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t image4_trust_evaluate_boot(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 744))
   {
 LABEL_12:
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v47);
+    __panic_npx("panic: optional not set", a2, a3);
   }
 
-  v11 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v49[1] = a3;
-  v50[0] = _image4_trust_property_callback_BOOL;
-  v50[1] = _image4_trust_property_callback_integer;
-  v50[2] = _image4_trust_property_callback_data;
-  v50[3] = _image4_trust_violation;
-  memset(&v50[4], 0, 24);
-  v49[0] = a1;
-  v48 = *v10;
-  expert_log(a2, 2uLL, "performing boot trust evaluation: coprocessor = %s, type = %s", a4, a5, a6, a7, a8, **(v11 + 16));
-  if (v11 >= v11 + 72)
+  v6 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  v13[1] = a3;
+  v14[0] = _image4_trust_property_callback_BOOL;
+  v14[1] = _image4_trust_property_callback_integer;
+  v14[2] = _image4_trust_property_callback_data;
+  v14[3] = _image4_trust_violation;
+  memset(&v14[4], 0, 24);
+  v13[0] = a1;
+  expert_log(a2, 2uLL, "performing boot trust evaluation: coprocessor = %s, type = %s", **(v6 + 16), *v5);
+  if (v6 >= v6 + 72)
   {
     goto LABEL_11;
   }
 
-  v12 = image4_environment_resolve(v11);
-  if (!v12)
+  v7 = image4_environment_resolve(v6);
+  if (!v7)
   {
-    v26 = 45;
-    expert_log(a2, 0, "booter environment not supported: %s: %d", a4, a5, a6, a7, a8, **(v11 + 16));
-    return v26;
+    v9 = 45;
+    expert_log(a2, 0, "booter environment not supported: %s: %d", **(v6 + 16), 45);
+    return v9;
   }
 
-  if (v10 >= v10 + 6)
+  if (v5 >= v5 + 6)
   {
 LABEL_11:
     __break(0x5519u);
     goto LABEL_12;
   }
 
-  v13 = v12;
-  image4_trust_evaluation_prepare_manifest_callbacks(v10, v50);
-  manifest_set_callbacks(a1 + 152, v49, v50);
-  v26 = boot_expert_boot_manifest(a2, v13, (a1 + 152), v14, v15, v16, v17, v18);
-  if (v26)
+  v8 = v7;
+  image4_trust_evaluation_prepare_manifest_callbacks(v5, v14);
+  manifest_set_callbacks(a1 + 152, v13, v14);
+  v9 = boot_expert_boot_manifest(a2, v8, (a1 + 152));
+  if (v9)
   {
-    name = chip_get_name(v13);
-    expert_log(a2, 0, "manifest boot failed: %s: %d", v28, v29, v30, v31, v32, name);
-    if (v26 >= 0x6B)
+    name = chip_get_name(v8);
+    expert_log(a2, 0, "manifest boot failed: %s: %d", name, v9);
+    if (v9 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v33, v34, v35, v36, v37, v38, v39, v26);
+      __panic_npx("panic: error not set to valid posix code: %d", v9);
     }
   }
 
   else
   {
-    _image4_trust_post_properties(a1, v19, v20, v21, v22, v23, v24, v25);
-    v40 = chip_get_name(v13);
-    expert_log(a2, 1uLL, "manifest boot succeeded: %s", v41, v42, v43, v44, v45, v40);
+    _image4_trust_post_properties(a1);
+    v11 = chip_get_name(v8);
+    expert_log(a2, 1uLL, "manifest boot succeeded: %s", v11);
     expert_dump(a2);
   }
 
-  return v26;
+  return v9;
 }
 
-uint64_t image4_trust_evaluate_normalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_evaluate_normalize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*(a1 + 744))
   {
 LABEL_17:
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v43);
+    __panic_npx("panic: optional not set", a2, a3);
   }
 
-  v11 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v51[1] = a3;
-  v52[0] = _image4_trust_property_callback_BOOL;
-  v52[1] = _image4_trust_property_callback_integer;
-  v52[2] = _image4_trust_property_callback_data;
-  v52[3] = _image4_trust_violation;
-  memset(&v52[4], 0, 24);
-  v51[0] = a1;
-  memset(v50, 0, sizeof(v50));
-  v49 = 0;
-  v47 = 0u;
-  v48 = 0u;
-  v44 = *(v11 + 24);
-  v46 = *v10;
-  expert_log(a2, 2uLL, "performing normalization trust evaluation: coprocessor = %s, handle = %llx, evaluation type = %s", a4, a5, a6, a7, a8, **(v11 + 16));
-  if (v11 >= v11 + 72)
+  v6 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  v20[1] = a3;
+  v21[0] = _image4_trust_property_callback_BOOL;
+  v21[1] = _image4_trust_property_callback_integer;
+  v21[2] = _image4_trust_property_callback_data;
+  v21[3] = _image4_trust_violation;
+  memset(&v21[4], 0, 24);
+  v20[0] = a1;
+  memset(v19, 0, sizeof(v19));
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  expert_log(a2, 2uLL, "performing normalization trust evaluation: coprocessor = %s, handle = %llx, evaluation type = %s", **(v6 + 16), *(v6 + 24), *v5);
+  if (v6 >= v6 + 72)
   {
     goto LABEL_16;
   }
 
-  v12 = image4_environment_resolve(v11);
-  if (!v12)
+  v7 = image4_environment_resolve(v6);
+  if (!v7)
   {
-    v20 = 45;
-    v45 = *(v11 + 24);
-    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", a4, a5, a6, a7, a8, **(v11 + 16));
+    v10 = 45;
+    expert_log(a2, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", **(v6 + 16), *(v6 + 24), 45);
 LABEL_8:
-    v53 = &v47;
-    buff_destroy(&v53);
-    return v20;
+    v22 = &v16;
+    buff_destroy(&v22);
+    return v10;
   }
 
-  if (v10 >= v10 + 6)
+  if (v5 >= v5 + 6)
   {
 LABEL_16:
     __break(0x5519u);
     goto LABEL_17;
   }
 
-  v13 = v12;
-  image4_trust_evaluation_prepare_manifest_callbacks(v10, v52);
-  manifest_set_callbacks(a1 + 152, v51, v52);
-  v14 = manifest_parse(a1 + 152);
-  if (v14)
+  v8 = v7;
+  image4_trust_evaluation_prepare_manifest_callbacks(v5, v21);
+  manifest_set_callbacks(a1 + 152, v20, v21);
+  v9 = manifest_parse(a1 + 152);
+  if (v9)
   {
-    v20 = v14;
-    expert_log(a2, 0, "failed to parse manifest: %d", v15, v16, v17, v18, v19, v14);
+    v10 = v9;
+    expert_log(a2, 0, "failed to parse manifest: %d", v9);
     goto LABEL_11;
   }
 
-  v21 = closure_init(v50, (a1 + 152), v13);
-  _closure_set_unique_tags(v21, "HCNBOPECDICEDIDUhcncylpenonsfunsnvrs", 9);
-  v27 = closure_compute(v21, &v47, 0, v22, v23, v24, v25, v26);
-  if (!v27)
+  v11 = closure_init(v19, (a1 + 152), v8);
+  _closure_set_unique_tags(v11, "HCNBOPECDICEDIDUhcncylpenonsfunsnvrs", 9);
+  v12 = closure_compute(v11, &v16, 0);
+  if (!v12)
   {
     if (*(a2 + 8) == 1651470196)
     {
-      boot_expert_boot_closure(a2, v21, &v47);
+      boot_expert_boot_closure(a2, v11, &v16);
     }
 
-    v20 = 0;
-    *(a1 + 728) = v49;
-    v42 = v48;
-    *(a1 + 696) = v47;
-    *(a1 + 712) = v42;
+    v10 = 0;
+    *(a1 + 728) = v18;
+    v15 = v17;
+    *(a1 + 696) = v16;
+    *(a1 + 712) = v15;
     *(a1 + 736) = 1;
-    *&v48 = &_buff_destructor_null;
+    *&v17 = &_buff_destructor_null;
     goto LABEL_8;
   }
 
-  v33 = v27;
-  expert_log(a2, 0, "failed to compute closure: %d", v28, v29, v30, v31, v32, v27);
-  v20 = v33;
+  v13 = v12;
+  expert_log(a2, 0, "failed to compute closure: %d", v12);
+  v10 = v13;
 LABEL_11:
-  v53 = &v47;
-  buff_destroy(&v53);
-  if (v20 >= 0x6B)
+  v22 = &v16;
+  buff_destroy(&v22);
+  if (v10 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v34, v35, v36, v37, v38, v39, v40, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v10);
   }
 
-  return v20;
+  return v10;
 }
 
 void image4_trust_new_buff(uint64_t a1, uint64_t a2, unint64_t *a3)
@@ -3234,26 +3190,26 @@ void image4_trust_new(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   v10 = _expert_alloc_type(*(a1 + 8), &_image4_type_trust);
   if (v10)
   {
-    _image4_trust_init(v10, a1, a2, a3, a4, a5, 1, v11);
-    *(v12 + 40) = &_image4_type_trust;
+    _image4_trust_init(v10, a1, a2, a3, a4, a5, 1u);
+    *(v11 + 40) = &_image4_type_trust;
   }
 }
 
-void _image4_trust_init(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _image4_trust_init(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
-  v8 = a7;
-  v9 = *(a2 + 8);
-  v23 = 0;
-  memset(v22, 0, sizeof(v22));
+  v7 = a7;
+  v8 = *(a2 + 8);
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
   if (a7 >= 2)
   {
-    __panic_npx("panic: unsupported struct version: actual = %hu, expected <= %u", a2, a3, a4, a5, a6, a7, a8, a7);
+    __panic_npx("panic: unsupported struct version: actual = %hu, expected <= %u", a7, 1);
   }
 
   bzero(a1, 0x788uLL);
-  *a1 = v8;
+  *a1 = v7;
   *(a1 + 1) = a6;
-  *(a1 + 2) = v9;
+  *(a1 + 2) = v8;
   *(a1 + 3) = a2;
   *(a1 + 4) = a3;
   *(a1 + 7) = 0;
@@ -3264,39 +3220,39 @@ void _image4_trust_init(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 
   else
   {
-    _image4_trust_add_link(a1, a1, v16, v17, v18, v19, v20, v21);
-    inited = buff_init_wrap(v22, a4, a5);
-    manifest_init((a1 + 76), v9, &inited);
+    _image4_trust_add_link(a1, a1);
+    inited = buff_init_wrap(v15, a4, a5);
+    manifest_init((a1 + 76), v8, &inited);
     a1[372] = 1;
   }
 }
 
-uint64_t _image4_trust_add_link(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_add_link(uint64_t result, uint64_t a2)
 {
-  v8 = *(result + 144);
-  if (v8 > 4)
+  v2 = *(result + 144);
+  if (v2 > 4)
   {
-    __panic_npx("panic: trust chain length exceeded: %lu", a2, a3, a4, a5, a6, a7, a8, 5);
+    __panic_npx("panic: trust chain length exceeded: %lu", 5);
   }
 
-  v9 = result + 16 * v8;
-  *(result + 144) = v8 + 1;
-  if (v9 + 80 > (result + 144))
+  v3 = result + 16 * v2;
+  *(result + 144) = v2 + 1;
+  if (v3 + 80 > (result + 144))
   {
     __break(0x5519u);
   }
 
   else
   {
-    *(v9 + 64) = *(result + 56);
-    *(v9 + 72) = a2;
-    *(result + 56) = v9 + 64;
+    *(v3 + 64) = *(result + 56);
+    *(v3 + 72) = a2;
+    *(result + 56) = v3 + 64;
   }
 
   return result;
 }
 
-uint64_t image4_trust_set_payload(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+uint64_t image4_trust_set_payload(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a1 + 16);
   v13 = 0;
@@ -3310,22 +3266,22 @@ uint64_t image4_trust_set_payload(uint64_t a1, unsigned int a2, uint64_t a3, uin
   return result;
 }
 
-uint64_t image4_trust_set_booter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_set_booter(uint64_t a1, uint64_t a2)
 {
-  v9 = *(a1 + 32);
-  if (v9[1] != *(a2 + 32))
+  v3 = *(a1 + 32);
+  if (*(v3 + 8) != *(a2 + 32))
   {
-    __panic_npx("panic: trust chaining not supported for evaluation: %s", a2, a3, a4, a5, a6, a7, a8, *v9);
+    __panic_npx("panic: trust chaining not supported for evaluation: %s", *v3);
   }
 
-  return _image4_trust_add_link(a1, a2, a3, a4, a5, a6, a7, a8);
+  return _image4_trust_add_link(a1, a2);
 }
 
-uint64_t image4_trust_set_result_buffer(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_set_result_buffer(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (!*result)
   {
-    __panic_npx("panic: operation not supported on this structure version: actual = %hu, expected >= %hu", a2, a3, a4, a5, a6, a7, a8, 0);
+    __panic_npx("panic: operation not supported on this structure version: actual = %hu, expected >= %hu", 0, 1);
   }
 
   *(result + 1912) = a2;
@@ -3333,86 +3289,86 @@ uint64_t image4_trust_set_result_buffer(uint64_t result, uint64_t a2, uint64_t a
   return result;
 }
 
-uint64_t image4_trust_record_property_BOOL(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_record_property_BOOL(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(result + 1328);
-  if (v9 > 0xB)
+  v7 = *(result + 1328);
+  if (v7 > 0xB)
   {
-    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, v5, v6);
   }
 
-  v10 = result + 48 * v9;
-  if (v10 + 1384 > (result + 1912))
+  v8 = result + 48 * v7;
+  if (v8 + 1384 > (result + 1912))
   {
     __break(0x5519u);
   }
 
   else
   {
-    v11 = v10 + 1336;
-    *(v11 + 8) = a2;
-    *v11 = 1;
-    *(v11 + 16) = a3;
-    *(result + 1328) = v9 + 1;
-    *(v11 + 24) = a4;
-    *(v11 + 40) = a5;
+    v9 = v8 + 1336;
+    *(v9 + 8) = a2;
+    *v9 = 1;
+    *(v9 + 16) = a3;
+    *(result + 1328) = v7 + 1;
+    *(v9 + 24) = a4;
+    *(v9 + 40) = a5;
   }
 
   return result;
 }
 
-uint64_t image4_trust_record_property_integer(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_record_property_integer(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(result + 1328);
-  if (v9 > 0xB)
+  v7 = *(result + 1328);
+  if (v7 > 0xB)
   {
-    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, v5, v6);
   }
 
-  v10 = result + 48 * v9;
-  if (v10 + 1384 > (result + 1912))
+  v8 = result + 48 * v7;
+  if (v8 + 1384 > (result + 1912))
   {
     __break(0x5519u);
   }
 
   else
   {
-    v11 = v10 + 1336;
-    *(v11 + 8) = a2;
-    *v11 = 2;
-    *(v11 + 16) = a3;
-    *(result + 1328) = v9 + 1;
-    *(v11 + 24) = a4;
-    *(v11 + 40) = a5;
+    v9 = v8 + 1336;
+    *(v9 + 8) = a2;
+    *v9 = 2;
+    *(v9 + 16) = a3;
+    *(result + 1328) = v7 + 1;
+    *(v9 + 24) = a4;
+    *(v9 + 40) = a5;
   }
 
   return result;
 }
 
-uint64_t image4_trust_record_property_data(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_trust_record_property_data(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(result + 1328);
-  if (v9 > 0xB)
+  v7 = *(result + 1328);
+  if (v7 > 0xB)
   {
-    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: no more property record slots", a2, a3, a4, a5, v5, v6);
   }
 
-  v10 = result + 48 * v9;
-  if (v10 + 1384 > (result + 1912))
+  v8 = result + 48 * v7;
+  if (v8 + 1384 > (result + 1912))
   {
     __break(0x5519u);
   }
 
   else
   {
-    v11 = v10 + 1336;
-    *(v11 + 8) = a2;
-    *v11 = 4;
-    *(v11 + 16) = a3;
-    *(result + 1328) = v9 + 1;
-    *(v11 + 24) = a4;
-    *(v11 + 32) = a5;
-    *(v11 + 40) = 0;
+    v9 = v8 + 1336;
+    *(v9 + 8) = a2;
+    *v9 = 4;
+    *(v9 + 16) = a3;
+    *(result + 1328) = v7 + 1;
+    *(v9 + 24) = a4;
+    *(v9 + 32) = a5;
+    *(v9 + 40) = 0;
   }
 
   return result;
@@ -3420,235 +3376,233 @@ uint64_t image4_trust_record_property_data(uint64_t result, uint64_t a2, uint64_
 
 void *image4_trust_evaluate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = MEMORY[0x2A1C7C4A8](a1, a2, a3, a4, a5, a6, a7, a8);
+  v8 = MEMORY[0x2A1C7C4A8](a1, a2, a3, a4, a5, a6, a7, a8, v66);
   v10 = v9;
   v12 = v11;
   v13 = v8;
   v15 = *(v8 + 16);
   v14 = *(v8 + 24);
-  bzero(&v80, 0xEE0uLL);
-  v79 = v15;
-  v52[0] = "boot";
-  v52[1] = 0xAAAAAAAA626F6F74;
-  v52[2] = &v79;
-  v52[3] = &v79;
-  v52[4] = _boot_expert_init;
-  v52[5] = _boot_expert_boot;
-  v52[6] = _boot_expert_logv;
-  v52[7] = _boot_expert_dump;
-  v53 = 0u;
-  v54 = 0u;
-  v56 = 0;
-  v57 = 0;
-  v55 = _boot_expert_get_digest_info;
-  v58 = _boot_expert_get_secure_boot;
-  v59 = _boot_expert_query_chip;
-  v60 = _boot_expert_query_chip_boot;
-  v61 = _boot_expert_query_nonce;
-  v62 = _boot_expert_entangle_nonce;
-  v63 = _boot_expert_read_boot_manifest;
-  v64 = _boot_expert_query_trust_store;
-  v65 = _boot_expert_read_storage;
-  v66 = _boot_expert_write_storage;
-  v67 = _boot_expert_sync_storage;
-  v68 = _boot_expert_query_property_BOOL;
-  v69 = _boot_expert_query_property_uint32;
-  v70 = _boot_expert_query_property_uint64;
-  v71 = _boot_expert_query_property_digest;
-  v72 = _boot_expert_query_property_version;
-  v73 = _boot_expert_init_once;
-  v74 = _boot_expert_boot_once;
-  v75 = _boot_expert_read_random;
-  v76 = _boot_expert_syscall;
-  v77 = _boot_expert_lock;
-  v78 = _boot_expert_unlock;
-  v23 = image4_environment_resolve(v14);
-  if (v23)
+  bzero(&v63, 0xEE0uLL);
+  v62 = v15;
+  v35[0] = "boot";
+  v35[1] = 0xAAAAAAAA626F6F74;
+  v35[2] = &v62;
+  v35[3] = &v62;
+  v35[4] = _boot_expert_init;
+  v35[5] = _boot_expert_boot;
+  v35[6] = _boot_expert_logv;
+  v35[7] = _boot_expert_dump;
+  v36 = 0u;
+  v37 = 0u;
+  v39 = 0;
+  v40 = 0;
+  v38 = _boot_expert_get_digest_info;
+  v41 = _boot_expert_get_secure_boot;
+  v42 = _boot_expert_query_chip;
+  v43 = _boot_expert_query_chip_boot;
+  v44 = _boot_expert_query_nonce;
+  v45 = _boot_expert_entangle_nonce;
+  v46 = _boot_expert_read_boot_manifest;
+  v47 = _boot_expert_query_trust_store;
+  v48 = _boot_expert_read_storage;
+  v49 = _boot_expert_write_storage;
+  v50 = _boot_expert_sync_storage;
+  v51 = _boot_expert_query_property_BOOL;
+  v52 = _boot_expert_query_property_uint32;
+  v53 = _boot_expert_query_property_uint64;
+  v54 = _boot_expert_query_property_digest;
+  v55 = _boot_expert_query_property_version;
+  v56 = _boot_expert_init_once;
+  v57 = _boot_expert_boot_once;
+  v58 = _boot_expert_read_random;
+  v59 = _boot_expert_syscall;
+  v60 = _boot_expert_lock;
+  v61 = _boot_expert_unlock;
+  v16 = image4_environment_resolve(v14);
+  if (v16)
   {
     if (*(v13 + 144) > 1uLL)
     {
-      v15 = v52;
+      v15 = v35;
     }
 
-    v24 = *(v13 + 56);
-    if (v24)
+    v17 = *(v13 + 56);
+    if (v17)
     {
-      v25 = 1;
+      v18 = 1;
       while (1)
       {
-        v26 = v24[1];
-        v27 = *(v26 + 32);
-        if (v15 == v52)
+        v19 = v17[1];
+        v20 = *(v19 + 32);
+        if (v15 == v35)
         {
-          if (!*(v26 + 744))
+          if (!*(v19 + 744))
           {
             goto LABEL_38;
           }
 
-          v28 = *(v26 + 1320);
-          *(v26 + 152) = v15;
-          if (v28)
+          v21 = *(v19 + 1320);
+          *(v19 + 152) = v15;
+          if (v21)
           {
-            *(v26 + 752) = v15;
+            *(v19 + 752) = v15;
           }
         }
 
-        if (v26 >= v26 + 1928)
+        if (v19 >= v19 + 1928)
         {
           goto LABEL_37;
         }
 
-        v29 = (*(v27 + 40))();
-        if (v29)
+        v22 = (*(v20 + 40))();
+        if (v22)
         {
           break;
         }
 
-        v24 = *v24;
-        ++v25;
-        if (!v24)
+        v17 = *v17;
+        ++v18;
+        if (!v17)
         {
-          v30 = 0;
+          v23 = 0;
           goto LABEL_17;
         }
       }
 
-      v30 = v29;
-      v51 = *(v13 + 144);
-      expert_log(v15, 0, "trust evaluation failed: coprocessor = %s, sequence number = %lu, chain length = %lu: %d", v18, v19, v20, v21, v22, **(v14 + 16));
+      v23 = v22;
+      expert_log(v15, 0, "trust evaluation failed: coprocessor = %s, sequence number = %lu, chain length = %lu: %d", **(v14 + 16), v18, *(v13 + 144), v22);
     }
 
     else
     {
-      v30 = 0xFFFFFFFFLL;
+      v23 = 0xFFFFFFFFLL;
     }
   }
 
   else
   {
-    v30 = 45;
-    v50 = *(v14 + 24);
-    expert_log(v15, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", v18, v19, v20, v21, v22, **(v14 + 16));
+    v23 = 45;
+    expert_log(v15, 0, "environment not supported: coprocessor = %s, handle = %llx: %d", **(v14 + 16), *(v14 + 24), 45);
   }
 
 LABEL_17:
-  v31 = *(v13 + 32);
+  v24 = *(v13 + 32);
   if (*(v13 + 744))
   {
-    v32 = v13 + 152;
+    v25 = v13 + 152;
   }
 
   else
   {
-    v32 = 0;
+    v25 = 0;
   }
 
-  v33 = *(v13 + 1320);
-  v81 = 0;
-  v82[0] = 0;
-  if (v30)
+  v26 = *(v13 + 1320);
+  v64 = 0;
+  v65[0] = 0;
+  if (v23)
   {
-    v34 = 0;
-    v35 = 0;
-    v36 = v30;
+    v27 = 0;
+    v28 = 0;
+    v29 = v23;
     goto LABEL_35;
   }
 
-  if (v33)
+  if (v26)
   {
-    v37 = v13 + 752;
+    v30 = v13 + 752;
   }
 
   else
   {
-    v37 = 0;
+    v30 = 0;
   }
 
-  v38 = image4_trust_evaluation_get_result(v31, v23, v32, v37, v82);
-  v35 = v82[0];
-  if (v38 > v38 + v82[0])
+  v31 = image4_trust_evaluation_get_result(v24, v16, v25, v30, v65);
+  v28 = v65[0];
+  if (v31 > v31 + v65[0])
   {
     goto LABEL_37;
   }
 
-  v34 = v38;
-  v39 = v32 + 544;
-  if (!*(v32 + 584))
+  v27 = v31;
+  v32 = v25 + 544;
+  if (!*(v25 + 584))
   {
-    v39 = 0;
+    v32 = 0;
   }
 
-  v81 = v39;
-  *(v32 + 584) = 0;
-  if (!v38 || (v40 = *(v13 + 1912)) == 0)
+  v64 = v32;
+  *(v25 + 584) = 0;
+  if (!v31 || (v33 = *(v13 + 1912)) == 0)
   {
-    v36 = 0;
+    v29 = 0;
     goto LABEL_35;
   }
 
-  if (*(v13 + 1920) < v35)
+  if (*(v13 + 1920) < v28)
   {
-    v34 = 0;
-    v35 = 0;
-    v36 = 7;
+    v27 = 0;
+    v28 = 0;
+    v29 = 7;
     goto LABEL_35;
   }
 
-  memcpy(v40, v34, v35);
-  if (v35 > *(v13 + 1920))
+  memcpy(v33, v27, v28);
+  if (v28 > *(v13 + 1920))
   {
 LABEL_37:
     __break(0x5519u);
 LABEL_38:
-    __panic_npx("panic: optional not set", v16, v17, v18, v19, v20, v21, v22, v49);
+    __panic_npx("panic: optional not set");
   }
 
-  v36 = 0;
-  v34 = *(v13 + 1912);
+  v29 = 0;
+  v27 = *(v13 + 1912);
 LABEL_35:
-  v10(v13, v34, v35, v36, v12);
-  result = buff_destroy(&v81);
-  if (v30 >= 0x6B)
+  v10(v13, v27, v28, v29, v12);
+  result = buff_destroy(&v64);
+  if (v23 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v42, v43, v44, v45, v46, v47, v48, v30);
+    __panic_npx("panic: error not set to valid posix code: %d", v23);
   }
 
   return result;
 }
 
-uint64_t *image4_trust_destroy(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *image4_trust_destroy(uint64_t *result)
 {
-  v8 = *result;
+  v1 = *result;
   if (*result)
   {
-    if (!*(v8 + 744))
+    if (!*(v1 + 744))
     {
-      __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v12);
+      __panic_npx("panic: optional not set");
     }
 
-    v9 = result;
-    v10 = *(v8 + 16);
-    if (*(v8 + 1320))
+    v2 = result;
+    v3 = *(v1 + 16);
+    if (*(v1 + 1320))
     {
-      v11 = v8 + 752;
+      v4 = v1 + 752;
     }
 
     else
     {
-      v11 = 0;
+      v4 = 0;
     }
 
-    v12 = v11;
-    v13 = v8 + 152;
-    manifest_destroy(&v13, a2, a3, a4, a5, a6, a7, a8);
-    payload_destroy(&v12);
-    return _expert_dealloc_type(v10, *(v8 + 40), v9);
+    v5 = v4;
+    v6 = v1 + 152;
+    manifest_destroy(&v6);
+    payload_destroy(&v5);
+    return _expert_dealloc_type(v3, *(v1 + 40), v2);
   }
 
   return result;
 }
 
-uint64_t _image4_trust_find_record(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _image4_trust_find_record(uint64_t a1, unsigned int a2, int a3, int a4)
 {
   if (a2 <= 1)
   {
@@ -3659,26 +3613,26 @@ uint64_t _image4_trust_find_record(uint64_t a1, uint64_t a2, uint64_t a3, uint64
         goto LABEL_20;
       }
 
-      v8 = 2;
+      v4 = 2;
     }
 
     else
     {
-      v8 = 1;
+      v4 = 1;
     }
 
 LABEL_11:
-    v9 = a1 + 1336;
-    v10 = 12;
-    while (v9 + 48 <= (a1 + 1912))
+    v5 = a1 + 1336;
+    v6 = 12;
+    while (v5 + 48 <= (a1 + 1912))
     {
-      if (*(v9 + 16) == a4 && *(v9 + 8) == v8 && *v9 == a3)
+      if (*(v5 + 16) == a4 && *(v5 + 8) == v4 && *v5 == a3)
       {
-        return v9;
+        return v5;
       }
 
-      v9 += 48;
-      if (!--v10)
+      v5 += 48;
+      if (!--v6)
       {
         return 0;
       }
@@ -3686,14 +3640,14 @@ LABEL_11:
 
     __break(0x5519u);
 LABEL_20:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "p_where");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "p_where", a2);
   }
 
-  if ((a2 - 2) >= 2)
+  if (a2 - 2 >= 2)
   {
     if (a2 == 4)
     {
-      v8 = 3;
+      v4 = 3;
     }
 
     else
@@ -3703,7 +3657,7 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      v8 = 4;
+      v4 = 4;
     }
 
     goto LABEL_11;
@@ -3714,115 +3668,114 @@ LABEL_20:
 
 uint64_t image4_identifier_get_constraint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = **(*a1 + 48);
-  if (v8 >= 9)
+  v10 = **(*a1 + 48);
+  if (v10 >= 9)
   {
-    v10 = **(*a1 + 48);
-    __panic_npx_3(a1, a2, a3, a4, a5, a6, a7, a8, "id4->id_p->p_constraint->pc_code");
+    __panic_npx_3(a1, a2, a3, a4, a5, a6, a7, a8, "id4->id_p->p_constraint->pc_code", v10, v8, v9);
   }
 
-  return qword_298EF7A40[v8];
+  return qword_298EF7A40[v10];
 }
 
-void __panic_npx_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __panic_npx_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = 0xAAAAAAAAAAAAAAAALL;
+  va_start(va, a8);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
   bzero(__str, 0x800uLL);
-  v10 = &a9;
-  vsnprintf(__str, 0x800uLL, "panic: unreachable case: %s = 0x%llx", &a9);
+  va_copy(v9, va);
+  vsnprintf(__str, 0x800uLL, "panic: unreachable case: %s = 0x%llx", va);
   _os_crash();
   __break(1u);
 }
 
 size_t _darwin_el0_init(uint64_t a1)
 {
-  v85 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 24);
   memcpy(__dst, "IODeviceTree:/chosen", sizeof(__dst));
   memcpy(path, "IODeviceTree:/product", sizeof(path));
-  memcpy(v82, "IODeviceTree:/chosen/manifest-properties", sizeof(v82));
-  memcpy(v81, "IODeviceTree:/chosen/asmb", sizeof(v81));
-  v77 = 64;
-  v78 = 64;
-  memset(v80, 0, sizeof(v80));
-  v79[0] = 0;
-  v79[1] = 0;
+  memcpy(v25, "IODeviceTree:/chosen/manifest-properties", sizeof(v25));
+  memcpy(v24, "IODeviceTree:/chosen/asmb", sizeof(v24));
+  v20 = 64;
+  v21 = 64;
+  memset(v23, 0, sizeof(v23));
+  v22[0] = 0;
+  v22[1] = 0;
   *v2 = os_log_create("com.apple.security.libimage4", "darwin-user");
   v3 = IORegistryEntryFromPath(0, __dst);
   *(v2 + 12) = v3;
   if (!v3)
   {
-LABEL_34:
-    __panic_npx("panic: failed to get chosen node", v4, v5, v6, v7, v8, v9, v10, v76);
+LABEL_33:
+    __panic_npx("panic: failed to get chosen node");
   }
 
-  v11 = IORegistryEntryFromPath(0, path);
-  *(v2 + 16) = v11;
-  if (!v11)
+  v4 = IORegistryEntryFromPath(0, path);
+  *(v2 + 16) = v4;
+  if (!v4)
   {
-    __panic_npx("panic: failed to get product node", v12, v13, v14, v15, v16, v17, v18, v76);
+    __panic_npx("panic: failed to get product node");
   }
 
-  v19 = IORegistryEntryFromPath(0, v82);
-  *(v2 + 20) = v19;
-  if (!v19)
+  v5 = IORegistryEntryFromPath(0, v25);
+  *(v2 + 20) = v5;
+  if (!v5)
   {
-    __panic_npx("panic: failed to get manifest properties", v20, v21, v22, v23, v24, v25, v26, v76);
+    __panic_npx("panic: failed to get manifest properties");
   }
 
-  v27 = IORegistryEntryFromPath(0, v81);
-  *(v2 + 24) = v27;
-  if (!v27)
+  v6 = IORegistryEntryFromPath(0, v24);
+  *(v2 + 24) = v6;
+  if (!v6)
   {
-    expert_log(a1, 3uLL, "no asmb", v28, v29, v30, v31, v32, v76);
+    expert_log(a1, 3uLL, "no asmb");
   }
 
-  v33 = v2 + 304;
-  v34 = IOServiceMatching("AppleImage4");
-  MatchingService = IOServiceGetMatchingService(0, v34);
+  v7 = v2 + 304;
+  v8 = IOServiceMatching("AppleImage4");
+  MatchingService = IOServiceGetMatchingService(0, v8);
   if (MatchingService)
   {
-    if (v2 >= v33)
+    if (v2 >= v7)
     {
-LABEL_33:
+LABEL_32:
       __break(0x5519u);
-      goto LABEL_34;
+      goto LABEL_33;
     }
 
-    v36 = IOServiceOpen(MatchingService, *MEMORY[0x29EDCA6B0], 0, (v2 + 28));
-    if (v36)
+    if (IOServiceOpen(MatchingService, *MEMORY[0x29EDCA6B0], 0, (v2 + 28)))
     {
-      expert_log(a1, 3uLL, "IOServiceOpen: %d", v6, v7, v8, v9, v10, v36);
-      goto LABEL_13;
+      expert_log(a1, 3uLL, "IOServiceOpen: %d");
     }
 
-    v37 = "IOServiceOpen: success";
+    else
+    {
+      expert_log(a1, 3uLL, "IOServiceOpen: success");
+    }
   }
 
   else
   {
-    v37 = "IOServiceGetMatchingService failed";
+    expert_log(a1, 3uLL, "IOServiceGetMatchingService failed");
   }
 
-  expert_log(a1, 3uLL, v37, v6, v7, v8, v9, v10, v76);
-LABEL_13:
-  if (v2 >= v33)
+  if (v2 >= v7)
   {
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
-  if ((sysctlbyname("kern.osreleasetype", (v2 + 144), &v78, 0, 0) & 0x80000000) == 0)
+  if ((sysctlbyname("kern.osreleasetype", (v2 + 144), &v21, 0, 0) & 0x80000000) == 0)
   {
     *__error() = 0;
   }
 
-  v38 = *__error();
-  if (v38 != 2)
+  v10 = *__error();
+  if (v10 != 2)
   {
-    if (v38)
+    if (v10)
     {
-      v39 = __error();
-      expert_log(a1, 3uLL, "sysctlbyname[kern.osreleasetype]: %d", v40, v41, v42, v43, v44, *v39);
+      v11 = __error();
+      expert_log(a1, 3uLL, "sysctlbyname[kern.osreleasetype]: %d", *v11);
     }
 
     else
@@ -3831,142 +3784,140 @@ LABEL_13:
     }
   }
 
-  if ((sysctlbyname("kern.bootsessionuuid", v80, &v77, 0, 0) & 0x80000000) == 0)
+  if ((sysctlbyname("kern.bootsessionuuid", v23, &v20, 0, 0) & 0x80000000) == 0)
   {
     *__error() = 0;
   }
 
-  v45 = *__error();
-  if (v45 != 2)
+  v12 = *__error();
+  if (v12 != 2)
   {
-    if (v45)
+    if (v12)
     {
-      v51 = __error();
-      expert_log(a1, 3uLL, "sysctlbyname[kern.bootsessionuuid]: %d", v52, v53, v54, v55, v56, *v51);
+      v14 = __error();
+      expert_log(a1, 3uLL, "sysctlbyname[kern.bootsessionuuid]: %d", *v14);
     }
 
     else
     {
-      if (darwin_uuid_parse(v80, v79))
+      v13 = darwin_uuid_parse(v23, v22);
+      if (v13)
       {
-        expert_log(a1, 3uLL, "failed to parse boot session uuid: %s: %d", v46, v47, v48, v49, v50, v80);
-        goto LABEL_32;
+        expert_log(a1, 3uLL, "failed to parse boot session uuid: %s: %d", v23, v13);
+        return dylib_expert_state_init(v2 + 32);
       }
 
-      digest_init(v2 + 216, v79, 0x10uLL, v46, v47, v48, v49, v50);
+      digest_init(v2 + 216, v22, 0x10uLL);
       *(v2 + 296) = 1;
     }
   }
 
-  v57 = getenv("IMAGE4_LOG_FD");
-  if (v57)
+  v15 = getenv("IMAGE4_LOG_FD");
+  if (v15)
   {
-    v58 = v57;
+    v16 = v15;
     *__error() = 0;
-    v59 = strtol(v58, 0, 0);
+    v17 = strtol(v16, 0, 0);
     if (*__error())
     {
-      __panic_npx("panic: invalid log file descriptor", v60, v61, v62, v63, v64, v65, v66, v76);
+      __panic_npx("panic: invalid log file descriptor");
     }
 
-    if (v59 >= getdtablesize())
+    if (v17 >= getdtablesize())
     {
-      getdtablesize();
-      __panic_npx("panic: invalid log file descriptor: actual = %ld, expected <= %d", v69, v70, v71, v72, v73, v74, v75, v59);
+      v19 = getdtablesize();
+      __panic_npx("panic: invalid log file descriptor: actual = %ld, expected <= %d", v17, v19);
     }
 
-    *(v2 + 8) = v59;
+    *(v2 + 8) = v17;
   }
 
-LABEL_32:
-  result = dylib_expert_state_init(v2 + 32);
-  v68 = *MEMORY[0x29EDCA608];
-  return result;
+  return dylib_expert_state_init(v2 + 32);
 }
 
-uint64_t _darwin_el0_logv(uint64_t a1, uint64_t a2, char *a3, va_list a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _darwin_el0_logv(uint64_t a1, unint64_t a2, char *a3, va_list a4)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v17 = a4;
-  v9 = *(a1 + 16);
-  if ((v9[4] & 1) == 0 && !v9[6])
+  v13 = *MEMORY[0x29EDCA608];
+  v10 = a4;
+  v5 = *(a1 + 16);
+  if ((*(v5 + 32) & 1) == 0 && !*(v5 + 48))
   {
-    v12 = *v9;
-    if ((v9[1] & 0x80000000) == 0)
+    if ((*(v5 + 8) & 0x80000000) == 0)
     {
-      memset(v16, 0, sizeof(v16));
-      if (vasprintf(v16, a3, v17) < 0)
+      memset(v9, 0, sizeof(v9));
+      if (vasprintf(v9, a3, v10) < 0)
       {
-        _darwin_el0_logv_cold_1(&v18, v19);
+        _darwin_el0_logv_cold_1(&v11, v12);
       }
 
-      v13 = *(v9 + 2);
-      v14 = getprogname();
-      dprintf(v13, "%s: %s\n", v14, v16[0]);
-      free(v16[0]);
+      v7 = *(v5 + 8);
+      v8 = getprogname();
+      dprintf(v7, "%s: %s\n", v8, v9[0]);
+      free(v9[0]);
     }
 
     if (a2 > 1)
     {
       if (a2 == 2 || a2 == 3)
       {
-        goto LABEL_14;
+        return os_log_with_args();
       }
     }
 
     else if (a2 <= 1)
     {
-LABEL_14:
-      result = os_log_with_args();
-      v15 = *MEMORY[0x29EDCA608];
-      return result;
+      return os_log_with_args();
     }
 
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "lvl");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "lvl", a2);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
-
-  return dylib_restoreos_logv(a2, a3, a4, a4, a5, a6, a7, a8);
+  return dylib_restoreos_logv(a2, a3, a4);
 }
 
 uint64_t _darwin_el0_dump(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v10 = *(a1 + 16);
   v11 = *(v10 + 208);
   v12 = *(v10 + 296);
-  memset(v39, 0, sizeof(v39));
-  v38 = 0u;
-  v37 = 0u;
-  v36 = 0u;
-  v35 = 0u;
-  v34 = 0u;
-  v33 = 0u;
-  qmemcpy(v32, "n/a", sizeof(v32));
+  memset(v22, 0, sizeof(v22));
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  qmemcpy(v15, "n/a", sizeof(v15));
   if (v12)
   {
-    digest_print_cstr(v10 + 216, v32, a3, a4, a5, a6, a7, a8);
+    digest_print_cstr(v10 + 216, v15, a3, a4, a5, a6, a7, a8);
   }
 
-  v13 = *(v10 + 24) != 0;
-  expert_log(a1, a2, "%6s  %-36s : 0x%llx", a4, a5, a6, a7, a8, "");
-  v31 = *(v10 + 28);
-  expert_log(a1, a2, "%6s  %-36s : 0x%llx", v14, v15, v16, v17, v18, "");
-  expert_log(a1, a2, "%6s  %-36s : %s", v19, v20, v21, v22, v23, "");
-  result = expert_log(a1, a2, "%6s  %-36s : %s", v24, v25, v26, v27, v28, "");
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  if (v11)
+  {
+    v13 = (v10 + 144);
+  }
+
+  else
+  {
+    v13 = "n/a";
+  }
+
+  expert_log(a1, a2, "%6s  %-36s : 0x%llx", "", "asmb", *(v10 + 24) != 0);
+  expert_log(a1, a2, "%6s  %-36s : 0x%llx", "", "kmod connection", *(v10 + 28));
+  expert_log(a1, a2, "%6s  %-36s : %s", "", "release type", v13);
+  return expert_log(a1, a2, "%6s  %-36s : %s", "", "boot uuid", v15);
 }
 
 void *_darwin_el0_alloc_type(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   handle = type_get_handle(a2);
   size = type_get_size(a2);
   if (!handle)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = size;
@@ -3989,24 +3940,22 @@ void *_darwin_el0_alloc_type(uint64_t a1, uint64_t a2)
     result = malloc_type_calloc(1uLL, v5, 0x8709206FuLL);
     if (!result)
     {
-      _darwin_el0_alloc_type_cold_1(&v8, v9);
+      _darwin_el0_alloc_type_cold_1(&v7, v8);
     }
   }
 
   if (v5 < 1)
   {
     __break(0x5519u);
-LABEL_9:
-    result = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void *_darwin_el0_alloc_data(uint64_t a1, int64_t a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (_dispatch_is_multithreaded())
   {
     while (1)
@@ -4026,7 +3975,7 @@ void *_darwin_el0_alloc_data(uint64_t a1, int64_t a2)
     result = malloc_type_calloc(1uLL, a2, 0x8709206FuLL);
     if (!result)
     {
-      _darwin_el0_alloc_type_cold_1(&v5, v6);
+      _darwin_el0_alloc_type_cold_1(&v4, v5);
     }
   }
 
@@ -4035,495 +3984,485 @@ void *_darwin_el0_alloc_data(uint64_t a1, int64_t a2)
     __break(0x5519u);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t _darwin_el0_get_secure_boot(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _darwin_el0_get_secure_boot(uint64_t a1, uint64_t *a2)
 {
-  v10 = *(*(a1 + 16) + 24);
-  v20 = 0;
-  if (v10)
+  v4 = *(*(a1 + 16) + 24);
+  v7 = 0;
+  if (v4)
   {
-    darwin_read_iokit_u32(v10, "lp-smb0", &v20 + 1);
-    darwin_read_iokit_u32(v10, "lp-smb1", &v20);
-    v11 = (v20 + HIDWORD(v20));
-    expert_log(a1, 2uLL, "secure boot state: smb0 = %#x, smb1 = %#x, secure boot = %#x", v12, v13, v14, v15, v16, HIDWORD(v20));
-    if (v11 >= 3)
+    darwin_read_iokit_u32(v4, "lp-smb0", &v7 + 1);
+    darwin_read_iokit_u32(v4, "lp-smb1", &v7);
+    v5 = (v7 + HIDWORD(v7));
+    expert_log(a1, 2uLL, "secure boot state: smb0 = %#x, smb1 = %#x, secure boot = %#x", HIDWORD(v7), v7, v7 + HIDWORD(v7));
+    if (v5 >= 3)
     {
-      __panic_npx("panic: invalid secure boot state: %#x", v17, v18, a4, a5, a6, a7, a8, v11);
+      __panic_npx("panic: invalid secure boot state: %#x", v5);
     }
   }
 
   else
   {
-    v11 = 0;
+    v5 = 0;
   }
 
-  expert_log(a1, 2uLL, "returning secure boot state: %#llx", a4, a5, a6, a7, a8, v11);
-  *a2 = v11;
+  expert_log(a1, 2uLL, "returning secure boot state: %#llx", v5);
+  *a2 = v5;
   return 0;
 }
 
 uint64_t _darwin_el0_query_chip(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v4 = *(*(a1 + 16) + 12);
-  v40[1] = _img4_chip_ap_reduced;
-  v40[2] = _img4_chip_ap_reduced;
-  v40[3] = 0;
+  v12[1] = _img4_chip_ap_reduced;
+  v12[2] = _img4_chip_ap_reduced;
+  v12[3] = 0;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39[2] = v5;
-  v39[3] = v5;
-  v39[0] = v5;
-  v39[1] = v5;
-  v38 = 0;
-  v37 = 0;
-  darwin_read_iokit_cstr(v4, "crypto-hash-method", v39);
-  expert_log(a1, 2uLL, "crypto method: %s", v6, v7, v8, v9, v10, v39);
-  if (LODWORD(v39[0]) == 828467315)
+  v11[2] = v5;
+  v11[3] = v5;
+  v11[0] = v5;
+  v11[1] = v5;
+  v10 = 0;
+  v9 = 0;
+  darwin_read_iokit_cstr(v4, "crypto-hash-method", v11);
+  expert_log(a1, 2uLL, "crypto method: %s", v11);
+  if (LODWORD(v11[0]) == 828467315)
   {
-    v18 = 0;
+    v6 = 0;
   }
 
   else
   {
-    if (*&v39[0] != 0x3438332D32616873)
+    if (*&v11[0] != 0x3438332D32616873)
     {
-      __panic_npx("panic: non-sensical crypto hash method: %s", v11, v12, v13, v14, v15, v16, v17, v39);
+      __panic_npx("panic: non-sensical crypto hash method: %s", v11);
     }
 
-    v18 = _img4_chip_ap_sha2_384;
+    v6 = _img4_chip_ap_sha2_384;
   }
 
-  v40[0] = v18;
-  darwin_read_iokit_BOOL(v4, "use-ddi-secure-boot", &v38 + 1);
-  if (HIBYTE(v38) == 1)
+  v12[0] = v6;
+  darwin_read_iokit_BOOL(v4, "use-ddi-secure-boot", &v10 + 1);
+  if (HIBYTE(v10) == 1)
   {
-    expert_log(a1, 2uLL, "%s: %#x", v19, v20, v21, v22, v23, "use-ddi-secure-boot");
-    v40[0] = _img4_chip_ap_vma2;
+    expert_log(a1, 2uLL, "%s: %#x", "use-ddi-secure-boot", HIBYTE(v10));
+    v12[0] = _img4_chip_ap_vma2;
   }
 
-  darwin_read_iokit_BOOL(v4, "allow-ecid-mismatch", &v38);
-  if (v38 == 1)
+  darwin_read_iokit_BOOL(v4, "allow-ecid-mismatch", &v10);
+  if (v10 == 1)
   {
-    expert_log(a1, 2uLL, "%s: %#x", v24, v25, v26, v27, v28, "allow-ecid-mismatch");
-    v40[0] = _img4_chip_ap_vma2_clone;
+    expert_log(a1, 2uLL, "%s: %#x", "allow-ecid-mismatch", v10);
+    v12[0] = _img4_chip_ap_vma2_clone;
   }
 
-  darwin_read_iokit_BOOL(v4, "uses-avp-root-ca", &v37);
-  if (v37)
+  darwin_read_iokit_BOOL(v4, "uses-avp-root-ca", &v9);
+  if (v9)
   {
-    expert_log(a1, 2uLL, "%s: %#x", v29, v30, v31, v32, v33, "uses-avp-root-ca");
-    v40[0] = _chip_vma3;
+    expert_log(a1, 2uLL, "%s: %#x", "uses-avp-root-ca", v9);
+    v12[0] = _chip_vma3;
   }
 
-  v34 = &v40[a2];
-  if (v34 >= &v41 || v34 < v40)
+  v7 = &v12[a2];
+  if (v7 >= &v13 || v7 < v12)
   {
     __break(0x5519u);
   }
 
-  result = *v34;
-  v36 = *MEMORY[0x29EDCA608];
-  return result;
+  return *v7;
 }
 
 void _darwin_el0_query_trust_store(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void *a5)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v5 = *(a1 + 24);
-  v37 = 0x4000;
-  v36 = 0;
-  memset(v35, 0, sizeof(v35));
-  v34 = 0;
+  v20 = 0x4000;
+  v19 = 0;
+  memset(v18, 0, sizeof(v18));
+  v17 = 0;
   if (a2)
   {
-    *&v40[0] = v35;
-    buff_destroy(v40);
-LABEL_13:
-    v33 = *MEMORY[0x29EDCA608];
+    *&v23[0] = v18;
+    buff_destroy(v23);
     return;
   }
 
   v9 = malloc_type_malloc(0x4000uLL, 0x2F48DA65uLL);
   if (!v9)
   {
-    _darwin_el0_query_trust_store_cold_1(&v39, v40);
+    _darwin_el0_query_trust_store_cold_1(&v22, v23);
   }
 
-  v38 = v9;
-  buff_init_xfer(v35, &v38, 0x4000, &_buff_destructor_free, 0);
+  v21 = v9;
+  buff_init_xfer(v18, &v21, 0x4000, &_buff_destructor_free, 0);
   os_unfair_lock_lock((v5 + 92));
-  v14 = (v5 + 136);
-  v15 = (v5 + 96);
+  v10 = (v5 + 136);
+  v11 = (v5 + 96);
   if (*(v5 + 136))
   {
-LABEL_5:
-    v16 = *v15;
-    v17 = v15[1];
-    if (v15 + 5 <= v14 && v16 <= *v15 + v17)
-    {
-      v19 = 0;
-      *a4 = v16;
-      *a5 = v17;
-      goto LABEL_12;
-    }
-
-    goto LABEL_18;
-  }
-
-  v20 = darwin_syscall_image_copy_active(a1, 0, v35, &v37, v10, v11, v12, v13);
-  if (v20)
-  {
-    v19 = v20;
-    expert_log(a1, 0, "failed to copy active cryptex0 root: %d", v21, v22, v23, v24, v25, v20);
-LABEL_12:
-    os_unfair_lock_assert_owner((v5 + 92));
-    os_unfair_lock_unlock((v5 + 92));
-    *&v40[0] = v35;
-    buff_destroy(v40);
-    if (v19 >= 0x6B)
-    {
-      __panic_npx("panic: error not set to valid posix code: %d", v26, v27, v28, v29, v30, v31, v32, v19);
-    }
-
-    goto LABEL_13;
-  }
-
-  v34 = v35;
-  if (v5 < v5 + 304)
-  {
-    v15 = buff_xfer((v5 + 96), &v34);
-    *v14 = 1;
-    v14 = v15 + 5;
     goto LABEL_5;
   }
 
+  v16 = darwin_syscall_image_copy_active(a1, 0, v18, &v20);
+  if (!v16)
+  {
+    v17 = v18;
+    if (v5 >= v5 + 304)
+    {
+      goto LABEL_18;
+    }
+
+    v11 = buff_xfer((v5 + 96), &v17);
+    *v10 = 1;
+    v10 = v11 + 5;
+LABEL_5:
+    v12 = *v11;
+    v13 = v11[1];
+    if (v11 + 5 <= v10 && v12 <= *v11 + v13)
+    {
+      v15 = 0;
+      *a4 = v12;
+      *a5 = v13;
+      goto LABEL_12;
+    }
+
 LABEL_18:
-  __break(0x5519u);
+    __break(0x5519u);
+    return;
+  }
+
+  v15 = v16;
+  expert_log(a1, 0, "failed to copy active cryptex0 root: %d", v16);
+LABEL_12:
+  os_unfair_lock_assert_owner((v5 + 92));
+  os_unfair_lock_unlock((v5 + 92));
+  *&v23[0] = v18;
+  buff_destroy(v23);
+  if (v15 >= 0x6B)
+  {
+    __panic_npx("panic: error not set to valid posix code: %d", v15);
+  }
 }
 
-unint64_t _darwin_el0_query_property_BOOL(uint64_t a1, uint64_t a2, uint64_t *a3, BOOL *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t _darwin_el0_query_property_BOOL(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
 {
-  v10 = *(*(a1 + 16) + 12);
-  v26 = 0;
-  v25 = 4;
-  v11 = a3[2];
-  if (v11 <= 11)
+  v6 = *(*(a1 + 16) + 12);
+  v14 = 0;
+  v13 = 4;
+  v7 = *(a3 + 16);
+  if (v7 <= 11)
   {
-    if (v11 <= 6)
+    if (v7 <= 6)
     {
-      if (v11 == 5)
+      if (v7 == 5)
       {
-        v12 = 0;
-        v13 = "certificate-production-status";
+        v8 = 0;
+        v9 = "certificate-production-status";
         goto LABEL_26;
       }
 
-      if (v11 == 6)
+      if (v7 == 6)
       {
-        v12 = 0;
-        v13 = "certificate-security-mode";
+        v8 = 0;
+        v9 = "certificate-security-mode";
         goto LABEL_26;
       }
     }
 
     else
     {
-      switch(v11)
+      switch(v7)
       {
         case 7:
-          v12 = 0;
-          v13 = "effective-production-status-ap";
+          v8 = 0;
+          v9 = "effective-production-status-ap";
           goto LABEL_26;
         case 8:
-          v12 = 0;
-          v13 = "effective-security-mode-ap";
+          v8 = 0;
+          v9 = "effective-security-mode-ap";
           goto LABEL_26;
         case 11:
-          v13 = "mix-n-match-prevention-status";
-          v12 = 1;
+          v9 = "mix-n-match-prevention-status";
+          v8 = 1;
           goto LABEL_26;
       }
     }
 
 LABEL_34:
-    v24 = *a3;
-    __panic_npx("panic: illegal %s property: %s", a2, a3, a4, a5, a6, a7, a8, *(a3[5] + 8));
+    __panic_npx("panic: illegal %s property: %s", *(*(a3 + 40) + 8), *a3);
   }
 
-  if (v11 > 14)
+  if (v7 > 14)
   {
-    switch(v11)
+    switch(v7)
     {
       case 15:
-        v12 = 0;
-        v13 = "factory-prerelease-global-trust";
+        v8 = 0;
+        v9 = "factory-prerelease-global-trust";
         goto LABEL_26;
       case 18:
-        v12 = 0;
-        v13 = "research-enabled";
+        v8 = 0;
+        v9 = "research-enabled";
         goto LABEL_26;
       case 32:
-        v14 = expert_compute_data_only(a1);
+        v10 = expert_compute_data_only(a1);
         goto LABEL_31;
     }
 
     goto LABEL_34;
   }
 
-  if (v11 == 12)
+  if (v7 == 12)
   {
-    result = expert_compute_eieiou(a1, a2, &v26);
+    result = expert_compute_eieiou(a1, a2, &v14);
     if (result)
     {
       goto LABEL_27;
     }
 
-    v14 = v26;
+    v10 = v14;
     goto LABEL_31;
   }
 
-  v12 = 0;
-  if (v11 == 13)
+  v8 = 0;
+  if (v7 == 13)
   {
-    v13 = "internal-use-only-unit";
+    v9 = "internal-use-only-unit";
   }
 
   else
   {
-    v13 = "engineering-use-only-unit";
+    v9 = "engineering-use-only-unit";
   }
 
 LABEL_26:
-  result = darwin_read_iokit_node(v10, v13, &v26, &v25);
+  result = darwin_read_iokit_node(v6, v9, &v14, &v13);
   if (!result)
   {
-    v14 = v26;
-    if (v12)
+    v10 = v14;
+    if (v8)
     {
-      v23 = !v26;
+      v12 = !v14;
 LABEL_32:
       result = 0;
-      *a4 = v23;
+      *a4 = v12;
       return result;
     }
 
 LABEL_31:
-    v23 = v14;
+    v12 = v10;
     goto LABEL_32;
   }
 
 LABEL_27:
   if (result >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v16, v17, v18, v19, v20, v21, v22, result);
+    __panic_npx("panic: error not set to valid posix code: %d", result);
   }
 
   return result;
 }
 
-unint64_t _darwin_el0_query_property_uint32(uint64_t a1, uint64_t a2, uint64_t *a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t _darwin_el0_query_property_uint32(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v22 = 0;
-  v21 = 4;
-  v9 = a3[2];
-  if (v9 <= 2)
+  v10 = 0;
+  v9 = 4;
+  v5 = *(a3 + 16);
+  if (v5 <= 2)
   {
-    if (v9)
+    if (v5)
     {
-      if (v9 == 1)
+      if (v5 == 1)
       {
-        v11 = "board-id";
+        v7 = "board-id";
       }
 
       else
       {
-        if (v9 != 2)
+        if (v5 != 2)
         {
           goto LABEL_25;
         }
 
-        v11 = "chip-id";
+        v7 = "chip-id";
       }
     }
 
     else
     {
-      v11 = "chip-epoch";
+      v7 = "chip-epoch";
     }
 
 LABEL_18:
-    v12 = 12;
+    v8 = 12;
     goto LABEL_19;
   }
 
-  if (v9 > 0x21)
+  if (v5 > 0x21)
   {
 LABEL_14:
-    if (v9 == 3)
+    if (v5 == 3)
     {
-      v11 = "security-domain";
+      v7 = "security-domain";
       goto LABEL_18;
     }
 
-    if (v9 == 19)
+    if (v5 == 19)
     {
-      v11 = "esdm-fuses";
+      v7 = "esdm-fuses";
       goto LABEL_18;
     }
 
 LABEL_25:
-    v20 = *a3;
-    __panic_npx("panic: illegal %s property: %s", a2, a3, a4, a5, a6, a7, a8, *(a3[5] + 8));
+    __panic_npx("panic: illegal %s property: %s", *(*(a3 + 40) + 8), *a3);
   }
 
-  if (((1 << v9) & 0x21700000) != 0)
+  if (((1 << v5) & 0x21700000) != 0)
   {
     return 45;
   }
 
-  if (v9 != 23)
+  if (v5 != 23)
   {
-    if (v9 == 33)
+    if (v5 == 33)
     {
-      v11 = "image4-cert-type";
+      v7 = "image4-cert-type";
       goto LABEL_18;
     }
 
     goto LABEL_14;
   }
 
-  v11 = "cryptex1-product-class";
-  v12 = 16;
+  v7 = "cryptex1-product-class";
+  v8 = 16;
 LABEL_19:
-  result = darwin_read_iokit_node(*(*(a1 + 16) + v12), v11, &v22, &v21);
+  result = darwin_read_iokit_node(*(*(a1 + 16) + v8), v7, &v10, &v9);
   if (result)
   {
     if (result >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v13, v14, v15, v16, v17, v18, v19, result);
+      __panic_npx("panic: error not set to valid posix code: %d", result);
     }
   }
 
   else
   {
-    *a4 = v22;
+    *a4 = v10;
   }
 
   return result;
 }
 
-unint64_t _darwin_el0_query_property_uint64(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t _darwin_el0_query_property_uint64(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v21 = 8;
-  v22 = 0;
-  v9 = a3[2];
-  if (v9 == 4)
+  v9 = 8;
+  v10 = 0;
+  v5 = *(a3 + 16);
+  if (v5 == 4)
   {
-    v10 = "unique-chip-id";
-    v11 = 12;
+    v6 = "unique-chip-id";
+    v7 = 12;
   }
 
   else
   {
-    if (v9 != 27)
+    if (v5 != 27)
     {
-      v20 = *a3;
-      __panic_npx("panic: illegal %s property: %s", a2, a3, a4, a5, a6, a7, a8, *(a3[5] + 8));
+      __panic_npx("panic: illegal %s property: %s", *(*(a3 + 40) + 8), *a3);
     }
 
-    v10 = "lp-stng";
-    v11 = 24;
+    v6 = "lp-stng";
+    v7 = 24;
   }
 
-  result = darwin_read_iokit_node(*(*(a1 + 16) + v11), v10, &v22, &v21);
+  result = darwin_read_iokit_node(*(*(a1 + 16) + v7), v6, &v10, &v9);
   if (result)
   {
     if (result >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v13, v14, v15, v16, v17, v18, v19, result);
+      __panic_npx("panic: error not set to valid posix code: %d", result);
     }
   }
 
   else
   {
-    *a4 = v22;
+    *a4 = v10;
   }
 
   return result;
 }
 
-unint64_t _darwin_el0_query_property_digest(uint64_t a1, char *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t _darwin_el0_query_property_digest(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x29EDCA608];
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 12);
-  memset(v34, 0, sizeof(v34));
+  v22 = *MEMORY[0x29EDCA608];
+  v7 = *(a1 + 16);
+  v8 = *(v7 + 12);
+  memset(v21, 0, sizeof(v21));
   __n = 64;
-  v31[0] = 0;
-  memset(v33, 0, sizeof(v33));
-  memset(v32, 0, 38);
-  v29 = 38;
-  v31[1] = 0;
-  v13 = a3[2];
-  if (v13 <= 24)
+  v18[0] = 0;
+  memset(v20, 0, sizeof(v20));
+  memset(v19, 0, 38);
+  v16 = 38;
+  v18[1] = 0;
+  v9 = *(a3 + 16);
+  if (v9 <= 24)
   {
-    if (v13 != 9)
+    if (v9 != 9)
     {
-      if (v13 != 10)
+      if (v9 != 10)
       {
-        if (v13 != 16)
+        if (v9 != 16)
         {
           goto LABEL_35;
         }
 
-        result = darwin_read_iokit_node(v12, "apfs-preboot-uuid", v32, &v29);
+        result = darwin_read_iokit_node(v8, "apfs-preboot-uuid", v19, &v16);
         if (result)
         {
           goto LABEL_21;
         }
 
-        result = darwin_uuid_parse(v32, v31);
+        result = darwin_uuid_parse(v19, v18);
         if (result)
         {
           goto LABEL_21;
         }
 
-        v23 = v31;
-        v24 = 16;
+        v12 = v18;
+        v13 = 16;
         goto LABEL_29;
       }
 
-      v25 = "boot-manifest-hash";
+      v14 = "boot-manifest-hash";
       goto LABEL_20;
     }
 
-    v14 = expert_compute_udid(a1, a2, v33);
-    if (v14)
+    v10 = expert_compute_udid(a1, a2, v20);
+    if (v10)
     {
       goto LABEL_22;
     }
 
 LABEL_30:
-    digest_copy(a4, v33, v17, v18, v19, v20, v21, v22);
-    v14 = 0;
-    goto LABEL_31;
+    digest_copy(a4, v20);
+    return 0;
   }
 
-  if (v13 > 27)
+  if (v9 > 27)
   {
-    if (v13 == 28)
+    if (v9 == 28)
     {
-      v26 = darwin_copy_kcinstall_nonce_hash(a1, a2);
-      if (v26)
+      v15 = darwin_copy_kcinstall_nonce_hash(a1, a2);
+      if (v15)
       {
-        v14 = v26;
-        if (v26 == 96)
+        v10 = v15;
+        if (v15 == 96)
         {
-          result = darwin_syscall_nonce_copy_hash(a1, a2, -1, v34, &__n);
+          result = darwin_syscall_nonce_copy_hash(a1, a2, -1, v21, &__n);
           if (result)
           {
             goto LABEL_21;
@@ -4532,72 +4471,67 @@ LABEL_30:
           goto LABEL_27;
         }
 
-        expert_log(a1, 0, "failed to copy kcinstall nonce hash: %d", v18, v19, v20, v21, v22, v26);
-        if (v14)
+        expert_log(a1, 0, "failed to copy kcinstall nonce hash: %d", v15);
+        if (v10)
         {
 LABEL_22:
-          if (v14 >= 0x6B)
+          if (v10 >= 0x6B)
           {
-            __panic_npx("panic: error not set to valid posix code: %d", v16, v17, v18, v19, v20, v21, v22, v14);
+            __panic_npx("panic: error not set to valid posix code: %d", v10);
           }
 
-          goto LABEL_31;
+          return v10;
         }
       }
     }
 
     else
     {
-      if (v13 != 30)
+      if (v9 != 30)
       {
         goto LABEL_35;
       }
 
-      if (!*(v11 + 296))
+      if (!*(v7 + 296))
       {
-        v14 = 2;
-        goto LABEL_31;
+        return 2;
       }
 
-      digest_copy(v33, v11 + 216, a3, a4, a5, a6, a7, a8);
+      digest_copy(v20, v7 + 216);
     }
 
     goto LABEL_30;
   }
 
-  if (v13 != 25)
+  if (v9 != 25)
   {
-    if (v13 == 26)
+    if (v9 == 26)
     {
-      v14 = 45;
-LABEL_31:
-      v27 = *MEMORY[0x29EDCA608];
-      return v14;
+      return 45;
     }
 
 LABEL_35:
-    v28 = *a3;
-    __panic_npx("panic: illegal %s property: %s", a2, a3, a4, a5, a6, a7, a8, *(a3[5] + 8));
+    __panic_npx("panic: illegal %s property: %s", *(*(a3 + 40) + 8), *a3);
   }
 
-  v12 = *(v11 + 24);
-  v25 = "lp-spih";
+  v8 = *(v7 + 24);
+  v14 = "lp-spih";
 LABEL_20:
-  result = darwin_read_iokit_node(v12, v25, v34, &__n);
+  result = darwin_read_iokit_node(v8, v14, v21, &__n);
   if (result)
   {
 LABEL_21:
-    v14 = result;
+    v10 = result;
     goto LABEL_22;
   }
 
 LABEL_27:
-  v24 = __n;
+  v13 = __n;
   if (__n <= 0x40)
   {
-    v23 = v34;
+    v12 = v21;
 LABEL_29:
-    digest_init(v33, v23, v24, v18, v19, v20, v21, v22);
+    digest_init(v20, v12, v13);
     goto LABEL_30;
   }
 
@@ -4605,37 +4539,35 @@ LABEL_29:
   return result;
 }
 
-uint64_t _darwin_el0_query_property_version(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _darwin_el0_query_property_version(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
-  memset(v24, 0, 64);
-  v21 = 64;
-  v23 = 0x3E800000000;
-  memset(v22, 0, sizeof(v22));
-  if (a3[2] != 17)
+  v12 = *MEMORY[0x29EDCA608];
+  memset(v11, 0, 64);
+  v8 = 64;
+  v10 = 0x3E800000000;
+  memset(v9, 0, sizeof(v9));
+  if (*(a3 + 16) != 17)
   {
-    v20 = *a3;
-    __panic_npx("panic: illegal %s property: %s", a2, a3, a4, a5, a6, a7, a8, *(a3[5] + 8));
+    __panic_npx("panic: illegal %s property: %s", *(*(a3 + 40) + 8), *a3);
   }
 
-  boot_manifest = expert_read_boot_manifest(a1, "love", v24, &v21);
-  v17 = boot_manifest;
+  boot_manifest = expert_read_boot_manifest(a1, "love", v11, &v8);
+  v6 = boot_manifest;
   if (boot_manifest)
   {
     if (boot_manifest >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v10, v11, v12, v13, v14, v15, v16, boot_manifest);
+      __panic_npx("panic: error not set to valid posix code: %d", boot_manifest);
     }
   }
 
   else
   {
-    version_init(v22, v24, v21);
-    version_copy(a4, v22);
+    version_init(v9, v11, v8);
+    version_copy(a4, v9);
   }
 
-  v18 = *MEMORY[0x29EDCA608];
-  return v17;
+  return v6;
 }
 
 uint64_t _darwin_el0_init_once(uint64_t result)
@@ -4660,31 +4592,31 @@ uint64_t _darwin_el0_boot_once(uint64_t a1)
   return *(*(a1 + 16) + 88);
 }
 
-uint64_t _darwin_el0_syscall(uint64_t a1, uint64_t a2, void *a3, size_t a4, void *a5, size_t *a6, uint64_t a7, uint64_t a8)
+uint64_t _darwin_el0_syscall(uint64_t a1, uint64_t a2, void *a3, size_t a4, void *a5, size_t *a6)
 {
-  v27 = *a2;
-  v28 = *a6;
-  result = expert_log(a1, 2uLL, "syscall: %s", a4, a5, a6, a7, a8, v27);
-  if (v28 > *a6)
+  v14 = *a2;
+  v15 = *a6;
+  result = expert_log(a1, 2uLL, "syscall: %s", v14);
+  if (v15 > *a6)
   {
     __break(0x5519u);
   }
 
   else
   {
-    if (!sysctl((a2 + 12), *(a2 + 32), a5, &v28, a3, a4))
+    if (!sysctl((a2 + 12), *(a2 + 32), a5, &v15, a3, a4))
     {
       return 0;
     }
 
-    v15 = *__error();
-    dylib_expert_record_trap_error(a1, a2, "sysctl", v15, v16, v17, v18, v19);
-    if (v15 >= 0x6B)
+    v13 = *__error();
+    dylib_expert_record_trap_error(a1, a2, "sysctl", v13);
+    if (v13 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v20, v21, v22, v23, v24, v25, v26, v15);
+      __panic_npx("panic: error not set to valid posix code: %d", v13);
     }
 
-    return v15;
+    return v13;
   }
 
   return result;
@@ -4705,7 +4637,7 @@ uint64_t _darwin_el0_boot_once_tramp(uint64_t a1)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return _os_log_send_and_compose_impl();
@@ -4725,34 +4657,32 @@ double OUTLINED_FUNCTION_2(void *a1, _OWORD *a2)
 
 void _prepare_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21[2] = *MEMORY[0x29EDCA608];
+  v9[2] = *MEMORY[0x29EDCA608];
   v4 = *(*a3 + 24);
   v5 = *(v4 + 8);
-  v21[0] = 0;
-  v21[1] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   __n = 0;
-  memset(v20, 0, sizeof(v20));
-  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v21, &__n);
+  memset(v8, 0, sizeof(v8));
+  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v9, &__n);
   if (boot_nonce)
   {
     if (boot_nonce != 45)
     {
-      expert_log(v5, 0, "failed to get nonce digest from callback: %d", v7, v8, v9, v10, v11, boot_nonce);
+      expert_log(v5, 0, "failed to get nonce digest from callback: %d", boot_nonce);
     }
-
-    goto LABEL_6;
   }
 
-  if (__n <= 0x10)
+  else if (__n > 0x10)
   {
-    nonce_init(v20, v21, __n, v7, v8, v9, v10, v11);
-    odometer_prepare_nonce(a2, v20, v12, v13, v14, v15, v16, v17);
-LABEL_6:
-    v18 = *MEMORY[0x29EDCA608];
-    return;
+    __break(0x5519u);
   }
 
-  __break(0x5519u);
+  else
+  {
+    nonce_init(v8, v9, __n);
+    odometer_prepare_nonce(a2, v8);
+  }
 }
 
 uint64_t _extract_payload_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -4770,15 +4700,15 @@ uint64_t img4_chip_init_from_buff(uint64_t a1, unint64_t a2)
   result = img4_runtime_get_expert(_img4_runtime_default);
   if (a2 == 384)
   {
-    v12 = result;
-    v13 = _expert_alloc_type(result, &_image4_type_custom_chip);
-    if (!v13)
+    v5 = result;
+    v6 = _expert_alloc_type(result, &_image4_type_custom_chip);
+    if (!v6)
     {
       goto LABEL_8;
     }
 
-    a1 = v13;
-    *(v13 + 720) = v12;
+    a1 = v6;
+    *(v6 + 720) = v5;
     return a1;
   }
 
@@ -4788,7 +4718,7 @@ uint64_t img4_chip_init_from_buff(uint64_t a1, unint64_t a2)
     if (a2 <= 0x2D7)
     {
 LABEL_8:
-      __panic_npx("panic: object overflows buffer: object = chip, length = %lu, required = %lu", v5, v6, v7, v8, v9, v10, v11, a2);
+      __panic_npx("panic: object overflows buffer: object = chip, length = %lu, required = %lu", a2, 728);
     }
 
     return a1;
@@ -4810,7 +4740,7 @@ unint64_t img4_chip_select_cryptex1_boot()
   if (result < result + 264)
   {
     name = chip_get_name(result);
-    __panic_npx("panic: no cryptex1 guests for %s", v3, v4, v5, v6, v7, v8, v9, name);
+    __panic_npx("panic: no cryptex1 guests for %s", name);
   }
 
   __break(0x5519u);
@@ -4829,7 +4759,7 @@ unint64_t img4_chip_select_cryptex1_preboot()
   if (result < result + 264)
   {
     name = chip_get_name(result);
-    __panic_npx("panic: no cryptex1 guests for %s", v3, v4, v5, v6, v7, v8, v9, name);
+    __panic_npx("panic: no cryptex1 guests for %s", name);
   }
 
   __break(0x5519u);
@@ -4847,7 +4777,7 @@ unint64_t img4_chip_get_cryptex1_boot(unint64_t result)
   if (result + 264 >= result)
   {
     name = chip_get_name(result);
-    __panic_npx("panic: no cryptex1 guests for %s", v3, v4, v5, v6, v7, v8, v9, name);
+    __panic_npx("panic: no cryptex1 guests for %s", name);
   }
 
   __break(0x5519u);
@@ -4865,7 +4795,7 @@ unint64_t img4_chip_get_cryptex1_boot_proposal(unint64_t result)
   if (result + 264 >= result)
   {
     name = chip_get_name(result);
-    __panic_npx("panic: no cryptex1 guests for %s", v3, v4, v5, v6, v7, v8, v9, name);
+    __panic_npx("panic: no cryptex1 guests for %s", name);
   }
 
   __break(0x5519u);
@@ -4874,20 +4804,20 @@ unint64_t img4_chip_get_cryptex1_boot_proposal(unint64_t result)
 
 uint64_t img4_chip_instantiate(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   expert = img4_runtime_get_expert(_img4_runtime_default);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  memset(v20, 0, sizeof(v20));
-  v17 = 0u;
-  v18 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  memset(v12, 0, sizeof(v12));
+  v9 = 0u;
+  v10 = 0u;
   result = expert_runtime_boot(expert);
-  if (result || (result = chip_instance_instantiate(&v17, expert, a1, v8, v9, v10, v11, v12), result))
+  if (result || (result = chip_instance_instantiate(&v9, expert, a1), result))
   {
     if (result >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v6, v7, v8, v9, v10, v11, v12, result);
+      __panic_npx("panic: error not set to valid posix code: %d", result);
     }
   }
 
@@ -4895,87 +4825,86 @@ uint64_t img4_chip_instantiate(uint64_t a1, uint64_t a2)
   {
     *(a2 + 8) = a1;
     *(a2 + 16) = 0;
-    *(a2 + 24) = v18;
-    *(a2 + 40) = v19;
-    *(a2 + 48) = DWORD2(v19);
-    img4_dgst_init_from_digest(a2 + 64, v20, v7, v8, v9, v10, v11, v12);
-    v14 = 0;
-    *(a2 + 128) = v21;
-    *(a2 + 52) = BYTE12(v22);
-    *(a2 + 54) = BYTE13(v22);
-    *(a2 + 60) = BYTE14(v22);
-    *(a2 + 56) = DWORD2(v22);
-    *(a2 + 53) = HIBYTE(v22);
+    *(a2 + 24) = v10;
+    *(a2 + 40) = v11;
+    *(a2 + 48) = DWORD2(v11);
+    img4_dgst_init_from_digest(a2 + 64, v12);
+    v6 = 0;
+    *(a2 + 128) = v13;
+    *(a2 + 52) = BYTE12(v14);
+    *(a2 + 54) = BYTE13(v14);
+    *(a2 + 60) = BYTE14(v14);
+    *(a2 + 56) = DWORD2(v14);
+    *(a2 + 53) = HIBYTE(v14);
     do
     {
-      v15 = __omit_map[v14];
-      if (v15)
+      v7 = __omit_map[v6];
+      if (v7)
       {
-        v16 = property_find_from_expert(v14);
-        if (!v16 || (v16[9] & *(&v17 + 1)) == 0)
+        v8 = property_find_from_expert(v6);
+        if (!v8 || (v8[9] & *(&v9 + 1)) == 0)
         {
-          *(a2 + 16) |= v15;
+          *(a2 + 16) |= v7;
         }
       }
 
-      v14 = (v14 + 1);
+      v6 = (v6 + 1);
     }
 
-    while (v14 != 35);
-    result = 0;
+    while (v6 != 35);
+    return 0;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t img4_chip_custom(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t img4_chip_custom(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v8 = *(a1 + 8);
-  memset(&v25[8], 0, 120);
-  v23 = v8;
-  v24 = *(a1 + 24);
-  *v25 = *(a1 + 40);
-  *&v25[8] = *(a1 + 48);
-  v9 = *(a1 + 72);
-  if (v9 >= 0x31)
+  v19 = *MEMORY[0x29EDCA608];
+  v2 = *(a1 + 8);
+  memset(&v18[8], 0, 120);
+  v16 = v2;
+  v17 = *(a1 + 24);
+  *v18 = *(a1 + 40);
+  *&v18[8] = *(a1 + 48);
+  v3 = *(a1 + 72);
+  if (v3 >= 0x31)
   {
     goto LABEL_10;
   }
 
-  v12 = a2 + 264;
-  v13 = a2 + 720;
-  digest_init(&v25[16], (a1 + 80), v9, a4, a5, a6, a7, a8);
-  v14 = 0;
-  *&v25[96] = *(a1 + 128);
-  v25[124] = *(a1 + 52);
-  v25[125] = *(a1 + 54);
-  v25[126] = *(a1 + 60);
-  *&v25[120] = *(a1 + 56);
-  v25[127] = *(a1 + 53);
+  v6 = a2 + 264;
+  v7 = a2 + 720;
+  digest_init(&v18[16], (a1 + 80), v3);
+  v8 = 0;
+  *&v18[96] = *(a1 + 128);
+  v18[124] = *(a1 + 52);
+  v18[125] = *(a1 + 54);
+  v18[126] = *(a1 + 60);
+  *&v18[120] = *(a1 + 56);
+  v18[127] = *(a1 + 53);
   do
   {
-    v15 = __omit_map[v14];
-    if (v15)
+    v9 = __omit_map[v8];
+    if (v9)
     {
-      v16 = property_find_from_expert(v14);
-      if (v16)
+      v10 = property_find_from_expert(v8);
+      if (v10)
       {
-        if ((*(a1 + 16) & v15) == 0)
+        if ((*(a1 + 16) & v9) == 0)
         {
-          *(&v23 + 1) |= v16[9];
+          *(&v16 + 1) |= v10[9];
         }
       }
     }
 
-    v14 = (v14 + 1);
+    v8 = (v8 + 1);
   }
 
-  while (v14 != 35);
-  memcpy(a2, v8, 0x108uLL);
+  while (v8 != 35);
+  memcpy(a2, v2, 0x108uLL);
   *(a2 + 16) = 3;
-  if (v12 >= v13)
+  if (v6 >= v7)
   {
 LABEL_10:
     __break(0x5519u);
@@ -5015,23 +4944,22 @@ LABEL_10:
   *(a2 + 528) = _chip_expert_syscall;
   *(a2 + 536) = _chip_expert_lock;
   *(a2 + 544) = _chip_expert_unlock;
-  *(a2 + 552) = v23;
-  *(a2 + 568) = v24;
-  v17 = *&v25[48];
-  *(a2 + 616) = *&v25[32];
-  *(a2 + 632) = v17;
-  v18 = *&v25[16];
-  *(a2 + 584) = *v25;
-  *(a2 + 600) = v18;
-  v19 = *&v25[112];
-  *(a2 + 680) = *&v25[96];
-  *(a2 + 696) = v19;
-  v20 = *&v25[80];
-  *(a2 + 648) = *&v25[64];
-  *(a2 + 664) = v20;
+  *(a2 + 552) = v16;
+  *(a2 + 568) = v17;
+  v11 = *&v18[48];
+  *(a2 + 616) = *&v18[32];
+  *(a2 + 632) = v11;
+  v12 = *&v18[16];
+  *(a2 + 584) = *v18;
+  *(a2 + 600) = v12;
+  v13 = *&v18[112];
+  *(a2 + 680) = *&v18[96];
+  *(a2 + 696) = v13;
+  v14 = *&v18[80];
+  *(a2 + 648) = *&v18[64];
+  *(a2 + 664) = v14;
   *(a2 + 712) = a2 + 552;
-  *(a2 + 112) = v12;
-  v21 = *MEMORY[0x29EDCA608];
+  *(a2 + 112) = v6;
   return a2;
 }
 
@@ -5160,7 +5088,7 @@ uint64_t img4_buff_dealloc_internal(uint64_t a1, void *a2)
 
       if (v5)
       {
-        result = v3();
+        a1 = v3(a1);
         *a2 = 0;
       }
 
@@ -5171,52 +5099,52 @@ uint64_t img4_buff_dealloc_internal(uint64_t a1, void *a2)
     }
   }
 
-  return result;
-}
-
-uint64_t img4_nonce_init_from_digest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  *a1 = 0;
-  *(a1 + 52) = 48;
-  digest_copy_out32(a2, (a1 + 2), (a1 + 52), a4, a5, a6, a7, a8);
   return a1;
 }
 
-uint64_t digest_init_from_img4_dgst(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t img4_nonce_init_from_digest(uint64_t a1, uint64_t a2)
 {
-  v8 = *(a2 + 8);
-  if (v8 < 0x31)
+  *a1 = 0;
+  *(a1 + 52) = 48;
+  digest_copy_out32(a2, (a1 + 2), (a1 + 52));
+  return a1;
+}
+
+uint64_t digest_init_from_img4_dgst(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 < 0x31)
   {
-    return digest_init(result, (a2 + 16), v8, a4, a5, a6, a7, a8);
+    return digest_init(result, (a2 + 16), v2);
   }
 
   __break(0x5519u);
   return result;
 }
 
-uint64_t digest_init_from_img4_nonce(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t digest_init_from_img4_nonce(uint64_t result, uint64_t a2)
 {
-  v8 = *(a2 + 52);
-  if (v8 < 0x31)
+  v2 = *(a2 + 52);
+  if (v2 < 0x31)
   {
-    return digest_init(result, (a2 + 2), v8, a4, a5, a6, a7, a8);
+    return digest_init(result, (a2 + 2), v2);
   }
 
   __break(0x5519u);
   return result;
 }
 
-uint64_t img4_dgst_init_from_digest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t img4_dgst_init_from_digest(uint64_t a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 8) = 48;
-  digest_copy_out(a2, (a1 + 16), (a1 + 8), a4, a5, a6, a7, a8);
+  digest_copy_out(a2, (a1 + 16), (a1 + 8));
   return a1;
 }
 
 void *_darwin_runtime_alloc(uint64_t a1, int64_t a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if (_dispatch_is_multithreaded())
   {
     while (1)
@@ -5236,7 +5164,7 @@ void *_darwin_runtime_alloc(uint64_t a1, int64_t a2)
     result = malloc_type_calloc(1uLL, a2, 0x8709206FuLL);
     if (!result)
     {
-      _darwin_runtime_alloc_cold_1(&v5, v6);
+      _darwin_runtime_alloc_cold_1(&v4, v5);
     }
   }
 
@@ -5245,27 +5173,26 @@ void *_darwin_runtime_alloc(uint64_t a1, int64_t a2)
     __break(0x5519u);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t _darwin_runtime_execute_object(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = dylib_expert();
-  v43 = 0;
-  memset(v42, 0, sizeof(v42));
-  v41 = 0;
-  memset(v40, 0, sizeof(v40));
-  v37 = 2;
-  v38 = *a2;
-  memset(v39, 170, sizeof(v39));
-  v32 = 2;
-  v33 = v38;
-  v34 = 0;
-  v36 = 0;
-  v35 = 0;
-  v31 = 33;
-  buff_init_from_img4_buff(v42, a3);
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
+  v20 = 0;
+  memset(v19, 0, sizeof(v19));
+  v16 = 2;
+  v17 = *a2;
+  memset(v18, 170, sizeof(v18));
+  v11 = 2;
+  v12 = v17;
+  v13 = 0;
+  v15 = 0;
+  v14 = 0;
+  v10 = 33;
+  buff_init_from_img4_buff(v21, a3);
   if (a4)
   {
     v8 = a4;
@@ -5276,15 +5203,15 @@ uint64_t _darwin_runtime_execute_object(uint64_t a1, uint64_t *a2, uint64_t a3, 
     v8 = a3;
   }
 
-  buff_init_from_img4_buff(v40, v8);
-  v39[0] = *&v42[0];
-  LODWORD(v39[1]) = buff_get_length_uint32(v42, v9, v10, v11, v12, v13, v14, v15);
-  *(&v39[1] + 4) = *&v40[0];
-  HIDWORD(v39[2]) = buff_get_length_uint32(v40, v16, v17, v18, v19, v20, v21, v22);
-  result = dylib_expert_call_method(v7, 0xDuLL, &v37, 0x21uLL, &v32, &v31);
+  buff_init_from_img4_buff(v19, v8);
+  v18[0] = *&v21[0];
+  LODWORD(v18[1]) = buff_get_length_uint32(v21);
+  *(&v18[1] + 4) = *&v19[0];
+  HIDWORD(v18[2]) = buff_get_length_uint32(v19);
+  result = dylib_expert_call_method(v7, 0xDuLL, &v16, 0x21uLL, &v11, &v10);
   if (result >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v24, v25, v26, v27, v28, v29, v30, result);
+    __panic_npx("panic: error not set to valid posix code: %d", result);
   }
 
   return result;
@@ -5293,63 +5220,63 @@ uint64_t _darwin_runtime_execute_object(uint64_t a1, uint64_t *a2, uint64_t a3, 
 uint64_t _darwin_runtime_copy_object(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4)
 {
   v7 = dylib_expert();
-  v39 = 1;
-  v15 = *a2;
-  v40 = *a2;
-  v16 = *(a3 + 16);
-  if (v16)
+  v20 = 1;
+  v8 = *a2;
+  v21 = *a2;
+  v9 = *(a3 + 16);
+  if (v9)
   {
-    v17 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v17 = *(a3 + 8) == 0;
+    v10 = *(a3 + 8) == 0;
   }
 
-  if (!v17)
+  if (!v10)
   {
     __break(0x5519u);
     goto LABEL_13;
   }
 
-  v41 = *(a3 + 8);
-  if (HIDWORD(v16))
+  v22 = *(a3 + 8);
+  if (HIDWORD(v9))
   {
 LABEL_13:
-    __panic_npx("panic: integer cast overflow: v = %s, actual = %llu, expected <= %llu", v8, v9, v10, v11, v12, v13, v14, "payload->i4b_len");
+    __panic_npx("panic: integer cast overflow: v = %s, actual = %llu, expected <= %llu", "payload->i4b_len", v9, 0xFFFFFFFFLL);
   }
 
-  v18 = v7;
-  v42 = v16;
-  v35 = 1;
-  v36 = v15;
-  v37 = 0;
-  v38 = 0;
-  v34 = 21;
-  v19 = expert_runtime_boot(v7);
-  if (v19)
+  v11 = v7;
+  v23 = v9;
+  v16 = 1;
+  v17 = v8;
+  v18 = 0;
+  v19 = 0;
+  v15 = 21;
+  v12 = expert_runtime_boot(v7);
+  if (v12)
   {
-    v25 = v19;
-    expert_log(v18, 3uLL, "failed to boot expert for syscall: %d", v20, v21, v22, v23, v24, v19);
+    v13 = v12;
+    expert_log(v11, 3uLL, "failed to boot expert for syscall: %d", v12);
   }
 
   else
   {
-    v25 = dylib_expert_call_method(v18, 0xFuLL, &v39, 0x15uLL, &v35, &v34);
-    if (!v25)
+    v13 = dylib_expert_call_method(v11, 0xFuLL, &v20, 0x15uLL, &v16, &v15);
+    if (!v13)
     {
-      *a4 = v38;
-      return v25;
+      *a4 = v19;
+      return v13;
     }
   }
 
-  if (v25 >= 0x6B)
+  if (v13 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v26, v27, v28, v29, v30, v31, v32, v25);
+    __panic_npx("panic: error not set to valid posix code: %d", v13);
   }
 
-  return v25;
+  return v13;
 }
 
 uint64_t darwin_copy_kcinstall_nonce_hash(uint64_t a1, char *a2)
@@ -5490,285 +5417,298 @@ uint64_t *_chip_bin_get_data(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t _manifest_impose_internal(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (**a5)(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))
+uint64_t _manifest_impose_internal(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (**a5)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4))
 {
-  v125 = *MEMORY[0x29EDCA608];
-  v120[0] = a1;
-  v120[1] = a2;
-  v120[2] = a3;
-  v120[3] = a4;
-  v121 = 0;
-  v122 = 0;
-  v120[4] = a5;
-  v123 = _manifest_evaluate_trust_payload;
-  v124 = 0xAAAAAAAAFFFFFFFFLL;
-  v118 = 0;
-  v119 = 0;
+  v66 = *MEMORY[0x29EDCA608];
+  v61[0] = a1;
+  v61[1] = a2;
+  v61[2] = a3;
+  v61[3] = a4;
+  v62 = 0;
+  v63 = 0;
+  v61[4] = a5;
+  v64 = _manifest_evaluate_trust_payload;
+  v65 = 0xAAAAAAAAFFFFFFFFLL;
+  v59 = 0;
+  v60 = 0;
   v8 = *a1;
   v9 = a1[1];
   if (a3)
   {
-    v10 = *(a3 + 8) + 4;
+    v10 = (*(a3 + 8) + 4);
     v11 = "payload";
   }
 
   else
   {
-    v123 = _manifest_evaluate_trust_manifest;
+    v64 = _manifest_evaluate_trust_manifest;
+    v10 = "n/a";
     v11 = "manifest";
   }
 
   alloc_preference = _type_get_alloc_preference(&_image4_type_decode_context);
   if (alloc_preference <= 1)
   {
-    v20 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v20 = alloc_preference;
+    v13 = alloc_preference;
   }
 
-  if (v20 == 1)
+  if (v13 == 1)
   {
     goto LABEL_11;
   }
 
-  if (v20 != 2)
+  if (v13 != 2)
   {
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
-  v21 = _expert_alloc_type(v8, &_image4_type_decode_context);
-  if (!v21)
+  v14 = _expert_alloc_type(v8, &_image4_type_decode_context);
+  if (!v14)
   {
 LABEL_11:
     size = type_get_size(&_image4_type_decode_context);
-    v37 = MEMORY[0x2A1C7C4A8](size, v30, v31, v32, v33, v34, v35, v36);
-    v27 = &v118 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-    if (v37 >= 0x31)
+    v25 = MEMORY[0x2A1C7C4A8](size, v18, v19, v20, v21, v22, v23, v24, v59);
+    v15 = &v59 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (v25 >= 0x31)
     {
-      v38 = v37 - 48;
+      v26 = v25 - 48;
     }
 
     else
     {
-      v38 = 0;
+      v26 = 0;
     }
 
-    memset(v27 + 48, 170, v38);
-    *v27 = 0u;
-    *(v27 + 1) = 0u;
-    *(v27 + 2) = 0u;
-    v28 = "stack";
+    memset(v15 + 48, 170, v26);
+    *v15 = 0u;
+    *(v15 + 1) = 0u;
+    *(v15 + 2) = 0u;
+    v16 = "stack";
   }
 
   else
   {
-    v27 = v21;
-    v118 = v21;
-    v28 = "heap";
+    v15 = v14;
+    v59 = v14;
+    v16 = "heap";
   }
 
-  *(v27 + 1) = 0u;
-  *(v27 + 2) = 0u;
-  *v27 = 0u;
-  expert_log(*a1, 1uLL, "decode context allocated on %s", v22, v23, v24, v25, v26, v28);
-  v39 = *a1;
-  v40 = chip_select_decode(a2);
-  v121 = v40;
-  if (!v40)
+  *(v15 + 1) = 0u;
+  *(v15 + 2) = 0u;
+  *v15 = 0u;
+  expert_log(*a1, 1uLL, "decode context allocated on %s", v16);
+  v27 = chip_select_decode(a2);
+  v62 = v27;
+  if (!v27)
   {
-    v87 = *a1;
-    v86 = 82;
-    expert_log(v87, 0, "chip environment not booted: %s: %d", v41, v42, v43, v44, v45, a2[1]);
-    goto LABEL_46;
+    v50 = *a1;
+    v49 = 82;
+    expert_log(v50, 0, "chip environment not booted: %s: %d", *(a2 + 8), 82);
+    goto LABEL_49;
   }
 
   if (v9)
   {
-    v46 = *(v9 + 40);
-    if (v46)
+    v28 = *(v9 + 40);
+    if (v28)
     {
-      v47 = v46(a1, v40, a1[2]);
-      if (v47)
+      v29 = v28(a1, v27, a1[2]);
+      if (v29)
       {
-        v121 = v47;
-        *v27 = v47;
+        v62 = v29;
+        *v15 = v29;
       }
     }
   }
 
-  v48 = _type_get_alloc_preference(&_image4_type_odometer);
-  if (v48 <= 1)
+  v30 = _type_get_alloc_preference(&_image4_type_odometer);
+  if (v30 <= 1)
   {
-    v49 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v49 = v48;
+    v31 = v30;
   }
 
-  if (v49 == 1)
+  if (v31 == 1)
   {
     goto LABEL_27;
   }
 
-  if (v49 != 2)
+  if (v31 != 2)
   {
-LABEL_50:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v13, v14, v15, v16, v17, v18, v19, "_t_preference");
+LABEL_53:
+    __panic_npx("panic: unreachable case: %s = 0x%llx");
   }
 
-  v50 = _expert_alloc_type(v8, &_image4_type_odometer);
-  if (v50)
+  v32 = _expert_alloc_type(v8, &_image4_type_odometer);
+  if (v32)
   {
-    v56 = v50;
-    v119 = v50;
-    v57 = "heap";
+    v33 = v32;
+    v60 = v32;
+    v34 = "heap";
     goto LABEL_31;
   }
 
 LABEL_27:
-  v58 = type_get_size(&_image4_type_odometer);
-  v66 = MEMORY[0x2A1C7C4A8](v58, v59, v60, v61, v62, v63, v64, v65);
-  v56 = &v118 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v66 >= 0x3D1)
+  v35 = type_get_size(&_image4_type_odometer);
+  v43 = MEMORY[0x2A1C7C4A8](v35, v36, v37, v38, v39, v40, v41, v42, v59);
+  v33 = &v59 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v43 >= 0x3D1)
   {
-    v67 = v66 - 976;
+    v44 = v43 - 976;
   }
 
   else
   {
-    v67 = 0;
+    v44 = 0;
   }
 
-  memset(v56 + 976, 170, v67);
-  bzero(v56, 0x3D0uLL);
-  v57 = "stack";
+  memset(v33 + 976, 170, v44);
+  bzero(v33, 0x3D0uLL);
+  v34 = "stack";
 LABEL_31:
-  expert_log(*a1, 1uLL, "odometer allocated on %s", v51, v52, v53, v54, v55, v57);
-  odometer_init(v56, *a1, a1, a2);
-  v69 = v68;
-  v122 = v68;
-  v77 = odometer_prepare(v68, v70, v71, v72, v73, v74, v75, v76);
-  if (v77)
+  expert_log(*a1, 1uLL, "odometer allocated on %s", v34);
+  odometer_init(v33, *a1, a1, a2);
+  v46 = v45;
+  v63 = v45;
+  v47 = odometer_prepare(v45);
+  if (v47)
   {
-    v85 = v77;
-    expert_log(*a1, 0, "failed to prepare anti-replay: %d", v80, v81, v82, v83, v84, v77);
-    v86 = v85;
-    goto LABEL_46;
+    v48 = v47;
+    expert_log(*a1, 0, "failed to prepare anti-replay: %d", v47);
+    v49 = v48;
+    goto LABEL_49;
   }
 
   if (v9 && *(v9 + 32))
   {
-    expert_log(*a1, 2uLL, "calling out to manifest prepare function", v80, v81, v82, v83, v84, v118);
-    (*(v9 + 32))(a1, v69, a1[2]);
+    expert_log(*a1, 2uLL, "calling out to manifest prepare function");
+    (*(v9 + 32))(a1, v46, a1[2]);
   }
 
-  *(v27 + 5) = v120;
-  v88 = *a1;
-  if (*a5 != _manifest_validate_property && *a5 != _manifest_audit_property)
+  *(v15 + 5) = v61;
+  v51 = *a1;
+  if (*a5 == _manifest_validate_property)
   {
-    __panic_npx("panic: unreachable", v78, v79, v80, v81, v82, v83, v84, v118);
-  }
-
-  chip_get_name(a2);
-  v94 = a2[14];
-  if (v94)
-  {
-    v95 = *v94;
-  }
-
-  v117 = a2[2];
-  expert_log(v88, 1uLL, "performing trust evaluation: type = %s %s, chip = %s, chip type = 0x%llx, chip expert = %s, payload = %s", v89, v90, v91, v92, v93, v11);
-  if ((v123)(a1, v120, v27))
-  {
-    v101 = v124;
-    expert_log(*a1, 0, "trust evaluation failed: %d", v96, v97, v98, v99, v100, v124);
-LABEL_45:
-    v86 = v101;
-    goto LABEL_46;
-  }
-
-  v101 = odometer_enforce(v122);
-  v107 = *a1;
-  if (v101)
-  {
-    expert_log(v107, 0, "manifest replay denied: %d", v102, v103, v104, v105, v106, v101);
-    goto LABEL_45;
-  }
-
-  expert_log(v107, 2uLL, "trust evaluation succeeded; manifest is live", v102, v103, v104, v105, v106, v118);
-  v86 = 0;
-LABEL_46:
-  _expert_dealloc_type(v8, &_image4_type_decode_context, &v118);
-  _expert_dealloc_type(v8, &_image4_type_odometer, &v119);
-  if (v86 >= 0x6B)
-  {
-    __panic_npx("panic: error not set to valid posix code: %d", v108, v109, v110, v111, v112, v113, v114, v86);
-  }
-
-  v115 = *MEMORY[0x29EDCA608];
-  return v86;
-}
-
-uint64_t _manifest_evaluate_trust_payload(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!*(a1 + 528))
-  {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v24);
-  }
-
-  v16 = Img4DecodePerformTrustEvaluatationWithCallbacks(**(a2[2] + 8), a1 + 72, a2[4], a2[5], a3);
-  v17 = *a1;
-  if (v16)
-  {
-    expert_log(v17, 0, "Img4DecodePerformTrustEvaluationWithCallbacks: %d", v11, v12, v13, v14, v15, v16);
+    v52 = "validation";
   }
 
   else
   {
-    expert_log(v17, 2uLL, "trust evaluation succeeded for payload: %s", v11, v12, v13, v14, v15, *(a2[2] + 8) + 4);
-  }
-
-  _manifest_record_trust_evaluation_error(a1, v16, a3, v18, v19, v20, v21, v22);
-  return v16;
-}
-
-uint64_t _manifest_evaluate_trust_manifest(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!*(a1 + 528))
-  {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v25);
-  }
-
-  v16 = Img4DecodePerformManifestTrustEvaluationWithCallbacks(a1 + 72, a2[4], a2[5], a3);
-  if (v16)
-  {
-    expert_log(*a1, 0, "Img4DecodePerformManifestTrustEvaluationWithCallbacks: %d", v11, v12, v13, v14, v15, v16);
-  }
-
-  else
-  {
-    v22 = a2[2];
-    if (v22)
+    if (*a5 != _manifest_audit_property)
     {
-      v25 = *(v22 + 8) + 4;
-      v23 = "manifest trust evaluation succeeded: %s";
+      __panic_npx("panic: unreachable");
+    }
+
+    v52 = "audit";
+  }
+
+  name = chip_get_name(a2);
+  v54 = *(a2 + 112);
+  if (v54)
+  {
+    v55 = *v54;
+  }
+
+  else
+  {
+    v55 = "n/a";
+  }
+
+  expert_log(v51, 1uLL, "performing trust evaluation: type = %s %s, chip = %s, chip type = 0x%llx, chip expert = %s, payload = %s", v11, v52, name, *(a2 + 16), v55, v10);
+  if (v64(a1, v61, v15))
+  {
+    v56 = v65;
+    expert_log(*a1, 0, "trust evaluation failed: %d");
+LABEL_48:
+    v49 = v56;
+    goto LABEL_49;
+  }
+
+  v56 = odometer_enforce(v63);
+  v57 = *a1;
+  if (v56)
+  {
+    expert_log(v57, 0, "manifest replay denied: %d");
+    goto LABEL_48;
+  }
+
+  expert_log(v57, 2uLL, "trust evaluation succeeded; manifest is live");
+  v49 = 0;
+LABEL_49:
+  _expert_dealloc_type(v8, &_image4_type_decode_context, &v59);
+  _expert_dealloc_type(v8, &_image4_type_odometer, &v60);
+  if (v49 >= 0x6B)
+  {
+    __panic_npx("panic: error not set to valid posix code: %d");
+  }
+
+  return v49;
+}
+
+uint64_t _manifest_evaluate_trust_payload(uint64_t a1, void *a2, uint64_t a3)
+{
+  if (!*(a1 + 528))
+  {
+    __panic_npx("panic: optional not set", a2, a3);
+  }
+
+  v5 = Img4DecodePerformTrustEvaluatationWithCallbacks(**(a2[2] + 8), a1 + 72, a2[4], a2[5], a3);
+  v6 = *a1;
+  if (v5)
+  {
+    expert_log(v6, 0, "Img4DecodePerformTrustEvaluationWithCallbacks: %d");
+  }
+
+  else
+  {
+    expert_log(v6, 2uLL, "trust evaluation succeeded for payload: %s");
+  }
+
+  _manifest_record_trust_evaluation_error(a1, v5, a3);
+  return v5;
+}
+
+uint64_t _manifest_evaluate_trust_manifest(uint64_t a1, void *a2, uint64_t a3)
+{
+  if (!*(a1 + 528))
+  {
+    __panic_npx("panic: optional not set", a2, a3);
+  }
+
+  v6 = Img4DecodePerformManifestTrustEvaluationWithCallbacks(a1 + 72, a2[4], a2[5], a3);
+  if (v6)
+  {
+    expert_log(*a1, 0, "Img4DecodePerformManifestTrustEvaluationWithCallbacks: %d");
+  }
+
+  else
+  {
+    v7 = a2[2];
+    if (v7)
+    {
+      v10 = *(v7 + 8) + 4;
+      v8 = "manifest trust evaluation succeeded: %s";
     }
 
     else
     {
-      v23 = "manifest trust evaluation succeeded";
+      v8 = "manifest trust evaluation succeeded";
     }
 
-    expert_log(*a1, 2uLL, v23, v11, v12, v13, v14, v15, v25);
+    expert_log(*a1, 2uLL, v8, v10);
   }
 
-  _manifest_record_trust_evaluation_error(a1, v16, a3, v17, v18, v19, v20, v21);
-  return v16;
+  _manifest_record_trust_evaluation_error(a1, v6, a3);
+  return v6;
 }
 
 uint64_t manifest_init(uint64_t a1, uint64_t a2, uint64_t **a3)
@@ -5849,10 +5789,10 @@ unint64_t manifest_parse(uint64_t a1)
     {
       v8 = v7;
       v9 = posixdr(v7);
-      expert_log(*a1, 0, "Img4DecodeInitAsManifest: %d", v10, v11, v12, v13, v14, v8);
+      expert_log(*a1, 0, "Img4DecodeInitAsManifest: %d", v8);
       if (v9 >= 0x6B)
       {
-        __panic_npx("panic: error not set to valid posix code: %d", v15, v16, v17, v18, v19, v20, v21, v9);
+        __panic_npx("panic: error not set to valid posix code: %d", v9);
       }
     }
 
@@ -5868,24 +5808,24 @@ unint64_t manifest_parse(uint64_t a1)
   return result;
 }
 
-uint64_t manifest_get_restore_info(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t manifest_get_restore_info(uint64_t a1)
 {
   if (!*(a1 + 528))
   {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v18);
+    __panic_npx("panic: optional not set");
   }
 
-  v8 = a1 + 72;
-  v19 = 0;
-  v9 = Img4DecodeRestoreInfoExists(a1 + 72, &v19);
-  if (v9)
+  v1 = a1 + 72;
+  v4 = 0;
+  v2 = Img4DecodeRestoreInfoExists(a1 + 72, &v4);
+  if (v2)
   {
-    __panic_npx("panic: Img4DecodeRestoreInfoExists: %d", v10, v11, v12, v13, v14, v15, v16, v9);
+    __panic_npx("panic: Img4DecodeRestoreInfoExists: %d", v2);
   }
 
-  if (v19)
+  if (v4)
   {
-    return v8;
+    return v1;
   }
 
   else
@@ -5906,18 +5846,18 @@ void *manifest_get_bytes(uint64_t a1, void *a2)
     v3 = 0;
   }
 
-  v14 = 0;
-  v13 = 0;
-  Manifest = Img4DecodeGetManifest(v3, &v13, &v14);
+  v7 = 0;
+  v6 = 0;
+  Manifest = Img4DecodeGetManifest(v3, &v6, &v7);
   if (Manifest)
   {
-    __panic_npx("panic: Img4DecodeGetManifest: %d", v5, v6, v7, v8, v9, v10, v11, Manifest);
+    __panic_npx("panic: Img4DecodeGetManifest: %d", Manifest);
   }
 
-  return buff_init_wrap(a2, v13, v14);
+  return buff_init_wrap(a2, v6, v7);
 }
 
-uint64_t manifest_impose(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t manifest_impose(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5[1] = 0;
   v5[2] = 0;
@@ -5925,11 +5865,11 @@ uint64_t manifest_impose(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
   return _manifest_impose_internal(a1, a2, a3, a4, v5);
 }
 
-uint64_t _manifest_validate_property(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _manifest_validate_property(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 >= 7)
   {
-    __panic_npx("panic: bogus property container input: actual = %u, expected < %u", a2, a3, a4, a5, a6, a7, a8, a3);
+    __panic_npx("panic: bogus property container input: actual = %u, expected < %u", a3, 7);
   }
 
   if (a3 == 1)
@@ -5942,162 +5882,167 @@ uint64_t _manifest_validate_property(unsigned int a1, uint64_t *a2, uint64_t a3,
   {
     if (a3)
     {
-      __panic_npx("panic: unreachable", a2, a3, a4, a5, a6, a7, a8, v9);
+      __panic_npx("panic: unreachable", a2);
     }
 
     return _manifest_validate_property_manifest(a1, a2, 0, a4);
   }
 }
 
-uint64_t manifest_property_callback(uint64_t *a1, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t manifest_property_callback(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v10 = a1[1];
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0;
-  if (v10)
+  v5 = a1[1];
+  v30 = 0;
+  v29 = 0;
+  v28 = 0;
+  v27 = 0;
+  v26 = 0;
+  v25 = 0;
+  if (v5)
   {
-    fourcc_init(&v35, a3);
-    v21 = a4[2];
-    switch(v21)
+    v7 = a3;
+    fourcc_init(&v29, a3);
+    v14 = a4[2];
+    switch(v14)
     {
       case 4:
-        if (!*(v10 + 16))
+        if (!*(v5 + 16))
         {
-          v23 = *a1;
-          v24 = "no data property callback";
+          v16 = *a1;
+          v17 = "no data property callback";
           goto LABEL_21;
         }
 
-        PropertyData = Img4DecodeGetPropertyData(a4, a3, &v31, &v32);
-        v23 = *a1;
+        PropertyData = Img4DecodeGetPropertyData(a4, v7, &v25, &v26);
+        v16 = *a1;
         if (!PropertyData)
         {
-          expert_log(v23, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v length = 0x%x", v16, v17, v18, v19, v20, &v35 + 4);
-          return (*(v10 + 16))(a1, &v35, a2, v31, v32, a1[2]);
+          expert_log(v16, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v length = 0x%x", &v29 + 4, a2, "octet string", v26);
+          return (*(v5 + 16))(a1, &v29, a2, v25, v26, a1[2]);
         }
 
-        v30 = &v35 + 4;
-        v24 = "Img4DecodeGetPropertyData: %s: %d";
+        v23 = &v29 + 4;
+        v24 = PropertyData;
+        v17 = "Img4DecodeGetPropertyData: %s: %d";
         break;
       case 2:
-        if (!*(v10 + 8))
+        if (!*(v5 + 8))
         {
-          v23 = *a1;
-          v24 = "no integer property callback";
+          v16 = *a1;
+          v17 = "no integer property callback";
           goto LABEL_21;
         }
 
-        PropertyInteger64 = Img4DecodeGetPropertyInteger64(a4, a3, &v33, v16, v17, v18, v19, v20);
-        v23 = *a1;
+        PropertyInteger64 = Img4DecodeGetPropertyInteger64(a4, v7, &v27, v9, v10, v11, v12, v13);
+        v16 = *a1;
         if (!PropertyInteger64)
         {
-          expert_log(v23, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%llx", v16, v17, v18, v19, v20, &v35 + 4);
-          return (*(v10 + 8))(a1, &v35, a2, v33, a1[2]);
+          expert_log(v16, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%llx", &v29 + 4, a2, "integer", v27);
+          return (*(v5 + 8))(a1, &v29, a2, v27, a1[2]);
         }
 
-        v30 = &v35 + 4;
-        v24 = "Img4DecodeGetPropertyInteger64: %s: %d";
+        v23 = &v29 + 4;
+        v24 = PropertyInteger64;
+        v17 = "Img4DecodeGetPropertyInteger64: %s: %d";
         break;
       case 1:
-        if (*v10)
+        if (*v5)
         {
-          PropertyBoolean = Img4DecodeGetPropertyBoolean(a4, a3, &v34);
-          v23 = *a1;
+          PropertyBoolean = Img4DecodeGetPropertyBoolean(a4, v7, &v28);
+          v16 = *a1;
           if (!PropertyBoolean)
           {
-            expert_log(v23, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%x", v16, v17, v18, v19, v20, &v35 + 4);
-            return (*v10)(a1, &v35, a2, v34, a1[2]);
+            expert_log(v16, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%x", &v29 + 4, a2, "BOOL", v28);
+            return (*v5)(a1, &v29, a2, v28, a1[2]);
           }
 
-          v30 = &v35 + 4;
-          v24 = "Img4DecodeGetPropertyBoolean: %s: %d";
+          v23 = &v29 + 4;
+          v24 = PropertyBoolean;
+          v17 = "Img4DecodeGetPropertyBoolean: %s: %d";
           break;
         }
 
-        v23 = *a1;
-        v24 = "no BOOLean property callback";
+        v16 = *a1;
+        v17 = "no BOOLean property callback";
 LABEL_21:
-        v29 = 2;
-        return expert_log(v23, v29, v24, v16, v17, v18, v19, v20, v30);
+        v22 = 2;
+        return expert_log(v16, v22, v17, v23, v24);
       default:
-        __panic_npx("panic: unreachable case: %s = 0x%llx", v14, v15, v16, v17, v18, v19, v20, "i4p->type");
+        __panic_npx("panic: unreachable case: %s = 0x%llx", "i4p->type", v14);
     }
 
-    v29 = 0;
-    return expert_log(v23, v29, v24, v16, v17, v18, v19, v20, v30);
+    v22 = 0;
+    return expert_log(v16, v22, v17, v23, v24);
   }
 
-  v25 = *a1;
+  v18 = *a1;
 
-  return expert_log(v25, 2uLL, "no callbacks present", a4, a5, a6, a7, a8, a9);
+  return expert_log(v18, 2uLL, "no callbacks present", a4);
 }
 
-uint64_t manifest_post_property_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t manifest_post_property_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v10 = *(a1 + 8);
-  v11 = *a5;
-  v46 = 0;
-  v44 = 0;
-  v45 = 0;
-  v43 = 0;
-  if (v10)
+  v6 = *(a1 + 8);
+  v7 = *a5;
+  v30 = 0;
+  v28 = 0;
+  v29 = 0;
+  v27 = 0;
+  if (v6)
   {
-    v13 = a4;
-    v14 = a3;
+    v10 = a3;
     if (!a3)
     {
       if (!*(a1 + 528))
       {
-        __panic_npx("panic: optional not set", a2, 0, a4, a5, a6, a7, a8, v41);
+        __panic_npx("panic: optional not set");
       }
 
-      v14 = a1 + 72;
+      v10 = a1 + 72;
     }
 
-    QueryForContainer = Img4DecodeGetQueryForContainer(a2, a2, a3, a4, a5, a6, a7, a8);
+    QueryForContainer = Img4DecodeGetQueryForContainer(a2);
     if (!QueryForContainer)
     {
-      __panic_npx("panic: unsupported container for posting: %u", v17, v18, v19, v20, v21, v22, v23, a2);
+      __panic_npx("panic: unsupported container for posting: %u", a2);
     }
 
-    v24 = QueryForContainer;
-    if (Img4DecodeContainerExists(QueryForContainer, v14, &v46))
+    v13 = QueryForContainer;
+    v14 = Img4DecodeContainerExists(QueryForContainer, v10, &v30);
+    if (v14)
     {
-      v32 = *a1;
-      v42 = *v24;
-      v33 = "failed to check for %s: %d";
+      v15 = *a1;
+      v23 = *v13;
+      v24 = v14;
+      v16 = "failed to check for %s: %d";
 LABEL_8:
-      v34 = v32;
+      v17 = v15;
 LABEL_21:
-      v39 = 0;
-      return expert_log(v34, v39, v33, v27, v28, v29, v30, v31, v42);
+      v22 = 0;
+      return expert_log(v17, v22, v16, v23, v24, v25, v26);
     }
 
-    if ((v46 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
-      v34 = *a1;
-      v42 = *v24;
-      v33 = "%s does not exist";
+      v17 = *a1;
+      v23 = *v13;
+      v16 = "%s does not exist";
       goto LABEL_21;
     }
 
-    v37 = v24 + 6;
-    switch(v13)
+    v20 = v13 + 6;
+    switch(a4)
     {
       case 4:
-        if (v24 < v37)
+        if (v13 < v20)
         {
-          PropertyData = Img4DecodeQueryPropertyData(v24, v14, v11, &v43, &v44);
+          PropertyData = Img4DecodeQueryPropertyData(v13, v10, v7, &v27, &v28);
           if (!PropertyData)
           {
-            if (*(v10 + 16))
+            if (*(v6 + 16))
             {
-              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v length = %lu", v27, v28, v29, v30, v31, (a5 + 1));
-              (*(v10 + 16))(a1, a5, a2, v43, v44, *(a1 + 16));
+              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v length = %lu", a5 + 4, a2, "data", v28);
+              (*(v6 + 16))(a1, a5, a2, v27, v28, *(a1 + 16));
             }
 
             goto LABEL_34;
@@ -6108,55 +6053,61 @@ LABEL_21:
 
         break;
       case 2:
-        if (v24 < v37)
+        if (v13 < v20)
         {
-          PropertyData = Img4DecodeQueryPropertyInteger64(v24, v14, v11, &v45);
+          PropertyData = Img4DecodeQueryPropertyInteger64(v13, v10, v7, &v29);
           if (!PropertyData)
           {
-            if (*(v10 + 8))
+            if (*(v6 + 8))
             {
-              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%llx", v27, v28, v29, v30, v31, (a5 + 1));
-              (*(v10 + 8))(a1, a5, a2, v45, *(a1 + 16));
+              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%llx", a5 + 4, a2, "integer", v29);
+              (*(v6 + 8))(a1, a5, a2, v29, *(a1 + 16));
             }
 
             goto LABEL_34;
           }
 
 LABEL_29:
-          v32 = *a1;
-          v40 = *v24;
+          v15 = *a1;
           if (PropertyData != 1)
           {
-            v42 = *v24;
-            v33 = "failed to decode property: container = %s, type = %x, p = %s: %d";
+            v25 = (a5 + 4);
+            v26 = PropertyData;
+            v23 = *v13;
+            v24 = a4;
+            v16 = "failed to decode property: container = %s, type = %x, p = %s: %d";
             goto LABEL_8;
           }
 
-          v42 = *v24;
-          v33 = "property does not exist: container = %s, type = %x, p = %s";
-          v34 = *a1;
+          v24 = a4;
+          v25 = (a5 + 4);
+          v23 = *v13;
+          v16 = "property does not exist: container = %s, type = %x, p = %s";
+          v17 = *a1;
 LABEL_35:
-          v39 = 2;
-          return expert_log(v34, v39, v33, v27, v28, v29, v30, v31, v42);
+          v22 = 2;
+          return expert_log(v17, v22, v16, v23, v24, v25, v26);
         }
 
         break;
       case 1:
-        if (v24 < v37)
+        if (v13 < v20)
         {
-          PropertyData = Img4DecodeQueryPropertyBool(v24, v14, v11, &v46);
+          PropertyData = Img4DecodeQueryPropertyBool(v13, v10, v7, &v30);
           if (!PropertyData)
           {
-            if (*v10)
+            if (*v6)
             {
-              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%x", v27, v28, v29, v30, v31, (a5 + 1));
-              (*v10)(a1, a5, a2, v46, *(a1 + 16));
+              expert_log(*a1, 2uLL, "property callback: tag = %s, type = %d, asn1 type = %s, v = 0x%x", a5 + 4, a2, "BOOL", v30);
+              (*v6)(a1, a5, a2, v30, *(a1 + 16));
             }
 
 LABEL_34:
-            v34 = *a1;
-            v42 = *v24;
-            v33 = "posted property: container = %s, type = %x, p = %s";
+            v17 = *a1;
+            v24 = a4;
+            v25 = (a5 + 4);
+            v23 = *v13;
+            v16 = "posted property: container = %s, type = %x, p = %s";
             goto LABEL_35;
           }
 
@@ -6170,15 +6121,15 @@ LABEL_34:
 
     __break(0x5519u);
 LABEL_39:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v25, v26, v27, v28, v29, v30, v31, "asn1type");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "asn1type", a4);
   }
 
-  v35 = *a1;
+  v18 = *a1;
 
-  return expert_log(v35, 2uLL, "no callbacks present", a4, a5, a6, a7, a8, a9);
+  return expert_log(v18, 2uLL, "no callbacks present", a4);
 }
 
-uint64_t manifest_audit(uint64_t *a1, uint64_t *a2, uint64_t a3)
+uint64_t manifest_audit(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v4[1] = 0;
   v4[2] = 0;
@@ -6186,18 +6137,18 @@ uint64_t manifest_audit(uint64_t *a1, uint64_t *a2, uint64_t a3)
   return _manifest_impose_internal(a1, a2, a3, 0, v4);
 }
 
-uint64_t _manifest_audit_property(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _manifest_audit_property(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 >= 7)
   {
-    __panic_npx("panic: bogus property container input: actual = %u, expected < %u", a2, a3, a4, a5, a6, a7, a8, a3);
+    __panic_npx("panic: bogus property container input: actual = %u, expected < %u", a3, 7);
   }
 
-  v8 = **(a4 + 40);
+  v4 = **(a4 + 40);
   if (a3 == 1)
   {
-    v9 = _manifest_validate_property_object(a1, a2, a3, a4);
-    if (!v9)
+    v5 = _manifest_validate_property_object(a1, a2, a3, a4);
+    if (!v5)
     {
       return 0;
     }
@@ -6207,11 +6158,11 @@ uint64_t _manifest_audit_property(unsigned int a1, uint64_t *a2, uint64_t a3, ui
 
   if (!a3)
   {
-    v9 = _manifest_validate_property_manifest(a1, a2, 0, a4);
-    if (v9)
+    v5 = _manifest_validate_property_manifest(a1, a2, 0, a4);
+    if (v5)
     {
 LABEL_5:
-      expert_log(*v8, 1uLL, "auditing manifest; ignoring validation result: %d", v10, v11, v12, v13, v14, v9);
+      expert_log(*v4, 1uLL, "auditing manifest; ignoring validation result: %d", v5);
     }
   }
 
@@ -6220,9 +6171,9 @@ LABEL_5:
 
 uint64_t manifest_measure(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v5 = *a1;
-  memset(v48, 0, sizeof(v48));
+  memset(v27, 0, sizeof(v27));
   if (*(a1 + 528))
   {
     v6 = a1 + 72;
@@ -6233,242 +6184,237 @@ uint64_t manifest_measure(uint64_t a1, uint64_t a2, uint64_t a3)
     v6 = 0;
   }
 
-  v47 = 0;
+  v26 = 0;
   alloc_preference = _type_get_alloc_preference(&_image4_type_decode_context);
   if (alloc_preference <= 1)
   {
-    v15 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v15 = alloc_preference;
+    v8 = alloc_preference;
   }
 
-  if (v15 == 1)
+  if (v8 == 1)
   {
     goto LABEL_11;
   }
 
-  if (v15 != 2)
+  if (v8 != 2)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v8, v9, v10, v11, v12, v13, v14, "_t_preference");
+    __panic_npx("panic: unreachable case: %s = 0x%llx");
   }
 
-  v16 = _expert_alloc_type(v5, &_image4_type_decode_context);
-  if (!v16)
+  v9 = _expert_alloc_type(v5, &_image4_type_decode_context);
+  if (!v9)
   {
 LABEL_11:
     size = type_get_size(&_image4_type_decode_context);
-    v26 = MEMORY[0x2A1C7C4A8](size, v19, v20, v21, v22, v23, v24, v25);
-    v17 = (&v46 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
-    if (v26 >= 0x31)
+    v19 = MEMORY[0x2A1C7C4A8](size, v12, v13, v14, v15, v16, v17, v18, v25);
+    v10 = (&v25 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+    if (v19 >= 0x31)
     {
-      v27 = v26 - 48;
+      v20 = v19 - 48;
     }
 
     else
     {
-      v27 = 0;
+      v20 = 0;
     }
 
-    memset(v17 + 3, 170, v27);
-    *v17 = 0u;
-    v17[1] = 0u;
-    v17[2] = 0u;
+    memset(v10 + 3, 170, v20);
+    *v10 = 0u;
+    v10[1] = 0u;
+    v10[2] = 0u;
   }
 
   else
   {
-    v17 = v16;
-    v47 = v16;
+    v10 = v9;
+    v26 = v9;
   }
 
-  v17[1] = 0u;
-  v17[2] = 0u;
-  *v17 = 0u;
-  v28 = chip_select_decode(a2);
-  if (!v28)
+  v10[1] = 0u;
+  v10[2] = 0u;
+  *v10 = 0u;
+  v21 = chip_select_decode(a2);
+  if (!v21)
   {
-    __panic_npx("panic: no decode implementation available for chip: %s", v29, v30, v31, v32, v33, v34, v35, *(a2 + 8));
+    __panic_npx("panic: no decode implementation available for chip: %s");
   }
 
-  v36 = v28;
-  v37 = v28[4];
-  v38 = *v37;
-  if (*v37 > 0x40)
+  v22 = v21[4];
+  v23 = *v22;
+  if (*v22 > 0x40)
   {
     __break(0x5519u);
 LABEL_21:
-    __panic_npx("panic: Img4DecodeCopyManifestDigest: %d", v29, v30, v36, v32, v33, v34, v35, v28);
+    __panic_npx("panic: Img4DecodeCopyManifestDigest: %d");
   }
 
-  LODWORD(v28) = Img4DecodeCopyManifestDigest(v6, v48, *v37, v28);
-  if (v28)
+  if (Img4DecodeCopyManifestDigest(v6, v27, *v22, v21))
   {
     goto LABEL_21;
   }
 
-  _expert_dealloc_type(v5, &_image4_type_decode_context, &v47);
-  result = digest_init(a3, v48, v38, v39, v40, v41, v42, v43);
-  v45 = *MEMORY[0x29EDCA608];
-  return result;
+  _expert_dealloc_type(v5, &_image4_type_decode_context, &v26);
+  return digest_init(a3, v27, v23);
 }
 
-void *manifest_destroy(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *manifest_destroy(void *result)
 {
-  v8 = *result;
+  v1 = *result;
   if (*result)
   {
-    if (!*(v8 + 64))
+    if (!*(v1 + 64))
     {
-      __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v12);
+      __panic_npx("panic: optional not set");
     }
 
-    v9 = result;
-    v13 = (v8 + 24);
-    v10 = *(v8 + 536);
-    if (v10)
+    v2 = result;
+    v6 = (v1 + 24);
+    v3 = *(v1 + 536);
+    if (v3)
     {
-      buff_return(v10, &v13);
+      buff_return(v3, &v6);
     }
 
-    v11 = v8 + 544;
-    if (!*(v8 + 584))
+    v4 = v1 + 544;
+    if (!*(v1 + 584))
     {
-      v11 = 0;
+      v4 = 0;
     }
 
-    v12 = v11;
-    buff_destroy(&v12);
-    *(v8 + 64) = 0;
-    result = buff_destroy(&v13);
-    *v9 = 0;
+    v5 = v4;
+    buff_destroy(&v5);
+    *(v1 + 64) = 0;
+    result = buff_destroy(&v6);
+    *v2 = 0;
   }
 
   return result;
 }
 
-uint64_t *_manifest_record_trust_evaluation_error(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *_manifest_record_trust_evaluation_error(uint64_t *result, int a2, uint64_t a3)
 {
   if (a2)
   {
-    v10 = result;
-    v11 = *(a3 + 40);
-    if (*(v11 + 64) == -1)
+    v5 = result;
+    v6 = *(a3 + 40);
+    v7 = *(v6 + 64);
+    if (v7 == -1)
     {
-      expert_log(*result, 1uLL, "certificate trust evaluation failed", a4, a5, a6, a7, a8, v12);
-      *(v11 + 64) = 80;
+      expert_log(*result, 1uLL, "certificate trust evaluation failed");
+      v7 = 80;
+      *(v6 + 64) = 80;
     }
 
-    v13 = *(a3 + 32);
-    return expert_log(*v10, 0, "trust evaluation: dr = %d, ct = 0x%x, error = %d", a4, a5, a6, a7, a8, a2);
+    return expert_log(*v5, 0, "trust evaluation: dr = %d, ct = 0x%x, error = %d", a2, *(a3 + 32), v7);
   }
 
   return result;
 }
 
-uint64_t _manifest_validate_property_manifest(unsigned int a1, uint64_t *a2, unsigned int a3, uint64_t a4)
+uint64_t _manifest_validate_property_manifest(uint64_t a1, uint64_t *a2, unsigned int a3, uint64_t a4)
 {
   v6 = *(a4 + 40);
   v7 = *(v6 + 48);
   v8 = *v6;
   v9 = *(v6 + 8);
-  v46 = 0;
-  v45 = 0;
-  v10 = fourcc_init(&v45, a1);
-  result = expert_log(*v8, 1uLL, "manifest property: %s", v11, v12, v13, v14, v15, v10 + 4);
-  if (v10 >= (v10 + 12))
+  v18 = 0;
+  v17 = 0;
+  v10 = fourcc_init(&v17, a1);
+  result = expert_log(*v8, 1uLL, "manifest property: %s", (v10 + 4));
+  if (v10 >= v10 + 12)
   {
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
-  v23 = v8 + 74;
-  result = property_find_from_fourcc(v10, 0, v17, v18, v19, v20, v21, v22);
+  v12 = v8 + 74;
+  result = property_find_from_fourcc(v10, 0);
   if (!result)
   {
-    if (v8 >= v23)
+    if (v8 < v12)
     {
-      goto LABEL_18;
+      _manifest_audit_pseudo_callback(v8, v10, a3);
+      result = expert_log(*v8, 1uLL, "unrecognized manifest property: %s");
+      goto LABEL_14;
     }
 
-    _manifest_audit_pseudo_callback(v8, v10, a3);
-    v40 = "unrecognized manifest property: %s";
-LABEL_14:
-    result = expert_log(*v8, 1uLL, v40, v30, v31, v32, v33, v34, v10 + 4);
-    goto LABEL_15;
+    goto LABEL_17;
   }
 
-  v29 = result;
-  result = odometer_update(v7, result, a2, v24, v25, v26, v27, v28);
+  v13 = result;
+  result = odometer_update(v7, result, a2);
   if (!result)
   {
-    if (v8 >= v23)
+    if (v8 < v12)
     {
-      goto LABEL_18;
-    }
-
-    v41 = v8[1];
-    if (v41)
-    {
-      v42 = *(v41 + 48);
-      if (v42)
+      v14 = v8[1];
+      if (v14)
       {
-        v42(v8, v29, 2, 0, 0, v8[2]);
+        v15 = *(v14 + 48);
+        if (v15)
+        {
+          v15(v8, v13, 2, 0, 0, v8[2]);
+        }
       }
+
+      result = expert_log(*v8, 1uLL, "anti-replay property consumed by odometer: %s");
+      goto LABEL_14;
     }
 
-    v40 = "anti-replay property consumed by odometer: %s";
-    goto LABEL_14;
-  }
-
-  if (v8 >= v23)
-  {
-LABEL_18:
+LABEL_17:
     __break(0x5519u);
     return result;
   }
 
-  result = _manifest_impose_property(v8, v29, v9, a2, v6);
+  if (v8 >= v12)
+  {
+    goto LABEL_17;
+  }
+
+  result = _manifest_impose_property(v8, v13, v9, a2, v6);
   if (result)
   {
     *(v6 + 64) = result;
-    expert_log(*v8, 0, "property failed to impose on environment: %s: %d", v35, v36, v37, v38, v39, v10 + 4);
+    expert_log(*v8, 0, "property failed to impose on environment: %s: %d", (v10 + 4), result);
     return 3;
   }
 
-LABEL_15:
-  if (v8 >= v23)
+LABEL_14:
+  if (v8 >= v12)
   {
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
-  manifest_property_callback(v8, a3, a1, a2, v36, v37, v38, v39, v43);
+  manifest_property_callback(v8, a3, a1, a2);
   return 0;
 }
 
-uint64_t _manifest_validate_property_object(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t _manifest_validate_property_object(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a4 + 40);
   v8 = *v7;
   v9 = *(v7 + 8);
-  v36 = 0;
-  v35 = 0;
-  v10 = fourcc_init(&v35, a1);
-  result = expert_log(*v8, 1uLL, "object property: %s", v11, v12, v13, v14, v15, v10 + 4);
-  if (v10 >= (v10 + 12))
+  v14 = 0;
+  v13 = 0;
+  v10 = fourcc_init(&v13, a1);
+  result = expert_log(*v8, 1uLL, "object property: %s", (v10 + 4));
+  if (v10 >= v10 + 12)
   {
     goto LABEL_11;
   }
 
-  v23 = v8 + 74;
-  result = property_find_from_fourcc(v10, 1, v17, v18, v19, v20, v21, v22);
+  v12 = v8 + 74;
+  result = property_find_from_fourcc(v10, 1);
   if (!result)
   {
-    if (v8 < v23)
+    if (v8 < v12)
     {
       _manifest_audit_pseudo_callback(v8, v10, a3);
-      result = expert_log(*v8, 1uLL, "unrecognized object property: %s", v29, v30, v31, v32, v33, v10 + 4);
+      result = expert_log(*v8, 1uLL, "unrecognized object property: %s", (v10 + 4));
       goto LABEL_8;
     }
 
@@ -6477,7 +6423,7 @@ LABEL_11:
     return result;
   }
 
-  if (v8 >= v23)
+  if (v8 >= v12)
   {
     goto LABEL_11;
   }
@@ -6486,17 +6432,17 @@ LABEL_11:
   if (result)
   {
     *(v7 + 64) = result;
-    expert_log(*v8, 0, "object property failed to impose on environment: %d", v24, v25, v26, v27, v28, result);
+    expert_log(*v8, 0, "object property failed to impose on environment: %d", result);
     return 3;
   }
 
 LABEL_8:
-  if (v8 >= v23)
+  if (v8 >= v12)
   {
     goto LABEL_11;
   }
 
-  manifest_property_callback(v8, a3, a1, a2, v25, v26, v27, v28, v34);
+  manifest_property_callback(v8, a3, a1, a2);
   return 0;
 }
 
@@ -6530,166 +6476,177 @@ uint64_t _manifest_audit_pseudo_callback(uint64_t result, uint64_t *a2, int a3)
 
 uint64_t _manifest_impose_property(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v86 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   v10 = *a1;
   digest = chip_get_digest(a3);
-  v85[0] = xmmword_298EF85A0;
-  memset(&v85[1], 170, 88);
+  v43[0] = xmmword_298EF85A0;
+  memset(&v43[1], 170, 88);
   __n_4[0] = xmmword_298EF85A0;
   memset(&__n_4[1], 170, 88);
   v12 = *(a2 + 24);
   __n = 0;
-  *v82 = 0;
+  *v40 = 0;
   constraint = chip_get_constraint(a3, a2, *(a5 + 24));
   if (constraint != a2)
   {
-    expert_log(*a1, 1uLL, "chip has custom constraint for property: %s", v15, v16, v17, v18, v19, a2 + 28);
+    expert_log(*a1, 1uLL, "chip has custom constraint for property: %s", (a2 + 28));
   }
 
-  v21 = *(constraint + 56);
-  if (v21)
+  v14 = *(constraint + 56);
+  if (v14)
   {
-    if (v21 == 6)
+    if (v14 == 6)
     {
-      v22 = 0;
-LABEL_55:
-      v65 = 1;
-LABEL_56:
-      v73 = a1[1];
-      if (v73)
+      v15 = 0;
+LABEL_53:
+      v29 = 1;
+LABEL_54:
+      v36 = a1[1];
+      if (v36)
       {
-        v74 = *(v73 + 48);
-        if (v74)
+        v37 = *(v36 + 48);
+        if (v37)
         {
-          v74(a1, constraint, v65, v85, __n_4, a1[2]);
+          v37(a1, constraint, v29, v43, __n_4, a1[2]);
         }
       }
 
-      if (v22 >= 0x6B)
+      if (v15 >= 0x6B)
       {
-        __panic_npx("panic: error not set to valid posix code: %d", v13, v65, v15, v16, v17, v18, v19, v22);
+        __panic_npx("panic: error not set to valid posix code: %d", v15);
       }
 
-      goto LABEL_60;
+      return v15;
     }
 
-    if (v21 != 1)
+    if (v14 != 1)
     {
-      v77 = "p->p_container";
-      goto LABEL_63;
+      v39 = "p->p_container";
+      goto LABEL_61;
     }
 
-    v22 = 85;
-    v23 = "object";
+    v15 = 85;
+    v16 = "object";
   }
 
   else
   {
-    v22 = 13;
-    v23 = "manifest";
+    v15 = 13;
+    v16 = "manifest";
   }
 
   if (property_imposable(constraint, a3))
   {
-    v24 = **(constraint + 40);
-    if (v24 <= 1)
+    v14 = **(constraint + 40);
+    if (v14 <= 1)
     {
-      if (v24)
+      if (v14)
       {
-        if (v24 == 1)
+        if (v14 == 1)
         {
-          PropertyInteger = Img4DecodeGetPropertyInteger(a4, v12, v85, v15, v16, v17, v18, v19);
+          PropertyInteger = Img4DecodeGetPropertyInteger(a4, v12, v43, v17, v18, v19, v20, v21);
           if (PropertyInteger)
           {
-            v36 = PropertyInteger;
-            v22 = posixdr(PropertyInteger);
-            expert_log(*a1, 0, "Img4DecodeGetPropertyInteger: %d", v37, v38, v39, v40, v41, v36);
-            goto LABEL_32;
+            v15 = posixdr(PropertyInteger);
+            expert_log(*a1, 0, "Img4DecodeGetPropertyInteger: %d");
+            goto LABEL_30;
           }
 
           property_uint32 = expert_query_property_uint32(v10, a3, constraint, __n_4);
           if (!property_uint32)
           {
-            if (!property_constrain_uint32(constraint, v10, v85, __n_4, v16, v17, v18, v19))
+            if (!property_constrain_uint32(constraint, v10, v43, __n_4))
             {
-              goto LABEL_36;
+              goto LABEL_34;
             }
 
-            goto LABEL_51;
+            goto LABEL_49;
           }
 
-LABEL_49:
-          v22 = property_uint32;
-          goto LABEL_52;
+LABEL_47:
+          v15 = property_uint32;
+          goto LABEL_50;
         }
 
-        goto LABEL_64;
+        goto LABEL_62;
       }
 
-      PropertyBoolean = Img4DecodeGetPropertyBoolean(a4, v12, v85);
+      PropertyBoolean = Img4DecodeGetPropertyBoolean(a4, v12, v43);
       if (PropertyBoolean)
       {
-        v58 = PropertyBoolean;
-        v22 = posixdr(PropertyBoolean);
-        v32 = *a1;
-        v79 = v58;
-        v56 = "Img4DecodeGetPropertyBoolean: %d";
-        goto LABEL_31;
+        v15 = posixdr(PropertyBoolean);
+        expert_log(*a1, 0, "Img4DecodeGetPropertyBoolean: %d");
+LABEL_30:
+        if (!v15)
+        {
+          goto LABEL_53;
+        }
+
+LABEL_50:
+        v34 = a1[1];
+        if (v34)
+        {
+          v35 = *(v34 + 24);
+          if (v35)
+          {
+            v35(a1, a3, constraint, a1[2]);
+          }
+        }
+
+        goto LABEL_53;
       }
 
       property_uint32 = expert_query_property_BOOL(v10, a3, constraint, __n_4);
       if (property_uint32)
       {
-        goto LABEL_49;
+        goto LABEL_47;
       }
 
-      if (property_constrain_BOOL(constraint, v10, v85, __n_4, v16, v17, v18, v19))
+      if (property_constrain_BOOL(constraint, v10, v43, __n_4))
       {
-        goto LABEL_51;
+        goto LABEL_49;
       }
     }
 
     else
     {
-      switch(v24)
+      switch(v14)
       {
         case 2:
-          PropertyInteger64 = Img4DecodeGetPropertyInteger64(a4, v12, v85, v15, v16, v17, v18, v19);
+          PropertyInteger64 = Img4DecodeGetPropertyInteger64(a4, v12, v43, v17, v18, v19, v20, v21);
           if (PropertyInteger64)
           {
-            v43 = PropertyInteger64;
-            v22 = posixdr(PropertyInteger64);
-            expert_log(*a1, 0, "Img4DecodeGetPropertyInteger64: %d", v44, v45, v46, v47, v48, v43);
-            goto LABEL_32;
+            v15 = posixdr(PropertyInteger64);
+            expert_log(*a1, 0, "Img4DecodeGetPropertyInteger64: %d");
+            goto LABEL_30;
           }
 
           property_uint32 = expert_query_property_uint64(v10, a3, constraint, __n_4);
           if (property_uint32)
           {
-            goto LABEL_49;
+            goto LABEL_47;
           }
 
-          if (property_constrain_uint64(constraint, v10, v85, __n_4, v16, v17, v18, v19))
+          if (property_constrain_uint64(constraint, v10, v43, __n_4))
           {
-            goto LABEL_51;
+            goto LABEL_49;
           }
 
           break;
         case 3:
-          PropertyData = Img4DecodeGetPropertyData(a4, v12, v82, &__n);
+          PropertyData = Img4DecodeGetPropertyData(a4, v12, v40, &__n);
           if (PropertyData)
           {
-            v55 = PropertyData;
-            v22 = posixdr(PropertyData);
-            v32 = *a1;
-            v79 = v55;
-            goto LABEL_28;
+LABEL_27:
+            v15 = posixdr(PropertyData);
+            expert_log(*a1, 0, "Img4DecodeGetPropertyData: %d");
+            goto LABEL_30;
           }
 
-          digest_init(v85, *v82, __n, v50, v51, v52, v53, v54);
+          digest_init(v43, *v40, __n);
           if (property_equal(constraint, digest))
           {
-            expert_log(*a1, 1uLL, "imposing object digest", v66, v67, v68, v69, v70, v78);
+            expert_log(*a1, 1uLL, "imposing object digest");
             payload_measure(*(a5 + 16), a3, __n_4);
           }
 
@@ -6698,98 +6655,68 @@ LABEL_49:
             property_uint32 = expert_query_property_digest(v10, a3, constraint, __n_4);
             if (property_uint32)
             {
-              goto LABEL_49;
+              goto LABEL_47;
             }
           }
 
-          if (property_constrain_digest(constraint, v10, v85, __n_4, v16, v17, v18, v19))
+          if (property_constrain_digest(constraint, v10, v43, __n_4, v30, v31, v32, v33))
           {
-            goto LABEL_51;
+            goto LABEL_49;
           }
 
           break;
         case 4:
-          v25 = Img4DecodeGetPropertyData(a4, v12, v82, &__n);
-          if (v25)
+          PropertyData = Img4DecodeGetPropertyData(a4, v12, v40, &__n);
+          if (PropertyData)
           {
-            v26 = v25;
-            v22 = posixdr(v25);
-            v32 = *a1;
-            v79 = v26;
-LABEL_28:
-            v56 = "Img4DecodeGetPropertyData: %d";
-LABEL_31:
-            expert_log(v32, 0, v56, v27, v28, v29, v30, v31, v79);
-LABEL_32:
-            if (!v22)
-            {
-              goto LABEL_55;
-            }
-
-LABEL_52:
-            v71 = a1[1];
-            if (v71)
-            {
-              v72 = *(v71 + 24);
-              if (v72)
-              {
-                v72(a1, a3, constraint, a1[2]);
-              }
-            }
-
-            goto LABEL_55;
+            goto LABEL_27;
           }
 
-          version_init(v85, *v82, __n);
+          version_init(v43, *v40, __n);
           property_uint32 = expert_query_property_version(v10, a3, constraint, __n_4);
           if (!property_uint32)
           {
-            if (!property_constrain_version(constraint, v10, v85, __n_4, v16, v17, v18, v19))
+            if (!property_constrain_version(constraint, v10, v43, __n_4))
             {
               break;
             }
 
-LABEL_51:
-            v81 = *(*(constraint + 40) + 8);
-            expert_log(*a1, 0, "%s constraint violated: property = %s, type = %s: %d", v60, v61, v62, v63, v64, v23);
-            goto LABEL_52;
+LABEL_49:
+            expert_log(*a1, 0, "%s constraint violated: property = %s, type = %s: %d", v16, (constraint + 28), *(*(constraint + 40) + 8), v15);
+            goto LABEL_50;
           }
 
-          goto LABEL_49;
+          goto LABEL_47;
         default:
-LABEL_64:
-          v77 = "p->p_type->pt_switchable";
-LABEL_63:
-          __panic_npx("panic: unreachable case: %s = 0x%llx", v13, v14, v15, v16, v17, v18, v19, v77);
+LABEL_62:
+          v39 = "p->p_type->pt_switchable";
+LABEL_61:
+          __panic_npx("panic: unreachable case: %s = 0x%llx", v39, v14);
       }
     }
 
-LABEL_36:
-    v80 = *(*(constraint + 40) + 8);
-    expert_log(*a1, 2uLL, "%s constraint satisfied: property = %s, type = %s", v60, v61, v62, v63, v64, v23);
-    v22 = 0;
-    v65 = 0;
-    goto LABEL_56;
+LABEL_34:
+    expert_log(*a1, 2uLL, "%s constraint satisfied: property = %s, type = %s", v16, (constraint + 28), *(*(constraint + 40) + 8));
+    v15 = 0;
+    v29 = 0;
+    goto LABEL_54;
   }
 
-  expert_log(*a1, 1uLL, "%s property not imposable on chip: %s", v15, v16, v17, v18, v19, v23);
-  v33 = a1[1];
-  if (v33)
+  expert_log(*a1, 1uLL, "%s property not imposable on chip: %s", v16, (constraint + 28));
+  v23 = a1[1];
+  if (v23)
   {
-    v34 = *(v33 + 48);
-    if (v34)
+    v24 = *(v23 + 48);
+    if (v24)
     {
-      v34(a1, constraint, 3, 0, 0, a1[2]);
+      v24(a1, constraint, 3, 0, 0, a1[2]);
     }
   }
 
-  v22 = 0;
-LABEL_60:
-  v75 = *MEMORY[0x29EDCA608];
-  return v22;
+  return 0;
 }
 
-void *img4_firmware_new(char *a1, __n128 *a2, unsigned int a3, uint64_t a4, uint64_t a5)
+void *img4_firmware_new(char *a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   expert = img4_runtime_get_expert(a1);
   v11 = _expert_alloc_type(expert, &_image4_type_firmware);
@@ -6803,8 +6730,9 @@ void *img4_firmware_new(char *a1, __n128 *a2, unsigned int a3, uint64_t a4, uint
   return v12;
 }
 
-__n128 img4_firmware_init(void *a1, char *a2, __n128 *a3, unsigned int a4, uint64_t a5, uint64_t a6)
+__n128 img4_firmware_init(void *a1, char *a2, __n128 *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a4;
   expert = img4_runtime_get_expert(a2);
   v19 = 0;
   v18 = 0;
@@ -6818,7 +6746,7 @@ __n128 img4_firmware_init(void *a1, char *a2, __n128 *a3, unsigned int a4, uint6
   a1[78] = 0;
   img4_buff_steal(a1 + 153, a5);
   inited = buff_init_wrap(v16, *(a5 + 8), *(a5 + 16));
-  fourcc_init(&v18, a4);
+  fourcc_init(&v18, v8);
   a1[6] = payload_init((a1 + 7), expert, &v18, &inited);
   v13 = a3[1].n128_u64[0];
   result = *a3;
@@ -6827,11 +6755,11 @@ __n128 img4_firmware_init(void *a1, char *a2, __n128 *a3, unsigned int a4, uint6
   return result;
 }
 
-void img4_firmware_init_from_buff(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void img4_firmware_init_from_buff(uint64_t a1, unint64_t a2)
 {
   if (a2 <= 0x507)
   {
-    __panic_npx("panic: object overflows buffer: object = firmware, length = %lu, required = %lu", a2, a3, a4, a5, a6, a7, a8, a2);
+    __panic_npx("panic: object overflows buffer: object = firmware, length = %lu, required = %lu", a2, 1288);
   }
 }
 
@@ -6864,144 +6792,140 @@ uint64_t img4_firmware_attach_manifest(uint64_t a1, uint64_t a2)
 
 uint64_t img4_firmware_select_chip(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   expert = img4_runtime_get_expert(*(a1 + 8));
   if (!expert)
   {
     expert = generic_expert_specialist();
   }
 
-  v62 = 0;
-  memset(v61, 0, sizeof(v61));
+  v29 = 0;
+  memset(v28, 0, sizeof(v28));
   if ((*a1 & 4) == 0)
   {
-    v14 = "cannot select chip with first-stage boots";
+    v7 = "cannot select chip with first-stage boots";
 LABEL_5:
-    v15 = expert;
-    v16 = 0;
+    v8 = expert;
+    v9 = 0;
 LABEL_14:
-    expert_log(v15, v16, v14, v8, v9, v10, v11, v12, v59);
-LABEL_15:
-    v22 = 0;
-LABEL_16:
-    v23 = *MEMORY[0x29EDCA608];
-    return v22;
+    expert_log(v8, v9, v7, v26);
+    return 0;
   }
 
-  v17 = *(a1 + 624);
-  if (v17)
+  v10 = *(a1 + 624);
+  if (v10)
   {
-    v18 = v17 + 64;
-    if (*(v17 + 64))
+    v11 = v10 + 64;
+    if (*(v10 + 64))
     {
-      v19 = (v17 + 24);
+      v12 = (v10 + 24);
       goto LABEL_12;
     }
 
 LABEL_36:
-    __panic_npx("panic: optional not set", v6, v7, v8, v9, v10, v11, v12, v59);
+    __panic_npx("panic: optional not set");
   }
 
-  v20 = *(a1 + 48);
-  if (!v20)
+  v13 = *(a1 + 48);
+  if (!v13)
   {
-    v14 = "no manifest with which to select chip";
+    v7 = "no manifest with which to select chip";
     goto LABEL_5;
   }
 
-  v18 = v20 + 88;
-  if (!*(v20 + 88))
+  v11 = v13 + 88;
+  if (!*(v13 + 88))
   {
     goto LABEL_36;
   }
 
-  v19 = (v20 + 48);
+  v12 = (v13 + 48);
 LABEL_12:
   result = expert_runtime_boot(expert);
   if (result)
   {
-    v59 = result;
-    v14 = "failed to boot expert for chip selection: %d";
-    v15 = expert;
-    v16 = 3;
+    v26 = result;
+    v7 = "failed to boot expert for chip selection: %d";
+    v8 = expert;
+    v9 = 3;
     goto LABEL_14;
   }
 
-  if (v19 < v18 && (v19 + 5) <= v18)
+  if (v12 < v11 && (v12 + 5) <= v11)
   {
-    result = *v19;
-    v24 = v19[1];
-    if (*v19 <= (*v19 + v24))
+    result = *v12;
+    v16 = v12[1];
+    if (*v12 <= (*v12 + v16))
     {
-      Img4DecodeInitAsManifest(result, v24, v61);
-      if (v25)
+      Img4DecodeInitAsManifest(result, v16, v28);
+      if (v17)
       {
-        v59 = v25;
-        v14 = "Img4DecodeInitAsManifest: %d";
+        v26 = v17;
+        v7 = "Img4DecodeInitAsManifest: %d";
         goto LABEL_5;
       }
 
       if (!a3)
       {
-        goto LABEL_15;
+        return 0;
       }
 
-      v26 = 0;
+      v18 = 0;
       while (1)
       {
-        v22 = *(a2 + 8 * v26);
-        v60[0] = _img4_firmware_select_chip_callback;
-        v60[1] = 0;
-        v60[2] = 0;
-        name = chip_get_name(v22);
-        result = expert_log(expert, 1uLL, "trying chip: %s", v28, v29, v30, v31, v32, name);
-        if (*(v22 + 32))
+        v15 = *(a2 + 8 * v18);
+        v27[0] = _img4_firmware_select_chip_callback;
+        v27[1] = 0;
+        v27[2] = 0;
+        name = chip_get_name(v15);
+        result = expert_log(expert, 1uLL, "trying chip: %s", name);
+        if (*(v15 + 32))
         {
           break;
         }
 
-        if (v22 >= v22 + 264)
+        if (v15 >= v15 + 264)
         {
           goto LABEL_37;
         }
 
-        v47 = chip_get_name(v22);
-        expert_log(expert, 0, "chip has no static decode implementation: %s", v48, v49, v50, v51, v52, v47);
+        v24 = chip_get_name(v15);
+        expert_log(expert, 0, "chip has no static decode implementation: %s", v24);
 LABEL_32:
-        v22 = 0;
-        if (++v26 == a3)
+        v15 = 0;
+        if (++v18 == a3)
         {
-          goto LABEL_16;
+          return v15;
         }
       }
 
-      v38 = 0;
-      v39 = 1;
+      v20 = 0;
+      v21 = 1;
       while (1)
       {
-        v40 = v39;
-        v41 = *(*(v22 + 32) + 8 * v38);
-        expert_log(expert, 1uLL, "trying i4ct: %u", v33, v34, v35, v36, v37, v38);
-        result = Img4DecodePerformManifestTrustEvaluationWithCallbacks(v61, v60, v41, 0);
+        v22 = v21;
+        v23 = *(*(v15 + 32) + 8 * v20);
+        expert_log(expert, 1uLL, "trying i4ct: %u", v20);
+        result = Img4DecodePerformManifestTrustEvaluationWithCallbacks(v28, v27, v23, 0);
         if (!result)
         {
           break;
         }
 
-        expert_log(expert, 1uLL, "Img4DecodePerformManifestTrustEvaluationWithCallbacks: %d", v42, v43, v44, v45, v46, result);
-        v39 = 0;
-        v38 = 1;
-        if ((v40 & 1) == 0)
+        expert_log(expert, 1uLL, "Img4DecodePerformManifestTrustEvaluationWithCallbacks: %d", result);
+        v21 = 0;
+        v20 = 1;
+        if ((v22 & 1) == 0)
         {
           goto LABEL_32;
         }
       }
 
-      if (v22 < v22 + 264)
+      if (v15 < v15 + 264)
       {
-        v53 = chip_get_name(v22);
-        expert_log(expert, 2uLL, "manifest matches chip: %s, i4ct: %u", v54, v55, v56, v57, v58, v53);
-        goto LABEL_16;
+        v25 = chip_get_name(v15);
+        expert_log(expert, 2uLL, "manifest matches chip: %s, i4ct: %u", v25, v20);
+        return v15;
       }
     }
   }
@@ -7011,12 +6935,12 @@ LABEL_37:
   return result;
 }
 
-uint64_t img4_firmware_execute(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t img4_firmware_execute(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(a1 + 48);
   v6 = *(a1 + 624);
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
   result = img4_firmware_evaluate(a1, a2, a3);
   v8 = result;
   if (result || !*(v5 + 88))
@@ -7032,7 +6956,7 @@ uint64_t img4_firmware_execute(uint64_t a1, uint64_t *a2, uint64_t a3)
       return result;
     }
 
-    v9 = img4_image_init(v17, v5, v6, *a1);
+    v9 = img4_image_init(v10, v5, v6, *a1);
   }
 
   result = (*(a1 + 32))(a1, v9, v8, *(a1 + 40));
@@ -7041,74 +6965,75 @@ uint64_t img4_firmware_execute(uint64_t a1, uint64_t *a2, uint64_t a3)
     result = a2[90];
     if (result)
     {
-      v19 = a2;
-      result = _expert_dealloc_type(result, &_image4_type_custom_chip, &v19);
+      v12 = a2;
+      result = _expert_dealloc_type(result, &_image4_type_custom_chip, &v12);
     }
   }
 
   if (v8 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v10, v11, v12, v13, v14, v15, v16, v8);
+    __panic_npx("panic: error not set to valid posix code: %d", v8);
   }
 
   return result;
 }
 
-uint64_t img4_firmware_evaluate(uint64_t a1, uint64_t *a2, uint64_t a3)
+unint64_t img4_firmware_evaluate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v32[14] = *MEMORY[0x29EDCA608];
+  v18[14] = *MEMORY[0x29EDCA608];
   expert = img4_runtime_get_expert(*(a1 + 8));
   if (!expert)
   {
     expert = generic_expert_specialist();
   }
 
-  v31 = 0;
-  v32[0] = a1;
-  memset(v27, 0, sizeof(v27));
-  v29 = 0;
-  v30 = 0;
-  v28 = _img4_firmware_prepare;
-  v32[1] = a2;
-  memset(&v32[2], 0, 88);
-  v32[13] = 0xAAAAAAAAFFFFFFFFLL;
+  v17 = 0;
+  v18[0] = a1;
+  memset(v13, 0, sizeof(v13));
+  v15 = 0;
+  v16 = 0;
+  v14 = _img4_firmware_prepare;
+  v18[1] = a2;
+  memset(&v18[2], 0, 88);
+  v18[13] = 0xAAAAAAAAFFFFFFFFLL;
   if (!expert)
   {
-    __panic_npx("panic: failed to resolve expert for runtime", v6, v7, v8, v9, v10, v11, v12, v26);
+    __panic_npx("panic: failed to resolve expert for runtime");
   }
 
-  if (!*(a1 + 48) || (*a1 & 2) != 0 || (v14 = payload_parse_relax(), !v14))
+  v7 = *(a1 + 48);
+  if (!v7 || (*a1 & 2) != 0 || (v8 = payload_parse_relax(v7), !v8))
   {
     inited = *(a1 + 624);
     if (inited)
     {
-      v16 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v17 = *(a1 + 48);
-      if (!*(v17 + 88))
+      v11 = *(a1 + 48);
+      if (!*(v11 + 88))
       {
-        __panic_npx("panic: optional not set", v6, v7, v8, v9, v10, v11, v12, v26);
+        __panic_npx("panic: optional not set");
       }
 
-      inited = manifest_init_borrow(a1 + 632, expert, (v17 + 48));
-      v31 = inited;
-      v16 = inited == 0;
+      inited = manifest_init_borrow(a1 + 632, expert, (v11 + 48));
+      v17 = inited;
+      v10 = inited == 0;
     }
 
-    manifest_set_callbacks(inited, v32, v27);
+    manifest_set_callbacks(inited, v18, v13);
     if (a3)
     {
-      digest_init_from_img4_nonce(&v32[3], a3, v18, v19, v20, v21, v22, v23);
-      v32[2] = &v32[3];
+      digest_init_from_img4_nonce(&v18[3], a3);
+      v18[2] = &v18[3];
     }
 
     if (manifest_parse(inited))
     {
-      v14 = 79;
-      if (v16)
+      v8 = 79;
+      if (v10)
       {
         goto LABEL_16;
       }
@@ -7116,32 +7041,31 @@ uint64_t img4_firmware_evaluate(uint64_t a1, uint64_t *a2, uint64_t a3)
       goto LABEL_15;
     }
 
-    v14 = manifest_impose(inited, a2, *(a1 + 48), 0);
-    if (!v16)
+    v8 = manifest_impose(inited, a2, *(a1 + 48), 0);
+    if (!v10)
     {
 LABEL_15:
-      manifest_destroy(&v31, v6, v7, v8, v9, v10, v11, v12);
+      manifest_destroy(&v17);
     }
   }
 
 LABEL_16:
-  if (v14 == 85)
+  if (v8 == 85)
   {
-    v14 = 8;
+    return 8;
   }
 
-  else if (v14 >= 0x6B)
+  if (v8 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v6, v7, v8, v9, v10, v11, v12, v14);
+    __panic_npx("panic: error not set to valid posix code: %d", v8);
   }
 
-  v24 = *MEMORY[0x29EDCA608];
-  return v14;
+  return v8;
 }
 
 void _img4_firmware_prepare(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v71 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v5 = *a3;
   expert = img4_runtime_get_expert(*(*a3 + 8));
   if (!expert)
@@ -7149,76 +7073,74 @@ void _img4_firmware_prepare(uint64_t a1, uint64_t a2, uint64_t a3)
     expert = generic_expert_specialist();
   }
 
-  v12 = *(a3 + 8);
-  v13 = *v5;
+  v7 = *(a3 + 8);
+  v8 = *v5;
   if ((*v5 & 4) != 0)
   {
     if (v5 < v5 + 161)
     {
-      v20 = v5[1];
-      v21 = img4_runtime_get_expert(v20);
-      if (!v21)
+      v10 = v5[1];
+      v11 = img4_runtime_get_expert(v10);
+      if (!v11)
       {
-        v21 = generic_expert_specialist();
+        v11 = generic_expert_specialist();
       }
 
-      LOBYTE(v67[0]) = 0;
-      if (img4_runtime_check_custom_BOOL(v20))
+      LOBYTE(v21[0]) = 0;
+      if (img4_runtime_check_custom_BOOL(v10))
       {
-        expert_log(v21, 2uLL, "querying custom runtime for mix-n-match policy", v22, v23, v24, v25, v26, v64);
-        identifier_BOOL = img4_runtime_get_identifier_BOOL(v20);
-        if (identifier_BOOL)
+        expert_log(v11, 2uLL, "querying custom runtime for mix-n-match policy");
+        if (img4_runtime_get_identifier_BOOL(v10))
         {
-          expert_log(v21, 0, "failed to query mix-n-match identifier: %d", v28, v29, v30, v31, v32, identifier_BOOL);
+          expert_log(v11, 0, "failed to query mix-n-match identifier: %d");
         }
 
         else
         {
-          expert_log(v21, 2uLL, "preparing mix-n-match policy: 0x%x", v28, v29, v30, v31, v32, LOBYTE(v67[0]));
-          odometer_prepare_mixn_match(a2, v67[0]);
+          expert_log(v11, 2uLL, "preparing mix-n-match policy: 0x%x", LOBYTE(v21[0]));
+          odometer_prepare_mixn_match(a2, v21[0]);
         }
       }
 
       else
       {
-        expert_log(v21, 2uLL, "stock runtime; not querying for mix-n-match policy", v22, v23, v24, v25, v26, v64);
+        expert_log(v11, 2uLL, "stock runtime; not querying for mix-n-match policy");
       }
 
-      v33 = v5[1];
-      v34 = img4_runtime_get_expert(v33);
-      if (!v34)
+      v12 = v5[1];
+      v13 = img4_runtime_get_expert(v12);
+      if (!v13)
       {
-        v34 = generic_expert_specialist();
+        v13 = generic_expert_specialist();
       }
 
-      memset(v70, 0, sizeof(v70));
-      memset(v69, 0, sizeof(v69));
-      v68 = 0;
-      memset(v67, 0, sizeof(v67));
-      if (img4_runtime_check_custom_digest(v33))
+      memset(v24, 0, sizeof(v24));
+      memset(v23, 0, sizeof(v23));
+      v22 = 0;
+      memset(v21, 0, sizeof(v21));
+      if (img4_runtime_check_custom_digest(v12))
       {
-        expert_log(v34, 2uLL, "querying custom runtime for boot manifest hash", v35, v36, v37, v38, v39, v65);
-        identifier_digest = img4_runtime_get_identifier_digest(v33);
-        if (identifier_digest)
+        expert_log(v13, 2uLL, "querying custom runtime for boot manifest hash");
+        if (img4_runtime_get_identifier_digest(v12))
         {
-          expert_log(v34, 0, "failed to query manifest hash identifier: %d", v42, v43, v44, v45, v46, identifier_digest);
+          expert_log(v13, 0, "failed to query manifest hash identifier: %d");
         }
 
         else
         {
-          digest_init_from_img4_dgst(v69, v70, v41, v42, v43, v44, v45, v46);
-          digest_print_cstr(v69, v67, v52, v53, v54, v55, v56, v57);
-          expert_log(v34, 2uLL, "preparing custom boot manifest hash: %s", v58, v59, v60, v61, v62, v67);
-          odometer_prepare_notarized_manifest_hash(a2, v69);
+          digest_init_from_img4_dgst(v23, v24);
+          digest_print_cstr(v23, v21, v15, v16, v17, v18, v19, v20);
+          expert_log(v13, 2uLL, "preparing custom boot manifest hash: %s", v21);
+          *&v14 = odometer_prepare_notarized_manifest_hash(a2, v23).n128_u64[0];
         }
       }
 
       else
       {
-        expert_log(v34, 2uLL, "stock runtime; not querying for boot manifest hash", v35, v36, v37, v38, v39, v65);
+        expert_log(v13, 2uLL, "stock runtime; not querying for boot manifest hash");
       }
 
-      expert_log(expert, 2uLL, "forcing sideload anti-replay policy due to subsequent stage firmware evaluation", v47, v48, v49, v50, v51, v66);
+      expert_log(expert, 2uLL, "forcing sideload anti-replay policy due to subsequent stage firmware evaluation", v14);
       odometer_prepare_sideload_mixn_match(a2);
       goto LABEL_30;
     }
@@ -7228,49 +7150,48 @@ void _img4_firmware_prepare(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (*(a3 + 16))
   {
-    expert_log(expert, 2uLL, "prepared custom nonce hash", v6, v7, v8, v9, v10, v64);
+    expert_log(expert, 2uLL, "prepared custom nonce hash");
     odometer_prepare_nonce_hash(a2, *(a3 + 16));
-    v13 = *v5;
+    v8 = *v5;
   }
 
-  if ((v13 & 8) != 0)
+  if ((v8 & 8) != 0)
   {
-    expert_log(expert, 2uLL, "forcing sideload anti-replay policy", v6, v7, v8, v9, v10, v64);
+    expert_log(expert, 2uLL, "forcing sideload anti-replay policy");
     odometer_prepare_sideload_mixn_match(a2);
   }
 
-  if (v12[3] != 1 || v12[2] != 1)
+  if (v7[3] != 1 || v7[2] != 1)
   {
     goto LABEL_30;
   }
 
-  if (v12 >= v12 + 33)
+  if (v7 >= v7 + 33)
   {
 LABEL_36:
     __break(0x5519u);
     return;
   }
 
-  name = chip_get_name(v12);
-  expert_log(expert, 1uLL, "%s: simulating chip boot for reduced-security virtual chip policy", v15, v16, v17, v18, v19, name);
+  name = chip_get_name(v7);
+  expert_log(expert, 1uLL, "%s: simulating chip boot for reduced-security virtual chip policy", name);
   odometer_prepare_mixn_match(a2, 1);
 LABEL_30:
   if (!v5[6] && (*v5 & 0x20) == 0)
   {
-    expert_log(expert, 2uLL, "manifest-only evaluation; permitting replay", v6, v7, v8, v9, v10, v64);
+    expert_log(expert, 2uLL, "manifest-only evaluation; permitting replay");
     odometer_prepare_mixn_match(a2, 1);
   }
 
-  if (!v12[25])
+  if (!v7[25])
   {
     odometer_prepare_mix_n_match_god_mode(a2);
   }
 
   *(a3 + 104) = 0;
-  v63 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t *img4_firmware_destroy(uint64_t *result)
+unint64_t **img4_firmware_destroy(unint64_t **result)
 {
   v1 = *result;
   if (*result)
@@ -7278,12 +7199,12 @@ uint64_t *img4_firmware_destroy(uint64_t *result)
     v2 = result;
     v3 = v1[1];
     expert = img4_runtime_get_expert(v3);
-    v12 = v1 + 157;
-    v13 = v1 + 153;
-    manifest_destroy(v1 + 78, v5, v6, v7, v8, v9, v10, v11);
+    v5 = v1 + 157;
+    v6 = v1 + 153;
+    manifest_destroy(v1 + 78);
     payload_destroy(v1 + 6);
-    img4_buff_dealloc_internal(v3, &v13);
-    img4_buff_dealloc_internal(v3, &v12);
+    img4_buff_dealloc_internal(v3, &v6);
+    img4_buff_dealloc_internal(v3, &v5);
     return _expert_dealloc_type(expert, v1[2], v2);
   }
 
@@ -7355,63 +7276,63 @@ uint64_t _property_filter_expert(uint64_t a1)
   }
 }
 
-char **property_iterator_next(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char **property_iterator_next(uint64_t a1)
 {
-  v8 = *(a1 + 16);
-  v9 = v8 + 1;
-  if (v8 == 38)
+  v1 = *(a1 + 16);
+  v2 = v1 + 1;
+  if (v1 == 38)
   {
     return 0;
   }
 
-  if (v8 <= -2)
+  if (v1 <= -2)
   {
-    __panic_npx("panic: iteration underflow: idx = 0x%lx, %ld", a2, a3, a4, a5, a6, a7, a8, v8 + 1);
+    __panic_npx("panic: iteration underflow: idx = 0x%lx, %ld", v1 + 1, v1 + 1);
   }
 
-  if (v9 >= 0x28)
+  if (v2 >= 0x28)
   {
-    __panic_npx("panic: iteration overflow: idx = 0x%lx, %lu", a2, a3, a4, a5, a6, a7, a8, v8 + 1);
+    __panic_npx("panic: iteration overflow: idx = 0x%lx, %lu", v1 + 1, v1 + 1);
   }
 
   if (*a1)
   {
-    v12 = *a1;
+    v5 = *a1;
   }
 
   else
   {
-    v12 = _property_filter_all;
+    v5 = _property_filter_all;
   }
 
   while (1)
   {
-    v10 = __all[v9];
-    if (!(v12)(v10))
+    v3 = __all[v2];
+    if (!(v5)(v3))
     {
       break;
     }
 
-    v13 = v9 + 1;
-    if (v9++ >= 0x26)
+    v6 = v2 + 1;
+    if (v2++ >= 0x26)
     {
       goto LABEL_13;
     }
   }
 
-  v13 = v9;
-  if (v10)
+  v6 = v2;
+  if (v3)
   {
     goto LABEL_14;
   }
 
 LABEL_13:
-  v10 = 0;
-  v9 = v13;
+  v3 = 0;
+  v2 = v6;
 LABEL_14:
-  *(a1 + 8) = v10;
-  *(a1 + 16) = v9;
-  return v10;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v2;
+  return v3;
 }
 
 uint64_t property_iterator_reset(uint64_t result)
@@ -7443,11 +7364,11 @@ void Img4DecodeInitAsManifest(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t Img4DecodeGetQueryForContainer(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Img4DecodeGetQueryForContainer(unsigned int a1)
 {
   if (a1 >= 6)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "pc");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "pc", a1);
   }
 
   return qword_29EEFF040[a1];
@@ -7477,47 +7398,47 @@ uint64_t Img4DecodeQueryPropertyData(uint64_t a1, uint64_t a2, uint64_t a3, uint
   return v10(a2, v9, a4, a5);
 }
 
-uint64_t Img4DecodeIterateObjectItems(unint64_t *a1, unsigned int *a2, uint64_t (**a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4)
+uint64_t Img4DecodeIterateObjectItems(char *a1, unsigned int *a2, uint64_t (**a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4)
 {
   __dst[57] = *MEMORY[0x29EDCA608];
-  v22[0] = 0;
-  v22[1] = 0;
-  v20 = 0;
-  v21[0] = 0;
-  v21[1] = 0;
-  result = DERDecodeSeqContentInit(a1 + 5, v22);
+  v16[0] = 0;
+  v16[1] = 0;
+  v14 = 0;
+  v15[0] = 0;
+  v15[1] = 0;
+  result = DERDecodeSeqContentInit(a1 + 5, v16);
   if (!result)
   {
-    for (LODWORD(result) = DERDecodeSeqNext(v22, &v20); !result; LODWORD(result) = DERDecodeSeqNext(v22, &v20))
+    for (LODWORD(result) = DERDecodeSeqNext(v16, &v14); !result; LODWORD(result) = DERDecodeSeqNext(v16, &v14))
     {
-      v9 = v20;
-      memset(v19, 0, sizeof(v19));
+      v9 = v14;
+      memset(v13, 0, sizeof(v13));
       v10 = memcpy(__dst, a1, 0x1C8uLL);
-      memset(v18, 170, 5);
+      memset(v12, 170, 5);
       v11 = log_expert(v10);
       if (v9 == 1296125520)
       {
-        strcpy(v18, "MANP");
-        expert_log(v11, 2uLL, "found %s; skipping", v12, v13, v14, v15, v16, v18);
+        strcpy(v12, "MANP");
+        expert_log(v11, 2uLL, "found %s; skipping", v12);
       }
 
       else
       {
-        LOBYTE(v18[1]) = 0;
-        v18[0] = bswap32(v9);
-        expert_log(v11, 2uLL, "found object: %s", v12, v13, v14, v15, v16, v18);
-        result = DERImg4DecodePropertyWithItem(v21, v20, 0x2000000000000011uLL, v19);
+        LOBYTE(v12[1]) = 0;
+        v12[0] = bswap32(v9);
+        expert_log(v11, 2uLL, "found object: %s", v12);
+        result = DERImg4DecodePropertyWithItem(v15, v14, 0x2000000000000011uLL, v13);
         if (result)
         {
-          goto LABEL_12;
+          return result;
         }
 
         *a2 = v9;
-        *&__dst[9] = *(&v19[1] + 8);
+        *&__dst[9] = *(&v13[1] + 8);
         result = Img4DecodeEvaluateObjectProperties(__dst, *a3, a4);
         if (result)
         {
-          goto LABEL_12;
+          return result;
         }
 
         *a2 = 0;
@@ -7526,17 +7447,15 @@ uint64_t Img4DecodeIterateObjectItems(unint64_t *a1, unsigned int *a2, uint64_t 
 
     if (result == 1)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = result;
+      return result;
     }
   }
 
-LABEL_12:
-  v17 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7553,11 +7472,11 @@ uint64_t Img4DecodeCheckAuthority(uint64_t a1, __int128 *a2)
   return Img4DecodePerformManifestTrustEvaluationWithCallbacks(a1, v8, &v3, 0);
 }
 
-unint64_t DERImg4DecodePrintProperty(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int8 **DERImg4DecodePrintProperty(unsigned __int8 **result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = 0;
   v13 = 0;
-  v9 = *(result + 40);
+  v9 = result[5];
   if (v9 <= 0)
   {
     if (v9 != 0xA000000000000000)
@@ -7579,20 +7498,20 @@ unint64_t DERImg4DecodePrintProperty(unint64_t result, unint64_t a2, uint64_t a3
     switch(v9)
     {
       case 4:
-        v11 = *(result + 24);
-        if (*(result + 32) >= 0x40uLL)
+        v11 = result[3];
+        if (result[4] >= 0x40)
         {
           v12 = 64;
         }
 
         else
         {
-          v12 = *(result + 32);
+          v12 = result[4];
         }
 
         return sprintdgst_npx(a2, v11, v12, a4, a5, a6, a7, a8);
       case 2:
-        result = DERParseInteger64(result + 24, &v13);
+        result = DERParseInteger64((result + 3), &v13);
         if (result)
         {
 LABEL_17:
@@ -7605,7 +7524,7 @@ LABEL_18:
 
         return snprintf(a2, 0x81uLL, "0x%llx");
       case 1:
-        result = DERParseBoolean((result + 24), &v14);
+        result = DERParseBoolean(result + 3, &v14);
         if (!result)
         {
           return snprintf(a2, 0x81uLL, "%s");
@@ -7620,32 +7539,32 @@ LABEL_18:
   return result;
 }
 
-uint64_t CTImg4GetDigestType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CTImg4GetDigestType(uint64_t a1)
 {
-  v9 = *(a1 + 8);
-  if (v9 == 5 && !memcmp(*a1, &_oidSha1, 5uLL))
+  v2 = *(a1 + 8);
+  if (v2 == 5 && !memcmp(*a1, &_oidSha1, 5uLL))
   {
     return 1;
   }
 
-  if (v9 == 9 && !memcmp(*a1, &_oidSha224, 9uLL))
+  if (v2 == 9 && !memcmp(*a1, &_oidSha224, 9uLL))
   {
     return 2;
   }
 
-  if (v9 == 9 && !memcmp(*a1, &_oidSha256, 9uLL))
+  if (v2 == 9 && !memcmp(*a1, &_oidSha256, 9uLL))
   {
     return 4;
   }
 
-  if (v9 == 9 && !memcmp(*a1, &_oidSha384, 9uLL))
+  if (v2 == 9 && !memcmp(*a1, &_oidSha384, 9uLL))
   {
     return 8;
   }
 
-  if (v9 != 9 || memcmp(*a1, &_oidSha512, 9uLL))
+  if (v2 != 9 || memcmp(*a1, &_oidSha512, 9uLL))
   {
-    __panic_npx("panic: unsupported digest type: oid len = %lu", a2, a3, a4, a5, a6, a7, a8, v9);
+    __panic_npx("panic: unsupported digest type: oid len = %lu", v2);
   }
 
   return 16;
@@ -7722,92 +7641,86 @@ uint64_t (**CTImg4GetDecodeImplementation(const DERItem *a1))()
   }
 }
 
-uint64_t _chip_decode_select_static(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _chip_decode_select_static(uint64_t a1, uint64_t a2)
 {
-  v33 = 0;
-  expert_log(a2, 2uLL, "%s: decode selection: static", a4, a5, a6, a7, a8, *(a1 + 8));
+  v6 = 0;
+  expert_log(a2, 2uLL, "%s: decode selection: static", *(a1 + 8));
   if (!*(a1 + 32))
   {
-    __panic_npx("panic: illegal chip definition: no static decode implementation: %s", v10, v11, v12, v13, v14, v15, v16, *(a1 + 8));
+    __panic_npx("panic: illegal chip definition: no static decode implementation: %s", *(a1 + 8));
   }
 
-  image4_certificate_type = expert_get_image4_certificate_type(a2, &v33);
+  image4_certificate_type = expert_get_image4_certificate_type(a2, &v6);
   if (image4_certificate_type)
   {
-    __panic_npx("panic: cannot resolve image4-cert-type: %d", v18, v19, v20, v21, v22, v23, v24, image4_certificate_type);
+    __panic_npx("panic: cannot resolve image4-cert-type: %d", image4_certificate_type);
   }
 
-  expert_log(a2, 1uLL, "%s: using image4-cert-type: %u", v20, v21, v22, v23, v24, *(a1 + 8));
-  if (v33 > 1)
+  expert_log(a2, 1uLL, "%s: using image4-cert-type: %u", *(a1 + 8), v6);
+  if (v6 > 1)
   {
-    __panic_npx("panic: unsupported image4-cert-type: %d", v25, v26, v27, v28, v29, v30, v31, 0);
+    __panic_npx("panic: unsupported image4-cert-type: %d", 0);
   }
 
-  return *(*(a1 + 32) + 8 * v33);
+  return *(*(a1 + 32) + 8 * v6);
 }
 
-uint64_t _chip_decode_select_trust_store(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _chip_decode_select_trust_store(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v71 = *MEMORY[0x29EDCA608];
-  v67 = 0;
-  v68 = 0;
-  v63 = 0;
-  v64 = 0;
-  v65 = 0;
-  v70 = 0;
-  memset(v69, 0, sizeof(v69));
-  v60 = *(a1 + 56);
-  expert_log(a2, 2uLL, "%s: decode selection: trust store [0x%llx]", a4, a5, a6, a7, a8, *(a1 + 8));
+  v28 = *MEMORY[0x29EDCA608];
+  v24 = 0;
+  v25 = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  v27 = 0;
+  memset(v26, 0, sizeof(v26));
+  expert_log(a2, 2uLL, "%s: decode selection: trust store [0x%llx]", *(a1 + 8), *(a1 + 56));
   if (*(a1 + 32))
   {
-    __panic_npx("panic: illegal chip definition: trust store cannot override static decode implementation: %s", v11, v12, v13, v14, v15, v16, v17, *(a1 + 8));
+    __panic_npx("panic: illegal chip definition: trust store cannot override static decode implementation: %s", *(a1 + 8));
   }
 
-  if (expert_query_trust_store(a2, *(a1 + 56), a1, &v67, &v68))
+  if (expert_query_trust_store(a2, *(a1 + 56), a1, &v24, &v25))
   {
-    v61 = *(a1 + 56);
-    expert_log(a2, 0, "%s: failed to query anchor: 0x%llx: %d", v18, v19, v20, v21, v22, *(a1 + 8));
-    goto LABEL_9;
+    expert_log(a2, 0, "%s: failed to query anchor: 0x%llx: %d");
   }
 
-  result = (*(a1 + 48))();
-  v30 = *(result + 24);
-  v29 = *(result + 32);
-  if (v29 <= &v29[v30])
+  else
   {
-    v66[0] = *(result + 32);
-    v66[1] = v30;
-    sprintdgst_npx(v69, v29, v30, v24, v25, v26, v27, v28);
-    v62 = *(a1 + 56);
-    expert_log(a2, 1uLL, "%s: retrieved pinned root from trust store: type = 0x%llx, length = %lu, oid = %s, oid length = %lu", v31, v32, v33, v34, v35, *(a1 + 8));
-    if (DERDecodeItem(v66, &v63))
+    result = (*(a1 + 48))();
+    v13 = *(result + 24);
+    v12 = *(result + 32);
+    if (v12 > &v12[v13])
     {
-      expert_log(a2, 0, "%s: DERDecodeItem: %d", v36, v37, v38, v39, v40, *(a1 + 8));
+      __break(0x5519u);
+      return result;
+    }
+
+    v23[0] = *(result + 32);
+    v23[1] = v13;
+    sprintdgst_npx(v26, v12, v13, v7, v8, v9, v10, v11);
+    expert_log(a2, 1uLL, "%s: retrieved pinned root from trust store: type = 0x%llx, length = %lu, oid = %s, oid length = %lu", *(a1 + 8), *(a1 + 56), v25, v26, v13);
+    if (DERDecodeItem(v23, &v20))
+    {
+      expert_log(a2, 0, "%s: DERDecodeItem: %d");
     }
 
     else
     {
-      sprintdgst_npx(v69, v64, v65, v36, v37, v38, v39, v40);
-      expert_log(a2, 1uLL, "%s: finding digest algorithm for oid: %s", v41, v42, v43, v44, v45, *(a1 + 8));
-      DigestType = CTImg4GetDigestType(&v64, v46, v47, v48, v49, v50, v51, v52);
-      if (!CTImg4CreateContext(v67, v68, DigestType, 0, a3))
+      sprintdgst_npx(v26, v21, v22, v14, v15, v16, v17, v18);
+      expert_log(a2, 1uLL, "%s: finding digest algorithm for oid: %s", *(a1 + 8), v26);
+      DigestType = CTImg4GetDigestType(&v21);
+      if (!CTImg4CreateContext(v24, v25, DigestType, 0, a3))
       {
-        result = *a3;
-        goto LABEL_10;
+        return *a3;
       }
 
-      expert_log(a2, 0, "%s: failed to parse root: %d", v54, v55, v56, v57, v58, *(a1 + 8));
+      expert_log(a2, 0, "%s: failed to parse root: %d");
     }
-
-LABEL_9:
-    result = 0;
-LABEL_10:
-    v59 = *MEMORY[0x29EDCA608];
-    return result;
   }
 
-  __break(0x5519u);
-  return result;
+  return 0;
 }
 
 uint64_t chip_dump(uint64_t a1, mach_header_64 *mhp, unint64_t a3)
@@ -7822,22 +7735,27 @@ uint64_t chip_dump(uint64_t a1, mach_header_64 *mhp, unint64_t a3)
   {
     do
     {
-      v15 = *v7;
+      v10 = *v7;
       v7 += 8;
-      *(*v15 + 8);
-      expert_log(a1, a3, "%6s  %-36s : %s", v10, v11, v12, v13, v14, "");
+      v11 = *(*v10 + 8);
+      if (!v11)
+      {
+        v11 = "n/a";
+      }
+
+      expert_log(a1, a3, "%6s  %-36s : %s", "", "supported chip", v11);
       size = 0xAAAAAAAAAAAAAAAALL;
-      v16 = getsectdatafromheader_64(mhp, "__DATA_CONST", "__image4_chp", &size);
+      v12 = getsectdatafromheader_64(mhp, "__DATA_CONST", "__image4_chp", &size);
       result = _dyld_get_image_slide();
     }
 
-    while (v7 < &v16[result + size]);
+    while (v7 < &v12[result + size]);
   }
 
   return result;
 }
 
-unint64_t chip_get_property_expert(uint64_t a1, void *a2)
+unint64_t chip_get_property_expert(uint64_t a1, uint64_t a2)
 {
   v4 = chip_expert(a1);
   v5 = v4;
@@ -7848,24 +7766,24 @@ unint64_t chip_get_property_expert(uint64_t a1, void *a2)
 
   v6 = v4 + 288;
   v7 = chip_expert_instance(a1);
-  v15 = *(a1 + 16);
-  if (v15 - 2 >= 2 && v15 != 0)
+  v8 = *(a1 + 16);
+  if (v8 - 2 >= 2 && v8 != 0)
   {
-    if (v15 != 1)
+    if (v8 != 1)
     {
       goto LABEL_16;
     }
 
-    if (!chip_instance_check(v7, a2, v9, v10, v11, v12, v13, v14))
+    if (!chip_instance_check(v7, a2))
     {
       v6 = 0;
       v5 = 0;
     }
 
-    v15 = *(a1 + 16);
+    v8 = *(a1 + 16);
   }
 
-  if (v15 < a2[10])
+  if (v8 < *(a2 + 80))
   {
     return 0;
   }
@@ -7874,13 +7792,13 @@ unint64_t chip_get_property_expert(uint64_t a1, void *a2)
   {
     __break(0x5519u);
 LABEL_16:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v8, v9, v10, v11, v12, v13, v14, "chp->chp_type");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "chp->chp_type", v8);
   }
 
   return v5;
 }
 
-unint64_t chip_select_property_expert(uint64_t a1, void *a2, uint64_t a3)
+uint64_t chip_select_property_expert(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -7996,62 +7914,61 @@ uint64_t chip_check_entitlement(uint64_t a1, uint64_t a2)
 
 void _prepare_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v30[2] = *MEMORY[0x29EDCA608];
+  v13[2] = *MEMORY[0x29EDCA608];
   v4 = *(*a3 + 24);
   v5 = *(v4 + 8);
-  v30[0] = 0;
-  v30[1] = 0;
-  v25 = 0;
+  v13[0] = 0;
+  v13[1] = 0;
+  v8 = 0;
   __n = 0;
-  memset(v29, 0, sizeof(v29));
-  memset(v28, 0, sizeof(v28));
-  memset(v27, 0, sizeof(v27));
-  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v30, &__n);
-  if (boot_nonce)
+  memset(v12, 0, sizeof(v12));
+  memset(v11, 0, sizeof(v11));
+  memset(v10, 0, sizeof(v10));
+  boot_nonce = image4_environment_callout_query_boot_nonce(v4, v13, &__n);
+  if (!boot_nonce)
   {
-    if (boot_nonce != 45)
+    if (__n <= 0x10)
     {
-      expert_log(v5, 0, "failed to get boot nonce from callback: %d", v7, v8, v9, v10, v11, boot_nonce);
-      goto LABEL_11;
-    }
-
-    nonce_digest = image4_environment_callout_query_nonce_digest(v4, v28, &v25);
-    if (nonce_digest == 45)
-    {
-LABEL_11:
-      v24 = *MEMORY[0x29EDCA608];
+      nonce_init(v12, v13, __n);
+      odometer_prepare_nonce(a2, v12);
       return;
     }
 
-    if (nonce_digest)
-    {
-      expert_log(v5, 0, "failed to get nonce digest from callback: %d", v13, v14, v15, v16, v17, nonce_digest);
-      goto LABEL_11;
-    }
-
-    if (v25 <= 0x40)
-    {
-      digest_init(v27, v28, v25, v13, v14, v15, v16, v17);
-      odometer_prepare_nonce_hash(a2, v27);
-      goto LABEL_11;
-    }
+    goto LABEL_12;
   }
 
-  else if (__n <= 0x10)
+  if (boot_nonce != 45)
   {
-    nonce_init(v29, v30, __n, v7, v8, v9, v10, v11);
-    odometer_prepare_nonce(a2, v29, v18, v19, v20, v21, v22, v23);
-    goto LABEL_11;
+    expert_log(v5, 0, "failed to get boot nonce from callback: %d");
+    return;
   }
 
-  __break(0x5519u);
+  nonce_digest = image4_environment_callout_query_nonce_digest(v4, v11, &v8);
+  if (nonce_digest != 45)
+  {
+    if (!nonce_digest)
+    {
+      if (v8 <= 0x40)
+      {
+        digest_init(v10, v11, v8);
+        odometer_prepare_nonce_hash(a2, v10);
+        return;
+      }
+
+LABEL_12:
+      __break(0x5519u);
+      return;
+    }
+
+    expert_log(v5, 0, "failed to get nonce digest from callback: %d");
+  }
 }
 
 uint64_t _extract_payload_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v7 = *(a3 + 528);
-  memset(&v13[3], 0, 32);
+  memset(&v12[3], 0, 32);
   if (v7)
   {
     v8 = a3 + 528;
@@ -8062,7 +7979,7 @@ uint64_t _extract_payload_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     v8 = 0;
   }
 
-  memset(&v13[1], 0, 32);
+  memset(&v12[1], 0, 32);
   if (v7)
   {
     v9 = a3 + 72;
@@ -8073,28 +7990,27 @@ uint64_t _extract_payload_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     v9 = 0;
   }
 
-  v13[0] = 0uLL;
-  v10 = manifest_measure(a3, a2, v13);
+  v12[0] = 0uLL;
+  v10 = manifest_measure(a3, a2, v12);
   *a5 = *(*(a2 + 48))(v10);
   if (v9 + 456 > v8)
   {
     __break(0x5519u);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9 + 328;
 }
 
-void *_payload_img4_get_measured_bytes(void *result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *_payload_img4_get_measured_bytes(void *result, void *a2)
 {
   if (!*(result + 44))
   {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: optional not set", a2, v2, v3);
   }
 
-  v11 = result[6];
-  v10 = result[7];
-  if (v11 > v11 + v10)
+  v5 = result[6];
+  v4 = result[7];
+  if (v5 > v5 + v4)
   {
     __break(0x5519u);
   }
@@ -8102,7 +8018,7 @@ void *_payload_img4_get_measured_bytes(void *result, void *a2, uint64_t a3, uint
   else
   {
 
-    return buff_init_wrap(a2, v11, v10);
+    return buff_init_wrap(a2, v5, v4);
   }
 
   return result;
@@ -8159,35 +8075,39 @@ uint64_t payload_set_callbacks(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t payload_parse(uint64_t *a1)
+unint64_t payload_parse(uint64_t *a1)
 {
-  v23 = 0;
-  v9 = _payload_parse_internal(a1);
-  if (!v9)
+  v10 = 0;
+  v2 = _payload_parse_internal(a1);
+  if (!v2)
   {
-    PayloadType = Img4DecodeGetPayloadType((a1 + 14), &v23);
+    PayloadType = Img4DecodeGetPayloadType((a1 + 14), &v10);
     if (!PayloadType)
     {
-      v22 = a1[1];
-      if (*v22 == v23)
+      v6 = a1[1];
+      if (*v6 == v10)
       {
         return 0;
       }
 
-      expert_log(*a1, 0, "%s: unexpected payload type: actual = %s, expected = %s", v11, v12, v13, v14, v15, (v22 + 1));
+      v7 = *a1;
+      v9 = 0;
+      v8 = bswap32(v10);
+      expert_log(v7, 0, "%s: unexpected payload type: actual = %s, expected = %s", (v6 + 4), &v8, (v6 + 4));
       return 79;
     }
 
-    v9 = posixdr(PayloadType);
-    expert_log(*a1, 0, "%s: Img4DecodeGetPayloadType: %d", v16, v17, v18, v19, v20, a1[1] + 4);
+    v4 = PayloadType;
+    v2 = posixdr(PayloadType);
+    expert_log(*a1, 0, "%s: Img4DecodeGetPayloadType: %d", (a1[1] + 4), v4);
   }
 
-  if (v9 >= 0x6B)
+  if (v2 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v2, v3, v4, v5, v6, v7, v8, v9);
+    __panic_npx("panic: error not set to valid posix code: %d", v2);
   }
 
-  return v9;
+  return v2;
 }
 
 unint64_t _payload_parse_internal(uint64_t a1)
@@ -8204,22 +8124,23 @@ unint64_t _payload_parse_internal(uint64_t a1)
     Img4DecodeInitAsPayload(result, v3, a1 + 112);
     if (v4)
     {
-      v5 = posixdr(v4);
-      expert_log(*a1, 0, "%s: Img4DecodeInitAsPayload: %d", v6, v7, v8, v9, v10, *(a1 + 8) + 4);
-      if (v5 >= 0x6B)
+      v5 = v4;
+      v6 = posixdr(v4);
+      expert_log(*a1, 0, "%s: Img4DecodeInitAsPayload: %d", (*(a1 + 8) + 4), v5);
+      if (v6 >= 0x6B)
       {
-        __panic_npx("panic: error not set to valid posix code: %d", v11, v12, v13, v14, v15, v16, v17, v5);
+        __panic_npx("panic: error not set to valid posix code: %d", v6);
       }
 
-      return v5;
+      return v6;
     }
 
     *(a1 + 104) = a1 + 112;
     if (*(a1 + 32) == _payload_callbacks_bare)
     {
-      v5 = 0;
+      v6 = 0;
       *(a1 + 32) = _payload_callbacks_im4p;
-      return v5;
+      return v6;
     }
 
     return 0;
@@ -8271,110 +8192,106 @@ unint64_t *payload_destroy(unint64_t *result)
 
 uint64_t _payload_im4p_measure(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v6 = *a1;
-  v48 = 0;
-  memset(v49, 0, sizeof(v49));
+  v27 = 0;
+  memset(v28, 0, sizeof(v28));
   alloc_preference = _type_get_alloc_preference(&_image4_type_decode_context);
   if (alloc_preference <= 1)
   {
-    v15 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v15 = alloc_preference;
+    v8 = alloc_preference;
   }
 
-  if (v15 == 1)
+  if (v8 == 1)
   {
     goto LABEL_8;
   }
 
-  if (v15 != 2)
+  if (v8 != 2)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", v8, v9, v10, v11, v12, v13, v14, "_t_preference");
+    __panic_npx("panic: unreachable case: %s = 0x%llx");
   }
 
-  v16 = _expert_alloc_type(v6, &_image4_type_decode_context);
-  if (!v16)
+  v9 = _expert_alloc_type(v6, &_image4_type_decode_context);
+  if (!v9)
   {
 LABEL_8:
     size = type_get_size(&_image4_type_decode_context);
-    v25 = MEMORY[0x2A1C7C4A8](size, v18, v19, v20, v21, v22, v23, v24);
-    v26 = (&v47 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
-    if (v25 >= 0x31)
+    v18 = MEMORY[0x2A1C7C4A8](size, v11, v12, v13, v14, v15, v16, v17, v26);
+    v19 = (&v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+    if (v18 >= 0x31)
     {
-      v27 = v25 - 48;
+      v20 = v18 - 48;
     }
 
     else
     {
-      v27 = 0;
+      v20 = 0;
     }
 
-    memset(v26 + 3, 170, v27);
-    *v26 = 0u;
-    v26[1] = 0u;
-    v26[2] = 0u;
+    memset(v19 + 3, 170, v20);
+    *v19 = 0u;
+    v19[1] = 0u;
+    v19[2] = 0u;
   }
 
   else
   {
-    v48 = v16;
+    v27 = v9;
   }
 
-  v28 = *a1;
-  v29 = chip_select_decode(a2);
-  if (!v29)
+  v21 = chip_select_decode(a2);
+  if (!v21)
   {
-    __panic_npx("panic: no decode implementation available for chip: %s", v30, v31, v32, v33, v34, v35, v36, *(a2 + 8));
+    __panic_npx("panic: no decode implementation available for chip: %s");
   }
 
-  v37 = v29;
-  v38 = *(v29 + 32);
-  v39 = *v38;
-  if (*v38 > 0x40)
+  v22 = *(v21 + 32);
+  v23 = *v22;
+  if (*v22 > 0x40)
   {
     __break(0x5519u);
 LABEL_18:
-    __panic_npx("panic: Img4DecodeCopyPayloadDigest: %d", v30, v31, v37, v33, v34, v35, v36, v29);
+    __panic_npx("panic: Img4DecodeCopyPayloadDigest: %d");
   }
 
-  Img4DecodeCopyPayloadDigest(a1[13], v49, *v38, v29);
-  if (v29)
+  Img4DecodeCopyPayloadDigest(a1[13], v28, *v22, v21);
+  if (v24)
   {
     goto LABEL_18;
   }
 
-  _expert_dealloc_type(v6, &_image4_type_decode_context, &v48);
-  result = digest_init(a3, v49, v39, v40, v41, v42, v43, v44);
-  v46 = *MEMORY[0x29EDCA608];
-  return result;
+  _expert_dealloc_type(v6, &_image4_type_decode_context, &v27);
+  return digest_init(a3, v28, v23);
 }
 
-void *_payload_bare_measure(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *_payload_bare_measure(uint64_t a1, uint64_t a2, void *a3)
 {
   if (!*(a1 + 88))
   {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v17);
+    __panic_npx("panic: optional not set", a2, a3);
   }
 
-  v10 = (*(a2 + 48))();
+  v5 = (*(a2 + 48))();
 
-  return digest_init_measure(a3, v10, (a1 + 48), v11, v12, v13, v14, v15);
+  return digest_init_measure(a3, v5, (a1 + 48));
 }
 
-void *_payload_bare_get_measured_bytes(void *result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *_payload_bare_get_measured_bytes(void *result, void *a2)
 {
   if (!*(result + 44))
   {
-    __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v8);
+    __panic_npx("panic: optional not set", a2, v2, v3);
   }
 
-  v11 = result[6];
-  v10 = result[7];
-  if (v11 > v11 + v10)
+  v5 = result[6];
+  v4 = result[7];
+  if (v5 > v5 + v4)
   {
     __break(0x5519u);
   }
@@ -8382,7 +8299,7 @@ void *_payload_bare_get_measured_bytes(void *result, void *a2, uint64_t a3, uint
   else
   {
 
-    return buff_init_wrap(a2, v11, v10);
+    return buff_init_wrap(a2, v5, v4);
   }
 
   return result;
@@ -8390,80 +8307,71 @@ void *_payload_bare_get_measured_bytes(void *result, void *a2, uint64_t a3, uint
 
 void *_payload_im4p_get_measured_bytes(uint64_t a1, void *a2)
 {
-  v12 = 0;
-  v13 = 0;
-  Payload = Img4DecodeGetPayload(*(a1 + 104), &v12);
+  v5 = 0;
+  v6 = 0;
+  Payload = Img4DecodeGetPayload(*(a1 + 104), &v5);
   if (Payload)
   {
-    __panic_npx("panic: Img4DecodeGetPayload: %d", v4, v5, v6, v7, v8, v9, v10, Payload);
+    __panic_npx("panic: Img4DecodeGetPayload: %d", Payload);
   }
 
-  return buff_init_wrap(a2, v12, v13);
+  return buff_init_wrap(a2, v5, v6);
 }
 
 uint64_t darwin_uuid_parse(_BYTE *a1, unsigned __int8 *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  if (*a1)
+  v7 = *MEMORY[0x29EDCA608];
+  if (!*a1)
   {
-    *&v7[13] = 0xAAAAAAAAAAAAAAAALL;
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v6 = v3;
-    *v7 = v3;
-    __strlcpy_chk();
-    if (uuid_parse(&v6, a2))
-    {
-      result = 22;
-    }
+    return 2;
+  }
 
-    else
-    {
-      result = 0;
-    }
+  *&v6[13] = 0xAAAAAAAAAAAAAAAALL;
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v5 = v3;
+  *v6 = v3;
+  __strlcpy_chk();
+  if (uuid_parse(&v5, a2))
+  {
+    return 22;
   }
 
   else
   {
-    result = 2;
+    return 0;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-uint64_t image4_auditor_post(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_auditor_post(uint64_t a1, uint64_t a2, unint64_t a3, __int128 *a4, __int128 *a5)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v12 = 0;
-  memset(v11, 0, sizeof(v11));
-  image4_audit_event_init(v11, a2, a3, a4, a5, a6, a7, a8);
-  result = (*(*(a1 + 80) + 8))(a1, v11, *(a1 + 88));
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  v9 = *MEMORY[0x29EDCA608];
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
+  image4_audit_event_init(v7, a2, a3, a4, a5);
+  return (*(*(a1 + 80) + 8))(a1, v7, *(a1 + 88));
 }
 
-uint64_t *image4_audit_event_init(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *image4_audit_event_init(void *a1, uint64_t a2, unint64_t a3, __int128 *a4, __int128 *a5)
 {
   *a1 = a2;
-  v8 = *(a2 + 56);
-  if (v8 >= 4)
+  v5 = *(a2 + 56);
+  if (v5 >= 4)
   {
-    v18 = *(a2 + 56);
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "p->p_container");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "p->p_container", v5);
   }
 
-  a1[34] = qword_298EF88F0[v8];
+  a1[34] = qword_298EF88F0[v5];
   if (a3 >= 4)
   {
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "mfr");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "mfr", a3);
   }
 
   a1[33] = a3;
   if (a4)
   {
-    a1[1] = image4_audit_value_init((a1 + 2), a2, a4, a4, a5, a6, a7, a8);
-    a1[17] = image4_audit_value_init((a1 + 18), a2, a5, v12, v13, v14, v15, v16);
+    a1[1] = image4_audit_value_init((a1 + 2), a2, a4);
+    a1[17] = image4_audit_value_init((a1 + 18), a2, a5);
   }
 
   return a1;
@@ -8491,7 +8399,7 @@ uint64_t _AuditorComputeDigest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   result = (**(v10 + 72))(a1, a2, a3, a4, a5);
   if (result)
   {
-    __panic_npx("panic: digest computation failed: %d", v12, v13, v14, v15, v16, v17, v18, result);
+    __panic_npx("panic: digest computation failed: %d", result);
   }
 
   return result;
@@ -8501,97 +8409,97 @@ uint64_t _AuditorVerifyChain(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   v16 = __current();
   v17 = (*(*(v16 + 72) + 8))(a1, a2, a3, a4, a5, a6, a7, a8);
-  v23 = v17;
+  v18 = v17;
   if (v17)
   {
-    _auerr(v16, v17, "certificate chain verification failed: %d", v18, v19, v20, v21, v22, v17);
+    _auerr(v16, v17, "certificate chain verification failed: %d", v17);
   }
 
-  return v23;
+  return v18;
 }
 
 uint64_t _AuditorVerifySignature(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v16 = __current();
   v17 = (*(*(v16 + 72) + 16))(a1, a2, a3, a4, a5, a6, a7, a8);
-  v23 = v17;
+  v18 = v17;
   if (v17)
   {
-    _auerr(v16, v17, "signature verification failed: %d", v18, v19, v20, v21, v22, v17);
+    _auerr(v16, v17, "signature verification failed: %d", v17);
   }
 
-  return v23;
+  return v18;
 }
 
 uint64_t _AuditorEvaluateCertificateProperties(void *a1)
 {
   v2 = __current();
-  v8 = v2;
-  v84[0] = 0;
-  v84[1] = 0;
-  v82[1] = 0;
-  v83 = 0;
-  v81 = 0;
-  v82[0] = 0;
+  v3 = v2;
+  v34[0] = 0;
+  v34[1] = 0;
+  v32[1] = 0;
+  v33 = 0;
+  v31 = 0;
+  v32[0] = 0;
   if (!a1[40])
   {
-    _auerr(v2, 0, "certificate properties invalid length: actual = %lu, expected > 0", v3, v4, v5, v6, v7, 0);
+    _auerr(v2, 0, "certificate properties invalid length: actual = %lu, expected > 0", 0);
     return 3;
   }
 
-  v9 = DERDecodeSeqInit((a1 + 39), &v83, v84);
-  if (v9)
+  v4 = DERDecodeSeqInit((a1 + 39), &v33, v34);
+  if (v4)
   {
-    v15 = v9;
-    _auerr(v8, v9, "DERDecodeSeqInit: %d", v10, v11, v12, v13, v14, v9);
-    return v15;
+    v5 = v4;
+    _auerr(v3, v4, "DERDecodeSeqInit: %d", v4);
+    return v5;
   }
 
-  if (v83 != 0x2000000000000011)
+  if (v33 != 0x2000000000000011)
   {
-    _auerr(v8, 0, "bad certificate tag: actual = 0x%llx, expected = 0x%llx", v10, v11, v12, v13, v14, v83);
+    _auerr(v3, 0, "bad certificate tag: actual = 0x%llx, expected = 0x%llx");
     return 2;
   }
 
 LABEL_6:
   while (2)
   {
-    v16 = DERDecodeSeqNext(v84, &v81);
-    if (v16)
+    v6 = DERDecodeSeqNext(v34, &v31);
+    if (v6)
     {
-      if (v16 != 1)
+      if (v6 != 1)
       {
-        __panic_npx("panic: exited enforcement loop with bogus value: dr = %d", v17, v18, v19, v20, v21, v22, v23, v16);
+        __panic_npx("panic: exited enforcement loop with bogus value: dr = %d", v6);
       }
 
       return 0;
     }
 
-    v80 = 0;
-    v79 = 0;
-    *v78 = 0uLL;
-    v75 = 0;
+    v30 = 0;
+    v29 = 0;
+    v28 = 0uLL;
+    v25 = 0;
     __s1 = 0;
     __n = 0;
-    v73 = 0u;
-    v74 = 0u;
-    v72 = 0u;
-    v71[0] = 0;
-    v71[1] = 0;
-    v70 = 0u;
-    memset(v69, 0, sizeof(v69));
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
+    v21[0] = 0;
+    v21[1] = 0;
+    v20 = 0u;
+    memset(v19, 0, sizeof(v19));
     __s2 = 0uLL;
-    fourcc_init(&v79, v81);
-    v29 = a1 + 7;
-    switch(v81)
+    fourcc_init(&v29, v31);
+    v7 = (a1 + 7);
+    switch(v31)
     {
       case 0xE00000004D414E50:
         goto LABEL_11;
       case 0xE00000004F424A50:
-        v29 = a1 + 9;
+        v7 = (a1 + 9);
         if (!a1[9])
         {
-          v29 = a1 + 9;
+          v7 = (a1 + 9);
           if (!a1[10])
           {
             continue;
@@ -8599,130 +8507,129 @@ LABEL_6:
         }
 
 LABEL_11:
-        *v78 = *v29;
-        v30 = DERImg4DecodeProperty(v82, v81, &v72);
-        if (v30)
+        v28 = *v7;
+        v8 = DERImg4DecodeProperty(v32, v31, &v22);
+        if (v8)
         {
-          v15 = v30;
-          _auerr(v8, v30, "DERImg4DecodeProperty: %d", v31, v32, v33, v34, v35, v30);
-          return v15;
+          v5 = v8;
+          _auerr(v3, v8, "DERImg4DecodeProperty: %d");
+          return v5;
         }
 
-        if (*(&v74 + 1) != 0x2000000000000011)
+        if (*(&v24 + 1) != 0x2000000000000011)
         {
-          _auerr(v8, 0, "unexpected certificate dictionary type: actual = 0x%llx, expected = 0x%llx", v31, v32, v33, v34, v35, SBYTE8(v74));
+          _auerr(v3, 0, "unexpected certificate dictionary type: actual = 0x%llx, expected = 0x%llx");
           return 2;
         }
 
-        v36 = DERDecodeSeqContentInit(&v73 + 1, v71);
-        if (v36)
+        v9 = DERDecodeSeqContentInit(&v23 + 1, v21);
+        if (v9)
         {
-          v15 = v36;
-          _auerr(v8, v36, "DERDecodeSeqContentInit: %d", v37, v38, v39, v40, v41, v36);
-          return v15;
+          v5 = v9;
+          _auerr(v3, v9, "DERDecodeSeqContentInit: %d");
+          return v5;
         }
 
         while (1)
         {
-          v42 = DERDecodeSeqNext(v71, &v75);
-          if (v42)
+          v10 = DERDecodeSeqNext(v21, &v25);
+          if (v10)
           {
-            if (v42 != 1)
+            if (v10 != 1)
             {
-              __panic_npx("panic: bogus exit from enforcement loop: pdr = %d", v43, v44, v45, v46, v47, v48, v49, v42);
+              __panic_npx("panic: bogus exit from enforcement loop: pdr = %d", v10);
             }
 
             goto LABEL_6;
           }
 
-          memset(v67, 0, sizeof(v67));
-          fourcc_init(&v79, v75);
-          v50 = DERImg4DecodeProperty(&__s1, v75, v69);
-          if (v50)
+          memset(v17, 0, sizeof(v17));
+          fourcc_init(&v29, v25);
+          v11 = DERImg4DecodeProperty(&__s1, v25, v19);
+          if (v11)
           {
             goto LABEL_32;
           }
 
-          v56 = *(&v70 + 1) == 0xA000000000000001;
-          DERImg4DecodeContentFindItemWithTag(v78, v75, &__s2);
-          if (v62 != v56)
+          v12 = *(&v20 + 1) == 0xA000000000000001;
+          DERImg4DecodeContentFindItemWithTag(&v28, v25, &__s2);
+          if (v13 != v12)
           {
             break;
           }
 
-          if (*(&v70 + 1) <= 4uLL && ((1 << SBYTE8(v70)) & 0x16) != 0)
+          if (*(&v20 + 1) <= 4uLL && ((1 << SBYTE8(v20)) & 0x16) != 0)
           {
-            v50 = DERImg4DecodeProperty(&__s2, v75, v67);
-            if (v50)
+            v11 = DERImg4DecodeProperty(&__s2, v25, v17);
+            if (v11)
             {
 LABEL_32:
-              v15 = v50;
-              _auerr(v8, v50, "DERImg4DecodeProperty: %s: %d", v51, v52, v53, v54, v55, &v79 + 4);
-              return v15;
+              v5 = v11;
+              _auerr(v3, v11, "DERImg4DecodeProperty: %s: %d");
+              return v5;
             }
 
             if (__n == *(&__s2 + 1) && !memcmp(__s1, __s2, __n))
             {
-              aupost(v8, &v79, 0, v69, v67, v53, v54, v55);
+              aupost(v3, &v29, 0, v19, v17);
             }
 
             else
             {
-              aupost(v8, &v79, 1, v69, v67, v53, v54, v55);
+              aupost(v3, &v29, 1uLL, v19, v17);
             }
           }
 
           else
           {
-            if ((*(&v70 + 1) + 0x6000000000000000) >= 2)
+            if ((*(&v20 + 1) + 0x6000000000000000) >= 2)
             {
-              _auerr(v8, 0, "unexpected certificate property type: tag = %s, type = 0x%llx", v57, v58, v59, v60, v61, &v79 + 4);
+              _auerr(v3, 0, "unexpected certificate property type: tag = %s, type = 0x%llx");
               return 2;
             }
 
-            v63 = v8;
-            v64 = 0;
+            v14 = v3;
+            v15 = 0;
 LABEL_26:
-            aupost(v63, &v79, v64, v69, 0, v59, v60, v61);
+            aupost(v14, &v29, v15, v19, 0);
           }
         }
 
-        v63 = v8;
-        v64 = 1;
+        v14 = v3;
+        v15 = 1;
         goto LABEL_26;
       case 0xE00000006D616E78:
-        _auerr(v8, 0, "manx section constraints not implemented", v24, v25, v26, v27, v28, v66);
+        _auerr(v3, 0, "manx section constraints not implemented");
         return 4;
     }
   }
 
-  _auerr(v8, 0, "unexpected section tag: %s", v24, v25, v26, v27, v28, &v79 + 4);
+  _auerr(v3, 0, "unexpected section tag: %s");
   return 2;
 }
 
-uint64_t image4_audit_value_init(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t image4_audit_value_init(uint64_t result, uint64_t a2, __int128 *a3)
 {
   *result = a2;
-  v8 = *a3;
-  v9 = *(a3 + 32);
-  *(result + 32) = *(a3 + 16);
-  *(result + 48) = v9;
-  *(result + 16) = v8;
-  v10 = *(a3 + 48);
-  v11 = *(a3 + 64);
-  v12 = *(a3 + 80);
-  *(result + 112) = *(a3 + 96);
-  *(result + 80) = v11;
-  *(result + 96) = v12;
-  *(result + 64) = v10;
-  v13 = **(a2 + 40);
-  if (v13 >= 5)
+  v3 = *a3;
+  v4 = a3[2];
+  *(result + 32) = a3[1];
+  *(result + 48) = v4;
+  *(result + 16) = v3;
+  v5 = a3[3];
+  v6 = a3[4];
+  v7 = a3[5];
+  *(result + 112) = *(a3 + 12);
+  *(result + 80) = v6;
+  *(result + 96) = v7;
+  *(result + 64) = v5;
+  v8 = **(a2 + 40);
+  if (v8 >= 5)
   {
-    v14 = **(a2 + 40);
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "p->p_type->pt_switchable");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "p->p_type->pt_switchable", v8);
   }
 
-  *(result + 8) = qword_298EF8910[v13];
+  *(result + 8) = qword_298EF8910[v8];
   return result;
 }
 
@@ -8740,138 +8647,133 @@ uint64_t image4_auditor_new(uint64_t (**a1)(void), uint64_t a2)
   return result;
 }
 
-uint64_t *image4_auditor_destroy(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *image4_auditor_destroy(uint64_t *result)
 {
   if (*result)
   {
-    v10 = **result;
-    if (!*(v10 + 744))
+    v3 = **result;
+    if (!*(v3 + 744))
     {
-      __panic_npx("panic: optional not set", a2, a3, a4, a5, a6, a7, a8, v8);
+      __panic_npx("panic: optional not set", v1, v2);
     }
 
-    v11 = result;
-    v12 = *(v10 + 152);
+    v4 = result;
+    v5 = *(v3 + 152);
 
-    return _expert_dealloc_type(v12, &_image4_type_auditor, v11);
+    return _expert_dealloc_type(v5, &_image4_type_auditor, v4);
   }
 
   return result;
 }
 
-uint64_t _auerr(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t _auerr(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  va_start(va, a3);
+  v22 = *MEMORY[0x29EDCA608];
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  *__str = 0u;
+  v17 = 0u;
   v14 = 0u;
-  vsnprintf(__str, 0x100uLL, a3, &a9);
-  result = (*(*(a1 + 80) + 16))(a1, __str, a2);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
+  vsnprintf(__str, 0x100uLL, a3, va);
+  return (*(*(a1 + 80) + 16))(a1, __str, a2);
 }
 
-uint64_t aupost(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t aupost(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v57 = *MEMORY[0x29EDCA608];
-  v38[0] = xmmword_298EF8888;
-  memset(&v38[1], 170, 88);
-  v37[0] = xmmword_298EF8888;
-  memset(&v37[1], 170, 88);
-  v36 = 0;
-  v13 = *(a4 + 40);
-  if (v13 <= 0)
+  v53 = *MEMORY[0x29EDCA608];
+  v34[0] = xmmword_298EF8888;
+  memset(&v34[1], 170, 88);
+  v33[0] = xmmword_298EF8888;
+  memset(&v33[1], 170, 88);
+  v32 = 0;
+  v10 = *(a4 + 40);
+  if (v10 <= 0)
   {
-    if (v13 == 0xA000000000000000)
+    if (v10 == 0xA000000000000000)
     {
-      v14 = &_property_constraint_ex;
+      v11 = &_property_constraint_ex;
     }
 
     else
     {
-      if (v13 != 0xA000000000000001)
+      if (v10 != 0xA000000000000001)
       {
         goto LABEL_20;
       }
 
-      v14 = &_property_constraint_nx;
+      v11 = &_property_constraint_nx;
     }
 
 LABEL_14:
-    v15 = &_property_type_BOOL;
+    v12 = &_property_type_BOOL;
     goto LABEL_15;
   }
 
-  if (v13 == 1)
+  if (v10 == 1)
   {
-    v14 = &_property_constraint_eq;
+    v11 = &_property_constraint_eq;
     goto LABEL_14;
   }
 
-  if (v13 != 2)
+  if (v10 != 2)
   {
-    if (v13 == 4)
+    if (v10 == 4)
     {
-      v14 = &_property_constraint_eq;
-      v15 = &_property_type_digest;
+      v11 = &_property_constraint_eq;
+      v12 = &_property_type_digest;
 LABEL_15:
-      v24 = a2 + 4;
-      v25 = 0;
-      v18 = *a2;
-      v26 = 34;
-      v27 = v18;
-      v28 = *(a2 + 8);
+      v20 = a2 + 4;
+      v21 = 0;
+      v15 = *a2;
+      v22 = 34;
+      v23 = v15;
+      v24 = *(a2 + 2);
       goto LABEL_16;
     }
 
 LABEL_20:
-    __panic_npx("panic: unreachable case: %s = 0x%llx", a2, a3, a4, a5, a6, a7, a8, "constraint->type");
+    __panic_npx("panic: unreachable case: %s = 0x%llx", "constraint->type", v10);
   }
 
-  v16 = DERParseInteger(a4 + 24, &v36);
-  v24 = a2 + 4;
-  v25 = 0;
-  v17 = *a2;
-  v26 = 34;
-  v27 = v17;
-  v28 = *(a2 + 8);
-  v15 = &_property_type_uint32;
-  if (v16)
+  v13 = DERParseInteger(a4 + 24, &v32);
+  v20 = a2 + 4;
+  v21 = 0;
+  v14 = *a2;
+  v22 = 34;
+  v23 = v14;
+  v24 = *(a2 + 2);
+  v12 = &_property_type_uint32;
+  if (v13)
   {
-    v15 = &_property_type_uint64;
+    v12 = &_property_type_uint64;
   }
 
-  v14 = &_property_constraint_eq;
+  v11 = &_property_constraint_eq;
 LABEL_16:
-  v29 = v15;
-  v30 = v14;
-  v31 = 2;
-  v32 = xmmword_298EF8590;
-  v34 = 0;
-  v35 = 0;
-  v33 = 4;
+  v25 = v12;
+  v26 = v11;
+  v27 = 2;
+  v28 = xmmword_298EF8590;
+  v30 = 0;
+  v31 = 0;
+  v29 = 4;
   if (a5)
   {
-    _property_value_init_with_DERImg4(v38, a4);
-    _property_value_init_with_DERImg4(v37, a5);
-    v56 = 0;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    _property_value_init_with_DERImg4(v34, a4);
+    _property_value_init_with_DERImg4(v33, a5);
+    v52 = 0;
     v50 = 0u;
     v51 = 0u;
     v48 = 0u;
@@ -8884,19 +8786,19 @@ LABEL_16:
     v43 = 0u;
     v40 = 0u;
     v41 = 0u;
+    v38 = 0u;
     v39 = 0u;
-    v19 = v38;
-    v20 = v37;
-    v21 = a3;
+    v36 = 0u;
+    v37 = 0u;
+    v35 = 0u;
+    v16 = v34;
+    v17 = v33;
+    v18 = a3;
   }
 
   else
   {
-    v56 = 0;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v52 = 0;
     v50 = 0u;
     v51 = 0u;
     v48 = 0u;
@@ -8909,30 +8811,32 @@ LABEL_16:
     v43 = 0u;
     v40 = 0u;
     v41 = 0u;
+    v38 = 0u;
     v39 = 0u;
-    v21 = a3;
-    v19 = 0;
-    v20 = 0;
+    v36 = 0u;
+    v37 = 0u;
+    v35 = 0u;
+    v18 = a3;
+    v16 = 0;
+    v17 = 0;
   }
 
-  image4_audit_event_init(&v39, &v24, v21, v19, v20, a6, a7, a8);
-  result = (*(*(a1 + 80) + 8))(a1, &v39, *(a1 + 88));
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
+  image4_audit_event_init(&v35, &v20, v18, v16, v17);
+  return (*(*(a1 + 80) + 8))(a1, &v35, *(a1 + 88));
 }
 
 uint64_t _property_value_init_with_DERImg4(void *a1, uint64_t a2)
 {
-  v12 = 0;
-  v11 = 0;
-  v10 = 0;
-  result = DERParseBoolean((a2 + 24), &v12);
+  v7 = 0;
+  v6 = 0;
+  v5 = 0;
+  result = DERParseBoolean((a2 + 24), &v7);
   if (result)
   {
-    result = DERParseInteger(a2 + 24, &v11);
+    result = DERParseInteger(a2 + 24, &v6);
     if (result)
     {
-      result = DERParseInteger64(a2 + 24, &v10);
+      result = DERParseInteger64(a2 + 24, &v5);
       if (result)
       {
         if (a1 + 10 < a1)
@@ -8942,97 +8846,94 @@ uint64_t _property_value_init_with_DERImg4(void *a1, uint64_t a2)
 
         else
         {
-          return digest_init(a1, *(a2 + 24), *(a2 + 32), v5, v6, v7, v8, v9);
+          return digest_init(a1, *(a2 + 24), *(a2 + 32));
         }
       }
 
       else
       {
-        *a1 = v10;
+        *a1 = v5;
       }
     }
 
     else
     {
-      *a1 = v11;
+      *a1 = v6;
     }
   }
 
   else
   {
-    *a1 = v12;
+    *a1 = v7;
   }
 
   return result;
 }
 
-uint64_t _chain_manifest_enforceable(uint64_t *a1, uint64_t a2)
+uint64_t _chain_manifest_enforceable(const char **a1, uint64_t a2)
 {
   if (odometer_policy_get_chip_property(a1, *(a2 + 16)))
   {
     v4 = *(a2 + 320);
     v5 = *a2;
     name = chip_get_name(*(a2 + 16));
-    v12 = *a1;
+    v7 = *a1;
     if (v4)
     {
-      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", v7, v8, v9, v10, v11, name);
+      expert_log(v5, 1uLL, "odometer[%s:%s]: policy is enforceable", name, v7);
       return 0;
     }
 
     else
     {
-      v13 = 1;
-      expert_log(v5, 1uLL, "odometer[%s:%s]: manifest has no chained hash constraint", v7, v8, v9, v10, v11, name);
+      v8 = 1;
+      expert_log(v5, 1uLL, "odometer[%s:%s]: manifest has no chained hash constraint", name, v7);
     }
   }
 
   else
   {
-    v14 = *a2;
-    v15 = chip_get_name(*(a2 + 16));
-    v22 = *a1;
-    v13 = 1;
-    expert_log(v14, 1uLL, "odometer[%s:%s]: chip has no property for policy", v16, v17, v18, v19, v20, v15);
+    v9 = *a2;
+    v10 = chip_get_name(*(a2 + 16));
+    v12 = *a1;
+    v8 = 1;
+    expert_log(v9, 1uLL, "odometer[%s:%s]: chip has no property for policy", v10, v12);
   }
 
-  return v13;
+  return v8;
 }
 
-uint64_t _chain_manifest_enforce(uint64_t *a1, uint64_t a2)
+uint64_t _chain_manifest_enforce(const char **a1, uint64_t a2)
 {
-  v37[13] = *MEMORY[0x29EDCA608];
+  v10[13] = *MEMORY[0x29EDCA608];
   chip_property = odometer_policy_get_chip_property(a1, *(a2 + 16));
   if (!*(a2 + 320))
   {
-    __panic_npx("panic: optional not set", v5, v6, v7, v8, v9, v10, v11, v34);
+    __panic_npx("panic: optional not set");
   }
 
-  v12 = chip_property;
-  *v37 = xmmword_298EF8938;
-  memset(&v37[2], 170, 88);
-  digest_copy(v37, a2 + 240, v6, v7, v8, v9, v10, v11);
-  v17 = odometer_enforce_property(a2, a1, v12, v37, v13, v14, v15, v16);
-  v18 = *a2;
+  v5 = chip_property;
+  *v10 = xmmword_298EF8938;
+  memset(&v10[2], 170, 88);
+  digest_copy(v10, a2 + 240);
+  v6 = odometer_enforce_property(a2, a1, v5, v10);
+  v7 = *a2;
   name = chip_get_name(*(a2 + 16));
-  if (v17)
+  if (v6)
   {
-    v35 = *a1;
-    expert_log(v18, 0, "odometer[%s:%s]: boot chain integrity violation: %d", v20, v21, v22, v23, v24, name);
-    if (v17 >= 0x6B)
+    expert_log(v7, 0, "odometer[%s:%s]: boot chain integrity violation: %d", name, *a1, v6);
+    if (v6 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v25, v26, v27, v28, v29, v30, v31, v17);
+      __panic_npx("panic: error not set to valid posix code: %d", v6);
     }
   }
 
   else
   {
-    v36 = *a1;
-    expert_log(v18, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v20, v21, v22, v23, v24, name);
+    expert_log(v7, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", name, *a1);
   }
 
-  v32 = *MEMORY[0x29EDCA608];
-  return v17;
+  return v6;
 }
 
 uint64_t image4_trust_evaluation_prepare_manifest_callbacks(uint64_t result, uint64_t a2)
@@ -9063,31 +8964,31 @@ uint64_t darwin_syscall_init(uint64_t a1)
   v3 = 16;
   do
   {
-    v27 = 5;
-    if ((sysctlnametomib(*v2, v2 + 3, &v27) & 0x80000000) == 0)
+    v10 = 5;
+    if ((sysctlnametomib(*v2, v2 + 3, &v10) & 0x80000000) == 0)
     {
       *__error() = 0;
     }
 
-    v9 = *__error();
-    if ((v9 - 1) >= 2)
+    v4 = *__error();
+    if ((v4 - 1) >= 2)
     {
-      if (v9)
+      if (v4)
       {
-        v17 = *v2;
-        v26 = *__error();
-        __panic_npx("panic: sysctlnametomib: %s%d", v18, v19, v20, v21, v22, v23, v24, v17);
+        v8 = *v2;
+        v9 = __error();
+        __panic_npx("panic: sysctlnametomib: %s%d", v8, *v9);
       }
 
-      result = expert_log(a1, 3uLL, "initialized trap: %s", v4, v5, v6, v7, v8, *v2);
-      *(v2 + 8) = v27;
+      result = expert_log(a1, 3uLL, "initialized trap: %s", *v2);
+      *(v2 + 8) = v10;
     }
 
     else
     {
-      v10 = *v2;
-      v25 = *__error();
-      result = expert_log(a1, 3uLL, "trap not present trap: %s: %d", v11, v12, v13, v14, v15, v10);
+      v5 = *v2;
+      v6 = __error();
+      result = expert_log(a1, 3uLL, "trap not present trap: %s: %d", v5, *v6);
       *(v2 + 3) = -1;
     }
 
@@ -9099,11 +9000,11 @@ uint64_t darwin_syscall_init(uint64_t a1)
   return result;
 }
 
-char **darwin_syscall_get(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char **darwin_syscall_get(unint64_t a1)
 {
   if (a1 >= 0x10)
   {
-    __panic_npx("panic: invalid trap number: actual = %#llx, expected < %#llx", a2, a3, a4, a5, a6, a7, a8, a1);
+    __panic_npx("panic: invalid trap number: actual = %#llx, expected < %#llx", a1, 16);
   }
 
   if (LODWORD((&__traps)[5 * a1 + 4]))
@@ -9119,13 +9020,13 @@ char **darwin_syscall_get(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 
 uint64_t darwin_syscall_kmod_copy_abi_version(uint64_t a1, _BYTE *a2)
 {
-  v25 = 0;
-  v24 = 1;
+  v9 = 0;
+  v8 = 1;
   v4 = expert_runtime_boot(a1);
   if (v4)
   {
-    v10 = v4;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v5, v6, v7, v8, v9, v4);
+    v5 = v4;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v4);
   }
 
   else
@@ -9135,152 +9036,148 @@ uint64_t darwin_syscall_kmod_copy_abi_version(uint64_t a1, _BYTE *a2)
       return 78;
     }
 
-    v10 = expert_syscall(a1, &__traps, &v25 + 1, 1, &v25, &v24);
-    if (!v10)
+    v7 = expert_syscall(a1, &__traps, &v9 + 1, 1, &v9, &v8);
+    v5 = v7;
+    if (!v7)
     {
-      *a2 = v25;
-      return v10;
+      *a2 = v9;
+      return v5;
     }
 
-    expert_log(a1, 0, "trap failed: %s: %d", v19, v20, v21, v22, v23, __traps);
+    expert_log(a1, 0, "trap failed: %s: %d", __traps, v7);
   }
 
-  if (v10 >= 0x6B)
+  if (v5 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v11, v12, v13, v14, v15, v16, v17, v10);
+    __panic_npx("panic: error not set to valid posix code: %d", v5);
   }
 
-  return v10;
+  return v5;
 }
 
 uint64_t darwin_syscall_kmod_copy_version(uint64_t a1, char *a2)
 {
-  v61 = *MEMORY[0x29EDCA608];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v44 = 0u;
-  v43 = 0u;
+  v44 = *MEMORY[0x29EDCA608];
   v42 = 0u;
-  v41 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v39 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v37 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v35 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v33 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v31 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
   v29 = 0u;
-  v28 = 1;
-  memset(v27, 0, sizeof(v27));
-  v26 = 1;
-  v25 = 513;
+  v27 = 0u;
+  v26 = 0u;
+  v25 = 0u;
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v11 = 1;
+  memset(v10, 0, sizeof(v10));
+  v9 = 1;
+  v8 = 513;
   v4 = expert_runtime_boot(a1);
   if (v4)
   {
-    v10 = v4;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v5, v6, v7, v8, v9, v4);
+    v5 = v4;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v4);
   }
 
   else
   {
     if (!dword_2A18AB420)
     {
-      v10 = 78;
-      goto LABEL_4;
+      return 78;
     }
 
-    v10 = expert_syscall(a1, &qword_2A18AB400, &v28, 513, &v26, &v25);
-    if (!v10)
+    v7 = expert_syscall(a1, &qword_2A18AB400, &v11, 513, &v9, &v8);
+    v5 = v7;
+    if (!v7)
     {
-      strlcpy(a2, v27, 0x200uLL);
-      goto LABEL_4;
+      strlcpy(a2, v10, 0x200uLL);
+      return v5;
     }
 
-    expert_log(a1, 0, "trap failed: %s: %d", v20, v21, v22, v23, v24, qword_2A18AB400);
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB400, v7);
   }
 
-  if (v10 >= 0x6B)
+  if (v5 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v11, v12, v13, v14, v15, v16, v17, v10);
+    __panic_npx("panic: error not set to valid posix code: %d", v5);
   }
 
-LABEL_4:
-  v18 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v5;
 }
 
 uint64_t darwin_syscall_nonce_copy_hash(uint64_t a1, int *a2, int a3, void *a4, void *a5)
 {
-  v44 = *MEMORY[0x29EDCA608];
-  v43 = 0;
-  v42 = 0u;
-  v41 = 0u;
-  v40 = 0u;
-  v39 = 0u;
-  v36 = 1;
-  v37 = *a2;
-  v38 = a3;
-  v35 = 0;
-  memset(v34, 0, sizeof(v34));
-  v31 = 1;
-  v32 = v37;
-  v33 = a3;
-  v30 = 77;
+  v26 = *MEMORY[0x29EDCA608];
+  v25 = 0;
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  v18 = 1;
+  v19 = *a2;
+  v20 = a3;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v13 = 1;
+  v14 = v19;
+  v15 = a3;
+  v12 = 77;
   v8 = expert_runtime_boot(a1);
   if (v8)
   {
-    v14 = v8;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v9, v10, v11, v12, v13, v8);
+    v9 = v8;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v8);
     goto LABEL_3;
   }
 
   if (!dword_2A18AB510)
   {
-    v14 = 78;
-LABEL_4:
-    v22 = *MEMORY[0x29EDCA608];
-    return v14;
+    return 78;
   }
 
-  result = expert_syscall(a1, &qword_2A18AB4F0, &v36, 77, &v31, &v30);
+  result = expert_syscall(a1, &qword_2A18AB4F0, &v18, 77, &v13, &v12);
   if (result)
   {
-    v14 = result;
-    expert_log(a1, 0, "trap failed: %s: %d", v24, v25, v26, v27, v28, qword_2A18AB4F0);
+    v9 = result;
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB4F0, result);
 LABEL_3:
-    if (v14 >= 0x6B)
+    if (v9 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v15, v16, v17, v18, v19, v20, v21, v14);
+      __panic_npx("panic: error not set to valid posix code: %d", v9);
     }
 
-    goto LABEL_4;
+    return v9;
   }
 
-  v29 = v35;
-  if (v35 <= 0x40)
+  v11 = v17;
+  if (v17 <= 0x40)
   {
-    memcpy(a4, v34, v35);
-    v14 = 0;
-    *a5 = v29;
-    goto LABEL_4;
+    memcpy(a4, v16, v17);
+    v9 = 0;
+    *a5 = v11;
+    return v9;
   }
 
   __break(0x5519u);
@@ -9289,58 +9186,55 @@ LABEL_3:
 
 uint64_t darwin_syscall_nonce_peek_hash(uint64_t a1, int *a2, int a3, void *a4, void *a5)
 {
-  v44 = *MEMORY[0x29EDCA608];
-  v43 = 0;
-  v42 = 0u;
-  v41 = 0u;
-  v40 = 0u;
-  v39 = 0u;
-  v36 = 1;
-  v37 = *a2;
-  v38 = a3;
-  v35 = 0;
-  memset(v34, 0, sizeof(v34));
-  v31 = 1;
-  v32 = v37;
-  v33 = a3;
-  v30 = 77;
+  v26 = *MEMORY[0x29EDCA608];
+  v25 = 0;
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  v18 = 1;
+  v19 = *a2;
+  v20 = a3;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v13 = 1;
+  v14 = v19;
+  v15 = a3;
+  v12 = 77;
   v8 = expert_runtime_boot(a1);
   if (v8)
   {
-    v14 = v8;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v9, v10, v11, v12, v13, v8);
+    v9 = v8;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v8);
     goto LABEL_3;
   }
 
   if (!dword_2A18AB538)
   {
-    v14 = 78;
-LABEL_4:
-    v22 = *MEMORY[0x29EDCA608];
-    return v14;
+    return 78;
   }
 
-  result = expert_syscall(a1, &qword_2A18AB518, &v36, 77, &v31, &v30);
+  result = expert_syscall(a1, &qword_2A18AB518, &v18, 77, &v13, &v12);
   if (result)
   {
-    v14 = result;
-    expert_log(a1, 0, "trap failed: %s: %d", v24, v25, v26, v27, v28, qword_2A18AB518);
+    v9 = result;
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB518, result);
 LABEL_3:
-    if (v14 >= 0x6B)
+    if (v9 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v15, v16, v17, v18, v19, v20, v21, v14);
+      __panic_npx("panic: error not set to valid posix code: %d", v9);
     }
 
-    goto LABEL_4;
+    return v9;
   }
 
-  v29 = v35;
-  if (v35 <= 0x40)
+  v11 = v17;
+  if (v17 <= 0x40)
   {
-    memcpy(a4, v34, v35);
-    v14 = 0;
-    *a5 = v29;
-    goto LABEL_4;
+    memcpy(a4, v16, v17);
+    v9 = 0;
+    *a5 = v11;
+    return v9;
   }
 
   __break(0x5519u);
@@ -9349,18 +9243,18 @@ LABEL_3:
 
 uint64_t darwin_syscall_nonce_roll(uint64_t a1, int *a2, int a3)
 {
-  v28 = 1;
-  v29 = *a2;
-  v30 = a3;
-  v25 = 1;
-  v26 = v29;
-  v27 = a3;
-  v24 = 9;
+  v12 = 1;
+  v13 = *a2;
+  v14 = a3;
+  v9 = 1;
+  v10 = v13;
+  v11 = a3;
+  v8 = 9;
   v4 = expert_runtime_boot(a1);
   if (v4)
   {
-    v10 = v4;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v5, v6, v7, v8, v9, v4);
+    v5 = v4;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v4);
     goto LABEL_3;
   }
 
@@ -9369,34 +9263,35 @@ uint64_t darwin_syscall_nonce_roll(uint64_t a1, int *a2, int a3)
     return 78;
   }
 
-  v10 = expert_syscall(a1, &qword_2A18AB540, &v28, 9, &v25, &v24);
-  if (v10)
+  v7 = expert_syscall(a1, &qword_2A18AB540, &v12, 9, &v9, &v8);
+  v5 = v7;
+  if (v7)
   {
-    expert_log(a1, 0, "trap failed: %s: %d", v19, v20, v21, v22, v23, qword_2A18AB540);
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB540, v7);
 LABEL_3:
-    if (v10 >= 0x6B)
+    if (v5 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v11, v12, v13, v14, v15, v16, v17, v10);
+      __panic_npx("panic: error not set to valid posix code: %d", v5);
     }
   }
 
-  return v10;
+  return v5;
 }
 
 uint64_t darwin_syscall_nonce_unroll(uint64_t a1, int *a2, int a3)
 {
-  v28 = 1;
-  v29 = *a2;
-  v30 = a3;
-  v25 = 1;
-  v26 = v29;
-  v27 = a3;
-  v24 = 9;
+  v12 = 1;
+  v13 = *a2;
+  v14 = a3;
+  v9 = 1;
+  v10 = v13;
+  v11 = a3;
+  v8 = 9;
   v4 = expert_runtime_boot(a1);
   if (v4)
   {
-    v10 = v4;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v5, v6, v7, v8, v9, v4);
+    v5 = v4;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v4);
     goto LABEL_3;
   }
 
@@ -9405,96 +9300,95 @@ uint64_t darwin_syscall_nonce_unroll(uint64_t a1, int *a2, int a3)
     return 78;
   }
 
-  v10 = expert_syscall(a1, &qword_2A18AB568, &v28, 9, &v25, &v24);
-  if (v10)
+  v7 = expert_syscall(a1, &qword_2A18AB568, &v12, 9, &v9, &v8);
+  v5 = v7;
+  if (v7)
   {
-    expert_log(a1, 0, "trap failed: %s: %d", v19, v20, v21, v22, v23, qword_2A18AB568);
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB568, v7);
 LABEL_3:
-    if (v10 >= 0x6B)
+    if (v5 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v11, v12, v13, v14, v15, v16, v17, v10);
+      __panic_npx("panic: error not set to valid posix code: %d", v5);
     }
   }
 
-  return v10;
+  return v5;
 }
 
 uint64_t darwin_syscall_nonce_generate_proposal(uint64_t a1, _DWORD *a2, int a3, void *a4, void *a5, char *a6, unint64_t *a7)
 {
-  v57 = *MEMORY[0x29EDCA608];
-  v50 = 0u;
-  v56 = 0;
-  v55 = 0u;
-  v54 = 0u;
-  v53 = 0u;
-  v52 = 0u;
-  v51 = 0u;
-  v49 = 1;
-  DWORD2(v50) = *a2;
-  HIDWORD(v50) = a3;
-  v43 = 0;
-  v48 = 0;
-  v47 = 0u;
-  memset(v46, 0, sizeof(v46));
-  v42 = 1;
-  v44 = DWORD2(v50);
-  v45 = a3;
-  v41 = 105;
+  v37 = *MEMORY[0x29EDCA608];
+  v30 = 0u;
+  v36 = 0;
+  v35 = 0u;
+  v34 = 0u;
+  v33 = 0u;
+  v32 = 0u;
+  v31 = 0u;
+  v29 = 1;
+  DWORD2(v30) = *a2;
+  HIDWORD(v30) = a3;
+  v23 = 0;
+  v28 = 0;
+  v27 = 0u;
+  memset(v26, 0, sizeof(v26));
+  v22 = 1;
+  v24 = DWORD2(v30);
+  v25 = a3;
+  v21 = 105;
   v12 = expert_runtime_boot(a1);
   if (v12)
   {
-    v18 = v12;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v13, v14, v15, v16, v17, v12);
+    v13 = v12;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v12);
     goto LABEL_3;
   }
 
   if (!dword_2A18AB5B0)
   {
-    v18 = 78;
-    goto LABEL_4;
+    return 78;
   }
 
-  v28 = a6 != 0;
+  v15 = a6 != 0;
   if (a7 && a6 && *a7)
   {
-    v28 = 1;
-    *&v50 = 1;
+    v15 = 1;
+    *&v30 = 1;
   }
 
-  v29 = expert_syscall(a1, &qword_2A18AB590, &v49, 105, &v42, &v41);
-  if (!v29)
+  v16 = expert_syscall(a1, &qword_2A18AB590, &v29, 105, &v22, &v21);
+  if (!v16)
   {
-    v38 = v47;
-    if (v47 <= 0x40)
+    v18 = v27;
+    if (v27 <= 0x40)
     {
-      memcpy(a4, v46, v47);
-      *a5 = v38;
-      v39 = HIDWORD(v48);
-      if (!HIDWORD(v48))
+      memcpy(a4, v26, v27);
+      *a5 = v18;
+      v19 = HIDWORD(v28);
+      if (!HIDWORD(v28))
       {
-        v18 = 0;
-        goto LABEL_4;
+        return 0;
       }
 
-      v37 = *a7;
+      v17 = *a7;
       if (*a7 <= 0xF)
       {
 LABEL_24:
-        __panic_npx("panic: insufficient nonce buffer length: actual = %lu, expected >= %lu", v30, v31, v32, v33, v34, v35, v36, v37);
+        __panic_npx("panic: insufficient nonce buffer length: actual = %lu, expected >= %lu", v17, 16);
       }
 
-      v40 = a6 + 16;
-      if (!v28)
+      v20 = a6 + 16;
+      if (!v15)
       {
-        v40 = 0;
+        v20 = 0;
       }
 
-      if (v37 <= v40 - a6 && HIDWORD(v48) <= 0x10)
+      if (v17 <= v20 - a6 && HIDWORD(v28) <= 0x10)
       {
-        memcpy(a6, &v47 + 4, HIDWORD(v48));
-        v18 = 0;
-        *a7 = v39;
-        goto LABEL_4;
+        memcpy(a6, &v27 + 4, HIDWORD(v28));
+        v13 = 0;
+        *a7 = v19;
+        return v13;
       }
     }
 
@@ -9502,54 +9396,51 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v18 = v29;
-  expert_log(a1, 0, "trap failed: %s: %d", v32, v33, v34, v35, v36, qword_2A18AB590);
+  v13 = v16;
+  expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB590, v16);
 LABEL_3:
-  if (v18 >= 0x6B)
+  if (v13 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v19, v20, v21, v22, v23, v24, v25, v18);
+    __panic_npx("panic: error not set to valid posix code: %d", v13);
   }
 
-LABEL_4:
-  v26 = *MEMORY[0x29EDCA608];
-  return v18;
+  return v13;
 }
 
 uint64_t darwin_syscall_nonce_verify(uint64_t a1, int *a2, int a3, uint64_t a4, uint64_t a5, unint64_t a6, _OWORD *a7, unint64_t a8)
 {
-  v55 = *MEMORY[0x29EDCA608];
-  memset(v54, 0, sizeof(v54));
-  v53 = 0u;
-  v52 = 0u;
-  v51 = 0u;
-  v50 = 0u;
-  v46 = 1;
-  v47 = a4;
-  v48 = *a2;
-  v49 = a3;
-  v45 = 0;
-  v44 = 0u;
-  v43 = 0u;
-  v42 = 0u;
-  v41 = 0u;
-  v40 = 0u;
-  v36 = 1;
-  v37 = a4;
-  v38 = v48;
-  v39 = a3;
-  v35 = 105;
+  v36 = *MEMORY[0x29EDCA608];
+  memset(v35, 0, sizeof(v35));
+  v34 = 0u;
+  v33 = 0u;
+  v32 = 0u;
+  v31 = 0u;
+  v27 = 1;
+  v28 = a4;
+  v29 = *a2;
+  v30 = a3;
+  v26 = 0;
+  v25 = 0u;
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  v17 = 1;
+  v18 = a4;
+  v19 = v29;
+  v20 = a3;
+  v16 = 105;
   v12 = expert_runtime_boot(a1);
   if (v12)
   {
-    v20 = v12;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v15, v16, v17, v18, v19, v12);
+    v13 = v12;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v12);
     goto LABEL_3;
   }
 
   if (!dword_2A18AB5D8)
   {
-    v20 = 78;
-    goto LABEL_4;
+    return 78;
   }
 
   if (a6 > 0x40)
@@ -9558,7 +9449,7 @@ uint64_t darwin_syscall_nonce_verify(uint64_t a1, int *a2, int a3, uint64_t a4, 
   }
 
   __memcpy_chk();
-  v54[0] = a6;
+  v35[0] = a6;
   if (!a7 || !a8)
   {
     goto LABEL_12;
@@ -9567,7 +9458,7 @@ uint64_t darwin_syscall_nonce_verify(uint64_t a1, int *a2, int a3, uint64_t a4, 
   if (a8 <= 0xF)
   {
 LABEL_17:
-    __panic_npx("panic: insufficient nonce buffer length: actual = %lu, expected >= %lu", v13, v14, v15, v16, v17, v18, v19, a8);
+    __panic_npx("panic: insufficient nonce buffer length: actual = %lu, expected >= %lu", a8, 16);
   }
 
   if (a8 != 16)
@@ -9577,47 +9468,46 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  *&v54[1] = *a7;
-  v54[5] = 16;
+  *&v35[1] = *a7;
+  v35[5] = 16;
 LABEL_12:
-  v20 = expert_syscall(a1, &qword_2A18AB5B8, &v46, 105, &v36, &v35);
-  if (!v20)
+  v15 = expert_syscall(a1, &qword_2A18AB5B8, &v27, 105, &v17, &v16);
+  v13 = v15;
+  if (!v15)
   {
-    goto LABEL_4;
+    return v13;
   }
 
-  expert_log(a1, 0, "trap failed: %s: %d", v30, v31, v32, v33, v34, qword_2A18AB5B8);
+  expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB5B8, v15);
 LABEL_3:
-  if (v20 >= 0x6B)
+  if (v13 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v21, v22, v23, v24, v25, v26, v27, v20);
+    __panic_npx("panic: error not set to valid posix code: %d", v13);
   }
 
-LABEL_4:
-  v28 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v13;
 }
 
-uint64_t darwin_syscall_image_activate(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t darwin_syscall_image_activate(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v45 = 2;
-  v11 = *a3;
-  v46 = a2;
-  v47 = v11;
-  length_uint32 = buff_get_length_uint32(a3, a2, a3, a4, a5, a6, a7, a8);
-  v49 = *a4;
-  v50 = buff_get_length_uint32(a4, v12, v13, v14, v15, v16, v17, v18);
-  v40 = 2;
-  v41 = a2;
-  v42 = 0;
-  v44 = 0;
-  v43 = 0;
-  v39 = 33;
-  v19 = expert_runtime_boot(a1);
-  if (v19)
+  v18 = 2;
+  v7 = *a3;
+  v19 = a2;
+  v20 = v7;
+  length_uint32 = buff_get_length_uint32(a3);
+  v22 = *a4;
+  v23 = buff_get_length_uint32(a4);
+  v13 = 2;
+  v14 = a2;
+  v15 = 0;
+  v17 = 0;
+  v16 = 0;
+  v12 = 33;
+  v8 = expert_runtime_boot(a1);
+  if (v8)
   {
-    v25 = v19;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v20, v21, v22, v23, v24, v19);
+    v9 = v8;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v8);
     goto LABEL_3;
   }
 
@@ -9626,94 +9516,92 @@ uint64_t darwin_syscall_image_activate(uint64_t a1, uint64_t a2, uint64_t *a3, u
     return 78;
   }
 
-  v25 = expert_syscall(a1, &qword_2A18AB5E0, &v45, 33, &v40, &v39);
-  if (v25)
+  v11 = expert_syscall(a1, &qword_2A18AB5E0, &v18, 33, &v13, &v12);
+  v9 = v11;
+  if (v11)
   {
-    expert_log(a1, 0, "trap failed: %s: %d", v34, v35, v36, v37, v38, qword_2A18AB5E0);
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB5E0, v11);
 LABEL_3:
-    if (v25 >= 0x6B)
+    if (v9 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v26, v27, v28, v29, v30, v31, v32, v25);
+      __panic_npx("panic: error not set to valid posix code: %d", v9);
     }
   }
 
-  return v25;
+  return v9;
 }
 
-uint64_t darwin_syscall_image_dfu(uint64_t a1, int *a2, uint64_t *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t darwin_syscall_image_dfu(uint64_t a1, int *a2, uint64_t *a3, void *a4, void *a5)
 {
-  v49 = *MEMORY[0x29EDCA608];
-  v42 = 0;
-  v43 = *a2;
-  v44 = *a3;
-  length_uint32 = buff_get_length_uint32(a3, a2, a3, a4, a5, a6, a7, a8);
-  v47 = 0;
-  v46 = 0;
-  v48 = 0;
-  v40 = 0;
-  v38 = 0u;
-  v39 = 0u;
-  *(&v38 + 1) = *a2;
-  v41 = 16;
-  v37 = 37;
-  v12 = expert_runtime_boot(a1);
-  if (v12)
+  v26 = *MEMORY[0x29EDCA608];
+  v19 = 0;
+  v20 = *a2;
+  v21 = *a3;
+  length_uint32 = buff_get_length_uint32(a3);
+  v24 = 0;
+  v23 = 0;
+  v25 = 0;
+  v17 = 0;
+  v15 = 0u;
+  v16 = 0u;
+  *(&v15 + 1) = *a2;
+  v18 = 16;
+  v14 = 37;
+  v9 = expert_runtime_boot(a1);
+  if (v9)
   {
-    v18 = v12;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v13, v14, v15, v16, v17, v12);
+    v10 = v9;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v9);
     goto LABEL_3;
   }
 
   if (!dword_2A18AB628)
   {
-    v18 = 78;
-    goto LABEL_4;
+    return 78;
   }
 
-  v28 = expert_syscall(a1, &qword_2A18AB608, &v42, 37, &v38, &v37);
-  if (v28)
+  v12 = expert_syscall(a1, &qword_2A18AB608, &v19, 37, &v15, &v14);
+  if (v12)
   {
-    v18 = v28;
-    expert_log(a1, 0, "trap failed: %s: %d", v31, v32, v33, v34, v35, qword_2A18AB608);
+    v10 = v12;
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB608, v12);
 LABEL_3:
-    if (v18 >= 0x6B)
+    if (v10 >= 0x6B)
     {
-      __panic_npx("panic: error not set to valid posix code: %d", v19, v20, v21, v22, v23, v24, v25, v18);
+      __panic_npx("panic: error not set to valid posix code: %d", v10);
     }
 
-    goto LABEL_4;
+    return v10;
   }
 
-  v36 = v41;
-  if (v41 >= 0x11)
+  v13 = v18;
+  if (v18 >= 0x11)
   {
-    __panic_npx("panic: kernel nonce overflows bounds: actual = %u, expected <= %u", v29, v30, v31, v32, v33, v34, v35, v41);
+    __panic_npx("panic: kernel nonce overflows bounds: actual = %u, expected <= %u", v18, 16);
   }
 
-  memcpy(a4, &v39 + 1, v41);
-  v18 = 0;
-  *a5 = v36;
-LABEL_4:
-  v26 = *MEMORY[0x29EDCA608];
-  return v18;
+  memcpy(a4, &v16 + 1, v18);
+  v10 = 0;
+  *a5 = v13;
+  return v10;
 }
 
-uint64_t darwin_syscall_image_copy_active(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t darwin_syscall_image_copy_active(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
-  v36 = 1;
-  v37 = a2;
-  v38 = *a3;
-  length_uint32 = buff_get_length_uint32(a3, a2, a3, a4, a5, a6, a7, a8);
-  v32 = 1;
-  v33 = a2;
-  v34 = 0;
-  v35 = 0;
-  v31 = 21;
-  v11 = expert_runtime_boot(a1);
-  if (v11)
+  v16 = 1;
+  v17 = a2;
+  v18 = *a3;
+  length_uint32 = buff_get_length_uint32(a3);
+  v12 = 1;
+  v13 = a2;
+  v14 = 0;
+  v15 = 0;
+  v11 = 21;
+  v7 = expert_runtime_boot(a1);
+  if (v7)
   {
-    v17 = v11;
-    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v12, v13, v14, v15, v16, v11);
+    v8 = v7;
+    expert_log(a1, 3uLL, "failed to boot expert for syscall: %d", v7);
   }
 
   else
@@ -9723,22 +9611,23 @@ uint64_t darwin_syscall_image_copy_active(uint64_t a1, uint64_t a2, uint64_t *a3
       return 78;
     }
 
-    v17 = expert_syscall(a1, &qword_2A18AB630, &v36, 21, &v32, &v31);
-    if (!v17)
+    v10 = expert_syscall(a1, &qword_2A18AB630, &v16, 21, &v12, &v11);
+    v8 = v10;
+    if (!v10)
     {
-      *a4 = v35;
-      return v17;
+      *a4 = v15;
+      return v8;
     }
 
-    expert_log(a1, 0, "trap failed: %s: %d", v26, v27, v28, v29, v30, qword_2A18AB630);
+    expert_log(a1, 0, "trap failed: %s: %d", qword_2A18AB630, v10);
   }
 
-  if (v17 >= 0x6B)
+  if (v8 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v18, v19, v20, v21, v22, v23, v24, v17);
+    __panic_npx("panic: error not set to valid posix code: %d", v8);
   }
 
-  return v17;
+  return v8;
 }
 
 uint64_t posixdr(unsigned int a1)
@@ -9767,7 +9656,7 @@ const char *strdr(unsigned int a1)
   }
 }
 
-uint64_t _chain_sideload_enforceable(uint64_t result, uint64_t *a2)
+const char **_chain_sideload_enforceable(const char **result, uint64_t *a2)
 {
   v3 = result;
   v4 = a2[2];
@@ -9777,7 +9666,7 @@ uint64_t _chain_sideload_enforceable(uint64_t result, uint64_t *a2)
     if (v4 < v5)
     {
       name = chip_get_name(a2[2]);
-      __panic_npx("panic: illegal chip definition: sideload and pivot policies defined: %s", v24, v25, v26, v27, v28, v29, v30, name);
+      __panic_npx("panic: illegal chip definition: sideload and pivot policies defined: %s", name);
     }
 
     goto LABEL_12;
@@ -9795,69 +9684,171 @@ LABEL_12:
     v6 = v4[31];
     v7 = *a2;
     v8 = chip_get_name(a2[2]);
-    v14 = *v3;
+    v9 = *v3;
     if (v6)
     {
-      expert_log(v7, 1uLL, "odometer[%s:%s]: policy is enforceable", v9, v10, v11, v12, v13, v8);
+      expert_log(v7, 1uLL, "odometer[%s:%s]: policy is enforceable", v8, v9);
       return 0;
     }
 
     else
     {
-      v15 = 1;
-      expert_log(v7, 1uLL, "odometer[%s:%s]: sideload chip has no notary", v9, v10, v11, v12, v13, v8);
+      v10 = 1;
+      expert_log(v7, 1uLL, "odometer[%s:%s]: sideload chip has no notary", v8, v9);
     }
   }
 
   else
   {
-    v16 = *a2;
-    v17 = chip_get_name(a2[2]);
-    v31 = *v3;
-    v15 = 1;
-    expert_log(v16, 1uLL, "odometer[%s:%s]: chip has no property for policy", v18, v19, v20, v21, v22, v17);
+    v11 = *a2;
+    v12 = chip_get_name(a2[2]);
+    v14 = *v3;
+    v10 = 1;
+    expert_log(v11, 1uLL, "odometer[%s:%s]: chip has no property for policy", v12, v14);
   }
 
-  return v15;
+  return v10;
 }
 
-uint64_t _chain_sideload_enforce(uint64_t *a1, uint64_t a2)
+uint64_t _chain_sideload_enforce(const char **a1, uint64_t a2)
 {
-  v37[13] = *MEMORY[0x29EDCA608];
+  v11[13] = *MEMORY[0x29EDCA608];
   v4 = *(a2 + 8);
   v5 = *(a2 + 16);
-  *v37 = xmmword_298EF8A60;
-  memset(&v37[2], 170, 88);
+  *v11 = xmmword_298EF8A60;
+  memset(&v11[2], 170, 88);
   if (*(a2 + 440) == 1)
   {
     v6 = *a2;
-    name = chip_get_name(v5);
-    v34 = *a1;
-    expert_log(v6, 1uLL, "odometer[%s:%s]: manifest self-entitled for mix-n-match; relaxing chain integrity policy", v7, v8, v9, v10, v11, name);
-LABEL_7:
-    v16 = 0;
-    goto LABEL_8;
+    chip_get_name(v5);
+    expert_log(v6, 1uLL, "odometer[%s:%s]: manifest self-entitled for mix-n-match; relaxing chain integrity policy");
+    return 0;
   }
 
-  manifest_measure(v4, v5, v37);
-  v16 = odometer_enforce_property(a2, a1, &_property_bmfh, v37, v12, v13, v14, v15);
-  v17 = *a2;
-  v18 = chip_get_name(*(a2 + 16));
-  if (!v16)
+  manifest_measure(v4, v5, v11);
+  v7 = odometer_enforce_property(a2, a1, &_property_bmfh, v11);
+  v8 = *a2;
+  name = chip_get_name(*(a2 + 16));
+  if (!v7)
   {
-    v36 = *a1;
-    expert_log(v17, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain", v19, v20, v21, v22, v23, v18);
-    goto LABEL_7;
+    expert_log(v8, 1uLL, "odometer[%s:%s]: manifest is consistent with boot chain");
+    return 0;
   }
 
-  v35 = *a1;
-  expert_log(v17, 0, "odometer[%s:%s]: boot chain integrity violation: %d", v19, v20, v21, v22, v23, v18);
-  if (v16 >= 0x6B)
+  expert_log(v8, 0, "odometer[%s:%s]: boot chain integrity violation: %d", name, *a1, v7);
+  if (v7 >= 0x6B)
   {
-    __panic_npx("panic: error not set to valid posix code: %d", v24, v25, v26, v27, v28, v29, v30, v16);
+    __panic_npx("panic: error not set to valid posix code: %d", v7);
   }
 
-LABEL_8:
-  v31 = *MEMORY[0x29EDCA608];
-  return v16;
+  return v7;
+}
+
+uint64_t digest_check_buff(uint64_t a1, unint64_t a2)
+{
+  if (a2 <= 0x40)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 84;
+  }
+}
+
+uint64_t digest_init(uint64_t a1, const void *a2, size_t __n)
+{
+  if (__n >= 0x41)
+  {
+    __panic_npx("panic: digest length overflow: actual = %lu, expected <= %lu", __n, 64);
+  }
+
+  memcpy((a1 + 8), a2, __n);
+  *(a1 + 72) = __n;
+  return a1;
+}
+
+void *digest_init_measure(void *a1, void *a2, void *a3)
+{
+  if (*a2 >= 0x41uLL)
+  {
+    __panic_npx("panic: digest length overflow: actual = %lu, expected <= %lu", *a2, 64);
+  }
+
+  ccdigest();
+  a1[9] = *a2;
+  *a1 = a2;
+  return a1;
+}
+
+uint64_t digest_copy(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 72);
+  if (v2 < 0x41)
+  {
+    return digest_init(result, (a2 + 8), v2);
+  }
+
+  __break(0x5519u);
+  return result;
+}
+
+uint64_t digest_compare(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 72);
+  if (v2 == *(a2 + 72))
+  {
+    return memcmp((a1 + 8), (a2 + 8), v2);
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t digest_compare_buff(uint64_t a1, const void *a2, size_t a3)
+{
+  if (*(a1 + 72) == a3)
+  {
+    return memcmp((a1 + 8), a2, a3);
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+unint64_t digest_print_cstr(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = *(result + 72);
+  if (v8 < 0x41)
+  {
+    return sprintdgst_npx(a2, (result + 8), v8, a4, a5, a6, a7, a8);
+  }
+
+  __break(0x5519u);
+  return result;
+}
+
+void *digest_copy_out(uint64_t a1, void *__dst, size_t *a3)
+{
+  v4 = *a3;
+  v5 = *(a1 + 72);
+  if (v4 < v5)
+  {
+LABEL_6:
+    __panic_npx("panic: digest length overflow: actual = %lu, expected >= %lu", v4, v5);
+  }
+
+  if (v5 > 0x40 || (result = memcpy(__dst, (a1 + 8), v5), v4 = *a3, v8 = *(a1 + 72), v8 > *a3))
+  {
+    __break(0x5519u);
+    goto LABEL_6;
+  }
+
+  *a3 = v8;
+  return result;
 }

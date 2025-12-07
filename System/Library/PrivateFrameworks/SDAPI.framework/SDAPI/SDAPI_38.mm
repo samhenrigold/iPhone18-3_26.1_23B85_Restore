@@ -1,20 +1,20 @@
-void sub_262788340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262788340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   _Unwind_Resume(a1);
 }
 
-unint64_t TrigramData::fillTrigramRecordLookup(unint64_t a1, unsigned int a2, unsigned __int16 **a3, _WORD **a4, void *a5)
+uint64_t *TrigramData::fillTrigramRecordLookup(uint64_t a1, unsigned int a2, unsigned __int16 **a3, _WORD **a4, void *a5)
 {
   v10 = (*a3)[*(a3 + 2) - 1];
   result = TrigramData::allocLookup(a1, a2, v10);
@@ -101,52 +101,52 @@ unint64_t TrigramData::fillTrigramRecordLookup(unint64_t a1, unsigned int a2, un
   return result;
 }
 
-unint64_t TrigramData::allocSearch(unint64_t this, unsigned int a2, int a3)
+uint64_t *TrigramData::allocSearch(uint64_t *this, unsigned int a2, int a3)
 {
   v3 = this;
-  *(*(this + 296) + 2 * a2) = a3;
+  *(this[37] + 2 * a2) = a3;
   if (a3 == 1)
   {
-    *(*(this + 280) + 4 * a2) = -65536;
+    *(this[35] + 4 * a2) = -65536;
   }
 
   else
   {
-    v5 = *(this + 352);
-    *(*(this + 280) + 4 * a2) = v5;
+    v5 = *(this + 88);
+    *(this[35] + 4 * a2) = v5;
     v6 = v5 + a3;
-    v7 = *(this + 356);
+    v7 = *(this + 89);
     if (v6 > v7)
     {
-      this = DgnPrimArray<short>::reallocElts(this + 344, v6 - v7, 1);
-      v6 = v3[88] + a3;
+      this = DgnPrimArray<short>::reallocElts((this + 43), v6 - v7, 1);
+      v6 = *(v3 + 88) + a3;
     }
 
-    v3[88] = v6;
-    if (v3[2])
+    *(v3 + 88) = v6;
+    if (*(v3 + 2))
     {
-      v8 = v3[96] + a3;
-      v9 = v3[97];
+      v8 = *(v3 + 96) + a3;
+      v9 = *(v3 + 97);
       if (v8 > v9)
       {
-        this = DgnPrimArray<char>::reallocElts((v3 + 94), v8 - v9, 1);
-        v8 = v3[96] + a3;
+        this = DgnPrimArray<char>::reallocElts((v3 + 47), v8 - v9, 1);
+        v8 = *(v3 + 96) + a3;
       }
 
-      v3[96] = v8;
+      *(v3 + 96) = v8;
     }
 
     else
     {
-      v10 = v3[92] + a3;
-      v11 = v3[93];
+      v10 = *(v3 + 92) + a3;
+      v11 = *(v3 + 93);
       if (v10 > v11)
       {
-        this = DgnPrimArray<short>::reallocElts((v3 + 90), v10 - v11, 1);
-        v10 = v3[92] + a3;
+        this = DgnPrimArray<short>::reallocElts((v3 + 45), v10 - v11, 1);
+        v10 = *(v3 + 92) + a3;
       }
 
-      v3[92] = v10;
+      *(v3 + 92) = v10;
     }
   }
 
@@ -240,46 +240,46 @@ uint64_t TrigramData::setSearchScoreForIndex(uint64_t this, unsigned int a2, int
   return this;
 }
 
-unint64_t TrigramData::allocLookup(unint64_t this, unsigned int a2, int a3)
+uint64_t *TrigramData::allocLookup(uint64_t *this, unsigned int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 280);
-  if (*(this + 8))
+  v6 = this[35];
+  if (*(this + 2))
   {
-    v7 = *(this + 336);
+    v7 = *(this + 84);
     *(v6 + 4 * a2) = v7;
     v8 = v7 + a3;
-    v9 = *(this + 340);
+    v9 = *(this + 85);
     if (v8 > v9)
     {
-      this = DgnPrimArray<char>::reallocElts(this + 328, v8 - v9, 1);
-      v8 = *(v5 + 336) + a3;
+      this = DgnPrimArray<char>::reallocElts((this + 41), v8 - v9, 1);
+      v8 = *(v5 + 84) + a3;
     }
 
-    *(v5 + 336) = v8;
+    *(v5 + 84) = v8;
   }
 
   else
   {
-    v10 = *(this + 320);
+    v10 = *(this + 80);
     *(v6 + 4 * a2) = v10;
     v11 = v10 + a3;
-    v12 = *(this + 324);
+    v12 = *(this + 81);
     if (v11 > v12)
     {
-      this = DgnPrimArray<short>::reallocElts(this + 312, v11 - v12, 1);
-      v11 = *(v5 + 320) + a3;
+      this = DgnPrimArray<short>::reallocElts((this + 39), v11 - v12, 1);
+      v11 = *(v5 + 80) + a3;
     }
 
-    *(v5 + 320) = v11;
+    *(v5 + 80) = v11;
   }
 
-  *(*(v5 + 296) + 2 * a2) = a3;
-  *(*(v5 + 128) + 4 * (a2 >> 5)) |= 1 << a2;
+  *(v5[37] + 2 * a2) = a3;
+  *(v5[16] + 4 * (a2 >> 5)) |= 1 << a2;
   return this;
 }
 
-uint64_t TrigramData::fillTrigramRecordPreload(TrigramData *this, unsigned int a2, uint64_t a3, __int16 **a4, void *a5)
+uint64_t *TrigramData::fillTrigramRecordPreload(TrigramData *this, unsigned int a2, uint64_t a3, __int16 **a4, void *a5)
 {
   v10 = 3;
   if (!*(this + 10))
@@ -336,14 +336,48 @@ uint64_t TrigramData::fillTrigramRecordPreload(TrigramData *this, unsigned int a
   return result;
 }
 
-_DWORD *TrigramData::addTrigramBackoffWeightQuantization(_DWORD *this, unsigned __int8 a2, __int16 a3)
+uint64_t *TrigramData::addTrigramBackoffWeightQuantization(uint64_t *this, unsigned __int8 a2, __int16 a3)
 {
   v4 = this;
-  this[1] = 1;
-  v5 = this[6];
+  *(this + 1) = 1;
+  v5 = *(this + 6);
   if (!v5)
   {
-    if (this[7])
+    if (*(this + 7))
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      this = DgnPrimArray<short>::reallocElts((this + 2), 1, 1);
+      v6 = *(v4 + 6);
+    }
+
+    *(v4[2] + 2 * v6) = 20000;
+    v5 = v6 + 1;
+    *(v4 + 6) = v5;
+  }
+
+  if (v5 == *(v4 + 7))
+  {
+    this = DgnPrimArray<short>::reallocElts((v4 + 2), 1, 1);
+    v5 = *(v4 + 6);
+  }
+
+  *(v4[2] + 2 * v5) = a3;
+  *(v4 + 6) = v5 + 1;
+  return this;
+}
+
+uint64_t *TrigramData::addTrigramScoreQuantization(uint64_t *this, unsigned __int8 a2, __int16 a3)
+{
+  v4 = this;
+  *(this + 2) = 1;
+  v5 = *(this + 10);
+  if (!v5)
+  {
+    if (*(this + 11))
     {
       v6 = 0;
     }
@@ -351,69 +385,35 @@ _DWORD *TrigramData::addTrigramBackoffWeightQuantization(_DWORD *this, unsigned 
     else
     {
       this = DgnPrimArray<short>::reallocElts((this + 4), 1, 1);
-      v6 = v4[6];
+      v6 = *(v4 + 10);
     }
 
-    *(*(v4 + 2) + 2 * v6) = 20000;
+    *(v4[4] + 2 * v6) = 20000;
     v5 = v6 + 1;
-    v4[6] = v5;
+    *(v4 + 10) = v5;
   }
 
-  if (v5 == v4[7])
+  if (v5 == *(v4 + 11))
   {
     this = DgnPrimArray<short>::reallocElts((v4 + 4), 1, 1);
-    v5 = v4[6];
+    v5 = *(v4 + 10);
   }
 
-  *(*(v4 + 2) + 2 * v5) = a3;
-  v4[6] = v5 + 1;
+  *(v4[4] + 2 * v5) = a3;
+  *(v4 + 10) = v5 + 1;
   return this;
 }
 
-_DWORD *TrigramData::addTrigramScoreQuantization(_DWORD *this, unsigned __int8 a2, __int16 a3)
-{
-  v4 = this;
-  this[2] = 1;
-  v5 = this[10];
-  if (!v5)
-  {
-    if (this[11])
-    {
-      v6 = 0;
-    }
-
-    else
-    {
-      this = DgnPrimArray<short>::reallocElts((this + 8), 1, 1);
-      v6 = v4[10];
-    }
-
-    *(*(v4 + 4) + 2 * v6) = 20000;
-    v5 = v6 + 1;
-    v4[10] = v5;
-  }
-
-  if (v5 == v4[11])
-  {
-    this = DgnPrimArray<short>::reallocElts((v4 + 8), 1, 1);
-    v5 = v4[10];
-  }
-
-  *(*(v4 + 4) + 2 * v5) = a3;
-  v4[10] = v5 + 1;
-  return this;
-}
-
-unint64_t TrigramData::allocLoaded(unint64_t this, unsigned int a2)
+uint64_t *TrigramData::allocLoaded(uint64_t *this, unsigned int a2)
 {
   v3 = this;
-  v4 = *(this + 280);
+  v4 = this[35];
   v5 = *(v4 + 4 * a2);
-  v6 = *(this + 416);
+  v6 = *(this + 104);
   *(v4 + 4 * a2) = v6;
-  if (v6 == *(this + 420))
+  if (v6 == *(this + 105))
   {
-    this = DgnPrimArray<unsigned int>::reallocElts(this + 408, 1, 1);
+    this = DgnPrimArray<unsigned int>::reallocElts((this + 51), 1, 1);
     v6 = *(v3 + 416);
   }
 
@@ -555,32 +555,32 @@ void sub_262788C70(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void QuadgramData::allocQuad1(QuadgramData *this, unsigned int a2, int a3)
+void QuadgramData::allocQuad1(uint64_t this, unsigned int a2, int a3)
 {
-  v6 = *(this + 14);
+  v6 = *(this + 56);
   if (v6 <= a2)
   {
     do
     {
-      if (v6 == *(this + 15))
+      if (v6 == *(this + 60))
       {
         DgnPrimArray<short>::reallocElts(this + 48, 1, 1);
-        v6 = *(this + 14);
+        v6 = *(this + 56);
       }
 
-      *(*(this + 6) + 2 * v6) = 0;
-      *(this + 14) = v6 + 1;
-      v8 = *(this + 18);
-      if (v8 == *(this + 19))
+      *(*(this + 48) + 2 * v6) = 0;
+      *(this + 56) = v6 + 1;
+      v8 = *(this + 72);
+      if (v8 == *(this + 76))
       {
         DgnPrimArray<unsigned int>::reallocElts(this + 64, 1, 1);
-        v8 = *(this + 18);
+        v8 = *(this + 72);
       }
 
-      v7 = *(this + 8);
+      v7 = *(this + 64);
       *(v7 + 4 * v8) = -1;
-      ++*(this + 18);
-      v6 = *(this + 14);
+      ++*(this + 72);
+      v6 = *(this + 56);
     }
 
     while (v6 <= a2);
@@ -588,21 +588,21 @@ void QuadgramData::allocQuad1(QuadgramData *this, unsigned int a2, int a3)
 
   else
   {
-    v7 = *(this + 8);
+    v7 = *(this + 64);
   }
 
-  *(*(this + 6) + 2 * a2) = a3;
-  v9 = *(this + 22);
+  *(*(this + 48) + 2 * a2) = a3;
+  v9 = *(this + 88);
   *(v7 + 4 * a2) = v9;
   v10 = v9 + a3;
-  v11 = *(this + 23);
+  v11 = *(this + 92);
   if (v10 > v11)
   {
     DgnPrimArray<short>::reallocElts(this + 80, v10 - v11, 1);
-    v10 = *(this + 22) + a3;
+    v10 = *(this + 88) + a3;
   }
 
-  *(this + 22) = v10;
+  *(this + 88) = v10;
   if (*this)
   {
     BitArray::addSize((this + 112), a3);
@@ -610,24 +610,24 @@ void QuadgramData::allocQuad1(QuadgramData *this, unsigned int a2, int a3)
     BitArray::addSize((this + 144), a3);
   }
 
-  v12 = *(this + 64) + a3;
-  v13 = *(this + 65);
+  v12 = *(this + 256) + a3;
+  v13 = *(this + 260);
   if (v12 > v13)
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 248, v12 - v13, 1);
-    v12 = *(this + 64) + a3;
+    v12 = *(this + 256) + a3;
   }
 
-  *(this + 64) = v12;
-  v14 = *(this + 27);
-  v15 = *(this + 26) + a3;
+  *(this + 256) = v12;
+  v14 = *(this + 108);
+  v15 = *(this + 104) + a3;
   if (v15 > v14)
   {
     DgnPrimArray<short>::reallocElts(this + 96, v15 - v14, 1);
-    v15 = *(this + 26) + a3;
+    v15 = *(this + 104) + a3;
   }
 
-  *(this + 26) = v15;
+  *(this + 104) = v15;
 }
 
 void QuadgramData::~QuadgramData(QuadgramData *this)
@@ -664,33 +664,33 @@ void QuadgramData::~QuadgramData(QuadgramData *this)
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 16);
 }
 
-void *QuadgramData::compact(QuadgramData *this)
+void **QuadgramData::compact(void **this)
 {
-  DgnPrimArray<unsigned short>::compact(this + 48);
-  DgnPrimArray<unsigned int>::compact(this + 64);
-  DgnPrimArray<unsigned short>::compact(this + 80);
-  DgnPrimArray<unsigned short>::compact(this + 96);
-  BitArray::compact((this + 112));
-  BitArray::compact((this + 128));
-  DgnPrimArray<unsigned int>::compact(this + 248);
-  DgnPrimArray<unsigned short>::compact(this + 264);
-  DgnPrimArray<unsigned short>::compact(this + 280);
-  DgnPrimArray<unsigned short>::compact(this + 296);
+  DgnPrimArray<unsigned short>::compact((this + 6));
+  DgnPrimArray<unsigned int>::compact((this + 8));
+  DgnPrimArray<unsigned short>::compact((this + 10));
+  DgnPrimArray<unsigned short>::compact((this + 12));
+  BitArray::compact((this + 14));
+  BitArray::compact((this + 16));
+  DgnPrimArray<unsigned int>::compact((this + 31));
+  DgnPrimArray<unsigned short>::compact((this + 33));
+  DgnPrimArray<unsigned short>::compact((this + 35));
+  DgnPrimArray<unsigned short>::compact((this + 37));
   DgnPrimArray<unsigned char>::compact(this + 39);
-  DgnPrimArray<unsigned int>::compact(this + 328);
-  DgnPrimArray<unsigned short>::compact(this + 344);
-  DgnPrimArray<unsigned short>::compact(this + 360);
+  DgnPrimArray<unsigned int>::compact((this + 41));
+  DgnPrimArray<unsigned short>::compact((this + 43));
+  DgnPrimArray<unsigned short>::compact((this + 45));
   DgnPrimArray<unsigned char>::compact(this + 47);
-  DgnPrimArray<unsigned int>::compact(this + 392);
-  DgnPrimArray<unsigned int>::compact(this + 408);
-  DgnPrimArray<unsigned int>::compact(this + 424);
-  DgnPrimArray<unsigned short>::compact(this + 440);
-  DgnPrimArray<unsigned short>::compact(this + 456);
+  DgnPrimArray<unsigned int>::compact((this + 49));
+  DgnPrimArray<unsigned int>::compact((this + 51));
+  DgnPrimArray<unsigned int>::compact((this + 53));
+  DgnPrimArray<unsigned short>::compact((this + 55));
+  DgnPrimArray<unsigned short>::compact((this + 57));
   DgnPrimArray<unsigned char>::compact(this + 59);
-  DgnPrimArray<unsigned int>::compact(this + 488);
-  DgnPrimArray<unsigned short>::compact(this + 504);
-  DgnPrimArray<unsigned short>::compact(this + 520);
-  DgnPrimArray<unsigned short>::compact(this + 536);
+  DgnPrimArray<unsigned int>::compact((this + 61));
+  DgnPrimArray<unsigned short>::compact((this + 63));
+  DgnPrimArray<unsigned short>::compact((this + 65));
+  DgnPrimArray<unsigned short>::compact((this + 67));
 
   return DgnPrimArray<unsigned char>::compact(this + 69);
 }
@@ -700,151 +700,286 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2771, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2771);
+  if (v234)
   {
-    v16 = v342;
+    v13 = v233;
   }
 
   else
   {
-    v16 = &unk_26288CFB0;
+    v13 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26288CFB0, a3, &unk_26288CFB0, v16);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26288CFB0, a3, &unk_26288CFB0, v13);
+  DgnString::~DgnString(&v233);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26288CFB0);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26288CFB0);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v27 = v342;
+    v18 = v233;
   }
 
   else
   {
-    v27 = &unk_26288CFB0;
+    v18 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v27, 4, 4, 0);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v18, 4, 4, 0);
+  DgnString::~DgnString(&v233);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v32 = v342;
+    v20 = v233;
   }
 
   else
   {
-    v32 = &unk_26288CFB0;
+    v20 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v233);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v37 = v342;
+    v22 = v233;
   }
 
   else
   {
-    v37 = &unk_26288CFB0;
+    v22 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  v341 = a3;
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26288CFB0, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  v232 = a3;
+  DgnString::~DgnString(&v233);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v38 = 12;
+    v23 = 12;
   }
 
   else
   {
-    v38 = 16;
+    v23 = 16;
   }
 
-  v39 = *(this + 6);
-  v40 = *(this + 7);
-  if (v40 >= v39)
+  v24 = *(this + 6);
+  v25 = *(this + 7);
+  if (v25 >= v24)
   {
-    v41 = 0;
-    if (v39 > 0)
+    v26 = 0;
+    if (v24 > 0)
     {
-      v38 += 2 * (v39 - 1) + 2;
+      v23 += 2 * (v24 - 1) + 2;
     }
 
-    v42 = v38 + 2 * (v40 - v39);
+    v27 = v23 + 2 * (v25 - v24);
   }
 
   else
   {
-    v41 = 2 * v39;
-    v42 = v38;
+    v26 = 2 * v24;
+    v27 = v23;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v47 = v342;
+    v29 = v233;
   }
 
   else
   {
-    v47 = &unk_26288CFB0;
+    v29 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v44, v45, v46, v21, &unk_26288CFB0, v22, v22, v47, v42, v38, v41);
-  DgnString::~DgnString(&v342);
-  *a4 += v42;
-  *a5 += v38;
-  *a6 += v41;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v15, &unk_26288CFB0, v16, v16, v29, v27, v23, v26);
+  DgnString::~DgnString(&v233);
+  *a4 += v27;
+  *a5 += v23;
+  *a6 += v26;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v48 = 12;
+    v30 = 12;
   }
 
   else
   {
-    v48 = 16;
+    v30 = 16;
   }
 
-  v49 = *(this + 10);
-  v50 = *(this + 11);
-  if (v50 >= v49)
+  v31 = *(this + 10);
+  v32 = *(this + 11);
+  if (v32 >= v31)
   {
-    v51 = 0;
-    if (v49 > 0)
+    v33 = 0;
+    if (v31 > 0)
     {
-      v48 += 2 * (v49 - 1) + 2;
+      v30 += 2 * (v31 - 1) + 2;
     }
 
-    v52 = v48 + 2 * (v50 - v49);
+    v34 = v30 + 2 * (v32 - v31);
   }
 
   else
   {
-    v51 = 2 * v49;
-    v52 = v48;
+    v33 = 2 * v31;
+    v34 = v30;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v57 = v342;
+    v36 = v233;
+  }
+
+  else
+  {
+    v36 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v15, &unk_26288CFB0, v16, v16, v36, v34, v30, v33);
+  DgnString::~DgnString(&v233);
+  *a4 += v34;
+  *a5 += v30;
+  *a6 += v33;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v37 = 12;
+  }
+
+  else
+  {
+    v37 = 16;
+  }
+
+  v38 = *(this + 14);
+  v39 = *(this + 15);
+  if (v39 >= v38)
+  {
+    v40 = 0;
+    if (v38 > 0)
+    {
+      v37 += 2 * (v38 - 1) + 2;
+    }
+
+    v41 = v37 + 2 * (v39 - v38);
+  }
+
+  else
+  {
+    v40 = 2 * v38;
+    v41 = v37;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v43 = v233;
+  }
+
+  else
+  {
+    v43 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v15, &unk_26288CFB0, v16, v16, v43, v41, v37, v40);
+  DgnString::~DgnString(&v233);
+  *a4 += v41;
+  *a5 += v37;
+  *a6 += v40;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v44 = 12;
+  }
+
+  else
+  {
+    v44 = 16;
+  }
+
+  v45 = *(this + 18);
+  v46 = *(this + 19);
+  if (v46 >= v45)
+  {
+    v47 = 0;
+    if (v45 > 0)
+    {
+      v44 += 4 * (v45 - 1) + 4;
+    }
+
+    v48 = v44 + 4 * (v46 - v45);
+  }
+
+  else
+  {
+    v47 = 4 * v45;
+    v48 = v44;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v50 = v233;
+  }
+
+  else
+  {
+    v50 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v49, v15, &unk_26288CFB0, v16, v16, v50, v48, v44, v47);
+  DgnString::~DgnString(&v233);
+  *a4 += v48;
+  *a5 += v44;
+  *a6 += v47;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v51 = 12;
+  }
+
+  else
+  {
+    v51 = 16;
+  }
+
+  v52 = *(this + 22);
+  v53 = *(this + 23);
+  if (v53 >= v52)
+  {
+    v54 = 0;
+    if (v52 > 0)
+    {
+      v51 += 2 * (v52 - 1) + 2;
+    }
+
+    v55 = v51 + 2 * (v53 - v52);
+  }
+
+  else
+  {
+    v54 = 2 * v52;
+    v55 = v51;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v57 = v233;
   }
 
   else
@@ -852,44 +987,37 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v57 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v21, &unk_26288CFB0, v22, v22, v57, v52, v48, v51);
-  DgnString::~DgnString(&v342);
-  *a4 += v52;
-  *a5 += v48;
-  *a6 += v51;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v15, &unk_26288CFB0, v16, v16, v57, v55, v51, v54);
+  DgnString::~DgnString(&v233);
+  *a4 += v55;
+  *a5 += v51;
+  *a6 += v54;
+  v58 = BitArray::sizeObject(this + 112, 0);
+  v59 = BitArray::sizeObject(this + 112, 1);
+  v60 = BitArray::sizeObject(this + 112, 3);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v58 = 12;
+    v62 = v233;
   }
 
   else
   {
-    v58 = 16;
+    v62 = &unk_26288CFB0;
   }
 
-  v59 = *(this + 14);
-  v60 = *(this + 15);
-  if (v60 >= v59)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v61, v15, &unk_26288CFB0, v16, v16, v62, v58, v59, v60);
+  DgnString::~DgnString(&v233);
+  *a4 += v58;
+  *a5 += v59;
+  *a6 += v60;
+  v63 = BitArray::sizeObject(this + 128, 0);
+  v64 = BitArray::sizeObject(this + 128, 1);
+  v65 = BitArray::sizeObject(this + 128, 3);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v61 = 0;
-    if (v59 > 0)
-    {
-      v58 += 2 * (v59 - 1) + 2;
-    }
-
-    v62 = v58 + 2 * (v60 - v59);
-  }
-
-  else
-  {
-    v61 = 2 * v59;
-    v62 = v58;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v67 = v342;
+    v67 = v233;
   }
 
   else
@@ -897,44 +1025,37 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v67 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, v64, v65, v66, v21, &unk_26288CFB0, v22, v22, v67, v62, v58, v61);
-  DgnString::~DgnString(&v342);
-  *a4 += v62;
-  *a5 += v58;
-  *a6 += v61;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v66, v15, &unk_26288CFB0, v16, v16, v67, v63, v64, v65);
+  DgnString::~DgnString(&v233);
+  *a4 += v63;
+  *a5 += v64;
+  *a6 += v65;
+  v68 = BitArray::sizeObject(this + 144, 0);
+  v69 = BitArray::sizeObject(this + 144, 1);
+  v70 = BitArray::sizeObject(this + 144, 3);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v68 = 12;
+    v72 = v233;
   }
 
   else
   {
-    v68 = 16;
+    v72 = &unk_26288CFB0;
   }
 
-  v69 = *(this + 18);
-  v70 = *(this + 19);
-  if (v70 >= v69)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, v15, &unk_26288CFB0, v16, v16, v72, v68, v69, v70);
+  DgnString::~DgnString(&v233);
+  *a4 += v68;
+  *a5 += v69;
+  *a6 += v70;
+  v73 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 0);
+  v74 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 1);
+  v75 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 3);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v71 = 0;
-    if (v69 > 0)
-    {
-      v68 += 4 * (v69 - 1) + 4;
-    }
-
-    v72 = v68 + 4 * (v70 - v69);
-  }
-
-  else
-  {
-    v71 = 4 * v69;
-    v72 = v68;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v77 = v342;
+    v77 = v233;
   }
 
   else
@@ -942,11 +1063,11 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v77 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v73, v74, v75, v76, v21, &unk_26288CFB0, v22, v22, v77, v72, v68, v71);
-  DgnString::~DgnString(&v342);
-  *a4 += v72;
-  *a5 += v68;
-  *a6 += v71;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v15, &unk_26288CFB0, v16, v16, v77, v73, v74, v75);
+  DgnString::~DgnString(&v233);
+  *a4 += v73;
+  *a5 += v74;
+  *a6 += v75;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v78 = 12;
@@ -957,337 +1078,583 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v78 = 16;
   }
 
-  v79 = *(this + 22);
-  v80 = *(this + 23);
+  v79 = *(this + 64);
+  v80 = *(this + 65);
   if (v80 >= v79)
   {
     v81 = 0;
     if (v79 > 0)
     {
-      v78 += 2 * (v79 - 1) + 2;
+      v78 += 4 * (v79 - 1) + 4;
     }
 
-    v82 = v78 + 2 * (v80 - v79);
+    v82 = v78 + 4 * (v80 - v79);
   }
 
   else
   {
-    v81 = 2 * v79;
+    v81 = 4 * v79;
     v82 = v78;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v87 = v342;
+    v84 = v233;
   }
 
   else
   {
-    v87 = &unk_26288CFB0;
+    v84 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v84, v85, v86, v21, &unk_26288CFB0, v22, v22, v87, v82, v78, v81);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v83, v15, &unk_26288CFB0, v16, v16, v84, v82, v78, v81);
+  DgnString::~DgnString(&v233);
   *a4 += v82;
   *a5 += v78;
   *a6 += v81;
-  v88 = BitArray::sizeObject(this + 112, 0);
-  v89 = BitArray::sizeObject(this + 112, 1);
-  v90 = BitArray::sizeObject(this + 112, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v95 = v342;
+    v85 = 12;
   }
 
   else
   {
-    v95 = &unk_26288CFB0;
+    v85 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v91, v92, v93, v94, v21, &unk_26288CFB0, v22, v22, v95, v88, v89, v90);
-  DgnString::~DgnString(&v342);
-  *a4 += v88;
-  *a5 += v89;
-  *a6 += v90;
-  v96 = BitArray::sizeObject(this + 128, 0);
-  v97 = BitArray::sizeObject(this + 128, 1);
-  v98 = BitArray::sizeObject(this + 128, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  v86 = *(this + 26);
+  v87 = *(this + 27);
+  if (v87 >= v86)
   {
-    v103 = v342;
+    v88 = 0;
+    if (v86 > 0)
+    {
+      v85 += 2 * (v86 - 1) + 2;
+    }
+
+    v89 = v85 + 2 * (v87 - v86);
   }
 
   else
   {
-    v103 = &unk_26288CFB0;
+    v88 = 2 * v86;
+    v89 = v85;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v99, v100, v101, v102, v21, &unk_26288CFB0, v22, v22, v103, v96, v97, v98);
-  DgnString::~DgnString(&v342);
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v91 = v233;
+  }
+
+  else
+  {
+    v91 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v15, &unk_26288CFB0, v16, v16, v91, v89, v85, v88);
+  DgnString::~DgnString(&v233);
+  *a4 += v89;
+  *a5 += v85;
+  *a6 += v88;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v92 = 12;
+  }
+
+  else
+  {
+    v92 = 16;
+  }
+
+  v93 = *(this + 68);
+  v94 = *(this + 69);
+  if (v94 >= v93)
+  {
+    v95 = 0;
+    if (v93 > 0)
+    {
+      v92 += 2 * (v93 - 1) + 2;
+    }
+
+    v96 = v92 + 2 * (v94 - v93);
+  }
+
+  else
+  {
+    v95 = 2 * v93;
+    v96 = v92;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v98 = v233;
+  }
+
+  else
+  {
+    v98 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v97, v15, &unk_26288CFB0, v16, v16, v98, v96, v92, v95);
+  DgnString::~DgnString(&v233);
   *a4 += v96;
-  *a5 += v97;
-  *a6 += v98;
-  v104 = BitArray::sizeObject(this + 144, 0);
-  v105 = BitArray::sizeObject(this + 144, 1);
-  v106 = BitArray::sizeObject(this + 144, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v111 = v342;
-  }
-
-  else
-  {
-    v111 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v108, v109, v110, v21, &unk_26288CFB0, v22, v22, v111, v104, v105, v106);
-  DgnString::~DgnString(&v342);
-  *a4 += v104;
-  *a5 += v105;
-  *a6 += v106;
-  v112 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 0);
-  v113 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 1);
-  v114 = HuffmanDecoder<unsigned short,unsigned int>::sizeObject(this + 160, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v119 = v342;
-  }
-
-  else
-  {
-    v119 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v115, v116, v117, v118, v21, &unk_26288CFB0, v22, v22, v119, v112, v113, v114);
-  DgnString::~DgnString(&v342);
-  *a4 += v112;
-  *a5 += v113;
-  *a6 += v114;
+  *a5 += v92;
+  *a6 += v95;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v120 = 12;
+    v99 = 12;
   }
 
   else
   {
-    v120 = 16;
+    v99 = 16;
   }
 
-  v121 = *(this + 64);
-  v122 = *(this + 65);
-  if (v122 >= v121)
+  v100 = *(this + 76);
+  v101 = *(this + 77);
+  if (v101 >= v100)
   {
-    v123 = 0;
-    if (v121 > 0)
+    v102 = 0;
+    if (v100 > 0)
     {
-      v120 += 4 * (v121 - 1) + 4;
+      v99 += 2 * (v100 - 1) + 2;
     }
 
-    v124 = v120 + 4 * (v122 - v121);
+    v103 = v99 + 2 * (v101 - v100);
   }
 
   else
   {
-    v123 = 4 * v121;
-    v124 = v120;
+    v102 = 2 * v100;
+    v103 = v99;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v129 = v342;
+    v105 = v233;
   }
 
   else
   {
-    v129 = &unk_26288CFB0;
+    v105 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v125, v126, v127, v128, v21, &unk_26288CFB0, v22, v22, v129, v124, v120, v123);
-  DgnString::~DgnString(&v342);
-  *a4 += v124;
-  *a5 += v120;
-  *a6 += v123;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v104, v15, &unk_26288CFB0, v16, v16, v105, v103, v99, v102);
+  DgnString::~DgnString(&v233);
+  *a4 += v103;
+  *a5 += v99;
+  *a6 += v102;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v130 = 12;
+    v106 = 12;
   }
 
   else
   {
-    v130 = 16;
+    v106 = 16;
   }
 
-  v131 = *(this + 26);
-  v132 = *(this + 27);
-  if (v132 >= v131)
+  v107 = *(this + 80);
+  v108 = *(this + 81);
+  v109 = v108 >= v107;
+  v110 = v108 - v107;
+  if (v109)
   {
-    v133 = 0;
-    if (v131 > 0)
+    if (v107 > 0)
     {
-      v130 += 2 * (v131 - 1) + 2;
-    }
-
-    v134 = v130 + 2 * (v132 - v131);
-  }
-
-  else
-  {
-    v133 = 2 * v131;
-    v134 = v130;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v139 = v342;
-  }
-
-  else
-  {
-    v139 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v136, v137, v138, v21, &unk_26288CFB0, v22, v22, v139, v134, v130, v133);
-  DgnString::~DgnString(&v342);
-  *a4 += v134;
-  *a5 += v130;
-  *a6 += v133;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v140 = 12;
-  }
-
-  else
-  {
-    v140 = 16;
-  }
-
-  v141 = *(this + 68);
-  v142 = *(this + 69);
-  if (v142 >= v141)
-  {
-    v143 = 0;
-    if (v141 > 0)
-    {
-      v140 += 2 * (v141 - 1) + 2;
-    }
-
-    v144 = v140 + 2 * (v142 - v141);
-  }
-
-  else
-  {
-    v143 = 2 * v141;
-    v144 = v140;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v149 = v342;
-  }
-
-  else
-  {
-    v149 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v145, v146, v147, v148, v21, &unk_26288CFB0, v22, v22, v149, v144, v140, v143);
-  DgnString::~DgnString(&v342);
-  *a4 += v144;
-  *a5 += v140;
-  *a6 += v143;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v150 = 12;
-  }
-
-  else
-  {
-    v150 = 16;
-  }
-
-  v151 = *(this + 76);
-  v152 = *(this + 77);
-  if (v152 >= v151)
-  {
-    v153 = 0;
-    if (v151 > 0)
-    {
-      v150 += 2 * (v151 - 1) + 2;
-    }
-
-    v154 = v150 + 2 * (v152 - v151);
-  }
-
-  else
-  {
-    v153 = 2 * v151;
-    v154 = v150;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v159 = v342;
-  }
-
-  else
-  {
-    v159 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v155, v156, v157, v158, v21, &unk_26288CFB0, v22, v22, v159, v154, v150, v153);
-  DgnString::~DgnString(&v342);
-  *a4 += v154;
-  *a5 += v150;
-  *a6 += v153;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v160 = 12;
-  }
-
-  else
-  {
-    v160 = 16;
-  }
-
-  v161 = *(this + 80);
-  v162 = *(this + 81);
-  v163 = v162 >= v161;
-  v164 = v162 - v161;
-  if (v163)
-  {
-    if (v161 > 0)
-    {
-      v165 = (v161 - 1) + v160 + 1;
+      v111 = (v107 - 1) + v106 + 1;
     }
 
     else
     {
-      v165 = v160;
+      v111 = v106;
     }
 
-    v160 = v165 + v164;
-    v161 = 0;
+    v106 = v111 + v110;
+    v107 = 0;
   }
 
   else
   {
-    v165 = v160;
+    v111 = v106;
   }
 
-  v166 = v161;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  v112 = v107;
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v171 = v342;
+    v114 = v233;
+  }
+
+  else
+  {
+    v114 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v113, v15, &unk_26288CFB0, v16, v16, v114, v106, v111, v112);
+  DgnString::~DgnString(&v233);
+  *a4 += v106;
+  *a5 += v111;
+  *a6 += v112;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v115 = 12;
+  }
+
+  else
+  {
+    v115 = 16;
+  }
+
+  v116 = *(this + 84);
+  v117 = *(this + 85);
+  if (v117 >= v116)
+  {
+    v118 = 0;
+    if (v116 > 0)
+    {
+      v115 += 4 * (v116 - 1) + 4;
+    }
+
+    v119 = v115 + 4 * (v117 - v116);
+  }
+
+  else
+  {
+    v118 = 4 * v116;
+    v119 = v115;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v121 = v233;
+  }
+
+  else
+  {
+    v121 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v120, v15, &unk_26288CFB0, v16, v16, v121, v119, v115, v118);
+  DgnString::~DgnString(&v233);
+  *a4 += v119;
+  *a5 += v115;
+  *a6 += v118;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v122 = 12;
+  }
+
+  else
+  {
+    v122 = 16;
+  }
+
+  v123 = *(this + 72);
+  v124 = *(this + 73);
+  if (v124 >= v123)
+  {
+    v125 = 0;
+    if (v123 > 0)
+    {
+      v122 += 2 * (v123 - 1) + 2;
+    }
+
+    v126 = v122 + 2 * (v124 - v123);
+  }
+
+  else
+  {
+    v125 = 2 * v123;
+    v126 = v122;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v128 = v233;
+  }
+
+  else
+  {
+    v128 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v127, v15, &unk_26288CFB0, v16, v16, v128, v126, v122, v125);
+  DgnString::~DgnString(&v233);
+  *a4 += v126;
+  *a5 += v122;
+  *a6 += v125;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v129 = 12;
+  }
+
+  else
+  {
+    v129 = 16;
+  }
+
+  v130 = *(this + 88);
+  v131 = *(this + 89);
+  if (v131 >= v130)
+  {
+    v132 = 0;
+    if (v130 > 0)
+    {
+      v129 += 2 * (v130 - 1) + 2;
+    }
+
+    v133 = v129 + 2 * (v131 - v130);
+  }
+
+  else
+  {
+    v132 = 2 * v130;
+    v133 = v129;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v135 = v233;
+  }
+
+  else
+  {
+    v135 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v134, v15, &unk_26288CFB0, v16, v16, v135, v133, v129, v132);
+  DgnString::~DgnString(&v233);
+  *a4 += v133;
+  *a5 += v129;
+  *a6 += v132;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v136 = 12;
+  }
+
+  else
+  {
+    v136 = 16;
+  }
+
+  v137 = *(this + 92);
+  v138 = *(this + 93);
+  if (v138 >= v137)
+  {
+    v139 = 0;
+    if (v137 > 0)
+    {
+      v136 += 2 * (v137 - 1) + 2;
+    }
+
+    v140 = v136 + 2 * (v138 - v137);
+  }
+
+  else
+  {
+    v139 = 2 * v137;
+    v140 = v136;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v142 = v233;
+  }
+
+  else
+  {
+    v142 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v141, v15, &unk_26288CFB0, v16, v16, v142, v140, v136, v139);
+  DgnString::~DgnString(&v233);
+  *a4 += v140;
+  *a5 += v136;
+  *a6 += v139;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v143 = 12;
+  }
+
+  else
+  {
+    v143 = 16;
+  }
+
+  v144 = *(this + 96);
+  v145 = *(this + 97);
+  v109 = v145 >= v144;
+  v146 = v145 - v144;
+  if (v109)
+  {
+    if (v144 > 0)
+    {
+      v147 = (v144 - 1) + v143 + 1;
+    }
+
+    else
+    {
+      v147 = v143;
+    }
+
+    v143 = v147 + v146;
+    v144 = 0;
+  }
+
+  else
+  {
+    v147 = v143;
+  }
+
+  v148 = v144;
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v150 = v233;
+  }
+
+  else
+  {
+    v150 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v149, v15, &unk_26288CFB0, v16, v16, v150, v143, v147, v148);
+  DgnString::~DgnString(&v233);
+  *a4 += v143;
+  *a5 += v147;
+  *a6 += v148;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v151 = 12;
+  }
+
+  else
+  {
+    v151 = 16;
+  }
+
+  v152 = *(this + 100);
+  v153 = *(this + 101);
+  if (v153 >= v152)
+  {
+    v154 = 0;
+    if (v152 > 0)
+    {
+      v151 += 4 * (v152 - 1) + 4;
+    }
+
+    v155 = v151 + 4 * (v153 - v152);
+  }
+
+  else
+  {
+    v154 = 4 * v152;
+    v155 = v151;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v157 = v233;
+  }
+
+  else
+  {
+    v157 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v156, v15, &unk_26288CFB0, v16, v16, v157, v155, v151, v154);
+  DgnString::~DgnString(&v233);
+  *a4 += v155;
+  *a5 += v151;
+  *a6 += v154;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v158 = 12;
+  }
+
+  else
+  {
+    v158 = 16;
+  }
+
+  v159 = *(this + 104);
+  v160 = *(this + 105);
+  if (v160 >= v159)
+  {
+    v161 = 0;
+    if (v159 > 0)
+    {
+      v158 += 4 * (v159 - 1) + 4;
+    }
+
+    v162 = v158 + 4 * (v160 - v159);
+  }
+
+  else
+  {
+    v161 = 4 * v159;
+    v162 = v158;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v164 = v233;
+  }
+
+  else
+  {
+    v164 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v163, v15, &unk_26288CFB0, v16, v16, v164, v162, v158, v161);
+  DgnString::~DgnString(&v233);
+  *a4 += v162;
+  *a5 += v158;
+  *a6 += v161;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v165 = 12;
+  }
+
+  else
+  {
+    v165 = 16;
+  }
+
+  v166 = *(this + 108);
+  v167 = *(this + 109);
+  if (v167 >= v166)
+  {
+    v168 = 0;
+    if (v166 > 0)
+    {
+      v165 += 4 * (v166 - 1) + 4;
+    }
+
+    v169 = v165 + 4 * (v167 - v166);
+  }
+
+  else
+  {
+    v168 = 4 * v166;
+    v169 = v165;
+  }
+
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v171 = v233;
   }
 
   else
@@ -1295,11 +1662,11 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v171 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v167, v168, v169, v170, v21, &unk_26288CFB0, v22, v22, v171, v160, v165, v166);
-  DgnString::~DgnString(&v342);
-  *a4 += v160;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v170, v15, &unk_26288CFB0, v16, v16, v171, v169, v165, v168);
+  DgnString::~DgnString(&v233);
+  *a4 += v169;
   *a5 += v165;
-  *a6 += v166;
+  *a6 += v168;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v172 = 12;
@@ -1310,794 +1677,426 @@ void QuadgramData::printSize(QuadgramData *this, uint64_t a2, uint64_t a3, unint
     v172 = 16;
   }
 
-  v173 = *(this + 84);
-  v174 = *(this + 85);
+  v173 = *(this + 112);
+  v174 = *(this + 113);
   if (v174 >= v173)
   {
     v175 = 0;
     if (v173 > 0)
     {
-      v172 += 4 * (v173 - 1) + 4;
+      v172 += 2 * (v173 - 1) + 2;
     }
 
-    v176 = v172 + 4 * (v174 - v173);
+    v176 = v172 + 2 * (v174 - v173);
   }
 
   else
   {
-    v175 = 4 * v173;
+    v175 = 2 * v173;
     v176 = v172;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v181 = v342;
+    v178 = v233;
   }
 
   else
   {
-    v181 = &unk_26288CFB0;
+    v178 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v177, v178, v179, v180, v21, &unk_26288CFB0, v22, v22, v181, v176, v172, v175);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v177, v15, &unk_26288CFB0, v16, v16, v178, v176, v172, v175);
+  DgnString::~DgnString(&v233);
   *a4 += v176;
   *a5 += v172;
   *a6 += v175;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v182 = 12;
+    v179 = 12;
   }
 
   else
   {
-    v182 = 16;
+    v179 = 16;
   }
 
-  v183 = *(this + 72);
-  v184 = *(this + 73);
-  if (v184 >= v183)
+  v180 = *(this + 116);
+  v181 = *(this + 117);
+  if (v181 >= v180)
   {
-    v185 = 0;
-    if (v183 > 0)
+    v182 = 0;
+    if (v180 > 0)
     {
-      v182 += 2 * (v183 - 1) + 2;
+      v179 += 2 * (v180 - 1) + 2;
     }
 
-    v186 = v182 + 2 * (v184 - v183);
+    v183 = v179 + 2 * (v181 - v180);
   }
 
   else
   {
-    v185 = 2 * v183;
-    v186 = v182;
+    v182 = 2 * v180;
+    v183 = v179;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v191 = v342;
+    v185 = v233;
   }
 
   else
   {
-    v191 = &unk_26288CFB0;
+    v185 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v187, v188, v189, v190, v21, &unk_26288CFB0, v22, v22, v191, v186, v182, v185);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v184, v15, &unk_26288CFB0, v16, v16, v185, v183, v179, v182);
+  DgnString::~DgnString(&v233);
+  *a4 += v183;
+  *a5 += v179;
+  *a6 += v182;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v186 = 12;
+  }
+
+  else
+  {
+    v186 = 16;
+  }
+
+  v187 = *(this + 120);
+  v188 = *(this + 121);
+  v109 = v188 >= v187;
+  v189 = v188 - v187;
+  if (v109)
+  {
+    if (v187 > 0)
+    {
+      v190 = (v187 - 1) + v186 + 1;
+    }
+
+    else
+    {
+      v190 = v186;
+    }
+
+    v186 = v190 + v189;
+    v187 = 0;
+  }
+
+  else
+  {
+    v190 = v186;
+  }
+
+  v191 = v187;
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
+  {
+    v193 = v233;
+  }
+
+  else
+  {
+    v193 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v192, v15, &unk_26288CFB0, v16, v16, v193, v186, v190, v191);
+  DgnString::~DgnString(&v233);
   *a4 += v186;
-  *a5 += v182;
-  *a6 += v185;
+  *a5 += v190;
+  *a6 += v191;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v192 = 12;
+    v194 = 12;
   }
 
   else
   {
-    v192 = 16;
+    v194 = 16;
   }
 
-  v193 = *(this + 88);
-  v194 = *(this + 89);
-  if (v194 >= v193)
+  v195 = *(this + 124);
+  v196 = *(this + 125);
+  if (v196 >= v195)
   {
-    v195 = 0;
-    if (v193 > 0)
+    v197 = 0;
+    if (v195 > 0)
     {
-      v192 += 2 * (v193 - 1) + 2;
+      v194 += 4 * (v195 - 1) + 4;
     }
 
-    v196 = v192 + 2 * (v194 - v193);
+    v198 = v194 + 4 * (v196 - v195);
   }
 
   else
   {
-    v195 = 2 * v193;
-    v196 = v192;
+    v197 = 4 * v195;
+    v198 = v194;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v201 = v342;
+    v200 = v233;
   }
 
   else
   {
-    v201 = &unk_26288CFB0;
+    v200 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v197, v198, v199, v200, v21, &unk_26288CFB0, v22, v22, v201, v196, v192, v195);
-  DgnString::~DgnString(&v342);
-  *a4 += v196;
-  *a5 += v192;
-  *a6 += v195;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v199, v15, &unk_26288CFB0, v16, v16, v200, v198, v194, v197);
+  DgnString::~DgnString(&v233);
+  *a4 += v198;
+  *a5 += v194;
+  *a6 += v197;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v202 = 12;
+    v201 = 12;
   }
 
   else
   {
-    v202 = 16;
+    v201 = 16;
   }
 
-  v203 = *(this + 92);
-  v204 = *(this + 93);
-  if (v204 >= v203)
+  v202 = *(this + 128);
+  v203 = *(this + 129);
+  if (v203 >= v202)
   {
-    v205 = 0;
-    if (v203 > 0)
+    v204 = 0;
+    if (v202 > 0)
     {
-      v202 += 2 * (v203 - 1) + 2;
+      v201 += 2 * (v202 - 1) + 2;
     }
 
-    v206 = v202 + 2 * (v204 - v203);
+    v205 = v201 + 2 * (v203 - v202);
   }
 
   else
   {
-    v205 = 2 * v203;
-    v206 = v202;
+    v204 = 2 * v202;
+    v205 = v201;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v211 = v342;
+    v207 = v233;
   }
 
   else
   {
-    v211 = &unk_26288CFB0;
+    v207 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v207, v208, v209, v210, v21, &unk_26288CFB0, v22, v22, v211, v206, v202, v205);
-  DgnString::~DgnString(&v342);
-  *a4 += v206;
-  *a5 += v202;
-  *a6 += v205;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v206, v15, &unk_26288CFB0, v16, v16, v207, v205, v201, v204);
+  DgnString::~DgnString(&v233);
+  *a4 += v205;
+  *a5 += v201;
+  *a6 += v204;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v212 = 12;
+    v208 = 12;
   }
 
   else
   {
-    v212 = 16;
+    v208 = 16;
   }
 
-  v213 = *(this + 96);
-  v214 = *(this + 97);
-  v163 = v214 >= v213;
-  v215 = v214 - v213;
-  if (v163)
+  v209 = *(this + 132);
+  v210 = *(this + 133);
+  if (v210 >= v209)
   {
-    if (v213 > 0)
+    v211 = 0;
+    if (v209 > 0)
     {
-      v216 = (v213 - 1) + v212 + 1;
+      v208 += 2 * (v209 - 1) + 2;
     }
 
-    else
-    {
-      v216 = v212;
-    }
-
-    v212 = v216 + v215;
-    v213 = 0;
+    v212 = v208 + 2 * (v210 - v209);
   }
 
   else
   {
-    v216 = v212;
+    v211 = 2 * v209;
+    v212 = v208;
   }
 
-  v217 = v213;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v222 = v342;
+    v214 = v233;
   }
 
   else
   {
-    v222 = &unk_26288CFB0;
+    v214 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v218, v219, v220, v221, v21, &unk_26288CFB0, v22, v22, v222, v212, v216, v217);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v213, v15, &unk_26288CFB0, v16, v16, v214, v212, v208, v211);
+  DgnString::~DgnString(&v233);
   *a4 += v212;
-  *a5 += v216;
-  *a6 += v217;
+  *a5 += v208;
+  *a6 += v211;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v223 = 12;
+    v215 = 12;
   }
 
   else
   {
-    v223 = 16;
+    v215 = 16;
   }
 
-  v224 = *(this + 100);
-  v225 = *(this + 101);
-  if (v225 >= v224)
+  v216 = *(this + 136);
+  v217 = *(this + 137);
+  if (v217 >= v216)
   {
-    v226 = 0;
-    if (v224 > 0)
+    v218 = 0;
+    if (v216 > 0)
     {
-      v223 += 4 * (v224 - 1) + 4;
+      v215 += 2 * (v216 - 1) + 2;
     }
 
-    v227 = v223 + 4 * (v225 - v224);
+    v219 = v215 + 2 * (v217 - v216);
   }
 
   else
   {
-    v226 = 4 * v224;
-    v227 = v223;
+    v218 = 2 * v216;
+    v219 = v215;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v232 = v342;
+    v221 = v233;
   }
 
   else
   {
-    v232 = &unk_26288CFB0;
+    v221 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v228, v229, v230, v231, v21, &unk_26288CFB0, v22, v22, v232, v227, v223, v226);
-  DgnString::~DgnString(&v342);
-  *a4 += v227;
-  *a5 += v223;
-  *a6 += v226;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v220, v15, &unk_26288CFB0, v16, v16, v221, v219, v215, v218);
+  DgnString::~DgnString(&v233);
+  *a4 += v219;
+  *a5 += v215;
+  *a6 += v218;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v233 = 12;
+    v222 = 12;
   }
 
   else
   {
-    v233 = 16;
+    v222 = 16;
   }
 
-  v234 = *(this + 104);
-  v235 = *(this + 105);
-  if (v235 >= v234)
+  v223 = *(this + 140);
+  v224 = *(this + 141);
+  v109 = v224 >= v223;
+  v225 = v224 - v223;
+  if (v109)
   {
-    v236 = 0;
-    if (v234 > 0)
+    if (v223 > 0)
     {
-      v233 += 4 * (v234 - 1) + 4;
-    }
-
-    v237 = v233 + 4 * (v235 - v234);
-  }
-
-  else
-  {
-    v236 = 4 * v234;
-    v237 = v233;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v242 = v342;
-  }
-
-  else
-  {
-    v242 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v238, v239, v240, v241, v21, &unk_26288CFB0, v22, v22, v242, v237, v233, v236);
-  DgnString::~DgnString(&v342);
-  *a4 += v237;
-  *a5 += v233;
-  *a6 += v236;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v243 = 12;
-  }
-
-  else
-  {
-    v243 = 16;
-  }
-
-  v244 = *(this + 108);
-  v245 = *(this + 109);
-  if (v245 >= v244)
-  {
-    v246 = 0;
-    if (v244 > 0)
-    {
-      v243 += 4 * (v244 - 1) + 4;
-    }
-
-    v247 = v243 + 4 * (v245 - v244);
-  }
-
-  else
-  {
-    v246 = 4 * v244;
-    v247 = v243;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v252 = v342;
-  }
-
-  else
-  {
-    v252 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v248, v249, v250, v251, v21, &unk_26288CFB0, v22, v22, v252, v247, v243, v246);
-  DgnString::~DgnString(&v342);
-  *a4 += v247;
-  *a5 += v243;
-  *a6 += v246;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v253 = 12;
-  }
-
-  else
-  {
-    v253 = 16;
-  }
-
-  v254 = *(this + 112);
-  v255 = *(this + 113);
-  if (v255 >= v254)
-  {
-    v256 = 0;
-    if (v254 > 0)
-    {
-      v253 += 2 * (v254 - 1) + 2;
-    }
-
-    v257 = v253 + 2 * (v255 - v254);
-  }
-
-  else
-  {
-    v256 = 2 * v254;
-    v257 = v253;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v262 = v342;
-  }
-
-  else
-  {
-    v262 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v258, v259, v260, v261, v21, &unk_26288CFB0, v22, v22, v262, v257, v253, v256);
-  DgnString::~DgnString(&v342);
-  *a4 += v257;
-  *a5 += v253;
-  *a6 += v256;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v263 = 12;
-  }
-
-  else
-  {
-    v263 = 16;
-  }
-
-  v264 = *(this + 116);
-  v265 = *(this + 117);
-  if (v265 >= v264)
-  {
-    v266 = 0;
-    if (v264 > 0)
-    {
-      v263 += 2 * (v264 - 1) + 2;
-    }
-
-    v267 = v263 + 2 * (v265 - v264);
-  }
-
-  else
-  {
-    v266 = 2 * v264;
-    v267 = v263;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v272 = v342;
-  }
-
-  else
-  {
-    v272 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v268, v269, v270, v271, v21, &unk_26288CFB0, v22, v22, v272, v267, v263, v266);
-  DgnString::~DgnString(&v342);
-  *a4 += v267;
-  *a5 += v263;
-  *a6 += v266;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v273 = 12;
-  }
-
-  else
-  {
-    v273 = 16;
-  }
-
-  v274 = *(this + 120);
-  v275 = *(this + 121);
-  v163 = v275 >= v274;
-  v276 = v275 - v274;
-  if (v163)
-  {
-    if (v274 > 0)
-    {
-      v277 = (v274 - 1) + v273 + 1;
+      v226 = (v223 - 1) + v222 + 1;
     }
 
     else
     {
-      v277 = v273;
+      v226 = v222;
     }
 
-    v273 = v277 + v276;
-    v274 = 0;
+    v222 = v226 + v225;
+    v223 = 0;
   }
 
   else
   {
-    v277 = v273;
+    v226 = v222;
   }
 
-  v278 = v274;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
+  v227 = v223;
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775);
+  if (v234)
   {
-    v283 = v342;
+    v229 = v233;
   }
 
   else
   {
-    v283 = &unk_26288CFB0;
+    v229 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v279, v280, v281, v282, v21, &unk_26288CFB0, v22, v22, v283, v273, v277, v278);
-  DgnString::~DgnString(&v342);
-  *a4 += v273;
-  *a5 += v277;
-  *a6 += v278;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v228, v15, &unk_26288CFB0, v16, v16, v229, v222, v226, v227);
+  DgnString::~DgnString(&v233);
+  *a4 += v222;
+  *a5 += v226;
+  *a6 += v227;
+  getShipObjectSizeDescription(&v233, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2776);
+  if (v234)
   {
-    v284 = 12;
+    v231 = v233;
   }
 
   else
   {
-    v284 = 16;
+    v231 = &unk_26288CFB0;
   }
 
-  v285 = *(this + 124);
-  v286 = *(this + 125);
-  if (v286 >= v285)
-  {
-    v287 = 0;
-    if (v285 > 0)
-    {
-      v284 += 4 * (v285 - 1) + 4;
-    }
-
-    v288 = v284 + 4 * (v286 - v285);
-  }
-
-  else
-  {
-    v287 = 4 * v285;
-    v288 = v284;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v293 = v342;
-  }
-
-  else
-  {
-    v293 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v289, v290, v291, v292, v21, &unk_26288CFB0, v22, v22, v293, v288, v284, v287);
-  DgnString::~DgnString(&v342);
-  *a4 += v288;
-  *a5 += v284;
-  *a6 += v287;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v294 = 12;
-  }
-
-  else
-  {
-    v294 = 16;
-  }
-
-  v295 = *(this + 128);
-  v296 = *(this + 129);
-  if (v296 >= v295)
-  {
-    v297 = 0;
-    if (v295 > 0)
-    {
-      v294 += 2 * (v295 - 1) + 2;
-    }
-
-    v298 = v294 + 2 * (v296 - v295);
-  }
-
-  else
-  {
-    v297 = 2 * v295;
-    v298 = v294;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v303 = v342;
-  }
-
-  else
-  {
-    v303 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v299, v300, v301, v302, v21, &unk_26288CFB0, v22, v22, v303, v298, v294, v297);
-  DgnString::~DgnString(&v342);
-  *a4 += v298;
-  *a5 += v294;
-  *a6 += v297;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v304 = 12;
-  }
-
-  else
-  {
-    v304 = 16;
-  }
-
-  v305 = *(this + 132);
-  v306 = *(this + 133);
-  if (v306 >= v305)
-  {
-    v307 = 0;
-    if (v305 > 0)
-    {
-      v304 += 2 * (v305 - 1) + 2;
-    }
-
-    v308 = v304 + 2 * (v306 - v305);
-  }
-
-  else
-  {
-    v307 = 2 * v305;
-    v308 = v304;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v313 = v342;
-  }
-
-  else
-  {
-    v313 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v309, v310, v311, v312, v21, &unk_26288CFB0, v22, v22, v313, v308, v304, v307);
-  DgnString::~DgnString(&v342);
-  *a4 += v308;
-  *a5 += v304;
-  *a6 += v307;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v314 = 12;
-  }
-
-  else
-  {
-    v314 = 16;
-  }
-
-  v315 = *(this + 136);
-  v316 = *(this + 137);
-  if (v316 >= v315)
-  {
-    v317 = 0;
-    if (v315 > 0)
-    {
-      v314 += 2 * (v315 - 1) + 2;
-    }
-
-    v318 = v314 + 2 * (v316 - v315);
-  }
-
-  else
-  {
-    v317 = 2 * v315;
-    v318 = v314;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v323 = v342;
-  }
-
-  else
-  {
-    v323 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v319, v320, v321, v322, v21, &unk_26288CFB0, v22, v22, v323, v318, v314, v317);
-  DgnString::~DgnString(&v342);
-  *a4 += v318;
-  *a5 += v314;
-  *a6 += v317;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v324 = 12;
-  }
-
-  else
-  {
-    v324 = 16;
-  }
-
-  v325 = *(this + 140);
-  v326 = *(this + 141);
-  v163 = v326 >= v325;
-  v327 = v326 - v325;
-  if (v163)
-  {
-    if (v325 > 0)
-    {
-      v328 = (v325 - 1) + v324 + 1;
-    }
-
-    else
-    {
-      v328 = v324;
-    }
-
-    v324 = v328 + v327;
-    v325 = 0;
-  }
-
-  else
-  {
-    v328 = v324;
-  }
-
-  v329 = v325;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2775, &v342);
-  if (v343)
-  {
-    v334 = v342;
-  }
-
-  else
-  {
-    v334 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v330, v331, v332, v333, v21, &unk_26288CFB0, v22, v22, v334, v324, v328, v329);
-  DgnString::~DgnString(&v342);
-  *a4 += v324;
-  *a5 += v328;
-  *a6 += v329;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 2776, &v342);
-  if (v343)
-  {
-    v339 = v342;
-  }
-
-  else
-  {
-    v339 = &unk_26288CFB0;
-  }
-
-  v340 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v335, v336, v337, v338, v341, &unk_26288CFB0, (35 - v341), (35 - v341), v339, *a4, *a5, *a6);
-  DgnString::~DgnString(&v342);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v230, v232, &unk_26288CFB0, (35 - v232), (35 - v232), v231, *a4, *a5, *a6);
+  DgnString::~DgnString(&v233);
 }
 
-void sub_26278A9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26278A9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void *QuadgramData::copyQuadgramData(QuadgramData *this, const QuadgramData *a2)
+void **QuadgramData::copyQuadgramData(QuadgramData *this, const QuadgramData *a2)
 {
   *this = *a2;
   *(this + 2) = *(a2 + 2);
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 16, a2 + 2, 0, *(a2 + 6));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 32, a2 + 4, 0, *(a2 + 10));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 48, a2 + 6, 0, *(a2 + 14));
-  DgnPrimArray<int>::copyArraySlice(this + 64, a2 + 8, 0, *(a2 + 18));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 80, a2 + 10, 0, *(a2 + 22));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 2, a2 + 2, 0, *(a2 + 6));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 4, a2 + 4, 0, *(a2 + 10));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 6, a2 + 6, 0, *(a2 + 14));
+  DgnPrimArray<int>::copyArraySlice(this + 8, a2 + 8, 0, *(a2 + 18));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 10, a2 + 10, 0, *(a2 + 22));
   BitArray::operator=(this + 14, a2 + 112);
   BitArray::operator=(this + 16, a2 + 128);
   BitArray::operator=(this + 18, a2 + 144);
-  HuffmanDecoder<unsigned short,unsigned int>::operator=(this + 160, a2 + 160);
-  DgnPrimArray<int>::copyArraySlice(this + 248, a2 + 31, 0, *(a2 + 64));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 96, a2 + 12, 0, *(a2 + 26));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 264, a2 + 33, 0, *(a2 + 68));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 296, a2 + 37, 0, *(a2 + 76));
-  DgnPrimArray<unsigned char>::copyArraySlice(this + 312, a2 + 39, 0, *(a2 + 80));
-  DgnPrimArray<int>::copyArraySlice(this + 328, a2 + 41, 0, *(a2 + 84));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 280, a2 + 35, 0, *(a2 + 72));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 344, a2 + 43, 0, *(a2 + 88));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 360, a2 + 45, 0, *(a2 + 92));
-  DgnPrimArray<unsigned char>::copyArraySlice(this + 376, a2 + 47, 0, *(a2 + 96));
-  DgnPrimArray<int>::copyArraySlice(this + 392, a2 + 49, 0, *(a2 + 100));
-  DgnPrimArray<int>::copyArraySlice(this + 408, a2 + 51, 0, *(a2 + 104));
-  DgnPrimArray<int>::copyArraySlice(this + 424, a2 + 53, 0, *(a2 + 108));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 440, a2 + 55, 0, *(a2 + 112));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 456, a2 + 57, 0, *(a2 + 116));
-  DgnPrimArray<unsigned char>::copyArraySlice(this + 472, a2 + 59, 0, *(a2 + 120));
-  DgnPrimArray<int>::copyArraySlice(this + 488, a2 + 61, 0, *(a2 + 124));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 504, a2 + 63, 0, *(a2 + 128));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 520, a2 + 65, 0, *(a2 + 132));
-  DgnPrimArray<unsigned short>::copyArraySlice(this + 536, a2 + 67, 0, *(a2 + 136));
-  DgnPrimArray<unsigned char>::copyArraySlice(this + 552, a2 + 69, 0, *(a2 + 140));
+  HuffmanDecoder<unsigned short,unsigned int>::operator=(this + 20, a2 + 160);
+  DgnPrimArray<int>::copyArraySlice(this + 31, a2 + 31, 0, *(a2 + 64));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 12, a2 + 12, 0, *(a2 + 26));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 33, a2 + 33, 0, *(a2 + 68));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 37, a2 + 37, 0, *(a2 + 76));
+  DgnPrimArray<unsigned char>::copyArraySlice(this + 39, a2 + 39, 0, *(a2 + 80));
+  DgnPrimArray<int>::copyArraySlice(this + 41, a2 + 41, 0, *(a2 + 84));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 35, a2 + 35, 0, *(a2 + 72));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 43, a2 + 43, 0, *(a2 + 88));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 45, a2 + 45, 0, *(a2 + 92));
+  DgnPrimArray<unsigned char>::copyArraySlice(this + 47, a2 + 47, 0, *(a2 + 96));
+  DgnPrimArray<int>::copyArraySlice(this + 49, a2 + 49, 0, *(a2 + 100));
+  DgnPrimArray<int>::copyArraySlice(this + 51, a2 + 51, 0, *(a2 + 104));
+  DgnPrimArray<int>::copyArraySlice(this + 53, a2 + 53, 0, *(a2 + 108));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 55, a2 + 55, 0, *(a2 + 112));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 57, a2 + 57, 0, *(a2 + 116));
+  DgnPrimArray<unsigned char>::copyArraySlice(this + 59, a2 + 59, 0, *(a2 + 120));
+  DgnPrimArray<int>::copyArraySlice(this + 61, a2 + 61, 0, *(a2 + 124));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 63, a2 + 63, 0, *(a2 + 128));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 65, a2 + 65, 0, *(a2 + 132));
+  DgnPrimArray<unsigned short>::copyArraySlice(this + 67, a2 + 67, 0, *(a2 + 136));
+  DgnPrimArray<unsigned char>::copyArraySlice(this + 69, a2 + 69, 0, *(a2 + 140));
 
   return QuadgramData::compact(this);
 }
@@ -2153,7 +2152,7 @@ void QuadgramData::loadBinary(QuadgramData *this, DgnStream *a2, unsigned int *a
   readObject(a2, (this + 112), a3);
   readObject(a2, (this + 128), a3);
   readObject(a2, (this + 144), a3);
-  HuffmanDecoder<unsigned short,unsigned int>::readObject(this + 160, a2, a3);
+  HuffmanDecoder<unsigned short,unsigned int>::readObject(this + 20, a2, a3);
   readObject<unsigned int>(a2, this + 248, a3);
   readObject<unsigned short>(a2, this + 96, a3);
   readObject<unsigned short>(a2, this + 264, a3);
@@ -2247,7 +2246,7 @@ int *QuadgramData::loadBinaryShared(QuadgramData *this, DgnSharedMemStream *a2, 
     readSharedObject(a2, (this + 112), a4);
     readSharedObject(a2, (this + 128), a4);
     readSharedObject(a2, (this + 144), a4);
-    HuffmanDecoder<unsigned short,unsigned int>::readObject(this + 160, a2, a4);
+    HuffmanDecoder<unsigned short,unsigned int>::readObject(this + 20, a2, a4);
   }
 
   else
@@ -2564,7 +2563,7 @@ LABEL_24:
                     v32 = v59;
                   }
 
-                  *(v58 + 2 * v32) = v52;
+                  v58[v32] = v52;
                   LODWORD(v59) = v32 + 1;
                 }
 
@@ -2656,7 +2655,7 @@ LABEL_24:
   v57 = 0;
   memset(v56, 0, sizeof(v56));
   HuffmanEncoder<unsigned short,unsigned int>::finalizeTables(a3, v56);
-  HuffmanDecoder<unsigned short,unsigned int>::operator=(v6 + 160, v56);
+  HuffmanDecoder<unsigned short,unsigned int>::operator=(v6 + 20, v56);
   HuffmanDecoder<unsigned short,unsigned int>::~HuffmanDecoder(v56);
   QuadgramData::compact(v6);
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v58);
@@ -2705,72 +2704,72 @@ void QuadgramData::preAllocateStaticQuadgramData(QuadgramData *this, unsigned in
   }
 }
 
-uint64_t QuadgramData::preAllocateDynamicQuadgramData(uint64_t this, unsigned int a2, unsigned int a3)
+uint64_t *QuadgramData::preAllocateDynamicQuadgramData(uint64_t *this, unsigned int a2, unsigned int a3)
 {
   v5 = this;
-  v6 = *(this + 292);
+  v6 = *(this + 73);
   v7 = a2 >= v6;
   v8 = a2 - v6;
   if (v8 != 0 && v7)
   {
-    this = DgnPrimArray<short>::reallocElts(this + 280, v8, 0);
+    this = DgnPrimArray<short>::reallocElts((this + 35), v8, 0);
   }
 
-  v9 = *(v5 + 276);
+  v9 = *(v5 + 69);
   if (a2 > v9)
   {
-    this = DgnPrimArray<short>::reallocElts(v5 + 264, a2 - v9, 0);
+    this = DgnPrimArray<short>::reallocElts((v5 + 33), a2 - v9, 0);
   }
 
-  v10 = *(v5 + 340);
+  v10 = *(v5 + 85);
   if (a2 > v10)
   {
-    this = DgnPrimArray<unsigned int>::reallocElts(v5 + 328, a2 - v10, 0);
+    this = DgnPrimArray<unsigned int>::reallocElts((v5 + 41), a2 - v10, 0);
   }
 
-  if (*(v5 + 4))
+  if (*(v5 + 1))
   {
-    if (*(v5 + 324) < a2)
+    if (*(v5 + 81) < a2)
     {
       v14 = 0;
-      this = realloc_array(*(v5 + 312), &v14, a2, *(v5 + 320), *(v5 + 320), 1);
-      *(v5 + 324) = this;
-      *(v5 + 312) = v14;
+      this = realloc_array(v5[39], &v14, a2, *(v5 + 80), *(v5 + 80), 1);
+      *(v5 + 81) = this;
+      v5[39] = v14;
     }
   }
 
   else
   {
-    v11 = *(v5 + 308);
+    v11 = *(v5 + 77);
     if (a2 > v11)
     {
-      this = DgnPrimArray<short>::reallocElts(v5 + 296, a2 - v11, 0);
+      this = DgnPrimArray<short>::reallocElts((v5 + 37), a2 - v11, 0);
     }
   }
 
-  v12 = *(v5 + 356);
+  v12 = *(v5 + 89);
   if (a3 > v12)
   {
-    this = DgnPrimArray<short>::reallocElts(v5 + 344, a3 - v12, 0);
+    this = DgnPrimArray<short>::reallocElts((v5 + 43), a3 - v12, 0);
   }
 
-  if (*(v5 + 8))
+  if (*(v5 + 2))
   {
-    if (*(v5 + 388) < a3)
+    if (*(v5 + 97) < a3)
     {
       v14 = 0;
-      this = realloc_array(*(v5 + 376), &v14, a3, *(v5 + 384), *(v5 + 384), 1);
-      *(v5 + 388) = this;
-      *(v5 + 376) = v14;
+      this = realloc_array(v5[47], &v14, a3, *(v5 + 96), *(v5 + 96), 1);
+      *(v5 + 97) = this;
+      v5[47] = v14;
     }
   }
 
   else
   {
-    v13 = *(v5 + 372);
+    v13 = *(v5 + 93);
     if (a3 > v13)
     {
-      return DgnPrimArray<short>::reallocElts(v5 + 360, a3 - v13, 0);
+      return DgnPrimArray<short>::reallocElts((v5 + 45), a3 - v13, 0);
     }
   }
 
@@ -2990,7 +2989,7 @@ LABEL_24:
   v48 = 0;
   v45 = 0;
   v46 = 0;
-  HuffmanEncoder<unsigned short,unsigned int>::encodeSuccessors(a5, &v63, &v47);
+  HuffmanEncoder<unsigned short,unsigned int>::encodeSuccessors(a5, &v63, &v47, a4 + 160);
   HuffmanEncoder<unsigned short,unsigned int>::encodeValues(a5, &v59, &v49);
   HuffmanEncoder<unsigned short,unsigned int>::encodeValues(a5, &v61, &v45);
   v37 = 4 * ((v48 + 1) + (v50 + 1) + (v46 + 1)) + 12 < 2 * ((v64 + 1) + (v60 + 1) + (v62 + 1)) + 4 && v50 < 0x10000;
@@ -3057,18 +3056,19 @@ LABEL_24:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v63);
 }
 
-void sub_26278C6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, char a29)
+void sub_26278C6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a19);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a21);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a23);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a25);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a27);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a29);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v29 - 160);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v29 - 144);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v29 - 128);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v29 - 112);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 160);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 144);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 128);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 112);
   _Unwind_Resume(a1);
 }
 
@@ -3135,63 +3135,63 @@ void HuffmanEncoder<unsigned short,unsigned int>::encodeValues(uint64_t a1, uint
     v9 = 32;
     do
     {
-      v17 = *Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::findBucket(a1 + 8, (*a2 + v6));
-      if (!v17)
+      v10 = *Hash<unsigned short,unsigned short,HuffmanSymbol<unsigned short,unsigned int>,HuffmanSymbol<unsigned short,unsigned int>*>::findBucket(a1 + 8, (*a2 + v6));
+      if (!v10)
       {
-        throwEncodeUnknownSymbol(*(*a2 + v6), v10, v11, v12, v13, v14, v15, v16);
+        throwEncodeUnknownSymbol(*(*a2 + v6));
       }
 
-      v18 = v17[2];
-      v20 = *v18;
-      v19 = v18[1];
-      if (v19 >= v9)
+      v11 = v10[2];
+      v13 = *v11;
+      v12 = v11[1];
+      if (v12 >= v9)
       {
-        v21 = v9;
+        v14 = v9;
       }
 
       else
       {
-        v21 = v18[1];
+        v14 = v11[1];
       }
 
-      v22 = v8 << v21;
-      if (v19 == v9)
+      v15 = v8 << v14;
+      if (v12 == v9)
       {
-        v23 = *(a3 + 8);
-        if (v23 == *(a3 + 12))
+        v16 = *(a3 + 8);
+        if (v16 == *(a3 + 12))
         {
           DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-          v23 = *(a3 + 8);
+          v16 = *(a3 + 8);
         }
 
         v8 = 0;
-        *(*a3 + 4 * v23) = v22 | v20;
+        *(*a3 + 4 * v16) = v15 | v13;
         ++*(a3 + 8);
         v9 = 32;
       }
 
       else
       {
-        v24 = v19 - v9;
-        if (v19 <= v9)
+        v17 = v12 - v9;
+        if (v12 <= v9)
         {
-          v8 = v22 | v20;
-          v9 -= v19;
+          v8 = v15 | v13;
+          v9 -= v12;
         }
 
         else
         {
-          v25 = *(a3 + 8);
-          if (v25 == *(a3 + 12))
+          v18 = *(a3 + 8);
+          if (v18 == *(a3 + 12))
           {
             DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-            v25 = *(a3 + 8);
+            v18 = *(a3 + 8);
           }
 
-          *(*a3 + 4 * v25) = v22 | (v20 >> v24);
+          *(*a3 + 4 * v18) = v15 | (v13 >> v17);
           ++*(a3 + 8);
-          v9 = 32 - v24;
-          v8 = (0xFFFFFFFF >> -v24) & v20;
+          v9 = 32 - v17;
+          v8 = (0xFFFFFFFF >> -v17) & v13;
         }
       }
 
@@ -3208,26 +3208,26 @@ void HuffmanEncoder<unsigned short,unsigned int>::encodeValues(uint64_t a1, uint
     LOBYTE(v9) = 32;
   }
 
-  v26 = *(a3 + 8);
-  if (v26)
+  v19 = *(a3 + 8);
+  if (v19)
   {
-    v27 = v8 == 0;
+    v20 = v8 == 0;
   }
 
   else
   {
-    v27 = 0;
+    v20 = 0;
   }
 
-  if (!v27)
+  if (!v20)
   {
-    if (v26 == *(a3 + 12))
+    if (v19 == *(a3 + 12))
     {
       DgnPrimArray<unsigned int>::reallocElts(a3, 1, 1);
-      v26 = *(a3 + 8);
+      v19 = *(a3 + 8);
     }
 
-    *(*a3 + 4 * v26) = v8 << v9;
+    *(*a3 + 4 * v19) = v8 << v9;
     ++*(a3 + 8);
   }
 }
@@ -3565,25 +3565,26 @@ uint64_t QuadgramData::fillInFullyLoadedQuadgramData(QuadgramData *this, Quadgra
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v71);
 }
 
-void sub_26278D0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char a28)
+void sub_26278D0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a18);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a20);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a22);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a24);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a26);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a28);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 136);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v28 - 120);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 104);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 136);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v27 - 120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 104);
   _Unwind_Resume(a1);
 }
 
-unint64_t QuadgramData::fillQuad2BackoffWeights(unint64_t a1, unsigned int a2, uint64_t *a3, uint64_t *a4, void *a5)
+uint64_t *QuadgramData::fillQuad2BackoffWeights(QuadgramData *a1, unsigned int a2, uint64_t *a3, uint64_t *a4, void *a5)
 {
   result = QuadgramData::allocQuad2(a1, a2, *(a3 + 4));
   v11 = *(a3 + 2);
-  if (*(a1 + 4))
+  if (*(a1 + 1))
   {
     if (v11)
     {
@@ -3591,18 +3592,18 @@ unint64_t QuadgramData::fillQuad2BackoffWeights(unint64_t a1, unsigned int a2, u
       do
       {
         v13 = *(*a3 + 2 * v12);
-        v14 = *(*(a1 + 248) + 4 * a2);
-        if (*a1 && (*(*(a1 + 112) + 4 * (a2 >> 5)) & (1 << a2)) != 0)
+        v14 = *(*(a1 + 31) + 4 * a2);
+        if (*a1 && (*(*(a1 + 14) + 4 * (a2 >> 5)) & (1 << a2)) != 0)
         {
-          LODWORD(v14) = *(*(a1 + 424) + 4 * v14);
-          *(*(a1 + 440) + 2 * (v12 + v14)) = v13;
+          LODWORD(v14) = *(*(a1 + 53) + 4 * v14);
+          *(*(a1 + 55) + 2 * (v12 + v14)) = v13;
           v15 = (*a5 + v12);
           v16 = 472;
         }
 
         else
         {
-          *(*(a1 + 264) + 2 * (v12 + v14)) = v13;
+          *(*(a1 + 33) + 2 * (v12 + v14)) = v13;
           v15 = (*a5 + v12);
           v16 = 312;
         }
@@ -3626,23 +3627,23 @@ LABEL_18:
   }
 
   v18 = 0;
-  v19 = *(*(a1 + 248) + 4 * a2);
+  v19 = *(*(a1 + 31) + 4 * a2);
   v20 = *a3;
   v21 = *a1;
   v22 = *a4;
   do
   {
     v23 = *(v20 + 2 * v18);
-    if (v21 && (*(*(a1 + 112) + 4 * (a2 >> 5)) & (1 << a2)) != 0)
+    if (v21 && (*(*(a1 + 14) + 4 * (a2 >> 5)) & (1 << a2)) != 0)
     {
-      v24 = *(*(a1 + 424) + 4 * v19);
-      *(*(a1 + 440) + 2 * (v18 + v24)) = v23;
+      v24 = *(*(a1 + 53) + 4 * v19);
+      *(*(a1 + 55) + 2 * (v18 + v24)) = v23;
       v25 = 456;
     }
 
     else
     {
-      *(*(a1 + 264) + 2 * (v19 + v18)) = v23;
+      *(*(a1 + 33) + 2 * (v19 + v18)) = v23;
       v25 = 296;
       v24 = v19;
     }
@@ -3654,11 +3655,11 @@ LABEL_18:
   while (v11 != v18);
   LOWORD(v17) = v11;
 LABEL_19:
-  *(*(a1 + 96) + 2 * a2) = v17;
+  *(*(a1 + 12) + 2 * a2) = v17;
   return result;
 }
 
-unint64_t QuadgramData::fillQuadgramRecord(unint64_t a1, unsigned int a2, int a3, uint64_t a4, void *a5, void *a6)
+uint64_t QuadgramData::fillQuadgramRecord(uint64_t a1, unsigned int a2, int a3, uint64_t a4, void *a5, void *a6)
 {
   result = QuadgramData::allocScoresForIndex(a1, a2, a3, *(a4 + 8));
   LODWORD(v13) = *(a4 + 8);
@@ -3709,16 +3710,16 @@ unint64_t QuadgramData::fillQuadgramRecord(unint64_t a1, unsigned int a2, int a3
   return result;
 }
 
-unint64_t QuadgramData::allocQuad2(unint64_t this, unsigned int a2, int a3)
+uint64_t *QuadgramData::allocQuad2(uint64_t *this, unsigned int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 272);
-  *(*(this + 248) + 4 * a2) = v6;
+  v6 = *(this + 68);
+  *(this[31] + 4 * a2) = v6;
   v7 = v6 + a3;
-  v8 = *(this + 276);
+  v8 = *(this + 69);
   if (v7 > v8)
   {
-    this = DgnPrimArray<short>::reallocElts(this + 264, v7 - v8, 1);
+    this = DgnPrimArray<short>::reallocElts((this + 33), v7 - v8, 1);
     v7 = *(v5 + 272) + a3;
   }
 
@@ -3771,17 +3772,17 @@ unint64_t QuadgramData::allocQuad2(unint64_t this, unsigned int a2, int a3)
   return this;
 }
 
-unint64_t QuadgramData::allocScoresForIndex(unint64_t this, unsigned int a2, int a3, int a4)
+uint64_t *QuadgramData::allocScoresForIndex(uint64_t *this, unsigned int a2, int a3, int a4)
 {
   v5 = this;
-  v6 = *(this + 352);
-  v7 = *(*(this + 248) + 4 * a2) + a3;
-  *(*(this + 328) + 4 * v7) = v6;
+  v6 = *(this + 88);
+  v7 = *(this[31] + 4 * a2) + a3;
+  *(this[41] + 4 * v7) = v6;
   v8 = v6 + a4;
-  v9 = *(this + 356);
+  v9 = *(this + 89);
   if (v8 > v9)
   {
-    this = DgnPrimArray<short>::reallocElts(this + 344, v8 - v9, 1);
+    this = DgnPrimArray<short>::reallocElts((this + 43), v8 - v9, 1);
     v8 = *(v5 + 352) + a4;
   }
 
@@ -3876,16 +3877,16 @@ uint64_t QuadgramData::setScoreForIndex(uint64_t this, unsigned int a2, int a3, 
   return this;
 }
 
-unint64_t QuadgramData::allocLoaded(unint64_t result, unsigned int a2, void *a3)
+uint64_t *QuadgramData::allocLoaded(uint64_t *result, unsigned int a2, void *a3)
 {
   v5 = result;
-  v6 = *(result + 248);
+  v6 = result[31];
   v7 = *(v6 + 4 * a2);
-  v8 = *(result + 416);
+  v8 = *(result + 104);
   *(v6 + 4 * a2) = v8;
-  if (v8 == *(result + 420))
+  if (v8 == *(result + 105))
   {
-    result = DgnPrimArray<unsigned int>::reallocElts(result + 408, 1, 1);
+    result = DgnPrimArray<unsigned int>::reallocElts((result + 51), 1, 1);
     v8 = *(v5 + 416);
   }
 
@@ -4128,61 +4129,121 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3657, &v315);
-  if (v316)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3657);
+  if (v177)
   {
-    v16 = v315;
+    v13 = v176;
   }
 
   else
   {
-    v16 = &unk_26288CFB0;
+    v13 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26288CFB0, a3, &unk_26288CFB0, v16);
-  DgnString::~DgnString(&v315);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26288CFB0, a3, &unk_26288CFB0, v13);
+  DgnString::~DgnString(&v176);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26288CFB0);
-  v314 = 0;
-  v315 = 0;
-  v21 = (a3 + 1);
-  v313 = 0;
-  LanguageModel::printSize(this, 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-  *a4 += v315;
-  *a5 += v314;
-  *a6 += v313;
-  v22 = *(this + 5);
-  if (v22)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26288CFB0);
+  v175 = 0;
+  v176 = 0;
+  v15 = (a3 + 1);
+  v174 = 0;
+  LanguageModel::printSize(this, 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+  *a4 += v176;
+  *a5 += v175;
+  *a6 += v174;
+  v16 = *(this + 5);
+  if (v16)
   {
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    (*(*v22 + 16))(v22, 0xFFFFFFFFLL, (a3 + 1), &v315, &v314, &v313);
-    *a4 += v315;
-    *a5 += v314;
-    *a6 += v313;
+    v175 = 0;
+    v176 = 0;
+    v174 = 0;
+    (*(*v16 + 16))(v16, 0xFFFFFFFFLL, (a3 + 1), &v176, &v175, &v174);
+    *a4 += v176;
+    *a5 += v175;
+    *a6 += v174;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v23 = 4;
+    v17 = 4;
   }
 
   else
   {
-    v23 = 8;
+    v17 = 8;
   }
 
-  v312 = a3;
-  v24 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3663, &v315);
-  if (v316)
+  v173 = a3;
+  v18 = (34 - a3);
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3663);
+  if (v177)
   {
-    v29 = v315;
+    v20 = v176;
+  }
+
+  else
+  {
+    v20 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, v15, &unk_26288CFB0, v18, v18, v20, v17, v17, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v17;
+  *a5 += v17;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v21 = 12;
+  }
+
+  else
+  {
+    v21 = 16;
+  }
+
+  v22 = *(this + 14);
+  v23 = *(this + 15);
+  if (v23 >= v22)
+  {
+    v24 = 0;
+    if (v22 > 0)
+    {
+      v21 += 8 * (v22 - 1) + 8;
+    }
+
+    v25 = v21 + 8 * (v23 - v22);
+  }
+
+  else
+  {
+    v24 = 8 * v22;
+    v25 = v21;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3665);
+  if (v177)
+  {
+    v27 = v176;
+  }
+
+  else
+  {
+    v27 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, v15, &unk_26288CFB0, v18, v18, v27, v25, v21, v24);
+  DgnString::~DgnString(&v176);
+  *a4 += v25;
+  *a5 += v21;
+  *a6 += v24;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3666);
+  if (v177)
+  {
+    v29 = v176;
   }
 
   else
@@ -4190,43 +4251,74 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v29 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v26, v27, v28, v21, &unk_26288CFB0, v24, v24, v29, v23, v23, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v23;
-  *a5 += v23;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v15, &unk_26288CFB0, v18, v18, v29, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3668);
+  if (v177)
   {
-    v30 = 12;
+    v31 = v176;
   }
 
   else
   {
-    v30 = 16;
+    v31 = &unk_26288CFB0;
   }
 
-  v31 = *(this + 14);
-  v32 = *(this + 15);
-  if (v32 >= v31)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v15, &unk_26288CFB0, v18, v18, v31, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3670);
+  if (v177)
   {
-    v33 = 0;
-    if (v31 > 0)
-    {
-      v30 += 8 * (v31 - 1) + 8;
-    }
-
-    v34 = v30 + 8 * (v32 - v31);
+    v33 = v176;
   }
 
   else
   {
-    v33 = 8 * v31;
-    v34 = v30;
+    v33 = &unk_26288CFB0;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3665, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v15, &unk_26288CFB0, v18, v18, v33, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3671);
+  if (v177)
   {
-    v39 = v315;
+    v35 = v176;
+  }
+
+  else
+  {
+    v35 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v15, &unk_26288CFB0, v18, v18, v35, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3672);
+  if (v177)
+  {
+    v37 = v176;
+  }
+
+  else
+  {
+    v37 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v15, &unk_26288CFB0, v18, v18, v37, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3674);
+  if (v177)
+  {
+    v39 = v176;
   }
 
   else
@@ -4234,120 +4326,266 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v39 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v36, v37, v38, v21, &unk_26288CFB0, v24, v24, v39, v34, v30, v33);
-  DgnString::~DgnString(&v315);
-  *a4 += v34;
-  *a5 += v30;
-  *a6 += v33;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3666, &v315);
-  if (v316)
-  {
-    v44 = v315;
-  }
-
-  else
-  {
-    v44 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v41, v42, v43, v21, &unk_26288CFB0, v24, v24, v44, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3668, &v315);
-  if (v316)
-  {
-    v49 = v315;
-  }
-
-  else
-  {
-    v49 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v45, v46, v47, v48, v21, &unk_26288CFB0, v24, v24, v49, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3670, &v315);
-  if (v316)
-  {
-    v54 = v315;
-  }
-
-  else
-  {
-    v54 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v50, v51, v52, v53, v21, &unk_26288CFB0, v24, v24, v54, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3671, &v315);
-  if (v316)
-  {
-    v59 = v315;
-  }
-
-  else
-  {
-    v59 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v56, v57, v58, v21, &unk_26288CFB0, v24, v24, v59, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3672, &v315);
-  if (v316)
-  {
-    v64 = v315;
-  }
-
-  else
-  {
-    v64 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, v21, &unk_26288CFB0, v24, v24, v64, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3674, &v315);
-  if (v316)
-  {
-    v69 = v315;
-  }
-
-  else
-  {
-    v69 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v66, v67, v68, v21, &unk_26288CFB0, v24, v24, v69, 1, 1, 0);
-  DgnString::~DgnString(&v315);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v15, &unk_26288CFB0, v18, v18, v39, 1, 1, 0);
+  DgnString::~DgnString(&v176);
   ++*a4;
   ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3676, &v315);
-  if (v316)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3676);
+  if (v177)
   {
-    v74 = v315;
+    v41 = v176;
   }
 
   else
   {
-    v74 = &unk_26288CFB0;
+    v41 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, v21, &unk_26288CFB0, v24, v24, v74, 4, 4, 0);
-  DgnString::~DgnString(&v315);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v15, &unk_26288CFB0, v18, v18, v41, 4, 4, 0);
+  DgnString::~DgnString(&v176);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3678, &v315);
-  if (v316)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3678);
+  if (v177)
   {
-    v79 = v315;
+    v43 = v176;
+  }
+
+  else
+  {
+    v43 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v15, &unk_26288CFB0, v18, v18, v43, 1, 1, 0);
+  DgnString::~DgnString(&v176);
+  ++*a4;
+  ++*a5;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v44 = 12;
+  }
+
+  else
+  {
+    v44 = 16;
+  }
+
+  v45 = *(this + 32);
+  v46 = *(this + 33);
+  if (v46 >= v45)
+  {
+    v47 = 0;
+    if (v45 > 0)
+    {
+      v44 += 4 * (v45 - 1) + 4;
+    }
+
+    v48 = v44 + 4 * (v46 - v45);
+  }
+
+  else
+  {
+    v47 = 4 * v45;
+    v48 = v44;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3681);
+  if (v177)
+  {
+    v50 = v176;
+  }
+
+  else
+  {
+    v50 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v49, v15, &unk_26288CFB0, v18, v18, v50, v48, v44, v47);
+  DgnString::~DgnString(&v176);
+  *a4 += v48;
+  *a5 += v44;
+  *a6 += v47;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v51 = 12;
+  }
+
+  else
+  {
+    v51 = 16;
+  }
+
+  v52 = *(this + 36);
+  v53 = *(this + 37);
+  if (v53 >= v52)
+  {
+    v54 = 0;
+    if (v52 > 0)
+    {
+      v51 += 2 * (v52 - 1) + 2;
+    }
+
+    v55 = v51 + 2 * (v53 - v52);
+  }
+
+  else
+  {
+    v54 = 2 * v52;
+    v55 = v51;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3683);
+  if (v177)
+  {
+    v57 = v176;
+  }
+
+  else
+  {
+    v57 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v15, &unk_26288CFB0, v18, v18, v57, v55, v51, v54);
+  DgnString::~DgnString(&v176);
+  *a4 += v55;
+  *a5 += v51;
+  *a6 += v54;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v58 = 12;
+  }
+
+  else
+  {
+    v58 = 16;
+  }
+
+  v59 = *(this + 40);
+  v60 = *(this + 41);
+  v61 = v60 >= v59;
+  v62 = v60 - v59;
+  if (v61)
+  {
+    if (v59 > 0)
+    {
+      v63 = (v59 - 1) + v58 + 1;
+    }
+
+    else
+    {
+      v63 = v58;
+    }
+
+    v58 = v63 + v62;
+    v59 = 0;
+  }
+
+  else
+  {
+    v63 = v58;
+  }
+
+  v64 = v59;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3685);
+  if (v177)
+  {
+    v66 = v176;
+  }
+
+  else
+  {
+    v66 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v15, &unk_26288CFB0, v18, v18, v66, v58, v63, v64);
+  DgnString::~DgnString(&v176);
+  *a4 += v58;
+  *a5 += v63;
+  *a6 += v64;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v67 = 12;
+  }
+
+  else
+  {
+    v67 = 16;
+  }
+
+  v68 = *(this + 44);
+  v69 = *(this + 45);
+  if (v69 >= v68)
+  {
+    v70 = 0;
+    if (v68 > 0)
+    {
+      v67 += 2 * (v68 - 1) + 2;
+    }
+
+    v71 = v67 + 2 * (v69 - v68);
+  }
+
+  else
+  {
+    v70 = 2 * v68;
+    v71 = v67;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3688);
+  if (v177)
+  {
+    v73 = v176;
+  }
+
+  else
+  {
+    v73 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v15, &unk_26288CFB0, v18, v18, v73, v71, v67, v70);
+  DgnString::~DgnString(&v176);
+  *a4 += v71;
+  *a5 += v67;
+  *a6 += v70;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v74 = 4;
+  }
+
+  else
+  {
+    v74 = 8;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3690);
+  if (v177)
+  {
+    v76 = v176;
+  }
+
+  else
+  {
+    v76 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v75, v15, &unk_26288CFB0, v18, v18, v76, v74, v74, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v74;
+  *a5 += v74;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v77 = 4;
+  }
+
+  else
+  {
+    v77 = 8;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3692);
+  if (v177)
+  {
+    v79 = v176;
   }
 
   else
@@ -4355,43 +4593,54 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v79 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v75, v76, v77, v78, v21, &unk_26288CFB0, v24, v24, v79, 1, 1, 0);
-  DgnString::~DgnString(&v315);
-  ++*a4;
-  ++*a5;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v15, &unk_26288CFB0, v18, v18, v79, v77, v77, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v77;
+  *a5 += v77;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v80 = 12;
+    v80 = 4;
   }
 
   else
   {
-    v80 = 16;
+    v80 = 8;
   }
 
-  v81 = *(this + 32);
-  v82 = *(this + 33);
-  if (v82 >= v81)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3694);
+  if (v177)
   {
-    v83 = 0;
-    if (v81 > 0)
-    {
-      v80 += 4 * (v81 - 1) + 4;
-    }
-
-    v84 = v80 + 4 * (v82 - v81);
+    v82 = v176;
   }
 
   else
   {
-    v83 = 4 * v81;
-    v84 = v80;
+    v82 = &unk_26288CFB0;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3681, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v81, v15, &unk_26288CFB0, v18, v18, v82, v80, v80, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v80;
+  *a5 += v80;
+  v83 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v89 = v315;
+    v83 = 12;
+  }
+
+  v84 = 2;
+  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
+  {
+    v84 = 3;
+  }
+
+  v85 = *(this + 54);
+  v86 = (((*(this + 55) - v85) + v85) << v84) + v83;
+  v87 = (v85 << v84) + v83;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3696);
+  if (v177)
+  {
+    v89 = v176;
   }
 
   else
@@ -4399,44 +4648,88 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v89 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v85, v86, v87, v88, v21, &unk_26288CFB0, v24, v24, v89, v84, v80, v83);
-  DgnString::~DgnString(&v315);
-  *a4 += v84;
-  *a5 += v80;
-  *a6 += v83;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v15, &unk_26288CFB0, v18, v18, v89, v86, v87, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v86;
+  *a5 += v87;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3700);
+  if (v177)
+  {
+    v91 = v176;
+  }
+
+  else
+  {
+    v91 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v15, &unk_26288CFB0, v18, v18, v91, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  v92 = *(this + 28);
+  if (v92)
+  {
+    v175 = 0;
+    v176 = 0;
+    v174 = 0;
+    (*(*v92 + 16))(v92, 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+    *a4 += v176;
+    *a5 += v175;
+    *a6 += v174;
+  }
+
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v90 = 12;
+    v93 = 4;
   }
 
   else
   {
-    v90 = 16;
+    v93 = 8;
   }
 
-  v91 = *(this + 36);
-  v92 = *(this + 37);
-  if (v92 >= v91)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3704);
+  if (v177)
   {
-    v93 = 0;
-    if (v91 > 0)
-    {
-      v90 += 2 * (v91 - 1) + 2;
-    }
-
-    v94 = v90 + 2 * (v92 - v91);
+    v95 = v176;
   }
 
   else
   {
-    v93 = 2 * v91;
-    v94 = v90;
+    v95 = &unk_26288CFB0;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3683, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v94, v15, &unk_26288CFB0, v18, v18, v95, v93, v93, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v93;
+  *a5 += v93;
+  v96 = *(this + 29);
+  if (v96)
   {
-    v99 = v315;
+    v175 = 0;
+    v176 = 0;
+    v174 = 0;
+    (*(*v96 + 16))(v96, 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+    *a4 += v176;
+    *a5 += v175;
+    *a6 += v174;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v97 = 4;
+  }
+
+  else
+  {
+    v97 = 8;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3706);
+  if (v177)
+  {
+    v99 = v176;
   }
 
   else
@@ -4444,51 +4737,89 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v99 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v96, v97, v98, v21, &unk_26288CFB0, v24, v24, v99, v94, v90, v93);
-  DgnString::~DgnString(&v315);
-  *a4 += v94;
-  *a5 += v90;
-  *a6 += v93;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v98, v15, &unk_26288CFB0, v18, v18, v99, v97, v97, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v97;
+  *a5 += v97;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3708);
+  if (v177)
   {
-    v100 = 12;
+    v101 = v176;
   }
 
   else
   {
-    v100 = 16;
+    v101 = &unk_26288CFB0;
   }
 
-  v101 = *(this + 40);
-  v102 = *(this + 41);
-  v103 = v102 >= v101;
-  v104 = v102 - v101;
-  if (v103)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v15, &unk_26288CFB0, v18, v18, v101, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3710);
+  if (v177)
   {
-    if (v101 > 0)
-    {
-      v105 = (v101 - 1) + v100 + 1;
-    }
-
-    else
-    {
-      v105 = v100;
-    }
-
-    v100 = v105 + v104;
-    v101 = 0;
+    v103 = v176;
   }
 
   else
   {
-    v105 = v100;
+    v103 = &unk_26288CFB0;
   }
 
-  v106 = v101;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3685, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v102, v15, &unk_26288CFB0, v18, v18, v103, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3712);
+  if (v177)
   {
-    v111 = v315;
+    v105 = v176;
+  }
+
+  else
+  {
+    v105 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v104, v15, &unk_26288CFB0, v18, v18, v105, 1, 1, 0);
+  DgnString::~DgnString(&v176);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3714);
+  if (v177)
+  {
+    v107 = v176;
+  }
+
+  else
+  {
+    v107 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v15, &unk_26288CFB0, v18, v18, v107, 1, 1, 0);
+  DgnString::~DgnString(&v176);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3717);
+  if (v177)
+  {
+    v109 = v176;
+  }
+
+  else
+  {
+    v109 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v108, v15, &unk_26288CFB0, v18, v18, v109, 8, 8, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3719);
+  if (v177)
+  {
+    v111 = v176;
   }
 
   else
@@ -4496,44 +4827,74 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v111 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v108, v109, v110, v21, &unk_26288CFB0, v24, v24, v111, v100, v105, v106);
-  DgnString::~DgnString(&v315);
-  *a4 += v100;
-  *a5 += v105;
-  *a6 += v106;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v110, v15, &unk_26288CFB0, v18, v18, v111, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3721);
+  if (v177)
   {
-    v112 = 12;
+    v113 = v176;
   }
 
   else
   {
-    v112 = 16;
+    v113 = &unk_26288CFB0;
   }
 
-  v113 = *(this + 44);
-  v114 = *(this + 45);
-  if (v114 >= v113)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v112, v15, &unk_26288CFB0, v18, v18, v113, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3722);
+  if (v177)
   {
-    v115 = 0;
-    if (v113 > 0)
-    {
-      v112 += 2 * (v113 - 1) + 2;
-    }
-
-    v116 = v112 + 2 * (v114 - v113);
+    v115 = v176;
   }
 
   else
   {
-    v115 = 2 * v113;
-    v116 = v112;
+    v115 = &unk_26288CFB0;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3688, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v114, v15, &unk_26288CFB0, v18, v18, v115, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3723);
+  if (v177)
   {
-    v121 = v315;
+    v117 = v176;
+  }
+
+  else
+  {
+    v117 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v116, v15, &unk_26288CFB0, v18, v18, v117, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3725);
+  if (v177)
+  {
+    v119 = v176;
+  }
+
+  else
+  {
+    v119 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v118, v15, &unk_26288CFB0, v18, v18, v119, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3727);
+  if (v177)
+  {
+    v121 = v176;
   }
 
   else
@@ -4541,157 +4902,268 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v121 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v118, v119, v120, v21, &unk_26288CFB0, v24, v24, v121, v116, v112, v115);
-  DgnString::~DgnString(&v315);
-  *a4 += v116;
-  *a5 += v112;
-  *a6 += v115;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v120, v15, &unk_26288CFB0, v18, v18, v121, 1, 1, 0);
+  DgnString::~DgnString(&v176);
+  ++*a4;
+  ++*a5;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v122 = 4;
+    v122 = 12;
   }
 
   else
   {
-    v122 = 8;
+    v122 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3690, &v315);
-  if (v316)
+  v123 = *(this + 72);
+  v124 = *(this + 73);
+  if (v124 >= v123)
   {
-    v127 = v315;
+    v125 = 0;
+    if (v123 > 0)
+    {
+      v122 += 4 * (v123 - 1) + 4;
+    }
+
+    v126 = v122 + 4 * (v124 - v123);
   }
 
   else
   {
-    v127 = &unk_26288CFB0;
+    v125 = 4 * v123;
+    v126 = v122;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v123, v124, v125, v126, v21, &unk_26288CFB0, v24, v24, v127, v122, v122, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v122;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3729);
+  if (v177)
+  {
+    v128 = v176;
+  }
+
+  else
+  {
+    v128 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v127, v15, &unk_26288CFB0, v18, v18, v128, v126, v122, v125);
+  DgnString::~DgnString(&v176);
+  *a4 += v126;
   *a5 += v122;
+  *a6 += v125;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v128 = 4;
+    v129 = 12;
   }
 
   else
   {
-    v128 = 8;
+    v129 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3692, &v315);
-  if (v316)
+  v130 = *(this + 76);
+  v131 = *(this + 77);
+  if (v131 >= v130)
   {
-    v133 = v315;
+    v132 = 0;
+    if (v130 > 0)
+    {
+      v129 += 2 * (v130 - 1) + 2;
+    }
+
+    v133 = v129 + 2 * (v131 - v130);
   }
 
   else
   {
-    v133 = &unk_26288CFB0;
+    v132 = 2 * v130;
+    v133 = v129;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v129, v130, v131, v132, v21, &unk_26288CFB0, v24, v24, v133, v128, v128, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v128;
-  *a5 += v128;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3731);
+  if (v177)
+  {
+    v135 = v176;
+  }
+
+  else
+  {
+    v135 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v134, v15, &unk_26288CFB0, v18, v18, v135, v133, v129, v132);
+  DgnString::~DgnString(&v176);
+  *a4 += v133;
+  *a5 += v129;
+  *a6 += v132;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v134 = 4;
+    v136 = 12;
   }
 
   else
   {
-    v134 = 8;
+    v136 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3694, &v315);
-  if (v316)
+  v137 = *(this + 80);
+  v138 = *(this + 81);
+  v61 = v138 >= v137;
+  v139 = v138 - v137;
+  if (v61)
   {
-    v139 = v315;
+    if (v137 > 0)
+    {
+      v140 = (v137 - 1) + v136 + 1;
+    }
+
+    else
+    {
+      v140 = v136;
+    }
+
+    v136 = v140 + v139;
+    v137 = 0;
   }
 
   else
   {
-    v139 = &unk_26288CFB0;
+    v140 = v136;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v136, v137, v138, v21, &unk_26288CFB0, v24, v24, v139, v134, v134, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v134;
-  *a5 += v134;
-  v140 = 16;
+  v141 = v137;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3733);
+  if (v177)
+  {
+    v143 = v176;
+  }
+
+  else
+  {
+    v143 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v142, v15, &unk_26288CFB0, v18, v18, v143, v136, v140, v141);
+  DgnString::~DgnString(&v176);
+  *a4 += v136;
+  *a5 += v140;
+  *a6 += v141;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v140 = 12;
-  }
-
-  v141 = 2;
-  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
-  {
-    v141 = 3;
-  }
-
-  v142 = *(this + 54);
-  v143 = (((*(this + 55) - v142) + v142) << v141) + v140;
-  v144 = (v142 << v141) + v140;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3696, &v315);
-  if (v316)
-  {
-    v149 = v315;
+    v144 = 12;
   }
 
   else
   {
-    v149 = &unk_26288CFB0;
+    v144 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v145, v146, v147, v148, v21, &unk_26288CFB0, v24, v24, v149, v143, v144, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v143;
+  v145 = *(this + 84);
+  v146 = *(this + 85);
+  if (v146 >= v145)
+  {
+    v147 = 0;
+    if (v145 > 0)
+    {
+      v144 += 2 * (v145 - 1) + 2;
+    }
+
+    v148 = v144 + 2 * (v146 - v145);
+  }
+
+  else
+  {
+    v147 = 2 * v145;
+    v148 = v144;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3735);
+  if (v177)
+  {
+    v150 = v176;
+  }
+
+  else
+  {
+    v150 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v149, v15, &unk_26288CFB0, v18, v18, v150, v148, v144, v147);
+  DgnString::~DgnString(&v176);
+  *a4 += v148;
   *a5 += v144;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3700, &v315);
-  if (v316)
+  *a6 += v147;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v154 = v315;
+    v151 = 12;
   }
 
   else
   {
-    v154 = &unk_26288CFB0;
+    v151 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v150, v151, v152, v153, v21, &unk_26288CFB0, v24, v24, v154, 4, 4, 0);
-  DgnString::~DgnString(&v315);
+  v152 = *(this + 88);
+  v153 = *(this + 89);
+  if (v153 >= v152)
+  {
+    v154 = 0;
+    if (v152 > 0)
+    {
+      v151 += 2 * (v152 - 1) + 2;
+    }
+
+    v155 = v151 + 2 * (v153 - v152);
+  }
+
+  else
+  {
+    v154 = 2 * v152;
+    v155 = v151;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3737);
+  if (v177)
+  {
+    v157 = v176;
+  }
+
+  else
+  {
+    v157 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v156, v15, &unk_26288CFB0, v18, v18, v157, v155, v151, v154);
+  DgnString::~DgnString(&v176);
+  *a4 += v155;
+  *a5 += v151;
+  *a6 += v154;
+  v175 = 0;
+  v176 = 0;
+  v174 = 0;
+  BigramData::printSize((this + 360), 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+  *a4 += v176;
+  *a5 += v175;
+  *a6 += v174;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3741);
+  if (v177)
+  {
+    v159 = v176;
+  }
+
+  else
+  {
+    v159 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v158, v15, &unk_26288CFB0, v18, v18, v159, 4, 4, 0);
+  DgnString::~DgnString(&v176);
   *a4 += 4;
   *a5 += 4;
-  v155 = *(this + 28);
-  if (v155)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3743);
+  if (v177)
   {
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    (*(*v155 + 16))(v155, 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-    *a4 += v315;
-    *a5 += v314;
-    *a6 += v313;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v156 = 4;
-  }
-
-  else
-  {
-    v156 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3704, &v315);
-  if (v316)
-  {
-    v161 = v315;
+    v161 = v176;
   }
 
   else
@@ -4699,36 +5171,68 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v161 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v157, v158, v159, v160, v21, &unk_26288CFB0, v24, v24, v161, v156, v156, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v156;
-  *a5 += v156;
-  v162 = *(this + 29);
-  if (v162)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v160, v15, &unk_26288CFB0, v18, v18, v161, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  v175 = 0;
+  v176 = 0;
+  v174 = 0;
+  TrigramData::printSize((this + 744), 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+  *a4 += v176;
+  *a5 += v175;
+  *a6 += v174;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3748);
+  if (v177)
   {
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    (*(*v162 + 16))(v162, 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-    *a4 += v315;
-    *a5 += v314;
-    *a6 += v313;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v163 = 4;
+    v163 = v176;
   }
 
   else
   {
-    v163 = 8;
+    v163 = &unk_26288CFB0;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3706, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v162, v15, &unk_26288CFB0, v18, v18, v163, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3750);
+  if (v177)
   {
-    v168 = v315;
+    v165 = v176;
+  }
+
+  else
+  {
+    v165 = &unk_26288CFB0;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v164, v15, &unk_26288CFB0, v18, v18, v165, 4, 4, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += 4;
+  *a5 += 4;
+  v175 = 0;
+  v176 = 0;
+  v174 = 0;
+  QuadgramData::printSize((this + 1232), 0xFFFFFFFFLL, v15, &v176, &v175, &v174);
+  *a4 += v176;
+  *a5 += v175;
+  *a6 += v174;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v166 = 4;
+  }
+
+  else
+  {
+    v166 = 8;
+  }
+
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3756);
+  if (v177)
+  {
+    v168 = v176;
   }
 
   else
@@ -4736,547 +5240,43 @@ void WordLanguageModel::printSize(WordLanguageModel *this, uint64_t a2, uint64_t
     v168 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v164, v165, v166, v167, v21, &unk_26288CFB0, v24, v24, v168, v163, v163, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v163;
-  *a5 += v163;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3708, &v315);
-  if (v316)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v167, v15, &unk_26288CFB0, v18, v18, v168, v166, v166, 0);
+  DgnString::~DgnString(&v176);
+  *a4 += v166;
+  *a5 += v166;
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3760);
+  if (v177)
   {
-    v173 = v315;
+    v170 = v176;
   }
 
   else
   {
-    v173 = &unk_26288CFB0;
+    v170 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v169, v170, v171, v172, v21, &unk_26288CFB0, v24, v24, v173, 4, 4, 0);
-  DgnString::~DgnString(&v315);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v169, v15, &unk_26288CFB0, v18, v18, v170, 4, 4, 0);
+  DgnString::~DgnString(&v176);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3710, &v315);
-  if (v316)
+  getShipObjectSizeDescription(&v176, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3761);
+  if (v177)
   {
-    v178 = v315;
+    v172 = v176;
   }
 
   else
   {
-    v178 = &unk_26288CFB0;
+    v172 = &unk_26288CFB0;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v174, v175, v176, v177, v21, &unk_26288CFB0, v24, v24, v178, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3712, &v315);
-  if (v316)
-  {
-    v183 = v315;
-  }
-
-  else
-  {
-    v183 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v179, v180, v181, v182, v21, &unk_26288CFB0, v24, v24, v183, 1, 1, 0);
-  DgnString::~DgnString(&v315);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3714, &v315);
-  if (v316)
-  {
-    v188 = v315;
-  }
-
-  else
-  {
-    v188 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v184, v185, v186, v187, v21, &unk_26288CFB0, v24, v24, v188, 1, 1, 0);
-  DgnString::~DgnString(&v315);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3717, &v315);
-  if (v316)
-  {
-    v193 = v315;
-  }
-
-  else
-  {
-    v193 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v189, v190, v191, v192, v21, &unk_26288CFB0, v24, v24, v193, 8, 8, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3719, &v315);
-  if (v316)
-  {
-    v198 = v315;
-  }
-
-  else
-  {
-    v198 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v194, v195, v196, v197, v21, &unk_26288CFB0, v24, v24, v198, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3721, &v315);
-  if (v316)
-  {
-    v203 = v315;
-  }
-
-  else
-  {
-    v203 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v199, v200, v201, v202, v21, &unk_26288CFB0, v24, v24, v203, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3722, &v315);
-  if (v316)
-  {
-    v208 = v315;
-  }
-
-  else
-  {
-    v208 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v204, v205, v206, v207, v21, &unk_26288CFB0, v24, v24, v208, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3723, &v315);
-  if (v316)
-  {
-    v213 = v315;
-  }
-
-  else
-  {
-    v213 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v209, v210, v211, v212, v21, &unk_26288CFB0, v24, v24, v213, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3725, &v315);
-  if (v316)
-  {
-    v218 = v315;
-  }
-
-  else
-  {
-    v218 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v214, v215, v216, v217, v21, &unk_26288CFB0, v24, v24, v218, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3727, &v315);
-  if (v316)
-  {
-    v223 = v315;
-  }
-
-  else
-  {
-    v223 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v219, v220, v221, v222, v21, &unk_26288CFB0, v24, v24, v223, 1, 1, 0);
-  DgnString::~DgnString(&v315);
-  ++*a4;
-  ++*a5;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v224 = 12;
-  }
-
-  else
-  {
-    v224 = 16;
-  }
-
-  v225 = *(this + 72);
-  v226 = *(this + 73);
-  if (v226 >= v225)
-  {
-    v227 = 0;
-    if (v225 > 0)
-    {
-      v224 += 4 * (v225 - 1) + 4;
-    }
-
-    v228 = v224 + 4 * (v226 - v225);
-  }
-
-  else
-  {
-    v227 = 4 * v225;
-    v228 = v224;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3729, &v315);
-  if (v316)
-  {
-    v233 = v315;
-  }
-
-  else
-  {
-    v233 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v229, v230, v231, v232, v21, &unk_26288CFB0, v24, v24, v233, v228, v224, v227);
-  DgnString::~DgnString(&v315);
-  *a4 += v228;
-  *a5 += v224;
-  *a6 += v227;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v234 = 12;
-  }
-
-  else
-  {
-    v234 = 16;
-  }
-
-  v235 = *(this + 76);
-  v236 = *(this + 77);
-  if (v236 >= v235)
-  {
-    v237 = 0;
-    if (v235 > 0)
-    {
-      v234 += 2 * (v235 - 1) + 2;
-    }
-
-    v238 = v234 + 2 * (v236 - v235);
-  }
-
-  else
-  {
-    v237 = 2 * v235;
-    v238 = v234;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3731, &v315);
-  if (v316)
-  {
-    v243 = v315;
-  }
-
-  else
-  {
-    v243 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v239, v240, v241, v242, v21, &unk_26288CFB0, v24, v24, v243, v238, v234, v237);
-  DgnString::~DgnString(&v315);
-  *a4 += v238;
-  *a5 += v234;
-  *a6 += v237;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v244 = 12;
-  }
-
-  else
-  {
-    v244 = 16;
-  }
-
-  v245 = *(this + 80);
-  v246 = *(this + 81);
-  v103 = v246 >= v245;
-  v247 = v246 - v245;
-  if (v103)
-  {
-    if (v245 > 0)
-    {
-      v248 = (v245 - 1) + v244 + 1;
-    }
-
-    else
-    {
-      v248 = v244;
-    }
-
-    v244 = v248 + v247;
-    v245 = 0;
-  }
-
-  else
-  {
-    v248 = v244;
-  }
-
-  v249 = v245;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3733, &v315);
-  if (v316)
-  {
-    v254 = v315;
-  }
-
-  else
-  {
-    v254 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v250, v251, v252, v253, v21, &unk_26288CFB0, v24, v24, v254, v244, v248, v249);
-  DgnString::~DgnString(&v315);
-  *a4 += v244;
-  *a5 += v248;
-  *a6 += v249;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v255 = 12;
-  }
-
-  else
-  {
-    v255 = 16;
-  }
-
-  v256 = *(this + 84);
-  v257 = *(this + 85);
-  if (v257 >= v256)
-  {
-    v258 = 0;
-    if (v256 > 0)
-    {
-      v255 += 2 * (v256 - 1) + 2;
-    }
-
-    v259 = v255 + 2 * (v257 - v256);
-  }
-
-  else
-  {
-    v258 = 2 * v256;
-    v259 = v255;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3735, &v315);
-  if (v316)
-  {
-    v264 = v315;
-  }
-
-  else
-  {
-    v264 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v260, v261, v262, v263, v21, &unk_26288CFB0, v24, v24, v264, v259, v255, v258);
-  DgnString::~DgnString(&v315);
-  *a4 += v259;
-  *a5 += v255;
-  *a6 += v258;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v265 = 12;
-  }
-
-  else
-  {
-    v265 = 16;
-  }
-
-  v266 = *(this + 88);
-  v267 = *(this + 89);
-  if (v267 >= v266)
-  {
-    v268 = 0;
-    if (v266 > 0)
-    {
-      v265 += 2 * (v266 - 1) + 2;
-    }
-
-    v269 = v265 + 2 * (v267 - v266);
-  }
-
-  else
-  {
-    v268 = 2 * v266;
-    v269 = v265;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3737, &v315);
-  if (v316)
-  {
-    v274 = v315;
-  }
-
-  else
-  {
-    v274 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v270, v271, v272, v273, v21, &unk_26288CFB0, v24, v24, v274, v269, v265, v268);
-  DgnString::~DgnString(&v315);
-  *a4 += v269;
-  *a5 += v265;
-  *a6 += v268;
-  v314 = 0;
-  v315 = 0;
-  v313 = 0;
-  BigramData::printSize((this + 360), 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-  *a4 += v315;
-  *a5 += v314;
-  *a6 += v313;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3741, &v315);
-  if (v316)
-  {
-    v279 = v315;
-  }
-
-  else
-  {
-    v279 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v275, v276, v277, v278, v21, &unk_26288CFB0, v24, v24, v279, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3743, &v315);
-  if (v316)
-  {
-    v284 = v315;
-  }
-
-  else
-  {
-    v284 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v280, v281, v282, v283, v21, &unk_26288CFB0, v24, v24, v284, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  v314 = 0;
-  v315 = 0;
-  v313 = 0;
-  TrigramData::printSize((this + 744), 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-  *a4 += v315;
-  *a5 += v314;
-  *a6 += v313;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3748, &v315);
-  if (v316)
-  {
-    v289 = v315;
-  }
-
-  else
-  {
-    v289 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v285, v286, v287, v288, v21, &unk_26288CFB0, v24, v24, v289, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3750, &v315);
-  if (v316)
-  {
-    v294 = v315;
-  }
-
-  else
-  {
-    v294 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v290, v291, v292, v293, v21, &unk_26288CFB0, v24, v24, v294, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  v314 = 0;
-  v315 = 0;
-  v313 = 0;
-  QuadgramData::printSize((this + 1232), 0xFFFFFFFFLL, v21, &v315, &v314, &v313);
-  *a4 += v315;
-  *a5 += v314;
-  *a6 += v313;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v295 = 4;
-  }
-
-  else
-  {
-    v295 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3756, &v315);
-  if (v316)
-  {
-    v300 = v315;
-  }
-
-  else
-  {
-    v300 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v296, v297, v298, v299, v21, &unk_26288CFB0, v24, v24, v300, v295, v295, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += v295;
-  *a5 += v295;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3760, &v315);
-  if (v316)
-  {
-    v305 = v315;
-  }
-
-  else
-  {
-    v305 = &unk_26288CFB0;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v301, v302, v303, v304, v21, &unk_26288CFB0, v24, v24, v305, 4, 4, 0);
-  DgnString::~DgnString(&v315);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3761, &v315);
-  if (v316)
-  {
-    v310 = v315;
-  }
-
-  else
-  {
-    v310 = &unk_26288CFB0;
-  }
-
-  v311 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v306, v307, v308, v309, v312, &unk_26288CFB0, (35 - v312), (35 - v312), v310, *a4, *a5, *a6);
-  DgnString::~DgnString(&v315);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v171, v173, &unk_26288CFB0, (35 - v173), (35 - v173), v172, *a4, *a5, *a6);
+  DgnString::~DgnString(&v176);
 }
 
-void sub_26278F5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26278F5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5305,47 +5305,47 @@ void WordLanguageModel::initializeScoreToProb(WordLanguageModel *this, double a2
   }
 }
 
-unint64_t WordLanguageModel::maybeAddAlienWordLmId(unint64_t this, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t WordLanguageModel::maybeAddAlienWordLmId(uint64_t this, double a2, double a3, uint64_t a4, uint64_t a5)
 {
   if (*(this + 72) == -1)
   {
-    v14 = this;
-    v15 = *(this + 104);
-    if (v15 >= 0xFFFFF1)
+    v9 = this;
+    v10 = *(this + 104);
+    if (v10 >= 0xFFFFF1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3792, "lm/wordlm", 2, "%u", a9, a10, *(this + 104));
-      v15 = *(v14 + 104);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3792, "lm/wordlm", 2, "%u", *(this + 104));
+      v10 = *(v9 + 104);
     }
 
-    WordLanguageModel::allocLmId(v14, v15);
-    this = WordLanguageModel::computeAlienScore(v14, a4, a2, a3);
-    *(*(v14 + 168) + 2 * v15) = this;
-    if (*(v14 + 64) >= 2u)
+    WordLanguageModel::allocLmId(v9, v10);
+    this = WordLanguageModel::computeAlienScore(v9, a4, a2, a3);
+    *(*(v9 + 168) + 2 * v10) = this;
+    if (*(v9 + 64) >= 2u)
     {
-      if (*(v14 + 336))
+      if (*(v9 + 336))
       {
-        this = WordLanguageModel::computeAlienScore(v14, a5, a2, a3);
-        *(*(v14 + 328) + 2 * v15) = this;
+        this = WordLanguageModel::computeAlienScore(v9, a5, a2, a3);
+        *(*(v9 + 328) + 2 * v10) = this;
       }
 
-      *(*(v14 + 344) + 2 * v15) = 0;
+      *(*(v9 + 344) + 2 * v10) = 0;
     }
 
-    *(v14 + 72) = v15;
+    *(v9 + 72) = v10;
   }
 
   return this;
 }
 
-unint64_t WordLanguageModel::allocLmId(unint64_t this, unsigned int a2)
+uint64_t *WordLanguageModel::allocLmId(uint64_t *this, unsigned int a2)
 {
   v3 = this;
-  if (*(this + 104) < a2 + 1)
+  if (*(this + 26) < a2 + 1)
   {
-    *(this + 104) = a2 + 1;
+    *(this + 26) = a2 + 1;
   }
 
-  for (i = *(this + 176); i <= a2; *(v3 + 176) = i)
+  for (i = *(this + 44); i <= a2; *(v3 + 176) = i)
   {
     if (i == *(v3 + 180))
     {
@@ -5425,106 +5425,106 @@ uint64_t WordLanguageModel::computeAlienScore(WordLanguageModel *this, uint64_t 
   return (0.5 - v8 * v9);
 }
 
-void WordLanguageModel::loadLM(WordLanguageModel *this, DFile *a2, DFile *a3, DFileChecksums *a4, DgnSharedMemStream *a5, unsigned int a6, BOOL a7, int a8, unsigned int a9, unsigned int a10, __int16 a11, BOOL *a12, BOOL *a13, double *a14)
+void WordLanguageModel::loadLM(const WordList **this, FileSpec **a2, DFile *a3, DFileChecksums *a4, DgnSharedMemStream *a5, unsigned int a6, BOOL a7, int a8, unsigned int a9, unsigned int a10, __int16 a11, BOOL *a13, BOOL *a14, double *a15)
 {
-  v63 = -1.0;
-  v64[0] = -1.0;
+  v40 = -1.0;
+  v41[0] = -1.0;
   if (DFile::subFileExists(a2, 0x73u))
   {
-    WordLanguageModel::loadWns(this, a2, v64, &v63);
-    if (a14)
+    WordLanguageModel::loadWns(this, a2, v41, &v40);
+    if (a15)
     {
-      *a14 = v63;
+      *a15 = v40;
     }
   }
 
   v20 = DFile::subFileExists(a2, 0x74u);
   v21 = DFile::subFileExists(a2, 0x6Fu);
-  v24 = v21;
+  v22 = v21;
   if (v20)
   {
     if ((v21 & 1) != 0 || DFile::subFileExists(a2, 0x70u))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3858, "lm/wordlm", 16, "%s", v22, v23, &unk_26288CFB0);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3858, "lm/wordlm", 16, "%s", &unk_26288CFB0);
     }
 
     if ((a6 & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3860, "lm/wordlm", 53, "%s", v22, v23, &errStr_lm_wordlm_E_CANT_LOAD_TEXT_LANGUAGE_MODEL);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3860, "lm/wordlm", 53, "%s", &errStr_lm_wordlm_E_CANT_LOAD_TEXT_LANGUAGE_MODEL);
     }
 
-    WordLanguageModel::loadText(this, a2, a8, a9, a10, v64[0], v63);
+    WordLanguageModel::loadText(this, a2, a8, a9, a10, v41[0], v40);
   }
 
   else
   {
-    v34 = DFile::subFileExists(a2, 0x70u);
-    if (v24)
+    v25 = DFile::subFileExists(a2, 0x70u);
+    if (v22)
     {
-      if (v34)
+      if (v25)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3871, "lm/wordlm", 17, "%s", v35, v36, &errStr_lm_wordlm_E_WNB_WITH_OTHER_LM_FILE);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3871, "lm/wordlm", 17, "%s", &errStr_lm_wordlm_E_WNB_WITH_OTHER_LM_FILE);
       }
 
       if (a6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3873, "lm/wordlm", 52, "%s", v35, v36, &errStr_lm_wordlm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3873, "lm/wordlm", 52, "%s", &errStr_lm_wordlm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
       }
 
-      v37 = this;
+      v26 = this;
       if (!a5)
       {
         WordLanguageModel::loadBinary(this, a2, a4, a8, a9, a10);
         goto LABEL_27;
       }
 
-      v38 = a5;
-      v39 = a2;
-      v40 = a4;
-      v41 = 111;
+      v27 = a5;
+      v28 = a2;
+      v29 = a4;
+      v30 = 111;
     }
 
     else
     {
-      if (!v34)
+      if (!v25)
       {
-        errThrowInternal(v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3910, "lm/wordlm", 48, "%s", v35, v36, &errStr_lm_wordlm_E_NO_LM_FILE);
+        v23 = errThrowInternal(v25, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3910, "lm/wordlm", 48, "%s", &errStr_lm_wordlm_E_NO_LM_FILE);
         goto LABEL_27;
       }
 
       if (a6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3890, "lm/wordlm", 52, "%s", v35, v36, &errStr_lm_wordlm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3890, "lm/wordlm", 52, "%s", &errStr_lm_wordlm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
       }
 
       if (!a5)
       {
-        WordLanguageModel::loadDynamic(this, a2, a3, a4, a11, HIBYTE(a11), a12, a13, a8, a9, a10);
+        WordLanguageModel::loadDynamic(this, a2, a3, a4, a11, HIBYTE(a11), a13, a14, a8, a9, a10);
         goto LABEL_27;
       }
 
-      v37 = this;
-      v38 = a5;
-      v39 = a2;
-      v40 = a4;
-      v41 = 112;
+      v26 = this;
+      v27 = a5;
+      v28 = a2;
+      v29 = a4;
+      v30 = 112;
     }
 
-    WordLanguageModel::loadBinaryShared(v37, v38, v39, v40, v41, 1);
+    WordLanguageModel::loadBinaryShared(v26, v27, v28, v29, v30, 1);
   }
 
 LABEL_27:
   if (*(this + 16) >= 2u && *(this + 244) == 1)
   {
-    v62 = 1;
-    DFile::pushCurrentSubDirComponent(a2, &v62, v26, v27, v28, v29, v30, v31);
+    v39 = 1;
+    DFile::pushCurrentSubDirComponent(a2, &v39);
     if (a3)
     {
-      v62 = 1;
-      DFile::pushCurrentSubDirComponent(a3, &v62, v42, v43, v44, v45, v46, v47);
+      v39 = 1;
+      DFile::pushCurrentSubDirComponent(a3, &v39);
     }
 
-    *(this + 29) = LanguageModel::CreateAndLoadLanguageModel(a2, a3, a4, a5, *(this + 24), a6, 0, 1u, *(this + 8), v56, *(this + 2), a8, a9, a10, a11, a12, a13, 0);
+    this[29] = LanguageModel::CreateAndLoadLanguageModel(a2, a3, a4, a5, *(this + 24), a6, 0, 1u, *(this + 8), v37, this[2], a8, a9, a10, a11, a13, a14, 0);
     DFile::popCurrentSubDirComponent(a2);
     if (a3)
     {
@@ -5532,70 +5532,66 @@ LABEL_27:
     }
   }
 
-  v48 = *(this + 26);
-  if (v48 >= 0xFFFF)
+  v31 = *(this + 26);
+  if (v31 >= 0xFFFF)
   {
-    v48 = 0xFFFF;
+    v31 = 0xFFFF;
   }
 
-  *(this + 27) = v48;
+  *(this + 27) = v31;
   if (a6)
   {
-    WordLanguageModel::checkWordListLMAgreement(this, v25, v26, v27, v28, v29, v30, v31);
+    WordLanguageModel::checkWordListLMAgreement(this);
   }
 
-  WordLanguageModel::initializeScoreToProb(this, v32, v33);
-  v51 = *(this + 28);
-  if (v51 != -1)
+  WordLanguageModel::initializeScoreToProb(this, v23, v24);
+  v32 = *(this + 28);
+  if (v32 != -1)
   {
-    v52 = *(*(this + 21) + 2 * v51);
-    if (v52 != 20000 && *(this + 14) <= v52)
+    v33 = *(this[21] + v32);
+    if (v33 != 20000 && *(this + 14) <= v33)
     {
-      v57 = *(*(this + 21) + 2 * v51);
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3968, "lm/wordlm", 59, "%.500s %u %u", v49, v50, "unigram");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3968, "lm/wordlm", 59, "%.500s %u %u", "unigram", *(this[21] + v32), v32);
     }
   }
 
-  v53 = *(this + 29);
-  if (v53 != -1 && *(this + 14) <= *(*(this + 21) + 2 * v53))
+  v34 = *(this + 29);
+  if (v34 != -1 && *(this + 14) <= *(this[21] + v34))
   {
-    v58 = *(*(this + 21) + 2 * v53);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3975, "lm/wordlm", 67, "%.500s %u %u", v49, v50, "unigram");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3975, "lm/wordlm", 67, "%.500s %u %u", "unigram", *(this[21] + v34), v34);
   }
 
-  v54 = *(this + 28);
-  if (v54 != -1 && *(this + 84) && *(this + 14) <= *(*(this + 41) + 2 * v54))
+  v35 = *(this + 28);
+  if (v35 != -1 && *(this + 84) && *(this + 14) <= *(this[41] + v35))
   {
-    v59 = *(*(this + 41) + 2 * v54);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3983, "lm/wordlm", 59, "%.500s %u %u", v49, v50, "unigram backoff");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3983, "lm/wordlm", 59, "%.500s %u %u", "unigram backoff", *(this[41] + v35), v35);
   }
 
-  v55 = *(this + 29);
-  if (v55 != -1 && *(this + 84) && *(this + 14) <= *(*(this + 41) + 2 * v55))
+  v36 = *(this + 29);
+  if (v36 != -1 && *(this + 84) && *(this + 14) <= *(this[41] + v36))
   {
-    v60 = *(*(this + 41) + 2 * v55);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3991, "lm/wordlm", 67, "%.500s %u %u", v49, v50, "unigram backoff");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 3991, "lm/wordlm", 67, "%.500s %u %u", "unigram backoff", *(this[41] + v36), v36);
   }
 }
 
-void WordLanguageModel::loadWns(WordLanguageModel *this, DFile *a2, double *a3, double *a4)
+void WordLanguageModel::loadWns(WordLanguageModel *this, FileSpec **a2, double *a3, double *a4)
 {
-  DgnTextFileParser::DgnTextFileParser(v67);
-  DgnTextFileParser::openDgnTextFileParser(v67, a2, 0x73u, 1);
-  DgnTextFileParser::verifyMatchingFileType(v67, "WordNGramSpec");
-  v66[0] = 0;
-  v66[1] = 0;
-  DgnTextFile::legalDgnTextFileVersions(v67, sWNS_Versions, v66, v8, v9, v10, v11, v12);
-  DgnTextFileParser::verifyFileVersionInRange(v67, v66, v13, v14, v15, v16, v17, v18);
-  v65 = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v67, "Depth", &v65, 1, 1u, 4u);
-  *(this + 16) = v65;
-  FileVersion = DgnTextFile::getFileVersion(v67);
-  v20 = FileVersion;
-  v21 = HIDWORD(FileVersion);
+  DgnTextFileParser::DgnTextFileParser(v29);
+  DgnTextFileParser::openDgnTextFileParser(v29, a2, 115, 1);
+  DgnTextFileParser::verifyMatchingFileType(v29, "WordNGramSpec");
+  v28[0] = 0;
+  v28[1] = 0;
+  DgnTextFile::legalDgnTextFileVersions(v29, sWNS_Versions, v28);
+  DgnTextFileParser::verifyFileVersionInRange(v29, v28);
+  v27 = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v29, "Depth", &v27, 1, 1u, 4u);
+  *(this + 16) = v27;
+  FileVersion = DgnTextFile::getFileVersion(v29);
+  v9 = FileVersion;
+  v10 = HIDWORD(FileVersion);
   if (FileVersion == 19)
   {
-    if (v21 != 12)
+    if (v10 != 12)
     {
       goto LABEL_12;
     }
@@ -5606,199 +5602,199 @@ void WordLanguageModel::loadWns(WordLanguageModel *this, DFile *a2, double *a3, 
     goto LABEL_12;
   }
 
-  DgnTextFile::getHeaderFieldReal(v67, "AlienWordProbability", a3, 1, -1.0, 1.0);
+  DgnTextFile::getHeaderFieldReal(v29, "AlienWordProbability", a3, 1, -1.0, 1.0);
   if (*a3 != -1.0 && *a3 < 0.0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4843, "lm/wordlm", 4, "%.500s", v22, v23, "AlienWordProbability");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4843, "lm/wordlm", 4, "%.500s", "AlienWordProbability");
   }
 
-  DgnTextFile::getHeaderFieldReal(v67, "AlienWordMinimumCount", a4, 1, -1.0, 1.0);
+  DgnTextFile::getHeaderFieldReal(v29, "AlienWordMinimumCount", a4, 1, -1.0, 1.0);
   if (*a4 != -1.0 && *a4 < 0.0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4849, "lm/wordlm", 4, "%.500s", v24, v25, "AlienWordMinimumCount");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4849, "lm/wordlm", 4, "%.500s", "AlienWordMinimumCount");
   }
 
 LABEL_12:
-  v63[0] = 0;
-  DgnTextFile::getHeaderFieldInteger(v67, "AlienWordLmId", v63, 1, -1, 16777200);
-  v28 = v63[0];
-  if (!v63[0])
+  v25[0] = 0;
+  DgnTextFile::getHeaderFieldInteger(v29, "AlienWordLmId", v25, 1, -1, 16777200);
+  v11 = v25[0];
+  if (!v25[0])
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4857, "lm/wordlm", 4, "%.500s", v26, v27, "AlienWordLmId");
-    v28 = v63[0];
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4857, "lm/wordlm", 4, "%.500s", "AlienWordLmId");
+    v11 = v25[0];
   }
 
-  *(this + 18) = v28;
-  if (v20 == 19)
+  *(this + 18) = v11;
+  if (v9 == 19)
   {
-    if (v21 != 12)
+    if (v10 != 12)
     {
       goto LABEL_27;
     }
 
 LABEL_19:
-    v29 = *a3 != -1.0;
+    v12 = *a3 != -1.0;
     if (*a4 != -1.0)
     {
-      ++v29;
+      ++v12;
     }
 
-    if (v28 == -1)
+    if (v11 == -1)
     {
-      v30 = v29;
+      v13 = v12;
     }
 
     else
     {
-      v30 = v29 + 1;
+      v13 = v12 + 1;
     }
 
-    if (v30 != 1)
+    if (v13 != 1)
     {
-      if (v30)
+      if (v13)
       {
-        v31 = &errStr_lm_wordlm_E_WNS_NEW_WORD_BEHAVIOR_SPECIFIED_TWICE;
-        v32 = 13;
-        v33 = 4878;
+        v14 = &errStr_lm_wordlm_E_WNS_NEW_WORD_BEHAVIOR_SPECIFIED_TWICE;
+        v15 = 13;
+        v16 = 4878;
       }
 
       else
       {
-        v31 = &errStr_lm_wordlm_E_WNS_NEW_WORD_BEHAVIOR_NOT_SPECIFIED;
-        v32 = 12;
-        v33 = 4876;
+        v14 = &errStr_lm_wordlm_E_WNS_NEW_WORD_BEHAVIOR_NOT_SPECIFIED;
+        v15 = 12;
+        v16 = 4876;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", v33, "lm/wordlm", v32, "%s", v26, v27, v31);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", v16, "lm/wordlm", v15, "%s", v14);
     }
 
     goto LABEL_31;
   }
 
-  if (v20 == 24 && (v21 - 13) <= 1)
+  if (v9 == 24 && (v10 - 13) <= 1)
   {
     goto LABEL_19;
   }
 
 LABEL_27:
-  if (v28 == -1)
+  if (v11 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4883, "lm/wordlm", 97, "%s", v26, v27, &errStr_lm_wordlm_E_WNS_ALIEN_WORD_LMID_NOT_SPECIFIED);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4883, "lm/wordlm", 97, "%s", &errStr_lm_wordlm_E_WNS_ALIEN_WORD_LMID_NOT_SPECIFIED);
   }
 
 LABEL_31:
-  DgnTextFile::getHeaderFieldBool(v67, "AllowNewWordCloning", this + 80, 1);
-  v64 = 0;
-  DgnTextFile::getHeaderFieldInteger(v67, "IgnoreInContextLmId", &v64, 1, -1, 16777200);
-  v41 = v64;
-  if (!v64)
+  DgnTextFile::getHeaderFieldBool(v29, "AllowNewWordCloning", this + 80, 1);
+  v26 = 0;
+  DgnTextFile::getHeaderFieldInteger(v29, "IgnoreInContextLmId", &v26, 1, -1, 16777200);
+  v17 = v26;
+  if (!v26)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4893, "lm/wordlm", 4, "%.500s", v39, v40, "IgnoreInContextLmId");
-    v41 = v64;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4893, "lm/wordlm", 4, "%.500s", "IgnoreInContextLmId");
+    v17 = v26;
   }
 
-  *(this + 25) = v41;
+  *(this + 25) = v17;
   if (*(this + 16) >= 2u)
   {
-    DgnTextFile::getHeaderFieldInteger(v67, "UnknownContextLmId", &v64, 1, -1, 16777200);
-    v44 = v64;
-    if (!v64)
+    DgnTextFile::getHeaderFieldInteger(v29, "UnknownContextLmId", &v26, 1, -1, 16777200);
+    v18 = v26;
+    if (!v26)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4907, "lm/wordlm", 4, "%.500s", v42, v43, "UnknownContextLmId");
-      v44 = v64;
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4907, "lm/wordlm", 4, "%.500s", "UnknownContextLmId");
+      v18 = v26;
     }
 
-    if (v44 != -1 && *(this + 18) == -1)
+    if (v18 != -1 && *(this + 18) == -1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4915, "lm/wordlm", 14, "%s", v42, v43, &errStr_lm_wordlm_E_UNKNOWNCONTEXTLMID_WITHOUT_ALIENWORDLMID);
-      v44 = v64;
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4915, "lm/wordlm", 14, "%s", &errStr_lm_wordlm_E_UNKNOWNCONTEXTLMID_WITHOUT_ALIENWORDLMID);
+      v18 = v26;
     }
 
-    *(this + 60) = v44;
-    if (v20 == 19 && v21 == 12)
+    *(this + 60) = v18;
+    if (v9 == 19 && v10 == 12)
     {
-      v45 = -1;
+      v19 = -1;
     }
 
     else
     {
-      v64 = 0;
-      DgnTextFile::getHeaderFieldInteger(v67, "AlienWordContextLmId", &v64, 1, -1, 16777200);
-      v45 = v64;
-      if (!v64)
+      v26 = 0;
+      DgnTextFile::getHeaderFieldInteger(v29, "AlienWordContextLmId", &v26, 1, -1, 16777200);
+      v19 = v26;
+      if (!v26)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4932, "lm/wordlm", 4, "%.500s", v46, v47, "AlienWordContextLmId");
-        v45 = v64;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4932, "lm/wordlm", 4, "%.500s", "AlienWordContextLmId");
+        v19 = v26;
       }
     }
 
-    *(this + 19) = v45;
-    DgnString::DgnString(v63);
-    v62 = 0;
-    HeaderField = DgnTextFile::getHeaderField(v67, "BackoffSubDirectory", v63, 0);
-    HeaderFieldUnsigned = DgnTextFile::getHeaderFieldUnsigned(v67, "BackoffAfterDepth", &v62, 0, 2u, 2u);
+    *(this + 19) = v19;
+    DgnString::DgnString(v25);
+    v24 = 0;
+    HeaderField = DgnTextFile::getHeaderField(v29, "BackoffSubDirectory", v25, 0);
+    HeaderFieldUnsigned = DgnTextFile::getHeaderFieldUnsigned(v29, "BackoffAfterDepth", &v24, 0, 2u, 2u);
     if (HeaderField != HeaderFieldUnsigned)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4950, "lm/wordlm", 3, "%s", v49, v50, &errStr_lm_wordlm_E_WNS_ONLY_ONE_BACKOFF_FIELD);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4950, "lm/wordlm", 3, "%s", &errStr_lm_wordlm_E_WNS_ONLY_ONE_BACKOFF_FIELD);
     }
 
     if ((HeaderField & HeaderFieldUnsigned) == 1)
     {
-      v61 = 1;
-      if (!SubDirExtension::isString(&v61, v63))
+      v23 = 1;
+      if (!SubDirExtension::isString(&v23, v25))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4956, "lm/wordlm", 4, "%.500s", v52, v53, "BackoffSubDirectory");
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4956, "lm/wordlm", 4, "%.500s", "BackoffSubDirectory");
       }
 
-      v54 = 1;
+      v22 = 1;
       if (*(this + 16) <= 1u)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4957, "lm/wordlm", 1, "%s", v52, v53, &errStr_lm_wordlm_E_BAD_UPPER_LM);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 4957, "lm/wordlm", 1, "%s", &errStr_lm_wordlm_E_BAD_UPPER_LM);
       }
     }
 
     else
     {
-      v54 = 0;
+      v22 = 0;
     }
 
-    *(this + 244) = v54;
-    DgnTextFile::getHeaderFieldBool(v67, "HasStaticComponentOnDisk", this + 245, 1);
-    DgnTextFile::getHeaderFieldBool(v67, "LoadNgrams", this + 68, 1);
-    if (v20 == 19)
+    *(this + 244) = v22;
+    DgnTextFile::getHeaderFieldBool(v29, "HasStaticComponentOnDisk", this + 245, 1);
+    DgnTextFile::getHeaderFieldBool(v29, "LoadNgrams", this + 68, 1);
+    if (v9 == 19)
     {
-      if (v21 != 12)
+      if (v10 != 12)
       {
 LABEL_61:
-        DgnString::~DgnString(v63);
+        DgnString::~DgnString(v25);
         goto LABEL_62;
       }
     }
 
-    else if (v20 != 24 || v21 != 13)
+    else if (v9 != 24 || v10 != 13)
     {
       goto LABEL_61;
     }
 
-    DgnTextFile::getHeaderFieldInteger(v67, "BuildMaximumBigramCountToDiscount", this + 21, 1, -1, 0x7FFFFFFF);
-    DgnTextFile::getHeaderFieldInteger(v67, "BuildMaximumNumBigramRecords", this + 22, 1, -1, 0x7FFFFFFF);
-    DgnString::~DgnString(v63);
+    DgnTextFile::getHeaderFieldInteger(v29, "BuildMaximumBigramCountToDiscount", this + 21, 1, -1, 0x7FFFFFFF);
+    DgnTextFile::getHeaderFieldInteger(v29, "BuildMaximumNumBigramRecords", this + 22, 1, -1, 0x7FFFFFFF);
+    DgnString::~DgnString(v25);
     if (*(this + 16) > 2u)
     {
-      if (v20 != 19)
+      if (v9 != 19)
       {
-        if (v21 != 13)
+        if (v10 != 13)
         {
           goto LABEL_62;
         }
 
 LABEL_64:
-        DgnTextFile::getHeaderFieldInteger(v67, "BuildMaximumTrigramCountToDiscount", this + 23, 1, -1, 0x7FFFFFFF);
-        DgnTextFile::getHeaderFieldInteger(v67, "BuildMaximumNumTrigramRecords", this + 24, 1, -1, 0x7FFFFFFF);
+        DgnTextFile::getHeaderFieldInteger(v29, "BuildMaximumTrigramCountToDiscount", this + 23, 1, -1, 0x7FFFFFFF);
+        DgnTextFile::getHeaderFieldInteger(v29, "BuildMaximumNumTrigramRecords", this + 24, 1, -1, 0x7FFFFFFF);
         goto LABEL_62;
       }
 
-      if (v21 == 12)
+      if (v10 == 12)
       {
         goto LABEL_64;
       }
@@ -5806,58 +5802,58 @@ LABEL_64:
   }
 
 LABEL_62:
-  DgnTextFileParser::verifyNoUnknownHeaderFields(v67, v34, v35, v36, v37, v38, v39, v40);
-  DgnTextFileParser::verifyMatchingNumFieldSpecs(v67, 0, v55, v56, v57, v58, v59, v60);
-  DgnTextFileParser::verifyNoBodyLines(v67);
-  DgnIArray<Utterance *>::~DgnIArray(v66);
-  DgnTextFileParser::~DgnTextFileParser(v67);
+  DgnTextFileParser::verifyNoUnknownHeaderFields(v29);
+  DgnTextFileParser::verifyMatchingNumFieldSpecs(v29, 0);
+  DgnTextFileParser::verifyNoBodyLines(v29);
+  DgnIArray<Utterance *>::~DgnIArray(v28);
+  DgnTextFileParser::~DgnTextFileParser(v29);
 }
 
-void sub_262790690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262790690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
   DgnTextFileParser::~DgnTextFileParser(va2);
   _Unwind_Resume(a1);
 }
 
-void WordLanguageModel::loadText(WordLanguageModel *this, DFile *a2, int a3, unsigned int a4, unsigned int a5, double a6, double a7)
+void WordLanguageModel::loadText(WordLanguageModel *this, FileSpec **a2, int a3, unsigned int a4, unsigned int a5, double a6, double a7)
 {
-  DgnTextFileParser::DgnTextFileParser(v1084);
-  DgnTextFileParser::openDgnTextFileParser(v1084, a2, 0x74u, 1);
-  DgnTextFileParser::verifyMatchingFileType(v1084, "WordNGramText");
-  v1083[1] = 0;
-  v1083[0] = 0;
-  DgnTextFile::legalDgnTextFileVersions(v1084, sWNT_Versions, v1083, v11, v12, v13, v14, v15);
-  DgnTextFileParser::verifyFileVersionInRange(v1084, v1083, v16, v17, v18, v19, v20, v21);
-  FileVersion = DgnTextFile::getFileVersion(v1084);
-  LODWORD(v1079) = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v1084, "Depth", &v1079, 1, *(this + 16), *(this + 16));
-  LODWORD(v1079) = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v1084, "LMScale", &v1079, 1, *(this + 8), *(this + 8));
-  WordLanguageModel::initializeScoreToProb(this, v23, v24);
-  DgnTextFile::getHeaderFieldUnsigned(v1084, "NumLmIds", this + 26, 1, 2u, 0xFFFFF0u);
+  DgnTextFileParser::DgnTextFileParser(v503);
+  DgnTextFileParser::openDgnTextFileParser(v503, a2, 116, 1);
+  DgnTextFileParser::verifyMatchingFileType(v503, "WordNGramText");
+  v502[1] = 0;
+  v502[0] = 0;
+  DgnTextFile::legalDgnTextFileVersions(v503, sWNT_Versions, v502);
+  DgnTextFileParser::verifyFileVersionInRange(v503, v502);
+  FileVersion = DgnTextFile::getFileVersion(v503);
+  LODWORD(v498) = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v503, "Depth", &v498, 1, *(this + 16), *(this + 16));
+  LODWORD(v498) = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v503, "LMScale", &v498, 1, *(this + 8), *(this + 8));
+  WordLanguageModel::initializeScoreToProb(this, v12, v13);
+  DgnTextFile::getHeaderFieldUnsigned(v503, "NumLmIds", this + 26, 1, 2u, 0xFFFFF0u);
   WordLanguageModel::allocLmId(this, *(this + 26) - 1);
-  v25 = HIDWORD(FileVersion);
+  v14 = HIDWORD(FileVersion);
   if (FileVersion == 19)
   {
-    if (v25 != 5)
+    if (v14 != 5)
     {
       goto LABEL_7;
     }
 
 LABEL_6:
-    LODWORD(v1079) = 0;
-    DgnTextFile::getHeaderFieldUnsigned(v1084, "NumPermanentLmIds", &v1079, 1, 1u, *(this + 26));
+    LODWORD(v498) = 0;
+    DgnTextFile::getHeaderFieldUnsigned(v503, "NumPermanentLmIds", &v498, 1, 1u, *(this + 26));
     goto LABEL_7;
   }
 
@@ -5867,17 +5863,17 @@ LABEL_6:
   }
 
 LABEL_7:
-  LODWORD(v1079) = 0;
-  DgnTextFile::getHeaderFieldInteger(v1084, "BegLmId", &v1079, 1, -1, *(this + 26) - 1);
-  *(this + 28) = LODWORD(v1079);
-  LODWORD(v1079) = 0;
-  DgnTextFile::getHeaderFieldInteger(v1084, "EndLmId", &v1079, 1, -1, *(this + 26) - 1);
-  *(this + 29) = LODWORD(v1079);
-  v1082 = 0;
-  v1018 = HIDWORD(FileVersion);
+  LODWORD(v498) = 0;
+  DgnTextFile::getHeaderFieldInteger(v503, "BegLmId", &v498, 1, -1, *(this + 26) - 1);
+  *(this + 28) = LODWORD(v498);
+  LODWORD(v498) = 0;
+  DgnTextFile::getHeaderFieldInteger(v503, "EndLmId", &v498, 1, -1, *(this + 26) - 1);
+  *(this + 29) = LODWORD(v498);
+  v501 = 0;
+  v437 = HIDWORD(FileVersion);
   if (FileVersion == 19)
   {
-    if (v25 == 5)
+    if (v14 == 5)
     {
       goto LABEL_9;
     }
@@ -5890,13 +5886,13 @@ LABEL_7:
     if ((HIDWORD(FileVersion) & 0xFFFFFFFE) == 6)
     {
 LABEL_9:
-      DgnTextFile::getHeaderFieldUnsigned64(v1084, "UnigramTotalCount", &v1082, 1, 1uLL, 0xFFFFFFFFuLL);
-      v1081 = 0;
+      DgnTextFile::getHeaderFieldUnsigned64(v503, "UnigramTotalCount", &v501, 1, 1uLL, 0xFFFFFFFFuLL);
+      v500 = 0;
       if (*(this + 16) > 1u)
       {
         if (FileVersion == 19)
         {
-          if (v1018 != 5)
+          if (v437 != 5)
           {
             goto LABEL_21;
           }
@@ -5911,7 +5907,7 @@ LABEL_9:
     }
 
 LABEL_15:
-    v1081 = 0;
+    v500 = 0;
     if (*(this + 16) <= 1u)
     {
       goto LABEL_31;
@@ -5920,26 +5916,30 @@ LABEL_15:
     goto LABEL_21;
   }
 
-  v1081 = 0;
+  v500 = 0;
   if (*(this + 16) > 1u)
   {
 LABEL_18:
     if (FileVersion == 24 && (HIDWORD(FileVersion) & 0xFFFFFFFE) == 6)
     {
 LABEL_20:
-      DgnTextFile::getHeaderFieldUnsigned64(v1084, "UnigramBackoffTotalCount", &v1081, 1, 1uLL, 0xFFFFFFFFuLL);
+      DgnTextFile::getHeaderFieldUnsigned64(v503, "UnigramBackoffTotalCount", &v500, 1, 1uLL, 0xFFFFFFFFuLL);
     }
 
 LABEL_21:
-    DgnTextFile::getHeaderFieldUnsigned(v1084, "ContextSkipDistance", this + 68, 1, 0, 1u);
-    if (*(this + 16) >= 3u && *(this + 68))
+    DgnTextFile::getHeaderFieldUnsigned(v503, "ContextSkipDistance", this + 68, 1, 0, 1u);
+    if (*(this + 16) >= 3u)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5545, "lm/wordlm", 32, "%d %d", v33, v34, *(this + 16));
+      v15 = *(this + 68);
+      if (v15)
+      {
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5545, "lm/wordlm", 32, "%d %d", *(this + 16), v15);
+      }
     }
 
     if (FileVersion == 19)
     {
-      if (v1018 != 5)
+      if (v437 != 5)
       {
         goto LABEL_30;
       }
@@ -5950,297 +5950,297 @@ LABEL_21:
       goto LABEL_30;
     }
 
-    v1079 = 0.0;
-    DgnTextFile::getHeaderFieldReal(v1084, "BigramAbsoluteDiscount", &v1079, 1, 0.0, 1.0);
+    v498 = 0.0;
+    DgnTextFile::getHeaderFieldReal(v503, "BigramAbsoluteDiscount", &v498, 1, 0.0, 1.0);
 LABEL_30:
-    DgnTextFile::getHeaderFieldBool(v1084, "HasWordIdToContextLmId", this + 276, 1);
+    DgnTextFile::getHeaderFieldBool(v503, "HasWordIdToContextLmId", this + 276, 1);
   }
 
 LABEL_31:
-  DgnTextFileParser::verifyNoUnknownHeaderFields(v1084, v26, v27, v28, v29, v30, v31, v32);
-  v1079 = 0.0;
-  v1080 = 0;
-  DgnTextFile::getLineFieldNames(v1084, &v1079);
-  v1078[0] = 0;
-  v1078[1] = 0;
-  DgnTextFile::getLineFieldFormats(v1084, v1078);
-  v1013 = FileVersion;
-  if (!v1080)
+  DgnTextFileParser::verifyNoUnknownHeaderFields(v503);
+  v498 = 0.0;
+  v499 = 0;
+  DgnTextFile::getLineFieldNames(v503, &v498);
+  v497[0] = 0;
+  v497[1] = 0;
+  DgnTextFile::getLineFieldFormats(v503, v497);
+  v432 = FileVersion;
+  if (!v499)
   {
-    v1025 = -1;
-    v1026 = -1;
-    v1021 = -1;
-    v1022 = -1;
-    v1019 = -1;
+    v444 = -1;
+    v445 = -1;
+    v440 = -1;
+    v441 = -1;
+    v438 = -1;
     goto LABEL_91;
   }
 
-  v37 = 0;
-  v38 = 0;
-  v1022 = -1;
-  v1023 = -1;
-  v1025 = -1;
-  v1026 = -1;
-  v1021 = -1;
-  v1019 = -1;
+  v16 = 0;
+  v17 = 0;
+  v441 = -1;
+  v442 = -1;
+  v444 = -1;
+  v445 = -1;
+  v440 = -1;
+  v438 = -1;
   do
   {
-    v39 = (*&v1079 + v37);
-    v40 = *(*&v1079 + v37 + 8);
-    if (v40)
+    v18 = (*&v498 + v16);
+    v19 = *(*&v498 + v16 + 8);
+    if (v19)
     {
-      v41 = *v39;
-      if (!strcmp(*v39, "TableName"))
+      v20 = *v18;
+      if (!strcmp(*v18, "TableName"))
       {
-        if (*(v1078[0] + 4 * v38))
+        if (*(v497[0] + 4 * v17))
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5580, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v41);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5580, "lm/wordlm", 39, "%.500s %.500s", v20, "String");
         }
 
-        v1023 = v38;
+        v442 = v17;
         goto LABEL_77;
       }
     }
 
     else
     {
-      v41 = &unk_26288CFB0;
+      v20 = &unk_26288CFB0;
     }
 
-    if (!strcmp(v41, "Index1"))
+    if (!strcmp(v20, "Index1"))
     {
-      if (*(v1078[0] + 4 * v38) != 3)
+      if (*(v497[0] + 4 * v17) != 3)
       {
-        if (v40)
+        if (v19)
         {
-          v44 = *v39;
+          v23 = *v18;
         }
 
         else
         {
-          v44 = &unk_26288CFB0;
+          v23 = &unk_26288CFB0;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5588, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v44);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5588, "lm/wordlm", 39, "%.500s %.500s", v23, "Unsigned");
       }
 
-      v1025 = v38;
+      v444 = v17;
     }
 
     else
     {
-      v42 = *(this + 16);
-      if (v42 >= 2)
+      v21 = *(this + 16);
+      if (v21 >= 2)
       {
-        if (v40)
+        if (v19)
         {
-          v43 = *v39;
+          v22 = *v18;
         }
 
         else
         {
-          v43 = &unk_26288CFB0;
+          v22 = &unk_26288CFB0;
         }
 
-        if (!strcmp(v43, "Index2"))
+        if (!strcmp(v22, "Index2"))
         {
-          if (*(v1078[0] + 4 * v38) != 3)
+          if (*(v497[0] + 4 * v17) != 3)
           {
-            if (v40)
+            if (v19)
             {
-              v46 = *v39;
+              v25 = *v18;
             }
 
             else
             {
-              v46 = &unk_26288CFB0;
+              v25 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5596, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v46);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5596, "lm/wordlm", 39, "%.500s %.500s", v25, "Unsigned");
           }
 
-          v1026 = v38;
+          v445 = v17;
           goto LABEL_77;
         }
 
-        if (v42 != 2)
+        if (v21 != 2)
         {
-          if (v40)
+          if (v19)
           {
-            v45 = *v39;
+            v24 = *v18;
           }
 
           else
           {
-            v45 = &unk_26288CFB0;
+            v24 = &unk_26288CFB0;
           }
 
-          if (!strcmp(v45, "Index3"))
+          if (!strcmp(v24, "Index3"))
           {
-            if (*(v1078[0] + 4 * v38) != 3)
+            if (*(v497[0] + 4 * v17) != 3)
             {
-              if (v40)
+              if (v19)
               {
-                v48 = *v39;
+                v27 = *v18;
               }
 
               else
               {
-                v48 = &unk_26288CFB0;
+                v27 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5604, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v48);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5604, "lm/wordlm", 39, "%.500s %.500s", v27, "Unsigned");
             }
 
-            v1021 = v38;
+            v440 = v17;
             goto LABEL_77;
           }
 
-          if (v42 >= 4)
+          if (v21 >= 4)
           {
-            v47 = v40 ? *v39 : &unk_26288CFB0;
-            if (!strcmp(v47, "Index4"))
+            v26 = v19 ? *v18 : &unk_26288CFB0;
+            if (!strcmp(v26, "Index4"))
             {
-              if (*(v1078[0] + 4 * v38) != 3)
+              if (*(v497[0] + 4 * v17) != 3)
               {
-                if (v40)
+                if (v19)
                 {
-                  v50 = *v39;
+                  v29 = *v18;
                 }
 
                 else
                 {
-                  v50 = &unk_26288CFB0;
+                  v29 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5612, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v50);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5612, "lm/wordlm", 39, "%.500s %.500s", v29, "Unsigned");
               }
 
-              v1019 = v38;
+              v438 = v17;
               goto LABEL_77;
             }
           }
         }
       }
 
-      if (!v40)
+      if (!v19)
       {
-        v49 = &unk_26288CFB0;
+        v28 = &unk_26288CFB0;
 LABEL_76:
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5624, "lm/wordlm", 37, "%.500s %u", v35, v36, v49);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5624, "lm/wordlm", 37, "%.500s %u", v28, v21);
         goto LABEL_77;
       }
 
-      v49 = *v39;
-      if (strcmp(*v39, "EntryValue1"))
+      v28 = *v18;
+      if (strcmp(*v18, "EntryValue1"))
       {
         goto LABEL_76;
       }
 
-      if (*(v1078[0] + 4 * v38) != 1)
+      if (*(v497[0] + 4 * v17) != 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5620, "lm/wordlm", 39, "%.500s %.500s", v35, v36, v49);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5620, "lm/wordlm", 39, "%.500s %.500s", v28, "Integer");
       }
 
-      v1022 = v38;
+      v441 = v17;
     }
 
 LABEL_77:
-    ++v38;
-    v37 += 16;
+    ++v17;
+    v16 += 16;
   }
 
-  while (v38 < v1080);
-  if (v1023 == -1)
+  while (v17 < v499);
+  if (v442 == -1)
   {
 LABEL_91:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5626, "lm/wordlm", 38, "%.500s", v35, v36, "TableName");
-    v1023 = -1;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5626, "lm/wordlm", 38, "%.500s", "TableName");
+    v442 = -1;
   }
 
-  if (v1025 == -1)
+  if (v444 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5627, "lm/wordlm", 38, "%.500s", v35, v36, "Index1");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5627, "lm/wordlm", 38, "%.500s", "Index1");
   }
 
-  v51 = *(this + 16);
-  if (v51 >= 2 && v1026 == -1)
+  v30 = *(this + 16);
+  if (v30 >= 2 && v445 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5629, "lm/wordlm", 38, "%.500s", v35, v36, "Index2");
-    v51 = *(this + 16);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5629, "lm/wordlm", 38, "%.500s", "Index2");
+    v30 = *(this + 16);
   }
 
-  if (v51 >= 3 && v1021 == -1)
+  if (v30 >= 3 && v440 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5631, "lm/wordlm", 38, "%.500s", v35, v36, "Index3");
-    v51 = *(this + 16);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5631, "lm/wordlm", 38, "%.500s", "Index3");
+    v30 = *(this + 16);
   }
 
-  if (v51 >= 4 && v1019 == -1)
+  if (v30 >= 4 && v438 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5633, "lm/wordlm", 38, "%.500s", v35, v36, "Index4");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5633, "lm/wordlm", 38, "%.500s", "Index4");
   }
 
-  if (v1022 == -1)
+  if (v441 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5634, "lm/wordlm", 38, "%.500s", v35, v36, "EntryValue1");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5634, "lm/wordlm", 38, "%.500s", "EntryValue1");
   }
 
-  DgnString::DgnString(&v1076);
-  v1024 = 0;
-  v52 = 0;
-  v1012 = 0;
-  v1017 = 0;
-  v1020 = 0;
-  v1034 = 0;
-  v1027 = 0;
-  v1031 = 0;
-  v1074 = 0;
-  v1075 = 0;
-  v1072 = 0;
-  v1073 = 0;
-  v1070 = 0;
-  v1071 = 0;
-  v1068 = 0;
-  *v1069 = 0;
-  v1066 = 0;
-  v1067 = 0;
-  v1064 = 0;
-  v1065 = 0;
-  v1062 = 0;
-  v1063 = 0;
-  v1060 = 0;
-  v1061 = 0;
-  v1058 = 0;
-  v1059 = 0;
-  v1056 = 0;
-  *v1057 = 0;
-  v1054 = 0;
-  v1055 = 0;
-  v1052 = 0;
-  v1053 = 0;
-  v1050 = 0;
-  v1051 = 0;
-  v1048 = 0;
-  v1049 = 0;
-  v1046 = 0;
-  v1047 = 0;
-  v1044 = 0;
-  v1045 = 0;
-  v53 = -1;
-  v1038 = -1;
-  v1029 = -1;
-  v1039 = -1;
-  v54 = 0xFFFFFFFFLL;
-  v55 = 0xFFFFFFFFLL;
-  v56 = -1;
-  v1033 = -1;
+  DgnString::DgnString(&v495);
+  v443 = 0;
+  v31 = 0;
+  v431 = 0;
+  v436 = 0;
+  v439 = 0;
+  v453 = 0;
+  v446 = 0;
+  v450 = 0;
+  v493 = 0;
+  v494 = 0;
+  v491 = 0;
+  v492 = 0;
+  v489 = 0;
+  v490 = 0;
+  v487 = 0;
+  *v488 = 0;
+  v485 = 0;
+  v486 = 0;
+  v483 = 0;
+  v484 = 0;
+  v481 = 0;
+  v482 = 0;
+  v479 = 0;
+  v480 = 0;
+  v477 = 0;
+  v478 = 0;
+  v475 = 0;
+  *v476 = 0;
+  v473 = 0;
+  v474 = 0;
+  v471 = 0;
+  v472 = 0;
+  v469 = 0;
+  v470 = 0;
+  v467 = 0;
+  v468 = 0;
+  v465 = 0;
+  v466 = 0;
+  v463 = 0;
+  v464 = 0;
+  v32 = -1;
+  v457 = -1;
+  v448 = -1;
+  v458 = -1;
+  v33 = 0xFFFFFFFFLL;
+  v34 = 0xFFFFFFFFLL;
+  v35 = -1;
+  v452 = -1;
   while (2)
   {
-    Line = DgnTextFileParser::parseNextLine(v1084);
-    DgnString::DgnString(&v1042);
-    v1036 = v56;
-    v1035 = v55;
+    Line = DgnTextFileParser::parseNextLine(v503);
+    DgnString::DgnString(&v461);
+    v455 = v35;
+    v454 = v34;
     if (!Line)
     {
       LineFieldUnsigned = 0;
@@ -6248,34 +6248,34 @@ LABEL_91:
       goto LABEL_124;
     }
 
-    LineFieldString = DgnTextFileParser::getLineFieldString(v1084, v1023);
-    DgnString::operator=(&v1042, LineFieldString);
-    LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v1084, v1025, v61, v62, v63, v64, v65, v66);
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(v1084, v1022, v67, v68, v69, v70, v71, v72);
-    if (v1031)
+    LineFieldString = DgnTextFileParser::getLineFieldString(v503, v442);
+    DgnString::operator=(&v461, LineFieldString);
+    LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v503, v444);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(v503, v441);
+    if (v450)
     {
-      if (v1043)
+      if (v462)
       {
-        v73 = v1042;
+        v38 = v461;
       }
 
       else
       {
-        v73 = &unk_26288CFB0;
+        v38 = &unk_26288CFB0;
       }
 
-      if (v1077)
+      if (v496)
       {
-        v74 = v1076;
+        v39 = v495;
       }
 
       else
       {
-        v74 = &unk_26288CFB0;
+        v39 = &unk_26288CFB0;
       }
 
-      v75 = strcmp(v73, v74) != 0;
-      if (v75)
+      v40 = strcmp(v38, v39) != 0;
+      if (v40)
       {
         goto LABEL_123;
       }
@@ -6283,255 +6283,255 @@ LABEL_91:
 
     else
     {
-      v75 = 0;
+      v40 = 0;
     }
 
-    if (LineFieldUnsigned < v1034)
+    if (LineFieldUnsigned < v453)
     {
-      CurrentLine = DgnTextFile::getCurrentLine(v1084);
+      CurrentLine = DgnTextFile::getCurrentLine(v503);
       if (*(CurrentLine + 8))
       {
-        v79 = *CurrentLine;
+        v42 = *CurrentLine;
       }
 
       else
       {
-        v79 = &unk_26288CFB0;
+        v42 = &unk_26288CFB0;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5688, "lm/wordlm", 40, "%.500s", v77, v78, v79);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5688, "lm/wordlm", 40, "%.500s", v42);
     }
 
 LABEL_123:
-    if (v75)
+    if (v40)
     {
 LABEL_124:
-      if (v1033 != -1)
+      if (v452 != -1)
       {
-        v80 = 1;
-        v1032 = Line;
+        v43 = 1;
+        v451 = Line;
         goto LABEL_129;
       }
 
-      v1032 = Line;
+      v451 = Line;
 LABEL_133:
-      v1033 = -1;
-      if (v56 != -1)
+      v452 = -1;
+      if (v35 != -1)
       {
-        v81 = 1;
+        v44 = 1;
         goto LABEL_140;
       }
 
       goto LABEL_150;
     }
 
-    v80 = 0;
-    if (LineFieldUnsigned == v1034 || (v1032 = 0, v1033 == -1))
+    v43 = 0;
+    if (LineFieldUnsigned == v453 || (v451 = 0, v452 == -1))
     {
-      v1032 = 0;
+      v451 = 0;
     }
 
     else
     {
 LABEL_129:
-      if (v1033 >= *(this + 88) || *(*(this + 43) + 2 * v1033) == 20000)
+      if (v452 >= *(this + 88) || *(*(this + 43) + 2 * v452) == 20000)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5696, "lm/wordlm", 42, "%u", v58, v59, v1033);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5696, "lm/wordlm", 42, "%u", v452);
       }
 
-      BigramData::fillBigramRecord((this + 360), v1033, &v1074, &v1072, &v1070);
-      LODWORD(v1075) = 0;
-      LODWORD(v1073) = 0;
-      LODWORD(v1071) = 0;
-      if (v80)
+      BigramData::fillBigramRecord((this + 360), v452, &v493, &v491, &v489);
+      LODWORD(v494) = 0;
+      LODWORD(v492) = 0;
+      LODWORD(v490) = 0;
+      if (v43)
       {
         goto LABEL_133;
       }
 
-      v1033 = -1;
+      v452 = -1;
     }
 
-    if (LineFieldUnsigned == v1034 || v56 == -1)
+    if (LineFieldUnsigned == v453 || v35 == -1)
     {
       goto LABEL_153;
     }
 
-    v81 = 0;
+    v44 = 0;
 LABEL_140:
-    TrigramData::allocTri1((this + 744), v56, v1069[0]);
-    if (*v1069)
+    TrigramData::allocTri1((this + 744), v35, v488[0]);
+    if (*v488)
     {
-      v82 = 0;
+      v45 = 0;
       do
       {
-        v83 = v82 + *(*(this + 101) + 4 * v1036);
-        v84 = v83;
-        *(*(this + 103) + 2 * v83) = 0;
+        v46 = v45 + *(*(this + 101) + 4 * v455);
+        v47 = v46;
+        *(*(this + 103) + 2 * v46) = 0;
         if (*(this + 187))
         {
-          *(*(this + 107) + v83) = 0;
+          *(*(this + 107) + v46) = 0;
         }
 
         else
         {
-          *(*(this + 105) + 2 * v83) = 20000;
+          *(*(this + 105) + 2 * v46) = 20000;
         }
 
-        TrigramData::tri2SetUnallocated(this + 744, v83);
-        *(*(this + 103) + 2 * v84) = *(v1068 + 2 * v82);
+        TrigramData::tri2SetUnallocated(this + 744, v46);
+        *(*(this + 103) + 2 * v47) = *(v487 + 2 * v45);
         if (*(this + 192))
         {
-          *(*(this + 107) + v84) = *(v1064 + v82);
+          *(*(this + 107) + v47) = *(v483 + v45);
         }
 
         else
         {
-          *(*(this + 105) + 2 * v84) = *(v1066 + 2 * v82);
+          *(*(this + 105) + 2 * v47) = *(v485 + 2 * v45);
         }
 
-        ++v82;
+        ++v45;
       }
 
-      while (v82 < *v1069);
+      while (v45 < *v488);
     }
 
-    *v1069 = 0;
-    LODWORD(v1067) = 0;
-    LODWORD(v1065) = 0;
-    if ((v81 & 1) == 0)
+    *v488 = 0;
+    LODWORD(v486) = 0;
+    LODWORD(v484) = 0;
+    if ((v44 & 1) == 0)
     {
-      v1036 = -1;
+      v455 = -1;
 LABEL_153:
-      v85 = 1;
-      if (LineFieldUnsigned != v1034)
+      v48 = 1;
+      if (LineFieldUnsigned != v453)
       {
-        v86 = v1039;
-        if (v1039 != -1)
+        v49 = v458;
+        if (v458 != -1)
         {
 LABEL_155:
-          QuadgramData::allocQuad1((this + 1232), v86, v1057[0]);
-          if (*v1057)
+          QuadgramData::allocQuad1(this + 1232, v49, v476[0]);
+          if (*v476)
           {
-            v87 = 0;
-            v88 = 0;
+            v50 = 0;
+            v51 = 0;
             do
             {
-              v89 = v88 + *(*(this + 162) + 4 * v1039);
-              *(*(this + 164) + 2 * v89) = 0;
-              QuadgramData::quad2SetUnallocated(this + 1232, v89);
-              *(*(this + 164) + 2 * v89) = *(v1056 + 2 * v88);
-              QuadgramData::fillQuad2BackoffWeights(this + 1232, v89, (v1054 + v87), (v1052 + v87), (v1050 + v87));
-              v52 += *(v1054 + v87 + 8);
-              ++v88;
-              v87 += 16;
+              v52 = v51 + *(*(this + 162) + 4 * v458);
+              *(*(this + 164) + 2 * v52) = 0;
+              QuadgramData::quad2SetUnallocated(this + 1232, v52);
+              *(*(this + 164) + 2 * v52) = *(v475 + 2 * v51);
+              QuadgramData::fillQuad2BackoffWeights((this + 1232), v52, (v473 + v50), (v471 + v50), (v469 + v50));
+              v31 += *(v473 + v50 + 8);
+              ++v51;
+              v50 += 16;
             }
 
-            while (v88 < *v1057);
+            while (v51 < *v476);
           }
 
-          *v1057 = 0;
-          if (v1055 >= 1)
+          *v476 = 0;
+          if (v474 >= 1)
           {
-            v90 = 16 * v1055 - 16;
+            v53 = 16 * v474 - 16;
             do
             {
-              DgnPrimArray<unsigned int>::~DgnPrimArray(v1054 + v90);
-              v90 -= 16;
+              DgnPrimArray<unsigned int>::~DgnPrimArray(v473 + v53);
+              v53 -= 16;
             }
 
-            while (v90 != -16);
+            while (v53 != -16);
           }
 
-          LODWORD(v1055) = 0;
-          if (v1053 >= 1)
+          LODWORD(v474) = 0;
+          if (v472 >= 1)
           {
-            v91 = 16 * v1053 - 16;
+            v54 = 16 * v472 - 16;
             do
             {
-              DgnPrimArray<unsigned int>::~DgnPrimArray(v1052 + v91);
-              v91 -= 16;
+              DgnPrimArray<unsigned int>::~DgnPrimArray(v471 + v54);
+              v54 -= 16;
             }
 
-            while (v91 != -16);
+            while (v54 != -16);
           }
 
-          LODWORD(v1053) = 0;
-          if (v1051 >= 1)
+          LODWORD(v472) = 0;
+          if (v470 >= 1)
           {
-            v92 = 16 * v1051 - 16;
+            v55 = 16 * v470 - 16;
             do
             {
-              DgnPrimArray<unsigned int>::~DgnPrimArray(v1050 + v92);
-              v92 -= 16;
+              DgnPrimArray<unsigned int>::~DgnPrimArray(v469 + v55);
+              v55 -= 16;
             }
 
-            while (v92 != -16);
+            while (v55 != -16);
           }
 
-          LODWORD(v1051) = 0;
-          v1039 = -1;
+          LODWORD(v470) = 0;
+          v458 = -1;
         }
       }
 
-      if (!v85 || LineFieldUnsigned != v1034)
+      if (!v48 || LineFieldUnsigned != v453)
       {
-        v1028 = LineFieldUnsigned == v1034;
+        v447 = LineFieldUnsigned == v453;
         goto LABEL_178;
       }
 
-      v93 = v54;
-      if (*(this + 16) >= 3u && (v1043 ? (v94 = v1042) : (v94 = &unk_26288CFB0), !strcmp(v94, "TriSc")))
+      v56 = v33;
+      if (*(this + 16) >= 3u && (v462 ? (v57 = v461) : (v57 = &unk_26288CFB0), !strcmp(v57, "TriSc")))
       {
-        v101 = 1;
-        if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v95, v96, v97, v98, v99, v100) == v1020)
+        v58 = 1;
+        if (DgnTextFileParser::getLineFieldUnsigned(v503, v445) == v439)
         {
-          LineFieldUnsigned = v1034;
-          v1028 = 1;
-          v93 = v54;
+          LineFieldUnsigned = v453;
+          v447 = 1;
+          v56 = v33;
         }
 
         else
         {
-          v1028 = 1;
-          LineFieldUnsigned = v1034;
-          v93 = v54;
-          if (v1035 == -1)
+          v447 = 1;
+          LineFieldUnsigned = v453;
+          v56 = v33;
+          if (v454 == -1)
           {
-            LineFieldUnsigned = v1034;
-            v1028 = 1;
+            LineFieldUnsigned = v453;
+            v447 = 1;
           }
 
           else
           {
 LABEL_180:
-            if (*(this + 200) > v1035 && (v102 = *(this + 99), LODWORD(v103) = *(v102 + 2 * v1035), *(v102 + 2 * v1035)) || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5774, "lm/wordlm", 47, "%u %u", v58, v59, v1035), v104 = *(this + 99), LODWORD(v103) = *(v104 + 2 * v1035), LODWORD(v93) = v54, *(v104 + 2 * v1035)))
+            if (*(this + 200) > v454 && (v59 = *(this + 99), LODWORD(v60) = *(v59 + 2 * v454), *(v59 + 2 * v454)) || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5774, "lm/wordlm", 47, "%u %u", v454, v56), v61 = *(this + 99), LODWORD(v60) = *(v61 + 2 * v454), LODWORD(v56) = v33, *(v61 + 2 * v454)))
             {
-              v105 = *(*(this + 101) + 4 * v1035);
-              v103 = v103;
-              while (v93 != *(*(this + 103) + 2 * v105))
+              v62 = *(*(this + 101) + 4 * v454);
+              v60 = v60;
+              while (v56 != *(*(this + 103) + 2 * v62))
               {
-                ++v105;
-                if (!--v103)
+                ++v62;
+                if (!--v60)
                 {
                   goto LABEL_186;
                 }
               }
 
-              TrigramData::fillTrigramRecord(this + 744, v105, &v1062, &v1060, &v1058);
+              TrigramData::fillTrigramRecord((this + 744), v62, &v481, &v479, &v477);
             }
 
             else
             {
 LABEL_186:
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5794, "lm/wordlm", 47, "%u %u", v58, v59, v1035);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5794, "lm/wordlm", 47, "%u %u", v454, v56);
             }
 
-            LODWORD(v1063) = 0;
-            LODWORD(v1061) = 0;
-            LODWORD(v1059) = 0;
-            v93 = 0xFFFFFFFFLL;
-            v1035 = 0xFFFFFFFFLL;
-            if (!v101)
+            LODWORD(v482) = 0;
+            LODWORD(v480) = 0;
+            LODWORD(v478) = 0;
+            v56 = 0xFFFFFFFFLL;
+            v454 = 0xFFFFFFFFLL;
+            if (!v58)
             {
               goto LABEL_202;
             }
@@ -6541,46 +6541,46 @@ LABEL_186:
 
       else
       {
-        v1028 = 1;
-        LineFieldUnsigned = v1034;
+        v447 = 1;
+        LineFieldUnsigned = v453;
       }
 
       if (*(this + 16) >= 4u)
       {
-        v106 = v1043 ? v1042 : &unk_26288CFB0;
-        if (!strcmp(v106, "QuadSc"))
+        v63 = v462 ? v461 : &unk_26288CFB0;
+        if (!strcmp(v63, "QuadSc"))
         {
-          v113 = v93;
-          if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v107, v108, v109, v110, v111, v112) != v1020)
+          v64 = v56;
+          if (DgnTextFileParser::getLineFieldUnsigned(v503, v445) != v439)
           {
             goto LABEL_202;
           }
 
-          if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v114, v115, v116, v117, v58, v59) != v1017 && v1029 != -1)
+          if (DgnTextFileParser::getLineFieldUnsigned(v503, v440) != v436 && v448 != -1)
           {
 LABEL_204:
-            if (*(this + 322) > v1029 && (v118 = *(this + 160), v119 = *(v118 + 2 * v1029), *(v118 + 2 * v1029)) || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5815, "lm/wordlm", 54, "%u %u %u", v58, v59, v1029), v120 = *(this + 160), v119 = *(v120 + 2 * v1029), *(v120 + 2 * v1029)))
+            if (*(this + 322) > v448 && (v65 = *(this + 160), v66 = *(v65 + 2 * v448), *(v65 + 2 * v448)) || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5815, "lm/wordlm", 54, "%u %u %u", v448, v457, v32), v67 = *(this + 160), v66 = *(v67 + 2 * v448), *(v67 + 2 * v448)))
             {
-              v121 = 0;
-              v122 = 0;
+              v68 = 0;
+              v69 = 0;
               while (2)
               {
-                v123 = *(*(this + 162) + 4 * v1029);
+                v70 = *(*(this + 162) + 4 * v448);
                 while (1)
                 {
-                  v124 = (v123 + v122);
-                  if (v1038 == *(*(this + 164) + 2 * v124))
+                  v71 = (v70 + v69);
+                  if (v457 == *(*(this + 164) + 2 * v71))
                   {
-                    if (*(*(this + 166) + 2 * v124))
+                    if (*(*(this + 166) + 2 * v71))
                     {
                       break;
                     }
                   }
 
 LABEL_218:
-                  if (++v122 == v119)
+                  if (++v69 == v66)
                   {
-                    if (v121)
+                    if (v68)
                     {
                       goto LABEL_224;
                     }
@@ -6589,36 +6589,36 @@ LABEL_218:
                   }
                 }
 
-                v125 = 0;
+                v72 = 0;
                 while (1)
                 {
-                  if (*(this + 308) && (*(*(this + 168) + 4 * (v124 >> 5)) & (1 << (v123 + v122))) != 0)
+                  if (*(this + 308) && (*(*(this + 168) + 4 * (v71 >> 5)) & (1 << (v70 + v69))) != 0)
                   {
-                    v126 = *(*(this + 207) + 4 * *(*(this + 185) + 4 * v124));
-                    v127 = 440;
+                    v73 = *(*(this + 207) + 4 * *(*(this + 185) + 4 * v71));
+                    v74 = 440;
                   }
 
                   else
                   {
-                    v127 = 264;
-                    v126 = *(*(this + 185) + 4 * v124);
+                    v74 = 264;
+                    v73 = *(*(this + 185) + 4 * v71);
                   }
 
-                  if (v53 == *(*(this + v127 + 1232) + 2 * (v126 + v125)))
+                  if (v32 == *(*(this + v74 + 1232) + 2 * (v73 + v72)))
                   {
                     break;
                   }
 
-                  if (*(*(this + 166) + 2 * v124) == ++v125)
+                  if (*(*(this + 166) + 2 * v71) == ++v72)
                   {
                     goto LABEL_218;
                   }
                 }
 
-                QuadgramData::fillQuadgramRecord(this + 1232, v124, v125, &v1048, &v1046, &v1044);
-                ++v122;
-                v121 = 1;
-                if (v122 != v119)
+                QuadgramData::fillQuadgramRecord(this + 1232, v71, v72, &v467, &v465, &v463);
+                ++v69;
+                v68 = 1;
+                if (v69 != v66)
                 {
                   continue;
                 }
@@ -6630,20 +6630,20 @@ LABEL_218:
             else
             {
 LABEL_223:
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5848, "lm/wordlm", 54, "%u %u %u", v58, v59, v1029);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5848, "lm/wordlm", 54, "%u %u %u", v448, v457, v32);
             }
 
 LABEL_224:
-            ++v1024;
-            LODWORD(v1049) = 0;
-            LODWORD(v1047) = 0;
-            LODWORD(v1045) = 0;
-            v53 = -1;
-            v1038 = -1;
-            v1029 = -1;
+            ++v443;
+            LODWORD(v468) = 0;
+            LODWORD(v466) = 0;
+            LODWORD(v464) = 0;
+            v32 = -1;
+            v457 = -1;
+            v448 = -1;
           }
 
-          v93 = v113;
+          v56 = v64;
         }
       }
 
@@ -6656,2639 +6656,2639 @@ LABEL_224:
     }
 
 LABEL_150:
-    if (v1039 != -1)
+    if (v458 != -1)
     {
-      v85 = 0;
-      v1036 = -1;
-      v86 = v1039;
+      v48 = 0;
+      v455 = -1;
+      v49 = v458;
       goto LABEL_155;
     }
 
-    v1028 = LineFieldUnsigned == v1034;
-    v1039 = -1;
-    v1036 = -1;
+    v447 = LineFieldUnsigned == v453;
+    v458 = -1;
+    v455 = -1;
 LABEL_178:
-    v93 = v54;
-    if (v1035 != -1)
+    v56 = v33;
+    if (v454 != -1)
     {
-      v101 = 0;
+      v58 = 0;
       goto LABEL_180;
     }
 
-    v1035 = 0xFFFFFFFFLL;
+    v454 = 0xFFFFFFFFLL;
 LABEL_202:
-    if (v1029 != -1)
+    if (v448 != -1)
     {
-      v113 = v93;
+      v64 = v56;
       goto LABEL_204;
     }
 
-    v1029 = -1;
+    v448 = -1;
     if (Line)
     {
 LABEL_227:
-      if (v1043)
+      if (v462)
       {
-        v128 = v1042;
+        v75 = v461;
       }
 
       else
       {
-        v128 = &unk_26288CFB0;
+        v75 = &unk_26288CFB0;
       }
 
-      if (!strcmp(v128, "UniSc"))
+      if (!strcmp(v75, "UniSc"))
       {
-        if ((v1031 & v1032) == 1)
+        if ((v450 & v451) == 1)
         {
-          v275 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v275 + 8))
+          v102 = DgnTextFile::getCurrentLine(v503);
+          if (*(v102 + 8))
           {
-            v278 = *v275;
+            v103 = *v102;
           }
 
           else
           {
-            v278 = &unk_26288CFB0;
+            v103 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5867, "lm/wordlm", 40, "%.500s", v276, v277, v278);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5867, "lm/wordlm", 40, "%.500s", v103);
         }
 
         if (*(this + 16) >= 2u)
         {
-          if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v129, v130, v131, v132, v133, v134))
+          if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
           {
-            v285 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v285 + 8))
+            v104 = DgnTextFile::getCurrentLine(v503);
+            if (*(v104 + 8))
             {
-              v288 = *v285;
+              v105 = *v104;
             }
 
             else
             {
-              v288 = &unk_26288CFB0;
+              v105 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5871, "lm/wordlm", 40, "%.500s", v286, v287, v288);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5871, "lm/wordlm", 40, "%.500s", v105);
           }
 
           if (*(this + 16) >= 3u)
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v279, v280, v281, v282, v283, v284))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v295 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v295 + 8))
+              v106 = DgnTextFile::getCurrentLine(v503);
+              if (*(v106 + 8))
               {
-                v298 = *v295;
+                v107 = *v106;
               }
 
               else
               {
-                v298 = &unk_26288CFB0;
+                v107 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5875, "lm/wordlm", 40, "%.500s", v296, v297, v298);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5875, "lm/wordlm", 40, "%.500s", v107);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v289, v290, v291, v292, v293, v294))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v299 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v299 + 8))
+              v108 = DgnTextFile::getCurrentLine(v503);
+              if (*(v108 + 8))
               {
-                v302 = *v299;
+                v109 = *v108;
               }
 
               else
               {
-                v302 = &unk_26288CFB0;
+                v109 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5879, "lm/wordlm", 40, "%.500s", v300, v301, v302);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5879, "lm/wordlm", 40, "%.500s", v109);
             }
           }
         }
 
-        if (((v1032 ^ 1) & v1028) == 1)
+        if (((v451 ^ 1) & v447) == 1)
         {
-          v303 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v303 + 8))
+          v110 = DgnTextFile::getCurrentLine(v503);
+          if (*(v110 + 8))
           {
-            v306 = *v303;
+            v111 = *v110;
           }
 
           else
           {
-            v306 = &unk_26288CFB0;
+            v111 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5882, "lm/wordlm", 40, "%.500s", v304, v305, v306);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5882, "lm/wordlm", 40, "%.500s", v111);
         }
 
         if (!LineFieldUnsigned || LineFieldUnsigned >= *(this + 26))
         {
-          v307 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v307 + 8))
+          v112 = DgnTextFile::getCurrentLine(v503);
+          if (*(v112 + 8))
           {
-            v310 = *v307;
+            v113 = *v112;
           }
 
           else
           {
-            v310 = &unk_26288CFB0;
+            v113 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5886, "lm/wordlm", 40, "%.500s", v308, v309, v310);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5886, "lm/wordlm", 40, "%.500s", v113);
         }
 
         if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
         {
-          v311 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v311 + 8))
+          v114 = DgnTextFile::getCurrentLine(v503);
+          if (*(v114 + 8))
           {
-            v314 = *v311;
+            v115 = *v114;
           }
 
           else
           {
-            v314 = &unk_26288CFB0;
+            v115 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5893, "lm/wordlm", 40, "%.500s", v312, v313, v314);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5893, "lm/wordlm", 40, "%.500s", v115);
         }
 
         *(*(this + 21) + 2 * LineFieldUnsigned) = LineFieldInteger;
-        v1027 = LineFieldUnsigned;
+        v446 = LineFieldUnsigned;
         goto LABEL_814;
       }
 
-      if (!strcmp(v128, "WordIdToLmId"))
+      if (!strcmp(v75, "WordIdToLmId"))
       {
-        if (v1032)
+        if (v451)
         {
-          v315 = v1077 ? v1076 : &unk_26288CFB0;
-          if (strcmp(v315, "UniSc"))
+          v116 = v496 ? v495 : &unk_26288CFB0;
+          if (strcmp(v116, "UniSc"))
           {
-            v316 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v316 + 8))
+            v117 = DgnTextFile::getCurrentLine(v503);
+            if (*(v117 + 8))
             {
-              v319 = *v316;
+              v118 = *v117;
             }
 
             else
             {
-              v319 = &unk_26288CFB0;
+              v118 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5901, "lm/wordlm", 40, "%.500s", v317, v318, v319);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5901, "lm/wordlm", 40, "%.500s", v118);
           }
         }
 
         if (*(this + 16) >= 2u)
         {
-          if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v135, v136, v137, v138, v139, v140))
+          if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
           {
-            v326 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v326 + 8))
+            v119 = DgnTextFile::getCurrentLine(v503);
+            if (*(v119 + 8))
             {
-              v329 = *v326;
+              v120 = *v119;
             }
 
             else
             {
-              v329 = &unk_26288CFB0;
+              v120 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5905, "lm/wordlm", 40, "%.500s", v327, v328, v329);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5905, "lm/wordlm", 40, "%.500s", v120);
           }
 
           if (*(this + 16) >= 3u)
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v320, v321, v322, v323, v324, v325))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v336 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v336 + 8))
+              v121 = DgnTextFile::getCurrentLine(v503);
+              if (*(v121 + 8))
               {
-                v339 = *v336;
+                v122 = *v121;
               }
 
               else
               {
-                v339 = &unk_26288CFB0;
+                v122 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5909, "lm/wordlm", 40, "%.500s", v337, v338, v339);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5909, "lm/wordlm", 40, "%.500s", v122);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v330, v331, v332, v333, v334, v335))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v340 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v340 + 8))
+              v123 = DgnTextFile::getCurrentLine(v503);
+              if (*(v123 + 8))
               {
-                v343 = *v340;
+                v124 = *v123;
               }
 
               else
               {
-                v343 = &unk_26288CFB0;
+                v124 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5913, "lm/wordlm", 40, "%.500s", v341, v342, v343);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5913, "lm/wordlm", 40, "%.500s", v124);
             }
           }
         }
 
-        if (((v1032 ^ 1) & v1028) == 1)
+        if (((v451 ^ 1) & v447) == 1)
         {
-          v344 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v344 + 8))
+          v125 = DgnTextFile::getCurrentLine(v503);
+          if (*(v125 + 8))
           {
-            v347 = *v344;
+            v126 = *v125;
           }
 
           else
           {
-            v347 = &unk_26288CFB0;
+            v126 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5916, "lm/wordlm", 40, "%.500s", v345, v346, v347);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5916, "lm/wordlm", 40, "%.500s", v126);
         }
 
         if (LineFieldUnsigned > 0xFFFFF3)
         {
-          v348 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v348 + 8))
+          v127 = DgnTextFile::getCurrentLine(v503);
+          if (*(v127 + 8))
           {
-            v351 = *v348;
+            v128 = *v127;
           }
 
           else
           {
-            v351 = &unk_26288CFB0;
+            v128 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5919, "lm/wordlm", 40, "%.500s", v349, v350, v351);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5919, "lm/wordlm", 40, "%.500s", v128);
         }
 
-        v352 = *(this + 2);
-        if (*(v352 + 388) <= LineFieldUnsigned || !*(*(v352 + 104) + LineFieldUnsigned))
+        v129 = *(this + 2);
+        if (*(v129 + 388) <= LineFieldUnsigned || !*(*(v129 + 104) + LineFieldUnsigned))
         {
-          v353 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v353 + 8))
+          v130 = DgnTextFile::getCurrentLine(v503);
+          if (*(v130 + 8))
           {
-            v356 = *v353;
+            v131 = *v130;
           }
 
           else
           {
-            v356 = &unk_26288CFB0;
+            v131 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5923, "lm/wordlm", 40, "%.500s", v354, v355, v356);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5923, "lm/wordlm", 40, "%.500s", v131);
         }
 
-        if (LineFieldInteger < 1 || LineFieldInteger > v1027 || *(*(this + 21) + 2 * LineFieldInteger) == 20000)
+        if (LineFieldInteger < 1 || LineFieldInteger > v446 || *(*(this + 21) + 2 * LineFieldInteger) == 20000)
         {
-          v357 = DgnTextFile::getCurrentLine(v1084);
-          if (*(v357 + 8))
+          v132 = DgnTextFile::getCurrentLine(v503);
+          if (*(v132 + 8))
           {
-            v360 = *v357;
+            v133 = *v132;
           }
 
           else
           {
-            v360 = &unk_26288CFB0;
+            v133 = &unk_26288CFB0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5928, "lm/wordlm", 40, "%.500s", v358, v359, v360);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5928, "lm/wordlm", 40, "%.500s", v133);
         }
 
         WordLanguageModel::recordWordIdLmIdUsage(this, LineFieldUnsigned, LineFieldInteger);
         goto LABEL_814;
       }
 
-      v141 = *(this + 16);
-      if (v141 >= 2)
+      v76 = *(this + 16);
+      if (v76 >= 2)
       {
-        if (!strcmp(v128, "WordIdToContextLmId"))
+        if (!strcmp(v75, "WordIdToContextLmId"))
         {
-          if (!v1032 || (v1077 ? (v361 = v1076) : (v361 = &unk_26288CFB0), !strcmp(v361, "UniSc") || !strcmp(v361, "WordIdToLmId") || ((v362 = DgnTextFile::getCurrentLine(v1084), *(v362 + 8)) ? (v365 = *v362) : (v365 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5938, "lm/wordlm", 40, "%.500s", v363, v364, v365), *(this + 16) >= 2u)))
+          if (!v451 || (v496 ? (v134 = v495) : (v134 = &unk_26288CFB0), !strcmp(v134, "UniSc") || !strcmp(v134, "WordIdToLmId") || ((v135 = DgnTextFile::getCurrentLine(v503), *(v135 + 8)) ? (v136 = *v135) : (v136 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5938, "lm/wordlm", 40, "%.500s", v136), *(this + 16) >= 2u)))
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v142, v143, v144, v145, v146, v147))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v372 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v372 + 8))
+              v137 = DgnTextFile::getCurrentLine(v503);
+              if (*(v137 + 8))
               {
-                v375 = *v372;
+                v138 = *v137;
               }
 
               else
               {
-                v375 = &unk_26288CFB0;
+                v138 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5942, "lm/wordlm", 40, "%.500s", v373, v374, v375);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5942, "lm/wordlm", 40, "%.500s", v138);
             }
 
             if (*(this + 16) >= 3u)
             {
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v366, v367, v368, v369, v370, v371))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v382 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v382 + 8))
+                v139 = DgnTextFile::getCurrentLine(v503);
+                if (*(v139 + 8))
                 {
-                  v385 = *v382;
+                  v140 = *v139;
                 }
 
                 else
                 {
-                  v385 = &unk_26288CFB0;
+                  v140 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5946, "lm/wordlm", 40, "%.500s", v383, v384, v385);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5946, "lm/wordlm", 40, "%.500s", v140);
               }
 
-              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v376, v377, v378, v379, v380, v381))
+              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v386 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v386 + 8))
+                v141 = DgnTextFile::getCurrentLine(v503);
+                if (*(v141 + 8))
                 {
-                  v389 = *v386;
+                  v142 = *v141;
                 }
 
                 else
                 {
-                  v389 = &unk_26288CFB0;
+                  v142 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5950, "lm/wordlm", 40, "%.500s", v387, v388, v389);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5950, "lm/wordlm", 40, "%.500s", v142);
               }
             }
 
-            if (((v1032 ^ 1) & v1028) == 1)
+            if (((v451 ^ 1) & v447) == 1)
             {
-              v390 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v390 + 8))
+              v143 = DgnTextFile::getCurrentLine(v503);
+              if (*(v143 + 8))
               {
-                v393 = *v390;
+                v144 = *v143;
               }
 
               else
               {
-                v393 = &unk_26288CFB0;
+                v144 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5953, "lm/wordlm", 40, "%.500s", v391, v392, v393);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5953, "lm/wordlm", 40, "%.500s", v144);
             }
           }
 
           if (LineFieldUnsigned > 0xFFFFF3)
           {
-            v394 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v394 + 8))
+            v145 = DgnTextFile::getCurrentLine(v503);
+            if (*(v145 + 8))
             {
-              v397 = *v394;
+              v146 = *v145;
             }
 
             else
             {
-              v397 = &unk_26288CFB0;
+              v146 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5956, "lm/wordlm", 40, "%.500s", v395, v396, v397);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5956, "lm/wordlm", 40, "%.500s", v146);
           }
 
-          v398 = *(this + 2);
-          if (*(v398 + 388) <= LineFieldUnsigned || !*(*(v398 + 104) + LineFieldUnsigned))
+          v147 = *(this + 2);
+          if (*(v147 + 388) <= LineFieldUnsigned || !*(*(v147 + 104) + LineFieldUnsigned))
           {
-            v399 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v399 + 8))
+            v148 = DgnTextFile::getCurrentLine(v503);
+            if (*(v148 + 8))
             {
-              v402 = *v399;
+              v149 = *v148;
             }
 
             else
             {
-              v402 = &unk_26288CFB0;
+              v149 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5960, "lm/wordlm", 40, "%.500s", v400, v401, v402);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5960, "lm/wordlm", 40, "%.500s", v149);
           }
 
           if (LineFieldInteger < 1 || LineFieldInteger >= *(this + 26))
           {
-            v403 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v403 + 8))
+            v150 = DgnTextFile::getCurrentLine(v503);
+            if (*(v150 + 8))
             {
-              v406 = *v403;
+              v151 = *v150;
             }
 
             else
             {
-              v406 = &unk_26288CFB0;
+              v151 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5964, "lm/wordlm", 40, "%.500s", v404, v405, v406);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5964, "lm/wordlm", 40, "%.500s", v151);
           }
 
           if ((*(this + 276) & 1) == 0)
           {
-            v407 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v407 + 8))
+            v152 = DgnTextFile::getCurrentLine(v503);
+            if (*(v152 + 8))
             {
-              v410 = *v407;
+              v153 = *v152;
             }
 
             else
             {
-              v410 = &unk_26288CFB0;
+              v153 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5967, "lm/wordlm", 40, "%.500s", v408, v409, v410);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5967, "lm/wordlm", 40, "%.500s", v153);
           }
 
-          v411 = v1027;
-          if (v1027 <= LineFieldInteger)
+          v154 = v446;
+          if (v446 <= LineFieldInteger)
           {
-            v411 = LineFieldInteger;
+            v154 = LineFieldInteger;
           }
 
-          v1027 = v411;
+          v446 = v154;
           WordLanguageModel::recordWordIdContextLmIdUsage(this, LineFieldUnsigned, LineFieldInteger);
           goto LABEL_814;
         }
 
-        if (!strcmp(v128, "UniBoSc"))
+        if (!strcmp(v75, "UniBoSc"))
         {
-          if (!v1032 || (v1077 ? (v412 = v1076) : (v412 = &unk_26288CFB0), !strcmp(v412, "UniSc") || !strcmp(v412, "WordIdToLmId") || !strcmp(v412, "WordIdToContextLmId") || ((v413 = DgnTextFile::getCurrentLine(v1084), *(v413 + 8)) ? (v416 = *v413) : (v416 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5982, "lm/wordlm", 40, "%.500s", v414, v415, v416), *(this + 16) >= 2u)))
+          if (!v451 || (v496 ? (v155 = v495) : (v155 = &unk_26288CFB0), !strcmp(v155, "UniSc") || !strcmp(v155, "WordIdToLmId") || !strcmp(v155, "WordIdToContextLmId") || ((v156 = DgnTextFile::getCurrentLine(v503), *(v156 + 8)) ? (v157 = *v156) : (v157 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5982, "lm/wordlm", 40, "%.500s", v157), *(this + 16) >= 2u)))
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v148, v149, v150, v151, v152, v153))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v423 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v423 + 8))
+              v158 = DgnTextFile::getCurrentLine(v503);
+              if (*(v158 + 8))
               {
-                v426 = *v423;
+                v159 = *v158;
               }
 
               else
               {
-                v426 = &unk_26288CFB0;
+                v159 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5986, "lm/wordlm", 40, "%.500s", v424, v425, v426);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5986, "lm/wordlm", 40, "%.500s", v159);
             }
 
             if (*(this + 16) >= 3u)
             {
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v417, v418, v419, v420, v421, v422))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v433 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v433 + 8))
+                v160 = DgnTextFile::getCurrentLine(v503);
+                if (*(v160 + 8))
                 {
-                  v436 = *v433;
+                  v161 = *v160;
                 }
 
                 else
                 {
-                  v436 = &unk_26288CFB0;
+                  v161 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5990, "lm/wordlm", 40, "%.500s", v434, v435, v436);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5990, "lm/wordlm", 40, "%.500s", v161);
               }
 
-              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v427, v428, v429, v430, v431, v432))
+              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v437 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v437 + 8))
+                v162 = DgnTextFile::getCurrentLine(v503);
+                if (*(v162 + 8))
                 {
-                  v440 = *v437;
+                  v163 = *v162;
                 }
 
                 else
                 {
-                  v440 = &unk_26288CFB0;
+                  v163 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5994, "lm/wordlm", 40, "%.500s", v438, v439, v440);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5994, "lm/wordlm", 40, "%.500s", v163);
               }
             }
 
-            if (((v1032 ^ 1) & v1028) == 1)
+            if (((v451 ^ 1) & v447) == 1)
             {
-              v441 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v441 + 8))
+              v164 = DgnTextFile::getCurrentLine(v503);
+              if (*(v164 + 8))
               {
-                v444 = *v441;
+                v165 = *v164;
               }
 
               else
               {
-                v444 = &unk_26288CFB0;
+                v165 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5997, "lm/wordlm", 40, "%.500s", v442, v443, v444);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5997, "lm/wordlm", 40, "%.500s", v165);
             }
           }
 
-          if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 21) + 2 * LineFieldUnsigned) == 20000)
+          if (LineFieldUnsigned - 1 >= v446 || *(*(this + 21) + 2 * LineFieldUnsigned) == 20000)
           {
-            v445 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v445 + 8))
+            v166 = DgnTextFile::getCurrentLine(v503);
+            if (*(v166 + 8))
             {
-              v448 = *v445;
+              v167 = *v166;
             }
 
             else
             {
-              v448 = &unk_26288CFB0;
+              v167 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6002, "lm/wordlm", 40, "%.500s", v446, v447, v448);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6002, "lm/wordlm", 40, "%.500s", v167);
           }
 
           if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
           {
-            v449 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v449 + 8))
+            v168 = DgnTextFile::getCurrentLine(v503);
+            if (*(v168 + 8))
             {
-              v452 = *v449;
+              v169 = *v168;
             }
 
             else
             {
-              v452 = &unk_26288CFB0;
+              v169 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6007, "lm/wordlm", 40, "%.500s", v450, v451, v452);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6007, "lm/wordlm", 40, "%.500s", v169);
           }
 
           if (*(this + 84))
           {
-            v453 = *(this + 41);
+            v170 = *(this + 41);
           }
 
           else
           {
-            v540 = *(this + 26);
-            v541 = *(this + 85);
-            v542 = v540;
-            if (v540 > v541)
+            v205 = *(this + 26);
+            v206 = *(this + 85);
+            v207 = v205;
+            if (v205 > v206)
             {
-              DgnPrimArray<short>::reallocElts(this + 328, v540 - v541, 0);
-              v542 = *(this + 26);
+              DgnPrimArray<short>::reallocElts(this + 328, v205 - v206, 0);
+              v207 = *(this + 26);
             }
 
-            *(this + 84) = v540;
-            v453 = *(this + 41);
-            if (v542)
+            *(this + 84) = v205;
+            v170 = *(this + 41);
+            if (v207)
             {
-              memset_pattern16(*(this + 41), &unk_262888330, 2 * v542);
+              memset_pattern16(*(this + 41), &unk_262888330, 2 * v207);
             }
           }
 
-          *(v453 + 2 * LineFieldUnsigned) = LineFieldInteger;
+          *(v170 + 2 * LineFieldUnsigned) = LineFieldInteger;
           goto LABEL_814;
         }
 
-        if (!strcmp(v128, "BoWt"))
+        if (!strcmp(v75, "BoWt"))
         {
-          if (!v1032 || (v1077 ? (v454 = v1076) : (v454 = &unk_26288CFB0), !strcmp(v454, "UniSc") || !strcmp(v454, "WordIdToLmId") || !strcmp(v454, "WordIdToContextLmId") || !strcmp(v454, "UniBoSc") || ((v455 = DgnTextFile::getCurrentLine(v1084), *(v455 + 8)) ? (v458 = *v455) : (v458 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6026, "lm/wordlm", 40, "%.500s", v456, v457, v458), *(this + 16) >= 2u)))
+          if (!v451 || (v496 ? (v171 = v495) : (v171 = &unk_26288CFB0), !strcmp(v171, "UniSc") || !strcmp(v171, "WordIdToLmId") || !strcmp(v171, "WordIdToContextLmId") || !strcmp(v171, "UniBoSc") || ((v172 = DgnTextFile::getCurrentLine(v503), *(v172 + 8)) ? (v173 = *v172) : (v173 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6026, "lm/wordlm", 40, "%.500s", v173), *(this + 16) >= 2u)))
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v154, v155, v156, v157, v158, v159))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v465 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v465 + 8))
+              v174 = DgnTextFile::getCurrentLine(v503);
+              if (*(v174 + 8))
               {
-                v468 = *v465;
+                v175 = *v174;
               }
 
               else
               {
-                v468 = &unk_26288CFB0;
+                v175 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6030, "lm/wordlm", 40, "%.500s", v466, v467, v468);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6030, "lm/wordlm", 40, "%.500s", v175);
             }
 
             if (*(this + 16) >= 3u)
             {
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v459, v460, v461, v462, v463, v464))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v475 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v475 + 8))
+                v176 = DgnTextFile::getCurrentLine(v503);
+                if (*(v176 + 8))
                 {
-                  v478 = *v475;
+                  v177 = *v176;
                 }
 
                 else
                 {
-                  v478 = &unk_26288CFB0;
+                  v177 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6034, "lm/wordlm", 40, "%.500s", v476, v477, v478);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6034, "lm/wordlm", 40, "%.500s", v177);
               }
 
-              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v469, v470, v471, v472, v473, v474))
+              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v479 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v479 + 8))
+                v178 = DgnTextFile::getCurrentLine(v503);
+                if (*(v178 + 8))
                 {
-                  v482 = *v479;
+                  v179 = *v178;
                 }
 
                 else
                 {
-                  v482 = &unk_26288CFB0;
+                  v179 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6038, "lm/wordlm", 40, "%.500s", v480, v481, v482);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6038, "lm/wordlm", 40, "%.500s", v179);
               }
             }
 
-            if (((v1032 ^ 1) & v1028) == 1)
+            if (((v451 ^ 1) & v447) == 1)
             {
-              v483 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v483 + 8))
+              v180 = DgnTextFile::getCurrentLine(v503);
+              if (*(v180 + 8))
               {
-                v486 = *v483;
+                v181 = *v180;
               }
 
               else
               {
-                v486 = &unk_26288CFB0;
+                v181 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6041, "lm/wordlm", 40, "%.500s", v484, v485, v486);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6041, "lm/wordlm", 40, "%.500s", v181);
             }
           }
 
           if (!LineFieldUnsigned || LineFieldUnsigned >= *(this + 26))
           {
-            v487 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v487 + 8))
+            v182 = DgnTextFile::getCurrentLine(v503);
+            if (*(v182 + 8))
             {
-              v490 = *v487;
+              v183 = *v182;
             }
 
             else
             {
-              v490 = &unk_26288CFB0;
+              v183 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6045, "lm/wordlm", 40, "%.500s", v488, v489, v490);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6045, "lm/wordlm", 40, "%.500s", v183);
           }
 
-          v491 = v1027;
-          if (v1027 <= LineFieldUnsigned)
+          v184 = v446;
+          if (v446 <= LineFieldUnsigned)
           {
-            v491 = LineFieldUnsigned;
+            v184 = LineFieldUnsigned;
           }
 
-          v1027 = v491;
-          v492 = *(this + 14);
-          if (LineFieldInteger <= -v492 || LineFieldInteger >= v492)
+          v446 = v184;
+          v185 = *(this + 14);
+          if (LineFieldInteger <= -v185 || LineFieldInteger >= v185)
           {
-            v493 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v493 + 8))
+            v186 = DgnTextFile::getCurrentLine(v503);
+            if (*(v186 + 8))
             {
-              v496 = *v493;
+              v187 = *v186;
             }
 
             else
             {
-              v496 = &unk_26288CFB0;
+              v187 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6054, "lm/wordlm", 40, "%.500s", v494, v495, v496);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6054, "lm/wordlm", 40, "%.500s", v187);
           }
 
           *(*(this + 43) + 2 * LineFieldUnsigned) = LineFieldInteger;
           goto LABEL_814;
         }
 
-        if (!strcmp(v128, "BiScQuant"))
+        if (!strcmp(v75, "BiScQuant"))
         {
-          if (!v1032 || (v1077 ? (v497 = v1076) : (v497 = &unk_26288CFB0), !strcmp(v497, "UniSc") || !strcmp(v497, "WordIdToLmId") || !strcmp(v497, "WordIdToContextLmId") || !strcmp(v497, "UniBoSc") || !strcmp(v497, "BoWt") || ((v498 = DgnTextFile::getCurrentLine(v1084), *(v498 + 8)) ? (v501 = *v498) : (v501 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6066, "lm/wordlm", 40, "%.500s", v499, v500, v501), *(this + 16) >= 2u)))
+          if (!v451 || (v496 ? (v188 = v495) : (v188 = &unk_26288CFB0), !strcmp(v188, "UniSc") || !strcmp(v188, "WordIdToLmId") || !strcmp(v188, "WordIdToContextLmId") || !strcmp(v188, "UniBoSc") || !strcmp(v188, "BoWt") || ((v189 = DgnTextFile::getCurrentLine(v503), *(v189 + 8)) ? (v190 = *v189) : (v190 = &unk_26288CFB0), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6066, "lm/wordlm", 40, "%.500s", v190), *(this + 16) >= 2u)))
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v160, v161, v162, v163, v164, v165))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v508 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v508 + 8))
+              v191 = DgnTextFile::getCurrentLine(v503);
+              if (*(v191 + 8))
               {
-                v511 = *v508;
+                v192 = *v191;
               }
 
               else
               {
-                v511 = &unk_26288CFB0;
+                v192 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6070, "lm/wordlm", 40, "%.500s", v509, v510, v511);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6070, "lm/wordlm", 40, "%.500s", v192);
             }
 
             if (*(this + 16) >= 3u)
             {
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v502, v503, v504, v505, v506, v507))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v518 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v518 + 8))
+                v193 = DgnTextFile::getCurrentLine(v503);
+                if (*(v193 + 8))
                 {
-                  v521 = *v518;
+                  v194 = *v193;
                 }
 
                 else
                 {
-                  v521 = &unk_26288CFB0;
+                  v194 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6074, "lm/wordlm", 40, "%.500s", v519, v520, v521);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6074, "lm/wordlm", 40, "%.500s", v194);
               }
 
-              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v512, v513, v514, v515, v516, v517))
+              if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v522 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v522 + 8))
+                v195 = DgnTextFile::getCurrentLine(v503);
+                if (*(v195 + 8))
                 {
-                  v525 = *v522;
+                  v196 = *v195;
                 }
 
                 else
                 {
-                  v525 = &unk_26288CFB0;
+                  v196 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6078, "lm/wordlm", 40, "%.500s", v523, v524, v525);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6078, "lm/wordlm", 40, "%.500s", v196);
               }
             }
           }
 
-          v526 = v1032;
+          v197 = v451;
           if (LineFieldUnsigned == 1)
           {
-            v526 = 0;
+            v197 = 0;
           }
 
-          if (v526)
+          if (v197)
           {
             goto LABEL_616;
           }
 
-          v527 = v1032;
-          if (LineFieldUnsigned == v1034 + 1)
+          v198 = v451;
+          if (LineFieldUnsigned == v453 + 1)
           {
-            v527 = 1;
+            v198 = 1;
           }
 
-          if ((v527 & 1) == 0)
+          if ((v198 & 1) == 0)
           {
 LABEL_616:
-            v528 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v528 + 8))
+            v199 = DgnTextFile::getCurrentLine(v503);
+            if (*(v199 + 8))
             {
-              v531 = *v528;
+              v200 = *v199;
             }
 
             else
             {
-              v531 = &unk_26288CFB0;
+              v200 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6082, "lm/wordlm", 40, "%.500s", v529, v530, v531);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6082, "lm/wordlm", 40, "%.500s", v200);
           }
 
           if (LineFieldUnsigned - 256 <= 0xFFFFFF00)
           {
-            v532 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v532 + 8))
+            v201 = DgnTextFile::getCurrentLine(v503);
+            if (*(v201 + 8))
             {
-              v535 = *v532;
+              v202 = *v201;
             }
 
             else
             {
-              v535 = &unk_26288CFB0;
+              v202 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6085, "lm/wordlm", 40, "%.500s", v533, v534, v535);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6085, "lm/wordlm", 40, "%.500s", v202);
           }
 
           if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
           {
-            v536 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v536 + 8))
+            v203 = DgnTextFile::getCurrentLine(v503);
+            if (*(v203 + 8))
             {
-              v539 = *v536;
+              v204 = *v203;
             }
 
             else
             {
-              v539 = &unk_26288CFB0;
+              v204 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6089, "lm/wordlm", 40, "%.500s", v537, v538, v539);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6089, "lm/wordlm", 40, "%.500s", v204);
           }
 
-          BigramData::addBigramScoreQuantization(this + 90, 0, LineFieldInteger);
+          BigramData::addBigramScoreQuantization(this + 45, 0, LineFieldInteger);
           goto LABEL_814;
         }
 
-        if (!strcmp(v128, "BiSc"))
+        if (!strcmp(v75, "BiSc"))
         {
-          if (v1032)
+          if (v451)
           {
-            v543 = v1077 ? v1076 : &unk_26288CFB0;
-            if (strcmp(v543, "UniSc") && strcmp(v543, "WordIdToLmId") && strcmp(v543, "WordIdToContextLmId") && strcmp(v543, "UniBoSc") && strcmp(v543, "BoWt") && strcmp(v543, "BiScQuant"))
+            v208 = v496 ? v495 : &unk_26288CFB0;
+            if (strcmp(v208, "UniSc") && strcmp(v208, "WordIdToLmId") && strcmp(v208, "WordIdToContextLmId") && strcmp(v208, "UniBoSc") && strcmp(v208, "BoWt") && strcmp(v208, "BiScQuant"))
             {
-              v544 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v544 + 8))
+              v209 = DgnTextFile::getCurrentLine(v503);
+              if (*(v209 + 8))
               {
-                v547 = *v544;
+                v210 = *v209;
               }
 
               else
               {
-                v547 = &unk_26288CFB0;
+                v210 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6103, "lm/wordlm", 40, "%.500s", v545, v546, v547);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6103, "lm/wordlm", 40, "%.500s", v210);
             }
           }
 
-          v554 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v166, v167, v168, v169, v170, v171);
+          v211 = DgnTextFileParser::getLineFieldUnsigned(v503, v445);
           if (*(this + 16) >= 3u)
           {
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v548, v549, v550, v551, v552, v553))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v561 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v561 + 8))
+              v212 = DgnTextFile::getCurrentLine(v503);
+              if (*(v212 + 8))
               {
-                v564 = *v561;
+                v213 = *v212;
               }
 
               else
               {
-                v564 = &unk_26288CFB0;
+                v213 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6108, "lm/wordlm", 40, "%.500s", v562, v563, v564);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6108, "lm/wordlm", 40, "%.500s", v213);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v555, v556, v557, v558, v559, v560))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v565 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v565 + 8))
+              v214 = DgnTextFile::getCurrentLine(v503);
+              if (*(v214 + 8))
               {
-                v568 = *v565;
+                v215 = *v214;
               }
 
               else
               {
-                v568 = &unk_26288CFB0;
+                v215 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6112, "lm/wordlm", 40, "%.500s", v566, v567, v568);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6112, "lm/wordlm", 40, "%.500s", v215);
             }
           }
 
-          if (!(v1032 & 1 | !v1028) && v554 <= v1020)
+          if (!(v451 & 1 | !v447) && v211 <= v439)
           {
-            v569 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v569 + 8))
+            v216 = DgnTextFile::getCurrentLine(v503);
+            if (*(v216 + 8))
             {
-              v572 = *v569;
+              v217 = *v216;
             }
 
             else
             {
-              v572 = &unk_26288CFB0;
+              v217 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6116, "lm/wordlm", 40, "%.500s", v570, v571, v572);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6116, "lm/wordlm", 40, "%.500s", v217);
           }
 
-          if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
+          if (LineFieldUnsigned - 1 >= v446 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
           {
-            v573 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v573 + 8))
+            v218 = DgnTextFile::getCurrentLine(v503);
+            if (*(v218 + 8))
             {
-              v576 = *v573;
+              v219 = *v218;
             }
 
             else
             {
-              v576 = &unk_26288CFB0;
+              v219 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6122, "lm/wordlm", 40, "%.500s", v574, v575, v576);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6122, "lm/wordlm", 40, "%.500s", v219);
           }
 
-          if (v554 - 1 >= v1027 || *(*(this + 21) + 2 * v554) == 20000 || v554 > 0xFFFE || v554 >= *(this + 26))
+          if (v211 - 1 >= v446 || *(*(this + 21) + 2 * v211) == 20000 || v211 > 0xFFFE || v211 >= *(this + 26))
           {
-            v577 = DgnTextFile::getCurrentLine(v1084);
-            if (*(v577 + 8))
+            v220 = DgnTextFile::getCurrentLine(v503);
+            if (*(v220 + 8))
             {
-              v580 = *v577;
+              v221 = *v220;
             }
 
             else
             {
-              v580 = &unk_26288CFB0;
+              v221 = &unk_26288CFB0;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6129, "lm/wordlm", 40, "%.500s", v578, v579, v580);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6129, "lm/wordlm", 40, "%.500s", v221);
           }
 
-          v581 = v1075;
-          if (v1075 == HIDWORD(v1075))
+          v222 = v494;
+          if (v494 == HIDWORD(v494))
           {
-            DgnPrimArray<short>::reallocElts(&v1074, 1, 1);
-            v581 = v1075;
+            DgnPrimArray<short>::reallocElts(&v493, 1, 1);
+            v222 = v494;
           }
 
-          *(v1074 + 2 * v581) = v554;
-          LODWORD(v1075) = v581 + 1;
-          v582 = *(this + 94);
-          if (v582)
+          *(v493 + 2 * v222) = v211;
+          LODWORD(v494) = v222 + 1;
+          v223 = *(this + 94);
+          if (v223)
           {
-            if (LineFieldInteger < 1 || LineFieldInteger >= v582)
+            if (LineFieldInteger < 1 || LineFieldInteger >= v223)
             {
-              v583 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v583 + 8))
+              v224 = DgnTextFile::getCurrentLine(v503);
+              if (*(v224 + 8))
               {
-                v586 = *v583;
+                v225 = *v224;
               }
 
               else
               {
-                v586 = &unk_26288CFB0;
+                v225 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6143, "lm/wordlm", 40, "%.500s", v584, v585, v586);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6143, "lm/wordlm", 40, "%.500s", v225);
             }
 
-            v587 = v1071;
-            if (v1071 == HIDWORD(v1071))
+            v226 = v490;
+            if (v490 == HIDWORD(v490))
             {
-              DgnPrimArray<char>::reallocElts(&v1070, 1, 1);
-              v587 = v1071;
+              DgnPrimArray<char>::reallocElts(&v489, 1, 1);
+              v226 = v490;
             }
 
-            *(v1070 + v587) = LineFieldInteger;
-            LODWORD(v1071) = v1071 + 1;
+            *(v489 + v226) = LineFieldInteger;
+            LODWORD(v490) = v490 + 1;
           }
 
           else
           {
             if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
             {
-              v588 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v588 + 8))
+              v227 = DgnTextFile::getCurrentLine(v503);
+              if (*(v227 + 8))
               {
-                v591 = *v588;
+                v228 = *v227;
               }
 
               else
               {
-                v591 = &unk_26288CFB0;
+                v228 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6151, "lm/wordlm", 40, "%.500s", v589, v590, v591);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6151, "lm/wordlm", 40, "%.500s", v228);
             }
 
-            v592 = v1073;
-            if (v1073 == HIDWORD(v1073))
+            v229 = v492;
+            if (v492 == HIDWORD(v492))
             {
-              DgnPrimArray<short>::reallocElts(&v1072, 1, 1);
-              v592 = v1073;
+              DgnPrimArray<short>::reallocElts(&v491, 1, 1);
+              v229 = v492;
             }
 
-            v1072[v592] = LineFieldInteger;
-            LODWORD(v1073) = v592 + 1;
+            *(v491 + 2 * v229) = LineFieldInteger;
+            LODWORD(v492) = v229 + 1;
           }
 
-          v1033 = LineFieldUnsigned;
+          v452 = LineFieldUnsigned;
           goto LABEL_706;
         }
 
-        if (v141 != 2)
+        if (v76 != 2)
         {
-          if (!strcmp(v128, "TriBoWtQuant"))
+          if (!strcmp(v75, "TriBoWtQuant"))
           {
-            if (v1032)
+            if (v451)
             {
-              v593 = v1077 ? v1076 : &unk_26288CFB0;
-              if (strcmp(v593, "UniSc") && strcmp(v593, "WordIdToLmId") && strcmp(v593, "WordIdToContextLmId") && strcmp(v593, "UniBoSc") && strcmp(v593, "BoWt") && strcmp(v593, "BiScQuant") && strcmp(v593, "BiSc"))
+              v230 = v496 ? v495 : &unk_26288CFB0;
+              if (strcmp(v230, "UniSc") && strcmp(v230, "WordIdToLmId") && strcmp(v230, "WordIdToContextLmId") && strcmp(v230, "UniBoSc") && strcmp(v230, "BoWt") && strcmp(v230, "BiScQuant") && strcmp(v230, "BiSc"))
               {
-                v594 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v594 + 8))
+                v231 = DgnTextFile::getCurrentLine(v503);
+                if (*(v231 + 8))
                 {
-                  v597 = *v594;
+                  v232 = *v231;
                 }
 
                 else
                 {
-                  v597 = &unk_26288CFB0;
+                  v232 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6167, "lm/wordlm", 40, "%.500s", v595, v596, v597);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6167, "lm/wordlm", 40, "%.500s", v232);
               }
             }
 
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v172, v173, v174, v175, v176, v177))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v604 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v604 + 8))
+              v233 = DgnTextFile::getCurrentLine(v503);
+              if (*(v233 + 8))
               {
-                v607 = *v604;
+                v234 = *v233;
               }
 
               else
               {
-                v607 = &unk_26288CFB0;
+                v234 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6170, "lm/wordlm", 40, "%.500s", v605, v606, v607);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6170, "lm/wordlm", 40, "%.500s", v234);
             }
 
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v598, v599, v600, v601, v602, v603))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v614 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v614 + 8))
+              v235 = DgnTextFile::getCurrentLine(v503);
+              if (*(v235 + 8))
               {
-                v617 = *v614;
+                v236 = *v235;
               }
 
               else
               {
-                v617 = &unk_26288CFB0;
+                v236 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6173, "lm/wordlm", 40, "%.500s", v615, v616, v617);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6173, "lm/wordlm", 40, "%.500s", v236);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v608, v609, v610, v611, v612, v613))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v618 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v618 + 8))
+              v237 = DgnTextFile::getCurrentLine(v503);
+              if (*(v237 + 8))
               {
-                v621 = *v618;
+                v238 = *v237;
               }
 
               else
               {
-                v621 = &unk_26288CFB0;
+                v238 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6177, "lm/wordlm", 40, "%.500s", v619, v620, v621);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6177, "lm/wordlm", 40, "%.500s", v238);
             }
 
-            v622 = v1032;
+            v239 = v451;
             if (LineFieldUnsigned == 1)
             {
-              v622 = 0;
+              v239 = 0;
             }
 
-            if (v622)
+            if (v239)
             {
               goto LABEL_744;
             }
 
-            v623 = v1032;
-            if (LineFieldUnsigned == v1034 + 1)
+            v240 = v451;
+            if (LineFieldUnsigned == v453 + 1)
             {
-              v623 = 1;
+              v240 = 1;
             }
 
-            if ((v623 & 1) == 0)
+            if ((v240 & 1) == 0)
             {
 LABEL_744:
-              v624 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v624 + 8))
+              v241 = DgnTextFile::getCurrentLine(v503);
+              if (*(v241 + 8))
               {
-                v627 = *v624;
+                v242 = *v241;
               }
 
               else
               {
-                v627 = &unk_26288CFB0;
+                v242 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6181, "lm/wordlm", 40, "%.500s", v625, v626, v627);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6181, "lm/wordlm", 40, "%.500s", v242);
             }
 
             if (LineFieldUnsigned - 256 <= 0xFFFFFF00)
             {
-              v628 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v628 + 8))
+              v243 = DgnTextFile::getCurrentLine(v503);
+              if (*(v243 + 8))
               {
-                v631 = *v628;
+                v244 = *v243;
               }
 
               else
               {
-                v631 = &unk_26288CFB0;
+                v244 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6184, "lm/wordlm", 40, "%.500s", v629, v630, v631);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6184, "lm/wordlm", 40, "%.500s", v244);
             }
 
-            v632 = *(this + 14);
-            if (LineFieldInteger <= -v632 || LineFieldInteger >= v632)
+            v245 = *(this + 14);
+            if (LineFieldInteger <= -v245 || LineFieldInteger >= v245)
             {
-              v633 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v633 + 8))
+              v246 = DgnTextFile::getCurrentLine(v503);
+              if (*(v246 + 8))
               {
-                v636 = *v633;
+                v247 = *v246;
               }
 
               else
               {
-                v636 = &unk_26288CFB0;
+                v247 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6188, "lm/wordlm", 40, "%.500s", v634, v635, v636);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6188, "lm/wordlm", 40, "%.500s", v247);
             }
 
-            TrigramData::addTrigramBackoffWeightQuantization(this + 186, 0, LineFieldInteger);
+            TrigramData::addTrigramBackoffWeightQuantization(this + 93, 0, LineFieldInteger);
             goto LABEL_814;
           }
 
-          if (!strcmp(v128, "TriScQuant"))
+          if (!strcmp(v75, "TriScQuant"))
           {
-            if (v1032)
+            if (v451)
             {
-              v637 = v1077 ? v1076 : &unk_26288CFB0;
-              if (strcmp(v637, "UniSc") && strcmp(v637, "WordIdToLmId") && strcmp(v637, "WordIdToContextLmId") && strcmp(v637, "UniBoSc") && strcmp(v637, "BoWt") && strcmp(v637, "BiScQuant") && strcmp(v637, "BiSc") && strcmp(v637, "TriBoWtQuant"))
+              v248 = v496 ? v495 : &unk_26288CFB0;
+              if (strcmp(v248, "UniSc") && strcmp(v248, "WordIdToLmId") && strcmp(v248, "WordIdToContextLmId") && strcmp(v248, "UniBoSc") && strcmp(v248, "BoWt") && strcmp(v248, "BiScQuant") && strcmp(v248, "BiSc") && strcmp(v248, "TriBoWtQuant"))
               {
-                v638 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v638 + 8))
+                v249 = DgnTextFile::getCurrentLine(v503);
+                if (*(v249 + 8))
                 {
-                  v641 = *v638;
+                  v250 = *v249;
                 }
 
                 else
                 {
-                  v641 = &unk_26288CFB0;
+                  v250 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6204, "lm/wordlm", 40, "%.500s", v639, v640, v641);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6204, "lm/wordlm", 40, "%.500s", v250);
               }
             }
 
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v178, v179, v180, v181, v182, v183))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
             {
-              v648 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v648 + 8))
+              v251 = DgnTextFile::getCurrentLine(v503);
+              if (*(v251 + 8))
               {
-                v651 = *v648;
+                v252 = *v251;
               }
 
               else
               {
-                v651 = &unk_26288CFB0;
+                v252 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6207, "lm/wordlm", 40, "%.500s", v649, v650, v651);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6207, "lm/wordlm", 40, "%.500s", v252);
             }
 
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v642, v643, v644, v645, v646, v647))
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v658 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v658 + 8))
+              v253 = DgnTextFile::getCurrentLine(v503);
+              if (*(v253 + 8))
               {
-                v661 = *v658;
+                v254 = *v253;
               }
 
               else
               {
-                v661 = &unk_26288CFB0;
+                v254 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6210, "lm/wordlm", 40, "%.500s", v659, v660, v661);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6210, "lm/wordlm", 40, "%.500s", v254);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v652, v653, v654, v655, v656, v657))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v662 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v662 + 8))
+              v255 = DgnTextFile::getCurrentLine(v503);
+              if (*(v255 + 8))
               {
-                v665 = *v662;
+                v256 = *v255;
               }
 
               else
               {
-                v665 = &unk_26288CFB0;
+                v256 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6214, "lm/wordlm", 40, "%.500s", v663, v664, v665);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6214, "lm/wordlm", 40, "%.500s", v256);
             }
 
-            v666 = v1032;
+            v257 = v451;
             if (LineFieldUnsigned == 1)
             {
-              v666 = 0;
+              v257 = 0;
             }
 
-            if (v666)
+            if (v257)
             {
               goto LABEL_798;
             }
 
-            v667 = v1032;
-            if (LineFieldUnsigned == v1034 + 1)
+            v258 = v451;
+            if (LineFieldUnsigned == v453 + 1)
             {
-              v667 = 1;
+              v258 = 1;
             }
 
-            if ((v667 & 1) == 0)
+            if ((v258 & 1) == 0)
             {
 LABEL_798:
-              v668 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v668 + 8))
+              v259 = DgnTextFile::getCurrentLine(v503);
+              if (*(v259 + 8))
               {
-                v671 = *v668;
+                v260 = *v259;
               }
 
               else
               {
-                v671 = &unk_26288CFB0;
+                v260 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6218, "lm/wordlm", 40, "%.500s", v669, v670, v671);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6218, "lm/wordlm", 40, "%.500s", v260);
             }
 
             if (LineFieldUnsigned - 256 <= 0xFFFFFF00)
             {
-              v672 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v672 + 8))
+              v261 = DgnTextFile::getCurrentLine(v503);
+              if (*(v261 + 8))
               {
-                v675 = *v672;
+                v262 = *v261;
               }
 
               else
               {
-                v675 = &unk_26288CFB0;
+                v262 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6221, "lm/wordlm", 40, "%.500s", v673, v674, v675);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6221, "lm/wordlm", 40, "%.500s", v262);
             }
 
             if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
             {
-              v676 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v676 + 8))
+              v263 = DgnTextFile::getCurrentLine(v503);
+              if (*(v263 + 8))
               {
-                v679 = *v676;
+                v264 = *v263;
               }
 
               else
               {
-                v679 = &unk_26288CFB0;
+                v264 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6225, "lm/wordlm", 40, "%.500s", v677, v678, v679);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6225, "lm/wordlm", 40, "%.500s", v264);
             }
 
-            TrigramData::addTrigramScoreQuantization(this + 186, 0, LineFieldInteger);
+            TrigramData::addTrigramScoreQuantization(this + 93, 0, LineFieldInteger);
             goto LABEL_814;
           }
 
-          if (!strcmp(v128, "TriBoWt"))
+          if (!strcmp(v75, "TriBoWt"))
           {
-            if (v1032)
+            if (v451)
             {
-              v680 = v1077 ? v1076 : &unk_26288CFB0;
-              if (strcmp(v680, "UniSc") && strcmp(v680, "WordIdToLmId") && strcmp(v680, "WordIdToContextLmId") && strcmp(v680, "UniBoSc") && strcmp(v680, "BoWt") && strcmp(v680, "BiScQuant") && strcmp(v680, "BiSc") && strcmp(v680, "TriBoWtQuant") && strcmp(v680, "TriScQuant"))
+              v265 = v496 ? v495 : &unk_26288CFB0;
+              if (strcmp(v265, "UniSc") && strcmp(v265, "WordIdToLmId") && strcmp(v265, "WordIdToContextLmId") && strcmp(v265, "UniBoSc") && strcmp(v265, "BoWt") && strcmp(v265, "BiScQuant") && strcmp(v265, "BiSc") && strcmp(v265, "TriBoWtQuant") && strcmp(v265, "TriScQuant"))
               {
-                v681 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v681 + 8))
+                v266 = DgnTextFile::getCurrentLine(v503);
+                if (*(v266 + 8))
                 {
-                  v684 = *v681;
+                  v267 = *v266;
                 }
 
                 else
                 {
-                  v684 = &unk_26288CFB0;
+                  v267 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6242, "lm/wordlm", 40, "%.500s", v682, v683, v684);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6242, "lm/wordlm", 40, "%.500s", v267);
               }
             }
 
-            v554 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v184, v185, v186, v187, v188, v189);
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v685, v686, v687, v688, v689, v690))
+            v211 = DgnTextFileParser::getLineFieldUnsigned(v503, v445);
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
             {
-              v697 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v697 + 8))
+              v268 = DgnTextFile::getCurrentLine(v503);
+              if (*(v268 + 8))
               {
-                v700 = *v697;
+                v269 = *v268;
               }
 
               else
               {
-                v700 = &unk_26288CFB0;
+                v269 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6246, "lm/wordlm", 40, "%.500s", v698, v699, v700);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6246, "lm/wordlm", 40, "%.500s", v269);
             }
 
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v691, v692, v693, v694, v695, v696))
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v701 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v701 + 8))
+              v270 = DgnTextFile::getCurrentLine(v503);
+              if (*(v270 + 8))
               {
-                v704 = *v701;
+                v271 = *v270;
               }
 
               else
               {
-                v704 = &unk_26288CFB0;
+                v271 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6250, "lm/wordlm", 40, "%.500s", v702, v703, v704);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6250, "lm/wordlm", 40, "%.500s", v271);
             }
 
-            if (!(v1032 & 1 | !v1028) && v554 <= v1020)
+            if (!(v451 & 1 | !v447) && v211 <= v439)
             {
-              v705 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v705 + 8))
+              v272 = DgnTextFile::getCurrentLine(v503);
+              if (*(v272 + 8))
               {
-                v708 = *v705;
+                v273 = *v272;
               }
 
               else
               {
-                v708 = &unk_26288CFB0;
+                v273 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6254, "lm/wordlm", 40, "%.500s", v706, v707, v708);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6254, "lm/wordlm", 40, "%.500s", v273);
             }
 
-            if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
+            if (LineFieldUnsigned - 1 >= v446 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
             {
-              v709 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v709 + 8))
+              v274 = DgnTextFile::getCurrentLine(v503);
+              if (*(v274 + 8))
               {
-                v712 = *v709;
+                v275 = *v274;
               }
 
               else
               {
-                v712 = &unk_26288CFB0;
+                v275 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6260, "lm/wordlm", 40, "%.500s", v710, v711, v712);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6260, "lm/wordlm", 40, "%.500s", v275);
             }
 
-            if (v554 - 1 >= v1027 || *(*(this + 43) + 2 * v554) == 20000 || v554 > 0xFFFE || v554 >= *(this + 26))
+            if (v211 - 1 >= v446 || *(*(this + 43) + 2 * v211) == 20000 || v211 > 0xFFFE || v211 >= *(this + 26))
             {
-              v713 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v713 + 8))
+              v276 = DgnTextFile::getCurrentLine(v503);
+              if (*(v276 + 8))
               {
-                v716 = *v713;
+                v277 = *v276;
               }
 
               else
               {
-                v716 = &unk_26288CFB0;
+                v277 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6267, "lm/wordlm", 40, "%.500s", v714, v715, v716);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6267, "lm/wordlm", 40, "%.500s", v277);
             }
 
-            v717 = *v1069;
-            if (*v1069 == *&v1069[2])
+            v278 = *v488;
+            if (*v488 == *&v488[2])
             {
-              DgnPrimArray<short>::reallocElts(&v1068, 1, 1);
-              v717 = *v1069;
+              DgnPrimArray<short>::reallocElts(&v487, 1, 1);
+              v278 = *v488;
             }
 
-            *(v1068 + 2 * v717) = v554;
-            *v1069 = v717 + 1;
-            v718 = *(this + 192);
-            if (v718)
+            *(v487 + 2 * v278) = v211;
+            *v488 = v278 + 1;
+            v279 = *(this + 192);
+            if (v279)
             {
-              if (LineFieldInteger < 1 || LineFieldInteger >= v718)
+              if (LineFieldInteger < 1 || LineFieldInteger >= v279)
               {
-                v719 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v719 + 8))
+                v280 = DgnTextFile::getCurrentLine(v503);
+                if (*(v280 + 8))
                 {
-                  v722 = *v719;
+                  v281 = *v280;
                 }
 
                 else
                 {
-                  v722 = &unk_26288CFB0;
+                  v281 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6282, "lm/wordlm", 40, "%.500s", v720, v721, v722);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6282, "lm/wordlm", 40, "%.500s", v281);
               }
 
-              v723 = v1065;
-              if (v1065 == HIDWORD(v1065))
+              v282 = v484;
+              if (v484 == HIDWORD(v484))
               {
-                DgnPrimArray<char>::reallocElts(&v1064, 1, 1);
-                v723 = v1065;
+                DgnPrimArray<char>::reallocElts(&v483, 1, 1);
+                v282 = v484;
               }
 
-              *(v1064 + v723) = LineFieldInteger;
-              LODWORD(v1065) = v1065 + 1;
+              *(v483 + v282) = LineFieldInteger;
+              LODWORD(v484) = v484 + 1;
             }
 
             else
             {
-              v774 = *(this + 14);
-              if (LineFieldInteger <= -v774 || LineFieldInteger >= v774)
+              v305 = *(this + 14);
+              if (LineFieldInteger <= -v305 || LineFieldInteger >= v305)
               {
-                v775 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v775 + 8))
+                v306 = DgnTextFile::getCurrentLine(v503);
+                if (*(v306 + 8))
                 {
-                  v778 = *v775;
+                  v307 = *v306;
                 }
 
                 else
                 {
-                  v778 = &unk_26288CFB0;
+                  v307 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6290, "lm/wordlm", 40, "%.500s", v776, v777, v778);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6290, "lm/wordlm", 40, "%.500s", v307);
               }
 
-              v779 = v1067;
-              if (v1067 == HIDWORD(v1067))
+              v308 = v486;
+              if (v486 == HIDWORD(v486))
               {
-                DgnPrimArray<short>::reallocElts(&v1066, 1, 1);
-                v779 = v1067;
+                DgnPrimArray<short>::reallocElts(&v485, 1, 1);
+                v308 = v486;
               }
 
-              *(v1066 + 2 * v779) = LineFieldInteger;
-              LODWORD(v1067) = v779 + 1;
+              *(v485 + 2 * v308) = LineFieldInteger;
+              LODWORD(v486) = v308 + 1;
             }
 
-            v1036 = LineFieldUnsigned;
+            v455 = LineFieldUnsigned;
             goto LABEL_706;
           }
 
-          if (!strcmp(v128, "TriSc"))
+          if (!strcmp(v75, "TriSc"))
           {
-            if (v1032)
+            if (v451)
             {
-              v724 = v1077 ? v1076 : &unk_26288CFB0;
-              if (strcmp(v724, "UniSc") && strcmp(v724, "WordIdToLmId") && strcmp(v724, "WordIdToContextLmId") && strcmp(v724, "UniBoSc") && strcmp(v724, "BoWt") && strcmp(v724, "BiScQuant") && strcmp(v724, "BiSc") && strcmp(v724, "TriBoWtQuant") && strcmp(v724, "TriScQuant") && strcmp(v724, "TriBoWt"))
+              v283 = v496 ? v495 : &unk_26288CFB0;
+              if (strcmp(v283, "UniSc") && strcmp(v283, "WordIdToLmId") && strcmp(v283, "WordIdToContextLmId") && strcmp(v283, "UniBoSc") && strcmp(v283, "BoWt") && strcmp(v283, "BiScQuant") && strcmp(v283, "BiSc") && strcmp(v283, "TriBoWtQuant") && strcmp(v283, "TriScQuant") && strcmp(v283, "TriBoWt"))
               {
-                v725 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v725 + 8))
+                v284 = DgnTextFile::getCurrentLine(v503);
+                if (*(v284 + 8))
                 {
-                  v728 = *v725;
+                  v285 = *v284;
                 }
 
                 else
                 {
-                  v728 = &unk_26288CFB0;
+                  v285 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6309, "lm/wordlm", 40, "%.500s", v726, v727, v728);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6309, "lm/wordlm", 40, "%.500s", v285);
               }
             }
 
-            v554 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v190, v191, v192, v193, v194, v195);
-            v741 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v729, v730, v731, v732, v733, v734);
-            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v735, v736, v737, v738, v739, v740))
+            v211 = DgnTextFileParser::getLineFieldUnsigned(v503, v445);
+            v286 = DgnTextFileParser::getLineFieldUnsigned(v503, v440);
+            if (*(this + 16) >= 4u && DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v742 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v742 + 8))
+              v287 = DgnTextFile::getCurrentLine(v503);
+              if (*(v287 + 8))
               {
-                v745 = *v742;
+                v288 = *v287;
               }
 
               else
               {
-                v745 = &unk_26288CFB0;
+                v288 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6315, "lm/wordlm", 40, "%.500s", v743, v744, v745);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6315, "lm/wordlm", 40, "%.500s", v288);
             }
 
-            v746 = (v1032 ^ 1) & v1028;
-            if (v746 == 1 && v554 < v1020)
+            v289 = (v451 ^ 1) & v447;
+            if (v289 == 1 && v211 < v439)
             {
-              v747 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v747 + 8))
+              v290 = DgnTextFile::getCurrentLine(v503);
+              if (*(v290 + 8))
               {
-                v750 = *v747;
+                v291 = *v290;
               }
 
               else
               {
-                v750 = &unk_26288CFB0;
+                v291 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6319, "lm/wordlm", 40, "%.500s", v748, v749, v750);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6319, "lm/wordlm", 40, "%.500s", v291);
             }
 
-            if (v746 && v554 == v1020 && v741 <= v1017)
+            if (v289 && v211 == v439 && v286 <= v436)
             {
-              v751 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v751 + 8))
+              v292 = DgnTextFile::getCurrentLine(v503);
+              if (*(v292 + 8))
               {
-                v754 = *v751;
+                v293 = *v292;
               }
 
               else
               {
-                v754 = &unk_26288CFB0;
+                v293 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6323, "lm/wordlm", 40, "%.500s", v752, v753, v754);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6323, "lm/wordlm", 40, "%.500s", v293);
             }
 
-            if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
+            if (LineFieldUnsigned - 1 >= v446 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
             {
-              v755 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v755 + 8))
+              v294 = DgnTextFile::getCurrentLine(v503);
+              if (*(v294 + 8))
               {
-                v758 = *v755;
+                v295 = *v294;
               }
 
               else
               {
-                v758 = &unk_26288CFB0;
+                v295 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6329, "lm/wordlm", 40, "%.500s", v756, v757, v758);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6329, "lm/wordlm", 40, "%.500s", v295);
             }
 
-            if (v554 - 1 >= v1027 || *(*(this + 43) + 2 * v554) == 20000 || v554 > 0xFFFE || v554 >= *(this + 26))
+            if (v211 - 1 >= v446 || *(*(this + 43) + 2 * v211) == 20000 || v211 > 0xFFFE || v211 >= *(this + 26))
             {
-              v759 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v759 + 8))
+              v296 = DgnTextFile::getCurrentLine(v503);
+              if (*(v296 + 8))
               {
-                v762 = *v759;
+                v297 = *v296;
               }
 
               else
               {
-                v762 = &unk_26288CFB0;
+                v297 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6336, "lm/wordlm", 40, "%.500s", v760, v761, v762);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6336, "lm/wordlm", 40, "%.500s", v297);
             }
 
-            if (v741 - 1 >= v1027 || *(*(this + 21) + 2 * v741) == 20000 || v741 > 0xFFFE || v741 >= *(this + 26))
+            if (v286 - 1 >= v446 || *(*(this + 21) + 2 * v286) == 20000 || v286 > 0xFFFE || v286 >= *(this + 26))
             {
-              v763 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v763 + 8))
+              v298 = DgnTextFile::getCurrentLine(v503);
+              if (*(v298 + 8))
               {
-                v766 = *v763;
+                v299 = *v298;
               }
 
               else
               {
-                v766 = &unk_26288CFB0;
+                v299 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6343, "lm/wordlm", 40, "%.500s", v764, v765, v766);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6343, "lm/wordlm", 40, "%.500s", v299);
             }
 
-            v767 = v1063;
-            if (v1063 == HIDWORD(v1063))
+            v300 = v482;
+            if (v482 == HIDWORD(v482))
             {
-              DgnPrimArray<short>::reallocElts(&v1062, 1, 1);
-              v767 = v1063;
+              DgnPrimArray<short>::reallocElts(&v481, 1, 1);
+              v300 = v482;
             }
 
-            v93 = v554;
-            *(v1062 + 2 * v767) = v741;
-            LODWORD(v1063) = v767 + 1;
-            v768 = *(this + 196);
-            if (v768)
+            v56 = v211;
+            *(v481 + 2 * v300) = v286;
+            LODWORD(v482) = v300 + 1;
+            v301 = *(this + 196);
+            if (v301)
             {
-              if (LineFieldInteger < 1 || LineFieldInteger >= v768)
+              if (LineFieldInteger < 1 || LineFieldInteger >= v301)
               {
-                v769 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v769 + 8))
+                v302 = DgnTextFile::getCurrentLine(v503);
+                if (*(v302 + 8))
                 {
-                  v772 = *v769;
+                  v303 = *v302;
                 }
 
                 else
                 {
-                  v772 = &unk_26288CFB0;
+                  v303 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6362, "lm/wordlm", 40, "%.500s", v770, v771, v772);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6362, "lm/wordlm", 40, "%.500s", v303);
               }
 
-              v773 = v1059;
-              if (v1059 == HIDWORD(v1059))
+              v304 = v478;
+              if (v478 == HIDWORD(v478))
               {
-                DgnPrimArray<char>::reallocElts(&v1058, 1, 1);
-                v773 = v1059;
+                DgnPrimArray<char>::reallocElts(&v477, 1, 1);
+                v304 = v478;
               }
 
-              *(v1058 + v773) = LineFieldInteger;
-              LODWORD(v1059) = v1059 + 1;
+              *(v477 + v304) = LineFieldInteger;
+              LODWORD(v478) = v478 + 1;
             }
 
             else
             {
               if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
               {
-                v780 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v780 + 8))
+                v309 = DgnTextFile::getCurrentLine(v503);
+                if (*(v309 + 8))
                 {
-                  v783 = *v780;
+                  v310 = *v309;
                 }
 
                 else
                 {
-                  v783 = &unk_26288CFB0;
+                  v310 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6370, "lm/wordlm", 40, "%.500s", v781, v782, v783);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6370, "lm/wordlm", 40, "%.500s", v310);
               }
 
-              v784 = v1061;
-              if (v1061 == HIDWORD(v1061))
+              v311 = v480;
+              if (v480 == HIDWORD(v480))
               {
-                DgnPrimArray<short>::reallocElts(&v1060, 1, 1);
-                v784 = v1061;
+                DgnPrimArray<short>::reallocElts(&v479, 1, 1);
+                v311 = v480;
               }
 
-              v1060[v784] = LineFieldInteger;
-              LODWORD(v1061) = v784 + 1;
+              *(v479 + 2 * v311) = LineFieldInteger;
+              LODWORD(v480) = v311 + 1;
             }
 
-            v1035 = LineFieldUnsigned;
+            v454 = LineFieldUnsigned;
 LABEL_968:
-            v1017 = v741;
+            v436 = v286;
 LABEL_706:
-            v1020 = v554;
+            v439 = v211;
             goto LABEL_814;
           }
 
-          if (v141 >= 4)
+          if (v76 >= 4)
           {
-            if (!strcmp(v128, "QuadBoWtQuant"))
+            if (!strcmp(v75, "QuadBoWtQuant"))
             {
-              if (v1032)
+              if (v451)
               {
-                v785 = v1077 ? v1076 : &unk_26288CFB0;
-                if (strcmp(v785, "UniSc") && strcmp(v785, "WordIdToLmId") && strcmp(v785, "WordIdToContextLmId") && strcmp(v785, "UniBoSc") && strcmp(v785, "BoWt") && strcmp(v785, "BiScQuant") && strcmp(v785, "BiSc") && strcmp(v785, "TriBoWtQuant") && strcmp(v785, "TriScQuant") && strcmp(v785, "TriBoWt") && strcmp(v785, "TriSc"))
+                v312 = v496 ? v495 : &unk_26288CFB0;
+                if (strcmp(v312, "UniSc") && strcmp(v312, "WordIdToLmId") && strcmp(v312, "WordIdToContextLmId") && strcmp(v312, "UniBoSc") && strcmp(v312, "BoWt") && strcmp(v312, "BiScQuant") && strcmp(v312, "BiSc") && strcmp(v312, "TriBoWtQuant") && strcmp(v312, "TriScQuant") && strcmp(v312, "TriBoWt") && strcmp(v312, "TriSc"))
                 {
-                  v786 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v786 + 8))
+                  v313 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v313 + 8))
                   {
-                    v789 = *v786;
+                    v314 = *v313;
                   }
 
                   else
                   {
-                    v789 = &unk_26288CFB0;
+                    v314 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6391, "lm/wordlm", 40, "%.500s", v787, v788, v789);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6391, "lm/wordlm", 40, "%.500s", v314);
                 }
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v196, v197, v198, v199, v200, v201))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
               {
-                v796 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v796 + 8))
+                v315 = DgnTextFile::getCurrentLine(v503);
+                if (*(v315 + 8))
                 {
-                  v799 = *v796;
+                  v316 = *v315;
                 }
 
                 else
                 {
-                  v799 = &unk_26288CFB0;
+                  v316 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6394, "lm/wordlm", 40, "%.500s", v797, v798, v799);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6394, "lm/wordlm", 40, "%.500s", v316);
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v790, v791, v792, v793, v794, v795))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v806 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v806 + 8))
+                v317 = DgnTextFile::getCurrentLine(v503);
+                if (*(v317 + 8))
                 {
-                  v809 = *v806;
+                  v318 = *v317;
                 }
 
                 else
                 {
-                  v809 = &unk_26288CFB0;
+                  v318 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6397, "lm/wordlm", 40, "%.500s", v807, v808, v809);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6397, "lm/wordlm", 40, "%.500s", v318);
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v800, v801, v802, v803, v804, v805))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v810 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v810 + 8))
+                v319 = DgnTextFile::getCurrentLine(v503);
+                if (*(v319 + 8))
                 {
-                  v813 = *v810;
+                  v320 = *v319;
                 }
 
                 else
                 {
-                  v813 = &unk_26288CFB0;
+                  v320 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6400, "lm/wordlm", 40, "%.500s", v811, v812, v813);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6400, "lm/wordlm", 40, "%.500s", v320);
               }
 
-              v814 = v1032;
+              v321 = v451;
               if (LineFieldUnsigned == 1)
               {
-                v814 = 0;
+                v321 = 0;
               }
 
-              if (v814)
+              if (v321)
               {
                 goto LABEL_1009;
               }
 
-              v815 = v1032;
-              if (LineFieldUnsigned == v1034 + 1)
+              v322 = v451;
+              if (LineFieldUnsigned == v453 + 1)
               {
-                v815 = 1;
+                v322 = 1;
               }
 
-              if ((v815 & 1) == 0)
+              if ((v322 & 1) == 0)
               {
 LABEL_1009:
-                v816 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v816 + 8))
+                v323 = DgnTextFile::getCurrentLine(v503);
+                if (*(v323 + 8))
                 {
-                  v819 = *v816;
+                  v324 = *v323;
                 }
 
                 else
                 {
-                  v819 = &unk_26288CFB0;
+                  v324 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6404, "lm/wordlm", 40, "%.500s", v817, v818, v819);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6404, "lm/wordlm", 40, "%.500s", v324);
               }
 
               if (LineFieldUnsigned - 256 <= 0xFFFFFF00)
               {
-                v820 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v820 + 8))
+                v325 = DgnTextFile::getCurrentLine(v503);
+                if (*(v325 + 8))
                 {
-                  v823 = *v820;
+                  v326 = *v325;
                 }
 
                 else
                 {
-                  v823 = &unk_26288CFB0;
+                  v326 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6407, "lm/wordlm", 40, "%.500s", v821, v822, v823);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6407, "lm/wordlm", 40, "%.500s", v326);
               }
 
-              v824 = *(this + 14);
-              if (LineFieldInteger <= -v824 || LineFieldInteger >= v824)
+              v327 = *(this + 14);
+              if (LineFieldInteger <= -v327 || LineFieldInteger >= v327)
               {
-                v825 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v825 + 8))
+                v328 = DgnTextFile::getCurrentLine(v503);
+                if (*(v328 + 8))
                 {
-                  v828 = *v825;
+                  v329 = *v328;
                 }
 
                 else
                 {
-                  v828 = &unk_26288CFB0;
+                  v329 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6411, "lm/wordlm", 40, "%.500s", v826, v827, v828);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6411, "lm/wordlm", 40, "%.500s", v329);
               }
 
-              TrigramData::addTrigramBackoffWeightQuantization(this + 308, 0, LineFieldInteger);
+              TrigramData::addTrigramBackoffWeightQuantization(this + 154, 0, LineFieldInteger);
               goto LABEL_814;
             }
 
-            if (!strcmp(v128, "QuadScQuant"))
+            if (!strcmp(v75, "QuadScQuant"))
             {
-              if (v1032)
+              if (v451)
               {
-                v829 = v1077 ? v1076 : &unk_26288CFB0;
-                if (strcmp(v829, "UniSc") && strcmp(v829, "WordIdToLmId") && strcmp(v829, "WordIdToContextLmId") && strcmp(v829, "UniBoSc") && strcmp(v829, "BoWt") && strcmp(v829, "BiScQuant") && strcmp(v829, "BiSc") && strcmp(v829, "TriBoWtQuant") && strcmp(v829, "TriScQuant") && strcmp(v829, "TriBoWt") && strcmp(v829, "TriSc") && strcmp(v829, "QuadBoWtQuant"))
+                v330 = v496 ? v495 : &unk_26288CFB0;
+                if (strcmp(v330, "UniSc") && strcmp(v330, "WordIdToLmId") && strcmp(v330, "WordIdToContextLmId") && strcmp(v330, "UniBoSc") && strcmp(v330, "BoWt") && strcmp(v330, "BiScQuant") && strcmp(v330, "BiSc") && strcmp(v330, "TriBoWtQuant") && strcmp(v330, "TriScQuant") && strcmp(v330, "TriBoWt") && strcmp(v330, "TriSc") && strcmp(v330, "QuadBoWtQuant"))
                 {
-                  v830 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v830 + 8))
+                  v331 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v331 + 8))
                   {
-                    v833 = *v830;
+                    v332 = *v331;
                   }
 
                   else
                   {
-                    v833 = &unk_26288CFB0;
+                    v332 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6431, "lm/wordlm", 40, "%.500s", v831, v832, v833);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6431, "lm/wordlm", 40, "%.500s", v332);
                 }
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v202, v203, v204, v205, v206, v207))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v445))
               {
-                v840 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v840 + 8))
+                v333 = DgnTextFile::getCurrentLine(v503);
+                if (*(v333 + 8))
                 {
-                  v843 = *v840;
+                  v334 = *v333;
                 }
 
                 else
                 {
-                  v843 = &unk_26288CFB0;
+                  v334 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6434, "lm/wordlm", 40, "%.500s", v841, v842, v843);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6434, "lm/wordlm", 40, "%.500s", v334);
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v834, v835, v836, v837, v838, v839))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v440))
               {
-                v850 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v850 + 8))
+                v335 = DgnTextFile::getCurrentLine(v503);
+                if (*(v335 + 8))
                 {
-                  v853 = *v850;
+                  v336 = *v335;
                 }
 
                 else
                 {
-                  v853 = &unk_26288CFB0;
+                  v336 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6437, "lm/wordlm", 40, "%.500s", v851, v852, v853);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6437, "lm/wordlm", 40, "%.500s", v336);
               }
 
-              if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v844, v845, v846, v847, v848, v849))
+              if (DgnTextFileParser::getLineFieldUnsigned(v503, v438))
               {
-                v854 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v854 + 8))
+                v337 = DgnTextFile::getCurrentLine(v503);
+                if (*(v337 + 8))
                 {
-                  v857 = *v854;
+                  v338 = *v337;
                 }
 
                 else
                 {
-                  v857 = &unk_26288CFB0;
+                  v338 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6440, "lm/wordlm", 40, "%.500s", v855, v856, v857);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6440, "lm/wordlm", 40, "%.500s", v338);
               }
 
-              v858 = v1032;
+              v339 = v451;
               if (LineFieldUnsigned == 1)
               {
-                v858 = 0;
+                v339 = 0;
               }
 
-              if (v858)
+              if (v339)
               {
                 goto LABEL_1066;
               }
 
-              v859 = v1032;
-              if (LineFieldUnsigned == v1034 + 1)
+              v340 = v451;
+              if (LineFieldUnsigned == v453 + 1)
               {
-                v859 = 1;
+                v340 = 1;
               }
 
-              if ((v859 & 1) == 0)
+              if ((v340 & 1) == 0)
               {
 LABEL_1066:
-                v860 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v860 + 8))
+                v341 = DgnTextFile::getCurrentLine(v503);
+                if (*(v341 + 8))
                 {
-                  v863 = *v860;
+                  v342 = *v341;
                 }
 
                 else
                 {
-                  v863 = &unk_26288CFB0;
+                  v342 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6444, "lm/wordlm", 40, "%.500s", v861, v862, v863);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6444, "lm/wordlm", 40, "%.500s", v342);
               }
 
               if (LineFieldUnsigned - 256 <= 0xFFFFFF00)
               {
-                v864 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v864 + 8))
+                v343 = DgnTextFile::getCurrentLine(v503);
+                if (*(v343 + 8))
                 {
-                  v867 = *v864;
+                  v344 = *v343;
                 }
 
                 else
                 {
-                  v867 = &unk_26288CFB0;
+                  v344 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6447, "lm/wordlm", 40, "%.500s", v865, v866, v867);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6447, "lm/wordlm", 40, "%.500s", v344);
               }
 
               if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
               {
-                v868 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v868 + 8))
+                v345 = DgnTextFile::getCurrentLine(v503);
+                if (*(v345 + 8))
                 {
-                  v871 = *v868;
+                  v346 = *v345;
                 }
 
                 else
                 {
-                  v871 = &unk_26288CFB0;
+                  v346 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6451, "lm/wordlm", 40, "%.500s", v869, v870, v871);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6451, "lm/wordlm", 40, "%.500s", v346);
               }
 
-              TrigramData::addTrigramScoreQuantization(this + 308, 0, LineFieldInteger);
+              TrigramData::addTrigramScoreQuantization(this + 154, 0, LineFieldInteger);
               goto LABEL_814;
             }
 
-            if (strcmp(v128, "QuadBoWt"))
+            if (strcmp(v75, "QuadBoWt"))
             {
-              if (!strcmp(v128, "QuadSc"))
+              if (!strcmp(v75, "QuadSc"))
               {
-                if (v1032)
+                if (v451)
                 {
-                  v220 = v1077 ? v1076 : &unk_26288CFB0;
-                  if (strcmp(v220, "UniSc") && strcmp(v220, "WordIdToLmId") && strcmp(v220, "WordIdToContextLmId") && strcmp(v220, "UniBoSc") && strcmp(v220, "BoWt") && strcmp(v220, "BiScQuant") && strcmp(v220, "BiSc") && strcmp(v220, "TriBoWtQuant") && strcmp(v220, "TriScQuant") && strcmp(v220, "TriBoWt") && strcmp(v220, "TriSc") && strcmp(v220, "QuadBoWtQuant") && strcmp(v220, "QuadScQuant") && strcmp(v220, "QuadBoWt"))
+                  v77 = v496 ? v495 : &unk_26288CFB0;
+                  if (strcmp(v77, "UniSc") && strcmp(v77, "WordIdToLmId") && strcmp(v77, "WordIdToContextLmId") && strcmp(v77, "UniBoSc") && strcmp(v77, "BoWt") && strcmp(v77, "BiScQuant") && strcmp(v77, "BiSc") && strcmp(v77, "TriBoWtQuant") && strcmp(v77, "TriScQuant") && strcmp(v77, "TriBoWt") && strcmp(v77, "TriSc") && strcmp(v77, "QuadBoWtQuant") && strcmp(v77, "QuadScQuant") && strcmp(v77, "QuadBoWt"))
                   {
-                    v221 = DgnTextFile::getCurrentLine(v1084);
-                    if (*(v221 + 8))
+                    v78 = DgnTextFile::getCurrentLine(v503);
+                    if (*(v78 + 8))
                     {
-                      v224 = *v221;
+                      v79 = *v78;
                     }
 
                     else
                     {
-                      v224 = &unk_26288CFB0;
+                      v79 = &unk_26288CFB0;
                     }
 
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6564, "lm/wordlm", 40, "%.500s", v222, v223, v224);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6564, "lm/wordlm", 40, "%.500s", v79);
                   }
                 }
 
-                v225 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v214, v215, v216, v217, v218, v219);
-                v232 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v226, v227, v228, v229, v230, v231);
-                v239 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v233, v234, v235, v236, v237, v238);
-                v240 = (v1032 ^ 1) & v1028;
-                if (v240 == 1 && v225 < v1020)
+                v80 = DgnTextFileParser::getLineFieldUnsigned(v503, v445);
+                v81 = DgnTextFileParser::getLineFieldUnsigned(v503, v440);
+                v82 = DgnTextFileParser::getLineFieldUnsigned(v503, v438);
+                v83 = (v451 ^ 1) & v447;
+                if (v83 == 1 && v80 < v439)
                 {
-                  v241 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v241 + 8))
+                  v84 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v84 + 8))
                   {
-                    v244 = *v241;
+                    v85 = *v84;
                   }
 
                   else
                   {
-                    v244 = &unk_26288CFB0;
+                    v85 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6571, "lm/wordlm", 40, "%.500s", v242, v243, v244);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6571, "lm/wordlm", 40, "%.500s", v85);
                 }
 
-                if (v225 != v1020)
+                if (v80 != v439)
                 {
-                  v240 = 0;
+                  v83 = 0;
                 }
 
-                if (v240 == 1 && v232 < v1017)
+                if (v83 == 1 && v81 < v436)
                 {
-                  v245 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v245 + 8))
+                  v86 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v86 + 8))
                   {
-                    v248 = *v245;
+                    v87 = *v86;
                   }
 
                   else
                   {
-                    v248 = &unk_26288CFB0;
+                    v87 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6575, "lm/wordlm", 40, "%.500s", v246, v247, v248);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6575, "lm/wordlm", 40, "%.500s", v87);
                 }
 
-                if (v240 && v232 == v1017 && v239 <= v1012)
+                if (v83 && v81 == v436 && v82 <= v431)
                 {
-                  v249 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v249 + 8))
+                  v88 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v88 + 8))
                   {
-                    v252 = *v249;
+                    v89 = *v88;
                   }
 
                   else
                   {
-                    v252 = &unk_26288CFB0;
+                    v89 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6580, "lm/wordlm", 40, "%.500s", v250, v251, v252);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6580, "lm/wordlm", 40, "%.500s", v89);
                 }
 
-                if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
+                if (LineFieldUnsigned - 1 >= v446 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
                 {
-                  v253 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v253 + 8))
+                  v90 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v90 + 8))
                   {
-                    v256 = *v253;
+                    v91 = *v90;
                   }
 
                   else
                   {
-                    v256 = &unk_26288CFB0;
+                    v91 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6586, "lm/wordlm", 40, "%.500s", v254, v255, v256);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6586, "lm/wordlm", 40, "%.500s", v91);
                 }
 
-                if (v225 - 1 >= v1027 || *(*(this + 43) + 2 * v225) == 20000 || v225 > 0xFFFE || v225 >= *(this + 26))
+                if (v80 - 1 >= v446 || *(*(this + 43) + 2 * v80) == 20000 || v80 > 0xFFFE || v80 >= *(this + 26))
                 {
-                  v257 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v257 + 8))
+                  v92 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v92 + 8))
                   {
-                    v260 = *v257;
+                    v93 = *v92;
                   }
 
                   else
                   {
-                    v260 = &unk_26288CFB0;
+                    v93 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6593, "lm/wordlm", 40, "%.500s", v258, v259, v260);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6593, "lm/wordlm", 40, "%.500s", v93);
                 }
 
-                if (v232 - 1 >= v1027 || *(*(this + 43) + 2 * v232) == 20000 || v232 > 0xFFFE || v232 >= *(this + 26))
+                if (v81 - 1 >= v446 || *(*(this + 43) + 2 * v81) == 20000 || v81 > 0xFFFE || v81 >= *(this + 26))
                 {
-                  v261 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v261 + 8))
+                  v94 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v94 + 8))
                   {
-                    v264 = *v261;
+                    v95 = *v94;
                   }
 
                   else
                   {
-                    v264 = &unk_26288CFB0;
+                    v95 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6600, "lm/wordlm", 40, "%.500s", v262, v263, v264);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6600, "lm/wordlm", 40, "%.500s", v95);
                 }
 
-                if (v239 - 1 >= v1027 || *(*(this + 21) + 2 * v239) == 20000 || v239 > 0xFFFE || v239 >= *(this + 26))
+                if (v82 - 1 >= v446 || *(*(this + 21) + 2 * v82) == 20000 || v82 > 0xFFFE || v82 >= *(this + 26))
                 {
-                  v265 = DgnTextFile::getCurrentLine(v1084);
-                  if (*(v265 + 8))
+                  v96 = DgnTextFile::getCurrentLine(v503);
+                  if (*(v96 + 8))
                   {
-                    v268 = *v265;
+                    v97 = *v96;
                   }
 
                   else
                   {
-                    v268 = &unk_26288CFB0;
+                    v97 = &unk_26288CFB0;
                   }
 
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6607, "lm/wordlm", 40, "%.500s", v266, v267, v268);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6607, "lm/wordlm", 40, "%.500s", v97);
                 }
 
-                v269 = v1049;
-                if (v1049 == HIDWORD(v1049))
+                v98 = v468;
+                if (v468 == HIDWORD(v468))
                 {
-                  DgnPrimArray<short>::reallocElts(&v1048, 1, 1);
-                  v269 = v1049;
+                  DgnPrimArray<short>::reallocElts(&v467, 1, 1);
+                  v98 = v468;
                 }
 
-                v1038 = v225;
-                v53 = v232;
-                *(v1048 + 2 * v269) = v239;
-                LODWORD(v1049) = v269 + 1;
-                v270 = *(this + 318);
-                if (v270)
+                v457 = v80;
+                v32 = v81;
+                *(v467 + 2 * v98) = v82;
+                LODWORD(v468) = v98 + 1;
+                v99 = *(this + 318);
+                if (v99)
                 {
-                  if (LineFieldInteger < 1 || LineFieldInteger >= v270)
+                  if (LineFieldInteger < 1 || LineFieldInteger >= v99)
                   {
-                    v271 = DgnTextFile::getCurrentLine(v1084);
-                    if (*(v271 + 8))
+                    v100 = DgnTextFile::getCurrentLine(v503);
+                    if (*(v100 + 8))
                     {
-                      v274 = *v271;
+                      v101 = *v100;
                     }
 
                     else
                     {
-                      v274 = &unk_26288CFB0;
+                      v101 = &unk_26288CFB0;
                     }
 
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6629, "lm/wordlm", 40, "%.500s", v272, v273, v274);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6629, "lm/wordlm", 40, "%.500s", v101);
                   }
 
-                  DgnPrimArray<unsigned char>::add(&v1044, LineFieldInteger);
-                  v1029 = LineFieldUnsigned;
-                  v1012 = v239;
-                  v1017 = v232;
-                  v1020 = v225;
+                  DgnPrimArray<unsigned char>::add(&v463, LineFieldInteger);
+                  v448 = LineFieldUnsigned;
+                  v431 = v82;
+                  v436 = v81;
+                  v439 = v80;
                 }
 
                 else
                 {
                   if (LineFieldInteger < 0 || LineFieldInteger >= *(this + 14))
                   {
-                    v953 = DgnTextFile::getCurrentLine(v1084);
-                    if (*(v953 + 8))
+                    v398 = DgnTextFile::getCurrentLine(v503);
+                    if (*(v398 + 8))
                     {
-                      v956 = *v953;
+                      v399 = *v398;
                     }
 
                     else
                     {
-                      v956 = &unk_26288CFB0;
+                      v399 = &unk_26288CFB0;
                     }
 
-                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6637, "lm/wordlm", 40, "%.500s", v954, v955, v956);
+                    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6637, "lm/wordlm", 40, "%.500s", v399);
                   }
 
-                  DgnPrimArray<unsigned short>::add(&v1046, LineFieldInteger);
-                  v1029 = LineFieldUnsigned;
-                  v1012 = v239;
-                  v1017 = v232;
-                  v1020 = v225;
+                  DgnPrimArray<unsigned short>::add(&v465, LineFieldInteger);
+                  v448 = LineFieldUnsigned;
+                  v431 = v82;
+                  v436 = v81;
+                  v439 = v80;
                 }
               }
 
               goto LABEL_814;
             }
 
-            if (v1032)
+            if (v451)
             {
-              v872 = v1077 ? v1076 : &unk_26288CFB0;
-              if (strcmp(v872, "UniSc") && strcmp(v872, "WordIdToLmId") && strcmp(v872, "WordIdToContextLmId") && strcmp(v872, "UniBoSc") && strcmp(v872, "BoWt") && strcmp(v872, "BiScQuant") && strcmp(v872, "BiSc") && strcmp(v872, "TriBoWtQuant") && strcmp(v872, "TriScQuant") && strcmp(v872, "TriBoWt") && strcmp(v872, "TriSc") && strcmp(v872, "QuadBoWtQuant") && strcmp(v872, "QuadScQuant"))
+              v347 = v496 ? v495 : &unk_26288CFB0;
+              if (strcmp(v347, "UniSc") && strcmp(v347, "WordIdToLmId") && strcmp(v347, "WordIdToContextLmId") && strcmp(v347, "UniBoSc") && strcmp(v347, "BoWt") && strcmp(v347, "BiScQuant") && strcmp(v347, "BiSc") && strcmp(v347, "TriBoWtQuant") && strcmp(v347, "TriScQuant") && strcmp(v347, "TriBoWt") && strcmp(v347, "TriSc") && strcmp(v347, "QuadBoWtQuant") && strcmp(v347, "QuadScQuant"))
               {
-                v873 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v873 + 8))
+                v348 = DgnTextFile::getCurrentLine(v503);
+                if (*(v348 + 8))
                 {
-                  v876 = *v873;
+                  v349 = *v348;
                 }
 
                 else
                 {
-                  v876 = &unk_26288CFB0;
+                  v349 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6472, "lm/wordlm", 40, "%.500s", v874, v875, v876);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6472, "lm/wordlm", 40, "%.500s", v349);
               }
             }
 
-            v554 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1026, v208, v209, v210, v211, v212, v213);
-            v883 = LineFieldInteger;
-            v741 = DgnTextFileParser::getLineFieldUnsigned(v1084, v1021, v877, v878, v879, v880, v881, v882);
-            if (DgnTextFileParser::getLineFieldUnsigned(v1084, v1019, v884, v885, v886, v887, v888, v889))
+            v211 = DgnTextFileParser::getLineFieldUnsigned(v503, v445);
+            v350 = LineFieldInteger;
+            v286 = DgnTextFileParser::getLineFieldUnsigned(v503, v440);
+            if (DgnTextFileParser::getLineFieldUnsigned(v503, v438))
             {
-              v890 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v890 + 8))
+              v351 = DgnTextFile::getCurrentLine(v503);
+              if (*(v351 + 8))
               {
-                v893 = *v890;
+                v352 = *v351;
               }
 
               else
               {
-                v893 = &unk_26288CFB0;
+                v352 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6477, "lm/wordlm", 40, "%.500s", v891, v892, v893);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6477, "lm/wordlm", 40, "%.500s", v352);
             }
 
-            v894 = (v1032 ^ 1) & v1028;
-            if (v894 == 1 && v554 < v1020)
+            v353 = (v451 ^ 1) & v447;
+            if (v353 == 1 && v211 < v439)
             {
-              v895 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v895 + 8))
+              v354 = DgnTextFile::getCurrentLine(v503);
+              if (*(v354 + 8))
               {
-                v898 = *v895;
+                v355 = *v354;
               }
 
               else
               {
-                v898 = &unk_26288CFB0;
+                v355 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6481, "lm/wordlm", 40, "%.500s", v896, v897, v898);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6481, "lm/wordlm", 40, "%.500s", v355);
             }
 
-            if (v894 && v554 == v1020 && v741 <= v1017)
+            if (v353 && v211 == v439 && v286 <= v436)
             {
-              v899 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v899 + 8))
+              v356 = DgnTextFile::getCurrentLine(v503);
+              if (*(v356 + 8))
               {
-                v902 = *v899;
+                v357 = *v356;
               }
 
               else
               {
-                v902 = &unk_26288CFB0;
+                v357 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6485, "lm/wordlm", 40, "%.500s", v900, v901, v902);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6485, "lm/wordlm", 40, "%.500s", v357);
             }
 
-            if (LineFieldUnsigned - 1 >= v1027 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
+            if (LineFieldUnsigned - 1 >= v446 || *(*(this + 43) + 2 * LineFieldUnsigned) == 20000 || LineFieldUnsigned >= *(this + 26))
             {
-              v903 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v903 + 8))
+              v358 = DgnTextFile::getCurrentLine(v503);
+              if (*(v358 + 8))
               {
-                v906 = *v903;
+                v359 = *v358;
               }
 
               else
               {
-                v906 = &unk_26288CFB0;
+                v359 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6491, "lm/wordlm", 40, "%.500s", v904, v905, v906);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6491, "lm/wordlm", 40, "%.500s", v359);
             }
 
-            if (v554 - 1 >= v1027 || *(*(this + 43) + 2 * v554) == 20000 || v554 > 0xFFFE || v554 >= *(this + 26))
+            if (v211 - 1 >= v446 || *(*(this + 43) + 2 * v211) == 20000 || v211 > 0xFFFE || v211 >= *(this + 26))
             {
-              v907 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v907 + 8))
+              v360 = DgnTextFile::getCurrentLine(v503);
+              if (*(v360 + 8))
               {
-                v910 = *v907;
+                v361 = *v360;
               }
 
               else
               {
-                v910 = &unk_26288CFB0;
+                v361 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6498, "lm/wordlm", 40, "%.500s", v908, v909, v910);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6498, "lm/wordlm", 40, "%.500s", v361);
             }
 
-            if (v741 - 1 >= v1027 || *(*(this + 43) + 2 * v741) == 20000 || v741 > 0xFFFE || v741 >= *(this + 26))
+            if (v286 - 1 >= v446 || *(*(this + 43) + 2 * v286) == 20000 || v286 > 0xFFFE || v286 >= *(this + 26))
             {
-              v911 = DgnTextFile::getCurrentLine(v1084);
-              if (*(v911 + 8))
+              v362 = DgnTextFile::getCurrentLine(v503);
+              if (*(v362 + 8))
               {
-                v914 = *v911;
+                v363 = *v362;
               }
 
               else
               {
-                v914 = &unk_26288CFB0;
+                v363 = &unk_26288CFB0;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6505, "lm/wordlm", 40, "%.500s", v912, v913, v914);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6505, "lm/wordlm", 40, "%.500s", v363);
             }
 
-            v915 = v1032;
-            if (LineFieldUnsigned > v1034)
+            v364 = v451;
+            if (LineFieldUnsigned > v453)
             {
-              v915 = 1;
+              v364 = 1;
             }
 
-            if ((v915 & 1) != 0 || v554 > v1020)
+            if ((v364 & 1) != 0 || v211 > v439)
             {
-              v916 = *v1057;
-              if (*v1057 == *&v1057[2])
+              v365 = *v476;
+              if (*v476 == *&v476[2])
               {
-                DgnPrimArray<short>::reallocElts(&v1056, 1, 1);
-                v916 = *v1057;
+                DgnPrimArray<short>::reallocElts(&v475, 1, 1);
+                v365 = *v476;
               }
 
-              *(v1056 + 2 * v916) = v554;
-              *v1057 = v916 + 1;
-              v917 = v1055;
-              v918 = v1055 + 1;
-              if ((v1055 + 1) > HIDWORD(v1055))
+              *(v475 + 2 * v365) = v211;
+              *v476 = v365 + 1;
+              v366 = v474;
+              v367 = v474 + 1;
+              if ((v474 + 1) > HIDWORD(v474))
               {
-                DgnArray<DgnPrimArray<double>>::reallocElts(&v1054, (v1055 + 1 - HIDWORD(v1055)), 1);
-                v917 = v1055;
-                v918 = v1055 + 1;
+                DgnArray<DgnPrimArray<double>>::reallocElts(&v473, (v474 + 1 - HIDWORD(v474)), 1);
+                v366 = v474;
+                v367 = v474 + 1;
               }
 
-              if (v917 <= v918)
+              if (v366 <= v367)
               {
-                if (v917 < v918)
+                if (v366 < v367)
                 {
-                  v921 = v918 - v917;
-                  v922 = 16 * v917;
+                  v370 = v367 - v366;
+                  v371 = 16 * v366;
                   do
                   {
-                    v923 = (v1054 + v922);
-                    *v923 = 0;
-                    v923[1] = 0;
-                    v922 += 16;
-                    --v921;
+                    v372 = (v473 + v371);
+                    *v372 = 0;
+                    v372[1] = 0;
+                    v371 += 16;
+                    --v370;
                   }
 
-                  while (v921);
+                  while (v370);
                 }
               }
 
-              else if (v917 > v918)
+              else if (v366 > v367)
               {
-                v919 = v917;
-                v920 = 16 * v917 - 16;
+                v368 = v366;
+                v369 = 16 * v366 - 16;
                 do
                 {
-                  --v919;
-                  DgnPrimArray<unsigned int>::~DgnPrimArray(v1054 + v920);
-                  v920 -= 16;
+                  --v368;
+                  DgnPrimArray<unsigned int>::~DgnPrimArray(v473 + v369);
+                  v369 -= 16;
                 }
 
-                while (v919 > v918);
+                while (v368 > v367);
               }
 
-              LODWORD(v1055) = v918;
-              v924 = v1053;
-              v925 = v1053 + 1;
-              if ((v1053 + 1) > HIDWORD(v1053))
+              LODWORD(v474) = v367;
+              v373 = v472;
+              v374 = v472 + 1;
+              if ((v472 + 1) > HIDWORD(v472))
               {
-                DgnArray<DgnPrimArray<double>>::reallocElts(&v1052, (v1053 + 1 - HIDWORD(v1053)), 1);
-                v924 = v1053;
-                v925 = v1053 + 1;
+                DgnArray<DgnPrimArray<double>>::reallocElts(&v471, (v472 + 1 - HIDWORD(v472)), 1);
+                v373 = v472;
+                v374 = v472 + 1;
               }
 
-              if (v924 <= v925)
+              if (v373 <= v374)
               {
-                if (v924 < v925)
+                if (v373 < v374)
                 {
-                  v928 = v925 - v924;
-                  v929 = 16 * v924;
+                  v377 = v374 - v373;
+                  v378 = 16 * v373;
                   do
                   {
-                    v930 = (v1052 + v929);
-                    *v930 = 0;
-                    v930[1] = 0;
-                    v929 += 16;
-                    --v928;
+                    v379 = (v471 + v378);
+                    *v379 = 0;
+                    v379[1] = 0;
+                    v378 += 16;
+                    --v377;
                   }
 
-                  while (v928);
+                  while (v377);
                 }
               }
 
-              else if (v924 > v925)
+              else if (v373 > v374)
               {
-                v926 = v924;
-                v927 = 16 * v924 - 16;
+                v375 = v373;
+                v376 = 16 * v373 - 16;
                 do
                 {
-                  --v926;
-                  DgnPrimArray<unsigned int>::~DgnPrimArray(v1052 + v927);
-                  v927 -= 16;
+                  --v375;
+                  DgnPrimArray<unsigned int>::~DgnPrimArray(v471 + v376);
+                  v376 -= 16;
                 }
 
-                while (v926 > v925);
+                while (v375 > v374);
               }
 
-              LODWORD(v1053) = v925;
-              v931 = v1051;
-              v932 = v1051 + 1;
-              if ((v1051 + 1) > HIDWORD(v1051))
+              LODWORD(v472) = v374;
+              v380 = v470;
+              v381 = v470 + 1;
+              if ((v470 + 1) > HIDWORD(v470))
               {
-                DgnArray<DgnPrimArray<double>>::reallocElts(&v1050, (v1051 + 1 - HIDWORD(v1051)), 1);
-                v931 = v1051;
-                v932 = v1051 + 1;
+                DgnArray<DgnPrimArray<double>>::reallocElts(&v469, (v470 + 1 - HIDWORD(v470)), 1);
+                v380 = v470;
+                v381 = v470 + 1;
               }
 
-              if (v931 <= v932)
+              if (v380 <= v381)
               {
-                if (v931 < v932)
+                if (v380 < v381)
                 {
-                  v935 = v932 - v931;
-                  v936 = 16 * v931;
+                  v384 = v381 - v380;
+                  v385 = 16 * v380;
                   do
                   {
-                    v937 = (v1050 + v936);
-                    *v937 = 0;
-                    v937[1] = 0;
-                    v936 += 16;
-                    --v935;
+                    v386 = (v469 + v385);
+                    *v386 = 0;
+                    v386[1] = 0;
+                    v385 += 16;
+                    --v384;
                   }
 
-                  while (v935);
+                  while (v384);
                 }
               }
 
-              else if (v931 > v932)
+              else if (v380 > v381)
               {
-                v933 = v931;
-                v934 = 16 * v931 - 16;
+                v382 = v380;
+                v383 = 16 * v380 - 16;
                 do
                 {
-                  --v933;
-                  DgnPrimArray<unsigned int>::~DgnPrimArray(v1050 + v934);
-                  v934 -= 16;
+                  --v382;
+                  DgnPrimArray<unsigned int>::~DgnPrimArray(v469 + v383);
+                  v383 -= 16;
                 }
 
-                while (v933 > v932);
+                while (v382 > v381);
               }
 
-              LODWORD(v1051) = v932;
-              v883 = LineFieldInteger;
+              LODWORD(v470) = v381;
+              v350 = LineFieldInteger;
             }
 
-            v938 = v1054 + 16 * (v1055 - 1);
-            v939 = *(v938 + 8);
-            if (v939 == *(v938 + 12))
+            v387 = v473 + 16 * (v474 - 1);
+            v388 = *(v387 + 8);
+            if (v388 == *(v387 + 12))
             {
-              DgnPrimArray<short>::reallocElts(v1054 + 16 * (v1055 - 1), 1, 1);
-              v939 = *(v938 + 8);
+              DgnPrimArray<short>::reallocElts(v473 + 16 * (v474 - 1), 1, 1);
+              v388 = *(v387 + 8);
             }
 
-            *(*v938 + 2 * v939) = v741;
-            *(v938 + 8) = v939 + 1;
-            v940 = *(this + 318);
-            if (v940)
+            *(*v387 + 2 * v388) = v286;
+            *(v387 + 8) = v388 + 1;
+            v389 = *(this + 318);
+            if (v389)
             {
-              if (v883 < 1 || v883 >= v940)
+              if (v350 < 1 || v350 >= v389)
               {
-                v941 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v941 + 8))
+                v390 = DgnTextFile::getCurrentLine(v503);
+                if (*(v390 + 8))
                 {
-                  v944 = *v941;
+                  v391 = *v390;
                 }
 
                 else
                 {
-                  v944 = &unk_26288CFB0;
+                  v391 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6531, "lm/wordlm", 40, "%.500s", v942, v943, v944);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6531, "lm/wordlm", 40, "%.500s", v391);
               }
 
-              v945 = v1050 + 16 * (v1051 - 1);
-              v946 = *(v945 + 8);
-              if (v946 == *(v945 + 12))
+              v392 = v469 + 16 * (v470 - 1);
+              v393 = *(v392 + 8);
+              if (v393 == *(v392 + 12))
               {
-                DgnPrimArray<char>::reallocElts(v1050 + 16 * (v1051 - 1), 1, 1);
-                v946 = *(v945 + 8);
+                DgnPrimArray<char>::reallocElts(v469 + 16 * (v470 - 1), 1, 1);
+                v393 = *(v392 + 8);
               }
 
-              *(*v945 + v946) = v883;
-              v947 = *(v945 + 8);
+              *(*v392 + v393) = v350;
+              v394 = *(v392 + 8);
             }
 
             else
             {
-              v948 = *(this + 14);
-              if (v883 <= -v948 || v883 >= v948)
+              v395 = *(this + 14);
+              if (v350 <= -v395 || v350 >= v395)
               {
-                v949 = DgnTextFile::getCurrentLine(v1084);
-                if (*(v949 + 8))
+                v396 = DgnTextFile::getCurrentLine(v503);
+                if (*(v396 + 8))
                 {
-                  v952 = *v949;
+                  v397 = *v396;
                 }
 
                 else
                 {
-                  v952 = &unk_26288CFB0;
+                  v397 = &unk_26288CFB0;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6540, "lm/wordlm", 40, "%.500s", v950, v951, v952);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6540, "lm/wordlm", 40, "%.500s", v397);
               }
 
-              v945 = v1052 + 16 * (v1053 - 1);
-              v947 = *(v945 + 8);
-              if (v947 == *(v945 + 12))
+              v392 = v471 + 16 * (v472 - 1);
+              v394 = *(v392 + 8);
+              if (v394 == *(v392 + 12))
               {
-                DgnPrimArray<short>::reallocElts(v1052 + 16 * (v1053 - 1), 1, 1);
-                v947 = *(v945 + 8);
+                DgnPrimArray<short>::reallocElts(v471 + 16 * (v472 - 1), 1, 1);
+                v394 = *(v392 + 8);
               }
 
-              *(*v945 + 2 * v947) = v883;
+              *(*v392 + 2 * v394) = v350;
             }
 
-            *(v945 + 8) = v947 + 1;
-            v1039 = LineFieldUnsigned;
+            *(v392 + 8) = v394 + 1;
+            v458 = LineFieldUnsigned;
             goto LABEL_968;
           }
         }
       }
 
 LABEL_814:
-      DgnString::operator=(&v1076, &v1042);
-      DgnString::~DgnString(&v1042);
-      v1031 = 1;
-      v56 = v1036;
-      v1034 = LineFieldUnsigned;
-      v54 = v93;
-      v55 = v1035;
+      DgnString::operator=(&v495, &v461);
+      DgnString::~DgnString(&v461);
+      v450 = 1;
+      v35 = v455;
+      v453 = LineFieldUnsigned;
+      v33 = v56;
+      v34 = v454;
       continue;
     }
 
     break;
   }
 
-  DgnString::~DgnString(&v1042);
-  if (v52 != v1024)
+  DgnString::~DgnString(&v461);
+  if (v31 != v443)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6651, "lm/wordlm", 57, "%u %u", v962, v963, v52);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6651, "lm/wordlm", 57, "%u %u", v31, v443);
   }
 
-  v964 = *(this + 28);
-  if (v964 != -1)
+  v400 = *(this + 28);
+  if (v400 != -1)
   {
-    if (!v964 || v964 > v1027 || (*(this + 16) < 2u ? (v965 = *(this + 21)) : (v965 = *(this + 43)), *(v965 + 2 * v964) == 20000))
+    if (!v400 || v400 > v446 || (*(this + 16) < 2u ? (v401 = *(this + 21)) : (v401 = *(this + 43)), *(v401 + 2 * v400) == 20000))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6686, "lm/wordlm", 43, "%u", v962, v963, *(this + 28));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6686, "lm/wordlm", 43, "%u", *(this + 28));
     }
   }
 
-  v966 = *(this + 29);
-  if (v966 != -1 && (!v966 || v966 > v1027 || *(*(this + 21) + 2 * v966) == 20000))
+  v402 = *(this + 29);
+  if (v402 != -1 && (!v402 || v402 > v446 || *(*(this + 21) + 2 * v402) == 20000))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6693, "lm/wordlm", 44, "%u", v962, v963, *(this + 29));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6693, "lm/wordlm", 44, "%u", *(this + 29));
   }
 
-  if (*(this + 16) >= 2u && v1027)
+  if (*(this + 16) >= 2u && v446)
   {
-    v967 = 1;
+    v403 = 1;
     do
     {
-      v968 = v967;
-      if (*(*(this + 21) + 2 * v967) != 20000)
+      v404 = v403;
+      if (*(*(this + 21) + 2 * v403) != 20000)
       {
-        if (*(this + 84) && *(*(this + 41) + 2 * v967) == 20000)
+        if (*(this + 84) && *(*(this + 41) + 2 * v403) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6703, "lm/wordlm", 41, "%u", v962, v963, v967);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6703, "lm/wordlm", 41, "%u", v403);
         }
 
-        if (*(*(this + 43) + 2 * v968) == 20000)
+        if (*(*(this + 43) + 2 * v404) == 20000)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6705, "lm/wordlm", 42, "%u", v962, v963, v968);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6705, "lm/wordlm", 42, "%u", v404);
         }
       }
 
-      v967 = v968 + 1;
+      v403 = v404 + 1;
     }
 
-    while (v968 + 1 <= v1027);
+    while (v404 + 1 <= v446);
   }
 
-  WordLanguageModel::throwOnBadBoWt(this, v957, v958, v959, v960, v961, v962, v963);
-  WordLanguageModel::throwOnBadTriBoWt(this, v969, v970, v971, v972, v973, v974, v975);
-  v1042 = 0;
-  v1043 = 0;
-  v978 = *(this + 26);
-  if (!v978)
+  WordLanguageModel::throwOnBadBoWt(this);
+  WordLanguageModel::throwOnBadTriBoWt(this);
+  v461 = 0;
+  v462 = 0;
+  v405 = *(this + 26);
+  if (!v405)
   {
-    LODWORD(v1043) = 0;
-    v1040 = 0;
-    v1041 = 0;
+    LODWORD(v462) = 0;
+    v459 = 0;
+    v460 = 0;
     goto LABEL_1242;
   }
 
-  v1040 = 0;
-  v979 = realloc_array(0, &v1040, v978, 0, 0, 1);
-  v1041 = 0;
-  v1042 = v1040;
-  v980 = *(this + 26);
-  v1043 = __PAIR64__(v979, v978);
-  v1040 = 0;
-  if (!v980)
+  v459 = 0;
+  v406 = realloc_array(0, &v459, v405, 0, 0, 1);
+  v460 = 0;
+  v461 = v459;
+  v407 = *(this + 26);
+  v462 = __PAIR64__(v406, v405);
+  v459 = 0;
+  if (!v407)
   {
 LABEL_1242:
-    LODWORD(v1041) = 0;
+    LODWORD(v460) = 0;
     goto LABEL_1243;
   }
 
-  v1085 = 0;
-  v981 = realloc_array(0, &v1085, v980, 0, 0, 1);
-  v982 = v1085;
-  v1040 = v1085;
-  v983 = *(this + 26);
-  v1041 = __PAIR64__(v981, v980);
-  if (v983)
+  v504 = 0;
+  v408 = realloc_array(0, &v504, v407, 0, 0, 1);
+  v409 = v504;
+  v459 = v504;
+  v410 = *(this + 26);
+  v460 = __PAIR64__(v408, v407);
+  if (v410)
   {
-    v984 = v1042;
+    v411 = v461;
     do
     {
-      *v984++ = 0;
-      *v982++ = 0;
-      --v983;
+      *v411++ = 0;
+      *v409++ = 0;
+      --v410;
     }
 
-    while (v983);
+    while (v410);
   }
 
 LABEL_1243:
-  v985 = *(*(this + 2) + 388);
-  v986 = *(this + 32);
-  if (!v986)
+  v412 = *(*(this + 2) + 388);
+  v413 = *(this + 32);
+  if (!v413)
   {
-    v986 = *(this + 36);
-    if (!v986)
+    v413 = *(this + 36);
+    if (!v413)
     {
-      v986 = *(this + 40);
+      v413 = *(this + 40);
     }
   }
 
-  if (v986 >= v985)
+  if (v413 >= v412)
   {
-    if (v985)
+    if (v412)
     {
       goto LABEL_1250;
     }
@@ -9296,143 +9296,143 @@ LABEL_1243:
 
   else
   {
-    WordLanguageModel::recordWordIdInvalidLmIdUsage(this, v985 - 1);
+    WordLanguageModel::recordWordIdInvalidLmIdUsage(this, v412 - 1);
     if (*(this + 276) == 1)
     {
-      WordLanguageModel::recordWordIdInvalidContextLmIdUsage(this, v985 - 1);
+      WordLanguageModel::recordWordIdInvalidContextLmIdUsage(this, v412 - 1);
     }
 
 LABEL_1250:
-    v987 = 0;
+    v414 = 0;
     do
     {
-      v988 = *(this + 2);
-      if (v987 < *(v988 + 388))
+      v415 = *(this + 2);
+      if (v414 < *(v415 + 388))
       {
-        if (*(*(v988 + 104) + v987))
+        if (*(*(v415 + 104) + v414))
         {
-          v989 = *(*(v988 + 256) + 4 * v987);
-          if (v987 != v989)
+          v416 = *(*(v415 + 256) + 4 * v414);
+          if (v414 != v416)
           {
             if (*(this + 32))
             {
-              v990 = *(this + 15);
-              v991 = *(v990 + 4 * v987);
-              v992 = *(v990 + 4 * v989);
+              v417 = *(this + 15);
+              v418 = *(v417 + 4 * v414);
+              v419 = *(v417 + 4 * v416);
             }
 
             else
             {
               if (*(this + 36))
               {
-                v993 = *(this + 17);
-                v991 = *(v993 + 2 * v987);
-                if (v991 == 0xFFFF)
+                v420 = *(this + 17);
+                v418 = *(v420 + 2 * v414);
+                if (v418 == 0xFFFF)
                 {
-                  v991 = -1;
+                  v418 = -1;
                 }
 
-                v992 = *(v993 + 2 * v989);
-                v994 = v992 == 0xFFFF;
+                v419 = *(v420 + 2 * v416);
+                v421 = v419 == 0xFFFF;
               }
 
               else
               {
-                v995 = *(this + 19);
-                v991 = *(v995 + v987);
-                if (v991 == 255)
+                v422 = *(this + 19);
+                v418 = *(v422 + v414);
+                if (v418 == 255)
                 {
-                  v991 = -1;
+                  v418 = -1;
                 }
 
-                v992 = *(v995 + v989);
-                v994 = v992 == 255;
+                v419 = *(v422 + v416);
+                v421 = v419 == 255;
               }
 
-              if (v994)
+              if (v421)
               {
-                v992 = -1;
+                v419 = -1;
               }
             }
 
-            if (v991 != v992)
+            if (v418 != v419)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6745, "lm/wordlm", 46, "%u %u", v976, v977, v987);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6745, "lm/wordlm", 46, "%u %u", v414, v416);
             }
 
             if (*(this + 276) == 1)
             {
               if (*(this + 72))
               {
-                v996 = *(this + 35);
-                v997 = *(v996 + 4 * v987);
-                v998 = *(v996 + 4 * v989);
+                v423 = *(this + 35);
+                v424 = *(v423 + 4 * v414);
+                v425 = *(v423 + 4 * v416);
               }
 
               else
               {
                 if (*(this + 76))
                 {
-                  v999 = *(this + 37);
-                  v997 = *(v999 + 2 * v987);
-                  if (v997 == 0xFFFF)
+                  v426 = *(this + 37);
+                  v424 = *(v426 + 2 * v414);
+                  if (v424 == 0xFFFF)
                   {
-                    v997 = -1;
+                    v424 = -1;
                   }
 
-                  v998 = *(v999 + 2 * v989);
-                  v1000 = v998 == 0xFFFF;
+                  v425 = *(v426 + 2 * v416);
+                  v427 = v425 == 0xFFFF;
                 }
 
                 else
                 {
-                  v1001 = *(this + 39);
-                  v997 = *(v1001 + v987);
-                  if (v997 == 255)
+                  v428 = *(this + 39);
+                  v424 = *(v428 + v414);
+                  if (v424 == 255)
                   {
-                    v997 = -1;
+                    v424 = -1;
                   }
 
-                  v998 = *(v1001 + v989);
-                  v1000 = v998 == 255;
+                  v425 = *(v428 + v416);
+                  v427 = v425 == 255;
                 }
 
-                if (v1000)
+                if (v427)
                 {
-                  v998 = -1;
+                  v425 = -1;
                 }
               }
 
-              if (v997 != v998)
+              if (v424 != v425)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6754, "lm/wordlm", 61, "%u %u", v976, v977, v987);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6754, "lm/wordlm", 61, "%u %u", v414, v416);
               }
             }
           }
         }
       }
 
-      ++v987;
+      ++v414;
     }
 
-    while (v985 != v987);
+    while (v412 != v414);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1040);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1042);
-  if (v1013 == 19)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v459);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v461);
+  if (v432 == 19)
   {
-    if (v1018 != 5)
+    if (v437 != 5)
     {
       goto LABEL_1290;
     }
 
 LABEL_1289:
-    WordLanguageModel::maybeAddAlienWordLmId(this, a6, a7, v1082, v1081, v1002, v1003, v1004, v1005, v1006);
+    WordLanguageModel::maybeAddAlienWordLmId(this, a6, a7, v501, v500);
     goto LABEL_1290;
   }
 
-  if (v1013 == 24 && (v1018 & 0xFFFFFFFE) == 6)
+  if (v432 == 24 && (v437 & 0xFFFFFFFE) == 6)
   {
     goto LABEL_1289;
   }
@@ -9440,18 +9440,18 @@ LABEL_1289:
 LABEL_1290:
   if (*(this + 18) == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6770, "lm/wordlm", 98, "%s", v1005, v1006, &errStr_lm_wordlm_E_WNT_ALIEN_WORD_LMID_NOT_SPECIFIED);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6770, "lm/wordlm", 98, "%s", &errStr_lm_wordlm_E_WNT_ALIEN_WORD_LMID_NOT_SPECIFIED);
   }
 
-  if (v1013 == 19)
+  if (v432 == 19)
   {
-    if (v1018 != 5)
+    if (v437 != 5)
     {
       goto LABEL_1299;
     }
   }
 
-  else if (v1013 != 24 || v1018 != 6)
+  else if (v432 != 24 || v437 != 6)
   {
     goto LABEL_1299;
   }
@@ -9462,43 +9462,43 @@ LABEL_1290:
   }
 
 LABEL_1299:
-  if (*(this + 276) != 1 || *(this + 19) == -1 && (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6781, "lm/wordlm", 66, "%s", v1005, v1006, &errStr_lm_wordlm_E_BAD_HAS_WORDID_TO_CONTEXT_LMID), (*(this + 276) & 1) == 0))
+  if (*(this + 276) != 1 || *(this + 19) == -1 && (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6781, "lm/wordlm", 66, "%s", &errStr_lm_wordlm_E_BAD_HAS_WORDID_TO_CONTEXT_LMID), (*(this + 276) & 1) == 0))
   {
     if (*(this + 19) != -1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6783, "lm/wordlm", 65, "%s", v1005, v1006, &errStr_lm_wordlm_E_ALIEN_WORD_CONTEXT_LMID_WITHOUT_CONTEXT_LMIDS);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 6783, "lm/wordlm", 65, "%s", &errStr_lm_wordlm_E_ALIEN_WORD_CONTEXT_LMID_WITHOUT_CONTEXT_LMIDS);
     }
   }
 
-  BigramData::compact((this + 360));
-  TrigramData::compact((this + 744));
-  QuadgramData::compact((this + 1232));
-  v1011 = v1013 == 19 && v1018 == 5;
-  WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, v1011, a3, a4, a5, v1007, v1008, v1009);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1044);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1046);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1048);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v1050);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v1052);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v1054);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1056);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1058);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1060);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1062);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1064);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1066);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1068);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1070);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1072);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v1074);
-  DgnString::~DgnString(&v1076);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v1078);
-  DgnArray<DgnString>::releaseAll(&v1079);
-  DgnIArray<Utterance *>::~DgnIArray(v1083);
-  DgnTextFileParser::~DgnTextFileParser(v1084);
+  BigramData::compact(this + 45);
+  TrigramData::compact(this + 93);
+  QuadgramData::compact(this + 154);
+  v430 = v432 == 19 && v437 == 5;
+  WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, v430, a3, a4, a5);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v463);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v465);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v467);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v469);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v471);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v473);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v475);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v477);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v479);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v481);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v483);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v485);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v487);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v491);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v493);
+  DgnString::~DgnString(&v495);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v497);
+  DgnArray<DgnString>::releaseAll(&v498);
+  DgnIArray<Utterance *>::~DgnIArray(v502);
+  DgnTextFileParser::~DgnTextFileParser(v503);
 }
 
-void sub_262795D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, char a36, uint64_t a37, char a38, uint64_t a39, char a40, uint64_t a41, char a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, char a48, uint64_t a49, char a50, uint64_t a51, char a52, uint64_t a53, char a54, uint64_t a55, char a56, uint64_t a57, char a58, uint64_t a59, char a60, uint64_t a61, char a62, uint64_t a63)
+void sub_262795D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   DgnString::~DgnString(&a34);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a36);
@@ -9516,10 +9516,10 @@ void sub_262795D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a60);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a62);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a64);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a66);
-  DgnString::~DgnString(&a68);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a70);
-  DgnArray<DgnString>::releaseAll(&a72);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&a65);
+  DgnString::~DgnString(&a66);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&a67);
+  DgnArray<DgnString>::releaseAll(&a68);
   DgnIArray<Utterance *>::~DgnIArray(&STACK[0x218]);
   DgnTextFileParser::~DgnTextFileParser(&STACK[0x228]);
   _Unwind_Resume(a1);
@@ -9527,155 +9527,155 @@ void sub_262795D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void WordLanguageModel::loadBinary(WordLanguageModel *this, DFile *a2, DFileChecksums *a3, int a4, unsigned int a5, unsigned int a6)
 {
-  v80 = 0;
+  v29 = 0;
   v10 = 1;
-  v13 = OpenAndReadMrecHeader(a2, 0x6Fu, 1, "LMWNGBIN", &v80 + 1, &v80);
-  v14 = v80;
-  v15 = HIDWORD(v80) == 19 && v80 == 13;
-  v16 = v15;
-  if (v15)
+  v11 = OpenAndReadMrecHeader(a2, 0x6Fu, 1, "LMWNGBIN", &v29 + 1, &v29);
+  v12 = v29;
+  v13 = HIDWORD(v29) == 19 && v29 == 13;
+  v14 = v13;
+  if (v13)
   {
-    v17 = 0;
-    v18 = 19;
-    v14 = 13;
+    v15 = 0;
+    v16 = 19;
+    v12 = 13;
 LABEL_12:
-    v19 = 1;
+    v17 = 1;
 LABEL_13:
-    v20 = 1;
+    v18 = 1;
     goto LABEL_14;
   }
 
-  switch(v80)
+  switch(v29)
   {
     case 0x170000000ELL:
-      v17 = 0;
-      v18 = 23;
+      v15 = 0;
+      v16 = 23;
       goto LABEL_12;
     case 0x180000000FLL:
       v10 = 0;
-      v17 = 0;
-      v19 = 1;
+      v15 = 0;
+      v17 = 1;
 LABEL_31:
-      v18 = 24;
+      v16 = 24;
       goto LABEL_13;
     case 0x1800000010:
       v10 = 0;
-      v17 = 1;
-      v18 = 24;
+      v15 = 1;
+      v16 = 24;
       goto LABEL_12;
     case 0x1800000011:
       v10 = 0;
-      v19 = 0;
-      v17 = 1;
+      v17 = 0;
+      v15 = 1;
       goto LABEL_31;
   }
 
   if (*(a2 + 6))
   {
-    v72 = *(a2 + 2);
+    v21 = *(a2 + 2);
   }
 
   else
   {
-    v72 = &unk_26288CFB0;
+    v21 = &unk_26288CFB0;
   }
 
-  MrecHeaderCheckVersions(v72, "LMWNGBIN", HIDWORD(v80), v80, 0x18u, 0x12u);
+  MrecHeaderCheckVersions(v21, "LMWNGBIN", HIDWORD(v29), v29, 0x18u, 0x12u);
   v10 = 0;
-  v19 = 0;
-  v20 = 0;
-  v14 = v80;
-  v18 = HIDWORD(v80);
-  v17 = 1;
+  v17 = 0;
+  v18 = 0;
+  v12 = v29;
+  v16 = HIDWORD(v29);
+  v15 = 1;
 LABEL_14:
-  MrecHeaderCheckLatestVersionIfShared(a2, "LMWNGBIN", v18, v14, 24, 18, v11, v12);
+  MrecHeaderCheckLatestVersionIfShared(a2, "LMWNGBIN", v16, v12, 24, 18);
   if (DFile::subFileExists(a2, 0x73u))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5207, "lm/wordlm", 84, "%s", v21, v22, &errStr_lm_wordlm_E_WNS_WNB_MISMATCH);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 5207, "lm/wordlm", 84, "%s", &errStr_lm_wordlm_E_WNS_WNB_MISMATCH);
   }
 
-  v79 = 0;
-  v77 = -1.0;
-  v78 = -1.0;
-  readObject(v13, this + 16, &v79);
-  readObject(v13, this + 68, &v79);
-  if (v20)
+  v28 = 0;
+  v26 = -1.0;
+  v27 = -1.0;
+  readObject(v11, this + 16, &v28);
+  readObject(v11, this + 68, &v28);
+  if (v18)
   {
-    readObject(v13, &v78, &v79);
-    readObject(v13, &v77, &v79);
+    readObject(v11, &v27, &v28);
+    readObject(v11, &v26, &v28);
   }
 
-  readObject(v13, this + 18, &v79);
+  readObject(v11, this + 18, &v28);
+  if (v15)
+  {
+    readObject(v11, this + 19, &v28);
+  }
+
+  readObject(v11, this + 80, &v28);
   if (v17)
   {
-    readObject(v13, this + 19, &v79);
+    readObject(v11, this + 21, &v28);
+    readObject(v11, this + 22, &v28);
+    readObject(v11, this + 23, &v28);
+    readObject(v11, this + 24, &v28);
   }
 
-  readObject(v13, this + 80, &v79);
-  if (v19)
-  {
-    readObject(v13, this + 21, &v79);
-    readObject(v13, this + 22, &v79);
-    readObject(v13, this + 23, &v79);
-    readObject(v13, this + 24, &v79);
-  }
-
-  readObject(v13, this + 25, &v79);
-  readObject(v13, this + 60, &v79);
-  readObject(v13, this + 244, &v79);
-  readObject(v13, this + 245, &v79);
-  v76 = 0;
-  WordLanguageModel::loadUnigramMembersBinary(this, v13, &v79, v20, &v76);
-  v75 = 0;
+  readObject(v11, this + 25, &v28);
+  readObject(v11, this + 60, &v28);
+  readObject(v11, this + 244, &v28);
+  readObject(v11, this + 245, &v28);
+  v25 = 0;
+  WordLanguageModel::loadUnigramMembersBinary(this, v11, &v28, v18, &v25);
+  v24 = 0;
   if (*(this + 16) >= 2u)
   {
-    WordLanguageModel::loadBigramMembersBinary(this, v13, &v79, v20, &v75);
-    BigramData::loadBinary((this + 360), v13, &v79);
-    WordLanguageModel::verifyBoWtForBiSc(this, v23, v24, v25, v26, v27, v28, v29);
-    WordLanguageModel::throwOnBadBoWt(this, v30, v31, v32, v33, v34, v35, v36);
-    if (v16)
+    WordLanguageModel::loadBigramMembersBinary(this, v11, &v28, v18, &v24);
+    BigramData::loadBinary((this + 360), v11, &v28);
+    WordLanguageModel::verifyBoWtForBiSc(this);
+    WordLanguageModel::throwOnBadBoWt(this);
+    if (v14)
     {
-      WordLanguageModel::verifyUniScForBiSc(this, v37, v38, v39, v40, v41, v42, v43);
+      WordLanguageModel::verifyUniScForBiSc(this);
     }
 
     if (*(this + 16) >= 3u)
     {
-      TrigramData::loadBinary((this + 744), v13, &v79);
-      WordLanguageModel::throwOnBadTriBoWt(this, v44, v45, v46, v47, v48, v49, v50);
-      if (v16)
+      TrigramData::loadBinary((this + 744), v11, &v28);
+      WordLanguageModel::throwOnBadTriBoWt(this);
+      if (v14)
       {
-        WordLanguageModel::verifyUniScForTriSc(this, v51, v52, v53, v54, v55, v56, v57);
+        WordLanguageModel::verifyUniScForTriSc(this);
         if (*(this + 16) > 3u)
         {
-          QuadgramData::loadBinary((this + 1232), v13, &v79);
-          WordLanguageModel::verifyUniScForQuadSc(this, v58, v59, v60, v61, v62, v63, v64);
+          QuadgramData::loadBinary((this + 1232), v11, &v28);
+          WordLanguageModel::verifyUniScForQuadSc(this);
         }
       }
 
       else if (*(this + 16) >= 4u)
       {
-        QuadgramData::loadBinary((this + 1232), v13, &v79);
+        QuadgramData::loadBinary((this + 1232), v11, &v28);
       }
     }
   }
 
-  v65 = v79;
-  *(this + 456) = v79;
-  readObjectChecksumAndVerify(v13, v65);
+  v19 = v28;
+  *(this + 456) = v28;
+  readObjectChecksumAndVerify(v11, v19);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x6Fu, v79);
-  DgnDelete<DgnStream>(v13);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 111, v28);
+  DgnDelete<DgnStream>(v11);
   if (v10)
   {
-    WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, 1, a4, a5, a6, v69, v70, v71);
-    if (!v20)
+    WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, 1, a4, a5, a6);
+    if (!v18)
     {
       goto LABEL_38;
     }
 
 LABEL_41:
-    WordLanguageModel::maybeAddAlienWordLmId(this, v78, v77, v76, v75, v67, v68, v69, v70, v71);
-    if (v17)
+    WordLanguageModel::maybeAddAlienWordLmId(this, v27, v26, v25, v24);
+    if (v15)
     {
       return;
     }
@@ -9683,13 +9683,13 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  if (v20)
+  if (v18)
   {
     goto LABEL_41;
   }
 
 LABEL_38:
-  if (v17)
+  if (v15)
   {
     return;
   }
@@ -9701,7 +9701,7 @@ LABEL_42:
   }
 }
 
-void WordLanguageModel::loadBinaryShared(uint64_t a1, DgnStream *a2, DFile *a3, uint64_t a4, unsigned int a5, int a6)
+void WordLanguageModel::loadBinaryShared(uint64_t a1, DgnStream *a2, DFile *a3, uint64_t a4, uint64_t a5, int a6)
 {
   if (a3)
   {
@@ -9781,99 +9781,98 @@ LABEL_15:
 
 void WordLanguageModel::loadDynamic(WordLanguageModel *this, DFile *a2, DFile *a3, DFileChecksums *a4, int a5, int a6, BOOL *a7, BOOL *a8, BOOL a9, unsigned int a10, unsigned int a11)
 {
-  v65 = 0;
+  v47 = 0;
   v16 = 1;
-  v19 = OpenAndReadMrecHeader(a2, 0x70u, 1, "LMWNGDYN", &v65 + 1, &v65);
-  v20 = v65;
-  v21 = HIDWORD(v65) == 19 && v65 == 12;
-  v22 = v21;
-  if (v21)
+  v17 = OpenAndReadMrecHeader(a2, 0x70u, 1, "LMWNGDYN", &v47 + 1, &v47);
+  v18 = v47;
+  v19 = HIDWORD(v47) == 19 && v47 == 12;
+  v20 = v19;
+  if (v19)
   {
-    v23 = 0;
-    v24 = 19;
-    v20 = 12;
+    v21 = 0;
+    v22 = 19;
+    v18 = 12;
 LABEL_12:
-    v25 = 1;
+    v23 = 1;
     goto LABEL_22;
   }
 
-  switch(v65)
+  switch(v47)
   {
     case 0x180000000DLL:
-      v23 = 0;
-      v24 = 24;
+      v21 = 0;
+      v22 = 24;
       goto LABEL_12;
     case 0x180000000ELL:
-      v24 = 24;
-      v25 = 1;
+      v22 = 24;
+      v23 = 1;
       break;
     case 0x180000000FLL:
       v16 = 0;
-      v25 = 1;
-      v24 = 24;
+      v23 = 1;
+      v22 = 24;
       break;
     default:
       if (*(a2 + 6))
       {
-        v26 = *(a2 + 2);
+        v24 = *(a2 + 2);
       }
 
       else
       {
-        v26 = &unk_26288CFB0;
+        v24 = &unk_26288CFB0;
       }
 
-      MrecHeaderCheckVersions(v26, "LMWNGDYN", HIDWORD(v65), v65, 0x18u, 0x10u);
+      MrecHeaderCheckVersions(v24, "LMWNGDYN", HIDWORD(v47), v47, 0x18u, 0x10u);
       v16 = 0;
-      v25 = 0;
-      v20 = v65;
-      v24 = HIDWORD(v65);
+      v23 = 0;
+      v18 = v47;
+      v22 = HIDWORD(v47);
       break;
   }
 
-  v23 = 1;
+  v21 = 1;
 LABEL_22:
-  MrecHeaderCheckLatestVersionIfShared(a2, "LMWNGDYN", v24, v20, 24, 16, v17, v18);
+  MrecHeaderCheckLatestVersionIfShared(a2, "LMWNGDYN", v22, v18, 24, 16);
   if (DFile::subFileExists(a2, 0x73u))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8772, "lm/wordlm", 85, "%s", v27, v28, &errStr_lm_wordlm_E_WNS_WND_PRESENCE_MISMATCH);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8772, "lm/wordlm", 85, "%s", &errStr_lm_wordlm_E_WNS_WND_PRESENCE_MISMATCH);
   }
 
-  v64 = 0;
-  v62 = -1.0;
-  v63 = -1.0;
-  readObject(v19, this + 16, &v64);
-  readObject(v19, this + 68, &v64);
-  if (v25)
-  {
-    readObject(v19, &v63, &v64);
-    readObject(v19, &v62, &v64);
-  }
-
-  readObject(v19, this + 18, &v64);
+  v46 = 0;
+  v44 = -1.0;
+  v45 = -1.0;
+  readObject(v17, this + 16, &v46);
+  readObject(v17, this + 68, &v46);
   if (v23)
   {
-    readObject(v19, this + 19, &v64);
+    readObject(v17, &v45, &v46);
+    readObject(v17, &v44, &v46);
   }
 
-  readObject(v19, this + 80, &v64);
+  readObject(v17, this + 18, &v46);
+  if (v21)
+  {
+    readObject(v17, this + 19, &v46);
+  }
+
+  readObject(v17, this + 80, &v46);
   if (v16)
   {
-    readObject(v19, this + 21, &v64);
-    readObject(v19, this + 22, &v64);
-    readObject(v19, this + 23, &v64);
-    readObject(v19, this + 24, &v64);
+    readObject(v17, this + 21, &v46);
+    readObject(v17, this + 22, &v46);
+    readObject(v17, this + 23, &v46);
+    readObject(v17, this + 24, &v46);
   }
 
-  readObject(v19, this + 25, &v64);
-  readObject(v19, this + 60, &v64);
-  readObject(v19, this + 244, &v64);
-  readObject(v19, this + 245, &v64);
-  v31 = *(this + 16);
-  v32 = *(this + 245);
-  if (v31 > 1 && !a3 && a6 && (*(this + 245) & 1) != 0)
+  readObject(v17, this + 25, &v46);
+  readObject(v17, this + 60, &v46);
+  readObject(v17, this + 244, &v46);
+  readObject(v17, this + 245, &v46);
+  v25 = *(this + 16);
+  if (v25 > 1 && !a3 && a6 && (*(this + 245) & 1) != 0)
   {
-    v33 = 1;
+    v26 = 1;
     *(this + 16) = 1;
     *(this + 68) = 1;
     *(this + 60) = -1;
@@ -9884,121 +9883,121 @@ LABEL_22:
     *a7 = 1;
     if ((*(this + 245) & 1) == 0)
     {
-      v61 = 0;
-      WordLanguageModel::loadUnigramMembersBinary(this, v19, &v64, v25, &v61);
-      v60 = 0;
+      v43 = 0;
+      WordLanguageModel::loadUnigramMembersBinary(this, v17, &v46, v23, &v43);
+      v42 = 0;
       goto LABEL_41;
     }
 
 LABEL_38:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8810, "lm/wordlm", 6, "%s", v29, v30, &errStr_lm_wordlm_E_NO_STATIC_VOC);
-    v34 = v33;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8810, "lm/wordlm", 6, "%s", &errStr_lm_wordlm_E_NO_STATIC_VOC);
+    v27 = v26;
     goto LABEL_39;
   }
 
   if ((*(this + 245) & 1) == 0)
   {
-    v35 = *(this + 5);
+    v28 = *(this + 5);
     goto LABEL_44;
   }
 
-  v33 = 0;
-  v34 = 0;
+  v26 = 0;
+  v27 = 0;
   if (!a3)
   {
     goto LABEL_38;
   }
 
 LABEL_39:
-  v35 = (*(*a3 + 88))(a3);
-  *(this + 5) = v35;
-  if (v34)
+  v28 = (*(*a3 + 88))(a3);
+  *(this + 5) = v28;
+  if (v27)
   {
-    v61 = 0;
-    WordLanguageModel::loadUnigramMembersBinary(this, v19, &v64, v25, &v61);
-    v60 = 0;
-    if (v31 < 2)
+    v43 = 0;
+    WordLanguageModel::loadUnigramMembersBinary(this, v17, &v46, v23, &v43);
+    v42 = 0;
+    if (v25 < 2)
     {
 LABEL_42:
-      v38 = v64;
-      *(this + 456) = v64;
-      readObjectChecksumAndVerify(v19, v38);
+      v31 = v46;
+      *(this + 456) = v46;
+      readObjectChecksumAndVerify(v17, v31);
       CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-      DFileChecksums::addChecksum(a4, CurrentSubDirComponents, 0x70u, v64);
-      DgnDelete<DgnStream>(v19);
-      v45 = v22;
+      DFileChecksums::addChecksum(a4, CurrentSubDirComponents, 112, v46);
+      DgnDelete<DgnStream>(v17);
+      v33 = v20;
       goto LABEL_57;
     }
 
 LABEL_41:
-    v36 = MemChunkAlloc(0x728uLL, 0);
-    WordLanguageModel::WordLanguageModel(v36, *(this + 8), *(this + 2));
-    WordLanguageModel::loadBigramMembersBinary(v37, v19, &v64, v25, &v60);
-    DgnDelete<LanguageModel>(v36);
+    v29 = MemChunkAlloc(0x728uLL, 0);
+    WordLanguageModel::WordLanguageModel(v29, *(this + 8), *(this + 2));
+    WordLanguageModel::loadBigramMembersBinary(v30, v17, &v46, v23, &v42);
+    DgnDelete<LanguageModel>(v29);
     goto LABEL_42;
   }
 
 LABEL_44:
-  if (!v35 || (DFile::subFileExists(v35, 0x72u) & 1) == 0)
+  if (!v28 || (DFile::subFileExists(v28, 0x72u) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8817, "lm/wordlm", 18, "%s", v29, v30, &errStr_lm_wordlm_E_WND_WITH_NO_WNP_FILE);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8817, "lm/wordlm", 18, "%s", &errStr_lm_wordlm_E_WND_WITH_NO_WNP_FILE);
   }
 
-  v46 = *(this + 5);
-  v45 = v22;
-  if (!v46 || (DFile::subFileExists(v46, 0x71u) & 1) == 0)
+  v34 = *(this + 5);
+  v33 = v20;
+  if (!v34 || (DFile::subFileExists(v34, 0x71u) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8820, "lm/wordlm", 19, "%s", v29, v30, &errStr_lm_wordlm_E_WND_WITH_NO_WNI_FILE);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/wordlm.cpp", 8820, "lm/wordlm", 19, "%s", &errStr_lm_wordlm_E_WND_WITH_NO_WNI_FILE);
   }
 
-  v61 = 0;
-  WordLanguageModel::loadUnigramMembersBinary(this, v19, &v64, v25, &v61);
-  v60 = 0;
+  v43 = 0;
+  WordLanguageModel::loadUnigramMembersBinary(this, v17, &v46, v23, &v43);
+  v42 = 0;
   if (*(this + 16) >= 2u)
   {
-    WordLanguageModel::loadBigramMembersBinary(this, v19, &v64, v25, &v60);
+    WordLanguageModel::loadBigramMembersBinary(this, v17, &v46, v23, &v42);
   }
 
-  v47 = v64;
-  *(this + 456) = v64;
-  readObjectChecksumAndVerify(v19, v47);
-  v48 = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a4, v48, 0x70u, v64);
-  DgnDelete<DgnStream>(v19);
+  v35 = v46;
+  *(this + 456) = v46;
+  readObjectChecksumAndVerify(v17, v35);
+  v36 = DFile::getCurrentSubDirComponents(a2);
+  DFileChecksums::addChecksum(a4, v36, 112, v46);
+  DgnDelete<DgnStream>(v17);
   PersistentAndIndex = WordLanguageModel::loadPersistentAndIndex(this);
   if (a5)
   {
-    v50 = PersistentAndIndex;
+    v38 = PersistentAndIndex;
     WordLanguageModel::reabsorbStaticLM(this);
     *a8 = 1;
-    if (v50)
+    if (v38)
     {
-      WordLanguageModel::verifyUniScForBiSc(this, v51, v52, v40, v41, v42, v43, v44);
+      WordLanguageModel::verifyUniScForBiSc(this);
       if (*(this + 16) >= 3u)
       {
-        WordLanguageModel::verifyUniScForTriSc(this, v53, v54, v40, v41, v42, v43, v44);
+        WordLanguageModel::verifyUniScForTriSc(this);
         if (*(this + 16) >= 4u)
         {
-          WordLanguageModel::verifyUniScForQuadSc(this, v55, v56, v40, v41, v42, v43, v44);
+          WordLanguageModel::verifyUniScForQuadSc(this);
         }
       }
     }
   }
 
 LABEL_57:
-  if (v45)
+  if (v33)
   {
-    WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, 1, a9, a10, a11, v42, v43, v44);
-    if (!v25)
+    WordLanguageModel::maybeRepairOutOfRangeWordIdsOrThrow(this, 1, a9, a10, a11);
+    if (!v23)
     {
       goto LABEL_59;
     }
   }
 
-  else if (!v25)
+  else if (!v23)
   {
 LABEL_59:
-    if (v23)
+    if (v21)
     {
       return;
     }
@@ -10006,8 +10005,8 @@ LABEL_59:
     goto LABEL_63;
   }
 
-  WordLanguageModel::maybeAddAlienWordLmId(this, v63, v62, v61, v60, v40, v41, v42, v43, v44);
-  if (v23)
+  WordLanguageModel::maybeAddAlienWordLmId(this, v45, v44, v43, v42);
+  if (v21)
   {
     return;
   }

@@ -7,8 +7,11 @@
 - (void)submitToCA;
 - (void)submitToCAWithCounters:(id)counters;
 - (void)updateCellularRadioTechTo:(id)to;
+- (void)updateIsAirplaneModeActiveTo:(BOOL)to;
 - (void)updateIsCellularInterfaceExpensiveTo:(BOOL)to;
 - (void)updateIsLowDataModeEnabledTo:(BOOL)to;
+- (void)updateIsSatelliteSystemTo:(BOOL)to;
+- (void)updateIsStewieActiveTo:(BOOL)to;
 - (void)updateNetworkPathsToPrimary:(id)primary secondary:(id)secondary;
 - (void)updateRegistrationStateTo:(id)to;
 @end
@@ -216,6 +219,72 @@ LABEL_31:
   {
     [(RatDataUsageState *)self submitToCA];
     self->_isCellularInterfaceExpensive = to;
+  }
+}
+
+- (void)updateIsSatelliteSystemTo:(BOOL)to
+{
+  toCopy = to;
+  if ([(RatDataUsageState *)self isSatelliteSystem]!= to)
+  {
+    rawCellularRadioTech = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState = [(RatDataUsageState *)self cellularRegistrationState];
+    v10 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech andRegistrationState:cellularRegistrationState andIsSatelliteSystem:[(RatDataUsageState *)self isSatelliteSystem] andIsStewieActive:[(RatDataUsageState *)self isStewieActive] andIsAirplaneModeActive:[(RatDataUsageState *)self isAirplaneModeActive]];
+
+    rawCellularRadioTech2 = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState2 = [(RatDataUsageState *)self cellularRegistrationState];
+    v9 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech2 andRegistrationState:cellularRegistrationState2 andIsSatelliteSystem:toCopy andIsStewieActive:[(RatDataUsageState *)self isStewieActive] andIsAirplaneModeActive:[(RatDataUsageState *)self isAirplaneModeActive]];
+
+    if (([v10 isEqualToString:v9] & 1) == 0)
+    {
+      [(RatDataUsageState *)self submitToCA];
+    }
+
+    self->_isSatelliteSystem = toCopy;
+  }
+}
+
+- (void)updateIsStewieActiveTo:(BOOL)to
+{
+  toCopy = to;
+  if ([(RatDataUsageState *)self isStewieActive]!= to)
+  {
+    rawCellularRadioTech = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState = [(RatDataUsageState *)self cellularRegistrationState];
+    v10 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech andRegistrationState:cellularRegistrationState andIsSatelliteSystem:[(RatDataUsageState *)self isSatelliteSystem] andIsStewieActive:[(RatDataUsageState *)self isStewieActive] andIsAirplaneModeActive:[(RatDataUsageState *)self isAirplaneModeActive]];
+
+    rawCellularRadioTech2 = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState2 = [(RatDataUsageState *)self cellularRegistrationState];
+    v9 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech2 andRegistrationState:cellularRegistrationState2 andIsSatelliteSystem:[(RatDataUsageState *)self isSatelliteSystem] andIsStewieActive:toCopy andIsAirplaneModeActive:[(RatDataUsageState *)self isAirplaneModeActive]];
+
+    if (([v10 isEqualToString:v9] & 1) == 0)
+    {
+      [(RatDataUsageState *)self submitToCA];
+    }
+
+    self->_isStewieActive = toCopy;
+  }
+}
+
+- (void)updateIsAirplaneModeActiveTo:(BOOL)to
+{
+  toCopy = to;
+  if ([(RatDataUsageState *)self isAirplaneModeActive]!= to)
+  {
+    rawCellularRadioTech = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState = [(RatDataUsageState *)self cellularRegistrationState];
+    v10 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech andRegistrationState:cellularRegistrationState andIsSatelliteSystem:[(RatDataUsageState *)self isSatelliteSystem] andIsStewieActive:[(RatDataUsageState *)self isStewieActive] andIsAirplaneModeActive:[(RatDataUsageState *)self isAirplaneModeActive]];
+
+    rawCellularRadioTech2 = [(RatDataUsageState *)self rawCellularRadioTech];
+    cellularRegistrationState2 = [(RatDataUsageState *)self cellularRegistrationState];
+    v9 = [RatDataUsageState deriveCellularRadioTech:rawCellularRadioTech2 andRegistrationState:cellularRegistrationState2 andIsSatelliteSystem:[(RatDataUsageState *)self isSatelliteSystem] andIsStewieActive:[(RatDataUsageState *)self isStewieActive] andIsAirplaneModeActive:toCopy];
+
+    if (([v10 isEqualToString:v9] & 1) == 0)
+    {
+      [(RatDataUsageState *)self submitToCA];
+    }
+
+    self->_isAirplaneModeActive = toCopy;
   }
 }
 

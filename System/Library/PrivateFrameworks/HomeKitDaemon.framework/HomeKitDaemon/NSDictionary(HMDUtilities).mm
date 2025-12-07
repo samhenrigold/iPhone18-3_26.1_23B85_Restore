@@ -21,38 +21,36 @@
 
 + (id)dictionaryByCombiningNonOverlappingDictionaries:()HMDUtilities
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a3;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [dictionary addEntriesFromDictionary:{*(*(&v12 + 1) + 8 * i), v12}];
+        [dictionary addEntriesFromDictionary:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

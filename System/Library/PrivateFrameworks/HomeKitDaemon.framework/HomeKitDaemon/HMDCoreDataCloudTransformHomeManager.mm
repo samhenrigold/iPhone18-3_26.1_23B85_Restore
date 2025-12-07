@@ -83,89 +83,89 @@ LABEL_5:
 
 + (uint64_t)_exportUpdateWithObjectID:(int)d updateApplicationData:(void *)data context:
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v5 = a2;
   dataCopy = data;
   v7 = objc_opt_self();
-  v48 = v5;
+  v47 = v5;
   v8 = [dataCopy objectWithID:v5];
   v9 = MEMORY[0x277CBEB58];
   homes = [v8 homes];
   v11 = [v9 setWithCapacity:{objc_msgSend(homes, "count")}];
 
   homes2 = [v8 homes];
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_updateApplicationData_context___block_invoke;
-  v62[3] = &unk_278684438;
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_updateApplicationData_context___block_invoke;
+  v61[3] = &unk_278684438;
   v13 = v11;
-  v63 = v13;
-  [homes2 hmf_enumerateWithAutoreleasePoolUsingBlock:v62];
+  v62 = v13;
+  [homes2 hmf_enumerateWithAutoreleasePoolUsingBlock:v61];
 
   v14 = +[MKFCKHome fetchRequest];
   [v14 setFetchBatchSize:2];
-  v61 = 0;
-  v15 = [dataCopy executeFetchRequest:v14 error:&v61];
-  v49 = v61;
+  v60 = 0;
+  v15 = [dataCopy executeFetchRequest:v14 error:&v60];
+  v48 = v60;
   if (v15)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v70 = 1;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2020000000;
-    v60 = 0;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_updateApplicationData_context___block_invoke_3;
-    v51[3] = &unk_278684460;
-    v52 = v13;
-    v56 = v7;
+    v69 = 1;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x2020000000;
+    v59 = 0;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_updateApplicationData_context___block_invoke_3;
+    v50[3] = &unk_278684460;
+    v51 = v13;
+    v55 = v7;
     v16 = dataCopy;
-    v53 = v16;
-    v54 = buf;
-    v55 = &v57;
-    [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v51];
+    v52 = v16;
+    v53 = buf;
+    v54 = &v56;
+    [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:v50];
     if (*(*&buf[8] + 24))
     {
-      if (*(v58 + 24) == 1)
+      if (*(v57 + 24) == 1)
       {
         v17 = +[(MKFCKModel *)MKFCKHome];
-        v68 = @"primaryHomeCounter";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+        v67 = @"primaryHomeCounter";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
         v19 = [v17 arrayByAddingObjectsFromArray:v18];
         [v14 setPropertiesToFetch:v19];
 
-        v50 = v49;
-        v20 = [v16 executeFetchRequest:v14 error:&v50];
-        v21 = v50;
+        v49 = v48;
+        v20 = [v16 executeFetchRequest:v14 error:&v49];
+        v21 = v49;
 
         if (!v20)
         {
-          v43 = objc_autoreleasePoolPush();
-          v44 = v7;
-          v45 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v42 = objc_autoreleasePoolPush();
+          v43 = v7;
+          v44 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            v46 = HMFGetLogIdentifier();
-            *v64 = 138543618;
-            v65 = v46;
-            v66 = 2114;
-            v67 = v21;
-            _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch homes: %{public}@", v64, 0x16u);
+            v45 = HMFGetLogIdentifier();
+            *v63 = 138543618;
+            v64 = v45;
+            v65 = 2114;
+            v66 = v21;
+            _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch homes: %{public}@", v63, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v43);
+          objc_autoreleasePoolPop(v42);
           v15 = 0;
           v36 = 0;
-          v49 = v21;
+          v48 = v21;
           goto LABEL_18;
         }
 
         v15 = v20;
-        v49 = v21;
+        v48 = v21;
       }
 
       v22 = objc_opt_class();
@@ -185,7 +185,7 @@ LABEL_5:
           if ((v29 & 1) == 0)
           {
             appDataDictionary2 = [v8 appDataDictionary];
-            v31 = [appDataDictionary2 copy];
+            v31 = objc_msgSend_copy(appDataDictionary2);
             [v26 setHomeManagerApplicationData:v31];
           }
         }
@@ -199,9 +199,9 @@ LABEL_5:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           v40 = HMFGetLogIdentifier();
-          *v64 = 138543362;
-          v65 = v40;
-          _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@No primary home", v64, 0xCu);
+          *v63 = 138543362;
+          v64 = v40;
+          _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@No primary home", v63, 0xCu);
         }
 
         objc_autoreleasePoolPop(v37);
@@ -217,7 +217,7 @@ LABEL_5:
 
 LABEL_18:
 
-    _Block_object_dispose(&v57, 8);
+    _Block_object_dispose(&v56, 8);
     _Block_object_dispose(buf, 8);
 
     goto LABEL_19;
@@ -232,7 +232,7 @@ LABEL_18:
     *buf = 138543618;
     *&buf[4] = v35;
     *&buf[12] = 2114;
-    *&buf[14] = v49;
+    *&buf[14] = v48;
     _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch homes: %{public}@", buf, 0x16u);
   }
 
@@ -240,7 +240,6 @@ LABEL_18:
   v36 = 0;
 LABEL_19:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -254,7 +253,7 @@ void __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_update
 
 void __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_updateApplicationData_context___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (([v6 isFake] & 1) == 0 && (objc_msgSend(v6, "isDeleted") & 1) == 0)
   {
@@ -292,19 +291,17 @@ void __96__HMDCoreDataCloudTransformHomeManager__exportUpdateWithObjectID_update
         {
           v16 = HMFGetLogIdentifier();
           v17 = [v9 hmd_debugIdentifier];
-          v19 = 138543618;
-          v20 = v16;
-          v21 = 2112;
-          v22 = v17;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@No transformable for object: <%@>", &v19, 0x16u);
+          v18 = 138543618;
+          v19 = v16;
+          v20 = 2112;
+          v21 = v17;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@No transformable for object: <%@>", &v18, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fixUpPrimaryHomeCounterForPrimaryHome:(id)home primaryHomeModelID:(id)d

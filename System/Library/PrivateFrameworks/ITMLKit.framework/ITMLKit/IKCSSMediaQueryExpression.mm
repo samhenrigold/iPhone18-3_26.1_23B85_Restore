@@ -14,7 +14,7 @@
   key = self->_key;
   self->_key = ik_sharedInstance;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](ik_sharedInstance, key);
 }
 
 - (void)setStringValue:(id)value
@@ -23,7 +23,7 @@
   stringValue = self->_stringValue;
   self->_stringValue = ik_sharedInstance;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](ik_sharedInstance, stringValue);
 }
 
 - (id)expressionAsString

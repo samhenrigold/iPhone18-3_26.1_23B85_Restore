@@ -196,7 +196,7 @@ LABEL_5:
 {
   if ([notification isEqualToString:*MEMORY[0x1E698FEB0]])
   {
-    v6 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FAF0]];
+    v6 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v6)
     {
       v7 = v6;

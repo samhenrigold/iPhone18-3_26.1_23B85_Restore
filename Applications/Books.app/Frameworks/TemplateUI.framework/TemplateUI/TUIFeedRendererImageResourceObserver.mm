@@ -143,10 +143,10 @@
 
   else
   {
-    v7 = TUIDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TUIDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_19A23C(loadedCopy, v7);
+      sub_19A23C(loadedCopy, v8);
     }
   }
 }

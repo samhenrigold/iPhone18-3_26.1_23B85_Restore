@@ -11,19 +11,16 @@
 
 - (_TtP19CommandAndControlUI23CACLanguageViewDelegate_)delegate
 {
-  v3 = OBJC_IVAR____TtC19CommandAndControlUI21CACLanguageViewBridge_delegate;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDelegate:(id)delegate
 {
   v5 = OBJC_IVAR____TtC19CommandAndControlUI21CACLanguageViewBridge_delegate;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = delegate;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -31,24 +28,23 @@
 
 - (id)makeLanguageUI
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC19CommandAndControlUI21CACLanguageViewBridge_model);
   selfCopy = self;
 
-  sub_243BC7B88(0, v15);
-  v12 = v15[4];
-  v13 = v15[5];
-  v14 = v16;
-  v8 = v15[0];
-  v9 = v15[1];
-  v10 = v15[2];
-  v11 = v15[3];
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA6640, &qword_243BD1CD0));
-  sub_243BC71C8(v15, v7);
-  v5 = sub_243BD0A98();
+  sub_243BC7B88(0, v14);
+  v11 = v14[4];
+  v12 = v14[5];
+  v13 = v15;
+  v7 = v14[0];
+  v8 = v14[1];
+  v9 = v14[2];
+  v10 = v14[3];
+  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA6640, &qword_243BD1CD0));
+  sub_243BC71C8(v14, v6);
+  v4 = sub_243BD0A98();
 
-  sub_243BCBF8C(v15);
+  sub_243BCBF8C(v14);
 
-  return v5;
+  return v4;
 }
 
 - (id)makeLanguageUIWithLocales:(id)locales
@@ -87,7 +83,6 @@
     v10 = v6;
     v11 = v7;
     v12 = v8;
-    v13 = *(&selfCopy->super.isa + OBJC_IVAR____TtC19CommandAndControlUI21CACLanguageViewBridge_model);
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA6648, &qword_243BD2240);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_243BD1690;

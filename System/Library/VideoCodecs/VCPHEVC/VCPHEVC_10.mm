@@ -201,8 +201,8 @@ LABEL_11:
       if (a6)
       {
 LABEL_13:
-        v19[2] = v19;
-        sub_2774407C4(a1 + 8, a2)[6] = v16;
+        v20 = v19;
+        sub_2774407C4((a1 + 8), a2, &v20)[6] = v16;
         return;
       }
     }
@@ -273,18 +273,18 @@ void *sub_2774406FC(uint64_t a1, unint64_t a2, uint64_t a3, void (*a4)(void), ui
     }
 
     *(a1 + 32) = v13;
-    v14[2] = v14;
-    result = sub_2774407C4(a1 + 8, a2);
+    v15 = v14;
+    result = sub_2774407C4((a1 + 8), a2, &v15);
     result[6] = v12;
   }
 
   return result;
 }
 
-void *sub_2774407C4(uint64_t a1, unint64_t a2)
+uint64_t *sub_2774407C4(uint64_t **a1, unint64_t a2, _OWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -294,27 +294,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -329,12 +329,12 @@ uint64_t *sub_2774408A8(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -348,22 +348,22 @@ uint64_t *sub_2774408A8(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -397,13 +397,13 @@ uint64_t *sub_2774408A8(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -465,7 +465,7 @@ uint64_t sub_277440A44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     else
     {
       *(a1 + 36) = 1;
-      sub_2773FCAFC(v21);
+      sub_2773FCAFC(v21, a4);
       if (v22[15])
       {
         sub_2773CC400(v16);
@@ -1062,8 +1062,8 @@ LABEL_6:
       v11[2] = 0;
       *v11 = &unk_288662C40;
       *(v11 + 2) = a4;
-      v12[2] = v12;
-      sub_2774407C4(a1 + 8, a2)[6] = v11;
+      v13 = v12;
+      sub_2774407C4((a1 + 8), a2, &v13)[6] = v11;
     }
 
     return;
@@ -1154,8 +1154,8 @@ LABEL_6:
       v11[2] = 0;
       *v11 = &unk_288662BE0;
       *(v11 + 2) = a4;
-      v12[2] = v12;
-      sub_2774407C4(a1 + 8, a2)[6] = v11;
+      v13 = v12;
+      sub_2774407C4((a1 + 8), a2, &v13)[6] = v11;
     }
 
     return;
@@ -1246,8 +1246,8 @@ LABEL_6:
       v11[2] = 0;
       *v11 = &unk_288662D00;
       *(v11 + 2) = a4;
-      v12[2] = v12;
-      sub_2774407C4(a1 + 8, a2)[6] = v11;
+      v13 = v12;
+      sub_2774407C4((a1 + 8), a2, &v13)[6] = v11;
     }
 
     return;
@@ -1333,8 +1333,8 @@ LABEL_6:
       v11[2] = 0;
       *v11 = &unk_288662CD0;
       *(v11 + 2) = a4;
-      v12[2] = v12;
-      sub_2774407C4(a1 + 8, a2)[6] = v11;
+      v13 = v12;
+      sub_2774407C4((a1 + 8), a2, &v13)[6] = v11;
     }
 
     return;
@@ -1394,8 +1394,8 @@ LABEL_6:
       v10[2] = 0;
       *v10 = &unk_288662D30;
       *(v10 + 2) = a4;
-      v11[2] = v11;
-      sub_2774407C4(a1 + 8, a2)[6] = v10;
+      v12 = v11;
+      sub_2774407C4((a1 + 8), a2, &v12)[6] = v10;
     }
 
     return;
@@ -1445,8 +1445,8 @@ LABEL_6:
       v10[2] = 0;
       *v10 = &unk_288662C10;
       *(v10 + 2) = a4;
-      v11[2] = v11;
-      sub_2774407C4(a1 + 8, a2)[6] = v10;
+      v12 = v11;
+      sub_2774407C4((a1 + 8), a2, &v12)[6] = v10;
     }
 
     return;
@@ -1573,8 +1573,8 @@ LABEL_6:
       v11[2] = 0;
       *v11 = &unk_288662C70;
       *(v11 + 2) = a4;
-      v12[2] = v12;
-      sub_2774407C4(a1 + 8, a2)[6] = v11;
+      v13 = v12;
+      sub_2774407C4((a1 + 8), a2, &v13)[6] = v11;
     }
 
     return;
@@ -1934,17 +1934,19 @@ uint64_t sub_277442B3C(uint64_t result)
   return result;
 }
 
-__int16 *sub_277442BE8(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_277442BE8(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 >= 1)
   {
+    v6 = a4;
+    v7 = a3;
     v9 = result;
     v10 = 0;
     v11 = 8 * a2;
     do
     {
-      sub_277442C84(v9, a2, 2, a3, a4);
-      result = sub_277442C84(v9 + 1, a2, 2, a3, a4);
+      sub_277442C84(v9, a2, 2, v7, v6);
+      result = sub_277442C84(v9 + 1, a2, 2, v7, v6);
       v10 += 4;
       v9 = (v9 + v11);
     }
@@ -1955,7 +1957,7 @@ __int16 *sub_277442BE8(__int16 *result, uint64_t a2, int a3, int a4, int a5)
   return result;
 }
 
-__int16 *sub_277442C84(__int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
+unsigned __int16 *sub_277442C84(unsigned __int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v5 = result[-2 * a3];
   if (a3 < 1)
@@ -2459,7 +2461,7 @@ LABEL_49:
   return result;
 }
 
-__int16 *sub_277443170(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_277443170(unsigned __int16 *result, uint64_t a2, int a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
@@ -2531,17 +2533,19 @@ uint64_t sub_277443238(uint64_t result)
   return result;
 }
 
-__int16 *sub_2774432E4(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_2774432E4(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 >= 1)
   {
+    v6 = a4;
+    v7 = a3;
     v9 = result;
     v10 = 0;
     v11 = 8 * a2;
     do
     {
-      sub_277443380(v9, a2, 2, a3, a4);
-      result = sub_277443380(v9 + 1, a2, 2, a3, a4);
+      sub_277443380(v9, a2, 2, v7, v6);
+      result = sub_277443380(v9 + 1, a2, 2, v7, v6);
       v10 += 4;
       v9 = (v9 + v11);
     }
@@ -2552,7 +2556,7 @@ __int16 *sub_2774432E4(__int16 *result, uint64_t a2, int a3, int a4, int a5)
   return result;
 }
 
-__int16 *sub_277443380(__int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
+unsigned __int16 *sub_277443380(unsigned __int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v5 = result[-2 * a3];
   if (a3 < 1)
@@ -3056,7 +3060,7 @@ LABEL_49:
   return result;
 }
 
-__int16 *sub_277443874(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_277443874(unsigned __int16 *result, uint64_t a2, int a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
@@ -3128,17 +3132,19 @@ uint64_t sub_27744393C(uint64_t result)
   return result;
 }
 
-__int16 *sub_2774439E8(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_2774439E8(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 >= 1)
   {
+    v6 = a4;
+    v7 = a3;
     v9 = result;
     v10 = 0;
     v11 = 8 * a2;
     do
     {
-      sub_277443A84(v9, a2, 2, a3, a4);
-      result = sub_277443A84(v9 + 1, a2, 2, a3, a4);
+      sub_277443A84(v9, a2, 2, v7, v6);
+      result = sub_277443A84(v9 + 1, a2, 2, v7, v6);
       v10 += 4;
       v9 = (v9 + v11);
     }
@@ -3149,7 +3155,7 @@ __int16 *sub_2774439E8(__int16 *result, uint64_t a2, int a3, int a4, int a5)
   return result;
 }
 
-__int16 *sub_277443A84(__int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
+unsigned __int16 *sub_277443A84(unsigned __int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v5 = result[-2 * a3];
   if (a3 < 1)
@@ -3653,7 +3659,7 @@ LABEL_49:
   return result;
 }
 
-__int16 *sub_277443F70(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_277443F70(unsigned __int16 *result, uint64_t a2, int a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
@@ -3725,17 +3731,19 @@ uint64_t sub_277444038(uint64_t result)
   return result;
 }
 
-__int16 *sub_2774440E4(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_2774440E4(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 >= 1)
   {
+    v6 = a4;
+    v7 = a3;
     v9 = result;
     v10 = 0;
     v11 = 8 * a2;
     do
     {
-      sub_277444180(v9, a2, 2, a3, a4);
-      result = sub_277444180(v9 + 1, a2, 2, a3, a4);
+      sub_277444180(v9, a2, 2, v7, v6);
+      result = sub_277444180(v9 + 1, a2, 2, v7, v6);
       v10 += 4;
       v9 = (v9 + v11);
     }
@@ -3746,7 +3754,7 @@ __int16 *sub_2774440E4(__int16 *result, uint64_t a2, int a3, int a4, int a5)
   return result;
 }
 
-__int16 *sub_277444180(__int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
+unsigned __int16 *sub_277444180(unsigned __int16 *result, uint64_t a2, uint64_t a3, int a4, int a5)
 {
   v5 = result[-2 * a3];
   if (a3 < 1)
@@ -4251,7 +4259,7 @@ LABEL_49:
   return result;
 }
 
-__int16 *sub_277444670(__int16 *result, uint64_t a2, int a3, int a4, int a5)
+unsigned __int16 *sub_277444670(unsigned __int16 *result, uint64_t a2, int a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
@@ -4323,17 +4331,19 @@ uint64_t sub_277444738(uint64_t result)
   return result;
 }
 
-__int16 *sub_2774447E4(__int16 *result, uint64_t a2, unsigned int a3, int a4, int a5)
+unsigned __int16 *sub_2774447E4(unsigned __int16 *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 >= 1)
   {
+    v6 = a4;
+    v7 = a3;
     v9 = result;
     v10 = 0;
     v11 = 8 * a2;
     do
     {
-      sub_277444880(v9, a2, 2, a3, a4);
-      result = sub_277444880(v9 + 1, a2, 2, a3, a4);
+      sub_277444880(v9, a2, 2, v7, v6);
+      result = sub_277444880(v9 + 1, a2, 2, v7, v6);
       v10 += 4;
       v9 = (v9 + v11);
     }
@@ -4344,7 +4354,7 @@ __int16 *sub_2774447E4(__int16 *result, uint64_t a2, unsigned int a3, int a4, in
   return result;
 }
 
-__int16 *sub_277444880(__int16 *result, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
+unsigned __int16 *sub_277444880(unsigned __int16 *result, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
   v5 = result[-2 * a3];
   if (a3 < 1)
@@ -4845,7 +4855,7 @@ LABEL_49:
   return result;
 }
 
-__int16 *sub_277444D68(__int16 *result, uint64_t a2, unsigned int a3, int a4, int a5)
+unsigned __int16 *sub_277444D68(unsigned __int16 *result, uint64_t a2, unsigned int a3, int a4, int a5)
 {
   if (a5 >= 1)
   {
@@ -5157,7 +5167,7 @@ char *sub_277444F38(char *result, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-char *sub_27744503C(char *result, uint64_t a2, uint64_t a3, int a4)
+char *sub_27744503C(char *result, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   if (a4 >= 1)
   {
@@ -5306,7 +5316,7 @@ char *sub_27744503C(char *result, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-uint64_t sub_277445158(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t sub_277445158(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   if (a4 >= 1)
   {
@@ -5454,7 +5464,7 @@ uint64_t sub_277445158(uint64_t result, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-void *sub_277445270(void *result, uint64_t a2)
+uint64_t (**sub_277445270(uint64_t (**result)(int, int, int, int, int, int, int, int, uint64_t, uint64_t, uint64_t, int, int, uint64_t, int, int, uint64_t, uint64_t, char), uint64_t a2))(int, int, int, int, int, int, int, int, uint64_t, uint64_t, uint64_t, int, int, uint64_t, int, int, uint64_t, uint64_t, char)
 {
   v2 = sub_277446304;
   v3 = sub_277446E88;
@@ -5651,7 +5661,7 @@ void sub_277445334(uint64_t a1, int a2, int a3, int a4, int a5, char *a6)
     v46 = 0;
     v47 = (v76 >> 2);
     v48 = a6;
-    v49 = (a6 + 257);
+    v49 = a6 + 257;
     do
     {
       if (v47 >= 1)
@@ -5815,7 +5825,7 @@ void sub_277445334(uint64_t a1, int a2, int a3, int a4, int a5, char *a6)
   }
 }
 
-unsigned __int8 *sub_277445A14(uint64_t a1, int a2, int a3, int a4, int a5, char *a6)
+uint64_t sub_277445A14(uint64_t a1, int a2, int a3, int a4, int a5, char *a6)
 {
   v110 = *MEMORY[0x277D85DE8];
   v11 = *(a1 + 8);
@@ -6285,7 +6295,7 @@ uint64_t sub_277446144(uint64_t a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-unint64_t sub_277446304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+unint64_t sub_277446304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   result = MEMORY[0x28223BE20](a1);
   v69 = result;
@@ -6503,7 +6513,7 @@ unint64_t sub_277446304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
             do
             {
               (*(v69 + 72))(v107, v74, v109, v108, v93);
-              v108 += 16;
+              v108 += 2;
               ++v109;
               v107 += 16;
               --v106;
@@ -6586,7 +6596,7 @@ unint64_t sub_277446304(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   return result;
 }
 
-void *sub_2774467E4(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, unsigned int a7)
+void *sub_2774467E4(void *__dst, uint64_t a2, int a3, int a4, int a5, unsigned int a6, unsigned int a7)
 {
   __dst[18432] = a2;
   *(__dst + 36866) = a3;
@@ -6608,7 +6618,7 @@ void *sub_2774467E4(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, un
     {
       __dst = memcpy(v7, v11, v12);
       v11 += v14;
-      v7 += v12;
+      v7 = (v7 + v12);
       --v13;
     }
 
@@ -6855,7 +6865,7 @@ uint64_t sub_277446A40(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
           v90 = *(v129 + 416);
           v125 = *(v129 + 400);
           v91 = *(v129 + 531);
-          result = (*(v61 + 48))(a2, v89, v132, v88, v85, &a29);
+          result = (*(v61 + 48))(a2, v89, v132, v88, v85, &a29, a7, a8);
           v126 = v89;
           v92 = (v89 + v90 * v132) << v91;
           LODWORD(v93) = v88 >> 3;
@@ -6960,7 +6970,7 @@ uint64_t sub_277446A40(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
   return result;
 }
 
-unint64_t sub_277446E88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+uint64_t sub_277446E88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
 {
   result = MEMORY[0x28223BE20](a1);
   v52 = v51;
@@ -7130,7 +7140,7 @@ unint64_t sub_277446E88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
           do
           {
             (*(v54 + 72))(v84, v56, v86, v85, v64);
-            v85 += 16;
+            v85 += 2;
             ++v86;
             v84 += 16;
             --v87;
@@ -7461,7 +7471,7 @@ uint64_t sub_277447434(uint64_t result, uint64_t a2, int *a3, uint64_t a4, uint6
   return result;
 }
 
-void *sub_2774478DC(void *result, uint64_t a2)
+uint64_t (**sub_2774478DC(uint64_t (**result)(int, int, int, int, int, int, int, int, uint64_t, uint64_t, uint64_t, int, int, uint64_t, int, int, uint64_t, uint64_t, char), uint64_t a2))(int, int, int, int, int, int, int, int, uint64_t, uint64_t, uint64_t, int, int, uint64_t, int, int, uint64_t, uint64_t, char)
 {
   v2 = sub_277447B60;
   v3 = sub_277448718;
@@ -7565,7 +7575,7 @@ uint64_t sub_2774479A0(uint64_t a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63))(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, char *)
+_DWORD *sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   result = MEMORY[0x28223BE20](a1);
   v69 = result;
@@ -7622,11 +7632,11 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
       v86 = 0;
     }
 
-    *(result + 30) = v86;
+    result[30] = v86;
     if (*(*(v66 + 16) + 2124) - 1 == v68)
     {
       v83 = v73 - v84;
-      *(result + 30) = v73;
+      result[30] = v73;
     }
   }
 
@@ -7748,7 +7758,7 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
           v100 = *(v139 + 416);
           v134 = *(v139 + 400);
           v101 = *(v139 + 531);
-          v69[6](v140, v99, v145, v98, v93, &a33);
+          (*(v69 + 48))(v140, v99, v145, v98, v93, &a33);
           if (v146 >= v130)
           {
             v102 = v98;
@@ -7783,8 +7793,8 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
             v109 = &STACK[0x420];
             do
             {
-              (v69[9])(v107, v74, v109, v108, v93);
-              v108 += 16;
+              (*(v69 + 72))(v107, v74, v109, v108, v93);
+              v108 += 2;
               ++v109;
               v107 += 8;
               --v106;
@@ -7802,7 +7812,7 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
             v113 = (__PAIR128__(v141, v145) - 1) >> 64;
             do
             {
-              (v69[10])(v111, v74, v110, v112, v98);
+              (*(v69 + 80))(v111, v74, v110, v112, v98);
               v112 += 2;
               ++v110;
               v111 += v132;
@@ -7824,7 +7834,7 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
             v117 = &a65;
             do
             {
-              (v69[11])(v116, v75, v117, v93);
+              (*(v69 + 88))(v116, v75, v117, v93);
               v117 += 4;
               v116 += 16;
               --v115;
@@ -7841,7 +7851,7 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
             v120 = (__PAIR128__(v141, v145) - 1) >> 64;
             do
             {
-              (v69[12])(v119, v75, v118, v98);
+              (*(v69 + 96))(v119, v75, v118, v98);
               v118 += 4;
               v119 += 8 * v75;
               --v120;
@@ -7867,7 +7877,7 @@ void (**sub_277447B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   return result;
 }
 
-void *sub_27744807C(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, unsigned int a7)
+void *sub_27744807C(void *__dst, uint64_t a2, int a3, int a4, int a5, unsigned int a6, unsigned int a7)
 {
   __dst[9216] = a2;
   *(__dst + 18434) = a3;
@@ -7888,7 +7898,7 @@ void *sub_27744807C(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, un
     {
       __dst = memcpy(v7, v11, v12);
       v11 += v10;
-      v7 += v12;
+      v7 = (v7 + v12);
       --v13;
     }
 
@@ -8133,7 +8143,7 @@ uint64_t sub_2774482D0(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
           v90 = *(v129 + 416);
           v125 = *(v129 + 400);
           v91 = *(v129 + 531);
-          result = (*(v61 + 48))(a2, v89, v132, v88, v85, &a29);
+          result = (*(v61 + 48))(a2, v89, v132, v88, v85, &a29, a7, a8);
           v126 = v89;
           v92 = (v89 + v90 * v132) << v91;
           LODWORD(v93) = v88 >> 3;
@@ -8238,7 +8248,7 @@ uint64_t sub_2774482D0(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
   return result;
 }
 
-_DWORD *sub_277448718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+_DWORD *sub_277448718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
 {
   result = MEMORY[0x28223BE20](a1);
   v51 = v50;
@@ -8318,7 +8328,7 @@ _DWORD *sub_277448718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
           {
             v72 = v71 + 8;
             (*(v52 + 9))(v71 + 8 + v61, v55, &STACK[0x3A0] + v71, v69, v64);
-            v69 += 16;
+            v69 += 2;
             v71 = v72;
           }
 
@@ -8409,7 +8419,7 @@ _DWORD *sub_277448718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
           do
           {
             (*(v52 + 9))(v88, v55, v90, v89, v64);
-            v89 += 16;
+            v89 += 2;
             ++v90;
             v88 += 8;
             --v91;
@@ -8739,7 +8749,7 @@ uint64_t sub_277448CF4(uint64_t result, uint64_t a2, int *a3, uint64_t a4, uint6
   return result;
 }
 
-void *sub_2774491A0(void *result, uint64_t a2)
+uint64_t (**sub_2774491A0(uint64_t (**result)(int, int, int, int, int, int, int, int, uint64_t, int, int, uint64_t, uint64_t, char), uint64_t a2))(int, int, int, int, int, int, int, int, uint64_t, int, int, uint64_t, uint64_t, char)
 {
   v2 = sub_277449B08;
   v3 = sub_27744A624;
@@ -9181,7 +9191,7 @@ uint64_t sub_277449948(uint64_t a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   result = MEMORY[0x28223BE20](a1);
   v69 = v66;
@@ -9364,7 +9374,7 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
           v142 = v97;
           v136 = *(v144 + 400);
           v102 = *(v144 + 531);
-          (*(v70 + 6))(v69, v100, v149, v99, v94, &a33);
+          (*(v70 + 48))(v69, v100, v149, v99, v94, &a33);
           v139 = v101 < v132;
           if (v101 >= v132)
           {
@@ -9399,8 +9409,8 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
             v110 = &STACK[0x420];
             do
             {
-              (*(v70 + 9))(v108, v75, v110, v109, v94);
-              v109 += 16;
+              (*(v70 + 72))(v108, v75, v110, v109, v94);
+              v109 += 2;
               ++v110;
               v108 += 16;
               --v107;
@@ -9418,7 +9428,7 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
             v114 = (__PAIR128__(v145, v149) - 1) >> 64;
             do
             {
-              (*(v70 + 10))(v112, v75, v111, v113, v99);
+              (*(v70 + 80))(v112, v75, v111, v113, v99);
               v113 += 2;
               ++v111;
               v112 += v134;
@@ -9441,7 +9451,7 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
             v119 = &a65;
             do
             {
-              (*(v70 + 11))(v118, v76, v119, v94);
+              (*(v70 + 88))(v118, v76, v119, v94);
               v119 += 4;
               v118 += 32;
               --v117;
@@ -9458,7 +9468,7 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
             v122 = (__PAIR128__(v145, v149) - 1) >> 64;
             do
             {
-              (*(v70 + 12))(v121, v76, v120, (v99 >> 1));
+              (*(v70 + 96))(v121, v76, v120, (v99 >> 1));
               v120 += 4;
               v121 += 16 * v76;
               --v122;
@@ -9485,7 +9495,7 @@ int *sub_277449B08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   return result;
 }
 
-void *sub_277449FEC(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, unsigned int a7)
+void *sub_277449FEC(void *__dst, uint64_t a2, int a3, int a4, int a5, unsigned int a6, unsigned int a7)
 {
   __dst[9216] = a2;
   *(__dst + 18434) = a3;
@@ -9507,7 +9517,7 @@ void *sub_277449FEC(void *__dst, uint64_t a2, int a3, int a4, int a5, int a6, un
     {
       __dst = memcpy(v7, v11, v12);
       v11 += v14;
-      v7 += v12;
+      v7 = (v7 + v12);
       --v13;
     }
 
@@ -9754,7 +9764,7 @@ uint64_t sub_27744A1D4(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
           v132 = *(v138 + 416);
           v133 = *(v138 + 400);
           v95 = *(v138 + 531);
-          result = (*(v65 + 48))(a2, v93, v141, v92, v89, &a33);
+          result = (*(v65 + 48))(a2, v93, v141, v92, v89, &a33, a7, a8);
           v134 = v94 < v68;
           v135 = v93;
           v96 = (v93 + v132 * v141) << v95;
@@ -9861,7 +9871,7 @@ uint64_t sub_27744A1D4(uint64_t result, uint64_t a2, int a3, int a4, uint64_t a5
   return result;
 }
 
-int *sub_27744A624(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+int *sub_27744A624(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
 {
   result = MEMORY[0x28223BE20](a1);
   v52 = v51;
@@ -10027,7 +10037,7 @@ int *sub_27744A624(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
           do
           {
             (*(v54 + 9))(v86, v56, v88, v87, v64);
-            v87 += 16;
+            v87 += 2;
             ++v88;
             v86 += 16;
             --v85;

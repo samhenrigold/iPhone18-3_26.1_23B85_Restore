@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_23BFF2670();
+  sub_23BFF2670(selfCopy);
 }
 
 @end

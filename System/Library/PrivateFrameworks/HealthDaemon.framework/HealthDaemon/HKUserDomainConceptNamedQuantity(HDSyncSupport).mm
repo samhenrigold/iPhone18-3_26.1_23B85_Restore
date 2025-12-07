@@ -31,7 +31,7 @@
 
 + (id)createWithCodable:()HDSyncSupport
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([v3 isMemberOfClass:objc_opt_class()])
   {
@@ -60,13 +60,13 @@
         v16 = HKLogHealthOntology();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v19 = 138543874;
-          v20 = objc_opt_class();
-          v21 = 2048;
-          v22 = v6;
-          v23 = 2114;
-          v24 = 0;
-          _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_INFO, "Decoded invalid %{public}@ with value = %f, unitString = %{public}@", &v19, 0x20u);
+          v18 = 138543874;
+          v19 = objc_opt_class();
+          v20 = 2048;
+          v21 = v6;
+          v22 = 2114;
+          v23 = 0;
+          _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_INFO, "Decoded invalid %{public}@ with value = %f, unitString = %{public}@", &v18, 0x20u);
         }
       }
 
@@ -78,8 +78,6 @@
   {
     v13 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

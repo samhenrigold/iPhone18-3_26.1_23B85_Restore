@@ -458,7 +458,7 @@ LABEL_6:
   [(CSCoverSheetViewControllerBase *)&v10 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -1840,7 +1840,7 @@ LABEL_13:
             lastObject = [v25 lastObject];
             if (lastObject)
             {
-              if (([v35 containsObject:lastObject] & 1) == 0)
+              if ((objc_msgSend_containsObject_(v35) & 1) == 0)
               {
                 [v35 addObject:lastObject];
               }

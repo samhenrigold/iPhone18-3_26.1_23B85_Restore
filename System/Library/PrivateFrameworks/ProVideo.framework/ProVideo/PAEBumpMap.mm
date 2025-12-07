@@ -246,18 +246,18 @@
       v30 = _Q1;
       v31 = var5;
       [(PAESharedDefaultBase *)self getHeliumImage:&v32 layerOffsetX:0 layerOffsetY:0 requestInfo:v29 fromParm:1 atTime:v29[0]];
-      [(PAESharedDefaultBase *)self getImageBoundary:input];
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+      objc_msgSend_getImageBoundary_(self);
+      objc_msgSend_getInversePixelTransformForImage_(self);
+      objc_msgSend_getPixelTransformForImage_(self);
       if (v32)
       {
-        [(PAESharedDefaultBase *)self transformFromImage:v32 toImage:input fit:1];
+        objc_msgSend_transformFromImage_toImage_fit_(self);
         v21 = v28;
         if (v28 && fabs(v36) >= 0.0000001)
         {
           if (input)
           {
-            [input heliumRef];
+            objc_msgSend_heliumRef(input);
           }
 
           else
@@ -270,7 +270,6 @@
             if (v33)
             {
 LABEL_38:
-              v23 = v28;
               if (v28)
               {
                 (*(*v28 + 16))(v28);
@@ -279,7 +278,7 @@ LABEL_38:
                   goto LABEL_52;
                 }
 
-                v26 = v28;
+                v25 = v28;
                 (*(*v28 + 16))(v28);
               }
 
@@ -290,26 +289,21 @@ LABEL_38:
                   goto LABEL_52;
                 }
 
-                v26 = 0;
+                v25 = 0;
               }
 
-              [(PAESharedDefaultBase *)self smear:&v26 fromImage:input toImage:input];
-              if (v23 == v27)
+              objc_msgSend_smear_fromImage_toImage_(self, v25);
+              if (v28 == v27)
               {
-                if (v23)
+                if (v28)
                 {
                   (*(*v27 + 24))();
                 }
               }
 
-              else
+              else if (v28)
               {
-                if (v23)
-                {
-                  (*(*v23 + 24))(v23);
-                }
-
-                v27 = 0;
+                (*(*v28 + 24))(v28);
               }
 
               if (v26)
@@ -318,8 +312,8 @@ LABEL_38:
               }
 
 LABEL_52:
-              v24 = HGObject::operator new(0x1A0uLL);
-              HgcBumpMap::HgcBumpMap(v24);
+              v23 = HGObject::operator new(0x1A0uLL);
+              HgcBumpMap::HgcBumpMap(v23);
             }
           }
 
@@ -348,7 +342,7 @@ LABEL_52:
 
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
@@ -377,7 +371,7 @@ LABEL_16:
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input, v36);
   }
 
   else

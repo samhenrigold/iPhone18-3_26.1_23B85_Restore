@@ -7,48 +7,46 @@
 
 - (void)_wp_removeTrackingInformationFromURLs
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   string = [self string];
-  checkForURLUsingFastPath(string, v9);
+  checkForURLUsingFastPath(&v8, string);
 
-  v3 = v10;
-  if (v9[0])
+  v3 = v9;
+  if (v8)
   {
-    if (v10)
+    if (v9)
     {
       v4 = [self length];
       _wp_urlByRemovingTrackingInformation = [v3 _wp_urlByRemovingTrackingInformation];
       absoluteString = [_wp_urlByRemovingTrackingInformation absoluteString];
-      v12[0] = 0;
-      v12[1] = v4;
-      v13 = absoluteString;
-      memset(v8, 0, sizeof(v8));
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v8, v12, &v14, 1uLL);
-      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableAttributedString>(self, v8);
-      v11 = v8;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v11);
+      v11[0] = 0;
+      v11[1] = v4;
+      v12 = absoluteString;
+      memset(v7, 0, sizeof(v7));
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v7, v11, &v13, 1uLL);
+      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableAttributedString>(self, v7);
+      v10 = v7;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v10);
     }
 
     else
     {
       _wp_urlByRemovingTrackingInformation = [self string];
-      WebPrivacy::findOrderedReplacementRanges(_wp_urlByRemovingTrackingInformation, v8);
-      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableAttributedString>(self, v8);
-      v12[0] = v8;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v12);
+      WebPrivacy::findOrderedReplacementRanges(v7, _wp_urlByRemovingTrackingInformation);
+      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableAttributedString>(self, v7);
+      v11[0] = v7;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v11);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_wp_removeTrackingInformationFromURLsInPlace:()WebPrivacyExtras
 {
   v4 = a3;
   string = [self string];
-  checkForURLUsingFastPath(string, v16);
+  checkForURLUsingFastPath(&v16, string);
 
-  if (v16[0])
+  if (v16)
   {
     v6 = v17;
     if (!v17)

@@ -86,7 +86,7 @@
   {
     if (videoPlayer)
     {
-      [videoPlayer duration];
+      objc_msgSend_duration(videoPlayer);
       goto LABEL_6;
     }
 
@@ -102,7 +102,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  [irisPlayer currentVideoDuration];
+  objc_msgSend_currentVideoDuration(irisPlayer);
 LABEL_6:
   flags = time1.flags;
   epoch = time1.epoch;
@@ -120,7 +120,7 @@ LABEL_8:
 
   else
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   v11 = Seconds;
@@ -142,7 +142,7 @@ LABEL_8:
     else if (videoPlayer && [videoPlayer desiredPlayState] == 3 && (objc_msgSend(videoPlayer, "isActivated") & 1) == 0)
     {
       memset(&time1, 0, sizeof(time1));
-      [videoPlayer currentTime];
+      objc_msgSend_currentTime(videoPlayer);
       time2 = time1;
       v14 = [[PUFilmStripViewIndicatorInfo alloc] initWithLocation:0 preferredColor:CMTimeGetSeconds(&time2) / v11];
       [v3 addObject:v14];

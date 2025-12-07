@@ -32,9 +32,11 @@
 
 uint64_t __39__SDFeedbackInterceptor_sharedInstance__block_invoke()
 {
-  sharedInstance_listener = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_listener;
+  sharedInstance_listener = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SDFeedbackInterceptor)init
@@ -97,7 +99,7 @@ uint64_t __39__SDFeedbackInterceptor_sharedInstance__block_invoke()
 
 void __60__SDFeedbackInterceptor_annotateRankingFeedback_completion___block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) collectAnonymousData])
   {
     if (([*(a1 + 32) isInternalDevice] & 1) == 0)
@@ -109,7 +111,7 @@ LABEL_42:
         v40 = objc_opt_self();
       }
 
-      goto LABEL_44;
+      return;
     }
   }
 
@@ -132,88 +134,88 @@ LABEL_42:
   }
 
   v4 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v43 = a1;
+  v42 = a1;
   obj = [*(a1 + 48) sections];
-  v5 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v5 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v55;
+    v7 = *v54;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v55 != v7)
+        if (*v54 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v54 + 1) + 8 * i);
+        v9 = *(*(&v53 + 1) + 8 * i);
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
         v10 = [v9 results];
-        v11 = [v10 countByEnumeratingWithState:&v50 objects:v63 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v49 objects:v62 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v51;
+          v13 = *v50;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v51 != v13)
+              if (*v50 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = [*(*(&v50 + 1) + 8 * j) result];
+              v15 = [*(*(&v49 + 1) + 8 * j) result];
               v16 = [v15 identifier];
               [v4 setObject:v15 forKey:v16];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v50 objects:v63 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v49 objects:v62 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      v6 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
     }
 
     while (v6);
   }
 
-  v17 = [*(v43 + 32) _itemsFromSentSections];
+  v17 = [*(v42 + 32) _itemsFromSentSections];
   v18 = [MEMORY[0x1E69D3E50] sharedModelManager];
-  v42 = [v18 getL2ModelVersionForClientBundle:0];
+  v41 = [v18 getL2ModelVersionForClientBundle:0];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obja = v17;
-  v19 = [obja countByEnumeratingWithState:&v46 objects:v62 count:16];
+  v19 = [obja countByEnumeratingWithState:&v45 objects:v61 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v47;
+    v21 = *v46;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v47 != v21)
+        if (*v46 != v21)
         {
           objc_enumerationMutation(obja);
         }
 
-        v23 = *(*(&v46 + 1) + 8 * k);
+        v23 = *(*(&v45 + 1) + 8 * k);
         v24 = [v23 identifier];
         v25 = [v4 objectForKey:v24];
 
@@ -231,23 +233,23 @@ LABEL_42:
 
         if (!v27)
         {
-          v60[0] = @"score";
+          v59[0] = @"score";
           v31 = MEMORY[0x1E696AD98];
           [v23 score];
           v32 = [v31 numberWithFloat:?];
-          v61[0] = v32;
-          v60[1] = @"raw score";
+          v60[0] = v32;
+          v59[1] = @"raw score";
           v33 = MEMORY[0x1E696AD98];
           [v23 rawScore];
           v34 = [v33 numberWithFloat:?];
-          v61[1] = v34;
-          v60[2] = @"original score";
+          v60[1] = v34;
+          v59[2] = @"original score";
           v35 = MEMORY[0x1E696AD98];
           v36 = [v23 L2FeatureVector];
           [v36 originalL2Score];
           v37 = [v35 numberWithFloat:?];
-          v61[2] = v37;
-          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:3];
+          v60[2] = v37;
+          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:3];
           [v25 setLocalFeatures:v38];
 
 LABEL_36:
@@ -268,12 +270,12 @@ LABEL_36:
 
         if (!v29)
         {
-          v58 = @"suggestion score";
+          v57 = @"suggestion score";
           v30 = MEMORY[0x1E696AD98];
           [v23 suggestionScore];
           v32 = [v30 numberWithDouble:?];
-          v59 = v32;
-          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v58 = v32;
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
           [v25 setLocalFeatures:v34];
           goto LABEL_36;
         }
@@ -281,59 +283,56 @@ LABEL_36:
 LABEL_37:
       }
 
-      v20 = [obja countByEnumeratingWithState:&v46 objects:v62 count:16];
+      v20 = [obja countByEnumeratingWithState:&v45 objects:v61 count:16];
     }
 
     while (v20);
   }
 
-  [*(v43 + 48) setL2ModelVersion:v42];
-  (*(*(v43 + 56) + 16))();
-  if (*(v43 + 40))
+  [*(v42 + 48) setL2ModelVersion:v41];
+  (*(*(v42 + 56) + 16))();
+  if (*(v42 + 40))
   {
     v39 = objc_opt_self();
   }
-
-LABEL_44:
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willSendSections:(id)sections forQuery:(id)query queryIdentifier:(unint64_t)identifier allowAnonymousDataCollection:(BOOL)collection withRankerUsed:(id)used withRankingConfiguration:(id)configuration internalDebug:(BOOL)debug keyboardPrimaryLanguage:(id)self0 clientID:(id)self1
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   usedCopy = used;
   configurationCopy = configuration;
   languageCopy = language;
   dCopy = d;
   sectionsCopy = sections;
-  v48 = SDFeedbackTransactionCreate(@"willSendSections");
+  v47 = SDFeedbackTransactionCreate(@"willSendSections");
   v15 = [sectionsCopy copy];
 
   v16 = [v15 count];
   v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v15, "count")}];
   v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v16];
-  v59 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:v16];
+  v58 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:v16];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   obj = v15;
-  v19 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+  v19 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v76;
+    v21 = *v75;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v76 != v21)
+        if (*v75 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v75 + 1) + 8 * i);
+        v23 = *(*(&v74 + 1) + 8 * i);
         results = [v23 results];
         v25 = [results copy];
         [v17 addObject:v25];
@@ -360,11 +359,11 @@ LABEL_44:
           [v27 setCountOfVisibleResults:v31];
           [v18 setObject:v27 forKeyedSubscript:bundleIdentifier];
           bundleIdentifier2 = [v23 bundleIdentifier];
-          [v59 addObject:bundleIdentifier2];
+          [v58 addObject:bundleIdentifier2];
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+      v20 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
     }
 
     while (v20);
@@ -381,22 +380,22 @@ LABEL_44:
   block[2] = __183__SDFeedbackInterceptor_willSendSections_forQuery_queryIdentifier_allowAnonymousDataCollection_withRankerUsed_withRankingConfiguration_internalDebug_keyboardPrimaryLanguage_clientID___block_invoke;
   block[3] = &unk_1E82F94D0;
   block[4] = self;
-  v63 = languageCopy;
-  v64 = obj;
-  v65 = v17;
-  v66 = v18;
-  v67 = v34;
+  v62 = languageCopy;
+  v63 = obj;
+  v64 = v17;
+  v65 = v18;
+  v66 = v34;
   collectionCopy = collection;
-  v68 = queryCopy;
-  v69 = dCopy;
-  v70 = usedCopy;
-  v71 = v59;
-  v72 = v48;
+  v67 = queryCopy;
+  v68 = dCopy;
+  v69 = usedCopy;
+  v70 = v58;
+  v71 = v47;
   identifierCopy = identifier;
   queuea = v35;
-  v55 = v48;
-  v36 = v59;
-  v60 = usedCopy;
+  v54 = v47;
+  v36 = v58;
+  v59 = usedCopy;
   v37 = dCopy;
   v38 = queryCopy;
   v39 = v34;
@@ -417,8 +416,6 @@ LABEL_44:
 
   v46 = v45;
   dispatch_async(queuea, v45);
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __183__SDFeedbackInterceptor_willSendSections_forQuery_queryIdentifier_allowAnonymousDataCollection_withRankerUsed_withRankingConfiguration_internalDebug_keyboardPrimaryLanguage_clientID___block_invoke(uint64_t a1)
@@ -555,13 +552,13 @@ void __183__SDFeedbackInterceptor_willSendSections_forQuery_queryIdentifier_allo
                 if (v33)
                 {
 LABEL_38:
-                  v34 = [v12 protectionClass];
+                  v35 = [v12 protectionClass];
 
-                  if (v34)
+                  if (v35)
                   {
-                    v35 = [v12 protectionClass];
-                    v36 = [v12 identifier];
-                    [v85 setObject:v35 forKey:v36];
+                    v36 = [v12 protectionClass];
+                    v37 = [v12 identifier];
+                    [v85 setObject:v36 forKey:v37];
 
                     goto LABEL_49;
                   }
@@ -569,18 +566,18 @@ LABEL_38:
 
                 else
                 {
-                  v37 = SPLogForSPLogCategoryDefault();
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+                  v38 = SPLogForSPLogCategoryDefault(v34);
+                  if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
                   {
-                    v52 = [v12 resultBundleId];
-                    v74 = [v52 UTF8String];
-                    v53 = [v12 sectionBundleIdentifier];
-                    v54 = [v53 UTF8String];
+                    v53 = [v12 resultBundleId];
+                    v74 = [v53 UTF8String];
+                    v54 = [v12 sectionBundleIdentifier];
+                    v55 = [v54 UTF8String];
                     *__str = 136315394;
                     *&__str[4] = v74;
                     v103 = 2080;
-                    v104 = v54;
-                    _os_log_fault_impl(&dword_1C81BF000, v37, OS_LOG_TYPE_FAULT, "result identifier is nil, resultBundleId: >%s<, sectionBundleIdentifier: >%s<", __str, 0x16u);
+                    v104 = v55;
+                    _os_log_fault_impl(&dword_1C81BF000, v38, OS_LOG_TYPE_FAULT, "result identifier is nil, resultBundleId: >%s<, sectionBundleIdentifier: >%s<", __str, 0x16u);
                   }
                 }
 
@@ -610,12 +607,12 @@ LABEL_38:
                   goto LABEL_33;
                 }
 
-                v49 = [v14 isEqual:v73];
-                v50 = [v12 getStableServerResultIdentifier];
-                v51 = [v12 rankingItem];
-                [v51 setIdentifier:v50];
+                v50 = [v14 isEqual:v73];
+                v51 = [v12 getStableServerResultIdentifier];
+                v52 = [v12 rankingItem];
+                [v52 setIdentifier:v51];
 
-                if ((v49 & 1) == 0)
+                if ((v50 & 1) == 0)
                 {
 LABEL_46:
                   bzero(v99, 0x400uLL);
@@ -623,14 +620,14 @@ LABEL_46:
                   json_writer_begin_dictionary();
                   json_writer_add_key();
                   [v12 rankingScore];
-                  v40 = v39;
+                  v41 = v40;
                   bzero(__str, 0x400uLL);
-                  snprintf(__str, 0x400uLL, "%.2g", v40);
+                  snprintf(__str, 0x400uLL, "%.2g", v41);
                   atof(__str);
                   json_writer_add_double();
                   json_writer_add_key();
-                  v41 = [v12 sectionBundleIdentifier];
-                  [v41 UTF8String];
+                  v42 = [v12 sectionBundleIdentifier];
+                  [v42 UTF8String];
                   json_writer_add_string();
 
                   json_writer_add_key();
@@ -643,19 +640,19 @@ LABEL_46:
                   data = json_writer_get_data();
                   if (data)
                   {
-                    v43 = data;
-                    v44 = objc_alloc(MEMORY[0x1E695DEF0]);
-                    v45 = [v44 initWithBytes:*__str length:v43];
-                    v46 = [v12 rankingItem];
-                    [v46 setServerFeaturesJSON:v45];
+                    v44 = data;
+                    v45 = objc_alloc(MEMORY[0x1E695DEF0]);
+                    v46 = [v45 initWithBytes:*__str length:v44];
+                    v47 = [v12 rankingItem];
+                    [v47 setServerFeaturesJSON:v46];
                   }
 
-                  v47 = [v12 rankingItem];
-                  v48 = [v47 sectionBundleIdentifier];
-                  [v83 addObject:v48];
+                  v48 = [v12 rankingItem];
+                  v49 = [v48 sectionBundleIdentifier];
+                  [v83 addObject:v49];
 
-                  v35 = [v12 rankingItem];
-                  [v84 addObject:v35];
+                  v36 = [v12 rankingItem];
+                  [v84 addObject:v36];
 LABEL_49:
 
 LABEL_50:
@@ -686,15 +683,15 @@ LABEL_45:
                 }
 
                 v31 = [v12 rankingItem];
-                v38 = [v31 identifier];
-                [v85 setObject:v78 forKey:v38];
+                v39 = [v31 identifier];
+                [v85 setObject:v78 forKey:v39];
               }
 
               else
               {
                 v31 = [v12 getStableServerResultIdentifier];
-                v38 = [v12 rankingItem];
-                [v38 setIdentifier:v31];
+                v39 = [v12 rankingItem];
+                [v39 setIdentifier:v31];
               }
 
               goto LABEL_45;
@@ -705,21 +702,21 @@ LABEL_51:
           }
 
           while (v8 != v10);
-          v55 = [v6 countByEnumeratingWithState:&v90 objects:v100 count:16];
-          v8 = v55;
+          v56 = [v6 countByEnumeratingWithState:&v90 objects:v100 count:16];
+          v8 = v56;
         }
 
-        while (v55);
+        while (v56);
 LABEL_61:
 
         if ([v84 count])
         {
-          v56 = [*(v79 + 64) objectForKeyedSubscript:v75];
-          [v56 setArrayOfRankingItems:v84];
-          [v56 setBundleIdentifier:v75];
+          v57 = [*(v79 + 64) objectForKeyedSubscript:v75];
+          [v57 setArrayOfRankingItems:v84];
+          [v57 setBundleIdentifier:v75];
           if (v85)
           {
-            [v56 setMapResultIdToProtectionClass:?];
+            [v57 setMapResultIdToProtectionClass:?];
           }
         }
 
@@ -735,61 +732,59 @@ LABEL_61:
     while (v72);
   }
 
-  v57 = objc_opt_new();
+  v58 = objc_opt_new();
   if (*(v79 + 72))
   {
     v88 = 0u;
     v89 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v58 = v83;
-    v59 = [v58 countByEnumeratingWithState:&v86 objects:v98 count:16];
-    if (v59)
+    v59 = v83;
+    v60 = [v59 countByEnumeratingWithState:&v86 objects:v98 count:16];
+    if (v60)
     {
-      v60 = v59;
-      v61 = *v87;
+      v61 = v60;
+      v62 = *v87;
       do
       {
-        for (i = 0; i != v60; ++i)
+        for (i = 0; i != v61; ++i)
         {
-          if (*v87 != v61)
+          if (*v87 != v62)
           {
-            objc_enumerationMutation(v58);
+            objc_enumerationMutation(v59);
           }
 
-          v63 = *(*(&v86 + 1) + 8 * i);
-          v64 = *(v79 + 72);
-          v65 = [v63 lowercaseString];
-          v66 = [v64 objectForKey:v65];
+          v64 = *(*(&v86 + 1) + 8 * i);
+          v65 = *(v79 + 72);
+          v66 = [v64 lowercaseString];
+          v67 = [v65 objectForKey:v66];
 
-          if (v66)
+          if (v67)
           {
-            [v57 setObject:v66 forKey:v63];
+            [v58 setObject:v67 forKey:v64];
           }
         }
 
-        v60 = [v58 countByEnumeratingWithState:&v86 objects:v98 count:16];
+        v61 = [v59 countByEnumeratingWithState:&v86 objects:v98 count:16];
       }
 
-      while (v60);
+      while (v61);
     }
   }
 
-  v67 = v79;
+  v68 = v79;
   *(*(v79 + 32) + 8) = *(v79 + 128);
   objc_storeStrong((*(v79 + 32) + 24), *(v79 + 80));
   *(*(v79 + 32) + 32) = *(v79 + 120);
-  objc_storeStrong((*(v67 + 32) + 40), *(v67 + 88));
-  objc_storeStrong((*(v67 + 32) + 64), *(v67 + 96));
-  objc_storeStrong((*(v67 + 32) + 16), *(v67 + 64));
-  objc_storeStrong((*(v67 + 32) + 48), *(v67 + 104));
-  objc_storeStrong((*(v79 + 32) + 72), v57);
+  objc_storeStrong((*(v68 + 32) + 40), *(v68 + 88));
+  objc_storeStrong((*(v68 + 32) + 64), *(v68 + 96));
+  objc_storeStrong((*(v68 + 32) + 16), *(v68 + 64));
+  objc_storeStrong((*(v68 + 32) + 48), *(v68 + 104));
+  objc_storeStrong((*(v79 + 32) + 72), v58);
   if (*(v79 + 112))
   {
-    v68 = objc_opt_self();
+    v69 = objc_opt_self();
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __183__SDFeedbackInterceptor_willSendSections_forQuery_queryIdentifier_allowAnonymousDataCollection_withRankerUsed_withRankingConfiguration_internalDebug_keyboardPrimaryLanguage_clientID___block_invoke_2()
@@ -848,7 +843,7 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
 
 - (id)_itemsFromSentSectionsWithProtectionClasses:(id)classes filterWithResults:(id)results
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   resultsCopy = results;
   v7 = [resultsCopy count];
@@ -868,20 +863,20 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
   {
     v11 = v10;
     v12 = 0;
-    v42 = classesCopy;
-    v37 = v10;
+    v41 = classesCopy;
+    v36 = v10;
     selfCopy = self;
     do
     {
       v13 = [(NSMutableOrderedSet *)self->_sectionOrder objectAtIndexedSubscript:v12];
       sentSections = [(SDFeedbackInterceptor *)self sentSections];
-      v41 = v13;
+      v40 = v13;
       v15 = [sentSections objectForKeyedSubscript:v13];
 
       mapResultIdToProtectionClass = [v15 mapResultIdToProtectionClass];
       [classesCopy addEntriesFromDictionary:mapResultIdToProtectionClass];
 
-      v40 = v15;
+      v39 = v15;
       if (v7)
       {
         arrayOfRankingItems = [v15 arrayOfRankingItems];
@@ -892,10 +887,10 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
         }
 
         v20 = v18;
-        v39 = v12;
+        v38 = v12;
         v21 = 0;
         v22 = 0;
-        v43 = v18;
+        v42 = v18;
         do
         {
           v23 = [arrayOfRankingItems objectAtIndexedSubscript:v21];
@@ -904,7 +899,7 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
           {
             if (v22 < v7)
             {
-              v44 = v22;
+              v43 = v22;
               v26 = v22;
               while (1)
               {
@@ -920,9 +915,9 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
 
                 if (v7 == v26)
                 {
-                  classesCopy = v42;
-                  v20 = v43;
-                  v22 = v44;
+                  classesCopy = v41;
+                  v20 = v42;
+                  v22 = v43;
                   goto LABEL_20;
                 }
               }
@@ -930,8 +925,8 @@ void __42__SDFeedbackInterceptor_didEngageSection___block_invoke(uint64_t a1)
               [v9 addObject:v23];
 
               v22 = v26;
-              classesCopy = v42;
-              v20 = v43;
+              classesCopy = v41;
+              v20 = v42;
             }
           }
 
@@ -941,47 +936,47 @@ LABEL_20:
         }
 
         while (v21 < v20 && v22 < v7);
-        v11 = v37;
+        v11 = v36;
         self = selfCopy;
       }
 
       else
       {
-        v39 = v12;
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
+        v38 = v12;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         arrayOfRankingItems = [v15 arrayOfRankingItems];
-        v30 = [arrayOfRankingItems countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v30 = [arrayOfRankingItems countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v30)
         {
           v31 = v30;
-          v32 = *v47;
+          v32 = *v46;
           do
           {
             for (i = 0; i != v31; ++i)
             {
-              if (*v47 != v32)
+              if (*v46 != v32)
               {
                 objc_enumerationMutation(arrayOfRankingItems);
               }
 
-              v34 = *(*(&v46 + 1) + 8 * i);
+              v34 = *(*(&v45 + 1) + 8 * i);
               if (([v9 containsObject:v34] & 1) == 0)
               {
                 [v9 addObject:v34];
               }
             }
 
-            v31 = [arrayOfRankingItems countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v31 = [arrayOfRankingItems countByEnumeratingWithState:&v45 objects:v49 count:16];
           }
 
           while (v31);
         }
       }
 
-      v12 = v39;
+      v12 = v38;
 LABEL_33:
 
       ++v12;
@@ -989,8 +984,6 @@ LABEL_33:
 
     while (v12 != v11);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1014,7 +1007,7 @@ LABEL_33:
 
 void __43__SDFeedbackInterceptor_didPerformCommand___block_invoke(uint64_t a1)
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) result];
   v3 = [v2 identifier];
   if ([v3 isEqualToString:@"com.apple.other:taptoradar"])
@@ -1027,34 +1020,34 @@ void __43__SDFeedbackInterceptor_didPerformCommand___block_invoke(uint64_t a1)
 
   v6 = objc_alloc(MEMORY[0x1E695DF70]);
   v7 = *(a1 + 40);
-  v74 = v2;
+  v73 = v2;
   if (v5 && v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = [v6 initWithCapacity:{objc_msgSend(*(v7 + 80), "count")}];
+    v86 = 0u;
     v87 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v90 = 0u;
     v9 = *(*(a1 + 40) + 80);
-    v10 = [v9 countByEnumeratingWithState:&v87 objects:v94 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v86 objects:v93 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v88;
+      v12 = *v87;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v88 != v12)
+          if (*v87 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [[SDSuggestionsFeedbackCollectible alloc] initWithSuggestionsData:*(*(&v87 + 1) + 8 * i)];
+          v14 = [[SDSuggestionsFeedbackCollectible alloc] initWithSuggestionsData:*(*(&v86 + 1) + 8 * i)];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v87 objects:v94 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v86 objects:v93 count:16];
       }
 
       while (v11);
@@ -1063,60 +1056,60 @@ void __43__SDFeedbackInterceptor_didPerformCommand___block_invoke(uint64_t a1)
     v15 = [MEMORY[0x1E69D3E30] sharedManager];
     v16 = [*(a1 + 40) usedRanker];
     [v15 extractTrainingDataWithItemAtIndex:v4 withItems:v8 withRanker:v16 forQuery:*(*(a1 + 40) + 24) dataCollectAllowed:1 forClientBundle:*MEMORY[0x1E69D3F28] keyboardPrimaryLanguage:*(*(a1 + 40) + 96) clientID:*(*(a1 + 40) + 40)];
-    v17 = v74;
+    v17 = v73;
     goto LABEL_87;
   }
 
   v8 = [v6 initWithCapacity:{objc_msgSend(*(v7 + 16), "count")}];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v18 = *(*(a1 + 40) + 48);
-  v19 = [v18 countByEnumeratingWithState:&v83 objects:v93 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v82 objects:v92 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v84;
+    v21 = *v83;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v84 != v21)
+        if (*v83 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(*(&v83 + 1) + 8 * j)];
+        v23 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(*(&v82 + 1) + 8 * j)];
         [v8 addObject:v23];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v83 objects:v93 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v82 objects:v92 count:16];
     }
 
     while (v20);
   }
 
-  v73 = objc_opt_new();
+  v72 = objc_opt_new();
   [*(a1 + 40) _itemsFromSentSectionsWithProtectionClasses:? filterWithResults:?];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v24 = v82 = 0u;
-  v15 = [v24 countByEnumeratingWithState:&v79 objects:v92 count:16];
+  v24 = v81 = 0u;
+  v15 = [v24 countByEnumeratingWithState:&v78 objects:v91 count:16];
   if (v15)
   {
-    v25 = *v80;
+    v25 = *v79;
     while (2)
     {
       for (k = 0; k != v15; k = k + 1)
       {
-        if (*v80 != v25)
+        if (*v79 != v25)
         {
           objc_enumerationMutation(v24);
         }
 
-        v27 = *(*(&v79 + 1) + 8 * k);
+        v27 = *(*(&v78 + 1) + 8 * k);
         v28 = [v27 identifier];
         v29 = [v28 isEqualToString:v3];
 
@@ -1127,7 +1120,7 @@ void __43__SDFeedbackInterceptor_didPerformCommand___block_invoke(uint64_t a1)
         }
       }
 
-      v15 = [v24 countByEnumeratingWithState:&v79 objects:v92 count:16];
+      v15 = [v24 countByEnumeratingWithState:&v78 objects:v91 count:16];
       if (v15)
       {
         continue;
@@ -1138,10 +1131,10 @@ void __43__SDFeedbackInterceptor_didPerformCommand___block_invoke(uint64_t a1)
   }
 
 LABEL_30:
-  v72 = v24;
+  v71 = v24;
 
-  v17 = v74;
-  v30 = [v74 type] == 36 || objc_msgSend(v74, "type") == 37;
+  v17 = v73;
+  v30 = [v73 type] == 36 || objc_msgSend(v73, "type") == 37;
   v31 = _os_feature_enabled_impl();
   if (v15)
   {
@@ -1185,14 +1178,14 @@ LABEL_30:
 
         else
         {
-          v69 = [v15 sectionBundleIdentifier];
-          v33 = [v69 isEqual:*MEMORY[0x1E69D3F00]];
+          v68 = [v15 sectionBundleIdentifier];
+          v33 = [v68 isEqual:*MEMORY[0x1E69D3F00]];
         }
       }
     }
   }
 
-  v38 = [v74 type];
+  v38 = [v73 type];
   v39 = [v15 sectionBundleIdentifier];
   v40 = [v39 isEqual:*MEMORY[0x1E69D3F78]];
   if (v38 == 20)
@@ -1213,22 +1206,22 @@ LABEL_30:
     {
       if (v15)
       {
-        v66 = v41;
+        v65 = v41;
       }
 
       else
       {
-        v66 = 0;
+        v65 = 0;
       }
 
-      if ((v66 & 1) == 0)
+      if ((v65 & 1) == 0)
       {
         goto LABEL_70;
       }
 
 LABEL_60:
       v43 = [v15 identifier];
-      v44 = [v73 objectForKey:v43];
+      v44 = [v72 objectForKey:v43];
 
       if (v44)
       {
@@ -1252,7 +1245,7 @@ LABEL_60:
 
         if (v47)
         {
-          v48 = [v74 resultBundleId];
+          v48 = [v73 resultBundleId];
           [v15 setSectionBundleIdentifier:v48];
         }
 
@@ -1271,26 +1264,26 @@ LABEL_60:
 
 LABEL_70:
   [*(a1 + 40) _itemsFromSentSections];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v50 = v78 = 0u;
-  v51 = [v50 countByEnumeratingWithState:&v75 objects:v91 count:16];
+  v50 = v77 = 0u;
+  v51 = [v50 countByEnumeratingWithState:&v74 objects:v90 count:16];
   if (v51)
   {
     v52 = v51;
-    v70 = v15;
-    v53 = *v76;
+    v69 = v15;
+    v53 = *v75;
     while (2)
     {
       for (m = 0; m != v52; ++m)
       {
-        if (*v76 != v53)
+        if (*v75 != v53)
         {
           objc_enumerationMutation(v50);
         }
 
-        v55 = *(*(&v75 + 1) + 8 * m);
+        v55 = *(*(&v74 + 1) + 8 * m);
         v56 = [v55 identifier];
         v57 = [v56 isEqualToString:v3];
 
@@ -1301,7 +1294,7 @@ LABEL_70:
         }
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v75 objects:v91 count:16];
+      v52 = [v50 countByEnumeratingWithState:&v74 objects:v90 count:16];
       if (v52)
       {
         continue;
@@ -1312,8 +1305,8 @@ LABEL_70:
 
     v58 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_80:
-    v17 = v74;
-    v15 = v70;
+    v17 = v73;
+    v15 = v69;
   }
 
   else
@@ -1321,20 +1314,20 @@ LABEL_80:
     v58 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v16 = v73;
+  v16 = v72;
   if ([*(a1 + 32) triggerEvent] != 5 && v58 != 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v17, "type") != 26)
   {
     v59 = [MEMORY[0x1E69D3E30] sharedManager];
     v60 = [*(a1 + 40) usedRanker];
     v61 = *(a1 + 40);
-    v71 = *(v61 + 24);
-    v68 = *(v61 + 8);
+    v70 = *(v61 + 24);
+    v67 = *(v61 + 8);
     v62 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v61, "currentQueryId")}];
     v63 = *(a1 + 40);
-    LOBYTE(v67) = *(v63 + 9);
-    [v59 extractTrainingDataWithItemAtIndex:v58 withItems:v50 withRanker:v60 forQuery:v71 dataCollectAllowed:v68 queryID:v62 withCEPData:*(v63 + 72) forClientBundle:*MEMORY[0x1E69D3EC8] debugInfoEnabled:v67 keyboardPrimaryLanguage:*(v63 + 96) clientID:*(v63 + 40)];
+    LOBYTE(v66) = *(v63 + 9);
+    [v59 extractTrainingDataWithItemAtIndex:v58 withItems:v50 withRanker:v60 forQuery:v70 dataCollectAllowed:v67 queryID:v62 withCEPData:*(v63 + 72) forClientBundle:*MEMORY[0x1E69D3EC8] debugInfoEnabled:v66 keyboardPrimaryLanguage:*(v63 + 96) clientID:*(v63 + 40)];
 
-    v16 = v73;
+    v16 = v72;
   }
 
 LABEL_87:
@@ -1342,8 +1335,6 @@ LABEL_87:
   {
     v64 = objc_opt_self();
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dumpTTRDebugFiles
@@ -1363,36 +1354,36 @@ LABEL_87:
 
 void __42__SDFeedbackInterceptor_dumpTTRDebugFiles__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(*(a1 + 32) + 16), "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(*(a1 + 32) + 48);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * v7), v12}];
+        v8 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v7), v11}];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -1407,8 +1398,6 @@ void __42__SDFeedbackInterceptor_dumpTTRDebugFiles__block_invoke(uint64_t a1)
   {
     v10 = objc_opt_self();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didClearInput:(id)input
@@ -1436,14 +1425,14 @@ void __42__SDFeedbackInterceptor_dumpTTRDebugFiles__block_invoke(uint64_t a1)
 
 void __41__SDFeedbackInterceptor_didRankSections___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 104) didRankSections:*(a1 + 40)];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v2 = [*(a1 + 40) sections];
-  v3 = [v2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (!v3)
   {
 LABEL_9:
@@ -1452,18 +1441,18 @@ LABEL_9:
   }
 
   v4 = v3;
-  v5 = *v36;
+  v5 = *v35;
   v6 = *MEMORY[0x1E69D3F28];
 LABEL_3:
   v7 = 0;
   while (1)
   {
-    if (*v36 != v5)
+    if (*v35 != v5)
     {
       objc_enumerationMutation(v2);
     }
 
-    v8 = [*(*(&v35 + 1) + 8 * v7) section];
+    v8 = [*(*(&v34 + 1) + 8 * v7) section];
     v9 = [v8 bundleIdentifier];
     v10 = [v9 isEqualToString:v6];
 
@@ -1474,7 +1463,7 @@ LABEL_3:
 
     if (v4 == ++v7)
     {
-      v4 = [v2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (!v4)
       {
         goto LABEL_9;
@@ -1492,7 +1481,7 @@ LABEL_30:
       v28 = objc_opt_self();
     }
 
-    goto LABEL_32;
+    return;
   }
 
   v11 = objc_opt_new();
@@ -1506,30 +1495,30 @@ LABEL_30:
     goto LABEL_25;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v30 = v15;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v29 = v15;
   v16 = [v15 arrayOfRankingItems];
-  v17 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (!v17)
   {
     goto LABEL_24;
   }
 
   v18 = v17;
-  v19 = *v32;
+  v19 = *v31;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v32 != v19)
+      if (*v31 != v19)
       {
         objc_enumerationMutation(v16);
       }
 
-      v21 = *(*(&v31 + 1) + 8 * i);
+      v21 = *(*(&v30 + 1) + 8 * i);
       v22 = [v21 identifier];
       [v11 addObject:v22];
 
@@ -1556,13 +1545,13 @@ LABEL_30:
       [v12 addObject:v24];
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v18 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
   }
 
   while (v18);
 LABEL_24:
 
-  v15 = v30;
+  v15 = v29;
 LABEL_25:
   if ([v11 count])
   {
@@ -1574,9 +1563,6 @@ LABEL_25:
   {
     v27 = objc_opt_self();
   }
-
-LABEL_32:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didEngageResult:(id)result

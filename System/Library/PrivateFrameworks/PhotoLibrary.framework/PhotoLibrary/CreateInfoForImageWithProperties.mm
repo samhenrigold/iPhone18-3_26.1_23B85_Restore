@@ -3,7 +3,7 @@
 
 @implementation CreateInfoForImageWithProperties
 
-void ____CreateInfoForImageWithProperties_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void ____CreateInfoForImageWithProperties_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   if (*(a1 + 56) == 1 && (*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {

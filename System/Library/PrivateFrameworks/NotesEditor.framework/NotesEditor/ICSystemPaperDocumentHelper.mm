@@ -17,7 +17,7 @@
 
 + (id)drawingForPaperAttachment:(id)attachment
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5E660, &unk_2154C6F40);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v14 - v5;
   attachmentCopy = attachment;
@@ -51,7 +51,7 @@
 
 - (void)addWithItemProviders:(id)providers itemsAnchor:(int64_t)anchor
 {
-  sub_2151A6C9C(0, &qword_27CA5A360);
+  sub_2151A6C9C(0, &qword_27CA5A360, 0x277CCAA88);
   v6 = sub_2154A1F4C();
   selfCopy = self;
   ICSystemPaperDocumentHelper.add(itemProviders:itemsAnchor:)(v6, anchor);

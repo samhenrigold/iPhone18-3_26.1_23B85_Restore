@@ -111,42 +111,38 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v7 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   if (self->_handlerReturnStatus.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_handlerReturnStatus.list[v6];
       PBDataWriterWriteUint32Field();
-      toCopy = v11;
-      ++v6;
+      toCopy = v7;
+      ++v5;
     }
 
-    while (v6 < self->_handlerReturnStatus.count);
+    while (v5 < self->_handlerReturnStatus.count);
   }
 
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 }
 
@@ -225,7 +221,6 @@
     goto LABEL_17;
   }
 
-  v5 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_errorCode != *(equalCopy + 10))
@@ -242,7 +237,7 @@
   if (!PBRepeatedUInt32IsEqual())
   {
 LABEL_17:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_18;
   }
 
@@ -259,7 +254,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v6 = (*(equalCopy + 48) & 4) == 0;
+  v5 = (*(equalCopy + 48) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 48) & 4) == 0 || self->_originIdentifier != *(equalCopy + 11))
@@ -267,12 +262,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_18:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

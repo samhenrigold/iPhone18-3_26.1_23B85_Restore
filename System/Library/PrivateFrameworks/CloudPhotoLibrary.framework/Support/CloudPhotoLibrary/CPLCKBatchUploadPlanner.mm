@@ -233,91 +233,95 @@
     sub_10019698C(todosCopy, self, class);
   }
 
-  else if ([(CPLCKUnsharePlan *)self->_unsharePlan hasShareTodoForScopedIdentifier:todosCopy])
+  else
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    v15 = [(CPLCKUnsharePlan *)self->_unsharePlan hasShareTodoForScopedIdentifier:todosCopy];
+    if (v15)
     {
-      v15 = sub_1000035AC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      if ((_CPLSilentLogging & 1) == 0)
       {
-        *buf = 138412290;
-        v31 = todosCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Remove plan to unshare %@", buf, 0xCu);
+        v16 = sub_1000035AC(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v33 = todosCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Remove plan to unshare %@", buf, 0xCu);
+        }
       }
+
+      [(CPLCKUnsharePlan *)self->_unsharePlan removeShareTodoForScopedIdentifier:todosCopy];
+      [(CPLCKBatchUploadPlanner *)self _dontUnshareRecordWithScopedIdentifier:todosCopy recordClass:class];
     }
 
-    [(CPLCKUnsharePlan *)self->_unsharePlan removeShareTodoForScopedIdentifier:todosCopy];
-    [(CPLCKBatchUploadPlanner *)self _dontUnshareRecordWithScopedIdentifier:todosCopy recordClass:class];
-  }
-
-  else if (![(CPLCKSharePlan *)self->_sharePlan hasShareTodoForScopedIdentifier:todosCopy])
-  {
-    if (!self->_sharePlan)
+    else if (![(CPLCKSharePlan *)self->_sharePlan hasShareTodoForScopedIdentifier:todosCopy])
     {
-      v16 = [[CPLCKSharePlan alloc] initWithPlanner:self];
-      sharePlan = self->_sharePlan;
-      self->_sharePlan = v16;
-    }
-
-    v18 = [(CPLCKBatchUploadPlanner *)self _shareTodoForRecordWithScopedIdentifier:todosCopy recordClass:class proposedContributorUserIdentifiers:identifiersCopy target:targetCopy];
-    v19 = v18;
-    if (v18)
-    {
-      [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:*(v18 + 24) onBehalfOfRecordWithScopedIdentifier:todosCopy];
-      v20 = v19[4];
-    }
-
-    else
-    {
-      [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:0 onBehalfOfRecordWithScopedIdentifier:todosCopy];
-      v20 = 0;
-    }
-
-    [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v20 onBehalfOfRecordWithScopedIdentifier:todosCopy];
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v21 = sub_1000035AC();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      if (!self->_sharePlan)
       {
-        engineScope = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification engineScope];
-        if (v19)
-        {
-          v22 = v19[3];
-        }
-
-        else
-        {
-          v22 = 0;
-        }
-
-        v23 = v22;
-        recordName = [v23 recordName];
-        v28 = v23;
-        if (v19)
-        {
-          v25 = v19[4];
-        }
-
-        else
-        {
-          v25 = 0;
-        }
-
-        v26 = v25;
-        recordName2 = [v26 recordName];
-        *buf = 138413058;
-        v31 = todosCopy;
-        v32 = 2112;
-        v33 = engineScope;
-        v34 = 2112;
-        v35 = recordName;
-        v36 = 2112;
-        v37 = recordName2;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Will move %@ to %@ (%@ -> %@)", buf, 0x2Au);
+        v17 = [[CPLCKSharePlan alloc] initWithPlanner:self];
+        sharePlan = self->_sharePlan;
+        self->_sharePlan = v17;
       }
-    }
 
-    [(CPLCKSharePlan *)self->_sharePlan addShareTodo:v19, v28];
+      v19 = [(CPLCKBatchUploadPlanner *)self _shareTodoForRecordWithScopedIdentifier:todosCopy recordClass:class proposedContributorUserIdentifiers:identifiersCopy target:targetCopy];
+      v20 = v19;
+      if (v19)
+      {
+        [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:*(v19 + 24) onBehalfOfRecordWithScopedIdentifier:todosCopy];
+        v21 = v20[4];
+      }
+
+      else
+      {
+        [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:0 onBehalfOfRecordWithScopedIdentifier:todosCopy];
+        v21 = 0;
+      }
+
+      v22 = [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v21 onBehalfOfRecordWithScopedIdentifier:todosCopy];
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v23 = sub_1000035AC(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          engineScope = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification engineScope];
+          if (v20)
+          {
+            v24 = v20[3];
+          }
+
+          else
+          {
+            v24 = 0;
+          }
+
+          v25 = v24;
+          recordName = [v25 recordName];
+          v30 = v25;
+          if (v20)
+          {
+            v27 = v20[4];
+          }
+
+          else
+          {
+            v27 = 0;
+          }
+
+          v28 = v27;
+          recordName2 = [v28 recordName];
+          *buf = 138413058;
+          v33 = todosCopy;
+          v34 = 2112;
+          v35 = engineScope;
+          v36 = 2112;
+          v37 = recordName;
+          v38 = 2112;
+          v39 = recordName2;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Will move %@ to %@ (%@ -> %@)", buf, 0x2Au);
+        }
+      }
+
+      [(CPLCKSharePlan *)self->_sharePlan addShareTodo:v20, v30];
+    }
   }
 }
 
@@ -378,22 +382,22 @@
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v14 = sub_1000035AC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000035AC(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       currentRecordChange = self->_currentRecordChange;
-      v17 = 138543874;
-      v18 = uploadCopy;
-      v19 = 2112;
-      v20 = currentRecordChange;
-      v21 = 2114;
-      v22 = reasonCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Will fetch shared %{public}@ for %@ before upload because %{public}@", &v17, 0x20u);
+      v18 = 138543874;
+      v19 = uploadCopy;
+      v20 = 2112;
+      v21 = currentRecordChange;
+      v22 = 2114;
+      v23 = reasonCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Will fetch shared %{public}@ for %@ before upload because %{public}@", &v18, 0x20u);
     }
   }
 
-  v16 = objc_retainBlock(blockCopy);
-  [(NSMutableDictionary *)*p_requestedSharedCKRecordIDs setObject:v16 forKeyedSubscript:uploadCopy];
+  v17 = objc_retainBlock(blockCopy);
+  [(NSMutableDictionary *)*p_requestedSharedCKRecordIDs setObject:v17 forKeyedSubscript:uploadCopy];
 
 LABEL_8:
 }
@@ -737,7 +741,7 @@ LABEL_67:
 
     if ([(CPLRecordTarget *)self->_currentRecordTarget targetState]== 2)
     {
-      v114 = a2;
+      v115 = a2;
       [(CPLCKBatchUploadPlanner *)self updatePrivateRecord:self->_ckRecordToUpload sharedToRecordWithID:self->_sharedRecordID];
       if ([(CPLRecordChange *)self->_currentRecordChange isEPPRecord])
       {
@@ -771,16 +775,16 @@ LABEL_67:
       recordID = [(CKRecord *)self->_ckRecordToUpload recordID];
       v29 = [(CPLCKSplitCopyHelper *)v25 initWithBaseCKRecord:v26 sourceRecordID:v23 fromPrivateRecord:0 recordClass:recordClass sourceDatabaseScope:databaseScope destinationRecordID:recordID planner:self];
 
-      v131[0] = _NSConcreteStackBlock;
-      v131[1] = 3221225472;
-      v131[2] = sub_100195B0C;
-      v131[3] = &unk_1002739C8;
-      a2 = v114;
+      v132[0] = _NSConcreteStackBlock;
+      v132[1] = 3221225472;
+      v132[2] = sub_100195B0C;
+      v132[3] = &unk_1002739C8;
+      a2 = v115;
       selfCopy = self;
-      v134 = v114;
-      v132 = v29;
+      v135 = v115;
+      v133 = v29;
       v30 = v29;
-      [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v23 fetchedBlock:v131 reason:v18];
+      [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v23 fetchedBlock:v132 reason:v18];
     }
 
     isAssetChange = [(CPLRecordChange *)self->_currentRecordChange isAssetChange];
@@ -809,7 +813,7 @@ LABEL_66:
 
         v42 = [CKRecordID alloc];
         zoneID2 = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification zoneID];
-        v112 = identifier2;
+        v113 = identifier2;
         v44 = [v42 initWithRecordName:identifier2 zoneID:zoneID2];
 
         relatedRecordClass = [(CPLRecordChange *)self->_currentRecordChange relatedRecordClass];
@@ -834,8 +838,8 @@ LABEL_66:
           [v45 setMostRecentAddedDateOnCKRecord:v47 withCPLEnabledDate:self->_cplEnabledDate];
         }
 
-        v107 = v49;
-        v115 = a2;
+        v108 = v49;
+        v116 = a2;
         if ([(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification supportsDeletionOfRecord:v45 scopeProvider:self]&& ![(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification supportsDirectDeletionOfRecord:v45 scopeProvider:self])
         {
           [v47 setObject:&__kCFBooleanFalse forKeyedSubscript:@"isExpunged"];
@@ -848,39 +852,39 @@ LABEL_66:
         recordID3 = [v47 recordID];
         v54 = [(CPLCKSplitCopyHelper *)v51 initWithBaseCKRecord:v47 sourceRecordID:v44 fromPrivateRecord:0 recordClass:relatedRecordClass sourceDatabaseScope:databaseScope2 destinationRecordID:recordID3 planner:self];
 
-        v118[0] = _NSConcreteStackBlock;
-        v118[1] = 3221225472;
-        v118[2] = sub_100195D38;
-        v118[3] = &unk_1002739C8;
+        v119[0] = _NSConcreteStackBlock;
+        v119[1] = 3221225472;
+        v119[2] = sub_100195D38;
+        v119[3] = &unk_1002739C8;
         selfCopy2 = self;
-        v121 = v115;
-        v119 = v54;
+        v122 = v116;
+        v120 = v54;
         v55 = v54;
-        [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v44 fetchedBlock:v118 reason:@"shared related record needs to be in private zone"];
+        [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v44 fetchedBlock:v119 reason:@"shared related record needs to be in private zone"];
 
         goto LABEL_51;
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v100 = sub_1000035AC();
-        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+        v101 = sub_1000035AC(0);
+        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
         {
           relatedRecordClass2 = [(CPLRecordChange *)self->_currentRecordChange relatedRecordClass];
-          v102 = self->_currentRecordChange;
+          v103 = self->_currentRecordChange;
           *buf = 138412802;
-          v136 = relatedRecordClass2;
-          v137 = 2112;
-          v138 = relatedScopedIdentifier;
-          v139 = 2112;
-          v140 = v102;
-          _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "Target for <%@ %@> related to %@ should be known here", buf, 0x20u);
+          v137 = relatedRecordClass2;
+          v138 = 2112;
+          v139 = relatedScopedIdentifier;
+          v140 = 2112;
+          v141 = v103;
+          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "Target for <%@ %@> related to %@ should be known here", buf, 0x20u);
         }
       }
 
-      v103 = +[NSAssertionHandler currentHandler];
-      v104 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
-      [v103 handleFailureInMethod:a2 object:self file:v104 lineNumber:932 description:{@"Target for <%@ %@> related to %@ should be known here", -[CPLRecordChange relatedRecordClass](self->_currentRecordChange, "relatedRecordClass"), relatedScopedIdentifier, self->_currentRecordChange}];
+      v104 = +[NSAssertionHandler currentHandler];
+      v105 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
+      [v104 handleFailureInMethod:a2 object:self file:v105 lineNumber:932 description:{@"Target for <%@ %@> related to %@ should be known here", -[CPLRecordChange relatedRecordClass](self->_currentRecordChange, "relatedRecordClass"), relatedScopedIdentifier, self->_currentRecordChange}];
 LABEL_104:
 
       abort();
@@ -920,35 +924,36 @@ LABEL_38:
           sub_100196DC4(a2, self, v86);
         }
 
-        v113 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:relatedScopedIdentifier2];
-        if (!v113)
+        v114 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:relatedScopedIdentifier2];
+        if (!v114)
         {
           sub_100197008(a2, self, v86);
         }
 
         v87 = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification zone];
-        v88 = CPLBaseCKRecordFromCPLRecordChange(v86, v87, v113);
+        v88 = CPLBaseCKRecordFromCPLRecordChange(v86, v87, v114);
 
         scopedIdentifier5 = v88;
         v89 = [[CPLSimpleCKRecordBuilder alloc] initWithBaseCKRecord:v88 scopeProvider:self currentUserRecordID:self->_currentUserRecordID targetMapping:self->_targetMapping];
         sharedCKRecordsToUpload = self->_sharedCKRecordsToUpload;
-        v129[0] = _NSConcreteStackBlock;
-        v129[1] = 3221225472;
-        v129[2] = sub_100033C54;
-        v129[3] = &unk_1002739F0;
+        v130[0] = _NSConcreteStackBlock;
+        v130[1] = 3221225472;
+        v130[2] = sub_100033C54;
+        v130[3] = &unk_1002739F0;
         v36 = relatedScopedIdentifier2;
-        v130 = v36;
-        v91 = [(NSMutableArray *)sharedCKRecordsToUpload indexOfObjectWithOptions:2 passingTest:v129];
+        v131 = v36;
+        v91 = [(NSMutableArray *)sharedCKRecordsToUpload indexOfObjectWithOptions:2 passingTest:v130];
         if (v91 != 0x7FFFFFFFFFFFFFFFLL)
         {
           sub_100196E90(v36, &self->_sharedCKRecordsToUpload, v91);
         }
 
         v92 = objc_alloc_init(CPLCloudKitResourceCountAndSize);
-        v128 = 0;
-        v110 = v89;
-        v93 = [v86 prepareWithCKRecordBuilder:v89 resourceCountAndSize:v92 scopeProvider:self error:&v128];
-        v94 = v128;
+        v129 = 0;
+        v111 = v89;
+        v93 = [v86 prepareWithCKRecordBuilder:v89 resourceCountAndSize:v92 scopeProvider:self error:&v129];
+        v94 = v129;
+        v95 = v94;
         if (v93)
         {
           if (self->_metric)
@@ -958,35 +963,35 @@ LABEL_38:
               [(CPLCloudKitUploadMetric *)self->_metric setItemCount:[(CPLCloudKitUploadMetric *)self->_metric itemCount]+ 1];
               [(CPLCloudKitUploadMetric *)self->_metric setUploadSize:[(CPLCloudKitUploadMetric *)self->_metric uploadSize]+ sub_1001941F8(v92)];
               [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesSize:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesSize]+ sub_100194228(v92)];
-              [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesCount:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesCount]+ sub_100194210(v92)];
+              v94 = [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesCount:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesCount]+ sub_100194210(v92)];
             }
 
             else
             {
-              [(CPLCloudKitUploadMetric *)self->_metric setOtherItemCount:[(CPLCloudKitUploadMetric *)self->_metric otherItemCount]+ 1];
+              v94 = [(CPLCloudKitUploadMetric *)self->_metric setOtherItemCount:[(CPLCloudKitUploadMetric *)self->_metric otherItemCount]+ 1];
             }
           }
 
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v95 = sub_1000035AC();
-            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+            v96 = sub_1000035AC(v94);
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
             {
               recordID4 = [scopedIdentifier5 recordID];
-              v108 = v94;
+              v109 = v95;
               recordClass2 = [(CPLRecordChange *)self->_currentRecordChange recordClass];
               [(CPLRecordChange *)self->_currentRecordChange scopedIdentifier];
-              v98 = v117 = a2;
+              v99 = v118 = a2;
               *buf = 138543874;
-              v136 = recordID4;
-              v137 = 2112;
-              v138 = recordClass2;
-              v94 = v108;
-              v139 = 2112;
-              v140 = v98;
-              _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Will update %{public}@ (triggered by sharing <%@ %@>)", buf, 0x20u);
+              v137 = recordID4;
+              v138 = 2112;
+              v139 = recordClass2;
+              v95 = v109;
+              v140 = 2112;
+              v141 = v99;
+              _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "Will update %{public}@ (triggered by sharing <%@ %@>)", buf, 0x20u);
 
-              a2 = v117;
+              a2 = v118;
             }
           }
 
@@ -1075,16 +1080,16 @@ LABEL_63:
       [scopedIdentifier4 identifier];
       v76 = v75 = v56;
       zoneID3 = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification zoneID];
-      v116 = [v73 initWithRecordName:v76 zoneID:zoneID3];
+      v117 = [v73 initWithRecordName:v76 zoneID:zoneID3];
 
       v78 = [CKRecordID alloc];
-      v112 = v75;
+      v113 = v75;
       otherScopedIdentifier3 = [v75 otherScopedIdentifier];
       identifier3 = [otherScopedIdentifier3 identifier];
       identifier4 = identifier3;
       if (!identifier3)
       {
-        scopedIdentifier5 = [v112 scopedIdentifier];
+        scopedIdentifier5 = [v113 scopedIdentifier];
         identifier4 = [scopedIdentifier5 identifier];
       }
 
@@ -1096,24 +1101,24 @@ LABEL_63:
       }
 
       v84 = [(NSMutableArray *)self->_ckRecordsToUpload count]- 1;
-      [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v116 onBehalfOfRecordWithScopedIdentifier:masterScopedIdentifier];
+      [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v117 onBehalfOfRecordWithScopedIdentifier:masterScopedIdentifier];
       [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v83 onBehalfOfRecordWithScopedIdentifier:masterScopedIdentifier];
-      v122[0] = _NSConcreteStackBlock;
-      v122[1] = 3221225472;
-      v122[2] = sub_100033CC8;
-      v122[3] = &unk_100273A18;
-      v122[4] = self;
-      v123 = masterScopedIdentifier;
-      v124 = v83;
-      v125 = v116;
-      v126 = v68;
-      v127 = v84;
-      v45 = v116;
+      v123[0] = _NSConcreteStackBlock;
+      v123[1] = 3221225472;
+      v123[2] = sub_100033CC8;
+      v123[3] = &unk_100273A18;
+      v123[4] = self;
+      v124 = masterScopedIdentifier;
+      v125 = v83;
+      v126 = v117;
+      v127 = v68;
+      v128 = v84;
+      v45 = v117;
       v44 = v83;
-      [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v44 fetchedBlock:v122 reason:v68];
+      [(CPLCKBatchUploadPlanner *)self requestSharedCKRecordWithRecordIDBeforeUpload:v44 fetchedBlock:v123 reason:v68];
 
 LABEL_51:
-      v56 = v112;
+      v56 = v113;
 LABEL_52:
 
 LABEL_65:
@@ -1122,20 +1127,20 @@ LABEL_65:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v105 = sub_1000035AC();
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+      v106 = sub_1000035AC(0);
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v136 = masterScopedIdentifier;
-        v137 = 2112;
-        v138 = relatedScopedIdentifier;
-        _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "Missing target for %@ to upload %@", buf, 0x16u);
+        v137 = masterScopedIdentifier;
+        v138 = 2112;
+        v139 = relatedScopedIdentifier;
+        _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "Missing target for %@ to upload %@", buf, 0x16u);
       }
     }
 
-    v103 = +[NSAssertionHandler currentHandler];
-    v104 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
-    [v103 handleFailureInMethod:a2 object:self file:v104 lineNumber:889 description:{@"Missing target for %@ to upload %@", masterScopedIdentifier, relatedScopedIdentifier, v106}];
+    v104 = +[NSAssertionHandler currentHandler];
+    v105 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
+    [v104 handleFailureInMethod:a2 object:self file:v105 lineNumber:889 description:{@"Missing target for %@ to upload %@", masterScopedIdentifier, relatedScopedIdentifier, v107}];
     goto LABEL_104;
   }
 
@@ -1284,7 +1289,7 @@ LABEL_69:
                     {
                       if ((_CPLSilentLogging & 1) == 0)
                       {
-                        v26 = sub_1000035AC();
+                        v26 = sub_1000035AC(0);
                         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412546;
@@ -1596,36 +1601,37 @@ LABEL_9:
 {
   dCopy = d;
   identifierCopy = identifier;
+  v8 = identifierCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_1000035AC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_1000035AC(identifierCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_1000187DC();
       sub_1000033B4();
-      v19 = identifierCopy;
-      sub_100037514(&_mh_execute_header, v8, v9, "If necessary, will update %@ on behalf of %@", v18);
+      v20 = v8;
+      sub_100037514(&_mh_execute_header, v9, v10, "If necessary, will update %@ on behalf of %@", v19);
     }
   }
 
   ckRecordIDToScopedIdentifier = self->_ckRecordIDToScopedIdentifier;
   if (!ckRecordIDToScopedIdentifier)
   {
-    v11 = objc_alloc_init(NSMutableDictionary);
-    v12 = self->_ckRecordIDToScopedIdentifier;
-    self->_ckRecordIDToScopedIdentifier = v11;
+    v12 = objc_alloc_init(NSMutableDictionary);
+    v13 = self->_ckRecordIDToScopedIdentifier;
+    self->_ckRecordIDToScopedIdentifier = v12;
 
-    v13 = objc_alloc_init(NSMutableDictionary);
+    v14 = objc_alloc_init(NSMutableDictionary);
     ckRecordIDToRejectedScopedIdentifier = self->_ckRecordIDToRejectedScopedIdentifier;
-    self->_ckRecordIDToRejectedScopedIdentifier = v13;
+    self->_ckRecordIDToRejectedScopedIdentifier = v14;
 
     ckRecordIDToScopedIdentifier = self->_ckRecordIDToScopedIdentifier;
   }
 
-  [(NSMutableDictionary *)ckRecordIDToScopedIdentifier setObject:identifierCopy forKeyedSubscript:dCopy];
-  v15 = [(NSMutableDictionary *)self->_ckRecordIDToRejectedScopedIdentifier objectForKeyedSubscript:dCopy];
+  [(NSMutableDictionary *)ckRecordIDToScopedIdentifier setObject:v8 forKeyedSubscript:dCopy];
+  v16 = [(NSMutableDictionary *)self->_ckRecordIDToRejectedScopedIdentifier objectForKeyedSubscript:dCopy];
 
-  if (!v15)
+  if (!v16)
   {
     currentRecordChange = self->_currentRecordChange;
     if (currentRecordChange)
@@ -1636,7 +1642,7 @@ LABEL_9:
 
     else
     {
-      [(NSMutableDictionary *)self->_ckRecordIDToRejectedScopedIdentifier setObject:identifierCopy forKeyedSubscript:dCopy];
+      [(NSMutableDictionary *)self->_ckRecordIDToRejectedScopedIdentifier setObject:v8 forKeyedSubscript:dCopy];
     }
   }
 }
@@ -1648,74 +1654,74 @@ LABEL_9:
   objc_storeStrong(&self->_currentRecordChange, upload);
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_1000035AC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_1000035AC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       currentRecordChange = self->_currentRecordChange;
       attachedDiffTracker = [(CPLRecordChange *)currentRecordChange attachedDiffTracker];
-      v13 = attachedDiffTracker;
-      v14 = @"no diff tracker";
+      v14 = attachedDiffTracker;
+      v15 = @"no diff tracker";
       if (attachedDiffTracker)
       {
-        v14 = attachedDiffTracker;
+        v15 = attachedDiffTracker;
       }
 
       *buf = 138412546;
-      v73 = currentRecordChange;
-      v74 = 2112;
-      v75 = v14;
-      sub_100037514(&_mh_execute_header, v9, v12, "Planning %@ (%@)", buf);
+      v69 = currentRecordChange;
+      v70 = 2112;
+      v71 = v15;
+      sub_100037514(&_mh_execute_header, v10, v13, "Planning %@ (%@)", buf);
     }
   }
 
   scopedIdentifier = [uploadCopy scopedIdentifier];
-  v16 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:scopedIdentifier];
+  v17 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:scopedIdentifier];
   currentRecordTarget = self->_currentRecordTarget;
-  self->_currentRecordTarget = v16;
+  self->_currentRecordTarget = v17;
 
-  v18 = self->_currentRecordTarget;
-  if (!v18)
+  v19 = self->_currentRecordTarget;
+  if (!v19)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v61 = sub_1000035AC();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v57 = sub_1000035AC(0);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        HIDWORD(v73) = HIDWORD(uploadCopy);
-        sub_10000348C(&_mh_execute_header, v62, v63, "Target for %@ was not specified before upload", v64, v65, v66, v67, v70, v71, 2u);
+        *buf = 138412290;
+        v69 = uploadCopy;
+        sub_10000348C(&_mh_execute_header, v58, v59, "Target for %@ was not specified before upload", v60, v61, v62, v63, v66, v67);
       }
     }
 
-    v68 = +[NSAssertionHandler currentHandler];
-    v69 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
-    [v68 handleFailureInMethod:a2 object:self file:v69 lineNumber:207 description:{@"Target for %@ was not specified before upload", uploadCopy}];
+    v64 = +[NSAssertionHandler currentHandler];
+    v65 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
+    [v64 handleFailureInMethod:a2 object:self file:v65 lineNumber:207 description:{@"Target for %@ was not specified before upload", uploadCopy}];
 
     abort();
   }
 
   destinationZoneIdentification = self->_destinationZoneIdentification;
-  scopedIdentifier2 = [(CPLRecordTarget *)v18 scopedIdentifier];
+  scopedIdentifier2 = [(CPLRecordTarget *)v19 scopedIdentifier];
   identifier = [scopedIdentifier2 identifier];
-  v22 = [(CPLCloudKitZoneIdentification *)destinationZoneIdentification recordIDWithRecordName:identifier];
+  v23 = [(CPLCloudKitZoneIdentification *)destinationZoneIdentification recordIDWithRecordName:identifier];
   currentRecordID = self->_currentRecordID;
-  self->_currentRecordID = v22;
+  self->_currentRecordID = v23;
 
   [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:self->_currentRecordID onBehalfOfRecordWithScopedIdentifier:scopedIdentifier];
   if (self->_sharedZoneIdentification)
   {
     otherScopedIdentifier = [(CPLRecordTarget *)self->_currentRecordTarget otherScopedIdentifier];
-    v25 = otherScopedIdentifier;
+    v26 = otherScopedIdentifier;
     if (otherScopedIdentifier)
     {
       scopeIdentifier = [otherScopedIdentifier scopeIdentifier];
       [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification scopeIdentifier];
       objc_claimAutoreleasedReturnValue();
-      v27 = [sub_1000374E8() isEqualToString:identifier];
+      v28 = [sub_1000374E8() isEqualToString:identifier];
 
-      if (v27)
+      if (v28)
       {
-        sharedZoneIdentification = self->_sharedZoneIdentification;
-        [v25 identifier];
+        [v26 identifier];
         objc_claimAutoreleasedReturnValue();
         v29 = [sub_1000374E8() recordIDWithRecordName:identifier];
         sharedRecordID = self->_sharedRecordID;
@@ -1741,19 +1747,17 @@ LABEL_9:
         self->_mastersNotYetUploadedToSharedZone = v33;
       }
 
-      v35 = self->_mastersNotYetUploadedToPrivateZone;
       [uploadCopy scopedIdentifier];
       objc_claimAutoreleasedReturnValue();
       [sub_1000374E8() setObject:uploadCopy forKeyedSubscript:identifier];
 
-      v36 = self->_mastersNotYetUploadedToSharedZone;
       [uploadCopy scopedIdentifier];
       objc_claimAutoreleasedReturnValue();
       [sub_1000374E8() setObject:uploadCopy forKeyedSubscript:identifier];
     }
   }
 
-  v37 = objc_alloc_init(CPLCloudKitResourceCountAndSize);
+  v35 = objc_alloc_init(CPLCloudKitResourceCountAndSize);
   if ([uploadCopy isDelete])
   {
     targetState = [(CPLRecordTarget *)self->_currentRecordTarget targetState];
@@ -1785,9 +1789,9 @@ LABEL_9:
       scopedIdentifiersNeedingToCallProgressHandler = self->_scopedIdentifiersNeedingToCallProgressHandler;
       if (!scopedIdentifiersNeedingToCallProgressHandler)
       {
-        v40 = objc_alloc_init(NSMutableSet);
-        v41 = self->_scopedIdentifiersNeedingToCallProgressHandler;
-        self->_scopedIdentifiersNeedingToCallProgressHandler = v40;
+        v38 = objc_alloc_init(NSMutableSet);
+        v39 = self->_scopedIdentifiersNeedingToCallProgressHandler;
+        self->_scopedIdentifiersNeedingToCallProgressHandler = v38;
 
         scopedIdentifiersNeedingToCallProgressHandler = self->_scopedIdentifiersNeedingToCallProgressHandler;
       }
@@ -1795,20 +1799,20 @@ LABEL_9:
       [(NSMutableSet *)scopedIdentifiersNeedingToCallProgressHandler addObject:scopedIdentifier];
     }
 
-    if (![uploadCopy prepareWithCKRecordBuilder:self resourceCountAndSize:v37 scopeProvider:self error:error])
+    if (![uploadCopy prepareWithCKRecordBuilder:self resourceCountAndSize:v35 scopeProvider:self error:error])
     {
-      v46 = 0;
+      v44 = 0;
       goto LABEL_62;
     }
 
     if (self->_metric)
     {
-      if (sub_1001941F8(v37) || sub_100194228(v37))
+      if (sub_1001941F8(v35) || sub_100194228(v35))
       {
         [(CPLCloudKitUploadMetric *)self->_metric setItemCount:[(CPLCloudKitUploadMetric *)self->_metric itemCount]+ 1];
-        [(CPLCloudKitUploadMetric *)self->_metric setUploadSize:[(CPLCloudKitUploadMetric *)self->_metric uploadSize]+ sub_1001941F8(v37)];
-        [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesSize:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesSize]+ sub_100194228(v37)];
-        [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesCount:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesCount]+ sub_100194210(v37)];
+        [(CPLCloudKitUploadMetric *)self->_metric setUploadSize:[(CPLCloudKitUploadMetric *)self->_metric uploadSize]+ sub_1001941F8(v35)];
+        [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesSize:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesSize]+ sub_100194228(v35)];
+        [(CPLCloudKitUploadMetric *)self->_metric setReferencedResourcesCount:[(CPLCloudKitUploadMetric *)self->_metric referencedResourcesCount]+ sub_100194210(v35)];
       }
 
       else
@@ -1820,25 +1824,25 @@ LABEL_9:
     if (self->_sharedZoneIdentification && [uploadCopy supportsSharingScopedIdentifier] && objc_msgSend(uploadCopy, "hasChangeType:", 64))
     {
       scopeIdentifier2 = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification scopeIdentifier];
-      v43 = [uploadCopy isSharedInScopeWithIdentifier:scopeIdentifier2];
+      v41 = [uploadCopy isSharedInScopeWithIdentifier:scopeIdentifier2];
 
       relatedScopedIdentifier = [uploadCopy relatedScopedIdentifier];
-      v45 = relatedScopedIdentifier;
-      if (v43)
+      v43 = relatedScopedIdentifier;
+      if (v41)
       {
         if (relatedScopedIdentifier)
         {
           if ((-[CPLRecordTarget shouldUploadToOtherRecord](self->_currentRecordTarget, "shouldUploadToOtherRecord") & 1) == 0 && ([uploadCopy _relatedRecordShouldBeShared] & 1) == 0 && objc_msgSend(uploadCopy, "isAssetChange"))
           {
-            v60 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v45];
-            if ([v60 targetState] == 3)
+            v56 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v43];
+            if ([v56 targetState] == 3)
             {
               [sub_1000374D0() _copyPrivateMasterWithScopedIdentifier:? masterTarget:? uploadIndex:? reason:?];
             }
           }
 
           [uploadCopy relatedRecordClass];
-          v58 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v45];
+          v54 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v43];
           [sub_1000374D0() _addRecordWithScopedIdentifierToShareTodos:? recordClass:? proposedContributorUserIdentifiers:? target:? force:?];
         }
 
@@ -1852,7 +1856,7 @@ LABEL_9:
         if (relatedScopedIdentifier)
         {
           [uploadCopy relatedRecordClass];
-          v56 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v45];
+          v52 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:v43];
           [sub_1000374D0() _addRecordWithScopedIdentifierToUnshareTodos:? recordClass:? target:?];
         }
 
@@ -1867,9 +1871,9 @@ LABEL_44:
   {
     if (!self->_uploadContext)
     {
-      v47 = objc_alloc_init(CPLCloudKitUploadOperationContext);
+      v45 = objc_alloc_init(CPLCloudKitUploadOperationContext);
       uploadContext = self->_uploadContext;
-      self->_uploadContext = v47;
+      self->_uploadContext = v45;
     }
 
     if (self->_sharedZoneIdentification && ([(CPLRecordChange *)self->_currentRecordChange isMasterChange]& 1) == 0 && [(CPLRecordChange *)self->_currentRecordChange supportsSharingScopedIdentifier])
@@ -1887,10 +1891,9 @@ LABEL_44:
       [(CPLCloudKitUploadOperationContext *)self->_uploadContext addRecord:self->_currentRecordChange forRecordID:self->_currentRecordID ignoreResources:0];
     }
 
-    if (sub_1001941F8(v37))
+    if (sub_1001941F8(v35))
     {
-      v50 = self->_currentRecordID;
-      sub_1001941F8(v37);
+      sub_1001941F8(v35);
       [sub_1000374D0() _addCKRecordIDForResourcesUploadProgressTracking:? size:?];
     }
   }
@@ -1900,31 +1903,30 @@ LABEL_55:
   {
     if (self->_sharedUploadContext)
     {
-      v51 = objc_alloc_init(CPLCloudKitUploadOperationContext);
+      v48 = objc_alloc_init(CPLCloudKitUploadOperationContext);
       sharedUploadContext = self->_sharedUploadContext;
-      self->_sharedUploadContext = v51;
+      self->_sharedUploadContext = v48;
 
-      v53 = self->_sharedUploadContext;
+      v50 = self->_sharedUploadContext;
     }
 
     else
     {
-      v53 = 0;
+      v50 = 0;
     }
 
-    [(CPLCloudKitUploadOperationContext *)v53 addRecord:self->_currentRecordChange forRecordID:self->_sharedRecordID ignoreResources:0];
-    if (sub_1001941F8(v37))
+    [(CPLCloudKitUploadOperationContext *)v50 addRecord:self->_currentRecordChange forRecordID:self->_sharedRecordID ignoreResources:0];
+    if (sub_1001941F8(v35))
     {
-      v54 = self->_sharedRecordID;
-      sub_1001941F8(v37);
+      sub_1001941F8(v35);
       [sub_1000374D0() _addCKRecordIDForResourcesUploadProgressTracking:? size:?];
     }
   }
 
-  v46 = 1;
+  v44 = 1;
 LABEL_62:
 
-  return v46;
+  return v44;
 }
 
 - (void)_addRecordWithScopedIdentifierToUnshareTodos:(id)todos recordClass:(Class)class target:(id)target
@@ -1936,32 +1938,33 @@ LABEL_62:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = sub_1000035AC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1000035AC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         scopeIdentifier = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification scopeIdentifier];
-        v36 = 138412802;
+        v39 = 138412802;
         classCopy = class;
         sub_1000033B4();
-        v38 = todosCopy;
-        v39 = 2114;
-        v40 = v15;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "We are already planning to copy shared <%@ %@> to %{public}@ - no need to unshare", &v36, 0x20u);
+        v41 = todosCopy;
+        v42 = 2114;
+        v43 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "We are already planning to copy shared <%@ %@> to %{public}@ - no need to unshare", &v39, 0x20u);
       }
     }
   }
 
   else if ([targetCopy shouldUploadToOtherRecord])
   {
-    if (([(NSMutableSet *)self->_dontUnshareScopedIdentifier containsObject:todosCopy]& 1) != 0 || [(CPLCKSharePlan *)self->_sharePlan hasShareTodoForScopedIdentifier:todosCopy])
+    v17 = [(NSMutableSet *)self->_dontUnshareScopedIdentifier containsObject:todosCopy];
+    if ((v17 & 1) != 0 || (v17 = [(CPLCKSharePlan *)self->_sharePlan hasShareTodoForScopedIdentifier:todosCopy], v17))
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v16 = sub_1000035AC();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_1000035AC(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           sub_1000187DC();
-          sub_1000374A0(&_mh_execute_header, v16, v17, "Won't unshare %@", &v36);
+          sub_1000374A0(&_mh_execute_header, v18, v19, "Won't unshare %@", &v39);
         }
       }
     }
@@ -1970,45 +1973,33 @@ LABEL_62:
     {
       if (!self->_unsharePlan)
       {
-        v18 = [[CPLCKUnsharePlan alloc] initWithPlanner:self];
+        v20 = [[CPLCKUnsharePlan alloc] initWithPlanner:self];
         unsharePlan = self->_unsharePlan;
-        self->_unsharePlan = v18;
+        self->_unsharePlan = v20;
       }
 
       if (v10)
       {
         [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v10[3] onBehalfOfRecordWithScopedIdentifier:todosCopy];
-        v20 = v10[4];
+        v22 = v10[4];
       }
 
       else
       {
         [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:0 onBehalfOfRecordWithScopedIdentifier:todosCopy];
-        v20 = 0;
+        v22 = 0;
       }
 
-      [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v20 onBehalfOfRecordWithScopedIdentifier:todosCopy];
+      v23 = [(CPLCKBatchUploadPlanner *)self _willUpdateCKRecordWithID:v22 onBehalfOfRecordWithScopedIdentifier:todosCopy];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v21 = sub_1000035AC();
-        if (sub_1000374B8(v21))
+        v24 = sub_1000035AC(v23);
+        if (sub_1000374B8(v24))
         {
           engineScope = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification engineScope];
           if (v10)
           {
-            v23 = v10[4];
-          }
-
-          else
-          {
-            v23 = 0;
-          }
-
-          v24 = v23;
-          recordName = [v24 recordName];
-          if (v10)
-          {
-            v26 = v10[3];
+            v26 = v10[4];
           }
 
           else
@@ -2017,16 +2008,28 @@ LABEL_62:
           }
 
           v27 = v26;
-          recordName2 = [v27 recordName];
+          recordName = [v27 recordName];
+          if (v10)
+          {
+            v29 = v10[3];
+          }
+
+          else
+          {
+            v29 = 0;
+          }
+
+          v30 = v29;
+          recordName2 = [v30 recordName];
           sub_1000187DC();
           sub_1000033B4();
-          v38 = engineScope;
-          v39 = v29;
-          v40 = recordName;
-          v41 = v29;
-          v42 = v30;
+          v41 = engineScope;
+          v42 = v32;
+          v43 = recordName;
+          v44 = v32;
+          v45 = v33;
           sub_10003746C();
-          _os_log_impl(v31, v32, v33, v34, v35, 0x2Au);
+          _os_log_impl(v34, v35, v36, v37, v38, 0x2Au);
         }
       }
 
@@ -2037,7 +2040,8 @@ LABEL_62:
 
 - (void)_deleteRecord
 {
-  if ([(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification supportsDeletionOfRecord:self->_currentRecordChange scopeProvider:self])
+  v3 = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification supportsDeletionOfRecord:self->_currentRecordChange scopeProvider:self];
+  if (v3)
   {
     if ([(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification supportsDirectDeletionOfRecord:self->_currentRecordChange scopeProvider:self])
     {
@@ -2049,23 +2053,23 @@ LABEL_62:
     else
     {
       currentRecordChange = self->_currentRecordChange;
-      v8 = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification zone];
-      v10 = [CKRecord cpl_expungedRecordFromCPLRecordChange:currentRecordChange inZone:v8 target:self->_currentRecordTarget];
+      v9 = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification zone];
+      v11 = [CKRecord cpl_expungedRecordFromCPLRecordChange:currentRecordChange inZone:v9 target:self->_currentRecordTarget];
 
       scopedIdentifier = [(CPLRecordChange *)self->_currentRecordChange scopedIdentifier];
-      [(CPLCKBatchUploadPlanner *)self uploadCKRecord:v10 forScopedIdentifier:scopedIdentifier triggeringKey:@"isExpunged"];
+      [(CPLCKBatchUploadPlanner *)self uploadCKRecord:v11 forScopedIdentifier:scopedIdentifier triggeringKey:@"isExpunged"];
     }
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_1000035AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000035AC(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = self->_currentRecordChange;
-      v11 = 138412290;
-      v12 = v6;
-      sub_1000374A0(&_mh_execute_header, v4, v5, "Dropping %@", &v11);
+      v7 = self->_currentRecordChange;
+      v12 = 138412290;
+      v13 = v7;
+      sub_1000374A0(&_mh_execute_header, v5, v6, "Dropping %@", &v12);
     }
   }
 }
@@ -2073,27 +2077,28 @@ LABEL_62:
 - (void)deleteCKRecordWithRecordID:(id)d
 {
   dCopy = d;
+  v5 = dCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000035AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000035AC(dCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000187DC();
-      sub_1000374A0(&_mh_execute_header, v5, v6, "Will delete shared %{public}@", v10);
+      sub_1000374A0(&_mh_execute_header, v6, v7, "Will delete shared %{public}@", v11);
     }
   }
 
   ckRecordIDsToDelete = self->_ckRecordIDsToDelete;
   if (!ckRecordIDsToDelete)
   {
-    v8 = objc_alloc_init(NSMutableArray);
-    v9 = self->_ckRecordIDsToDelete;
-    self->_ckRecordIDsToDelete = v8;
+    v9 = objc_alloc_init(NSMutableArray);
+    v10 = self->_ckRecordIDsToDelete;
+    self->_ckRecordIDsToDelete = v9;
 
     ckRecordIDsToDelete = self->_ckRecordIDsToDelete;
   }
 
-  [(NSMutableArray *)ckRecordIDsToDelete addObject:dCopy];
+  [(NSMutableArray *)ckRecordIDsToDelete addObject:v5];
 }
 
 - (void)uploadCKRecord:(id)record forScopedIdentifier:(id)identifier triggeringKey:(id)key
@@ -2105,57 +2110,59 @@ LABEL_62:
   v13 = v12;
   v14 = v9;
   v15 = v7;
+  v16 = v15;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v16 = sub_1000035AC();
-    if (sub_1000374B8(v16))
+    v17 = sub_1000035AC(v15);
+    if (sub_1000374B8(v17))
     {
       [v13 recordID];
-      *&v25[4] = *v25 = 138543618;
+      *&v26[4] = *v26 = 138543618;
       sub_1000033B4();
-      *&v25[14] = v15;
+      *&v26[14] = v16;
       sub_10003746C();
-      _os_log_impl(v17, v18, v19, v20, v21, 0x16u);
+      _os_log_impl(v18, v19, v20, v21, v22, 0x16u);
     }
   }
 
-  v22 = *(v11 + 24);
-  if (!v22)
+  v23 = *(v11 + 24);
+  if (!v23)
   {
-    v23 = objc_alloc_init(NSMutableArray);
-    v24 = *(v11 + 24);
-    *(v11 + 24) = v23;
+    v24 = objc_alloc_init(NSMutableArray);
+    v25 = *(v11 + 24);
+    *(v11 + 24) = v24;
 
-    v22 = *(v11 + 24);
+    v23 = *(v11 + 24);
   }
 
-  [v22 addObject:{v13, *v25, *&v25[16]}];
+  [v23 addObject:{v13, *v26, *&v26[16]}];
 }
 
 - (void)deleteSharedCKRecordWithRecordID:(id)d
 {
   dCopy = d;
+  v5 = dCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000035AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000035AC(dCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000187DC();
-      sub_1000374A0(&_mh_execute_header, v5, v6, "Will delete shared %{public}@", v10);
+      sub_1000374A0(&_mh_execute_header, v6, v7, "Will delete shared %{public}@", v11);
     }
   }
 
   sharedCKRecordIDsToDelete = self->_sharedCKRecordIDsToDelete;
   if (!sharedCKRecordIDsToDelete)
   {
-    v8 = objc_alloc_init(NSMutableArray);
-    v9 = self->_sharedCKRecordIDsToDelete;
-    self->_sharedCKRecordIDsToDelete = v8;
+    v9 = objc_alloc_init(NSMutableArray);
+    v10 = self->_sharedCKRecordIDsToDelete;
+    self->_sharedCKRecordIDsToDelete = v9;
 
     sharedCKRecordIDsToDelete = self->_sharedCKRecordIDsToDelete;
   }
 
-  [(NSMutableArray *)sharedCKRecordIDsToDelete addObject:dCopy];
+  [(NSMutableArray *)sharedCKRecordIDsToDelete addObject:v5];
 }
 
 - (void)uploadSharedCKRecord:(id)record forScopedIdentifier:(id)identifier triggeringKey:(id)key
@@ -2167,31 +2174,32 @@ LABEL_62:
   v13 = v12;
   v14 = v9;
   v15 = v7;
+  v16 = v15;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v16 = sub_1000035AC();
-    if (sub_1000374B8(v16))
+    v17 = sub_1000035AC(v15);
+    if (sub_1000374B8(v17))
     {
       [v13 recordID];
-      *&v25[4] = *v25 = 138543618;
+      *&v26[4] = *v26 = 138543618;
       sub_1000033B4();
-      *&v25[14] = v15;
+      *&v26[14] = v16;
       sub_10003746C();
-      _os_log_impl(v17, v18, v19, v20, v21, 0x16u);
+      _os_log_impl(v18, v19, v20, v21, v22, 0x16u);
     }
   }
 
-  v22 = *(v11 + 48);
-  if (!v22)
+  v23 = *(v11 + 48);
+  if (!v23)
   {
-    v23 = objc_alloc_init(NSMutableArray);
-    v24 = *(v11 + 48);
-    *(v11 + 48) = v23;
+    v24 = objc_alloc_init(NSMutableArray);
+    v25 = *(v11 + 48);
+    *(v11 + 48) = v24;
 
-    v22 = *(v11 + 48);
+    v23 = *(v11 + 48);
   }
 
-  [v22 addObject:{v13, *v25, *&v25[16]}];
+  [v23 addObject:{v13, *v26, *&v26[16]}];
 }
 
 - (void)requestPrivateCKRecordWithRecordIDBeforeUpload:(id)upload fetchedBlock:(id)block reason:(id)reason
@@ -2223,13 +2231,12 @@ LABEL_62:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = sub_1000035AC();
+      v23 = sub_1000035AC(v16);
       if (sub_1000374B8(v23))
       {
-        currentRecordChange = self->_currentRecordChange;
         sub_10003747C();
         sub_10003746C();
-        _os_log_impl(v25, v26, v27, v28, v29, 0x20u);
+        _os_log_impl(v24, v25, v26, v27, v28, 0x20u);
       }
     }
 
@@ -2240,10 +2247,9 @@ LABEL_62:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v16 = sub_1000035AC();
-    if (sub_1000374B8(v16))
+    v17 = sub_1000035AC(v16);
+    if (sub_1000374B8(v17))
     {
-      v17 = self->_currentRecordChange;
       sub_10003747C();
       sub_10003746C();
       _os_log_impl(v18, v19, v20, v21, v22, 0x20u);
@@ -2259,7 +2265,7 @@ LABEL_15:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000035AC();
+    v3 = sub_1000035AC(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       cloudKitScope = [(CPLCloudKitZoneIdentification *)self->_destinationZoneIdentification cloudKitScope];
@@ -2296,7 +2302,7 @@ LABEL_15:
 {
   if (self->_sharedZoneIdentification && (_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000035AC();
+    v3 = sub_1000035AC(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       cloudKitScope = [(CPLCloudKitZoneIdentification *)self->_sharedZoneIdentification cloudKitScope];

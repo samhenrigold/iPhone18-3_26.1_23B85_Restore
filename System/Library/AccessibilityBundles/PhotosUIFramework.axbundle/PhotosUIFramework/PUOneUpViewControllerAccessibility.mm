@@ -6,6 +6,7 @@
 - (void)_axExecuteBlockOnTileViewControllers:(id)controllers;
 - (void)_setAccessoryVisible:(BOOL)visible;
 - (void)_updateBarsControllerIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewModel:(id)model didChange:(id)change;
 @end
 
@@ -49,6 +50,14 @@
   {
     [v3 _accessibilityLoadAccessibilityInformation];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUOneUpViewControllerAccessibility;
+  [(PUOneUpViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(PUOneUpViewControllerAccessibility *)self _axApplyCustomActionsToTileControllers];
 }
 
 - (void)viewModel:(id)model didChange:(id)change

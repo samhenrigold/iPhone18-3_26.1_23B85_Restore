@@ -130,7 +130,6 @@
 
   else
   {
-    v6 = self->_clkDevice;
 
     [v4 performSelectorOnMainThread:"_deallocInstanceForDevice:" withObject:? waitUntilDone:?];
   }
@@ -310,7 +309,7 @@
 - (void)_loadPrograms
 {
   mtlDevice = self->_mtlDevice;
-  v4 = NTKGetCharacterFaceBundle();
+  v4 = NTKGetCharacterFaceBundle(self);
   v5 = [(MTLDevice *)mtlDevice newDefaultLibraryWithBundle:v4 error:0];
 
   [(NTKCharacterResourceLoader *)self _setupPipelineForType:0 vertex:@"simpleSpriteVSH" fragment:@"rgbaSpriteFSH" blending:1 inLibrary:v5 librarySPI:0];
@@ -324,57 +323,56 @@
   keysCopy = keys;
   arraysCopy = arrays;
   bankCopy = bank;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   selfCopy = self;
-  clkDevice = self->_clkDevice;
   obj = CLKUIOrderedSuffixesForDevice();
-  v54 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
-  if (!v54)
+  v53 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+  if (!v53)
   {
-    v9 = 0;
     v8 = 0;
+    v7 = 0;
     goto LABEL_42;
   }
 
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v52 = *v61;
+  v51 = *v60;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
+  v10 = v7;
   v11 = v8;
-  v12 = v9;
   while (1)
   {
-    if (*v61 != v52)
+    if (*v60 != v51)
     {
       objc_enumerationMutation(obj);
     }
 
-    v13 = *(*(&v60 + 1) + 8 * v10);
+    v12 = *(*(&v59 + 1) + 8 * v9);
     bundle = selfCopy->_bundle;
-    v15 = [NSString stringWithFormat:@"%@%@@2x", bankCopy, v13];
-    v16 = [(NSBundle *)bundle pathForResource:v15 ofType:@"plist"];
+    v14 = [NSString stringWithFormat:@"%@%@@2x", bankCopy, v12];
+    v15 = [(NSBundle *)bundle pathForResource:v14 ofType:@"plist"];
 
-    v17 = selfCopy->_bundle;
-    v9 = v16;
-    v18 = [NSString stringWithFormat:@"%@%@@2x", bankCopy, v13];
-    v8 = [(NSBundle *)v17 pathForResource:v18 ofType:@"baf"];
+    v16 = selfCopy->_bundle;
+    v8 = v15;
+    v17 = [NSString stringWithFormat:@"%@%@@2x", bankCopy, v12];
+    v7 = [(NSBundle *)v16 pathForResource:v17 ofType:@"baf"];
 
-    if (v9 && v8 != 0)
+    if (v8 && v7 != 0)
     {
       break;
     }
 
-    v10 = v10 + 1;
+    v9 = v9 + 1;
+    v10 = v7;
     v11 = v8;
-    v12 = v9;
-    if (v54 == v10)
+    if (v53 == v9)
     {
-      v54 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
-      if (v54)
+      v53 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      if (v53)
       {
         goto LABEL_3;
       }
@@ -383,120 +381,120 @@ LABEL_3:
     }
   }
 
-  v20 = 0;
-  if (v9 && v8)
+  v19 = 0;
+  if (v8 && v7)
   {
-    obj = [[NSMutableDictionary alloc] initWithContentsOfFile:v9];
+    obj = [[NSMutableDictionary alloc] initWithContentsOfFile:v8];
     if (obj)
     {
-      v20 = [CLKUIMmapFile mmapFileWithPath:v8];
-      if (v20)
+      v19 = [CLKUIMmapFile mmapFileWithPath:v7];
+      if (v19)
       {
+        v41 = v7;
         v42 = v8;
-        v43 = v9;
-        v21 = _NTKLoggingObjectForDomain();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = _NTKLoggingObjectForDomain();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v66 = bankCopy;
-          _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Mapping texture bank for %@", buf, 0xCu);
+          v65 = bankCopy;
+          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Mapping texture bank for %@", buf, 0xCu);
         }
 
-        bytes = [v20 bytes];
-        v41 = v20;
-        v22 = [v20 length];
+        bytes = [v19 bytes];
+        v40 = v19;
+        v21 = [v19 length];
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
-        v53 = obj;
-        v51 = [v53 countByEnumeratingWithState:&v56 objects:v64 count:16];
-        if (v51)
+        v52 = obj;
+        v50 = [v52 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        if (v50)
         {
-          v50 = *v57;
+          v49 = *v56;
           arrayByLocale = selfCopy->_arrayByLocale;
-          v47 = v22;
+          v46 = v21;
           do
           {
-            for (i = 0; i != v51; i = i + 1)
+            for (i = 0; i != v50; i = i + 1)
             {
-              if (*v57 != v50)
+              if (*v56 != v49)
               {
-                objc_enumerationMutation(v53);
+                objc_enumerationMutation(v52);
               }
 
-              v25 = *(*(&v56 + 1) + 8 * i);
-              v26 = [v53 objectForKeyedSubscript:v25];
-              v27 = [v26 objectForKeyedSubscript:@"offset"];
-              v28 = [v26 objectForKeyedSubscript:@"size"];
-              v55 = v27;
-              intValue = [v27 intValue];
-              intValue2 = [v28 intValue];
-              if (intValue2 + intValue <= v22)
+              v24 = *(*(&v55 + 1) + 8 * i);
+              v25 = [v52 objectForKeyedSubscript:v24];
+              v26 = [v25 objectForKeyedSubscript:@"offset"];
+              v27 = [v25 objectForKeyedSubscript:@"size"];
+              v54 = v26;
+              intValue = [v26 intValue];
+              intValue2 = [v27 intValue];
+              if (intValue2 + intValue <= v21)
               {
-                v32 = intValue2;
-                v33 = &bytes[intValue];
-                v31 = [(NSMutableDictionary *)selfCopy->_mapping objectForKey:v25];
-                v34 = [[NTKCharacterTexture alloc] initWithData:v33 length:v32];
-                if (v31)
+                v31 = intValue2;
+                v32 = &bytes[intValue];
+                v30 = [(NSMutableDictionary *)selfCopy->_mapping objectForKey:v24];
+                v33 = [[NTKCharacterTexture alloc] initWithData:v32 length:v31];
+                if (v30)
                 {
-                  unsignedIntegerValue = [v31 unsignedIntegerValue];
+                  unsignedIntegerValue = [v30 unsignedIntegerValue];
                   for (j = 0; j != 3; ++j)
                   {
                     if (((1 << j) & arraysCopy) != 0)
                     {
-                      [(NSMutableArray *)arrayByLocale[j] setObject:v34 atIndexedSubscript:unsignedIntegerValue];
+                      [(NSMutableArray *)arrayByLocale[j] setObject:v33 atIndexedSubscript:unsignedIntegerValue];
                     }
                   }
                 }
 
                 else if (keysCopy)
                 {
-                  v37 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)selfCopy->_mapping count]];
-                  [(NSMutableDictionary *)selfCopy->_mapping setObject:v37 forKeyedSubscript:v25];
+                  v36 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)selfCopy->_mapping count]];
+                  [(NSMutableDictionary *)selfCopy->_mapping setObject:v36 forKeyedSubscript:v24];
 
                   for (k = 0; k != 3; ++k)
                   {
-                    [(NSMutableArray *)arrayByLocale[k] addObject:v34];
+                    [(NSMutableArray *)arrayByLocale[k] addObject:v33];
                   }
                 }
 
-                v22 = v47;
+                v21 = v46;
               }
 
               else
               {
-                v31 = _NTKLoggingObjectForDomain();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                v30 = _NTKLoggingObjectForDomain();
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v66 = v25;
-                  _os_log_error_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "Asset %@ exceeds map file", buf, 0xCu);
+                  v65 = v24;
+                  _os_log_error_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "Asset %@ exceeds map file", buf, 0xCu);
                 }
               }
             }
 
-            v51 = [v53 countByEnumeratingWithState:&v56 objects:v64 count:16];
+            v50 = [v52 countByEnumeratingWithState:&v55 objects:v63 count:16];
           }
 
-          while (v51);
+          while (v50);
         }
 
-        v20 = v41;
-        v39 = v41;
+        v19 = v40;
+        v38 = v40;
+        v7 = v41;
         v8 = v42;
-        v9 = v43;
       }
 
       goto LABEL_43;
     }
 
 LABEL_42:
-    v20 = 0;
+    v19 = 0;
 LABEL_43:
   }
 
-  return v20;
+  return v19;
 }
 
 - (void)localeChanged

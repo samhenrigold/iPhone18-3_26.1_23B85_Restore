@@ -1,76 +1,38 @@
 @interface MCMLRUCache
-- (MCMDoublyLinkedList)mruItems;
 - (MCMLRUCache)init;
 - (MCMLRUCache)initWithName:(id)name maxCount:(unint64_t)count;
-- (NSMutableDictionary)storage;
-- (NSString)name;
 - (id)objectForKey:(id)key;
 - (unint64_t)count;
-- (unint64_t)maxCount;
 - (void)removeAllObjects;
 - (void)setObject:(id)object forKey:(id)key;
 @end
 
 @implementation MCMLRUCache
 
-- (MCMDoublyLinkedList)mruItems
-{
-  result = self->_mruItems;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSMutableDictionary)storage
-{
-  result = self->_storage;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)maxCount
-{
-  result = self->_maxCount;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)name
-{
-  result = self->_name;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unint64_t)count
 {
-  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   mruItems = [(MCMLRUCache *)self mruItems];
   v4 = [mruItems count];
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)removeAllObjects
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v3 = container_log_handle_for_category();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     name = [(MCMLRUCache *)self name];
     mruItems = [(MCMLRUCache *)self mruItems];
-    v9 = 138412546;
-    v10 = name;
-    v11 = 2112;
-    v12 = mruItems;
-    _os_log_debug_impl(&dword_1DF2C3000, v3, OS_LOG_TYPE_DEBUG, "[%@] Evicting items from cache: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = name;
+    v10 = 2112;
+    v11 = mruItems;
+    _os_log_debug_impl(&dword_1DF2C3000, v3, OS_LOG_TYPE_DEBUG, "[%@] Evicting items from cache: %@", &v8, 0x16u);
   }
 
   storage = [(MCMLRUCache *)self storage];
@@ -80,12 +42,11 @@
   [mruItems2 removeAllObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
@@ -96,25 +57,34 @@
 
   if (v9 != v11)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
+    v42 = 0;
+    v49 = 0u;
+    v50 = 0u;
+    v48 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v31 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v32 = 3;
+    }
+
+    else
+    {
+      v32 = 2;
+    }
+
     mruItems2 = [(MCMLRUCache *)self mruItems];
-    v33 = [mruItems2 count];
+    v34 = [mruItems2 count];
     self = [(MCMLRUCache *)self storage];
-    v40 = 134218240;
-    v41 = v33;
-    v42 = 2048;
-    v43 = [(MCMLRUCache *)self count];
-    LODWORD(v39) = 22;
-    v38 = &v40;
-    _os_log_send_and_compose_impl();
+    v43 = 134218240;
+    v44 = v34;
+    v45 = 2048;
+    v46 = [(MCMLRUCache *)self count];
+    _os_log_send_and_compose_impl(v32, &v42, buf, 80, &dword_1DF2C3000, v31, 16, "bug in MCMLRUCache implementation; %ld != %ld", &v43, 22);
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_13;
+    goto LABEL_16;
   }
 
   storage2 = [(MCMLRUCache *)self storage];
@@ -143,12 +113,12 @@
       {
         name = [(MCMLRUCache *)self name];
         storage3 = [(MCMLRUCache *)self storage];
-        v30 = [(MCMDoublyLinkedListNode *)removeFromHead key];
-        v31 = [storage3 objectForKeyedSubscript:v30];
+        v29 = [(MCMDoublyLinkedListNode *)removeFromHead key];
+        v30 = [storage3 objectForKeyedSubscript:v29];
         *buf = 138412546;
         *&buf[4] = name;
         *&buf[12] = 2112;
-        *&buf[14] = v31;
+        *&buf[14] = v30;
         _os_log_debug_impl(&dword_1DF2C3000, v19, OS_LOG_TYPE_DEBUG, "[%@] Evicting from cache: %@", buf, 0x16u);
       }
 
@@ -179,34 +149,44 @@
 
   if (v24 != v26)
   {
-LABEL_13:
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
+LABEL_16:
+    v42 = 0;
+    v49 = 0u;
+    v50 = 0u;
+    v48 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v34 = [(MCMLRUCache *)self mruItems:v38];
-    v35 = [v34 count];
+    v35 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v36 = 3;
+    }
+
+    else
+    {
+      v36 = 2;
+    }
+
+    mruItems8 = [(MCMLRUCache *)self mruItems];
+    v38 = [mruItems8 count];
     storage6 = [(MCMLRUCache *)self storage];
-    v37 = [storage6 count];
-    v40 = 134218240;
-    v41 = v35;
-    v42 = 2048;
-    v43 = v37;
-    _os_log_send_and_compose_impl();
+    v40 = [storage6 count];
+    v43 = 134218240;
+    v44 = v38;
+    v45 = 2048;
+    v46 = v40;
+    LODWORD(v41) = 22;
+    _os_log_send_and_compose_impl(v36, &v42, buf, 80, &dword_1DF2C3000, v35, 16, "bug in MCMLRUCache implementation; %ld != %ld", &v43, v41);
 
     _os_crash_msg();
     __break(1u);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectForKey:(id)key
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
   mruItems = [(MCMLRUCache *)self mruItems];
@@ -216,25 +196,34 @@ LABEL_13:
 
   if (v6 != v8)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
+    v32 = 0;
+    v39 = 0u;
+    v40 = 0u;
+    v38 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v21 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v22 = 3;
+    }
+
+    else
+    {
+      v22 = 2;
+    }
+
     mruItems2 = [(MCMLRUCache *)self mruItems];
-    v23 = [mruItems2 count];
+    v24 = [mruItems2 count];
     self = [(MCMLRUCache *)self storage];
-    v30 = 134218240;
-    v31 = v23;
-    v32 = 2048;
-    v33 = [(MCMLRUCache *)self count];
-    LODWORD(v29) = 22;
-    v28 = &v30;
-    _os_log_send_and_compose_impl();
+    v33 = 134218240;
+    v34 = v24;
+    v35 = 2048;
+    v36 = [(MCMLRUCache *)self count];
+    _os_log_send_and_compose_impl(v22, &v32, buf, 80, &dword_1DF2C3000, v21, 16, "bug in MCMLRUCache implementation; %ld != %ld", &v33, 22);
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_11;
+    goto LABEL_14;
   }
 
   storage2 = [(MCMLRUCache *)self storage];
@@ -266,21 +255,33 @@ LABEL_13:
 
   if (v15 != v17)
   {
-LABEL_11:
-    v36 = 0u;
-    v37 = 0u;
-    v35 = 0u;
+LABEL_14:
+    v32 = 0;
+    v39 = 0u;
+    v40 = 0u;
+    v38 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v24 = [(MCMLRUCache *)self mruItems:v28];
-    v25 = [v24 count];
+    v25 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v26 = 3;
+    }
+
+    else
+    {
+      v26 = 2;
+    }
+
+    mruItems5 = [(MCMLRUCache *)self mruItems];
+    v28 = [mruItems5 count];
     storage4 = [(MCMLRUCache *)self storage];
-    v27 = [storage4 count];
-    v30 = 134218240;
-    v31 = v25;
-    v32 = 2048;
-    v33 = v27;
-    _os_log_send_and_compose_impl();
+    v30 = [storage4 count];
+    v33 = 134218240;
+    v34 = v28;
+    v35 = 2048;
+    v36 = v30;
+    LODWORD(v31) = 22;
+    _os_log_send_and_compose_impl(v26, &v32, buf, 80, &dword_1DF2C3000, v25, 16, "bug in MCMLRUCache implementation; %ld != %ld", &v33, v31);
 
     _os_crash_msg();
     __break(1u);
@@ -288,18 +289,16 @@ LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return data2;
 }
 
 - (MCMLRUCache)initWithName:(id)name maxCount:(unint64_t)count
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v16.receiver = self;
-  v16.super_class = MCMLRUCache;
-  v8 = [(MCMLRUCache *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = MCMLRUCache;
+  v8 = [(MCMLRUCache *)&v15 init];
   v9 = v8;
   if (v8)
   {
@@ -316,14 +315,11 @@ LABEL_11:
     v9->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (MCMLRUCache)init
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [(MCMLRUCache *)self initWithName:@"default" maxCount:10];
 }

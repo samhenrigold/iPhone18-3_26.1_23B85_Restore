@@ -9,23 +9,25 @@
 - (PXGHostedContentTextureProvider)init
 {
   v3 = OBJC_IVAR___PXGHostedContentTextureProvider_requestQueue_requestByID;
-  *(&self->super.super.isa + v3) = sub_1A3C88D38(MEMORY[0x1E69E7CC0]);
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for HostedContentTextureProvider();
-  return [(PXGTextureProvider *)&v5 init];
+  v4 = sub_1A3C88D38(MEMORY[0x1E69E7CC0], a2);
+  *(&self->super.super.isa + v3) = v4;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for HostedContentTextureProvider(v4, v5);
+  return [(PXGTextureProvider *)&v7 init];
 }
 
 - (_NSRange)requestTexturesForSpritesInRange:(_PXGSpriteIndexRange)range geometries:(id *)geometries styles:(id *)styles infos:(id *)infos inLayout:(id)layout
 {
   layoutCopy = layout;
   selfCopy = self;
-  v14 = sub_1A40370E4(*&range, geometries, styles, infos, layoutCopy);
-  v16 = v15;
+  sub_1A40370E4(*&range, geometries, styles, infos, layoutCopy);
+  v15 = v14;
+  v17 = v16;
 
-  v17 = v14;
-  v18 = v16;
-  result.length = v18;
-  result.location = v17;
+  v18 = v15;
+  v19 = v17;
+  result.length = v19;
+  result.location = v18;
   return result;
 }
 

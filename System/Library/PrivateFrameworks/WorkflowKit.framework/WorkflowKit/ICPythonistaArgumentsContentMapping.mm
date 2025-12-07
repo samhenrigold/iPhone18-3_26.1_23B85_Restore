@@ -38,7 +38,7 @@ void __84__ICPythonistaArgumentsContentMapping_getStringRepresentation_withInput
 
 void __84__ICPythonistaArgumentsContentMapping_getStringRepresentation_withInput_parameters___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -47,30 +47,30 @@ void __84__ICPythonistaArgumentsContentMapping_getStringRepresentation_withInput
 
     [v5 removeCharactersInString:@"?&="];
     v6 = objc_opt_new();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v14 + 1) + 8 * i) stringByAddingPercentEncodingWithAllowedCharacters:v5];
+          v12 = [*(*(&v13 + 1) + 8 * i) stringByAddingPercentEncodingWithAllowedCharacters:v5];
           [v6 appendFormat:@"&argv=%@", v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -83,8 +83,6 @@ void __84__ICPythonistaArgumentsContentMapping_getStringRepresentation_withInput
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

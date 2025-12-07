@@ -121,9 +121,9 @@ void sub_100001A28()
   }
 }
 
-void sub_100001B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -195,7 +195,6 @@ LABEL_7:
 
 uint64_t sub_100001E18(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CAC8 = result;
   return result;
@@ -262,7 +261,7 @@ void sub_100002710(uint64_t a1)
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 auditToken];
+    objc_msgSend_auditToken(v3);
   }
 
   else
@@ -271,47 +270,47 @@ void sub_100002710(uint64_t a1)
   }
 
   [v2 setGlobalPrivacyClientWithAuditToken:buf];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2050000000;
   v4 = qword_10000CAE8;
-  v25 = qword_10000CAE8;
+  v23 = qword_10000CAE8;
   if (!qword_10000CAE8)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100002B64;
     *&buf[24] = &unk_100008370;
-    v27 = &v22;
+    v25 = &v20;
     sub_100002B64(buf);
-    v4 = v23[3];
+    v4 = v21[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v22, 8);
-  [v4 setXPCHostApplicationIdentifier:{*(a1 + 40), v22}];
+  _Block_object_dispose(&v20, 8);
+  [v4 setXPCHostApplicationIdentifier:{*(a1 + 40), v20}];
   if (!*(*(a1 + 48) + 8))
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2050000000;
     v6 = qword_10000CAF0;
-    v25 = qword_10000CAF0;
+    v23 = qword_10000CAF0;
     if (!qword_10000CAF0)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100002C2C;
       *&buf[24] = &unk_100008370;
-      v27 = &v22;
+      v25 = &v20;
       sub_100002C2C(buf);
-      v6 = v23[3];
+      v6 = v21[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v20, 8);
     v8 = [v6 alloc];
-    v9 = [v8 initWithPlayerID:{*(a1 + 40), v22}];
+    v9 = [v8 initWithPlayerID:{*(a1 + 40), v20}];
     v10 = *(a1 + 48);
     v11 = *(v10 + 8);
     *(v10 + 8) = v9;
@@ -320,18 +319,16 @@ void sub_100002710(uint64_t a1)
     [*(*(a1 + 48) + 8) start];
     [*(*(a1 + 48) + 8) becomeActive];
     MRMediaRemoteGetLocalOrigin();
-    v12 = *(a1 + 40);
     MRMediaRemoteSetParentApplication();
-    v13 = *(*(a1 + 48) + 8);
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(a1 + 32);
-    if (v15)
+    v12 = *(*(a1 + 48) + 8);
+    v13 = *(a1 + 32);
+    if (v13)
     {
-      [v15 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else
@@ -339,29 +336,29 @@ void sub_100002710(uint64_t a1)
       memset(buf, 0, sizeof(buf));
     }
 
-    [v14 setRemoteHostProcessAuditToken:buf];
+    [v12 setRemoteHostProcessAuditToken:buf];
   }
 
-  v16 = [[MPRemotePlayerServiceConnection alloc] initWithConnection:*(a1 + 32) bundleID:*(a1 + 40) pid:*(a1 + 64) playbackEngine:*(*(a1 + 48) + 8)];
-  v17 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MPRemotePlayerServiceProtocol];
-  [*(a1 + 32) setExportedInterface:v17];
+  v14 = [[MPRemotePlayerServiceConnection alloc] initWithConnection:*(a1 + 32) bundleID:*(a1 + 40) pid:*(a1 + 64) playbackEngine:*(*(a1 + 48) + 8)];
+  v15 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___MPRemotePlayerServiceProtocol];
+  [*(a1 + 32) setExportedInterface:v15];
 
-  [*(a1 + 32) setExportedObject:v16];
+  [*(a1 + 32) setExportedObject:v14];
   [*(a1 + 32) resume];
-  v18 = sub_1000012BC();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000012BC();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 48);
-    v20 = *(a1 + 32);
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 32);
     *buf = 134218242;
-    *&buf[4] = v19;
+    *&buf[4] = v17;
     *&buf[12] = 2112;
-    *&buf[14] = v20;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MPRemotePlayerService: %p: Resumed XPC connection: %@", buf, 0x16u);
+    *&buf[14] = v18;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MPRemotePlayerService: %p: Resumed XPC connection: %@", buf, 0x16u);
   }
 
-  v21 = sub_100001A28();
-  [v21 endTask:*(a1 + 56)];
+  v19 = sub_100001A28();
+  [v19 endTask:*(a1 + 56)];
 }
 
 id sub_100002A84()
@@ -388,9 +385,9 @@ id sub_100002A84()
   return v1;
 }
 
-void sub_100002B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -461,7 +458,6 @@ LABEL_10:
 
 uint64_t sub_100002E18(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CAF8 = result;
   return result;
@@ -566,9 +562,9 @@ void sub_100002FD8(id a1)
   [v9 beginGeneratingLibraryChangeNotifications];
 }
 
-void sub_1000031F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000031F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

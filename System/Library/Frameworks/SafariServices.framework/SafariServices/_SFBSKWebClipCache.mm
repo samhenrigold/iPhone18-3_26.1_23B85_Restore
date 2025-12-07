@@ -22,21 +22,21 @@
 {
   if (self)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = WBS_LOG_CHANNEL_PREFIXWebApp(self, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "Fetching web clips", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Fetching web clips", buf, 2u);
     }
 
-    v3 = MEMORY[0x1E698F588];
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __37___SFBSKWebClipCache__reloadWebClips__block_invoke;
-    v5[3] = &unk_1E8490B90;
-    v5[4] = self;
+    v4 = MEMORY[0x1E698F588];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __37___SFBSKWebClipCache__reloadWebClips__block_invoke;
+    v6[3] = &unk_1E8490B90;
+    v6[4] = self;
     selfCopy = self;
-    [v3 fetchWebClipsURLWithCompletionHandler:v5];
+    [v4 fetchWebClipsURLWithCompletionHandler:v6];
   }
 }
 

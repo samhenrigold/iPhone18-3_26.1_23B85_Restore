@@ -6,11 +6,11 @@
 
 + (id)parseNetLoginUsingData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v23 = [MEMORY[0x277CBEC10] mutableCopy];
-  v22[1] = v22;
-  v4 = v22 - (([dataCopy length] + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = [MEMORY[0x277CBEC10] mutableCopy];
+  v21[1] = v21;
+  v4 = v21 - (([dataCopy length] + 15) & 0xFFFFFFFFFFFFFFF0);
   [dataCopy getBytes:v4 length:{objc_msgSend(dataCopy, "length")}];
   v5 = 0;
   v6 = 1;
@@ -78,7 +78,7 @@
       }
 
       v18 = [MEMORY[0x277CCABB0] numberWithShort:v6];
-      [v23 setObject:v10 forKeyedSubscript:v18];
+      [v22 setObject:v10 forKeyedSubscript:v18];
 
       if (v5)
       {
@@ -100,10 +100,9 @@ LABEL_20:
 
   while (v6 != 9);
 
-  v19 = *MEMORY[0x277D85DE8];
-  v20 = v23;
+  v19 = v22;
 
-  return v20;
+  return v19;
 }
 
 @end

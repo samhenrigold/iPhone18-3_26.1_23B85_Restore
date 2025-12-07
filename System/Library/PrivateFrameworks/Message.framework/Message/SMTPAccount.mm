@@ -5,6 +5,7 @@
 - (Class)connectionClass;
 - (Class)deliveryClass;
 - (__CFString)connectionServiceType;
+- (id)_defaultSettingsWithPort:(unsigned int)port useSSL:(BOOL)l directSSL:(BOOL)sL;
 - (id)authenticatedConnection:(BOOL)connection;
 - (id)connectionSettingsForAuthentication:(BOOL)authentication secure:(id)secure insecure:(id)insecure;
 - (id)customAuthenticationErrorStringForError:(id)error authScheme:(id)scheme;
@@ -122,19 +123,32 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
   return connectionClass;
 }
 
+- (id)_defaultSettingsWithPort:(unsigned int)port useSSL:(BOOL)l directSSL:(BOOL)sL
+{
+  sLCopy = sL;
+  lCopy = l;
+  v7 = *&port;
+  defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
+  [defaultConnectionSettings setPortNumber:v7];
+  [defaultConnectionSettings setUsesSSL:lCopy];
+  [defaultConnectionSettings setTryDirectSSL:sLCopy];
+
+  return defaultConnectionSettings;
+}
+
 - (id)connectionSettingsForAuthentication:(BOOL)authentication secure:(id)secure insecure:(id)insecure
 {
   authenticationCopy = authentication;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   secureCopy = secure;
   insecureCopy = insecure;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = authenticationCopy;
+  v26 = authenticationCopy;
   defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
-  v30 = 0x190000024BLL;
-  v31 = 465;
+  v29 = 0x190000024BLL;
+  v30 = 465;
   portNumber = [defaultConnectionSettings portNumber];
   if ([defaultConnectionSettings usesSSL])
   {
@@ -156,10 +170,10 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
 
   for (i = 0; i != 12; i += 4)
   {
-    v17 = *(&v30 + i);
+    v17 = *(&v29 + i);
     if (portNumber != v17)
     {
-      v18 = [(SMTPAccount *)self _defaultSettingsWithPort:*(&v30 + i) useSSL:1 directSSL:1];
+      v18 = [(SMTPAccount *)self _defaultSettingsWithPort:*(&v29 + i) useSSL:1 directSSL:1];
       [v9 addObject:v18];
 
       v19 = [(SMTPAccount *)self _defaultSettingsWithPort:v17 useSSL:1 directSSL:0];
@@ -170,7 +184,7 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
     }
   }
 
-  if (v27)
+  if (v26)
   {
     v22 = insecureCopy;
     v21 = secureCopy;
@@ -201,8 +215,6 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
   {
     [v22 addObjectsFromArray:v8];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -293,7 +305,7 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
 
 - (id)errorForResponse:(id)response
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   status = [response status];
   v5 = status - 530;
   if ((status - 530) > 8 || ((1 << (status - 18)) & 0x111) == 0)
@@ -317,13 +329,11 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
   displayHostname = [(DeliveryAccount *)self displayHostname];
   v12 = [v10 stringWithFormat:v8, displayHostname];
 
-  v18 = @"UserFriendlyErrorDescription";
-  v19[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = @"UserFriendlyErrorDescription";
+  v18[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v14 = MFLookupLocalizedString(@"FAILED_SEND_TITLE", @"Cannot Send Mail", @"Delayed");
   v15 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1032 localizedDescription:v12 title:v14 userInfo:v13];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -358,7 +368,7 @@ void __18__SMTPAccount_log__block_invoke(uint64_t a1)
 
 - (id)authenticatedConnection:(BOOL)connection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(SMTPAccount *)self mf_lock];
   if (connection)
   {
@@ -414,12 +424,10 @@ LABEL_15:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     domainName = [(MFSMTPConnection *)self->_connection domainName];
-    v15 = 138543362;
-    v16 = domainName;
-    _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "_connection domain name: %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = domainName;
+    _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "_connection domain name: %{public}@", &v14, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return _newConnection;
 }

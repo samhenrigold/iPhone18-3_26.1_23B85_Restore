@@ -127,93 +127,88 @@
 
 - (void)updateState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] updateState", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __42__HDSPChargingReminderManager_updateState__block_invoke;
-  v6[3] = &unk_279C7B108;
-  v6[4] = self;
-  [(HDSPChargingReminderManager *)self _withLock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __42__HDSPChargingReminderManager_updateState__block_invoke;
+  v5[3] = &unk_279C7B108;
+  v5[4] = self;
+  [(HDSPChargingReminderManager *)self _withLock:v5];
 }
 
 - (void)sleepScheduleModelManager:(id)manager didUpdateSleepScheduleModel:(id)model
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = modelCopy;
-    v7 = v10;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2114;
+    v11 = modelCopy;
+    v7 = v9;
+    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v8, 0x16u);
   }
 
   [(HDSPChargingReminderManager *)self updateState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)significantTimeChangeDetected:(id)detected
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] significantTimeChangeDetected", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] significantTimeChangeDetected", &v6, 0xCu);
   }
 
   [(HDSPChargingReminderManager *)self updateState];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state reason:(unint64_t)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = objc_opt_class();
-    v7 = v10;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleepScheduleStateDidChange", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = objc_opt_class();
+    v7 = v9;
+    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleepScheduleStateDidChange", &v8, 0xCu);
   }
 
   [(HDSPChargingReminderManager *)self updateState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceChangedChargingState:(BOOL)state
 {
   stateCopy = state;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 1024;
-    v11 = stateCopy;
-    v6 = v9;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] deviceChangedChargingState (isCharging: %d)", &v8, 0x12u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 1024;
+    v10 = stateCopy;
+    v6 = v8;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] deviceChangedChargingState (isCharging: %d)", &v7, 0x12u);
   }
 
   [(HDSPChargingReminderManager *)self updateState];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)currentDate
@@ -254,7 +249,7 @@
 
 - (id)monitoringWindowAfterDate:(id)date
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   sleepScheduleModel = [(HDSPChargingReminderManager *)self sleepScheduleModel];
   v6 = *MEMORY[0x277D621B8];
@@ -281,12 +276,12 @@ LABEL_9:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v44 = objc_opt_class();
-        v45 = 2114;
-        v46 = v22;
-        v47 = 2114;
-        v48 = v9;
-        v25 = v44;
+        v43 = objc_opt_class();
+        v44 = 2114;
+        v45 = v22;
+        v46 = 2114;
+        v47 = v9;
+        v25 = v43;
         _os_log_impl(&dword_269B11000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring monitor end date (%{public}@) before start date (%{public}@)", buf, 0x20u);
       }
 
@@ -300,20 +295,20 @@ LABEL_9:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         v28 = objc_opt_class();
-        v40 = v28;
+        v39 = v28;
         [v26 hkspDescription];
-        v42 = v9;
+        v41 = v9;
         v29 = sleepSettings;
         v31 = v30 = v8;
         *buf = 138543618;
-        v44 = v28;
-        v45 = 2114;
-        v46 = v31;
+        v43 = v28;
+        v44 = 2114;
+        v45 = v31;
         _os_log_impl(&dword_269B11000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] monitor window is: %{public}@", buf, 0x16u);
 
         v8 = v30;
         sleepSettings = v29;
-        v9 = v42;
+        v9 = v41;
       }
 
       endDate = [v26 endDate];
@@ -326,9 +321,9 @@ LABEL_9:
         {
           v35 = objc_opt_class();
           *buf = 138543618;
-          v44 = v35;
-          v45 = 2114;
-          v46 = v26;
+          v43 = v35;
+          v44 = 2114;
+          v45 = v26;
           v36 = v35;
           _os_log_impl(&dword_269B11000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@] already passed current window %{public}@", buf, 0x16u);
         }
@@ -347,7 +342,7 @@ LABEL_9:
     goto LABEL_22;
   }
 
-  v41 = v9;
+  v40 = v9;
   v12 = sleepSettings;
   v13 = v8;
   sleepScheduleModel3 = [(HDSPChargingReminderManager *)self sleepScheduleModel];
@@ -371,18 +366,17 @@ LABEL_9:
 
     v8 = v13;
     sleepSettings = v12;
-    v9 = v41;
+    v9 = v40;
     goto LABEL_9;
   }
 
   v23 = 0;
   v8 = v13;
   sleepSettings = v12;
-  v9 = v41;
+  v9 = v40;
 LABEL_22:
 
 LABEL_23:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -397,29 +391,28 @@ LABEL_23:
 
 - (void)startBatteryMonitoring
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = objc_opt_class();
-    v4 = v11;
+    v10 = objc_opt_class();
+    v4 = v10;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startBatteryMonitoring", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   monitoringScheduler = self->_monitoringScheduler;
   monitorActivity = [objc_opt_class() monitorActivity];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke;
-  v8[3] = &unk_279C7B2F8;
-  objc_copyWeak(&v9, buf);
-  [(HDSPActivityScheduler *)monitoringScheduler scheduleActivity:monitorActivity activityHandler:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke;
+  v7[3] = &unk_279C7B2F8;
+  objc_copyWeak(&v8, buf);
+  [(HDSPActivityScheduler *)monitoringScheduler scheduleActivity:monitorActivity activityHandler:v7];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke(uint64_t a1)
@@ -451,13 +444,13 @@ void __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke(uint
 
 - (void)checkBatteryLevel
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = objc_opt_class();
-    v4 = v12;
+    v11 = objc_opt_class();
+    v4 = v11;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] checkBatteryLevel", buf, 0xCu);
   }
 
@@ -465,17 +458,31 @@ void __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke(uint
   [devicePowerMonitor batteryLevel];
   v7 = v6;
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__HDSPChargingReminderManager_checkBatteryLevel__block_invoke;
-  v9[3] = &unk_279C7B958;
-  v9[4] = self;
-  v10 = v7;
-  [(HDSPChargingReminderManager *)self _withLock:v9];
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__HDSPChargingReminderManager_checkBatteryLevel__block_invoke;
+  v8[3] = &unk_279C7B958;
+  v8[4] = self;
+  v9 = v7;
+  [(HDSPChargingReminderManager *)self _withLock:v8];
 }
 
 - (void)stopBatteryMonitoring
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = HKSPLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopBatteryMonitoring", &v5, 0xCu);
+  }
+
+  [(HDSPActivityScheduler *)self->_monitoringScheduler unscheduleActivities];
+}
+
+- (void)scheduleStateExpiration
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
@@ -484,47 +491,27 @@ void __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke(uint
     v6 = 138543362;
     v7 = objc_opt_class();
     v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopBatteryMonitoring", &v6, 0xCu);
-  }
-
-  [(HDSPActivityScheduler *)self->_monitoringScheduler unscheduleActivities];
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)scheduleStateExpiration
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = HKSPLogForCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we have events to schedule", &v7, 0xCu);
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we have events to schedule", &v6, 0xCu);
   }
 
   sleepEventDelegate = [(HDSPChargingReminderManager *)self sleepEventDelegate];
   [sleepEventDelegate eventProviderHasUpcomingEvents:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unscheduleStateExpiration
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we no longer have events to schedule", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we no longer have events to schedule", &v6, 0xCu);
   }
 
   sleepEventDelegate = [(HDSPChargingReminderManager *)self sleepEventDelegate];
   [sleepEventDelegate eventProviderCancelledEvents:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NAScheduler)callbackScheduler
@@ -544,47 +531,45 @@ void __53__HDSPChargingReminderManager_startBatteryMonitoring__block_invoke(uint
 
 - (id)upcomingEventsDueAfterDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__5;
-  v20 = __Block_byref_object_dispose__5;
-  v21 = MEMORY[0x277CBEBF8];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke;
-  v13[3] = &unk_279C7B6C8;
-  v13[4] = self;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__5;
+  v19 = __Block_byref_object_dispose__5;
+  v20 = MEMORY[0x277CBEBF8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke;
+  v12[3] = &unk_279C7B6C8;
+  v12[4] = self;
   v5 = dateCopy;
-  v14 = v5;
-  v15 = &v16;
-  [(HDSPChargingReminderManager *)self _withLock:v13];
+  v13 = v5;
+  v14 = &v15;
+  [(HDSPChargingReminderManager *)self _withLock:v12];
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
-    v8 = v17[5];
+    v8 = v16[5];
     *buf = 138543618;
-    v23 = v7;
-    v24 = 2114;
-    v25 = v8;
+    v22 = v7;
+    v23 = 2114;
+    v24 = v8;
     v9 = v7;
     _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling expiration of %{public}@", buf, 0x16u);
   }
 
-  v10 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v10;
 }
 
 void __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) stateMachine];
   v3 = [v2 currentStateExpirationDate];
 
@@ -595,19 +580,17 @@ void __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke
     v6 = [v5 currentStateIdentifier];
     v7 = [v4 sleepEventWithIdentifier:v6 dueDate:v3];
 
-    v12[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = *(*(a1 + 48) + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepEventIsDue:(id)due
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dueCopy = due;
   identifier = [dueCopy identifier];
   v6 = [identifier isEqualToString:*MEMORY[0x277D621B8]];
@@ -619,8 +602,8 @@ void __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke
     if (v8)
     {
       *buf = 138543362;
-      v17 = objc_opt_class();
-      v9 = v17;
+      v16 = objc_opt_class();
+      v9 = v16;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] it's bedtime", buf, 0xCu);
     }
 
@@ -635,22 +618,20 @@ void __58__HDSPChargingReminderManager_upcomingEventsDueAfterDate___block_invoke
       v11 = v10;
       identifier2 = [dueCopy identifier];
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = identifier2;
+      v16 = v10;
+      v17 = 2114;
+      v18 = identifier2;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ expired", buf, 0x16u);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __47__HDSPChargingReminderManager_sleepEventIsDue___block_invoke;
-    v14[3] = &unk_279C7B2D0;
-    v14[4] = self;
-    v15 = dueCopy;
-    [(HDSPChargingReminderManager *)self _withLock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __47__HDSPChargingReminderManager_sleepEventIsDue___block_invoke;
+    v13[3] = &unk_279C7B2D0;
+    v13[4] = self;
+    v14 = dueCopy;
+    [(HDSPChargingReminderManager *)self _withLock:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HDSPChargingReminderManager_sleepEventIsDue___block_invoke(uint64_t a1)
@@ -711,13 +692,13 @@ void __47__HDSPChargingReminderManager_eventIdentifiers__block_invoke_2(uint64_t
 
 - (void)postChargingReminderNotification
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = objc_opt_class();
-    v4 = v28;
+    v27 = objc_opt_class();
+    v4 = v27;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] posting battery reminder notification", buf, 0xCu);
   }
 
@@ -735,22 +716,20 @@ void __47__HDSPChargingReminderManager_eventIdentifiers__block_invoke_2(uint64_t
   v13 = MEMORY[0x277D624D0];
   v14 = *MEMORY[0x277D621C8];
   currentDate2 = [(HDSPChargingReminderManager *)self currentDate];
-  v25[0] = *MEMORY[0x277D62030];
+  v24[0] = *MEMORY[0x277D62030];
   v16 = [MEMORY[0x277CCABB0] numberWithBool:isEnabled];
-  v26[0] = v16;
-  v25[1] = *MEMORY[0x277D62048];
+  v25[0] = v16;
+  v24[1] = *MEMORY[0x277D62048];
   v17 = [MEMORY[0x277CCABB0] numberWithBool:sleepTracking];
-  v26[1] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v25[1] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   v19 = [v13 sleepEventWithIdentifier:v14 dueDate:currentDate2 context:v18];
 
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   sleepScheduler = [WeakRetained sleepScheduler];
-  v24 = v19;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v19;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   [sleepScheduler notifyForOverdueEvents:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentState
@@ -776,10 +755,7 @@ void __47__HDSPChargingReminderManager_eventIdentifiers__block_invoke_2(uint64_t
 
 uint64_t __44__HDSPChargingReminderManager__currentState__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) currentState];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) currentState];
 
   return MEMORY[0x2821F96F8]();
 }

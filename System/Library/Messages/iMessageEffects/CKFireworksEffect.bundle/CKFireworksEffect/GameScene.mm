@@ -3,6 +3,7 @@
 - (float)launchTrailAt:(CGPoint)at angle:(float)angle speed:(float)speed group:(id)group;
 - (void)createFireworkTypeOneAt:(CGPoint)at scale:(float)scale;
 - (void)createFireworkTypeTwoAt:(CGPoint)at scale:(float)scale color:(unint64_t)color;
+- (void)launchFireworkAt:(CGPoint)at type:(unint64_t)type scale:(float)scale color:(unint64_t)color;
 - (void)runChoregraphy;
 - (void)runEndingSparkleParticleEmitter:(CGPoint)emitter scale:(float)scale radius:(float)radius color:(id)color;
 - (void)runLightHaloEffectAt:(CGPoint)at scale:(float)scale color:(unint64_t)color;
@@ -658,6 +659,77 @@
   v42 = [NSArray arrayWithObjects:v91 count:4];
   v43 = [SKAction sequence:v42];
   [(GameScene *)self runAction:v43];
+}
+
+- (void)launchFireworkAt:(CGPoint)at type:(unint64_t)type scale:(float)scale color:(unint64_t)color
+{
+  scaleCopy = scale;
+  y = at.y;
+  x = at.x;
+  if (!type)
+  {
+    if (!self->_type1FireworkEnabled || !self->_type2FireworkEnabled)
+    {
+      if (!self->_type1FireworkEnabled)
+      {
+        if (!self->_type2FireworkEnabled)
+        {
+          return;
+        }
+
+        goto LABEL_19;
+      }
+
+      goto LABEL_22;
+    }
+
+    v11 = drand48();
+    if (!vcvtmd_s64_f64(v11 + v11))
+    {
+      goto LABEL_22;
+    }
+
+LABEL_19:
+    scale = scaleCopy;
+
+    [(GameScene *)self createFireworkTypeTwoAt:x scale:y color:*&scale];
+    return;
+  }
+
+  if (type == 2)
+  {
+    if (!self->_type2FireworkEnabled)
+    {
+      if (!self->_type1FireworkEnabled)
+      {
+        return;
+      }
+
+      goto LABEL_22;
+    }
+
+    goto LABEL_19;
+  }
+
+  if (type != 1)
+  {
+    return;
+  }
+
+  if (!self->_type1FireworkEnabled)
+  {
+    if (!self->_type2FireworkEnabled)
+    {
+      return;
+    }
+
+    goto LABEL_19;
+  }
+
+LABEL_22:
+  scale = scaleCopy;
+
+  [(GameScene *)self createFireworkTypeOneAt:x scale:y, *&scale];
 }
 
 - (void)runLightHaloEffectAt:(CGPoint)at scale:(float)scale color:(unint64_t)color

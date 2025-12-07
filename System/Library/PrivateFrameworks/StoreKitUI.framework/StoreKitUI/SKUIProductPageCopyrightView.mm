@@ -1,6 +1,7 @@
 @interface SKUIProductPageCopyrightView
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (NSString)copyrightString;
+- (void)copyrightString;
 - (void)layoutSubviews;
 - (void)setColorScheme:(id)scheme;
 - (void)setCopyrightString:(id)string;
@@ -78,9 +79,9 @@
   }
 
   text = [(UILabel *)self->_copyrightLabel text];
-  v14 = [text isEqualToString:stringCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v14 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     copyrightLabel = self->_copyrightLabel;
     if (stringCopy)
@@ -129,30 +130,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIProductPageCopyrightView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIProductPageCopyrightView *)self bounds];
-  copyrightLabel = self->_copyrightLabel;
-  if (copyrightLabel)
-  {
-    v14 = v11;
-    v15 = v12;
-    [(UILabel *)copyrightLabel frame];
-    v16 = v14 + -30.0;
-    [(UILabel *)self->_copyrightLabel sizeThatFits:v16, v15];
-    v18 = (v15 - v17) * 0.5;
-    [(UILabel *)self->_copyrightLabel setFrame:15.0, roundf(v18), v16, v17];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageCopyrightView layoutSubviews]";
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -177,6 +156,30 @@
   result.height = v15;
   result.width = v16;
   return result;
+}
+
+- (void)setColorScheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageCopyrightView setColorScheme:]";
+}
+
+- (void)copyrightString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageCopyrightView copyrightString]";
+}
+
+- (void)setCopyrightString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageCopyrightView setCopyrightString:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageCopyrightView sizeThatFits:]";
 }
 
 @end

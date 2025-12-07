@@ -243,13 +243,13 @@ LABEL_34:
     bitmap = selfCopy->_bitmap;
     if (bitmap)
     {
-      [(_UIBoundingPathBitmap *)bitmap bitmapData];
+      objc_msgSend_bitmapData(bitmap);
       v84 = selfCopy->_bitmap;
       v85 = v198;
       v86 = _interfaceOrientation;
       if (v84)
       {
-        [(_UIBoundingPathBitmap *)v84 bitmapData];
+        objc_msgSend_bitmapData(v84);
         v87 = v197;
         goto LABEL_39;
       }
@@ -629,9 +629,9 @@ LABEL_60:
     v116 = v190;
     if (v122)
     {
-      [v122 bitmapData];
+      objc_msgSend_bitmapData(v122);
       v150 = v200;
-      [v122 bitmapData];
+      objc_msgSend_bitmapData(v122);
       v151 = v199;
     }
 
@@ -810,7 +810,7 @@ LABEL_113:
     v44 = self->_bitmap;
     if (v44)
     {
-      [(_UIBoundingPathBitmap *)v44 bitmapData];
+      objc_msgSend_bitmapData(v44);
       v45 = self->_bitmap;
       if (v75 != v59)
       {
@@ -819,7 +819,7 @@ LABEL_113:
 
       if (v45)
       {
-        [(_UIBoundingPathBitmap *)v45 bitmapData];
+        objc_msgSend_bitmapData(v45);
         v46 = *(&v71 + 1);
 LABEL_35:
         if (v46 == v27)
@@ -831,12 +831,12 @@ LABEL_35:
 LABEL_37:
         if (v45)
         {
-          [(_UIBoundingPathBitmap *)v45 bitmapData];
+          objc_msgSend_bitmapData(v45);
           v48 = self->_bitmap;
           v49 = v67 / v59;
           if (v48)
           {
-            [(_UIBoundingPathBitmap *)v48 bitmapData];
+            objc_msgSend_bitmapData(v48);
             v50 = *(&v63 + 1);
             p_info = (&OBJC_METACLASS____UIKeyboardChangedInformation + 32);
 LABEL_42:
@@ -900,7 +900,7 @@ LABEL_9:
   v34 = self->_bitmap;
   if (v34)
   {
-    [(_UIBoundingPathBitmap *)v34 bitmapData];
+    objc_msgSend_bitmapData(v34);
     v35 = v61;
   }
 
@@ -909,7 +909,7 @@ LABEL_9:
     v35 = 0;
   }
 
-  if (v35 != v59 || ((v36 = self->_bitmap) == 0 ? (v37 = 0) : ([(_UIBoundingPathBitmap *)v36 bitmapData], v37 = v60), v37 != v27))
+  if (v35 != v59 || ((v36 = self->_bitmap) == 0 ? (v37 = 0) : (objc_msgSend_bitmapData(v36), v37 = v60), v37 != v27))
   {
     if (os_variant_has_internal_diagnostics())
     {

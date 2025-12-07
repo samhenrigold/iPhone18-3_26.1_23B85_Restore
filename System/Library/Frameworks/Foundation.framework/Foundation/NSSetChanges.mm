@@ -71,7 +71,7 @@
   [(NSSetChanges *)self enumerateChangesUsingBlock:v3];
 }
 
-uint64_t __54__NSSetChanges_NSSetChangeActions__applyChangesToSet___block_invoke(uint64_t a1, void *a2)
+void *__54__NSSetChanges_NSSetChangeActions__applyChangesToSet___block_invoke(uint64_t a1, void *a2)
 {
   if ([a2 changeType] == 2)
   {

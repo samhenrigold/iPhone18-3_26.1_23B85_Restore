@@ -10,7 +10,7 @@ void atomic_thread_fence(memory_order a1)
 
   else
   {
-    if (a1 - 1 < 2)
+    if ((a1 - 1) < 2)
     {
       __dmb(9u);
       return;

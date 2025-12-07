@@ -11,12 +11,11 @@
 
 - (id)hm_convertToData
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  v4[1] = 0;
-  [self getUUIDBytes:v4];
-  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:16];
-  v2 = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  v3[1] = 0;
+  [self getUUIDBytes:v3];
+  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:16];
 
   return v1;
 }
@@ -76,7 +75,7 @@
 
 + (id)hm_deriveUUIDFromBaseUUID:()HomeKitClient identifierSalt:withSalts:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -94,18 +93,16 @@
     {
       v15 = HMFGetLogIdentifier();
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = callStackSymbols;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_FAULT, "%{public}@API Misuse: requested to derive UUID from nil base UUID. Call stack: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2112;
+      v21 = callStackSymbols;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_FAULT, "%{public}@API Misuse: requested to derive UUID from nil base UUID. Call stack: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

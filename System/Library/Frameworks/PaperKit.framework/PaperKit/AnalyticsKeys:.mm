@@ -1,10 +1,10 @@
 @interface AnalyticsKeys:
-- (uint64_t)NSObject;
+- (double)NSObject;
 @end
 
 @implementation AnalyticsKeys:
 
-- (uint64_t)NSObject
+- (double)NSObject
 {
   if (a3)
   {

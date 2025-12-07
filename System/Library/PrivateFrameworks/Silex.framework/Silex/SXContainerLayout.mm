@@ -316,7 +316,7 @@ LABEL_30:
 
     v12 = v11;
 
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self);
     [v12 transformUsingAffineTransform:v19];
     v13 = [objc_alloc(MEMORY[0x1E69D5688]) initWithPath:v12];
     v14 = self->mCachedWrapPolygon;
@@ -463,10 +463,10 @@ LABEL_8:
 
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
   }
 
-  [v6 transform];
+  objc_msgSend_transform(v6, *(MEMORY[0x1E695EFF8] + 8));
   TSDSubtractPoints();
   mCachedWrapPolygon = self->mCachedWrapPolygon;
   CGAffineTransformMakeTranslation(&v11, v8, v9);

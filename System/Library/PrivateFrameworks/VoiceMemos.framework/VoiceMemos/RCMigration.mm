@@ -104,8 +104,8 @@
 
 - (id)_descriptionDictionary
 {
-  v19[5] = *MEMORY[0x277D85DE8];
-  v18[0] = @"objectID";
+  v18[5] = *MEMORY[0x277D85DE8];
+  v17[0] = @"objectID";
   objectID = [(RCMigration *)self objectID];
   uRIRepresentation = [objectID URIRepresentation];
   path = [uRIRepresentation path];
@@ -115,8 +115,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"date";
+  v18[0] = null;
+  v17[1] = @"date";
   date = [(RCMigration *)self date];
   v7 = [date description];
   null2 = v7;
@@ -125,11 +125,11 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[1] = null2;
-  v18[2] = @"hasEncryptedFields";
+  v18[1] = null2;
+  v17[2] = @"hasEncryptedFields";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[RCMigration hasEncryptedFields](self, "hasEncryptedFields")}];
-  v19[2] = v9;
-  v18[3] = @"reason";
+  v18[2] = v9;
+  v17[3] = @"reason";
   v10 = [(RCMigration *)self migrationReason]- 1;
   if (v10 > 2)
   {
@@ -141,8 +141,8 @@
     v11 = off_279E44850[v10];
   }
 
-  v19[3] = v11;
-  v18[4] = @"flags";
+  v18[3] = v11;
+  v17[4] = @"flags";
   flags = [(RCMigration *)self flags];
   null3 = flags;
   if (!flags)
@@ -150,8 +150,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[4] = null3;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[4] = null3;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
   if (!flags)
   {
   }
@@ -163,8 +163,6 @@
   if (!path)
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -206,13 +204,12 @@
 
 - (void)jsonDescription
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCMigration jsonDescription]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCMigration jsonDescription]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- dataWithJSONObject failed with %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- dataWithJSONObject failed with %@", &v2, 0x16u);
 }
 
 @end

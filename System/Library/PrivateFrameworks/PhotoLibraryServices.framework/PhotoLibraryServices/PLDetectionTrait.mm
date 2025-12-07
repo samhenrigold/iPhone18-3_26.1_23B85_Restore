@@ -29,7 +29,7 @@
   [v3 appendName:@"score" doubleValue:?];
   [(PLDetectionTrait *)self startTime];
   [v3 appendName:@"startTime" doubleValue:?];
-  [(PLDetectionTrait *)self duration];
+  objc_msgSend_duration(self);
   [v3 appendName:@"duration" doubleValue:?];
   thumbnailIdentifier = [(PLDetectionTrait *)self thumbnailIdentifier];
   [v3 appendName:@"thumbID" object:thumbnailIdentifier];

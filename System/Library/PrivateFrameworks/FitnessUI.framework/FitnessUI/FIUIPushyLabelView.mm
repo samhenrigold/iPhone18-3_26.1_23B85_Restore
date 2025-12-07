@@ -687,7 +687,7 @@ void __66__FIUIPushyLabelView_pushToAttributedText_direction_perCharacter___bloc
 {
   characterCopy = character;
   textCopy = text;
-  v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(textCopy, "length")}];
+  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(textCopy, "length")}];
   if ([textCopy length])
   {
     v7 = [objc_alloc(MEMORY[0x1E69DB850]) initWithAttributedString:textCopy];
@@ -697,112 +697,112 @@ void __66__FIUIPushyLabelView_pushToAttributedText_direction_perCharacter___bloc
     [textCopy size];
     v10 = [v9 initWithSize:?];
     [v10 setLineFragmentPadding:0.0];
-    v39 = v10;
-    [v8 addTextContainer:v10];
-    v43 = 0;
-    v44 = 0;
-    scale = FIUIDeviceScale();
-    v34 = v7;
+    v41 = v10;
+    v11 = [v8 addTextContainer:v10];
+    v45 = 0;
+    v46 = 0;
+    scale = FIUIDeviceScale(v11, v12);
+    v36 = v7;
     if (characterCopy)
     {
-      v11 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v11 = [textCopy length];
+      v13 = [textCopy length];
     }
 
     if ([textCopy length])
     {
-      v12 = 0;
-      v14 = *MEMORY[0x1E695EFF8];
-      v13 = *(MEMORY[0x1E695EFF8] + 8);
-      v41 = scale + scale;
-      v15 = 0.0;
-      v36 = v13;
-      v37 = *MEMORY[0x1E695EFF8];
+      v14 = 0;
+      v16 = *MEMORY[0x1E695EFF8];
+      v15 = *(MEMORY[0x1E695EFF8] + 8);
+      v43 = scale + scale;
+      v17 = 0.0;
+      v38 = v15;
+      v39 = *MEMORY[0x1E695EFF8];
       do
       {
-        v16 = [textCopy attributedSubstringFromRange:{v12, v11}];
-        [v8 characterRangeForGlyphRange:v12 actualGlyphRange:{v11, &v43}];
-        [v8 boundingRectForGlyphRange:v43 inTextContainer:{v44, v39}];
-        v18 = v17;
+        v18 = [textCopy attributedSubstringFromRange:{v14, v13}];
+        [v8 characterRangeForGlyphRange:v14 actualGlyphRange:{v13, &v45}];
+        [v8 boundingRectForGlyphRange:v45 inTextContainer:{v46, v41}];
         v20 = v19;
-        [v16 size];
-        v23 = v21;
-        v24 = v22;
+        v22 = v21;
+        [v18 size];
+        v25 = v23;
+        v26 = v24;
         if (!characterCopy)
         {
-          v14 = -v18 / v41;
-          v13 = -v20 / v41;
+          v16 = -v20 / v43;
+          v15 = -v22 / v43;
         }
 
-        if (v18 < 0.0)
-        {
-          v23 = v21 - v18 / v41;
-          v18 = 0.0;
-        }
-
-        v42 = v13;
         if (v20 < 0.0)
         {
-          v24 = v22 - v20 / v41;
+          v25 = v23 - v20 / v43;
           v20 = 0.0;
+        }
+
+        v44 = v15;
+        if (v22 < 0.0)
+        {
+          v26 = v24 - v22 / v43;
+          v22 = 0.0;
         }
 
         if ([(FIUIPushyLabelView *)self _shouldReverseLayoutDirection]&& !characterCopy)
         {
           [(FIUIPushyLabelView *)self frame];
-          v18 = v25 - v23;
+          v20 = v27 - v25;
         }
 
-        v46.width = v23;
-        v46.height = v24;
-        UIGraphicsBeginImageContextWithOptions(v46, 0, scale);
+        v48.width = v25;
+        v48.height = v26;
+        UIGraphicsBeginImageContextWithOptions(v48, 0, scale);
         CurrentContext = UIGraphicsGetCurrentContext();
-        v13 = v36;
-        v47.origin.x = v37;
-        v47.origin.y = v36;
-        v47.size.width = v23;
-        v47.size.height = v24;
-        CGContextClearRect(CurrentContext, v47);
-        v27 = v14;
-        v14 = v37;
-        [v16 drawAtPoint:{v27, v42}];
-        v28 = UIGraphicsGetImageFromCurrentImageContext();
+        v15 = v38;
+        v49.origin.x = v39;
+        v49.origin.y = v38;
+        v49.size.width = v25;
+        v49.size.height = v26;
+        CGContextClearRect(CurrentContext, v49);
+        v29 = v16;
+        v16 = v39;
+        [v18 drawAtPoint:{v29, v44}];
+        v30 = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        v29 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v28];
-        v30 = v29;
+        v31 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v30];
+        v32 = v31;
         if (characterCopy)
         {
-          v31 = v15;
+          v33 = v17;
         }
 
         else
         {
-          v31 = v18;
+          v33 = v20;
         }
 
         if (characterCopy)
         {
-          v15 = v15 + v23;
+          v17 = v17 + v25;
         }
 
-        [v29 setFrame:{v31, v20, v23, v24}];
-        v32 = objc_alloc_init(FIUIPushyLabelCharacter);
-        [(FIUIPushyLabelCharacter *)v32 setSourceText:v16];
-        [(FIUIPushyLabelCharacter *)v32 setRenderedView:v30];
-        [v40 addObject:v32];
+        [v31 setFrame:{v33, v22, v25, v26}];
+        v34 = objc_alloc_init(FIUIPushyLabelCharacter);
+        [(FIUIPushyLabelCharacter *)v34 setSourceText:v18];
+        [(FIUIPushyLabelCharacter *)v34 setRenderedView:v32];
+        [v42 addObject:v34];
 
-        v12 += v11;
+        v14 += v13;
       }
 
-      while (v12 < [textCopy length]);
+      while (v14 < [textCopy length]);
     }
   }
 
-  return v40;
+  return v42;
 }
 
 @end

@@ -680,7 +680,7 @@ LABEL_18:
 
     if (v11)
     {
-      v10 = v11 / [v9 count];
+      v10 = v11 / objc_msgSend_count(v9);
     }
 
     else
@@ -1293,7 +1293,7 @@ LABEL_15:
   v21 = [NSNumber numberWithDouble:v5];
   [v4 setObject:v21 forKeyedSubscript:@"Run Time"];
 
-  v22 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [obj count]);
+  v22 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(obj)];
   [v4 setObject:v22 forKeyedSubscript:@"Instances"];
 
   return v4;
@@ -1356,7 +1356,7 @@ LABEL_15:
           v95 = 0u;
           v96 = 0u;
           *buf = 0u;
-          [(_DASLatencyProjector *)self initializeCheckpointCounters];
+          objc_msgSend_initializeCheckpointCounters(self);
           v16 = [NSValue valueWithBytes:buf objCType:"{?=QQQQQQQQQQQQQQ}"];
           [v82 setObject:v16 forKeyedSubscript:v12];
 
@@ -1478,7 +1478,7 @@ LABEL_15:
           v88 = 0u;
           v89 = 0u;
           v87 = 0u;
-          [(_DASLatencyProjector *)self initializeCheckpointCounters];
+          objc_msgSend_initializeCheckpointCounters(self);
           if (v67)
           {
             v44 = [v74 objectForKeyedSubscript:v12];
@@ -1543,7 +1543,7 @@ LABEL_27:
         v52 = *(*(&v83 + 1) + 8 * j);
         v53 = objc_autoreleasePoolPush();
         v54 = [v50 objectForKeyedSubscript:v52];
-        if ([v54 count])
+        if (objc_msgSend_count(v54))
         {
           v55 = [(_DASLatencyProjector *)self getTaskCheckpointPairings:v54];
           v56 = [v73 objectForKeyedSubscript:v52];
@@ -2542,7 +2542,7 @@ LABEL_99:
           while (v79);
         }
 
-        if (![v76 count])
+        if (!objc_msgSend_count(v76))
         {
           [v200 timeIntervalSince1970];
           v100 = v99;
@@ -2850,7 +2850,7 @@ LABEL_109:
   timelineCopy = timeline;
   eventsCopy = events;
   v7 = +[NSMutableDictionary dictionary];
-  v8 = [eventsCopy count];
+  v8 = objc_msgSend_count(eventsCopy);
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
@@ -2981,7 +2981,7 @@ LABEL_20:
   }
 
   v9 = +[NSMutableDictionary dictionary];
-  v10 = [eventsCopy count];
+  v10 = objc_msgSend_count(eventsCopy);
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
@@ -3232,7 +3232,7 @@ LABEL_22:
           while (v9);
         }
 
-        if ([v28 count])
+        if (objc_msgSend_count(v28))
         {
           [v7 epochTimestamp];
           v20 = [NSNumber numberWithDouble:?];
@@ -3503,7 +3503,7 @@ LABEL_22:
   v9 = [NSArray arrayWithObjects:&v39 count:1];
   [v5 sortUsingDescriptors:v9];
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v28 = sessionsCopy;
     v10 = [v5 objectAtIndexedSubscript:0];
@@ -3600,7 +3600,7 @@ LABEL_22:
   }
 
   v51 = +[NSMutableDictionary dictionary];
-  if ([checkpointsCopy count])
+  if (objc_msgSend_count(checkpointsCopy))
   {
     v63 = 0;
     v64 = &v63;
@@ -3957,7 +3957,7 @@ LABEL_4:
   v94 = v25;
   v34 = [v89 loadTaskCheckpoints:v25 metrics:0 timeFilter:v88 filepath:v87];
   v93 = +[NSMutableArray array];
-  v35 = [obj count];
+  v35 = objc_msgSend_count(obj);
   v112 = 0u;
   v113 = 0u;
   v114 = 0u;
@@ -4218,7 +4218,7 @@ LABEL_34:
   if (requiresPlugin)
   {
     v11 = [timelinesCopy objectForKeyedSubscript:@"IsPluggedIn"];
-    if (![v11 count])
+    if (!objc_msgSend_count(v11))
     {
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -4239,7 +4239,7 @@ LABEL_34:
   }
 
   v11 = [timelinesCopy objectForKeyedSubscript:@"UserActivityStatus"];
-  if (![v11 count])
+  if (!objc_msgSend_count(v11))
   {
     v24 = self->_log;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -4263,7 +4263,7 @@ LABEL_7:
   if (v13)
   {
     v14 = [timelinesCopy objectForKeyedSubscript:@"NetworkQuality"];
-    if (![v14 count])
+    if (!objc_msgSend_count(v14))
     {
       v26 = self->_log;
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -4386,7 +4386,7 @@ LABEL_7:
   if (dataBudgeted)
   {
     v14 = [timelinesCopy objectForKeyedSubscript:@"NetworkQuality"];
-    if ([v14 count])
+    if (objc_msgSend_count(v14))
     {
       v82 = v13;
       selfCopy = self;
@@ -4453,7 +4453,7 @@ LABEL_72:
   }
 
 LABEL_46:
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v50 = [NSSortDescriptor sortDescriptorWithKey:@"epoch" ascending:1];
     v115 = v50;
@@ -5042,8 +5042,8 @@ LABEL_70:
   while (v33);
 LABEL_74:
 
-  v104 = v37 / [v141 count];
-  v105 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v141 count]);
+  v104 = v37 / objc_msgSend_count(v141);
+  v105 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v141)];
   [v116 setObject:v105 forKeyedSubscript:@"NumberOfTasksRan"];
 
   v106 = [NSNumber numberWithUnsignedInteger:v140];
@@ -5052,7 +5052,7 @@ LABEL_74:
   v107 = [NSNumber numberWithDouble:v104];
   [v116 setObject:v107 forKeyedSubscript:@"AverageOverdueDelay"];
 
-  v108 = +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v36 / [v141 count]);
+  v108 = [NSNumber numberWithDouble:v36 / objc_msgSend_count(v141)];
   [v116 setObject:v108 forKeyedSubscript:@"AverageSchedulingDelay"];
 
   v109 = [NSNumber numberWithDouble:v34];
@@ -5067,7 +5067,7 @@ LABEL_74:
   v112 = [NSNumber numberWithDouble:v124];
   [v116 setObject:v112 forKeyedSubscript:@"ActualIntensiveProcessingTime"];
 
-  v113 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v142 count]);
+  v113 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v142)];
   [v116 setObject:v113 forKeyedSubscript:@"SubmittedTasks"];
 
   return v116;
@@ -5298,7 +5298,7 @@ LABEL_74:
           v42 = 0.0;
         }
 
-        v60 = [v199 count];
+        v60 = objc_msgSend_count(v199);
         v235 = 0u;
         v236 = 0u;
         v237 = 0u;
@@ -5333,7 +5333,7 @@ LABEL_74:
           v64 = 0;
         }
 
-        v200 = [v190 count];
+        v200 = objc_msgSend_count(v190);
         v231 = 0u;
         v232 = 0u;
         v233 = 0u;
@@ -5368,7 +5368,7 @@ LABEL_74:
           v70 = 0;
         }
 
-        v191 = [v37 count];
+        v191 = objc_msgSend_count(v37);
         v227 = 0u;
         v228 = 0u;
         v229 = 0u;
@@ -5441,7 +5441,7 @@ LABEL_74:
     while (v175);
   }
 
-  v185 = [v197 count];
+  v185 = objc_msgSend_count(v197);
   v223 = 0u;
   v224 = 0u;
   v225 = 0u;
@@ -5478,7 +5478,7 @@ LABEL_74:
 
   v192 = v85;
 
-  v183 = [v188 count];
+  v183 = objc_msgSend_count(v188);
   v219 = 0u;
   v220 = 0u;
   v221 = 0u;
@@ -5513,7 +5513,7 @@ LABEL_74:
     v94 = 0;
   }
 
-  v180 = [v187 count];
+  v180 = objc_msgSend_count(v187);
   v215 = 0u;
   v216 = 0u;
   v217 = 0u;

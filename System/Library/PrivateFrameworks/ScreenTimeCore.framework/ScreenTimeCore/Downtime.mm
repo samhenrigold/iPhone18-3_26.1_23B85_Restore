@@ -14,17 +14,16 @@
 
 - (NSArray)schedules
 {
-  v2 = *(self + OBJC_IVAR____TtC14ScreenTimeCore8Downtime_schedules);
-  type metadata accessor for Schedule();
+  type metadata accessor for Schedule(0);
 
-  v3 = sub_1B83DDDCC();
+  v2 = sub_1B83DDDCC();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC14ScreenTimeCore8Downtime)initWithBlockAtLimit:(BOOL)limit scheduleEnabled:(BOOL)enabled schedules:(id)schedules
 {
-  type metadata accessor for Schedule();
+  type metadata accessor for Schedule(0);
   v8 = sub_1B83DDDDC();
   *(self + OBJC_IVAR____TtC14ScreenTimeCore8Downtime_blockAtLimit) = limit;
   *(self + OBJC_IVAR____TtC14ScreenTimeCore8Downtime_scheduleEnabled) = enabled;
@@ -72,9 +71,9 @@
 {
   scheduleCopy = schedule;
   selfCopy = self;
-  v6 = sub_1B83A6640(scheduleCopy);
+  v7 = sub_1B83A6640(scheduleCopy, v6);
 
-  return v6;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -86,13 +85,12 @@
 
 - (int64_t)hash
 {
-  v3 = *(self + OBJC_IVAR____TtC14ScreenTimeCore8Downtime_schedules);
-  type metadata accessor for Schedule();
-  sub_1B83A7AE8(&qword_1EBA84980);
+  type metadata accessor for Schedule(0);
+  sub_1B83A7AE8(&qword_1EBA84980, MEMORY[0x1E69E81B8]);
   selfCopy = self;
-  v5 = sub_1B83DDE0C();
+  v4 = sub_1B83DDE0C();
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

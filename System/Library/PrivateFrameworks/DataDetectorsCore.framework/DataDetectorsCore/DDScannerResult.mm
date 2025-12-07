@@ -201,39 +201,11 @@ LABEL_9:
       if (!v4)
       {
         v6 = [(__CFString *)v3 rangeOfString:@"://"];
-        if (v6 == 0x7FFFFFFFFFFFFFFFLL)
+        if (v6 == 0x7FFFFFFFFFFFFFFFLL || (v7 = v6 + v5, v7 >= -[__CFString length](v3, "length")) || (v8 = -[__CFString rangeOfString:options:range:](v3, "rangeOfString:options:range:", @"/", 0, v7, -[__CFString length](v3, "length") - v7), v10 = v8 + v9, v8 + v9 >= -[__CFString length](v3, "length")) || (-[__CFString substringToIndex:](v3, "substringToIndex:", v10), v11 = objc_claimAutoreleasedReturnValue(), -[__CFString substringFromIndex:](v3, "substringFromIndex:", v10), v12 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x1E696AB08] URLFragmentAllowedCharacterSet], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "stringByAddingPercentEncodingWithAllowedCharacters:", v13), v14 = objc_claimAutoreleasedReturnValue(), v13, v12, v15 = MEMORY[0x1E695DFF8], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@", v11, v14), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "URLWithString:", v16), v4 = objc_claimAutoreleasedReturnValue(), v16, v14, v11, !v4))
         {
-          goto LABEL_8;
-        }
-
-        v7 = v6 + v5;
-        if (v7 >= [(__CFString *)v3 length])
-        {
-          goto LABEL_8;
-        }
-
-        v8 = [(__CFString *)v3 rangeOfString:@"/" options:0 range:v7, [(__CFString *)v3 length]- v7];
-        v10 = v8 + v9;
-        if (v8 + v9 >= [(__CFString *)v3 length])
-        {
-          goto LABEL_8;
-        }
-
-        v11 = [(__CFString *)v3 substringToIndex:v10];
-        v12 = [(__CFString *)v3 substringFromIndex:v10];
-        uRLFragmentAllowedCharacterSet = [MEMORY[0x1E696AB08] URLFragmentAllowedCharacterSet];
-        v14 = [v12 stringByAddingPercentEncodingWithAllowedCharacters:uRLFragmentAllowedCharacterSet];
-
-        v15 = MEMORY[0x1E695DFF8];
-        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v11, v14];
-        v4 = [v15 URLWithString:v16];
-
-        if (!v4)
-        {
-LABEL_8:
           v17 = MEMORY[0x1E695DFF8];
-          uRLFragmentAllowedCharacterSet2 = [MEMORY[0x1E696AB08] URLFragmentAllowedCharacterSet];
-          v19 = [(__CFString *)v3 stringByAddingPercentEncodingWithAllowedCharacters:uRLFragmentAllowedCharacterSet2];
+          uRLFragmentAllowedCharacterSet = [MEMORY[0x1E696AB08] URLFragmentAllowedCharacterSet];
+          v19 = [(__CFString *)v3 stringByAddingPercentEncodingWithAllowedCharacters:uRLFragmentAllowedCharacterSet];
           v4 = [v17 URLWithString:v19];
         }
       }
@@ -251,41 +223,41 @@ LABEL_8:
 
 - (void)offsetRangeBy:(int64_t)by
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (by)
   {
     byCopy = by;
     range = [(DDScannerResult *)self range];
     v6 = range;
     v8 = v7;
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     if (range + byCopy < 0 != __OFADD__(range, byCopy))
     {
       byCopy = -range;
     }
 
+    v16 = 0uLL;
     v17 = 0uLL;
-    v18 = 0uLL;
     subResults = [(DDScannerResult *)self subResults];
-    v10 = [subResults countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [subResults countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(subResults);
           }
 
-          [*(*(&v15 + 1) + 8 * i) offsetRangeBy:byCopy];
+          [*(*(&v14 + 1) + 8 * i) offsetRangeBy:byCopy];
         }
 
-        v11 = [subResults countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [subResults countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
@@ -293,8 +265,6 @@ LABEL_8:
 
     [(DDScannerResult *)self setRange:byCopy + v6, v8];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithPlist:(id)plist
@@ -462,7 +432,7 @@ LABEL_8:
 
 - (id)_initWithWebKitPropertyListData:(id)data
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [dataCopy objectForKeyedSubscript:@"AR"];
   objc_opt_class();
@@ -512,28 +482,27 @@ LABEL_8:
             }
           }
 
-          v38 = v12;
-          v41 = 0u;
-          v42 = 0u;
+          v36 = v12;
           v39 = 0u;
           v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
           v17 = [dataCopy objectForKeyedSubscript:@"SR"];
-          v18 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v40;
+            v20 = *v38;
             while (2)
             {
               v21 = 0;
               do
               {
-                if (*v40 != v20)
+                if (*v38 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v39 + 1) + 8 * v21);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -545,7 +514,7 @@ LABEL_8:
               }
 
               while (v19 != v21);
-              v19 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
               if (v19)
               {
                 continue;
@@ -555,40 +524,24 @@ LABEL_8:
             }
           }
 
-          v23 = [dataCopy objectForKeyedSubscript:@"V"];
-          if (v23)
+          v22 = [dataCopy objectForKeyedSubscript:@"V"];
+          if (v22)
           {
-            v24 = v23;
-            v25 = [dataCopy objectForKeyedSubscript:@"V"];
+            v23 = v22;
+            v24 = [dataCopy objectForKeyedSubscript:@"V"];
             objc_opt_class();
-            v26 = objc_opt_isKindOfClass();
+            v25 = objc_opt_isKindOfClass();
 
-            if ((v26 & 1) == 0)
+            if ((v25 & 1) == 0)
             {
 LABEL_30:
               selfCopy = 0;
-              v12 = v38;
+              v12 = v36;
               goto LABEL_28;
             }
           }
 
-          v27 = [dataCopy objectForKeyedSubscript:@"C"];
-          v12 = v38;
-          if (v27)
-          {
-            v28 = v27;
-            v29 = [dataCopy objectForKeyedSubscript:@"C"];
-            objc_opt_class();
-            v30 = objc_opt_isKindOfClass();
-
-            if ((v30 & 1) == 0)
-            {
-              goto LABEL_27;
-            }
-          }
-
-          v31 = [dataCopy objectForKeyedSubscript:@"CF"];
-          if (!v31 || (v32 = v31, [dataCopy objectForKeyedSubscript:@"CF"], v33 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v34 = objc_opt_isKindOfClass(), v33, v32, (v34 & 1) != 0))
+          if (([dataCopy objectForKeyedSubscript:@"C"], v26 = objc_claimAutoreleasedReturnValue(), v12 = v36, !v26) || (v27 = v26, objc_msgSend(dataCopy, "objectForKeyedSubscript:", @"C"), v28 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v29 = objc_opt_isKindOfClass(), v28, v27, (v29)) && ((objc_msgSend(dataCopy, "objectForKeyedSubscript:", @"CF"), (v30 = objc_claimAutoreleasedReturnValue()) == 0) || (v31 = v30, objc_msgSend(dataCopy, "objectForKeyedSubscript:", @"CF"), v32 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v33 = objc_opt_isKindOfClass(), v32, v31, (v33)))
           {
             self = [(DDScannerResult *)self _initWithPlist:dataCopy];
             selfCopy = self;
@@ -611,7 +564,6 @@ LABEL_28:
   selfCopy = 0;
 LABEL_26:
 
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -956,27 +908,27 @@ LABEL_6:
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   subResults = [(DDScannerResult *)self subResults];
-  v6 = [subResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [subResults countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(subResults);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         type = [v9 type];
         v11 = [type isEqualToString:keyCopy];
 
@@ -987,7 +939,7 @@ LABEL_6:
         }
       }
 
-      v6 = [subResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [subResults countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -999,14 +951,12 @@ LABEL_6:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)setSubResults:(id)results
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   if (self->_subResultsCache != resultsCopy)
   {
@@ -1014,29 +964,29 @@ LABEL_11:
   }
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = resultsCopy;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        CFArrayAppendValue(Mutable, [*(*(&v13 + 1) + 8 * i) coreResult]);
+        CFArrayAppendValue(Mutable, [*(*(&v12 + 1) + 8 * i) coreResult]);
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -1044,8 +994,6 @@ LABEL_11:
 
   DDResultSetSubResults(self->_coreResult, Mutable);
   CFRelease(Mutable);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)subResults
@@ -1287,7 +1235,7 @@ LABEL_4:
   v2 = [(DDScannerResult *)&v5 init];
   if (v2)
   {
-    v3 = DDTypeRegister(&DDResultGetTypeID_typeID);
+    v3 = DDTypeRegister(&DDResultGetTypeID_typeID, &kDDResultContextClass);
     v2->_coreResult = DDTypeCreateInstance_(0, v3, 0x60uLL);
   }
 
@@ -1353,7 +1301,7 @@ LABEL_4:
 
 + (id)filterResults:(id)results forTypes:(unint64_t)types referenceDate:(id)date referenceTimeZone:(id)zone
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   dateCopy = date;
   zoneCopy = zone;
@@ -1362,48 +1310,46 @@ LABEL_4:
   {
     v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v13];
     v15 = [self shouldUrlifyBlockForTypes:types];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v24 = resultsCopy;
+    v23 = resultsCopy;
     v16 = resultsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v25 + 1) + 8 * i);
+          v21 = *(*(&v24 + 1) + 8 * i);
           if ((v15)[2](v15, [v21 coreResult], dateCopy, zoneCopy))
           {
             [v14 addObject:v21];
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v18);
     }
 
-    resultsCopy = v24;
+    resultsCopy = v23;
   }
 
   else
   {
     v14 = MEMORY[0x1E695E0F0];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1626,7 +1572,7 @@ LABEL_7:
   return v7;
 }
 
-uint64_t __42__DDScannerResult_coreResultsFromResults___block_invoke(uint64_t a1, void *a2)
+void *__42__DDScannerResult_coreResultsFromResults___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 coreResult];
   if (result)

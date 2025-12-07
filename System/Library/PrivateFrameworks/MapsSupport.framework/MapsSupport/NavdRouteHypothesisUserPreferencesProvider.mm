@@ -29,38 +29,37 @@
   if (v6)
   {
     v7 = objc_alloc_init(GEOTransitOptions);
-    v8 = NavigationConfig_DebugNavigationIncludeRealtimeUpdates[1];
     if (GEOConfigGetBOOL())
     {
       [v7 setRoutingBehavior:1];
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v9 = sub_10000DAEC(v6);
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v10)
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v8 = sub_10000DAEC(v6);
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v9)
     {
-      v11 = v10;
-      v12 = *v16;
+      v10 = v9;
+      v11 = *v15;
       do
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v16 != v12)
+          if (*v15 != v11)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          [v7 addAvoidedMode:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "integerValue", v15)}];
+          [v7 addAvoidedMode:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "integerValue", v14)}];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v11);
+      while (v10);
     }
   }
 

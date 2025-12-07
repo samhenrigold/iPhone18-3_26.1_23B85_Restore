@@ -69,7 +69,7 @@
 
 - (BOOL)isMuted
 {
-  if (!VCFeatureFlagManager_SessionBasedMutingEnabled())
+  if (!VCFeatureFlagManager_SessionBasedMutingEnabled(self))
   {
     return self->_muted;
   }
@@ -82,7 +82,7 @@
 - (void)setIsMuted:(BOOL)muted
 {
   self->_muted = muted;
-  if (VCFeatureFlagManager_SessionBasedMutingEnabled())
+  if (VCFeatureFlagManager_SessionBasedMutingEnabled(self))
   {
     [(VCAudioSession *)self->_audioSession setMicrophoneMuted:self->_muted];
   }
@@ -121,7 +121,7 @@
   v20 = __Block_byref_object_copy__13;
   v21 = __Block_byref_object_dispose__13;
   v22 = 0;
-  v5 = micro();
+  v5 = micro(self, a2);
   self->_lastAudioSessionStart = v5;
   if (self->_requestedSettings.isValid)
   {

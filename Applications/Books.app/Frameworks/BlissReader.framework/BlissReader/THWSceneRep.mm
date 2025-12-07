@@ -774,7 +774,7 @@ LABEL_13:
   v26 = [(THWFreeTransformableRepGestureTargetHandler *)[(THWSceneRep *)self freeTransformableHandler:v30] ftc];
   if (v26)
   {
-    [(THWFreeTransformController *)v26 originalShadowTransform];
+    objc_msgSend_originalShadowTransform(v26);
   }
 
   else
@@ -806,7 +806,7 @@ LABEL_13:
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWSceneRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -848,7 +848,7 @@ LABEL_13:
 {
   if ([(THWSceneRep *)self isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWSceneRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWSceneRep *)self freeTransformableHandler] ftc]);
   }
 
   else

@@ -277,8 +277,8 @@ LABEL_6:
 
   topLevelAXElement = [v6 topLevelAXElement];
   v8 = objc_opt_class();
-  children = [topLevelAXElement children];
-  v10 = TUIDynamicCast(v8, children);
+  v9 = objc_msgSend_children(topLevelAXElement);
+  v10 = TUIDynamicCast(v8, v9);
 
   v11 = [(TUIUIKitButton *)self _accessibilityGetAXElementMatchFromArray:v10];
   v12 = v11;
@@ -332,8 +332,8 @@ LABEL_6:
         else
         {
           v22 = objc_opt_class();
-          children = [v9 children];
-          v24 = TUIDynamicCast(v22, children);
+          v23 = objc_msgSend_children(v9);
+          v24 = TUIDynamicCast(v22, v23);
 
           v25 = [(TUIUIKitButton *)self _accessibilityGetAXElementMatchFromArray:v24];
 

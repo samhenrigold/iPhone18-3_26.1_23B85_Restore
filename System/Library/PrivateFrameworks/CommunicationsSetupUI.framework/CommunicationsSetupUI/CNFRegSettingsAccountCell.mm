@@ -50,10 +50,10 @@
 
 - (void)layoutSubviews
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = CNFRegSettingsAccountCell;
-  [(PSTableCell *)&v31 layoutSubviews];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = CNFRegSettingsAccountCell;
+  [(PSTableCell *)&v30 layoutSubviews];
   valueLabel = [(PSTableCell *)self valueLabel];
   text = [valueLabel text];
   v5 = text;
@@ -84,11 +84,11 @@
 
     [v18 setLineBreakMode:4];
     v19 = *MEMORY[0x277D74118];
-    v32[0] = *MEMORY[0x277D740A8];
-    v32[1] = v19;
-    v33[0] = font;
-    v33[1] = v18;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v31[0] = *MEMORY[0x277D740A8];
+    v31[1] = v19;
+    v32[0] = font;
+    v32[1] = v18;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
     v21 = objc_alloc_init(MEMORY[0x277D74260]);
     [font pointSize];
     [v21 setMinimumScaleFactor:14.0 / v22];
@@ -125,16 +125,14 @@
   [titleLabel setFrame:{v29, v26, v10, v15}];
   if (v6)
   {
-    v34.origin.x = v29;
-    v34.origin.y = v26;
-    v34.size.width = v10;
-    v34.size.height = v15;
-    v27 = CGRectGetMaxX(v34) + 4.0;
+    v33.origin.x = v29;
+    v33.origin.y = v26;
+    v33.size.width = v10;
+    v33.size.height = v15;
+    v27 = CGRectGetMaxX(v33) + 4.0;
   }
 
   [valueLabel setFrame:{v27, v26, v28, v15}];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

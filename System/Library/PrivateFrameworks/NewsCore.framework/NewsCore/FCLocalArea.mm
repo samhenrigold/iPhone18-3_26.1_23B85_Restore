@@ -27,13 +27,13 @@
 
 - (FCLocalArea)initWithIdentifier:(id)identifier bbox:(id)bbox regionIDs:(id)ds
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   bboxCopy = bbox;
   dsCopy = ds;
-  v39.receiver = self;
-  v39.super_class = FCLocalArea;
-  v11 = [(FCLocalArea *)&v39 init];
+  v36.receiver = self;
+  v36.super_class = FCLocalArea;
+  v11 = [(FCLocalArea *)&v36 init];
   v12 = v11;
   if (!v11)
   {
@@ -46,36 +46,36 @@
   v13 = bboxCopy;
   if ([v13 count] != 4)
   {
-    v32 = 0;
+    v30 = 0;
     goto LABEL_35;
   }
 
-  v42 = 0u;
-  v43 = 0u;
+  v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v14 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (!v14)
   {
-    v32 = 1;
+    v30 = 1;
     goto LABEL_34;
   }
 
   v15 = v14;
-  v37 = *v41;
+  v34 = *v38;
   v16 = 0x1E696A000uLL;
-  v35 = identifierCopy;
+  v32 = identifierCopy;
   while (2)
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v41 != v37)
+      if (*v38 != v34)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v40 + 1) + 8 * i);
+      v18 = *(*(&v37 + 1) + 8 * i);
       objc_opt_class();
       if (!v18 || (objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -83,8 +83,8 @@
 LABEL_32:
 
 LABEL_33:
-        v32 = 0;
-        identifierCopy = v35;
+        v30 = 0;
+        identifierCopy = v32;
         goto LABEL_34;
       }
 
@@ -94,73 +94,71 @@ LABEL_33:
         goto LABEL_32;
       }
 
-      v20 = *(v16 + 3480);
       objc_opt_class();
-      v21 = [v19 objectAtIndexedSubscript:0];
-      if (v21)
+      v20 = [v19 objectAtIndexedSubscript:0];
+      if (v20)
       {
         if (objc_opt_isKindOfClass())
         {
-          v22 = v21;
+          v21 = v20;
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v23 = v22;
+      v22 = v21;
 
-      v24 = v16;
-      v25 = *(v16 + 3480);
+      v23 = v16;
       objc_opt_class();
-      v26 = [v19 objectAtIndexedSubscript:1];
-      if (v26)
+      v24 = [v19 objectAtIndexedSubscript:1];
+      if (v24)
       {
         if (objc_opt_isKindOfClass())
         {
-          v27 = v26;
+          v25 = v24;
         }
 
         else
         {
-          v27 = 0;
+          v25 = 0;
         }
       }
 
       else
       {
-        v27 = 0;
+        v25 = 0;
       }
 
-      v28 = v27;
+      v26 = v25;
 
-      if (!v23 || !v28 || ([v23 doubleValue], fabs(v29) > 90.0))
+      if (!v22 || !v26 || ([v22 doubleValue], fabs(v27) > 90.0))
       {
 
         goto LABEL_32;
       }
 
-      [v28 doubleValue];
-      v31 = fabs(v30);
+      [v26 doubleValue];
+      v29 = fabs(v28);
 
-      if (v31 > 180.0)
+      if (v29 > 180.0)
       {
         goto LABEL_33;
       }
 
-      v16 = v24;
+      v16 = v23;
     }
 
-    v15 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-    v32 = 1;
-    identifierCopy = v35;
+    v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v30 = 1;
+    identifierCopy = v32;
     if (v15)
     {
       continue;
@@ -172,10 +170,9 @@ LABEL_33:
 LABEL_34:
 
 LABEL_35:
-  v12->_isBboxValid = v32;
+  v12->_isBboxValid = v30;
 LABEL_36:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

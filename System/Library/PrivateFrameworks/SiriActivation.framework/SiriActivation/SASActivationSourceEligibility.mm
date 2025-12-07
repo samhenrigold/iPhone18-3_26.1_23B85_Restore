@@ -53,13 +53,13 @@
 
 - (BOOL)shouldSystemOfferActivationForSource:(int64_t)source systemAssistantExperienceEnabled:(BOOL)enabled
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (source != 57 && source != 54)
   {
     if (source != 48)
     {
       LOBYTE(mEMORY[0x1E698D1C0]2) = 1;
-      goto LABEL_21;
+      return mEMORY[0x1E698D1C0]2;
     }
 
     if (enabled)
@@ -85,12 +85,12 @@
         LOBYTE(mEMORY[0x1E698D1C0]2) = 0;
       }
 
-      goto LABEL_21;
+      return mEMORY[0x1E698D1C0]2;
     }
 
 LABEL_12:
     LOBYTE(mEMORY[0x1E698D1C0]2) = 0;
-    goto LABEL_21;
+    return mEMORY[0x1E698D1C0]2;
   }
 
   v8 = AFDeviceSupportsVisualIntelligence();
@@ -99,11 +99,11 @@ LABEL_12:
     v12 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[SASActivationSourceEligibility shouldSystemOfferActivationForSource:systemAssistantExperienceEnabled:]";
-      v18 = 1024;
-      v19 = v8;
-      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation isVisualIntelligenceWidgetControlEnabled: %d", &v16, 0x12u);
+      v15 = 136315394;
+      v16 = "[SASActivationSourceEligibility shouldSystemOfferActivationForSource:systemAssistantExperienceEnabled:]";
+      v17 = 1024;
+      v18 = v8;
+      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation isVisualIntelligenceWidgetControlEnabled: %d", &v15, 0x12u);
     }
 
     LOBYTE(mEMORY[0x1E698D1C0]2) = v8;
@@ -124,22 +124,20 @@ LABEL_12:
     v11 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136316162;
-      v17 = "[SASActivationSourceEligibility shouldSystemOfferActivationForSource:systemAssistantExperienceEnabled:]";
-      v18 = 1024;
-      v19 = visualIntelligenceCameraControlEnabled & v8 & v9;
-      v20 = 1024;
-      v21 = v8;
-      v22 = 1024;
-      v23 = visualIntelligenceCameraControlEnabled;
-      v24 = 1024;
-      v25 = v9 & 1;
-      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation isVisualIntelligenceCameraControlLaunchEnabled: %d, isVisualIntelligenceSupported: %d, isCameraControlEnabled: %d, isAppleIntelligenceEnabled: %d", &v16, 0x24u);
+      v15 = 136316162;
+      v16 = "[SASActivationSourceEligibility shouldSystemOfferActivationForSource:systemAssistantExperienceEnabled:]";
+      v17 = 1024;
+      v18 = visualIntelligenceCameraControlEnabled & v8 & v9;
+      v19 = 1024;
+      v20 = v8;
+      v21 = 1024;
+      v22 = visualIntelligenceCameraControlEnabled;
+      v23 = 1024;
+      v24 = v9 & 1;
+      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation isVisualIntelligenceCameraControlLaunchEnabled: %d, isVisualIntelligenceSupported: %d, isCameraControlEnabled: %d, isAppleIntelligenceEnabled: %d", &v15, 0x24u);
     }
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x1E69E9840];
   return mEMORY[0x1E698D1C0]2;
 }
 

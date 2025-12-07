@@ -38,6 +38,7 @@
 - (void)_saveCloseRequestToCloudKitInOperationGroup:(id)group;
 - (void)_saveDeviceToCloudKitInOperationGroup:(id)group;
 - (void)_saveModifiedRecordsToSQLiteStoreInOperationGroup:(id)group;
+- (void)_saveNextRecordBatchCreatingCloudTabsZoneIfMissing:(BOOL)missing inOperationGroup:(id)group;
 - (void)_setServerChangeTokenInSQLiteStoreInOperationGroup:(id)group;
 - (void)_suspendFetchingQueue;
 - (void)_suspendSavingQueue;
@@ -147,28 +148,28 @@
 - (void)deleteDatabaseWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting the iCloud Tabs database", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deleting the iCloud Tabs database", buf, 2u);
   }
 
   ++self->_deletingDatabaseCount;
   cloudTabStore = self->_cloudTabStore;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000995B8;
-  v8[3] = &unk_100131990;
-  v8[4] = self;
-  v9 = handlerCopy;
-  v7 = handlerCopy;
-  [(CloudTabLocalStore *)cloudTabStore deleteDatabaseWithCompletionHandler:v8];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000995B8;
+  v9[3] = &unk_100131990;
+  v9[4] = self;
+  v10 = handlerCopy;
+  v8 = handlerCopy;
+  [(CloudTabLocalStore *)cloudTabStore deleteDatabaseWithCompletionHandler:v9];
 }
 
 - (void)userAccountChanged
 {
-  v3 = sub_100001B78();
+  v3 = sub_100001B78(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -192,33 +193,33 @@ LABEL_7:
   safari_primaryAppleAccount = [(ACAccountStore *)self->_accountStore safari_primaryAppleAccount];
   if (safari_primaryAppleAccount)
   {
-    v6 = safari_primaryAppleAccount;
-    v7 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
-    self->_dataclassEnabled = v7;
-    if ((v7 & 1) == 0)
+    v7 = safari_primaryAppleAccount;
+    v8 = [safari_primaryAppleAccount isEnabledForDataclass:kAccountDataclassBookmarks];
+    self->_dataclassEnabled = v8;
+    if ((v8 & 1) == 0)
     {
-      v8 = sub_100001B78();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100001B78(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
+        v11 = v10;
         safari_logDescription = [groupCopy safari_logDescription];
-        v16 = 138543362;
-        v17 = safari_logDescription;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "iCloud Tab syncing not available because Safari's dataclass isn't enabled with %{public}@", &v16, 0xCu);
+        v18 = 138543362;
+        v19 = safari_logDescription;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "iCloud Tab syncing not available because Safari's dataclass isn't enabled with %{public}@", &v18, 0xCu);
       }
     }
 
     goto LABEL_7;
   }
 
-  v13 = sub_100001B78();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100001B78(0, v6);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = v13;
+    v16 = v15;
     safari_logDescription2 = [groupCopy safari_logDescription];
-    v16 = 138543362;
-    v17 = safari_logDescription2;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "iCloud Tab syncing not available because user is not signed in with %{public}@", &v16, 0xCu);
+    v18 = 138543362;
+    v19 = safari_logDescription2;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "iCloud Tab syncing not available because user is not signed in with %{public}@", &v18, 0xCu);
   }
 
   dataclassEnabled = 0;
@@ -309,16 +310,17 @@ LABEL_8:
 - (void)_continueSavingTabsForCurrentDeviceInOperationGroup:(id)group
 {
   groupCopy = group;
-  if (![(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy])
+  v5 = [(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy];
+  if ((v5 & 1) == 0)
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v9 = v8;
       safari_logDescription = [groupCopy safari_logDescription];
-      v9 = 138543362;
-      v10 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopping save of tabs for current device with %{public}@", &v9, 0xCu);
+      v11 = 138543362;
+      v12 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping save of tabs for current device with %{public}@", &v11, 0xCu);
     }
 
     self->_tabSaveState = 5;
@@ -370,27 +372,27 @@ LABEL_11:
 - (void)_mergeDeviceIntoDeviceFromSQLiteStoreIfNecessaryInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v14 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Merging device with existing device in SQLite database, if necessary with %{public}@", buf, 0xCu);
+    v16 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Merging device with existing device in SQLite database, if necessary with %{public}@", buf, 0xCu);
   }
 
   fetchingQueue = self->_fetchingQueue;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10009A180;
-  v9[3] = &unk_100135748;
-  v9[4] = self;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10009A180;
+  v11[3] = &unk_100135748;
+  v11[4] = self;
+  v12 = groupCopy;
   v10 = groupCopy;
-  v8 = groupCopy;
-  objc_copyWeak(&v11, &location);
-  dispatch_async(fetchingQueue, v9);
-  objc_destroyWeak(&v11);
+  objc_copyWeak(&v13, &location);
+  dispatch_async(fetchingQueue, v11);
+  objc_destroyWeak(&v13);
 
   objc_destroyWeak(&location);
 }
@@ -398,69 +400,119 @@ LABEL_11:
 - (void)_saveDeviceToCloudKitInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
-    v12 = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving device to CloudKit with %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saving device to CloudKit with %{public}@", &v13, 0xCu);
   }
 
-  v8 = [(CloudTabSyncCoordinator *)self _changedRecordsForCloudTabDevice:self->_deviceToSave];
+  v9 = [(CloudTabSyncCoordinator *)self _changedRecordsForCloudTabDevice:self->_deviceToSave];
   recordsToSave = self->_recordsToSave;
-  self->_recordsToSave = v8;
+  self->_recordsToSave = v9;
 
   ct_green_tea_logger_create_static();
-  v10 = getCTGreenTeaOsLogHandle();
-  v11 = v10;
-  if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = getCTGreenTeaOsLogHandle();
+  v12 = v11;
+  if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Transmitted Internet Records", &v12, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Transmitted Internet Records", &v13, 2u);
   }
 
   [(CloudTabSyncCoordinator *)self _saveNextRecordBatchCreatingCloudTabsZoneIfMissing:1 inOperationGroup:groupCopy];
 }
 
-- (void)_deleteObsoleteTabRecordsFromCloudKitInOperationGroup:(id)group
+- (void)_saveNextRecordBatchCreatingCloudTabsZoneIfMissing:(BOOL)missing inOperationGroup:(id)group
 {
+  missingCopy = missing;
   groupCopy = group;
   objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  _nextRecordBatchToSave = [(CloudTabSyncCoordinator *)self _nextRecordBatchToSave];
+  v8 = [_nextRecordBatchToSave count];
+  if (v8)
   {
-    safari_logDescription = [groupCopy safari_logDescription];
-    *buf = 138543362;
-    v16 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting obsolete tab records from CloudKit with %{public}@", buf, 0xCu);
-  }
+    v10 = sub_100001B78(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = [_nextRecordBatchToSave count];
+      safari_logDescription = [groupCopy safari_logDescription];
+      *buf = 134218242;
+      v21 = v11;
+      v22 = 2114;
+      v23 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving iCloud Tab record batch of size: %zu with %{public}@", buf, 0x16u);
+    }
 
-  if ([(NSArray *)self->_uuidStringsOfTabsToDelete count])
-  {
-    v7 = [(CloudTabSyncCoordinator *)self _recordIDsFromUUIDStrings:self->_uuidStringsOfTabsToDelete];
     cloudRemoteStore = self->_cloudRemoteStore;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10009AE34;
-    v11[3] = &unk_100135798;
-    objc_copyWeak(&v13, &location);
-    v12 = groupCopy;
-    [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:v7 inOperationGroup:v12 completionHandler:v11];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10009AA04;
+    v16[3] = &unk_100135770;
+    objc_copyWeak(&v18, &location);
+    v17 = groupCopy;
+    [(CloudTabRemoteStore *)cloudRemoteStore saveCloudTabsRecordBatch:_nextRecordBatchToSave createCloudTabsZoneIfMissing:missingCopy inOperationGroup:v17 completionHandler:v16];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v18);
   }
 
   else
   {
-    v9 = sub_100001B78();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100001B78(0, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v16 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No obsolete tab records need to be deleted from CloudKit with %{public}@", buf, 0xCu);
+      v21 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Finished saving device to CloudKit with %{public}@", buf, 0xCu);
+    }
+
+    [(CloudTabSyncCoordinator *)self _continueSavingTabsForCurrentDeviceInOperationGroup:groupCopy];
+  }
+
+  objc_destroyWeak(&location);
+}
+
+- (void)_deleteObsoleteTabRecordsFromCloudKitInOperationGroup:(id)group
+{
+  groupCopy = group;
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    safari_logDescription = [groupCopy safari_logDescription];
+    *buf = 138543362;
+    v19 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting obsolete tab records from CloudKit with %{public}@", buf, 0xCu);
+  }
+
+  if ([(NSArray *)self->_uuidStringsOfTabsToDelete count])
+  {
+    v10 = [(CloudTabSyncCoordinator *)self _recordIDsFromUUIDStrings:self->_uuidStringsOfTabsToDelete];
+    cloudRemoteStore = self->_cloudRemoteStore;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10009AE34;
+    v14[3] = &unk_100135798;
+    objc_copyWeak(&v16, &location);
+    v15 = groupCopy;
+    [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:v10 inOperationGroup:v15 completionHandler:v14];
+
+    objc_destroyWeak(&v16);
+  }
+
+  else
+  {
+    v12 = sub_100001B78(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      safari_logDescription2 = [groupCopy safari_logDescription];
+      *buf = 138543362;
+      v19 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No obsolete tab records need to be deleted from CloudKit with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _continueSavingTabsForCurrentDeviceInOperationGroup:groupCopy];
@@ -472,40 +524,40 @@ LABEL_11:
 - (void)_updateSQLiteStoreFromCloudKitAfterSavingTabsInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after saving tabs with %{public}@", buf, 0xCu);
+    v15 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after saving tabs with %{public}@", buf, 0xCu);
   }
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10009B1A8;
-  v8[3] = &unk_100135798;
-  objc_copyWeak(&v10, &location);
-  v7 = groupCopy;
-  v9 = v7;
-  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v7 withCompletionHandler:v8];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10009B1A8;
+  v10[3] = &unk_100135798;
+  objc_copyWeak(&v12, &location);
+  v9 = groupCopy;
+  v11 = v9;
+  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v9 withCompletionHandler:v10];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
 - (void)_finishedSavingDeviceInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v18 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished saving tabs for the current device to CloudKit with %{public}@", buf, 0xCu);
+    v19 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished saving tabs for the current device to CloudKit with %{public}@", buf, 0xCu);
   }
 
   self->_tabSaveState = 0;
@@ -521,26 +573,26 @@ LABEL_11:
   uuidStringsOfTabsToDelete = self->_uuidStringsOfTabsToDelete;
   self->_uuidStringsOfTabsToDelete = 0;
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10009B570;
-  v16[3] = &unk_100131408;
-  v16[4] = self;
-  v12 = objc_retainBlock(v16);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10009B570;
+  v17[3] = &unk_100131408;
+  v17[4] = self;
+  v13 = objc_retainBlock(v17);
   if ([(CloudTabSyncCoordinator *)self _canCloseCloudTabStoreDatabase])
   {
     cloudTabStore = self->_cloudTabStore;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10009B614;
-    v14[3] = &unk_100131628;
-    v15 = v12;
-    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v14];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10009B614;
+    v15[3] = &unk_100131628;
+    v16 = v13;
+    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v15];
   }
 
   else
   {
-    (v12[2])(v12);
+    (v13[2])(v13);
   }
 }
 
@@ -712,7 +764,8 @@ LABEL_6:
 - (void)_continueSavingCloseRequestInOperationGroup:(id)group
 {
   groupCopy = group;
-  if ([(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy])
+  v5 = [(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy];
+  if (v5)
   {
     closeRequestSaveState = self->_closeRequestSaveState + 1;
     self->_closeRequestSaveState = closeRequestSaveState;
@@ -720,20 +773,20 @@ LABEL_6:
 
   else
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v9 = v8;
       safari_logDescription = [groupCopy safari_logDescription];
-      v11 = 138543362;
-      v12 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopping save of close requests with %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping save of close requests with %{public}@", &v13, 0xCu);
     }
 
     self->_closeRequestSaveState = 3;
-    v9 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
+    v11 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
     saveCloseRequestError = self->_saveCloseRequestError;
-    self->_saveCloseRequestError = v9;
+    self->_saveCloseRequestError = v11;
 
     closeRequestSaveState = self->_closeRequestSaveState;
   }
@@ -755,98 +808,98 @@ LABEL_6:
 - (void)_saveCloseRequestToCloudKitInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v17 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving close request to CloudKit with %{public}@", buf, 0xCu);
+    v18 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saving close request to CloudKit with %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   cloudRemoteStore = self->_cloudRemoteStore;
   record = [(CloudTabCloseRequest *)self->_closeRequestToSave record];
-  v15 = record;
-  v10 = [NSArray arrayWithObjects:&v15 count:1];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_10009C2F4;
-  v12[3] = &unk_100135770;
-  objc_copyWeak(&v14, buf);
-  v11 = groupCopy;
-  v13 = v11;
-  [(CloudTabRemoteStore *)cloudRemoteStore saveCloudTabsRecordBatch:v10 createCloudTabsZoneIfMissing:0 inOperationGroup:v11 completionHandler:v12];
+  v16 = record;
+  v11 = [NSArray arrayWithObjects:&v16 count:1];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10009C2F4;
+  v13[3] = &unk_100135770;
+  objc_copyWeak(&v15, buf);
+  v12 = groupCopy;
+  v14 = v12;
+  [(CloudTabRemoteStore *)cloudRemoteStore saveCloudTabsRecordBatch:v11 createCloudTabsZoneIfMissing:0 inOperationGroup:v12 completionHandler:v13];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 
 - (void)_updateSQLiteStoreFromCloudKitAfterSavingCloseRequestInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after saving close request with %{public}@", buf, 0xCu);
+    v14 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after saving close request with %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10009C66C;
-  v9[3] = &unk_100135798;
-  objc_copyWeak(&v11, buf);
-  v8 = groupCopy;
-  v10 = v8;
-  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v8 withCompletionHandler:v9];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10009C66C;
+  v10[3] = &unk_100135798;
+  objc_copyWeak(&v12, buf);
+  v9 = groupCopy;
+  v11 = v9;
+  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v9 withCompletionHandler:v10];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
 }
 
 - (void)_finishedSavingCloseRequestInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v15 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished saving close request to CloudKit with %{public}@", buf, 0xCu);
+    v16 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished saving close request to CloudKit with %{public}@", buf, 0xCu);
   }
 
   self->_closeRequestSaveState = 0;
   closeRequestToSave = self->_closeRequestToSave;
   self->_closeRequestToSave = 0;
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10009CA10;
-  v13[3] = &unk_100131408;
-  v13[4] = self;
-  v9 = objc_retainBlock(v13);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10009CA10;
+  v14[3] = &unk_100131408;
+  v14[4] = self;
+  v10 = objc_retainBlock(v14);
   if ([(CloudTabSyncCoordinator *)self _canCloseCloudTabStoreDatabase])
   {
     cloudTabStore = self->_cloudTabStore;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10009CAB4;
-    v11[3] = &unk_100131628;
-    v12 = v9;
-    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10009CAB4;
+    v12[3] = &unk_100131628;
+    v13 = v10;
+    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v12];
   }
 
   else
   {
-    (v9[2])(v9);
+    (v10[2])(v10);
   }
 }
 
@@ -892,16 +945,17 @@ LABEL_6:
 - (void)_continueFetchingTabsInOperationGroup:(id)group
 {
   groupCopy = group;
-  if (self->_fetchError || ![(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy])
+  v6 = groupCopy;
+  if (self->_fetchError || (groupCopy = [(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy], (groupCopy & 1) == 0))
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(groupCopy, v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
-      safari_logDescription = [groupCopy safari_logDescription];
-      v11 = 138543362;
-      v12 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopping fetch of tabs with %{public}@", &v11, 0xCu);
+      v9 = v8;
+      safari_logDescription = [v6 safari_logDescription];
+      v13 = 138543362;
+      v14 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping fetch of tabs with %{public}@", &v13, 0xCu);
     }
 
     fetchedDevices = self->_fetchedDevices;
@@ -922,12 +976,12 @@ LABEL_6:
     {
       if (fetchState == 3)
       {
-        [(CloudTabSyncCoordinator *)self _saveModifiedRecordsToSQLiteStoreInOperationGroup:groupCopy];
+        [(CloudTabSyncCoordinator *)self _saveModifiedRecordsToSQLiteStoreInOperationGroup:v6];
       }
 
       else
       {
-        [(CloudTabSyncCoordinator *)self _setServerChangeTokenInSQLiteStoreInOperationGroup:groupCopy];
+        [(CloudTabSyncCoordinator *)self _setServerChangeTokenInSQLiteStoreInOperationGroup:v6];
       }
 
       goto LABEL_11;
@@ -935,7 +989,7 @@ LABEL_6:
 
     if (fetchState == 5)
     {
-      [(CloudTabSyncCoordinator *)self _loadDevicesAndTabsFromSQLiteStoreInOperationGroup:groupCopy];
+      [(CloudTabSyncCoordinator *)self _loadDevicesAndTabsFromSQLiteStoreInOperationGroup:v6];
       goto LABEL_11;
     }
 
@@ -945,7 +999,7 @@ LABEL_6:
     }
 
 LABEL_10:
-    [(CloudTabSyncCoordinator *)self _finishedFetchingInOperationGroup:groupCopy];
+    [(CloudTabSyncCoordinator *)self _finishedFetchingInOperationGroup:v6];
     goto LABEL_11;
   }
 
@@ -953,18 +1007,18 @@ LABEL_10:
   {
     if (fetchState == 1)
     {
-      [(CloudTabSyncCoordinator *)self _fetchChangesFromCloudKitCreatingCloudTabsZoneIfMissing:1 inOperationGroup:groupCopy];
+      [(CloudTabSyncCoordinator *)self _fetchChangesFromCloudKitCreatingCloudTabsZoneIfMissing:1 inOperationGroup:v6];
     }
 
     else if (fetchState == 2)
     {
-      [(CloudTabSyncCoordinator *)self _removeDeletedRecordsFromSQLiteStoreInOperationGroup:groupCopy];
+      [(CloudTabSyncCoordinator *)self _removeDeletedRecordsFromSQLiteStoreInOperationGroup:v6];
     }
   }
 
   else
   {
-    [(CloudTabSyncCoordinator *)self _getServerChangeTokenFromSQLiteStoreInOperationGroup:groupCopy];
+    [(CloudTabSyncCoordinator *)self _getServerChangeTokenFromSQLiteStoreInOperationGroup:v6];
   }
 
 LABEL_11:
@@ -973,112 +1027,112 @@ LABEL_11:
 - (void)_deleteDatabaseAndRestartFetchInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deleting database and restarting fetch with %{public}@", buf, 0xCu);
+    v14 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting database and restarting fetch with %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10009D3C0;
-  v9[3] = &unk_100132420;
-  objc_copyWeak(&v11, buf);
-  v8 = groupCopy;
-  v10 = v8;
-  [(CloudTabSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v9];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10009D3C0;
+  v10[3] = &unk_100132420;
+  objc_copyWeak(&v12, buf);
+  v9 = groupCopy;
+  v11 = v9;
+  [(CloudTabSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v10];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
 }
 
 - (void)_getServerChangeTokenFromSQLiteStoreInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v14 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Reading server change token from SQLite with %{public}@", buf, 0xCu);
+    v15 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Reading server change token from SQLite with %{public}@", buf, 0xCu);
   }
 
   [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:0];
   objc_initWeak(buf, self);
   cloudTabStore = self->_cloudTabStore;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10009D62C;
-  v10[3] = &unk_1001357C0;
-  objc_copyWeak(&v12, buf);
-  v9 = groupCopy;
-  v11 = v9;
-  [(CloudTabLocalStore *)cloudTabStore getServerChangeTokenDataWithCompletionHandler:v10];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10009D62C;
+  v11[3] = &unk_1001357C0;
+  objc_copyWeak(&v13, buf);
+  v10 = groupCopy;
+  v12 = v10;
+  [(CloudTabLocalStore *)cloudTabStore getServerChangeTokenDataWithCompletionHandler:v11];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
 }
 
 - (void)_fetchChangesFromCloudKitCreatingCloudTabsZoneIfMissing:(BOOL)missing inOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v9 = sub_100001B78(inited, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v30 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit with %{public}@", buf, 0xCu);
+    v32 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit with %{public}@", buf, 0xCu);
   }
 
-  v9 = +[NSMutableArray array];
-  modifiedDevices = self->_modifiedDevices;
-  self->_modifiedDevices = v9;
-
   v11 = +[NSMutableArray array];
-  modifiedTabs = self->_modifiedTabs;
-  self->_modifiedTabs = v11;
+  modifiedDevices = self->_modifiedDevices;
+  self->_modifiedDevices = v11;
 
   v13 = +[NSMutableArray array];
-  modifiedCloseRequests = self->_modifiedCloseRequests;
-  self->_modifiedCloseRequests = v13;
+  modifiedTabs = self->_modifiedTabs;
+  self->_modifiedTabs = v13;
 
   v15 = +[NSMutableArray array];
+  modifiedCloseRequests = self->_modifiedCloseRequests;
+  self->_modifiedCloseRequests = v15;
+
+  v17 = +[NSMutableArray array];
   namesOfDeletedRecords = self->_namesOfDeletedRecords;
-  self->_namesOfDeletedRecords = v15;
+  self->_namesOfDeletedRecords = v17;
 
   cloudRemoteStore = self->_cloudRemoteStore;
   serverChangeToken = self->_serverChangeToken;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10009DE08;
-  v26[3] = &unk_100134AC8;
-  v26[4] = self;
-  v27 = groupCopy;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_10009DEC8;
-  v25[3] = &unk_100132560;
-  v25[4] = self;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_10009DFBC;
-  v20[3] = &unk_100135810;
-  v19 = v27;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10009DE08;
+  v28[3] = &unk_100134AC8;
+  v28[4] = self;
+  v29 = groupCopy;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10009DEC8;
+  v27[3] = &unk_100132560;
+  v27[4] = self;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10009DFBC;
+  v22[3] = &unk_100135810;
+  v21 = v29;
   missingCopy = missing;
-  v21 = v19;
+  v23 = v21;
   selfCopy = self;
-  objc_copyWeak(&v23, &location);
-  [(CloudTabRemoteStore *)cloudRemoteStore fetchCloudTabsRecordChangesSinceServerChangeToken:serverChangeToken inOperationGroup:v19 recordChangedBlock:v26 recordWithIDWasDeletedBlock:v25 completionHandler:v20];
-  objc_destroyWeak(&v23);
+  objc_copyWeak(&v25, &location);
+  [(CloudTabRemoteStore *)cloudRemoteStore fetchCloudTabsRecordChangesSinceServerChangeToken:serverChangeToken inOperationGroup:v21 recordChangedBlock:v28 recordWithIDWasDeletedBlock:v27 completionHandler:v22];
+  objc_destroyWeak(&v25);
 
   objc_destroyWeak(&location);
 }
@@ -1087,11 +1141,11 @@ LABEL_11:
 {
   errorCopy = error;
   groupCopy = group;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (errorCopy)
   {
-    v9 = sub_100001B78();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100001B78(inited, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [errorCopy safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
@@ -1101,26 +1155,26 @@ LABEL_11:
     }
 
     objc_storeStrong(&self->_fetchError, error);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10009E6B8;
-    v12[3] = &unk_100132420;
-    objc_copyWeak(&v14, &location);
-    v13 = groupCopy;
-    [(CloudTabSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v12];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10009E6B8;
+    v14[3] = &unk_100132420;
+    objc_copyWeak(&v16, &location);
+    v15 = groupCopy;
+    [(CloudTabSyncCoordinator *)self deleteDatabaseWithCompletionHandler:v14];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100001B78(inited, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v17 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit again after creating CloudTabs zone with %{public}@", buf, 0xCu);
+      v19 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Fetching changes from CloudKit again after creating CloudTabs zone with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _fetchChangesFromCloudKitCreatingCloudTabsZoneIfMissing:0 inOperationGroup:groupCopy];
@@ -1133,43 +1187,44 @@ LABEL_11:
 {
   groupCopy = group;
   objc_initWeak(&location, self);
-  if ([(NSMutableArray *)self->_namesOfDeletedRecords count])
+  v5 = [(NSMutableArray *)self->_namesOfDeletedRecords count];
+  if (v5)
   {
-    v5 = sub_100001B78();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [(NSMutableArray *)self->_namesOfDeletedRecords count];
+      v8 = [(NSMutableArray *)self->_namesOfDeletedRecords count];
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 134218242;
-      v17 = v6;
-      v18 = 2114;
-      v19 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing %lu deleted records from SQLite with %{public}@", buf, 0x16u);
+      v19 = v8;
+      v20 = 2114;
+      v21 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removing %lu deleted records from SQLite with %{public}@", buf, 0x16u);
     }
 
     [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:0];
     cloudTabStore = self->_cloudTabStore;
     namesOfDeletedRecords = self->_namesOfDeletedRecords;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10009E960;
-    v12[3] = &unk_100135838;
-    objc_copyWeak(&v14, &location);
-    v13 = groupCopy;
-    [(CloudTabLocalStore *)cloudTabStore deleteRecordsWithPrimaryKeys:namesOfDeletedRecords completionHandler:v12];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10009E960;
+    v14[3] = &unk_100135838;
+    objc_copyWeak(&v16, &location);
+    v15 = groupCopy;
+    [(CloudTabLocalStore *)cloudTabStore deleteRecordsWithPrimaryKeys:namesOfDeletedRecords completionHandler:v14];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
-    v10 = sub_100001B78();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100001B78(0, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v17 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "No records to delete from SQLite with %{public}@", buf, 0xCu);
+      v19 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No records to delete from SQLite with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _continueFetchingTabsInOperationGroup:groupCopy];
@@ -1182,24 +1237,25 @@ LABEL_11:
 {
   groupCopy = group;
   objc_initWeak(&location, self);
-  if ([(NSMutableArray *)self->_modifiedDevices count]|| [(NSMutableArray *)self->_modifiedTabs count]|| [(NSMutableArray *)self->_modifiedCloseRequests count])
+  v5 = [(NSMutableArray *)self->_modifiedDevices count];
+  if (v5 || (v5 = [(NSMutableArray *)self->_modifiedTabs count]) != 0 || (v5 = [(NSMutableArray *)self->_modifiedCloseRequests count]) != 0)
   {
-    v5 = sub_100001B78();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [(NSMutableArray *)self->_modifiedDevices count];
-      v7 = [(NSMutableArray *)self->_modifiedTabs count];
-      v8 = [(NSMutableArray *)self->_modifiedCloseRequests count];
+      v8 = [(NSMutableArray *)self->_modifiedDevices count];
+      v9 = [(NSMutableArray *)self->_modifiedTabs count];
+      v10 = [(NSMutableArray *)self->_modifiedCloseRequests count];
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 134218754;
-      v21 = v6;
-      v22 = 2048;
-      v23 = v7;
+      v23 = v8;
       v24 = 2048;
-      v25 = v8;
-      v26 = 2114;
-      v27 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving %zu device records, %zu tab records, and %zu close requests to SQLite with %{public}@", buf, 0x2Au);
+      v25 = v9;
+      v26 = 2048;
+      v27 = v10;
+      v28 = 2114;
+      v29 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saving %zu device records, %zu tab records, and %zu close requests to SQLite with %{public}@", buf, 0x2Au);
     }
 
     [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:0];
@@ -1207,26 +1263,26 @@ LABEL_11:
     modifiedDevices = self->_modifiedDevices;
     modifiedTabs = self->_modifiedTabs;
     modifiedCloseRequests = self->_modifiedCloseRequests;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10009EDEC;
-    v16[3] = &unk_100135838;
-    objc_copyWeak(&v18, &location);
-    v17 = groupCopy;
-    [(CloudTabLocalStore *)cloudTabStore saveCloudTabDevices:modifiedDevices tabs:modifiedTabs closeRequests:modifiedCloseRequests completionHandler:v16];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10009EDEC;
+    v18[3] = &unk_100135838;
+    objc_copyWeak(&v20, &location);
+    v19 = groupCopy;
+    [(CloudTabLocalStore *)cloudTabStore saveCloudTabDevices:modifiedDevices tabs:modifiedTabs closeRequests:modifiedCloseRequests completionHandler:v18];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
   }
 
   else
   {
-    v14 = sub_100001B78();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100001B78(0, v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v21 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No modified devices, tab records, or close requests to save to SQLite with %{public}@", buf, 0xCu);
+      v23 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No modified devices, tab records, or close requests to save to SQLite with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _continueFetchingTabsInOperationGroup:groupCopy];
@@ -1238,28 +1294,29 @@ LABEL_11:
 - (void)_setServerChangeTokenInSQLiteStoreInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v19 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving server change token to SQLite with %{public}@", buf, 0xCu);
+    v23 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Saving server change token to SQLite with %{public}@", buf, 0xCu);
   }
 
   serverChangeToken = self->_serverChangeToken;
   if (serverChangeToken)
   {
-    v16 = 0;
-    v8 = [NSKeyedArchiver archivedDataWithRootObject:serverChangeToken requiringSecureCoding:1 error:&v16];
-    v9 = v16;
-    if (v9)
+    v20 = 0;
+    v10 = [NSKeyedArchiver archivedDataWithRootObject:serverChangeToken requiringSecureCoding:1 error:&v20];
+    v11 = v20;
+    v13 = v11;
+    if (v11)
     {
-      v10 = sub_1000D22B4();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = sub_1000D22B4(v11, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [v9 safari_privacyPreservingDescription];
+        [v13 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
         [groupCopy safari_logDescription];
         objc_claimAutoreleasedReturnValue();
@@ -1270,37 +1327,37 @@ LABEL_11:
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:0];
   cloudTabStore = self->_cloudTabStore;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10009F284;
-  v13[3] = &unk_100135838;
-  objc_copyWeak(&v15, &location);
-  v12 = groupCopy;
-  v14 = v12;
-  [(CloudTabLocalStore *)cloudTabStore setServerChangeTokenData:v8 completionHandler:v13];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10009F284;
+  v17[3] = &unk_100135838;
+  objc_copyWeak(&v19, &location);
+  v16 = groupCopy;
+  v18 = v16;
+  [(CloudTabLocalStore *)cloudTabStore setServerChangeTokenData:v10 completionHandler:v17];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
 - (void)_loadDevicesAndTabsFromSQLiteStoreInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (self->_fetchOperationType == 2)
   {
-    v5 = sub_100001B78();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100001B78(inited, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v15 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Skipping loading devices, tabs, and close requests from SQLite with %{public}@", buf, 0xCu);
+      v17 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Skipping loading devices, tabs, and close requests from SQLite with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _continueFetchingTabsInOperationGroup:groupCopy];
@@ -1308,26 +1365,26 @@ LABEL_11:
 
   else
   {
-    v7 = sub_100001B78();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100001B78(inited, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v15 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Loading devices, tabs, and close requests from SQLite with %{public}@", buf, 0xCu);
+      v17 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Loading devices, tabs, and close requests from SQLite with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:0];
     cloudTabStore = self->_cloudTabStore;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10009F6D0;
-    v10[3] = &unk_100135888;
-    objc_copyWeak(&v12, &location);
-    v11 = groupCopy;
-    [(CloudTabLocalStore *)cloudTabStore loadCloudTabDataWithCompletionHandler:v10];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10009F6D0;
+    v12[3] = &unk_100135888;
+    objc_copyWeak(&v14, &location);
+    v13 = groupCopy;
+    [(CloudTabLocalStore *)cloudTabStore loadCloudTabDataWithCompletionHandler:v12];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v14);
   }
 
   objc_destroyWeak(&location);
@@ -1336,14 +1393,14 @@ LABEL_11:
 - (void)_finishedFetchingInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v23 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished fetching iCloud Tab data from CloudKit with %{public}@", buf, 0xCu);
+    v24 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished fetching iCloud Tab data from CloudKit with %{public}@", buf, 0xCu);
   }
 
   self->_fetchState = 0;
@@ -1363,32 +1420,32 @@ LABEL_11:
   namesOfDeletedRecords = self->_namesOfDeletedRecords;
   self->_namesOfDeletedRecords = 0;
 
-  v13 = self->_fetchError;
+  v14 = self->_fetchError;
   fetchError = self->_fetchError;
   self->_fetchError = 0;
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_10009FB30;
-  v20[3] = &unk_1001314F8;
-  v20[4] = self;
-  v15 = v13;
-  v21 = v15;
-  v16 = objc_retainBlock(v20);
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10009FB30;
+  v21[3] = &unk_1001314F8;
+  v21[4] = self;
+  v16 = v14;
+  v22 = v16;
+  v17 = objc_retainBlock(v21);
   if ([(CloudTabSyncCoordinator *)self _canCloseCloudTabStoreDatabase])
   {
     cloudTabStore = self->_cloudTabStore;
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10009FC50;
-    v18[3] = &unk_100131628;
-    v19 = v16;
-    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v18];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10009FC50;
+    v19[3] = &unk_100131628;
+    v20 = v17;
+    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v19];
   }
 
   else
   {
-    (v16[2])(v16);
+    (v17[2])(v17);
   }
 }
 
@@ -1398,13 +1455,13 @@ LABEL_11:
   groupCopy = group;
   if ([recordCopy safari_isCloudTabDeviceRecord])
   {
-    v8 = [CloudTabDevice cloudTabDeviceWithCKRecord:recordCopy isManateeContainer:[(CloudTabRemoteStore *)self->_cloudRemoteStore usesManateeContainer]];
-    if (!v8)
+    v9 = [CloudTabDevice cloudTabDeviceWithCKRecord:recordCopy isManateeContainer:[(CloudTabRemoteStore *)self->_cloudRemoteStore usesManateeContainer]];
+    if (!v9)
     {
-      v10 = sub_100001B78();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v15 = sub_100001B78(0, v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3E20(v10);
+        sub_1000A3E20(v15);
       }
 
       goto LABEL_19;
@@ -1412,7 +1469,7 @@ LABEL_11:
 
     modifiedDevices = self->_modifiedDevices;
 LABEL_10:
-    [(NSMutableArray *)modifiedDevices addObject:v8];
+    [(NSMutableArray *)modifiedDevices addObject:v9];
 LABEL_19:
 
     goto LABEL_20;
@@ -1420,13 +1477,13 @@ LABEL_19:
 
   if ([recordCopy safari_isCloudTabRecord])
   {
-    v8 = [CloudTab cloudTabWithCKRecord:recordCopy isManateeContainer:[(CloudTabRemoteStore *)self->_cloudRemoteStore usesManateeContainer]];
-    if (!v8)
+    v9 = [CloudTab cloudTabWithCKRecord:recordCopy isManateeContainer:[(CloudTabRemoteStore *)self->_cloudRemoteStore usesManateeContainer]];
+    if (!v9)
     {
-      v12 = sub_100001B78();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v17 = sub_100001B78(0, v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3D88(v12);
+        sub_1000A3D88(v17);
       }
 
       goto LABEL_19;
@@ -1436,15 +1493,16 @@ LABEL_19:
     goto LABEL_10;
   }
 
-  if ([recordCopy safari_isCloudTabCloseRequestRecord])
+  safari_isCloudTabCloseRequestRecord = [recordCopy safari_isCloudTabCloseRequestRecord];
+  if (safari_isCloudTabCloseRequestRecord)
   {
-    v8 = [CloudTabCloseRequest cloudTabCloseRequestWithCKRecord:recordCopy];
-    if (!v8)
+    v9 = [CloudTabCloseRequest cloudTabCloseRequestWithCKRecord:recordCopy];
+    if (!v9)
     {
-      v13 = sub_100001B78();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v18 = sub_100001B78(0, v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3CF0(v13);
+        sub_1000A3CF0(v18);
       }
 
       goto LABEL_19;
@@ -1454,8 +1512,8 @@ LABEL_19:
     goto LABEL_10;
   }
 
-  v11 = sub_100001B78();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v16 = sub_100001B78(safari_isCloudTabCloseRequestRecord, v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_1000A3C48();
   }
@@ -1483,40 +1541,40 @@ LABEL_20:
   stringsCopy = strings;
   handlerCopy = handler;
   v8 = [(CloudRemoteStore *)self->_cloudRemoteStore createOperationGroupWithName:@"Cloud Tab Devices Deleting" qualityOfService:-1 xpcActivity:0];
-  v9 = sub_100001B78();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100001B78(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v9;
+    v11 = v10;
     safari_logDescription = [v8 safari_logDescription];
     *buf = 138543362;
-    v21 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Deleting devices from CloudKit with %{public}@", buf, 0xCu);
+    v23 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Deleting devices from CloudKit with %{public}@", buf, 0xCu);
   }
 
   if ([stringsCopy count])
   {
     savingQueue = self->_savingQueue;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000A0128;
-    v16[3] = &unk_100132EA8;
-    v16[4] = self;
-    v19 = handlerCopy;
-    v17 = stringsCopy;
-    v18 = v8;
-    dispatch_async(savingQueue, v16);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000A0128;
+    v18[3] = &unk_100132EA8;
+    v18[4] = self;
+    v21 = handlerCopy;
+    v19 = stringsCopy;
+    v20 = v8;
+    dispatch_async(savingQueue, v18);
   }
 
   else
   {
-    v13 = sub_100001B78();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100001B78(0, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
+      v16 = v15;
       safari_logDescription2 = [v8 safari_logDescription];
       *buf = 138543362;
-      v21 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No devices to delete with %{public}@", buf, 0xCu);
+      v23 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No devices to delete with %{public}@", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -1526,7 +1584,8 @@ LABEL_20:
 - (void)_continueDeletingDevicesInOperationGroup:(id)group
 {
   groupCopy = group;
-  if ([(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy])
+  v5 = [(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy];
+  if (v5)
   {
     deleteDeviceState = self->_deleteDeviceState + 1;
     self->_deleteDeviceState = deleteDeviceState;
@@ -1534,20 +1593,20 @@ LABEL_20:
 
   else
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v9 = v8;
       safari_logDescription = [groupCopy safari_logDescription];
-      v11 = 138543362;
-      v12 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopping deletion of device records with %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping deletion of device records with %{public}@", &v13, 0xCu);
     }
 
     self->_deleteDeviceState = 3;
-    v9 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
+    v11 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
     deleteDeviceError = self->_deleteDeviceError;
-    self->_deleteDeviceError = v9;
+    self->_deleteDeviceError = v11;
 
     deleteDeviceState = self->_deleteDeviceState;
   }
@@ -1571,15 +1630,16 @@ LABEL_20:
   groupCopy = group;
   objc_initWeak(&location, self);
   indexOfDeviceBeingDeleted = self->_indexOfDeviceBeingDeleted;
-  if (indexOfDeviceBeingDeleted == [(NSArray *)self->_deviceUUIDStringsToDelete count])
+  v6 = [(NSArray *)self->_deviceUUIDStringsToDelete count];
+  if (indexOfDeviceBeingDeleted == v6)
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v23 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished deleting device records from CloudKit with %{public}@", buf, 0xCu);
+      v25 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Finished deleting device records from CloudKit with %{public}@", buf, 0xCu);
     }
 
     [(CloudTabSyncCoordinator *)self _continueDeletingDevicesInOperationGroup:groupCopy];
@@ -1587,34 +1647,34 @@ LABEL_20:
 
   else
   {
-    v8 = sub_100001B78();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100001B78(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       safari_logDescription2 = [groupCopy safari_logDescription];
       *buf = 138543362;
-      v23 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Deleting next device record from CloudKit with %{public}@", buf, 0xCu);
+      v25 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Deleting next device record from CloudKit with %{public}@", buf, 0xCu);
     }
 
     deviceUUIDStringsToDelete = self->_deviceUUIDStringsToDelete;
     ++self->_indexOfDeviceBeingDeleted;
-    v11 = [(NSArray *)deviceUUIDStringsToDelete objectAtIndexedSubscript:?];
-    v21 = v11;
-    v12 = [NSArray arrayWithObjects:&v21 count:1];
-    v13 = [(CloudTabSyncCoordinator *)self _recordIDsFromUUIDStrings:v12];
+    v13 = [(NSArray *)deviceUUIDStringsToDelete objectAtIndexedSubscript:?];
+    v23 = v13;
+    v14 = [NSArray arrayWithObjects:&v23 count:1];
+    v15 = [(CloudTabSyncCoordinator *)self _recordIDsFromUUIDStrings:v14];
 
     cloudRemoteStore = self->_cloudRemoteStore;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000A06CC;
-    v16[3] = &unk_1001349B8;
-    objc_copyWeak(&v19, &location);
-    v17 = groupCopy;
-    v15 = v11;
-    v18 = v15;
-    [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:v13 inOperationGroup:v17 completionHandler:v16];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000A06CC;
+    v18[3] = &unk_1001349B8;
+    objc_copyWeak(&v21, &location);
+    v19 = groupCopy;
+    v17 = v13;
+    v20 = v17;
+    [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:v15 inOperationGroup:v19 completionHandler:v18];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
   }
 
   objc_destroyWeak(&location);
@@ -1664,40 +1724,40 @@ LABEL_20:
 - (void)_updateSQLiteStoreFromCloudKitAfterDeletingDeviceRecordsInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after deleting device records with %{public}@", buf, 0xCu);
+    v15 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after deleting device records with %{public}@", buf, 0xCu);
   }
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000A1450;
-  v8[3] = &unk_100135798;
-  objc_copyWeak(&v10, &location);
-  v7 = groupCopy;
-  v9 = v7;
-  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v7 withCompletionHandler:v8];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000A1450;
+  v10[3] = &unk_100135798;
+  objc_copyWeak(&v12, &location);
+  v9 = groupCopy;
+  v11 = v9;
+  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v9 withCompletionHandler:v10];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
 - (void)_finishedDeletingDeviceRecordsInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v15 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished deleting device records from CloudKit with %{public}@", buf, 0xCu);
+    v16 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished deleting device records from CloudKit with %{public}@", buf, 0xCu);
   }
 
   self->_deleteDeviceState = 0;
@@ -1705,26 +1765,26 @@ LABEL_20:
   self->_deviceUUIDStringsToDelete = 0;
 
   self->_indexOfDeviceBeingDeleted = 0;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000A17F8;
-  v13[3] = &unk_100131408;
-  v13[4] = self;
-  v9 = objc_retainBlock(v13);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000A17F8;
+  v14[3] = &unk_100131408;
+  v14[4] = self;
+  v10 = objc_retainBlock(v14);
   if ([(CloudTabSyncCoordinator *)self _canCloseCloudTabStoreDatabase])
   {
     cloudTabStore = self->_cloudTabStore;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000A189C;
-    v11[3] = &unk_100131628;
-    v12 = v9;
-    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000A189C;
+    v12[3] = &unk_100131628;
+    v13 = v10;
+    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v12];
   }
 
   else
   {
-    (v9[2])(v9);
+    (v10[2])(v10);
   }
 }
 
@@ -1733,40 +1793,40 @@ LABEL_20:
   stringsCopy = strings;
   handlerCopy = handler;
   v8 = [(CloudRemoteStore *)self->_cloudRemoteStore createOperationGroupWithName:@"Cloud Tab Close Requests Deleting" qualityOfService:-1 xpcActivity:0];
-  v9 = sub_100001B78();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100001B78(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v9;
+    v11 = v10;
     safari_logDescription = [v8 safari_logDescription];
     *buf = 138543362;
-    v21 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Deleting close requests from CloudKit with %{public}@", buf, 0xCu);
+    v23 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Deleting close requests from CloudKit with %{public}@", buf, 0xCu);
   }
 
   if ([stringsCopy count])
   {
     savingQueue = self->_savingQueue;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000A1B50;
-    v16[3] = &unk_100132EA8;
-    v16[4] = self;
-    v19 = handlerCopy;
-    v17 = stringsCopy;
-    v18 = v8;
-    dispatch_async(savingQueue, v16);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000A1B50;
+    v18[3] = &unk_100132EA8;
+    v18[4] = self;
+    v21 = handlerCopy;
+    v19 = stringsCopy;
+    v20 = v8;
+    dispatch_async(savingQueue, v18);
   }
 
   else
   {
-    v13 = sub_100001B78();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100001B78(0, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
+      v16 = v15;
       safari_logDescription2 = [v8 safari_logDescription];
       *buf = 138543362;
-      v21 = safari_logDescription2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No close requests to delete with %{public}@", buf, 0xCu);
+      v23 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No close requests to delete with %{public}@", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -1776,7 +1836,8 @@ LABEL_20:
 - (void)_continueDeletingCloseRequestsInOperationGroup:(id)group
 {
   groupCopy = group;
-  if ([(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy])
+  v5 = [(CloudTabSyncCoordinator *)self _shouldContinueSyncOperationInOperationGroup:groupCopy];
+  if (v5)
   {
     deleteCloseRequestState = self->_deleteCloseRequestState + 1;
     self->_deleteCloseRequestState = deleteCloseRequestState;
@@ -1784,20 +1845,20 @@ LABEL_20:
 
   else
   {
-    v6 = sub_100001B78();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100001B78(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v9 = v8;
       safari_logDescription = [groupCopy safari_logDescription];
-      v11 = 138543362;
-      v12 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopping deletion of close request records with %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping deletion of close request records with %{public}@", &v13, 0xCu);
     }
 
     self->_deleteCloseRequestState = 3;
-    v9 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
+    v11 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:1 userInfo:0];
     deleteCloseRequestError = self->_deleteCloseRequestError;
-    self->_deleteCloseRequestError = v9;
+    self->_deleteCloseRequestError = v11;
 
     deleteCloseRequestState = self->_deleteCloseRequestState;
   }
@@ -1819,94 +1880,94 @@ LABEL_20:
 - (void)_deleteCloseRequestRecordsFromCloudKitInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v15 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting close request records from CloudKit with %{public}@", buf, 0xCu);
+    v17 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting close request records from CloudKit with %{public}@", buf, 0xCu);
   }
 
   cloudRemoteStore = self->_cloudRemoteStore;
   recordIDsOfCloseRequestsToDelete = self->_recordIDsOfCloseRequestsToDelete;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000A1FF0;
-  v10[3] = &unk_100135798;
-  objc_copyWeak(&v12, &location);
-  v9 = groupCopy;
-  v11 = v9;
-  [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:recordIDsOfCloseRequestsToDelete inOperationGroup:v9 completionHandler:v10];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000A1FF0;
+  v12[3] = &unk_100135798;
+  objc_copyWeak(&v14, &location);
+  v11 = groupCopy;
+  v13 = v11;
+  [(CloudTabRemoteStore *)cloudRemoteStore deleteCloudTabRecords:recordIDsOfCloseRequestsToDelete inOperationGroup:v11 completionHandler:v12];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 }
 
 - (void)_updateSQLiteStoreFromCloudKitAfterDeletingCloseRequestRecordsInOperationGroup:(id)group
 {
   groupCopy = group;
-  objc_initWeak(&location, self);
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = sub_100001B78(inited, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v13 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after deleting close request records with %{public}@", buf, 0xCu);
+    v15 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating SQLite store from CloudKit after deleting close request records with %{public}@", buf, 0xCu);
   }
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000A2374;
-  v8[3] = &unk_100135798;
-  objc_copyWeak(&v10, &location);
-  v7 = groupCopy;
-  v9 = v7;
-  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v7 withCompletionHandler:v8];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000A2374;
+  v10[3] = &unk_100135798;
+  objc_copyWeak(&v12, &location);
+  v9 = groupCopy;
+  v11 = v9;
+  [(CloudTabSyncCoordinator *)self _updateSQLiteStoreFromCloudKitInOperationGroup:v9 withCompletionHandler:v10];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
 - (void)_finishedDeletingCloseRequestRecordsInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = sub_100001B78();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(groupCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     safari_logDescription = [groupCopy safari_logDescription];
     *buf = 138543362;
-    v15 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished deleting close request records from CloudKit with %{public}@", buf, 0xCu);
+    v16 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished deleting close request records from CloudKit with %{public}@", buf, 0xCu);
   }
 
   self->_deleteCloseRequestState = 0;
   recordIDsOfCloseRequestsToDelete = self->_recordIDsOfCloseRequestsToDelete;
   self->_recordIDsOfCloseRequestsToDelete = 0;
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000A2718;
-  v13[3] = &unk_100131408;
-  v13[4] = self;
-  v9 = objc_retainBlock(v13);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000A2718;
+  v14[3] = &unk_100131408;
+  v14[4] = self;
+  v10 = objc_retainBlock(v14);
   if ([(CloudTabSyncCoordinator *)self _canCloseCloudTabStoreDatabase])
   {
     cloudTabStore = self->_cloudTabStore;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000A27BC;
-    v11[3] = &unk_100131628;
-    v12 = v9;
-    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000A27BC;
+    v12[3] = &unk_100131628;
+    v13 = v10;
+    [(CloudTabLocalStore *)cloudTabStore closeDatabaseWithCompletionHandler:v12];
   }
 
   else
   {
-    (v9[2])(v9);
+    (v10[2])(v10);
   }
 }
 
@@ -1915,13 +1976,13 @@ LABEL_20:
   handlerCopy = handler;
   objc_initWeak(&location, self);
   v5 = [(CloudRemoteStore *)self->_cloudRemoteStore createOperationGroupWithName:@"Cloud Tab Zone Deleting" qualityOfService:-1 xpcActivity:0];
-  v6 = sub_100001B78();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100001B78(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     safari_logDescription = [v5 safari_logDescription];
     *buf = 138543362;
-    v17 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Sync coordinator received a message to delete the CloudTabs zone with %{public}@", buf, 0xCu);
+    v18 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Sync coordinator received a message to delete the CloudTabs zone with %{public}@", buf, 0xCu);
   }
 
   savingQueue = self->_savingQueue;
@@ -1929,14 +1990,14 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = sub_1000A2A10;
   block[3] = &unk_100135978;
-  v12 = v5;
-  v13 = handlerCopy;
+  v13 = v5;
+  v14 = handlerCopy;
   block[4] = self;
-  v9 = v5;
-  v10 = handlerCopy;
-  objc_copyWeak(&v14, &location);
+  v10 = v5;
+  v11 = handlerCopy;
+  objc_copyWeak(&v15, &location);
   dispatch_async(savingQueue, block);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
 
   objc_destroyWeak(&location);
 }
@@ -1944,10 +2005,10 @@ LABEL_20:
 - (void)cloudTabLocalStore:(id)store hadSevereError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100001B78();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = sub_100001B78(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_1000A435C(v6);
+    sub_1000A435C(v7);
   }
 
   [(CloudTabSyncCoordinator *)self set_cloudTabStoreError:errorCopy];

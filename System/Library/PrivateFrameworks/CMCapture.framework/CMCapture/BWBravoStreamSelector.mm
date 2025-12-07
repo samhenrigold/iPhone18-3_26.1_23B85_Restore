@@ -2,19 +2,19 @@
 + (void)initialize;
 - ($06E035DAA80D7DA92D7AC3530BEA5F2A)selectionConfiguration;
 - (BOOL)_conditionsAllowSwitchToRecommendedMasterStream:(_BOOL8)result debugOverlayInfo:(void *)info;
+- (BOOL)_exposureAllowsSwitchToRecommendedMasterStream:(_BOOL8)result frameStatisticsByPortType:(uint64_t)type;
 - (BWBravoStreamSelector)initWithStreamSelectionAttributes:(id)attributes wideStream:(id)stream teleStream:(id)teleStream superWideStream:(id)wideStream cameraCalibrationValid:(BOOL)valid;
 - (NSArray)eligibleFallbackPortTypes;
+- (id)_updateSuperWideFocusIsStableOnceWithFrameStatisticsByPortType:(id *)result;
 - (id)preferredMasterPortTypeForFrameStatisticsByPortType:(id)type zoomFactor:(float)factor;
 - (id)recommendMasterStreamUsingCurrentMasterStream:(id)stream frameStatisticsByPortType:(id)type zoomFactor:(float)factor isAutoFlashScene:(BOOL)scene digitalFlashMode:(int)mode isStationary:(BOOL)stationary detectedObjects:(id)objects cameraControlsStatisticsMasterStream:(id)self0;
-- (uint64_t)_exposureAllowsSwitchToRecommendedMasterStream:(uint64_t)result frameStatisticsByPortType:(uint64_t)type;
 - (uint64_t)_exposureAndFocusStableForSwitchOverTo:(uint64_t)to forFrameStatisticsByPortType:(uint64_t)type debugOverlayInfo:;
 - (uint64_t)_focusIsStable:(uint64_t)stable;
 - (uint64_t)_selectionBehaviorAllowsSwitchOverTo:(void *)to forFrameStatisticsByPortType:(_BYTE *)type zoomFactor:blockedByExposureFocusStability:debugOverlayInfo:;
 - (uint64_t)_telephotoLimitsReachedForFrameStatisticsByPortType:(uint64_t)type debugOverlayInfo:;
-- (uint64_t)_updateSceneChangeMonitorWithFrameStatisticsByPortType:(uint64_t)result fromMasterStream:(float)stream zoomFactor:(uint64_t)factor digitalFlashMode:(void *)mode debugOverlayInfo:(int)info;
-- (uint64_t)_updateStateWithFrameStatisticsByPortType:(void *)type detectedObjects:;
-- (uint64_t)_updateSuperWideFocusIsStableOnceWithFrameStatisticsByPortType:(uint64_t)result;
 - (void)_preferredMasterStreamForFrameStatisticsByPortType:(char)type zoomFactor:(int)factor isAutoFlashScene:(int)scene digitalFlashMode:(void *)mode isStationary:(int)stationary debugOverlayInfo:(_BYTE *)info ignoreEligibleFallbackPortTypes:(float)types requiresFocusExposeStabilityOut:(int *)self0 selectionReasonOut:;
+- (void)_updateSceneChangeMonitorWithFrameStatisticsByPortType:(void *)result fromMasterStream:(float)stream zoomFactor:(uint64_t)factor digitalFlashMode:(void *)mode debugOverlayInfo:(int)info;
+- (void)_updateStateWithFrameStatisticsByPortType:(void *)type detectedObjects:;
 - (void)dealloc;
 - (void)resetWithZoomFactor:(float)factor currentMasterStream:(id)stream;
 - (void)setEligibleFallbackPortTypes:(id)types;
@@ -531,15 +531,7 @@ LABEL_114:
       v38 = v37 < v36;
     }
 
-    if (v38)
-    {
-      v39 = [BWBravoStreamSelector _exposureAllowsSwitchToRecommendedMasterStream:self frameStatisticsByPortType:*(self + 16)];
-    }
-
-    else
-    {
-      v39 = 0;
-    }
+    v39 = v38 && [BWBravoStreamSelector _exposureAllowsSwitchToRecommendedMasterStream:self frameStatisticsByPortType:*(self + 16)];
   }
 
   else
@@ -549,7 +541,7 @@ LABEL_114:
 
   if (*(self + 184) == 1)
   {
-    v40 = [objc_msgSend(v30 "afRecommendedPrimaryPortType")];
+    isEqualToString = objc_msgSend_isEqualToString_([v30 afRecommendedPrimaryPortType]);
     outCopy3 = out;
   }
 
@@ -565,16 +557,16 @@ LABEL_114:
     if ([eligibleFallbackPortTypes containsObject:{objc_msgSend(*(self + 24), "portType")}])
     {
       [objc_msgSend(a2 objectForKeyedSubscript:{objc_msgSend(*(self + 24), "portType")), "focusDistance"}];
-      v40 = v42 >= *(self + 76);
+      isEqualToString = v42 >= *(self + 76);
     }
 
     else
     {
-      v40 = 1;
+      isEqualToString = 1;
     }
   }
 
-  if ((v40 & v39) == 1)
+  if ((isEqualToString & v39) == 1)
   {
     goto LABEL_42;
   }
@@ -601,7 +593,7 @@ LABEL_84:
     v64 = v63;
     if (*(self + 185) == 1)
     {
-      v65 = [objc_msgSend(v63 "afRecommendedPrimaryPortType")];
+      v65 = objc_msgSend_isEqualToString_([v63 afRecommendedPrimaryPortType]);
     }
 
     else
@@ -801,16 +793,16 @@ LABEL_136:
   [BWBravoStreamSelector _updateSceneChangeMonitorWithFrameStatisticsByPortType:factor fromMasterStream:type zoomFactor:stream digitalFlashMode:mode debugOverlayInfo:?];
   [(BWBravoStreamSelector *)self _updateStateWithFrameStatisticsByPortType:type detectedObjects:objects];
   self->_currentMasterStream = stream;
-  v70[0] = self->_lastSelectionReason;
+  v85[0] = self->_lastSelectionReason;
   if (self->_selectionConfiguration.selectionBehavior == 3)
   {
     superWideStream = 0;
     goto LABEL_60;
   }
 
-  v67 = 0;
+  v82[0] = 0;
   v26 = OUTLINED_FUNCTION_1_21();
-  v34 = [(BWBravoStreamSelector *)v27 _preferredMasterStreamForFrameStatisticsByPortType:v28 zoomFactor:v29 isAutoFlashScene:v30 digitalFlashMode:v31 isStationary:v32 debugOverlayInfo:0 ignoreEligibleFallbackPortTypes:v33 requiresFocusExposeStabilityOut:v26 selectionReasonOut:v70];
+  v34 = [(BWBravoStreamSelector *)v27 _preferredMasterStreamForFrameStatisticsByPortType:v28 zoomFactor:v29 isAutoFlashScene:v30 digitalFlashMode:v31 isStationary:v32 debugOverlayInfo:0 ignoreEligibleFallbackPortTypes:v33 requiresFocusExposeStabilityOut:v26 selectionReasonOut:v85];
   v35 = [(NSArray *)self->_eligibleFallbackPortTypes count];
   v36 = v34;
   if (v35 < [(NSArray *)self->_supportedFallbackPortTypes count])
@@ -819,7 +811,7 @@ LABEL_136:
     v36 = [(BWBravoStreamSelector *)v38 _preferredMasterStreamForFrameStatisticsByPortType:v39 zoomFactor:v40 isAutoFlashScene:v41 digitalFlashMode:v42 isStationary:v43 debugOverlayInfo:1 ignoreEligibleFallbackPortTypes:0 requiresFocusExposeStabilityOut:v37 selectionReasonOut:0];
   }
 
-  if (v34 != stream && v67 == 1)
+  if (v34 != stream && v82[0] == 1)
   {
     if (v34 == self->_teleStream && !self->_sceneChangeDetected)
     {
@@ -828,17 +820,17 @@ LABEL_136:
       goto LABEL_60;
     }
 
-    LOBYTE(v61) = 0;
-    if (([BWBravoStreamSelector _selectionBehaviorAllowsSwitchOverTo:v34 forFrameStatisticsByPortType:type zoomFactor:&v61 blockedByExposureFocusStability:? debugOverlayInfo:?]& 1) != 0)
+    v77[0] = 0;
+    if (([BWBravoStreamSelector _selectionBehaviorAllowsSwitchOverTo:v34 forFrameStatisticsByPortType:type zoomFactor:v77 blockedByExposureFocusStability:? debugOverlayInfo:?]& 1) != 0)
     {
       superWideStream = 0;
-      v59 = v34;
+      v74 = v34;
 LABEL_63:
-      v34 = v59;
+      v34 = v74;
       goto LABEL_32;
     }
 
-    if (v61 == 1)
+    if (v77[0] == 1)
     {
       self->_switchDelayReasons |= 1uLL;
       if (v34 == self->_teleStream)
@@ -847,18 +839,18 @@ LABEL_63:
         {
           if (self->_superWideStream == stream)
           {
-            v59 = self->_wideStream;
-            if (v59 == masterStream)
+            v74 = self->_wideStream;
+            if (v74 == masterStream)
             {
               superWideStream = v34;
-              if (([BWBravoStreamSelector _selectionBehaviorAllowsSwitchOverTo:self->_wideStream forFrameStatisticsByPortType:type zoomFactor:&v61 blockedByExposureFocusStability:? debugOverlayInfo:?]& 1) != 0)
+              if (([BWBravoStreamSelector _selectionBehaviorAllowsSwitchOverTo:self->_wideStream forFrameStatisticsByPortType:type zoomFactor:v77 blockedByExposureFocusStability:? debugOverlayInfo:?]& 1) != 0)
               {
                 goto LABEL_63;
               }
 
-              if (v61)
+              if (v77[0])
               {
-                v34 = v59;
+                v34 = v74;
               }
             }
           }
@@ -887,21 +879,24 @@ LABEL_63:
   }
 
   [(BWFigVideoCaptureStream *)self->_wideStream portType];
-  if ([OUTLINED_FUNCTION_7() isEqualToString:?])
+  v45 = OUTLINED_FUNCTION_7();
+  if (objc_msgSend_isEqualToString_(v45))
   {
     superWideStream = self->_wideStream;
     goto LABEL_32;
   }
 
   [(BWFigVideoCaptureStream *)self->_superWideStream portType];
-  if ([OUTLINED_FUNCTION_7() isEqualToString:?])
+  v46 = OUTLINED_FUNCTION_7();
+  if (objc_msgSend_isEqualToString_(v46))
   {
     superWideStream = self->_superWideStream;
     goto LABEL_32;
   }
 
   [(BWFigVideoCaptureStream *)self->_teleStream portType];
-  if ([OUTLINED_FUNCTION_7() isEqualToString:?])
+  v47 = OUTLINED_FUNCTION_7();
+  if (objc_msgSend_isEqualToString_(v47))
   {
     superWideStream = self->_teleStream;
   }
@@ -917,10 +912,10 @@ LABEL_32:
   {
     if (dword_1EB58E260)
     {
-      v69 = 0;
-      v68 = OS_LOG_TYPE_DEFAULT;
-      v45 = OUTLINED_FUNCTION_2_18();
-      if (OUTLINED_FUNCTION_8_12(v45))
+      v84 = 0;
+      v83 = OS_LOG_TYPE_DEFAULT;
+      v48 = OUTLINED_FUNCTION_2_18();
+      if (OUTLINED_FUNCTION_8_12(v48))
       {
         modeCopy = mode;
       }
@@ -934,16 +929,16 @@ LABEL_32:
       {
         portType2 = [(BWFigVideoCaptureStream *)self->_recommendedMasterStream portType];
         portType3 = [(BWFigVideoCaptureStream *)v34 portType];
-        v61 = 136315906;
-        v62 = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
-        v63 = 2112;
-        *v64 = portType2;
-        *&v64[8] = 2112;
-        *v65 = portType3;
-        *&v65[8] = 1024;
-        v66 = v70[0];
+        *v77 = 136315906;
+        *&v77[4] = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
+        *&v77[12] = 2112;
+        *&v77[14] = portType2;
+        *&v77[22] = 2112;
+        *&v78 = portType3;
+        WORD4(v78) = 1024;
+        *(&v78 + 10) = v85[0];
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_6_10();
+        OUTLINED_FUNCTION_6_10(v52, v53, v54, v55, &dword_1AC90E000, v56, v57, "<<<< BWBravoStreamSelector >>>> %s: Recommending stream switch from %@ to %@ based on reason %d.", v75, v76, *v77, *&v77[8], *&v77[16], v78, *(&v78 + 1), v79, v80, v81, v82[0]);
       }
 
       OUTLINED_FUNCTION_0_19();
@@ -955,18 +950,18 @@ LABEL_32:
     self->_timeOfLastExposureModeChange = 0;
     self->_recommendedMasterStream = v34;
 LABEL_50:
-    self->_lastSelectionReason = v70[0];
+    self->_lastSelectionReason = v85[0];
     goto LABEL_51;
   }
 
-  if (v70[0] == 1 && !self->_lastSelectionReason && v34 != [(NSArray *)self->_lastPotentialMasterStreams firstObject])
+  if (v85[0] == 1 && !self->_lastSelectionReason && v34 != [(NSArray *)self->_lastPotentialMasterStreams firstObject])
   {
     if (dword_1EB58E260)
     {
-      v69 = 0;
-      v68 = OS_LOG_TYPE_DEFAULT;
-      v49 = OUTLINED_FUNCTION_2_18();
-      if (OUTLINED_FUNCTION_8_12(v49))
+      v84 = 0;
+      v83 = OS_LOG_TYPE_DEFAULT;
+      v58 = OUTLINED_FUNCTION_2_18();
+      if (OUTLINED_FUNCTION_8_12(v58))
       {
         modeCopy2 = mode;
       }
@@ -979,18 +974,18 @@ LABEL_50:
       if (modeCopy2)
       {
         lastSelectionReason = self->_lastSelectionReason;
-        v60 = v70[0];
+        HIDWORD(v76) = v85[0];
         portType4 = [(BWFigVideoCaptureStream *)v34 portType];
-        v61 = 136315906;
-        v62 = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
-        v63 = 1024;
-        *v64 = lastSelectionReason;
-        *&v64[4] = 1024;
-        *&v64[6] = v60;
-        *v65 = 2112;
-        *&v65[2] = portType4;
+        *v77 = 136315906;
+        *&v77[4] = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
+        *&v77[12] = 1024;
+        *&v77[14] = lastSelectionReason;
+        *&v77[18] = 1024;
+        *&v77[20] = HIDWORD(v76);
+        LOWORD(v78) = 2112;
+        *(&v78 + 2) = portType4;
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_6_10();
+        OUTLINED_FUNCTION_6_10(v62, v63, v64, v65, &dword_1AC90E000, v66, v67, "<<<< BWBravoStreamSelector >>>> %s: Recommended stream selection reason changed from %d to %d for %@.", v75, v76, *v77, *&v77[8], *&v77[16], v78, *(&v78 + 1), v79, v80, v81, v82[0]);
       }
 
       OUTLINED_FUNCTION_0_19();
@@ -1005,30 +1000,30 @@ LABEL_51:
   {
     if (dword_1EB58E260)
     {
-      v69 = 0;
-      v68 = OS_LOG_TYPE_DEFAULT;
-      v53 = OUTLINED_FUNCTION_2_18();
-      v54 = v69;
-      if (os_log_type_enabled(v53, v68))
+      v84 = 0;
+      v83 = OS_LOG_TYPE_DEFAULT;
+      v68 = OUTLINED_FUNCTION_2_18();
+      v69 = v84;
+      if (os_log_type_enabled(v68, v83))
       {
-        v55 = v54;
+        v70 = v69;
       }
 
       else
       {
-        v55 = v54 & 0xFFFFFFFE;
+        v70 = v69 & 0xFFFFFFFE;
       }
 
-      if (v55)
+      if (v70)
       {
         portType5 = [(BWFigVideoCaptureStream *)self->_preferredMasterStreamIgnoringEligibleFallbackPortTypes portType];
         portType6 = [(BWFigVideoCaptureStream *)v36 portType];
-        v61 = 136315650;
-        v62 = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
-        v63 = 2112;
-        *v64 = portType5;
-        *&v64[8] = 2112;
-        *v65 = portType6;
+        *v77 = 136315650;
+        *&v77[4] = "[BWBravoStreamSelector recommendMasterStreamUsingCurrentMasterStream:frameStatisticsByPortType:zoomFactor:isAutoFlashScene:digitalFlashMode:isStationary:detectedObjects:cameraControlsStatisticsMasterStream:]";
+        *&v77[12] = 2112;
+        *&v77[14] = portType5;
+        *&v77[22] = 2112;
+        *&v78 = portType6;
         OUTLINED_FUNCTION_5();
         _os_log_send_and_compose_impl();
       }
@@ -1046,28 +1041,28 @@ LABEL_60:
   return self->_recommendedMasterStream;
 }
 
-- (uint64_t)_updateSuperWideFocusIsStableOnceWithFrameStatisticsByPortType:(uint64_t)result
+- (id)_updateSuperWideFocusIsStableOnceWithFrameStatisticsByPortType:(id *)result
 {
   if (result)
   {
     v1 = result;
-    if ((*(result + 472) & 1) == 0)
+    if ((result[59] & 1) == 0)
     {
-      [*(result + 24) portType];
+      [result[3] portType];
       v2 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
       v3 = v2;
-      if ((*(v1 + 464) & 1) == 0)
+      if ((v1[58] & 1) == 0)
       {
         if (v2)
         {
-          [v2 pts];
+          objc_msgSend_pts(v2);
           if ((v13 & 0x100000000) != 0)
           {
             v4 = (v1 + 436);
-            if (*(v1 + 448))
+            if (v1[56])
             {
-              v6 = *(v1 + 460);
-              if (v6 != [v3 logicalFocusLensPosition] || (HostTimeClock = CMClockGetHostTimeClock(), CMClockGetTime(&lhs, HostTimeClock), *&v9.value = *v4, v9.epoch = *(v1 + 452), CMTimeSubtract(&time1, &lhs, &v9), CMTimeMake(&lhs, *(v1 + 468), 1000), CMTimeCompare(&time1, &lhs) >= 1))
+              v6 = *(v1 + 115);
+              if (v6 != [v3 logicalFocusLensPosition] || (HostTimeClock = CMClockGetHostTimeClock(), CMClockGetTime(&lhs, HostTimeClock), *&v9.value = *v4, v9.epoch = *(v1 + 452), CMTimeSubtract(&time1, &lhs, &v9), CMTimeMake(&lhs, *(v1 + 117), 1000), CMTimeCompare(&time1, &lhs) >= 1))
               {
                 *(v1 + 464) = 1;
               }
@@ -1092,7 +1087,7 @@ LABEL_60:
       }
 
       result = [v3 logicalFocusLensPosition];
-      *(v1 + 460) = result;
+      *(v1 + 115) = result;
       if (*(v1 + 464) == 1)
       {
         result = [v3 afStationaryCount];
@@ -1111,7 +1106,7 @@ LABEL_60:
   return result;
 }
 
-- (uint64_t)_updateSceneChangeMonitorWithFrameStatisticsByPortType:(uint64_t)result fromMasterStream:(float)stream zoomFactor:(uint64_t)factor digitalFlashMode:(void *)mode debugOverlayInfo:(int)info
+- (void)_updateSceneChangeMonitorWithFrameStatisticsByPortType:(void *)result fromMasterStream:(float)stream zoomFactor:(uint64_t)factor digitalFlashMode:(void *)mode debugOverlayInfo:(int)info
 {
   if (!result)
   {
@@ -1133,12 +1128,12 @@ LABEL_60:
 
   else
   {
-    v15 = *(v8 + 428) == 0;
+    v15 = *(v8 + 107) == 0;
   }
 
   v16 = !v15;
-  *(v8 + 428) = info;
-  if (*(v8 + 8) == mode && *(v8 + 200) == *(v8 + 16))
+  *(v8 + 107) = info;
+  if (*(v8 + 1) == mode && *(v8 + 25) == *(v8 + 2))
   {
     *(v8 + 404) = 1;
   }
@@ -1150,22 +1145,22 @@ LABEL_60:
       return result;
     }
 
-    if (*(v8 + 200) != mode)
+    if (*(v8 + 25) != mode)
     {
-      *(v8 + 408) = luxLevel;
-      *(v8 + 416) = v12;
-      *(v8 + 424) = v13;
+      *(v8 + 102) = luxLevel;
+      *(v8 + 52) = v12;
+      *(v8 + 106) = v13;
       return result;
     }
 
-    if (*(v8 + 300) != stream)
+    if (*(v8 + 75) != stream)
     {
       goto LABEL_20;
     }
 
     if ([v9 afStationaryCount] >= 2)
     {
-      *(v8 + 405) = vabds_f32(*(v8 + 424), v14) > *(v8 + 400);
+      *(v8 + 405) = vabds_f32(*(v8 + 106), v14) > *(v8 + 100);
     }
 
     result = [v9 aeStable];
@@ -1183,8 +1178,8 @@ LABEL_20:
       return result;
     }
 
-    v20 = *(v8 + 408);
-    v21 = *(v8 + 384);
+    v20 = *(v8 + 102);
+    v21 = *(v8 + 96);
     if (luxLevel >= v20)
     {
       v22 = luxLevel;
@@ -1193,7 +1188,7 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      v23 = *(v8 + 388);
+      v23 = *(v8 + 97);
       if (v23 <= 0.0)
       {
         v19 = 0;
@@ -1210,7 +1205,7 @@ LABEL_20:
     v19 = v23 < v22;
 LABEL_31:
     *(v8 + 405) = v19;
-    if (info && (v19 & 1) == 0 && fabs((*(v8 + 416) - v12) / ((v12 + *(v8 + 416)) * 0.5)) >= *(v8 + 392))
+    if (info && (v19 & 1) == 0 && fabs((*(v8 + 52) - v12) / ((v12 + *(v8 + 52)) * 0.5)) >= *(v8 + 49))
     {
       goto LABEL_20;
     }
@@ -1218,9 +1213,9 @@ LABEL_31:
     goto LABEL_34;
   }
 
-  if (*(v8 + 300) == stream)
+  if (*(v8 + 75) == stream)
   {
-    v18 = *(v8 + 388);
+    v18 = *(v8 + 97);
     v17 = v18 > 0.0 && v18 < luxLevel;
   }
 
@@ -1230,27 +1225,27 @@ LABEL_31:
   }
 
   *(v8 + 405) = v17;
-  *(v8 + 408) = luxLevel;
-  *(v8 + 416) = v12;
-  *(v8 + 424) = v14;
+  *(v8 + 102) = luxLevel;
+  *(v8 + 52) = v12;
+  *(v8 + 106) = v14;
   *(v8 + 404) = 0;
   return result;
 }
 
-- (uint64_t)_updateStateWithFrameStatisticsByPortType:(void *)type detectedObjects:
+- (void)_updateStateWithFrameStatisticsByPortType:(void *)type detectedObjects:
 {
   if (result)
   {
     v4 = result;
-    result = *(result + 16);
+    result = result[2];
     if (result && *(v4 + 74) == 1)
     {
       [result portType];
       v5 = [OUTLINED_FUNCTION_8() objectForKeyedSubscript:?];
       [v5 gain];
-      if (v6 >= *(v4 + 32))
+      if (v6 >= *(v4 + 8))
       {
-        v7 = *(v4 + 348) + 1;
+        v7 = *(v4 + 87) + 1;
       }
 
       else
@@ -1258,27 +1253,27 @@ LABEL_31:
         v7 = 0;
       }
 
-      *(v4 + 348) = v7;
+      *(v4 + 87) = v7;
       result = [v5 aeLimitsReached];
-      if ((result & 1) != 0 || (result = [v5 eit], v8 >= ((*(v4 + 44) * *(v4 + 52)) / 100.0)))
+      if ((result & 1) != 0 || (result = [v5 eit], v8 >= ((*(v4 + 11) * *(v4 + 13)) / 100.0)))
       {
-        ++*(v4 + 352);
+        ++*(v4 + 88);
       }
 
       else
       {
-        *(v4 + 352) = 0;
+        *(v4 + 88) = 0;
       }
     }
 
     if (type && (v9 = [type objectForKeyedSubscript:*off_1E798ACB8], v10 = *off_1E798ACE8, v11 = objc_msgSend(objc_msgSend(v9, "objectForKeyedSubscript:", *off_1E798ACE8), "count"), result = objc_msgSend(objc_msgSend(objc_msgSend(type, "objectForKeyedSubscript:", *off_1E798ACB0), "objectForKeyedSubscript:", v10), "count"), result + v11 >= 1))
     {
-      ++*(v4 + 356);
+      ++*(v4 + 89);
     }
 
     else
     {
-      *(v4 + 356) = 0;
+      *(v4 + 89) = 0;
     }
   }
 
@@ -1303,7 +1298,7 @@ LABEL_31:
     mach_absolute_time();
     v15 = FigHostTimeToNanoseconds();
     v17 = *(self + 304) > 0 && v15 < 200000000;
-    v14 = v17 & v9 | v8 | v9 & v11;
+    v14 = (v17 && v9) | v8 | v9 & v11;
     v13 = v14 ^ 1;
     if (!type)
     {
@@ -1342,7 +1337,7 @@ LABEL_17:
     }
   }
 
-  v14 = v19 & v9 & v11;
+  v14 = (v19 && v9) & v11;
   v13 = v19 & (v14 ^ 1);
   *(self + 344) = v13;
   if (type)
@@ -1376,7 +1371,8 @@ LABEL_17:
     if (FigHostTimeToNanoseconds() <= 999999999)
     {
       [info portType];
-      if ([OUTLINED_FUNCTION_7() isEqualToString:?])
+      v6 = OUTLINED_FUNCTION_7();
+      if (objc_msgSend_isEqualToString_(v6))
       {
         return 1;
       }
@@ -1389,27 +1385,27 @@ LABEL_17:
     }
   }
 
-  v6 = *(v3 + 224);
-  if ((v6 & 2) == 0)
+  v7 = *(v3 + 224);
+  if ((v7 & 2) == 0)
   {
     goto LABEL_19;
   }
 
-  v7 = FigHostTimeToNanoseconds();
-  if (*(v3 + 328) >= 1 && v7 < 4000000000)
+  v8 = FigHostTimeToNanoseconds();
+  if (*(v3 + 328) >= 1 && v8 < 4000000000)
   {
     return 1;
   }
 
-  v6 = *(v3 + 224);
+  v7 = *(v3 + 224);
 LABEL_19:
-  if ((v6 & 4) == 0)
+  if ((v7 & 4) == 0)
   {
     return 0;
   }
 
-  v9 = FigHostTimeToNanoseconds();
-  return *(v3 + 336) > 0 && v9 < 1000000000;
+  v10 = FigHostTimeToNanoseconds();
+  return *(v3 + 336) > 0 && v10 < 1000000000;
 }
 
 - (uint64_t)_telephotoLimitsReachedForFrameStatisticsByPortType:(uint64_t)type debugOverlayInfo:
@@ -1437,38 +1433,39 @@ LABEL_19:
     if (*(type + 184) == 1)
     {
       [*(type + 16) portType];
-      v3 = [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_4() "objectForKeyedSubscript:{"afRecommendedPrimaryPortType"), "isEqualToString:", *off_1E798A0D8}")] ^ 1;
+      v3 = [objc_msgSend(OUTLINED_FUNCTION_4() "objectForKeyedSubscript:"afRecommendedPrimaryPortType"")];
+      v4 = objc_msgSend_isEqualToString_(v3) ^ 1;
     }
 
     else
     {
       [*(type + 8) portType];
-      v4 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
-      [v4 focusDistance];
-      if (v5 <= 0.0)
+      v5 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
+      [v5 focusDistance];
+      if (v6 <= 0.0)
       {
-        LOBYTE(v3) = 0;
+        LOBYTE(v4) = 0;
       }
 
       else
       {
-        [v4 focusDistance];
-        LOBYTE(v3) = v6 < *(type + 56);
+        [v5 focusDistance];
+        LOBYTE(v4) = v7 < *(type + 56);
       }
     }
 
-    v7 = v2 | v3;
+    v8 = v2 | v4;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7 & 1;
+  return v8 & 1;
 }
 
-- (uint64_t)_exposureAllowsSwitchToRecommendedMasterStream:(uint64_t)result frameStatisticsByPortType:(uint64_t)type
+- (BOOL)_exposureAllowsSwitchToRecommendedMasterStream:(_BOOL8)result frameStatisticsByPortType:(uint64_t)type
 {
   if (result)
   {
@@ -1615,7 +1612,8 @@ LABEL_9:
 
     [a2 portType];
     [*(stable + 24) portType];
-    if ([OUTLINED_FUNCTION_4() isEqualToString:?] && *(stable + 432) == 1)
+    v6 = OUTLINED_FUNCTION_4();
+    if (objc_msgSend_isEqualToString_(v6) && *(stable + 432) == 1)
     {
       return *(stable + 472);
     }

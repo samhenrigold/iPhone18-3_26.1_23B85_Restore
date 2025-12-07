@@ -88,16 +88,15 @@
 void __103__CPListSection__commonInitWithItems_header_headerSubtitle_headerImage_headerButton_sectionIndexTitle___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() allowedItemClasses];
-  v6 = *(a1 + 40);
-  v10 = v3;
-  if (([v5 containsObject:object_getClass(v10)] & 1) == 0)
+  v4 = [objc_opt_class() allowedItemClasses];
+  v5 = *(a1 + 40);
+  v9 = v3;
+  if (([v4 containsObject:object_getClass(v9)] & 1) == 0)
   {
-    v7 = MEMORY[0x277CBEAD8];
-    v8 = *MEMORY[0x277CBE660];
-    v9 = NSStringFromSelector(v6);
-    [v7 raise:v8 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v10, v9, v5, 0}];
+    v6 = MEMORY[0x277CBEAD8];
+    v7 = *MEMORY[0x277CBE660];
+    v8 = NSStringFromSelector(v5);
+    [v6 raise:v7 format:{@"Unsupported object %@ passed to %@. Allowed classes: %@", v9, v8, v4, 0}];
   }
 }
 
@@ -189,7 +188,7 @@ uint64_t __29__CPListSection_indexOfItem___block_invoke(uint64_t a1, void *a2)
   items = self->_items;
   self->_items = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, items);
 }
 
 - (CPListSection)initWithCoder:(id)coder

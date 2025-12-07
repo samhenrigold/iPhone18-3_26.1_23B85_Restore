@@ -26,31 +26,35 @@
 
 - (double)_scoreForRoad:(id)road coordinate:(id)coordinate
 {
+  var1 = coordinate.var1;
+  var0 = coordinate.var0;
   roadCopy = road;
   internalRoadName = [roadCopy internalRoadName];
 
-  v6 = 0.0;
+  v8 = 0.0;
   if (internalRoadName)
   {
     if ([roadCopy roadClass] != 9)
     {
       coordinates3d = [roadCopy coordinates3d];
-      v8 = coordinates3d + 24 * [roadCopy coordinateCount];
-      v9 = *(v8 - 24);
-      v10 = *(v8 - 16);
-      GEOCalculateDistance();
-      v12 = v11;
-      if (v11 <= 300.0)
+      coordinateCount = [roadCopy coordinateCount];
+      v11 = coordinates3d + 24 * coordinateCount;
+      v17.var2 = *(v11 - 24);
+      v19.var0 = *(v11 - 16);
+      v17.var0 = var0;
+      v17.var1 = var1;
+      v13 = GEOCalculateDistance(coordinateCount, v12, v17, v19);
+      if (v13 <= 300.0)
       {
-        if ([roadCopy travelDirection] != 1 || (v13 = objc_msgSend(roadCopy, "coordinates3d"), v14 = *v13, v15 = v13[1], GEOCalculateDistance(), v16 < v12))
+        if ([roadCopy travelDirection] != 1 || (v14 = objc_msgSend(roadCopy, "coordinates3d"), *&v18.var2 = v14->super.isa, v20.var0 = v14->_toleranceMeters, v18.var0 = var0, v18.var1 = var1, GEOCalculateDistance(v14, v15, v18, v20) < v13))
         {
-          v6 = v12;
+          v8 = v13;
         }
       }
     }
   }
 
-  return v6;
+  return v8;
 }
 
 @end

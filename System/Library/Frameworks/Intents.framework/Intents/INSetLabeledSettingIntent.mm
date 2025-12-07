@@ -24,8 +24,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"settingMetadata";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"settingMetadata";
   settingMetadata = [(INSetLabeledSettingIntent *)self settingMetadata];
   null = settingMetadata;
   if (!settingMetadata)
@@ -33,8 +33,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"labeledValue";
+  v12[0] = null;
+  v11[1] = @"labeledValue";
   labeledValue = [(INSetLabeledSettingIntent *)self labeledValue];
   null2 = labeledValue;
   if (!labeledValue)
@@ -42,8 +42,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"temporalEventTrigger";
+  v12[1] = null2;
+  v11[2] = @"temporalEventTrigger";
   temporalEventTrigger = [(INSetLabeledSettingIntent *)self temporalEventTrigger];
   null3 = temporalEventTrigger;
   if (!temporalEventTrigger)
@@ -51,8 +51,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!temporalEventTrigger)
   {
   }
@@ -64,8 +64,6 @@
   if (!settingMetadata)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

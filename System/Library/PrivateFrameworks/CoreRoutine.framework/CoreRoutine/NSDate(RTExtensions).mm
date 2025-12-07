@@ -230,20 +230,20 @@
 
 - (id)dateReducedToResolution:()RTExtensions calendar:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a4;
   if (a3 >= 7)
   {
     v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 134218498;
-      v14 = a3;
-      v15 = 2080;
-      v16 = "[NSDate(RTExtensions) dateReducedToResolution:calendar:]";
-      v17 = 1024;
-      v18 = 195;
-      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Unhandled resolution, %lu (in %s:%d)", &v13, 0x1Cu);
+      v12 = 134218498;
+      v13 = a3;
+      v14 = 2080;
+      v15 = "[NSDate(RTExtensions) dateReducedToResolution:calendar:]";
+      v16 = 1024;
+      v17 = 195;
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Unhandled resolution, %lu (in %s:%d)", &v12, 0x1Cu);
     }
 
     v7 = 0;
@@ -256,8 +256,6 @@
 
   v9 = [v6 components:v7 fromDate:self];
   v10 = [v6 dateFromComponents:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -321,20 +319,20 @@
 
 + (id)roundingUpDate:()RTExtensions bucketDurationMinute:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a4 <= 0)
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v16[0] = 67109634;
-      v16[1] = a4;
-      v17 = 2080;
-      v18 = "+[NSDate(RTExtensions) roundingUpDate:bucketDurationMinute:]";
-      v19 = 1024;
-      v20 = 246;
-      _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "bucketDurationMinute should be greater than 0, %d (in %s:%d)", v16, 0x18u);
+      v15[0] = 67109634;
+      v15[1] = a4;
+      v16 = 2080;
+      v17 = "+[NSDate(RTExtensions) roundingUpDate:bucketDurationMinute:]";
+      v18 = 1024;
+      v19 = 246;
+      _os_log_error_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_ERROR, "bucketDurationMinute should be greater than 0, %d (in %s:%d)", v15, 0x18u);
     }
   }
 
@@ -348,8 +346,6 @@
   [v10 setMinute:(a4 * v11)];
   currentCalendar3 = [MEMORY[0x1E695DEE8] currentCalendar];
   v13 = [currentCalendar3 dateFromComponents:v10];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -374,33 +370,33 @@
 
 + (id)getEarliestDate:()RTExtensions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = v3;
   if (v3 && [v3 count])
   {
     distantFuture = [MEMORY[0x1E695DF00] distantFuture];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          if ([v11 compare:{distantFuture, v15}] == -1)
+          v11 = *(*(&v14 + 1) + 8 * i);
+          if ([v11 compare:{distantFuture, v14}] == -1)
           {
             v12 = v11;
 
@@ -408,7 +404,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -419,8 +415,6 @@
   {
     distantFuture = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return distantFuture;
 }

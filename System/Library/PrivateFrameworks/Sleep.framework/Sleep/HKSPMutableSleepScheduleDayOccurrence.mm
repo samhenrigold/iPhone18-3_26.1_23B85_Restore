@@ -38,22 +38,15 @@
     v11 = componentsCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPDayOccurrenceBedtimeComponents"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 
@@ -97,22 +90,15 @@
     v11 = componentsCopy;
   }
 
-  v18 = v11;
+  v15 = v11;
 
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPDayOccurrenceWakeUpComponents"])
   {
-    isRelationshipProperty = [v7 isRelationshipProperty];
-    v13 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v13 = off_279C734F8;
-    }
-
-    v14 = *v13;
-    v15 = objc_opt_class();
+    [v7 isRelationshipProperty];
+    v12 = objc_opt_class();
     changeSet = self->_changeSet;
-    v17 = [[v15 alloc] initWithProperty:v7 changedValue:v18 originalValue:v8];
-    [(HKSPChangeSet *)changeSet addChange:v17];
+    v14 = [[v12 alloc] initWithProperty:v7 changedValue:v15 originalValue:v8];
+    [(HKSPChangeSet *)changeSet addChange:v14];
   }
 }
 
@@ -146,18 +132,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPDayOccurrenceAlarm"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:configurationCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:configurationCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 

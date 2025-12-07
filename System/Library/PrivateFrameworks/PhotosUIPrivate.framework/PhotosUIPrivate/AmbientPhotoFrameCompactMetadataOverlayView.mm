@@ -7,7 +7,7 @@
 - (void)safeAreaInsetsDidChange
 {
   selfCopy = self;
-  sub_1B386F5C8();
+  sub_1B386F5C8(selfCopy);
 }
 
 @end

@@ -48,21 +48,19 @@ void __35__EKPersistentAttachment_relations__block_invoke()
 
 void __52__EKPersistentAttachment_propertiesToUnloadOnCommit__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8.receiver = *(a1 + 32);
-  v8.super_class = &OBJC_METACLASS___EKPersistentAttachment;
-  v1 = objc_msgSendSuper2(&v8, sel_propertiesToUnloadOnCommit);
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7.receiver = *(a1 + 32);
+  v7.super_class = &OBJC_METACLASS___EKPersistentAttachment;
+  v1 = objc_msgSendSuper2(&v7, sel_propertiesToUnloadOnCommit);
   v2 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit = v1;
 
   v3 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit;
-  v9[0] = *MEMORY[0x1E69924B0];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = *MEMORY[0x1E69924B0];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = [v3 arrayByAddingObjectsFromArray:v4];
   v6 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

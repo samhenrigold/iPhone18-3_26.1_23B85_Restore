@@ -40,17 +40,17 @@
 
 - (void)sb_getCameraCaptureMode:(void *)mode andCaptureDevice:
 {
-  if (self)
+  if (result)
   {
-    sectionIdentifier = [self sectionIdentifier];
+    sectionIdentifier = [result sectionIdentifier];
     v7 = [sectionIdentifier isEqualToString:@"Camera"];
 
     if ((v7 & 1) == 0)
     {
-      [WFConfiguredStaccatoIntentAction sb_getCameraCaptureMode:? andCaptureDevice:?];
+      [WFConfiguredStaccatoIntentAction sb_getCameraCaptureMode:result andCaptureDevice:?];
     }
 
-    [(WFConfiguredStaccatoIntentAction *)self sb_getCameraCaptureMode:a2 andCaptureDevice:mode];
+    [(WFConfiguredStaccatoIntentAction *)result sb_getCameraCaptureMode:a2 andCaptureDevice:mode];
   }
 }
 
@@ -61,19 +61,19 @@
   *a2 = [v3 identifier];
 }
 
-- (void)sb_getCameraCaptureMode:(const char *)a1 andCaptureDevice:.cold.1(const char *a1)
+- (void)sb_getCameraCaptureMode:(const char *)a1 andCaptureDevice:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Only query this on the Camera action"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Only query this on the Camera action"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

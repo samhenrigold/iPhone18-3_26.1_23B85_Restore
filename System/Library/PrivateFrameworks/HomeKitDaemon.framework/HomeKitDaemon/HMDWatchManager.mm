@@ -17,7 +17,7 @@
 
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDWatchManager *)self service];
@@ -30,23 +30,21 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = changedCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Connected devices changed: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = changedCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Connected devices changed: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     __HMDWatchManagerUpdateWithConnectedDevices(selfCopy, changedCopy);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   changedCopy = changed;
   service = [(HMDWatchManager *)self service];
@@ -60,41 +58,41 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v12;
-      v28 = 2112;
-      v29 = changedCopy;
+      v26 = v12;
+      v27 = 2112;
+      v28 = changedCopy;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Devices changed: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(changedCopy, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v14 = changedCopy;
-    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v21 + 1) + 8 * i);
+          v19 = *(*(&v20 + 1) + 8 * i);
           if ([v19 isConnected])
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
@@ -102,34 +100,32 @@
 
     __HMDWatchManagerUpdateWithConnectedDevices(selfCopy, v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)connectedWatchFromDeviceID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_lock_with_options();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_connectedWatches;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         remoteDestinationString = [v9 remoteDestinationString];
         v11 = [remoteDestinationString isEqual:dCopy];
 
@@ -140,7 +136,7 @@
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -153,7 +149,6 @@
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -177,32 +172,32 @@ LABEL_11:
 
 - (NSArray)watches
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   service = [(HMDWatchManager *)self service];
   devices = [service devices];
-  v5 = [devices copy];
+  v5 = objc_msgSend_copy(devices);
 
-  v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         if ([HMDWatchManager isCompatibleWatchDevice:v11])
         {
           v12 = [HMDDevice alloc];
@@ -211,76 +206,72 @@ LABEL_11:
 
           if (v14)
           {
-            [v18 addObject:v14];
+            [v17 addObject:v14];
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
 
-  v15 = [v18 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(v17);
 
   return v15;
 }
 
 - (void)__initializeConnectedDevices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   service = [(HMDWatchManager *)self service];
   devices = [service devices];
 
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(devices, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = devices;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
-        if (+[HMDWatchManager isCompatibleWatchDevice:](HMDWatchManager, "isCompatibleWatchDevice:", v11, v13) && [v11 isConnected])
+        v11 = *(*(&v12 + 1) + 8 * i);
+        if (+[HMDWatchManager isCompatibleWatchDevice:](HMDWatchManager, "isCompatibleWatchDevice:", v11, v12) && [v11 isConnected])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   __HMDWatchManagerUpdateWithConnectedDevices(self, v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   connectedWatches = [(HMDWatchManager *)self connectedWatches];
   v5 = [v3 initWithName:@"Connected Watches" value:connectedWatches];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -329,10 +320,9 @@ LABEL_11:
 
 void __30__HMDWatchManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_228349;
-  logCategory__hmf_once_v8_228349 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_228349;
+  logCategory__hmf_once_v8_228349 = v0;
 }
 
 + (BOOL)isCompatibleWatchDevice:(id)device

@@ -16,7 +16,7 @@
   v4 = malloc_type_malloc(0x400uLL, 0x1000040D7EB2065uLL);
   if (!v4)
   {
-    v6 = logHandle_0();
+    v6 = logHandle_0(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [PPSClientDonation createIdentifierForSubsystem:v6 category:?];
@@ -41,7 +41,7 @@
 
   else
   {
-    v5 = logHandle_0();
+    v5 = logHandle_0(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PPSClientDonation sendEventWithIdentifier:payload payload:v5];
@@ -60,8 +60,8 @@
 
     if ((v9 & 1) == 0)
     {
-      v10 = logHandle_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = logHandle_0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         +[PPSClientDonation isRegisteredSubsystem:category:];
       }
@@ -83,40 +83,36 @@
 
 + (void)createIdentifierForSubsystem:(os_log_t)log category:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "+[PPSClientDonation createIdentifierForSubsystem:category:]";
-  _os_log_error_impl(&dword_1BACB7000, log, OS_LOG_TYPE_ERROR, "(%s) Failed to malloc identifier", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "+[PPSClientDonation createIdentifierForSubsystem:category:]";
+  _os_log_error_impl(&dword_1BACB7000, log, OS_LOG_TYPE_ERROR, "(%s) Failed to malloc identifier", &v1, 0xCu);
 }
 
 + (void)sendEventWithIdentifier:(uint64_t)a1 payload:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "+[PPSClientDonation sendEventWithIdentifier:payload:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_ERROR, "(%s) Invalid inputs: payload=%@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "+[PPSClientDonation sendEventWithIdentifier:payload:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_ERROR, "(%s) Invalid inputs: payload=%@", &v2, 0x16u);
 }
 
 + (void)isRegisteredSubsystem:category:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315650;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_1BACB7000, v0, OS_LOG_TYPE_ERROR, "(%s) Permission denied: %s / %s", v2, 0x20u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BACB7000, v0, OS_LOG_TYPE_ERROR, "(%s) Permission denied: %s / %s", v1, 0x20u);
 }
 
 + (void)isRegisteredSubsystem:category:.cold.2()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v1[0] = 136315650;
+  v1 = *MEMORY[0x1E69E9840];
+  v0[0] = 136315650;
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "(%s) Invalid inputs: %s / %s", v1, 0x20u);
-  v0 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "(%s) Invalid inputs: %s / %s", v0, 0x20u);
 }
 
 @end

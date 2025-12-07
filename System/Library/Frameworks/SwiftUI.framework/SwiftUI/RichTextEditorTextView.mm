@@ -54,7 +54,7 @@
 
 LABEL_6:
   type metadata accessor for UITextFormattingViewControllerComponentKey(0);
-  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type UITextFormattingViewControllerComponentKey and conformance UITextFormattingViewControllerComponentKey, type metadata accessor for UITextFormattingViewControllerComponentKey);
+  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type UITextFormattingViewControllerComponentKey and conformance UITextFormattingViewControllerComponentKey, type metadata accessor for UITextFormattingViewControllerComponentKey, protocol conformance descriptor for UITextFormattingViewControllerComponentKey);
   v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -89,7 +89,7 @@ LABEL_6:
   v2 = v6.receiver;
   typingAttributes = [(RichTextEditorTextView *)&v6 typingAttributes];
   type metadata accessor for NSAttributedStringKey(0);
-  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, protocol conformance descriptor for NSAttributedStringKey);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -100,7 +100,7 @@ LABEL_6:
 - (void)setTypingAttributes:(id)attributes
 {
   type metadata accessor for NSAttributedStringKey(0);
-  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, protocol conformance descriptor for NSAttributedStringKey);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   RichTextEditorTextView.typingAttributes.setter();
@@ -113,27 +113,28 @@ LABEL_6:
   if (attributes)
   {
     type metadata accessor for NSAttributedStringKey(0);
-    _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+    _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, protocol conformance descriptor for NSAttributedStringKey);
     attributesCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   selfCopy = self;
   styleCopy = style;
-  v13 = RichTextEditorTextView._attributes(forApplying:withAttributes:paragraphStyle:forTypingAttributes:)(modification, attributesCopy, style, typingAttributesCopy);
+  RichTextEditorTextView._attributes(forApplying:withAttributes:paragraphStyle:forTypingAttributes:)(modification, attributesCopy, style, typingAttributesCopy);
+  v14 = v13;
 
-  if (v13)
+  if (v14)
   {
     type metadata accessor for NSAttributedStringKey(0);
-    _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
-    v14.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    _s10Foundation16AttributedStringV5IndexVAESLAAWlTm_5(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, protocol conformance descriptor for NSAttributedStringKey);
+    v15.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v14.super.isa = 0;
+    v15.super.isa = 0;
   }
 
-  return v14.super.isa;
+  return v15.super.isa;
 }
 
 - (_TtC7SwiftUI22RichTextEditorTextView)initWithFrame:(CGRect)frame textContainer:(id)container

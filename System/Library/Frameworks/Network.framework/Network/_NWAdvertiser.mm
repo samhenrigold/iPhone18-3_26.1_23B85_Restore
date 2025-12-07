@@ -151,7 +151,7 @@
 
 - (void)dealloc
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (self->dnsref)
   {
     v3 = *(self->listener + 2);
@@ -167,16 +167,14 @@
         v4 = glistenerLogObj;
         id_string = nw_listener_get_id_string(self->listener);
         *buf = 136446466;
-        v26 = "[_NWAdvertiser dealloc]";
-        v27 = 2082;
-        v28 = id_string;
-        v21 = 22;
-        v20 = buf;
-        v6 = _os_log_send_and_compose_impl();
+        v24 = "[_NWAdvertiser dealloc]";
+        v25 = 2082;
+        v26 = id_string;
+        v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s [%{public}s] dnsref is not NULL", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
-        v23 = 0;
-        if (!__nwlog_fault(v6, &type, &v23))
+        v21 = 0;
+        if (!__nwlog_fault(v6, &type, &v21))
         {
 LABEL_13:
           if (!v6)
@@ -200,9 +198,9 @@ LABEL_13:
           {
             v9 = nw_listener_get_id_string(self->listener);
             *buf = 136446466;
-            v26 = "[_NWAdvertiser dealloc]";
-            v27 = 2082;
-            v28 = v9;
+            v24 = "[_NWAdvertiser dealloc]";
+            v25 = 2082;
+            v26 = v9;
             _os_log_impl(&dword_181A37000, v7, v8, "%{public}s [%{public}s] dnsref is not NULL", buf, 0x16u);
           }
 
@@ -211,7 +209,7 @@ LABEL_12:
           goto LABEL_13;
         }
 
-        if (v23 != 1)
+        if (v21 != 1)
         {
           if (__nwlog_listener_log::onceToken != -1)
           {
@@ -224,9 +222,9 @@ LABEL_12:
           {
             v17 = nw_listener_get_id_string(self->listener);
             *buf = 136446466;
-            v26 = "[_NWAdvertiser dealloc]";
-            v27 = 2082;
-            v28 = v17;
+            v24 = "[_NWAdvertiser dealloc]";
+            v25 = 2082;
+            v26 = v17;
             _os_log_impl(&dword_181A37000, v7, v16, "%{public}s [%{public}s] dnsref is not NULL, backtrace limit exceeded", buf, 0x16u);
           }
 
@@ -247,9 +245,9 @@ LABEL_12:
           {
             v19 = nw_listener_get_id_string(self->listener);
             *buf = 136446466;
-            v26 = "[_NWAdvertiser dealloc]";
-            v27 = 2082;
-            v28 = v19;
+            v24 = "[_NWAdvertiser dealloc]";
+            v25 = 2082;
+            v26 = v19;
             _os_log_impl(&dword_181A37000, v7, v18, "%{public}s [%{public}s] dnsref is not NULL, no backtrace", buf, 0x16u);
           }
 
@@ -268,11 +266,11 @@ LABEL_12:
         {
           v15 = nw_listener_get_id_string(self->listener);
           *buf = 136446722;
-          v26 = "[_NWAdvertiser dealloc]";
+          v24 = "[_NWAdvertiser dealloc]";
+          v25 = 2082;
+          v26 = v15;
           v27 = 2082;
-          v28 = v15;
-          v29 = 2082;
-          v30 = v12;
+          v28 = v12;
           _os_log_impl(&dword_181A37000, v13, v14, "%{public}s [%{public}s] dnsref is not NULL, dumping backtrace:%{public}s", buf, 0x20u);
         }
 
@@ -293,9 +291,9 @@ LABEL_15:
     nw_path_evaluator_cancel(evaluator);
   }
 
-  v22.receiver = self;
-  v22.super_class = _NWAdvertiser;
-  [(_NWAdvertiser *)&v22 dealloc:v20];
+  v20.receiver = self;
+  v20.super_class = _NWAdvertiser;
+  [(_NWAdvertiser *)&v20 dealloc];
 }
 
 - (id)initFor:(void *)for descriptor:(void *)descriptor parent:(void *)parent parameters:
@@ -315,7 +313,7 @@ LABEL_15:
     v18 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[_NWAdvertiser initFor:descriptor:parent:parameters:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null _listener", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -398,7 +396,7 @@ LABEL_39:
     v22 = __nwlog_obj();
     *buf = 136446210;
     v36 = "[_NWAdvertiser initFor:descriptor:parent:parameters:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null _descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -477,7 +475,7 @@ LABEL_39:
     objc_storeStrong(v14 + 1, a2);
     objc_storeStrong(self + 2, for);
     objc_storeWeak(self + 3, descriptorCopy);
-    v15 = _nw_parameters_copy(parentCopy);
+    v15 = _nw_parameters_copy();
     v16 = self[5];
     self[5] = v15;
 
@@ -613,37 +611,37 @@ LABEL_6:
 - (void)updateFlows:(uint64_t)flows
 {
   v3 = a2;
-  v4 = nw_dictionary_create();
-  v5 = *(flows + 56);
-  if (v5)
+  v5 = nw_dictionary_create(v3, v4);
+  v6 = *(flows + 56);
+  if (v6)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __29___NWAdvertiser_updateFlows___block_invoke;
-    v13[3] = &unk_1E6A35DB8;
-    v14 = v3;
-    v15 = v4;
-    nw_dictionary_apply(v5, v13);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __29___NWAdvertiser_updateFlows___block_invoke;
+    v16[3] = &unk_1E6A35DB8;
+    v17 = v3;
+    v18 = v5;
+    nw_dictionary_apply(v6, v16);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __29___NWAdvertiser_updateFlows___block_invoke_2;
-  v12[3] = &unk_1E6A39A98;
-  v12[4] = flows;
-  nw_dictionary_apply(v4, v12);
-  v6 = nw_dictionary_create();
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __29___NWAdvertiser_updateFlows___block_invoke_5;
-  v10[3] = &unk_1E6A35DE0;
-  v10[4] = flows;
-  v7 = v6;
-  v11 = v7;
-  nw_path_enumerate_browse_options(v3, v10);
-  v8 = *(flows + 56);
-  *(flows + 56) = v7;
-  v9 = v7;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __29___NWAdvertiser_updateFlows___block_invoke_2;
+  v15[3] = &unk_1E6A39A98;
+  v15[4] = flows;
+  v7 = nw_dictionary_apply(v5, v15);
+  v9 = nw_dictionary_create(v7, v8);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __29___NWAdvertiser_updateFlows___block_invoke_5;
+  v13[3] = &unk_1E6A35DE0;
+  v13[4] = flows;
+  v10 = v9;
+  v14 = v10;
+  nw_path_enumerate_browse_options(v3, v13);
+  v11 = *(flows + 56);
+  *(flows + 56) = v10;
+  v12 = v10;
 }
 
 - (void)reconcileChildren:(uint64_t)children
@@ -745,7 +743,7 @@ LABEL_20:
           v52 = v14;
           v53 = 2082;
           v54 = name;
-          v16 = _os_log_send_and_compose_impl();
+          v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s [%{public}s] Client specified an interface (%{public}s) and RegisterP2P", buf, 32);
 
           type = OS_LOG_TYPE_ERROR;
           v47 = 0;

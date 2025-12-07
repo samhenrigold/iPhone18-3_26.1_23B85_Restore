@@ -6,6 +6,7 @@
 + (id)relation;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToNode:(id)node;
+- (SKGNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (SKGNode)initWithValue:(id)value;
 - (id)filter;
 - (id)label;
@@ -219,6 +220,23 @@
   return v5;
 }
 
+- (SKGNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  v7 = [properties objectForKey:{@"value", domain}];
+  if (v7)
+  {
+    self = [(SKGNode *)self initWithValue:v7];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (BOOL)isEqualToNode:(id)node
 {
   nodeCopy = node;
@@ -267,7 +285,7 @@
 
 - (id)filter
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (self->_value)
   {
     value = self->_value;
@@ -278,35 +296,31 @@
     value = &stru_2846CE8D8;
   }
 
-  v10 = @"value";
-  v11[0] = value;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"value";
+  v10[0] = value;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v5 = objc_alloc(MEMORY[0x277D22C78]);
   label = [(SKGNode *)self label];
   v7 = [v5 initWithLabel:label domain:-[SKGNode domain](self properties:{"domain"), v4}];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   value = self->_value;
   if (value)
   {
-    v6 = @"value";
-    v7[0] = value;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = @"value";
+    v6[0] = value;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   }
 
   else
   {
     v3 = &unk_2846E85D8;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

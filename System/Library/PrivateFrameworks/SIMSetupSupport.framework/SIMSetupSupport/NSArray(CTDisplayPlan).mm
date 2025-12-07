@@ -15,28 +15,28 @@
 
 - (id)carrierNames
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         carrierName = [v8 carrierName];
         v10 = [carrierName length];
 
@@ -47,13 +47,11 @@
         }
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -145,41 +143,41 @@
 
 - (id)getCombinedFooterForNonTransferablePlans
 {
-  v44[6] = *MEMORY[0x277D85DE8];
+  v43[6] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CBEB38] dictionaryWithPlansByGroupByTransferCapability:self];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
-  v44[0] = v2;
-  v44[1] = &unk_287583928;
-  v44[2] = &unk_2875839E8;
-  v44[3] = &unk_2875839D0;
-  v44[4] = &unk_287583940;
-  v44[5] = &unk_2875838E0;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:6];
+  v43[0] = v2;
+  v43[1] = &unk_287583928;
+  v43[2] = &unk_2875839E8;
+  v43[3] = &unk_2875839D0;
+  v43[4] = &unk_287583940;
+  v43[5] = &unk_2875838E0;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:6];
 
   string = [MEMORY[0x277CCAB68] string];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v4 = v3;
   v5 = v1;
   obj = v4;
-  v6 = [v4 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v40;
-    v37 = v1;
+    v8 = *v39;
+    v36 = v1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         v11 = [v5 objectForKey:v10];
         v12 = v11;
         if (v11 && [v11 count])
@@ -230,7 +228,7 @@ LABEL_30:
 
               [string appendString:v33];
               v24 = v33;
-              v5 = v37;
+              v5 = v36;
             }
 
             goto LABEL_35;
@@ -270,7 +268,7 @@ LABEL_30:
               v30 = [v22 localizedStringForKey:@"TRANSFER_PLAN_LABELS_SECTION_FOOTER_REQUIRE_SOURCE_SOFTWARE_UPDATE_%@" value:&stru_28753DF48 table:@"Localizable"];
               v24 = [v29 stringWithFormat:v30, v16];
 
-              v5 = v37;
+              v5 = v36;
               goto LABEL_29;
             }
 
@@ -294,7 +292,7 @@ LABEL_30:
 
           v25 = [v27 localizedStringForKey:v28 value:&stru_28753DF48 table:@"Localizable"];
           v31 = v26;
-          v5 = v37;
+          v5 = v36;
           [v31 stringWithFormat:v25, v16];
           goto LABEL_28;
         }
@@ -302,30 +300,28 @@ LABEL_30:
 LABEL_35:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v7);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return string;
 }
 
 - (void)getCombinedTitleAndDetailsForNonTransferablePlans:()CTDisplayPlan details:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v6 = [MEMORY[0x277CBEB38] dictionaryWithPlansByGroupByTransferCapability:self];
   v7 = [v6 mergeByTransferCapabilities:&unk_287583F68];
   v8 = [v6 mergeByTransferCapabilities:&unk_287583F80];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -334,24 +330,24 @@ LABEL_35:
 
   v11 = v10;
   v12 = 0;
-  v28 = *v32;
+  v27 = *v31;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v32 != v28)
+      if (*v31 != v27)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v31 + 1) + 8 * i);
+      v14 = *(*(&v30 + 1) + 8 * i);
       unsignedIntegerValue = [v14 unsignedIntegerValue];
       v16 = [v9 objectForKeyedSubscript:v14];
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
-      [v16 getCombinedTitleAndDetailsForTransferCapability:unsignedIntegerValue title:&v30 detail:&v29];
-      v17 = v30;
-      v18 = v29;
+      [v16 getCombinedTitleAndDetailsForTransferCapability:unsignedIntegerValue title:&v29 detail:&v28];
+      v17 = v29;
+      v18 = v28;
 
       if ([v12 length])
       {
@@ -388,7 +384,7 @@ LABEL_11:
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
   }
 
   while (v11);
@@ -405,8 +401,6 @@ LABEL_19:
     v24 = string;
     *a4 = string;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCombinedTitleAndDetailsForTransferCapability:()CTDisplayPlan title:detail:
@@ -430,21 +424,21 @@ LABEL_19:
 
     if (a3 == 11001)
     {
-      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      [v17 localizedStringForKey:@"VISIT_STORE_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-      v18 = carrierNames;
-      v19 = a4;
-      v21 = v20 = a5;
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      [v18 localizedStringForKey:@"VISIT_STORE_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+      v19 = carrierNames;
+      v20 = a4;
+      v22 = v21 = a5;
 
-      v22 = MEMORY[0x277CCACA8];
-      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v24 = [v23 localizedStringForKey:@"VISIT_STORE_FOR_WARNING_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
-      v15 = [v22 stringWithFormat:v24, v11];
+      v23 = MEMORY[0x277CCACA8];
+      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v25 = [v24 localizedStringForKey:@"VISIT_STORE_FOR_WARNING_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+      v15 = [v23 stringWithFormat:v25, v11];
 
-      v16 = v21;
-      a5 = v20;
-      a4 = v19;
-      carrierNames = v18;
+      v16 = v22;
+      a5 = v21;
+      a4 = v20;
+      carrierNames = v19;
     }
 
     switch(a3)
@@ -453,12 +447,12 @@ LABEL_19:
       case 1:
       case 8:
       case 13:
-        v26 = MEMORY[0x277CCACA8];
-        v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v28 = [v27 localizedStringForKey:@"TRANSFER_UNSUPPORTED_PLAN_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
-        v29 = [v26 stringWithFormat:v28, v11];
+        v27 = MEMORY[0x277CCACA8];
+        v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v29 = [v28 localizedStringForKey:@"TRANSFER_UNSUPPORTED_PLAN_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+        v30 = [v27 stringWithFormat:v29, v11];
 
-        v15 = v29;
+        v15 = v30;
         break;
       case 2:
       case 3:
@@ -467,149 +461,149 @@ LABEL_19:
       case 6:
       case 7:
       case 11:
-        v25 = _TSLogDomain();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = _TSLogDomain(v17);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [NSArray(CTDisplayPlan) getCombinedTitleAndDetailsForTransferCapability:a3 title:v25 detail:?];
+          [NSArray(CTDisplayPlan) getCombinedTitleAndDetailsForTransferCapability:a3 title:v26 detail:?];
         }
 
         v15 = &stru_28753DF48;
         break;
       case 9:
-        v30 = [carrierNames count];
-        v31 = MEMORY[0x277CCACA8];
-        v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v33 = v32;
-        if (v30 > 1)
+        v31 = [carrierNames count];
+        v32 = MEMORY[0x277CCACA8];
+        v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v34 = v33;
+        if (v31 > 1)
         {
-          v34 = @"COMBINED_MULTI_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_%@_%@";
+          v35 = @"COMBINED_MULTI_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_%@_%@";
         }
 
         else
         {
-          v34 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_%@_%@";
+          v35 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_%@_%@";
         }
 
-        v64 = [v32 localizedStringForKey:v34 value:&stru_28753DF48 table:@"Localizable"];
-        v65 = [v31 stringWithFormat:v64, v11, v11];
-
-        v15 = v65;
-        break;
-      case 10:
-        v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v35 localizedStringForKey:@"TRANSFER_INELIGIBLE_FOR_NOW_PLAN" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v37 = MEMORY[0x277CCACA8];
-        v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v39 = [v38 localizedStringForKey:@"COMBINED_TRANSFER_INELIGIBLE_FOR_NOW_PLAN_DETAIL_%@_%@" value:&stru_28753DF48 table:@"Localizable"];
-        [v37 stringWithFormat:v39, v11, v11];
-        goto LABEL_29;
-      case 12:
-        v44 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v44 localizedStringForKey:@"TRANSFER_INELIGIBLE_PLAN" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_ACTIVATION_POLICY_MISMATCH_CARRIER_UNLOCK_%@";
-        goto LABEL_28;
-      case 14:
-        v54 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v54 localizedStringForKey:@"TRANSFER_UPDATE_REQUIRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_TRANSFER_TARGET_UPDATE_REQUIRED_DETAIL_%@";
-        goto LABEL_28;
-      case 15:
-        v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v40 localizedStringForKey:@"TRANSFER_UPDATE_REQUIRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_TRANSFER_SOURCE_UPDATE_REQUIRED_DETAIL_%@";
-        goto LABEL_28;
-      case 16:
-        v60 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v60 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_MISSING_CERTIFICATE_%@";
-        goto LABEL_28;
-      case 17:
-        v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v45 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_REGULATORY_RESTRICTED_%@";
-        goto LABEL_28;
-      case 18:
-        v53 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v53 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
-        v36 = v68 = a5;
-
-        v41 = MEMORY[0x277CCACA8];
-        v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v38 = v42;
-        v43 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNREGULATORY_RESTRICTED_%@";
-LABEL_28:
-        v39 = [v42 localizedStringForKey:v43 value:&stru_28753DF48 table:@"Localizable"];
-        [v41 stringWithFormat:v39, v11, v67];
-        v61 = LABEL_29:;
-
-        v15 = v61;
-        v16 = v36;
-        a5 = v68;
-        break;
-      case 19:
-        v55 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v56 = [v55 localizedStringForKey:@"TURN_ON_LOCATION_SERVICE" value:&stru_28753DF48 table:@"Localizable"];
-
-        LODWORD(v55) = +[TSUtilities inBuddy];
-        v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v58 = v57;
-        if (v55)
-        {
-          v59 = @"SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNKNOWN_LOCATION_BUDDY";
-        }
-
-        else
-        {
-          v59 = @"SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNKNOWN_LOCATION";
-        }
-
-        v66 = [v57 localizedStringForKey:v59 value:&stru_28753DF48 table:@"Localizable"];
+        v65 = [v33 localizedStringForKey:v35 value:&stru_28753DF48 table:@"Localizable"];
+        v66 = [v32 stringWithFormat:v65, v11, v11];
 
         v15 = v66;
-        v16 = v56;
+        break;
+      case 10:
+        v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v36 localizedStringForKey:@"TRANSFER_INELIGIBLE_FOR_NOW_PLAN" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v38 = MEMORY[0x277CCACA8];
+        v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v40 = [v39 localizedStringForKey:@"COMBINED_TRANSFER_INELIGIBLE_FOR_NOW_PLAN_DETAIL_%@_%@" value:&stru_28753DF48 table:@"Localizable"];
+        [v38 stringWithFormat:v40, v11, v11];
+        goto LABEL_29;
+      case 12:
+        v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v45 localizedStringForKey:@"TRANSFER_INELIGIBLE_PLAN" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_INELIGIBLE_DETAIL_ACTIVATION_POLICY_MISMATCH_CARRIER_UNLOCK_%@";
+        goto LABEL_28;
+      case 14:
+        v55 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v55 localizedStringForKey:@"TRANSFER_UPDATE_REQUIRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_TRANSFER_TARGET_UPDATE_REQUIRED_DETAIL_%@";
+        goto LABEL_28;
+      case 15:
+        v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v41 localizedStringForKey:@"TRANSFER_UPDATE_REQUIRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_TRANSFER_SOURCE_UPDATE_REQUIRED_DETAIL_%@";
+        goto LABEL_28;
+      case 16:
+        v61 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v61 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_MISSING_CERTIFICATE_%@";
+        goto LABEL_28;
+      case 17:
+        v46 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v46 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_REGULATORY_RESTRICTED_%@";
+        goto LABEL_28;
+      case 18:
+        v54 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v54 localizedStringForKey:@"UNABLE_TO_TRANSFER" value:&stru_28753DF48 table:@"Localizable"];
+        v37 = v69 = a5;
+
+        v42 = MEMORY[0x277CCACA8];
+        v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v39 = v43;
+        v44 = @"COMBINED_SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNREGULATORY_RESTRICTED_%@";
+LABEL_28:
+        v40 = [v43 localizedStringForKey:v44 value:&stru_28753DF48 table:@"Localizable"];
+        [v42 stringWithFormat:v40, v11, v68];
+        v62 = LABEL_29:;
+
+        v15 = v62;
+        v16 = v37;
+        a5 = v69;
+        break;
+      case 19:
+        v56 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v57 = [v56 localizedStringForKey:@"TURN_ON_LOCATION_SERVICE" value:&stru_28753DF48 table:@"Localizable"];
+
+        LODWORD(v56) = +[TSUtilities inBuddy];
+        v58 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v59 = v58;
+        if (v56)
+        {
+          v60 = @"SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNKNOWN_LOCATION_BUDDY";
+        }
+
+        else
+        {
+          v60 = @"SINGLE_INELIGIBLE_ESIM_TRANSFER_CAPABILITY_UNKNOWN_LOCATION";
+        }
+
+        v67 = [v58 localizedStringForKey:v60 value:&stru_28753DF48 table:@"Localizable"];
+
+        v15 = v67;
+        v16 = v57;
         break;
       case 20:
-        v46 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v46 localizedStringForKey:@"ESIM_COUNT_RESTRICTION_WARNING_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-        v47 = carrierNames;
-        v48 = a4;
-        v50 = v49 = a5;
+        v47 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v47 localizedStringForKey:@"ESIM_COUNT_RESTRICTION_WARNING_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+        v48 = carrierNames;
+        v49 = a4;
+        v51 = v50 = a5;
 
-        v51 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v52 = [v51 localizedStringForKey:@"ESIM_COUNT_RESTRICTION_WARNING_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+        v52 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v53 = [v52 localizedStringForKey:@"ESIM_COUNT_RESTRICTION_WARNING_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
 
-        v15 = v52;
-        v16 = v50;
-        a5 = v49;
-        a4 = v48;
-        carrierNames = v47;
+        v15 = v53;
+        v16 = v51;
+        a5 = v50;
+        a4 = v49;
+        carrierNames = v48;
         break;
       default:
         break;
@@ -617,13 +611,13 @@ LABEL_28:
 
     if (a4)
     {
-      v62 = v16;
+      v63 = v16;
       *a4 = v16;
     }
 
     if (a5)
     {
-      v63 = v15;
+      v64 = v15;
       *a5 = v15;
     }
   }
@@ -644,15 +638,14 @@ LABEL_28:
 
 - (void)getCombinedTitleAndDetailsForTransferCapability:()CTDisplayPlan title:detail:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 134218498;
-  v5 = a1;
-  v6 = 2080;
-  v7 = CTPlanTransferCapabilityAsString();
-  v8 = 2080;
-  v9 = "[NSArray(CTDisplayPlan) getCombinedTitleAndDetailsForTransferCapability:title:detail:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]unexpected transfer capability : %lu(%s) @%s", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 134218498;
+  v4 = a1;
+  v5 = 2080;
+  v6 = CTPlanTransferCapabilityAsString();
+  v7 = 2080;
+  v8 = "[NSArray(CTDisplayPlan) getCombinedTitleAndDetailsForTransferCapability:title:detail:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]unexpected transfer capability : %lu(%s) @%s", &v3, 0x20u);
 }
 
 @end

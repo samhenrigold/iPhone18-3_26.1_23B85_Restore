@@ -138,7 +138,7 @@
   {
     patternDetectorName = self->_patternDetectorName;
     *buf = 138412290;
-    v79 = patternDetectorName;
+    v73 = patternDetectorName;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Analyzing events for anomalies for %@...", buf, 0xCu);
   }
 
@@ -147,7 +147,7 @@
     v8 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [MOEventPatternDetector processEvents:?];
+      [MOEventPatternDetector processEvents:];
     }
 
     v9 = +[NSAssertionHandler currentHandler];
@@ -159,7 +159,7 @@
     v10 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [MOEventPatternDetector processEvents:?];
+      [MOEventPatternDetector processEvents:];
     }
 
     v11 = +[NSAssertionHandler currentHandler];
@@ -171,7 +171,7 @@
     v12 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [MOEventPatternDetector processEvents:?];
+      [MOEventPatternDetector processEvents:];
     }
 
     v13 = +[NSAssertionHandler currentHandler];
@@ -183,301 +183,292 @@
   {
     v15 = self->_patternDetectorName;
     *buf = 138412290;
-    v79 = v15;
+    v73 = v15;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Preparing for process for %@", buf, 0xCu);
   }
 
-  predicate = self->_predicate;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorPredicate *)self->_predicate reset];
   }
 
-  featureExtractor = self->_featureExtractor;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorFeatureExtractor *)self->_featureExtractor reset];
   }
 
-  featureTransformer = self->_featureTransformer;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorFeatureTransformer *)self->_featureTransformer reset];
   }
 
-  anomalyDetector = self->_anomalyDetector;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorAnomalyDetector *)self->_anomalyDetector reset];
   }
 
-  routineDetector = self->_routineDetector;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorRoutineDetector *)self->_routineDetector reset];
   }
 
-  trendDetector = self->_trendDetector;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOEventPatternDetectorTrendDetector *)self->_trendDetector reset];
   }
 
+  v16 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    v17 = self->_patternDetectorName;
+    *buf = 138412290;
+    v73 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Filtering relevant event subsets for %@", buf, 0xCu);
+  }
+
+  v18 = [(MOEventPatternDetectorPredicate *)self->_predicate filterEvents:eventsCopy];
+  v19 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = self->_patternDetectorName;
+    *buf = 138412290;
+    v73 = v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Extracting event features for %@", buf, 0xCu);
+  }
+
+  v21 = [(MOEventPatternDetectorFeatureExtractor *)self->_featureExtractor extractFeaturesFromEvents:v18];
   v22 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     v23 = self->_patternDetectorName;
     *buf = 138412290;
-    v79 = v23;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Filtering relevant event subsets for %@", buf, 0xCu);
+    v73 = v23;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Aggregating events with featureTransformer for %@", buf, 0xCu);
   }
 
-  v24 = [(MOEventPatternDetectorPredicate *)self->_predicate filterEvents:eventsCopy];
-  v25 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  featureTransformer = self->_featureTransformer;
+  if (featureTransformer)
   {
-    v26 = self->_patternDetectorName;
-    *buf = 138412290;
-    v79 = v26;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Extracting event features for %@", buf, 0xCu);
-  }
-
-  v27 = [(MOEventPatternDetectorFeatureExtractor *)self->_featureExtractor extractFeaturesFromEvents:v24];
-  v28 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
-  {
-    v29 = self->_patternDetectorName;
-    *buf = 138412290;
-    v79 = v29;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Aggregating events with featureTransformer for %@", buf, 0xCu);
-  }
-
-  v30 = self->_featureTransformer;
-  if (v30)
-  {
-    v31 = [(MOEventPatternDetectorFeatureTransformer *)v30 transformFeaturesFromEvents:v24 withFeatures:v27];
-    if ([v31 count] != 2)
+    v25 = [(MOEventPatternDetectorFeatureTransformer *)featureTransformer transformFeaturesFromEvents:v18 withFeatures:v21];
+    if ([v25 count] != 2)
     {
-      v32 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v26 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v33 = +[NSAssertionHandler currentHandler];
-      [v33 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:172 description:{@"Wrong NSArray length resulting from transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 172}];
+      v27 = +[NSAssertionHandler currentHandler];
+      [v27 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:172 description:{@"Wrong NSArray length resulting from transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 172}];
     }
 
-    firstObject = [v31 firstObject];
+    firstObject = [v25 firstObject];
 
     if (!firstObject)
     {
-      v35 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v29 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v36 = +[NSAssertionHandler currentHandler];
-      [v36 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:173 description:{@"eventsSubset undefined after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 173}];
+      v30 = +[NSAssertionHandler currentHandler];
+      [v30 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:173 description:{@"eventsSubset undefined after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 173}];
     }
 
-    firstObject2 = [v31 firstObject];
+    firstObject2 = [v25 firstObject];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if ((isKindOfClass & 1) == 0)
     {
-      v39 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v33 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v40 = +[NSAssertionHandler currentHandler];
-      [v40 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:174 description:{@"eventsSubset is not an NSArray after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 174}];
+      v34 = +[NSAssertionHandler currentHandler];
+      [v34 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:174 description:{@"eventsSubset is not an NSArray after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 174}];
     }
 
-    lastObject = [v31 lastObject];
+    lastObject = [v25 lastObject];
 
     if (!lastObject)
     {
-      v42 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v36 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v43 = +[NSAssertionHandler currentHandler];
-      [v43 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:175 description:{@"features undefined after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 175}];
+      v37 = +[NSAssertionHandler currentHandler];
+      [v37 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:175 description:{@"features undefined after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 175}];
     }
 
-    lastObject2 = [v31 lastObject];
+    lastObject2 = [v25 lastObject];
     objc_opt_class();
-    v45 = objc_opt_isKindOfClass();
+    v39 = objc_opt_isKindOfClass();
 
-    if ((v45 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
-      v46 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v40 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v47 = +[NSAssertionHandler currentHandler];
-      [v47 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:176 description:{@"features is not an NSArray after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 176}];
+      v41 = +[NSAssertionHandler currentHandler];
+      [v41 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:176 description:{@"features is not an NSArray after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 176}];
     }
 
-    firstObject3 = [v31 firstObject];
+    firstObject3 = [v25 firstObject];
 
-    lastObject3 = [v31 lastObject];
+    lastObject3 = [v25 lastObject];
 
-    v50 = [firstObject3 count];
-    if (v50 != [lastObject3 count])
+    v44 = [firstObject3 count];
+    if (v44 != [lastObject3 count])
     {
-      v51 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v45 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         [MOEventPatternDetector processEvents:];
       }
 
-      v52 = +[NSAssertionHandler currentHandler];
-      [v52 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:179 description:{@"Mismatch between number of features and number of events after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 179}];
+      v46 = +[NSAssertionHandler currentHandler];
+      [v46 handleFailureInMethod:a2 object:self file:@"MOEventPatternDetector.m" lineNumber:179 description:{@"Mismatch between number of features and number of events after transformFeaturesFromEvents:withFeatures:. (in %s:%d)", "-[MOEventPatternDetector processEvents:]", 179}];
     }
 
-    v27 = lastObject3;
-    v24 = firstObject3;
+    v21 = lastObject3;
+    v18 = firstObject3;
   }
 
+  v47 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+  {
+    v48 = self->_patternDetectorName;
+    *buf = 138412290;
+    v73 = v48;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "Detecting anomalies for %@", buf, 0xCu);
+  }
+
+  v49 = [(MOEventPatternDetectorAnomalyDetector *)self->_anomalyDetector extractAnomalyEventsFrom:v18 withFeatures:v21];
+  v50 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+  {
+    v51 = self->_patternDetectorName;
+    *buf = 138412290;
+    v73 = v51;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Detecting routines for %@", buf, 0xCu);
+  }
+
+  v52 = [(MOEventPatternDetectorRoutineDetector *)self->_routineDetector extractRoutineEventsFrom:v18 withFeatures:v21];
   v53 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
   if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
   {
     v54 = self->_patternDetectorName;
     *buf = 138412290;
-    v79 = v54;
-    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Detecting anomalies for %@", buf, 0xCu);
+    v73 = v54;
+    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Detecting trends for %@", buf, 0xCu);
   }
 
-  v55 = [(MOEventPatternDetectorAnomalyDetector *)self->_anomalyDetector extractAnomalyEventsFrom:v24 withFeatures:v27];
-  v56 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+  v55 = [(MOEventPatternDetectorTrendDetector *)self->_trendDetector extractTrendEventsFrom:v18 withFeatures:v21];
+  v56 = objc_opt_new();
+  v57 = v56;
+  if (v49)
   {
-    v57 = self->_patternDetectorName;
-    *buf = 138412290;
-    v79 = v57;
-    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "Detecting routines for %@", buf, 0xCu);
+    [v56 addObjectsFromArray:v49];
   }
 
-  v58 = [(MOEventPatternDetectorRoutineDetector *)self->_routineDetector extractRoutineEventsFrom:v24 withFeatures:v27];
-  v59 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+  if (v52)
   {
-    v60 = self->_patternDetectorName;
-    *buf = 138412290;
-    v79 = v60;
-    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "Detecting trends for %@", buf, 0xCu);
+    [v57 addObjectsFromArray:v52];
   }
 
-  v61 = [(MOEventPatternDetectorTrendDetector *)self->_trendDetector extractTrendEventsFrom:v24 withFeatures:v27];
-  v62 = objc_opt_new();
-  v63 = v62;
   if (v55)
   {
-    [v62 addObjectsFromArray:v55];
+    [v57 addObjectsFromArray:v55];
   }
 
-  if (v58)
+  if (v57 && [v57 count])
   {
-    [v63 addObjectsFromArray:v58];
-  }
-
-  if (v61)
-  {
-    [v63 addObjectsFromArray:v61];
-  }
-
-  if (v63 && [v63 count])
-  {
-    v64 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+    v58 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
-      v77 = [v63 count];
-      v76 = [v55 count];
-      v65 = v27;
-      v66 = eventsCopy;
-      v67 = [v58 count];
-      v68 = [v61 count];
-      v69 = self->_patternDetectorName;
+      v71 = [v57 count];
+      v70 = [v49 count];
+      v59 = v21;
+      v60 = eventsCopy;
+      v61 = [v52 count];
+      v62 = [v55 count];
+      v63 = self->_patternDetectorName;
       *buf = 134219010;
-      v79 = v77;
-      v80 = 2048;
-      v81 = v76;
-      v82 = 2048;
-      v83 = v67;
-      eventsCopy = v66;
-      v27 = v65;
-      v84 = 2048;
-      v85 = v68;
-      v86 = 2112;
-      v87 = v69;
-      v70 = "Detected %lu patterns (a=%lu,r=%lu,t=%lu) for %@";
-      v71 = v64;
-      v72 = 52;
+      v73 = v71;
+      v74 = 2048;
+      v75 = v70;
+      v76 = 2048;
+      v77 = v61;
+      eventsCopy = v60;
+      v21 = v59;
+      v78 = 2048;
+      v79 = v62;
+      v80 = 2112;
+      v81 = v63;
+      v64 = "Detected %lu patterns (a=%lu,r=%lu,t=%lu) for %@";
+      v65 = v58;
+      v66 = 52;
 LABEL_81:
-      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, v70, buf, v72);
+      _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, v64, buf, v66);
     }
   }
 
   else
   {
-    v64 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+    v58 = _mo_log_facility_get_os_log(&MOLogFacilityPatternDetection);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
-      v73 = self->_patternDetectorName;
+      v67 = self->_patternDetectorName;
       *buf = 138412290;
-      v79 = v73;
-      v70 = "No patterns detected for %@";
-      v71 = v64;
-      v72 = 12;
+      v73 = v67;
+      v64 = "No patterns detected for %@";
+      v65 = v58;
+      v66 = 12;
       goto LABEL_81;
     }
   }
 
-  v74 = v63;
-  return v63;
+  v68 = v57;
+  return v57;
 }
 
-- (void)processEvents:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)processEvents:.cold.1()
 {
-  v1 = *(a1 + 64);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)processEvents:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)processEvents:.cold.2()
 {
-  v1 = *(a1 + 64);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)processEvents:(uint64_t)a1 .cold.3(uint64_t a1)
+- (void)processEvents:.cold.3()
 {
-  v1 = *(a1 + 64);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)processEvents:.cold.4()

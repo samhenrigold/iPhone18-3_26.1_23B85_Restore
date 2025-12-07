@@ -63,15 +63,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = [self->_anchor isEqual:equalCopy[1]];
+    isEqual = objc_msgSend_isEqual_(self->_anchor);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 @end

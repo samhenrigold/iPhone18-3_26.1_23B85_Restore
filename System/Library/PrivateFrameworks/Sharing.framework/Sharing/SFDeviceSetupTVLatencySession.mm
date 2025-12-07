@@ -23,20 +23,19 @@
 
 - (SFDeviceSetupTVLatencySession)init
 {
-  v8.receiver = self;
-  v8.super_class = SFDeviceSetupTVLatencySession;
-  v2 = [(SFDeviceSetupTVLatencySession *)&v8 init];
-  v3 = v2;
+  v7.receiver = self;
+  v7.super_class = SFDeviceSetupTVLatencySession;
+  v2 = [(SFDeviceSetupTVLatencySession *)&v7 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v6 = v3;
+    v5 = v2;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)_cleanup
@@ -79,24 +78,28 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__SFDeviceSetupTVLatencySession_activate__block_invoke(uint64_t a1)
+uint64_t __41__SFDeviceSetupTVLatencySession_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    __41__SFDeviceSetupTVLatencySession_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFDeviceSetupTVLatencySession_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  *(*(a1 + 32) + 32) = mach_absolute_time();
-  v2 = *(a1 + 32);
-  v3 = v2[11];
-  if (v3)
+  *(*(v3 + 32) + 8) = 1;
+  *(*(v3 + 32) + 32) = mach_absolute_time();
+  v4 = *(v3 + 32);
+  v5 = v4[11];
+  if (v5)
   {
-    (*(v3 + 16))(v2[11], 10, 0);
-    v2 = *(a1 + 32);
+    (*(v5 + 16))(v4[11], 10, 0);
+    v4 = *(v3 + 32);
   }
 
-  return [v2 _run];
+  return [v4 _run];
 }
 
 - (void)invalidate
@@ -110,38 +113,42 @@ uint64_t __41__SFDeviceSetupTVLatencySession_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a1)
+uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 16) & 1) == 0 && gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 16) & 1) == 0 && gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 16) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 16) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)_reportError:(id)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (gLogCategory_SFDeviceSetupTVLatencySession <= 60 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupTVLatencySession _reportError:];
+    [SFDeviceSetupTVLatencySession _reportError:errorCopy];
   }
 
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    v28 = @"eo";
+    v26 = @"eo";
     v8 = errorCopy;
     if (!errorCopy)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E696A768];
-      v26 = *MEMORY[0x1E696A578];
+      v24 = *MEMORY[0x1E696A578];
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
       v3 = v11;
       if (v11)
@@ -154,13 +161,13 @@ uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a
         v12 = @"?";
       }
 
-      v27 = v12;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v25 = v12;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v8 = [v9 errorWithDomain:v10 code:-6700 userInfo:v4];
     }
 
-    v29[0] = v8;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27[0] = v8;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     progressHandler[2](progressHandler, 30, v13);
 
     if (!errorCopy)
@@ -168,10 +175,10 @@ uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a
     }
   }
 
-  v24[0] = @"errCode";
+  v22[0] = @"errCode";
   v14 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-  v25[0] = v14;
-  v24[1] = @"errDomain";
+  v23[0] = v14;
+  v22[1] = @"errDomain";
   domain = [errorCopy domain];
   v16 = domain;
   if (domain)
@@ -184,22 +191,19 @@ uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a
     v17 = @"?";
   }
 
-  v25[1] = v17;
-  v25[2] = MEMORY[0x1E695E110];
-  v24[2] = @"success";
-  v24[3] = @"totalMs";
+  v23[1] = v17;
+  v23[2] = MEMORY[0x1E695E110];
+  v22[2] = @"success";
+  v22[3] = @"totalMs";
   v18 = MEMORY[0x1E696AD98];
   mach_absolute_time();
-  startTicks = self->_startTicks;
-  v20 = [v18 numberWithUnsignedLongLong:UpTicksToMilliseconds()];
-  v25[3] = v20;
-  v24[4] = @"triggerMs";
-  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_triggerMs];
-  v25[4] = v21;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:5];
-  SFMetricsLog(@"com.apple.sharing.TVLatencyResult", v22);
-
-  v23 = *MEMORY[0x1E69E9840];
+  v19 = [v18 numberWithUnsignedLongLong:UpTicksToMilliseconds()];
+  v23[3] = v19;
+  v22[4] = @"triggerMs";
+  v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_triggerMs];
+  v23[4] = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  SFMetricsLog(@"com.apple.sharing.TVLatencyResult", v21);
 }
 
 - (void)pairSetupTryPIN:(id)n
@@ -227,20 +231,25 @@ uint64_t __43__SFDeviceSetupTVLatencySession_invalidate__block_invoke(uint64_t a
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__SFDeviceSetupTVLatencySession_tryAgain__block_invoke(uint64_t a1)
+uint64_t __41__SFDeviceSetupTVLatencySession_tryAgain__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    __41__SFDeviceSetupTVLatencySession_tryAgain__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFDeviceSetupTVLatencySession_tryAgain__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(*(a1 + 32) + 56);
+  v4 = *(*(v3 + 32) + 56);
 
-  return [v2 estimate];
+  return [v4 estimate];
 }
 
 - (int)_runSFSessionStart
 {
+  selfCopy = self;
   sfSessionState = self->_sfSessionState;
   if (sfSessionState != 4 && sfSessionState != 2)
   {
@@ -252,75 +261,78 @@ uint64_t __41__SFDeviceSetupTVLatencySession_tryAgain__block_invoke(uint64_t a1)
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_sfSessionState;
+            return selfCopy->_sfSessionState;
           }
 
-          v10 = self->_sfSessionState;
+          sfSessionState = selfCopy->_sfSessionState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runSFSessionStart]", 30, "SFSession hasn't succeeded yet (%d)\n", sfSessionState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
       {
-        [SFDeviceSetupTVLatencySession _runSFSessionStart];
+        if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupTVLatencySession *)self _runSFSessionStart];
+        }
       }
 
-      self->_sfSessionState = 1;
-      [(SFSession *)self->_sfSession invalidate];
-      v5 = objc_alloc_init(SFSession);
-      sfSession = self->_sfSession;
-      self->_sfSession = v5;
+      selfCopy->_sfSessionState = 1;
+      [(SFSession *)selfCopy->_sfSession invalidate];
+      v6 = objc_alloc_init(SFSession);
+      sfSession = selfCopy->_sfSession;
+      selfCopy->_sfSession = v6;
 
-      [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-      [(SFSession *)self->_sfSession setLabel:@"TVLatency"];
-      [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-      [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.AppleTVSetup"];
-      [(SFSession *)self->_sfSession setSessionFlags:33];
+      [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFSession *)selfCopy->_sfSession setLabel:@"TVLatency"];
+      [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+      [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.AppleTVSetup"];
+      [(SFSession *)selfCopy->_sfSession setSessionFlags:33];
       v15[0] = MEMORY[0x1E69E9820];
       v15[1] = 3221225472;
       v15[2] = __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke;
       v15[3] = &unk_1E788B238;
-      v15[4] = self;
-      [(SFSession *)self->_sfSession setErrorHandler:v15];
+      v15[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setErrorHandler:v15];
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
       v14[2] = __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_2;
       v14[3] = &unk_1E788B198;
-      v14[4] = self;
-      [(SFSession *)self->_sfSession setInterruptionHandler:v14];
+      v14[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setInterruptionHandler:v14];
       v13[0] = MEMORY[0x1E69E9820];
       v13[1] = 3221225472;
       v13[2] = __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_3;
       v13[3] = &unk_1E788B198;
-      v13[4] = self;
-      [(SFSession *)self->_sfSession setInvalidationHandler:v13];
+      v13[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setInvalidationHandler:v13];
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;
       v12[2] = __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_4;
       v12[3] = &unk_1E788B198;
-      v12[4] = self;
-      [(SFSession *)self->_sfSession setSessionStartedHandler:v12];
-      v7 = _Block_copy(self->_promptForPINHandler);
-      if (v7)
+      v12[4] = selfCopy;
+      [(SFSession *)selfCopy->_sfSession setSessionStartedHandler:v12];
+      v8 = _Block_copy(selfCopy->_promptForPINHandler);
+      if (v8)
       {
-        [(SFSession *)self->_sfSession setPromptForPINHandler:v7];
+        [(SFSession *)selfCopy->_sfSession setPromptForPINHandler:v8];
       }
 
-      v8 = self->_sfSession;
+      v9 = selfCopy->_sfSession;
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
       v11[2] = __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_5;
       v11[3] = &unk_1E788B238;
-      v11[4] = self;
-      [(SFSession *)v8 activateWithCompletion:v11];
+      v11[4] = selfCopy;
+      [(SFSession *)v9 activateWithCompletion:v11];
     }
   }
 
-  return self->_sfSessionState;
+  return selfCopy->_sfSessionState;
 }
 
 _BYTE *__51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke(uint64_t a1, uint64_t a2)
@@ -339,7 +351,7 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_2(uint
   v1 = *(a1 + 32);
   if ((v1[16] & 1) == 0)
   {
-    v2 = NSErrorWithOSStatusF();
+    v2 = NSErrorWithOSStatusF(4294960534, "SFSessionInterruption");
     [v1 _reportError:v2];
   }
 }
@@ -349,18 +361,18 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_3(uint
   v1 = *(a1 + 32);
   if ((v1[16] & 1) == 0)
   {
-    v2 = NSErrorWithOSStatusF();
+    v2 = NSErrorWithOSStatusF(4294960560, "SFSessionInvalidation");
     [v1 _reportError:v2];
   }
 }
 
-uint64_t __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_4(uint64_t result)
+void *__51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_4(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 16) & 1) == 0 && *(v1 + 48) == 1)
   {
     *(v1 + 48) = 4;
-    return [*(result + 32) _run];
+    return [*(result + 4) _run];
   }
 
   return result;
@@ -390,19 +402,23 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_5(uint
 
 - (void)_runSFSessionActivated
 {
-  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    [SFDeviceSetupTVLatencySession _runSFSessionActivated];
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupTVLatencySession *)self _runSFSessionActivated];
+    }
   }
 
-  sfSession = self->_sfSession;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __55__SFDeviceSetupTVLatencySession__runSFSessionActivated__block_invoke;
-  v4[3] = &unk_1E788B4F8;
-  v4[4] = self;
-  [(SFSession *)sfSession registerRequestID:@"_sa" options:&unk_1F1D7D600 handler:v4];
-  [(SFDeviceSetupTVLatencySession *)self _run];
+  sfSession = selfCopy->_sfSession;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __55__SFDeviceSetupTVLatencySession__runSFSessionActivated__block_invoke;
+  v5[3] = &unk_1E788B4F8;
+  v5[4] = selfCopy;
+  [(SFSession *)sfSession registerRequestID:@"_sa" options:&unk_1F1D7D600 handler:v5];
+  [(SFDeviceSetupTVLatencySession *)selfCopy _run];
 }
 
 - (int)_runPairVerify:(BOOL)verify
@@ -427,10 +443,10 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_5(uint
             return self->_pairVerifyState;
           }
 
-          v12 = self->_pairVerifyState;
+          pairVerifyState = self->_pairVerifyState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runPairVerify:]", 30, "PairVerify hasn't succeeded yet (%d)\n", pairVerifyState);
       }
     }
 
@@ -446,7 +462,7 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_5(uint
       v8 = v7;
       if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
       {
-        [SFDeviceSetupTVLatencySession _runPairVerify:];
+        [SFDeviceSetupTVLatencySession _runPairVerify:v8];
       }
 
       self->_pairVerifyState = 1;
@@ -457,13 +473,13 @@ void __51__SFDeviceSetupTVLatencySession__runSFSessionStart__block_invoke_5(uint
       }
 
       sfSession = self->_sfSession;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __48__SFDeviceSetupTVLatencySession__runPairVerify___block_invoke;
-      v13[3] = &unk_1E788B520;
-      v13[4] = self;
-      v13[5] = v8;
-      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __48__SFDeviceSetupTVLatencySession__runPairVerify___block_invoke;
+      v12[3] = &unk_1E788B520;
+      v12[4] = self;
+      v12[5] = v8;
+      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v12];
     }
   }
 
@@ -528,10 +544,10 @@ LABEL_13:
             return self->_pairSetupState;
           }
 
-          v7 = self->_pairSetupState;
+          pairSetupState = self->_pairSetupState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runPairSetup]", 30, "PairSetup hasn't succeeded yet (%d)\n", pairSetupState);
       }
     }
 
@@ -545,12 +561,12 @@ LABEL_13:
       }
 
       sfSession = self->_sfSession;
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke;
-      v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke;
+      v7[3] = &unk_1E788B238;
+      v7[4] = self;
+      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v7];
     }
   }
 
@@ -560,7 +576,7 @@ LABEL_13:
 void __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = v3;
+  v8 = v3;
   if (v3)
   {
     *(*(a1 + 32) + 20) = 3;
@@ -569,22 +585,25 @@ void __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke(uint64_t a1
 
   else
   {
-    if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
     {
-      __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __46__SFDeviceSetupTVLatencySession__runPairSetup__block_invoke_cold_1(v3, v4, v5);
+      }
     }
 
     *(*(a1 + 32) + 28) = 1;
     *(*(a1 + 32) + 20) = 4;
-    v4 = *(a1 + 32);
-    v5 = v4[11];
-    if (v5)
+    v6 = *(a1 + 32);
+    v7 = v6[11];
+    if (v7)
     {
-      (*(v5 + 16))(v4[11], 70, 0);
-      v4 = *(a1 + 32);
+      (*(v7 + 16))(v6[11], 70, 0);
+      v6 = *(a1 + 32);
     }
 
-    [v4 _run];
+    [v6 _run];
   }
 }
 
@@ -625,10 +644,10 @@ LABEL_8:
           return self->_tvLatencySetupState;
         }
 
-        v5 = self->_tvLatencySetupState;
+        tvLatencySetupState = self->_tvLatencySetupState;
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runTVLatencySetup]", 30, "TVLatencySetup hasn't succeeded yet (%d)\n", tvLatencySetupState);
     }
   }
 
@@ -637,89 +656,96 @@ LABEL_8:
 
 - (void)_runTVLatencySetupRequest
 {
-  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    [SFDeviceSetupTVLatencySession _runTVLatencySetupRequest];
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupTVLatencySession *)self _runTVLatencySetupRequest];
+    }
   }
 
-  progressHandler = self->_progressHandler;
+  progressHandler = selfCopy->_progressHandler;
   if (progressHandler)
   {
     progressHandler[2](progressHandler, 260, 0);
   }
 
-  self->_tvLatencySetupState = 10;
-  sfSession = self->_sfSession;
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __58__SFDeviceSetupTVLatencySession__runTVLatencySetupRequest__block_invoke;
-  v5[3] = &unk_1E788B548;
-  v5[4] = self;
-  [(SFSession *)sfSession sendRequestID:@"_tvlS" options:0 request:MEMORY[0x1E695E0F8] responseHandler:v5];
+  selfCopy->_tvLatencySetupState = 10;
+  sfSession = selfCopy->_sfSession;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __58__SFDeviceSetupTVLatencySession__runTVLatencySetupRequest__block_invoke;
+  v6[3] = &unk_1E788B548;
+  v6[4] = selfCopy;
+  [(SFSession *)sfSession sendRequestID:@"_tvlS" options:0 request:MEMORY[0x1E695E0F8] responseHandler:v6];
 }
 
 void __58__SFDeviceSetupTVLatencySession__runTVLatencySetupRequest__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v14 = a2;
+  v13 = a2;
   v7 = a3;
   v8 = a4;
-  if (v14)
+  if (v13)
   {
     v10 = *(a1 + 32);
     v9 = (a1 + 32);
-    v11 = *MEMORY[0x1E696A768];
-    v12 = NSErrorNestedF();
-    [v10 _reportError:v12];
+    v11 = NSErrorNestedF();
+    [v10 _reportError:v11];
 
-    v13 = 3;
+    v12 = 3;
   }
 
   else
   {
     if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
     {
-      __58__SFDeviceSetupTVLatencySession__runTVLatencySetupRequest__block_invoke_cold_1();
+      __58__SFDeviceSetupTVLatencySession__runTVLatencySetupRequest__block_invoke_cold_1(v8);
     }
 
     v9 = (a1 + 32);
-    v13 = 11;
+    v12 = 11;
   }
 
-  *(*v9 + 16) = v13;
+  *(*v9 + 16) = v12;
   [*v9 _run];
 }
 
 - (void)_runTVLatencySetupEstimate
 {
-  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
   {
-    [SFDeviceSetupTVLatencySession _runTVLatencySetupEstimate];
+    if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupTVLatencySession *)self _runTVLatencySetupEstimate];
+    }
   }
 
-  self->_tvLatencySetupState = 12;
-  messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
+  selfCopy->_tvLatencySetupState = 12;
+  messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
   if (messageSessionTemplate)
   {
-    v4 = [objc_alloc(getTVLAudioLatencyEstimatorClass_2()) initWithMessageSession:messageSessionTemplate];
-    objc_storeStrong(&self->_tvLatencyEstimator, v4);
-    v7 = MEMORY[0x1E69E9820];
-    v8 = 3221225472;
-    v9 = __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_invoke;
-    v10 = &unk_1E788B598;
-    selfCopy = self;
-    v12 = v4;
-    v5 = v4;
-    [v5 setProgressEventHandler:&v7];
-    [v5 activate];
-    [v5 estimate];
+    v5 = [objc_alloc(getTVLAudioLatencyEstimatorClass_2()) initWithMessageSession:messageSessionTemplate];
+    objc_storeStrong(&selfCopy->_tvLatencyEstimator, v5);
+    v8 = MEMORY[0x1E69E9820];
+    v9 = 3221225472;
+    v10 = __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_invoke;
+    v11 = &unk_1E788B598;
+    v12 = selfCopy;
+    v13 = v5;
+    v6 = v5;
+    [v6 setProgressEventHandler:&v8];
+    [v6 activate];
+    [v6 estimate];
   }
 
   else
   {
-    v6 = NSErrorWithOSStatusF();
-    [(SFDeviceSetupTVLatencySession *)self _reportError:v6];
+    v7 = NSErrorWithOSStatusF(4294960551, "No message session");
+    [(SFDeviceSetupTVLatencySession *)selfCopy _reportError:v7];
 
-    self->_tvLatencySetupState = 3;
+    selfCopy->_tvLatencySetupState = 3;
   }
 }
 
@@ -741,11 +767,11 @@ void __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_invok
   dispatch_async(v6, v10);
 }
 
-uint64_t __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_invoke_2(uint64_t result)
+id *__59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_invoke_2(id *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 56))
+  if (result[4] == *(result[5] + 7))
   {
-    return [*(result + 40) _runTVLatencySetupProgressEvent:*(result + 56) info:*(result + 48)];
+    return [result[5] _runTVLatencySetupProgressEvent:result[7] info:result[6]];
   }
 
   return result;
@@ -756,7 +782,7 @@ uint64_t __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_i
   infoCopy = info;
   if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runTVLatencySetupProgressEvent:info:]", 30, "TVLatency progress: %d, %##.32@\n", event, infoCopy);
   }
 
   if (event <= 1)
@@ -768,24 +794,22 @@ uint64_t __59__SFDeviceSetupTVLatencySession__runTVLatencySetupEstimate__block_i
         goto LABEL_25;
       }
 
-      v6 = _Block_copy(self->_progressHandler);
-      v7 = v6;
-      if (!v6)
+      v9 = _Block_copy(self->_progressHandler);
+      v7 = v9;
+      if (!v9)
       {
         goto LABEL_24;
       }
 
-      v8 = v6[2];
-      v9 = 277;
+      v8 = v9[2];
       goto LABEL_23;
     }
 
-    v6 = _Block_copy(self->_progressHandler);
-    v7 = v6;
-    if (v6)
+    v15 = _Block_copy(self->_progressHandler);
+    v7 = v15;
+    if (v15)
     {
-      v8 = v6[2];
-      v9 = 270;
+      v8 = v15[2];
       goto LABEL_23;
     }
 
@@ -796,14 +820,13 @@ LABEL_24:
 
   if (event == 2)
   {
-    v6 = _Block_copy(self->_progressHandler);
-    v7 = v6;
-    if (v6)
+    v10 = _Block_copy(self->_progressHandler);
+    v7 = v10;
+    if (v10)
     {
-      v8 = v6[2];
-      v9 = 274;
+      v8 = v10[2];
 LABEL_23:
-      v8(v6, v9);
+      v8();
       goto LABEL_24;
     }
 
@@ -825,22 +848,21 @@ LABEL_23:
     }
 
     v8 = v6[2];
-    v9 = 276;
     goto LABEL_23;
   }
 
-  v10 = _Block_copy(self->_progressHandler);
-  v11 = v10;
-  if (v10)
+  v11 = _Block_copy(self->_progressHandler);
+  v12 = v11;
+  if (v11)
   {
-    (*(v10 + 2))(v10, 272, infoCopy);
+    (*(v11 + 2))(v11, 272, infoCopy);
   }
 
   tvLatencyEstimator = self->_tvLatencyEstimator;
   self->_tvLatencyEstimator = 0;
-  v13 = tvLatencyEstimator;
+  v14 = tvLatencyEstimator;
 
-  [(TVLAudioLatencyEstimator *)v13 invalidate];
+  [(TVLAudioLatencyEstimator *)v14 invalidate];
   if (self->_tvLatencySetupState == 12)
   {
     self->_tvLatencySetupState = 4;
@@ -852,6 +874,7 @@ LABEL_25:
 
 - (int)_runFinish
 {
+  selfCopy = self;
   finishState = self->_finishState;
   if (finishState != 4 && finishState != 2)
   {
@@ -863,47 +886,48 @@ LABEL_25:
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_finishState;
+            return selfCopy->_finishState;
           }
 
-          v7 = self->_finishState;
+          finishState = selfCopy->_finishState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runFinish]", 30, "Finish hasn't succeeded yet (%d)\n", finishState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupTVLatencySession <= 30)
       {
-        [SFDeviceSetupTVLatencySession _runFinish];
+        if (gLogCategory_SFDeviceSetupTVLatencySession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupTVLatencySession *)self _runFinish];
+        }
       }
 
-      self->_finishState = 1;
-      sfSession = self->_sfSession;
+      selfCopy->_finishState = 1;
+      sfSession = selfCopy->_sfSession;
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __43__SFDeviceSetupTVLatencySession__runFinish__block_invoke;
       v8[3] = &unk_1E788B548;
-      v8[4] = self;
+      v8[4] = selfCopy;
       [(SFSession *)sfSession sendRequestID:@"_finish" options:0 request:MEMORY[0x1E695E0F8] responseHandler:v8];
     }
   }
 
-  return self->_finishState;
+  return selfCopy->_finishState;
 }
 
 void __43__SFDeviceSetupTVLatencySession__runFinish__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v11 = a2;
+  v9 = a2;
   v7 = a3;
   v8 = a4;
   if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
   {
-    v9 = v8;
-    v10 = v11;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _runFinish]_block_invoke", 30, "Finish response: %##.32@, %{error}\n", v8, v9);
   }
 
   *(*(a1 + 32) + 12) = 4;
@@ -918,7 +942,7 @@ void __43__SFDeviceSetupTVLatencySession__runFinish__block_invoke(uint64_t a1, v
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (gLogCategory_SFDeviceSetupTVLatencySession <= 30 && (gLogCategory_SFDeviceSetupTVLatencySession != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupTVLatencySession _handleSetupActionRequest:Int64Ranged responseHandler:?];
+    [(SFDeviceSetupTVLatencySession *)Int64Ranged _handleSetupActionRequest:requestCopy responseHandler:?];
   }
 
   if (Int64Ranged == 1)
@@ -980,24 +1004,34 @@ void __43__SFDeviceSetupTVLatencySession__runFinish__block_invoke(uint64_t a1, v
   }
 }
 
-- (uint64_t)_handleSetupActionRequest:(unsigned int)a1 responseHandler:(char)a2 .cold.1(unsigned int a1, char a2)
+- (uint64_t)_handleSetupActionRequest:(uint64_t)a3 responseHandler:.cold.1(unsigned int a1, char a2, uint64_t a3)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
   {
-    v2 = off_1E78900E0[a2 & 0xF];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E78900E0[a2 & 0xF];
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _handleSetupActionRequest:responseHandler:]", 30, "SetupActionRequest: %s, %##.32@\n", v5, a3, v3, v4);
 }
 
 - (uint64_t)_handleSetupActionRequest:(unsigned int)a1 responseHandler:(char)a2 .cold.2(unsigned int a1, char a2)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1E7890138[a2 & 0xF];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFDeviceSetupTVLatencySession, "[SFDeviceSetupTVLatencySession _handleSetupActionRequest:responseHandler:]", 60, "### Unsupported SetupAction: %u (%s)\n", a1, v2);
 }
 
 @end

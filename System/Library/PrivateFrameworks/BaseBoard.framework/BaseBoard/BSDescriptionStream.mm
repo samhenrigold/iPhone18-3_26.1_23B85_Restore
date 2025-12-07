@@ -583,12 +583,12 @@ LABEL_67:
   }
 }
 
-void __84__BSDescriptionStream_appendBodySectionWithName_openDelimiter_closeDelimiter_block___block_invoke(uint64_t a1)
+void __84__BSDescriptionStream_appendBodySectionWithName_openDelimiter_closeDelimiter_block___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2)
   {
-    [(BSDescriptionStream *)v2 _appendSectionWithTotalItemCount:-1 truncatedItemCount:*(a1 + 40) openDelimiter:*(a1 + 48) closeDelimiter:*(a1 + 56) block:?];
+    [(BSDescriptionStream *)v2 _appendSectionWithTotalItemCount:-1 truncatedItemCount:a1[5] openDelimiter:a1[6] closeDelimiter:a1[7] block:?];
   }
 }
 
@@ -1079,7 +1079,7 @@ LABEL_18:
   }
 }
 
-CFIndex __59__BSDescriptionStream_appendCollection_withName_itemBlock___block_invoke_3(uint64_t a1)
+void *__59__BSDescriptionStream_appendCollection_withName_itemBlock___block_invoke_3(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [@"…" length];
@@ -1985,7 +1985,7 @@ void __60__BSDescriptionStream__appendDictionary_withName_itemBlock___block_invo
   }
 }
 
-CFIndex __60__BSDescriptionStream__appendDictionary_withName_itemBlock___block_invoke_5(uint64_t a1)
+void *__60__BSDescriptionStream__appendDictionary_withName_itemBlock___block_invoke_5(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [@"…" length];
@@ -2309,7 +2309,7 @@ LABEL_67:
   v47[4] = self;
   if (self)
   {
-    [(BSDescriptionStream *)self _appendSectionWithTotalItemCount:v46 truncatedItemCount:v46 openDelimiter:@"(") closeDelimiter:CFSTR(")" block:v47];
+    [(BSDescriptionStream *)self _appendSectionWithTotalItemCount:v46 truncatedItemCount:v46 openDelimiter:@"(") closeDelimiter:@"" block:v47];
   }
 
   if (name)
@@ -4250,7 +4250,7 @@ LABEL_73:
   return result;
 }
 
-CFIndex __110__BSDescriptionStream__appendSectionWithTotalItemCount_truncatedItemCount_openDelimiter_closeDelimiter_block___block_invoke(uint64_t a1)
+void *__110__BSDescriptionStream__appendSectionWithTotalItemCount_truncatedItemCount_openDelimiter_closeDelimiter_block___block_invoke(uint64_t a1)
 {
   if (*(a1 + 72) == 1)
   {
@@ -6902,18 +6902,18 @@ LABEL_85:
 {
   if (precision == 0x7FFFFFFFFFFFFFFFLL)
   {
-    BSDescribeAppendFieldFormat(self, name, @"%f", 0x7FFFFFFFFFFFFFFFLL, v5, v6, v7, v8, SLOBYTE(double));
+    BSDescribeAppendFieldFormat(self, name, @"%f", 0x7FFFFFFFFFFFFFFFLL, v5, v6, v7, v8, *&double);
   }
 
   else
   {
-    precisionCopy = -1;
+    precisionCopy = 0x7FFFFFFFLL;
     if (precision < 0x7FFFFFFF)
     {
       precisionCopy = precision;
     }
 
-    BSDescribeAppendFieldFormat(self, name, @"%.*f", precision, v5, v6, v7, v8, precisionCopy);
+    BSDescribeAppendFieldFormat(self, name, @"%.*f", precision, v5, v6, v7, v8, precisionCopy, *&double);
   }
   v10 = ;
 
@@ -7247,12 +7247,12 @@ LABEL_98:
   {
     if (fabs(v11) >= 2.22044605e-16)
     {
-      appended = BSDescribeAppendFieldFormat(self, name, @"%.2fs", units, v5, v6, v7, v8, SLOBYTE(interval));
+      appended = BSDescribeAppendFieldFormat(self, name, @"%.2fs", units, v5, v6, v7, v8, *&interval);
     }
 
     else
     {
-      appended = BSDescribeAppendFieldFormat(self, name, @"%.1fs", units, v5, v6, v7, v8, SLOBYTE(interval));
+      appended = BSDescribeAppendFieldFormat(self, name, @"%.1fs", units, v5, v6, v7, v8, *&interval);
     }
 
     v28 = appended;

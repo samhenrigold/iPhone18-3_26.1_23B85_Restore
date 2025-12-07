@@ -77,7 +77,7 @@
 
 void __67__DATokenRegistrationRequest_URLSession_didBecomeInvalidWithError___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) finished] & 1) == 0)
   {
     [*(a1 + 32) setFinished:1];
@@ -93,11 +93,11 @@ void __67__DATokenRegistrationRequest_URLSession_didBecomeInvalidWithError___blo
         v7 = [v6 delegate];
         v8 = [v7 scheduleIdentifier];
         v9 = *(a1 + 40);
-        v20 = 138412546;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_impl(&dword_2424DF000, v4, v5, "The token registration session became invalid for account ID %@: %@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v8;
+        v21 = 2112;
+        v22 = v9;
+        _os_log_impl(&dword_2424DF000, v4, v5, "The token registration session became invalid for account ID %@: %@", &v19, 0x16u);
       }
 
       os_unfair_lock_lock((*(a1 + 32) + 12));
@@ -119,9 +119,9 @@ void __67__DATokenRegistrationRequest_URLSession_didBecomeInvalidWithError___blo
         v16 = [*(a1 + 32) wrapper];
         v17 = [v16 delegate];
         v18 = [v17 scheduleIdentifier];
-        v20 = 138412290;
-        v21 = v18;
-        _os_log_impl(&dword_2424DF000, v4, v15, "Token registration session became invalid for account %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_2424DF000, v4, v15, "Token registration session became invalid for account %@", &v19, 0xCu);
       }
 
       v11 = [*(a1 + 32) delegate];
@@ -132,8 +132,6 @@ void __67__DATokenRegistrationRequest_URLSession_didBecomeInvalidWithError___blo
 
     [v11 tokenRegistrationRequest:v13 finishedWithError:v14];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -155,7 +153,7 @@ void __67__DATokenRegistrationRequest_URLSession_didBecomeInvalidWithError___blo
 
 void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) finished] & 1) == 0)
   {
     [*(a1 + 32) setFinished:1];
@@ -171,11 +169,11 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
         v7 = [v6 delegate];
         v8 = [v7 scheduleIdentifier];
         v9 = *(a1 + 40);
-        v20 = 138412546;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_impl(&dword_2424DF000, v4, v5, "The token registration task failed to load for account ID %@: %@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v8;
+        v21 = 2112;
+        v22 = v9;
+        _os_log_impl(&dword_2424DF000, v4, v5, "The token registration task failed to load for account ID %@: %@", &v19, 0x16u);
       }
 
       os_unfair_lock_lock((*(a1 + 32) + 12));
@@ -197,9 +195,9 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
         v16 = [*(a1 + 32) wrapper];
         v17 = [v16 delegate];
         v18 = [v17 scheduleIdentifier];
-        v20 = 138412290;
-        v21 = v18;
-        _os_log_impl(&dword_2424DF000, v4, v15, "Token registration task finished for account %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_2424DF000, v4, v15, "Token registration task finished for account %@", &v19, 0xCu);
       }
 
       v11 = [*(a1 + 32) delegate];
@@ -210,13 +208,11 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
 
     [v11 tokenRegistrationRequest:v13 finishedWithError:v14];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   statusCode = [responseCopy statusCode];
@@ -229,9 +225,9 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
     {
       allHeaderFields = [responseCopy allHeaderFields];
       *buf = 67109378;
-      v22 = statusCode;
-      v23 = 2112;
-      v24 = allHeaderFields;
+      v21 = statusCode;
+      v22 = 2112;
+      v23 = allHeaderFields;
       _os_log_impl(&dword_2424DF000, v12, v17, "The server returned a status of %d to our token registration request. Falling back to PC. Server response headers are %@", buf, 0x12u);
     }
   }
@@ -242,7 +238,7 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
     if (os_log_type_enabled(v11, v13))
     {
       *buf = 67109120;
-      v22 = statusCode;
+      v21 = statusCode;
       _os_log_impl(&dword_2424DF000, v12, v13, "The server accepted our push token request (status %d)", buf, 8u);
     }
 
@@ -256,16 +252,15 @@ void __67__DATokenRegistrationRequest_URLSession_task_didCompleteWithError___blo
 
     os_unfair_lock_unlock(&self->_lock);
     v12 = +[DARefreshManager sharedManager];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __87__DATokenRegistrationRequest_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
-    v20[3] = &unk_278D52C00;
-    v20[4] = self;
-    [v12 _performBlockOnRefreshManagerThread:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __87__DATokenRegistrationRequest_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
+    v19[3] = &unk_278D52C00;
+    v19[4] = self;
+    [v12 _performBlockOnRefreshManagerThread:v19];
   }
 
   handlerCopy[2](handlerCopy, 1);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __87__DATokenRegistrationRequest_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
@@ -276,19 +271,17 @@ void __87__DATokenRegistrationRequest_URLSession_dataTask_didReceiveResponse_com
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 6);
   if (os_log_type_enabled(v6, v7))
   {
     v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:objc_msgSend(dataCopy length:"bytes") encoding:{objc_msgSend(dataCopy, "length"), 4}];
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_2424DF000, v6, v7, "The server returned a response of %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_2424DF000, v6, v7, "The server returned a response of %@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAuthenticationChallenge:(id)challenge completionHandler:(id)handler
@@ -329,15 +322,15 @@ LABEL_11:
 
 - (BOOL)_canAuthenticateAgainstProtectionSpace:(id)space
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v13 = 136315138;
+    v12 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_2424DF000, v5, v6, "%s", &v13, 0xCu);
+    _os_log_impl(&dword_2424DF000, v5, v6, "%s", &v12, 0xCu);
   }
 
   authenticationMethod = [spaceCopy authenticationMethod];
@@ -361,20 +354,19 @@ LABEL_11:
       v10 = @"YES";
     }
 
-    v13 = 138412546;
+    v12 = 138412546;
     Name = authenticationMethod;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_2424DF000, v9, v6, "Can authenticate against protection space %@? %@", &v13, 0x16u);
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_2424DF000, v9, v6, "Can authenticate against protection space %@? %@", &v12, 0x16u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)_reallyHandleAuthenticationChallenge:(id)challenge completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   if (![challengeCopy previousFailureCount])
@@ -389,9 +381,9 @@ LABEL_11:
       delegate = [WeakRetained delegate];
       scheduleIdentifier = [delegate scheduleIdentifier];
       *buf = 138412546;
-      v40 = scheduleIdentifier;
-      v41 = 2112;
-      v42 = authenticationMethod;
+      v39 = scheduleIdentifier;
+      v40 = 2112;
+      v41 = authenticationMethod;
       _os_log_impl(&dword_2424DF000, v12, v13, "Received an authentication challenge for account %@ method %@", buf, 0x16u);
     }
 
@@ -421,7 +413,7 @@ LABEL_28:
 
     if (([authenticationMethod isEqualToString:*MEMORY[0x277CCA710]] & 1) == 0 && !objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x277CCA718]))
     {
-      v38 = protectionSpace;
+      v37 = protectionSpace;
       wrapper = [(DATokenRegistrationRequest *)self wrapper];
       delegate2 = [wrapper delegate];
       trustHandler = [delegate2 trustHandler];
@@ -437,7 +429,7 @@ LABEL_28:
         _os_log_impl(&dword_2424DF000, v33, v13, "Token registration - Waiting for runloop callback to decide what to do", buf, 2u);
       }
 
-      protectionSpace = v38;
+      protectionSpace = v37;
       goto LABEL_31;
     }
 
@@ -445,7 +437,7 @@ LABEL_28:
     delegate4 = [wrapper3 delegate];
     if (objc_opt_respondsToSelector())
     {
-      v37 = protectionSpace;
+      v36 = protectionSpace;
       wrapper4 = [(DATokenRegistrationRequest *)self wrapper];
       delegate5 = [wrapper4 delegate];
       v22 = objc_opt_respondsToSelector();
@@ -454,7 +446,7 @@ LABEL_28:
       {
         password = 0;
         username = 0;
-        protectionSpace = v37;
+        protectionSpace = v36;
         goto LABEL_21;
       }
 
@@ -465,7 +457,7 @@ LABEL_28:
       wrapper3 = [(DATokenRegistrationRequest *)self wrapper];
       delegate4 = [wrapper3 delegate];
       password = [delegate4 password];
-      protectionSpace = v37;
+      protectionSpace = v36;
     }
 
     else
@@ -489,7 +481,7 @@ LABEL_21:
     if (os_log_type_enabled(v34, v13))
     {
       *buf = 138412290;
-      v40 = username;
+      v39 = username;
       _os_log_impl(&dword_2424DF000, v34, v13, "Responding to authentication challenge with username %@ and password", buf, 0xCu);
     }
 
@@ -511,13 +503,11 @@ LABEL_21:
 
   handlerCopy[2](handlerCopy, 2, 0);
 LABEL_32:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRegistrationRequestForAccount:(id)account
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   wrapper = [(DATokenRegistrationRequest *)self wrapper];
   delegate = [wrapper delegate];
@@ -525,7 +515,7 @@ LABEL_32:
 
   if (v7)
   {
-    v41 = accountCopy;
+    v40 = accountCopy;
     os_unfair_lock_lock(&self->_lock);
     wrapper2 = [(DATokenRegistrationRequest *)self wrapper];
     [wrapper2 setPushState:1];
@@ -560,14 +550,14 @@ LABEL_32:
     if (os_log_type_enabled(v25, v26))
     {
       *buf = 138412546;
-      v43 = da_lowercaseHexStringWithoutSpaces;
-      v44 = 2112;
-      v45 = v20;
+      v42 = da_lowercaseHexStringWithoutSpaces;
+      v43 = 2112;
+      v44 = v20;
       _os_log_impl(&dword_2424DF000, v25, v26, "Registering token %@ with the server at %@", buf, 0x16u);
     }
 
-    accountCopy = v41;
-    getAppleIDSession = [v41 getAppleIDSession];
+    accountCopy = v40;
+    getAppleIDSession = [v40 getAppleIDSession];
     defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
     [defaultSessionConfiguration set_appleIDContext:getAppleIDSession];
     onBehalfOfBundleIdentifier = [(DATokenRegistrationRequest *)self onBehalfOfBundleIdentifier];
@@ -597,7 +587,7 @@ LABEL_32:
       delegate3 = [wrapper4 delegate];
       scheduleIdentifier = [delegate3 scheduleIdentifier];
       *buf = 138412290;
-      v43 = scheduleIdentifier;
+      v42 = scheduleIdentifier;
       _os_log_impl(&dword_2424DF000, v35, v36, "Can't send a token registration for %@ because it doesn't implement serverTokenRegistrationURL.", buf, 0xCu);
     }
 
@@ -605,8 +595,6 @@ LABEL_32:
     v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CF3AB0] code:65 userInfo:0];
     [da_lowercaseHexStringWithoutSpaces tokenRegistrationRequest:self finishedWithError:v19];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (DATokenRegistrationDelegate)delegate

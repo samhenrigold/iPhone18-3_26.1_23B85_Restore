@@ -127,10 +127,9 @@
   contextOverride = [(SiriContext *)self contextOverride];
   isTemporaryDevice = self->_isTemporaryDevice;
   speechRequestOptions = [(SiriContinuityContext *)self speechRequestOptions];
-  requestInfo = self->_requestInfo;
-  v8 = [v3 stringWithFormat:@"<SiriContinuityContext contextOverride:%@ isTemporaryDevice:%@ speechRequestOptions:%@ requestInfo:%@ userActivity:%@>", contextOverride, isTemporaryDevice, speechRequestOptions, requestInfo, self->_userActivity];
+  v7 = [v3 stringWithFormat:@"<SiriContinuityContext contextOverride:%@ isTemporaryDevice:%@ speechRequestOptions:%@ requestInfo:%@ userActivity:%@>", contextOverride, isTemporaryDevice, speechRequestOptions, self->_requestInfo, self->_userActivity];
 
-  return v8;
+  return v7;
 }
 
 - (SiriContinuityContext)initWithCoder:(id)coder

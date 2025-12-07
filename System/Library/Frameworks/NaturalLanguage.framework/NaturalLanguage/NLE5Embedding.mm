@@ -67,7 +67,7 @@
 + (id)embeddingModelWithModelPath:(id)path useANE:(BOOL)e adapters:(id)adapters
 {
   eCopy = e;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   adaptersCopy = adapters;
   if (pathCopy)
@@ -108,7 +108,7 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v51 = 0;
+      v50 = 0;
       if (getSentencePieceModelLoadQueue(void)::onceToken != -1)
       {
         +[NLE5Embedding embeddingModelWithModelPath:useANE:adapters:];
@@ -119,26 +119,26 @@
       block[1] = 3221225472;
       block[2] = __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block_invoke;
       block[3] = &unk_1E76291B0;
-      v45 = buf;
+      v44 = buf;
       v16 = v12;
-      v44 = v16;
+      v43 = v16;
       dispatch_sync(v15, block);
       if (*(*&buf[8] + 24))
       {
         v17 = pathCopy;
         std::string::basic_string[abi:ne200100]<0>(__p, [pathCopy UTF8String]);
         compileModel(__p, eCopy, adaptersCopy);
-        if (v49 < 0)
+        if (v48 < 0)
         {
           operator delete(*__p);
         }
 
         v18 = [NLE5Embedding alloc];
-        v41 = v42;
-        v42 = 0;
-        v19 = [(NLE5Embedding *)v18 initWithProgramLibrary:&v41 andSubwordVocab:*(*&buf[8] + 24)];
-        v20 = v41;
+        v40 = v41;
         v41 = 0;
+        v19 = [(NLE5Embedding *)v18 initWithProgramLibrary:&v40 andSubwordVocab:*(*&buf[8] + 24)];
+        v20 = v40;
+        v40 = 0;
         if (v20)
         {
           (*(*v20 + 8))(v20);
@@ -150,8 +150,8 @@
           [(NLE5Embedding *)v19 setAdapters:v21];
         }
 
-        v22 = v42;
-        v42 = 0;
+        v22 = v41;
+        v41 = 0;
         if (v22)
         {
           (*(*v22 + 8))(v22);
@@ -181,8 +181,8 @@
           v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load sentence piece model for embedding from: %@", v16];
           *__p = 138543618;
           *&__p[4] = v37;
-          v47 = 2114;
-          v48 = v38;
+          v46 = 2114;
+          v47 = v38;
           _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
         }
 
@@ -218,14 +218,11 @@ LABEL_29:
   v19 = 0;
 LABEL_30:
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = NLEmbeddingSubwordVocabCreate();
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
@@ -234,13 +231,13 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
 + (BOOL)isCompiledEmbeddingModelWithModelPath:(id)path useANE:(BOOL)e adapters:(id)adapters error:(id *)error
 {
   eCopy = e;
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   adaptersCopy = adapters;
-  MEMORY[0x19EAFBE50](v26);
+  MEMORY[0x19EAFBE50](v23);
   std::string::basic_string[abi:ne200100]<0>(__p, "/private/var/db/com.apple.naturallanguaged");
   E5RT::E5CompilerConfigOptions::SetBundleCacheLocation();
-  if (v30 < 0)
+  if (v27 < 0)
   {
     operator delete(*__p);
   }
@@ -248,8 +245,8 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
   E5RT::E5Compiler::MakeCompiler();
   v10 = pathCopy;
   std::string::basic_string[abi:ne200100]<0>(__p, [pathCopy UTF8String]);
-  createE5CompilerOptions(eCopy, adaptersCopy, &v24);
-  if (v30 < 0)
+  createE5CompilerOptions(eCopy, adaptersCopy);
+  if (v27 < 0)
   {
     operator delete(*__p);
   }
@@ -257,7 +254,7 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
   v11 = pathCopy;
   std::string::basic_string[abi:ne200100]<0>(__p, [pathCopy UTF8String]);
   IsNewCompileRequired = E5RT::E5Compiler::IsNewCompileRequired();
-  if (v30 < 0)
+  if (v27 < 0)
   {
     operator delete(*__p);
   }
@@ -279,29 +276,24 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
     v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' %s compilation", pathCopy, v18];
     *__p = 138543618;
     *&__p[4] = v17;
-    v28 = 2114;
-    v29 = v19;
+    v25 = 2114;
+    v26 = v19;
     _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", __p, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
-  v20 = v24;
-  v24 = 0;
-  if (v20)
-  {
-    (*(*v20 + 8))(v20);
-  }
-
-  v21 = v25;
-  v25 = 0;
   if (v21)
   {
-    (*(*v21 + 8))(v21);
+    (*(*v21 + 8))();
   }
 
-  MEMORY[0x19EAFBE60](v26);
+  if (v22)
+  {
+    (*(*v22 + 8))();
+  }
 
-  v22 = *MEMORY[0x1E69E9840];
+  MEMORY[0x19EAFBE60](v23);
+
   return v14;
 }
 
@@ -329,17 +321,17 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
   }
 
   objc_autoreleasePoolPop(v9);
-  v16 = NLContextualEmbeddingSignpostHandle();
-  v17 = os_signpost_id_generate(v16);
-  v18 = v16;
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v17 = NLContextualEmbeddingSignpostHandle(v16);
+  v18 = os_signpost_id_generate(v17);
+  v19 = v17;
+  v20 = v19;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19D48F000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "compileE5", &unk_19D4EF749, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19D48F000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "compileE5", &unk_19D4EF749, buf, 2u);
   }
 
-  v20 = pathCopy;
+  v21 = pathCopy;
   std::string::basic_string[abi:ne200100]<0>(buf, [pathCopy UTF8String]);
   compileModel(buf, eCopy, adaptersCopy);
   if (v25)
@@ -352,27 +344,26 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
     operator delete(*buf);
   }
 
-  v21 = v19;
-  v22 = v21;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = v20;
+  v23 = v22;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19D48F000, v22, OS_SIGNPOST_INTERVAL_END, v17, "compileE5", &unk_19D4EF749, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19D48F000, v23, OS_SIGNPOST_INTERVAL_END, v18, "compileE5", &unk_19D4EF749, buf, 2u);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)_loadFunction:(const char *)function
 {
-  v92[6] = *MEMORY[0x1E69E9840];
+  v83[6] = *MEMORY[0x1E69E9840];
   ExportedFunctions = E5RT::ProgramLibrary::GetExportedFunctions(self->_programLibrary.__ptr_);
-  std::unordered_map<std::string,std::shared_ptr<E5RT::ProgramFunction>>::unordered_map(v92, ExportedFunctions);
+  std::unordered_map<std::string,std::shared_ptr<E5RT::ProgramFunction>>::unordered_map(v83, ExportedFunctions);
   std::string::basic_string[abi:ne200100]<0>(__p, function);
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(v92, __p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(v83, __p);
   v7 = v6;
-  if ((v91 & 0x80000000) == 0)
+  if ((v82 & 0x80000000) == 0)
   {
     if (v6)
     {
@@ -380,22 +371,22 @@ uint64_t __61__NLE5Embedding_embeddingModelWithModelPath_useANE_adapters___block
     }
 
 LABEL_69:
-    v47 = objc_autoreleasePoolPush();
-    v48 = NLGetLogCategory(self);
-    internal = [v48 internal];
+    v42 = objc_autoreleasePoolPush();
+    v43 = NLGetLogCategory(self);
+    internal = [v43 internal];
 
     if (os_log_type_enabled(internal, OS_LOG_TYPE_ERROR))
     {
-      v50 = NLGetLogIdentifier(self);
+      v45 = NLGetLogIdentifier(self);
       function = [MEMORY[0x1E696AEC0] stringWithFormat:@"Loaded mil library is missing %s function", function];
       *__p = 138543618;
-      *&__p[4] = v50;
-      v89 = 2114;
-      v90 = function;
+      *&__p[4] = v45;
+      v80 = 2114;
+      v81 = function;
       _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v47);
+    objc_autoreleasePoolPop(v42);
     goto LABEL_94;
   }
 
@@ -407,27 +398,26 @@ LABEL_69:
 
 LABEL_3:
   std::string::basic_string[abi:ne200100]<0>(__p, function);
-  v8 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(v92, __p);
+  v8 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(v83, __p);
   if (!v8)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v9 = v8[6];
-  v85 = v8[5];
-  v86 = v9;
+  v76 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::PrecompiledComputeOpCreateOptions::Create();
-  if (v86)
+  if (v76)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
   }
 
-  if (v91 < 0)
+  if (v82 < 0)
   {
     operator delete(*__p);
   }
@@ -450,121 +440,118 @@ LABEL_3:
   {
 LABEL_33:
     std::string::basic_string[abi:ne200100]<0>(__p, "mlm_input");
-    v25 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p);
-    v26 = v25;
-    if (v91 < 0)
+    v23 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p);
+    v24 = v23;
+    if (v82 < 0)
     {
       operator delete(*__p);
-      if (v26)
+      if (v24)
       {
 LABEL_35:
         for (i = *(E5RT::ExecutionStreamOperation::GetOutputPorts(self->_main_esop.__ptr_) + 16); i; i = *i)
         {
           PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(i[5]);
-          v29 = E5RT::OperandDescriptor::TensorDescriptor(PortDescriptorRef);
+          v27 = E5RT::OperandDescriptor::TensorDescriptor(PortDescriptorRef);
           E5RT::TensorDescriptor::AllocateMemory();
-          v30 = i + 2;
-          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(&self->_buffers.__table_.__bucket_list_.__ptr_, i + 2);
-          v31 = *__p;
+          v28 = i + 2;
+          std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(&self->_buffers.__table_.__bucket_list_.__ptr_, i + 2, (i + 2), __p);
+          v29 = *__p;
           *__p = 0;
-          if (v31)
+          if (v29)
           {
-            (*(*v31 + 8))(v31);
+            (*(*v29 + 8))(v29);
           }
 
-          v32 = i[5];
           *__p = i + 2;
-          v33 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, i + 2);
-          v34 = v33[6];
-          v81 = v33[5];
-          v82 = v34;
-          if (v34)
+          v30 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, i + 2, &std::piecewise_construct, __p, &v78)[6];
+          v74 = v30;
+          if (v30)
           {
-            atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           E5RT::IOPort::BindMemoryObject();
-          if (v82)
+          if (v74)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v82);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v74);
           }
 
-          v35 = *(i + 39);
-          if (v35 < 0)
+          v31 = *(i + 39);
+          if (v31 < 0)
           {
             if (i[3] != 14)
             {
               continue;
             }
 
-            v30 = *v30;
+            v28 = *v28;
           }
 
-          else if (v35 != 14)
+          else if (v31 != 14)
           {
             continue;
           }
 
-          if (*v30 == 0x65626D655F6D6C6DLL && *(v30 + 6) == 0x73676E6964646562)
+          if (*v28 == 0x65626D655F6D6C6DLL && *(v28 + 6) == 0x73676E6964646562)
           {
-            TensorShape = E5RT::TensorDescriptor::GetTensorShape(v29);
+            TensorShape = E5RT::TensorDescriptor::GetTensorShape(v27);
             if (TensorShape[1] - *TensorShape != 32)
             {
-              v52 = objc_autoreleasePoolPush();
-              v69 = NLGetLogCategory(self);
-              internal2 = [v69 internal];
+              v47 = objc_autoreleasePoolPush();
+              v64 = NLGetLogCategory(self);
+              internal2 = [v64 internal];
 
               if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
               {
-                v70 = NLGetLogIdentifier(self);
-                v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected output rank"];
+                v65 = NLGetLogIdentifier(self);
+                v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected output rank"];
                 *__p = 138543618;
-                *&__p[4] = v70;
-                v89 = 2114;
-                v90 = v71;
+                *&__p[4] = v65;
+                v80 = 2114;
+                v81 = v66;
                 _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
               }
 
               goto LABEL_92;
             }
 
-            E5RT::TensorDescriptor::GetTensorDataTypeRef(v29);
+            E5RT::TensorDescriptor::GetTensorDataTypeRef(v27);
             if ((E5RT::TensorDataType::IsType<float>() & 1) == 0)
             {
-              v52 = objc_autoreleasePoolPush();
-              v72 = NLGetLogCategory(self);
-              internal2 = [v72 internal];
+              v47 = objc_autoreleasePoolPush();
+              v67 = NLGetLogCategory(self);
+              internal2 = [v67 internal];
 
               if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
               {
-                v73 = NLGetLogIdentifier(self);
-                v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected output type"];
+                v68 = NLGetLogIdentifier(self);
+                v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected output type"];
                 *__p = 138543618;
-                *&__p[4] = v73;
-                v89 = 2114;
-                v90 = v74;
+                *&__p[4] = v68;
+                v80 = 2114;
+                v81 = v69;
                 _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
               }
 
               goto LABEL_92;
             }
 
-            v38 = *TensorShape;
+            v34 = *TensorShape;
             self->_dimension = *(*TensorShape + 24);
-            if (self->_maximumSequenceLength != *(v38 + 8))
+            if (self->_maximumSequenceLength != *(v34 + 8))
             {
-              v52 = objc_autoreleasePoolPush();
-              v75 = NLGetLogCategory(self);
-              internal2 = [v75 internal];
+              v47 = objc_autoreleasePoolPush();
+              v70 = NLGetLogCategory(self);
+              internal2 = [v70 internal];
 
               if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
               {
-                v76 = NLGetLogIdentifier(self);
-                v77 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Max sequence length not matching in input/output"];
+                v71 = NLGetLogIdentifier(self);
+                v72 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Max sequence length not matching in input/output"];
                 *__p = 138543618;
-                *&__p[4] = v76;
-                v89 = 2114;
-                v90 = v77;
+                *&__p[4] = v71;
+                v80 = 2114;
+                v81 = v72;
                 _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
               }
 
@@ -574,73 +561,70 @@ LABEL_35:
         }
 
         std::string::basic_string[abi:ne200100]<0>(__p, "mlm_embeddings");
-        v39 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p);
-        v40 = v39;
-        if (v91 < 0)
+        v35 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p);
+        v36 = v35;
+        if (v82 < 0)
         {
           operator delete(*__p);
-          if (v40)
+          if (v36)
           {
 LABEL_58:
-            E5RT::ExecutionStream::CreateExecutionStream(__p, v39);
-            v41 = *__p;
+            E5RT::ExecutionStream::CreateExecutionStream(__p, v35);
+            v37 = *__p;
             *__p = 0;
             ptr = self->_stream.__ptr_;
-            self->_stream.__ptr_ = v41;
+            self->_stream.__ptr_ = v37;
             if (ptr)
             {
               (*(*ptr + 8))(ptr);
-              v43 = *__p;
+              v39 = *__p;
               *__p = 0;
-              if (v43)
+              if (v39)
               {
-                (*(*v43 + 8))(v43);
+                (*(*v39 + 8))(v39);
               }
             }
 
-            v44 = self->_stream.__ptr_;
             cntrl = self->_main_esop.__cntrl_;
-            v79 = self->_main_esop.__ptr_;
-            v80 = cntrl;
+            v73 = cntrl;
             if (cntrl)
             {
               atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
             }
 
             E5RT::ExecutionStream::EncodeOperation();
-            if (v80)
+            if (v73)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v73);
             }
 
-            if (v87)
+            if (v77)
             {
-              (*(*v87 + 8))();
+              (*(*v77 + 8))();
             }
 
-            std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::~__hash_table(v92);
-            result = 1;
-            goto LABEL_95;
+            std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::~__hash_table(v83);
+            return 1;
           }
         }
 
-        else if (v39)
+        else if (v35)
         {
           goto LABEL_58;
         }
 
-        v52 = objc_autoreleasePoolPush();
-        v57 = NLGetLogCategory(self);
-        internal2 = [v57 internal];
+        v47 = objc_autoreleasePoolPush();
+        v52 = NLGetLogCategory(self);
+        internal2 = [v52 internal];
 
         if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
         {
-          v58 = NLGetLogIdentifier(self);
-          v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s output is missing", "mlm_embeddings"];
+          v53 = NLGetLogIdentifier(self);
+          v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s output is missing", "mlm_embeddings"];
           *__p = 138543618;
-          *&__p[4] = v58;
-          v89 = 2114;
-          v90 = v59;
+          *&__p[4] = v53;
+          v80 = 2114;
+          v81 = v54;
           _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
         }
 
@@ -648,23 +632,23 @@ LABEL_58:
       }
     }
 
-    else if (v25)
+    else if (v23)
     {
       goto LABEL_35;
     }
 
-    v52 = objc_autoreleasePoolPush();
-    v53 = NLGetLogCategory(self);
-    internal2 = [v53 internal];
+    v47 = objc_autoreleasePoolPush();
+    v48 = NLGetLogCategory(self);
+    internal2 = [v48 internal];
 
     if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
     {
-      v55 = NLGetLogIdentifier(self);
-      v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s input is missing", "mlm_input"];
+      v50 = NLGetLogIdentifier(self);
+      v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s input is missing", "mlm_input"];
       *__p = 138543618;
-      *&__p[4] = v55;
-      v89 = 2114;
-      v90 = v56;
+      *&__p[4] = v50;
+      v80 = 2114;
+      v81 = v51;
       _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
     }
 
@@ -677,7 +661,7 @@ LABEL_58:
     v15 = E5RT::OperandDescriptor::TensorDescriptor(v14);
     E5RT::TensorDescriptor::AllocateMemory();
     v16 = v13 + 2;
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(&self->_buffers.__table_.__bucket_list_.__ptr_, v13 + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(&self->_buffers.__table_.__bucket_list_.__ptr_, v13 + 2, (v13 + 2), __p);
     v17 = *__p;
     *__p = 0;
     if (v17)
@@ -685,25 +669,22 @@ LABEL_58:
       (*(*v17 + 8))(v17);
     }
 
-    v18 = v13[5];
     *__p = v13 + 2;
-    v19 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, v13 + 2);
-    v20 = v19[6];
-    v83 = v19[5];
-    v84 = v20;
-    if (v20)
+    v18 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, v13 + 2, &std::piecewise_construct, __p, &v78)[6];
+    v75 = v18;
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     E5RT::IOPort::BindMemoryObject();
-    if (v84)
+    if (v75)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
     }
 
-    v21 = *(v13 + 39);
-    if (v21 < 0)
+    v19 = *(v13 + 39);
+    if (v19 < 0)
     {
       if (v13[3] != 9)
       {
@@ -713,7 +694,7 @@ LABEL_58:
       v16 = *v16;
     }
 
-    else if (v21 != 9)
+    else if (v19 != 9)
     {
       goto LABEL_32;
     }
@@ -723,8 +704,8 @@ LABEL_58:
       goto LABEL_32;
     }
 
-    v23 = E5RT::TensorDescriptor::GetTensorShape(v15);
-    if (v23[1] - *v23 != 32)
+    v21 = E5RT::TensorDescriptor::GetTensorShape(v15);
+    if (v21[1] - *v21 != 32)
     {
       break;
     }
@@ -732,40 +713,40 @@ LABEL_58:
     E5RT::TensorDescriptor::GetTensorDataTypeRef(v15);
     if ((E5RT::TensorDataType::IsType<int>() & 1) == 0)
     {
-      v52 = objc_autoreleasePoolPush();
-      v63 = NLGetLogCategory(self);
-      internal2 = [v63 internal];
+      v47 = objc_autoreleasePoolPush();
+      v58 = NLGetLogCategory(self);
+      internal2 = [v58 internal];
 
       if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
       {
-        v64 = NLGetLogIdentifier(self);
-        v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input type"];
+        v59 = NLGetLogIdentifier(self);
+        v60 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input type"];
         *__p = 138543618;
-        *&__p[4] = v64;
-        v89 = 2114;
-        v90 = v65;
+        *&__p[4] = v59;
+        v80 = 2114;
+        v81 = v60;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
       }
 
       goto LABEL_92;
     }
 
-    v24 = *v23;
-    self->_maximumSequenceLength = *(*v23 + 8);
-    if (self->_numInputs != *(v24 + 24))
+    v22 = *v21;
+    self->_maximumSequenceLength = *(*v21 + 8);
+    if (self->_numInputs != *(v22 + 24))
     {
-      v52 = objc_autoreleasePoolPush();
-      v66 = NLGetLogCategory(self);
-      internal2 = [v66 internal];
+      v47 = objc_autoreleasePoolPush();
+      v61 = NLGetLogCategory(self);
+      internal2 = [v61 internal];
 
       if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
       {
-        v67 = NLGetLogIdentifier(self);
-        v68 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input tensor shape"];
+        v62 = NLGetLogIdentifier(self);
+        v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input tensor shape"];
         *__p = 138543618;
-        *&__p[4] = v67;
-        v89 = 2114;
-        v90 = v68;
+        *&__p[4] = v62;
+        v80 = 2114;
+        v81 = v63;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
       }
 
@@ -780,42 +761,39 @@ LABEL_32:
     }
   }
 
-  v52 = objc_autoreleasePoolPush();
-  v60 = NLGetLogCategory(self);
-  internal2 = [v60 internal];
+  v47 = objc_autoreleasePoolPush();
+  v55 = NLGetLogCategory(self);
+  internal2 = [v55 internal];
 
   if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
   {
-    v61 = NLGetLogIdentifier(self);
-    v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input rank"];
+    v56 = NLGetLogIdentifier(self);
+    v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected input rank"];
     *__p = 138543618;
-    *&__p[4] = v61;
-    v89 = 2114;
-    v90 = v62;
+    *&__p[4] = v56;
+    v80 = 2114;
+    v81 = v57;
     _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", __p, 0x16u);
   }
 
 LABEL_92:
 
-  objc_autoreleasePoolPop(v52);
-  if (v87)
+  objc_autoreleasePoolPop(v47);
+  if (v77)
   {
-    (*(*v87 + 8))();
+    (*(*v77 + 8))();
   }
 
 LABEL_94:
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::~__hash_table(v92);
-  result = 0;
-LABEL_95:
-  v78 = *MEMORY[0x1E69E9840];
-  return result;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::~__hash_table(v83);
+  return 0;
 }
 
 - (void)_setInputFragments:(int *)fragments count:(unint64_t)count
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "mlm_input");
   v16 = __p;
-  v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, __p, &std::piecewise_construct, &v16);
   DataSpan = E5RT::BufferObject::GetDataSpan(v7[5]);
   v10 = v9;
   if (v9 >= 4)
@@ -867,63 +845,59 @@ LABEL_95:
 
 - (BOOL)loadBackbone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(NLE5Embedding *)self isBackboneLoaded])
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  v4 = objc_autoreleasePoolPush();
+  v5 = NLGetLogCategory(self);
+  internal = [v5 internal];
+
+  if (os_log_type_enabled(internal, OS_LOG_TYPE_INFO))
   {
-    v4 = objc_autoreleasePoolPush();
-    v5 = NLGetLogCategory(self);
-    internal = [v5 internal];
+    v7 = NLGetLogIdentifier(self);
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Loading backbone"];
+    v17 = 138543618;
+    v18 = v7;
+    v19 = 2114;
+    v20 = v8;
+    _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_INFO, "%{public}@%{public}@", &v17, 0x16u);
+  }
 
-    if (os_log_type_enabled(internal, OS_LOG_TYPE_INFO))
-    {
-      v7 = NLGetLogIdentifier(self);
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Loading backbone"];
-      v19 = 138543618;
-      v20 = v7;
-      v21 = 2114;
-      v22 = v8;
-      _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_INFO, "%{public}@%{public}@", &v19, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v4);
+  ptr = self->_stream.__ptr_;
+  if (ptr)
+  {
+    E5RT::ExecutionStream::ResetStream(ptr);
     ptr = self->_stream.__ptr_;
+    self->_stream.__ptr_ = 0;
     if (ptr)
     {
-      E5RT::ExecutionStream::ResetStream(ptr);
-      v10 = self->_stream.__ptr_;
-      self->_stream.__ptr_ = 0;
-      if (v10)
-      {
-        (*(*v10 + 8))(v10);
-      }
-    }
-
-    v11 = NLContextualEmbeddingSignpostHandle();
-    v12 = os_signpost_id_generate(v11);
-    v13 = v11;
-    v14 = v13;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
-    {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19D48F000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "loadBackboneE5", &unk_19D4EF749, &v19, 2u);
-    }
-
-    v3 = [(NLE5Embedding *)self _loadFunction:"main"];
-    v15 = v14;
-    v16 = v15;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
-    {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19D48F000, v16, OS_SIGNPOST_INTERVAL_END, v12, "loadBackboneE5", &unk_19D4EF749, &v19, 2u);
+      ptr = (*(*ptr + 8))(ptr);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  v10 = NLContextualEmbeddingSignpostHandle(ptr);
+  v11 = os_signpost_id_generate(v10);
+  v12 = v10;
+  v13 = v12;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  {
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19D48F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "loadBackboneE5", &unk_19D4EF749, &v17, 2u);
+  }
+
+  v3 = [(NLE5Embedding *)self _loadFunction:"main"];
+  v14 = v13;
+  v15 = v14;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  {
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19D48F000, v15, OS_SIGNPOST_INTERVAL_END, v11, "loadBackboneE5", &unk_19D4EF749, &v17, 2u);
+  }
+
   return v3;
 }
 
@@ -937,7 +911,7 @@ LABEL_95:
 
 - (BOOL)loadAdapter:(id)adapter
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   adapterCopy = adapter;
   if ([(NLE5Embedding *)self isAdapterLoaded:adapterCopy])
   {
@@ -960,9 +934,9 @@ LABEL_95:
         v11 = NLGetLogIdentifier(self);
         adapterCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Loading adapter '%@'", adapterCopy];
         *buf = 138543618;
-        v30 = v11;
-        v31 = 2114;
-        v32 = adapterCopy;
+        v29 = v11;
+        v30 = 2114;
+        v31 = adapterCopy;
         _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_INFO, "%{public}@%{public}@", buf, 0x16u);
       }
 
@@ -982,7 +956,7 @@ LABEL_95:
         self->_loadedFunction = 0;
       }
 
-      v16 = NLContextualEmbeddingSignpostHandle();
+      v16 = NLContextualEmbeddingSignpostHandle(ptr);
       v17 = os_signpost_id_generate(v16);
       v18 = v16;
       v19 = v18;
@@ -1013,9 +987,9 @@ LABEL_95:
         v25 = NLGetLogIdentifier(self);
         adapterCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"E5 bundle is missing requested adapter '%@'", adapterCopy];
         *buf = 138543618;
-        v30 = v25;
-        v31 = 2114;
-        v32 = adapterCopy2;
+        v29 = v25;
+        v30 = 2114;
+        v31 = adapterCopy2;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
       }
 
@@ -1024,7 +998,6 @@ LABEL_95:
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1033,15 +1006,15 @@ LABEL_95:
   __src[3] = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   propertiesCopy = properties;
-  v55 = propertiesCopy;
+  v54 = propertiesCopy;
   if (self->_stream.__ptr_)
   {
     data = [MEMORY[0x1E695DF88] data];
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
-    v54 = 0;
-    v56 = array2;
-    while (v54 < [batchCopy count])
+    v53 = 0;
+    v55 = array2;
+    while (v53 < [batchCopy count])
     {
       v8 = [batchCopy objectAtIndex:?];
       array3 = [MEMORY[0x1E695DF70] array];
@@ -1092,7 +1065,7 @@ LABEL_95:
           operator delete(v22);
         }
 
-        array2 = v56;
+        array2 = v55;
       }
 
       else
@@ -1107,7 +1080,7 @@ LABEL_95:
       {
         v24 = [v8 objectAtIndex:v23];
         v25 = [(NLE5Embedding *)self _tokenIDsForText:v24 addBOS:0];
-        applesauce::CF::ArrayRef::from_ns(v25, &cf);
+        applesauce::CF::ArrayRef::from_ns(&cf, v25);
 
         if (!cf)
         {
@@ -1123,8 +1096,8 @@ LABEL_95:
         end = __p.__end_;
         maximumSequenceLength = [(NLE5Embedding *)self maximumSequenceLength];
         v31 = end - begin + ((v26 - v27) >> 2);
-        propertiesCopy = v55;
-        array2 = v56;
+        propertiesCopy = v54;
+        array2 = v55;
         if (v31 <= maximumSequenceLength)
         {
           v32 = [MEMORY[0x1E696B098] valueWithRange:{(__src[1] - __src[0]) >> 2, __p.__end_ - __p.__begin_}];
@@ -1160,8 +1133,7 @@ LABEL_95:
         ++v23;
       }
 
-      [NLE5Embedding _setInputFragments:"_setInputFragments:count:" count:?];
-      v34 = NLContextualEmbeddingSignpostHandle();
+      v34 = NLContextualEmbeddingSignpostHandle([NLE5Embedding _setInputFragments:"_setInputFragments:count:" count:?]);
       v35 = os_signpost_id_generate(v34);
       v36 = v34;
       v37 = v36;
@@ -1182,7 +1154,7 @@ LABEL_95:
 
       std::string::basic_string[abi:ne200100]<0>(&__p, "mlm_embeddings");
       cf = &__p;
-      v40 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, &__p.__begin_);
+      v40 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, &__p, &std::piecewise_construct, &cf);
       DataSpan = E5RT::BufferObject::GetDataSpan(v40[5]);
       [data appendBytes:DataSpan length:4 * self->_dimension * ((__src[1] - __src[0]) >> 2)];
       if (SHIBYTE(__p.__end_cap_.__value_) < 0)
@@ -1200,7 +1172,7 @@ LABEL_95:
         operator delete(__src[0]);
       }
 
-      ++v54;
+      ++v53;
     }
 
     [propertiesCopy setObject:array forKeyedSubscript:@"fragmentRangesForTokens"];
@@ -1228,19 +1200,14 @@ LABEL_95:
     data = 0;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
-
   return data;
 }
 
 - (id)embeddingDataForTokenizedBatch:(id)batch withOutputProperties:(id)properties
 {
-  v11 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   propertiesCopy = properties;
   v8 = [(NLE5Embedding *)self _embeddingDataForTokenizedBatch:batchCopy withOutputProperties:propertiesCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1252,16 +1219,16 @@ LABEL_95:
   if (self->_stream.__ptr_)
   {
     v9 = [(NLE5Embedding *)self _tokenIDsForText:stringCopy addBOS:1];
-    applesauce::CF::ArrayRef::from_ns(v9, cf);
+    applesauce::CF::ArrayRef::from_ns(&cf, v9);
 
-    if (!cf[0])
+    if (!cf)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x19EAFBFD0](exception, "Could not construct");
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    applesauce::CF::convert_to<std::vector<int>,0>(cf[0], &v38);
+    applesauce::CF::convert_to<std::vector<int>,0>(cf, &v38);
     begin = v38.__begin_;
     end = v38.__end_;
     if ([(NLE5Embedding *)self maximumSequenceLength]< end - begin)
@@ -1298,8 +1265,8 @@ LABEL_95:
     E5RT::ExecutionStream::ExecuteStreamSync(self->_stream.__ptr_);
     v19 = MEMORY[0x1E695DEF0];
     std::string::basic_string[abi:ne200100]<0>(buf, "mlm_embeddings");
-    cf[2] = buf;
-    v20 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, buf);
+    v31 = buf;
+    v20 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&self->_buffers.__table_.__bucket_list_.__ptr_, buf, &std::piecewise_construct, &v31);
     DataSpan = E5RT::BufferObject::GetDataSpan(v20[5]);
     v22 = [v19 dataWithBytes:DataSpan length:4 * self->_dimension * ((v38.__end_ - v38.__begin_) >> 2)];
     if (v35 < 0)
@@ -1318,9 +1285,9 @@ LABEL_95:
       operator delete(v38.__begin_);
     }
 
-    if (cf[0])
+    if (cf)
     {
-      CFRelease(cf[0]);
+      CFRelease(cf);
     }
   }
 
@@ -1345,25 +1312,20 @@ LABEL_95:
     v22 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (id)embeddingDataForString:(id)string sequenceSize:(unint64_t *)size error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v9 = [(NLE5Embedding *)self _embeddingDataForString:stringCopy sequenceSize:size error:error];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)textForTokenIDs:(id)ds
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (self->_subwordVocabRef)
   {
@@ -1380,25 +1342,23 @@ LABEL_95:
     {
       v9 = NLGetLogIdentifier(self);
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Sentence piece tokenizer is not set"];
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
+      _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = &stru_1F10C6540;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)tokenIDsForText:(id)text
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   textCopy = text;
   if (self->_subwordVocabRef)
   {
@@ -1415,28 +1375,25 @@ LABEL_95:
     {
       v9 = NLGetLogIdentifier(self);
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Sentence piece tokenizer is not set"];
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v10;
-      _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
+      _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = MEMORY[0x1E695E0F0];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_tokenIDsForText:(id)text addBOS:(BOOL)s
 {
-  subwordVocabRef = self->_subwordVocabRef;
-  v5 = NLEmbeddingSubwordVocabCopyTokenIdsForText();
+  v4 = NLEmbeddingSubwordVocabCopyTokenIdsForText();
 
-  return v5;
+  return v4;
 }
 
 - (id).cxx_construct

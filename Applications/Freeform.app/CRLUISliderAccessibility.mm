@@ -249,12 +249,14 @@ LABEL_8:
 
 - (void)_crlaxInteractionDidStart
 {
-  if ([(CRLUISliderAccessibility *)self _crlaxShouldForceIsTracking])
+  _crlaxShouldForceIsTracking = [(CRLUISliderAccessibility *)self _crlaxShouldForceIsTracking];
+  if (_crlaxShouldForceIsTracking)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(_crlaxShouldForceIsTracking, v4);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Mismatched calls to crlaxM<Start|End>SliderInteraction", v4, v5, v6, v7, v8, v9))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Mismatched calls to crlaxM<Start|End>SliderInteraction", v7, v8, v9, v10, v11, v12))
       {
         abort();
       }
@@ -271,19 +273,24 @@ LABEL_8:
 
 - (void)_crlaxInteractionDidStop
 {
-  if ([(CRLUISliderAccessibility *)self _crlaxShouldForceIsTracking])
+  _crlaxShouldForceIsTracking = [(CRLUISliderAccessibility *)self _crlaxShouldForceIsTracking];
+  if (_crlaxShouldForceIsTracking)
   {
     [(CRLUISliderAccessibility *)self _crlaxSetShouldForceIsTracking:0];
 
     [(CRLUISliderAccessibility *)self _crlaxPerformTargetActionsForControlEvents:64];
   }
 
-  else if (CRLAccessibilityShouldPerformValidationChecks())
+  else
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Mismatched calls to crlaxM<Start|End>SliderInteraction", v4, v5, v6, v7, v8, v9))
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(_crlaxShouldForceIsTracking, v4);
+    if (ShouldPerformValidationChecks)
     {
-      abort();
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Mismatched calls to crlaxM<Start|End>SliderInteraction", v7, v8, v9, v10, v11, v12))
+      {
+        abort();
+      }
     }
   }
 }

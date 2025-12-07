@@ -9,7 +9,7 @@
 
 - (FMDExtHostContext)init
 {
-  v3 = LogCategory_Extensions();
+  v3 = LogCategory_Extensions(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -61,11 +61,11 @@
   [invocationCopy selector];
   v6 = objc_opt_respondsToSelector();
 
-  v7 = LogCategory_Extensions();
-  accessoryDelegate3 = v7;
+  v8 = LogCategory_Extensions(v7);
+  accessoryDelegate3 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       accessoryDelegate2 = [(FMDExtHostContext *)self accessoryDelegate];
       v11 = 138412546;
@@ -79,23 +79,19 @@
     [invocationCopy invokeWithTarget:accessoryDelegate3];
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(FMDExtHostContext *)invocationCopy forwardInvocation:accessoryDelegate3];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forwardInvocation:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector([a1 selector]);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Invocation %@ not supported skipping completion block", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "Invocation %@ not supported skipping completion block", &v4, 0xCu);
 }
 
 @end

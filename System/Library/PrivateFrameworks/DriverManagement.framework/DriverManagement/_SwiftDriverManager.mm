@@ -14,24 +14,23 @@
 {
   v2 = sub_21C581F5C();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21C58223C();
   sub_21C57CFE4(0, &qword_28120D1E0, 0x277D86200);
-  v7 = sub_21C58224C();
+  v6 = sub_21C58224C();
   sub_21C581F4C();
   sub_21C581F3C();
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   if (qword_28120D428 != -1)
   {
     swift_once();
   }
 
-  v8 = static DriverManager.shared;
+  v7 = static DriverManager.shared;
 
-  return v8;
+  return v7;
 }
 
 - (int64_t)driverCount
@@ -93,7 +92,7 @@
   selfCopy = self;
   DriverManager.driverApprovalStatesForThirdPartyApp(_:)(v4, v6);
 
-  type metadata accessor for DriverApprovalState();
+  type metadata accessor for DriverApprovalState(0);
   v8 = sub_21C58216C();
 
   return v8;

@@ -70,7 +70,7 @@
   v10[0] = &v9;
   v10[1] = 0x2020000000;
   v10[2] = types;
-  v3 = WFAggregateCommonRequestSupportedForecastTypes();
+  v3 = WFAggregateCommonRequestSupportedForecastTypes(self);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __52__WFAggregateCommonRequest__supportedForecastTypes___block_invoke;

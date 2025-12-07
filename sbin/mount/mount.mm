@@ -1115,191 +1115,191 @@ char *sub_100002DF4(char *a1, const char *a2)
 uint64_t sub_100002EA4(char **a1, _DWORD *a2)
 {
   v2 = a1;
-  v58 = 0;
-  v59 = -1;
-  v57 = 0;
-  *v60 = -1;
+  v48 = 0;
+  v49 = -1;
+  v47 = 0;
+  *v50 = -1;
   if (!a1)
   {
     fwrite("command_argv is NULL\n", 0x15uLL, 1uLL, __stderrp);
-    v7 = 0;
+    v6 = 0;
     *__error() = 22;
 LABEL_22:
-    v33 = 0xFFFFFFFFLL;
+    v27 = 0xFFFFFFFFLL;
     goto LABEL_23;
   }
 
-  if (pipe(v60))
+  if (pipe(v50))
   {
     v4 = __stderrp;
-    v5 = *__error();
-    v6 = __error();
-    strerror(*v6);
+    __error();
+    v5 = __error();
+    strerror(*v5);
     fprintf(v4, "Failed to create pipe for command output: %d (%s)\n");
 LABEL_20:
     v2 = 0;
 LABEL_21:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_22;
   }
 
-  v8 = posix_spawn_file_actions_init(&v57);
-  if (v8)
+  v7 = posix_spawn_file_actions_init(&v47);
+  if (v7)
   {
-    *__error() = v8;
-    v9 = __stderrp;
-    v10 = *__error();
-    v11 = __error();
-    strerror(*v11);
-    fprintf(v9, "posix_spawn_file_actions_init failed: %d (%s)\n");
+    *__error() = v7;
+    v8 = __stderrp;
+    __error();
+    v9 = __error();
+    strerror(*v9);
+    fprintf(v8, "posix_spawn_file_actions_init failed: %d (%s)\n");
     goto LABEL_20;
   }
 
-  v12 = posix_spawn_file_actions_addclose(&v57, v60[0]);
-  if (v12)
+  v10 = posix_spawn_file_actions_addclose(&v47, v50[0]);
+  if (v10)
   {
-    *__error() = v12;
-    v13 = __stderrp;
-    v14 = *__error();
+    *__error() = v10;
+    v11 = __stderrp;
+    __error();
+    v12 = __error();
+    strerror(*v12);
+    fprintf(v11, "posix_spawn_file_actions_addclose output_pipe[0] failed: %d (%s)\n");
+    goto LABEL_20;
+  }
+
+  v13 = posix_spawn_file_actions_adddup2(&v47, v50[1], 1);
+  if (v13)
+  {
+    *__error() = v13;
+    v14 = __stderrp;
+    __error();
     v15 = __error();
     strerror(*v15);
-    fprintf(v13, "posix_spawn_file_actions_addclose output_pipe[0] failed: %d (%s)\n");
+    fprintf(v14, "posix_spawn_file_actions_adddup2 output_pipe[1] failed: %d (%s)\n");
     goto LABEL_20;
   }
 
-  v16 = posix_spawn_file_actions_adddup2(&v57, v60[1], 1);
+  v16 = posix_spawn_file_actions_addclose(&v47, v50[1]);
   if (v16)
   {
     *__error() = v16;
     v17 = __stderrp;
-    v18 = *__error();
-    v19 = __error();
-    strerror(*v19);
-    fprintf(v17, "posix_spawn_file_actions_adddup2 output_pipe[1] failed: %d (%s)\n");
-    goto LABEL_20;
-  }
-
-  v20 = posix_spawn_file_actions_addclose(&v57, v60[1]);
-  if (v20)
-  {
-    *__error() = v20;
-    v21 = __stderrp;
-    v22 = *__error();
-    v23 = __error();
-    strerror(*v23);
-    fprintf(v21, "posix_spawn_file_actions_addclose output_pipe[1] failed: %d (%s)\n");
+    __error();
+    v18 = __error();
+    strerror(*v18);
+    fprintf(v17, "posix_spawn_file_actions_addclose output_pipe[1] failed: %d (%s)\n");
     goto LABEL_20;
   }
 
   if (dword_1000101FC)
   {
     fwrite("Executing command: ", 0x13uLL, 1uLL, __stdoutp);
-    v24 = *v2;
+    v19 = *v2;
     if (*v2)
     {
-      v25 = (v2 + 1);
+      v20 = (v2 + 1);
       do
       {
-        fprintf(__stdoutp, "%s ", v24);
-        v26 = *v25++;
-        v24 = v26;
+        fprintf(__stdoutp, "%s ", v19);
+        v21 = *v20++;
+        v19 = v21;
       }
 
-      while (v26);
+      while (v21);
     }
 
     fputc(10, __stdoutp);
   }
 
-  v27 = *v2;
-  v28 = _NSGetEnviron();
-  v29 = posix_spawn(&v58, v27, &v57, 0, v2, *v28);
-  if (v29)
+  v22 = *v2;
+  v23 = _NSGetEnviron();
+  v24 = posix_spawn(&v48, v22, &v47, 0, v2, *v23);
+  if (v24)
   {
-    *__error() = v29;
-    v30 = __stderrp;
-    v31 = *__error();
-    v32 = __error();
-    strerror(*v32);
-    fprintf(v30, "posix_spawn failed: %d (%s)\n");
+    *__error() = v24;
+    v25 = __stderrp;
+    __error();
+    v26 = __error();
+    strerror(*v26);
+    fprintf(v25, "posix_spawn failed: %d (%s)\n");
     goto LABEL_20;
   }
 
-  close(v60[1]);
-  v60[1] = -1;
-  v36 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
-  if (!v36)
+  close(v50[1]);
+  v50[1] = -1;
+  v30 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
+  if (!v30)
   {
-    v43 = __stderrp;
-    v44 = *__error();
-    v45 = __error();
-    strerror(*v45);
-    fprintf(v43, "calloc failed: %d (%s)\n");
+    v37 = __stderrp;
+    __error();
+    v38 = __error();
+    strerror(*v38);
+    fprintf(v37, "calloc failed: %d (%s)\n");
     goto LABEL_20;
   }
 
-  v2 = v36;
-  v37 = fdopen(v60[0], "r");
-  if (!v37)
+  v2 = v30;
+  v31 = fdopen(v50[0], "r");
+  if (!v31)
   {
-    v46 = __stderrp;
-    v47 = *__error();
-    v48 = __error();
-    strerror(*v48);
-    fprintf(v46, "fdopen failed: %d (%s)\n");
+    v39 = __stderrp;
+    __error();
+    v40 = __error();
+    strerror(*v40);
+    fprintf(v39, "fdopen failed: %d (%s)\n");
     goto LABEL_21;
   }
 
-  v7 = v37;
-  v56 = 0;
-  if (fgetln(v37, &v56))
+  v6 = v31;
+  v46 = 0;
+  if (fgetln(v31, &v46))
   {
-    v38 = 0;
+    v32 = 0;
     do
     {
-      if (v38 >= 1023 - v56)
+      if (v32 >= 1023 - v46)
       {
         break;
       }
 
       __strncat_chk();
-      v38 += v56;
+      v32 += v46;
     }
 
-    while (fgetln(v7, &v56));
+    while (fgetln(v6, &v46));
   }
 
-  if (ferror(v7))
+  if (ferror(v6))
   {
-    v39 = __stderrp;
-    v40 = *__error();
-    v41 = __error();
-    v42 = strerror(*v41);
-    fprintf(v39, "fgetln failed: %d (%s)\n", v40, v42);
+    v33 = __stderrp;
+    v34 = *__error();
+    v35 = __error();
+    v36 = strerror(*v35);
+    fprintf(v33, "fgetln failed: %d (%s)\n", v34, v36);
     goto LABEL_22;
   }
 
-  if (fclose(v7))
+  if (fclose(v6))
   {
-    v49 = __stderrp;
-    v50 = *__error();
-    v51 = __error();
-    strerror(*v51);
-    fprintf(v49, "fclose failed: %d (%s)\n");
+    v41 = __stderrp;
+    __error();
+    v42 = __error();
+    strerror(*v42);
+    fprintf(v41, "fclose failed: %d (%s)\n");
     goto LABEL_21;
   }
 
-  close(v60[0]);
-  v60[0] = -1;
-  while (waitpid(v58, &v59, 0) < 0)
+  close(v50[0]);
+  v50[0] = -1;
+  while (waitpid(v48, &v49, 0) < 0)
   {
     if (*__error() != 4)
     {
-      v52 = __stderrp;
-      v53 = *__error();
-      v54 = __error();
-      strerror(*v54);
-      fprintf(v52, "waitpid failed: %d (%s)\n");
+      v43 = __stderrp;
+      __error();
+      v44 = __error();
+      strerror(*v44);
+      fprintf(v43, "waitpid failed: %d (%s)\n");
       goto LABEL_21;
     }
   }
@@ -1309,12 +1309,12 @@ LABEL_21:
     fprintf(__stdoutp, "Command output:\n%s\n", v2);
   }
 
-  if ((v59 & 0x7F) == 0x7F)
+  if ((v49 & 0x7F) == 0x7F)
   {
     goto LABEL_59;
   }
 
-  if ((v59 & 0x7F) != 0)
+  if ((v49 & 0x7F) != 0)
   {
     if (a2)
     {
@@ -1325,44 +1325,44 @@ LABEL_21:
     goto LABEL_63;
   }
 
-  v55 = BYTE1(v59);
+  v45 = BYTE1(v49);
   if (a2)
   {
-    *a2 = BYTE1(v59);
+    *a2 = BYTE1(v49);
   }
 
-  if (!v55)
+  if (!v45)
   {
 LABEL_59:
-    v33 = 0;
-    v7 = 0;
+    v27 = 0;
+    v6 = 0;
     goto LABEL_23;
   }
 
   fprintf(__stderrp, "Command failed: %d\n");
 LABEL_63:
-  v7 = 0;
-  v33 = 1;
+  v6 = 0;
+  v27 = 1;
 LABEL_23:
-  v34 = *__error();
-  if (v57)
+  v28 = *__error();
+  if (v47)
   {
-    posix_spawn_file_actions_destroy(&v57);
+    posix_spawn_file_actions_destroy(&v47);
   }
 
-  if (v7)
+  if (v6)
   {
-    fclose(v7);
+    fclose(v6);
   }
 
-  if ((v60[0] & 0x80000000) == 0)
+  if ((v50[0] & 0x80000000) == 0)
   {
-    close(v60[0]);
+    close(v50[0]);
   }
 
-  if ((v60[1] & 0x80000000) == 0)
+  if ((v50[1] & 0x80000000) == 0)
   {
-    close(v60[1]);
+    close(v50[1]);
   }
 
   if (v2)
@@ -1370,8 +1370,8 @@ LABEL_23:
     free(v2);
   }
 
-  *__error() = v34;
-  return v33;
+  *__error() = v28;
+  return v27;
 }
 
 int *sub_100003480(_DWORD *a1)
@@ -1512,8 +1512,9 @@ BOOL sub_100003790()
   return v3;
 }
 
-uint64_t sub_10000380C(unsigned int a1, unsigned int a2)
+uint64_t sub_10000380C(uint64_t a1, unsigned int a2)
 {
+  v2 = a1;
   if (a2 == -1)
   {
     a2 = sysexit_np();
@@ -1521,7 +1522,7 @@ uint64_t sub_10000380C(unsigned int a1, unsigned int a2)
 
   if (dword_1000101F8)
   {
-    return a1;
+    return v2;
   }
 
   else
@@ -1533,7 +1534,7 @@ uint64_t sub_10000380C(unsigned int a1, unsigned int a2)
 void start(int a1, char *const *a2)
 {
   __endptr = 0;
-  bzero(v71, 0x400uLL);
+  bzero(v64, 0x400uLL);
   v4 = 0;
   v5 = 0;
   __s = 0;
@@ -1723,7 +1724,7 @@ LABEL_53:
           exit(0);
         }
 
-        v70 = 0;
+        v63 = 0;
         if (!setfsent())
         {
           if (*__error())
@@ -1740,8 +1741,8 @@ LABEL_53:
           errx(v30, "mount: can't get filesystem checklist");
         }
 
-        v69 = 0;
-        sub_100003480(&v69);
+        v62 = 0;
+        sub_100003480(&v62);
         v25 = sub_100003674();
         if (v25)
         {
@@ -1750,7 +1751,7 @@ LABEL_53:
 
         else
         {
-          if (v69 == 1 && dword_1000101F4 == 2)
+          if (v62 == 1 && dword_1000101F4 == 2)
           {
             if (*__error())
             {
@@ -1762,8 +1763,8 @@ LABEL_53:
               v34 = 6;
             }
 
-            v61 = sub_10000380C(v34, 0xFFFFFFFF);
-            errx(v61, "mount: missing data volume");
+            v57 = sub_10000380C(v34, 0xFFFFFFFF);
+            errx(v57, "mount: missing data volume");
           }
 
           fprintf(__stdoutp, "mount: data volume missing, but not required in env: %u\n");
@@ -1802,11 +1803,11 @@ LABEL_118:
 LABEL_130:
               if (!checkvfsname(v40->fs_vfstype, v8) && !sub_10000441C(v40->fs_mntops, "noauto"))
               {
-                if ((v43 = v40->fs_vfstype, strcmp(v43, "nfs")) && strcmp(v43, "url") || !sub_10000441C(v40->fs_mntops, "net") && v40->fs_spec && (v52 = v40->fs_file) != 0 && !sub_100004504(v40->fs_spec, v52, 0))
+                if ((fs_vfstype = v40->fs_vfstype, strcmp(fs_vfstype, "nfs")) && strcmp(fs_vfstype, "url") || !sub_10000441C(v40->fs_mntops, "net") && v40->fs_spec && (fs_file = v40->fs_file) != 0 && !sub_100004504(v40->fs_spec, fs_file, 0))
                 {
                   if (!dword_1000101F4 || v40->fs_passno == dword_1000101F4)
                   {
-                    if (!sub_100004504(v40->fs_spec, v40->fs_file, &v70) || ((v70 & 1) == 0 ? (v44 = 1) : (v44 = v42), (v44 & 1) == 0))
+                    if (!sub_100004504(v40->fs_spec, v40->fs_file, &v63) || ((v63 & 1) == 0 ? (v44 = 1) : (v44 = v42), (v44 & 1) == 0))
                     {
                       fs_spec = v40->fs_spec;
                       if (!strcmp(v40->fs_spec, "ramdisk"))
@@ -1816,11 +1817,11 @@ LABEL_130:
                           fwrite("mount: encountered ramdisk\n", 0x1BuLL, 1uLL, __stdoutp);
                         }
 
-                        v53 = sub_100002688(v40);
-                        if (v53)
+                        v49 = sub_100002688(v40);
+                        if (v49)
                         {
-                          v67 = sub_10000380C(v53, 0xFFFFFFFF);
-                          errx(v67, "mount: failed to setup tmpfs mount");
+                          v60 = sub_10000380C(v49, 0xFFFFFFFF);
+                          errx(v60, "mount: failed to setup tmpfs mount");
                         }
 
                         v39 = 0;
@@ -1831,12 +1832,12 @@ LABEL_130:
                         if (v40->fs_passno >= 2 && !strcmp(v40->fs_vfstype, "apfs"))
                         {
                           v46 = v40->fs_type;
-                          if (*v46 == 114 && v46[1] == 119 && !v46[2] && v25 && !dword_1000101F0 && v69 == 1 && !strcmp(v25, fs_spec))
+                          if (*v46 == 114 && v46[1] == 119 && !v46[2] && v25 && !dword_1000101F0 && v62 == 1 && !strcmp(v25, fs_spec))
                           {
-                            v54 = APFSContainerMigrateMediaKeys();
-                            if (v54)
+                            v50 = APFSContainerMigrateMediaKeys();
+                            if (v50)
                             {
-                              fprintf(__stderrp, "mount: failed to migrate Media Keys, error = %x\n", v54);
+                              fprintf(__stderrp, "mount: failed to migrate Media Keys, error = %x\n", v50);
                             }
 
                             else
@@ -1846,14 +1847,10 @@ LABEL_130:
                           }
                         }
 
-                        v47 = v40->fs_spec;
-                        fs_file = v40->fs_file;
-                        fs_vfstype = v40->fs_vfstype;
-                        fs_mntops = v40->fs_mntops;
-                        v51 = sub_1000045B0();
-                        if (v51)
+                        v47 = sub_1000045B0();
+                        if (v47)
                         {
-                          v39 = v51;
+                          v39 = v47;
                         }
                       }
                     }
@@ -1891,7 +1888,7 @@ LABEL_90:
       errx(v21, "special file or file system %s too long.", v20);
     }
 
-    if (!realpath_DARWIN_EXTSN(v20, v71))
+    if (!realpath_DARWIN_EXTSN(v20, v64))
     {
       v23 = __error();
       v24 = sub_10000380C(*v23, 0xFFFFFFFF);
@@ -1905,14 +1902,14 @@ LABEL_90:
 
     if ((v5 & 0x10000) != 0)
     {
-      v37 = sub_100004F50(v71);
+      v37 = sub_100004F50(v64);
       exit(v37);
     }
 
-    v27 = getfsfile(v71);
+    v27 = getfsfile(v64);
     if (!v27)
     {
-      v27 = getfsspec(v71);
+      v27 = getfsspec(v64);
       if (!v27)
       {
         v28 = __error();
@@ -1922,20 +1919,20 @@ LABEL_90:
     }
 
     p_fs_spec = &v27->fs_spec;
-    v56 = v27->fs_type;
-    if (*v56 != 114 || (v56[1] != 111 || v56[2]) && (v56[1] != 119 || v56[2]) && (v56[1] != 113 || v56[2]))
+    v52 = v27->fs_type;
+    if (*v52 != 114 || (v52[1] != 111 || v52[2]) && (v52[1] != 119 || v52[2]) && (v52[1] != 113 || v52[2]))
     {
       if (dword_1000101F8)
       {
-        v60 = 22;
+        v56 = 22;
       }
 
       else
       {
-        v60 = 65;
+        v56 = 65;
       }
 
-      errx(v60, "%s has unknown file system type.", *v14);
+      errx(v56, "%s has unknown file system type.", *v14);
     }
 
     if (!strcmp(v27->fs_vfstype, "nfs"))
@@ -1944,30 +1941,30 @@ LABEL_90:
       {
         if (dword_1000101F8)
         {
-          v65 = 22;
+          v58 = 22;
         }
 
         else
         {
-          v65 = 65;
+          v58 = 65;
         }
 
-        errx(v65, "%s is owned by the automounter.", *v14);
+        errx(v58, "%s is owned by the automounter.", *v14);
       }
 
       if (sub_100004504(*p_fs_spec, p_fs_spec[1], 0))
       {
         if (dword_1000101F8)
         {
-          v66 = 37;
+          v59 = 37;
         }
 
         else
         {
-          v66 = 78;
+          v59 = 78;
         }
 
-        errx(v66, "%s is already mounted at %s.", *p_fs_spec, p_fs_spec[1]);
+        errx(v59, "%s is already mounted at %s.", *p_fs_spec, p_fs_spec[1]);
       }
     }
 
@@ -1978,13 +1975,10 @@ LABEL_90:
         fwrite("Found a ramdisk entry\n", 0x16uLL, 1uLL, __stdoutp);
       }
 
-      v57 = sub_100002688(p_fs_spec);
-      exit(v57);
+      v53 = sub_100002688(p_fs_spec);
+      exit(v53);
     }
 
-    v63 = p_fs_spec[1];
-    v62 = p_fs_spec[2];
-    v64 = p_fs_spec[3];
 LABEL_113:
     v36 = sub_1000045B0();
     exit(v36);
@@ -2028,7 +2022,7 @@ LABEL_113:
 
   else if (v18)
   {
-    if (!realpath_DARWIN_EXTSN(v17, v71))
+    if (!realpath_DARWIN_EXTSN(v17, v64))
     {
       v31 = __error();
       v32 = sub_10000380C(*v31, 0xFFFFFFFF);
@@ -2043,19 +2037,19 @@ LABEL_113:
 
   if (!v8 && strchr(*v14, 58))
   {
-    if (sub_100004504(v16, v71, 0))
+    if (sub_100004504(v16, v64, 0))
     {
       if (dword_1000101F8)
       {
-        v58 = 37;
+        v54 = 37;
       }
 
       else
       {
-        v58 = 78;
+        v54 = 78;
       }
 
-      errx(v58, "%s is already mounted at %s.", v16, v71);
+      errx(v54, "%s is already mounted at %s.", v16, v64);
     }
 
     if ((v5 & 0x10000) == 0)
@@ -2084,7 +2078,7 @@ LABEL_113:
     goto LABEL_113;
   }
 
-  if (!sub_100004FEC(v71))
+  if (!sub_100004FEC(v64))
   {
     if (*__error())
     {
@@ -2096,8 +2090,8 @@ LABEL_113:
       v35 = 2;
     }
 
-    v59 = sub_10000380C(v35, 0xFFFFFFFF);
-    errx(v59, "unknown special file or file system %s.", *v14);
+    v55 = sub_10000380C(v35, 0xFFFFFFFF);
+    errx(v55, "unknown special file or file system %s.", *v14);
   }
 
   goto LABEL_113;
@@ -2405,7 +2399,7 @@ LABEL_41:
     *&v61[0] = v12;
     sub_100005228(v54, &v57, v61, 97);
     v26 = v61 + v57;
-    v27 = v57 + 2;
+    v27 = (v57 + 2);
     *v26 = v11;
     v26[1] = __s;
     *(v61 + v27) = 0;
@@ -2494,7 +2488,7 @@ LABEL_41:
     free(v54);
     if (waitpid(v36, &v56, 0) < 0)
     {
-      sub_100005720(&v55);
+      sub_100005720(&v55.st_dev);
       return v55.st_dev;
     }
 
@@ -2689,14 +2683,8 @@ uint64_t sub_100004F50(const char *a1)
   v3 = v2;
   if (!strchr(v2->f_mntfromname, 47))
   {
-    v4 = getfsfile(v3->f_mntonname);
-    if (v4)
-    {
-      fs_spec = v4->fs_spec;
-    }
+    getfsfile(v3->f_mntonname);
   }
-
-  v6 = v3->f_flags & 0x80;
 
   return sub_1000045B0();
 }
@@ -2734,12 +2722,12 @@ uint64_t sub_100005090(uint64_t a1)
 {
   v2 = (a1 + 88);
   printf("%s on %s (%s", (a1 + 1112), (a1 + 88), (a1 + 72));
-  v15 = 0;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = xmmword_100006704;
   v12 = 0;
-  if (!getattrlist(v2, &v11, &v13, 0x24uLL, 0) && (BYTE7(v14) & 2) != 0 && (DWORD1(v13) & 0x2000000) != 0)
+  v10 = 0u;
+  v11 = 0u;
+  v8 = xmmword_100006704;
+  v9 = 0;
+  if (!getattrlist(v2, &v8, &v10, 0x24uLL, 0) && (BYTE7(v11) & 2) != 0 && (DWORD1(v10) & 0x2000000) != 0)
   {
     printf(", sealed");
   }
@@ -2793,16 +2781,13 @@ uint64_t sub_100005090(uint64_t a1)
   if (*(a1 + 56))
   {
     printf(", mounted by ");
-    v7 = getpwuid(*(a1 + 56));
-    if (v7)
+    if (getpwuid(*(a1 + 56)))
     {
-      pw_name = v7->pw_name;
       printf("%s");
     }
 
     else
     {
-      v9 = *(a1 + 56);
       printf("%d");
     }
   }
@@ -3029,7 +3014,7 @@ void sub_1000056F8()
   err(v1, "getmntinfo");
 }
 
-uint64_t sub_100005720(_DWORD *a1)
+uint64_t sub_100005720(int *a1)
 {
   warn("waitpid");
   v2 = *__error();

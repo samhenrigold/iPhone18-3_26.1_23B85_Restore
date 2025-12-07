@@ -22,7 +22,7 @@
 - (NSDictionary)contentRatingExceptionForBundleId
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB6908);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB6908, &qword_1E1B1CD70);
   sub_1E1AF690C();
 
   v2 = sub_1E1AF5C6C();

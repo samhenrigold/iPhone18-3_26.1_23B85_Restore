@@ -8,16 +8,16 @@
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   photoLibrary = [entityCopy photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"faceCount" ascending:0];
-  v46[0] = v8;
+  v45[0] = v8;
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v46[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v45[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
   [librarySpecificFetchOptions setSortDescriptors:v10];
 
   [librarySpecificFetchOptions setFetchLimit:{-[PGFeatureExtractorFrequentPeople numberOfFrequentPeopleToExtract](self, "numberOfFrequentPeopleToExtract")}];
@@ -30,60 +30,60 @@
     [(PGFeatureExtractorFrequentPeople *)self setFrequencySortedPersons:v13];
   }
 
-  v35 = entityCopy;
+  v34 = entityCopy;
   v14 = [MEMORY[0x277CD9938] fetchPersonsInAsset:entityCopy options:{librarySpecificFetchOptions, librarySpecificFetchOptions}];
   v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v41;
+    v19 = *v40;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v41 != v19)
+        if (*v40 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        uuid = [*(*(&v40 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v39 + 1) + 8 * i) uuid];
         [v15 addObject:uuid];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v18);
   }
 
   v22 = [MEMORY[0x277D22C68] zerosOfCount:{-[PGFeatureExtractorFrequentPeople numberOfFrequentPeopleToExtract](self, "numberOfFrequentPeopleToExtract")}];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   frequencySortedPersons2 = [(PGFeatureExtractorFrequentPeople *)self frequencySortedPersons];
-  v24 = [frequencySortedPersons2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v24 = [frequencySortedPersons2 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v24)
   {
     v25 = v24;
     v26 = 0;
-    v27 = *v37;
+    v27 = *v36;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v37 != v27)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(frequencySortedPersons2);
         }
 
-        uuid2 = [*(*(&v36 + 1) + 8 * j) uuid];
+        uuid2 = [*(*(&v35 + 1) + 8 * j) uuid];
         v30 = [v15 containsObject:uuid2];
 
         if (v30)
@@ -95,13 +95,11 @@
         ++v26;
       }
 
-      v25 = [frequencySortedPersons2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v25 = [frequencySortedPersons2 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v25);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

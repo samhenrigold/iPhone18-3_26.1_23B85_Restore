@@ -171,8 +171,8 @@ LABEL_12:
     v37 = pointerEffect;
     if (pointerEffect)
     {
-      preview = [pointerEffect preview];
-      [preview target];
+      v38 = objc_msgSend_preview(pointerEffect);
+      [v38 target];
       v39 = v48 = v12;
       container = [v39 container];
       [v9 container];
@@ -530,9 +530,9 @@ LABEL_4:
   else
   {
     pointerEffect = [v10 pointerEffect];
-    preview = [pointerEffect preview];
+    v14 = objc_msgSend_preview(pointerEffect);
 
-    target = [preview target];
+    target = [v14 target];
     container = [target container];
     [target center];
     [container convertPoint:self->_previewContainer toView:?];
@@ -540,7 +540,7 @@ LABEL_4:
     v20 = v19;
 
     v21 = [[UIPreviewTarget alloc] initWithContainer:self->_previewContainer center:v18, v20];
-    v22 = [preview retargetedPreviewWithTarget:v21];
+    v22 = [v14 retargetedPreviewWithTarget:v21];
     v23 = [v10 copy];
     pointerEffect2 = [v23 pointerEffect];
     [pointerEffect2 setPreview:v22];

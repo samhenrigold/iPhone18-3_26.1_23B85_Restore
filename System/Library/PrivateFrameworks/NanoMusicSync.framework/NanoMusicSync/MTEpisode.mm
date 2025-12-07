@@ -3,7 +3,7 @@
 
 @implementation MTEpisode
 
-uint64_t __46__MTEpisode_NMSDownloadableItem__downloadInfo__block_invoke(uint64_t a1)
+void *__46__MTEpisode_NMSDownloadableItem__downloadInfo__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) uuid];
   v3 = *(*(a1 + 40) + 8);

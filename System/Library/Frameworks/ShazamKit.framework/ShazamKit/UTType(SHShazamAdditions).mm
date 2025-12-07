@@ -12,9 +12,9 @@
     +[UTType(SHShazamAdditions) SHSignatureContentType];
   }
 
-  v1 = SHSignatureContentType_signatureType;
+  v2 = SHSignatureContentType_signatureType;
 
-  return v1;
+  return v2;
 }
 
 + (id)SHCustomCatalogContentType
@@ -24,9 +24,9 @@
     +[UTType(SHShazamAdditions) SHCustomCatalogContentType];
   }
 
-  v1 = SHCustomCatalogContentType_catalogType;
+  v2 = SHCustomCatalogContentType_catalogType;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -257,7 +257,7 @@ LABEL_8:
   v13 = [v10 imageWithActions:v16];
   if (!v13)
   {
-    v14 = _AAUILogSystem();
+    v14 = _AAUILogSystem(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [UIImage(AppleAccountUI) circularImageFromCGImage:v14 size:? scale:?];

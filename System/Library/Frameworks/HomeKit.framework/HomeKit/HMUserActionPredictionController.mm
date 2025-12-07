@@ -12,7 +12,7 @@
 
 - (void)didUpdatePredictions:(id)predictions forHomeWithIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   predictionsCopy = predictions;
   identifierCopy = identifier;
   homeIdentifier = [(HMUserActionPredictionController *)self homeIdentifier];
@@ -28,13 +28,13 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v27 = v14;
-      v28 = 2112;
-      v29 = delegate;
-      v30 = 2112;
-      v31 = predictionsCopy;
-      v32 = 2112;
-      v33 = identifierCopy;
+      v26 = v14;
+      v27 = 2112;
+      v28 = delegate;
+      v29 = 2112;
+      v30 = predictionsCopy;
+      v31 = 2112;
+      v32 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate: %@ of updated user action predictions: %@ for home with identifier: %@", buf, 0x2Au);
     }
 
@@ -43,14 +43,14 @@
     {
       context = [(HMUserActionPredictionController *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __79__HMUserActionPredictionController_didUpdatePredictions_forHomeWithIdentifier___block_invoke;
-      v22[3] = &unk_1E754E5E8;
-      v23 = delegate;
-      v24 = selfCopy;
-      v25 = predictionsCopy;
-      [delegateCaller invokeBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __79__HMUserActionPredictionController_didUpdatePredictions_forHomeWithIdentifier___block_invoke;
+      v21[3] = &unk_1E754E5E8;
+      v22 = delegate;
+      v23 = selfCopy;
+      v24 = predictionsCopy;
+      [delegateCaller invokeBlock:v21];
     }
   }
 
@@ -63,18 +63,16 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v27 = v20;
-      v28 = 2112;
-      v29 = predictionsCopy;
-      v30 = 2112;
-      v31 = identifierCopy;
+      v26 = v20;
+      v27 = 2112;
+      v28 = predictionsCopy;
+      v29 = 2112;
+      v30 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Not notifying of updated user action predictions: %@ for home with identifier: %@ due to wrong home", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)predictions
@@ -129,27 +127,27 @@
 
 - (void)fetchPredictionsWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMUserActionPredictionController fetchPredictionsWithCompletion:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMUserActionPredictionController fetchPredictionsWithCompletion:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v5 = completionCopy;
@@ -162,14 +160,14 @@
 
     predictionProvider = [(HMUserActionPredictionController *)self predictionProvider];
     homeIdentifier = [(HMUserActionPredictionController *)self homeIdentifier];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __67__HMUserActionPredictionController_fetchPredictionsWithCompletion___block_invoke;
-    v23[3] = &unk_1E7547588;
-    v24 = delegateCaller;
-    v25 = v5;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __67__HMUserActionPredictionController_fetchPredictionsWithCompletion___block_invoke;
+    v22[3] = &unk_1E7547588;
+    v23 = delegateCaller;
+    v24 = v5;
     v11 = delegateCaller;
-    [predictionProvider fetchPredictionsForHomeWithIdentifier:homeIdentifier completion:v23];
+    [predictionProvider fetchPredictionsForHomeWithIdentifier:homeIdentifier completion:v22];
   }
 
   else
@@ -181,15 +179,13 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v15;
+      v26 = v15;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@fetchPredictionsWithCompletion is missing a context", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v5[2](v5, MEMORY[0x1E695E0F0]);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (HMUserActionPredictionController)initWithHomeIdentifier:(id)identifier predictionProvider:(id)provider
@@ -240,10 +236,11 @@ LABEL_7:
 
 uint64_t __47__HMUserActionPredictionController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v7 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7;
+  logCategory__hmf_once_v7 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

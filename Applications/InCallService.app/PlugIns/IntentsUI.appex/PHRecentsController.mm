@@ -499,7 +499,7 @@ LABEL_19:
 
 - (void)markRecentCallsAsRead
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -541,7 +541,7 @@ LABEL_19:
 {
   dCopy = d;
   callCopy = call;
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(callCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -714,7 +714,7 @@ LABEL_19:
 {
   callCopy = call;
   providerCopy = provider;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(providerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -804,7 +804,7 @@ LABEL_19:
 
   else
   {
-    v18 = PHDefaultLog();
+    v18 = PHDefaultLog(0);
     v20 = providerCopy;
     v19 = v34;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -1232,37 +1232,37 @@ LABEL_14:
   dispatch_assert_queue_V2(serialQueue);
 
   [(PHRecentsController *)self contactHandlesForHandle:handleCopy];
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v6 = v20 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v20 = 0u;
+  v6 = v21 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v18 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         contactCache = [(PHRecentsController *)self contactCache];
         v13 = [contactCache objectForKeyedSubscript:v11];
         value = [v13 value];
 
         if (value)
         {
-          v15 = v6;
+          v16 = v6;
           goto LABEL_13;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
       if (v8)
       {
         continue;
@@ -1272,12 +1272,12 @@ LABEL_14:
     }
   }
 
-  v15 = PHDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = PHDefaultLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = handleCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Handle not found in cache: %@", buf, 0xCu);
+    v23 = handleCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Handle not found in cache: %@", buf, 0xCu);
   }
 
   value = 0;
@@ -1585,7 +1585,7 @@ LABEL_13:
   handleCopy = handle;
   codeCopy = code;
   type = [handleCopy type];
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(type);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (type == 2)
   {
@@ -1658,7 +1658,7 @@ LABEL_9:
       goto LABEL_7;
     }
 
-    v14 = PHDefaultLog();
+    v14 = PHDefaultLog(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1688,7 +1688,7 @@ LABEL_7:
   dispatch_assert_queue_V2(serialQueue);
 
   v6 = [(PHRecentsController *)self contactHandlesForRecentCalls:callsCopy];
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134218240;
@@ -1745,13 +1745,13 @@ LABEL_7:
   dispatch_assert_queue_V2(serialQueue);
 
   contactStore = [(PHRecentsController *)self contactStore];
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(contactStore);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138740227;
-    v25 = dCopy;
-    v26 = 2112;
-    v27 = contactStore;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = contactStore;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetching unified contact for handle %{sensitive}@ using contact store %@", buf, 0x16u);
   }
 
@@ -1766,9 +1766,9 @@ LABEL_7:
     v11 = qword_1000C60E0;
   }
 
-  v23 = 0;
-  v12 = [contactStore unifiedContactWithIdentifier:dCopy keysToFetch:v11 error:&v23];
-  v13 = v23;
+  v25 = 0;
+  v12 = [contactStore unifiedContactWithIdentifier:dCopy keysToFetch:v11 error:&v25];
+  v13 = v25;
   if (!descriptorsCopy)
   {
   }
@@ -1780,35 +1780,35 @@ LABEL_7:
     contactCache = [(PHRecentsController *)self contactCache];
     [contactCache setObject:v15 forKeyedSubscript:dCopy];
 
-    v17 = PHDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = PHDefaultLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_10007A97C(dCopy, v17);
+      sub_10007A97C(dCopy, v18);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v19 = [v14 initWithValue:v12];
+    v20 = [v14 initWithValue:v12];
     contactCache2 = [(PHRecentsController *)self contactCache];
-    [contactCache2 setObject:v19 forKeyedSubscript:dCopy];
+    [contactCache2 setObject:v20 forKeyedSubscript:dCopy];
 
-    v21 = PHDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = PHDefaultLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138740227;
-      v25 = v12;
-      v26 = 2117;
-      v27 = dCopy;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Found unified contact %{sensitive}@ for contact handle %{sensitive}@", buf, 0x16u);
+      v27 = v12;
+      v28 = 2117;
+      v29 = dCopy;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found unified contact %{sensitive}@ for contact handle %{sensitive}@", buf, 0x16u);
     }
 
-    v18 = v12;
+    v19 = v12;
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)fetchContactsForHandles:(id)handles
@@ -1818,26 +1818,26 @@ LABEL_7:
   dispatch_assert_queue_V2(serialQueue);
 
   v6 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [handlesCopy count]);
-  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
   v7 = handlesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v40 objects:v51 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v40;
+    v10 = *v41;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v40 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v40 + 1) + 8 * i);
         contactCache = [(PHRecentsController *)self contactCache];
         v14 = [contactCache objectForKeyedSubscript:v12];
 
@@ -1847,7 +1847,7 @@ LABEL_7:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v40 objects:v51 count:16];
     }
 
     while (v9);
@@ -1856,79 +1856,80 @@ LABEL_7:
   if ([v6 count])
   {
     contactStore = [(PHRecentsController *)self contactStore];
-    v16 = PHDefaultLog();
+    v16 = PHDefaultLog(contactStore);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [v6 count];
       *buf = 134218242;
-      v44 = v17;
-      v45 = 2112;
-      v46 = contactStore;
+      v45 = v17;
+      v46 = 2112;
+      v47 = contactStore;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Fetching contacts for %lu handles using contact store %@", buf, 0x16u);
     }
 
     allObjects = [v6 allObjects];
-    v32 = v7;
+    v33 = v7;
     if (qword_1000C60E8 != -1)
     {
       sub_10007A954();
     }
 
-    v31 = contactStore;
+    v32 = contactStore;
     v19 = [contactStore contactsForHandles:allObjects keyDescriptors:qword_1000C60E0 alwaysUnifyLabeledValues:0];
 
-    v37 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = v6;
+    v37 = 0u;
+    v34 = v6;
     obj = v6;
-    v20 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
+    v20 = [obj countByEnumeratingWithState:&v36 objects:v50 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v36;
+      v22 = *v37;
       do
       {
         for (j = 0; j != v21; j = j + 1)
         {
-          if (*v36 != v22)
+          if (*v37 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v35 + 1) + 8 * j);
+          v24 = *(*(&v36 + 1) + 8 * j);
           v25 = [v19 objectForKeyedSubscript:v24];
           firstObject = [v25 firstObject];
-          if ([v25 count] >= 2)
+          v27 = [v25 count];
+          if (v27 >= 2)
           {
-            v27 = PHDefaultLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v28 = PHDefaultLog(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              v28 = [v25 count];
+              v29 = [v25 count];
               *buf = 134218499;
-              v44 = v28;
-              v45 = 2117;
-              v46 = v24;
-              v47 = 2117;
-              v48 = firstObject;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Found %lu contacts for contact handle %{sensitive}@; caching the first contact %{sensitive}@", buf, 0x20u);
+              v45 = v29;
+              v46 = 2117;
+              v47 = v24;
+              v48 = 2117;
+              v49 = firstObject;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Found %lu contacts for contact handle %{sensitive}@; caching the first contact %{sensitive}@", buf, 0x20u);
             }
           }
 
-          v29 = [[TUOptionalObject alloc] initWithValue:firstObject];
+          v30 = [[TUOptionalObject alloc] initWithValue:firstObject];
           contactCache2 = [(PHRecentsController *)self contactCache];
-          [contactCache2 setObject:v29 forKeyedSubscript:v24];
+          [contactCache2 setObject:v30 forKeyedSubscript:v24];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
+        v21 = [obj countByEnumeratingWithState:&v36 objects:v50 count:16];
       }
 
       while (v21);
     }
 
-    v7 = v32;
-    v6 = v33;
+    v7 = v33;
+    v6 = v34;
   }
 }
 
@@ -2542,7 +2543,7 @@ LABEL_37:
   if (metadataCache)
   {
     v7 = [TUMetadataDestinationID metadataDestinationIDsForCHRecentCalls:callsCopy];
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
@@ -2592,25 +2593,25 @@ LABEL_37:
 
       if (betterBlockingEnabled)
       {
-        v9 = PHDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = PHDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v15 = [callsCopy count];
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Fetching blocked status for %lu recent calls", buf, 0xCu);
+          v16 = [callsCopy count];
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetching blocked status for %lu recent calls", buf, 0xCu);
         }
 
         objc_initWeak(buf, self);
-        v10[0] = _NSConcreteStackBlock;
-        v10[1] = 3221225472;
-        v10[2] = sub_100017AB0;
-        v10[3] = &unk_1000B1FC8;
-        objc_copyWeak(&v13, buf);
-        v11 = callsCopy;
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = sub_100017AB0;
+        v11[3] = &unk_1000B1FC8;
+        objc_copyWeak(&v14, buf);
+        v12 = callsCopy;
         selfCopy = self;
-        [(PHRecentsController *)self queryCommTrustBlockedForCalls:v11 completion:v10];
+        [(PHRecentsController *)self queryCommTrustBlockedForCalls:v12 completion:v11];
 
-        objc_destroyWeak(&v13);
+        objc_destroyWeak(&v14);
         objc_destroyWeak(buf);
       }
     }
@@ -2636,16 +2637,17 @@ LABEL_37:
   callHistoryController = [(PHRecentsController *)self callHistoryController];
   recentCalls2 = [callHistoryController recentCalls];
 
-  if ([recentCalls isEqualToArray:recentCalls2])
+  v7 = [recentCalls isEqualToArray:recentCalls2];
+  if (v7)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Recent calls array has not changed. Ignoring", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Recent calls array has not changed. Ignoring", v13, 2u);
     }
 
-    v8 = recentCalls;
+    v9 = recentCalls;
   }
 
   else
@@ -2654,12 +2656,12 @@ LABEL_37:
     [itemCache removeAllObjects];
 
     [(PHRecentsController *)self populateCachesForRecentCalls:recentCalls2];
-    v8 = recentCalls2;
+    v9 = recentCalls2;
   }
 
-  v10 = v8;
+  v11 = v9;
 
-  return v8;
+  return v9;
 }
 
 - (void)populateCachesForRecentCalls:(id)calls
@@ -2669,7 +2671,7 @@ LABEL_37:
   dispatch_assert_queue_V2(serialQueue);
 
   v6 = [callsCopy count];
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
@@ -2677,8 +2679,7 @@ LABEL_37:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Requesting contacts for %lu calls", &v11, 0xCu);
   }
 
-  [(PHRecentsController *)self fetchContactsForRecentCalls:callsCopy];
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog([(PHRecentsController *)self fetchContactsForRecentCalls:callsCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
@@ -2686,8 +2687,7 @@ LABEL_37:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Requesting metadata for %lu recent calls.", &v11, 0xCu);
   }
 
-  [(PHRecentsController *)self fetchMetadataForRecentCalls:callsCopy];
-  v9 = PHDefaultLog();
+  v9 = PHDefaultLog([(PHRecentsController *)self fetchMetadataForRecentCalls:callsCopy]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
@@ -2695,8 +2695,7 @@ LABEL_37:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Requesting blocked status with %lu recent calls", &v11, 0xCu);
   }
 
-  [(PHRecentsController *)self fetchBlockedStatusForRecentCalls:callsCopy];
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog([(PHRecentsController *)self fetchBlockedStatusForRecentCalls:callsCopy]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
@@ -2817,7 +2816,7 @@ LABEL_37:
 - (void)handleCNContactStoreDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2838,7 +2837,7 @@ LABEL_37:
 - (void)handleIDSServiceAvailabilityDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2865,7 +2864,7 @@ LABEL_37:
 - (void)handleNSCurrentLocaleDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2896,21 +2895,21 @@ LABEL_37:
   callHistoryController = [(PHRecentsController *)self callHistoryController];
   v7 = [object isEqual:callHistoryController];
 
-  serialQueue = PHDefaultLog();
-  v9 = os_log_type_enabled(serialQueue, OS_LOG_TYPE_DEFAULT);
+  serialQueue = PHDefaultLog(v8);
+  v10 = os_log_type_enabled(serialQueue, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
-    if (v9)
+    if (v10)
     {
-      v10 = objc_opt_class();
-      v11 = v10;
+      v11 = objc_opt_class();
+      v12 = v11;
       name = [notificationCopy name];
       *buf = 138412802;
-      v15 = v10;
-      v16 = 2048;
+      v16 = v11;
+      v17 = 2048;
       selfCopy = self;
-      v18 = 2112;
-      v19 = name;
+      v19 = 2112;
+      v20 = name;
       _os_log_impl(&_mh_execute_header, serialQueue, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling <%@>", buf, 0x20u);
     }
 
@@ -2923,7 +2922,7 @@ LABEL_37:
     dispatch_async(serialQueue, block);
   }
 
-  else if (v9)
+  else if (v10)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, serialQueue, OS_LOG_TYPE_DEFAULT, "Ignoring calls change notification from different callHistoryController", buf, 2u);
@@ -2939,23 +2938,23 @@ LABEL_37:
 
   if (v7)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
-      v10 = v9;
+      v10 = objc_opt_class();
+      v11 = v10;
       name = [notificationCopy name];
-      v14 = 138412802;
-      v15 = v9;
-      v16 = 2048;
+      v15 = 138412802;
+      v16 = v10;
+      v17 = 2048;
       selfCopy = self;
-      v18 = 2112;
-      v19 = name;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling <%@>", &v14, 0x20u);
+      v19 = 2112;
+      v20 = name;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling <%@>", &v15, 0x20u);
     }
 
     object2 = [notificationCopy object];
-    v13 = object2;
+    v14 = object2;
     if (object2)
     {
       -[PHRecentsController setUnreadCallCount:](self, "setUnreadCallCount:", [object2 unreadCallCount]);
@@ -2971,19 +2970,19 @@ LABEL_37:
 
   if ((phoneRecentsAvatarsEnabled & 1) == 0)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = v8;
+      v9 = objc_opt_class();
+      v10 = v9;
       name = [notificationCopy name];
       *buf = 138412802;
-      v14 = v8;
-      v15 = 2048;
+      v15 = v9;
+      v16 = 2048;
       selfCopy = self;
-      v17 = 2112;
-      v18 = name;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling <%@>", buf, 0x20u);
+      v18 = 2112;
+      v19 = name;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling <%@>", buf, 0x20u);
     }
 
     serialQueue = [(PHRecentsController *)self serialQueue];
@@ -2999,7 +2998,7 @@ LABEL_37:
 - (void)handleUIApplicationSignificantTimeChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -3026,7 +3025,7 @@ LABEL_37:
 - (void)handleUIApplicationDidBecomeActiveNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -3073,17 +3072,17 @@ LABEL_37:
   serialQueue = [(PHRecentsController *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
-  v6 = PHDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PHDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412802;
-    v11 = objc_opt_class();
-    v12 = 2048;
+    v11 = 138412802;
+    v12 = objc_opt_class();
+    v13 = 2048;
     selfCopy = self;
-    v14 = 2112;
-    v15 = managerCopy;
-    v7 = v11;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling providersChangedForProviderManager %@", &v10, 0x20u);
+    v15 = 2112;
+    v16 = managerCopy;
+    v8 = v12;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ <%p> is handling providersChangedForProviderManager %@", &v11, 0x20u);
   }
 
   recentCalls = [(PHRecentsController *)self recentCalls];
@@ -3507,7 +3506,7 @@ LABEL_30:
 - (void)queryCommTrustBlockedForCalls:(id)calls completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_100055038(0, &qword_1000C5C20);
+  sub_100055038(0, &qword_1000C5C20, CHRecentCall_ptr);
   v6 = sub_10007B528();
   _Block_copy(v5);
   selfCopy = self;

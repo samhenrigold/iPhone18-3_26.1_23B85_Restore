@@ -63,75 +63,73 @@
 
 - (void)removeObject:(id)object
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyEnumerator = [(NSMapTable *)self->_table keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         if ([(_HKMappingKey *)v12 objectMatches:objectCopy])
         {
-          [(NSMapTable *)self->_table removeObjectForKey:v12, v14];
+          [(NSMapTable *)self->_table removeObjectForKey:v12, v13];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectsForKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   keyEnumerator = [(NSMapTable *)self->_table keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
-        if (v12 && [*(v12 + 16) isEqual:{keyCopy, v14}])
+        v12 = *(*(&v13 + 1) + 8 * v11);
+        if (v12 && [*(v12 + 16) isEqual:{keyCopy, v13}])
         {
           [(NSMapTable *)self->_table removeObjectForKey:v12];
         }
@@ -140,40 +138,38 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectsForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   keyEnumerator = [(NSMapTable *)self->_table keyEnumerator];
-  v7 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (v11 && [*(v11 + 16) isEqual:keyCopy])
         {
           v12 = [(NSMapTable *)self->_table objectForKey:v11];
@@ -181,13 +177,11 @@
         }
       }
 
-      v8 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

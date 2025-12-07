@@ -47,19 +47,19 @@
 
 - (FCBoostableOperationThrottler)initWithDelegate:(id)delegate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
     *buf = 136315906;
-    v12 = "[FCBoostableOperationThrottler initWithDelegate:]";
-    v13 = 2080;
-    v14 = "FCOperationThrottler.m";
-    v15 = 1024;
-    v16 = 277;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCBoostableOperationThrottler initWithDelegate:]";
+    v12 = 2080;
+    v13 = "FCOperationThrottler.m";
+    v14 = 1024;
+    v15 = 277;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -67,26 +67,25 @@
   v6 = dispatch_queue_create("FCBoostableOperationThrottler.serial", v5);
 
   v7 = [(FCBoostableOperationThrottler *)self initWithDelegate:delegateCopy queue:v6];
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (FCBoostableOperationThrottler)initWithDelegate:(id)delegate queue:(id)queue
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
     *buf = 136315906;
-    v16 = "[FCBoostableOperationThrottler initWithDelegate:queue:]";
-    v17 = 2080;
-    v18 = "FCOperationThrottler.m";
-    v19 = 1024;
-    v20 = 285;
-    v21 = 2114;
-    v22 = v12;
+    v15 = "[FCBoostableOperationThrottler initWithDelegate:queue:]";
+    v16 = 2080;
+    v17 = "FCOperationThrottler.m";
+    v18 = 1024;
+    v19 = 285;
+    v20 = 2114;
+    v21 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (queueCopy)
@@ -102,22 +101,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue != nil"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue != nil"];
     *buf = 136315906;
-    v16 = "[FCBoostableOperationThrottler initWithDelegate:queue:]";
-    v17 = 2080;
-    v18 = "FCOperationThrottler.m";
-    v19 = 1024;
-    v20 = 286;
-    v21 = 2114;
-    v22 = v13;
+    v15 = "[FCBoostableOperationThrottler initWithDelegate:queue:]";
+    v16 = 2080;
+    v17 = "FCOperationThrottler.m";
+    v18 = 1024;
+    v19 = 286;
+    v20 = 2114;
+    v21 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v14.receiver = self;
-  v14.super_class = FCBoostableOperationThrottler;
-  v8 = [(FCBoostableOperationThrottler *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = FCBoostableOperationThrottler;
+  v8 = [(FCBoostableOperationThrottler *)&v13 init];
   v9 = v8;
   if (v8)
   {
@@ -127,7 +126,6 @@ LABEL_6:
     objc_storeStrong(&v9->_serialWorkQueue, queue);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -181,29 +179,28 @@ LABEL_6:
 
 void __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke(uint64_t a1)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = -1;
-  v2 = *(a1 + 32);
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = -1;
   os_unfair_lock_lock_with_options();
   [*(a1 + 32) setWorkPending:0];
-  v3 = [*(a1 + 32) workPendingQualityOfService];
-  v7[3] = v3;
+  v2 = [*(a1 + 32) workPendingQualityOfService];
+  v6[3] = v2;
   [*(a1 + 32) setWorkPendingQualityOfService:-1];
   [*(a1 + 32) setMergedData:{objc_msgSend(*(a1 + 32), "workPendingMergedData")}];
   [*(a1 + 32) setWorkPendingMergedData:0];
   os_unfair_lock_unlock((*(a1 + 32) + 12));
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke_2;
-  v5[3] = &unk_1E7C48120;
-  v5[4] = *(a1 + 32);
-  v5[5] = &v6;
-  FCPerformIfNonNil(WeakRetained, v5);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke_2;
+  v4[3] = &unk_1E7C48120;
+  v4[4] = *(a1 + 32);
+  v4[5] = &v5;
+  FCPerformIfNonNil(WeakRetained, v4);
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v5, 8);
 }
 
 void __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -267,12 +264,11 @@ LABEL_8:
 
 void __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
   [*(a1 + 32) setMergedData:0];
-  v3 = (*(a1 + 32) + 12);
+  v2 = (*(a1 + 32) + 12);
 
-  os_unfair_lock_unlock(v3);
+  os_unfair_lock_unlock(v2);
 }
 
 void __76__FCBoostableOperationThrottler_tickleWithQualityOfService_data_completion___block_invoke_4(uint64_t a1)

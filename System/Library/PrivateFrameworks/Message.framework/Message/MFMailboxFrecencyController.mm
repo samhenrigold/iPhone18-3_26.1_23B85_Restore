@@ -27,7 +27,7 @@
   v9 = v10 - 8;
   v6 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](v10);
-  v11 = &v5 - v6;
+  v11 = (&v5 - v6);
   MEMORY[0x1E69E5928](self);
   sub_1B08CAD30(v11);
   MEMORY[0x1E69E5920](selfCopy);
@@ -100,8 +100,8 @@
 - (void)test_tearDown
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](self);
-  sub_1B08CC1CC();
+  v3 = MEMORY[0x1E69E5928](self);
+  sub_1B08CC1CC(v3, v4);
   MEMORY[0x1E69E5920](self);
 }
 

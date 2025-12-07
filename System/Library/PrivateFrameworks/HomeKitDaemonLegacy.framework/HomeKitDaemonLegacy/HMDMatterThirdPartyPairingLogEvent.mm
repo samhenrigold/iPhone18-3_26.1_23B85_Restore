@@ -145,7 +145,7 @@
   accessoryTransportType = [(HMDMatterThirdPartyPairingLogEvent *)self accessoryTransportType];
   [dictionary setObject:accessoryTransportType forKeyedSubscript:@"accessoryTransport"];
 
-  v38 = [dictionary copy];
+  v38 = objc_msgSend_copy(dictionary);
 
   return v38;
 }

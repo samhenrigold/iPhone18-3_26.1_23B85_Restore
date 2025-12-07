@@ -3,7 +3,7 @@
 
 @implementation AXSAutomaticSubtitlesShowWhenLanguageMismatch
 
-uint64_t ___AXSAutomaticSubtitlesShowWhenLanguageMismatch_block_invoke()
+void *___AXSAutomaticSubtitlesShowWhenLanguageMismatch_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

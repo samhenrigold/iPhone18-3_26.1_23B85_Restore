@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)presentableWillDisappearAsBanner:(id)banner withReason:(id)reason;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillLayoutSubviewsWithTransitionCoordinator:(id)coordinator;
 @end
@@ -21,17 +22,16 @@
 {
   v3 = sub_100035D04(&qword_10033AE20, &qword_1002719C8);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v10 - v6;
-  (*(v4 + 16))(&v10 - v6, self + OBJC_IVAR____TtC17proximitycontrold20DwellBannerPresenter_eventContinuation, v3);
+  v6 = &v9 - v5;
+  (*(v4 + 16))(&v9 - v5, self + OBJC_IVAR____TtC17proximitycontrold20DwellBannerPresenter_eventContinuation, v3);
   selfCopy = self;
   AsyncStream.Continuation.finish()();
-  (*(v4 + 8))(v7, v3);
-  v9 = type metadata accessor for DwellBannerPresenter();
-  v10.receiver = selfCopy;
-  v10.super_class = v9;
-  [(DwellBannerPresenter *)&v10 dealloc];
+  (*(v4 + 8))(v6, v3);
+  v8 = type metadata accessor for DwellBannerPresenter(0);
+  v9.receiver = selfCopy;
+  v9.super_class = v8;
+  [(DwellBannerPresenter *)&v9 dealloc];
 }
 
 - (void)viewDidLoad
@@ -40,10 +40,18 @@
   sub_1000401CC();
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for DwellBannerPresenter(0);
+  [(DwellBannerPresenter *)&v6 viewDidMoveToWindow:window shouldAppearOrDisappear:disappearCopy];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for DwellBannerPresenter();
+  v9.super_class = type metadata accessor for DwellBannerPresenter(0);
   v2 = v9.receiver;
   [(DwellBannerPresenter *)&v9 viewWillLayoutSubviews];
   view = [*&v2[OBJC_IVAR____TtC17proximitycontrold20DwellBannerPresenter_childViewController] view];
@@ -67,7 +75,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1000408E0(coordinator);
+  sub_1000408E0(coordinator, selfCopy);
   swift_unknownObjectRelease();
 }
 

@@ -11,6 +11,8 @@
 - (void)_removeTrackedParticipant:(id)participant;
 - (void)_setDefaultExternalPlaybackPriorityForParticipant:(id)participant;
 - (void)_setDefaultNonMixableAudioPriorityForParticipant:(id)participant;
+- (void)_setExternalPlaybackPriority:(BOOL)priority forParticipant:(id)participant;
+- (void)_setNonMixableAudioPriority:(BOOL)priority forParticipant:(id)participant;
 - (void)_setWeakRefToPreferredParticipantForExternalPlayback:(id)playback;
 - (void)_setWeakRefToPreferredParticipantForNonMixableAudio:(id)audio;
 - (void)_updateExternalPlaybackStatusNotificationListenerToParticipant:(id)participant;
@@ -69,7 +71,7 @@ uint64_t __56__AVRoutingPlaybackArbiter_sharedRoutingPlaybackArbiter__block_invo
   return sharedRoutingPlaybackArbiter_sRoutingPlaybackArbiter;
 }
 
-uint64_t __72__AVRoutingPlaybackArbiter_preferredParticipantForNonMixableAudioRoutes__block_invoke(uint64_t a1)
+void *__72__AVRoutingPlaybackArbiter_preferredParticipantForNonMixableAudioRoutes__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) referencedObject];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -97,7 +99,7 @@ uint64_t __72__AVRoutingPlaybackArbiter_preferredParticipantForNonMixableAudioRo
   return v3;
 }
 
-uint64_t __67__AVRoutingPlaybackArbiter_preferredParticipantForExternalPlayback__block_invoke(uint64_t a1)
+void *__67__AVRoutingPlaybackArbiter_preferredParticipantForExternalPlayback__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) referencedObject];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -181,7 +183,7 @@ AVRoutingWeakReference *__80__AVRoutingPlaybackArbiter__setWeakRefToPreferredPar
 
 - (void)_updatePreferredParticipantForNonMixableAudioRouteFrom:(id)from toParticipant:(id)participant checkingAllParticipants:(id)participants
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (participant)
   {
     if (from)
@@ -191,28 +193,28 @@ AVRoutingWeakReference *__80__AVRoutingPlaybackArbiter__setWeakRefToPreferredPar
 
     else
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v12 = [participants countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v12 = [participants countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v22;
+        v14 = *v21;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(participants);
             }
 
-            [(AVRoutingPlaybackArbiter *)self _setNonMixableAudioPriority:0 forParticipant:*(*(&v21 + 1) + 8 * i)];
+            [(AVRoutingPlaybackArbiter *)self _setNonMixableAudioPriority:0 forParticipant:*(*(&v20 + 1) + 8 * i)];
           }
 
-          v13 = [participants countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v13 = [participants countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v13);
@@ -224,35 +226,33 @@ AVRoutingWeakReference *__80__AVRoutingPlaybackArbiter__setWeakRefToPreferredPar
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v8 = [participants countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v8 = [participants countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (j = 0; j != v9; ++j)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(participants);
           }
 
-          [(AVRoutingPlaybackArbiter *)self _setDefaultNonMixableAudioPriorityForParticipant:*(*(&v17 + 1) + 8 * j)];
+          [(AVRoutingPlaybackArbiter *)self _setDefaultNonMixableAudioPriorityForParticipant:*(*(&v16 + 1) + 8 * j)];
         }
 
-        v9 = [participants countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [participants countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v9);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreferredParticipantForNonMixableAudioRoutes:(id)routes
@@ -320,95 +320,94 @@ AVRoutingWeakReference *__81__AVRoutingPlaybackArbiter__setWeakRefToPreferredPar
 
 - (void)_updatePreferredParticipantForExternalPlaybackFrom:(id)from toParticipant:(id)participant checkingAllParticipants:(id)participants
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (!participant)
+  v29 = *MEMORY[0x1E69E9840];
+  if (participant)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v10 = [participants countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v10)
+    if (from)
     {
-      v11 = v10;
-      v12 = *v22;
-      do
+      [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:0 forParticipant:from];
+      if ([(AVRoutingPlaybackArbiter *)self _externalPlaybackIsActiveForParticipant:from])
       {
-        for (i = 0; i != v11; ++i)
-        {
-          if (*v22 != v12)
-          {
-            objc_enumerationMutation(participants);
-          }
 
-          [(AVRoutingPlaybackArbiter *)self _setDefaultExternalPlaybackPriorityForParticipant:*(*(&v21 + 1) + 8 * i)];
-        }
-
-        v11 = [participants countByEnumeratingWithState:&v21 objects:v29 count:16];
+        [(AVRoutingPlaybackArbiter *)self _updateExternalPlaybackStatusNotificationListenerToParticipant:from];
+        return;
       }
 
-      while (v11);
+LABEL_25:
+      [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:1 forParticipant:participant];
+      return;
     }
 
-    goto LABEL_26;
-  }
-
-  if (!from)
-  {
-    v27 = 0u;
-    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v14 = [participants countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v14)
+    v23 = 0u;
+    v24 = 0u;
+    v13 = [participants countByEnumeratingWithState:&v23 objects:v28 count:16];
+    if (!v13)
     {
-      v15 = v14;
-      v16 = *v26;
-      v17 = 1;
+      goto LABEL_25;
+    }
+
+    v14 = v13;
+    v15 = *v24;
+    v16 = 1;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v24 != v15)
+        {
+          objc_enumerationMutation(participants);
+        }
+
+        v18 = *(*(&v23 + 1) + 8 * i);
+        [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:0 forParticipant:v18];
+        if ([(AVRoutingPlaybackArbiter *)self _externalPlaybackIsActiveForParticipant:v18])
+        {
+          [(AVRoutingPlaybackArbiter *)self _updateExternalPlaybackStatusNotificationListenerToParticipant:v18];
+          v16 = 0;
+        }
+      }
+
+      v14 = [participants countByEnumeratingWithState:&v23 objects:v28 count:16];
+    }
+
+    while (v14);
+    if (v16)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v9 = [participants countByEnumeratingWithState:&v19 objects:v27 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v20;
       do
       {
-        for (j = 0; j != v15; ++j)
+        for (j = 0; j != v10; ++j)
         {
-          if (*v26 != v16)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(participants);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * j);
-          [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:0 forParticipant:v19];
-          if ([(AVRoutingPlaybackArbiter *)self _externalPlaybackIsActiveForParticipant:v19])
-          {
-            [(AVRoutingPlaybackArbiter *)self _updateExternalPlaybackStatusNotificationListenerToParticipant:v19];
-            v17 = 0;
-          }
+          [(AVRoutingPlaybackArbiter *)self _setDefaultExternalPlaybackPriorityForParticipant:*(*(&v19 + 1) + 8 * j)];
         }
 
-        v15 = [participants countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v10 = [participants countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
-      while (v15);
-      if (!v17)
-      {
-        goto LABEL_26;
-      }
+      while (v10);
     }
-
-    goto LABEL_25;
   }
-
-  [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:0 forParticipant:from];
-  if (![(AVRoutingPlaybackArbiter *)self _externalPlaybackIsActiveForParticipant:from])
-  {
-LABEL_25:
-    [(AVRoutingPlaybackArbiter *)self _setExternalPlaybackPriority:1 forParticipant:participant];
-LABEL_26:
-    v20 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-
-  [(AVRoutingPlaybackArbiter *)self _updateExternalPlaybackStatusNotificationListenerToParticipant:from];
 }
 
 - (void)setPreferredParticipantForExternalPlayback:(id)playback
@@ -486,7 +485,7 @@ void __91__AVRoutingPlaybackArbiter__updateExternalPlaybackStatusNotificationLis
   objc_destroyWeak(&v4);
 }
 
-uint64_t __91__AVRoutingPlaybackArbiter__updateExternalPlaybackStatusNotificationListenerToParticipant___block_invoke_2(uint64_t a1)
+id __91__AVRoutingPlaybackArbiter__updateExternalPlaybackStatusNotificationListenerToParticipant___block_invoke_2(uint64_t a1)
 {
   result = objc_loadWeak((a1 + 40));
   if (result)
@@ -529,7 +528,7 @@ uint64_t __91__AVRoutingPlaybackArbiter__updateExternalPlaybackStatusNotificatio
   return v3;
 }
 
-uint64_t __92__AVRoutingPlaybackArbiter_AVRoutingPlaybackArbiterInternalSupport___allTrackedParticipants__block_invoke(uint64_t a1)
+void *__92__AVRoutingPlaybackArbiter_AVRoutingPlaybackArbiterInternalSupport___allTrackedParticipants__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 24) "allObjects")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -582,34 +581,34 @@ LABEL_7:
 
 void __92__AVRoutingPlaybackArbiter_AVRoutingPlaybackArbiterInternalSupport___addTrackedParticipant___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [objc_msgSend(*(*(a1 + 32) + 24) "allObjects")];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v9 != v5)
+      if (*v8 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      if (*(*(&v8 + 1) + 8 * v6) == *(a1 + 40))
+      if (*(*(&v7 + 1) + 8 * v6) == *(a1 + 40))
       {
         break;
       }
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -625,8 +624,6 @@ LABEL_3:
 LABEL_9:
     [*(*(a1 + 32) + 24) addPointer:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerParticipant:(id)participant
@@ -683,6 +680,19 @@ id __90__AVRoutingPlaybackArbiter_AVRoutingPlaybackParticipantRegistration__regi
   return [participant nonMixableAudioPriority];
 }
 
+- (void)_setNonMixableAudioPriority:(BOOL)priority forParticipant:(id)participant
+{
+  if (participant)
+  {
+    priorityCopy = priority;
+    if (objc_opt_respondsToSelector())
+    {
+
+      [participant setNonMixableAudioPriority:priorityCopy];
+    }
+  }
+}
+
 - (void)_setDefaultNonMixableAudioPriorityForParticipant:(id)participant
 {
   if (participant && (objc_opt_respondsToSelector() & 1) != 0)
@@ -710,6 +720,19 @@ id __90__AVRoutingPlaybackArbiter_AVRoutingPlaybackParticipantRegistration__regi
   }
 
   return [participant externalPlaybackPriority];
+}
+
+- (void)_setExternalPlaybackPriority:(BOOL)priority forParticipant:(id)participant
+{
+  if (participant)
+  {
+    priorityCopy = priority;
+    if (objc_opt_respondsToSelector())
+    {
+
+      [participant setExternalPlaybackPriority:priorityCopy];
+    }
+  }
 }
 
 - (void)_setDefaultExternalPlaybackPriorityForParticipant:(id)participant

@@ -3,6 +3,7 @@
 - (CKDContainer)container;
 - (CKDPlaceholderOperation)initWithOperation:(id)operation targetOperationQueue:(id)queue;
 - (NSString)operationID;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)_startDateString;
 - (id)ckShortDescription;
 - (id)statusReportWithIndent:(unint64_t)indent;
@@ -15,7 +16,7 @@
 
 - (void)start
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -24,11 +25,11 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v16 = v3;
-    v19 = objc_msgSend_ckShortDescription(self, v17, v18);
+    v15 = v3;
+    v18 = objc_msgSend_ckShortDescription(self, v16, v17);
     *buf = 138543362;
-    v21 = v19;
-    _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ starting", buf, 0xCu);
+    v20 = v18;
+    _os_log_debug_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ starting", buf, 0xCu);
   }
 
   if ((objc_msgSend_isExecuting(self, v4, v5) & 1) != 0 || objc_msgSend_isFinished(self, v6, v7))
@@ -43,12 +44,11 @@
   v12 = objc_autoreleasePoolPush();
   objc_msgSend_main(self, v13, v14);
   objc_autoreleasePoolPop(v12);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   isCancelled = objc_msgSend_isCancelled(self, a2, v2);
   v7 = isCancelled;
   v8 = MEMORY[0x277CBC880];
@@ -63,11 +63,11 @@
     v10 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEBUG))
     {
-      v66 = v10;
-      v69 = objc_msgSend_ckShortDescription(self, v67, v68);
+      v65 = v10;
+      v68 = objc_msgSend_ckShortDescription(self, v66, v67);
       *buf = 138543362;
-      v72 = v69;
-      _os_log_debug_impl(&dword_22506F000, v66, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ was cancelled - finishing the real operation", buf, 0xCu);
+      v71 = v68;
+      _os_log_debug_impl(&dword_22506F000, v65, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ was cancelled - finishing the real operation", buf, 0xCu);
     }
 
     v13 = MEMORY[0x277CBC560];
@@ -112,9 +112,9 @@
       v37 = objc_msgSend_ckShortDescription(self, v35, v36);
       v40 = objc_msgSend_targetOperationQueue(self, v38, v39);
       *buf = 138543618;
-      v72 = v37;
-      v73 = 2112;
-      v74 = v40;
+      v71 = v37;
+      v72 = 2112;
+      v73 = v40;
       _os_log_impl(&dword_22506F000, v34, OS_LOG_TYPE_INFO, "System is unavailable. Scheduling operation %{public}@ on suspended operation queue %@", buf, 0x16u);
     }
 
@@ -134,11 +134,11 @@ LABEL_15:
       v56 = objc_msgSend_targetOperationQueue(self, v54, v55);
       v59 = objc_msgSend_maxConcurrentOperationCount(v56, v57, v58);
       *buf = 138543874;
-      v72 = v47;
-      v73 = 2048;
-      v74 = v53;
-      v75 = 2048;
-      v76 = v59;
+      v71 = v47;
+      v72 = 2048;
+      v73 = v53;
+      v74 = 2048;
+      v75 = v59;
       _os_log_impl(&dword_22506F000, v44, OS_LOG_TYPE_INFO, "Adding operation %{public}@ to target queue (%lu/%ld in queue)", buf, 0x20u);
     }
 
@@ -146,8 +146,6 @@ LABEL_15:
     v63 = objc_msgSend_realOperation(self, v61, v62);
     objc_msgSend_addOperation_(v60, v64, v63);
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)operationID
@@ -211,7 +209,7 @@ LABEL_15:
 
 - (void)cancel
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -220,20 +218,18 @@ LABEL_15:
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v10 = v3;
-    v13 = objc_msgSend_ckShortDescription(self, v11, v12);
+    v9 = v3;
+    v12 = objc_msgSend_ckShortDescription(self, v10, v11);
     *buf = 138543362;
-    v16 = v13;
-    _os_log_debug_impl(&dword_22506F000, v10, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ canceling", buf, 0xCu);
+    v15 = v12;
+    _os_log_debug_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEBUG, "Placeholder op %{public}@ canceling", buf, 0xCu);
   }
 
-  v14.receiver = self;
-  v14.super_class = CKDPlaceholderOperation;
-  [(CKDPlaceholderOperation *)&v14 cancel];
+  v13.receiver = self;
+  v13.super_class = CKDPlaceholderOperation;
+  [(CKDPlaceholderOperation *)&v13 cancel];
   v6 = objc_msgSend_realOperation(self, v4, v5);
   objc_msgSend_cancel(v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAnonymous
@@ -242,6 +238,52 @@ LABEL_15:
   isAnonymous = objc_msgSend_isAnonymous(v3, v4, v5);
 
   return isAnonymous;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  expandCopy = expand;
+  privateCopy = private;
+  publicCopy = public;
+  v9 = objc_alloc(MEMORY[0x277CBEB38]);
+  v13 = objc_msgSend_initWithCapacity_(v9, v10, 3);
+  if (publicCopy)
+  {
+    v14 = objc_msgSend_realOperation(self, v11, v12);
+    v16 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v14, v15, 1, privateCopy, expandCopy);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v13, v17, @"realOperation", v16);
+
+    v18 = MEMORY[0x277CCABB0];
+    v21 = objc_msgSend_startDate(self, v19, v20);
+    objc_msgSend_timeIntervalSinceNow(v21, v22, v23);
+    v27 = objc_msgSend_numberWithDouble_(v18, v25, v26, -v24);
+    v29 = objc_msgSend_CKRoundedToMaximumDecimalPlaces_(v27, v28, 3);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v13, v30, @"runningFor", v29);
+
+    v32 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v31, 3);
+    if (objc_msgSend_isExecuting(self, v33, v34))
+    {
+      objc_msgSend_addObject_(v32, v35, @"executing");
+    }
+
+    if (objc_msgSend_isFinished(self, v35, v36))
+    {
+      objc_msgSend_addObject_(v32, v37, @"finished");
+    }
+
+    if (objc_msgSend_isCancelled(self, v37, v38))
+    {
+      objc_msgSend_addObject_(v32, v39, @"cancelled");
+    }
+
+    if (objc_msgSend_count(v32, v39, v40))
+    {
+      v42 = objc_msgSend_componentsJoinedByString_(v32, v41, @"|");
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v13, v43, @"stateFlags", v42);
+    }
+  }
+
+  return v13;
 }
 
 - (id)_startDateString

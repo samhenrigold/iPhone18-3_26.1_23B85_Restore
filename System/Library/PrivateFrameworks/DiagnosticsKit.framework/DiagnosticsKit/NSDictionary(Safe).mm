@@ -58,14 +58,14 @@
 
 - (id)getKey:()Safe ofType:
 {
-  v1 = [self objectForKey:?];
+  v4 = [self objectForKey:a3];
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v1 = 0;
+    v4 = 0;
   }
 
-  return v1;
+  return v4;
 }
 
 - (id)alwaysGetStringForKey:()Safe default:
@@ -118,7 +118,7 @@
 
 - (id)alwaysGetKey:()Safe ofType:
 {
-  v5 = [self getKey:? ofType:?];
+  v5 = [self getKey:a3 ofType:?];
   if (!v5)
   {
     v5 = objc_alloc_init(a4);

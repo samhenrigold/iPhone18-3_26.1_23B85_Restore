@@ -35,16 +35,14 @@
 
 - (void)main
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRCCollaborationUploadOperation_main__block_invoke(uint64_t a1, void *a2, double a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3 < 0.0)
   {
@@ -52,11 +50,11 @@ void __39__BRCCollaborationUploadOperation_main__block_invoke(uint64_t a1, void 
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218242;
-      v11 = a3;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Upload: Received negative progress from CK. progress [%f]%@", &v10, 0x16u);
+      v9 = 134218242;
+      v10 = a3;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Upload: Received negative progress from CK. progress [%f]%@", &v9, 0x16u);
     }
   }
 
@@ -65,8 +63,6 @@ void __39__BRCCollaborationUploadOperation_main__block_invoke(uint64_t a1, void 
   {
     [*(*(a1 + 32) + 512) setCompletedUnitCount:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRCCollaborationUploadOperation_main__block_invoke_166(uint64_t a1, void *a2, uint64_t a3, void *a4)

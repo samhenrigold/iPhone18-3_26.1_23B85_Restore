@@ -111,7 +111,7 @@ void __30__ACHMobileAssetProvider_init__block_invoke_297(uint64_t a1, void *a2)
 
 void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -123,36 +123,36 @@ void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke(
     }
   }
 
-  v21 = v6;
+  v20 = v6;
   v8 = ACHLogAssets();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = [v5 count];
+    v26 = [v5 count];
     _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Query returned %lu local assets for CacheDelete disk usage reporting", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     v13 = *MEMORY[0x277D28920];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         if ([*(a1 + 32) _assetIsInstalled:v15])
         {
           v16 = [v15 attributes];
@@ -163,9 +163,9 @@ void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke(
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v27 = v18;
-            v28 = 2112;
-            v29 = v15;
+            v26 = v18;
+            v27 = 2112;
+            v28 = v15;
             _os_log_impl(&dword_221DDC000, v19, OS_LOG_TYPE_DEFAULT, "Adding %ld bytes disk usage reporting for asset %@", buf, 0x16u);
           }
 
@@ -173,14 +173,13 @@ void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke(
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v11);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)purgeAllDownloadedAssets
@@ -211,7 +210,7 @@ void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke(
 
 void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -227,33 +226,33 @@ void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke(uint64_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v30 = [v5 count];
+    v29 = [v5 count];
     _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Query returned %lu local assets for CacheDelete purging", buf, 0xCu);
   }
 
-  v22 = v6;
+  v21 = v6;
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     v13 = *MEMORY[0x277D28920];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         if ([*(a1 + 32) _assetIsInstalled:v15])
         {
           v16 = [v15 attributes];
@@ -264,9 +263,9 @@ void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke(uint64_
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v30 = v15;
-            v31 = 2048;
-            v32 = v18;
+            v29 = v15;
+            v30 = 2048;
+            v31 = v18;
             _os_log_impl(&dword_221DDC000, v19, OS_LOG_TYPE_DEFAULT, "Purging asset (%@) to reclaim %ld bytes of disk usage.", buf, 0x16u);
           }
 
@@ -274,21 +273,19 @@ void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke(uint64_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v11);
   }
 
   v20 = [*(a1 + 32) mobileAssetDownloadManager];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_302;
-  v23[3] = &unk_278490AA8;
-  v24 = *(a1 + 40);
-  [v20 removeMobileAssets:v9 completion:v23];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_302;
+  v22[3] = &unk_278490AA8;
+  v23 = *(a1 + 40);
+  [v20 removeMobileAssets:v9 completion:v22];
 }
 
 void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_302(uint64_t a1, char a2, void *a3)
@@ -381,7 +378,7 @@ void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_302(uin
 
 void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -397,7 +394,7 @@ void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = [v5 count];
+    v14 = [v5 count];
     _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Query returned %lu local assets", buf, 0xCu);
   }
 
@@ -408,39 +405,35 @@ void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke
   }
 
   v10 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke_306;
-  v12[3] = &unk_278490AD0;
-  v12[4] = v10;
-  v13 = *(a1 + 40);
-  [v10 _processAssets:v9 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke_306;
+  v11[3] = &unk_278490AD0;
+  v11[4] = v10;
+  v12 = *(a1 + 40);
+  [v10 _processAssets:v9 completion:v11];
 }
 
 void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke_306(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = ACHLogAssets();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134218496;
-    v13 = [v9 count];
-    v14 = 2048;
-    v15 = [v7 count];
-    v16 = 2048;
-    v17 = [v8 count];
-    _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "%lu assets are installed, %lu assets are not downloaded, removing %lu old assets", &v12, 0x20u);
+    v11 = 134218496;
+    v12 = [v9 count];
+    v13 = 2048;
+    v14 = [v7 count];
+    v15 = 2048;
+    v16 = [v8 count];
+    _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "%lu assets are installed, %lu assets are not downloaded, removing %lu old assets", &v11, 0x20u);
   }
 
   [*(a1 + 32) _removeAssets:v8];
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadRemoteCatalog
@@ -461,7 +454,7 @@ void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke
 
 void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -477,7 +470,7 @@ void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke(uint64_t a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = [v5 count];
+    v14 = [v5 count];
     _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Query returned %lu remote assets", buf, 0xCu);
   }
 
@@ -488,33 +481,32 @@ void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke(uint64_t a
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_308;
-  v12[3] = &unk_278490B20;
-  objc_copyWeak(&v13, (a1 + 32));
-  [WeakRetained _processAssets:v9 completion:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_308;
+  v11[3] = &unk_278490B20;
+  objc_copyWeak(&v12, (a1 + 32));
+  [WeakRetained _processAssets:v9 completion:v11];
 
-  objc_destroyWeak(&v13);
-  v11 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v12);
 }
 
 void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_308(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = ACHLogAssets();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218496;
-    v15 = [v7 count];
-    v16 = 2048;
-    v17 = [v8 count];
-    v18 = 2048;
-    v19 = [v9 count];
-    _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "Downloading %lu assets, removing %lu assets, %lu assets already installed", &v14, 0x20u);
+    v13 = 134218496;
+    v14 = [v7 count];
+    v15 = 2048;
+    v16 = [v8 count];
+    v17 = 2048;
+    v18 = [v9 count];
+    _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "Downloading %lu assets, removing %lu assets, %lu assets already installed", &v13, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -534,8 +526,6 @@ void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_308(uint64
       __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_308_cold_1(v12);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadRemoteAssets:(id)assets installedAssets:(id)installedAssets
@@ -663,110 +653,108 @@ void __40__ACHMobileAssetProvider__removeAssets___block_invoke(uint64_t a1, char
 
 - (void)_processAssets:(id)assets completion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   completionCopy = completion;
   selfCopy = self;
-  v23 = [(ACHMobileAssetProvider *)self _assetsGroupedByUniqueNameAndType:assetsCopy];
-  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = [(ACHMobileAssetProvider *)self _assetsGroupedByUniqueNameAndType:assetsCopy];
   v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  obj = [v23 allKeys];
-  v24 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v24)
+  obj = [v22 allKeys];
+  v23 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v23)
   {
-    v19 = *v43;
+    v18 = *v42;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v43 != v19)
+        if (*v42 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [v23 objectForKeyedSubscript:*(*(&v42 + 1) + 8 * i)];
-        v36 = 0;
-        v37 = &v36;
-        v38 = 0x3032000000;
-        v39 = __Block_byref_object_copy__0;
-        v40 = __Block_byref_object_dispose__0;
-        v41 = 0;
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x3032000000;
-        v33 = __Block_byref_object_copy__0;
-        v34 = __Block_byref_object_dispose__0;
+        v8 = [v22 objectForKeyedSubscript:*(*(&v41 + 1) + 8 * i)];
         v35 = 0;
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __52__ACHMobileAssetProvider__processAssets_completion___block_invoke;
-        v29[3] = &unk_278490C08;
-        v29[4] = &v36;
-        v29[5] = &v30;
-        [(ACHMobileAssetProvider *)selfCopy _getCurrentAsssetAndOlderAssetsFromAssets:v8 completion:v29];
-        if ([v37[5] state] == 2)
+        v36 = &v35;
+        v37 = 0x3032000000;
+        v38 = __Block_byref_object_copy__0;
+        v39 = __Block_byref_object_dispose__0;
+        v40 = 0;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x3032000000;
+        v32 = __Block_byref_object_copy__0;
+        v33 = __Block_byref_object_dispose__0;
+        v34 = 0;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __52__ACHMobileAssetProvider__processAssets_completion___block_invoke;
+        v28[3] = &unk_278490C08;
+        v28[4] = &v35;
+        v28[5] = &v29;
+        [(ACHMobileAssetProvider *)selfCopy _getCurrentAsssetAndOlderAssetsFromAssets:v8 completion:v28];
+        if ([v36[5] state] == 2)
         {
-          v9 = v21;
+          v9 = v20;
         }
 
         else
         {
-          v9 = v22;
+          v9 = v21;
         }
 
-        [v9 addObject:v37[5]];
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
+        [v9 addObject:v36[5]];
         v26 = 0u;
-        v10 = v31[5];
-        v11 = [v10 countByEnumeratingWithState:&v25 objects:v46 count:16];
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
+        v10 = v30[5];
+        v11 = [v10 countByEnumeratingWithState:&v24 objects:v45 count:16];
         if (v11)
         {
-          v12 = *v26;
+          v12 = *v25;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v26 != v12)
+              if (*v25 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v14 = *(*(&v25 + 1) + 8 * j);
+              v14 = *(*(&v24 + 1) + 8 * j);
               if ([v14 state] == 2)
               {
                 [v6 addObject:v14];
               }
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v25 objects:v46 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v24 objects:v45 count:16];
           }
 
           while (v11);
         }
 
-        _Block_object_dispose(&v30, 8);
-        _Block_object_dispose(&v36, 8);
+        _Block_object_dispose(&v29, 8);
+        _Block_object_dispose(&v35, 8);
       }
 
-      v24 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v23 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v22, v6, v21);
+    completionCopy[2](completionCopy, v21, v6, v20);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACHMobileAssetProvider__processAssets_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -785,31 +773,31 @@ void __52__ACHMobileAssetProvider__processAssets_completion___block_invoke(uint6
 
 - (id)_assetsGroupedByUniqueNameAndType:(id)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(typeCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = typeCopy;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v20 = *v22;
+    v19 = *v21;
     v7 = *MEMORY[0x277CE8D80];
     v8 = *MEMORY[0x277CE8D70];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v20)
+        if (*v21 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         attributes = [v10 attributes];
         v12 = [attributes objectForKeyedSubscript:v7];
 
@@ -827,13 +815,11 @@ void __52__ACHMobileAssetProvider__processAssets_completion___block_invoke(uint6
         [v16 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -921,7 +907,7 @@ uint64_t __79__ACHMobileAssetProvider__getCurrentAsssetAndOlderAssetsFromAssets_
 
 - (id)_compatibilityVersionQueryParameters
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   for (i = 3; i != 9; ++i)
   {
@@ -930,104 +916,35 @@ uint64_t __79__ACHMobileAssetProvider__getCurrentAsssetAndOlderAssetsFromAssets_
     [v2 addObject:stringValue];
   }
 
-  v9 = *MEMORY[0x277D288E8];
-  v10[0] = v2;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D288E8];
+  v9[0] = v2;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }
 
-void __30__ACHMobileAssetProvider_init__block_invoke_297_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error with mobile assets: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__ACHMobileAssetProvider_downloadedAssetDiskUsageInBytes__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error querying local assets for CacheDelete disk usage reporting: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error querying local assets for CacheDelete purging: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__ACHMobileAssetProvider_purgeAllDownloadedAssets__block_invoke_302_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error purging assets for CacheDelete: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_downloadDelay
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_221DDC000, log, OS_LOG_TYPE_DEBUG, "Mobile Assets download delay is %f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __58__ACHMobileAssetProvider__fetchLocalAssetsWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error querying local assets: %{public}@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__ACHMobileAssetProvider_downloadRemoteCatalog__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error querying remote assets: %{public}@. Going ahead to attempt processing local assets", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__ACHMobileAssetProvider__downloadRemoteAssets_installedAssets___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error downloading assets: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_221DDC000, log, OS_LOG_TYPE_DEBUG, "Mobile Assets download delay is %f", &v2, 0xCu);
 }
 
 void __64__ACHMobileAssetProvider__downloadRemoteAssets_installedAssets___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [*(a1 + 40) count];
-  [a2 count];
-  OUTLINED_FUNCTION_2(&dword_221DDC000, v3, v4, "Combining installed assets count %lu with downloaded assets count: %lu", v5, v6, v7, v8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 134218240;
+  *&v9[4] = [*(a1 + 40) count];
+  *&v9[12] = 2048;
+  *&v9[14] = [a2 count];
+  OUTLINED_FUNCTION_2(&dword_221DDC000, v3, v4, "Combining installed assets count %lu with downloaded assets count: %lu", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void __57__ACHMobileAssetProvider__downloadAssets_withCompletion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_221DDC000, v1, v2, "Received downloaded asset count %lu, error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __40__ACHMobileAssetProvider__removeAssets___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error removing assets: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_221DDC000, v1, v2, "Received downloaded asset count %lu, error: %@", v3, v4, v5, v6);
 }
 
 @end

@@ -9,79 +9,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_21;
-  }
-
-  queryIntentType = self->_queryIntentType;
-  if (queryIntentType != [equalCopy queryIntentType])
-  {
-    goto LABEL_21;
-  }
-
-  hasUnspecifiedTokens = self->_hasUnspecifiedTokens;
-  if (hasUnspecifiedTokens != [equalCopy hasUnspecifiedTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasSortCriteriaTokens = self->_hasSortCriteriaTokens;
-  if (hasSortCriteriaTokens != [equalCopy hasSortCriteriaTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasLocationTokens = self->_hasLocationTokens;
-  if (hasLocationTokens != [equalCopy hasLocationTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasActionTokens = self->_hasActionTokens;
-  if (hasActionTokens != [equalCopy hasActionTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasMediaTypeTokens = self->_hasMediaTypeTokens;
-  if (hasMediaTypeTokens != [equalCopy hasMediaTypeTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasVisualQualityTokens = self->_hasVisualQualityTokens;
-  if (hasVisualQualityTokens != [equalCopy hasVisualQualityTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasNounTokens = self->_hasNounTokens;
-  if (hasNounTokens != [equalCopy hasNounTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasTimeTokens = self->_hasTimeTokens;
-  if (hasTimeTokens != [equalCopy hasTimeTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasEventTokens = self->_hasEventTokens;
-  if (hasEventTokens != [equalCopy hasEventTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasGenericLocationTokens = self->_hasGenericLocationTokens;
-  if (hasGenericLocationTokens != [equalCopy hasGenericLocationTokens])
-  {
-    goto LABEL_21;
-  }
-
-  hasCaptureDeviceTokens = self->_hasCaptureDeviceTokens;
-  if (hasCaptureDeviceTokens == [equalCopy hasCaptureDeviceTokens] && (hasFavoritedTokens = self->_hasFavoritedTokens, hasFavoritedTokens == objc_msgSend(equalCopy, "hasFavoritedTokens")) && (hasSourceAppTokens = self->_hasSourceAppTokens, hasSourceAppTokens == objc_msgSend(equalCopy, "hasSourceAppTokens")) && (hasPersonTokens = self->_hasPersonTokens, hasPersonTokens == objc_msgSend(equalCopy, "hasPersonTokens")) && (hasPersonSenderTokens = self->_hasPersonSenderTokens, hasPersonSenderTokens == objc_msgSend(equalCopy, "hasPersonSenderTokens")) && (spotlightQueryIntent = self->_spotlightQueryIntent, spotlightQueryIntent == objc_msgSend(equalCopy, "spotlightQueryIntent")) && (isUnsafeQuery = self->_isUnsafeQuery, isUnsafeQuery == objc_msgSend(equalCopy, "isUnsafeQuery")))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && (queryIntentType = self->_queryIntentType, queryIntentType == objc_msgSend(equalCopy, "queryIntentType")) && (hasUnspecifiedTokens = self->_hasUnspecifiedTokens, hasUnspecifiedTokens == objc_msgSend(equalCopy, "hasUnspecifiedTokens")) && (hasSortCriteriaTokens = self->_hasSortCriteriaTokens, hasSortCriteriaTokens == objc_msgSend(equalCopy, "hasSortCriteriaTokens")) && (hasLocationTokens = self->_hasLocationTokens, hasLocationTokens == objc_msgSend(equalCopy, "hasLocationTokens")) && (hasActionTokens = self->_hasActionTokens, hasActionTokens == objc_msgSend(equalCopy, "hasActionTokens")) && (hasMediaTypeTokens = self->_hasMediaTypeTokens, hasMediaTypeTokens == objc_msgSend(equalCopy, "hasMediaTypeTokens")) && (hasVisualQualityTokens = self->_hasVisualQualityTokens, hasVisualQualityTokens == objc_msgSend(equalCopy, "hasVisualQualityTokens")) && (hasNounTokens = self->_hasNounTokens, hasNounTokens == objc_msgSend(equalCopy, "hasNounTokens")) && (hasTimeTokens = self->_hasTimeTokens, hasTimeTokens == objc_msgSend(equalCopy, "hasTimeTokens")) && (hasEventTokens = self->_hasEventTokens, hasEventTokens == objc_msgSend(equalCopy, "hasEventTokens")) && (hasGenericLocationTokens = self->_hasGenericLocationTokens, hasGenericLocationTokens == objc_msgSend(equalCopy, "hasGenericLocationTokens")) && (hasCaptureDeviceTokens = self->_hasCaptureDeviceTokens, hasCaptureDeviceTokens == objc_msgSend(equalCopy, "hasCaptureDeviceTokens")) && (hasFavoritedTokens = self->_hasFavoritedTokens, hasFavoritedTokens == objc_msgSend(equalCopy, "hasFavoritedTokens")) && (hasSourceAppTokens = self->_hasSourceAppTokens, hasSourceAppTokens == objc_msgSend(equalCopy, "hasSourceAppTokens")) && (hasPersonTokens = self->_hasPersonTokens, hasPersonTokens == objc_msgSend(equalCopy, "hasPersonTokens")) && (hasPersonSenderTokens = self->_hasPersonSenderTokens, hasPersonSenderTokens == objc_msgSend(equalCopy, "hasPersonSenderTokens")) && (spotlightQueryIntent = self->_spotlightQueryIntent, spotlightQueryIntent == objc_msgSend(equalCopy, "spotlightQueryIntent")) && (isUnsafeQuery = self->_isUnsafeQuery, isUnsafeQuery == objc_msgSend(equalCopy, "isUnsafeQuery")))
   {
     isBlocklistedQuery = self->_isBlocklistedQuery;
     v24 = isBlocklistedQuery == [equalCopy isBlocklistedQuery];
@@ -89,7 +17,6 @@
 
   else
   {
-LABEL_21:
     v24 = 0;
   }
 
@@ -101,115 +28,96 @@ LABEL_21:
   toCopy = to;
   if ([(_CPQueryUnderstandingParse *)self queryIntentType])
   {
-    queryIntentType = self->_queryIntentType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasUnspecifiedTokens])
   {
-    hasUnspecifiedTokens = self->_hasUnspecifiedTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasSortCriteriaTokens])
   {
-    hasSortCriteriaTokens = self->_hasSortCriteriaTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasLocationTokens])
   {
-    hasLocationTokens = self->_hasLocationTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasActionTokens])
   {
-    hasActionTokens = self->_hasActionTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasMediaTypeTokens])
   {
-    hasMediaTypeTokens = self->_hasMediaTypeTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasVisualQualityTokens])
   {
-    hasVisualQualityTokens = self->_hasVisualQualityTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasNounTokens])
   {
-    hasNounTokens = self->_hasNounTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasTimeTokens])
   {
-    hasTimeTokens = self->_hasTimeTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasEventTokens])
   {
-    hasEventTokens = self->_hasEventTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasGenericLocationTokens])
   {
-    hasGenericLocationTokens = self->_hasGenericLocationTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasCaptureDeviceTokens])
   {
-    hasCaptureDeviceTokens = self->_hasCaptureDeviceTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasFavoritedTokens])
   {
-    hasFavoritedTokens = self->_hasFavoritedTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasSourceAppTokens])
   {
-    hasSourceAppTokens = self->_hasSourceAppTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasPersonTokens])
   {
-    hasPersonTokens = self->_hasPersonTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self hasPersonSenderTokens])
   {
-    hasPersonSenderTokens = self->_hasPersonSenderTokens;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self spotlightQueryIntent])
   {
-    spotlightQueryIntent = self->_spotlightQueryIntent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPQueryUnderstandingParse *)self isUnsafeQuery])
   {
-    isUnsafeQuery = self->_isUnsafeQuery;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPQueryUnderstandingParse *)self isBlocklistedQuery])
   {
-    isBlocklistedQuery = self->_isBlocklistedQuery;
     PBDataWriterWriteBOOLField();
   }
 }

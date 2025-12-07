@@ -19,16 +19,12 @@
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v5 = 65;
-    selfCopy = self;
-    v3 = "";
-    v4 = "[NRBluetoothPairer dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d dealloc: %@", ", "[NRBluetoothPairer dealloc]"", 65, self);
   }
 
-  v7.receiver = self;
-  v7.super_class = NRBluetoothPairer;
-  [(NRBluetoothPairer *)&v7 dealloc:v3];
+  v3.receiver = self;
+  v3.super_class = NRBluetoothPairer;
+  [(NRBluetoothPairer *)&v3 dealloc];
 }
 
 - (id)description

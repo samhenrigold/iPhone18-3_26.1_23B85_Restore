@@ -75,30 +75,30 @@
 
 - (id)appEntityMappingForBundleId:(id)id appEntityName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   if ([idCopy length] && objc_msgSend(nameCopy, "length"))
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = [(NSDictionary *)self->_appEntityMapping objectForKeyedSubscript:idCopy, 0];
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           appEntityName = [v12 appEntityName];
           v14 = [nameCopy isEqualToString:appEntityName];
 
@@ -109,7 +109,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -126,8 +126,6 @@ LABEL_14:
   {
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -341,11 +339,11 @@ LABEL_14:
 
 - (CESRAppEntityConfig)initWithJsonObject:(id)object
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v17.receiver = self;
-  v17.super_class = CESRAppEntityConfig;
-  v5 = [(CESRAppEntityConfig *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = CESRAppEntityConfig;
+  v5 = [(CESRAppEntityConfig *)&v16 init];
   if (!v5)
   {
 LABEL_9:
@@ -366,9 +364,9 @@ LABEL_9:
     {
       overallAppEntityLimit = v5->_overallAppEntityLimit;
       *buf = 136315394;
-      v19 = "[CESRAppEntityConfig initWithJsonObject:]";
-      v20 = 2048;
-      v21 = overallAppEntityLimit;
+      v18 = "[CESRAppEntityConfig initWithJsonObject:]";
+      v19 = 2048;
+      v20 = overallAppEntityLimit;
       _os_log_debug_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEBUG, "%s Overall app entity limit: %ld", buf, 0x16u);
       v10 = *v9;
     }
@@ -377,9 +375,9 @@ LABEL_9:
     {
       overallEntityExtractionLimit = v5->_overallEntityExtractionLimit;
       *buf = 136315394;
-      v19 = "[CESRAppEntityConfig initWithJsonObject:]";
-      v20 = 2048;
-      v21 = overallEntityExtractionLimit;
+      v18 = "[CESRAppEntityConfig initWithJsonObject:]";
+      v19 = 2048;
+      v20 = overallEntityExtractionLimit;
       _os_log_debug_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEBUG, "%s Overall entity extraction limit: %ld", buf, 0x16u);
       v10 = *v9;
     }
@@ -388,9 +386,9 @@ LABEL_9:
     {
       appEntityMapping = v5->_appEntityMapping;
       *buf = 136315394;
-      v19 = "[CESRAppEntityConfig initWithJsonObject:]";
-      v20 = 2112;
-      v21 = appEntityMapping;
+      v18 = "[CESRAppEntityConfig initWithJsonObject:]";
+      v19 = 2112;
+      v20 = appEntityMapping;
       _os_log_debug_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEBUG, "%s App entity mapping: %@", buf, 0x16u);
     }
 
@@ -400,252 +398,237 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v19 = "[CESRAppEntityConfig initWithJsonObject:]";
+    v18 = "[CESRAppEntityConfig initWithJsonObject:]";
     _os_log_error_impl(&dword_225EEB000, v10, OS_LOG_TYPE_ERROR, "%s Failed to parse App Entity section of json.", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (id)_appEntityMappingFromSupportedFirstPartyEntities:(id)entities bundleIdToLimit:(id)limit supportedLmeTemplates:(id)templates
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   limitCopy = limit;
   templatesCopy = templates;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v8 = entitiesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v78 objects:v83 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v68 objects:v73 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = 0x277CBE000uLL;
-    v12 = *v79;
-    v51 = *v79;
-    v52 = v8;
+    v11 = *v69;
+    v41 = *v69;
+    v42 = v8;
     do
     {
-      v13 = 0;
-      v53 = v10;
+      v12 = 0;
+      v43 = v10;
       do
       {
-        if (*v79 != v12)
+        if (*v69 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v66 = v13;
-        v14 = *(*(&v78 + 1) + 8 * v13);
-        v15 = *(v11 + 2752);
+        v56 = v12;
+        v13 = *(*(&v68 + 1) + 8 * v12);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = v14;
-          v17 = [v16 objectForKeyedSubscript:@"sourceBundleId"];
+          v14 = v13;
+          v15 = [v14 objectForKeyedSubscript:@"sourceBundleId"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v18 = v17;
-            v19 = [v16 objectForKeyedSubscript:@"bundleLimit"];
-            v67 = v18;
-            if (v19)
+            v16 = v15;
+            v17 = [v14 objectForKeyedSubscript:@"bundleLimit"];
+            v57 = v16;
+            if (v17)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
+                v18 = v15;
+                v19 = v14;
                 v20 = v17;
-                v21 = v16;
-                v22 = v19;
-                if ([v18 length] && (objc_msgSend(v22, "intValue") & 0x80000000) == 0)
+                if ([v16 length] && (objc_msgSend(v20, "intValue") & 0x80000000) == 0)
                 {
-                  [limitCopy setObject:v22 forKeyedSubscript:v18];
+                  [limitCopy setObject:v20 forKeyedSubscript:v16];
                 }
 
-                v16 = v21;
-                v17 = v20;
+                v14 = v19;
+                v15 = v18;
               }
             }
 
-            v23 = [v16 objectForKeyedSubscript:@"appEntityTypes"];
+            v21 = [v14 objectForKeyedSubscript:@"appEntityTypes"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v55 = v19;
-              v56 = v17;
-              v57 = v16;
-              v54 = v23;
-              v24 = v23;
-              v74 = 0u;
-              v75 = 0u;
-              v76 = 0u;
-              v77 = 0u;
-              v25 = [v24 countByEnumeratingWithState:&v74 objects:v82 count:16];
-              v26 = 0x277CCA000uLL;
-              if (v25)
+              v45 = v17;
+              v46 = v15;
+              v47 = v14;
+              v44 = v21;
+              v22 = v21;
+              v64 = 0u;
+              v65 = 0u;
+              v66 = 0u;
+              v67 = 0u;
+              v23 = [v22 countByEnumeratingWithState:&v64 objects:v72 count:16];
+              if (v23)
               {
-                v27 = v25;
-                v28 = *v75;
-                v73 = v24;
+                v24 = v23;
+                v25 = *v65;
+                v63 = v22;
                 do
                 {
-                  for (i = 0; i != v27; ++i)
+                  for (i = 0; i != v24; ++i)
                   {
-                    if (*v75 != v28)
+                    if (*v65 != v25)
                     {
-                      objc_enumerationMutation(v24);
+                      objc_enumerationMutation(v22);
                     }
 
-                    v30 = *(*(&v74 + 1) + 8 * i);
-                    v31 = *(v11 + 2752);
+                    v27 = *(*(&v64 + 1) + 8 * i);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v32 = v30;
-                      v33 = [v32 objectForKeyedSubscript:@"entityName"];
-                      v34 = *(v26 + 3240);
+                      v28 = v27;
+                      v29 = [v28 objectForKeyedSubscript:@"entityName"];
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v35 = v33;
-                        v36 = [v32 objectForKeyedSubscript:@"primaryLme"];
-                        v37 = *(v11 + 2752);
+                        v30 = v29;
+                        v31 = [v28 objectForKeyedSubscript:@"primaryLme"];
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v38 = v36;
-                          v39 = [v38 objectForKeyedSubscript:@"templateName"];
-                          v40 = v26;
-                          v41 = v39;
-                          v42 = *(v40 + 3240);
+                          v32 = v31;
+                          v33 = [v32 objectForKeyedSubscript:@"templateName"];
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v72 = v41;
-                            v43 = [v38 objectForKeyedSubscript:@"tagName"];
+                            v62 = v33;
+                            v34 = [v32 objectForKeyedSubscript:@"tagName"];
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v69 = v43;
-                              v71 = v43;
-                              v44 = [v32 objectForKeyedSubscript:@"extractedLme"];
+                              v59 = v34;
+                              v61 = v34;
+                              v35 = [v28 objectForKeyedSubscript:@"extractedLme"];
                               objc_opt_class();
-                              v68 = v44;
+                              v58 = v35;
                               if (objc_opt_isKindOfClass())
                               {
-                                v70 = [self _parseExtractionVocabLabels:v44];
+                                v60 = [self _parseExtractionVocabLabels:v35];
                               }
 
                               else
                               {
-                                v70 = 0;
+                                v60 = 0;
                               }
 
-                              v45 = v71;
-                              if ([v67 length] && objc_msgSend(v35, "length") && objc_msgSend(v72, "length") && objc_msgSend(v71, "length"))
+                              v36 = v61;
+                              if ([v57 length] && objc_msgSend(v30, "length") && objc_msgSend(v62, "length") && objc_msgSend(v61, "length"))
                               {
-                                v64 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v72 lmeTag:v71];
-                                v62 = [[CESRAppEntityMapping alloc] initWithSourceBundleId:v67 assistantSchemaType:0 appEntityName:v35 primaryVocabLabel:v64 extractionVocabLabels:v70];
-                                [templatesCopy addObject:v72];
-                                v46 = [dictionary objectForKeyedSubscript:v67];
-                                v60 = v46;
-                                if (v46)
+                                v54 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v62 lmeTag:v61];
+                                v52 = [[CESRAppEntityMapping alloc] initWithSourceBundleId:v57 assistantSchemaType:0 appEntityName:v30 primaryVocabLabel:v54 extractionVocabLabels:v60];
+                                [templatesCopy addObject:v62];
+                                v37 = [dictionary objectForKeyedSubscript:v57];
+                                v50 = v37;
+                                if (v37)
                                 {
-                                  v47 = dictionary;
-                                  [dictionary setObject:v46 forKeyedSubscript:v67];
+                                  v38 = dictionary;
+                                  [dictionary setObject:v37 forKeyedSubscript:v57];
                                 }
 
                                 else
                                 {
-                                  v58 = [MEMORY[0x277CBEB58] set];
-                                  v47 = dictionary;
-                                  [dictionary setObject:v58 forKeyedSubscript:v67];
+                                  v48 = [MEMORY[0x277CBEB58] set];
+                                  v38 = dictionary;
+                                  [dictionary setObject:v48 forKeyedSubscript:v57];
                                 }
 
-                                v61 = [v47 objectForKeyedSubscript:v67];
-                                [v61 addObject:v62];
+                                v51 = [v38 objectForKeyedSubscript:v57];
+                                [v51 addObject:v52];
 
-                                v45 = v71;
+                                v36 = v61;
                               }
 
-                              v43 = v69;
+                              v34 = v59;
                             }
                           }
-
-                          v11 = 0x277CBE000;
-                          v26 = 0x277CCA000;
                         }
 
-                        v24 = v73;
+                        v22 = v63;
                       }
                     }
                   }
 
-                  v27 = [v24 countByEnumeratingWithState:&v74 objects:v82 count:16];
+                  v24 = [v22 countByEnumeratingWithState:&v64 objects:v72 count:16];
                 }
 
-                while (v27);
+                while (v24);
               }
 
-              v12 = v51;
-              v8 = v52;
-              v10 = v53;
-              v23 = v54;
-              v17 = v56;
+              v11 = v41;
+              v8 = v42;
+              v10 = v43;
+              v21 = v44;
+              v15 = v46;
+              v14 = v47;
               v16 = v57;
-              v18 = v67;
-              v19 = v55;
+              v17 = v45;
             }
           }
         }
 
-        v13 = v66 + 1;
+        v12 = v56 + 1;
       }
 
-      while (v66 + 1 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v78 objects:v83 count:16];
+      while (v56 + 1 != v10);
+      v10 = [v8 countByEnumeratingWithState:&v68 objects:v73 count:16];
     }
 
     while (v10);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)_parseExtractionVocabLabels:(id)labels
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [labelsCopy allKeys];
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [labelsCopy objectForKeyedSubscript:v8];
         v10 = [v9 objectForKeyedSubscript:@"templateName"];
 
@@ -659,218 +642,205 @@ LABEL_13:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)_assistantSchemaMappingFromSupportedAssistantSchemaTypes:(id)types supportedLmeTemplates:(id)templates
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   templatesCopy = templates;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v6 = typesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0x277CBE000uLL;
-    v10 = *v44;
-    v41 = v6;
+    v10 = *v40;
+    v37 = v6;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * i);
-        v13 = *(v9 + 2752);
+        v12 = *(*(&v39 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = v12;
-          v15 = [v14 objectForKeyedSubscript:@"assistantSchemaType"];
+          v13 = v12;
+          v14 = [v13 objectForKeyedSubscript:@"assistantSchemaType"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = v15;
-            v17 = [v14 objectForKeyedSubscript:@"primaryLme"];
-            v18 = v9;
-            v19 = *(v9 + 2752);
+            v15 = v14;
+            v16 = [v13 objectForKeyedSubscript:@"primaryLme"];
+            v17 = v9;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v20 = v17;
-              v21 = [v20 objectForKeyedSubscript:@"templateName"];
+              v18 = v16;
+              v19 = [v18 objectForKeyedSubscript:@"templateName"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v42 = v21;
-                v40 = v20;
-                v22 = [v20 objectForKeyedSubscript:@"tagName"];
+                v38 = v19;
+                v36 = v18;
+                v20 = [v18 objectForKeyedSubscript:@"tagName"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v37 = v22;
-                  v39 = v22;
-                  v23 = [v14 objectForKeyedSubscript:@"extractedLme"];
-                  v24 = *(v18 + 2752);
+                  v33 = v20;
+                  v35 = v20;
+                  v21 = [v13 objectForKeyedSubscript:@"extractedLme"];
                   objc_opt_class();
-                  v36 = v23;
+                  v32 = v21;
                   if (objc_opt_isKindOfClass())
                   {
-                    v38 = [self _parseExtractionVocabLabels:v23];
+                    v34 = [self _parseExtractionVocabLabels:v21];
                   }
 
                   else
                   {
-                    v38 = 0;
+                    v34 = 0;
                   }
 
-                  v25 = v39;
-                  if ([v16 length] && objc_msgSend(v42, "length") && objc_msgSend(v39, "length"))
+                  v22 = v35;
+                  if ([v15 length] && objc_msgSend(v38, "length") && objc_msgSend(v35, "length"))
                   {
-                    v33 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v42 lmeTag:v39];
-                    v32 = [[CESRAppEntityMapping alloc] initWithSourceBundleId:0 assistantSchemaType:v16 appEntityName:0 primaryVocabLabel:v33 extractionVocabLabels:v38];
-                    [templatesCopy addObject:v42];
-                    v26 = [dictionary objectForKeyedSubscript:v16];
-                    if (v26)
+                    v29 = [[CESRVocabularyLabel alloc] initWithLmeTemplate:v38 lmeTag:v35];
+                    v28 = [[CESRAppEntityMapping alloc] initWithSourceBundleId:0 assistantSchemaType:v15 appEntityName:0 primaryVocabLabel:v29 extractionVocabLabels:v34];
+                    [templatesCopy addObject:v38];
+                    v23 = [dictionary objectForKeyedSubscript:v15];
+                    if (v23)
                     {
-                      [dictionary setObject:v26 forKeyedSubscript:v16];
+                      [dictionary setObject:v23 forKeyedSubscript:v15];
                     }
 
                     else
                     {
-                      v30 = [MEMORY[0x277CBEB58] set];
-                      [dictionary setObject:v30 forKeyedSubscript:v16];
+                      v26 = [MEMORY[0x277CBEB58] set];
+                      [dictionary setObject:v26 forKeyedSubscript:v15];
                     }
 
-                    v31 = [dictionary objectForKeyedSubscript:v16];
-                    [v31 addObject:v32];
+                    v27 = [dictionary objectForKeyedSubscript:v15];
+                    [v27 addObject:v28];
 
-                    v25 = v39;
+                    v22 = v35;
                   }
 
-                  v22 = v37;
+                  v20 = v33;
                 }
 
-                v20 = v40;
+                v18 = v36;
               }
 
-              v6 = v41;
+              v6 = v37;
             }
 
-            v9 = v18;
+            v9 = v17;
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)_parseThirdPartyBundleLimits:(id)limits
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   limitsCopy = limits;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v4 = limitsCopy;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
-    v8 = 0x277CBE000uLL;
-    v9 = @"bundleId";
-    v10 = 0x277CCA000uLL;
-    v26 = v4;
-    v27 = *v29;
+    v7 = *v25;
+    v8 = @"bundleId";
+    v9 = 0x277CCA000uLL;
+    v22 = v4;
+    v23 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
-        v13 = *(v8 + 2752);
+        v11 = *(*(&v24 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = v12;
-          v15 = [v14 objectForKeyedSubscript:v9];
-          v16 = *(v10 + 3240);
+          v12 = v11;
+          v13 = [v12 objectForKeyedSubscript:v8];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v17 = v10;
-            v18 = v15;
-            v19 = [v14 objectForKeyedSubscript:@"limit"];
+            v14 = v9;
+            v15 = v13;
+            v16 = [v12 objectForKeyedSubscript:@"limit"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v20 = v9;
-              v21 = v19;
-              if ([v18 length])
+              v17 = v8;
+              v18 = v16;
+              if ([v15 length])
               {
-                v22 = v21 == 0;
+                v19 = v18 == 0;
               }
 
               else
               {
-                v22 = 1;
+                v19 = 1;
               }
 
-              if (!v22 && ([v21 intValue] & 0x80000000) == 0)
+              if (!v19 && ([v18 intValue] & 0x80000000) == 0)
               {
-                [dictionary setObject:v21 forKeyedSubscript:v18];
+                [dictionary setObject:v18 forKeyedSubscript:v15];
               }
 
-              v9 = v20;
-              v4 = v26;
-              v8 = 0x277CBE000;
+              v8 = v17;
+              v4 = v22;
             }
 
-            v10 = v17;
-            v7 = v27;
+            v9 = v14;
+            v7 = v23;
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

@@ -54,7 +54,6 @@
 
   if (*&self->_has)
   {
-    residentTime = self->_residentTime;
 
     PBDataWriterWriteUint64Field();
   }

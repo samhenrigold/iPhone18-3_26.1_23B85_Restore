@@ -28,17 +28,16 @@
   {
     objc_storeStrong(&v6->_config, configuration);
     v7->_readyForInference = 0;
-    v8 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_msgSend_description(v7->_config, v9, v10);
+      v12 = objc_msgSend_description(v7->_config, v10, v11);
       *buf = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_22E5D5000, v8, OS_LOG_TYPE_DEFAULT, "ANSTISPAlgorithmV1 (ANST v2.4 model + v2.5 post-processing) initialized with config %{public}@.", buf, 0xCu);
+      v16 = v12;
+      _os_log_impl(&dword_22E5D5000, v9, OS_LOG_TYPE_DEFAULT, "ANSTISPAlgorithmV1 (ANST v2.4 model + v2.5 post-processing) initialized with config %{public}@.", buf, 0xCu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -82,8 +81,8 @@
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v131[1] = *MEMORY[0x277D85DE8];
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v130[1] = *MEMORY[0x277D85DE8];
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v6 = os_signpost_id_make_with_pointer(v5, self);
 
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -152,9 +151,9 @@ LABEL_24:
     if (error)
     {
       v23 = MEMORY[0x277CCA9B8];
-      v130 = *MEMORY[0x277CCA450];
-      v131[0] = @"ANSTKit has deprecated non-ANE execution support. Please stop configuring ANSTISPAlgorithm for executing on non-ANE platforms.";
-      v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, v131, &v130, 1);
+      v129 = *MEMORY[0x277CCA450];
+      v130[0] = @"ANSTKit has deprecated non-ANE execution support. Please stop configuring ANSTISPAlgorithm for executing on non-ANE platforms.";
+      v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, v130, &v129, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v23, v25, @"ANSTErrorDomain", 3, v24);
     }
 
@@ -171,23 +170,23 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  v30 = [ANSTBaseNetworkEspresso alloc];
-  v33 = objc_msgSend_networkEngineType(self->_config, v31, v32);
-  v36 = objc_msgSend_qualityOfService(self->_config, v34, v35);
-  if (objc_msgSend_networkResolution(self->_config, v37, v38) == 1)
+  v29 = [ANSTBaseNetworkEspresso alloc];
+  v32 = objc_msgSend_networkEngineType(self->_config, v30, v31);
+  v35 = objc_msgSend_qualityOfService(self->_config, v33, v34);
+  if (objc_msgSend_networkResolution(self->_config, v36, v37) == 1)
   {
-    v40 = objc_msgSend_initWithNetworkEngine_qualityOfService_networkName_networkResolution_(v30, v39, v33, v36, @"anst", @"resolution1024x576");
+    v39 = objc_msgSend_initWithNetworkEngine_qualityOfService_networkName_networkResolution_(v29, v38, v32, v35, @"anst", @"resolution1024x576");
   }
 
   else
   {
-    v40 = objc_msgSend_initWithNetworkEngine_qualityOfService_networkName_networkResolution_(v30, v39, v33, v36, @"anst", @"resolution512x384");
+    v39 = objc_msgSend_initWithNetworkEngine_qualityOfService_networkName_networkResolution_(v29, v38, v32, v35, @"anst", @"resolution512x384");
   }
 
   network = self->_network;
-  self->_network = v40;
+  self->_network = v39;
 
-  if ((objc_msgSend_prepare(self->_network, v42, v43) & 1) == 0)
+  if ((objc_msgSend_prepare(self->_network, v41, v42) & 1) == 0)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
@@ -196,14 +195,14 @@ LABEL_24:
 
     if (error)
     {
-      v74 = MEMORY[0x277CCA9B8];
-      v128 = *MEMORY[0x277CCA450];
-      v129 = @"Failed to prepare espresso network.";
-      v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v72, &v129, &v128, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v74, v76, @"ANSTErrorDomain", 3, v75);
+      v73 = MEMORY[0x277CCA9B8];
+      v127 = *MEMORY[0x277CCA450];
+      v128 = @"Failed to prepare espresso network.";
+      v74 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v71, &v128, &v127, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v73, v75, @"ANSTErrorDomain", 3, v74);
     }
 
-    objc_msgSend_undoPrepareSideEffects(self, v72, v73);
+    objc_msgSend_undoPrepareSideEffects(self, v71, v72);
     v26 = os_signpost_id_make_with_pointer(v5, self);
 
     if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v5))
@@ -216,15 +215,15 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  v46 = self->_network;
-  v47 = objc_msgSend_UTF8String(kANSTNetworkInputName, v44, v45);
-  objc_msgSend_getResolutionByBlobName_(v46, v48, v47);
-  v50 = v49;
-  v51 = self->_network;
-  v54 = objc_msgSend_UTF8String(kANSTNetworkInputName, v52, v53);
-  objc_msgSend_getResolutionByBlobName_(v51, v55, v54);
-  v57 = v56;
-  if (objc_msgSend_networkInputBufferWidth(self, v58, v59) != v50 || objc_msgSend_networkInputBufferHeight(self, v60, v61) != v57)
+  v45 = self->_network;
+  v46 = objc_msgSend_UTF8String(kANSTNetworkInputName, v43, v44);
+  objc_msgSend_getResolutionByBlobName_(v45, v47, v46);
+  v49 = v48;
+  v50 = self->_network;
+  v53 = objc_msgSend_UTF8String(kANSTNetworkInputName, v51, v52);
+  objc_msgSend_getResolutionByBlobName_(v50, v54, v53);
+  v56 = v55;
+  if (objc_msgSend_networkInputBufferWidth(self, v57, v58) != v49 || objc_msgSend_networkInputBufferHeight(self, v59, v60) != v56)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
@@ -233,14 +232,14 @@ LABEL_24:
 
     if (error)
     {
-      v79 = MEMORY[0x277CCA9B8];
-      v126 = *MEMORY[0x277CCA450];
-      v127 = @"Prepared espresso network returned unexpected input width or height.";
-      v80 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v77, &v127, &v126, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v79, v81, @"ANSTErrorDomain", 3, v80);
+      v78 = MEMORY[0x277CCA9B8];
+      v125 = *MEMORY[0x277CCA450];
+      v126 = @"Prepared espresso network returned unexpected input width or height.";
+      v79 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v76, &v126, &v125, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v78, v80, @"ANSTErrorDomain", 3, v79);
     }
 
-    objc_msgSend_undoPrepareSideEffects(self, v77, v78);
+    objc_msgSend_undoPrepareSideEffects(self, v76, v77);
     v26 = os_signpost_id_make_with_pointer(v5, self);
 
     if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v5))
@@ -253,8 +252,8 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  v64 = objc_msgSend_networkInputBufferPixelFormat(self, v62, v63);
-  objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v65, v64, v50, v57, &self->_resizedInputBuffer);
+  v63 = objc_msgSend_networkInputBufferPixelFormat(self, v61, v62);
+  objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v64, v63, v49, v56, &self->_resizedInputBuffer);
   if (!self->_resizedInputBuffer)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -264,14 +263,14 @@ LABEL_24:
 
     if (error)
     {
-      v84 = MEMORY[0x277CCA9B8];
-      v124 = *MEMORY[0x277CCA450];
-      v125 = @"Failed to prepare resized input buffer.";
-      v85 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v82, &v125, &v124, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v84, v86, @"ANSTErrorDomain", 3, v85);
+      v83 = MEMORY[0x277CCA9B8];
+      v123 = *MEMORY[0x277CCA450];
+      v124 = @"Failed to prepare resized input buffer.";
+      v84 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v81, &v124, &v123, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v83, v85, @"ANSTErrorDomain", 3, v84);
     }
 
-    objc_msgSend_undoPrepareSideEffects(self, v82, v83);
+    objc_msgSend_undoPrepareSideEffects(self, v81, v82);
     v26 = os_signpost_id_make_with_pointer(v5, self);
 
     if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v5))
@@ -293,14 +292,14 @@ LABEL_24:
 
     if (error)
     {
-      v69 = MEMORY[0x277CCA9B8];
-      v122 = *MEMORY[0x277CCA450];
-      v123 = @"Failed to prepare VTPixelTransferSession.";
-      v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v67, &v123, &v122, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v69, v71, @"ANSTErrorDomain", 3, v70);
+      v68 = MEMORY[0x277CCA9B8];
+      v121 = *MEMORY[0x277CCA450];
+      v122 = @"Failed to prepare VTPixelTransferSession.";
+      v69 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v66, &v122, &v121, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v68, v70, @"ANSTErrorDomain", 3, v69);
     }
 
-    objc_msgSend_undoPrepareSideEffects(self, v67, v68);
+    objc_msgSend_undoPrepareSideEffects(self, v66, v67);
     v26 = os_signpost_id_make_with_pointer(v5, self);
 
     if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v5))
@@ -313,8 +312,8 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  objc_msgSend_createPixelBufferPoolWithCapacity_pixelFormat_width_height_handle_(ANSTUtility, v66, 5, 1278226488, v50 >> 1, v57 >> 1, &self->_outputSemanticBufferPool);
-  objc_msgSend_createPixelBufferPoolWithCapacity_pixelFormat_width_height_handle_(ANSTUtility, v87, 1, 1278226488, 64, 48, &self->_outputSaliencyBufferPool);
+  objc_msgSend_createPixelBufferPoolWithCapacity_pixelFormat_width_height_handle_(ANSTUtility, v65, 5, 1278226488, v49 >> 1, v56 >> 1, &self->_outputSemanticBufferPool);
+  objc_msgSend_createPixelBufferPoolWithCapacity_pixelFormat_width_height_handle_(ANSTUtility, v86, 1, 1278226488, 64, 48, &self->_outputSaliencyBufferPool);
   if (!self->_outputSemanticBufferPool || !self->_outputSaliencyBufferPool)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -324,14 +323,14 @@ LABEL_24:
 
     if (error)
     {
-      v105 = MEMORY[0x277CCA9B8];
-      v120 = *MEMORY[0x277CCA450];
-      v121 = @"Failed to prepare output pixel buffer pool.";
-      v106 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v103, &v121, &v120, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v105, v107, @"ANSTErrorDomain", 3, v106);
+      v104 = MEMORY[0x277CCA9B8];
+      v119 = *MEMORY[0x277CCA450];
+      v120 = @"Failed to prepare output pixel buffer pool.";
+      v105 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v102, &v120, &v119, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v104, v106, @"ANSTErrorDomain", 3, v105);
     }
 
-    objc_msgSend_undoPrepareSideEffects(self, v103, v104);
+    objc_msgSend_undoPrepareSideEffects(self, v102, v103);
     v26 = os_signpost_id_make_with_pointer(v5, self);
 
     if (v26 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v5))
@@ -344,42 +343,42 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  if (!objc_msgSend_enableFaceAttributes(self->_config, v88, v89))
+  if (!objc_msgSend_enableFaceAttributes(self->_config, v87, v88))
   {
 LABEL_69:
     v9 = 1;
     self->_readyForInference = 1;
-    v102 = os_signpost_id_make_with_pointer(v5, self);
+    v101 = os_signpost_id_make_with_pointer(v5, self);
 
-    if (v102 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    if (v101 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22E5D5000, v5, OS_SIGNPOST_INTERVAL_END, v102, "ANSTISPAlgorithmV1_prepareWithError", &unk_22E663F87, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22E5D5000, v5, OS_SIGNPOST_INTERVAL_END, v101, "ANSTISPAlgorithmV1_prepareWithError", &unk_22E663F87, buf, 2u);
     }
 
     goto LABEL_25;
   }
 
-  v90 = [ANSTFaceAttributeAlgorithmConfiguration alloc];
-  v92 = objc_msgSend_initWithVersion_(v90, v91, 0x10000);
-  v93 = [ANSTFaceAttributeAlgorithm alloc];
-  v94 = v92;
-  v96 = objc_msgSend_initWithConfiguration_(v93, v95, v92);
+  v89 = [ANSTFaceAttributeAlgorithmConfiguration alloc];
+  v91 = objc_msgSend_initWithVersion_(v89, v90, 0x10000);
+  v92 = [ANSTFaceAttributeAlgorithm alloc];
+  v93 = v91;
+  v95 = objc_msgSend_initWithConfiguration_(v92, v94, v91);
   faceAttributeNetwork = self->_faceAttributeNetwork;
-  self->_faceAttributeNetwork = v96;
+  self->_faceAttributeNetwork = v95;
 
-  v98 = self->_faceAttributeNetwork;
-  v116 = 0;
-  LOBYTE(v92) = objc_msgSend_prepareWithError_(v98, v99, &v116);
-  v100 = v116;
-  if (v92)
+  v97 = self->_faceAttributeNetwork;
+  v115 = 0;
+  LOBYTE(v91) = objc_msgSend_prepareWithError_(v97, v98, &v115);
+  v99 = v115;
+  if (v91)
   {
 
     goto LABEL_69;
   }
 
-  v108 = v100;
-  v109 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v101, @"Failed to prepare face attribute network - %@", v100);
+  v107 = v99;
+  v108 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v100, @"Failed to prepare face attribute network - %@", v99);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_22E659F48();
@@ -387,52 +386,44 @@ LABEL_69:
 
   if (error)
   {
-    v112 = MEMORY[0x277CCA9B8];
-    v118 = *MEMORY[0x277CCA450];
-    v119 = v109;
-    v113 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v110, &v119, &v118, 1);
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v112, v114, @"ANSTErrorDomain", 3, v113);
+    v111 = MEMORY[0x277CCA9B8];
+    v117 = *MEMORY[0x277CCA450];
+    v118 = v108;
+    v112 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v109, &v118, &v117, 1);
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v111, v113, @"ANSTErrorDomain", 3, v112);
   }
 
-  objc_msgSend_undoPrepareSideEffects(self, v110, v111);
-  v115 = os_signpost_id_make_with_pointer(v5, self);
+  objc_msgSend_undoPrepareSideEffects(self, v109, v110);
+  v114 = os_signpost_id_make_with_pointer(v5, self);
 
-  if (v115 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  if (v114 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v5, OS_SIGNPOST_INTERVAL_END, v115, "ANSTISPAlgorithmV1_prepareWithError", &unk_22E663F87, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v5, OS_SIGNPOST_INTERVAL_END, v114, "ANSTISPAlgorithmV1_prepareWithError", &unk_22E663F87, buf, 2u);
   }
 
   v9 = 0;
-  v5 = v94;
+  v5 = v93;
 LABEL_25:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_initializePostProcessingWithError:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v23[1] = *MEMORY[0x277D85DE8];
+  v21 = 0;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v5 = objc_msgSend_runningFrameRate(self->_config, a2, error);
-  HIDWORD(v19) = sub_22E6054B8(v5);
-  v6 = AcANSTCreate(&self->_det, &v22);
-  if (v6)
+  HIDWORD(v18) = sub_22E6054B8(v5);
+  AcANSTCreate(&self->_det, &v21, &v17, &self->_detState);
+  if (v6 || (v6 = AcANSTStart(self->_det, &self->_detState), v6) || (v6 = AcANSTGetParams(self->_det, self->_detState.data, &v17, &self->_detParams), v6) || (v6 = AcANSTUseLowThresholds(self->_det), v6) || (v6 = AcANSTSetRunSaliency(self->_det, 1), v6) || (v6 = AcANSTSetRunSaliencyObjectDetection(self->_det, 1), v6) || (det = self->_det, v9 = 1, v6 = AcANSTSetRunViSeg(det), v6))
   {
-    goto LABEL_8;
-  }
-
-  v6 = AcANSTStart(self->_det, &self->_detState);
-  if (v6 || (v6 = AcANSTGetParams(self->_det, self->_detState.data, &v18, &self->_detParams), v6) || (v6 = AcANSTUseLowThresholds(self->_det), v6) || (v6 = AcANSTSetRunSaliency(self->_det, 1), v6) || (v6 = AcANSTSetRunSaliencyObjectDetection(self->_det, 1), v6) || (det = self->_det, v9 = 1, v6 = AcANSTSetRunViSeg(det), v6))
-  {
-LABEL_8:
     v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"Failed to setup ANST network config (AcReturn code %d)", v6);
-    v11 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v11 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A0CC();
@@ -441,16 +432,15 @@ LABEL_8:
     if (error)
     {
       v13 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
-      v24[0] = v10;
-      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v24, &v23, 1);
+      v22 = *MEMORY[0x277CCA450];
+      v23[0] = v10;
+      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v23, &v22, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v13, v15, @"ANSTErrorDomain", 3, v14);
     }
 
-    v9 = 0;
+    return 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -459,19 +449,21 @@ LABEL_8:
   det = self->_det;
   if (det)
   {
-    if (AcANSTStop(det))
+    v5 = AcANSTStop(det);
+    if (v5)
     {
-      v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_22E65A1D8();
       }
     }
 
-    if (AcANSTDestroy(self->_det))
+    v7 = AcANSTDestroy(self->_det);
+    if (v7)
     {
-      v6 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = _ANSTLoggingGetOSLogForCategoryANSTKit(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_22E65A254();
       }
@@ -516,14 +508,14 @@ LABEL_8:
 
 - (id)resultForPixelBuffer:(__CVBuffer *)buffer orientation:(int64_t)orientation error:(id *)error
 {
-  v89[1] = *MEMORY[0x277D85DE8];
-  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v88[1] = *MEMORY[0x277D85DE8];
+  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v10 = os_signpost_id_make_with_pointer(v9, self);
 
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    *v79 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v79, 2u);
+    *v78 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v78, 2u);
   }
 
   if (!self->_readyForInference)
@@ -531,8 +523,8 @@ LABEL_8:
     if (error)
     {
       v22 = MEMORY[0x277CCA9B8];
-      v88 = *MEMORY[0x277CCA450];
-      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v89, &v88, 1);
+      v87 = *MEMORY[0x277CCA450];
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v88, &v87, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v22, v24, @"ANSTErrorDomain", 4, v23);
     }
 
@@ -543,7 +535,7 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    *v79 = 0;
+    *v78 = 0;
     goto LABEL_51;
   }
 
@@ -557,9 +549,9 @@ LABEL_8:
     if (error)
     {
       v26 = MEMORY[0x277CCA9B8];
-      v86 = *MEMORY[0x277CCA450];
-      v87 = @"Nil input buffer.";
-      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, &v87, &v86, 1);
+      v85 = *MEMORY[0x277CCA450];
+      v86 = @"Nil input buffer.";
+      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, &v86, &v85, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v26, v28, @"ANSTErrorDomain", 2, v27);
     }
 
@@ -570,7 +562,7 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    *v79 = 0;
+    *v78 = 0;
     goto LABEL_51;
   }
 
@@ -587,9 +579,9 @@ LABEL_8:
     if (error)
     {
       v18 = MEMORY[0x277CCA9B8];
-      v84 = *MEMORY[0x277CCA450];
-      v85 = @"Input pixel buffer width < height. ANSTISPAlgorithmV1 only supports landscape input.";
-      v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, &v85, &v84, 1);
+      v83 = *MEMORY[0x277CCA450];
+      v84 = @"Input pixel buffer width < height. ANSTISPAlgorithmV1 only supports landscape input.";
+      v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, &v84, &v83, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v18, v20, @"ANSTErrorDomain", 2, v19);
     }
 
@@ -600,9 +592,9 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    *v79 = 0;
+    *v78 = 0;
 LABEL_51:
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_END, v21, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v79, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_END, v21, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v78, 2u);
 LABEL_52:
     v72 = 0;
     goto LABEL_53;
@@ -621,9 +613,9 @@ LABEL_52:
       if (error)
       {
         v38 = MEMORY[0x277CCA9B8];
-        v82 = *MEMORY[0x277CCA450];
-        v83 = @"Failed to transfer input pixel buffer.";
-        v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v83, &v82, 1);
+        v81 = *MEMORY[0x277CCA450];
+        v82 = @"Failed to transfer input pixel buffer.";
+        v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v82, &v81, 1);
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v38, v40, @"ANSTErrorDomain", 4, v39);
       }
 
@@ -634,7 +626,7 @@ LABEL_52:
         goto LABEL_52;
       }
 
-      *v79 = 0;
+      *v78 = 0;
       goto LABEL_51;
     }
 
@@ -676,9 +668,9 @@ LABEL_46:
     if (error)
     {
       v74 = MEMORY[0x277CCA9B8];
-      v80 = *MEMORY[0x277CCA450];
-      v81 = @"Failed to execute espresso inference.";
-      v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v81, &v80, 1);
+      v79 = *MEMORY[0x277CCA450];
+      v80 = @"Failed to execute espresso inference.";
+      v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v80, &v79, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v74, v76, @"ANSTErrorDomain", 4, v75);
     }
 
@@ -689,7 +681,7 @@ LABEL_46:
       goto LABEL_52;
     }
 
-    *v79 = 0;
+    *v78 = 0;
     goto LABEL_51;
   }
 
@@ -698,13 +690,11 @@ LABEL_46:
 
   if (v73 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    *v79 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_END, v73, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v79, 2u);
+    *v78 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v9, OS_SIGNPOST_INTERVAL_END, v73, "ANSTISPAlgorithmV1_resultForPixelBuffer", &unk_22E663F87, v78, 2u);
   }
 
 LABEL_53:
-
-  v77 = *MEMORY[0x277D85DE8];
 
   return v72;
 }
@@ -723,152 +713,151 @@ LABEL_53:
   v12 = objc_msgSend_runningFrameRate(*(v4 + 32), v11, v7);
   v10[3].i32[1] = sub_22E6054B8(v12);
   bzero(v118, 0x8110uLL);
-  if (!objc_msgSend_enableObjectTracking(*(v9 + 32), v13, v14))
+  v15 = objc_msgSend_enableObjectTracking(*(v9 + 32), v13, v14);
+  if (!v15)
   {
     goto LABEL_30;
   }
 
   v112 = v6;
-  v17 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  v18 = os_signpost_id_make_with_pointer(v17, v9);
+  v18 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+  v19 = os_signpost_id_make_with_pointer(v18, v9);
 
-  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v18, "ANSTISPAlgorithmV1_RTCVPostProcess", &unk_22E663F87, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v19, "ANSTISPAlgorithmV1_RTCVPostProcess", &unk_22E663F87, buf, 2u);
   }
 
-  v20 = 0;
-  v21 = &v117;
+  v21 = 0;
+  v22 = &v117;
   do
   {
-    v22 = *(v9 + 40);
-    v23 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v19, v20);
-    v24 = v23;
-    v27 = objc_msgSend_UTF8String(v24, v25, v26);
-    TensorByName = objc_msgSend_getTensorByName_(v22, v28, v27);
+    v23 = *(v9 + 40);
+    v24 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v20, v21);
+    v25 = v24;
+    v28 = objc_msgSend_UTF8String(v25, v26, v27);
+    TensorByName = objc_msgSend_getTensorByName_(v23, v29, v28);
 
-    v38 = *(TensorByName + 96) * *(TensorByName + 88);
-    v39 = *(TensorByName + 80);
-    *(v21 - 3) = *TensorByName;
-    *(v21 - 1) = v38;
-    *v21 = v39;
-    v21[1] = 4 * v39;
-    v21[2] = 6;
-    ++v20;
-    v21 += 6;
+    v39 = *(TensorByName + 96) * *(TensorByName + 88);
+    v40 = *(TensorByName + 80);
+    *(v22 - 3) = *TensorByName;
+    *(v22 - 1) = v39;
+    *v22 = v40;
+    v22[1] = 4 * v40;
+    v22[2] = 6;
+    ++v21;
+    v22 += 6;
   }
 
-  while (v20 != 25);
-  v40 = AcANSTPostProcessNetOutputs(*(v9 + 56), v10, v9 + 64, buf, 25, (v9 + 3784), v118, v30, v31, v32, v33, v34, v35, v36, v37);
-  v41 = os_signpost_id_make_with_pointer(v17, v9);
+  while (v21 != 25);
+  v41 = AcANSTPostProcessNetOutputs(*(v9 + 56), v10, v9 + 64, buf, 25, (v9 + 3784), v118, v31, v32, v33, v34, v35, v36, v37, v38);
+  v42 = os_signpost_id_make_with_pointer(v18, v9);
 
-  if (v41 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v17))
+  if (v42 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v18))
   {
     *v113 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v17, OS_SIGNPOST_INTERVAL_END, v41, "ANSTISPAlgorithmV1_RTCVPostProcess", &unk_22E663F87, v113, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22E5D5000, v18, OS_SIGNPOST_INTERVAL_END, v42, "ANSTISPAlgorithmV1_RTCVPostProcess", &unk_22E663F87, v113, 2u);
   }
 
   v6 = v112;
-  if (v40)
+  if (v41)
   {
-    v42 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v15, @"Failed to create AcResult (AcReturn %d)", v40);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v43 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v16, @"Failed to create AcResult (AcReturn %d)", v41);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A450();
     }
 
     if (v112)
     {
-      v44 = MEMORY[0x277CCA9B8];
+      v45 = MEMORY[0x277CCA9B8];
       v114 = *MEMORY[0x277CCA450];
-      v115 = v42;
-      v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, &v115, &v114, 1);
-      *v112 = objc_msgSend_errorWithDomain_code_userInfo_(v44, v46, @"ANSTErrorDomain", 18, v45);
+      v115 = v43;
+      v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, &v115, &v114, 1);
+      *v112 = objc_msgSend_errorWithDomain_code_userInfo_(v45, v47, @"ANSTErrorDomain", 18, v46);
     }
 
-    v47 = 0;
+    v48 = 0;
   }
 
   else
   {
 LABEL_30:
-    if (objc_msgSend_enableFaceAttributes(*(v9 + 32), v15, v16))
+    if (objc_msgSend_enableFaceAttributes(*(v9 + 32), v16, v17))
     {
-      objc_msgSend_updateFaceAttributesOfAcResult_inputImage_error_(*(v9 + 212432), v48, v118, v8, v6);
+      objc_msgSend_updateFaceAttributesOfAcResult_inputImage_error_(*(v9 + 212432), v49, v118, v8, v6);
     }
 
-    if (objc_msgSend_enableSegmentation(*(v9 + 32), v48, v49))
+    if (objc_msgSend_enableSegmentation(*(v9 + 32), v49, v50))
     {
-      v51 = *(v9 + 40);
-      v52 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v50, 18);
-      v53 = v52;
-      v56 = objc_msgSend_UTF8String(v53, v54, v55);
-      v58 = objc_msgSend_getTensorByName_(v51, v57, v56);
+      v52 = *(v9 + 40);
+      v53 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v51, 18);
+      v54 = v53;
+      v57 = objc_msgSend_UTF8String(v54, v55, v56);
+      v59 = objc_msgSend_getTensorByName_(v52, v58, v57);
 
-      CVPixelBuffer_Uint8_fromEspressoBufferFloat32 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v59, v58);
-      v61 = *(v9 + 40);
-      v63 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v62, 19);
-      v64 = v63;
-      v67 = objc_msgSend_UTF8String(v64, v65, v66);
-      v69 = objc_msgSend_getTensorByName_(v61, v68, v67);
+      CVPixelBuffer_Uint8_fromEspressoBufferFloat32 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v60, v59);
+      v62 = *(v9 + 40);
+      v64 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v63, 19);
+      v65 = v64;
+      v68 = objc_msgSend_UTF8String(v65, v66, v67);
+      v70 = objc_msgSend_getTensorByName_(v62, v69, v68);
 
-      v71 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v70, v69);
-      v72 = *(v9 + 40);
-      v74 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v73, 20);
-      v75 = v74;
-      v78 = objc_msgSend_UTF8String(v75, v76, v77);
-      v80 = objc_msgSend_getTensorByName_(v72, v79, v78);
+      v72 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v71, v70);
+      v73 = *(v9 + 40);
+      v75 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v74, 20);
+      v76 = v75;
+      v79 = objc_msgSend_UTF8String(v76, v77, v78);
+      v81 = objc_msgSend_getTensorByName_(v73, v80, v79);
 
-      v82 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v81, v80);
-      v83 = *(v9 + 40);
-      v85 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v84, 21);
-      v86 = v85;
-      v89 = objc_msgSend_UTF8String(v86, v87, v88);
-      v91 = objc_msgSend_getTensorByName_(v83, v90, v89);
+      v83 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v82, v81);
+      v84 = *(v9 + 40);
+      v86 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v85, 21);
+      v87 = v86;
+      v90 = objc_msgSend_UTF8String(v87, v88, v89);
+      v92 = objc_msgSend_getTensorByName_(v84, v91, v90);
 
-      v93 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v92, v91);
-      v94 = *(v9 + 40);
-      v96 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v95, 22);
-      v97 = v96;
-      v100 = objc_msgSend_UTF8String(v97, v98, v99);
-      v102 = objc_msgSend_getTensorByName_(v94, v101, v100);
+      v94 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v93, v92);
+      v95 = *(v9 + 40);
+      v97 = objc_msgSend_objectAtIndexedSubscript_(*(v9 + 48), v96, 22);
+      v98 = v97;
+      v101 = objc_msgSend_UTF8String(v98, v99, v100);
+      v103 = objc_msgSend_getTensorByName_(v95, v102, v101);
 
-      v104 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v103, v102);
+      v105 = objc_msgSend__createCVPixelBuffer_Uint8_fromEspressoBufferFloat32_(v9, v104, v103);
     }
 
     else
     {
       CVPixelBuffer_Uint8_fromEspressoBufferFloat32 = 0;
-      v71 = 0;
-      v82 = 0;
-      v93 = 0;
-      v104 = 0;
+      v72 = 0;
+      v83 = 0;
+      v94 = 0;
+      v105 = 0;
     }
 
-    v105 = [ANSTISPAlgorithmResult alloc];
-    if (objc_msgSend_enableObjectTracking(*(v9 + 32), v106, v107))
+    v106 = [ANSTISPAlgorithmResult alloc];
+    if (objc_msgSend_enableObjectTracking(*(v9 + 32), v107, v108))
     {
-      v109 = objc_msgSend_initWithAcResult_personMask_salientPersonMask_skinMask_hairMask_skyMask_saliencyMask_(v105, v108, v118, CVPixelBuffer_Uint8_fromEspressoBufferFloat32, v71, v82, v93, v104, 0);
+      v110 = objc_msgSend_initWithAcResult_personMask_salientPersonMask_skinMask_hairMask_skyMask_saliencyMask_(v106, v109, v118, CVPixelBuffer_Uint8_fromEspressoBufferFloat32, v72, v83, v94, v105, 0);
     }
 
     else
     {
-      v109 = objc_msgSend_initWithAcResult_personMask_salientPersonMask_skinMask_hairMask_skyMask_saliencyMask_(v105, v108, 0, CVPixelBuffer_Uint8_fromEspressoBufferFloat32, v71, v82, v93, v104, 0);
+      v110 = objc_msgSend_initWithAcResult_personMask_salientPersonMask_skinMask_hairMask_skyMask_saliencyMask_(v106, v109, 0, CVPixelBuffer_Uint8_fromEspressoBufferFloat32, v72, v83, v94, v105, 0);
     }
 
-    v47 = v109;
+    v48 = v110;
     CVPixelBufferRelease(CVPixelBuffer_Uint8_fromEspressoBufferFloat32);
-    CVPixelBufferRelease(v71);
-    CVPixelBufferRelease(v82);
-    CVPixelBufferRelease(v93);
-    CVPixelBufferRelease(v104);
+    CVPixelBufferRelease(v72);
+    CVPixelBufferRelease(v83);
+    CVPixelBufferRelease(v94);
+    CVPixelBufferRelease(v105);
     CVPixelBufferRelease(0);
   }
 
-  v110 = *MEMORY[0x277D85DE8];
-
-  return v47;
+  return v48;
 }
 
 - (unint64_t)networkInputBufferWidth
@@ -881,7 +870,7 @@ LABEL_30:
       return 1024;
     }
 
-    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_22E65A4D4(&self->_config, v6, v7);
@@ -904,7 +893,7 @@ LABEL_30:
     return 576;
   }
 
-  v6 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v6 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     sub_22E65A564(&self->_config, v6, v7);
@@ -917,8 +906,8 @@ LABEL_30:
 {
   if (float32->var6 != 1)
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A5F4();
     }
@@ -928,8 +917,8 @@ LABEL_30:
 
   if (float32->var14 != 65568)
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A674();
     }
@@ -938,10 +927,11 @@ LABEL_30:
   }
 
   pixelBufferOut = 0;
-  if (CVPixelBufferPoolCreatePixelBuffer(0, self->_outputSemanticBufferPool, &pixelBufferOut))
+  v4 = CVPixelBufferPoolCreatePixelBuffer(0, self->_outputSemanticBufferPool, &pixelBufferOut);
+  if (v4)
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A6F0();
     }
@@ -953,10 +943,11 @@ LABEL_21:
 
   var4 = float32->var4;
   var5 = float32->var5;
-  if (var4 != CVPixelBufferGetWidth(pixelBufferOut) || var5 != CVPixelBufferGetHeight(pixelBufferOut))
+  Width = CVPixelBufferGetWidth(pixelBufferOut);
+  if (var4 != Width || (Width = CVPixelBufferGetHeight(pixelBufferOut), var5 != Width))
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(Width);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A76C();
     }
@@ -974,17 +965,17 @@ LABEL_21:
     {
       if (var4)
       {
-        v11 = &BaseAddress[i * BytesPerRow];
-        v12 = &var0[4 * i * var4];
-        v13 = var4;
+        v13 = &BaseAddress[i * BytesPerRow];
+        v14 = &var0[4 * i * var4];
+        v15 = var4;
         do
         {
-          v14 = *v12++;
-          *v11++ = v14;
-          --v13;
+          v16 = *v14++;
+          *v13++ = v16;
+          --v15;
         }
 
-        while (v13);
+        while (v15);
       }
     }
   }
@@ -997,8 +988,8 @@ LABEL_21:
 {
   if (!map->var4)
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A868();
     }
@@ -1008,10 +999,11 @@ LABEL_21:
 
   mapCopy = map;
   pixelBufferOut = 0;
-  if (CVPixelBufferPoolCreatePixelBuffer(0, self->_outputSaliencyBufferPool, &pixelBufferOut))
+  v4 = CVPixelBufferPoolCreatePixelBuffer(0, self->_outputSaliencyBufferPool, &pixelBufferOut);
+  if (v4)
   {
-    v4 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_22E65A7EC();
     }
@@ -1028,11 +1020,11 @@ LABEL_7:
   BaseAddress = CVPixelBufferGetBaseAddress(pixelBufferOut);
   if (Height)
   {
-    v10 = BaseAddress;
+    v11 = BaseAddress;
     do
     {
-      memcpy(v10, mapCopy, Width);
-      v10 += BytesPerRow;
+      memcpy(v11, mapCopy, Width);
+      v11 += BytesPerRow;
       mapCopy = (mapCopy + Width);
       --Height;
     }

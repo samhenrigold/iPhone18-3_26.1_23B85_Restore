@@ -3,6 +3,7 @@
 - (CKAssetUploadRequestMetadata)initWithCoder:(id)coder;
 - (CKAssetUploadRequestMetadata)initWithRepairZoneRecordID:(id)d databaseScope:(int64_t)scope recordID:(id)iD recordType:(id)type fieldName:(id)name;
 - (CKAssetUploadRequestMetadata)initWithRepairZoneRecordID:(id)d databaseScope:(int64_t)scope recordID:(id)iD recordType:(id)type fieldName:(id)name fileSignature:(id)signature referenceSignature:(id)referenceSignature listIndex:(int64_t)self0;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -141,6 +142,25 @@
   }
 
   return isEqual;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  privateCopy = private;
+  v21.receiver = self;
+  v21.super_class = CKAssetUploadRequestMetadata;
+  v7 = [(CKUploadRequestMetadata *)&v21 CKDescriptionPropertiesWithPublic:public private:private shouldExpand:expand];
+  v10 = objc_msgSend_mutableCopy(v7, v8, v9);
+
+  if (privateCopy && objc_msgSend_listIndex(self, v11, v12) != -1)
+  {
+    v15 = MEMORY[0x1E696AD98];
+    v16 = objc_msgSend_listIndex(self, v13, v14);
+    v18 = objc_msgSend_numberWithInteger_(v15, v17, v16);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v10, v19, @"listIndex", v18);
+  }
+
+  return v10;
 }
 
 @end

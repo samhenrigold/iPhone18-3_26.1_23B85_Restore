@@ -10,29 +10,29 @@
 
 - (BOOL)report
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   records = [(TIDPBiomeNamedEntityTokenRecorder *)self records];
-  v5 = [records countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [records countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(records);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         word = [v9 word];
         v11 = [v3 objectForKey:word];
 
@@ -50,7 +50,7 @@
         [v3 setObject:v12 forKey:word2];
       }
 
-      v6 = [records countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [records countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
@@ -99,7 +99,6 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -122,45 +121,37 @@
   return v10;
 }
 
-BOOL __74__TIDPBiomeNamedEntityTokenRecorder_filterTokenFrequencies_forTokenClass___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  LMVocabularyGetTokenIDForLemma();
-  v3 = *(a1 + 32);
-  return LMVocabularyGetClassForTokenID() == *(a1 + 40);
-}
-
 - (id)records
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   typingSessionAligned = [(TIDPRecorder *)self typingSessionAligned];
   alignedEntries = [typingSessionAligned alignedEntries];
 
   obj = alignedEntries;
-  v6 = [alignedEntries countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v6 = [alignedEntries countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
-    v29 = *v38;
+    v8 = *v37;
+    v28 = *v37;
     selfCopy = self;
     do
     {
       v9 = 0;
-      v31 = v7;
+      v30 = v7;
       do
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v37 + 1) + 8 * v9);
+        v10 = *(*(&v36 + 1) + 8 * v9);
         originalWord = [v10 originalWord];
         editedEntry = [originalWord editedEntry];
         v13 = editedEntry;
@@ -182,26 +173,26 @@ BOOL __74__TIDPBiomeNamedEntityTokenRecorder_filterTokenFrequencies_forTokenClas
           whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
           v18 = [acceptedString componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           v19 = v18;
-          v20 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v34;
+            v22 = *v33;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v34 != v22)
+                if (*v33 != v22)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v24 = *(*(&v33 + 1) + 8 * i);
+                v24 = *(*(&v32 + 1) + 8 * i);
                 if ([v24 length])
                 {
                   v25 = [TIDPWordRecord word:v24];
@@ -209,29 +200,28 @@ BOOL __74__TIDPBiomeNamedEntityTokenRecorder_filterTokenFrequencies_forTokenClas
                 }
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v21);
           }
 
-          v8 = v29;
+          v8 = v28;
           self = selfCopy;
-          v7 = v31;
+          v7 = v30;
         }
 
         ++v9;
       }
 
       while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v7 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v7);
   }
 
   v26 = [v3 copy];
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

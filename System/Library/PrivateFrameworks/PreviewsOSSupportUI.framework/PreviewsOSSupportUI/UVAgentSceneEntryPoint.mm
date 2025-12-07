@@ -8,11 +8,11 @@
 
 - (UVAgentSceneEntryPoint)initWithScene:(id)scene
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
-  v14.receiver = self;
-  v14.super_class = UVAgentSceneEntryPoint;
-  v6 = [(UVAgentSceneEntryPoint *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = UVAgentSceneEntryPoint;
+  v6 = [(UVAgentSceneEntryPoint *)&v13 init];
   if (v6)
   {
     objc_opt_class();
@@ -28,9 +28,9 @@
       _FBSScene = [sceneCopy _FBSScene];
       identifier = [_FBSScene identifier];
       *buf = 138412546;
-      v16 = sceneCopy;
-      v17 = 2112;
-      v18 = identifier;
+      v15 = sceneCopy;
+      v16 = 2112;
+      v17 = identifier;
       _os_log_impl(&dword_25F50F000, v7, OS_LOG_TYPE_DEFAULT, "UVPreviewSceneEntryPoint init: %@ (identifier = %@)", buf, 0x16u);
     }
 
@@ -41,7 +41,6 @@
     [_TtC19PreviewsOSSupportUI20UVAgentSceneRegistry deliverScene:sceneCopy forIdentifier:identifier2];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -35,53 +35,46 @@
 
 - (void)dealloc
 {
-  readArchive = self->_readArchive;
   archive_read_close();
-  writeArchive = self->_writeArchive;
   archive_write_close();
-  v5 = self->_readArchive;
   archive_free();
-  v6 = self->_writeArchive;
   archive_free();
-  v7.receiver = self;
-  v7.super_class = AMKArchiveReader;
-  [(AMKArchiveReader *)&v7 dealloc];
+  v3.receiver = self;
+  v3.super_class = AMKArchiveReader;
+  [(AMKArchiveReader *)&v3 dealloc];
 }
 
 - (BOOL)_configureReadArchiveWithFileHandle:(id)handle error:(id *)error
 {
   handleCopy = handle;
-  readArchive = self->_readArchive;
-  if (archive_read_support_format_all() || (v8 = self->_readArchive, archive_read_support_filter_all()) || (v9 = self->_readArchive, [handleCopy fileDescriptor], archive_read_open_fd()))
+  if (archive_read_support_format_all() || archive_read_support_filter_all() || ([handleCopy fileDescriptor], archive_read_open_fd()))
   {
     [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_readArchive];
-    *error = v10 = 0;
+    *error = v7 = 0;
   }
 
   else
   {
-    v12 = self->_readArchive;
-    v13 = archive_filter_name();
-    if (v13)
+    v9 = archive_filter_name();
+    if (v9)
     {
-      v14 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v13];
+      v10 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v9];
     }
 
     else
     {
-      v14 = @"none";
+      v10 = @"none";
     }
 
     compressionScheme = self->_compressionScheme;
-    self->_compressionScheme = &v14->isa;
+    self->_compressionScheme = &v10->isa;
 
-    v16 = self->_readArchive;
-    v17 = archive_format_name();
-    if (v17)
+    v12 = archive_format_name();
+    if (v12)
     {
-      v18 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v17];
+      v13 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v12];
       archiveFormat = self->_archiveFormat;
-      self->_archiveFormat = v18;
+      self->_archiveFormat = v13;
     }
 
     else
@@ -90,28 +83,23 @@
       self->_archiveFormat = @"unknown";
     }
 
-    v10 = 1;
+    v7 = 1;
   }
 
-  return v10;
+  return v7;
 }
 
 - (BOOL)_configureWriteArchiveWithError:(id *)error
 {
-  writeArchive = self->_writeArchive;
-  if (!archive_write_disk_set_options())
+  if (!archive_write_disk_set_options() && !archive_write_disk_set_standard_lookup())
   {
-    v6 = self->_writeArchive;
-    if (!archive_write_disk_set_standard_lookup())
-    {
-      return 1;
-    }
+    return 1;
   }
 
-  v7 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_writeArchive];
-  v8 = v7;
+  v5 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_writeArchive];
+  v6 = v5;
   result = 0;
-  *error = v7;
+  *error = v5;
   return result;
 }
 
@@ -129,14 +117,12 @@ LABEL_2:
     p_writeArchive = &self->_writeArchive;
     while (1)
     {
-      v8 = *p_readArchive;
-      LODWORD(v9) = archive_read_data_block();
-      if (v9)
+      LODWORD(v8) = archive_read_data_block();
+      if (v8)
       {
         break;
       }
 
-      v10 = *p_writeArchive;
       if (archive_write_data_block() < 0)
       {
         p_readArchive = p_writeArchive;
@@ -149,20 +135,20 @@ LABEL_2:
       }
     }
 
-    if (v9 == 1)
+    if (v8 == 1)
     {
-      return v9;
+      return v8;
     }
 
 LABEL_11:
     amk_canceledError = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:*p_readArchive];
   }
 
-  v11 = amk_canceledError;
   v9 = amk_canceledError;
-  LOBYTE(v9) = 0;
-  *error = v11;
-  return v9;
+  v8 = amk_canceledError;
+  LOBYTE(v8) = 0;
+  *error = v9;
+  return v8;
 }
 
 - (void)readAndExpandIntoURL:(id)l completion:(id)completion
@@ -191,15 +177,15 @@ void __52__AMKArchiveReader_readAndExpandIntoURL_completion___block_invoke(void 
 
     v4 = a1[4];
     v5 = v4[3];
-    v18 = 0;
-    v6 = [v4 _configureReadArchiveWithFileHandle:v5 error:&v18];
-    v7 = v18;
+    v17 = 0;
+    v6 = [v4 _configureReadArchiveWithFileHandle:v5 error:&v17];
+    v7 = v17;
     if (v6)
     {
       v8 = a1[4];
-      v17 = v7;
-      v9 = [v8 _configureWriteArchiveWithError:&v17];
-      v10 = v17;
+      v16 = v7;
+      v9 = [v8 _configureWriteArchiveWithError:&v16];
+      v10 = v16;
 
       if ((v9 & 1) == 0)
       {
@@ -210,119 +196,115 @@ void __52__AMKArchiveReader_readAndExpandIntoURL_completion___block_invoke(void 
 
       v11 = a1[4];
       v12 = a1[5];
-      v16 = v10;
-      [v11 _readAndExpandIntoURL:v12 error:&v16];
-      v7 = v16;
+      v15 = v10;
+      [v11 _readAndExpandIntoURL:v12 error:&v15];
+      v7 = v15;
 
-      v13 = *(a1[4] + 72);
-      v14 = *(a1[6] + 16);
+      v13 = *(a1[6] + 16);
     }
 
     else
     {
-      v14 = *(a1[6] + 16);
+      v13 = *(a1[6] + 16);
     }
 
-    v14();
+    v13();
 LABEL_11:
 
     return;
   }
 
   v2 = a1[6];
-  v15 = [MEMORY[0x29EDB9FA0] amk_canceledError];
-  (*(v2 + 16))(v2, 0, v15);
+  v14 = [MEMORY[0x29EDB9FA0] amk_canceledError];
+  (*(v2 + 16))(v2, 0, v14);
 }
 
 - (BOOL)_readAndExpandIntoURL:(id)l error:(id *)error
 {
   lCopy = l;
   v7 = 0;
-  v32[1] = 0;
+  v29[1] = 0;
   p_symlinkCount = &self->_symlinkCount;
 LABEL_2:
   v9 = 0;
   while (1)
   {
-    readArchive = self->_readArchive;
     next_header = archive_read_next_header();
-    v12 = next_header;
-    v13 = !next_header || next_header == -10;
-    if (!v13 || self->_isCancelled || v9 > 4)
+    v11 = next_header;
+    v12 = !next_header || next_header == -10;
+    if (!v12 || self->_isCancelled || v9 > 4)
     {
       break;
     }
 
-    v14 = objc_autoreleasePoolPush();
-    if (v12 == -10)
+    v13 = objc_autoreleasePoolPush();
+    if (v11 == -10)
     {
       ++v9;
     }
 
     else
     {
-      v15 = archive_entry_filetype();
-      v16 = v15;
-      if (v15 == 0x4000 || v15 == 0x8000 || v15 == 40960)
+      v14 = archive_entry_filetype();
+      v15 = v14;
+      if (v14 == 0x4000 || v14 == 0x8000 || v14 == 40960)
       {
-        v17 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:archive_entry_pathname_utf8()];
-        if (validatePathInArchive(v17, 0))
+        v16 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:archive_entry_pathname_utf8()];
+        if (validatePathInArchive(v16, 0))
         {
           errorCopy = error;
-          if (v16 == 0x4000)
+          if (v15 == 0x4000)
           {
             p_dirCount = &self->_dirCount;
           }
 
           else
           {
-            if (v16 != 40960)
+            if (v15 != 40960)
             {
-              if (v16 != 0x8000 || (++self->_fileCount, v18 = archive_entry_size(), p_dirCount = &self->_uncompressedBytes, v18 <= 0))
+              if (v15 != 0x8000 || (++self->_fileCount, v17 = archive_entry_size(), p_dirCount = &self->_uncompressedBytes, v17 <= 0))
               {
 LABEL_28:
-                v20 = [lCopy URLByAppendingPathComponent:{v17, p_symlinkCount}];
-                path = [v20 path];
+                v19 = [lCopy URLByAppendingPathComponent:{v16, p_symlinkCount}];
+                path = [v19 path];
                 [path UTF8String];
                 archive_entry_set_pathname_utf8();
 
-                writeArchive = self->_writeArchive;
                 if (archive_write_header())
                 {
                   goto LABEL_34;
                 }
 
-                if (archive_entry_size_is_set() && archive_entry_size() < 1 || (v32[0] = v7, v23 = [(AMKArchiveReader *)self copyDataWithError:v32], v24 = v32[0], v7, v7 = v24, v23))
+                if (archive_entry_size_is_set() && archive_entry_size() < 1 || (v29[0] = v7, v21 = [(AMKArchiveReader *)self copyDataWithError:v29], v22 = v29[0], v7, v7 = v22, v21))
                 {
-                  v25 = self->_writeArchive;
                   if (!archive_write_finish_entry())
                   {
 
-                    objc_autoreleasePoolPop(v14);
-                    p_symlinkCount = v30;
+                    objc_autoreleasePoolPop(v13);
+                    p_symlinkCount = v27;
                     error = errorCopy;
                     goto LABEL_2;
                   }
 
 LABEL_34:
-                  v24 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_writeArchive];
+                  v22 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_writeArchive];
                 }
 
-                objc_autoreleasePoolPop(v14);
-                v7 = v24;
+                objc_autoreleasePoolPop(v13);
+                v7 = v22;
                 error = errorCopy;
                 break;
               }
 
 LABEL_27:
-              *p_dirCount += v18;
+              *p_dirCount += v17;
               goto LABEL_28;
             }
 
             p_dirCount = p_symlinkCount;
           }
 
-          v18 = 1;
+          v17 = 1;
           goto LABEL_27;
         }
 
@@ -338,36 +320,36 @@ LABEL_27:
       }
     }
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v13);
   }
 
   if (v7)
   {
-    v26 = v7;
+    v23 = v7;
 LABEL_44:
-    v28 = 0;
-    *error = v26;
+    v25 = 0;
+    *error = v23;
     goto LABEL_45;
   }
 
   if (self->_isCancelled)
   {
-    v27 = [MEMORY[0x29EDB9FA0] amk_errorFromPosixCode:60];
+    v24 = [MEMORY[0x29EDB9FA0] amk_errorFromPosixCode:60];
 LABEL_43:
-    v26 = v27;
+    v23 = v24;
     goto LABEL_44;
   }
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    v27 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_readArchive];
+    v24 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_readArchive];
     goto LABEL_43;
   }
 
-  v28 = 1;
+  v25 = 1;
 LABEL_45:
 
-  return v28;
+  return v25;
 }
 
 @end

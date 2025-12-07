@@ -40,7 +40,7 @@
   *v3 = 0;
   v3[1] = 0;
   v4 = (self + OBJC_IVAR____TtCCV12PhotosUICore26LemonadeCuratedLibraryView23ContainerViewControllerP33_3214E6D65D1AA0606897629850A43E8429LibrarySummaryOutputPresenter_onChange);
-  v5 = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController.LibrarySummaryOutputPresenter();
+  v5 = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController.LibrarySummaryOutputPresenter(self, a2);
   *v4 = 0;
   v4[1] = 0;
   v7.receiver = self;

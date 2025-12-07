@@ -85,38 +85,42 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = objc_opt_class();
-      v11 = [(NSData *)self->_appReceipt length];
+      v11 = objc_opt_class();
+      v12 = [(NSData *)self->_appReceipt length];
       v19 = 138412802;
-      v20 = v10;
+      v20 = v11;
       v21 = 2048;
-      v22 = v11;
+      v22 = v12;
       v23 = 2048;
       v24 = [objc_msgSend(response "appReceipt")];
-      LODWORD(v18) = 32;
-      v17 = &v19;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@] Deciding to append receipt: [Current: %ld bytes] [New: %ld bytes]", &v19, 32);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v19, v18];
-        free(v13);
-        v17 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v18 = v15;
         SSFileLog();
       }
     }
@@ -134,15 +138,15 @@
     self->_serverPaymentCount += *(response + 6);
     if (self->_shouldTriggerQueueCheck)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v16 = *(response + 56);
+      v17 = *(response + 56);
     }
 
-    self->_shouldTriggerQueueCheck = v16 & 1;
+    self->_shouldTriggerQueueCheck = v17 & 1;
     [(NSLock *)self->_lock unlock];
     [*(response + 2) unlock];
   }

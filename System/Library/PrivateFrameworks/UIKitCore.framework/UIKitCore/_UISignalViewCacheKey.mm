@@ -18,7 +18,7 @@
 {
   v34.receiver = self;
   v34.super_class = _UISignalViewCacheKey;
-  result = objc_msgSendSuper2(&v34, sel_init);
+  result = objc_msgSendSuper2(&v34, sel_init, scale, a12, a13, a14, a15, a16);
   if (result)
   {
     *(result + 1) = scale;

@@ -1,4 +1,5 @@
 @interface CalDAVPostCalendarItemRecurrenceSplitTask
+- (CalDAVPostCalendarItemRecurrenceSplitTask)initWithResourceURL:(id)l recurrenceDate:(id)date floating:(BOOL)floating allday:(BOOL)allday;
 - (CoreDAVResponseItem)createdResponseItem;
 - (CoreDAVResponseItem)updatedResponseItem;
 - (id)_dataForItem:(id)item;
@@ -21,6 +22,27 @@
 @end
 
 @implementation CalDAVPostCalendarItemRecurrenceSplitTask
+
+- (CalDAVPostCalendarItemRecurrenceSplitTask)initWithResourceURL:(id)l recurrenceDate:(id)date floating:(BOOL)floating allday:(BOOL)allday
+{
+  alldayCopy = allday;
+  floatingCopy = floating;
+  lCopy = l;
+  dateCopy = date;
+  v15.receiver = self;
+  v15.super_class = CalDAVPostCalendarItemRecurrenceSplitTask;
+  v12 = [(CoreDAVPropertyFindBaseTask *)&v15 initWithPropertiesToFind:0 atURL:0];
+  v13 = v12;
+  if (v12)
+  {
+    [(CalDAVPostCalendarItemRecurrenceSplitTask *)v12 setResourceURL:lCopy];
+    [(CalDAVPostCalendarItemRecurrenceSplitTask *)v13 setRecurrenceDate:dateCopy];
+    [(CalDAVPostCalendarItemRecurrenceSplitTask *)v13 setIsFloating:floatingCopy];
+    [(CalDAVPostCalendarItemRecurrenceSplitTask *)v13 setIsAllDay:alldayCopy];
+  }
+
+  return v13;
+}
 
 - (id)_recurrenceDateString
 {
@@ -67,7 +89,7 @@
 
 - (id)urlWithQuery
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   postURLWithQuery = self->_postURLWithQuery;
   if (!postURLWithQuery)
   {
@@ -89,18 +111,18 @@
       uidForCreatedSeries2 = [(CalDAVPostCalendarItemRecurrenceSplitTask *)self uidForCreatedSeries];
       v15 = [v13 queryItemWithName:@"uid" value:uidForCreatedSeries2];
 
-      v22[0] = v7;
-      v22[1] = v10;
-      v22[2] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+      v21[0] = v7;
+      v21[1] = v10;
+      v21[2] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
       [v6 setQueryItems:v16];
     }
 
     else
     {
-      v21[0] = v7;
-      v21[1] = v10;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+      v20[0] = v7;
+      v20[1] = v10;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
       [v6 setQueryItems:v15];
     }
 
@@ -110,8 +132,6 @@
 
     postURLWithQuery = self->_postURLWithQuery;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return postURLWithQuery;
 }
@@ -166,33 +186,33 @@ LABEL_6:
 
 - (void)_updateBothResponseItems
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resourceURL = [(CalDAVPostCalendarItemRecurrenceSplitTask *)self resourceURL];
   path = [resourceURL path];
   lastPathComponent = [path lastPathComponent];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   multiStatus = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
   responses = [multiStatus responses];
 
-  v8 = [responses countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [responses countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(responses);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         firstHref = [v12 firstHref];
         payloadAsString = [firstHref payloadAsString];
         lastPathComponent2 = [payloadAsString lastPathComponent];
@@ -207,13 +227,11 @@ LABEL_6:
         objc_storeStrong((&self->super.super.super.isa + *v17), v12);
       }
 
-      v9 = [responses countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [responses countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (CoreDAVResponseItem)createdResponseItem

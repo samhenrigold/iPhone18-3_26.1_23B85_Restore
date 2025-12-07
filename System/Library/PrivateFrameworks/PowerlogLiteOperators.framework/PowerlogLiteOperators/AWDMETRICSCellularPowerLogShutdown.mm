@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  count = self->_count;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  duration = self->_duration;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
   }
 

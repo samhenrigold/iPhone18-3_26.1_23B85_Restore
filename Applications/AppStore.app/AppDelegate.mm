@@ -24,7 +24,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_100005E5C(&qword_100985B30, 255, type metadata accessor for LaunchOptionsKey);
+    sub_100005E5C(&qword_100985B30, 255, type metadata accessor for LaunchOptionsKey, &unk_1007B0868);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -93,7 +93,7 @@
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_100005E5C(&qword_100985B20, 255, type metadata accessor for OpenURLOptionsKey);
+  sub_100005E5C(&qword_100985B20, 255, type metadata accessor for OpenURLOptionsKey, &unk_1007B08AC);
   v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
@@ -202,7 +202,7 @@
 
   v8 = sub_100442460(action, v10);
 
-  sub_10002B894(v10, &unk_1009711D0);
+  sub_10002B894(v10, &unk_1009711D0, &unk_1007B1A10);
   return v8 & 1;
 }
 

@@ -859,7 +859,7 @@ LABEL_15:
   v25 = 0u;
   v26 = 0u;
   v7 = suggestionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
@@ -879,12 +879,12 @@ LABEL_15:
 
         if (!v14)
         {
-          v27[0] = @"contactID";
-          v27[1] = @"supportsFriendingViaPush";
-          v28[0] = contactID;
+          v27 = @"contactID";
+          v28 = @"supportsFriendingViaPush";
+          v29 = contactID;
           v15 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [friendingCopy containsObject:contactID]);
-          v28[1] = v15;
-          v16 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:2];
+          v30 = v15;
+          v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
           v17 = [NSMutableDictionary dictionaryWithDictionary:v16];
 
           handle = [v12 handle];
@@ -897,7 +897,7 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v9);
@@ -993,15 +993,15 @@ LABEL_15:
 
 - (void)getCacheLocationsForPlayerID:(id)d completionHandler:(id)handler
 {
-  v24[0] = @"Insecure Cache";
+  v24 = @"Insecure Cache";
   handlerCopy = handler;
   dCopy = d;
   v7 = GKInsecureCacheRoot();
-  v24[1] = @"Support Data";
-  v25[0] = v7;
+  v25 = @"Support Data";
+  v26 = v7;
   v8 = GKSupportDataRoot();
-  v25[1] = v8;
-  v9 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v27 = v8;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v10 = [NSMutableDictionary dictionaryWithDictionary:v9];
 
   v11 = +[GKSecureFileLocator shared];

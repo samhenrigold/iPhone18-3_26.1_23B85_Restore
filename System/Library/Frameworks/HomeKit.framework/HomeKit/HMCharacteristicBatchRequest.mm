@@ -24,33 +24,33 @@
 
 void __51__HMCharacteristicBatchRequest_setProgressHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32))
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * v10);
+          v11 = *(*(&v14 + 1) + 8 * v10);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -66,14 +66,14 @@ void __51__HMCharacteristicBatchRequest_setProgressHandler___block_invoke(uint64
 
           if (v13)
           {
-            [v5 addObject:{v13, v15}];
+            [v5 addObject:{v13, v14}];
           }
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -81,8 +81,6 @@ void __51__HMCharacteristicBatchRequest_setProgressHandler___block_invoke(uint64
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCompletionHandler:(id)handler
@@ -111,32 +109,32 @@ uint64_t __53__HMCharacteristicBatchRequest_setCompletionHandler___block_invoke(
 
 - (id)requests
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = self->_batchRequest;
   v3 = MEMORY[0x1E695DF70];
   requests = [(HMBatchRequest *)v2 requests];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(requests, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   requests2 = [(HMBatchRequest *)v2 requests];
-  v7 = [requests2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [requests2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(requests2);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -156,14 +154,13 @@ uint64_t __53__HMCharacteristicBatchRequest_setCompletionHandler___block_invoke(
         }
       }
 
-      v8 = [requests2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [requests2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

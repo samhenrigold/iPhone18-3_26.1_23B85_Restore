@@ -1,6 +1,7 @@
 @interface AVTAvatarColorSliderContainerViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setSectionItem:(id)item animated:(BOOL)animated;
 @end
 
 @implementation AVTAvatarColorSliderContainerViewAccessibility
@@ -20,23 +21,22 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v10.receiver = self;
-  v10.super_class = AVTAvatarColorSliderContainerViewAccessibility;
-  [(AVTAvatarColorSliderContainerViewAccessibility *)&v10 _accessibilityLoadAccessibilityInformation];
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x3032000000;
-  v7 = __Block_byref_object_copy_;
-  v8 = __Block_byref_object_dispose_;
-  v9 = [(AVTAvatarColorSliderContainerViewAccessibility *)self safeValueForKeyPath:@"sectionItem.color.baseColorPreset"];
+  v5.receiver = self;
+  v5.super_class = AVTAvatarColorSliderContainerViewAccessibility;
+  [(AVTAvatarColorSliderContainerViewAccessibility *)&v5 _accessibilityLoadAccessibilityInformation];
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x3032000000;
+  v3[3] = __Block_byref_object_copy_;
+  v3[4] = __Block_byref_object_dispose_;
+  v4 = [(AVTAvatarColorSliderContainerViewAccessibility *)self safeValueForKeyPath:@"sectionItem.color.baseColorPreset"];
   MEMORY[0x29C2CABD0](@"AVTColorPreset");
-  v3 = v5[5];
   if (objc_opt_isKindOfClass())
   {
     AXPerformSafeBlock();
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(v3, 8);
 }
 
 void __92__AVTAvatarColorSliderContainerViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(void *a1, double a2)
@@ -45,17 +45,11 @@ void __92__AVTAvatarColorSliderContainerViewAccessibility__accessibilityLoadAcce
   v3 = [*(*(a1[5] + 8) + 40) colorPresetWithVariation:a2];
   LODWORD(v4) = 1.0;
   v5 = [*(*(a1[5] + 8) + 40) colorPresetWithVariation:v4];
-  v6 = a1[6];
-  if (objc_opt_isKindOfClass())
+  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_isKindOfClass())
   {
-    v7 = a1[6];
-    if (objc_opt_isKindOfClass())
-    {
-      v8 = v3;
-      v9 = v5;
-      v10 = a1[4];
-      AXPerformSafeBlock();
-    }
+    v6 = v3;
+    v7 = v5;
+    AXPerformSafeBlock();
   }
 }
 
@@ -68,6 +62,14 @@ void __92__AVTAvatarColorSliderContainerViewAccessibility__accessibilityLoadAcce
   v5 = [a1[6] safeValueForKey:@"slider"];
   [v5 _accessibilitySetRetainedValue:v2 forKey:@"AccessibilityMinColorNameKey"];
   [v5 _accessibilitySetRetainedValue:v4 forKey:@"AccessibilityMaxColorNameKey"];
+}
+
+- (void)setSectionItem:(id)item animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = AVTAvatarColorSliderContainerViewAccessibility;
+  [(AVTAvatarColorSliderContainerViewAccessibility *)&v5 setSectionItem:item animated:animated];
+  [(AVTAvatarColorSliderContainerViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

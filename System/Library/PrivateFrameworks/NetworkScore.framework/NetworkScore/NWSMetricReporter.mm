@@ -18,32 +18,33 @@
       [(NWSClientConnection *)self activateConnectionOn:queueCopy];
     }
 
-    if (![metricsCopy count] || (objc_msgSend(metricsCopy, "objectAtIndex:", 0), v9 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v9, (isKindOfClass & 1) == 0))
+    v9 = [metricsCopy count];
+    if (!v9 || ([metricsCopy objectAtIndex:0], v11 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v11, (isKindOfClass & 1) == 0))
     {
-      v11 = nws_log_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = nws_log_obj(v9, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [NWSMetricReporter sendHTTPMetrics:onQueue:];
       }
     }
 
     connection2 = [(NWSClientConnection *)self connection];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke;
-    v15[3] = &unk_27996CFE0;
-    v15[4] = self;
-    v13 = [connection2 remoteObjectProxyWithErrorHandler:v15];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke;
+    v19[3] = &unk_27996CFE0;
+    v19[4] = self;
+    v15 = [connection2 remoteObjectProxyWithErrorHandler:v19];
 
-    if (v13)
+    if (v15)
     {
-      [v13 sendHTTPMetricsWithMetrics:metricsCopy];
+      [v15 sendHTTPMetricsWithMetrics:metricsCopy];
     }
 
     else
     {
-      v14 = nws_log_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = nws_log_obj(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [NWSMetricReporter sendHTTPMetrics:onQueue:];
       }
@@ -54,14 +55,14 @@
 void __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = nws_log_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = nws_log_obj(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke_cold_1(v3);
   }
 
-  v5 = [*(a1 + 32) connection];
-  [v5 invalidate];
+  v6 = [*(a1 + 32) connection];
+  [v6 invalidate];
 
   [*(a1 + 32) setConnection:0];
 }
@@ -79,32 +80,33 @@ void __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke(uint64_t a1,
       [(NWSClientConnection *)self activateConnectionOn:queueCopy];
     }
 
-    if (![metricsCopy count] || (objc_msgSend(metricsCopy, "objectAtIndex:", 0), v9 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v9, (isKindOfClass & 1) == 0))
+    v9 = [metricsCopy count];
+    if (!v9 || ([metricsCopy objectAtIndex:0], v11 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v11, (isKindOfClass & 1) == 0))
     {
-      v11 = nws_log_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = nws_log_obj(v9, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [NWSMetricReporter sendStreamMetrics:onQueue:];
       }
     }
 
     connection2 = [(NWSClientConnection *)self connection];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __47__NWSMetricReporter_sendStreamMetrics_onQueue___block_invoke;
-    v15[3] = &unk_27996CFE0;
-    v15[4] = self;
-    v13 = [connection2 remoteObjectProxyWithErrorHandler:v15];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __47__NWSMetricReporter_sendStreamMetrics_onQueue___block_invoke;
+    v19[3] = &unk_27996CFE0;
+    v19[4] = self;
+    v15 = [connection2 remoteObjectProxyWithErrorHandler:v19];
 
-    if (v13)
+    if (v15)
     {
-      [v13 sendStreamingMetricsWithMetrics:metricsCopy];
+      [v15 sendStreamingMetricsWithMetrics:metricsCopy];
     }
 
     else
     {
-      v14 = nws_log_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = nws_log_obj(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [NWSMetricReporter sendHTTPMetrics:onQueue:];
       }
@@ -115,25 +117,24 @@ void __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke(uint64_t a1,
 void __47__NWSMetricReporter_sendStreamMetrics_onQueue___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = nws_log_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = nws_log_obj(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke_cold_1(v3);
   }
 
-  v5 = [*(a1 + 32) connection];
-  [v5 invalidate];
+  v6 = [*(a1 + 32) connection];
+  [v6 invalidate];
 
   [*(a1 + 32) setConnection:0];
 }
 
 void __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_2(&dword_25BA15000, v2, v3, "connection failed with error : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2(&dword_25BA15000, v2, v3, "connection failed with error : %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -18,7 +18,9 @@
 + (id)allDefaultsEnabled;
 + (id)applicationID;
 + (id)objectForKey:(id)key;
++ (id)objectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize;
 + (id)objectForKey:(id)key ifNotSet:(id)set;
++ (id)objectForKey:(id)key synchronize:(BOOL)synchronize;
 + (id)sharedDefaults;
 + (int)liveModeQuery;
 + (int64_t)longForKey:(id)key ifNotSet:(int64_t)set;
@@ -27,9 +29,16 @@
 + (void)registerEPLNotificationWithQueue:(id)queue;
 + (void)resetUserDefaultCacheForKey:(id)key;
 + (void)resetUserDefaultCacheForKey:(id)key forApplicationID:(id)d;
++ (void)setClass:(Class)class debugEnabled:(BOOL)enabled;
++ (void)setClass:(Class)class debugEnabled:(BOOL)enabled forKey:(id)key;
++ (void)setClassName:(id)name debugEnabled:(BOOL)enabled;
++ (void)setClassName:(id)name debugEnabled:(BOOL)enabled forKey:(id)key;
++ (void)setObject:(id)object forKey:(id)key forApplicationID:(id)d saveToDisk:(BOOL)disk;
++ (void)setObject:(id)object forKey:(id)key saveToDisk:(BOOL)disk;
 - (PLDefaults)init;
 - (id)instancePrefsObjectForKey:(id)key;
 - (id)managedPrefsObjectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize;
+- (id)objectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize;
 - (id)userDefaultsObjectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize;
 - (void)resetUserDefaultCacheForKey:(id)key forApplicationID:(id)d;
 - (void)setObject:(id)object forKey:(id)key forApplicationID:(id)d saveToDisk:(BOOL)disk;
@@ -132,53 +141,52 @@ uint64_t __27__PLDefaults_applicationID__block_invoke()
 
   applicationID_applicationID = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t __28__PLDefaults_sharedDefaults__block_invoke()
 {
-  sharedDefaults_sharedDefaults = objc_alloc_init(PLDefaults);
+  v0 = objc_alloc_init(PLDefaults);
+  sharedDefaults_sharedDefaults = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)allDefaultsEnabled
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   applicationID = [objc_opt_class() applicationID];
   v5 = CFPreferencesCopyKeyList(applicationID, *MEMORY[0x1E695E8A0], *MEMORY[0x1E695E898]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v5;
-  v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [self objectForKey:{v11, v15}];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [self objectForKey:{v11, v14}];
         [dictionary setObject:v12 forKeyedSubscript:v11];
       }
 
-      v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -218,6 +226,46 @@ uint64_t __28__PLDefaults_sharedDefaults__block_invoke()
   v10 = v9;
 
   return v10;
+}
+
++ (id)objectForKey:(id)key synchronize:(BOOL)synchronize
+{
+  synchronizeCopy = synchronize;
+  keyCopy = key;
+  applicationID = [objc_opt_class() applicationID];
+  v7 = [PLDefaults objectForKey:keyCopy forApplicationID:applicationID synchronize:synchronizeCopy];
+
+  return v7;
+}
+
++ (id)objectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize
+{
+  synchronizeCopy = synchronize;
+  dCopy = d;
+  keyCopy = key;
+  v9 = +[PLDefaults sharedDefaults];
+  v10 = [v9 objectForKey:keyCopy forApplicationID:dCopy synchronize:synchronizeCopy];
+
+  return v10;
+}
+
++ (void)setObject:(id)object forKey:(id)key saveToDisk:(BOOL)disk
+{
+  diskCopy = disk;
+  keyCopy = key;
+  objectCopy = object;
+  applicationID = [objc_opt_class() applicationID];
+  [PLDefaults setObject:objectCopy forKey:keyCopy forApplicationID:applicationID saveToDisk:diskCopy];
+}
+
++ (void)setObject:(id)object forKey:(id)key forApplicationID:(id)d saveToDisk:(BOOL)disk
+{
+  diskCopy = disk;
+  dCopy = d;
+  keyCopy = key;
+  objectCopy = object;
+  v12 = +[PLDefaults sharedDefaults];
+  [v12 setObject:objectCopy forKey:keyCopy forApplicationID:dCopy saveToDisk:diskCopy];
 }
 
 + (void)resetUserDefaultCacheForKey:(id)key
@@ -527,6 +575,37 @@ BOOL __28__PLDefaults_isModelTrigger__block_invoke(uint64_t a1)
   return bOOLValue;
 }
 
++ (void)setClass:(Class)class debugEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = NSStringFromClass(class);
+  [PLDefaults setClassName:v5 debugEnabled:enabledCopy];
+}
+
++ (void)setClass:(Class)class debugEnabled:(BOOL)enabled forKey:(id)key
+{
+  enabledCopy = enabled;
+  keyCopy = key;
+  v8 = NSStringFromClass(class);
+  [PLDefaults setClassName:v8 debugEnabled:enabledCopy forKey:keyCopy];
+}
+
++ (void)setClassName:(id)name debugEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", name, @"_Debug"];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  [PLDefaults setObject:v5 forKey:v6];
+}
+
++ (void)setClassName:(id)name debugEnabled:(BOOL)enabled forKey:(id)key
+{
+  enabledCopy = enabled;
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@_%@", name, @"_Debug", key];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  [PLDefaults setObject:v6 forKey:v7];
+}
+
 - (PLDefaults)init
 {
   v12.receiver = self;
@@ -562,6 +641,19 @@ BOOL __28__PLDefaults_isModelTrigger__block_invoke(uint64_t a1)
   }
 
   return v2;
+}
+
+- (id)objectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize
+{
+  synchronizeCopy = synchronize;
+  keyCopy = key;
+  v9 = [(PLDefaults *)self userDefaultsObjectForKey:keyCopy forApplicationID:d synchronize:synchronizeCopy];
+  if (!v9)
+  {
+    v9 = [(PLDefaults *)self instancePrefsObjectForKey:keyCopy];
+  }
+
+  return v9;
 }
 
 - (id)managedPrefsObjectForKey:(id)key forApplicationID:(id)d synchronize:(BOOL)synchronize
@@ -839,16 +931,16 @@ LABEL_6:
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults enableRestartAtEPL]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:478];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v8 = +[PLDefaults sharedDefaults];
-  [v8 setEnableRestartAtEPL:1];
+  v9 = +[PLDefaults sharedDefaults];
+  [v9 setEnableRestartAtEPL:1];
 }
 
 BOOL __32__PLDefaults_enableRestartAtEPL__block_invoke(uint64_t a1)
@@ -900,8 +992,8 @@ BOOL __32__PLDefaults_enableRestartAtEPL__block_invoke(uint64_t a1)
       v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults registerEPLNotificationWithQueue:]"];
       [PLCoreStorage logMessage:v11 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:489];
 
-      v15 = PLLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = PLLogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -914,33 +1006,33 @@ BOOL __32__PLDefaults_enableRestartAtEPL__block_invoke(uint64_t a1)
   handler[2] = __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_96;
   handler[3] = &__block_descriptor_40_e8_v12__0i8l;
   handler[4] = self;
-  v16 = notify_register_dispatch("com.apple.plde.epl_changed", &out_token, queueCopy, handler);
-  if (v16)
+  v17 = notify_register_dispatch("com.apple.plde.epl_changed", &out_token, queueCopy, handler);
+  if (v17)
   {
-    v17 = v16;
+    v18 = v17;
     if (+[PLDefaults debugEnabled])
     {
-      v18 = objc_opt_class();
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_104;
-      v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v24[4] = v18;
+      v19 = objc_opt_class();
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_104;
+      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v26[4] = v19;
       if (registerEPLNotificationWithQueue__defaultOnce_102 != -1)
       {
-        dispatch_once(&registerEPLNotificationWithQueue__defaultOnce_102, v24);
+        dispatch_once(&registerEPLNotificationWithQueue__defaultOnce_102, v26);
       }
 
       if (registerEPLNotificationWithQueue__classDebugEnabled_103 == 1)
       {
-        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"notify_register_dispatch failed %d %s", v17, "com.apple.plde.epl_changed"];
-        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLDefaults.m"];
-        lastPathComponent2 = [v20 lastPathComponent];
-        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults registerEPLNotificationWithQueue:]"];
-        [PLCoreStorage logMessage:v19 fromFile:lastPathComponent2 fromFunction:v22 fromLineNumber:504];
+        v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"notify_register_dispatch failed %d %s", v18, "com.apple.plde.epl_changed"];
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLDefaults.m"];
+        lastPathComponent2 = [v21 lastPathComponent];
+        v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults registerEPLNotificationWithQueue:]"];
+        [PLCoreStorage logMessage:v20 fromFile:lastPathComponent2 fromFunction:v23 fromLineNumber:504];
 
-        v23 = PLLogCommon();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v25 = PLLogCommon(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -959,29 +1051,28 @@ BOOL __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke(uint64_t a
 void __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_96(uint64_t a1)
 {
   CFPreferencesAppSynchronize(@"com.apple.da");
-  v2 = CFPreferencesCopyValue(@"HTEPL.EPLEnabled", @"com.apple.da", @"mobile", *MEMORY[0x1E695E898]);
-  v3 = +[PLDefaults sharedDefaults];
-  if (v2)
+  v1 = CFPreferencesCopyValue(@"HTEPL.EPLEnabled", @"com.apple.da", @"mobile", *MEMORY[0x1E695E898]);
+  v2 = +[PLDefaults sharedDefaults];
+  if (v1)
   {
-    v4 = [v2 BOOLValue];
+    v3 = [v1 BOOLValue];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  [v3 setEplEnabled:v4];
+  [v2 setEplEnabled:v3];
 
   if (+[PLDefaults debugEnabled])
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
+    v4 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_2;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v6;
+    v18 = 3221225472;
+    v19 = __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_2;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v4;
     if (instancePrefsCacheSync_block_invoke_defaultOnce != -1)
     {
       dispatch_once(&instancePrefsCacheSync_block_invoke_defaultOnce, &block);
@@ -989,31 +1080,31 @@ void __47__PLDefaults_registerEPLNotificationWithQueue___block_invoke_96(uint64_
 
     if (instancePrefsCacheSync_block_invoke_classDebugEnabled == 1)
     {
-      v7 = MEMORY[0x1E696AEC0];
-      v8 = +[PLDefaults sharedDefaults];
-      v9 = [v8 eplEnabled];
-      v10 = [v7 stringWithFormat:@"EPLEnabled changed to %d\n", v9, block, v19, v20, v21, v22];
+      v5 = MEMORY[0x1E696AEC0];
+      v6 = +[PLDefaults sharedDefaults];
+      v7 = [v6 eplEnabled];
+      v8 = [v5 stringWithFormat:@"EPLEnabled changed to %d\n", v7, block, v18, v19, v20, v21];
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLDefaults.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults registerEPLNotificationWithQueue:]_block_invoke"];
-      [PLCoreStorage logMessage:v10 fromFile:v12 fromFunction:v13 fromLineNumber:498];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLDefaults.m"];
+      v10 = [v9 lastPathComponent];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLDefaults registerEPLNotificationWithQueue:]_block_invoke"];
+      [PLCoreStorage logMessage:v8 fromFile:v10 fromFunction:v11 fromLineNumber:498];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogCommon(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v15 = +[PLDefaults sharedDefaults];
-  if ([v15 enableRestartAtEPL])
+  v14 = +[PLDefaults sharedDefaults];
+  if ([v14 enableRestartAtEPL])
   {
-    v16 = +[PLDefaults sharedDefaults];
-    v17 = [v16 eplEnabled];
+    v15 = +[PLDefaults sharedDefaults];
+    v16 = [v15 eplEnabled];
 
-    if (v17)
+    if (v16)
     {
       [PLUtilities exitWithReason:7];
     }

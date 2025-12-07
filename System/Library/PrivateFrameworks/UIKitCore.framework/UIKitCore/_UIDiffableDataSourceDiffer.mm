@@ -269,7 +269,7 @@ LABEL_23:
 
           v79 = [v71 containsIndex:{objc_msgSend(v76, "section")}];
           v80 = [v67 containsIndex:{objc_msgSend(v78, "section")}];
-          if ((dyld_program_sdk_at_least() & 1) != 0 || ![v76 isEqual:v78])
+          if ((dyld_program_sdk_at_least() & 1) != 0 || !objc_msgSend_isEqual_(v76))
           {
             insertedIndexes5 = [(_UIIdentifierDiffer *)v128 insertedIndexes];
             v84 = insertedIndexes5;
@@ -844,7 +844,7 @@ LABEL_54:
   dataSourceSnapshot2 = [(_UIDiffableDataSourceState *)v43 dataSourceSnapshot];
   v45 = [off_1E70ECC48 snapshotterForSnapshot:dataSourceSnapshot2];
 
-  LOBYTE(v43) = [v55[5] isEqual:v45];
+  LOBYTE(v43) = objc_msgSend_isEqual_(v55[5]);
   _Block_object_dispose(&v54, 8);
 
   return v43;

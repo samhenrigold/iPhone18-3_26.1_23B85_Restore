@@ -260,22 +260,22 @@ uint64_t sub_100003CF4(uint64_t result)
   return result;
 }
 
-uint64_t sub_100003D20(uint64_t result)
+uint64_t sub_100003D20(uint64_t result, uint64_t a2)
 {
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
-    v1 = result;
-    v2 = CMContinuityCaptureLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = result;
+    v3 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      WeakRetained = objc_loadWeakRetained((v1 + 48));
-      v4 = 138543362;
-      v5 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ *** Should never happen, we even failed to exit due to force termination ***", &v4, 0xCu);
+      WeakRetained = objc_loadWeakRetained((v2 + 48));
+      v5 = 138543362;
+      v6 = WeakRetained;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ *** Should never happen, we even failed to exit due to force termination ***", &v5, 0xCu);
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = 1;
-    return (*(*(v1 + 32) + 16))();
+    *(*(*(v2 + 40) + 8) + 24) = 1;
+    return (*(*(v2 + 32) + 16))();
   }
 
   return result;
@@ -868,44 +868,44 @@ void sub_100006424(uint64_t a1, uint64_t a2)
   {
     if (a2 == 3)
     {
-      v10 = CMContinuityCaptureLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = CMContinuityCaptureLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_1000117BC(a1);
+        sub_1000117BC();
       }
 
-      v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
-      v5 = v4;
-      v6 = 3;
+      v3 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
+      v4 = v3;
+      v5 = 3;
       goto LABEL_16;
     }
 
     if (a2 != 4)
     {
 LABEL_12:
-      v9 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_1000065CC;
-      v11[3] = &unk_10001C9E8;
-      v11[4] = v9;
-      v12 = v8;
-      [v9 _endpointToMediaRemoteIdentifier:v12 completion:v11];
+      v8 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_1000065CC;
+      v10[3] = &unk_10001C9E8;
+      v10[4] = v8;
+      v11 = v7;
+      [v8 _endpointToMediaRemoteIdentifier:v11 completion:v10];
 
       return;
     }
 
 LABEL_9:
-    v7 = CMContinuityCaptureLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10001183C(a1);
+      sub_10001183C();
     }
 
-    v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
-    v5 = v4;
-    v6 = 1;
+    v3 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
+    v4 = v3;
+    v5 = 1;
     goto LABEL_16;
   }
 
@@ -919,17 +919,17 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v3 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v2 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_1000117FC(a1);
+    sub_1000117FC();
   }
 
-  v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
-  v5 = v4;
-  v6 = 2;
+  v3 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
+  v4 = v3;
+  v5 = 2;
 LABEL_16:
-  [v4 presentShieldError:v6 userInfo:0];
+  [v3 presentShieldError:v5 userInfo:0];
 }
 
 void sub_1000065CC(uint64_t a1, void *a2)
@@ -941,7 +941,7 @@ void sub_1000065CC(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10001187C(a1);
+      sub_10001187C();
     }
 
     v6 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -974,7 +974,7 @@ void sub_1000067D4(uint64_t a1, uint64_t a2)
       v12 = CMContinuityCaptureLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1000117BC(a1);
+        sub_1000117BC();
       }
 
       v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -992,7 +992,7 @@ LABEL_9:
     v7 = CMContinuityCaptureLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10001183C(a1);
+      sub_10001183C();
     }
 
     v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -1011,7 +1011,7 @@ LABEL_9:
     v3 = CMContinuityCaptureLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1000117FC(a1);
+      sub_1000117FC();
     }
 
     v4 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -1033,15 +1033,14 @@ LABEL_12:
     {
       v10 = *(a1 + 32);
       *buf = 138543874;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v8;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ attempting to join group session with token: %@ requestID: %@", buf, 0x20u);
     }
 
-    v14 = *(a1 + 32);
     v11 = v8;
     MRGroupSessionJoinSessionWithToken();
   }
@@ -1051,7 +1050,7 @@ LABEL_12:
     v13 = CMContinuityCaptureLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1000118D4(a1, (a1 + 40));
+      sub_1000118D4();
     }
 
     v11 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -1195,7 +1194,7 @@ void sub_1000075D4(uint64_t a1)
       v2 = CMContinuityCaptureLog();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        sub_100011960(a1, (a1 + 40));
+        sub_100011960();
       }
 
       (*(*(a1 + 56) + 16))();
@@ -1225,7 +1224,7 @@ void sub_1000075D4(uint64_t a1)
       {
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          sub_1000119B0(a1);
+          sub_1000119B0();
         }
 
         (*(*(a1 + 56) + 16))();
@@ -1261,16 +1260,16 @@ void sub_100007858(uint64_t a1, void *a2)
 
 void sub_100007910(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v2 = a1 + 32;
   objc_storeStrong((*(a1 + 32) + 176), *(a1 + 40));
-  v3 = v2[1];
+  v3 = *(v2 + 8);
   v4 = CMContinuityCaptureLog();
   v5 = v4;
   if (!v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000119F0(v2);
+      sub_1000119F0();
     }
 
     v16 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
@@ -1330,15 +1329,14 @@ void sub_100007DD4(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(v5, block);
 }
 
-void sub_100007EA4(uint64_t a1)
+void sub_100007EA4(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     v3 = CMContinuityCaptureLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100011A80(v2);
+      sub_100011A80();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1367,9 +1365,9 @@ void sub_100007EA4(uint64_t a1)
   }
 }
 
-void sub_10000817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1383,10 +1381,7 @@ uint64_t sub_10000819C(uint64_t result, uint64_t a2)
 
 uint64_t sub_1000081B4(uint64_t a1)
 {
-  v2 = +[CMContinuityCaptureCapabilities capabilitiesForCurrentDevice];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = +[CMContinuityCaptureCapabilities capabilitiesForCurrentDevice];
 
   return _objc_release_x1();
 }
@@ -1783,10 +1778,10 @@ void sub_100009C98(uint64_t a1)
   }
 }
 
-void sub_100009E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100009E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  objc_destroyWeak((v12 + 40));
+  va_start(va, a19);
+  objc_destroyWeak((v19 + 40));
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -1885,7 +1880,7 @@ LABEL_19:
       v21 = CMContinuityCaptureLog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        sub_100011B84(a1);
+        sub_100011B84(a1, v6);
       }
 
       v22 = objc_loadWeakRetained((a1 + 40));
@@ -2191,42 +2186,42 @@ void sub_10000DEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10000DF04(uint64_t a1)
+void sub_10000DF04(uint64_t a1, uint64_t a2)
 {
-  v2 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v4 = 138412290;
-    v5 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ Client Invalidated", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Client Invalidated", &v5, 0xCu);
   }
 }
 
-void sub_10000DF90(uint64_t a1)
+void sub_10000DF90(uint64_t a1, uint64_t a2)
 {
-  v2 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v4 = 138412290;
-    v5 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ Rapport Client Interrupted", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Rapport Client Interrupted", &v5, 0xCu);
   }
 }
 
-void sub_10000E01C(uint64_t a1)
+void sub_10000E01C(uint64_t a1, uint64_t a2)
 {
-  v2 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v4 = [*(a1 + 32) errorFlags];
-    v5 = 138412546;
-    v6 = WeakRetained;
-    v7 = 2048;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ Client ErrorChange, newError %llu", &v5, 0x16u);
+    v5 = [*(a1 + 32) errorFlags];
+    v6 = 138412546;
+    v7 = WeakRetained;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Client ErrorChange, newError %llu", &v6, 0x16u);
   }
 }
 
@@ -2887,15 +2882,15 @@ void sub_10000F588(uint64_t a1)
   }
 }
 
-void sub_10000F744(uint64_t a1)
+void sub_10000F744(uint64_t a1, uint64_t a2)
 {
-  v2 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v4 = 138543362;
-    v5 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ server session invalidated", &v4, 0xCu);
+    v5 = 138543362;
+    v6 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ server session invalidated", &v5, 0xCu);
   }
 }
 
@@ -2999,13 +2994,13 @@ void sub_10000F954(uint64_t a1, void *a2, void *a3)
 
 void sub_10000FDE4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = CMContinuityCaptureLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100011CDC(a1);
+      sub_100011CDC();
     }
   }
 }
@@ -3131,122 +3126,122 @@ void sub_100010840(uint64_t a1, void *a2)
   dispatch_async(v5, v7);
 }
 
-void sub_1000108DC(uint64_t a1)
+void sub_1000108DC(uint64_t a1, uint64_t a2)
 {
-  v2 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) routeUID];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 144);
-    v7 = [*(v5 + 152) routeUID];
-    v17 = 138413058;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ active route did change to %@. Current singSessionID: %@. Current tracked route: %@", &v17, 0x2Au);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) routeUID];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 144);
+    v8 = [*(v6 + 152) routeUID];
+    v18 = 138413058;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ active route did change to %@. Current singSessionID: %@. Current tracked route: %@", &v18, 0x2Au);
   }
 
   if (*(*(a1 + 32) + 144))
   {
-    v8 = [*(a1 + 40) routeUID];
-    v9 = [v8 containsString:*(*(a1 + 32) + 144)];
+    v9 = [*(a1 + 40) routeUID];
+    v10 = [v9 containsString:*(*(a1 + 32) + 144)];
 
-    if (v9)
+    if (v10)
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v12 = *(v10 + 152);
-      *(v10 + 152) = v11;
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 40);
+      v13 = *(v11 + 152);
+      *(v11 + 152) = v12;
     }
 
     else
     {
-      v13 = *(a1 + 32);
-      if (*(v13 + 161) != 1)
+      v14 = *(a1 + 32);
+      if (*(v14 + 161) != 1)
       {
         return;
       }
 
-      v14 = *(v13 + 144);
-      *(v13 + 144) = 0;
+      v15 = *(v14 + 144);
+      *(v14 + 144) = 0;
 
-      v15 = *(a1 + 32);
-      v16 = *(v15 + 152);
-      *(v15 + 152) = 0;
+      v16 = *(a1 + 32);
+      v17 = *(v16 + 152);
+      *(v16 + 152) = 0;
 
       *(*(a1 + 32) + 161) = 0;
       [*(a1 + 32) pauseSessionForEvent:0];
-      v12 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
-      [v12 presentShieldError:4 userInfo:0];
+      v13 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
+      [v13 presentShieldError:4 userInfo:0];
     }
   }
 }
 
-uint64_t start()
+uint64_t start(uint64_t a1, uint64_t a2)
 {
-  v0 = CMContinuityCaptureLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = 136315138;
-    v17 = "200.0.1";
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "ccd start, log version:%s", &v16, 0xCu);
-  }
-
-  v1 = FigDispatchQueueCreateWithPriority();
   v2 = CMContinuityCaptureLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = +[ContinuityCaptureRemoteUISystemStatus sharedInstance];
-    v16 = 138412290;
-    v17 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@", &v16, 0xCu);
+    v18 = 136315138;
+    v19 = "200.0.1";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "ccd start, log version:%s", &v18, 0xCu);
   }
 
-  v4 = [[CMContinuityCaptureDServer alloc] initWithQueue:v1];
-  v5 = qword_100021B28;
-  qword_100021B28 = v4;
+  v3 = FigDispatchQueueCreateWithPriority();
+  v4 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = +[ContinuityCaptureRemoteUISystemStatus sharedInstance];
+    v18 = 138412290;
+    v19 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@", &v18, 0xCu);
+  }
+
+  v6 = [[CMContinuityCaptureDServer alloc] initWithQueue:v3];
+  v7 = qword_100021B28;
+  qword_100021B28 = v6;
 
   [qword_100021B28 activate];
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create("com.apple.continuitycapture.rapportlaunch", v6);
+  v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v9 = dispatch_queue_create("com.apple.continuitycapture.rapportlaunch", v8);
 
-  xpc_set_event_stream_handler("com.apple.rapport.matching", v7, &stru_10001CF60);
+  xpc_set_event_stream_handler("com.apple.rapport.matching", v9, &stru_10001CF60);
   if (qword_100021B28)
   {
-    v8 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
-    [v8 startListeningWithDelegate:qword_100021B28];
+    v10 = +[CMContinuityCaptureXPCServerCCD sharedInstance];
+    [v10 startListeningWithDelegate:qword_100021B28];
   }
 
   else
   {
-    v8 = CMContinuityCaptureLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100011D28(v8);
+      sub_100011D28(v10);
     }
   }
 
   if (FigGetCFPreferenceBooleanWithDefault())
   {
-    v9 = [CMContinuityCaptureNWServer alloc];
-    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v11 = dispatch_queue_create("com.apple.continuitycapture.localServer", v10);
-    v12 = [v9 initWithQueue:v11];
-    v13 = qword_100021B30;
-    qword_100021B30 = v12;
+    v11 = [CMContinuityCaptureNWServer alloc];
+    v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v13 = dispatch_queue_create("com.apple.continuitycapture.localServer", v12);
+    v14 = [v11 initWithQueue:v13];
+    v15 = qword_100021B30;
+    qword_100021B30 = v14;
 
-    v14 = CMContinuityCaptureLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = qword_100021B30;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Hosting local server %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = qword_100021B30;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Hosting local server %@", &v18, 0xCu);
     }
   }
 
@@ -3300,16 +3295,18 @@ LABEL_11:
 LABEL_12:
 }
 
-void sub_100010F78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010F78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100010FBC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010FBC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x20u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x20u);
 }
 
 void sub_100010FF0(uint64_t a1, NSObject *a2)
@@ -3336,66 +3333,25 @@ void sub_1000110E0(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "SBSSecureAppAssertion errorHandler: %{public}@", &v2, 0xCu);
 }
 
-void sub_1000117BC(uint64_t a1)
+void sub_10001187C()
 {
-  v1 = *(a1 + 32);
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "%{public}@ display name not accepted for ICMediaUser activeUserState, bailing to Music", v4, v5, v6, v7, v8);
-}
-
-void sub_1000117FC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "%{public}@ terms not accepted for ICMediaUser activeUserState, bailing to Music", v4, v5, v6, v7, v8);
-}
-
-void sub_10001183C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "%{public}@ could not load regulatory info", v4, v5, v6, v7, v8);
-}
-
-void sub_10001187C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   sub_100010F64();
   sub_100010F94();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_1000118D4(uint64_t a1, uint64_t *a2)
+void sub_1000118D4()
 {
-  v2 = *(a1 + 32);
-  v3 = *a2;
   sub_100010F64();
   sub_100010F94();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100011960(uint64_t a1, uint64_t *a2)
+void sub_100011960()
 {
-  v2 = *(a1 + 48);
-  v3 = *a2;
   sub_100010F64();
   sub_100010F94();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-}
-
-void sub_1000119B0(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "%{public}@ unable to refresh ICMediaUser activeUserState when checking music account", v4, v5, v6, v7, v8);
-}
-
-void sub_1000119F0(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "%{public}@ unable to retrieve local participant info, present music error", v4, v5, v6, v7, v8);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100011A30()
@@ -3405,27 +3361,24 @@ void sub_100011A30()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100011A80(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100010FA4();
-  sub_100010F78(&_mh_execute_header, v2, v3, "Error fetching user state: %@", v4, v5, v6, v7, v8);
-}
-
 void sub_100011B04(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = *(a1 + 32);
   sub_100010FB0();
-  sub_100010FBC(&_mh_execute_header, v4, v5, "%@ [shieldSession:%{public}@] Shield failed to launch for %{public}@", v6, v7, v8, v9, v10);
+  sub_100010FBC(&_mh_execute_header, v2, v3, "%@ [shieldSession:%{public}@] Shield failed to launch for %{public}@", v4, v5, v6, v7);
 }
 
-void sub_100011B84(uint64_t a1)
+void sub_100011B84(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v2 = +[CCDShieldUILifeCycleManager sharedInstance];
-  v9 = [v2 activeSession];
-  sub_100010FBC(&_mh_execute_header, v3, v4, "%@ [shieldSession:%{public}@] Shield Session %{public}@ aborted", v5, v6, v7, v8, 2u);
+  v4 = +[CCDShieldUILifeCycleManager sharedInstance];
+  v5 = [v4 activeSession];
+  *v12 = 138412802;
+  *&v12[4] = WeakRetained;
+  *&v12[12] = 2114;
+  *&v12[14] = a2;
+  *&v12[22] = 2114;
+  sub_100010FBC(&_mh_execute_header, v6, v7, "%@ [shieldSession:%{public}@] Shield Session %{public}@ aborted", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], v5);
 }
 
 void sub_100011C30(uint64_t a1, uint64_t a2)
@@ -3443,10 +3396,9 @@ void sub_100011C30(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100011CDC(uint64_t a1)
+void sub_100011CDC()
 {
-  v1 = *(a1 + 32);
   sub_100010F64();
   sub_100010F94();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }

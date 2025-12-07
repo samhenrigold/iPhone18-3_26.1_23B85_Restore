@@ -161,7 +161,7 @@
   if (Count)
   {
     v9 = Count;
-    v51 = endingPath;
+    v52 = endingPath;
   }
 
   else
@@ -173,126 +173,126 @@
     v13 = v11;
 
     v14 = v12;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x5010000000;
-    v70 = &unk_545BF;
-    v71 = 0u;
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x5010000000;
+    v71 = &unk_545BF;
     v72 = 0u;
     v73 = 0u;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x2020000000;
-    v66 = 1;
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 3221225472;
-    v62[2] = sub_19DAC;
-    v62[3] = &unk_5D760;
-    v62[4] = &v67;
-    v62[5] = &v63;
-    [v13 enumerateLinePointsContextsUsingBlock:v62];
+    v74 = 0u;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x2020000000;
+    v67 = 1;
+    v63[0] = _NSConcreteStackBlock;
+    v63[1] = 3221225472;
+    v63[2] = sub_19DAC;
+    v63[3] = &unk_5D760;
+    v63[4] = &v68;
+    v63[5] = &v64;
+    [v13 enumerateLinePointsContextsUsingBlock:v63];
     v15 = v14;
-    if ((v64[3] & 1) == 0)
+    if ((v65[3] & 1) == 0)
     {
       [v13 boundsCenter];
       v17 = v16;
       v19 = v18;
-      [v14 boundsCenter];
-      v21 = v20;
-      v23 = v22;
-      GAX_CGPointGetAngleFormedBySegmentToPoint(v17, v19, v68[4]);
-      *(v68 + 7) = v24;
-      v25 = AXCArrayCreate();
-      v26 = v25;
+      boundsCenter = [v14 boundsCenter];
+      v22 = v21;
+      v24 = v23;
+      GAX_CGPointGetAngleFormedBySegmentToPoint(boundsCenter, v17, v19, v69[4]);
+      *(v69 + 7) = v25;
+      v26 = AXCArrayCreate();
+      v27 = v26;
       v15 = v14;
-      if (v25)
+      if (v26)
       {
-        v61[0] = _NSConcreteStackBlock;
-        v61[1] = 3221225472;
-        v61[2] = sub_19DDC;
-        v61[3] = &unk_5D788;
-        v61[4] = &v67;
-        v61[5] = v21;
-        v61[6] = v23;
-        v61[7] = v25;
-        [v14 enumerateLineSegmentContextsUsingBlock:v61];
-        v27 = AXCArrayGetCount();
+        v62[0] = _NSConcreteStackBlock;
+        v62[1] = 3221225472;
+        v62[2] = sub_19DDC;
+        v62[3] = &unk_5D788;
+        v62[4] = &v68;
+        v62[5] = v22;
+        v62[6] = v24;
+        v62[7] = v26;
+        [v14 enumerateLineSegmentContextsUsingBlock:v62];
+        v28 = AXCArrayGetCount();
         v15 = v14;
-        if (v27)
+        if (v28)
         {
-          v50 = v13;
-          v52 = v14;
-          v28 = 0;
+          v51 = v13;
+          v53 = v14;
           v29 = 0;
           v30 = 0;
-          v31 = 1.79769313e308;
+          v31 = 0;
+          v32 = 1.79769313e308;
           do
           {
-            if (v29 >= AXCArrayGetCount())
+            if (v30 >= AXCArrayGetCount())
             {
-              v48 = AXCArrayGetCount();
-              v49 = v29;
-              v47 = v26;
+              v49 = AXCArrayGetCount();
+              v50 = v30;
+              v48 = v27;
               _AXAssert();
             }
 
             UnderlyingArray = _AXCArrayGetUnderlyingArray();
-            v33 = *(UnderlyingArray + v28 + 32);
-            GAX_CGPointGetMiddleOfSegmentToPoint(*(UnderlyingArray + v28), *(UnderlyingArray + v28 + 8), *(UnderlyingArray + v28 + 48));
+            v34 = *(UnderlyingArray + v29 + 32);
+            GAX_CGPointGetMiddleOfSegmentToPoint(*(UnderlyingArray + v29), *(UnderlyingArray + v29 + 8), *(UnderlyingArray + v29 + 48));
             AX_CGPointGetDistanceToPoint();
-            if (v34 < v31)
+            if (v35 < v32)
             {
-              v30 = v33;
               v31 = v34;
+              v32 = v35;
             }
 
-            ++v29;
-            v28 += 120;
+            ++v30;
+            v29 += 120;
           }
 
-          while (v27 != v29);
-          v35 = v31 >= 1.79769313e308 || v30 == 0;
-          v13 = v50;
-          v14 = v52;
-          v15 = v52;
-          if (!v35)
+          while (v28 != v30);
+          v36 = v32 >= 1.79769313e308 || v31 == 0;
+          v13 = v51;
+          v14 = v53;
+          v15 = v53;
+          if (!v36)
           {
-            v15 = [v52 equivalentPathStartingWithElementAtIndex:v30];
+            v15 = [v53 equivalentPathStartingWithElementAtIndex:v31];
           }
         }
 
-        CFRelease(v26);
+        CFRelease(v27);
       }
     }
 
     [v13 length];
-    v37 = v36;
+    v38 = v37;
     [v15 length];
-    v39 = v38;
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_19ED4;
-    v54[3] = &unk_5D7B0;
+    v40 = v39;
+    v55[0] = _NSConcreteStackBlock;
+    v55[1] = 3221225472;
+    v55[2] = sub_19ED4;
+    v55[3] = &unk_5D7B0;
     startingPath = v13;
-    v55 = startingPath;
+    v56 = startingPath;
     selfCopy = self;
-    v58 = v37;
-    v59 = v39;
-    v40 = v15;
-    v57 = v40;
-    v60 = interpolationPathElementMappings;
-    [startingPath enumerateElementsUsingBlock:v54];
+    v59 = v38;
+    v60 = v40;
+    v41 = v15;
+    v58 = v41;
+    v61 = interpolationPathElementMappings;
+    [startingPath enumerateElementsUsingBlock:v55];
     v9 = AXCArrayGetCount();
-    v51 = v40;
+    v52 = v41;
 
-    _Block_object_dispose(&v63, 8);
-    _Block_object_dispose(&v67, 8);
+    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v68, 8);
   }
 
-  v41 = objc_opt_new();
+  v42 = objc_opt_new();
   if (v9)
   {
-    v42 = 0;
+    v43 = 0;
     for (i = 0; i != v9; ++i)
     {
       if (i >= AXCArrayGetCount())
@@ -301,28 +301,28 @@
         _AXAssert();
       }
 
-      v44 = _AXCArrayGetUnderlyingArray();
-      v45 = *(v44 + v42);
-      if (v45 > 1)
+      v45 = _AXCArrayGetUnderlyingArray();
+      v46 = *(v45 + v43);
+      if (v46 > 1)
       {
-        if (v45 == 4)
+        if (v46 == 4)
         {
-          [v41 closePath];
+          [v42 closePath];
         }
       }
 
       else
       {
-        [v41 appendElementOfType:v45 withSinglePoint:{GAX_CGPointGetInterpolatedPointInSegmentToPoint(*(v44 + v42 + 8), *(v44 + v42 + 16), *(v44 + v42 + 24), *(v44 + v42 + 32), progress)}];
+        [v42 appendElementOfType:v46 withSinglePoint:{GAX_CGPointGetInterpolatedPointInSegmentToPoint(*(v45 + v43 + 8), *(v45 + v43 + 16), *(v45 + v43 + 24), *(v45 + v43 + 32), progress)}];
       }
 
-      v42 += 40;
+      v43 += 40;
     }
   }
 
   objc_autoreleasePoolPop(context);
 
-  return v41;
+  return v42;
 }
 
 @end

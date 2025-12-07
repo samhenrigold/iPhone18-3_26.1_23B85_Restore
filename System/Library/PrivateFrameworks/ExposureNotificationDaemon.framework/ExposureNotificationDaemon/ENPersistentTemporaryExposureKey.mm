@@ -34,34 +34,38 @@
 
 - (id)description
 {
+  v16 = 0;
   v3 = objc_opt_class();
-  v9 = NSStringFromClass(v3);
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF_safe(&v16, "%@", v4);
+  v5 = v16;
 
-  if (self->_appBundleIdentifier)
+  appBundleIdentifier = self->_appBundleIdentifier;
+  if (appBundleIdentifier)
   {
-    appBundleIdentifier = self->_appBundleIdentifier;
-    NSAppendPrintF_safe();
-    v5 = v4;
+    v15 = v5;
+    NSAppendPrintF_safe(&v15, ", App %@", appBundleIdentifier);
+    v7 = v15;
 
-    v4 = v5;
+    v5 = v7;
   }
 
-  if (self->_regionCountryCode)
+  regionCountryCode = self->_regionCountryCode;
+  if (regionCountryCode)
   {
-    regionCountryCode = self->_regionCountryCode;
-    NSAppendPrintF_safe();
-    v6 = v4;
+    v14 = v5;
+    NSAppendPrintF_safe(&v14, ", Country %@", regionCountryCode);
+    v9 = v14;
 
-    v4 = v6;
+    v5 = v9;
   }
 
-  key = self->_key;
-  NSAppendPrintF_safe();
-  v7 = v4;
+  v13 = v5;
+  NSAppendPrintF_safe(&v13, ", %@", self->_key);
+  v10 = v13;
+  v11 = v13;
 
-  return v4;
+  return v10;
 }
 
 @end

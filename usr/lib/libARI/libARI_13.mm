@@ -1,242 +1,3 @@
-AriOsa *AriSdk::TlvArray<IBITdsCellInfoT,1ul>::operator=(AriOsa *a1, __int128 *a2)
-{
-  v26 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  if ((0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 2)) < 2)
-  {
-    v8 = *a1;
-    if (*a1)
-    {
-      *(a1 + 1) = v8;
-      operator delete(v8);
-      *a1 = 0;
-      *(a1 + 1) = 0;
-      *(a1 + 2) = 0;
-      v4 = *a2;
-    }
-
-    *a1 = v4;
-    *(a1 + 2) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
-  }
-
-  else if ((DefaultLogLevel & 8) != 0)
-  {
-    OsLog = AriOsa::GetOsLog(a1);
-    if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
-    {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 2);
-      *__p = 136316418;
-      *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
-      _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
-      {
-        operator delete(v13[0]);
-      }
-    }
-
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
-    {
-      v7 = __p;
-    }
-
-    else
-    {
-      v7 = *__p;
-    }
-
-    AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 2), 1);
-    if (SHIBYTE(v18) < 0)
-    {
-      operator delete(*__p);
-    }
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-void sub_2961C97F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-AriOsa *AriSdk::TlvArray<IBITdsNeighborCellInfoT,32ul>::operator=(AriOsa *a1, __int128 *a2)
-{
-  v26 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  if (*(a2 + 1) - *a2 < 0x101uLL)
-  {
-    v8 = *a1;
-    if (*a1)
-    {
-      *(a1 + 1) = v8;
-      operator delete(v8);
-      *a1 = 0;
-      *(a1 + 1) = 0;
-      *(a1 + 2) = 0;
-      v4 = *a2;
-    }
-
-    *a1 = v4;
-    *(a1 + 2) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
-  }
-
-  else if ((DefaultLogLevel & 8) != 0)
-  {
-    OsLog = AriOsa::GetOsLog(a1);
-    if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
-    {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = (*(a2 + 1) - *a2) >> 3;
-      *__p = 136316418;
-      *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
-      _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
-      {
-        operator delete(v13[0]);
-      }
-    }
-
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
-    {
-      v7 = __p;
-    }
-
-    else
-    {
-      v7 = *__p;
-    }
-
-    AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, (*(a2 + 1) - *a2) >> 3, 32);
-    if (SHIBYTE(v18) < 0)
-    {
-      operator delete(*__p);
-    }
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-void sub_2961C9A1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-AriOsa *AriSdk::TlvArray<IBINetCdma1xCellInfo,1ul>::operator=(AriOsa *a1, __int128 *a2)
-{
-  v26 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 4) < 2)
-  {
-    v8 = *a1;
-    if (*a1)
-    {
-      *(a1 + 1) = v8;
-      operator delete(v8);
-      *a1 = 0;
-      *(a1 + 1) = 0;
-      *(a1 + 2) = 0;
-      v4 = *a2;
-    }
-
-    *a1 = v4;
-    *(a1 + 2) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
-  }
-
-  else if ((DefaultLogLevel & 8) != 0)
-  {
-    OsLog = AriOsa::GetOsLog(a1);
-    if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
-    {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 4);
-      *__p = 136316418;
-      *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
-      _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
-      {
-        operator delete(v13[0]);
-      }
-    }
-
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
-    {
-      v7 = __p;
-    }
-
-    else
-    {
-      v7 = *__p;
-    }
-
-    AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 4), 1);
-    if (SHIBYTE(v18) < 0)
-    {
-      operator delete(*__p);
-    }
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
 void sub_2961C9C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a22 < 0)
@@ -249,7 +10,7 @@ void sub_2961C9C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINetCdmaEvdoCellInfo,1ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if ((0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2)) < 2)
   {
@@ -276,30 +37,30 @@ AriOsa *AriSdk::TlvArray<IBINetCdmaEvdoCellInfo,1ul>::operator=(AriOsa *a1, __in
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 1;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -310,13 +71,12 @@ AriOsa *AriSdk::TlvArray<IBINetCdmaEvdoCellInfo,1ul>::operator=(AriOsa *a1, __in
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2), 1);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -332,7 +92,7 @@ void sub_2961C9EB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBICdma1xNeighborCellInfo,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (*(a2 + 1) - *a2 < 0x101uLL)
   {
@@ -359,30 +119,30 @@ AriOsa *AriSdk::TlvArray<IBICdma1xNeighborCellInfo,32ul>::operator=(AriOsa *a1, 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = (*(a2 + 1) - *a2) >> 3;
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = (*(a2 + 1) - *a2) >> 3;
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -393,13 +153,12 @@ AriOsa *AriSdk::TlvArray<IBICdma1xNeighborCellInfo,32ul>::operator=(AriOsa *a1, 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, (*(a2 + 1) - *a2) >> 3, 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -415,7 +174,7 @@ void sub_2961CA0D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBICdmaEvdoNeighborCellInfo,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 1) - *a2) >> 1) < 0x21)
   {
@@ -442,30 +201,30 @@ AriOsa *AriSdk::TlvArray<IBICdmaEvdoNeighborCellInfo,32ul>::operator=(AriOsa *a1
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 1) - *a2) >> 1);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 1) - *a2) >> 1);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -476,13 +235,12 @@ AriOsa *AriSdk::TlvArray<IBICdmaEvdoNeighborCellInfo,32ul>::operator=(AriOsa *a1
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 1) - *a2) >> 1), 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -498,7 +256,7 @@ void sub_2961CA324(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBILteCellInfoV1T,1ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2) < 2)
   {
@@ -525,30 +283,30 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoV1T,1ul>::operator=(AriOsa *a1, __int128 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 1;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -559,13 +317,12 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoV1T,1ul>::operator=(AriOsa *a1, __int128 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2), 1);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -581,7 +338,7 @@ void sub_2961CA570(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV1T,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 2) < 0x21)
   {
@@ -608,30 +365,30 @@ AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV1T,32ul>::operator=(AriOsa *a1, 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -642,13 +399,12 @@ AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV1T,32ul>::operator=(AriOsa *a1, 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 2), 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -664,7 +420,7 @@ void sub_2961CA7BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBILteCellInfoR15,1ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2) < 2)
   {
@@ -691,30 +447,30 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoR15,1ul>::operator=(AriOsa *a1, __int128 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 1;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -725,13 +481,12 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoR15,1ul>::operator=(AriOsa *a1, __int128 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x8E38E38E38E38E39 * ((*(a2 + 1) - *a2) >> 2), 1);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -747,7 +502,7 @@ void sub_2961CAA08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrCellInfoT,2ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if ((0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2)) < 3)
   {
@@ -774,30 +529,30 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT,2ul>::operator=(AriOsa *a1, __int128 *a2
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 2;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 2;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -808,13 +563,12 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT,2ul>::operator=(AriOsa *a1, __int128 *a2
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2), 2);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -830,7 +584,7 @@ void sub_2961CAC54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3) < 0x21)
   {
@@ -857,30 +611,30 @@ AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT,32ul>::operator=(AriOsa *a1, __i
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -891,13 +645,12 @@ AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT,32ul>::operator=(AriOsa *a1, __i
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3), 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -913,7 +666,7 @@ void sub_2961CAEA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBILteCellInfoR15_V2,1ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if ((0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2)) < 2)
   {
@@ -940,30 +693,30 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoR15_V2,1ul>::operator=(AriOsa *a1, __int1
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 1;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 1;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -974,13 +727,12 @@ AriOsa *AriSdk::TlvArray<IBILteCellInfoR15_V2,1ul>::operator=(AriOsa *a1, __int1
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0x4EC4EC4EC4EC4EC5 * ((*(a2 + 1) - *a2) >> 2), 1);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -996,7 +748,7 @@ void sub_2961CB0EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV2T,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3) < 0x21)
   {
@@ -1023,30 +775,30 @@ AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV2T,32ul>::operator=(AriOsa *a1, 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -1057,13 +809,12 @@ AriOsa *AriSdk::TlvArray<IBILteNeighborCellInfoV2T,32ul>::operator=(AriOsa *a1, 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 1) - *a2) >> 3), 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1079,7 +830,7 @@ void sub_2961CB338(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V2,2ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 1) - *a2) >> 2) < 3)
   {
@@ -1106,30 +857,30 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V2,2ul>::operator=(AriOsa *a1, __int128 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 2;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 2;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -1140,13 +891,12 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V2,2ul>::operator=(AriOsa *a1, __int128 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 1) - *a2) >> 2), 2);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1162,7 +912,7 @@ void sub_2961CB584(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT_V2,32ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (*(a2 + 1) - *a2 < 0x401uLL)
   {
@@ -1189,30 +939,30 @@ AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT_V2,32ul>::operator=(AriOsa *a1, 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = (*(a2 + 1) - *a2) >> 5;
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = (*(a2 + 1) - *a2) >> 5;
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 32;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 32;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -1223,13 +973,12 @@ AriOsa *AriSdk::TlvArray<IBINrNeighborCellInfoT_V2,32ul>::operator=(AriOsa *a1, 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, (*(a2 + 1) - *a2) >> 5, 32);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1245,7 +994,7 @@ void sub_2961CB7A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V3,2ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xF0F0F0F0F0F0F0F1 * ((*(a2 + 1) - *a2) >> 2) < 3)
   {
@@ -1272,30 +1021,30 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V3,2ul>::operator=(AriOsa *a1, __int128 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xF0F0F0F0F0F0F0F1 * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xF0F0F0F0F0F0F0F1 * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 2;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 2;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -1306,13 +1055,12 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V3,2ul>::operator=(AriOsa *a1, __int128 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xF0F0F0F0F0F0F0F1 * ((*(a2 + 1) - *a2) >> 2), 2);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1328,7 +1076,7 @@ void sub_2961CB9F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V4,2ul>::operator=(AriOsa *a1, __int128 *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (0xCF3CF3CF3CF3CF3DLL * ((*(a2 + 1) - *a2) >> 2) < 3)
   {
@@ -1355,30 +1103,30 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V4,2ul>::operator=(AriOsa *a1, __int128 
     OsLog = AriOsa::GetOsLog(a1);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", v13);
-      v11 = v14 >= 0 ? v13 : v13[0];
-      v12 = 0xCF3CF3CF3CF3CF3DLL * ((*(a2 + 1) - *a2) >> 2);
+      AriOsa::LogSrcInfo(v12, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+      v10 = v13 >= 0 ? v12 : v12[0];
+      v11 = 0xCF3CF3CF3CF3CF3DLL * ((*(a2 + 1) - *a2) >> 2);
       *__p = 136316418;
       *&__p[4] = "ari";
-      v16 = 2080;
-      v17 = v11;
-      v18 = 1024;
-      v19 = 360;
-      v20 = 2048;
-      v21 = a1;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = 2;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 1024;
+      v18 = 360;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2048;
+      v24 = 2;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-      if (v14 < 0)
+      if (v13 < 0)
       {
-        operator delete(v13[0]);
+        operator delete(v12[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=", __p);
-    if (v18 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_sdk_msg.h", "operator=");
+    if (v17 >= 0)
     {
       v7 = __p;
     }
@@ -1389,13 +1137,12 @@ AriOsa *AriSdk::TlvArray<IBINrCellInfoT_V4,2ul>::operator=(AriOsa *a1, __int128 
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v6, v7, 360, a1, 0xCF3CF3CF3CF3CF3DLL * ((*(a2 + 1) - *a2) >> 2), 2);
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v17) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -1411,14 +1158,14 @@ void sub_2961CBC40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK::ARI_IBINetGetCellInfoIndCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 629407744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25840000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 629407744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25840000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK::ARI_IBINetGetCellInfoIndCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK::ARI_IBINetGetCellInfoIndCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -1756,27 +1503,27 @@ uint64_t AriSdk::ARI_IBINetGetCellInfoIndCbV1_SDK::pack(AriSdk::ARI_IBINetGetCel
   return result;
 }
 
-void sub_2961CD4C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
+void sub_2961CD4C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C257E50](v10, v11);
+  MEMORY[0x29C257E50](v10, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 void AriSdk::ARI_IBINetGetCellInfoReq_SDK::ARI_IBINetGetCellInfoReq_SDK(AriSdk::ARI_IBINetGetCellInfoReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612597760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24838000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612597760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24838000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCellInfoReq_SDK::ARI_IBINetGetCellInfoReq_SDK(AriSdk::ARI_IBINetGetCellInfoReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCellInfoReq_SDK::ARI_IBINetGetCellInfoReq_SDK(AriSdk::ARI_IBINetGetCellInfoReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -1819,14 +1566,14 @@ uint64_t AriSdk::ARI_IBINetGetCellInfoReq_SDK::pack(AriSdk::ARI_IBINetGetCellInf
 
 void AriSdk::ARI_IBINetGetCellInfoRespCb_SDK::ARI_IBINetGetCellInfoRespCb_SDK(AriSdk::ARI_IBINetGetCellInfoRespCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 620986368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25038000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 620986368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25038000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCellInfoRespCb_SDK::ARI_IBINetGetCellInfoRespCb_SDK(AriSdk::ARI_IBINetGetCellInfoRespCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCellInfoRespCb_SDK::ARI_IBINetGetCellInfoRespCb_SDK(AriSdk::ARI_IBINetGetCellInfoRespCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -2461,27 +2208,27 @@ uint64_t AriSdk::ARI_IBINetGetCellInfoRespCb_SDK::pack(AriSdk::ARI_IBINetGetCell
   return result;
 }
 
-void sub_2961D0898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
+void sub_2961D0898(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C257E50](v10, v11);
+  MEMORY[0x29C257E50](v10, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 void AriSdk::ARI_IBINetGetCellInfoReqV1_SDK::ARI_IBINetGetCellInfoReqV1_SDK(AriSdk::ARI_IBINetGetCellInfoReqV1_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612663296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24848000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612663296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24848000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCellInfoReqV1_SDK::ARI_IBINetGetCellInfoReqV1_SDK(AriSdk::ARI_IBINetGetCellInfoReqV1_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCellInfoReqV1_SDK::ARI_IBINetGetCellInfoReqV1_SDK(AriSdk::ARI_IBINetGetCellInfoReqV1_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -2524,14 +2271,14 @@ uint64_t AriSdk::ARI_IBINetGetCellInfoReqV1_SDK::pack(AriSdk::ARI_IBINetGetCellI
 
 void AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK::ARI_IBINetGetCellInfoRespCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 621051904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25048000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 621051904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25048000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK::ARI_IBINetGetCellInfoRespCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK::ARI_IBINetGetCellInfoRespCbV1_SDK(AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -2880,27 +2627,27 @@ uint64_t AriSdk::ARI_IBINetGetCellInfoRespCbV1_SDK::pack(AriSdk::ARI_IBINetGetCe
   return result;
 }
 
-void sub_2961D2814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
+void sub_2961D2814(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C257E50](v10, v11);
+  MEMORY[0x29C257E50](v10, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 void AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK::ARI_IBINetGetCurrCellInfoReq_SDK(AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612630528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24840000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612630528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24840000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK::ARI_IBINetGetCurrCellInfoReq_SDK(AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK::ARI_IBINetGetCurrCellInfoReq_SDK(AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -2943,14 +2690,14 @@ uint64_t AriSdk::ARI_IBINetGetCurrCellInfoReq_SDK::pack(AriSdk::ARI_IBINetGetCur
 
 void AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK::ARI_IBINetGetCurrCellInfoRspCb_SDK(AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 621019136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25040000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 621019136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25040000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK::ARI_IBINetGetCurrCellInfoRspCb_SDK(AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK::ARI_IBINetGetCurrCellInfoRspCb_SDK(AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3125,14 +2872,14 @@ uint64_t AriSdk::ARI_IBINetGetCurrCellInfoRspCb_SDK::pack(AriSdk::ARI_IBINetGetC
 
 void AriSdk::ARI_IBINetGetEmergencyCellReq_SDK::ARI_IBINetGetEmergencyCellReq_SDK(AriSdk::ARI_IBINetGetEmergencyCellReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 613515264, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24918000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 613515264, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24918000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetEmergencyCellReq_SDK::ARI_IBINetGetEmergencyCellReq_SDK(AriSdk::ARI_IBINetGetEmergencyCellReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetEmergencyCellReq_SDK::ARI_IBINetGetEmergencyCellReq_SDK(AriSdk::ARI_IBINetGetEmergencyCellReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3197,14 +2944,14 @@ uint64_t AriSdk::ARI_IBINetGetEmergencyCellReq_SDK::pack(AriSdk::ARI_IBINetGetEm
 
 void AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK::ARI_IBINetGetEmergencyCellRspCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 621903872, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25118000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 621903872, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25118000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK::ARI_IBINetGetEmergencyCellRspCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK::ARI_IBINetGetEmergencyCellRspCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3258,14 +3005,14 @@ uint64_t AriSdk::ARI_IBINetGetEmergencyCellRspCb_SDK::pack(AriSdk::ARI_IBINetGet
 
 void AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK::ARI_IBINetGetEmergencyCellIndCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 630292480, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25918000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 630292480, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25918000u, 0);
 }
 
-void AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK::ARI_IBINetGetEmergencyCellIndCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK::ARI_IBINetGetEmergencyCellIndCb_SDK(AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3363,14 +3110,14 @@ uint64_t AriSdk::ARI_IBINetGetEmergencyCellIndCb_SDK::pack(AriSdk::ARI_IBINetGet
 
 void AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK::ARI_IBINetNasProcFailedImsRejectIndCb_SDK(AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 629702656, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25888000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 629702656, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25888000u, 0);
 }
 
-void AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK::ARI_IBINetNasProcFailedImsRejectIndCb_SDK(AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK::ARI_IBINetNasProcFailedImsRejectIndCb_SDK(AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3413,14 +3160,14 @@ uint64_t AriSdk::ARI_IBINetNasProcFailedImsRejectIndCb_SDK::pack(AriSdk::ARI_IBI
 
 void AriSdk::ARI_IBINetRadioConnectionStateReq_SDK::ARI_IBINetRadioConnectionStateReq_SDK(AriSdk::ARI_IBINetRadioConnectionStateReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 613711872, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24948000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 613711872, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24948000u, 0);
 }
 
-void AriSdk::ARI_IBINetRadioConnectionStateReq_SDK::ARI_IBINetRadioConnectionStateReq_SDK(AriSdk::ARI_IBINetRadioConnectionStateReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetRadioConnectionStateReq_SDK::ARI_IBINetRadioConnectionStateReq_SDK(AriSdk::ARI_IBINetRadioConnectionStateReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3463,14 +3210,14 @@ uint64_t AriSdk::ARI_IBINetRadioConnectionStateReq_SDK::pack(AriSdk::ARI_IBINetR
 
 void AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK::ARI_IBINetRadioConnectionStateRespCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 622100480, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25148000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 622100480, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25148000u, 0);
 }
 
-void AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK::ARI_IBINetRadioConnectionStateRespCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK::ARI_IBINetRadioConnectionStateRespCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3524,14 +3271,14 @@ uint64_t AriSdk::ARI_IBINetRadioConnectionStateRespCb_SDK::pack(AriSdk::ARI_IBIN
 
 void AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK::ARI_IBINetRadioConnectionStateIndCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 630489088, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25948000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 630489088, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25948000u, 0);
 }
 
-void AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK::ARI_IBINetRadioConnectionStateIndCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK::ARI_IBINetRadioConnectionStateIndCb_SDK(AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3596,14 +3343,14 @@ uint64_t AriSdk::ARI_IBINetRadioConnectionStateIndCb_SDK::pack(AriSdk::ARI_IBINe
 
 void AriSdk::ARI_IBINetRadioSignalIndCb_SDK::ARI_IBINetRadioSignalIndCb_SDK(AriSdk::ARI_IBINetRadioSignalIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 629276672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25820000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 629276672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25820000u, 0);
 }
 
-void AriSdk::ARI_IBINetRadioSignalIndCb_SDK::ARI_IBINetRadioSignalIndCb_SDK(AriSdk::ARI_IBINetRadioSignalIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetRadioSignalIndCb_SDK::ARI_IBINetRadioSignalIndCb_SDK(AriSdk::ARI_IBINetRadioSignalIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3756,14 +3503,14 @@ uint64_t AriSdk::ARI_IBINetRadioSignalIndCb_SDK::pack(AriSdk::ARI_IBINetRadioSig
 
 void AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK::ARI_IBINetRrcConnectionRejectIndCb_SDK(AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 630456320, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25940000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 630456320, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25940000u, 0);
 }
 
-void AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK::ARI_IBINetRrcConnectionRejectIndCb_SDK(AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK::ARI_IBINetRrcConnectionRejectIndCb_SDK(AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3817,14 +3564,14 @@ uint64_t AriSdk::ARI_IBINetRrcConnectionRejectIndCb_SDK::pack(AriSdk::ARI_IBINet
 
 void AriSdk::ARI_IBINetSetRadioSignalReporting_SDK::ARI_IBINetSetRadioSignalReporting_SDK(AriSdk::ARI_IBINetSetRadioSignalReporting_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612433920, 1);
+  AriSdk::MsgBase::MsgBase(this, 0x24810000u, 1);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612433920, 1);
+  AriSdk::MsgBase::MsgBase(this, 0x24810000u, 1);
 }
 
-void AriSdk::ARI_IBINetSetRadioSignalReporting_SDK::ARI_IBINetSetRadioSignalReporting_SDK(AriSdk::ARI_IBINetSetRadioSignalReporting_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetSetRadioSignalReporting_SDK::ARI_IBINetSetRadioSignalReporting_SDK(AriSdk::ARI_IBINetSetRadioSignalReporting_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -3878,14 +3625,14 @@ uint64_t AriSdk::ARI_IBINetSetRadioSignalReporting_SDK::pack(AriSdk::ARI_IBINetS
 
 void AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK::ARI_IBINetSetRadioSignalReportingConfiguration_SDK(AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612401152, 1);
+  AriSdk::MsgBase::MsgBase(this, 0x24808000u, 1);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612401152, 1);
+  AriSdk::MsgBase::MsgBase(this, 0x24808000u, 1);
 }
 
-void AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK::ARI_IBINetSetRadioSignalReportingConfiguration_SDK(AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK::ARI_IBINetSetRadioSignalReportingConfiguration_SDK(AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4005,14 +3752,14 @@ uint64_t AriSdk::ARI_IBINetSetRadioSignalReportingConfiguration_SDK::pack(AriSdk
 
 void AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK::ARI_IBINetSingleShotRadioSignalReportingReq_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 612466688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24818000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 612466688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24818000u, 0);
 }
 
-void AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK::ARI_IBINetSingleShotRadioSignalReportingReq_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK::ARI_IBINetSingleShotRadioSignalReportingReq_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4066,14 +3813,14 @@ uint64_t AriSdk::ARI_IBINetSingleShotRadioSignalReportingReq_SDK::pack(AriSdk::A
 
 void AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 620855296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25018000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 620855296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25018000u, 0);
 }
 
-void AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK(AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4193,14 +3940,14 @@ uint64_t AriSdk::ARI_IBINetSingleShotRadioSignalReportingRspCb_SDK::pack(AriSdk:
 
 void AriSdk::ARI_IBINetTimerInfoIndCb_SDK::ARI_IBINetTimerInfoIndCb_SDK(AriSdk::ARI_IBINetTimerInfoIndCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 630390784, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25930000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 630390784, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25930000u, 0);
 }
 
-void AriSdk::ARI_IBINetTimerInfoIndCb_SDK::ARI_IBINetTimerInfoIndCb_SDK(AriSdk::ARI_IBINetTimerInfoIndCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBINetTimerInfoIndCb_SDK::ARI_IBINetTimerInfoIndCb_SDK(AriSdk::ARI_IBINetTimerInfoIndCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4265,14 +4012,14 @@ uint64_t AriSdk::ARI_IBINetTimerInfoIndCb_SDK::pack(AriSdk::ARI_IBINetTimerInfoI
 
 void AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK::ARI_IBISetDeviceRegionCodeReq_SDK(AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 613613568, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24930000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 613613568, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x24930000u, 0);
 }
 
-void AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK::ARI_IBISetDeviceRegionCodeReq_SDK(AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK::ARI_IBISetDeviceRegionCodeReq_SDK(AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4338,11 +4085,11 @@ uint64_t AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK::pack(AriSdk::ARI_IBISetDevic
 void AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK::unpack(AriSdk::ARI_IBISetDeviceRegionCodeReq_SDK *this)
 {
   v2 = *MEMORY[0x29EDCA608];
-  LOBYTE(__p) = 0;
+  __p[0] = 0;
   operator new();
 }
 
-void sub_2961D8968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_2961D8968(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a28 < 0)
   {
@@ -4354,20 +4101,20 @@ void sub_2961D8968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a15);
   }
 
-  MEMORY[0x29C257E50](v29, v28);
+  MEMORY[0x29C257E50](v29, v28, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 void AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK::ARI_IBISetDeviceRegionCodeRspCb_SDK(AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, 622002176, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25130000u, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, 622002176, 0);
+  AriSdk::MsgBase::MsgBase(this, 0x25130000u, 0);
 }
 
-void AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK::ARI_IBISetDeviceRegionCodeRspCb_SDK(AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK::ARI_IBISetDeviceRegionCodeRspCb_SDK(AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -4408,7 +4155,7 @@ uint64_t AriSdk::ARI_IBISetDeviceRegionCodeRspCb_SDK::pack(AriSdk::ARI_IBISetDev
   return result;
 }
 
-void std::vector<IBIUmtsCellInfoT>::__init_with_size[abi:ne200100]<IBIUmtsCellInfoT*,IBIUmtsCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBIUmtsCellInfoT>::__init_with_size[abi:ne200100]<IBIUmtsCellInfoT*,IBIUmtsCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4428,7 +4175,7 @@ void sub_2961D8D4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBIGsmCellInfoT>::__init_with_size[abi:ne200100]<IBIGsmCellInfoT*,IBIGsmCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBIGsmCellInfoT>::__init_with_size[abi:ne200100]<IBIGsmCellInfoT*,IBIGsmCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4448,7 +4195,7 @@ void sub_2961D8DF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteCellInfoT>::__init_with_size[abi:ne200100]<IBILteCellInfoT*,IBILteCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteCellInfoT>::__init_with_size[abi:ne200100]<IBILteCellInfoT*,IBILteCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4468,7 +4215,7 @@ void sub_2961D8E9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBIUmtsNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBIUmtsNeighborCellInfoT*,IBIUmtsNeighborCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBIUmtsNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBIUmtsNeighborCellInfoT*,IBIUmtsNeighborCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4488,7 +4235,7 @@ void sub_2961D8F40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBIGsmNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBIGsmNeighborCellInfoT*,IBIGsmNeighborCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBIGsmNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBIGsmNeighborCellInfoT*,IBIGsmNeighborCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4508,7 +4255,7 @@ void sub_2961D8FE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoT*,IBILteNeighborCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoT*,IBILteNeighborCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4528,7 +4275,7 @@ void sub_2961D9088(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBITdsCellInfoT>::__init_with_size[abi:ne200100]<IBITdsCellInfoT*,IBITdsCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBITdsCellInfoT>::__init_with_size[abi:ne200100]<IBITdsCellInfoT*,IBITdsCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4548,7 +4295,7 @@ void sub_2961D9134(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBITdsNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBITdsNeighborCellInfoT*,IBITdsNeighborCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBITdsNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBITdsNeighborCellInfoT*,IBITdsNeighborCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4568,7 +4315,7 @@ void sub_2961D91D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINetCdma1xCellInfo>::__init_with_size[abi:ne200100]<IBINetCdma1xCellInfo*,IBINetCdma1xCellInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINetCdma1xCellInfo>::__init_with_size[abi:ne200100]<IBINetCdma1xCellInfo*,IBINetCdma1xCellInfo*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4588,7 +4335,7 @@ void sub_2961D9284(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINetCdmaEvdoCellInfo>::__init_with_size[abi:ne200100]<IBINetCdmaEvdoCellInfo*,IBINetCdmaEvdoCellInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINetCdmaEvdoCellInfo>::__init_with_size[abi:ne200100]<IBINetCdmaEvdoCellInfo*,IBINetCdmaEvdoCellInfo*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4608,7 +4355,7 @@ void sub_2961D9330(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBICdma1xNeighborCellInfo>::__init_with_size[abi:ne200100]<IBICdma1xNeighborCellInfo*,IBICdma1xNeighborCellInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBICdma1xNeighborCellInfo>::__init_with_size[abi:ne200100]<IBICdma1xNeighborCellInfo*,IBICdma1xNeighborCellInfo*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4628,7 +4375,7 @@ void sub_2961D93D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBICdmaEvdoNeighborCellInfo>::__init_with_size[abi:ne200100]<IBICdmaEvdoNeighborCellInfo*,IBICdmaEvdoNeighborCellInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBICdmaEvdoNeighborCellInfo>::__init_with_size[abi:ne200100]<IBICdmaEvdoNeighborCellInfo*,IBICdmaEvdoNeighborCellInfo*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4648,7 +4395,7 @@ void sub_2961D9480(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteCellInfoV1T>::__init_with_size[abi:ne200100]<IBILteCellInfoV1T*,IBILteCellInfoV1T*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteCellInfoV1T>::__init_with_size[abi:ne200100]<IBILteCellInfoV1T*,IBILteCellInfoV1T*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4668,7 +4415,7 @@ void sub_2961D952C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteNeighborCellInfoV1T>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoV1T*,IBILteNeighborCellInfoV1T*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteNeighborCellInfoV1T>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoV1T*,IBILteNeighborCellInfoV1T*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4688,7 +4435,7 @@ void sub_2961D95D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteCellInfoR15>::__init_with_size[abi:ne200100]<IBILteCellInfoR15*,IBILteCellInfoR15*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteCellInfoR15>::__init_with_size[abi:ne200100]<IBILteCellInfoR15*,IBILteCellInfoR15*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4708,7 +4455,7 @@ void sub_2961D9684(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrCellInfoT>::__init_with_size[abi:ne200100]<IBINrCellInfoT*,IBINrCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrCellInfoT>::__init_with_size[abi:ne200100]<IBINrCellInfoT*,IBINrCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4728,7 +4475,7 @@ void sub_2961D9730(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBINrNeighborCellInfoT*,IBINrNeighborCellInfoT*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrNeighborCellInfoT>::__init_with_size[abi:ne200100]<IBINrNeighborCellInfoT*,IBINrNeighborCellInfoT*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4748,7 +4495,7 @@ void sub_2961D97DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteCellInfoR15_V2>::__init_with_size[abi:ne200100]<IBILteCellInfoR15_V2*,IBILteCellInfoR15_V2*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteCellInfoR15_V2>::__init_with_size[abi:ne200100]<IBILteCellInfoR15_V2*,IBILteCellInfoR15_V2*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4768,7 +4515,7 @@ void sub_2961D9888(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBILteNeighborCellInfoV2T>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoV2T*,IBILteNeighborCellInfoV2T*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBILteNeighborCellInfoV2T>::__init_with_size[abi:ne200100]<IBILteNeighborCellInfoV2T*,IBILteNeighborCellInfoV2T*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4788,7 +4535,7 @@ void sub_2961D9934(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrCellInfoT_V2>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V2*,IBINrCellInfoT_V2*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrCellInfoT_V2>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V2*,IBINrCellInfoT_V2*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4808,7 +4555,7 @@ void sub_2961D99E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrNeighborCellInfoT_V2>::__init_with_size[abi:ne200100]<IBINrNeighborCellInfoT_V2*,IBINrNeighborCellInfoT_V2*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrNeighborCellInfoT_V2>::__init_with_size[abi:ne200100]<IBINrNeighborCellInfoT_V2*,IBINrNeighborCellInfoT_V2*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4828,7 +4575,7 @@ void sub_2961D9A84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrCellInfoT_V3>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V3*,IBINrCellInfoT_V3*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrCellInfoT_V3>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V3*,IBINrCellInfoT_V3*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4848,7 +4595,7 @@ void sub_2961D9B30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IBINrCellInfoT_V4>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V4*,IBINrCellInfoT_V4*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<IBINrCellInfoT_V4>::__init_with_size[abi:ne200100]<IBINrCellInfoT_V4*,IBINrCellInfoT_V4*>(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4875,7 +4622,7 @@ void sub_2961D9CE8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Ari::ClientOutboundMessage::ClientOutboundMessage(Ari::ClientOutboundMessage *this, unsigned __int8 *a2)
+void Ari::ClientOutboundMessage::ClientOutboundMessage(Ari::ClientOutboundMessage *this, unsigned __int8 *a2, int a3, int a4)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -4912,12 +4659,9 @@ void Ari::ClientOutboundMessage::~ClientOutboundMessage(Ari::ClientOutboundMessa
 
 uint64_t Ari::ClientOutboundMessage::flush(Ari::ClientOutboundMessage *this)
 {
-  v2 = *(AriHost::GetInstance(this) + 608);
-  v3 = *(*(this + 2) + 8) - **(this + 2);
-  v4 = *(this + 10);
-  v5 = *(*v2 + 40);
+  v1 = *(**(AriHost::GetInstance(this) + 608) + 40);
 
-  return v5();
+  return v1();
 }
 
 BOOL Ari::ClientOutboundMessage::isLowPriority(Ari::ClientOutboundMessage *this)
@@ -4974,57 +4718,57 @@ uint64_t Ari::ClientWorkQueue::ClientWorkQueue(uint64_t a1, __int128 *a2, char a
 
 void Ari::ClientWorkQueue::~ClientWorkQueue(void **this)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (this[5] && (DefaultLogLevel & 8) != 0)
   {
     OsLog = AriOsa::GetOsLog(this);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "~ClientWorkQueue", v12);
-      v8 = v12[0];
-      if (v13 >= 0)
+      AriOsa::LogSrcInfo(v11, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "~ClientWorkQueue");
+      v7 = v11[0];
+      if (v12 >= 0)
       {
-        v8 = v12;
+        v7 = v11;
       }
 
-      v9 = this + 7;
+      v8 = this + 7;
       if (*(this + 79) < 0)
       {
-        v9 = *v9;
+        v8 = *v8;
       }
 
       if (*(this + 48))
       {
-        v10 = "stalled";
+        v9 = "stalled";
       }
 
       else
       {
-        v10 = "not stalled";
+        v9 = "not stalled";
       }
 
-      v11 = this[5];
+      v10 = this[5];
       *__p = 136316418;
       *&__p[4] = "ari";
-      v15 = 2080;
-      v16 = v8;
-      v17 = 1024;
-      v18 = 104;
-      v19 = 2080;
-      v20 = v9;
-      v21 = 2080;
-      v22 = v10;
-      v23 = 1024;
-      v24 = v11;
+      v14 = 2080;
+      v15 = v7;
+      v16 = 1024;
+      v17 = 104;
+      v18 = 2080;
+      v19 = v8;
+      v20 = 2080;
+      v21 = v9;
+      v22 = 1024;
+      v23 = v10;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Destroying non-empty AriHost [%s] (%s)! %u items remain", __p, 0x36u);
-      if (v13 < 0)
+      if (v12 < 0)
       {
-        operator delete(v12[0]);
+        operator delete(v11[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "~ClientWorkQueue", __p);
-    if (v17 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "~ClientWorkQueue");
+    if (v16 >= 0)
     {
       v4 = __p;
     }
@@ -5051,7 +4795,7 @@ void Ari::ClientWorkQueue::~ClientWorkQueue(void **this)
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Destroying non-empty AriHost [%s] (%s)! %u items remain", v3, v4, 104, v5, v6, this[5]);
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v16) < 0)
     {
       operator delete(*__p);
     }
@@ -5063,7 +4807,6 @@ void Ari::ClientWorkQueue::~ClientWorkQueue(void **this)
   }
 
   std::deque<std::shared_ptr<Ari::ClientOutboundMessage>>::~deque[abi:ne200100](this);
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2961DA1C4(_Unwind_Exception *a1, int a2)
@@ -5078,7 +4821,7 @@ void sub_2961DA1C4(_Unwind_Exception *a1, int a2)
 
 uint64_t Ari::ClientWorkQueue::add(uint64_t a1, Ari::ClientOutboundMessage **a2)
 {
-  v55 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 48);
   v4 = *a2;
   if (v3 == 1)
@@ -5092,13 +4835,13 @@ uint64_t Ari::ClientWorkQueue::add(uint64_t a1, Ari::ClientOutboundMessage **a2)
         OsLog = AriOsa::GetOsLog(v6);
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
-          AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add", v44);
-          v8 = v45;
-          v9 = v44[0];
-          GetBufDigest(**(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)), __p);
+          AriOsa::LogSrcInfo(&v40, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add");
+          v8 = SHIBYTE(v40.__r_.__value_.__r.__words[2]);
+          v9 = v40.__r_.__value_.__r.__words[0];
+          GetBufDigest(&__p, **(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)));
           if (v8 >= 0)
           {
-            v10 = v44;
+            v10 = &v40;
           }
 
           else
@@ -5106,10 +4849,10 @@ uint64_t Ari::ClientWorkQueue::add(uint64_t a1, Ari::ClientOutboundMessage **a2)
             v10 = v9;
           }
 
-          v11 = __p[0];
-          if (v43 >= 0)
+          p_p = __p.__r_.__value_.__r.__words[0];
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v11 = __p;
+            p_p = &__p;
           }
 
           v12 = (a1 + 56);
@@ -5120,42 +4863,42 @@ uint64_t Ari::ClientWorkQueue::add(uint64_t a1, Ari::ClientOutboundMessage **a2)
 
           *buf = 136316162;
           *&buf[4] = "ari";
-          v47 = 2080;
-          v48 = v10;
-          v49 = 1024;
-          v50 = 120;
-          v51 = 2080;
-          v52 = v11;
-          v53 = 2080;
-          v54 = v12;
+          v42 = 2080;
+          v43 = v10;
+          v44 = 1024;
+          v45 = 120;
+          v46 = 2080;
+          v47 = p_p;
+          v48 = 2080;
+          v49 = v12;
           _os_log_impl(&dword_296048000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) REQ(%s) not allowed during stall [%s]", buf, 0x30u);
-          if (v43 < 0)
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(__p[0]);
+            operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (v45 < 0)
+          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v44[0]);
+            operator delete(v40.__r_.__value_.__l.__data_);
           }
         }
 
         v13 = buf;
-        AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add", buf);
-        if (v49 < 0)
+        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add");
+        if (v44 < 0)
         {
           v13 = *buf;
         }
 
-        GetBufDigest(**(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)), v44);
-        if (v45 >= 0)
+        GetBufDigest(&v40, **(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)));
+        if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v15 = v44;
+          v15 = &v40;
         }
 
         else
         {
-          v15 = v44[0];
+          v15 = v40.__r_.__value_.__r.__words[0];
         }
 
         v16 = (a1 + 56);
@@ -5165,184 +4908,178 @@ uint64_t Ari::ClientWorkQueue::add(uint64_t a1, Ari::ClientOutboundMessage **a2)
         }
 
         AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) REQ(%s) not allowed during stall [%s]", v14, v13, 120, v15, v16);
-        if (v45 < 0)
+        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v44[0]);
+          operator delete(v40.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v49) < 0)
+        if (SHIBYTE(v44) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      result = 0xFFFFFFFFLL;
+      return 0xFFFFFFFFLL;
     }
 
     else
     {
+      v18 = *(a1 + 16);
       v19 = *(a1 + 8);
-      v20 = *(a1 + 16);
-      v21 = *(a1 + 8);
-      if (v20 == v21)
+      if (v18 == v19)
       {
-        v22 = 0;
+        v20 = 0;
       }
 
       else
       {
-        v22 = 32 * (v20 - v21) - 1;
+        v20 = 32 * (v18 - v19) - 1;
       }
 
-      v24 = *(a1 + 32);
-      v23 = *(a1 + 40);
-      v25 = v23 + v24;
-      if (v22 == v23 + v24)
+      v22 = *(a1 + 32);
+      v21 = *(a1 + 40);
+      v23 = v21 + v22;
+      if (v20 == v21 + v22)
       {
-        if (v24 < 0x100)
+        if (v22 < 0x100)
         {
-          v26 = *(a1 + 24);
-          v27 = v26 - *a1;
-          if (v20 - v21 < v27)
+          v24 = *(a1 + 24);
+          v25 = v24 - *a1;
+          if (v18 - v19 < v25)
           {
             operator new();
           }
 
-          v28 = v27 >> 2;
-          if (v26 == *a1)
+          v26 = v25 >> 2;
+          if (v24 == *a1)
           {
-            v29 = 1;
+            v27 = 1;
           }
 
           else
           {
-            v29 = v28;
+            v27 = v26;
           }
 
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>(v29);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>(v27);
         }
 
-        *(a1 + 32) = v24 - 256;
-        *buf = *v21;
-        *(a1 + 8) = v21 + 8;
-        v6 = std::__split_buffer<std::shared_ptr<Ari::ClientOutboundMessage> *,std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>::emplace_back<std::shared_ptr<Ari::ClientOutboundMessage> *&>(a1, buf);
-        v21 = *(a1 + 8);
-        v23 = *(a1 + 40);
-        v25 = v23 + *(a1 + 32);
+        *(a1 + 32) = v22 - 256;
+        *buf = *v19;
+        *(a1 + 8) = v19 + 8;
+        std::__split_buffer<std::shared_ptr<Ari::ClientOutboundMessage> *,std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>::emplace_back<std::shared_ptr<Ari::ClientOutboundMessage> *&>(a1, buf);
+        v19 = *(a1 + 8);
+        v21 = *(a1 + 40);
+        v23 = v21 + *(a1 + 32);
       }
 
-      v30 = *a2;
-      *(*&v21[(v25 >> 5) & 0x7FFFFFFFFFFFFF8] + 16 * v25) = *a2;
-      if (*(&v30 + 1))
+      v28 = *a2;
+      *(*&v19[(v23 >> 5) & 0x7FFFFFFFFFFFFF8] + 16 * v23) = *a2;
+      if (*(&v28 + 1))
       {
-        atomic_fetch_add_explicit((*(&v30 + 1) + 8), 1uLL, memory_order_relaxed);
-        v23 = *(a1 + 40);
+        atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
+        v21 = *(a1 + 40);
       }
 
-      *(a1 + 40) = v23 + 1;
+      *(a1 + 40) = v21 + 1;
       if ((DefaultLogLevel & 0x20) != 0)
       {
-        v31 = AriOsa::GetOsLog(v6);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v29 = AriOsa::GetOsLog(v6);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add", v44);
-          v32 = v45;
-          v33 = v44[0];
-          GetBufDigest(**(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)), __p);
-          if (v32 >= 0)
+          AriOsa::LogSrcInfo(&v40, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add");
+          v30 = SHIBYTE(v40.__r_.__value_.__r.__words[2]);
+          v31 = v40.__r_.__value_.__r.__words[0];
+          GetBufDigest(&__p, **(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)));
+          if (v30 >= 0)
           {
-            v34 = v44;
+            v32 = &v40;
           }
 
           else
           {
-            v34 = v33;
+            v32 = v31;
           }
 
-          v35 = __p[0];
-          if (v43 >= 0)
+          v33 = __p.__r_.__value_.__r.__words[0];
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v35 = __p;
+            v33 = &__p;
           }
 
-          v36 = (a1 + 56);
+          v34 = (a1 + 56);
           if (*(a1 + 79) < 0)
           {
-            v36 = *v36;
+            v34 = *v34;
           }
 
           *buf = 136316162;
           *&buf[4] = "ari";
-          v47 = 2080;
-          v48 = v34;
-          v49 = 1024;
-          v50 = 115;
-          v51 = 2080;
-          v52 = v35;
-          v53 = 2080;
-          v54 = v36;
-          _os_log_impl(&dword_296048000, v31, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) REQ(%s) added in [%s]", buf, 0x30u);
-          if (v43 < 0)
+          v42 = 2080;
+          v43 = v32;
+          v44 = 1024;
+          v45 = 115;
+          v46 = 2080;
+          v47 = v33;
+          v48 = 2080;
+          v49 = v34;
+          _os_log_impl(&dword_296048000, v29, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) REQ(%s) added in [%s]", buf, 0x30u);
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(__p[0]);
+            operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (v45 < 0)
+          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v44[0]);
+            operator delete(v40.__r_.__value_.__l.__data_);
           }
         }
 
-        v37 = buf;
-        AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add", buf);
-        if (v49 < 0)
+        v35 = buf;
+        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "add");
+        if (v44 < 0)
         {
-          v37 = *buf;
+          v35 = *buf;
         }
 
-        GetBufDigest(**(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)), v44);
-        if (v45 >= 0)
+        GetBufDigest(&v40, **(*a2 + 2), 0, (*(*(*a2 + 2) + 8) - **(*a2 + 2)));
+        if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v39 = v44;
+          v37 = &v40;
         }
 
         else
         {
-          v39 = v44[0];
+          v37 = v40.__r_.__value_.__r.__words[0];
         }
 
-        v40 = (a1 + 56);
+        v38 = (a1 + 56);
         if (*(a1 + 79) < 0)
         {
-          v40 = *v40;
+          v38 = *v38;
         }
 
-        AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) REQ(%s) added in [%s]", v38, v37, 115, v39, v40);
-        if (v45 < 0)
+        AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) REQ(%s) added in [%s]", v36, v35, 115, v37, v38);
+        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v44[0]);
+          operator delete(v40.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v49) < 0)
+        if (SHIBYTE(v44) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      result = 0;
+      return 0;
     }
-
-    v41 = *MEMORY[0x29EDCA608];
   }
 
   else
   {
-    v18 = *MEMORY[0x29EDCA608];
 
     return Ari::ClientOutboundMessage::flush(v4);
   }
-
-  return result;
 }
 
 void sub_2961DAA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -5358,7 +5095,7 @@ void sub_2961DAA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t Ari::ClientWorkQueue::flush(Ari::ClientWorkQueue *this)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (v2)
   {
@@ -5367,9 +5104,9 @@ uint64_t Ari::ClientWorkQueue::flush(Ari::ClientWorkQueue *this)
       OsLog = AriOsa::GetOsLog(this);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
       {
-        AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "flush", __p);
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "flush");
         v4 = __p[0];
-        if (v29 >= 0)
+        if (v28 >= 0)
         {
           v4 = __p;
         }
@@ -5382,23 +5119,23 @@ uint64_t Ari::ClientWorkQueue::flush(Ari::ClientWorkQueue *this)
 
         *buf = 136316162;
         *&buf[4] = "ari";
-        v31 = 2080;
-        v32 = v4;
-        v33 = 1024;
-        v34 = 139;
-        v35 = 2048;
-        v36 = v2;
-        v37 = 2080;
-        v38 = v5;
+        v30 = 2080;
+        v31 = v4;
+        v32 = 1024;
+        v33 = 139;
+        v34 = 2048;
+        v35 = v2;
+        v36 = 2080;
+        v37 = v5;
         _os_log_impl(&dword_296048000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) flushing %zu items [%s]", buf, 0x30u);
-        if (v29 < 0)
+        if (v28 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "flush", buf);
-      if (v33 >= 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "flush");
+      if (v32 >= 0)
       {
         v7 = buf;
       }
@@ -5415,7 +5152,7 @@ uint64_t Ari::ClientWorkQueue::flush(Ari::ClientWorkQueue *this)
       }
 
       AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) flushing %zu items [%s]", v6, v7, 139, v2, v8);
-      if (SHIBYTE(v33) < 0)
+      if (SHIBYTE(v32) < 0)
       {
         operator delete(*buf);
       }
@@ -5519,7 +5256,6 @@ LABEL_38:
   }
 
   *(this + 48) = 0;
-  v26 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -5535,7 +5271,7 @@ void sub_2961DADE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t Ari::ClientWorkQueue::cancel(Ari::ClientWorkQueue *this)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (v2)
   {
@@ -5544,9 +5280,9 @@ uint64_t Ari::ClientWorkQueue::cancel(Ari::ClientWorkQueue *this)
       OsLog = AriOsa::GetOsLog(this);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
       {
-        AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "cancel", __p);
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "cancel");
         v4 = __p[0];
-        if (v29 >= 0)
+        if (v28 >= 0)
         {
           v4 = __p;
         }
@@ -5559,23 +5295,23 @@ uint64_t Ari::ClientWorkQueue::cancel(Ari::ClientWorkQueue *this)
 
         *buf = 136316162;
         *&buf[4] = "ari";
-        v31 = 2080;
-        v32 = v4;
-        v33 = 1024;
-        v34 = 154;
-        v35 = 2048;
-        v36 = v2;
-        v37 = 2080;
-        v38 = v5;
+        v30 = 2080;
+        v31 = v4;
+        v32 = 1024;
+        v33 = 154;
+        v34 = 2048;
+        v35 = v2;
+        v36 = 2080;
+        v37 = v5;
         _os_log_impl(&dword_296048000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) cancelling %zu items [%s]", buf, 0x30u);
-        if (v29 < 0)
+        if (v28 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "cancel", buf);
-      if (v33 >= 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "cancel");
+      if (v32 >= 0)
       {
         v7 = buf;
       }
@@ -5592,7 +5328,7 @@ uint64_t Ari::ClientWorkQueue::cancel(Ari::ClientWorkQueue *this)
       }
 
       AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) cancelling %zu items [%s]", v6, v7, 154, v2, v8);
-      if (SHIBYTE(v33) < 0)
+      if (SHIBYTE(v32) < 0)
       {
         operator delete(*buf);
       }
@@ -5696,7 +5432,6 @@ LABEL_38:
   }
 
   *(this + 48) = 1;
-  v26 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -5712,9 +5447,9 @@ void sub_2961DB0F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t Ari::ClientWorkQueue::abort(Ari::ClientWorkQueue *this, int a2)
 {
-  v87 = *MEMORY[0x29EDCA608];
-  v76 = *(this + 5);
-  if (v76)
+  v84 = *MEMORY[0x29EDCA608];
+  v75 = *(this + 5);
+  if (v75)
   {
     v3 = this;
     v4 = *(this + 4);
@@ -5751,20 +5486,20 @@ LABEL_6:
           OsLog = AriOsa::GetOsLog(this);
           if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
           {
-            AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort", v79);
-            v15 = v80;
-            v16 = v79[0];
-            GetBufDigest(**(*v8 + 16), 0, (*(*(*v8 + 16) + 8) - **(*v8 + 16)), __p);
-            v17 = v79;
+            AriOsa::LogSrcInfo(&v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort");
+            v15 = SHIBYTE(v77.__r_.__value_.__r.__words[2]);
+            v16 = v77.__r_.__value_.__r.__words[0];
+            GetBufDigest(&__p, **(*v8 + 16), 0, (*(*(*v8 + 16) + 8) - **(*v8 + 16)));
+            v17 = &v77;
             if (v15 < 0)
             {
               v17 = v16;
             }
 
-            v18 = __p;
-            if (v78 < 0)
+            p_p = &__p;
+            if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v18 = __p[0];
+              p_p = __p.__r_.__value_.__r.__words[0];
             }
 
             *buf = 136315906;
@@ -5772,45 +5507,45 @@ LABEL_6:
             *&buf[12] = 2080;
             *&buf[14] = v17;
             *&buf[22] = 1024;
-            v82 = 177;
-            v83 = 2080;
-            v84 = v18;
+            v79 = 177;
+            v80 = 2080;
+            v81 = p_p;
             _os_log_impl(&dword_296048000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) aborting %s", buf, 0x26u);
-            if (v78 < 0)
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(__p[0]);
+              operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (v80 < 0)
+            if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v79[0]);
+              operator delete(v77.__r_.__value_.__l.__data_);
             }
           }
 
-          AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort", buf);
+          AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort");
           v19 = buf[23];
           v20 = *buf;
-          GetBufDigest(**(*v8 + 16), 0, (*(*(*v8 + 16) + 8) - **(*v8 + 16)), v79);
+          GetBufDigest(&v77, **(*v8 + 16), 0, (*(*(*v8 + 16) + 8) - **(*v8 + 16)));
           v22 = buf;
           if (v19 < 0)
           {
             v22 = v20;
           }
 
-          if (v80 >= 0)
+          if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v23 = v79;
+            v23 = &v77;
           }
 
           else
           {
-            v23 = v79[0];
+            v23 = v77.__r_.__value_.__r.__words[0];
           }
 
           AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) aborting %s", v21, v22, 177, v23);
-          if (v80 < 0)
+          if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v79[0]);
+            operator delete(v77.__r_.__value_.__l.__data_);
           }
 
           if (buf[23] < 0)
@@ -5836,7 +5571,7 @@ LABEL_6:
           v27 = *v26 + 16 * v24;
         }
 
-        v75 = v3[1].i64[0];
+        v74 = v3[1].i64[0];
         if (v27 + v10)
         {
           v28 = (-(*v7 + v10) >> 4) + 32 * (v7 - v26) - ((v27 - *v26) >> 4);
@@ -5935,7 +5670,7 @@ LABEL_6:
           v43 = &(*v37)[v36];
           v44 = v33 + v24;
           v45 = (v25 + 8 * (v44 >> 8));
-          if (v75 == v25)
+          if (v74 == v25)
           {
             v46 = 0;
           }
@@ -6036,18 +5771,18 @@ LABEL_6:
       v66 = AriOsa::GetOsLog(this);
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort", v79);
-        if (v80 >= 0)
+        AriOsa::LogSrcInfo(&v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort");
+        if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v67 = v79;
+          v67 = &v77;
         }
 
         else
         {
-          v67 = v79[0];
+          v67 = v77.__r_.__value_.__r.__words[0];
         }
 
-        v68 = (v76 - v3[2].i64[1]);
+        v68 = (v75 - v3[2].i64[1]);
         v69 = &v3[3].i64[1];
         if (v3[4].i8[15] < 0)
         {
@@ -6059,19 +5794,19 @@ LABEL_6:
         *&buf[12] = 2080;
         *&buf[14] = v67;
         *&buf[22] = 1024;
-        v82 = 186;
-        v83 = 2048;
-        v84 = v68;
-        v85 = 2080;
-        v86 = v69;
+        v79 = 186;
+        v80 = 2048;
+        v81 = v68;
+        v82 = 2080;
+        v83 = v69;
         _os_log_impl(&dword_296048000, v66, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) aborted %zu items [%s]", buf, 0x30u);
-        if (v80 < 0)
+        if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v79[0]);
+          operator delete(v77.__r_.__value_.__l.__data_);
         }
       }
 
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort", buf);
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "abort");
       if ((buf[23] & 0x80u) == 0)
       {
         v71 = buf;
@@ -6088,7 +5823,7 @@ LABEL_6:
         v72 = *v72;
       }
 
-      AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) aborted %zu items [%s]", v70, v71, 186, v76 - v3[2].i64[1], v72);
+      AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) aborted %zu items [%s]", v70, v71, 186, v75 - v3[2].i64[1], v72);
       if (buf[23] < 0)
       {
         operator delete(*buf);
@@ -6096,7 +5831,6 @@ LABEL_6:
     }
   }
 
-  v73 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -6112,44 +5846,44 @@ void sub_2961DB854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL Ari::ClientWorkQueue::containsCtx(Ari::ClientWorkQueue *this, uint64_t a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if ((*(this + 48) & 1) == 0 && (DefaultLogLevel & 8) != 0)
   {
     OsLog = AriOsa::GetOsLog(this);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "containsCtx", v22);
-      v20 = v22[0];
-      if (v23 >= 0)
+      AriOsa::LogSrcInfo(v21, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "containsCtx");
+      v19 = v21[0];
+      if (v22 >= 0)
       {
-        v20 = v22;
+        v19 = v21;
       }
 
-      v21 = (this + 56);
+      v20 = (this + 56);
       if (*(this + 79) < 0)
       {
-        v21 = *v21;
+        v20 = *v20;
       }
 
       *__p = 136316162;
       *&__p[4] = "ari";
-      v25 = 2080;
-      v26 = v20;
-      v27 = 1024;
-      v28 = 194;
-      v29 = 1024;
-      v30 = a2;
-      v31 = 2080;
-      v32 = v21;
+      v24 = 2080;
+      v25 = v19;
+      v26 = 1024;
+      v27 = 194;
+      v28 = 1024;
+      v29 = a2;
+      v30 = 2080;
+      v31 = v20;
       _os_log_error_impl(&dword_296048000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Checking for item 0x%x in queue when not stalled! [%s]", __p, 0x2Cu);
-      if (v23 < 0)
+      if (v22 < 0)
       {
-        operator delete(v22[0]);
+        operator delete(v21[0]);
       }
     }
 
-    AriOsa::LogSrcInfo("/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "containsCtx", __p);
-    if (v27 >= 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_queue.cpp", "containsCtx");
+    if (v26 >= 0)
     {
       v6 = __p;
     }
@@ -6166,7 +5900,7 @@ BOOL Ari::ClientWorkQueue::containsCtx(Ari::ClientWorkQueue *this, uint64_t a2)
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Checking for item 0x%x in queue when not stalled! [%s]", v5, v6, 194, a2, v7);
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*__p);
     }
@@ -6197,7 +5931,7 @@ BOOL Ari::ClientWorkQueue::containsCtx(Ari::ClientWorkQueue *this, uint64_t a2)
         std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         if (v16 == a2)
         {
-          goto LABEL_22;
+          return v10 != v13;
         }
 
         v12 = *v11;
@@ -6205,7 +5939,7 @@ BOOL Ari::ClientWorkQueue::containsCtx(Ari::ClientWorkQueue *this, uint64_t a2)
 
       else if (*(v15 + 32) == a2)
       {
-        goto LABEL_22;
+        return v10 != v13;
       }
 
       v13 += 16;
@@ -6221,10 +5955,7 @@ BOOL Ari::ClientWorkQueue::containsCtx(Ari::ClientWorkQueue *this, uint64_t a2)
     v13 = v10;
   }
 
-LABEL_22:
-  result = v10 != v13;
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return v10 != v13;
 }
 
 void sub_2961DBB04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -6352,24 +6083,23 @@ LABEL_19:
   return a1;
 }
 
-void *std::__split_buffer<std::shared_ptr<Ari::ClientOutboundMessage> *,std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>::emplace_back<std::shared_ptr<Ari::ClientOutboundMessage> *&>(void *result, void *a2)
+void std::__split_buffer<std::shared_ptr<Ari::ClientOutboundMessage> *,std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>::emplace_back<std::shared_ptr<Ari::ClientOutboundMessage> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>(v11);
@@ -6381,18 +6111,17 @@ void *std::__split_buffer<std::shared_ptr<Ari::ClientOutboundMessage> *,std::all
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<Ari::ClientOutboundMessage> *>>(unint64_t a1)
@@ -6405,7 +6134,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<Ari::
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::__deque_iterator<std::shared_ptr<Ari::ClientOutboundMessage>,std::shared_ptr<Ari::ClientOutboundMessage>*,std::shared_ptr<Ari::ClientOutboundMessage>&,std::shared_ptr<Ari::ClientOutboundMessage>**,long,256l>::operator+[abi:ne200100](uint64_t *result, uint64_t a2, uint64_t a3)
+void *std::__deque_iterator<std::shared_ptr<Ari::ClientOutboundMessage>,std::shared_ptr<Ari::ClientOutboundMessage>*,std::shared_ptr<Ari::ClientOutboundMessage>&,std::shared_ptr<Ari::ClientOutboundMessage>**,long,256l>::operator+[abi:ne200100](void *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -6413,20 +6142,18 @@ uint64_t *std::__deque_iterator<std::shared_ptr<Ari::ClientOutboundMessage>,std:
     if (v3 < 1)
     {
       result -= (255 - v3) >> 8;
-      v5 = *result;
     }
 
     else
     {
       result += v3 >> 8;
-      v4 = *result;
     }
   }
 
   return result;
 }
 
-void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<Ari::ClientOutboundMessage> *,std::__deque_iterator<std::shared_ptr<Ari::ClientOutboundMessage>,std::shared_ptr<Ari::ClientOutboundMessage> *,std::shared_ptr<Ari::ClientOutboundMessage>&,std::shared_ptr<Ari::ClientOutboundMessage> **,long,256l>,0>(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<Ari::ClientOutboundMessage> *,std::__deque_iterator<std::shared_ptr<Ari::ClientOutboundMessage>,std::shared_ptr<Ari::ClientOutboundMessage> *,std::shared_ptr<Ari::ClientOutboundMessage>&,std::shared_ptr<Ari::ClientOutboundMessage> **,long,256l>,0>(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v6 = a4;
   if (a2 == a3)
@@ -6454,13 +6181,13 @@ void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]
 
       if (v13)
       {
-        v14 = (v11 - 16);
+        v14 = v11 - 16;
         v15 = -16 * v13;
         do
         {
           v16 = *v14;
           *v14 = 0;
-          *(v14 + 1) = 0;
+          *(v14 + 8) = 0;
           v17 = *(a5 - 8);
           *(a5 - 16) = v16;
           a5 -= 16;
@@ -6469,7 +6196,7 @@ void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]
             std::__shared_weak_count::__release_shared[abi:ne200100](v17);
           }
 
-          --v14;
+          v14 -= 16;
           v15 += 16;
         }
 
@@ -6568,14 +6295,14 @@ LABEL_17:
 
 void AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK::ARI_CsiBspGetCalibrationStatusReq_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125763584, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8810000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125763584, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8810000, 0);
 }
 
-void AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK::ARI_CsiBspGetCalibrationStatusReq_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK::ARI_CsiBspGetCalibrationStatusReq_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6600,14 +6327,14 @@ uint64_t AriSdk::ARI_CsiBspGetCalibrationStatusReq_SDK::pack(AriSdk::ARI_CsiBspG
 
 void AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK::ARI_CsiBspGetCalibrationStatusRspCb_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117374976, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9010000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117374976, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9010000, 0);
 }
 
-void AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK::ARI_CsiBspGetCalibrationStatusRspCb_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK::ARI_CsiBspGetCalibrationStatusRspCb_SDK(AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6661,14 +6388,14 @@ uint64_t AriSdk::ARI_CsiBspGetCalibrationStatusRspCb_SDK::pack(AriSdk::ARI_CsiBs
 
 void AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK::ARI_CsiBspNvmGroupEnumListReq_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125009920, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88C8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125009920, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88C8000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK::ARI_CsiBspNvmGroupEnumListReq_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK::ARI_CsiBspNvmGroupEnumListReq_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6693,14 +6420,14 @@ uint64_t AriSdk::ARI_CsiBspNvmGroupEnumListReq_SDK::pack(AriSdk::ARI_CsiBspNvmGr
 
 void AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK::ARI_CsiBspNvmGroupEnumListRespCb_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116621312, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90C8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116621312, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90C8000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK::ARI_CsiBspNvmGroupEnumListRespCb_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK::ARI_CsiBspNvmGroupEnumListRespCb_SDK(AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6754,14 +6481,14 @@ uint64_t AriSdk::ARI_CsiBspNvmGroupEnumListRespCb_SDK::pack(AriSdk::ARI_CsiBspNv
 
 void AriSdk::ARI_CsiBspNvmReadGroupReq_SDK::ARI_CsiBspNvmReadGroupReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124977152, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88D0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124977152, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88D0000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmReadGroupReq_SDK::ARI_CsiBspNvmReadGroupReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmReadGroupReq_SDK::ARI_CsiBspNvmReadGroupReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6804,14 +6531,14 @@ uint64_t AriSdk::ARI_CsiBspNvmReadGroupReq_SDK::pack(AriSdk::ARI_CsiBspNvmReadGr
 
 void AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK::ARI_CsiBspNvmReadGroupRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116588544, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90D0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116588544, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90D0000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK::ARI_CsiBspNvmReadGroupRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK::ARI_CsiBspNvmReadGroupRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6854,14 +6581,14 @@ uint64_t AriSdk::ARI_CsiBspNvmReadGroupRespCb_SDK::pack(AriSdk::ARI_CsiBspNvmRea
 
 void AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK::ARI_CsiBspNvmReadGroupBlockReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124944384, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88D8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124944384, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88D8000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK::ARI_CsiBspNvmReadGroupBlockReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK::ARI_CsiBspNvmReadGroupBlockReq_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6904,14 +6631,14 @@ uint64_t AriSdk::ARI_CsiBspNvmReadGroupBlockReq_SDK::pack(AriSdk::ARI_CsiBspNvmR
 
 void AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK::ARI_CsiBspNvmReadGroupBlockRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116555776, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90D8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116555776, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90D8000, 0);
 }
 
-void AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK::ARI_CsiBspNvmReadGroupBlockRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK::ARI_CsiBspNvmReadGroupBlockRespCb_SDK(AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -6965,14 +6692,14 @@ uint64_t AriSdk::ARI_CsiBspNvmReadGroupBlockRespCb_SDK::pack(AriSdk::ARI_CsiBspN
 
 void AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK::ARI_CsiBspSetNvItemsToStateReq_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125796352, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8808000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125796352, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8808000, 0);
 }
 
-void AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK::ARI_CsiBspSetNvItemsToStateReq_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK::ARI_CsiBspSetNvItemsToStateReq_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7015,14 +6742,14 @@ uint64_t AriSdk::ARI_CsiBspSetNvItemsToStateReq_SDK::pack(AriSdk::ARI_CsiBspSetN
 
 void AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK::ARI_CsiBspSetNvItemsToStateRspCb_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117407744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9008000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117407744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9008000, 0);
 }
 
-void AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK::ARI_CsiBspSetNvItemsToStateRspCb_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK::ARI_CsiBspSetNvItemsToStateRspCb_SDK(AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7065,14 +6792,14 @@ uint64_t AriSdk::ARI_CsiBspSetNvItemsToStateRspCb_SDK::pack(AriSdk::ARI_CsiBspSe
 
 void AriSdk::ARI_CsiBspShutdownReq_SDK::ARI_CsiBspShutdownReq_SDK(AriSdk::ARI_CsiBspShutdownReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125403136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8868000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125403136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8868000, 0);
 }
 
-void AriSdk::ARI_CsiBspShutdownReq_SDK::ARI_CsiBspShutdownReq_SDK(AriSdk::ARI_CsiBspShutdownReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspShutdownReq_SDK::ARI_CsiBspShutdownReq_SDK(AriSdk::ARI_CsiBspShutdownReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7115,14 +6842,14 @@ uint64_t AriSdk::ARI_CsiBspShutdownReq_SDK::pack(AriSdk::ARI_CsiBspShutdownReq_S
 
 void AriSdk::ARI_CsiBspShutdownRspCb_SDK::ARI_CsiBspShutdownRspCb_SDK(AriSdk::ARI_CsiBspShutdownRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117014528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9068000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117014528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9068000, 0);
 }
 
-void AriSdk::ARI_CsiBspShutdownRspCb_SDK::ARI_CsiBspShutdownRspCb_SDK(AriSdk::ARI_CsiBspShutdownRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspShutdownRspCb_SDK::ARI_CsiBspShutdownRspCb_SDK(AriSdk::ARI_CsiBspShutdownRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7147,14 +6874,14 @@ uint64_t AriSdk::ARI_CsiBspShutdownRspCb_SDK::pack(AriSdk::ARI_CsiBspShutdownRsp
 
 void AriSdk::ARI_CsiBspShutdownEndReq_SDK::ARI_CsiBspShutdownEndReq_SDK(AriSdk::ARI_CsiBspShutdownEndReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124485632, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8948000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124485632, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8948000, 0);
 }
 
-void AriSdk::ARI_CsiBspShutdownEndReq_SDK::ARI_CsiBspShutdownEndReq_SDK(AriSdk::ARI_CsiBspShutdownEndReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspShutdownEndReq_SDK::ARI_CsiBspShutdownEndReq_SDK(AriSdk::ARI_CsiBspShutdownEndReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7179,14 +6906,14 @@ uint64_t AriSdk::ARI_CsiBspShutdownEndReq_SDK::pack(AriSdk::ARI_CsiBspShutdownEn
 
 void AriSdk::ARI_CsiBspShutdownEndRspCb_SDK::ARI_CsiBspShutdownEndRspCb_SDK(AriSdk::ARI_CsiBspShutdownEndRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116097024, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9148000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116097024, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9148000, 0);
 }
 
-void AriSdk::ARI_CsiBspShutdownEndRspCb_SDK::ARI_CsiBspShutdownEndRspCb_SDK(AriSdk::ARI_CsiBspShutdownEndRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspShutdownEndRspCb_SDK::ARI_CsiBspShutdownEndRspCb_SDK(AriSdk::ARI_CsiBspShutdownEndRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7211,14 +6938,14 @@ uint64_t AriSdk::ARI_CsiBspShutdownEndRspCb_SDK::pack(AriSdk::ARI_CsiBspShutdown
 
 void AriSdk::ARI_CsiBspSwTrapReq_SDK::ARI_CsiBspSwTrapReq_SDK(AriSdk::ARI_CsiBspSwTrapReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125370368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8870000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125370368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8870000, 0);
 }
 
-void AriSdk::ARI_CsiBspSwTrapReq_SDK::ARI_CsiBspSwTrapReq_SDK(AriSdk::ARI_CsiBspSwTrapReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSwTrapReq_SDK::ARI_CsiBspSwTrapReq_SDK(AriSdk::ARI_CsiBspSwTrapReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7261,14 +6988,14 @@ uint64_t AriSdk::ARI_CsiBspSwTrapReq_SDK::pack(AriSdk::ARI_CsiBspSwTrapReq_SDK *
 
 void AriSdk::ARI_CsiBspSwTrapRspCb_SDK::ARI_CsiBspSwTrapRspCb_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116981760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9070000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116981760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9070000, 0);
 }
 
-void AriSdk::ARI_CsiBspSwTrapRspCb_SDK::ARI_CsiBspSwTrapRspCb_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSwTrapRspCb_SDK::ARI_CsiBspSwTrapRspCb_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7293,14 +7020,14 @@ uint64_t AriSdk::ARI_CsiBspSwTrapRspCb_SDK::pack(AriSdk::ARI_CsiBspSwTrapRspCb_S
 
 void AriSdk::ARI_CsiBspSwTrapReq_v2_SDK::ARI_CsiBspSwTrapReq_v2_SDK(AriSdk::ARI_CsiBspSwTrapReq_v2_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124911616, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88E0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124911616, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88E0000, 0);
 }
 
-void AriSdk::ARI_CsiBspSwTrapReq_v2_SDK::ARI_CsiBspSwTrapReq_v2_SDK(AriSdk::ARI_CsiBspSwTrapReq_v2_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSwTrapReq_v2_SDK::ARI_CsiBspSwTrapReq_v2_SDK(AriSdk::ARI_CsiBspSwTrapReq_v2_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7376,14 +7103,14 @@ uint64_t AriSdk::ARI_CsiBspSwTrapReq_v2_SDK::pack(AriSdk::ARI_CsiBspSwTrapReq_v2
 
 void AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK::ARI_CsiBspSwTrapRspCb_v2_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116523008, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90E0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116523008, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90E0000, 0);
 }
 
-void AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK::ARI_CsiBspSwTrapRspCb_v2_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK::ARI_CsiBspSwTrapRspCb_v2_SDK(AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7408,14 +7135,14 @@ uint64_t AriSdk::ARI_CsiBspSwTrapRspCb_v2_SDK::pack(AriSdk::ARI_CsiBspSwTrapRspC
 
 void AriSdk::ARI_CsiBspSwTrapReq_v3_SDK::ARI_CsiBspSwTrapReq_v3_SDK(AriSdk::ARI_CsiBspSwTrapReq_v3_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124878848, 1);
+  AriSdk::MsgBase::MsgBase(this, 0xF88E8000, 1);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124878848, 1);
+  AriSdk::MsgBase::MsgBase(this, 0xF88E8000, 1);
 }
 
-void AriSdk::ARI_CsiBspSwTrapReq_v3_SDK::ARI_CsiBspSwTrapReq_v3_SDK(AriSdk::ARI_CsiBspSwTrapReq_v3_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiBspSwTrapReq_v3_SDK::ARI_CsiBspSwTrapReq_v3_SDK(AriSdk::ARI_CsiBspSwTrapReq_v3_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7494,20 +7221,20 @@ uint64_t AriSdk::ARI_CsiBspSwTrapReq_v3_SDK::pack(AriSdk::ARI_CsiBspSwTrapReq_v3
 void AriSdk::ARI_CsiBspSwTrapReq_v3_SDK::unpack(AriSdk::ARI_CsiBspSwTrapReq_v3_SDK *this)
 {
   v2 = *MEMORY[0x29EDCA608];
-  LOBYTE(__p) = 0;
+  __p[0] = 0;
   operator new();
 }
 
 void AriSdk::ARI_CsiCddGetDebugLogReq_SDK::ARI_CsiCddGetDebugLogReq_SDK(AriSdk::ARI_CsiCddGetDebugLogReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125304832, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8880000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125304832, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8880000, 0);
 }
 
-void AriSdk::ARI_CsiCddGetDebugLogReq_SDK::ARI_CsiCddGetDebugLogReq_SDK(AriSdk::ARI_CsiCddGetDebugLogReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiCddGetDebugLogReq_SDK::ARI_CsiCddGetDebugLogReq_SDK(AriSdk::ARI_CsiCddGetDebugLogReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7532,14 +7259,14 @@ uint64_t AriSdk::ARI_CsiCddGetDebugLogReq_SDK::pack(AriSdk::ARI_CsiCddGetDebugLo
 
 void AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK::ARI_CsiCddGetDebugLogRspCb_SDK(AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116916224, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9080000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116916224, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9080000, 0);
 }
 
-void AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK::ARI_CsiCddGetDebugLogRspCb_SDK(AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK::ARI_CsiCddGetDebugLogRspCb_SDK(AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7582,14 +7309,14 @@ uint64_t AriSdk::ARI_CsiCddGetDebugLogRspCb_SDK::pack(AriSdk::ARI_CsiCddGetDebug
 
 void AriSdk::ARI_CsiCddGetParamDumpReq_SDK::ARI_CsiCddGetParamDumpReq_SDK(AriSdk::ARI_CsiCddGetParamDumpReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125272064, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8888000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125272064, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8888000, 0);
 }
 
-void AriSdk::ARI_CsiCddGetParamDumpReq_SDK::ARI_CsiCddGetParamDumpReq_SDK(AriSdk::ARI_CsiCddGetParamDumpReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiCddGetParamDumpReq_SDK::ARI_CsiCddGetParamDumpReq_SDK(AriSdk::ARI_CsiCddGetParamDumpReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7614,14 +7341,14 @@ uint64_t AriSdk::ARI_CsiCddGetParamDumpReq_SDK::pack(AriSdk::ARI_CsiCddGetParamD
 
 void AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK::ARI_CsiCddGetParamDumpRspCb_SDK(AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116883456, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9088000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116883456, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9088000, 0);
 }
 
-void AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK::ARI_CsiCddGetParamDumpRspCb_SDK(AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK::ARI_CsiCddGetParamDumpRspCb_SDK(AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7664,14 +7391,14 @@ uint64_t AriSdk::ARI_CsiCddGetParamDumpRspCb_SDK::pack(AriSdk::ARI_CsiCddGetPara
 
 void AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK::ARI_CsiFactGetTestReadyStateReq_SDK(AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125042688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88C0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125042688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88C0000, 0);
 }
 
-void AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK::ARI_CsiFactGetTestReadyStateReq_SDK(AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK::ARI_CsiFactGetTestReadyStateReq_SDK(AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7696,14 +7423,14 @@ uint64_t AriSdk::ARI_CsiFactGetTestReadyStateReq_SDK::pack(AriSdk::ARI_CsiFactGe
 
 void AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK::ARI_CsiFactGetTestReadyStateRspCb_SDK(AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116654080, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90C0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116654080, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90C0000, 0);
 }
 
-void AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK::ARI_CsiFactGetTestReadyStateRspCb_SDK(AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK::ARI_CsiFactGetTestReadyStateRspCb_SDK(AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7757,14 +7484,14 @@ uint64_t AriSdk::ARI_CsiFactGetTestReadyStateRspCb_SDK::pack(AriSdk::ARI_CsiFact
 
 void AriSdk::ARI_CsiFpGetStatus_SDK::ARI_CsiFpGetStatus_SDK(AriSdk::ARI_CsiFpGetStatus_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125501440, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8850000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125501440, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8850000, 0);
 }
 
-void AriSdk::ARI_CsiFpGetStatus_SDK::ARI_CsiFpGetStatus_SDK(AriSdk::ARI_CsiFpGetStatus_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpGetStatus_SDK::ARI_CsiFpGetStatus_SDK(AriSdk::ARI_CsiFpGetStatus_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7789,14 +7516,14 @@ uint64_t AriSdk::ARI_CsiFpGetStatus_SDK::pack(AriSdk::ARI_CsiFpGetStatus_SDK *th
 
 void AriSdk::ARI_CsiFpGetStatusRsp_SDK::ARI_CsiFpGetStatusRsp_SDK(AriSdk::ARI_CsiFpGetStatusRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117112832, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9050000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117112832, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9050000, 0);
 }
 
-void AriSdk::ARI_CsiFpGetStatusRsp_SDK::ARI_CsiFpGetStatusRsp_SDK(AriSdk::ARI_CsiFpGetStatusRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpGetStatusRsp_SDK::ARI_CsiFpGetStatusRsp_SDK(AriSdk::ARI_CsiFpGetStatusRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7850,14 +7577,14 @@ uint64_t AriSdk::ARI_CsiFpGetStatusRsp_SDK::pack(AriSdk::ARI_CsiFpGetStatusRsp_S
 
 void AriSdk::ARI_CsiFpGetStatusV2_SDK::ARI_CsiFpGetStatusV2_SDK(AriSdk::ARI_CsiFpGetStatusV2_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125337600, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8878000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125337600, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8878000, 0);
 }
 
-void AriSdk::ARI_CsiFpGetStatusV2_SDK::ARI_CsiFpGetStatusV2_SDK(AriSdk::ARI_CsiFpGetStatusV2_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpGetStatusV2_SDK::ARI_CsiFpGetStatusV2_SDK(AriSdk::ARI_CsiFpGetStatusV2_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7882,14 +7609,14 @@ uint64_t AriSdk::ARI_CsiFpGetStatusV2_SDK::pack(AriSdk::ARI_CsiFpGetStatusV2_SDK
 
 void AriSdk::ARI_CsiFpGetStatusRspV2_SDK::ARI_CsiFpGetStatusRspV2_SDK(AriSdk::ARI_CsiFpGetStatusRspV2_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116948992, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9078000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116948992, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9078000, 0);
 }
 
-void AriSdk::ARI_CsiFpGetStatusRspV2_SDK::ARI_CsiFpGetStatusRspV2_SDK(AriSdk::ARI_CsiFpGetStatusRspV2_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpGetStatusRspV2_SDK::ARI_CsiFpGetStatusRspV2_SDK(AriSdk::ARI_CsiFpGetStatusRspV2_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -7943,14 +7670,14 @@ uint64_t AriSdk::ARI_CsiFpGetStatusRspV2_SDK::pack(AriSdk::ARI_CsiFpGetStatusRsp
 
 void AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::ARI_CsiFpPrioSyncReqInd_SDK(AriSdk::ARI_CsiFpPrioSyncReqInd_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -108265472, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98C0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -108265472, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98C0000, 0);
 }
 
-void AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::ARI_CsiFpPrioSyncReqInd_SDK(AriSdk::ARI_CsiFpPrioSyncReqInd_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::ARI_CsiFpPrioSyncReqInd_SDK(AriSdk::ARI_CsiFpPrioSyncReqInd_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8004,14 +7731,14 @@ uint64_t AriSdk::ARI_CsiFpPrioSyncReqInd_SDK::pack(AriSdk::ARI_CsiFpPrioSyncReqI
 
 void AriSdk::ARI_CsiFpRegister_SDK::ARI_CsiFpRegister_SDK(AriSdk::ARI_CsiFpRegister_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125632512, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8830000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125632512, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8830000, 0);
 }
 
-void AriSdk::ARI_CsiFpRegister_SDK::ARI_CsiFpRegister_SDK(AriSdk::ARI_CsiFpRegister_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpRegister_SDK::ARI_CsiFpRegister_SDK(AriSdk::ARI_CsiFpRegister_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8054,14 +7781,14 @@ uint64_t AriSdk::ARI_CsiFpRegister_SDK::pack(AriSdk::ARI_CsiFpRegister_SDK *this
 
 void AriSdk::ARI_CsiFpRegisterRsp_SDK::ARI_CsiFpRegisterRsp_SDK(AriSdk::ARI_CsiFpRegisterRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117243904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9030000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117243904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9030000, 0);
 }
 
-void AriSdk::ARI_CsiFpRegisterRsp_SDK::ARI_CsiFpRegisterRsp_SDK(AriSdk::ARI_CsiFpRegisterRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpRegisterRsp_SDK::ARI_CsiFpRegisterRsp_SDK(AriSdk::ARI_CsiFpRegisterRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8104,14 +7831,14 @@ uint64_t AriSdk::ARI_CsiFpRegisterRsp_SDK::pack(AriSdk::ARI_CsiFpRegisterRsp_SDK
 
 void AriSdk::ARI_CsiFpSnapshot_SDK::ARI_CsiFpSnapshot_SDK(AriSdk::ARI_CsiFpSnapshot_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125599744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8838000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125599744, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8838000, 0);
 }
 
-void AriSdk::ARI_CsiFpSnapshot_SDK::ARI_CsiFpSnapshot_SDK(AriSdk::ARI_CsiFpSnapshot_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpSnapshot_SDK::ARI_CsiFpSnapshot_SDK(AriSdk::ARI_CsiFpSnapshot_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8187,14 +7914,14 @@ uint64_t AriSdk::ARI_CsiFpSnapshot_SDK::pack(AriSdk::ARI_CsiFpSnapshot_SDK *this
 
 void AriSdk::ARI_CsiFpSnapshotRsp_SDK::ARI_CsiFpSnapshotRsp_SDK(AriSdk::ARI_CsiFpSnapshotRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117211136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9038000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117211136, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9038000, 0);
 }
 
-void AriSdk::ARI_CsiFpSnapshotRsp_SDK::ARI_CsiFpSnapshotRsp_SDK(AriSdk::ARI_CsiFpSnapshotRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpSnapshotRsp_SDK::ARI_CsiFpSnapshotRsp_SDK(AriSdk::ARI_CsiFpSnapshotRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8248,14 +7975,14 @@ uint64_t AriSdk::ARI_CsiFpSnapshotRsp_SDK::pack(AriSdk::ARI_CsiFpSnapshotRsp_SDK
 
 void AriSdk::ARI_CsiFpUpdateAck_SDK::ARI_CsiFpUpdateAck_SDK(AriSdk::ARI_CsiFpUpdateAck_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125566976, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8840000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125566976, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8840000, 0);
 }
 
-void AriSdk::ARI_CsiFpUpdateAck_SDK::ARI_CsiFpUpdateAck_SDK(AriSdk::ARI_CsiFpUpdateAck_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpUpdateAck_SDK::ARI_CsiFpUpdateAck_SDK(AriSdk::ARI_CsiFpUpdateAck_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8280,14 +8007,14 @@ uint64_t AriSdk::ARI_CsiFpUpdateAck_SDK::pack(AriSdk::ARI_CsiFpUpdateAck_SDK *th
 
 void AriSdk::ARI_CsiFpUpdateAckRsp_SDK::ARI_CsiFpUpdateAckRsp_SDK(AriSdk::ARI_CsiFpUpdateAckRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117178368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9040000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117178368, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9040000, 0);
 }
 
-void AriSdk::ARI_CsiFpUpdateAckRsp_SDK::ARI_CsiFpUpdateAckRsp_SDK(AriSdk::ARI_CsiFpUpdateAckRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpUpdateAckRsp_SDK::ARI_CsiFpUpdateAckRsp_SDK(AriSdk::ARI_CsiFpUpdateAckRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8341,14 +8068,14 @@ uint64_t AriSdk::ARI_CsiFpUpdateAckRsp_SDK::pack(AriSdk::ARI_CsiFpUpdateAckRsp_S
 
 void AriSdk::ARI_CsiFpUpdateHeader_SDK::ARI_CsiFpUpdateHeader_SDK(AriSdk::ARI_CsiFpUpdateHeader_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125534208, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8848000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125534208, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8848000, 0);
 }
 
-void AriSdk::ARI_CsiFpUpdateHeader_SDK::ARI_CsiFpUpdateHeader_SDK(AriSdk::ARI_CsiFpUpdateHeader_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpUpdateHeader_SDK::ARI_CsiFpUpdateHeader_SDK(AriSdk::ARI_CsiFpUpdateHeader_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8373,14 +8100,14 @@ uint64_t AriSdk::ARI_CsiFpUpdateHeader_SDK::pack(AriSdk::ARI_CsiFpUpdateHeader_S
 
 void AriSdk::ARI_CsiFpUpdateHeaderData_SDK::ARI_CsiFpUpdateHeaderData_SDK(AriSdk::ARI_CsiFpUpdateHeaderData_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117145600, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9048000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117145600, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9048000, 0);
 }
 
-void AriSdk::ARI_CsiFpUpdateHeaderData_SDK::ARI_CsiFpUpdateHeaderData_SDK(AriSdk::ARI_CsiFpUpdateHeaderData_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiFpUpdateHeaderData_SDK::ARI_CsiFpUpdateHeaderData_SDK(AriSdk::ARI_CsiFpUpdateHeaderData_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8445,14 +8172,14 @@ uint64_t AriSdk::ARI_CsiFpUpdateHeaderData_SDK::pack(AriSdk::ARI_CsiFpUpdateHead
 
 void AriSdk::ARI_CsiIceAtReq_SDK::ARI_CsiIceAtReq_SDK(AriSdk::ARI_CsiIceAtReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125468672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8858000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125468672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8858000, 0);
 }
 
-void AriSdk::ARI_CsiIceAtReq_SDK::ARI_CsiIceAtReq_SDK(AriSdk::ARI_CsiIceAtReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceAtReq_SDK::ARI_CsiIceAtReq_SDK(AriSdk::ARI_CsiIceAtReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8495,14 +8222,14 @@ uint64_t AriSdk::ARI_CsiIceAtReq_SDK::pack(AriSdk::ARI_CsiIceAtReq_SDK *this, Ar
 
 void AriSdk::ARI_CsiIceAtRsp_SDK::ARI_CsiIceAtRsp_SDK(AriSdk::ARI_CsiIceAtRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117080064, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9058000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117080064, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9058000, 0);
 }
 
-void AriSdk::ARI_CsiIceAtRsp_SDK::ARI_CsiIceAtRsp_SDK(AriSdk::ARI_CsiIceAtRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceAtRsp_SDK::ARI_CsiIceAtRsp_SDK(AriSdk::ARI_CsiIceAtRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8556,14 +8283,14 @@ uint64_t AriSdk::ARI_CsiIceAtRsp_SDK::pack(AriSdk::ARI_CsiIceAtRsp_SDK *this, Ar
 
 void AriSdk::ARI_CsiIceAtExtReq_SDK::ARI_CsiIceAtExtReq_SDK(AriSdk::ARI_CsiIceAtExtReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125140992, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88A8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125140992, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88A8000, 0);
 }
 
-void AriSdk::ARI_CsiIceAtExtReq_SDK::ARI_CsiIceAtExtReq_SDK(AriSdk::ARI_CsiIceAtExtReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceAtExtReq_SDK::ARI_CsiIceAtExtReq_SDK(AriSdk::ARI_CsiIceAtExtReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8606,14 +8333,14 @@ uint64_t AriSdk::ARI_CsiIceAtExtReq_SDK::pack(AriSdk::ARI_CsiIceAtExtReq_SDK *th
 
 void AriSdk::ARI_CsiIceAtExtRsp_SDK::ARI_CsiIceAtExtRsp_SDK(AriSdk::ARI_CsiIceAtExtRsp_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116752384, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90A8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116752384, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90A8000, 0);
 }
 
-void AriSdk::ARI_CsiIceAtExtRsp_SDK::ARI_CsiIceAtExtRsp_SDK(AriSdk::ARI_CsiIceAtExtRsp_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceAtExtRsp_SDK::ARI_CsiIceAtExtRsp_SDK(AriSdk::ARI_CsiIceAtExtRsp_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8667,14 +8394,14 @@ uint64_t AriSdk::ARI_CsiIceAtExtRsp_SDK::pack(AriSdk::ARI_CsiIceAtExtRsp_SDK *th
 
 void AriSdk::ARI_CsiIceAtExtInd_SDK::ARI_CsiIceAtExtInd_SDK(AriSdk::ARI_CsiIceAtExtInd_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -108363776, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98A8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -108363776, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98A8000, 0);
 }
 
-void AriSdk::ARI_CsiIceAtExtInd_SDK::ARI_CsiIceAtExtInd_SDK(AriSdk::ARI_CsiIceAtExtInd_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceAtExtInd_SDK::ARI_CsiIceAtExtInd_SDK(AriSdk::ARI_CsiIceAtExtInd_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8717,14 +8444,14 @@ uint64_t AriSdk::ARI_CsiIceAtExtInd_SDK::pack(AriSdk::ARI_CsiIceAtExtInd_SDK *th
 
 void AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK::ARI_CsiIceBspSetApWakeIntervalReq_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125108224, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88B0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125108224, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88B0000, 0);
 }
 
-void AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK::ARI_CsiIceBspSetApWakeIntervalReq_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK::ARI_CsiIceBspSetApWakeIntervalReq_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8778,14 +8505,14 @@ uint64_t AriSdk::ARI_CsiIceBspSetApWakeIntervalReq_SDK::pack(AriSdk::ARI_CsiIceB
 
 void AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116719616, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90B0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116719616, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90B0000, 0);
 }
 
-void AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK(AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8828,14 +8555,14 @@ uint64_t AriSdk::ARI_CsiIceBspSetApWakeIntervalRspCb_SDK::pack(AriSdk::ARI_CsiIc
 
 void AriSdk::ARI_CsiIceBspShutdownInd_SDK::ARI_CsiIceBspShutdownInd_SDK(AriSdk::ARI_CsiIceBspShutdownInd_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -108232704, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98C8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -108232704, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98C8000, 0);
 }
 
-void AriSdk::ARI_CsiIceBspShutdownInd_SDK::ARI_CsiIceBspShutdownInd_SDK(AriSdk::ARI_CsiIceBspShutdownInd_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceBspShutdownInd_SDK::ARI_CsiIceBspShutdownInd_SDK(AriSdk::ARI_CsiIceBspShutdownInd_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8878,14 +8605,14 @@ uint64_t AriSdk::ARI_CsiIceBspShutdownInd_SDK::pack(AriSdk::ARI_CsiIceBspShutdow
 
 void AriSdk::ARI_CsiIceBspWakeInd_SDK::ARI_CsiIceBspWakeInd_SDK(AriSdk::ARI_CsiIceBspWakeInd_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -108298240, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98B8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -108298240, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF98B8000, 0);
 }
 
-void AriSdk::ARI_CsiIceBspWakeInd_SDK::ARI_CsiIceBspWakeInd_SDK(AriSdk::ARI_CsiIceBspWakeInd_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceBspWakeInd_SDK::ARI_CsiIceBspWakeInd_SDK(AriSdk::ARI_CsiIceBspWakeInd_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8928,14 +8655,14 @@ uint64_t AriSdk::ARI_CsiIceBspWakeInd_SDK::pack(AriSdk::ARI_CsiIceBspWakeInd_SDK
 
 void AriSdk::ARI_CsiIceFilerReadReq_SDK::ARI_CsiIceFilerReadReq_SDK(AriSdk::ARI_CsiIceFilerReadReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125698048, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8820000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125698048, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8820000, 0);
 }
 
-void AriSdk::ARI_CsiIceFilerReadReq_SDK::ARI_CsiIceFilerReadReq_SDK(AriSdk::ARI_CsiIceFilerReadReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceFilerReadReq_SDK::ARI_CsiIceFilerReadReq_SDK(AriSdk::ARI_CsiIceFilerReadReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -8960,14 +8687,14 @@ uint64_t AriSdk::ARI_CsiIceFilerReadReq_SDK::pack(AriSdk::ARI_CsiIceFilerReadReq
 
 void AriSdk::ARI_CsiIceFilerReadRspCb_SDK::ARI_CsiIceFilerReadRspCb_SDK(AriSdk::ARI_CsiIceFilerReadRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117309440, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9020000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117309440, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9020000, 0);
 }
 
-void AriSdk::ARI_CsiIceFilerReadRspCb_SDK::ARI_CsiIceFilerReadRspCb_SDK(AriSdk::ARI_CsiIceFilerReadRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceFilerReadRspCb_SDK::ARI_CsiIceFilerReadRspCb_SDK(AriSdk::ARI_CsiIceFilerReadRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9032,14 +8759,14 @@ uint64_t AriSdk::ARI_CsiIceFilerReadRspCb_SDK::pack(AriSdk::ARI_CsiIceFilerReadR
 
 void AriSdk::ARI_CsiIceFilerWriteReq_SDK::ARI_CsiIceFilerWriteReq_SDK(AriSdk::ARI_CsiIceFilerWriteReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125665280, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8828000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125665280, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8828000, 0);
 }
 
-void AriSdk::ARI_CsiIceFilerWriteReq_SDK::ARI_CsiIceFilerWriteReq_SDK(AriSdk::ARI_CsiIceFilerWriteReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceFilerWriteReq_SDK::ARI_CsiIceFilerWriteReq_SDK(AriSdk::ARI_CsiIceFilerWriteReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9093,14 +8820,14 @@ uint64_t AriSdk::ARI_CsiIceFilerWriteReq_SDK::pack(AriSdk::ARI_CsiIceFilerWriteR
 
 void AriSdk::ARI_CsiIceFilerWriteRspCb_SDK::ARI_CsiIceFilerWriteRspCb_SDK(AriSdk::ARI_CsiIceFilerWriteRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117276672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9028000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117276672, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9028000, 0);
 }
 
-void AriSdk::ARI_CsiIceFilerWriteRspCb_SDK::ARI_CsiIceFilerWriteRspCb_SDK(AriSdk::ARI_CsiIceFilerWriteRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiIceFilerWriteRspCb_SDK::ARI_CsiIceFilerWriteRspCb_SDK(AriSdk::ARI_CsiIceFilerWriteRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9143,14 +8870,14 @@ uint64_t AriSdk::ARI_CsiIceFilerWriteRspCb_SDK::pack(AriSdk::ARI_CsiIceFilerWrit
 
 void AriSdk::ARI_CsiMonMemoryStatusReq_SDK::ARI_CsiMonMemoryStatusReq_SDK(AriSdk::ARI_CsiMonMemoryStatusReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125435904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8860000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125435904, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8860000, 0);
 }
 
-void AriSdk::ARI_CsiMonMemoryStatusReq_SDK::ARI_CsiMonMemoryStatusReq_SDK(AriSdk::ARI_CsiMonMemoryStatusReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiMonMemoryStatusReq_SDK::ARI_CsiMonMemoryStatusReq_SDK(AriSdk::ARI_CsiMonMemoryStatusReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9193,14 +8920,14 @@ uint64_t AriSdk::ARI_CsiMonMemoryStatusReq_SDK::pack(AriSdk::ARI_CsiMonMemorySta
 
 void AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK::ARI_CsiMonMemoryStatusRspCb_SDK(AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117047296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9060000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117047296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9060000, 0);
 }
 
-void AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK::ARI_CsiMonMemoryStatusRspCb_SDK(AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK::ARI_CsiMonMemoryStatusRspCb_SDK(AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9254,14 +8981,14 @@ uint64_t AriSdk::ARI_CsiMonMemoryStatusRspCb_SDK::pack(AriSdk::ARI_CsiMonMemoryS
 
 void AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK::ARI_CsiSahClearExceptionStoreReq_SDK(AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125206528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8898000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125206528, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8898000, 0);
 }
 
-void AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK::ARI_CsiSahClearExceptionStoreReq_SDK(AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK::ARI_CsiSahClearExceptionStoreReq_SDK(AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9286,14 +9013,14 @@ uint64_t AriSdk::ARI_CsiSahClearExceptionStoreReq_SDK::pack(AriSdk::ARI_CsiSahCl
 
 void AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK::ARI_CsiSahClearCrashResportRspCb_SDK(AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116817920, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9098000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116817920, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9098000, 0);
 }
 
-void AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK::ARI_CsiSahClearCrashResportRspCb_SDK(AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK::ARI_CsiSahClearCrashResportRspCb_SDK(AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9336,14 +9063,14 @@ uint64_t AriSdk::ARI_CsiSahClearCrashResportRspCb_SDK::pack(AriSdk::ARI_CsiSahCl
 
 void AriSdk::ARI_CsiSahGetCrashReportReq_SDK::ARI_CsiSahGetCrashReportReq_SDK(AriSdk::ARI_CsiSahGetCrashReportReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125239296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8890000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125239296, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8890000, 0);
 }
 
-void AriSdk::ARI_CsiSahGetCrashReportReq_SDK::ARI_CsiSahGetCrashReportReq_SDK(AriSdk::ARI_CsiSahGetCrashReportReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahGetCrashReportReq_SDK::ARI_CsiSahGetCrashReportReq_SDK(AriSdk::ARI_CsiSahGetCrashReportReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9368,14 +9095,14 @@ uint64_t AriSdk::ARI_CsiSahGetCrashReportReq_SDK::pack(AriSdk::ARI_CsiSahGetCras
 
 void AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK::ARI_CsiSahGetCrashReportRspCb_SDK(AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116850688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9090000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116850688, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9090000, 0);
 }
 
-void AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK::ARI_CsiSahGetCrashReportRspCb_SDK(AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK::ARI_CsiSahGetCrashReportRspCb_SDK(AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9418,14 +9145,14 @@ uint64_t AriSdk::ARI_CsiSahGetCrashReportRspCb_SDK::pack(AriSdk::ARI_CsiSahGetCr
 
 void AriSdk::ARI_CsiSahGetDebugLogReq_SDK::ARI_CsiSahGetDebugLogReq_SDK(AriSdk::ARI_CsiSahGetDebugLogReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125173760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88A0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125173760, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88A0000, 0);
 }
 
-void AriSdk::ARI_CsiSahGetDebugLogReq_SDK::ARI_CsiSahGetDebugLogReq_SDK(AriSdk::ARI_CsiSahGetDebugLogReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahGetDebugLogReq_SDK::ARI_CsiSahGetDebugLogReq_SDK(AriSdk::ARI_CsiSahGetDebugLogReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9450,14 +9177,14 @@ uint64_t AriSdk::ARI_CsiSahGetDebugLogReq_SDK::pack(AriSdk::ARI_CsiSahGetDebugLo
 
 void AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK::ARI_CsiSahGetDebugLogRspCb_SDK(AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116785152, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90A0000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116785152, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF90A0000, 0);
 }
 
-void AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK::ARI_CsiSahGetDebugLogRspCb_SDK(AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK::ARI_CsiSahGetDebugLogRspCb_SDK(AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9500,14 +9227,14 @@ uint64_t AriSdk::ARI_CsiSahGetDebugLogRspCb_SDK::pack(AriSdk::ARI_CsiSahGetDebug
 
 void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -124551168, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8938000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -124551168, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8938000, 0);
 }
 
-void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9550,14 +9277,14 @@ uint64_t AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutReq_SDK::pack(AriS
 
 void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -116162560, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9138000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -116162560, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9138000, 0);
 }
 
-void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK(AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9600,14 +9327,14 @@ uint64_t AriSdk::ARI_CsiSahSetRecoverableAssertDebounceTimeoutRspCb_SDK::pack(Ar
 
 void AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK::ARI_FactoryGetNvItemsSettingReq_SDK(AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125730816, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8818000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125730816, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF8818000, 0);
 }
 
-void AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK::ARI_FactoryGetNvItemsSettingReq_SDK(AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK::ARI_FactoryGetNvItemsSettingReq_SDK(AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9632,14 +9359,14 @@ uint64_t AriSdk::ARI_FactoryGetNvItemsSettingReq_SDK::pack(AriSdk::ARI_FactoryGe
 
 void AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -117342208, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9018000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -117342208, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF9018000, 0);
 }
 
-void AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::ARI_FactoryGetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
@@ -9704,18 +9431,310 @@ uint64_t AriSdk::ARI_FactoryGetNvItemsSettingRspCb_SDK::pack(AriSdk::ARI_Factory
 
 void AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::ARI_FactorySetNvItemsSettingReq_SDK(AriSdk::ARI_FactorySetNvItemsSettingReq_SDK *this)
 {
-  AriSdk::MsgBase::MsgBase(this, -125075456, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88B8000, 0);
 }
 
 {
-  AriSdk::MsgBase::MsgBase(this, -125075456, 0);
+  AriSdk::MsgBase::MsgBase(this, 0xF88B8000, 0);
 }
 
-void AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::ARI_FactorySetNvItemsSettingReq_SDK(AriSdk::ARI_FactorySetNvItemsSettingReq_SDK *this, const unsigned __int8 *a2, int a3)
+void AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::ARI_FactorySetNvItemsSettingReq_SDK(AriSdk::ARI_FactorySetNvItemsSettingReq_SDK *this, AriMsg *a2, unsigned int a3)
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+void AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::~ARI_FactorySetNvItemsSettingReq_SDK(AriSdk::ARI_FactorySetNvItemsSettingReq_SDK *this)
+{
+  *this = &unk_2A1D3D030;
+  v2 = *(this + 8);
+  *(this + 8) = 0;
+  if (v2)
+  {
+    MEMORY[0x29C257E70](v2, 0x1000C4052888210);
+  }
+
+  AriSdk::MsgBase::~MsgBase(this);
+}
+
+{
+  AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::~ARI_FactorySetNvItemsSettingReq_SDK(this);
+
+  JUMPOUT(0x29C257E70);
+}
+
+uint64_t AriSdk::ARI_FactorySetNvItemsSettingReq_SDK::pack(AriSdk::ARI_FactorySetNvItemsSettingReq_SDK *this, AriMsg **a2)
+{
+  *a2 = 0;
+  v4 = *(this + 8);
+  if (!v4 || (result = AriMsg::pack(*(this + 6), 1, v4, 4uLL, 0), !result))
+  {
+    result = 0;
+    *a2 = *(this + 6);
+  }
+
+  return result;
+}
+
+void AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK::ARI_FactorySetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK *this)
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF90B8000, 0);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF90B8000, 0);
+}
+
+void AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK::ARI_FactorySetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK *this, AriMsg *a2, unsigned int a3)
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
 }
 
 {
   AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+void AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK::~ARI_FactorySetNvItemsSettingRspCb_SDK(AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK *this)
+{
+  *this = &unk_2A1D3D068;
+  v2 = *(this + 8);
+  *(this + 8) = 0;
+  if (v2)
+  {
+    MEMORY[0x29C257E70](v2, 0x1000C4052888210);
+  }
+
+  AriSdk::MsgBase::~MsgBase(this);
+}
+
+{
+  AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK::~ARI_FactorySetNvItemsSettingRspCb_SDK(this);
+
+  JUMPOUT(0x29C257E70);
+}
+
+uint64_t AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK::pack(AriSdk::ARI_FactorySetNvItemsSettingRspCb_SDK *this, AriMsg **a2)
+{
+  *a2 = 0;
+  v4 = *(this + 8);
+  if (!v4 || (result = AriMsg::pack(*(this + 6), 1, v4, 4uLL, 0), !result))
+  {
+    result = 0;
+    *a2 = *(this + 6);
+  }
+
+  return result;
+}
+
+void AriSdk::ARI_IBIFilerHSClientReportInd_SDK::ARI_IBIFilerHSClientReportInd_SDK(AriSdk::ARI_IBIFilerHSClientReportInd_SDK *this)
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF98D0000, 0);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF98D0000, 0);
+}
+
+void AriSdk::ARI_IBIFilerHSClientReportInd_SDK::ARI_IBIFilerHSClientReportInd_SDK(AriSdk::ARI_IBIFilerHSClientReportInd_SDK *this, AriMsg *a2, unsigned int a3)
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+void AriSdk::ARI_IBIFilerHSClientReportInd_SDK::~ARI_IBIFilerHSClientReportInd_SDK(AriSdk::ARI_IBIFilerHSClientReportInd_SDK *this)
+{
+  *this = &unk_2A1D3D0A0;
+  v2 = *(this + 12);
+  *(this + 12) = 0;
+  if (v2)
+  {
+    MEMORY[0x29C257E70](v2, 0x1000C4052888210);
+  }
+
+  v3 = *(this + 11);
+  *(this + 11) = 0;
+  if (v3)
+  {
+    MEMORY[0x29C257E70](v3, 0x1000C4052888210);
+  }
+
+  v4 = *(this + 10);
+  *(this + 10) = 0;
+  if (v4)
+  {
+    MEMORY[0x29C257E70](v4, 0x1000C4052888210);
+  }
+
+  v5 = *(this + 9);
+  *(this + 9) = 0;
+  if (v5)
+  {
+    MEMORY[0x29C257E70](v5, 0x1000C4052888210);
+  }
+
+  v6 = *(this + 8);
+  *(this + 8) = 0;
+  if (v6)
+  {
+    MEMORY[0x29C257E70](v6, 0x1000C4052888210);
+  }
+
+  AriSdk::MsgBase::~MsgBase(this);
+}
+
+{
+  AriSdk::ARI_IBIFilerHSClientReportInd_SDK::~ARI_IBIFilerHSClientReportInd_SDK(this);
+
+  JUMPOUT(0x29C257E70);
+}
+
+uint64_t AriSdk::ARI_IBIFilerHSClientReportInd_SDK::pack(AriSdk::ARI_IBIFilerHSClientReportInd_SDK *this, AriMsg **a2)
+{
+  *a2 = 0;
+  v4 = *(this + 8);
+  if (!v4 || (result = AriMsg::pack(*(this + 6), 1, v4, 4uLL, 0), !result))
+  {
+    v6 = *(this + 9);
+    if (!v6 || (result = AriMsg::pack(*(this + 6), 2, v6, 4uLL, 0), !result))
+    {
+      v7 = *(this + 10);
+      if (!v7 || (result = AriMsg::pack(*(this + 6), 3, v7, 4uLL, 0), !result))
+      {
+        v8 = *(this + 11);
+        if (!v8 || (result = AriMsg::pack(*(this + 6), 4, v8, 4uLL, 0), !result))
+        {
+          v9 = *(this + 12);
+          if (!v9 || (result = AriMsg::pack(*(this + 6), 5, v9, 4uLL, 0), !result))
+          {
+            result = 0;
+            *a2 = *(this + 6);
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::ARI_IBIFilerHSEndBBSessionReq_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK *this)
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF8918000, 0);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF8918000, 0);
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::ARI_IBIFilerHSEndBBSessionReq_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK *this, AriMsg *a2, unsigned int a3)
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::~ARI_IBIFilerHSEndBBSessionReq_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK *this)
+{
+  *this = &unk_2A1D3D0D8;
+  v2 = *(this + 10);
+  *(this + 10) = 0;
+  if (v2)
+  {
+    MEMORY[0x29C257E70](v2, 0x1000C4052888210);
+  }
+
+  v3 = *(this + 9);
+  *(this + 9) = 0;
+  if (v3)
+  {
+    MEMORY[0x29C257E70](v3, 0x1000C40A82D5742);
+  }
+
+  v4 = *(this + 8);
+  *(this + 8) = 0;
+  if (v4)
+  {
+    MEMORY[0x29C257E70](v4, 0x1000C4052888210);
+  }
+
+  AriSdk::MsgBase::~MsgBase(this);
+}
+
+{
+  AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::~ARI_IBIFilerHSEndBBSessionReq_SDK(this);
+
+  JUMPOUT(0x29C257E70);
+}
+
+uint64_t AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::pack(AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK *this, AriMsg **a2)
+{
+  *a2 = 0;
+  v4 = *(this + 8);
+  if (!v4 || (result = AriMsg::pack(*(this + 6), 1, v4, 4uLL, 0), !result))
+  {
+    v6 = *(this + 9);
+    if (!v6 || (result = AriMsg::pack(*(this + 6), 2, v6, 0xBBAuLL, 0), !result))
+    {
+      v7 = *(this + 10);
+      if (!v7 || (result = AriMsg::pack(*(this + 6), 3, v7, 4uLL, 0), !result))
+      {
+        result = 0;
+        *a2 = *(this + 6);
+      }
+    }
+  }
+
+  return result;
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK *this)
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF9118000, 0);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, 0xF9118000, 0);
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::ARI_IBIFilerHSEndBBSessionRspCb_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK *this, AriMsg *a2, unsigned int a3)
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+{
+  AriSdk::MsgBase::MsgBase(this, a2, a3);
+}
+
+void AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::~ARI_IBIFilerHSEndBBSessionRspCb_SDK(AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK *this)
+{
+  *this = &unk_2A1D3D110;
+  v2 = *(this + 9);
+  *(this + 9) = 0;
+  if (v2)
+  {
+    MEMORY[0x29C257E70](v2, 0x1000C4052888210);
+  }
+
+  v3 = *(this + 8);
+  *(this + 8) = 0;
+  if (v3)
+  {
+    MEMORY[0x29C257E70](v3, 0x1000C4052888210);
+  }
+
+  AriSdk::MsgBase::~MsgBase(this);
+}
+
+{
+  AriSdk::ARI_IBIFilerHSEndBBSessionRspCb_SDK::~ARI_IBIFilerHSEndBBSessionRspCb_SDK(this);
+
+  JUMPOUT(0x29C257E70);
 }

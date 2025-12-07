@@ -150,9 +150,9 @@ LABEL_8:
   searchController = [(TUProxyRecentCall *)self searchController];
   contactStore = [searchController contactStore];
   keysToFetchForFaceTime = [MEMORY[0x1E695CD58] keysToFetchForFaceTime];
-  v14 = 0;
-  v8 = [contactStore unifiedContactWithIdentifier:contactIdentifier keysToFetch:keysToFetchForFaceTime error:&v14];
-  v9 = v14;
+  v15 = 0;
+  v8 = [contactStore unifiedContactWithIdentifier:contactIdentifier keysToFetch:keysToFetchForFaceTime error:&v15];
+  v9 = v15;
 
   if (v8)
   {
@@ -171,8 +171,8 @@ LABEL_8:
   if (code != 200)
   {
 LABEL_8:
-    v12 = TUDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = TUDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(TUProxyRecentCall *)self backingContact];
     }
@@ -223,7 +223,7 @@ LABEL_12:
 
 - (NSArray)handles
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   backingContact = [(TUProxyRecentCall *)self backingContact];
   v4 = backingContact;
   if (backingContact)
@@ -239,8 +239,8 @@ LABEL_12:
     phoneNumberStrings = destinationId;
     if (destinationId)
     {
-      v11[0] = destinationId;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v10[0] = destinationId;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     }
 
     else
@@ -248,8 +248,6 @@ LABEL_12:
       v7 = MEMORY[0x1E695E0F0];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -360,7 +358,7 @@ void __39__TUProxyRecentCall_mostRecentCallType__block_invoke_2()
 
 - (NSArray)idsCanonicalDestinations
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   backingContact = [(TUProxyRecentCall *)self backingContact];
   recentCall = [(TUProxyRecentCall *)self recentCall];
   callerId = [recentCall callerId];
@@ -376,8 +374,8 @@ void __39__TUProxyRecentCall_mostRecentCallType__block_invoke_2()
     v8 = iDSFormattedDestinationID;
     if (iDSFormattedDestinationID)
     {
-      v11[0] = iDSFormattedDestinationID;
-      allIDSDestinations = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v10[0] = iDSFormattedDestinationID;
+      allIDSDestinations = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     }
 
     else
@@ -391,8 +389,6 @@ void __39__TUProxyRecentCall_mostRecentCallType__block_invoke_2()
     allIDSDestinations = MEMORY[0x1E695E0F0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return allIDSDestinations;
 }
 
@@ -405,13 +401,12 @@ void __39__TUProxyRecentCall_mostRecentCallType__block_invoke_2()
 
 - (void)backingContact
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1956FD000, log, OS_LOG_TYPE_ERROR, "Error fetching backing contact for recent call %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1956FD000, log, OS_LOG_TYPE_ERROR, "Error fetching backing contact for recent call %@: %@", &v3, 0x16u);
 }
 
 @end

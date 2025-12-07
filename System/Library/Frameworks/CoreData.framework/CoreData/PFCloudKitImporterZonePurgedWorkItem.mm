@@ -53,13 +53,13 @@
 
 - (void)doWorkForStore:(id)store inMonitor:(id)monitor completion:(id)completion
 {
-  v37[1] = *MEMORY[0x1E69E9840];
-  v32 = 0;
+  v36[1] = *MEMORY[0x1E69E9840];
+  v31 = 0;
   mirroringDelegate = [store mirroringDelegate];
   v10 = objc_alloc(MEMORY[0x1E696AD80]);
-  v36 = @"NSCloudKitMirroringDelegateResetSyncReasonKey";
-  v37[0] = &unk_1EF435D70;
-  v11 = [v10 initWithName:@"NSCloudKitMirroringDelegateWillResetSyncNotificationName" object:mirroringDelegate userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v37, &v36, 1)}];
+  v35 = @"NSCloudKitMirroringDelegateResetSyncReasonKey";
+  v36[0] = &unk_1EF435D70;
+  v11 = [v10 initWithName:@"NSCloudKitMirroringDelegateWillResetSyncNotificationName" object:mirroringDelegate userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v36, &v35, 1)}];
   [mirroringDelegate logResetSyncNotification:v11];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 
@@ -86,12 +86,12 @@
     v17 = 0;
   }
 
-  if ([(PFCloudKitMetadataPurger *)metadataPurger purgeMetadataFromStore:store inMonitor:monitor withOptions:9 forRecordZones:v15 inDatabaseWithScope:[(NSCloudKitMirroringDelegateOptions *)v17 databaseScope] andTransactionAuthor:@"NSCloudKitMirroringDelegate.reset" error:&v32])
+  if ([(PFCloudKitMetadataPurger *)metadataPurger purgeMetadataFromStore:store inMonitor:monitor withOptions:9 forRecordZones:v15 inDatabaseWithScope:[(NSCloudKitMirroringDelegateOptions *)v17 databaseScope] andTransactionAuthor:@"NSCloudKitMirroringDelegate.reset" error:&v31])
   {
     v18 = objc_alloc(MEMORY[0x1E696AD80]);
-    v33 = @"NSCloudKitMirroringDelegateResetSyncReasonKey";
-    v34 = &unk_1EF435D70;
-    v19 = [v18 initWithName:@"NSCloudKitMirroringDelegateDidResetSyncNotificationName" object:mirroringDelegate userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v34, &v33, 1)}];
+    v32 = @"NSCloudKitMirroringDelegateResetSyncReasonKey";
+    v33 = &unk_1EF435D70;
+    v19 = [v18 initWithName:@"NSCloudKitMirroringDelegateDidResetSyncNotificationName" object:mirroringDelegate userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v33, &v32, 1)}];
     [mirroringDelegate logResetSyncNotification:v19];
     [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 
@@ -110,7 +110,7 @@
     v28 = [NSCloudKitMirroringResult alloc];
     v29 = self->super._request;
     identifier = [store identifier];
-    v27 = v32;
+    v27 = v31;
     v23 = v28;
     v24 = v29;
     v25 = 0;
@@ -122,8 +122,6 @@
   {
     (*(completion + 2))(completion, v30);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 @end

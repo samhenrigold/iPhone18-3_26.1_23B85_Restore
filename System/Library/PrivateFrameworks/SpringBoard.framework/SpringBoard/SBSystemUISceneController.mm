@@ -333,7 +333,7 @@ id __129__SBSystemUISceneController_initWithSceneWorkspaceIdentifier_clientProce
   }
 
   _presenterArray = [(SBSystemUISceneController *)self _presenterArray];
-  v7 = [_presenterArray containsObject:presenterCopy];
+  v7 = objc_msgSend_containsObject_(_presenterArray);
 
   if (v7)
   {
@@ -940,7 +940,7 @@ LABEL_15:
     [identityCopy isContinuityDisplay];
     v17 = objc_opt_new();
     settings = [_FBSScene settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     v20 = v19;
     v22 = v21;
     v24 = v23;
@@ -1553,7 +1553,7 @@ uint64_t __95__SBSystemUISceneController_destroyScenesWithPersistentIdentifiers_
 {
   v2 = *(a1 + 32);
   v3 = [a2 scenePersistentIdentifier];
-  v4 = [v2 containsObject:v3];
+  v4 = objc_msgSend_containsObject_(v2);
 
   return v4;
 }

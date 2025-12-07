@@ -22,7 +22,8 @@
 {
   dictionaryCopy = dictionary;
   selfCopy = self;
-  LOBYTE(self) = sub_1BE50DC0C(dictionaryCopy);
+  sub_1BE50DC0C();
+  LOBYTE(self) = v6;
 
   return self & 1;
 }

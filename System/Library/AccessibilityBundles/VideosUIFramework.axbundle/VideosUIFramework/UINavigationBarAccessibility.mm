@@ -10,7 +10,7 @@ uint64_t __70__UINavigationBarAccessibility__VideosUI__UIKit_accessibilityElemen
   return result;
 }
 
-uint64_t __70__UINavigationBarAccessibility__VideosUI__UIKit_accessibilityElements__block_invoke_2()
+uint64_t __70__UINavigationBarAccessibility__VideosUI__UIKit_accessibilityElements__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   accessibilityElements_targetClass = result;
@@ -58,10 +58,7 @@ BOOL __70__UINavigationBarAccessibility__VideosUI__UIKit_accessibilityElements__
 
 uint64_t __70__UINavigationBarAccessibility__VideosUI__UIKit_accessibilityElements__block_invoke_308(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityLabel];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityLabel];
 
   return MEMORY[0x2A1C71028]();
 }

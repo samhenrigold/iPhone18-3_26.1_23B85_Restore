@@ -35,14 +35,15 @@
 
 - (NSXPCConnection)xpcConnection
 {
-  if (+[TUNeighborhoodActivityConduit isConduitAvailable])
+  v3 = +[TUNeighborhoodActivityConduit isConduitAvailable];
+  if (v3)
   {
     xpcConnection = self->_xpcConnection;
     if (!xpcConnection)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:@"com.apple.NeighborhoodActivityConduitService" options:0];
-      v5 = self->_xpcConnection;
-      self->_xpcConnection = v4;
+      v5 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:@"com.apple.NeighborhoodActivityConduitService" options:0];
+      v6 = self->_xpcConnection;
+      self->_xpcConnection = v5;
 
       neighborhoodActivityServerXPCInterface = [objc_opt_class() neighborhoodActivityServerXPCInterface];
       [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:neighborhoodActivityServerXPCInterface];
@@ -52,43 +53,43 @@
 
       [(NSXPCConnection *)self->_xpcConnection setExportedObject:self];
       objc_initWeak(&location, self);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke;
-      v14[3] = &unk_1E7424998;
-      objc_copyWeak(&v15, &location);
-      [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v14];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_11;
-      v12[3] = &unk_1E7424998;
-      objc_copyWeak(&v13, &location);
-      [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v12];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke;
+      v15[3] = &unk_1E7424998;
+      objc_copyWeak(&v16, &location);
+      [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v15];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_11;
+      v13[3] = &unk_1E7424998;
+      objc_copyWeak(&v14, &location);
+      [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v13];
       [(NSXPCConnection *)self->_xpcConnection resume];
       delegate = [(TUNeighborhoodActivityConduitXPCClient *)self delegate];
       [delegate connectionEstablishedForClient:self];
 
-      objc_destroyWeak(&v13);
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&location);
       xpcConnection = self->_xpcConnection;
     }
 
-    v9 = xpcConnection;
+    v10 = xpcConnection;
   }
 
   else
   {
-    v10 = TUConduitLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = TUConduitLog(v3);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(TUNeighborhoodActivityConduitXPCClient *)v10 xpcConnection];
+      [(TUNeighborhoodActivityConduitXPCClient *)v11 xpcConnection];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)ensureConnection
@@ -108,10 +109,10 @@ void __58__TUNeighborhoodActivityConduitXPCClient_ensureConnection__block_invoke
 
   if (!v1)
   {
-    v2 = TUConduitLog();
-    if (os_log_type_enabled(v2, 0x90u))
+    v3 = TUConduitLog(v2);
+    if (os_log_type_enabled(v3, 0x90u))
     {
-      __58__TUNeighborhoodActivityConduitXPCClient_ensureConnection__block_invoke_cold_1(v2);
+      __58__TUNeighborhoodActivityConduitXPCClient_ensureConnection__block_invoke_cold_1(v3);
     }
   }
 }
@@ -144,39 +145,40 @@ void __58__TUNeighborhoodActivityConduitXPCClient_ensureConnection__block_invoke
 
 void __46__TUNeighborhoodActivityConduitXPCClient_init__block_invoke(uint64_t a1)
 {
-  v2 = TUConduitLog();
+  v2 = TUConduitLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "TUConduitXPCClient: NeighborhoodActivityConduit restarted and requested re-connection", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "TUConduitXPCClient: NeighborhoodActivityConduit restarted and requested re-connection", v8, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = TUConduitLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = TUConduitLog(WeakRetained);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __46__TUNeighborhoodActivityConduitXPCClient_init__block_invoke_cold_1(v4);
+      __46__TUNeighborhoodActivityConduitXPCClient_init__block_invoke_cold_1(v5);
     }
 
-    v5 = [WeakRetained delegate];
-    v6 = v5;
-    if (WeakRetained[4])
+    v6 = [v4 delegate];
+    v7 = v6;
+    if (v4[4])
     {
-      [v5 connectionEstablishedForClient:WeakRetained];
+      [v6 connectionEstablishedForClient:v4];
     }
 
     else
     {
-      [WeakRetained xpcConnection];
+      [v4 xpcConnection];
     }
   }
 }
 
 - (void)dealloc
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -219,7 +221,7 @@ void __72__TUNeighborhoodActivityConduitXPCClient_nearbyTVDevicesWithCompletion_
 void __72__TUNeighborhoodActivityConduitXPCClient_nearbyTVDevicesWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __72__TUNeighborhoodActivityConduitXPCClient_nearbyTVDevicesWithCompletion___block_invoke_2_cold_1();
@@ -257,7 +259,7 @@ void __98__TUNeighborhoodActivityConduitXPCClient_isRingingFaceTimeCallsOnConnec
 void __98__TUNeighborhoodActivityConduitXPCClient_isRingingFaceTimeCallsOnConnectedTVDeviceWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __72__TUNeighborhoodActivityConduitXPCClient_nearbyTVDevicesWithCompletion___block_invoke_2_cold_1();
@@ -295,7 +297,7 @@ void __83__TUNeighborhoodActivityConduitXPCClient_activeSplitSessionTVDeviceWith
 void __83__TUNeighborhoodActivityConduitXPCClient_activeSplitSessionTVDeviceWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __83__TUNeighborhoodActivityConduitXPCClient_activeSplitSessionTVDeviceWithCompletion___block_invoke_2_cold_1();
@@ -336,7 +338,7 @@ void __78__TUNeighborhoodActivityConduitXPCClient_setSuggestedTVDeviceName_compl
 void __78__TUNeighborhoodActivityConduitXPCClient_setSuggestedTVDeviceName_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __78__TUNeighborhoodActivityConduitXPCClient_setSuggestedTVDeviceName_completion___block_invoke_2_cold_1();
@@ -374,7 +376,7 @@ void __67__TUNeighborhoodActivityConduitXPCClient_suggestionWithCompletion___blo
 void __67__TUNeighborhoodActivityConduitXPCClient_suggestionWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __67__TUNeighborhoodActivityConduitXPCClient_suggestionWithCompletion___block_invoke_2_cold_1();
@@ -420,10 +422,10 @@ void __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationW
 void __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationWithUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationWithUUID_completion___block_invoke_2_cold_1(a1);
+    __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationWithUUID_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -462,10 +464,10 @@ void __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion_
 void __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion___block_invoke_2_cold_1(a1);
+    __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -504,10 +506,10 @@ void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_
 void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_completion___block_invoke_2_cold_1(a1);
+    __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -516,8 +518,8 @@ void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_
 - (void)registerApprovalClientEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = TUConduitLog();
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = TUConduitLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = "NO";
@@ -527,20 +529,18 @@ void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_
     }
 
     *buf = 136315138;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Sending approval registration: %s", buf, 0xCu);
   }
 
   queue = [(TUNeighborhoodActivityConduitXPCClient *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke;
-  v9[3] = &unk_1E7425000;
-  v9[4] = self;
-  v10 = enabledCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke;
+  v8[3] = &unk_1E7425000;
+  v8[4] = self;
+  v9 = enabledCopy;
+  dispatch_async(queue, v8);
 }
 
 void __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke(uint64_t a1)
@@ -552,7 +552,7 @@ void __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled_
 void __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUConduitLog();
+  v3 = TUConduitLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke_2_cold_1();
@@ -588,7 +588,7 @@ void __67__TUNeighborhoodActivityConduitXPCClient_ensureConduitInitialized___blo
 void __67__TUNeighborhoodActivityConduitXPCClient_ensureConduitInitialized___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
     __67__TUNeighborhoodActivityConduitXPCClient_ensureConduitInitialized___block_invoke_2_cold_1();
@@ -634,10 +634,10 @@ void __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice
 void __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice_completion___block_invoke_2_cold_1(a1);
+    __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -680,10 +680,10 @@ void __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_
 void __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_completion___block_invoke_2_cold_1(a1);
+    __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -725,10 +725,10 @@ void __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_compl
 void __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUConduitLog();
+  v4 = TUConduitLog(v3);
   if (os_log_type_enabled(v4, 0x90u))
   {
-    __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_completion___block_invoke_2_cold_1(a1);
+    __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -891,22 +891,19 @@ void __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke(ui
 
 void __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = TUConduitLog();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = TUConduitLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v8 = 136446210;
-    Name = class_getName(v4);
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: XPC connection invalidated", &v8, 0xCu);
+    v3 = objc_opt_class();
+    v6 = 136446210;
+    Name = class_getName(v3);
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: XPC connection invalidated", &v6, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 32);
-  *(v5 + 32) = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 32);
+  *(v4 + 32) = 0;
 }
 
 void __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_11(uint64_t a1)
@@ -927,25 +924,22 @@ void __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_11
 
 void __55__TUNeighborhoodActivityConduitXPCClient_xpcConnection__block_invoke_2_12(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = TUConduitLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = TUConduitLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v9 = 136446210;
-    Name = class_getName(v4);
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: XPC connection interrupted", &v9, 0xCu);
+    v3 = objc_opt_class();
+    v7 = 136446210;
+    Name = class_getName(v3);
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: XPC connection interrupted", &v7, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 32);
-  *(v5 + 32) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 32);
+  *(v4 + 32) = 0;
 
-  v7 = [*(a1 + 32) delegate];
-  [v7 connectionLostForClient:*(a1 + 32)];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [*(a1 + 32) delegate];
+  [v6 connectionLostForClient:*(a1 + 32)];
 }
 
 - (id)server
@@ -1112,118 +1106,56 @@ void __80__TUNeighborhoodActivityConduitXPCClient_neighborhoodActivityServerXPCI
   return WeakRetained;
 }
 
-void __72__TUNeighborhoodActivityConduitXPCClient_nearbyTVDevicesWithCompletion___block_invoke_2_cold_1()
+void __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationWithUUID_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1956FD000, v0, v1, "Error fetching nearby TVs: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __83__TUNeighborhoodActivityConduitXPCClient_activeSplitSessionTVDeviceWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1956FD000, v0, v1, "Error fetching active split session TV: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__TUNeighborhoodActivityConduitXPCClient_setSuggestedTVDeviceName_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1956FD000, v0, v1, "Error setting suggested TV name: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__TUNeighborhoodActivityConduitXPCClient_suggestionWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1956FD000, v0, v1, "Error fetching suggested TV: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __91__TUNeighborhoodActivityConduitXPCClient_inviteTVDevice_toConversationWithUUID_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion___block_invoke_2_cold_1(uint64_t a1)
+void __72__TUNeighborhoodActivityConduitXPCClient_disconnectTVDevice_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_completion___block_invoke_2_cold_1(uint64_t a1)
+void __83__TUNeighborhoodActivityConduitXPCClient_respondToSuggestionWithResult_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __72__TUNeighborhoodActivityConduitXPCClient_registerApprovalClientEnabled___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1956FD000, v0, OS_LOG_TYPE_ERROR, "Error registering as approval handler: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1956FD000, v0, OS_LOG_TYPE_ERROR, "Error registering as approval handler: %@", v1, 0xCu);
 }
 
-void __67__TUNeighborhoodActivityConduitXPCClient_ensureConduitInitialized___block_invoke_2_cold_1()
+void __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1956FD000, v0, v1, "Error validating conduit state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __84__TUNeighborhoodActivityConduitXPCClient_handoffConversation_toTVDevice_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_completion___block_invoke_2_cold_1(uint64_t a1)
+void __83__TUNeighborhoodActivityConduitXPCClient_pullConversation_fromTVDevice_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_completion___block_invoke_2_cold_1(uint64_t a1)
+void __78__TUNeighborhoodActivityConduitXPCClient_startConversationWith_on_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

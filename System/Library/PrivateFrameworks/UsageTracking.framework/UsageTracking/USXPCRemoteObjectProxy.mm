@@ -109,13 +109,10 @@ LABEL_9:
 
 void __74__USXPCRemoteObjectProxy_proxyFromConnection_withRetryCount_proxyHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) serviceName];
-  v3 = *(a1 + 48);
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = [*(a1 + 32) serviceName];
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@\nAttempts remaining: %lu", v5, 0x20u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@\nAttempts remaining: %lu", v2, 0x20u);
 }
 
 @end

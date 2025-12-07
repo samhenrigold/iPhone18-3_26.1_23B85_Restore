@@ -201,28 +201,13 @@
   v17.receiver = self;
   v17.super_class = _INVocabularyItem;
   v10 = [(_INVocabularyItem *)&v17 init];
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  v11 = [stringCopy copy];
-  string = v10->_string;
-  v10->_string = v11;
-
-  v13 = [identifierCopy copy];
-  vocabularyIdentifier = v10->_vocabularyIdentifier;
-  v10->_vocabularyIdentifier = v13;
-
-  v10->_requiresUserIdentification = identification;
-  if ([(_INVocabularyItem *)v10 validate]== 1)
+  if (v10 && (v11 = [stringCopy copy], string = v10->_string, v10->_string = v11, string, v13 = objc_msgSend(identifierCopy, "copy"), vocabularyIdentifier = v10->_vocabularyIdentifier, v10->_vocabularyIdentifier = v13, vocabularyIdentifier, v10->_requiresUserIdentification = identification, -[_INVocabularyItem validate](v10, "validate") == 1))
   {
     v15 = v10;
   }
 
   else
   {
-LABEL_4:
     v15 = 0;
   }
 

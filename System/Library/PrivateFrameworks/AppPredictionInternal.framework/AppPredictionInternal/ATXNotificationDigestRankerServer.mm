@@ -57,50 +57,51 @@ void __51__ATXNotificationDigestRankerServer_sharedInstance__block_invoke()
   connectionCopy = connection;
   v6 = *MEMORY[0x277CEBB00];
   v7 = [connectionCopy valueForEntitlement:*MEMORY[0x277CEBB00]];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXNotificationDigestRankerServer *)v8 listener:v9 shouldAcceptNewConnection:v10, v11, v12, v13, v14, v15];
+      [(ATXNotificationDigestRankerServer *)v9 listener:v10 shouldAcceptNewConnection:v11, v12, v13, v14, v15, v16];
     }
 
-    v16 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283AA7AF8];
-    v17 = MEMORY[0x277CBEB98];
+    v17 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283AA7AF8];
+    v18 = MEMORY[0x277CBEB98];
     v39[0] = objc_opt_class();
     v39[1] = objc_opt_class();
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
-    v19 = [v17 setWithArray:v18];
-    [v16 setClasses:v19 forSelector:sel_generateDigestForNotificationStacks_reply_ argumentIndex:0 ofReply:0];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+    v20 = [v18 setWithArray:v19];
+    [v17 setClasses:v20 forSelector:sel_generateDigestForNotificationStacks_reply_ argumentIndex:0 ofReply:0];
 
-    v20 = MEMORY[0x277CBEB98];
+    v21 = MEMORY[0x277CBEB98];
     v38 = objc_opt_class();
-    v21 = 1;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
-    v23 = [v20 setWithArray:v22];
-    [v16 setClasses:v23 forSelector:sel_generateDigestForNotificationStacks_reply_ argumentIndex:0 ofReply:1];
+    v22 = 1;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v24 = [v21 setWithArray:v23];
+    [v17 setClasses:v24 forSelector:sel_generateDigestForNotificationStacks_reply_ argumentIndex:0 ofReply:1];
 
-    v24 = MEMORY[0x277CBEB98];
+    v25 = MEMORY[0x277CBEB98];
     v37[0] = objc_opt_class();
     v37[1] = objc_opt_class();
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
-    v26 = [v24 setWithArray:v25];
-    [v16 setClasses:v26 forSelector:sel_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply_ argumentIndex:0 ofReply:0];
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v27 = [v25 setWithArray:v26];
+    [v17 setClasses:v27 forSelector:sel_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply_ argumentIndex:0 ofReply:0];
 
-    v27 = MEMORY[0x277CBEB98];
+    v28 = MEMORY[0x277CBEB98];
     v36 = objc_opt_class();
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-    v29 = [v27 setWithArray:v28];
-    [v16 setClasses:v29 forSelector:sel_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply_ argumentIndex:0 ofReply:1];
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+    v30 = [v28 setWithArray:v29];
+    [v17 setClasses:v30 forSelector:sel_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply_ argumentIndex:0 ofReply:1];
 
-    v30 = MEMORY[0x277CBEB98];
+    v31 = MEMORY[0x277CBEB98];
     v35[0] = objc_opt_class();
     v35[1] = objc_opt_class();
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-    v32 = [v30 setWithArray:v31];
-    [v16 setClasses:v32 forSelector:sel_appsSortedByNotificationsReceivedInPreviousNumDays_reply_ argumentIndex:0 ofReply:1];
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v33 = [v31 setWithArray:v32];
+    [v17 setClasses:v33 forSelector:sel_appsSortedByNotificationsReceivedInPreviousNumDays_reply_ argumentIndex:0 ofReply:1];
 
-    [connectionCopy setExportedInterface:v16];
+    [connectionCopy setExportedInterface:v17];
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_83_0];
     [connectionCopy setInvalidationHandler:&__block_literal_global_86_0];
@@ -109,34 +110,33 @@ void __51__ATXNotificationDigestRankerServer_sharedInstance__block_invoke()
 
   else
   {
-    v16 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v16];
+      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v17];
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v22;
 }
 
-void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke()
+void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
-void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_84()
+void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_84(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_84_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection___block_invoke_84_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
@@ -152,20 +152,20 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
     v13 = [v12 createDigestForAppGroupedNotificationStacks:stacksCopy maxGlobalMarqueeGroups:groups maxAppMarqueeGroups:marqueeGroups outError:&v25];
     v14 = v25;
 
-    v15 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = __atxlog_handle_notification_management(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       uuid = [v13 uuid];
       uUIDString = [uuid UUIDString];
       *buf = 138412802;
-      v27 = v17;
+      v27 = v18;
       v28 = 2112;
       v29 = uUIDString;
       v30 = 2112;
       v31 = v14;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "[%@] Returning digest with UUID %@ and err %@", buf, 0x20u);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "[%@] Returning digest with UUID %@ and err %@", buf, 0x20u);
     }
 
     replyCopy[2](replyCopy, v13, v14);
@@ -173,21 +173,19 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
 
   else
   {
-    v20 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerServer generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v21 = MEMORY[0x277CBEAD8];
-    v22 = *MEMORY[0x277CBE658];
-    v23 = objc_opt_class();
-    v14 = NSStringFromClass(v23);
+    v22 = MEMORY[0x277CBEAD8];
+    v23 = *MEMORY[0x277CBE658];
+    v24 = objc_opt_class();
+    v14 = NSStringFromClass(v24);
     v13 = NSStringFromSelector(a2);
-    [v21 raise:v22 format:{@"[%@] No reply handler provided for %@", v14, v13}];
+    [v22 raise:v23 format:{@"[%@] No reply handler provided for %@", v14, v13}];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateDigestForNotificationStacks:(id)stacks reply:(id)reply
@@ -202,20 +200,20 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
     v9 = [v8 createDigestForNotificationStacks:stacksCopy outError:&v21];
     v10 = v21;
 
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = __atxlog_handle_notification_management(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       uuid = [v9 uuid];
       uUIDString = [uuid UUIDString];
       *buf = 138412802;
-      v23 = v13;
+      v23 = v14;
       v24 = 2112;
       v25 = uUIDString;
       v26 = 2112;
       v27 = v10;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "[%@] Returning digest with UUID %@ and err %@", buf, 0x20u);
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "[%@] Returning digest with UUID %@ and err %@", buf, 0x20u);
     }
 
     replyCopy[2](replyCopy, v9, v10);
@@ -223,28 +221,26 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
 
   else
   {
-    v16 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerServer generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v17 = MEMORY[0x277CBEAD8];
-    v18 = *MEMORY[0x277CBE658];
-    v19 = objc_opt_class();
-    v10 = NSStringFromClass(v19);
+    v18 = MEMORY[0x277CBEAD8];
+    v19 = *MEMORY[0x277CBE658];
+    v20 = objc_opt_class();
+    v10 = NSStringFromClass(v20);
     v9 = NSStringFromSelector(a2);
-    [v17 raise:v18 format:{@"[%@] No reply handler provided for %@", v10, v9}];
+    [v18 raise:v19 format:{@"[%@] No reply handler provided for %@", v10, v9}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appsSortedByNotificationsReceivedInPreviousNumDays:(unint64_t)days reply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(replyCopy);
   v8 = v7;
   if (replyCopy)
   {
@@ -255,13 +251,13 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
 
     v9 = objc_opt_new();
     v10 = [v9 appsSortedByNumOfNotificationsGivenNumOfDays:days];
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       *buf = 138412290;
-      v19 = v13;
+      v18 = v13;
       _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "[%@] Returning apps sorted by number of notifications", buf, 0xCu);
     }
 
@@ -282,8 +278,6 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
     v10 = NSStringFromSelector(a2);
     [v14 raise:v15 format:{@"[%@] No reply handler provided for %@", v9, v10}];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)numberOfActiveNotificationsWithCompletionHandler:(id)handler
@@ -295,38 +289,32 @@ void __72__ATXNotificationDigestRankerServer_listener_shouldAcceptNewConnection_
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", &v3, 0x16u);
 }
 
 - (void)generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v12 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = NSStringFromClass(v1);
   v3 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v4, v5, "[%@] No reply handler provided for %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v4, v5, "[%@] No reply handler provided for %@", v6, v7, v8, v9);
 }
 
 - (void)appsSortedByNotificationsReceivedInPreviousNumDays:reply:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "[%@ %@] Fetching sorted apps", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "[%@ %@] Fetching sorted apps", v4, 0x16u);
 }
 
 @end

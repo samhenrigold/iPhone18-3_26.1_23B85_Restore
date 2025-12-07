@@ -5,6 +5,7 @@
 - (void)setSelectedLocationIdentifier:(id)identifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation UBSDefaultLocationSettingsController
@@ -133,6 +134,33 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = UBSDefaultLocationSettingsController;
+  [(UBSDefaultLocationSettingsController *)&v18 viewWillAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  bundleURL = [v4 bundleURL];
+  v8 = [v5 initWithKey:@"DEFAULT_LOCATION" table:@"Localizable" locale:v6 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  bundleURL2 = [v4 bundleURL];
+  v12 = [v9 initWithKey:@"TITLE" table:@"Localizable" locale:v10 bundleURL:bundleURL2];
+
+  bundleIdentifier = [v4 bundleIdentifier];
+  v19 = v12;
+  v14 = [NSArray arrayWithObjects:&v19 count:1];
+  bundleIdentifier2 = [v4 bundleIdentifier];
+  v16 = [NSString stringWithFormat:@"bridge:root=%@&path=%@", bundleIdentifier2, @"DEFAULT_LOCATION_SPECIFIER_ID"];
+  v17 = [NSURL URLWithString:v16];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v8 localizedNavigationComponents:v14 deepLink:v17];
+
+  [(UBSDefaultLocationSettingsController *)self reloadSpecifiers];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

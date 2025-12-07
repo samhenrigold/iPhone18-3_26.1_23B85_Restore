@@ -84,8 +84,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke(uint64_t a1)
   [v2 setMenu:v5];
 
   [v2 setShowsMenuAsPrimaryAction:1];
-  [v2 addTarget:*(a1 + 32) action:sel_playbackSpeedButtonTapped_ forControlEvents:0x4000];
-  v6 = NABundle();
+  v6 = NABundle([v2 addTarget:*(a1 + 32) action:sel_playbackSpeedButtonTapped_ forControlEvents:0x4000]);
   v7 = [v6 localizedStringForKey:@"playback speed" value:&stru_1F52B5BC8 table:0];
   [v2 setAccessibilityLabel:v7];
 
@@ -349,7 +348,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
       {
         if (rate >= 1.75)
         {
-          v4 = NABundle();
+          v4 = NABundle(self);
           v5 = v4;
           if (rate >= 2.0)
           {
@@ -364,7 +363,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
         else
         {
-          v4 = NABundle();
+          v4 = NABundle(self);
           v5 = v4;
           v6 = @"one and a half speed";
         }
@@ -372,7 +371,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
       else
       {
-        v4 = NABundle();
+        v4 = NABundle(self);
         v5 = v4;
         v6 = @"one and a quarter speed";
       }
@@ -380,7 +379,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
     else
     {
-      v4 = NABundle();
+      v4 = NABundle(self);
       v5 = v4;
       v6 = @"normal speed";
     }
@@ -388,7 +387,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
   else
   {
-    v4 = NABundle();
+    v4 = NABundle(self);
     v5 = v4;
     v6 = @"three quarters speed";
   }
@@ -408,7 +407,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
       {
         if (rate >= 1.75)
         {
-          v4 = NABundle();
+          v4 = NABundle(self);
           v5 = v4;
           if (rate >= 2.0)
           {
@@ -423,7 +422,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
         else
         {
-          v4 = NABundle();
+          v4 = NABundle(self);
           v5 = v4;
           v6 = @"1.5";
         }
@@ -431,7 +430,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
       else
       {
-        v4 = NABundle();
+        v4 = NABundle(self);
         v5 = v4;
         v6 = @"1.25";
       }
@@ -439,7 +438,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
     else
     {
-      v4 = NABundle();
+      v4 = NABundle(self);
       v5 = v4;
       v6 = @"1";
     }
@@ -447,23 +446,23 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
   else
   {
-    v4 = NABundle();
+    v4 = NABundle(self);
     v5 = v4;
     v6 = @"0.75";
   }
 
   v7 = [v4 localizedStringForKey:v6 value:&stru_1F52B5BC8 table:0];
 
-  v8 = NABundle();
-  v9 = [v8 localizedStringForKey:@"×" value:&stru_1F52B5BC8 table:0];
-  v10 = [v7 stringByAppendingString:v9];
+  v9 = NABundle(v8);
+  v10 = [v9 localizedStringForKey:@"×" value:&stru_1F52B5BC8 table:0];
+  v11 = [v7 stringByAppendingString:v10];
 
-  return v10;
+  return v11;
 }
 
 - (void)playbackSpeedButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -478,7 +477,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
 - (void)routeButtonTouchDown:(id)down
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -491,7 +490,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
 - (void)routeButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -504,7 +503,7 @@ id __44__NANowPlayingBottomControls_initWithFrame___block_invoke_3(uint64_t a1)
 
 - (void)routeButtonTouchUpOutside:(id)outside
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

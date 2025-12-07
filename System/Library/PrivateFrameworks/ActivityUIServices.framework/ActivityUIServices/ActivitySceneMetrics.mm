@@ -72,9 +72,9 @@
 - (_TtC18ActivityUIServices20ActivitySceneMetrics)initWithXPCDictionary:(id)dictionary
 {
   swift_unknownObjectRetain();
-  v3 = sub_18E64A59C();
+  v4 = sub_18E64A59C(dictionary);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary

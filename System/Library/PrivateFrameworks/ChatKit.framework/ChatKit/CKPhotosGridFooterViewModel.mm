@@ -54,7 +54,7 @@
   assetsCountsController = self->_assetsCountsController;
   if (assetsCountsController)
   {
-    [(PXAssetsDataSourceCountsController *)assetsCountsController counts];
+    objc_msgSend_counts(assetsCountsController, a2);
   }
 
   v4 = v6;
@@ -91,7 +91,7 @@
     videosCount = self->_detailedCounts.videosCount;
     if (p_detailedCounts->photosCount == 0x7FFFFFFFFFFFFFFFLL || videosCount == 0x7FFFFFFFFFFFFFFFLL || var2 == 0x7FFFFFFFFFFFFFFFLL || videosCount + photosCount + var2 == 0)
     {
-      v13 = CKFrameworkBundle();
+      v13 = CKFrameworkBundle(self);
       v14 = [v13 localizedStringForKey:@"CKPhotosGridFooterViewModelLoadingCountsTitle" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 

@@ -17,9 +17,8 @@
 - (TSClockPulser)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSClockPulser init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -67,14 +66,9 @@ LABEL_5:
 
   else
   {
-    [(TSClock *)self->_pulseClock addClient:self];
+    [(TSClock *)self->_pulseClock addClient:?];
     self->_threadShouldBeRunning = 1;
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __29__TSClockPulser_startPulsing__block_invoke;
-    v5[3] = &unk_279DBD538;
-    v5[4] = self;
-    [MEMORY[0x277CCACC8] detachNewThreadWithBlock:v5];
+    [MEMORY[0x277CCACC8] detachNewThreadWithBlock:?];
     MEMORY[0x2743880E0](self->_startSemaphore);
     return self->_threadIsRunning;
   }
@@ -87,7 +81,7 @@ LABEL_5:
     self->_threadShouldBeRunning = 0;
     MEMORY[0x2743880E0](self->_stopSemaphore, a2);
     self->_lastLockState = 0;
-    [(TSClock *)self->_pulseClock removeClient:self];
+    [(TSClock *)self->_pulseClock removeClient:?];
   }
 
   else
@@ -109,18 +103,16 @@ LABEL_5:
 
 - (void)didChangeLockStateTo:(int)to forClock:(id)clock
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   clockCopy = clock;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = to;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Change lock state to %u", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = to;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Change lock state to %u", v7, 8u);
   }
 
   self->_holdoverMode = to != 2;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didBeginClockGrandmasterChangeForClock:(id)clock
@@ -143,11 +135,10 @@ LABEL_5:
 
 - (void)pulseThread
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = self;
-  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to convert pulse thread to realtime. Error 0x%08x\n", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = self;
+  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to convert pulse thread to realtime. Error 0x%08x\n", v1, 8u);
 }
 
 - (void)dealloc
@@ -174,41 +165,35 @@ LABEL_5:
 
 - (void)initWithPulseClock:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPulseClock:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPulsing
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

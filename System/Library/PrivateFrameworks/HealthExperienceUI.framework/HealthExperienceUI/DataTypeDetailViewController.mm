@@ -23,7 +23,7 @@
   swift_unknownObjectRelease();
   (*((*MEMORY[0x1E69E7D40] & selfCopy->super.super.super.super.super.isa) + 0x268))(1);
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)addDataKeyCommandFired

@@ -43,7 +43,7 @@
     keyTransportQueue = v2->_keyTransportQueue;
     v2->_keyTransportQueue = v12;
 
-    v14 = sub_100388B10();
+    v14 = sub_100388B10(KmlSharingManager);
     sharingManager = v2->_sharingManager;
     v2->_sharingManager = v14;
 

@@ -59,10 +59,9 @@
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSData length](self->_audioData, "length")}];
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_requestCreatedTimestamp];
   logText = [(VSPresynthesizedAudioRequest *)self logText];
-  identifier = self->_identifier;
-  v17 = [v10 stringWithFormat:@"sessionId %u, clientId %@, %@ bytes, input format %@, output format %@, requestCreatedTime %@, text '%@', identifier: %@, accessoryID:%@", audioSessionID, clientBundleIdentifier, v13, v6, v9, v14, logText, identifier, self->_accessoryID];
+  v16 = [v10 stringWithFormat:@"sessionId %u, clientId %@, %@ bytes, input format %@, output format %@, requestCreatedTime %@, text '%@', identifier: %@, accessoryID:%@", audioSessionID, clientBundleIdentifier, v13, v6, v9, v14, logText, self->_identifier, self->_accessoryID];
 
-  return v17;
+  return v16;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

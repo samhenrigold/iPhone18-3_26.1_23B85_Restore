@@ -92,7 +92,7 @@
 
   CGContextSaveGState(context);
   memset(&v47[1], 0, sizeof(CGAffineTransform));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   v47[0] = v47[1];
   CGContextConcatCTM(context, v47);
   [annotationCopy rectangle];
@@ -313,7 +313,7 @@ LABEL_34:
 
     v34 = v33;
     memset(&t2, 0, sizeof(t2));
-    [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:0];
+    objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
     v52 = t2;
     CGAffineTransformInvert(&t1, &v52);
     t2 = t1;

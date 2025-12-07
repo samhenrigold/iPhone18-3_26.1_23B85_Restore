@@ -57,7 +57,7 @@
 - (UIEdgeInsets)overrideSafeAreaInsets
 {
   swift_getObjectType();
-  sub_1D7B092B4(&qword_1EE0C2EE8, type metadata accessor for ArticleMastheadRootViewController);
+  sub_1D7B092B4(&qword_1EE0C2EE8, type metadata accessor for ArticleMastheadRootViewController, &unk_1D7D4C9F0);
   selfCopy = self;
   sub_1D7D2B9DC();
   v5 = v4;

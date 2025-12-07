@@ -1,7 +1,7 @@
 @interface FBWorkspaceAssertionAttributes
 + (id)sharedAttributes;
 - (id)selfAssertionAttributesWithForeground:(uint64_t)foreground outWorkspaceState:;
-- (void)assertionAttributesForLaunchIntent:(int)intent assertsVisibility:(unsigned int *)visibility outWorkspaceState:(void *)state outProcessVisibility:;
+- (void)assertionAttributesForLaunchIntent:(uint64_t)intent assertsVisibility:(unsigned int *)visibility outWorkspaceState:(void *)state outProcessVisibility:;
 - (void)assertionAttributesForWorkspaceState:(int)state assertsVisibility:(int)visibility isBootstrapping:;
 @end
 
@@ -15,12 +15,12 @@
     +[FBWorkspaceAssertionAttributes sharedAttributes];
   }
 
-  v0 = sharedAttributes_attrs;
+  v1 = sharedAttributes_attrs;
 
-  return v0;
+  return v1;
 }
 
-- (void)assertionAttributesForLaunchIntent:(int)intent assertsVisibility:(unsigned int *)visibility outWorkspaceState:(void *)state outProcessVisibility:
+- (void)assertionAttributesForLaunchIntent:(uint64_t)intent assertsVisibility:(unsigned int *)visibility outWorkspaceState:(void *)state outProcessVisibility:
 {
   if (self)
   {
@@ -35,6 +35,7 @@
       [FBWorkspaceAssertionAttributes assertionAttributesForLaunchIntent:? assertsVisibility:? outWorkspaceState:? outProcessVisibility:?];
     }
 
+    intentCopy = intent;
     v9 = a2 - 1;
     if ((a2 - 1) > 4)
     {
@@ -55,7 +56,7 @@
     v14 = FBWorkspaceStateCreate(v10, v11, v12);
     *visibility = v14;
     *state = v13;
-    self = [(FBWorkspaceAssertionAttributes *)selfCopy assertionAttributesForWorkspaceState:v14 assertsVisibility:intent isBootstrapping:1];
+    self = [(FBWorkspaceAssertionAttributes *)selfCopy assertionAttributesForWorkspaceState:v14 assertsVisibility:intentCopy isBootstrapping:1];
   }
 
   return self;
@@ -63,7 +64,7 @@
 
 - (void)assertionAttributesForWorkspaceState:(int)state assertsVisibility:(int)visibility isBootstrapping:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     goto LABEL_64;
@@ -106,7 +107,7 @@ LABEL_3:
     [FBWorkspaceAssertionAttributes assertionAttributesForWorkspaceState:assertsVisibility:isBootstrapping:];
   }
 
-  memset(v19, 0, sizeof(v19));
+  memset(v18, 0, sizeof(v18));
   if (!v10)
   {
     goto LABEL_22;
@@ -116,12 +117,12 @@ LABEL_3:
   {
     if (!ProcessRole)
     {
-      *&v19[0] = selfCopy[3];
+      *&v18[0] = selfCopy[3];
       LOBYTE(v10) = 1;
       goto LABEL_34;
     }
 
-    *&v19[0] = selfCopy[5];
+    *&v18[0] = selfCopy[5];
     goto LABEL_21;
   }
 
@@ -131,7 +132,7 @@ LABEL_3:
     v13 = 4;
   }
 
-  *&v19[0] = selfCopy[v13];
+  *&v18[0] = selfCopy[v13];
   if (v10 != 3)
   {
 LABEL_21:
@@ -139,7 +140,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  *(&v19[0] + 1) = selfCopy[22];
+  *(&v18[0] + 1) = selfCopy[22];
   v10 = 2;
 LABEL_22:
   if (ProcessRole <= 2)
@@ -178,7 +179,7 @@ LABEL_22:
     }
   }
 
-  *(v19 + v10) = v14;
+  *(v18 + v10) = v14;
   LOBYTE(v10) = v10 + 1;
 LABEL_34:
   if (JetsamBand > 39)
@@ -259,17 +260,17 @@ LABEL_67:
 
   v15 = 16;
 LABEL_58:
-  *(v19 + v10) = selfCopy[v15];
+  *(v18 + v10) = selfCopy[v15];
   LOBYTE(v10) = v10 + 1;
 LABEL_59:
   if (visibility)
   {
-    *(v19 + v10) = selfCopy[23];
+    *(v18 + v10) = selfCopy[23];
     v16 = v10 + 1;
     if (ProcessRole == 1)
     {
       v16 = v10 + 2;
-      *(v19 + (v10 + 1)) = selfCopy[24];
+      *(v18 + (v10 + 1)) = selfCopy[24];
     }
   }
 
@@ -278,9 +279,8 @@ LABEL_59:
     v16 = v10;
   }
 
-  self = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:v16];
+  self = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:v16];
 LABEL_64:
-  v17 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -303,7 +303,7 @@ LABEL_64:
 
 void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = sharedAttributes_attrs;
   sharedAttributes_attrs = v0;
@@ -405,17 +405,15 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
   *(sharedAttributes_attrs + 192) = v48;
 
   v50 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.frontboard" name:@"WorkspaceEndpointInjection"];
-  v54[0] = v50;
-  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+  v53[0] = v50;
+  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
   v52 = *(sharedAttributes_attrs + 200);
   *(sharedAttributes_attrs + 200) = v51;
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertionAttributesForLaunchIntent:(char *)a1 assertsVisibility:outWorkspaceState:outProcessVisibility:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outProcessVisibility != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -423,7 +421,7 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"outProcessVisibility != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -433,7 +431,7 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
 
 - (void)assertionAttributesForLaunchIntent:(char *)a1 assertsVisibility:outWorkspaceState:outProcessVisibility:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outWorkspaceState != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -441,7 +439,7 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"outWorkspaceState != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -453,25 +451,25 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
 {
   OUTLINED_FUNCTION_8_0();
   v1 = MEMORY[0x1E696AEC0];
-  v11 = NSStringFromFBWorkspaceState(v2);
-  v3 = [v1 stringWithFormat:@"requesting assertions for invalid state %@"];
+  v3 = NSStringFromFBWorkspaceState(v2);
+  v4 = [v1 stringWithFormat:@"requesting assertions for invalid state %@", v3];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(v0);
-    v5 = objc_opt_class();
-    v13 = NSStringFromClass(v5);
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, 2u);
+    v5 = NSStringFromSelector(v0);
+    v6 = objc_opt_class();
+    v14 = NSStringFromClass(v6);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)selfAssertionAttributesWithForeground:(char *)a1 outWorkspaceState:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"outWorkspaceState != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -479,7 +477,7 @@ void __50__FBWorkspaceAssertionAttributes_sharedAttributes__block_invoke()
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"outWorkspaceState != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

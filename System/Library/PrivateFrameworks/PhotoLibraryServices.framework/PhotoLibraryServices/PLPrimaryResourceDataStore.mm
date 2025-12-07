@@ -503,12 +503,12 @@ LABEL_26:
                     v43 = fingerprint2;
                     fingerprint3 = [v21 fingerprint];
                     fingerprint4 = [v39 fingerprint];
-                    v46 = [fingerprint3 isEqualToString:fingerprint4];
+                    isEqualToString = objc_msgSend_isEqualToString_(fingerprint3);
 
                     v19 = defaultManager;
                     optionsCopy = v32;
 
-                    if ((v46 & 1) == 0)
+                    if ((isEqualToString & 1) == 0)
                     {
                       [v21 resetPrefetchState];
                     }
@@ -688,14 +688,14 @@ LABEL_64:
 
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  if ([v7 isEqualToString:@"PLSharedStreamsValidatedExternalResource"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     LOBYTE(v8) = 0;
   }
 
   else
   {
-    v8 = [v7 isEqualToString:@"PLSyndicationValidatedExternalResource"] ^ 1;
+    v8 = objc_msgSend_isEqualToString_(v7) ^ 1;
   }
 
   return v8;
@@ -725,7 +725,7 @@ LABEL_64:
   if ((optionsCopy & 1) == 0)
   {
     v12 = [(PLPrimaryResourceDataStore *)self _contextualVideoThumbnailResourcesForAsset:assetCopy];
-    if ([v12 count])
+    if (objc_msgSend_count(v12))
     {
       [v7 addObjectsFromArray:v12];
     }
@@ -2219,7 +2219,7 @@ void __79__PLPrimaryResourceDataStore__makeResourceLocallyAvailable_options_comp
   if (v10)
   {
     v11 = [v10 domain];
-    if ([v11 isEqualToString:*MEMORY[0x1E696A250]])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       v12 = [v10 code];
 
@@ -2285,7 +2285,7 @@ void __79__PLPrimaryResourceDataStore__makeResourceLocallyAvailable_options_comp
   if (v6)
   {
     v7 = [v6 domain];
-    if ([v7 isEqualToString:*MEMORY[0x1E696A250]])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = [v6 code];
 
@@ -2331,7 +2331,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v11 = [v5 count] == 1;
+  v11 = objc_msgSend_count(v5) == 1;
   v12 = PLImageManagerGetLog();
   v9 = v12;
   if (!v11)
@@ -2662,7 +2662,7 @@ void __79__PLPrimaryResourceDataStore__makeResourceLocallyAvailable_options_comp
     }
   }
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v15 = *(a1 + 32);
   }
@@ -3398,7 +3398,7 @@ void __97__PLPrimaryResourceDataStore__downloadCPLResource_options_taskDidBeginH
         v17 = downloadOptions2;
         if (downloadOptions2)
         {
-          [downloadOptions2 timeRange];
+          objc_msgSend_timeRange(downloadOptions2);
         }
 
         else
@@ -4192,7 +4192,7 @@ LABEL_6:
   return v12;
 }
 
-uint64_t __124__PLPrimaryResourceDataStore_Finalization__bailOutOfVideoFinalizationIfNeededForAsset_taskIdentifier_didPromoteProxy_error___block_invoke(uint64_t a1)
+void *__124__PLPrimaryResourceDataStore_Finalization__bailOutOfVideoFinalizationIfNeededForAsset_taskIdentifier_didPromoteProxy_error___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);

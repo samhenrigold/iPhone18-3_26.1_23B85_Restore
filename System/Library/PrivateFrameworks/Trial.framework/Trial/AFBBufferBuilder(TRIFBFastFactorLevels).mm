@@ -11,7 +11,7 @@
 
 - (id)trifbCreateFastFactorLevelsUsingBlock:()TRIFBFastFactorLevels
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   if (!v5)
@@ -25,13 +25,13 @@
   selfCopy = self;
   if (v7)
   {
-    v31.receiver = v7;
-    v31.super_class = TRIFBFastFactorLevelsBuilder;
-    v9 = objc_msgSendSuper2(&v31, sel_init);
+    v30.receiver = v7;
+    v30.super_class = TRIFBFastFactorLevelsBuilder;
+    v9 = objc_msgSendSuper2(&v30, sel_init);
     v7 = v9;
     if (v9)
     {
-      objc_storeStrong(&v9->_owner, self);
+      objc_storeStrong(v9 + 1, self);
       firstError = [selfCopy firstError];
       v11 = firstError == 0;
 
@@ -68,9 +68,9 @@
           currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler2 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:4721 description:{@"%@", @"Failed to set required field namespaceName on a table of type: TRIFBFastFactorLevelsBuilder"}];
 
-          v32[0] = *MEMORY[0x277CCA450];
-          v31.receiver = @"Failed to set required field namespaceName on a table of type: TRIFBFastFactorLevelsBuilder";
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+          v31[0] = *MEMORY[0x277CCA450];
+          v30.receiver = @"Failed to set required field namespaceName on a table of type: TRIFBFastFactorLevelsBuilder";
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
           v27 = objc_alloc(MEMORY[0x277CCA9B8]);
           v23 = [v27 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
           [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -81,9 +81,9 @@
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler3 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:4710 description:{@"%@", @"Failed to set required field source on a table of type: TRIFBFastFactorLevelsBuilder"}];
 
-          v32[0] = *MEMORY[0x277CCA450];
-          v31.receiver = @"Failed to set required field source on a table of type: TRIFBFastFactorLevelsBuilder";
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+          v31[0] = *MEMORY[0x277CCA450];
+          v30.receiver = @"Failed to set required field source on a table of type: TRIFBFastFactorLevelsBuilder";
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
           v25 = objc_alloc(MEMORY[0x277CCA9B8]);
           v23 = [v25 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
           [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -95,9 +95,9 @@
         currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler4 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:4699 description:{@"%@", @"Failed to set required field levels on a table of type: TRIFBFastFactorLevelsBuilder"}];
 
-        v32[0] = *MEMORY[0x277CCA450];
-        v31.receiver = @"Failed to set required field levels on a table of type: TRIFBFastFactorLevelsBuilder";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:v32 count:1];
+        v31[0] = *MEMORY[0x277CCA450];
+        v30.receiver = @"Failed to set required field levels on a table of type: TRIFBFastFactorLevelsBuilder";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:v31 count:1];
         v22 = objc_alloc(MEMORY[0x277CCA9B8]);
         v23 = [v22 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
         [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -115,7 +115,6 @@
 LABEL_21:
 
   objc_autoreleasePoolPop(v6);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

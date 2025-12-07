@@ -27,25 +27,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v23[6] = *MEMORY[0x1E69E9840];
-  v22[0] = @"code";
+  v22[6] = *MEMORY[0x1E69E9840];
+  v21[0] = @"code";
   code = [(INSetNumericSettingIntentResponse *)self code];
-  v21 = code;
+  v20 = code;
   if (code < 0xA)
   {
     null = *(&off_1E7287B08 + code);
-    v20 = null;
+    v19 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v20 = 0;
+    v19 = 0;
   }
 
-  v19 = null;
-  v23[0] = null;
-  v22[1] = @"oldValue";
+  v18 = null;
+  v22[0] = null;
+  v21[1] = @"oldValue";
   oldValue = [(INSetNumericSettingIntentResponse *)self oldValue];
   v6 = oldValue;
   if (!oldValue)
@@ -53,9 +53,9 @@
     oldValue = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = oldValue;
-  v23[1] = oldValue;
-  v22[2] = @"updatedValue";
+  v17 = oldValue;
+  v22[1] = oldValue;
+  v21[2] = @"updatedValue";
   updatedValue = [(INSetNumericSettingIntentResponse *)self updatedValue];
   null2 = updatedValue;
   if (!updatedValue)
@@ -63,8 +63,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null2;
-  v22[3] = @"minValue";
+  v22[2] = null2;
+  v21[3] = @"minValue";
   minValue = [(INSetNumericSettingIntentResponse *)self minValue];
   null3 = minValue;
   if (!minValue)
@@ -72,8 +72,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null3;
-  v22[4] = @"maxValue";
+  v22[3] = null3;
+  v21[4] = @"maxValue";
   maxValue = [(INSetNumericSettingIntentResponse *)self maxValue];
   null4 = maxValue;
   if (!maxValue)
@@ -81,8 +81,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null4;
-  v22[5] = @"errorDetail";
+  v22[4] = null4;
+  v21[5] = @"errorDetail";
   errorDetail = [(INSetNumericSettingIntentResponse *)self errorDetail];
   null5 = errorDetail;
   if (!errorDetail)
@@ -90,8 +90,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v22[5] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
   if (!errorDetail)
   {
   }
@@ -112,11 +112,9 @@
   {
   }
 
-  if (v21 >= 0xA)
+  if (v20 >= 0xA)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -334,7 +332,7 @@
 
 - (INSetNumericSettingIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -352,21 +350,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSetNumericSettingIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INSetNumericSettingIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSetNumericSettingIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INSetNumericSettingIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

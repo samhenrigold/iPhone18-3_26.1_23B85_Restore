@@ -15,14 +15,14 @@
 
 - (id)outputContentClasses
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = [(WFAskForInputAction *)self parameterStateForKey:@"WFInputType"];
   value = [v3 value];
   if ([value isEqualToString:@"Text"])
   {
-    v15[0] = objc_opt_class();
+    v14[0] = objc_opt_class();
     v5 = MEMORY[0x277CBEA60];
-    v6 = v15;
+    v6 = v14;
 LABEL_11:
     outputContentClasses = [v5 arrayWithObjects:v6 count:1];
     goto LABEL_12;
@@ -30,21 +30,13 @@ LABEL_11:
 
   if ([value isEqualToString:@"Number"])
   {
-    v14 = objc_opt_class();
-    v5 = MEMORY[0x277CBEA60];
-    v6 = &v14;
-    goto LABEL_11;
-  }
-
-  if ([value isEqualToString:@"URL"])
-  {
     v13 = objc_opt_class();
     v5 = MEMORY[0x277CBEA60];
     v6 = &v13;
     goto LABEL_11;
   }
 
-  if (([value isEqualToString:@"Date"] & 1) != 0 || (objc_msgSend(value, "isEqualToString:", @"Time") & 1) != 0 || objc_msgSend(value, "isEqualToString:", @"Date and Time"))
+  if ([value isEqualToString:@"URL"])
   {
     v12 = objc_opt_class();
     v5 = MEMORY[0x277CBEA60];
@@ -52,13 +44,19 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v11.receiver = self;
-  v11.super_class = WFAskForInputAction;
-  outputContentClasses = [(WFAskForInputAction *)&v11 outputContentClasses];
+  if (([value isEqualToString:@"Date"] & 1) != 0 || (objc_msgSend(value, "isEqualToString:", @"Time") & 1) != 0 || objc_msgSend(value, "isEqualToString:", @"Date and Time"))
+  {
+    v11 = objc_opt_class();
+    v5 = MEMORY[0x277CBEA60];
+    v6 = &v11;
+    goto LABEL_11;
+  }
+
+  v10.receiver = self;
+  v10.super_class = WFAskForInputAction;
+  outputContentClasses = [(WFAskForInputAction *)&v10 outputContentClasses];
 LABEL_12:
   v8 = outputContentClasses;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -179,7 +177,7 @@ LABEL_12:
       v29 = v28;
       if (v28)
       {
-        [v28 decimalValue];
+        objc_msgSend_decimalValue(v28);
       }
 
       else
@@ -213,7 +211,7 @@ LABEL_28:
 
 - (void)getOutputFromIntentResponse:(id)response completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   if (!handlerCopy)
@@ -230,14 +228,14 @@ LABEL_28:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v25 = "WFEnforceClass";
-      v26 = 2114;
-      v27 = v10;
-      v28 = 2114;
-      v29 = objc_opt_class();
-      v30 = 2114;
-      v31 = v9;
-      v13 = v29;
+      v24 = "WFEnforceClass";
+      v25 = 2114;
+      v26 = v10;
+      v27 = 2114;
+      v28 = objc_opt_class();
+      v29 = 2114;
+      v30 = v9;
+      v13 = v28;
       _os_log_impl(&dword_23DE30000, v12, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
 
@@ -315,12 +313,11 @@ LABEL_27:
   (handlerCopy)[2](handlerCopy, v21);
 
 LABEL_28:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v56[3] = *MEMORY[0x277D85DE8];
+  v55[3] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   userInterface = [(WFAskForInputAction *)self userInterface];
   userInterfaceType = [userInterface userInterfaceType];
@@ -328,17 +325,17 @@ LABEL_28:
 
   if (v7)
   {
-    v55.receiver = self;
-    v55.super_class = WFAskForInputAction;
-    [(WFHandleIntentAction *)&v55 runAsynchronouslyWithInput:inputCopy];
+    v54.receiver = self;
+    v54.super_class = WFAskForInputAction;
+    [(WFHandleIntentAction *)&v54 runAsynchronouslyWithInput:inputCopy];
   }
 
   else
   {
-    v56[0] = @"Date";
-    v56[1] = @"Time";
-    v56[2] = @"Date and Time";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
+    v55[0] = @"Date";
+    v55[1] = @"Time";
+    v55[2] = @"Date and Time";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
     inputType = [(WFAskForInputAction *)self inputType];
     v10 = [v8 containsObject:inputType];
 
@@ -362,21 +359,21 @@ LABEL_28:
         v18 = MEMORY[0x277CFC2F8];
         defaultAnswer2 = [(WFAskForInputAction *)self defaultAnswer];
         v20 = [v18 itemWithObject:defaultAnswer2];
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke;
-        v52[3] = &unk_278C1B628;
-        v53 = v14;
-        v54 = v13;
-        [v20 getObjectRepresentation:v52 forClass:objc_opt_class()];
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke;
+        v51[3] = &unk_278C1B628;
+        v52 = v14;
+        v53 = v13;
+        [v20 getObjectRepresentation:v51 forClass:objc_opt_class()];
       }
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_2;
       block[3] = &unk_278C21508;
-      v50 = v11;
-      v51 = v14;
+      v49 = v11;
+      v50 = v14;
       v21 = v14;
       dispatch_group_notify(v13, MEMORY[0x277D85CD0], block);
     }
@@ -448,35 +445,33 @@ LABEL_28:
       [v11 setTextFieldConfiguration:v21];
     }
 
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_3;
-    v48[3] = &unk_278C224A0;
-    v48[4] = self;
-    v36 = [MEMORY[0x277CFC220] cancelButtonWithHandler:v48];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_3;
+    v47[3] = &unk_278C224A0;
+    v47[4] = self;
+    v36 = [MEMORY[0x277CFC220] cancelButtonWithHandler:v47];
     v37 = MEMORY[0x277CFC220];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_4;
-    v45[3] = &unk_278C1B650;
-    v47 = v10;
-    v45[4] = self;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_4;
+    v44[3] = &unk_278C1B650;
+    v46 = v10;
+    v44[4] = self;
     v38 = v11;
-    v46 = v38;
-    v39 = [v37 okButtonWithHandler:v45];
+    v45 = v38;
+    v39 = [v37 okButtonWithHandler:v44];
     [v38 addButton:v36];
     [v38 addButton:v39];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_5;
-    v43[3] = &unk_278C21508;
-    v43[4] = self;
-    v44 = v38;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke_5;
+    v42[3] = &unk_278C21508;
+    v42[4] = self;
+    v43 = v38;
     v40 = v38;
-    dispatch_group_notify(v13, MEMORY[0x277D85CD0], v43);
+    dispatch_group_notify(v13, MEMORY[0x277D85CD0], v42);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __50__WFAskForInputAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, uint64_t a2)

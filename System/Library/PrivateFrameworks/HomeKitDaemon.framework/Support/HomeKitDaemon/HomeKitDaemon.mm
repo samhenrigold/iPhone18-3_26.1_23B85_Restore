@@ -93,7 +93,7 @@ Class sub_100000D84(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -104,7 +104,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "HMDMainDriver");
   }
 
   qword_100008020 = *(*(*(a1 + 32) + 8) + 24);
@@ -135,7 +135,7 @@ Class sub_100000ED8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -146,7 +146,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "HMDMainDriver");
   }
 
   qword_100008030 = *(*(*(a1 + 32) + 8) + 24);
@@ -161,7 +161,6 @@ void sub_10000102C(uint64_t a1)
 
 uint64_t sub_100001070(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008038 = result;
   return result;
@@ -169,7 +168,6 @@ uint64_t sub_100001070(uint64_t a1)
 
 uint64_t sub_1000010E4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008028 = result;
   return result;

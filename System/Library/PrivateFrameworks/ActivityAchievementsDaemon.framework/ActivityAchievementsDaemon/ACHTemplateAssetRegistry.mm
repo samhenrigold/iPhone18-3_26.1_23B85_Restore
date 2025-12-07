@@ -64,7 +64,7 @@
 
 void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) conformsToProtocol:&unk_28355FEA8];
   v4 = ACHLogAssets();
@@ -75,28 +75,27 @@ void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke(u
     {
       v6 = [*v2 identifier];
       *buf = 138543362;
-      v23 = v6;
+      v21 = v6;
       _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template Asset Registry added asset source with identifier %{public}@", buf, 0xCu);
     }
 
-    v7 = *v2;
     if (objc_opt_respondsToSelector())
     {
       [*(a1 + 32) setAssetSourceDelegate:*(a1 + 40)];
     }
 
-    v8 = *(a1 + 32);
-    v9 = [*(a1 + 40) templateAssetSourcesByIdentifier];
-    v10 = [*(a1 + 32) identifier];
-    [v9 setObject:v8 forKeyedSubscript:v10];
+    v7 = *(a1 + 32);
+    v8 = [*(a1 + 40) templateAssetSourcesByIdentifier];
+    v9 = [*(a1 + 32) identifier];
+    [v8 setObject:v7 forKeyedSubscript:v9];
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_360;
     block[3] = &unk_278490898;
-    v19 = *(a1 + 32);
-    v11 = v19.i64[0];
-    v21 = vextq_s8(v19, v19, 8uLL);
+    v17 = *(a1 + 32);
+    v10 = v17.i64[0];
+    v19 = vextq_s8(v17, v17, 8uLL);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -104,11 +103,9 @@ void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke(u
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_cold_1(v2, v5, v12, v13, v14, v15, v16, v17);
+      __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_cold_1(v2, v5, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_360(uint64_t a1)
@@ -135,7 +132,7 @@ void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_3
 
 void __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) conformsToProtocol:&unk_28355FEA8];
   v4 = [v2[1] templateAssetSourcesByIdentifier];
@@ -152,55 +149,52 @@ void __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke
     v7 = 1;
   }
 
-  if (!v7)
+  if (v7)
+  {
+    if (v3)
+    {
+      if (v6)
+      {
+        return;
+      }
+
+      v8 = ACHLogAssets();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_2(v2, v8, v9, v10, v11, v12, v13, v14);
+      }
+    }
+
+    else
+    {
+      v8 = ACHLogAssets();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_1(v2, v8, v19, v20, v21, v22, v23, v24);
+      }
+    }
+  }
+
+  else
   {
     v15 = ACHLogAssets();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [*v2 identifier];
-      v27 = 138543362;
-      v28 = v17;
-      _os_log_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEFAULT, "Template Asset Registry removed asset source with identifier %{public}@", &v27, 0xCu);
+      v25 = 138543362;
+      v26 = v17;
+      _os_log_impl(&dword_221DDC000, v15, OS_LOG_TYPE_DEFAULT, "Template Asset Registry removed asset source with identifier %{public}@", &v25, 0xCu);
     }
 
-    v18 = *v2;
     if (objc_opt_respondsToSelector())
     {
       [*v2 setAssetSourceDelegate:0];
     }
 
     v8 = [*(a1 + 40) templateAssetSourcesByIdentifier];
-    v19 = [*(a1 + 32) identifier];
-    [v8 removeObjectForKey:v19];
-
-LABEL_17:
-    goto LABEL_18;
+    v18 = [*(a1 + 32) identifier];
+    [v8 removeObjectForKey:v18];
   }
-
-  if ((v3 & 1) == 0)
-  {
-    v8 = ACHLogAssets();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_1(v2, v8, v20, v21, v22, v23, v24, v25);
-    }
-
-    goto LABEL_17;
-  }
-
-  if (!v6)
-  {
-    v8 = ACHLogAssets();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_2(v2, v8, v9, v10, v11, v12, v13, v14);
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_18:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateResourcePropertiesForAchievement:(id)achievement
@@ -224,30 +218,30 @@ LABEL_18:
 
 - (void)_setBundleURLsForAchievement:(id)achievement
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   achievementCopy = achievement;
   template = [achievementCopy template];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__5;
-  v38 = __Block_byref_object_dispose__5;
-  v39 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__5;
+  v35 = __Block_byref_object_dispose__5;
+  v36 = 0;
   serialQueue = [(ACHTemplateAssetRegistry *)self serialQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __57__ACHTemplateAssetRegistry__setBundleURLsForAchievement___block_invoke;
   block[3] = &unk_278491010;
-  v33 = &v34;
+  v30 = &v31;
   block[4] = self;
   v7 = template;
-  v32 = v7;
+  v29 = v7;
   dispatch_sync(serialQueue, block);
 
-  v8 = [v35[5] localizationBundleURLForTemplate:v7];
-  v9 = [v35[5] resourceBundleURLForTemplate:v7];
-  v10 = [v35[5] propertyListBundleURLForTemplate:v7];
-  v11 = [v35[5] stickerBundleURLForTemplate:v7];
+  v8 = [v32[5] localizationBundleURLForTemplate:v7];
+  v9 = [v32[5] resourceBundleURLForTemplate:v7];
+  v10 = [v32[5] propertyListBundleURLForTemplate:v7];
+  v11 = [v32[5] stickerBundleURLForTemplate:v7];
   [achievementCopy setLocalizationBundleURL:v8];
   [achievementCopy setResourceBundleURL:v9];
   [achievementCopy setPropertyListBundleURL:v10];
@@ -255,9 +249,9 @@ LABEL_18:
   if (ACHTemplateIsRemote())
   {
     remoteTemplateAvailabilityKeyProvider = [(ACHTemplateAssetRegistry *)self remoteTemplateAvailabilityKeyProvider];
-    v30 = 0;
-    v13 = [remoteTemplateAvailabilityKeyProvider templateAvailableOnPairedDevice:v7 error:&v30];
-    v14 = v30;
+    v27 = 0;
+    v13 = [remoteTemplateAvailabilityKeyProvider templateAvailableOnPairedDevice:v7 error:&v27];
+    v14 = v27;
 
     if (v14)
     {
@@ -273,38 +267,35 @@ LABEL_18:
       [v7 setAvailableOnPairedDevice:v13];
     }
 
-    v22 = v35[5];
     if (objc_opt_respondsToSelector())
     {
-      [v7 setMobileAssetVersion:{objc_msgSend(v35[5], "mobileAssetVersionForTemplate:", v7)}];
+      [v7 setMobileAssetVersion:{objc_msgSend(v32[5], "mobileAssetVersionForTemplate:", v7)}];
     }
   }
 
-  v23 = v35[5];
   if (objc_opt_respondsToSelector())
   {
-    v24 = v35[5];
-    v29 = 0;
-    v25 = [v24 customPlaceholderValuesForTemplate:v7 error:&v29];
-    v26 = v29;
-    [achievementCopy setCustomPlaceholderValues:v25];
+    v22 = v32[5];
+    v26 = 0;
+    v23 = [v22 customPlaceholderValuesForTemplate:v7 error:&v26];
+    v24 = v26;
+    [achievementCopy setCustomPlaceholderValues:v23];
 
-    if (v26)
+    if (v24)
     {
-      v27 = ACHLogAssets();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v25 = ACHLogAssets();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v41 = v7;
-        v42 = 2112;
-        v43 = v26;
-        _os_log_impl(&dword_221DDC000, v27, OS_LOG_TYPE_DEFAULT, "Error getting custom placeholder for template %@: %@", buf, 0x16u);
+        v38 = v7;
+        v39 = 2112;
+        v40 = v24;
+        _os_log_impl(&dword_221DDC000, v25, OS_LOG_TYPE_DEFAULT, "Error getting custom placeholder for template %@: %@", buf, 0x16u);
       }
     }
   }
 
-  _Block_object_dispose(&v34, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 }
 
 void __57__ACHTemplateAssetRegistry__setBundleURLsForAchievement___block_invoke(uint64_t a1)
@@ -368,66 +359,59 @@ void __63__ACHTemplateAssetRegistry_templateAssetSourceDidUpdateAssets___block_i
 
 void __56__ACHTemplateAssetRegistry_registerTemplateAssetSource___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not add asset source %{public}@ because it does not conform to asset source protocol", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not add asset source %{public}@ because it does not conform to asset source protocol", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not remove template asset source %{public}@ because it does not conform to source protocol", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not remove template asset source %{public}@ because it does not conform to source protocol", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__ACHTemplateAssetRegistry_deregisterTemplateAssetSource___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not remove template asset source %{public}@ because it was not previously registered", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Template Asset Registry did not remove template asset source %{public}@ because it was not previously registered", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)populateResourcePropertiesForAchievement:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 template];
   v4 = [v3 uniqueName];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Template Asset Registry populating asset URLs for template %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "Template Asset Registry populating asset URLs for template %{public}@", &v5, 0xCu);
 }
 
 - (void)populateResourcePropertiesForAchievement:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [a1 template];
   v5 = [v4 uniqueName];
   v6 = [a1 localizationBundleURL];
   v7 = [a1 resourceBundleURL];
   v8 = [a1 propertyListBundleURL];
-  v10 = 138544130;
-  v11 = v5;
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2114;
-  v15 = v7;
-  v16 = 2114;
-  v17 = v8;
-  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "URLs for template %{public}@ are now %{public}@, %{public}@, %{public}@", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138544130;
+  v10 = v5;
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2114;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v8;
+  _os_log_debug_impl(&dword_221DDC000, a2, OS_LOG_TYPE_DEBUG, "URLs for template %{public}@ are now %{public}@, %{public}@, %{public}@", &v9, 0x2Au);
 }
 
 - (void)_setBundleURLsForAchievement:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Error reading paired availability of remote assets: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Error reading paired availability of remote assets: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

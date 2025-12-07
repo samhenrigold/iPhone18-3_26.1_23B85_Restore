@@ -1,4 +1,5 @@
 @interface AXTouchAccommodationsEventProcessor
+- (AXTouchAccommodationsEventProcessor)initWithHIDTapIdentifier:(id)identifier HIDEventTapPriority:(int)priority systemEventTapIdentifier:(id)tapIdentifier systemEventTapPriority:(int)tapPriority;
 - (AXTouchAccommodationsEventProcessorDelegate)delegate;
 - (BOOL)_bypassForSwipeGestureDueToEvent:(id)event;
 - (BOOL)_handleEvent:(id)event;
@@ -23,6 +24,7 @@
 - (void)_processTimerEventsFromCurrentState;
 - (void)_sendFakeEvent:(id)event forTheFirstTime:(BOOL)time;
 - (void)_sendFakeEventAfterTimerEnded:(id)ended;
+- (void)_sendHIDEventUnconditionally:(id)unconditionally shouldUseOriginalTime:(BOOL)time;
 - (void)_setTimerState:(int64_t)state;
 - (void)_trackUpdateStatusForEvent:(id)event;
 - (void)_updateTouchAccommodationsBasedOnTapActivation;
@@ -31,6 +33,78 @@
 @end
 
 @implementation AXTouchAccommodationsEventProcessor
+
+- (AXTouchAccommodationsEventProcessor)initWithHIDTapIdentifier:(id)identifier HIDEventTapPriority:(int)priority systemEventTapIdentifier:(id)tapIdentifier systemEventTapPriority:(int)tapPriority
+{
+  v6 = *&tapPriority;
+  v8 = *&priority;
+  identifierCopy = identifier;
+  tapIdentifierCopy = tapIdentifier;
+  v41.receiver = self;
+  v41.super_class = AXTouchAccommodationsEventProcessor;
+  v12 = [(AXTouchAccommodationsEventProcessor *)&v41 initWithHIDTapIdentifier:identifierCopy HIDEventTapPriority:v8 systemEventTapIdentifier:tapIdentifierCopy systemEventTapPriority:v6];
+  if (v12)
+  {
+    v13 = +[NSMutableSet set];
+    sentGenerationsAnticipatingUpdate = v12->_sentGenerationsAnticipatingUpdate;
+    v12->_sentGenerationsAnticipatingUpdate = v13;
+
+    v12->_touchEventAfterIgnoreRepeatTimerBegan = 0;
+    v12->_generationsLock._os_unfair_lock_opaque = 0;
+    objc_initWeak(&location, v12);
+    v15 = +[AXSettings sharedInstance];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_4868;
+    v37[3] = &unk_105A8;
+    v16 = v12;
+    v38 = v16;
+    objc_copyWeak(&v39, &location);
+    [v15 registerUpdateBlock:v37 forRetrieveSelector:"touchAccommodationsIgnoreRepeatEnabled" withListener:v16];
+
+    objc_destroyWeak(&v39);
+    [(AXTouchAccommodationsEventProcessor *)v16 setHIDEventFilterMask:1];
+    v17 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v18 = dispatch_queue_create("TouchAccommodationsHIDDispatchQueue", v17);
+    hidDispatchQueue = v16->_hidDispatchQueue;
+    v16->_hidDispatchQueue = v18;
+
+    v32 = _NSConcreteStackBlock;
+    v33 = 3221225472;
+    v34 = sub_49B4;
+    v35 = &unk_105D0;
+    objc_copyWeak(&v36, &location);
+    [(AXTouchAccommodationsEventProcessor *)v16 setHIDEventHandler:&v32];
+    v20 = objc_allocWithZone(AXDispatchTimer);
+    v21 = [v20 initWithTargetSerialQueue:{v16->_hidDispatchQueue, v32, v33, v34, v35}];
+    tapTimeoutTimer = v16->_tapTimeoutTimer;
+    v16->_tapTimeoutTimer = v21;
+
+    [(AXDispatchTimer *)v16->_tapTimeoutTimer setAutomaticallyCancelPendingBlockUponSchedulingNewBlock:1];
+    v23 = [objc_allocWithZone(AXDispatchTimer) initWithTargetSerialQueue:v16->_hidDispatchQueue];
+    holdDurationTimer = v16->_holdDurationTimer;
+    v16->_holdDurationTimer = v23;
+
+    v25 = [objc_allocWithZone(AXDispatchTimer) initWithTargetSerialQueue:v16->_hidDispatchQueue];
+    ignoreRepeatTimer = v16->_ignoreRepeatTimer;
+    v16->_ignoreRepeatTimer = v25;
+
+    v27 = [[AXDispatchTimer alloc] initWithTargetSerialQueue:v16->_hidDispatchQueue];
+    updateSetMaintenanceTimer = v16->_updateSetMaintenanceTimer;
+    v16->_updateSetMaintenanceTimer = v27;
+
+    [(AXDispatchTimer *)v16->_updateSetMaintenanceTimer setAutomaticallyCancelPendingBlockUponSchedulingNewBlock:1];
+    v16->_shouldSendFakeTouchDownIfNeeded = 1;
+    v29 = dispatch_queue_create("TouchAccommodationsEventsToReplay", 0);
+    eventsToReplayLock = v16->_eventsToReplayLock;
+    v16->_eventsToReplayLock = v29;
+
+    objc_destroyWeak(&v36);
+    objc_destroyWeak(&location);
+  }
+
+  return v12;
+}
 
 - (void)dealloc
 {
@@ -420,6 +494,21 @@ LABEL_50:
 
   os_unfair_lock_unlock(p_generationsLock);
 LABEL_6:
+}
+
+- (void)_sendHIDEventUnconditionally:(id)unconditionally shouldUseOriginalTime:(BOOL)time
+{
+  timeCopy = time;
+  unconditionallyCopy = unconditionally;
+  handInfo = [unconditionallyCopy handInfo];
+  handEventMask = [handInfo handEventMask];
+
+  handInfo2 = [unconditionallyCopy handInfo];
+  [handInfo2 setAdditionalHandEventFlagsForGeneratedEvents:handEventMask & 0xF042000];
+
+  [unconditionallyCopy setUseOriginalHIDTime:timeCopy];
+  v9 = +[AXEventTapManager sharedManager];
+  [v9 sendHIDSystemEvent:unconditionallyCopy senderID:0x8000000817319376];
 }
 
 - (void)_sendFakeEvent:(id)event forTheFirstTime:(BOOL)time

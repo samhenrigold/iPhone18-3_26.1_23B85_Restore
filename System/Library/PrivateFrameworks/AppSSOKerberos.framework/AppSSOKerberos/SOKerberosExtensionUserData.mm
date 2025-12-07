@@ -3,6 +3,9 @@
 - (BOOL)useSmartCard;
 - (BOOL)userSetKeychainChoice;
 - (SOKerberosExtensionUserData)init;
+- (void)setUseKeychain:(BOOL)keychain;
+- (void)setUseSmartCard:(BOOL)card;
+- (void)setUserSetKeychainChoice:(BOOL)choice;
 @end
 
 @implementation SOKerberosExtensionUserData
@@ -29,6 +32,13 @@
   return v3;
 }
 
+- (void)setUseKeychain:(BOOL)keychain
+{
+  keychainCopy = keychain;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:keychainCopy forKey:@"useKeychain"];
+}
+
 - (BOOL)userSetKeychainChoice
 {
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -37,12 +47,26 @@
   return v3;
 }
 
+- (void)setUserSetKeychainChoice:(BOOL)choice
+{
+  choiceCopy = choice;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:choiceCopy forKey:@"userSetKeychainChoice"];
+}
+
 - (BOOL)useSmartCard
 {
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [standardUserDefaults BOOLForKey:@"useSmartCard"];
 
   return v3;
+}
+
+- (void)setUseSmartCard:(BOOL)card
+{
+  cardCopy = card;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:cardCopy forKey:@"useSmartCard"];
 }
 
 @end

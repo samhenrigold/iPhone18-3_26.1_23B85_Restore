@@ -7,12 +7,10 @@
 
 - (NSString)providerBundleIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC26AuthenticationServicesCore22ASCPasswordSignInEvent_providerBundleIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC26AuthenticationServicesCore22ASCPasswordSignInEvent_providerBundleIdentifier + 8);
 
-  v4 = sub_1C21708F4();
+  v2 = sub_1C21708F4();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC26AuthenticationServicesCore22ASCPasswordSignInEvent)init

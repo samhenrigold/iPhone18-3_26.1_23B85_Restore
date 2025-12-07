@@ -18,9 +18,9 @@
 {
   swift_weakInit();
   *(&self->super.isa + OBJC_IVAR____TtCC9MusicCore11BagProviderP33_D1F028703756EAFCB4E62A24E619467F5Retry_bindings) = _swiftEmptyArrayStorage;
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for BagProvider.Retry();
-  return [(BagProvider.Retry *)&v4 init];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for BagProvider.Retry(0, v3);
+  return [(BagProvider.Retry *)&v5 init];
 }
 
 @end

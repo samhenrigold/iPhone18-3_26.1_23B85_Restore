@@ -17,45 +17,13 @@
     time2 = [v14 time];
     v16 = TimeStringToIntValue(time2);
 
-    if (time > currentTime)
+    if (time > currentTime && (v17 = 0, v16 > time) || (v23[0] = MEMORY[0x277D85DD0], v23[1] = 3221225472, v23[2] = __98__WAHourlyForecastParser_addSunEventIntoForecasts_eventType_forecastDetail_eventTime_currentTime___block_invoke, v23[3] = &__block_descriptor_40_e33_B32__0__WAHourlyForecast_8Q16_B24l, v23[4] = time, v19 = [forecastsCopy indexOfObjectPassingTest:v23], v19 != 0x7FFFFFFFFFFFFFFFLL) && ((v17 = v19, type != 1) && (objc_msgSend(forecastsCopy, "objectAtIndexedSubscript:", v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "time"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isEqualToString:", time), v21, v20, (v22 & 1) != 0) || (++v17, v17 != 0x7FFFFFFFFFFFFFFFLL)))
     {
-      v17 = 0;
-      if (v16 > time)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __98__WAHourlyForecastParser_addSunEventIntoForecasts_eventType_forecastDetail_eventTime_currentTime___block_invoke;
-    v23[3] = &__block_descriptor_40_e33_B32__0__WAHourlyForecast_8Q16_B24l;
-    v23[4] = time;
-    v19 = [forecastsCopy indexOfObjectPassingTest:v23];
-    if (v19 != 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v17 = v19;
-      if (type != 1)
-      {
-        v20 = [forecastsCopy objectAtIndexedSubscript:v19];
-        time3 = [v20 time];
-        v22 = [time3 isEqualToString:time];
-
-        if (v22)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      if (++v17 != 0x7FFFFFFFFFFFFFFFLL)
-      {
-LABEL_4:
-        v18 = objc_alloc_init(WAHourlyForecast);
-        [(WAHourlyForecast *)v18 setEventType:type];
-        [(WAHourlyForecast *)v18 setTime:time];
-        [(WAHourlyForecast *)v18 setForecastDetail:detailCopy];
-        [forecastsCopy insertObject:v18 atIndex:v17];
-      }
+      v18 = objc_alloc_init(WAHourlyForecast);
+      [(WAHourlyForecast *)v18 setEventType:type];
+      [(WAHourlyForecast *)v18 setTime:time];
+      [(WAHourlyForecast *)v18 setForecastDetail:detailCopy];
+      [forecastsCopy insertObject:v18 atIndex:v17];
     }
   }
 }
@@ -140,13 +108,12 @@ BOOL __90__WAHourlyForecastParser_parseForecasts_temperature_currentTime_conditi
 
 + (void)parseForecasts:(os_log_t)log temperature:currentTime:condition:sunrise:sunset:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Unable to locate current hour (%ld) within new hourly forecasts: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_272ACF000, log, OS_LOG_TYPE_ERROR, "Unable to locate current hour (%ld) within new hourly forecasts: %@", &v3, 0x16u);
 }
 
 @end

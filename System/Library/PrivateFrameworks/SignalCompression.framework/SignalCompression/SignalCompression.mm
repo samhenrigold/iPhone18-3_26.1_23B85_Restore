@@ -67,7 +67,7 @@ LABEL_10:
   return memcpy(this + 48, &gcl::ArithmeticDecoder::probUpdateLutInterleaved, 0x400uLL);
 }
 
-unsigned int *gcl::motion::EncoderImpl::encodeResidual(unsigned int *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, _BYTE *a6, void *a7)
+unsigned int *gcl::motion::EncoderImpl::encodeResidual(unsigned int *result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, _BYTE *a6, void *a7)
 {
   v10 = result;
   if (!*a6)
@@ -84,7 +84,7 @@ unsigned int *gcl::motion::EncoderImpl::encodeResidual(unsigned int *result, uin
       v23 = *(a3 + 4 * v21);
       v24 = *(a4 + 4 * v21);
       v25 = (*a7 + 2 * v21);
-      v26 = v10 + 8;
+      v26 = (v10 + 32);
       v27 = v23 - v24;
       if (v23 == v24)
       {
@@ -93,7 +93,7 @@ unsigned int *gcl::motion::EncoderImpl::encodeResidual(unsigned int *result, uin
 
       gcl::ArithmeticEncoder::encode(v26, 1, v25);
       v28 = (a7[3] + 2 * v21);
-      v29 = v10 + 8;
+      v29 = (v10 + 32);
       if ((v27 & 0x80000000) != 0)
       {
         gcl::ArithmeticEncoder::encode(v29, 0, v28);
@@ -110,25 +110,25 @@ unsigned int *gcl::motion::EncoderImpl::encodeResidual(unsigned int *result, uin
       v33 = (v32 + 2 * (v21 << 6));
       if (v27 <= 0x3F)
       {
-        gcl::ArithmeticEncoder::encode(v10 + 8, (v31 >> 5) & 1, (v32 + 2 * (v21 << 6)));
-        gcl::ArithmeticEncoder::encode(v10 + 8, (v31 >> 4) & 1, &v33[(v31 >> 5) + 1]);
-        gcl::ArithmeticEncoder::encode(v10 + 8, (v31 >> 3) & 1, &v33[(v31 >> 4) + 3]);
-        gcl::ArithmeticEncoder::encode(v10 + 8, (v31 >> 2) & 1, &v33[(v31 >> 3) + 7]);
-        gcl::ArithmeticEncoder::encode(v10 + 8, (v31 >> 1) & 1, &v33[(v31 >> 2) + 15]);
-        v26 = v10 + 8;
+        gcl::ArithmeticEncoder::encode((v10 + 32), (v31 >> 5) & 1, (v32 + 2 * (v21 << 6)));
+        gcl::ArithmeticEncoder::encode((v10 + 32), (v31 >> 4) & 1, &v33[(v31 >> 5) + 1]);
+        gcl::ArithmeticEncoder::encode((v10 + 32), (v31 >> 3) & 1, &v33[(v31 >> 4) + 3]);
+        gcl::ArithmeticEncoder::encode((v10 + 32), (v31 >> 2) & 1, &v33[(v31 >> 3) + 7]);
+        gcl::ArithmeticEncoder::encode((v10 + 32), (v31 >> 1) & 1, &v33[(v31 >> 2) + 15]);
+        v26 = (v10 + 32);
         v30 = v31 & 1;
         v25 = (v33 + (v31 & 0xFFFFFFFE) + 62);
         goto LABEL_29;
       }
 
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, (v32 + 2 * (v21 << 6)));
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, v33 + 2);
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, v33 + 6);
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, v33 + 14);
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, v33 + 30);
-      gcl::ArithmeticEncoder::encode(v10 + 8, 1, v33 + 62);
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, (v32 + 2 * (v21 << 6)));
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, v33 + 2);
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, v33 + 6);
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, v33 + 14);
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, v33 + 30);
+      gcl::ArithmeticEncoder::encode((v10 + 32), 1, v33 + 62);
       v34 = a7[12];
-      result = gcl::ArithmeticEncoder::encodeExpGolomb(v10 + 8, v27 - 64, *(v34 + 4 * v21), (a7[9] + 2 * v21));
+      result = gcl::ArithmeticEncoder::encodeExpGolomb((v10 + 32), v27 - 64, *(v34 + 4 * v21), (a7[9] + 2 * v21));
       v35 = *(v34 + 4 * v21);
       v36 = v31 >> v35;
       if (v35 && !v36)
@@ -166,7 +166,7 @@ LABEL_29:
     {
       v14 = *(a3 + 4 * v12) - *(a4 + 4 * v12);
       v15 = a7[12];
-      result = gcl::ArithmeticEncoder::encodeSignedExpGolomb(v10 + 8, v14, *(v15 + 4 * v12), (a7[3] + 2 * v12), (a7[9] + 2 * v12));
+      result = gcl::ArithmeticEncoder::encodeSignedExpGolomb((v10 + 32), v14, *(v15 + 4 * v12), (a7[3] + 2 * v12), (a7[9] + 2 * v12));
       v16 = v14 >= 0 ? v14 : -v14;
       v17 = *(v15 + 4 * v12);
       v18 = v16 >> v17;
@@ -405,151 +405,142 @@ void std::vector<int>::resize(std::vector<int> *this, std::vector<int>::size_typ
 
 uint64_t gcl::motion::EncoderImpl::encodeSequenceParameterSetFromSliceList(std::vector<int> *this, unsigned __int8 *a2, unint64_t a3, unint64_t *a4, unint64_t *a5, unint64_t *a6)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v34 = *MEMORY[0x277D85DE8];
+  if (!a2)
   {
-    v8 = 1431655767 * ((this[46].__end_ - this[46].__begin_) >> 2) + 9;
-    if (v8 <= a3)
+    return 5;
+  }
+
+  v8 = 1431655767 * ((this[46].__end_ - this[46].__begin_) >> 2) + 9;
+  if (v8 <= a3)
+  {
+    *(a2 + 1) = 1;
+    a2[8] = -85 * ((LODWORD(this[46].__end_) - LODWORD(this[46].__begin_)) >> 2);
+    begin = this[46].__begin_;
+    end = this[46].__end_;
+    if (begin == end)
     {
-      *(a2 + 1) = 1;
-      a2[8] = -85 * ((LODWORD(this[46].__end_) - LODWORD(this[46].__begin_)) >> 2);
-      begin = this[46].__begin_;
-      end = this[46].__end_;
-      if (begin == end)
-      {
-        v13 = 0;
-        v14 = 9;
-      }
-
-      else
-      {
-        v13 = 0;
-        v14 = 9;
-        do
-        {
-          if (*begin)
-          {
-            v15 = *(begin + 4);
-            v16 = *(begin + 5);
-            v17 = *(begin + 2);
-            v18 = *(begin + 2);
-            v19 = *(begin + 3);
-            v20 = *(begin + 1);
-            a2[v14++] = *(begin + 6);
-            v21 = 1;
-            do
-            {
-              v22 = v21;
-              a2[v14++] = v18;
-              v18 = v19;
-              v21 = 0;
-            }
-
-            while ((v22 & 1) != 0);
-            v23 = 1;
-            do
-            {
-              v24 = v23;
-              a2[v14++] = v15;
-              v15 = v16;
-              v23 = 0;
-            }
-
-            while ((v24 & 1) != 0);
-            v13 += v20 * v17;
-          }
-
-          else
-          {
-            v25 = begin[2];
-            a2[v14] = -1;
-            *&a2[v14 + 1] = v25;
-            v14 += 5;
-            *a6 += v25;
-          }
-
-          begin += 3;
-        }
-
-        while (begin != end);
-      }
-
-      *a4 = v14;
-      *a2 = bswap32(v14 & 0xFFFFFF | 0x3000000);
-      *a5 = v13;
-      HIDWORD(this->__end_) = 0;
-      LODWORD(this->__end_cap_.__value_) = v13;
-      std::vector<int>::resize(this + 49, v13);
-      std::vector<int>::resize(this + 48, v13);
-      v26 = this[48].__begin_;
-      v27 = this[48].__end_ - v26;
-      if (v27 >= 1)
-      {
-        bzero(v26, v27);
-      }
-
-      result = 0;
+      v13 = 0;
+      v14 = 9;
     }
 
     else
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      v13 = 0;
+      v14 = 9;
+      do
       {
-        v9 = this[1].__begin_;
-        v29 = 134218496;
-        v30 = v9;
-        v31 = 2048;
-        v32 = a3;
-        v33 = 1024;
-        v34 = v8;
-        _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu buffer too small %zu %u", &v29, 0x1Cu);
+        if (*begin)
+        {
+          v15 = *(begin + 4);
+          v16 = *(begin + 5);
+          v17 = *(begin + 2);
+          v18 = *(begin + 2);
+          v19 = *(begin + 3);
+          v20 = *(begin + 1);
+          a2[v14++] = *(begin + 6);
+          v21 = 1;
+          do
+          {
+            v22 = v21;
+            a2[v14++] = v18;
+            v18 = v19;
+            v21 = 0;
+          }
+
+          while ((v22 & 1) != 0);
+          v23 = 1;
+          do
+          {
+            v24 = v23;
+            a2[v14++] = v15;
+            v15 = v16;
+            v23 = 0;
+          }
+
+          while ((v24 & 1) != 0);
+          v13 += v20 * v17;
+        }
+
+        else
+        {
+          v25 = begin[2];
+          a2[v14] = -1;
+          *&a2[v14 + 1] = v25;
+          v14 += 5;
+          *a6 += v25;
+        }
+
+        begin += 3;
       }
 
-      result = 10;
+      while (begin != end);
     }
+
+    *a4 = v14;
+    *a2 = bswap32(v14 & 0xFFFFFF | 0x3000000);
+    *a5 = v13;
+    HIDWORD(this->__end_) = 0;
+    LODWORD(this->__end_cap_.__value_) = v13;
+    std::vector<int>::resize(this + 49, v13);
+    std::vector<int>::resize(this + 48, v13);
+    v26 = this[48].__begin_;
+    v27 = this[48].__end_ - v26;
+    if (v27 >= 1)
+    {
+      bzero(v26, v27);
+    }
+
+    return 0;
   }
 
   else
   {
-    result = 5;
-  }
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v9 = this[1].__begin_;
+      v28 = 134218496;
+      v29 = v9;
+      v30 = 2048;
+      v31 = a3;
+      v32 = 1024;
+      v33 = v8;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu buffer too small %zu %u", &v28, 0x1Cu);
+    }
 
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+    return 10;
+  }
 }
 
 uint64_t gcl::motion::EncoderImpl::addCompressibleStreamFormat(gcl::motion::EncoderImpl *this, __int16 a2, __int16 a3, char a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 139) - *(this + 138)) >> 2);
   if (v5 > 0xFE)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v7 = *(this + 3);
-      v9 = 134218240;
-      v10 = v7;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu MSCEnc too manh slices %zu", &v9, 0x16u);
+      v8 = 134218240;
+      v9 = v7;
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu MSCEnc too manh slices %zu", &v8, 0x16u);
     }
 
-    result = 13;
+    return 13;
   }
 
   else
   {
-    LOBYTE(v9) = 1;
-    HIWORD(v9) = a2;
-    LOWORD(v10) = a3;
-    BYTE2(v10) = a4;
-    HIDWORD(v10) = 0;
-    std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1104, &v9);
-    result = 0;
+    LOBYTE(v8) = 1;
+    HIWORD(v8) = a2;
+    LOWORD(v9) = a3;
+    BYTE2(v9) = a4;
+    HIDWORD(v9) = 0;
+    std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1104, &v8);
+    return 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
@@ -623,35 +614,32 @@ void std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](uint64_t a1, u
 
 uint64_t gcl::motion::EncoderImpl::addNonCompressibleStreamFormat(gcl::motion::EncoderImpl *this, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 139) - *(this + 138)) >> 2);
   if (v3 > 0xFE)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v5 = *(this + 3);
-      *v7 = 134218240;
-      *&v7[4] = v5;
-      v8 = 2048;
-      v9 = v3;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu MSCEnc too manh slices %zu", v7, 0x16u);
+      *v6 = 134218240;
+      *&v6[4] = v5;
+      v7 = 2048;
+      v8 = v3;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu MSCEnc too manh slices %zu", v6, 0x16u);
     }
 
-    result = 13;
+    return 13;
   }
 
   else
   {
-    v7[0] = 0;
-    *&v7[2] = 0;
-    v7[6] = -1;
-    *&v7[8] = a2;
-    std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1104, v7);
-    result = 0;
+    v6[0] = 0;
+    *&v6[2] = 0;
+    v6[6] = -1;
+    *&v6[8] = a2;
+    std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1104, v6);
+    return 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t gcl::motion::EncoderImpl::encodeSequenceParameterSet(gcl::motion::EncoderImpl *this, int a2, unint64_t a3, int a4, unsigned __int8 *a5, unint64_t a6, unint64_t *a7)
@@ -935,6 +923,13 @@ LABEL_13:
   return result;
 }
 
+void sub_2660714A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  gcl::motion::ACContext::~ACContext(va);
+  _Unwind_Resume(a1);
+}
+
 void gcl::motion::ACContext::init(std::vector<int> *this, int a2)
 {
   v4 = a2;
@@ -1123,11 +1118,11 @@ uint64_t gcl::motion::EncoderImpl::encodeFrame(std::vector<int> *this, char *__s
   v7 = a5;
   v8 = a4;
   v9 = __src;
-  v108 = *MEMORY[0x277D85DE8];
-  v99 = 0;
-  v100 = 0;
-  v11 = a7[7];
+  v107 = *MEMORY[0x277D85DE8];
   v98 = 0;
+  v99 = 0;
+  v11 = a7[7];
+  v97 = 0;
   if (!__src || !a4 || a5 <= 5)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1139,15 +1134,15 @@ uint64_t gcl::motion::EncoderImpl::encodeFrame(std::vector<int> *this, char *__s
       *&buf[14] = v9;
       *&buf[22] = 2048;
       *&buf[24] = v8;
-      LOWORD(v102) = 2048;
-      *(&v102 + 2) = v7;
+      LOWORD(v101) = 2048;
+      *(&v101 + 2) = v7;
       v16 = MEMORY[0x277D86220];
       v17 = "MSCEnc - %llu MSCEnc no input %p %p %zu";
       v18 = 42;
       goto LABEL_13;
     }
 
-    goto LABEL_14;
+    return 5;
   }
 
   end_high = HIDWORD(this->__end_);
@@ -1163,263 +1158,261 @@ uint64_t gcl::motion::EncoderImpl::encodeFrame(std::vector<int> *this, char *__s
 
   if (a3 && end_high && !v11)
   {
-    v92 = 0;
+    v91 = 0;
     v14 = a4;
   }
 
   else
   {
-    gcl::motion::EncoderImpl::encodeSequenceParameterSetFromSliceList(this, a4, a5, &v100, &v99, &v98);
-    v92 = v100;
-    v14 = (v8 + v100);
+    gcl::motion::EncoderImpl::encodeSequenceParameterSetFromSliceList(this, a4, a5, &v99, &v98, &v97);
+    v91 = v99;
+    v14 = (v8 + v99);
   }
 
   end = this[46].__end_;
-  v22 = this[46].__begin_;
-  if (end != v22)
+  v21 = this[46].__begin_;
+  if (end != v21)
   {
-    v23 = 0;
-    v24 = 0xAAAAAAAAAAAAAAABLL * (end - v22);
-    v25 = this[48].__begin_;
-    v26 = this[49].__begin_;
-    if (v24 <= 1)
+    v22 = 0;
+    v23 = 0xAAAAAAAAAAAAAAABLL * (end - v21);
+    v24 = this[48].__begin_;
+    v25 = this[49].__begin_;
+    if (v23 <= 1)
     {
-      v24 = 1;
+      v23 = 1;
     }
 
-    v27 = v9;
+    v26 = v9;
     do
     {
-      v28 = &v22[3 * v23];
-      if (*v28)
+      v27 = &v21[3 * v22];
+      if (*v27)
       {
-        v29 = v9;
-        v30 = *(v28 + 2);
-        v31 = *(v28 + 1);
-        if (*(v28 + 1))
+        v28 = v9;
+        v29 = *(v27 + 2);
+        v30 = *(v27 + 1);
+        if (*(v27 + 1))
         {
-          v32 = v30 == 0;
+          v31 = v29 == 0;
         }
 
         else
         {
-          v32 = 1;
+          v31 = 1;
         }
 
-        if (v32)
+        if (v31)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v80 = this[1].__begin_;
+            v79 = this[1].__begin_;
             *buf = 134218496;
-            *&buf[4] = v80;
+            *&buf[4] = v79;
             *&buf[12] = 1024;
-            *&buf[14] = v31;
+            *&buf[14] = v30;
             *&buf[18] = 1024;
-            *&buf[20] = v30;
+            *&buf[20] = v29;
             v16 = MEMORY[0x277D86220];
             v17 = "MSCEnc - %llu MSCEnc invalid counts %u %u";
             v18 = 24;
             goto LABEL_13;
           }
 
-LABEL_14:
-          result = 5;
-          goto LABEL_15;
+          return 5;
         }
 
-        v88 = v14;
-        v33 = v13;
-        v34 = v8;
-        v35 = v7;
-        v36 = 0;
-        v37 = *(v28 + 6);
-        v38 = *(v28 + 1) * *(v28 + 2);
-        v39 = (1 << v37);
-        v40 = 4 * v30;
-        v41 = v27;
+        v87 = v14;
+        v32 = v13;
+        v33 = v8;
+        v34 = v7;
+        v35 = 0;
+        v36 = *(v27 + 6);
+        v37 = *(v27 + 1) * *(v27 + 2);
+        v38 = (1 << v36);
+        v39 = 4 * v29;
+        v40 = v26;
+        v41 = v24;
         v42 = v25;
-        v43 = v26;
         do
         {
-          v44 = v30;
+          v43 = v29;
+          v44 = v40;
           v45 = v41;
           v46 = v42;
-          v47 = v43;
           do
           {
-            v48 = llroundf(*v45 * v39);
-            v49 = v48;
-            if (v33 == 1)
+            v47 = llroundf(*v44 * v38);
+            v48 = v47;
+            if (v32 == 1)
             {
-              v49 = v48 - *v46;
+              v48 = v47 - *v45;
             }
 
-            *v47 = v49;
-            if (v49 - 0x10000000 < 0xE0000001)
+            *v46 = v48;
+            if (v48 - 0x10000000 < 0xE0000001)
             {
-              goto LABEL_14;
+              return 5;
             }
 
-            *v46++ = v48;
-            ++v47;
-            ++v45;
-            --v44;
+            *v45++ = v47;
+            ++v46;
+            ++v44;
+            --v43;
           }
 
-          while (v44);
-          ++v36;
-          v43 = (v43 + v40);
-          v42 = (v42 + v40);
-          v41 = (v41 + v40);
+          while (v43);
+          ++v35;
+          v42 = (v42 + v39);
+          v41 = (v41 + v39);
+          v40 = (v40 + v39);
         }
 
-        while (v36 != v31);
-        v50 = (4 * v38);
-        if (4 * v38 != v50)
+        while (v35 != v30);
+        v49 = (4 * v37);
+        if (4 * v37 != v49)
         {
-          goto LABEL_78;
+          return 1;
         }
 
-        v26 += v38;
-        v27 = (v27 + v50);
-        v25 += v38;
-        v7 = v35;
-        v8 = v34;
-        v13 = v33;
-        v9 = v29;
-        v14 = v88;
+        v25 += v37;
+        v26 += v49;
+        v24 += v37;
+        v7 = v34;
+        v8 = v33;
+        v13 = v32;
+        v9 = v28;
+        v14 = v87;
       }
 
       else
       {
-        v51 = v28[2];
-        if (v51)
+        v50 = v27[2];
+        if (v50)
         {
-          v27 = (v27 + v51);
+          v26 += v50;
         }
       }
 
-      ++v23;
+      ++v22;
     }
 
-    while (v23 != v24);
+    while (v22 != v23);
   }
 
   if (v13 > 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v72 = this[1].__begin_;
+      v71 = this[1].__begin_;
       *buf = 134218240;
-      *&buf[4] = v72;
+      *&buf[4] = v71;
       *&buf[12] = 256;
       buf[14] = v13;
       v16 = MEMORY[0x277D86220];
       v17 = "MSCEnc - %llu MSCEnc Unknown frame type %d";
-      goto LABEL_84;
+      goto LABEL_83;
     }
 
-    goto LABEL_14;
+    return 5;
   }
 
-  v52 = a7[4];
-  v53 = a7[5];
-  v54 = HIDWORD(this->__end_);
-  v93 = (v14 + 4);
-  if (end != v22)
+  v51 = a7[4];
+  v52 = a7[5];
+  v53 = HIDWORD(this->__end_);
+  v92 = (v14 + 4);
+  if (end != v21)
   {
-    v81 = a7[5];
-    v82 = a7[4];
-    v83 = HIDWORD(this->__end_);
-    v84 = v13;
-    v85 = v8;
-    v55 = 0;
+    v80 = a7[5];
+    v81 = a7[4];
+    v82 = HIDWORD(this->__end_);
+    v83 = v13;
+    v84 = v8;
+    v54 = 0;
     LODWORD(v8) = 0;
-    v56 = this[49].__begin_;
-    v57 = 12;
-    v87 = v7;
-    v89 = v14;
+    v55 = this[49].__begin_;
+    v56 = 12;
+    v86 = v7;
+    v88 = v14;
     while (1)
     {
-      v58 = &v22[3 * v55];
-      v95 = *(v58 + 6);
-      if (*v58)
+      v57 = &v21[3 * v54];
+      v94 = *(v57 + 6);
+      if (*v57)
       {
-        v91 = v8;
-        v59 = *(v58 + 2);
-        v60 = *(v58 + 1);
-        LODWORD(this[1].__end_) = v7 - (v92 + v57) - 4;
-        this[1].__end_cap_.__value_ = (v93 + v57);
+        v90 = v8;
+        v58 = *(v57 + 2);
+        v59 = *(v57 + 1);
+        LODWORD(this[1].__end_) = v7 - (v91 + v56) - 4;
+        this[1].__end_cap_.__value_ = (v92 + v56);
         gcl::ArithmeticEncoder::start(&this[1].__end_);
-        v90 = v9;
-        v61 = a7[5];
-        if (v61 > 1)
+        v89 = v9;
+        v60 = a7[5];
+        if (v60 > 1)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_14;
+            return 5;
           }
 
-          v78 = this[1].__begin_;
+          v77 = this[1].__begin_;
           *buf = 134218240;
-          *&buf[4] = v78;
+          *&buf[4] = v77;
           *&buf[12] = 256;
-          buf[14] = v61;
+          buf[14] = v60;
           v16 = MEMORY[0x277D86220];
           v17 = "MSCEnc - %llu MSCEnc Unknown strategy type %d";
-LABEL_84:
+LABEL_83:
           v18 = 15;
 LABEL_13:
           _os_log_impl(&dword_26606F000, v16, OS_LOG_TYPE_ERROR, v17, buf, v18);
-          goto LABEL_14;
+          return 5;
         }
 
-        v107 = 0;
+        v106 = 0;
+        v104 = 0u;
         v105 = 0u;
-        v106 = 0u;
+        *v102 = 0u;
         *v103 = 0u;
-        *v104 = 0u;
-        v102 = 0u;
+        v101 = 0u;
         memset(buf, 0, sizeof(buf));
-        gcl::motion::ACContext::init(buf, v59);
-        v96 = 0;
-        std::vector<int>::vector[abi:ne200100](__p, v59, &v96);
-        if (v60)
+        gcl::motion::ACContext::init(buf, v58);
+        v95 = 0;
+        std::vector<int>::vector[abi:ne200100](__p, v58, &v95);
+        if (v59)
         {
-          v63 = 0;
-          if (v59)
+          v62 = 0;
+          if (v58)
           {
-            v64 = a7[5] == 0;
+            v63 = a7[5] == 0;
           }
 
           else
           {
-            v64 = 1;
+            v63 = 1;
           }
 
-          v65 = !v64;
+          v64 = !v63;
           do
           {
-            gcl::motion::EncoderImpl::encodeResidual(this, v62, v56, __p[0], v59, a7 + 4, buf);
-            if (v65)
+            gcl::motion::EncoderImpl::encodeResidual(this, v61, v55, __p[0], v58, a7 + 4, buf);
+            if (v64)
             {
-              v66 = 0;
-              v67 = __p[0];
+              v65 = 0;
+              v66 = __p[0];
               do
               {
-                v67[v66] = *(v56 + 4 * v66);
-                ++v66;
+                v66[v65] = v55[v65];
+                ++v65;
               }
 
-              while (v66 < v59);
+              while (v65 < v58);
             }
 
-            ++v63;
-            v56 += 4 * v59;
+            ++v62;
+            v55 += v58;
           }
 
-          while (v63 != v60);
+          while (v62 != v59);
         }
 
         if (__p[0])
@@ -1428,29 +1421,29 @@ LABEL_13:
           operator delete(__p[0]);
         }
 
-        v7 = v87;
-        v9 = v90;
-        if (v106)
+        v7 = v86;
+        v9 = v89;
+        if (v105)
         {
-          *(&v106 + 1) = v106;
-          operator delete(v106);
+          *(&v105 + 1) = v105;
+          operator delete(v105);
         }
 
-        if (v104[1])
+        if (v103[1])
         {
-          *&v105 = v104[1];
-          operator delete(v104[1]);
+          *&v104 = v103[1];
+          operator delete(v103[1]);
         }
 
-        if (v103[0])
+        if (v102[0])
         {
-          v103[1] = v103[0];
-          operator delete(v103[0]);
+          v102[1] = v102[0];
+          operator delete(v102[0]);
         }
 
         if (*&buf[24])
         {
-          *&v102 = *&buf[24];
+          *&v101 = *&buf[24];
           operator delete(*&buf[24]);
         }
 
@@ -1460,84 +1453,82 @@ LABEL_13:
           operator delete(*buf);
         }
 
-        v68 = gcl::ArithmeticEncoder::stop(&this[1].__end_);
-        v69 = 4 * (v60 * v59);
-        v14 = v89;
-        LODWORD(v8) = v91;
+        v67 = gcl::ArithmeticEncoder::stop(&this[1].__end_);
+        v68 = 4 * (v59 * v58);
+        v14 = v88;
+        LODWORD(v8) = v90;
       }
 
       else
       {
-        v68 = v58[2];
-        memcpy(v93 + v57, v9, v68);
-        v69 = v68;
+        v67 = v57[2];
+        memcpy(v92 + v56, v9, v67);
+        v68 = v67;
       }
 
-      if (v68 > 0xFFFFFE)
+      if (v67 > 0xFFFFFE)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v75 = this[1].__begin_;
+          v74 = this[1].__begin_;
           *buf = 134218240;
-          *&buf[4] = v75;
+          *&buf[4] = v74;
           *&buf[12] = 2048;
-          *&buf[14] = v68;
-          v76 = MEMORY[0x277D86220];
-          v77 = "MSCEnc - %llu MSCEnc Large Slice payload %llu";
-          goto LABEL_87;
+          *&buf[14] = v67;
+          v75 = MEMORY[0x277D86220];
+          v76 = "MSCEnc - %llu MSCEnc Large Slice payload %llu";
+          goto LABEL_86;
         }
 
-LABEL_88:
-        result = 10;
-        goto LABEL_15;
+        return 10;
       }
 
-      v9 = (v9 + v69);
-      *&v14[v57] = bswap32(v68) | v95;
-      v57 += v68 + 4;
-      v8 = (v8 + v68);
-      ++v55;
-      v22 = this[46].__begin_;
-      if (0xAAAAAAAAAAAAAAABLL * (this[46].__end_ - v22) <= v55)
+      v9 += v68;
+      *&v14[v56] = bswap32(v67) | v94;
+      v56 += v67 + 4;
+      v8 = (v8 + v67);
+      ++v54;
+      v21 = this[46].__begin_;
+      if (0xAAAAAAAAAAAAAAABLL * (this[46].__end_ - v21) <= v54)
       {
-        v70 = v8;
-        v8 = v85;
-        LODWORD(v13) = v84;
-        if (v57 <= 0xFFFFFE)
+        v69 = v8;
+        v8 = v84;
+        LODWORD(v13) = v83;
+        if (v56 <= 0xFFFFFE)
         {
-          v71 = v70 << 32;
-          v52 = v82;
-          v54 = v83;
-          v53 = v81;
-          goto LABEL_75;
+          v70 = v69 << 32;
+          v51 = v81;
+          v53 = v82;
+          v52 = v80;
+          goto LABEL_74;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v79 = this[1].__begin_;
+          v78 = this[1].__begin_;
           *buf = 134218240;
-          *&buf[4] = v79;
+          *&buf[4] = v78;
           *&buf[12] = 2048;
-          *&buf[14] = v57;
-          v76 = MEMORY[0x277D86220];
-          v77 = "MSCEnc - %llu MSCEnc Large NAL payload %llu";
-LABEL_87:
-          _os_log_impl(&dword_26606F000, v76, OS_LOG_TYPE_ERROR, v77, buf, 0x16u);
+          *&buf[14] = v56;
+          v75 = MEMORY[0x277D86220];
+          v76 = "MSCEnc - %llu MSCEnc Large NAL payload %llu";
+LABEL_86:
+          _os_log_impl(&dword_26606F000, v75, OS_LOG_TYPE_ERROR, v76, buf, 0x16u);
         }
 
-        goto LABEL_88;
+        return 10;
       }
     }
   }
 
-  v71 = 0;
-  v57 = 12;
-LABEL_75:
-  *(v8 + v92) = bswap32(v57) | v13;
-  *v93 = v71 | (v54 << 16) | (v52 | (16 * v53));
-  v73 = v57 + v92;
-  *a6 = v73;
-  if (v73 <= v7)
+  v70 = 0;
+  v56 = 12;
+LABEL_74:
+  *(v8 + v91) = bswap32(v56) | v13;
+  *v92 = v70 | (v53 << 16) | (v51 | (16 * v52));
+  v72 = v56 + v91;
+  *a6 = v72;
+  if (v72 <= v7)
   {
     result = 0;
     ++HIDWORD(this->__end_);
@@ -1547,23 +1538,27 @@ LABEL_75:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v74 = this[1].__begin_;
+      v73 = this[1].__begin_;
       *buf = 134218496;
-      *&buf[4] = v74;
+      *&buf[4] = v73;
       *&buf[12] = 2048;
-      *&buf[14] = v73;
+      *&buf[14] = v72;
       *&buf[22] = 2048;
       *&buf[24] = v7;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc - %llu MSCEnc encoded stream too large %zu %zu", buf, 0x20u);
     }
 
-LABEL_78:
-    result = 1;
+    return 1;
   }
 
-LABEL_15:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_266071FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  gcl::motion::ACContext::~ACContext(va);
+  _Unwind_Resume(a1);
 }
 
 gcl::motion::Encoder *gcl::motion::Encoder::Encoder(gcl::motion::Encoder *this)
@@ -1610,20 +1605,20 @@ void gcl::motion::Encoder::~Encoder(gcl::motion::EncoderImpl **this)
   std::unique_ptr<gcl::motion::EncoderImpl>::reset[abi:ne200100](this, 0);
 }
 
-void std::vector<gcl::ArithmeticContext>::resize(void *a1, unint64_t a2)
+void std::vector<gcl::ArithmeticContext>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<gcl::ArithmeticContext>::__append(a1, a2 - v2);
+    std::vector<gcl::ArithmeticContext>::__append(result, a2 - v2);
   }
 }
 
@@ -1964,7 +1959,7 @@ void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, size_t a2)
   {
     std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
     v4 = a1[1];
-    v5 = &v4[a2];
+    v5 = v4 + a2;
     bzero(v4, a2);
     a1[1] = v5;
   }
@@ -2095,9 +2090,9 @@ void sub_26607300C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MSCDecoderSessionInit(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t **a5)
+uint64_t MSCDecoderSessionInit(unint64_t a1, unint64_t a2, int a3, uint64_t a4, unint64_t a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v9 = CFPreferencesCopyAppValue(@"largeFrameThreshold", @"com.apple.SignalCompression");
   if (v9)
   {
@@ -2106,9 +2101,9 @@ uint64_t MSCDecoderSessionInit(uint64_t a1, uint64_t a2, int a3, uint64_t a4, ui
     CFRelease(v10);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 67109120;
-      LODWORD(v22) = IntValue;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec Frame size = %d", &v21, 8u);
+      v20 = 67109120;
+      LODWORD(v21) = IntValue;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec Frame size = %d", &v20, 8u);
     }
   }
 
@@ -2128,24 +2123,23 @@ uint64_t MSCDecoderSessionInit(uint64_t a1, uint64_t a2, int a3, uint64_t a4, ui
   v13 = isCompressionEnabled();
   v14 = *a5;
   *(v14 + 8) = v13;
-  v14[2] = a1;
-  (*a5)[3] = a2;
+  *(v14 + 2) = a1;
+  *(*a5 + 24) = a2;
   v15 = *a5;
-  *(*a5 + 8) = a3;
+  *(*a5 + 32) = a3;
   v16 = operator new(0x450uLL);
   MSCDecoderObject::MSCDecoderObject(v16, *v15);
-  (*a5)[5] = v16;
+  *(*a5 + 40) = v16;
   v17 = *a5;
   *(v17[5] + 1088) = IntValue;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v18 = *v17;
-    v21 = 134217984;
-    v22 = v18;
-    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu Creating Decoder session", &v21, 0xCu);
+    v20 = 134217984;
+    v21 = v18;
+    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu Creating Decoder session", &v20, 0xCu);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2165,22 +2159,21 @@ BOOL isCompressionEnabled(void)
 
 uint64_t MSCDecoderSessionDestroy(MSCDecoderSession *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v2 = *a1;
-      v6 = 134217984;
-      v7 = v2;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Destroying session", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Destroying session", &v5, 0xCu);
     }
 
     MSCDecoderSession::~MSCDecoderSession(a1);
     operator delete(v3);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2224,11 +2217,20 @@ uint64_t MSCDecoderSessionDecodeFrame(uint64_t a1, CMSampleBufferRef sbuf, __CFD
 
 uint64_t MSCDecoderObject::decodeFrameInternal(MSCDecoderObject *this, CMSampleBufferRef sbuf, const __CFAllocator *a3, const __CFAllocator *a4, const __CFDictionary *a5, const __CFDictionary **a6, opaqueCMSampleBuffer **a7)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v10 = *MEMORY[0x277CBECE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v11 = a3;
+    v10 = a3;
+  }
+
+  else
+  {
+    v10 = *MEMORY[0x277CBECE8];
+  }
+
+  if (a4)
+  {
+    v11 = a4;
   }
 
   else
@@ -2236,92 +2238,82 @@ uint64_t MSCDecoderObject::decodeFrameInternal(MSCDecoderObject *this, CMSampleB
     v11 = *MEMORY[0x277CBECE8];
   }
 
-  if (a4)
-  {
-    v12 = a4;
-  }
-
-  else
-  {
-    v12 = *MEMORY[0x277CBECE8];
-  }
-
   DataBuffer = CMSampleBufferGetDataBuffer(sbuf);
   totalLengthOut = 0;
   lengthAtOffsetOut = 0;
   dataPointerOut = 0;
   CMBlockBufferGetDataPointer(DataBuffer, 0, &lengthAtOffsetOut, &totalLengthOut, &dataPointerOut);
-  v14 = totalLengthOut;
+  v13 = totalLengthOut;
   if (totalLengthOut > *(this + 272) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v15 = *(this + 137);
+    v14 = *(this + 137);
     *buf = 134218240;
-    v33 = v15;
-    v34 = 2048;
-    v35 = v14;
+    v31 = v14;
+    v32 = 2048;
+    v33 = v13;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Large Frame: %zu", buf, 0x16u);
-    v14 = totalLengthOut;
+    v13 = totalLengthOut;
   }
 
-  v16 = (this + 1064);
-  if (v14 > *(this + 134) - *(this + 133))
+  v15 = (this + 1064);
+  if (v13 > *(this + 134) - *(this + 133))
   {
-    MSCDecoderObject::resizeBitstream(this, v14);
-    v14 = totalLengthOut;
+    MSCDecoderObject::resizeBitstream(this, v13);
+    v13 = totalLengthOut;
   }
 
-  v27 = 0;
-  v17 = gcl::motion::Decoder::decodeFrame(*(this + 132), dataPointerOut, v14, this + 1064, &v27);
+  v25 = 0;
+  v16 = gcl::motion::Decoder::decodeFrame(*(this + 132), dataPointerOut, v13, this + 1064, &v25);
   gcl::motion::Decoder::getDecoderInfo(*(this + 132), buf);
-  if (v17)
+  if (v16)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v18 = *(this + 137);
-      LODWORD(v31.duration.value) = 134218240;
-      *(&v31.duration.value + 4) = v18;
-      LOWORD(v31.duration.flags) = 1024;
-      *(&v31.duration.flags + 2) = v17;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Unable to decode: %d\n", &v31, 0x12u);
+      v17 = *(this + 137);
+      LODWORD(v29.duration.value) = 134218240;
+      *(&v29.duration.value + 4) = v17;
+      LOWORD(v29.duration.flags) = 1024;
+      *(&v29.duration.flags + 2) = v16;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Unable to decode: %d\n", &v29, 0x12u);
     }
 
-    if (v17 == 11)
+    if (v16 == 11)
     {
-      v19 = 102;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    if (v17 == 7)
-    {
-      result = 101;
+      v18 = 102;
     }
 
     else
     {
-      result = v19;
+      v18 = 0;
+    }
+
+    if (v16 == 7)
+    {
+      return 101;
+    }
+
+    else
+    {
+      return v18;
     }
   }
 
   else
   {
-    v21 = dataLength;
+    v20 = dataLength;
     destinationBuffer = 0;
-    CMBlockBufferCreateWithMemoryBlock(v11, 0, dataLength, v12, 0, 0, dataLength, 1u, &destinationBuffer);
-    CMBlockBufferReplaceDataBytes(*v16, destinationBuffer, 0, v21);
-    v24 = 0;
+    CMBlockBufferCreateWithMemoryBlock(v10, 0, dataLength, v11, 0, 0, dataLength, 1u, &destinationBuffer);
+    CMBlockBufferReplaceDataBytes(*v15, destinationBuffer, 0, v20);
+    v22 = 0;
     formatDescriptionOut = 0;
-    CMFormatDescriptionCreate(v11, 0x6D657461u, 0x66616176u, 0, &formatDescriptionOut);
-    CMSampleBufferGetSampleTimingInfo(sbuf, 0, &v31);
-    CMSampleBufferCreate(v11, destinationBuffer, 1u, 0, 0, formatDescriptionOut, 1, 1, &v31, 0, 0, &v24);
-    v22 = formatDescriptionOut;
-    *a7 = v24;
-    if (v22)
+    CMFormatDescriptionCreate(v10, 0x6D657461u, 0x66616176u, 0, &formatDescriptionOut);
+    CMSampleBufferGetSampleTimingInfo(sbuf, 0, &v29);
+    CMSampleBufferCreate(v10, destinationBuffer, 1u, 0, 0, formatDescriptionOut, 1, 1, &v29, 0, 0, &v22);
+    v21 = formatDescriptionOut;
+    *a7 = v22;
+    if (v21)
     {
-      CFRelease(v22);
+      CFRelease(v21);
     }
 
     if (destinationBuffer)
@@ -2329,11 +2321,8 @@ uint64_t MSCDecoderObject::decodeFrameInternal(MSCDecoderObject *this, CMSampleB
       CFRelease(destinationBuffer);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void MSCDecoderObject::MSCDecoderObject(MSCDecoderObject *this, uint64_t a2)
@@ -2502,7 +2491,7 @@ void sub_266074008(_Unwind_Exception *exception_object)
 
 uint64_t MSCReadFrameHeader(int a1, OpaqueCMBlockBuffer *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   totalLengthOut = 0;
   lengthAtOffsetOut = 0;
   dataPointerOut = 0;
@@ -2512,33 +2501,31 @@ uint64_t MSCReadFrameHeader(int a1, OpaqueCMBlockBuffer *a2)
     if (!v3 || (v4 = v3, IntValue = CFStringGetIntValue(v3), CFRelease(v4), IntValue))
     {
       CMBlockBufferGetDataPointer(a2, 0, &lengthAtOffsetOut, &totalLengthOut, &dataPointerOut);
-      *v18 = 0;
-      MSCFrameHeaders = gcl::motion::Decoder::readMSCFrameHeaders(dataPointerOut, totalLengthOut, v18);
+      *v17 = 0;
+      MSCFrameHeaders = gcl::motion::Decoder::readMSCFrameHeaders(dataPointerOut, totalLengthOut, v17);
       if (MSCFrameHeaders)
       {
         v7 = MSCFrameHeaders;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v17 = v7;
+          v16 = v7;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCReadFrameHeader unable to decode frame %d", buf, 8u);
         }
 
-        result = 101;
-        goto LABEL_20;
+        return 101;
       }
 
-      v10 = *v18;
+      v10 = *v17;
       result = 2;
-      if ((*v18 - 11) < 0xFFFFFFF6)
+      if ((*v17 - 11) < 0xFFFFFFF6)
       {
-        goto LABEL_20;
+        return result;
       }
 
-      v11 = 4;
-      while (v18[v11])
+      for (i = 4; v17[i]; i += 4)
       {
-        if (v18[v11] == 1)
+        if (v17[i] == 1)
         {
           result = 1;
         }
@@ -2548,29 +2535,24 @@ uint64_t MSCReadFrameHeader(int a1, OpaqueCMBlockBuffer *a2)
           result = result;
         }
 
-        v11 += 4;
         if (!--v10)
         {
-          goto LABEL_20;
+          return result;
         }
       }
     }
 
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v18 = 67109120;
-    v19 = a1;
-    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCReadFrameHeader unsupported codec type %d", v18, 8u);
+    *v17 = 67109120;
+    v18 = a1;
+    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCReadFrameHeader unsupported codec type %d", v17, 8u);
   }
 
-  result = 2;
-LABEL_20:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 uint64_t gcl::computeCRC32(uint64_t this, const unsigned __int8 *a2)
@@ -2632,16 +2614,16 @@ void MSCInputFormatAddStreamToInputFormatArray(__CFArray *a1, int a2, int a3, in
   CFRelease(Mutable);
 }
 
-uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, const __CFDictionary *a5, uint64_t **a6)
+uint64_t MSCEncoderSessionInit(uint64_t a1, unint64_t a2, int a3, CFIndex Count, const __CFDictionary *a5, unint64_t **a6)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   BOOLean = 0;
   value = 0;
+  v55 = -1;
   v56 = -1;
-  v57 = -1;
-  *v55 = -1;
-  *&v55[4] = 8;
-  v53 = 0;
+  *v54 = -1;
+  *&v54[4] = 8;
+  v52 = 0;
   theArray = 0;
   valuePtr = 0;
   v12 = CFPreferencesCopyAppValue(@"usageMode", @"com.apple.SignalCompression");
@@ -2654,7 +2636,7 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v61) = IntValue;
+      LODWORD(v60) = IntValue;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Default usageMode = %d", buf, 8u);
     }
   }
@@ -2668,7 +2650,7 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v61) = v17;
+      LODWORD(v60) = v17;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc Frame size = %d", buf, 8u);
     }
   }
@@ -2716,7 +2698,7 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
   {
     v24 = **a6;
     *buf = 134217984;
-    v61 = v24;
+    v60 = v24;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Creating Encoder session", buf, 0xCu);
   }
 
@@ -2731,9 +2713,9 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
     {
       v26 = **a6;
       *buf = 134218240;
-      v61 = v26;
-      v62 = 1024;
-      LODWORD(v63) = valuePtr;
+      v60 = v26;
+      v61 = 1024;
+      LODWORD(v62) = valuePtr;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received IFrame Period: %d", buf, 0x12u);
     }
 
@@ -2756,7 +2738,7 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v61) = v30;
+      LODWORD(v60) = v30;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Default iFrame Period = %d", buf, 8u);
     }
 
@@ -2784,9 +2766,9 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
   {
     v35 = **a6;
     *buf = 134218240;
-    v61 = v35;
-    v62 = 1024;
-    LODWORD(v63) = HIDWORD(valuePtr);
+    v60 = v35;
+    v61 = 1024;
+    LODWORD(v62) = HIDWORD(valuePtr);
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received Usage Mode: %d", buf, 0x12u);
   }
 
@@ -2795,11 +2777,11 @@ uint64_t MSCEncoderSessionInit(uint64_t a1, uint64_t a2, int a3, CFIndex Count, 
   {
     v36 = **a6;
     *buf = 134218496;
-    v61 = v36;
-    v62 = 2048;
-    v63 = Count;
-    v64 = 1024;
-    v65 = v33;
+    v60 = v36;
+    v61 = 2048;
+    v62 = Count;
+    v63 = 1024;
+    v64 = v33;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu inputDataFormat contains format description (%ld) with Usage mode (%u)", buf, 0x1Cu);
 LABEL_29:
     v33 = HIDWORD(valuePtr);
@@ -2811,9 +2793,9 @@ LABEL_29:
     {
       v37 = **a6;
       *buf = 134218240;
-      v61 = v37;
-      v62 = 1024;
-      LODWORD(v63) = 1;
+      v60 = v37;
+      v61 = 1024;
+      LODWORD(v62) = 1;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu PersonaV2 Usage mode (%u)", buf, 0x12u);
     }
 
@@ -2825,9 +2807,9 @@ LABEL_29:
   {
     v34 = **a6;
     *buf = 134218240;
-    v61 = v34;
-    v62 = 1024;
-    LODWORD(v63) = 0;
+    v60 = v34;
+    v61 = 1024;
+    LODWORD(v62) = 0;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Default Usage mode (%u)", buf, 0x12u);
   }
 
@@ -2846,28 +2828,28 @@ LABEL_29:
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, v39);
       if (CFDictionaryGetValueIfPresent(ValueAtIndex, @"NumberOfAttributes", &value))
       {
-        CFNumberGetValue(value, kCFNumberSInt32Type, &v57);
+        CFNumberGetValue(value, kCFNumberSInt32Type, &v56);
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           v42 = **a6;
           *buf = 134218240;
-          v61 = v42;
-          v62 = 1024;
-          LODWORD(v63) = v57;
+          v60 = v42;
+          v61 = 1024;
+          LODWORD(v62) = v56;
           _os_log_impl(&dword_26606F000, v40, OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received number of Attributes: %d", buf, 0x12u);
         }
       }
 
       if (CFDictionaryGetValueIfPresent(ValueAtIndex, @"NumberOfComponents", &value))
       {
-        CFNumberGetValue(value, kCFNumberSInt32Type, &v56);
+        CFNumberGetValue(value, kCFNumberSInt32Type, &v55);
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           v43 = **a6;
           *buf = 134218240;
-          v61 = v43;
-          v62 = 1024;
-          LODWORD(v63) = v56;
+          v60 = v43;
+          v61 = 1024;
+          LODWORD(v62) = v55;
           _os_log_impl(&dword_26606F000, v40, OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received number of Components per Attribute: %d", buf, 0x12u);
         }
       }
@@ -2877,9 +2859,9 @@ LABEL_29:
         goto LABEL_60;
       }
 
-      CFNumberGetValue(value, kCFNumberSInt32Type, &v55[4]);
-      v44 = *&v55[4];
-      if (*&v55[4] > 255)
+      CFNumberGetValue(value, kCFNumberSInt32Type, &v54[4]);
+      v44 = *&v54[4];
+      if (*&v54[4] > 255)
       {
         break;
       }
@@ -2888,9 +2870,9 @@ LABEL_29:
       {
         v45 = **a6;
         *buf = 134218240;
-        v61 = v45;
-        v62 = 1024;
-        LODWORD(v63) = v44;
+        v60 = v45;
+        v61 = 1024;
+        LODWORD(v62) = v44;
         _os_log_impl(&dword_26606F000, v40, OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received forced scale: %d", buf, 0x12u);
       }
 
@@ -2903,15 +2885,15 @@ LABEL_61:
 
       if (CFDictionaryGetValueIfPresent(ValueAtIndex, @"NonCompressibleFixedLength", &value))
       {
-        CFNumberGetValue(value, kCFNumberSInt32Type, v55);
+        CFNumberGetValue(value, kCFNumberSInt32Type, v54);
         v46 = 0;
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           v48 = **a6;
           *buf = 134218240;
-          v61 = v48;
-          v62 = 1024;
-          LODWORD(v63) = *v55;
+          v60 = v48;
+          v61 = 1024;
+          LODWORD(v62) = *v54;
           _os_log_impl(&dword_26606F000, v40, OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received non compressible stream frame length: %d", buf, 0x12u);
           v46 = 0;
         }
@@ -2919,21 +2901,21 @@ LABEL_61:
 
       if (CFDictionaryGetValueIfPresent(ValueAtIndex, @"ComponentDataType", &value))
       {
-        CFNumberGetValue(value, kCFNumberIntType, &v53);
+        CFNumberGetValue(value, kCFNumberIntType, &v52);
       }
 
       v49 = *(*a6)[5];
       if (v46)
       {
-        gcl::motion::Encoder::addCompressibleStreamFormat(v49, v57, v56, v55[4]);
+        gcl::motion::Encoder::addCompressibleStreamFormat(v49, v56, v55, v54[4]);
       }
 
       else
       {
-        gcl::motion::Encoder::addNonCompressibleStreamFormat(v49, *v55);
+        gcl::motion::Encoder::addNonCompressibleStreamFormat(v49, *v54);
       }
 
-      if (v57 < 0 && v56 < 0)
+      if (v56 < 0 && v55 < 0)
       {
         v38 = 54;
         goto LABEL_78;
@@ -2945,12 +2927,12 @@ LABEL_61:
       }
     }
 
-    *&v55[4] = 255;
+    *&v54[4] = 255;
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       v47 = **a6;
       *buf = 134217984;
-      v61 = v47;
+      v60 = v47;
       _os_log_impl(&dword_26606F000, v40, OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Received non compressible stream", buf, 0xCu);
     }
 
@@ -2963,17 +2945,12 @@ LABEL_74:
   MSCEncoderObject::encodeSequenceParameterSetFromSliceList((*a6)[5]);
   if ((*a6)[5])
   {
-    v38 = 0;
+    return 0;
   }
 
-  else
-  {
-    v38 = 53;
+  v38 = 53;
 LABEL_78:
-    MSCEncoderSessionDestroy(*a6);
-  }
-
-  v50 = *MEMORY[0x277D85DE8];
+  MSCEncoderSessionDestroy(*a6);
   return v38;
 }
 
@@ -3001,22 +2978,21 @@ uint64_t MSCEncoderObject::encodeSequenceParameterSetFromSliceList(MSCEncoderObj
 
 uint64_t MSCEncoderSessionDestroy(MSCEncoderSession *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v2 = *a1;
-      v6 = 134217984;
-      v7 = v2;
-      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Destroying session", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Destroying session", &v5, 0xCu);
     }
 
     MSCEncoderSession::~MSCEncoderSession(a1);
     operator delete(v3);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3051,11 +3027,20 @@ uint64_t MSCEncoderSessionEncodeFrame(uint64_t a1, CMSampleBufferRef sbuf, __CFD
 
 uint64_t MSCEncoderObject::encodeFrameInternal(MSCEncoderObject *this, CMSampleBufferRef sbuf, const __CFAllocator *a3, const __CFAllocator *a4, const __CFDictionary *a5, const __CFDictionary **a6, opaqueCMSampleBuffer **a7)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v11 = *MEMORY[0x277CBECE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v12 = a3;
+    v11 = a3;
+  }
+
+  else
+  {
+    v11 = *MEMORY[0x277CBECE8];
+  }
+
+  if (a4)
+  {
+    v12 = a4;
   }
 
   else
@@ -3063,112 +3048,102 @@ uint64_t MSCEncoderObject::encodeFrameInternal(MSCEncoderObject *this, CMSampleB
     v12 = *MEMORY[0x277CBECE8];
   }
 
-  if (a4)
-  {
-    v13 = a4;
-  }
-
-  else
-  {
-    v13 = *MEMORY[0x277CBECE8];
-  }
-
   DataBuffer = CMSampleBufferGetDataBuffer(sbuf);
   totalLengthOut = 0;
   lengthAtOffsetOut = 0;
   dataPointerOut = 0;
   CMBlockBufferGetDataPointer(DataBuffer, 0, &lengthAtOffsetOut, &totalLengthOut, &dataPointerOut);
-  v15 = *(this + 13) + 4 * *(this + 12);
-  v16 = totalLengthOut;
-  if (totalLengthOut == v15)
+  v14 = *(this + 13) + 4 * *(this + 12);
+  v15 = totalLengthOut;
+  if (totalLengthOut == v14)
   {
-    v18 = *(this + 9);
-    v17 = *(this + 10);
-    v19 = v17 - v18;
-    if (v17 == v18 || v15 <= v19)
+    v17 = *(this + 9);
+    v16 = *(this + 10);
+    v18 = v16 - v17;
+    if (v16 == v17 || v14 <= v18)
     {
-      v38 = 0;
-      v39 = 257;
+      v36 = 0;
+      v37 = 257;
       value = 0;
       dataLength = 0;
       if (a5 && CFDictionaryGetValueIfPresent(a5, @"ForceKeyFrame", &value))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v23 = *(this + 15);
+          v22 = *(this + 15);
           LODWORD(buf.duration.value) = 134217984;
-          *(&buf.duration.value + 4) = v23;
+          *(&buf.duration.value + 4) = v22;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu Force KeyFrame", &buf, 0xCu);
         }
 
-        v24 = CFBooleanGetValue(value) != 0;
-        HIBYTE(v39) = 1;
+        v23 = CFBooleanGetValue(value) != 0;
+        HIBYTE(v37) = 1;
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      v26 = *(this + 28);
-      v25 = *(this + 29);
-      if (v26 >= 1 && v26 == v25)
+      v25 = *(this + 28);
+      v24 = *(this + 29);
+      if (v25 >= 1 && v25 == v24)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v27 = *(this + 15);
+          v26 = *(this + 15);
           LODWORD(buf.duration.value) = 134217984;
-          *(&buf.duration.value + 4) = v27;
+          *(&buf.duration.value + 4) = v26;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCEnc %llu GOP Force KeyFrame", &buf, 0xCu);
         }
 
-        v25 = 0;
-        v24 = 1;
+        v24 = 0;
+        v23 = 1;
       }
 
-      *(this + 29) = v25 + 1;
-      if (gcl::motion::Encoder::encodeFrame(*this, dataPointerOut, !v24, *(this + 9), *(this + 10) - *(this + 9), &dataLength, &v38))
+      *(this + 29) = v24 + 1;
+      if (gcl::motion::Encoder::encodeFrame(*this, dataPointerOut, !v23, *(this + 9), *(this + 10) - *(this + 9), &dataLength, &v36))
       {
         *a7 = 0;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v28 = *(this + 15);
+          v27 = *(this + 15);
           LODWORD(buf.duration.value) = 134218240;
-          *(&buf.duration.value + 4) = v28;
+          *(&buf.duration.value + 4) = v27;
           LOWORD(buf.duration.flags) = 1024;
           *(&buf.duration.flags + 2) = 0;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Unable to encode: %d", &buf, 0x12u);
         }
 
-        result = 55;
+        return 55;
       }
 
       else
       {
         destinationBuffer = 0;
-        CMBlockBufferCreateWithMemoryBlock(v12, 0, dataLength, v13, 0, 0, dataLength, 1u, &destinationBuffer);
+        CMBlockBufferCreateWithMemoryBlock(v11, 0, dataLength, v12, 0, 0, dataLength, 1u, &destinationBuffer);
         CMBlockBufferReplaceDataBytes(*(this + 9), destinationBuffer, 0, dataLength);
-        v29 = dataLength;
+        v28 = dataLength;
         if (dataLength > *(this + 32) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v30 = *(this + 15);
+          v29 = *(this + 15);
           LODWORD(buf.duration.value) = 134218240;
-          *(&buf.duration.value + 4) = v30;
+          *(&buf.duration.value + 4) = v29;
           LOWORD(buf.duration.flags) = 2048;
-          *(&buf.duration.flags + 2) = v29;
+          *(&buf.duration.flags + 2) = v28;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Large Frame: %zu", &buf, 0x16u);
         }
 
-        v33 = 0;
+        v31 = 0;
         formatDescriptionOut = 0;
-        CMFormatDescriptionCreate(v12, 0x6D657461u, 0x66616176u, 0, &formatDescriptionOut);
+        CMFormatDescriptionCreate(v11, 0x6D657461u, 0x66616176u, 0, &formatDescriptionOut);
         CMSampleBufferGetSampleTimingInfo(sbuf, 0, &buf);
-        CMSampleBufferCreate(v12, destinationBuffer, 1u, 0, 0, formatDescriptionOut, 1, 1, &buf, 0, 0, &v33);
-        v31 = formatDescriptionOut;
-        *a7 = v33;
-        CFRelease(v31);
+        CMSampleBufferCreate(v11, destinationBuffer, 1u, 0, 0, formatDescriptionOut, 1, 1, &buf, 0, 0, &v31);
+        v30 = formatDescriptionOut;
+        *a7 = v31;
+        CFRelease(v30);
         CFRelease(destinationBuffer);
-        result = 0;
+        return 0;
       }
     }
 
@@ -3176,17 +3151,17 @@ uint64_t MSCEncoderObject::encodeFrameInternal(MSCEncoderObject *this, CMSampleB
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v20 = *(this + 15);
+        v19 = *(this + 15);
         LODWORD(buf.duration.value) = 134218496;
-        *(&buf.duration.value + 4) = v20;
+        *(&buf.duration.value + 4) = v19;
         LOWORD(buf.duration.flags) = 2048;
-        *(&buf.duration.flags + 2) = v15;
+        *(&buf.duration.flags + 2) = v14;
         HIWORD(buf.duration.epoch) = 2048;
-        buf.presentationTimeStamp.value = v19;
+        buf.presentationTimeStamp.value = v18;
         _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Output length too large %zu %zu", &buf, 0x20u);
       }
 
-      result = 56;
+      return 56;
     }
   }
 
@@ -3194,21 +3169,18 @@ uint64_t MSCEncoderObject::encodeFrameInternal(MSCEncoderObject *this, CMSampleB
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v22 = *(this + 15);
+      v21 = *(this + 15);
       LODWORD(buf.duration.value) = 134218496;
-      *(&buf.duration.value + 4) = v22;
+      *(&buf.duration.value + 4) = v21;
       LOWORD(buf.duration.flags) = 2048;
-      *(&buf.duration.flags + 2) = v16;
+      *(&buf.duration.flags + 2) = v15;
       HIWORD(buf.duration.epoch) = 2048;
-      buf.presentationTimeStamp.value = v15;
+      buf.presentationTimeStamp.value = v14;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCEnc %llu Input frame size mismatch %zu %zu", &buf, 0x20u);
     }
 
-    result = 57;
+    return 57;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t MSCEncoderSessionSetProperty(uint64_t a1)
@@ -3339,15 +3311,14 @@ uint64_t gcl::motion::DecoderImpl::setSequenceParameterSet(gcl::motion::DecoderI
   v4 = *(this + 10) * *(this + 11);
   if (v4 == v4)
   {
-    v5 = *(this + 10) * *(this + 11);
-    v6 = v4;
+    v5 = v4;
     std::vector<int>::resize((this + 2224), v4);
-    std::vector<int>::resize((this + 2200), v6);
-    v7 = *(this + 275);
-    v8 = *(this + 276) - v7;
-    if (v8 >= 1)
+    std::vector<int>::resize((this + 2200), v5);
+    v6 = *(this + 275);
+    v7 = *(this + 276) - v6;
+    if (v7 >= 1)
     {
-      bzero(v7, v8);
+      bzero(v6, v7);
     }
 
     return 0;
@@ -3491,10 +3462,10 @@ uint64_t gcl::motion::DecoderImpl::decodeSPS(gcl::motion::DecoderImpl *this, con
 
 uint64_t gcl::motion::DecoderImpl::decodeSPSFromSliceList(gcl::motion::DecoderImpl *this, const unsigned __int8 *a2, unint64_t a3, unint64_t *a4, AttributeInfo *a5)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_16;
+    return 3;
   }
 
   if (!a3)
@@ -3504,16 +3475,16 @@ uint64_t gcl::motion::DecoderImpl::decodeSPSFromSliceList(gcl::motion::DecoderIm
       v13 = *(this + 140);
       *buf = 134218496;
       *&buf[4] = v13;
-      v56 = 2048;
-      *v57 = 0;
-      *&v57[8] = 2048;
-      v58 = 0;
+      v55 = 2048;
+      *v56 = 0;
+      *&v56[8] = 2048;
+      v57 = 0;
       v11 = MEMORY[0x277D86220];
       v12 = "MSCDec %llu Decode slice list unable to decode Frame header (mj) %zu %llu";
       goto LABEL_15;
     }
 
-    goto LABEL_16;
+    return 3;
   }
 
   v9 = *a2;
@@ -3525,16 +3496,16 @@ uint64_t gcl::motion::DecoderImpl::decodeSPSFromSliceList(gcl::motion::DecoderIm
       v10 = *(this + 140);
       *buf = 134218496;
       *&buf[4] = v10;
-      v56 = 2048;
-      *v57 = 1;
-      *&v57[8] = 2048;
-      v58 = 1;
+      v55 = 2048;
+      *v56 = 1;
+      *&v56[8] = 2048;
+      v57 = 1;
       v11 = MEMORY[0x277D86220];
       v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (mn) %zu %llu";
       goto LABEL_15;
     }
 
-    goto LABEL_16;
+    return 3;
   }
 
   a5->version.minor = a2[1];
@@ -3545,17 +3516,16 @@ uint64_t gcl::motion::DecoderImpl::decodeSPSFromSliceList(gcl::motion::DecoderIm
       v15 = *(this + 140);
       *buf = 134218496;
       *&buf[4] = v15;
-      v56 = 2048;
-      *v57 = a3;
-      *&v57[8] = 2048;
-      v58 = 2;
+      v55 = 2048;
+      *v56 = a3;
+      *&v56[8] = 2048;
+      v57 = 2;
       v11 = MEMORY[0x277D86220];
       v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (r) %zu %llu";
       goto LABEL_15;
     }
 
-LABEL_16:
-    result = 3;
+    return 3;
   }
 
   else
@@ -3570,245 +3540,240 @@ LABEL_16:
           v14 = *(this + 140);
           *buf = 134218496;
           *&buf[4] = v14;
-          v56 = 2048;
-          *v57 = 4;
-          *&v57[8] = 2048;
-          v58 = 4;
+          v55 = 2048;
+          *v56 = 4;
+          *&v56[8] = 2048;
+          v57 = 4;
           v11 = MEMORY[0x277D86220];
           v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (ns) %zu %llu";
           goto LABEL_15;
         }
 
-        goto LABEL_16;
+        return 3;
       }
 
-      v23 = a2[4];
+      v22 = a2[4];
       *(this + 137) = *(this + 136);
-      v50 = v23;
-      if (v23)
+      v49 = v22;
+      if (v22)
       {
-        v48 = a2 + 1;
-        v53 = 0;
-        v49 = 0;
-        v24 = 0;
-        v25 = 5;
+        v47 = a2 + 1;
+        v52 = 0;
+        v48 = 0;
+        v23 = 0;
+        v24 = 5;
         while (1)
         {
-          v26 = v25 + 1;
-          if (v25 + 1 > a3)
+          v25 = v24 + 1;
+          if (v24 + 1 > a3)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_16;
+              return 3;
             }
 
-            v44 = *(this + 140);
+            v43 = *(this + 140);
             *buf = 134218496;
-            *&buf[4] = v44;
-            v56 = 2048;
-            *v57 = a3;
-            *&v57[8] = 2048;
-            v58 = v25;
+            *&buf[4] = v43;
+            v55 = 2048;
+            *v56 = a3;
+            *&v56[8] = 2048;
+            v57 = v24;
             v11 = MEMORY[0x277D86220];
             v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (q) %zu %llu";
             goto LABEL_15;
           }
 
-          v27 = a2[v25];
-          v28 = v27 != 255;
-          if (v27 == 255)
+          v26 = a2[v24];
+          v27 = v26 != 255;
+          if (v26 == 255)
           {
-            v41 = v25 + 5;
-            if (v25 + 5 > a3)
+            v40 = v24 + 5;
+            if (v24 + 5 > a3)
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_16;
-              }
-
-              v47 = *(this + 140);
-              *buf = 134218496;
-              *&buf[4] = v47;
-              v56 = 2048;
-              *v57 = a3;
-              *&v57[8] = 2048;
-              v58 = v25 + 1;
-              v11 = MEMORY[0x277D86220];
-              v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (fl) %zu %llu";
-LABEL_15:
-              _os_log_impl(&dword_26606F000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x20u);
-              goto LABEL_16;
-            }
-
-            v42 = *&v48[v25];
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-            {
-              v43 = *(this + 140);
-              *buf = 134218240;
-              *&buf[4] = v43;
-              v56 = 1024;
-              *v57 = v42;
-              _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu New Slice %d", buf, 0x12u);
-            }
-
-            buf[0] = v28;
-            *&buf[2] = 0;
-            buf[6] = -1;
-            *&buf[8] = v42;
-            std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1088, buf);
-            v49 += v42;
-            v26 = v41;
-          }
-
-          else
-          {
-            if (v25 + 3 > a3)
-            {
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_16;
-              }
-
-              v45 = *(this + 140);
-              *buf = 134218496;
-              *&buf[4] = v45;
-              v56 = 2048;
-              *v57 = a3;
-              *&v57[8] = 2048;
-              v58 = v25 + 1;
-              v11 = MEMORY[0x277D86220];
-              v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (na) %zu %llu";
-              goto LABEL_15;
-            }
-
-            v29 = buf;
-            v30 = 1;
-            do
-            {
-              v31 = v30;
-              v32 = a2[v26++];
-              *v29 = v32;
-              v29 = &v54;
-              v30 = 0;
-            }
-
-            while ((v31 & 1) != 0);
-            v33 = buf[0] | (v54 << 8);
-            a5->attributeCount = v33;
-            if (v26 + 2 > a3)
-            {
-              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                goto LABEL_16;
+                return 3;
               }
 
               v46 = *(this + 140);
               *buf = 134218496;
               *&buf[4] = v46;
-              v56 = 2048;
-              *v57 = a3;
-              *&v57[8] = 2048;
-              v58 = v26;
+              v55 = 2048;
+              *v56 = a3;
+              *&v56[8] = 2048;
+              v57 = v24 + 1;
+              v11 = MEMORY[0x277D86220];
+              v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (fl) %zu %llu";
+LABEL_15:
+              _os_log_impl(&dword_26606F000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x20u);
+              return 3;
+            }
+
+            v41 = *&v47[v24];
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              v42 = *(this + 140);
+              *buf = 134218240;
+              *&buf[4] = v42;
+              v55 = 1024;
+              *v56 = v41;
+              _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu New Slice %d", buf, 0x12u);
+            }
+
+            buf[0] = v27;
+            *&buf[2] = 0;
+            buf[6] = -1;
+            *&buf[8] = v41;
+            std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1088, buf);
+            v48 += v41;
+            v25 = v40;
+          }
+
+          else
+          {
+            if (v24 + 3 > a3)
+            {
+              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                return 3;
+              }
+
+              v44 = *(this + 140);
+              *buf = 134218496;
+              *&buf[4] = v44;
+              v55 = 2048;
+              *v56 = a3;
+              *&v56[8] = 2048;
+              v57 = v24 + 1;
+              v11 = MEMORY[0x277D86220];
+              v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (na) %zu %llu";
+              goto LABEL_15;
+            }
+
+            v28 = buf;
+            v29 = 1;
+            do
+            {
+              v30 = v29;
+              v31 = a2[v25++];
+              *v28 = v31;
+              v28 = &v53;
+              v29 = 0;
+            }
+
+            while ((v30 & 1) != 0);
+            v32 = buf[0] | (v53 << 8);
+            a5->attributeCount = v32;
+            if (v25 + 2 > a3)
+            {
+              if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                return 3;
+              }
+
+              v45 = *(this + 140);
+              *buf = 134218496;
+              *&buf[4] = v45;
+              v55 = 2048;
+              *v56 = a3;
+              *&v56[8] = 2048;
+              v57 = v25;
               v11 = MEMORY[0x277D86220];
               v12 = "MSCDec %llu Decode slice list Unable to decode Frame header (nc) %zu %llu";
               goto LABEL_15;
             }
 
-            v51 = v27 != 255;
-            v34 = buf;
-            v35 = 1;
+            v50 = v26 != 255;
+            v33 = buf;
+            v34 = 1;
             do
             {
-              v36 = v35;
-              v37 = a2[v26++];
-              *v34 = v37;
-              v34 = &v54;
-              v35 = 0;
+              v35 = v34;
+              v36 = a2[v25++];
+              *v33 = v36;
+              v33 = &v53;
+              v34 = 0;
             }
 
-            while ((v36 & 1) != 0);
-            v38 = buf[0] | (v54 << 8);
-            a5->componentsPerAttribute = v38;
-            v39 = *(this + 10) * *(this + 11);
-            if (v39 != v39)
+            while ((v35 & 1) != 0);
+            v37 = buf[0] | (v53 << 8);
+            a5->componentsPerAttribute = v37;
+            v38 = *(this + 10) * *(this + 11);
+            if (v38 != v38)
             {
-              result = 1;
-              goto LABEL_17;
+              return 1;
             }
 
-            v52 = v27;
+            v51 = v26;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              v40 = *(this + 140);
+              v39 = *(this + 140);
               *buf = 134218752;
-              *&buf[4] = v40;
-              v56 = 1024;
-              *v57 = v33;
-              *&v57[4] = 1024;
-              *&v57[6] = v38;
-              LOWORD(v58) = 1024;
-              *(&v58 + 2) = v52;
+              *&buf[4] = v39;
+              v55 = 1024;
+              *v56 = v32;
+              *&v56[4] = 1024;
+              *&v56[6] = v37;
+              LOWORD(v57) = 1024;
+              *(&v57 + 2) = v51;
               _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu New Slice %d %d %d", buf, 0x1Eu);
             }
 
-            buf[0] = v51;
-            *&buf[2] = v33;
-            *&buf[4] = v38;
-            buf[6] = v52;
+            buf[0] = v50;
+            *&buf[2] = v32;
+            *&buf[4] = v37;
+            buf[6] = v51;
             *&buf[8] = 0;
             std::vector<gcl::motion::SliceInfo>::push_back[abi:ne200100](this + 1088, buf);
-            v53 += v39;
+            v52 += v38;
           }
 
-          ++v24;
-          v25 = v26;
-          if (v24 >= v50)
+          ++v23;
+          v24 = v25;
+          if (v23 >= v49)
           {
             goto LABEL_42;
           }
         }
       }
 
-      v49 = 0;
-      v53 = 0;
-      v26 = 5;
+      v48 = 0;
+      v52 = 0;
+      v25 = 5;
 LABEL_42:
-      a5->componentCount = v53;
-      a5->seiDataSize = v49;
-      *a4 = v26;
+      a5->componentCount = v52;
+      a5->seiDataSize = v48;
+      *a4 = v25;
       gcl::motion::DecoderImpl::setSPSFromSliceList(this, a5);
-      result = 0;
+      return 0;
     }
 
     else
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(this + 140);
-        v19 = *(this + 36);
-        v20 = *(this + 37);
-        v21 = *(this + 19);
+        v17 = *(this + 140);
+        v18 = *(this + 36);
+        v19 = *(this + 37);
+        v20 = *(this + 19);
         *buf = 134218752;
-        *&buf[4] = v18;
-        v56 = 1024;
-        *v57 = v19;
-        *&v57[4] = 1024;
-        *&v57[6] = v20;
-        LOWORD(v58) = 1024;
-        *(&v58 + 2) = v21;
+        *&buf[4] = v17;
+        v55 = 1024;
+        *v56 = v18;
+        *&v56[4] = 1024;
+        *&v56[6] = v19;
+        LOWORD(v57) = 1024;
+        *(&v57 + 2) = v20;
         _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Decode slice list Mismatched Version %d %d %d", buf, 0x1Eu);
       }
 
-      result = 11;
+      return 11;
     }
   }
-
-LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t gcl::motion::DecoderImpl::decodeResidual(uint64_t result, uint64_t a2, int *a3, int a4, _BYTE *a5, void *a6, _DWORD *a7)
+uint64_t gcl::motion::DecoderImpl::decodeResidual(uint64_t result, uint64_t a2, int *a3, unsigned int a4, _BYTE *a5, void *a6, _DWORD *a7)
 {
   v10 = result;
   if (!*a5)
@@ -4546,28 +4511,33 @@ LABEL_90:
   return result;
 }
 
-uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t *a5)
+void sub_266076A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v34 = 0;
+  va_start(va, a12);
+  gcl::motion::ACContext::~ACContext(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t *a5)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  v33 = 0;
   if (!a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v26 = *(a1 + 1120);
       *buf = 134217984;
-      v36 = v26;
+      v35 = v26;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu No input", buf, 0xCu);
     }
 
-    result = 5;
-    goto LABEL_34;
+    return 5;
   }
 
   if (!a3)
   {
-    result = 0;
-    goto LABEL_34;
+    return 0;
   }
 
   v10 = 0;
@@ -4581,18 +4551,18 @@ uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_33;
+        return 3;
       }
 
       v27 = *(a1 + 1120);
       *buf = 134218752;
-      v36 = v27;
-      v37 = 2048;
+      v35 = v27;
+      v36 = 2048;
+      *v37 = a3;
+      *&v37[8] = 2048;
       *v38 = a3;
       *&v38[8] = 2048;
-      *v39 = a3;
-      *&v39[8] = 2048;
-      *v40 = v11;
+      *v39 = v11;
       v28 = MEMORY[0x277D86220];
       v29 = "MSCDec %llu Unable to decode nal header %llu %zu %llu";
       v30 = 42;
@@ -4606,7 +4576,7 @@ uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64
       result = gcl::motion::DecoderImpl::handleCompressedFrame(a1, (a2 + v13), v14, v15 != 0, *a4, a5, *(a4 + 8) - *a4);
       if (result)
       {
-        goto LABEL_34;
+        return result;
       }
 
       v17 = *a5;
@@ -4615,10 +4585,10 @@ uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64
 
     if (v15 == 3)
     {
-      result = gcl::motion::DecoderImpl::decodeSPSFromSliceList(a1, (a2 + v13), a3, &v34, (a1 + 32));
+      result = gcl::motion::DecoderImpl::decodeSPSFromSliceList(a1, (a2 + v13), a3, &v33, (a1 + 32));
       if (result)
       {
-        goto LABEL_34;
+        return result;
       }
 
       v18 = *(a1 + 56) + 4 * *(a1 + 48);
@@ -4644,14 +4614,14 @@ uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64
         {
           v24 = *(a1 + 1120);
           *buf = 134218240;
-          v36 = v24;
-          v37 = 2048;
-          *v38 = v21;
+          v35 = v24;
+          v36 = 2048;
+          *v37 = v21;
           _os_log_impl(&dword_26606F000, v12, OS_LOG_TYPE_DEFAULT, "MSCDec %llu Size %zu", buf, 0x16u);
         }
       }
 
-      v17 = v34;
+      v17 = v33;
       goto LABEL_22;
     }
 
@@ -4659,9 +4629,9 @@ uint64_t gcl::motion::DecoderImpl::decodeFrame(uint64_t a1, uint64_t a2, unint64
     {
       v22 = *(a1 + 1120);
       *buf = 134218240;
-      v36 = v22;
-      v37 = 1024;
-      *v38 = v15;
+      v35 = v22;
+      v36 = 1024;
+      *v37 = v15;
       _os_log_impl(&dword_26606F000, v12, OS_LOG_TYPE_DEFAULT, "MSCDec %llu Decode Unknown Frame %d", buf, 0x12u);
     }
 
@@ -4680,25 +4650,25 @@ LABEL_22:
       continue;
     }
 
-    goto LABEL_34;
+    return result;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v32 = *(a1 + 1120);
-    v33 = *(a1 + 24);
+    v31 = *(a1 + 1120);
+    v32 = *(a1 + 24);
     *buf = 134219264;
-    v36 = v32;
-    v37 = 1024;
-    *v38 = v33;
-    *&v38[4] = 1024;
-    *&v38[6] = (v15 << 8) & 0xFF0000 | (v15 >> 8) & 0xFF00 | HIBYTE(v15);
+    v35 = v31;
+    v36 = 1024;
+    *v37 = v32;
+    *&v37[4] = 1024;
+    *&v37[6] = (v15 << 8) & 0xFF0000 | (v15 >> 8) & 0xFF00 | HIBYTE(v15);
+    *v38 = 2048;
+    *&v38[2] = a3;
     *v39 = 2048;
     *&v39[2] = a3;
-    *v40 = 2048;
-    *&v40[2] = a3;
-    v41 = 2048;
-    v42 = v13;
+    v40 = 2048;
+    v41 = v13;
     v28 = MEMORY[0x277D86220];
     v29 = "MSCDec %llu Decode Invalid nal format (%d) %d %llu %zu %llu";
     v30 = 54;
@@ -4706,11 +4676,7 @@ LABEL_32:
     _os_log_impl(&dword_26606F000, v28, OS_LOG_TYPE_ERROR, v29, buf, v30);
   }
 
-LABEL_33:
-  result = 3;
-LABEL_34:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return 3;
 }
 
 uint64_t gcl::motion::DecoderImpl::handleCompressedFrame(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned int a4, char *__dst, uint64_t *a6, unint64_t a7)
@@ -4719,7 +4685,7 @@ uint64_t gcl::motion::DecoderImpl::handleCompressedFrame(uint64_t a1, unsigned _
   v8 = a3;
   v9 = a2;
   v10 = a1;
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   if (a3 < 6 || !a2 || !__dst)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4731,8 +4697,8 @@ uint64_t gcl::motion::DecoderImpl::handleCompressedFrame(uint64_t a1, unsigned _
       *&buf[14] = v8;
       *&buf[22] = 2048;
       *&buf[24] = v9;
-      LOWORD(v101) = 2048;
-      *(&v101 + 2) = v7;
+      LOWORD(v100) = 2048;
+      *(&v100 + 2) = v7;
       v24 = MEMORY[0x277D86220];
       v25 = "MSCDec %llu Unexpected input %zu %p %p";
       v26 = OS_LOG_TYPE_ERROR;
@@ -4741,9 +4707,7 @@ LABEL_26:
       _os_log_impl(&dword_26606F000, v24, v26, v25, buf, v27);
     }
 
-LABEL_27:
-    result = 5;
-    goto LABEL_28;
+    return 5;
   }
 
   if (a4 > 1)
@@ -4763,7 +4727,7 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    goto LABEL_27;
+    return 5;
   }
 
   v12 = *(a1 + 36);
@@ -4771,46 +4735,43 @@ LABEL_27:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v31 = *(v10 + 1120);
-      v32 = *(v10 + 37);
-      v33 = *(v10 + 38);
+      v30 = *(v10 + 1120);
+      v31 = *(v10 + 37);
+      v32 = *(v10 + 38);
       *buf = 134218752;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       *&buf[12] = 1024;
       *&buf[14] = v12;
       *&buf[18] = 1024;
-      *&buf[20] = v32;
+      *&buf[20] = v31;
       *&buf[24] = 1024;
-      *&buf[26] = v33;
+      *&buf[26] = v32;
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Mismatched Version %d %d %d", buf, 0x1Eu);
     }
 
-    result = 11;
-    goto LABEL_28;
+    return 11;
   }
 
   if (a3 < 8)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v34 = *(v10 + 1120);
+      v33 = *(v10 + 1120);
       *buf = 134218752;
-      *&buf[4] = v34;
+      *&buf[4] = v33;
       *&buf[12] = 2048;
       *&buf[14] = v8;
       *&buf[22] = 2048;
       *&buf[24] = v8;
-      LOWORD(v101) = 2048;
-      *(&v101 + 2) = 0;
-      v35 = MEMORY[0x277D86220];
-      v36 = "MSCDec %llu Unable to decode Frame header %llu %zu %llu";
-LABEL_86:
-      _os_log_impl(&dword_26606F000, v35, OS_LOG_TYPE_ERROR, v36, buf, 0x2Au);
+      LOWORD(v100) = 2048;
+      *(&v100 + 2) = 0;
+      v34 = MEMORY[0x277D86220];
+      v35 = "MSCDec %llu Unable to decode Frame header %llu %zu %llu";
+LABEL_85:
+      _os_log_impl(&dword_26606F000, v34, OS_LOG_TYPE_ERROR, v35, buf, 0x2Au);
     }
 
-LABEL_87:
-    result = 3;
-    goto LABEL_28;
+    return 3;
   }
 
   v15 = *a2;
@@ -4834,9 +4795,9 @@ LABEL_87:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v74 = *(v10 + 1120);
+        v73 = *(v10 + 1120);
         *buf = 134218496;
-        *&buf[4] = v74;
+        *&buf[4] = v73;
         *&buf[12] = 1024;
         *&buf[14] = v16;
         *&buf[18] = 1024;
@@ -4844,8 +4805,7 @@ LABEL_87:
         _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Old frame %d %d", buf, 0x18u);
       }
 
-      result = 8;
-      goto LABEL_28;
+      return 8;
     }
   }
 
@@ -4869,8 +4829,7 @@ LABEL_87:
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Invalid Sequence %d %d", buf, 0x18u);
         }
 
-        result = 7;
-        goto LABEL_28;
+        return 7;
       }
     }
   }
@@ -4880,193 +4839,192 @@ LABEL_87:
     *(v10 + 4) = 0;
   }
 
-  v89 = a7;
-  v37 = *(v10 + 16);
-  v91 = v37 & 1;
-  v79 = v37;
-  if ((v37 & 8) != 0)
+  v88 = a7;
+  v36 = *(v10 + 16);
+  v90 = v36 & 1;
+  v78 = v36;
+  if ((v36 & 8) != 0)
   {
-    v67 = 0;
-    v68 = 8;
+    v66 = 0;
+    v67 = 8;
     while (1)
     {
-      v38 = v68 + 4;
-      if (v68 + 4 > v8)
+      v37 = v67 + 4;
+      if (v67 + 4 > v8)
       {
         break;
       }
 
-      if ((v9[v68] & 0x80) != 0)
+      if ((v9[v67] & 0x80) != 0)
       {
-        v68 += 4;
-        v66 = v67++ >= 0xF;
-        if (!v66)
+        v67 += 4;
+        v65 = v66++ >= 0xF;
+        if (!v65)
         {
           continue;
         }
       }
 
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v69 = *(v10 + 1120);
+      v68 = *(v10 + 1120);
       *buf = 134218752;
-      *&buf[4] = v69;
+      *&buf[4] = v68;
       *&buf[12] = 2048;
       *&buf[14] = v8;
       *&buf[22] = 2048;
       *&buf[24] = v8;
-      LOWORD(v101) = 2048;
-      *(&v101 + 2) = v68;
-      v35 = MEMORY[0x277D86220];
-      v36 = "MSCDec %llu Unable to decode Frame header (xh) %llu %zu %llu";
-      goto LABEL_86;
+      LOWORD(v100) = 2048;
+      *(&v100 + 2) = v67;
+      v34 = MEMORY[0x277D86220];
+      v35 = "MSCDec %llu Unable to decode Frame header (xh) %llu %zu %llu";
+      goto LABEL_85;
     }
 
-    goto LABEL_87;
+    return 3;
   }
 
-  v38 = 8;
-LABEL_37:
-  v75 = a6;
-  v76 = v16;
-  v39 = *(v10 + 1088);
-  v86 = *(v10 + 1096);
-  if (v39 == v86)
+  v37 = 8;
+LABEL_36:
+  v74 = a6;
+  v75 = v16;
+  v38 = *(v10 + 1088);
+  v85 = *(v10 + 1096);
+  if (v38 == v85)
   {
-    v40 = 0;
-LABEL_81:
-    *v75 = v38;
-    *(v10 + 60) = v40;
-    *(v10 + 28) = v76;
+    v39 = 0;
+LABEL_80:
+    *v74 = v37;
+    *(v10 + 60) = v39;
+    *(v10 + 28) = v75;
     ++*v10;
     if (*(v10 + 1116) == 1)
     {
       gcl::motion::DecoderImpl::handleCompressedFrame(v10, (v10 + 1116));
     }
 
-    result = 0;
-    goto LABEL_28;
+    return 0;
   }
 
-  v40 = 0;
-  v41 = *(v10 + 2224);
-  v42 = *(v10 + 2200);
-  v80 = 3;
-  v77 = v8;
-  v81 = v9;
+  v39 = 0;
+  v40 = *(v10 + 2224);
+  v41 = *(v10 + 2200);
+  v79 = 3;
+  v76 = v8;
+  v80 = v9;
   while (1)
   {
-    v43 = v38 + 4;
-    if (v38 + 4 > v8)
+    v42 = v37 + 4;
+    if (v37 + 4 > v8)
     {
       break;
     }
 
-    v44 = (*&v9[v38] >> 8) & 0xFF00 | HIBYTE(*&v9[v38]) | (BYTE1(*&v9[v38]) << 16);
-    v45 = &v9[v43];
-    if (v9[v38] != 0xFF)
+    v43 = (*&v9[v37] >> 8) & 0xFF00 | HIBYTE(*&v9[v37]) | (BYTE1(*&v9[v37]) << 16);
+    v44 = &v9[v42];
+    if (v9[v37] != 0xFF)
     {
-      v83 = v38 + 4;
-      v84 = (*&v9[v38] >> 8) & 0xFF00 | HIBYTE(*&v9[v38]) | (BYTE1(*&v9[v38]) << 16);
-      v88 = v40;
-      v51 = *(v39 + 2);
-      v52 = *(v39 + 4);
-      v85 = v39;
-      v53 = *(v39 + 6);
-      *(v10 + 1136) = v44;
-      *(v10 + 1144) = v45;
+      v82 = v37 + 4;
+      v83 = (*&v9[v37] >> 8) & 0xFF00 | HIBYTE(*&v9[v37]) | (BYTE1(*&v9[v37]) << 16);
+      v87 = v39;
+      v50 = *(v38 + 2);
+      v51 = *(v38 + 4);
+      v84 = v38;
+      v52 = *(v38 + 6);
+      *(v10 + 1136) = v43;
+      *(v10 + 1144) = v44;
       gcl::ArithmeticDecoder::start((v10 + 1128));
-      v106 = 0;
-      v104 = 0u;
-      *v105 = 0u;
+      v105 = 0;
+      v103 = 0u;
+      *v104 = 0u;
+      *v101 = 0u;
       *v102 = 0u;
-      *v103 = 0u;
-      v101 = 0u;
+      v100 = 0u;
       memset(buf, 0, sizeof(buf));
-      gcl::motion::ACContext::init(buf, v52);
-      *v92 = 0;
-      std::vector<int>::vector[abi:ne200100](__p, v52, v92);
-      v82 = (v88 + 4 * v51 * v52);
-      v87 = 4 * v51 * v52;
-      if (v82 >= v89)
+      gcl::motion::ACContext::init(buf, v51);
+      *v91 = 0;
+      std::vector<int>::vector[abi:ne200100](__p, v51, v91);
+      v81 = (v87 + 4 * v50 * v51);
+      v86 = 4 * v50 * v51;
+      if (v81 >= v88)
       {
-        v63 = MEMORY[0x277D86220];
+        v62 = MEMORY[0x277D86220];
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v80 = 1;
-          goto LABEL_58;
+          v79 = 1;
+          goto LABEL_57;
         }
 
-        v64 = *(v10 + 1120);
-        *v92 = 134218752;
-        v93 = v64;
-        v94 = 1024;
-        v40 = v88;
-        v95 = v88;
-        v96 = 1024;
-        v97 = v87;
-        v98 = 2048;
-        v65 = v89;
-        v99 = v89;
-        _os_log_impl(&dword_26606F000, v63, OS_LOG_TYPE_ERROR, "MSCDec %llu Cannot decode further %d %d %zu", v92, 0x22u);
-        v80 = 1;
+        v63 = *(v10 + 1120);
+        *v91 = 134218752;
+        v92 = v63;
+        v93 = 1024;
+        v39 = v87;
+        v94 = v87;
+        v95 = 1024;
+        v96 = v86;
+        v97 = 2048;
+        v64 = v88;
+        v98 = v88;
+        _os_log_impl(&dword_26606F000, v62, OS_LOG_TYPE_ERROR, "MSCDec %llu Cannot decode further %d %d %zu", v91, 0x22u);
+        v79 = 1;
       }
 
       else
       {
-        if (v51)
+        if (v50)
         {
-          v55 = 0;
-          v56 = (1 << v53);
-          v57 = v7;
-          v58 = 4 * v52;
-          v78 = v57;
+          v54 = 0;
+          v55 = (1 << v52);
+          v56 = v7;
+          v57 = 4 * v51;
+          v77 = v56;
           do
           {
-            gcl::motion::DecoderImpl::decodeResidual(v10, v54, __p[0], v52, &v91, buf, v41);
-            if (((v52 != 0) & (v79 >> 4)) != 0)
+            gcl::motion::DecoderImpl::decodeResidual(v10, v53, __p[0], v51, &v90, buf, v40);
+            if (((v51 != 0) & (v78 >> 4)) != 0)
             {
+              v58 = 0;
               v59 = 0;
-              v60 = 0;
-              v61 = __p[0];
+              v60 = __p[0];
               do
               {
-                v62 = v41[v59 / 4];
-                *&v61[v59] = v62;
-                *&v57[v59] = v62;
+                v61 = v40[v58 / 4];
+                *&v60[v58] = v61;
+                *&v56[v58] = v61;
                 if (a4 == 1)
                 {
-                  v62 = v41[v59 / 4] + *(v42 + v59);
-                  *&v57[v59] = v62;
+                  v61 = v40[v58 / 4] + *(v41 + v58);
+                  *&v56[v58] = v61;
                 }
 
-                *(v42 + v59) = v62;
-                *&v57[v59] = *&v57[v59] / v56;
-                ++v60;
-                v59 += 4;
+                *(v41 + v58) = v61;
+                *&v56[v58] = *&v56[v58] / v55;
+                ++v59;
+                v58 += 4;
               }
 
-              while (v60 < v52);
+              while (v59 < v51);
             }
 
-            ++v55;
-            v41 = (v41 + v58);
-            v42 += v58;
-            v57 += v58;
+            ++v54;
+            v40 = (v40 + v57);
+            v41 += v57;
+            v56 += v57;
           }
 
-          while (v55 != v51);
-          v8 = v77;
-          v7 = v78;
-          v9 = v81;
+          while (v54 != v50);
+          v8 = v76;
+          v7 = v77;
+          v9 = v80;
         }
 
-LABEL_58:
-        v65 = v89;
-        v40 = v88;
+LABEL_57:
+        v64 = v88;
+        v39 = v87;
       }
 
       if (__p[0])
@@ -5075,27 +5033,27 @@ LABEL_58:
         operator delete(__p[0]);
       }
 
-      if (v105[0])
+      if (v104[0])
       {
-        v105[1] = v105[0];
-        operator delete(v105[0]);
+        v104[1] = v104[0];
+        operator delete(v104[0]);
       }
 
-      if (v103[1])
+      if (v102[1])
       {
-        *&v104 = v103[1];
-        operator delete(v103[1]);
+        *&v103 = v102[1];
+        operator delete(v102[1]);
       }
 
-      if (v102[0])
+      if (v101[0])
       {
-        v102[1] = v102[0];
-        operator delete(v102[0]);
+        v101[1] = v101[0];
+        operator delete(v101[0]);
       }
 
       if (*&buf[24])
       {
-        *&v101 = *&buf[24];
+        *&v100 = *&buf[24];
         operator delete(*&buf[24]);
       }
 
@@ -5105,91 +5063,90 @@ LABEL_58:
         operator delete(*buf);
       }
 
-      v43 = v83;
-      v66 = v82 >= v65;
-      LODWORD(v44) = v84;
-      v39 = v85;
-      v50 = v87;
-      if (v66)
+      v42 = v82;
+      v65 = v81 >= v64;
+      LODWORD(v43) = v83;
+      v38 = v84;
+      v49 = v86;
+      if (v65)
       {
-        goto LABEL_95;
+        return v79;
       }
 
-      goto LABEL_72;
+      goto LABEL_71;
     }
 
-    if (v44)
+    if (v43)
     {
-      if ((v44 + v40) >= v89)
+      if ((v43 + v39) >= v88)
       {
-        v72 = (*&v9[v38] >> 8) & 0xFF00 | HIBYTE(*&v9[v38]) | (BYTE1(*&v9[v38]) << 16);
+        v71 = (*&v9[v37] >> 8) & 0xFF00 | HIBYTE(*&v9[v37]) | (BYTE1(*&v9[v37]) << 16);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v73 = *(v10 + 1120);
+          v72 = *(v10 + 1120);
           *buf = 134218496;
-          *&buf[4] = v73;
+          *&buf[4] = v72;
           *&buf[12] = 1024;
-          *&buf[14] = v72;
+          *&buf[14] = v71;
           *&buf[18] = 1024;
-          *&buf[20] = v40;
+          *&buf[20] = v39;
           _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu slice length too large %d %u", buf, 0x18u);
         }
 
-        v71 = 1;
-        goto LABEL_94;
+        return 1;
       }
 
-      v46 = (*&v9[v38] >> 8) & 0xFF00 | HIBYTE(*&v9[v38]) | (BYTE1(*&v9[v38]) << 16);
-      v47 = v8;
-      v48 = v10;
-      v49 = v43;
-      memcpy(v7, v45, v44);
-      v43 = v49;
-      v10 = v48;
-      v8 = v47;
-      v9 = v81;
-      LODWORD(v44) = v46;
-      v50 = v46;
+      v45 = (*&v9[v37] >> 8) & 0xFF00 | HIBYTE(*&v9[v37]) | (BYTE1(*&v9[v37]) << 16);
+      v46 = v8;
+      v47 = v10;
+      v48 = v42;
+      memcpy(v7, v44, v43);
+      v42 = v48;
+      v10 = v47;
+      v8 = v46;
+      v9 = v80;
+      LODWORD(v43) = v45;
+      v49 = v45;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
-LABEL_72:
-    v38 = v43 + v44;
-    v7 += v50;
-    v40 += v50;
-    v39 += 12;
-    if (v39 == v86)
+LABEL_71:
+    v37 = v42 + v43;
+    v7 += v49;
+    v39 += v49;
+    v38 += 12;
+    if (v38 == v85)
     {
-      goto LABEL_81;
+      goto LABEL_80;
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v70 = *(v10 + 1120);
+    v69 = *(v10 + 1120);
     *buf = 134218752;
-    *&buf[4] = v70;
+    *&buf[4] = v69;
     *&buf[12] = 2048;
     *&buf[14] = v8;
     *&buf[22] = 2048;
     *&buf[24] = v8;
-    LOWORD(v101) = 2048;
-    *(&v101 + 2) = v38;
+    LOWORD(v100) = 2048;
+    *(&v100 + 2) = v37;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSCDec %llu Unable to decode Frame header (sh) %llu %zu %llu", buf, 0x2Au);
   }
 
-  v71 = 3;
-LABEL_94:
-  v80 = v71;
-LABEL_95:
-  result = v80;
-LABEL_28:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return 3;
+}
+
+void sub_2660777C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  gcl::motion::ACContext::~ACContext(va);
+  _Unwind_Resume(a1);
 }
 
 gcl::motion::Decoder *gcl::motion::Decoder::Decoder(gcl::motion::Decoder *this)
@@ -5257,7 +5214,7 @@ uint64_t gcl::motion::Decoder::decodeFrame(gcl::motion::DecoderImpl **this, cons
   return result;
 }
 
-uint64_t gcl::motion::Decoder::decodeFrame(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t gcl::motion::Decoder::decodeFrame(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t *a5)
 {
   result = gcl::motion::DecoderImpl::decodeFrame(*a1, a2, a3, a4, a5);
   *(*a1 + 1112) = result;
@@ -5266,7 +5223,7 @@ uint64_t gcl::motion::Decoder::decodeFrame(uint64_t *a1, uint64_t a2, unint64_t 
 
 uint64_t gcl::motion::Decoder::readMSCFrameHeaders(uint64_t a1, unint64_t a2, int *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   if (!a1)
   {
@@ -5276,13 +5233,12 @@ uint64_t gcl::motion::Decoder::readMSCFrameHeaders(uint64_t a1, unint64_t a2, in
       _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "readMSCFrameHeaders no input\n", buf, 2u);
     }
 
-    result = 5;
-    goto LABEL_29;
+    return 5;
   }
 
   if (!a2)
   {
-    goto LABEL_28;
+    return 0;
   }
 
   v6 = 0;
@@ -5296,11 +5252,11 @@ uint64_t gcl::motion::Decoder::readMSCFrameHeaders(uint64_t a1, unint64_t a2, in
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218496;
+        *v19 = a2;
+        *&v19[8] = 2048;
         *v20 = a2;
         *&v20[8] = 2048;
-        *v21 = a2;
-        *&v21[8] = 2048;
-        *v22 = v7;
+        *v21 = v7;
         v15 = MEMORY[0x277D86220];
         v16 = "readMSCFrameHeaders Unable to decode nal header %llu %zu %llu";
         v17 = 32;
@@ -5308,9 +5264,7 @@ LABEL_24:
         _os_log_impl(&dword_26606F000, v15, OS_LOG_TYPE_ERROR, v16, buf, v17);
       }
 
-LABEL_25:
-      result = 3;
-      goto LABEL_29;
+      return 3;
     }
 
     v10 = *(a1 + v7);
@@ -5320,22 +5274,22 @@ LABEL_25:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 67110144;
-        *v20 = v10;
-        *&v20[4] = 1024;
-        *&v20[6] = (BYTE2(v10) << 8) | (BYTE1(v10) << 16) | HIBYTE(v10);
+        *v19 = v10;
+        *&v19[4] = 1024;
+        *&v19[6] = (BYTE2(v10) << 8) | (BYTE1(v10) << 16) | HIBYTE(v10);
+        *v20 = 2048;
+        *&v20[2] = a2;
         *v21 = 2048;
         *&v21[2] = a2;
-        *v22 = 2048;
-        *&v22[2] = a2;
-        v23 = 2048;
-        v24 = v7 + 4;
+        v22 = 2048;
+        v23 = v7 + 4;
         v15 = MEMORY[0x277D86220];
         v16 = "readMSCFrameHeaders Invalid nal format (%d) %d %llu %zu %llu";
         v17 = 44;
         goto LABEL_24;
       }
 
-      goto LABEL_25;
+      return 3;
     }
 
     v7 += v11;
@@ -5350,13 +5304,13 @@ LABEL_25:
     if ((v10 > 3u || v10 == 2) && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *v20 = v10;
+      *v19 = v10;
       _os_log_impl(&dword_26606F000, v9, OS_LOG_TYPE_ERROR, "readMSCFrameHeaders Unknown Frame %d", buf, 8u);
     }
 
     if (v7 >= a2 || v6++ >= 9)
     {
-      goto LABEL_28;
+      return 0;
     }
   }
 
@@ -5364,22 +5318,19 @@ LABEL_25:
   if (result)
   {
     *buf = 67110144;
-    *v20 = v12;
-    *&v20[4] = 1024;
-    *&v20[6] = v10;
+    *v19 = v12;
+    *&v19[4] = 1024;
+    *&v19[6] = v10;
+    *v20 = 2048;
+    *&v20[2] = a2;
     *v21 = 2048;
     *&v21[2] = a2;
-    *v22 = 2048;
-    *&v22[2] = a2;
-    v23 = 2048;
-    v24 = v7;
+    v22 = 2048;
+    v23 = v7;
     _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "readMSCFrameHeaders Too many NAL units (%d) %d %llu %zu %llu", buf, 0x2Cu);
-LABEL_28:
-    result = 0;
+    return 0;
   }
 
-LABEL_29:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5422,22 +5373,20 @@ void gcl::motion::DecoderImpl::~DecoderImpl(gcl::motion::DecoderImpl *this)
 uint64_t sub_266077DEC()
 {
   v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 20);
+  v2 = v0[1];
   sub_26607FB88();
   MEMORY[0x266778270](0x72615065726F6328, 0xED0000203A736D61);
   sub_266077F98(v1, v2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059E50, &unk_266081BD0);
   sub_26607A5F0();
-  v5 = sub_26607FAE8();
-  v7 = v6;
+  v3 = sub_26607FAE8();
+  v5 = v4;
 
-  MEMORY[0x266778270](v5, v7);
+  MEMORY[0x266778270](v3, v5);
 
   MEMORY[0x266778270](0x203A7071202CLL, 0xE600000000000000);
-  v8 = sub_26607FC88();
-  MEMORY[0x266778270](v8);
+  v6 = sub_26607FC88();
+  MEMORY[0x266778270](v6);
 
   MEMORY[0x266778270](0x5474616D726F662CLL, 0xED0000203A657079);
   sub_26607FBC8();
@@ -5445,11 +5394,11 @@ uint64_t sub_266077DEC()
   return 0;
 }
 
-uint64_t sub_266077F98(uint64_t a1, unint64_t a2)
+uint64_t sub_266077F98(unint64_t a1, unint64_t a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = a2 >> 62;
-  v30 = HIDWORD(a1);
+  v29 = HIDWORD(a1);
   if ((a2 >> 62) <= 1)
   {
     if (!v4)
@@ -5463,8 +5412,7 @@ uint64_t sub_266077F98(uint64_t a1, unint64_t a2)
 
   if (v4 != 2)
   {
-    v8 = MEMORY[0x277D84F90];
-    goto LABEL_39;
+    return MEMORY[0x277D84F90];
   }
 
   v7 = *(a1 + 16);
@@ -5486,7 +5434,7 @@ LABEL_10:
   v8 = MEMORY[0x277D84F90];
   if (v5)
   {
-    v45 = MEMORY[0x277D84F90];
+    v44 = MEMORY[0x277D84F90];
     sub_26607ECDC(0, v5 & ~(v5 >> 63), 0);
     if (v4)
     {
@@ -5506,16 +5454,16 @@ LABEL_10:
       v9 = 0;
     }
 
-    v32 = v9;
+    v31 = v9;
     if (v5 < 0)
     {
       goto LABEL_48;
     }
 
     v10 = 0;
-    v8 = v45;
-    v29 = &v33 + v9;
-    v31 = v4;
+    v8 = v44;
+    v28 = &v32 + v9;
+    v30 = v4;
     do
     {
       if (v10 >= v5)
@@ -5551,7 +5499,7 @@ LABEL_51:
         goto LABEL_41;
       }
 
-      v12 = v32 + v10;
+      v12 = v31 + v10;
       if (v4 == 2)
       {
         if (v12 < *(a1 + 16))
@@ -5588,19 +5536,19 @@ LABEL_51:
             goto LABEL_42;
           }
 
-          v33 = a1;
-          v34 = BYTE2(a1);
-          v35 = BYTE3(a1);
-          v36 = v30;
-          v37 = BYTE5(a1);
-          v38 = BYTE6(a1);
-          v39 = HIBYTE(a1);
-          v40 = a2;
-          v41 = BYTE2(a2);
-          v42 = BYTE3(a2);
-          v43 = BYTE4(a2);
-          v44 = BYTE5(a2);
-          v19 = v29[v10];
+          v32 = a1;
+          v33 = BYTE2(a1);
+          v34 = BYTE3(a1);
+          v35 = v29;
+          v36 = BYTE5(a1);
+          v37 = BYTE6(a1);
+          v38 = HIBYTE(a1);
+          v39 = a2;
+          v40 = BYTE2(a2);
+          v41 = BYTE3(a2);
+          v42 = BYTE4(a2);
+          v43 = BYTE5(a2);
+          v19 = v28[v10];
           goto LABEL_36;
         }
 
@@ -5626,19 +5574,19 @@ LABEL_51:
 
       v19 = *(v14 + v16);
 LABEL_36:
-      LOBYTE(v33) = v19;
+      LOBYTE(v32) = v19;
       v20 = sub_26607FC88();
-      v45 = v8;
+      v44 = v8;
       v23 = *(v8 + 16);
       v22 = *(v8 + 24);
       if (v23 >= v22 >> 1)
       {
-        v28 = v20;
+        v27 = v20;
         v25 = v21;
         sub_26607ECDC((v22 > 1), v23 + 1, 1);
         v21 = v25;
-        v20 = v28;
-        v8 = v45;
+        v20 = v27;
+        v8 = v44;
       }
 
       *(v8 + 16) = v23 + 1;
@@ -5646,14 +5594,12 @@ LABEL_36:
       *(v24 + 32) = v20;
       *(v24 + 40) = v21;
       ++v10;
-      LODWORD(v4) = v31;
+      LODWORD(v4) = v30;
     }
 
     while (v11 != v5);
   }
 
-LABEL_39:
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -5676,10 +5622,10 @@ uint64_t sub_2660782C0()
   }
 }
 
-uint64_t sub_266078314@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_266078314@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_26607A378(a1, a2);
-  *a3 = result;
+  result = sub_26607A378(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5701,37 +5647,35 @@ uint64_t SignalSessionParameters.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D28, &qword_266081460);
   v4 = *(v3 - 8);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v7 = &v14 - v6;
-  v8 = *v1;
-  v9 = *(v1 + 8);
-  v18 = *(v1 + 16);
-  HIDWORD(v14) = *(v1 + 20);
-  v10 = a1[4];
+  MEMORY[0x28223BE20](v3);
+  v6 = &v12 - v5;
+  v7 = *v1;
+  v8 = *(v1 + 8);
+  v16 = *(v1 + 16);
+  HIDWORD(v12) = *(v1 + 20);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_266078634(v8, v9);
+  sub_266078634(v7, v8);
   sub_266078688();
   sub_26607FD08();
-  v16 = v8;
-  v17 = v9;
-  v19 = 0;
+  v14 = v7;
+  v15 = v8;
+  v17 = 0;
   sub_2660786DC();
-  v11 = v15;
+  v9 = v13;
   sub_26607FC68();
-  sub_266078730(v16, v17);
-  if (!v11)
+  sub_266078730(v14, v15);
+  if (!v9)
   {
-    v12 = BYTE4(v14);
-    LOBYTE(v16) = 1;
+    v10 = BYTE4(v12);
+    LOBYTE(v14) = 1;
     sub_26607FC78();
-    LOBYTE(v16) = v12;
-    v19 = 2;
+    LOBYTE(v14) = v10;
+    v17 = 2;
     sub_266078784();
     sub_26607FC58();
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -5739,7 +5683,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5757,13 +5700,13 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_266078634(uint64_t a1, unint64_t a2)
+void sub_266078634(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -5792,13 +5735,13 @@ unint64_t sub_2660786DC()
   return result;
 }
 
-uint64_t sub_266078730(uint64_t a1, unint64_t a2)
+void sub_266078730(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -5815,52 +5758,55 @@ unint64_t sub_266078784()
   return result;
 }
 
-uint64_t SignalSessionParameters.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void SignalSessionParameters.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D48, &qword_266081468);
   v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v9 = v15 - v8;
-  v10 = a1[4];
+  MEMORY[0x28223BE20](v5);
+  v8 = v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_266078688();
   sub_26607FCF8();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v17 = 0;
-  sub_266078A68();
-  sub_26607FC18();
-  v12 = v15[0];
-  v11 = v15[1];
-  LOBYTE(v15[0]) = 1;
-  v16 = sub_26607FC28();
-  v17 = 2;
-  sub_266078ABC();
-  sub_26607FC08();
-  (*(v6 + 8))(v9, v5);
-  v13 = v15[0];
-  *a2 = v12;
-  *(a2 + 8) = v11;
-  *(a2 + 16) = v16;
-  *(a2 + 20) = v13;
-  sub_266078634(v12, v11);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  return sub_266078730(v12, v11);
+  else
+  {
+    v14 = 0;
+    sub_266078A68();
+    sub_26607FC18();
+    v10 = v12[0];
+    v9 = v12[1];
+    LOBYTE(v12[0]) = 1;
+    v13 = sub_26607FC28();
+    v14 = 2;
+    sub_266078ABC();
+    sub_26607FC08();
+    (*(v6 + 8))(v8, v5);
+    v11 = v12[0];
+    *a2 = v10;
+    *(a2 + 8) = v9;
+    *(a2 + 16) = v13;
+    *(a2 + 20) = v11;
+    sub_266078634(v10, v9);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+    sub_266078730(v10, v9);
+  }
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_266078A68()
@@ -5925,10 +5871,10 @@ uint64_t sub_266078BF4()
   }
 }
 
-uint64_t sub_266078C4C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_266078C4C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_26607A498(a1, a2);
-  *a3 = result;
+  result = sub_26607A498(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5946,10 +5892,10 @@ uint64_t sub_266078CBC(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t sub_266078D04@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_266078D04@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -5998,67 +5944,62 @@ uint64_t sub_266078E6C(uint64_t a1)
 uint64_t SignalSessionFormatType.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D60, &qword_266081470);
-  v30 = *(v3 - 8);
-  v31 = v3;
-  v4 = (*(v30 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v29 = &v23 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D68, &qword_266081478);
-  v27 = *(v6 - 8);
-  v28 = v6;
-  v7 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v26 = &v23 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D70, &qword_266081480);
-  v24 = *(v9 - 8);
-  v25 = v9;
-  v10 = (*(v24 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v12 = &v23 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D78, &qword_266081488);
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v17 = &v23 - v16;
-  v18 = *v1;
-  v19 = a1[4];
+  v25 = *(v3 - 8);
+  v26 = v3;
+  MEMORY[0x28223BE20](v3);
+  v24 = &v18 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D68, &qword_266081478);
+  v22 = *(v5 - 8);
+  v23 = v5;
+  MEMORY[0x28223BE20](v5);
+  v21 = &v18 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D70, &qword_266081480);
+  v19 = *(v7 - 8);
+  v20 = v7;
+  MEMORY[0x28223BE20](v7);
+  v9 = &v18 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059D78, &qword_266081488);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v18 - v12;
+  v14 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_266079214();
   sub_26607FD08();
-  if (v18)
+  if (v14)
   {
-    if (v18 == 1)
+    if (v14 == 1)
     {
-      v33 = 1;
+      v28 = 1;
       sub_2660792BC();
-      v12 = v26;
+      v9 = v21;
       sub_26607FC48();
-      v21 = v27;
-      v20 = v28;
+      v16 = v22;
+      v15 = v23;
     }
 
     else
     {
-      v34 = 2;
+      v29 = 2;
       sub_266079268();
-      v12 = v29;
+      v9 = v24;
       sub_26607FC48();
-      v21 = v30;
-      v20 = v31;
+      v16 = v25;
+      v15 = v26;
     }
   }
 
   else
   {
-    v32 = 0;
+    v27 = 0;
     sub_266079310();
     sub_26607FC48();
-    v21 = v24;
-    v20 = v25;
+    v16 = v19;
+    v15 = v20;
   }
 
-  (*(v21 + 8))(v12, v20);
-  return (*(v14 + 8))(v17, v13);
+  (*(v16 + 8))(v9, v15);
+  return (*(v11 + 8))(v13, v10);
 }
 
 unint64_t sub_266079214()
@@ -6117,89 +6058,84 @@ uint64_t SignalSessionFormatType.hashValue.getter()
   return sub_26607FCE8();
 }
 
-uint64_t SignalSessionFormatType.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t SignalSessionFormatType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v45 = a2;
+  v39 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DA0, &qword_266081490);
-  v42 = *(v3 - 8);
-  v43 = v3;
-  v4 = (*(v42 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v47 = &v38 - v5;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DA8, &qword_266081498);
-  v41 = *(v44 - 8);
-  v6 = (*(v41 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = &v38 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DB0, &qword_2660814A0);
-  v46 = *(v9 - 8);
-  v10 = (*(v46 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v12 = &v38 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DB8, &qword_2660814A8);
-  v48 = *(v13 - 8);
-  v14 = (*(v48 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v16 = &v38 - v15;
-  v17 = a1[4];
+  v36 = *(v3 - 8);
+  v37 = v3;
+  MEMORY[0x28223BE20](v3);
+  v41 = &v32 - v4;
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DA8, &qword_266081498);
+  v35 = *(v38 - 8);
+  MEMORY[0x28223BE20](v38);
+  v6 = &v32 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DB0, &qword_2660814A0);
+  v40 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v32 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DB8, &qword_2660814A8);
+  v42 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v12 = &v32 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_266079214();
-  v18 = v49;
+  v13 = v43;
   sub_26607FCF8();
-  if (v18)
+  if (v13)
   {
     goto LABEL_10;
   }
 
-  v39 = v9;
-  v40 = 0;
-  v19 = v46;
-  v20 = v47;
-  v49 = a1;
-  v21 = v16;
-  v22 = sub_26607FC38();
-  v23 = *(v22 + 16);
-  if (v23)
+  v33 = v7;
+  v34 = 0;
+  v14 = v40;
+  v15 = v41;
+  v43 = a1;
+  v16 = v12;
+  v17 = sub_26607FC38();
+  v18 = *(v17 + 16);
+  if (v18)
   {
-    v24 = *(v22 + 32);
-    if (v23 == 1 && v24 != 3)
+    v19 = *(v17 + 32);
+    if (v18 == 1 && v19 != 3)
     {
-      if (*(v22 + 32))
+      if (*(v17 + 32))
       {
-        v46 = v22;
-        v32 = v48;
-        if (v24 == 1)
+        v40 = v17;
+        v26 = v42;
+        if (v19 == 1)
         {
-          v51 = 1;
+          v45 = 1;
           sub_2660792BC();
-          v33 = v40;
+          v27 = v34;
           sub_26607FBE8();
-          v34 = v45;
-          if (v33)
+          v28 = v39;
+          if (v27)
           {
-            (*(v32 + 8))(v21, v13);
+            (*(v26 + 8))(v16, v10);
             goto LABEL_9;
           }
 
-          (*(v41 + 8))(v8, v44);
-          (*(v32 + 8))(v21, v13);
+          (*(v35 + 8))(v6, v38);
+          (*(v26 + 8))(v16, v10);
         }
 
         else
         {
-          v52 = 2;
+          v46 = 2;
           sub_266079268();
-          v37 = v40;
+          v31 = v34;
           sub_26607FBE8();
-          v34 = v45;
-          if (v37)
+          v28 = v39;
+          if (v31)
           {
-            (*(v32 + 8))(v21, v13);
+            (*(v26 + 8))(v16, v10);
             goto LABEL_9;
           }
 
-          (*(v42 + 8))(v20, v43);
-          (*(v32 + 8))(v21, v13);
+          (*(v36 + 8))(v15, v37);
+          (*(v26 + 8))(v16, v10);
         }
 
         swift_unknownObjectRelease();
@@ -6207,45 +6143,45 @@ uint64_t SignalSessionFormatType.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<
 
       else
       {
-        v50 = 0;
+        v44 = 0;
         sub_266079310();
-        v35 = v40;
+        v29 = v34;
         sub_26607FBE8();
-        v36 = v48;
-        if (v35)
+        v30 = v42;
+        if (v29)
         {
-          (*(v48 + 8))(v16, v13);
+          (*(v42 + 8))(v12, v10);
           goto LABEL_9;
         }
 
-        (*(v19 + 8))(v12, v39);
-        (*(v36 + 8))(v16, v13);
+        (*(v14 + 8))(v9, v33);
+        (*(v30 + 8))(v12, v10);
         swift_unknownObjectRelease();
-        v34 = v45;
+        v28 = v39;
       }
 
-      *v34 = v24;
-      v30 = v49;
-      return __swift_destroy_boxed_opaque_existential_1(v30);
+      *v28 = v19;
+      v24 = v43;
+      return __swift_destroy_boxed_opaque_existential_1(v24);
     }
   }
 
-  v26 = sub_26607FBA8();
+  v21 = sub_26607FBA8();
   swift_allocError();
-  v28 = v27;
-  v29 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DC0, &qword_2660814B0) + 48);
-  *v28 = &type metadata for SignalSessionFormatType;
+  v23 = v22;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059DC0, &qword_2660814B0);
+  *v23 = &type metadata for SignalSessionFormatType;
   sub_26607FBF8();
   sub_26607FB98();
-  (*(*(v26 - 8) + 104))(v28, *MEMORY[0x277D84160], v26);
+  (*(*(v21 - 8) + 104))(v23, *MEMORY[0x277D84160], v21);
   swift_willThrow();
-  (*(v48 + 8))(v21, v13);
+  (*(v42 + 8))(v12, v10);
 LABEL_9:
   swift_unknownObjectRelease();
-  a1 = v49;
+  a1 = v43;
 LABEL_10:
-  v30 = a1;
-  return __swift_destroy_boxed_opaque_existential_1(v30);
+  v24 = a1;
+  return __swift_destroy_boxed_opaque_existential_1(v24);
 }
 
 uint64_t sub_266079998()
@@ -6256,11 +6192,11 @@ uint64_t sub_266079998()
   return sub_26607FCE8();
 }
 
-uint64_t sub_2660799E0()
+uint64_t sub_2660799E0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_26607FCC8();
-  MEMORY[0x266778430](v1);
+  MEMORY[0x266778430](v2);
   return sub_26607FCE8();
 }
 
@@ -6365,12 +6301,12 @@ uint64_t sub_266079B30(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-void sub_266079BD4(uint64_t a1, unint64_t *a2)
+void sub_266079BD4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -6570,9 +6506,8 @@ void *sub_266079E78@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_266079E94()
+uint64_t sub_266079E94(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
   sub_26607FCC8();
   sub_26607FAD8();
   return sub_26607FCE8();
@@ -6580,14 +6515,13 @@ uint64_t sub_266079E94()
 
 uint64_t sub_266079EF8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_26607A5AC(&qword_280059E48);
+  v4 = sub_26607A5AC(&qword_280059E48, &protocol conformance descriptor for SCPError);
 
   return MEMORY[0x28211C010](a1, a2, v4);
 }
 
-uint64_t sub_266079F60()
+uint64_t sub_266079F60(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
   sub_26607FCC8();
   sub_26607FAD8();
   return sub_26607FCE8();
@@ -6786,7 +6720,7 @@ uint64_t sub_26607A498(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_26607A5AC(unint64_t *a1)
+uint64_t sub_26607A5AC(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -6817,7 +6751,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -6825,11 +6758,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t sub_26607A6C8(uint64_t a1, unint64_t a2)
+uint64_t sub_26607A6C8(unint64_t a1, unint64_t a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = a2 >> 62;
-  v31 = HIDWORD(a1);
+  v30 = HIDWORD(a1);
   if ((a2 >> 62) <= 1)
   {
     if (!v4)
@@ -6843,8 +6776,7 @@ uint64_t sub_26607A6C8(uint64_t a1, unint64_t a2)
 
   if (v4 != 2)
   {
-    v8 = MEMORY[0x277D84F90];
-    goto LABEL_39;
+    return MEMORY[0x277D84F90];
   }
 
   v7 = *(a1 + 16);
@@ -6866,7 +6798,7 @@ LABEL_10:
   v8 = MEMORY[0x277D84F90];
   if (v5)
   {
-    v46 = MEMORY[0x277D84F90];
+    v45 = MEMORY[0x277D84F90];
     sub_26607ECDC(0, v5 & ~(v5 >> 63), 0);
     if (v4)
     {
@@ -6886,16 +6818,16 @@ LABEL_10:
       v9 = 0;
     }
 
-    v33 = v9;
+    v32 = v9;
     if (v5 < 0)
     {
       goto LABEL_48;
     }
 
     v10 = 0;
-    v8 = v46;
-    v30 = &v34 + v9;
-    v32 = v4;
+    v8 = v45;
+    v29 = &v33 + v9;
+    v31 = v4;
     do
     {
       if (v10 >= v5)
@@ -6931,7 +6863,7 @@ LABEL_51:
         goto LABEL_41;
       }
 
-      v12 = v33 + v10;
+      v12 = v32 + v10;
       if (v4 == 2)
       {
         if (v12 < *(a1 + 16))
@@ -6968,19 +6900,19 @@ LABEL_51:
             goto LABEL_42;
           }
 
-          v34 = a1;
-          v35 = BYTE2(a1);
-          v36 = BYTE3(a1);
-          v37 = v31;
-          v38 = BYTE5(a1);
-          v39 = BYTE6(a1);
-          v40 = HIBYTE(a1);
-          v41 = a2;
-          v42 = BYTE2(a2);
-          v43 = BYTE3(a2);
-          v44 = BYTE4(a2);
-          v45 = BYTE5(a2);
-          v19 = v30[v10];
+          v33 = a1;
+          v34 = BYTE2(a1);
+          v35 = BYTE3(a1);
+          v36 = v30;
+          v37 = BYTE5(a1);
+          v38 = BYTE6(a1);
+          v39 = HIBYTE(a1);
+          v40 = a2;
+          v41 = BYTE2(a2);
+          v42 = BYTE3(a2);
+          v43 = BYTE4(a2);
+          v44 = BYTE5(a2);
+          v19 = v29[v10];
           goto LABEL_36;
         }
 
@@ -7013,17 +6945,17 @@ LABEL_36:
       *(v20 + 64) = MEMORY[0x277D84BC0];
       *(v20 + 32) = v19;
       v21 = sub_26607FAF8();
-      v46 = v8;
+      v45 = v8;
       v24 = *(v8 + 16);
       v23 = *(v8 + 24);
       if (v24 >= v23 >> 1)
       {
-        v29 = v21;
+        v28 = v21;
         v26 = v22;
         sub_26607ECDC((v23 > 1), v24 + 1, 1);
         v22 = v26;
-        v21 = v29;
-        v8 = v46;
+        v21 = v28;
+        v8 = v45;
       }
 
       *(v8 + 16) = v24 + 1;
@@ -7031,24 +6963,20 @@ LABEL_36:
       *(v25 + 32) = v21;
       *(v25 + 40) = v22;
       ++v10;
-      LODWORD(v4) = v32;
+      LODWORD(v4) = v31;
     }
 
     while (v11 != v5);
   }
 
-LABEL_39:
-  v27 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t SignalDecoder.__allocating_init(encoderParams:)(uint64_t a1, unint64_t a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
+  v4 = swift_allocObject();
   SignalDecoder.init(encoderParams:)(a1, a2);
-  return v7;
+  return v4;
 }
 
 void SignalDecoder.init(encoderParams:)(uint64_t a1, unint64_t a2)
@@ -7056,120 +6984,116 @@ void SignalDecoder.init(encoderParams:)(uint64_t a1, unint64_t a2)
   v3 = v2;
   v6 = sub_26607FAC8();
   v7 = *(v6 - 8);
-  v8 = v7[8];
-  v9 = (MEMORY[0x28223BE20])();
-  v10 = MEMORY[0x28223BE20](v9);
-  v12 = &v55 - v11;
-  MEMORY[0x28223BE20](v10);
-  v66 = &v55 - v13;
-  v14 = sub_26607F968();
-  v15 = *(v14 + 48);
-  v16 = *(v14 + 52);
+  v8 = MEMORY[0x28223BE20](v6);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v50 - v10;
+  MEMORY[0x28223BE20](v9);
+  v61 = &v50 - v12;
+  sub_26607F968();
   swift_allocObject();
   *(v2 + 48) = sub_26607F958();
-  v17 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
+  v13 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
   sub_26607FAB8();
-  v18 = *(v2 + 48);
   sub_26607B1E0();
 
   sub_26607F948();
-  v61 = v12;
-  v56 = a2;
-  v57 = a1;
+  v56 = v11;
+  v51 = a2;
+  v52 = a1;
 
-  v19 = v68;
-  v20 = v69;
-  v62 = v70;
-  v63 = v71;
-  v21 = v66;
-  v59 = v7[2];
-  v60 = v7 + 2;
-  v59(v66, v3 + v17, v6);
-  sub_266078634(v19, v20);
-  v22 = v6;
-  v23 = sub_26607FAA8();
-  v24 = sub_26607FB48();
-  sub_266078730(v19, v20);
-  v25 = os_log_type_enabled(v23, v24);
-  v58 = v17;
-  if (v25)
+  v14 = v63;
+  v15 = v64;
+  v57 = v65;
+  v58 = v66;
+  v16 = v61;
+  v54 = *(v7 + 16);
+  v55 = v7 + 16;
+  v54(v61, v2 + v13, v6);
+  sub_266078634(v14, v15);
+  v17 = v6;
+  v18 = sub_26607FAA8();
+  v19 = sub_26607FB48();
+  sub_266078730(v14, v15);
+  v20 = os_log_type_enabled(v18, v19);
+  v53 = v13;
+  if (v20)
   {
-    v26 = swift_slowAlloc();
-    v27 = swift_slowAlloc();
-    v65 = v7;
-    v28 = v27;
-    v67 = v27;
-    *v26 = 136315138;
-    v68 = v19;
-    v69 = v20;
-    v70 = v62;
-    v71 = v63;
-    v64 = v22;
-    v29 = sub_266077DEC();
-    v31 = v19;
-    v32 = sub_26607C5D4(v29, v30, &v67);
+    v21 = swift_slowAlloc();
+    v22 = swift_slowAlloc();
+    v60 = v7;
+    v23 = v22;
+    v62 = v22;
+    *v21 = 136315138;
+    v63 = v14;
+    v64 = v15;
+    v65 = v57;
+    v66 = v58;
+    v59 = v17;
+    v24 = sub_266077DEC();
+    v26 = v14;
+    v27 = sub_26607C5D4(v24, v25, &v62);
 
-    *(v26 + 4) = v32;
-    _os_log_impl(&dword_26606F000, v23, v24, "Decoder Params: %s", v26, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v28);
-    MEMORY[0x2667789A0](v28, -1, -1);
-    MEMORY[0x2667789A0](v26, -1, -1);
+    *(v21 + 4) = v27;
+    _os_log_impl(&dword_26606F000, v18, v19, "Decoder Params: %s", v21, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v23);
+    MEMORY[0x2667789A0](v23, -1, -1);
+    MEMORY[0x2667789A0](v21, -1, -1);
 
-    v33 = v65[1];
-    v34 = v21;
-    v35 = v64;
-    v33(v34, v64);
+    v28 = *(v60 + 8);
+    v29 = v16;
+    v30 = v59;
+    v28(v29, v59);
   }
 
   else
   {
 
-    v31 = v19;
-    v33 = v7[1];
-    v33(v21, v22);
-    v35 = v22;
+    v26 = v14;
+    v28 = *(v7 + 8);
+    v28(v16, v17);
+    v30 = v17;
   }
 
-  v36 = 1 << v62;
-  if (v62 > 0x1F)
+  v31 = 1 << v57;
+  if (v57 > 0x1F)
   {
-    v36 = 0;
+    v31 = 0;
   }
 
-  *(v3 + 40) = v36;
-  v37 = v63;
-  if (v63 == 3)
+  *(v3 + 40) = v31;
+  v32 = v58;
+  if (v58 == 3)
   {
-    v37 = 0;
+    v32 = 0;
   }
 
-  *(v3 + 44) = v37;
-  v68 = v31;
-  v69 = v20;
-  sub_266078634(v31, v20);
+  *(v3 + 44) = v32;
+  v63 = v26;
+  v64 = v15;
+  sub_266078634(v26, v15);
   sub_26607B234();
-  v38 = objc_allocWithZone(MotionDecoderWrapper);
-  v39 = sub_26607FA88();
-  v40 = [v38 initWithEncoderSeqParams_];
+  v33 = objc_allocWithZone(MotionDecoderWrapper);
+  v34 = sub_26607FA88();
+  v35 = [v33 initWithEncoderSeqParams_];
 
-  *(v3 + 16) = v40;
-  v41 = v61;
-  v59(v61, v3 + v58, v35);
-  v42 = sub_26607FAA8();
-  v43 = sub_26607FB48();
-  if (os_log_type_enabled(v42, v43))
+  *(v3 + 16) = v35;
+  v36 = v56;
+  v54(v56, v3 + v53, v30);
+  v37 = sub_26607FAA8();
+  v38 = sub_26607FB48();
+  if (os_log_type_enabled(v37, v38))
   {
-    v44 = swift_slowAlloc();
-    *v44 = 0;
-    _os_log_impl(&dword_26606F000, v42, v43, "SC Decoder Session Init", v44, 2u);
-    MEMORY[0x2667789A0](v44, -1, -1);
+    v39 = swift_slowAlloc();
+    *v39 = 0;
+    _os_log_impl(&dword_26606F000, v37, v38, "SC Decoder Session Init", v39, 2u);
+    MEMORY[0x2667789A0](v39, -1, -1);
   }
 
-  v33(v41, v35);
-  v45 = [*(v3 + 16) getAttributeCount];
-  v46 = [*(v3 + 16) getComponentPerAttributeCount];
-  v47 = v46 * v45;
-  if (v47 < 0)
+  v28(v36, v30);
+  v40 = [*(v3 + 16) getAttributeCount];
+  v41 = [*(v3 + 16) getComponentPerAttributeCount];
+  v42 = v41 * v40;
+  if (v42 < 0)
   {
     __break(1u);
 LABEL_21:
@@ -7177,54 +7101,54 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v48 = v45;
-  v49 = v46;
-  if (v47)
+  v43 = v40;
+  v44 = v41;
+  if (v42)
   {
-    v50 = sub_26607FB38();
-    *(v50 + 16) = v47;
-    bzero((v50 + 32), 4 * v47);
+    v45 = sub_26607FB38();
+    *(v45 + 16) = v42;
+    bzero((v45 + 32), 4 * v42);
   }
 
   else
   {
-    v50 = MEMORY[0x277D84F90];
+    v45 = MEMORY[0x277D84F90];
   }
 
-  *(v3 + 56) = v50;
-  *(v3 + 24) = v48;
-  *(v3 + 32) = v49;
-  v51 = qword_266081CC8[*(v3 + 44)];
-  v52 = v47 * v51;
-  if ((v47 * v51) >> 64 != (v47 * v51) >> 63)
+  *(v3 + 56) = v45;
+  *(v3 + 24) = v43;
+  *(v3 + 32) = v44;
+  v46 = qword_266081CC8[*(v3 + 44)];
+  v47 = v42 * v46;
+  if ((v42 * v46) >> 64 != (v42 * v46) >> 63)
   {
     goto LABEL_21;
   }
 
-  if ((v52 & 0x8000000000000000) != 0)
+  if ((v47 & 0x8000000000000000) != 0)
   {
 LABEL_22:
     __break(1u);
     return;
   }
 
-  if (v52)
+  if (v47)
   {
-    v53 = sub_26607FB38();
-    *(v53 + 16) = v52;
-    bzero((v53 + 32), v52);
+    v48 = sub_26607FB38();
+    *(v48 + 16) = v47;
+    bzero((v48 + 32), v47);
   }
 
   else
   {
-    v53 = MEMORY[0x277D84F90];
+    v48 = MEMORY[0x277D84F90];
   }
 
-  v54 = v56;
-  sub_266078730(v31, v20);
-  sub_266078730(v57, v54);
-  sub_266078730(v68, v69);
-  *(v3 + 64) = v53;
+  v49 = v51;
+  sub_266078730(v26, v15);
+  sub_266078730(v52, v49);
+  sub_266078730(v63, v64);
+  *(v3 + 64) = v48;
 }
 
 unint64_t sub_26607B1E0()
@@ -7274,38 +7198,39 @@ void sub_26607B234()
     }
   }
 
-  if ((sub_26607CC50() & 0x100) == 0)
+  sub_26607CC50();
+  if ((v8 & 0x100) == 0)
   {
     return;
   }
 
-  v8 = *v0;
-  v9 = v0[1];
-  v10 = v9 >> 62;
-  if ((v9 >> 62) > 1)
+  v9 = *v0;
+  v10 = v0[1];
+  v11 = v10 >> 62;
+  if ((v10 >> 62) > 1)
   {
-    if (v10 == 2)
+    if (v11 == 2)
     {
-      v12 = *(v8 + 24);
+      v13 = *(v9 + 24);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v11 = BYTE6(v9);
-    v12 = v8 >> 32;
-    if (!v10)
+    v12 = BYTE6(v10);
+    v13 = v9 >> 32;
+    if (!v11)
     {
-      v12 = v11;
+      v13 = v12;
     }
   }
 
-  if (__OFSUB__(v12, 1))
+  if (__OFSUB__(v13, 1))
   {
     __break(1u);
 LABEL_22:
@@ -7313,7 +7238,7 @@ LABEL_22:
     return;
   }
 
-  sub_26607CBA4(v12 - 1);
+  sub_26607CBA4(v13 - 1);
 }
 
 uint64_t sub_26607B2F8(float16x8_t *a1, unint64_t a2)
@@ -7323,20 +7248,19 @@ uint64_t sub_26607B2F8(float16x8_t *a1, unint64_t a2)
   swift_endAccess();
   if (!v3)
   {
-    v6 = *(v2 + 64);
 
-    v2 = sub_26607CEE0(v7);
+    v2 = sub_26607CEE0(v6);
   }
 
   return v2;
 }
 
-uint64_t sub_26607B398(float16x8_t *a1, unint64_t a2, float16x8_t **a3)
+uint64_t sub_26607B398(float16x8_t *a1, unint64_t a2, uint64_t *a3)
 {
   v6 = v4;
   v7 = v3;
-  v53[3] = *MEMORY[0x277D85DE8];
-  v52[0] = 0;
+  v50[3] = *MEMORY[0x277D85DE8];
+  v49[0] = 0;
   v11 = *(v3 + 16);
   v12 = sub_26607FA88();
   swift_beginAccess();
@@ -7350,29 +7274,29 @@ uint64_t sub_26607B398(float16x8_t *a1, unint64_t a2, float16x8_t **a3)
 
   *(v7 + 56) = v13;
 
-  v15 = [v11 decodeFrameInternal:v12 decodedFrame:v13 + 32 decodeError:v52];
+  v15 = [v11 decodeFrameInternal:v12 decodedFrame:v13 + 32 decodeError:v49];
   swift_endAccess();
 
-  if (v15 < 1 || v52[0] != 0)
+  if (v15 < 1 || v49[0] != 0)
   {
     sub_266078634(a1, a2);
     v17 = sub_26607FAA8();
     v18 = sub_26607FB58();
     sub_266078730(a1, a2);
-    v51 = v15;
+    v48 = v15;
     if (os_log_type_enabled(v17, v18))
     {
       v19 = swift_slowAlloc();
       v20 = swift_slowAlloc();
-      v53[0] = v20;
+      v50[0] = v20;
       *v19 = 136315138;
-      v52[1] = sub_26607A6C8(a1, a2);
+      v49[1] = sub_26607A6C8(a1, a2);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059E50, &unk_266081BD0);
-      sub_26607D1EC(&qword_280059E58, &qword_280059E50, &unk_266081BD0);
+      sub_26607D1EC(&qword_280059E58, &qword_280059E50, &unk_266081BD0, MEMORY[0x277D83958]);
       v21 = sub_26607FAE8();
       v23 = v22;
 
-      v24 = sub_26607C5D4(v21, v23, v53);
+      v24 = sub_26607C5D4(v21, v23, v50);
 
       *(v19 + 4) = v24;
       _os_log_impl(&dword_26606F000, v17, v18, "Cannot decode input frame %s", v19, 0xCu);
@@ -7387,15 +7311,15 @@ uint64_t sub_26607B398(float16x8_t *a1, unint64_t a2, float16x8_t **a3)
     {
       v27 = swift_slowAlloc();
       v28 = swift_slowAlloc();
-      v53[0] = v28;
+      v50[0] = v28;
       *v27 = 136315394;
       swift_beginAccess();
-      v29 = sub_26607B8D8(v52[0]);
-      v31 = sub_26607C5D4(v29, v30, v53);
+      v29 = sub_26607B8D8(v49[0]);
+      v31 = sub_26607C5D4(v29, v30, v50);
 
       *(v27 + 4) = v31;
       *(v27 + 12) = 1024;
-      *(v27 + 14) = v51;
+      *(v27 + 14) = v48;
       _os_log_impl(&dword_26606F000, v25, v26, "Cannot decode inputs: %s len %d", v27, 0x12u);
       __swift_destroy_boxed_opaque_existential_1(v28);
       MEMORY[0x2667789A0](v28, -1, -1);
@@ -7403,14 +7327,13 @@ uint64_t sub_26607B398(float16x8_t *a1, unint64_t a2, float16x8_t **a3)
     }
 
     swift_beginAccess();
-    v32 = v52[0];
+    v32 = v49[0];
 LABEL_18:
     type metadata accessor for SCPError(0);
     sub_26607CFBC();
     swift_allocError();
     *v42 = v32;
-    result = swift_willThrow();
-    goto LABEL_19;
+    return swift_willThrow();
   }
 
   v33 = *(v7 + 24);
@@ -7435,9 +7358,9 @@ LABEL_25:
 
   v37 = a3;
   a3 = v4;
-  v50 = v37;
+  v47 = v37;
   a1 = *v37;
-  v38 = (*v37)[1].i64[0];
+  v38 = *(*v37 + 16);
   if (v38 < v5)
   {
     v39 = sub_26607FAA8();
@@ -7460,26 +7383,22 @@ LABEL_25:
   v6 = v15;
   LODWORD(v5) = *(v7 + 40);
   LOBYTE(v15) = *(v7 + 44);
-  v45 = *v37;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
     goto LABEL_25;
   }
 
 LABEL_21:
-  LOBYTE(v53[0]) = v15;
-  v46 = *(v7 + 56);
+  LOBYTE(v50[0]) = v15;
 
-  sub_26607BAB4(v47, a1 + 2, v49, v48, v33, v34, v5);
+  sub_26607BAB4(v44, a1 + 2, v46, v45, v33, v34, v5);
 
-  *v50 = a1;
+  *v47 = a1;
   if (!a3)
   {
-    result = v6;
+    return v6;
   }
 
-LABEL_19:
-  v44 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8131,10 +8050,10 @@ LABEL_174:
   v48 = 0;
   v49 = 0;
   *&a3 = a7;
-  v50 = &a2[-2] - result;
+  v50 = &a2[-2].i8[-result];
   v51 = a6 - 1;
   v52 = vdupq_lane_s32(*&a3, 0);
-  v53 = &a2[1];
+  v53 = a2 + 1;
   v54 = 4 * a6;
   v55 = (result + 48);
   while (1)
@@ -8217,7 +8136,7 @@ LABEL_48:
     do
     {
       v68 = vdivq_f32(vcvtq_f32_s32(*v66), v52);
-      v67[-1] = vdivq_f32(vcvtq_f32_s32(v66[-1]), v52);
+      *(v67 - 1) = vdivq_f32(vcvtq_f32_s32(v66[-1]), v52);
       *v67 = v68;
       v67 += 2;
       v66 += 2;
@@ -8255,33 +8174,23 @@ LABEL_161:
 
 uint64_t SignalDecoder.deinit()
 {
-  v1 = *(v0 + 48);
 
-  v2 = *(v0 + 56);
-
-  v3 = *(v0 + 64);
-
-  v4 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
-  v5 = sub_26607FAC8();
-  (*(*(v5 - 8) + 8))(v0 + v4, v5);
+  v1 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
+  v2 = sub_26607FAC8();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
   return v0;
 }
 
 uint64_t SignalDecoder.__deallocating_deinit()
 {
-  v1 = *(v0 + 48);
 
-  v2 = *(v0 + 56);
+  v1 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
+  v2 = sub_26607FAC8();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  v3 = *(*v0 + 12);
+  v4 = *(*v0 + 26);
 
-  v3 = *(v0 + 64);
-
-  v4 = OBJC_IVAR____TtC17SignalCompression13SignalDecoder_logger;
-  v5 = sub_26607FAC8();
-  (*(*(v5 - 8) + 8))(v0 + v4, v5);
-  v6 = *(*v0 + 48);
-  v7 = *(*v0 + 52);
-
-  return MEMORY[0x2821FE8D8](v0, v6, v7);
+  return MEMORY[0x2821FE8D8](v0, v3, v4);
 }
 
 uint64_t sub_26607C30C(uint64_t result, _BYTE **a2)
@@ -8444,9 +8353,9 @@ char *sub_26607C44C(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_26607C578(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t sub_26607C578(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = sub_26607C5D4(v6, v7, a3);
 
   v10 = *a1;
@@ -8455,7 +8364,7 @@ uint64_t sub_26607C578(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(
   return result;
 }
 
-uint64_t sub_26607C5D4(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_26607C5D4(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_26607C6A0(v11, 0, 0, 1, a1, a2);
@@ -8553,16 +8462,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_26607C7AC(uint64_t a1, unint64_t a2)
+void *sub_26607C7AC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_26607C7F8(a1, a2);
-  sub_26607C928(&unk_2877C09F8);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  v3 = sub_26607C7F8(a1, a2);
+  sub_26607C928(byte_2877C09F8);
+  return v3;
 }
 
-uint64_t sub_26607C7F8(uint64_t a1, unint64_t a2)
+void *sub_26607C7F8(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -8644,11 +8551,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_26607C928(uint64_t result)
+char *sub_26607C928(char *result)
 {
-  v2 = *(result + 16);
+  v2 = *(result + 2);
   v3 = *v1;
-  v4 = *(*v1 + 16);
+  v4 = *(*v1 + 2);
   v5 = v4 + v2;
   if (__OFADD__(v4, v2))
   {
@@ -8659,11 +8566,10 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
-  if (result && v5 <= *(v3 + 24) >> 1)
+  if (result && v5 <= *(v3 + 3) >> 1)
   {
-    if (*(v6 + 16))
+    if (*(v6 + 2))
     {
       goto LABEL_5;
     }
@@ -8673,17 +8579,17 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_26607C358(result, v12, 1, v3);
+  result = sub_26607C358(result, v11, 1, v3);
   v3 = result;
-  if (!*(v6 + 16))
+  if (!*(v6 + 2))
   {
 LABEL_13:
 
@@ -8696,15 +8602,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 2);
+  if ((*(v3 + 3) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy(&v3[v7 + 32], v6 + 32, v2);
 
   if (!v2)
   {
@@ -8713,12 +8619,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 2);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 2) = v10;
     goto LABEL_14;
   }
 
@@ -8880,75 +8786,72 @@ LABEL_14:
   return result;
 }
 
-uint64_t sub_26607CC50()
+void sub_26607CC50()
 {
-  result = sub_26607CD38(*v0, *(v0 + 8));
-  if ((result & 0x100) == 0)
+  if ((sub_26607CD38(*v0, *(v0 + 8)) & 0x100) == 0)
   {
-    v2 = result;
-    v3 = *v0;
-    v4 = *(v0 + 8);
-    v5 = v4 >> 62;
-    if ((v4 >> 62) > 1)
+    v1 = *v0;
+    v2 = *(v0 + 8);
+    v3 = v2 >> 62;
+    if ((v2 >> 62) > 1)
     {
-      if (v5 == 2)
+      if (v3 == 2)
       {
-        v6 = *(v3 + 16);
-        v7 = *(v3 + 24);
+        v4 = *(v1 + 16);
+        v5 = *(v1 + 24);
       }
 
       else
       {
-        v6 = 0;
-        v7 = 0;
+        v4 = 0;
+        v5 = 0;
       }
     }
 
     else
     {
-      if (v5)
+      if (v3)
       {
-        v6 = v3;
+        v4 = v1;
       }
 
       else
       {
-        v6 = 0;
+        v4 = 0;
       }
 
-      if (v5)
+      if (v3)
       {
-        v7 = v3 >> 32;
+        v5 = v1 >> 32;
       }
 
       else
       {
-        v7 = BYTE6(v4);
+        v5 = BYTE6(v2);
       }
     }
 
     sub_266078634(*v0, *(v0 + 8));
-    result = sub_266078730(v3, v4);
-    if (__OFSUB__(v7, 1))
+    sub_266078730(v1, v2);
+    if (__OFSUB__(v5, 1))
     {
       __break(1u);
     }
 
-    else if (v7 - 1 >= v6)
+    else if (v5 - 1 >= v4)
     {
-      v8 = sub_26607FA68();
-      v10 = v9;
-      sub_266078730(v3, v4);
-      *v0 = v8;
-      *(v0 + 8) = v10;
-      return v2;
+      v6 = sub_26607FA68();
+      v8 = v7;
+      sub_266078730(v1, v2);
+      *v0 = v6;
+      *(v0 + 8) = v8;
+      return;
     }
 
     __break(1u);
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t sub_26607CD38(uint64_t a1, unint64_t a2)
@@ -9019,9 +8922,7 @@ uint64_t sub_26607CDE0(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = sub_26607F9E8();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  sub_26607F9E8();
   swift_allocObject();
   result = sub_26607F9A8();
   if (v2 < 0)
@@ -9052,9 +8953,7 @@ uint64_t sub_26607CE5C(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = sub_26607F9E8();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  sub_26607F9E8();
   swift_allocObject();
   result = sub_26607F9A8();
   if (v2 < 0xFFFFFFFF80000000)
@@ -9083,7 +8982,7 @@ LABEL_10:
 uint64_t sub_26607CEE0(uint64_t a1)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059EA0, &qword_266081CB8);
-  v10 = sub_26607D1EC(&qword_280059EA8, &qword_280059EA0, &qword_266081CB8);
+  v10 = sub_26607D1EC(&qword_280059EA8, &qword_280059EA0, &qword_266081CB8, MEMORY[0x277CC9C28]);
   v8[0] = a1;
   v2 = __swift_project_boxed_opaque_existential_1(v8, v9);
   v3 = (*v2 + 32);
@@ -9108,7 +9007,7 @@ unint64_t sub_26607CFBC()
   return result;
 }
 
-uint64_t type metadata accessor for SignalDecoder()
+uint64_t type metadata accessor for SignalDecoder(uint64_t a1)
 {
   result = qword_280059E70;
   if (!qword_280059E70)
@@ -9119,12 +9018,11 @@ uint64_t type metadata accessor for SignalDecoder()
   return result;
 }
 
-uint64_t sub_26607D068()
+uint64_t sub_26607D068(uint64_t a1)
 {
   result = sub_26607FAC8();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -9135,7 +9033,7 @@ uint64_t sub_26607D068()
   return result;
 }
 
-uint64_t sub_26607D1EC(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_26607D1EC(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -9171,6 +9069,32 @@ uint64_t SignalEncoder.FormatDescriptor.Semantic.hashValue.getter()
   return sub_26607FCE8();
 }
 
+SignalCompression::SignalEncoder::FormatDescriptor __swiftcall SignalEncoder.FormatDescriptor.init(attributeCount:componentsPerAttribute:semantic:)(Swift::Int attributeCount, Swift::Int componentsPerAttribute, SignalCompression::SignalEncoder::FormatDescriptor::Semantic semantic)
+{
+  v4 = *semantic;
+  *v3 = attributeCount;
+  *(v3 + 8) = componentsPerAttribute;
+  *(v3 + 16) = v4;
+  result.componentsPerAttribute = componentsPerAttribute;
+  result.attributeCount = attributeCount;
+  result.semantic = semantic;
+  return result;
+}
+
+SignalCompression::SignalEncoder::FormatDescriptor __swiftcall SignalEncoder.FormatDescriptor.init(attributeCount:componentsPerAttribute:semantic:formatType:)(Swift::Int attributeCount, Swift::Int componentsPerAttribute, SignalCompression::SignalEncoder::FormatDescriptor::Semantic semantic, SignalCompression::SignalSessionFormatType formatType)
+{
+  v5 = *semantic;
+  v6 = *formatType;
+  *v4 = attributeCount;
+  *(v4 + 8) = componentsPerAttribute;
+  *(v4 + 16) = v5;
+  *(v4 + 17) = v6;
+  result.componentsPerAttribute = componentsPerAttribute;
+  result.attributeCount = attributeCount;
+  result.semantic = semantic;
+  return result;
+}
+
 uint64_t SignalEncoder.EncodedFrame.data.getter()
 {
   v1 = *v0;
@@ -9180,53 +9104,50 @@ uint64_t SignalEncoder.EncodedFrame.data.getter()
 
 uint64_t SignalEncoder.__allocating_init(formatDescriptor:options:)(uint64_t a1, uint64_t *a2)
 {
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
-  v7 = swift_allocObject();
+  v4 = swift_allocObject();
   SignalEncoder.init(formatDescriptor:options:)(a1, a2);
-  return v7;
+  return v4;
 }
 
 void SignalEncoder.init(formatDescriptor:options:)(uint64_t a1, uint64_t *a2)
 {
   v3 = v2;
-  v71 = sub_26607FAC8();
-  v6 = *(v71 - 8);
-  v7 = v6[8];
-  v8 = MEMORY[0x28223BE20](v71);
-  v10 = &v65 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v65 - v11;
-  v13 = *a1;
-  v14 = *(a1 + 8);
-  v15 = *(a1 + 16);
-  v16 = *(a1 + 17);
-  v17 = *a2;
-  v18 = v13;
+  v67 = sub_26607FAC8();
+  v6 = *(v67 - 8);
+  v7 = MEMORY[0x28223BE20](v67);
+  v9 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v61 - v10;
+  v12 = *a1;
+  v13 = *(a1 + 8);
+  v14 = *(a1 + 16);
+  v15 = *(a1 + 17);
+  v16 = *a2;
+  v17 = v12;
   *(v3 + 24) = 0;
-  v19 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
+  v18 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
   sub_26607FAB8();
-  if (v18 > 0xFFFFFFFFLL)
+  if (v17 > 0xFFFFFFFFLL)
   {
     __break(1u);
     goto LABEL_37;
   }
 
-  if (v14 > 0xFFFFFFFFLL)
+  if (v13 > 0xFFFFFFFFLL)
   {
 LABEL_37:
     __break(1u);
     goto LABEL_38;
   }
 
-  if (((v14 | v18 | v17) & 0x8000000000000000) != 0)
+  if ((v13 | v17 | v16) < 0)
   {
 LABEL_38:
     __break(1u);
     goto LABEL_39;
   }
 
-  if (v17 > 0xFFFFFFFFLL)
+  if (v16 > 0xFFFFFFFFLL)
   {
 LABEL_39:
     __break(1u);
@@ -9235,161 +9156,159 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v66 = v15;
-  v67 = v10;
-  v20 = objc_allocWithZone(MotionEncoderWrapper);
-  v69 = v18;
-  v70 = v14;
-  v68 = v17;
-  *(v3 + 16) = [v20 initWithAttributeCount:v18 componentCount:v14 quantization:v17];
-  v21 = v6[2];
-  v21(v12, v3 + v19, v71);
-  v22 = sub_26607FAA8();
-  v23 = sub_26607FB48();
-  if (os_log_type_enabled(v22, v23))
+  v62 = v14;
+  v63 = v9;
+  v19 = objc_allocWithZone(MotionEncoderWrapper);
+  v65 = v17;
+  v66 = v13;
+  v64 = v16;
+  *(v3 + 16) = [v19 initWithAttributeCount:v17 componentCount:v13 quantization:v16];
+  v20 = *(v6 + 16);
+  v20(v11, v3 + v18, v67);
+  v21 = sub_26607FAA8();
+  v22 = sub_26607FB48();
+  if (os_log_type_enabled(v21, v22))
   {
-    v24 = v16;
-    v25 = swift_slowAlloc();
-    *v25 = 0;
-    _os_log_impl(&dword_26606F000, v22, v23, "SC Encoder Session Init", v25, 2u);
-    v26 = v25;
-    v16 = v24;
-    MEMORY[0x2667789A0](v26, -1, -1);
+    v23 = v15;
+    v24 = swift_slowAlloc();
+    *v24 = 0;
+    _os_log_impl(&dword_26606F000, v21, v22, "SC Encoder Session Init", v24, 2u);
+    v25 = v24;
+    v15 = v23;
+    MEMORY[0x2667789A0](v25, -1, -1);
   }
 
-  v27 = v6[1];
-  v28 = v71;
-  v65 = v6 + 1;
-  v27(v12, v71);
-  v29 = v70;
-  *(v3 + 32) = v69;
-  *(v3 + 40) = v29;
-  *(v3 + 48) = v66;
-  v66 = v16;
-  *(v3 + 49) = v16;
-  v30 = v68;
-  v31 = 1 << v68;
-  if (v68 > 31)
+  v26 = *(v6 + 8);
+  v27 = v67;
+  v61 = v6 + 8;
+  v26(v11, v67);
+  v28 = v66;
+  *(v3 + 32) = v65;
+  *(v3 + 40) = v28;
+  *(v3 + 48) = v62;
+  v62 = v15;
+  *(v3 + 49) = v15;
+  v29 = v64;
+  v30 = 1 << v64;
+  if (v64 > 31)
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  *(v3 + 52) = v31;
-  v32 = [*(v3 + 16) getEncoderParams];
-  v33 = sub_26607FA98();
-  v35 = v34;
+  *(v3 + 52) = v30;
+  v31 = [*(v3 + 16) getEncoderParams];
+  v32 = sub_26607FA98();
+  v34 = v33;
 
-  v36 = v67;
-  v21(v67, v3 + v19, v28);
-  sub_266078634(v33, v35);
-  v37 = sub_26607FAA8();
-  v38 = sub_26607FB48();
-  if (!os_log_type_enabled(v37, v38))
+  v35 = v63;
+  v20(v63, v3 + v18, v27);
+  sub_266078634(v32, v34);
+  v36 = sub_26607FAA8();
+  v37 = sub_26607FB48();
+  if (!os_log_type_enabled(v36, v37))
   {
-    sub_266078730(v33, v35);
-    v42 = v70;
+    sub_266078730(v32, v34);
+    v41 = v66;
     goto LABEL_22;
   }
 
-  v39 = swift_slowAlloc();
-  v40 = v39;
-  *v39 = 134217984;
-  v41 = v35 >> 62;
-  if ((v35 >> 62) > 1)
+  v38 = swift_slowAlloc();
+  v39 = v38;
+  *v38 = 134217984;
+  v40 = v34 >> 62;
+  if ((v34 >> 62) > 1)
   {
-    v42 = v70;
-    if (v41 != 2)
+    v41 = v66;
+    if (v40 != 2)
     {
-      v43 = 0;
+      v42 = 0;
       goto LABEL_21;
     }
 
-    v45 = *(v33 + 16);
-    v44 = *(v33 + 24);
-    v46 = __OFSUB__(v44, v45);
-    v43 = v44 - v45;
-    if (!v46)
+    v44 = *(v32 + 16);
+    v43 = *(v32 + 24);
+    v45 = __OFSUB__(v43, v44);
+    v42 = v43 - v44;
+    if (!v45)
     {
       goto LABEL_21;
     }
 
     __break(1u);
 LABEL_18:
-    LODWORD(v43) = HIDWORD(v33) - v33;
-    if (__OFSUB__(HIDWORD(v33), v33))
+    LODWORD(v42) = HIDWORD(v32) - v32;
+    if (__OFSUB__(HIDWORD(v32), v32))
     {
 LABEL_45:
       __break(1u);
       return;
     }
 
-    v43 = v43;
+    v42 = v42;
     goto LABEL_21;
   }
 
-  v42 = v70;
-  if (v41)
+  v41 = v66;
+  if (v40)
   {
     goto LABEL_18;
   }
 
-  v43 = BYTE6(v35);
+  v42 = BYTE6(v34);
 LABEL_21:
-  *(v39 + 4) = v43;
-  sub_266078730(v33, v35);
-  _os_log_impl(&dword_26606F000, v37, v38, "Encoder Params Length is %ld", v40, 0xCu);
-  MEMORY[0x2667789A0](v40, -1, -1);
+  *(v38 + 4) = v42;
+  sub_266078730(v32, v34);
+  _os_log_impl(&dword_26606F000, v36, v37, "Encoder Params Length is %ld", v39, 0xCu);
+  MEMORY[0x2667789A0](v39, -1, -1);
 LABEL_22:
 
-  v27(v36, v71);
-  v47 = sub_26607F998();
-  v48 = *(v47 + 48);
-  v49 = *(v47 + 52);
+  v26(v35, v67);
+  sub_26607F998();
   swift_allocObject();
   sub_26607F988();
-  v73[0] = v33;
-  v73[1] = v35;
-  v74 = v30;
-  v75 = v66;
-  v71 = v33;
-  sub_266078634(v33, v35);
+  v69[0] = v32;
+  v69[1] = v34;
+  v70 = v29;
+  v71 = v62;
+  v67 = v32;
+  sub_266078634(v32, v34);
   sub_26607EC88();
   *(v3 + 72) = sub_26607F978();
-  *(v3 + 80) = v50;
+  *(v3 + 80) = v46;
 
-  v51 = sub_26607FAA8();
-  v52 = sub_26607FB58();
+  v47 = sub_26607FAA8();
+  v48 = sub_26607FB58();
 
-  if (os_log_type_enabled(v51, v52))
+  if (os_log_type_enabled(v47, v48))
   {
-    v53 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    v73[0] = v70;
-    *v53 = 136315138;
-    v72 = sub_266077F98(*(v3 + 72), *(v3 + 80));
+    v49 = swift_slowAlloc();
+    v66 = swift_slowAlloc();
+    v69[0] = v66;
+    *v49 = 136315138;
+    v68 = sub_266077F98(*(v3 + 72), *(v3 + 80));
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280059E50, &unk_266081BD0);
     sub_26607A5F0();
-    v54 = sub_26607FAE8();
-    v56 = v55;
+    v50 = sub_26607FAE8();
+    v52 = v51;
 
-    v57 = sub_26607C5D4(v54, v56, v73);
+    v53 = sub_26607C5D4(v50, v52, v69);
 
-    *(v53 + 4) = v57;
-    _os_log_impl(&dword_26606F000, v51, v52, "Encoder Params encoded: %s", v53, 0xCu);
-    v58 = v70;
-    __swift_destroy_boxed_opaque_existential_1(v70);
-    MEMORY[0x2667789A0](v58, -1, -1);
-    MEMORY[0x2667789A0](v53, -1, -1);
+    *(v49 + 4) = v53;
+    _os_log_impl(&dword_26606F000, v47, v48, "Encoder Params encoded: %s", v49, 0xCu);
+    v54 = v66;
+    __swift_destroy_boxed_opaque_existential_1(v66);
+    MEMORY[0x2667789A0](v54, -1, -1);
+    MEMORY[0x2667789A0](v49, -1, -1);
   }
 
-  v59 = v69;
-  v60 = v69 * v42;
-  if ((v69 * v42) >> 64 != (v69 * v42) >> 63)
+  v55 = v65;
+  v56 = v65 * v41;
+  if ((v65 * v41) >> 64 != (v65 * v41) >> 63)
   {
     goto LABEL_40;
   }
 
-  if (v60 < 0)
+  if (v56 < 0)
   {
 LABEL_41:
     __break(1u);
@@ -9398,102 +9317,100 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  if (v60)
+  if (v56)
   {
-    v61 = sub_26607FB38();
-    *(v61 + 16) = v60;
-    bzero((v61 + 32), 4 * v60);
+    v57 = sub_26607FB38();
+    *(v57 + 16) = v56;
+    bzero((v57 + 32), 4 * v56);
   }
 
   else
   {
-    v61 = MEMORY[0x277D84F90];
+    v57 = MEMORY[0x277D84F90];
   }
 
-  *(v3 + 56) = v61;
-  if ((v59 - 0x2000000000000000) >> 62 != 3)
+  *(v3 + 56) = v57;
+  if ((v55 - 0x2000000000000000) >> 62 != 3)
   {
     goto LABEL_42;
   }
 
-  v62 = 4 * v59 * v42;
-  if ((4 * v59 * v42) >> 64 != v62 >> 63)
+  v58 = 4 * v55 * v41;
+  if ((4 * v55 * v41) >> 64 != v58 >> 63)
   {
 LABEL_43:
     __break(1u);
     goto LABEL_44;
   }
 
-  if (v62 < 0)
+  if (v58 < 0)
   {
 LABEL_44:
     __break(1u);
     goto LABEL_45;
   }
 
-  if (v62)
+  if (v58)
   {
-    v63 = sub_26607FB38();
-    *(v63 + 16) = v62;
-    bzero((v63 + 32), 4 * v59 * v42);
+    v59 = sub_26607FB38();
+    *(v59 + 16) = v58;
+    bzero((v59 + 32), 4 * v55 * v41);
   }
 
   else
   {
-    v63 = MEMORY[0x277D84F90];
+    v59 = MEMORY[0x277D84F90];
   }
 
-  v64 = v71;
-  sub_266078730(v71, v35);
-  sub_266078730(v64, v35);
+  v60 = v67;
+  sub_266078730(v67, v34);
+  sub_266078730(v60, v34);
 
-  *(v3 + 64) = v63;
+  *(v3 + 64) = v59;
 }
 
 uint64_t sub_26607DBD0@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X8>)
 {
   v9 = *a3;
-  v20 = *a3;
+  v17 = *a3;
   swift_beginAccess();
-  v10 = sub_26607DD20(a1, a2, v4 + 64, &v20);
+  v10 = sub_26607DD20(a1, a2, v4 + 64, &v17);
   result = swift_endAccess();
   if (!v5)
   {
     if (v10 <= 14)
     {
       result = sub_26607EE08((*(v4 + 64) + 32), (*(v4 + 64) + 32 + v10));
-      v16 = v17 & 0xFFFFFFFFFFFFFFLL;
+      v13 = v14 & 0xFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v12 = sub_26607F9E8();
-      v13 = *(v12 + 48);
-      v14 = *(v12 + 52);
+      sub_26607F9E8();
       swift_allocObject();
       if (v10 >= 0x7FFFFFFF)
       {
 
-        v18 = sub_26607F9A8();
+        v15 = sub_26607F9A8();
         sub_26607FA48();
-        v19 = swift_allocObject();
-        *(v19 + 16) = 0;
-        *(v19 + 24) = v10;
+        v16 = swift_allocObject();
+        *(v16 + 16) = 0;
+        *(v16 + 24) = v10;
 
-        result = v19;
-        v16 = v18 | 0x8000000000000000;
+        result = v16;
+        v13 = v15 | 0x8000000000000000;
       }
 
       else
       {
-        v15 = sub_26607F9A8();
+        v12 = sub_26607F9A8();
         result = v10 << 32;
-        v16 = v15 | 0x4000000000000000;
+        v13 = v12 | 0x4000000000000000;
       }
     }
 
     *a4 = result;
-    a4[1] = v16;
+    a4[1] = v13;
     a4[2] = v9;
   }
 
@@ -9502,7 +9419,7 @@ uint64_t sub_26607DBD0@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X
 
 uint64_t sub_26607DD20(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v58[3] = *MEMORY[0x277D85DE8];
+  v57[3] = *MEMORY[0x277D85DE8];
   v8 = *a4;
   v10 = *(v4 + 32);
   v9 = *(v4 + 40);
@@ -9567,29 +9484,29 @@ LABEL_52:
   {
     type metadata accessor for SCPError(0);
     a3 = v21;
-    sub_26607A5AC(&qword_280059E68);
+    sub_26607A5AC(&qword_280059E68, &protocol conformance descriptor for SCPError);
     swift_allocError();
     *v22 = 1;
     swift_willThrow();
     goto LABEL_42;
   }
 
-  v53 = v8;
+  v52 = v8;
   if (v13 <= 1)
   {
     if (!v13)
     {
-      v57[0] = a1;
-      LOWORD(v57[1]) = a2;
-      BYTE2(v57[1]) = BYTE2(a2);
-      BYTE3(v57[1]) = BYTE3(a2);
-      BYTE4(v57[1]) = BYTE4(a2);
-      BYTE5(v57[1]) = BYTE5(a2);
-      v20 = v57 + BYTE6(a2);
+      v56[0] = a1;
+      LOWORD(v56[1]) = a2;
+      BYTE2(v56[1]) = BYTE2(a2);
+      BYTE3(v56[1]) = BYTE3(a2);
+      BYTE4(v56[1]) = BYTE4(a2);
+      BYTE5(v56[1]) = BYTE5(a2);
+      v20 = v56 + BYTE6(a2);
       goto LABEL_41;
     }
 
-    v52 = a3;
+    v51 = a3;
     v31 = a1;
     a3 = (a1 >> 32) - a1;
     if (a1 >> 32 >= a1)
@@ -9639,7 +9556,7 @@ LABEL_57:
 
   if (v13 == 2)
   {
-    v52 = a3;
+    v51 = a3;
     v23 = *(a1 + 16);
     v24 = *(a1 + 24);
     v25 = sub_26607F9B8();
@@ -9684,15 +9601,15 @@ LABEL_56:
 
 LABEL_38:
       sub_26607E3A4(v25, v30, v12, (v4 + 56), v10, v9, v11);
-      if (!v54)
+      if (!v53)
       {
-        a3 = v52;
+        a3 = v51;
         goto LABEL_44;
       }
 
 LABEL_42:
       swift_endAccess();
-      goto LABEL_43;
+      return a3;
     }
 
 LABEL_55:
@@ -9700,95 +9617,87 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  memset(v57, 0, 14);
-  v20 = v57;
+  memset(v56, 0, 14);
+  v20 = v56;
 LABEL_41:
-  sub_26607E3A4(v57, v20, v12, (v4 + 56), v10, v9, v11);
-  if (v54)
+  sub_26607E3A4(v56, v20, v12, (v4 + 56), v10, v9, v11);
+  if (v53)
   {
     goto LABEL_42;
   }
 
 LABEL_44:
   swift_endAccess();
-  v55 = v53;
-  v56 = 0;
-  v38 = *(v4 + 16);
-  v39 = *a3;
-  v40 = *(*a3 + 16);
-  v41 = *(v4 + 56);
+  v54 = v52;
+  v55 = 0;
+  v37 = *(v4 + 16);
+  v38 = *a3;
+  v39 = *(*a3 + 16);
+  v40 = *(v4 + 56);
 
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v39 = sub_26607C358(0, v40, 0, v39);
+    v38 = sub_26607C358(0, v39, 0, v38);
   }
 
-  *a3 = v39;
-  a3 = [v38 encodeFrameInternal:v41 + 32 outputEncodedBuffer:v39 + 32 outputBufferLength:v40 type:&v55 encodeError:&v56];
+  *a3 = v38;
+  a3 = [v37 encodeFrameInternal:v40 + 32 outputEncodedBuffer:v38 + 32 outputBufferLength:v39 type:&v54 encodeError:&v55];
 
-  if (a3 < 1 || v56)
+  if (a3 < 1 || v55)
   {
-    v42 = sub_26607FAA8();
-    v43 = sub_26607FB68();
-    if (os_log_type_enabled(v42, v43))
+    v41 = sub_26607FAA8();
+    v42 = sub_26607FB68();
+    if (os_log_type_enabled(v41, v42))
     {
+      v43 = swift_slowAlloc();
       v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      v58[0] = v45;
-      *v44 = 136315138;
+      v57[0] = v44;
+      *v43 = 136315138;
       swift_beginAccess();
-      v46 = sub_26607B8D8(v56);
-      v48 = sub_26607C5D4(v46, v47, v58);
+      v45 = sub_26607B8D8(v55);
+      v47 = sub_26607C5D4(v45, v46, v57);
 
-      *(v44 + 4) = v48;
-      _os_log_impl(&dword_26606F000, v42, v43, "Cannot encode inputs: %s", v44, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v45);
-      MEMORY[0x2667789A0](v45, -1, -1);
+      *(v43 + 4) = v47;
+      _os_log_impl(&dword_26606F000, v41, v42, "Cannot encode inputs: %s", v43, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v44);
       MEMORY[0x2667789A0](v44, -1, -1);
+      MEMORY[0x2667789A0](v43, -1, -1);
     }
 
     swift_beginAccess();
-    v49 = v56;
+    v48 = v55;
     type metadata accessor for SCPError(0);
-    a3 = v50;
-    sub_26607A5AC(&qword_280059E68);
+    a3 = v49;
+    sub_26607A5AC(&qword_280059E68, &protocol conformance descriptor for SCPError);
     swift_allocError();
-    *v51 = v49;
+    *v50 = v48;
     swift_willThrow();
   }
 
-LABEL_43:
-  v36 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
 uint64_t SignalEncoder.deinit()
 {
-  v1 = *(v0 + 56);
-
-  v2 = *(v0 + 64);
 
   sub_266078730(*(v0 + 72), *(v0 + 80));
-  v3 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
-  v4 = sub_26607FAC8();
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
+  v1 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
+  v2 = sub_26607FAC8();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
   return v0;
 }
 
 uint64_t SignalEncoder.__deallocating_deinit()
 {
-  v1 = *(v0 + 56);
-
-  v2 = *(v0 + 64);
 
   sub_266078730(*(v0 + 72), *(v0 + 80));
-  v3 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
-  v4 = sub_26607FAC8();
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(*v0 + 48);
-  v6 = *(*v0 + 52);
+  v1 = OBJC_IVAR____TtC17SignalCompression13SignalEncoder_logger;
+  v2 = sub_26607FAC8();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  v3 = *(*v0 + 48);
+  v4 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v5, v6);
+  return MEMORY[0x2821FE8D8](v0, v3, v4);
 }
 
 uint64_t sub_26607E3A4(uint64_t result, uint64_t a2, char a3, char **a4, unint64_t a5, uint64_t a6, int a7)
@@ -9876,7 +9785,7 @@ LABEL_41:
       {
 LABEL_68:
         type metadata accessor for SCPError(0);
-        sub_26607A5AC(&qword_280059E68);
+        sub_26607A5AC(&qword_280059E68, &protocol conformance descriptor for SCPError);
         swift_allocError();
         *v38 = 3;
         return swift_willThrow();

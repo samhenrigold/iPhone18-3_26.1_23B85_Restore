@@ -10,6 +10,7 @@
 - (TMPreferences)initWithDefaults:(id)defaults;
 - (id)description;
 - (void)dealloc;
+- (void)setAccurateThresholds:(BOOL)thresholds;
 @end
 
 @implementation TMPreferences
@@ -130,6 +131,75 @@
   v2 = MGCopyAnswer();
 
   return [v2 isEqualToString:@"Watch"];
+}
+
+- (void)setAccurateThresholds:(BOOL)thresholds
+{
+  thresholdsCopy = thresholds;
+  v5 = [(NSUserDefaults *)self->_defaults objectForKey:@"ForceAccurateTime"];
+  if (v5)
+  {
+    thresholdsCopy = [v5 BOOLValue];
+    v6 = qword_100033218;
+    if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = "disabled";
+      if (thresholdsCopy)
+      {
+        v7 = "enabled";
+      }
+
+      *buf = 136315138;
+      v17 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Forcing accurate thresholds to be %s, from defaults.", buf, 0xCu);
+    }
+  }
+
+  v8 = qword_100033218;
+  if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
+  {
+    v9 = "inaccurate";
+    if (thresholdsCopy)
+    {
+      v9 = "accurate";
+    }
+
+    *buf = 136315138;
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Setting thresholds to be %s", buf, 0xCu);
+  }
+
+  v14[0] = @"BBTimeWantedThreshold";
+  if (thresholdsCopy)
+  {
+    supportsBasebandAPTimeSync = [(TMPreferences *)self supportsBasebandAPTimeSync];
+    v11 = INFINITY;
+    if (supportsBasebandAPTimeSync)
+    {
+      v11 = 0.048;
+    }
+  }
+
+  else
+  {
+    v11 = INFINITY;
+  }
+
+  v15[0] = [NSNumber numberWithDouble:v11, v14[0]];
+  v15[1] = &off_10002C0B0;
+  v14[1] = @"NtpTimeWantedThreshold";
+  v14[2] = @"CorrectTimeOnWake";
+  v15[2] = [NSNumber numberWithBool:thresholdsCopy];
+  v12 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v13 = qword_100033218;
+  if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v17 = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Registering these thresholds: %@", buf, 0xCu);
+  }
+
+  [(NSUserDefaults *)self->_defaults registerDefaults:v12];
 }
 
 - (id)description

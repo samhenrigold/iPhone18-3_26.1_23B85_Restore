@@ -68,7 +68,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  StrokeView.interactionDelegate.setter();
+  StrokeView.interactionDelegate.setter(delegate);
 }
 
 - (void)startAnimationRepeating:(BOOL)repeating

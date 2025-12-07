@@ -70,37 +70,34 @@ LABEL_8:
 
 - (void)protectedHealthDataDidBecomeAvailable
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received protected heath data available event", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received protected heath data available event", &v5, 0xCu);
   }
 
   [(HDSPWakeUpResultsNotificationNeedsProtectedDataState *)self _transitionToQueryingState];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToQueryingState
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Transitioning to querying state", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v4 = v8;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Transitioning to querying state", &v7, 0xCu);
   }
 
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   queryingState = [stateMachine queryingState];
   [stateMachine enterState:queryingState];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

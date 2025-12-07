@@ -44,29 +44,29 @@
 
 + (id)groupByBundleId:(id)id
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v4 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = idCopy;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         bundleId = [v10 bundleId];
 
         if (bundleId)
@@ -90,13 +90,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

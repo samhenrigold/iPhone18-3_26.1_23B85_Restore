@@ -188,8 +188,8 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdValue(uint64_t a1@<X0>, int 
 
   if ((atomic_load_explicit(&qword_2A1747C60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1747C60))
   {
-    sub_29A008E78(&unk_2A1747C48, off_2A14FDC70[0]);
-    __cxa_atexit(MEMORY[0x29EDC9388], &unk_2A1747C48, &dword_299FE7000);
+    sub_29A008E78(qword_2A1747C48, off_2A14FDC70[0]);
+    __cxa_atexit(MEMORY[0x29EDC9388], qword_2A1747C48, &dword_299FE7000);
     __cxa_guard_release(&qword_2A1747C60);
   }
 
@@ -215,26 +215,26 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdValue(uint64_t a1@<X0>, int 
     v7 = sub_29A8877BC((*a1 + 160), v6);
     if (v7)
     {
-      v8 = (v7 + 5);
+      v9 = (v7 + 5);
     }
 
     else
     {
-      v8 = sub_29B1F31FC();
+      v9 = sub_29B1F31FC(0, v8);
     }
 
-    v9 = sub_29A8877BC((*a1 + 160), &unk_2A1747C48);
-    if (v9)
+    v10 = sub_29A8877BC((*a1 + 160), qword_2A1747C48);
+    if (v10)
     {
-      v10 = (v9 + 5);
+      v12 = (v10 + 5);
     }
 
     else
     {
-      v10 = sub_29B1F31FC();
+      v12 = sub_29B1F31FC(0, v11);
     }
 
-    sub_29AAC8414(v8, v10, a3);
+    sub_29AAC8414(v9, v12, a3);
   }
 
   else
@@ -243,9 +243,9 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdValue(uint64_t a1@<X0>, int 
   }
 }
 
-void sub_29AAC8414(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sub_29AAC8414(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v75 = *MEMORY[0x29EDCA608];
+  v76 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A1747CC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1747CC0))
   {
     sub_29A008E78(qword_2A1747CA8, "filename");
@@ -271,403 +271,403 @@ void sub_29AAC8414(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
     goto LABEL_113;
   }
 
-  sub_29B1FB24C(a1, a2, &v66);
-  if (!v66)
+  sub_29B1FB24C(a1, a2, &v67);
+  if (!v67)
   {
     goto LABEL_109;
   }
 
-  if (sub_29B1F4450(v66))
+  if (sub_29B1F4450(v67))
   {
     v7 = 0;
-    v8 = *sub_29B1F44B4(v66);
+    v8 = *sub_29B1F44B4(v67);
     *(a3 + 8) = &unk_2A20443C3;
     *a3 = v8;
     goto LABEL_110;
   }
 
-  if (sub_29B1F3C5C(v66))
+  if (sub_29B1F3C5C(v67))
   {
     v7 = 0;
-    v9 = *sub_29B1F3CC0(v66);
+    v9 = *sub_29B1F3CC0(v67);
     *(a3 + 8) = &unk_2A204475B;
 LABEL_11:
     *a3 = v9;
     goto LABEL_110;
   }
 
-  if (sub_29B1F4818(v66))
+  if (sub_29B1F4818(v67))
   {
     v7 = 0;
-    v10 = *sub_29B1F487C(v66);
+    v10 = *sub_29B1F487C(v67);
 LABEL_14:
     *(a3 + 8) = &unk_2A2044C63;
     *a3 = v10;
     goto LABEL_110;
   }
 
-  if (sub_29B1F5038(v66))
+  if (sub_29B1F5038(v67))
   {
-    v11 = sub_29B1F509C(v66);
+    v11 = sub_29B1F509C(v67);
     v12 = sub_29AAC9CE4(v11);
-    sub_29AAC9D3C(&v67, v12);
+    sub_29AAC9D3C(&v68, v12);
     v7 = 0;
     *(a3 + 8) = &off_2A2044BA8 + 3;
-    *a3 = v67;
+    *a3 = v68;
     goto LABEL_110;
   }
 
-  if (!sub_29B1F9070(v66))
+  if (!sub_29B1F9070(v67))
   {
-    if (sub_29B1F96C8(v66))
+    if (sub_29B1F96C8(v67))
     {
-      v13 = sub_29B1F972C(v66);
-      *&v69 = 0;
-      v67 = 0u;
+      v14 = sub_29B1F972C(v67);
+      *&v70 = 0;
       v68 = 0u;
-      sub_29AAC9DA8(&v67, *(v13 + 1));
-      v15 = *v13;
-      v14 = *(v13 + 1);
-      v16 = v14 & 0x3F;
-      if (v14 > 0x3F || (v14 & 0x3F) != 0)
+      v69 = 0u;
+      sub_29AAC9DA8(&v68, *(v14 + 1));
+      v16 = *v14;
+      v15 = *(v14 + 1);
+      v17 = v15 & 0x3F;
+      if (v15 > 0x3F || (v15 & 0x3F) != 0)
       {
-        v17 = 0;
-        v18 = &v15[v14 >> 6];
+        v18 = 0;
+        v19 = &v16[v15 >> 6];
         do
         {
-          LOBYTE(__p[0]) = (*v15 >> v17) & 1;
-          sub_29A2CB240(&v67, __p);
-          v15 += v17 == 63;
-          if (v17 == 63)
+          LOBYTE(__p[0]) = (*v16 >> v18) & 1;
+          sub_29A2CB240(&v68, __p);
+          v16 += v18 == 63;
+          if (v18 == 63)
           {
-            v17 = 0;
+            v18 = 0;
           }
 
           else
           {
-            ++v17;
+            ++v18;
           }
         }
 
-        while (v15 != v18 || v17 != v16);
+        while (v16 != v19 || v18 != v17);
       }
 
       *(a3 + 8) = &off_2A20474B8;
-      sub_29A18ECC8(a3, &v67);
+      sub_29A18ECC8(a3, &v68);
       pxrInternal__aapl__pxrReserved__::VtArray<BOOL>::_DecRef();
     }
 
-    if (sub_29B1F9314(v66))
+    if (sub_29B1F9314(v67))
     {
-      v21 = sub_29B1F9378(v66);
-      *&v69 = 0;
-      v67 = 0u;
+      v22 = sub_29B1F9378(v67);
+      *&v70 = 0;
       v68 = 0u;
-      sub_29A7A8F90(&v67, (*(v21 + 1) - *v21) >> 2);
-      v23 = *v21;
-      v22 = *(v21 + 1);
-      while (v23 != v22)
+      v69 = 0u;
+      sub_29A7A8F90(&v68, (*(v22 + 1) - *v22) >> 2);
+      v24 = *v22;
+      v23 = *(v22 + 1);
+      while (v24 != v23)
       {
-        LODWORD(__p[0]) = *v23;
-        sub_29A7ACA64(&v67, __p);
-        ++v23;
+        LODWORD(__p[0]) = *v24;
+        sub_29A7ACA64(&v68, __p);
+        ++v24;
       }
 
       *(a3 + 8) = &off_2A2043D18;
-      sub_29A18ECC8(a3, &v67);
+      sub_29A18ECC8(a3, &v68);
       pxrInternal__aapl__pxrReserved__::VtArray<int>::_DecRef();
     }
 
-    if (sub_29B1F9A9C(v66))
+    if (sub_29B1F9A9C(v67))
     {
-      v24 = sub_29B1F9B00(v66);
-      *&v69 = 0;
-      v67 = 0u;
+      v25 = sub_29B1F9B00(v67);
+      *&v70 = 0;
       v68 = 0u;
-      sub_29A84DD38(&v67, (*(v24 + 1) - *v24) >> 2);
-      v26 = *v24;
-      v25 = *(v24 + 1);
-      while (v26 != v25)
+      v69 = 0u;
+      sub_29A84DD38(&v68, (*(v25 + 1) - *v25) >> 2);
+      v27 = *v25;
+      v26 = *(v25 + 1);
+      while (v27 != v26)
       {
-        LODWORD(__p[0]) = *v26;
-        sub_29A85289C(&v67, __p);
-        ++v26;
+        LODWORD(__p[0]) = *v27;
+        sub_29A85289C(&v68, __p);
+        ++v27;
       }
 
       *(a3 + 8) = &off_2A2042F70;
-      sub_29A18ECC8(a3, &v67);
+      sub_29A18ECC8(a3, &v68);
       pxrInternal__aapl__pxrReserved__::VtArray<float>::_DecRef();
     }
 
-    if (sub_29B1F9E50(v66))
+    if (sub_29B1F9E50(v67))
     {
-      v27 = sub_29B1F9EB4(v66);
-      *&v69 = 0;
-      v67 = 0u;
+      v28 = sub_29B1F9EB4(v67);
+      *&v70 = 0;
       v68 = 0u;
-      sub_29A7D6338(&v67, 0xAAAAAAAAAAAAAAABLL * ((*(v27 + 1) - *v27) >> 3));
-      v29 = *v27;
-      v28 = *(v27 + 1);
-      while (v29 != v28)
+      v69 = 0u;
+      sub_29A7D6338(&v68, 0xAAAAAAAAAAAAAAABLL * ((*(v28 + 1) - *v28) >> 3));
+      v30 = *v28;
+      v29 = *(v28 + 1);
+      while (v30 != v29)
       {
-        if (*(v29 + 23) < 0)
+        if (*(v30 + 23) < 0)
         {
-          sub_29A008D14(__p, *v29, *(v29 + 1));
+          sub_29A008D14(__p, *v30, *(v30 + 1));
         }
 
         else
         {
-          v30 = *v29;
-          v65 = *(v29 + 2);
-          *__p = v30;
+          v31 = *v30;
+          v66 = *(v30 + 2);
+          *__p = v31;
         }
 
-        sub_29A2CB91C(&v67, __p);
-        if (SHIBYTE(v65) < 0)
+        sub_29A2CB91C(&v68, __p);
+        if (SHIBYTE(v66) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v29 = (v29 + 24);
+        v30 = (v30 + 24);
       }
 
       *(a3 + 8) = off_2A20479C8;
-      sub_29A18ECC8(a3, &v67);
+      sub_29A18ECC8(a3, &v68);
       pxrInternal__aapl__pxrReserved__::VtArray<std::string>::_DecRef();
     }
 
-    if (sub_29B1F5894(v66))
+    if (sub_29B1F5894(v67))
     {
-      v31 = sub_29B1F58F8(v66);
-      *&v67 = *v31;
-      DWORD2(v67) = *(v31 + 2);
+      v32 = sub_29B1F58F8(v67);
+      *&v68 = *v32;
+      DWORD2(v68) = *(v32 + 2);
       *(a3 + 8) = &off_2A2042840 + 2;
-      v32 = operator new(0x10uLL);
+      v33 = operator new(0x10uLL);
 LABEL_55:
       v7 = 0;
-      *v32 = v67;
-      v32[2] = DWORD2(v67);
-      v33 = v32 + 3;
+      *v33 = v68;
+      v33[2] = DWORD2(v68);
+      v34 = v33 + 3;
 LABEL_61:
-      atomic_store(0, v33);
-      *a3 = v32;
-      atomic_fetch_add_explicit(v33, 1u, memory_order_relaxed);
+      atomic_store(0, v34);
+      *a3 = v33;
+      atomic_fetch_add_explicit(v34, 1u, memory_order_relaxed);
       goto LABEL_110;
     }
 
-    if (sub_29B1F5D14(v66))
+    if (sub_29B1F5D14(v67))
     {
-      v67 = *sub_29B1F5D78(v66);
+      v68 = *sub_29B1F5D78(v67);
       *(a3 + 8) = &off_2A2042A68 + 2;
-      v32 = operator new(0x14uLL);
+      v33 = operator new(0x14uLL);
 LABEL_60:
       v7 = 0;
-      *v32 = v67;
-      v33 = v32 + 4;
+      *v33 = v68;
+      v34 = v33 + 4;
       goto LABEL_61;
     }
 
-    if (sub_29B1F6190(v66))
+    if (sub_29B1F6190(v67))
     {
       v7 = 0;
-      v34 = *sub_29B1F61F4(v66);
-      v35 = &off_2A2042618;
+      v35 = *sub_29B1F61F4(v67);
+      v36 = &off_2A2042618;
 LABEL_64:
-      *a3 = v34;
-      *(a3 + 8) = v35 | 3;
+      *a3 = v35;
+      *(a3 + 8) = v36 | 3;
       goto LABEL_110;
     }
 
-    if (sub_29B1F6600(v66))
+    if (sub_29B1F6600(v67))
     {
-      v36 = sub_29B1F6664(v66);
-      *&v67 = *v36;
-      DWORD2(v67) = *(v36 + 2);
+      v37 = sub_29B1F6664(v67);
+      *&v68 = *v37;
+      DWORD2(v68) = *(v37 + 2);
       *(a3 + 8) = &off_2A2042840 + 2;
-      v32 = operator new(0x10uLL);
+      v33 = operator new(0x10uLL);
       goto LABEL_55;
     }
 
-    if (sub_29B1F6A80(v66))
+    if (sub_29B1F6A80(v67))
     {
-      v67 = *sub_29B1F6AE4(v66);
+      v68 = *sub_29B1F6AE4(v67);
       *(a3 + 8) = &off_2A2042A68 + 2;
-      v32 = operator new(0x14uLL);
+      v33 = operator new(0x14uLL);
       goto LABEL_60;
     }
 
-    if (sub_29B1F6EFC(v66))
+    if (sub_29B1F6EFC(v67))
     {
-      v37 = sub_29B1F6F60(v66);
+      v38 = sub_29B1F6F60(v67);
       for (i = 0; i != 2; ++i)
       {
-        v39 = sub_29AAC9CE4(v37);
-        sub_29AAC9D3C(__p, v39);
-        *(&v67 + i) = __p[0];
-        ++v37;
+        v40 = sub_29AAC9CE4(v38);
+        sub_29AAC9D3C(__p, v40);
+        *(&v68 + i) = __p[0];
+        ++v38;
       }
 
       v7 = 0;
       *(a3 + 8) = &off_2A2042560 + 3;
-      v9 = v67;
+      v9 = v68;
       goto LABEL_11;
     }
 
-    if (sub_29B1F72EC(v66))
+    if (sub_29B1F72EC(v67))
     {
-      v40 = sub_29B1F7350(v66);
+      v41 = sub_29B1F7350(v67);
       for (j = 0; j != 3; ++j)
       {
-        v42 = sub_29AAC9CE4(v40);
-        sub_29AAC9D3C(__p, v42);
-        *(&v67 + j) = __p[0];
-        ++v40;
+        v43 = sub_29AAC9CE4(v41);
+        sub_29AAC9D3C(__p, v43);
+        *(&v68 + j) = __p[0];
+        ++v41;
       }
 
       v7 = 0;
       *(a3 + 8) = &off_2A2042788 + 3;
-      *a3 = v67;
-      *(a3 + 4) = WORD2(v67);
+      *a3 = v68;
+      *(a3 + 4) = WORD2(v68);
       goto LABEL_110;
     }
 
-    if (sub_29B1F76F0(v66))
+    if (sub_29B1F76F0(v67))
     {
-      v43 = sub_29B1F7754(v66);
+      v44 = sub_29B1F7754(v67);
       for (k = 0; k != 4; ++k)
       {
-        v45 = sub_29AAC9CE4(v43);
-        sub_29AAC9D3C(__p, v45);
-        *(&v67 + k) = __p[0];
-        ++v43;
+        v46 = sub_29AAC9CE4(v44);
+        sub_29AAC9D3C(__p, v46);
+        *(&v68 + k) = __p[0];
+        ++v44;
       }
 
       v7 = 0;
-      *a3 = v67;
+      *a3 = v68;
       *(a3 + 8) = &off_2A20429B0 + 3;
       goto LABEL_110;
     }
 
-    if (sub_29B1F7AE8(v66))
+    if (sub_29B1F7AE8(v67))
     {
       v7 = 0;
-      v34 = *sub_29B1F7B4C(v66);
-      v35 = &off_2A2047EE8;
+      v35 = *sub_29B1F7B4C(v67);
+      v36 = &off_2A2047EE8;
       goto LABEL_64;
     }
 
-    if (sub_29B1F7ED8(v66))
+    if (sub_29B1F7ED8(v67))
     {
-      v46 = sub_29B1F7F3C(v66);
-      *&v67 = *v46;
-      DWORD2(v67) = *(v46 + 2);
+      v47 = sub_29B1F7F3C(v67);
+      *&v68 = *v47;
+      DWORD2(v68) = *(v47 + 2);
       *(a3 + 8) = &off_2A2048058 + 2;
-      v32 = operator new(0x10uLL);
+      v33 = operator new(0x10uLL);
       goto LABEL_55;
     }
 
-    if (sub_29B1F82D8(v66))
+    if (sub_29B1F82D8(v67))
     {
-      v67 = *sub_29B1F833C(v66);
+      v68 = *sub_29B1F833C(v67);
       *(a3 + 8) = &off_2A20481C8 + 2;
-      v32 = operator new(0x14uLL);
+      v33 = operator new(0x14uLL);
       goto LABEL_60;
     }
 
-    if (sub_29B1F86D0(v66))
+    if (sub_29B1F86D0(v67))
     {
-      v47 = sub_29B1F8734(v66);
-      v48 = 0;
-      v49 = &v67;
+      v48 = sub_29B1F8734(v67);
+      v49 = 0;
+      v50 = &v68;
       do
       {
         for (m = 0; m != 3; ++m)
         {
-          *(v49 + m) = *&v47[4 * m];
+          *(v50 + m) = *&v48[4 * m];
         }
 
-        ++v48;
-        v47 += 12;
-        v49 = (v49 + 24);
+        ++v49;
+        v48 += 12;
+        v50 = (v50 + 24);
       }
 
-      while (v48 != 3);
+      while (v49 != 3);
       *(a3 + 8) = &off_2A20484A8 + 2;
-      v32 = operator new(0x50uLL);
+      v33 = operator new(0x50uLL);
       v7 = 0;
-      v51 = v70;
-      *(v32 + 2) = v69;
-      *(v32 + 3) = v51;
-      *(v32 + 8) = v71;
-      v52 = v68;
-      *v32 = v67;
-      *(v32 + 1) = v52;
-      v33 = v32 + 18;
+      v52 = v71;
+      *(v33 + 2) = v70;
+      *(v33 + 3) = v52;
+      *(v33 + 8) = v72;
+      v53 = v69;
+      *v33 = v68;
+      *(v33 + 1) = v53;
+      v34 = v33 + 18;
       goto LABEL_61;
     }
 
-    if (sub_29B1F8BA0(v66))
+    if (sub_29B1F8BA0(v67))
     {
-      v53 = sub_29B1F8C04(v66);
+      v54 = sub_29B1F8C04(v67);
       for (n = 0; n != 4; ++n)
       {
-        v55 = (&v67 + 2 * n);
-        v56 = *&v53[16 * n];
-        *v55 = vcvtq_f64_f32(*v56.f32);
-        v55[1] = vcvt_hight_f64_f32(v56);
+        v56 = (&v68 + 2 * n);
+        v57 = *&v54[16 * n];
+        *v56 = vcvtq_f64_f32(*v57.f32);
+        v56[1] = vcvt_hight_f64_f32(v57);
       }
 
       *(a3 + 8) = &off_2A2042BD8 + 2;
-      v32 = operator new(0x88uLL);
+      v33 = operator new(0x88uLL);
       v7 = 0;
-      v57 = v72;
-      *(v32 + 4) = v71;
-      *(v32 + 5) = v57;
-      v58 = v74;
-      *(v32 + 6) = v73;
-      *(v32 + 7) = v58;
-      v59 = v68;
-      *v32 = v67;
-      *(v32 + 1) = v59;
-      v60 = v70;
-      *(v32 + 2) = v69;
-      *(v32 + 3) = v60;
-      v33 = v32 + 32;
+      v58 = v73;
+      *(v33 + 4) = v72;
+      *(v33 + 5) = v58;
+      v59 = v75;
+      *(v33 + 6) = v74;
+      *(v33 + 7) = v59;
+      v60 = v69;
+      *v33 = v68;
+      *(v33 + 1) = v60;
+      v61 = v71;
+      *(v33 + 2) = v70;
+      *(v33 + 3) = v61;
+      v34 = v33 + 32;
       goto LABEL_61;
     }
 
-    if (sub_29B1FA2CC(v66))
+    if (sub_29B1FA2CC(v67))
     {
       v7 = 0;
-      v61 = *sub_29B1FA330(v66);
+      v62 = *sub_29B1FA330(v67);
       *(a3 + 8) = &unk_2A204475B;
-      *a3 = v61;
+      *a3 = v62;
       goto LABEL_110;
     }
 
-    if (sub_29B1FAA70(v66))
+    if (sub_29B1FAA70(v67))
     {
       v7 = 0;
-      v10 = *sub_29B1FAAD4(v66);
+      v10 = *sub_29B1FAAD4(v67);
       goto LABEL_14;
     }
 
-    *&v67 = "usdMtlx/utils.mm";
-    *(&v67 + 1) = "_GetUsdValue";
-    *&v68 = 164;
-    *(&v68 + 1) = "VtValue pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_GetUsdValue(const std::string &, const std::string &)";
-    LOBYTE(v69) = 0;
+    *&v68 = "usdMtlx/utils.mm";
+    *(&v68 + 1) = "_GetUsdValue";
+    *&v69 = 164;
+    *(&v69 + 1) = "VtValue pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_GetUsdValue(const std::string &, const std::string &)";
+    LOBYTE(v70) = 0;
     if (*(a2 + 23) >= 0)
     {
-      v63 = a2;
+      v64 = a2;
     }
 
     else
     {
-      v63 = *a2;
+      v64 = *a2;
     }
 
-    pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v67, "MaterialX unsupported type %s", v62, v63);
+    pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v68, "MaterialX unsupported type %s", v63, v64);
 LABEL_109:
     v7 = 1;
     goto LABEL_110;
@@ -675,26 +675,26 @@ LABEL_109:
 
   if (sub_29A1B00DC(a2, qword_2A1747CA8))
   {
-    sub_29B1F90D4(v66);
-    pxrInternal__aapl__pxrReserved__::SdfAssetPath::SdfAssetPath(&v67);
+    v13 = sub_29B1F90D4(v67);
+    pxrInternal__aapl__pxrReserved__::SdfAssetPath::SdfAssetPath(&v68, v13);
     *(a3 + 8) = &off_2A2047B38;
-    sub_29A215A28(a3, &v67);
-    sub_29A0D2850(&v67);
+    sub_29A215A28(a3, &v68);
+    sub_29A0D2850(&v68);
   }
 
   else
   {
     sub_29A1B00DC(a2, qword_2A1747CC8);
-    v20 = sub_29B1F90D4(v66);
+    v21 = sub_29B1F90D4(v67);
     *(a3 + 8) = &off_2A2044DD0;
-    sub_29A1B01B8(a3, v20);
+    sub_29A1B01B8(a3, v21);
   }
 
   v7 = 0;
 LABEL_110:
-  if (*(&v66 + 1))
+  if (*(&v67 + 1))
   {
-    sub_29A014BEC(*(&v66 + 1));
+    sub_29A014BEC(*(&v67 + 1));
   }
 
   if (v7)
@@ -751,7 +751,7 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxGetPackedUsdValues(std::string *a1
         *&__p.__r_.__value_.__l.__data_ = v11;
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringTrim(" \n\t\r", &__p, &v15);
+      pxrInternal__aapl__pxrReserved__::TfStringTrim(&v15, " \n\t\r", &__p);
       sub_29AAC8414(&v15, a2, &v19);
       if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -801,30 +801,30 @@ void sub_29AAC918C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 pxrInternal__aapl__pxrReserved__::UsdMtlxSplitStringArray@<Q0>(std::string *__str@<X0>, uint64_t *a2@<X8>)
+__n128 pxrInternal__aapl__pxrReserved__::UsdMtlxSplitStringArray@<Q0>(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   if ((atomic_load_explicit(&qword_2A1747CA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1747CA0))
   {
-    sub_29A008E78(&unk_2A1747C88, ",");
-    __cxa_atexit(MEMORY[0x29EDC9388], &unk_2A1747C88, &dword_299FE7000);
+    sub_29A008E78(qword_2A1747C88, ",");
+    __cxa_atexit(MEMORY[0x29EDC9388], qword_2A1747C88, &dword_299FE7000);
     __cxa_guard_release(&qword_2A1747CA0);
   }
 
-  sub_29B1F3590(__str, &unk_2A1747C88, a2);
-  v5 = *a2;
-  v6 = a2[1];
-  while (v5 != v6)
+  sub_29B1F3590(a1, __str, qword_2A1747C88);
+  v6 = *a1;
+  v7 = a1[1];
+  while (v6 != v7)
   {
-    sub_29B1F3AB0(v5, &v7);
-    if (*(v5 + 23) < 0)
+    sub_29B1F3AB0(&v8, v6, v4);
+    if (SHIBYTE(v6->__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(*v5);
+      operator delete(v6->__r_.__value_.__l.__data_);
     }
 
-    result = *&v7.__r_.__value_.__l.__data_;
-    *(v5 + 16) = *(&v7.__r_.__value_.__l + 2);
-    *v5 = result;
-    v5 += 24;
+    result = *&v8.__r_.__value_.__l.__data_;
+    v6->__r_.__value_.__r.__words[2] = v8.__r_.__value_.__r.__words[2];
+    *&v6->__r_.__value_.__l.__data_ = result;
+    ++v6;
   }
 
   return result;
@@ -839,14 +839,14 @@ void *sub_29AAC9330(void *a1, std::string *a2)
   return a1;
 }
 
-void sub_29AAC9368(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AAC9368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A012C90(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29AAC9380(void ***a1)
+void sub_29AAC9380(void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -978,7 +978,7 @@ void sub_29AAC95F8(uint64_t a1, std::string::size_type *a2, char **a3, uint64_t 
     operator delete(v21.__r_.__value_.__l.__data_);
   }
 
-  pxrInternal__aapl__pxrReserved__::TfGetPathName(&__str, &v21);
+  pxrInternal__aapl__pxrReserved__::TfGetPathName(&v21, &__str);
   if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
@@ -1000,7 +1000,7 @@ void sub_29AAC95F8(uint64_t a1, std::string::size_type *a2, char **a3, uint64_t 
     sub_29B206794(a3, 1, &v19);
   }
 
-  pxrInternal__aapl__pxrReserved__::TfNormPath(&v20, &v19, 0);
+  pxrInternal__aapl__pxrReserved__::TfNormPath(&v20, &v19);
   if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v21.__r_.__value_.__l.__data_);
@@ -1193,7 +1193,7 @@ void sub_29AAC9C78(_Unwind_Exception *a1, int a2)
   sub_299FEDEEC(a1);
 }
 
-const void **sub_29AAC9C84(uint64_t a1, const void **a2)
+const void **sub_29AAC9C84(uint64_t a1, uint64_t *a2)
 {
   result = sub_29A8877BC((a1 + 160), a2);
   if (result)
@@ -1201,15 +1201,15 @@ const void **sub_29AAC9C84(uint64_t a1, const void **a2)
     v5 = sub_29A8877BC((a1 + 160), a2);
     if (v5)
     {
-      v6 = (v5 + 5);
+      v7 = (v5 + 5);
     }
 
     else
     {
-      v6 = sub_29B1F31FC();
+      v7 = sub_29B1F31FC(0, v6);
     }
 
-    return sub_29B1F4640(v6);
+    return sub_29B1F4640(v7);
   }
 
   return result;
@@ -1273,7 +1273,7 @@ _WORD *sub_29AAC9D3C(_WORD *a1, float a2)
   return a1;
 }
 
-unint64_t *sub_29AAC9DA8(unint64_t *result, unint64_t a2)
+void *sub_29AAC9DA8(void *result, unint64_t a2)
 {
   v2 = result[4];
   if (v2)
@@ -1314,15 +1314,15 @@ LABEL_12:
   return result;
 }
 
-uint64_t *sub_29AAC9E40(uint64_t **a1, const void **a2, uint64_t a3)
+uint64_t *sub_29AAC9E40(uint64_t ***a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v5 = sub_29A00B0D0(a1, &v8, a2);
-  result = *v5;
-  if (!*v5)
+  v6 = sub_29A00B0D0(a1, &v9, a2);
+  result = *v6;
+  if (!*v6)
   {
-    sub_29AAC9EC8(a1, a3, &v7);
-    sub_29A00B204(a1, v8, v5, v7);
-    return v7;
+    sub_29AAC9EC8(a1, a3, &v8);
+    sub_29A00B204(a1, v9, v6, v8);
+    return v8;
   }
 
   return result;
@@ -1352,7 +1352,7 @@ _BYTE *sub_29AAC9EC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
   return result;
 }
 
-uint64_t sub_29AAC9F58(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t sub_29AAC9F58(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -1373,7 +1373,7 @@ uint64_t sub_29AAC9F58(uint64_t a1, const void **a2, uint64_t a3)
   return a1;
 }
 
-const void **sub_29AAC9FD4(uint64_t a1, const void **a2, __int128 *a3)
+const void **sub_29AAC9FD4(uint64_t a1, uint64_t *a2, __int128 *a3)
 {
   v7 = sub_29A12A708(a1, a2);
   v8 = v7;
@@ -1435,7 +1435,7 @@ const void **sub_29AAC9FD4(uint64_t a1, const void **a2, __int128 *a3)
     }
   }
 
-  sub_29AACA228(a1, v8, a3, v26);
+  sub_29AACA228(a1, v8, v26, a3);
   v15 = (*(a1 + 24) + 1);
   v16 = *(a1 + 32);
   if (!v9 || (v16 * v9) < v15)
@@ -1520,23 +1520,23 @@ const void **sub_29AAC9FD4(uint64_t a1, const void **a2, __int128 *a3)
   return i;
 }
 
-void sub_29AACA210(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AACA210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29AACA32C(va, 0);
   _Unwind_Resume(a1);
 }
 
-void *sub_29AACA228@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, void *a4@<X8>)
+void *sub_29AACA228@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>, __int128 *a4@<X2>)
 {
   v8 = operator new(0x40uLL);
-  *a4 = v8;
-  a4[1] = a1;
-  a4[2] = 0;
+  *a3 = v8;
+  a3[1] = a1;
+  a3[2] = 0;
   *v8 = 0;
   v8[1] = a2;
-  result = sub_29AACA298(v8 + 2, a3);
-  *(a4 + 16) = 1;
+  result = sub_29AACA298(v8 + 2, a4);
+  *(a3 + 16) = 1;
   return result;
 }
 
@@ -1568,7 +1568,7 @@ void *sub_29AACA298(void *__dst, __int128 *a2)
   return __dst;
 }
 
-void sub_29AACA32C(uint64_t a1, uint64_t a2)
+void sub_29AACA32C(char **a1, char *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -1627,55 +1627,55 @@ void sub_29AACA3F0(uint64_t a1, void *a2)
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::UsdMtlx_TestString(const std::string *a1@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::UsdMtlx_TestString(const std::string *a1@<X0>, pxrInternal__aapl__pxrReserved__ **a3@<X8>)
 {
-  sub_29B1C6D8C(&v8, a1);
-  v5 = v8;
+  sub_29B1C6D8C(&v9);
   v6 = v9;
-  if (v9)
+  v7 = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   memset(&__p, 0, sizeof(__p));
-  sub_29B20A284(&v5, a1, &__p, 0);
+  sub_29B20A284(&v6, a1, &__p, 0);
   p_p = &__p;
   sub_29AAC9380(&p_p);
-  if (v6)
+  if (v7)
   {
-    sub_29A014BEC(v6);
+    sub_29A014BEC(v7);
   }
 
-  if (v8)
-  {
-    sub_29A008E78(&__p, "tmp.usda");
-    v5 = 0;
-    v6 = 0;
-    pxrInternal__aapl__pxrReserved__::UsdStage::CreateInMemory(&__p, &v5, 0, a2);
-  }
-
-  *a2 = 0;
   if (v9)
   {
-    sub_29A014BEC(v9);
+    sub_29A008E78(&__p, "tmp.usda");
+    v6 = 0;
+    v7 = 0;
+    pxrInternal__aapl__pxrReserved__::UsdStage::CreateInMemory(&__p, &v6, 0, a3);
+  }
+
+  *a3 = 0;
+  if (v10)
+  {
+    sub_29A014BEC(v10);
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::UsdMtlx_TestFile(uint64_t a1@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::UsdMtlx_TestFile(uint64_t a1@<X0>, pxrInternal__aapl__pxrReserved__ **a3@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::UsdMtlxReadDocument(a1, &v5);
-  if (v5)
-  {
-    sub_29A008E78(&__p, "tmp.usda");
-    v4[0] = 0;
-    v4[1] = 0;
-    pxrInternal__aapl__pxrReserved__::UsdStage::CreateInMemory(&__p, v4, 0, a2);
-  }
-
-  *a2 = 0;
+  pxrInternal__aapl__pxrReserved__::UsdMtlxReadDocument(a1, &v6);
   if (v6)
   {
-    sub_29A014BEC(v6);
+    sub_29A008E78(&__p, "tmp.usda");
+    v5[0] = 0;
+    v5[1] = 0;
+    pxrInternal__aapl__pxrReserved__::UsdStage::CreateInMemory(&__p, v5, 0, a3);
+  }
+
+  *a3 = 0;
+  if (v7)
+  {
+    sub_29A014BEC(v7);
   }
 }
 
@@ -1704,9 +1704,9 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormatTokens_StaticTokenType::
 pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormatTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormatTokens_StaticTokenType::UsdMtlxFileFormatTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormatTokens_StaticTokenType *this)
 {
   v16 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "mtlx", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "1.0", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 16, "usd", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "mtlx");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "1.0");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this + 2, "usd");
   v3 = (this + 24);
   v4 = *this;
   v13 = v4;
@@ -1884,16 +1884,16 @@ void sub_29AACB7B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormat::WriteToString()
+void pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormat::WriteToString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
-  if (!v0)
+  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
+  if (!v4)
   {
-    v0 = sub_29A34AE68(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
+    v4 = sub_29A34AE68(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
   }
 
-  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindById(v0, v1);
-  sub_29A1DA734(v1);
+  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindById(v4, v5);
+  sub_29A1DA734(v5);
 }
 
 void sub_29AACBC04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1906,16 +1906,16 @@ void sub_29AACBC04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormat::WriteToStream()
+void pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormat::WriteToStream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
-  if (!v0)
+  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
+  if (!v4)
   {
-    v0 = sub_29A34AE68(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
+    v4 = sub_29A34AE68(&pxrInternal__aapl__pxrReserved__::UsdUsdaFileFormatTokens);
   }
 
-  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindById(v0, v1);
-  sub_29A1DA734(v1);
+  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindById(v4, v5);
+  sub_29A1DA734(v5);
 }
 
 void sub_29AACBCC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1928,13 +1928,13 @@ void sub_29AACBCC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29AACBCDC()
+void *sub_29AACBCDC()
 {
   v2 = nullsub_1518;
   return sub_29AACBD38(v0);
 }
 
-uint64_t sub_29AACBD38(uint64_t *a1)
+void *sub_29AACBD38(uint64_t *a1)
 {
   v2 = operator new(8uLL);
   *v2 = &unk_2A2070EC8;
@@ -1995,7 +1995,7 @@ pxrInternal__aapl__pxrReserved__::UsdMtlxFileFormatTokens_StaticTokenType *sub_2
 
 void sub_29AACBF28()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2070EF8, 0, "USDMTLX_READER", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2070EF8, 0, "USDMTLX_READER", 0);
   v0 = sub_29AACBF84();
 
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v0, "USDMTLX_READER", "UsdMtlx reader details");
@@ -2014,9 +2014,9 @@ uint64_t sub_29AACBF84()
   return qword_2A14F8FD8;
 }
 
-void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrInternal__aapl__pxrReserved__::SdfPath *a3, pxrInternal__aapl__pxrReserved__::SdfPath *a4)
+void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, const pxrInternal__aapl__pxrReserved__::SdfPath *a3, const pxrInternal__aapl__pxrReserved__::SdfPath *a4)
 {
-  v103 = *MEMORY[0x29EDCA608];
+  v104 = *MEMORY[0x29EDCA608];
   if (*a1)
   {
     v5 = sub_29B2ACEC8(a2);
@@ -2028,11 +2028,11 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
         {
           sub_29B2BD43C(&v70, a2);
           sub_29AAD1438();
-          sub_29AAD14B4(v95, a1, &qword_2A1747D30);
-          v7 = *(v95[0] + 23);
+          sub_29AAD14B4(v96, a1, &qword_2A1747D30);
+          v7 = *(v96[0] + 23);
           if (v7 < 0)
           {
-            v7 = *(v95[0] + 1);
+            v7 = *(v96[0] + 1);
           }
 
           if (v7)
@@ -2041,11 +2041,11 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
           }
 
           sub_29AAD1438();
-          sub_29AAD14B4(v91, a1, &qword_2A1747D48);
-          v8 = *(v91[0] + 23);
+          sub_29AAD14B4(v92, a1, &qword_2A1747D48);
+          v8 = *(v92[0] + 23);
           if (v8 < 0)
           {
-            v8 = *(v91[0] + 1);
+            v8 = *(v92[0] + 1);
           }
 
           if (v8)
@@ -2054,7 +2054,7 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
           }
 
           v9 = sub_29AAC1FF8(*a1);
-          v10 = *(v9 + 23);
+          v10 = v9[23];
           if ((v10 & 0x80u) != 0)
           {
             v10 = *(v9 + 1);
@@ -2062,9 +2062,9 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
 
           if (v10)
           {
-            v91[0] = 0;
-            v95[1] = &off_2A2044DD0;
-            sub_29A1B01B8(v95, v9);
+            v92[0] = 0;
+            v96[1] = &off_2A2044DD0;
+            sub_29A1B01B8(v96, v9);
             v11 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
             if (!v11)
             {
@@ -2081,9 +2081,9 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
               EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v11);
             }
 
-            v13 = pxrInternal__aapl__pxrReserved__::VtDictionary::operator[](v91, EmptyString);
-            sub_29A18606C(v13, v95);
-            sub_29A186B14(v95);
+            v13 = pxrInternal__aapl__pxrReserved__::VtDictionary::operator[](v92, EmptyString);
+            sub_29A18606C(v13, v96);
+            sub_29A186B14(v96);
             pxrInternal__aapl__pxrReserved__::TfWeakPtrFacade<pxrInternal__aapl__pxrReserved__::TfWeakPtr,pxrInternal__aapl__pxrReserved__::UsdStage>::operator->();
           }
 
@@ -2105,14 +2105,14 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
           v16 = a1[1];
           if (v16)
           {
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
           }
 
           v65 = v16;
           v64 = v15;
-          sub_29AADADD4(v15, &v86);
-          size = v86.__r_.__value_.__l.__size_;
-          for (i = v86.__r_.__value_.__r.__words[0]; i != size; i += 2)
+          sub_29AADADD4(v15, &v87);
+          size = v87.__r_.__value_.__l.__size_;
+          for (i = v87.__r_.__value_.__r.__words[0]; i != size; i += 2)
           {
             if (sub_29AAD2C14(0))
             {
@@ -2132,7 +2132,7 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
               atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            if (!v80 || (*(v80 + 57) & 8) != 0 || !(*(v79 + 32))(&v79) || (v95[0] = "usdMtlx/reader.cpp", v95[1] = "BeginMaterial", v96 = 1478, __p = "UsdShadeMaterial pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::BeginMaterial(const mx::ConstNodePtr &)", LOBYTE(v98) = 0, (pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v95, "!_usdMaterial", 0) & 1) != 0))
+            if (!v80 || (*(v80 + 57) & 8) != 0 || !(*(v79 + 32))(&v79) || (v96[0] = "usdMtlx/reader.cpp", v96[1] = "BeginMaterial", v97 = 1478, __p = "UsdShadeMaterial pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::BeginMaterial(const mx::ConstNodePtr &)", LOBYTE(v99) = 0, (pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v96, "!_usdMaterial", 0) & 1) != 0))
             {
               if (v22)
               {
@@ -2141,18 +2141,18 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
 
               if (v23)
               {
-                sub_29AAD3238(v23 + 48, v95);
+                sub_29AAD3238(v23 + 48, v96);
               }
 
               else
               {
-                v95[0] = 0;
+                v96[0] = 0;
               }
 
-              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(v74, v95, &v88);
-              if ((v95[0] & 7) != 0)
+              pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v89, v74, v96);
+              if ((v96[0] & 7) != 0)
               {
-                atomic_fetch_add_explicit((v95[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                atomic_fetch_add_explicit((v96[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
               }
 
               if (v22)
@@ -2163,23 +2163,23 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
               pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::Define(&v70, &__src);
               if (v84 && (*(v84 + 57) & 8) == 0 && (*(__src + 4))(&__src))
               {
-                sub_29A580660(v91, &v84, &v85);
-                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::Apply(v91, v95);
-                if ((v94 & 7) != 0)
+                sub_29A580660(v92, &v84, &v85);
+                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::Apply(v96, v92);
+                if ((v95 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v94 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v95 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v93);
-                sub_29A1DE3A4(&v92);
-                if (v91[1])
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v94);
+                sub_29A1DE3A4(&v93);
+                if (v92[1])
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v91[1], v24);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v92[1], v24);
                 }
 
-                sub_29B1D8ACC(v23, v91);
-                v25 = sub_29AAC5BF8(v91[0]);
-                if (*(v25 + 23) < 0)
+                sub_29B1D8ACC(v23, v92);
+                v25 = sub_29AAC5BF8(v92[0]);
+                if (v25[23] < 0)
                 {
                   sub_29A008D14(&__dst, *v25, *(v25 + 1));
                 }
@@ -2191,66 +2191,66 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                   *&__dst.__r_.__value_.__l.__data_ = v26;
                 }
 
-                if (v91[1])
+                if (v92[1])
                 {
-                  sub_29A014BEC(v91[1]);
+                  sub_29A014BEC(v92[1]);
                 }
 
-                v91[1] = &off_2A2044DD0;
-                sub_29A1B01B8(v91, &__dst);
-                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::CreateConfigMtlxVersionAttr(v95, v91, 0, &v99);
-                if ((v102 & 7) != 0)
+                v92[1] = &off_2A2044DD0;
+                sub_29A1B01B8(v92, &__dst);
+                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::CreateConfigMtlxVersionAttr(&v100, v96, v92, 0);
+                if ((v103 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v102 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v103 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v101 + 1);
-                sub_29A1DE3A4(&v101);
-                if (v100)
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v102 + 1);
+                sub_29A1DE3A4(&v102);
+                if (v101)
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v100, v27);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v101, v27);
                 }
 
-                sub_29A186B14(v91);
-                sub_29A580660(v91, &v84, &v85);
-                v89[0] = v23;
-                v89[1] = v22;
+                sub_29A186B14(v92);
+                sub_29A580660(v92, &v84, &v85);
+                v90[0] = v23;
+                v90[1] = v22;
                 if (v22)
                 {
                   atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                sub_29AAD52A0(v91, v89);
+                sub_29AAD52A0(v92, v90);
                 if (v22)
                 {
                   sub_29A014BEC(v22);
                 }
 
-                if ((v94 & 7) != 0)
+                if ((v95 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v94 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v95 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v93);
-                sub_29A1DE3A4(&v92);
-                if (v91[1])
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v94);
+                sub_29A1DE3A4(&v93);
+                if (v92[1])
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v91[1], v28);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v92[1], v28);
                 }
 
-                pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(v91, &__src);
-                v94 = 0;
-                v91[0] = off_2A2060F50;
-                v89[0] = (v23 + 48);
-                v29 = sub_29AADB0C0(&v76, (v23 + 48), &unk_29B4D6118, v89);
-                sub_29A008E78(v89, "");
-                v66[0] = v89;
-                v30 = sub_29AADB24C(v29 + 7, v89, &unk_29B4D6118, v66);
+                pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(v92, &__src);
+                v95 = 0;
+                v92[0] = off_2A2060F50;
+                v90[0] = (v23 + 48);
+                v29 = sub_29AADB0C0(&v76, (v23 + 48), &unk_29B4D6118, v90, v66);
+                sub_29A008E78(v90, "");
+                v66[0] = v90;
+                v30 = sub_29AADB24C(v29 + 7, v90, &unk_29B4D6118, v66, &v86);
                 v32 = v30;
-                v33 = v91[1];
-                if (v91[1])
+                v33 = v92[1];
+                if (v92[1])
                 {
-                  atomic_fetch_add_explicit(v91[1] + 6, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(v92[1] + 6, 1uLL, memory_order_relaxed);
                 }
 
                 v34 = v30[8];
@@ -2260,15 +2260,15 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                 }
 
                 v32[8] = v33;
-                sub_29A2258F0(v32 + 18, &v92);
-                sub_29A225948(v32 + 19, &v93);
-                sub_29A166F2C(v32 + 10, &v94);
-                if (v90 < 0)
+                sub_29A2258F0(v32 + 18, &v93);
+                sub_29A225948(v32 + 19, &v94);
+                sub_29A166F2C(v32 + 10, &v95);
+                if (v91 < 0)
                 {
-                  operator delete(v89[0]);
+                  operator delete(v90[0]);
                 }
 
-                pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::~UsdShadeConnectableAPI(v91);
+                pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::~UsdShadeConnectableAPI(v92);
                 if (v22)
                 {
                   atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2301,12 +2301,12 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                   operator delete(__dst.__r_.__value_.__l.__data_);
                 }
 
-                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::~UsdMtlxMaterialXConfigAPI(v95);
+                pxrInternal__aapl__pxrReserved__::UsdMtlxMaterialXConfigAPI::~UsdMtlxMaterialXConfigAPI(v96);
               }
 
               pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(&__src);
-              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v88.__r_.__value_.__r.__words + 1);
-              sub_29A1DE3A4(&v88);
+              pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v89.__r_.__value_.__r.__words + 1);
+              sub_29A1DE3A4(&v89);
             }
 
             pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(&v67, &v79);
@@ -2318,38 +2318,38 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
 
             if (v68 && (*(v68 + 57) & 8) == 0 && (*(v67 + 4))(&v67))
             {
-              sub_29A008E78(v95, off_2A14FDEF0[0]);
-              sub_29AADB4BC(&v70, i, v95);
-              if (SHIBYTE(v96) < 0)
+              sub_29A008E78(v96, off_2A14FDEF0[0]);
+              sub_29AADB4BC(&v70, i, v96);
+              if (SHIBYTE(v97) < 0)
               {
-                operator delete(v95[0]);
+                operator delete(v96[0]);
               }
 
-              sub_29A008E78(v95, off_2A14FDF00[0]);
-              sub_29AADB4BC(&v70, i, v95);
-              if (SHIBYTE(v96) < 0)
+              sub_29A008E78(v96, off_2A14FDF00[0]);
+              sub_29AADB4BC(&v70, i, v96);
+              if (SHIBYTE(v97) < 0)
               {
-                operator delete(v95[0]);
+                operator delete(v96[0]);
               }
 
-              sub_29A008E78(v95, off_2A14FDEF8[0]);
-              sub_29AADB4BC(&v70, i, v95);
-              if (SHIBYTE(v96) < 0)
+              sub_29A008E78(v96, off_2A14FDEF8[0]);
+              sub_29AADB4BC(&v70, i, v96);
+              if (SHIBYTE(v97) < 0)
               {
-                operator delete(v95[0]);
+                operator delete(v96[0]);
               }
 
-              sub_29A008E78(v95, off_2A14FDF08[0]);
-              sub_29AADB4BC(&v70, i, v95);
-              if (SHIBYTE(v96) < 0)
+              sub_29A008E78(v96, off_2A14FDF08[0]);
+              sub_29AADB4BC(&v70, i, v96);
+              if (SHIBYTE(v97) < 0)
               {
-                operator delete(v95[0]);
+                operator delete(v96[0]);
               }
 
-              if (v80 && (*(v80 + 57) & 8) == 0 && ((*(v79 + 32))(&v79) & 1) != 0 || (v95[0] = "usdMtlx/reader.cpp", v95[1] = "EndMaterial", v96 = 1506, __p = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::EndMaterial()", LOBYTE(v98) = 0, (pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v95, "_usdMaterial", 0) & 1) != 0))
+              if (v80 && (*(v80 + 57) & 8) == 0 && ((*(v79 + 32))(&v79) & 1) != 0 || (v96[0] = "usdMtlx/reader.cpp", v96[1] = "EndMaterial", v97 = 1506, __p = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::EndMaterial()", LOBYTE(v99) = 0, (pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(v96, "_usdMaterial", 0) & 1) != 0))
               {
-                v95[0] = (v77 + 48);
-                v39 = sub_29AA2EF74(v75, (v77 + 48), &unk_29B4D6118, v95);
+                v96[0] = (v77 + 48);
+                v39 = sub_29AA2EF74(&v75, (v77 + 48), &unk_29B4D6118, v96, &v100);
                 v41 = v39;
                 v42 = v80;
                 if (v80)
@@ -2374,17 +2374,17 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                   sub_29A014BEC(v44);
                 }
 
-                LODWORD(v95[0]) = 1;
-                v95[1] = 0;
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v96);
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v96 + 1);
+                LODWORD(v96[0]) = 1;
+                v96[1] = 0;
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v97);
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v97 + 1);
                 __p = 0;
-                pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(v91, v95);
-                v91[0] = &unk_2A2061000;
-                v46 = v91[1];
-                if (v91[1])
+                pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(v92, v96);
+                v92[0] = &unk_2A2061000;
+                v46 = v92[1];
+                if (v92[1])
                 {
-                  atomic_fetch_add_explicit(v91[1] + 6, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(v92[1] + 6, 1uLL, memory_order_relaxed);
                 }
 
                 if (v80)
@@ -2393,92 +2393,92 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                 }
 
                 v80 = v46;
-                sub_29A2258F0(&v81, &v92);
-                sub_29A225948(&v82, &v93);
-                pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(v91);
+                sub_29A2258F0(&v81, &v93);
+                sub_29A225948(&v82, &v94);
+                pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(v92);
                 if ((__p & 7) != 0)
                 {
                   atomic_fetch_add_explicit((__p & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v96 + 1);
-                sub_29A1DE3A4(&v96);
-                if (v95[1])
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v97 + 1);
+                sub_29A1DE3A4(&v97);
+                if (v96[1])
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v95[1], v47);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v96[1], v47);
                 }
               }
             }
 
             else
             {
-              v95[0] = "usdMtlx/reader.cpp";
-              v95[1] = "ReadMaterials";
-              v96 = 2380;
+              v96[0] = "usdMtlx/reader.cpp";
+              v96[1] = "ReadMaterials";
+              v97 = 2380;
               __p = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::ReadMaterials(mx::ConstDocumentPtr, _Context &)";
-              LOBYTE(v98) = 0;
+              LOBYTE(v99) = 0;
               v48 = (*i + 48);
               if (*(*i + 71) < 0)
               {
                 v48 = *v48;
               }
 
-              pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v95, "Failed to create material '%s'", v38, v48);
+              pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v96, "Failed to create material '%s'", v38, v48);
             }
 
             pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(&v67);
           }
 
-          v95[0] = &v86;
-          sub_29A0176E4(v95);
-          sub_29AADADD4(v64, &v99);
-          v49 = v100;
-          for (j = v99; j != v49; j += 16)
+          v96[0] = &v87;
+          sub_29A0176E4(v96);
+          sub_29AADADD4(v64, &v100);
+          v49 = v101;
+          for (j = v100; j != v49; j += 16)
           {
             sub_29AADAE50(&v70, (*j + 48), &__src);
             if (v84 && (*(v84 + 57) & 8) == 0 && (*(__src + 4))(&__src))
             {
               sub_29AAD1438();
-              sub_29AAD14B4(v89, j, &qword_2A1747E68);
-              v51 = *(v89[0] + 23);
+              sub_29AAD14B4(v90, j, &qword_2A1747E68);
+              v51 = *(v90[0] + 23);
               if (v51 < 0)
               {
-                v51 = *(v89[0] + 1);
+                v51 = *(v90[0] + 1);
               }
 
               if (v51)
               {
-                sub_29AADAE50(&v70, v89[0], &__dst);
+                sub_29AADAE50(&v70, v90[0], &__dst);
                 if (__dst.__r_.__value_.__l.__size_ && (*(__dst.__r_.__value_.__l.__size_ + 57) & 8) == 0 && (*(__dst.__r_.__value_.__r.__words[0] + 32))(&__dst))
                 {
-                  sub_29A580660(v91, &v84, &v85);
-                  pxrInternal__aapl__pxrReserved__::UsdPrim::GetSpecializes(v91, v95);
-                  sub_29A735768(&__dst, &v86);
-                  pxrInternal__aapl__pxrReserved__::UsdSpecializes::AddSpecialize(v95, &v86, 1);
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v86.__r_.__value_.__r.__words + 1);
-                  sub_29A1DE3A4(&v86);
+                  sub_29A580660(v92, &v84, &v85);
+                  pxrInternal__aapl__pxrReserved__::UsdPrim::GetSpecializes(v92, v96);
+                  sub_29A735768(&__dst, &v87);
+                  pxrInternal__aapl__pxrReserved__::UsdSpecializes::AddSpecialize();
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v87.__r_.__value_.__r.__words + 1);
+                  sub_29A1DE3A4(&v87);
                   if ((__p & 7) != 0)
                   {
                     atomic_fetch_add_explicit((__p & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
 
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v96 + 1);
-                  sub_29A1DE3A4(&v96);
-                  if (v95[1])
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v97 + 1);
+                  sub_29A1DE3A4(&v97);
+                  if (v96[1])
                   {
-                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v95[1], v53);
+                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v96[1], v53);
                   }
 
-                  if ((v94 & 7) != 0)
+                  if ((v95 & 7) != 0)
                   {
-                    atomic_fetch_add_explicit((v94 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                    atomic_fetch_add_explicit((v95 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
 
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v93);
-                  sub_29A1DE3A4(&v92);
-                  if (v91[1])
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v94);
+                  sub_29A1DE3A4(&v93);
+                  if (v92[1])
                   {
-                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v91[1], v54);
+                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v92[1], v54);
                   }
 
                   if (sub_29AAD2C14(0))
@@ -2489,10 +2489,10 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
                       v57 = *v57;
                     }
 
-                    v58 = v89[0];
-                    if (*(v89[0] + 23) < 0)
+                    v58 = v90[0];
+                    if (*(v90[0] + 23) < 0)
                     {
-                      v58 = *v89[0];
+                      v58 = *v90[0];
                     }
 
                     pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Material '%s' inherit from  '%s'\n", v55, v56, v57, v58);
@@ -2501,24 +2501,24 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
 
                 else
                 {
-                  v95[0] = "usdMtlx/reader.cpp";
-                  v95[1] = "ReadMaterials";
-                  v96 = 2400;
+                  v96[0] = "usdMtlx/reader.cpp";
+                  v96[1] = "ReadMaterials";
+                  v97 = 2400;
                   __p = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::ReadMaterials(mx::ConstDocumentPtr, _Context &)";
-                  LOBYTE(v98) = 0;
+                  LOBYTE(v99) = 0;
                   v59 = (*j + 48);
                   if (*(*j + 71) < 0)
                   {
                     v59 = *v59;
                   }
 
-                  v60 = v89[0];
-                  if (*(v89[0] + 23) < 0)
+                  v60 = v90[0];
+                  if (*(v90[0] + 23) < 0)
                   {
-                    v60 = *v89[0];
+                    v60 = *v90[0];
                   }
 
-                  pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v95, "Material '%s' attempted to inherit from unknown material '%s'", v52, v59, v60);
+                  pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v96, "Material '%s' attempted to inherit from unknown material '%s'", v52, v59, v60);
                 }
 
                 pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(&__dst);
@@ -2528,18 +2528,18 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
             pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::~UsdShadeMaterial(&__src);
           }
 
-          v95[0] = &v99;
-          sub_29A0176E4(v95);
+          v96[0] = &v100;
+          sub_29A0176E4(v96);
           if (v65)
           {
             sub_29A014BEC(v65);
           }
 
-          pxrInternal__aapl__pxrReserved__::UsdGeomGetFallbackUpAxis(v95);
-          pxrInternal__aapl__pxrReserved__::UsdGeomSetStageUpAxis(a2, v95);
-          if ((v95[0] & 7) != 0)
+          pxrInternal__aapl__pxrReserved__::UsdGeomGetFallbackUpAxis(v96);
+          pxrInternal__aapl__pxrReserved__::UsdGeomSetStageUpAxis(a2, v96);
+          if ((v96[0] & 7) != 0)
           {
-            atomic_fetch_add_explicit((v95[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v96[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           pxrInternal__aapl__pxrReserved__::UsdGeomSetStageMetersPerUnit(a2, 0.01);
@@ -2583,11 +2583,11 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(uint64_t *a1, void *a2, pxrIn
     v72 = 2610;
     v73 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxRead(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &, const SdfPath &)";
     v74[0] = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v70, 1, "Invalid MaterialX document");
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v70, 1, "Invalid MaterialX document", a4);
   }
 }
 
-void sub_29AAD0320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, int a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_29AAD0320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
 {
   __cxa_guard_abort(&qword_2A1748158);
   if (a24)
@@ -2624,38 +2624,38 @@ void sub_29AAD1438()
   }
 }
 
-__int128 **sub_29AAD14B4(__int128 **a1, uint64_t a2, const void **a3)
+char **sub_29AAD14B4(char **a1, uint64_t a2, uint64_t *a3)
 {
   v4 = sub_29A8877BC((*a2 + 160), a3);
   if (v4)
   {
-    v5 = (v4 + 5);
+    v6 = (v4 + 5);
   }
 
   else
   {
-    v5 = sub_29B1F31FC();
+    v6 = sub_29B1F31FC(0, v5);
   }
 
-  v6 = *(v5 + 23);
-  if ((v6 & 0x80u) != 0)
+  v7 = v6[23];
+  if ((v7 & 0x80u) != 0)
   {
-    v6 = *(v5 + 1);
+    v7 = *(v6 + 1);
   }
 
-  if (!v6)
+  if (!v7)
   {
-    v5 = sub_29B1F31FC();
+    v6 = sub_29B1F31FC(v6, v5);
   }
 
-  *a1 = v5;
+  *a1 = v6;
   return a1;
 }
 
 void sub_29AAD1518(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = sub_29B1F31FC();
+  v4 = sub_29B1F31FC(a1, a2);
   sub_29AAD2C74(v3, v4, v12);
   v5 = v12[0];
   if (v12[0] != v12[1])
@@ -2716,7 +2716,7 @@ uint64_t sub_29AAD1874(uint64_t a1)
   return a1;
 }
 
-void sub_29AAD18A4(void *a1, uint64_t *a2)
+void sub_29AAD18A4(uint64_t **a1, void ***a2)
 {
   v4 = a2[1];
   v7 = *a2;
@@ -2841,103 +2841,103 @@ void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(uint64_t *a1, void 
     {
       if (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath(a3))
       {
-        sub_29B2BD43C(&v17, a2);
+        sub_29B2BD43C(&v19, a2);
         v8 = a1[1];
-        v16[0] = *a1;
-        v16[1] = v8;
+        v18[0] = *a1;
+        v18[1] = v8;
         if (v8)
         {
           atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        sub_29AAD1518(v16, &v17);
+        sub_29AAD1518(v18, &v19);
         if (v8)
         {
           sub_29A014BEC(v8);
         }
 
-        v10 = *a1;
-        v9 = a1[1];
-        if (v9)
+        v12 = *a1;
+        v11 = a1[1];
+        if (v11)
         {
-          atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v11 = sub_29B1F31FC();
-        sub_29AAD2C74(v10, v11, &v24);
-        v12 = v24;
-        for (i = v25; v12 != i; v12 += 16)
+        v13 = sub_29B1F31FC(v9, v10);
+        sub_29AAD2C74(v12, v13, &v26);
+        v14 = v26;
+        for (i = v27; v14 != i; v14 += 16)
         {
-          sub_29B1EE8F4(*v12, &v22);
-          p_data = &v22->__r_.__value_.__l.__data_;
-          if (v23)
+          sub_29B1EE8F4(*v14, &v24);
+          p_data = &v24->__r_.__value_.__l.__data_;
+          if (v25)
           {
-            sub_29A014BEC(v23);
+            sub_29A014BEC(v25);
           }
 
           if (!p_data)
           {
-            v15 = *(v12 + 8);
-            v22 = *v12;
-            v23 = v15;
-            if (v15)
+            v17 = *(v14 + 8);
+            v24 = *v14;
+            v25 = v17;
+            if (v17)
             {
-              atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            sub_29AADDED4(&v17, &v22);
+            sub_29AADDED4(&v19, &v24);
           }
         }
 
-        v22 = &v24;
-        sub_29A0176E4(&v22);
-        if (v9)
+        v24 = &v26;
+        sub_29A0176E4(&v24);
+        if (v11)
         {
-          sub_29A014BEC(v9);
+          sub_29A014BEC(v11);
         }
 
-        sub_29AAD1A60(&v17);
+        sub_29AAD1A60(&v19);
       }
 
       else
       {
-        v17 = "usdMtlx/reader.cpp";
-        v18 = "UsdMtlxReadNodeGraphs";
-        v19 = 2756;
-        v20 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
-        v21 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v17, 1, "Invalid internal prim path");
+        v19 = "usdMtlx/reader.cpp";
+        v20 = "UsdMtlxReadNodeGraphs";
+        v21 = 2756;
+        v22 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
+        v23 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 1, "Invalid internal prim path");
       }
     }
 
     else
     {
-      v17 = "usdMtlx/reader.cpp";
-      v18 = "UsdMtlxReadNodeGraphs";
-      v19 = 2752;
-      v20 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
-      v21 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v17, 1, "Invalid stage");
+      v19 = "usdMtlx/reader.cpp";
+      v20 = "UsdMtlxReadNodeGraphs";
+      v21 = 2752;
+      v22 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
+      v23 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 1, "Invalid stage");
     }
   }
 
   else
   {
-    v17 = "usdMtlx/reader.cpp";
-    v18 = "UsdMtlxReadNodeGraphs";
-    v19 = 2748;
-    v20 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
-    v21 = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v17, 1, "Invalid MaterialX document");
+    v19 = "usdMtlx/reader.cpp";
+    v20 = "UsdMtlxReadNodeGraphs";
+    v21 = 2748;
+    v22 = "void pxrInternal__aapl__pxrReserved__::UsdMtlxReadNodeGraphs(const MaterialX::ConstDocumentPtr &, const UsdStagePtr &, const SdfPath &)";
+    v23 = 0;
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 1, "Invalid MaterialX document");
   }
 }
 
-void sub_29AAD1DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AAD1DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (v3)
+  va_start(va, a5);
+  if (v5)
   {
-    sub_29A014BEC(v3);
+    sub_29A014BEC(v5);
   }
 
   sub_29AAD1A60(va);
@@ -3489,9 +3489,9 @@ void sub_29AAD2D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AAD2DB0(uint64_t **a1, unint64_t *a2)
+uint64_t *sub_29AAD2DB0(uint64_t ***a1, unint64_t *a2)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   v4 = a1[1];
   v6 = *a2;
   if (v4)
@@ -3533,7 +3533,7 @@ uint64_t *sub_29AAD2DB0(uint64_t **a1, unint64_t *a2)
 
   else
   {
-    v7 = a1 + 1;
+    v7 = (a1 + 1);
 LABEL_9:
     v9 = operator new(0x70uLL);
     v10 = v9;
@@ -3584,7 +3584,7 @@ uint64_t sub_29AAD2EA0(uint64_t a1)
   return a1;
 }
 
-_DWORD *sub_29AAD2F0C(uint64_t a1, uint64_t a2, pxrInternal__aapl__pxrReserved__::SdfPath *a3, void *a4)
+_DWORD *sub_29AAD2F0C(uint64_t a1, atomic_uint **a2, pxrInternal__aapl__pxrReserved__::SdfPath *a3, void *a4)
 {
   if (*a4)
   {
@@ -3596,9 +3596,9 @@ _DWORD *sub_29AAD2F0C(uint64_t a1, uint64_t a2, pxrInternal__aapl__pxrReserved__
     v8 = 0;
   }
 
-  pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a3, &v8, &v9);
+  pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v9, a3, &v8);
   sub_29AAD31E0(a1, a2, &v9);
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v10);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v9 + 1);
   result = sub_29A1DE3A4(&v9);
   if ((v8 & 7) != 0)
   {
@@ -3608,21 +3608,21 @@ _DWORD *sub_29AAD2F0C(uint64_t a1, uint64_t a2, pxrInternal__aapl__pxrReserved__
   return result;
 }
 
-void sub_29AAD2FB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AAD2FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
-  if ((a2 & 7) != 0)
+  if ((a3 & 7) != 0)
   {
-    atomic_fetch_add_explicit((a2 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((a3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_29AAD3100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AAD3100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_29A57F434(va);
   _Unwind_Resume(a1);
 }
@@ -3652,22 +3652,22 @@ uint64_t sub_29AAD3170(uint64_t a1)
   return a1;
 }
 
-int *sub_29AAD31E0(uint64_t a1, uint64_t a2, _DWORD *a3)
+int *sub_29AAD31E0(uint64_t a1, atomic_uint **a2, _DWORD *a3)
 {
   *(a1 + 32) = *a2;
-  sub_29B28FD1C((a1 + 40), (a2 + 8));
+  sub_29B28FD1C((a1 + 40), a2 + 1);
   sub_29A2258F0((a1 + 48), a3);
 
   return sub_29A225948((a1 + 52), a3 + 1);
 }
 
-void sub_29AAD3238(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_29AAD3238(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = std::string::find(a1, 58, 0);
   if (v4 == -1)
   {
 
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2, a1);
   }
 
   else
@@ -3684,7 +3684,7 @@ void sub_29AAD3238(uint64_t a1@<X0>, uint64_t a2@<X8>)
     }
 
     std::string::replace(&__p, v5, 1uLL, "__");
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3702,32 +3702,32 @@ void sub_29AAD330C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29AAD3328@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29AAD3328@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v3 = sub_29B2ACEC8(a1 + 32);
-  if (v4 & 1 | v3 || (result = sub_29B2BD9BC(v13, a2), (result & 1) != 0))
+  v22 = *MEMORY[0x29EDCA608];
+  v3 = sub_29B2ACEC8(a1 + 4);
+  if (v4 & 1 | v3 || (result = sub_29B2BD9BC(v14, a2), (result & 1) != 0))
   {
-    if (pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath((a1 + 48)) && pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath((a1 + 48)) || (result = sub_29B2BDA2C(v12, a2), (result & 1) != 0))
+    if (pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath((a1 + 6)) && (result = pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath((a1 + 6)), (result & 1) != 0) || (result = sub_29B2BDA2C(v13, a2), (result & 1) != 0))
     {
-      v5 = *(a1 + 16);
-      v6 = sub_29B1F31FC();
-      LODWORD(v5) = sub_29AAC05D4(v5, v6);
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v9);
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v10);
-      v11 = 0;
-      if (!v5)
+      v7 = a1[2];
+      v8 = sub_29B1F31FC(result, v6);
+      LODWORD(v7) = sub_29AAC05D4(v7, v8);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v10);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v11);
+      v12 = 0;
+      if (!v7)
       {
-        pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::Define(a1 + 32, &v17);
-        sub_29A580660(&__str, &v18, &v19);
+        pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::Define(a1 + 4, &v18);
+        sub_29A580660(&__str, &v19, &v20);
         __str.__r_.__value_.__l.__size_ = 0;
         pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
       }
 
-      pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::Define(a1 + 32, &v14);
-      if (v15 && (*(v15 + 57) & 8) == 0 && ((*(v14 + 32))(&v14) & 1) != 0)
+      pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::Define(a1 + 4, &v15);
+      if (v16 && (*(v16 + 57) & 8) == 0 && ((*(v15 + 32))(&v15) & 1) != 0)
       {
-        sub_29A580660(&__str, &v15, &v16);
+        sub_29A580660(&__str, &v16, &v17);
         __str.__r_.__value_.__l.__size_ = 0;
         pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
       }
@@ -3737,14 +3737,14 @@ uint64_t sub_29AAD3328@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle((a2 + 16));
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle((a2 + 20));
       *(a2 + 24) = 0;
-      pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::~UsdShadeNodeGraph(&v14);
-      if ((v11 & 7) != 0)
+      pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::~UsdShadeNodeGraph(&v15);
+      if ((v12 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v12 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v10);
-      sub_29A1DE3A4(&v9);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v11);
+      sub_29A1DE3A4(&v10);
       return 0;
     }
   }
@@ -3752,7 +3752,7 @@ uint64_t sub_29AAD3328@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_29AAD4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::__shared_weak_count *a53, uint64_t a54, uint64_t a55, uint64_t a56)
+void sub_29AAD4C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::__shared_weak_count *a53, uint64_t a54, uint64_t a55, uint64_t a56)
 {
   v58 = *(v56 - 224);
   if (v58)
@@ -3900,14 +3900,14 @@ void sub_29AAD55CC(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  v33[0] = 0;
-  v33[1] = 0;
-  v32 = v33;
-  sub_29B1D8ACC(*a1, &v30);
+  v34[0] = 0;
+  v34[1] = 0;
+  v33 = v34;
+  sub_29B1D8ACC(*a1, &v31);
   v4 = *a1;
   v5 = a1[1];
-  *&v29 = *a1;
-  *(&v29 + 1) = v5;
+  *&v30 = *a1;
+  *(&v30 + 1) = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -3917,142 +3917,143 @@ void sub_29AAD55CC(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   {
     do
     {
-      sub_29A42F734(&v32, &v29, &v29);
+      sub_29A42F734(&v33, &v30, &v30);
       if ((v6 & 1) == 0)
       {
         exception = __cxa_allocate_exception(0x20uLL);
-        sub_29B1D9E70(v29, &v26);
-        v24 = std::string::insert(&v26, 0, "Encountered cycle at element: ");
-        v25 = *&v24->__r_.__value_.__l.__data_;
-        v28 = v24->__r_.__value_.__r.__words[2];
-        v27 = v25;
-        v24->__r_.__value_.__l.__size_ = 0;
-        v24->__r_.__value_.__r.__words[2] = 0;
-        v24->__r_.__value_.__r.__words[0] = 0;
-        sub_29AAD6B14(exception, &v27);
+        sub_29B1D9E70(v30, &v27);
+        v25 = std::string::insert(&v27, 0, "Encountered cycle at element: ");
+        v26 = *&v25->__r_.__value_.__l.__data_;
+        v29 = v25->__r_.__value_.__r.__words[2];
+        v28 = v26;
+        v25->__r_.__value_.__l.__size_ = 0;
+        v25->__r_.__value_.__r.__words[2] = 0;
+        v25->__r_.__value_.__r.__words[0] = 0;
+        sub_29AAD6B14(exception, &v28);
         *exception = &unk_2A20C79E8;
         __cxa_throw(exception, &unk_2A2070D20, sub_29AAD6B10);
       }
 
-      sub_29A017F80(a2, &v29);
-      v7 = v30;
+      sub_29A017F80(a2, &v30);
+      v7 = v31;
       sub_29AAD1438();
-      v8 = sub_29A8877BC((v29 + 160), &qword_2A1747E68);
+      v8 = sub_29A8877BC((v30 + 160), &qword_2A1747E68);
       if (v8)
       {
-        v9 = (v8 + 5);
+        v10 = v8 + 40;
       }
 
       else
       {
-        v9 = sub_29B1F31FC();
+        v8 = sub_29B1F31FC(0, v9);
+        v10 = v8;
       }
 
-      v10 = *(v9 + 23);
-      if ((v10 & 0x80u) != 0)
+      v11 = v10[23];
+      if ((v11 & 0x80u) != 0)
       {
-        v10 = *(v9 + 1);
+        v11 = *(v10 + 1);
       }
 
-      if (!v10)
+      if (!v11)
       {
-        v9 = sub_29B1F31FC();
+        v10 = sub_29B1F31FC(v8, v10);
       }
 
-      v11 = sub_29A8877BC((v7 + 96), v9);
-      v12 = v11;
-      if (v11)
+      v12 = sub_29A8877BC((v7 + 96), v10);
+      v13 = v12;
+      if (v12)
       {
-        v13 = v11[5];
-        v14 = v12[6];
-        if (v14)
+        v14 = v12[5];
+        v15 = v13[6];
+        if (v15)
         {
-          atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        if (v13)
+        if (v14)
         {
-          v13 = __dynamic_cast(v13, &unk_2A20C66F8, &unk_2A20C6068, 0);
-          v15 = 0;
-          if (v13)
+          v14 = __dynamic_cast(v14, &unk_2A20C66F8, &unk_2A20C6068, 0);
+          v16 = 0;
+          if (v14)
           {
-            v16 = 0;
+            v17 = 0;
           }
 
           else
           {
-            v16 = v14;
+            v17 = v15;
           }
 
-          if (v13 && v14)
+          if (v14 && v15)
           {
-            atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-            v15 = v14;
+            atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+            v16 = v15;
           }
 
           else
           {
-            v14 = v16;
+            v15 = v17;
           }
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
       else
       {
-        v14 = 0;
         v15 = 0;
-        v13 = 0;
+        v16 = 0;
+        v14 = 0;
       }
 
-      v17 = *(&v29 + 1);
-      *&v29 = v13;
-      *(&v29 + 1) = v15;
-      if (v17)
+      v18 = *(&v30 + 1);
+      *&v30 = v14;
+      *(&v30 + 1) = v16;
+      if (v18)
       {
-        sub_29A014BEC(v17);
+        sub_29A014BEC(v18);
       }
 
-      if (v14)
+      if (v15)
       {
-        sub_29A014BEC(v14);
+        sub_29A014BEC(v15);
       }
     }
 
-    while (v29);
+    while (v30);
   }
 
-  if (*(&v29 + 1))
+  if (*(&v30 + 1))
   {
-    sub_29A014BEC(*(&v29 + 1));
+    sub_29A014BEC(*(&v30 + 1));
   }
 
-  v18 = *a2;
-  v19 = *(a2 + 8);
-  if (*a2 != v19)
+  v19 = *a2;
+  v20 = *(a2 + 8);
+  if (*a2 != v20)
   {
-    for (i = (v19 - 16); v18 < i; i -= 2)
+    for (i = (v20 - 16); v19 < i; i -= 2)
     {
-      v21 = *v18;
-      *v18 = *i;
-      *i = v21;
-      v22 = v18[1];
-      v18[1] = i[1];
-      i[1] = v22;
-      v18 += 2;
+      v22 = *v19;
+      *v19 = *i;
+      *i = v22;
+      v23 = v19[1];
+      v19[1] = i[1];
+      i[1] = v23;
+      v19 += 2;
     }
   }
 
-  if (v31)
+  if (v32)
   {
-    sub_29A014BEC(v31);
+    sub_29A014BEC(v32);
   }
 
-  sub_29A42FCE0(&v32, v33[0]);
+  sub_29A42FCE0(&v33, v34[0]);
 }
 
 void sub_29AAD5898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
@@ -4140,40 +4141,40 @@ void sub_29AAD5A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_29AAD5A7C(uint64_t a1, unint64_t *a2, uint64_t a3, int a4)
 {
-  v9 = *a2;
-  v8 = a2[1];
+  v10 = *a2;
+  v9 = a2[1];
   v31 = *a2;
-  v32 = v8;
-  if (v8)
+  v32 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (sub_29AAD2C14(0))
   {
-    v10 = sub_29A580660(&__dst, (a3 + 8), (a3 + 16));
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v10);
+    sub_29A580660(&__dst, (a3 + 8), (a3 + 16));
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
   }
 
-  *&__dst = v9;
-  *(&__dst + 1) = v8;
-  if (v8)
+  *&__dst = v10;
+  *(&__dst + 1) = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   sub_29AAD6C60(a3, &__dst, &v33);
-  if (v8)
+  if (v9)
   {
-    sub_29A014BEC(v8);
+    sub_29A014BEC(v9);
   }
 
   sub_29AAD6EB8(&v33, &v31);
-  v40 = v9;
-  *&v41 = v8;
-  if (v8)
+  v40 = v10;
+  *&v41 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   sub_29AAD1438();
@@ -4187,7 +4188,7 @@ LABEL_16:
       v42[1] = 0;
       v43 = 0;
       sub_29AAD1438();
-      if (sub_29A8877BC((v9 + 160), &qword_2A1747DC0))
+      if (sub_29A8877BC(v10 + 20, &qword_2A1747DC0))
       {
         sub_29AAD14B4(&v44, &v40, &qword_2A1747DC0);
         sub_29B1FA17C(v44, &__dst);
@@ -4200,46 +4201,47 @@ LABEL_16:
         sub_29A012C90(&p_dst);
         if (v42[0] != v42[1])
         {
-          pxrInternal__aapl__pxrReserved__::UsdProperty::GetPropertyStack(&v33, v11, NAN);
+          v12.n128_u64[0] = 0x7FF8000000000000;
+          pxrInternal__aapl__pxrReserved__::UsdProperty::GetPropertyStack(&v33, v11, v12);
         }
       }
 
       sub_29AAD1438();
       sub_29AAD14B4(&p_dst, &v40, &qword_2A1747FD0);
-      if (*(p_dst + 23) < 0)
+      if (p_dst[23] < 0)
       {
-        v13 = *(p_dst + 1);
-        if (v13)
+        v14 = *(p_dst + 1);
+        if (v14)
         {
-          sub_29A008D14(&__dst, *p_dst, v13);
+          sub_29A008D14(&__dst, *p_dst, v14);
 LABEL_24:
-          v14 = HIBYTE(v46);
-          v15 = &__dst;
+          v15 = HIBYTE(v46);
+          v16 = &__dst;
           if (v46 < 0)
           {
-            v14 = *(&__dst + 1);
-            v15 = __dst;
+            v15 = *(&__dst + 1);
+            v16 = __dst;
           }
 
-          for (; v14; --v14)
+          for (; v15; --v15)
           {
-            if (*v15 == 47)
+            if (*v16 == 47)
             {
-              *v15 = 58;
+              *v16 = 58;
             }
 
-            v15 = (v15 + 1);
+            v16 = (v16 + 1);
           }
 
-          pxrInternal__aapl__pxrReserved__::UsdProperty::SetDisplayGroup(&v33);
+          pxrInternal__aapl__pxrReserved__::UsdProperty::SetDisplayGroup(&v33, &__dst);
         }
       }
 
-      else if (*(p_dst + 23))
+      else if (p_dst[23])
       {
-        v12 = *p_dst;
+        v13 = *p_dst;
         v46 = *(p_dst + 2);
-        __dst = v12;
+        __dst = v13;
         goto LABEL_24;
       }
 
@@ -4266,33 +4268,33 @@ LABEL_36:
 
         if (a4)
         {
-          *&__dst = v31 + 48;
-          v16 = sub_29AAD86A8((a1 + 56), (v31 + 48), &unk_29B4D6118, &__dst);
-          v18 = v16;
-          *(v16 + 14) = v33;
-          v19 = v34;
+          *&__dst = v31 + 6;
+          v17 = sub_29AAD86A8((a1 + 56), v31 + 6, &unk_29B4D6118, &__dst, v42);
+          v19 = v17;
+          *(v17 + 14) = v33;
+          v20 = v34;
           if (v34)
           {
             atomic_fetch_add_explicit(v34 + 6, 1uLL, memory_order_relaxed);
           }
 
-          v20 = v16[8];
-          if (v20)
+          v21 = v17[8];
+          if (v21)
           {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v20, v17);
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v21, v18);
           }
 
-          v18[8] = v19;
-          sub_29A2258F0(v18 + 18, &v35);
-          sub_29A225948(v18 + 19, &v36);
-          sub_29A166F2C(v18 + 10, &v37);
+          v19[8] = v20;
+          sub_29A2258F0(v19 + 18, &v35);
+          sub_29A225948(v19 + 19, &v36);
+          sub_29A166F2C(v19 + 10, &v37);
         }
 
         else
         {
           sub_29AAD1438();
           sub_29AAD14B4(&v38, &v31, &qword_2A1747E80);
-          if ((*(v38 + 23) & 0x8000000000000000) != 0)
+          if ((v38[23] & 0x8000000000000000) != 0)
           {
             if (!*(v38 + 1))
             {
@@ -4300,13 +4302,12 @@ LABEL_36:
             }
           }
 
-          else if (!*(v38 + 23))
+          else if (!v38[23])
           {
             goto LABEL_70;
           }
 
-          v22 = sub_29A01BCCC(a1 + 56, v38);
-          if (a1 + 64 != v22)
+          if (a1 + 64 != sub_29A01BCCC(a1 + 56, v38))
           {
             v23 = v31;
             if (v32)
@@ -4320,9 +4321,9 @@ LABEL_36:
               sub_29AAD1438();
               sub_29AAD14B4(&v40, v42, &qword_2A1747EE0);
               v24 = *(v40 + 23);
-              if (v24 < 0)
+              if ((v24 & 0x8000000000000000) != 0)
               {
-                v24 = *(v40 + 1);
+                v24 = v40[1];
               }
 
               if (v24)
@@ -4332,15 +4333,15 @@ LABEL_36:
                 v46 = 1112;
                 v47 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeInput, D = pxrInternal__aapl__pxrReserved__::UsdShadeInput]";
                 LOBYTE(v48) = 0;
-                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath((v22 + 56));
+                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
               }
 
               sub_29AAD1438();
               sub_29AAD14B4(&v40, v42, &qword_2A1747D18);
               v25 = *(v40 + 23);
-              if (v25 < 0)
+              if ((v25 & 0x8000000000000000) != 0)
               {
-                v25 = *(v40 + 1);
+                v25 = v40[1];
               }
 
               if (v25)
@@ -4350,7 +4351,7 @@ LABEL_36:
                 v46 = 1120;
                 v47 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeInput, D = pxrInternal__aapl__pxrReserved__::UsdShadeInput]";
                 LOBYTE(v48) = 0;
-                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath((v22 + 56));
+                pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
               }
             }
 
@@ -4361,10 +4362,10 @@ LABEL_36:
 
             if (sub_29AAD2C14(0))
             {
-              pxrInternal__aapl__pxrReserved__::UsdObject::GetPath((v22 + 56));
+              pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
             }
 
-            pxrInternal__aapl__pxrReserved__::UsdObject::GetPath((v22 + 56));
+            pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
           }
 
           *&__dst = "usdMtlx/reader.cpp";
@@ -4373,23 +4374,23 @@ LABEL_36:
           v47 = "UsdShadeInput pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_AddInputCommon(const mx::ConstValueElementPtr &, const UsdShadeConnectableAPI &, BOOL)";
           LOBYTE(v48) = 0;
           v26 = v38;
-          if (*(v38 + 23) < 0)
+          if (v38[23] < 0)
           {
             v26 = *v38;
           }
 
-          v27 = (v31 + 48);
+          v27 = v31 + 6;
           if (*(v31 + 71) < 0)
           {
             v27 = *v27;
           }
 
-          pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__dst, "No interface name '%s' for node '%s'", v21, v26, v27);
+          pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__dst, "No interface name '%s' for node '%s'", v22, v26, v27);
         }
 
 LABEL_70:
         *&__dst = a2;
-        v29 = sub_29AAD8D28(a1 + 80, a2, &unk_29B4D6118, &__dst);
+        v29 = sub_29AAD8D28(a1 + 80, a2, &unk_29B4D6118, &__dst, v42);
         *(v29 + 12) = v33;
         v30 = v29[7];
         if (v30)
@@ -4402,7 +4403,7 @@ LABEL_70:
         pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
       }
 
-      pxrInternal__aapl__pxrReserved__::UsdObject::SetDisplayName(&v33);
+      pxrInternal__aapl__pxrReserved__::UsdObject::SetDisplayName(&v33, __dst);
     }
   }
 
@@ -4411,17 +4412,18 @@ LABEL_70:
     goto LABEL_16;
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeInput::SetDocumentation(&v33);
+  pxrInternal__aapl__pxrReserved__::UsdShadeInput::SetDocumentation(&v33, __dst);
 }
 
-void sub_29AAD673C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_29AAD673C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   sub_29A57F434(&a27);
-  sub_29A57F434(&a31);
-  sub_29A1DCEA8((v32 - 136));
-  if (v31)
+  sub_29A57F434(va);
+  sub_29A1DCEA8((v31 - 136));
+  if (v30)
   {
-    sub_29A014BEC(v31);
+    sub_29A014BEC(v30);
   }
 
   sub_29A7CCF50(&a15);
@@ -4433,11 +4435,11 @@ void sub_29AAD673C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-__int128 **sub_29AAD6A28(uint64_t a1, uint64_t a2)
+char **sub_29AAD6A28(uint64_t a1, uint64_t a2)
 {
   sub_29AAD1438();
   result = sub_29AAD14B4(&v6, a2, &qword_2A1747DA8);
-  v5 = *(v6 + 23);
+  v5 = v6[23];
   if (v5 < 0)
   {
     v5 = *(v6 + 1);
@@ -4445,13 +4447,13 @@ __int128 **sub_29AAD6A28(uint64_t a1, uint64_t a2)
 
   if (v5)
   {
-    pxrInternal__aapl__pxrReserved__::UsdObject::SetDocumentation(a1);
+    pxrInternal__aapl__pxrReserved__::UsdObject::SetDocumentation(a1, v6);
   }
 
   return result;
 }
 
-const void **sub_29AAD6A88(float *a1, uint64_t a2, const void **a3)
+const void **sub_29AAD6A88(float *a1, uint64_t a2, uint64_t *a3)
 {
   result = sub_29A8877BC((*a2 + 160), a3);
   if (result)
@@ -4525,30 +4527,31 @@ void sub_29AAD6C60(pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI *a1@
   v6 = sub_29A8877BC((*a2 + 160), &qword_2A1747FA0);
   if (v6)
   {
-    v7 = (v6 + 5);
+    v8 = v6 + 40;
   }
 
   else
   {
-    v7 = sub_29B1F31FC();
+    v6 = sub_29B1F31FC(0, v7);
+    v8 = v6;
   }
 
-  v8 = *(v7 + 23);
-  v9 = v8;
-  if ((v8 & 0x80u) != 0)
+  v9 = v8[23];
+  v10 = v9;
+  if ((v9 & 0x80u) != 0)
   {
-    v8 = *(v7 + 1);
+    v9 = *(v8 + 1);
   }
 
-  if (v8)
+  if (v9)
   {
-    if ((v9 & 0x80) == 0)
+    if ((v10 & 0x80) == 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    if (*(v7 + 1))
+    if (*(v8 + 1))
     {
       goto LABEL_9;
     }
@@ -4562,77 +4565,77 @@ LABEL_23:
     return;
   }
 
-  v7 = sub_29B1F31FC();
-  v9 = *(v7 + 23);
-  if (v9 < 0)
+  v8 = sub_29B1F31FC(v6, v7);
+  v10 = v8[23];
+  if (v10 < 0)
   {
     goto LABEL_22;
   }
 
 LABEL_8:
-  if (!v9)
+  if (!v10)
   {
     goto LABEL_23;
   }
 
 LABEL_9:
-  v16 = 0;
-  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdType(v7, &v13);
-  v15 = v13;
+  v17 = 0;
+  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdType(v8, &v14);
+  v16 = v14;
+  if ((v15 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::SdfValueTypeName::_IsEmpty(&v16))
+  {
+    v11 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+    if (!v11)
+    {
+      v11 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+    }
+
+    v16 = *(v11 + 11);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v14, v8);
+    if ((v17 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v17 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    v17 = v14;
+  }
+
+  v12 = *a2;
+  v13 = a2[1];
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (v12)
+  {
+    sub_29AAD3238(v12 + 48, &v14);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateInput(a1, &v14, &v16, a3);
   if ((v14 & 7) != 0)
   {
     atomic_fetch_add_explicit((v14 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if (pxrInternal__aapl__pxrReserved__::SdfValueTypeName::_IsEmpty(&v15))
+  if (v13)
   {
-    v10 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-    if (!v10)
-    {
-      v10 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-    }
-
-    v15 = *(v10 + 11);
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v13);
-    if ((v16 & 7) != 0)
-    {
-      atomic_fetch_add_explicit((v16 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-    }
-
-    v16 = v13;
+    sub_29A014BEC(v13);
   }
 
-  v11 = *a2;
-  v12 = a2[1];
-  if (v12)
+  if (v17)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  if (v11)
-  {
-    sub_29AAD3238(v11 + 48, &v13);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateInput(a1, &v13, &v15, a3);
-  if ((v13 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v13 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  if (v12)
-  {
-    sub_29A014BEC(v12);
-  }
-
-  if (v16)
-  {
-    pxrInternal__aapl__pxrReserved__::UsdShadeInput::SetRenderType(a3, &v16);
+    pxrInternal__aapl__pxrReserved__::UsdShadeInput::SetRenderType(a3, &v17);
   }
 }
 
@@ -4646,49 +4649,50 @@ void sub_29AAD6E48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29AAD6EB8(pxrInternal__aapl__pxrReserved__::UsdAttribute *a1, uint64_t a2)
+uint64_t sub_29AAD6EB8(pxrInternal__aapl__pxrReserved__::UsdAttribute *a1, void **a2)
 {
-  v100 = *MEMORY[0x29EDCA608];
-  v4 = *(a2 + 8);
+  v108 = *MEMORY[0x29EDCA608];
+  v4 = a2[1];
   __p = *a2;
-  v89 = v4;
+  v97 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdValue(&__p, 0, v98);
-  if (v89)
+  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdValue(&__p, 0, v106);
+  if (v97)
   {
-    sub_29A014BEC(v89);
+    sub_29A014BEC(v97);
   }
 
-  if (v99)
+  if (v107)
   {
-    pxrInternal__aapl__pxrReserved__::UsdShadeInput::Set(a1, v98, NAN);
+    v5.n128_u64[0] = 0x7FF8000000000000;
+    pxrInternal__aapl__pxrReserved__::UsdShadeInput::Set(a1, v106, v5);
   }
 
   sub_29AAD1438();
-  sub_29AAD14B4(&v97, a2, &qword_2A1748048);
+  sub_29AAD14B4(&v105, a2, &qword_2A1748048);
   sub_29AAD1438();
-  sub_29AAD14B4(&v96, a2, &qword_2A1748060);
-  v5 = v97;
-  if ((SHIBYTE(v97->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  sub_29AAD14B4(&v104, a2, &qword_2A1748060);
+  v6 = v105;
+  if ((SHIBYTE(v105->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (!v97->__r_.__value_.__l.__size_)
+    if (!v105->__r_.__value_.__l.__size_)
     {
       goto LABEL_53;
     }
   }
 
-  else if (!*(&v97->__r_.__value_.__s + 23))
+  else if (!*(&v105->__r_.__value_.__s + 23))
   {
     goto LABEL_53;
   }
 
-  if ((SHIBYTE(v96->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  if ((SHIBYTE(v104->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (!v96->__r_.__value_.__l.__size_)
+    if (!v104->__r_.__value_.__l.__size_)
     {
       goto LABEL_53;
     }
@@ -4696,116 +4700,117 @@ uint64_t sub_29AAD6EB8(pxrInternal__aapl__pxrReserved__::UsdAttribute *a1, uint6
 LABEL_15:
     sub_29AAD1438();
     sub_29AAD14B4(&__p, a2, &qword_2A1747FA0);
-    pxrInternal__aapl__pxrReserved__::UsdMtlxGetPackedUsdValues(v5, __p, &p_p);
-    if (p_p == v95)
+    pxrInternal__aapl__pxrReserved__::UsdMtlxGetPackedUsdValues(v6, __p, &p_p);
+    if (p_p == v103)
     {
       __p = "usdMtlx/reader.cpp";
-      v89 = "_CopyValue";
-      v90 = 516;
-      v91 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
-      v92 = 0;
-      v14 = v97;
-      if (SHIBYTE(v97->__r_.__value_.__r.__words[2]) < 0)
+      v97 = "_CopyValue";
+      v98 = 516;
+      v99 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
+      v100 = 0;
+      v16 = v105;
+      if (SHIBYTE(v105->__r_.__value_.__r.__words[2]) < 0)
       {
-        v14 = v97->__r_.__value_.__r.__words[0];
+        v16 = v105->__r_.__value_.__r.__words[0];
       }
 
-      v15 = *a2;
-      v77 = 0;
-      v78 = 0;
-      sub_29B1D8824(v15, &v77, &v87);
-      if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v17 = *a2;
+      v85 = 0;
+      v86 = 0;
+      sub_29B1D8824(v17, &v85, &v95);
+      if ((v95.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v18 = &v87;
+        v20 = &v95;
       }
 
       else
       {
-        v18 = v87.__r_.__value_.__r.__words[0];
+        v20 = v95.__r_.__value_.__r.__words[0];
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Failed to parse valuecurve '%s' on '%s';  ignoring", v16, v17, v14, v18);
-      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v93);
-      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Failed to parse valuecurve '%s' on '%s';  ignoring", v18, v19, v16, v20);
+      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v101);
+      if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v93.__r_.__value_.__l.__data_);
+        operator delete(v101.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v87.__r_.__value_.__l.__data_);
+        operator delete(v95.__r_.__value_.__l.__data_);
       }
 
-      if (v78)
+      if (v86)
       {
-        sub_29A014BEC(v78);
+        sub_29A014BEC(v86);
       }
 
       goto LABEL_52;
     }
 
-    v6 = v96;
+    v7 = v104;
     sub_29A008E78(&__p, "integer");
-    pxrInternal__aapl__pxrReserved__::UsdMtlxGetPackedUsdValues(v6, &__p, &v93);
-    if (SHIBYTE(v90) < 0)
+    pxrInternal__aapl__pxrReserved__::UsdMtlxGetPackedUsdValues(v7, &__p, &v101);
+    if (SHIBYTE(v98) < 0)
     {
       operator delete(__p);
     }
 
-    if (v93.__r_.__value_.__l.__size_ - v93.__r_.__value_.__r.__words[0] == 32)
+    if (v101.__r_.__value_.__l.__size_ - v101.__r_.__value_.__r.__words[0] == 32)
     {
-      v7 = *sub_29A346A20(v93.__r_.__value_.__l.__data_);
-      v8 = *sub_29A346A20((v93.__r_.__value_.__r.__words[0] + 16));
-      if (v8 >= v7)
+      v8 = *sub_29A346A20(v101.__r_.__value_.__l.__data_);
+      v9 = *sub_29A346A20((v101.__r_.__value_.__r.__words[0] + 16));
+      if (v9 >= v8)
       {
-        v46 = p_p;
-        v47 = v95;
-        v48 = (v95 - p_p) >> 4;
-        if (v48 == v8 - v7 + 1)
+        v49 = p_p;
+        v50 = v103;
+        v51 = (v103 - p_p) >> 4;
+        if (v51 == v9 - v8 + 1)
         {
-          while (v46 != v47)
+          while (v49 != v50)
           {
-            pxrInternal__aapl__pxrReserved__::UsdShadeInput::Set(a1, v46, v7);
-            LODWORD(v7) = v7 + 1;
-            v46 = (v46 + 16);
+            v10.n128_f64[0] = v8;
+            pxrInternal__aapl__pxrReserved__::UsdShadeInput::Set(a1, v49, v10);
+            LODWORD(v8) = v8 + 1;
+            v49 = (v49 + 16);
           }
 
           goto LABEL_51;
         }
 
         __p = "usdMtlx/reader.cpp";
-        v89 = "_CopyValue";
-        v90 = 498;
-        v91 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
-        v92 = 0;
-        v49 = *a2;
-        v81 = 0;
-        v82 = 0;
-        sub_29B1D8824(v49, &v81, v85);
-        if (v86 >= 0)
+        v97 = "_CopyValue";
+        v98 = 498;
+        v99 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
+        v100 = 0;
+        v52 = *a2;
+        v89 = 0;
+        v90 = 0;
+        sub_29B1D8824(v52, &v89, v93);
+        if (v94 >= 0)
         {
-          v52 = v85;
+          v55 = v93;
         }
 
         else
         {
-          v52 = v85[0];
+          v55 = v93[0];
         }
 
-        pxrInternal__aapl__pxrReserved__::TfStringPrintf("valuerange [%d,%d] doesn't match valuecurve size %zd on '%s';  ignoring", v50, v51, v7, v8, v48, v52);
-        pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v87);
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        pxrInternal__aapl__pxrReserved__::TfStringPrintf("valuerange [%d,%d] doesn't match valuecurve size %zd on '%s';  ignoring", v53, v54, v8, v9, v51, v55);
+        pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v95);
+        if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v87.__r_.__value_.__l.__data_);
+          operator delete(v95.__r_.__value_.__l.__data_);
         }
 
-        if (v86 < 0)
+        if (v94 < 0)
         {
-          operator delete(v85[0]);
+          operator delete(v93[0]);
         }
 
-        v13 = v82;
-        if (!v82)
+        v15 = v90;
+        if (!v90)
         {
           goto LABEL_51;
         }
@@ -4814,38 +4819,38 @@ LABEL_15:
       else
       {
         __p = "usdMtlx/reader.cpp";
-        v89 = "_CopyValue";
-        v90 = 491;
-        v91 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
+        v97 = "_CopyValue";
+        v98 = 491;
+        v99 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
+        v100 = 0;
+        v11 = *a2;
+        v91 = 0;
         v92 = 0;
-        v9 = *a2;
-        v83 = 0;
-        v84 = 0;
-        sub_29B1D8824(v9, &v83, v85);
-        if (v86 >= 0)
+        sub_29B1D8824(v11, &v91, v93);
+        if (v94 >= 0)
         {
-          v12 = v85;
+          v14 = v93;
         }
 
         else
         {
-          v12 = v85[0];
+          v14 = v93[0];
         }
 
-        pxrInternal__aapl__pxrReserved__::TfStringPrintf("Invalid valuerange [%d,%d] on '%s';  ignoring", v10, v11, v7, v8, v12);
-        pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v87);
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        pxrInternal__aapl__pxrReserved__::TfStringPrintf("Invalid valuerange [%d,%d] on '%s';  ignoring", v12, v13, v8, v9, v14);
+        pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v95);
+        if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v87.__r_.__value_.__l.__data_);
+          operator delete(v95.__r_.__value_.__l.__data_);
         }
 
-        if (v86 < 0)
+        if (v94 < 0)
         {
-          operator delete(v85[0]);
+          operator delete(v93[0]);
         }
 
-        v13 = v84;
-        if (!v84)
+        v15 = v92;
+        if (!v92)
         {
           goto LABEL_51;
         }
@@ -4855,52 +4860,52 @@ LABEL_15:
     else
     {
       __p = "usdMtlx/reader.cpp";
-      v89 = "_CopyValue";
-      v90 = 510;
-      v91 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
-      v92 = 0;
-      v19 = v96;
-      if (SHIBYTE(v96->__r_.__value_.__r.__words[2]) < 0)
+      v97 = "_CopyValue";
+      v98 = 510;
+      v99 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_CopyValue(const UsdShadeInput &, const mx::ConstValueElementPtr &)";
+      v100 = 0;
+      v21 = v104;
+      if (SHIBYTE(v104->__r_.__value_.__r.__words[2]) < 0)
       {
-        v19 = v96->__r_.__value_.__r.__words[0];
+        v21 = v104->__r_.__value_.__r.__words[0];
       }
 
-      v20 = *a2;
-      v79 = 0;
-      v80 = 0;
-      sub_29B1D8824(v20, &v79, v85);
-      if (v86 >= 0)
+      v22 = *a2;
+      v87 = 0;
+      v88 = 0;
+      sub_29B1D8824(v22, &v87, v93);
+      if (v94 >= 0)
       {
-        v23 = v85;
+        v25 = v93;
       }
 
       else
       {
-        v23 = v85[0];
+        v25 = v93[0];
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Malformed valuerange '%s' on '%s';  ignoring", v21, v22, v19, v23);
-      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v87);
-      if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Malformed valuerange '%s' on '%s';  ignoring", v23, v24, v21, v25);
+      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, &v95);
+      if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v87.__r_.__value_.__l.__data_);
+        operator delete(v95.__r_.__value_.__l.__data_);
       }
 
-      if (v86 < 0)
+      if (v94 < 0)
       {
-        operator delete(v85[0]);
+        operator delete(v93[0]);
       }
 
-      v13 = v80;
-      if (!v80)
+      v15 = v88;
+      if (!v88)
       {
         goto LABEL_51;
       }
     }
 
-    sub_29A014BEC(v13);
+    sub_29A014BEC(v15);
 LABEL_51:
-    __p = &v93;
+    __p = &v101;
     sub_29A1D0D38(&__p);
 LABEL_52:
     __p = &p_p;
@@ -4908,261 +4913,264 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  if (*(&v96->__r_.__value_.__s + 23))
+  if (*(&v104->__r_.__value_.__s + 23))
   {
     goto LABEL_15;
   }
 
 LABEL_53:
-  v24 = sub_29AAC1FF8(*a2);
+  v26 = sub_29AAC1FF8(*a2);
   sub_29B1D8ACC(*a2, &__p);
-  v25 = sub_29AAC1FF8(__p);
-  if (v89)
+  v27 = sub_29AAC1FF8(__p);
+  if (v97)
   {
-    sub_29A014BEC(v89);
+    sub_29A014BEC(v97);
   }
 
-  v26 = *(v24 + 23);
-  if (v26 >= 0)
+  v28 = v26[23];
+  if (v28 >= 0)
   {
-    v27 = *(v24 + 23);
+    v29 = v26[23];
   }
 
   else
   {
-    v27 = *(v24 + 1);
+    v29 = *(v26 + 1);
   }
 
-  if (!v27)
+  if (!v29)
   {
-    return sub_29A186B14(v98);
+    return sub_29A186B14(v106);
   }
 
-  v28 = *(v25 + 23);
-  v29 = v28;
-  if ((v28 & 0x80u) != 0)
+  v30 = v27[23];
+  v31 = v30;
+  if ((v30 & 0x80u) != 0)
   {
-    v28 = *(v25 + 1);
+    v30 = *(v27 + 1);
   }
 
-  if (v27 == v28)
+  if (v29 == v30)
   {
-    v30 = v26 >= 0 ? v24 : *v24;
-    v31 = v29 >= 0 ? v25 : *v25;
-    if (!memcmp(v30, v31, v27))
+    v32 = v28 >= 0 ? v26 : *v26;
+    v33 = v31 >= 0 ? v27 : *v27;
+    if (!memcmp(v32, v33, v29))
     {
-      return sub_29A186B14(v98);
+      return sub_29A186B14(v106);
     }
   }
 
-  v32 = (*(**a2 + 64))();
-  if (*(v32 + 23) < 0)
+  v34 = (*(**a2 + 64))();
+  if (*(v34 + 23) < 0)
   {
-    v34 = *(v32 + 1);
-    if (v34 != 6)
+    v37 = *(v34 + 1);
+    if (v37 != 6)
     {
-      if (v34 != 8)
+      if (v37 != 8)
       {
-        return sub_29A186B14(v98);
+        return sub_29A186B14(v106);
       }
 
-      v32 = *v32;
+      v34 = *v34;
       goto LABEL_76;
     }
 
-    v41 = *v32;
-    if (**v32 != 1869377379 || *(*v32 + 4) != 13170)
+    v44 = *v34;
+    if (**v34 != 1869377379 || *(*v34 + 4) != 13170)
     {
-      v43 = *v41;
-      v44 = *(v41 + 2);
-      v40 = v43 == 1869377379 && v44 == 13426;
+      v46 = *v44;
+      v47 = *(v44 + 2);
+      v43 = v46 == 1869377379 && v47 == 13426;
       goto LABEL_94;
     }
 
 LABEL_163:
-    sub_29AAC1FF8(*a2);
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&__p);
+    v83 = sub_29AAC1FF8(*a2);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&__p, v83);
     pxrInternal__aapl__pxrReserved__::UsdAttribute::SetColorSpace(a1, &__p);
   }
 
-  v33 = *(v32 + 23);
-  if (v33 != 6)
+  v36 = *(v34 + 23);
+  if (v36 != 6)
   {
-    if (v33 != 8)
+    if (v36 != 8)
     {
-      return sub_29A186B14(v98);
+      return sub_29A186B14(v106);
     }
 
 LABEL_76:
-    if (*v32 != 0x656D616E656C6966)
+    if (*v34 != 0x656D616E656C6966)
     {
-      return sub_29A186B14(v98);
+      return sub_29A186B14(v106);
     }
 
-    v35 = *a2;
-    v36 = *(*a2 + 232);
-    if (v36)
+    v38 = *a2;
+    v39 = *(*a2 + 29);
+    if (v39)
     {
-      v37 = std::__shared_weak_count::lock(v36);
-      if (v37)
+      v39 = std::__shared_weak_count::lock(v39);
+      v40 = v39;
+      if (v39)
       {
-        v38 = v35[28];
+        v41 = v38[28];
       }
 
       else
       {
-        v38 = 0;
+        v41 = 0;
       }
     }
 
     else
     {
-      v38 = 0;
-      v37 = 0;
+      v41 = 0;
+      v40 = 0;
     }
 
-    v53 = sub_29B1F31FC();
-    v54 = sub_29AAD7980(v38, v53);
-    if (v37)
+    v56 = sub_29B1F31FC(v39, v35);
+    v58 = sub_29AAD7980(v41, v56);
+    if (v40)
     {
-      sub_29A014BEC(v37);
+      sub_29A014BEC(v40);
     }
 
-    if (v54)
+    if (v58)
     {
-      v55 = *a2;
-      v56 = *(*a2 + 232);
-      if (v56)
+      v59 = *a2;
+      v60 = *(*a2 + 29);
+      if (v60)
       {
-        v56 = std::__shared_weak_count::lock(v56);
-        v57 = v56;
-        if (v56)
-        {
-          v56 = *(v55 + 28);
-        }
-      }
-
-      else
-      {
-        v57 = 0;
-      }
-
-      sub_29B1D7E50(v56, &p_p);
-      sub_29AAD7A2C(&p_p, &__p);
-      v63 = __p;
-      v62 = v89;
-      if (v95)
-      {
-        sub_29A014BEC(v95);
-      }
-    }
-
-    else
-    {
-      v58 = *a2;
-      v59 = *(*a2 + 232);
-      if (v59)
-      {
-        v60 = std::__shared_weak_count::lock(v59);
+        v60 = std::__shared_weak_count::lock(v60);
+        v61 = v60;
         if (v60)
         {
-          v61 = v58[28];
-        }
-
-        else
-        {
-          v61 = 0;
+          v60 = *(v59 + 28);
         }
       }
 
       else
       {
         v61 = 0;
-        v60 = 0;
       }
 
-      v64 = sub_29B1F31FC();
-      v65 = sub_29AAD7D7C(v61, v64);
-      if (v60)
+      sub_29B1D7E50(v60, &p_p);
+      sub_29AAD7A2C(&p_p, &__p, v66);
+      v69 = __p;
+      v68 = v97;
+      v70 = v103;
+      if (v103)
       {
-        sub_29A014BEC(v60);
+        sub_29A014BEC(v103);
       }
+    }
 
-      if (!v65)
+    else
+    {
+      v62 = *a2;
+      v63 = *(*a2 + 29);
+      if (v63)
       {
-        return sub_29A186B14(v98);
-      }
-
-      v66 = *a2;
-      v67 = *(*a2 + 232);
-      if (v67)
-      {
-        v67 = std::__shared_weak_count::lock(v67);
-        v57 = v67;
-        if (v67)
+        v63 = std::__shared_weak_count::lock(v63);
+        v64 = v63;
+        if (v63)
         {
-          v67 = *(v66 + 28);
+          v65 = v62[28];
+        }
+
+        else
+        {
+          v65 = 0;
         }
       }
 
       else
       {
-        v57 = 0;
+        v65 = 0;
+        v64 = 0;
       }
 
-      sub_29B1D7F00(v67, &__p);
-      v63 = __p;
-      v62 = v89;
-      __p = 0;
-      v89 = 0;
-    }
-
-    if (v57)
-    {
-      sub_29A014BEC(v57);
-    }
-
-    if (v63)
-    {
-      v68 = sub_29B1F31FC();
-      sub_29AAD856C(v63, v68, &__p);
-      v69 = __p;
-      v70 = v89;
-      if (__p != v89)
+      v71 = sub_29B1F31FC(v63, v57);
+      v72 = sub_29AAD7D7C(v65, v71);
+      if (v64)
       {
-        LOBYTE(v45) = 0;
+        sub_29A014BEC(v64);
+      }
+
+      if (!v72)
+      {
+        return sub_29A186B14(v106);
+      }
+
+      v73 = *a2;
+      v74 = *(*a2 + 29);
+      if (v74)
+      {
+        v74 = std::__shared_weak_count::lock(v74);
+        v61 = v74;
+        if (v74)
+        {
+          v74 = *(v73 + 28);
+        }
+      }
+
+      else
+      {
+        v61 = 0;
+      }
+
+      sub_29B1D7F00(v74, &__p);
+      v69 = __p;
+      v68 = v97;
+      __p = 0;
+      v97 = 0;
+    }
+
+    if (v61)
+    {
+      sub_29A014BEC(v61);
+    }
+
+    if (v69)
+    {
+      v75 = sub_29B1F31FC(v70, v67);
+      sub_29AAD856C(v69, v75, &__p);
+      v76 = __p;
+      v77 = v97;
+      if (__p != v97)
+      {
+        LOBYTE(v48) = 0;
         while (1)
         {
-          v71 = (*(v69->~__shared_weak_count + 8))();
-          v72 = *(v71 + 23);
-          if (v72 < 0)
+          v78 = (*(v76->~__shared_weak_count + 8))();
+          v79 = *(v78 + 23);
+          if (v79 < 0)
           {
-            if (*(v71 + 8) == 6)
+            if (*(v78 + 8) == 6)
             {
-              v71 = *v71;
+              v78 = *v78;
 LABEL_143:
-              v75 = *v71 == 1869377379 && *(v71 + 4) == 13170 || *v71 == 1869377379 && *(v71 + 4) == 13426;
+              v82 = *v78 == 1869377379 && *(v78 + 4) == 13170 || *v78 == 1869377379 && *(v78 + 4) == 13426;
               goto LABEL_155;
             }
           }
 
-          else if (v72 == 6)
+          else if (v79 == 6)
           {
             goto LABEL_143;
           }
 
-          v75 = 0;
+          v82 = 0;
 LABEL_155:
-          v45 = v75 | v45 & 1;
-          v69 = (v69 + 16);
-          if (v69 == v70)
+          v48 = v82 | v48 & 1;
+          v76 = (v76 + 16);
+          if (v76 == v77)
           {
             goto LABEL_159;
           }
         }
       }
 
-      v45 = 0;
+      v48 = 0;
 LABEL_159:
       p_p = &__p;
       sub_29A0176E4(&p_p);
@@ -5170,32 +5178,32 @@ LABEL_159:
 
     else
     {
-      v45 = 0;
+      v48 = 0;
     }
 
-    if (v62)
+    if (v68)
     {
-      sub_29A014BEC(v62);
+      sub_29A014BEC(v68);
     }
 
     goto LABEL_162;
   }
 
-  if (*v32 == 1869377379 && *(v32 + 2) == 13170)
+  if (*v34 == 1869377379 && *(v34 + 2) == 13170)
   {
     goto LABEL_163;
   }
 
-  v40 = *v32 == 1869377379 && *(v32 + 2) == 13426;
+  v43 = *v34 == 1869377379 && *(v34 + 2) == 13426;
 LABEL_94:
-  v45 = v40;
+  v48 = v43;
 LABEL_162:
-  if (v45)
+  if (v48)
   {
     goto LABEL_163;
   }
 
-  return sub_29A186B14(v98);
+  return sub_29A186B14(v106);
 }
 
 void sub_29AAD7764(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -5232,7 +5240,7 @@ uint64_t sub_29AAD7980(uint64_t a1, const void **a2)
 
   v7 = *(a1 + 47);
   v8 = v7;
-  if ((v7 & 0x80u) != 0)
+  if (v7 < 0)
   {
     v7 = *(a1 + 32);
   }
@@ -5248,213 +5256,213 @@ uint64_t sub_29AAD7980(uint64_t a1, const void **a2)
   }
 }
 
-void sub_29AAD7A2C(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void sub_29AAD7A2C(uint64_t *a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>)
 {
-  v4 = *a1;
-  v5 = sub_29B1F31FC();
-  sub_29B1ED628(v4, v5, 0, __s1);
-  v6 = __s1[1];
+  v5 = *a1;
+  v6 = sub_29B1F31FC(a1, a3);
+  sub_29B1ED628(v5, v6, 0, __s1);
+  v7 = __s1[1];
   if (__s1[0])
   {
     *a2 = __s1[0];
-    a2[1] = v6;
+    a2[1] = v7;
     return;
   }
 
-  v7 = (*(**a1 + 64))();
-  if (*(v7 + 23) < 0)
+  v8 = (*(**a1 + 64))();
+  if (*(v8 + 23) < 0)
   {
-    sub_29A008D14(__s1, *v7, *(v7 + 8));
+    sub_29A008D14(__s1, *v8, *(v8 + 8));
   }
 
   else
   {
-    v8 = *v7;
-    v30 = *(v7 + 16);
-    *__s1 = v8;
+    v9 = *v8;
+    v31 = *(v8 + 16);
+    *__s1 = v9;
   }
 
-  v9 = strlen(off_2A14FDEF0[0]);
-  v10 = v9;
-  v11 = SHIBYTE(v30);
-  if ((SHIBYTE(v30) & 0x8000000000000000) != 0)
+  v10 = strlen(off_2A14FDEF0[0]);
+  v11 = v10;
+  v12 = SHIBYTE(v31);
+  if ((SHIBYTE(v31) & 0x8000000000000000) != 0)
   {
-    if (v9 != __s1[1])
+    if (v10 != __s1[1])
     {
       goto LABEL_13;
     }
 
-    if (v9 == -1)
+    if (v10 == -1)
     {
       sub_29A0F26CC();
     }
 
-    v12 = __s1[0];
+    v13 = __s1[0];
   }
 
   else
   {
-    if (v9 != SHIBYTE(v30))
+    if (v10 != SHIBYTE(v31))
     {
       goto LABEL_13;
     }
 
-    v12 = __s1;
+    v13 = __s1;
   }
 
-  if (!memcmp(v12, off_2A14FDEF0[0], v10))
+  if (!memcmp(v13, off_2A14FDEF0[0], v11))
   {
     goto LABEL_40;
   }
 
 LABEL_13:
-  v13 = strlen(off_2A14FDEF8[0]);
-  v14 = v13;
-  if ((v11 & 0x80000000) != 0)
+  v14 = strlen(off_2A14FDEF8[0]);
+  v15 = v14;
+  if ((v12 & 0x80000000) != 0)
   {
-    if (v13 != __s1[1])
+    if (v14 != __s1[1])
     {
       goto LABEL_20;
     }
 
-    if (v13 == -1)
+    if (v14 == -1)
     {
       sub_29A0F26CC();
     }
 
-    v15 = __s1[0];
+    v16 = __s1[0];
   }
 
   else
   {
-    if (v13 != v11)
+    if (v14 != v12)
     {
       goto LABEL_20;
     }
 
-    v15 = __s1;
+    v16 = __s1;
   }
 
-  if (!memcmp(v15, off_2A14FDEF8[0], v14))
+  if (!memcmp(v16, off_2A14FDEF8[0], v15))
   {
     goto LABEL_40;
   }
 
 LABEL_20:
-  v16 = strlen(off_2A14FDF00[0]);
-  v17 = v16;
-  if ((v11 & 0x80000000) != 0)
+  v17 = strlen(off_2A14FDF00[0]);
+  v18 = v17;
+  if ((v12 & 0x80000000) != 0)
   {
-    if (v16 != __s1[1])
+    if (v17 != __s1[1])
     {
       goto LABEL_27;
     }
 
-    if (v16 == -1)
+    if (v17 == -1)
     {
       sub_29A0F26CC();
     }
 
-    v18 = __s1[0];
+    v19 = __s1[0];
   }
 
   else
   {
-    if (v16 != v11)
+    if (v17 != v12)
     {
       goto LABEL_27;
     }
 
-    v18 = __s1;
+    v19 = __s1;
   }
 
-  if (!memcmp(v18, off_2A14FDF00[0], v17))
+  if (!memcmp(v19, off_2A14FDF00[0], v18))
   {
     goto LABEL_40;
   }
 
 LABEL_27:
-  v19 = strlen(off_2A14FDF08[0]);
-  v20 = v19;
-  if ((v11 & 0x80000000) != 0)
+  v20 = strlen(off_2A14FDF08[0]);
+  v21 = v20;
+  if ((v12 & 0x80000000) != 0)
   {
-    if (v19 == __s1[1])
+    if (v20 == __s1[1])
     {
-      if (v19 == -1)
+      if (v20 == -1)
       {
         sub_29A0F26CC();
       }
 
-      v21 = __s1[0];
+      v22 = __s1[0];
 LABEL_33:
-      if (memcmp(v21, off_2A14FDF08[0], v20))
+      if (memcmp(v22, off_2A14FDF08[0], v21))
       {
         goto LABEL_34;
       }
 
 LABEL_40:
-      v24 = a1[1];
-      v27 = *a1;
-      v28 = v24;
-      if (v24)
+      v25 = a1[1];
+      v28 = *a1;
+      v29 = v25;
+      if (v25)
       {
-        atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v27, 0);
+      pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v28, 0);
       sub_29AAD8124(*a1);
-      v25 = 0;
       v26 = 0;
-      sub_29AAD7E28(a1, &v25, a2);
+      v27 = 0;
+      sub_29AAD7E28(a1, &v26, a2);
       goto LABEL_43;
     }
   }
 
-  else if (v19 == v11)
+  else if (v20 == v12)
   {
-    v21 = __s1;
+    v22 = __s1;
     goto LABEL_33;
   }
 
 LABEL_34:
-  v22 = a1[1];
-  v27 = *a1;
-  v28 = v22;
-  if (v22)
-  {
-    atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v27, 0);
-  sub_29AAD8124(*a1);
   v23 = a1[1];
-  v25 = *a1;
-  v26 = v23;
+  v28 = *a1;
+  v29 = v23;
   if (v23)
   {
     atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29AAD7E28(a1, &v25, a2);
-  if (v23)
+  pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v28, 0);
+  sub_29AAD8124(*a1);
+  v24 = a1[1];
+  v26 = *a1;
+  v27 = v24;
+  if (v24)
   {
-    sub_29A014BEC(v23);
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  sub_29AAD7E28(a1, &v26, a2);
+  if (v24)
+  {
+    sub_29A014BEC(v24);
   }
 
 LABEL_43:
-  if (v28)
+  if (v29)
   {
-    sub_29A014BEC(v28);
+    sub_29A014BEC(v29);
   }
 
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v31) < 0)
   {
     operator delete(__s1[0]);
   }
 
-  if (v6)
+  if (v7)
   {
-    sub_29A014BEC(v6);
+    sub_29A014BEC(v7);
   }
 }
 
@@ -5506,7 +5514,7 @@ uint64_t sub_29AAD7D7C(uint64_t a1, const void **a2)
 
   v7 = *(a1 + 47);
   v8 = v7;
-  if ((v7 & 0x80u) != 0)
+  if (v7 < 0)
   {
     v7 = *(a1 + 32);
   }
@@ -5522,37 +5530,37 @@ uint64_t sub_29AAD7D7C(uint64_t a1, const void **a2)
   }
 }
 
-void sub_29AAD7E28(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+void sub_29AAD7E28(void **a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   sub_29B1D8ACC(*a1, &__p);
   v6 = (*a1 + 24);
   v7 = (*(**a1 + 64))();
   v8 = a1[1];
-  v25 = *a1;
-  v26 = v8;
+  v26 = *a1;
+  v27 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  Version = pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v25, 0);
-  v28 = v9;
+  Version = pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v26, 0);
+  v29 = v9;
   v10 = sub_29AAD8124(*a1);
-  sub_29AAD81B0(&__p, a2, v6, v7, &Version, v10, &v29);
-  if (v26)
+  sub_29AAD81B0(&__p, a2, v6, v7, &Version, v10, &v30);
+  if (v27)
   {
-    sub_29A014BEC(v26);
+    sub_29A014BEC(v27);
   }
 
-  if (v23)
+  if (v24)
   {
-    sub_29A014BEC(v23);
+    sub_29A014BEC(v24);
   }
 
-  if (v29)
+  if (v30)
   {
-    v11 = v30;
-    *a3 = v29;
+    v11 = v31;
+    *a3 = v30;
     a3[1] = v11;
   }
 
@@ -5561,8 +5569,8 @@ void sub_29AAD7E28(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
     if ((atomic_load_explicit(&qword_2A1748120, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1748120))
     {
       sub_29A008E78(&__p, "");
-      pxrInternal__aapl__pxrReserved__::UsdMtlxGetDocument(&__p, &qword_2A1748110);
-      if (v24 < 0)
+      pxrInternal__aapl__pxrReserved__::UsdMtlxGetDocument(&__p, v22, &qword_2A1748110);
+      if (v25 < 0)
       {
         operator delete(__p);
       }
@@ -5580,17 +5588,17 @@ void sub_29AAD7E28(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
     v13 = sub_29AAD84E0(*a1);
     sub_29AAC0094(v12, v13, &__p);
     v15 = __p;
-    v14 = v23;
+    v14 = v24;
     __p = 0;
-    v23 = 0;
-    v16 = v30;
-    v30 = v14;
+    v24 = 0;
+    v16 = v31;
+    v31 = v14;
     if (v16)
     {
       sub_29A014BEC(v16);
-      if (v23)
+      if (v24)
       {
-        sub_29A014BEC(v23);
+        sub_29A014BEC(v24);
       }
     }
 
@@ -5607,24 +5615,24 @@ LABEL_16:
       v18 = (*(**a1 + 64))();
       v19 = a1[1];
       __p = *a1;
-      v23 = v19;
+      v24 = v19;
       if (v19)
       {
         atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v25 = pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&__p, 0);
-      LOBYTE(v26) = v20;
+      v26 = pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&__p, 0);
+      LOBYTE(v27) = v20;
       v21 = sub_29AAD8124(*a1);
-      sub_29AAD81B0(&qword_2A1748110, a2, v17, v18, &v25, v21, a3);
-      if (v23)
+      sub_29AAD81B0(&qword_2A1748110, a2, v17, v18, &v26, v21, a3);
+      if (v24)
       {
-        sub_29A014BEC(v23);
+        sub_29A014BEC(v24);
       }
 
-      if (v30)
+      if (v31)
       {
-        sub_29A014BEC(v30);
+        sub_29A014BEC(v31);
       }
     }
   }
@@ -5646,26 +5654,26 @@ void sub_29AAD80A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__int128 *sub_29AAD8124(uint64_t a1)
+char *sub_29AAD8124(uint64_t a1)
 {
   sub_29A008E78(__p, off_2A14FDE88[0]);
   v2 = sub_29A8877BC((a1 + 160), __p);
   if (v2)
   {
-    v3 = (v2 + 5);
+    v4 = (v2 + 5);
   }
 
   else
   {
-    v3 = sub_29B1F31FC();
+    v4 = sub_29B1F31FC(0, v3);
   }
 
-  if (v6 < 0)
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_29AAD8194(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5678,7 +5686,7 @@ void sub_29AAD8194(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AAD81B0(uint64_t *a1@<X0>, uint64_t *a2@<X1>, const void **a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+void sub_29AAD81B0(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
   *a7 = 0;
   a7[1] = 0;
@@ -5770,7 +5778,7 @@ LABEL_10:
                   v33 = *v13;
                   if (v29)
                   {
-                    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit((v29 + 8), 1uLL, memory_order_relaxed);
                   }
 
                   a7[1] = v29;
@@ -5870,26 +5878,26 @@ void sub_29AAD84C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *sub_29AAD84E0(uint64_t a1)
+char *sub_29AAD84E0(uint64_t a1)
 {
   sub_29A008E78(__p, off_2A14FDE80[0]);
   v2 = sub_29A8877BC((a1 + 160), __p);
   if (v2)
   {
-    v3 = (v2 + 5);
+    v4 = (v2 + 5);
   }
 
   else
   {
-    v3 = sub_29B1F31FC();
+    v4 = sub_29B1F31FC(0, v3);
   }
 
-  if (v6 < 0)
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_29AAD8550(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5977,29 +5985,29 @@ void sub_29AAD8670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AAD86A8(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AAD86A8(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AAD8740(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AAD8740(a1, &v9, a4);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
 }
 
-void *sub_29AAD8740@<X0>(uint64_t a1@<X0>, __int128 **a2@<X2>, void *a3@<X8>)
+void *sub_29AAD8740@<X0>(uint64_t a1@<X0>, void *a2@<X8>, __int128 **a3@<X2>)
 {
   v6 = operator new(0x58uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  v8 = *a2;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  v8 = *a3;
   result = sub_29AAD87C0(v6 + 4, &v8);
-  *(a3 + 16) = 1;
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -6026,7 +6034,7 @@ void *sub_29AAD87C0(void *__dst, __int128 **a2)
   return __dst;
 }
 
-void sub_29AAD8838(uint64_t a1, uint64_t a2)
+void sub_29AAD8838(char **a1, char *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -6065,64 +6073,64 @@ void sub_29AAD8894(uint64_t a1)
   }
 }
 
-void sub_29AAD8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AAD8C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   pxrInternal__aapl__pxrReserved__::UsdShadeNodeGraph::~UsdShadeNodeGraph(va);
   sub_29A57F434(va1);
-  v6 = *(v4 - 40);
-  if (v6)
+  v9 = *(v7 - 40);
+  if (v9)
   {
-    if (atomic_fetch_add_explicit(v6 + 2, 0xFFFFFFFF, memory_order_release) == 1)
+    if (atomic_fetch_add_explicit(v9 + 2, 0xFFFFFFFF, memory_order_release) == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v9 + 8))(v9);
     }
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AAD8D28(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
+uint64_t *sub_29AAD8D28(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v6 = (a1 + 8);
-  v5 = *(a1 + 8);
-  if (v5)
+  v7 = (a1 + 8);
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v7 = *a2;
+    v8 = *a2;
     while (1)
     {
       while (1)
       {
-        v8 = v5;
-        v9 = v5[4];
-        if (v7 >= v9)
+        v9 = v6;
+        v10 = v6[4];
+        if (v8 >= v10)
         {
           break;
         }
 
-        v5 = *v8;
-        v6 = v8;
-        if (!*v8)
+        v6 = *v9;
+        v7 = v9;
+        if (!*v9)
         {
           goto LABEL_10;
         }
       }
 
-      if (v9 >= v7)
+      if (v10 >= v8)
       {
         break;
       }
 
-      v5 = v8[1];
-      if (!v5)
+      v6 = v9[1];
+      if (!v6)
       {
-        v6 = v8 + 1;
+        v7 = v9 + 1;
         goto LABEL_10;
       }
     }
@@ -6130,17 +6138,17 @@ uint64_t *sub_29AAD8D28(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 
   else
   {
-    v8 = (a1 + 8);
+    v9 = (a1 + 8);
 LABEL_10:
-    sub_29AAD8DE4(a1, a4, &v11);
-    sub_29A00B204(a1, v8, v6, v11);
-    return v11;
+    sub_29AAD8DE4(a1, a4, &v12);
+    sub_29A00B204(a1, v9, v7, v12);
+    return v12;
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t sub_29AAD8DE4@<X0>(uint64_t a1@<X0>, void **a2@<X2>, void *a3@<X8>)
+uint64_t sub_29AAD8DE4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X2>, void *a3@<X8>)
 {
   v6 = operator new(0x50uLL);
   *a3 = v6;
@@ -6170,7 +6178,7 @@ uint64_t sub_29AAD8E64(uint64_t a1, void **a2)
   return a1;
 }
 
-void sub_29AAD8ECC(uint64_t a1, uint64_t a2)
+void sub_29AAD8ECC(char **a1, char *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -6209,47 +6217,48 @@ void sub_29AAD8F28(uint64_t a1)
   }
 }
 
-void sub_29AAD8FA4(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI *a4@<X3>, uint64_t a5@<X8>)
+void sub_29AAD8FA4(uint64_t a1@<X0>, void **a2@<X1>, uint64_t *a3@<X2>, pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI *a4@<X3>, uint64_t a5@<X8>)
 {
-  v66 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   sub_29AAD1438();
-  v10 = sub_29A8877BC((*a2 + 160), &qword_2A1747FA0);
+  v10 = sub_29A8877BC(*a2 + 20, &qword_2A1747FA0);
   if (v10)
   {
-    v11 = (v10 + 5);
+    v12 = v10 + 40;
   }
 
   else
   {
-    v11 = sub_29B1F31FC();
+    v10 = sub_29B1F31FC(0, v11);
+    v12 = v10;
   }
 
-  v12 = *(v11 + 23);
-  if ((v12 & 0x80u) != 0)
+  v13 = v12[23];
+  if ((v13 & 0x80u) != 0)
   {
-    v12 = *(v11 + 1);
+    v13 = *(v12 + 1);
   }
 
-  if (!v12)
+  if (!v13)
   {
-    v11 = sub_29B1F31FC();
+    v12 = sub_29B1F31FC(v10, v11);
   }
 
-  memset(&v59, 0, sizeof(v59));
+  memset(&v60, 0, sizeof(v60));
   sub_29B1D8ACC(*a2, &__p);
-  sub_29AAC1C4C(__p, v11, &v57);
-  if (v49)
+  sub_29AAC1C4C(__p, v12, &v58);
+  if (v50)
   {
-    sub_29A014BEC(v49);
+    sub_29A014BEC(v50);
   }
 
-  if (v57)
+  if (v58)
   {
     sub_29AAD1438();
-    sub_29AAD14B4(&__p, &v57, &qword_2A1747F70);
-    v13 = __p;
-    v14 = *(__p + 23);
-    if (v14 < 0)
+    sub_29AAD14B4(&__p, &v58, &qword_2A1747F70);
+    v14 = __p;
+    v15 = *(__p + 23);
+    if (v15 < 0)
     {
       if (!*(__p + 1))
       {
@@ -6262,210 +6271,210 @@ void sub_29AAD8FA4(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, pxrIn
       goto LABEL_23;
     }
 
-    v15 = strlen(off_2A14FDBF8[0]);
-    if ((v14 & 0x80000000) != 0)
+    v16 = strlen(off_2A14FDBF8[0]);
+    if ((v15 & 0x80000000) != 0)
     {
-      if (v15 != *(__p + 1))
+      if (v16 != *(__p + 1))
       {
         goto LABEL_23;
       }
 
-      if (v15 == -1)
+      if (v16 == -1)
       {
         sub_29A0F26CC();
       }
 
-      v13 = *__p;
+      v14 = *__p;
     }
 
-    else if (v15 != v14)
+    else if (v16 != v15)
     {
       goto LABEL_23;
     }
 
-    if (!memcmp(v13, off_2A14FDBF8[0], v15))
+    if (!memcmp(v14, off_2A14FDBF8[0], v16))
     {
       sub_29AAD1438();
-      sub_29AAD14B4(&v61, &v57, &qword_2A1747D78);
-      std::string::operator=(&v59, v61);
+      sub_29AAD14B4(&v62, &v58, &qword_2A1747D78);
+      std::string::operator=(&v60, v62);
     }
   }
 
 LABEL_23:
-  v56 = 0;
-  pxrInternal__aapl__pxrReserved__::SdfValueTypeName::SdfValueTypeName(&v55);
-  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  v57 = 0;
+  pxrInternal__aapl__pxrReserved__::SdfValueTypeName::SdfValueTypeName(&v56);
+  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (v59.__r_.__value_.__l.__size_ == 7 && *v59.__r_.__value_.__l.__data_ == 1718777203 && *(v59.__r_.__value_.__r.__words[0] + 3) == 1701011814)
+    if (v60.__r_.__value_.__l.__size_ == 7 && *v60.__r_.__value_.__l.__data_ == 1718777203 && *(v60.__r_.__value_.__r.__words[0] + 3) == 1701011814)
     {
       goto LABEL_76;
     }
 
-    if (v59.__r_.__value_.__l.__size_ == 12 && *v59.__r_.__value_.__l.__data_ == 0x6563616C70736964 && *(v59.__r_.__value_.__r.__words[0] + 8) == 1953391981)
+    if (v60.__r_.__value_.__l.__size_ == 12 && *v60.__r_.__value_.__l.__data_ == 0x6563616C70736964 && *(v60.__r_.__value_.__r.__words[0] + 8) == 1953391981)
     {
       goto LABEL_76;
     }
 
-    if (v59.__r_.__value_.__l.__size_ == 6 && *v59.__r_.__value_.__l.__data_ == 1970040694 && *(v59.__r_.__value_.__r.__words[0] + 4) == 25965)
+    if (v60.__r_.__value_.__l.__size_ == 6 && *v60.__r_.__value_.__l.__data_ == 1970040694 && *(v60.__r_.__value_.__r.__words[0] + 4) == 25965)
     {
       goto LABEL_76;
     }
 
-    if (v59.__r_.__value_.__l.__size_ != 5)
+    if (v60.__r_.__value_.__l.__size_ != 5)
     {
       goto LABEL_60;
     }
 
-    v22 = v59.__r_.__value_.__r.__words[0];
+    v23 = v60.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (HIBYTE(v59.__r_.__value_.__r.__words[2]) > 6u)
+    if (HIBYTE(v60.__r_.__value_.__r.__words[2]) > 6u)
     {
-      if (HIBYTE(v59.__r_.__value_.__r.__words[2]) == 7)
+      if (HIBYTE(v60.__r_.__value_.__r.__words[2]) == 7)
       {
-        v16 = *(v59.__r_.__value_.__r.__words + 3);
-        v17 = LODWORD(v59.__r_.__value_.__l.__data_) == 1718777203;
-        v18 = 1701011814;
+        v17 = *(v60.__r_.__value_.__r.__words + 3);
+        v18 = LODWORD(v60.__r_.__value_.__l.__data_) == 1718777203;
+        v19 = 1701011814;
       }
 
       else
       {
-        if (HIBYTE(v59.__r_.__value_.__r.__words[2]) != 12)
+        if (HIBYTE(v60.__r_.__value_.__r.__words[2]) != 12)
         {
           goto LABEL_60;
         }
 
-        v16 = v59.__r_.__value_.__r.__words[1];
-        v17 = v59.__r_.__value_.__r.__words[0] == 0x6563616C70736964;
-        v18 = 1953391981;
+        v17 = v60.__r_.__value_.__r.__words[1];
+        v18 = v60.__r_.__value_.__r.__words[0] == 0x6563616C70736964;
+        v19 = 1953391981;
       }
 
 LABEL_56:
-      if (!v17 || v16 != v18)
+      if (!v18 || v17 != v19)
       {
         goto LABEL_60;
       }
 
 LABEL_76:
-      v34 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-      if (v34)
+      v35 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+      if (v35)
       {
 LABEL_78:
-        v55 = *(v34 + 11);
+        v56 = *(v35 + 11);
         goto LABEL_79;
       }
 
 LABEL_77:
-      v34 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+      v35 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
       goto LABEL_78;
     }
 
-    if (HIBYTE(v59.__r_.__value_.__r.__words[2]) != 5)
+    if (HIBYTE(v60.__r_.__value_.__r.__words[2]) != 5)
     {
-      if (HIBYTE(v59.__r_.__value_.__r.__words[2]) != 6)
+      if (HIBYTE(v60.__r_.__value_.__r.__words[2]) != 6)
       {
         goto LABEL_60;
       }
 
-      v16 = WORD2(v59.__r_.__value_.__r.__words[0]);
-      v17 = LODWORD(v59.__r_.__value_.__l.__data_) == 1970040694;
-      v18 = 25965;
+      v17 = WORD2(v60.__r_.__value_.__r.__words[0]);
+      v18 = LODWORD(v60.__r_.__value_.__l.__data_) == 1970040694;
+      v19 = 25965;
       goto LABEL_56;
     }
 
-    v22 = &v59;
+    v23 = &v60;
   }
 
-  data = v22->__r_.__value_.__l.__data_;
-  v24 = v22->__r_.__value_.__s.__data_[4];
-  if (data == 1751607660 && v24 == 116)
+  data = v23->__r_.__value_.__l.__data_;
+  v25 = v23->__r_.__value_.__s.__data_[4];
+  if (data == 1751607660 && v25 == 116)
   {
     goto LABEL_76;
   }
 
 LABEL_60:
-  v27 = strlen(off_2A14FDEF0[0]);
-  v28 = v27;
-  v29 = *(v11 + 23);
-  if (v29 < 0)
+  v28 = strlen(off_2A14FDEF0[0]);
+  v29 = v28;
+  v30 = v12[23];
+  if (v30 < 0)
   {
-    if (v27 != *(v11 + 1))
+    if (v28 != *(v12 + 1))
     {
       goto LABEL_67;
     }
 
-    if (v27 == -1)
+    if (v28 == -1)
     {
       sub_29A0F26CC();
     }
 
-    v30 = *v11;
+    v31 = *v12;
   }
 
   else
   {
-    v30 = v11;
-    if (v28 != v29)
+    v31 = v12;
+    if (v29 != v30)
     {
       goto LABEL_67;
     }
   }
 
-  if (!memcmp(v30, off_2A14FDEF0[0], v28))
+  if (!memcmp(v31, off_2A14FDEF0[0], v29))
   {
     goto LABEL_76;
   }
 
 LABEL_67:
-  v31 = strlen(off_2A14FDEF8[0]);
-  v32 = v31;
-  if ((v29 & 0x80000000) != 0)
+  v32 = strlen(off_2A14FDEF8[0]);
+  v33 = v32;
+  if ((v30 & 0x80000000) != 0)
   {
-    if (v31 != *(v11 + 1))
+    if (v32 != *(v12 + 1))
     {
       goto LABEL_74;
     }
 
-    if (v31 == -1)
+    if (v32 == -1)
     {
       sub_29A0F26CC();
     }
 
-    v33 = *v11;
+    v34 = *v12;
   }
 
   else
   {
-    v33 = v11;
-    if (v32 != v29)
+    v34 = v12;
+    if (v33 != v30)
     {
       goto LABEL_74;
     }
   }
 
-  if (!memcmp(v33, off_2A14FDEF8[0], v32))
+  if (!memcmp(v34, off_2A14FDEF8[0], v33))
   {
     goto LABEL_76;
   }
 
 LABEL_74:
-  if (sub_29A0F2648(v11, off_2A14FDF00[0]) || sub_29A0F2648(v11, off_2A14FDF08[0]))
+  if (sub_29A0F2648(v12, off_2A14FDF00[0]) || sub_29A0F2648(v12, off_2A14FDF08[0]))
   {
     goto LABEL_76;
   }
 
-  size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
-  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+  if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v59.__r_.__value_.__l.__size_;
+    size = v60.__r_.__value_.__l.__size_;
   }
 
   if (size)
   {
-    v34 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-    if (v34)
+    v35 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+    if (v35)
     {
       goto LABEL_78;
     }
@@ -6473,43 +6482,43 @@ LABEL_74:
     goto LABEL_77;
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdType(v11, &__p);
-  v55 = __p;
-  if ((v49 & 7) != 0)
+  pxrInternal__aapl__pxrReserved__::UsdMtlxGetUsdType(v12, &__p);
+  v56 = __p;
+  if ((v50 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v50 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if (pxrInternal__aapl__pxrReserved__::SdfValueTypeName::_IsEmpty(&v55))
+  if (pxrInternal__aapl__pxrReserved__::SdfValueTypeName::_IsEmpty(&v56))
   {
-    v46 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-    if (!v46)
+    v47 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+    if (!v47)
     {
-      v46 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+      v47 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
     }
 
-    v55 = *(v46 + 11);
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&__p);
-    if ((v56 & 7) != 0)
+    v56 = *(v47 + 11);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&__p, v12);
+    if ((v57 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v56 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v57 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
-    v56 = __p;
+    v57 = __p;
   }
 
 LABEL_79:
-  v35 = *a2;
-  v36 = a2[1];
-  if (v36)
+  v36 = *a2;
+  v37 = a2[1];
+  if (v37)
   {
-    atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v35)
+  if (v36)
   {
-    sub_29AAD3238(v35 + 48, &v54);
-    if (!v36)
+    sub_29AAD3238((v36 + 6), &v55);
+    if (!v37)
     {
       goto LABEL_84;
     }
@@ -6517,117 +6526,117 @@ LABEL_79:
     goto LABEL_83;
   }
 
-  v54 = 0;
-  if (v36)
+  v55 = 0;
+  if (v37)
   {
 LABEL_83:
-    sub_29A014BEC(v36);
+    sub_29A014BEC(v37);
   }
 
 LABEL_84:
-  v37 = *a3;
+  v38 = *a3;
   if (*(*a3 + 71) < 0)
   {
-    sub_29A008D14(__dst, *(v37 + 48), *(v37 + 56));
+    sub_29A008D14(__dst, *(v38 + 48), *(v38 + 56));
   }
 
   else
   {
-    *__dst = *(v37 + 48);
-    v53 = *(v37 + 64);
+    *__dst = *(v38 + 48);
+    v54 = *(v38 + 64);
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(a4, &v54, &v55, a5);
-  LODWORD(v61) = *a5;
-  v38 = *(a5 + 8);
-  v62 = v38;
-  if (v38)
+  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(a4, &v55, &v56, a5);
+  LODWORD(v62) = *a5;
+  v39 = *(a5 + 8);
+  v63 = v39;
+  if (v39)
   {
-    atomic_fetch_add_explicit(v38 + 6, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v39 + 6, 1uLL, memory_order_relaxed);
   }
 
-  sub_29A1E21F4(&v63, (a5 + 16));
-  sub_29A1E2240(&v64, (a5 + 20));
-  v39 = *(a5 + 24);
-  v65 = v39;
-  if ((v39 & 7) != 0 && (atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  sub_29A1E21F4(&v64, (a5 + 16));
+  sub_29A1E2240(&v65, (a5 + 20));
+  v40 = *(a5 + 24);
+  v66 = v40;
+  if ((v40 & 7) != 0 && (atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
   {
-    v65 &= 0xFFFFFFFFFFFFFFF8;
+    v66 &= 0xFFFFFFFFFFFFFFF8;
   }
 
-  memset(v47, 0, sizeof(v47));
-  sub_29AAD9980(v47, &v61, &v66, 1uLL);
-  sub_29AAD9A9C(&__p, __dst, v47);
-  v40 = sub_29A121054((a1 + 104), &__p, &__p);
-  v42 = v41;
-  v60 = &v51;
-  sub_29A7D6D78(&v60);
-  if (v50 < 0)
+  memset(v48, 0, sizeof(v48));
+  sub_29AAD9980(v48, &v62, &v67, 1uLL);
+  sub_29AAD9A9C(&__p, __dst, v48);
+  v41 = sub_29A121054((a1 + 104), &__p, &__p);
+  v43 = v42;
+  v61 = &v52;
+  sub_29A7D6D78(&v61);
+  if (v51 < 0)
   {
     operator delete(__p);
   }
 
-  v60 = v47;
-  sub_29A7D6D78(&v60);
-  if ((v65 & 7) != 0)
+  v61 = v48;
+  sub_29A7D6D78(&v61);
+  if ((v66 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v66 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v64);
-  sub_29A1DE3A4(&v63);
-  if (v62)
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v65);
+  sub_29A1DE3A4(&v64);
+  if (v63)
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v62, v43);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63, v44);
   }
 
-  if ((v42 & 1) == 0)
+  if ((v43 & 1) == 0)
   {
-    sub_29A7E4F5C(v40 + 7, a5);
+    sub_29A7E4F5C(v41 + 7, a5);
   }
 
-  if (v56)
+  if (v57)
   {
-    pxrInternal__aapl__pxrReserved__::UsdShadeOutput::SetRenderType(a5, &v56);
+    pxrInternal__aapl__pxrReserved__::UsdShadeOutput::SetRenderType(a5, &v57);
   }
 
-  v44 = a2[1];
+  v45 = a2[1];
   __p = *a2;
-  v49 = v44;
-  if (v44)
+  v50 = v45;
+  if (v45)
   {
-    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   sub_29AAD52A0(a5, &__p);
-  if (v44)
+  if (v45)
   {
-    sub_29A014BEC(v44);
+    sub_29A014BEC(v45);
   }
 
-  if (SHIBYTE(v53) < 0)
+  if (SHIBYTE(v54) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  if ((v54 & 7) != 0)
+  if ((v55 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v56 & 7) != 0)
+  if ((v57 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v56 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v57 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if (v58)
+  if (v59)
   {
-    sub_29A014BEC(v58);
+    sub_29A014BEC(v59);
   }
 
-  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v59.__r_.__value_.__l.__data_);
+    operator delete(v60.__r_.__value_.__l.__data_);
   }
 }
 
@@ -6758,8 +6767,8 @@ void *sub_29AAD9980(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     v6 = result;
     sub_29A15A71C(result, a4);
-    result = sub_29AAD9A08(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29AAD9A08(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -6836,8 +6845,8 @@ void *sub_29AAD9B28(void *result, uint64_t a2, uint64_t a3, unint64_t a4)
   {
     v6 = result;
     sub_29A15A71C(result, a4);
-    result = sub_29AAD9A08(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29AAD9A08(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -6850,7 +6859,7 @@ void sub_29AAD9B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29AAD9BB0(uint64_t *a1, pxrInternal__aapl__pxrReserved__::UsdObject *a2)
+void sub_29AAD9BB0(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   sub_29B1D7C40(*a1, &v4);
   if (!v4)
@@ -6863,15 +6872,15 @@ LABEL_12:
 
     if (sub_29AAD2C14(0))
     {
-      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
     }
 
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
   }
 
   sub_29AAD1438();
   sub_29AAD14B4(&v3, &v4, &qword_2A1747EE0);
-  if ((*(v3 + 23) & 0x8000000000000000) != 0)
+  if ((v3[23] & 0x8000000000000000) != 0)
   {
     if (!*(v3 + 1))
     {
@@ -6879,12 +6888,12 @@ LABEL_12:
     }
   }
 
-  else if (!*(v3 + 23))
+  else if (!v3[23])
   {
 LABEL_7:
     sub_29AAD1438();
     sub_29AAD14B4(&v3, &v4, &qword_2A1747D18);
-    if ((*(v3 + 23) & 0x8000000000000000) != 0)
+    if ((v3[23] & 0x8000000000000000) != 0)
     {
       if (!*(v3 + 1))
       {
@@ -6892,7 +6901,7 @@ LABEL_7:
       }
     }
 
-    else if (!*(v3 + 23))
+    else if (!v3[23])
     {
       goto LABEL_12;
     }
@@ -6902,7 +6911,7 @@ LABEL_7:
     v8 = 1120;
     v9 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeOutput, D = pxrInternal__aapl__pxrReserved__::UsdShadeInput]";
     v10 = 0;
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
   }
 
   v6 = "usdMtlx/reader.cpp";
@@ -6910,24 +6919,24 @@ LABEL_7:
   v8 = 1112;
   v9 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeOutput, D = pxrInternal__aapl__pxrReserved__::UsdShadeInput]";
   v10 = 0;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
 }
 
-void sub_29AADA228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29AADA228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   sub_29A57F434(va);
   sub_29A57F434(va1);
-  sub_29A1DCEA8((v11 - 112));
+  sub_29A1DCEA8((v18 - 112));
   _Unwind_Resume(a1);
 }
 
-void sub_29AADA3C8(uint64_t *a1, pxrInternal__aapl__pxrReserved__::UsdObject *a2)
+void sub_29AADA3C8(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   sub_29B1D7C40(*a1, &v4);
   if (!v4)
@@ -6940,15 +6949,15 @@ LABEL_12:
 
     if (sub_29AAD2C14(0))
     {
-      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
     }
 
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
   }
 
   sub_29AAD1438();
   sub_29AAD14B4(&v3, &v4, &qword_2A1747EE0);
-  if ((*(v3 + 23) & 0x8000000000000000) != 0)
+  if ((v3[23] & 0x8000000000000000) != 0)
   {
     if (!*(v3 + 1))
     {
@@ -6956,12 +6965,12 @@ LABEL_12:
     }
   }
 
-  else if (!*(v3 + 23))
+  else if (!v3[23])
   {
 LABEL_7:
     sub_29AAD1438();
     sub_29AAD14B4(&v3, &v4, &qword_2A1747D18);
-    if ((*(v3 + 23) & 0x8000000000000000) != 0)
+    if ((v3[23] & 0x8000000000000000) != 0)
     {
       if (!*(v3 + 1))
       {
@@ -6969,7 +6978,7 @@ LABEL_7:
       }
     }
 
-    else if (!*(v3 + 23))
+    else if (!v3[23])
     {
       goto LABEL_12;
     }
@@ -6979,7 +6988,7 @@ LABEL_7:
     v8 = 1120;
     v9 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeOutput, D = pxrInternal__aapl__pxrReserved__::UsdShadeOutput]";
     v10 = 0;
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
   }
 
   v6 = "usdMtlx/reader.cpp";
@@ -6987,20 +6996,20 @@ LABEL_7:
   v8 = 1112;
   v9 = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_NodeGraphBuilder::_ConnectPorts(const mx::ConstElementPtr &, const U &, const D &) [U = pxrInternal__aapl__pxrReserved__::UsdShadeOutput, D = pxrInternal__aapl__pxrReserved__::UsdShadeOutput]";
   v10 = 0;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
 }
 
-void sub_29AADAA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29AADAA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   sub_29A57F434(va);
   sub_29A57F434(va1);
-  sub_29A1DCEA8((v11 - 112));
+  sub_29A1DCEA8((v18 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -7040,16 +7049,16 @@ void sub_29AADAC98(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *sub_29AADACF4(uint64_t *a1, const void ***a2)
+uint64_t **sub_29AADACF4(uint64_t **a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
   *a1 = (a1 + 1);
-  sub_29AADAD4C(a1, *a2, a2 + 1);
+  sub_29AADAD4C(a1, *a2, (a2 + 8));
   return a1;
 }
 
-uint64_t *sub_29AADAD4C(uint64_t *result, const void **a2, const void ***a3)
+uint64_t **sub_29AADAD4C(uint64_t **result, const void ***a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -7151,7 +7160,7 @@ void sub_29AADAF5C(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  v6 = sub_29B1F31FC();
+  v6 = sub_29B1F31FC(a1, a2);
   sub_29AAC1CE8(a1, v6, &v18);
   v7 = v18;
   for (i = v19; v7 != i; v7 += 2)
@@ -7217,22 +7226,22 @@ void sub_29AADAF5C(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
   sub_29A0176E4(&v17);
 }
 
-void sub_29AADB084(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AADB084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A0176E4(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AADB0C0(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADB0C0(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADB158(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADB158(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -7280,15 +7289,15 @@ void sub_29AADB1F0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *sub_29AADB24C(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADB24C(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADB2E4(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADB2E4(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -7364,7 +7373,7 @@ void sub_29AADB460(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_29AADB4BC(uint64_t a1, uint64_t *a2, uint64_t a3)
+void sub_29AADB4BC(void *a1, uint64_t *a2, uint64_t *a3)
 {
   v5 = a2[1];
   v31 = *a2;
@@ -7374,7 +7383,7 @@ void sub_29AADB4BC(uint64_t a1, uint64_t *a2, uint64_t a3)
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v6 = sub_29B1F31FC();
+  v6 = sub_29B1F31FC(a1, a2);
   sub_29B1ECB8C(&v31, a3, v6, &v33);
   if (v32)
   {
@@ -7435,7 +7444,7 @@ void sub_29AADB4BC(uint64_t a1, uint64_t *a2, uint64_t a3)
     sub_29AAD1438();
     sub_29AAD14B4(&v27, v30, &qword_2A1747EF8);
     v16 = v27;
-    if ((*(v27 + 23) & 0x8000000000000000) != 0)
+    if ((v27[23] & 0x8000000000000000) != 0)
     {
       if (*(v27 + 1))
       {
@@ -7451,7 +7460,7 @@ LABEL_24:
           v17 = *v17;
         }
 
-        if (*(v27 + 23) < 0)
+        if (v27[23] < 0)
         {
           v16 = *v27;
         }
@@ -7461,7 +7470,7 @@ LABEL_24:
       }
     }
 
-    else if (*(v27 + 23))
+    else if (v27[23])
     {
       goto LABEL_24;
     }
@@ -7469,7 +7478,7 @@ LABEL_24:
     sub_29AAD1438();
     sub_29AAD14B4(&v21, v30, &qword_2A1747F40);
     v19 = v21;
-    if ((*(v21 + 23) & 0x8000000000000000) != 0)
+    if ((v21[23] & 0x8000000000000000) != 0)
     {
       if (*(v21 + 1))
       {
@@ -7485,7 +7494,7 @@ LABEL_34:
           v20 = *v20;
         }
 
-        if (*(v21 + 23) < 0)
+        if (v21[23] < 0)
         {
           v19 = *v21;
         }
@@ -7494,7 +7503,7 @@ LABEL_34:
       }
     }
 
-    else if (*(v21 + 23))
+    else if (v21[23])
     {
       goto LABEL_34;
     }
@@ -7521,139 +7530,143 @@ void sub_29AADB74C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AADB7C0(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void sub_29AADB7C0(void *a1@<X0>, std::string **a2@<X1>, uint64_t a3@<X8>)
 {
-  v123 = *MEMORY[0x29EDCA608];
-  v89 = (a1 + 272);
-  v5 = *(a1 + 280);
-  if ((!v5 || (*(v5 + 57) & 8) != 0 || ((*(*v89 + 32))(v89) & 1) == 0) && (sub_29B2BDB04(v109) & 1) == 0)
+  v127 = *MEMORY[0x29EDCA608];
+  v94 = (a1 + 34);
+  v5 = a1[35];
+  if (!v5 || (*(v5 + 57) & 8) != 0 || (v6 = (*(*v94 + 32))(v94), (v6 & 1) == 0))
   {
-    sub_29A858BEC(&v119);
-    *pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(a3, &v119) = &unk_2A2061448;
-    sub_29A57F434(&v119);
-    return;
+    v6 = sub_29B2BDB04(v114);
+    if ((v6 & 1) == 0)
+    {
+      sub_29A858BEC(&v123);
+      *pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(a3, &v123) = &unk_2A2061448;
+      sub_29A57F434(&v123);
+      return;
+    }
   }
 
-  v6 = *a2;
-  v7 = sub_29B1F31FC();
-  sub_29B1ED628(v6, v7, 0, &v119);
-  v8 = *(&v119 + 1);
-  v9 = v119;
-  v108 = v119;
-  if (v119)
+  v8 = *a2;
+  v9 = sub_29B1F31FC(v6, v7);
+  sub_29B1ED628(v8, v9, 0, &v123);
+  v10 = *(&v123 + 1);
+  v11 = v123;
+  v113 = v123;
+  if (v123)
   {
     goto LABEL_16;
   }
 
-  v10 = a2[1];
-  v98.__r_.__value_.__r.__words[0] = *a2;
-  v98.__r_.__value_.__l.__size_ = v10;
+  v12 = a2[1];
+  v103.__r_.__value_.__r.__words[0] = *a2;
+  v103.__r_.__value_.__l.__size_ = v12;
+  if (v12)
+  {
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v103, 0);
+  sub_29AAD8124(*a2);
+  v13 = a2[1];
+  *&v120 = *a2;
+  *(&v120 + 1) = v13;
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  sub_29AAD7E28(a2, &v120, &v123);
+  v91 = v123;
+  v113 = v123;
   if (v10)
   {
-    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+    sub_29A014BEC(v10);
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdMtlxGetVersion(&v98, 0);
-  sub_29AAD8124(*a2);
-  v11 = a2[1];
-  v115 = *a2;
-  v116 = v11;
-  if (v11)
+  if (v13)
   {
-    atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
+    sub_29A014BEC(v13);
   }
 
-  sub_29AAD7E28(a2, &v115, &v119);
-  v86 = v119;
-  v108 = v119;
-  if (v8)
+  if (v103.__r_.__value_.__l.__size_)
   {
-    sub_29A014BEC(v8);
+    sub_29A014BEC(v103.__r_.__value_.__l.__size_);
   }
 
-  if (v11)
-  {
-    sub_29A014BEC(v11);
-  }
-
-  if (v98.__r_.__value_.__l.__size_)
-  {
-    sub_29A014BEC(v98.__r_.__value_.__l.__size_);
-  }
-
-  v9 = v86;
-  if (v86)
+  v11 = v91;
+  if (v91)
   {
 LABEL_16:
-    v12 = (v9 + 48);
-    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v107);
-    if (v107)
+    v14 = (v11 + 48);
+    pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v112, v11 + 48);
+    if (v112)
     {
-      v13 = *a2;
-      v14 = a2[1];
-      if (v14)
+      v15 = *a2;
+      v16 = a2[1];
+      if (v16)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v13)
+      if (v15)
       {
-        sub_29AAD3238(v13 + 48, &v106);
-        if (!v14)
+        sub_29AAD3238(v15 + 48, &v111);
+        if (!v16)
         {
 LABEL_22:
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild((a1 + 48), &v106, &v105);
-          v84 = a1;
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Get(a1, &v115);
-          if (v116 && (*(v116 + 57) & 8) == 0 && ((*(v115 + 32))(&v115) & 1) != 0)
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v110, (a1 + 6), &v111);
+          v89 = a1;
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Get(a1, &v120);
+          if (*(&v120 + 1) && (*(*(&v120 + 1) + 57) & 8) == 0 && ((*(v120 + 32))(&v120) & 1) != 0)
           {
             goto LABEL_38;
           }
 
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Define(a1, &v119);
-          v16 = *(&v119 + 1);
-          if (*(&v119 + 1))
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Define(a1, &v123);
+          v18 = *(&v123 + 1);
+          if (*(&v123 + 1))
           {
-            atomic_fetch_add_explicit((*(&v119 + 1) + 48), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((*(&v123 + 1) + 48), 1uLL, memory_order_relaxed);
           }
 
-          if (v116)
+          if (*(&v120 + 1))
           {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v116, v15);
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*(&v120 + 1), v17);
           }
 
-          v116 = v16;
-          sub_29A2258F0(&v117, &v120);
-          sub_29A225948(&v118, &v121);
-          if (!v116 || (*(v116 + 57) & 8) != 0)
+          *(&v120 + 1) = v18;
+          sub_29A2258F0(&v121, &v124);
+          sub_29A225948(&v122, &v125);
+          if (!*(&v120 + 1) || (*(*(&v120 + 1) + 57) & 8) != 0)
           {
-            pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v119);
+            pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v123);
             goto LABEL_38;
           }
 
-          v17 = (*(v115 + 32))(&v115);
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v119);
-          if (!v17)
+          v19 = (*(v120 + 32))(&v120);
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v123);
+          if (!v19)
           {
             goto LABEL_38;
           }
 
-          v18 = sub_29AAD2C14(0);
-          if (v18)
+          v20 = sub_29AAD2C14(0);
+          if (v20)
           {
-            if (*(v9 + 71) < 0)
+            if (*(v11 + 71) < 0)
             {
-              v12 = *v12;
+              v14 = *v14;
             }
 
-            if ((v106 & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((v111 & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              EmptyString = ((v106 & 0xFFFFFFFFFFFFFFF8) + 16);
+              EmptyString = ((v111 & 0xFFFFFFFFFFFFFFF8) + 16);
             }
 
             else
             {
-              EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v18);
+              EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v20);
             }
 
             if (*(EmptyString + 23) < 0)
@@ -7661,25 +7674,25 @@ LABEL_22:
               EmptyString = *EmptyString;
             }
 
-            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Created shader mtlx %s, as usd %s\n", v19, v20, v12, EmptyString);
+            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Created shader mtlx %s, as usd %s\n", v21, v22, v14, EmptyString);
           }
 
-          v23 = v107;
-          if ((v107 & 7) != 0)
+          v25 = v112;
+          if ((v112 & 7) != 0)
           {
-            if ((atomic_fetch_add_explicit((v107 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+            if ((atomic_fetch_add_explicit((v112 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
             {
-              v23 &= 0xFFFFFFFFFFFFFFF8;
+              v25 &= 0xFFFFFFFFFFFFFFF8;
             }
 
-            *&v119 = v23;
-            *(&v119 + 1) = &off_2A2044E88 + 1;
-            if ((v23 & 7) != 0)
+            *&v123 = v25;
+            *(&v123 + 1) = &off_2A2044E88 + 1;
+            if ((v25 & 7) != 0)
             {
-              v24 = 0;
-              if ((atomic_fetch_add_explicit((v23 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+              v26 = 0;
+              if ((atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
               {
-                *&v119 = v119 & 0xFFFFFFFFFFFFFFF8;
+                *&v123 = v123 & 0xFFFFFFFFFFFFFFF8;
               }
 
               goto LABEL_63;
@@ -7688,613 +7701,614 @@ LABEL_22:
 
           else
           {
-            *&v119 = v107;
-            *(&v119 + 1) = &off_2A2044E88 + 1;
+            *&v123 = v112;
+            *(&v123 + 1) = &off_2A2044E88 + 1;
           }
 
-          v24 = 1;
+          v26 = 1;
 LABEL_63:
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::CreateIdAttr(&v115, &v119, 0, v100);
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::CreateIdAttr(&v120, &v123, 0, v105);
+          if ((v109 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v109 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v108);
+          sub_29A1DE3A4(&v107);
+          if (v106)
+          {
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v106, v27);
+          }
+
+          sub_29A186B14(&v123);
+          if ((v26 & 1) == 0)
+          {
+            atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::ConnectableAPI(&v123, &v120);
+          sub_29A580660(&v103, &v120 + 1, &v121);
+          v28 = a2[1];
+          v101 = *a2;
+          v102 = v28;
+          if (v28)
+          {
+            atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          sub_29AAD52A0(&v103, &v101);
+          if (v28)
+          {
+            sub_29A014BEC(v28);
+          }
+
           if ((v104 & 7) != 0)
           {
             atomic_fetch_add_explicit((v104 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v103);
-          sub_29A1DE3A4(&v102);
-          if (v101)
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v103.__r_.__value_.__r.__words[2] + 1);
+          sub_29A1DE3A4(&v103.__r_.__value_.__r.__words[2]);
+          if (v103.__r_.__value_.__l.__size_)
           {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v101, v25);
+            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v103.__r_.__value_.__l.__size_, v29);
           }
 
-          sub_29A186B14(&v119);
-          if ((v24 & 1) == 0)
-          {
-            atomic_fetch_add_explicit((v23 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-          }
-
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::ConnectableAPI(&v115, &v119);
-          sub_29A580660(&v98, &v116, &v117);
-          v26 = a2[1];
-          v96 = *a2;
-          v97 = v26;
-          if (v26)
-          {
-            atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          sub_29AAD52A0(&v98, &v96);
-          if (v26)
-          {
-            sub_29A014BEC(v26);
-          }
-
-          if ((v99 & 7) != 0)
-          {
-            atomic_fetch_add_explicit((v99 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-          }
-
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v98.__r_.__value_.__r.__words[2] + 1);
-          sub_29A1DE3A4(&v98.__r_.__value_.__r.__words[2]);
-          if (v98.__r_.__value_.__l.__size_)
-          {
-            pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v98.__r_.__value_.__l.__size_, v27);
-          }
-
-          sub_29AAD55CC(&v108, &v96);
-          v28 = v96;
-          v85 = v97;
-          if (v96 != v97)
+          sub_29AAD55CC(&v113, &v101);
+          v32 = v101;
+          v90 = v102;
+          if (v101 != v102)
           {
             do
             {
-              v87 = v28;
-              v29 = *v28;
-              v30 = sub_29B1F31FC();
-              sub_29AAD856C(v29, v30, v95);
-              v32 = v95[1];
-              for (i = v95[0]; i != v32; i += 2)
+              v92 = v32;
+              v33 = *v32;
+              v34 = sub_29B1F31FC(v30, v31);
+              sub_29AAD856C(v33, v34, v100);
+              v36 = v100[1];
+              for (i = v100[0]; i != v36; i += 2)
               {
-                v33 = *i;
-                v34 = i[1];
-                if (v34)
+                v37 = *i;
+                v38 = i[1];
+                if (v38)
                 {
-                  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
-                  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
                 sub_29AAD1438();
-                v35 = sub_29A8877BC((v33 + 160), &qword_2A1747FA0);
-                if (v35)
+                v39 = sub_29A8877BC((v37 + 160), &qword_2A1747FA0);
+                if (v39)
                 {
-                  v36 = (v35 + 5);
+                  v41 = v39 + 40;
                 }
 
                 else
                 {
-                  v36 = sub_29B1F31FC();
+                  v39 = sub_29B1F31FC(0, v40);
+                  v41 = v39;
                 }
 
-                v37 = *(v36 + 23);
-                if ((v37 & 0x80u) != 0)
+                v42 = v41[23];
+                if ((v42 & 0x80u) != 0)
                 {
-                  v37 = *(v36 + 1);
+                  v42 = *(v41 + 1);
                 }
 
-                if (!v37)
+                if (!v42)
                 {
-                  v36 = sub_29B1F31FC();
+                  v41 = sub_29B1F31FC(v39, v40);
                 }
 
-                memset(&v98, 0, sizeof(v98));
-                sub_29B1D8ACC(v33, &v111);
-                sub_29AAC1C4C(v111, v36, &v113);
-                if (v112)
+                memset(&v103, 0, sizeof(v103));
+                sub_29B1D8ACC(v37, &v116);
+                sub_29AAC1C4C(v116, v41, &v118);
+                if (v117)
                 {
-                  sub_29A014BEC(v112);
+                  sub_29A014BEC(v117);
                 }
 
-                if (v113)
+                if (v118)
                 {
                   sub_29AAD1438();
-                  sub_29AAD14B4(&v111, &v113, &qword_2A1747F70);
-                  v38 = v111;
-                  v39 = *(v111 + 23);
-                  if (v39 < 0)
+                  sub_29AAD14B4(&v116, &v118, &qword_2A1747F70);
+                  v43 = v116;
+                  v44 = *(v116 + 23);
+                  if (v44 < 0)
                   {
-                    if (!*(v111 + 8))
+                    if (!*(v116 + 8))
                     {
                       goto LABEL_104;
                     }
                   }
 
-                  else if (!*(v111 + 23))
+                  else if (!*(v116 + 23))
                   {
                     goto LABEL_104;
                   }
 
-                  v40 = strlen(off_2A14FDBF8[0]);
-                  if ((v39 & 0x80000000) != 0)
+                  v45 = strlen(off_2A14FDBF8[0]);
+                  if ((v44 & 0x80000000) != 0)
                   {
-                    if (v40 != *(v111 + 8))
+                    if (v45 != *(v116 + 8))
                     {
                       goto LABEL_104;
                     }
 
-                    if (v40 == -1)
+                    if (v45 == -1)
                     {
                       sub_29A0F26CC();
                     }
 
-                    v38 = *v111;
+                    v43 = *v116;
                   }
 
-                  else if (v40 != v39)
+                  else if (v45 != v44)
                   {
                     goto LABEL_104;
                   }
 
-                  if (!memcmp(v38, off_2A14FDBF8[0], v40))
+                  if (!memcmp(v43, off_2A14FDBF8[0], v45))
                   {
                     sub_29AAD1438();
-                    sub_29AAD14B4(&v110, &v113, &qword_2A1747D78);
-                    std::string::operator=(&v98, v110);
+                    sub_29AAD14B4(&v115, &v118, &qword_2A1747D78);
+                    std::string::operator=(&v103, v115);
                   }
                 }
 
 LABEL_104:
                 if (sub_29AAD2C14(0))
                 {
-                  v43 = (v33 + 48);
-                  if (*(v33 + 71) < 0)
+                  v48 = (v37 + 48);
+                  if (*(v37 + 71) < 0)
                   {
-                    v43 = *v43;
+                    v48 = *v48;
                   }
 
-                  v44 = v36;
-                  if (*(v36 + 23) < 0)
+                  v49 = v41;
+                  if (v41[23] < 0)
                   {
-                    v44 = *v36;
+                    v49 = *v41;
                   }
 
-                  pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Add shader output %s of type %s\n", v41, v42, v43, v44);
+                  pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Add shader output %s of type %s\n", v46, v47, v48, v49);
                 }
 
-                v45 = HIBYTE(v98.__r_.__value_.__r.__words[2]);
-                v46 = HIBYTE(v98.__r_.__value_.__r.__words[2]);
-                if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+                v50 = HIBYTE(v103.__r_.__value_.__r.__words[2]);
+                v51 = HIBYTE(v103.__r_.__value_.__r.__words[2]);
+                if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  if (v98.__r_.__value_.__l.__size_ != 7)
+                  if (v103.__r_.__value_.__l.__size_ != 7)
                   {
                     goto LABEL_119;
                   }
 
-                  v47 = v98.__r_.__value_.__r.__words[0];
+                  v52 = v103.__r_.__value_.__r.__words[0];
                 }
 
                 else
                 {
-                  if (HIBYTE(v98.__r_.__value_.__r.__words[2]) != 7)
+                  if (HIBYTE(v103.__r_.__value_.__r.__words[2]) != 7)
                   {
                     goto LABEL_119;
                   }
 
-                  v47 = &v98;
+                  v52 = &v103;
                 }
 
-                data = v47->__r_.__value_.__l.__data_;
-                v49 = *(v47->__r_.__value_.__r.__words + 3);
-                if (data == 1718777203 && v49 == 1701011814)
+                data = v52->__r_.__value_.__l.__data_;
+                v54 = *(v52->__r_.__value_.__r.__words + 3);
+                if (data == 1718777203 && v54 == 1701011814)
                 {
 LABEL_129:
-                  v56 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
-                  if (!v56)
+                  v61 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                  if (!v61)
                   {
-                    v56 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                    v61 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
                   }
 
-                  v57 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-                  if (!v57)
+                  v62 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                  if (!v62)
                   {
-                    v57 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                    v62 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
                   }
 
-                  v58 = (v56 + 208);
+                  v63 = (v61 + 208);
                   goto LABEL_200;
                 }
 
 LABEL_119:
-                v51 = strlen(off_2A14FDEF0[0]);
-                v52 = v51;
-                v53 = *(v36 + 23);
-                if (v53 < 0)
+                v56 = strlen(off_2A14FDEF0[0]);
+                v57 = v56;
+                v58 = v41[23];
+                if (v58 < 0)
                 {
-                  if (v51 != *(v36 + 1))
+                  if (v56 != *(v41 + 1))
                   {
                     goto LABEL_126;
                   }
 
-                  if (v51 == -1)
+                  if (v56 == -1)
                   {
                     sub_29A0F26CC();
                   }
 
-                  v54 = *v36;
+                  v59 = *v41;
                 }
 
                 else
                 {
-                  v54 = v36;
-                  if (v52 != v53)
+                  v59 = v41;
+                  if (v57 != v58)
                   {
                     goto LABEL_126;
                   }
                 }
 
-                if (!memcmp(v54, off_2A14FDEF0[0], v52))
+                if (!memcmp(v59, off_2A14FDEF0[0], v57))
                 {
                   goto LABEL_129;
                 }
 
 LABEL_126:
-                if ((v46 & 0x80) != 0)
+                if ((v51 & 0x80) != 0)
                 {
-                  if (v98.__r_.__value_.__l.__size_ != 12)
+                  if (v103.__r_.__value_.__l.__size_ != 12)
                   {
                     goto LABEL_140;
                   }
 
-                  v55 = v98.__r_.__value_.__r.__words[0];
+                  v60 = v103.__r_.__value_.__r.__words[0];
                 }
 
                 else
                 {
-                  if (v46 != 12)
+                  if (v51 != 12)
                   {
                     goto LABEL_140;
                   }
 
-                  v55 = &v98;
+                  v60 = &v103;
                 }
 
-                v59 = v55->__r_.__value_.__r.__words[0];
-                v60 = v55->__r_.__value_.__r.__words[1];
-                if (v59 == 0x6563616C70736964 && v60 == 1953391981)
+                v64 = v60->__r_.__value_.__r.__words[0];
+                v65 = v60->__r_.__value_.__r.__words[1];
+                if (v64 == 0x6563616C70736964 && v65 == 1953391981)
                 {
 LABEL_150:
-                  v66 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
-                  if (!v66)
+                  v71 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                  if (!v71)
                   {
-                    v66 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                    v71 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
                   }
 
-                  v57 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-                  if (!v57)
+                  v62 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                  if (!v62)
                   {
-                    v57 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                    v62 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
                   }
 
-                  v58 = (v66 + 32);
+                  v63 = (v71 + 32);
                   goto LABEL_200;
                 }
 
 LABEL_140:
-                v62 = strlen(off_2A14FDEF8[0]);
-                v63 = v62;
-                if ((v53 & 0x80000000) != 0)
+                v67 = strlen(off_2A14FDEF8[0]);
+                v68 = v67;
+                if ((v58 & 0x80000000) != 0)
                 {
-                  if (v62 != *(v36 + 1))
+                  if (v67 != *(v41 + 1))
                   {
                     goto LABEL_147;
                   }
 
-                  if (v62 == -1)
+                  if (v67 == -1)
                   {
                     sub_29A0F26CC();
                   }
 
-                  v64 = *v36;
+                  v69 = *v41;
                 }
 
                 else
                 {
-                  v64 = v36;
-                  if (v63 != v53)
+                  v69 = v41;
+                  if (v68 != v58)
                   {
                     goto LABEL_147;
                   }
                 }
 
-                if (!memcmp(v64, off_2A14FDEF8[0], v63))
+                if (!memcmp(v69, off_2A14FDEF8[0], v68))
                 {
                   goto LABEL_150;
                 }
 
 LABEL_147:
-                if ((v46 & 0x80) != 0)
+                if ((v51 & 0x80) != 0)
                 {
-                  if (v98.__r_.__value_.__l.__size_ != 6)
+                  if (v103.__r_.__value_.__l.__size_ != 6)
                   {
                     goto LABEL_161;
                   }
 
-                  v65 = v98.__r_.__value_.__r.__words[0];
+                  v70 = v103.__r_.__value_.__r.__words[0];
                 }
 
                 else
                 {
-                  if (v46 != 6)
+                  if (v51 != 6)
                   {
                     goto LABEL_161;
                   }
 
-                  v65 = &v98;
+                  v70 = &v103;
                 }
 
-                v67 = v65->__r_.__value_.__l.__data_;
-                v68 = WORD2(v65->__r_.__value_.__r.__words[0]);
-                if (v67 == 1970040694 && v68 == 25965)
+                v72 = v70->__r_.__value_.__l.__data_;
+                v73 = WORD2(v70->__r_.__value_.__r.__words[0]);
+                if (v72 == 1970040694 && v73 == 25965)
                 {
 LABEL_171:
-                  v74 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
-                  if (!v74)
+                  v79 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                  if (!v79)
                   {
-                    v74 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
+                    v79 = sub_29A7CFC64(&pxrInternal__aapl__pxrReserved__::UsdShadeTokens);
                   }
 
-                  v57 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-                  if (!v57)
+                  v62 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                  if (!v62)
                   {
-                    v57 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                    v62 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
                   }
 
-                  v58 = (v74 + 232);
+                  v63 = (v79 + 232);
                   goto LABEL_200;
                 }
 
 LABEL_161:
-                v70 = strlen(off_2A14FDF00[0]);
-                v71 = v70;
-                if ((v53 & 0x80000000) != 0)
+                v75 = strlen(off_2A14FDF00[0]);
+                v76 = v75;
+                if ((v58 & 0x80000000) != 0)
                 {
-                  if (v70 != *(v36 + 1))
+                  if (v75 != *(v41 + 1))
                   {
                     goto LABEL_168;
                   }
 
-                  if (v70 == -1)
+                  if (v75 == -1)
                   {
                     sub_29A0F26CC();
                   }
 
-                  v72 = *v36;
+                  v77 = *v41;
                 }
 
                 else
                 {
-                  v72 = v36;
-                  if (v71 != v53)
+                  v77 = v41;
+                  if (v76 != v58)
                   {
                     goto LABEL_168;
                   }
                 }
 
-                if (!memcmp(v72, off_2A14FDF00[0], v71))
+                if (!memcmp(v77, off_2A14FDF00[0], v76))
                 {
                   goto LABEL_171;
                 }
 
 LABEL_168:
-                if ((v46 & 0x80) != 0)
+                if ((v51 & 0x80) != 0)
                 {
-                  if (v98.__r_.__value_.__l.__size_ != 5)
+                  if (v103.__r_.__value_.__l.__size_ != 5)
                   {
                     goto LABEL_182;
                   }
 
-                  v73 = v98.__r_.__value_.__r.__words[0];
+                  v78 = v103.__r_.__value_.__r.__words[0];
                 }
 
                 else
                 {
-                  if (v46 != 5)
+                  if (v51 != 5)
                   {
                     goto LABEL_182;
                   }
 
-                  v73 = &v98;
+                  v78 = &v103;
                 }
 
-                v75 = v73->__r_.__value_.__l.__data_;
-                v76 = v73->__r_.__value_.__s.__data_[4];
-                if (v75 == 1751607660 && v76 == 116)
+                v80 = v78->__r_.__value_.__l.__data_;
+                v81 = v78->__r_.__value_.__s.__data_[4];
+                if (v80 == 1751607660 && v81 == 116)
                 {
 LABEL_196:
-                  v58 = atomic_load(&qword_2A1748148);
-                  if (!v58)
+                  v63 = atomic_load(&qword_2A1748148);
+                  if (!v63)
                   {
-                    v58 = sub_29AADF2F4();
+                    v63 = sub_29AADF2F4();
                   }
 
-                  v57 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-                  if (!v57)
+                  v62 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                  if (!v62)
                   {
-                    v57 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                    v62 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
                   }
 
 LABEL_200:
-                  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(&v119, v58, (v57 + 88), &v90);
+                  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(&v123, v63, (v62 + 88), &v95);
                   goto LABEL_201;
                 }
 
 LABEL_182:
-                v78 = strlen(off_2A14FDF08[0]);
-                v79 = v78;
-                if ((v53 & 0x80000000) != 0)
+                v83 = strlen(off_2A14FDF08[0]);
+                v84 = v83;
+                if ((v58 & 0x80000000) != 0)
                 {
-                  if (v78 != *(v36 + 1))
+                  if (v83 != *(v41 + 1))
                   {
                     goto LABEL_189;
                   }
 
-                  if (v78 == -1)
+                  if (v83 == -1)
                   {
                     sub_29A0F26CC();
                   }
 
-                  v80 = *v36;
+                  v85 = *v41;
                 }
 
                 else
                 {
-                  v80 = v36;
-                  if (v79 != v53)
+                  v85 = v41;
+                  if (v84 != v58)
                   {
                     goto LABEL_189;
                   }
                 }
 
-                if (!memcmp(v80, off_2A14FDF08[0], v79))
+                if (!memcmp(v85, off_2A14FDF08[0], v84))
                 {
                   goto LABEL_196;
                 }
 
 LABEL_189:
-                size = v45;
-                if ((v46 & 0x80u) != 0)
+                size = v50;
+                if ((v51 & 0x80u) != 0)
                 {
-                  size = v98.__r_.__value_.__l.__size_;
+                  size = v103.__r_.__value_.__l.__size_;
                 }
 
                 if (size)
                 {
-                  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v111);
-                  v82 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
-                  if (!v82)
+                  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v116, v41);
+                  v87 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                  if (!v87)
                   {
-                    v82 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
+                    v87 = sub_29A1F1DF8(&pxrInternal__aapl__pxrReserved__::SdfValueTypeNames);
                   }
 
-                  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(&v119, &v111, (v82 + 88), &v90);
-                  if ((v111 & 7) != 0)
+                  pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::CreateOutput(&v123, &v116, (v87 + 88), &v95);
+                  if ((v116 & 7) != 0)
                   {
-                    atomic_fetch_add_explicit((v111 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                    atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
                 }
 
                 else
                 {
-                  v90 = 3;
-                  v91 = 0;
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v92);
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v93);
-                  v94 = 0;
+                  v95 = 3;
+                  v96 = 0;
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v97);
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v98);
+                  v99 = 0;
                 }
 
 LABEL_201:
-                if (v114)
+                if (v119)
                 {
-                  sub_29A014BEC(v114);
+                  sub_29A014BEC(v119);
                 }
 
-                if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+                if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v98.__r_.__value_.__l.__data_);
+                  operator delete(v103.__r_.__value_.__l.__data_);
                 }
 
-                if ((v94 & 7) != 0)
+                if ((v99 & 7) != 0)
                 {
-                  atomic_fetch_add_explicit((v94 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                  atomic_fetch_add_explicit((v99 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                 }
 
-                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v93);
-                sub_29A1DE3A4(&v92);
-                if (v91)
+                pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v98);
+                sub_29A1DE3A4(&v97);
+                if (v96)
                 {
-                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v91, v83);
+                  pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v96, v88);
                 }
 
-                if (v34)
+                if (v38)
                 {
-                  sub_29A014BEC(v34);
-                  sub_29A014BEC(v34);
+                  sub_29A014BEC(v38);
+                  sub_29A014BEC(v38);
                 }
               }
 
-              v98.__r_.__value_.__r.__words[0] = v95;
-              sub_29A0176E4(&v98);
-              v28 = v87 + 2;
+              v103.__r_.__value_.__r.__words[0] = v100;
+              sub_29A0176E4(&v103);
+              v32 = v92 + 2;
             }
 
-            while (v87 + 2 != v85);
+            while (v92 + 2 != v90);
           }
 
-          v98.__r_.__value_.__r.__words[0] = &v96;
-          sub_29A0176E4(&v98);
-          pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::~UsdShadeConnectableAPI(&v119);
+          v103.__r_.__value_.__r.__words[0] = &v101;
+          sub_29A0176E4(&v103);
+          pxrInternal__aapl__pxrReserved__::UsdShadeConnectableAPI::~UsdShadeConnectableAPI(&v123);
 LABEL_38:
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v115);
-          sub_29A735768(v89, &v119);
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v119, &v106, &v110);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v119 + 1);
-          sub_29A1DE3A4(&v119);
-          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Define(v84, a3);
-          sub_29A580660(&v98, (a3 + 8), (a3 + 16));
-          pxrInternal__aapl__pxrReserved__::UsdPrim::GetReferences(&v98, &v119);
-          pxrInternal__aapl__pxrReserved__::SdfLayerOffset::SdfLayerOffset(&v115, 0.0, 1.0);
-          pxrInternal__aapl__pxrReserved__::UsdReferences::AddInternalReference(&v119, &v105, &v115);
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::~UsdShadeShader(&v120);
+          sub_29A735768(v94, &v123);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(&v115, &v123, &v111);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v123 + 1);
+          sub_29A1DE3A4(&v123);
+          pxrInternal__aapl__pxrReserved__::UsdShadeShader::Define(v89, a3);
+          sub_29A580660(&v103, (a3 + 8), (a3 + 16));
+          pxrInternal__aapl__pxrReserved__::UsdPrim::GetReferences(&v103, &v123);
+          pxrInternal__aapl__pxrReserved__::SdfLayerOffset::SdfLayerOffset(&v120, 0.0, 1.0);
+          pxrInternal__aapl__pxrReserved__::UsdReferences::AddInternalReference(&v123, &v110, &v120, 1);
         }
       }
 
       else
       {
-        v106 = 0;
-        if (!v14)
+        v111 = 0;
+        if (!v16)
         {
           goto LABEL_22;
         }
       }
 
-      sub_29A014BEC(v14);
+      sub_29A014BEC(v16);
       goto LABEL_22;
     }
   }
 
   else
   {
-    v107 = 0;
+    v112 = 0;
   }
 
-  LODWORD(v119) = 1;
-  *(&v119 + 1) = 0;
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v120);
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v121);
-  v122 = 0;
-  *pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(a3, &v119) = &unk_2A2061448;
-  if ((v122 & 7) != 0)
+  LODWORD(v123) = 1;
+  *(&v123 + 1) = 0;
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v124);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v125);
+  v126 = 0;
+  *pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase(a3, &v123) = &unk_2A2061448;
+  if ((v126 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v122 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v126 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v121);
-  sub_29A1DE3A4(&v120);
-  if (*(&v119 + 1))
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v125);
+  sub_29A1DE3A4(&v124);
+  if (*(&v123 + 1))
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*(&v119 + 1), v22);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*(&v123 + 1), v24);
   }
 
-  if ((v107 & 7) != 0)
+  if ((v112 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v107 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v112 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if (*(&v108 + 1))
+  if (*(&v113 + 1))
   {
-    sub_29A014BEC(*(&v108 + 1));
+    sub_29A014BEC(*(&v113 + 1));
   }
 }
 
-void sub_29AADD7C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, pxrInternal__aapl__pxrReserved__::UsdShadeShader *a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, std::__shared_weak_count *a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, int a45, uint64_t a46, uint64_t a47, uint64_t a48, std::__shared_weak_count *a49)
+void sub_29AADD7C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, pxrInternal__aapl__pxrReserved__::UsdShadeShader *a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, std::__shared_weak_count *a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, std::__shared_weak_count *a49)
 {
   if ((a28 & 7) != 0)
   {
@@ -8344,7 +8358,7 @@ void sub_29AADDF38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AADE9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_29AADE9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   sub_29A7CCF50(&a12);
   if (v32)
@@ -8366,36 +8380,36 @@ void sub_29AADE9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29AADECB8(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AADECB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
+  va_start(va, a6);
   sub_29A1DCEA8(va);
   JUMPOUT(0x29AADECC4);
 }
 
-uint64_t *sub_29AADECD0(char *a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADECD0(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADED68(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADED68(a1, &v9, a4);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
 }
 
-char *sub_29AADED68@<X0>(char *a1@<X0>, __int128 **a2@<X2>, char **a3@<X8>)
+char *sub_29AADED68@<X0>(char *a1@<X0>, char **a2@<X8>, __int128 **a3@<X2>)
 {
   v6 = operator new(0x58uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  v8 = *a2;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  v8 = *a3;
   result = sub_29AADEDE8(v6 + 32, &v8);
-  *(a3 + 16) = 1;
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -8492,7 +8506,7 @@ void sub_29AADEFB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29AADEFE4(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void sub_29AADEFE4(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = sub_29A8877BC((a1 + 96), a2);
   if (!v4)
@@ -8543,19 +8557,19 @@ void sub_29AADF068(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AADF2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29AADF2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_29AAD3114(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t sub_29AADF2F4()
+uint64_t *sub_29AADF2F4()
 {
   v13 = *MEMORY[0x29EDCA608];
   v0 = operator new(0x28uLL);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "light", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "mtlx", 0);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "light");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "mtlx");
   v1 = v0 + 2;
   v2 = *v0;
   v11 = v2;
@@ -8838,22 +8852,22 @@ void **sub_29AADF5F0@<X0>(void **result@<X0>, uint64_t a2@<X1>, const void **a3@
   return result;
 }
 
-void sub_29AADF79C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29AADF79C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A0176E4(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AADF7B8(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADF7B8(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADF850(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADF850(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -8885,15 +8899,15 @@ _BYTE *sub_29AADF850@<X0>(uint64_t a1@<X0>, __int128 **a2@<X2>, void *a3@<X8>)
   return result;
 }
 
-uint64_t *sub_29AADF8E4(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADF8E4(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADF97C(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADF97C(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -8941,15 +8955,15 @@ void sub_29AADFA14(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *sub_29AADFA70(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AADFA70(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AADFB08(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AADFB08(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -9072,75 +9086,75 @@ void sub_29AADFD00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-pxrInternal__aapl__pxrReserved__ *sub_29AADFD38@<X0>(unint64_t *a1@<X1>, uint64_t **a2@<X2>, pxrInternal__aapl__pxrReserved__::UsdSchemaBase *a3@<X8>)
+pxrInternal__aapl__pxrReserved__ *sub_29AADFD38@<X0>(unint64_t *a2@<X1>, uint64_t a3@<X2>, pxrInternal__aapl__pxrReserved__::UsdSchemaBase *a4@<X8>)
 {
-  sub_29A42F734(a2, a1, a1);
-  if (v6)
+  sub_29A42F734(a3, a2, a2);
+  if (v7)
   {
     pxrInternal__aapl__pxrReserved__::TfWeakPtrFacade<pxrInternal__aapl__pxrReserved__::TfWeakPtr,pxrInternal__aapl__pxrReserved__::UsdStage>::operator->();
   }
 
-  v11 = "usdMtlx/reader.cpp";
-  v12 = "_AddCollection";
-  v13 = 1756;
-  v14 = "UsdCollectionAPI pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::_AddCollection(const mx::ConstCollectionPtr &, std::set<mx::ConstCollectionPtr> *)";
+  v12 = "usdMtlx/reader.cpp";
+  v13 = "_AddCollection";
+  v14 = 1756;
+  v15 = "UsdCollectionAPI pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::_AddCollection(const mx::ConstCollectionPtr &, std::set<mx::ConstCollectionPtr> *)";
+  v16 = 0;
+  v8 = (*a2 + 48);
+  if (*(*a2 + 71) < 0)
+  {
+    v8 = *v8;
+  }
+
+  pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v12, "Found a collection cycle at '%s'", v6, v8);
+  LODWORD(v12) = 1;
+  v13 = 0;
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v14);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v14 + 1);
   v15 = 0;
-  v7 = (*a1 + 48);
-  if (*(*a1 + 71) < 0)
+  v11 = 0;
+  sub_29A741E54(a4, &v12, &v11);
+  *a4 = &unk_2A205F450;
+  if ((v11 & 7) != 0)
   {
-    v7 = *v7;
+    atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v11, "Found a collection cycle at '%s'", v5, v7);
-  LODWORD(v11) = 1;
-  v12 = 0;
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v13);
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v13 + 1);
-  v14 = 0;
-  v10 = 0;
-  sub_29A741E54(a3, &v11, &v10);
-  *a3 = &unk_2A205F450;
-  if ((v10 & 7) != 0)
+  if ((v15 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v15 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v14 & 7) != 0)
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v14 + 1);
+  sub_29A1DE3A4(&v14);
+  result = v13;
+  if (v13)
   {
-    atomic_fetch_add_explicit((v14 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v13 + 1);
-  sub_29A1DE3A4(&v13);
-  result = v12;
-  if (v12)
-  {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v12, v8);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v13, v9);
   }
 
   return result;
 }
 
-__int128 *sub_29AAE0548(uint64_t a1)
+char *sub_29AAE0548(uint64_t a1)
 {
-  sub_29A014C58(&v8, (a1 + 8));
-  shared_weak_owners = v8;
-  if (v8)
+  sub_29A014C58(&v10, (a1 + 8));
+  shared_weak_owners = v10;
+  if (v10)
   {
     while (1)
     {
-      v3 = sub_29AAE0AF0(shared_weak_owners);
-      v1 = v8;
-      if (v3)
+      v4 = sub_29AAE0AF0(shared_weak_owners);
+      v1 = v10;
+      if (v4)
       {
         break;
       }
 
-      shared_weak_owners = v8[9].__shared_weak_owners_;
+      shared_weak_owners = v10[9].__shared_weak_owners_;
       if (shared_weak_owners)
       {
         shared_weak_owners = std::__shared_weak_count::lock(shared_weak_owners);
-        v4 = shared_weak_owners;
+        v5 = shared_weak_owners;
         if (shared_weak_owners)
         {
           shared_weak_owners = *(v1 + 28);
@@ -9149,16 +9163,16 @@ __int128 *sub_29AAE0548(uint64_t a1)
 
       else
       {
-        v4 = 0;
+        v5 = 0;
       }
 
-      v5 = v9;
-      v8 = shared_weak_owners;
-      v9 = v4;
-      if (v5)
+      v6 = v11;
+      v10 = shared_weak_owners;
+      v11 = v5;
+      if (v6)
       {
-        sub_29A014BEC(v5);
-        shared_weak_owners = v8;
+        sub_29A014BEC(v6);
+        shared_weak_owners = v10;
       }
 
       if (!shared_weak_owners)
@@ -9167,24 +9181,25 @@ __int128 *sub_29AAE0548(uint64_t a1)
       }
     }
 
-    v1 = sub_29AAE0B70(v8);
-    v6 = 0;
+    v1 = sub_29AAE0B70(v10);
+    v7 = 0;
   }
 
   else
   {
 LABEL_10:
-    v6 = 1;
+    v7 = 1;
   }
 
-  if (v9)
+  v8 = v11;
+  if (v11)
   {
-    sub_29A014BEC(v9);
+    sub_29A014BEC(v11);
   }
 
-  if (v6)
+  if (v7)
   {
-    return sub_29B1F31FC();
+    return sub_29B1F31FC(v8, v2);
   }
 
   return v1;
@@ -9205,10 +9220,10 @@ void sub_29AAE061C(uint64_t a1, pxrInternal__aapl__pxrReserved__ **a2, __int128 
   memset(v11, 0, sizeof(v11));
   if (pxrInternal__aapl__pxrReserved__::SdfPath::IsValidPathString(a3, v11))
   {
-    v6 = pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(v10, a3);
+    v6 = pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v10, a3);
     v7 = pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(v6);
-    pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(v8, v10, v7, (a1 + 16), 1);
-    pxrInternal__aapl__pxrReserved__::UsdRelationship::AddTarget(a2, v8);
+    pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(v8, &v10, v7, (a1 + 16), 1);
+    pxrInternal__aapl__pxrReserved__::UsdRelationship::AddTarget(a2, v8, 1);
   }
 
   v8[0] = "usdMtlx/reader.cpp";
@@ -9216,51 +9231,51 @@ void sub_29AAE061C(uint64_t a1, pxrInternal__aapl__pxrReserved__ **a2, __int128 
   v8[2] = 1859;
   v8[3] = "void pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_Context::_AddGeom(const UsdRelationship &, const std::string &) const";
   v9 = 0;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a2);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath();
 }
 
-void sub_29AAE0758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AAE0758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   sub_29A1DCEA8(va);
   sub_29A1DCEA8(va1);
-  if (*(v4 - 33) < 0)
+  if (*(v7 - 33) < 0)
   {
-    operator delete(*(v4 - 56));
+    operator delete(*(v7 - 56));
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AAE07A0(char *a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29AAE07A0(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29AAE0838(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29AAE0838(a1, &v9, a4);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
 }
 
-char *sub_29AAE0838@<X0>(char *a1@<X0>, __int128 **a2@<X2>, char **a3@<X8>)
+char *sub_29AAE0838@<X0>(char *a1@<X0>, char **a2@<X8>, __int128 **a3@<X2>)
 {
   v6 = operator new(0x58uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  v8 = *a2;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  v8 = *a3;
   result = sub_29AAE08B8(v6 + 32, &v8);
-  *(a3 + 16) = 1;
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -9306,18 +9321,18 @@ char *sub_29AAE08B8(char *__dst, __int128 **a2)
   return __dst;
 }
 
-void sub_29AAE09BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AAE09BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if ((a3 & 7) != 0)
+  va_start(va, a5);
+  if ((a5 & 7) != 0)
   {
-    atomic_fetch_add_explicit((a3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((a5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   sub_29A57F434(va);
-  if (*(v3 + 23) < 0)
+  if (*(v5 + 23) < 0)
   {
-    operator delete(*v3);
+    operator delete(*v5);
   }
 
   _Unwind_Resume(a1);
@@ -9338,7 +9353,7 @@ void sub_29AAE09F8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_29AAE0A54(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void sub_29AAE0A54(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = sub_29A8877BC((a1 + 96), a2);
   if (!v4)
@@ -9411,26 +9426,26 @@ void sub_29AAE0B54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *sub_29AAE0B70(uint64_t a1)
+char *sub_29AAE0B70(uint64_t a1)
 {
   sub_29A008E78(__p, off_2A14FDC48[0]);
   v2 = sub_29A8877BC((a1 + 160), __p);
   if (v2)
   {
-    v3 = (v2 + 5);
+    v4 = (v2 + 5);
   }
 
   else
   {
-    v3 = sub_29B1F31FC();
+    v4 = sub_29B1F31FC(0, v3);
   }
 
-  if (v6 < 0)
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_29AAE0BE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -9443,7 +9458,7 @@ void sub_29AAE0BE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_29AAE0BFC(uint64_t **a1, const void **a2, __int128 *a3, pxrInternal__aapl__pxrReserved__::UsdSchemaBase *a4)
+uint64_t *sub_29AAE0BFC(uint64_t ***a1, const void **a2, __int128 *a3, pxrInternal__aapl__pxrReserved__::UsdSchemaBase *a4)
 {
   v7 = sub_29A00B0D0(a1, &v10, a2);
   result = *v7;
@@ -9473,8 +9488,7 @@ uint64_t sub_29AAE0CF8(uint64_t a1, __int128 *a2, pxrInternal__aapl__pxrReserved
   v5 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v5;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase((a1 + 24), a3);
   *(a1 + 24) = &unk_2A205F368;
@@ -9499,41 +9513,41 @@ void sub_29AAE0DA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_29AAE0DC0(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
+uint64_t *sub_29AAE0DC0(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v6 = (a1 + 8);
-  v5 = *(a1 + 8);
-  if (v5)
+  v7 = (a1 + 8);
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v7 = *a2;
+    v8 = *a2;
     while (1)
     {
       while (1)
       {
-        v8 = v5;
-        v9 = v5[4];
-        if (v7 >= v9)
+        v9 = v6;
+        v10 = v6[4];
+        if (v8 >= v10)
         {
           break;
         }
 
-        v5 = *v8;
-        v6 = v8;
-        if (!*v8)
+        v6 = *v9;
+        v7 = v9;
+        if (!*v9)
         {
           goto LABEL_10;
         }
       }
 
-      if (v9 >= v7)
+      if (v10 >= v8)
       {
         break;
       }
 
-      v5 = v8[1];
-      if (!v5)
+      v6 = v9[1];
+      if (!v6)
       {
-        v6 = v8 + 1;
+        v7 = v9 + 1;
         goto LABEL_10;
       }
     }
@@ -9541,17 +9555,17 @@ uint64_t *sub_29AAE0DC0(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 
   else
   {
-    v8 = (a1 + 8);
+    v9 = (a1 + 8);
 LABEL_10:
-    sub_29AAE0E7C(a1, a4, &v11);
-    sub_29A00B204(a1, v8, v6, v11);
-    return v11;
+    sub_29AAE0E7C(a1, a4, &v12);
+    sub_29A00B204(a1, v9, v7, v12);
+    return v12;
   }
 
-  return v8;
+  return v9;
 }
 
-void *sub_29AAE0E7C@<X0>(uint64_t a1@<X0>, void **a2@<X2>, void *a3@<X8>)
+void *sub_29AAE0E7C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X2>, void *a3@<X8>)
 {
   v6 = operator new(0x50uLL);
   *a3 = v6;
@@ -9600,19 +9614,19 @@ void *sub_29AAE0EFC(void *a1, void **a2)
   return a1;
 }
 
-void sub_29AAE0FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29AAE0FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if ((a3 & 7) != 0)
+  va_start(va, a5);
+  if ((a5 & 7) != 0)
   {
-    atomic_fetch_add_explicit((a3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((a5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   sub_29A57F434(va);
-  v5 = *(v3 + 8);
-  if (v5)
+  v7 = *(v5 + 8);
+  if (v7)
   {
-    sub_29A014BEC(v5);
+    sub_29A014BEC(v7);
   }
 
   _Unwind_Resume(a1);
@@ -9633,7 +9647,7 @@ void sub_29AAE1028(uint64_t a1, uint64_t a2)
   }
 }
 
-void *sub_29AAE1084(void *result, const void ***a2)
+uint64_t **sub_29AAE1084(uint64_t **result, const void ***a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -9645,20 +9659,20 @@ void *sub_29AAE1084(void *result, const void ***a2)
       result = sub_29A095658(v4 + 12, v2, v2);
       if (v5)
       {
-        v6 = *(v4 + 10);
-        if (v6 >= *(v4 + 11))
+        v6 = v4[10];
+        if (v6 >= v4[11])
         {
-          result = sub_29AAE1484(v4 + 72, v2);
+          result = sub_29AAE1484((v4 + 9), v2);
         }
 
         else
         {
-          sub_29A34CA60(*(v4 + 10), v2);
-          result = (v6 + 48);
-          *(v4 + 10) = v6 + 48;
+          sub_29A34CA60(v4[10], v2);
+          result = (v6 + 6);
+          v4[10] = v6 + 6;
         }
 
-        *(v4 + 10) = result;
+        v4[10] = result;
       }
 
       v2 += 6;
@@ -9670,11 +9684,11 @@ void *sub_29AAE1084(void *result, const void ***a2)
   return result;
 }
 
-void sub_29AAE1114(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
+void sub_29AAE1114(uint64_t a1@<X0>, void **a2@<X1>, char **a3@<X8>)
 {
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   sub_29AAD1438();
   sub_29AADF5F0(a2, &qword_2A1748090, &v35);
   v6 = v35;
@@ -9708,8 +9722,8 @@ void sub_29AAE1114(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
     sub_29A095658((a1 + 96), v42, v42);
     if (v12)
     {
-      v14 = *(a3 + 8);
-      v13 = *(a3 + 16);
+      v14 = a3[1];
+      v13 = a3[2];
       if (v14 >= v13)
       {
         v16 = 0xAAAAAAAAAAAAAAABLL * ((v14 - *a3) >> 4);
@@ -9752,14 +9766,14 @@ void sub_29AAE1114(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
         v40 = &v20[6 * v19];
         sub_29AAE15A4(v38, &v42, &v34);
         v15 = v39 + 48;
-        v21 = *(a3 + 8) - *a3;
+        v21 = a3[1] - *a3;
         v22 = &v38[-v21];
         memcpy(&v38[-v21], *a3, v21);
         v23 = *a3;
         *a3 = v22;
-        *(a3 + 8) = v15;
-        v24 = *(a3 + 16);
-        *(a3 + 16) = v40;
+        a3[1] = v15;
+        v24 = a3[2];
+        a3[2] = v40;
         v39 = v23;
         v40 = v24;
         v37 = v23;
@@ -9769,19 +9783,19 @@ void sub_29AAE1114(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
 
       else
       {
-        sub_29AAE15A4(*(a3 + 8), &v42, &v34);
-        v15 = (v14 + 48);
+        sub_29AAE15A4(a3[1], &v42, &v34);
+        v15 = v14 + 48;
       }
 
-      *(a3 + 8) = v15;
+      a3[1] = v15;
     }
   }
 
   v25 = *a3;
-  v26 = *(a3 + 8);
+  v26 = a3[1];
   if (*a3 != v26)
   {
-    for (i = v26 - 48; v25 < i; i -= 48)
+    for (i = (v26 - 48); v25 < i; i -= 48)
     {
       v28 = *(v25 + 2);
       v29 = *v25;

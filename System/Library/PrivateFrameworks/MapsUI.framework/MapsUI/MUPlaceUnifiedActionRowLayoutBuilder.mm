@@ -25,7 +25,7 @@
 
 - (id)_moreActionsViewModelWithPartnerActions:(id)actions promotedSystemActionTypes:(id)types excludedSystemActionTypes:(id)actionTypes
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   typesCopy = types;
   v9 = [actionTypes arrayByAddingObjectsFromArray:&unk_1F450E338];
@@ -38,8 +38,8 @@ LABEL_16:
     delegate = [(MUPlaceUnifiedActionRowLayoutBuilder *)self delegate];
     v22 = objc_opt_respondsToSelector();
 
-    v45 = typesCopy;
-    v46 = v9;
+    v44 = typesCopy;
+    v45 = v9;
     if (v22)
     {
       delegate2 = [(MUPlaceUnifiedActionRowLayoutBuilder *)self delegate];
@@ -68,10 +68,10 @@ LABEL_16:
     moreActionAppleMediaServicesSource = [configuration8 moreActionAppleMediaServicesSource];
     configuration9 = [(MUPlaceUnifiedActionRowLayoutBuilder *)self configuration];
     externalActionHandler = [configuration9 externalActionHandler];
-    v35 = __PAIR64__(moreActionMultipleVendorAnalyticsTarget, moreActionSingleVendorAnalyticsTarget);
-    typesCopy = v45;
-    v9 = v46;
-    v47 = [(MUPlaceMoreActionsViewModel *)v24 initWithGroupedExternalActions:actionsCopy promotedSystemActionTypes:v45 excludedSystemActionTypes:v46 menuActionProvider:moreActionsProvider amsResultProvider:amsResultProvider iconCache:artworkCache analyticsModuleType:moreActionAnalyticsModuleType singleVendorAnalyticsTarget:v35 multipleVendorAnalyticsTarget:moreActionAppleMediaServicesSource appleMediaServicesSource:externalActionHandler externalActionHandler:analyticsHandler analyticsHandler:?];
+    v34 = __PAIR64__(moreActionMultipleVendorAnalyticsTarget, moreActionSingleVendorAnalyticsTarget);
+    typesCopy = v44;
+    v9 = v45;
+    v46 = [(MUPlaceMoreActionsViewModel *)v24 initWithGroupedExternalActions:actionsCopy promotedSystemActionTypes:v44 excludedSystemActionTypes:v45 menuActionProvider:moreActionsProvider amsResultProvider:amsResultProvider iconCache:artworkCache analyticsModuleType:moreActionAnalyticsModuleType singleVendorAnalyticsTarget:v34 multipleVendorAnalyticsTarget:moreActionAppleMediaServicesSource appleMediaServicesSource:externalActionHandler externalActionHandler:analyticsHandler analyticsHandler:?];
 
     goto LABEL_20;
   }
@@ -82,33 +82,33 @@ LABEL_16:
   {
     v13 = v9;
     v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v50;
+      v18 = *v49;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v50 != v18)
+          if (*v49 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v49 + 1) + 8 * i);
+          v20 = *(*(&v48 + 1) + 8 * i);
           if ([v20 unsignedIntegerValue] == 16)
           {
             [v14 addObject:v20];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v17);
@@ -130,31 +130,29 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v47 = 0;
+  v46 = 0;
 LABEL_20:
 
-  v33 = *MEMORY[0x1E69E9840];
-
-  return v47;
+  return v46;
 }
 
 - (id)_moreActionsViewModelWithGroupedButton:(id)button excludedSystemActionsTypes:(id)types
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
-  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v33 = buttonCopy;
+  v32 = buttonCopy;
   obj = [buttonCopy buttonItems];
-  v7 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v7 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v41;
+    v9 = *v40;
     selfCopy = self;
     selfCopy2 = self;
     do
@@ -162,12 +160,12 @@ LABEL_20:
       v11 = 0;
       do
       {
-        if (*v41 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * v11);
+        v12 = *(*(&v39 + 1) + 8 * v11);
         buttonType = [v12 buttonType];
         if (buttonType <= 0x10)
         {
@@ -203,16 +201,16 @@ LABEL_12:
               mapItem = [delegate mapItem];
               _geoMapItem = [mapItem _geoMapItem];
               _externalActionLinks = [_geoMapItem _externalActionLinks];
-              v36 = [_externalActionLinks count];
+              v35 = [_externalActionLinks count];
 
-              if (actionDataIndex < v36)
+              if (actionDataIndex < v35)
               {
                 resolvedActionItem = [(MUPlaceUnifiedActionRowLayoutBuilder *)selfCopy2 delegate];
                 mapItem2 = [resolvedActionItem mapItem];
                 _geoMapItem2 = [mapItem2 _geoMapItem];
                 _externalActionLinks2 = [_geoMapItem2 _externalActionLinks];
                 v26 = [_externalActionLinks2 objectAtIndexedSubscript:actionDataIndex];
-                [v34 addObject:v26];
+                [v33 addObject:v26];
 
                 goto LABEL_12;
               }
@@ -228,18 +226,16 @@ LABEL_13:
       }
 
       while (v8 != v11);
-      v27 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v27 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       v8 = v27;
     }
 
     while (v27);
   }
 
-  v28 = [v34 copy];
+  v28 = [v33 copy];
   v29 = [v6 copy];
   v30 = [(MUPlaceUnifiedActionRowLayoutBuilder *)self _moreActionsViewModelWithPartnerActions:v28 promotedSystemActionTypes:v29 excludedSystemActionTypes:MEMORY[0x1E695E0F0]];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -426,31 +422,31 @@ LABEL_13:
 
 - (id)_buildServerControlledLayoutWithConfiguration:(id)configuration
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:5];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v31 = configurationCopy;
+  v30 = configurationCopy;
   obj = [configurationCopy buttonItems];
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       v9 = 0;
       do
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
+        v10 = *(*(&v32 + 1) + 8 * v9);
         v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
         buttonType = [v10 buttonType];
         if (buttonType > 8)
@@ -546,7 +542,7 @@ LABEL_16:
       }
 
       while (v7 != v9);
-      v27 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v27 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       v7 = v27;
     }
 
@@ -554,14 +550,13 @@ LABEL_16:
   }
 
   v28 = [v5 copy];
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
 
 - (id)_buildSARLayout
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
   _directionsViewModel = [(MUPlaceUnifiedActionRowLayoutBuilder *)self _directionsViewModel];
   [v3 _mapsui_addObjectIfNotNil:_directionsViewModel];
@@ -570,37 +565,36 @@ LABEL_16:
   actionManager = [configuration actionManager];
   createSearchAlongRouteActions = [actionManager createSearchAlongRouteActions];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = createSearchAlongRouteActions;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(MUPlaceUnifiedActionRowLayoutBuilder *)self _actionItemViewModelWithPlaceActionItem:*(*(&v17 + 1) + 8 * i), v17];
+        v13 = [(MUPlaceUnifiedActionRowLayoutBuilder *)self _actionItemViewModelWithPlaceActionItem:*(*(&v16 + 1) + 8 * i), v16];
         [v3 _mapsui_addObjectIfNotNil:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [v3 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -715,7 +709,7 @@ LABEL_19:
 
 - (id)buildButtonLayout
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   configuration = [(MUPlaceUnifiedActionRowLayoutBuilder *)self configuration];
   isSearchAlongRoute = [configuration isSearchAlongRoute];
 
@@ -747,35 +741,33 @@ LABEL_7:
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v20 + 1) + 8 * i) setForActionBar:{isKindOfClass & 1, v20}];
+        [*(*(&v19 + 1) + 8 * i) setForActionBar:{isKindOfClass & 1, v19}];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

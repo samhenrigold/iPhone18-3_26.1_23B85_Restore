@@ -212,7 +212,7 @@ void __51__GKCircleImageBrush_drawInRect_withContext_input___block_invoke_3(uint
     while (a5 > v6);
   }
 
-  v12 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
+  v12 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{a3, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v13 = *(a1 + 88);
   v16 = v12;
   CGContextAddPath(v13, [v16 CGPath]);

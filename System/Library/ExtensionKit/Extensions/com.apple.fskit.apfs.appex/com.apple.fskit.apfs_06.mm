@@ -1,4 +1,491 @@
-uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t **a5)
+uint64_t create_or_modify_jobj(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, unint64_t a4, int a5)
+{
+  v10 = val_size_for_jobj(a1, a3);
+  v11 = key_size_for_jobj(a1, a3);
+  v37 = v11;
+  v12 = 22;
+  if (!v10 || !v11)
+  {
+    return v12;
+  }
+
+  v30 = a4;
+  if ((v11 & 7) != 0)
+  {
+    v13 = (v11 & 0x1FFF8) + 8;
+  }
+
+  else
+  {
+    v13 = v11;
+  }
+
+  __chkstk_darwin(v11);
+  v15 = (&v30 - v14);
+  bzero(&v30 - v14, v16);
+  if (v13 + v10 >= 0x251)
+  {
+    v15 = _apfs_malloc_typed(v13 + v10, 0x12B82EDCuLL);
+    if (!v15)
+    {
+      return 12;
+    }
+  }
+
+  v17 = jobj_to_key_val(a1, a3, v15, &v37, v15 + v13, v10);
+  if (v17)
+  {
+    goto LABEL_9;
+  }
+
+  if (a5 <= 2)
+  {
+    if (a5 == 1)
+    {
+      v17 = bt_insert(a2, *(a1 + 440), v15, v37, (v15 + v13), v10, v30);
+LABEL_9:
+      v12 = v17;
+      goto LABEL_10;
+    }
+
+    if (a5 == 2)
+    {
+      if (*a3 == 3)
+      {
+        v18 = (a3 + 320);
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      v19 = v30;
+      v20 = bt_update_with_hint(a2, *(a1 + 440), v15, v37, v15 + v13, v10, v30, v18);
+      if (v20 == 28)
+      {
+        v20 = bt_insert(a2, *(a1 + 440), v15, v37, (v15 + v13), v10, v19);
+      }
+
+LABEL_25:
+      v12 = v20;
+      goto LABEL_10;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (a5 != 3)
+  {
+    if (a5 != 4)
+    {
+      goto LABEL_10;
+    }
+
+    v20 = bt_remove(a2, *(a1 + 440), v15, v37, v30);
+    goto LABEL_25;
+  }
+
+  v36 = 0;
+  v35 = 0u;
+  v34 = 0u;
+  memset(&v33[2], 0, 32);
+  v33[0] = a1;
+  v33[1] = v30;
+  v22 = *a3;
+  if (v22 == 18 || v22 == 10)
+  {
+    HIDWORD(v36) = *(a3 + 22);
+    *(&v35 + 1) = *(a3 + 6);
+  }
+
+  v12 = bt_update_via_callback(a2, *(a1 + 440), v15, v37, v15 + v13, v10, 1, v30, sub_100047F64, v33);
+  v23 = *a3;
+  if (v23 <= 9)
+  {
+    if (v23 == 2)
+    {
+      *(a3 + 8) = v33[2];
+    }
+
+    else if (v23 == 6 || v23 == 7)
+    {
+      *(a3 + 4) = v33[2];
+    }
+
+    goto LABEL_10;
+  }
+
+  switch(v23)
+  {
+    case 0xAu:
+      goto LABEL_38;
+    case 0xDu:
+      if (a3[16] == 2)
+      {
+        *(a3 + 3) = v33[2];
+      }
+
+      break;
+    case 0x12u:
+LABEL_38:
+      v24 = *(a3 + 22);
+      if ((v24 & 8) != 0)
+      {
+        *(a3 + 24) = *&v33[3];
+        v29 = *(&v35 + 1);
+        *(a3 + 5) = v33[5];
+        *(a3 + 6) = v29;
+        *(a3 + 23) = v36;
+        xf_set(a3 + 32, 1, 0, &v34, 8uLL);
+        xf_set(a3 + 32, 3, 0, &v34 + 8, 8uLL);
+        v27 = (a3 + 64);
+        v28 = &v35;
+      }
+
+      else
+      {
+        if ((v24 & 0x200) != 0)
+        {
+          *(a3 + 6) = *(&v35 + 1);
+          *(a3 + 23) = v36;
+        }
+
+        if ((v36 & 0x80000000000) == 0)
+        {
+          goto LABEL_51;
+        }
+
+        v31 = 0;
+        __dst = 0;
+        if (xf_get(a3 + 32, 3, 0, &__dst, 8uLL))
+        {
+          __dst = 0;
+        }
+
+        v25 = xf_get(a3 + 32, 4, 0, &v31, 8uLL);
+        v26 = v31;
+        if (v25)
+        {
+          v26 = 0;
+        }
+
+        v31 = v26 - v35;
+        __dst -= *(&v34 + 1);
+        *(a3 + 23) |= 8u;
+        xf_set(a3 + 32, 3, 0, &__dst, 8uLL);
+        if (!v31)
+        {
+          goto LABEL_51;
+        }
+
+        *(a3 + 23) |= 0x800u;
+        v27 = (a3 + 64);
+        v28 = &v31;
+      }
+
+      xf_set(v27, 4, 0, v28, 8uLL);
+LABEL_51:
+      *(a3 + 7) = v33[2];
+      *(a3 + 22) = HIDWORD(v36);
+      break;
+  }
+
+LABEL_10:
+  if (v13 + v10 >= 0x251)
+  {
+    _apfs_free(v15, v13 + v10);
+  }
+
+  return v12;
+}
+
+uint64_t fs_obj_create_name_checked(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, size_t a5, uint64_t a6, unsigned int a7, int a8, int a9, int a10, int a11, uint64_t a12, int a13, void *a14, unint64_t a15, int a16, int a17)
+{
+  v23 = a2;
+  v24 = a14;
+  v25 = a11;
+  v27 = a16;
+  v26 = a17;
+  v68 = 0;
+  v67 = a17;
+  *a14 = 0;
+  if (v27)
+  {
+    v28 = a2;
+    if (a3)
+    {
+      v29 = *(a3 + 8);
+    }
+
+    else
+    {
+      v29 = 1;
+    }
+
+LABEL_10:
+    v33 = a1;
+    v34 = a5;
+    v35 = v29;
+    result = dir_rec_alloc_with_hash(a1, 1, __s, v34, v26, v29, a6, &v68);
+    HIDWORD(v67) = result;
+    if (result)
+    {
+      return result;
+    }
+
+    v60 = v35;
+    v36 = _apfs_zalloc(2u);
+    if (!v36)
+    {
+      jobj_release(0, v68);
+      return 12;
+    }
+
+    v37 = v36;
+    v58 = v25;
+    v59 = v24;
+    v38 = a15;
+    timestamp = get_timestamp();
+    *(v68 + 3) = timestamp;
+    v40 = file_type_to_dirent_type(a7);
+    v41 = v68;
+    *(v68 + 30) = v40;
+    inserted = insert_jobj(v33, v28, v41, v38);
+    HIDWORD(v67) = inserted;
+    if (inserted)
+    {
+      v43 = strerror(inserted);
+      log_err("%s:%d: %s %s: could not insert dir rec for obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13474, (v33 + 4048), v43, *(v68 + 1), __s);
+      jobj_release(v44, v68);
+      _apfs_zfree(v37, 2u);
+      return 22;
+    }
+
+    *v37 = 42467587;
+    *(v37 + 1) = a6;
+    *(v37 + 2) = v60;
+    *(v37 + 6) = timestamp;
+    *(v37 + 7) = timestamp;
+    *(v37 + 4) = timestamp;
+    *(v37 + 5) = timestamp;
+    *(v37 + 3) = a6;
+    *(v37 + 48) = a7;
+    v37[22] = a8;
+    v37[23] = a9;
+    v37[20] = 1;
+    v37[21] = a10;
+    if ((a7 & 0xF000) != 0x4000)
+    {
+      v37[18] = 1;
+    }
+
+    new_rwlock((v37 + 112));
+    new_rwlock((v37 + 30));
+    *(v37 + 14) |= 0x100000000000uLL;
+    v45 = 48;
+    if ((a7 & 0xF000) != 0x8000)
+    {
+      v45 = 0;
+    }
+
+    xf_init((v37 + 102), v45 + *(v68 + 31));
+    xf_set(v37 + 204, 4, 2, *(v68 + 8), *(v68 + 31));
+    v47 = v59;
+    if ((v37[24] & 0xB000 | 0x4000) == 0x6000)
+    {
+      if ((*(*(v33 + 376) + 57) & 2) != 0)
+      {
+        v37[26] = v58;
+      }
+
+      else
+      {
+        HIDWORD(v67) = xf_set(v37 + 204, 14, 34, &a11, 4uLL);
+        if (HIDWORD(v67))
+        {
+          log_err("%s:%d: %s *** failed to set rdev as an extended field of ino %lld (ret %d)\n");
+          goto LABEL_56;
+        }
+      }
+    }
+
+    if (a3)
+    {
+      *(v37 + 8) = *(a3 + 64) & 0x20400002;
+      if ((*(a3 + 64) & 2) != 0)
+      {
+        __dst = 0;
+        if (xf_get((a3 + 408), 10, 0, &__dst, 8uLL))
+        {
+          if (nx_ratelimit_log_allowed(*(v33 + 392)))
+          {
+            log_err("%s:%d: %s ino %llu is flagged to maintain dir-stats but has no dir-stats key\n", "fs_obj_create_name_checked", 13549, (v33 + 4048), *(a3 + 8));
+          }
+        }
+
+        else
+        {
+          xf_set(v37 + 204, 10, 34, &__dst, 8uLL);
+        }
+      }
+
+      if ((v37[24] & 0xF000) == 0x8000 && (*(a3 + 67) & 2) != 0)
+      {
+        *(v37 + 8) |= 0x100000uLL;
+        __dst = get_pending_purgeable_flags_from_ino(a3);
+        xf_set(v37 + 204, 15, 2, &__dst, 8uLL);
+      }
+    }
+
+    v52 = a13;
+    v53 = a12;
+    v54 = *(v37 + 48);
+    if ((v54 & 0xF000) == 0x4000)
+    {
+      apfs_reset_parent_nlink(v33, v37);
+      v54 = *(v37 + 48);
+    }
+
+    *(v37 + 14) |= 0x200000000uLL;
+    *(v37 + 8) |= v53 | 0x8000;
+    v37[19] = v52;
+    if ((v54 & 0xF000) == 0x8000 && get_vol_crypto(v33, v46) == 3)
+    {
+      LODWORD(__dst) = 0;
+      if (ino_get_class_check(v33, v37, &__dst))
+      {
+        if (__dst == 6)
+        {
+          panic("assertion failed: %s", "ino_poison_vnode(apfs, inode)");
+        }
+      }
+    }
+
+    v55 = insert_jobj(v33, v28, v37, v38);
+    HIDWORD(v67) = v55;
+    if (v55)
+    {
+      v56 = strerror(v55);
+      log_err("%s:%d: %s %s: could not insert inode obj-id %lld (name: %s)\n", "fs_obj_create_name_checked", 13609, (v33 + 4048), v56, *(v37 + 1), *(v68 + 8));
+      v57 = v68;
+      v68[1] = 3;
+      v48 = remove_jobj(v33, v28, v57, v38);
+      v47 = v59;
+      if (v48)
+      {
+        strerror(v48);
+        log_err("%s:%d: %s %s: could not remove dir rec for obj-id %lld (name: %s)\n");
+      }
+    }
+
+    else
+    {
+      v47 = v59;
+      if (!a3 || v28 == 4 && v60 == 2)
+      {
+        goto LABEL_57;
+      }
+
+      update_time(v33, a3, 3);
+      v64 = 0u;
+      v65 = 0u;
+      v63 = 0u;
+      v62 = 1;
+      update_size_tracking(v33, a3, &v62, v38);
+      if ((v37[24] & 0xF000) == 0x4000)
+      {
+        apfs_inc_parent_nlink(v33, a3);
+      }
+
+      ++*(a3 + 72);
+      ++*(a3 + 80);
+      *(a3 + 1) = 2;
+      v55 = insert_jobj(v33, v28, a3, v38);
+      HIDWORD(v67) = v55;
+      if (!v55)
+      {
+        goto LABEL_57;
+      }
+
+      log_err("%s:%d: %s failed to update parent ino %lld nchildren field on create of %s (err %d)\n");
+    }
+
+LABEL_56:
+    jobj_release(v48, v37);
+    v37 = 0;
+LABEL_57:
+    jobj_release(v55, v68);
+    *v47 = v37;
+    return HIDWORD(v67);
+  }
+
+  if (!a5)
+  {
+    v30 = a1;
+    a5 = strlen(__s);
+    a1 = v30;
+  }
+
+  if (a5 > 0x2FD)
+  {
+    return 63;
+  }
+
+  v61 = a1;
+  v31 = utf8_strlen_with_ascii_status(__s, a5, 1u, 0, &v67 + 1);
+  if (v31 > 0xFF)
+  {
+    return 63;
+  }
+
+  if (!v31 && HIDWORD(v67))
+  {
+    return 22;
+  }
+
+  v28 = v23;
+  if (a3)
+  {
+    v49 = *(a3 + 8);
+  }
+
+  else
+  {
+    v49 = 1;
+  }
+
+  if (a3)
+  {
+    v50 = (a3 + 336);
+  }
+
+  else
+  {
+    v50 = 0;
+  }
+
+  v51 = v49;
+  result = fs_lookup_name_with_parent_id(v61, v49, __s, a5, v50, &v67, 0);
+  HIDWORD(v67) = result;
+  if (!result)
+  {
+    jobj_release(result, v68);
+    return 17;
+  }
+
+  if (result == 2)
+  {
+    v26 = v67;
+    a1 = v61;
+    v29 = v51;
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, unint64_t a3, unint64_t a4, uint64_t *a5)
 {
   if (*(a1 + 384) && !*(a1 + 1108))
   {
@@ -13,19 +500,19 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, ui
       if (a2 == 7)
       {
         pthread_mutex_lock((a1 + 1672));
-        if (*(a1 + 440) == a4 && (v39 = *(a1 + 3624)) != 0)
+        if (*(a1 + 440) == a4 && (v19 = *(a1 + 3624)) != 0)
         {
           obj_retain(*(a1 + 3624));
-          if (a3 && (v45 = obj_modify(v39, 0, a3, v40, v41, v42, v43, v44), v45))
+          if (a3 && (v20 = obj_modify(v19, 0, a3), v20))
           {
-            doc_id_tree = v45;
-            obj_release(v39);
+            doc_id_tree = v20;
+            obj_release(v19);
           }
 
           else
           {
             doc_id_tree = 0;
-            *a5 = v39;
+            *a5 = v19;
           }
         }
 
@@ -36,10 +523,10 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, ui
           {
             if (*(a1 + 440) == a4)
             {
-              v49 = *a5;
-              obj_retain(v49);
+              v24 = *a5;
+              obj_retain(v24);
               doc_id_tree = 0;
-              *(a1 + 3624) = v49;
+              *(a1 + 3624) = v24;
             }
 
             else
@@ -49,7 +536,7 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, ui
           }
         }
 
-        v38 = (a1 + 1672);
+        v18 = (a1 + 1672);
         goto LABEL_109;
       }
 
@@ -58,19 +545,19 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, ui
         return doc_id_tree;
       }
 
-      if (*(a1 + 440) != a4 || (v24 = *(a1 + 3584)) == 0)
+      if (*(a1 + 440) != a4 || (v14 = *(a1 + 3584)) == 0)
       {
         doc_id_tree = apfs_get_secondary_fsroot_tree(a1, a4, a3, a5);
         if (!doc_id_tree)
         {
-          v51 = *(a1 + 440);
-          v52 = v51 && *(a1 + 504) == 0;
-          if (!v52 && v51 == a4)
+          v26 = *(a1 + 440);
+          v27 = v26 && *(a1 + 504) == 0;
+          if (!v27 && v26 == a4)
           {
-            v53 = *a5;
-            obj_retain(v53);
+            v28 = *a5;
+            obj_retain(v28);
             doc_id_tree = 0;
-            *(a1 + 3584) = v53;
+            *(a1 + 3584) = v28;
           }
         }
 
@@ -82,16 +569,16 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, ui
       {
 LABEL_71:
         doc_id_tree = 0;
-        *a5 = v24;
+        *a5 = v14;
         return doc_id_tree;
       }
 
 LABEL_33:
-      v36 = obj_modify(v24, 0, a3, v31, v32, v33, v34, v35);
-      if (v36)
+      v16 = obj_modify(v14, 0, a3);
+      if (v16)
       {
-        doc_id_tree = v36;
-        obj_release(v24);
+        doc_id_tree = v16;
+        obj_release(v14);
         return doc_id_tree;
       }
 
@@ -103,23 +590,23 @@ LABEL_33:
       if ((*(*(a1 + 376) + 56) & 0x40) != 0)
       {
         pthread_mutex_lock((a1 + 1608));
-        v17 = *(a1 + 3616);
-        if (v17)
+        v12 = *(a1 + 3616);
+        if (v12)
         {
-          obj_retain(v17);
+          obj_retain(v12);
           if (a3)
           {
-            doc_id_tree = obj_modify(*(a1 + 3616), 2, a3, v18, v19, v20, v21, v22);
-            v23 = *(a1 + 3616);
+            doc_id_tree = obj_modify(*(a1 + 3616), 2u, a3);
+            v13 = *(a1 + 3616);
             if (doc_id_tree)
             {
-              obj_release(v23);
+              obj_release(v13);
 LABEL_108:
-              v38 = (a1 + 1608);
+              v18 = (a1 + 1608);
               goto LABEL_109;
             }
 
-            *(*(a1 + 376) + 1048) = obj_oid(v23);
+            *(*(a1 + 376) + 1048) = obj_oid(v13);
           }
 
           doc_id_tree = 0;
@@ -127,26 +614,26 @@ LABEL_108:
           goto LABEL_108;
         }
 
-        v58 = *(a1 + 384);
-        if (!v58)
+        v33 = *(a1 + 384);
+        if (!v33)
         {
-          v58 = *(a1 + 376);
+          v33 = *(a1 + 376);
         }
 
-        v59 = *(v58 + 1044);
-        v60 = *(v58 + 1048);
-        v88 = 0u;
-        v89 = 0u;
-        v93 = 0;
-        v91 = 0u;
-        v92 = 0u;
-        v90 = 0u;
-        v87 = pfkur_tree_key_cmp;
-        DWORD2(v88) = 32;
-        if (v59 == 2)
+        v34 = *(v33 + 1044);
+        v35 = *(v33 + 1048);
+        v45 = 0u;
+        v46 = 0u;
+        v50 = 0;
+        v48 = 0u;
+        v49 = 0u;
+        v47 = 0u;
+        v44 = pfkur_tree_key_cmp;
+        DWORD2(v45) = 32;
+        if (v34 == 2)
         {
-          extended = btree_get_extended(a1, v59 & 0xFFFF0000, v60, a4, a3 != 0, &v87, a3, a5);
-          v62 = extended;
+          extended = btree_get_extended(a1, v34 & 0xFFFF0000, v35, a4, a3 != 0, &v44, a3, a5);
+          v37 = extended;
           if (a3 && !extended)
           {
             doc_id_tree = 0;
@@ -160,65 +647,65 @@ LABEL_108:
             goto LABEL_108;
           }
 
-          v78 = *(v58 + 1048);
+          v35 = *(v33 + 1048);
         }
 
         else
         {
-          v62 = 22;
+          v37 = 22;
         }
 
-        strerror(v62);
-        log_err("%s:%d: %s Failed to get pfkur tree w/oid %llu (modify_xid %llu): %d (%s)\n", v79, v80, v81, v82, v83, v84, v85, "jfs_get_tree_in_snap");
-        doc_id_tree = v62;
+        v42 = strerror(v37);
+        log_err("%s:%d: %s Failed to get pfkur tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3946, (a1 + 4048), v35, a3, v37, v42);
+        doc_id_tree = v37;
         goto LABEL_108;
       }
 
       return 45;
     }
 
-    v37 = *(a1 + 376);
-    if ((*(v37 + 56) & 0x20) == 0)
+    v17 = *(a1 + 376);
+    if ((*(v17 + 56) & 0x20) == 0)
     {
       return 45;
     }
 
-    v50 = *(v37 + 1040);
+    v25 = *(v17 + 1040);
     if (a3 && *(a1 + 448))
     {
       return 30;
     }
 
     pthread_mutex_lock((a1 + 1544));
-    v55 = *(a1 + 3608);
-    if (v55)
+    v30 = *(a1 + 3608);
+    if (v30)
     {
-      if ((v50 & 0xC0000000) != 0)
+      if ((v25 & 0xC0000000) != 0)
       {
-        if ((v50 & 0xC0000000) == 0x40000000)
+        if ((v25 & 0xC0000000) == 0x40000000)
         {
-          v56 = *(a1 + 448);
-          if (v56)
+          v31 = *(a1 + 448);
+          if (v31)
           {
-            v57 = *(a1 + 376);
+            v32 = *(a1 + 376);
             goto LABEL_97;
           }
 
 LABEL_92:
-          obj_retain(v55);
+          obj_retain(v30);
           if (a3)
           {
-            doc_id_tree = obj_modify(*(a1 + 3608), 2, a3, v63, v64, v65, v66, v67);
-            v68 = *(a1 + 3608);
+            doc_id_tree = obj_modify(*(a1 + 3608), 2u, a3);
+            v38 = *(a1 + 3608);
             if (doc_id_tree)
             {
-              obj_release(v68);
+              obj_release(v38);
 LABEL_104:
-              v38 = (a1 + 1544);
+              v18 = (a1 + 1544);
               goto LABEL_109;
             }
 
-            *(*(a1 + 376) + 1032) = obj_oid(v68);
+            *(*(a1 + 376) + 1032) = obj_oid(v38);
           }
 
           doc_id_tree = 0;
@@ -233,34 +720,34 @@ LABEL_104:
       }
     }
 
-    v56 = *(a1 + 448);
-    v57 = *(a1 + 376);
-    if (!v56)
+    v31 = *(a1 + 448);
+    v32 = *(a1 + 376);
+    if (!v31)
     {
-      v56 = *(v57 + 1032);
+      v31 = *(v32 + 1032);
     }
 
 LABEL_97:
-    v69 = *(v57 + 1040);
-    *&v88 = 0;
-    v89 = 0u;
-    v93 = 0;
-    v91 = 0u;
-    v92 = 0u;
-    v90 = 0u;
-    v87 = fext_tree_key_cmp;
-    *(&v88 + 1) = 0x20000001FLL;
-    if (v69 == 2)
+    v39 = *(v32 + 1040);
+    *&v45 = 0;
+    v46 = 0u;
+    v50 = 0;
+    v48 = 0u;
+    v49 = 0u;
+    v47 = 0u;
+    v44 = fext_tree_key_cmp;
+    *(&v45 + 1) = 0x20000001FLL;
+    if (v39 == 2)
     {
-      v70 = btree_get_extended(a1, v69 & 0xFFFF0000, v56, a4, a3 != 0, &v87, a3, a5);
-      doc_id_tree = v70;
-      if (a3 && !v70)
+      v40 = btree_get_extended(a1, v39 & 0xFFFF0000, v31, a4, a3 != 0, &v44, a3, a5);
+      doc_id_tree = v40;
+      if (a3 && !v40)
       {
         *(*(a1 + 376) + 1032) = obj_oid(*a5);
         goto LABEL_104;
       }
 
-      if (!v70)
+      if (!v40)
       {
         goto LABEL_104;
       }
@@ -271,8 +758,8 @@ LABEL_97:
       doc_id_tree = 22;
     }
 
-    strerror(doc_id_tree);
-    log_err("%s:%d: %s Failed to get fext tree w/oid %llu (modify_xid %llu): %d (%s)\n", v71, v72, v73, v74, v75, v76, v77, "jfs_get_tree_in_snap");
+    v41 = strerror(doc_id_tree);
+    log_err("%s:%d: %s Failed to get fext tree w/oid %llu (modify_xid %llu): %d (%s)\n", "jfs_get_tree_in_snap", 3898, (a1 + 4048), v31, a3, doc_id_tree, v41);
     goto LABEL_104;
   }
 
@@ -287,12 +774,12 @@ LABEL_97:
         *(*(a1 + 376) + 152) = obj_oid(*a5);
       }
 
-      v38 = (a1 + 1480);
+      v18 = (a1 + 1480);
       goto LABEL_109;
     }
 
-    v24 = *(a1 + 3592);
-    if (v24)
+    v14 = *(a1 + 3592);
+    if (v14)
     {
       obj_retain(*(a1 + 3592));
       if (!a3)
@@ -300,28 +787,28 @@ LABEL_97:
         goto LABEL_71;
       }
 
-      v30 = obj_modify(v24, 0, a3, v25, v26, v27, v28, v29);
-      if (!v30)
+      v15 = obj_modify(v14, 0, a3);
+      if (!v15)
       {
         goto LABEL_71;
       }
 
-      doc_id_tree = v30;
-      obj_release(v24);
+      doc_id_tree = v15;
+      obj_release(v14);
 LABEL_30:
-      if (*(a1 + 440) != a4 || (v24 = *(a1 + 3576)) == 0)
+      if (*(a1 + 440) != a4 || (v14 = *(a1 + 3576)) == 0)
       {
         doc_id_tree = apfs_get_fsroot_tree(a1, a4, a3, a5);
         if (!doc_id_tree)
         {
-          v46 = *(a1 + 440);
-          v47 = v46 && *(a1 + 504) == 0;
-          if (!v47 && v46 == a4)
+          v21 = *(a1 + 440);
+          v22 = v21 && *(a1 + 504) == 0;
+          if (!v22 && v21 == a4)
           {
-            v48 = *a5;
-            obj_retain(v48);
+            v23 = *a5;
+            obj_retain(v23);
             doc_id_tree = 0;
-            *(a1 + 3576) = v48;
+            *(a1 + 3576) = v23;
           }
         }
 
@@ -366,9 +853,9 @@ LABEL_29:
           *(*(a1 + 376) + 144) = obj_oid(*a5);
         }
 
-        v54 = *a5;
+        v29 = *a5;
         *(a1 + 3600) = *a5;
-        obj_retain(v54);
+        obj_retain(v29);
         doc_id_tree = 0;
       }
 
@@ -378,19 +865,19 @@ LABEL_29:
     obj_retain(v10);
     if (a3)
     {
-      doc_id_tree = obj_modify(*(a1 + 3600), 2, a3, v11, v12, v13, v14, v15);
-      v16 = *(a1 + 3600);
+      doc_id_tree = obj_modify(*(a1 + 3600), 2u, a3);
+      v11 = *(a1 + 3600);
       if (doc_id_tree)
       {
-        obj_release(v16);
+        obj_release(v11);
 LABEL_85:
-        v38 = (a1 + 1416);
+        v18 = (a1 + 1416);
 LABEL_109:
-        pthread_mutex_unlock(v38);
+        pthread_mutex_unlock(v18);
         return doc_id_tree;
       }
 
-      *(*(a1 + 376) + 144) = obj_oid(v16);
+      *(*(a1 + 376) + 144) = obj_oid(v11);
     }
 
     doc_id_tree = 0;
@@ -401,7 +888,7 @@ LABEL_109:
   return doc_id_tree;
 }
 
-uint64_t sub_100047F64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, int *a7, unsigned int a8, uint64_t a9)
+uint64_t sub_100047F64(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, int *a7, unsigned int a8, uint64_t *a9)
 {
   v14 = jobj_type_from_possibly_large_key(*a9, a1);
   if (a6 < a8 && v14 != 18)
@@ -409,42 +896,39 @@ uint64_t sub_100047F64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
     return 22;
   }
 
-  v23 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-  v24 = *a1 >> 60;
-  if (v24 <= 8)
+  v16 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+  v17 = *a1 >> 60;
+  if (v17 <= 8)
   {
-    switch(v24)
+    switch(v17)
     {
       case 2uLL:
         result = 0;
-        *(a9 + 16) = *(a5 + 4);
+        *(a9 + 4) = *(a5 + 4);
         *(a5 + 4) += a7[4];
         return result;
       case 6uLL:
-        *(a9 + 16) = *a5;
-        v99 = *a5 + *a7;
-        v100 = v99 << 31 >> 31;
-        if (v100 == v99 && (v100 & 0x8000000000000000) == 0)
+        *(a9 + 4) = *a5;
+        v65 = *a5 + *a7;
+        v66 = v65 << 31 >> 31;
+        if (v66 == v65 && (v66 & 0x8000000000000000) == 0)
         {
           result = 0;
-          *a5 = v100;
+          *a5 = v66;
           return result;
         }
 
         is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(*(*a9 + 392));
-        v278 = *a5;
-        v279 = *a7;
-        v274 = *a9 + 4048;
-        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s dstream id %llu refcnt %u (delta: %d) would overflow\n", v102, v103, v104, v105, v106, v107, "jobj_refcnt_merge");
+        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s dstream id %llu refcnt %u (delta: %d) would overflow\n");
         return 0;
       case 7uLL:
-        v49 = *a5;
-        *(a9 + 16) = *a5;
-        v50 = v49 + *a7;
-        *a5 = v50;
-        if (v50 < 0)
+        v31 = *a5;
+        *(a9 + 4) = *a5;
+        v32 = v31 + *a7;
+        *a5 = v32;
+        if (v32 < 0)
         {
-          panic("can't have a negative refcnt on crypto state %llu refcnt %d\n", v23, v50);
+          panic("can't have a negative refcnt on crypto state %llu refcnt %d\n", v16, v32);
         }
 
         return 0;
@@ -453,16 +937,16 @@ uint64_t sub_100047F64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
     goto LABEL_54;
   }
 
-  if (*a1 >> 60 <= 0xCuLL)
+  if (*a1 >> 60 <= 0xC)
   {
-    if (v24 != 9)
+    if (v17 != 9)
     {
-      if (v24 == 10)
+      if (v17 == 10)
       {
-        v25 = *(a9 + 84);
-        if ((v25 & 2) != 0)
+        v18 = *(a9 + 21);
+        if ((v18 & 2) != 0)
         {
-          if ((v25 & 4) != 0)
+          if ((v18 & 4) != 0)
           {
             goto LABEL_26;
           }
@@ -470,61 +954,64 @@ uint64_t sub_100047F64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
 
         else
         {
-          v26 = *a5;
-          v27 = *a5 + *a7;
+          v19 = *a9;
+          v20 = *a5;
+          v21 = *a7;
+          v22 = *a5 + *a7;
           if (__CFADD__(*a5, *a7))
           {
-            v28 = (*a7 >> 63) + 1;
+            v23 = (*a7 >> 63) + 1;
           }
 
           else
           {
-            v28 = *a7 >> 63;
+            v23 = *a7 >> 63;
           }
 
-          v29 = v28 << 63 >> 63;
-          if (v29 != v28 || v29 < 0)
+          v24 = v23 << 63 >> 63;
+          if (v24 != v23 || v24 < 0)
           {
-            if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+            if (nx_ratelimit_log_allowed(*(v19 + 392)))
             {
-              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v30, v31, v32, v33, v34, v35, v36, "jobj_merge_maybe_clamp_64");
+              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v19 + 4048), "num children", "dir-stats", v16, "num children", v20, v21);
             }
 
-            v27 = v26;
+            v22 = v20;
           }
 
-          *a5 = v27;
-          v37 = a5[1];
-          v38 = *(a7 + 1);
-          v39 = v37 + v38;
-          if (__CFADD__(v37, v38))
+          *a5 = v22;
+          v25 = *a9;
+          v26 = a5[1];
+          v27 = *(a7 + 1);
+          v28 = v26 + v27;
+          if (__CFADD__(v26, v27))
           {
-            v40 = (v38 >> 63) + 1;
+            v29 = (v27 >> 63) + 1;
           }
 
           else
           {
-            v40 = v38 >> 63;
+            v29 = v27 >> 63;
           }
 
-          v41 = v40 << 63 >> 63;
-          if (v41 != v40 || v41 < 0)
+          v30 = v29 << 63 >> 63;
+          if (v30 != v29 || v30 < 0)
           {
-            if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+            if (nx_ratelimit_log_allowed(*(v25 + 392)))
             {
-              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v42, v43, v44, v45, v46, v47, v48, "jobj_merge_maybe_clamp_64");
+              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v25 + 4048), "total size", "dir-stats", v16, "total size", v26, v27);
             }
 
-            v39 = v37;
+            v28 = v26;
           }
 
-          a5[1] = v39;
-          v25 = *(a9 + 84);
-          if ((v25 & 4) != 0)
+          a5[1] = v28;
+          v18 = *(a9 + 21);
+          if ((v18 & 4) != 0)
           {
 LABEL_26:
             a5[2] = *(a7 + 2);
-            if (*(a9 + 84))
+            if (*(a9 + 21))
             {
               goto LABEL_90;
             }
@@ -533,28 +1020,28 @@ LABEL_26:
           }
         }
 
-        if (v25)
+        if (v18)
         {
 LABEL_90:
           if ((*(a9 + 84) & 8) != 0)
           {
-            *(a9 + 24) = *a5;
-            *(a9 + 32) = a5[1];
+            a9[3] = *a5;
+            a9[4] = a5[1];
           }
 
           result = 0;
-          *(a9 + 16) = a5[2];
+          a9[2] = a5[2];
           return result;
         }
 
 LABEL_87:
-        v98 = *(a7 + 3);
-        if (v98 <= 1)
+        v64 = *(a7 + 3);
+        if (v64 <= 1)
         {
-          v98 = 1;
+          v64 = 1;
         }
 
-        a5[3] += v98;
+        a5[3] += v64;
         goto LABEL_90;
       }
 
@@ -572,565 +1059,585 @@ LABEL_87:
     return 0;
   }
 
-  if (v24 != 13)
+  if (v17 != 13)
   {
-    if (v24 == 14)
+    if (v17 == 14)
     {
-      v51 = *(a1 + 8);
-      if (v51 != 19)
+      v33 = *(a1 + 8);
+      if (v33 != 19)
       {
-        if (v51 != 18)
+        if (v33 != 18)
         {
-          v275 = *(a1 + 8);
-          log_err("%s:%d: don't know how to merge refcounts on objects of expanded type %d\n", v15, v16, v17, v18, v19, v20, v21, "jobj_refcnt_merge");
+          log_err("%s:%d: don't know how to merge refcounts on objects of expanded type %d\n");
           return 22;
         }
 
-        v52 = *(a9 + 84);
-        *(a9 + 84) = 0;
-        if ((v52 & 0x800000) != 0)
+        v34 = *(a9 + 21);
+        *(a9 + 21) = 0;
+        if ((v34 & 0x800000) != 0)
         {
           result = 0;
-          v113 = a7[12];
+          v73 = a7[12];
           a5[3] = *(a7 + 3);
-          *(a5 + 12) = v113 | 0x80;
+          *(a5 + 12) = v73 | 0x80;
           a5[4] = *(a7 + 4);
           return result;
         }
 
-        v53 = *(a5 + 12);
-        if ((~v53 & 0x30) == 0)
+        v35 = *(a5 + 12);
+        if ((~v35 & 0x30) == 0)
         {
           sub_1000A6D44();
         }
 
-        v54 = (a5[6] & 0x20) == 0;
-        if ((v52 & 0x4000) == 0)
+        v36 = (a5[6] & 0x20) == 0;
+        if ((v34 & 0x4000) == 0)
         {
-          v54 = 1;
+          v36 = 1;
         }
 
-        v55 = (v52 & 0x100) == 0 || (a5[6] & 0x10) == 0;
-        v56 = 1;
-        if (v55)
+        v37 = (v34 & 0x100) == 0 || (a5[6] & 0x10) == 0;
+        v38 = 1;
+        if (v37)
         {
-          v57 = (v52 >> 12) & 1;
-          if ((v53 & 0x20) != 0)
+          v39 = (v34 >> 12) & 1;
+          if ((v35 & 0x20) != 0)
           {
-            LOBYTE(v57) = (v52 & 0x60) == 32;
+            LOBYTE(v39) = (v34 & 0x60) == 32;
           }
 
-          if (v54)
+          if (v36)
           {
-            v56 = v57;
+            v38 = v39;
           }
 
           else
           {
-            v56 = 1;
+            v38 = 1;
           }
         }
 
-        v292 = a5[4];
-        v58 = a6 - 52;
-        v59 = a5[2];
-        v291 = a5[1];
-        if ((v53 & 8) != 0)
+        v175 = a5[4];
+        v40 = a6 - 52;
+        v41 = a5[2];
+        v174 = a5[1];
+        if ((v35 & 8) != 0)
         {
-          v297[0] = 0;
-          LODWORD(v295) = 0;
-          v293 = 0;
-          if (!xf_get_from_blob(a5 + 26, v58, 3, 0, v297, &v295) && v295 == 8)
+          v180[0] = 0;
+          LODWORD(v178) = 0;
+          v176 = 0;
+          if (!xf_get_from_blob(a5 + 26, v40, 3, 0, v180, &v178) && v178 == 8)
           {
-            v293 = *v297[0];
+            v176 = *v180[0];
           }
 
-          v60 = *(a5 + 12);
+          v42 = *(a5 + 12);
         }
 
         else
         {
-          v293 = 0;
-          v60 = *(a5 + 12);
+          v176 = 0;
+          v42 = *(a5 + 12);
         }
 
-        if ((v60 & 0x800) != 0)
+        if ((v42 & 0x800) != 0)
         {
-          v297[0] = 0;
-          LODWORD(v295) = 0;
-          v115 = xf_get_from_blob(a5 + 26, v58, 4, 0, v297, &v295);
-          v114 = 0;
-          if (!v115 && v295 == 8)
+          v180[0] = 0;
+          LODWORD(v178) = 0;
+          v75 = xf_get_from_blob(a5 + 26, v40, 4, 0, v180, &v178);
+          v74 = 0;
+          if (!v75 && v178 == 8)
           {
-            v114 = *v297[0];
+            v74 = *v180[0];
           }
 
-          v60 = *(a5 + 12);
+          v42 = *(a5 + 12);
         }
 
         else
         {
-          v114 = 0;
+          v74 = 0;
         }
 
-        if ((v60 & 0x200) != 0 && (v52 & 2) == 0)
+        if ((v42 & 0x200) != 0 && (v34 & 2) == 0)
         {
           result = 0;
-          *(a9 + 16) = *a1 & 0xFFFFFFFFFFFFFFFLL;
-          v116 = *(a9 + 84) | 0x400000;
-          goto LABEL_305;
+          a9[2] = *a1 & 0xFFFFFFFFFFFFFFFLL;
+          v76 = *(a9 + 21) | 0x400000;
+          goto LABEL_306;
         }
 
-        v288 = v114;
-        if (v60 >= 0x1000)
+        v171 = v74;
+        if (v42 >= 0x1000)
         {
-          v60 |= 0x100u;
-          *(a5 + 12) = v60;
+          v42 |= 0x100u;
+          *(a5 + 12) = v42;
         }
 
         if (a5[4] == (*a1 & 0xFFFFFFFFFFFFFFFLL))
         {
-          *(a5 + 12) = v60 | 0x400;
+          *(a5 + 12) = v42 | 0x400;
           a5[4] = 0;
         }
 
-        v290 = (v52 >> 1) & 1;
-        if (!(v290 | v56 & 1))
+        v173 = (v34 >> 1) & 1;
+        if (!(v173 | v38 & 1))
         {
-          v289 = v59;
-          v285 = a8;
-          v287 = v58;
-          v117 = *a1;
-          v118 = *a5;
-          v119 = *a5 + *a7;
+          v172 = v41;
+          v167 = a8;
+          v170 = v40;
+          v77 = *a9;
+          v78 = *a1;
+          v79 = *a5;
+          v80 = *a7;
+          v81 = *a5 + *a7;
           if (__CFADD__(*a5, *a7))
           {
-            v120 = (*a7 >> 63) + 1;
+            v82 = (*a7 >> 63) + 1;
           }
 
           else
           {
-            v120 = *a7 >> 63;
+            v82 = *a7 >> 63;
           }
 
-          v121 = v120 << 63 >> 63;
-          if (v121 != v120 || v121 < 0)
+          v83 = v82 << 63 >> 63;
+          if (v83 != v82 || v83 < 0)
           {
-            if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+            if (nx_ratelimit_log_allowed(*(v77 + 392)))
             {
-              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v122, v123, v124, v125, v126, v127, v128, "jobj_merge_maybe_clamp_64");
+              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v77 + 4048), "descendants", "exp-dir-stats", v78 & 0xFFFFFFFFFFFFFFFLL, "descendants", v79, v80);
             }
 
-            v119 = v118;
+            v81 = v79;
           }
 
-          *a5 = v119;
-          v129 = *a1;
-          v130 = a5[1];
-          v131 = *(a7 + 1);
-          v132 = v130 + v131;
-          if (__CFADD__(v130, v131))
+          *a5 = v81;
+          v84 = *a9;
+          v85 = *a1;
+          v86 = a5[1];
+          v87 = *(a7 + 1);
+          v88 = v86 + v87;
+          if (__CFADD__(v86, v87))
           {
-            v133 = (v131 >> 63) + 1;
+            v89 = (v87 >> 63) + 1;
           }
 
           else
           {
-            v133 = v131 >> 63;
+            v89 = v87 >> 63;
           }
 
-          v134 = v133 << 63 >> 63;
-          if (v134 != v133 || v134 < 0)
+          v90 = v89 << 63 >> 63;
+          if (v90 != v89 || v90 < 0)
           {
-            if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+            if (nx_ratelimit_log_allowed(*(v84 + 392)))
             {
-              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v135, v136, v137, v138, v139, v140, v141, "jobj_merge_maybe_clamp_64");
+              log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v84 + 4048), "physical size", "exp-dir-stats", v85 & 0xFFFFFFFFFFFFFFFLL, "physical size", v86, v87);
             }
 
-            v132 = v130;
+            v88 = v86;
           }
 
-          v286 = v285 - 52;
-          a5[1] = v132;
-          v142 = *(a5 + 12);
-          if (v142)
+          v168 = v167 - 52;
+          a5[1] = v88;
+          v91 = *(a5 + 12);
+          if (v91)
           {
-            v143 = *a1;
-            v144 = a5[2];
-            v145 = *(a7 + 2);
-            v146 = v144 + v145;
-            if (__CFADD__(v144, v145))
+            v92 = *a9;
+            v93 = *a1;
+            v94 = a5[2];
+            v95 = *(a7 + 2);
+            v96 = v94 + v95;
+            if (__CFADD__(v94, v95))
             {
-              v147 = (v145 >> 63) + 1;
+              v97 = (v95 >> 63) + 1;
             }
 
             else
             {
-              v147 = v145 >> 63;
+              v97 = v95 >> 63;
             }
 
-            v148 = v147 << 63 >> 63;
-            if (v148 != v147 || v148 < 0)
+            v98 = v97 << 63 >> 63;
+            if (v98 != v97 || v98 < 0)
             {
-              if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+              if (nx_ratelimit_log_allowed(*(v92 + 392)))
               {
-                log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v149, v150, v151, v152, v153, v154, v155, "jobj_merge_maybe_clamp_64");
+                log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v92 + 4048), "resource fork size", "exp-dir-stats", v93 & 0xFFFFFFFFFFFFFFFLL, "resource fork size", v94, v95);
               }
 
-              v146 = v144;
+              v96 = v94;
             }
 
-            a5[2] = v146;
-            v142 = *(a5 + 12);
+            a5[2] = v96;
+            v91 = *(a5 + 12);
           }
 
-          v58 = v287;
-          if ((v142 & 4) != 0 && (a7[12] & 4) != 0)
+          v40 = v170;
+          v41 = v172;
+          if ((v91 & 4) != 0 && (a7[12] & 4) != 0)
           {
-            v156 = *a9;
-            v157 = *a1;
-            v297[0] = 0;
-            v295 = 0;
-            v296 = 0;
-            v158 = xf_get_from_blob(a5 + 26, v287, 1, 0, v297, &v296);
-            v159 = 0;
-            if (!v158 && v296 == 8)
+            v99 = *a9;
+            v100 = *a1;
+            v180[0] = 0;
+            v178 = 0;
+            v179 = 0;
+            v101 = xf_get_from_blob(a5 + 26, v170, 1, 0, v180, &v179);
+            v102 = 0;
+            if (!v101)
             {
-              v296 = 0;
-              if (!xf_get_from_blob(a7 + 26, v286, 1, 0, &v295, &v296) && v296 == 8 && (v160 = *v295) != 0)
+              v164 = v100;
+              if (v179 == 8)
               {
-                v280 = *v297[0];
-                v159 = *v297[0] + v160;
-                if (__CFADD__(*v297[0], v160))
+                v179 = 0;
+                if (!xf_get_from_blob(a7 + 26, v168, 1, 0, &v178, &v179) && v179 == 8 && (v103 = *v178) != 0)
                 {
-                  v161 = (v160 >> 63) + 1;
+                  v161 = *v180[0];
+                  v102 = *v180[0] + v103;
+                  if (__CFADD__(*v180[0], v103))
+                  {
+                    v104 = (v103 >> 63) + 1;
+                  }
+
+                  else
+                  {
+                    v104 = v103 >> 63;
+                  }
+
+                  v105 = v104 << 63 >> 63;
+                  if (v105 != v104 || v105 < 0)
+                  {
+                    if (nx_ratelimit_log_allowed(*(v99 + 392)))
+                    {
+                      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v99 + 4048), "clone size", "exp-dir-stats", v164 & 0xFFFFFFFFFFFFFFFLL, "clone size", v161, v103);
+                    }
+
+                    v102 = v161;
+                    v40 = v170;
+                    v41 = v172;
+                  }
                 }
 
                 else
                 {
-                  v161 = v160 >> 63;
+                  v102 = *v180[0];
+                }
+              }
+            }
+
+            v180[0] = v102;
+            v113 = xf_set_in_blob(a5 + 26, v40, 1, v180, 8);
+            if (v113)
+            {
+              v114 = v113;
+              if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+              {
+                v115 = *a9 + 4048;
+                v116 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v117 = strerror(v114);
+                v158 = v115;
+                v41 = v172;
+                log_err("%s:%d: %s could not update clone size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3060, v158, v116, v117, v114);
+              }
+            }
+
+            v91 = *(a5 + 12);
+          }
+
+          if ((v91 & 8) != 0 && (a7[12] & 8) != 0)
+          {
+            v118 = *a9;
+            v165 = *a1;
+            v180[0] = 0;
+            v178 = 0;
+            v179 = 0;
+            v119 = 0;
+            if (!xf_get_from_blob(a5 + 26, v40, 3, 0, v180, &v179) && v179 == 8)
+            {
+              v162 = v118;
+              v179 = 0;
+              if (!xf_get_from_blob(a7 + 26, v168, 3, 0, &v178, &v179) && v179 == 8 && (v120 = *v178) != 0)
+              {
+                v160 = *v180[0];
+                v119 = *v180[0] + v120;
+                if (__CFADD__(*v180[0], v120))
+                {
+                  v121 = (v120 >> 63) + 1;
                 }
 
-                v162 = v161 << 63 >> 63;
-                if (v162 != v161 || v162 < 0)
+                else
                 {
-                  if (nx_ratelimit_log_allowed(*(v156 + 392)))
+                  v121 = v120 >> 63;
+                }
+
+                v122 = v121 << 63 >> 63;
+                if (v122 != v121 || v122 < 0)
+                {
+                  if (nx_ratelimit_log_allowed(*(v162 + 392)))
                   {
-                    log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v163, v164, v165, v166, v167, v168, v169, "jobj_merge_maybe_clamp_64");
+                    log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v162 + 4048), "purgeable size", "exp-dir-stats", v165 & 0xFFFFFFFFFFFFFFFLL, "purgeable size", v160, v120);
                   }
 
-                  v159 = v280;
-                  v58 = v287;
+                  v40 = v170;
+                  v41 = v172;
                 }
               }
 
               else
               {
-                v159 = *v297[0];
+                v119 = *v180[0];
               }
             }
 
-            v297[0] = v159;
-            v191 = xf_set_in_blob(a5 + 26, v58, 1, v297, 8);
-            if (v191)
+            v180[0] = v119;
+            v123 = xf_set_in_blob(a5 + 26, v40, 3, v180, 8);
+            if (v123)
             {
-              v192 = v191;
+              v124 = v123;
               if (nx_ratelimit_log_allowed(*(*a9 + 392)))
               {
-                v193 = *a9 + 4048;
-                v194 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                strerror(v192);
-                v59 = v289;
-                log_err("%s:%d: %s could not update clone size for dir-stats %llu: %s (%d)\n", v195, v196, v197, v198, v199, v200, v201, "exp_dir_stats_refcnt_merge");
+                v125 = *a9 + 4048;
+                v126 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v127 = strerror(v124);
+                v159 = v125;
+                v41 = v172;
+                log_err("%s:%d: %s could not update purgeable size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3073, v159, v126, v127, v124);
               }
             }
 
-            v142 = *(a5 + 12);
+            v91 = *(a5 + 12);
           }
 
-          if ((v142 & 8) != 0 && (a7[12] & 8) != 0)
+          if ((v91 & 0x800) != 0 && (*(a7 + 49) & 8) != 0)
           {
-            v202 = *a9;
-            v283 = *a1;
-            v297[0] = 0;
-            v295 = 0;
-            v296 = 0;
-            v203 = 0;
-            if (!xf_get_from_blob(a5 + 26, v58, 3, 0, v297, &v296) && v296 == 8)
+            v128 = *a9;
+            v166 = *a1;
+            v180[0] = 0;
+            v178 = 0;
+            v179 = 0;
+            v129 = 0;
+            if (!xf_get_from_blob(a5 + 26, v40, 4, 0, v180, &v179) && v179 == 8)
             {
-              v281 = v202;
-              v296 = 0;
-              if (!xf_get_from_blob(a7 + 26, v286, 3, 0, &v295, &v296) && v296 == 8 && (v204 = *v295) != 0)
+              v163 = v128;
+              v179 = 0;
+              if (!xf_get_from_blob(a7 + 26, v168, 4, 0, &v178, &v179) && v179 == 8 && (v130 = *v178) != 0)
               {
-                v203 = *v297[0] + v204;
-                if (__CFADD__(*v297[0], v204))
+                v169 = *v180[0];
+                v129 = *v180[0] + v130;
+                if (__CFADD__(*v180[0], v130))
                 {
-                  v205 = (v204 >> 63) + 1;
+                  v131 = (v130 >> 63) + 1;
                 }
 
                 else
                 {
-                  v205 = v204 >> 63;
+                  v131 = v130 >> 63;
                 }
 
-                v206 = v205 << 63 >> 63;
-                if (v206 != v205 || v206 < 0)
+                v132 = v131 << 63 >> 63;
+                if (v132 != v131 || v132 < 0)
                 {
-                  if (nx_ratelimit_log_allowed(*(v281 + 392)))
+                  if (nx_ratelimit_log_allowed(*(v163 + 392)))
                   {
-                    log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v207, v208, v209, v210, v211, v212, v213, "jobj_merge_maybe_clamp_64");
+                    log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v163 + 4048), "purgeable rsrc size", "exp-dir-stats", v166 & 0xFFFFFFFFFFFFFFFLL, "purgeable rsrc size", v169, v130);
                   }
 
-                  v58 = v287;
-                  v59 = v289;
+                  v40 = v170;
+                  v41 = v172;
                 }
               }
 
               else
               {
-                v203 = *v297[0];
+                v129 = *v180[0];
               }
             }
 
-            v297[0] = v203;
-            v214 = xf_set_in_blob(a5 + 26, v58, 3, v297, 8);
-            if (v214)
+            v180[0] = v129;
+            v133 = xf_set_in_blob(a5 + 26, v40, 4, v180, 8);
+            if (v133)
             {
-              v215 = v214;
-              if (nx_ratelimit_log_allowed(*(*a9 + 392)))
-              {
-                v216 = *a9 + 4048;
-                v217 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                strerror(v215);
-                v59 = v289;
-                log_err("%s:%d: %s could not update purgeable size for dir-stats %llu: %s (%d)\n", v218, v219, v220, v221, v222, v223, v224, "exp_dir_stats_refcnt_merge");
-              }
-            }
-
-            v142 = *(a5 + 12);
-          }
-
-          if ((v142 & 0x800) != 0 && (*(a7 + 49) & 8) != 0)
-          {
-            v225 = *a9;
-            v284 = *a1;
-            v297[0] = 0;
-            v295 = 0;
-            v296 = 0;
-            v226 = 0;
-            if (!xf_get_from_blob(a5 + 26, v58, 4, 0, v297, &v296) && v296 == 8)
-            {
-              v282 = v225;
-              v296 = 0;
-              if (!xf_get_from_blob(a7 + 26, v286, 4, 0, &v295, &v296) && v296 == 8 && (v227 = *v295) != 0)
-              {
-                v226 = *v297[0] + v227;
-                if (__CFADD__(*v297[0], v227))
-                {
-                  v228 = (v227 >> 63) + 1;
-                }
-
-                else
-                {
-                  v228 = v227 >> 63;
-                }
-
-                v229 = v228 << 63 >> 63;
-                if (v229 != v228 || v229 < 0)
-                {
-                  if (nx_ratelimit_log_allowed(*(v282 + 392)))
-                  {
-                    log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v230, v231, v232, v233, v234, v235, v236, "jobj_merge_maybe_clamp_64");
-                  }
-
-                  v58 = v287;
-                  v59 = v289;
-                }
-              }
-
-              else
-              {
-                v226 = *v297[0];
-              }
-            }
-
-            v297[0] = v226;
-            v237 = xf_set_in_blob(a5 + 26, v58, 4, v297, 8);
-            if (v237)
-            {
-              v238 = v237;
+              v134 = v133;
               if (nx_ratelimit_log_allowed(*(**a9 + 392)))
               {
-                if (obj_type(*a9) != 13)
+                v135 = obj_type(*a9);
+                v136 = *a9;
+                if (v135 == 13)
                 {
-                  v239 = *(*a9 + 384) + 212;
+                  v137 = (v136 + 4048);
                 }
 
-                v240 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                strerror(v238);
-                log_err("%s:%d: %s could not update purgeable rsrc size for dir-stats %llu: %s (%d)\n", v241, v242, v243, v244, v245, v246, v247, "exp_dir_stats_refcnt_merge");
-                v59 = v289;
+                else
+                {
+                  v137 = (*(v136 + 384) + 212);
+                }
+
+                v138 = *a1 & 0xFFFFFFFFFFFFFFFLL;
+                v139 = strerror(v134);
+                log_err("%s:%d: %s could not update purgeable rsrc size for dir-stats %llu: %s (%d)\n", "exp_dir_stats_refcnt_merge", 3087, v137, v138, v139, v134);
+                v41 = v172;
               }
             }
           }
         }
 
-        if ((v52 & 0x8000) != 0)
+        if ((v34 & 0x8000) != 0)
         {
           *(a5 + 12) |= 2u;
         }
 
-        if ((v52 & 4) != 0)
+        if ((v34 & 4) != 0)
         {
           a5[4] = *(a7 + 4);
         }
 
-        v248 = *(a5 + 12);
-        if ((v248 & 8) != 0)
+        v140 = *(a5 + 12);
+        if ((v140 & 8) != 0)
         {
-          if ((v52 & 0x400) != 0 && (v53 & 0x40) == 0)
+          if ((v34 & 0x400) != 0 && (v35 & 0x40) == 0)
           {
-            v249 = v248 | 0x40;
-            v250 = 1024;
-LABEL_238:
-            *(a5 + 12) = v249;
-            *(a9 + 84) |= v250;
+            v141 = v140 | 0x40;
+            v142 = 1024;
+LABEL_239:
+            *(a5 + 12) = v141;
+            *(a9 + 21) |= v142;
+            goto LABEL_240;
+          }
+
+          if ((v34 & 0x800) != 0 && (v35 & 0x40) != 0)
+          {
+            v141 = v140 & 0xFFFFFFBF;
+            v142 = 2048;
             goto LABEL_239;
           }
-
-          if ((v52 & 0x800) != 0 && (v53 & 0x40) != 0)
-          {
-            v249 = v248 & 0xFFFFFFBF;
-            v250 = 2048;
-            goto LABEL_238;
-          }
         }
 
-LABEL_239:
-        if ((v52 & 1) == 0)
+LABEL_240:
+        if ((v34 & 1) == 0)
         {
-          v251 = *(a7 + 5);
-          if (v251 <= 1)
+          v143 = *(a7 + 5);
+          if (v143 <= 1)
           {
-            v251 = 1;
+            v143 = 1;
           }
 
-          a5[5] += v251;
-          v252 = v290;
-          if ((v53 & 0x40) == 0)
+          a5[5] += v143;
+          v144 = v173;
+          if ((v35 & 0x40) == 0)
           {
-            v252 = 1;
+            v144 = 1;
           }
 
-          if ((v252 & 1) == 0)
+          if ((v144 & 1) == 0)
           {
             *(a5 + 12) &= ~0x40u;
-            *(a9 + 84) |= 0x800u;
+            *(a9 + 21) |= 0x800u;
           }
         }
 
-        if ((v52 & 8) == 0)
+        if ((v34 & 8) == 0)
         {
-          if ((v52 & 0x200) != 0)
+          if ((v34 & 0x200) != 0)
           {
-            *(a9 + 72) = a5[5];
-            *(a9 + 80) = *(a5 + 12);
+            a9[9] = a5[5];
+            *(a9 + 20) = *(a5 + 12);
           }
 
-          v253 = *(a9 + 84);
-          if ((v53 & 0x20) == 0 && (v253 & 0x800) != 0)
+          v145 = *(a9 + 21);
+          if ((v35 & 0x20) == 0 && (v145 & 0x800) != 0)
           {
-            *(a9 + 56) = v291 - v293;
+            a9[7] = v174 - v176;
             if ((*(a5 + 49) & 8) != 0)
             {
-              *(a9 + 64) = v59 - v288;
+              a9[8] = v41 - v171;
             }
           }
 
-LABEL_270:
-          *(a9 + 16) = a5[4];
-          if ((v53 & 0x20) == 0 || (v52 & 0xA0) != 0 || (v52 & 0x100) != 0 || (v297[0] = 0, LODWORD(v295) = 0, xf_get_from_blob(a5 + 26, v58, 2, 0, v297, &v295)) || v295 != 8 || !*v297[0])
+LABEL_271:
+          a9[2] = a5[4];
+          if ((v35 & 0x20) == 0 || (v34 & 0xA0) != 0 || (v34 & 0x100) != 0 || (v180[0] = 0, LODWORD(v178) = 0, xf_get_from_blob(a5 + 26, v40, 2, 0, v180, &v178)) || v178 != 8 || !*v180[0])
           {
-            if ((v52 & 0x2000) != 0 && (v53 & 0x40) != 0 && (v253 & 0xC00) == 0)
+            if ((v34 & 0x2000) != 0 && (v35 & 0x40) != 0 && (v145 & 0xC00) == 0)
             {
-              *(a9 + 16) = 0;
+              a9[2] = 0;
             }
           }
 
           else
           {
-            *(a9 + 16) = *v297[0];
-            *(a9 + 84) |= 0x100000u;
+            a9[2] = *v180[0];
+            *(a9 + 21) |= 0x100000u;
           }
 
-          if ((v52 & 0x10) != 0)
+          if ((v34 & 0x10) != 0)
           {
-            v261 = *(a5 + 12);
+            v153 = *(a5 + 12);
             a5[3] = 0;
-            *(a5 + 12) = v261 & 0xFFFFFF6F | 0x10;
-            v297[0] = 0;
-            xf_set_in_blob(a5 + 26, v58, 2, v297, 8);
-            v262 = *(a5 + 12);
-            *(a5 + 12) = v262 & 0xFFFFFFDF;
-            if ((v52 & 4) == 0)
+            *(a5 + 12) = v153 & 0xFFFFFF6F | 0x10;
+            v180[0] = 0;
+            xf_set_in_blob(a5 + 26, v40, 2, v180, 8);
+            v154 = *(a5 + 12);
+            *(a5 + 12) = v154 & 0xFFFFFFDF;
+            if ((v34 & 4) == 0)
             {
               sub_1000A6D18();
             }
 
-            *(a5 + 12) = v262 & 0xFFFFFBDF;
-            *(a9 + 16) = v292;
+            *(a5 + 12) = v154 & 0xFFFFFBDF;
+            a9[2] = v175;
           }
 
-          if ((v52 & 0x80) != 0)
+          if ((v34 & 0x80) != 0)
           {
-            v297[0] = 0;
-            xf_set_in_blob(a5 + 26, v58, 2, v297, 8);
+            v180[0] = 0;
+            xf_set_in_blob(a5 + 26, v40, 2, v180, 8);
             *(a5 + 12) &= ~0x20u;
           }
 
-          if ((v52 & 0x10000) != 0)
+          if ((v34 & 0x10000) != 0)
           {
-            v264 = *(a5 + 12) | 0x100;
+            v156 = *(a5 + 12) | 0x100;
           }
 
           else
           {
-            if ((v52 & 0x20000) == 0)
+            if ((v34 & 0x20000) == 0)
             {
-              if ((v52 & 0x200000) == 0)
+              if ((v34 & 0x200000) == 0)
               {
-                goto LABEL_289;
+                goto LABEL_290;
               }
 
-              goto LABEL_295;
+              goto LABEL_296;
             }
 
-            v264 = a5[6] & 0xFFFFFEFF;
+            v156 = a5[6] & 0xFFFFFEFF;
           }
 
-          *(a5 + 12) = v264;
-          if ((v52 & 0x200000) == 0)
+          *(a5 + 12) = v156;
+          if ((v34 & 0x200000) == 0)
           {
-LABEL_289:
-            if ((v52 & 0x40000) == 0)
-            {
 LABEL_290:
-              if ((v52 & 0x80000) == 0)
+            if ((v34 & 0x40000) == 0)
+            {
+LABEL_291:
+              if ((v34 & 0x80000) == 0)
               {
-LABEL_298:
-                if ((v52 & 0x100000) == 0 || (v53 & 0x10) != 0)
+LABEL_299:
+                if ((v34 & 0x100000) == 0 || (v35 & 0x10) != 0)
                 {
-                  if (!(v53 & 0x10 | v52 & 0x100000))
+                  if (!(v35 & 0x10 | v34 & 0x100000))
                   {
-                    if ((v53 & 0x20) == 0)
+                    if ((v35 & 0x20) == 0)
                     {
                       return 0;
                     }
 
                     result = 0;
-                    v116 = *(a9 + 84) | 0x40;
-LABEL_305:
-                    *(a9 + 84) = v116;
+                    v76 = *(a9 + 21) | 0x40;
+LABEL_306:
+                    *(a9 + 21) = v76;
                     return result;
                   }
                 }
@@ -1139,132 +1646,130 @@ LABEL_305:
                 {
                   if (nx_ratelimit_log_allowed(*(*a9 + 392)))
                   {
-                    v276 = *a9 + 4048;
-                    v277 = *a1 & 0xFFFFFFFFFFFFFFFLL;
-                    log_err("%s:%d: %s fixing DIR_STATS_IS_SHADOW flag for dir-stats %llu\n", v266, v267, v268, v269, v270, v271, v272, "exp_dir_stats_refcnt_merge");
+                    log_err("%s:%d: %s fixing DIR_STATS_IS_SHADOW flag for dir-stats %llu\n", "exp_dir_stats_refcnt_merge", 3253, (*a9 + 4048), *a1 & 0xFFFFFFFFFFFFFFFLL);
                   }
 
                   *(a5 + 12) |= 0x110u;
                 }
 
                 result = 0;
-                v116 = *(a9 + 84) | 0x20;
-                goto LABEL_305;
+                v76 = *(a9 + 21) | 0x20;
+                goto LABEL_306;
               }
 
-              v263 = a5[6] & 0xFFFFFDFF;
-LABEL_297:
-              *(a5 + 12) = v263;
-              goto LABEL_298;
+              v155 = a5[6] & 0xFFFFFDFF;
+LABEL_298:
+              *(a5 + 12) = v155;
+              goto LABEL_299;
             }
+
+LABEL_297:
+            v155 = *(a5 + 12) | 0x200;
+            goto LABEL_298;
+          }
 
 LABEL_296:
-            v263 = *(a5 + 12) | 0x200;
-            goto LABEL_297;
-          }
-
-LABEL_295:
-          v265 = *(a5 + 12);
+          v157 = *(a5 + 12);
           a5[3] = 0;
-          *(a5 + 12) = v265 & 0xFFFFFE4F | 0x100;
-          if ((v52 & 0x40000) == 0)
+          *(a5 + 12) = v157 & 0xFFFFFE4F | 0x100;
+          if ((v34 & 0x40000) == 0)
           {
-            goto LABEL_290;
+            goto LABEL_291;
           }
 
-          goto LABEL_296;
+          goto LABEL_297;
         }
 
-        *(a9 + 24) = *a5;
-        *(a9 + 32) = a5[1];
-        *(a9 + 40) = a5[2];
-        v254 = *(a5 + 12);
-        if ((v254 & 4) != 0)
+        a9[3] = *a5;
+        a9[4] = a5[1];
+        a9[5] = a5[2];
+        v146 = *(a5 + 12);
+        if ((v146 & 4) != 0)
         {
-          v297[0] = 0;
-          LODWORD(v295) = 0;
-          v255 = xf_get_from_blob(a5 + 26, v58, 1, 0, v297, &v295);
-          v256 = 0;
-          if (!v255 && v295 == 8)
+          v180[0] = 0;
+          LODWORD(v178) = 0;
+          v147 = xf_get_from_blob(a5 + 26, v40, 1, 0, v180, &v178);
+          v148 = 0;
+          if (!v147 && v178 == 8)
           {
-            v256 = *v297[0];
+            v148 = *v180[0];
           }
 
-          *(a9 + 48) = v256;
-          v254 = *(a5 + 12);
-          if ((v254 & 8) == 0)
+          a9[6] = v148;
+          v146 = *(a5 + 12);
+          if ((v146 & 8) == 0)
           {
-LABEL_255:
-            if ((v254 & 0x800) == 0)
+LABEL_256:
+            if ((v146 & 0x800) == 0)
             {
-LABEL_269:
-              *(a9 + 72) = a5[5];
-              *(a9 + 80) = *(a5 + 12);
-              v253 = *(a9 + 84);
-              goto LABEL_270;
+LABEL_270:
+              a9[9] = a5[5];
+              *(a9 + 20) = *(a5 + 12);
+              v145 = *(a9 + 21);
+              goto LABEL_271;
             }
 
-LABEL_265:
-            v297[0] = 0;
-            LODWORD(v295) = 0;
-            v259 = xf_get_from_blob(a5 + 26, v58, 4, 0, v297, &v295);
-            v260 = 0;
-            if (!v259 && v295 == 8)
+LABEL_266:
+            v180[0] = 0;
+            LODWORD(v178) = 0;
+            v151 = xf_get_from_blob(a5 + 26, v40, 4, 0, v180, &v178);
+            v152 = 0;
+            if (!v151 && v178 == 8)
             {
-              v260 = *v297[0];
+              v152 = *v180[0];
             }
 
-            *(a9 + 64) = v260;
-            goto LABEL_269;
+            a9[8] = v152;
+            goto LABEL_270;
           }
         }
 
-        else if ((v254 & 8) == 0)
+        else if ((v146 & 8) == 0)
         {
-          goto LABEL_255;
+          goto LABEL_256;
         }
 
-        v297[0] = 0;
-        LODWORD(v295) = 0;
-        v257 = xf_get_from_blob(a5 + 26, v58, 3, 0, v297, &v295);
-        v258 = 0;
-        if (!v257 && v295 == 8)
+        v180[0] = 0;
+        LODWORD(v178) = 0;
+        v149 = xf_get_from_blob(a5 + 26, v40, 3, 0, v180, &v178);
+        v150 = 0;
+        if (!v149 && v178 == 8)
         {
-          v258 = *v297[0];
+          v150 = *v180[0];
         }
 
-        *(a9 + 56) = v258;
+        a9[7] = v150;
         if ((a5[6] & 0x800) == 0)
         {
-          goto LABEL_269;
+          goto LABEL_270;
         }
 
-        goto LABEL_265;
+        goto LABEL_266;
       }
 
       *a5 |= *(a7 + 7) << 56;
-      v108 = (a5 + 1);
-      v109 = a6 - 8;
-      v110 = a8 - 8;
-      v297[0] = 0;
-      v296 = 0;
-      if (!xf_get_from_blob(a7 + 4, v110, 2, 0, v297, &v296) && v296 == 8)
+      v68 = (a5 + 1);
+      v69 = a6 - 8;
+      v70 = a8 - 8;
+      v180[0] = 0;
+      v179 = 0;
+      if (!xf_get_from_blob(a7 + 4, v70, 2, 0, v180, &v179) && v179 == 8)
       {
-        v111 = *v297[0];
-        v295 = v111;
-        if (v111)
+        v71 = *v180[0];
+        v178 = v71;
+        if (v71)
         {
-          v297[0] = 0;
-          v296 = 0;
-          if (!xf_get_from_blob(v108, a6 - 8, 2, 0, v297, &v296) && v296 == 8 && *v297[0])
+          v180[0] = 0;
+          v179 = 0;
+          if (!xf_get_from_blob(v68, a6 - 8, 2, 0, v180, &v179) && v179 == 8 && *v180[0])
           {
-            if (*v297[0] == v111)
+            if (*v180[0] == v71)
             {
               goto LABEL_170;
             }
 
-            v112 = xf_set_in_blob(v108, a6 - 8, 2, &v295, 8);
-            if (!v112)
+            v72 = xf_set_in_blob(v68, a6 - 8, 2, &v178, 8);
+            if (!v72)
             {
               goto LABEL_170;
             }
@@ -1272,49 +1777,49 @@ LABEL_265:
 
           else
           {
-            v112 = 22;
+            v72 = 22;
           }
 
-          v294 = nx_is_panic_on_corruption_enabled(*(*a9 + 392));
-          v170 = *a9 + 4048;
-          v171 = *(a1 + 12);
-          v172 = *(a1 + 20);
-          strerror(v112);
-          log_corrupt(v294, "%s:%d: %s clone mapping <%llu, %llu>: failed to update dir-stats key: %s (%d)\n", v173, v174, v175, v176, v177, v178, "jobj_refcnt_merge");
+          v177 = nx_is_panic_on_corruption_enabled(*(*a9 + 392));
+          v106 = (*a9 + 4048);
+          v107 = *(a1 + 12);
+          v108 = *(a1 + 20);
+          v109 = strerror(v72);
+          log_corrupt(v177, "%s:%d: %s clone mapping <%llu, %llu>: failed to update dir-stats key: %s (%d)\n", "jobj_refcnt_merge", 3426, v106, v107, v108, v109, v72);
         }
       }
 
 LABEL_170:
-      v297[0] = 0;
-      v296 = 0;
-      if (xf_get_from_blob(a7 + 4, v110, 1, 0, v297, &v296))
+      v180[0] = 0;
+      v179 = 0;
+      if (xf_get_from_blob(a7 + 4, v70, 1, 0, v180, &v179))
       {
         return 0;
       }
 
-      if (v296 != 8)
+      if (v179 != 8)
       {
         return 0;
       }
 
-      v179 = *v297[0];
-      v295 = v179;
-      if (!v179)
+      v110 = *v180[0];
+      v178 = v110;
+      if (!v110)
       {
         return 0;
       }
 
-      v297[0] = 0;
-      v296 = 0;
-      if (!xf_get_from_blob(v108, v109, 1, 0, v297, &v296) && v296 == 8 && *v297[0])
+      v180[0] = 0;
+      v179 = 0;
+      if (!xf_get_from_blob(v68, v69, 1, 0, v180, &v179) && v179 == 8 && *v180[0])
       {
-        if (*v297[0] == v179)
+        if (*v180[0] == v110)
         {
           return 0;
         }
 
-        result = xf_set_in_blob(v108, v109, 1, &v295, 8);
-        v180 = result;
+        result = xf_set_in_blob(v68, v69, 1, &v178, 8);
+        v111 = result;
         if (!result)
         {
           return result;
@@ -1323,124 +1828,124 @@ LABEL_170:
 
       else
       {
-        v180 = 22;
+        v111 = 22;
       }
 
-      v181 = nx_is_panic_on_corruption_enabled(*(*a9 + 392));
-      v182 = *a9 + 4048;
-      v183 = *(a1 + 12);
-      v184 = *(a1 + 20);
-      strerror(v180);
-      log_corrupt(v181, "%s:%d: %s clone mapping <%llu, %llu>: failed to update attribution tag: %s (%d)\n", v185, v186, v187, v188, v189, v190, "jobj_refcnt_merge");
+      v112 = nx_is_panic_on_corruption_enabled(*(*a9 + 392));
+      strerror(v111);
+      log_corrupt(v112, "%s:%d: %s clone mapping <%llu, %llu>: failed to update attribution tag: %s (%d)\n", "jobj_refcnt_merge");
       return 0;
     }
 
 LABEL_54:
-    v273 = *a1 >> 60;
-    log_err("%s:%d: don't know how to merge refcounts on objects of type %d\n", v15, v16, v17, v18, v19, v20, v21, "jobj_refcnt_merge");
+    log_err("%s:%d: don't know how to merge refcounts on objects of type %d\n");
     return 22;
   }
 
-  if (HIBYTE(*(a1 + 8)) != 2)
+  v43 = a1[1];
+  if (HIBYTE(v43) != 2)
   {
-    log_err("%s:%d: don't know how to merge refcounts on objects of file info type %llu\n", v15, v16, v17, v18, v19, v20, v21, "jobj_refcnt_merge");
+    log_err("%s:%d: don't know how to merge refcounts on objects of file info type %llu\n");
     return 22;
   }
 
-  v61 = *(a5 + 12);
-  if (v61 >= 2)
+  v44 = v43 & 0xFFFFFFFFFFFFFFLL;
+  v45 = *(a5 + 12);
+  if (v45 >= 2)
   {
-    *(a5 + 12) = v61 | 1;
+    *(a5 + 12) = v45 | 1;
   }
 
-  *(a9 + 16) = *a5;
-  v62 = a5[1];
-  v63 = *(a7 + 1);
-  v64 = v62 + v63;
-  if (__CFADD__(v62, v63))
+  a9[2] = *a5;
+  v46 = *a9;
+  v47 = a5[1];
+  v48 = *(a7 + 1);
+  v49 = v47 + v48;
+  if (__CFADD__(v47, v48))
   {
-    v65 = (v63 >> 63) + 1;
-  }
-
-  else
-  {
-    v65 = v63 >> 63;
-  }
-
-  v66 = v65 << 63 >> 63;
-  if (v66 != v65 || v66 < 0)
-  {
-    if (nx_ratelimit_log_allowed(*(*a9 + 392)))
-    {
-      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v67, v68, v69, v70, v71, v72, v73, "jobj_merge_maybe_clamp_64");
-    }
-
-    v64 = v62;
-  }
-
-  a5[1] = v64;
-  v74 = a5[2];
-  v75 = *(a7 + 2);
-  v76 = v74 + v75;
-  if (__CFADD__(v74, v75))
-  {
-    v77 = (v75 >> 63) + 1;
+    v50 = (v48 >> 63) + 1;
   }
 
   else
   {
-    v77 = v75 >> 63;
+    v50 = v48 >> 63;
   }
 
-  v78 = v77 << 63 >> 63;
-  if (v78 != v77 || v78 < 0)
+  v51 = v50 << 63 >> 63;
+  if (v51 != v50 || v51 < 0)
   {
-    if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+    if (nx_ratelimit_log_allowed(*(v46 + 392)))
     {
-      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v79, v80, v81, v82, v83, v84, v85, "jobj_merge_maybe_clamp_64");
+      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v46 + 4048), "physical size", "attr tag", v44, "physical size", v47, v48);
     }
 
-    v76 = v74;
+    v49 = v47;
   }
 
-  a5[2] = v76;
-  v86 = *a5;
-  v87 = *a7;
-  v88 = *a5 + v87;
-  if (__CFADD__(*a5, v87))
+  a5[1] = v49;
+  v52 = *a9;
+  v53 = a5[2];
+  v54 = *(a7 + 2);
+  v55 = v53 + v54;
+  if (__CFADD__(v53, v54))
   {
-    v89 = (v87 >> 63) + 1;
+    v56 = (v54 >> 63) + 1;
   }
 
   else
   {
-    v89 = v87 >> 63;
+    v56 = v54 >> 63;
   }
 
-  v90 = v89 << 63 >> 63;
-  if (v90 != v89 || v90 < 0)
+  v57 = v56 << 63 >> 63;
+  if (v57 != v56 || v57 < 0)
   {
-    if (nx_ratelimit_log_allowed(*(*a9 + 392)))
+    if (nx_ratelimit_log_allowed(*(v52 + 392)))
     {
-      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", v91, v92, v93, v94, v95, v96, v97, "jobj_merge_maybe_clamp_64");
+      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v52 + 4048), "full clone size", "attr tag", v44, "full clone size", v53, v54);
     }
 
-    v88 = v86;
+    v55 = v53;
+  }
+
+  a5[2] = v55;
+  v58 = *a9;
+  v59 = *a5;
+  v60 = *a7;
+  v61 = *a5 + v60;
+  if (__CFADD__(*a5, v60))
+  {
+    v62 = (v60 >> 63) + 1;
+  }
+
+  else
+  {
+    v62 = v60 >> 63;
+  }
+
+  v63 = v62 << 63 >> 63;
+  if (v63 != v62 || v63 < 0)
+  {
+    if (nx_ratelimit_log_allowed(*(v58 + 392)))
+    {
+      log_err("%s:%d: %s %s overflowed on %s <%llu> %s %llu (delta: %lld)\n", "jobj_merge_maybe_clamp_64", 2850, (v58 + 4048), "total_count", "attr tag", v44, "total_count", v59, v60);
+    }
+
+    v61 = v59;
   }
 
   result = 0;
-  *a5 = v88;
+  *a5 = v61;
   return result;
 }
 
-uint64_t match_jobj_type_to_tree_type(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t match_jobj_type_to_tree_type(uint64_t a1, unsigned int a2, int a3)
 {
-  v8 = a2;
   if (a2 >= 0x10)
   {
     if ((*(*(a1 + 376) + 57) & 2) == 0)
     {
-      log_err("%s:%d: %s expanded obj type %hhu found on unsupported volume\n", a2, a3, a4, a5, a6, a7, a8, "match_jobj_expanded_type_to_tree_type");
+      log_err("%s:%d: %s expanded obj type %hhu found on unsupported volume\n", "match_jobj_expanded_type_to_tree_type", 4205, (a1 + 4048), a2);
       return 0;
     }
 
@@ -1457,17 +1962,16 @@ uint64_t match_jobj_type_to_tree_type(uint64_t a1, uint64_t a2, uint64_t a3, uin
       }
     }
 
-    log_warn("%s:%d: %s Warning: attempting to place unknown expanded type %hhu into fsroot.\n", a2, a3, a4, a5, a6, a7, a8, "match_jobj_expanded_type_to_tree_type");
+    log_warn("%s:%d: %s Warning: attempting to place unknown expanded type %hhu into fsroot.\n", "match_jobj_expanded_type_to_tree_type", 4226, (a1 + 4048), a2);
     return 1;
   }
 
-  v10 = a3;
-  v9 = 3;
+  v4 = 3;
   if (a2 <= 5)
   {
     if (a2 == 1)
     {
-      return v9;
+      return v4;
     }
 
     if (a2 == 2)
@@ -1475,10 +1979,10 @@ uint64_t match_jobj_type_to_tree_type(uint64_t a1, uint64_t a2, uint64_t a3, uin
       return 2;
     }
 
-    return v10;
+    return a3;
   }
 
-  if ((a2 - 6) < 2)
+  if (a2 - 6 < 2)
   {
     goto LABEL_18;
   }
@@ -1487,10 +1991,10 @@ uint64_t match_jobj_type_to_tree_type(uint64_t a1, uint64_t a2, uint64_t a3, uin
   {
     if (a2 == 11)
     {
-      return v9;
+      return v4;
     }
 
-    return v10;
+    return a3;
   }
 
   if ((*(*(a1 + 376) + 56) & 0x20) == 0)
@@ -1513,12 +2017,12 @@ LABEL_18:
     {
       if ((apfs_has_secondary_fsroot(a1) & 1) == 0)
       {
-        return v10;
+        return a3;
       }
 
-      if (v10 != 1)
+      if (a3 != 1)
       {
-        panic("type = %u, req_tree != fs_root\n", v8);
+        panic("type = %u, req_tree != fs_root\n", a2);
       }
     }
 
@@ -1533,54 +2037,54 @@ LABEL_18:
   return 5;
 }
 
-uint64_t insert_jobj(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t insert_jobj(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
 {
   if (!*(a3 + 1))
   {
     sub_1000A6D70();
   }
 
-  matched = match_jobj_type_to_tree_type(a1, *a3, a2, a4, a5, a6, a7, a8);
+  matched = match_jobj_type_to_tree_type(a1, *a3, a2);
   if (matched != 5)
   {
-    v20 = matched;
-    v35 = 0;
-    v36 = 0;
-    tree_in_snap = jfs_get_tree_in_snap(a1, matched, a4, *(a1 + 440), &v36);
+    v11 = matched;
+    v16 = 0;
+    v17 = 0;
+    tree_in_snap = jfs_get_tree_in_snap(a1, matched, a4, *(a1 + 440), &v17);
     if (tree_in_snap)
     {
       return tree_in_snap;
     }
 
-    v28 = a3[1];
-    if ((v28 - 1) >= 2)
+    v12 = a3[1];
+    if ((v12 - 1) >= 2)
     {
-      if (v28 != 4)
+      if (v12 != 4)
       {
-        log_err("%s:%d: %s X %d\n", v21, v22, v23, v24, v25, v26, v27, "insert_jobj");
+        log_err("%s:%d: %s X %d\n", "insert_jobj", 4331, (a1 + 4048), v12);
         tree_in_snap = 22;
 LABEL_14:
-        obj_release(v36);
+        obj_release(v17);
         return tree_in_snap;
       }
 
-      v29 = 3;
+      v13 = 3;
     }
 
     else
     {
-      v29 = 1;
+      v13 = 1;
     }
 
-    v30 = sub_100049698(a1, a3, v20, &v35, "addition", v25, v26, v27);
-    if (v30 || (v30 = create_or_modify_jobj(a1, v36, a3, a4, v29, v31, v32, v33), v30))
+    v14 = sub_100049698(a1, a3, v11, &v16, "addition");
+    if (v14 || (v14 = create_or_modify_jobj(a1, v17, a3, a4, v13), v14))
     {
-      tree_in_snap = v30;
+      tree_in_snap = v14;
     }
 
     else
     {
-      sub_100049740(a1, v20, v36, a3, a4, v29);
+      sub_100049740(a1, v11, v17, a3, a4, v13);
       tree_in_snap = 0;
       if (*a3 == 3)
       {
@@ -1591,130 +2095,136 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  tree_in_snap = fext_tree_insert(a1, a4, a3);
-  if (tree_in_snap)
+  v9 = fext_tree_insert(a1, a4, a3, v8);
+  tree_in_snap = v9;
+  if (v9)
   {
-    log_err("%s:%d: %s failed to insert fext in fext_tree: %d\n", v12, v13, v14, v15, v16, v17, v18, "insert_jobj");
+    log_err("%s:%d: %s failed to insert fext in fext_tree: %d\n", "insert_jobj", 4293, (a1 + 4048), v9);
   }
 
   return tree_in_snap;
 }
 
-uint64_t sub_100049698(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100049698(uint64_t a1, uint64_t a2, int a3, uint64_t *a4, const char *a5)
 {
   if (*a2 == 3)
   {
-    v8 = *(a2 + 16);
+    v5 = *(a2 + 16);
   }
 
   else
   {
-    v8 = 0;
+    v5 = 0;
   }
 
-  *a4 = v8;
-  if ((~*(a2 + 8) & 0xFFFFFFFFFFF0000) != 0 && (v8 & 0xFFFFFFFFFFF0000) != 0xFFFFFFFFFFF0000)
+  *a4 = v5;
+  v6 = *(a2 + 8);
+  if ((~v6 & 0xFFFFFFFFFFF0000) != 0 && (v5 & 0xFFFFFFFFFFF0000) != 0xFFFFFFFFFFF0000)
   {
     return 0;
   }
 
-  v10 = *(a1 + 1108);
-  if (v10)
+  v8 = *(a1 + 1108);
+  if (v8)
   {
     return 0;
   }
 
   if (a3 == 1 && *(a1 + 3592))
   {
-    v12 = *(a2 + 8);
-    log_err("%s:%d: %s Preventing %s of objects to synthetic folder (id %lld, parent %lld)\n", a2, a3, a4, a5, a6, a7, a8, "prevent_synthetic_object_operation");
+    log_err("%s:%d: %s Preventing %s of objects to synthetic folder (id %lld, parent %lld)\n", "prevent_synthetic_object_operation", 4171, (a1 + 4048), a5, v6, v5);
     return 45;
   }
 
-  return v10;
+  return v8;
 }
 
-void sub_100049740(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_100049740(uint64_t result, int a2, uint64_t *a3, uint64_t a4, unint64_t a5, int a6)
 {
   if (*(a4 + 8) == 2)
   {
-    v24[7] = v6;
-    v24[8] = v7;
-    if (!*(a1 + 1108) && a2 == 1)
+    v15[7] = v6;
+    v15[8] = v7;
+    if (!*(result + 1108) && a2 == 1)
     {
-      if (*(a1 + 3592))
+      if (*(result + 3592))
       {
-        v24[0] = 0;
-        if (!jfs_get_tree_in_snap(a1, 4, a5, *(a1 + 440), v24))
+        v15[0] = 0;
+        if (!jfs_get_tree_in_snap(result, 4, a5, *(result + 440), v15))
         {
-          if (v24[0] != a3 && create_or_modify_jobj(a1, v24[0], a4, a5, a6, v13, v14, v15))
+          if (v15[0] != a3)
           {
-            if (nx_ratelimit_log_allowed(*(a1 + 392)))
+            v13 = create_or_modify_jobj(result, v15[0], a4, a5, a6);
+            if (v13)
             {
-              v23 = *(a4 + 8);
-              log_err("%s:%d: %s Shadow create_or_modify_jobj(jobj %p id %lld xid %lld op %d) failed with error %d\n", v16, v17, v18, v19, v20, v21, v22, "duplicate_jobj_op_to_shadow_fs_root");
+              v14 = v13;
+              if (nx_ratelimit_log_allowed(*(result + 392)))
+              {
+                log_err("%s:%d: %s Shadow create_or_modify_jobj(jobj %p id %lld xid %lld op %d) failed with error %d\n", "duplicate_jobj_op_to_shadow_fs_root", 4191, (result + 4048), a4, *(a4 + 8), a5, a6, v14);
+              }
             }
           }
 
-          obj_release(v24[0]);
+          obj_release(v15[0]);
         }
       }
     }
   }
 }
 
-uint64_t remove_jobj(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t remove_jobj(uint64_t a1, int a2, unsigned __int8 *a3, unint64_t a4)
 {
-  matched = match_jobj_type_to_tree_type(a1, *a3, a2, a4, a5, a6, a7, a8);
+  matched = match_jobj_type_to_tree_type(a1, *a3, a2);
   if (matched == 5)
   {
-    tree_in_snap = fext_tree_remove(a1, a4, *(a3 + 1), *(a3 + 2));
-    if (tree_in_snap)
+    v9 = fext_tree_remove(a1, a4, *(a3 + 1), *(a3 + 2), v8);
+    tree_in_snap = v9;
+    if (v9)
     {
-      log_err("%s:%d: %s fext_tree_remove returned %d\n", v12, v13, v14, v15, v16, v17, v18, "remove_jobj");
+      log_err("%s:%d: %s fext_tree_remove returned %d\n", "remove_jobj", 4462, (a1 + 4048), v9);
     }
   }
 
   else
   {
-    v20 = matched;
-    v29 = 0;
-    v30 = 0;
-    tree_in_snap = jfs_get_tree_in_snap(a1, matched, a4, *(a1 + 440), &v30);
+    v11 = matched;
+    v14 = 0;
+    v15 = 0;
+    tree_in_snap = jfs_get_tree_in_snap(a1, matched, a4, *(a1 + 440), &v15);
     if (!tree_in_snap)
     {
-      v24 = sub_100049698(a1, a3, v20, &v29, "removal", v21, v22, v23);
-      if (v24)
+      v12 = sub_100049698(a1, a3, v11, &v14, "removal");
+      if (v12)
       {
-        tree_in_snap = v24;
+        tree_in_snap = v12;
       }
 
       else
       {
-        tree_in_snap = create_or_modify_jobj(a1, v30, a3, a4, 4, v25, v26, v27);
+        tree_in_snap = create_or_modify_jobj(a1, v15, a3, a4, 4);
         if (!tree_in_snap)
         {
-          sub_100049740(a1, v20, v30, a3, a4, 4);
+          sub_100049740(a1, v11, v15, a3, a4, 4);
         }
       }
 
-      obj_release(v30);
+      obj_release(v15);
     }
   }
 
   return tree_in_snap;
 }
 
-unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t *a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5)
 {
-  if (jobj_validate_key_val(a1, a2, a3, a4, a5, a6, a7, a8))
+  if (jobj_validate_key_val(a1, a2, a3, a4, a5))
   {
     return 0;
   }
 
-  v22 = *a2 >> 60;
-  LODWORD(v23) = 40;
-  switch(v22)
+  v12 = *a2 >> 60;
+  LODWORD(v13) = 40;
+  switch(v12)
   {
     case 1:
       if (!a4)
@@ -1722,12 +2232,12 @@ unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsign
         return 0;
       }
 
-      v24 = a4[24] + 80;
+      v14 = a4[24] + 80;
       goto LABEL_32;
     case 2:
       goto LABEL_36;
     case 3:
-      LODWORD(v23) = 648;
+      LODWORD(v13) = 648;
       goto LABEL_36;
     case 4:
       if (!a4)
@@ -1735,7 +2245,7 @@ unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsign
         return 0;
       }
 
-      v24 = *(a2 + 8) + a4[1] + 24;
+      v14 = *(a2 + 4) + a4[1] + 24;
       goto LABEL_32;
     case 5:
       if (!a4)
@@ -1743,11 +2253,11 @@ unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsign
         return 0;
       }
 
-      v26 = a4[4];
+      v16 = a4[4];
       goto LABEL_19;
     case 6:
     case 12:
-      LODWORD(v23) = 24;
+      LODWORD(v13) = 24;
       goto LABEL_36;
     case 7:
       if (!a4)
@@ -1757,51 +2267,51 @@ unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsign
 
       if (a4[2] == 6)
       {
-        v26 = HIBYTE(a4[11]) + a4[11];
+        v16 = HIBYTE(a4[11]) + a4[11];
       }
 
       else
       {
-        v26 = a4[11];
+        v16 = a4[11];
       }
 
 LABEL_19:
-      v24 = v26 + 40;
+      v14 = v16 + 40;
       goto LABEL_32;
     case 8:
-      LODWORD(v23) = 56;
+      LODWORD(v13) = 56;
       goto LABEL_36;
     case 9:
       if ((*(*(a1 + 376) + 56) & 9) != 0)
       {
-        LODWORD(v23) = (*(a2 + 8) & 0x3FF) + 72;
+        LODWORD(v13) = (a2[1] & 0x3FF) + 72;
         goto LABEL_36;
       }
 
-      v24 = *(a2 + 8) + 72;
+      v14 = *(a2 + 4) + 72;
 LABEL_32:
-      LODWORD(v23) = v24;
-      if (v24 >> 16)
+      LODWORD(v13) = v14;
+      if (v14 >> 16)
       {
-        v34 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v34 = v24 == 0;
+        v19 = v14 == 0;
       }
 
-      if (!v34)
+      if (!v19)
       {
         goto LABEL_36;
       }
 
       return 0;
     case 10:
-      LODWORD(v23) = 96;
+      LODWORD(v13) = 96;
       goto LABEL_36;
     case 11:
-      v24 = *(a2 + 8) + 32;
+      v14 = *(a2 + 4) + 32;
       goto LABEL_32;
     case 13:
       if (!a4)
@@ -1809,577 +2319,568 @@ LABEL_32:
         return 0;
       }
 
-      v25 = *(a2 + 15);
-      if (v25 == 2)
+      v15 = *(a2 + 15);
+      if (v15 == 2)
       {
-        LODWORD(v23) = 80;
+        LODWORD(v13) = 80;
       }
 
       else
       {
-        if (v25 != 1)
+        if (v15 != 1)
         {
           return 0;
         }
 
-        LODWORD(v23) = *(a4 + 2) + 32;
+        LODWORD(v13) = *(a4 + 2) + 32;
       }
 
       goto LABEL_36;
     case 14:
-      if ((*(a2 + 8) & 0xFC) != 0x10)
+      v17 = *(a2 + 2);
+      if ((a2[1] & 0xFC) != 0x10)
       {
         is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(*(a1 + 392));
-        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s *** unknown expanded obj type %hhu\n", v28, v29, v30, v31, v32, v33, "jobj_size_for_large_key_val");
+        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s *** unknown expanded obj type %hhu\n", "jobj_size_for_large_key_val", 2464, (a1 + 4048), v17);
         return 0;
       }
 
-      v23 = (0x48006000200050uLL >> (16 * (*(a2 + 8) & 0xFu))) & 0x78;
+      v13 = (0x48006000200050uLL >> (16 * (v17 & 0xFu))) & 0x78;
 LABEL_36:
-      if (v22 == 14)
+      if (v12 == 14)
       {
-        LODWORD(v35) = *(a2 + 8);
-        if (v35 <= 0xF)
+        LODWORD(v20) = *(a2 + 8);
+        if (v20 <= 0xF)
         {
-          v124 = *(a2 + 8);
-          log_err("%s:%d: unknown expanded type (%hhu) on record (%u)\n", v13, v14, v15, v16, v17, v18, v19, "jobj_allocate");
+          log_err("%s:%d: unknown expanded type (%hhu) on record (%u)\n");
           return 0;
         }
       }
 
       else
       {
-        v35 = *a2 >> 60;
+        v20 = *a2 >> 60;
       }
 
-      switch(v35)
+      switch(v20)
       {
         case 1:
-          v20 = _apfs_calloc_typed(1uLL, 0x50uLL, 0x10100406569770FuLL);
-          if (!v20)
+          v10 = _apfs_calloc_typed(1uLL, 0x50uLL, 0x10100406569770FuLL);
+          if (!v10)
           {
-            return v20;
+            return v10;
           }
 
-          if (v23 <= 0x4F)
+          if (v13 <= 0x4F)
           {
             sub_1000A6E4C();
           }
 
-          v42 = _apfs_calloc_typed(1uLL, v23 - 80, 0xDA2D0A4CuLL);
-          *(v20 + 9) = v42;
-          if (v42)
+          v27 = _apfs_calloc_typed(1uLL, v13 - 80, 0xDA2D0A4CuLL);
+          *(v10 + 9) = v27;
+          if (v27)
           {
             goto LABEL_80;
           }
 
-          v50 = v20;
-          v51 = 80;
+          v28 = v10;
+          v29 = 80;
           goto LABEL_73;
         case 2:
-          v36 = 0x10000407607B2BCLL;
-          v37 = 40;
+          v21 = 0x10000407607B2BCLL;
+          v22 = 40;
           goto LABEL_78;
         case 3:
-          v52 = _apfs_zalloc(2u);
+          v30 = _apfs_zalloc(2u);
           goto LABEL_79;
         case 4:
-          if (v23 <= 0x17)
+          if (v13 <= 0x17)
           {
             sub_1000A6DF4();
           }
 
-          v39 = v23;
-          v40 = -753538664;
+          v24 = v13;
+          v25 = -753538664;
           goto LABEL_65;
         case 5:
-          if (v23 <= 0x27)
+          if (v13 <= 0x27)
           {
             sub_1000A6DC8();
           }
 
-          v39 = v23;
-          v40 = -2067986874;
+          v24 = v13;
+          v25 = -2067986874;
           goto LABEL_65;
         case 6:
-          v41 = 887226456;
+          v26 = 887226456;
           goto LABEL_54;
         case 7:
-          if (v23 <= 0x27)
+          if (v13 <= 0x27)
           {
             sub_1000A6EA4();
           }
 
-          v39 = v23;
-          v40 = -1260340143;
+          v24 = v13;
+          v25 = -1260340143;
           goto LABEL_65;
         case 8:
-          v36 = 0x1000040C6EC63FFLL;
-          v37 = 56;
+          v21 = 0x1000040C6EC63FFLL;
+          v22 = 56;
           goto LABEL_78;
         case 9:
-          v20 = _apfs_calloc_typed(1uLL, 0x48uLL, 0x10B004060F4C5C5uLL);
-          if (!v20)
+          v10 = _apfs_calloc_typed(1uLL, 0x48uLL, 0x10B004060F4C5C5uLL);
+          if (!v10)
           {
-            return v20;
+            return v10;
           }
 
-          if (v23 <= 0x47)
+          if (v13 <= 0x47)
           {
             sub_1000A6E78();
           }
 
-          v54 = _apfs_malloc_typed(v23 - 72, 0xEA9F5E2EuLL);
-          *(v20 + 8) = v54;
-          if (v54)
+          v32 = _apfs_malloc_typed(v13 - 72, 0xEA9F5E2EuLL);
+          *(v10 + 8) = v32;
+          if (v32)
           {
             goto LABEL_80;
           }
 
-          v50 = v20;
-          v51 = 72;
+          v28 = v10;
+          v29 = 72;
 LABEL_73:
-          _apfs_free(v50, v51);
+          _apfs_free(v28, v29);
           return 0;
         case 10:
         case 18:
-          v36 = 0x10A004019B037CALL;
-          v37 = 96;
+          v21 = 0x10A004019B037CALL;
+          v22 = 96;
           goto LABEL_78;
         case 11:
-          if (v23 <= 0x1F)
+          if (v13 <= 0x1F)
           {
             sub_1000A6E20();
           }
 
-          v39 = v23;
-          v40 = 173046394;
+          v24 = v13;
+          v25 = 173046394;
           goto LABEL_65;
         case 12:
-          v41 = -753538664;
+          v26 = -753538664;
 LABEL_54:
-          v36 = v41 | 0x100004000000000;
-          v37 = 24;
+          v21 = v26 | 0x100004000000000;
+          v22 = 24;
           goto LABEL_78;
         case 13:
-          v38 = HIBYTE(*(a2 + 8));
-          if (v38 == 2)
+          v23 = HIBYTE(a2[1]);
+          if (v23 == 2)
           {
-            v53 = 1202085462;
+            v31 = 1202085462;
 LABEL_77:
-            v36 = v53 | 0x10A004000000000;
-            v37 = 80;
+            v21 = v31 | 0x10A004000000000;
+            v22 = 80;
 LABEL_78:
-            v52 = _apfs_calloc_typed(1uLL, v37, v36);
+            v30 = _apfs_calloc_typed(1uLL, v22, v21);
           }
 
           else
           {
-            if (v38 != 1)
+            if (v23 != 1)
             {
-              v126 = HIBYTE(*(a2 + 8));
-              log_err("%s:%d: *** Unknown file info type %llu\n", v13, v14, v15, v16, v17, v18, v19, "jobj_allocate");
+              log_err("%s:%d: *** Unknown file info type %llu\n");
               return 0;
             }
 
-            if (v23 <= 0x1F)
+            if (v13 <= 0x1F)
             {
               sub_1000A6D9C();
             }
 
-            v39 = v23;
-            v40 = 130634920;
+            v24 = v13;
+            v25 = 130634920;
 LABEL_65:
-            v52 = _apfs_malloc_typed(v39, v40 | 0x100004000000000);
+            v30 = _apfs_malloc_typed(v24, v25 | 0x100004000000000);
           }
 
 LABEL_79:
-          v20 = v52;
-          if (!v52)
+          v10 = v30;
+          if (!v30)
           {
-            return v20;
+            return v10;
           }
 
 LABEL_80:
-          v55 = *a2;
-          *(v20 + 1) = *a2 & 0xFFFFFFFFFFFFFFFLL;
-          v55 >>= 60;
-          *v20 = v55;
-          *(v20 + 1) = 1;
-          v20[1] = v23;
-          switch(v55)
+          v33 = *a2;
+          v34 = *a2 & 0xFFFFFFFFFFFFFFFLL;
+          *(v10 + 1) = v34;
+          v33 >>= 60;
+          *v10 = v33;
+          *(v10 + 1) = 1;
+          v10[1] = v13;
+          switch(v33)
           {
             case 1:
-              *(v20 + 1) = *a4;
-              *(v20 + 2) = *(a4 + 1);
-              *(v20 + 6) = *(a4 + 4);
-              *(v20 + 7) = *(a4 + 5);
-              v56 = a4[24];
-              v20[32] = v56;
-              v57 = *(v20 + 9);
-              v58 = (a4 + 25);
+              *(v10 + 1) = *a4;
+              *(v10 + 2) = *(a4 + 1);
+              *(v10 + 6) = *(a4 + 4);
+              *(v10 + 7) = *(a4 + 5);
+              v35 = a4[24];
+              v10[32] = v35;
+              v36 = *(v10 + 9);
+              v37 = a4 + 25;
               goto LABEL_86;
             case 2:
-              v75 = *(a4 + 1);
-              v76 = *a4 & 0xFFFFFFFFFFFFFFFLL;
-              *(v20 + 1) = *a4 >> 60;
-              *(v20 + 8) = *(a4 + 4);
-              *(v20 + 2) = v76;
-              *(v20 + 3) = v75;
-              return v20;
+              v47 = *(a4 + 1);
+              v48 = *a4 & 0xFFFFFFFFFFFFFFFLL;
+              *(v10 + 1) = *a4 >> 60;
+              *(v10 + 8) = *(a4 + 4);
+              *(v10 + 2) = v48;
+              *(v10 + 3) = v47;
+              return v10;
             case 3:
-              *(v20 + 2) = *a4;
-              *(v20 + 3) = *(a4 + 1);
-              *(v20 + 4) = *(a4 + 2);
-              *(v20 + 5) = *(a4 + 3);
-              *(v20 + 6) = *(a4 + 4);
-              *(v20 + 7) = *(a4 + 5);
-              *(v20 + 18) = *(a4 + 14);
-              *(v20 + 8) = *(a4 + 6);
-              *(v20 + 19) = *(a4 + 15);
-              *(v20 + 20) = *(a4 + 16);
-              *(v20 + 21) = *(a4 + 17);
-              *(v20 + 22) = *(a4 + 18);
-              *(v20 + 23) = *(a4 + 19);
-              v20[48] = a4[40];
-              v20[49] = a4[41];
-              *(v20 + 13) = *(a4 + 42);
+              *(v10 + 2) = *a4;
+              *(v10 + 3) = *(a4 + 1);
+              *(v10 + 4) = *(a4 + 2);
+              *(v10 + 5) = *(a4 + 3);
+              *(v10 + 6) = *(a4 + 4);
+              *(v10 + 7) = *(a4 + 5);
+              *(v10 + 18) = *(a4 + 14);
+              *(v10 + 8) = *(a4 + 6);
+              *(v10 + 19) = *(a4 + 15);
+              *(v10 + 20) = *(a4 + 16);
+              *(v10 + 21) = *(a4 + 17);
+              *(v10 + 22) = *(a4 + 18);
+              *(v10 + 23) = *(a4 + 19);
+              v10[48] = a4[40];
+              v10[49] = a4[41];
+              *(v10 + 13) = *(a4 + 42);
               if (a5 < 0x5D)
               {
-                return v20;
+                return v10;
               }
 
-              if (xf_init_with_blob(v20 + 204, a4 + 46, a5 - 92))
+              if (xf_init_with_blob(v10 + 204, a4 + 46, a5 - 92))
               {
-                v125 = *(v20 + 1);
-                log_debug("%s:%d: failed to init extended fields on inode %lld from blob (xfret %d).\n", v66, v67, v68, v69, v70, v71, v72, "key_val_to_jobj");
-                return v20;
+                log_debug("%s:%d: failed to init extended fields on inode %lld from blob (xfret %d).\n");
+                return v10;
               }
 
-              v114 = v20[204];
-              if (!v20[204])
+              v57 = v10[204];
+              if (!v10[204])
               {
-                return v20;
+                return v10;
               }
 
-              v115 = 0;
-              v116 = (*(v20 + 52) + 2);
+              v58 = 0;
+              v59 = (*(v10 + 52) + 2);
               break;
             case 4:
-              v73 = *(a2 + 8);
-              v20[10] = v73;
-              strlcpy(v20 + 24, (a2 + 10), v73);
-              *(v20 + 4) = *a4;
-              v63 = a4[1];
-              v20[11] = v63;
-              v64 = v20 + v20[10] + 24;
-              v65 = a4 + 2;
+              v45 = *(a2 + 4);
+              v10[10] = v45;
+              strlcpy(v10 + 24, a2 + 10, v45);
+              *(v10 + 4) = *a4;
+              v42 = a4[1];
+              v10[11] = v42;
+              v43 = v10 + v10[10] + 24;
+              v44 = a4 + 2;
               goto LABEL_106;
             case 5:
-              v60 = *a4;
-              *(v20 + 2) = *(a2 + 8);
-              *(v20 + 3) = v60;
-              v56 = a4[4];
-              v20[16] = v56;
-              v57 = (v20 + 17);
-              v58 = (a4 + 5);
+              v39 = *a4;
+              *(v10 + 2) = a2[1];
+              *(v10 + 3) = v39;
+              v35 = a4[4];
+              v10[16] = v35;
+              v36 = (v10 + 17);
+              v37 = a4 + 5;
 LABEL_86:
-              strlcpy(v57, v58, v56);
-              return v20;
+              strlcpy(v36, v37, v35);
+              return v10;
             case 6:
-              *(v20 + 4) = *a4;
-              return v20;
+              *(v10 + 4) = *a4;
+              return v10;
             case 7:
-              *(v20 + 4) = *a4;
-              LODWORD(v85) = a4[11];
-              v87 = a4[2];
-              v86 = a4 + 2;
-              if (v87 == 6)
+              *(v10 + 4) = *a4;
+              LODWORD(v50) = a4[11];
+              v52 = a4[2];
+              v51 = a4 + 2;
+              if (v52 == 6)
               {
-                v85 = (v85 >> 8) + v85;
+                v50 = (v50 >> 8) + v50;
               }
 
               else
               {
-                v85 = v85;
+                v50 = v50;
               }
 
-              v64 = (v20 + 10);
-              v63 = v85 + 20;
-              v65 = v86;
+              v43 = (v10 + 10);
+              v42 = v50 + 20;
+              v44 = v51;
               goto LABEL_106;
             case 8:
-              *(v20 + 2) = *(a2 + 8);
-              v74 = *a4;
-              *(v20 + 5) = *a4 & 0xFFFFFFFFFFFFFFLL;
-              *(v20 + 12) = *(a4 + 4);
-              *(v20 + 48) = HIBYTE(v74);
-              return v20;
+              *(v10 + 2) = a2[1];
+              v46 = *a4;
+              *(v10 + 5) = *a4 & 0xFFFFFFFFFFFFFFLL;
+              *(v10 + 12) = *(a4 + 4);
+              *(v10 + 48) = HIBYTE(v46);
+              return v10;
             case 9:
               if ((*(*(a1 + 376) + 56) & 9) != 0)
               {
-                v88 = *(a2 + 8);
-                *(v20 + 14) = v88 >> 10;
-                v89 = v88 & 0x3FF;
-                v90 = 12;
+                v53 = *(a2 + 2);
+                *(v10 + 14) = v53 >> 10;
+                v54 = v53 & 0x3FF;
+                v55 = 12;
               }
 
               else
               {
-                *(v20 + 14) = 0;
-                v89 = *(a2 + 8);
-                v90 = 10;
+                *(v10 + 14) = 0;
+                v54 = *(a2 + 4);
+                v55 = 10;
               }
 
-              v20[31] = v89;
-              strlcpy(*(v20 + 8), (a2 + v90), v89);
-              *(v20 + 2) = *a4;
-              *(v20 + 3) = *(a4 + 1);
-              v20[30] = a4[8];
+              v10[31] = v54;
+              strlcpy(*(v10 + 8), a2 + v55, v54);
+              *(v10 + 2) = *a4;
+              *(v10 + 3) = *(a4 + 1);
+              v10[30] = a4[8];
               if (a5 < 0x13)
               {
-                xf_init((v20 + 16), 0);
+                xf_init((v10 + 16), 0);
               }
 
-              else if (xf_init_with_blob(v20 + 16, a4 + 9, a5 - 18))
+              else if (xf_init_with_blob(v10 + 16, a4 + 9, a5 - 18))
               {
-                v127 = *(v20 + 1);
-                log_debug("%s:%d: failed to init extended fields on drec %lld from blob.\n", v91, v92, v93, v94, v95, v96, v97, "key_val_to_jobj");
+                log_debug("%s:%d: failed to init extended fields on drec %lld from blob.\n");
               }
 
-              return v20;
+              return v10;
             case 10:
-              *(v20 + 12) = *a4;
-              *(v20 + 3) = vextq_s8(*(a4 + 1), *(a4 + 1), 8uLL);
-              return v20;
+              *(v10 + 12) = *a4;
+              *(v10 + 3) = vextq_s8(*(a4 + 1), *(a4 + 1), 8uLL);
+              return v10;
             case 11:
-              v59 = *(a2 + 8);
-              if (v59 + 32 > v23)
+              v38 = *(a2 + 4);
+              if (v38 + 32 > v13)
               {
                 sub_1000A6ED0();
               }
 
-              v20[12] = v59;
-              strlcpy(v20 + 26, (a2 + 10), v59);
+              v10[12] = v38;
+              strlcpy(v10 + 26, a2 + 10, v38);
               goto LABEL_84;
             case 12:
 LABEL_84:
-              *(v20 + 2) = *a4;
-              return v20;
+              *(v10 + 2) = *a4;
+              return v10;
             case 13:
-              v61 = *(a2 + 8);
-              *(v20 + 16) = HIBYTE(v61);
-              *(&v62 + 1) = *(a2 + 8);
-              *&v62 = v61;
-              *(v20 + 2) = v62 >> 56;
-              if (HIBYTE(v61) == 2)
+              v40 = a2[1];
+              *(v10 + 16) = HIBYTE(v40);
+              *(&v41 + 1) = a2[1];
+              *&v41 = v40;
+              *(v10 + 2) = v41 >> 56;
+              if (HIBYTE(v40) == 2)
               {
-                *(v20 + 3) = *a4;
-                *(v20 + 4) = *(a4 + 1);
-                *(v20 + 5) = *(a4 + 2);
-                v20[24] = a4[12];
+                *(v10 + 3) = *a4;
+                *(v10 + 4) = *(a4 + 1);
+                *(v10 + 5) = *(a4 + 2);
+                v10[24] = a4[12];
                 if (a5 < 0x1B)
                 {
-                  log_err("%s:%d: %s s_hash <%llu> finfo attribution tag value <%zu> is less than sizeof(j_file_attribution_tag_val_t) <%lu\n", v43, v44, v45, v46, v47, v48, v49, "key_val_to_jobj");
-                  return v20;
+                  log_err("%s:%d: %s s_hash <%llu> finfo attribution tag value <%zu> is less than sizeof(j_file_attribution_tag_val_t) <%lu\n");
+                  return v10;
                 }
 
-                v98 = xf_init_with_blob(v20 + 28, a4 + 13, a5 - 26);
-                if (v98)
+                v56 = xf_init_with_blob(v10 + 28, a4 + 13, a5 - 26);
+                if (v56)
                 {
-                  v106 = *(v20 + 1);
-                  strerror(v98);
-                  log_debug("%s:%d: failed to init extended fields on attribution tag record with objid <%lld> from blob due to error <%d> %s\n", v107, v108, v109, v110, v111, v112, v113, "key_val_to_jobj");
-                  return v20;
+                  strerror(v56);
+                  log_debug("%s:%d: failed to init extended fields on attribution tag record with objid <%lld> from blob due to error <%d> %s\n");
+                  return v10;
                 }
 
-                v118 = v20[28];
-                if (v20[28])
+                v61 = v10[28];
+                if (v10[28])
                 {
-                  v119 = 0;
-                  for (i = (*(v20 + 8) + 2); ; i += 2)
+                  v62 = 0;
+                  for (i = (*(v10 + 8) + 2); ; i += 2)
                   {
-                    v121 = *i;
+                    v64 = *i;
                     if (*(i - 2) == 1)
                     {
                       break;
                     }
 
-                    v119 += (v121 + 7) & 0x1FFF8;
-                    if (!--v118)
+                    v62 += (v64 + 7) & 0x1FFF8;
+                    if (!--v61)
                     {
-                      return v20;
+                      return v10;
                     }
                   }
 
-                  if (v121 > 0)
+                  if (v64 > 0)
                   {
-                    v122 = *(v20 + 9) + (v119 + v121);
+                    v65 = *(v10 + 9) + (v62 + v64);
                     goto LABEL_134;
                   }
 
-                  v128 = *(v20 + 2) >> 8;
-                  log_err("%s:%d: %s size (%d) of FILE_INFO_TAG_EXT_TYPE_SIGNING_ID in attribution tag record with s_hash <%llu> <= 0 \n", v99, v100, v101, v102, v103, v104, v105, "key_val_to_jobj");
+                  log_err("%s:%d: %s size (%d) of FILE_INFO_TAG_EXT_TYPE_SIGNING_ID in attribution tag record with s_hash <%llu> <= 0 \n");
                 }
               }
 
-              else if (HIBYTE(v61) == 1)
+              else if (HIBYTE(v40) == 1)
               {
-                v20[12] = *a4;
-                v63 = *(a4 + 2);
-                *(v20 + 26) = v63;
-                v64 = v20 + 27;
-                v65 = (a4 + 3);
+                v10[12] = *a4;
+                v42 = *(a4 + 2);
+                *(v10 + 26) = v42;
+                v43 = v10 + 27;
+                v44 = (a4 + 3);
 LABEL_106:
-                memcpy(v64, v65, v63);
+                memcpy(v43, v44, v42);
               }
 
-              return v20;
+              return v10;
             case 14:
               if (a3 < 0xC)
               {
                 goto LABEL_101;
               }
 
-              if (sub_10004A47C(a1, v20, a2, a4, a5, v47, v48, v49))
+              if (sub_10004A47C(a1, v10, a2, a4, a5))
               {
-                return v20;
+                return v10;
               }
 
-              v77 = *(v20 + 1);
+              v34 = *(v10 + 1);
 LABEL_101:
-              log_err("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", v43, v44, v45, v46, v47, v48, v49, "key_val_to_jobj");
-              jobj_release(v78, v20, v79, v80, v81, v82, v83, v84);
+              log_err("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", "key_val_to_jobj", 4935, (a1 + 4048), v34);
+              jobj_release(v49, v10);
               return 0;
             default:
-              return v20;
+              return v10;
           }
 
           break;
         case 16:
-          v53 = -624060581;
+          v31 = -624060581;
           goto LABEL_77;
         case 17:
-          v36 = 0x100004089CA3EB1;
-          v37 = 32;
+          v21 = 0x100004089CA3EB1;
+          v22 = 32;
           goto LABEL_78;
         case 19:
-          v36 = 0x10A0040D41B49CCLL;
-          v37 = 72;
+          v21 = 0x10A0040D41B49CCLL;
+          v22 = 72;
           goto LABEL_78;
         default:
-          log_err("%s:%d: *** Can't allocate unknown obj type %d\n", v13, v14, v15, v16, v17, v18, v19, "jobj_allocate");
+          log_err("%s:%d: *** Can't allocate unknown obj type %d\n");
           return 0;
       }
 
       break;
     default:
-      v123 = *a2 >> 60;
-      log_err("%s:%d: *** unknown obj type %d\n", v13, v14, v15, v16, v17, v18, v19, "jobj_size_for_key_val");
+      log_err("%s:%d: *** unknown obj type %d\n");
       return 0;
   }
 
   while (1)
   {
-    v117 = *v116;
-    if (*(v116 - 2) != 4)
+    v60 = *v59;
+    if (*(v59 - 2) != 4)
     {
-      v117 = (v117 + 7) & 0x1FFF8;
+      v60 = (v60 + 7) & 0x1FFF8;
       goto LABEL_124;
     }
 
-    if (*v116)
+    if (*v59)
     {
       break;
     }
 
 LABEL_124:
-    v116 += 2;
-    v115 += v117;
-    if (!--v114)
+    v59 += 2;
+    v58 += v60;
+    if (!--v57)
     {
-      return v20;
+      return v10;
     }
   }
 
-  v122 = *(v20 + 53) + (v115 + v117);
+  v65 = *(v10 + 53) + (v58 + v60);
 LABEL_134:
-  *(v122 - 1) = 0;
-  return v20;
+  *(v65 - 1) = 0;
+  return v10;
 }
 
-void *sub_10004A47C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10004A47C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
 {
-  v8 = *(a3 + 8);
-  if (v8 <= 0xF)
+  v5 = *(a3 + 8);
+  if (v5 <= 0xF)
   {
-    v34 = *(a3 + 8);
-    v38 = *a3 >> 60;
-    log_err("%s:%d: %s unknown expanded type (%hhu) on record (%u)\n", a2, a3, a4, a5, a6, a7, a8, "large_key_val_to_jobj");
+    log_err("%s:%d: %s unknown expanded type (%hhu) on record (%u)\n", "large_key_val_to_jobj", 4506, (a1 + 4048), *(a3 + 8), *a3 >> 60);
     return 0;
   }
 
-  v9 = a2;
-  *a2 = v8;
-  if (v8 <= 17)
+  v6 = a2;
+  *a2 = v5;
+  if (v5 <= 17)
   {
-    if (v8 != 16)
+    if (v5 != 16)
     {
-      v10 = *a4;
+      v7 = *a4;
       *(a2 + 16) = *(a3 + 12);
-      *(a2 + 24) = v10;
-      return v9;
+      *(a2 + 24) = v7;
+      return v6;
     }
 
     *(a2 + 16) = *(a3 + 12);
     *(a2 + 32) = *a4;
-    *(a2 + 40) = *(a4 + 8);
-    *(a2 + 48) = *(a4 + 16);
-    *(a2 + 52) = *(a4 + 20);
+    *(a2 + 40) = a4[1];
+    *(a2 + 48) = *(a4 + 4);
+    *(a2 + 52) = *(a4 + 5);
     if (a5 >= 0x19)
     {
-      if (xf_init_with_blob((a2 + 56), (a4 + 24), a5 - 24))
+      if (xf_init_with_blob((a2 + 56), a4 + 12, a5 - 24))
       {
-        v36 = v9[1];
-        log_err("%s:%d: %s failed to init extended fields on purgeable %llu from blob\n", v18, v19, v20, v21, v22, v23, v24, "large_key_val_to_jobj");
+        log_err("%s:%d: %s failed to init extended fields on purgeable %llu from blob\n");
       }
 
-      return v9;
+      return v6;
     }
 
-    v32 = a2 + 56;
+    v8 = a2 + 56;
 LABEL_20:
-    xf_init(v32, 0);
-    return v9;
+    xf_init(v8, 0);
+    return v6;
   }
 
-  if (v8 == 18)
+  if (v5 == 18)
   {
-    *(a2 + 16) = *(a4 + 24);
+    *(a2 + 16) = a4[3];
     *(a2 + 24) = *a4;
-    *(a2 + 32) = *(a4 + 8);
-    *(a2 + 40) = *(a4 + 16);
-    *(a2 + 56) = *(a4 + 32);
-    *(a2 + 48) = *(a4 + 40);
-    *(a2 + 92) = *(a4 + 48);
+    *(a2 + 32) = a4[1];
+    *(a2 + 40) = a4[2];
+    *(a2 + 56) = a4[4];
+    *(a2 + 48) = a4[5];
+    *(a2 + 92) = *(a4 + 12);
     if (a5 < 0x35)
     {
-      v32 = a2 + 64;
+      v8 = a2 + 64;
       goto LABEL_20;
     }
 
-    if (xf_init_with_blob((a2 + 64), (a4 + 52), a5 - 52))
+    if (xf_init_with_blob((a2 + 64), a4 + 26, a5 - 52))
     {
-      v37 = v9[1];
-      log_err("%s:%d: %s failed to init extended fields on dir-stats %llu from blob\n", v25, v26, v27, v28, v29, v30, v31, "large_key_val_to_jobj");
+      log_err("%s:%d: %s failed to init extended fields on dir-stats %llu from blob\n");
     }
   }
 
   else
   {
-    if (v8 != 19)
+    if (v5 != 19)
     {
-      return v9;
+      return v6;
     }
 
     *(a2 + 16) = *(a3 + 12);
@@ -2387,53 +2888,51 @@ LABEL_20:
     *(a2 + 40) = *(a4 + 7);
     if (a5 < 9)
     {
-      v32 = a2 + 48;
+      v8 = a2 + 48;
       goto LABEL_20;
     }
 
-    if (xf_init_with_blob((a2 + 48), (a4 + 8), a5 - 8))
+    if (xf_init_with_blob((a2 + 48), a4 + 4, a5 - 8))
     {
-      v35 = v9[2];
-      v39 = v9[3];
-      log_err("%s:%d: %s failed to init extended fields on clone mapping <%llu/%llu> from blob\n", v11, v12, v13, v14, v15, v16, v17, "large_key_val_to_jobj");
+      log_err("%s:%d: %s failed to init extended fields on clone mapping <%llu/%llu> from blob\n");
     }
   }
 
-  return v9;
+  return v6;
 }
 
-uint64_t lookup_jobj_in_snap(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned __int8 *a4, unint64_t a5, unsigned __int16 **a6, uint64_t a7, uint64_t a8)
+uint64_t lookup_jobj_in_snap(uint64_t a1, int a2, uint64_t *a3, unsigned __int8 *a4, unint64_t a5, unsigned __int16 **a6)
 {
-  matched = match_jobj_type_to_tree_type(a1, *a4, a2, a4, a5, a6, a7, a8);
-  v14 = _apfs_zalloc(3u);
-  if (!v14)
+  matched = match_jobj_type_to_tree_type(a1, *a4, a2);
+  v12 = _apfs_zalloc(3u);
+  if (!v12)
   {
     return 12;
   }
 
-  v15 = v14;
-  v23 = 832;
-  v24 = 3808;
-  make_jkey_from_jobj(a1, a4, v14, &v23);
-  v22 = 0;
-  tree_in_snap = jfs_get_tree_in_snap(a1, matched, 0, a5, &v22);
+  v13 = v12;
+  v18 = 832;
+  v19 = 3808;
+  make_jkey_from_jobj(a1, a4, v12, &v18);
+  v17 = 0;
+  tree_in_snap = jfs_get_tree_in_snap(a1, matched, 0, a5, &v17);
   if (tree_in_snap)
   {
-    v17 = tree_in_snap;
+    v15 = tree_in_snap;
 LABEL_6:
-    _apfs_zfree(v15, 3u);
-    return v17;
+    _apfs_zfree(v13, 3u);
+    return v15;
   }
 
-  v17 = bt_lookup_variant(v22, a5, v15, &v23, 0x340u, (v15 + 832), &v24, 0, 0, a3);
-  obj_release(v22);
-  if (v17)
+  v15 = bt_lookup_variant(v17, a5, v13, &v18, 832, v13 + 832, &v19, 0, 0, a3);
+  obj_release(v17);
+  if (v15)
   {
     goto LABEL_6;
   }
 
-  *a6 = key_val_to_jobj(a1, v15, v23, (v15 + 832), v24, v18, v19, v20);
-  _apfs_zfree(v15, 3u);
+  *a6 = key_val_to_jobj(a1, v13, v18, v13 + 416, v19);
+  _apfs_zfree(v13, 3u);
   if (*a6)
   {
     return 0;
@@ -2513,7 +3012,7 @@ uint64_t jobj_type_from_possibly_large_key(uint64_t a1, uint64_t a2)
     else
     {
       is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(*(a1 + 392));
-      log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s expanded record found on unsupported volume\n", v4, v5, v6, v7, v8, v9, "jobj_type_from_possibly_large_key");
+      log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s expanded record found on unsupported volume\n", "jobj_type_from_possibly_large_key", 6667, (a1 + 4048));
       LOBYTE(v2) = 15;
     }
   }
@@ -2521,9 +3020,9 @@ uint64_t jobj_type_from_possibly_large_key(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t iterate_jobjs_with_hint_and_snap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unsigned __int8 *a5, uint64_t (*a6)(__int128 *, uint64_t), uint64_t a7, _OWORD *a8, unsigned int a9)
+uint64_t iterate_jobjs_with_hint_and_snap(const char *a1, int a2, unint64_t a3, unint64_t a4, unsigned __int8 *a5, uint64_t (*a6)(__int128 *, uint64_t), uint64_t a7, _OWORD *a8, unsigned int a9)
 {
-  matched = match_jobj_type_to_tree_type(a1, *a5, a2, a4, a5, a6, a7, a8);
+  matched = match_jobj_type_to_tree_type(a1, *a5, a2);
   if (matched == 5)
   {
     v17 = *(a5 + 2);
@@ -2558,8 +3057,8 @@ uint64_t iterate_jobjs_with_hint_and_snap(uint64_t a1, uint64_t a2, uint64_t a3,
   }
 
   v24 = v23;
-  v49 = 832;
-  v47 = a6;
+  v40 = 832;
+  v38 = a6;
   if (!*(a5 + 1) && !*a5)
   {
     if ((a9 & 0x10000) == 0 && a5[1])
@@ -2580,10 +3079,10 @@ LABEL_20:
 LABEL_16:
   v25 = 0;
 LABEL_21:
-  v52 = 0;
-  v51 = 0u;
-  memset(v50, 0, sizeof(v50));
-  v48 = 0;
+  v43 = 0;
+  v42 = 0u;
+  memset(v41, 0, sizeof(v41));
+  v39 = 0;
   if ((a9 & 0x20000) != 0)
   {
     v27 = v25;
@@ -2594,8 +3093,8 @@ LABEL_21:
     v27 = 1;
   }
 
-  v46 = v27;
-  make_jkey_from_jobj(a1, a5, v23, &v49);
+  v37 = v27;
+  make_jkey_from_jobj(a1, a5, v23, &v40);
   if (v22 == 1)
   {
     v28 = *(a5 + 1);
@@ -2610,38 +3109,38 @@ LABEL_21:
     }
   }
 
-  tree_in_snap = jfs_get_tree_in_snap(a1, v22, a3, a4, &v48);
+  tree_in_snap = jfs_get_tree_in_snap(a1, v22, a3, a4, &v39);
   if (tree_in_snap)
   {
     v26 = tree_in_snap;
     goto LABEL_38;
   }
 
-  bt_iterator_init_with_hint(v50, v48, a4, a9, v24, v49, 0x340u, v24 + 104, 0xEE0u, a8);
+  bt_iterator_init_with_hint(v41, v39, a4, a9, v24, v40, 832, v24 + 104, 0xEE0u, a8);
   if ((v31 & 0xFFFFFFFD) != 0)
   {
     v26 = v31;
     goto LABEL_37;
   }
 
-  if (bt_iterator_ended(v50))
+  if (bt_iterator_ended(v41))
   {
 LABEL_36:
     v26 = 0;
     goto LABEL_37;
   }
 
-  v35 = v25 | ((a9 & 0x20000) >> 17);
+  v32 = v25 | ((a9 & 0x20000) >> 17);
   while (1)
   {
-    if (v35)
+    if (v32)
     {
-      if ((v46 & 1) == 0)
+      if ((v37 & 1) == 0)
       {
         if (*a5)
         {
-          v36 = *a5;
-          if (v36 != jobj_type_from_possibly_large_key(a1, v24))
+          v33 = *a5;
+          if (v33 != jobj_type_from_possibly_large_key(a1, v24))
           {
             goto LABEL_54;
           }
@@ -2654,32 +3153,32 @@ LABEL_36:
       goto LABEL_36;
     }
 
-    v37 = key_val_to_jobj(a1, v24, v51, v24 + 416, DWORD1(v51), v32, v33, v34);
-    if (!v37)
+    v34 = key_val_to_jobj(a1, v24, v42, v24 + 416, DWORD1(v42));
+    if (!v34)
     {
       break;
     }
 
-    v38 = v37;
-    v26 = v47(v37, a7);
-    jobj_release(v26, v38, v39, v40, v41, v42, v43, v44);
+    v35 = v34;
+    v26 = v38(v34, a7);
+    jobj_release(v26, v35);
     if (v26)
     {
       goto LABEL_37;
     }
 
 LABEL_54:
-    v45 = bt_iterator_next(v50);
+    v36 = bt_iterator_next(v41);
     if ((a9 & 0x40000) == 0)
     {
-      v26 = v45;
-      if (v45)
+      v26 = v36;
+      if (v36)
       {
         goto LABEL_37;
       }
     }
 
-    if (bt_iterator_ended(v50))
+    if (bt_iterator_ended(v41))
     {
       goto LABEL_36;
     }
@@ -2692,13 +3191,13 @@ LABEL_54:
 
   v26 = 12;
 LABEL_37:
-  obj_release(v48);
+  obj_release(v39);
 LABEL_38:
   _apfs_zfree(v24, 3u);
   return v26;
 }
 
-uint64_t iterate_raw_jobjs_with_hint(uint64_t a1, int a2, uint64_t a3, unsigned __int8 *a4, size_t a5, uint64_t a6, uint64_t a7, _DWORD *a8, uint64_t *a9, int a10)
+uint64_t iterate_raw_jobjs_with_hint(uint64_t a1, int a2, unint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, _DWORD *a8, __int128 *a9, int a10)
 {
   v27[0] = a1;
   v27[1] = a6;
@@ -2819,17 +3318,16 @@ LABEL_29:
   return result;
 }
 
-uint64_t sub_10004AE84(void *a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10004AE84(void *a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, uint64_t a5)
 {
-  v11 = a2;
-  v12 = a4;
-  result = jobj_validate_key_val(*a5, a1, a2, a3, a4, a6, a7, a8);
+  v8 = a2;
+  v9 = a4;
+  result = jobj_validate_key_val(*a5, a1, a2, a3, a4);
   if (result)
   {
     return result;
   }
 
-  v14 = *(a5 + 34);
   if (*(a5 + 33) != 1)
   {
     if ((*(a5 + 34) & 1) == 0)
@@ -2855,10 +3353,10 @@ LABEL_6:
   }
 
 LABEL_12:
-  v16 = *(a5 + 8);
-  v15 = *(a5 + 16);
+  v12 = *(a5 + 8);
+  v11 = *(a5 + 16);
 
-  return v16(a1, v11, a3, v12, v15);
+  return v12(a1, v8, a3, v9, v11);
 }
 
 uint64_t apfs_cstrncmp(unsigned __int8 *a1, unsigned __int8 *a2, unint64_t a3, unint64_t a4)
@@ -2932,7 +3430,7 @@ LABEL_11:
   return v7;
 }
 
-uint64_t create_new_crypto_state_for_id(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t create_new_crypto_state_for_id(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (a3 != 4)
   {
@@ -2952,7 +3450,7 @@ uint64_t create_new_crypto_state_for_id(uint64_t a1, uint64_t a2, uint64_t a3)
       *(v7 + 1) = 4;
       *(v7 + 4) = 1;
       wrap_crypto_state(a1, v6, v7);
-      inserted = insert_jobj(a1, 1, v8, a2, v9, v10, v11, v12);
+      inserted = insert_jobj(a1, 1, v8, a2);
       crypto_obj_release(v6);
       _apfs_free(v8, 208);
       return inserted;
@@ -2964,9 +3462,10 @@ uint64_t create_new_crypto_state_for_id(uint64_t a1, uint64_t a2, uint64_t a3)
   return 12;
 }
 
-uint64_t get_new_crypto_id(uint64_t a1, unsigned int a2, char a3, uint64_t a4, unint64_t *a5, uint64_t a6)
+uint64_t get_new_crypto_id(uint64_t a1, uint64_t a2, char a3, unint64_t a4, unint64_t *a5, uint64_t a6)
 {
-  vol_crypto = get_vol_crypto(a1);
+  v10 = a2;
+  vol_crypto = get_vol_crypto(a1, a2);
   if (vol_crypto <= 1)
   {
     if (!vol_crypto)
@@ -3041,7 +3540,7 @@ LABEL_4:
 
         wrap_crypto_state(a1, v18, v20);
         v20[1] += v20[19];
-        inserted = insert_jobj(a1, 1, v20, a4, v23, v24, v25, v26);
+        inserted = insert_jobj(a1, 1, v20, a4);
         if (inserted)
         {
           v14 = inserted;
@@ -3073,7 +3572,7 @@ LABEL_4:
       panic("assertion failed: %s", "!apfs->apfs_readonly");
     }
 
-    if ((a3 & 2) != 0 || a2 <= 6 && ((1 << a2) & 0x46) != 0 || (v15 = apfs_kb_supports_class(a1, 4u), a2 == 4) && v15)
+    if ((a3 & 2) != 0 || v10 <= 6 && ((1 << v10) & 0x46) != 0 || (v15 = apfs_kb_supports_class(a1, 4), v10 == 4) && v15)
     {
       if (!a6)
       {
@@ -3089,24 +3588,24 @@ LABEL_4:
   return v14;
 }
 
-uint64_t cp_dec_ref(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t cp_dec_ref(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (!a3)
   {
     panic("assertion failed: %s", "xid");
   }
 
-  if ((get_vol_crypto(a1) | 2) != 3)
+  if ((get_vol_crypto(a1, a2) | 2) != 3)
   {
     return 0;
   }
 
-  return sub_10004F224(a1, a2, a3, v6, v7, v8, v9, v10);
+  return sub_10004F224(a1, a2, a3);
 }
 
-uint64_t fs_reset_dstream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
+uint64_t fs_reset_dstream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6)
 {
-  v13 = a5;
+  v14 = a5;
   *a4 = 0u;
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0;
@@ -3121,10 +3620,10 @@ uint64_t fs_reset_dstream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, un
     v10 = 1;
   }
 
-  new_crypto_id = get_new_crypto_id(a1, v9, v10, a6, &v13, a2);
+  new_crypto_id = get_new_crypto_id(a1, v9, v10, a6, &v14, a2);
   if (!new_crypto_id)
   {
-    *(a4 + 16) = v13;
+    *(a4 + 16) = v14;
     sub_10004C630(a1, a2);
     sub_10004C630(a1, a2);
     if ((*(a2 + 114) & 2) != 0)
@@ -3132,23 +3631,23 @@ uint64_t fs_reset_dstream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, un
       sub_1000A6F28();
     }
 
-    get_vol_crypto(a1);
+    get_vol_crypto(a1, v12);
   }
 
   return new_crypto_id;
 }
 
-uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, unint64_t a3, int *a4)
 {
-  v43 = 0;
+  v22 = 0;
   memset(__src, 0, sizeof(__src));
-  v41 = 0;
+  v20 = 0;
   if ((*(a2 + 96) & 0xF000) != 0x8000)
   {
     add_explicit = 0;
     v10 = 0;
     v11 = 0;
-    inserted = 22;
+    v12 = 22;
     if (!a4)
     {
       goto LABEL_15;
@@ -3176,7 +3675,7 @@ uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
   v13 = fs_reset_dstream(a1, a2, a3, __src, add_explicit, a3);
   if (v13)
   {
-    inserted = v13;
+    v12 = v13;
     v10 = 0;
     v11 = 0;
     if (!a4)
@@ -3187,13 +3686,13 @@ uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
     goto LABEL_14;
   }
 
-  if (xf_set((a2 + 408), 8, 32, __src, 40))
+  v14 = xf_set((a2 + 408), 8, 32, __src, 0x28uLL);
+  if (v14)
   {
-    v36 = *(a2 + 8);
-    log_err("%s:%d: %s *** failed to set dstream as an extended field of ino %lld (ret %d)\n", v14, v15, v16, v17, v18, v19, v20, "fs_create_dstream");
+    log_err("%s:%d: %s *** failed to set dstream as an extended field of ino %lld (ret %d)\n", "fs_create_dstream", 10892, (a1 + 4048), *(a2 + 8), v14);
     v11 = 0;
     v10 = 1;
-    inserted = 12;
+    v12 = 12;
     if (!a4)
     {
       goto LABEL_15;
@@ -3202,28 +3701,28 @@ uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
     goto LABEL_14;
   }
 
-  v40 = 0;
-  if (xf_get_ptr_and_size((a2 + 408), 8, 0, &v41, &v40) || v40 != 40)
+  v19 = 0;
+  ptr_and_size = xf_get_ptr_and_size((a2 + 408), 8, 0, &v20, &v19);
+  if (ptr_and_size || v19 != 40)
   {
-    v38 = *(a2 + 8);
-    log_err("%s:%d: %s *** failed to fetch the dstream pointer for %lld (ret %d)\n", v22, v23, v24, v25, v26, v27, v28, "fs_create_dstream");
-    v41 = 0;
+    log_err("%s:%d: %s *** failed to fetch the dstream pointer for %lld (ret %d)\n", "fs_create_dstream", 10899, (a1 + 4048), *(a2 + 8), ptr_and_size);
+    v20 = 0;
     v10 = 1;
-    inserted = 2;
+    v12 = 2;
   }
 
   else
   {
-    v39[1] = *(a2 + 24);
-    v39[0] = 1573126;
+    v18[1] = *(a2 + 24);
+    v18[0] = 1573126;
     v10 = 1;
-    v39[2] = 1;
-    inserted = insert_jobj(a1, 1, v39, a3, v25, v26, v27, v28);
+    v18[2] = 1;
+    inserted = insert_jobj(a1, 1, v18, a3);
+    v12 = inserted;
     if (inserted)
     {
-      v37 = *(a2 + 24);
-      log_err("%s:%d: %s failed to insert new dstream_id %llu (ret %d)", v29, v30, v31, v32, v33, v34, v35, "fs_create_dstream");
-      v41 = 0;
+      log_err("%s:%d: %s failed to insert new dstream_id %llu (ret %d)", "fs_create_dstream", 10916, (a1 + 4048), *(a2 + 24), inserted);
+      v20 = 0;
     }
   }
 
@@ -3231,11 +3730,11 @@ uint64_t fs_create_dstream(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
   if (a4)
   {
 LABEL_14:
-    *a4 = inserted;
+    *a4 = v12;
   }
 
 LABEL_15:
-  if (inserted)
+  if (v12)
   {
     if (v10)
     {
@@ -3248,7 +3747,7 @@ LABEL_15:
     }
   }
 
-  return v41;
+  return v20;
 }
 
 uint64_t dir_rec_alloc_with_hash(uint64_t a1, char a2, char *__s, size_t a4, int a5, uint64_t a6, uint64_t a7, void *a8)
@@ -3319,7 +3818,7 @@ LABEL_21:
               return v16;
             }
 
-            LODWORD(v22) = 1;
+            v22 = 1;
 LABEL_25:
             v24 = -1;
             v23 = utf8_normalizeOptCaseFoldAndHash(*(v18 + 8), v12 - 1, v22, sub_10004BA54, &v24);
@@ -3410,7 +3909,7 @@ uint64_t apfs_inc_parent_nlink(uint64_t a1, uint64_t a2)
     if (!result)
     {
       ++__dst;
-      return xf_set((a2 + 408), 17, 0, &__dst, 8);
+      return xf_set((a2 + 408), 17, 0, &__dst, 8uLL);
     }
   }
 
@@ -3434,7 +3933,7 @@ uint64_t apfs_reset_parent_nlink(uint64_t a1, uint64_t a2)
 
   else if ((*(v2 + 48) & 2) != 0)
   {
-    return xf_set((a2 + 408), 17, 0, &__src, 8);
+    return xf_set((a2 + 408), 17, 0, &__src, 8uLL);
   }
 
   else
@@ -3692,16 +4191,16 @@ LABEL_38:
 
 uint64_t fs_lookup_name_with_parent_id(uint64_t a1, uint64_t a2, char *__s, size_t a4, uint64_t *a5, int *a6, void *a7)
 {
-  v42 = 0;
+  v34 = 0;
   v13 = *(*(a1 + 376) + 56);
   if ((v13 & 9) == 0)
   {
-    v36[0] = 0;
-    v16 = dir_rec_alloc_with_hash(a1, 0, __s, a4, -1, a2, 0, v36);
-    if (!v16)
+    v28[0] = 0;
+    v14 = dir_rec_alloc_with_hash(a1, 0, __s, a4, -1, a2, 0, v28);
+    if (!v14)
     {
-      v16 = lookup_jobj_in_snap(a1, 1, a5, v36[0], *(a1 + 440), &v42, v14, v15);
-      jobj_release(v16, v36[0], v17, v18, v19, v20, v21, v22);
+      v14 = lookup_jobj_in_snap(a1, 1, a5, v28[0], *(a1 + 440), &v34);
+      jobj_release(v14, v28[0]);
     }
 
     goto LABEL_18;
@@ -3723,106 +4222,106 @@ uint64_t fs_lookup_name_with_parent_id(uint64_t a1, uint64_t a2, char *__s, size
 
   if (a4 == 1)
   {
-    v23 = 0;
-    v16 = 22;
+    v15 = 0;
+    v14 = 22;
     goto LABEL_19;
   }
 
 LABEL_10:
   if (a4 > 0x2FE)
   {
-    v23 = 0;
-    v16 = 7;
+    v15 = 0;
+    v14 = 7;
     goto LABEL_19;
   }
 
-  v40 = 0;
-  v38 = 0u;
-  v39 = 0u;
-  v36[0] = 4718601;
-  v37 = 0u;
-  v36[1] = a2;
-  DWORD2(v39) = 0;
-  v24 = a4 - 1;
-  v41 = -1;
-  v25 = utf8_normalizeOptCaseFoldAndHash(__s, a4 - 1, (v13 >> 3) & 1, sub_10004BA54, &v41);
-  if (v25)
+  v32 = 0;
+  v30 = 0u;
+  v31 = 0u;
+  v28[0] = 4718601;
+  v29 = 0u;
+  v28[1] = a2;
+  DWORD2(v31) = 0;
+  v16 = a4 - 1;
+  v33 = -1;
+  v17 = utf8_normalizeOptCaseFoldAndHash(__s, a4 - 1, (v13 >> 3) & 1, sub_10004BA54, &v33);
+  if (v17)
   {
-    v16 = v25;
-    if (v25 == 92)
+    v14 = v17;
+    if (v17 == 92)
     {
-      v31 = __s;
-      v32 = v24;
-      v26 = iterate_jobjs_with_hint_and_snap(a1, 1, 0, *(a1 + 440), v36, sub_10004C218, &v31, a5, 4u);
-      if (v26 == -1)
+      v23 = __s;
+      v24 = v16;
+      v18 = iterate_jobjs_with_hint_and_snap(a1, 1, 0, *(a1 + 440), v28, sub_10004C218, &v23, a5, 4u);
+      if (v18 == -1)
       {
-        v16 = 0;
-        if (*(&v32 + 1))
+        v14 = 0;
+        if (*(&v24 + 1))
         {
-          v42 = *(&v32 + 1);
+          v34 = *(&v24 + 1);
         }
       }
 
-      else if (v26)
+      else if (v18)
       {
-        v16 = v26;
+        v14 = v18;
       }
 
       else
       {
-        v16 = 2;
+        v14 = 2;
       }
 
-      v23 = -1;
+      v15 = -1;
       goto LABEL_19;
     }
 
 LABEL_18:
-    v23 = 0;
+    v15 = 0;
     goto LABEL_19;
   }
 
-  v23 = v41 & 0x3FFFFF;
-  v33 = 0;
-  v31 = __s;
-  *&v32 = v41 & 0x3FFFFFLL;
-  *(&v32 + 1) = v24;
-  v34 = a1;
-  v35 = a7 != 0;
-  v29 = a2 & 0xFFFFFFFFFFFFFFFLL | 0x9000000000000000;
-  v30 = v41 << 10;
-  v28 = iterate_raw_jobjs_with_hint(a1, 1, 0, &v29, 0xCuLL, sub_10004C33C, &v31, 0, a5, 4100);
-  if (v28 == -1)
+  v15 = v33 & 0x3FFFFF;
+  v25 = 0;
+  v23 = __s;
+  *&v24 = v33 & 0x3FFFFFLL;
+  *(&v24 + 1) = v16;
+  v26 = a1;
+  v27 = a7 != 0;
+  v21 = a2 & 0xFFFFFFFFFFFFFFFLL | 0x9000000000000000;
+  v22 = v33 << 10;
+  v20 = iterate_raw_jobjs_with_hint(a1, 1, 0, &v21, 12, sub_10004C33C, &v23, 0, a5, 4100);
+  if (v20 == -1)
   {
-    v16 = 0;
-    if (v33)
+    v14 = 0;
+    if (v25)
     {
-      v42 = v33;
+      v34 = v25;
     }
   }
 
-  else if (v28)
+  else if (v20)
   {
-    v16 = v28;
+    v14 = v20;
   }
 
   else
   {
-    v16 = 2;
+    v14 = 2;
   }
 
 LABEL_19:
-  if (a7 && !v16)
+  if (a7 && !v14)
   {
-    *a7 = v42;
+    *a7 = v34;
   }
 
-  if (a6 && (v16 | 2) == 2)
+  if (a6 && (v14 | 2) == 2)
   {
-    *a6 = v23;
+    *a6 = v15;
   }
 
-  return v16;
+  return v14;
 }
 
 uint64_t sub_10004C218(uint64_t a1, uint64_t a2)
@@ -3873,7 +4372,7 @@ uint64_t sub_10004C218(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10004C33C(uint64_t a1, unint64_t a2, unsigned __int16 *a3, unint64_t a4, uint64_t a5)
 {
-  v20 = 0;
+  v17 = 0;
   v5 = *(a1 + 8);
   v6 = *(a5 + 8);
   if (v5 >> 10 < v6)
@@ -3891,15 +4390,15 @@ uint64_t sub_10004C33C(uint64_t a1, unint64_t a2, unsigned __int16 *a3, unint64_
   v14 = *a5;
   if (v13 == (v5 & 0x3FF) && !strncmp((a1 + 12), *a5, v5 & 0x3FF))
   {
-    v20 = 1;
+    v17 = 1;
   }
 
-  else if (utf8_normalizeOptCaseFoldAndCompare(a1 + 12, (v12 - 1), v14, v13, (*(*(*(a5 + 32) + 376) + 56) >> 3) & 1, &v20) || (v20 & 1) == 0)
+  else if (utf8_normalizeOptCaseFoldAndCompare((a1 + 12), (v12 - 1), v14, v13, (*(*(*(a5 + 32) + 376) + 56) >> 3) & 1, &v17) || (v17 & 1) == 0)
   {
     return 0;
   }
 
-  if (*(a5 + 40) && (v19 = key_val_to_jobj(*(a5 + 32), a1, a2, a3, a4, v15, v16, v17), (*(a5 + 24) = v19) == 0))
+  if (*(a5 + 40) && (v16 = key_val_to_jobj(*(a5 + 32), a1, a2, a3, a4), (*(a5 + 24) = v16) == 0))
   {
     return 12;
   }
@@ -3945,7 +4444,7 @@ uint64_t ino_is_class_v(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (get_vol_crypto(a1) != 3 || (*(a2 + 64) & 8) != 0)
+  if (get_vol_crypto(a1, a2) != 3 || (*(a2 + 64) & 8) != 0)
   {
     return 0;
   }
@@ -3958,7 +4457,7 @@ uint64_t ino_is_class_v(uint64_t a1, uint64_t a2)
 
   else
   {
-    return (v4 == 4) & ~apfs_kb_supports_class(a1, 4u);
+    return (v4 == 4) & ~apfs_kb_supports_class(a1, 4);
   }
 }
 
@@ -4051,7 +4550,7 @@ unint64_t sub_10004C674(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
   return 3 * a3 * v5 + a4 + v6;
 }
 
-uint64_t sub_10004C6E4(uint64_t a1, int a2, unint64_t a3)
+unint64_t sub_10004C6E4(uint64_t a1, int a2, unint64_t a3)
 {
   if (a2 == 6)
   {
@@ -4138,33 +4637,38 @@ LABEL_5:
   return 1;
 }
 
-uint64_t sub_10004C838(uint64_t a1, int a2, uint64_t a3, unint64_t a4, int a5, uint64_t *a6)
+uint64_t sub_10004C838(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, uint64_t *a6)
 {
-  v8 = a2;
-  v10 = (*(a1 + 392) + 488);
-  v11 = *(a1 + 376);
-  v12 = *(v11 + 72);
-  if (v12 && v12 == *(v11 + 80))
+  v9 = a3;
+  v10 = a2;
+  v12 = (*(a1 + 392) + 488);
+  v13 = *(a1 + 376);
+  v14 = *(v13 + 72);
+  if (v14 && v14 == *(v13 + 80))
   {
-    v10 = (a1 + 424);
+    v12 = (a1 + 424);
   }
 
-  v68 = 0;
-  v69 = 0;
-  v66 = 0;
-  v67 = 0;
-  v65 = 0;
-  v64 = 0;
-  v13 = sub_10004C674(a1, a2, a3, a4);
-  spaceman_currently_available_space(a1, 0, &v69, 0, 0, 0);
-  v14 = sub_10004C6E4(a1, v8, v69);
+  v57 = 0;
+  v58 = 0;
+  v55 = 0;
+  v56 = 0;
+  v54 = 0;
+  v53 = 0;
+  v15 = sub_10004C674(a1, a2, a3, a4);
+  spaceman_currently_available_space(a1, 0, &v58, 0, 0, 0);
+  v16 = sub_10004C6E4(a1, v10, v58);
   pthread_mutex_lock((*(a1 + 392) + 504));
-  v15 = spaceman_compare_currently_available_space(a1, v13, v14, 0, v10, &v68, &v67, &v64 + 1, &v66, &v65, &v64);
-  if (v15 != 28)
+  v17 = spaceman_compare_currently_available_space(a1, v15, v16, 0, v12, &v57, &v56, &v53 + 1, &v55, &v54, &v53);
+  v49 = a4;
+  if (v17 != 28)
   {
-    v23 = v15;
-    v61 = a5;
-    if (v15)
+    v25 = v17;
+    v46 = a5;
+    v50 = 0;
+    v51 = 0;
+    v22 = 0;
+    if (v17)
     {
       goto LABEL_32;
     }
@@ -4172,125 +4676,139 @@ uint64_t sub_10004C838(uint64_t a1, int a2, uint64_t a3, unint64_t a4, int a5, u
     goto LABEL_37;
   }
 
-  v16 = *a6;
-  if (*a6 && v64 != 1)
+  v18 = *a6;
+  if (*a6 && v53 != 1)
   {
-    v23 = 28;
+    v50 = 0;
+    v51 = 0;
+    v22 = 0;
+    v25 = 28;
     goto LABEL_32;
   }
 
-  v61 = a5;
-  v59 = v8;
-  v60 = a6;
-  v17 = v10;
-  v18 = 0;
-  v19 = 0;
+  v46 = a5;
+  v47 = v9;
+  v42 = v10;
+  v44 = a6;
+  v19 = v12;
   v20 = 0;
-  v63 = 0;
-  v62 = 0;
-  if (v16)
+  v21 = 0;
+  v22 = 0;
+  v52 = 0;
+  v50 = 0;
+  v51 = v18 != 0;
+  if (v18)
   {
-    v21 = 10000000;
+    v23 = 10000000;
   }
 
   else
   {
-    v21 = 250000000;
+    v23 = 250000000;
   }
 
   while (1)
   {
-    if (HIBYTE(v64) != 1 || v16 || v66 < v68)
+    if (HIBYTE(v53) != 1 || v18 || v55 < v57)
     {
       goto LABEL_21;
     }
 
-    if (v18)
+    if (v20)
     {
       break;
     }
 
-    if (v62 <= 31)
+    if (v50 <= 31)
     {
       goto LABEL_16;
     }
 
 LABEL_21:
-    if (v64 != 1)
+    if (v53 != 1)
     {
-      v23 = 28;
+      v25 = 28;
       goto LABEL_31;
     }
 
-    v23 = 28;
-    if (*(a1 + 1124) <= (v16 != 0) || ((v16 != 0) & v19) != 0)
+    v25 = 28;
+    if (*(a1 + 1124) <= v51 || ((v18 != 0) & v21) != 0)
     {
       goto LABEL_31;
     }
 
-    v70.tv_sec = 0;
-    v70.tv_nsec = v21;
-    ++v20;
-    v24 = *(a1 + 392);
-    *(v24 + 496) += v13;
-    v25 = cv_wait((v24 + 568), (v24 + 504), 8, "blocks_in_txn", &v70);
-    *(*(a1 + 392) + 496) -= v13;
-    v19 |= v25 == 35;
+    v59.tv_sec = 0;
+    v59.tv_nsec = v23;
+    ++v22;
+    v26 = *(a1 + 392);
+    *(v26 + 496) += v15;
+    v27 = cv_wait((v26 + 568), (v26 + 504), 8, "blocks_in_txn", &v59);
+    *(*(a1 + 392) + 496) -= v15;
+    v21 |= v27 == 35;
 LABEL_25:
-    v26 = spaceman_compare_currently_available_space(a1, v13, v14, 0, v17, &v68, &v67, &v64 + 1, &v66, &v65, &v64);
-    if (v26 != 28)
+    v28 = spaceman_compare_currently_available_space(a1, v15, v16, 0, v19, &v57, &v56, &v53 + 1, &v55, &v54, &v53);
+    if (v28 != 28)
     {
-      v23 = v26;
+      v25 = v28;
       goto LABEL_31;
     }
   }
 
-  if (v65 > v18 || v62 >= 32)
+  if (v54 > v20 || v50 >= 32)
   {
     goto LABEL_21;
   }
 
 LABEL_16:
-  ++v62;
+  ++v50;
   pthread_mutex_unlock((*(a1 + 392) + 504));
-  v63 = 0;
-  v22 = tx_enter(*(a1 + 392), &v63);
-  if (!v22)
+  v52 = 0;
+  v24 = tx_enter(*(a1 + 392), &v52);
+  if (!v24)
   {
-    if (!v18)
+    if (!v20)
     {
-      v18 = v63;
+      v20 = v52;
     }
 
-    spaceman_free_up_some_blocks(*(a1 + 392), &v66, v63);
-    tx_leave(*(a1 + 392), v63, 4);
+    spaceman_free_up_some_blocks(*(a1 + 392), &v55, v52);
+    tx_leave(*(a1 + 392), v52, 4);
     pthread_mutex_lock((*(a1 + 392) + 504));
     goto LABEL_25;
   }
 
-  v23 = v22;
+  v25 = v24;
   pthread_mutex_lock((*(a1 + 392) + 504));
 LABEL_31:
-  v10 = v17;
-  a6 = v60;
-  v8 = v59;
-  if (v23)
+  v12 = v19;
+  a6 = v44;
+  v10 = v42;
+  v9 = v47;
+  if (v25)
   {
 LABEL_32:
     *a6 = 0;
-    if (fs_tx_can_log(a1) || v8 == 2 && v13 <= 0x31 && *(a1 + 3828) <= 9)
+    if (fs_tx_can_log(a1) || v10 == 2 && v15 <= 0x31 && *(a1 + 3828) <= 9)
     {
-      if (v23 == 28)
+      if (v25 == 28)
       {
-        memset(&v70, 0, 32);
+        v59 = 0;
+        v60 = 0u;
         __strlcpy_chk();
-        sub_10004D0BC(v8);
-        v57 = *(a1 + 3808);
-        v58 = *v10;
-        v34 = *(a1 + 1124);
-        spaceman_entitled_reserve_active(*(a1 + 392), 0);
-        log_debug("%s:%d: %s %s: ENOSPC: ttype %s (r %lld d %lld tx %d) blocks %lld free %lld txn %lld # %d th %lld rr %lld sh %lld fq %lld lim %d %d freeup %d wait %d er %d\n", v35, v36, v37, v38, v39, v40, v41, "fs_tx_enter_internal");
-        if (v8 == 2 && v13 <= 0x31)
+        v29 = sub_10004D0BC(v10);
+        v43 = v56;
+        v45 = v29;
+        v40 = *(a1 + 3808);
+        v41 = *v12;
+        v39 = v57;
+        v48 = v9;
+        v30 = v55;
+        v31 = HIBYTE(v53);
+        v32 = v53;
+        v33 = *(a1 + 1124);
+        v34 = spaceman_entitled_reserve_active(*(a1 + 392), 0);
+        log_debug("%s:%d: %s %s: ENOSPC: ttype %s (r %lld d %lld tx %d) blocks %lld free %lld txn %lld # %d th %lld rr %lld sh %lld fq %lld lim %d %d freeup %d wait %d er %d\n", "fs_tx_enter_internal", 28354, (a1 + 4048), &v59, v45, v48, v49, v51, v15, v43, v41, v33, v16, v40, v39, v30, v31, v32, v50, v22, v34);
+        if (v10 == 2 && v15 <= 0x31)
         {
           ++*(a1 + 3828);
         }
@@ -4298,44 +4816,42 @@ LABEL_32:
 
       else
       {
-        log_err("%s:%d: %s failed to compare currently available space: error %d\n", v27, v28, v29, v30, v31, v32, v33, "fs_tx_enter_internal");
+        log_err("%s:%d: %s failed to compare currently available space: error %d\n", "fs_tx_enter_internal", 28340, (a1 + 4048), v25);
       }
     }
 
     pthread_mutex_unlock((*(a1 + 392) + 504));
-    return v23;
+    return v25;
   }
 
 LABEL_37:
   atomic_fetch_add_explicit((a1 + 1124), 1u, memory_order_relaxed);
   pthread_mutex_unlock((*(a1 + 392) + 504));
-  v42 = *(a1 + 392);
-  if (v61)
+  v35 = *(a1 + 392);
+  if (v46)
   {
-    v43 = tx_enter_frozen(v42, a6);
-    if (v43)
+    v36 = tx_enter_frozen(v35, a6);
+    if (v36)
     {
-      v23 = v43;
-      v55 = *(*(a1 + 392) + 384) + 212;
-      log_err("%s:%d: %s tx_enter_frozen() failed: %d\n", v44, v45, v46, v47, v48, v49, v50, "fs_tx_enter_internal");
+      v25 = v36;
+      log_err("%s:%d: %s tx_enter_frozen() failed: %d\n");
 LABEL_52:
       pthread_mutex_lock((*(a1 + 392) + 504));
-      atomic_fetch_add_explicit(v10, -v13, memory_order_relaxed);
+      atomic_fetch_add_explicit(v12, -v15, memory_order_relaxed);
       atomic_fetch_add_explicit((a1 + 1124), 0xFFFFFFFF, memory_order_relaxed);
       pthread_mutex_unlock((*(a1 + 392) + 504));
       *a6 = 0;
-      return v23;
+      return v25;
     }
   }
 
   else
   {
-    v51 = tx_enter(v42, a6);
-    if (v51)
+    v37 = tx_enter(v35, a6);
+    if (v37)
     {
-      v23 = v51;
-      v56 = *(*(a1 + 392) + 384) + 212;
-      log_err("%s:%d: %s tx_enter() failed: %d\n", v52, v53, v46, v47, v48, v49, v50, "fs_tx_enter_internal");
+      v25 = v37;
+      log_err("%s:%d: %s tx_enter() failed: %d\n");
       goto LABEL_52;
     }
   }
@@ -4345,18 +4861,19 @@ LABEL_52:
     *(a1 + 3828) = 0;
   }
 
-  v23 = obj_modify(a1, 0, *a6, v46, v47, v48, v49, v50);
-  if (v23)
+  v25 = obj_modify(a1, 0, *a6);
+  if (v25)
   {
     tx_leave(*(a1 + 392), *a6, 0);
     goto LABEL_52;
   }
 
-  return v23;
+  return v25;
 }
 
-uint64_t fs_tx_leave_ext(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t a5, char a6)
+uint64_t fs_tx_leave_ext(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, char a6)
 {
+  v10 = a2;
   v12 = *(a1 + 392);
   v13 = (v12 + 488);
   v14 = *(a1 + 376);
@@ -4368,14 +4885,14 @@ uint64_t fs_tx_leave_ext(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_
 
   pthread_mutex_lock((v12 + 504));
   atomic_fetch_add_explicit((a1 + 1124), 0xFFFFFFFF, memory_order_relaxed);
-  v23 = sub_10004C674(a1, a2, a3, a4);
-  add_explicit = atomic_fetch_add_explicit(v13, -v23, memory_order_relaxed);
-  if ((add_explicit - v23) < 0)
+  v16 = sub_10004C674(a1, v10, a3, a4);
+  v17 = v16;
+  add_explicit = atomic_fetch_add_explicit(v13, -v16, memory_order_relaxed);
+  v19 = add_explicit - v16;
+  if ((add_explicit - v16) < 0)
   {
-    v48 = *v13;
-    v49 = *(a1 + 1124);
-    log_err("%s:%d: %s old reserve was %lld, num_blocks %lld. blocks_in_txn_counter %lld num_active_txns=%d\n", v16, v17, v18, v19, v20, v21, v22, "fs_tx_leave_ext");
-    if (add_explicit < v23)
+    log_err("%s:%d: %s old reserve was %lld, num_blocks %lld. blocks_in_txn_counter %lld num_active_txns=%d\n", "fs_tx_leave_ext", 28485, (a1 + 4048), add_explicit, v16, *v13, *(a1 + 1124));
+    if (add_explicit < v17)
     {
       sub_1000A70B4();
     }
@@ -4383,73 +4900,73 @@ uint64_t fs_tx_leave_ext(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_
 
   *(*(a1 + 376) + 256) = get_timestamp();
   fs_sb_dirty(a1, a5);
-  v25 = *(a1 + 392);
-  if (*(v25 + 496))
+  v20 = *(a1 + 392);
+  if (*(v20 + 496))
   {
-    cv_wakeup((v25 + 568));
-    v25 = *(a1 + 392);
+    cv_wakeup((v20 + 568));
+    v20 = *(a1 + 392);
   }
 
-  pthread_mutex_unlock((v25 + 504));
-  v50 = 0;
-  v51 = 0;
-  spaceman_currently_available_space(a1, 0, &v51, &v50, 0, 0);
+  pthread_mutex_unlock((v20 + 504));
+  v32 = 0;
+  v33 = 0;
+  spaceman_currently_available_space(a1, 0, &v33, &v32, 0, 0);
   if (add_explicit)
   {
-    v26 = (*(*(a1 + 376) + 48) & 2) == 0;
-    *(*(a1 + 376) + 48);
+    v21 = (*(*(a1 + 376) + 48) & 2) == 0;
   }
 
   else
   {
-    v26 = 1;
+    v21 = 1;
   }
 
-  if (!v26 && v51 >= 0xA01 && add_explicit + 4000 >= v50)
+  if (!v21 && v33 >= 0xA01 && add_explicit + 4000 >= v32)
   {
     a6 |= 4u;
   }
 
-  v27 = *(a1 + 392);
-  v28 = v51 / 0x64;
-  if (*(v27 + 640) == 1)
+  v22 = *(a1 + 392);
+  v23 = v33 / 0x64;
+  if (*(v22 + 640) == 1)
   {
-    v26 = *(v27 + 656) == 0;
-    v29 = 4000;
-    if (v26)
+    v21 = *(v22 + 656) == 0;
+    v24 = 4000;
+    if (v21)
     {
-      v29 = 25600;
+      v24 = 25600;
     }
   }
 
   else
   {
-    v29 = 4000;
+    v24 = 4000;
   }
 
-  if (v28 >= v29)
+  if (v23 >= v24)
   {
-    v28 = v29;
+    v23 = v24;
   }
 
-  if (v28 <= 0x64)
+  if (v23 <= 0x64)
   {
-    v28 = 100;
+    v23 = 100;
   }
 
-  v30 = v28 + add_explicit - v23;
-  v31 = *(a1 + 3832);
-  if (v30 >= v50)
+  v25 = v23 + v19;
+  v26 = v32;
+  v27 = *(a1 + 3832);
+  if (v25 >= v32)
   {
-    *(a1 + 3832) = v31 + 1;
-    if (v31 <= 99)
+    *(a1 + 3832) = v27 + 1;
+    if (v27 <= 99)
     {
-      sub_10004D0BC(a2);
-      log_info("%s:%d: %s gettin' low on space: ttype %s num_blocks %lld blocks_in_txn %lld free_blocks %lld xid %lld\n", v32, v33, v34, v35, v36, v37, v38, "fs_tx_leave_ext");
+      v28 = sub_10004D0BC(v10);
+      log_info("%s:%d: %s gettin' low on space: ttype %s num_blocks %lld blocks_in_txn %lld free_blocks %lld xid %lld\n", "fs_tx_leave_ext", 28516, (a1 + 4048), v28, v17, v19, v26, a5);
     }
   }
 
-  else if (v31 >= 100)
+  else if (v27 >= 100)
   {
     *(a1 + 3832) = 0;
   }
@@ -4460,13 +4977,14 @@ uint64_t fs_tx_leave_ext(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_
   }
 
   ++*(a1 + 432);
-  v46 = tx_leave(*(a1 + 392), a5, a6);
-  if (v46)
+  v29 = tx_leave(*(a1 + 392), a5, a6);
+  v30 = v29;
+  if (v29)
   {
-    log_err("%s:%d: %s tx_leave failed: %d\n", v39, v40, v41, v42, v43, v44, v45, "fs_tx_leave_ext");
+    log_err("%s:%d: %s tx_leave failed: %d\n", "fs_tx_leave_ext", 28531, (a1 + 4048), v29);
   }
 
-  return v46;
+  return v30;
 }
 
 const char *sub_10004D0BC(int a1)
@@ -4482,110 +5000,104 @@ const char *sub_10004D0BC(int a1)
   }
 }
 
-uint64_t apfs_deletefs_ext(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t apfs_deletefs_ext(uint64_t a1, unsigned int a2, void *a3)
 {
-  v8 = a2;
-  v80 = 0;
-  v81 = 0;
-  v79 = 0;
+  v26 = 0;
+  v27 = 0;
+  v25 = 0;
   if (*(a1 + 627) == 1)
   {
-    v70 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s Request to delete volume %u was denied, nx is read only\n", a2, a3, a4, a5, a6, a7, a8, "apfs_deletefs_ext");
+    log_err("%s:%d: %s Request to delete volume %u was denied, nx is read only\n", "apfs_deletefs_ext", 28835, (*(a1 + 384) + 212), a2);
     return 30;
   }
 
   else
   {
-    v11 = *(a1 + 376);
-    if (*(v11 + 180) > a2 && (v12 = a3, v82 = 0, (a3 = *(v11 + 8 * a2 + 184)) != 0))
+    v6 = *(a1 + 376);
+    if (*(v6 + 180) > a2 && (v28 = 0, (v8 = *(v6 + 8 * a2 + 184)) != 0))
     {
-      v13 = a2;
-      v14 = obj_get(*(a1 + 392), 0, a3, &apfs_desc, 0, 0, 0, 0, &v82);
-      if (v14)
+      v9 = a2;
+      v10 = obj_get(*(a1 + 392), 0, v8, &apfs_desc, 0, 0, 0, 0, &v28);
+      if (v10)
       {
-        v10 = v14;
-        v77 = *(*(a1 + 376) + 8 * v8 + 184);
-        v71 = *(a1 + 384) + 212;
-        log_err("%s:%d: %s failed to get fsys idx=%u oid=%llu: %d\n", v15, v16, v17, v18, v19, v20, v21, "apfs_deletefs_ext");
+        v5 = v10;
+        log_err("%s:%d: %s failed to get fsys idx=%u oid=%llu: %d\n", "apfs_deletefs_ext", 28848, (*(a1 + 384) + 212), a2, *(*(a1 + 376) + 8 * a2 + 184), v10);
       }
 
-      else if (userfs_volume_is_mountable(v82, &v79, v16, v17, v18, v19, v20, v21))
+      else if (userfs_volume_is_mountable(v28, &v25))
       {
-        if (*(v82[47] + 36) == v8)
+        v12 = *(v28[47] + 36);
+        if (v12 == a2)
         {
           if (*(a1 + 629) != 1)
           {
             goto LABEL_18;
           }
 
-          v30 = v82[63];
-          if (!v30)
+          v13 = v28[63];
+          if (!v13)
           {
-            v30 = v82;
+            v13 = v28;
           }
 
-          if (*(v30[47] + 264))
+          if (*(v13[47] + 264))
           {
 LABEL_18:
-            pthread_mutex_lock((v82 + 161));
-            if ((v82[60] & 0x20000004460) != 0 || *(v82 + 280) > 0 || *(v82 + 278) > 0 || *(v82 + 279) >= 1)
+            pthread_mutex_lock((v28 + 161));
+            if ((v28[60] & 0x20000004460) != 0 || *(v28 + 280) > 0 || *(v28 + 278) > 0 || *(v28 + 279) >= 1)
             {
-              pthread_mutex_unlock((v82 + 161));
-              log_err("%s:%d: %s can not delete a volume that is already mounted/deleting/replicating\n", v39, v40, v41, v42, v43, v44, v45, "apfs_deletefs_ext");
-              v31 = 0;
-              v10 = 16;
+              pthread_mutex_unlock((v28 + 161));
+              log_err("%s:%d: %s can not delete a volume that is already mounted/deleting/replicating\n", "apfs_deletefs_ext", 28889, v28 + 4048);
+              v14 = 0;
+              v5 = 16;
             }
 
             else
             {
-              v76 = v82[47] + 704;
-              log_info("%s:%d: %s Deleting volume %s, volume index %u\n", v32, v33, v34, v35, v36, v37, v38, "apfs_deletefs_ext");
-              v47 = v82;
-              v82[60] |= 0x400uLL;
-              pthread_mutex_unlock((v47 + 161));
-              v48 = tx_enter(a1, &v81);
-              if (v48)
+              log_info("%s:%d: %s Deleting volume %s, volume index %u\n", "apfs_deletefs_ext", 28894, v28 + 4048, (v28[47] + 704), a2);
+              v16 = v28;
+              v28[60] |= 0x400uLL;
+              pthread_mutex_unlock((v16 + 161));
+              v17 = tx_enter(a1, &v27);
+              if (v17)
               {
-                v10 = v48;
-                v73 = *(a1 + 384) + 212;
-                log_err("%s:%d: %s failed to enter transaction, error = %d\n", v49, v50, v51, v52, v53, v54, v55, "apfs_deletefs_ext");
-                v31 = 0;
+                v5 = v17;
+                log_err("%s:%d: %s failed to enter transaction, error = %d\n", "apfs_deletefs_ext", 28900, (*(a1 + 384) + 212), v17);
+                v14 = 0;
               }
 
               else
               {
-                v56 = *(v82[47] + 216);
-                v57 = obj_type_and_flags(v82);
-                v58 = obj_size_phys(v82);
-                v59 = obj_oid(v82);
-                v60 = nx_reaper_add_ext(a1, v57, v58, 0, v59, v81, 1, &v80);
-                if (v60)
+                v18 = *(v28[47] + 216);
+                v19 = obj_type_and_flags(v28);
+                v20 = obj_size_phys(v28);
+                v21 = obj_oid(v28);
+                v22 = nx_reaper_add_ext(a1, v19, v20, 0, v21, v27, 1, &v26);
+                if (v22)
                 {
-                  v10 = v60;
-                  v74 = *(a1 + 384) + 212;
-                  log_err("%s:%d: %s failed to add file system to reaper: %d\n", v61, v62, v63, v64, v65, v66, v67, "apfs_deletefs_ext");
-                  v31 = 1;
+                  v5 = v22;
+                  log_err("%s:%d: %s failed to add file system to reaper: %d\n", "apfs_deletefs_ext", 28911, (*(a1 + 384) + 212), v22);
+                  v14 = 1;
                 }
 
                 else
                 {
-                  *(*(a1 + 376) + 8 * v13 + 184) = 0;
-                  v68 = v82;
-                  v69 = v82[47];
-                  *(a1 + 656) += (*(v69 + 48) << 30) >> 31;
-                  if (*(v69 + 964) != 1)
+                  *(*(a1 + 376) + 8 * v9 + 184) = 0;
+                  v23 = v28;
+                  v24 = v28[47];
+                  *(a1 + 656) += (*(v24 + 48) << 30) >> 31;
+                  if (*(v24 + 964) != 1)
                   {
-                    atomic_fetch_add_explicit((v68[49] + 648), -v56, memory_order_relaxed);
+                    atomic_fetch_add_explicit((v23[49] + 648), -v18, memory_order_relaxed);
                   }
 
-                  v10 = 0;
-                  if (v12)
+                  v5 = 0;
+                  if (a3)
                   {
-                    *v12 = v80;
+                    *a3 = v26;
                   }
 
-                  v31 = 1;
+                  v14 = 1;
                 }
               }
             }
@@ -4593,95 +5105,90 @@ LABEL_18:
 
           else
           {
-            log_err("%s:%d: %s cannot delete encrypted volume in demo mode\n", v23, v24, v25, v26, v27, v28, v29, "apfs_deletefs_ext");
-            v31 = 0;
-            v10 = 1;
+            log_err("%s:%d: %s cannot delete encrypted volume in demo mode\n", "apfs_deletefs_ext", 28868, v28 + 4048);
+            v14 = 0;
+            v5 = 1;
           }
         }
 
         else
         {
-          v78 = *(*(a1 + 376) + 8 * v8 + 184);
-          log_err("%s:%d: %s nx and apfs superblock disagree on fs_idx, nx_idx=%u, nx_oid=%llu, apfs_idx=%u\n", v23, v24, v25, v26, v27, v28, v29, "apfs_deletefs_ext");
-          v31 = 0;
-          v10 = 5;
+          log_err("%s:%d: %s nx and apfs superblock disagree on fs_idx, nx_idx=%u, nx_oid=%llu, apfs_idx=%u\n", "apfs_deletefs_ext", 28861, v28 + 4048, a2, *(*(a1 + 376) + 8 * a2 + 184), v12);
+          v14 = 0;
+          v5 = 5;
         }
 
-        if (v82)
+        if (v28)
         {
-          obj_release(v82);
+          obj_release(v28);
         }
 
-        if (v31)
+        if (v14)
         {
-          if (v10)
+          if (v5)
           {
-            v46 = 0;
+            v15 = 0;
           }
 
           else
           {
-            v46 = 5;
+            v15 = 5;
           }
 
-          tx_leave(a1, v81, v46);
+          tx_leave(a1, v27, v15);
         }
       }
 
       else
       {
-        v75 = *(v82[47] + 964);
-        log_err("%s:%d: %s Volume is not mountable, it can't be deleted (volume role %d) \n", v23, v24, v25, v26, v27, v28, v29, "apfs_deletefs_ext");
+        log_err("%s:%d: %s Volume is not mountable, it can't be deleted (volume role %d) \n", "apfs_deletefs_ext", 28853, v28 + 4048, *(v28[47] + 964));
         return 45;
       }
     }
 
     else
     {
-      v72 = *(a1 + 384) + 212;
-      log_err("%s:%d: %s Request to delete volume %u was denied, wrong volume index\n", a2, a3, a4, a5, a6, a7, a8, "apfs_deletefs_ext");
+      log_err("%s:%d: %s Request to delete volume %u was denied, wrong volume index\n", "apfs_deletefs_ext", 28841, (*(a1 + 384) + 212), a2);
       return 22;
     }
   }
 
-  return v10;
+  return v5;
 }
 
-uint64_t apfs_is_volume_fsindex_allowed(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t apfs_is_volume_fsindex_allowed(int a1, int a2)
 {
-  v8 = 0;
+  v2 = 0;
   if (a2 != -1 && a2 <= 1)
   {
-    v8 = 0;
+    v2 = 0;
     if (a1 == 1)
     {
       if (a2)
       {
-        v8 = 1;
-        log_err("%s:%d: Volume role %d is not allowed at fs index %d\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_fsindex_allowed");
+        v2 = 1;
+        log_err("%s:%d: Volume role %d is not allowed at fs index %d\n", "apfs_is_volume_fsindex_allowed", 30994, 1, a2);
       }
     }
   }
 
-  return v8;
+  return v2;
 }
 
-uint64_t apfs_is_volume_role_allowed(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t apfs_is_volume_role_allowed(void *a1, uint64_t a2, int a3, int a4, int a5)
 {
-  v8 = a5;
-  v9 = a3;
   if (a3 == 576)
   {
     if ((a5 & 1) == 0)
     {
-      log_err("%s:%d: Volume role 0x%x is not allowed for an unencrypted volume\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+      log_err("%s:%d: Volume role 0x%x is not allowed for an unencrypted volume\n");
       return 1;
     }
   }
 
   else if (a3 == 768)
   {
-    log_err("%s:%d: Volume role 0x%x is not supported", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+    log_err("%s:%d: Volume role 0x%x is not supported", a2);
     return 45;
   }
 
@@ -4701,7 +5208,7 @@ uint64_t apfs_is_volume_role_allowed(void *a1, uint64_t a2, uint64_t a3, uint64_
       {
         if (a2 == 256)
         {
-          log_err("%s:%d: cannot change role of xART volume\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+          log_err("%s:%d: cannot change role of xART volume\n");
           return 1;
         }
 
@@ -4721,35 +5228,35 @@ uint64_t apfs_is_volume_role_allowed(void *a1, uint64_t a2, uint64_t a3, uint64_
     {
       if (a2 == 384)
       {
-        log_err("%s:%d: cannot change role of Backup volume\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+        log_err("%s:%d: cannot change role of Backup volume\n");
         return 1;
       }
 
       if (a2 == 448)
       {
-        log_err("%s:%d: cannot change role of SideCar volume\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+        log_err("%s:%d: cannot change role of SideCar volume\n");
         return 1;
       }
 
       goto LABEL_7;
     }
 
-    log_err("%s:%d: cannot change role of system-unique volume\n", a2, a3, a4, a5, a6, a7, a8, "apfs_is_volume_role_allowed");
+    log_err("%s:%d: cannot change role of system-unique volume\n");
     return 1;
   }
 
 LABEL_7:
   if (a3)
   {
-    if (apfs_is_volume_fsindex_allowed(a3, a4, a3, a4, a5, a6, a7, a8))
+    if (apfs_is_volume_fsindex_allowed(a3, a4))
     {
       return 1;
     }
 
-    v19 = v9 == 704;
-    if (v9 <= 191)
+    v10 = a3 == 704;
+    if (a3 <= 191)
     {
-      if (((v9 - 1) > 0x3F || ((1 << (v9 - 1)) & 0x800000008000800BLL) == 0) && v9 != 128)
+      if (((a3 - 1) > 0x3F || ((1 << (a3 - 1)) & 0x800000008000800BLL) == 0) && a3 != 128)
       {
         goto LABEL_104;
       }
@@ -4757,88 +5264,88 @@ LABEL_7:
       goto LABEL_27;
     }
 
-    if (v9 <= 511)
+    if (a3 <= 511)
     {
-      if (v9 != 192 && v9 != 256 && v9 != 320)
+      if (a3 != 192 && a3 != 256 && a3 != 320)
       {
         goto LABEL_104;
       }
     }
 
-    else if (v9 > 639)
+    else if (a3 > 639)
     {
-      if (v9 != 640 && v9 != 704)
+      if (a3 != 640 && a3 != 704)
       {
         goto LABEL_104;
       }
     }
 
-    else if (v9 != 512 && v9 != 576)
+    else if (a3 != 512 && a3 != 576)
     {
 LABEL_104:
-      log_err("%s:%d: Volume role 0x%x is not supported in container\n", v12, v13, v14, v15, v16, v17, v18, "apfs_is_volume_role_allowed");
+      log_err("%s:%d: Volume role 0x%x is not supported in container\n", v9);
       return 45;
     }
   }
 
   else
   {
-    v19 = 0;
+    v10 = 0;
   }
 
 LABEL_27:
-  v20 = a1[47];
-  if (!*(v20 + 180))
+  v11 = a1[47];
+  if (!*(v11 + 180))
   {
     return 0;
   }
 
-  v51 = v19;
-  v21 = 0;
+  v22 = v10;
+  v12 = 0;
   memset(out, 0, 37);
   while (1)
   {
-    v52 = 0;
-    v22 = *(v20 + 8 * v21 + 184);
-    if (v22)
+    v23 = 0;
+    v13 = *(v11 + 8 * v12 + 184);
+    if (v13)
     {
       break;
     }
 
 LABEL_72:
-    ++v21;
-    v20 = a1[47];
-    if (v21 >= *(v20 + 180))
+    ++v12;
+    v11 = a1[47];
+    if (v12 >= *(v11 + 180))
     {
       return 0;
     }
   }
 
-  v23 = obj_get(a1[49], 0, v22, &apfs_desc, 0, 0, 0, 0, &v52);
-  v11 = v23;
-  if (v23)
+  v14 = obj_get(a1[49], 0, v13, &apfs_desc, 0, 0, 0, 0, &v23);
+  v8 = v14;
+  if (v14)
   {
-    v43 = a1[48] + 212;
-    strerror(v23);
-    log_err("%s:%d: %s Failed to get fsys oid %lld - %s\n", v44, v45, v46, v47, v48, v49, v50, "apfs_is_volume_role_allowed");
-    return v11;
+    v20 = (a1[48] + 212);
+    v21 = strerror(v14);
+    log_err("%s:%d: %s Failed to get fsys oid %lld - %s\n", "apfs_is_volume_role_allowed", 31214, v20, v13, v21);
+    return v8;
   }
 
-  v31 = 1;
-  if (v9 > 191)
+  v15 = 1;
+  if (a3 > 191)
   {
-    if (v9 > 511)
+    if (a3 > 511)
     {
-      if (v9 == 512)
+      if (a3 == 512)
       {
-        v32 = v52;
-        v33 = *(v52[47] + 964);
-        if (v33 == 512)
+        v16 = v23;
+        v17 = *(*(v23 + 47) + 964);
+        if (v17 == 512)
         {
           goto LABEL_66;
         }
 
-        if (v51)
+        if (v22)
         {
           goto LABEL_47;
         }
@@ -4846,24 +5353,24 @@ LABEL_72:
         goto LABEL_79;
       }
 
-      if (v9 != 640)
+      if (a3 != 640)
       {
-        if (v9 == 704)
+        if (a3 == 704)
         {
-          v33 = *(v52[47] + 964);
+          v17 = *(*(v23 + 47) + 964);
 LABEL_47:
-          if (v33 == 704)
+          if (v17 == 704)
           {
             goto LABEL_66;
           }
 
-          v11 = 0;
+          v8 = 0;
         }
 
         goto LABEL_67;
       }
 
-      if (*(v52[47] + 964) != 640)
+      if (*(*(v23 + 47) + 964) != 640)
       {
         goto LABEL_62;
       }
@@ -4871,10 +5378,10 @@ LABEL_47:
 
     else
     {
-      if (v9 == 192)
+      if (a3 == 192)
       {
-        v32 = v52;
-        if (*(v52[47] + 964) == 192)
+        v16 = v23;
+        if (*(*(v23 + 47) + 964) == 192)
         {
           goto LABEL_66;
         }
@@ -4882,20 +5389,20 @@ LABEL_47:
         goto LABEL_79;
       }
 
-      if (v9 != 256)
+      if (a3 != 256)
       {
-        v32 = v52;
-        if (*(v52[47] + 964) == 320)
+        v16 = v23;
+        if (*(*(v23 + 47) + 964) == 320)
         {
           goto LABEL_66;
         }
 
 LABEL_79:
-        obj_release(v32);
+        obj_release(v16);
         goto LABEL_72;
       }
 
-      if (*(v52[47] + 964) != 256)
+      if (*(*(v23 + 47) + 964) != 256)
       {
         goto LABEL_62;
       }
@@ -4903,39 +5410,39 @@ LABEL_79:
 
 LABEL_66:
     uuid_unparse((a1[47] + 72), out);
-    log_err("%s:%d: %s Volume role 0x%x already exists in container uuid %s\n", v34, v35, v36, v37, v38, v39, v40, "apfs_is_volume_role_allowed");
-    v31 = 0;
-    v11 = 17;
+    log_err("%s:%d: %s Volume role 0x%x already exists in container uuid %s\n", "apfs_is_volume_role_allowed", 31236, v23 + 4048, a3, out);
+    v15 = 0;
+    v8 = 17;
 LABEL_67:
-    if (v9 > 255)
+    if (a3 > 255)
     {
-      if (v9 == 256 || v9 == 640 || v9 == 704)
+      if (a3 == 256 || a3 == 640 || a3 == 704)
       {
         goto LABEL_70;
       }
     }
 
-    else if (v9 <= 0x20 && ((1 << v9) & 0x100010110) != 0)
+    else if (a3 <= 0x20 && ((1 << a3) & 0x100010110) != 0)
     {
       goto LABEL_70;
     }
 
-    v41 = v52;
+    v18 = v23;
 LABEL_71:
-    obj_release(v41);
-    if ((v31 & 1) == 0)
+    obj_release(v18);
+    if ((v15 & 1) == 0)
     {
-      return v11;
+      return v8;
     }
 
     goto LABEL_72;
   }
 
-  if (v9 > 15)
+  if (a3 > 15)
   {
-    if (v9 == 16)
+    if (a3 == 16)
     {
-      if (*(v52[47] + 964) == 16)
+      if (*(*(v23 + 47) + 964) == 16)
       {
         goto LABEL_66;
       }
@@ -4943,9 +5450,9 @@ LABEL_71:
       goto LABEL_62;
     }
 
-    if (v9 == 32)
+    if (a3 == 32)
     {
-      if (*(v52[47] + 964) != 32)
+      if (*(*(v23 + 47) + 964) != 32)
       {
         goto LABEL_62;
       }
@@ -4953,13 +5460,13 @@ LABEL_71:
       goto LABEL_66;
     }
 
-    if (v9 != 128)
+    if (a3 != 128)
     {
       goto LABEL_67;
     }
 
-    v32 = v52;
-    if (*(v52[47] + 964) == 128)
+    v16 = v23;
+    if (*(*(v23 + 47) + 964) == 128)
     {
       goto LABEL_66;
     }
@@ -4967,10 +5474,10 @@ LABEL_71:
     goto LABEL_79;
   }
 
-  if (v9 == 1)
+  if (a3 == 1)
   {
-    v32 = v52;
-    if (*(v52[47] + 964) == 1)
+    v16 = v23;
+    if (*(*(v23 + 47) + 964) == 1)
     {
       goto LABEL_66;
     }
@@ -4978,74 +5485,74 @@ LABEL_71:
     goto LABEL_79;
   }
 
-  if (v9 != 4)
+  if (a3 != 4)
   {
     goto LABEL_67;
   }
 
-  if (*(v52[47] + 964) == 4)
+  if (*(*(v23 + 47) + 964) == 4)
   {
     goto LABEL_66;
   }
 
 LABEL_62:
-  v11 = 0;
+  v8 = 0;
 LABEL_70:
-  v41 = v52;
-  if (!v8)
+  v18 = v23;
+  if (!a5)
   {
     goto LABEL_71;
   }
 
-  log_err("%s:%d: %s Encrypted volume is not allowed with special role = 0X%x\n", v24, v25, v26, v27, v28, v29, v30, "apfs_is_volume_role_allowed");
-  obj_release(v52);
+  log_err("%s:%d: %s Encrypted volume is not allowed with special role = 0X%x\n", "apfs_is_volume_role_allowed", 31240, v23 + 4048, a3);
+  obj_release(v23);
   return 1;
 }
 
 uint64_t apfs_newfs(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, void *a5)
 {
-  v330 = 0;
-  *v331 = 0;
-  v328 = 0;
-  v329 = 0;
+  v129 = 0;
+  *v130 = 0;
+  v127 = 0;
+  v128 = 0;
   memset(uu, 0, sizeof(uu));
-  v326 = 0;
-  v327 = 0;
-  v324 = 0;
-  v325 = 0;
-  v323 = 0;
+  v125 = 0;
+  v126 = 0;
+  v123 = 0;
+  v124 = 0;
+  v122 = 0;
   uuid_clear(uu);
   *a5 = 0;
   if (!a2)
   {
-    v314 = a4;
-    v315 = 0;
-    v304 = 0;
-    v305 = a5;
-    v317 = 0;
-    v15 = 0;
-    v318 = 0;
-    v303 = 0;
-    v16 = 0;
-    v17 = 0;
-    v322 = 0;
-    LODWORD(v306) = 0;
-    v307 = 0;
-    v313 = 0;
-    v308 = 0;
-    v309 = 0;
-    v320 = 2;
-    v311 = 0;
-    v312 = 8;
-    v18 = 0xFFFFFFFFLL;
-    v19 = 1073741826;
-    v321 = 1073741826;
-    v319 = 1073741826;
-    v310 = 1073741826;
+    v113 = a4;
+    v114 = 0;
+    v103 = 0;
+    v104 = a5;
+    v116 = 0;
+    v12 = 0;
+    v117 = 0;
+    v102 = 0;
+    v13 = 0;
+    v14 = 0;
+    v121 = 0;
+    LODWORD(v105) = 0;
+    v106 = 0;
+    v112 = 0;
+    v107 = 0;
+    v108 = 0;
+    v119 = 2;
+    v110 = 0;
+    v111 = 8;
+    v15 = -1;
+    v16 = 1073741826;
+    v120 = 1073741826;
+    v118 = 1073741826;
+    v109 = 1073741826;
     goto LABEL_5;
   }
 
-  v13 = *(*(a1 + 376) + 36);
+  v10 = *(*(a1 + 376) + 36);
   if (strnlen((a2 + 56), 0x100uLL) > 0xFF)
   {
     return 63;
@@ -5056,175 +5563,173 @@ uint64_t apfs_newfs(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, void
     return 92;
   }
 
-  v28 = *(a2 + 40);
-  v19 = *(a2 + 492);
-  v29 = *(a2 + 16);
-  v30 = *(a2 + 24);
-  if (v29 % v13)
+  v16 = *(a2 + 492);
+  v18 = *(a2 + 16);
+  v19 = *(a2 + 24);
+  if (v18 % v10)
   {
-    v31 = v29 / v13 + 1;
+    v20 = v18 / v10 + 1;
   }
 
   else
   {
-    v31 = v29 / v13;
+    v20 = v18 / v10;
   }
 
-  if (v30 % v13)
+  if (v19 % v10)
   {
-    v32 = v30 / v13 + 1;
+    v21 = v19 / v10 + 1;
   }
 
   else
   {
-    v32 = v30 / v13;
+    v21 = v19 / v10;
   }
 
-  v18 = *(a2 + 48);
-  v33 = *(a2 + 52);
-  v34 = *(a2 + 54);
-  v35 = (v18 == 1) << 6;
-  if (!v18)
+  v15 = *(a2 + 48);
+  v22 = *(a2 + 52);
+  v23 = (v15 == 1) << 6;
+  if (!v15)
   {
-    v35 = 1;
+    v23 = 1;
   }
 
   if (*(a2 + 54))
   {
-    v36 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v36 = v18 == -1;
+    v24 = v15 == -1;
   }
 
-  if (v36)
+  if (v24)
   {
-    v17 = *(a2 + 54);
+    v14 = *(a2 + 54);
   }
 
   else
   {
-    v17 = v35;
+    v14 = v23;
   }
 
-  v37 = v17 == 64 || v17 == 1;
-  if (v37 && *(a2 + 452) > 0)
+  v25 = v14 == 64 || v14 == 1;
+  if (v25 && *(a2 + 452) > 0)
   {
     return 45;
   }
 
-  v319 = *(a2 + 40);
-  v314 = a4;
-  v317 = v32;
-  v38 = (v33 >> 6) & 1;
-  v16 = (v33 >> 9) & 1;
-  v312 = (v33 >> 2) & 3;
-  v318 = (v33 >> 4) & 3;
-  v322 = (v33 >> 7) & 1;
-  v310 = *(a2 + 32);
-  v311 = (v33 >> 8) & 1;
-  HIDWORD(v309) = (a3 >> 5) & 1;
-  HIDWORD(v308) = (a3 & 0x880) == 2176;
-  LODWORD(v309) = (a3 >> 8) & 1;
-  v313 = (v33 >> 10) & 1;
-  LODWORD(v307) = *(a2 + 448);
-  HIDWORD(v307) = *(a2 + 444);
-  LODWORD(v308) = (a3 & 0x880) == 128;
-  v320 = *(a2 + 36);
-  v321 = *(a2 + 44);
-  if (v33 & 1 | v16)
+  v118 = *(a2 + 40);
+  v113 = a4;
+  v116 = v21;
+  v26 = (v22 >> 6) & 1;
+  v13 = (v22 >> 9) & 1;
+  v111 = (v22 >> 2) & 3;
+  v117 = (v22 >> 4) & 3;
+  v121 = (v22 >> 7) & 1;
+  v109 = *(a2 + 32);
+  v110 = (v22 >> 8) & 1;
+  HIDWORD(v108) = (a3 >> 5) & 1;
+  HIDWORD(v107) = (a3 & 0x880) == 2176;
+  LODWORD(v108) = (a3 >> 8) & 1;
+  v112 = (v22 >> 10) & 1;
+  LODWORD(v106) = *(a2 + 448);
+  HIDWORD(v106) = *(a2 + 444);
+  LODWORD(v107) = (a3 & 0x880) == 128;
+  v119 = *(a2 + 36);
+  v120 = *(a2 + 44);
+  if (v22 & 1 | v13)
   {
-    v15 = v33 & 1;
-    if (v16)
+    v12 = v22 & 1;
+    if (v13)
     {
       if ((*(*(a1 + 376) + 1264) & 4) != 0)
       {
         return 22;
       }
 
-      v316 = *(a2 + 48);
-      v39 = (v33 >> 6) & 1;
-      v40 = dev_crypto_type(*(a1 + 384));
-      v38 = v39;
-      v18 = v316;
-      if (!v40)
+      v115 = *(a2 + 48);
+      v27 = (v22 >> 6) & 1;
+      v28 = dev_crypto_type(*(a1 + 384));
+      v26 = v27;
+      v15 = v115;
+      if (!v28)
       {
         return 22;
       }
     }
 
-    v315 = v31;
-    if (v38)
+    v114 = v20;
+    if (v26)
     {
       if (*(a2 + 440) > 0x80u)
       {
         return 22;
       }
 
-      v305 = a5;
-      LODWORD(v306) = *(a2 + 440);
-      v303 = 1;
-      v304 = a2 + 312;
+      v104 = a5;
+      LODWORD(v105) = *(a2 + 440);
+      v102 = 1;
+      v103 = a2 + 312;
     }
 
     else
     {
-      v305 = a5;
-      v306 = *(a2 + 440);
-      v41 = strnlen((a2 + 312), 0x80uLL);
+      v104 = a5;
+      v105 = *(a2 + 440);
+      v29 = strnlen((a2 + 312), 0x80uLL);
       is_volume_role_allowed = 22;
-      if (v41 > 0x7F)
+      if (v29 > 0x7F)
       {
         return is_volume_role_allowed;
       }
 
-      v304 = a2 + 312;
-      if (v41 != v306)
+      v103 = a2 + 312;
+      if (v29 != v105)
       {
         return is_volume_role_allowed;
       }
 
-      v303 = 0;
+      v102 = 0;
     }
   }
 
   else
   {
-    v303 = (v33 >> 6) & 1;
-    v315 = v31;
-    v305 = a5;
+    v102 = (v22 >> 6) & 1;
+    v114 = v20;
+    v104 = a5;
     if ((*(*(a1 + 376) + 1264) & 4) != 0 || !dev_crypto_type(*(a1 + 384)))
     {
-      v304 = 0;
-      v15 = 0;
-      v16 = 0;
-      LODWORD(v306) = 0;
+      v103 = 0;
+      v12 = 0;
+      v13 = 0;
+      LODWORD(v105) = 0;
       goto LABEL_5;
     }
 
     if ((a3 & 1) == 0)
     {
-      v304 = 0;
-      v16 = 0;
-      LODWORD(v306) = 0;
-      v15 = 1;
+      v103 = 0;
+      v13 = 0;
+      LODWORD(v105) = 0;
+      v12 = 1;
       goto LABEL_5;
     }
 
-    v15 = 0;
+    v12 = 0;
     is_volume_role_allowed = 22;
-    v304 = 0;
-    if (v17 > 191)
+    v103 = 0;
+    if (v14 > 191)
     {
-      if (v17 <= 319)
+      if (v14 <= 319)
       {
-        if (v17 != 192)
+        if (v14 != 192)
         {
-          v16 = 0;
-          LODWORD(v306) = 0;
-          if (v17 != 256)
+          v13 = 0;
+          LODWORD(v105) = 0;
+          if (v14 != 256)
           {
             return is_volume_role_allowed;
           }
@@ -5233,11 +5738,11 @@ uint64_t apfs_newfs(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, void
         }
       }
 
-      else if (v17 != 320 && v17 != 704)
+      else if (v14 != 320 && v14 != 704)
       {
-        v16 = 0;
-        LODWORD(v306) = 0;
-        if (v17 != 640)
+        v13 = 0;
+        LODWORD(v105) = 0;
+        if (v14 != 640)
         {
           return is_volume_role_allowed;
         }
@@ -5245,146 +5750,142 @@ uint64_t apfs_newfs(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, void
         goto LABEL_5;
       }
 
-      v16 = 0;
-      LODWORD(v306) = 0;
+      v13 = 0;
+      LODWORD(v105) = 0;
       goto LABEL_5;
     }
 
-    if (v17 > 0x20)
+    if (v14 > 0x20)
     {
       return is_volume_role_allowed;
     }
 
-    v16 = 0;
-    LODWORD(v306) = 0;
-    if (((1 << v17) & 0x100010112) == 0)
+    v13 = 0;
+    LODWORD(v105) = 0;
+    if (((1 << v14) & 0x100010112) == 0)
     {
       return is_volume_role_allowed;
     }
   }
 
 LABEL_5:
-  v20 = (v15 | v16) != 0;
-  is_volume_role_allowed = apfs_is_volume_role_allowed(a1, 0, v17, v18, (v15 | v16) != 0, v10, v11, v12);
+  v17 = (v12 | v13) != 0;
+  is_volume_role_allowed = apfs_is_volume_role_allowed(a1, 0, v14, v15, v17);
   if (is_volume_role_allowed)
   {
     return is_volume_role_allowed;
   }
 
-  v302 = v15;
-  if (v320 != 2)
+  v101 = v12;
+  if (v119 != 2)
   {
-    v288 = *(a1 + 384) + 212;
-    log_warn("%s:%d: %s fs tree type 0x%x invalid, using virtual btree instead\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+    log_warn("%s:%d: %s fs tree type 0x%x invalid, using virtual btree instead\n", "apfs_newfs", 31801, (*(a1 + 384) + 212), v119);
   }
 
-  if (v319 != 1073741826)
+  if (v118 != 1073741826)
   {
-    v289 = *(a1 + 384) + 212;
-    log_warn("%s:%d: %s extentref tree type 0x%x invalid, using physical btree instead\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+    log_warn("%s:%d: %s extentref tree type 0x%x invalid, using physical btree instead\n", "apfs_newfs", 31805, (*(a1 + 384) + 212), v118);
   }
 
-  if (v321 != 1073741826)
+  if (v120 != 1073741826)
   {
-    v290 = *(a1 + 384) + 212;
-    log_warn("%s:%d: %s snapmeta tree type 0x%x invalid, using physical btree instead\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+    log_warn("%s:%d: %s snapmeta tree type 0x%x invalid, using physical btree instead\n", "apfs_newfs", 31809, (*(a1 + 384) + 212), v120);
   }
 
-  if (v322 && v19 != 1073741826)
+  if (v121 && v16 != 1073741826)
   {
-    v291 = *(a1 + 384) + 212;
-    log_warn("%s:%d: %s fext tree type 0x%x invalid, using physical btree instead\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
-    v19 = 1073741826;
+    log_warn("%s:%d: %s fext tree type 0x%x invalid, using physical btree instead\n", "apfs_newfs", 31814, (*(a1 + 384) + 212), v16);
+    v16 = 1073741826;
   }
 
-  if ((((v15 | v16) != 0) & *(a1 + 629)) != 0)
+  if (v17 & *(a1 + 629))
   {
     return 1;
   }
 
-  if (v318)
+  if (v117)
   {
     return 22;
   }
 
-  if (v17 == 704 && (!v315 || v315 != v317))
+  if (v14 == 704 && (!v114 || v114 != v116))
   {
-    v292 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s bad overprovisioning volume configuration: reserve %lld quota %lld\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+    log_err("%s:%d: %s bad overprovisioning volume configuration: reserve %lld quota %lld\n", "apfs_newfs", 31844, (*(a1 + 384) + 212), v114, v116);
     return 22;
   }
 
-  v43 = *(a1 + 376);
-  if (v18 == -1)
+  v31 = *(a1 + 376);
+  if (v15 == -1)
   {
-    if (v17 == 64)
+    if (v14 == 64)
     {
-      v45 = 1;
+      v33 = 1;
     }
 
     else
     {
-      v45 = -1;
+      v33 = -1;
     }
 
-    if (v17 == 1)
+    if (v14 == 1)
     {
-      v46 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v46 = v45;
+      v34 = v33;
     }
 
-    if (v46 == -1)
+    if (v34 == -1)
     {
-      v44 = *(v43 + 180);
-      if (v44 < 3)
+      v32 = *(v31 + 180);
+      if (v32 < 3)
       {
-        LODWORD(v18) = 2;
+        v15 = 2;
       }
 
       else
       {
-        v47 = (v43 + 200);
-        v48 = 2;
-        while (*v47++)
+        v35 = (v31 + 200);
+        v36 = 2;
+        while (*v35++)
         {
-          if (v44 == ++v48)
+          if (v32 == ++v36)
           {
-            LODWORD(v18) = *(v43 + 180);
+            v15 = *(v31 + 180);
             goto LABEL_93;
           }
         }
 
-        LODWORD(v18) = v48;
+        v15 = v36;
 LABEL_93:
-        if ((v18 & 0x80000000) != 0)
+        if ((v15 & 0x80000000) != 0)
         {
 LABEL_96:
-          if (v46 != -1)
+          if (v34 != -1)
           {
-            LODWORD(v18) = v46;
+            v15 = v34;
             goto LABEL_98;
           }
 
-          if (!v44)
+          if (!v32)
           {
-            goto LABEL_115;
+            v15 = 0;
+            goto LABEL_116;
           }
 
-          v59 = 0;
-          while (*(v43 + 184 + 8 * v59))
+          v40 = 0;
+          while (*(v31 + 184 + 8 * v40))
           {
-            if (v44 == ++v59)
+            if (v32 == ++v40)
             {
-              LODWORD(v18) = v44;
+              v15 = v32;
               goto LABEL_60;
             }
           }
 
-          LODWORD(v18) = v59;
+          v15 = v40;
           goto LABEL_60;
         }
       }
@@ -5392,11 +5893,11 @@ LABEL_96:
 
     else
     {
-      LODWORD(v44) = *(v43 + 180);
-      LODWORD(v18) = v46;
+      LODWORD(v32) = *(v31 + 180);
+      v15 = v34;
     }
 
-    if (v18 < v44 && !*(v43 + 8 * v18 + 184))
+    if (v15 < v32 && !*(v31 + 8 * v15 + 184))
     {
       goto LABEL_98;
     }
@@ -5405,536 +5906,538 @@ LABEL_96:
   }
 
 LABEL_60:
-  if ((v18 & 0x80000000) != 0)
+  if ((v15 & 0x80000000) != 0)
   {
-LABEL_115:
-    v301 = *(v43 + 180);
-    v296 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s no space for a new file system (slot %d, max %d)\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+LABEL_116:
+    log_err("%s:%d: %s no space for a new file system (slot %d, max %d)\n", "apfs_newfs", 31879, (*(a1 + 384) + 212), v15, *(v31 + 180));
     return 34;
   }
 
-  LODWORD(v44) = *(v43 + 180);
+  LODWORD(v32) = *(v31 + 180);
 LABEL_98:
-  if (v18 >= v44)
+  if (v15 >= v32)
   {
-    goto LABEL_115;
+    goto LABEL_116;
   }
 
-  if (*(v43 + 8 * v18 + 184))
+  if (*(v31 + 8 * v15 + 184))
   {
-    v293 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s existing file system (slot %d)\n", v21, v22, v23, v24, v25, v26, v27, "apfs_newfs");
+    log_err("%s:%d: %s existing file system (slot %d)\n", "apfs_newfs", 31882, (*(a1 + 384) + 212), v15);
     return 16;
   }
 
-  v50 = v19;
-  v51 = tx_enter(a1, &v328);
-  if (v51)
+  v38 = v16;
+  v39 = tx_enter(a1, &v127);
+  if (v39)
   {
-    is_volume_role_allowed = v51;
-    v294 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s tx_enter() failed: %d\n", v52, v53, v54, v55, v56, v57, v58, "apfs_newfs");
+    is_volume_role_allowed = v39;
+    log_err("%s:%d: %s tx_enter() failed: %d\n", "apfs_newfs", 31888, (*(a1 + 384) + 212), v39);
     return is_volume_role_allowed;
   }
 
-  if (v20)
+  if (v17)
   {
-    v60 = *(a1 + 376);
-    v61 = *(v60 + 1264);
-    if ((v61 & 4) == 0)
+    v41 = *(a1 + 376);
+    v42 = *(v41 + 1264);
+    if ((v42 & 4) == 0)
     {
       if (dev_crypto_type(*(a1 + 384)))
       {
         goto LABEL_113;
       }
 
-      v60 = *(a1 + 376);
-      v61 = *(v60 + 1264);
+      v41 = *(a1 + 376);
+      v42 = *(v41 + 1264);
     }
 
-    *(v60 + 1264) = v61 | 4;
+    *(v41 + 1264) = v42 | 4;
   }
 
 LABEL_113:
-  v62 = obj_create(*(a1 + 392), 0, 0, &apfs_desc, 0, 0, v328, v331);
-  if (v62)
+  v43 = obj_create(*(a1 + 392), 0, 0, &apfs_desc, 0, 0, v127, v130);
+  if (v43)
   {
-    is_volume_role_allowed = v62;
-    v295 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s failed to create fs: %d\n", v63, v64, v65, v66, v67, v68, v69, "apfs_newfs");
-LABEL_157:
-    v298 = *(a1 + 384) + 212;
-    log_err("%s:%d: %s fs creation failed: %d ... cleaning up...\n", v70, v71, v72, v73, v74, v75, v76, "apfs_newfs");
-    v329 = 0;
-    if (*v331)
+    is_volume_role_allowed = v43;
+    log_err("%s:%d: %s failed to create fs: %d\n");
+LABEL_158:
+    log_err("%s:%d: %s fs creation failed: %d ... cleaning up...\n", "apfs_newfs", 32403, (*(a1 + 384) + 212), is_volume_role_allowed);
+    v128 = 0;
+    if (*v130)
     {
-      if (v325)
+      if (v124)
       {
-        if (btree_delete(v325, v328, &v329))
+        v64 = btree_delete(v124, v127, &v128);
+        if (v64)
         {
-          log_err("%s:%d: %s failed to delete fs root tree after fs creation failed: %d\n", v149, v150, v151, v152, v153, v154, v155, "apfs_newfs");
+          log_err("%s:%d: %s failed to delete fs root tree after fs creation failed: %d\n", "apfs_newfs", 32415, (*v130 + 4048), v64);
         }
 
-        obj_release(v325);
+        obj_release(v124);
       }
 
-      if (v326)
+      if (v125)
       {
-        if (btree_delete(v326, v328, &v329))
+        v65 = btree_delete(v125, v127, &v128);
+        if (v65)
         {
-          log_err("%s:%d: %s failed to delete fs snap metadata tree after fs creation failed: %d\n", v156, v157, v158, v159, v160, v161, v162, "apfs_newfs");
+          log_err("%s:%d: %s failed to delete fs snap metadata tree after fs creation failed: %d\n", "apfs_newfs", 32431, (*v130 + 4048), v65);
         }
 
-        obj_release(v326);
+        obj_release(v125);
       }
 
-      if (v327)
+      if (v126)
       {
-        if (btree_delete(v327, v328, &v329))
+        v66 = btree_delete(v126, v127, &v128);
+        if (v66)
         {
-          log_err("%s:%d: %s failed to delete fs extentref tree after fs creation failed: %d\n", v163, v164, v165, v166, v167, v168, v169, "apfs_newfs");
+          log_err("%s:%d: %s failed to delete fs extentref tree after fs creation failed: %d\n", "apfs_newfs", 32438, (*v130 + 4048), v66);
         }
 
-        obj_release(v327);
+        obj_release(v126);
       }
 
-      v170 = v324;
-      if (v324 && supplemental_tree_destroy(*v331, v50, 5, v328, v324, &v329, v147, v148))
+      if (v123)
       {
-        log_err("%s:%d: %s failed to delete fs fext tree after fs creation failed: %d\n", v171, v144, v145, v170, v146, v147, v148, "apfs_newfs");
-      }
-
-      if (v323)
-      {
-        if (btree_delete(v323, v328, &v329))
+        v67 = supplemental_tree_destroy(*v130, v38, 5, v127, v123, &v128, v63);
+        if (v67)
         {
-          log_err("%s:%d: %s failed to delete fs clonegroup tree after fs creation failed: %d\n", v172, v173, v174, v175, v176, v177, v178, "apfs_newfs");
-        }
-
-        obj_release(v323);
-      }
-
-      v179 = *v331;
-      v180 = *(*(*v331 + 376) + 128);
-      if (v180)
-      {
-        v182 = omap_destroy(*v331, v180, v328, &v329);
-        v179 = *v331;
-        if (v182)
-        {
-          log_err("%s:%d: %s failed to destroy omap after fs creation failed: %d\n", v181, v144, v145, v170, v146, v147, v148, "apfs_newfs");
-          v179 = *v331;
+          log_err("%s:%d: %s failed to delete fs fext tree after fs creation failed: %d\n", "apfs_newfs", 32446, (*v130 + 4048), v67);
         }
       }
 
-      if (*(v179 + 3600))
+      if (v122)
       {
-        obj_release(*(v179 + 3600));
-        v179 = *v331;
+        v68 = btree_delete(v122, v127, &v128);
+        if (v68)
+        {
+          log_err("%s:%d: %s failed to delete fs clonegroup tree after fs creation failed: %d\n", "apfs_newfs", 32461, (*v130 + 4048), v68);
+        }
+
+        obj_release(v122);
       }
 
-      if (*(v179 + 3576))
+      v69 = *v130;
+      v70 = *(*(*v130 + 376) + 128);
+      if (v70)
       {
-        obj_release(*(v179 + 3576));
-        v179 = *v331;
+        v71 = omap_destroy(*v130, v70, v127, &v128);
+        v69 = *v130;
+        if (v71)
+        {
+          log_err("%s:%d: %s failed to destroy omap after fs creation failed: %d\n", "apfs_newfs", 32469, (*v130 + 4048), v71);
+          v69 = *v130;
+        }
       }
 
-      jobj_release(v179, *(v179 + 488), v144, v145, v170, v146, v147, v148);
-      jobj_release(v183, *(*v331 + 496), v184, v185, v186, v187, v188, v189);
+      if (*(v69 + 3600))
+      {
+        obj_release(*(v69 + 3600));
+        v69 = *v130;
+      }
+
+      if (*(v69 + 3576))
+      {
+        obj_release(*(v69 + 3576));
+        v69 = *v130;
+      }
+
+      jobj_release(v69, *(v69 + 488));
+      jobj_release(v72, *(*v130 + 496));
     }
 
-    if (v328)
+    if (v127)
     {
-      tx_leave(a1, v328, 0);
-      v328 = 0;
+      tx_leave(a1, v127, 0);
+      v127 = 0;
     }
 
-    if (v329 && nx_reaper_wait(a1, v329))
+    if (v128)
     {
-      v299 = *(a1 + 384) + 212;
-      log_err("%s:%d: %s failed to wait on reaper: %d\n", v190, v191, v192, v193, v194, v195, v196, "apfs_newfs");
-    }
-
-    if (*v331)
-    {
-      if (tx_enter(a1, &v328))
+      v73 = nx_reaper_wait(a1, v128);
+      if (v73)
       {
-        v300 = *(a1 + 384) + 212;
-        log_err("%s:%d: %s Couldn't reopen transaction to clean up: %d\n", v197, v198, v199, v200, v201, v202, v203, "apfs_newfs");
+        log_err("%s:%d: %s failed to wait on reaper: %d\n", "apfs_newfs", 32494, (*(a1 + 384) + 212), v73);
+      }
+    }
+
+    if (*v130)
+    {
+      v74 = tx_enter(a1, &v127);
+      if (v74)
+      {
+        log_err("%s:%d: %s Couldn't reopen transaction to clean up: %d\n", "apfs_newfs", 32502, (*(a1 + 384) + 212), v74);
       }
 
       else
       {
-        spaceman_fs_bounds_clear(a1, *v331, v328);
-        obj_delete_and_free(*v331, v328);
-        tx_leave(a1, v328, 0);
-        v328 = 0;
+        spaceman_fs_bounds_clear(a1, *v130, v127);
+        obj_delete_and_free(*v130, v127);
+        tx_leave(a1, v127, 0);
+        v127 = 0;
       }
 
-      obj_release(*v331);
+      obj_release(*v130);
     }
 
     return is_volume_role_allowed;
   }
 
-  v77 = a1;
-  v78 = !v20;
-  v79 = *v331;
-  if (!v314)
+  v44 = a1;
+  v45 = !v17;
+  v46 = *v130;
+  if (!v113)
   {
-    v78 = 1;
+    v45 = 1;
   }
 
-  if ((v78 & 1) == 0)
+  if ((v45 & 1) == 0)
   {
-    *(*v331 + 1152) = v314;
+    *(*v130 + 1152) = v113;
   }
 
-  *(*(v79 + 376) + 36) = v18;
-  apfs_update_dev_name(v79);
-  v80 = *(*v331 + 376);
-  *(v80 + 964) = v17;
-  uuid_copy((v80 + 1008), uu);
-  v81 = *v331;
-  *(*v331 + 3936) = 0;
-  *(v81 + 3949) = (a3 & 8) != 0;
-  apfs_set_formatted_by(*(v81 + 376), (a2 + 456), v328);
+  *(*(v46 + 376) + 36) = v15;
+  apfs_update_dev_name(v46);
+  v47 = *(*v130 + 376);
+  *(v47 + 964) = v14;
+  uuid_copy((v47 + 1008), uu);
+  v48 = *v130;
+  *(*v130 + 3936) = 0;
+  *(v48 + 3949) = (a3 & 8) != 0;
+  apfs_set_formatted_by(*(v48 + 376), (a2 + 456), v127);
   if (a2 && !uuid_is_null(a2))
   {
-    uuid_copy((*(*v331 + 376) + 240), a2);
-    v113 = *v331;
-    v114 = *(*v331 + 376);
-    if (!strncmp((v114 + 240), "apfsuuid", 8uLL))
+    uuid_copy((*(*v130 + 376) + 240), a2);
+    v53 = *v130;
+    v54 = *(*v130 + 376);
+    if (!strncmp((v54 + 240), "apfsuuid", 8uLL))
     {
-      *(v114 + 255) = v18;
-      v114 = *(v113 + 376);
+      *(v54 + 255) = v15;
+      v54 = *(v53 + 376);
     }
 
-    v115 = sub_10004F020(v77, (v114 + 240));
-    if (v115)
+    v55 = sub_10004F020(v44, (v54 + 240));
+    if (v55)
     {
-      is_volume_role_allowed = v115;
+      is_volume_role_allowed = v55;
       memset(out, 0, 37);
       uuid_unparse(a2, out);
-      a1 = v77;
-      v297 = *(v77 + 384) + 212;
-      log_err("%s:%d: %s UUID %s is not allowed, error %d\n", v116, v117, v118, v119, v120, v121, v122, "apfs_newfs");
+      a1 = v44;
+      log_err("%s:%d: %s UUID %s is not allowed, error %d\n");
+      goto LABEL_158;
+    }
+  }
+
+  else
+  {
+    if (v14 == 768)
+    {
+      sub_1000A710C(a1);
+    }
+
+    uuid_generate((*(*v130 + 376) + 240));
+  }
+
+  v49 = *v130;
+  v50 = *(*v130 + 376);
+  *(v50 + 176) = 16;
+  *(v50 + 960) = 3;
+  *(v50 + 966) = 0;
+  if (v110)
+  {
+    *(v50 + 40) |= 0x10uLL;
+  }
+
+  if (v111 == 1)
+  {
+    v51 = 1;
+  }
+
+  else
+  {
+    if (v111 != 2)
+    {
+      goto LABEL_133;
+    }
+
+    v51 = 8;
+  }
+
+  *(v50 + 56) |= v51;
+LABEL_133:
+  if (v121)
+  {
+    *(v50 + 56) |= 0x20uLL;
+  }
+
+  if (v112)
+  {
+    *(v50 + 56) |= 0x80uLL;
+    log_debug("%s:%d: %s allocated unwritten file extents are now supported\n", "apfs_newfs", 31997, (v49 + 4048));
+    v49 = *v130;
+    v50 = *(*v130 + 376);
+  }
+
+  *(v50 + 40) |= 2uLL;
+  is_volume_role_allowed = spaceman_fs_bounds_set(v44, v49, v114, v116, v127);
+  if (is_volume_role_allowed)
+  {
+    log_err("%s:%d: %s Could not set fs bounds for guarantee %lld and quota %lld: %d\n");
+LABEL_157:
+    a1 = v44;
+    goto LABEL_158;
+  }
+
+  if (v17)
+  {
+    crypto_cache_create(*v130);
+    v52 = meta_crypto_state_init(*v130, v127, v103, v105, *(*v130 + 376) + 96, *v130 + 536, *v130 + 632, *v130 + 920, 2 * v102);
+    if (v52)
+    {
+      is_volume_role_allowed = v52;
+      log_err("%s:%d: %s unable to create/store metadata crypto (%d)\n");
       goto LABEL_157;
     }
   }
 
   else
   {
-    if (v17 == 768)
-    {
-      sub_1000A710C(a1, v82, v83, v84, v85, v86, v87, v88);
-    }
-
-    uuid_generate((*(*v331 + 376) + 240));
+    log_debug("%s:%d: %s FS will NOT be encrypted.\n", "apfs_newfs", 32033, (*v130 + 4048));
+    v56 = *v130;
+    v57 = *(*v130 + 376);
+    *(v57 + 264) |= 1uLL;
+    meta_crypto_state_init(v56, 0, 0, 0, v57 + 96, v56 + 536, v56 + 632, v56 + 920, 0);
+    crypto_state_disable(*v130 + 536);
   }
 
-  v95 = *v331;
-  v96 = *(*v331 + 376);
-  *(v96 + 176) = 16;
-  *(v96 + 960) = 3;
-  *(v96 + 966) = 0;
-  if (v311)
+  v58 = *v130;
+  v59 = *(*v130 + 376);
+  *(v59 + 116) = 0x4000000200000002;
+  *(v59 + 124) = 1073741826;
+  *(v59 + 1104) = 2;
+  v60 = omap_create(v58, 0x40000000u, 0, v109, v127, &v129);
+  if (v60)
   {
-    *(v96 + 40) |= 0x10uLL;
-  }
-
-  if (v312 == 1)
-  {
-    v97 = 1;
-  }
-
-  else
-  {
-    if (v312 != 2)
-    {
-      goto LABEL_132;
-    }
-
-    v97 = 8;
-  }
-
-  *(v96 + 56) |= v97;
-LABEL_132:
-  if (v322)
-  {
-    *(v96 + 56) |= 0x20uLL;
-  }
-
-  if (v313)
-  {
-    *(v96 + 56) |= 0x80uLL;
-    log_debug("%s:%d: %s allocated unwritten file extents are now supported\n", v95, v89, v90, v91, v92, v93, v94, "apfs_newfs");
-    v95 = *v331;
-    v96 = *(*v331 + 376);
-  }
-
-  *(v96 + 40) |= 2uLL;
-  is_volume_role_allowed = spaceman_fs_bounds_set(v77, v95, v315, v317, v328);
-  if (is_volume_role_allowed)
-  {
-    log_err("%s:%d: %s Could not set fs bounds for guarantee %lld and quota %lld: %d\n", v98, v99, v100, v101, v102, v103, v104, "apfs_newfs");
-LABEL_156:
-    a1 = v77;
+    is_volume_role_allowed = v60;
+    log_err("%s:%d: %s fs omap initialization failed: %d\n");
     goto LABEL_157;
   }
 
-  if (v20)
+  v61 = obj_oid(v129);
+  *(*(*v130 + 376) + 128) = v61;
+  obj_release(v129);
+  v133 = xmmword_1000E4EE0;
+  v134 = unk_1000E4EF0;
+  v135 = xmmword_1000E4F00;
+  v136 = unk_1000E4F10;
+  v131 = off_1000E4EC0;
+  v132 = unk_1000E4ED0;
+  if (v121)
   {
-    crypto_cache_create(*v331);
-    v105 = meta_crypto_state_init(*v331, v328, v304, v306, *(*v331 + 376) + 96, *v331 + 536, *v331 + 632, *v331 + 920, 2 * v303);
-    if (v105)
+    is_volume_role_allowed = authapfs_integrity_meta_create(*v130, *(a2 + 488), v127, 0);
+    a1 = v44;
+    if (is_volume_role_allowed)
     {
-      is_volume_role_allowed = v105;
-      log_err("%s:%d: %s unable to create/store metadata crypto (%d)\n", v106, v107, v108, v109, v110, v111, v112, "apfs_newfs");
-      goto LABEL_156;
+      goto LABEL_158;
     }
+
+    HIDWORD(v132) = authapfs_hash_comparison_size(*(a2 + 488));
+    DWORD2(v132) = *(a2 + 488);
+    DWORD1(v132) |= 0x180u;
   }
 
-  else
+  if (*(*(*v130 + 376) + 116) != 2)
   {
-    log_debug("%s:%d: %s FS will NOT be encrypted.\n", v98, v99, v100, v101, v102, v103, v104, "apfs_newfs");
-    v123 = *v331;
-    v124 = *(*v331 + 376);
-    *(v124 + 264) |= 1uLL;
-    meta_crypto_state_init(v123, 0, 0, 0, v124 + 96, (v123 + 67), (v123 + 79), (v123 + 115), 0);
-    crypto_state_disable(*v331 + 536);
-  }
-
-  v125 = *v331;
-  v126 = *(*v331 + 376);
-  *(v126 + 116) = 0x4000000200000002;
-  *(v126 + 124) = 1073741826;
-  *(v126 + 1104) = 2;
-  v127 = omap_create(v125, 0x40000000u, 0, v310, v328, &v330);
-  if (v127)
-  {
-    is_volume_role_allowed = v127;
-    log_err("%s:%d: %s fs omap initialization failed: %d\n", v128, v129, v130, v131, v132, v133, v134, "apfs_newfs");
+    is_volume_role_allowed = 22;
     goto LABEL_156;
   }
 
-  v135 = obj_oid(v330);
-  *(*(*v331 + 376) + 128) = v135;
-  obj_release(v330);
-  v334 = xmmword_1000E4EE0;
-  v335 = unk_1000E4EF0;
-  v336 = xmmword_1000E4F00;
-  v337 = unk_1000E4F10;
-  v332 = off_1000E4EC0;
-  v333 = unk_1000E4ED0;
-  if (v322)
-  {
-    is_volume_role_allowed = authapfs_integrity_meta_create(*v331, *(a2 + 488), v328, 0, v139, v140, v141, v142);
-    a1 = v77;
-    if (is_volume_role_allowed)
-    {
-      goto LABEL_157;
-    }
-
-    HIDWORD(v333) = authapfs_hash_comparison_size(*(a2 + 488));
-    DWORD2(v333) = *(a2 + 488);
-    DWORD1(v333) |= 0x180u;
-  }
-
-  if (*(*(*v331 + 376) + 116) != 2)
-  {
-    is_volume_role_allowed = 22;
-    goto LABEL_155;
-  }
-
-  extended = btree_create_extended(*v331, *(*(*v331 + 376) + 116) & 0xFFFF0000, 0, 0, 0, &v332, v328, &v325);
+  extended = btree_create_extended(*v130, *(*(*v130 + 376) + 116) & 0xFFFF0000, 0, 0, 0, &v131, v127, &v124);
   if (extended)
   {
     is_volume_role_allowed = extended;
-LABEL_155:
-    log_err("%s:%d: %s fs root tree creation failed: %d\n", v136, v137, v138, v139, v140, v141, v142, "apfs_newfs");
-    goto LABEL_156;
+LABEL_156:
+    log_err("%s:%d: %s fs root tree creation failed: %d\n");
+    goto LABEL_157;
   }
 
-  v211 = obj_oid(v325);
-  v212 = *v331;
-  v213 = *(*v331 + 376);
-  *(v213 + 136) = v211;
-  if (HIDWORD(v309))
+  v75 = obj_oid(v124);
+  v76 = *v130;
+  v77 = *(*v130 + 376);
+  *(v77 + 136) = v75;
+  if (HIDWORD(v108))
   {
-    *(v213 + 56) |= 0x200uLL;
-    log_debug("%s:%d: %s expanded records are now supported\n", v204, v205, v206, v207, v208, v209, v210, "apfs_newfs");
-    v212 = *v331;
-    if (HIDWORD(v308))
+    *(v77 + 56) |= 0x200uLL;
+    log_debug("%s:%d: %s expanded records are now supported\n", "apfs_newfs", 32150, (v76 + 4048));
+    v76 = *v130;
+    if (HIDWORD(v107))
     {
-      *(*(*v331 + 376) + 48) |= 4uLL;
-      log_debug("%s:%d: %s clone mapping is enabled for this volume\n", v204, v205, v206, v207, v208, v209, v210, "apfs_newfs");
-      v212 = *v331;
+      *(*(*v130 + 376) + 48) |= 4uLL;
+      log_debug("%s:%d: %s clone mapping is enabled for this volume\n", "apfs_newfs", 32154, (v76 + 4048));
+      v76 = *v130;
     }
   }
 
-  if (v309)
+  if (v108)
   {
-    *(*(v212 + 376) + 48) |= 8uLL;
-    log_debug("%s:%d: %s attribution tags are supported on this volume\n", v204, v205, v206, v207, v208, v209, v210, "apfs_newfs");
-    v212 = *v331;
+    *(*(v76 + 376) + 48) |= 8uLL;
+    log_debug("%s:%d: %s attribution tags are supported on this volume\n", "apfs_newfs", 32160, (v76 + 4048));
+    v76 = *v130;
   }
 
-  v214 = *(*(v212 + 376) + 120);
-  v215 = v328;
+  v78 = *(*(v76 + 376) + 120);
   *&out[8] = 0;
   memset(&out[24], 0, 72);
   *out = apfs_key_compare;
   *&out[16] = 0x420000000FLL;
-  if (v214 != 2)
+  if (v78 != 2)
   {
     is_volume_role_allowed = 22;
-    goto LABEL_204;
+    goto LABEL_205;
   }
 
-  v216 = btree_create_extended(v212, v214 & 0xBFFF0000 | 0x40000000, 0, 0, 0, out, v328, &v327);
-  if (v216)
+  v79 = btree_create_extended(v76, v78 & 0xBFFF0000 | 0x40000000, 0, 0, 0, out, v127, &v126);
+  if (v79)
   {
-    is_volume_role_allowed = v216;
-LABEL_204:
-    log_err("%s:%d: %s fs extentref tree creation failed: %d\n", v204, v205, v206, v207, v208, v215, v210, "apfs_newfs");
-    goto LABEL_156;
+    is_volume_role_allowed = v79;
+LABEL_205:
+    log_err("%s:%d: %s fs extentref tree creation failed: %d\n");
+    goto LABEL_157;
   }
 
-  v223 = obj_oid(v327);
-  v224 = *v331;
-  v225 = *(*v331 + 376);
-  *(v225 + 144) = v223;
-  v226 = *(v225 + 124);
-  v227 = v328;
+  v80 = obj_oid(v126);
+  v81 = *v130;
+  v82 = *(*v130 + 376);
+  *(v82 + 144) = v80;
+  v83 = *(v82 + 124);
   *&out[8] = 0;
   memset(&out[24], 0, 72);
   *out = apfs_key_compare;
   *&out[16] = 0x4200000010;
-  if (v226 != 2)
+  if (v83 != 2)
   {
     is_volume_role_allowed = 22;
-    goto LABEL_209;
+    goto LABEL_210;
   }
 
-  v228 = btree_create_extended(v224, v226 & 0xBFFF0000 | 0x40000000, 0, 0, 0, out, v328, &v326);
-  if (v228)
+  v84 = btree_create_extended(v81, v83 & 0xBFFF0000 | 0x40000000, 0, 0, 0, out, v127, &v125);
+  if (v84)
   {
-    is_volume_role_allowed = v228;
-LABEL_209:
-    log_err("%s:%d: %s fs snapshot metadata tree creation failed: %d\n", v217, v218, v219, v220, v221, v227, v222, "apfs_newfs");
-    goto LABEL_156;
+    is_volume_role_allowed = v84;
+LABEL_210:
+    log_err("%s:%d: %s fs snapshot metadata tree creation failed: %d\n");
+    goto LABEL_157;
   }
 
-  v232 = obj_oid(v326);
-  v233 = *v331;
-  *(*(*v331 + 376) + 152) = v232;
-  if (v322)
+  v85 = obj_oid(v125);
+  v86 = *v130;
+  *(*(*v130 + 376) + 152) = v85;
+  if (v121)
   {
-    v234 = supplemental_tree_create(v233, v50, 5, v328, &v324, v229, v230, v231);
-    if (v234)
+    v87 = supplemental_tree_create(v86, v38, 5, v127, &v123);
+    if (v87)
     {
-      is_volume_role_allowed = v234;
-      log_err("%s:%d: %s fs fext tree creation failed: %d\n", v235, v236, v237, v238, v239, v240, v241, "apfs_newfs");
-      goto LABEL_156;
+      is_volume_role_allowed = v87;
+      log_err("%s:%d: %s fs fext tree creation failed: %d\n");
+      goto LABEL_157;
     }
 
-    v233 = *v331;
-    *(*(*v331 + 376) + 1032) = v324;
+    v86 = *v130;
+    *(*(*v130 + 376) + 1032) = v123;
   }
 
-  if ((HIDWORD(v309) & v308) == 1)
+  if ((HIDWORD(v108) & v107) == 1)
   {
     memset(&out[32], 0, 64);
     *out = off_1000E4F20;
     *&out[16] = unk_1000E4F30;
-    v242 = btree_create_extended(v233, 0, 0, 0, 0, out, v328, &v323);
-    if (v242)
+    v88 = btree_create_extended(v86, 0, 0, 0, 0, out, v127, &v122);
+    if (v88)
     {
-      is_volume_role_allowed = v242;
-      strerror(v242);
-      log_err("%s:%d: %s clonegroup tree creation failed: %s\n", v243, v244, v245, v246, v247, v248, v249, "apfs_newfs");
-      goto LABEL_156;
+      is_volume_role_allowed = v88;
+      v89 = (*v130 + 4048);
+      v90 = strerror(v88);
+      log_err("%s:%d: %s clonegroup tree creation failed: %s\n", "apfs_newfs", 32235, v89, v90);
+      goto LABEL_157;
     }
 
-    v250 = obj_oid(v323);
-    v251 = *(*v331 + 376);
-    *(v251 + 1112) = v250;
-    *(v251 + 1108) |= 1u;
-    *(v251 + 1136) = 1024;
-    *(v251 + 48) |= 4uLL;
-    log_debug("%s:%d: %s clonegroups enabled for this volume\n", v252, v253, v254, v255, v256, v257, v258, "apfs_newfs");
-    v233 = *v331;
+    v91 = obj_oid(v122);
+    v92 = *v130;
+    v93 = *(*v130 + 376);
+    *(v93 + 1112) = v91;
+    *(v93 + 1108) |= 1u;
+    *(v93 + 1136) = 1024;
+    *(v93 + 48) |= 4uLL;
+    log_debug("%s:%d: %s clonegroups enabled for this volume\n", "apfs_newfs", 32244, (v92 + 4048));
+    v86 = *v130;
   }
 
-  name_checked = fs_obj_create_name_checked(v233, 1, 0, "root", 0, 2, 0x41EDu, SHIDWORD(v307), v307, 0, -1, 0, 0, (v233 + 488), v328, 0, 0xFFFFFFFF);
+  name_checked = fs_obj_create_name_checked(v86, 1, 0, "root", 0, 2, 0x41EDu, SHIDWORD(v106), v106, 0, -1, 0, 0, (v86 + 488), v127, 0, -1);
   if (name_checked)
   {
     is_volume_role_allowed = name_checked;
-    log_err("%s:%d: %s fs root dir creation failed: %d\n", v260, v261, v262, v263, v264, v265, v266, "apfs_newfs");
-    goto LABEL_156;
+    log_err("%s:%d: %s fs root dir creation failed: %d\n");
+    goto LABEL_157;
   }
 
-  v267 = *(*v331 + 376);
   __strlcpy_chk();
-  v268 = fs_obj_create_name_checked(*v331, 1, 0, "private-dir", 0, 3, 0x41A4u, 0, 0, 0, -1, 0, 0, (*v331 + 496), v328, 0, 0xFFFFFFFF);
-  if (v268)
+  v95 = fs_obj_create_name_checked(*v130, 1, 0, "private-dir", 0, 3, 0x41A4u, 0, 0, 0, -1, 0, 0, (*v130 + 496), v127, 0, -1);
+  if (v95)
   {
-    is_volume_role_allowed = v268;
-    log_err("%s:%d: %s fs private dir creation failed: %d\n", v269, v270, v271, v272, v273, v274, v275, "apfs_newfs");
-    goto LABEL_156;
+    is_volume_role_allowed = v95;
+    log_err("%s:%d: %s fs private dir creation failed: %d\n");
+    goto LABEL_157;
   }
 
-  if (v20)
+  if (v17)
   {
-    if (v16)
+    if (v13)
     {
       return 22;
     }
 
-    new_crypto_state_for_id = create_new_crypto_state_for_id(*v331, v328, 4);
+    new_crypto_state_for_id = create_new_crypto_state_for_id(*v130, v127, 4);
     if (new_crypto_state_for_id)
     {
       is_volume_role_allowed = new_crypto_state_for_id;
-      log_err("%s:%d: %s unable to create/store data sw crypto (%d)\n", v277, v278, v279, v280, v281, v282, v283, "apfs_newfs");
-      goto LABEL_156;
+      log_err("%s:%d: %s unable to create/store data sw crypto (%d)\n");
+      goto LABEL_157;
     }
 
-    if (!v302)
+    if (!v101)
     {
       sub_1000A70E0();
     }
 
-    v284 = *v331;
-    *(*(*v331 + 376) + 264) |= 8uLL;
+    v97 = *v130;
+    *(*(*v130 + 376) + 264) |= 8uLL;
   }
 
   else
   {
-    v284 = *v331;
+    v97 = *v130;
   }
 
-  *(*(v77 + 376) + 8 * v18 + 184) = obj_oid(v284);
-  v285 = *(*v331 + 376);
-  v285[140] = v328;
-  v285[141] = (v285[7] >> 9) & 1 | 0xC;
+  *(*(v44 + 376) + 8 * v15 + 184) = obj_oid(v97);
+  v98 = *(*v130 + 376);
+  v98[140] = v127;
+  v98[141] = (v98[7] >> 9) & 1 | 0xC;
   timestamp = get_timestamp();
-  v287 = *v331;
-  *(*(*v331 + 376) + 256) = timestamp;
-  fs_sb_dirty(v287, v328);
-  obj_release(v326);
-  obj_release(v327);
-  obj_release(v325);
-  if (v323)
+  v100 = *v130;
+  *(*(*v130 + 376) + 256) = timestamp;
+  fs_sb_dirty(v100, v127);
+  obj_release(v125);
+  obj_release(v126);
+  obj_release(v124);
+  if (v122)
   {
-    obj_release(v323);
+    obj_release(v122);
   }
 
-  *(v77 + 656) += (*(*(*v331 + 376) + 48) >> 1) & 1;
-  tx_leave(v77, v328, 5);
+  *(v44 + 656) += (*(*(*v130 + 376) + 48) >> 1) & 1;
+  tx_leave(v44, v127, 5);
   is_volume_role_allowed = 0;
-  *v305 = *v331;
+  *v104 = *v130;
   return is_volume_role_allowed;
 }
 
@@ -5945,22 +6448,22 @@ uint64_t sub_10004F020(void *a1, const unsigned __int8 *a2)
   {
     for (i = 0; i < *(v2 + 180); ++i)
     {
-      v19 = 0;
+      v13 = 0;
       v6 = *(v2 + 8 * i + 184);
       if (v6)
       {
-        v7 = obj_get(a1[49], 0, v6, &apfs_desc, 0, 0, 0, 0, &v19);
+        v7 = obj_get(a1[49], 0, v6, &apfs_desc, 0, 0, 0, 0, &v13);
         if (v7)
         {
           v9 = v7;
-          v10 = a1[48] + 212;
-          strerror(v7);
-          log_err("%s:%d: %s Failed to get fsys oid %lld - %s\n", v11, v12, v13, v14, v15, v16, v17, "apfs_is_volume_uuid_allowed");
+          v10 = (a1[48] + 212);
+          v11 = strerror(v7);
+          log_err("%s:%d: %s Failed to get fsys oid %lld - %s\n", "apfs_is_volume_uuid_allowed", 31297, v10, v6, v11);
           return v9;
         }
 
-        v8 = uuid_compare(a2, (v19[47] + 240));
-        obj_release(v19);
+        v8 = uuid_compare(a2, (v13[47] + 240));
+        obj_release(v13);
         if (!v8)
         {
           return 17;
@@ -5974,33 +6477,33 @@ uint64_t sub_10004F020(void *a1, const unsigned __int8 *a2)
   return 0;
 }
 
-uint64_t apfs_free_data_blocks(void *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t apfs_free_data_blocks(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if (a1[63])
+  if (*(a1 + 504))
   {
-    v6 = a1[63];
+    v7 = *(a1 + 504);
   }
 
   else
   {
-    v6 = a1;
+    v7 = a1;
   }
 
-  v7 = spaceman_free(v6, 0, a3, a4, a2);
-  v8 = v7;
-  if (v7)
+  v8 = spaceman_free(v7, 0, a3, a4, a2);
+  v9 = v8;
+  if (v8)
   {
-    strerror(v7);
-    log_err("%s:%d: %s spaceman_free failed for LBA %llx, size %llu : %d %s\n", v9, v10, v11, v12, v13, v14, v15, "apfs_free_data_blocks");
+    v10 = strerror(v8);
+    log_err("%s:%d: %s spaceman_free failed for LBA %llx, size %llu : %d %s\n", "apfs_free_data_blocks", 32582, (v7 + 4048), a3, a4, v9, v10);
   }
 
   else
   {
-    atomic_fetch_add_explicit((v6[47] + 232), a4, memory_order_relaxed);
-    fs_sb_dirty(v6, a2);
+    atomic_fetch_add_explicit((*(v7 + 376) + 232), a4, memory_order_relaxed);
+    fs_sb_dirty(v7, a2);
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t fs_is_fully_unencrypted(uint64_t a1)
@@ -6020,75 +6523,75 @@ uint64_t fs_is_fully_unencrypted(uint64_t a1)
   return v2 & 1;
 }
 
-uint64_t sub_10004F224(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10004F224(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
   if (a2 + 1) < 7 && ((0x63u >> (a2 + 1)))
   {
     return 0;
   }
 
-  v10 = *(a1 + 504);
-  if (!v10)
+  v6 = *(a1 + 504);
+  if (!v6)
   {
-    v10 = a1;
+    v6 = a1;
   }
 
-  if ((*(*(v10 + 376) + 264) & 9) != 0)
+  if ((*(*(v6 + 376) + 264) & 9) != 0)
   {
     panic("assertion failed: %s", "fs_is_content_protected(apfs)");
   }
 
-  LODWORD(v21) = 2622471;
-  *(&v21 + 1) = a2;
-  LODWORD(v22) = -1;
-  inserted = insert_jobj(a1, 1, &v21, a3, a5, a6, a7, a8);
+  LODWORD(v10) = 2622471;
+  *(&v10 + 1) = a2;
+  LODWORD(v11) = -1;
+  inserted = insert_jobj(a1, 1, &v10, a3);
   if (!inserted)
   {
-    if (v22 == 1)
+    if (v11 == 1)
     {
 LABEL_12:
-      BYTE1(v21) = 3;
-      return remove_jobj(a1, 1, &v21, a3, v15, v16, v17, v18);
+      BYTE1(v10) = 3;
+      return remove_jobj(a1, 1, &v10, a3);
     }
 
-    if (!v22)
+    if (!v11)
     {
-      log_debug("%s:%d: %s danger - crypto id %lld had refcnt %d\n", v12, v13, v14, v15, v16, v17, v18, "icp_dec_ref");
-      LODWORD(v22) = 1;
+      log_debug("%s:%d: %s danger - crypto id %lld had refcnt %d\n", "icp_dec_ref", 34834, (a1 + 4048), *(&v10 + 1), 0);
+      LODWORD(v11) = 1;
       goto LABEL_12;
     }
 
     return 0;
   }
 
-  v19 = inserted;
-  log_debug("%s:%d: %s was NOT able to update/decrement crypto state %lld, err = %d\n", v12, v13, v14, v15, v16, v17, v18, "icp_dec_ref");
-  return v19;
+  v8 = inserted;
+  log_debug("%s:%d: %s was NOT able to update/decrement crypto state %lld, err = %d\n", "icp_dec_ref", 34828, (a1 + 4048), a2, inserted);
+  return v8;
 }
 
 uint64_t sub_10004F388(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   needs_ctx();
-  v11 = cpx_alloc(a3);
-  v12 = v11;
-  if (v11)
+  v10 = cpx_alloc(a3);
+  v11 = v10;
+  if (v10)
   {
-    cpx_set_key_len(v11, a3);
-    v13 = cpx_key(v12);
-    memcpy(v13, a2, a3);
-    cpx_set_use_offset_for_iv(v12, 1);
+    cpx_set_key_len(v10, a3);
+    v12 = cpx_key(v11);
+    memcpy(v12, a2, a3);
+    cpx_set_use_offset_for_iv(v11, 1);
     if (a5)
     {
-      cpx_set_aes_iv_key(v12, a4);
+      cpx_set_aes_iv_key();
     }
 
-    cpx_set_is_sep_wrapped_key(v12, a6 & 1);
+    cpx_set_is_sep_wrapped_key(v11, a6 & 1);
   }
 
-  return v12;
+  return v11;
 }
 
 uint64_t load_wrapping_key(uint64_t a1, int a2, char a3, uint64_t a4)
@@ -6491,12 +6994,12 @@ LABEL_15:
   return 12;
 }
 
-uint64_t sub_10004FB68(pthread_mutex_t *a1, uint64_t a2, unint64_t a3, unint64_t a4, int a5, uint64_t a6)
+uint64_t sub_10004FB68(pthread_mutex_t *a1, uint64_t a2, unsigned __int16 *a3, unsigned __int16 *a4, int a5, uint64_t a6)
 {
   v6 = a6;
   if (a4)
   {
-    v11 = *(a4 + 18) != 0;
+    v11 = a4[9] != 0;
   }
 
   else
@@ -6511,20 +7014,20 @@ uint64_t sub_10004FB68(pthread_mutex_t *a1, uint64_t a2, unint64_t a3, unint64_t
     pthread_mutex_lock(a1);
   }
 
-  v86 = 0;
-  v87 = 0;
-  v85 = 0;
-  v78 = 0u;
-  *v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v84 = 0;
-  v75 = 0;
+  v78 = 0;
+  v79 = 0;
+  v77 = 0;
+  v70 = 0u;
+  *v71 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v76 = 0;
-  v74 = 0;
-  v73 = 0;
+  v67 = 0;
+  v68 = 0;
+  v66 = 0;
+  v65 = 0;
   if (v11)
   {
     if (a3)
@@ -6534,7 +7037,7 @@ uint64_t sub_10004FB68(pthread_mutex_t *a1, uint64_t a2, unint64_t a3, unint64_t
 
     else
     {
-      v17 = *(a4 + 18);
+      v17 = a4[9];
       v14 = v17 + 24;
       if (((v17 + 24) & 0xF) != 0)
       {
@@ -6545,8 +7048,8 @@ uint64_t sub_10004FB68(pthread_mutex_t *a1, uint64_t a2, unint64_t a3, unint64_t
 
   else
   {
-    v15 = (*&a1[1].__opaque[8])(*&a1[1].__opaque[16], 3, &v75);
-    if (v15 || !v76 || !v75)
+    v15 = (*&a1[1].__opaque[8])(*&a1[1].__opaque[16], 3, &v67);
+    if (v15 || !v68 || !v67)
     {
       if (v15)
       {
@@ -6579,8 +7082,8 @@ LABEL_30:
     }
   }
 
-  v77 = 0;
-  wrapping_key = sub_1000507FC(a1, v14, &v85, &v75, &v86, &v87, &v77, &v73);
+  v69 = 0;
+  wrapping_key = sub_1000507FC(a1, v14, &v77, &v67, &v78, &v79, &v69, &v65);
   if (wrapping_key)
   {
     if (!v6)
@@ -6592,7 +7095,7 @@ LABEL_30:
   }
 
   v19 = 0;
-  if (a3 == 0 && v86 != 0)
+  if (a3 == 0 && v78 != 0)
   {
     v20 = a2;
   }
@@ -6602,17 +7105,17 @@ LABEL_30:
     v20 = 0;
   }
 
-  v74 = v20;
-  v71 = a3 == 0 && v86 != 0;
-  if (v71)
+  v66 = v20;
+  v63 = a3 == 0 && v78 != 0;
+  if (v63)
   {
-    wrapping_key = tx_enter(v86, &v74);
+    wrapping_key = tx_enter(v78, &v66);
     if (wrapping_key)
     {
       goto LABEL_49;
     }
 
-    v19 = v74;
+    v19 = v66;
   }
 
   wrapping_key = load_wrapping_key(a1, v11, v13, v19);
@@ -6621,27 +7124,27 @@ LABEL_30:
     goto LABEL_39;
   }
 
-  v24 = v87;
-  *&v78 = "APFS/container";
-  *(&v78 + 1) = v87 + 32;
-  v72 = v87 + 32;
-  v79[0] = v77 - 32;
-  v79[1] = sub_1000509E4;
-  *&v80 = sub_100052EF8;
-  v25 = v86;
-  *(&v80 + 1) = sub_10005304C;
-  *&v81 = v85;
-  if (!v71)
+  v24 = v79;
+  *&v70 = "APFS/container";
+  *(&v70 + 1) = v79 + 32;
+  v64 = v79 + 32;
+  v71[0] = v69 - 32;
+  v71[1] = sub_1000509E4;
+  *&v72 = sub_100052EF8;
+  v25 = v78;
+  *(&v72 + 1) = sub_10005304C;
+  *&v73 = v77;
+  if (!v63)
   {
     v25 = 0;
   }
 
-  *(&v81 + 1) = *&a1[1].__opaque[24];
-  *&v82 = v25;
-  *(&v82 + 1) = v74;
-  *(&v83 + 1) = &v75;
-  v84 = v87;
-  LODWORD(v83) = v73;
+  *(&v73 + 1) = *&a1[1].__opaque[24];
+  *&v74 = v25;
+  *(&v74 + 1) = v66;
+  *(&v75 + 1) = &v67;
+  v76 = v79;
+  LODWORD(v75) = v65;
   if (a4)
   {
     v26 = a4;
@@ -6652,8 +7155,8 @@ LABEL_30:
     v26 = a3;
   }
 
-  v88[0] = 0;
-  v69 = a4 && !*(a4 + 16) && *(a4 + 18) == 0;
+  v80[0] = 0;
+  v61 = a4 && !a4[8] && a4[9] == 0;
   if (v26)
   {
     v27 = 1;
@@ -6664,58 +7167,66 @@ LABEL_30:
     v27 = v12;
   }
 
-  v65 = v27;
+  v57 = v27;
   if (v27 != 1)
   {
     goto LABEL_67;
   }
 
-  if (sub_1000509E4(&v78, v88))
+  if (sub_1000509E4(&v70, v80))
   {
-    goto LABEL_150;
+    goto LABEL_151;
   }
 
-  if (v88[0])
+  if (v80[0])
   {
-    goto LABEL_74;
+    goto LABEL_75;
   }
 
-  if (!v82)
+  if (!v74)
   {
-LABEL_150:
-    if (a4 && *(a4 + 18))
+LABEL_151:
+    if (a4 && a4[9])
     {
       goto LABEL_67;
     }
 
-LABEL_74:
-    if (v88[0] != 1)
+LABEL_75:
+    if (v80[0] != 1)
     {
-LABEL_118:
+LABEL_119:
       wrapping_key = 2;
       goto LABEL_39;
     }
 
-    goto LABEL_75;
+    goto LABEL_76;
   }
 
-  if (!a4 || !*(a4 + 18))
+  if (!a4)
   {
-    log_err("%s:%d: malformed %s keybag%s\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
+    v28 = v70;
     goto LABEL_74;
   }
 
-  log_err("%s:%d: malformed %s keybag%s\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
+  v28 = v70;
+  if (!a4[9])
+  {
+LABEL_74:
+    log_err("%s:%d: malformed %s keybag%s\n", "keybag_operation", 460, v28, &byte_1000B36A6);
+    goto LABEL_75;
+  }
+
+  log_err("%s:%d: malformed %s keybag%s\n", "keybag_operation", 460, v70, " - will replace");
 LABEL_67:
-  bzero(v72, v79[0]);
+  bzero(v64, v71[0]);
   *(v24 + 4) = 0x1000000002;
-LABEL_75:
+LABEL_76:
   if (!v26)
   {
-LABEL_114:
-    if ((v65 & 1) == 0)
+LABEL_115:
+    if ((v57 & 1) == 0)
     {
-      goto LABEL_141;
+      goto LABEL_142;
     }
 
     if (!a4)
@@ -6723,218 +7234,216 @@ LABEL_114:
       if (!v12)
       {
         wrapping_key = 0;
-LABEL_144:
-        if (wrapping_key == 0 && v71)
+LABEL_145:
+        if (wrapping_key == 0 && v63)
         {
-          wrapping_key = (*&a1[1].__opaque[8])(*&a1[1].__opaque[16], 4, &v75);
+          wrapping_key = (*&a1[1].__opaque[8])(*&a1[1].__opaque[16], 4, &v67);
         }
 
         goto LABEL_39;
       }
 
-LABEL_127:
-      if (v80)
+LABEL_128:
+      if (v72)
       {
-        wrapping_key = (v80)(&v78);
+        wrapping_key = (v72)(&v70);
+        v54 = v70;
         if (!wrapping_key)
         {
-          v62 = *(v24 + 17);
-          v63 = *(v24 + 9);
-          v61 = *(v24 + 16);
-          log_debug("%s:%d: wrote %s keybag (v%d, %d keys, %d bytes)\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
-          goto LABEL_144;
+          log_debug("%s:%d: wrote %s keybag (v%d, %d keys, %d bytes)\n");
+          goto LABEL_145;
         }
       }
 
       else
       {
         wrapping_key = 45;
+        v54 = v70;
       }
 
-      v60 = *(v24 + 9);
-      log_err("%s:%d: unable to write %d-byte %s keybag (%d)\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
+      log_err("%s:%d: unable to write %d-byte %s keybag (%d)\n", "keybag_operation", 529, *(v24 + 9), v54, wrapping_key);
       goto LABEL_39;
     }
 
-LABEL_116:
+LABEL_117:
     if (!*(v24 + 17))
     {
-      goto LABEL_141;
+      goto LABEL_142;
     }
 
-    goto LABEL_127;
+    goto LABEL_128;
   }
 
-  v64 = 0;
+  v56 = 0;
   uu2 = (v24 + 48);
-  v67 = a2;
-  v68 = v12;
-  v70 = v24;
+  v59 = a2;
+  v60 = v12;
+  v62 = v24;
   while (1)
   {
-    v35 = *(v24 + 9);
-    if (v35 >= 0x11)
+    v29 = *(v24 + 9);
+    if (v29 >= 0x11)
     {
       break;
     }
 
-    v38 = 0;
+    v32 = 0;
     if (a4)
     {
-      goto LABEL_87;
+      goto LABEL_88;
     }
 
-LABEL_95:
-    if (!v38)
+LABEL_96:
+    if (!v32)
     {
-      goto LABEL_118;
+      goto LABEL_119;
     }
 
-    v49 = *(a3 + 18);
-    v50 = v49 + 24;
-    v51 = v38[9];
-    v52 = v49 - ((v49 + 24) & 0xF) + 40;
-    if ((v50 & 0xF) == 0)
+    v43 = a3[9];
+    v44 = v43 + 24;
+    v45 = v32[9];
+    v46 = v43 - ((v43 + 24) & 0xF) + 40;
+    if ((v44 & 0xF) == 0)
     {
-      v52 = v50;
+      v46 = v44;
     }
 
-    if (((v51 + 24) & 0xF) != 0)
+    if (((v45 + 24) & 0xF) != 0)
     {
-      v53 = v51 - ((v51 + 24) & 0xF) + 40;
+      v47 = v45 - ((v45 + 24) & 0xF) + 40;
     }
 
     else
     {
-      v53 = v51 + 24;
+      v47 = v45 + 24;
     }
 
-    if (v53 > v52)
+    if (v47 > v46)
     {
       wrapping_key = 40;
       goto LABEL_39;
     }
 
-    memcpy(a3, v38, v53);
-LABEL_113:
-    if (!v69)
+    memcpy(a3, v32, v47);
+LABEL_114:
+    if (!v61)
     {
-      goto LABEL_114;
+      goto LABEL_115;
     }
   }
 
-  v36 = *(v26 + 16);
-  v37 = &v72[v35];
-  v38 = uu2;
-  while (uuid_compare(v26, v38) || v36 && v38[8] != v36)
+  v30 = v26[8];
+  v31 = &v64[v29];
+  v32 = uu2;
+  while (uuid_compare(v26, v32) || v30 && v32[8] != v30)
   {
-    v39 = v38[9];
-    v40 = v39 + 24;
-    v41 = v39 - ((v39 + 24) & 0xF) + 40;
-    if ((v40 & 0xF) == 0)
+    v33 = v32[9];
+    v34 = v33 + 24;
+    v35 = v33 - ((v33 + 24) & 0xF) + 40;
+    if ((v34 & 0xF) == 0)
     {
-      v41 = v40;
+      v35 = v34;
     }
 
-    v38 = (v38 + v41);
-    if (v38 >= v37)
+    v32 = (v32 + v35);
+    if (v32 >= v31)
     {
-      v38 = 0;
+      v32 = 0;
       break;
     }
   }
 
-  v12 = v68;
-  v24 = v70;
+  v12 = v60;
+  v24 = v62;
   if (!a4)
   {
-    goto LABEL_95;
+    goto LABEL_96;
   }
 
-LABEL_87:
-  if (v38)
+LABEL_88:
+  if (v32)
   {
-    v42 = v6;
-    v43 = v38[9];
-    v44 = v43 + 24;
-    v45 = v43 - ((v43 + 24) & 0xF) + 40;
-    if ((v44 & 0xF) != 0)
+    v36 = v6;
+    v37 = v32[9];
+    v38 = v37 + 24;
+    v39 = v37 - ((v37 + 24) & 0xF) + 40;
+    if ((v38 & 0xF) != 0)
     {
-      v46 = v45;
+      v40 = v39;
     }
 
     else
     {
-      v46 = v44;
+      v40 = v38;
     }
 
-    v47 = *(a4 + 18);
-    if (*(a4 + 18))
+    v41 = a4[9];
+    if (a4[9])
     {
-      v48 = v47 + 24;
-      if (((v47 + 24) & 0xF) != 0)
+      v42 = v41 + 24;
+      if (((v41 + 24) & 0xF) != 0)
       {
-        v48 = v47 - ((v47 + 24) & 0xF) + 40;
+        v42 = v41 - ((v41 + 24) & 0xF) + 40;
       }
     }
 
     else
     {
-      v48 = 0;
+      v42 = 0;
     }
 
-    v54 = *(v24 + 9);
-    if (v48 - v46 + v54 > v79[0])
+    v48 = *(v24 + 9);
+    if (v42 - v40 + v48 > v71[0])
     {
       wrapping_key = 28;
-      LODWORD(v6) = v42;
-      a2 = v67;
+      LODWORD(v6) = v36;
+      a2 = v59;
       goto LABEL_39;
     }
 
-    if (v48 == v46)
+    if (v42 == v40)
     {
-      memcpy(v38, a4, v46);
-      v6 = v42;
-      a2 = v67;
-      v24 = v70;
+      memcpy(v32, a4, v40);
+      v6 = v36;
+      a2 = v59;
+      v24 = v62;
     }
 
     else
     {
-      memmove(v38, v38 + v46, v72 - (v38 + v46) + v54);
-      if (v48 < v46)
+      memmove(v32, v32 + v40, v64 - (v32 + v40) + v48);
+      if (v42 < v40)
       {
-        bzero(&v72[*(v70 + 9) + v48 - v46], v46 - v48);
+        bzero(&v64[*(v62 + 9) + v42 - v40], v40 - v42);
       }
 
-      if (*(a4 + 18))
+      if (a4[9])
       {
-        memcpy(&v72[*(v70 + 9) - v46], a4, v48);
-        v24 = v70;
-        *(v70 + 9) += v48 - v46;
+        memcpy(&v64[*(v62 + 9) - v40], a4, v42);
+        v24 = v62;
+        *(v62 + 9) += v42 - v40;
       }
 
       else
       {
-        v24 = v70;
-        --*(v70 + 17);
-        *(v70 + 9) -= v46;
-        v64 = 1;
+        v24 = v62;
+        --*(v62 + 17);
+        *(v62 + 9) -= v40;
+        v56 = 1;
       }
 
-      v6 = v42;
-      a2 = v67;
-      v12 = v68;
+      v6 = v36;
+      a2 = v59;
+      v12 = v60;
     }
 
-    goto LABEL_113;
+    goto LABEL_114;
   }
 
-  v55 = *(a4 + 18);
-  if (!*(a4 + 18))
+  v49 = a4[9];
+  if (!a4[9])
   {
-    if (v69)
+    if (v61)
     {
       wrapping_key = 0;
     }
@@ -6944,63 +7453,65 @@ LABEL_87:
       wrapping_key = 2;
     }
 
-    if (v69 & v64)
+    if (v61 & v56)
     {
-      goto LABEL_140;
+      goto LABEL_141;
     }
 
-    goto LABEL_144;
+    goto LABEL_145;
   }
 
-  v56 = v55 + 24;
-  v57 = v55 - ((v55 + 24) & 0xF) + 40;
-  if ((v56 & 0xF) != 0)
+  v50 = v49 + 24;
+  v51 = v49 - ((v49 + 24) & 0xF) + 40;
+  if ((v50 & 0xF) != 0)
   {
-    v58 = v57;
+    v52 = v51;
   }
 
   else
   {
-    v58 = v56;
+    v52 = v50;
   }
 
-  v59 = *(v24 + 9);
-  if (v58 + v59 > v79[0])
+  v53 = *(v24 + 9);
+  if (v52 + v53 > v71[0])
   {
     wrapping_key = 28;
     goto LABEL_39;
   }
 
-  memcpy(&v72[v59], a4, v58);
+  memcpy(&v64[v53], a4, v52);
   ++*(v24 + 17);
-  *(v24 + 9) += v58;
-LABEL_140:
-  if (v65)
+  *(v24 + 9) += v52;
+LABEL_141:
+  if (v57)
   {
-    goto LABEL_116;
+    goto LABEL_117;
   }
 
-LABEL_141:
-  if (*(&v80 + 1))
+LABEL_142:
+  if (*(&v72 + 1))
   {
-    wrapping_key = (*(&v80 + 1))(&v78);
+    wrapping_key = (*(&v72 + 1))(&v70);
+    v55 = v70;
     if (!wrapping_key)
     {
-      log_debug("%s:%d: wiped %s keybag\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
-      goto LABEL_144;
+      log_debug("%s:%d: wiped %s keybag\n");
+      goto LABEL_145;
     }
   }
 
   else
   {
     wrapping_key = 45;
+    v55 = v70;
   }
 
-  log_err("%s:%d: unable to wipe %s keybag (%d)\n", v28, v29, v30, v31, v32, v33, v34, "keybag_operation");
+  log_err("%s:%d: unable to wipe %s keybag (%d)\n", "keybag_operation", 522, v55, wrapping_key);
 LABEL_39:
-  if (v71)
+  if (v63)
   {
-    if (v74 == a2)
+    if (v66 == a2)
     {
       v21 = 0;
     }
@@ -7010,7 +7521,7 @@ LABEL_39:
       v21 = 5;
     }
 
-    v22 = tx_leave(v86, v74, v21);
+    v22 = tx_leave(v78, v66, v21);
     if (wrapping_key)
     {
       v23 = 1;
@@ -7033,7 +7544,7 @@ LABEL_39:
   }
 
 LABEL_49:
-  _apfs_free(v87, v77);
+  _apfs_free(v79, v69);
   if (v6)
   {
     goto LABEL_30;
@@ -7111,8 +7622,8 @@ LABEL_11:
 
 void apfs_keybag_init(uint64_t a1, uint64_t a2)
 {
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
   *dst = 0u;
   if (!a1)
   {
@@ -7138,58 +7649,66 @@ void apfs_keybag_init(uint64_t a1, uint64_t a2)
   }
 
   uuid_copy(dst, (v3 + 240));
-  LODWORD(v16[0]) = 1048579;
+  LODWORD(v15[0]) = 1048579;
   v7 = sub_10004FB68(v5, 0, dst, 0, 0, 1);
   if (v7 != 2)
   {
+    v13 = v7;
     if (!v7)
     {
-      *(a1 + 3768) = *(v16 + 8);
+      *(a1 + 3768) = *(v15 + 8);
       *(a1 + 3760) = container_keybag_alloc(a1, apfs_container_keybag_helper);
       return;
     }
 
-    log_err("%s:%d: failed to get apfs volume keybag, err = %d\n", v8, v9, v10, v11, v12, v13, v14, "apfs_keybag_get");
-    goto LABEL_12;
+    log_err("%s:%d: failed to get apfs volume keybag, err = %d\n", "apfs_keybag_get", 2717, v7);
+    goto LABEL_13;
   }
 
-  if (!a2 || apfs_keybag_create(a1, a2))
+  if (!a2)
   {
-LABEL_12:
+    v13 = 2;
+    goto LABEL_13;
+  }
+
+  v13 = apfs_keybag_create(a1, a2, v8, v9, v10, v11, v12);
+  if (v13)
+  {
+LABEL_13:
     *(a1 + 3760) = 0;
-    log_err("%s:%d: failed to initialize volume keybag, err = %d\n", v8, v9, v10, v11, v12, v13, v14, "apfs_keybag_init");
+    log_err("%s:%d: failed to initialize volume keybag, err = %d\n", "apfs_keybag_init", 2776, v13);
   }
 }
 
-uint64_t apfs_keybag_create(void *a1, uint64_t a2)
+uint64_t apfs_keybag_create(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v3 = a1[142];
-  if (v3)
+  v8 = a1[142];
+  if (v8)
   {
-    v4 = *(v3 + 280);
-    v5 = *(v3 + 288);
+    v9 = *(v8 + 280);
+    v10 = *(v8 + 288);
   }
 
   else
   {
-    v4 = 0;
-    v5 = 1;
+    v9 = 0;
+    v10 = 1;
   }
 
-  a1[471] = v4;
-  a1[472] = v5;
-  v6 = sub_100051308(a1, a2);
-  if (v6)
+  a1[471] = v9;
+  a1[472] = v10;
+  v11 = sub_100051308(a1, a2, a3, a4, a5, a6, a7);
+  if (v11)
   {
-    v14 = v6;
-    log_err("%s:%d: failed to add apfs unlock records range in nx keybag, err = %d\n", v7, v8, v9, v10, v11, v12, v13, "apfs_keybag_create");
+    v12 = v11;
+    log_err("%s:%d: failed to add apfs unlock records range in nx keybag, err = %d\n", "apfs_keybag_create", 3678, v11);
   }
 
   else
   {
-    v15 = container_keybag_alloc(a1, apfs_container_keybag_helper);
-    a1[470] = v15;
-    if (v15)
+    v13 = container_keybag_alloc(a1, apfs_container_keybag_helper);
+    a1[470] = v13;
+    if (v13)
     {
       return 0;
     }
@@ -7200,7 +7719,7 @@ uint64_t apfs_keybag_create(void *a1, uint64_t a2)
     }
   }
 
-  return v14;
+  return v12;
 }
 
 uint64_t apfs_keybag_iter_setup(uint64_t a1, void *a2)
@@ -7259,7 +7778,7 @@ uint64_t apfs_keybag_iter_setup(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t sub_1000507FC(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, void *a5, void *a6, size_t *a7, uint64_t a8)
+uint64_t sub_1000507FC(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t a4, void *a5, void *a6, size_t *a7, uint64_t a8)
 {
   v9 = *(a1 + 88);
   if (!v9)
@@ -7393,52 +7912,39 @@ uint64_t sub_1000509E4(uint64_t a1, char *a2)
 
   v8 = v6;
   cpx_setcpoff(*(*(a1 + 56) + 72), *v7);
-  v9 = *(a1 + 88);
-  v10 = *v9;
-  v11 = v9[1];
-  v12 = *(a1 + 56);
   data = dev_read_data(*(a1 + 48));
   if (data)
   {
-    v21 = data;
-    log_err("%s:%d: dev_read_data failed with error %d\n", v14, v15, v16, v17, v18, v19, v20, "container_kb_get");
-    return v21;
+    v10 = data;
+    log_err("%s:%d: dev_read_data failed with error %d\n", "container_kb_get", 1197, data);
+    return v10;
   }
 
-  v23 = *(*(a1 + 88) + 8);
-  v24 = dev_block_size(*(a1 + 48));
-  if (fletcher64_verify_cksum(v4, (v4 + 8), v23 * v24 - 8, 0, v25, v26))
+  v12 = *(*(a1 + 88) + 8);
+  v13 = dev_block_size(*(a1 + 48));
+  if (fletcher64_verify_cksum(v4, (v4 + 8), v12 * v13 - 8, 0, v14, v15))
   {
-    log_err("%s:%d: Checksum failure\n", v27, v28, v29, v30, v31, v32, v33, "container_kb_get");
-LABEL_26:
-    v21 = 0;
-    *a2 = 0;
-    return v21;
-  }
-
-  v34 = *(v4 + 24);
-  if (v34 != 1801812339 && v34 != 1835754873 && v34 != 1919247219)
-  {
-    v38 = *(v4 + 32);
-    v39 = **(a1 + 8);
+    log_err("%s:%d: Checksum failure\n");
 LABEL_25:
-    v40 = *(v4 + 24);
-    log_err("%s:%d: %s: version error, bag->mk_obj.o_type %u != %u and %u, or locker->kl_version %u != %u, or size %lu != keybag_version_upgrade %lu\n", v27, v28, v29, v30, v31, v32, v33, "container_kb_get");
-    goto LABEL_26;
+    v10 = 0;
+    *a2 = 0;
+    return v10;
   }
 
-  if (*(v4 + 32) != 2 && (**(a1 + 8) != 2 || v5 * v8 == 32))
+  v16 = *(v4 + 24);
+  if (v16 != 1801812339 && v16 != 1835754873 && v16 != 1919247219 || *(v4 + 32) != 2 && (**(a1 + 8) != 2 || v5 * v8 == 32))
   {
+    log_err("%s:%d: %s: version error, bag->mk_obj.o_type %u != %u and %u, or locker->kl_version %u != %u, or size %lu != keybag_version_upgrade %lu\n", "container_kb_get", 1206, "container_kb_get");
     goto LABEL_25;
   }
 
-  v35 = *(v4 + 36);
-  v36 = v35 > 0xF && v5 * v8 - 32 >= v35;
-  v37 = v36;
-  *a2 = v37;
-  if (!v36)
+  v17 = *(v4 + 36);
+  v18 = v17 > 0xF && v5 * v8 - 32 >= v17;
+  v19 = v18;
+  *a2 = v19;
+  if (!v18)
   {
-    log_err("%s:%d: %d >= %lu && %d <= %lu\n", v27, v28, v29, v30, v31, v32, v33, "container_kb_get");
+    log_err("%s:%d: %d >= %lu && %d <= %lu\n", "container_kb_get", 1211, v17, 16, v17, v5 * v8 - 32);
   }
 
   return 0;
@@ -7565,24 +8071,23 @@ uint64_t sub_100050E58(pthread_mutex_t *a1, const unsigned __int8 *a2, __int16 a
   }
 
   uuid_copy(dst, a2);
-  v17 = a3;
-  __n = 512;
+  v10 = a3;
+  LOWORD(__n[0]) = 512;
   result = sub_10004FB68(a1, 0, dst, 0, 0, 1);
   if (!result)
   {
     if (a4)
     {
-      if (*(a4 + 8) >= __n)
+      if (*(a4 + 8) >= LOWORD(__n[0]))
       {
-        memcpy(*a4, &__n_6, __n);
+        memcpy(*a4, __n + 6, LOWORD(__n[0]));
         result = 0;
-        *(a4 + 8) = __n;
+        *(a4 + 8) = LOWORD(__n[0]);
       }
 
       else
       {
-        v15 = *(a4 + 8);
-        log_err("%s:%d: output buffer too small: len %zu, must be at least %d\n", v9, __n, v10, v11, v12, v13, v14, "container_keybag_lookup_record");
+        log_err("%s:%d: output buffer too small: len %zu, must be at least %d\n", "container_keybag_lookup_record", 2622, *(a4 + 8), LOWORD(__n[0]));
         return 22;
       }
     }
@@ -7615,7 +8120,7 @@ uint64_t nx_keybag_lookup_record(uint64_t a1, unsigned __int8 *uu, __int16 a3, u
 
 uint64_t sub_100050FE4(uint64_t a1, uint64_t a2, void *a3)
 {
-  memset(v44, 0, sizeof(v44));
+  memset(v17, 0, sizeof(v17));
   bzero(dst, 0x228uLL);
   v6 = AKS_FV_service();
   if (!v6)
@@ -7630,7 +8135,7 @@ uint64_t sub_100050FE4(uint64_t a1, uint64_t a2, void *a3)
   }
 
   uuid_copy(dst, (*(a1 + 376) + 240));
-  v46 = 11;
+  v19 = 11;
   if (a3)
   {
     v8 = a3[1];
@@ -7639,143 +8144,146 @@ uint64_t sub_100050FE4(uint64_t a1, uint64_t a2, void *a3)
       __memcpy_chk();
     }
 
-    v47 = v8;
+    v20 = v8;
     v10 = sub_10004FB68(*(*(a1 + 392) + 928), a2, 0, dst, 0, 1);
-    v19 = a3;
+    v12 = a3;
     if (v10)
     {
       goto LABEL_11;
     }
 
 LABEL_16:
-    v9 = (*(v7 + 64))(v44, 5, 0, 0, 0, v19, 0);
+    v9 = (*(v7 + 64))(v17, 5, 0, 0, 0, v12, 0);
     if (v9)
     {
-      v28 = 2;
+      v14 = 2;
       do
       {
-        if (!v28)
+        if (!v14)
         {
           panic("failed to commit proposed wvek record, err = 0x%x\n", v9);
         }
 
-        log_err("%s:%d: failed to commit proposed wvek record, err = 0x%x (%d more retries)\n", v21, v22, v23, v24, v25, v26, v27, "apfs_commit_update_volume_key");
-        --v28;
-        v9 = (*(v7 + 64))(v44, 5, 0, 0, 0, v19, 0);
+        log_err("%s:%d: failed to commit proposed wvek record, err = 0x%x (%d more retries)\n", "apfs_commit_update_volume_key", 5143, v9, v14--);
+        v9 = (*(v7 + 64))(v17, 5, 0, 0, 0, v12, 0);
       }
 
       while (v9);
     }
 
     uuid_copy(dst, (*(a1 + 376) + 240));
-    v46 = 10;
-    if (*v19)
+    v19 = 10;
+    if (*v12)
     {
-      v29 = v19[1];
       __memcpy_chk();
     }
 
-    v47 = v19[1];
-    if (sub_10004FB68(*(*(a1 + 392) + 928), a2, 0, dst, 0, 1))
+    v20 = v12[1];
+    v15 = sub_10004FB68(*(*(a1 + 392) + 928), a2, 0, dst, 0, 1);
+    if (v15)
     {
-      log_err("%s:%d: failed to update wvek record in nx keybag, err = %d\n", v30, v31, v32, v33, v34, v35, v36, "apfs_commit_update_volume_key");
+      log_err("%s:%d: failed to update wvek record in nx keybag, err = %d\n", "apfs_commit_update_volume_key", 5135, v15);
       v9 = 0;
     }
 
-    else if (nx_keybag_delete(*(*(a1 + 392) + 928), a2, (*(a1 + 376) + 240), 0xBu))
+    else
     {
-      log_err("%s:%d: failed to clean-up proposed wvek record in nx keybag, err = %d\n", v37, v38, v39, v40, v41, v42, v43, "apfs_commit_update_volume_key");
+      v16 = nx_keybag_delete(*(*(a1 + 392) + 928), a2, (*(a1 + 376) + 240), 0xBu);
+      if (v16)
+      {
+        log_err("%s:%d: failed to clean-up proposed wvek record in nx keybag, err = %d\n", "apfs_commit_update_volume_key", 5154, v16);
+      }
     }
 
     goto LABEL_13;
   }
 
-  v47 = 512;
+  v20 = 512;
   v10 = sub_10004FB68(*(*(a1 + 392) + 928), 0, dst, 0, 0, 1);
   if (!v10)
   {
-    v18 = _apfs_calloc_typed(1uLL, 0x10uLL, 0x1080040FC6463CFuLL);
-    if (!v18)
+    v11 = _apfs_calloc_typed(1uLL, 0x10uLL, 0x1080040FC6463CFuLL);
+    if (!v11)
     {
       v9 = 12;
       goto LABEL_12;
     }
 
-    v19 = v18;
-    *v18 = &v48;
-    v18[1] = v47;
+    v12 = v11;
+    *v11 = &v21;
+    v11[1] = v20;
     goto LABEL_16;
   }
 
 LABEL_11:
   v9 = v10;
 LABEL_12:
-  log_err("%s:%d: failed to add proposed wvek record in nx keybag, err = %d\n", v11, v12, v13, v14, v15, v16, v17, "apfs_commit_update_volume_key");
-  v19 = a3;
+  log_err("%s:%d: failed to add proposed wvek record in nx keybag, err = %d\n", "apfs_commit_update_volume_key", 5157, v9);
+  v12 = a3;
 LABEL_13:
-  if (v19 != a3)
+  if (v12 != a3)
   {
-    _apfs_free(v19, 16);
+    _apfs_free(v12, 16);
   }
 
   return v9;
 }
 
-uint64_t sub_100051308(void *a1, uint64_t a2)
+uint64_t sub_100051308(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v15 = 0;
-  v13 = 0u;
-  v14 = 0u;
-  v12 = 0u;
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
   if (!a1)
   {
     sub_1000A7374();
   }
 
-  v3 = a1[471];
-  v4 = a1[472];
-  v5 = a1[142];
-  if (v5)
+  v8 = a1[471];
+  v9 = a1[472];
+  v10 = a1[142];
+  if (v10)
   {
-    v6 = (v5 + 4);
-    v7 = v5[32];
-    v8 = v5[1];
-    v3 -= v7 / dev_block_size(*v5);
+    v11 = (v10 + 4);
+    v12 = v10[32];
+    v13 = v10[1];
+    v8 -= v12 / dev_block_size(*v10);
   }
 
   else
   {
-    v9 = a1[47];
-    if (!v9)
+    v14 = a1[47];
+    if (!v14)
     {
       sub_1000A7348();
     }
 
-    v10 = a1[49];
-    if (!v10)
+    v15 = a1[49];
+    if (!v15)
     {
       sub_1000A731C();
     }
 
-    v8 = *(v10 + 928);
-    if (!v8)
+    v13 = *(v15 + 928);
+    if (!v13)
     {
       sub_1000A72F0();
     }
 
-    v6 = (v9 + 240);
+    v11 = (v14 + 240);
   }
 
-  uuid_copy(&v12, v6);
-  LODWORD(v13) = 1048579;
-  *(&v13 + 1) = v3;
-  *&v14 = v4;
-  return sub_10004FB68(v8, a2, 0, &v12, 0, 1);
+  uuid_copy(&v17, v11);
+  LODWORD(v18) = 1048579;
+  *(&v18 + 1) = v8;
+  *&v19 = v9;
+  return sub_10004FB68(v13, a2, 0, &v17, 0, 1);
 }
 
 uint64_t apfs_keybag_aks_remove_unlock_records(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *v49 = 0;
+  *v29 = 0;
   v6 = *(a1 + 376);
   v7 = *(v6 + 964) == 1 && uuid_is_null((v6 + 1008)) == 0;
   if (!*(a1 + 3760) || is_sw_crypto(*(a1 + 392)))
@@ -7803,12 +8311,12 @@ uint64_t apfs_keybag_aks_remove_unlock_records(uint64_t a1, uint64_t a2, uint64_
 
   v12 = v11;
   *src = 0;
-  v54 = 0;
-  v48[0] = 0;
-  v48[1] = 0;
-  v13 = apfs_keybag_iter_alloc(a1, v49);
-  v14 = *v49;
-  if (v13 || !apfs_keybag_iter_next(*v49, src, v48, a3))
+  v34 = 0;
+  v28[0] = 0;
+  v28[1] = 0;
+  v13 = apfs_keybag_iter_alloc(a1, v29);
+  v14 = *v29;
+  if (v13 || !apfs_keybag_iter_next(*v29, src, v28, a3))
   {
     v8 = 0;
     goto LABEL_32;
@@ -7818,44 +8326,50 @@ uint64_t apfs_keybag_aks_remove_unlock_records(uint64_t a1, uint64_t a2, uint64_
   do
   {
     bzero(dst, 0x228uLL);
-    memset(v47, 0, sizeof(v47));
+    memset(v27, 0, sizeof(v27));
     if (!v15)
     {
       goto LABEL_18;
     }
 
-    if ((*(v10 + 56))(v47, v48, v12))
+    v16 = (*(v10 + 56))(v27, v28, v12);
+    if (v16)
     {
-      log_err("%s:%d: failed to get unlock record's aks state, err = 0x%x\n", v16, v17, v18, v19, v20, v21, v22, "apfs_keybag_aks_remove_unlock_records");
+      log_err("%s:%d: failed to get unlock record's aks state, err = 0x%x\n", "apfs_keybag_aks_remove_unlock_records", 3740, v16);
 LABEL_18:
-      v23 = 1;
+      v17 = 1;
       goto LABEL_19;
     }
 
-    v23 = v12[20] != 1;
+    v17 = v12[20] != 1;
 LABEL_19:
     uuid_copy(dst, src);
-    v51 = a3;
-    v52 = 0;
-    v24 = sub_10004FB68(*(a1 + 3760), a2, 0, dst, 0, 0);
-    if (v24)
+    v31 = a3;
+    v32 = 0;
+    v18 = sub_10004FB68(*(a1 + 3760), a2, 0, dst, 0, 0);
+    if (v18)
     {
-      v8 = v24;
-      log_err("%s:%d: failed to delete unlock record in apfs keybag, err = %d\n", v25, v26, v27, v28, v29, v30, v31, "apfs_keybag_aks_remove_unlock_records");
+      v8 = v18;
+      log_err("%s:%d: failed to delete unlock record in apfs keybag, err = %d\n", "apfs_keybag_aks_remove_unlock_records", 3750, v18);
       goto LABEL_32;
     }
 
-    if (v23 && (*(v10 + 64))(v47, 11, 0, 0, v48, 0, 0))
+    if (v17)
     {
-      log_err("%s:%d: failed to remove unlock record's aks state, err = 0x%x\n", v32, v33, v34, v35, v36, v37, v38, "apfs_keybag_aks_remove_unlock_records");
+      v19 = (*(v10 + 64))(v27, 11, 0, 0, v28, 0, 0);
+      if (v19)
+      {
+        log_err("%s:%d: failed to remove unlock record's aks state, err = 0x%x\n", "apfs_keybag_aks_remove_unlock_records", 3757, v19);
+      }
     }
   }
 
-  while ((apfs_keybag_iter_next(v14, src, v48, a3) & 1) != 0);
-  v8 = sub_100051308(a1, a2);
-  if (v8)
+  while ((apfs_keybag_iter_next(v14, src, v28, a3) & 1) != 0);
+  v25 = sub_100051308(a1, a2, v20, v21, v22, v23, v24);
+  v8 = v25;
+  if (v25)
   {
-    log_err("%s:%d: failed to update nx keybag, err = %d\n", v39, v40, v41, v42, v43, v44, v45, "apfs_keybag_aks_remove_unlock_records");
+    log_err("%s:%d: failed to update nx keybag, err = %d\n", "apfs_keybag_aks_remove_unlock_records", 3767, v25);
   }
 
 LABEL_32:
@@ -7871,25 +8385,25 @@ LABEL_32:
 uint64_t apfs_keybag_set_create_update_record(uint64_t a1, uint64_t a2, unsigned __int8 *uu, uint64_t a4, unsigned __int8 *a5, uint64_t a6, int a7, unint64_t a8, uint64_t a9)
 {
   LODWORD(v9) = a7;
-  v279 = 0;
-  v280 = 0;
-  v277 = 0;
-  v278 = 0;
-  v275 = 0;
-  v276 = 0;
+  v109 = 0;
+  v110 = 0;
+  v107 = 0;
+  v108 = 0;
+  v105 = 0;
+  v106 = 0;
   __dst = 0;
-  v274 = 0;
-  v270 = 0;
-  v271 = 0;
-  v272 = 0;
+  v104 = 0;
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
   memset(dst, 0, sizeof(dst));
   memset(src, 0, sizeof(src));
   is_null = uuid_is_null(uu);
   v17 = uuid_is_null(a5);
-  bzero(v284, 0x228uLL);
-  v267 = 0;
-  v268 = 0;
-  v269 = 0;
+  bzero(v114, 0x228uLL);
+  v97 = 0;
+  v98 = 0;
+  v99 = 0;
   if (!a1)
   {
     sub_1000A76B8();
@@ -7900,86 +8414,84 @@ uint64_t apfs_keybag_set_create_update_record(uint64_t a1, uint64_t a2, unsigned
     sub_1000A768C();
   }
 
-  v25 = a4 != 0;
+  v18 = a4 != 0;
   if (a4 && *(a4 + 8) >= 0x201uLL)
   {
-    v259 = *(a4 + 8);
-    log_err("%s:%d: Invalid data1 key length %lu\n", v18, v19, v20, v21, v22, v23, v24, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: Invalid data1 key length %lu\n");
     return 22;
   }
 
   if (a6 && *(a6 + 8) >= 0x201uLL)
   {
-    v260 = *(a6 + 8);
-    log_err("%s:%d: Invalid data2 key length %lu\n", v18, v19, v20, v21, v22, v23, v24, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: Invalid data2 key length %lu\n");
     return 22;
   }
 
-  v265 = a2;
-  v27 = 0;
-  v28 = is_null != 0;
-  v26 = 22;
-  if ((a4 != 0) == v28 || (a6 != 0) == (v17 != 0))
+  v95 = a2;
+  v20 = 0;
+  v21 = is_null != 0;
+  v19 = 22;
+  if ((a4 != 0) == v21 || (a6 != 0) == (v17 != 0))
   {
     goto LABEL_14;
   }
 
   if ((v9 - 6) < 0xFFFFFFFB)
   {
-    v27 = 0;
-    v26 = 22;
+    v20 = 0;
+    v19 = 22;
     goto LABEL_14;
   }
 
   if (*(a1 + 1136))
   {
-    v263 = 0;
+    v93 = 0;
     goto LABEL_55;
   }
 
-  v31 = *(a1 + 392);
-  if (!v31)
+  v24 = *(a1 + 392);
+  if (!v24)
   {
     sub_1000A7660();
   }
 
-  if (!*(v31 + 928))
+  if (!*(v24 + 928))
   {
     sub_1000A7634();
   }
 
-  if (!*(v31 + 376))
+  if (!*(v24 + 376))
   {
     sub_1000A7608();
   }
 
-  v32 = *(a1 + 376);
-  if (!v32)
+  v25 = *(a1 + 376);
+  if (!v25)
   {
     sub_1000A75DC();
   }
 
-  v33 = *(v32 + 964);
+  v26 = *(v25 + 964);
   if (v9 == 2)
   {
-    if (v33 == 1)
+    if (v26 == 1)
     {
       goto LABEL_35;
     }
 
 LABEL_47:
-    if ((*(v32 + 264) & 1) == 0)
+    if ((*(v25 + 264) & 1) == 0)
     {
       goto LABEL_51;
     }
 
-    v35 = 0;
+    v28 = 0;
     goto LABEL_49;
   }
 
-  if (*(v32 + 964) > 0xFFu)
+  if (*(v25 + 964) > 0xFFu)
   {
-    if (v33 == 256 || v33 == 704 || v33 == 640)
+    if (v26 == 256 || v26 == 704 || v26 == 640)
     {
       goto LABEL_46;
     }
@@ -7987,37 +8499,37 @@ LABEL_47:
     goto LABEL_47;
   }
 
-  if (v33 > 0x20)
+  if (v26 > 0x20)
   {
     goto LABEL_47;
   }
 
-  if (((1 << v33) & 0x100010110) != 0)
+  if (((1 << v26) & 0x100010110) != 0)
   {
     goto LABEL_46;
   }
 
-  if (v33 != 1)
+  if (v26 != 1)
   {
     goto LABEL_47;
   }
 
 LABEL_35:
-  v34 = *(a1 + 3936);
-  v35 = v34 != 0;
-  if (*(v32 + 264))
+  v27 = *(a1 + 3936);
+  v28 = v27 != 0;
+  if (*(v25 + 264))
   {
 LABEL_49:
-    if (!*(v32 + 976) || v35)
+    if (!*(v25 + 976) || v28)
     {
       goto LABEL_53;
     }
 
 LABEL_51:
-    v36 = is_sw_crypto(v31);
-    v37 = 0;
-    v35 = 0;
-    if (!a4 || v36)
+    v29 = is_sw_crypto(v24);
+    v30 = 0;
+    v28 = 0;
+    if (!a4 || v29)
     {
       goto LABEL_54;
     }
@@ -8025,43 +8537,43 @@ LABEL_51:
     goto LABEL_53;
   }
 
-  if (!v34)
+  if (!v27)
   {
     goto LABEL_51;
   }
 
-  v35 = 1;
+  v28 = 1;
 LABEL_53:
-  v37 = v265;
+  v30 = v95;
 LABEL_54:
-  v263 = v35;
-  apfs_keybag_init(a1, v37);
+  v93 = v28;
+  apfs_keybag_init(a1, v30);
 LABEL_55:
-  v264 = *(a1 + 3760);
-  if (!v264)
+  v94 = *(a1 + 3760);
+  if (!v94)
   {
     if (*(a1 + 1136))
     {
-      v27 = 0;
-      v26 = 92;
+      v20 = 0;
+      v19 = 92;
       goto LABEL_14;
     }
 
-    v45 = is_sw_crypto(*(a1 + 392));
-    v27 = 0;
-    v26 = 92;
-    if (a4 || v45)
+    v38 = is_sw_crypto(*(a1 + 392));
+    v20 = 0;
+    v19 = 92;
+    if (a4 || v38)
     {
       goto LABEL_14;
     }
   }
 
-  v38 = v9 & 6;
-  v39 = 64;
-  if (v38 == 2 && (a8 & 2) != 0)
+  v31 = v9 & 6;
+  v32 = 64;
+  if (v31 == 2 && (a8 & 2) != 0)
   {
-    v268 = 4;
-    v39 = 68;
+    v98 = 4;
+    v32 = 68;
   }
 
   if (v9 > 2)
@@ -8070,173 +8582,174 @@ LABEL_55:
     {
       if (v9 == 4)
       {
-        v262 = 4;
-        v40 = *(a4 + 8);
-        v277 = *a4;
-        v278 = v40;
+        v92 = 4;
+        v33 = *(a4 + 8);
+        v107 = *a4;
+        v108 = v33;
         uuid_copy(dst, uu);
         LOBYTE(v9) = 0;
-        v41 = 0;
-        v27 = 0;
-        v26 = 13;
+        v34 = 0;
+        v20 = 0;
+        v19 = 13;
       }
 
       else
       {
-        v63 = apfs_keybag_lookup_record(a1, a5, 3, 0);
-        v26 = v63;
-        if (v63)
+        v44 = apfs_keybag_lookup_record(a1, a5, 3, 0);
+        v19 = v44;
+        if (v44)
         {
-          if (v63 == 2)
+          if (v44 == 2)
           {
-            v26 = 2;
-            log_err("%s:%d: Cannot add a hint, there is no wkek associated to it, err = %d\n", v64, v65, v66, v67, v68, v69, v70, "apfs_keybag_set_create_update_record");
+            v19 = 2;
+            log_err("%s:%d: Cannot add a hint, there is no wkek associated to it, err = %d\n");
           }
 
           else
           {
             memset(out, 0, 37);
             uuid_unparse(a5, out);
-            log_err("%s:%d: failed to lookup existing wkek for uuid = %s, err = %d\n", v81, v82, v83, v84, v85, v86, v87, "apfs_keybag_set_create_update_record");
+            log_err("%s:%d: failed to lookup existing wkek for uuid = %s, err = %d\n");
           }
 
-          v27 = 0;
+          v20 = 0;
           goto LABEL_14;
         }
 
-        v262 = v9 & 6;
-        v80 = *(a6 + 8);
-        v277 = *a6;
-        v278 = v80;
+        v92 = v9 & 6;
+        v47 = *(a6 + 8);
+        v107 = *a6;
+        v108 = v47;
         uuid_copy(dst, a5);
         LOBYTE(v9) = 0;
-        v41 = 0;
-        v27 = 0;
+        v34 = 0;
+        v20 = 0;
       }
 
       goto LABEL_96;
     }
 
     out[0] = 0uLL;
-    v46 = AKS_FV_service();
-    if (v46)
+    v39 = AKS_FV_service();
+    if (v39)
     {
-      v47 = v46;
-      v48 = *(v46 + 32);
-      if (v48)
+      v40 = v39;
+      v41 = *(v39 + 32);
+      if (v41)
       {
-        if (*(v46 + 24))
+        if (*(v39 + 24))
         {
-          if (!v48(&v267, 2, &v280) && v280)
+          v42 = v41(&v97, 2, &v110);
+          if (!v42 && v110)
           {
-            v277 = _apfs_calloc_typed(1uLL, v280, 0xF9C2921EuLL);
-            if (v277 && (v278 = v280, (*&out[0] = _apfs_calloc_typed(1uLL, v280, 0xD7FEA3DAuLL)) != 0))
+            v107 = _apfs_calloc_typed(1uLL, v110, 0xF9C2921EuLL);
+            if (v107 && (v108 = v110, (*&out[0] = _apfs_calloc_typed(1uLL, v110, 0xD7FEA3DAuLL)) != 0))
             {
-              *(&out[0] + 1) = v280;
-              v55 = apfs_keybag_lookup_record(a1, uu, 3, out);
-              if (v55)
+              *(&out[0] + 1) = v110;
+              v43 = apfs_keybag_lookup_record(a1, uu, 3, out);
+              if (v43)
               {
-                v26 = v55;
-                _apfs_free(*&out[0], v280);
-                log_err("%s:%d: failed to lookup rec to re-wrap, err = %d\n", v56, v57, v58, v59, v60, v61, v62, "apfs_keybag_set_create_update_record");
+                v19 = v43;
+                _apfs_free(*&out[0], v110);
+                log_err("%s:%d: failed to lookup rec to re-wrap, err = %d\n", "apfs_keybag_set_create_update_record", 4457, v19);
               }
 
               else
               {
-                v9 = (*(v47 + 24))(&v267, a4, out, a5, a6, &v277);
-                _apfs_free(*&out[0], v280);
+                v9 = (*(v40 + 24))(&v97, a4, out, a5, a6, &v107);
+                _apfs_free(*&out[0], v110);
                 if (!v9)
                 {
-                  v262 = v38;
+                  v92 = v31;
                   uuid_copy(dst, a5);
-                  v41 = 0;
-                  v27 = 0;
-                  v26 = 0;
+                  v34 = 0;
+                  v20 = 0;
+                  v19 = 0;
 LABEL_96:
-                  v25 = 1;
+                  v18 = 1;
 LABEL_101:
-                  v88 = 1;
+                  v48 = 1;
                   goto LABEL_102;
                 }
 
-                log_err("%s:%d: failed to re-wrap, err = 0x%x\n", v157, v158, v159, v160, v161, v162, v163, "apfs_keybag_set_create_update_record");
-                v26 = akserror_to_errno(v9);
+                log_err("%s:%d: failed to re-wrap, err = 0x%x\n", "apfs_keybag_set_create_update_record", 4464, v9);
+                v19 = akserror_to_errno(v9);
               }
             }
 
             else
             {
-              v26 = 12;
+              v19 = 12;
             }
 
             goto LABEL_159;
           }
 
-          log_err("%s:%d: %s failed to get wkek len from AKS (%ld): %d\n", v280, v49, v50, v51, v52, v53, v54, "apfs_keybag_set_create_update_record");
+          log_err("%s:%d: %s failed to get wkek len from AKS (%ld): %d\n", "apfs_keybag_set_create_update_record", 4436, (a1 + 4048), v110, v42);
         }
       }
     }
 
-    v26 = 6;
+    v19 = 6;
 LABEL_159:
-    v27 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
-  v262 = v9 & 6;
+  v92 = v9 & 6;
   if (v9 == 1)
   {
     if (a4)
     {
-      v42 = *(a4 + 8);
-      v277 = *a4;
-      v278 = v42;
+      v35 = *(a4 + 8);
+      v107 = *a4;
+      v108 = v35;
       uuid_copy(dst, uu);
     }
 
     if (a6)
     {
-      v43 = *(a6 + 8);
-      v275 = *a6;
-      v276 = v43;
+      v36 = *(a6 + 8);
+      v105 = *a6;
+      v106 = v36;
       uuid_copy(src, a5);
-      v44 = *(a1 + 1136);
+      v37 = *(a1 + 1136);
       LOBYTE(v9) = 0;
-      v27 = 0;
-      if (v44)
+      v20 = 0;
+      if (v37)
       {
-        v41 = *(v44 + 8);
+        v34 = *(v37 + 8);
       }
 
       else
       {
-        v41 = *(*(a1 + 392) + 928);
+        v34 = *(*(a1 + 392) + 928);
       }
     }
 
     else
     {
       LOBYTE(v9) = 0;
-      v41 = 0;
-      v27 = 0;
+      v34 = 0;
+      v20 = 0;
     }
 
-    v26 = 13;
+    v19 = 13;
     goto LABEL_101;
   }
 
-  v71 = AKS_FV_service();
-  v72 = uuid_is_null(a5);
-  v27 = 0;
-  v26 = 22;
-  if (a6 || !v72)
+  v45 = AKS_FV_service();
+  v46 = uuid_is_null(a5);
+  v20 = 0;
+  v19 = 22;
+  if (a6 || !v46)
   {
     goto LABEL_14;
   }
 
   if ((a8 & 8) != 0)
   {
-    v268 = v39;
+    v98 = v32;
   }
 
   if (is_sw_crypto(*(a1 + 392)))
@@ -8246,7 +8759,7 @@ LABEL_159:
       if (!(a4 | *(a1 + 3936)))
       {
 LABEL_93:
-        log_err("%s:%d: can not create kek and vek without a secret\n", v73, v74, v75, v76, v77, v78, v79, "apfs_keybag_set_create_update_record");
+        log_err("%s:%d: can not create kek and vek without a secret\n");
         return 22;
       }
     }
@@ -8257,515 +8770,514 @@ LABEL_93:
     }
   }
 
-  if (!v71)
+  if (!v45)
   {
     goto LABEL_178;
   }
 
-  v121 = v71[4];
-  if (!v121 || !v71[2] || !*v71)
+  v65 = v45[4];
+  if (!v65 || !v45[2] || !*v45)
   {
     goto LABEL_178;
   }
 
-  if (v121(&v267, 2, &v280) || !v280)
+  if (v65(&v97, 2, &v110) || !v110)
   {
-    log_err("%s:%d: failed to get wkek len from AKS (%ld): %d\n", v122, v123, v124, v125, v126, v127, v128, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: failed to get wkek len from AKS (%ld): %d\n");
 LABEL_178:
-    v27 = 0;
-    v26 = 6;
+    v20 = 0;
+    v19 = 6;
     goto LABEL_14;
   }
 
-  if ((v71[4])(&v267, 1, &v279) || !v279)
+  if ((v45[4])(&v97, 1, &v109) || !v109)
   {
-    log_err("%s:%d: failed to get wvek len from AKS (%ld): %d\n", v129, v130, v131, v132, v133, v134, v135, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: failed to get wvek len from AKS (%ld): %d\n");
     goto LABEL_178;
   }
 
-  v136 = v71;
+  v66 = v45;
   if (is_sw_crypto(*(a1 + 392)))
   {
-    if (!a4 && v263)
+    if (!a4 && v93)
     {
       goto LABEL_146;
     }
 
-    goto LABEL_181;
-  }
-
-  if (a4)
-  {
 LABEL_181:
-    v164 = *(a1 + 376);
-    v165 = *(v164 + 964);
-    if (v165 > 0xFF)
+    v73 = *(a1 + 376);
+    v74 = *(v73 + 964);
+    if (v74 > 0xFF)
     {
-      if (*(v164 + 964) > 0x2BFu)
+      if (*(v73 + 964) > 0x2BFu)
       {
-        if (v165 != 768 && v165 != 704)
+        if (v74 != 768 && v74 != 704)
         {
           goto LABEL_202;
         }
       }
 
-      else if (v165 != 256 && v165 != 640)
+      else if (v74 != 256 && v74 != 640)
       {
         goto LABEL_202;
       }
     }
 
-    else if (v165 > 0x20 || ((1 << v165) & 0x100010110) == 0)
+    else if (v74 > 0x20 || ((1 << v74) & 0x100010110) == 0)
     {
 LABEL_202:
-      if (!uuid_compare(uu, (v164 + 240)))
+      if (!uuid_compare(uu, (v73 + 240)))
       {
-        v192 = *(*(a1 + 376) + 964);
-        v26 = 22;
-        if (v192 == 1 || v192 == 64)
+        v80 = *(*(a1 + 376) + 964);
+        v19 = 22;
+        if (v80 == 1 || v80 == 64)
         {
-          return v26;
+          return v19;
         }
       }
 
       if ((a8 & 8) != 0)
       {
-        v280 = 0;
+        v110 = 0;
       }
 
       else
       {
-        v277 = _apfs_calloc_typed(1uLL, v280, 0x1DC934A5uLL);
-        if (!v277)
+        v107 = _apfs_calloc_typed(1uLL, v110, 0x1DC934A5uLL);
+        if (!v107)
         {
           goto LABEL_230;
         }
 
-        v278 = v280;
+        v108 = v110;
       }
 
-      v137 = 1;
+      v67 = 1;
       goto LABEL_147;
     }
 
-    v261 = *(v164 + 964);
 LABEL_46:
-    log_err("%s:%d: %s invalid operation (%d) on volume role (0x%x)\n", v18, v19, v20, v21, v22, v23, v24, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: %s invalid operation (%d) on volume role (0x%x)\n");
     return 22;
   }
 
+  if (a4)
+  {
+    goto LABEL_181;
+  }
+
 LABEL_146:
-  v137 = 0;
+  v67 = 0;
 LABEL_147:
-  v275 = _apfs_calloc_typed(1uLL, v279, 0x869AEDEDuLL);
-  if (!v275)
+  v105 = _apfs_calloc_typed(1uLL, v109, 0x869AEDEDuLL);
+  if (!v105)
   {
     goto LABEL_230;
   }
 
-  v276 = v279;
+  v106 = v109;
   if (is_sw_crypto(*(a1 + 392)))
   {
     goto LABEL_149;
   }
 
-  __dst = _apfs_calloc_typed(1uLL, v279, 0x7C6165AAuLL);
+  __dst = _apfs_calloc_typed(1uLL, v109, 0x7C6165AAuLL);
   if (!__dst)
   {
 LABEL_230:
-    v26 = 12;
+    v19 = 12;
 LABEL_231:
-    v27 = 64;
+    v20 = 64;
     goto LABEL_14;
   }
 
-  v274 = v279;
-  v166 = nx_keybag_lookup_record(*(a1 + 392), (*(a1 + 376) + 240), 2, &__dst);
-  if (!v166)
+  v104 = v109;
+  v75 = nx_keybag_lookup_record(*(a1 + 392), (*(a1 + 376) + 240), 2, &__dst);
+  if (!v75)
   {
     if (!nx_keybag_lookup_record(*(a1 + 392), (*(a1 + 376) + 240), 5, &__dst))
     {
-      v209 = sub_100050FE4(a1, v265, 0);
-      if (v209)
+      v83 = sub_100050FE4(a1, v95, 0);
+      if (v83)
       {
-        v26 = v209;
-        log_err("%s:%d: failed to fix-up and replace stale-invalid wvek with committed-proposed wvek, err = %d\n", v210, v211, v212, v213, v214, v215, v216, "apfs_keybag_set_create_update_record");
+        v19 = v83;
+        log_err("%s:%d: failed to fix-up and replace stale-invalid wvek with committed-proposed wvek, err = %d\n");
         goto LABEL_266;
       }
     }
 
-    if ((v137 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
       sub_1000A73A0();
     }
 
-    v174 = 0;
+    v76 = 0;
     goto LABEL_213;
   }
 
-  v26 = v166;
-  if (v166 != 2)
+  v19 = v75;
+  if (v75 != 2)
   {
     memset(out, 0, 37);
     uuid_unparse((*(a1 + 376) + 240), out);
-    log_err("%s:%d: failed to lookup existing wvek for uuid = %s, err = %d\n", v167, v168, v169, v170, v171, v172, v173, "apfs_keybag_set_create_update_record");
+    log_err("%s:%d: failed to lookup existing wvek for uuid = %s, err = %d\n");
     goto LABEL_266;
   }
 
 LABEL_149:
-  v27 = 64;
-  v270 = _apfs_calloc_typed(1uLL, 0x40uLL, 0x1136D688uLL);
-  if (!v270)
+  v20 = 64;
+  v100 = _apfs_calloc_typed(1uLL, 0x40uLL, 0x1136D688uLL);
+  if (!v100)
   {
-    v26 = 12;
+    v19 = 12;
     goto LABEL_14;
   }
 
-  v271 = 64;
-  if (!v263)
+  v101 = 64;
+  if (!v93)
   {
-    if (!v137)
+    if (!v67)
     {
       if (is_sw_crypto(*(a1 + 392)))
       {
         sub_1000A73CC();
       }
 
-      v175 = (*v136)(&v267, 0, 0, *(a1 + 376) + 240, &v275, &v270);
-      if (!v175)
+      v77 = (*v66)(&v97, 0, 0, *(a1 + 376) + 240, &v105, &v100);
+      if (!v77)
       {
 LABEL_236:
         if (!is_sw_crypto(*(a1 + 392)))
         {
-          v201 = (v136[8])(&v267, 5, 0, 0, 0, &v275, 0);
-          if (v201)
+          v82 = (v66[8])(&v97, 5, 0, 0, 0, &v105, 0);
+          if (v82)
           {
-            v183 = v201;
-            log_err("%s:%d: failed to commit new sys bound vek, err = 0x%x\n", v202, v203, v204, v205, v206, v207, v208, "apfs_keybag_set_create_update_record");
+            v78 = v82;
+            log_err("%s:%d: failed to commit new sys bound vek, err = 0x%x\n");
             goto LABEL_252;
           }
         }
 
-        v25 = 0;
+        v18 = 0;
         goto LABEL_262;
       }
 
-      v183 = v175;
+      v78 = v77;
 LABEL_251:
-      log_err("%s:%d: failed to generate new vek, err = 0x%x\n", v176, v177, v178, v179, v180, v181, v182, "apfs_keybag_set_create_update_record");
+      log_err("%s:%d: failed to generate new vek, err = 0x%x\n");
       goto LABEL_252;
     }
 
-    v174 = 1;
+    v76 = 1;
 LABEL_213:
     if ((a8 & 8) != 0)
     {
-      v277 = uu;
-      v278 = 16;
+      v107 = uu;
+      v108 = 16;
     }
 
     else
     {
-      v184 = sub_100052974(a1, a9, uu, &v277);
-      if (v184)
+      v79 = sub_100052974(a1, a9, uu, &v107);
+      if (v79)
       {
-        v26 = v184;
-        if (v184 != 2)
+        v19 = v79;
+        if (v79 != 2)
         {
           memset(out, 0, 37);
           uuid_unparse(uu, out);
-          log_err("%s:%d: failed to lookup existing wkek for uuid = %s, err = %d\n", v217, v218, v219, v220, v221, v222, v223, "apfs_keybag_set_create_update_record");
+          log_err("%s:%d: failed to lookup existing wkek for uuid = %s, err = %d\n");
           goto LABEL_266;
         }
 
         if (uuid_compare(uu, (*(a1 + 376) + 240)))
         {
-          v26 = 2;
-          log_err("%s:%d: failed to find existing wkek, err = %d\n", v185, v186, v187, v188, v189, v190, v191, "apfs_keybag_set_create_update_record");
+          v19 = 2;
+          log_err("%s:%d: failed to find existing wkek, err = %d\n");
           goto LABEL_266;
         }
 
-        v224 = is_sw_crypto(*(a1 + 392)) ? 2 : 0;
-        v225 = (v136[2])(&v267, v224, a4, uu, &v277);
-        if (v225)
+        v84 = is_sw_crypto(*(a1 + 392)) ? 2 : 0;
+        v85 = (v66[2])(&v97, v84, a4, uu, &v107);
+        if (v85)
         {
-          v183 = v225;
-          log_err("%s:%d: failed to generate new kek, err = 0x%x\n", v226, v227, v228, v229, v230, v231, v232, "apfs_keybag_set_create_update_record");
+          v78 = v85;
+          log_err("%s:%d: failed to generate new kek, err = 0x%x\n");
           goto LABEL_252;
         }
       }
     }
 
-    if (v174)
+    if (!v76)
     {
-      v233 = (*v136)(&v267, a4, &v277, *(a1 + 376) + 240, &v275, &v270);
-      if (!v233)
+      if (is_sw_crypto(*(a1 + 392)))
       {
-        if (!is_sw_crypto(*(a1 + 392)))
+        sub_1000A73F8();
+      }
+
+      v113 = 0;
+      memset(out, 0, sizeof(out));
+      if ((v66[7])(&v97, &__dst, out))
+      {
+        return 1;
+      }
+
+      if ((BYTE4(out[2]) & 8) == 0)
+      {
+        return 13;
+      }
+
+      if ((BYTE4(out[2]) & 4) == 0)
+      {
+        v90 = (v66[8])(&v97, 3, 0, a4, &v107, &__dst, &v105);
+        if (v90)
         {
-          v234 = (v136[8])(&v267, 5, 0, 0, 0, &v275, 0);
-          if (v234)
-          {
-            v183 = v234;
-            log_err("%s:%d: failed to commit new kek bound vek, err = 0x%x\n", v235, v236, v237, v238, v239, v240, v241, "apfs_keybag_set_create_update_record");
-            goto LABEL_252;
-          }
+          v78 = v90;
+          log_err("%s:%d: can not bind kek to vek, err = 0x%x\n");
+          goto LABEL_252;
         }
 
-        uuid_copy(dst, uu);
-        v25 = 1;
-LABEL_262:
-        nx_dev = apfs_get_nx_dev(a1);
-        *(a1 + 536) = 0u;
-        *(a1 + 552) = 0u;
-        *(a1 + 568) = 0u;
-        *(a1 + 584) = 0u;
-        *(a1 + 600) = 0u;
-        *(a1 + 616) = 0u;
-        v243 = sub_10004F388(nx_dev, v270, v271, 0, 0, v272);
-        *(a1 + 608) = v243;
-        if (!v243)
-        {
-          v26 = 12;
-          log_err("%s:%d: failed to store vek into crypto state, err = %d\n", v244, v245, v246, v247, v248, v249, v250, "apfs_keybag_set_create_update_record");
-          goto LABEL_266;
-        }
+        memcpy(__dst, v105, v106);
+        v104 = v106;
+      }
 
-        if (is_sw_crypto(*(a1 + 392)))
-        {
-          v88 = 1;
-          cpx_set_is_composite_key(*(a1 + 608), 1);
-        }
+      v91 = (v66[8])(&v97, 2, 0, a4, &v107, &__dst, &v105);
+      if (v91)
+      {
+        v78 = v91;
+        log_err("%s:%d: can not bind kek to vek, err = 0x%x\n", "apfs_keybag_set_create_update_record", 4364, v91);
+        goto LABEL_252;
+      }
 
-        else
-        {
-          if ((cpx_is_sep_wrapped_key() & 1) == 0)
-          {
-            panic("HW CRYPTO: [create]: CP_RAW_KEY_WRAPPEDKEY is NOT set");
-          }
-
-          v88 = 1;
-        }
-
+      uuid_copy(dst, uu);
+      v48 = 0;
+      v18 = 1;
 LABEL_270:
-        v9 = (a8 >> 3) & 1;
-        uuid_copy(src, (*(a1 + 376) + 240));
-        v26 = 0;
-        v41 = *(*(a1 + 392) + 928);
-        v27 = 64;
+      v9 = (a8 >> 3) & 1;
+      uuid_copy(src, (*(a1 + 376) + 240));
+      v19 = 0;
+      v34 = *(*(a1 + 392) + 928);
+      v20 = 64;
 LABEL_102:
-        v89 = v264;
-        v90 = !v25;
-        v91 = v9 | !v25;
-        if (v91)
+      v49 = v94;
+      v50 = !v18;
+      v51 = v9 | !v18;
+      if (v51)
+      {
+        if (!v34)
         {
-          if (!v41)
+          goto LABEL_129;
+        }
+
+        goto LABEL_104;
+      }
+
+      out[0] = 0uLL;
+      memset(uua, 0, sizeof(uua));
+      if (!v94)
+      {
+        sub_1000A7558();
+      }
+
+      if (!v107)
+      {
+        sub_1000A752C();
+      }
+
+      if (!v108)
+      {
+        sub_1000A7500();
+      }
+
+      pthread_mutex_lock(v94);
+      uuid_copy(v114, dst);
+      if (v92 == 4)
+      {
+        v55 = 4;
+      }
+
+      else
+      {
+        v55 = 3;
+      }
+
+      v115 = v55;
+      v56 = v108;
+      if (v107)
+      {
+        __memcpy_chk();
+      }
+
+      v116 = v56;
+      v57 = sub_10004FB68(v94, v95, 0, v114, 0, 0);
+      if (v57)
+      {
+        v19 = v57;
+        log_err("%s:%d: failed to add/update unlock record in apfs keybag, err = %d\n");
+      }
+
+      else
+      {
+        v63 = sub_100051308(a1, v95, v58, v59, v60, v61, v62);
+        if (!v63)
+        {
+          uuid_parse("64C0C6EB-0000-11AA-AA11-00306543ECAC", out);
+          uuid_parse("C064EBC6-0000-11AA-AA11-00306543ECAC", uua);
+          v64 = !uuid_compare(dst, out) || !uuid_compare(dst, uua);
+          if (!*(a1 + 1136))
           {
-            goto LABEL_129;
-          }
-
-          goto LABEL_104;
-        }
-
-        out[0] = 0uLL;
-        memset(uua, 0, sizeof(uua));
-        if (!v264)
-        {
-          sub_1000A7558();
-        }
-
-        if (!v277)
-        {
-          sub_1000A752C();
-        }
-
-        if (!v278)
-        {
-          sub_1000A7500();
-        }
-
-        pthread_mutex_lock(v264);
-        uuid_copy(v284, dst);
-        if (v262 == 4)
-        {
-          v102 = 4;
-        }
-
-        else
-        {
-          v102 = 3;
-        }
-
-        v285 = v102;
-        v103 = v278;
-        if (v277)
-        {
-          __memcpy_chk();
-        }
-
-        v286 = v103;
-        v104 = sub_10004FB68(v264, v265, 0, v284, 0, 0);
-        if (v104)
-        {
-          v26 = v104;
-          log_err("%s:%d: failed to add/update unlock record in apfs keybag, err = %d\n", v105, v106, v107, v108, v109, v110, v111, "apfs_keybag_set_create_update_record");
-        }
-
-        else
-        {
-          v112 = sub_100051308(a1, v265);
-          if (!v112)
-          {
-            uuid_parse("64C0C6EB-0000-11AA-AA11-00306543ECAC", out);
-            uuid_parse("C064EBC6-0000-11AA-AA11-00306543ECAC", uua);
-            v120 = !uuid_compare(dst, out) || !uuid_compare(dst, uua);
-            if (!*(a1 + 1136))
+            v69 = is_sw_crypto(*(a1 + 392));
+            if (v92 != 4 && !v64 && !v69)
             {
-              v146 = is_sw_crypto(*(a1 + 392));
-              if (v262 != 4 && !v120 && !v146)
+              v70 = AKS_FV_service();
+              v71 = (*(v70 + 64))(&v97, 22, 0, 0, &v107, 0, 0);
+              if (v71)
               {
-                v147 = AKS_FV_service();
-                v148 = (*(v147 + 64))(&v267, 22, 0, 0, &v277, 0, 0);
-                if (v148)
+                v72 = 2;
+                do
                 {
-                  v156 = 2;
-                  do
+                  if (!v72)
                   {
-                    if (!v156)
-                    {
-                      panic("failed to commit updated wkek record, err = 0x%x\n", v148);
-                    }
-
-                    log_err("%s:%d: failed to commit updated wkek record, err = 0x%x (%d more retries)\n", v149, v150, v151, v152, v153, v154, v155, "apfs_keybag_set_create_update_record");
-                    --v156;
-                    v148 = (*(v147 + 64))(&v267, 22, 0, 0, &v277, 0, 0);
+                    panic("failed to commit updated wkek record, err = 0x%x\n", v71);
                   }
 
-                  while (v148);
+                  log_err("%s:%d: failed to commit updated wkek record, err = 0x%x (%d more retries)\n", "apfs_keybag_set_create_update_record", 4527, v71, v72--);
+                  v71 = (*(v70 + 64))(&v97, 22, 0, 0, &v107, 0, 0);
                 }
+
+                while (v71);
               }
             }
-
-            v26 = 0;
-            v89 = v264;
-            if (!v41)
-            {
-LABEL_129:
-              if (v91)
-              {
-                goto LABEL_14;
-              }
-
-              goto LABEL_130;
-            }
-
-LABEL_104:
-            if (!v275)
-            {
-              sub_1000A75B0();
-            }
-
-            if (!v276)
-            {
-              sub_1000A7584();
-            }
-
-            if (*(a1 + 1136))
-            {
-              v92 = 1;
-            }
-
-            else
-            {
-              v92 = v88;
-            }
-
-            if (((v92 | v90) & 1) != 0 || is_sw_crypto(*(a1 + 392)))
-            {
-              uuid_copy(v284, src);
-              v285 = 2;
-              v93 = v276;
-              if (v275)
-              {
-                __memcpy_chk();
-              }
-
-              v286 = v93;
-              v94 = sub_10004FB68(v41, v265, 0, v284, 0, 1);
-            }
-
-            else
-            {
-              v94 = sub_100050FE4(a1, v265, &v275);
-            }
-
-            v26 = v94;
-            if (v94)
-            {
-              log_err("%s:%d: failed to add/update wvek record in nx keybag, err = %d\n", v95, v96, v97, v98, v99, v100, v101, "apfs_keybag_set_create_update_record");
-            }
-
-            goto LABEL_129;
           }
 
-          v26 = v112;
-          log_err("%s:%d: failed to apfs update unlock records range in nx keybag, err = %d\n", v113, v114, v115, v116, v117, v118, v119, "apfs_keybag_set_create_update_record");
+          v19 = 0;
+          v49 = v94;
+          if (!v34)
+          {
+LABEL_129:
+            if (v51)
+            {
+              goto LABEL_14;
+            }
+
+            goto LABEL_130;
+          }
+
+LABEL_104:
+          if (!v105)
+          {
+            sub_1000A75B0();
+          }
+
+          if (!v106)
+          {
+            sub_1000A7584();
+          }
+
+          if (*(a1 + 1136))
+          {
+            v52 = 1;
+          }
+
+          else
+          {
+            v52 = v48;
+          }
+
+          if (((v52 | v50) & 1) != 0 || is_sw_crypto(*(a1 + 392)))
+          {
+            uuid_copy(v114, src);
+            v115 = 2;
+            v53 = v106;
+            if (v105)
+            {
+              __memcpy_chk();
+            }
+
+            v116 = v53;
+            v54 = sub_10004FB68(v34, v95, 0, v114, 0, 1);
+          }
+
+          else
+          {
+            v54 = sub_100050FE4(a1, v95, &v105);
+          }
+
+          v19 = v54;
+          if (v54)
+          {
+            log_err("%s:%d: failed to add/update wvek record in nx keybag, err = %d\n", "apfs_keybag_set_create_update_record", 4551, v54);
+          }
+
+          goto LABEL_129;
         }
 
+        v19 = v63;
+        log_err("%s:%d: failed to apfs update unlock records range in nx keybag, err = %d\n");
+      }
+
 LABEL_130:
-        pthread_mutex_unlock(v89);
-        goto LABEL_14;
-      }
-
-      v183 = v233;
-      goto LABEL_251;
+      pthread_mutex_unlock(v49);
+      goto LABEL_14;
     }
 
-    if (is_sw_crypto(*(a1 + 392)))
+    v86 = (*v66)(&v97, a4, &v107, *(a1 + 376) + 240, &v105, &v100);
+    if (!v86)
     {
-      sub_1000A73F8();
-    }
-
-    v283 = 0;
-    memset(out, 0, sizeof(out));
-    if ((v136[7])(&v267, &__dst, out))
-    {
-      return 1;
-    }
-
-    if ((BYTE4(out[2]) & 8) == 0)
-    {
-      return 13;
-    }
-
-    if ((BYTE4(out[2]) & 4) == 0)
-    {
-      v251 = (v136[8])(&v267, 3, 0, a4, &v277, &__dst, &v275);
-      if (v251)
+      if (!is_sw_crypto(*(a1 + 392)))
       {
-        goto LABEL_275;
+        v87 = (v66[8])(&v97, 5, 0, 0, 0, &v105, 0);
+        if (v87)
+        {
+          v78 = v87;
+          log_err("%s:%d: failed to commit new kek bound vek, err = 0x%x\n");
+          goto LABEL_252;
+        }
       }
 
-      memcpy(__dst, v275, v276);
-      v274 = v276;
-    }
-
-    v251 = (v136[8])(&v267, 2, 0, a4, &v277, &__dst, &v275);
-    if (!v251)
-    {
       uuid_copy(dst, uu);
-      v88 = 0;
-      v25 = 1;
+      v18 = 1;
+LABEL_262:
+      nx_dev = apfs_get_nx_dev(a1);
+      *(a1 + 536) = 0u;
+      *(a1 + 552) = 0u;
+      *(a1 + 568) = 0u;
+      *(a1 + 584) = 0u;
+      *(a1 + 600) = 0u;
+      *(a1 + 616) = 0u;
+      v89 = sub_10004F388(nx_dev, v100, v101, 0, 0, v102);
+      *(a1 + 608) = v89;
+      if (!v89)
+      {
+        v19 = 12;
+        log_err("%s:%d: failed to store vek into crypto state, err = %d\n");
+        goto LABEL_266;
+      }
+
+      if (is_sw_crypto(*(a1 + 392)))
+      {
+        v48 = 1;
+        cpx_set_is_composite_key(*(a1 + 608), 1);
+      }
+
+      else
+      {
+        if ((cpx_is_sep_wrapped_key() & 1) == 0)
+        {
+          panic("HW CRYPTO: [create]: CP_RAW_KEY_WRAPPEDKEY is NOT set");
+        }
+
+        v48 = 1;
+      }
+
       goto LABEL_270;
     }
 
-LABEL_275:
-    v183 = v251;
-    log_err("%s:%d: can not bind kek to vek, err = 0x%x\n", v252, v253, v254, v255, v256, v257, v258, "apfs_keybag_set_create_update_record");
-    goto LABEL_252;
+    v78 = v86;
+    goto LABEL_251;
   }
 
-  if (v137)
+  if (v67)
   {
     sub_1000A74D4();
   }
@@ -8780,15 +9292,15 @@ LABEL_275:
     sub_1000A7424();
   }
 
-  __dst = _apfs_calloc_typed(1uLL, v279, 0xC7ED7D23uLL);
+  __dst = _apfs_calloc_typed(1uLL, v109, 0xC7ED7D23uLL);
   if (!__dst)
   {
     goto LABEL_230;
   }
 
-  v274 = v279;
-  v138 = nx_keybag_lookup_record(*(*(a1 + 3936) + 392), (*(*(a1 + 3936) + 376) + 240), 2, &__dst);
-  if (!v138)
+  v104 = v109;
+  v68 = nx_keybag_lookup_record(*(*(a1 + 3936) + 392), (*(*(a1 + 3936) + 376) + 240), 2, &__dst);
+  if (!v68)
   {
     if (!*(*(a1 + 3936) + 608))
     {
@@ -8800,49 +9312,49 @@ LABEL_275:
       sub_1000A7450();
     }
 
-    v193 = (v136[10])(&v267, &__dst, *(a1 + 376) + 240, &v275, &v270);
-    if (v193)
+    v81 = (v66[10])(&v97, &__dst, *(a1 + 376) + 240, &v105, &v100);
+    if (v81)
     {
-      v183 = v193;
-      log_err("%s:%d: failed to generate new sibling vek, err = 0x%x\n", v194, v195, v196, v197, v198, v199, v200, "apfs_keybag_set_create_update_record");
+      v78 = v81;
+      log_err("%s:%d: failed to generate new sibling vek, err = 0x%x\n");
 LABEL_252:
-      v26 = akserror_to_errno(v183);
+      v19 = akserror_to_errno(v78);
       goto LABEL_231;
     }
 
     goto LABEL_236;
   }
 
-  v26 = v138;
+  v19 = v68;
   memset(out, 0, 37);
   uuid_unparse((*(*(a1 + 3936) + 376) + 240), out);
-  log_err("%s:%d: failed to lookup sibling wvek for uuid = %s, err = %d\n", v139, v140, v141, v142, v143, v144, v145, "apfs_keybag_set_create_update_record");
+  log_err("%s:%d: failed to lookup sibling wvek for uuid = %s, err = %d\n");
 LABEL_266:
-  v27 = 64;
+  v20 = 64;
 LABEL_14:
-  if (v280 && v277)
+  if (v110 && v107)
   {
-    _apfs_free(v277, v280);
+    _apfs_free(v107, v110);
   }
 
-  v29 = v279;
-  if (v279 && v275)
+  v22 = v109;
+  if (v109 && v105)
   {
-    _apfs_free(v275, v279);
-    v29 = v279;
+    _apfs_free(v105, v109);
+    v22 = v109;
   }
 
-  if (v29 && __dst)
+  if (v22 && __dst)
   {
-    _apfs_free(__dst, v29);
+    _apfs_free(__dst, v22);
   }
 
-  if (v27 && v270)
+  if (v20 && v100)
   {
-    _apfs_free(v270, v27);
+    _apfs_free(v100, v20);
   }
 
-  return v26;
+  return v19;
 }
 
 uint64_t sub_100052974(uint64_t a1, uint64_t a2, unsigned __int8 *uu, uint64_t a4)
@@ -8885,7 +9397,7 @@ uint64_t sub_100052974(uint64_t a1, uint64_t a2, unsigned __int8 *uu, uint64_t a
 
 uint64_t apfs_vek_remove_aks_state(uint64_t a1, uint64_t a2)
 {
-  memset(v15, 0, sizeof(v15));
+  memset(v8, 0, sizeof(v8));
   if ((*(*(a1 + 376) + 264) & 1) != 0 || is_sw_crypto(*(a1 + 392)))
   {
     return 22;
@@ -8903,17 +9415,17 @@ uint64_t apfs_vek_remove_aks_state(uint64_t a1, uint64_t a2)
     return 6;
   }
 
-  v6 = v5(v15, 6, 0, 0, 0, a2, 0);
+  v6 = v5(v8, 6, 0, 0, 0, a2, 0);
   if (v6)
   {
-    v14 = v6;
-    log_err("%s:%d: failed to remove vek state, error = 0x%x\n", v7, v8, v9, v10, v11, v12, v13, "apfs_vek_remove_aks_state");
-    return akserror_to_errno(v14);
+    v7 = v6;
+    log_err("%s:%d: failed to remove vek state, error = 0x%x\n", "apfs_vek_remove_aks_state", 5425, v6);
+    return akserror_to_errno(v7);
   }
 
   else
   {
-    log_debug("%s:%d: removed vek state\n", v7, v8, v9, v10, v11, v12, v13, "apfs_vek_remove_aks_state");
+    log_debug("%s:%d: removed vek state\n", "apfs_vek_remove_aks_state", 5429);
     return 0;
   }
 }
@@ -8943,66 +9455,69 @@ uint64_t apfs_keybag_purge(uint64_t a1, uint64_t a2)
 
   if (!is_sw_crypto(*(a1 + 392)))
   {
-    if (apfs_keybag_aks_remove_unlock_records(a1, a2, 3))
+    v4 = apfs_keybag_aks_remove_unlock_records(a1, a2, 3);
+    if (v4)
     {
-      log_err("%s:%d: failed to aks remove unlock records, err = %d\n", v4, v5, v6, v7, v8, v9, v10, "apfs_keybag_purge");
+      log_err("%s:%d: failed to aks remove unlock records, err = %d\n", "apfs_keybag_purge", 5453, v4);
     }
 
-    if (apfs_keybag_aks_remove_unlock_records(a1, a2, 6))
+    v5 = apfs_keybag_aks_remove_unlock_records(a1, a2, 6);
+    if (v5)
     {
-      log_err("%s:%d: failed to aks remove marked unlock records, err = %d\n", v11, v12, v13, v14, v15, v16, v17, "apfs_keybag_purge");
+      log_err("%s:%d: failed to aks remove marked unlock records, err = %d\n", "apfs_keybag_purge", 5459, v5);
     }
   }
 
   pthread_mutex_lock(*(a1 + 3760));
-  v18 = sub_10004FB68(*(a1 + 3760), a2, 0, 0, 3, 0);
-  if (v18)
+  v6 = sub_10004FB68(*(a1 + 3760), a2, 0, 0, 3, 0);
+  if (v6)
   {
-    v26 = v18;
-    log_err("%s:%d: failed to wipe unlock records in apfs keybag, err = %d\n", v19, v20, v21, v22, v23, v24, v25, "apfs_keybag_purge");
+    v7 = v6;
+    log_err("%s:%d: failed to wipe unlock records in apfs keybag, err = %d\n", "apfs_keybag_purge", 5468, v6);
   }
 
   else
   {
-    v42 = 0;
+    v17 = 0;
     *dst = 0u;
-    v41 = 0u;
-    v27 = *(a1 + 1136);
-    if (v27)
+    v16 = 0u;
+    v8 = *(a1 + 1136);
+    if (v8)
     {
-      v28 = (v27 + 32);
-      v29 = *(v27 + 8);
+      v9 = (v8 + 32);
+      v10 = *(v8 + 8);
     }
 
     else
     {
-      v30 = *(a1 + 376);
-      if (!v30)
+      v11 = *(a1 + 376);
+      if (!v11)
       {
         sub_1000A773C();
       }
 
-      v31 = *(a1 + 392);
-      if (!v31)
+      v12 = *(a1 + 392);
+      if (!v12)
       {
         sub_1000A7710();
       }
 
-      v29 = *(v31 + 928);
-      if (!v29)
+      v10 = *(v12 + 928);
+      if (!v10)
       {
         sub_1000A76E4();
       }
 
-      v28 = (v30 + 240);
+      v9 = (v11 + 240);
     }
 
-    uuid_copy(dst, v28);
-    LODWORD(v41) = 3;
-    v26 = sub_10004FB68(v29, a2, 0, dst, 0, 1);
-    if (v26)
+    uuid_copy(dst, v9);
+    LODWORD(v16) = 3;
+    v13 = sub_10004FB68(v10, a2, 0, dst, 0, 1);
+    v7 = v13;
+    if (v13)
     {
-      log_err("%s:%d: failed to destroy apfs unlock records range in nx keybag, err = %d\n", v32, v33, v34, v35, v36, v37, v38, "apfs_keybag_purge");
+      log_err("%s:%d: failed to destroy apfs unlock records range in nx keybag, err = %d\n", "apfs_keybag_purge", 5474, v13);
     }
 
     else
@@ -9012,52 +9527,52 @@ uint64_t apfs_keybag_purge(uint64_t a1, uint64_t a2)
   }
 
   pthread_mutex_unlock(*(a1 + 3760));
-  return v26;
+  return v7;
 }
 
 uint64_t apfs_remove_volume_key(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 392);
-  v24 = 0;
-  v25 = 0;
-  memset(v26, 0, sizeof(v26));
+  v10 = 0;
+  v11 = 0;
+  memset(v12, 0, sizeof(v12));
   v5 = is_sw_crypto(v4);
   if (!v5)
   {
-    v24 = v26;
-    v25 = 512;
-    v6 = nx_keybag_lookup_record(*(a1 + 392), (*(a1 + 376) + 240), 2, &v24);
+    v10 = v12;
+    v11 = 512;
+    v6 = nx_keybag_lookup_record(*(a1 + 392), (*(a1 + 376) + 240), 2, &v10);
     if ((v6 & 0xFFFFFFFD) != 0)
     {
-      v14 = v6;
-      log_err("%s:%d: %s failed to get volume key, error = %d, tag %d\n", v7, v8, v9, v10, v11, v12, v13, "apfs_remove_volume_key");
-      return v14;
+      v7 = v6;
+      log_err("%s:%d: %s failed to get volume key, error = %d, tag %d\n", "apfs_remove_volume_key", 5510, (a1 + 4048), v6, 2);
+      return v7;
     }
 
-    if (!v24 || !v25)
+    if (!v10 || !v11)
     {
       sub_1000A77EC();
     }
   }
 
-  v15 = nx_keybag_delete(*(v4 + 928), a2, (*(a1 + 376) + 240), 2u);
-  if ((v15 & 0xFFFFFFFD) != 0)
+  v8 = nx_keybag_delete(*(v4 + 928), a2, (*(a1 + 376) + 240), 2u);
+  if ((v8 & 0xFFFFFFFD) != 0)
   {
-    v14 = v15;
-    log_err("%s:%d: %s failed to delete volume key, error = %d, tag %d\n", v16, v17, v18, v19, v20, v21, v22, "apfs_remove_volume_key");
+    v7 = v8;
+    log_err("%s:%d: %s failed to delete volume key, error = %d, tag %d\n", "apfs_remove_volume_key", 5517, (a1 + 4048), v8, 2);
   }
 
   else
   {
     if (!v5)
     {
-      apfs_vek_remove_aks_state(a1, &v24);
+      apfs_vek_remove_aks_state(a1, &v10);
     }
 
     return 0;
   }
 
-  return v14;
+  return v7;
 }
 
 uint64_t sub_100052EA4(uint64_t a1, uint64_t a2)
@@ -9085,11 +9600,11 @@ uint64_t sub_100052EF8(uint64_t a1)
     v7 = (v5 + 32) / v6;
   }
 
-  v19 = 0;
+  v16 = 0;
   v8 = *(a1 + 64);
   if (v8)
   {
-    if (!spaceman_alloc(v8, 8, v7, *(a1 + 72), &v19, 0))
+    if (!spaceman_alloc(v8, 8, v7, *(a1 + 72), &v16, 0))
     {
       v9 = *(a1 + 88);
       v10 = v9[1];
@@ -9102,7 +9617,7 @@ uint64_t sub_100052EF8(uint64_t a1)
         }
       }
 
-      *v9 = v19;
+      *v9 = v16;
       *(*(a1 + 88) + 8) = v7;
       goto LABEL_12;
     }
@@ -9124,10 +9639,7 @@ LABEL_12:
   v13 = dev_block_size(*(a1 + 48));
   fletcher64_set_cksum(v2, (v2 + 8), v12 * v13 - 8, 0, v14, v15);
   *(*(*(a1 + 56) + 72) + 12) = **(a1 + 88);
-  v16 = *(a1 + 88);
-  v17 = v16[1];
-  v18 = *(a1 + 56);
-  return dev_write_data(*(a1 + 48), *v16);
+  return dev_write_data(*(a1 + 48), **(a1 + 88), *(*(a1 + 88) + 8));
 }
 
 uint64_t sub_10005304C(uint64_t a1)
@@ -9146,7 +9658,7 @@ uint64_t sub_10005304C(uint64_t a1)
         v7 = 0;
         do
         {
-          dev_write_data(*(a1 + 48), v7 + *v6);
+          dev_write_data(*(a1 + 48), v7 + *v6, 1);
           ++v7;
           v6 = *(a1 + 88);
         }
@@ -9247,27 +9759,27 @@ uint64_t cpx_set_key_len(uint64_t result, unsigned int a2)
 
 uint64_t io_get_device_block_size(int a1)
 {
-  v12 = 0;
-  memset(&v11, 0, sizeof(v11));
-  bzero(&v13, 0x878uLL);
-  if (!ioctl(a1, 0x40046418uLL, &v12))
+  v6 = 0;
+  memset(&v5, 0, sizeof(v5));
+  bzero(&v7, 0x878uLL);
+  if (!ioctl(a1, 0x40046418uLL, &v6))
   {
-    return v12;
+    return v6;
   }
 
-  if (!fstatfs(a1, &v13))
+  if (!fstatfs(a1, &v7))
   {
-    return v13.f_bsize;
+    return v7.f_bsize;
   }
 
-  if (!fstat(a1, &v11))
+  if (!fstat(a1, &v5))
   {
-    return v11.st_blksize;
+    return v5.st_blksize;
   }
 
   v2 = __error();
-  strerror(*v2);
-  log_err("%s:%d: can't get the device block size (%s). assuming 512\n", v3, v4, v5, v6, v7, v8, v9, "io_get_device_block_size");
+  v3 = strerror(*v2);
+  log_err("%s:%d: can't get the device block size (%s). assuming 512\n", "io_get_device_block_size", 57, v3);
   return 512;
 }
 
@@ -9304,509 +9816,4 @@ uint64_t dev_read_async(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
     return v11;
   }
-}
-
-uint64_t dev_read_extended(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, int a9)
-{
-  if (a9)
-  {
-    v9 = *(*(a1 + 72) + 40);
-    if (v9)
-    {
-      return v9();
-    }
-
-    else
-    {
-      return 45;
-    }
-  }
-
-  else if (a6)
-  {
-    return dev_read_async(a1, a2, a3, a4, a5, a7);
-  }
-
-  else
-  {
-    return (*(*(a1 + 72) + 24))();
-  }
-}
-
-uint64_t dev_read_poll(uint64_t a1)
-{
-  v1 = *(*(a1 + 72) + 56);
-  if (v1)
-  {
-    return v1();
-  }
-
-  else
-  {
-    return 45;
-  }
-}
-
-uint64_t dev_write_extended(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
-{
-  v7 = *(a1 + 72);
-  if (!a7)
-  {
-    return (*(v7 + 64))();
-  }
-
-  v8 = *(v7 + 72);
-  if (v8)
-  {
-    return v8();
-  }
-
-  else
-  {
-    return 45;
-  }
-}
-
-uint64_t dev_write_data(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = *(*(a1 + 72) + 64);
-
-    return v2();
-  }
-
-  else
-  {
-    is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(0);
-    log_corrupt(is_panic_on_corruption_enabled, "%s:%d: data write (%zu blocks) over superblock!\n", v5, v6, v7, v8, v9, v10, "dev_write_data");
-    return 5;
-  }
-}
-
-uint64_t fd_dev_read_poll(uint64_t a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    sub_1000A7818();
-  }
-
-  result = aio_error((a2 + 8));
-  if (result == -1)
-  {
-    return *__error();
-  }
-
-  return result;
-}
-
-uint64_t sub_100053608(_DWORD *a1, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5)
-{
-  if (a2)
-  {
-    *a2 = a1[22];
-  }
-
-  if (a3)
-  {
-    *a3 = a1[23];
-  }
-
-  if (a4)
-  {
-    *a4 = a1[24];
-  }
-
-  if (a5)
-  {
-    *a5 = a1[25];
-  }
-
-  return 0;
-}
-
-uint64_t sub_100053648(int *a1, unint64_t a2, unint64_t a3, void *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, unsigned int a9)
-{
-  if ((a9 & 0xFFFFFFFA) != 0 || (a8 != 0) == a9 < 4)
-  {
-    if ((a8 != 0) != a9 < 4)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = 22;
-    }
-
-    if ((a9 & 0xFFFFFFFA) != 0)
-    {
-      v11 = 45;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    log_err("%s:%d: failed to read blknum 0x%llx size %zu flags 0x%x error %d dev_name = %s\n", a2, a3, a4, a5, a9, a7, a8, "fd_dev_read_extended");
-    return v11;
-  }
-
-  else if (a6)
-  {
-
-    return sub_1000547DC(a1, a2, a3, a4, a5, a9, a7, a8);
-  }
-
-  else
-  {
-
-    return sub_1000544FC(a1, a2, a3, a4, a5, a9, a7, a8);
-  }
-}
-
-uint64_t sub_100053724(uint64_t a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    sub_1000A7844();
-  }
-
-  v4 = (a2 + 8);
-  aiocblist = (a2 + 8);
-  if (aio_suspend(&aiocblist, 1, 0) || (v8 = aio_return(v4), v8 == -1))
-  {
-    v5 = *__error();
-  }
-
-  else
-  {
-    v9 = v8;
-    if (v8 >= *(a2 + 32))
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v5 = 5;
-    }
-
-    v10 = *(a2 + 88);
-    if (v10)
-    {
-      v11 = *(v10 + 72);
-      if (v11)
-      {
-        v12 = *(a1 + 84);
-        v13 = *(a2 + 24);
-        *(v11 + 12) = *(a2 + 16) / v12;
-        userfs_data_cryptor(v10, v13, v13, v9, *(a2 + 16), v12, 0);
-      }
-    }
-  }
-
-  v6 = *a2;
-  if (*a2)
-  {
-    *(a2 + 96) = v5;
-    v6(a2);
-  }
-
-  return v5;
-}
-
-uint64_t sub_1000537F8(uint64_t a1, unint64_t a2, unint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if ((a7 & 0xFFFFFFFA) != 0 || (a6 != 0) == a7 < 4)
-  {
-    if ((a6 != 0) != a7 < 4)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = 22;
-    }
-
-    if ((a7 & 0xFFFFFFFA) != 0)
-    {
-      v11 = 45;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    log_err("%s:%d: failed to write blknum 0x%llx size %zu flags 0x%x error %d dev_name = %s\n", a2, a3, a4, a5, a6, a7, a8, "fd_dev_write_extended");
-    return v11;
-  }
-
-  else
-  {
-
-    return sub_1000548EC(a1, a2, a3, a4, a5, a7, a7, a8);
-  }
-}
-
-uint64_t sub_10005389C(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v10 = *(a1 + 24);
-  if (v10)
-  {
-    v11 = *(a1 + 36);
-    if (v11)
-    {
-      result = sub_100054704(a1, *(a1 + 40), v11, v10, *(a1 + 48), a6, a7, a8);
-      if (result)
-      {
-        return result;
-      }
-
-      *(a1 + 36) = 0;
-    }
-  }
-
-  fsync(*a1);
-  v13 = *(a1 + 4);
-  if ((v13 & 0x80000000) == 0)
-  {
-    fsync(v13);
-  }
-
-  if (!a2 && (*(a1 + 88) & 2) != 0)
-  {
-    v16 = xmmword_1000B3110;
-    v17 = 2;
-    v15 = ioctl(*a1, 0x80186416uLL, &v16);
-  }
-
-  else
-  {
-    v14 = *a1;
-    if ((*(a1 + 64) & 0xF000) == 0x8000)
-    {
-      v15 = fcntl(v14, 51, 0);
-    }
-
-    else
-    {
-      v15 = ioctl(v14, 0x20006416uLL, 0);
-    }
-  }
-
-  if (v15 == -1)
-  {
-    return *__error();
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_100053998(uint64_t a1, unint64_t a2, unint64_t a3, int a4)
-{
-  v4 = *(a1 + 112);
-  v5 = v4 > a2;
-  v6 = v4 - a2;
-  if (!v5)
-  {
-    sub_1000A7870();
-  }
-
-  if (v6 < a3)
-  {
-    sub_1000A78C8();
-  }
-
-  if (!a4)
-  {
-    sub_1000A789C();
-  }
-
-  v9 = *(a1 + 192);
-  if (!v9)
-  {
-    return 45;
-  }
-
-  if (a4 != 1)
-  {
-    return 22;
-  }
-
-  v11 = *(a1 + 200);
-  if (v11 < *(a1 + 204) && *(a1 + 208) == 1)
-  {
-    goto LABEL_11;
-  }
-
-  result = sub_100053A60(a1);
-  if (!result)
-  {
-    v11 = *(a1 + 200);
-    v9 = *(a1 + 192);
-LABEL_11:
-    result = 0;
-    *(a1 + 200) = v11 + 1;
-    v13 = *(a1 + 84);
-    v14 = (v9 + 16 * v11);
-    *v14 = v13 * a2;
-    v14[1] = v13 * a3;
-    *(a1 + 208) = 1;
-  }
-
-  return result;
-}
-
-uint64_t sub_100053A60(uint64_t a1)
-{
-  v1 = *(a1 + 192);
-  if (!v1)
-  {
-    return 45;
-  }
-
-  v3 = *(a1 + 200);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v23 = 0u;
-  v24 = 0u;
-  v22 = 0u;
-  v19 = v1;
-  v4 = *(a1 + 208);
-  v20 = v3;
-  v21 = v4;
-  if (ioctl(*a1, 0x80406459uLL, &v19) == -1)
-  {
-    v5 = *__error();
-    if (v5)
-    {
-      v13 = *(a1 + 192);
-      v17 = *(v13 + 2);
-      v18 = *(v13 + 3);
-      v16 = *v13;
-      v15 = *(a1 + 200);
-      log_err("%s:%d: hinting %d blocks from hint_list failed w/: %d (entry %lld:%lld ; %lld:%lld)\n", v6, v7, v8, v9, v10, v11, v12, "fd_dev_hint_flush");
-    }
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  bzero(*(a1 + 192), 16 * *(a1 + 204));
-  *(a1 + 200) = 0;
-  return v5;
-}
-
-uint64_t sub_100053B44(uint64_t a1)
-{
-  v5 = strlen((a1 + 212));
-  v6 = *(a1 + 24);
-  if (!v6)
-  {
-    v15 = 0;
-    goto LABEL_10;
-  }
-
-  v7 = *(a1 + 36);
-  if (!v7)
-  {
-    v15 = 0;
-LABEL_9:
-    _apfs_free(v6, (*(a1 + 84) * *(a1 + 32)));
-    *(a1 + 24) = 0;
-    goto LABEL_10;
-  }
-
-  v15 = sub_100054704(a1, *(a1 + 40), v7, v6, *(a1 + 48), v2, v3, v4);
-  if (v15)
-  {
-    log_err("%s:%d: Hit an error flushing the cache, %d dev_name = %s\n", v8, v9, v10, v11, v12, v13, v14, "fd_dev_close");
-  }
-
-  *(a1 + 36) = 0;
-  v6 = *(a1 + 24);
-  if (v6)
-  {
-    goto LABEL_9;
-  }
-
-LABEL_10:
-  if (*(a1 + 192))
-  {
-    v15 = sub_100053A60(a1);
-    if (v15)
-    {
-      log_err("%s:%d: Hit an error flushing the hint list, %d dev_name = %s\n", v16, v17, v18, v19, v20, v21, v22, "fd_dev_close");
-    }
-
-    _apfs_free(*(a1 + 192), 16 * *(a1 + 204));
-    *(a1 + 192) = 0;
-  }
-
-  _apfs_free(a1, v5 + 216);
-  return v15;
-}
-
-uint64_t sub_100053C64(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 112) * *(a1 + 84) / a2;
-  *(a1 + 84) = a2;
-  *(a1 + 112) = v2;
-  return 0;
-}
-
-uint64_t dev_init_with_fd(int a1, unsigned int **a2)
-{
-  bzero(&v10, 0x400uLL);
-  *a2 = 0;
-  if (fcntl(a1, 50, &v10))
-  {
-    LOBYTE(v10) = 0;
-  }
-
-  if (v10 ^ 0x7665642F | v11 ^ 0x2F)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 5;
-  }
-
-  v5 = strlen(&v10 + v4);
-  v6 = _apfs_calloc_typed(1uLL, v5 + 216, 0xC2501DC2uLL);
-  if (!v6)
-  {
-    return 12;
-  }
-
-  v7 = v6;
-  *(v6 + 4) = -1;
-  *v6 = a1;
-  strlcpy(v6 + 212, &v10 + v4, v5 + 1);
-  v8 = sub_100053DE8(v7);
-  if (v8)
-  {
-    _apfs_free(v7, v5 + 216);
-  }
-
-  else
-  {
-    *a2 = v7;
-  }
-
-  return v8;
 }

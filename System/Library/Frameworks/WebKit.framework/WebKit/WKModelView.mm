@@ -49,7 +49,7 @@
 
 - (BOOL)createFileForModel:(void *)model
 {
-  WebKit::WebsiteDataStore::defaultModelElementCacheDirectory(MEMORY[0x1E696EBA0], &v17);
+  WebKit::WebsiteDataStore::defaultModelElementCacheDirectory(&v17, MEMORY[0x1E696EBA0]);
   if (!v17)
   {
     return 0;

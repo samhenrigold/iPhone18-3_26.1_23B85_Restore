@@ -25,45 +25,81 @@
 
 - (double)breadth
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->super.separation * ([(NSMutableArray *)self->super.nodes count]- 1);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nodes = self->super.nodes;
-  v5 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(nodes);
         }
 
-        [*(*(&v12 + 1) + 8 * v8) h];
+        [*(*(&v11 + 1) + 8 * v8) h];
         v3 = v3 + v9;
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (double)length
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  nodes = self->super.nodes;
+  v3 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v3)
+  {
+    return 0.0;
+  }
+
+  v4 = v3;
+  v5 = *v11;
+  v6 = 0.0;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v11 != v5)
+      {
+        objc_enumerationMutation(nodes);
+      }
+
+      [*(*(&v10 + 1) + 8 * i) w];
+      v6 = fmax(v6, v8);
+    }
+
+    v4 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v10 objects:v14 count:16];
+  }
+
+  while (v4);
+  return v6;
+}
+
+- (CGSize)sizeForDummy
 {
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
@@ -86,8 +122,11 @@
           objc_enumerationMutation(nodes);
         }
 
-        [*(*(&v11 + 1) + 8 * i) w];
-        v6 = fmax(v6, v8);
+        [*(*(&v11 + 1) + 8 * i) h];
+        if (v6 < v8)
+        {
+          v6 = v8;
+        }
       }
 
       v4 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
@@ -101,63 +140,17 @@
     v6 = 0.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-- (CGSize)sizeForDummy
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  nodes = self->super.nodes;
-  v3 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v13;
-    v6 = 0.0;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v13 != v5)
-        {
-          objc_enumerationMutation(nodes);
-        }
-
-        [*(*(&v12 + 1) + 8 * i) h];
-        if (v6 < v8)
-        {
-          v6 = v8;
-        }
-      }
-
-      v4 = [(NSMutableArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v6 = 0.0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-  v10 = 20.0;
-  v11 = v6;
-  result.height = v10;
-  result.width = v11;
+  v9 = 20.0;
+  v10 = v6;
+  result.height = v9;
+  result.width = v10;
   return result;
 }
 
 - (void)centerNodesWithRespectoTo:(id)to
 {
   toCopy = to;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if (self->super.prevRank == to)
   {
     v5 = &__block_literal_global_80;
@@ -174,33 +167,33 @@
   }
 
   v6 = [(NSMutableArray *)self->super.nodes mutableCopy];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __44__GVVerticalRank_centerNodesWithRespectoTo___block_invoke_3;
-  v68[3] = &unk_27969D678;
-  v68[4] = v5;
-  [v6 sortUsingComparator:v68];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __44__GVVerticalRank_centerNodesWithRespectoTo___block_invoke_3;
+  v67[3] = &unk_27969D678;
+  v67[4] = v5;
+  [v6 sortUsingComparator:v67];
   v7 = v6;
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   obj = [v6 reverseObjectEnumerator];
-  v63 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-  if (v63)
+  v62 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
+  if (v62)
   {
-    v8 = *v65;
-    v61 = *v65;
+    v8 = *v64;
+    v60 = *v64;
     do
     {
-      for (i = 0; i != v63; ++i)
+      for (i = 0; i != v62; ++i)
       {
-        if (*v65 != v8)
+        if (*v64 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v64 + 1) + 8 * i);
+        v10 = *(*(&v63 + 1) + 8 * i);
         v11 = [toCopy neighborsOfNode:v10];
         if ([v11 count])
         {
@@ -226,7 +219,7 @@
             }
 
             toCopy = v15;
-            v8 = v61;
+            v8 = v60;
           }
 
           else
@@ -363,13 +356,11 @@ LABEL_32:
         }
       }
 
-      v63 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v62 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
     }
 
-    while (v63);
+    while (v62);
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__GVVerticalRank_centerNodesWithRespectoTo___block_invoke_3(uint64_t a1)

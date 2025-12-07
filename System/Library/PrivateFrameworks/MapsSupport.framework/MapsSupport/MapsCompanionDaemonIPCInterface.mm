@@ -31,7 +31,7 @@
 
 - (void)establishConnection
 {
-  v2 = sub_10001E7A0();
+  v2 = sub_10001E7A0(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;

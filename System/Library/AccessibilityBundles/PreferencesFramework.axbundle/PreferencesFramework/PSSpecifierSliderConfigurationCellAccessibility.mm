@@ -16,6 +16,7 @@
 - (unint64_t)_axNumberOfTicks;
 - (unint64_t)_axSegmentCount;
 - (unint64_t)accessibilityTraits;
+- (void)_axBumpSliderValue:(BOOL)value;
 - (void)accessibilityDecrement;
 - (void)accessibilityIncrement;
 @end
@@ -166,6 +167,20 @@
   specifier = [v2 specifier];
 
   return specifier;
+}
+
+- (void)_axBumpSliderValue:(BOOL)value
+{
+  [(PSSpecifierSliderConfigurationCellAccessibility *)self _axSliderIncreaseAmount:value];
+  v5 = v4;
+  objc_opt_class();
+  v6 = [(PSSpecifierSliderConfigurationCellAccessibility *)self safeValueForKey:@"slider"];
+  v7 = __UIAccessibilityCastAsClass();
+
+  *&v8 = v5;
+  [v7 setValue:0 animated:v8];
+  v9 = v7;
+  AXPerformSafeBlock();
 }
 
 - (BOOL)_axIsLockingSegmentedSlider

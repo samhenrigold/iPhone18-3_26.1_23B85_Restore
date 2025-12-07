@@ -485,21 +485,20 @@ LABEL_15:
     logHandle = [(SyncXPCServer *)self logHandle];
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134217984;
-      v15 = [transactionsCopy count];
-      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Appending %lu transactions", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = [transactionsCopy count];
+      _os_log_impl(&_mh_execute_header, logHandle, OS_LOG_TYPE_DEFAULT, "Appending %lu transactions", &v13, 0xCu);
     }
 
     if (transactionsCopy && [transactionsCopy count])
     {
       logHandle2 = DeserializeTransactions();
-      interactionManager = self->_interactionManager;
       HandleInteractionsForDeserializedTransactions();
       [(CHIDSServiceDelegate *)self->_idsService update:transactionsCopy];
       if ([(CHFeatureFlags *)self->_featureFlags callHistorySearchEnabled])
       {
-        v9 = +[CHSpotlightIndexManager sharedInstance];
-        [v9 indexTransactions:transactionsCopy];
+        v8 = +[CHSpotlightIndexManager sharedInstance];
+        [v8 indexTransactions:transactionsCopy];
       }
 
       cloudKit = [(SyncXPCServer *)self cloudKit];
@@ -516,10 +515,10 @@ LABEL_15:
         transactionLog = [(SyncXPCServer *)self logHandle];
         if (os_log_type_enabled(transactionLog, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [transactionsCopy count];
-          v14 = 134217984;
-          v15 = v13;
-          _os_log_impl(&_mh_execute_header, transactionLog, OS_LOG_TYPE_DEFAULT, "Dropping %lu transactions because no iCloud account is active", &v14, 0xCu);
+          v12 = [transactionsCopy count];
+          v13 = 134217984;
+          v14 = v12;
+          _os_log_impl(&_mh_execute_header, transactionLog, OS_LOG_TYPE_DEFAULT, "Dropping %lu transactions because no iCloud account is active", &v13, 0xCu);
         }
       }
     }
@@ -529,8 +528,8 @@ LABEL_15:
       logHandle2 = [(SyncXPCServer *)self logHandle];
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_DEFAULT, "No transactions!", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_DEFAULT, "No transactions!", &v13, 2u);
       }
     }
   }

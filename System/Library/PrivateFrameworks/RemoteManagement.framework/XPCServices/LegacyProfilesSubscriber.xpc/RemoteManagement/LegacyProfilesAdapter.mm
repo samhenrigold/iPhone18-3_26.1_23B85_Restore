@@ -13,16 +13,16 @@
 
 - (_TtC24LegacyProfilesSubscriber21LegacyProfilesAdapter)init
 {
-  swift_getObjectType();
-  v2 = type metadata accessor for LegacyProfilesAdapter();
-  v3 = objc_allocWithZone(v2);
-  *&v3[OBJC_IVAR____TtC24LegacyProfilesSubscriber21LegacyProfilesAdapter_profilesController] = 0;
-  *&v3[OBJC_IVAR____TtC24LegacyProfilesSubscriber21LegacyProfilesAdapter_installedProfileIdentifierByDeclarationKey] = 0;
-  v6.receiver = v3;
-  v6.super_class = v2;
-  v4 = [(LegacyProfilesAdapter *)&v6 init];
+  ObjectType = swift_getObjectType();
+  v5 = type metadata accessor for LegacyProfilesAdapter(ObjectType, v3, v4);
+  v6 = objc_allocWithZone(v5);
+  *&v6[OBJC_IVAR____TtC24LegacyProfilesSubscriber21LegacyProfilesAdapter_profilesController] = 0;
+  *&v6[OBJC_IVAR____TtC24LegacyProfilesSubscriber21LegacyProfilesAdapter_installedProfileIdentifierByDeclarationKey] = 0;
+  v9.receiver = v6;
+  v9.super_class = v5;
+  v7 = [(LegacyProfilesAdapter *)&v9 init];
   swift_deallocPartialClassInstance();
-  return v4;
+  return v7;
 }
 
 - (id)configurationClasses
@@ -39,139 +39,139 @@
 
 - (void)beginProcessingConfigurationsForScope:(int64_t)scope completionHandler:(id)handler
 {
-  v7 = (*(*(sub_1000012FC(&qword_100010758, &qword_1000090C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000012FC(&qword_100010758, &qword_1000090C8);
   __chkstk_darwin();
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = scope;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_1000086CC();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  v10[2] = scope;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = sub_1000086CC();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_100009180;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_100009180;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_100009188;
-  v14[5] = v13;
+  v13[4] = &unk_100009188;
+  v13[5] = v12;
   selfCopy = self;
-  sub_100003A10(0, 0, v9, &unk_100009190, v14);
+  sub_100003A10(0, 0, v8, &unk_100009190, v13);
 }
 
 - (void)endProcessingConfigurations:(BOOL)configurations scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_1000012FC(&qword_100010758, &qword_1000090C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000012FC(&qword_100010758, &qword_1000090C8);
   __chkstk_darwin();
-  v11 = &v18 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  *(v13 + 16) = configurations;
-  *(v13 + 24) = scope;
-  *(v13 + 32) = v12;
-  *(v13 + 40) = self;
-  v14 = sub_1000086CC();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v17 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  *(v12 + 16) = configurations;
+  *(v12 + 24) = scope;
+  *(v12 + 32) = v11;
+  *(v12 + 40) = self;
+  v13 = sub_1000086CC();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_100009160;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_100009160;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_100009168;
-  v16[5] = v15;
+  v15[4] = &unk_100009168;
+  v15[5] = v14;
   selfCopy = self;
-  sub_100003A10(0, 0, v11, &unk_100009170, v16);
+  sub_100003A10(0, 0, v10, &unk_100009170, v15);
 }
 
 - (void)allDeclarationKeysForScope:(int64_t)scope completionHandler:(id)handler
 {
-  v7 = (*(*(sub_1000012FC(&qword_100010758, &qword_1000090C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000012FC(&qword_100010758, &qword_1000090C8);
   __chkstk_darwin();
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = scope;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_1000086CC();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  v10[2] = scope;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = sub_1000086CC();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_100009140;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_100009140;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_100009148;
-  v14[5] = v13;
+  v13[4] = &unk_100009148;
+  v13[5] = v12;
   selfCopy = self;
-  sub_100003A10(0, 0, v9, &unk_100009150, v14);
+  sub_100003A10(0, 0, v8, &unk_100009150, v13);
 }
 
 - (void)applyConfiguration:(RMSubscribedConfigurationReference *)configuration replaceKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v11 = (*(*(sub_1000012FC(&qword_100010758, &qword_1000090C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000012FC(&qword_100010758, &qword_1000090C8);
   __chkstk_darwin();
-  v13 = &v22 - v12;
-  v14 = _Block_copy(handler);
-  v15 = swift_allocObject();
-  v15[2] = configuration;
-  v15[3] = key;
-  v15[4] = scope;
-  v15[5] = v14;
-  v15[6] = self;
-  v16 = sub_1000086CC();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v12 = &v21 - v11;
+  v13 = _Block_copy(handler);
+  v14 = swift_allocObject();
+  v14[2] = configuration;
+  v14[3] = key;
+  v14[4] = scope;
+  v14[5] = v13;
+  v14[6] = self;
+  v15 = sub_1000086CC();
+  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_100009120;
+  v16[5] = v14;
   v17 = swift_allocObject();
   v17[2] = 0;
   v17[3] = 0;
-  v17[4] = &unk_100009120;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_100009128;
-  v18[5] = v17;
+  v17[4] = &unk_100009128;
+  v17[5] = v16;
   configurationCopy = configuration;
   keyCopy = key;
   selfCopy = self;
-  sub_100003A10(0, 0, v13, &unk_100009130, v18);
+  sub_100003A10(0, 0, v12, &unk_100009130, v17);
 }
 
 - (void)removeDeclarationKey:(RMStoreDeclarationKey *)key scope:(int64_t)scope completionHandler:(id)handler
 {
-  v9 = (*(*(sub_1000012FC(&qword_100010758, &qword_1000090C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1000012FC(&qword_100010758, &qword_1000090C8);
   __chkstk_darwin();
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = key;
-  v13[3] = scope;
-  v13[4] = v12;
-  v13[5] = self;
-  v14 = sub_1000086CC();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = key;
+  v12[3] = scope;
+  v12[4] = v11;
+  v12[5] = self;
+  v13 = sub_1000086CC();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_1000090D8;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_1000090D8;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_1000090E8;
-  v16[5] = v15;
+  v15[4] = &unk_1000090E8;
+  v15[5] = v14;
   keyCopy = key;
   selfCopy = self;
-  sub_100003A10(0, 0, v11, &unk_1000090F8, v16);
+  sub_100003A10(0, 0, v10, &unk_1000090F8, v15);
 }
 
 - (id)declarationKeyForConfiguration:(id)configuration

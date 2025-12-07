@@ -18,7 +18,7 @@
 
 - (id)shortDescriptionWithLeadingString:(id)string
 {
-  string = [MEMORY[0x277CCAB68] string];
+  v4 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, string);
   characters = [(MCTypeInput *)self characters];
   [(MCTypeInput *)self point];
   v7 = v6;
@@ -27,9 +27,9 @@
   nearbyKeys = [(MCTypeInput *)self nearbyKeys];
   v11 = [nearbyKeys count];
   sourceKeyboardState = [(MCKeyboardInput *)self sourceKeyboardState];
-  [string appendFormat:@"%@, (%.2f, %.2f), %lu, %@", characters, v7, v9, v11, sourceKeyboardState];
+  [v4 appendFormat:@"%@, (%.2f, %.2f), %lu, %@", characters, v7, v9, v11, sourceKeyboardState];
 
-  return string;
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

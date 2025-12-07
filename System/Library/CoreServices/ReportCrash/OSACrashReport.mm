@@ -9,6 +9,7 @@
 - (BOOL)isExceptionNonFatal;
 - (BOOL)isMTECrash;
 - (BOOL)saveWithOptions:(id)options;
+- (OSACrashReport)initWithTask:(unsigned int)task exceptionType:(int)type thread:(unsigned int)thread threadId:(unint64_t)id threadStateFlavor:(int)flavor threadState:(unsigned int)state[1296] threadStateCount:(unsigned int)count;
 - (_CSRange)_getObjCReadOnlyRange:(_CSTypeRef)range;
 - (_CSTypeRef)_getSymbolicator:(BOOL)symbolicator;
 - (_VMURange)_regionAtAddress:(unint64_t)address immutableCheck:(BOOL *)check isInSharedCache:(BOOL *)cache;
@@ -56,6 +57,9 @@
 - (id)decode_reasonWatchKit;
 - (id)decode_reasonWatchdog;
 - (id)decode_signal;
+- (id)decode_threadState:(unsigned int *)state threadStateCount:(unsigned int)count threadStateFlavor:(int)flavor threadPort:(unsigned int)port exceptionState:(unsigned int)exceptionState[1296] exceptionStateCount:(unsigned int)stateCount withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)self0;
+- (id)decode_threadState:(unsigned int)state withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog;
+- (id)decode_ubsanCode:(unsigned __int8)code;
 - (id)decode_versionCodes:(unsigned __int16)codes[4];
 - (id)getNotificationInfo;
 - (id)getObserverInfo;
@@ -102,6 +106,7 @@
 - (void)donateToBiome;
 - (void)dumpProgramCounterBytes;
 - (void)extractTerminationReason;
+- (void)extractThreadStateInfo:(unsigned int)info;
 - (void)finishExtraction;
 - (void)finishExtractionUsingCorpse;
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block;
@@ -155,15 +160,14 @@
   }
 
   v10 = &selRef_arrayForKey_;
-  v95 = v4;
+  v92 = v4;
   if (self->_task + 1 >= 2)
   {
     v13 = [[TaskOperator alloc] initWithTask:self->_task];
     taskOperator = self->_taskOperator;
     self->_taskOperator = v13;
 
-    v117[0] = 0;
-    task = self->_task;
+    v114[0] = 0;
     if (_dyld_process_info_create())
     {
       self->_platform = _dyld_process_info_get_platform();
@@ -172,12 +176,11 @@
 
     else
     {
-      v16 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-      v17 = [NSString stringWithFormat:@"_dyld_process_info_create failed with %d", v117[0]];
-      [v16 addObject:v17];
+      v15 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+      v16 = [NSString stringWithFormat:@"_dyld_process_info_create failed with %d", v114[0]];
+      [v15 addObject:v16];
     }
 
-    v18 = self->_task;
     if (dyld_process_create_for_task())
     {
       if (dyld_process_snapshot_create_for_process())
@@ -189,9 +192,9 @@
           self->_sharedCacheSize = mapped_size;
           if (self->_sharedCacheBase + mapped_size <= self->_sharedCacheBase)
           {
-            v24 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+            v22 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
             mapped_size = [NSString stringWithFormat:@"shared cache base 0x%llX + size 0x%llX overflow", self->_sharedCacheBase, mapped_size];
-            [v24 addObject:mapped_size];
+            [v22 addObject:mapped_size];
 
             self->_sharedCacheBase = 0;
             self->_sharedCacheSize = 0;
@@ -213,9 +216,9 @@
 
       else
       {
-        v22 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-        v23 = [NSString stringWithFormat:@"dyld_process_snapshot_create_for_process failed with %d", v117[0]];
-        [v22 addObject:v23];
+        v20 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+        v21 = [NSString stringWithFormat:@"dyld_process_snapshot_create_for_process failed with %d", v114[0]];
+        [v20 addObject:v21];
       }
 
       dyld_process_dispose();
@@ -223,9 +226,9 @@
 
     else
     {
-      v20 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-      v21 = [NSString stringWithFormat:@"dyld_process_create_for_task failed with %d", v117[0]];
-      [v20 addObject:v21];
+      v18 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+      v19 = [NSString stringWithFormat:@"dyld_process_create_for_task failed with %d", v114[0]];
+      [v18 addObject:v19];
     }
 
     get_default[0] = 0;
@@ -237,164 +240,164 @@
     }
 
     CSSymbolicatorSetForceGlobalSafeMachVMReads();
-    v26 = objc_autoreleasePoolPush();
-    v27 = objc_alloc_init(OSABinaryImageCatalog);
-    v28 = [(OSACrashReport *)self _getSymbolicator:1];
-    v30 = v29;
-    context = v26;
+    v24 = objc_autoreleasePoolPush();
+    v25 = objc_alloc_init(OSABinaryImageCatalog);
+    v26 = [(OSACrashReport *)self _getSymbolicator:1];
+    v28 = v27;
+    context = v24;
     if (CSIsNull())
     {
-      v93 = v30;
-      v94 = v28;
-      v91 = 0;
+      v90 = v28;
+      v91 = v26;
+      v88 = 0;
     }
 
     else
     {
-      [(OSACrashReport *)self _extractBinaryImageInfoUsingSymbolicator:v28 usingCatalog:v30, v27];
-      [(OSACrashReport *)self _extractVMMap:v28, v30];
+      [(OSACrashReport *)self _extractBinaryImageInfoUsingSymbolicator:v26 usingCatalog:v28, v25];
+      [(OSACrashReport *)self _extractVMMap:v26, v28];
       CSRelease();
-      v31 = [(OSACrashReport *)self _getSymbolicator:0];
-      v33 = v32;
-      v34 = +[NSMutableString string];
-      [(OSACrashReport *)self setLogWritingSignatureFrames:v34];
+      v29 = [(OSACrashReport *)self _getSymbolicator:0];
+      v31 = v30;
+      v32 = +[NSMutableString string];
+      [(OSACrashReport *)self setLogWritingSignatureFrames:v32];
 
-      v91 = [(OSACrashReport *)self _extractBacktraceInfoUsingSymbolicator:v31 usingCatalog:v33, v27];
+      v88 = [(OSACrashReport *)self _extractBacktraceInfoUsingSymbolicator:v29 usingCatalog:v31, v25];
       if ([(OSACrashReport *)self _isPGMCrashType])
       {
-        [(OSACrashReport *)self _extractPGMReportUsingSymbolicator:v31 usingCatalog:v33, v27];
-        [(OSACrashReport *)self _extractPGMLibpasReportUsingSymbolicator:v31 usingCatalog:v33, v27];
+        [(OSACrashReport *)self _extractPGMReportUsingSymbolicator:v29 usingCatalog:v31, v25];
+        [(OSACrashReport *)self _extractPGMLibpasReportUsingSymbolicator:v29 usingCatalog:v31, v25];
       }
 
-      [(OSACrashReport *)self _extractSanitizerReportUsingSymbolicator:v31 usingCatalog:v33, v27];
-      [(OSACrashReport *)self _extractMemoryErrorReportUsingSymbolicator:v31 usingCatalog:v33, v27];
-      [(OSACrashReport *)self _extractLastExceptionBacktraceUsingSymbolicator:v31 usingCatalog:v33, v27];
-      v93 = v33;
-      v94 = v31;
-      [(OSACrashReport *)self _extractExceptionReasonUsingSymbolicator:v31 usingCatalog:v33, v27];
+      [(OSACrashReport *)self _extractSanitizerReportUsingSymbolicator:v29 usingCatalog:v31, v25];
+      [(OSACrashReport *)self _extractMemoryErrorReportUsingSymbolicator:v29 usingCatalog:v31, v25];
+      [(OSACrashReport *)self _extractLastExceptionBacktraceUsingSymbolicator:v29 usingCatalog:v31, v25];
+      v90 = v31;
+      v91 = v29;
+      [(OSACrashReport *)self _extractExceptionReasonUsingSymbolicator:v29 usingCatalog:v31, v25];
     }
 
-    v109 = 0u;
-    v110 = 0u;
+    v106 = 0u;
     v107 = 0u;
-    v108 = 0u;
+    v104 = 0u;
+    v105 = 0u;
     obj = self->_exclaveThreadNumbers;
-    v99 = [(NSMutableArray *)obj countByEnumeratingWithState:&v107 objects:v121 count:16];
-    if (v99)
+    v96 = [(NSMutableArray *)obj countByEnumeratingWithState:&v104 objects:v118 count:16];
+    if (v96)
     {
-      v97 = *v108;
-      v98 = v27;
+      v94 = *v105;
+      v95 = v25;
       do
       {
-        for (i = 0; i != v99; i = i + 1)
+        for (i = 0; i != v96; i = i + 1)
         {
-          if (*v108 != v97)
+          if (*v105 != v94)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = -[NSMutableArray objectAtIndexedSubscript:](self->_threadInfos, "objectAtIndexedSubscript:", [*(*(&v107 + 1) + 8 * i) intValue]);
-          v37 = [v36 objectForKeyedSubscript:@"frames"];
-          v38 = [v36 objectForKeyedSubscript:@"id"];
-          if (!v37)
+          v34 = -[NSMutableArray objectAtIndexedSubscript:](self->_threadInfos, "objectAtIndexedSubscript:", [*(*(&v104 + 1) + 8 * i) intValue]);
+          v35 = [v34 objectForKeyedSubscript:@"frames"];
+          v36 = [v34 objectForKeyedSubscript:@"id"];
+          if (!v35)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
             {
-              sub_100030288(v119, v38, &v120);
+              sub_100030288(v116, v36, &v117);
             }
 
-            v37 = objc_alloc_init(NSMutableArray);
+            v35 = objc_alloc_init(NSMutableArray);
           }
 
-          v100 = v38;
-          v101 = v36;
-          v39 = [(OSAExclaveContainer *)self->_exclaveContainer getFramesForThread:v38 usingCatalog:v27];
+          v97 = v36;
+          v98 = v34;
+          v37 = [(OSAExclaveContainer *)self->_exclaveContainer getFramesForThread:v36 usingCatalog:v25];
+          v100 = 0u;
+          v101 = 0u;
+          v102 = 0u;
           v103 = 0u;
-          v104 = 0u;
-          v105 = 0u;
-          v106 = 0u;
-          v40 = [v39 countByEnumeratingWithState:&v103 objects:v118 count:16];
-          if (v40)
+          v38 = [v37 countByEnumeratingWithState:&v100 objects:v115 count:16];
+          if (v38)
           {
-            v41 = v40;
-            v42 = 0;
-            v43 = *v104;
+            v39 = v38;
+            v40 = 0;
+            v41 = *v101;
             do
             {
-              for (j = 0; j != v41; j = j + 1)
+              for (j = 0; j != v39; j = j + 1)
               {
-                if (*v104 != v43)
+                if (*v101 != v41)
                 {
-                  objc_enumerationMutation(v39);
+                  objc_enumerationMutation(v37);
                 }
 
-                v45 = [(OSACrashReport *)self composeFrame:*(*(&v103 + 1) + 8 * j) info:&off_10004E238];
-                [v37 insertObject:v45 atIndex:v42];
+                v43 = [(OSACrashReport *)self composeFrame:*(*(&v100 + 1) + 8 * j) info:&off_10004E238];
+                [v35 insertObject:v43 atIndex:v40];
 
-                ++v42;
+                ++v40;
               }
 
-              v41 = [v39 countByEnumeratingWithState:&v103 objects:v118 count:16];
+              v39 = [v37 countByEnumeratingWithState:&v100 objects:v115 count:16];
             }
 
-            while (v41);
+            while (v39);
           }
 
-          [v101 setObject:v37 forKeyedSubscript:@"frames"];
+          objc_msgSend_setObject_forKeyedSubscript_(v98);
           threadIdToScId = [(OSAExclaveContainer *)self->_exclaveContainer threadIdToScId];
-          v47 = [threadIdToScId objectForKeyedSubscript:v100];
+          v45 = [threadIdToScId objectForKeyedSubscript:v97];
 
-          if (v47)
+          if (v45)
           {
-            [v101 setObject:v47 forKeyedSubscript:@"exclaveScid"];
+            objc_msgSend_setObject_forKeyedSubscript_(v98);
           }
 
-          v27 = v98;
+          v25 = v95;
         }
 
-        v99 = [(NSMutableArray *)obj countByEnumeratingWithState:&v107 objects:v121 count:16];
+        v96 = [(NSMutableArray *)obj countByEnumeratingWithState:&v104 objects:v118 count:16];
       }
 
-      while (v99);
+      while (v96);
     }
 
     if (self->_exceptionType == 1)
     {
       self->_crashingAddress = self->_exceptionCode[1];
-      v48 = [[VMUVMRegionIdentifier alloc] initWithTask:self->_task pid:self->_proc_id options:4352];
-      v49 = [v48 descriptionOfRegionsAroundAddress:self->_crashingAddress options:4096];
-      v50 = v49;
-      v4 = v95;
-      if (v49)
+      v46 = [[VMUVMRegionIdentifier alloc] initWithTask:self->_task pid:self->_proc_id options:4352];
+      v47 = [v46 descriptionOfRegionsAroundAddress:self->_crashingAddress options:4096];
+      v48 = v47;
+      v4 = v92;
+      if (v47)
       {
-        v51 = [v49 componentsSeparatedByString:@"\n"];
+        v49 = [v47 componentsSeparatedByString:@"\n"];
         [NSPredicate predicateWithFormat:@"SELF != ''"];
-        v53 = v52 = v27;
-        v54 = [v51 filteredArrayUsingPredicate:v53];
+        v51 = v50 = v25;
+        v52 = [v49 filteredArrayUsingPredicate:v51];
 
-        v27 = v52;
-        v55 = [v54 componentsJoinedByString:@"\n"];
+        v25 = v50;
+        v53 = [v52 componentsJoinedByString:@"\n"];
         vmregion_info = self->_vmregion_info;
-        self->_vmregion_info = v55;
+        self->_vmregion_info = v53;
       }
 
-      regions = [v48 regions];
-      v58 = [(OSACrashReport *)self _findContainingRegion:regions address:self->_crashingAddress];
+      regions = [v46 regions];
+      v56 = [(OSACrashReport *)self _findContainingRegion:regions address:self->_crashingAddress];
 
-      if (v58 && *&v58[OBJC_IVAR___VMUVMRegion_user_tag] == 30 && !*&v58[OBJC_IVAR___VMUVMRegion_prot])
+      if (v56 && *&v56[OBJC_IVAR___VMUVMRegion_user_tag] == 30 && !*&v56[OBJC_IVAR___VMUVMRegion_prot])
       {
         self->_isStackGuardPageBadAccess = 1;
-        if ([*&v58[OBJC_IVAR___VMUVMRegion_path] rangeOfString:@"stack guard for thread "] == 0x7FFFFFFFFFFFFFFFLL)
+        if ([*&v56[OBJC_IVAR___VMUVMRegion_path] rangeOfString:@"stack guard for thread "] == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v60 = -1;
+          v58 = -1;
         }
 
         else
         {
-          v60 = atoi([*&v58[OBJC_IVAR___VMUVMRegion_path] UTF8String] + v59);
+          v58 = atoi([*&v56[OBJC_IVAR___VMUVMRegion_path] UTF8String] + v57);
         }
 
-        self->_stackGuardPageBadAccessThreadNumber = v60;
+        self->_stackGuardPageBadAccessThreadNumber = v58;
       }
 
       v10 = &selRef_arrayForKey_;
@@ -402,7 +405,7 @@
 
     else
     {
-      v4 = v95;
+      v4 = v92;
       v10 = &selRef_arrayForKey_;
       if ((self->_cs_status & 0x1000000) != 0 && self->_exceptionStateCount)
       {
@@ -414,35 +417,35 @@
     if (crashingAddress)
     {
       taskImages = self->_taskImages;
-      v102 = 0;
-      v63 = [v27 searchFrame:crashingAddress in:taskImages regions:0 result:&v102];
+      v99 = 0;
+      v61 = [v25 searchFrame:crashingAddress in:taskImages regions:0 result:&v99];
     }
 
-    v64 = [v27 reportUsedImagesFullInfoUsingBlock:&stru_1000452E0];
+    v62 = [v25 reportUsedImagesFullInfoUsingBlock:&stru_1000452E0];
     usedImages = self->_usedImages;
-    self->_usedImages = v64;
+    self->_usedImages = v62;
 
-    v66 = OBJC_IVAR___OSAReport__notes;
-    [v27 appendNotesTo:*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes]];
+    v64 = OBJC_IVAR___OSAReport__notes;
+    [v25 appendNotesTo:*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes]];
 
-    [(OSAExclaveContainer *)self->_exclaveContainer appendNotesTo:*&self->OSAReport_opaque[v66]];
-    threadPortOriginal = v91;
-    if (!v91)
+    [(OSAExclaveContainer *)self->_exclaveContainer appendNotesTo:*&self->OSAReport_opaque[v64]];
+    threadPortOriginal = v88;
+    if (!v88)
     {
       threadPortOriginal = self->_threadPortOriginal;
     }
 
     [(OSACrashReport *)self extractThreadStateInfo:threadPortOriginal];
-    v68 = [(OSACrashReport *)self decode_crashingThreadStateWithSymbolicator:v94 usingCatalog:v93, 0];
+    v66 = [(OSACrashReport *)self decode_crashingThreadStateWithSymbolicator:v91 usingCatalog:v90, 0];
     threadStateDecoded = self->_threadStateDecoded;
-    self->_threadStateDecoded = v68;
+    self->_threadStateDecoded = v66;
 
     [(OSACrashReport *)self setTriggeredThread];
     self->_sroute_id = [(OSACrashReport *)self sRouteID];
     [(OSACrashReport *)self checkIfNeedsUrgentSubmission];
-    if (v91)
+    if (v88)
     {
-      mach_port_deallocate(mach_task_self_, v91);
+      mach_port_deallocate(mach_task_self_, v88);
     }
 
     if ((CSIsNull() & 1) == 0)
@@ -461,26 +464,25 @@
     [v11 addObject:v12];
   }
 
-  proc_id = self->_proc_id;
   if (!sandbox_container_path_for_pid())
   {
-    v71 = [NSString stringWithUTF8String:v117];
+    v68 = [NSString stringWithUTF8String:v114];
     sandboxContainer = self->_sandboxContainer;
-    self->_sandboxContainer = v71;
+    self->_sandboxContainer = v68;
   }
 
   logWritingSignatureFrames = [(OSACrashReport *)self logWritingSignatureFrames];
-  v74 = [logWritingSignatureFrames length];
+  v71 = [logWritingSignatureFrames length];
 
-  if (v74)
+  if (v71)
   {
-    v75 = *&self->OSAReport_opaque[*(v10 + 929)];
-    v76 = *self->_exceptionCode;
+    v72 = *&self->OSAReport_opaque[*(v10 + 929)];
+    v73 = *self->_exceptionCode;
     exceptionType = self->_exceptionType;
     logWritingSignatureFrames2 = [(OSACrashReport *)self logWritingSignatureFrames];
-    v79 = +[OSASystemConfiguration sharedInstance];
-    productNameVersionBuildString = [v79 productNameVersionBuildString];
-    v81 = [NSString stringWithFormat:@"%@ %s 0x%X 0x%qx %@ %@ %u", v75, self->_slice_uuid, exceptionType, v76, logWritingSignatureFrames2, productNameVersionBuildString, self->_sroute_id];
+    v76 = +[OSASystemConfiguration sharedInstance];
+    productNameVersionBuildString = [v76 productNameVersionBuildString];
+    v78 = [NSString stringWithFormat:@"%@ %s 0x%X 0x%qx %@ %@ %u", v72, self->_slice_uuid, exceptionType, v73, logWritingSignatureFrames2, productNameVersionBuildString, self->_sroute_id];
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
@@ -488,45 +490,45 @@
     }
 
     *get_default = 0;
-    v115 = 0;
-    v116 = 0;
-    CC_SHA1([v81 UTF8String], objc_msgSend(v81, "length"), get_default);
-    v82 = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", LOBYTE(get_default[0]), BYTE1(get_default[0]), BYTE2(get_default[0]), HIBYTE(get_default[0]), LOBYTE(get_default[1]), BYTE1(get_default[1]), BYTE2(get_default[1]), HIBYTE(get_default[1]), v115, BYTE1(v115), BYTE2(v115), BYTE3(v115), BYTE4(v115), BYTE5(v115), BYTE6(v115), HIBYTE(v115), v116, BYTE1(v116), BYTE2(v116), HIBYTE(v116)];
-    [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions] setObject:v82 forKeyedSubscript:kOSALogOptionSignature];
-    objc_storeStrong(&self->_logWritingSignature, v82);
-    v4 = v95;
+    v112 = 0;
+    v113 = 0;
+    CC_SHA1([v78 UTF8String], objc_msgSend(v78, "length"), get_default);
+    v79 = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", LOBYTE(get_default[0]), BYTE1(get_default[0]), BYTE2(get_default[0]), HIBYTE(get_default[0]), LOBYTE(get_default[1]), BYTE1(get_default[1]), BYTE2(get_default[1]), HIBYTE(get_default[1]), v112, BYTE1(v112), BYTE2(v112), BYTE3(v112), BYTE4(v112), BYTE5(v112), BYTE6(v112), HIBYTE(v112), v113, BYTE1(v113), BYTE2(v113), HIBYTE(v113)];
+    objc_msgSend_setObject_forKeyedSubscript_(*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions]);
+    objc_storeStrong(&self->_logWritingSignature, v79);
+    v4 = v92;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       policy_infoCnt = 138412290;
-      v113 = v82;
+      v110 = v79;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "crash signature: %@", &policy_infoCnt, 0xCu);
     }
   }
 
-  v83 = *self->_exceptionCode;
-  if (self->_exceptionType != 11 || (v83 & 0xE000000000000000) != 0x6000000000000000 || !self->_proc_id)
+  v80 = *self->_exceptionCode;
+  if (self->_exceptionType != 11 || (v80 & 0xE000000000000000) != 0x6000000000000000 || !self->_proc_id)
   {
-    if (v83 == 3238382097)
+    if (v80 == 3238382097)
     {
-      v84 = &off_10004E448;
+      v81 = &off_10004E448;
     }
 
-    else if (v83 == 3134085662)
+    else if (v80 == 3134085662)
     {
-      v84 = &off_10004E430;
+      v81 = &off_10004E430;
     }
 
     else
     {
-      if (self->_abort_cause != 1414810708 && (v83 != 1414810708 || !self->_is_simulated))
+      if (self->_abort_cause != 1414810708 && (v80 != 1414810708 || !self->_is_simulated))
       {
         goto LABEL_102;
       }
 
-      v84 = &off_10004E460;
+      v81 = &off_10004E460;
     }
 
-    [(OSACrashReport *)self captureDiagInfo:v84];
+    [(OSACrashReport *)self captureDiagInfo:v81];
     goto LABEL_102;
   }
 
@@ -537,19 +539,21 @@
 
   else
   {
-    v85 = +[OSASystemConfiguration sharedInstance];
-    appleInternal = [v85 appleInternal];
+    v82 = +[OSASystemConfiguration sharedInstance];
+    appleInternal = [v82 appleInternal];
 
     if (appleInternal)
     {
-      v87 = [NSMutableDictionary dictionaryWithCapacity:1];
+      v84 = [NSMutableDictionary dictionaryWithCapacity:1];
       spewage_diag = self->_spewage_diag;
-      self->_spewage_diag = v87;
+      self->_spewage_diag = v84;
+
+      objc_msgSend_setObject_forKeyedSubscript_(self->_spewage_diag);
     }
   }
 
-  v89 = self->_task;
-  v90 = self->_procPath;
+  task = self->_task;
+  v87 = self->_procPath;
   if (byte_1000540D3 == 1)
   {
     if (qword_100054178 != -1)
@@ -559,7 +563,7 @@
 
     if (off_100054170)
     {
-      (off_100054170)(v89, 0, [(NSString *)v90 UTF8String], 0, 0);
+      (off_100054170)(task, 0, [(NSString *)v87 UTF8String], 0, 0);
     }
   }
 
@@ -573,18 +577,18 @@ LABEL_102:
   procPath = self->_procPath;
   if (procPath)
   {
-    v44[0] = @"CFBundleIdentifier";
-    v44[1] = kCFBundleVersionKey;
-    v44[2] = @"CFBundleShortVersionString";
-    v44[3] = @"DTAppStoreToolsBuild";
-    v44[4] = @"LSUIElement";
-    v44[5] = @"LSBackgroundOnly";
-    v44[6] = @"CFBundlePackageType";
-    v4 = [NSArray arrayWithObjects:v44 count:7];
-    v41 = 0;
-    v5 = [OSACrashReport findBundleAtPath:procPath withKeys:v4 bundleURL:&v41];
-    v6 = v41;
-    v7 = v41;
+    v42[0] = @"CFBundleIdentifier";
+    v42[1] = kCFBundleVersionKey;
+    v42[2] = @"CFBundleShortVersionString";
+    v42[3] = @"DTAppStoreToolsBuild";
+    v42[4] = @"LSUIElement";
+    v42[5] = @"LSBackgroundOnly";
+    v42[6] = @"CFBundlePackageType";
+    v4 = [NSArray arrayWithObjects:v42 count:7];
+    v39 = 0;
+    v5 = [OSACrashReport findBundleAtPath:procPath withKeys:v4 bundleURL:&v39];
+    v6 = v39;
+    v7 = v39;
     bundle_info = self->_bundle_info;
     self->_bundle_info = v5;
 
@@ -614,7 +618,7 @@ LABEL_102:
         if (v17)
         {
           self->_is_beta = 1;
-          [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions] setObject:@"beta" forKeyedSubscript:kOSALogOptionRouting];
+          objc_msgSend_setObject_forKeyedSubscript_(*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions]);
         }
       }
 
@@ -623,7 +627,6 @@ LABEL_102:
       v20 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:@"CFBundlePackageType"];
       v21 = (!v18 || (objc_opt_respondsToSelector() & 1) == 0 || (-[NSDictionary BOOLValue](v18, "BOOLValue") & 1) == 0) && (!v19 || (objc_opt_respondsToSelector() & 1) == 0 || ([v19 BOOLValue] & 1) == 0) && (!v20 || (objc_opt_respondsToSelector() & 1) == 0 || (objc_msgSend(v20, "isEqualToString:", @"XPC!") & 1) == 0);
       self->_bundleVisibility = v21;
-      v22 = self->_bundle_info;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -638,65 +641,64 @@ LABEL_102:
         goto LABEL_24;
       }
 
-      v36 = v7;
+      v34 = v7;
       v18 = objc_opt_new();
+      v35 = 0u;
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v42[0] = kCFBundleVersionKey;
-      v42[1] = @"CFBundleShortVersionString";
-      v29 = [NSArray arrayWithObjects:v42 count:2];
-      v30 = [v29 countByEnumeratingWithState:&v37 objects:v43 count:16];
-      if (v30)
+      v40[0] = kCFBundleVersionKey;
+      v40[1] = @"CFBundleShortVersionString";
+      v28 = [NSArray arrayWithObjects:v40 count:2];
+      v29 = [v28 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      if (v29)
       {
-        v31 = v30;
-        v32 = *v38;
+        v30 = v29;
+        v31 = *v36;
         do
         {
-          for (i = 0; i != v31; i = i + 1)
+          for (i = 0; i != v30; i = i + 1)
           {
-            if (*v38 != v32)
+            if (*v36 != v31)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v28);
             }
 
-            v34 = *(*(&v37 + 1) + 8 * i);
-            v35 = [(NSDictionary *)self->_info_plist objectForKeyedSubscript:v34, v36];
-            [(NSDictionary *)v18 setObject:v35 forKeyedSubscript:v34];
+            v33 = [(NSDictionary *)self->_info_plist objectForKeyedSubscript:*(*(&v35 + 1) + 8 * i), v34];
+            objc_msgSend_setObject_forKeyedSubscript_(v18);
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v37 objects:v43 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v35 objects:v41 count:16];
         }
 
-        while (v31);
+        while (v30);
       }
 
       if (![(NSDictionary *)v18 count])
       {
-        v7 = v36;
+        v7 = v34;
         goto LABEL_23;
       }
 
       v18 = v18;
       v19 = self->_bundle_info;
       self->_bundle_info = v18;
-      v7 = v36;
+      v7 = v34;
     }
 
 LABEL_23:
 LABEL_24:
-    v23 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:@"CFBundleShortVersionString", v36];
+    v22 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:@"CFBundleShortVersionString", v34];
     short_vers = self->_short_vers;
-    self->_short_vers = v23;
+    self->_short_vers = v22;
 
-    v25 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:kCFBundleVersionKey];
+    v24 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:kCFBundleVersionKey];
     bundleVersion = self->_bundleVersion;
-    self->_bundleVersion = v25;
+    self->_bundleVersion = v24;
 
-    v27 = [OSACrashReport loadBuildInfo:v7];
+    v26 = [OSACrashReport loadBuildInfo:v7];
     build_info = self->_build_info;
-    self->_build_info = v27;
+    self->_build_info = v26;
 
     goto LABEL_25;
   }
@@ -820,35 +822,35 @@ LABEL_22:
   lastExceptionBacktrace = self->_lastExceptionBacktrace;
   if (lastExceptionBacktrace && [(NSArray *)lastExceptionBacktrace count])
   {
-    [v3 setObject:self->_lastExceptionBacktrace forKeyedSubscript:@"frames"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   else if ((self->_crashedThreadNumber & 0x80000000) == 0)
   {
     v5 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:?];
     v6 = [v5 objectForKeyedSubscript:@"frames"];
-    [v3 setObject:v6 forKeyedSubscript:@"frames"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
-  [v3 setObject:self->_usedImages forKeyedSubscript:@"images"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
   v7 = [NSNumber numberWithInt:self->_proc_id];
-  [v3 setObject:v7 forKeyedSubscript:@"pid"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-  [v3 setObject:self->_procName forKeyedSubscript:@"name"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
   v8 = [NSNumber numberWithDouble:*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__capture_time]];
-  [v3 setObject:v8 forKeyedSubscript:@"time"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   if ([(NSMutableDictionary *)self->_applicationSpecificInfoFullSensitive count])
   {
-    [v3 setObject:self->_applicationSpecificInfoFullSensitive forKeyedSubscript:@"asi"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   v9 = [NSNumber numberWithBool:self->_is_simulated];
-  [v3 setObject:v9 forKeyedSubscript:@"isSimulated"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   if ([(NSDictionary *)self->_terminationReason count])
   {
-    [v3 setObject:self->_terminationReason forKeyedSubscript:@"terminationReason"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   return v3;
@@ -859,43 +861,42 @@ LABEL_22:
   problemType = [(OSACrashReport *)self problemType];
   if (([problemType isEqualToString:@"385"] & 1) != 0 || (objc_msgSend(problemType, "isEqualToString:", @"309") & 1) != 0 || objc_msgSend(problemType, "isEqualToString:", @"308"))
   {
-    procName = self->_procName;
     if (self->_is_simulated)
     {
-      v5 = @"_sim";
+      v4 = @"_sim";
     }
 
     else
     {
-      v5 = &stru_1000463C0;
+      v4 = &stru_1000463C0;
     }
 
-    v6 = [NSString stringWithFormat:@"%@_%@%@", problemType, self->_procName, v5];
-    [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions] setObject:v6 forKeyedSubscript:kOSALogOptionCountKey];
+    v5 = [NSString stringWithFormat:@"%@_%@%@", problemType, self->_procName, v4];
+    objc_msgSend_setObject_forKeyedSubscript_(*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions]);
   }
 
   exit_snapshot = self->_exit_snapshot;
-  v8 = !exit_snapshot || exit_snapshot->ers_namespace != 7 || exit_snapshot->ers_code != 3;
+  v7 = !exit_snapshot || exit_snapshot->ers_namespace != 7 || exit_snapshot->ers_code != 3;
   if (self->_exceptionType == 11 && *self->_exceptionCode >> 61 == 3)
   {
-    v9 = +[OSASystemConfiguration sharedInstance];
-    if ([v9 appleInternal])
+    v8 = +[OSASystemConfiguration sharedInstance];
+    if ([v8 appleInternal])
     {
-      v10 = v8 | byte_1000540D4;
+      v9 = v7 | byte_1000540D4;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v10 = v8 | byte_1000540D4;
+    v9 = v7 | byte_1000540D4;
   }
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 - (id)reportNamePrefix
@@ -930,14 +931,14 @@ LABEL_22:
 - (id)additionalIPSMetadata
 {
   procName = self->_procName;
-  v30[0] = kOSALogMetadataAppName;
-  v30[1] = @"app_name";
-  v31[0] = procName;
-  v31[1] = procName;
-  v30[2] = @"slice_uuid";
+  v28[0] = kOSALogMetadataAppName;
+  v28[1] = @"app_name";
+  v29[0] = procName;
+  v29[1] = procName;
+  v28[2] = @"slice_uuid";
   slice_uuid = [(OSACrashReport *)self slice_uuid];
-  v31[2] = slice_uuid;
-  v30[3] = @"build_version";
+  v29[2] = slice_uuid;
+  v28[3] = @"build_version";
   v4 = [(NSDictionary *)self->_bundle_info objectForKeyedSubscript:kCFBundleVersionKey];
   if (v4)
   {
@@ -949,9 +950,9 @@ LABEL_22:
     v5 = &stru_1000463C0;
   }
 
-  v28 = v5;
-  v31[3] = v5;
-  v30[4] = @"app_version";
+  v26 = v5;
+  v29[3] = v5;
+  v28[4] = @"app_version";
   short_vers = [(OSACrashReport *)self short_vers];
   v7 = short_vers;
   if (short_vers)
@@ -964,11 +965,11 @@ LABEL_22:
     v8 = &stru_1000463C0;
   }
 
-  v31[4] = v8;
-  v30[5] = @"is_first_party";
+  v29[4] = v8;
+  v28[5] = @"is_first_party";
   v9 = [NSNumber numberWithBool:self->_is_first_party];
-  v31[5] = v9;
-  v30[6] = @"share_with_app_devs";
+  v29[5] = v9;
+  v28[6] = @"share_with_app_devs";
   is_simulated = self->_is_simulated;
   if (is_simulated)
   {
@@ -977,19 +978,19 @@ LABEL_22:
 
   else
   {
-    v27 = +[OSASystemConfiguration sharedInstance];
-    optIn3rdParty = [v27 optIn3rdParty];
+    v25 = +[OSASystemConfiguration sharedInstance];
+    optIn3rdParty = [v25 optIn3rdParty];
   }
 
   v12 = [NSNumber numberWithBool:optIn3rdParty];
-  v31[6] = v12;
-  v30[7] = kOSALogMetadataIncidentID;
+  v29[6] = v12;
+  v28[7] = kOSALogMetadataIncidentID;
   incidentID = [(OSACrashReport *)self incidentID];
-  v31[7] = incidentID;
-  v30[8] = @"platform";
+  v29[7] = incidentID;
+  v28[8] = @"platform";
   v14 = [NSNumber numberWithUnsignedInt:self->_platform];
-  v31[8] = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:9];
+  v29[8] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:9];
   v16 = [v15 mutableCopy];
 
   if (!is_simulated)
@@ -1005,49 +1006,47 @@ LABEL_22:
   if (etlKey)
   {
     etlKey2 = [(OSACrashReport *)self etlKey];
-    [v16 setObject:etlKey2 forKeyedSubscript:@"etl_key"];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
-  bundle_id = self->_bundle_id;
-  if (bundle_id)
+  if (self->_bundle_id)
   {
-    [v16 setObject:bundle_id forKeyedSubscript:kOSALogMetadataBundleID];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
   if (self->_is_simulated)
   {
-    [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:@"is_simulated"];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
   if (self->_is_beta)
   {
-    [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:@"is_beta"];
-    v20 = [(NSDictionary *)self->_store_info objectForKeyedSubscript:@"storeCohortMetadata"];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
+    v19 = [(NSDictionary *)self->_store_info objectForKeyedSubscript:@"storeCohortMetadata"];
 
-    if (v20)
+    if (v19)
     {
-      v21 = [(NSDictionary *)self->_store_info objectForKeyedSubscript:@"storeCohortMetadata"];
-      [v16 setObject:v21 forKeyedSubscript:@"app_cohort"];
+      v20 = [(NSDictionary *)self->_store_info objectForKeyedSubscript:@"storeCohortMetadata"];
+      objc_msgSend_setObject_forKeyedSubscript_(v16);
     }
   }
 
-  adam_id = self->_adam_id;
-  if (adam_id)
+  if (self->_adam_id)
   {
-    [v16 setObject:adam_id forKeyedSubscript:@"adam_id"];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
   exit_snapshot = self->_exit_snapshot;
   if (exit_snapshot && exit_snapshot->ers_namespace == 20 && self->_exit_payload && self->_exit_payload_length == 37)
   {
-    v24 = [NSString stringWithUTF8String:?];
-    [v16 setObject:v24 forKeyedSubscript:@"correlationID"];
+    v22 = [NSString stringWithUTF8String:?];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
   if (self->_sroute_id)
   {
-    v25 = [NSNumber numberWithUnsignedInt:?];
-    [v16 setObject:v25 forKeyedSubscript:@"sroute_id"];
+    v23 = [NSNumber numberWithUnsignedInt:?];
+    objc_msgSend_setObject_forKeyedSubscript_(v16);
   }
 
   [(OSACrashReport *)self addFieldsToHeader:v16];
@@ -1134,7 +1133,7 @@ LABEL_8:
       v9 = [v8 valueForKey:@"stringByTrimming"];
       v10 = [NSPredicate predicateWithFormat:@"SELF != ''"];
       v11 = [v9 filteredArrayUsingPredicate:v10];
-      [v3 setObject:v11 forKeyedSubscript:@"reasons"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
 
       goto LABEL_9;
     }
@@ -1148,17 +1147,17 @@ LABEL_8:
 LABEL_9:
   if (self->_exit_snapshot)
   {
-    [v3 setObject:decode_reasonNamespace forKeyedSubscript:@"namespace"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
     v12 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
-    [v3 setObject:v12 forKeyedSubscript:@"code"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
     v13 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_flags];
-    [v3 setObject:v13 forKeyedSubscript:@"flags"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
     exit_snapshot = self->_exit_snapshot;
     if ((exit_snapshot->ers_flags & 0x10) != 0)
     {
-      v21 = decode_reasonNamespace;
+      v20 = decode_reasonNamespace;
       AnalyticsSendEventLazy();
 
       exit_snapshot = self->_exit_snapshot;
@@ -1168,7 +1167,7 @@ LABEL_9:
     {
       case 2u:
         v15 = [NSString stringWithFormat:@"%s", strsignal(exit_snapshot->ers_code)];
-        [v3 setObject:v15 forKeyedSubscript:@"indicator"];
+        objc_msgSend_setObject_forKeyedSubscript_(v3);
         goto LABEL_34;
       case 3u:
         decode_reasonCodeSigning = [(OSACrashReport *)self decode_reasonCodeSigning];
@@ -1234,18 +1233,17 @@ LABEL_34:
   if (self->_terminator_pid)
   {
     v17 = [NSNumber numberWithInt:?];
-    [v3 setObject:v17 forKeyedSubscript:@"byPid"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-    terminator_proc = self->_terminator_proc;
-    if (terminator_proc)
+    if (self->_terminator_proc)
     {
-      [v3 setObject:terminator_proc forKeyedSubscript:@"byProc"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
     }
   }
 
-  v19 = [NSDictionary dictionaryWithDictionary:v3];
+  v18 = [NSDictionary dictionaryWithDictionary:v3];
   terminationReason = self->_terminationReason;
-  self->_terminationReason = v19;
+  self->_terminationReason = v18;
 }
 
 - (void)finishExtraction
@@ -1399,7 +1397,7 @@ LABEL_34:
       v8 = [(OSACrashReport *)self safe_encoder:exit_payload[4]];
       if (v8)
       {
-        [(NSMutableDictionary *)self->_new_payload setObject:v8 forKeyedSubscript:@"message"];
+        objc_msgSend_setObject_forKeyedSubscript_(self->_new_payload);
       }
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1412,7 +1410,7 @@ LABEL_34:
     v9 = [(OSACrashReport *)self safe_encoder:exit_payload[3]];
     if (v9)
     {
-      [(NSMutableDictionary *)self->_new_payload setObject:v9 forKeyedSubscript:@"category"];
+      objc_msgSend_setObject_forKeyedSubscript_(self->_new_payload);
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1424,7 +1422,7 @@ LABEL_34:
     v10 = [(OSACrashReport *)self safe_encoder:exit_payload[2]];
     if (v10)
     {
-      [(NSMutableDictionary *)self->_new_payload setObject:v10 forKeyedSubscript:@"subsystem"];
+      objc_msgSend_setObject_forKeyedSubscript_(self->_new_payload);
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1476,7 +1474,7 @@ LABEL_34:
   v4 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:5];
   v5 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v6 = [v4 objectForKeyedSubscript:v5];
-  [v3 setObject:v6 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   v7 = objc_opt_new();
   if (self->_workloop_id)
@@ -1552,7 +1550,7 @@ LABEL_34:
 LABEL_11:
   if ([v7 count])
   {
-    [v3 setObject:v7 forKeyedSubscript:@"details"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   return v3;
@@ -1815,27 +1813,26 @@ LABEL_11:
 - (id)create_os_fault_section
 {
   v3 = objc_opt_new();
-  [v3 setObject:self->_procName forKeyedSubscript:@"process"];
-  terminator_reason = self->_terminator_reason;
-  if (terminator_reason)
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
+  if (self->_terminator_reason)
   {
-    [v3 setObject:terminator_reason forKeyedSubscript:@"format"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   [(OSACrashReport *)self decode_os_log_fault_payload];
-  v5 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"message"];
+  v4 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"message"];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"message"];
-    [v3 setObject:v6 forKeyedSubscript:@"message"];
+    v5 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"message"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
-  v7 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"category"];
-  [v3 setObject:v7 forKeyedSubscript:@"category"];
+  v6 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"category"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-  v8 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"subsystem"];
-  [v3 setObject:v8 forKeyedSubscript:@"subsystem"];
+  v7 = [(NSMutableDictionary *)self->_new_payload objectForKeyedSubscript:@"subsystem"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   return v3;
 }
@@ -1844,12 +1841,12 @@ LABEL_11:
 {
   v3 = objc_opt_new();
   decode_exceptionType = [(OSACrashReport *)self decode_exceptionType];
-  [v3 setObject:decode_exceptionType forKeyedSubscript:@"type"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   if (self->_signal)
   {
     decode_signal = [(OSACrashReport *)self decode_signal];
-    [v3 setObject:decode_signal forKeyedSubscript:@"signal"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   exceptionType = self->_exceptionType;
@@ -1861,9 +1858,9 @@ LABEL_11:
       {
         v15 = *self->_exceptionCode;
         *buf = 134218240;
-        *v70 = v15;
-        *&v70[8] = 2048;
-        *&v70[10] = codeZeroForGuardException;
+        *v67 = v15;
+        *&v67[8] = 2048;
+        *&v67[10] = codeZeroForGuardException;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "EXC_GUARD code zero: 0x%llX -> 0x%llX", buf, 0x16u);
       }
 
@@ -1876,85 +1873,85 @@ LABEL_11:
           {
             if (v16 == 3)
             {
-              [v3 setObject:@"GUARD_TYPE_USER" forKeyedSubscript:@"subtype"];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
               v17 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
-              [v3 setObject:v17 forKeyedSubscript:@"namespc"];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
               v18 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-              [v3 setObject:v18 forKeyedSubscript:@"reason"];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              [NSString stringWithFormat:@"namespc %u reason_code 0x%016qx", codeZeroForGuardException, self->_exceptionCode[1], v61];
-              goto LABEL_103;
+              [NSString stringWithFormat:@"namespc %u reason_code 0x%016qx", codeZeroForGuardException, self->_exceptionCode[1], v58];
+              goto LABEL_98;
             }
 
-LABEL_66:
-            v33 = [NSString stringWithFormat:@"GUARD_TYPE_0x%llX", codeZeroForGuardException >> 61];
-            [v3 setObject:v33 forKeyedSubscript:@"subtype"];
+LABEL_62:
+            v30 = [NSString stringWithFormat:@"GUARD_TYPE_0x%llX", codeZeroForGuardException >> 61];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-            [NSString stringWithFormat:@"unknown guard type (0x%016qx, 0x%016qx)", codeZeroForGuardException, self->_exceptionCode[1], v61];
-            goto LABEL_103;
+            [NSString stringWithFormat:@"unknown guard type (0x%016qx, 0x%016qx)", codeZeroForGuardException, self->_exceptionCode[1], v58];
+            goto LABEL_98;
           }
 
-          [v3 setObject:@"GUARD_TYPE_FD" forKeyedSubscript:@"subtype"];
-          v34 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+          objc_msgSend_setObject_forKeyedSubscript_(v3);
+          v31 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
           if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 7)
           {
-            switch(v34)
+            switch(v31)
             {
               case 1:
                 0x1FFFFFFF = @"CLOSE";
-                goto LABEL_138;
+                goto LABEL_133;
               case 2:
                 0x1FFFFFFF = @"DUP";
-                goto LABEL_138;
+                goto LABEL_133;
               case 4:
                 0x1FFFFFFF = @"NOCLOEXEC";
-                goto LABEL_138;
+                goto LABEL_133;
             }
           }
 
           else if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0x1F)
           {
-            if (v34 == 32)
+            if (v31 == 32)
             {
               0x1FFFFFFF = @"MISMATCH";
-              goto LABEL_138;
+              goto LABEL_133;
             }
 
-            if (v34 == 64)
+            if (v31 == 64)
             {
               0x1FFFFFFF = @"WRITE";
-              goto LABEL_138;
+              goto LABEL_133;
             }
           }
 
           else
           {
-            if (v34 == 8)
+            if (v31 == 8)
             {
               0x1FFFFFFF = @"SOCKET_IPC";
-              goto LABEL_138;
+              goto LABEL_133;
             }
 
-            if (v34 == 16)
+            if (v31 == 16)
             {
               0x1FFFFFFF = @"FILEPORT";
-LABEL_138:
-              v72 = 0x1FFFFFFF;
-              v38 = [NSArray arrayWithObjects:&v72 count:1];
-              [v3 setObject:v38 forKeyedSubscript:@"violations"];
+LABEL_133:
+              v69 = 0x1FFFFFFF;
+              v35 = [NSArray arrayWithObjects:&v69 count:1];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              v39 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
-              [v3 setObject:v39 forKeyedSubscript:@"fd"];
+              v36 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              v40 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-              [v3 setObject:v40 forKeyedSubscript:@"guardId"];
+              v37 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
               [NSString stringWithFormat:@" %@ on file descriptor %u (guarded with 0x%016qx)", 0x1FFFFFFF, codeZeroForGuardException, self->_exceptionCode[1]];
-              v52 = LABEL_218:;
-              [v3 setObject:v52 forKeyedSubscript:@"message"];
+              v49 = LABEL_213:;
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-LABEL_219:
+LABEL_214:
               break;
             }
           }
@@ -1963,17 +1960,17 @@ LABEL_219:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109376;
-            *v70 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
-            *&v70[4] = 2048;
-            *&v70[6] = codeZeroForGuardException;
+            *v67 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+            *&v67[4] = 2048;
+            *&v67[6] = codeZeroForGuardException;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unknown GUARD_TYPE_FD flavor %d in code %lld", buf, 0x12u);
           }
 
-          goto LABEL_138;
+          goto LABEL_133;
         }
 
-        [v3 setObject:@"GUARD_TYPE_MACH_PORT" forKeyedSubscript:@"subtype"];
-        v30 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+        objc_msgSend_setObject_forKeyedSubscript_(v3);
+        v27 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
         if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0x1FF)
         {
           if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) >= 0x40000)
@@ -1982,22 +1979,22 @@ LABEL_219:
             {
               if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) < 0x100000)
               {
-                if (v30 == 0x40000)
+                if (v27 == 0x40000)
                 {
                   0x1FFFFFFF = @"SEND_INVALID_RIGHT";
-                  goto LABEL_214;
+                  goto LABEL_209;
                 }
 
-                if (v30 == 0x80000)
+                if (v27 == 0x80000)
                 {
                   0x1FFFFFFF = @"RCV_INVALID_NAME";
-                  goto LABEL_214;
+                  goto LABEL_209;
                 }
 
-                goto LABEL_212;
+                goto LABEL_207;
               }
 
-              if (v30 == 0x100000)
+              if (v27 == 0x100000)
               {
                 0x1FFFFFFF = @"RCV_GUARDED_DESC";
               }
@@ -2007,37 +2004,37 @@ LABEL_219:
                 0x1FFFFFFF = @"SERVICE_PORT_VIOLATION_NON_FATAL";
               }
 
-              goto LABEL_214;
+              goto LABEL_209;
             }
 
             if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 0x100004)
             {
-              if (v30 == 1048578)
+              if (v27 == 1048578)
               {
                 0x1FFFFFFF = @"PROVISIONAL_REPLY_PORT";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 1048579)
+              if (v27 == 1048579)
               {
                 0x1FFFFFFF = @"OOL_PORT_ARRAY_CREATION";
-                goto LABEL_214;
+                goto LABEL_209;
               }
             }
 
             else
             {
-              switch(v30)
+              switch(v27)
               {
                 case 0x100005:
                   0x1FFFFFFF = @"REPLY_PORT_SINGLE_SO_RIGHT";
-                  goto LABEL_214;
+                  goto LABEL_209;
                 case 0x200000:
                   0x1FFFFFFF = @"OVERDEALLOC_SOFT";
-                  goto LABEL_214;
+                  goto LABEL_209;
                 case 0x400000:
                   0x1FFFFFFF = @"ILLEGALMOVE_SOFT";
-                  goto LABEL_214;
+                  goto LABEL_209;
               }
             }
           }
@@ -2046,63 +2043,63 @@ LABEL_219:
           {
             if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0x7FF)
             {
-              if (v30 == 2048)
+              if (v27 == 2048)
               {
                 0x1FFFFFFF = @"INVALID_ARGUMENT";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 4096)
+              if (v27 == 4096)
               {
                 0x1FFFFFFF = @"RIGHT_EXISTS";
-                goto LABEL_214;
+                goto LABEL_209;
               }
             }
 
             else
             {
-              if (v30 == 512)
+              if (v27 == 512)
               {
                 0x1FFFFFFF = @"INVALID_NAME";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 1024)
+              if (v27 == 1024)
               {
                 0x1FFFFFFF = @"INVALID_VALUE";
-                goto LABEL_214;
+                goto LABEL_209;
               }
             }
           }
 
           else if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) < 0x8000)
           {
-            if (v30 == 0x2000)
+            if (v27 == 0x2000)
             {
               0x1FFFFFFF = @"KERN_NO_SPACE";
-              goto LABEL_214;
+              goto LABEL_209;
             }
 
-            if (v30 == 0x4000)
+            if (v27 == 0x4000)
             {
               0x1FFFFFFF = @"KERN_FAILURE";
-              goto LABEL_214;
+              goto LABEL_209;
             }
           }
 
           else
           {
-            switch(v30)
+            switch(v27)
             {
               case 0x8000:
                 0x1FFFFFFF = @"KERN_RESOURCE";
-                goto LABEL_214;
+                goto LABEL_209;
               case 0x10000:
                 0x1FFFFFFF = @"SEND_INVALID_REPLY";
-                goto LABEL_214;
+                goto LABEL_209;
               case 0x20000:
                 0x1FFFFFFF = @"SEND_INVALID_VOUCHER";
-                goto LABEL_214;
+                goto LABEL_209;
             }
           }
         }
@@ -2115,7 +2112,7 @@ LABEL_219:
             {
               if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 6)
               {
-                if (v30 == 5)
+                if (v27 == 5)
                 {
                   0x1FFFFFFF = @"THREAD_SET_STATE";
                 }
@@ -2126,12 +2123,12 @@ LABEL_219:
                 }
               }
 
-              else if (v30 == 7)
+              else if (v27 == 7)
               {
                 0x1FFFFFFF = @"SERVICE_PORT_VIOLATION_FATAL";
               }
 
-              else if (v30 == 8)
+              else if (v27 == 8)
               {
                 0x1FFFFFFF = @"UNGUARDED";
               }
@@ -2141,27 +2138,27 @@ LABEL_219:
                 0x1FFFFFFF = @"KOBJECT_REPLY_PORT_SEMANTICS";
               }
 
-              goto LABEL_214;
+              goto LABEL_209;
             }
 
             if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 2)
             {
-              if (v30 == 1)
+              if (v27 == 1)
               {
                 0x1FFFFFFF = @"DESTROY";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 2)
+              if (v27 == 2)
               {
                 0x1FFFFFFF = @"MOD_REFS";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              goto LABEL_212;
+              goto LABEL_207;
             }
 
-            if (v30 == 3)
+            if (v27 == 3)
             {
               0x1FFFFFFF = @"INVALID_OPTIONS";
             }
@@ -2171,20 +2168,20 @@ LABEL_219:
               0x1FFFFFFF = @"SET_CONTEXT";
             }
 
-LABEL_214:
-            v71 = 0x1FFFFFFF;
-            v49 = [NSArray arrayWithObjects:&v71 count:1];
-            [v3 setObject:v49 forKeyedSubscript:@"violations"];
+LABEL_209:
+            v68 = 0x1FFFFFFF;
+            v46 = [NSArray arrayWithObjects:&v68 count:1];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-            v50 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
-            [v3 setObject:v50 forKeyedSubscript:@"port"];
+            v47 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-            v51 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-            [v3 setObject:v51 forKeyedSubscript:@"guardId"];
+            v48 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-            if (codeZeroForGuardException && v30 == 3)
+            if (codeZeroForGuardException && v27 == 3)
             {
-              [NSString stringWithFormat:@"mach_msg_trap() called with msgh_id %u. The trap is not allowed on this platform.", codeZeroForGuardException, v60, v61];
+              [NSString stringWithFormat:@"mach_msg_trap() called with msgh_id %u. The trap is not allowed on this platform.", codeZeroForGuardException, v57, v58];
             }
 
             else
@@ -2192,47 +2189,47 @@ LABEL_214:
               [NSString stringWithFormat:@" %@ on mach port %u (guarded with 0x%016qx)", 0x1FFFFFFF, codeZeroForGuardException, self->_exceptionCode[1]];
             }
 
-            goto LABEL_218;
+            goto LABEL_213;
           }
 
           if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 0x40)
           {
             if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0x1F)
             {
-              if (v30 == 32)
+              if (v27 == 32)
               {
                 0x1FFFFFFF = @"ILLEGAL_MOVE";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 64)
+              if (v27 == 64)
               {
                 0x1FFFFFFF = @"STRICT_REPLY";
-                goto LABEL_214;
+                goto LABEL_209;
               }
             }
 
             else
             {
-              if (v30 == 10)
+              if (v27 == 10)
               {
                 0x1FFFFFFF = @"REQUIRE_REPLY_PORT_SEMANTICS";
-                goto LABEL_214;
+                goto LABEL_209;
               }
 
-              if (v30 == 16)
+              if (v27 == 16)
               {
                 0x1FFFFFFF = @"INCORRECT_GUARD";
-                goto LABEL_214;
+                goto LABEL_209;
               }
             }
 
-            goto LABEL_212;
+            goto LABEL_207;
           }
 
           if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 0x42)
           {
-            if (v30 == 65)
+            if (v27 == 65)
             {
               0x1FFFFFFF = @"INVALID_NOTIFICATION_REQ";
             }
@@ -2242,35 +2239,35 @@ LABEL_214:
               0x1FFFFFFF = @"INVALID_MPO_ENTITLEMENT";
             }
 
-            goto LABEL_214;
+            goto LABEL_209;
           }
 
-          switch(v30)
+          switch(v27)
           {
             case 0x43:
               0x1FFFFFFF = @"DESCRIPTOR_VIOLATION";
-              goto LABEL_214;
+              goto LABEL_209;
             case 0x80:
               0x1FFFFFFF = @"MSG_FILTERED";
-              goto LABEL_214;
+              goto LABEL_209;
             case 0x100:
               0x1FFFFFFF = @"INVALID_RIGHT";
-              goto LABEL_214;
+              goto LABEL_209;
           }
         }
 
-LABEL_212:
+LABEL_207:
         0x1FFFFFFF = [NSString stringWithFormat:@"Unknown GUARD_TYPE_MACH_PORT flavor %d", HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF];
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *v70 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
-          *&v70[4] = 2048;
-          *&v70[6] = codeZeroForGuardException;
+          *v67 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+          *&v67[4] = 2048;
+          *&v67[6] = codeZeroForGuardException;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unknown GUARD_TYPE_MACH_PORT flavor %d in code %lld", buf, 0x12u);
         }
 
-        goto LABEL_214;
+        goto LABEL_209;
       }
 
       if (v16 != 4)
@@ -2279,104 +2276,104 @@ LABEL_212:
         {
           if (v16 == 6)
           {
-            [v3 setObject:@"GUARD_TYPE_REJECTED_SC" forKeyedSubscript:@"subtype"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
             if (codeZeroForGuardException)
             {
-              v21 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
-              [v3 setObject:v21 forKeyedSubscript:@"machTrap"];
+              v20 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              v22 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-              [v3 setObject:v22 forKeyedSubscript:@"number"];
+              v21 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              [NSString stringWithFormat:@"mach_trap %u number 0x%016qx", codeZeroForGuardException, self->_exceptionCode[1], v61];
+              [NSString stringWithFormat:@"mach_trap %u number 0x%016qx", codeZeroForGuardException, self->_exceptionCode[1], v58];
             }
 
             else
             {
-              v37 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-              [v3 setObject:v37 forKeyedSubscript:@"syscall"];
+              v34 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              [NSString stringWithFormat:@"syscall 0x%016qx", self->_exceptionCode[1], v60, v61];
+              [NSString stringWithFormat:@"syscall 0x%016qx", self->_exceptionCode[1], v57, v58];
             }
 
-            goto LABEL_103;
+            goto LABEL_98;
           }
 
-          goto LABEL_66;
+          goto LABEL_62;
         }
 
-        [v3 setObject:@"GUARD_TYPE_VIRT_MEMORY" forKeyedSubscript:@"subtype"];
-        v35 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+        objc_msgSend_setObject_forKeyedSubscript_(v3);
+        v32 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
         if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 7)
         {
           if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 3)
           {
-            if (v35 == 4)
+            if (v32 == 4)
             {
               0x1FFFFFFF = @"RECLAIM_INDEX_FAILURE";
-              goto LABEL_171;
+              goto LABEL_166;
             }
 
-            if (v35 == 7)
+            if (v32 == 7)
             {
               0x1FFFFFFF = @"GUARD_EXC_SEC_ACCESS_FAULT";
-              goto LABEL_171;
+              goto LABEL_166;
             }
           }
 
           else
           {
-            if (v35 == 1)
+            if (v32 == 1)
             {
               0x1FFFFFFF = @"DEALLOC_GAP";
-              goto LABEL_171;
+              goto LABEL_166;
             }
 
-            if (v35 == 2)
+            if (v32 == 2)
             {
               0x1FFFFFFF = @"RECLAIM_COPYIO_FAILURE";
-              goto LABEL_171;
+              goto LABEL_166;
             }
           }
         }
 
         else if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) <= 0xC7)
         {
-          if (v35 == 8)
+          if (v32 == 8)
           {
             0x1FFFFFFF = @"RECLAIM_DEALLOCATE_FAILURE";
-            goto LABEL_171;
+            goto LABEL_166;
           }
 
-          if (v35 == 64)
+          if (v32 == 64)
           {
             0x1FFFFFFF = @"GUARD_EXC_SEC_ASYNC_ACCESS_FAULT";
-            goto LABEL_171;
+            goto LABEL_166;
           }
         }
 
         else
         {
-          switch(v35)
+          switch(v32)
           {
             case 0xC8:
               0x1FFFFFFF = @"GUARD_EXC_MTE_SYNC_FAULT";
-              goto LABEL_171;
+              goto LABEL_166;
             case 0xC9:
               0x1FFFFFFF = @"GUARD_EXC_MTE_ASYNC_USER_FAULT";
-              goto LABEL_171;
+              goto LABEL_166;
             case 0xCA:
               0x1FFFFFFF = @"kGUARD_EXC_MTE_ASYNC_KERN_FAULT";
-LABEL_171:
-              v63 = 0x1FFFFFFF;
-              v47 = [NSArray arrayWithObjects:&v63 count:1];
-              [v3 setObject:v47 forKeyedSubscript:@"flavors"];
+LABEL_166:
+              v60 = 0x1FFFFFFF;
+              v44 = [NSArray arrayWithObjects:&v60 count:1];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              v48 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-              [v3 setObject:v48 forKeyedSubscript:@"offset"];
+              v45 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              [NSString stringWithFormat:@"offset=0x%016qx, flavor=0x%08x (%@)", self->_exceptionCode[1], v35, 0x1FFFFFFF];
-              goto LABEL_218;
+              [NSString stringWithFormat:@"offset=0x%016qx, flavor=0x%08x (%@)", self->_exceptionCode[1], v32, 0x1FFFFFFF];
+              goto LABEL_213;
           }
         }
 
@@ -2384,116 +2381,116 @@ LABEL_171:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *v70 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
-          *&v70[4] = 2048;
-          *&v70[6] = codeZeroForGuardException;
+          *v67 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+          *&v67[4] = 2048;
+          *&v67[6] = codeZeroForGuardException;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unknown GUARD_TYPE_VIRT_MEMORY flavor %d in code %lld", buf, 0x12u);
         }
 
-        goto LABEL_171;
+        goto LABEL_166;
       }
 
-      [v3 setObject:@"GUARD_TYPE_VN" forKeyedSubscript:@"subtype"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
       buf[0] = 0;
       proc_name(codeZeroForGuardException, buf, 0x400u);
-      v32 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+      v29 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
       if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0xF)
       {
         if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 0x3F)
         {
-          if (v32 == 64)
+          if (v29 == 64)
           {
             0x1FFFFFFF = @"VNG_EXCHDATA";
-            goto LABEL_161;
+            goto LABEL_156;
           }
 
-          if (v32 == 128)
+          if (v29 == 128)
           {
             0x1FFFFFFF = @"VNG_PERMISSIONS";
-            goto LABEL_161;
+            goto LABEL_156;
           }
         }
 
         else
         {
-          if (v32 == 16)
+          if (v29 == 16)
           {
             0x1FFFFFFF = @"VNG_TRUNC_OTHER";
-            goto LABEL_161;
+            goto LABEL_156;
           }
 
-          if (v32 == 32)
+          if (v29 == 32)
           {
             0x1FFFFFFF = @"VNG_LINK";
-            goto LABEL_161;
+            goto LABEL_156;
           }
         }
       }
 
       else if ((HIDWORD(codeZeroForGuardException) & 0x1FFFFFFFu) > 3)
       {
-        if (v32 == 4)
+        if (v29 == 4)
         {
           0x1FFFFFFF = @"VNG_UNLINK";
-          goto LABEL_161;
+          goto LABEL_156;
         }
 
-        if (v32 == 8)
+        if (v29 == 8)
         {
           0x1FFFFFFF = @"VNG_WRITE_OTHER";
-          goto LABEL_161;
+          goto LABEL_156;
         }
       }
 
       else
       {
-        if (v32 == 1)
+        if (v29 == 1)
         {
           0x1FFFFFFF = @"VNG_RENAME_TO";
-          goto LABEL_161;
+          goto LABEL_156;
         }
 
-        if (v32 == 2)
+        if (v29 == 2)
         {
           0x1FFFFFFF = @"VNG_RENAME_FROM";
-LABEL_161:
-          v41 = [NSMutableString stringWithFormat:@"id=0x%016qx, pid=%u", self->_exceptionCode[1], codeZeroForGuardException];
-          v42 = v41;
+LABEL_156:
+          v38 = [NSMutableString stringWithFormat:@"id=0x%016qx, pid=%u", self->_exceptionCode[1], codeZeroForGuardException];
+          v39 = v38;
           if (buf[0])
           {
-            [v41 appendFormat:@", process=%s", buf];
-            v43 = [NSString stringWithUTF8String:buf];
-            [v3 setObject:v43 forKeyedSubscript:@"process"];
+            [v38 appendFormat:@", process=%s", buf];
+            v40 = [NSString stringWithUTF8String:buf];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
           }
 
-          [v42 appendFormat:@", flavor=0x%08x", HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF];
-          [v42 appendFormat:@" (%@)", 0x1FFFFFFF];
-          v64 = 0x1FFFFFFF;
-          v44 = [NSArray arrayWithObjects:&v64 count:1];
-          [v3 setObject:v44 forKeyedSubscript:@"flavors"];
+          [v39 appendFormat:@", flavor=0x%08x", HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF];
+          [v39 appendFormat:@" (%@)", 0x1FFFFFFF];
+          v61 = 0x1FFFFFFF;
+          v41 = [NSArray arrayWithObjects:&v61 count:1];
+          objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-          v45 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
-          [v3 setObject:v45 forKeyedSubscript:@"pid"];
+          v42 = [NSNumber numberWithUnsignedInt:codeZeroForGuardException];
+          objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-          v46 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
-          [v3 setObject:v46 forKeyedSubscript:@"guardId"];
+          v43 = [NSNumber numberWithLongLong:self->_exceptionCode[1]];
+          objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-          [v3 setObject:v42 forKeyedSubscript:@"message"];
-          goto LABEL_219;
+          objc_msgSend_setObject_forKeyedSubscript_(v3);
+          goto LABEL_214;
         }
       }
 
       0x1FFFFFFF = [NSString stringWithFormat:@"Unknown GUARD_TYPE_VN flavor %d", HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v65 = 67109376;
-        v66 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
-        v67 = 2048;
-        v68 = codeZeroForGuardException;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unknown GUARD_TYPE_VN flavor %d in code %lld", v65, 0x12u);
+        *v62 = 67109376;
+        v63 = HIDWORD(codeZeroForGuardException) & 0x1FFFFFFF;
+        v64 = 2048;
+        v65 = codeZeroForGuardException;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unknown GUARD_TYPE_VN flavor %d in code %lld", v62, 0x12u);
       }
 
-      goto LABEL_161;
+      goto LABEL_156;
     case 11:
       v11 = *self->_exceptionCode;
       v12 = v11 >> 61;
@@ -2502,19 +2499,19 @@ LABEL_161:
         switch(v12)
         {
           case 4uLL:
-            [v3 setObject:@"IO" forKeyedSubscript:@"subtype"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
             [NSString stringWithFormat:@" (Limit %u MB) Observed %u MB over %u secs", *self->_exceptionCode & 0x7FFF, self->_exceptionCode[1] & 0x7FFF, *self->_exceptionCode >> 15];
             break;
           case 5uLL:
-            [v3 setObject:@"THREADS" forKeyedSubscript:@"subtype"];
-            [NSString stringWithFormat:@" (Limit %u threads) Crossed Thread Limit", *self->_exceptionCode & 0x7FFF, v60, v61];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
+            [NSString stringWithFormat:@" (Limit %u threads) Crossed Thread Limit", *self->_exceptionCode & 0x7FFF, v57, v58];
             break;
           case 6uLL:
-            [v3 setObject:@"PORTS" forKeyedSubscript:@"subtype"];
-            [NSString stringWithFormat:@" (Limit %u ports) Crossed system-wide per-process Port Limit", *self->_exceptionCode & 0xFFFFFF, v60, v61];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
+            [NSString stringWithFormat:@" (Limit %u ports) Crossed system-wide per-process Port Limit", *self->_exceptionCode & 0xFFFFFF, v57, v58];
             break;
           default:
-            goto LABEL_220;
+            goto LABEL_215;
         }
       }
 
@@ -2524,43 +2521,33 @@ LABEL_161:
         switch(v12)
         {
           case 1uLL:
-            if (v13 == 2)
-            {
-              v29 = @"CPU_FATAL";
-            }
-
-            else
-            {
-              v29 = @"CPU";
-            }
-
-            [v3 setObject:v29 forKeyedSubscript:@"subtype"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
             [NSString stringWithFormat:@" (Limit %u%%) Observed %u%% over %u secs", *self->_exceptionCode & 0x7F, self->_exceptionCode[1] & 0x7F, *self->_exceptionCode >> 7];
             break;
           case 2uLL:
-            [v3 setObject:@"WAKEUPS" forKeyedSubscript:@"subtype"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
             [NSString stringWithFormat:@" (Limit %u/sec) Observed %u/sec over %u secs", *self->_exceptionCode & 0xFFF, self->_exceptionCode[1] & 0xFFFFF, (*self->_exceptionCode >> 20) & 0xFFFFF];
             break;
           case 3uLL:
-            [v3 setObject:@"MEMORY" forKeyedSubscript:@"subtype"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
             if ((v13 - 1) > 2)
             {
-              v36 = @"Unknown memory exception type";
-LABEL_104:
-              [v3 setObject:v36 forKeyedSubscript:@"message"];
+              v33 = @"Unknown memory exception type";
+LABEL_99:
+              objc_msgSend_setObject_forKeyedSubscript_(v3);
 
-              goto LABEL_220;
+              goto LABEL_215;
             }
 
-            [NSString stringWithFormat:off_100045858[v13 - 1], *self->_exceptionCode, v60, v61];
+            [NSString stringWithFormat:off_100045858[v13 - 1], *self->_exceptionCode, v57, v58];
             break;
           default:
-            goto LABEL_220;
+            goto LABEL_215;
         }
       }
 
-      v36 = LABEL_103:;
-      goto LABEL_104;
+      v33 = LABEL_98:;
+      goto LABEL_99;
     case 1:
       isMTECrash = [(OSACrashReport *)self isMTECrash];
       self->_crashingAddress = self->_exceptionCode[1];
@@ -2569,27 +2556,26 @@ LABEL_104:
       if ((v8 & 1) != 0 || (isMTECrash & 1) != 0 || self->_crashingAddress == exceptionCode[1])
       {
         v10 = sub_10001A0B0(*exceptionCode);
-        [NSString stringWithFormat:@"%@ at 0x%016qx", v10, self->_exceptionCode[1], v61];
+        [NSString stringWithFormat:@"%@ at 0x%016qx", v10, self->_exceptionCode[1], v58];
       }
 
       else
       {
         v10 = sub_10001A0B0(*exceptionCode);
-        v23 = self->_exceptionCode[1];
-        [NSString stringWithFormat:@"%@ at 0x%016qx -> 0x%016qx (possible pointer authentication failure)", v10, v23, self->_crashingAddress];
+        [NSString stringWithFormat:@"%@ at 0x%016qx -> 0x%016qx (possible pointer authentication failure)", v10, self->_exceptionCode[1], self->_crashingAddress];
       }
-      v24 = ;
-      [v3 setObject:v24 forKeyedSubscript:@"subtype"];
+      v22 = ;
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
 
       if (*self->_exceptionCode == 10)
       {
         if (self->_pageinStateCount)
         {
-          v25 = self->_pageinState[0];
-          if (v25)
+          v23 = self->_pageinState[0];
+          if (v23)
           {
-            v26 = [NSString stringWithFormat:@" FS pagein error: %d %s", v25, strerror(self->_pageinState[0])];
-            [v3 setObject:v26 forKeyedSubscript:@"subtype"];
+            v24 = [NSString stringWithFormat:@" FS pagein error: %d %s", v23, strerror(self->_pageinState[0])];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
           }
         }
       }
@@ -2597,31 +2583,19 @@ LABEL_104:
       if (self->_isStackGuardPageBadAccess)
       {
         stackGuardPageBadAccessThreadNumber = self->_stackGuardPageBadAccessThreadNumber;
-        if (stackGuardPageBadAccessThreadNumber != -1)
+        if (stackGuardPageBadAccessThreadNumber == -1)
         {
-          crashedThreadNumber = self->_crashedThreadNumber;
-          if (stackGuardPageBadAccessThreadNumber == crashedThreadNumber)
-          {
-            if (self->_recursionOnCrashedThread)
-            {
-              v20 = @"Thread stack size exceeded due to excessive recursion";
-            }
-
-            else
-            {
-              v20 = @"Thread stack size exceeded";
-            }
-
-            goto LABEL_81;
-          }
-
-          [NSString stringWithFormat:@"Bad access in stack guard region for thread %d but crash was associated with thread %d - possible stray access?", self->_stackGuardPageBadAccessThreadNumber, crashedThreadNumber, v62];
-          goto LABEL_103;
+          goto LABEL_76;
         }
 
-        v20 = @"Could not determine thread index for stack guard region";
-LABEL_81:
-        [v3 setObject:v20 forKeyedSubscript:@"message"];
+        crashedThreadNumber = self->_crashedThreadNumber;
+        if (stackGuardPageBadAccessThreadNumber == crashedThreadNumber)
+        {
+          goto LABEL_76;
+        }
+
+        [NSString stringWithFormat:@"Bad access in stack guard region for thread %d but crash was associated with thread %d - possible stray access?", self->_stackGuardPageBadAccessThreadNumber, crashedThreadNumber, v59];
+        goto LABEL_98;
       }
 
       break;
@@ -2629,39 +2603,39 @@ LABEL_81:
       exit_snapshot = self->_exit_snapshot;
       if (exit_snapshot && exit_snapshot->ers_namespace == 7 && exit_snapshot->ers_code == 3)
       {
-        [v3 setObject:@"LAUNCH_HANG" forKeyedSubscript:@"subtype"];
-        v20 = @"The extension took too much time to initialize";
-        goto LABEL_81;
+        objc_msgSend_setObject_forKeyedSubscript_(v3);
+LABEL_76:
+        objc_msgSend_setObject_forKeyedSubscript_(v3);
       }
 
       break;
   }
 
-LABEL_220:
+LABEL_215:
   if (self->_exceptionCodeCount)
   {
-    v53 = +[NSMutableArray array];
-    v54 = +[NSMutableArray array];
+    v50 = +[NSMutableArray array];
+    v51 = +[NSMutableArray array];
     if (self->_exceptionCodeCount)
     {
-      v55 = 0;
+      v52 = 0;
       do
       {
-        v56 = [NSNumber numberWithLongLong:self->_exceptionCode[v55]];
-        [v53 addObject:v56];
+        v53 = [NSNumber numberWithLongLong:self->_exceptionCode[v52]];
+        [v50 addObject:v53];
 
-        v57 = [NSString stringWithFormat:@"0x%016qx", self->_exceptionCode[v55]];
-        [v54 addObject:v57];
+        v54 = [NSString stringWithFormat:@"0x%016qx", self->_exceptionCode[v52]];
+        [v51 addObject:v54];
 
-        ++v55;
+        ++v52;
       }
 
-      while (v55 < self->_exceptionCodeCount);
+      while (v52 < self->_exceptionCodeCount);
     }
 
-    [v3 setObject:v53 forKeyedSubscript:@"rawCodes"];
-    v58 = [v54 componentsJoinedByString:{@", "}];
-    [v3 setObject:v58 forKeyedSubscript:@"codes"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
+    v55 = [v51 componentsJoinedByString:{@", "}];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   return v3;
@@ -2699,7 +2673,7 @@ LABEL_220:
     if ((crashedThreadNumber & 0x80000000) == 0 && [(NSMutableArray *)self->_threadInfos count]> crashedThreadNumber)
     {
       v4 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:self->_crashedThreadNumber];
-      [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:@"triggered"];
+      objc_msgSend_setObject_forKeyedSubscript_(v4);
     }
   }
 }
@@ -3233,7 +3207,7 @@ LABEL_63:
     v12 = objc_opt_new();
     v13 = qword_100054098;
     v14 = [NSNumber numberWithInt:self->_proc_id];
-    [v13 setObject:v12 forKeyedSubscript:v14];
+    objc_msgSend_setObject_forKeyedSubscript_(v13);
   }
 
   if (statusCopy | noteCopy)
@@ -3263,12 +3237,12 @@ LABEL_63:
       }
 
       v15 = [NSString stringWithFormat:@"Pid %d '%@' %@", self->_proc_id, procName, v17];
-      [v12 setObject:v15 forKeyedSubscript:@"process"];
+      objc_msgSend_setObject_forKeyedSubscript_(v12);
     }
 
     if (statusCopy)
     {
-      [v12 setObject:statusCopy forKeyedSubscript:@"status"];
+      objc_msgSend_setObject_forKeyedSubscript_(v12);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
@@ -3285,7 +3259,7 @@ LABEL_63:
       if (!v21)
       {
         v21 = objc_opt_new();
-        [v12 setObject:v21 forKeyedSubscript:@"notes"];
+        objc_msgSend_setObject_forKeyedSubscript_(v12);
       }
 
       [v21 addObject:noteCopy];
@@ -3380,6 +3354,104 @@ LABEL_63:
   pthread_mutex_unlock(&stru_100053928);
 }
 
+- (OSACrashReport)initWithTask:(unsigned int)task exceptionType:(int)type thread:(unsigned int)thread threadId:(unint64_t)id threadStateFlavor:(int)flavor threadState:(unsigned int)state[1296] threadStateCount:(unsigned int)count
+{
+  v12 = *&thread;
+  v40.receiver = self;
+  v40.super_class = OSACrashReport;
+  v15 = [(OSACrashReport *)&v40 init];
+  if (v15)
+  {
+    *&v15->OSAReport_opaque[OBJC_IVAR___OSAReport__capture_time] = CFAbsoluteTimeGetCurrent();
+    info = 0;
+    if (!mach_timebase_info(&info) && info.denom)
+    {
+      LODWORD(v16) = info.numer;
+      v17 = v16 * 0.000000001 / info.denom;
+      v15->_awakeSystemUptime = (v17 * mach_absolute_time());
+    }
+
+    v15->_device_lock_state = MKBGetDeviceLockState();
+    v15->_device_unlocked_since_boot = MKBDeviceUnlockedSinceBoot();
+    v15->_is_full_corpse = 0;
+    v15->_is_lightweight_corpse = 0;
+    v15->_task = task;
+    v15->_is_driverkit = CSTaskIsDriverKit();
+    v18 = objc_alloc_init(OSAExclaveContainer);
+    exclaveContainer = v15->_exclaveContainer;
+    v15->_exclaveContainer = v18;
+
+    v15->_threadPortOriginal = v12;
+    v15->_threadId = id;
+    v15->_crashedThreadNumber = -1;
+    v15->_threadStateFlavor = flavor;
+    v15->_threadStateCount = count;
+    if (state && count)
+    {
+      memcpy(v15->_threadState, state, 4 * count);
+    }
+
+    v20 = objc_opt_new();
+    threadPortPedigree = v15->_threadPortPedigree;
+    v15->_threadPortPedigree = v20;
+
+    v22 = v15->_threadPortPedigree;
+    if (v12 && id == -1)
+    {
+      [NSString stringWithFormat:@"init mach STANDARD 0x%x ID(0x%llX)", v12, -1];
+    }
+
+    else if (id == -1)
+    {
+      [NSString stringWithFormat:@"init mach UNEXPECTED 0x%x ID(0x%llX)", v12, -1];
+    }
+
+    else
+    {
+      [NSString stringWithFormat:@"init mach PROTECTED 0x%x ID(0x%llX)", v12, id];
+    }
+    v23 = ;
+    [(NSMutableArray *)v22 addObject:v23];
+
+    v15->_exceptionType = type;
+    v24 = objc_opt_new();
+    applicationSpecificInfo = v15->_applicationSpecificInfo;
+    v15->_applicationSpecificInfo = v24;
+
+    v26 = objc_opt_new();
+    applicationSpecificInfoFullSensitive = v15->_applicationSpecificInfoFullSensitive;
+    v15->_applicationSpecificInfoFullSensitive = v26;
+
+    v28 = objc_opt_new();
+    applicationSpecificInfoRedacted = v15->_applicationSpecificInfoRedacted;
+    v15->_applicationSpecificInfoRedacted = v28;
+
+    v30 = objc_opt_new();
+    asiFormattedSafe = v15->_asiFormattedSafe;
+    v15->_asiFormattedSafe = v30;
+
+    v32 = objc_opt_new();
+    asiFormattedInternal = v15->_asiFormattedInternal;
+    v15->_asiFormattedInternal = v32;
+
+    v34 = objc_opt_new();
+    asiFormattedFiltered = v15->_asiFormattedFiltered;
+    v15->_asiFormattedFiltered = v34;
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100010BA8;
+    block[3] = &unk_100045258;
+    v38 = v15;
+    if (qword_1000540C0 != -1)
+    {
+      dispatch_once(&qword_1000540C0, block);
+    }
+  }
+
+  return v15;
+}
+
 - (void)unpackExceptionCodes
 {
   exceptionCode = self->_exceptionCode;
@@ -3420,7 +3492,7 @@ LABEL_63:
       v11 = 4;
       sysctlbyname("kern.wq_max_constrained_threads", &v12, &v11, 0, 0);
       v9 = [NSNumber numberWithUnsignedInt:v12];
-      [v7 setObject:v9 forKeyedSubscript:@"Dispatch Thread Soft Limit"];
+      objc_msgSend_setObject_forKeyedSubscript_(v7);
 
       pwq_state = data->pwq_state;
     }
@@ -3431,12 +3503,73 @@ LABEL_63:
       v11 = 4;
       sysctlbyname("kern.wq_max_threads", &v12, &v11, 0, 0);
       v10 = [NSNumber numberWithUnsignedInt:v12];
-      [v7 setObject:v10 forKeyedSubscript:@"Dispatch Thread Hard Limit"];
+      objc_msgSend_setObject_forKeyedSubscript_(v7);
     }
 
     if ([v7 count])
     {
       objc_storeStrong(&self->_workQueueLimits, v7);
+    }
+  }
+}
+
+- (void)extractThreadStateInfo:(unsigned int)info
+{
+  v3 = *&info;
+  self->_pageinStateCount = 1;
+  state = thread_get_state(info, 27, self->_pageinState, &self->_pageinStateCount);
+  if (state)
+  {
+    v6 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    v7 = [NSString stringWithFormat:@"thread_get_state(PAGEIN) returned 0x%x: %s", state, mach_error_string(state)];
+    [v6 addObject:v7];
+
+    self->_pageinStateCount = 0;
+  }
+
+  self->_exceptionStateCount = 4;
+  v8 = thread_get_state(v3, 7, self->_exceptionState, &self->_exceptionStateCount);
+  if (v8)
+  {
+    v9 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    v10 = [NSString stringWithFormat:@"thread_get_state(EXCEPTION) returned 0x%x: %s", v8, mach_error_string(v8)];
+    [v9 addObject:v10];
+
+    self->_exceptionStateCount = 0;
+  }
+
+  threadStateCount = self->_threadStateCount;
+  if (self->_threadPortOriginal != v3 || !threadStateCount)
+  {
+    threadPortPedigree = self->_threadPortPedigree;
+    threadStateCount = [NSString stringWithFormat:@"getState(0x%x, flavor %d) count %d", v3, self->_threadStateFlavor, threadStateCount];
+    [(NSMutableArray *)threadPortPedigree addObject:threadStateCount];
+
+    self->_threadStateCount = 1296;
+    v14 = thread_get_state(v3, self->_threadStateFlavor, self->_threadState, &self->_threadStateCount);
+    if (v14)
+    {
+      v15 = OBJC_IVAR___OSAReport__notes;
+      v16 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+      v17 = [NSString stringWithFormat:@"thread_get_state(FLAVOR) returned 0x%x: %s", v14, mach_error_string(v14)];
+      [v16 addObject:v17];
+
+      *object_addr = 0;
+      v18 = mach_port_kernel_object(mach_task_self_, v3, &object_addr[1], object_addr);
+      v19 = self->_threadPortPedigree;
+      v20 = [NSString stringWithFormat:@"object check returned 0x%x (%s) type %u (expected 1)", v18, mach_error_string(v18), object_addr[1]];
+      [(NSMutableArray *)v19 addObject:v20];
+
+      v21 = +[OSASystemConfiguration sharedInstance];
+      LODWORD(v19) = [v21 appleInternal];
+
+      if (v19)
+      {
+        [*&self->OSAReport_opaque[v15] addObjectsFromArray:self->_threadPortPedigree];
+      }
+
+      self->_threadStateFlavor = 5;
+      self->_threadStateCount = 0;
     }
   }
 }
@@ -3511,29 +3644,27 @@ LABEL_5:
     CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData();
   }
 
-  task = self->_task;
-  v5 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
-  v7 = v6;
+  v4 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
+  v6 = v5;
   if (CSIsNull())
   {
-    v8 = self->_task;
     if (_dyld_process_info_create())
     {
       _dyld_process_info_release();
     }
 
-    v9 = OBJC_IVAR___OSAReport__notes;
-    v10 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-    v11 = [NSString stringWithFormat:@"Corpse is incomplete (_dyld_process_info_create failed with %d)", 5];
-    [v10 addObject:v11];
+    v7 = OBJC_IVAR___OSAReport__notes;
+    v8 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    v9 = [NSString stringWithFormat:@"Corpse is incomplete (_dyld_process_info_create failed with %d)", 5];
+    [v8 addObject:v9];
 
-    [*&self->OSAReport_opaque[v9] addObject:{@"Backtraces may be be unvailable or truncated to only leaf frames, and the binary image list may not be available"}];
+    [*&self->OSAReport_opaque[v7] addObject:{@"Backtraces may be be unvailable or truncated to only leaf frames, and the binary image list may not be available"}];
   }
 
-  v12 = v5;
-  v13 = v7;
-  result.var1 = v13;
-  result.var0 = v12;
+  v10 = v4;
+  v11 = v6;
+  result.var1 = v11;
+  result.var0 = v10;
   return result;
 }
 
@@ -3646,12 +3777,12 @@ LABEL_21:
       {
         v14 = &unsignedLongValue[-(v16 >> 1)];
 LABEL_36:
-        if ([OSACrashReport isAddress:&v18[v16 - 1] inRange:v11, v15])
+        if ([OSACrashReport isAddress:v16 + v18 - 1 inRange:v11, v15])
         {
           goto LABEL_41;
         }
 
-        if ([(OSACrashReport *)self _regionInfoAtAddress:&v18[v16 - 1] regionInfo:&v34 regionAddress:&v29 regionSize:&v28])
+        if ([(OSACrashReport *)self _regionInfoAtAddress:v16 + v18 - 1 regionInfo:&v34 regionAddress:&v29 regionSize:&v28])
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
@@ -3661,7 +3792,7 @@ LABEL_36:
           goto LABEL_40;
         }
 
-        if (v29 <= &v18[v16 - 1])
+        if (v29 <= v16 + v18 - 1)
         {
           if ((v34 & 4) != 0)
           {
@@ -3700,7 +3831,7 @@ LABEL_41:
 
               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_1000301B8(&dataCnt);
+                sub_1000301B8();
               }
 
               mach_vm_deallocate(mach_task_self_, data, dataCnt);
@@ -3714,7 +3845,7 @@ LABEL_41:
             *buf = 134218240;
             *v33 = v29;
             *&v33[8] = 2048;
-            *&v33[10] = &v18[v16 - 1];
+            *&v33[10] = v16 + v18 - 1;
             v23 = "region 0x%llx after crashing pc 0x%llx was not executable";
             goto LABEL_62;
           }
@@ -3725,7 +3856,7 @@ LABEL_41:
           *buf = 134218240;
           *v33 = v29;
           *&v33[8] = 2048;
-          *&v33[10] = &v18[v16 - 1];
+          *&v33[10] = v16 + v18 - 1;
           v23 = "VM region 0x%llx after crashing pc 0x%llx was unmapped";
 LABEL_62:
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
@@ -3796,12 +3927,12 @@ LABEL_23:
   kcdataParser = self->_kcdataParser;
   self->_kcdataParser = v7;
 
-  memset(v178, 0, sizeof(v178));
+  memset(v177, 0, sizeof(v177));
   v10 = size + corpse;
   v11 = corpse + 16;
   if (corpse + 16 > size + corpse || v11 + *(corpse + 4) > v10)
   {
-    goto LABEL_368;
+    goto LABEL_352;
   }
 
   v12 = *corpse;
@@ -3812,17 +3943,17 @@ LABEL_23:
 
   if (v12 != 1178684999 && v12 != -559025833)
   {
-LABEL_368:
+LABEL_352:
     [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"invalid corpse info provided for EXC_CORPSE_NOTIFY"];
-    v151 = 0;
-    goto LABEL_369;
+    v150 = 0;
+    goto LABEL_353;
   }
 
-  v173 = 0;
+  v172 = 0;
   v14 = 0;
-  v174 = 0;
+  v173 = 0;
   key = XPC_COALITION_INFO_KEY_BUNDLE_IDENTIFIER;
-  v171 = XPC_COALITION_INFO_KEY_NAME;
+  v170 = XPC_COALITION_INFO_KEY_NAME;
   v15 = &create_gcore_with_options_ptr;
   do
   {
@@ -3850,52 +3981,52 @@ LABEL_368:
         {
           if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
           {
-            v87 = *(corpse + 16);
-            if (v87)
+            v86 = *(corpse + 16);
+            if (v86)
             {
               [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"The backtrace is truncated"];
-              if ((v87 & 2) != 0)
+              if ((v86 & 2) != 0)
               {
-                goto LABEL_320;
+                goto LABEL_310;
               }
 
-LABEL_170:
-              if ((v87 & 8) == 0)
+LABEL_165:
+              if ((v86 & 8) == 0)
               {
-                goto LABEL_171;
+                goto LABEL_166;
               }
 
-LABEL_321:
+LABEL_311:
               [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"This crash report is incomplete"];
-              if ((v87 & 4) == 0)
+              if ((v86 & 4) == 0)
               {
-                goto LABEL_356;
+                goto LABEL_342;
               }
             }
 
             else
             {
-              if ((v87 & 2) == 0)
+              if ((v86 & 2) == 0)
               {
-                goto LABEL_170;
+                goto LABEL_165;
               }
 
-LABEL_320:
+LABEL_310:
               [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"The async backtrace is truncated"];
-              if ((v87 & 8) != 0)
+              if ((v86 & 8) != 0)
               {
-                goto LABEL_321;
+                goto LABEL_311;
               }
 
-LABEL_171:
-              if ((v87 & 4) == 0)
+LABEL_166:
+              if ((v86 & 4) == 0)
               {
-                goto LABEL_356;
+                goto LABEL_342;
               }
             }
 
             [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"This crash report may be incomplete because the faulting thread was terminated."];
-            goto LABEL_356;
+            goto LABEL_342;
           }
         }
 
@@ -3903,87 +4034,87 @@ LABEL_171:
         {
           if (v17 != 4097)
           {
-            goto LABEL_143;
+            goto LABEL_138;
           }
 
           if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 20])
           {
-            v27 = *corpse;
+            v28 = *corpse;
             if ((*corpse & 0xFFFFFFF0) == 0x20)
             {
-              v27 = 17;
+              v28 = 17;
             }
 
-            if (v27 <= 2309)
+            if (v28 <= 2309)
             {
-              if (v27 == 17 || v27 == 19)
+              if (v28 == 17 || v28 == 19)
               {
-                v28 = *(corpse + 4);
-                goto LABEL_354;
+                v29 = *(corpse + 4);
+                goto LABEL_340;
               }
 
-LABEL_348:
-              v139 = *(corpse + 4);
-              goto LABEL_352;
+LABEL_334:
+              v138 = *(corpse + 4);
+              goto LABEL_338;
             }
 
-            if (v27 == 2310)
+            if (v28 == 2310)
             {
-              v139 = *(corpse + 4);
-              if (v139 != 112)
+              v138 = *(corpse + 4);
+              if (v138 != 112)
               {
-                goto LABEL_352;
+                goto LABEL_338;
               }
 
               if ((*(corpse + 8) & 0x8F) != 0)
               {
-                v139 = 112;
-                goto LABEL_352;
+                v138 = 112;
+                goto LABEL_338;
               }
 
-              v28 = 104;
+              v29 = 104;
             }
 
             else
             {
-              if (v27 != 2312)
+              if (v28 != 2312)
               {
-                goto LABEL_348;
+                goto LABEL_334;
               }
 
-              v139 = *(corpse + 4);
-              if (v139 != 32)
+              v138 = *(corpse + 4);
+              if (v138 != 32)
               {
-LABEL_352:
-                v80 = v139 >= (*(corpse + 8) & 0xFu);
-                v28 = v139 - (*(corpse + 8) & 0xF);
-                if (!v80)
+LABEL_338:
+                v79 = v138 >= (*(corpse + 8) & 0xFu);
+                v29 = v138 - (*(corpse + 8) & 0xF);
+                if (!v79)
                 {
-                  v28 = 0;
+                  v29 = 0;
                 }
 
-                goto LABEL_354;
+                goto LABEL_340;
               }
 
               if ((*(corpse + 8) & 0x8F) != 0)
               {
-                v139 = 32;
-                goto LABEL_352;
+                v138 = 32;
+                goto LABEL_338;
               }
 
-              v28 = 24;
+              v29 = 24;
             }
 
-LABEL_354:
-            self->_exit_snapshot_length = v28;
-            v148 = malloc_type_malloc(v28, 0x327A0317uLL);
-            self->_exit_snapshot = v148;
-            if (v148)
+LABEL_340:
+            self->_exit_snapshot_length = v29;
+            v147 = malloc_type_malloc(v29, 0x327A0317uLL);
+            self->_exit_snapshot = v147;
+            if (v147)
             {
-              memcpy(v148, (corpse + 16), self->_exit_snapshot_length);
+              memcpy(v147, (corpse + 16), self->_exit_snapshot_length);
             }
 
-            goto LABEL_356;
+            goto LABEL_342;
           }
         }
       }
@@ -4000,7 +4131,8 @@ LABEL_23:
             }
 
             self->_proc_id = *(corpse + 16);
-            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+            v20 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+            if (v20)
             {
               proc_id = self->_proc_id;
               *buf = 67109120;
@@ -4008,18 +4140,20 @@ LABEL_23:
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Parsing corpse data for pid %d", buf, 8u);
             }
 
-            v21 = sub_100003790();
-            if (os_signpost_enabled(v21))
+            v22 = sub_100003790(v20);
+            if (os_signpost_enabled(v22))
             {
-              v22 = self->_proc_id;
+              v23 = self->_proc_id;
               *buf = 67109120;
-              *&buf[4] = v22;
-              _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CorpseReceived", "pid %d enableTelemetry=YES ", buf, 8u);
+              *&buf[4] = v23;
+              _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CorpseReceived", "pid %d enableTelemetry=YES ", buf, 8u);
             }
 
-LABEL_211:
+LABEL_206:
 
-            goto LABEL_335;
+LABEL_321:
+            v15 = &create_gcore_with_options_ptr;
+            break;
           case 2562:
 LABEL_125:
             if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
@@ -4027,122 +4161,77 @@ LABEL_125:
               break;
             }
 
-            v59 = *(corpse + 16);
-            v60 = 15776;
-            goto LABEL_219;
+            v60 = *(corpse + 16);
+            v61 = 15776;
+            goto LABEL_214;
           case 2563:
 LABEL_134:
             if (self->_procName)
             {
-              goto LABEL_356;
+              goto LABEL_342;
             }
 
-            v176[0] = 0;
-            v176[1] = 0;
-            v177 = 0;
-            v74 = *corpse;
-            if ((*corpse & 0xFFFFFFF0) == 0x20)
+            v175[0] = 0;
+            v175[1] = 0;
+            v176 = 0;
+            v139 = __memcpy_chk();
+            v140 = sub_100003790(v139);
+            if (os_signpost_enabled(v140))
             {
-              v74 = 17;
-            }
-
-            if (v74 <= 2309)
-            {
-              if (v74 == 17 || v74 == 19)
-              {
-                v75 = *(corpse + 4);
-                goto LABEL_332;
-              }
-
-LABEL_328:
-              v140 = *(corpse + 4);
-LABEL_331:
-              *(corpse + 8);
-              goto LABEL_332;
-            }
-
-            if (v74 == 2310)
-            {
-              if (*(corpse + 4) != 112 || (*(corpse + 8) & 0x8F) != 0)
-              {
-                goto LABEL_331;
-              }
-            }
-
-            else
-            {
-              if (v74 != 2312)
-              {
-                goto LABEL_328;
-              }
-
-              if (*(corpse + 4) != 32 || (*(corpse + 8) & 0x8F) != 0)
-              {
-                goto LABEL_331;
-              }
-            }
-
-LABEL_332:
-            __memcpy_chk();
-            v141 = sub_100003790();
-            if (os_signpost_enabled(v141))
-            {
-              v142 = self->_proc_id;
+              v141 = self->_proc_id;
               *buf = 136446466;
-              *&buf[4] = v176;
+              *&buf[4] = v175;
               *&buf[12] = 1024;
-              *&buf[14] = v142;
-              _os_signpost_emit_with_name_impl(&_mh_execute_header, v141, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CorpseReceived", "process: %{public}s [pid %d] enableTelemetry=YES ", buf, 0x12u);
+              *&buf[14] = v141;
+              _os_signpost_emit_with_name_impl(&_mh_execute_header, v140, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CorpseReceived", "process: %{public}s [pid %d] enableTelemetry=YES ", buf, 0x12u);
             }
 
-            v143 = [NSString stringWithUTF8String:v176];
+            v142 = [NSString stringWithUTF8String:v175];
             procName = self->_procName;
-            self->_procName = v143;
+            self->_procName = v142;
 
             [(OSACrashReport *)self stashStatus:@"Parsing KCData" note:0];
-LABEL_335:
-            v15 = &create_gcore_with_options_ptr;
-            break;
+            goto LABEL_321;
           case 2564:
 LABEL_112:
             if (v17 == 2312)
             {
               if (v16 == 32)
               {
-                v58 = *(corpse + 8);
-                if ((v58 & 0x8F) != 0)
+                v59 = *(corpse + 8);
+                if ((v59 & 0x8F) != 0)
                 {
-                  goto LABEL_241;
+                  goto LABEL_236;
                 }
 
-                goto LABEL_300;
+                goto LABEL_290;
               }
             }
 
             else if (v17 == 2310 && v16 == 112)
             {
-              v58 = *(corpse + 8);
-              if ((v58 & 0x8F) == 0)
+              v59 = *(corpse + 8);
+              if ((v59 & 0x8F) == 0)
               {
-                goto LABEL_246;
+                goto LABEL_241;
               }
 
-LABEL_241:
-              v58 = *(corpse + 8);
-LABEL_243:
+LABEL_236:
+              v59 = *(corpse + 8);
+LABEL_238:
               if (v17 != 2312)
               {
                 if (v17 == 2310 && v16 == 112)
                 {
-LABEL_246:
-                  if ((v58 & 0x8F) == 0)
+LABEL_241:
+                  if ((v59 & 0x8F) == 0)
                   {
-                    v121 = 103;
-LABEL_304:
-                    *(corpse + 16 + v121) = 0;
-                    v134 = [NSString stringWithUTF8String:?];
+                    v120 = 103;
+LABEL_294:
+                    *(corpse + 16 + v120) = 0;
+                    v133 = [NSString stringWithUTF8String:?];
                     procPath = self->_procPath;
-                    self->_procPath = v134;
+                    self->_procPath = v133;
 
                     lastPathComponent = [(NSString *)self->_procPath lastPathComponent];
                     if ([lastPathComponent length])
@@ -4155,38 +4244,38 @@ LABEL_304:
                   }
                 }
 
-                goto LABEL_301;
+                goto LABEL_291;
               }
 
               if (v16 != 32)
               {
-                goto LABEL_301;
+                goto LABEL_291;
               }
 
-LABEL_300:
-              if ((v58 & 0x8F) == 0)
+LABEL_290:
+              if ((v59 & 0x8F) == 0)
               {
-                v121 = 23;
-                goto LABEL_304;
+                v120 = 23;
+                goto LABEL_294;
               }
 
-LABEL_301:
-              v132 = v58 & 0xF;
-              v80 = v16 >= v132;
-              v133 = v16 - v132;
-              if (!v80)
+LABEL_291:
+              v131 = v59 & 0xF;
+              v79 = v16 >= v131;
+              v132 = v16 - v131;
+              if (!v79)
               {
-                v133 = 0;
+                v132 = 0;
               }
 
-              v121 = (v133 - 1);
-              goto LABEL_304;
+              v120 = (v132 - 1);
+              goto LABEL_294;
             }
 
-            v58 = *(corpse + 8);
+            v59 = *(corpse + 8);
             if (v16 > (*(corpse + 8) & 0xFu))
             {
-              goto LABEL_243;
+              goto LABEL_238;
             }
 
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -4203,9 +4292,9 @@ LABEL_117:
               break;
             }
 
-            v59 = *(corpse + 16);
-            v60 = 15780;
-            goto LABEL_219;
+            v60 = *(corpse + 16);
+            v61 = 15780;
+            goto LABEL_214;
           case 2566:
           case 2573:
           case 2574:
@@ -4214,12 +4303,12 @@ LABEL_117:
 LABEL_132:
             if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
             {
-              v71 = *(corpse + 16);
-              self->_is64Bit = (v71 & 4) != 0;
-              v72 = 16184;
-              v73 = (v71 >> 17) & 1;
-LABEL_198:
-              self->OSAReport_opaque[v72] = v73;
+              v72 = *(corpse + 16);
+              self->_is64Bit = (v72 & 4) != 0;
+              v73 = 16184;
+              v74 = (v72 >> 17) & 1;
+LABEL_193:
+              self->OSAReport_opaque[v73] = v74;
             }
 
             break;
@@ -4230,185 +4319,185 @@ LABEL_123:
               break;
             }
 
-            v59 = *(corpse + 16);
-            v60 = 96;
-            goto LABEL_219;
+            v60 = *(corpse + 16);
+            v61 = 96;
+            goto LABEL_214;
           case 2569:
 LABEL_127:
             if (v17 == 2312)
             {
               if (v16 == 32)
               {
-                v69 = *(corpse + 8);
-                if ((v69 & 0x8F) == 0)
+                v70 = *(corpse + 8);
+                if ((v70 & 0x8F) == 0)
                 {
-                  v70 = 3;
-                  goto LABEL_255;
+                  v71 = 3;
+                  goto LABEL_250;
                 }
               }
             }
 
             else if (v17 == 2310 && v16 == 112)
             {
-              v69 = *(corpse + 8);
-              if ((v69 & 0x8F) == 0)
+              v70 = *(corpse + 8);
+              if ((v70 & 0x8F) == 0)
               {
-                v70 = 13;
-                goto LABEL_255;
+                v71 = 13;
+                goto LABEL_250;
               }
             }
 
-            v69 = *(corpse + 8);
-            v80 = v16 >= (v69 & 0xFu);
-            v122 = v16 - (v69 & 0xF);
-            if (!v80)
+            v70 = *(corpse + 8);
+            v79 = v16 >= (v70 & 0xFu);
+            v121 = v16 - (v70 & 0xF);
+            if (!v79)
             {
-              v122 = 0;
+              v121 = 0;
             }
 
-            v70 = v122 >> 3;
-LABEL_255:
-            self->_exceptionCodeCount = v70;
-            v123 = *corpse;
+            v71 = v121 >> 3;
+LABEL_250:
+            self->_exceptionCodeCount = v71;
+            v122 = *corpse;
             if ((*corpse & 0xFFFFFFF0) == 0x20)
             {
-              v123 = 17;
+              v122 = 17;
             }
 
-            if (v123 <= 2309)
+            if (v122 <= 2309)
             {
-              if (v123 == 17 || v123 == 19)
+              if (v122 == 17 || v122 == 19)
               {
-                v124 = *(corpse + 4);
-                goto LABEL_272;
+                v123 = *(corpse + 4);
+                goto LABEL_267;
               }
 
-LABEL_266:
-              v125 = *(corpse + 4);
-              goto LABEL_270;
+LABEL_261:
+              v124 = *(corpse + 4);
+              goto LABEL_265;
             }
 
-            if (v123 == 2310)
+            if (v122 == 2310)
             {
-              v125 = *(corpse + 4);
-              if (v125 == 112)
+              v124 = *(corpse + 4);
+              if (v124 == 112)
               {
-                if ((v69 & 0x8F) == 0)
+                if ((v70 & 0x8F) == 0)
                 {
-                  v124 = 104;
-                  goto LABEL_272;
+                  v123 = 104;
+                  goto LABEL_267;
                 }
 
-                v125 = 112;
+                v124 = 112;
               }
             }
 
             else
             {
-              if (v123 != 2312)
+              if (v122 != 2312)
               {
-                goto LABEL_266;
+                goto LABEL_261;
               }
 
-              v125 = *(corpse + 4);
-              if (v125 == 32)
+              v124 = *(corpse + 4);
+              if (v124 == 32)
               {
-                if ((v69 & 0x8F) == 0)
+                if ((v70 & 0x8F) == 0)
                 {
-                  v124 = 24;
-                  goto LABEL_272;
+                  v123 = 24;
+                  goto LABEL_267;
                 }
 
-                v125 = 32;
+                v124 = 32;
               }
             }
 
-LABEL_270:
-            v126 = v69 & 0xF;
-            v80 = v125 >= v126;
-            v124 = v125 - v126;
-            if (!v80)
+LABEL_265:
+            v125 = v70 & 0xF;
+            v79 = v124 >= v125;
+            v123 = v124 - v125;
+            if (!v79)
             {
-              v124 = 0;
+              v123 = 0;
             }
 
-LABEL_272:
-            if (v124 <= 0x10)
+LABEL_267:
+            if (v123 <= 0x10)
             {
-              v127 = 16;
+              v126 = 16;
             }
 
             else
             {
-              v127 = v124;
+              v126 = v123;
             }
 
-            v128 = malloc_type_calloc(1uLL, v127, 0xE0F37035uLL);
-            self->_exceptionCode = v128;
-            v129 = *corpse;
+            v127 = malloc_type_calloc(1uLL, v126, 0xE0F37035uLL);
+            self->_exceptionCode = v127;
+            v128 = *corpse;
             if ((*corpse & 0xFFFFFFF0) == 0x20)
             {
-              v129 = 17;
+              v128 = 17;
             }
 
-            if (v129 <= 2309)
+            if (v128 <= 2309)
             {
-              if (v129 == 17 || v129 == 19)
+              if (v128 == 17 || v128 == 19)
               {
-                v130 = *(corpse + 4);
-                goto LABEL_292;
+                v129 = *(corpse + 4);
+                goto LABEL_287;
               }
 
-LABEL_286:
-              v131 = *(corpse + 4);
-              goto LABEL_290;
+LABEL_281:
+              v130 = *(corpse + 4);
+              goto LABEL_285;
             }
 
-            if (v129 == 2310)
+            if (v128 == 2310)
             {
-              v131 = *(corpse + 4);
-              if (v131 == 112)
+              v130 = *(corpse + 4);
+              if (v130 == 112)
               {
                 if ((*(corpse + 8) & 0x8F) == 0)
                 {
-                  v130 = 104;
-                  goto LABEL_292;
+                  v129 = 104;
+                  goto LABEL_287;
                 }
 
-                v131 = 112;
+                v130 = 112;
               }
             }
 
             else
             {
-              if (v129 != 2312)
+              if (v128 != 2312)
               {
-                goto LABEL_286;
+                goto LABEL_281;
               }
 
-              v131 = *(corpse + 4);
-              if (v131 == 32)
+              v130 = *(corpse + 4);
+              if (v130 == 32)
               {
                 if ((*(corpse + 8) & 0x8F) == 0)
                 {
-                  v130 = 24;
-                  goto LABEL_292;
+                  v129 = 24;
+                  goto LABEL_287;
                 }
 
-                v131 = 32;
+                v130 = 32;
               }
             }
 
-LABEL_290:
-            v80 = v131 >= (*(corpse + 8) & 0xFu);
-            v130 = v131 - (*(corpse + 8) & 0xF);
-            if (!v80)
+LABEL_285:
+            v79 = v130 >= (*(corpse + 8) & 0xFu);
+            v129 = v130 - (*(corpse + 8) & 0xF);
+            if (!v79)
             {
-              v130 = 0;
+              v129 = 0;
             }
 
-LABEL_292:
-            memcpy(v128, (corpse + 16), v130);
+LABEL_287:
+            memcpy(v127, (corpse + 16), v129);
             if ((self->_exceptionType - 11) >= 2)
             {
               [(OSACrashReport *)self unpackExceptionCodes];
@@ -4421,9 +4510,9 @@ LABEL_292:
               break;
             }
 
-            v59 = *(corpse + 16);
-            v60 = 0x4000;
-            goto LABEL_219;
+            v60 = *(corpse + 16);
+            v61 = 0x4000;
+            goto LABEL_214;
           case 2571:
 LABEL_119:
             if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 96])
@@ -4431,17 +4520,17 @@ LABEL_119:
               memset(&buf[64], 0, 32);
               memset(&buf[32], 0, 32);
               *&buf[16] = 0u;
-              v61 = *(corpse + 16);
-              v62 = *(corpse + 32);
-              v63 = *(corpse + 48);
-              v64 = *(corpse + 64);
-              v65 = *(corpse + 96);
+              v62 = *(corpse + 16);
+              v63 = *(corpse + 32);
+              v64 = *(corpse + 48);
+              v65 = *(corpse + 64);
+              v66 = *(corpse + 96);
               *&buf[64] = *(corpse + 80);
-              *&buf[80] = v65;
-              *&buf[32] = v63;
-              *&buf[48] = v64;
-              *buf = v61;
-              *&buf[16] = v62;
+              *&buf[80] = v66;
+              *&buf[32] = v64;
+              *&buf[48] = v65;
+              *buf = v62;
+              *&buf[16] = v63;
               uuid_unparse_lower(buf, self->_slice_uuid);
               *&self->_proc_start_abstime = *&buf[80];
             }
@@ -4469,36 +4558,36 @@ LABEL_119:
           case 2597:
           case 2598:
           case 2599:
-            goto LABEL_143;
+            goto LABEL_138;
           case 2592:
 LABEL_121:
             if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 8])
             {
-              v66 = *(corpse + 16);
-              self->_threadId = v66;
+              v67 = *(corpse + 16);
+              self->_threadId = v67;
               threadPortPedigree = self->_threadPortPedigree;
-              v68 = [NSString stringWithFormat:@"override via KCDATA ID(0x%llX)", v66];
-              [(NSMutableArray *)threadPortPedigree addObject:v68];
+              v69 = [NSString stringWithFormat:@"override via KCDATA ID(0x%llX)", v67];
+              [(NSMutableArray *)threadPortPedigree addObject:v69];
             }
 
             break;
           case 2593:
-            v80 = v16 >= (*(corpse + 8) & 0xFu);
-            v81 = v16 - (*(corpse + 8) & 0xF);
-            if (v81 != 0 && v80)
+            v79 = v16 >= (*(corpse + 8) & 0xFu);
+            v80 = v16 - (*(corpse + 8) & 0xF);
+            if (v80 != 0 && v79)
             {
-              if (!v80)
+              if (!v79)
               {
-                v81 = 0;
+                v80 = 0;
               }
 
-              *(corpse + 16 + (v81 - 1)) = 0;
+              *(corpse + 16 + (v80 - 1)) = 0;
               if (*(corpse + 16))
               {
-                v82 = [NSString stringWithUTF8String:?];
-                v83 = OSASanitizePath();
+                v81 = [NSString stringWithUTF8String:?];
+                v82 = OSASanitizePath();
 
-                v174 = v83;
+                v173 = v82;
               }
             }
 
@@ -4509,62 +4598,62 @@ LABEL_121:
               break;
             }
 
-            v78 = *(corpse + 16);
-            v79 = HIDWORD(v78);
-            if (HIDWORD(v78) < 0x511)
+            v77 = *(corpse + 16);
+            v78 = HIDWORD(v77);
+            if (HIDWORD(v77) < 0x511)
             {
-              self->_threadStateFlavor = v78;
-              v138 = 5364;
-              goto LABEL_318;
+              self->_threadStateFlavor = v77;
+              v137 = 5364;
+              goto LABEL_308;
             }
 
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_356;
+              goto LABEL_342;
             }
 
             *buf = 67109376;
-            *&buf[4] = v79;
+            *&buf[4] = v78;
             *&buf[8] = 2048;
             *&buf[10] = 5184;
-            v26 = "Unexpected count for TASK_BTINFO_THREAD_STATE %u > %lu";
-            goto LABEL_315;
+            v27 = "Unexpected count for TASK_BTINFO_THREAD_STATE %u > %lu";
+            goto LABEL_305;
           case 2595:
             if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 8])
             {
               break;
             }
 
-            v79 = HIDWORD(*(corpse + 16));
-            if (v79 < 0x511)
+            v78 = HIDWORD(*(corpse + 16));
+            if (v78 < 0x511)
             {
-              v138 = 15748;
-LABEL_318:
-              *&self->OSAReport_opaque[v138] = v79;
-              goto LABEL_356;
+              v137 = 15748;
+LABEL_308:
+              *&self->OSAReport_opaque[v137] = v78;
+              goto LABEL_342;
             }
 
             if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_356;
+              goto LABEL_342;
             }
 
             *buf = 67109376;
-            *&buf[4] = v79;
+            *&buf[4] = v78;
             *&buf[8] = 2048;
             *&buf[10] = 5184;
-            v26 = "Unexpected count for TASK_BTINFO_THREAD_EXCEPTION_STATE %u > %lu";
-            goto LABEL_315;
+            v27 = "Unexpected count for TASK_BTINFO_THREAD_EXCEPTION_STATE %u > %lu";
+            goto LABEL_305;
           case 2600:
             if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
             {
               break;
             }
 
-            v59 = *(corpse + 16);
-            v60 = 16124;
-LABEL_219:
-            *&self->OSAReport_opaque[v60] = v59;
+            v60 = *(corpse + 16);
+            v61 = 16124;
+LABEL_214:
+            *&self->OSAReport_opaque[v61] = v60;
             break;
           case 2601:
             if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 24])
@@ -4572,33 +4661,33 @@ LABEL_219:
               break;
             }
 
-            v86 = *(corpse + 36);
-            *&v178[0] = *(corpse + 16);
-            *(&v178[1] + 1) = v86;
-            v85 = *(corpse + 20);
-            goto LABEL_164;
+            v85 = *(corpse + 36);
+            *&v177[0] = *(corpse + 16);
+            *(&v177[1] + 1) = v85;
+            v84 = *(corpse + 20);
+            goto LABEL_159;
           case 2602:
             if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 32])
             {
               break;
             }
 
-            v84 = *(corpse + 40);
-            *&v178[0] = *(corpse + 16);
-            *(&v178[1] + 1) = v84;
-            v85 = *(corpse + 24);
-LABEL_164:
-            *(v178 + 8) = v85;
+            v83 = *(corpse + 40);
+            *&v177[0] = *(corpse + 16);
+            *(&v177[1] + 1) = v83;
+            v84 = *(corpse + 24);
+LABEL_159:
+            *(v177 + 8) = v84;
             break;
           default:
             if (v17 != 2389)
             {
-              goto LABEL_143;
+              goto LABEL_138;
             }
 
-            v76 = [v15[451] numberWithUnsignedLongLong:*(corpse + 16)];
-            v77 = [v15[451] numberWithUnsignedLongLong:*(corpse + 24)];
-            [(OSAExclaveContainer *)self->_exclaveContainer setThreadId:v77 withScId:v76];
+            v75 = [v15[451] numberWithUnsignedLongLong:*(corpse + 16)];
+            v76 = [v15[451] numberWithUnsignedLongLong:*(corpse + 24)];
+            [(OSAExclaveContainer *)self->_exclaveContainer setThreadId:v76 withScId:v75];
 
             break;
         }
@@ -4611,159 +4700,159 @@ LABEL_164:
       {
         if ((v17 - 1) < 3 || v17 == -559025833)
         {
-          goto LABEL_357;
+          goto LABEL_343;
         }
 
         if (v17 == 17)
         {
-          v24 = *(corpse + 8);
-          if (SHIDWORD(v24) > 2074)
+          v25 = *(corpse + 8);
+          if (SHIDWORD(v25) > 2074)
           {
-            if (HIDWORD(v24) == 2572 || HIDWORD(v24) == 2075)
+            if (HIDWORD(v25) == 2572 || HIDWORD(v25) == 2075)
             {
-              if (v24)
+              if (v25)
               {
                 if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 8])
                 {
-                  v115 = *(corpse + 16);
-                  self->_coalition_id = v115;
-                  if (v115)
+                  v114 = *(corpse + 16);
+                  self->_coalition_id = v114;
+                  if (v114)
                   {
-                    v116 = xpc_coalition_copy_info();
-                    v117 = v116;
-                    if (v116)
+                    v115 = xpc_coalition_copy_info();
+                    v116 = v115;
+                    if (v115)
                     {
-                      if (xpc_get_type(v116) == &_xpc_type_dictionary)
+                      if (xpc_get_type(v115) == &_xpc_type_dictionary)
                       {
-                        string = xpc_dictionary_get_string(v117, key);
-                        if (string || (string = xpc_dictionary_get_string(v117, v171)) != 0)
+                        string = xpc_dictionary_get_string(v116, key);
+                        if (string || (string = xpc_dictionary_get_string(v116, v170)) != 0)
                         {
-                          v119 = [NSString stringWithUTF8String:string];
+                          v118 = [NSString stringWithUTF8String:string];
                           coalition_name = self->_coalition_name;
-                          self->_coalition_name = v119;
+                          self->_coalition_name = v118;
                         }
                       }
                     }
 
                     v15 = &create_gcore_with_options_ptr;
-                    goto LABEL_357;
+                    goto LABEL_343;
                   }
                 }
               }
 
-              goto LABEL_356;
+              goto LABEL_342;
             }
           }
 
           else
           {
-            if (HIDWORD(v24) == 48)
+            if (HIDWORD(v25) == 48)
             {
-              if (v16 / 0x14 >= v24)
+              if (v16 / 0x14 >= v25)
               {
-                if (v24)
+                if (v25)
                 {
-                  v145 = v8;
-                  v24 = v24;
-                  v147 = corpse + 20;
+                  v144 = v8;
+                  v25 = v25;
+                  v146 = corpse + 20;
                   do
                   {
-                    [(NSMutableArray *)self->_taskImages addImage:v147 address:*(v147 - 4) size:0];
-                    v147 += 20;
-                    --v24;
+                    [(NSMutableArray *)self->_taskImages addImage:v146 address:*(v146 - 4) size:0];
+                    v146 += 20;
+                    --v25;
                   }
 
-                  while (v24);
-                  goto LABEL_344;
+                  while (v25);
+                  goto LABEL_330;
                 }
               }
 
               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v137 = sub_10000391C(corpse);
+                v136 = sub_10000391C(corpse);
                 *buf = 67109376;
-                *&buf[4] = v24;
+                *&buf[4] = v25;
                 *&buf[8] = 2048;
-                *&buf[10] = v137 / 0x14uLL;
-                v26 = "Unexpected count for TASK_BTINFO_DYLD_LOADINFO %u > %lu";
-LABEL_315:
-                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v26, buf, 0x12u);
+                *&buf[10] = v136 / 0x14uLL;
+                v27 = "Unexpected count for TASK_BTINFO_DYLD_LOADINFO %u > %lu";
+LABEL_305:
+                _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, v27, buf, 0x12u);
               }
 
-LABEL_356:
+LABEL_342:
               v15 = &create_gcore_with_options_ptr;
-              goto LABEL_357;
+              goto LABEL_343;
             }
 
-            if (HIDWORD(v24) == 49)
+            if (HIDWORD(v25) == 49)
             {
-              if (v16 / 0x18 >= v24)
+              if (v16 / 0x18 >= v25)
               {
-                if (v24)
+                if (v25)
                 {
-                  v145 = v8;
-                  v24 = v24;
-                  v146 = corpse + 24;
+                  v144 = v8;
+                  v25 = v25;
+                  v145 = corpse + 24;
                   do
                   {
-                    [(NSMutableArray *)self->_taskImages addImage:v146 address:*(v146 - 8) size:0];
-                    v146 += 24;
-                    --v24;
+                    [(NSMutableArray *)self->_taskImages addImage:v145 address:*(v145 - 8) size:0];
+                    v145 += 24;
+                    --v25;
                   }
 
-                  while (v24);
-LABEL_344:
-                  v8 = v145;
+                  while (v25);
+LABEL_330:
+                  v8 = v144;
                   v15 = &create_gcore_with_options_ptr;
-                  goto LABEL_357;
+                  goto LABEL_343;
                 }
               }
 
               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v25 = sub_10000391C(corpse);
+                v26 = sub_10000391C(corpse);
                 *buf = 67109376;
-                *&buf[4] = v24;
+                *&buf[4] = v25;
                 *&buf[8] = 2048;
-                *&buf[10] = v25 / 0x18uLL;
-                v26 = "Unexpected count for TASK_BTINFO_DYLD_LOADINFO64 %u > %lu";
-                goto LABEL_315;
+                *&buf[10] = v26 / 0x18uLL;
+                v27 = "Unexpected count for TASK_BTINFO_DYLD_LOADINFO64 %u > %lu";
+                goto LABEL_305;
               }
 
-              goto LABEL_356;
+              goto LABEL_342;
             }
           }
 
-          if ((HIDWORD(v24) & 0xFFFFFFFE) == 0xA24)
+          if ((HIDWORD(v25) & 0xFFFFFFFE) == 0xA24)
           {
-            if (v24 <= sub_10000391C(corpse) >> 3)
+            if (v25 <= sub_10000391C(corpse) >> 3)
             {
               v14 = (corpse + 16);
-              v173 = v24;
+              v172 = v25;
             }
 
             else
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                v150 = sub_10000391C(corpse);
+                v149 = sub_10000391C(corpse);
                 *buf = 67109376;
-                *&buf[4] = v24;
+                *&buf[4] = v25;
                 *&buf[8] = 2048;
-                *&buf[10] = v150 >> 3;
+                *&buf[10] = v149 >> 3;
                 _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Unexpected count for TASK_BTINFO_BACKTRACE %u > %lu", buf, 0x12u);
               }
 
-              v173 = 0;
+              v172 = 0;
             }
           }
 
-          goto LABEL_356;
+          goto LABEL_342;
         }
 
-LABEL_143:
+LABEL_138:
         [*&self->OSAReport_opaque[v8] parseElement:? from:?];
-        goto LABEL_357;
+        goto LABEL_343;
       }
 
       switch(v17)
@@ -4788,7 +4877,7 @@ LABEL_143:
 
           v18 = *(corpse + 32);
           v19 = 160;
-          goto LABEL_216;
+          goto LABEL_211;
         case 2053:
           goto LABEL_23;
         case 2054:
@@ -4826,7 +4915,7 @@ LABEL_143:
         case 2100:
         case 2101:
         case 2104:
-          goto LABEL_143;
+          goto LABEL_138;
         case 2059:
           if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 16])
           {
@@ -4844,9 +4933,9 @@ LABEL_143:
             break;
           }
 
-          v59 = *(corpse + 16);
-          v60 = 152;
-          goto LABEL_219;
+          v60 = *(corpse + 16);
+          v61 = 152;
+          goto LABEL_214;
         case 2066:
           goto LABEL_117;
         case 2069:
@@ -4863,9 +4952,9 @@ LABEL_143:
           if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
           {
             self->_responsible_pid = *(corpse + 16);
-            v88 = [(OSACrashReport *)self nameFromPid:?];
+            v87 = [(OSACrashReport *)self nameFromPid:?];
             responsibleProc = self->_responsibleProc;
-            self->_responsibleProc = v88;
+            self->_responsibleProc = v87;
           }
 
           break;
@@ -4879,170 +4968,170 @@ LABEL_143:
 
           memset(buf, 0, 512);
           memcpy(buf, (corpse + 16), 0x280uLL);
-          v21 = objc_opt_new();
+          v22 = objc_opt_new();
           if (buf[0])
           {
-            v103 = [NSString stringWithUTF8String:buf];
-            [v21 addObject:v103];
+            v102 = [NSString stringWithUTF8String:buf];
+            [v22 addObject:v102];
           }
 
           if (buf[128])
           {
-            v104 = [NSString stringWithUTF8String:&buf[128]];
-            [v21 addObject:v104];
+            v103 = [NSString stringWithUTF8String:&buf[128]];
+            [v22 addObject:v103];
           }
 
           if (buf[256])
           {
-            v105 = [NSString stringWithUTF8String:&buf[256]];
-            [v21 addObject:v105];
+            v104 = [NSString stringWithUTF8String:&buf[256]];
+            [v22 addObject:v104];
           }
 
           if (buf[384])
           {
-            v106 = [NSString stringWithUTF8String:&buf[384]];
-            [v21 addObject:v106];
+            v105 = [NSString stringWithUTF8String:&buf[384]];
+            [v22 addObject:v105];
           }
 
           if (buf[512])
           {
-            v107 = [NSString stringWithUTF8String:&buf[512]];
-            [v21 addObject:v107];
+            v106 = [NSString stringWithUTF8String:&buf[512]];
+            [v22 addObject:v106];
           }
 
-          v108 = [v21 componentsJoinedByString:&stru_1000463C0];
+          v107 = [v22 componentsJoinedByString:&stru_1000463C0];
           ktriage_info = self->_ktriage_info;
-          self->_ktriage_info = v108;
+          self->_ktriage_info = v107;
 
-          goto LABEL_211;
+          goto LABEL_206;
         case 2103:
           if (![(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 4])
           {
             break;
           }
 
-          LOBYTE(v73) = *(corpse + 16) != 0;
-          v72 = 16376;
-          goto LABEL_198;
+          LOBYTE(v74) = *(corpse + 16) != 0;
+          v73 = 16376;
+          goto LABEL_193;
         case 2105:
-          v59 = *(corpse + 16);
-          v60 = 16392;
-          goto LABEL_219;
+          v60 = *(corpse + 16);
+          v61 = 16392;
+          goto LABEL_214;
         case 2106:
-          v59 = *(corpse + 16);
-          v60 = 16396;
-          if (v59 == 0x7FFFFFFF)
+          v60 = *(corpse + 16);
+          v61 = 16396;
+          if (v60 == 0x7FFFFFFF)
           {
-            v59 = 0;
+            v60 = 0;
           }
 
-          goto LABEL_219;
+          goto LABEL_214;
         case 2107:
-          v80 = v16 >= (*(corpse + 8) & 0xFu);
-          v98 = v16 - (*(corpse + 8) & 0xF);
-          if (v80)
+          v79 = v16 >= (*(corpse + 8) & 0xFu);
+          v97 = v16 - (*(corpse + 8) & 0xF);
+          if (v79)
           {
-            v99 = v98;
+            v98 = v97;
           }
 
           else
           {
-            v99 = 0;
+            v98 = 0;
           }
 
-          if (strnlen((corpse + 16), v99) >= v99)
+          if (strnlen((corpse + 16), v98) >= v98)
           {
             break;
           }
 
-          v100 = [NSString stringWithUTF8String:corpse + 16];
-          v101 = 16488;
-          goto LABEL_225;
+          v99 = [NSString stringWithUTF8String:corpse + 16];
+          v100 = 16488;
+          goto LABEL_220;
         case 2108:
-          v80 = v16 >= (*(corpse + 8) & 0xFu);
-          v111 = v16 - (*(corpse + 8) & 0xF);
-          if (v80)
+          v79 = v16 >= (*(corpse + 8) & 0xFu);
+          v110 = v16 - (*(corpse + 8) & 0xF);
+          if (v79)
           {
-            v112 = v111;
+            v111 = v110;
           }
 
           else
           {
-            v112 = 0;
+            v111 = 0;
           }
 
-          if (strnlen((corpse + 16), v112) >= v112)
+          if (strnlen((corpse + 16), v111) >= v111)
           {
             break;
           }
 
-          v100 = [NSString stringWithUTF8String:corpse + 16];
-          v101 = 16272;
-LABEL_225:
-          v113 = *&self->OSAReport_opaque[v101];
-          *&self->OSAReport_opaque[v101] = v100;
+          v99 = [NSString stringWithUTF8String:corpse + 16];
+          v100 = 16272;
+LABEL_220:
+          v112 = *&self->OSAReport_opaque[v100];
+          *&self->OSAReport_opaque[v100] = v99;
 
           break;
         case 2109:
-          v59 = *(corpse + 16);
-          v60 = 16280;
-          goto LABEL_219;
+          v60 = *(corpse + 16);
+          v61 = 16280;
+          goto LABEL_214;
         case 2110:
-          v59 = *(corpse + 16);
-          v60 = 16284;
-          goto LABEL_219;
+          v60 = *(corpse + 16);
+          v61 = 16284;
+          goto LABEL_214;
         case 2111:
           goto LABEL_123;
         case 2112:
-          v102 = *(corpse + 24);
+          v101 = *(corpse + 24);
           self->_jit_start_address = *(corpse + 16);
-          self->_jit_end_address = v102;
-          [(NSMutableArray *)self->_taskImages addJITImage:self->_jit_start_address size:v102 - self->_jit_start_address];
+          self->_jit_end_address = v101;
+          [(NSMutableArray *)self->_taskImages addJITImage:self->_jit_start_address size:v101 - self->_jit_start_address];
           break;
         case 2113:
           if ([(OSACrashReport *)self validKcdataItem:corpse min_size:v10, 520])
           {
-            v169 = v8;
+            v168 = v8;
             if (!self->_mteTags)
             {
-              v90 = [[NSMutableArray alloc] initWithCapacity:1024];
+              v89 = [[NSMutableArray alloc] initWithCapacity:1024];
               mteTags = self->_mteTags;
-              self->_mteTags = v90;
+              self->_mteTags = v89;
             }
 
             for (i = 24; i != 536; ++i)
             {
-              v93 = *(corpse + i);
-              v94 = self->_mteTags;
-              v95 = [NSNumber numberWithInt:v93 & 0xF];
-              [(NSMutableArray *)v94 addObject:v95];
+              v92 = *(corpse + i);
+              v93 = self->_mteTags;
+              v94 = [NSNumber numberWithInt:v92 & 0xF];
+              [(NSMutableArray *)v93 addObject:v94];
 
-              v96 = self->_mteTags;
-              v97 = [NSNumber numberWithInt:v93 >> 4];
-              [(NSMutableArray *)v96 addObject:v97];
+              v95 = self->_mteTags;
+              v96 = [NSNumber numberWithInt:v92 >> 4];
+              [(NSMutableArray *)v95 addObject:v96];
             }
 
-            v8 = v169;
+            v8 = v168;
             v15 = &create_gcore_with_options_ptr;
           }
 
           break;
         case 2114:
-          v80 = v16 >= (*(corpse + 8) & 0xFu);
-          v110 = v16 - (*(corpse + 8) & 0xF);
-          if (!v80)
+          v79 = v16 >= (*(corpse + 8) & 0xFu);
+          v109 = v16 - (*(corpse + 8) & 0xF);
+          if (!v79)
           {
-            v110 = 0;
+            v109 = 0;
           }
 
-          if (v110 < 8)
+          if (v109 < 8)
           {
             break;
           }
 
           v18 = *(corpse + 16);
           v19 = 16336;
-LABEL_216:
+LABEL_211:
           *&self->OSAReport_opaque[v19] = v18;
           break;
         default:
@@ -5050,13 +5139,13 @@ LABEL_216:
           {
             if (v17 != 56)
             {
-              goto LABEL_143;
+              goto LABEL_138;
             }
 
-            v29 = (corpse + 16);
-            v80 = v16 >= (*(corpse + 8) & 0xFu);
+            v30 = (corpse + 16);
+            v79 = v16 >= (*(corpse + 8) & 0xFu);
             LODWORD(v16) = v16 - (*(corpse + 8) & 0xF);
-            if (v80)
+            if (v79)
             {
               v16 = v16;
             }
@@ -5066,51 +5155,51 @@ LABEL_216:
               v16 = 0;
             }
 
-            v30 = v29 + v16;
-            v31 = corpse + 32;
-            if (corpse + 32 > v29 + v16)
+            v31 = v30 + v16;
+            v32 = corpse + 32;
+            if (corpse + 32 > v30 + v16)
             {
               goto LABEL_111;
             }
 
-            v168 = v8;
-            v170 = v29 + v16;
+            v167 = v8;
+            v169 = v30 + v16;
 LABEL_55:
-            v32 = v29[1];
-            if (v31 + v32 > v30 || (v33 = *v29, *v29 == -242132755))
+            v33 = v30[1];
+            if (v32 + v33 > v31 || (v34 = *v30, *v30 == -242132755))
             {
 LABEL_110:
-              v8 = v168;
+              v8 = v167;
 LABEL_111:
               v15 = &create_gcore_with_options_ptr;
               break;
             }
 
-            if ((v33 & 0xFFFFFFF0) == 0x20)
+            if ((v34 & 0xFFFFFFF0) == 0x20)
             {
-              v33 = 17;
+              v34 = 17;
             }
 
-            if (v33 > 4098)
+            if (v34 > 4098)
             {
-              if (v33 > 4101)
+              if (v34 > 4101)
               {
-                if (v33 == 4102)
+                if (v34 == 4102)
                 {
-                  v50 = [(OSACrashReport *)self validKcdataItem:v29 min_size:v170, 8];
-                  v30 = v170;
-                  if (v50)
+                  v51 = [(OSACrashReport *)self validKcdataItem:v30 min_size:v169, 8];
+                  v31 = v169;
+                  if (v51)
                   {
-                    v35 = *(v29 + 2);
-                    v36 = 15864;
+                    v36 = *(v30 + 2);
+                    v37 = 15864;
 LABEL_94:
-                    *&self->OSAReport_opaque[v36] = v35;
+                    *&self->OSAReport_opaque[v37] = v36;
                   }
 
 LABEL_109:
-                  v29 = (v31 + v29[1]);
-                  v31 = (v29 + 4);
-                  if ((v29 + 4) > v30)
+                  v30 = (v32 + v30[1]);
+                  v32 = (v30 + 4);
+                  if ((v30 + 4) > v31)
                   {
                     goto LABEL_110;
                   }
@@ -5118,7 +5207,7 @@ LABEL_109:
                   goto LABEL_55;
                 }
 
-                if (v33 == 1403128064)
+                if (v34 == 1403128064)
                 {
                   goto LABEL_109;
                 }
@@ -5126,27 +5215,27 @@ LABEL_109:
 
               else
               {
-                if (v33 == 4099)
+                if (v34 == 4099)
                 {
-                  v46 = v29[2] & 0xF;
-                  v80 = v32 >= v46;
-                  v48 = v32 - v46;
-                  v47 = v48 != 0 && v80;
-                  if (!v80)
+                  v47 = v30[2] & 0xF;
+                  v79 = v33 >= v47;
+                  v49 = v33 - v47;
+                  v48 = v49 != 0 && v79;
+                  if (!v79)
                   {
-                    v48 = 0;
+                    v49 = 0;
                   }
 
-                  self->_exit_payload_length = v48;
-                  if (v47)
+                  self->_exit_payload_length = v49;
+                  if (v48)
                   {
-                    v49 = malloc_type_malloc(v48 + 1, 0x32C06272uLL);
-                    v30 = v170;
-                    self->_exit_payload = v49;
-                    if (v49)
+                    v50 = malloc_type_malloc(v49 + 1, 0x32C06272uLL);
+                    v31 = v169;
+                    self->_exit_payload = v50;
+                    if (v50)
                     {
-                      memcpy(v49, v29 + 4, self->_exit_payload_length);
-                      v30 = v170;
+                      memcpy(v50, v30 + 4, self->_exit_payload_length);
+                      v31 = v169;
                       *(self->_exit_payload + self->_exit_payload_length) = 0;
                     }
                   }
@@ -5154,14 +5243,14 @@ LABEL_109:
                   goto LABEL_109;
                 }
 
-                if (v33 == 4101)
+                if (v34 == 4101)
                 {
-                  v34 = [(OSACrashReport *)self validKcdataItem:v29 min_size:v170, 8];
-                  v30 = v170;
-                  if (v34)
+                  v35 = [(OSACrashReport *)self validKcdataItem:v30 min_size:v169, 8];
+                  v31 = v169;
+                  if (v35)
                   {
-                    v35 = *(v29 + 2);
-                    v36 = 16024;
+                    v36 = *(v30 + 2);
+                    v37 = 16024;
                     goto LABEL_94;
                   }
 
@@ -5170,113 +5259,113 @@ LABEL_109:
               }
 
 LABEL_79:
-              v42 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
-              v30 = v170;
-              if (!v42)
+              v43 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+              v31 = v169;
+              if (!v43)
               {
                 goto LABEL_109;
               }
 
-              if ((*v29 & 0xFFFFFFF0) == 0x20)
+              if ((*v30 & 0xFFFFFFF0) == 0x20)
               {
-                v43 = 17;
+                v44 = 17;
               }
 
               else
               {
-                v43 = *v29;
+                v44 = *v30;
               }
 
-              v44 = sub_10000391C(v29);
+              v45 = sub_10000391C(v30);
               *buf = 67109376;
-              *&buf[4] = v43;
+              *&buf[4] = v44;
               *&buf[8] = 1024;
-              *&buf[10] = v44;
+              *&buf[10] = v45;
               _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "unknown nested kcdata type: 0x%x, size: %d", buf, 0xEu);
 LABEL_108:
-              v30 = v170;
+              v31 = v169;
               goto LABEL_109;
             }
 
-            switch(v33)
+            switch(v34)
             {
               case 54:
-                v45 = [(OSACrashReport *)self validKcdataItem:v29 min_size:v170, 4];
-                v30 = v170;
-                if (v45)
+                v46 = [(OSACrashReport *)self validKcdataItem:v30 min_size:v169, 4];
+                v31 = v169;
+                if (v46)
                 {
-                  self->_terminator_pid = v29[4];
+                  self->_terminator_pid = v30[4];
                 }
 
                 goto LABEL_109;
               case 55:
-                v51 = v29[2] & 0xF;
-                if (v32 >= v51)
+                v52 = v30[2] & 0xF;
+                if (v33 >= v52)
                 {
-                  v52 = v32 - (v29[2] & 0xF);
+                  v53 = v33 - (v30[2] & 0xF);
                 }
 
                 else
                 {
-                  v52 = 0;
+                  v53 = 0;
                 }
 
-                if (strnlen(v29 + 16, v52) >= v52 || v32 <= v51)
+                if (strnlen(v30 + 16, v53) >= v53 || v33 <= v52)
                 {
-                  v54 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-                  v30 = v170;
-                  if (!v54)
+                  v55 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+                  v31 = v169;
+                  if (!v55)
                   {
                     goto LABEL_109;
                   }
 
                   *buf = 0;
-                  v41 = "terminator proc string is NULL or malformed";
+                  v42 = "terminator proc string is NULL or malformed";
                   goto LABEL_104;
                 }
 
-                *(v29 + (v52 - 1) + 16) = 0;
-                v55 = [NSString stringWithUTF8String:v29 + 4];
-                v56 = 15944;
+                *(v30 + (v53 - 1) + 16) = 0;
+                v56 = [NSString stringWithUTF8String:v30 + 4];
+                v57 = 15944;
                 break;
               case 4098:
-                v37 = v29[2] & 0xF;
-                if (v32 >= v37)
+                v38 = v30[2] & 0xF;
+                if (v33 >= v38)
                 {
-                  v38 = v32 - (v29[2] & 0xF);
+                  v39 = v33 - (v30[2] & 0xF);
                 }
 
                 else
                 {
-                  v38 = 0;
+                  v39 = 0;
                 }
 
-                if (strnlen(v29 + 16, v38) >= v38 || v32 <= v37)
+                if (strnlen(v30 + 16, v39) >= v39 || v33 <= v38)
                 {
-                  v40 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-                  v30 = v170;
-                  if (!v40)
+                  v41 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+                  v31 = v169;
+                  if (!v41)
                   {
                     goto LABEL_109;
                   }
 
                   *buf = 0;
-                  v41 = "exit reason string is NULL or malformed";
+                  v42 = "exit reason string is NULL or malformed";
 LABEL_104:
-                  _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
+                  _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v42, buf, 2u);
                   goto LABEL_108;
                 }
 
-                *(v29 + (v38 - 1) + 16) = 0;
-                v55 = [NSString stringWithUTF8String:v29 + 4];
-                v56 = 15936;
+                *(v30 + (v39 - 1) + 16) = 0;
+                v56 = [NSString stringWithUTF8String:v30 + 4];
+                v57 = 15936;
                 break;
               default:
                 goto LABEL_79;
             }
 
-            v57 = *&self->OSAReport_opaque[v56];
-            *&self->OSAReport_opaque[v56] = v55;
+            v58 = *&self->OSAReport_opaque[v57];
+            *&self->OSAReport_opaque[v57] = v56;
 
             goto LABEL_108;
           }
@@ -5284,74 +5373,74 @@ LABEL_104:
           if (*(corpse + 16) == 2377)
           {
             corpse = [(OSAExclaveContainer *)self->_exclaveContainer parseKCdata:corpse, v10];
-            v10 = v114;
+            v10 = v113;
           }
 
           break;
       }
     }
 
-LABEL_357:
-    v149 = corpse + *(corpse + 4);
-    corpse = v149 + 16;
-    v11 = v149 + 32;
+LABEL_343:
+    v148 = corpse + *(corpse + 4);
+    corpse = v148 + 16;
+    v11 = v148 + 32;
   }
 
-  while (v149 + 32 <= v10);
-  if (!self->_is_lightweight_corpse || v173 < 1)
+  while (v148 + 32 <= v10);
+  if (!self->_is_lightweight_corpse || v172 < 1)
   {
-    v151 = v174;
+    v150 = v173;
   }
 
   else
   {
-    v153 = objc_alloc_init(OSABinaryImageCatalog);
-    if (!uuid_is_null(v178 + 8))
+    v152 = objc_alloc_init(OSABinaryImageCatalog);
+    if (!uuid_is_null(v177 + 8))
     {
-      [v153 targetSharedCache:v178 + 8 withSlide:*&v178[0] atBaseAddress:*(&v178[1] + 1)];
+      [v152 targetSharedCache:v177 + 8 withSlide:*&v177[0] atBaseAddress:*(&v177[1] + 1)];
     }
 
     [(NSMutableArray *)self->_taskImages sortByAddressAndSetInferredSizes];
-    v154 = [[NSMutableArray alloc] initWithCapacity:1];
+    v153 = [[NSMutableArray alloc] initWithCapacity:1];
     threadInfos = self->_threadInfos;
-    self->_threadInfos = v154;
+    self->_threadInfos = v153;
 
-    v156 = v173;
-    v157 = [NSMutableArray arrayWithCapacity:v173];
+    v155 = v172;
+    v156 = [NSMutableArray arrayWithCapacity:v172];
     do
     {
-      v159 = *v14++;
-      v158 = v159;
-      if (v159)
+      v158 = *v14++;
+      v157 = v158;
+      if (v158)
       {
-        v160 = [v153 searchFrame:v158 in:self->_taskImages regions:0 result:0];
-        v161 = [(OSACrashReport *)self composeFrame:v160 info:0];
-        [v157 addObject:v161];
+        v159 = [v152 searchFrame:v157 in:self->_taskImages regions:0 result:0];
+        v160 = [(OSACrashReport *)self composeFrame:v159 info:0];
+        [v156 addObject:v160];
       }
 
-      --v156;
+      --v155;
     }
 
-    while (v156);
+    while (v155);
     self->_crashedThreadNumber = 0;
-    v162 = objc_opt_new();
-    [v162 setObject:v157 forKeyedSubscript:@"frames"];
-    v163 = [NSNumber numberWithUnsignedLongLong:self->_threadId];
-    [v162 setObject:v163 forKeyedSubscript:@"id"];
+    v161 = objc_opt_new();
+    objc_msgSend_setObject_forKeyedSubscript_(v161);
+    v162 = [NSNumber numberWithUnsignedLongLong:self->_threadId];
+    objc_msgSend_setObject_forKeyedSubscript_(v161);
 
-    v151 = v174;
-    [v162 setObject:v174 forKeyedSubscript:@"name"];
-    [(NSMutableArray *)self->_threadInfos addObject:v162];
-    v164 = [v153 reportUsedImagesFullInfoUsingBlock:0];
+    v150 = v173;
+    objc_msgSend_setObject_forKeyedSubscript_(v161);
+    [(NSMutableArray *)self->_threadInfos addObject:v161];
+    v163 = [v152 reportUsedImagesFullInfoUsingBlock:0];
     usedImages = self->_usedImages;
-    self->_usedImages = v164;
+    self->_usedImages = v163;
 
-    v153 = [(OSACrashReport *)self decode_crashingThreadStateWithSymbolicator:0 usingCatalog:0, v153];
+    v152 = [(OSACrashReport *)self decode_crashingThreadStateWithSymbolicator:0 usingCatalog:0, v152];
     threadStateDecoded = self->_threadStateDecoded;
-    self->_threadStateDecoded = v153;
+    self->_threadStateDecoded = v152;
   }
 
-LABEL_369:
+LABEL_353:
 }
 
 - (void)_extractLastExceptionBacktraceUsingSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog
@@ -5843,12 +5932,7 @@ LABEL_12:
   {
     procName = [(OSACrashReport *)self procName];
     v7 = [NSString stringWithUTF8String:Name];
-    v8 = [procName isEqualToString:v7];
-
-    if (v8)
-    {
-      v9 = self->_cs_validation_category == 1;
-    }
+    [procName isEqualToString:v7];
   }
 
   CSSymbolOwnerForeachSection();
@@ -5860,46 +5944,45 @@ LABEL_12:
   self->_sharedCacheAddress = CSSymbolicatorGetSharedCacheBaseAddress();
   v6 = objc_autoreleasePoolPush();
   v7 = +[NSMutableArray array];
-  task = self->_task;
   mapped_memory_cache_for_task = create_mapped_memory_cache_for_task();
-  v20 = _NSConcreteStackBlock;
-  v21 = 3221225472;
-  v22 = sub_1000159E0;
-  v23 = &unk_1000454A8;
+  v19 = _NSConcreteStackBlock;
+  v20 = 3221225472;
+  v21 = sub_1000159E0;
+  v22 = &unk_1000454A8;
   selfCopy = self;
-  v25 = v7;
-  v26 = mapped_memory_cache_for_task;
+  v24 = v7;
+  v25 = mapped_memory_cache_for_task;
   CSSymbolicatorForeachSymbolOwnerAtTime();
   [(NSMutableArray *)self->_taskImages sortByAddressAndSetInferredSizes];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v10 = v25;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v27 count:16];
-  if (v11)
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = v24;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v17;
+    v11 = v10;
+    v12 = *v16;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = [catalogCopy searchFrame:objc_msgSend(*(*(&v16 + 1) + 8 * v14) in:"unsignedLongLongValue" result:{v16), self->_taskImages, 0}];
-        v14 = v14 + 1;
+        v14 = [catalogCopy searchFrame:objc_msgSend(*(*(&v15 + 1) + 8 * v13) in:"unsignedLongLongValue" result:{v15), self->_taskImages, 0}];
+        v13 = v13 + 1;
       }
 
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v27 count:16];
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
   if (mapped_memory_cache_for_task)
@@ -5951,39 +6034,38 @@ LABEL_12:
 - (id)_objcSelectorNameForMessenger:(id)messenger
 {
   messengerCopy = messenger;
-  task = self->_task;
-  v6 = [(OSACrashReport *)self _objcSelectorAddressForMessenger:messengerCopy memory:create_mapped_memory_cache_for_task()];
-  if (v6)
+  v5 = [(OSACrashReport *)self _objcSelectorAddressForMessenger:messengerCopy memory:create_mapped_memory_cache_for_task()];
+  if (v5)
   {
     if (self->_is64Bit)
     {
-      v7 = -86000;
+      v6 = -86000;
     }
 
     else
     {
-      v7 = 4294881296;
+      v6 = 4294881296;
     }
 
-    if (v6 == v7)
+    if (v5 == v6)
     {
-      v8 = @"_ignoredSelector";
+      v7 = @"_ignoredSelector";
     }
 
     else
     {
-      v8 = [(OSACrashReport *)self _readStringAtTaskAddress:v6 maxLength:0 immutableCheck:0 isInSharedCache:0];
+      v7 = [(OSACrashReport *)self _readStringAtTaskAddress:v5 maxLength:0 immutableCheck:0 isInSharedCache:0];
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   destroy_mapped_memory_cache();
 
-  return v8;
+  return v7;
 }
 
 - (void)symbolicateFrame:(unint64_t)frame adjusted:(unint64_t)adjusted withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog andBlock:(id)block
@@ -6093,13 +6175,13 @@ LABEL_12:
         {
           symbolInfo2 = [v14 symbolInfo];
           v37 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", frame - [symbolInfo2 start]);
-          [v32 setObject:v37 forKeyedSubscript:@"symbolLocation"];
+          objc_msgSend_setObject_forKeyedSubscript_(v32);
         }
       }
 
       symbolInfo3 = [v14 symbolInfo];
       name = [symbolInfo3 name];
-      [v32 setObject:name forKeyedSubscript:@"region"];
+      objc_msgSend_setObject_forKeyedSubscript_(v32);
 
       reverseObjectEnumerator = v31;
     }
@@ -6114,11 +6196,11 @@ LABEL_12:
   frameCopy = frame;
   v7 = objc_opt_new();
   v8 = [frameCopy objectAtIndexedSubscript:0];
-  [v7 setObject:v8 forKeyedSubscript:@"imageIndex"];
+  objc_msgSend_setObject_forKeyedSubscript_(v7);
 
   v9 = [frameCopy objectAtIndexedSubscript:1];
 
-  [v7 setObject:v9 forKeyedSubscript:@"imageOffset"];
+  objc_msgSend_setObject_forKeyedSubscript_(v7);
   if ([infoCopy count])
   {
     [v7 addEntriesFromDictionary:infoCopy];
@@ -6198,7 +6280,7 @@ LABEL_12:
     if (v13 != -1)
     {
       v14 = [NSNumber numberWithUnsignedLongLong:v13];
-      [v70 setObject:v14 forKeyedSubscript:@"id"];
+      objc_msgSend_setObject_forKeyedSubscript_(v70);
 
       exclaveContainer = self->_exclaveContainer;
       if (exclaveContainer)
@@ -6255,7 +6337,7 @@ LABEL_12:
       v68 = [v27 stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
 
       v28 = OSASanitizePath();
-      [v70 setObject:v28 forKeyedSubscript:@"name"];
+      objc_msgSend_setObject_forKeyedSubscript_(v70);
     }
 
     else
@@ -6267,7 +6349,7 @@ LABEL_12:
     if ([v69 length])
     {
       v29 = OSASanitizePath();
-      [v70 setObject:v29 forKeyedSubscript:@"queue"];
+      objc_msgSend_setObject_forKeyedSubscript_(v70);
     }
 
     backtrace = [v73 backtrace];
@@ -6303,9 +6385,9 @@ LABEL_12:
       [(OSACrashReport *)self symbolicateFrame:v32 adjusted:v35 withSymbolicator:v74 usingCatalog:v7 andBlock:catalogCopy, v82];
     }
 
-    [v70 setObject:v71 forKeyedSubscript:@"frames"];
+    objc_msgSend_setObject_forKeyedSubscript_(v70);
     catalogCopy = [(OSACrashReport *)self decode_threadState:thread withSymbolicator:v74 usingCatalog:v7, catalogCopy];
-    [v70 setObject:catalogCopy forKeyedSubscript:@"threadState"];
+    objc_msgSend_setObject_forKeyedSubscript_(v70);
 
     recursionInfoArray = [v73 recursionInfoArray];
 
@@ -6370,9 +6452,9 @@ LABEL_12:
         }
       }
 
-      [v70 setObject:v38 forKeyedSubscript:@"recursionInfoArray"];
+      objc_msgSend_setObject_forKeyedSubscript_(v70);
       v50 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v73 originalLength]);
-      [v70 setObject:v50 forKeyedSubscript:@"originalLength"];
+      objc_msgSend_setObject_forKeyedSubscript_(v70);
 
       if (v72 == self->_crashedThreadNumber)
       {
@@ -6386,21 +6468,8 @@ LABEL_12:
   }
 
   v54 = *(v98 + 6);
-  if (v54)
+  if (v54 || (v55 = self->_threadPortPedigree, [NSString stringWithFormat:@"override via deepest 0x%x ID(0x%llX)", v64, v63], v56 = objc_claimAutoreleasedReturnValue(), [(NSMutableArray *)v55 addObject:v56], v56, self->_threadId = v63, *(v98 + 6) = v64, (v54 = v64) != 0))
   {
-    goto LABEL_57;
-  }
-
-  v55 = self->_threadPortPedigree;
-  v56 = [NSString stringWithFormat:@"override via deepest 0x%x ID(0x%llX)", v64, v63];
-  [(NSMutableArray *)v55 addObject:v56];
-
-  self->_threadId = v63;
-  *(v98 + 6) = v64;
-  v54 = v64;
-  if (v64)
-  {
-LABEL_57:
     v57 = mach_port_mod_refs(mach_task_self_, v54, 0, 1);
     v58 = self->_threadPortPedigree;
     v59 = [NSString stringWithFormat:@"port retain 0x%x result 0x%x (%s)", *(v98 + 6), v57, mach_error_string(v57)];
@@ -6480,11 +6549,10 @@ LABEL_57:
 
 - (id)_readMallocZoneArray:(_CSTypeRef)array
 {
-  task = self->_task;
-  v5 = [(OSACrashReport *)self _readMallocZoneArrayFromMemory:create_mapped_memory_cache_for_task() usingSymbolicator:array.var0, array.var1];
+  v3 = [(OSACrashReport *)self _readMallocZoneArrayFromMemory:create_mapped_memory_cache_for_task() usingSymbolicator:array.var0, array.var1];
   destroy_mapped_memory_cache();
 
-  return v5;
+  return v3;
 }
 
 - (unint64_t)_findMallocZone:(id)zone usingSymbolicator:(_CSTypeRef)symbolicator
@@ -6492,33 +6560,32 @@ LABEL_57:
   var1 = symbolicator.var1;
   var0 = symbolicator.var0;
   zoneCopy = zone;
-  task = self->_task;
   mapped_memory_cache_for_task = create_mapped_memory_cache_for_task();
   var1 = [(OSACrashReport *)self _readMallocZoneArrayFromMemory:mapped_memory_cache_for_task usingSymbolicator:var0, var1];
   bytes = [var1 bytes];
-  v12 = [var1 length];
-  if (v12 < 8)
+  v11 = [var1 length];
+  if (v11 < 8)
   {
 LABEL_5:
-    v14 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v13 = v12 >> 3;
+    v12 = v11 >> 3;
     while (1)
     {
-      v14 = *bytes;
-      v15 = [(OSACrashReport *)self _readStringAtTaskAddress:[(OSACrashReport *)self _readAddressFromMemory:mapped_memory_cache_for_task atAddress:*bytes + 72] maxLength:1024 immutableCheck:0 isInSharedCache:0];
-      v16 = [v15 isEqualToString:zoneCopy];
+      v13 = *bytes;
+      v14 = [(OSACrashReport *)self _readStringAtTaskAddress:[(OSACrashReport *)self _readAddressFromMemory:mapped_memory_cache_for_task atAddress:*bytes + 72] maxLength:1024 immutableCheck:0 isInSharedCache:0];
+      v15 = [v14 isEqualToString:zoneCopy];
 
-      if (v16)
+      if (v15)
       {
         break;
       }
 
       ++bytes;
-      if (!--v13)
+      if (!--v12)
       {
         goto LABEL_5;
       }
@@ -6527,7 +6594,7 @@ LABEL_5:
 
   destroy_mapped_memory_cache();
 
-  return v14;
+  return v13;
 }
 
 - (id)_extractMallocTraceInfo:(id *)info withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog
@@ -6584,70 +6651,69 @@ LABEL_5:
   v11 = v10;
   if (v10 && *(v10 + OBJC_IVAR___VMUVMRegion_user_tag) == 13)
   {
-    v24 = catalogCopy;
+    v23 = catalogCopy;
     var1 = [(OSACrashReport *)self _readMallocZoneArray:var0, var1];
     [var1 bytes];
-    v26 = var1;
+    v25 = var1;
     [var1 length];
-    memset(v27, 0, 464);
-    task = self->_task;
+    memset(v26, 0, 464);
     if (pgm_extract_report_from_corpse())
     {
       probGuardReport = self->_probGuardReport;
       self->_probGuardReport = &off_10004E260;
-      catalogCopy = v24;
+      catalogCopy = v23;
     }
 
     else
     {
-      if (LODWORD(v27[0]))
+      if (LODWORD(v26[0]))
       {
-        catalogCopy = v24;
-        probGuardReport = [(OSACrashReport *)self _extractMallocTraceInfo:v27 + 8 withSymbolicator:var0 usingCatalog:var1, v24];
-        if (LODWORD(v27[0]) < 2)
+        catalogCopy = v23;
+        probGuardReport = [(OSACrashReport *)self _extractMallocTraceInfo:v26 + 8 withSymbolicator:var0 usingCatalog:var1, v23];
+        if (LODWORD(v26[0]) < 2)
         {
-          v15 = @"<unavailable>";
+          v14 = @"<unavailable>";
         }
 
         else
         {
-          v15 = [(OSACrashReport *)self _extractMallocTraceInfo:&v28 withSymbolicator:var0 usingCatalog:var1, v24];
+          v14 = [(OSACrashReport *)self _extractMallocTraceInfo:&v27 withSymbolicator:var0 usingCatalog:var1, v23];
         }
       }
 
       else
       {
         probGuardReport = @"<unavailable>";
-        v15 = @"<unavailable>";
-        catalogCopy = v24;
+        v14 = @"<unavailable>";
+        catalogCopy = v23;
       }
 
-      v25 = v15;
-      v29[0] = @"allocationTrace";
-      v29[1] = @"deallocationTrace";
-      v30[0] = probGuardReport;
-      v30[1] = v15;
-      v29[2] = @"errorType";
-      v23 = [NSString stringWithUTF8String:0];
-      v30[2] = v23;
-      v29[3] = @"confidence";
+      v24 = v14;
+      v28[0] = @"allocationTrace";
+      v28[1] = @"deallocationTrace";
+      v29[0] = probGuardReport;
+      v29[1] = v14;
+      v28[2] = @"errorType";
       v22 = [NSString stringWithUTF8String:0];
-      v30[3] = v22;
-      v29[4] = @"faultAddress";
-      v21 = [NSNumber numberWithUnsignedLong:0];
-      v30[4] = v21;
-      v29[5] = @"nearestAllocation";
+      v29[2] = v22;
+      v28[3] = @"confidence";
+      v21 = [NSString stringWithUTF8String:0];
+      v29[3] = v21;
+      v28[4] = @"faultAddress";
+      v20 = [NSNumber numberWithUnsignedLong:0];
+      v29[4] = v20;
+      v28[5] = @"nearestAllocation";
+      v15 = [NSNumber numberWithUnsignedLong:0];
+      v29[5] = v15;
+      v28[6] = @"allocationSize";
       v16 = [NSNumber numberWithUnsignedLong:0];
-      v30[5] = v16;
-      v29[6] = @"allocationSize";
-      v17 = [NSNumber numberWithUnsignedLong:0];
-      v30[6] = v17;
-      v29[7] = @"allocationState";
-      v18 = [NSString stringWithUTF8String:0];
-      v30[7] = v18;
-      v19 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:8];
-      v20 = self->_probGuardReport;
-      self->_probGuardReport = v19;
+      v29[6] = v16;
+      v28[7] = @"allocationState";
+      v17 = [NSString stringWithUTF8String:0];
+      v29[7] = v17;
+      v18 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:8];
+      v19 = self->_probGuardReport;
+      self->_probGuardReport = v18;
     }
   }
 }
@@ -6660,55 +6726,53 @@ LABEL_5:
   v8 = v7;
   if (v7 && *(v7 + OBJC_IVAR___VMUVMRegion_user_tag) == 53)
   {
-    task = self->_task;
     mapped_memory_cache_for_task = create_mapped_memory_cache_for_task();
     SymbolWithNameFromSymbolOwnerWithNameAtTime = CSSymbolicatorGetSymbolWithNameFromSymbolOwnerWithNameAtTime();
-    if ([(OSACrashReport *)self _readAddressFromMemory:mapped_memory_cache_for_task atSymbol:SymbolWithNameFromSymbolOwnerWithNameAtTime, v12])
+    if ([(OSACrashReport *)self _readAddressFromMemory:mapped_memory_cache_for_task atSymbol:SymbolWithNameFromSymbolOwnerWithNameAtTime, v11])
     {
       if (!&_PASReportCrashExtractResults)
       {
-        v15 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-        v16 = @"Could not locate PASReportCrashExtractResults in JavaScriptCore.";
+        v13 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+        v14 = @"Could not locate PASReportCrashExtractResults in JavaScriptCore.";
         goto LABEL_9;
       }
 
-      v13 = self->_task;
       Results = PASReportCrashExtractResults();
       if (!Results)
       {
-        v23[0] = @"allocationTrace";
-        v23[1] = @"deallocationTrace";
-        v24[0] = @"<unknown>";
-        v24[1] = @"<unknown>";
-        v23[2] = @"errorType";
-        v17 = [NSString stringWithUTF8String:0];
-        v24[2] = v17;
-        v23[3] = @"confidence";
-        v18 = [NSString stringWithUTF8String:0];
-        v24[3] = v18;
-        v23[4] = @"faultAddress";
-        v19 = [NSNumber numberWithUnsignedLong:0];
-        v24[4] = v19;
-        v24[5] = &off_10004D9D0;
-        v23[5] = @"nearestAllocation";
-        v23[6] = @"allocationSize";
-        v20 = [NSNumber numberWithUnsignedLong:0];
-        v23[7] = @"allocationState";
-        v24[6] = v20;
-        v24[7] = @"unknown";
-        v21 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:8];
+        v21[0] = @"allocationTrace";
+        v21[1] = @"deallocationTrace";
+        v22[0] = @"<unknown>";
+        v22[1] = @"<unknown>";
+        v21[2] = @"errorType";
+        v15 = [NSString stringWithUTF8String:0];
+        v22[2] = v15;
+        v21[3] = @"confidence";
+        v16 = [NSString stringWithUTF8String:0];
+        v22[3] = v16;
+        v21[4] = @"faultAddress";
+        v17 = [NSNumber numberWithUnsignedLong:0];
+        v22[4] = v17;
+        v22[5] = &off_10004D9D0;
+        v21[5] = @"nearestAllocation";
+        v21[6] = @"allocationSize";
+        v18 = [NSNumber numberWithUnsignedLong:0];
+        v21[7] = @"allocationState";
+        v22[6] = v18;
+        v22[7] = @"unknown";
+        v19 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:8];
         probGuardReport = self->_probGuardReport;
-        self->_probGuardReport = v21;
+        self->_probGuardReport = v19;
 
         goto LABEL_11;
       }
 
       if (Results == 5)
       {
-        v15 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-        v16 = @"Extracting libpas PGM metadata failed.";
+        v13 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+        v14 = @"Extracting libpas PGM metadata failed.";
 LABEL_9:
-        [v15 addObject:{v16, 0}];
+        [v13 addObject:{v14, 0}];
       }
     }
 
@@ -6724,32 +6788,30 @@ LABEL_11:
   catalogCopy = catalog;
   if ([(OSACrashReport *)self isMTECrash])
   {
-    v8 = self->_exceptionCode[1];
     CSSymbolicatorGetSymbolWithNameFromSymbolOwnerWithNameAtTime();
     if ((CSIsNull() & 1) == 0)
     {
       CSSymbolGetRange();
-      memset(v24, 0, 480);
-      v22 = 0u;
-      v23 = 0u;
-      task = self->_task;
-      v10 = sanitizers_diagnose_memory_error();
-      if (v10)
+      memset(v22, 0, 480);
+      v20 = 0u;
+      v21 = 0u;
+      v8 = sanitizers_diagnose_memory_error();
+      if (v8)
       {
-        v30 = @"error";
-        catalogCopy = [NSString stringWithUTF8String:v10];
-        v31 = catalogCopy;
-        v12 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v28 = @"error";
+        catalogCopy = [NSString stringWithUTF8String:v8];
+        v29 = catalogCopy;
+        v10 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         memoryErrorReport = self->_memoryErrorReport;
-        self->_memoryErrorReport = v12;
+        self->_memoryErrorReport = v10;
       }
 
       else
       {
-        catalogCopy = [(OSACrashReport *)self _extractMallocTraceInfo:v24 + 8 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
-        if (LOBYTE(v24[0]) == 1)
+        catalogCopy = [(OSACrashReport *)self _extractMallocTraceInfo:v22 + 8 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
+        if (LOBYTE(v22[0]) == 1)
         {
-          memoryErrorReport = [(OSACrashReport *)self _extractMallocTraceInfo:&v25 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
+          memoryErrorReport = [(OSACrashReport *)self _extractMallocTraceInfo:&v23 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
         }
 
         else
@@ -6757,31 +6819,31 @@ LABEL_11:
           memoryErrorReport = @"<unavailable>";
         }
 
-        v28[0] = @"errorType";
-        v21 = [NSString stringWithUTF8String:v22];
-        v29[0] = v21;
-        v28[1] = @"faultAddress";
-        v14 = [NSNumber numberWithUnsignedLong:*(&v22 + 1)];
-        v29[1] = v14;
-        v28[2] = @"blamedAllocation";
-        v26[0] = @"address";
-        v15 = [NSNumber numberWithUnsignedLong:v23];
-        v27[0] = v15;
-        v26[1] = @"size";
-        v16 = [NSNumber numberWithUnsignedLong:*(&v23 + 1)];
-        v27[1] = v16;
-        v26[2] = @"isFreed";
-        v17 = [NSNumber numberWithBool:LOBYTE(v24[0])];
-        v27[2] = v17;
-        v27[3] = catalogCopy;
-        v26[3] = @"allocationTrace";
-        v26[4] = @"deallocationTrace";
-        v27[4] = memoryErrorReport;
-        v18 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:5];
-        v29[2] = v18;
-        v19 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
-        v20 = self->_memoryErrorReport;
-        self->_memoryErrorReport = v19;
+        v26[0] = @"errorType";
+        v19 = [NSString stringWithUTF8String:v20];
+        v27[0] = v19;
+        v26[1] = @"faultAddress";
+        v12 = [NSNumber numberWithUnsignedLong:*(&v20 + 1)];
+        v27[1] = v12;
+        v26[2] = @"blamedAllocation";
+        v24[0] = @"address";
+        v13 = [NSNumber numberWithUnsignedLong:v21];
+        v25[0] = v13;
+        v24[1] = @"size";
+        v14 = [NSNumber numberWithUnsignedLong:*(&v21 + 1)];
+        v25[1] = v14;
+        v24[2] = @"isFreed";
+        v15 = [NSNumber numberWithBool:LOBYTE(v22[0])];
+        v25[2] = v15;
+        v25[3] = catalogCopy;
+        v24[3] = @"allocationTrace";
+        v24[4] = @"deallocationTrace";
+        v25[4] = memoryErrorReport;
+        v16 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:5];
+        v27[2] = v16;
+        v17 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:3];
+        v18 = self->_memoryErrorReport;
+        self->_memoryErrorReport = v17;
       }
     }
   }
@@ -6794,9 +6856,7 @@ LABEL_11:
   catalogCopy = catalog;
   if (*self->_exceptionCode == 63470 && [(OSACrashReport *)self _findMallocZone:@"SanitizerMallocZone" usingSymbolicator:var0, var1])
   {
-    v8 = self->_exceptionCode[1];
-    memset(v17, 0, 496);
-    task = self->_task;
+    memset(v15, 0, 496);
     if (sanitizer_diagnose_fault_from_crash_reporter())
     {
       [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"sanitizer_diagnose_fault_from_crash_reporter() failed.  This should never happen!"];
@@ -6804,24 +6864,24 @@ LABEL_11:
 
     else
     {
-      catalogCopy = [(OSACrashReport *)self _extractMallocTraceInfo:v17 + 8 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
-      catalogCopy2 = [(OSACrashReport *)self _extractMallocTraceInfo:&v18 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
-      v19[0] = @"allocationTrace";
-      v19[1] = @"deallocationTrace";
-      v20[0] = catalogCopy;
-      v20[1] = catalogCopy2;
-      v19[2] = @"faultAddress";
-      v12 = [NSNumber numberWithUnsignedLong:0];
-      v20[2] = v12;
-      v19[3] = @"nearestAllocation";
-      v13 = [NSNumber numberWithUnsignedLong:0];
-      v20[3] = v13;
-      v19[4] = @"allocationSize";
-      v14 = [NSNumber numberWithUnsignedLong:*&v17[0]];
-      v20[4] = v14;
-      v15 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:5];
+      catalogCopy = [(OSACrashReport *)self _extractMallocTraceInfo:v15 + 8 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
+      catalogCopy2 = [(OSACrashReport *)self _extractMallocTraceInfo:&v16 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
+      v17[0] = @"allocationTrace";
+      v17[1] = @"deallocationTrace";
+      v18[0] = catalogCopy;
+      v18[1] = catalogCopy2;
+      v17[2] = @"faultAddress";
+      v10 = [NSNumber numberWithUnsignedLong:0];
+      v18[2] = v10;
+      v17[3] = @"nearestAllocation";
+      v11 = [NSNumber numberWithUnsignedLong:0];
+      v18[3] = v11;
+      v17[4] = @"allocationSize";
+      v12 = [NSNumber numberWithUnsignedLong:*&v15[0]];
+      v18[4] = v12;
+      v13 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:5];
       sanitizerReport = self->_sanitizerReport;
-      self->_sanitizerReport = v15;
+      self->_sanitizerReport = v13;
     }
   }
 }
@@ -6905,7 +6965,7 @@ LABEL_11:
     {
       v20 = [NSNumber numberWithUnsignedLongLong:storeItemIdentifier];
       stringValue = [v20 stringValue];
-      [v9 setObject:stringValue forKeyedSubscript:@"itemID"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     deviceIdentifierForVendor = [v15 deviceIdentifierForVendor];
@@ -6913,7 +6973,7 @@ LABEL_11:
 
     if (uUIDString)
     {
-      [v9 setObject:uUIDString forKeyedSubscript:@"deviceIdentifierForVendor"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     iTunesMetadata2 = [v15 iTunesMetadata];
@@ -6923,7 +6983,7 @@ LABEL_11:
 
     if (v25)
     {
-      [v9 setObject:v25 forKeyedSubscript:@"storeCohortMetadata"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     else if (v26 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -6939,17 +6999,17 @@ LABEL_11:
 
     if (variantID)
     {
-      [v9 setObject:variantID forKeyedSubscript:@"applicationVariant"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     if ([v15 developerType] != 1)
     {
-      [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:@"thirdParty"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     if ([v15 isBeta])
     {
-      [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:@"entitledBeta"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
       iTunesMetadata4 = [v15 iTunesMetadata];
       betaVersionIdentifier = [iTunesMetadata4 betaVersionIdentifier];
     }
@@ -6966,7 +7026,7 @@ LABEL_11:
     {
       v32 = [NSNumber numberWithUnsignedLongLong:v31];
       stringValue2 = [v32 stringValue];
-      [v9 setObject:stringValue2 forKeyedSubscript:@"softwareVersionExternalIdentifier"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     iTunesMetadata5 = [v15 iTunesMetadata];
@@ -6981,7 +7041,7 @@ LABEL_11:
 
       if ((bOOLValue & 1) == 0)
       {
-        [v9 setObject:distributorID forKeyedSubscript:@"distributorID"];
+        objc_msgSend_setObject_forKeyedSubscript_(v9);
       }
     }
   }
@@ -7030,33 +7090,36 @@ LABEL_11:
   {
     v6 = [[NSDictionary alloc] initWithContentsOfURL:v5];
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v8 = [&off_10004E490 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [&off_10004E490 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        v11 = 0;
+        do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(&off_10004E490);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = [v6 objectForKeyedSubscript:v12];
-          if (v13)
+          v12 = [v6 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v11)];
+          if (v12)
           {
-            [v7 setObject:v13 forKeyedSubscript:v12];
+            objc_msgSend_setObject_forKeyedSubscript_(v7);
           }
+
+          v11 = v11 + 1;
         }
 
-        v9 = [&off_10004E490 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v9 != v11);
+        v9 = [&off_10004E490 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -7080,17 +7143,17 @@ LABEL_11:
 
   if ([v7 count])
   {
-    v14 = v7;
+    v13 = v7;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  return v14;
+  return v13;
 }
 
 - (void)_extractVMMap:(_CSTypeRef)map
@@ -7316,7 +7379,7 @@ LABEL_28:
     {
       v11 = self->_spewage_diag;
       v12 = [infoCopy componentsJoinedByString:{@", "}];
-      [(NSMutableDictionary *)v11 setObject:@"concurrent diagnostic collection underway" forKeyedSubscript:v12];
+      objc_msgSend_setObject_forKeyedSubscript_(v11);
 
       goto LABEL_38;
     }
@@ -7325,7 +7388,7 @@ LABEL_28:
     {
       v13 = self->_spewage_diag;
       v14 = [infoCopy componentsJoinedByString:{@", "}];
-      [(NSMutableDictionary *)v13 setObject:@"mach_ports_lookup failed" forKeyedSubscript:v14];
+      objc_msgSend_setObject_forKeyedSubscript_(v13);
 
 LABEL_37:
       dispatch_semaphore_signal(v10[29]);
@@ -7337,35 +7400,35 @@ LABEL_37:
     {
       v15 = self->_spewage_diag;
       v16 = [infoCopy componentsJoinedByString:{@", "}];
-      [(NSMutableDictionary *)v15 setObject:@"mach_ports_register failed" forKeyedSubscript:v16];
+      objc_msgSend_setObject_forKeyedSubscript_(v15);
 
 LABEL_29:
-      v30 = init_port_setCnt;
+      v29 = init_port_setCnt;
       if (init_port_setCnt)
       {
-        v31 = 0;
+        v30 = 0;
         do
         {
-          v32 = init_port_set[v31];
-          if (v32)
+          v31 = init_port_set[v30];
+          if (v31)
           {
-            mach_port_deallocate(mach_task_self_, v32);
-            v30 = init_port_setCnt;
+            mach_port_deallocate(mach_task_self_, v31);
+            v29 = init_port_setCnt;
           }
 
-          ++v31;
+          ++v30;
         }
 
-        while (v31 < v30);
-        v33 = 4 * v30;
+        while (v30 < v29);
+        v32 = 4 * v29;
       }
 
       else
       {
-        v33 = 0;
+        v32 = 0;
       }
 
-      mig_deallocate(init_port_set, v33);
+      mig_deallocate(init_port_set, v32);
       goto LABEL_37;
     }
 
@@ -7386,31 +7449,30 @@ LABEL_20:
         }
 
         procName = self->_procName;
-        v20 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__capture_time];
-        v21 = OSADateFormat();
-        v22 = [NSMutableString stringWithFormat:@"/var/mobile/Library/Logs/CrashReporter/MemoryGraph_%@_%@-%s", procName, v21, v18];
+        v20 = OSADateFormat();
+        v21 = [NSMutableString stringWithFormat:@"/var/mobile/Library/Logs/CrashReporter/MemoryGraph_%@_%@-%s", procName, v20, v18];
 
         incidentID = [(OSACrashReport *)self incidentID];
-        v24 = [NSString stringWithFormat:@"--outputGraph %@ --nonIPSMemgraphCount %lu --ipsIncidentID %@ --rateLimit --getCorpseFromParent %d", v22, 0, incidentID, self->_proc_id];
+        v23 = [NSString stringWithFormat:@"--outputGraph %@ --nonIPSMemgraphCount %lu --ipsIncidentID %@ --rateLimit --getCorpseFromParent %d", v21, 0, incidentID, self->_proc_id];
 
-        v25 = sub_10000D580("/usr/bin/leaks", v24, dword_1000540CC, 0);
-        self->_spewage_diag_total_length += [v25 length];
-        [(NSMutableDictionary *)self->_spewage_diag setObject:v25 forKeyedSubscript:@"/usr/bin/leaks"];
-        v26 = [v25 rangeOfString:@"'.*MemoryGraph_.+\\..+'" options:1024];
-        if (v26 == 0x7FFFFFFFFFFFFFFFLL)
+        v24 = sub_10000D580("/usr/bin/leaks", v23, dword_1000540CC, 0);
+        self->_spewage_diag_total_length += [v24 length];
+        objc_msgSend_setObject_forKeyedSubscript_(self->_spewage_diag);
+        v25 = [v24 rangeOfString:@"'.*MemoryGraph_.+\\..+'" options:1024];
+        if (v25 == 0x7FFFFFFFFFFFFFFFLL)
         {
           [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] addObject:@"memgraph unable to parse filename from results"];
         }
 
         else
         {
-          v28 = [v25 substringWithRange:{v26 + 1, v27 - 2}];
+          v27 = [v24 substringWithRange:{v25 + 1, v26 - 2}];
           memgraph_filename = self->_memgraph_filename;
-          self->_memgraph_filename = v28;
+          self->_memgraph_filename = v27;
 
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
           {
-            sub_100030798(&self->_memgraph_filename);
+            sub_100030798();
           }
         }
 
@@ -7425,83 +7487,80 @@ LABEL_28:
       goto LABEL_20;
     }
 
-    v34 = [infoCopy count];
+    v33 = [infoCopy count];
     if ([(NSArray *)self->_diagToolExtras count])
     {
-      v35 = [infoCopy arrayByAddingObjectsFromArray:self->_diagToolExtras];
+      v34 = [infoCopy arrayByAddingObjectsFromArray:self->_diagToolExtras];
 
-      infoCopy = v35;
+      infoCopy = v34;
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v56 = infoCopy;
+      v53 = infoCopy;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "diag tools include: %@", buf, 0xCu);
     }
 
-    v49 = 0u;
-    v50 = 0u;
+    v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v22 = infoCopy;
-    v36 = [v22 countByEnumeratingWithState:&v47 objects:v54 count:16];
-    if (v36)
+    v44 = 0u;
+    v45 = 0u;
+    v21 = infoCopy;
+    v35 = [v21 countByEnumeratingWithState:&v44 objects:v51 count:16];
+    if (v35)
     {
-      v37 = v36;
-      obj = v22;
-      v38 = 0;
-      v39 = *v48;
+      v36 = v35;
+      v37 = 0;
+      v38 = *v45;
       do
       {
-        for (i = 0; i != v37; i = i + 1)
+        for (i = 0; i != v36; i = i + 1)
         {
-          if (*v48 != v39)
+          if (*v45 != v38)
           {
-            objc_enumerationMutation(obj);
+            objc_enumerationMutation(v21);
           }
 
-          v41 = *(*(&v47 + 1) + 8 * i);
-          if (v38 >= v34)
+          if (v37 >= v33)
           {
-            v42 = &stru_1000463C0;
+            v40 = &stru_1000463C0;
           }
 
           else
           {
             if (self->_exceptionType == 11)
             {
-              v42 = @"--excResource";
+              v40 = @"--excResource";
             }
 
             else
             {
-              v42 = @"--shortenedOutput";
+              v40 = @"--shortenedOutput";
             }
 
-            ++v38;
+            ++v37;
           }
 
-          uTF8String = [v41 UTF8String];
-          v44 = [NSString stringWithFormat:@"%@ --getCorpseFromParent %d", v42, self->_proc_id];
-          v45 = sub_10000D580(uTF8String, v44, dword_1000540CC, self->_spewage_diag_total_length);
+          uTF8String = [*(*(&v44 + 1) + 8 * i) UTF8String];
+          v42 = [NSString stringWithFormat:@"%@ --getCorpseFromParent %d", v40, self->_proc_id];
+          v43 = sub_10000D580(uTF8String, v42, dword_1000540CC, self->_spewage_diag_total_length);
 
-          [(NSMutableDictionary *)self->_spewage_diag setObject:v45 forKeyedSubscript:v41];
-          self->_spewage_diag_total_length += [v45 length];
+          objc_msgSend_setObject_forKeyedSubscript_(self->_spewage_diag);
+          self->_spewage_diag_total_length += [v43 length];
         }
 
-        v37 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+        v36 = [v21 countByEnumeratingWithState:&v44 objects:v51 count:16];
       }
 
-      while (v37);
-      v22 = obj;
-      infoCopy = obj;
+      while (v36);
+      infoCopy = v21;
       v10 = &unk_100054000;
     }
 
     else
     {
-      infoCopy = v22;
+      infoCopy = v21;
     }
 
     goto LABEL_28;
@@ -7513,24 +7572,24 @@ LABEL_38:
 - (void)decode_reasonDyldWithInfo:(id)info
 {
   infoCopy = info;
-  v49[0] = &off_10004D9E8;
-  v49[1] = &off_10004DA00;
-  v50[0] = @"Library missing";
-  v50[1] = @"Wrong architecture";
-  v49[2] = &off_10004DA18;
-  v49[3] = &off_10004DA30;
-  v50[2] = @"Wrong version";
-  v50[3] = @"Symbol missing";
-  v49[4] = &off_10004DA48;
-  v49[5] = &off_10004DA60;
-  v50[4] = @"Code Signature";
-  v50[5] = @"Filesystem Sandbox";
-  v49[6] = &off_10004DA78;
-  v50[6] = @"Malformed Mach-O";
-  v5 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:7];
+  v47[0] = &off_10004D9E8;
+  v47[1] = &off_10004DA00;
+  v48[0] = @"Library missing";
+  v48[1] = @"Wrong architecture";
+  v47[2] = &off_10004DA18;
+  v47[3] = &off_10004DA30;
+  v48[2] = @"Wrong version";
+  v48[3] = @"Symbol missing";
+  v47[4] = &off_10004DA48;
+  v47[5] = &off_10004DA60;
+  v48[4] = @"Code Signature";
+  v48[5] = @"Filesystem Sandbox";
+  v47[6] = &off_10004DA78;
+  v48[6] = @"Malformed Mach-O";
+  v5 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:7];
   v6 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v7 = [v5 objectForKeyedSubscript:v6];
-  [infoCopy setObject:v7 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(infoCopy);
 
   exit_payload = self->_exit_payload;
   if (exit_payload)
@@ -7545,18 +7604,18 @@ LABEL_38:
       if (exit_payload[4])
       {
         self->_fatalDyldErrorOnLaunch = 1;
-        [infoCopy setObject:&off_10004E4C0 forKeyedSubscript:@"details"];
+        objc_msgSend_setObject_forKeyedSubscript_(infoCopy);
       }
 
-      v34 = v5;
-      v38 = objc_opt_new();
+      v32 = v5;
+      v36 = objc_opt_new();
       v9 = *(exit_payload + 2);
       if (v9 && v9 < self->_exit_payload_length)
       {
         v10 = [NSString stringWithUTF8String:&exit_payload[v9]];
         v11 = OSASanitizePath();
         v12 = [NSString stringWithUTF8String:&exit_payload[v9]];
-        [v38 setObject:v11 forKeyedSubscript:v12];
+        objc_msgSend_setObject_forKeyedSubscript_(v36);
       }
 
       v13 = *(exit_payload + 3);
@@ -7565,54 +7624,54 @@ LABEL_38:
         v14 = [NSString stringWithUTF8String:&exit_payload[v13]];
         v15 = OSASanitizePath();
         v16 = [NSString stringWithUTF8String:&exit_payload[v13]];
-        [v38 setObject:v15 forKeyedSubscript:v16];
+        objc_msgSend_setObject_forKeyedSubscript_(v36);
       }
 
-      v35 = infoCopy;
+      v33 = infoCopy;
       v17 = [infoCopy objectForKeyedSubscript:@"reasons"];
-      v37 = objc_opt_new();
+      v35 = objc_opt_new();
+      v41 = 0u;
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
-      v46 = 0u;
       obj = v17;
-      v18 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v18 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v44;
+        v20 = *v42;
         do
         {
           for (i = 0; i != v19; i = i + 1)
           {
-            if (*v44 != v20)
+            if (*v42 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v43 + 1) + 8 * i);
+            v22 = *(*(&v41 + 1) + 8 * i);
+            v37 = 0u;
+            v38 = 0u;
             v39 = 0u;
             v40 = 0u;
-            v41 = 0u;
-            v42 = 0u;
-            v23 = v38;
-            v24 = [v23 countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v23 = v36;
+            v24 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
             if (v24)
             {
               v25 = v24;
-              v26 = *v40;
+              v26 = *v38;
               do
               {
                 v27 = 0;
                 v28 = v22;
                 do
                 {
-                  if (*v40 != v26)
+                  if (*v38 != v26)
                   {
                     objc_enumerationMutation(v23);
                   }
 
-                  v29 = *(*(&v39 + 1) + 8 * v27);
+                  v29 = *(*(&v37 + 1) + 8 * v27);
                   v30 = [v23 objectForKeyedSubscript:v29];
                   v22 = [v28 stringByReplacingOccurrencesOfString:v29 withString:v30];
 
@@ -7621,38 +7680,28 @@ LABEL_38:
                 }
 
                 while (v25 != v27);
-                v25 = [v23 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v37 objects:v45 count:16];
               }
 
               while (v25);
             }
 
-            [v37 addObject:v22];
+            [v35 addObject:v22];
           }
 
-          v19 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v19 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
         }
 
         while (v19);
       }
 
       v31 = +[OSASystemConfiguration sharedInstance];
-      appleInternal = [v31 appleInternal];
+      [v31 appleInternal];
 
-      if (appleInternal)
-      {
-        v33 = @"signatureReasons";
-      }
+      infoCopy = v33;
+      objc_msgSend_setObject_forKeyedSubscript_(v33);
 
-      else
-      {
-        v33 = @"reasons";
-      }
-
-      infoCopy = v35;
-      [v35 setObject:v37 forKeyedSubscript:v33];
-
-      v5 = v34;
+      v5 = v32;
     }
   }
 }
@@ -7704,7 +7753,7 @@ LABEL_38:
       v8 = [(OSACrashReport *)self decode_versionCodes:v118 + 29];
       v141[3] = v8;
       v9 = [NSDictionary dictionaryWithObjects:v141 forKeys:v140 count:4];
-      [v3 setObject:v9 forKeyedSubscript:@"sw_version"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
 
       v138[0] = @"id";
       v10 = [NSNumber numberWithUnsignedInt:*(v118 + 37)];
@@ -7722,7 +7771,7 @@ LABEL_38:
       v139[1] = v15;
       v16 = [NSDictionary dictionaryWithObjects:v139 forKeys:v138 count:2];
       v117 = v3;
-      [v3 setObject:v16 forKeyedSubscript:@"reason"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
 
       v17 = objc_opt_new();
       for (i = 0; i != 20; i += 4)
@@ -7869,7 +7918,7 @@ LABEL_38:
       v53 = [NSNumber numberWithUnsignedChar:v118[248]];
       v128[5] = v53;
       v54 = [NSDictionary dictionaryWithObjects:v128 forKeys:v127 count:6];
-      [v117 setObject:v54 forKeyedSubscript:@"trace"];
+      objc_msgSend_setObject_forKeyedSubscript_(v117);
 
       v55 = objc_opt_new();
       for (j = 0; j != 12; j += 4)
@@ -8013,7 +8062,7 @@ LABEL_38:
       v122[16] = v66;
       v73 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:17];
       v3 = v117;
-      [v117 setObject:v73 forKeyedSubscript:@"debug"];
+      objc_msgSend_setObject_forKeyedSubscript_(v117);
     }
   }
 
@@ -8026,35 +8075,7 @@ LABEL_38:
 
 - (id)decode_reasonTcc
 {
-  if (self->_terminator_reason)
-  {
-    v3 = +[OSASystemConfiguration sharedInstance];
-    appleInternal = [v3 appleInternal];
-
-    if (appleInternal)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if (!self->_exit_payload)
-  {
-    goto LABEL_10;
-  }
-
-  exit_payload_length = self->_exit_payload_length;
-  if (!exit_payload_length)
-  {
-    goto LABEL_10;
-  }
-
-  v6 = exit_payload_length >= 0x4F ? 79 : self->_exit_payload_length;
-  __memcpy_chk();
-  v15[v6] = 0;
-  v7 = [NSString stringWithUTF8String:v15];
-  v8 = [NSString stringWithFormat:@"This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app's Info.plist must contain an %@ key with a string value explaining to the user how the app uses this data.", v7];
-
-  if (v8)
+  if ((!self->_terminator_reason || (+[OSASystemConfiguration sharedInstance](OSASystemConfiguration, "sharedInstance"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 appleInternal], v3, (v4 & 1) == 0)) && self->_exit_payload && (exit_payload_length = self->_exit_payload_length) != 0 && (exit_payload_length >= 0x4F ? (v6 = 79) : (v6 = self->_exit_payload_length), __memcpy_chk(), v15[v6] = 0, +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v15), v7 = objc_claimAutoreleasedReturnValue(), +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app's Info.plist must contain an %@ key with a string value explaining to the user how the app uses this data.", v7), v8 = objc_claimAutoreleasedReturnValue(), v7, v8))
   {
     v12 = v8;
     v13 = @"details";
@@ -8065,7 +8086,6 @@ LABEL_38:
 
   else
   {
-LABEL_10:
     v10 = &__NSDictionary0__struct;
   }
 
@@ -8112,7 +8132,7 @@ LABEL_10:
   v4 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:17];
   v5 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v6 = [v4 objectForKeyedSubscript:v5];
-  [v3 setObject:v6 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   return v3;
 }
@@ -8204,7 +8224,7 @@ LABEL_10:
   v4 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:5];
   v5 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v6 = [v4 objectForKeyedSubscript:v5];
-  [v3 setObject:v6 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   return v3;
 }
@@ -8213,7 +8233,7 @@ LABEL_10:
 {
   v3 = objc_opt_new();
   v4 = [_TtC11ReportCrash25WatchdogTerminationReason descriptionFromCode:LODWORD(self->_exit_snapshot->ers_code)];
-  [v3 setObject:v4 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   terminator_reason = self->_terminator_reason;
   if (terminator_reason)
@@ -8225,7 +8245,7 @@ LABEL_10:
 
     if ([v9 count])
     {
-      [v3 setObject:v9 forKeyedSubscript:@"details"];
+      objc_msgSend_setObject_forKeyedSubscript_(v3);
     }
   }
 
@@ -8234,26 +8254,25 @@ LABEL_10:
 
 - (id)decode_reasonLibxpc
 {
-  ers_code_low = LODWORD(self->_exit_snapshot->ers_code);
   label = xpc_exit_reason_get_label();
-  v7 = @"indicator";
+  v6 = @"indicator";
   if (label)
   {
-    v4 = [NSString stringWithUTF8String:label];
+    v3 = [NSString stringWithUTF8String:label];
   }
 
   else
   {
-    v4 = @"<unknown>";
+    v3 = @"<unknown>";
   }
 
-  v8 = v4;
-  v5 = [NSDictionary dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+  v7 = v3;
+  v4 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
   if (label)
   {
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)decode_reasonPortSpace
@@ -8262,7 +8281,7 @@ LABEL_10:
   if ((self->_exit_snapshot->ers_code & 0x1C00000000000000) == 0x400000000000000)
   {
     0xFFFFFF = [NSString stringWithFormat:@"(Limit %u ports) Exceeded system-wide per-process Port Limit", self->_exit_snapshot->ers_code & 0xFFFFFF];
-    [v3 setObject:0xFFFFFF forKeyedSubscript:@"indicator"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   return v3;
@@ -8282,7 +8301,7 @@ LABEL_10:
   v4 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:4];
   v5 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v6 = [v4 objectForKeyedSubscript:v5];
-  [v3 setObject:v6 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   return v3;
 }
@@ -8295,7 +8314,7 @@ LABEL_10:
     v4 = [NSString stringWithUTF8String:?];
     v7 = v4;
     v5 = [NSArray arrayWithObjects:&v7 count:1];
-    [v3 setObject:v5 forKeyedSubscript:@"details"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   return v3;
@@ -8319,7 +8338,7 @@ LABEL_10:
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_100030818(&self->_exit_payload_length);
+          sub_100030818();
         }
       }
 
@@ -8336,7 +8355,7 @@ LABEL_10:
             v8 = [NSString stringWithUTF8String:rosetta_create_exit_payload_string()];
             v12 = v8;
             v9 = [NSArray arrayWithObjects:&v12 count:1];
-            [v3 setObject:v9 forKeyedSubscript:@"details"];
+            objc_msgSend_setObject_forKeyedSubscript_(v3);
           }
         }
       }
@@ -8504,16 +8523,16 @@ LABEL_10:
   {
     v3 = objc_opt_new();
     v6 = [NSNumber numberWithUnsignedLongLong:payload->var1];
-    [v3 setObject:v6 forKeyedSubscript:@"eventID"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
     v7 = [NSNumber numberWithInt:payload->var2];
-    [v3 setObject:v7 forKeyedSubscript:@"state"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
     v8 = [NSNumber numberWithInt:payload->var3];
-    [v3 setObject:v8 forKeyedSubscript:@"previousState"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
 
     v9 = [(OSACrashReport *)self bls_backlightChangeRequestPayload:&payload->var4];
-    [v3 setObject:v9 forKeyedSubscript:@"changeRequest"];
+    objc_msgSend_setObject_forKeyedSubscript_(v3);
   }
 
   else
@@ -8537,7 +8556,7 @@ LABEL_10:
   v5 = [NSDictionary dictionaryWithObjects:v106 forKeys:v105 count:3];
   v6 = [NSNumber numberWithUnsignedLongLong:self->_exit_snapshot->ers_code];
   v7 = [v5 objectForKeyedSubscript:v6];
-  [v3 setObject:v7 forKeyedSubscript:@"indicator"];
+  objc_msgSend_setObject_forKeyedSubscript_(v3);
 
   exit_payload = self->_exit_payload;
   if (exit_payload)
@@ -8602,7 +8621,7 @@ LABEL_10:
         }
 
         v10 = v78;
-        [v78 setObject:v84 forKeyedSubscript:{@"perform_event_history", selfCopy}];
+        objc_msgSend_setObject_forKeyedSubscript_(v78, selfCopy);
 
         v5 = v81;
         self = selfCopy;
@@ -8645,7 +8664,7 @@ LABEL_10:
         }
 
         v10 = v78;
-        [v78 setObject:v85 forKeyedSubscript:{@"did_begin_update_history", selfCopy}];
+        objc_msgSend_setObject_forKeyedSubscript_(v78, selfCopy);
 
         v5 = v81;
         self = selfCopy;
@@ -8688,17 +8707,17 @@ LABEL_10:
         }
 
         v10 = v78;
-        [v78 setObject:v86 forKeyedSubscript:{@"did_complete_update_history", selfCopy}];
+        objc_msgSend_setObject_forKeyedSubscript_(v78, selfCopy);
 
         v5 = v81;
         self = selfCopy;
       }
 
       selfCopy4 = [(OSACrashReport *)self bls_environmentStateMachinePayload:exit_payload + 128, selfCopy];
-      [v10 setObject:selfCopy4 forKeyedSubscript:@"environmentStateMachine"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v3 = v75;
-      [v75 setObject:v10 forKeyedSubscript:@"operation_complete"];
+      objc_msgSend_setObject_forKeyedSubscript_(v75);
       goto LABEL_28;
     }
 
@@ -8739,7 +8758,7 @@ LABEL_10:
       v38 = [NSNumber numberWithInt:(*(exit_payload + 16) << 27 >> 31)];
       v96[8] = v38;
       v39 = [NSDictionary dictionaryWithObjects:v96 forKeys:v95 count:9];
-      [v33 setObject:v39 forKeyedSubscript:@"display"];
+      objc_msgSend_setObject_forKeyedSubscript_(v33);
 
       v10 = v77;
       v5 = v80;
@@ -8754,13 +8773,13 @@ LABEL_10:
       v73 = v3;
       v10 = objc_opt_new();
       v11 = [NSNumber numberWithUnsignedInt:*exit_payload];
-      [v10 setObject:v11 forKeyedSubscript:@"version"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v12 = [(OSACrashReport *)self bls_aggregatePayload:exit_payload + 1];
-      [v10 setObject:v12 forKeyedSubscript:@"currentState"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v13 = [(OSACrashReport *)self bls_aggregatePayload:exit_payload + 8];
-      [v10 setObject:v13 forKeyedSubscript:@"targetState"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v103[0] = @"isNonNil";
       v82 = [NSNumber numberWithInt:-(exit_payload[16] & 1)];
@@ -8785,20 +8804,20 @@ LABEL_10:
       v19 = [NSNumber numberWithUnsignedInt:exit_payload[24]];
       v104[6] = v19;
       v20 = [NSDictionary dictionaryWithObjects:v104 forKeys:v103 count:7];
-      [v10 setObject:v20 forKeyedSubscript:@"pendingEventToPerform"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v21 = v16;
       v101 = @"isNonNil";
       v22 = [NSNumber numberWithInt:-(exit_payload[26] & 1)];
       v102 = v22;
       v23 = [NSDictionary dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-      [v10 setObject:v23 forKeyedSubscript:@"pendingUpdatePresentation"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v99 = @"isNonNil";
       v24 = [NSNumber numberWithInt:-(exit_payload[27] & 1)];
       v100 = v24;
       v25 = [NSDictionary dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-      [v10 setObject:v25 forKeyedSubscript:@"pendingUpdateToSpecifier"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v97[0] = @"isNonNil";
       v26 = [NSNumber numberWithInt:-(exit_payload[28] & 1)];
@@ -8807,22 +8826,22 @@ LABEL_10:
       v27 = [NSNumber numberWithInt:exit_payload[29]];
       v98[1] = v27;
       v28 = [NSDictionary dictionaryWithObjects:v98 forKeys:v97 count:2];
-      [v10 setObject:v28 forKeyedSubscript:@"pendingUpdateDisplayMode"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       v29 = [(OSACrashReport *)v21 bls_environmentStateMachinePayload:exit_payload + 30];
-      [v10 setObject:v29 forKeyedSubscript:@"environmentStateMachine"];
+      objc_msgSend_setObject_forKeyedSubscript_(v10);
 
       if (*exit_payload >= 2)
       {
         v30 = [(OSACrashReport *)v21 bls_backlightChangeEventPayload:exit_payload + 66];
-        [v10 setObject:v30 forKeyedSubscript:@"queuedEventToPerform"];
+        objc_msgSend_setObject_forKeyedSubscript_(v10);
 
         v31 = [(OSACrashReport *)v21 bls_backlightChangeEventPayload:exit_payload + 80];
-        [v10 setObject:v31 forKeyedSubscript:@"pendingPrewarmedEvent"];
+        objc_msgSend_setObject_forKeyedSubscript_(v10);
       }
 
       v3 = v73;
-      [v73 setObject:v10 forKeyedSubscript:@"transition"];
+      objc_msgSend_setObject_forKeyedSubscript_(v73);
       v5 = v79;
 LABEL_28:
     }
@@ -8891,6 +8910,25 @@ LABEL_8:
 LABEL_10:
 
   return v10;
+}
+
+- (id)decode_ubsanCode:(unsigned __int8)code
+{
+  codeCopy = code;
+  code = [NSString stringWithFormat:@"unknown (0x%02x)", code];
+  if ([&off_10004E4D8 count] <= codeCopy)
+  {
+    v5 = code;
+  }
+
+  else
+  {
+    v5 = [&off_10004E4D8 objectAtIndexedSubscript:codeCopy];
+  }
+
+  v6 = v5;
+
+  return v6;
 }
 
 + (id)decode_syndrome:(unsigned int)decode_syndrome
@@ -9049,6 +9087,346 @@ LABEL_35:
   return v7;
 }
 
+- (id)decode_threadState:(unsigned int *)state threadStateCount:(unsigned int)count threadStateFlavor:(int)flavor threadPort:(unsigned int)port exceptionState:(unsigned int)exceptionState[1296] exceptionStateCount:(unsigned int)stateCount withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)self0
+{
+  v10 = *&flavor;
+  catalogCopy = catalog;
+  v15 = [(OSACrashReport *)self _getObjCReadOnlyRange:symbolicator.var0, symbolicator.var1];
+  v17 = 0;
+  if (!count || v10 == 5)
+  {
+    goto LABEL_40;
+  }
+
+  v18 = v15;
+  v19 = v16;
+  v20 = objc_opt_new();
+  v17 = v20;
+  if (v10 != 6)
+  {
+    if (v10 != 1)
+    {
+      goto LABEL_38;
+    }
+
+    state += 2;
+  }
+
+  v21 = state[67];
+  v22 = *(state + 32);
+  if ((v21 & 1) == 0)
+  {
+    v22 = *(state + 32);
+  }
+
+  *(state + 32) = v22;
+  v23 = *(state + 30);
+  if ((v21 & 3) == 0)
+  {
+    v23 = *(state + 30);
+  }
+
+  *(state + 30) = v23;
+  if ((v21 & 1) == 0)
+  {
+    *(state + 31) = *(state + 31);
+  }
+
+  *(state + 29) = *(state + 29);
+  isTranslated = self->_isTranslated;
+  state[67] = v21 & 0xFFFFFFF2 | 1;
+  v96 = v20;
+  if (!isTranslated)
+  {
+    unsignedLongLongValue2 = 0;
+    unsignedLongLongValue = 0;
+    goto LABEL_22;
+  }
+
+  if (self->_isCrashInRosettaRuntime)
+  {
+    unsignedLongLongValue2 = 0;
+    unsignedLongLongValue = 0;
+  }
+
+  else
+  {
+    v25 = [_TtC11ReportCrash17ThreadStateBridge threadStateTranslationPairWithTask:self->_task cpuType:self->_cpuType state:state];
+    v26 = v25;
+    if (v25)
+    {
+      v27 = [v25 objectAtIndexedSubscript:0];
+      unsignedLongLongValue = [v27 unsignedLongLongValue];
+
+      v28 = [v26 objectAtIndexedSubscript:1];
+      unsignedLongLongValue2 = [v28 unsignedLongLongValue];
+
+      v17 = v96;
+    }
+
+    else
+    {
+      unsignedLongLongValue2 = 0;
+      unsignedLongLongValue = 0;
+    }
+
+    if (!self->_isTranslated)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  if (self->_cpuType == 16777223 && !self->_isCrashInRosettaRuntime)
+  {
+    objc_msgSend_setObject_forKeyedSubscript_(v17);
+    catalogCopy = [(OSACrashReport *)self _symbolicateRegister:*state inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy2 = [(OSACrashReport *)self _symbolicateRegister:*(state + 3) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy3 = [(OSACrashReport *)self _symbolicateRegister:*(state + 1) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy4 = [(OSACrashReport *)self _symbolicateRegister:*(state + 2) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy5 = [(OSACrashReport *)self _symbolicateRegister:*(state + 7) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy6 = [(OSACrashReport *)self _symbolicateRegister:*(state + 6) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy7 = [(OSACrashReport *)self _symbolicateRegister:*(state + 5) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy8 = [(OSACrashReport *)self _symbolicateRegister:*(state + 4) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy9 = [(OSACrashReport *)self _symbolicateRegister:*(state + 8) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy10 = [(OSACrashReport *)self _symbolicateRegister:*(state + 9) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy11 = [(OSACrashReport *)self _symbolicateRegister:*(state + 10) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy12 = [(OSACrashReport *)self _symbolicateRegister:*(state + 11) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy13 = [(OSACrashReport *)self _symbolicateRegister:*(state + 12) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy14 = [(OSACrashReport *)self _symbolicateRegister:*(state + 13) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy15 = [(OSACrashReport *)self _symbolicateRegister:*(state + 14) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    catalogCopy16 = [(OSACrashReport *)self _symbolicateRegister:*(state + 15) inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    v78 = *(state + 32);
+    if (!v78 || (state[67] & 1) != 0)
+    {
+      v79 = &create_gcore_with_options_ptr;
+      v80 = &create_gcore_with_options_ptr;
+      v82 = unsignedLongLongValue;
+    }
+
+    else
+    {
+      v79 = &create_gcore_with_options_ptr;
+      v80 = &create_gcore_with_options_ptr;
+      v82 = unsignedLongLongValue;
+    }
+
+    if (v78 == v82)
+    {
+      v125 = @"value";
+      v83 = [v80[451] numberWithUnsignedLongLong:unsignedLongLongValue2];
+      v126 = v83;
+      v84 = [v79[475] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+      objc_msgSend_setObject_forKeyedSubscript_(v96);
+    }
+
+    if (&_rosetta_get_rflags)
+    {
+      v123 = @"value";
+      v85 = [v80[451] numberWithUnsignedLongLong:rosetta_get_rflags()];
+      v124 = v85;
+      v86 = [v79[475] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+      objc_msgSend_setObject_forKeyedSubscript_(v96);
+    }
+
+    v121[0] = @"tmp0";
+    v119 = @"value";
+    v29 = [v80[451] numberWithUnsignedLongLong:*(state + 22)];
+    v120 = v29;
+    v53 = [v79[475] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+    v122[0] = v53;
+    v121[1] = @"tmp1";
+    v117 = @"value";
+    v54 = [v80[451] numberWithUnsignedLongLong:*(state + 23)];
+    v118 = v54;
+    v87 = [v79[475] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+    v122[1] = v87;
+    v121[2] = @"tmp2";
+    v115 = @"value";
+    v88 = [v80[451] numberWithUnsignedLongLong:*(state + 24)];
+    v116 = v88;
+    v89 = [v79[475] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+    v122[2] = v89;
+    v90 = [v79[475] dictionaryWithObjects:v122 forKeys:v121 count:3];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    v17 = v96;
+    goto LABEL_35;
+  }
+
+LABEL_22:
+  v93 = v10;
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+  v29 = objc_opt_new();
+  for (i = 0; i != 58; i += 2)
+  {
+    catalogCopy17 = [(OSACrashReport *)self _symbolicateRegister:*&state[i] inRange:v18 withSymbolicator:v19 usingCatalog:symbolicator.var0, symbolicator.var1, catalogCopy];
+    [v29 addObject:catalogCopy17];
+  }
+
+  v17 = v96;
+  objc_msgSend_setObject_forKeyedSubscript_(v96);
+  v113 = @"value";
+  v32 = [NSNumber numberWithUnsignedLong:?];
+  v114 = v32;
+  v33 = [NSDictionary dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+  objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+  if (self->_isTranslated && self->_cpuType == 16777228 && !self->_isCrashInRosettaRuntime)
+  {
+    v57 = sub_10000A614(self->_task, *(state + 18) + 320, 8uLL);
+    if (v57)
+    {
+      v58 = v57;
+      v111 = @"value";
+      v59 = [NSNumber numberWithUnsignedLongLong:*v57];
+      v112 = v59;
+      v60 = [NSDictionary dictionaryWithObjects:&v112 forKeys:&v111 count:1];
+      objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+      free(v58);
+    }
+
+    v61 = *(state + 32);
+    if (!v61 || (state[67] & 1) != 0)
+    {
+      v17 = v96;
+      v81 = unsignedLongLongValue;
+    }
+
+    else
+    {
+      v17 = v96;
+      v81 = unsignedLongLongValue;
+    }
+
+    if (v61 != v81)
+    {
+      goto LABEL_29;
+    }
+
+    v109 = @"value";
+    v36 = [NSNumber numberWithUnsignedLongLong:unsignedLongLongValue2];
+    v110 = v36;
+    v37 = &v110;
+    v38 = &v109;
+  }
+
+  else
+  {
+    v107 = @"value";
+    v34 = [NSNumber numberWithUnsignedLong:?];
+    v108 = v34;
+    v35 = [NSDictionary dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+    objc_msgSend_setObject_forKeyedSubscript_(v96);
+
+    v105 = @"value";
+    v36 = [NSNumber numberWithUnsignedLong:?];
+    v106 = v36;
+    v37 = &v106;
+    v38 = &v105;
+  }
+
+  v39 = [NSDictionary dictionaryWithObjects:v37 forKeys:v38 count:1];
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+
+LABEL_29:
+  v40 = *(state + 31);
+  if (HIWORD(v40))
+  {
+    v41 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    v42 = [NSString stringWithFormat:@"SP register contains suspicious bits (0x%llX)", v40];
+    [v41 addObject:v42];
+
+    v17 = v96;
+  }
+
+  v103 = @"value";
+  v43 = [NSNumber numberWithUnsignedLongLong:v40];
+  v104 = v43;
+  v44 = [NSDictionary dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+
+  v101 = @"value";
+  v45 = [NSNumber numberWithUnsignedInt:state[66]];
+  v102 = v45;
+  v46 = [NSDictionary dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+
+  if (!stateCount)
+  {
+    v10 = v93;
+    goto LABEL_37;
+  }
+
+  v47 = exceptionState[2];
+  v48 = *exceptionState;
+  v99 = @"value";
+  v49 = [NSNumber numberWithUnsignedLongLong:v48];
+  v100 = v49;
+  v50 = [NSDictionary dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+
+  v97 = @"value";
+  v51 = [NSNumber numberWithUnsignedInt:v47];
+  v98 = v51;
+  v52 = [NSDictionary dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+  v53 = [v52 mutableCopy];
+
+  v54 = [(OSACrashReport *)self decode_esr:exceptionState exceptionStateCount:stateCount];
+  if ([v54 length])
+  {
+    objc_msgSend_setObject_forKeyedSubscript_(v53);
+  }
+
+  objc_msgSend_setObject_forKeyedSubscript_(v17);
+  v10 = v93;
+LABEL_35:
+
+LABEL_37:
+LABEL_38:
+  if (!v17)
+  {
+    v55 = [NSString stringWithFormat:@"%d", v10];
+    objc_msgSend_setObject_forKeyedSubscript_(0);
+  }
+
+LABEL_40:
+
+  return v17;
+}
+
 - (id)decode_crashingThreadStateWithSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog
 {
   var1 = symbolicator.var1;
@@ -9124,9 +9502,9 @@ LABEL_35:
       v12 = [v27 mutableCopy];
 
       v28 = [NSNumber numberWithInt:v21 == longLongValue3];
-      [v12 setObject:v28 forKeyedSubscript:@"matchesCrashFrame"];
+      objc_msgSend_setObject_forKeyedSubscript_(v12);
 
-      [v9 setObject:v12 forKeyedSubscript:v22];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
       if (v21 != longLongValue3)
       {
         v29 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
@@ -9141,6 +9519,59 @@ LABEL_18:
 LABEL_19:
 
   return v9;
+}
+
+- (id)decode_threadState:(unsigned int)state withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog
+{
+  var1 = symbolicator.var1;
+  var0 = symbolicator.var0;
+  v7 = *&state;
+  catalogCopy = catalog;
+  old_stateCnt = 68;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  *old_state = 0u;
+  *v17 = 0;
+  v18 = 0;
+  v16 = 4;
+  state = thread_get_state(v7, 6, old_state, &old_stateCnt);
+  if (state)
+  {
+    v11 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    [NSString stringWithFormat:@"thread_get_state(THREAD) returned 0x%x: %s", state, mach_error_string(state)];
+    v13 = LABEL_5:;
+    [v11 addObject:v13];
+
+    catalogCopy = 0;
+    goto LABEL_6;
+  }
+
+  v12 = thread_get_state(v7, 7, v17, &v16);
+  if (v12)
+  {
+    v11 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+    [NSString stringWithFormat:@"thread_get_state(EXCEPTION) returned 0x%x: %s", v12, mach_error_string(v12)];
+    goto LABEL_5;
+  }
+
+  catalogCopy = [(OSACrashReport *)self decode_threadState:old_state threadStateCount:old_stateCnt threadStateFlavor:6 threadPort:v7 exceptionState:v17 exceptionStateCount:v16 withSymbolicator:var0 usingCatalog:var1, catalogCopy];
+LABEL_6:
+
+  return catalogCopy;
 }
 
 - (id)_symbolicateRegister:(unint64_t)register inRange:(_CSRange)range withSymbolicator:(_CSTypeRef)symbolicator usingCatalog:(id)catalog
@@ -9164,7 +9595,7 @@ LABEL_19:
   if (register - v9 < v8)
   {
     v15 = [(OSACrashReport *)self _readStringAtTaskAddress:register maxLength:0 immutableCheck:0 isInSharedCache:0];
-    [v20[5] setObject:v15 forKeyedSubscript:@"objc-selector"];
+    objc_msgSend_setObject_forKeyedSubscript_(v20[5]);
   }
 
   v18[0] = _NSConcreteStackBlock;
@@ -9218,27 +9649,27 @@ LABEL_19:
   v6 = +[OSASystemConfiguration sharedInstance];
   appleInternal = [v6 appleInternal];
 
-  v359[0] = @"incident";
+  v357[0] = @"incident";
   incidentID = [(OSACrashReport *)self incidentID];
-  v360[0] = incidentID;
-  v360[1] = &off_10004DA00;
-  v359[1] = @"version";
-  v359[2] = @"deployVersion";
-  v360[2] = &off_10004DDC0;
-  v359[3] = @"modelCode";
-  v211 = +[OSASystemConfiguration sharedInstance];
-  modelCode = [v211 modelCode];
-  v360[3] = modelCode;
-  v359[4] = @"pid";
-  v207 = [NSNumber numberWithInt:self->_proc_id];
-  v360[4] = v207;
-  v359[5] = @"cpuType";
+  v358[0] = incidentID;
+  v358[1] = &off_10004DA00;
+  v357[1] = @"version";
+  v357[2] = @"deployVersion";
+  v358[2] = &off_10004DDC0;
+  v357[3] = @"modelCode";
+  v209 = +[OSASystemConfiguration sharedInstance];
+  modelCode = [v209 modelCode];
+  v358[3] = modelCode;
+  v357[4] = @"pid";
+  v205 = [NSNumber numberWithInt:self->_proc_id];
+  v358[4] = v205;
+  v357[5] = @"cpuType";
   decode_cpuType = [(OSACrashReport *)self decode_cpuType];
-  v360[5] = decode_cpuType;
-  v359[6] = @"translated";
-  v204 = [NSNumber numberWithBool:self->_isTranslated];
-  v360[6] = v204;
-  v359[7] = @"procRole";
+  v358[5] = decode_cpuType;
+  v357[6] = @"translated";
+  v202 = [NSNumber numberWithBool:self->_isTranslated];
+  v358[6] = v202;
+  v357[7] = @"procRole";
   task_role = self->_task_role;
   if (task_role > 7)
   {
@@ -9250,140 +9681,138 @@ LABEL_19:
     v8 = *(&off_100045A88 + task_role);
   }
 
-  v360[7] = v8;
-  v359[8] = @"coalitionID";
-  v203 = [NSNumber numberWithUnsignedLongLong:self->_coalition_id];
-  v360[8] = v203;
-  v359[9] = @"osVersion";
-  v358[0] = &__kCFBooleanTrue;
-  v357[0] = @"isEmbedded";
-  v357[1] = @"train";
-  v202 = +[OSASystemConfiguration sharedInstance];
-  osTrain = [v202 osTrain];
-  v358[1] = osTrain;
-  v357[2] = @"build";
+  v358[7] = v8;
+  v357[8] = @"coalitionID";
+  v201 = [NSNumber numberWithUnsignedLongLong:self->_coalition_id];
+  v358[8] = v201;
+  v357[9] = @"osVersion";
+  v356[0] = &__kCFBooleanTrue;
+  v355[0] = @"isEmbedded";
+  v355[1] = @"train";
   v200 = +[OSASystemConfiguration sharedInstance];
-  buildVersion = [v200 buildVersion];
-  v358[2] = buildVersion;
-  v357[3] = @"releaseType";
+  osTrain = [v200 osTrain];
+  v356[1] = osTrain;
+  v355[2] = @"build";
   v198 = +[OSASystemConfiguration sharedInstance];
-  releaseType = [v198 releaseType];
-  v358[3] = releaseType;
-  v10 = [NSDictionary dictionaryWithObjects:v358 forKeys:v357 count:4];
-  v360[9] = v10;
-  v359[10] = @"captureTime";
-  v11 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__capture_time];
-  v12 = OSADateFormat();
-  v360[10] = v12;
-  v359[11] = @"uptime";
-  v13 = [objc_opt_class() reduceToTwoSigFigures:self->_awakeSystemUptime];
-  v360[11] = v13;
-  v359[12] = @"userID";
-  v14 = [NSNumber numberWithUnsignedInt:self->_uid];
-  v360[12] = v14;
-  v359[13] = @"codeSigningMonitor";
-  v15 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [objc_opt_class() codeSigningMonitor]);
-  v360[13] = v15;
-  v16 = [NSDictionary dictionaryWithObjects:v360 forKeys:v359 count:14];
-  blockCopy[2](blockCopy, v16);
+  buildVersion = [v198 buildVersion];
+  v356[2] = buildVersion;
+  v355[3] = @"releaseType";
+  v196 = +[OSASystemConfiguration sharedInstance];
+  releaseType = [v196 releaseType];
+  v356[3] = releaseType;
+  v10 = [NSDictionary dictionaryWithObjects:v356 forKeys:v355 count:4];
+  v358[9] = v10;
+  v357[10] = @"captureTime";
+  v11 = OSADateFormat();
+  v358[10] = v11;
+  v357[11] = @"uptime";
+  v12 = [objc_opt_class() reduceToTwoSigFigures:self->_awakeSystemUptime];
+  v358[11] = v12;
+  v357[12] = @"userID";
+  v13 = [NSNumber numberWithUnsignedInt:self->_uid];
+  v358[12] = v13;
+  v357[13] = @"codeSigningMonitor";
+  v14 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [objc_opt_class() codeSigningMonitor]);
+  v358[13] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v358 forKeys:v357 count:14];
+  blockCopy[2](blockCopy, v15);
 
-  v17 = &create_gcore_with_options_ptr;
+  v16 = &create_gcore_with_options_ptr;
   problemType = [(OSACrashReport *)self problemType];
-  v19 = [OSALog commonFieldsForBody:problemType];
-  blockCopy[2](blockCopy, v19);
+  v18 = [OSALog commonFieldsForBody:problemType];
+  blockCopy[2](blockCopy, v18);
 
   if (self->_proc_starttime.tv_sec >= 1)
   {
-    v355 = @"procLaunch";
-    v20 = self->_proc_starttime.tv_usec / 1000000.0;
-    v21 = OSADateFormat();
-    v356 = v21;
-    v22 = [NSDictionary dictionaryWithObjects:&v356 forKeys:&v355 count:1];
-    blockCopy[2](blockCopy, v22);
+    v353 = @"procLaunch";
+    v19 = OSADateFormat();
+    v354 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v354 forKeys:&v353 count:1];
+    blockCopy[2](blockCopy, v20);
   }
 
   if (self->_proc_start_abstime)
   {
-    v353 = @"procStartAbsTime";
-    v23 = [NSNumber numberWithUnsignedLongLong:?];
-    v354 = v23;
-    v24 = [NSDictionary dictionaryWithObjects:&v354 forKeys:&v353 count:1];
-    blockCopy[2](blockCopy, v24);
+    v351 = @"procStartAbsTime";
+    v21 = [NSNumber numberWithUnsignedLongLong:?];
+    v352 = v21;
+    v22 = [NSDictionary dictionaryWithObjects:&v352 forKeys:&v351 count:1];
+    blockCopy[2](blockCopy, v22);
   }
 
   if (self->_proc_exit_abstime)
   {
-    v351 = @"procExitAbsTime";
-    v25 = [NSNumber numberWithUnsignedLongLong:?];
-    v352 = v25;
-    v26 = [NSDictionary dictionaryWithObjects:&v352 forKeys:&v351 count:1];
-    blockCopy[2](blockCopy, v26);
+    v349 = @"procExitAbsTime";
+    v23 = [NSNumber numberWithUnsignedLongLong:?];
+    v350 = v23;
+    v24 = [NSDictionary dictionaryWithObjects:&v350 forKeys:&v349 count:1];
+    blockCopy[2](blockCopy, v24);
   }
 
   if ([(NSString *)self->_procName length])
   {
-    v349 = @"procName";
+    v347 = @"procName";
     procName = self->_procName;
-    v27 = [NSDictionary dictionaryWithObjects:&procName forKeys:&v349 count:1];
-    blockCopy[2](blockCopy, v27);
+    v25 = [NSDictionary dictionaryWithObjects:&procName forKeys:&v347 count:1];
+    blockCopy[2](blockCopy, v25);
   }
 
   if ([(NSString *)self->_procPath length])
   {
-    v28 = self->_procPath;
-    v347 = @"procPath";
-    v348 = v28;
-    v29 = [NSDictionary dictionaryWithObjects:&v348 forKeys:&v347 count:1];
-    blockCopy[2](blockCopy, v29);
+    v26 = self->_procPath;
+    v345 = @"procPath";
+    v346 = v26;
+    v27 = [NSDictionary dictionaryWithObjects:&v346 forKeys:&v345 count:1];
+    blockCopy[2](blockCopy, v27);
   }
 
   if ([(NSDictionary *)self->_bundle_info count])
   {
-    v345 = @"bundleInfo";
+    v343 = @"bundleInfo";
     bundle_info = self->_bundle_info;
-    v30 = [NSDictionary dictionaryWithObjects:&bundle_info forKeys:&v345 count:1];
-    blockCopy[2](blockCopy, v30);
+    v28 = [NSDictionary dictionaryWithObjects:&bundle_info forKeys:&v343 count:1];
+    blockCopy[2](blockCopy, v28);
   }
 
   if ([(NSDictionary *)self->_build_info count])
   {
-    v343 = @"buildInfo";
+    v341 = @"buildInfo";
     build_info = self->_build_info;
-    v31 = [NSDictionary dictionaryWithObjects:&build_info forKeys:&v343 count:1];
-    blockCopy[2](blockCopy, v31);
+    v29 = [NSDictionary dictionaryWithObjects:&build_info forKeys:&v341 count:1];
+    blockCopy[2](blockCopy, v29);
   }
 
   if ([(NSDictionary *)self->_store_info count])
   {
-    v341 = @"storeInfo";
+    v339 = @"storeInfo";
     store_info = self->_store_info;
-    v32 = [NSDictionary dictionaryWithObjects:&store_info forKeys:&v341 count:1];
-    blockCopy[2](blockCopy, v32);
+    v30 = [NSDictionary dictionaryWithObjects:&store_info forKeys:&v339 count:1];
+    blockCopy[2](blockCopy, v30);
   }
 
   if ([(NSString *)self->_parentProcessName length])
   {
-    v339 = @"parentProc";
+    v337 = @"parentProc";
     parentProcessName = self->_parentProcessName;
-    v33 = [NSDictionary dictionaryWithObjects:&parentProcessName forKeys:&v339 count:1];
-    blockCopy[2](blockCopy, v33);
+    v31 = [NSDictionary dictionaryWithObjects:&parentProcessName forKeys:&v337 count:1];
+    blockCopy[2](blockCopy, v31);
   }
 
   if (self->_ppid)
   {
-    v337 = @"parentPid";
-    v34 = [NSNumber numberWithInt:?];
-    v338 = v34;
-    v35 = [NSDictionary dictionaryWithObjects:&v338 forKeys:&v337 count:1];
-    blockCopy[2](blockCopy, v35);
+    v335 = @"parentPid";
+    v32 = [NSNumber numberWithInt:?];
+    v336 = v32;
+    v33 = [NSDictionary dictionaryWithObjects:&v336 forKeys:&v335 count:1];
+    blockCopy[2](blockCopy, v33);
   }
 
   if ([(NSString *)self->_coalition_name length])
   {
-    v335 = @"coalitionName";
+    v333 = @"coalitionName";
     coalition_name = self->_coalition_name;
-    v36 = [NSDictionary dictionaryWithObjects:&coalition_name forKeys:&v335 count:1];
-    blockCopy[2](blockCopy, v36);
+    v34 = [NSDictionary dictionaryWithObjects:&coalition_name forKeys:&v333 count:1];
+    blockCopy[2](blockCopy, v34);
   }
 
   if (self->_is_beta)
@@ -9393,12 +9822,12 @@ LABEL_19:
 
   else
   {
-    v333 = @"crashReporterKey";
-    v37 = +[OSASystemConfiguration sharedInstance];
-    crashReporterKey = [v37 crashReporterKey];
-    v334 = crashReporterKey;
-    v39 = [NSDictionary dictionaryWithObjects:&v334 forKeys:&v333 count:1];
-    blockCopy[2](blockCopy, v39);
+    v331 = @"crashReporterKey";
+    v35 = +[OSASystemConfiguration sharedInstance];
+    crashReporterKey = [v35 crashReporterKey];
+    v332 = crashReporterKey;
+    v37 = [NSDictionary dictionaryWithObjects:&v332 forKeys:&v331 count:1];
+    blockCopy[2](blockCopy, v37);
   }
 
   if ([objc_opt_class() isInLDM])
@@ -9406,8 +9835,8 @@ LABEL_19:
     blockCopy[2](blockCopy, &off_10004E300);
   }
 
-  v40 = +[NSProcessInfo processInfo];
-  isLowPowerModeEnabled = [v40 isLowPowerModeEnabled];
+  v38 = +[NSProcessInfo processInfo];
+  isLowPowerModeEnabled = [v38 isLowPowerModeEnabled];
 
   if (isLowPowerModeEnabled)
   {
@@ -9415,17 +9844,17 @@ LABEL_19:
   }
 
   problemType2 = [(OSACrashReport *)self problemType];
-  v43 = [problemType2 isEqualToString:@"309"];
+  v41 = [problemType2 isEqualToString:@"309"];
 
-  if (v43)
+  if (v41)
   {
-    v44 = +[_TtC11ReportCrash21GenerativeModelsState getGMAvailability];
-    if ([v44 count])
+    v42 = +[_TtC11ReportCrash21GenerativeModelsState getGMAvailability];
+    if ([v42 count])
     {
-      v331 = @"appleIntelligenceStatus";
-      v332 = v44;
-      v45 = [NSDictionary dictionaryWithObjects:&v332 forKeys:&v331 count:1];
-      blockCopy[2](blockCopy, v45);
+      v329 = @"appleIntelligenceStatus";
+      v330 = v42;
+      v43 = [NSDictionary dictionaryWithObjects:&v330 forKeys:&v329 count:1];
+      blockCopy[2](blockCopy, v43);
     }
   }
 
@@ -9440,62 +9869,62 @@ LABEL_19:
   }
 
   bootProgressRegister = [objc_opt_class() bootProgressRegister];
-  v47 = bootProgressRegister;
+  v45 = bootProgressRegister;
   if (bootProgressRegister)
   {
-    v329 = @"bootProgressRegister";
-    v48 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"0x%llx", [bootProgressRegister unsignedLongLongValue]);
-    v330 = v48;
-    v49 = [NSDictionary dictionaryWithObjects:&v330 forKeys:&v329 count:1];
-    blockCopy[2](blockCopy, v49);
+    v327 = @"bootProgressRegister";
+    v46 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"0x%llx", [bootProgressRegister unsignedLongLongValue]);
+    v328 = v46;
+    v47 = [NSDictionary dictionaryWithObjects:&v328 forKeys:&v327 count:1];
+    blockCopy[2](blockCopy, v47);
   }
 
-  v214 = v47;
+  v212 = v45;
   device_lock_state = self->_device_lock_state;
   if ((device_lock_state & 0x80000000) == 0 && device_lock_state != 3)
   {
     device_unlocked_since_boot = self->_device_unlocked_since_boot;
     if ((device_unlocked_since_boot & 0x80000000) == 0)
     {
-      v327 = @"wasUnlockedSinceBoot";
-      v52 = [NSNumber numberWithInt:device_unlocked_since_boot != 0];
-      v328 = v52;
-      v53 = [NSDictionary dictionaryWithObjects:&v328 forKeys:&v327 count:1];
-      blockCopy[2](blockCopy, v53);
+      v325 = @"wasUnlockedSinceBoot";
+      v50 = [NSNumber numberWithInt:device_unlocked_since_boot != 0];
+      v326 = v50;
+      v51 = [NSDictionary dictionaryWithObjects:&v326 forKeys:&v325 count:1];
+      blockCopy[2](blockCopy, v51);
 
       device_lock_state = self->_device_lock_state;
     }
 
-    v325 = @"isLocked";
-    v54 = [NSNumber numberWithInt:device_lock_state == 1];
-    v326 = v54;
-    v55 = [NSDictionary dictionaryWithObjects:&v326 forKeys:&v325 count:1];
-    blockCopy[2](blockCopy, v55);
+    v323 = @"isLocked";
+    v52 = [NSNumber numberWithInt:device_lock_state == 1];
+    v324 = v52;
+    v53 = [NSDictionary dictionaryWithObjects:&v324 forKeys:&v323 count:1];
+    blockCopy[2](blockCopy, v53);
   }
 
   if (appleInternal)
   {
+    v54 = +[OSASystemConfiguration sharedInstance];
+    hwModel = [v54 hwModel];
+
+    v322[0] = hwModel;
+    v321[0] = @"codeName";
+    v321[1] = @"systemID";
     v56 = +[OSASystemConfiguration sharedInstance];
-    hwModel = [v56 hwModel];
+    systemId = [v56 systemId];
+    v322[1] = systemId;
+    v58 = [NSDictionary dictionaryWithObjects:v322 forKeys:v321 count:2];
+    blockCopy[2](blockCopy, v58);
 
-    v324[0] = hwModel;
-    v323[0] = @"codeName";
-    v323[1] = @"systemID";
-    v58 = +[OSASystemConfiguration sharedInstance];
-    systemId = [v58 systemId];
-    v324[1] = systemId;
-    v60 = [NSDictionary dictionaryWithObjects:v324 forKeys:v323 count:2];
-    blockCopy[2](blockCopy, v60);
-
-    v61 = +[OSASystemConfiguration sharedInstance];
-    automatedDeviceGroup = [v61 automatedDeviceGroup];
+    v59 = +[OSASystemConfiguration sharedInstance];
+    automatedDeviceGroup = [v59 automatedDeviceGroup];
 
     if (automatedDeviceGroup)
     {
-      v321 = @"AutomatedDeviceGroup";
-      v322 = automatedDeviceGroup;
-      v63 = [NSDictionary dictionaryWithObjects:&v322 forKeys:&v321 count:1];
-      blockCopy[2](blockCopy, v63);
+      v319 = @"AutomatedDeviceGroup";
+      v320 = automatedDeviceGroup;
+      v61 = [NSDictionary dictionaryWithObjects:&v320 forKeys:&v319 count:1];
+      blockCopy[2](blockCopy, v61);
     }
   }
 
@@ -9504,170 +9933,170 @@ LABEL_19:
   {
     if (self->_responsibleProc)
     {
-      v319[0] = @"responsiblePid";
-      v65 = [NSNumber numberWithInt:?];
-      v319[1] = @"responsibleProc";
+      v317[0] = @"responsiblePid";
+      v63 = [NSNumber numberWithInt:?];
+      v317[1] = @"responsibleProc";
       responsibleProc = self->_responsibleProc;
-      v320[0] = v65;
-      v320[1] = responsibleProc;
-      v67 = v320;
-      v68 = v319;
-      v69 = 2;
+      v318[0] = v63;
+      v318[1] = responsibleProc;
+      v65 = v318;
+      v66 = v317;
+      v67 = 2;
     }
 
     else
     {
-      v317 = @"responsiblePid";
-      v65 = [NSNumber numberWithInt:?];
-      v318 = v65;
-      v67 = &v318;
-      v68 = &v317;
-      v69 = 1;
+      v315 = @"responsiblePid";
+      v63 = [NSNumber numberWithInt:?];
+      v316 = v63;
+      v65 = &v316;
+      v66 = &v315;
+      v67 = 1;
     }
 
-    v70 = [NSDictionary dictionaryWithObjects:v67 forKeys:v68 count:v69];
-    blockCopy[2](blockCopy, v70);
+    v68 = [NSDictionary dictionaryWithObjects:v65 forKeys:v66 count:v67];
+    blockCopy[2](blockCopy, v68);
   }
 
   if (self->_consecutiveCrashCount)
   {
-    v315 = @"consecutiveCrashCount";
-    v71 = [NSNumber numberWithUnsignedInt:?];
-    v316 = v71;
-    v72 = [NSDictionary dictionaryWithObjects:&v316 forKeys:&v315 count:1];
-    blockCopy[2](blockCopy, v72);
+    v313 = @"consecutiveCrashCount";
+    v69 = [NSNumber numberWithUnsignedInt:?];
+    v314 = v69;
+    v70 = [NSDictionary dictionaryWithObjects:&v314 forKeys:&v313 count:1];
+    blockCopy[2](blockCopy, v70);
   }
 
   if (self->_throttleTimeout)
   {
-    v313 = @"throttleTimeout";
-    v73 = [NSNumber numberWithUnsignedInt:?];
-    v314 = v73;
-    v74 = [NSDictionary dictionaryWithObjects:&v314 forKeys:&v313 count:1];
-    blockCopy[2](blockCopy, v74);
+    v311 = @"throttleTimeout";
+    v71 = [NSNumber numberWithUnsignedInt:?];
+    v312 = v71;
+    v72 = [NSDictionary dictionaryWithObjects:&v312 forKeys:&v311 count:1];
+    blockCopy[2](blockCopy, v72);
   }
 
   cs_signing_id = self->_cs_signing_id;
   if (cs_signing_id)
   {
-    v311 = @"codeSigningID";
-    v312 = cs_signing_id;
-    v76 = [NSDictionary dictionaryWithObjects:&v312 forKeys:&v311 count:1];
-    blockCopy[2](blockCopy, v76);
+    v309 = @"codeSigningID";
+    v310 = cs_signing_id;
+    v74 = [NSDictionary dictionaryWithObjects:&v310 forKeys:&v309 count:1];
+    blockCopy[2](blockCopy, v74);
   }
 
   cs_team_id = self->_cs_team_id;
   if (cs_team_id)
   {
-    v309 = @"codeSigningTeamID";
-    v310 = cs_team_id;
-    v78 = [NSDictionary dictionaryWithObjects:&v310 forKeys:&v309 count:1];
-    blockCopy[2](blockCopy, v78);
+    v307 = @"codeSigningTeamID";
+    v308 = cs_team_id;
+    v76 = [NSDictionary dictionaryWithObjects:&v308 forKeys:&v307 count:1];
+    blockCopy[2](blockCopy, v76);
   }
 
   if (self->_cs_status)
   {
-    v307 = @"codeSigningFlags";
-    v79 = [NSNumber numberWithUnsignedInt:?];
-    v308 = v79;
-    v80 = [NSDictionary dictionaryWithObjects:&v308 forKeys:&v307 count:1];
-    blockCopy[2](blockCopy, v80);
+    v305 = @"codeSigningFlags";
+    v77 = [NSNumber numberWithUnsignedInt:?];
+    v306 = v77;
+    v78 = [NSDictionary dictionaryWithObjects:&v306 forKeys:&v305 count:1];
+    blockCopy[2](blockCopy, v78);
   }
 
-  v305 = @"codeSigningValidationCategory";
-  v81 = [NSNumber numberWithUnsignedInt:self->_cs_validation_category];
-  v306 = v81;
-  v82 = [NSDictionary dictionaryWithObjects:&v306 forKeys:&v305 count:1];
+  v303 = @"codeSigningValidationCategory";
+  v79 = [NSNumber numberWithUnsignedInt:self->_cs_validation_category];
+  v304 = v79;
+  v80 = [NSDictionary dictionaryWithObjects:&v304 forKeys:&v303 count:1];
+  blockCopy[2](blockCopy, v80);
+
+  v301 = @"codeSigningTrustLevel";
+  v81 = [NSNumber numberWithUnsignedInt:self->_cs_trust_level];
+  v302 = v81;
+  v82 = [NSDictionary dictionaryWithObjects:&v302 forKeys:&v301 count:1];
   blockCopy[2](blockCopy, v82);
 
-  v303 = @"codeSigningTrustLevel";
-  v83 = [NSNumber numberWithUnsignedInt:self->_cs_trust_level];
-  v304 = v83;
-  v84 = [NSDictionary dictionaryWithObjects:&v304 forKeys:&v303 count:1];
-  blockCopy[2](blockCopy, v84);
-
   problemType3 = [(OSACrashReport *)self problemType];
-  LODWORD(v84) = [problemType3 isEqualToString:@"309"];
+  LODWORD(v82) = [problemType3 isEqualToString:@"309"];
 
-  if (v84)
+  if (v82)
   {
-    v301 = @"codeSigningAuxiliaryInfo";
-    v86 = [NSNumber numberWithUnsignedLongLong:self->_cs_auxiliary_info];
-    v302 = v86;
-    v87 = [NSDictionary dictionaryWithObjects:&v302 forKeys:&v301 count:1];
-    blockCopy[2](blockCopy, v87);
+    v299 = @"codeSigningAuxiliaryInfo";
+    v84 = [NSNumber numberWithUnsignedLongLong:self->_cs_auxiliary_info];
+    v300 = v84;
+    v85 = [NSDictionary dictionaryWithObjects:&v300 forKeys:&v299 count:1];
+    blockCopy[2](blockCopy, v85);
   }
 
   if (self->_pc_bytes)
   {
-    v299[0] = @"beforePC";
-    v88 = [(NSData *)self->_pc_bytes_before base64EncodedStringWithOptions:0];
-    v300[0] = v88;
-    v299[1] = @"atPC";
-    v89 = [(NSData *)self->_pc_bytes base64EncodedStringWithOptions:0];
-    v300[1] = v89;
-    v90 = [NSDictionary dictionaryWithObjects:v300 forKeys:v299 count:2];
+    v297[0] = @"beforePC";
+    v86 = [(NSData *)self->_pc_bytes_before base64EncodedStringWithOptions:0];
+    v298[0] = v86;
+    v297[1] = @"atPC";
+    v87 = [(NSData *)self->_pc_bytes base64EncodedStringWithOptions:0];
+    v298[1] = v87;
+    v88 = [NSDictionary dictionaryWithObjects:v298 forKeys:v297 count:2];
 
-    v297 = @"instructionByteStream";
-    v298 = v90;
-    v91 = [NSDictionary dictionaryWithObjects:&v298 forKeys:&v297 count:1];
-    blockCopy[2](blockCopy, v91);
+    v295 = @"instructionByteStream";
+    v296 = v88;
+    v89 = [NSDictionary dictionaryWithObjects:&v296 forKeys:&v295 count:1];
+    blockCopy[2](blockCopy, v89);
   }
 
   bootSessionUUID = [objc_opt_class() bootSessionUUID];
-  v93 = bootSessionUUID;
+  v91 = bootSessionUUID;
   if (bootSessionUUID)
   {
-    v295 = @"bootSessionUUID";
-    v296 = bootSessionUUID;
-    v94 = [NSDictionary dictionaryWithObjects:&v296 forKeys:&v295 count:1];
-    blockCopy[2](blockCopy, v94);
+    v293 = @"bootSessionUUID";
+    v294 = bootSessionUUID;
+    v92 = [NSDictionary dictionaryWithObjects:&v294 forKeys:&v293 count:1];
+    blockCopy[2](blockCopy, v92);
   }
 
-  v212 = v93;
+  v210 = v91;
   if (self->_jit_start_address && self->_jit_end_address)
   {
-    v293 = @"jitStartAddress";
-    v95 = [NSNumber numberWithUnsignedLongLong:?];
-    v294 = v95;
-    v96 = [NSDictionary dictionaryWithObjects:&v294 forKeys:&v293 count:1];
-    blockCopy[2](blockCopy, v96);
+    v291 = @"jitStartAddress";
+    v93 = [NSNumber numberWithUnsignedLongLong:?];
+    v292 = v93;
+    v94 = [NSDictionary dictionaryWithObjects:&v292 forKeys:&v291 count:1];
+    blockCopy[2](blockCopy, v94);
 
-    v291 = @"jitEndAddress";
-    v97 = [NSNumber numberWithUnsignedLongLong:self->_jit_end_address];
-    v292 = v97;
-    v98 = [NSDictionary dictionaryWithObjects:&v292 forKeys:&v291 count:1];
-    blockCopy[2](blockCopy, v98);
+    v289 = @"jitEndAddress";
+    v95 = [NSNumber numberWithUnsignedLongLong:self->_jit_end_address];
+    v290 = v95;
+    v96 = [NSDictionary dictionaryWithObjects:&v290 forKeys:&v289 count:1];
+    blockCopy[2](blockCopy, v96);
   }
 
   if ([(NSMutableArray *)self->_mteTags count]&& [(OSACrashReport *)self isMTECrash])
   {
-    v289 = @"mtePageTags";
+    v287 = @"mtePageTags";
     mteTags = self->_mteTags;
-    v99 = [NSDictionary dictionaryWithObjects:&mteTags forKeys:&v289 count:1];
-    blockCopy[2](blockCopy, v99);
+    v97 = [NSDictionary dictionaryWithObjects:&mteTags forKeys:&v287 count:1];
+    blockCopy[2](blockCopy, v97);
   }
 
   if (![(NSString *)self->_procName isEqualToString:@"CommCenter"])
   {
-    v100 = MGCopyAnswer();
-    v101 = v100;
-    if (v100)
+    v98 = MGCopyAnswer();
+    v99 = v98;
+    if (v98)
     {
-      v287 = @"basebandVersion";
-      v288 = v100;
-      v102 = [NSDictionary dictionaryWithObjects:&v288 forKeys:&v287 count:1];
-      blockCopy[2](blockCopy, v102);
+      v285 = @"basebandVersion";
+      v286 = v98;
+      v100 = [NSDictionary dictionaryWithObjects:&v286 forKeys:&v285 count:1];
+      blockCopy[2](blockCopy, v100);
     }
   }
 
   vmregion_info = self->_vmregion_info;
   if (vmregion_info)
   {
-    v285 = @"vmRegionInfo";
-    v286 = vmregion_info;
-    v104 = [NSDictionary dictionaryWithObjects:&v286 forKeys:&v285 count:1];
-    blockCopy[2](blockCopy, v104);
+    v283 = @"vmRegionInfo";
+    v284 = vmregion_info;
+    v102 = [NSDictionary dictionaryWithObjects:&v284 forKeys:&v283 count:1];
+    blockCopy[2](blockCopy, v102);
   }
 
   if (self->_is_lightweight_corpse)
@@ -9681,10 +10110,10 @@ LABEL_19:
     caller_name = self->_caller_name;
     if (caller_name)
     {
-      v283 = @"simulatedCaller";
-      v284 = caller_name;
-      v144 = [NSDictionary dictionaryWithObjects:&v284 forKeys:&v283 count:1];
-      blockCopy[2](blockCopy, v144);
+      v281 = @"simulatedCaller";
+      v282 = caller_name;
+      v142 = [NSDictionary dictionaryWithObjects:&v282 forKeys:&v281 count:1];
+      blockCopy[2](blockCopy, v142);
     }
   }
 
@@ -9693,33 +10122,33 @@ LABEL_19:
     blockCopy[2](blockCopy, &off_10004E3F0);
   }
 
-  v281 = @"exception";
+  v279 = @"exception";
   decode_exceptionCodes = [(OSACrashReport *)self decode_exceptionCodes];
-  v282 = decode_exceptionCodes;
-  v106 = [NSDictionary dictionaryWithObjects:&v282 forKeys:&v281 count:1];
-  blockCopy[2](blockCopy, v106);
+  v280 = decode_exceptionCodes;
+  v104 = [NSDictionary dictionaryWithObjects:&v280 forKeys:&v279 count:1];
+  blockCopy[2](blockCopy, v104);
 
   terminationReason = [(OSACrashReport *)self terminationReason];
   if ([terminationReason count])
   {
-    v279 = @"termination";
-    v280 = terminationReason;
-    v108 = [NSDictionary dictionaryWithObjects:&v280 forKeys:&v279 count:1];
-    blockCopy[2](blockCopy, v108);
+    v277 = @"termination";
+    v278 = terminationReason;
+    v106 = [NSDictionary dictionaryWithObjects:&v278 forKeys:&v277 count:1];
+    blockCopy[2](blockCopy, v106);
 
-    v109 = [terminationReason objectForKeyedSubscript:@"reasons"];
-    if (![v109 count])
+    v107 = [terminationReason objectForKeyedSubscript:@"reasons"];
+    if (![v107 count])
     {
-      v110 = [terminationReason objectForKeyedSubscript:@"details"];
+      v108 = [terminationReason objectForKeyedSubscript:@"details"];
 
-      v109 = v110;
+      v107 = v108;
     }
 
-    if ([v109 count])
+    if ([v107 count])
     {
-      v111 = [v109 componentsJoinedByString:@"\n"];
+      v109 = [v107 componentsJoinedByString:@"\n"];
       mxTerminationReason = self->_mxTerminationReason;
-      self->_mxTerminationReason = v111;
+      self->_mxTerminationReason = v109;
     }
   }
 
@@ -9729,133 +10158,133 @@ LABEL_19:
     create_os_fault_section = [(OSACrashReport *)self create_os_fault_section];
     if ([create_os_fault_section count])
     {
-      v277 = @"os_fault";
-      v278 = create_os_fault_section;
-      v115 = [NSDictionary dictionaryWithObjects:&v278 forKeys:&v277 count:1];
-      blockCopy[2](blockCopy, v115);
+      v275 = @"os_fault";
+      v276 = create_os_fault_section;
+      v113 = [NSDictionary dictionaryWithObjects:&v276 forKeys:&v275 count:1];
+      blockCopy[2](blockCopy, v113);
     }
   }
 
   if ([(NSString *)self->_ktriage_info length])
   {
-    v275 = @"ktriageinfo";
+    v273 = @"ktriageinfo";
     ktriage_info = self->_ktriage_info;
-    v116 = [NSDictionary dictionaryWithObjects:&ktriage_info forKeys:&v275 count:1];
-    blockCopy[2](blockCopy, v116);
+    v114 = [NSDictionary dictionaryWithObjects:&ktriage_info forKeys:&v273 count:1];
+    blockCopy[2](blockCopy, v114);
   }
 
-  v117 = self->_vmregion_info;
-  if (v117)
+  v115 = self->_vmregion_info;
+  if (v115)
   {
-    v273 = @"vmregioninfo";
-    v274 = v117;
-    v118 = [NSDictionary dictionaryWithObjects:&v274 forKeys:&v273 count:1];
-    blockCopy[2](blockCopy, v118);
+    v271 = @"vmregioninfo";
+    v272 = v115;
+    v116 = [NSDictionary dictionaryWithObjects:&v272 forKeys:&v271 count:1];
+    blockCopy[2](blockCopy, v116);
   }
 
   [(OSACrashReport *)self _mergeFormattedASI];
   if ([(NSMutableDictionary *)self->_applicationSpecificInfo count])
   {
-    v271 = @"asi";
+    v269 = @"asi";
     applicationSpecificInfo = self->_applicationSpecificInfo;
-    v119 = [NSDictionary dictionaryWithObjects:&applicationSpecificInfo forKeys:&v271 count:1];
-    blockCopy[2](blockCopy, v119);
+    v117 = [NSDictionary dictionaryWithObjects:&applicationSpecificInfo forKeys:&v269 count:1];
+    blockCopy[2](blockCopy, v117);
   }
 
   if (appleInternal && [(NSMutableDictionary *)self->_applicationSpecificInfoRedacted count])
   {
-    v269 = @"asiRedacted";
+    v267 = @"asiRedacted";
     applicationSpecificInfoRedacted = self->_applicationSpecificInfoRedacted;
-    v120 = [NSDictionary dictionaryWithObjects:&applicationSpecificInfoRedacted forKeys:&v269 count:1];
-    blockCopy[2](blockCopy, v120);
+    v118 = [NSDictionary dictionaryWithObjects:&applicationSpecificInfoRedacted forKeys:&v267 count:1];
+    blockCopy[2](blockCopy, v118);
   }
 
   if ([(NSDictionary *)self->_exceptionReasonDetails count])
   {
-    v267 = @"exceptionReason";
+    v265 = @"exceptionReason";
     exceptionReasonDetails = self->_exceptionReasonDetails;
-    v121 = [NSDictionary dictionaryWithObjects:&exceptionReasonDetails forKeys:&v267 count:1];
-    blockCopy[2](blockCopy, v121);
+    v119 = [NSDictionary dictionaryWithObjects:&exceptionReasonDetails forKeys:&v265 count:1];
+    blockCopy[2](blockCopy, v119);
   }
 
   reverseObjectEnumerator = &off_10004D9E8;
   if ([(NSDictionary *)self->_workQueueLimits count])
   {
     workQueueLimits = self->_workQueueLimits;
-    v265[0] = @"workQueueLimits";
-    v265[1] = &off_10004DDD8;
-    v266[0] = workQueueLimits;
-    v266[1] = &off_10004D9E8;
-    v124 = [NSDictionary dictionaryWithObjects:v266 forKeys:v265 count:2];
-    blockCopy[2](blockCopy, v124);
+    v263[0] = @"workQueueLimits";
+    v263[1] = &off_10004DDD8;
+    v264[0] = workQueueLimits;
+    v264[1] = &off_10004D9E8;
+    v122 = [NSDictionary dictionaryWithObjects:v264 forKeys:v263 count:2];
+    blockCopy[2](blockCopy, v122);
   }
 
-  v210 = terminationReason;
+  v208 = terminationReason;
   if ([(NSArray *)self->_lastExceptionBacktrace count])
   {
-    v263 = @"lastExceptionBacktrace";
+    v261 = @"lastExceptionBacktrace";
     lastExceptionBacktrace = self->_lastExceptionBacktrace;
-    v125 = [NSDictionary dictionaryWithObjects:&lastExceptionBacktrace forKeys:&v263 count:1];
-    blockCopy[2](blockCopy, v125);
+    v123 = [NSDictionary dictionaryWithObjects:&lastExceptionBacktrace forKeys:&v261 count:1];
+    blockCopy[2](blockCopy, v123);
   }
 
   if ([(NSMutableArray *)self->_threadInfos count])
   {
     if ((self->_crashedThreadNumber & 0x80000000) == 0)
     {
-      v261 = @"faultingThread";
-      v126 = [NSNumber numberWithInt:?];
-      v262 = v126;
-      v127 = [NSDictionary dictionaryWithObjects:&v262 forKeys:&v261 count:1];
-      blockCopy[2](blockCopy, v127);
+      v259 = @"faultingThread";
+      v124 = [NSNumber numberWithInt:?];
+      v260 = v124;
+      v125 = [NSDictionary dictionaryWithObjects:&v260 forKeys:&v259 count:1];
+      blockCopy[2](blockCopy, v125);
 
       reverseObjectEnumerator = &off_10004D9E8;
-      v128 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:self->_crashedThreadNumber];
-      [v128 setObject:self->_threadStateDecoded forKeyedSubscript:@"threadState"];
+      v126 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:self->_crashedThreadNumber];
+      objc_msgSend_setObject_forKeyedSubscript_(v126);
     }
 
-    v259 = @"threads";
+    v257 = @"threads";
     threadInfos = self->_threadInfos;
-    v129 = [NSDictionary dictionaryWithObjects:&threadInfos forKeys:&v259 count:1];
-    blockCopy[2](blockCopy, v129);
+    v127 = [NSDictionary dictionaryWithObjects:&threadInfos forKeys:&v257 count:1];
+    blockCopy[2](blockCopy, v127);
   }
 
   if ([(NSArray *)self->_usedImages count])
   {
     usedImages = self->_usedImages;
-    v257[0] = @"usedImages";
-    v257[1] = &off_10004DDD8;
-    v258[0] = usedImages;
-    v258[1] = &off_10004D9E8;
-    v131 = [NSDictionary dictionaryWithObjects:v258 forKeys:v257 count:2];
-    blockCopy[2](blockCopy, v131);
+    v255[0] = @"usedImages";
+    v255[1] = &off_10004DDD8;
+    v256[0] = usedImages;
+    v256[1] = &off_10004D9E8;
+    v129 = [NSDictionary dictionaryWithObjects:v256 forKeys:v255 count:2];
+    blockCopy[2](blockCopy, v129);
   }
 
   if (self->_sharedCacheBase)
   {
     memset(out, 0, 37);
     uuid_unparse_lower(self->_sharedCacheUuid, out);
-    v254[0] = @"sharedCache";
-    v252[0] = @"base";
-    v132 = [NSNumber numberWithUnsignedLongLong:self->_sharedCacheBase];
-    v253[0] = v132;
-    v252[1] = @"size";
+    v252[0] = @"sharedCache";
+    v250[0] = @"base";
+    v130 = [NSNumber numberWithUnsignedLongLong:self->_sharedCacheBase];
+    v251[0] = v130;
+    v250[1] = @"size";
     reverseObjectEnumerator = [NSNumber numberWithUnsignedLongLong:self->_sharedCacheSize];
-    v253[1] = reverseObjectEnumerator;
-    v252[2] = @"uuid";
-    v133 = [NSString stringWithUTF8String:out];
-    v253[2] = v133;
-    v134 = [NSDictionary dictionaryWithObjects:v253 forKeys:v252 count:3];
-    v254[1] = &off_10004DDD8;
-    v255[0] = v134;
-    v255[1] = &off_10004D9E8;
-    v135 = [NSDictionary dictionaryWithObjects:v255 forKeys:v254 count:2];
-    blockCopy[2](blockCopy, v135);
+    v251[1] = reverseObjectEnumerator;
+    v250[2] = @"uuid";
+    v131 = [NSString stringWithUTF8String:out];
+    v251[2] = v131;
+    v132 = [NSDictionary dictionaryWithObjects:v251 forKeys:v250 count:3];
+    v252[1] = &off_10004DDD8;
+    v253[0] = v132;
+    v253[1] = &off_10004D9E8;
+    v133 = [NSDictionary dictionaryWithObjects:v253 forKeys:v252 count:2];
+    blockCopy[2](blockCopy, v133);
 
-    v17 = &create_gcore_with_options_ptr;
+    v16 = &create_gcore_with_options_ptr;
   }
 
-  v136 = objc_opt_new();
+  v134 = objc_opt_new();
   if (self->_crashedThreadNumber < 0)
   {
     if (self->_highlightedThreadNumber < 0)
@@ -9863,134 +10292,134 @@ LABEL_19:
       goto LABEL_134;
     }
 
-    v137 = [NSNumber numberWithInt:?];
-    [v136 setObject:v137 forKeyedSubscript:@"threadHighlighted"];
+    v135 = [NSNumber numberWithInt:?];
+    objc_msgSend_setObject_forKeyedSubscript_(v134);
   }
 
   else
   {
-    v137 = objc_opt_new();
-    v138 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:self->_crashedThreadNumber];
-    v139 = [v138 objectForKeyedSubscript:@"name"];
+    v135 = objc_opt_new();
+    v136 = [(NSMutableArray *)self->_threadInfos objectAtIndexedSubscript:self->_crashedThreadNumber];
+    v137 = [v136 objectForKeyedSubscript:@"name"];
+
+    if (v137)
+    {
+      v138 = [v136 objectForKeyedSubscript:@"name"];
+      objc_msgSend_setObject_forKeyedSubscript_(v135);
+    }
+
+    v139 = [v136 objectForKeyedSubscript:@"queue"];
 
     if (v139)
     {
-      v140 = [v138 objectForKeyedSubscript:@"name"];
-      [v137 setObject:v140 forKeyedSubscript:@"name"];
+      v140 = [v136 objectForKeyedSubscript:@"queue"];
+      objc_msgSend_setObject_forKeyedSubscript_(v135);
     }
 
-    v141 = [v138 objectForKeyedSubscript:@"queue"];
+    objc_msgSend_setObject_forKeyedSubscript_(v134);
 
-    if (v141)
-    {
-      v142 = [v138 objectForKeyedSubscript:@"queue"];
-      [v137 setObject:v142 forKeyedSubscript:@"queue"];
-    }
-
-    [v136 setObject:v137 forKeyedSubscript:@"threadTriggered"];
-
-    v17 = &create_gcore_with_options_ptr;
+    v16 = &create_gcore_with_options_ptr;
   }
 
 LABEL_134:
   vmSummary = self->_vmSummary;
   if (vmSummary)
   {
-    v250 = @"vmSummary";
-    v251 = vmSummary;
-    v146 = [v17[475] dictionaryWithObjects:&v251 forKeys:&v250 count:1];
-    blockCopy[2](blockCopy, v146);
+    v248 = @"vmSummary";
+    v249 = vmSummary;
+    v144 = [v16[475] dictionaryWithObjects:&v249 forKeys:&v248 count:1];
+    blockCopy[2](blockCopy, v144);
   }
 
   probGuardReport = self->_probGuardReport;
   if (probGuardReport)
   {
-    v248 = @"probGuardReport";
-    v249 = probGuardReport;
-    v148 = [v17[475] dictionaryWithObjects:&v249 forKeys:&v248 count:1];
-    blockCopy[2](blockCopy, v148);
+    v246 = @"probGuardReport";
+    v247 = probGuardReport;
+    v146 = [v16[475] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
+    blockCopy[2](blockCopy, v146);
   }
 
   memoryErrorReport = self->_memoryErrorReport;
   if (memoryErrorReport)
   {
-    v246 = @"memoryErrorReport";
-    v247 = memoryErrorReport;
-    v150 = [v17[475] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
-    blockCopy[2](blockCopy, v150);
+    v244 = @"memoryErrorReport";
+    v245 = memoryErrorReport;
+    v148 = [v16[475] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
+    blockCopy[2](blockCopy, v148);
   }
 
   sanitizerReport = self->_sanitizerReport;
   if (sanitizerReport)
   {
-    v244 = @"quarantineReport";
-    v245 = sanitizerReport;
-    v152 = [v17[475] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
-    blockCopy[2](blockCopy, v152);
+    v242 = @"quarantineReport";
+    v243 = sanitizerReport;
+    v150 = [v16[475] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
+    blockCopy[2](blockCopy, v150);
   }
 
-  if ([v136 count])
+  if ([v134 count])
   {
-    v242[0] = @"legacyInfo";
-    v242[1] = &off_10004DDD8;
-    v243[0] = v136;
-    v243[1] = &off_10004D9E8;
-    v153 = [v17[475] dictionaryWithObjects:v243 forKeys:v242 count:2];
-    blockCopy[2](blockCopy, v153);
+    v240[0] = @"legacyInfo";
+    v240[1] = &off_10004DDD8;
+    v241[0] = v134;
+    v241[1] = &off_10004D9E8;
+    v151 = [v16[475] dictionaryWithObjects:v241 forKeys:v240 count:2];
+    blockCopy[2](blockCopy, v151);
   }
 
   logWritingSignature = self->_logWritingSignature;
   if (logWritingSignature)
   {
-    v240 = @"logWritingSignature";
-    v241 = logWritingSignature;
-    v155 = [v17[475] dictionaryWithObjects:&v241 forKeys:&v240 count:1];
-    blockCopy[2](blockCopy, v155);
+    v238 = @"logWritingSignature";
+    v239 = logWritingSignature;
+    v153 = [v16[475] dictionaryWithObjects:&v239 forKeys:&v238 count:1];
+    blockCopy[2](blockCopy, v153);
   }
 
   patternUUIDs = [(OSACrashReport *)self patternUUIDs];
-  v157 = [patternUUIDs count];
+  v155 = [patternUUIDs count];
 
-  if (v157)
+  if (v155)
   {
-    v238 = @"patternUUIDs";
+    v236 = @"patternUUIDs";
     patternUUIDs2 = [(OSACrashReport *)self patternUUIDs];
-    v239 = patternUUIDs2;
-    v159 = [v17[475] dictionaryWithObjects:&v239 forKeys:&v238 count:1];
-    blockCopy[2](blockCopy, v159);
+    v237 = patternUUIDs2;
+    v157 = [v16[475] dictionaryWithObjects:&v237 forKeys:&v236 count:1];
+    blockCopy[2](blockCopy, v157);
   }
 
   [(OSACrashReport *)self writeReportBodyWithSectionWriter:blockCopy];
   getTrialCache = [(OSACrashReport *)self getTrialCache];
-  v161 = getTrialCache;
+  v159 = getTrialCache;
   if (getTrialCache)
   {
-    v162 = [getTrialCache dictionaryWithValuesForKeys:&off_10004E508];
-    v163 = [v161 objectForKeyedSubscript:@"errors"];
-    if ([v162 count])
+    v160 = [getTrialCache dictionaryWithValuesForKeys:&off_10004E508];
+    v161 = [v159 objectForKeyedSubscript:@"errors"];
+    if ([v160 count])
     {
-      v236[0] = @"trialInfo";
-      v236[1] = &off_10004DDD8;
-      v237[0] = v162;
-      v237[1] = &off_10004D9E8;
-      v164 = [NSDictionary dictionaryWithObjects:v237 forKeys:v236 count:2];
-      blockCopy[2](blockCopy, v164);
+      v234[0] = @"trialInfo";
+      v234[1] = &off_10004DDD8;
+      v235[0] = v160;
+      v235[1] = &off_10004D9E8;
+      v162 = [NSDictionary dictionaryWithObjects:v235 forKeys:v234 count:2];
+      blockCopy[2](blockCopy, v162);
     }
 
     else
     {
-      if (![v163 count])
+      if (![v161 count])
       {
 LABEL_156:
 
-        v17 = &create_gcore_with_options_ptr;
+        v16 = &create_gcore_with_options_ptr;
         goto LABEL_157;
       }
 
-      v165 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
-      v164 = [v163 componentsJoinedByString:@" "];;
-      v164 = [NSString stringWithFormat:@"Unable to retrieve Trial info: %@", v164];
-      [v165 addObject:v164];
+      v163 = *&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes];
+      v162 = [v161 componentsJoinedByString:@" "];;
+      v162 = [NSString stringWithFormat:@"Unable to retrieve Trial info: %@", v162];
+      [v163 addObject:v162];
     }
 
     goto LABEL_156;
@@ -10004,93 +10433,93 @@ LABEL_157:
 
   if ((!self->_is_simulated || self->_is_lightweight_corpse) && self->_exceptionType != 11)
   {
-    v167 = objc_autoreleasePoolPush();
+    v165 = objc_autoreleasePoolPush();
     if ((byte_1000540D5 & 1) != 0 || [(NSString *)self->_procName isEqualToString:@"ReportCrash"])
     {
 LABEL_192:
-      objc_autoreleasePoolPop(v167);
+      objc_autoreleasePoolPop(v165);
       goto LABEL_193;
     }
 
-    v216 = v167;
-    v168 = [NSPredicate predicateWithFormat:@"(processID == 0) AND (senderImagePath CONTAINS '/Sandbox')"];
-    v235[0] = v168;
-    v169 = [NSPredicate predicateWithFormat:@"subsystem == 'com.apple.sandbox.reporting'"];
-    v235[1] = v169;
-    v170 = [NSArray arrayWithObjects:v235 count:2];
+    v214 = v165;
+    v166 = [NSPredicate predicateWithFormat:@"(processID == 0) AND (senderImagePath CONTAINS '/Sandbox')"];
+    v233[0] = v166;
+    v167 = [NSPredicate predicateWithFormat:@"subsystem == 'com.apple.sandbox.reporting'"];
+    v233[1] = v167;
+    v168 = [NSArray arrayWithObjects:v233 count:2];
 
     if (self->_signal == 6)
     {
-      v171 = [&__NSArray0__struct arrayByAddingObject:@"hangtracerd"];
+      v169 = [&__NSArray0__struct arrayByAddingObject:@"hangtracerd"];
     }
 
     else
     {
-      v171 = &__NSArray0__struct;
+      v169 = &__NSArray0__struct;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"wifid"])
     {
 LABEL_167:
-      v172 = @"kernel";
+      v170 = @"kernel";
 LABEL_179:
-      v173 = [v171 arrayByAddingObject:v172];
+      v171 = [v169 arrayByAddingObject:v170];
 LABEL_180:
-      v174 = v173;
+      v172 = v171;
 
-      v171 = v174;
+      v169 = v172;
 LABEL_181:
       if (self->_is_driverkit)
       {
-        v175 = &off_10004E5B0;
+        v173 = &off_10004E5B0;
       }
 
       else
       {
-        v176 = [NSNumber numberWithInt:self->_proc_id];
-        v234 = v176;
-        v175 = [NSArray arrayWithObjects:&v234 count:1];
+        v174 = [NSNumber numberWithInt:self->_proc_id];
+        v232 = v174;
+        v173 = [NSArray arrayWithObjects:&v232 count:1];
       }
 
-      v208 = v170;
-      v177 = [(OSACrashReport *)self getSyslogForPids:v175 andOptionalSenders:v171 additionalPredicates:v170];
-      v178 = v177;
-      v232[0] = @"filteredLog";
-      v206 = v171;
-      if (v177)
+      v206 = v168;
+      v175 = [(OSACrashReport *)self getSyslogForPids:v173 andOptionalSenders:v169 additionalPredicates:v168];
+      v176 = v175;
+      v230[0] = @"filteredLog";
+      v204 = v169;
+      if (v175)
       {
-        if ([v177 count])
+        if ([v175 count])
         {
-          reverseObjectEnumerator = [v178 reverseObjectEnumerator];
+          reverseObjectEnumerator = [v176 reverseObjectEnumerator];
           allObjects = [reverseObjectEnumerator allObjects];
-          v180 = 1;
+          v178 = 1;
         }
 
         else
         {
-          v180 = 0;
+          v178 = 0;
           allObjects = &off_10004E5E0;
         }
       }
 
       else
       {
-        v180 = 0;
+        v178 = 0;
         allObjects = &off_10004E5C8;
       }
 
-      v232[1] = &off_10004DDD8;
-      v233[0] = allObjects;
-      v233[1] = &off_10004D9E8;
-      v181 = [NSDictionary dictionaryWithObjects:v233 forKeys:v232 count:2];
-      blockCopy[2](blockCopy, v181);
+      v230[1] = &off_10004DDD8;
+      v231[0] = allObjects;
+      v231[1] = &off_10004D9E8;
+      v179 = [NSDictionary dictionaryWithObjects:v231 forKeys:v230 count:2];
+      blockCopy[2](blockCopy, v179);
 
-      if (v180)
+      if (v178)
       {
       }
 
-      v167 = v216;
-      v17 = &create_gcore_with_options_ptr;
+      v165 = v214;
+      v16 = &create_gcore_with_options_ptr;
       goto LABEL_192;
     }
 
@@ -10101,58 +10530,58 @@ LABEL_181:
 
     if ([(NSString *)self->_procName isEqualToString:@"SpringBoard"])
     {
-      v172 = @"backboardd";
+      v170 = @"backboardd";
       goto LABEL_179;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"backboardd"])
     {
-      v172 = @"SpringBoard";
+      v170 = @"SpringBoard";
       goto LABEL_179;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"tzd"])
     {
-      v172 = @"mobileassetd";
+      v170 = @"mobileassetd";
       goto LABEL_179;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"Carousel"]|| [(NSString *)self->_procName isEqualToString:@"nanotimekitd"])
     {
-      v172 = @"assetsd";
+      v170 = @"assetsd";
       goto LABEL_179;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"com.apple.photos.ImageConversionService"]|| [(NSString *)self->_procName isEqualToString:@"com.apple.photos.VideoConversionService"])
     {
 LABEL_169:
-      v172 = @"mediaserverd";
+      v170 = @"mediaserverd";
       goto LABEL_179;
     }
 
     if ([(NSString *)self->_procName isEqualToString:@"mediaserverd"])
     {
-      v197 = &off_10004E520;
+      v195 = &off_10004E520;
     }
 
     else if ([(NSString *)self->_procName isEqualToString:@"audiomxd"])
     {
-      v197 = &off_10004E538;
+      v195 = &off_10004E538;
     }
 
     else if ([(NSString *)self->_procName isEqualToString:@"mediaplaybackd"])
     {
-      v197 = &off_10004E550;
+      v195 = &off_10004E550;
     }
 
     else if ([(NSString *)self->_procName isEqualToString:@"mediaparserd"])
     {
-      v197 = &off_10004E568;
+      v195 = &off_10004E568;
     }
 
     else if ([(NSString *)self->_procName isEqualToString:@"videocodecd"])
     {
-      v197 = &off_10004E580;
+      v195 = &off_10004E580;
     }
 
     else
@@ -10167,20 +10596,20 @@ LABEL_169:
         goto LABEL_167;
       }
 
-      v197 = &off_10004E598;
+      v195 = &off_10004E598;
     }
 
-    v173 = [v171 arrayByAddingObjectsFromArray:v197];
+    v171 = [v169 arrayByAddingObjectsFromArray:v195];
     goto LABEL_180;
   }
 
 LABEL_193:
   if (self->_proc_id && ([(NSMutableDictionary *)self->_spewage_diag count]|| self->_memgraph_filename))
   {
-    v230 = &off_10004DDF0;
-    v231 = @"diagnosticOutput";
-    v182 = [v17[475] dictionaryWithObjects:&v231 forKeys:&v230 count:1];
-    blockCopy[2](blockCopy, v182);
+    v228 = &off_10004DDF0;
+    v229 = @"diagnosticOutput";
+    v180 = [v16[475] dictionaryWithObjects:&v229 forKeys:&v228 count:1];
+    blockCopy[2](blockCopy, v180);
 
     if ([(NSMutableDictionary *)self->_spewage_diag count])
     {
@@ -10190,50 +10619,50 @@ LABEL_193:
     memgraph_filename = self->_memgraph_filename;
     if (memgraph_filename)
     {
-      v228 = @"memgraph/vmmap";
-      v184 = sub_10000D580("/usr/bin/vmmap", memgraph_filename, dword_1000540CC, 0);
-      v227 = v184;
-      v185 = [NSArray arrayWithObjects:&v227 count:1];
-      v229 = v185;
-      v186 = [NSDictionary dictionaryWithObjects:&v229 forKeys:&v228 count:1];
-      blockCopy[2](blockCopy, v186);
+      v226 = @"memgraph/vmmap";
+      v182 = sub_10000D580("/usr/bin/vmmap", memgraph_filename, dword_1000540CC, 0);
+      v225 = v182;
+      v183 = [NSArray arrayWithObjects:&v225 count:1];
+      v227 = v183;
+      v184 = [NSDictionary dictionaryWithObjects:&v227 forKeys:&v226 count:1];
+      blockCopy[2](blockCopy, v184);
 
-      v225 = @"memgraph/heap";
-      v187 = sub_10000D580("/usr/bin/heap", self->_memgraph_filename, dword_1000540CC, 0);
-      v224 = v187;
-      v188 = [NSArray arrayWithObjects:&v224 count:1];
-      v226 = v188;
-      v189 = [NSDictionary dictionaryWithObjects:&v226 forKeys:&v225 count:1];
-      blockCopy[2](blockCopy, v189);
+      v223 = @"memgraph/heap";
+      v185 = sub_10000D580("/usr/bin/heap", self->_memgraph_filename, dword_1000540CC, 0);
+      v222 = v185;
+      v186 = [NSArray arrayWithObjects:&v222 count:1];
+      v224 = v186;
+      v187 = [NSDictionary dictionaryWithObjects:&v224 forKeys:&v223 count:1];
+      blockCopy[2](blockCopy, v187);
 
-      v222 = @"memgraph/leaks";
-      v190 = sub_10000D580("/usr/bin/leaks", self->_memgraph_filename, dword_1000540CC, 0);
-      v221 = v190;
-      v191 = [NSArray arrayWithObjects:&v221 count:1];
-      v223 = v191;
-      v192 = [NSDictionary dictionaryWithObjects:&v223 forKeys:&v222 count:1];
-      blockCopy[2](blockCopy, v192);
+      v220 = @"memgraph/leaks";
+      v188 = sub_10000D580("/usr/bin/leaks", self->_memgraph_filename, dword_1000540CC, 0);
+      v219 = v188;
+      v189 = [NSArray arrayWithObjects:&v219 count:1];
+      v221 = v189;
+      v190 = [NSDictionary dictionaryWithObjects:&v221 forKeys:&v220 count:1];
+      blockCopy[2](blockCopy, v190);
     }
 
-    v219 = &off_10004DE08;
-    v220 = &stru_1000463C0;
-    v193 = [NSDictionary dictionaryWithObjects:&v220 forKeys:&v219 count:1];
-    blockCopy[2](blockCopy, v193);
+    v217 = &off_10004DE08;
+    v218 = &stru_1000463C0;
+    v191 = [NSDictionary dictionaryWithObjects:&v218 forKeys:&v217 count:1];
+    blockCopy[2](blockCopy, v191);
 
-    v17 = &create_gcore_with_options_ptr;
+    v16 = &create_gcore_with_options_ptr;
   }
 
 LABEL_201:
-  v194 = OBJC_IVAR___OSAReport__notes;
+  v192 = OBJC_IVAR___OSAReport__notes;
   if ([*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__notes] count])
   {
-    v195 = *&self->OSAReport_opaque[v194];
-    v217[0] = @"reportNotes";
-    v217[1] = &off_10004DDD8;
-    v218[0] = v195;
-    v218[1] = &off_10004D9E8;
-    v196 = [v17[475] dictionaryWithObjects:v218 forKeys:v217 count:2];
-    blockCopy[2](blockCopy, v196);
+    v193 = *&self->OSAReport_opaque[v192];
+    v215[0] = @"reportNotes";
+    v215[1] = &off_10004DDD8;
+    v216[0] = v193;
+    v216[1] = &off_10004D9E8;
+    v194 = [v16[475] dictionaryWithObjects:v216 forKeys:v215 count:2];
+    blockCopy[2](blockCopy, v194);
   }
 }
 
@@ -10242,7 +10671,7 @@ LABEL_201:
   optionsCopy = options;
   if ([(OSACrashReport *)self needsUrgentSubmission])
   {
-    [*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions] setObject:&__kCFBooleanTrue forKeyedSubscript:kOSALogOptionUrgent];
+    objc_msgSend_setObject_forKeyedSubscript_(*&self->OSAReport_opaque[OBJC_IVAR___OSAReport__logWritingOptions]);
   }
 
   v7.receiver = self;
@@ -10291,28 +10720,26 @@ LABEL_201:
 {
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
   if (qword_100053AA0 != -1)
   {
     swift_once();
   }
 
-  v11 = off_100053D60;
+  v10 = off_100053D60;
   if (off_100053D60)
   {
-    v12 = *(off_100053D60 + 4);
-    v13 = static DispatchWorkItemFlags.barrier.getter();
-    __chkstk_darwin(v13);
-    *&v14[-32] = v11;
-    *&v14[-24] = v8;
-    *&v14[-16] = v10;
+    v11 = static DispatchWorkItemFlags.barrier.getter();
+    __chkstk_darwin(v11);
+    *&v12[-32] = v10;
+    *&v12[-24] = v7;
+    *&v12[-16] = v9;
     OS_dispatch_queue.sync<A>(flags:execute:)();
 
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   else

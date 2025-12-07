@@ -24,8 +24,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_10005FB74(highlighted);
+  sub_10005FB74(highlightedCopy);
 }
 
 - (_TtC8Business20QuickReplyItemButton)initWithFrame:(CGRect)frame

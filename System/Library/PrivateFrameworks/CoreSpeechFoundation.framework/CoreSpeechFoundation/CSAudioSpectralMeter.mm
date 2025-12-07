@@ -61,7 +61,7 @@
 
 - (void)setOutputFrequencyBandsInHz:(id)hz
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   hzCopy = hz;
   if ([hzCopy count])
   {
@@ -99,8 +99,6 @@
       _os_log_fault_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_FAULT, "%s setOutputBands array count must be greater than 0. Bail.", &buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset
@@ -115,17 +113,16 @@
 
 - (CSAudioSpectralMeter)initWithSampleRate:(float)rate windowSize:(unint64_t)size
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = CSAudioSpectralMeter;
-  if ([(CSAudioSpectralMeter *)&v7 init])
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CSAudioSpectralMeter;
+  if ([(CSAudioSpectralMeter *)&v6 init])
   {
     operator new();
   }
 
   v4 = 0;
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

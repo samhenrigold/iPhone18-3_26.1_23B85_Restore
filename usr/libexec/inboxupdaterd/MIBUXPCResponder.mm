@@ -89,40 +89,11 @@
   v7 = v18[5];
   v18[5] = v6;
 
-  if (v18[5])
-  {
-    goto LABEL_13;
-  }
-
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10001E8B4;
-  v16[3] = &unk_10009B4E8;
-  v16[4] = &v17;
-  v16[5] = &v29;
-  v16[6] = &v23;
-  [MIBUCertHelper readSUIdentityWithCompletion:v16];
-  if (!os_variant_has_internal_content())
-  {
-    goto LABEL_13;
-  }
-
-  v8 = +[MIBUTestPreferences sharedInstance];
-  factorySUKeyPath = [v8 factorySUKeyPath];
-
-  if (!factorySUKeyPath)
-  {
-    goto LABEL_13;
-  }
-
-  v10 = +[MIBUTestPreferences sharedInstance];
-  factorySUKeyIsSEP = [v10 factorySUKeyIsSEP];
-
-  if (factorySUKeyIsSEP)
+  if (!v18[5] && (v16[0] = _NSConcreteStackBlock, v16[1] = 3221225472, v16[2] = sub_10001E8B4, v16[3] = &unk_10009B4E8, v16[4] = &v17, v16[5] = &v29, v16[6] = &v23, +[MIBUCertHelper readSUIdentityWithCompletion:](MIBUCertHelper, "readSUIdentityWithCompletion:", v16), os_variant_has_internal_content()) && (+[MIBUTestPreferences sharedInstance](MIBUTestPreferences, "sharedInstance"), v8 = objc_claimAutoreleasedReturnValue(), [v8 factorySUKeyPath], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9) && (+[MIBUTestPreferences sharedInstance](MIBUTestPreferences, "sharedInstance"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "factorySUKeyIsSEP"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
   {
     v12 = +[MIBUTestPreferences sharedInstance];
-    factorySUKeyIsSEP2 = [v12 factorySUKeyIsSEP];
-    bOOLValue = [factorySUKeyIsSEP2 BOOLValue];
+    factorySUKeyIsSEP = [v12 factorySUKeyIsSEP];
+    bOOLValue = [factorySUKeyIsSEP BOOLValue];
 
     if (qword_1000B84A8[0] != -1)
     {
@@ -140,7 +111,6 @@
 
   else
   {
-LABEL_13:
     bOOLValue = 1;
   }
 

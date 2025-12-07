@@ -7,7 +7,7 @@
 - (_TtC11NotesEditor24ICRecordButtonRepository)init
 {
   v5 = 256;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5B758);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5B758, &qword_2154C0A80);
   swift_allocObject();
   *(&self->super.isa + OBJC_IVAR____TtC11NotesEditor24ICRecordButtonRepository_modelSubject) = sub_21549F35C();
   *(&self->super.isa + OBJC_IVAR____TtC11NotesEditor24ICRecordButtonRepository_animationsAreDisabledSubject) = 0;

@@ -8,7 +8,7 @@
 
 - (MRRemoveSyncedOutputDevicesMessage)initWithOutputDeviceUID:(id)d
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (d)
   {
     dCopy = d;
@@ -16,7 +16,7 @@
     dCopy2 = d;
     v6 = [v4 arrayWithObjects:&dCopy count:1];
 
-    v7 = [(MRRemoveSyncedOutputDevicesMessage *)self initWithOutputDeviceUIDs:v6, dCopy, v11];
+    v7 = [(MRRemoveSyncedOutputDevicesMessage *)self initWithOutputDeviceUIDs:v6, dCopy, v10];
     self = v7;
   }
 
@@ -25,7 +25,6 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

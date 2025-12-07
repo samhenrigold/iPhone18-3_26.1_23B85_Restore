@@ -12,7 +12,7 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDPresenceNotificationCondition *)self presenceEventType];
   v4 = HMPresenceEventTypeAsString();
@@ -21,33 +21,30 @@
   [(HMDPresenceNotificationCondition *)self presenceEventUserType];
   v7 = HMPresenceEventUserTypeAsString();
   v8 = [v6 initWithName:@"Presence Event User Types" value:v7];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   userUUIDs = [(HMDPresenceNotificationCondition *)self userUUIDs];
   v11 = [v9 initWithName:@"User UUIDs" value:userUUIDs];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
 
 - (HMDPresenceNotificationCondition)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"HMDPSC.ck.pet"];
   v6 = [coderCopy decodeIntegerForKey:@"HMDPSC.ck.peut"];
   v7 = MEMORY[0x277CBEB98];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"HMDPSC.ck.uu"];
 
   v11 = [(HMDPresenceNotificationCondition *)self initWithPresenceEventType:v5 presenceEventUserType:v6 userUUIDs:v10];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

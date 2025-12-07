@@ -78,75 +78,75 @@
 {
   pthread_mutex_lock([self recursiveMutex]);
   v3 = +[NSFileManager defaultManager];
-  v42 = 0;
-  if (isZhuGeInRestoreOS())
+  v43 = 0;
+  if (isZhuGeInRestoreOS(v3, v4))
   {
-    ZhuGeLog(262400, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 152, @"Skip retrieving internal support path in restoreOS", v4, v5, v6, v35);
-    v7 = 0;
+    ZhuGeLog(262400, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 152, @"Skip retrieving internal support path in restoreOS", v5, v6, v7, v36);
     v8 = 0;
-LABEL_3:
     v9 = 0;
+LABEL_3:
+    v10 = 0;
     goto LABEL_24;
   }
 
-  if ([v3 fileExistsAtPath:qword_100019E00 isDirectory:&v42] && v42 == 1)
+  if ([v3 fileExistsAtPath:qword_100019E00 isDirectory:&v43] && v43 == 1)
   {
-    v8 = qword_100019E00;
-    ZhuGeLog(262400, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 159, @"Retrieving unchanged internal supported path: %@", v10, v11, v12, v8);
-    v7 = 0;
+    v9 = qword_100019E00;
+    ZhuGeLog(262400, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 159, @"Retrieving unchanged internal supported path: %@", v11, v12, v13, v9);
+    v8 = 0;
     goto LABEL_3;
   }
 
-  if ([v3 fileExistsAtPath:@"/usr/local/ZhuGe/ZhuGeInternalSupport" isDirectory:&v42] && (v42 & 1) != 0)
+  if ([v3 fileExistsAtPath:@"/usr/local/ZhuGe/ZhuGeInternalSupport" isDirectory:&v43] && (v43 & 1) != 0)
   {
-    v7 = 0;
-    v9 = 0;
-    v8 = @"/usr/local/ZhuGe/ZhuGeInternalSupport";
+    v8 = 0;
+    v10 = 0;
+    v9 = @"/usr/local/ZhuGe/ZhuGeInternalSupport";
 LABEL_23:
-    objc_storeStrong(&qword_100019E00, v8);
-    ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 191, @"ZhuGe internal support path is updated to: %@", v31, v32, v33, v8);
+    objc_storeStrong(&qword_100019E00, v9);
+    ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 191, @"ZhuGe internal support path is updated to: %@", v32, v33, v34, v9);
     [self executeCacheRefresh];
   }
 
   else
   {
-    v41 = 0;
-    v9 = getZhuGeFDIPathsWithError(&v41, v13, v14, v15, v16, v17, v18, v19);
-    v20 = v41;
-    v7 = v20;
-    if (v9)
+    v42 = 0;
+    v10 = getZhuGeFDIPathsWithError(&v42, v14, v15, v16, v17, v18, v19, v20);
+    v21 = v42;
+    v8 = v21;
+    if (v10)
     {
-      v36 = v20;
-      v39 = 0u;
+      v37 = v21;
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v9 = v9;
-      v24 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
-      if (v24)
+      v39 = 0u;
+      v10 = v10;
+      v25 = [v10 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      if (v25)
       {
-        v25 = v24;
-        v26 = *v38;
+        v26 = v25;
+        v27 = *v39;
         while (2)
         {
-          for (i = 0; i != v25; i = i + 1)
+          for (i = 0; i != v26; i = i + 1)
           {
-            if (*v38 != v26)
+            if (*v39 != v27)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            v8 = [NSString stringWithFormat:@"%@%@", *(*(&v37 + 1) + 8 * i), @"/usr/local/ZhuGe/ZhuGeInternalSupport"];
-            if ([v3 fileExistsAtPath:v8 isDirectory:&v42] && (v42 & 1) != 0)
+            v9 = [NSString stringWithFormat:@"%@%@", *(*(&v38 + 1) + 8 * i), @"/usr/local/ZhuGe/ZhuGeInternalSupport"];
+            if ([v3 fileExistsAtPath:v9 isDirectory:&v43] && (v43 & 1) != 0)
             {
 
-              v7 = v36;
+              v8 = v37;
               goto LABEL_23;
             }
           }
 
-          v25 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
-          if (v25)
+          v26 = [v10 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          if (v26)
           {
             continue;
           }
@@ -155,22 +155,22 @@ LABEL_23:
         }
       }
 
-      ZhuGeLog(262656, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 184, @"Didn't find ZhuGe internal Support Path", v28, v29, v30, v35);
-      v8 = 0;
-      v7 = v36;
+      ZhuGeLog(262656, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 184, @"Didn't find ZhuGe internal Support Path", v29, v30, v31, v36);
+      v9 = 0;
+      v8 = v37;
     }
 
     else
     {
-      ZhuGeLog(262656, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 172, @"Failed to get FDI paths", v21, v22, v23, v35);
-      v8 = 0;
+      ZhuGeLog(262656, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeInternalSupport/ZhuGeInternalSupportAssistant.m", "+[ZhuGeInternalSupportAssistant getInternalSupportPath]", 172, @"Failed to get FDI paths", v22, v23, v24, v36);
+      v9 = 0;
     }
   }
 
 LABEL_24:
   pthread_mutex_unlock([self recursiveMutex]);
 
-  return v8;
+  return v9;
 }
 
 + (void)getDylibHandlerWithError:(id *)error
@@ -243,21 +243,21 @@ LABEL_14:
 + (void)registerCacheRefresh:(id)refresh
 {
   refreshCopy = refresh;
-  pthread_mutex_lock([self recursiveMutex]);
-  if ((isZhuGeInRestoreOS() & 1) == 0)
+  v4 = pthread_mutex_lock([self recursiveMutex]);
+  if ((isZhuGeInRestoreOS(v4, v5) & 1) == 0)
   {
     cacheList = [self cacheList];
 
     if (!cacheList)
     {
-      v5 = objc_alloc_init(NSMutableArray);
-      [self setCacheList:v5];
+      v7 = objc_alloc_init(NSMutableArray);
+      [self setCacheList:v7];
     }
 
     cacheList2 = [self cacheList];
-    v7 = [cacheList2 containsObject:refreshCopy];
+    v9 = [cacheList2 containsObject:refreshCopy];
 
-    if ((v7 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       cacheList3 = [self cacheList];
       [cacheList3 addObject:refreshCopy];
@@ -269,7 +269,7 @@ LABEL_14:
 
 + (id)getXpcProxyWithError:(id *)error
 {
-  if (isZhuGeInRestoreOS())
+  if (isZhuGeInRestoreOS(self, a2))
   {
     goto LABEL_6;
   }

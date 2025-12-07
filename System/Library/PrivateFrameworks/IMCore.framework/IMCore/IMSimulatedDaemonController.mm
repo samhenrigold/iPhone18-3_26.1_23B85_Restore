@@ -36,11 +36,11 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v3 = objc_msgSend_selector(invocation, a2, invocation);
+  selector = [invocation selector];
   v4 = IMLogHandleForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1A84E0CDC(v3, v4);
+    sub_1A84E0CDC(selector, v4);
   }
 }
 
@@ -49,68 +49,64 @@
   v3 = MEMORY[0x1E695DF90];
   chatCopy = chat;
   v5 = objc_alloc_init(v3);
-  v8 = objc_msgSend_account(chatCopy, v6, v7);
-  v11 = objc_msgSend_uniqueID(v8, v9, v10);
-  objc_msgSend_setObject_forKey_(v5, v12, v11, @"accountdID");
+  account = [chatCopy account];
+  uniqueID = [account uniqueID];
+  [v5 setObject:uniqueID forKey:@"accountdID"];
 
-  v15 = objc_msgSend_chatIdentifier(chatCopy, v13, v14);
-  objc_msgSend_setObject_forKey_(v5, v16, v15, @"chatIdentifier");
+  chatIdentifier = [chatCopy chatIdentifier];
+  [v5 setObject:chatIdentifier forKey:@"chatIdentifier"];
 
-  v19 = objc_msgSend_guid(chatCopy, v17, v18);
-  objc_msgSend_setObject_forKey_(v5, v20, v19, @"guid");
+  guid = [chatCopy guid];
+  [v5 setObject:guid forKey:@"guid"];
 
-  v21 = MEMORY[0x1E696AD98];
-  v24 = objc_msgSend_chatStyle(chatCopy, v22, v23);
-  v26 = objc_msgSend_numberWithInteger_(v21, v25, v24);
-  objc_msgSend_setObject_forKey_(v5, v27, v26, @"style");
+  v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(chatCopy, "chatStyle")}];
+  [v5 setObject:v10 forKey:@"style"];
 
-  v28 = MEMORY[0x1E696AD98];
-  v31 = objc_msgSend_joinState(chatCopy, v29, v30);
+  v11 = MEMORY[0x1E696AD98];
+  joinState = [chatCopy joinState];
 
-  v33 = objc_msgSend_numberWithInteger_(v28, v32, v31);
-  objc_msgSend_setObject_forKey_(v5, v34, v33, @"chatIdentifier");
+  v13 = [v11 numberWithInteger:joinState];
+  [v5 setObject:v13 forKey:@"chatIdentifier"];
 
   return v5;
 }
 
 - (void)sendBalloonPayload:(id)payload attachments:(id)attachments withMessageGUID:(id)d bundleID:(id)iD
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   attachmentsCopy = attachments;
   dCopy = d;
   iDCopy = iD;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v16 = objc_msgSend_listeners(self, v14, v15, 0);
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v24, v28, 16);
-  if (v18)
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  listeners = [(IMSimulatedDaemonController *)self listeners];
+  v15 = [listeners countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v15)
   {
-    v20 = v18;
-    v21 = *v25;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      v22 = 0;
+      v18 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(listeners);
         }
 
-        objc_msgSend_simulatedDaemon_willSendBalloonPayload_attachments_messageGUID_bundleID_(*(*(&v24 + 1) + 8 * v22++), v19, self, payloadCopy, attachmentsCopy, dCopy, iDCopy);
+        [*(*(&v19 + 1) + 8 * v18++) simulatedDaemon:self willSendBalloonPayload:payloadCopy attachments:attachmentsCopy messageGUID:dCopy bundleID:iDCopy];
       }
 
-      while (v20 != v22);
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v24, v28, 16);
+      while (v16 != v18);
+      v16 = [listeners countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v20);
+    while (v16);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)capabilitiesForListenerID:(id)d

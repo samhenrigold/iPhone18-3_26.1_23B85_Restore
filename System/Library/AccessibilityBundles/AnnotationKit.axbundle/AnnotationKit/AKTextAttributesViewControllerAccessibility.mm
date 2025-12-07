@@ -127,15 +127,12 @@ uint64_t __69__AKTextAttributesViewControllerAccessibility__axAddAlignmentLabels
 
 uint64_t __69__AKTextAttributesViewControllerAccessibility__axAddAlignmentLabels___block_invoke_329(uint64_t a1)
 {
-  v2 = [*(a1 + 32) segmentAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) segmentAtIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __69__AKTextAttributesViewControllerAccessibility__axAddAlignmentLabels___block_invoke_2(uint64_t a1)
+void *__69__AKTextAttributesViewControllerAccessibility__axAddAlignmentLabels___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tagForSegment:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

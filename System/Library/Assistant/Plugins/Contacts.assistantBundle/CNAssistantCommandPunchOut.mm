@@ -102,26 +102,13 @@ LABEL_12:
   v16 = objc_msgSend_contactStore(self, v14, v15);
   v18 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v16, v17, v13, MEMORY[0x277CBEBF8], 0);
 
-  if (!v18)
-  {
-    goto LABEL_4;
-  }
-
-  v21 = MEMORY[0x277CBEBC0];
-  v22 = MEMORY[0x277CCACA8];
-  v23 = objc_msgSend_identifier(v18, v19, v20);
-  v25 = objc_msgSend_stringWithFormat_(v22, v24, @"addressbook://%@", v23);
-  v27 = objc_msgSend_URLWithString_(v21, v26, v25);
-
-  LODWORD(v25) = objc_msgSend_openSensitiveURL_(helperCopy, v28, v27);
-  if (v25)
+  if (v18 && (v21 = MEMORY[0x277CBEBC0], v22 = MEMORY[0x277CCACA8], objc_msgSend_identifier(v18, v19, v20), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithFormat_(v22, v24, @"addressbook://%@", v23), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLWithString_(v21, v26, v25), v27 = objc_claimAutoreleasedReturnValue(), v25, v23, LODWORD(v25) = objc_msgSend_openSensitiveURL_(helperCopy, v28, v27), v27, v25))
   {
     v29 = objc_alloc_init(MEMORY[0x277D47218]);
   }
 
   else
   {
-LABEL_4:
     v30 = objc_alloc(MEMORY[0x277D47208]);
     v31 = MEMORY[0x277CCACA8];
     v34 = objc_msgSend_absoluteString(0, v32, v33);

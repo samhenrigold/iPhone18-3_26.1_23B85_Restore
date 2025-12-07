@@ -6,140 +6,141 @@
 
 + (id)getIpv4Interfaces
 {
-  v21 = 0;
+  v22 = 0;
   v2 = objc_opt_new();
-  if (getifaddrs(&v21))
+  v3 = getifaddrs(&v22);
+  if (v3)
   {
-    sub_1000316E4();
+    sub_1000316E4(v3);
 LABEL_31:
-    if (v21)
+    if (v22)
     {
-      freeifaddrs(v21);
+      freeifaddrs(v22);
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_21;
   }
 
-  v3 = v21;
-  if (!v21)
+  v4 = v22;
+  if (!v22)
   {
     goto LABEL_20;
   }
 
   do
   {
-    v4 = sub_100021268();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_100021268(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sa_family = v3->ifa_addr->sa_family;
+      sa_family = v4->ifa_addr->sa_family;
       *buf = 136315394;
       *&buf[4] = "+[MSDIpInterface getIpv4Interfaces]";
-      v25 = 1024;
-      LODWORD(v26) = sa_family;
-      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s - Address family:  %d", buf, 0x12u);
+      v26 = 1024;
+      LODWORD(v27) = sa_family;
+      _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%s - Address family:  %d", buf, 0x12u);
     }
 
-    ifa_addr = v3->ifa_addr;
+    ifa_addr = v4->ifa_addr;
     if (ifa_addr->sa_family == 2)
     {
-      v6 = inet_ntop(2, &ifa_addr->sa_data[2], v27, 0x10u);
-      if (!v6)
+      v7 = inet_ntop(2, &ifa_addr->sa_data[2], v28, 0x10u);
+      if (!v7)
       {
-        sub_10003190C();
+        sub_10003190C(v28);
         goto LABEL_31;
       }
 
-      v7 = [NSString stringWithUTF8String:v6];
-      v8 = sub_100021268();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v8 = [NSString stringWithUTF8String:v7];
+      v9 = sub_100021268(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
         *&buf[4] = "+[MSDIpInterface getIpv4Interfaces]";
-        v25 = 2114;
-        v26 = v7;
-        _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%s - Address:  %{public}@", buf, 0x16u);
+        v26 = 2114;
+        v27 = v8;
+        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s - Address:  %{public}@", buf, 0x16u);
       }
 
-      if ([v7 isEqualToString:@"127.0.0.1"])
+      if ([v8 isEqualToString:@"127.0.0.1"])
       {
         goto LABEL_16;
       }
 
-      v9 = inet_ntop(2, &v3->ifa_netmask->sa_data[2], v27, 0x10u);
-      if (v9)
+      v10 = inet_ntop(2, &v4->ifa_netmask->sa_data[2], v28, 0x10u);
+      if (v10)
       {
-        v10 = [NSString stringWithUTF8String:v9];
-        v11 = inet_ntop(2, &v3->ifa_dstaddr->sa_data[2], v27, 0x10u);
-        if (v11)
+        v11 = [NSString stringWithUTF8String:v10];
+        v12 = inet_ntop(2, &v4->ifa_dstaddr->sa_data[2], v28, 0x10u);
+        if (v12)
         {
-          v12 = [NSString stringWithUTF8String:v11];
-          v13 = [NSString stringWithUTF8String:v3->ifa_name];
-          v14 = v13;
-          if (v13)
+          v13 = [NSString stringWithUTF8String:v12];
+          v14 = [NSString stringWithUTF8String:v4->ifa_name];
+          v15 = v14;
+          if (v14)
           {
-            v22[0] = @"name";
-            v22[1] = @"address";
-            v23[0] = v13;
-            v23[1] = v7;
-            v22[2] = @"netMask";
-            v22[3] = @"broadcastAddr";
-            v23[2] = v10;
-            v23[3] = v12;
-            v15 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:4];
-            v16 = sub_100021268();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v23[0] = @"name";
+            v23[1] = @"address";
+            v24[0] = v14;
+            v24[1] = v8;
+            v23[2] = @"netMask";
+            v23[3] = @"broadcastAddr";
+            v24[2] = v11;
+            v24[3] = v13;
+            v16 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:4];
+            v17 = sub_100021268(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
               *&buf[4] = "+[MSDIpInterface getIpv4Interfaces]";
-              v25 = 2114;
-              v26 = v15;
-              _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "%s - interface:  %{public}@", buf, 0x16u);
+              v26 = 2114;
+              v27 = v16;
+              _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%s - interface:  %{public}@", buf, 0x16u);
             }
 
-            [v2 addObject:v15];
+            [v2 addObject:v16];
 LABEL_16:
 
             goto LABEL_17;
           }
 
-          v20 = sub_100021268();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = sub_100021268(0);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            sub_100031780(buf, &buf[1], v20);
+            sub_100031780(buf, &buf[1], v21);
           }
         }
 
         else
         {
-          sub_1000317C0();
+          sub_1000317C0(0);
         }
       }
 
       else
       {
         sub_10003185C(buf);
-        v10 = *buf;
+        v11 = *buf;
       }
 
       goto LABEL_31;
     }
 
 LABEL_17:
-    v3 = v3->ifa_next;
+    v4 = v4->ifa_next;
   }
 
-  while (v3);
-  if (v21)
+  while (v4);
+  if (v22)
   {
-    freeifaddrs(v21);
+    freeifaddrs(v22);
   }
 
 LABEL_20:
-  v18 = v2;
+  v19 = v2;
 LABEL_21:
 
-  return v18;
+  return v19;
 }
 
 @end

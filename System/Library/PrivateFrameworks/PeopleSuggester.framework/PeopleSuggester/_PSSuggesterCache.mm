@@ -154,7 +154,7 @@
 
 - (void)_refetch
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_refetchLock);
   isClassCLocked = [MEMORY[0x1E69C5D08] isClassCLocked];
   v4 = +[_PSLogging generalChannel];
@@ -163,8 +163,8 @@
   {
     if (v5)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B5ED1000, &v4->super, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Not refetching suggestions due to Class C lock.", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1B5ED1000, &v4->super, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Not refetching suggestions due to Class C lock.", &v17, 2u);
     }
   }
 
@@ -172,8 +172,8 @@
   {
     if (v5)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B5ED1000, &v4->super, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Refetching suggestions", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1B5ED1000, &v4->super, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Refetching suggestions", &v17, 2u);
     }
 
     v4 = objc_alloc_init(_PSPredictionContext);
@@ -189,11 +189,11 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       sessionID = [(_PSPredictionContext *)v4 sessionID];
-      v18 = 138412547;
-      v19 = sessionID;
-      v20 = 2113;
-      v21 = v8;
-      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: fetched suggestions with sessionID %@: %{private}@", &v18, 0x16u);
+      v17 = 138412547;
+      v18 = sessionID;
+      v19 = 2113;
+      v20 = v8;
+      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: fetched suggestions with sessionID %@: %{private}@", &v17, 0x16u);
     }
 
     v11 = [v8 _pas_mappedArrayWithTransform:&__block_literal_global_21];
@@ -209,15 +209,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = self->_cachedPeopleSuggestions;
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: updated _cachedPeopleSuggestions: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v16;
+      _os_log_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: updated _cachedPeopleSuggestions: %@", &v17, 0xCu);
     }
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getCachedSuggestionsAndSessionID:(id *)d
@@ -249,17 +247,16 @@
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (v3)
   {
-    cachedSessionID = self->_cachedSessionID;
-    v6 = [v4 initWithFormat:@"<_PSSuggesterCache %p> cachedSuggestions: %@, cachedSessionID: %@, cachedContext: %@", self, self->_cachedPeopleSuggestions, cachedSessionID, self->_cachedContext];
+    v5 = [v4 initWithFormat:@"<_PSSuggesterCache %p> cachedSuggestions: %@, cachedSessionID: %@, cachedContext: %@", self, self->_cachedPeopleSuggestions, self->_cachedSessionID, self->_cachedContext];
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else
   {
-    v6 = [v4 initWithFormat:@"<_PSSuggesterCache %p> (trylock failed in -[_PSSuggesterCache description])", self];
+    v5 = [v4 initWithFormat:@"<_PSSuggesterCache %p> (trylock failed in -[_PSSuggesterCache description])", self];
   }
 
-  return v6;
+  return v5;
 }
 
 @end

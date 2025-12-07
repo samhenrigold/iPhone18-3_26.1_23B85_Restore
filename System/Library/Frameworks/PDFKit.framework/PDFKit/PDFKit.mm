@@ -10,7 +10,7 @@ uint64_t sub_1C1CB1F60()
   v6 = *(v5 + 80);
   v7 = (v3 + v6 + 16) & ~v6;
   v8 = *(v5 + 64);
-  v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910) - 8);
+  v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020) - 8);
   v10 = *(v9 + 80);
   v11 = (v7 + v8 + v10) & ~v10;
   v15 = *(v9 + 64);
@@ -28,7 +28,7 @@ uint64_t sub_1C1CB1F60()
   return MEMORY[0x1EEE6BDD0](v0, ((v15 + v11 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v17 | v6 | v10 | 7);
 }
 
-void sub_1C1CB3508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, const void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_1C1CB3508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   objc_sync_exit(v25);
 
@@ -171,9 +171,9 @@ void sub_1C1CB4230(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -182,8 +182,6 @@ void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1C1CB445C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14)
@@ -201,20 +199,20 @@ void sub_1C1CB445C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C1CB47A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C1CB47A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va4, a4);
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, const void *);
+  va_start(va4, a7);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v9 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, const void *);
+  v11 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v10 = va_arg(va3, const void *);
+  v13 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v12 = va_arg(va4, const void *);
+  v15 = va_arg(va4, const void *);
   applesauce::CF::ObjectRef<CGPDFDocument *>::~ObjectRef(va);
   applesauce::CF::ObjectRef<CGDataProvider *>::~ObjectRef(va1);
   applesauce::CF::ObjectRef<CGContext *>::~ObjectRef(va2);
@@ -339,9 +337,9 @@ id getCRFormFieldOutputRegionClass(void)
   return v1;
 }
 
-void sub_1C1CB60C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1CB60C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -381,7 +379,7 @@ void VisionLibrary(void)
   v0 = v1[0];
   if (!VisionLibraryCore(char **)::frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -392,7 +390,7 @@ LABEL_7:
   }
 }
 
-uint64_t ___ZL17VisionLibraryCorePPc_block_invoke()
+uint64_t ___ZL17VisionLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore(char **)::frameworkLibrary = result;
@@ -425,8 +423,8 @@ Class ___ZL29getVNImageRequestHandlerClassv_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v3 = ___ZL29getVNImageRequestHandlerClassv_block_invoke_cold_1();
-    std::vector<unsigned char>::__throw_length_error[abi:ne200100](v3);
+    ___ZL29getVNImageRequestHandlerClassv_block_invoke_cold_1();
+    std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
   getVNImageRequestHandlerClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -447,7 +445,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -469,7 +467,7 @@ void sub_1C1CB71E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -853,11 +851,10 @@ unsigned __int8 *std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std:
   return result;
 }
 
-Class ___ZL40getVNRecognizedTextBlockObservationClassv_block_invoke(uint64_t a1)
+void ___ZL40getVNRecognizedTextBlockObservationClassv_block_invoke(uint64_t a1)
 {
   VisionLibrary();
-  result = objc_getClass("VNRecognizedTextBlockObservation");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("VNRecognizedTextBlockObservation");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getVNRecognizedTextBlockObservationClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -865,11 +862,9 @@ Class ___ZL40getVNRecognizedTextBlockObservationClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL40getVNRecognizedTextBlockObservationClassv_block_invoke_cold_1();
-    return PDFQuadPoints::PDFQuadPoints(v3, v4);
+    v2 = ___ZL40getVNRecognizedTextBlockObservationClassv_block_invoke_cold_1();
+    PDFQuadPoints::PDFQuadPoints(v2, v3);
   }
-
-  return result;
 }
 
 void PDFQuadPoints::PDFQuadPoints(PDFQuadPoints *this, CRNormalizedQuad *a2)
@@ -924,7 +919,7 @@ Class ___ZL31getCRFormFieldOutputRegionClassv_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -942,7 +937,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t ___ZL26TextRecognitionLibraryCorePPc_block_invoke()
+uint64_t ___ZL26TextRecognitionLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TextRecognitionLibraryCore(char **)::frameworkLibrary = result;
@@ -1015,9 +1010,9 @@ const void **applesauce::CF::ObjectRef<__CFAttributedString const*>::~ObjectRef(
   return a1;
 }
 
-void sub_1C1CB8D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1CB8D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1118,9 +1113,9 @@ BOOL getStreams(const char *a1, uint64_t a2, uint64_t a3)
   return CGPDFDictionaryGetStream(v6, a1, (a3 + v5));
 }
 
-void sub_1C1CCF4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1CCF4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1150,7 +1145,7 @@ Class __getCRNormalizedQuadClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1168,7 +1163,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __TextRecognitionLibraryCore_block_invoke()
+uint64_t __TextRecognitionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TextRecognitionLibraryCore_frameworkLibrary = result;
@@ -1200,7 +1195,7 @@ Class __getVKCFormRegionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1218,7 +1213,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VisionKitCoreLibraryCore_block_invoke()
+uint64_t __VisionKitCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionKitCoreLibraryCore_frameworkLibrary = result;
@@ -1284,13 +1279,13 @@ LABEL_4:
 
     CFSetAddValue(theSet, value);
     valuea = 0;
-    v31 = 0.0;
-    v32 = 0;
-    v29 = 0;
-    v30 = 0;
+    v26 = 0.0;
     v27 = 0;
-    v28 = 0;
-    v26 = 0;
+    v24 = 0;
+    v25 = 0;
+    v22 = 0;
+    v23 = 0;
+    v21 = 0;
     if (CGPDFObjectGetValue(value, kCGPDFObjectTypeBoolean, &valuea))
     {
       v5 = [MEMORY[0x1E696AD98] numberWithBool:valuea != 0];
@@ -1299,78 +1294,78 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeInteger, &v32))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeInteger, &v27))
     {
-      v5 = [MEMORY[0x1E696AD98] numberWithInteger:v32];
+      v5 = [MEMORY[0x1E696AD98] numberWithInteger:v27];
       goto LABEL_15;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeReal, &v31))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeReal, &v26))
     {
-      v5 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
+      v5 = [MEMORY[0x1E696AD98] numberWithDouble:v26];
       goto LABEL_15;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeName, &v30))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeName, &v25))
     {
-      v5 = CGPDFDictionaryKeyString(v30);
+      v5 = CGPDFDictionaryKeyString(v25);
       goto LABEL_15;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeString, &v29))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeString, &v24))
     {
-      v5 = CGPDFStringCopyTextString(v29);
+      v5 = CGPDFStringCopyTextString(v24);
       goto LABEL_15;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeStream, &v26))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeStream, &v21))
     {
-      Dictionary = CGPDFStreamGetDictionary(v26);
+      Dictionary = CGPDFStreamGetDictionary(v21);
       __s1 = 0;
       if (!CGPDFDictionaryGetName(Dictionary, "Type", &__s1) || strncmp(__s1, "Data", 4uLL))
       {
         goto LABEL_4;
       }
 
-      v5 = CGPDFStreamCopyData(v26, 0);
+      v5 = CGPDFStreamCopyData(v21, 0);
       goto LABEL_15;
     }
 
-    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeArray, &v28))
+    if (CGPDFObjectGetValue(value, kCGPDFObjectTypeArray, &v23))
     {
       v8 = [MEMORY[0x1E695DF70] array];
-      v9 = v28;
+      v9 = v23;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __CGPDFDictionaryCreateNSObject_block_invoke;
       block[3] = &unk_1E8150D68;
-      v24 = theSet;
+      v19 = theSet;
       v2 = v8;
-      v23 = v2;
+      v18 = v2;
       CGPDFArrayApplyBlock(v9, block, 0);
-      v10 = v23;
+      v10 = v18;
     }
 
     else
     {
-      if (!CGPDFObjectGetValue(value, kCGPDFObjectTypeDictionary, &v27))
+      if (!CGPDFObjectGetValue(value, kCGPDFObjectTypeDictionary, &v22))
       {
         Type = CGPDFObjectGetType(value);
-        _PDFLog(OS_LOG_TYPE_DEBUG, "PDFCGUtilities", "CGPDFDictionaryCreateNSObject: Encountered unknown CGPDFObject of type: %d", v14, v15, v16, v17, v18, Type);
+        _PDFLog(OS_LOG_TYPE_DEBUG, "PDFCGUtilities", "CGPDFDictionaryCreateNSObject: Encountered unknown CGPDFObject of type: %d", Type);
         goto LABEL_4;
       }
 
       v11 = [MEMORY[0x1E695DF90] dictionary];
-      v12 = v27;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __CGPDFDictionaryCreateNSObject_block_invoke_2;
-      v19[3] = &unk_1E8150D90;
-      v21 = theSet;
+      v12 = v22;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __CGPDFDictionaryCreateNSObject_block_invoke_2;
+      v14[3] = &unk_1E8150D90;
+      v16 = theSet;
       v2 = v11;
-      v20 = v2;
-      CGPDFDictionaryApplyBlock(v12, v19, 0);
-      v10 = v20;
+      v15 = v2;
+      CGPDFDictionaryApplyBlock(v12, v14, 0);
+      v10 = v15;
     }
   }
 
@@ -1432,19 +1427,19 @@ uint64_t __CGPDFDictionaryCreateNSObject_block_invoke_2(uint64_t a1, uint64_t a2
   return 1;
 }
 
-void sub_1C1CD67E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C1CD67E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C1CD6A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1C1CD6A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  std::mutex::unlock((v20 + 48));
+  std::mutex::unlock((v27 + 48));
 
   _Unwind_Resume(a1);
 }
@@ -1463,9 +1458,9 @@ void sub_1C1CD7278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C1CD73E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C1CD73E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1480,26 +1475,26 @@ __n128 __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1C1CD7B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C1CD7B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va6, a4);
-  va_start(va5, a4);
-  va_start(va4, a4);
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8 = va_arg(va1, const void *);
+  va_start(va6, a7);
+  va_start(va5, a7);
+  va_start(va4, a7);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v10 = va_arg(va2, const void *);
+  v13 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v12 = va_arg(va3, const void *);
+  v15 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v14 = va_arg(va4, const void *);
+  v17 = va_arg(va4, const void *);
   va_copy(va5, va4);
-  v16 = va_arg(va5, const void *);
+  v19 = va_arg(va5, const void *);
   va_copy(va6, va5);
-  v18 = va_arg(va6, const void *);
+  v21 = va_arg(va6, const void *);
   applesauce::CF::ObjectRef<CGPDFDocument *>::~ObjectRef(va);
   applesauce::CF::ObjectRef<CGDataProvider *>::~ObjectRef(va1);
   applesauce::CF::ObjectRef<CGContext *>::~ObjectRef(va2);
@@ -1637,7 +1632,7 @@ void divideQuadSideIntoSegments(void *a1, uint64_t a2, double *a3)
   a3[11] = v9;
 }
 
-void sub_1C1CD95C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, void *a20)
+void sub_1C1CD95C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
 {
   std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map_value_compare<double,std::__value_type<double,PDFAnnotation * {__strong}>,std::less<double>,true>,std::allocator<std::__value_type<double,PDFAnnotation * {__strong}>>>::destroy(&a19, a20);
 
@@ -1679,7 +1674,7 @@ void VisionKitCoreLibrary(void)
   v0 = v1[0];
   if (!VisionKitCoreLibraryCore(char **)::frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1690,18 +1685,17 @@ LABEL_7:
   }
 }
 
-uint64_t ___ZL24VisionKitCoreLibraryCorePPc_block_invoke()
+uint64_t ___ZL24VisionKitCoreLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionKitCoreLibraryCore(char **)::frameworkLibrary = result;
   return result;
 }
 
-Class ___ZL30getVKImageAnalyzerRequestClassv_block_invoke(uint64_t a1)
+void ___ZL30getVKImageAnalyzerRequestClassv_block_invoke(uint64_t a1)
 {
   VisionKitCoreLibrary();
-  result = objc_getClass("VKImageAnalyzerRequest");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("VKImageAnalyzerRequest");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getVKImageAnalyzerRequestClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -1709,11 +1703,9 @@ Class ___ZL30getVKImageAnalyzerRequestClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL30getVKImageAnalyzerRequestClassv_block_invoke_cold_1();
-    return CGBuf::CGBuf(v3, v4);
+    v2 = ___ZL30getVKImageAnalyzerRequestClassv_block_invoke_cold_1();
+    CGBuf::CGBuf(v2, v3);
   }
-
-  return result;
 }
 
 void CGBuf::CGBuf(CGBuf *this, const CGBuf *a2)
@@ -1816,7 +1808,7 @@ void CGBufferStorage::~CGBufferStorage(atomic_ullong *this)
   }
 }
 
-const void **___ZL14getVKQuadClassv_block_invoke(uint64_t a1)
+Class ___ZL14getVKQuadClassv_block_invoke(uint64_t a1)
 {
   VisionKitCoreLibrary();
   result = objc_getClass("VKQuad");
@@ -1828,7 +1820,7 @@ const void **___ZL14getVKQuadClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL14getVKQuadClassv_block_invoke_cold_1();
+    ___ZL14getVKQuadClassv_block_invoke_cold_1();
     return applesauce::CF::ObjectRef<CGDisplayList *>::~ObjectRef(v3);
   }
 
@@ -1856,48 +1848,48 @@ void std::__destroy_at[abi:ne200100]<std::pair<double const,applesauce::CF::Obje
   }
 }
 
-uint64_t *std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__emplace_unique_key_args<double,double &,applesauce::CF::ObjectRef<__CTFont const*>&>(uint64_t a1, double *a2)
+uint64_t *std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__emplace_unique_key_args<double,double &,applesauce::CF::ObjectRef<__CTFont const*>&>(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 4);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 4);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!*v4)
+      v4 = *v4;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v2;
+      return v4;
     }
 
-    v2 = v2[1];
-    if (!v2)
+    v4 = v4[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::__map_value_compare<double,std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>,std::less<double>,true>,std::allocator<std::__value_type<double,applesauce::CF::ObjectRef<__CTFont const*>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1953,12 +1945,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1972,22 +1964,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2021,13 +2013,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2091,41 +2083,41 @@ void std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map
   }
 }
 
-uint64_t *std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map_value_compare<double,std::__value_type<double,PDFAnnotation * {__strong}>,std::less<double>,true>,std::allocator<std::__value_type<double,PDFAnnotation * {__strong}>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(uint64_t a1, double *a2)
+uint64_t *std::__tree<std::__value_type<double,PDFAnnotation * {__strong}>,std::__map_value_compare<double,std::__value_type<double,PDFAnnotation * {__strong}>,std::less<double>,true>,std::allocator<std::__value_type<double,PDFAnnotation * {__strong}>>>::__emplace_unique_key_args<double,std::piecewise_construct_t const&,std::tuple<double const&>,std::tuple<>>(uint64_t a1, double *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 4);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 4);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!*v4)
+      v4 = *v4;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v2;
+      return v4;
     }
 
-    v2 = v2[1];
-    if (!v2)
+    v4 = v4[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2148,24 +2140,24 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<double,PDFAnnotation
   return a1;
 }
 
-void sub_1C1CDC178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C1CDC178(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PDFPageEvaluator;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C1CDC278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C1CDC278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_ptr<CGPDFScanner,std::function<void ()(CGPDFScanner*)>>::reset[abi:ne200100](va, 0);
-  std::__function::__value_func<void ()(CGPDFScanner *)>::~__value_func[abi:ne200100](v5 + 8);
+  std::__function::__value_func<void ()(CGPDFScanner *)>::~__value_func[abi:ne200100](v9 + 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1CDC524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C1CDC524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2309,9 +2301,16 @@ void sub_1C1CE1A7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C1CE26C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C1CE1F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  va_start(va, a9);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C1CE26C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2321,6 +2320,13 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1C1CE3724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1C1CE60D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, id a20)
@@ -2356,19 +2362,17 @@ void sub_1C1CEE154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t PDFPageLayerTileRectFromPoints(__n128 a1, __n128 a2, double a3, double a4)
+void PDFPageLayerTileRectFromPoints(double a1, double a2, double a3, double a4)
 {
-  v4 = a3 - a1.n128_f64[0];
+  v4 = a3 - a1;
   if (v4 >= 0.0)
   {
-    v5 = a4 - a2.n128_f64[0];
+    v5 = a4 - a2;
     if (v5 >= 0.0)
     {
-      return PDFRectMake(a1, a2, v4, v5);
+      PDFRectMake();
     }
   }
-
-  return result;
 }
 
 void sub_1C1CF6640(_Unwind_Exception *a1)
@@ -2415,24 +2419,24 @@ void sub_1C1CFB220(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<CGRect>::resize(void *a1, unint64_t a2)
+void std::vector<CGRect>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<CGRect>::__append(a1, a2 - v2);
+    std::vector<CGRect>::__append(result, a2 - v2);
   }
 }
 
-void sub_1C1CFBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, void *a28, uint64_t a29, char a30, void *a31)
+void sub_1C1CFBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31)
 {
   std::__tree<unsigned long>::destroy(&a27, a28);
   std::__tree<unsigned long>::destroy(&a30, a31);
@@ -2559,41 +2563,41 @@ void std::__tree<unsigned long>::destroy(uint64_t a1, void *a2)
   }
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -2609,7 +2613,7 @@ void *std::set<unsigned long>::set[abi:ne200100](void *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned long,std::__tree_node<unsigned long,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -2617,7 +2621,7 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
     v5 = result;
     do
     {
-      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -2651,15 +2655,15 @@ uint64_t std::set<unsigned long>::insert[abi:ne200100]<std::__tree_const_iterato
   return result;
 }
 
-uint64_t std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<unsigned long>::__emplace_hint_unique_key_args<unsigned long,unsigned long const&>(uint64_t **a1, void *a2, unint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned long>::__find_equal<unsigned long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<unsigned long>::__find_equal<unsigned long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -2889,7 +2893,7 @@ Class __getAFInsertionManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2907,7 +2911,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __AutoFillCoreLibraryCore_block_invoke()
+uint64_t __AutoFillCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AutoFillCoreLibraryCore_frameworkLibrary = result;
@@ -2950,7 +2954,7 @@ void _iterateDictionaryValueCallback(uint64_t a1, CGPDFObject *a2, void *a3)
   }
 }
 
-id _objectForCGPDFObjectRefAndVisitedSet(CGPDFObject *a1, void *a2)
+__CFString *_objectForCGPDFObjectRefAndVisitedSet(CGPDFObject *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -3588,35 +3592,35 @@ void sub_1C1D14B80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D15648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1D15648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id RVItemClass()
+id RVItemClass(uint64_t a1)
 {
   if (loadReveal_onceToken != -1)
   {
     RVItemClass_cold_1();
   }
 
-  v1 = kRVItemClass;
+  v2 = kRVItemClass;
 
-  return v1;
+  return v2;
 }
 
-id DDParsecCollectionViewControllerClass()
+id DDParsecCollectionViewControllerClass(uint64_t a1)
 {
   if (loadReveal_onceToken != -1)
   {
     RVItemClass_cold_1();
   }
 
-  v1 = kDDParsecCollectionViewControllerClass;
+  v2 = kDDParsecCollectionViewControllerClass;
 
-  return v1;
+  return v2;
 }
 
 void *__loadReveal_block_invoke()
@@ -3637,16 +3641,16 @@ void *__loadReveal_block_invoke()
   return result;
 }
 
-void sub_1C1D1EFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C1D1EFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D1F588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1D1F588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3675,65 +3679,66 @@ void sub_1C1D227F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void _PDFLog(os_log_type_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void _PDFLog(os_log_type_t a1, uint64_t a2, const char *a3, ...)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  va_start(va, a3);
+  v14 = *MEMORY[0x1E69E9840];
   if (_PDFLog_onceToken != -1)
   {
     _PDFLog_cold_1();
   }
 
-  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:a3];
-  v14 = [v12 initWithFormat:v13 arguments:&a9];
+  v6 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:a3];
+  v8 = [v6 initWithFormat:v7 arguments:va];
 
-  if (v14)
+  if (v8)
   {
-    v15 = sLog;
+    v9 = sLog;
     if (os_log_type_enabled(sLog, a1))
     {
       *buf = 136446466;
-      v17 = a2;
-      v18 = 2114;
-      v19 = v14;
-      _os_log_impl(&dword_1C1CB0000, v15, a1, "%{public}20s | %{public}@", buf, 0x16u);
+      v11 = a2;
+      v12 = 2114;
+      v13 = v8;
+      _os_log_impl(&dword_1C1CB0000, v9, a1, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 }
 
 void UpdateRectTransformDictionary(void *a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v8 = a1;
   v9 = a2;
-  v31 = a4;
+  v32 = a4;
   v10 = a5;
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
   v12 = [v8 allKeys];
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
+    v15 = *v43;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v42 != v15)
+        if (*v43 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * i);
+        v17 = *(*(&v42 + 1) + 8 * i);
         v18 = [v8 objectForKey:v17];
         [v11 setObject:v18 forKey:v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v14);
@@ -3741,82 +3746,84 @@ void UpdateRectTransformDictionary(void *a1, void *a2, uint64_t a3, void *a4, vo
 
   [MEMORY[0x1E6979518] begin];
   [MEMORY[0x1E6979518] setDisableActions:1];
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   obj = v9;
-  v19 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v19 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v38;
+    v21 = *v39;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v38 != v21)
+        if (*v39 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * j);
-        v48 = *(v23 + 16);
+        v23 = *(*(&v38 + 1) + 8 * j);
+        v49 = *(v23 + 16);
         v24 = *(v23 + 64);
-        *&v36.a = *(v23 + 48);
-        *&v36.c = v24;
-        *&v36.tx = *(v23 + 80);
-        v49 = CGRectApplyAffineTransform(v48, &v36);
-        v25 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{PDFRectFromCGRect(v49.origin.x, v49.origin.y, v49.size.width, v49.size.height)}];
-        v26 = [v11 objectForKey:v25];
-        if (v26)
+        *&v37.a = *(v23 + 48);
+        *&v37.c = v24;
+        *&v37.tx = *(v23 + 80);
+        CGRectApplyAffineTransform(v49, &v37);
+        v25 = MEMORY[0x1E696B098];
+        PDFRectFromCGRect();
+        v26 = [v25 PDFKitValueWithPDFRect:?];
+        v27 = [v11 objectForKey:v26];
+        if (v27)
         {
-          v27 = v26;
+          v28 = v27;
           if (v10)
           {
-            v10[2](v10, v23, v26);
+            v10[2](v10, v23, v27);
           }
 
-          [v11 removeObjectForKey:v25];
+          [v11 removeObjectForKey:v26];
         }
 
         else
         {
-          v28 = v31[2](v31, v23);
-          if (!v28)
+          v29 = v32[2](v32, v23);
+          if (!v29)
           {
             goto LABEL_20;
           }
 
-          v27 = v28;
-          [v8 setObject:v28 forKey:v25];
+          v28 = v29;
+          [v8 setObject:v29 forKey:v26];
         }
 
 LABEL_20:
       }
 
-      v20 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v20 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v20);
   }
 
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __UpdateRectTransformDictionary_block_invoke;
-  v34[3] = &unk_1E8151CA0;
-  v29 = v8;
-  v35 = v29;
-  [v11 enumerateKeysAndObjectsUsingBlock:v34];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __UpdateRectTransformDictionary_block_invoke;
+  v35[3] = &unk_1E8151CA0;
+  v30 = v8;
+  v36 = v30;
+  [v11 enumerateKeysAndObjectsUsingBlock:v35];
   [v11 removeAllObjects];
   if (a3)
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __UpdateRectTransformDictionary_block_invoke_2;
-    v33[3] = &__block_descriptor_40_e33_v32__0__NSValue_8__CALayer_16_B24l;
-    v33[4] = a3;
-    [v29 enumerateKeysAndObjectsUsingBlock:v33];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __UpdateRectTransformDictionary_block_invoke_2;
+    v34[3] = &__block_descriptor_40_e33_v32__0__NSValue_8__CALayer_16_B24l;
+    v34[4] = a3;
+    [v30 enumerateKeysAndObjectsUsingBlock:v34];
   }
 
   [MEMORY[0x1E6979518] commit];
@@ -3884,11 +3891,11 @@ void sub_1C1D2BF3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D2C534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C1D2C534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, const void *);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(va);
   applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(va1);
   _Unwind_Resume(a1);
@@ -3905,12 +3912,12 @@ const void **applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(const void *
   return a1;
 }
 
-uint64_t __copy_helper_block_ea8_64c62_ZTSNSt3__16vectorIPK18CGDisplayListEntryNS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_64c62_ZTSNSt3__16vectorIPK18CGDisplayListEntryNS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  v2 = a1 + 64;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 64);
+  v2[2] = 0;
   return std::vector<CGDisplayListEntry const*>::__init_with_size[abi:ne200100]<CGDisplayListEntry const**,CGDisplayListEntry const**>(v2, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 3);
 }
 
@@ -4094,14 +4101,14 @@ id *PDFDetectedFormRow::fieldNearestXCoordinate(PDFDetectedFormRow *this, double
   return v2;
 }
 
-void sub_1C1D2CC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C1D2CC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<PDFDetectedFormField * {__strong}>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-char *std::vector<PDFDetectedFormRow>::insert(uint64_t *a1, uint64_t a2, uint64_t a3)
+char **std::vector<PDFDetectedFormRow>::insert(uint64_t *a1, char **a2, char **a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -4156,20 +4163,20 @@ char *std::vector<PDFDetectedFormRow>::insert(uint64_t *a1, uint64_t a2, uint64_
 
   else
   {
-    std::vector<PDFDetectedFormRow>::__move_range(a1, a2, v6, a2 + 32);
+    std::vector<PDFDetectedFormRow>::__move_range(a1, a2, v6, (a2 + 4));
     *v4 = *a3;
     if (v4 != a3)
     {
-      std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((v4 + 8), *(a3 + 8), *(a3 + 16), (*(a3 + 16) - *(a3 + 8)) >> 3);
+      std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v4 + 1, a3[1], a3[2], (a3[2] - a3[1]) >> 3);
     }
   }
 
   return v4;
 }
 
-void sub_1C1D2CD60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1D2CD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<PDFDetectedFormRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4181,10 +4188,10 @@ void PDFDetectedFormRow::insertField(PDFDetectedFormRow *this, PDFDetectedFormFi
   v4 = *(this + 2);
   v7 = 0;
   v5 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<PDFDetectedFormField * {__strong}*>,PDFDetectedFormField * {__strong},std::__identity,PDFDetectedFormRow::insertField(PDFDetectedFormField *)::{lambda(PDFDetectedFormField *,PDFDetectedFormField *)#1}>(v3, &v6, (v4 - v3) >> 3);
-  std::vector<PDFDetectedFormField * {__strong}>::insert(this + 8, v5, &v6);
+  std::vector<PDFDetectedFormField * {__strong}>::insert(this + 1, v5, &v6);
 }
 
-void sub_1C1D2CFBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
+void sub_1C1D2CFBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
 {
   _Block_object_dispose(&a16, 8);
   if (__p)
@@ -4225,14 +4232,12 @@ void *__Block_byref_object_copy__3(void *result, void *a2)
 
 __n128 __Block_byref_object_copy__49(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4247,22 +4252,20 @@ void __Block_byref_object_dispose__50(uint64_t a1)
   }
 }
 
-void *std::vector<CGDisplayListEntry const*>::reserve(void *result, unint64_t a2)
+void std::vector<CGDisplayListEntry const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<CGDisplayListEntry const*>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<CGDisplayListEntry const*>>(a1, a2);
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::vector<CGDisplayListEntry const*>::__init_with_size[abi:ne200100]<CGDisplayListEntry const**,CGDisplayListEntry const**>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGDisplayListEntry const*>::__init_with_size[abi:ne200100]<CGDisplayListEntry const**,CGDisplayListEntry const**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4284,7 +4287,7 @@ void sub_1C1D2D580(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGDisplayListEntry const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGDisplayListEntry const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4336,14 +4339,14 @@ void **std::vector<PDFDetectedFormField * {__strong}>::erase(uint64_t a1, void *
   return a2;
 }
 
-uint64_t std::vector<PDFDetectedFormRow>::__construct_one_at_end[abi:ne200100]<PDFDetectedFormRow>(uint64_t a1, void *a2)
+uint64_t *std::vector<PDFDetectedFormRow>::__construct_one_at_end[abi:ne200100]<PDFDetectedFormRow>(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   v3[2] = 0;
   v3[3] = 0;
   v3[1] = 0;
-  result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((v3 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 3);
+  result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v3 + 1, a2[1], a2[2], (a2[2] - a2[1]) >> 3);
   *(a1 + 8) = v3 + 4;
   return result;
 }
@@ -4356,15 +4359,15 @@ uint64_t std::vector<PDFDetectedFormRow>::__move_range(uint64_t a1, uint64_t a2,
   if (v7 < a3)
   {
     v10 = (v6 + 8);
-    v11 = (a2 + v6 - a4);
+    v11 = a2 + v6 - a4;
     do
     {
       *(v10 - 1) = *v11;
       v10[1] = 0;
       v10[2] = 0;
       *v10 = 0;
-      std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v10, v11[1], v11[2], (v11[2] - v11[1]) >> 3);
-      v11 += 4;
+      std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v10, *(v11 + 8), *(v11 + 16), (*(v11 + 16) - *(v11 + 8)) >> 3);
+      v11 += 32;
       v10 += 4;
     }
 
@@ -4376,7 +4379,7 @@ uint64_t std::vector<PDFDetectedFormRow>::__move_range(uint64_t a1, uint64_t a2,
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PDFDetectedFormRow *,PDFDetectedFormRow *,PDFDetectedFormRow *>(&v13, a2, v7, v6);
 }
 
-uint64_t std::__split_buffer<PDFDetectedFormRow>::emplace_back<PDFDetectedFormRow>(unint64_t *a1, void *a2)
+uint64_t *std::__split_buffer<PDFDetectedFormRow>::emplace_back<PDFDetectedFormRow>(unint64_t *a1, void *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -4413,37 +4416,37 @@ uint64_t std::__split_buffer<PDFDetectedFormRow>::emplace_back<PDFDetectedFormRo
   v4[2] = 0;
   v4[3] = 0;
   v4[1] = 0;
-  result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((v4 + 1), a2[1], a2[2], (a2[2] - a2[1]) >> 3);
+  result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v4 + 1, a2[1], a2[2], (a2[2] - a2[1]) >> 3);
   a1[2] += 32;
   return result;
 }
 
-uint64_t std::vector<PDFDetectedFormRow>::__swap_out_circular_buffer(uint64_t a1, uint64_t a2, char *a3)
+uint64_t std::vector<PDFDetectedFormRow>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v6 = *(a2 + 8);
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>(a1, a3, *(a1 + 8), *(a2 + 16));
+  v6 = a2[1];
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
-  v8 = *(a2 + 8);
-  *(a2 + 16) += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  v8 = a2[1];
+  a2[2] += a1[1] - a3;
+  a1[1] = a3;
   v9 = (v8 + v7 - a3);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>(a1, v7, a3, v9);
-  *(a2 + 8) = v9;
+  a2[1] = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
-  *a1 = *(a2 + 8);
-  *(a2 + 8) = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = *(a2 + 16);
-  *(a2 + 16) = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = *(a2 + 24);
-  *(a2 + 24) = v12;
-  *a2 = *(a2 + 8);
+  a1[1] = *a1;
+  *a1 = a2[1];
+  a2[1] = v10;
+  v11 = a1[1];
+  a1[1] = a2[2];
+  a2[2] = v11;
+  v12 = a1[2];
+  a1[2] = a2[3];
+  a2[3] = v12;
+  *a2 = a2[1];
   return v6;
 }
 
-uint64_t std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4453,7 +4456,7 @@ uint64_t std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne
   return result;
 }
 
-void std::vector<PDFDetectedFormField * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PDFDetectedFormField * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4514,7 +4517,7 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
       v8 -= 32;
       if (v6 != a4)
       {
-        std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(a4 - 24, *(v6 - 24), *(v6 - 16), (*(v6 - 16) - *(v6 - 24)) >> 3);
+        std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((a4 - 24), *(v6 - 24), *(v6 - 16), (*(v6 - 16) - *(v6 - 24)) >> 3);
       }
 
       a4 = v8;
@@ -4527,15 +4530,15 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
   return a3;
 }
 
-void std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(uint64_t a1, void **a2, void **a3, unint64_t a4)
+void std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(char **a1, void **a2, void **a3, unint64_t a4)
 {
   v7 = *a1;
-  if (a4 > (*(a1 + 16) - *a1) >> 3)
+  if (a4 > (a1[2] - *a1) >> 3)
   {
     std::vector<PDFDetectedFormField * {__strong}>::__vdeallocate(a1);
     if (!(a4 >> 61))
     {
-      v8 = *(a1 + 16) - *a1;
+      v8 = a1[2] - *a1;
       v9 = v8 >> 2;
       if (v8 >> 2 <= a4)
       {
@@ -4558,12 +4561,12 @@ void std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne20
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8) - v7;
+  v11 = a1[1] - v7;
   if (a4 <= v11 >> 3)
   {
     std::__copy_impl::operator()[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(&v21, a2, a3, v7);
     v17 = v16;
-    v18 = *(a1 + 8);
+    v18 = a1[1];
     if (v18 != v16)
     {
       do
@@ -4575,32 +4578,33 @@ void std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne20
       while (v18 != v17);
     }
 
-    *(a1 + 8) = v17;
+    a1[1] = v17;
   }
 
   else
   {
     v12 = (a2 + v11);
     std::__copy_impl::operator()[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(&v20, a2, (a2 + v11), v7);
-    v13 = *(a1 + 8);
+    v13 = a1[1];
     if (v12 != a3)
     {
-      v14 = *(a1 + 8);
+      v14 = a1[1];
       do
       {
         v15 = *v12++;
-        *v14++ = v15;
+        *v14 = v15;
+        v14 += 8;
         v13 += 8;
       }
 
       while (v12 != a3);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 }
 
-void std::vector<PDFDetectedFormField * {__strong}>::__vdeallocate(void **a1)
+void std::vector<PDFDetectedFormField * {__strong}>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -4655,7 +4659,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PDFDetectedFormRow>>(
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PDFDetectedFormRow *,PDFDetectedFormRow *,PDFDetectedFormRow *>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PDFDetectedFormRow *,PDFDetectedFormRow *,PDFDetectedFormRow *>(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -4665,7 +4669,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PDFD
       *a4 = *v5;
       if (v5 != a4)
       {
-        std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((a4 + 1), *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 3);
+        std::vector<PDFDetectedFormField * {__strong}>::__assign_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(a4 + 1, *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 3);
       }
 
       v5 += 32;
@@ -4679,10 +4683,10 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PDFD
   return v5;
 }
 
-uint64_t std::__split_buffer<PDFDetectedFormRow>::__construct_at_end_with_size<std::move_iterator<PDFDetectedFormRow*>>(uint64_t result, void *a2, uint64_t a3)
+uint64_t *std::__split_buffer<PDFDetectedFormRow>::__construct_at_end_with_size<std::move_iterator<PDFDetectedFormRow*>>(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a3)
   {
     v6 = (v4 + 8);
@@ -4694,8 +4698,8 @@ uint64_t std::__split_buffer<PDFDetectedFormRow>::__construct_at_end_with_size<s
       v6[1] = 0;
       v6[2] = 0;
       *v6 = 0;
-      result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v6, a2[1], a2[2], (a2[2] - a2[1]) >> 3);
-      a2 += 4;
+      result = std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v6, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+      a2 += 32;
       v6 += 4;
       v7 -= 32;
     }
@@ -4703,11 +4707,11 @@ uint64_t std::__split_buffer<PDFDetectedFormRow>::__construct_at_end_with_size<s
     while (v7);
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v11 = a4;
   v12 = a4;
@@ -4731,8 +4735,8 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PD
       v4[2] = 0;
       v4[3] = 0;
       v4[1] = 0;
-      std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>((v4 + 1), v7[1], v7[2], (v7[2] - v7[1]) >> 3);
-      v7 += 4;
+      std::vector<PDFDetectedFormField * {__strong}>::__init_with_size[abi:ne200100]<PDFDetectedFormField * {__strong}*,PDFDetectedFormField * {__strong}*>(v4 + 1, *(v7 + 8), *(v7 + 16), (*(v7 + 16) - *(v7 + 8)) >> 3);
+      v7 += 32;
       v4 = v12 + 4;
       v12 += 4;
     }
@@ -4741,18 +4745,18 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PD
     v10 = 1;
     while (v6 != a3)
     {
-      v13 = (v6 + 1);
+      v13 = (v6 + 8);
       std::vector<PDFDetectedFormField * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v13);
-      v6 += 4;
+      v6 += 32;
     }
   }
 
   return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>>::~__exception_guard_exceptions[abi:ne200100](v9);
 }
 
-void sub_1C1D2DFD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1D2DFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<PDFDetectedFormRow>,PDFDetectedFormRow*>>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4807,11 +4811,11 @@ void std::__split_buffer<PDFDetectedFormRow>::clear[abi:ne200100](uint64_t a1)
   }
 }
 
-void **std::vector<PDFDetectedFormField * {__strong}>::insert(uint64_t a1, uint64_t a2, id *a3)
+id *std::vector<PDFDetectedFormField * {__strong}>::insert(uint64_t *a1, id *a2, id *a3)
 {
   v4 = a2;
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
+  v7 = a1[1];
+  v6 = a1[2];
   if (v7 >= v6)
   {
     v10 = *a1;
@@ -4847,8 +4851,8 @@ void **std::vector<PDFDetectedFormField * {__strong}>::insert(uint64_t a1, uint6
     }
 
     v18[0] = 0;
-    v18[1] = (8 * v16);
-    v18[2] = (8 * v16);
+    v18[1] = 8 * v16;
+    v18[2] = 8 * v16;
     v18[3] = 0;
     std::__split_buffer<PDFDetectedFormField * {__strong}>::emplace_back<PDFDetectedFormField * const {__strong}&>(v18, a3);
     v4 = std::vector<PDFDetectedFormField * {__strong}>::__swap_out_circular_buffer(a1, v18, v4);
@@ -4858,13 +4862,13 @@ void **std::vector<PDFDetectedFormField * {__strong}>::insert(uint64_t a1, uint6
   else if (a2 == v7)
   {
     *v7 = *a3;
-    *(a1 + 8) = v7 + 1;
+    a1[1] = (v7 + 1);
   }
 
   else
   {
-    std::vector<PDFDetectedFormField * {__strong}>::__move_range(a1, a2, *(a1 + 8), (a2 + 8));
-    v8 = *(a1 + 8) <= a3 || v4 > a3;
+    std::vector<PDFDetectedFormField * {__strong}>::__move_range(a1, a2, a1[1], a2 + 8);
+    v8 = a1[1] <= a3 || v4 > a3;
     v9 = 1;
     if (v8)
     {
@@ -4877,9 +4881,9 @@ void **std::vector<PDFDetectedFormField * {__strong}>::insert(uint64_t a1, uint6
   return v4;
 }
 
-void sub_1C1D2E238(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1D2E238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<PDFDetectedFormField * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4925,7 +4929,7 @@ id *std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__wra
 void std::vector<PDFDetectedFormField * {__strong}>::__move_range(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
 {
   v4 = *(a1 + 8);
-  v5 = (v4 - a4);
+  v5 = v4 - a4;
   v6 = (a2 + v4 - a4);
   v7 = v4;
   while (v6 < a3)
@@ -4943,8 +4947,8 @@ void std::vector<PDFDetectedFormField * {__strong}>::__move_range(uint64_t a1, u
     v10 = a2 - 8;
     do
     {
-      v11 = *&v5[v10];
-      *&v5[v10] = 0;
+      v11 = *(v10 + v5);
+      *(v10 + v5) = 0;
       v12 = *v9;
       *v9-- = v11;
 
@@ -4955,7 +4959,7 @@ void std::vector<PDFDetectedFormField * {__strong}>::__move_range(uint64_t a1, u
   }
 }
 
-id std::__split_buffer<PDFDetectedFormField * {__strong}>::emplace_back<PDFDetectedFormField * const {__strong}&>(void ***a1, id *a2)
+id std::__split_buffer<PDFDetectedFormField * {__strong}>::emplace_back<PDFDetectedFormField * const {__strong}&>(unint64_t *a1, id *a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -5002,7 +5006,7 @@ id std::__split_buffer<PDFDetectedFormField * {__strong}>::emplace_back<PDFDetec
 
   result = *a2;
   *v5 = result;
-  ++a1[2];
+  a1[2] += 8;
   return result;
 }
 
@@ -5035,7 +5039,7 @@ uint64_t std::vector<PDFDetectedFormField * {__strong}>::__swap_out_circular_buf
   v14 = a2[1];
   a2[2] += *(a1 + 8) - a3;
   *(a1 + 8) = a3;
-  v15 = (v14 + v13 - a3);
+  v15 = v14 + v13 - a3;
   if (v13 != a3)
   {
     v16 = v13;
@@ -5195,45 +5199,52 @@ void std::vector<PDFDetectedFormRow>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-uint64_t *std::__tree<double>::__emplace_unique_key_args<double,double const&>(uint64_t a1, double *a2)
+uint64_t *std::__tree<double>::__emplace_unique_key_args<double,double const&>(uint64_t a1, double *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 4);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 4);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!*v4)
+      v3 = *v3;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v2;
+      return v3;
     }
 
-    v2 = v2[1];
-    if (!v2)
+    v3 = v3[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
+}
+
+void sub_1C1D30C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
+{
+  va_start(va, a62);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
@@ -5258,10 +5269,11 @@ void sub_1C1D37380(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D37974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1C1D37974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 168), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5357,9 +5369,9 @@ double PDFEdgeInsetsInsetRect(double a1, double a2, double a3, double a4, double
   return result;
 }
 
-uint64_t PDFNormalizeRotation(unint64_t a1)
+uint64_t PDFNormalizeRotation(uint64_t a1)
 {
-  if ((a1 & 0x8000000000000000) != 0)
+  if (a1 < 0)
   {
     a1 += 360 * (-a1 / 0x168uLL) + 360;
   }
@@ -6153,7 +6165,7 @@ uint64_t SetUseIOSurfaceForTiles(uint64_t result)
   return result;
 }
 
-uint64_t GetDefaultsWriteAnnotationLoggingEnabled()
+uint64_t GetDefaultsWriteAnnotationLoggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (GetDefaultsWriteAnnotationLoggingEnabled_onceToken != -1)
   {
@@ -6163,7 +6175,7 @@ uint64_t GetDefaultsWriteAnnotationLoggingEnabled()
   return GetDefaultsWriteAnnotationLoggingEnabled_value;
 }
 
-uint64_t __GetDefaultsWriteAnnotationLoggingEnabled_block_invoke()
+void *__GetDefaultsWriteAnnotationLoggingEnabled_block_invoke()
 {
   result = GetDefaultsWriteValue(@"PDFKIT_LOG_ANNOTATIONS", 0);
   GetDefaultsWriteAnnotationLoggingEnabled_value = result;
@@ -6190,7 +6202,7 @@ uint64_t PDFKitIsOCREnabled()
   return result;
 }
 
-uint64_t PDFKitIsVisionKitFormDetectionEnabled()
+void *PDFKitIsVisionKitFormDetectionEnabled()
 {
   result = GetDefaultsWriteValue(@"PDFKit2_VisionKitFormDetectionEnabled", 1);
   if (result)
@@ -6216,7 +6228,7 @@ double GetMachSeconds()
   return *&GetMachSeconds_kMachAbsTimeToSeconds * mach_absolute_time();
 }
 
-uint64_t PDFKitDeviceIsiPhone()
+uint64_t PDFKitDeviceIsiPhone(uint64_t a1, uint64_t a2)
 {
   if (PDFKitDeviceIsiPhone_onceToken != -1)
   {
@@ -6232,7 +6244,7 @@ void __PDFKitDeviceIsiPhone_block_invoke()
   PDFKitDeviceIsiPhone_deviceIsiPhone = [v0 userInterfaceIdiom] == 0;
 }
 
-uint64_t PDFKitDeviceIsiPad()
+uint64_t PDFKitDeviceIsiPad(uint64_t a1, uint64_t a2)
 {
   if (PDFKitDeviceIsiPad_onceToken != -1)
   {
@@ -6248,7 +6260,7 @@ void __PDFKitDeviceIsiPad_block_invoke()
   PDFKitDeviceIsiPad_deviceIsiPad = [v0 userInterfaceIdiom] == 1;
 }
 
-uint64_t PDFKitDeviceIsN61()
+uint64_t PDFKitDeviceIsN61(uint64_t a1, uint64_t a2)
 {
   if (PDFKitDeviceIsN61_onceToken != -1)
   {
@@ -6265,7 +6277,7 @@ uint64_t __PDFKitDeviceIsN61_block_invoke()
   return result;
 }
 
-uint64_t PDFKitDeviceIsN56()
+uint64_t PDFKitDeviceIsN56(uint64_t a1, uint64_t a2)
 {
   if (PDFKitDeviceIsN56_onceToken != -1)
   {
@@ -6311,340 +6323,340 @@ void sub_1C1D3EDD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id AKAnnotationClass()
+id AKAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKAnnotationClass;
+  v2 = kAKAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKControllerClass()
+id AKControllerClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKControllerClass;
+  v2 = kAKControllerClass;
 
-  return v1;
+  return v2;
 }
 
-id AKToolbarViewClass()
+id AKToolbarViewClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKToolbarViewClass;
+  v2 = kAKToolbarViewClass;
 
-  return v1;
+  return v2;
 }
 
-id AKPageModelControllerClass()
+id AKPageModelControllerClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKPageModelControllerClass;
+  v2 = kAKPageModelControllerClass;
 
-  return v1;
+  return v2;
 }
 
-id AKArrowAnnotationClass()
+id AKArrowAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKArrowAnnotationClass;
+  v2 = kAKArrowAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKArrowShapeAnnotationClass()
+id AKArrowShapeAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKArrowShapeAnnotationClass;
+  v2 = kAKArrowShapeAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKBorderMaskAnnotationClass()
+id AKBorderMaskAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKBorderMaskAnnotationClass;
+  v2 = kAKBorderMaskAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKCropAnnotationClass()
+id AKCropAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKCropAnnotationClass;
+  v2 = kAKCropAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKDoodleAnnotationClass()
+id AKDoodleAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKDoodleAnnotationClass;
+  v2 = kAKDoodleAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKInkAnnotationClass()
+id AKInkAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKInkAnnotationClass;
+  v2 = kAKInkAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKHeartAnnotationClass()
+id AKHeartAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKHeartAnnotationClass;
+  v2 = kAKHeartAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKImageAnnotationClass()
+id AKImageAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKImageAnnotationClass;
+  v2 = kAKImageAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKLoupeAnnotationClass()
+id AKLoupeAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKLoupeAnnotationClass;
+  v2 = kAKLoupeAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKOvalAnnotationClass()
+id AKOvalAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKOvalAnnotationClass;
+  v2 = kAKOvalAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKPolygonAnnotationClass()
+id AKPolygonAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKPolygonAnnotationClass;
+  v2 = kAKPolygonAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKRectAnnotationClass()
+id AKRectAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKRectAnnotationClass;
+  v2 = kAKRectAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKRedactionRectAnnotationClass()
+id AKRedactionRectAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKRedactionRectAnnotationClass;
+  v2 = kAKRedactionRectAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKSignatureAnnotationClass()
+id AKSignatureAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKSignatureAnnotationClass;
+  v2 = kAKSignatureAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKSpeechBubbleAnnotationClass()
+id AKSpeechBubbleAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKSpeechBubbleAnnotationClass;
+  v2 = kAKSpeechBubbleAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKStarAnnotationClass()
+id AKStarAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKStarAnnotationClass;
+  v2 = kAKStarAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKTextBoxAnnotationClass()
+id AKTextBoxAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKTextBoxAnnotationClass;
+  v2 = kAKTextBoxAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKTextFieldAnnotationClass()
+id AKTextFieldAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKTextFieldAnnotationClass;
+  v2 = kAKTextFieldAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKThoughtBubbleAnnotationClass()
+id AKThoughtBubbleAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKThoughtBubbleAnnotationClass;
+  v2 = kAKThoughtBubbleAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKTriangleAnnotationClass()
+id AKTriangleAnnotationClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKTriangleAnnotationClass;
+  v2 = kAKTriangleAnnotationClass;
 
-  return v1;
+  return v2;
 }
 
-id AKSignaturesPresentationContextClass()
+id AKSignaturesPresentationContextClass(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKSignaturesPresentationContextClass;
+  v2 = kAKSignaturesPresentationContextClass;
 
-  return v1;
+  return v2;
 }
 
-id AKWillBeginEditingTextAnnotationNotificationString()
+id AKWillBeginEditingTextAnnotationNotificationString(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKWillBeginEditingTextAnnotationNotificationString;
+  v2 = kAKWillBeginEditingTextAnnotationNotificationString;
 
-  return v1;
+  return v2;
 }
 
-id AKDidEndEditingTextAnnotationNotificationString()
+id AKDidEndEditingTextAnnotationNotificationString(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKWillDidEndTextAnnotationNotificationString;
+  v2 = kAKWillDidEndTextAnnotationNotificationString;
 
-  return v1;
+  return v2;
 }
 
-id AKEditingTextAnnotationKeyString()
+id AKEditingTextAnnotationKeyString(uint64_t a1)
 {
   if (loadAnnotationKit_onceToken != -1)
   {
     AKAnnotationClass_cold_1();
   }
 
-  v1 = kAKEditingTextAnnotationKeyString;
+  v2 = kAKEditingTextAnnotationKeyString;
 
-  return v1;
+  return v2;
 }
 
 void __loadAnnotationKit_block_invoke()
@@ -6687,16 +6699,16 @@ void __loadAnnotationKit_block_invoke()
   }
 }
 
-void sub_1C1D41C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1D41C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D42B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C1D42B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6708,16 +6720,23 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C1D43F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C1D43F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D456A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1D44A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a7);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C1D456A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6794,20 +6813,20 @@ uint64_t _sortPageRanges(void *a1, void *a2)
   return v13;
 }
 
-void std::vector<CGRect>::resize(void *a1, unint64_t a2, _OWORD *a3)
+void std::vector<CGRect>::resize(void *result, unint64_t a2, _OWORD *a3)
 {
-  v3 = (a1[1] - *a1) >> 5;
+  v3 = (result[1] - *result) >> 5;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<CGRect>::__append(a1, a2 - v3, a3);
+    std::vector<CGRect>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -6911,9 +6930,9 @@ void sub_1C1D5ACEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C1D5C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C1D5C1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6937,23 +6956,23 @@ id PDFView._intelligenceCollectContent(in:collector:)(void *a1, double a2, doubl
 {
   v174 = sub_1C1D6C3BC();
   v173 = *(v174 - 8);
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v174);
   v171 = &v159 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v172 = sub_1C1D6C3EC();
   v170 = *(v172 - 8);
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v172);
   v169 = &v159 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v168 = sub_1C1D6C3CC();
   v167 = *(v168 - 8);
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v168);
   v166 = &v159 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v198 = sub_1C1D6C2AC();
   v197 = *(v198 - 8);
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v198);
   v196 = &v159 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = sub_1C1D6C32C();
   v16 = *(v15 - 8);
-  v17 = (MEMORY[0x1EEE9AC00])();
+  v17 = MEMORY[0x1EEE9AC00](v15);
   v199 = &v159 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
   v177 = &v159 - v19;
@@ -6986,19 +7005,19 @@ id PDFView._intelligenceCollectContent(in:collector:)(void *a1, double a2, doubl
   v165 = v36;
   MEMORY[0x1EEE9AC00](v35);
   v38 = &v159 - v37;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910);
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020);
   v163 = *(v39 - 8);
   v40 = MEMORY[0x1EEE9AC00](v39 - 8);
   v202 = &v159 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
   v164 = v41;
   MEMORY[0x1EEE9AC00](v40);
   v206 = &v159 - v42;
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B918);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B918, &qword_1C1D7A028);
   v44 = MEMORY[0x1EEE9AC00](v43 - 8);
   v46 = &v159 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v44);
   v48 = &v159 - v47;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B920);
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B920, &qword_1C1D7A030);
   MEMORY[0x1EEE9AC00](v49 - 8);
   v51 = &v159 - v50;
   v209 = sub_1C1D6C27C();
@@ -7037,7 +7056,7 @@ id PDFView._intelligenceCollectContent(in:collector:)(void *a1, double a2, doubl
 
   v212 = @"Title";
   type metadata accessor for PDFDocumentAttribute();
-  sub_1C1D6AE60(&qword_1EBF1B958, type metadata accessor for PDFDocumentAttribute);
+  sub_1C1D6AE60(&qword_1EBF1B958, type metadata accessor for PDFDocumentAttribute, &unk_1C1D7A1C8);
   v59 = @"Title";
   sub_1C1D6C51C();
   if (!*(v58 + 16) || (v60 = sub_1C1D6AC94(&aBlock), (v61 & 1) == 0))
@@ -7055,7 +7074,7 @@ id PDFView._intelligenceCollectContent(in:collector:)(void *a1, double a2, doubl
   if (!*(&v220 + 1))
   {
 LABEL_14:
-    sub_1C1D69FF4(&v219, &qword_1EBF1B928);
+    sub_1C1D69FF4(&v219, &qword_1EBF1B928, &qword_1C1D7A038);
     goto LABEL_15;
   }
 
@@ -7093,7 +7112,7 @@ LABEL_16:
   if (v211)
   {
     v69 = [v68 visiblePages];
-    sub_1C1D6B074(0, &qword_1EBF1B988);
+    sub_1C1D6B074(0, &qword_1EBF1B988, off_1E814FDA0);
     v70 = sub_1C1D6C47C();
 
     v71 = v70 & 0xFFFFFFFFFFFFFF8;
@@ -7255,7 +7274,7 @@ LABEL_43:
   v88 = v193;
   v89 = v195;
   (*(v194 + 104))(v193, *MEMORY[0x1E69DBCD8], v195);
-  sub_1C1D6AE60(&qword_1EBF1B930, MEMORY[0x1E69DBCE8]);
+  sub_1C1D6AE60(&qword_1EBF1B930, MEMORY[0x1E69DBCE8], MEMORY[0x1E69DBCF0]);
   v90 = sub_1C1D6C40C();
   v91 = *(v87 + 8);
   v91(v88, v89);
@@ -7306,7 +7325,7 @@ LABEL_43:
     (*(v126 + 8))(v123, v127);
     (*(v121 + 8))(v122, v125);
     (*(v183 + 8))(v191, v180);
-    sub_1C1D69FF4(v124, &qword_1EBF1B910);
+    sub_1C1D69FF4(v124, &qword_1EBF1B910, &qword_1C1D7A020);
     return (*(v118 + 8))(v119, v209);
   }
 
@@ -7336,7 +7355,7 @@ LABEL_43:
       (*(v197 + 104))(v134, *MEMORY[0x1E69DBC00], v198);
       v207 = sub_1C1D6C23C();
       (*(v135 + 8))(v134, v136);
-      sub_1C1D6B074(0, &qword_1EBF1B938);
+      sub_1C1D6B074(0, &qword_1EBF1B938, 0x1E69E9610);
       v137 = v167;
       v138 = v166;
       v139 = v168;
@@ -7379,8 +7398,8 @@ LABEL_43:
       v155 = v169;
       sub_1C1D6C3DC();
       *&v219 = MEMORY[0x1E69E7CC0];
-      sub_1C1D6AE60(&qword_1EBF1B940, MEMORY[0x1E69E7F60]);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B948);
+      sub_1C1D6AE60(&qword_1EBF1B940, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B948, &qword_1C1D7A040);
       sub_1C1D6A690();
       v156 = v171;
       v157 = v174;
@@ -7393,7 +7412,7 @@ LABEL_43:
       (*(v170 + 8))(v155, v172);
       (*(v184 + 8))(v177, v185);
       (*(v183 + 8))(v191, v143);
-      sub_1C1D69FF4(v206, &qword_1EBF1B910);
+      sub_1C1D69FF4(v206, &qword_1EBF1B910, &qword_1C1D7A020);
       (*(v146 + 8))(v210, v209);
     }
 
@@ -7428,13 +7447,13 @@ LABEL_43:
       (*(v107 + 8))(v106, v109);
       (*(v102 + 8))(v175, v189);
       (*(v105 + 8))(v38, v180);
-      sub_1C1D69FF4(v206, &qword_1EBF1B910);
+      sub_1C1D69FF4(v206, &qword_1EBF1B910, &qword_1C1D7A020);
       return (*(v203 + 8))(v210, v209);
     }
   }
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7456,9 +7475,9 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -7471,78 +7490,78 @@ uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
 
 uint64_t sub_1C1D69F84(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_1C1D69FF4(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C1D69FF4(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
 uint64_t sub_1C1D6A054(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v39 = a4;
-  v40 = a6;
-  v37 = a5;
-  v38 = a3;
-  v36 = a2;
+  v40 = a4;
+  v41 = a6;
+  v38 = a5;
+  v39 = a3;
+  v37 = a2;
   v9 = sub_1C1D6C2AC();
-  v42 = *(v9 - 8);
-  v43 = v9;
-  MEMORY[0x1EEE9AC00]();
-  v41 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910);
-  MEMORY[0x1EEE9AC00]();
-  v35 = &v32 - v11;
-  v33 = sub_1C1D6C27C();
-  v12 = *(v33 - 8);
-  MEMORY[0x1EEE9AC00]();
-  v14 = &v32 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_1C1D6C38C();
-  v16 = *(v15 - 8);
-  MEMORY[0x1EEE9AC00]();
-  v18 = &v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = sub_1C1D6C32C();
-  v19 = *(v34 - 8);
-  MEMORY[0x1EEE9AC00]();
-  v21 = &v32 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = [a1 dataRepresentation];
-  if (!v22)
+  v43 = *(v9 - 8);
+  v44 = v9;
+  MEMORY[0x1EEE9AC00](v9);
+  v42 = &v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v36 = &v33 - v12;
+  v34 = sub_1C1D6C27C();
+  v13 = *(v34 - 8);
+  MEMORY[0x1EEE9AC00](v34);
+  v15 = &v33 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = sub_1C1D6C38C();
+  v17 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v19 = &v33 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = sub_1C1D6C32C();
+  v20 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v22 = &v33 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = [a1 dataRepresentation];
+  if (!v23)
   {
     return sub_1C1D6C28C();
   }
 
-  v23 = v22;
-  v24 = sub_1C1D6C21C();
-  v32 = a7;
-  v26 = v25;
+  v24 = v23;
+  v25 = sub_1C1D6C21C();
+  v33 = a7;
+  v27 = v26;
 
-  (*(v16 + 16))(v18, v36, v15);
-  (*(v12 + 16))(v14, v37, v33);
-  sub_1C1D6AFCC(v24, v26);
+  (*(v17 + 16))(v19, v37, v16);
+  (*(v13 + 16))(v15, v38, v34);
+  sub_1C1D6AFCC(v25, v27);
 
   sub_1C1D6C30C();
-  sub_1C1D69F84(v40, v35);
+  sub_1C1D69F84(v41, v36);
   sub_1C1D6C2DC();
-  v27 = v41;
-  v28 = v34;
-  (*(v19 + 16))(v41, v21, v34);
-  v30 = v42;
-  v29 = v43;
-  (*(v42 + 104))(v27, *MEMORY[0x1E69DBC00], v43);
+  v28 = v42;
+  v29 = v35;
+  (*(v20 + 16))(v42, v22, v35);
+  v31 = v43;
+  v30 = v44;
+  (*(v43 + 104))(v28, *MEMORY[0x1E69DBC00], v44);
   sub_1C1D6C29C();
-  sub_1C1D6B020(v24, v26);
-  (*(v30 + 8))(v27, v29);
-  return (*(v19 + 8))(v21, v28);
+  sub_1C1D6B020(v25, v27);
+  (*(v31 + 8))(v28, v30);
+  return (*(v20 + 8))(v22, v29);
 }
 
 uint64_t sub_1C1D6A444(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -7555,7 +7574,7 @@ uint64_t sub_1C1D6A4B4()
   v4 = *(sub_1C1D6C27C() - 8);
   v5 = (v3 + *(v4 + 80) + 16) & ~*(v4 + 80);
   v6 = *(v4 + 64);
-  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910) - 8);
+  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B910, &qword_1C1D7A020) - 8);
   v8 = (v5 + v6 + *(v7 + 80)) & ~*(v7 + 80);
   v9 = *(v0 + 16);
   v10 = *(v0 + v3);
@@ -7584,7 +7603,7 @@ unint64_t sub_1C1D6A690()
   result = qword_1EBF1B950;
   if (!qword_1EBF1B950)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBF1B948);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBF1B948, &qword_1C1D7A040);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EBF1B950);
   }
@@ -7592,7 +7611,7 @@ unint64_t sub_1C1D6A690()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -7647,44 +7666,44 @@ uint64_t sub_1C1D6A9D8()
   return v1;
 }
 
-uint64_t sub_1C1D6AA14()
+uint64_t sub_1C1D6AA14(uint64_t a1)
 {
   sub_1C1D6C44C();
   sub_1C1D6C45C();
 }
 
-uint64_t sub_1C1D6AA68()
+uint64_t sub_1C1D6AA68(uint64_t a1)
 {
   sub_1C1D6C44C();
   sub_1C1D6C57C();
   sub_1C1D6C45C();
-  v0 = sub_1C1D6C58C();
+  v1 = sub_1C1D6C58C();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1C1D6AADC()
+uint64_t sub_1C1D6AADC(void *a1, uint64_t *a2)
 {
-  v0 = sub_1C1D6C44C();
-  v2 = v1;
-  if (v0 == sub_1C1D6C44C() && v2 == v3)
+  v2 = sub_1C1D6C44C();
+  v4 = v3;
+  if (v2 == sub_1C1D6C44C() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_1C1D6C56C();
+    v7 = sub_1C1D6C56C();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_1C1D6AB64@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1C1D6AB64@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_1C1D6C41C();
+  v3 = sub_1C1D6C41C();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -7698,8 +7717,8 @@ uint64_t sub_1C1D6ABAC@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1C1D6ABD8(uint64_t a1)
 {
-  v2 = sub_1C1D6AE60(&qword_1EBF1B958, type metadata accessor for PDFDocumentAttribute);
-  v3 = sub_1C1D6AE60(&qword_1EBF1B980, type metadata accessor for PDFDocumentAttribute);
+  v2 = sub_1C1D6AE60(&qword_1EBF1B958, type metadata accessor for PDFDocumentAttribute, &unk_1C1D7A1C8);
+  v3 = sub_1C1D6AE60(&qword_1EBF1B980, type metadata accessor for PDFDocumentAttribute, &unk_1C1D7A11C);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7720,7 +7739,7 @@ uint64_t sub_1C1D6AD2C(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1C1D6AE60(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C1D6AE60(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7759,29 +7778,29 @@ unint64_t sub_1C1D6AEA8(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t sub_1C1D6AFCC(uint64_t a1, unint64_t a2)
+uint64_t sub_1C1D6AFCC(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_1C1D6B020(uint64_t a1, unint64_t a2)
+uint64_t sub_1C1D6B020(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_1C1D6B074(uint64_t a1, unint64_t *a2)
+uint64_t sub_1C1D6B074(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -8551,7 +8570,7 @@ char *sub_1C1D6B944(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B990);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B990, &qword_1C1D7A210);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8630,7 +8649,7 @@ char *sub_1C1D6BA48(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B998);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B998, &qword_1C1D7A218);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8709,7 +8728,7 @@ char *sub_1C1D6BB64(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B998);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF1B998, &qword_1C1D7A218);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;

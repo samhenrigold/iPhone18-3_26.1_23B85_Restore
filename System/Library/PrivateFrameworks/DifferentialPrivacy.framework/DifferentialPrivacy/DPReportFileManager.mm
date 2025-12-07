@@ -49,35 +49,29 @@ void __38___DPReportFileManager_retireReports___block_invoke(uint64_t a1, char a
 
 void __46___DPReportFileManager_reportsNotYetSubmitted__block_invoke_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 48);
-  v5 = v3;
-  v6 = NSStringFromSelector(v4);
+  v2 = objc_opt_class();
+  v3 = *(a1 + 48);
+  v4 = v2;
+  v5 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_22622D000, v7, v8, "%@ : %@ : error %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_22622D000, v6, v7, "%@ : %@ : error %@", v8, v9, v10, v11);
 }
 
 void __46___DPReportFileManager_reportsNotYetSubmitted__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "reportsNotYetSubmittedWithReply: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "reportsNotYetSubmittedWithReply: %@", &v2, 0xCu);
 }
 
 void __38___DPReportFileManager_retireReports___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "retireReports: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "retireReports: %@", &v3, 0xCu);
 }
 
 @end

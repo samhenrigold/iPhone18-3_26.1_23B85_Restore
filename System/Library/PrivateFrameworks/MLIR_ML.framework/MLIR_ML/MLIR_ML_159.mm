@@ -51,7 +51,7 @@ uint64_t mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::getLatticeEleme
   return result;
 }
 
-uint64_t mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::getLatticeElementsFor@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t *mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::getLatticeElementsFor@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v7 = result;
   v15 = *MEMORY[0x277D85DE8];
@@ -382,9 +382,9 @@ uint64_t mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::meet(uint64_t a
   return mlir::DataFlowAnalysis::propagateIfChanged(a1, a2, v5);
 }
 
-unsigned int *llvm::BitVector::set_bits@<X0>(unsigned int *this@<X0>, unsigned int **a2@<X8>)
+uint64_t **llvm::BitVector::set_bits@<X0>(uint64_t ***__return_ptr a1@<X8>, uint64_t **this@<X0>)
 {
-  v2 = this[16];
+  v2 = *(this + 16);
   if (!v2)
   {
     goto LABEL_10;
@@ -408,7 +408,7 @@ unsigned int *llvm::BitVector::set_bits@<X0>(unsigned int *this@<X0>, unsigned i
     if (v2 >= 0x41)
     {
       v9 = (v2 - 1) >> 6;
-      v10 = (*this + 8);
+      v10 = *this + 1;
       v7 = 64;
       v8 = 0xFFFFFFFFLL;
       while (1)
@@ -431,10 +431,10 @@ unsigned int *llvm::BitVector::set_bits@<X0>(unsigned int *this@<X0>, unsigned i
     }
 
 LABEL_10:
-    *a2 = this;
-    a2[1] = 0xFFFFFFFFLL;
-    a2[2] = this;
-    a2[3] = 0xFFFFFFFFLL;
+    *a1 = this;
+    a1[1] = 0xFFFFFFFFLL;
+    a1[2] = this;
+    a1[3] = 0xFFFFFFFFLL;
     return this;
   }
 
@@ -442,10 +442,10 @@ LABEL_10:
 LABEL_7:
   v8 = __clz(__rbit64(v6)) | v7;
 LABEL_8:
-  *a2 = this;
-  a2[1] = v8;
-  a2[2] = this;
-  a2[3] = 0xFFFFFFFFLL;
+  *a1 = this;
+  a1[1] = v8;
+  a1[2] = this;
+  a1[3] = 0xFFFFFFFFLL;
   return this;
 }
 
@@ -2053,7 +2053,7 @@ unint64_t *OUTLINED_FUNCTION_1_9@<X0>(unsigned int a1@<W0>, uint64_t a2@<X8>)
   return mlir::ValueRange::ValueRange(v2, a2 + 32 * a1, v5);
 }
 
-unint64_t mlir::detail::getDefaultTypeSize(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t mlir::detail::getDefaultTypeSize(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   DefaultTypeSizeInBits = mlir::detail::getDefaultTypeSizeInBits(a1, a2, a3, a4);
   if (DefaultTypeSizeInBits)
@@ -2067,13 +2067,13 @@ unint64_t mlir::detail::getDefaultTypeSize(void *a1, uint64_t a2, uint64_t a3, u
   }
 }
 
-uint64_t mlir::detail::getDefaultTypeSizeInBits(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::detail::getDefaultTypeSizeInBits(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v82 = a1;
+  v83 = a1;
   v4 = *(*a1 + 136);
   if (v4 == &mlir::detail::TypeIDResolver<mlir::IntegerType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float4E2M1FNType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float6E2M3FNType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float6E3M2FNType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2FNUZType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNUZType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3B11FNUZType,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float8E3M4Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::BFloat16Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float16Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::FloatTF32Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float32Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float64Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float80Type,void>::id || v4 == &mlir::detail::TypeIDResolver<mlir::Float128Type,void>::id)
   {
-    return mlir::Type::getIntOrFloatBitWidth(&v82);
+    return mlir::Type::getIntOrFloatBitWidth(&v83);
   }
 
   if (v4 == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
@@ -2086,32 +2086,32 @@ uint64_t mlir::detail::getDefaultTypeSizeInBits(void *a1, uint64_t a2, uint64_t 
     v23 = 0;
   }
 
-  v85 = v23;
+  v86 = v23;
   if (v23)
   {
-    ElementType = mlir::ComplexType::getElementType(&v85);
+    ElementType = mlir::ComplexType::getElementType(&v86);
     v28 = 8 * mlir::detail::getDefaultPreferredAlignment(ElementType, a2, a3, a4);
     DefaultTypeSizeInBits = mlir::detail::getDefaultTypeSizeInBits(ElementType, a2, a3, a4);
-    return DefaultTypeSizeInBits + (v28 + DefaultTypeSizeInBits - 1) / v28 * v28;
+    return (DefaultTypeSizeInBits + (v28 + DefaultTypeSizeInBits - 1) / v28 * v28);
   }
 
   if (v4 == &mlir::detail::TypeIDResolver<mlir::IndexType,void>::id)
   {
-    Context = mlir::Type::getContext(&v82);
+    Context = mlir::Type::getContext(&v83);
     if (a4)
     {
       v41 = Context;
-      *&v84 = (*(*(a3 + 8) + 8))();
-      mlir::IntegerAttr::getValue(&v84, &v85);
-      if (v86 > 0x40)
+      *&v85 = (*(a3[1] + 8))();
+      mlir::IntegerAttr::getValue(&v85, &v86);
+      if (v87 > 0x40)
       {
-        v42 = *v85;
+        v42 = *v86;
         MEMORY[0x259C63150]();
       }
 
       else
       {
-        LODWORD(v42) = v85;
+        LODWORD(v42) = v86;
       }
 
       Context = v41;
@@ -2122,46 +2122,46 @@ uint64_t mlir::detail::getDefaultTypeSizeInBits(void *a1, uint64_t a2, uint64_t 
       LODWORD(v42) = 64;
     }
 
-    v65 = mlir::IntegerType::get(Context, v42, 0);
-    v83 = a2;
-    v66 = *(a2 + 64);
-    v87 = v65;
-    v67 = *(a2 + 80);
-    if (v67)
+    v66 = mlir::IntegerType::get(Context, v42, 0);
+    v84 = a2;
+    v67 = *(a2 + 64);
+    v88 = v66;
+    v68 = *(a2 + 80);
+    if (v68)
     {
-      v68 = (v67 - 1) & ((v65 >> 4) ^ (v65 >> 9));
-      v69 = (v66 + 24 * v68);
-      v70 = *v69;
-      if (*v69 == v65)
+      v69 = (v68 - 1) & ((v66 >> 4) ^ (v66 >> 9));
+      v70 = (v67 + 24 * v69);
+      v71 = *v70;
+      if (*v70 == v66)
       {
         goto LABEL_89;
       }
 
-      v71 = 1;
-      while (v70 != -4096)
+      v72 = 1;
+      while (v71 != -4096)
       {
-        v72 = v68 + v71++;
-        v68 = v72 & (v67 - 1);
-        v69 = (v66 + 24 * v68);
-        v70 = *v69;
-        if (*v69 == v65)
+        v73 = v69 + v72++;
+        v69 = v73 & (v68 - 1);
+        v70 = (v67 + 24 * v69);
+        v71 = *v70;
+        if (*v70 == v66)
         {
           goto LABEL_89;
         }
       }
     }
 
-    v69 = (v66 + 24 * v67);
+    v70 = (v67 + 24 * v68);
 LABEL_89:
-    if (v69 != (v66 + 24 * v67))
+    if (v70 != (v67 + 24 * v68))
     {
-      return v69[1];
+      return v70[1];
     }
 
-    *&v84 = llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSizeInBits(mlir::Type)::$_0>(&v83, v65);
-    BYTE8(v84) = v73;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>,mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>::try_emplace<mlir::MemorySlot>(a2 + 64, &v87, &v84, &v85);
-    return v85[1];
+    *&v85 = llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSizeInBits(mlir::Type)::$_0>(&v84, v66);
+    BYTE8(v85) = v74;
+    llvm::DenseMapBase<llvm::DenseMap<mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>,mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>::try_emplace<mlir::MemorySlot>((a2 + 64), &v88, &v85, &v86);
+    return v86[1];
   }
 
   v31 = v4 == &mlir::detail::TypeIDResolver<mlir::VectorType,void>::id;
@@ -2175,23 +2175,23 @@ LABEL_89:
     v32 = 0;
   }
 
-  v81 = v32;
+  v82 = v32;
   if (!v31)
   {
     v35 = llvm::DefaultDoCastIfPossible<mlir::DataLayoutTypeInterface,mlir::Type,llvm::CastInfo<mlir::DataLayoutTypeInterface,mlir::Type,void>>::doCastIfPossible(a1);
     if (!v35)
     {
-      reportMissingDataLayout(v82);
+      reportMissingDataLayout(v83);
     }
 
     return (*(v36 + 8))(v36, v35, a2, a3, a4);
   }
 
-  Shape = mlir::VectorType::getShape(&v81);
+  Shape = mlir::VectorType::getShape(&v82);
   NumElements = mlir::ShapedType::getNumElements(Shape, v44);
-  v46 = mlir::VectorType::getShape(&v81);
+  v46 = mlir::VectorType::getShape(&v82);
   v48 = *(v46 + 8 * v47 - 8);
-  v49 = mlir::VectorType::getShape(&v81);
+  v49 = mlir::VectorType::getShape(&v82);
   v51 = *(v49 + 8 * v50 - 8);
   v52 = 1 << -__clz(v51 - 1);
   if (v51 <= 0)
@@ -2204,64 +2204,64 @@ LABEL_89:
     v53 = v52;
   }
 
-  v54 = mlir::VectorType::getElementType(&v81);
-  v55 = v54;
-  v83 = a2;
-  v58 = *(a2 + 40);
-  v57 = a2 + 40;
-  v56 = v58;
-  v87 = v54;
-  v59 = *(v57 + 16);
-  if (!v59)
+  v54 = mlir::VectorType::getElementType(&v82);
+  v56 = v54;
+  v84 = a2;
+  v59 = *(a2 + 40);
+  v58 = a2 + 40;
+  v57 = v59;
+  v88 = v54;
+  v60 = *(v58 + 16);
+  if (!v60)
   {
     goto LABEL_92;
   }
 
-  v60 = (v59 - 1) & ((v54 >> 4) ^ (v54 >> 9));
-  v61 = (v56 + 24 * v60);
-  v62 = *v61;
-  if (*v61 != v54)
+  v61 = (v60 - 1) & ((v54 >> 4) ^ (v54 >> 9));
+  v62 = (v57 + 24 * v61);
+  v63 = *v62;
+  if (*v62 != v54)
   {
-    v63 = 1;
-    while (v62 != -4096)
+    v64 = 1;
+    while (v63 != -4096)
     {
-      v64 = v60 + v63++;
-      v60 = v64 & (v59 - 1);
-      v61 = (v56 + 24 * v60);
-      v62 = *v61;
-      if (*v61 == v54)
+      v65 = v61 + v64++;
+      v61 = v65 & (v60 - 1);
+      v62 = (v57 + 24 * v61);
+      v63 = *v62;
+      if (*v62 == v54)
       {
         goto LABEL_93;
       }
     }
 
 LABEL_92:
-    v61 = (v56 + 24 * v59);
+    v62 = (v57 + 24 * v60);
   }
 
 LABEL_93:
-  v74 = NumElements / v48;
-  if (v61 == (v56 + 24 * v59))
+  v75 = NumElements / v48;
+  if (v62 == (v57 + 24 * v60))
   {
-    *&v84 = llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSize(mlir::Type)::$_0>(&v83, v54);
-    BYTE8(v84) = v77;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>,mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>::try_emplace<mlir::MemorySlot>(v57, &v87, &v84, &v85);
-    v75 = v85[1];
-    v76 = v85[2];
+    *&v85 = llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSize(mlir::Type)::$_0>(&v84, v54);
+    BYTE8(v85) = v78;
+    llvm::DenseMapBase<llvm::DenseMap<mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>,mlir::Attribute,mlir::MemorySlot,llvm::DenseMapInfo<mlir::Attribute,void>,llvm::detail::DenseMapPair<mlir::Attribute,mlir::MemorySlot>>::try_emplace<mlir::MemorySlot>(v58, &v88, &v85, &v86);
+    v76 = v86[1];
+    v77 = v86[2];
   }
 
   else
   {
-    v75 = v61[1];
-    v76 = v61[2];
+    v76 = v62[1];
+    v77 = v62[2];
   }
 
-  v85 = (8 * v74 * v53 * v75);
-  LOBYTE(v86) = v76;
-  v78 = llvm::TypeSize::operator unsigned long long(&v85, v55);
-  ScalableDims = mlir::VectorType::getScalableDims(&v81);
-  memchr(ScalableDims, 1, v80);
-  return v78;
+  v86 = (8 * v75 * v53 * v76);
+  LOBYTE(v87) = v77;
+  v79 = llvm::TypeSize::operator unsigned long long(&v86, v56, v55);
+  ScalableDims = mlir::VectorType::getScalableDims(&v82);
+  memchr(ScalableDims, 1, v81);
+  return v79;
 }
 
 unint64_t mlir::detail::divideCeil(uint64_t a1, uint64_t a2, unint64_t a3)
@@ -2277,7 +2277,7 @@ unint64_t mlir::detail::divideCeil(uint64_t a1, uint64_t a2, unint64_t a3)
   }
 }
 
-uint64_t mlir::detail::getDefaultPreferredAlignment(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::detail::getDefaultPreferredAlignment(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v72 = a1;
   v5 = *(*a1 + 136);
@@ -2327,7 +2327,7 @@ LABEL_63:
     {
       if (a4)
       {
-        v20 = (*(*(a3 + 8) + 8))(*(a3 + 8));
+        v20 = (*(a3[1] + 8))(a3[1]);
 LABEL_49:
         v75 = v20;
         if (mlir::DenseElementsAttr::isValidIntOrFloat(&v75, 8, 1, 0))
@@ -2476,7 +2476,7 @@ LABEL_104:
     if (a4)
     {
       v49 = Context;
-      *&v74 = (*(*(a3 + 8) + 8))(*(a3 + 8));
+      *&v74 = (*(a3[1] + 8))(a3[1]);
       mlir::IntegerAttr::getValue(&v74, &v75);
       if (v76 > 0x40)
       {
@@ -2569,7 +2569,7 @@ LABEL_100:
   }
 }
 
-uint64_t mlir::DataLayout::getTypeSizeInBits(void *a1, uint64_t a2)
+uint64_t *mlir::DataLayout::getTypeSizeInBits(void *a1, uint64_t *a2)
 {
   v14 = a1;
   v4 = a1[8];
@@ -2615,7 +2615,7 @@ LABEL_8:
   return *(v16[0] + 8);
 }
 
-uint64_t mlir::DataLayout::getTypeSize(void *a1, uint64_t a2)
+uint64_t *mlir::DataLayout::getTypeSize(void *a1, uint64_t *a2)
 {
   v14 = a1;
   v4 = a1[5];
@@ -2672,14 +2672,14 @@ void reportMissingDataLayout(uint64_t a1)
   llvm::report_fatal_error(&v3, 1);
 }
 
-uint64_t mlir::detail::getDefaultABIAlignment(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::detail::getDefaultABIAlignment(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v66 = a1;
   v5 = *(*a1 + 136);
   if (v5 == &mlir::detail::TypeIDResolver<mlir::VectorType,void>::id)
   {
     v67 = a2;
-    v24 = a2 + 40;
+    v24 = (a2 + 40);
     v23 = *(a2 + 40);
     v71 = a1;
     v25 = *(a2 + 56);
@@ -2741,7 +2741,7 @@ LABEL_64:
     {
       if (a4)
       {
-        v20 = (*(*(a3 + 8) + 8))(*(a3 + 8));
+        v20 = (*(a3[1] + 8))(a3[1]);
 LABEL_49:
         v69 = v20;
         mlir::DenseElementsAttr::isValidIntOrFloat(&v69, 8, 1, 0);
@@ -2753,7 +2753,7 @@ LABEL_49:
       }
 
       v67 = a2;
-      v24 = a2 + 40;
+      v24 = (a2 + 40);
       v31 = *(a2 + 40);
       v71 = a1;
       v32 = *(a2 + 56);
@@ -2798,7 +2798,7 @@ LABEL_66:
     if (a4)
     {
       v50 = Context;
-      *&v68 = (*(*(a3 + 8) + 8))(*(a3 + 8));
+      *&v68 = (*(a3[1] + 8))(a3[1]);
       mlir::IntegerAttr::getValue(&v68, &v69);
       if (v70 > 0x40)
       {
@@ -2932,10 +2932,10 @@ LABEL_96:
   }
 }
 
-uint64_t mlir::DataLayout::getTypeABIAlignment(uint64_t a1, void *a2)
+uint64_t mlir::DataLayout::getTypeABIAlignment(uint64_t a1, uint64_t *a2)
 {
   v10 = a1;
-  v3 = a1 + 88;
+  v3 = (a1 + 88);
   v2 = *(a1 + 88);
   v13 = a2;
   v4 = *(a1 + 104);
@@ -2975,10 +2975,10 @@ LABEL_4:
   return *(v2 + 16 * v5 + 8);
 }
 
-uint64_t mlir::DataLayout::getTypePreferredAlignment(uint64_t a1, uint64_t a2)
+uint64_t mlir::DataLayout::getTypePreferredAlignment(uint64_t a1, uint64_t *a2)
 {
   v10 = a1;
-  v3 = a1 + 112;
+  v3 = (a1 + 112);
   v2 = *(a1 + 112);
   v13 = a2;
   v4 = *(a1 + 128);
@@ -3427,7 +3427,7 @@ BOOL mlir::detail::verifyDataLayoutOp(mlir::detail *this, mlir::Operation *a2)
   collectParentLayouts(this, v29, &v26);
   if (v27)
   {
-    mlir::Diagnostic::attachNote();
+    mlir::Diagnostic::attachNote(&v41 + 1, *v26, 1);
   }
 
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v41);
@@ -4003,24 +4003,24 @@ mlir::Block *mlir::DataLayout::closest@<X0>(mlir::Block *this@<X0>, uint64_t a2@
 {
   if (this)
   {
-    v4 = this;
-    while (*(*(v4 + 6) + 16) != &mlir::detail::TypeIDResolver<mlir::ModuleOp,void>::id)
+    v3 = this;
+    while (*(*(v3 + 6) + 16) != &mlir::detail::TypeIDResolver<mlir::ModuleOp,void>::id)
     {
-      if (mlir::OpInterface<mlir::DataLayoutOpInterface,mlir::detail::DataLayoutOpInterfaceInterfaceTraits>::getInterfaceFor(v4))
+      if (mlir::OpInterface<mlir::DataLayoutOpInterface,mlir::detail::DataLayoutOpInterfaceInterfaceTraits>::getInterfaceFor(v3))
       {
-        mlir::OpInterface<mlir::DataLayoutOpInterface,mlir::detail::DataLayoutOpInterfaceInterfaceTraits>::getInterfaceFor(v4);
-        if (v4)
+        mlir::OpInterface<mlir::DataLayoutOpInterface,mlir::detail::DataLayoutOpInterfaceInterfaceTraits>::getInterfaceFor(v3);
+        if (v3)
         {
 
-          return mlir::DataLayout::DataLayout(a2, v4);
+          return mlir::DataLayout::DataLayout(a2, v3);
         }
       }
 
-      this = *(v4 + 2);
+      this = *(v3 + 2);
       if (this)
       {
         this = mlir::Block::getParentOp(this);
-        v4 = this;
+        v3 = this;
         if (this)
         {
           continue;
@@ -4030,7 +4030,7 @@ mlir::Block *mlir::DataLayout::closest@<X0>(mlir::Block *this@<X0>, uint64_t a2@
       goto LABEL_8;
     }
 
-    return mlir::DataLayout::DataLayout(a2, v4);
+    return mlir::DataLayout::DataLayout(a2, v3);
   }
 
   else
@@ -6135,7 +6135,7 @@ uint64_t llvm::raw_string_ostream::raw_string_ostream(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *findEntryForIntegerType(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *findEntryForIntegerType(uint64_t a1, void *a2, uint64_t a3)
 {
   v22[1] = 0;
   v23 = a1;
@@ -6144,10 +6144,10 @@ void *findEntryForIntegerType(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a3)
   {
     v3 = a2;
-    v4 = a2 + 16 * a3;
+    v4 = &a2[2 * a3];
     do
     {
-      v20 = (**(v3 + 8))(*(v3 + 8), *v3) & 0xFFFFFFFFFFFFFFF8;
+      v20 = (*v3[1])(v3[1], *v3) & 0xFFFFFFFFFFFFFFF8;
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&v20);
       v6 = v22[0];
       if (!v22[0])
@@ -6186,7 +6186,7 @@ LABEL_10:
         }
       }
 
-      v3 += 16;
+      v3 += 2;
     }
 
     while (v3 != v4);
@@ -6329,7 +6329,7 @@ const char *llvm::getTypeName<mlir::DataLayoutDialectInterface>()
   return &v2[v3];
 }
 
-unint64_t llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSize(mlir::Type)::$_0>(void **a1, uint64_t a2)
+unint64_t llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSize(mlir::Type)::$_0>(void **a1, uint64_t *a2)
 {
   v19[8] = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -6440,7 +6440,7 @@ LABEL_12:
   return v7;
 }
 
-uint64_t llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSizeInBits(mlir::Type)::$_0>(void **a1, uint64_t a2)
+uint64_t llvm::function_ref<llvm::TypeSize ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeSizeInBits(mlir::Type)::$_0>(void **a1, uint64_t *a2)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -6542,7 +6542,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t llvm::function_ref<unsigned long long ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeABIAlignment(mlir::Type)::$_0>(void **a1, void *a2)
+uint64_t llvm::function_ref<unsigned long long ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeABIAlignment(mlir::Type)::$_0>(void **a1, uint64_t *a2)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -6644,7 +6644,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t llvm::function_ref<unsigned long long ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypePreferredAlignment(mlir::Type)::$_0>(void **a1, uint64_t a2)
+uint64_t llvm::function_ref<unsigned long long ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypePreferredAlignment(mlir::Type)::$_0>(void **a1, uint64_t *a2)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -6746,7 +6746,7 @@ LABEL_12:
   return result;
 }
 
-unint64_t llvm::function_ref<std::optional<unsigned long long> ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeIndexBitwidth(mlir::Type)::$_0>(void **a1, void *a2)
+uint64_t llvm::function_ref<std::optional<unsigned long long> ()(mlir::Type)>::callback_fn<mlir::DataLayout::getTypeIndexBitwidth(mlir::Type)::$_0>(void **a1, void *a2)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -7080,7 +7080,7 @@ LABEL_9:
 
 LABEL_14:
         *v17 = v14;
-        v17[1] = v17 + 3;
+        v17[1] = (v17 + 3);
         v17[2] = 0x400000000;
         if (*(v4 + 4))
         {
@@ -7102,10 +7102,10 @@ LABEL_14:
   }
 }
 
-void mlir::presburger::detail::getDual(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void mlir::presburger::detail::getDual(int *a1@<X0>, uint64_t a2@<X8>)
 {
   LODWORD(v2) = 0;
-  HIDWORD(v2) = *(a1 + 4);
+  HIDWORD(v2) = a1[1];
   *a2 = &unk_286893110;
   *(a2 + 24) = 0;
   *(a2 + 8) = v2;
@@ -7114,7 +7114,7 @@ void mlir::presburger::detail::getDual(uint64_t a1@<X0>, uint64_t a2@<X8>)
   mlir::presburger::Matrix<llvm::DynamicAPInt>::Matrix();
 }
 
-void mlir::presburger::detail::getIndex(mlir::presburger::detail *this@<X0>, llvm::APInt *a2@<X8>)
+void mlir::presburger::detail::getIndex(mlir::presburger::IntMatrix *this@<X0>, llvm::APInt *a2@<X8>)
 {
   if (*this <= *(this + 1))
   {
@@ -7128,23 +7128,23 @@ void mlir::presburger::detail::getIndex(mlir::presburger::detail *this@<X0>, llv
   }
 }
 
-void mlir::presburger::detail::computeUnimodularConeGeneratingFunction(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlir::presburger::detail::computeUnimodularConeGeneratingFunction(unsigned int *a1, int a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *(a3 + 336);
-  v4 = *(a3 + 344);
-  v5[0] = &v6;
-  v5[1] = 0x1000000000;
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = *(a3 + 336);
+  v5 = *(a3 + 344);
+  v6[0] = &v7;
+  v6[1] = 0x1000000000;
   if (*(a3 + 360))
   {
-    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v5, (a3 + 352));
+    llvm::SmallVectorImpl<llvm::DynamicAPInt>::operator=(v6, (a3 + 352));
   }
 
-  mlir::presburger::FracMatrix::FracMatrix(v7, &v3);
+  mlir::presburger::FracMatrix::FracMatrix(v8, &v4);
   mlir::presburger::Matrix<mlir::presburger::Fraction>::transpose();
 }
 
-void *mlir::presburger::Fraction::operator=(void *result, uint64_t *a2)
+uint64_t *mlir::presburger::Fraction::operator=(uint64_t *result, uint64_t *a2)
 {
   if (*(a2 + 2))
   {
@@ -7175,7 +7175,7 @@ void *mlir::presburger::Fraction::operator=(void *result, uint64_t *a2)
 
 LABEL_7:
     v7 = result;
-    mlir::presburger::Fraction::operator=(result, v3, (a2 + 2), result + 4);
+    mlir::presburger::Fraction::operator=(result, v3, (a2 + 2), (result + 2));
     return v7;
   }
 
@@ -7219,8 +7219,8 @@ uint64_t *mlir::presburger::operator/@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>,
   {
     v7 = a1;
     v8 = a2;
-    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(a1, &v12);
-    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((v8 + 2), &v10);
+    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v12, a1);
+    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v10, v8 + 2);
     llvm::detail::SlowDynamicAPInt::operator*(&v12, &v10, &v18);
     v17 = v19;
     if (v19 > 0x40)
@@ -7249,7 +7249,7 @@ uint64_t *mlir::presburger::operator/@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>,
 
   else
   {
-    v16 = *a1 * v4;
+    v16 = (*a1 * v4);
     v17 = 0;
     if (*(a1 + 6) | *(a2 + 2))
     {
@@ -7267,8 +7267,8 @@ uint64_t *mlir::presburger::operator/@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>,
 
 LABEL_21:
   v9 = a2;
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((a1 + 2), &v12);
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(v9, &v10);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v12, a1 + 2);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v10, v9);
   llvm::detail::SlowDynamicAPInt::operator*(&v12, &v10, &v18);
   v15 = v19;
   if (v19 > 0x40)
@@ -7329,7 +7329,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t *mlir::presburger::operator-@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t *mlir::presburger::operator-@<X0>(uint64_t a1@<X0>, mlir::presburger::Fraction *a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 8) || *a1 == 0x8000000000000000)
@@ -7367,28 +7367,28 @@ uint64_t *mlir::presburger::operator-@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-void mlir::presburger::detail::computeChamberDecomposition(__int32 a1)
+void mlir::presburger::detail::computeChamberDecomposition(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1.i32[0] = 0;
-  v1.i32[1] = a1;
-  v1.i64[1] = 0;
-  v2 = 0;
-  v3 = &v5;
-  v4 = 0;
-  mlir::presburger::PresburgerSet::getUniverse(&v1, &v6);
+  v10 = *MEMORY[0x277D85DE8];
+  v4.i32[0] = 0;
+  v4.i32[1] = a1;
+  v4.i64[1] = 0;
+  v5 = 0;
+  v6 = &v8;
+  v7 = 0;
+  mlir::presburger::PresburgerSet::getUniverse(&v9, &v4);
 }
 
-void mlir::presburger::detail::GeneratingFunction::operator+(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void mlir::presburger::detail::GeneratingFunction::operator+(unsigned int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = 0;
   v36[6] = *MEMORY[0x277D85DE8];
   __dst = v36;
   v35 = 0xC00000000;
   v6 = 12;
-  if (&__dst != (a1 + 8))
+  if (&__dst != (a1 + 2))
   {
-    v7 = *(a1 + 16);
+    v7 = a1[4];
     if (v7)
     {
       if (v7 >= 0xD)
@@ -7396,7 +7396,7 @@ void mlir::presburger::detail::GeneratingFunction::operator+(uint64_t a1@<X0>, u
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      memcpy(v36, *(a1 + 8), 4 * *(a1 + 16));
+      memcpy(v36, *(a1 + 1), 4 * a1[4]);
       LODWORD(v35) = v7;
       v6 = HIDWORD(v35);
       v5 = v7;
@@ -7419,8 +7419,8 @@ void mlir::presburger::detail::GeneratingFunction::operator+(uint64_t a1@<X0>, u
   v27 = 0;
   v28 = 0;
   v29 = 0;
-  v9 = *(a1 + 72);
-  v10 = *(a1 + 80);
+  v9 = *(a1 + 9);
+  v10 = *(a1 + 10);
   if (v10 != v9)
   {
     if (0xF0F0F0F0F0F0F0F1 * ((v10 - v9) >> 5) <= 0x78787878787878)
@@ -7435,7 +7435,7 @@ void mlir::presburger::detail::GeneratingFunction::operator+(uint64_t a1@<X0>, u
   v24 = 0;
   v25 = 0;
   v26 = 0;
-  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(&v24, *(a1 + 96), *(a1 + 104), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 104) - *(a1 + 96)) >> 3));
+  std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(&v24, *(a1 + 12), *(a1 + 13), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 13) - *(a1 + 12)) >> 3));
   std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>> const*>,std::__wrap_iter<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>> const*>>(&v24, v25, *(a2 + 96), *(a2 + 104), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 104) - *(a2 + 96)) >> 3));
   v11 = *a1;
   v31 = v33;
@@ -7530,7 +7530,7 @@ LABEL_35:
 
 void mlir::presburger::detail::computePolytopeGeneratingFunction(mlir::presburger::detail *this, const mlir::presburger::IntegerRelation *a2)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
+  v2 = MEMORY[0x28223BE20](this);
   v11[6] = *MEMORY[0x277D85DE8];
   v3 = *(v2 + 12);
   v4 = *(v2 + 336);
@@ -7567,7 +7567,7 @@ void mlir::presburger::detail::computePolytopeGeneratingFunction(mlir::presburge
   mlir::presburger::Matrix<llvm::DynamicAPInt>::splitByBitset();
 }
 
-uint64_t *mlir::presburger::detail::getNonOrthogonalVector@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+llvm::APInt *mlir::presburger::detail::getNonOrthogonalVector@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v57 = *MEMORY[0x277D85DE8];
   v34 = *(a1 + 8);
@@ -7966,16 +7966,16 @@ LABEL_22:
       v26 = *(a3 + 8);
       if (v26 >= *(a3 + 12))
       {
-        llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>();
+        llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>(a3, &v45);
       }
 
-      v27 = *a3 + 32 * v26;
+      v27 = (*a3 + 32 * v26);
       *v27 = v45;
-      *(v27 + 8) = 0;
+      v27[2] = 0;
       v28 = v46;
       if (v46)
       {
-        *(v27 + 8) = v46;
+        v27[2] = v46;
         if (v28 > 0x40)
         {
           llvm::APInt::initSlowCase(v27, &v45);
@@ -7984,9 +7984,9 @@ LABEL_22:
         *v27 = v45;
       }
 
-      *(v27 + 16) = v47;
-      result = (v27 + 16);
-      *(v27 + 24) = 0;
+      *(v27 + 2) = v47;
+      result = (v27 + 4);
+      v27[6] = 0;
       v29 = v48;
       if (v48)
       {
@@ -8043,7 +8043,7 @@ LABEL_104:
       }
     }
 
-    *(v27 + 24) = v48;
+    v27[6] = v48;
     if (v29 > 0x40)
     {
       llvm::APInt::initSlowCase(result, &v47);
@@ -8110,15 +8110,15 @@ LABEL_143:
   return result;
 }
 
-uint64_t *mlir::presburger::operator+@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t *mlir::presburger::operator+@<X0>(uint64_t *a1@<X0>, llvm::APInt *a2@<X1>, uint64_t *a3@<X8>)
 {
   v33 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 2) | *(a2 + 6) || (v4 = a2[2], (*a1 * v4) >> 64 != (*a1 * v4) >> 63))
+  if (*(a1 + 2) | *(a2 + 6) || (v4 = *(a2 + 2), (*a1 * v4) >> 64 != (*a1 * v4) >> 63))
   {
     v10 = a1;
     v11 = a2;
-    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(a1, &v19);
-    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((v11 + 2), &v17);
+    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v19, a1);
+    llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v17, v11 + 2);
     llvm::detail::SlowDynamicAPInt::operator*(&v19, &v17, &v29);
     v26 = v30;
     if (v30 > 0x40)
@@ -8144,8 +8144,8 @@ uint64_t *mlir::presburger::operator+@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>,
 LABEL_27:
       v12 = a1;
       v13 = a2;
-      llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((a1 + 2), &v19);
-      llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(v13, &v17);
+      llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v19, a1 + 2);
+      llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v17, v13);
       llvm::detail::SlowDynamicAPInt::operator*(&v19, &v17, &v29);
       v24 = v30;
       if (v30 > 0x40)
@@ -8201,7 +8201,7 @@ LABEL_27:
 LABEL_6:
   if (!__OFADD__(v25, v23))
   {
-    v27 = v25 + v23;
+    v27 = (v25 + v23);
     v28 = 0;
     if (*(a1 + 6) | *(a2 + 6))
     {
@@ -8214,8 +8214,8 @@ LABEL_6:
 LABEL_37:
   v14 = a1;
   v15 = a2;
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v25, &v19);
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v23, &v17);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v19, &v25);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v17, &v23);
   llvm::detail::SlowDynamicAPInt::operator+(&v19, &v17, &v29);
   v28 = v30;
   if (v30 > 0x40)
@@ -8243,7 +8243,7 @@ LABEL_37:
 
 LABEL_8:
   v6 = a1[2];
-  v7 = a2[2];
+  v7 = *(a2 + 2);
   if ((v6 * v7) >> 64 == (v6 * v7) >> 63)
   {
     v21 = v6 * v7;
@@ -8253,8 +8253,8 @@ LABEL_8:
 
 LABEL_47:
   v16 = a2;
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((a1 + 2), &v19);
-  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt((v16 + 2), &v17);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v19, a1 + 2);
+  llvm::DynamicAPInt::operator llvm::detail::SlowDynamicAPInt(&v17, v16 + 2);
   llvm::detail::SlowDynamicAPInt::operator*(&v19, &v17, &v29);
   v22 = v30;
   if (v30 > 0x40)
@@ -8333,7 +8333,7 @@ LABEL_10:
   return result;
 }
 
-void mlir::presburger::detail::getCoefficientInRationalFunction(unsigned int a1@<W0>, _DWORD *a2@<X1>, unint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void mlir::presburger::detail::getCoefficientInRationalFunction(unsigned int a1@<W0>, _DWORD *a2@<X1>, unint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
 {
   v162 = *MEMORY[0x277D85DE8];
   v123 = a2[2];
@@ -8419,7 +8419,7 @@ LABEL_35:
           v158 = 0x100000000;
           if (*(v15 + 12))
           {
-            llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(&v157, v15 + 40);
+            llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(&v157, v15 + 10);
           }
 
           v160 = 0uLL;
@@ -8446,13 +8446,13 @@ LABEL_35:
         *(v18 + 6) = 0x100000000;
         if (v158)
         {
-          llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(v18 + 5, &v157);
+          llvm::SmallVectorImpl<mlir::presburger::Fraction>::operator=(v18 + 10, &v157);
         }
 
         *(v18 + 11) = 0;
         *(v18 + 12) = 0;
         v20 = v18 + 88;
-        *(v20 + 16) = 0;
+        *(v20 + 2) = 0;
         std::vector<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>>::__init_with_size[abi:nn200100]<std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*,std::vector<llvm::SmallVector<mlir::presburger::Fraction,1u>>*>(v20, v160, *(&v160 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v160 + 1) - v160) >> 3));
         a4 = v122;
         v130 = (v20 + 24);
@@ -8615,25 +8615,25 @@ LABEL_38:
             v48 = v157;
             if (v158)
             {
-              v49 = &v157[4 * v158 - 2];
+              v49 = &v157[32 * v158 - 16];
               v50 = -32 * v158;
               do
               {
-                if (*(v49 + 2) > 0x40u && *v49)
+                if (*(v49 + 8) > 0x40u && *v49)
                 {
                   MEMORY[0x259C63150](*v49, 0x1000C8000313F17);
                 }
 
-                if (*(v49 - 2) > 0x40u)
+                if (*(v49 - 8) > 0x40u)
                 {
-                  v51 = *(v49 - 2);
+                  v51 = *(v49 - 16);
                   if (v51)
                   {
                     MEMORY[0x259C63150](v51, 0x1000C8000313F17);
                   }
                 }
 
-                v49 -= 4;
+                v49 -= 32;
                 v50 += 32;
               }
 
@@ -9088,7 +9088,7 @@ LABEL_163:
     }
   }
 
-  mlir::presburger::QuasiPolynomial::simplify((v129 + 112 * a1), a6);
+  mlir::presburger::QuasiPolynomial::simplify(a6, (v129 + 112 * a1));
   v114 = v129;
   if (v129)
   {
@@ -9110,9 +9110,9 @@ LABEL_163:
   }
 }
 
-void *std::vector<mlir::presburger::QuasiPolynomial>::reserve(void *result, unint64_t a2)
+void std::vector<mlir::presburger::QuasiPolynomial>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 4) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x24924924924924ALL)
     {
@@ -9121,103 +9121,101 @@ void *std::vector<mlir::presburger::QuasiPolynomial>::reserve(void *result, unin
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
-void substituteMuInTerm(uint64_t a1, uint64_t a2, uint64_t ***a3, uint64_t a4)
+void substituteMuInTerm(unsigned int a1, uint64_t a2, llvm::APInt ***a3, void *a4)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v5 = *(a4 + 8);
-  v20 = v22;
-  v21 = 0x100000000;
-  if (v5 >= 2)
+  v23[4] = *MEMORY[0x277D85DE8];
+  v6 = *(a4 + 2);
+  v21 = v23;
+  v22 = 0x100000000;
+  if (v6 >= 2)
   {
-    v16 = 0;
+    v17 = 0;
     llvm::SmallVectorBase<unsigned int>::mallocForGrow();
   }
 
-  v6 = *a3;
-  v7 = a3[1];
-  if (*a3 != v7)
+  v7 = *a3;
+  v8 = a3[1];
+  if (*a3 != v8)
   {
     do
     {
-      mlir::presburger::dotProduct(*a4, *(a4 + 8), *v6, &v12);
-      mlir::presburger::operator-(&v12, &v16);
-      if (v21 >= HIDWORD(v21))
+      mlir::presburger::dotProduct(*a4, *(a4 + 2), *v7, &v13);
+      mlir::presburger::operator-(&v13, &v17);
+      if (v22 >= HIDWORD(v22))
       {
-        llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>();
+        llvm::SmallVectorTemplateBase<mlir::presburger::Fraction,false>::growAndEmplaceBack<mlir::presburger::Fraction>(&v21, &v17);
       }
 
-      v8 = &v20[4 * v21];
-      *v8 = v16;
-      v8[2] = 0;
-      v9 = v17;
-      if (v17)
+      v9 = &v21[4 * v22];
+      *v9 = v17;
+      v9[2] = 0;
+      v10 = v18;
+      if (v18)
       {
-        v8[2] = v17;
-        if (v9 > 0x40)
+        v9[2] = v18;
+        if (v10 > 0x40)
         {
-          llvm::APInt::initSlowCase(v8, &v16);
+          llvm::APInt::initSlowCase(v9, &v17);
         }
 
-        *v8 = v16;
+        *v9 = v17;
       }
 
-      *(v8 + 2) = v18;
-      v10 = (v8 + 4);
-      v8[6] = 0;
-      v11 = v19;
-      if (v19)
+      *(v9 + 2) = v19;
+      v11 = (v9 + 4);
+      v9[6] = 0;
+      v12 = v20;
+      if (v20)
       {
-        v8[6] = v19;
-        if (v11 > 0x40)
+        v9[6] = v20;
+        if (v12 > 0x40)
         {
-          llvm::APInt::initSlowCase(v10, &v18);
+          llvm::APInt::initSlowCase(v11, &v19);
         }
 
-        *v10 = v18;
-        LODWORD(v21) = v21 + 1;
-        if (v19 > 0x40 && v18)
+        *v11 = v19;
+        LODWORD(v22) = v22 + 1;
+        if (v20 > 0x40 && v19)
         {
-          MEMORY[0x259C63150](v18, 0x1000C8000313F17);
+          MEMORY[0x259C63150](v19, 0x1000C8000313F17);
         }
       }
 
       else
       {
-        LODWORD(v21) = v21 + 1;
+        LODWORD(v22) = v22 + 1;
       }
 
-      if (v17 > 0x40 && v16)
+      if (v18 > 0x40 && v17)
       {
-        MEMORY[0x259C63150](v16, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v17, 0x1000C8000313F17);
       }
 
-      if (v15 > 0x40 && v14)
+      if (v16 > 0x40 && v15)
       {
-        MEMORY[0x259C63150](v14, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v15, 0x1000C8000313F17);
       }
 
-      if (v13 > 0x40)
+      if (v14 > 0x40)
       {
-        if (v12)
+        if (v13)
         {
-          MEMORY[0x259C63150](v12, 0x1000C8000313F17);
+          MEMORY[0x259C63150](v13, 0x1000C8000313F17);
         }
       }
 
-      v6 += 6;
+      v7 += 6;
     }
 
-    while (v6 != v7);
+    while (v7 != v8);
   }
 
   mlir::presburger::Matrix<mlir::presburger::Fraction>::transpose();
 }
 
-void normalizeDenominatorExponents(_DWORD *a1, uint64_t a2, uint64_t **a3)
+void normalizeDenominatorExponents(_DWORD *a1, uint64_t a2, llvm::APInt **a3)
 {
   v36 = *MEMORY[0x277D85DE8];
   *&v22 = 0;
@@ -9291,7 +9289,7 @@ void normalizeDenominatorExponents(_DWORD *a1, uint64_t a2, uint64_t **a3)
         ++v8;
       }
 
-      v6 += 4;
+      v6 = (v6 + 32);
     }
 
     while (v6 != v7);
@@ -9377,19 +9375,19 @@ void normalizeDenominatorExponents(_DWORD *a1, uint64_t a2, uint64_t **a3)
   }
 }
 
-void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X8>)
 {
   v40 = *MEMORY[0x277D85DE8];
   v14 = *(a1 + 2) + *a1;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   *a3 = 0;
   std::vector<mlir::presburger::QuasiPolynomial>::reserve(a3, a2 + 1);
   LODWORD(v30) = 1;
-  v5 = *(a3 + 8);
-  if (v5 >= *(a3 + 16))
+  v5 = a3[1];
+  if (v5 >= a3[2])
   {
-    *(a3 + 8) = std::vector<mlir::presburger::QuasiPolynomial>::__emplace_back_slow_path<unsigned int &,int>(a3, &v14, &v30);
+    a3[1] = std::vector<mlir::presburger::QuasiPolynomial>::__emplace_back_slow_path<unsigned int &,int>(a3, &v14, &v30);
     if (!a2)
     {
       return;
@@ -9398,8 +9396,8 @@ void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, u
 
   else
   {
-    std::allocator<mlir::presburger::QuasiPolynomial>::construct[abi:nn200100]<mlir::presburger::QuasiPolynomial,unsigned int &,int>(a3, *(a3 + 8), &v14, &v30);
-    *(a3 + 8) = v5 + 112;
+    std::allocator<mlir::presburger::QuasiPolynomial>::construct[abi:nn200100]<mlir::presburger::QuasiPolynomial,unsigned int &,int>(a3, a3[1], &v14, &v30);
+    a3[1] = v5 + 112;
     if (!a2)
     {
       return;
@@ -9440,9 +9438,9 @@ void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, u
     }
 
     mlir::presburger::QuasiPolynomial::operator/(v27, &v15, &v28);
-    mlir::presburger::QuasiPolynomial::simplify(&v28, &v30);
-    v9 = *(a3 + 8);
-    if (v9 >= *(a3 + 16))
+    mlir::presburger::QuasiPolynomial::simplify(&v30, &v28);
+    v9 = a3[1];
+    if (v9 >= a3[2])
     {
       v12 = std::vector<mlir::presburger::QuasiPolynomial>::__emplace_back_slow_path<mlir::presburger::QuasiPolynomial>(a3, &v30);
     }
@@ -9487,7 +9485,7 @@ void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, u
       v12 = v9 + 112;
     }
 
-    *(a3 + 8) = v12;
+    a3[1] = v12;
     mlir::presburger::QuasiPolynomial::~QuasiPolynomial(&v30);
     mlir::presburger::QuasiPolynomial::~QuasiPolynomial(&v28);
     if (v18 > 0x40 && v17)
@@ -9527,7 +9525,7 @@ void getBinomialCoefficients(const mlir::presburger::QuasiPolynomial *a1@<X0>, u
   while (v6 <= a2);
 }
 
-uint64_t getBinomialCoefficients@<X0>(const mlir::presburger::Fraction *a1@<X0>, const mlir::presburger::Fraction *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t getBinomialCoefficients@<X0>(const mlir::presburger::Fraction *a1@<X0>, const mlir::presburger::Fraction *a2@<X1>, void **a3@<X8>)
 {
   v48 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -9587,7 +9585,7 @@ LABEL_7:
       MEMORY[0x259C63150](v38, 0x1000C8000313F17);
     }
 
-    v8 = (v7 + 4);
+    v8 = v7 + 4;
   }
 
   v9 = 0;
@@ -9696,7 +9694,7 @@ LABEL_77:
     v17 = v45;
     if (!v45)
     {
-      a3[1] = (v12 + 8);
+      a3[1] = v12 + 8;
       v18 = v45;
       if (!v45)
       {
@@ -9713,7 +9711,7 @@ LABEL_77:
     }
 
     *v16 = v15;
-    a3[1] = (v12 + 8);
+    a3[1] = v12 + 8;
     v18 = v45;
     if (v45)
     {

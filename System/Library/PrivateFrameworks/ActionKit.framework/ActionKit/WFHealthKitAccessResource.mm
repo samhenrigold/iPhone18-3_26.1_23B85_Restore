@@ -37,24 +37,22 @@
 
 - (id)localizedErrorRecoveryOptionsForStatus:(unint64_t)status
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (status == 3)
   {
     v3 = WFLocalizedString(@"Open Health");
-    v9[0] = v3;
-    v4 = v9;
+    v8[0] = v3;
+    v4 = v8;
   }
 
   else
   {
     v3 = WFLocalizedString(@"Allow Access");
-    v8 = v3;
-    v4 = &v8;
+    v7 = v3;
+    v4 = &v7;
   }
 
   v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -168,45 +166,43 @@ void __78__WFHealthKitAccessResource_makeAvailableWithUserInterface_completionHa
 uint64_t __78__WFHealthKitAccessResource_makeAvailableWithUserInterface_completionHandler___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) refreshAvailabilityWithForcedNotification];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)refreshAvailability
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   objectTypes = [(WFHealthKitAccessResource *)self objectTypes];
   if ([objectTypes count])
   {
     healthStore = [(WFHealthKitAccessResource *)self healthStore];
     indexSet = [MEMORY[0x277CCAB58] indexSet];
     [(WFHealthKitAccessResource *)self writeTypes];
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v6 = v36 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v34 = 0u;
+    v6 = v35 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v7)
     {
-      v8 = *v36;
+      v8 = *v35;
       do
       {
         v9 = 0;
         do
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [indexSet addIndex:{objc_msgSend(healthStore, "authorizationStatusForType:", *(*(&v35 + 1) + 8 * v9++))}];
+          [indexSet addIndex:{objc_msgSend(healthStore, "authorizationStatusForType:", *(*(&v34 + 1) + 8 * v9++))}];
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v7);
@@ -214,41 +210,41 @@ uint64_t __78__WFHealthKitAccessResource_makeAvailableWithUserInterface_completi
 
     indexSet2 = [MEMORY[0x277CCAB58] indexSet];
     [(WFHealthKitAccessResource *)self readTypes];
+    v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v11 = v32 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v30 = 0u;
+    v11 = v31 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v12)
     {
-      v13 = *v32;
+      v13 = *v31;
       do
       {
         v14 = 0;
         do
         {
-          if (*v32 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [indexSet2 addIndex:{objc_msgSend(healthStore, "authorizationStatusForType:", *(*(&v31 + 1) + 8 * v14++))}];
+          [indexSet2 addIndex:{objc_msgSend(healthStore, "authorizationStatusForType:", *(*(&v30 + 1) + 8 * v14++))}];
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v12);
     }
 
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
-    v30 = 1;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 1;
     if ([indexSet containsIndex:1])
     {
-      v28[3] = 3;
+      v27[3] = 3;
     }
 
     v15 = [MEMORY[0x277CCAA78] indexSetWithIndex:2];
@@ -256,53 +252,51 @@ uint64_t __78__WFHealthKitAccessResource_makeAvailableWithUserInterface_completi
     {
       v16 = [v11 count] == 0;
 
-      v17 = v28;
+      v17 = v27;
       if (v16)
       {
-        v28[3] = 4;
+        v27[3] = 4;
       }
     }
 
     else
     {
 
-      v17 = v28;
+      v17 = v27;
     }
 
     v18 = v17[3];
     if (v18 == 1)
     {
       v19 = dispatch_semaphore_create(0);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __48__WFHealthKitAccessResource_refreshAvailability__block_invoke;
-      v24[3] = &unk_278C18F50;
-      v26 = &v27;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __48__WFHealthKitAccessResource_refreshAvailability__block_invoke;
+      v23[3] = &unk_278C18F50;
+      v25 = &v26;
       v20 = v19;
-      v25 = v20;
-      [healthStore getRequestStatusForAuthorizationToShareTypes:v6 readTypes:objectTypes completion:v24];
+      v24 = v20;
+      [healthStore getRequestStatusForAuthorizationToShareTypes:v6 readTypes:objectTypes completion:v23];
       v21 = dispatch_time(0, 2000000000);
       dispatch_semaphore_wait(v20, v21);
 
-      v18 = v28[3];
+      v18 = v27[3];
     }
 
     self->_status = v18;
-    v23.receiver = self;
-    v23.super_class = WFHealthKitAccessResource;
-    [(WFAccessResource *)&v23 refreshAvailability];
-    _Block_object_dispose(&v27, 8);
+    v22.receiver = self;
+    v22.super_class = WFHealthKitAccessResource;
+    [(WFAccessResource *)&v22 refreshAvailability];
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
     self->_status = 4;
-    v39.receiver = self;
-    v39.super_class = WFHealthKitAccessResource;
-    [(WFAccessResource *)&v39 refreshAvailability];
+    v38.receiver = self;
+    v38.super_class = WFHealthKitAccessResource;
+    [(WFAccessResource *)&v38 refreshAvailability];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __48__WFHealthKitAccessResource_refreshAvailability__block_invoke(uint64_t a1, uint64_t a2)
@@ -362,7 +356,7 @@ uint64_t __68__WFHealthKitAccessResource_readableUnauthorizedResourceDescription
     v8 = 0x277CCD000uLL;
     v9 = 0x277CCD000uLL;
     v10 = @"Workout";
-    v24 = a3;
+    v22 = a3;
     do
     {
       v11 = [v5 objectAtIndexedSubscript:v6];
@@ -372,47 +366,45 @@ uint64_t __68__WFHealthKitAccessResource_readableUnauthorizedResourceDescription
         goto LABEL_13;
       }
 
-      v13 = *(v8 + 1824);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
           [v11 identifier];
-          v17 = v7;
-          v18 = v8;
-          v19 = v9;
-          v21 = v20 = v10;
-          v16 = [WFHealthKitHelper readableSampleTypeIdentifierFromSampleTypeIdentifier:v21];
+          v15 = v7;
+          v16 = v8;
+          v17 = v9;
+          v19 = v18 = v10;
+          v14 = [WFHealthKitHelper readableSampleTypeIdentifierFromSampleTypeIdentifier:v19];
 
-          v10 = v20;
-          v9 = v19;
-          v8 = v18;
-          v7 = v17;
-          a3 = v24;
+          v10 = v18;
+          v9 = v17;
+          v8 = v16;
+          v7 = v15;
+          a3 = v22;
           goto LABEL_12;
         }
 
-        v14 = [v11 hk_localizedName];
+        v13 = [v11 hk_localizedName];
       }
 
       else
       {
-        v15 = *(v9 + 3280);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
-          v22 = 0;
+          v20 = 0;
           goto LABEL_15;
         }
 
-        v14 = WFLocalizedString(v10);
+        v13 = WFLocalizedString(v10);
       }
 
-      v16 = v14;
+      v14 = v13;
 LABEL_12:
-      [*(a1 + 40) addObject:v16];
+      [*(a1 + 40) addObject:v14];
 
 LABEL_13:
       ++v6;
@@ -421,17 +413,17 @@ LABEL_13:
     while (v6 < [v5 count]);
   }
 
-  v22 = 1;
+  v20 = 1;
 LABEL_15:
 
-  return v22;
+  return v20;
 }
 
 - (id)objectTypesForAccessType:(id)type
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v45 = objc_opt_new();
+  v41 = objc_opt_new();
   definition = [(WFResource *)self definition];
   v6 = [definition objectForKeyedSubscript:@"Resources"];
   v7 = objc_opt_class();
@@ -444,66 +436,63 @@ LABEL_15:
     if (definition2)
     {
       definition3 = [(WFResource *)self definition];
-      v55[0] = definition3;
-      definition2 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
+      v51[0] = definition3;
+      definition2 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
     }
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = definition2;
-  v10 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v10 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = 0x277CBE000uLL;
-    v13 = *v51;
-    v49 = *MEMORY[0x277CCC980];
-    v14 = *MEMORY[0x277CCC978];
-    v46 = *MEMORY[0x277CCC978];
-    v47 = *v51;
+    v12 = *v47;
+    v45 = *MEMORY[0x277CCC980];
+    v42 = *MEMORY[0x277CCC978];
+    v43 = *v47;
     do
     {
-      v15 = 0;
+      v13 = 0;
       do
       {
-        if (*v51 != v13)
+        if (*v47 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v50 + 1) + 8 * v15);
-        v17 = *(v12 + 2752);
-        v18 = objc_opt_class();
-        v19 = WFEnforceClass(v16, v18);
-        v20 = v19;
-        if (v19)
+        v14 = *(*(&v46 + 1) + 8 * v13);
+        v15 = objc_opt_class();
+        v16 = WFEnforceClass(v14, v15);
+        v17 = v16;
+        if (v16)
         {
-          if (!typeCopy || ([v19 objectForKeyedSubscript:@"AccessType"], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isEqualToString:", typeCopy), v21, v22))
+          if (!typeCopy || ([v16 objectForKeyedSubscript:@"AccessType"], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", typeCopy), v18, v19))
           {
-            v23 = v20;
-            workoutType = [v23 objectForKeyedSubscript:@"ObjectType"];
+            v20 = v17;
+            workoutType = [v20 objectForKeyedSubscript:@"ObjectType"];
             if (!workoutType || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
 
-              v25 = [v23 objectForKeyedSubscript:@"ReadableType"];
-              v26 = [v23 objectForKeyedSubscript:@"ReadableObjectTypeIdentifier"];
+              v22 = [v20 objectForKeyedSubscript:@"ReadableType"];
+              v23 = [v20 objectForKeyedSubscript:@"ReadableObjectTypeIdentifier"];
 
-              if (v26)
+              if (v23)
               {
-                v26 = [v23 objectForKeyedSubscript:@"ReadableObjectTypeIdentifier"];
+                v23 = [v20 objectForKeyedSubscript:@"ReadableObjectTypeIdentifier"];
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v27 = v26 != 0;
-                if ([v25 isEqualToString:@"Quantity"] && v26)
+                v24 = v23 != 0;
+                if ([v22 isEqualToString:@"Quantity"] && v23)
                 {
-                  v28 = [WFHealthKitHelper sampleTypeIdentifierFromReadableTypeIdentifier:v26];
-                  v29 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v28];
+                  v25 = [WFHealthKitHelper sampleTypeIdentifierFromReadableTypeIdentifier:v23];
+                  v26 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v25];
                   goto LABEL_27;
                 }
               }
@@ -511,44 +500,42 @@ LABEL_15:
               else
               {
 
-                [v25 isEqualToString:@"Quantity"];
-                v27 = 0;
-                v26 = 0;
+                [v22 isEqualToString:@"Quantity"];
+                v24 = 0;
+                v23 = 0;
               }
 
-              if ([v25 isEqualToString:@"Workout"])
+              if ([v22 isEqualToString:@"Workout"])
               {
                 workoutType = [MEMORY[0x277CCD720] workoutType];
                 goto LABEL_28;
               }
 
-              if (([v25 isEqualToString:@"Characteristic"] & v27) == 1)
+              if (([v22 isEqualToString:@"Characteristic"] & v24) == 1)
               {
-                v28 = [WFHealthKitHelper characteristicTypeIdentifierFromReadableTypeIdentifier:v26];
-                v29 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:v28];
+                v25 = [WFHealthKitHelper characteristicTypeIdentifierFromReadableTypeIdentifier:v23];
+                v26 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:v25];
                 goto LABEL_27;
               }
 
-              if ([v25 isEqualToString:@"Category"])
+              if ([v22 isEqualToString:@"Category"])
               {
-                v28 = [WFHealthKitHelper sampleTypeIdentifierFromReadableTypeIdentifier:v26];
-                v29 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:v28];
+                v25 = [WFHealthKitHelper sampleTypeIdentifierFromReadableTypeIdentifier:v23];
+                v26 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:v25];
 LABEL_27:
-                workoutType = v29;
-
-                v12 = 0x277CBE000;
+                workoutType = v26;
               }
 
               else
               {
-                if ([v25 isEqualToString:@"Correlation"])
+                if ([v22 isEqualToString:@"Correlation"])
                 {
-                  v41 = MEMORY[0x277CCACA8];
-                  v42 = WFLocalizedString(@"%@ types are not implemented");
-                  v43 = [v41 localizedStringWithFormat:v42, v25];
+                  v37 = MEMORY[0x277CCACA8];
+                  v38 = WFLocalizedString(@"%@ types are not implemented");
+                  v39 = [v37 localizedStringWithFormat:v38, v22];
 
-                  v44 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:v43 userInfo:0];
-                  objc_exception_throw(v44);
+                  v40 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:v39 userInfo:0];
+                  objc_exception_throw(v40);
                 }
 
                 workoutType = 0;
@@ -559,52 +546,49 @@ LABEL_28:
 
             if (![typeCopy isEqualToString:@"Write"] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v30 = workoutType;
-              v31 = [MEMORY[0x277CBEB58] setWithObjects:{v30, 0}];
-              identifier = [v30 identifier];
-              if ([identifier isEqualToString:v49])
+              v27 = workoutType;
+              v28 = [MEMORY[0x277CBEB58] setWithObjects:{v27, 0}];
+              identifier = [v27 identifier];
+              if ([identifier isEqualToString:v45])
               {
 
                 goto LABEL_34;
               }
 
-              identifier2 = [v30 identifier];
-              v34 = [identifier2 isEqualToString:v46];
+              identifier2 = [v27 identifier];
+              v31 = [identifier2 isEqualToString:v42];
 
-              v12 = 0x277CBE000;
-              if (v34)
+              if (v31)
               {
 LABEL_34:
-                v35 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v46];
-                [v31 addObject:v35];
+                v32 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v42];
+                [v28 addObject:v32];
 
-                v36 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v49];
-                [v31 addObject:v36];
+                v33 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v45];
+                [v28 addObject:v33];
               }
 
-              v37 = [v31 copy];
+              v34 = [v28 copy];
 
-              [v45 unionSet:v37];
+              [v41 unionSet:v34];
             }
 
-            v13 = v47;
+            v12 = v43;
           }
         }
 
-        ++v15;
+        ++v13;
       }
 
-      while (v11 != v15);
-      v38 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
-      v11 = v38;
+      while (v11 != v13);
+      v35 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v11 = v35;
     }
 
-    while (v38);
+    while (v35);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v41;
 }
 
 - (WFHealthKitAccessResource)initWithDefinition:(id)definition

@@ -1,4 +1,5 @@
 @interface HMDDecryptionCompletedLogEvent
++ (id)decryptionCompletedWithFailure:(BOOL)failure;
 - (HMDDecryptionCompletedLogEvent)initWithFailure:(BOOL)failure;
 @end
 
@@ -15,6 +16,13 @@
   }
 
   return result;
+}
+
++ (id)decryptionCompletedWithFailure:(BOOL)failure
+{
+  v3 = [[HMDDecryptionCompletedLogEvent alloc] initWithFailure:failure];
+
+  return v3;
 }
 
 @end

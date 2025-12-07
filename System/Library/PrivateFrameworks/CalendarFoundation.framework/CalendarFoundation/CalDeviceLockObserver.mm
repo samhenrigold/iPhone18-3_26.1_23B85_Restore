@@ -38,19 +38,15 @@
 
 - (void)_notificationReceived
 {
-  v9 = *MEMORY[0x1E69E9840];
   notificationListener = [self notificationListener];
   notificationName = [notificationListener notificationName];
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __46__CalDeviceLockObserver__notificationReceived__block_invoke(uint64_t a1)
+void __46__CalDeviceLockObserver__notificationReceived__block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = (a1 + 32);
-  v1 = *(a1 + 32);
   v3 = [objc_opt_class() hasBeenUnlockedSinceBoot];
   [*v2 setInternalHasBeenUnlockedSinceBoot:v3];
   if (v3)
@@ -58,7 +54,7 @@ void __46__CalDeviceLockObserver__notificationReceived__block_invoke(uint64_t a1
     v4 = +[CalFoundationLogSubsystem defaultCategory];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __46__CalDeviceLockObserver__notificationReceived__block_invoke_cold_1(v2);
+      __46__CalDeviceLockObserver__notificationReceived__block_invoke_cold_1();
     }
 
     v5 = [*v2 notificationListener];
@@ -106,7 +102,7 @@ void __46__CalDeviceLockObserver__notificationReceived__block_invoke(uint64_t a1
   return selfCopy;
 }
 
-uint64_t __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke(uint64_t a1)
+void *__49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
   if (([*(a1 + 32) internalHasBeenUnlockedSinceBoot] & 1) == 0)
@@ -115,39 +111,37 @@ uint64_t __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke(uint
 
     if (!v3)
     {
-      v4 = *v2;
-      v5 = [objc_opt_class() hasBeenUnlockedSinceBoot];
-      v6 = +[CalFoundationLogSubsystem defaultCategory];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v4 = [objc_opt_class() hasBeenUnlockedSinceBoot];
+      v5 = +[CalFoundationLogSubsystem defaultCategory];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_1(v2, v5);
+        __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_1(v2, v4);
       }
 
-      [*v2 setInternalHasBeenUnlockedSinceBoot:v5];
-      if ((v5 & 1) == 0)
+      [*v2 setInternalHasBeenUnlockedSinceBoot:v4];
+      if ((v4 & 1) == 0)
       {
-        v7 = +[CalFoundationLogSubsystem defaultCategory];
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v6 = +[CalFoundationLogSubsystem defaultCategory];
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_2(v2, v7);
+          __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_2(v2, v6);
         }
 
         objc_initWeak(&location, *v2);
-        v8 = [CalDarwinNotificationListener alloc];
-        v9 = *v2;
-        v10 = [objc_opt_class() stateChangedNotificationName];
-        v14 = MEMORY[0x1E69E9820];
-        v15 = 3221225472;
-        v16 = __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_7;
-        v17 = &unk_1E7EC69C0;
-        objc_copyWeak(&v18, &location);
-        v11 = [(CalDarwinNotificationListener *)v8 initWithNotificationName:v10 callback:&v14];
-        [*v2 setNotificationListener:{v11, v14, v15, v16, v17}];
+        v7 = [CalDarwinNotificationListener alloc];
+        v8 = [objc_opt_class() stateChangedNotificationName];
+        v12 = MEMORY[0x1E69E9820];
+        v13 = 3221225472;
+        v14 = __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_7;
+        v15 = &unk_1E7EC69C0;
+        objc_copyWeak(&v16, &location);
+        v9 = [(CalDarwinNotificationListener *)v7 initWithNotificationName:v8 callback:&v12];
+        [*v2 setNotificationListener:{v9, v12, v13, v14, v15}];
 
-        v12 = [*v2 notificationListener];
-        [v12 activate];
+        v10 = [*v2 notificationListener];
+        [v10 activate];
 
-        objc_destroyWeak(&v18);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(&location);
       }
     }
@@ -182,49 +176,38 @@ void __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_7(uint64
   return 0;
 }
 
-void __46__CalDeviceLockObserver__notificationReceived__block_invoke_cold_1(uint64_t *a1)
+void __46__CalDeviceLockObserver__notificationReceived__block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  v2 = CalBooleanAsString(1);
+  v0 = CalBooleanAsString(1);
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_5();
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+}
+
+void __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_1(uint64_t a1, char a2)
+{
+  v2 = CalBooleanAsString(a2 & 1);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_1(uint64_t *a1, char a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = CalBooleanAsString(a2 & 1);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CalDeviceLockObserver_hasBeenUnlockedSinceBoot__block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Starting up [%@]'s listener in order to find out when the value of 'hasBeenUnlockedSinceBoot' should change.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Starting up [%@]'s listener in order to find out when the value of 'hasBeenUnlockedSinceBoot' should change.", &v3, 0xCu);
 }
 
 + (void)hasBeenUnlockedSinceBoot
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:self];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Received an error when calling MKBDeviceUnlockedSinceBoot().  Error code: [%@]", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Received an error when calling MKBDeviceUnlockedSinceBoot().  Error code: [%@]", &v4, 0xCu);
 }
 
 @end

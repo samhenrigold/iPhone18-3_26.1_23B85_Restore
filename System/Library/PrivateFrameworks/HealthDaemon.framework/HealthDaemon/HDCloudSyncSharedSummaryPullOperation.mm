@@ -1,12 +1,13 @@
 @interface HDCloudSyncSharedSummaryPullOperation
 - (void)main;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncSharedSummaryPullOperation
 
 - (void)main
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   profile = [(HDCloudSyncOperation *)self profile];
   daemon = [profile daemon];
   behavior = [daemon behavior];
@@ -35,9 +36,9 @@
     [(HDSynchronousTaskGroup *)self->_taskGroup setDelegate:self];
     configuration = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration cachedCloudState];
-    v40 = 0;
-    v12 = [cachedCloudState zonesByIdentifierWithError:&v40];
-    v13 = v40;
+    v39 = 0;
+    v12 = [cachedCloudState zonesByIdentifierWithError:&v39];
+    v13 = v39;
 
     if (v12 || !v13)
     {
@@ -48,41 +49,41 @@
       v18 = os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT);
       if (v16)
       {
-        v34 = v13;
+        v33 = v13;
         if (v18)
         {
           v19 = v17;
           v20 = [v15 count];
           *buf = 138543618;
           *&buf[4] = self;
-          v43 = 2048;
-          v44 = v20;
+          v42 = 2048;
+          v43 = v20;
           _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Starting ingest from %lu zones", buf, 0x16u);
         }
 
         [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v33 = v15;
+        v32 = v15;
         obj = [v15 allKeys];
-        v21 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v21 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v37;
+          v23 = *v36;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v37 != v23)
+              if (*v36 != v23)
               {
                 objc_enumerationMutation(obj);
               }
 
               v25 = self->_taskGroup;
-              v26 = *(*(&v36 + 1) + 8 * i);
+              v26 = *(*(&v35 + 1) + 8 * i);
               [(HDSynchronousTaskGroup *)v25 beginTask];
               v27 = [[HDInsertSharedSummaryTransactionOperation alloc] initWithZoneIdentifier:v26];
 
@@ -103,15 +104,15 @@
               }
             }
 
-            v22 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+            v22 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
           }
 
           while (v22);
         }
 
         [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-        v13 = v34;
-        v15 = v33;
+        v13 = v33;
+        v15 = v32;
       }
 
       else
@@ -135,16 +136,14 @@
       {
         *buf = 138543618;
         *&buf[4] = self;
-        v43 = 2114;
-        v44 = v13;
+        v42 = 2114;
+        v43 = v13;
         _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to get cached zones, %{public}@", buf, 0x16u);
       }
 
       [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v13];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __45__HDCloudSyncSharedSummaryPullOperation_main__block_invoke(uint64_t a1, void *a2)
@@ -167,6 +166,13 @@ BOOL __45__HDCloudSyncSharedSummaryPullOperation_main__block_invoke(uint64_t a1,
   }
 
   return v6;
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

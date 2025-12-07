@@ -47,7 +47,15 @@
       v8 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        OUTLINED_FUNCTION_9_0(&dword_1C5126000, v9, v10, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", v11, v12, v13, v14, 2u);
+        *v16 = 136446978;
+        *&v16[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsBaseImprover.m";
+        *&v16[12] = 1024;
+        *&v16[14] = 30;
+        *&v16[18] = 2082;
+        *&v16[20] = "[MapsSuggestionsBaseImprover improveMyUndecoratedTitle:forEntry:]";
+        *&v16[28] = 2082;
+        *&v16[30] = "nil == (entry)";
+        OUTLINED_FUNCTION_9_0(&dword_1C5126000, v9, v10, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], *&v16[24], *&v16[32]);
       }
 
       self = 0;
@@ -74,7 +82,15 @@
       v8 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        OUTLINED_FUNCTION_9_0(&dword_1C5126000, v9, v10, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", v11, v12, v13, v14, 2u);
+        *v16 = 136446978;
+        *&v16[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsBaseImprover.m";
+        *&v16[12] = 1024;
+        *&v16[14] = 37;
+        *&v16[18] = 2082;
+        *&v16[20] = "[MapsSuggestionsBaseImprover improveMyUndecoratedSubtitle:forEntry:]";
+        *&v16[28] = 2082;
+        *&v16[30] = "nil == (entry)";
+        OUTLINED_FUNCTION_9_0(&dword_1C5126000, v9, v10, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], *&v16[24], *&v16[32]);
       }
 
       self = 0;

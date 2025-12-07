@@ -300,7 +300,7 @@ void __70__PKInAppPaymentSession_authorizeWithRequest_authorizationParameters___
     {
       v25 = [v7 domain];
       v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"nfcd"];
-      if ([v25 isEqualToString:v26])
+      if (objc_msgSend_isEqualToString_(v25))
       {
         v27 = [v7 code] == 14;
       }

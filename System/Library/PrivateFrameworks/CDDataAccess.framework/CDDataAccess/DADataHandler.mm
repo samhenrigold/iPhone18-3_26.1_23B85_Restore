@@ -81,86 +81,94 @@
 
 - (int64_t)dataclass
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v7 = 136315138;
+    v6 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v7, 0xCu);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (int)getIdFromLocalObject:(void *)object
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v4, v5))
   {
-    v8 = 136315138;
+    v7 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v8, 0xCu);
+    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)copyLocalObjectFromId:(int)id
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v4, v5))
   {
-    v8 = 136315138;
+    v7 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v8, 0xCu);
+    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)saveContainer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v7 = 136315138;
+    v6 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v7, 0xCu);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)copyOfAllLocalObjectsInContainer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v7 = 136315138;
+    v6 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v7, 0xCu);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)drainContainer
 {
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277CF3AF0] + 3);
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = 136315138;
+    Name = sel_getName(a2);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v5, 0xCu);
+  }
+}
+
+- (BOOL)wipeServerIds
+{
   v8 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
@@ -171,116 +179,92 @@
     _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (BOOL)wipeServerIds
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = DALoggingwithCategory();
-  v4 = *(MEMORY[0x277CF3AF0] + 3);
-  if (os_log_type_enabled(v3, v4))
-  {
-    v7 = 136315138;
-    Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v7, 0xCu);
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)drainSuperfluousChanges
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v6 = 136315138;
+    v5 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openDB
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v3, v4))
   {
-    v6 = 136315138;
+    v5 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
+    _os_log_impl(&dword_24244C000, v3, v4, "%s to be implemented by subclass", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)closeDBAndSave:(BOOL)save
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v4, v5))
   {
-    v8 = 136315138;
+    v7 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v8, 0xCu);
+    _os_log_impl(&dword_24244C000, v4, v5, "%s to be implemented by subclass", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (id)newDataHandlerForDataclass:(int64_t)dataclass container:(void *)container changeTrackingID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v6, v7))
   {
-    v10 = 136315138;
+    v9 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v10, 0xCu);
+    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)getDAObjectWithLocalItem:(void *)item serverId:(id)id account:(id)account
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v6, v7))
   {
-    v10 = 136315138;
+    v9 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v10, 0xCu);
+    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)getDAExceptionObjectWithLocalItem:(void *)item originalEvent:(id)event account:(id)account
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v6, v7))
   {
-    v10 = 136315138;
+    v9 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v10, 0xCu);
+    _os_log_impl(&dword_24244C000, v6, v7, "%s to be implemented by subclass", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

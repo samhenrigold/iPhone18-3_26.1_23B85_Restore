@@ -132,12 +132,12 @@ LABEL_6:
   [configurationCopy contentInsets];
   v8 = v7;
   v10 = v9;
-  columnSpacing = [configurationCopy columnSpacing];
-  v13 = TUILengthValueWithDefault(columnSpacing, v12, 0.0);
+  v11 = objc_msgSend_columnSpacing(configurationCopy);
+  v13 = TUILengthValueWithDefault(v11, v12, 0.0);
   if (columns == 0x7FFFFFFFFFFFFFFFLL || !columns)
   {
-    columnWidth = [configurationCopy columnWidth];
-    v16 = TUILengthValueWithDefault(columnWidth, v15, 100.0);
+    v14 = objc_msgSend_columnWidth(configurationCopy);
+    v16 = TUILengthValueWithDefault(v14, v15, 100.0);
     widthSnap = [configurationCopy widthSnap];
 
     if (widthSnap)
@@ -191,7 +191,7 @@ LABEL_6:
   v9 = v8;
   [configurationCopy contentInsets];
   v12 = (v9 - v10 - v11 + spacing) / columns - spacing;
-  [configurationCopy columnWidth];
+  objc_msgSend_columnWidth(configurationCopy);
   LODWORD(columns) = v13;
 
   return fmin(v12, *&columns);

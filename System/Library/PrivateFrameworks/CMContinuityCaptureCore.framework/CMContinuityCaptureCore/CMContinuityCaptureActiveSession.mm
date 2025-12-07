@@ -36,13 +36,14 @@
 
   if (FigGetCFPreferenceBooleanWithDefault() && (([(ContinuityCaptureTransportDevice *)self->_device wired]& 1) != 0 || ([(ContinuityCaptureTransportDevice *)self->_device wifiP2pActive]& 1) != 0))
   {
-    v6 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:2];
+    v6 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:?];
     mutableBytes = [v6 mutableBytes];
     device2 = [(CMContinuityCaptureActiveSession *)self device];
     *mutableBytes = *mutableBytes & 0xFFFE | [device2 isPlacementStepSkipped];
 
     device3 = [(CMContinuityCaptureActiveSession *)self device];
-    [device3 preLaunchShieldUIForTransport:-[CMContinuityCaptureActiveSession transport](self data:{"transport"), v6}];
+    [(CMContinuityCaptureActiveSession *)self transport];
+    [device3 preLaunchShieldUIForTransport:? data:?];
   }
 
   else
@@ -196,7 +197,7 @@
   v3 = MEMORY[0x277CCACA8];
   device = self->_device;
   shieldSessionID = [(CMContinuityCaptureActiveSession *)self shieldSessionID];
-  v6 = [v3 stringWithFormat:@"Device:%@ SID:%@ Transport:%d Model:%d", device, shieldSessionID, self->_transport, -[CMContinuityCaptureActiveSession deviceModel](self, "deviceModel")];
+  v6 = [v3 stringWithFormat:device, shieldSessionID, self->_transport, -[CMContinuityCaptureActiveSession deviceModel](self, "deviceModel")];
 
   return v6;
 }

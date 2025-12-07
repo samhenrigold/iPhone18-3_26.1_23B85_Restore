@@ -151,9 +151,7 @@
 
 - (void)setExplanation:(id)explanation
 {
-  v4 = [explanation copy];
-  explanation = self->_explanation;
-  self->_explanation = v4;
+  self->_explanation = [explanation copy];
 
   MEMORY[0x1EEE66BB8]();
 }

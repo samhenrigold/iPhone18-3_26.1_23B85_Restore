@@ -52,12 +52,12 @@
 - (id)tableViewCellForTableView:(id)view indexPath:(id)path
 {
   v5 = [(SUUIProductPageTableSection *)self textBoxTableViewCellForTableView:view indexPath:path];
-  primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
+  v6 = objc_msgSend_primaryTextColor(self->_colorScheme);
 
-  if (primaryTextColor)
+  if (v6)
   {
-    primaryTextColor2 = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    [v5 setBottomBorderColor:primaryTextColor2];
+    v7 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    [v5 setBottomBorderColor:v7];
   }
 
   v8 = [(SUUILayoutCache *)self->_textLayoutCache layoutForIndex:self->_stringIndex];

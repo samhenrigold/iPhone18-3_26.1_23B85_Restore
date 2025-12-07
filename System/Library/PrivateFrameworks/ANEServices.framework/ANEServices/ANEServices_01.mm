@@ -126,7 +126,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -195,9 +195,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -394,35 +394,35 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -430,44 +430,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_1C0457D30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -487,7 +487,7 @@ void sub_1C0457DF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -503,7 +503,7 @@ void std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__u
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -511,7 +511,7 @@ void std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__u
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -535,7 +535,7 @@ void std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__u
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -593,9 +593,9 @@ ANEDebugInfo::DebugInfoParser *ANEDebugInfo::DebugInfoParser::DebugInfoParser(AN
   return this;
 }
 
-void sub_1C0458128(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C0458128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<ANEDebugInfo::DebugInfoInMem>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -756,14 +756,14 @@ LABEL_12:
   return result;
 }
 
-void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(ANEDebugInfo::DebugInfoParser *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(uint64_t *__return_ptr a1@<X8>, ANEDebugInfo::DebugInfoParser *this@<X0>, unint64_t a3@<X1>)
 {
   v4 = *this;
-  if (0xCF3CF3CF3CF3CF3DLL * ((*(this + 1) - *this) >> 3) <= a2)
+  if (0xCF3CF3CF3CF3CF3DLL * ((*(this + 1) - *this) >> 3) <= a3)
   {
     v9 = 0;
     ANEDebugInfo::DebugInfoInMem::DebugInfoInMem(v5);
-    std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem,0>(a3, &v9, v5);
+    std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem,0>(a1, &v9, v5);
     v10 = &v8;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v10);
     std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(&v7);
@@ -774,7 +774,7 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(ANEDebugInfo::DebugInfoPa
   else
   {
     LOBYTE(v5[0]) = 1;
-    std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem&,0>(a3, v5, (v4 + 168 * a2));
+    std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem&,0>(a1, v5, (v4 + 168 * a3));
   }
 }
 
@@ -791,7 +791,7 @@ uint64_t std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,A
   *(a1 + 8) = v5;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(a1 + 48, *(a3 + 5), *(a3 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 6) - *(a3 + 5)) >> 4));
+  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>((a1 + 48), *(a3 + 5), *(a3 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 6) - *(a3 + 5)) >> 4));
   v9 = a3[4];
   *(v8 + 40) = a3[5];
   *(v8 + 24) = v9;
@@ -799,7 +799,7 @@ uint64_t std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,A
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 144, *(a3 + 17), *(a3 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 18) - *(a3 + 17)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 144), *(a3 + 17), *(a3 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 18) - *(a3 + 17)) >> 3));
   v10 = *(a3 + 80);
   *(a1 + 170) = *(a3 + 162);
   *(a1 + 168) = v10;
@@ -808,7 +808,7 @@ uint64_t std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,A
 
 void sub_1C0458574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
-  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((v10 + 7));
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v10 + 7);
   a10 = v10;
   std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
@@ -827,8 +827,7 @@ uint64_t std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,A
   *(a1 + 64) = 0;
   *(a1 + 48) = *(a3 + 40);
   *(a1 + 64) = *(a3 + 7);
-  *(a3 + 5) = 0;
-  *(a3 + 6) = 0;
+  *(a3 + 40) = 0uLL;
   *(a3 + 7) = 0;
   v7 = a3[4];
   *(a1 + 88) = a3[5];
@@ -858,21 +857,21 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(void *a1@<X0>, uint64_t a
     {
       v8 = *(v7 - 96);
       v9 = *(v7 - 80);
-      v25 = *(v7 - 64);
-      v24[0] = v8;
-      v24[1] = v9;
-      memset(v26, 0, sizeof(v26));
-      std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(v26, *(v7 - 56), *(v7 - 48), 0xAAAAAAAAAAAAAAABLL * ((*(v7 - 48) - *(v7 - 56)) >> 4));
+      v24 = *(v7 - 64);
+      v23[0] = v8;
+      v23[1] = v9;
+      memset(v25, 0, sizeof(v25));
+      std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(v25, *(v7 - 56), *(v7 - 48), 0xAAAAAAAAAAAAAAABLL * ((*(v7 - 48) - *(v7 - 56)) >> 4));
       v10 = *(v7 - 16);
-      v27 = *(v7 - 32);
-      v28 = v10;
-      std::unordered_map<std::string,unsigned int>::unordered_map(v29, v7);
+      v26 = *(v7 - 32);
+      v27 = v10;
+      std::unordered_map<std::string,unsigned int>::unordered_map(v28, v7);
       v11 = v7 - 96;
-      memset(v30, 0, sizeof(v30));
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v30, *(v7 + 40), *(v7 + 48), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 48) - *(v7 + 40)) >> 3));
+      memset(v29, 0, sizeof(v29));
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v29, *(v7 + 40), *(v7 + 48), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 48) - *(v7 + 40)) >> 3));
       v12 = *(v7 + 64);
-      v32 = *(v7 + 66);
-      v31 = v12;
+      v31 = *(v7 + 66);
+      v30 = v12;
       if (*(a2 + 23) < 0)
       {
         if (*(a2 + 8))
@@ -886,16 +885,16 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(void *a1@<X0>, uint64_t a
         goto LABEL_24;
       }
 
-      ANEDebugInfo::DebugInfoInMem::GetString(v24, DWORD1(v27), __p);
-      v13 = v23;
-      if ((v23 & 0x80u) == 0)
+      ANEDebugInfo::DebugInfoInMem::GetString(&__p, v23, DWORD1(v26));
+      v13 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v14 = v23;
+        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v14 = __p[1];
+        size = __p.__r_.__value_.__l.__size_;
       }
 
       v15 = *(a3 + 23);
@@ -905,19 +904,19 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(void *a1@<X0>, uint64_t a
         v15 = a3[1];
       }
 
-      if (v14 != v15)
+      if (size != v15)
       {
         break;
       }
 
-      if ((v23 & 0x80u) == 0)
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v17 = __p;
+        p_p = &__p;
       }
 
       else
       {
-        v17 = __p[0];
+        p_p = __p.__r_.__value_.__r.__words[0];
       }
 
       if (v16 >= 0)
@@ -930,7 +929,7 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(void *a1@<X0>, uint64_t a
         v18 = *a3;
       }
 
-      v19 = memcmp(v17, v18, v14) == 0;
+      v19 = memcmp(p_p, v18, size) == 0;
       if (v13 < 0)
       {
         goto LABEL_22;
@@ -939,21 +938,21 @@ void ANEDebugInfo::DebugInfoParser::GetCompilationUnit(void *a1@<X0>, uint64_t a
 LABEL_23:
       if (v19)
       {
-        LOBYTE(__p[0]) = 1;
-        std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem&,0>(a4, __p, v24);
-        __p[0] = v30;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v29);
-        __p[0] = v26;
+        __p.__r_.__value_.__s.__data_[0] = 1;
+        std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem&,0>(a4, &__p, v23);
+        __p.__r_.__value_.__r.__words[0] = v29;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+        std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v28);
+        __p.__r_.__value_.__r.__words[0] = v25;
         goto LABEL_26;
       }
 
 LABEL_24:
-      __p[0] = v30;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v29);
-      __p[0] = v26;
-      std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](__p);
+      __p.__r_.__value_.__r.__words[0] = v29;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v28);
+      __p.__r_.__value_.__r.__words[0] = v25;
+      std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](&__p);
       v7 += 168;
       if (v11 + 168 == v4)
       {
@@ -962,31 +961,31 @@ LABEL_24:
     }
 
     v19 = 0;
-    if ((v23 & 0x80000000) == 0)
+    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     goto LABEL_23;
   }
 
 LABEL_25:
   v21 = 0;
-  ANEDebugInfo::DebugInfoInMem::DebugInfoInMem(v24);
-  std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem,0>(a4, &v21, v24);
-  __p[0] = v30;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v29);
-  __p[0] = v26;
+  ANEDebugInfo::DebugInfoInMem::DebugInfoInMem(v23);
+  std::pair<BOOL,ANEDebugInfo::DebugInfoInMem>::pair[abi:ne200100]<BOOL,ANEDebugInfo::DebugInfoInMem,0>(a4, &v21, v23);
+  __p.__r_.__value_.__r.__words[0] = v29;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v28);
+  __p.__r_.__value_.__r.__words[0] = v25;
 LABEL_26:
-  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](__p);
+  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](&__p);
 }
 
-void sub_1C0458880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C0458880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   ANEDebugInfo::DebugInfoInMem::~DebugInfoInMem(va);
   _Unwind_Resume(a1);
 }
@@ -1395,7 +1394,7 @@ uint64_t ANEDebugInfo::DebugInfoParser::ParseMaxContextLatencyThreshold(ANEDebug
   return 0;
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
+uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::push_back[abi:ne200100](unint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -1716,7 +1715,7 @@ LABEL_7:
   return 1;
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::push_back[abi:ne200100](uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -2009,8 +2008,8 @@ uint64_t ANEDebugInfo::DebugInfoParser::DebugPrint(ANEDebugInfo::DebugInfoParser
   for (i = &v1[v2]; *(this + 24) < &v1[v2]; i = &v1[v2])
   {
     matched = ANEDebugInfo::DebugInfoParser::MatchRecord(this);
-    v12 = matched;
-    v13 = v6;
+    v9 = matched;
+    v10 = v6;
     if (matched >= 0xFF)
     {
       v7 = 255;
@@ -2026,48 +2025,38 @@ uint64_t ANEDebugInfo::DebugInfoParser::DebugPrint(ANEDebugInfo::DebugInfoParser
       printf(off_1E8117268[v7]);
     }
 
-    if (v12 <= 2049)
+    if (v9 <= 2049)
     {
-      if (v12 == 2048)
+      if (v9 == 2048)
       {
         printf("\tNAME");
       }
 
-      else if (v12 == 2049)
+      else if (v9 == 2049)
       {
         printf("\tFILE_NAME");
       }
     }
 
-    else
+    else if (v9 == 2050)
     {
-      switch(v12)
+      if (ANEDebugInfo::Record::GetScalarVal<unsigned long long>(&v9))
       {
-        case 0x802:
-          Scalar = ANEDebugInfo::Record::GetScalarVal<unsigned long long>(&v12);
-          if (Scalar)
-          {
-            v10 = *Scalar;
-            printf("\tID = %d");
-          }
-
-          break;
-        case 0x803:
-          printf("\tDATA");
-          break;
-        case 0x80E:
-          v8 = ANEDebugInfo::Record::GetScalarVal<unsigned long long>(&v12);
-          if (v8)
-          {
-            *v8;
-            printf("\tViolatesMaxLatency = %s");
-          }
-
-          break;
+        printf("\tID = %d");
       }
     }
 
-    printf("  [sz=%d p=%p]\n", HIDWORD(v12), v13);
+    else if (v9 == 2051)
+    {
+      printf("\tDATA");
+    }
+
+    else if (v9 == 2062 && ANEDebugInfo::Record::GetScalarVal<unsigned long long>(&v9))
+    {
+      printf("\tViolatesMaxLatency = %s");
+    }
+
+    printf("  [sz=%d p=%p]\n", HIDWORD(v9), v10);
     v1 = *(this + 26);
     v2 = *(this + 50);
   }
@@ -2075,22 +2064,22 @@ uint64_t ANEDebugInfo::DebugInfoParser::DebugPrint(ANEDebugInfo::DebugInfoParser
   return printf("buf=%p buf_sz=%d buf_tail=%p\n", v1, v2, i);
 }
 
-void std::vector<ANEDebugInfo::DebugInfoInMem>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<ANEDebugInfo::DebugInfoInMem>::__base_destruct_at_end[abi:ne200100](uint64_t result, void **a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(result, i))
   {
-    i -= 168;
+    i -= 21;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
-void std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(uint64_t a1, uint64_t a2)
+void std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(uint64_t a1, void **a2)
 {
-  v3 = (a2 + 136);
+  v3 = a2 + 17;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(a2 + 96);
-  v3 = (a2 + 40);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(a2 + 12);
+  v3 = a2 + 5;
   std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
@@ -2134,7 +2123,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std:
   return result;
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2151,7 +2140,7 @@ void sub_1C0459D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -2171,7 +2160,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ANEDebugInfo::DebugIn
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ANEDebugInfo::DebugInfoInMem::Group>,ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ANEDebugInfo::DebugInfoInMem::Group>,ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -2186,7 +2175,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ANED
       a4[3] = 0;
       a4[4] = 0;
       a4[5] = 0;
-      std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>((a4 + 3), *(v8 + 24), *(v8 + 32), 0x8E38E38E38E38E39 * ((*(v8 + 32) - *(v8 + 24)) >> 3));
+      std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>(a4 + 3, *(v8 + 24), *(v8 + 32), 0x8E38E38E38E38E39 * ((*(v8 + 32) - *(v8 + 24)) >> 3));
       a4 += 6;
       v7 += 48;
     }
@@ -2224,41 +2213,41 @@ uint64_t std::unordered_map<std::string,unsigned int>::unordered_map(uint64_t a1
   std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__construct_node_hash<std::pair<std::string const,unsigned int> const&>();
@@ -2266,44 +2255,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1C045A1C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2323,7 +2312,7 @@ void sub_1C045A288(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2340,7 +2329,7 @@ void sub_1C045A30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2414,7 +2403,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__construct_one_at_end[abi:ne200100]<ANEDebugInfo::DebugInfoInMem const&>(uint64_t a1, __int128 *a2)
+uint64_t *std::vector<ANEDebugInfo::DebugInfoInMem>::__construct_one_at_end[abi:ne200100]<ANEDebugInfo::DebugInfoInMem const&>(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 8);
   v5 = *a2;
@@ -2425,7 +2414,7 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__construct_one_at_end[abi:n
   *(v4 + 40) = 0;
   *(v4 + 48) = 0;
   *(v4 + 56) = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(v4 + 40, *(a2 + 5), *(a2 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 6) - *(a2 + 5)) >> 4));
+  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>((v4 + 40), *(a2 + 5), *(a2 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 6) - *(a2 + 5)) >> 4));
   v7 = a2[5];
   *(v4 + 64) = a2[4];
   *(v4 + 80) = v7;
@@ -2433,7 +2422,7 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__construct_one_at_end[abi:n
   *(v4 + 136) = 0;
   *(v4 + 144) = 0;
   *(v4 + 152) = 0;
-  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v4 + 136, *(a2 + 17), *(a2 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 18) - *(a2 + 17)) >> 3));
+  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v4 + 136), *(a2 + 17), *(a2 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 18) - *(a2 + 17)) >> 3));
   v9 = *(a2 + 80);
   *(v4 + 162) = *(a2 + 162);
   *(v4 + 160) = v9;
@@ -2441,16 +2430,16 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__construct_one_at_end[abi:n
   return result;
 }
 
-void sub_1C045A584(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C045A584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v3 + 96);
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((v4 + 96));
   std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100](va);
-  *(v2 + 8) = v3;
+  *(v3 + 8) = v4;
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__emplace_back_slow_path<ANEDebugInfo::DebugInfoInMem const&>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__emplace_back_slow_path<ANEDebugInfo::DebugInfoInMem const&>(unint64_t *a1, __int128 *a2)
 {
   v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2493,7 +2482,7 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__emplace_back_slow_path<ANE
   *(v10 + 40) = 0;
   *(v7 + 48) = 0;
   *(v7 + 56) = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>(v10 + 40, *(a2 + 5), *(a2 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 6) - *(a2 + 5)) >> 4));
+  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group*,ANEDebugInfo::DebugInfoInMem::Group*>((v10 + 40), *(a2 + 5), *(a2 + 6), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 6) - *(a2 + 5)) >> 4));
   v11 = a2[5];
   *(v7 + 64) = a2[4];
   *(v7 + 80) = v11;
@@ -2501,7 +2490,7 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__emplace_back_slow_path<ANE
   *(v7 + 136) = 0;
   *(v7 + 144) = 0;
   *(v7 + 152) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v7 + 136, *(a2 + 17), *(a2 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 18) - *(a2 + 17)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v7 + 136), *(a2 + 17), *(a2 + 18), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 18) - *(a2 + 17)) >> 3));
   v12 = *(a2 + 80);
   *(v7 + 162) = *(a2 + 162);
   *(v7 + 160) = v12;
@@ -2522,12 +2511,12 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem>::__emplace_back_slow_path<ANE
   return v18;
 }
 
-void sub_1C045A768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C045A768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v4 + 96);
-  *(v5 - 40) = v3;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100]((v5 - 40));
+  va_start(va, a5);
+  std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table((v6 + 96));
+  *(v7 - 40) = v5;
+  std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__destroy_vector::operator()[abi:ne200100]((v7 - 40));
   std::__split_buffer<ANEDebugInfo::DebugInfoInMem>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2542,7 +2531,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ANEDebugInfo::DebugIn
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ANEDebugInfo::DebugInfoInMem>,ANEDebugInfo::DebugInfoInMem*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ANEDebugInfo::DebugInfoInMem>,ANEDebugInfo::DebugInfoInMem*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
 {
   v17 = a4;
   v18 = a4;
@@ -2559,41 +2548,41 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AN
   {
     v4 = a4;
     v6 = a2;
-    v8 = a2 + 96;
+    v8 = a2 + 12;
     do
     {
-      v9 = *(v8 - 80);
-      v10 = *(v8 - 64);
-      *v4 = *(v8 - 96);
+      v9 = *(v8 - 5);
+      v10 = *(v8 - 8);
+      *v4 = *(v8 - 6);
       *(v4 + 16) = v9;
       *(v4 + 32) = v10;
       *(v4 + 40) = 0;
       *(v4 + 48) = 0;
       *(v4 + 56) = 0;
-      *(v4 + 40) = *(v8 - 56);
-      *(v4 + 56) = *(v8 - 40);
-      *(v8 - 56) = 0;
-      *(v8 - 48) = 0;
-      *(v8 - 40) = 0;
-      v11 = *(v8 - 16);
-      *(v4 + 64) = *(v8 - 32);
+      *(v4 + 40) = *(v8 - 7);
+      *(v4 + 56) = *(v8 - 5);
+      *(v8 - 7) = 0;
+      *(v8 - 6) = 0;
+      *(v8 - 5) = 0;
+      v11 = *(v8 - 1);
+      *(v4 + 64) = *(v8 - 2);
       *(v4 + 80) = v11;
       std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__hash_table(v4 + 96, v8);
       *(v4 + 136) = 0;
       *(v4 + 144) = 0;
       *(v4 + 152) = 0;
-      *(v4 + 136) = *(v8 + 40);
-      *(v4 + 152) = *(v8 + 56);
-      *(v8 + 40) = 0;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      v12 = *(v8 + 64);
+      *(v4 + 136) = *(v8 + 5);
+      *(v4 + 152) = v8[7];
+      v8[5] = 0;
+      v8[6] = 0;
+      v8[7] = 0;
+      v12 = *(v8 + 32);
       *(v4 + 162) = *(v8 + 66);
       *(v4 + 160) = v12;
       v4 = v18 + 168;
       v18 += 168;
-      v13 = v8 + 72;
-      v8 += 168;
+      v13 = v8 + 9;
+      v8 += 21;
     }
 
     while (v13 != a3);
@@ -2601,7 +2590,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AN
     while (v6 != a3)
     {
       std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(a1, v6);
-      v6 += 168;
+      v6 += 21;
     }
   }
 
@@ -2629,7 +2618,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<ANEDebugInfo::DebugInfoIn
     v5 = *a1;
     do
     {
-      v3 -= 168;
+      v3 -= 21;
       std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(v5, v3);
     }
 
@@ -2660,11 +2649,11 @@ void std::__split_buffer<ANEDebugInfo::DebugInfoInMem>::__destruct_at_end[abi:ne
 
     v5 = *(a1 + 32);
     *(a1 + 16) = v4 - 168;
-    std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(v5, v4 - 168);
+    std::allocator_traits<std::allocator<ANEDebugInfo::DebugInfoInMem>>::destroy[abi:ne200100]<ANEDebugInfo::DebugInfoInMem,void,0>(v5, (v4 - 168));
   }
 }
 
-void std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__vdeallocate(void **a1)
+void std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2767,17 +2756,17 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__construct_one_at_end[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__construct_one_at_end[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Group const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = 0;
   v4[1] = 0;
   v4[2] = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Layer>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Layer*,ANEDebugInfo::DebugInfoInMem::Layer*>(v4, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 2));
+  std::vector<ANEDebugInfo::DebugInfoInMem::Layer>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Layer*,ANEDebugInfo::DebugInfoInMem::Layer*>(v4, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 2));
   v4[3] = 0;
   v4[4] = 0;
   v4[5] = 0;
-  result = std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>((v4 + 3), a2[3], a2[4], 0x8E38E38E38E38E39 * ((a2[4] - a2[3]) >> 3));
+  result = std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>(v4 + 3, *(a2 + 24), *(a2 + 32), 0x8E38E38E38E38E39 * ((*(a2 + 32) - *(a2 + 24)) >> 3));
   *(a1 + 8) = v4 + 6;
   return result;
 }
@@ -2795,7 +2784,7 @@ void sub_1C045AC80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__emplace_back_slow_path<ANEDebugInfo::DebugInfoInMem::Group const&>(uint64_t *a1, uint64_t *a2)
+uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__emplace_back_slow_path<ANEDebugInfo::DebugInfoInMem::Group const&>(void *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -2832,11 +2821,11 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__emplace_back_slow_p
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::Layer>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Layer*,ANEDebugInfo::DebugInfoInMem::Layer*>(v7, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 2));
+  std::vector<ANEDebugInfo::DebugInfoInMem::Layer>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::Layer*,ANEDebugInfo::DebugInfoInMem::Layer*>(v7, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 2));
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 40) = 0;
-  std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>(v7 + 24, a2[3], a2[4], 0x8E38E38E38E38E39 * ((a2[4] - a2[3]) >> 3));
+  std::vector<ANEDebugInfo::DebugInfoInMem::TD>::__init_with_size[abi:ne200100]<ANEDebugInfo::DebugInfoInMem::TD*,ANEDebugInfo::DebugInfoInMem::TD*>((v7 + 24), *(a2 + 24), *(a2 + 32), 0x8E38E38E38E38E39 * ((*(a2 + 32) - *(a2 + 24)) >> 3));
   *&v16 = v16 + 48;
   v8 = a1[1];
   v9 = (v15 + *a1 - v8);
@@ -2854,14 +2843,14 @@ uint64_t std::vector<ANEDebugInfo::DebugInfoInMem::Group>::__emplace_back_slow_p
   return v13;
 }
 
-void sub_1C045AE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C045AE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v6 = *v4;
-  if (*v4)
+  va_start(va, a7);
+  v9 = *v7;
+  if (*v7)
   {
-    *(v4 + 8) = v6;
-    operator delete(v6);
+    *(v7 + 8) = v9;
+    operator delete(v9);
   }
 
   std::__split_buffer<ANEDebugInfo::DebugInfoInMem::Group>::~__split_buffer(va);
@@ -2922,10 +2911,11 @@ uint64_t std::__split_buffer<ANEDebugInfo::DebugInfoInMem::Group>::~__split_buff
   return a1;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t ZinIsOutsideBounds(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
@@ -2987,7 +2977,7 @@ BOOL ZinIsStringOutsideBounds(char *__s1, unint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t ZinIrCompilerParamsUtils::PerfTracerCategoryToString@<X0>(int a1@<W0>, std::string *a2@<X8>)
+void **ZinIrCompilerParamsUtils::PerfTracerCategoryToString@<X0>(int a1@<W0>, std::string *a2@<X8>)
 {
   GetStringToPerfTracerCategoryMap(v9);
   v4 = v10;
@@ -3051,7 +3041,7 @@ LABEL_9:
   return std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v9);
 }
 
-void sub_1C045B0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1C045B0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17)
 {
   if (a14 < 0)
   {
@@ -3062,62 +3052,62 @@ void sub_1C045B0F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GetStringToPerfTracerCategoryMap(uint64_t a1@<X8>)
+void GetStringToPerfTracerCategoryMap(unint64_t a1@<X8>)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(v4, "none");
-  v5 = 0;
-  std::string::basic_string[abi:ne200100]<0>(v6, "l2");
-  v7 = 1;
-  std::string::basic_string[abi:ne200100]<0>(v8, "dma_read");
-  v9 = 2;
-  std::string::basic_string[abi:ne200100]<0>(v10, "dma_write");
-  v11 = 3;
-  std::string::basic_string[abi:ne200100]<0>(v12, "kernel_read");
-  v13 = 4;
-  std::string::basic_string[abi:ne200100]<0>(v14, "pe");
-  v15 = 5;
-  std::string::basic_string[abi:ne200100]<0>(v16, "ne_all");
-  v17 = 6;
-  std::string::basic_string[abi:ne200100]<0>(v18, "ne_0");
-  v19 = 7;
-  std::string::basic_string[abi:ne200100]<0>(v20, "ne_1");
-  v21 = 8;
-  std::string::basic_string[abi:ne200100]<0>(v22, "ne_2");
-  v23 = 9;
-  std::string::basic_string[abi:ne200100]<0>(v24, "ne_3");
-  v25 = 10;
-  std::string::basic_string[abi:ne200100]<0>(v26, "ne_4");
-  v27 = 11;
-  std::string::basic_string[abi:ne200100]<0>(v28, "ne_5");
-  v29 = 12;
-  std::string::basic_string[abi:ne200100]<0>(v30, "ne_6");
-  v31 = 13;
-  std::string::basic_string[abi:ne200100]<0>(v32, "ne_7");
-  v33 = 14;
-  std::string::basic_string[abi:ne200100]<0>(v34, "ne_8");
-  v35 = 15;
-  std::string::basic_string[abi:ne200100]<0>(v36, "ne_9");
-  v37 = 16;
-  std::string::basic_string[abi:ne200100]<0>(v38, "ne_10");
-  v39 = 17;
-  std::string::basic_string[abi:ne200100]<0>(v40, "ne_11");
-  v41 = 18;
-  std::string::basic_string[abi:ne200100]<0>(v42, "ne_12");
-  v43 = 19;
-  std::string::basic_string[abi:ne200100]<0>(v44, "ne_13");
-  v45 = 20;
-  std::string::basic_string[abi:ne200100]<0>(v46, "ne_14");
-  v47 = 21;
-  std::string::basic_string[abi:ne200100]<0>(v48, "ne_15");
-  v49 = 22;
-  std::unordered_map<std::string,PerfTracerCategory>::unordered_map(a1, v4, 23);
+  v49 = *MEMORY[0x1E69E9840];
+  std::string::basic_string[abi:ne200100]<0>(v3, "none");
+  v4 = 0;
+  std::string::basic_string[abi:ne200100]<0>(v5, "l2");
+  v6 = 1;
+  std::string::basic_string[abi:ne200100]<0>(v7, "dma_read");
+  v8 = 2;
+  std::string::basic_string[abi:ne200100]<0>(v9, "dma_write");
+  v10 = 3;
+  std::string::basic_string[abi:ne200100]<0>(v11, "kernel_read");
+  v12 = 4;
+  std::string::basic_string[abi:ne200100]<0>(v13, "pe");
+  v14 = 5;
+  std::string::basic_string[abi:ne200100]<0>(v15, "ne_all");
+  v16 = 6;
+  std::string::basic_string[abi:ne200100]<0>(v17, "ne_0");
+  v18 = 7;
+  std::string::basic_string[abi:ne200100]<0>(v19, "ne_1");
+  v20 = 8;
+  std::string::basic_string[abi:ne200100]<0>(v21, "ne_2");
+  v22 = 9;
+  std::string::basic_string[abi:ne200100]<0>(v23, "ne_3");
+  v24 = 10;
+  std::string::basic_string[abi:ne200100]<0>(v25, "ne_4");
+  v26 = 11;
+  std::string::basic_string[abi:ne200100]<0>(v27, "ne_5");
+  v28 = 12;
+  std::string::basic_string[abi:ne200100]<0>(v29, "ne_6");
+  v30 = 13;
+  std::string::basic_string[abi:ne200100]<0>(v31, "ne_7");
+  v32 = 14;
+  std::string::basic_string[abi:ne200100]<0>(v33, "ne_8");
+  v34 = 15;
+  std::string::basic_string[abi:ne200100]<0>(v35, "ne_9");
+  v36 = 16;
+  std::string::basic_string[abi:ne200100]<0>(v37, "ne_10");
+  v38 = 17;
+  std::string::basic_string[abi:ne200100]<0>(v39, "ne_11");
+  v40 = 18;
+  std::string::basic_string[abi:ne200100]<0>(v41, "ne_12");
+  v42 = 19;
+  std::string::basic_string[abi:ne200100]<0>(v43, "ne_13");
+  v44 = 20;
+  std::string::basic_string[abi:ne200100]<0>(v45, "ne_14");
+  v46 = 21;
+  std::string::basic_string[abi:ne200100]<0>(v47, "ne_15");
+  v48 = 22;
+  std::unordered_map<std::string,PerfTracerCategory>::unordered_map(a1, v3, 23);
   v2 = 92;
   do
   {
-    if (*(&v4[v2 - 1] - 1) < 0)
+    if (*(&v3[v2 - 1] - 1) < 0)
     {
-      operator delete(v4[v2 - 4]);
+      operator delete(v3[v2 - 4]);
     }
 
     v2 -= 4;
@@ -3128,11 +3118,9 @@ void GetStringToPerfTracerCategoryMap(uint64_t a1@<X8>)
   {
     ZinAssertImpl("Assertion: Invalid perf tracer category map.\n");
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t ZinIrCompilerParamsUtils::PerfTracerMetricToString@<X0>(int a1@<W0>, std::string *a2@<X8>)
+void **ZinIrCompilerParamsUtils::PerfTracerMetricToString@<X0>(int a1@<W0>, std::string *a2@<X8>)
 {
   GetStringToPerfTracerMetricMap(v9);
   v4 = v10;
@@ -3196,7 +3184,7 @@ LABEL_9:
   return std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v9);
 }
 
-void sub_1C045B62C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1C045B62C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17)
 {
   if (a14 < 0)
   {
@@ -3207,152 +3195,152 @@ void sub_1C045B62C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GetStringToPerfTracerMetricMap(uint64_t a1@<X8>)
+void GetStringToPerfTracerMetricMap(unint64_t a1@<X8>)
 {
-  v140 = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(v4, "none");
-  v5 = 0;
-  std::string::basic_string[abi:ne200100]<0>(v6, "l2_cycle");
-  v7 = 1;
-  std::string::basic_string[abi:ne200100]<0>(v8, "l2_src1_read_active_cycle");
-  v9 = 2;
-  std::string::basic_string[abi:ne200100]<0>(v10, "l2_src1_read_idle_cycle");
-  v11 = 3;
-  std::string::basic_string[abi:ne200100]<0>(v12, "l2_src2_read_active_cycle");
-  v13 = 4;
-  std::string::basic_string[abi:ne200100]<0>(v14, "l2_src2_read_idle_cycle");
-  v15 = 5;
-  std::string::basic_string[abi:ne200100]<0>(v16, "l2_write_active_cycle");
-  v17 = 6;
-  std::string::basic_string[abi:ne200100]<0>(v18, "l2_write_idle_cycle");
-  v19 = 7;
-  std::string::basic_string[abi:ne200100]<0>(v20, "l2_read_conflict_cycle");
-  v21 = 8;
-  std::string::basic_string[abi:ne200100]<0>(v22, "l2_read_intra_conflict_cycle");
-  v23 = 9;
-  std::string::basic_string[abi:ne200100]<0>(v24, "l2_read_conflict_count");
-  v25 = 10;
-  std::string::basic_string[abi:ne200100]<0>(v26, "l2_read_intra_conflict_count");
-  v27 = 11;
-  std::string::basic_string[abi:ne200100]<0>(v28, "l2_write_conflict_cycle");
-  v29 = 12;
-  std::string::basic_string[abi:ne200100]<0>(v30, "l2_write_intra_conflict_cycle");
-  v31 = 13;
-  std::string::basic_string[abi:ne200100]<0>(v32, "l2_write_conflict_count");
-  v33 = 14;
-  std::string::basic_string[abi:ne200100]<0>(v34, "l2_write_intra_conflict_count");
-  v35 = 15;
-  std::string::basic_string[abi:ne200100]<0>(v36, "dma_src1_read_active_cycle");
-  v37 = 16;
-  std::string::basic_string[abi:ne200100]<0>(v38, "dma_src1_read_idle_cycle");
-  v39 = 17;
-  std::string::basic_string[abi:ne200100]<0>(v40, "dma_src1_read_conflict_cycle");
-  v41 = 18;
-  std::string::basic_string[abi:ne200100]<0>(v42, "dma_src1_read_intra_conflict_cycle");
-  v43 = 19;
-  std::string::basic_string[abi:ne200100]<0>(v44, "dma_src1_read_conflict_count");
-  v45 = 20;
-  std::string::basic_string[abi:ne200100]<0>(v46, "dma_src1_read_intra_conflict_count");
-  v47 = 21;
-  std::string::basic_string[abi:ne200100]<0>(v48, "dma_src2_read_active_cycle");
-  v49 = 22;
-  std::string::basic_string[abi:ne200100]<0>(v50, "dma_src2_read_idle_cycle");
-  v51 = 23;
-  std::string::basic_string[abi:ne200100]<0>(v52, "dma_src2_read_conflict_cycle");
-  v53 = 24;
-  std::string::basic_string[abi:ne200100]<0>(v54, "dma_src2_read_intra_conflict_cycle");
-  v55 = 25;
-  std::string::basic_string[abi:ne200100]<0>(v56, "dma_src2_read_conflict_count");
-  v57 = 26;
-  std::string::basic_string[abi:ne200100]<0>(v58, "dma_src2_read_intra_conflict_count");
-  v59 = 27;
-  std::string::basic_string[abi:ne200100]<0>(v60, "dma_write_active_cycle");
-  v61 = 28;
-  std::string::basic_string[abi:ne200100]<0>(v62, "dma_write_idle_cycle");
-  v63 = 29;
-  std::string::basic_string[abi:ne200100]<0>(v64, "dma_write_conflict_cycle");
-  v65 = 30;
-  std::string::basic_string[abi:ne200100]<0>(v66, "dma_write_intra_conflict_cycle");
-  v67 = 31;
-  std::string::basic_string[abi:ne200100]<0>(v68, "dma_write_conflict_count");
-  v69 = 32;
-  std::string::basic_string[abi:ne200100]<0>(v70, "dma_write_intra_conflict_count");
-  v71 = 33;
-  std::string::basic_string[abi:ne200100]<0>(v72, "idle_cycle");
-  v73 = 34;
-  std::string::basic_string[abi:ne200100]<0>(v74, "active_cycle");
-  v75 = 35;
-  std::string::basic_string[abi:ne200100]<0>(v76, "beat_count_in_64B");
-  v77 = 36;
-  std::string::basic_string[abi:ne200100]<0>(v78, "transaction_count");
-  v79 = 37;
-  std::string::basic_string[abi:ne200100]<0>(v80, "latency_product");
-  v81 = 38;
-  std::string::basic_string[abi:ne200100]<0>(v82, "latency_threshold");
-  v83 = 39;
-  std::string::basic_string[abi:ne200100]<0>(v84, "fabric_stall");
-  v85 = 40;
-  std::string::basic_string[abi:ne200100]<0>(v86, "mcache_hit_no_dealloc");
-  v87 = 41;
-  std::string::basic_string[abi:ne200100]<0>(v88, "mcache_non_coh_agent");
-  v89 = 43;
-  std::string::basic_string[abi:ne200100]<0>(v90, "mcache_coh_agent");
-  v91 = 44;
-  std::string::basic_string[abi:ne200100]<0>(v92, "mcache_miss_alloc");
-  v93 = 42;
-  std::string::basic_string[abi:ne200100]<0>(v94, "mcache_miss_no_alloc");
-  v95 = 45;
-  std::string::basic_string[abi:ne200100]<0>(v96, "mcache_hit_depri");
-  v97 = 46;
-  std::string::basic_string[abi:ne200100]<0>(v98, "mcache_hit_drop");
-  v99 = 47;
-  std::string::basic_string[abi:ne200100]<0>(v100, "mcache_hit_no_alloc");
-  v101 = 48;
-  std::string::basic_string[abi:ne200100]<0>(v102, "l2_stall");
-  v103 = 49;
-  std::string::basic_string[abi:ne200100]<0>(v104, "tex_filter_cache_miss");
-  v105 = 50;
-  std::string::basic_string[abi:ne200100]<0>(v106, "tex_filter_cache_total");
-  v107 = 51;
-  std::string::basic_string[abi:ne200100]<0>(v108, "tex_index_cache_miss");
-  v109 = 52;
-  std::string::basic_string[abi:ne200100]<0>(v110, "tex_index_cache_total");
-  v111 = 53;
-  std::string::basic_string[abi:ne200100]<0>(v112, "decomp_metadata_cache_miss");
-  v113 = 54;
-  std::string::basic_string[abi:ne200100]<0>(v114, "decomp_metadata_cache_hit");
-  v115 = 55;
-  std::string::basic_string[abi:ne200100]<0>(v116, "decomp_data_cache_miss");
-  v117 = 56;
-  std::string::basic_string[abi:ne200100]<0>(v118, "decomp_data_cache_hit");
-  v119 = 57;
-  std::string::basic_string[abi:ne200100]<0>(v120, "ne_stall");
-  v121 = 58;
-  std::string::basic_string[abi:ne200100]<0>(v122, "kernel_cache_miss");
-  v123 = 59;
-  std::string::basic_string[abi:ne200100]<0>(v124, "ne_cycle");
-  v125 = 60;
-  std::string::basic_string[abi:ne200100]<0>(v126, "mac_cycle");
-  v127 = 61;
-  std::string::basic_string[abi:ne200100]<0>(v128, "nz_count");
-  v129 = 62;
-  std::string::basic_string[abi:ne200100]<0>(v130, "kernel_stall");
-  v131 = 63;
-  std::string::basic_string[abi:ne200100]<0>(v132, "acc_stall");
-  v133 = 64;
-  std::string::basic_string[abi:ne200100]<0>(v134, "pe_cycle");
-  v135 = 65;
-  std::string::basic_string[abi:ne200100]<0>(v136, "read_stall");
-  v137 = 66;
-  std::string::basic_string[abi:ne200100]<0>(v138, "write_stall");
-  v139 = 67;
-  std::unordered_map<std::string,PerfTracerMetric>::unordered_map(a1, v4, 68);
+  v139 = *MEMORY[0x1E69E9840];
+  std::string::basic_string[abi:ne200100]<0>(v3, "none");
+  v4 = 0;
+  std::string::basic_string[abi:ne200100]<0>(v5, "l2_cycle");
+  v6 = 1;
+  std::string::basic_string[abi:ne200100]<0>(v7, "l2_src1_read_active_cycle");
+  v8 = 2;
+  std::string::basic_string[abi:ne200100]<0>(v9, "l2_src1_read_idle_cycle");
+  v10 = 3;
+  std::string::basic_string[abi:ne200100]<0>(v11, "l2_src2_read_active_cycle");
+  v12 = 4;
+  std::string::basic_string[abi:ne200100]<0>(v13, "l2_src2_read_idle_cycle");
+  v14 = 5;
+  std::string::basic_string[abi:ne200100]<0>(v15, "l2_write_active_cycle");
+  v16 = 6;
+  std::string::basic_string[abi:ne200100]<0>(v17, "l2_write_idle_cycle");
+  v18 = 7;
+  std::string::basic_string[abi:ne200100]<0>(v19, "l2_read_conflict_cycle");
+  v20 = 8;
+  std::string::basic_string[abi:ne200100]<0>(v21, "l2_read_intra_conflict_cycle");
+  v22 = 9;
+  std::string::basic_string[abi:ne200100]<0>(v23, "l2_read_conflict_count");
+  v24 = 10;
+  std::string::basic_string[abi:ne200100]<0>(v25, "l2_read_intra_conflict_count");
+  v26 = 11;
+  std::string::basic_string[abi:ne200100]<0>(v27, "l2_write_conflict_cycle");
+  v28 = 12;
+  std::string::basic_string[abi:ne200100]<0>(v29, "l2_write_intra_conflict_cycle");
+  v30 = 13;
+  std::string::basic_string[abi:ne200100]<0>(v31, "l2_write_conflict_count");
+  v32 = 14;
+  std::string::basic_string[abi:ne200100]<0>(v33, "l2_write_intra_conflict_count");
+  v34 = 15;
+  std::string::basic_string[abi:ne200100]<0>(v35, "dma_src1_read_active_cycle");
+  v36 = 16;
+  std::string::basic_string[abi:ne200100]<0>(v37, "dma_src1_read_idle_cycle");
+  v38 = 17;
+  std::string::basic_string[abi:ne200100]<0>(v39, "dma_src1_read_conflict_cycle");
+  v40 = 18;
+  std::string::basic_string[abi:ne200100]<0>(v41, "dma_src1_read_intra_conflict_cycle");
+  v42 = 19;
+  std::string::basic_string[abi:ne200100]<0>(v43, "dma_src1_read_conflict_count");
+  v44 = 20;
+  std::string::basic_string[abi:ne200100]<0>(v45, "dma_src1_read_intra_conflict_count");
+  v46 = 21;
+  std::string::basic_string[abi:ne200100]<0>(v47, "dma_src2_read_active_cycle");
+  v48 = 22;
+  std::string::basic_string[abi:ne200100]<0>(v49, "dma_src2_read_idle_cycle");
+  v50 = 23;
+  std::string::basic_string[abi:ne200100]<0>(v51, "dma_src2_read_conflict_cycle");
+  v52 = 24;
+  std::string::basic_string[abi:ne200100]<0>(v53, "dma_src2_read_intra_conflict_cycle");
+  v54 = 25;
+  std::string::basic_string[abi:ne200100]<0>(v55, "dma_src2_read_conflict_count");
+  v56 = 26;
+  std::string::basic_string[abi:ne200100]<0>(v57, "dma_src2_read_intra_conflict_count");
+  v58 = 27;
+  std::string::basic_string[abi:ne200100]<0>(v59, "dma_write_active_cycle");
+  v60 = 28;
+  std::string::basic_string[abi:ne200100]<0>(v61, "dma_write_idle_cycle");
+  v62 = 29;
+  std::string::basic_string[abi:ne200100]<0>(v63, "dma_write_conflict_cycle");
+  v64 = 30;
+  std::string::basic_string[abi:ne200100]<0>(v65, "dma_write_intra_conflict_cycle");
+  v66 = 31;
+  std::string::basic_string[abi:ne200100]<0>(v67, "dma_write_conflict_count");
+  v68 = 32;
+  std::string::basic_string[abi:ne200100]<0>(v69, "dma_write_intra_conflict_count");
+  v70 = 33;
+  std::string::basic_string[abi:ne200100]<0>(v71, "idle_cycle");
+  v72 = 34;
+  std::string::basic_string[abi:ne200100]<0>(v73, "active_cycle");
+  v74 = 35;
+  std::string::basic_string[abi:ne200100]<0>(v75, "beat_count_in_64B");
+  v76 = 36;
+  std::string::basic_string[abi:ne200100]<0>(v77, "transaction_count");
+  v78 = 37;
+  std::string::basic_string[abi:ne200100]<0>(v79, "latency_product");
+  v80 = 38;
+  std::string::basic_string[abi:ne200100]<0>(v81, "latency_threshold");
+  v82 = 39;
+  std::string::basic_string[abi:ne200100]<0>(v83, "fabric_stall");
+  v84 = 40;
+  std::string::basic_string[abi:ne200100]<0>(v85, "mcache_hit_no_dealloc");
+  v86 = 41;
+  std::string::basic_string[abi:ne200100]<0>(v87, "mcache_non_coh_agent");
+  v88 = 43;
+  std::string::basic_string[abi:ne200100]<0>(v89, "mcache_coh_agent");
+  v90 = 44;
+  std::string::basic_string[abi:ne200100]<0>(v91, "mcache_miss_alloc");
+  v92 = 42;
+  std::string::basic_string[abi:ne200100]<0>(v93, "mcache_miss_no_alloc");
+  v94 = 45;
+  std::string::basic_string[abi:ne200100]<0>(v95, "mcache_hit_depri");
+  v96 = 46;
+  std::string::basic_string[abi:ne200100]<0>(v97, "mcache_hit_drop");
+  v98 = 47;
+  std::string::basic_string[abi:ne200100]<0>(v99, "mcache_hit_no_alloc");
+  v100 = 48;
+  std::string::basic_string[abi:ne200100]<0>(v101, "l2_stall");
+  v102 = 49;
+  std::string::basic_string[abi:ne200100]<0>(v103, "tex_filter_cache_miss");
+  v104 = 50;
+  std::string::basic_string[abi:ne200100]<0>(v105, "tex_filter_cache_total");
+  v106 = 51;
+  std::string::basic_string[abi:ne200100]<0>(v107, "tex_index_cache_miss");
+  v108 = 52;
+  std::string::basic_string[abi:ne200100]<0>(v109, "tex_index_cache_total");
+  v110 = 53;
+  std::string::basic_string[abi:ne200100]<0>(v111, "decomp_metadata_cache_miss");
+  v112 = 54;
+  std::string::basic_string[abi:ne200100]<0>(v113, "decomp_metadata_cache_hit");
+  v114 = 55;
+  std::string::basic_string[abi:ne200100]<0>(v115, "decomp_data_cache_miss");
+  v116 = 56;
+  std::string::basic_string[abi:ne200100]<0>(v117, "decomp_data_cache_hit");
+  v118 = 57;
+  std::string::basic_string[abi:ne200100]<0>(v119, "ne_stall");
+  v120 = 58;
+  std::string::basic_string[abi:ne200100]<0>(v121, "kernel_cache_miss");
+  v122 = 59;
+  std::string::basic_string[abi:ne200100]<0>(v123, "ne_cycle");
+  v124 = 60;
+  std::string::basic_string[abi:ne200100]<0>(v125, "mac_cycle");
+  v126 = 61;
+  std::string::basic_string[abi:ne200100]<0>(v127, "nz_count");
+  v128 = 62;
+  std::string::basic_string[abi:ne200100]<0>(v129, "kernel_stall");
+  v130 = 63;
+  std::string::basic_string[abi:ne200100]<0>(v131, "acc_stall");
+  v132 = 64;
+  std::string::basic_string[abi:ne200100]<0>(v133, "pe_cycle");
+  v134 = 65;
+  std::string::basic_string[abi:ne200100]<0>(v135, "read_stall");
+  v136 = 66;
+  std::string::basic_string[abi:ne200100]<0>(v137, "write_stall");
+  v138 = 67;
+  std::unordered_map<std::string,PerfTracerMetric>::unordered_map(a1, v3, 68);
   v2 = 272;
   do
   {
-    if (*(&v4[v2 - 1] - 1) < 0)
+    if (*(&v3[v2 - 1] - 1) < 0)
     {
-      operator delete(v4[v2 - 4]);
+      operator delete(v3[v2 - 4]);
     }
 
     v2 -= 4;
@@ -3363,8 +3351,6 @@ void GetStringToPerfTracerMetricMap(uint64_t a1@<X8>)
   {
     ZinAssertImpl("Assertion: Invalid perf tracer metric map.\n");
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD *a2)
@@ -3439,7 +3425,7 @@ uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD 
 
     std::string::basic_string(&v48, &__str, 0, v11, &__p);
     std::string::basic_string(&__p, &__str, 0, v11, &v50);
-    v12 = StringToPerfTracerCategory(&__p.__r_.__value_.__l.__data_);
+    v12 = StringToPerfTracerCategory(&__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3454,7 +3440,7 @@ uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD 
       goto LABEL_50;
     }
 
-    v13 = StringToPerfTracerCategory(&v48.__r_.__value_.__l.__data_);
+    v13 = StringToPerfTracerCategory(&v48);
     if ((v13 & 0x100000000) != 0)
     {
       *a2 = v13;
@@ -3505,7 +3491,7 @@ uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD 
             }
 
             std::string::basic_string(&__p, &__str, 0, v27, &v50);
-            v28 = StringToPerfTracerMetric(&__p.__r_.__value_.__l.__data_);
+            v28 = StringToPerfTracerMetric(&__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -3524,7 +3510,7 @@ uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD 
 
             a2[1] = v28;
             std::string::erase(&__str, 0, v27 + 1);
-            v38 = StringToPerfTracerMetric(&__str.__r_.__value_.__l.__data_);
+            v38 = StringToPerfTracerMetric(&__str);
             if ((v38 & 0x100000000) != 0)
             {
               a2[2] = v38;
@@ -3547,7 +3533,7 @@ uint64_t ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, _DWORD 
         while (v24 - v25 >= 1);
       }
 
-      v37 = StringToPerfTracerMetric(&__str.__r_.__value_.__l.__data_);
+      v37 = StringToPerfTracerMetric(&__str);
       if ((v37 & 0x100000000) != 0)
       {
         a2[1] = v37;
@@ -3612,7 +3598,7 @@ void sub_1C045C338(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t StringToPerfTracerCategory(const void **a1)
+uint64_t StringToPerfTracerCategory(uint64_t *a1)
 {
   GetStringToPerfTracerCategoryMap(v7);
   v2 = std::__hash_table<std::__hash_value_type<std::string,PerfTracerCategory>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PerfTracerCategory>>>::find<std::string>(v7, a1);
@@ -3634,14 +3620,14 @@ uint64_t StringToPerfTracerCategory(const void **a1)
   return v5 | v3 | v4;
 }
 
-void sub_1C045C414(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C045C414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t StringToPerfTracerMetric(const void **a1)
+uint64_t StringToPerfTracerMetric(uint64_t *a1)
 {
   GetStringToPerfTracerMetricMap(v7);
   v2 = std::__hash_table<std::__hash_value_type<std::string,PerfTracerCategory>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PerfTracerCategory>>>::find<std::string>(v7, a1);
@@ -3663,9 +3649,9 @@ uint64_t StringToPerfTracerMetric(const void **a1)
   return v5 | v3 | v4;
 }
 
-void sub_1C045C4A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C045C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3809,12 +3795,11 @@ BOOL ZinIrCompilerParamsUtils::HasValidPerfTracerConfigs(int *a1, int *a2)
 
 BOOL IsValidPerfTracerConfig(int *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = *a1;
   if (!*a1)
   {
-    v5 = 1;
-    goto LABEL_34;
+    return 1;
   }
 
   v3 = a1[1];
@@ -3830,69 +3815,68 @@ BOOL IsValidPerfTracerConfig(int *a1)
 
   if (v4)
   {
-    v5 = 0;
-    goto LABEL_34;
+    return 0;
   }
 
+  v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
   if (v1 <= 2)
   {
     if (v1 == 1)
     {
-      v20 = 0x2100000020;
-      v17 = xmmword_1C04727F0;
-      v18 = unk_1C0472800;
-      v19[0] = xmmword_1C0472810;
-      v19[1] = unk_1C0472820;
+      v19 = 0x2100000020;
+      v16 = xmmword_1C04727F0;
+      v17 = unk_1C0472800;
+      v18[0] = xmmword_1C0472810;
+      v18[1] = unk_1C0472820;
       __src = xmmword_1C04727B0;
-      v14 = unk_1C04727C0;
-      v15 = xmmword_1C04727D0;
-      v16 = unk_1C04727E0;
-      std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, &v21, 0x22uLL);
+      v13 = unk_1C04727C0;
+      v14 = xmmword_1C04727D0;
+      v15 = unk_1C04727E0;
+      std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, &v20, 0x22uLL);
       goto LABEL_20;
     }
 
     if (v1 == 2)
     {
-      LODWORD(v19[0]) = 57;
-      v15 = xmmword_1C0472858;
-      v16 = unk_1C0472868;
-      v17 = xmmword_1C0472878;
-      v18 = unk_1C0472888;
+      LODWORD(v18[0]) = 57;
+      v14 = xmmword_1C0472858;
+      v15 = unk_1C0472868;
+      v16 = xmmword_1C0472878;
+      v17 = unk_1C0472888;
       __src = xmmword_1C0472838;
-      v14 = unk_1C0472848;
-      std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, v19 + 4, 0x19uLL);
+      v13 = unk_1C0472848;
+      std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, v18 + 4, 0x19uLL);
       goto LABEL_20;
     }
 
 LABEL_19:
     __src = xmmword_1C0472928;
-    v14 = unk_1C0472938;
-    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, &v15, 8uLL);
+    v13 = unk_1C0472938;
+    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, &v14, 8uLL);
     goto LABEL_20;
   }
 
   if (v1 == 3)
   {
-    LODWORD(v17) = 49;
+    LODWORD(v16) = 49;
     __src = xmmword_1C047289C;
-    v14 = unk_1C04728AC;
-    v15 = xmmword_1C04728BC;
-    v16 = unk_1C04728CC;
-    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, &v17 + 4, 0x11uLL);
+    v13 = unk_1C04728AC;
+    v14 = xmmword_1C04728BC;
+    v15 = unk_1C04728CC;
+    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, &v16 + 4, 0x11uLL);
     goto LABEL_20;
   }
 
   if (v1 == 4)
   {
-    *&v17 = 0x3B0000003ALL;
+    *&v16 = 0x3B0000003ALL;
     __src = xmmword_1C04728E0;
-    v14 = unk_1C04728F0;
-    v15 = xmmword_1C0472900;
-    v16 = unk_1C0472910;
-    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, &v17 + 8, 0x12uLL);
+    v13 = unk_1C04728F0;
+    v14 = xmmword_1C0472900;
+    v15 = unk_1C0472910;
+    std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, &v16 + 8, 0x12uLL);
     goto LABEL_20;
   }
 
@@ -3902,55 +3886,53 @@ LABEL_19:
   }
 
   __src = xmmword_1C04727A0;
-  std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v10, &__src, &v14, 4uLL);
+  std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(&v9, &__src, &v13, 4uLL);
 LABEL_20:
-  if (v10 == v11)
+  if (v9 == v10)
   {
     goto LABEL_32;
   }
 
-  v6 = v10;
+  v6 = v9;
   while (*v6 != a1[1])
   {
-    if (++v6 == v11)
+    if (++v6 == v10)
     {
       goto LABEL_32;
     }
   }
 
-  if (v6 == v11)
+  if (v6 == v10)
   {
 LABEL_32:
     v5 = 0;
-    if (!v10)
+    if (!v9)
     {
-      goto LABEL_34;
+      return v5;
     }
 
 LABEL_33:
-    v11 = v10;
-    operator delete(v10);
-    goto LABEL_34;
+    v10 = v9;
+    operator delete(v9);
+    return v5;
   }
 
-  v7 = v10;
+  v7 = v9;
   while (*v7 != a1[2])
   {
-    if (++v7 == v11)
+    if (++v7 == v10)
     {
-      v7 = v11;
+      v7 = v10;
       break;
     }
   }
 
-  v5 = v7 != v11;
-  if (v10)
+  v5 = v7 != v10;
+  if (v9)
   {
     goto LABEL_33;
   }
 
-LABEL_34:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -3968,7 +3950,7 @@ uint64_t ZinIrCompilerParamsUtils::ConvertCsvStringToVector(const std::string *a
 {
   v4 = a4;
   v7 = 0;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E69E9830];
   do
   {
@@ -3991,8 +3973,8 @@ uint64_t ZinIrCompilerParamsUtils::ConvertCsvStringToVector(const std::string *a
     v11 = size - v7;
     if (size >= v7 && v11 >= 1)
     {
-      v12 = (v10 + size);
-      v13 = (v10 + v7);
+      v12 = v10 + size;
+      v13 = v10 + v7;
       do
       {
         v14 = memchr(v13, 44, v11);
@@ -4008,18 +3990,18 @@ uint64_t ZinIrCompilerParamsUtils::ConvertCsvStringToVector(const std::string *a
             break;
           }
 
-          v15 = &v14[-v10];
+          v15 = v14 - v10;
           memset(&__p, 0, sizeof(__p));
           if (v15 != -1)
           {
-            std::string::basic_string(&v54, a1, v7, &v15[-v7], &v53);
+            std::string::basic_string(&v53, a1, v7, v15 - v7, &v52);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            __p = v54;
-            v16 = (v15 + 1);
+            __p = v53;
+            v16 = v15 + 1;
             v17 = 1;
             goto LABEL_23;
           }
@@ -4036,7 +4018,7 @@ uint64_t ZinIrCompilerParamsUtils::ConvertCsvStringToVector(const std::string *a
 
     memset(&__p, 0, sizeof(__p));
 LABEL_20:
-    std::string::basic_string(&v54, a1, v7, 0xFFFFFFFFFFFFFFFFLL, &v53);
+    std::string::basic_string(&v53, a1, v7, 0xFFFFFFFFFFFFFFFFLL, &v52);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4044,7 +4026,7 @@ LABEL_20:
 
     v17 = 0;
     v16 = 0;
-    __p = v54;
+    __p = v53;
 LABEL_23:
     v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -4187,8 +4169,8 @@ LABEL_56:
 
       v26 = MEMORY[0x1E69E9C10];
 LABEL_60:
-      LODWORD(v54.__r_.__value_.__l.__data_) = 136315138;
-      *(v54.__r_.__value_.__r.__words + 4) = p_p;
+      LODWORD(v53.__r_.__value_.__l.__data_) = 136315138;
+      *(v53.__r_.__value_.__r.__words + 4) = p_p;
       v36 = v26;
       v37 = "Cannot convert argument %s to an integer";
       goto LABEL_61;
@@ -4254,12 +4236,12 @@ LABEL_54:
       v47 = MEMORY[0x1E69E9C10];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        LODWORD(v54.__r_.__value_.__l.__data_) = 134217984;
-        *(v54.__r_.__value_.__r.__words + 4) = a3;
+        LODWORD(v53.__r_.__value_.__l.__data_) = 134217984;
+        *(v53.__r_.__value_.__r.__words + 4) = a3;
         v36 = v47;
         v37 = "Argument must be greater than %lld";
 LABEL_61:
-        _os_log_impl(&dword_1C0446000, v36, OS_LOG_TYPE_INFO, v37, &v54, 0xCu);
+        _os_log_impl(&dword_1C0446000, v36, OS_LOG_TYPE_INFO, v37, &v53, 0xCu);
       }
 
 LABEL_62:
@@ -4279,7 +4261,6 @@ LABEL_62:
   }
 
   while ((v17 & v38 & 1) != 0);
-  v48 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
@@ -4293,7 +4274,7 @@ void sub_1C045CE50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::unordered_map<std::string,PerfTracerCategory>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+unint64_t std::unordered_map<std::string,PerfTracerCategory>::unordered_map(unint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -4303,7 +4284,7 @@ uint64_t std::unordered_map<std::string,PerfTracerCategory>::unordered_map(uint6
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -4314,7 +4295,7 @@ uint64_t std::unordered_map<std::string,PerfTracerCategory>::unordered_map(uint6
   return a1;
 }
 
-uint64_t std::unordered_map<std::string,PerfTracerMetric>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+unint64_t std::unordered_map<std::string,PerfTracerMetric>::unordered_map(unint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -4324,7 +4305,7 @@ uint64_t std::unordered_map<std::string,PerfTracerMetric>::unordered_map(uint64_
     v5 = 32 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 32;
     }
@@ -4349,7 +4330,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PerfTracerCategory>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PerfTracerCategory>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PerfTracerCategory>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PerfTracerCategory>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PerfTracerCategory>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -4418,7 +4399,7 @@ const void **std::__hash_table<std::__hash_value_type<std::string,PerfTracerCate
   return i;
 }
 
-void *std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracerMetric const*,PerfTracerMetric const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4505,7 +4486,7 @@ void *std::vector<PerfTracerMetric>::__assign_with_size[abi:ne200100]<PerfTracer
   return result;
 }
 
-void std::vector<PerfTracerMetric>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PerfTracerMetric>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4537,7 +4518,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<long long>>(uint64_t 
 
 ANE::ANEServicesDevice *ANE::ANEServicesDevice::ANEServicesDevice(ANE::ANEServicesDevice *this, ANE::ANEDeviceController *a2, int a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   *(this + 1) = 0;
   *(this + 2) = a2;
   *(this + 6) = 0;
@@ -4545,12 +4526,11 @@ ANE::ANEServicesDevice *ANE::ANEServicesDevice::ANEServicesDevice(ANE::ANEServic
   *(this + 16) = 0;
   *(this + 14) = a3;
   *this = 0;
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 2);
-  pthread_mutex_init((this + 72), &v6);
-  pthread_mutexattr_destroy(&v6);
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 2);
+  pthread_mutex_init((this + 72), &v5);
+  pthread_mutexattr_destroy(&v5);
   ANE::ANEServicesDevice::EnableDeviceMessages(this);
-  v4 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -4625,24 +4605,24 @@ uint64_t ANE::ANEServicesDevice::ANE_GetVersion(uint64_t a1, _DWORD *a2)
 uint64_t ANE::ANEServicesDevice::ANEDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint32_t a4, __int128 *a5)
 {
   v5 = a5;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!a5)
   {
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v22 = 0;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v5 = &v17;
-    DWORD2(v18) = -1;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v5 = &v16;
+    DWORD2(v17) = -1;
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v25 = a4;
+    v24 = a4;
     _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ANEServicesDevice::ANEServicesDeviceOpen, usage type: %d\n", buf, 8u);
   }
 
@@ -4650,7 +4630,7 @@ uint64_t ANE::ANEServicesDevice::ANEDeviceOpen(uint64_t a1, uint64_t a2, uint64_
   if (*(a1 + 64))
   {
     pthread_mutex_unlock((a1 + 72));
-    v10 = 3758097093;
+    return 3758097093;
   }
 
   else
@@ -4679,26 +4659,26 @@ uint64_t ANE::ANEServicesDevice::ANEDeviceOpen(uint64_t a1, uint64_t a2, uint64_
 
       else
       {
-        v14 = *(v5 + 28);
-        *(a1 + 24) = v14;
+        v13 = *(v5 + 28);
+        *(a1 + 24) = v13;
         *a1 = a2;
         *(a1 + 8) = a3;
         if (*(a1 + 136) != 1)
         {
-          if (v14)
+          if (v13)
           {
             ANE::ANEServicesDevice::ANE_GetVersion(a1, (a1 + 28));
             ANE::ANEServicesDevice::ANE_GetStatus(a1, buf);
-            v15 = v26;
+            v14 = v25;
           }
 
           else
           {
             *(a1 + 28) = *(v5 + 19);
-            v15 = *(v5 + 20);
+            v14 = *(v5 + 20);
           }
 
-          *(a1 + 32) = v15;
+          *(a1 + 32) = v14;
         }
       }
     }
@@ -4706,7 +4686,6 @@ uint64_t ANE::ANEServicesDevice::ANEDeviceOpen(uint64_t a1, uint64_t a2, uint64_
     pthread_mutex_unlock((a1 + 72));
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4718,16 +4697,14 @@ uint64_t ANE::ANEServicesDevice::ANE_LoadFirmware(ANE::ANEServicesDevice *this)
   {
     if (*(this + 34) == 1)
     {
-      v1 = 3758097095;
-      goto LABEL_50;
+      return 3758097095;
     }
 
     memset(outputStruct, 0, sizeof(outputStruct));
     ANE::ANEServicesDevice::ANE_GetStatus(this, outputStruct);
     if (BYTE12(outputStruct[0]))
     {
-      v1 = 0;
-      goto LABEL_50;
+      return 0;
     }
 
     v3 = *(this + 7);
@@ -4776,8 +4753,7 @@ uint64_t ANE::ANEServicesDevice::ANE_LoadFirmware(ANE::ANEServicesDevice *this)
 
 LABEL_53:
           printf("ERROR:No matching firmware found, aneVersion: %x!\n", *(this + 7));
-          v1 = 3758097105;
-          goto LABEL_50;
+          return 3758097105;
         }
       }
     }
@@ -4821,7 +4797,7 @@ LABEL_34:
             {
               if (v1 != -536870207)
               {
-                goto LABEL_50;
+                return v1;
               }
 
               v10 = "LoadFirmware: Privilege violation,  add boot-args amfi_allow_any_signature=1 for loading customer FW";
@@ -4842,7 +4818,7 @@ LABEL_34:
                 v10 = "LoadFirmware: No firmware changes while the ANE is powered up!";
                 break;
               default:
-                goto LABEL_50;
+                return v1;
             }
           }
         }
@@ -4853,13 +4829,13 @@ LABEL_34:
         }
 
         puts(v10);
-        goto LABEL_50;
+        return v1;
       }
 
       if (v3 == 96)
       {
-        v13 = *(this + 8);
-        if (v13 >= 4)
+        v12 = *(this + 8);
+        if (v12 >= 4)
         {
           printf("Couldn't load firmware for unknow subtype(%d\n", *(this + 8));
           v4 = 0;
@@ -4867,7 +4843,7 @@ LABEL_34:
 
         else
         {
-          v4 = off_1E8117300[v13];
+          v4 = off_1E8117300[v12];
         }
 
 LABEL_33:
@@ -4901,70 +4877,60 @@ LABEL_33:
     goto LABEL_33;
   }
 
-LABEL_50:
-  v11 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_RegisterDebugWorkProcessor(uint64_t a1, _DWORD *inputStruct)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(a1 + 64);
-  if (v4)
+  if (!v4)
   {
-    if (*(a1 + 24) == 1)
-    {
-      if (*(a1 + 136) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v7 = 0u;
-        result = IOConnectCallAsyncMethod(v4, 0xBu, inputStruct[4], &reference, 8u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
-      }
+  if (*(a1 + 24) == 1)
+  {
+    if (*(a1 + 136) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v6 = 0u;
+      return IOConnectCallAsyncMethod(v4, 0xBu, inputStruct[4], &reference, 8u, 0, 0, inputStruct, 0x18uLL, 0, 0, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_UnregisterDebugWorkProcessor(ANE::ANEServicesDevice *this, mach_port_t wake_port)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v7 = 0u;
-        result = IOConnectCallAsyncMethod(v4, 0xCu, wake_port, &reference, 8u, 0, 0, 0, 0, 0, 0, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v6 = 0u;
+      return IOConnectCallAsyncMethod(v4, 0xCu, wake_port, &reference, 8u, 0, 0, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4973,31 +4939,27 @@ uint64_t ANE::ANEServicesDevice::ANE_GetDebugWorkProcessorItem(uint64_t a1, mach
   input[2] = *MEMORY[0x1E69E9840];
   v4 = 3758097089;
   v5 = *(a1 + 64);
-  if (v5)
+  if (!v5)
   {
-    if (*(a1 + 24) == 1)
-    {
-      if (*(a1 + 136) == 1)
-      {
-        v4 = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        input[0] = a3;
-        input[1] = 3080;
-        v9 = 0u;
-        v4 = IOConnectCallAsyncMethod(v5, 0xDu, wake_port, &reference, 8u, input, 2u, 0, 0, 0, 0, 0, 0);
-      }
+  if (*(a1 + 24) == 1)
+  {
+    if (*(a1 + 136) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      input[0] = a3;
+      input[1] = 3080;
+      v8 = 0u;
+      return IOConnectCallAsyncMethod(v5, 0xDu, wake_port, &reference, 8u, input, 2u, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  else
-  {
-    v4 = 3758097101;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -5006,237 +4968,217 @@ uint64_t ANE::ANEServicesDevice::ANE_CompleteDebugWorkProcessorItem(uint64_t a1,
   input[2] = *MEMORY[0x1E69E9840];
   v4 = 3758097089;
   v5 = *(a1 + 64);
-  if (v5)
+  if (!v5)
   {
-    if (*(a1 + 24) == 1)
-    {
-      if (*(a1 + 136) == 1)
-      {
-        v4 = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        input[0] = a3;
-        input[1] = 3080;
-        v9 = 0u;
-        v4 = IOConnectCallAsyncMethod(v5, 0xEu, wake_port, &reference, 8u, input, 2u, 0, 0, 0, 0, 0, 0);
-      }
+  if (*(a1 + 24) == 1)
+  {
+    if (*(a1 + 136) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      input[0] = a3;
+      input[1] = 3080;
+      v8 = 0u;
+      return IOConnectCallAsyncMethod(v5, 0xEu, wake_port, &reference, 8u, input, 2u, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  else
-  {
-    v4 = 3758097101;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_ReleaseDebugWorkProcessorBuffers(ANE::ANEServicesDevice *this, mach_port_t wake_port)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v7 = 0u;
-        result = IOConnectCallAsyncMethod(v4, 0xFu, wake_port, &reference, 8u, 0, 0, 0, 0, 0, 0, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v6 = 0u;
+      return IOConnectCallAsyncMethod(v4, 0xFu, wake_port, &reference, 8u, 0, 0, 0, 0, 0, 0, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_ProgramCreateInstance(uint64_t a1, const char **a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = 3758097089;
-  if (*(a1 + 64))
+  if (!*(a1 + 64))
   {
-    if (*(a1 + 24) == 1)
+    return 3758097101;
+  }
+
+  if (*(a1 + 24) == 1)
+  {
+    v3 = 3758097090;
+    if (a2)
     {
-      v3 = 3758097090;
-      if (a2)
+      if (a3)
       {
-        if (a3)
+        v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2014);
+        v8 = +[ANEServicesLog handle];
+        if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2014);
-          v8 = +[ANEServicesLog handle];
-          if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+          v9 = v8;
+          if (os_signpost_enabled(v8))
           {
-            v9 = v8;
-            if (os_signpost_enabled(v8))
-            {
-              v10 = *a2;
-              LODWORD(buf) = 134217984;
-              *(&buf + 4) = v10;
-              _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceProgramCreateInstance", "progHandle=%llx", &buf, 0xCu);
-            }
+            v10 = *a2;
+            LODWORD(buf) = 134217984;
+            *(&buf + 4) = v10;
+            _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceProgramCreateInstance", "progHandle=%llx", &buf, 0xCu);
           }
+        }
 
-          *&buf = a2;
-          *(&buf + 1) = 220696;
-          v22 = a3;
-          v23 = 706360;
-          v3 = IOConnectCallStructMethod(*(a1 + 64), 8u, &buf, 0x20uLL, 0, 0);
-          if (v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            v17 = 136315394;
-            v18 = "ANE_ProgramCreateInstance";
-            v19 = 1024;
-            LODWORD(v20) = v3;
-            _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: ERROR status=%x\n", &v17, 0x12u);
-          }
+        *&buf = a2;
+        *(&buf + 1) = 220696;
+        v21 = a3;
+        v22 = 706360;
+        v3 = IOConnectCallStructMethod(*(a1 + 64), 8u, &buf, 0x20uLL, 0, 0);
+        if (v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 136315394;
+          v17 = "ANE_ProgramCreateInstance";
+          v18 = 1024;
+          LODWORD(v19) = v3;
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: ERROR status=%x\n", &v16, 0x12u);
+        }
 
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            v11 = *a3;
-            v17 = 136315394;
-            v18 = "ANE_ProgramCreateInstance";
-            v19 = 2048;
-            v20 = v11;
-            _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: programInstance with programHandle: 0x%llx\n", &v17, 0x16u);
-          }
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = *a3;
+          v16 = 136315394;
+          v17 = "ANE_ProgramCreateInstance";
+          v18 = 2048;
+          v19 = v11;
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: programInstance with programHandle: 0x%llx\n", &v16, 0x16u);
+        }
 
-          v12 = +[ANEServicesLog handle];
-          if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+        v12 = +[ANEServicesLog handle];
+        if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+        {
+          v13 = v12;
+          if (os_signpost_enabled(v12))
           {
-            v13 = v12;
-            if (os_signpost_enabled(v12))
-            {
-              v14 = *a2;
-              v17 = 134217984;
-              v18 = v14;
-              _os_signpost_emit_with_name_impl(&dword_1C0446000, v13, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceProgramCreateInstance", "progHandle=%llx", &v17, 0xCu);
-            }
+            v14 = *a2;
+            v16 = 134217984;
+            v17 = v14;
+            _os_signpost_emit_with_name_impl(&dword_1C0446000, v13, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceProgramCreateInstance", "progHandle=%llx", &v16, 0xCu);
           }
         }
       }
     }
   }
 
-  else
-  {
-    v3 = 3758097101;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_ProgramPrepare(uint64_t a1, uint64_t *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = 3758097089;
-  if (*(a1 + 64))
+  if (!*(a1 + 64))
   {
-    if (*(a1 + 24) == 1)
-    {
-      v5 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2018);
-      v6 = +[ANEServicesLog handle];
-      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v7 = v6;
-        if (os_signpost_enabled(v6))
-        {
-          v8 = *a2;
-          *buf = 134217984;
-          v16 = v8;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
-        }
-      }
+    return 3758097101;
+  }
 
-      outputStructCnt = 56;
-      v2 = IOConnectCallStructMethod(*(a1 + 64), 4u, a2, 0x38uLL, a2, &outputStructCnt);
-      v9 = +[ANEServicesLog handle];
-      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (*(a1 + 24) == 1)
+  {
+    v5 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2018);
+    v6 = +[ANEServicesLog handle];
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v7 = v6;
+      if (os_signpost_enabled(v6))
       {
-        v10 = v9;
-        if (os_signpost_enabled(v9))
-        {
-          v11 = *a2;
-          *buf = 134217984;
-          v16 = v11;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v5, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
-        }
+        v8 = *a2;
+        *buf = 134217984;
+        v15 = v8;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
+      }
+    }
+
+    outputStructCnt = 56;
+    v2 = IOConnectCallStructMethod(*(a1 + 64), 4u, a2, 0x38uLL, a2, &outputStructCnt);
+    v9 = +[ANEServicesLog handle];
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v10 = v9;
+      if (os_signpost_enabled(v9))
+      {
+        v11 = *a2;
+        *buf = 134217984;
+        v15 = v11;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v5, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
       }
     }
   }
 
-  else
-  {
-    v2 = 3758097101;
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_ProgramChainingPrepare(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = 3758097089;
-  if (*(a1 + 64))
+  if (!*(a1 + 64))
   {
-    if (*(a1 + 24) == 1)
-    {
-      inputStruct[0] = a2;
-      inputStruct[1] = 44592;
-      v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2018);
-      v8 = +[ANEServicesLog handle];
-      if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v9 = v8;
-        if (os_signpost_enabled(v8))
-        {
-          v10 = *(a2 + 16);
-          *buf = 134217984;
-          v19 = v10;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
-        }
-      }
+    return 3758097101;
+  }
 
-      outputStructCnt = 24;
-      v3 = IOConnectCallStructMethod(*(a1 + 64), 9u, inputStruct, 0x10uLL, a3, &outputStructCnt);
-      v11 = +[ANEServicesLog handle];
-      if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (*(a1 + 24) == 1)
+  {
+    inputStruct[0] = a2;
+    inputStruct[1] = 44592;
+    v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2018);
+    v8 = +[ANEServicesLog handle];
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v9 = v8;
+      if (os_signpost_enabled(v8))
       {
-        v12 = v11;
-        if (os_signpost_enabled(v11))
-        {
-          v13 = *(a2 + 16);
-          *buf = 134217984;
-          v19 = v13;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
-        }
+        v10 = *(a2 + 16);
+        *buf = 134217984;
+        v18 = v10;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
+      }
+    }
+
+    outputStructCnt = 24;
+    v3 = IOConnectCallStructMethod(*(a1 + 64), 9u, inputStruct, 0x10uLL, a3, &outputStructCnt);
+    v11 = +[ANEServicesLog handle];
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v12 = v11;
+      if (os_signpost_enabled(v11))
+      {
+        v13 = *(a2 + 16);
+        *buf = 134217984;
+        v18 = v13;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceProgramPrepare", "progHandle=%llx", buf, 0xCu);
       }
     }
   }
 
-  else
-  {
-    v3 = 3758097101;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -5284,158 +5226,146 @@ uint64_t ANE::ANEServicesDevice::ANE_ProgramChainingSetActiveProcedure(uint64_t 
 
 uint64_t ANE::ANEServicesDevice::ANE_ProgramMemoryMapRequest(uint64_t a1, void *a2, unsigned int a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 64))
+  v20 = *MEMORY[0x1E69E9840];
+  if (!*(a1 + 64))
   {
-    v6 = os_signpost_id_make_with_pointer(+[ANEServicesLog verbose], 0x61B0104);
-    v7 = +[ANEServicesLog verbose];
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v8 = v7;
-      if (os_signpost_enabled(v7))
-      {
-        v9 = a2[257];
-        *buf = 134217984;
-        v20 = v9;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ANEDeviceMemoryMapRequest", "progHandle=%llx ", buf, 0xCu);
-      }
-    }
+    return 3758097101;
+  }
 
-    output = 0;
-    input = a3;
-    outputCnt = 1;
-    v10 = IOConnectCallMethod(*(a1 + 64), 5u, &input, 1u, a2, 0x820uLL, &output, &outputCnt, 0, 0);
-    if (!v10 && a3)
+  v6 = os_signpost_id_make_with_pointer(+[ANEServicesLog verbose], 0x61B0104);
+  v7 = +[ANEServicesLog verbose];
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
-      a2[259] = output;
-    }
-
-    v11 = +[ANEServicesLog verbose];
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v12 = v11;
-      if (os_signpost_enabled(v11))
-      {
-        v13 = a2[257];
-        *buf = 134217984;
-        v20 = v13;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_END, v6, "ANEDeviceMemoryMapRequest", "progHandle=%llx ", buf, 0xCu);
-      }
+      v9 = a2[257];
+      *buf = 134217984;
+      v19 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ANEDeviceMemoryMapRequest", "progHandle=%llx ", buf, 0xCu);
     }
   }
 
-  else
+  output = 0;
+  input = a3;
+  outputCnt = 1;
+  v10 = IOConnectCallMethod(*(a1 + 64), 5u, &input, 1u, a2, 0x820uLL, &output, &outputCnt, 0, 0);
+  if (!v10 && a3)
   {
-    v10 = 3758097101;
+    a2[259] = output;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = +[ANEServicesLog verbose];
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v12 = v11;
+    if (os_signpost_enabled(v11))
+    {
+      v13 = a2[257];
+      *buf = 134217984;
+      v19 = v13;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_END, v6, "ANEDeviceMemoryMapRequest", "progHandle=%llx ", buf, 0xCu);
+    }
+  }
+
   return v10;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_ProgramMemoryUnMapRequest(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 64))
+  v15 = *MEMORY[0x1E69E9840];
+  if (!*(a1 + 64))
   {
-    v4 = os_signpost_id_make_with_pointer(+[ANEServicesLog verbose], 0x61B0108);
-    v5 = +[ANEServicesLog verbose];
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v6 = v5;
-      if (os_signpost_enabled(v5))
-      {
-        v7 = a2[257];
-        v14 = 134217984;
-        v15 = v7;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "ANEDeviceMemoryUnMapRequest)", "progHandle=%llx ", &v14, 0xCu);
-      }
-    }
+    return 3758097101;
+  }
 
-    v8 = IOConnectCallStructMethod(*(a1 + 64), 6u, a2, 0x820uLL, 0, 0);
-    v9 = +[ANEServicesLog verbose];
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v4 = os_signpost_id_make_with_pointer(+[ANEServicesLog verbose], 0x61B0108);
+  v5 = +[ANEServicesLog verbose];
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v6 = v5;
+    if (os_signpost_enabled(v5))
     {
-      v10 = v9;
-      if (os_signpost_enabled(v9))
-      {
-        v11 = a2[257];
-        v14 = 134217984;
-        v15 = v11;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v4, "ANEDeviceMemoryUnMapRequest)", "progHandle=%llx ", &v14, 0xCu);
-      }
+      v7 = a2[257];
+      v13 = 134217984;
+      v14 = v7;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "ANEDeviceMemoryUnMapRequest)", "progHandle=%llx ", &v13, 0xCu);
     }
   }
 
-  else
+  v8 = IOConnectCallStructMethod(*(a1 + 64), 6u, a2, 0x820uLL, 0, 0);
+  v9 = +[ANEServicesLog verbose];
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v8 = 3758097101;
+    v10 = v9;
+    if (os_signpost_enabled(v9))
+    {
+      v11 = a2[257];
+      v13 = 134217984;
+      v14 = v11;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v4, "ANEDeviceMemoryUnMapRequest)", "progHandle=%llx ", &v13, 0xCu);
+    }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t ANE::ANEServicesDevice::ANE_SessionHintRequest(uint64_t a1, unsigned __int8 *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = 3758097090;
-  if (*(a1 + 64))
+  if (!*(a1 + 64))
   {
-    if (a2 && a3)
+    return 3758097101;
+  }
+
+  if (a2 && a3)
+  {
+    v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2024);
+    v8 = +[ANEServicesLog handle];
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2024);
-      v8 = +[ANEServicesLog handle];
-      if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v9 = v8;
+      if (os_signpost_enabled(v8))
       {
-        v9 = v8;
-        if (os_signpost_enabled(v8))
-        {
-          v10 = a2[8];
-          v11 = *a2;
-          LODWORD(v18) = 67109376;
-          HIDWORD(v18) = v10;
-          v19 = 2048;
-          v20 = v11;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceSessionHintRequest", "hint=%u handle=0x%llx", &v18, 0x12u);
-        }
+        v10 = a2[8];
+        v11 = *a2;
+        LODWORD(v17) = 67109376;
+        HIDWORD(v17) = v10;
+        v18 = 2048;
+        v19 = v11;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ANEServicesDeviceSessionHintRequest", "hint=%u handle=0x%llx", &v17, 0x12u);
       }
+    }
 
-      if (*(a1 + 24))
-      {
-        v3 = 3758097095;
-      }
+    if (*(a1 + 24))
+    {
+      v3 = 3758097095;
+    }
 
-      else
-      {
-        v18 = 24;
-        v3 = IOConnectCallStructMethod(*(a1 + 64), 7u, a2, 0x10uLL, a3, &v18);
-      }
+    else
+    {
+      v17 = 24;
+      v3 = IOConnectCallStructMethod(*(a1 + 64), 7u, a2, 0x10uLL, a3, &v17);
+    }
 
-      v12 = +[ANEServicesLog handle];
-      if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v12 = +[ANEServicesLog handle];
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v13 = v12;
+      if (os_signpost_enabled(v12))
       {
-        v13 = v12;
-        if (os_signpost_enabled(v12))
-        {
-          v14 = a2[8];
-          v15 = *a2;
-          LODWORD(v18) = 67109376;
-          HIDWORD(v18) = v14;
-          v19 = 2048;
-          v20 = v15;
-          _os_signpost_emit_with_name_impl(&dword_1C0446000, v13, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceSessionHintRequest", "hint=%u handle=0x%llx", &v18, 0x12u);
-        }
+        v14 = a2[8];
+        v15 = *a2;
+        LODWORD(v17) = 67109376;
+        HIDWORD(v17) = v14;
+        v18 = 2048;
+        v19 = v15;
+        _os_signpost_emit_with_name_impl(&dword_1C0446000, v13, OS_SIGNPOST_INTERVAL_END, v7, "ANEServicesDeviceSessionHintRequest", "hint=%u handle=0x%llx", &v17, 0x12u);
       }
     }
   }
 
-  else
-  {
-    v3 = 3758097101;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -5535,7 +5465,7 @@ uint64_t ANE::ANEDriverArrivedCallback(ANE *this, io_iterator_t iterator)
   return result;
 }
 
-uint64_t ANE::ANEInstanceArrivedCallback(ANE *this, io_iterator_t iterator)
+uint64_t ANE::ANEInstanceArrivedCallback(CFMutableArrayRef *this, io_iterator_t iterator)
 {
   result = IOIteratorNext(iterator);
   if (result)
@@ -5548,7 +5478,7 @@ uint64_t ANE::ANEInstanceArrivedCallback(ANE *this, io_iterator_t iterator)
 
 uint64_t *ANE::ANEClientLogger::ANEClientLogger(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   a1[1] = a3;
   v9 = a1 + 1;
   *a1 = a2;
@@ -5556,17 +5486,17 @@ uint64_t *ANE::ANEClientLogger::ANEClientLogger(uint64_t *a1, uint64_t a2, uint6
   *(a1 + 6) = a6;
   v10 = a1 + 3;
   *(a1 + 7) = a7;
-  ANE::ANEThreadReadySyncer::ANEThreadReadySyncer(&v18);
+  ANE::ANEThreadReadySyncer::ANEThreadReadySyncer(&v17);
   a1[12] = 0;
   *(a1 + 8) = a5;
   *(a1 + 64) = 0;
   v11 = *a1;
-  a1[6] = &v18;
+  a1[6] = &v17;
   a1[7] = v11;
   *(a1 + 9) = *v9;
   *(a1 + 22) = *v10;
   a1[5] = a1;
-  v12 = pthread_attr_init(&v17);
+  v12 = pthread_attr_init(&v16);
   if (v12)
   {
     printf("pthread_attr_init() failed. Error: %d\n", v12);
@@ -5575,9 +5505,9 @@ uint64_t *ANE::ANEClientLogger::ANEClientLogger(uint64_t *a1, uint64_t a2, uint6
 
   if (*(a1 + 7))
   {
-    v16.sched_priority = *(a1 + 7);
-    *v16.__opaque = 0;
-    if (pthread_attr_setschedparam(&v17, &v16))
+    v15.sched_priority = *(a1 + 7);
+    *v15.__opaque = 0;
+    if (pthread_attr_setschedparam(&v16, &v15))
     {
       printf("pthread_attr_setschedparam() failed. Error: %d\n");
 LABEL_10:
@@ -5586,13 +5516,13 @@ LABEL_10:
     }
   }
 
-  if (pthread_attr_setdetachstate(&v17, 1))
+  if (pthread_attr_setdetachstate(&v16, 1))
   {
     printf("pthread_attr_setdetachstate() failed. Error: %d\n");
     goto LABEL_10;
   }
 
-  if (pthread_create(a1 + 12, &v17, ANE::ANEClientLoggerThreadStart, a1 + 4))
+  if (pthread_create(a1 + 12, &v16, ANE::ANEClientLoggerThreadStart, a1 + 4))
   {
     printf("pthread_create() failed. Error: %d\n");
     goto LABEL_10;
@@ -5600,31 +5530,30 @@ LABEL_10:
 
   v13 = 1;
 LABEL_11:
-  pthread_attr_destroy(&v17);
+  pthread_attr_destroy(&v16);
   if (v13)
   {
-    ANE::ANEThreadReadySyncer::wait(&v18);
+    ANE::ANEThreadReadySyncer::wait(&v17);
   }
 
 LABEL_13:
-  ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(&v18);
-  v14 = *MEMORY[0x1E69E9840];
+  ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(&v17);
   return a1;
 }
 
-void sub_1C045F02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C045F02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ANE::ANEClientLoggerThreadStart(uint64_t a1)
+uint64_t ANE::ANEClientLoggerThreadStart(unsigned int *a1)
 {
   pthread_setname_np("ANEClientLoggerThread");
-  ANE::ANEThreadReadySyncer::lock(*(a1 + 16));
-  v2 = *(a1 + 24);
-  ANE::ANEThreadReadySyncer::signalAndUnlock(*(a1 + 16));
+  ANE::ANEThreadReadySyncer::lock(*(a1 + 2));
+  v2 = *(a1 + 3);
+  ANE::ANEThreadReadySyncer::signalAndUnlock(*(a1 + 2));
   if (!v2)
   {
     return 0;
@@ -5659,7 +5588,7 @@ uint64_t ANE::ANEClientLoggerThreadStart(uint64_t a1)
   if (BaseAddress)
   {
     bzero(BaseAddress, valuePtr);
-    ClientLoggingSession = ANE::ANEHWDevice::ANE_CreateClientLoggingSession(*(a1 + 24), ID, *a1);
+    ClientLoggingSession = ANE::ANEHWDevice::ANE_CreateClientLoggingSession(*(a1 + 3), ID, *a1);
     v12 = ClientLoggingSession;
     if (ClientLoggingSession)
     {
@@ -5686,11 +5615,11 @@ uint64_t ANE::ANEClientLoggerThreadStart(uint64_t a1)
     }
 
 LABEL_24:
-    (*(a1 + 40))(*(a1 + 48), "client logging aborted \n");
+    (*(a1 + 5))(*(a1 + 6), "client logging aborted \n");
     return 0;
   }
 
-  if ((*(a1 + 32) & 1) == 0)
+  if ((a1[8] & 1) == 0)
   {
     do
     {
@@ -5704,10 +5633,10 @@ LABEL_24:
         v17 = v14;
         do
         {
-          v18 = *(a1 + 40);
+          v18 = *(a1 + 5);
           if (v18)
           {
-            v18(*(a1 + 48), &v17[v15]);
+            v18(*(a1 + 6), &v17[v15]);
             LODWORD(v15) = *(v17 + 1);
             v16 = *(v17 + 16);
           }
@@ -5725,13 +5654,13 @@ LABEL_24:
       }
 
       IOSurfaceUnlock(v8, 0, 0);
-      usleep(1000 * *(a1 + 56));
+      usleep(1000 * a1[14]);
     }
 
     while (*(a1 + 32) != 1);
   }
 
-  v19 = ANE::ANEHWDevice::ANE_TerminateClientLoggingSession(*(a1 + 24), ID);
+  v19 = ANE::ANEHWDevice::ANE_TerminateClientLoggingSession(*(a1 + 3), ID);
   if (v19)
   {
     printf("%s: ANE_TerminateClientLoggingSession returned 0x%08x \n", "void *ANE::ANEClientLoggerThreadStart(ANEClientLoggerThreadParams *)", v19);
@@ -5765,7 +5694,7 @@ uint64_t ANE::ANEClientLogger::SetFirmwareLoggerThreadPriority(ANE::ANEClientLog
 
 ANE::ANEHWDevice *ANE::ANEHWDevice::ANEHWDevice(ANE::ANEHWDevice *this, ANE::ANEDeviceController *a2, int a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   *(this + 1) = 0;
   *(this + 2) = a2;
   *(this + 6) = 0;
@@ -5773,12 +5702,11 @@ ANE::ANEHWDevice *ANE::ANEHWDevice::ANEHWDevice(ANE::ANEHWDevice *this, ANE::ANE
   *(this + 16) = 0;
   *(this + 14) = a3;
   *this = 0;
-  pthread_mutexattr_init(&v6);
-  pthread_mutexattr_settype(&v6, 2);
-  pthread_mutex_init((this + 72), &v6);
-  pthread_mutexattr_destroy(&v6);
+  pthread_mutexattr_init(&v5);
+  pthread_mutexattr_settype(&v5, 2);
+  pthread_mutex_init((this + 72), &v5);
+  pthread_mutexattr_destroy(&v5);
   ANE::ANEHWDevice::EnableDeviceMessages(this);
-  v4 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -5841,24 +5769,24 @@ void *ANE::ANEHWDevice::RegisterDeviceMessageNotificationProc(void *this, int (*
 uint64_t ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint32_t a4, __int128 *a5)
 {
   v5 = a5;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!a5)
   {
-    v44 = 0;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v43 = 0;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v5 = &v38;
-    DWORD2(v39) = -1;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v5 = &v37;
+    DWORD2(v38) = -1;
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v46 = a4;
+    v45 = a4;
     _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ANEHWDeviceOpen::ANEHWDeviceOpen, usage type: %d\n", buf, 8u);
   }
 
@@ -5866,7 +5794,7 @@ uint64_t ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3
   if (*(a1 + 64))
   {
     pthread_mutex_unlock((a1 + 72));
-    v10 = 3758097093;
+    return 3758097093;
   }
 
   else
@@ -5895,11 +5823,11 @@ uint64_t ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3
 
       else
       {
-        v28 = *(v5 + 28);
-        *(a1 + 24) = v28;
+        v27 = *(v5 + 28);
+        *(a1 + 24) = v27;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          ANE::ANEHWDevice::ANEHWDeviceOpen(v28, v29, v30, v31, v32, v33, v34, v35);
+          ANE::ANEHWDevice::ANEHWDeviceOpen(v27, v28, v29, v30, v31, v32, v33, v34);
         }
 
         *a1 = a2;
@@ -5910,16 +5838,16 @@ uint64_t ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3
           {
             ANE::ANEHWDevice::ANE_GetVersion(a1, (a1 + 28));
             ANE::ANEHWDevice::ANE_GetStatus(a1, buf);
-            v36 = v47;
+            v35 = v46;
           }
 
           else
           {
             *(a1 + 28) = *(v5 + 19);
-            v36 = *(v5 + 20);
+            v35 = *(v5 + 20);
           }
 
-          *(a1 + 32) = v36;
+          *(a1 + 32) = v35;
         }
       }
     }
@@ -5927,7 +5855,6 @@ uint64_t ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3
     pthread_mutex_unlock((a1 + 72));
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -6015,35 +5942,31 @@ uint64_t ANE::ANEHWDevice::ANE_ReadANERegister(ANE::ANEHWDevice *this, unsigned 
   input[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(this + 16);
-  if (v5)
+  if (!v5)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      output = 0;
+      input[0] = a2;
+      outputCnt = 1;
+      result = IOConnectCallScalarMethod(v5, 0x1Au, input, 1u, &output, &outputCnt);
+      if (!result)
       {
-        output = 0;
-        input[0] = a2;
-        outputCnt = 1;
-        result = IOConnectCallScalarMethod(v5, 0x1Au, input, 1u, &output, &outputCnt);
-        if (!result)
-        {
-          *a3 = output;
-        }
+        *a3 = output;
       }
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6052,36 +5975,32 @@ uint64_t ANE::ANEHWDevice::ANE_WriteANERegister(ANE::ANEHWDevice *this, unsigned
   input[2] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(this + 16);
-  if (v5)
+  if (!v5)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        input[0] = a2;
-        input[1] = a3;
-        result = IOConnectCallScalarMethod(v5, 0x1Bu, input, 2u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      input[0] = a2;
+      input[1] = a3;
+      return IOConnectCallScalarMethod(v5, 0x1Bu, input, 2u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_SendCommand(ANE::ANEHWDevice *this, unsigned __int8 *a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v19[5] = *MEMORY[0x1E69E9840];
+  v18[5] = *MEMORY[0x1E69E9840];
   v10 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2008);
   v11 = +[ANEServicesLog handle];
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -6089,8 +6008,8 @@ uint64_t ANE::ANEHWDevice::ANE_SendCommand(ANE::ANEHWDevice *this, unsigned __in
     v12 = v11;
     if (os_signpost_enabled(v11))
     {
-      LOWORD(v19[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ANEHWDeviceSendCommand", &unk_1C047597E, v19, 2u);
+      LOWORD(v18[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ANEHWDeviceSendCommand", &unk_1C047597E, v18, 2u);
     }
   }
 
@@ -6107,11 +6026,11 @@ uint64_t ANE::ANEHWDevice::ANE_SendCommand(ANE::ANEHWDevice *this, unsigned __in
 
       else
       {
-        v19[0] = a2;
-        v19[1] = a3;
-        v19[2] = a4;
-        v19[3] = a5;
-        v13 = IOConnectCallScalarMethod(v14, 8u, v19, 4u, 0, 0);
+        v18[0] = a2;
+        v18[1] = a3;
+        v18[2] = a4;
+        v18[3] = a5;
+        v13 = IOConnectCallScalarMethod(v14, 8u, v18, 4u, 0, 0);
       }
     }
   }
@@ -6127,12 +6046,11 @@ uint64_t ANE::ANEHWDevice::ANE_SendCommand(ANE::ANEHWDevice *this, unsigned __in
     v16 = v15;
     if (os_signpost_enabled(v15))
     {
-      LOWORD(v19[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C0446000, v16, OS_SIGNPOST_INTERVAL_END, v10, "ANEHWDeviceSendCommand", &unk_1C047597E, v19, 2u);
+      LOWORD(v18[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v16, OS_SIGNPOST_INTERVAL_END, v10, "ANEHWDeviceSendCommand", &unk_1C047597E, v18, 2u);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -6193,16 +6111,14 @@ uint64_t ANE::ANEHWDevice::ANE_LoadFirmware(ANE::ANEHWDevice *this)
   {
     if (*(this + 34) == 1)
     {
-      v1 = 3758097095;
-      goto LABEL_50;
+      return 3758097095;
     }
 
     memset(outputStruct, 0, sizeof(outputStruct));
     ANE::ANEHWDevice::ANE_GetStatus(this, outputStruct);
     if (BYTE12(outputStruct[0]))
     {
-      v1 = 0;
-      goto LABEL_50;
+      return 0;
     }
 
     v3 = *(this + 7);
@@ -6251,8 +6167,7 @@ uint64_t ANE::ANEHWDevice::ANE_LoadFirmware(ANE::ANEHWDevice *this)
 
 LABEL_53:
           printf("ERROR:No matching firmware found, aneVersion: %x!\n", *(this + 7));
-          v1 = 3758097105;
-          goto LABEL_50;
+          return 3758097105;
         }
       }
     }
@@ -6296,7 +6211,7 @@ LABEL_34:
             {
               if (v1 != -536870207)
               {
-                goto LABEL_50;
+                return v1;
               }
 
               v10 = "LoadFirmware: Privilege violation,  add boot-args amfi_allow_any_signature=1 for loading customer FW";
@@ -6317,7 +6232,7 @@ LABEL_34:
                 v10 = "LoadFirmware: No firmware changes while the ANE is powered up!";
                 break;
               default:
-                goto LABEL_50;
+                return v1;
             }
           }
         }
@@ -6328,13 +6243,13 @@ LABEL_34:
         }
 
         puts(v10);
-        goto LABEL_50;
+        return v1;
       }
 
       if (v3 == 96)
       {
-        v13 = *(this + 8);
-        if (v13 >= 4)
+        v12 = *(this + 8);
+        if (v12 >= 4)
         {
           printf("Couldn't load firmware for unknow subtype(%d\n", *(this + 8));
           v4 = 0;
@@ -6342,7 +6257,7 @@ LABEL_34:
 
         else
         {
-          v4 = off_1E8117320[v13];
+          v4 = off_1E8117320[v12];
         }
 
 LABEL_33:
@@ -6376,8 +6291,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-LABEL_50:
-  v11 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -6562,94 +6475,82 @@ uint64_t ANE::ANEHWDevice::ANE_PowerOff(ANE::ANEHWDevice *this)
 
 uint64_t ANE::ANEHWDevice::ANE_SetPowerManagement(ANE::ANEHWDevice *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 9u, v6, 1u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v4, 9u, v5, 1u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_SetDynamicPowerGating(ANE::ANEHWDevice *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0xAu, v6, 1u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v4, 0xAu, v5, 1u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_SetPowerGatingHysteresisTime(ANE::ANEHWDevice *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0xBu, v6, 1u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v4, 0xBu, v5, 1u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6702,22 +6603,18 @@ uint64_t ANE::ANEHWDevice::ANE_SetDriverProperty(uint64_t a1, unsigned int a2, u
   input[2] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(a1 + 64);
-  if (v5)
+  if (!v5)
   {
-    if (*(a1 + 24) == 1)
-    {
-      input[0] = a2;
-      input[1] = a3;
-      result = IOConnectCallScalarMethod(v5, 0xDu, input, 2u, 0, 0);
-    }
+    return 3758097101;
   }
 
-  else
+  if (*(a1 + 24) == 1)
   {
-    result = 3758097101;
+    input[0] = a2;
+    input[1] = a3;
+    return IOConnectCallScalarMethod(v5, 0xDu, input, 2u, 0, 0);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6726,27 +6623,23 @@ uint64_t ANE::ANEHWDevice::ANE_GetDriverProperty(uint64_t a1, unsigned int a2, _
   input[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(a1 + 64);
-  if (v5)
+  if (!v5)
   {
-    if (*(a1 + 24) == 1)
+    return 3758097101;
+  }
+
+  if (*(a1 + 24) == 1)
+  {
+    output = 0;
+    input[0] = a2;
+    outputCnt = 1;
+    result = IOConnectCallScalarMethod(v5, 0x17u, input, 1u, &output, &outputCnt);
+    if (!result)
     {
-      output = 0;
-      input[0] = a2;
-      outputCnt = 1;
-      result = IOConnectCallScalarMethod(v5, 0x17u, input, 1u, &output, &outputCnt);
-      if (!result)
-      {
-        *a3 = output;
-      }
+      *a3 = output;
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6761,30 +6654,29 @@ uint64_t ANE::ANEHWDevice::ANE_CreateClientLoggingSession(uint64_t a1, unsigned 
     {
       if (*(a1 + 136) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
       {
         input[0] = a2;
         input[1] = a3;
-        result = IOConnectCallScalarMethod(v5, 0x15u, input, 2u, 0, 0);
+        return IOConnectCallScalarMethod(v5, 0x15u, input, 2u, 0, 0);
       }
     }
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_TerminateClientLoggingSession(ANE::ANEHWDevice *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097084;
   v4 = *(this + 16);
   if (v4)
@@ -6793,23 +6685,22 @@ uint64_t ANE::ANEHWDevice::ANE_TerminateClientLoggingSession(ANE::ANEHWDevice *t
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
       {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0x16u, v6, 1u, 0, 0);
+        v5[0] = a2;
+        return IOConnectCallScalarMethod(v4, 0x16u, v5, 1u, 0, 0);
       }
     }
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6915,32 +6806,28 @@ uint64_t ANE::ANEHWDevice::ANE_ShowModelMemoryStatus(ANE::ANEHWDevice *this)
 
 uint64_t ANE::ANEHWDevice::ANE_SetDARTCacheTTL(ANE::ANEHWDevice *this, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0x10u, v6, 1u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      v5[0] = a2;
+      return IOConnectCallScalarMethod(v4, 0x10u, v5, 1u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6949,21 +6836,17 @@ uint64_t ANE::ANEHWDevice::ANE_SetThrottlingPercentage(ANE::ANEHWDevice *this, u
   input[2] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v4 = *(this + 16);
-  if (v4)
+  if (!v4)
   {
-    if (*(this + 24) == 1)
-    {
-      input[0] = a2;
-      result = IOConnectCallScalarMethod(v4, 0x12u, input, 1u, 0, 0);
-    }
+    return 3758097101;
   }
 
-  else
+  if (*(this + 24) == 1)
   {
-    result = 3758097101;
+    input[0] = a2;
+    return IOConnectCallScalarMethod(v4, 0x12u, input, 1u, 0, 0);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6972,22 +6855,18 @@ uint64_t ANE::ANEHWDevice::ANE_SetFirmwareBootArg(ANE::ANEHWDevice *this, unsign
   input[2] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(this + 16);
-  if (v5)
+  if (!v5)
   {
-    if (*(this + 24) == 1)
-    {
-      input[0] = a2;
-      input[1] = a3;
-      result = IOConnectCallScalarMethod(v5, 0x11u, input, 2u, 0, 0);
-    }
+    return 3758097101;
   }
 
-  else
+  if (*(this + 24) == 1)
   {
-    result = 3758097101;
+    input[0] = a2;
+    input[1] = a3;
+    return IOConnectCallScalarMethod(v5, 0x11u, input, 2u, 0, 0);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6995,39 +6874,27 @@ uint64_t ANE::ANEHWDevice::ANE_MPMMemoryMapRequest(ANE::ANEHWDevice *this, uint6
 {
   input[2] = *MEMORY[0x1E69E9840];
   v3 = *(this + 16);
-  if (v3)
+  if (!v3)
   {
-    input[0] = a2;
-    input[1] = a3;
-    result = IOConnectCallScalarMethod(v3, 0x1Fu, input, 2u, 0, 0);
+    return 3758097101;
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  input[0] = a2;
+  input[1] = a3;
+  return IOConnectCallScalarMethod(v3, 0x1Fu, input, 2u, 0, 0);
 }
 
 uint64_t ANE::ANEHWDevice::ANE_MPMMemoryUnmapRequest(ANE::ANEHWDevice *this, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v2 = *(this + 16);
-  if (v2)
+  if (!v2)
   {
-    v5[0] = a2;
-    result = IOConnectCallScalarMethod(v2, 0x20u, v5, 1u, 0, 0);
+    return 3758097084;
   }
 
-  else
-  {
-    result = 3758097084;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[0] = a2;
+  return IOConnectCallScalarMethod(v2, 0x20u, v4, 1u, 0, 0);
 }
 
 uint64_t ANE::ANEHWDevice::ANE_FWSharedEventDoorbellRing(ANE::ANEHWDevice *this)
@@ -7060,30 +6927,26 @@ uint64_t ANE::ANEHWDevice::ANE_UnmapDartBuffers(ANE::ANEHWDevice *this, unsigned
   input[2] = *MEMORY[0x1E69E9840];
   result = 3758097089;
   v5 = *(this + 16);
-  if (v5)
+  if (!v5)
   {
-    if (*(this + 24) == 1)
-    {
-      if (*(this + 34) == 1)
-      {
-        result = 3758097095;
-      }
+    return 3758097101;
+  }
 
-      else
-      {
-        input[0] = a2;
-        input[1] = a3;
-        result = IOConnectCallScalarMethod(v5, 0x1Du, input, 2u, 0, 0);
-      }
+  if (*(this + 24) == 1)
+  {
+    if (*(this + 34) == 1)
+    {
+      return 3758097095;
+    }
+
+    else
+    {
+      input[0] = a2;
+      input[1] = a3;
+      return IOConnectCallScalarMethod(v5, 0x1Du, input, 2u, 0, 0);
     }
   }
 
-  else
-  {
-    result = 3758097101;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7126,7 +6989,7 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveLoad(ANE::ANEHWDevice *this, unsigned int 
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
@@ -7144,17 +7007,16 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveLoad(ANE::ANEHWDevice *this, unsigned int 
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_ExclaveEvaluate(ANE::ANEHWDevice *this, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097084;
   v4 = *(this + 16);
   if (v4)
@@ -7163,29 +7025,28 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveEvaluate(ANE::ANEHWDevice *this, uint64_t 
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
       {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0x23u, v6, 1u, 0, 0);
+        v5[0] = a2;
+        return IOConnectCallScalarMethod(v4, 0x23u, v5, 1u, 0, 0);
       }
     }
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANE::ANEHWDevice::ANE_ExclaveUnload(ANE::ANEHWDevice *this, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   result = 3758097084;
   v4 = *(this + 16);
   if (v4)
@@ -7194,23 +7055,22 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveUnload(ANE::ANEHWDevice *this, uint64_t a2
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
       {
-        v6[0] = a2;
-        result = IOConnectCallScalarMethod(v4, 0x24u, v6, 1u, 0, 0);
+        v5[0] = a2;
+        return IOConnectCallScalarMethod(v4, 0x24u, v5, 1u, 0, 0);
       }
     }
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7225,7 +7085,7 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveReadPropertyValue(ANE::ANEHWDevice *this, 
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
@@ -7243,11 +7103,10 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveReadPropertyValue(ANE::ANEHWDevice *this, 
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7262,36 +7121,36 @@ uint64_t ANE::ANEHWDevice::ANE_ExclaveWritePropertyValue(ANE::ANEHWDevice *this,
     {
       if (*(this + 34) == 1)
       {
-        result = 3758097095;
+        return 3758097095;
       }
 
       else
       {
         input[0] = a2;
         input[1] = a3;
-        result = IOConnectCallScalarMethod(v5, 0x26u, input, 2u, 0, 0);
+        return IOConnectCallScalarMethod(v5, 0x26u, input, 2u, 0, 0);
       }
     }
 
     else
     {
-      result = 3758097089;
+      return 3758097089;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 ANE::ANERequestReceiver *ANE::ANERequestReceiver::ANERequestReceiver(ANE::ANERequestReceiver *this, ANE::ANEServicesDevice *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   *this = 0;
   *(this + 248) = 0;
   *(this + 41) = 0;
@@ -7310,12 +7169,11 @@ ANE::ANERequestReceiver *ANE::ANERequestReceiver::ANERequestReceiver(ANE::ANEReq
   pthread_cond_init((this + 64), 0);
   *(this + 40) = 0;
   *(this + 52) = 0;
-  pthread_mutexattr_init(&v5);
-  pthread_mutexattr_settype(&v5, 2);
-  pthread_mutex_init((this + 176), &v5);
-  pthread_mutexattr_destroy(&v5);
+  pthread_mutexattr_init(&v4);
+  pthread_mutexattr_settype(&v4, 2);
+  pthread_mutex_init((this + 176), &v4);
+  pthread_mutexattr_destroy(&v4);
   *(this + 30) = dispatch_semaphore_create(0);
-  v3 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -7410,35 +7268,32 @@ uint64_t ANE::ANERequestReceiver::registerFrameReceiveCallback(ANE::ANERequestRe
   return 0;
 }
 
-void *std::deque<ANE::ANERequestReceiverRequest *>::push_back(void *result, void *a2)
+void std::deque<ANE::ANERequestReceiverRequest *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<ANE::ANERequestReceiverRequest *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<ANE::ANERequestReceiverRequest *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
 uint64_t ANE::ANERequestReceiver::startNoDataTimer(ANE::ANERequestReceiver *this)
@@ -7470,7 +7325,7 @@ uint64_t ANE::ANERequestReceiver::startNoDataTimer(ANE::ANERequestReceiver *this
   return pthread_mutex_unlock(this + 4);
 }
 
-uint64_t *std::deque<ANE::ANERequestReceiverRequest *>::erase(int64x2_t *a1, char *a2, char *a3)
+void *std::deque<ANE::ANERequestReceiverRequest *>::erase(int64x2_t *a1, char *a2, char *a3)
 {
   v4 = a1->i64[1];
   v5 = (v4 + 8 * (a1[2].i64[0] >> 9));
@@ -7507,14 +7362,14 @@ uint64_t *std::deque<ANE::ANERequestReceiverRequest *>::erase(int64x2_t *a1, cha
     {
       v26 = 510 - v17;
       v19 = &v8[-(v26 >> 9)];
-      v20 = &(*v19)[8 * (~v26 & 0x1FF)];
+      v20 = (*v19 + 8 * (~v26 & 0x1FF));
     }
 
     else
     {
       v18 = v17 + 1;
       v19 = &v8[v18 >> 9];
-      v20 = &(*v19)[8 * (v18 & 0x1FF)];
+      v20 = (*v19 + 8 * (v18 & 0x1FF));
     }
 
     std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(v30, v31, v8, v9, v19, v20, v32);
@@ -7529,14 +7384,14 @@ uint64_t *std::deque<ANE::ANERequestReceiverRequest *>::erase(int64x2_t *a1, cha
     {
       v21 = 510 - v13;
       v15 = &v8[-(v21 >> 9)];
-      v16 = &(*v15)[8 * (~v21 & 0x1FF)];
+      v16 = (*v15 + 8 * (~v21 & 0x1FF));
     }
 
     else
     {
       v14 = v13 + 1;
       v15 = &v8[v14 >> 9];
-      v16 = &(*v15)[8 * (v14 & 0x1FF)];
+      v16 = (*v15 + 8 * (v14 & 0x1FF));
     }
 
     v22 = a1[2].i64[0] + v12;
@@ -7549,7 +7404,7 @@ uint64_t *std::deque<ANE::ANERequestReceiverRequest *>::erase(int64x2_t *a1, cha
 
     else
     {
-      v25 = &(*v24)[8 * (v22 & 0x1FF)];
+      v25 = (*v24 + 8 * (v22 & 0x1FF));
     }
 
     v32[0].n128_u64[0] = v10;
@@ -7668,18 +7523,17 @@ unsigned __int16 *ANE::dumpFwStatsData(unsigned __int16 *result)
   return result;
 }
 
-uint64_t ANE::ANERequestReceiver::FrameDone(uint64_t this, void *a2, void *a3, unint64_t *a4)
+void *ANE::ANERequestReceiver::FrameDone(void *this, void *a2, void *a3, unint64_t *a4)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!this)
   {
-    goto LABEL_34;
+    return this;
   }
 
   if (a4 != 8)
   {
-    this = printf("ANERequestReceiver::FrameDone, numArgs=%d doesn't match kernel side size: %d, No action\n", a4, 8);
-    goto LABEL_34;
+    return printf("ANERequestReceiver::FrameDone, numArgs=%d doesn't match kernel side size: %d, No action\n", a4, 8);
   }
 
   v5 = a2;
@@ -7689,20 +7543,20 @@ uint64_t ANE::ANERequestReceiver::FrameDone(uint64_t this, void *a2, void *a3, u
   v9 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B220C);
   v10 = +[ANEServicesLog handle];
   spid = v9;
-  v31 = v9 - 1;
+  v30 = v9 - 1;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v11 = v10;
     if (os_signpost_enabled(v10))
     {
       *buf = 134218752;
-      v33 = v7;
-      v34 = 1024;
-      *v35 = 0;
-      *&v35[4] = 2048;
-      *&v35[6] = v8;
-      *&v35[14] = 2048;
-      *&v35[16] = a3;
+      v32 = v7;
+      v33 = 1024;
+      *v34 = 0;
+      *&v34[4] = 2048;
+      *&v34[6] = v8;
+      *&v34[14] = 2048;
+      *&v34[16] = a3;
       _os_signpost_emit_with_name_impl(&dword_1C0446000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ANERequestReceiverFrameDone", "progHandle=%llx procid=%x transid=%llx args=%llx", buf, 0x26u);
     }
   }
@@ -7769,11 +7623,11 @@ LABEL_20:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v33 = v8;
-      v34 = 2048;
-      *v35 = v20;
-      *&v35[8] = 2048;
-      *&v35[10] = v7;
+      v32 = v8;
+      v33 = 2048;
+      *v34 = v20;
+      *&v34[8] = 2048;
+      *&v34[10] = v7;
       _os_log_error_impl(&dword_1C0446000, v16, OS_LOG_TYPE_ERROR, "Request received for different program!! transactionId=0x%llx, req->programHandle=0x%llx, programHandle=0x%llx\n", buf, 0x20u);
     }
 
@@ -7802,12 +7656,12 @@ LABEL_20:
       *(v19 + 8264) = 0;
       if (debugFwStatsData == 1)
       {
-        v26 = *(v19 + 8200);
-        if (v26)
+        v25 = *(v19 + 8200);
+        if (v25)
         {
           if ((*(v19 + 8196) & 0xB) != 0)
           {
-            CVPixelBufferLockBaseAddress(v26, 0);
+            CVPixelBufferLockBaseAddress(v25, 0);
             BaseAddress = CVPixelBufferGetBaseAddress(*(v19 + 8200));
             ANE::dumpFwStatsData(BaseAddress);
             CVPixelBufferUnlockBaseAddress(*(v19 + 8200), 0);
@@ -7816,12 +7670,12 @@ LABEL_20:
       }
     }
 
-    v28 = objc_autoreleasePoolPush();
+    v27 = objc_autoreleasePoolPush();
     (*(v6 + 32))(*(v6 + 24), v19);
-    objc_autoreleasePoolPop(v28);
+    objc_autoreleasePoolPop(v27);
     if (*a3 == 768 && a3[7] == 1)
     {
-      ANE::ANERequestReceiver::releaseRequestBuffers(v29, v19);
+      ANE::ANERequestReceiver::releaseRequestBuffers(v28, v19);
       ANE::ANERequestReceiverRequest::~ANERequestReceiverRequest(v19);
       MEMORY[0x1C68DA430]();
     }
@@ -7845,28 +7699,25 @@ LABEL_24:
 
   pthread_mutex_unlock((v6 + 176));
   v23 = +[ANEServicesLog handle];
-  if (v31 < 0xFFFFFFFFFFFFFFFELL)
+  if (v30 < 0xFFFFFFFFFFFFFFFELL)
   {
     v24 = v23;
     v23 = os_signpost_enabled(v23);
     if (v23)
     {
       *buf = 134218752;
-      v33 = v7;
-      v34 = 1024;
-      *v35 = v22;
-      *&v35[4] = 2048;
-      *&v35[6] = v8;
-      *&v35[14] = 2048;
-      *&v35[16] = a3;
+      v32 = v7;
+      v33 = 1024;
+      *v34 = v22;
+      *&v34[4] = 2048;
+      *&v34[6] = v8;
+      *&v34[14] = 2048;
+      *&v34[16] = a3;
       _os_signpost_emit_with_name_impl(&dword_1C0446000, v24, OS_SIGNPOST_INTERVAL_END, spid, "ANERequestReceiverFrameDone", "progHandle=%llx procid=%x transid=%llx args=%llx", buf, 0x26u);
     }
   }
 
-  this = ANE::ANECheckForPendingClose(v23);
-LABEL_34:
-  v25 = *MEMORY[0x1E69E9840];
-  return this;
+  return ANE::ANECheckForPendingClose(v23);
 }
 
 uint64_t ANE::ANERequestReceiver::tickleNoDataTimer(pthread_mutex_t *this)
@@ -8047,19 +7898,19 @@ LABEL_43:
   return pthread_mutex_unlock((a2 + 176));
 }
 
-void *std::deque<ANE::ANERequestReceiverRequest *>::__add_back_capacity(void *a1)
+void std::deque<ANE::ANERequestReceiverRequest *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -8067,25 +7918,25 @@ void *std::deque<ANE::ANERequestReceiverRequest *>::__add_back_capacity(void *a1
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **&>(a1, &v9);
 }
 
 void sub_1C0462704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8099,27 +7950,26 @@ void sub_1C0462704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **&>(void *result, void *a2)
+void std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8128,28 +7978,26 @@ void *std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_front<ANE::ANERequestReceiverRequest **>(const void **result, void *a2)
+void std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_front<ANE::ANERequestReceiverRequest **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -8162,52 +8010,50 @@ const void **std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_fro
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **>(void *result, void *a2)
+void std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::ANERequestReceiverRequest **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -8216,28 +8062,26 @@ void *std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_back<ANE::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_front<ANE::ANERequestReceiverRequest **&>(const void **result, void *a2)
+void std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_front<ANE::ANERequestReceiverRequest **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -8250,29 +8094,28 @@ const void **std::__split_buffer<ANE::ANERequestReceiverRequest **>::emplace_fro
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiverRequest **>>(uint64_t a1, unint64_t a2)
@@ -8285,7 +8128,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ANE::ANERequestReceiv
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -8294,13 +8137,11 @@ uint64_t *std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequest
     if (v4 < 1)
     {
       result -= (511 - v4) >> 9;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 9;
-      v5 = *result;
     }
   }
 
@@ -8374,7 +8215,7 @@ uint64_t std::deque<ANE::ANERequestReceiverRequest *>::__maybe_remove_back_spare
   return v7 ^ 1u;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, void *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -8386,7 +8227,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -8403,10 +8244,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -8418,7 +8259,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, void *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -8456,15 +8297,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v15 = *--v6;
+      v15 = *(v6 - 1);
+      v6 -= 8;
       v10 = v15;
       a4 = (v15 + 4096);
     }
 
     if ((*v6 + 4096) == a4)
     {
-      v16 = v6[1];
-      ++v6;
+      v16 = *(v6 + 1);
+      v6 += 8;
       a4 = v16;
     }
   }
@@ -8475,19 +8317,19 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return result;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>>>(char **a1, char *__src, char **a3, char *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>>>(void **a1, uint64_t *__src, void **a3, uint64_t *a4, void ***a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     v9 = __src;
   }
 
   else
   {
     v11 = a1 + 1;
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(__src, *(a5 + 8), *a1 + 4096, *a5, &v15);
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(&v15, __src, a5[1], *a1 + 512, *a5);
     for (i = v16; ; i = v16)
     {
       *a5 = i;
@@ -8497,39 +8339,39 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<ANE::ANEReque
       }
 
       v13 = *v11++;
-      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(v13, *(a5 + 8), v13 + 4096, *a5, &v15);
+      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(&v15, v13, a5[1], v13 + 512, *a5);
     }
 
     v9 = *v11;
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(v9, v8, a4, v7, &v15);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>(&v15, v9, v8, a4, v7);
   result = *&v16;
   *a5 = v16;
   return result;
 }
 
-char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<X0>(char *__src@<X0>, char *__dst@<X3>, char *a3@<X1>, void **a4@<X2>, char **a5@<X8>)
+uint64_t *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest **,std::__deque_iterator<ANE::ANERequestReceiverRequest *,ANE::ANERequestReceiverRequest **,ANE::ANERequestReceiverRequest *&,ANE::ANERequestReceiverRequest ***,long,512l>,0>@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *__src@<X0>, char *__dst@<X3>, uint64_t *a4@<X1>, void **a5@<X2>)
 {
-  v6 = a4;
-  if (__src != a3)
+  v6 = a5;
+  if (__src != a4)
   {
     v9 = __src;
-    v6 = a4 + 1;
-    v10 = *a4;
+    v6 = a5 + 1;
+    v10 = *a5;
     while (1)
     {
       v11 = v10 - __dst + 4096;
-      v12 = (a3 - v9) >> 3 >= v11 >> 3 ? v11 >> 3 : (a3 - v9) >> 3;
+      v12 = a4 - v9 >= v11 >> 3 ? v11 >> 3 : a4 - v9;
       if (v12)
       {
         __src = memmove(__dst, v9, 8 * v12);
       }
 
-      v9 += 8 * v12;
-      if (v9 == a3)
+      v9 += v12;
+      if (v9 == a4)
       {
         break;
       }
@@ -8551,13 +8393,13 @@ char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_Classic
     }
   }
 
-  *a5 = a3;
-  a5[1] = v6;
-  a5[2] = __dst;
+  *a1 = a4;
+  a1[1] = v6;
+  a1[2] = __dst;
   return __src;
 }
 
-void ANE::ANERequestReceiverBufferPool::ANERequestReceiverBufferPool(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, int a10, int a11, int a12, uint64_t a13, int a14)
+void ANE::ANERequestReceiverBufferPool::ANERequestReceiverBufferPool(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, int a10, int a11, unsigned int a12, uint64_t a13, int a14)
 {
   *a1 = a2;
   *(a1 + 4) = a3;
@@ -8623,13 +8465,11 @@ uint64_t ANE::ANERequestReceiverBufferPool::activatePool(ANE::ANERequestReceiver
     return 3758097122;
   }
 
-  v3 = ANE::ANECreateCVBufferPool(*(this + 2), *(this + 3), *(this + 4), *(this + 5), *(this + 6), *(this + 10), *(this + 28), *(this + 8), *(this + 9), *(this + 11), *this < 2u, v7, *(this + 13));
+  v3 = ANE::ANECreateCVBufferPool(*(this + 2), *(this + 3), *(this + 4), *(this + 5), *(this + 6), *(this + 10), *(this + 28), *(this + 8), *(this + 9), *(this + 11), *this < 2u, v5, *(this + 13));
   *(this + 8) = v3;
   if (v3)
   {
     CVPixelBufferPoolScanIOSurfaces();
-    v4 = *MEMORY[0x1E695E480];
-    v5 = *(this + 8);
     CVPixelBufferPoolPreAllocate();
     return 0;
   }
@@ -8728,7 +8568,6 @@ uint64_t ANE::ANERequestReceiverBufferPool::ModifyBufferCount(ANE::ANERequestRec
     return 3758097090;
   }
 
-  v5 = *MEMORY[0x1E695E480];
   if (!CVPixelBufferPoolSetMinBufferCount())
   {
     v3 = 0;
@@ -8743,7 +8582,6 @@ uint64_t ANEDebugWork::RPCFileInfo(uint64_t a1, uint64_t *a2, int a3)
 {
   if (a3 == 1 && a2[1] == 140)
   {
-    v3 = *a2;
     operator new[]();
   }
 
@@ -8752,58 +8590,54 @@ uint64_t ANEDebugWork::RPCFileInfo(uint64_t a1, uint64_t *a2, int a3)
 
 uint64_t ANEDebugWork::RPCFileRead(uint64_t a1, uint64_t *a2, int a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (a3 == 2 && a2[1] == 140)
   {
-    v3 = *a2;
     operator new[]();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 3;
 }
 
 uint64_t ANEDebugWork::RPCFileWrite(uint64_t a1, uint64_t *a2, int a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a3 == 2)
   {
     v3 = a2[1];
     if (v3 == 140)
     {
-      v4 = *a2;
       operator new[]();
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "RPCFileWrite";
+      v9 = 136315650;
+      v10 = "RPCFileWrite";
+      v11 = 2048;
+      v12 = 140;
       v13 = 2048;
-      v14 = 140;
-      v15 = 2048;
-      v16 = v3;
-      v6 = MEMORY[0x1E69E9C10];
-      v7 = "ANE %s: Buffer size does not match expected value (expected %ld, recv %lld)\n";
-      v8 = 32;
+      v14 = v3;
+      v5 = MEMORY[0x1E69E9C10];
+      v6 = "ANE %s: Buffer size does not match expected value (expected %ld, recv %lld)\n";
+      v7 = 32;
       goto LABEL_8;
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "RPCFileWrite";
-    v13 = 1024;
-    LODWORD(v14) = a3;
-    v6 = MEMORY[0x1E69E9C10];
-    v7 = "ANE %s: Number of buffers is not 2 (%d)\n";
-    v8 = 18;
+    v9 = 136315394;
+    v10 = "RPCFileWrite";
+    v11 = 1024;
+    LODWORD(v12) = a3;
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "ANE %s: Number of buffers is not 2 (%d)\n";
+    v7 = 18;
 LABEL_8:
-    _os_log_impl(&dword_1C0446000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, v8);
+    _os_log_impl(&dword_1C0446000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, v7);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 3;
 }
 
@@ -9098,22 +8932,22 @@ uint64_t ANE::ANEDebugWorkProcessor::FlushSurfaceCache(ANE::ANEDebugWorkProcesso
 
 uint64_t ANE::CreateANEDebugWorkProcessor(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  ANE::ANEThreadReadySyncer::ANEThreadReadySyncer(&v13);
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  ANE::ANEThreadReadySyncer::ANEThreadReadySyncer(&v12);
   v2 = *(a1 + 8);
-  v12[0] = 0;
-  v12[1] = v2;
-  v12[2] = &v13;
-  v3 = pthread_attr_init(&v14);
+  v11[0] = 0;
+  v11[1] = v2;
+  v11[2] = &v12;
+  v3 = pthread_attr_init(&v13);
   if (v3)
   {
     printf("pthread_attr_init() failed. Error: %d\n", v3);
     goto LABEL_12;
   }
 
-  v10 = 47;
-  if (pthread_attr_setschedparam(&v14, &v10))
+  v9 = 47;
+  if (pthread_attr_setschedparam(&v13, &v9))
   {
     printf("pthread_attr_setschedparam() failed. Error: %d\n");
 LABEL_9:
@@ -9121,13 +8955,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (pthread_attr_setdetachstate(&v14, 2))
+  if (pthread_attr_setdetachstate(&v13, 2))
   {
     printf("pthread_attr_setdetachstate() failed. Error: %d\n");
     goto LABEL_9;
   }
 
-  if (pthread_create(&v11, &v14, ANE::ANEDebugWorkProcessorThreadStart, v12))
+  if (pthread_create(&v10, &v13, ANE::ANEDebugWorkProcessorThreadStart, v11))
   {
     printf("pthread_create() failed. Error: %d\n");
     goto LABEL_9;
@@ -9135,10 +8969,10 @@ LABEL_9:
 
   v4 = 1;
 LABEL_10:
-  pthread_attr_destroy(&v14);
+  pthread_attr_destroy(&v13);
   if (v4)
   {
-    ANE::ANEThreadReadySyncer::wait(&v13);
+    ANE::ANEThreadReadySyncer::wait(&v12);
     v5 = 1;
     goto LABEL_13;
   }
@@ -9146,8 +8980,8 @@ LABEL_10:
 LABEL_12:
   v5 = 0;
 LABEL_13:
-  v6 = v12[0];
-  **a1 = v12[0];
+  v6 = v11[0];
+  **a1 = v11[0];
   if ((v5 & (v6 != 0)) != 0)
   {
     v7 = 0;
@@ -9158,14 +8992,13 @@ LABEL_13:
     v7 = 3758097084;
   }
 
-  ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(&v13);
-  v8 = *MEMORY[0x1E69E9840];
+  ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(&v12);
   return v7;
 }
 
-void sub_1C04644D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C04644D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   ANE::ANEThreadReadySyncer::~ANEThreadReadySyncer(va);
   _Unwind_Resume(a1);
 }
@@ -9239,33 +9072,33 @@ double ANEMetrics::StopTimer(ANEMetrics *this)
   return result;
 }
 
-double ANEMetrics::GetMetricsSummary(_DWORD *a1, uint64_t a2)
+double ANEMetrics::GetMetricsSummary(uint64_t *a1, uint64_t a2, double result)
 {
   if (a2)
   {
     *(a2 + 48) = 0;
-    result = 0.0;
+    v3 = 0.0;
     *(a2 + 16) = 0u;
     *(a2 + 32) = 0u;
     *a2 = 0u;
-    v4 = a1[2];
-    v3 = a1[3];
-    *a2 = v3;
-    *(a2 + 4) = v4;
-    *(a2 + 8) = a1[4];
-    if (v3)
+    v5 = *(a1 + 2);
+    v4 = *(a1 + 3);
+    *a2 = v4;
+    *(a2 + 4) = v5;
+    *(a2 + 8) = *(a1 + 4);
+    if (v4)
     {
       operator new[]();
     }
   }
 
-  return result;
+  return v3;
 }
 
-void ANEMetrics::PrintMetricsSummary(ANEMetrics *this)
+void ANEMetrics::PrintMetricsSummary(ANEMetrics *this, double a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  ANEMetrics::GetMetricsSummary(this, v2);
+  ANEMetrics::GetMetricsSummary(this, v2, a2);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -9314,8 +9147,6 @@ void ANEMetrics::PrintMetricsSummary(ANEMetrics *this)
     v9 = v7;
     _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, " Standard deviation (ms): %.3f", buf, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ANEMetrics::ClearSamples(uint64_t this)
@@ -9325,7 +9156,7 @@ uint64_t ANEMetrics::ClearSamples(uint64_t this)
   return this;
 }
 
-void ANEMetrics::ANEMetrics(ANEMetrics *this, int a2)
+void ANEMetrics::ANEMetrics(ANEMetrics *this, unsigned int a2)
 {
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -9359,7 +9190,7 @@ void ANEMetrics::~ANEMetrics(ANEMetrics *this)
   }
 }
 
-uint64_t ANEServicesDeviceUpdateParameters(uint64_t a1, int *a2)
+uint64_t ANEServicesDeviceUpdateParameters(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   if (!v2)
@@ -9389,7 +9220,7 @@ uint64_t ANEServicesDeviceUpdateParameters(uint64_t a1, int *a2)
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    ANEServicesDeviceUpdateParameters_cold_2(a2);
+    ANEServicesDeviceUpdateParameters_cold_2();
   }
 
   return 20;
@@ -9397,11 +9228,11 @@ uint64_t ANEServicesDeviceUpdateParameters(uint64_t a1, int *a2)
 
 uint64_t ANEServicesProgramPrepare(uint64_t a1, int *a2, char a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = 2;
   if (!a1 || !a2)
   {
-    goto LABEL_43;
+    return v3;
   }
 
   if (a3)
@@ -9420,8 +9251,7 @@ uint64_t ANEServicesProgramPrepare(uint64_t a1, int *a2, char a3)
             ANEServicesProgramPrepare_cold_4();
           }
 
-          v3 = 20;
-          goto LABEL_43;
+          return 20;
         }
 
         v9 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2410);
@@ -9433,11 +9263,11 @@ uint64_t ANEServicesProgramPrepare(uint64_t a1, int *a2, char a3)
           {
             v12 = *(a1 + 112);
             v13 = *a2;
-            *v25 = 134218240;
-            *&v25[4] = v12;
-            v26 = 1024;
-            *v27 = v13;
-            _os_signpost_emit_with_name_impl(&dword_1C0446000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ServicesProgramPrepare", "progHandle=%llx priority=%x", v25, 0x12u);
+            *v24 = 134218240;
+            *&v24[4] = v12;
+            v25 = 1024;
+            *v26 = v13;
+            _os_signpost_emit_with_name_impl(&dword_1C0446000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ServicesProgramPrepare", "progHandle=%llx priority=%x", v24, 0x12u);
           }
         }
 
@@ -9467,15 +9297,15 @@ uint64_t ANEServicesProgramPrepare(uint64_t a1, int *a2, char a3)
 LABEL_29:
         v16 = a2[2];
         *(v6 + 3556) = v16;
-        *v25 = *(v6 + 3496);
-        v25[8] = *(a2 + 12);
+        *v24 = *(v6 + 3496);
+        v24[8] = *(a2 + 12);
         v17 = *(a1 + 168);
-        v29 = v16;
-        v30 = v17;
-        v25[9] = (a2[1] & 4) != 0;
-        *&v27[2] = *(a2 + 2);
-        v25[10] = 1;
-        v3 = ANE::ANEServicesDevice::ANE_ProgramPrepare(v8, v25);
+        v28 = v16;
+        v29 = v17;
+        v24[9] = (a2[1] & 4) != 0;
+        *&v26[2] = *(a2 + 2);
+        v24[10] = 1;
+        v3 = ANE::ANEServicesDevice::ANE_ProgramPrepare(v8, v24);
         if (v3)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -9620,15 +9450,15 @@ LABEL_40:
                   {
                     v21 = *(a1 + 112);
                     v22 = *a2;
-                    *v25 = 134218240;
-                    *&v25[4] = v21;
-                    v26 = 1024;
-                    *v27 = v22;
-                    _os_signpost_emit_with_name_impl(&dword_1C0446000, v20, OS_SIGNPOST_INTERVAL_END, v9, "ServicesProgramPrepare", "progHandle=%llx priority=%x", v25, 0x12u);
+                    *v24 = 134218240;
+                    *&v24[4] = v21;
+                    v25 = 1024;
+                    *v26 = v22;
+                    _os_signpost_emit_with_name_impl(&dword_1C0446000, v20, OS_SIGNPOST_INTERVAL_END, v9, "ServicesProgramPrepare", "progHandle=%llx priority=%x", v24, 0x12u);
                   }
                 }
 
-                goto LABEL_43;
+                return v3;
             }
           }
 
@@ -9636,7 +9466,7 @@ LABEL_40:
           goto LABEL_40;
         }
 
-        *(a1 + 152) = v28;
+        *(a1 + 152) = v27;
         *(v6 + 3480) = 0;
         v18 = *(a2 + 1);
         *(v6 + 3448) = *a2;
@@ -9649,7 +9479,7 @@ LABEL_40:
         ANEServicesProgramPrepare_cold_5();
       }
 
-      v3 = 8;
+      return 8;
     }
 
     else
@@ -9659,7 +9489,7 @@ LABEL_40:
         ANEServicesProgramPrepare_cold_6();
       }
 
-      v3 = 1;
+      return 1;
     }
   }
 
@@ -9670,12 +9500,8 @@ LABEL_40:
       ANEServicesProgramPrepare_cold_1();
     }
 
-    v3 = 3;
+    return 3;
   }
-
-LABEL_43:
-  v23 = *MEMORY[0x1E69E9840];
-  return v3;
 }
 
 uint64_t ANE::IOReturnToANEReturn(uint64_t this)
@@ -9802,4 +9628,304 @@ uint64_t ANE::IOReturnToANEReturn(uint64_t this)
   }
 
   return this;
+}
+
+uint64_t ANEServicesProgramChainingPrepare()
+{
+  v0 = MEMORY[0x1EEE9AC00]();
+  v63 = *MEMORY[0x1E69E9840];
+  v3 = 2;
+  if (!v0)
+  {
+    return v3;
+  }
+
+  v4 = v1;
+  if (!v1)
+  {
+    return v3;
+  }
+
+  v5 = v0;
+  v6 = *(v0 + 8);
+  if (v6)
+  {
+    v7 = *(*v6 + 16);
+    v8 = *(v7 + 8);
+    if (v8)
+    {
+      if (*(v7 + 32) == 1)
+      {
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315394;
+          v46 = "ANEServicesProgramChainingPrepare";
+          v47 = 1024;
+          *v48 = 1;
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: Cannot call this API with deviceUsageType=%d\n", buf, 0x12u);
+        }
+
+        return 20;
+      }
+
+      v9 = v2;
+      v10 = *(v1 + 44);
+      if (v10 >= 8)
+      {
+        v10 = 7;
+        *(v1 + 44) = 7;
+      }
+
+      if (*v1)
+      {
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v46 = "ANEServicesProgramChainingPrepare";
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: cacheHandle is not 0\n", buf, 0xCu);
+        }
+
+        goto LABEL_27;
+      }
+
+      v11 = *(v1 + 48);
+      if (v11 > 0x100 || *(v1 + 8248) > 0xFFu || *(v1 + 14376) >= 0xDu)
+      {
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+LABEL_26:
+          v3 = 2;
+LABEL_27:
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315138;
+            v46 = "ANEServicesProgramChainingPrepare";
+            _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s failed\n", buf, 0xCu);
+          }
+
+          return v3;
+        }
+
+        v12 = *(v4 + 8248);
+        v13 = *(v4 + 14376);
+        *buf = 136315906;
+        v46 = "ANEServicesProgramChainingPrepare";
+        v47 = 1024;
+        *v48 = v11;
+        *&v48[4] = 1024;
+        *&v48[6] = v12;
+        LOWORD(v49[0]) = 1024;
+        *(v49 + 2) = v13;
+        v14 = MEMORY[0x1E69E9C10];
+        v15 = "ERROR: %s: exceed max limit: %d, %d, %d \n";
+        v16 = buf;
+        v17 = 30;
+LABEL_25:
+        _os_log_impl(&dword_1C0446000, v14, OS_LOG_TYPE_DEFAULT, v15, v16, v17);
+        goto LABEL_26;
+      }
+
+      bzero(buf, 0xAE28uLL);
+      *&v48[2] = *(v4 + 16);
+      v49[0] = *(v4 + 24);
+      v51 = v10;
+      v50 = *(v4 + 32);
+      *&v60[28596] = *(v5 + 160);
+      v61 = *(v5 + 168);
+      v62 = v9;
+      if (!v11)
+      {
+        goto LABEL_58;
+      }
+
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = v4 + 56;
+      do
+      {
+        v24 = *(v23 + 16);
+        if (v24 == 5)
+        {
+          v25 = [*v23 eventPort];
+          v26 = &v53[3 * v22];
+          *v26 = v25;
+          *(v26 + 3) = *v23;
+          *(v26 + 4) = *(v23 + 20);
+          ++v22;
+        }
+
+        else if (v24 == 4 && v21 == 0)
+        {
+          v21 = *v23;
+          v20 = [*v23 eventPort];
+        }
+
+        ++v19;
+        v23 += 32;
+      }
+
+      while (v19 < *(v4 + 48));
+      v56 = v21;
+      v55[576] = v20;
+      v52 = v22;
+      if (!v21)
+      {
+LABEL_58:
+        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_26;
+        }
+
+        *v44 = 136315138;
+        *&v44[4] = "ANEServicesProgramChainingPrepare";
+        v14 = MEMORY[0x1E69E9C10];
+        v15 = "ERROR: %s: no output set free event in the chaing prepare\n";
+        v16 = v44;
+        v17 = 12;
+        goto LABEL_25;
+      }
+
+      if (*(v4 + 8248))
+      {
+        v28 = 0;
+        v29 = v55;
+        v30 = (v4 + 8268);
+        do
+        {
+          *v29 = *v30;
+          v29[320] = IOSurfaceGetID(*(v30 - 3));
+          *(&v55[256] + v28++) = *(v30 - 1);
+          v30 += 6;
+          ++v29;
+        }
+
+        while (v28 < *(v4 + 8248));
+      }
+
+      if (*(v4 + 14376))
+      {
+        v31 = 0;
+        v32 = (v4 + 14408);
+        v33 = v60;
+        v34 = &v59;
+        while (1)
+        {
+          v35 = v4 + 14384 + 6160 * v31;
+          v36 = &v58[145 * v31];
+          v36[3] = *(v35 + 8);
+          if (*v35)
+          {
+            v36[1] = IOSurfaceGetID(*v35);
+          }
+
+          if (v6[879])
+          {
+            v37 = v6[878];
+            if (v37)
+            {
+              v36[2] = v37;
+            }
+          }
+
+          v38 = *(v35 + 8);
+          if (v38 > 0x100)
+          {
+            break;
+          }
+
+          if (v38)
+          {
+            v39 = 0;
+            v40 = v32;
+            do
+            {
+              *&v33[4 * v39] = IOSurfaceGetID(*(v40 - 1));
+              v41 = *v40;
+              v40 += 3;
+              *(v34 + v39++) = v41;
+            }
+
+            while (v39 < *(v35 + 8));
+          }
+
+          ++v31;
+          v32 += 770;
+          v33 += 2320;
+          v34 += 580;
+          if (v31 >= *(v4 + 14376))
+          {
+            goto LABEL_57;
+          }
+        }
+
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          *v44 = 136315394;
+          *&v44[4] = "ANEServicesProgramChainingPrepare";
+          *&v44[12] = 1024;
+          *&v44[14] = v38;
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: exceed max outputs/set limit: %d\n", v44, 0x12u);
+        }
+
+        v3 = 2;
+      }
+
+      else
+      {
+LABEL_57:
+        v3 = 0;
+      }
+
+      v42 = ANE::ANEServicesDevice::ANE_ProgramChainingPrepare(v8, buf, v44);
+      if (v42)
+      {
+        v43 = v42;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          ANEServicesProgramPrepare_cold_3();
+        }
+
+        v3 = ANE::IOReturnToANEReturn(v43);
+      }
+
+      else
+      {
+        *(v4 + 90360) = *&v44[16];
+        *v4 = *v44;
+      }
+
+      if (v3)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v46 = "ANEServicesProgramChainingPrepare";
+        _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: pANEServicesDevice is NULL\n", buf, 0xCu);
+      }
+
+      return 8;
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v46 = "ANEServicesProgramChainingPrepare";
+      _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: pANEProgramInstancePriv is NULL\n", buf, 0xCu);
+    }
+
+    return 1;
+  }
+
+  return v3;
 }

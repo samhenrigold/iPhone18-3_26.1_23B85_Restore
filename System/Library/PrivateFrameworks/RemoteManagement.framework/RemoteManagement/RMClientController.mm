@@ -22,6 +22,7 @@
 - (void)_registerForCloudConfigAvailableNotificationIfNeeded;
 - (void)_removeInvalidManagementChannels:(id)channels;
 - (void)_start;
+- (void)_syncMDMv1ManagementSourcesWithUnenroll:(BOOL)unenroll;
 - (void)_unenrollAndReenrollIfDEP:(id)p;
 - (void)_validateManagementSources;
 - (void)applyNowWithIdentifier:(id)identifier completionHandler:(id)handler;
@@ -345,11 +346,11 @@
   if (v5)
   {
     v12 = 0;
-    v13[0] = &v12;
-    v13[1] = 0x3032000000;
-    v13[2] = sub_1000128B8;
-    v13[3] = sub_1000128C8;
-    v14 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = sub_1000128B8;
+    v16 = sub_1000128C8;
+    v17 = 0;
     context = [(RMClientController *)self context];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
@@ -357,7 +358,7 @@
     v11[3] = &unk_1000D13E0;
     v11[4] = &v12;
     [context performBlockAndWait:v11];
-    if (*(v13[0] + 40))
+    if (v13[5])
     {
       if ([v5 isEqual:?])
       {
@@ -373,7 +374,7 @@
         v7 = +[RMLog clientController];
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          sub_100019B98(v5, v13);
+          sub_100019B98();
         }
       }
 
@@ -386,7 +387,7 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v16 = v5;
+        v19 = v5;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Forcing mandatory enrollment of device channel: %{public}@", buf, 0xCu);
       }
 
@@ -462,6 +463,69 @@
 
   objc_destroyWeak(v18);
   objc_destroyWeak(location);
+}
+
+- (void)_syncMDMv1ManagementSourcesWithUnenroll:(BOOL)unenroll
+{
+  unenrollCopy = unenroll;
+  v5 = _os_activity_create(&_mh_execute_header, "ClientController: checking MDMv1 management sources", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v5, &state);
+  v6 = +[RMLog clientController];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = [NSNumber numberWithBool:unenrollCopy];
+    sub_100019E60(v7, v29, v6);
+  }
+
+  v8 = os_transaction_create();
+  v9 = +[RMLog clientController];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Syncing MDMv1 sources...", buf, 2u);
+  }
+
+  context = [(RMClientController *)self context];
+  v11 = objc_opt_new();
+  *buf = 0;
+  v23 = buf;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100013320;
+  v16[3] = &unk_1000D14C0;
+  v12 = context;
+  v21 = unenrollCopy;
+  v17 = v12;
+  selfCopy = self;
+  v13 = v11;
+  v19 = v13;
+  v20 = buf;
+  [v12 performBlockAndWait:v16];
+  if ([v13 count])
+  {
+    v14 = +[RMLog clientController];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v15 = [v13 count];
+      *v27 = 134217984;
+      v28 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Removing %lu MDMv1 management sources", v27, 0xCu);
+    }
+
+    [(RMClientController *)self _removeInvalidManagementChannels:v13];
+  }
+
+  if ((v23[24] & 1) == 0 && +[RMMDMv1Liaison isEnrollmentInMDMv1Restricted])
+  {
+    +[RMMDMv1Liaison remoteManagementDidUnenroll];
+  }
+
+  _Block_object_dispose(buf, 8);
+  os_activity_scope_leave(&state);
 }
 
 - (BOOL)_hasMDMv1ManagementForManagingProfileIdentifier:(id)identifier
@@ -561,62 +625,61 @@
         }
 
         absoluteString = [iCopy absoluteString];
-        v45 = 0;
-        v46[0] = &v45;
-        v46[1] = 0x3032000000;
-        v46[2] = sub_1000128B8;
-        v46[3] = sub_1000128C8;
-        v47 = 0;
-        v39 = 0;
-        v40 = &v39;
-        v41 = 0x3032000000;
-        v42 = sub_1000128B8;
-        v43 = sub_1000128C8;
         v44 = 0;
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x3032000000;
-        v36 = sub_1000128B8;
-        v37 = sub_1000128C8;
+        v45 = &v44;
+        v46 = 0x3032000000;
+        v47 = sub_1000128B8;
+        v48 = sub_1000128C8;
+        v49 = 0;
         v38 = 0;
+        v39 = &v38;
+        v40 = 0x3032000000;
+        v41 = sub_1000128B8;
+        v42 = sub_1000128C8;
+        v43 = 0;
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x3032000000;
+        v35 = sub_1000128B8;
+        v36 = sub_1000128C8;
+        v37 = 0;
         context = [(RMClientController *)self context];
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_100013C64;
-        v24[3] = &unk_1000D14E8;
-        v24[4] = self;
-        v20 = iCopy;
+        v23[0] = _NSConcreteStackBlock;
+        v23[1] = 3221225472;
+        v23[2] = sub_100013C64;
+        v23[3] = &unk_1000D14E8;
+        v23[4] = self;
+        v24 = iCopy;
+        v30 = v18;
+        v20 = context;
         v25 = v20;
-        v31 = v18;
-        v21 = context;
-        v26 = v21;
-        v28 = &v45;
-        v32 = v13;
+        v27 = &v44;
+        v31 = v13;
         v11 = absoluteString;
-        v27 = v11;
-        v29 = &v39;
-        v30 = &v33;
-        [v21 performBlockAndWait:v24];
-        if (*(v46[0] + 40))
+        v26 = v11;
+        v28 = &v38;
+        v29 = &v32;
+        [v20 performBlockAndWait:v23];
+        if (v45[5])
         {
-          v22 = +[RMLog clientController];
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v21 = +[RMLog clientController];
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            sub_100019F98(v20, v46);
+            sub_100019F98();
           }
 
-          handlerCopy[2](handlerCopy, 0, *(v46[0] + 40));
+          handlerCopy[2](handlerCopy, 0, v45[5]);
         }
 
         else
         {
-          [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v40[5] managementSourceIdentifier:v34[5] conduitType:v13 account:0 accountStore:0 completionHandler:handlerCopy];
+          [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v39[5] managementSourceIdentifier:v33[5] conduitType:v13 account:0 accountStore:0 completionHandler:handlerCopy];
         }
 
-        _Block_object_dispose(&v33, 8);
-        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v32, 8);
+        _Block_object_dispose(&v38, 8);
 
-        _Block_object_dispose(&v45, 8);
+        _Block_object_dispose(&v44, 8);
       }
     }
 
@@ -746,62 +809,61 @@ LABEL_19:
     goto LABEL_20;
   }
 
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = sub_1000128B8;
+  v51 = sub_1000128C8;
   v52 = 0;
-  v53[0] = &v52;
-  v53[1] = 0x3032000000;
-  v53[2] = sub_1000128B8;
-  v53[3] = sub_1000128C8;
-  v54 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_1000128B8;
+  v45 = sub_1000128C8;
   v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = sub_1000128B8;
-  v50 = sub_1000128C8;
-  v51 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1000128B8;
+  v39 = sub_1000128C8;
   v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_1000128B8;
-  v44 = sub_1000128C8;
-  v45 = 0;
   context = [(RMClientController *)self context];
-  v26 = _NSConcreteStackBlock;
-  v27 = 3221225472;
-  v28 = sub_100014724;
-  v29 = &unk_1000D1510;
-  selfCopy = self;
-  v25 = uriCopy;
-  v31 = v25;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100014724;
+  v25[3] = &unk_1000D1510;
+  v25[4] = self;
+  v26 = uriCopy;
   typeCopy = type;
   v20 = context;
-  v32 = v20;
-  v35 = &v52;
-  v39 = 4;
-  v33 = identifierCopy;
-  v34 = personaIdentifierCopy;
-  v36 = &v46;
-  v37 = &v40;
-  [v20 performBlockAndWait:&v26];
-  if (*(v53[0] + 40))
+  v27 = v20;
+  v30 = &v47;
+  v34 = 4;
+  v28 = identifierCopy;
+  v29 = personaIdentifierCopy;
+  v31 = &v41;
+  v32 = &v35;
+  [v20 performBlockAndWait:v25];
+  if (v48[5])
   {
     v21 = +[RMLog clientController];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100019F98(v25, v53);
+      sub_100019F98();
     }
 
-    handlerCopy[2](handlerCopy, 0, *(v53[0] + 40));
+    handlerCopy[2](handlerCopy, 0, v48[5]);
   }
 
   else
   {
-    [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v47[5] managementSourceIdentifier:v41[5] conduitType:4 account:0 accountStore:0 completionHandler:handlerCopy, v25, v26, v27, v28, v29, selfCopy, v31, v32, v33];
+    [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v42[5] managementSourceIdentifier:v36[5] conduitType:4 account:0 accountStore:0 completionHandler:handlerCopy];
   }
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
 
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v47, 8);
 LABEL_20:
   os_activity_scope_leave(&state);
 }
@@ -822,28 +884,28 @@ LABEL_20:
 
   if (+[RMMDMv1Liaison isEnrolledInMDMv1])
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
     v41 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = sub_1000128B8;
-    v36 = sub_1000128C8;
-    v37 = 0;
-    v30[0] = 0;
-    v30[1] = v30;
-    v30[2] = 0x3032000000;
-    v30[3] = sub_1000128B8;
-    v30[4] = sub_1000128C8;
-    v31 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = sub_1000128B8;
+    v39 = sub_1000128C8;
+    v40 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3032000000;
+    v33[3] = sub_1000128B8;
+    v33[4] = sub_1000128C8;
+    v34 = 0;
     v27 = 0;
-    v28[0] = &v27;
-    v28[1] = 0x3032000000;
-    v28[2] = sub_1000128B8;
-    v28[3] = sub_1000128C8;
-    v29 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = sub_1000128B8;
+    v31 = sub_1000128C8;
+    v32 = 0;
     context = [(RMClientController *)self context];
     v20[0] = _NSConcreteStackBlock;
     v20[1] = 3221225472;
@@ -854,25 +916,25 @@ LABEL_20:
     v12 = context;
     v22 = v12;
     v23 = &v27;
-    v24 = &v32;
-    v25 = v30;
-    v26 = &v38;
+    v24 = &v35;
+    v25 = v33;
+    v26 = &v41;
     [v12 performBlockAndWait:v20];
-    if (*(v28[0] + 40))
+    if (v28[5])
     {
       v13 = +[RMLog clientController];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10001A404(v11, v28);
+        sub_10001A404();
       }
 
-      handlerCopy[2](handlerCopy, *(v28[0] + 40));
+      handlerCopy[2](handlerCopy, v28[5]);
     }
 
     else
     {
-      v16 = v33[5];
-      v17 = v39[3];
+      v16 = v36[5];
+      v17 = v42[3];
       v18[0] = _NSConcreteStackBlock;
       v18[1] = 3221225472;
       v18[2] = sub_1000151A4;
@@ -882,10 +944,10 @@ LABEL_20:
     }
 
     _Block_object_dispose(&v27, 8);
-    _Block_object_dispose(v30, 8);
+    _Block_object_dispose(v33, 8);
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   else
@@ -1023,61 +1085,60 @@ LABEL_20:
         else
         {
           v20 = [(RMClientController *)self _genericCredentialForAccount:accountCopy fromStore:storeCopy];
-          v46 = 0;
-          v47[0] = &v46;
-          v47[1] = 0x3032000000;
-          v47[2] = sub_1000128B8;
-          v47[3] = sub_1000128C8;
-          v48 = 0;
-          v40 = 0;
-          v41 = &v40;
-          v42 = 0x3032000000;
-          v43 = sub_1000128B8;
-          v44 = sub_1000128C8;
           v45 = 0;
-          v34 = 0;
-          v35 = &v34;
-          v36 = 0x3032000000;
-          v37 = sub_1000128B8;
-          v38 = sub_1000128C8;
+          v46 = &v45;
+          v47 = 0x3032000000;
+          v48 = sub_1000128B8;
+          v49 = sub_1000128C8;
+          v50 = 0;
           v39 = 0;
+          v40 = &v39;
+          v41 = 0x3032000000;
+          v42 = sub_1000128B8;
+          v43 = sub_1000128C8;
+          v44 = 0;
+          v33 = 0;
+          v34 = &v33;
+          v35 = 0x3032000000;
+          v36 = sub_1000128B8;
+          v37 = sub_1000128C8;
+          v38 = 0;
           [(RMClientController *)self context];
-          v25[0] = _NSConcreteStackBlock;
-          v25[1] = 3221225472;
-          v25[2] = sub_100015A38;
-          v26 = v25[3] = &unk_1000D1560;
-          v23 = v12;
-          v27 = v23;
-          v33 = v17;
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = sub_100015A38;
+          v25 = v24[3] = &unk_1000D1560;
+          v26 = v12;
+          v32 = v17;
           v15 = v20;
-          v28 = v15;
+          v27 = v15;
           v21 = accountCopy;
-          v29 = v21;
-          v30 = &v46;
-          v31 = &v40;
-          v32 = &v34;
-          v24 = v26;
-          [v26 performBlockAndWait:v25];
-          if (*(v47[0] + 40))
+          v28 = v21;
+          v29 = &v45;
+          v30 = &v39;
+          v31 = &v33;
+          v23 = v25;
+          [v25 performBlockAndWait:v24];
+          if (v46[5])
           {
             v22 = +[RMLog clientController];
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              sub_10001A6E4(v23, v47);
+              sub_10001A6E4();
             }
 
-            handlerCopy[2](handlerCopy, 0, *(v47[0] + 40));
+            handlerCopy[2](handlerCopy, 0, v46[5]);
           }
 
           else
           {
-            [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v41[5] managementSourceIdentifier:v35[5] conduitType:v17 account:v21 accountStore:storeCopy completionHandler:handlerCopy];
+            [(RMClientController *)self _enrollClientWithManagementSourceObjectID:v40[5] managementSourceIdentifier:v34[5] conduitType:v17 account:v21 accountStore:storeCopy completionHandler:handlerCopy];
           }
 
-          _Block_object_dispose(&v34, 8);
-          _Block_object_dispose(&v40, 8);
+          _Block_object_dispose(&v33, 8);
+          _Block_object_dispose(&v39, 8);
 
-          _Block_object_dispose(&v46, 8);
+          _Block_object_dispose(&v45, 8);
         }
       }
 

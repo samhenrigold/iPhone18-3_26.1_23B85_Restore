@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20B993B2C();
+  sub_20B993B2C(selfCopy);
 }
 
 - (_TtC9SeymourUI17CompletedIconView)initWithFrame:(CGRect)frame

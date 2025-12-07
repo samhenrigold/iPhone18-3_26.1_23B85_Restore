@@ -56,7 +56,7 @@
 
 - (id)currentIdentity
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HAPKeyBag *)self currentIndexInBag]== -1)
   {
     [(HAPKeyBag *)self setCurrentIndexInBag:[(HAPKeyBag *)self currentIndexInBag]+ 1];
@@ -73,11 +73,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v4;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Current Identity [%@]", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v4;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Current Identity [%@]", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -88,14 +88,12 @@
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)nextIdentity
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(HAPKeyBag *)self isEmpty])
   {
     currentIdentity = 0;
@@ -115,21 +113,19 @@
       v9 = MEMORY[0x277CCABB0];
       availableKeysToTry = [(HAPKeyBag *)selfCopy availableKeysToTry];
       v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(availableKeysToTry, "count")}];
-      v14 = 138544130;
-      v15 = v7;
-      v16 = 2112;
-      v17 = currentIdentity;
-      v18 = 2112;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetching Identity [%@] at index : %@, total keys: [%@]", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v7;
+      v15 = 2112;
+      v16 = currentIdentity;
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetching Identity [%@] at index : %@, total keys: [%@]", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return currentIdentity;
 }
@@ -165,7 +161,7 @@
 
 - (id)_populateBagWithPairingIdentitiesForAccessory:(id)accessory fromStore:(id)store
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   storeCopy = store;
   v8 = objc_autoreleasePoolPush();
@@ -200,9 +196,9 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v19;
-      _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@This is strange. We do not have any controller keys in the key chain.", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v19;
+      _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@This is strange. We do not have any controller keys in the key chain.", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -211,14 +207,13 @@
   v20 = [v13 copy];
 
   objc_autoreleasePoolPop(v8);
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (void)refreshKeys
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryIdentifier = [(HAPKeyBag *)self accessoryIdentifier];
 
   if (!accessoryIdentifier)
@@ -240,7 +235,6 @@ LABEL_10:
   v7 = [(HAPKeyBag *)self _populateBagWithPairingIdentitiesForAccessory:accessoryIdentifier2 fromStore:keyStore2];
 
   os_unfair_lock_lock_with_options();
-  availableKeysToTry = self->_availableKeysToTry;
   if (HMFEqualObjects())
   {
     self->_currentIndexInBag = -1;
@@ -249,37 +243,35 @@ LABEL_10:
 
   else
   {
-    v9 = [v7 copy];
-    v10 = self->_availableKeysToTry;
-    self->_availableKeysToTry = v9;
+    v8 = [v7 copy];
+    availableKeysToTry = self->_availableKeysToTry;
+    self->_availableKeysToTry = v8;
 
     self->_currentIndexInBag = -1;
     os_unfair_lock_unlock(&self->_lock);
-    v11 = objc_autoreleasePoolPush();
+    v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = HMFGetLogIdentifier();
+      v13 = HMFGetLogIdentifier();
       accessoryIdentifier3 = [(HAPKeyBag *)selfCopy accessoryIdentifier];
-      v17 = 138543874;
-      v18 = v14;
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2112;
+      v18 = accessoryIdentifier3;
       v19 = 2112;
-      v20 = accessoryIdentifier3;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Refreshed key bag for accessory [%@] with identities: [%@]", &v17, 0x20u);
+      v20 = v7;
+      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Refreshed key bag for accessory [%@] with identities: [%@]", &v15, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v11);
+    objc_autoreleasePoolPop(v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HAPKeyBag)initWithAccessoryIdentifier:(id)identifier keyStore:(id)store controllerKeyList:(id)list
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   storeCopy = store;
   listCopy = list;
@@ -289,9 +281,9 @@ LABEL_10:
   }
 
   v12 = listCopy;
-  v27.receiver = self;
-  v27.super_class = HAPKeyBag;
-  v13 = [(HAPKeyBag *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = HAPKeyBag;
+  v13 = [(HAPKeyBag *)&v26 init];
   v14 = v13;
   if (v13)
   {
@@ -308,26 +300,25 @@ LABEL_10:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = v17;
+      v25 = v17;
       accessoryIdentifier = v14->_accessoryIdentifier;
       v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSArray count](v14->_availableKeysToTry, "count")}];
       firstObject = [(NSArray *)v14->_availableKeysToTry firstObject];
       *buf = 138544130;
-      v29 = v20;
-      v30 = 2112;
-      v31 = accessoryIdentifier;
-      v17 = v26;
-      v32 = 2112;
-      v33 = v22;
-      v34 = 2112;
-      v35 = firstObject;
+      v28 = v20;
+      v29 = 2112;
+      v30 = accessoryIdentifier;
+      v17 = v25;
+      v31 = 2112;
+      v32 = v22;
+      v33 = 2112;
+      v34 = firstObject;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Initialized key bag for accessory [%@] with %@ keys and primary identity: [%@]", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v17);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -365,7 +356,6 @@ LABEL_10:
 
 uint64_t __24__HAPKeyBag_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v9 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();
@@ -373,13 +363,13 @@ uint64_t __24__HAPKeyBag_logCategory__block_invoke()
 
 - (BOOL)associateControllerIdentifier:(id)identifier error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyStore = [(HAPKeyBag *)self keyStore];
   accessoryIdentifier = [(HAPKeyBag *)self accessoryIdentifier];
-  v41 = 0;
-  v9 = [keyStore readPublicKeyForAccessoryName:accessoryIdentifier registeredWithHomeKit:0 error:&v41];
-  v10 = v41;
+  v40 = 0;
+  v9 = [keyStore readPublicKeyForAccessoryName:accessoryIdentifier registeredWithHomeKit:0 error:&v40];
+  v10 = v40;
 
   if (v9 && !v10)
   {
@@ -387,9 +377,9 @@ uint64_t __24__HAPKeyBag_logCategory__block_invoke()
     {
       keyStore2 = [(HAPKeyBag *)self keyStore];
       accessoryIdentifier2 = [(HAPKeyBag *)self accessoryIdentifier];
-      v40 = 0;
-      v13 = [keyStore2 isAccessoryAssociatedWithControllerKey:accessoryIdentifier2 controllerID:&v40];
-      v14 = v40;
+      v39 = 0;
+      v13 = [keyStore2 isAccessoryAssociatedWithControllerKey:accessoryIdentifier2 controllerID:&v39];
+      v14 = v39;
 
       if (v13 && [identifierCopy isEqualToString:v14])
       {
@@ -401,11 +391,11 @@ uint64_t __24__HAPKeyBag_logCategory__block_invoke()
           v18 = HMFGetLogIdentifier();
           accessoryIdentifier3 = [(HAPKeyBag *)selfCopy accessoryIdentifier];
           *buf = 138543874;
-          v43 = v18;
-          v44 = 2112;
-          v45 = identifierCopy;
-          v46 = 2112;
-          v47 = accessoryIdentifier3;
+          v42 = v18;
+          v43 = 2112;
+          v44 = identifierCopy;
+          v45 = 2112;
+          v46 = accessoryIdentifier3;
           _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Controller key %@ is already associated for accessory %@", buf, 0x20u);
         }
 
@@ -429,9 +419,9 @@ LABEL_21:
     v29 = [(HAPPairingIdentity *)v26 initWithIdentifier:accessoryIdentifier4 controllerKeyIdentifier:identifierCopy publicKey:v28 privateKey:0 permissions:0];
 
     keyStore3 = [(HAPKeyBag *)self keyStore];
-    v39 = 0;
-    v20 = [keyStore3 establishRelationshipBetweenAccessoryAndControllerKey:v29 error:&v39];
-    v10 = v39;
+    v38 = 0;
+    v20 = [keyStore3 establishRelationshipBetweenAccessoryAndControllerKey:v29 error:&v38];
+    v10 = v38;
 
     if ((v20 & 1) == 0)
     {
@@ -441,14 +431,14 @@ LABEL_21:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v34 = v38 = v14;
+        v34 = v37 = v14;
         *buf = 138543618;
-        v43 = v34;
-        v44 = 2112;
-        v45 = v10;
+        v42 = v34;
+        v43 = 2112;
+        v44 = v10;
         _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, "%{public}@Unable to establish relationship between accessory and controller key: %@", buf, 0x16u);
 
-        v14 = v38;
+        v14 = v37;
       }
 
       objc_autoreleasePoolPop(v31);
@@ -469,9 +459,9 @@ LABEL_21:
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v43 = v24;
-    v44 = 2112;
-    v45 = v10;
+    v42 = v24;
+    v43 = 2112;
+    v44 = v10;
     _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch accessory public key for accessory with error: %@", buf, 0x16u);
   }
 
@@ -490,13 +480,12 @@ LABEL_21:
 
 LABEL_22:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)shouldRetryPVDueToAuthenticationError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -506,11 +495,11 @@ LABEL_22:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v8;
-      v29 = 2112;
-      v30 = errorCopy;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@PV failed with error: %@", &v27, 0x16u);
+      v25 = 138543618;
+      v26 = v8;
+      v27 = 2112;
+      v28 = errorCopy;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@PV failed with error: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -530,61 +519,60 @@ LABEL_22:
 
     v12 = v11;
 
-    if (v12 && ([v12 domain], v13 = objc_claimAutoreleasedReturnValue(), v14 = *MEMORY[0x277CCA590], v15 = HMFEqualObjects(), v13, v15) && objc_msgSend(v12, "code") == -6754)
+    if (v12 && ([v12 domain], v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v14) && objc_msgSend(v12, "code") == -6754)
     {
       [(HAPKeyBag *)selfCopy associateControllerIdentifier:0 error:0];
       nextIdentity = [(HAPKeyBag *)selfCopy nextIdentity];
-      v17 = nextIdentity != 0;
-      v18 = objc_autoreleasePoolPush();
-      v19 = selfCopy;
-      v20 = HMFGetOSLogHandle();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+      v16 = nextIdentity != 0;
+      v17 = objc_autoreleasePoolPush();
+      v18 = selfCopy;
+      v19 = HMFGetOSLogHandle();
+      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
       if (nextIdentity)
       {
-        if (v21)
+        if (v20)
         {
-          v22 = HMFGetLogIdentifier();
-          v23 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HAPKeyBag getCurrentIndexInBag](v19, "getCurrentIndexInBag")}];
-          v27 = 138543874;
+          v21 = HMFGetLogIdentifier();
+          v22 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HAPKeyBag getCurrentIndexInBag](v18, "getCurrentIndexInBag")}];
+          v25 = 138543874;
+          v26 = v21;
+          v27 = 2112;
           v28 = v22;
           v29 = 2112;
-          v30 = v23;
-          v31 = 2112;
-          v32 = nextIdentity;
-          _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Going to retry PV with next pairing Identity [%@]: %@", &v27, 0x20u);
+          v30 = nextIdentity;
+          _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Going to retry PV with next pairing Identity [%@]: %@", &v25, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v18);
+        objc_autoreleasePoolPop(v17);
       }
 
       else
       {
-        if (v21)
+        if (v20)
         {
-          v26 = HMFGetLogIdentifier();
-          v27 = 138543362;
-          v28 = v26;
-          _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Not retrying PV as exhausted all the keys from the key bag.", &v27, 0xCu);
+          v24 = HMFGetLogIdentifier();
+          v25 = 138543362;
+          v26 = v24;
+          _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Not retrying PV as exhausted all the keys from the key bag.", &v25, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v18);
-        [(HAPKeyBag *)v19 refreshKeys];
+        objc_autoreleasePoolPop(v17);
+        [(HAPKeyBag *)v18 refreshKeys];
       }
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 @end

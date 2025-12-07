@@ -14,11 +14,10 @@
 
 + (void)initialize
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = dumpDirectory;
-  _os_log_debug_impl(&dword_24A2EE000, log, OS_LOG_TYPE_DEBUG, "Performance data dump directory: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = dumpDirectory;
+  _os_log_debug_impl(&dword_24A2EE000, log, OS_LOG_TYPE_DEBUG, "Performance data dump directory: %@", &v1, 0xCu);
 }
 
 + (id)stopwatchWithLabel:(id)label
@@ -60,7 +59,7 @@
 
 + (void)dumpBuffer:(id)buffer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([buffer count])
   {
     v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
@@ -77,41 +76,41 @@
 
     v11 = MEMORY[0x277CCACA8];
     v12 = dumpDirectory;
-    v23 = date;
+    v22 = date;
     v13 = [v5 stringFromDate:date];
     v14 = [v11 stringWithFormat:@"%@/%@.perf", v12, v13];
 
     [v3 createDirectoryAtPath:dumpDirectory withIntermediateDirectories:1 attributes:0 error:0];
     [v3 createFileAtPath:v10 contents:0 attributes:0];
     v15 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v10];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     bufferCopy = buffer;
-    v17 = [bufferCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v17 = [bufferCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v25;
+      v19 = *v24;
       do
       {
         v20 = 0;
         do
         {
-          if (*v25 != v19)
+          if (*v24 != v19)
           {
             objc_enumerationMutation(bufferCopy);
           }
 
-          descriptionAsData = [*(*(&v24 + 1) + 8 * v20) descriptionAsData];
+          descriptionAsData = [*(*(&v23 + 1) + 8 * v20) descriptionAsData];
           [v15 writeData:descriptionAsData];
 
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [bufferCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v18 = [bufferCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v18);
@@ -122,8 +121,6 @@
     [v3 removeItemAtPath:v10 error:0];
     [buffer removeAllObjects];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)illegalLabelCharacterSet

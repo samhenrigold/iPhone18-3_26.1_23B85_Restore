@@ -28,11 +28,11 @@
   miniFlowDelegate = [(NCBSTinkerNotEligibleViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_NOT_ELIGIBLE_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_NOT_ELIGIBLE_TITLE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)detailString
@@ -50,17 +50,17 @@
   miniFlowDelegate2 = [(NCBSTinkerNotEligibleViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate2 familyMemberFirstName];
 
-  v9 = NanoContactsBridgeSetupBundle();
-  v10 = [v9 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v10 = NanoContactsBridgeSetupBundle(v9);
+  v11 = [v10 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
-  v11 = [NSString stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:0, familyMemberFirstName];
+  v12 = [NSString stringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:0, familyMemberFirstName];
 
-  return v11;
+  return v12;
 }
 
 - (id)suggestedButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_NOT_ELIGIBLE_BUTTON_CONTINUE" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;

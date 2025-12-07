@@ -12,45 +12,45 @@
   v5 = encodingCopy;
   if (encodingCopy && xpc_get_type(encodingCopy) == &_xpc_type_dictionary)
   {
-    v20.receiver = self;
-    v20.super_class = SKPaymentQueueClient;
-    v6 = [(SKPaymentQueueClient *)&v20 init];
+    v26.receiver = self;
+    v26.super_class = SKPaymentQueueClient;
+    v6 = [(SKPaymentQueueClient *)&v26 init];
     if (v6)
     {
       v6->_allowsBootstrapCellularData = xpc_dictionary_get_BOOL(v5, "5");
-      objc_opt_class();
-      v8 = sub_10018E3FC(v5, "0");
+      v8 = objc_opt_class();
+      v9 = sub_10018E3FC(v5, "0", v8);
       bundleIdentifier = v6->_bundleIdentifier;
-      v6->_bundleIdentifier = v8;
+      v6->_bundleIdentifier = v9;
 
-      objc_opt_class();
-      v10 = sub_10018E3FC(v5, "1");
+      v11 = objc_opt_class();
+      v12 = sub_10018E3FC(v5, "1", v11);
       bundleVersion = v6->_bundleVersion;
-      v6->_bundleVersion = v10;
+      v6->_bundleVersion = v12;
 
       v6->_environmentType = xpc_dictionary_get_int64(v5, "A");
       v6->_hidesConfirmationDialogs = xpc_dictionary_get_BOOL(v5, "6");
       v6->_ignoresInAppPurchaseRestriction = xpc_dictionary_get_BOOL(v5, "7");
-      objc_opt_class();
-      v12 = sub_10018E3FC(v5, "8");
+      v14 = objc_opt_class();
+      v15 = sub_10018E3FC(v5, "8", v14);
       receiptDirectoryPath = v6->_receiptDirectoryPath;
-      v6->_receiptDirectoryPath = v12;
+      v6->_receiptDirectoryPath = v15;
 
       v6->_requiresAuthenticationForPayment = xpc_dictionary_get_BOOL(v5, "9");
-      objc_opt_class();
-      v14 = sub_10018E3FC(v5, "2");
+      v17 = objc_opt_class();
+      v18 = sub_10018E3FC(v5, "2", v17);
       storeItemIdentifier = v6->_storeItemIdentifier;
-      v6->_storeItemIdentifier = v14;
+      v6->_storeItemIdentifier = v18;
 
-      objc_opt_class();
-      v16 = sub_10018E3FC(v5, "3");
+      v20 = objc_opt_class();
+      v21 = sub_10018E3FC(v5, "3", v20);
       storeExternalVersion = v6->_storeExternalVersion;
-      v6->_storeExternalVersion = v16;
+      v6->_storeExternalVersion = v21;
 
-      objc_opt_class();
-      v18 = sub_10018E3FC(v5, "4");
+      v23 = objc_opt_class();
+      v24 = sub_10018E3FC(v5, "4", v23);
       vendorIdentifier = v6->_vendorIdentifier;
-      v6->_vendorIdentifier = v18;
+      v6->_vendorIdentifier = v24;
     }
   }
 

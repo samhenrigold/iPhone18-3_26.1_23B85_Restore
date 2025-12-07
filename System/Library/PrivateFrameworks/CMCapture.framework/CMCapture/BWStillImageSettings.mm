@@ -26,7 +26,7 @@
 
   else
   {
-    [BWStillImageSettings initWithRequestedSettings:? captureSettings:? processingSettings:?];
+    [(BWStillImageSettings *)self initWithRequestedSettings:a2 captureSettings:0 processingSettings:captureSettings, processingSettings];
     return 0;
   }
 
@@ -106,11 +106,6 @@
   v3 = [(FigCaptureStillImageSettings *)self->_requestedSettings hash];
   v4 = [(BWStillImageCaptureSettings *)self->_captureSettings hash]^ v3;
   return v4 ^ [(BWStillImageProcessingSettings *)self->_processingSettings hash];
-}
-
-- (void)initWithRequestedSettings:(void *)a1 captureSettings:processingSettings:.cold.1(void *a1)
-{
-  FigDebugAssert3();
 }
 
 @end

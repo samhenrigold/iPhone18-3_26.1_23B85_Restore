@@ -29,7 +29,7 @@
     v6 = v5;
     v15.receiver = self;
     v15.super_class = TIKBAnalyticsMetricsContext;
-    if ([(TIAnalyticsMetricsContext *)&v15 isEqual:v6]&& self->_keyboardType == v6->_keyboardType && self->_userInterfaceIdiom == v6->_userInterfaceIdiom && ((inputVariant = self->_inputVariant, !(inputVariant | v6->_inputVariant)) || [(NSString *)inputVariant isEqualToString:?]) && ((secondaryLanguage = self->_secondaryLanguage, !(secondaryLanguage | v6->_secondaryLanguage)) || [(NSString *)secondaryLanguage isEqualToString:?]) && ((secondaryRegion = self->_secondaryRegion, !(secondaryRegion | v6->_secondaryRegion)) || [(NSString *)secondaryRegion isEqualToString:?]) && ((layoutName = self->_layoutName, !(layoutName | v6->_layoutName)) || [(NSString *)layoutName isEqualToString:?]))
+    if ([(TIAnalyticsMetricsContext *)&v15 isEqual:v6]&& self->_keyboardType == v6->_keyboardType && self->_userInterfaceIdiom == v6->_userInterfaceIdiom && ((inputVariant = self->_inputVariant, !(inputVariant | v6->_inputVariant)) || objc_msgSend_isEqualToString_(inputVariant)) && ((secondaryLanguage = self->_secondaryLanguage, !(secondaryLanguage | v6->_secondaryLanguage)) || objc_msgSend_isEqualToString_(secondaryLanguage)) && ((secondaryRegion = self->_secondaryRegion, !(secondaryRegion | v6->_secondaryRegion)) || objc_msgSend_isEqualToString_(secondaryRegion)) && ((layoutName = self->_layoutName, !(layoutName | v6->_layoutName)) || objc_msgSend_isEqualToString_(layoutName)))
     {
       testingParameters = self->_testingParameters;
       v12 = v6->_testingParameters;
@@ -60,10 +60,10 @@
 
 - (unint64_t)hash
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = TIKBAnalyticsMetricsContext;
-  v3 = 257 * [(TIAnalyticsMetricsContext *)&v22 hash];
+  v23 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = TIKBAnalyticsMetricsContext;
+  v3 = 257 * [(TIAnalyticsMetricsContext *)&v21 hash];
   v4 = 257 * ([(NSString *)self->_inputVariant hash]+ v3);
   v5 = 257 * ([(NSString *)self->_secondaryLanguage hash]+ v4);
   v6 = 257 * ([(NSString *)self->_secondaryRegion hash]+ v5);
@@ -72,41 +72,40 @@
   testingParameters = self->_testingParameters;
   if (testingParameters)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     allKeys = [(NSDictionary *)testingParameters allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v15 = [(NSDictionary *)self->_testingParameters objectForKey:*(*(&v18 + 1) + 8 * v14)];
+          v15 = [(NSDictionary *)self->_testingParameters objectForKey:*(*(&v17 + 1) + 8 * v14)];
           v8 = [v15 hash] + 257 * v8;
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v12);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -477,17 +476,17 @@ LABEL_9:
 + (int64_t)userInterfaceIdiomStringToEnum:(id)enum
 {
   enumCopy = enum;
-  if ([enumCopy isEqualToString:@"Phone"])
+  if (objc_msgSend_isEqualToString_(enumCopy))
   {
     v4 = 0;
   }
 
-  else if ([enumCopy isEqualToString:@"Pad"])
+  else if (objc_msgSend_isEqualToString_(enumCopy))
   {
     v4 = 1;
   }
 
-  else if ([enumCopy isEqualToString:@"TV"])
+  else if (objc_msgSend_isEqualToString_(enumCopy))
   {
     v4 = 2;
   }
@@ -515,40 +514,37 @@ LABEL_9:
 
 + (unsigned)keyboardTypeStringToEnum:(id)enum
 {
-  v8[6] = *MEMORY[0x277D85DE8];
-  v8[0] = @"Unknown";
-  v8[1] = @"Portrait";
-  v8[2] = @"Landscape";
-  v8[3] = @"Floating,";
-  v8[4] = @"Split";
-  v8[5] = @"Hardware";
+  v7[6] = *MEMORY[0x277D85DE8];
+  v7[0] = @"Unknown";
+  v7[1] = @"Portrait";
+  v7[2] = @"Landscape";
+  v7[3] = @"Floating,";
+  v7[4] = @"Split";
+  v7[5] = @"Hardware";
   v3 = MEMORY[0x277CBEA60];
   enumCopy = enum;
-  v5 = [v3 arrayWithObjects:v8 count:6];
+  v5 = [v3 arrayWithObjects:v7 count:6];
   LOBYTE(v3) = [v5 indexOfObject:enumCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 + (id)keyboardTypeEnumToString:(unsigned __int8)string
 {
   stringCopy = string;
-  v8[6] = *MEMORY[0x277D85DE8];
+  v7[6] = *MEMORY[0x277D85DE8];
   v4 = @"Unknown";
-  v8[0] = @"Unknown";
-  v8[1] = @"Portrait";
-  v8[2] = @"Landscape";
-  v8[3] = @"Floating,";
-  v8[4] = @"Split";
-  v8[5] = @"Hardware";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:6];
+  v7[0] = @"Unknown";
+  v7[1] = @"Portrait";
+  v7[2] = @"Landscape";
+  v7[3] = @"Floating,";
+  v7[4] = @"Split";
+  v7[5] = @"Hardware";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
   if ([v5 count] > stringCopy)
   {
     v4 = [v5 objectAtIndex:stringCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

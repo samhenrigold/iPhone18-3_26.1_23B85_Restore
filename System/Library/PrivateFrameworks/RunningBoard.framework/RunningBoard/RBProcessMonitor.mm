@@ -119,31 +119,31 @@
 
 - (id)statesMatchingPredicate:(id)predicate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   dispatch_assert_queue_V2(self->_queue);
   allValue = [(RBProcessMap *)self->_stateMap allValue];
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = allValue;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         process = [v12 process];
         if ([predicateCopy matchesProcess:process])
         {
@@ -151,46 +151,44 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)statesMatchingConfiguration:(id)configuration
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   stateDescriptor = [configurationCopy stateDescriptor];
 
   if (stateDescriptor)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     allValue = [(RBProcessMap *)self->_stateMap allValue];
-    v7 = [allValue countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [allValue countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
       stateDescriptor = 0;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(allValue);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           process = [v11 process];
           if ([configurationCopy matchesProcess:process])
           {
@@ -203,7 +201,7 @@
           }
         }
 
-        v8 = [allValue countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [allValue countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -214,8 +212,6 @@
       stateDescriptor = 0;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return stateDescriptor;
 }
@@ -265,27 +261,27 @@ void __44__RBProcessMonitor_didAddProcess_withState___block_invoke(void *a1)
 
 void __43__RBProcessMonitor_didUpdateProcessStates___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         v8 = [v7 identity];
         v9 = [*(*(a1 + 40) + 8) processForIdentity:v8];
         v10 = *(a1 + 40);
@@ -293,13 +289,11 @@ void __43__RBProcessMonitor_didUpdateProcessStates___block_invoke(uint64_t a1)
         [(RBProcessMonitor *)v10 _queue_updateServerState:v11 forProcess:v9 force:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveProcess:(id)process withState:(id)state
@@ -335,41 +329,40 @@ void __43__RBProcessMonitor_didUpdateProcessStates___block_invoke(uint64_t a1)
 
 void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 72), *(a1 + 40));
   os_unfair_lock_lock((*(a1 + 32) + 48));
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) didResolvePreventLaunchPredicates:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) didResolvePreventLaunchPredicates:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackStateForProcessIdentity:(id)identity
@@ -467,7 +460,7 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
 
 - (void)_queue_updateServerState:(void *)state forProcess:(char)process force:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v7 = a2;
   stateCopy = state;
   if (self)
@@ -496,8 +489,8 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
     v13 = [*(self + 16) valueForIdentity:v12];
     v14 = [RBProcessMonitor _clientStateForServerState:v7 process:stateCopy];
     [(RBProcessMonitor *)self _queue_adjustMemoryPageThresholdLimitationForProcess:v12 oldState:v13 newState:v14];
-    v38 = 0;
-    if ((process & 1) != 0 || [v14 isDifferentFromState:v13 significantly:&v38])
+    v37 = 0;
+    if ((process & 1) != 0 || [v14 isDifferentFromState:v13 significantly:&v37])
     {
       date = [MEMORY[0x277CBEAA8] date];
       [v14 setLastStateChangeTimestamp:date];
@@ -510,23 +503,23 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
           shortDescription = [v12 shortDescription];
           [v14 taskState];
           NSStringFromRBSTaskState();
-          v18 = v34 = v13;
+          v18 = v33 = v13;
           [v7 role];
           NSStringFromRBSRole();
-          v19 = v33 = process;
+          v19 = v32 = process;
           date = [v14 endowmentInfos];
           *buf = 138544130;
-          v40 = shortDescription;
-          v41 = 2114;
-          v42 = v18;
-          v43 = 2114;
-          v44 = v19;
-          v45 = 2112;
-          v46 = date;
+          v39 = shortDescription;
+          v40 = 2114;
+          v41 = v18;
+          v42 = 2114;
+          v43 = v19;
+          v44 = 2112;
+          v45 = date;
           _os_log_impl(&dword_262485000, v16, OS_LOG_TYPE_DEFAULT, "Calculated state for %{public}@: %{public}@ (role: %{public}@) (endowments: %@) ", buf, 0x2Au);
 
-          process = v33;
-          v13 = v34;
+          process = v32;
+          v13 = v33;
         }
       }
 
@@ -543,7 +536,7 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
       }
 
       v24 = [*(self + 24) removeValueForIdentity:v12];
-      if ((process & 1) != 0 || (v38 & 1) != 0 || ([*(self + 40) containsObject:v12] & 1) == 0)
+      if ((process & 1) != 0 || (v37 & 1) != 0 || ([*(self + 40) containsObject:v12] & 1) == 0)
       {
         [(RBProcessMonitor *)self _queue_publishState:v14 forIdentity:v12];
         [(RBProcessMonitor *)self _queue_suppressUpdatesForIdentity:v12];
@@ -554,7 +547,7 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
         block[2] = __62__RBProcessMonitor__queue_updateServerState_forProcess_force___block_invoke;
         block[3] = &unk_279B32B80;
         block[4] = self;
-        v37 = v12;
+        v36 = v12;
         dispatch_after(v29, v30, block);
       }
 
@@ -564,9 +557,9 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
         if (OUTLINED_FUNCTION_2_3(v25))
         {
           *buf = 138543618;
-          v40 = v12;
-          v41 = 2114;
-          v42 = v14;
+          v39 = v12;
+          v40 = 2114;
+          v41 = v14;
           _os_log_debug_impl(&dword_262485000, date, OS_LOG_TYPE_DEBUG, "SUPPRESSING state update for %{public}@: %{public}@", buf, 0x16u);
         }
 
@@ -581,15 +574,13 @@ void __54__RBProcessMonitor_didResolvePreventLaunchPredicates___block_invoke(uin
       {
         shortDescription2 = [v12 shortDescription];
         *buf = 138543362;
-        v40 = shortDescription2;
+        v39 = shortDescription2;
         _os_log_impl(&dword_262485000, v27, OS_LOG_TYPE_INFO, "Ignoring insignificant state update for %{public}@", buf, 0xCu);
       }
     }
 
     objc_autoreleasePoolPop(context);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64_t a1)
@@ -603,7 +594,6 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
 
 - (void)_queue_suppressUpdatesForIdentity:(uint64_t)identity
 {
-  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (identity)
   {
@@ -615,7 +605,7 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
       {
         OUTLINED_FUNCTION_0_7();
         OUTLINED_FUNCTION_1_9();
-        _os_log_debug_impl(v13, v14, v15, v16, v17, 0xCu);
+        _os_log_debug_impl(v12, v13, v14, v15, v16, 0xCu);
       }
     }
 
@@ -624,16 +614,14 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
     {
       [OUTLINED_FUNCTION_2_7() countForObject:?];
       OUTLINED_FUNCTION_1_9();
-      _os_log_debug_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_unsuppressUpdatesForIdentity:(uint64_t)identity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (identity)
   {
@@ -644,11 +632,11 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
       v6 = rbs_monitor_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v15 = 134218242;
-        v16 = v5 - 1;
-        v17 = 2114;
-        v18 = v3;
-        _os_log_debug_impl(&dword_262485000, v6, OS_LOG_TYPE_DEBUG, "Decrementing suppression state to %lu for %{public}@", &v15, 0x16u);
+        v14 = 134218242;
+        v15 = v5 - 1;
+        v16 = 2114;
+        v17 = v3;
+        _os_log_debug_impl(&dword_262485000, v6, OS_LOG_TYPE_DEBUG, "Decrementing suppression state to %lu for %{public}@", &v14, 0x16u);
       }
 
       [OUTLINED_FUNCTION_2_7() removeObject:?];
@@ -659,7 +647,7 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
         {
           OUTLINED_FUNCTION_0_7();
           OUTLINED_FUNCTION_1_9();
-          _os_log_debug_impl(v10, v11, v12, v13, v14, 0xCu);
+          _os_log_debug_impl(v9, v10, v11, v12, v13, 0xCu);
         }
 
         v8 = [*(identity + 24) valueForIdentity:v3];
@@ -672,13 +660,11 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_publishState:(void *)state forIdentity:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   stateCopy = state;
   if (self)
@@ -687,42 +673,42 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543618;
-      v28 = stateCopy;
-      v29 = 2114;
-      v30 = v5;
+      v27 = stateCopy;
+      v28 = 2114;
+      v29 = v5;
       _os_log_debug_impl(&dword_262485000, v7, OS_LOG_TYPE_DEBUG, "Sending state update for %{public}@: %{public}@", buf, 0x16u);
     }
 
     v8 = [*(self + 32) valueForIdentity:stateCopy];
     [v5 encodeWithPreviousState:v8];
-    v26 = v5;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v5;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     os_unfair_lock_lock((self + 48));
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v10 = *(self + 56);
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v21 + 1) + 8 * v14++) processMonitor:self didChangeProcessStates:{v9, v21}];
+          [*(*(&v20 + 1) + 8 * v14++) processMonitor:self didChangeProcessStates:{v9, v20}];
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -742,13 +728,11 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
       v19 = [v16 setValue:v5 forIdentity:stateCopy];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_adjustMemoryPageThresholdLimitationForProcess:(void *)process oldState:(void *)state newState:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = a2;
   processCopy = process;
   stateCopy = state;
@@ -791,12 +775,12 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
                   v18 = rbs_general_log();
                   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
                   {
-                    v35 = __error();
-                    strerror(*v35);
+                    v34 = __error();
+                    strerror(*v34);
                     OUTLINED_FUNCTION_0_7();
-                    v38 = 2082;
-                    v39 = v36;
-                    _os_log_error_impl(&dword_262485000, v18, OS_LOG_TYPE_ERROR, "Error setting ballast drained for %@: %{public}s", v37, 0x16u);
+                    v37 = 2082;
+                    v38 = v35;
+                    _os_log_error_impl(&dword_262485000, v18, OS_LOG_TYPE_ERROR, "Error setting ballast drained for %@: %{public}s", v36, 0x16u);
                   }
                 }
 
@@ -804,7 +788,7 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   OUTLINED_FUNCTION_0_7();
-                  _os_log_impl(&dword_262485000, v19, OS_LOG_TYPE_DEFAULT, "Foreground app is %@, setting ballast drained to NO", v37, 0xCu);
+                  _os_log_impl(&dword_262485000, v19, OS_LOG_TYPE_DEFAULT, "Foreground app is %@, setting ballast drained to NO", v36, 0xCu);
                 }
               }
             }
@@ -828,7 +812,7 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
                   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                   {
                     OUTLINED_FUNCTION_0_7();
-                    OUTLINED_FUNCTION_3_3(&dword_262485000, v21, v22, "Error setting ballast drained to YES for %@", v23, v24, v25, v26, v37[0]);
+                    OUTLINED_FUNCTION_3_3(&dword_262485000, v21, v22, "Error setting ballast drained to YES for %@", v23, v24, v25, v26);
                   }
                 }
 
@@ -836,7 +820,7 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
                 if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                 {
                   OUTLINED_FUNCTION_0_7();
-                  OUTLINED_FUNCTION_3_3(&dword_262485000, v28, v29, "The last foreground app removed was app is %@, setting ballast drained to YES", v30, v31, v32, v33, v37[0]);
+                  OUTLINED_FUNCTION_3_3(&dword_262485000, v28, v29, "The last foreground app removed was app is %@, setting ballast drained to YES", v30, v31, v32, v33);
                 }
               }
             }
@@ -845,8 +829,6 @@ uint64_t __47__RBProcessMonitor_didRemoveProcess_withState___block_invoke(uint64
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_clientStateForServerState:(uint64_t)a1 process:.cold.1(uint64_t a1)

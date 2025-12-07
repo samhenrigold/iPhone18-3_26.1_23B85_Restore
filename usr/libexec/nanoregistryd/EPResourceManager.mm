@@ -82,21 +82,21 @@
 
     if (v6)
     {
-      v7 = sub_1000A9948();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+      v8 = sub_1000A9948(v7);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-      if (v8)
+      if (v9)
       {
-        v9 = sub_1000A9948();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_1000A9948(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = objc_opt_class();
-          v11 = NSStringFromClass(v10);
-          v12 = 138412546;
-          v13 = v11;
-          v14 = 2048;
-          v15 = resourceCopy;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@[%p]: Avoiding a duplicate resource pointer (Crazy!)", &v12, 0x16u);
+          v12 = objc_opt_class();
+          v13 = NSStringFromClass(v12);
+          v14 = 138412546;
+          v15 = v13;
+          v16 = 2048;
+          v17 = resourceCopy;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@[%p]: Avoiding a duplicate resource pointer (Crazy!)", &v14, 0x16u);
         }
       }
     }
@@ -178,15 +178,15 @@
     objc_storeStrong(&self->_error, error);
     if (errorCopy)
     {
-      v9 = sub_1000A98C0();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v10 = sub_1000A98C0(v9);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-      if (v10)
+      if (v11)
       {
-        v11 = sub_1000A98C0();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = sub_1000A98C0(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          sub_1001036E4(self, errorCopy, v11);
+          sub_1001036E4(self, errorCopy, v13);
         }
       }
     }
@@ -252,21 +252,21 @@
 - (void)invalidate
 {
   self->_invalidated = 1;
-  v3 = sub_1000A9948();
+  v3 = sub_1000A9948(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A9948();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A9948(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = 138412546;
-      v9 = v7;
-      v10 = 2048;
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = 138412546;
+      v10 = v8;
+      v11 = 2048;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "invalidated %@[%p]", &v8, 0x16u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "invalidated %@[%p]", &v9, 0x16u);
     }
   }
 
@@ -275,39 +275,38 @@
 
 - (void)createResource
 {
-  v2 = sub_1000A98C0();
+  v2 = sub_1000A98C0(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000A98C0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       resourceClass = [objc_opt_class() resourceClass];
-      v6 = NSStringFromClass(resourceClass);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Creating resource for %@", &v7, 0xCu);
+      v7 = NSStringFromClass(resourceClass);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Creating resource for %@", &v8, 0xCu);
     }
   }
 }
 
 - (void)destroyResource
 {
-  [(EPResourceManager *)self setAvailability:0 withError:0];
-  v2 = sub_1000A98C0();
+  v2 = sub_1000A98C0([(EPResourceManager *)self setAvailability:0 withError:0]);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000A98C0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       resourceClass = [objc_opt_class() resourceClass];
-      v6 = NSStringFromClass(resourceClass);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Destroying resource for %@", &v7, 0xCu);
+      v7 = NSStringFromClass(resourceClass);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Destroying resource for %@", &v8, 0xCu);
     }
   }
 }

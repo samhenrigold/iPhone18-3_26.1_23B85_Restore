@@ -65,9 +65,9 @@
 - (CHUISControlInstanceToggle)initWithWidget:(id)widget
 {
   widgetCopy = widget;
-  v4 = sub_1D92E79C8(widgetCopy);
+  v5 = sub_1D92E79C8(widgetCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 @end

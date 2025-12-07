@@ -10,25 +10,23 @@ void sub_29704A978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State17handleSetCC2_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC2: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC2: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C26CE60](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -38,16 +36,16 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
       _os_log_debug_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_46;
+    return;
   }
 
-  v35 = 0;
+  v34 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v35 = Mutable;
+    v34 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetLaaGpioThrottleReq_Enabled");
@@ -80,12 +78,12 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
   v13 = xpc::dyn_cast_or_default(&buf, 0);
   ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC8A00], v13, v7);
   xpc_release(buf);
-  v34 = 0;
+  v33 = 0;
   v14 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v15 = v14;
   if (v14)
   {
-    v34 = v14;
+    v33 = v14;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v14, *MEMORY[0x29EDC88E8], v9);
@@ -118,15 +116,15 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
     cf = 0;
   }
 
-  v29[0] = MEMORY[0x29EDCA5F8];
-  v29[1] = 1174405120;
-  v29[2] = ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v29[3] = &__block_descriptor_tmp_241;
-  v29[4] = a1;
-  v29[5] = v18;
-  v30 = v20;
+  v28[0] = MEMORY[0x29EDCA5F8];
+  v28[1] = 1174405120;
+  v28[2] = ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v28[3] = &__block_descriptor_tmp_241;
+  v28[4] = a1;
+  v28[5] = v18;
+  v29 = v20;
   atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = _Block_copy(v29);
+  v23 = _Block_copy(v28);
   v24 = a1[2];
   if (v24)
   {
@@ -180,8 +178,8 @@ LABEL_27:
     CFRelease(cf);
   }
 
-  v25 = v30;
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v25 = v29;
+  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v25->__on_zero_shared)(v25);
     std::__shared_weak_count::__release_weak(v25);
@@ -190,8 +188,8 @@ LABEL_27:
   v26 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v27 = v34;
-    if (!v34)
+    v27 = v33;
+    if (!v33)
     {
       goto LABEL_44;
     }
@@ -201,21 +199,18 @@ LABEL_27:
 
   (v26->__on_zero_shared)(v26);
   std::__shared_weak_count::__release_weak(v26);
-  v27 = v34;
-  if (v34)
+  v27 = v33;
+  if (v33)
   {
 LABEL_43:
     CFRelease(v27);
   }
 
 LABEL_44:
-  if (v35)
+  if (v34)
   {
-    CFRelease(v35);
+    CFRelease(v34);
   }
-
-LABEL_46:
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704AFE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -230,25 +225,23 @@ void sub_29704AFE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA GPIO throttle: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA GPIO throttle: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C26CE60](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -258,16 +251,16 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
       _os_log_debug_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_49;
+    return;
   }
 
-  v37 = 0;
+  v36 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v37 = Mutable;
+    v36 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetGnssParamsReq_Enabled");
@@ -315,12 +308,12 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
   v15 = xpc::dyn_cast_or_default(&buf, 0);
   ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC86A8], v15, v7);
   xpc_release(buf);
-  v36 = 0;
+  v35 = 0;
   v16 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v17 = v16;
   if (v16)
   {
-    v36 = v16;
+    v35 = v16;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v16, *MEMORY[0x29EDC87A8], v9);
@@ -353,15 +346,15 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
     cf = 0;
   }
 
-  v31[0] = MEMORY[0x29EDCA5F8];
-  v31[1] = 1174405120;
-  v31[2] = ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v31[3] = &__block_descriptor_tmp_247;
-  v31[4] = a1;
-  v31[5] = v20;
-  v32 = v22;
+  v30[0] = MEMORY[0x29EDCA5F8];
+  v30[1] = 1174405120;
+  v30[2] = ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v30[3] = &__block_descriptor_tmp_247;
+  v30[4] = a1;
+  v30[5] = v20;
+  v31 = v22;
   atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v25 = _Block_copy(v31);
+  v25 = _Block_copy(v30);
   v26 = a1[2];
   if (v26)
   {
@@ -415,8 +408,8 @@ LABEL_30:
     CFRelease(cf);
   }
 
-  v27 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v31;
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
@@ -425,8 +418,8 @@ LABEL_30:
   v28 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v29 = v36;
-    if (!v36)
+    v29 = v35;
+    if (!v35)
     {
       goto LABEL_47;
     }
@@ -436,21 +429,18 @@ LABEL_30:
 
   (v28->__on_zero_shared)(v28);
   std::__shared_weak_count::__release_weak(v28);
-  v29 = v36;
-  if (v36)
+  v29 = v35;
+  if (v35)
   {
 LABEL_46:
     CFRelease(v29);
   }
 
 LABEL_47:
-  if (v37)
+  if (v36)
   {
-    CFRelease(v37);
+    CFRelease(v36);
   }
-
-LABEL_49:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704B628(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -465,25 +455,23 @@ void sub_29704B628(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Gnss params: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Gnss params: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C26CE60](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -493,18 +481,18 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       _os_log_debug_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_CoexEnable"))
   {
-    v44 = 0;
-    v8 = *MEMORY[0x29EDB8ED8];
+    v43 = 0;
+    v7 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v10 = Mutable;
+    v9 = Mutable;
     if (Mutable)
     {
-      v44 = Mutable;
+      v43 = Mutable;
     }
 
     value = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_CoexEnable");
@@ -519,14 +507,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v13 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,BOOL>(v10, *MEMORY[0x29EDC8868], v13);
+    v12 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,BOOL>(v9, *MEMORY[0x29EDC8868], v12);
     xpc_release(buf);
-    v14 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ProtectCQIPeriod");
-    *&buf = v14;
-    if (v14)
+    v13 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ProtectCQIPeriod");
+    *&buf = v13;
+    if (v13)
     {
-      xpc_retain(v14);
+      xpc_retain(v13);
     }
 
     else
@@ -534,14 +522,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v15 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC89C0], v15, v8);
+    v14 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC89C0], v14, v7);
     xpc_release(buf);
-    v16 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdIn");
-    *&buf = v16;
-    if (v16)
+    v15 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdIn");
+    *&buf = v15;
+    if (v15)
     {
-      xpc_retain(v16);
+      xpc_retain(v15);
     }
 
     else
@@ -549,14 +537,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v17 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8870], v17, v8);
+    v16 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8870], v16, v7);
     xpc_release(buf);
-    v18 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdOut");
-    *&buf = v18;
-    if (v18)
+    v17 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdOut");
+    *&buf = v17;
+    if (v17)
     {
-      xpc_retain(v18);
+      xpc_retain(v17);
     }
 
     else
@@ -564,14 +552,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v19 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC88C8], v19, v8);
+    v18 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC88C8], v18, v7);
     xpc_release(buf);
-    v20 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactTimer");
-    *&buf = v20;
-    if (v20)
+    v19 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactTimer");
+    *&buf = v19;
+    if (v19)
     {
-      xpc_retain(v20);
+      xpc_retain(v19);
     }
 
     else
@@ -579,14 +567,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v21 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8838], v21, v8);
+    v20 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8838], v20, v7);
     xpc_release(buf);
-    v22 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactStopTimer");
-    *&buf = v22;
-    if (v22)
+    v21 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactStopTimer");
+    *&buf = v21;
+    if (v21)
     {
-      xpc_retain(v22);
+      xpc_retain(v21);
     }
 
     else
@@ -594,40 +582,40 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v23 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8948], v23, v8);
+    v22 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8948], v22, v7);
     xpc_release(buf);
-    v43 = 0;
-    v24 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v25 = v24;
-    if (v24)
+    v42 = 0;
+    v23 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v24 = v23;
+    if (v23)
     {
-      v43 = v24;
+      v42 = v23;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v24, *MEMORY[0x29EDC8700], v10);
-    v26 = a1[4];
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v23, *MEMORY[0x29EDC8700], v9);
+    v25 = a1[4];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v25;
-      _os_log_impl(&dword_296FF7000, v26, OS_LOG_TYPE_DEFAULT, "#I Setting LAA config with: %@", &buf, 0xCu);
+      *(&buf + 4) = v24;
+      _os_log_impl(&dword_296FF7000, v25, OS_LOG_TYPE_DEFAULT, "#I Setting LAA config with: %@", &buf, 0xCu);
     }
 
-    v28 = *a1;
-    v27 = a1[1];
+    v27 = *a1;
+    v26 = a1[1];
     *&buf = *a1;
-    if (!v27 || (v29 = std::__shared_weak_count::lock(v27), (*(&buf + 1) = v29) == 0))
+    if (!v26 || (v28 = std::__shared_weak_count::lock(v26), (*(&buf + 1) = v28) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v30 = v29;
-    v31 = a1[5];
-    if (v25 && (v32 = CFGetTypeID(v25), v32 == CFDictionaryGetTypeID()))
+    v29 = v28;
+    v30 = a1[5];
+    if (v24 && (v31 = CFGetTypeID(v24), v31 == CFDictionaryGetTypeID()))
     {
-      cf = v25;
-      CFRetain(v25);
+      cf = v24;
+      CFRetain(v24);
     }
 
     else
@@ -635,26 +623,26 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       cf = 0;
     }
 
-    v38[0] = MEMORY[0x29EDCA5F8];
-    v38[1] = 1174405120;
-    v38[2] = ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-    v38[3] = &__block_descriptor_tmp_256;
-    v38[4] = a1;
-    v38[5] = v28;
-    v39 = v30;
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-    v33 = _Block_copy(v38);
-    v34 = a1[2];
-    if (v34)
-    {
-      dispatch_retain(v34);
-    }
-
+    v37[0] = MEMORY[0x29EDCA5F8];
+    v37[1] = 1174405120;
+    v37[2] = ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+    v37[3] = &__block_descriptor_tmp_256;
+    v37[4] = a1;
+    v37[5] = v27;
+    v38 = v29;
+    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+    v32 = _Block_copy(v37);
+    v33 = a1[2];
     if (v33)
     {
-      aBlock = _Block_copy(v33);
-      object = v34;
-      if (!v34)
+      dispatch_retain(v33);
+    }
+
+    if (v32)
+    {
+      aBlock = _Block_copy(v32);
+      object = v33;
+      if (!v33)
       {
         goto LABEL_43;
       }
@@ -663,11 +651,11 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
     else
     {
       aBlock = 0;
-      object = v34;
-      if (!v34)
+      object = v33;
+      if (!v33)
       {
 LABEL_43:
-        (*(*v31 + 16))(v31, &cf, a3, &aBlock);
+        (*(*v30 + 16))(v30, &cf, a3, &aBlock);
         if (object)
         {
           dispatch_release(object);
@@ -678,14 +666,14 @@ LABEL_43:
           _Block_release(aBlock);
         }
 
-        if (v34)
-        {
-          dispatch_release(v34);
-        }
-
         if (v33)
         {
-          _Block_release(v33);
+          dispatch_release(v33);
+        }
+
+        if (v32)
+        {
+          _Block_release(v32);
         }
 
         if (cf)
@@ -693,58 +681,55 @@ LABEL_43:
           CFRelease(cf);
         }
 
-        v35 = v39;
-        if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v34 = v38;
+        if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v34->__on_zero_shared)(v34);
+          std::__shared_weak_count::__release_weak(v34);
+        }
+
+        v35 = *(&buf + 1);
+        if (*(&buf + 1) && !atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
           (v35->__on_zero_shared)(v35);
           std::__shared_weak_count::__release_weak(v35);
-        }
-
-        v36 = *(&buf + 1);
-        if (*(&buf + 1) && !atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v36->__on_zero_shared)(v36);
-          std::__shared_weak_count::__release_weak(v36);
-          v37 = v43;
-          if (!v43)
+          v36 = v42;
+          if (!v42)
           {
 LABEL_60:
-            if (v44)
+            if (v43)
             {
-              CFRelease(v44);
+              CFRelease(v43);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v37 = v43;
-          if (!v43)
+          v36 = v42;
+          if (!v42)
           {
             goto LABEL_60;
           }
         }
 
-        CFRelease(v37);
+        CFRelease(v36);
         goto LABEL_60;
       }
     }
 
-    dispatch_retain(v34);
+    dispatch_retain(v33);
     goto LABEL_43;
   }
 
-  v12 = a1[4];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = a1[4];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_296FF7000, v12, OS_LOG_TYPE_DEFAULT, "#E Missing LAA config", &buf, 2u);
+    _os_log_impl(&dword_296FF7000, v11, OS_LOG_TYPE_DEFAULT, "#E Missing LAA config", &buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704BDE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -759,25 +744,23 @@ void sub_29704BDE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA config: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA config: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C26CE60](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -787,7 +770,7 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
       _os_log_debug_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_55;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "WCMCellularSetFCM_BCM_Antenna_Switching_RAT"))
@@ -806,15 +789,15 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
 
     v9 = xpc::dyn_cast_or_default(buf, 0);
     xpc_release(*buf);
-    v45 = 0xAAAAAAAAAAAAAAAALL;
+    v44 = 0xAAAAAAAAAAAAAAAALL;
     *buf = a2;
-    v40 = "WCMCellularSetFCM_BCM_Antenna_Switching_PortMapInformationSet";
-    xpc::dict::object_proxy::operator xpc::array(buf, &v45);
+    v39 = "WCMCellularSetFCM_BCM_Antenna_Switching_PortMapInformationSet";
+    xpc::dict::object_proxy::operator xpc::array(buf, &v44);
     *buf = 0;
-    v40 = buf;
-    v41 = 0x3002000000;
-    v42 = __Block_byref_object_copy_;
-    v43 = __Block_byref_object_dispose_;
+    v39 = buf;
+    v40 = 0x3002000000;
+    v41 = __Block_byref_object_copy_;
+    v42 = __Block_byref_object_dispose_;
     cf = 0;
     v10 = *MEMORY[0x29EDB8ED8];
     Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
@@ -833,14 +816,14 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
     applier[2] = ___ZN4coex6Module5State31handleSetFCMBCMAntennaMode_syncEN3xpc4dictENS_5SubIdE_block_invoke;
     applier[3] = &unk_29EE638D8;
     applier[4] = buf;
-    xpc_array_apply(v45, applier);
-    if (!CFArrayGetCount(*(v40 + 5)))
+    xpc_array_apply(v44, applier);
+    if (!CFArrayGetCount(*(v39 + 5)))
     {
       v28 = a1[4];
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v46) = 0;
-        _os_log_debug_impl(&dword_296FF7000, v28, OS_LOG_TYPE_DEBUG, "#D Empty port map passed for FCM BCM Antenna mode", &v46, 2u);
+        LOWORD(v45) = 0;
+        _os_log_debug_impl(&dword_296FF7000, v28, OS_LOG_TYPE_DEBUG, "#D Empty port map passed for FCM BCM Antenna mode", &v45, 2u);
         _Block_object_dispose(buf, 8);
         v29 = cf;
         if (!cf)
@@ -857,8 +840,8 @@ LABEL_52:
       if (!cf)
       {
 LABEL_54:
-        xpc_release(v45);
-        goto LABEL_55;
+        xpc_release(v44);
+        return;
       }
 
 LABEL_53:
@@ -866,37 +849,37 @@ LABEL_53:
       goto LABEL_54;
     }
 
-    v37 = 0;
+    v36 = 0;
     v13 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     v14 = v13;
     if (v13)
     {
-      v37 = v13;
+      v36 = v13;
     }
 
     ctu::cf::insert<__CFString const*,unsigned int>(v13, *MEMORY[0x29EDC89B8], v9, v10);
-    ctu::cf::insert<__CFString const*,__CFArray *>(v14, *MEMORY[0x29EDC8AC0], *(v40 + 5));
-    v36 = 0;
+    ctu::cf::insert<__CFString const*,__CFArray *>(v14, *MEMORY[0x29EDC8AC0], *(v39 + 5));
+    v35 = 0;
     v15 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     v16 = v15;
     if (v15)
     {
-      v36 = v15;
+      v35 = v15;
     }
 
     ctu::cf::insert<__CFString const*,__CFDictionary *>(v15, *MEMORY[0x29EDC8888], v14);
     v17 = a1[4];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v46) = 138412290;
-      *(&v46 + 4) = v16;
-      _os_log_impl(&dword_296FF7000, v17, OS_LOG_TYPE_DEFAULT, "#I Setting FCM BCM Antenna mode with: %@", &v46, 0xCu);
+      LODWORD(v45) = 138412290;
+      *(&v45 + 4) = v16;
+      _os_log_impl(&dword_296FF7000, v17, OS_LOG_TYPE_DEFAULT, "#I Setting FCM BCM Antenna mode with: %@", &v45, 0xCu);
     }
 
     v19 = *a1;
     v18 = a1[1];
-    *&v46 = *a1;
-    if (!v18 || (v20 = std::__shared_weak_count::lock(v18), (*(&v46 + 1) = v20) == 0))
+    *&v45 = *a1;
+    if (!v18 || (v20 = std::__shared_weak_count::lock(v18), (*(&v45 + 1) = v20) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
@@ -905,13 +888,13 @@ LABEL_53:
     v22 = a1[5];
     if (v16 && (v23 = CFGetTypeID(v16), v23 == CFDictionaryGetTypeID()))
     {
-      v35 = v16;
+      v34 = v16;
       CFRetain(v16);
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
     aBlock[0] = MEMORY[0x29EDCA5F8];
@@ -920,7 +903,7 @@ LABEL_53:
     aBlock[3] = &__block_descriptor_tmp_266;
     aBlock[4] = a1;
     aBlock[5] = v19;
-    v32 = v21;
+    v31 = v21;
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     v24 = _Block_copy(aBlock);
     v25 = a1[2];
@@ -931,20 +914,20 @@ LABEL_53:
 
     if (v24)
     {
-      v33 = _Block_copy(v24);
+      v32 = _Block_copy(v24);
       object = v25;
       if (!v25)
       {
 LABEL_31:
-        (*(*v22 + 16))(v22, &v35, a3, &v33);
+        (*(*v22 + 16))(v22, &v34, a3, &v32);
         if (object)
         {
           dispatch_release(object);
         }
 
-        if (v33)
+        if (v32)
         {
-          _Block_release(v33);
+          _Block_release(v32);
         }
 
         if (v25)
@@ -957,33 +940,33 @@ LABEL_31:
           _Block_release(v24);
         }
 
-        if (v35)
+        if (v34)
         {
-          CFRelease(v35);
+          CFRelease(v34);
         }
 
-        v26 = v32;
-        if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v26 = v31;
+        if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v26->__on_zero_shared)(v26);
           std::__shared_weak_count::__release_weak(v26);
         }
 
-        v27 = *(&v46 + 1);
-        if (*(&v46 + 1) && !atomic_fetch_add((*(&v46 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+        v27 = *(&v45 + 1);
+        if (*(&v45 + 1) && !atomic_fetch_add((*(&v45 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
           (v27->__on_zero_shared)(v27);
           std::__shared_weak_count::__release_weak(v27);
         }
 
+        if (v35)
+        {
+          CFRelease(v35);
+        }
+
         if (v36)
         {
           CFRelease(v36);
-        }
-
-        if (v37)
-        {
-          CFRelease(v37);
         }
 
         goto LABEL_52;
@@ -992,7 +975,7 @@ LABEL_31:
 
     else
     {
-      v33 = 0;
+      v32 = 0;
       object = v25;
       if (!v25)
       {
@@ -1010,9 +993,6 @@ LABEL_31:
     *buf = 0;
     _os_log_impl(&dword_296FF7000, v8, OS_LOG_TYPE_DEFAULT, "#E Invalid RAT option passed for FCM BCM Antenna mode", buf, 2u);
   }
-
-LABEL_55:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704C5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, xpc_object_t object)
@@ -1111,25 +1091,23 @@ void sub_29704C884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN4coex6Module5State31handleSetFCMBCMAntennaMode_syncEN3xpc4dictENS_5SubIdE_block_invoke_263(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set FCM BCM Antenna mode: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set FCM BCM Antenna mode: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C26CE60](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -1139,7 +1117,7 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       _os_log_debug_impl(&dword_296FF7000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "kWCMCellularRC1Duration"))
@@ -1156,49 +1134,49 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       *buf = xpc_null_create();
     }
 
-    v10 = xpc::dyn_cast_or_default(buf, 0);
+    v9 = xpc::dyn_cast_or_default(buf, 0);
     xpc_release(*buf);
-    v34 = 0;
-    v11 = *MEMORY[0x29EDB8ED8];
+    v33 = 0;
+    v10 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v13 = Mutable;
+    v12 = Mutable;
     if (Mutable)
     {
-      v34 = Mutable;
+      v33 = Mutable;
     }
 
-    ctu::cf::insert<__CFString const*,unsigned int>(Mutable, *MEMORY[0x29EDC86E8], v10, v11);
-    v33 = 0;
-    v14 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v15 = v14;
-    if (v14)
+    ctu::cf::insert<__CFString const*,unsigned int>(Mutable, *MEMORY[0x29EDC86E8], v9, v10);
+    v32 = 0;
+    v13 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v14 = v13;
+    if (v13)
     {
-      v33 = v14;
+      v32 = v13;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v14, *MEMORY[0x29EDC8768], v13);
-    v16 = a1[4];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v13, *MEMORY[0x29EDC8768], v12);
+    v15 = a1[4];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v10;
-      _os_log_impl(&dword_296FF7000, v16, OS_LOG_TYPE_DEFAULT, "#I Setting RC1 duration to %u", buf, 8u);
+      *&buf[4] = v9;
+      _os_log_impl(&dword_296FF7000, v15, OS_LOG_TYPE_DEFAULT, "#I Setting RC1 duration to %u", buf, 8u);
     }
 
-    v18 = *a1;
-    v17 = a1[1];
+    v17 = *a1;
+    v16 = a1[1];
     *buf = *a1;
-    if (!v17 || (v19 = std::__shared_weak_count::lock(v17), (v36 = v19) == 0))
+    if (!v16 || (v18 = std::__shared_weak_count::lock(v16), (v35 = v18) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v20 = v19;
-    v21 = a1[5];
-    if (v15 && (v22 = CFGetTypeID(v15), v22 == CFDictionaryGetTypeID()))
+    v19 = v18;
+    v20 = a1[5];
+    if (v14 && (v21 = CFGetTypeID(v14), v21 == CFDictionaryGetTypeID()))
     {
-      cf = v15;
-      CFRetain(v15);
+      cf = v14;
+      CFRetain(v14);
     }
 
     else
@@ -1206,26 +1184,26 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       cf = 0;
     }
 
-    v28[0] = MEMORY[0x29EDCA5F8];
-    v28[1] = 1174405120;
-    v28[2] = ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-    v28[3] = &__block_descriptor_tmp_270;
-    v28[4] = a1;
-    v28[5] = v18;
-    v29 = v20;
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    v23 = _Block_copy(v28);
-    v24 = a1[2];
-    if (v24)
-    {
-      dispatch_retain(v24);
-    }
-
+    v27[0] = MEMORY[0x29EDCA5F8];
+    v27[1] = 1174405120;
+    v27[2] = ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+    v27[3] = &__block_descriptor_tmp_270;
+    v27[4] = a1;
+    v27[5] = v17;
+    v28 = v19;
+    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+    v22 = _Block_copy(v27);
+    v23 = a1[2];
     if (v23)
     {
-      aBlock = _Block_copy(v23);
-      object = v24;
-      if (!v24)
+      dispatch_retain(v23);
+    }
+
+    if (v22)
+    {
+      aBlock = _Block_copy(v22);
+      object = v23;
+      if (!v23)
       {
         goto LABEL_28;
       }
@@ -1234,11 +1212,11 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
     else
     {
       aBlock = 0;
-      object = v24;
-      if (!v24)
+      object = v23;
+      if (!v23)
       {
 LABEL_28:
-        (*(*v21 + 16))(v21, &cf, a3, &aBlock);
+        (*(*v20 + 16))(v20, &cf, a3, &aBlock);
         if (object)
         {
           dispatch_release(object);
@@ -1249,14 +1227,14 @@ LABEL_28:
           _Block_release(aBlock);
         }
 
-        if (v24)
-        {
-          dispatch_release(v24);
-        }
-
         if (v23)
         {
-          _Block_release(v23);
+          dispatch_release(v23);
+        }
+
+        if (v22)
+        {
+          _Block_release(v22);
         }
 
         if (cf)
@@ -1264,58 +1242,55 @@ LABEL_28:
           CFRelease(cf);
         }
 
-        v25 = v29;
-        if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v24 = v28;
+        if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v24->__on_zero_shared)(v24);
+          std::__shared_weak_count::__release_weak(v24);
+        }
+
+        v25 = v35;
+        if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v25->__on_zero_shared)(v25);
           std::__shared_weak_count::__release_weak(v25);
-        }
-
-        v26 = v36;
-        if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v26->__on_zero_shared)(v26);
-          std::__shared_weak_count::__release_weak(v26);
-          v27 = v33;
-          if (!v33)
+          v26 = v32;
+          if (!v32)
           {
 LABEL_45:
-            if (v34)
+            if (v33)
             {
-              CFRelease(v34);
+              CFRelease(v33);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v27 = v33;
-          if (!v33)
+          v26 = v32;
+          if (!v32)
           {
             goto LABEL_45;
           }
         }
 
-        CFRelease(v27);
+        CFRelease(v26);
         goto LABEL_45;
       }
     }
 
-    dispatch_retain(v24);
+    dispatch_retain(v23);
     goto LABEL_28;
   }
 
-  v9 = a1[4];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v8 = a1[4];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_296FF7000, v9, OS_LOG_TYPE_DEFAULT, "#E Invalid RC1 duration passed", buf, 2u);
+    _os_log_impl(&dword_296FF7000, v8, OS_LOG_TYPE_DEFAULT, "#E Invalid RC1 duration passed", buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704CDFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -1328,29 +1303,27 @@ void sub_29704CDFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_29704CEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_29704CEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set RC1 duration; %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_296FF7000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set RC1 duration; %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::convertScanFreqBandFilter_sync(uint64_t a1, xpc_object_t *a2, CFArrayRef *a3)
@@ -1476,9 +1449,9 @@ LABEL_6:
   }
 }
 
-void sub_29704D24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29704D24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -1669,36 +1642,36 @@ LABEL_38:
   xpc_release(v29);
 }
 
-void sub_29704D678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29704D678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va3, a11);
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va3, a18);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   va_copy(va2, va1);
-  v19 = va_arg(va2, const void *);
+  v26 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v21 = va_arg(va3, void);
-  v23 = va_arg(va3, void);
+  v28 = va_arg(va3, void);
+  v30 = va_arg(va3, void);
   coex::CommandDriver::Callback::~Callback(va);
-  if (v11)
+  if (v18)
   {
-    dispatch_release(v11);
+    dispatch_release(v18);
   }
 
-  if (v12)
+  if (v19)
   {
-    _Block_release(v12);
+    _Block_release(v19);
   }
 
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v13 + 48);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v20 + 48);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va2);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va3);
-  _Block_object_dispose((v14 - 112), 8);
-  xpc_release(*(v14 - 72));
+  _Block_object_dispose((v21 - 112), 8);
+  xpc_release(*(v21 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -1712,7 +1685,7 @@ xpc_object_t __Block_byref_object_copy__271(uint64_t a1, uint64_t a2)
 
 void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2, const __CFDictionary **a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 40);
   v5 = *a2;
   if (*a2)
@@ -1738,12 +1711,12 @@ void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_
   ctu::cf::dict_adapter::dict_adapter(buf, v7);
   v8 = ctu::cf::map_adapter::copyCFArrayRef(buf, *MEMORY[0x29EDC87F8]);
   v9 = *(*(*(a1 + 32) + 8) + 40);
-  v16[0] = v9;
-  v16[1] = v8;
+  v15[0] = v9;
+  v15[1] = v8;
   if (v9)
   {
     v10 = xpc_retain(v9);
-    v15 = v8;
+    v14 = v8;
     if (!v8)
     {
       goto LABEL_10;
@@ -1754,8 +1727,8 @@ void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_
 
   v10 = xpc_null_create();
   v9 = v10;
-  v15 = v8;
-  v16[0] = v10;
+  v14 = v8;
+  v15[0] = v10;
   if (v8)
   {
 LABEL_9:
@@ -1763,14 +1736,14 @@ LABEL_9:
   }
 
 LABEL_10:
-  coex::Module::State::convertScanFreqBandFilter_sync(v10, v16, &v15);
+  coex::Module::State::convertScanFreqBandFilter_sync(v10, v15, &v14);
   if (v8)
   {
     CFRelease(v8);
   }
 
   xpc_release(v9);
-  v16[0] = 0;
+  v15[0] = 0;
   if (v8)
   {
     CFRelease(v8);
@@ -1782,7 +1755,7 @@ LABEL_15:
   if (v11)
   {
     v12 = *(*(*(a1 + 32) + 8) + 40);
-    v14 = v12;
+    v13 = v12;
     if (v12)
     {
       xpc_retain(v12);
@@ -1791,14 +1764,12 @@ LABEL_15:
     else
     {
       v12 = xpc_null_create();
-      v14 = v12;
+      v13 = v12;
     }
 
-    coex::XpcClient::sendMessage(v11, 305, &v14, *(a1 + 64));
+    coex::XpcClient::sendMessage(v11, 305, &v13, *(a1 + 64));
     xpc_release(v12);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704D91C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16)
@@ -2050,28 +2021,28 @@ void coex::Module::State::sendLinkQuality_sync(uint64_t a1, int a2)
   xpc_release(v5);
 }
 
-void sub_29704E0CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29704E0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v9 = va_arg(va3, const void *);
+  v10 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v11 = va_arg(va4, void);
-  v13 = va_arg(va4, void);
-  MEMORY[0x29C26B180](va);
+  v12 = va_arg(va4, void);
+  v14 = va_arg(va4, void);
+  MEMORY[0x29C26B180](va, a2);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(va2);
   MEMORY[0x29C26B180](va3);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va4);
-  xpc_release(v2);
+  xpc_release(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2205,19 +2176,17 @@ void __destroy_helper_block_e8_40c38_ZTSN3ctu2cf11CFSharedRefI9__CFErrorEE(uint6
 
 void ___ZN4coex6Module5State23setLinkQualityMode_syncEjNS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
-  if (*a2 && (v3 = *(*(a1 + 32) + 32), os_log_type_enabled(v3, OS_LOG_TYPE_ERROR)))
+  if (*a2)
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_296FF7000, v3, OS_LOG_TYPE_ERROR, "Failed to set SINR and/or BLER: %@", &v6, 0xCu);
-    v5 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
+    v3 = *(*(a1 + 32) + 32);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_296FF7000, v3, OS_LOG_TYPE_ERROR, "Failed to set SINR and/or BLER: %@", &v4, 0xCu);
+    }
   }
 }
 
@@ -2283,65 +2252,63 @@ void coex::CoexCache::~CoexCache(coex::CoexCache *this)
 
 void boost::signals2::detail::connection_body_base::disconnect(boost::signals2::detail::connection_body_base *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v7[8] = v2;
-  v7[9] = v2;
-  v7[6] = v2;
-  v7[7] = v2;
-  v7[4] = v2;
-  v7[5] = v2;
-  v7[2] = v2;
-  v7[3] = v2;
-  v7[0] = v2;
-  v7[1] = v2;
-  v8 = 10;
-  __p = v7;
-  v10 = 0;
-  v11 = this;
+  v6[8] = v2;
+  v6[9] = v2;
+  v6[6] = v2;
+  v6[7] = v2;
+  v6[4] = v2;
+  v6[5] = v2;
+  v6[2] = v2;
+  v6[3] = v2;
+  v6[0] = v2;
+  v6[1] = v2;
+  v7 = 10;
+  __p = v6;
+  v9 = 0;
+  v10 = this;
   (*(*this + 24))(this);
   if (*(this + 24) == 1)
   {
     *(this + 24) = 0;
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v7);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v6);
   }
 
-  (*(*v11 + 32))(v11);
+  (*(*v10 + 32))(v10);
   v3 = __p;
   if (__p)
   {
-    if (v10 > 0)
+    if (v9 > 0)
     {
-      v5 = __p + 16 * v10;
+      v4 = __p + 16 * v9;
       do
       {
-        v6 = *(v5 - 1);
-        if (v6)
+        v5 = *(v4 - 1);
+        if (v5)
         {
-          if (atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v6 + 16))(v6);
-            if (atomic_fetch_add(v6 + 3, 0xFFFFFFFF) == 1)
+            (*(*v5 + 16))(v5);
+            if (atomic_fetch_add(v5 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v6 + 24))(v6);
+              (*(*v5 + 24))(v5);
             }
           }
         }
 
-        v5 -= 16;
+        v4 -= 16;
       }
 
-      while (v5 > v3);
+      while (v4 > v3);
     }
 
-    if (v8 >= 0xB)
+    if (v7 >= 0xB)
     {
       operator delete(__p);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29704E84C(_Unwind_Exception *exception_object, int a2)
@@ -2853,11 +2820,11 @@ void sub_29704F2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCA9E0])
   {
@@ -2873,7 +2840,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -2906,11 +2873,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb1_E3__3NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   object = v3;
   if (v3)
   {
@@ -2926,7 +2893,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -2959,11 +2926,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb2_E3__4NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb3_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb3_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   object = v3;
   if (v3)
   {
@@ -2979,7 +2946,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3027,7 +2994,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
     v3 = xpc_null_create();
   }
 
-  v5 = *(v4 + 4);
+  v5 = *(v4 + 32);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v7[0] = 0;
@@ -3047,11 +3014,11 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   operator delete(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb5_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb5_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3068,7 +3035,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3101,11 +3068,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb5_E3__7NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb6_E3__8EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb6_E3__8EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3122,7 +3089,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3155,11 +3122,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb6_E3__8NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb7_E3__9EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb7_E3__9EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCA9E0])
   {
@@ -3175,7 +3142,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3236,11 +3203,11 @@ void sub_29704FD40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb9_E4__11EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb9_E4__11EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3257,7 +3224,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3290,11 +3257,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb9_E4__11NS_1
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb10_E4__12EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb10_E4__12EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3311,7 +3278,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3344,11 +3311,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb10_E4__12NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb11_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb11_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3364,7 +3331,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3397,11 +3364,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb11_E4__13NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb12_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb12_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3418,7 +3385,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3451,11 +3418,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb12_E4__14NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb13_E4__15EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb13_E4__15EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3471,7 +3438,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3504,11 +3471,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb13_E4__15NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb14_E4__16EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb14_E4__16EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3524,7 +3491,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3557,11 +3524,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb14_E4__16NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb15_E4__17EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb15_E4__17EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3577,7 +3544,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3610,11 +3577,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb15_E4__17NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb16_E4__18EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb16_E4__18EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3630,7 +3597,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3663,11 +3630,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb16_E4__18NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb17_E4__19EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb17_E4__19EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -3683,7 +3650,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3716,11 +3683,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb17_E4__19NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb18_E4__20EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb18_E4__20EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3737,7 +3704,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3770,11 +3737,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb18_E4__20NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb19_E4__21EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb19_E4__21EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3791,7 +3758,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3824,11 +3791,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb19_E4__21NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb20_E4__22EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb20_E4__22EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3845,7 +3812,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3878,11 +3845,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb20_E4__22NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb21_E4__23EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb21_E4__23EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3899,7 +3866,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3932,11 +3899,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb21_E4__23NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb22_E4__24EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb22_E4__24EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C26CE60](v3) == MEMORY[0x29EDCAA00])
   {
@@ -3953,7 +3920,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -3986,11 +3953,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb22_E4__24NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb23_E4__25EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb23_E4__25EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C26CE60](v4) == MEMORY[0x29EDCAA00])
   {
@@ -4006,7 +3973,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -4397,24 +4364,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -4424,8 +4391,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -4441,7 +4408,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -4453,17 +4420,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -4477,9 +4444,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -4498,41 +4465,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -4616,17 +4582,17 @@ void *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
       std::vector<std::shared_ptr<Service>>::__throw_length_error[abi:ne200100]();
     }
 
-    v6 = operator new(v4 - v3);
+    v6 = operator new(&v4[-v3]);
     v7 = 0;
     *a1 = v6;
     a1[1] = v6;
     a1[2] = &v6[v5];
     do
     {
-      v8 = &v3[v7];
+      v8 = (v3 + v7);
       v9 = &v6[v7];
-      v10 = *&v3[v7 + 8];
-      if ((*&v3[v7] ^ (*&v3[v7] >> 31)) == 2)
+      v10 = *(v3 + v7 + 8);
+      if ((*(v3 + v7) ^ (*(v3 + v7) >> 31)) == 2)
       {
         *(v9 + 1) = (*(*v10 + 32))(v10);
       }
@@ -4634,7 +4600,7 @@ void *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
       else
       {
         *(v9 + 1) = v10;
-        v11 = *&v3[v7 + 16];
+        v11 = *(v3 + v7 + 16);
         *&v6[v7 + 16] = v11;
         if (v11)
         {
@@ -4653,7 +4619,7 @@ void *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
   return a1;
 }
 
-void sub_2970523B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_2970523B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (v11)
   {
@@ -4741,7 +4707,7 @@ void ***std::__exception_guard_exceptions<std::vector<boost::variant<boost::weak
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(void),boost::function<void ()(void)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(void),boost::function<void ()(void)>>>(char **__p)
 {
   if (__p)
   {
@@ -5167,13 +5133,13 @@ LABEL_21:
   }
 }
 
-void sub_297052E28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297052E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::function<void ()(void)>::~function(va);
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    _Block_release(v2);
+    _Block_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -5463,16 +5429,16 @@ void sub_2970538E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_297053908(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297053908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29705391C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29705391C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -5667,7 +5633,7 @@ char *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
     v19 = *a2 ^ (*a2 >> 31);
     v14 = *a1;
     v15 = a1[1];
-    v16 = (v15 - *a1);
+    v16 = v15 - *a1;
     *v8 = v19;
     v17 = v8 + 24;
     v18 = v15 - v14;
@@ -5686,7 +5652,7 @@ char *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
     *(a2 + 16) = 0;
     v14 = *a1;
     v15 = a1[1];
-    v16 = (v15 - *a1);
+    v16 = v15 - *a1;
     *v8 = 1;
     v17 = v8 + 24;
     v18 = v15 - v14;
@@ -5705,7 +5671,7 @@ char *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
     *(a2 + 16) = 0;
     v14 = *a1;
     v15 = a1[1];
-    v16 = (v15 - *a1);
+    v16 = v15 - *a1;
     *v8 = 0;
     v17 = v8 + 24;
     v18 = v15 - v14;
@@ -5756,7 +5722,7 @@ char *std::vector<boost::variant<boost::weak_ptr<boost::signals2::detail::tracka
   v16 = v28;
   v9 = v29;
 LABEL_26:
-  *a1 = (v8 - v16);
+  *a1 = &v8[-v16];
   a1[1] = v17;
   a1[2] = v9;
   if (v14)
@@ -5767,28 +5733,28 @@ LABEL_26:
   return v17;
 }
 
-void sub_297053E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_297053E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__split_buffer<boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_297053E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_297053E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  if (v6)
+  va_start(va, a11);
+  if (v11)
   {
-    v8 = a4 + v6 + a2 + a3 - 24;
-    v9 = -v6;
+    v13 = a9 + v11 + a7 + a8 - 24;
+    v14 = -v11;
     do
     {
-      boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::destroy_content(v8);
-      v8 -= 24;
-      v9 += 24;
+      boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::destroy_content(v13);
+      v13 -= 24;
+      v14 += 24;
     }
 
-    while (v9);
+    while (v14);
   }
 
   std::__split_buffer<boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>>::~__split_buffer(va);
@@ -5873,7 +5839,7 @@ void *boost::signals2::detail::foreign_shared_ptr_impl<std::shared_ptr<coex::Mod
   return result;
 }
 
-void **boost::signals2::slot<void ()(void),boost::function<void ()(void)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(void),boost::function<void ()(void)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -6170,24 +6136,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -6197,8 +6163,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -6214,7 +6180,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -6226,17 +6192,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -6250,9 +6216,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -6271,41 +6237,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -6350,7 +6315,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -6675,7 +6640,7 @@ void (***boost::function2<void,ctu::cf::CFSharedRef<__CFDictionary const>,coex::
   return result;
 }
 
-void **boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -6988,24 +6953,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -7015,8 +6980,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -7032,7 +6997,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -7044,17 +7009,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -7068,9 +7033,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -7089,41 +7054,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -7168,7 +7132,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -7727,7 +7691,7 @@ void (***boost::function1<void,coex::SubId>::~function1(void (***result)(void, v
   return result;
 }
 
-void **boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -8062,24 +8026,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -8089,8 +8053,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -8106,7 +8070,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -8118,17 +8082,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -8142,9 +8106,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -8163,41 +8127,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -8242,7 +8205,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -8567,7 +8530,7 @@ void (***boost::function2<void,std::map<char const*,std::list<std::pair<unsigned
   return result;
 }
 
-void **boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -8634,10 +8597,10 @@ void __destroy_helper_block_e8_40c47_ZTSNSt3__110shared_ptrIKN4coex6Module5State
 
 void dispatch::async<void ctu::SharedSynchronizable<coex::Module::State>::execute_wrapped<coex::Module::State::registerEventHandlers(coex::Module*)::$_0>(coex::Module::State::registerEventHandlers(coex::Module*)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<coex::Module::State::registerEventHandlers(coex::Module*)::$_0,dispatch_queue_s *::default_delete<coex::Module::State::registerEventHandlers(coex::Module*)::$_0>>)::{lambda(void *)#1}::__invoke(Service ***a1)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = **a1;
-  v3 = *(v2 + 1);
+  v3 = v2[1];
   if (!v3 || (v4 = *v2, (v5 = std::__shared_weak_count::lock(v3)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -8674,12 +8637,12 @@ void dispatch::async<void ctu::SharedSynchronizable<coex::Module::State>::execut
 
     p_dst = operator new(v12);
     *(&__dst + 1) = v10;
-    v28 = v12 | 0x8000000000000000;
+    v27 = v12 | 0x8000000000000000;
     *&__dst = p_dst;
     goto LABEL_13;
   }
 
-  HIBYTE(v28) = v9;
+  HIBYTE(v27) = v9;
   p_dst = &__dst;
   if (v9)
   {
@@ -8689,18 +8652,18 @@ LABEL_13:
 
   *(p_dst + v10) = 0;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v31 = 0;
+  v30 = 0;
   v13 = operator new(0x20uLL);
   *v13 = &unk_2A1E25620;
   v13[1] = v2;
   v13[2] = v4;
   v13[3] = v6;
-  v31 = v13;
-  Service::registerEventHandler(v7, &__dst, v30);
-  if (v31 == v30)
+  v30 = v13;
+  Service::registerEventHandler(v7, &__dst, v29);
+  if (v30 == v29)
   {
-    (*(*v31 + 32))(v31);
-    if ((SHIBYTE(v28) & 0x80000000) == 0)
+    (*(*v30 + 32))(v30);
+    if ((SHIBYTE(v27) & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
@@ -8708,12 +8671,12 @@ LABEL_13:
     goto LABEL_38;
   }
 
-  if (v31)
+  if (v30)
   {
-    (*(*v31 + 40))();
+    (*(*v30 + 40))();
   }
 
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
 LABEL_38:
     operator delete(__dst);
@@ -8743,12 +8706,12 @@ LABEL_18:
 
     p_p = operator new(v19);
     *(&__p + 1) = v17;
-    v26 = v19 | 0x8000000000000000;
+    v25 = v19 | 0x8000000000000000;
     *&__p = p_p;
     goto LABEL_26;
   }
 
-  HIBYTE(v26) = v16;
+  HIBYTE(v25) = v16;
   p_p = &__p;
   if (v16)
   {
@@ -8758,18 +8721,18 @@ LABEL_26:
 
   *(p_p + v17) = 0;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v29 = 0;
+  v28 = 0;
   v20 = operator new(0x20uLL);
   *v20 = &unk_2A1E256B0;
   *(v20 + 1) = v2;
   *(v20 + 2) = v4;
   *(v20 + 3) = v6;
-  v29 = v20;
+  v28 = v20;
   Service::registerEventHandler(v14, &__p, &__dst);
-  if (v29 == &__dst)
+  if (v28 == &__dst)
   {
-    (*(*v29 + 32))(v29);
-    if ((SHIBYTE(v26) & 0x80000000) == 0)
+    (*(*v28 + 32))(v28);
+    if ((SHIBYTE(v25) & 0x80000000) == 0)
     {
       goto LABEL_31;
     }
@@ -8777,12 +8740,12 @@ LABEL_26:
     goto LABEL_40;
   }
 
-  if (v29)
+  if (v28)
   {
-    (*(*v29 + 40))();
+    (*(*v28 + 40))();
   }
 
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v25) < 0)
   {
 LABEL_40:
     operator delete(__p);
@@ -8796,17 +8759,18 @@ LABEL_31:
   if (a1)
   {
     v22 = a1[2];
-    if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v22)
     {
-      (v22->__on_zero_shared)(v22);
-      std::__shared_weak_count::__release_weak(v22);
-      v21 = a1;
+      if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v22->__on_zero_shared)(v22);
+        std::__shared_weak_count::__release_weak(v22);
+        v21 = a1;
+      }
     }
 
     operator delete(v21);
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2970583B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24)
@@ -9591,9 +9555,9 @@ void sub_297059438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29705945C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29705945C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -9627,4 +9591,39 @@ void sub_2970594F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a9);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a10);
   _Unwind_Resume(a1);
+}
+
+void sub_297059514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
+  _Unwind_Resume(a1);
+}
+
+void ctu::cf::insert<__CFString const*,int>(__CFDictionary *a1, CFTypeRef cf, int a3, CFAllocatorRef allocator)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  valuePtr = a3;
+  v8 = CFNumberCreate(allocator, kCFNumberIntType, &valuePtr);
+  v9 = v8;
+  if (cf && v8)
+  {
+    CFDictionaryAddValue(a1, cf, v8);
+  }
+
+  else if (!v8)
+  {
+    goto LABEL_8;
+  }
+
+  CFRelease(v9);
+LABEL_8:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
 }

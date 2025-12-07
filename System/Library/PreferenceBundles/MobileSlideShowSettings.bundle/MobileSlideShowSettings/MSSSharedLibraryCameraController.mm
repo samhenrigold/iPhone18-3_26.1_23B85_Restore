@@ -5,6 +5,7 @@
 - (id)specifiers;
 - (void)_setCameraAutoShareEnabled:(id)enabled enableAutoshare:(BOOL)autoshare;
 - (void)setShareFromCameraEnabled:(id)enabled forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MSSSharedLibraryCameraController
@@ -27,6 +28,17 @@
   v3 = [NSURL URLWithString:v2];
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = MSSSharedLibraryCameraController;
+  [(MSSSharedLibraryCameraController *)&v7 viewDidAppear:appear];
+  paneTitleLocalizedResource = [(MSSSharedLibraryCameraController *)self paneTitleLocalizedResource];
+  pathComponentsLocalizedResource = [(MSSSharedLibraryCameraController *)self pathComponentsLocalizedResource];
+  deepLinkURL = [(MSSSharedLibraryCameraController *)self deepLinkURL];
+  [(MSSSharedLibraryCameraController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobileslideshow" title:paneTitleLocalizedResource localizedNavigationComponents:pathComponentsLocalizedResource deepLink:deepLinkURL];
 }
 
 - (id)specifiers

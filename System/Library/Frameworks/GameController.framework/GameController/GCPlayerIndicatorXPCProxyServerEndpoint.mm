@@ -49,9 +49,9 @@
 
 - (void)invalidateClient
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
-    [GCBatteryXPCProxyServerEndpoint invalidateClient];
+    [(GCBatteryXPCProxyServerEndpoint *)self invalidateClient];
   }
 
   clientEndpoint = self->_clientEndpoint;
@@ -88,13 +88,13 @@
   clientEndpoint = self->_clientEndpoint;
   self->_clientEndpoint = 0;
 
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __75__GCPlayerIndicatorXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
-  v24 = &unk_1E8418D18;
-  objc_copyWeak(&v25, &location);
-  v14 = _Block_copy(&v21);
-  v15 = [connectionCopy addInterruptionHandler:{v14, v21, v22, v23, v24}];
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __75__GCPlayerIndicatorXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke;
+  v27 = &unk_1E8418D18;
+  objc_copyWeak(&v28, &location);
+  v14 = _Block_copy(&v24);
+  v15 = [connectionCopy addInterruptionHandler:{v14, v24, v25, v26, v27}];
   v16 = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v15;
 
@@ -105,13 +105,14 @@
   objc_storeStrong(&self->_connection, connection);
   objc_storeStrong(&self->_clientEndpoint, client);
   self->_pendingUpdates = 0;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v19, v20);
+  if (isInternalBuild)
   {
-    v20 = getGCLogger();
-    [GCPlayerIndicatorXPCProxyServerEndpoint acceptClient:v20 onConnection:? error:?];
+    v23 = getGCLogger(isInternalBuild);
+    [GCPlayerIndicatorXPCProxyServerEndpoint acceptClient:v23 onConnection:? error:?];
   }
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 
   return 1;
@@ -120,21 +121,22 @@
 void __75__GCPlayerIndicatorXPCProxyServerEndpoint_acceptClient_onConnection_error___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(WeakRetained, v2))
     {
-      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
+      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1(v3);
     }
 
-    v2 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v3[4];
+    v3[4] = 0;
 
-    v3 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v3[3];
+    v3[3] = 0;
 
-    v4 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    v6 = v3[1];
+    v3[1] = 0;
   }
 }
 
@@ -142,44 +144,45 @@ void __75__GCPlayerIndicatorXPCProxyServerEndpoint_acceptClient_onConnection_err
 {
   if (self->_playerIndex != index)
   {
-    v10[9] = v3;
-    v10[10] = v4;
+    v12[9] = v3;
+    v12[10] = v4;
     self->_playerIndex = index;
     v6 = self->_clientEndpoint;
+    v8 = v6;
     if (v6)
     {
-      v7 = self->_pendingUpdates + 1;
-      self->_pendingUpdates = v7;
-      if (v7 <= 6)
+      v9 = self->_pendingUpdates + 1;
+      self->_pendingUpdates = v9;
+      if (v9 <= 6)
       {
-        isInternalBuild = gc_isInternalBuild();
-        if (v7 == 6)
+        isInternalBuild = gc_isInternalBuild(v6, v7);
+        if (v9 == 6)
         {
           if (isInternalBuild)
           {
-            [GCPlayerIndicatorXPCProxyServerEndpoint setPlayerIndex:];
+            [GCPlayerIndicatorXPCProxyServerEndpoint setPlayerIndex:?];
           }
 
-          [(GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface *)v6 refreshPlayerIndex];
+          [(GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface *)v8 refreshPlayerIndex];
         }
 
         else
         {
           if (isInternalBuild)
           {
-            [GCPlayerIndicatorXPCProxyServerEndpoint setPlayerIndex:];
+            [GCPlayerIndicatorXPCProxyServerEndpoint setPlayerIndex:?];
           }
 
-          [(GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface *)v6 newPlayerIndex:self->_playerIndex];
+          [(GCPlayerIndicatorXPCProxyRemoteClientEndpointInterface *)v8 newPlayerIndex:self->_playerIndex];
           if (self->_pendingUpdates == 3)
           {
             connection = self->_connection;
-            v10[0] = MEMORY[0x1E69E9820];
-            v10[1] = 3221225472;
-            v10[2] = __58__GCPlayerIndicatorXPCProxyServerEndpoint_setPlayerIndex___block_invoke;
-            v10[3] = &unk_1E8418C28;
-            v10[4] = self;
-            [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v10];
+            v12[0] = MEMORY[0x1E69E9820];
+            v12[1] = 3221225472;
+            v12[2] = __58__GCPlayerIndicatorXPCProxyServerEndpoint_setPlayerIndex___block_invoke;
+            v12[3] = &unk_1E8418C28;
+            v12[4] = self;
+            [(_GCIPCEndpointConnection *)connection scheduleSendBarrierBlock:v12];
           }
         }
       }
@@ -268,40 +271,31 @@ void __63__GCPlayerIndicatorXPCProxyServerEndpoint_invalidateConnection__block_i
 
 - (void)acceptClient:(NSObject *)a1 onConnection:error:.cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Client has arrived for %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v2, v3, "Client has arrived for %@", v4, v5, v6, v7);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setPlayerIndex:.cold.1()
+- (void)setPlayerIndex:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending new player index to remote endpoint: %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending new player index to remote endpoint: %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)setPlayerIndex:.cold.2()
+- (void)setPlayerIndex:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending player index refresh request to remote endpoint: %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Sending player index refresh request to remote endpoint: %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

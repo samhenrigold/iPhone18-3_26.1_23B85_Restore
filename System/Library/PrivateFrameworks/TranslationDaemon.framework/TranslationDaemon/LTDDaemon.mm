@@ -27,12 +27,12 @@ void __41___LTDDaemon__setupMemoryWarningListener__block_invoke_2(uint64_t a1)
   if (WeakRetained)
   {
     data = dispatch_source_get_data(_setupMemoryWarningListener_memoryNotificationSource);
-    v3 = _LTOSLogXPC();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _LTOSLogXPC(data, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134217984;
       v7 = data;
-      _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEFAULT, "Memory pressure warning level %lu", &v6, 0xCu);
+      _os_log_impl(&dword_232E53000, v4, OS_LOG_TYPE_DEFAULT, "Memory pressure warning level %lu", &v6, 0xCu);
     }
 
     if (data == 4 || data == 2)
@@ -40,8 +40,6 @@ void __41___LTDDaemon__setupMemoryWarningListener__block_invoke_2(uint64_t a1)
       [WeakRetained[6] notifyOfMemoryPressure];
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __37___LTDDaemon_clientConnectionClosed___block_invoke(uint64_t a1)
@@ -67,12 +65,12 @@ void __34___LTDDaemon__setupNotifyHandlers__block_invoke(uint64_t a1, void *a2)
     {
       v6 = string;
       v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
-      v8 = _LTOSLogXPC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _LTOSLogXPC(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = 136446210;
         v11 = v6;
-        _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_DEFAULT, "Got xpc event for notification %{public}s", &v10, 0xCu);
+        _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_DEFAULT, "Got xpc event for notification %{public}s", &v10, 0xCu);
       }
 
       if (([v7 isEqualToString:@"com.apple.siri.uaf.com.apple.sequoia.asset"] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"com.apple.siri.uaf.com.apple.speech.automaticspeechrecognition"))
@@ -81,8 +79,6 @@ void __34___LTDDaemon__setupNotifyHandlers__block_invoke(uint64_t a1, void *a2)
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

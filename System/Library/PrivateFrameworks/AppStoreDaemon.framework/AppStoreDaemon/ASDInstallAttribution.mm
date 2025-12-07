@@ -34,9 +34,11 @@
 
 uint64_t __39__ASDInstallAttribution_sharedInstance__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_44 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_44;
+  _MergedGlobals_44 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDInstallAttribution)init
@@ -64,7 +66,7 @@ uint64_t __39__ASDInstallAttribution_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)startImpressionWithConfig:(id)config completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configCopy = config;
   handlerCopy = handler;
   v8 = ASDLogHandleForCategory(32);
@@ -73,38 +75,36 @@ uint64_t __39__ASDInstallAttribution_sharedInstance__block_invoke(uint64_t a1)
     sourceAppAdamId = [configCopy sourceAppAdamId];
     sourceAppBundleId = [configCopy sourceAppBundleId];
     *buf = 138543618;
-    v19 = sourceAppAdamId;
-    v20 = 2114;
-    v21 = sourceAppBundleId;
+    v18 = sourceAppAdamId;
+    v19 = 2114;
+    v20 = sourceAppBundleId;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "Starting impression as requested from adamID: %{public}@ bundleID: %{public}@", buf, 0x16u);
   }
 
   serviceBroker = self->_serviceBroker;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CDD120;
-  v16 = configCopy;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke;
+  v14[3] = &unk_1E7CDD120;
+  v15 = configCopy;
+  v16 = handlerCopy;
   v12 = configCopy;
   v13 = handlerCopy;
-  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v14];
 }
 
 void __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 40);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 40);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v8];
     [v6 startAdImpressionWithConfig:*(a1 + 32) completionHandler:*(a1 + 40)];
   }
 
@@ -114,35 +114,32 @@ void __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endImpressionWithConfig:(id)config completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configCopy = config;
   handlerCopy = handler;
   v8 = ASDLogHandleForCategory(32);
@@ -151,38 +148,36 @@ void __69__ASDInstallAttribution_startImpressionWithConfig_completionHandler___b
     sourceAppAdamId = [configCopy sourceAppAdamId];
     sourceAppBundleId = [configCopy sourceAppBundleId];
     *buf = 138543618;
-    v19 = sourceAppAdamId;
-    v20 = 2114;
-    v21 = sourceAppBundleId;
+    v18 = sourceAppAdamId;
+    v19 = 2114;
+    v20 = sourceAppBundleId;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "Ending impression as requested from adamID: %{public}@ bundleID: %{public}@", buf, 0x16u);
   }
 
   serviceBroker = self->_serviceBroker;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CDD120;
-  v16 = configCopy;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke;
+  v14[3] = &unk_1E7CDD120;
+  v15 = configCopy;
+  v16 = handlerCopy;
   v12 = configCopy;
   v13 = handlerCopy;
-  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v14];
 }
 
 void __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 40);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 40);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v8];
     [v6 endAdImpressionWithConfig:*(a1 + 32) completionHandler:*(a1 + 40)];
   }
 
@@ -192,30 +187,27 @@ void __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___blo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startPingbackTaskWithCompletionHandler:(id)handler
@@ -240,7 +232,7 @@ void __67__ASDInstallAttribution_endImpressionWithConfig_completionHandler___blo
 
 void __64__ASDInstallAttribution_startPingbackTaskWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -253,30 +245,26 @@ void __64__ASDInstallAttribution_startPingbackTaskWithCompletionHandler___block_
     v7 = ASDLogHandleForCategory(32);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", &v8, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__ASDInstallAttribution_startPingbackTaskWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startGhostFetchTaskWithCompletionHandler:(id)handler
@@ -301,7 +289,7 @@ void __64__ASDInstallAttribution_startPingbackTaskWithCompletionHandler___block_
 
 void __66__ASDInstallAttribution_startGhostFetchTaskWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -314,53 +302,47 @@ void __66__ASDInstallAttribution_startGhostFetchTaskWithCompletionHandler___bloc
     v7 = ASDLogHandleForCategory(32);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting the install attribution service %@", &v8, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ASDInstallAttribution_startGhostFetchTaskWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting service proxy for install attribution %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __63__ASDInstallAttribution_addInstallAttributionParamsWithConfig___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = ASDLogHandleForCategory(32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = v2;
-      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting install attribution service: %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v2;
+      _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Error getting install attribution service: %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addInstallAttributionParamsWithConfig:(id)config completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configCopy = config;
   handlerCopy = handler;
   v8 = ASDLogHandleForCategory(32);
@@ -369,24 +351,22 @@ void __63__ASDInstallAttribution_addInstallAttributionParamsWithConfig___block_i
     sourceAppBundleId = [configCopy sourceAppBundleId];
     sourceAppAdamId = [configCopy sourceAppAdamId];
     *buf = 138543618;
-    v19 = sourceAppBundleId;
-    v20 = 2114;
-    v21 = sourceAppAdamId;
+    v18 = sourceAppBundleId;
+    v19 = 2114;
+    v20 = sourceAppAdamId;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "Adding install attribution params from bundleID: %{public}@ adamID: %{public}@", buf, 0x16u);
   }
 
   serviceBroker = self->_serviceBroker;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __81__ASDInstallAttribution_addInstallAttributionParamsWithConfig_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CDD120;
-  v16 = configCopy;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __81__ASDInstallAttribution_addInstallAttributionParamsWithConfig_completionHandler___block_invoke;
+  v14[3] = &unk_1E7CDD120;
+  v15 = configCopy;
+  v16 = handlerCopy;
   v12 = configCopy;
   v13 = handlerCopy;
-  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getInstallAttributionServiceWithCompletionHandler:v14];
 }
 
 void __81__ASDInstallAttribution_addInstallAttributionParamsWithConfig_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -418,18 +398,17 @@ void __81__ASDInstallAttribution_addInstallAttributionParamsWithConfig_completio
 
 void __81__ASDInstallAttribution_addInstallAttributionParamsWithConfig_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerInstallAttributionPingbackForApp:(id)app completionHandler:(id)handler
@@ -484,18 +463,17 @@ void __84__ASDInstallAttribution_registerInstallAttributionPingbackForApp_comple
 
 void __84__ASDInstallAttribution_registerInstallAttributionPingbackForApp_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateConversionValueForInstallAttributionPingbackForApp:(id)app conversionValue:(id)value completionHandler:(id)handler
@@ -553,18 +531,17 @@ void __116__ASDInstallAttribution_updateConversionValueForInstallAttributionPing
 
 void __116__ASDInstallAttribution_updateConversionValueForInstallAttributionPingbackForApp_conversionValue_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePostbackConversionValuesForApp:(id)app fineConversionValue:(id)value coarseConversionValue:(id)conversionValue completionHandler:(id)handler
@@ -625,18 +602,17 @@ void __122__ASDInstallAttribution_updatePostbackConversionValuesForApp_fineConve
 
 void __122__ASDInstallAttribution_updatePostbackConversionValuesForApp_fineConversionValue_coarseConversionValue_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePostbackConversionValuesForApp:(id)app fineConversionValue:(id)value coarseConversionValue:(id)conversionValue lockWindow:(BOOL)window completionHandler:(id)handler
@@ -698,18 +674,17 @@ void __133__ASDInstallAttribution_updatePostbackConversionValuesForApp_fineConve
 
 void __133__ASDInstallAttribution_updatePostbackConversionValuesForApp_fineConversionValue_coarseConversionValue_lockWindow_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting install attribution remote proxy: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

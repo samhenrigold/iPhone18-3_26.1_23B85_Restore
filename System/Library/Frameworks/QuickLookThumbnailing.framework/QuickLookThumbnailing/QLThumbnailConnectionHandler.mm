@@ -180,16 +180,15 @@ void __78__QLThumbnailConnectionHandler_generateThumbnailForRequest_completionHa
     v2 = [*(a1 + 40) item];
     [v2 cleanup];
 
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [[QLServiceThumbnailRenderer alloc] initWithRequest:*(a1 + 40) reply:*(a1 + 48) connection:*(a1 + 56) completionHandler:*(a1 + 64)];
-    [(QLServiceThumbnailRenderer *)v5 generateThumbnailAndPerformCompletionHandler];
+    v4 = [[QLServiceThumbnailRenderer alloc] initWithRequest:*(a1 + 40) reply:*(a1 + 48) connection:*(a1 + 56) completionHandler:*(a1 + 64)];
+    [(QLServiceThumbnailRenderer *)v4 generateThumbnailAndPerformCompletionHandler];
   }
 }
 

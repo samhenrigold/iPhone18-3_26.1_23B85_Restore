@@ -7,7 +7,7 @@
 + (int64_t)installationSourceFromAuditToken:(id *)token applicationIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_1000104FC();
+  v5 = sub_1000104FC(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100048570(identifierCopy, v5);
@@ -30,7 +30,7 @@
 
   else
   {
-    v9 = sub_1000104FC();
+    v9 = sub_1000104FC(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000485E8(identifierCopy, v9);

@@ -32,7 +32,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1D729C();
+  sub_1D729C(selfCopy);
 }
 
 - (void)didTap
@@ -40,11 +40,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider10PlayButton_tapActionBlock);
   if (v2)
   {
+    v3 = *&self->backgroundView[OBJC_IVAR____TtC18ASMessagesProvider10PlayButton_tapActionBlock];
     selfCopy = self;
-    v4 = sub_F714(v2);
-    v2(v4);
+    v5 = sub_F714(v2, v3);
+    v2(v5);
 
-    sub_F704(v2);
+    sub_F704(v2, v3);
   }
 }
 

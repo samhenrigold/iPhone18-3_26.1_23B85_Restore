@@ -621,7 +621,7 @@ LABEL_11:
     transformAnimation = self->_transformAnimation;
     if (transformAnimation)
     {
-      [(PVTransformAnimation *)transformAnimation presentationTimeRange];
+      objc_msgSend_presentationTimeRange(transformAnimation);
     }
 
     else

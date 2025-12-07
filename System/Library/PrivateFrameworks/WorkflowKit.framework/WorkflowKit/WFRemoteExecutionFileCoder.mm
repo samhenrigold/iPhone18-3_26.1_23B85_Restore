@@ -26,27 +26,13 @@
   v14.receiver = self;
   v14.super_class = WFRemoteExecutionFileCoder;
   v5 = [(WFFileCoder *)&v14 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = MEMORY[0x1E695DFD8];
-  v7 = objc_opt_class();
-  v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
-  v9 = NSStringFromSelector(sel_transferIdentifiers);
-  v10 = [coderCopy decodeObjectOfClasses:v8 forKey:v9];
-  transferIdentifiers = v5->_transferIdentifiers;
-  v5->_transferIdentifiers = v10;
-
-  if (v5->_transferIdentifiers)
+  if (v5 && (v6 = MEMORY[0x1E695DFD8], v7 = objc_opt_class(), [v6 setWithObjects:{v7, objc_opt_class(), 0}], v8 = objc_claimAutoreleasedReturnValue(), NSStringFromSelector(sel_transferIdentifiers), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v8, v9), v10 = objc_claimAutoreleasedReturnValue(), transferIdentifiers = v5->_transferIdentifiers, v5->_transferIdentifiers = v10, transferIdentifiers, v9, v8, v5->_transferIdentifiers))
   {
     v12 = v5;
   }
 
   else
   {
-LABEL_4:
     v12 = 0;
   }
 
@@ -81,7 +67,7 @@ LABEL_4:
 
 uint64_t __75__WFRemoteExecutionFileCoder_waitForFileAvailabilityWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) transferIdentifiers];
   v3 = [v2 count];
 
@@ -96,43 +82,38 @@ uint64_t __75__WFRemoteExecutionFileCoder_waitForFileAvailabilityWithCompletionH
       if (v6)
       {
         v7 = [*(a1 + 32) transferIdentifiers];
-        v13 = 136315394;
-        v14 = "[WFRemoteExecutionFileCoder waitForFileAvailabilityWithCompletionHandler:]_block_invoke";
-        v15 = 2114;
-        v16 = v7;
-        _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Files are already available with identifiers: %{public}@", &v13, 0x16u);
+        v11 = 136315394;
+        v12 = "[WFRemoteExecutionFileCoder waitForFileAvailabilityWithCompletionHandler:]_block_invoke";
+        v13 = 2114;
+        v14 = v7;
+        _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Files are already available with identifiers: %{public}@", &v11, 0x16u);
       }
 
-      result = (*(*(a1 + 40) + 16))();
+      return (*(*(a1 + 40) + 16))();
     }
 
     else
     {
       if (v6)
       {
-        v11 = [*(a1 + 32) transferIdentifiers];
-        v13 = 136315394;
-        v14 = "[WFRemoteExecutionFileCoder waitForFileAvailabilityWithCompletionHandler:]_block_invoke";
-        v15 = 2114;
-        v16 = v11;
-        _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Waiting for files to be available with identifiers: %{public}@", &v13, 0x16u);
+        v10 = [*(a1 + 32) transferIdentifiers];
+        v11 = 136315394;
+        v12 = "[WFRemoteExecutionFileCoder waitForFileAvailabilityWithCompletionHandler:]_block_invoke";
+        v13 = 2114;
+        v14 = v10;
+        _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Waiting for files to be available with identifiers: %{public}@", &v11, 0x16u);
       }
 
-      result = [*(a1 + 32) setFileAvailabilityHandler:*(a1 + 40)];
+      return [*(a1 + 32) setFileAvailabilityHandler:*(a1 + 40)];
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     v9 = *(*(a1 + 40) + 16);
-    v10 = *MEMORY[0x1E69E9840];
 
     return v9();
   }
-
-  return result;
 }
 
 - (void)fileAvailabilityChanged
@@ -157,24 +138,22 @@ uint64_t __75__WFRemoteExecutionFileCoder_waitForFileAvailabilityWithCompletionH
 
 uint64_t __53__WFRemoteExecutionFileCoder_fileAvailabilityChanged__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) transferIdentifiers];
-    v7 = 136315394;
-    v8 = "[WFRemoteExecutionFileCoder fileAvailabilityChanged]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s Files became available with identifiers: %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[WFRemoteExecutionFileCoder fileAvailabilityChanged]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s Files became available with identifiers: %{public}@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 32) fileAvailabilityHandler];
   v4[2]();
 
-  result = [*(a1 + 32) setFileAvailabilityHandler:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setFileAvailabilityHandler:0];
 }
 
 - (id)decodeFileWithCoder:(id)coder fileShouldBeDeletedOnDeallocation:(BOOL *)deallocation fileIsSecurityScoped:(BOOL *)scoped

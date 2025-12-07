@@ -4,12 +4,18 @@
 - (BOOL)shouldPresentEditorFromKeyboardSplashScreen;
 - (StickersParentMessagesViewController)delegate;
 - (void)addStickerViewToHiearchyIfNeeded;
+- (void)dismissAvatarUIControllerAnimated:(BOOL)animated;
+- (void)presentAvatarUIController:(id)controller animated:(BOOL)animated;
 - (void)setupStickerView;
 - (void)showEditorViewControllerFromKeyboardSplashScreen;
 - (void)strongPopupPresentationNotification:(id)notification;
 - (void)updateSnapshotWithCompletionBlock:(id)block;
 - (void)updateWithPresentationContext:(unint64_t)context;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActiveWithConversation:(id)conversation;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
 @end
@@ -52,6 +58,56 @@
     view2 = [stickerController view];
     [view2 setAlpha:0.0];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = StickersMessagesViewController;
+  [(StickersMessagesViewController *)&v5 viewDidAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"strongPopupPresentationNotification:" name:@"BaseMessagesViewControllerStrongPopupPresentationNotification" object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = StickersMessagesViewController;
+  [(StickersMessagesViewController *)&v8 viewWillAppear:appear];
+  usageTrackingSession = [(StickersMessagesViewController *)self usageTrackingSession];
+
+  if (!usageTrackingSession)
+  {
+    v5 = +[AVTUsageTracker currentSession];
+    [(StickersMessagesViewController *)self setUsageTrackingSession:v5];
+  }
+
+  usageTrackingSession2 = [(StickersMessagesViewController *)self usageTrackingSession];
+  avatarStore = [(StickersMessagesViewController *)self avatarStore];
+  [usageTrackingSession2 beginWithStore:avatarStore];
+
+  [(StickersMessagesViewController *)self addStickerViewToHiearchyIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = StickersMessagesViewController;
+  [(StickersMessagesViewController *)&v6 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:@"BaseMessagesViewControllerStrongPopupPresentationNotification" object:0];
+
+  usageTrackingSession = [(StickersMessagesViewController *)self usageTrackingSession];
+  [usageTrackingSession end];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = StickersMessagesViewController;
+  [(StickersMessagesViewController *)&v5 viewDidDisappear:disappear];
+  stickerController = [(StickersMessagesViewController *)self stickerController];
+  [stickerController removeFromParentViewController];
 }
 
 - (void)addStickerViewToHiearchyIfNeeded
@@ -251,6 +307,22 @@
   }
 
   return shouldShowDisclosureWarning ^ 1;
+}
+
+- (void)presentAvatarUIController:(id)controller animated:(BOOL)animated
+{
+  [AVTUIControllerPresentation setPendingGlobalPresentation:controller, animated];
+
+  [(StickersMessagesViewController *)self requestPresentationStyle:3];
+}
+
+- (void)dismissAvatarUIControllerAnimated:(BOOL)animated
+{
+  v3 = +[AVTUIControllerPresentation pendingGlobalPresentation];
+  modalMessagesController = [v3 modalMessagesController];
+  [modalMessagesController dismiss];
+
+  [AVTUIControllerPresentation setPendingGlobalPresentation:0];
 }
 
 - (void)strongPopupPresentationNotification:(id)notification

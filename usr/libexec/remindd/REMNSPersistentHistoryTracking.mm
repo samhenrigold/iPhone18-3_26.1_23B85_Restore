@@ -26,17 +26,19 @@
   {
     v7 = v6;
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v9 = v8;
 
-    v8 = String._bridgeToObjectiveC()();
+    v10 = String._bridgeToObjectiveC()();
+    v9, v11, v12, v13, v14, v15, v16, v17;
   }
 
   else
   {
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)_persistenceStoreForAccountID:(id)d
@@ -48,21 +50,22 @@
 
 - (id)_persistenceStoresForAccountTypes:(id)types
 {
-  static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = *(&self->super.super.isa + OBJC_IVAR____TtC7remindd30REMNSPersistentHistoryTracking_storeController);
+  v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = *(&self->super.super.isa + OBJC_IVAR____TtC7remindd30REMNSPersistentHistoryTracking_storeController);
   selfCopy = self;
   isa = Set._bridgeToObjectiveC()().super.isa;
+  v4, v8, v9, v10, v11, v12, v13, v14;
+  v15 = [v5 storesForAccountTypes:isa];
 
-  v7 = [v4 storesForAccountTypes:isa];
-
-  if (!v7)
+  if (!v15)
   {
     sub_100293C88();
-    static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v7 = Array._bridgeToObjectiveC()().super.isa;
+    v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v15 = Array._bridgeToObjectiveC()().super.isa;
+    v16, v17, v18, v19, v20, v21, v22, v23;
   }
 
-  return v7;
+  return v15;
 }
 
 - (_TtC7remindd30REMNSPersistentHistoryTracking)init

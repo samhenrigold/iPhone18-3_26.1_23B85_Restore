@@ -175,8 +175,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -202,22 +202,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -226,94 +289,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::hasTrait(uint6
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -339,7 +339,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::LeakyRelu>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -609,7 +609,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::LeakyRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::LeakyRelu::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::LeakyRelu::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -689,8 +689,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Linear>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -716,22 +716,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Linear>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -740,94 +803,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::Linear>::hasTrait(uint64_t
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -853,7 +853,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Linear>::setInherentAttr(u
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Linear>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -1447,7 +1447,7 @@ BOOL mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait
 
 uint64_t mlir::Op<mlir::anec::Linear,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::HasWeights,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyNOperands(a1, 2) && (v8 = a1, (mlir::anec::Linear::verifyInvariantsImpl(&v8) & 1) != 0))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyNOperands(a1, 2) & 1) != 0 && (v8 = a1, mlir::anec::Linear::verifyInvariantsImpl(&v8)))
   {
     {
       mlir::anec::parentIsAtLeast<(mlir::anec::Family)2>();
@@ -1527,8 +1527,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Log2>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec4Log2EJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENS3_23MemoryEffectOpInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_20ReshapeSwapInterface5TraitENSG_22TransposeSwapInterface5TraitENSS_13NeuronOpTraitENST_ILSU_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec4Log2EJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENS3_23MemoryEffectOpInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_20ReshapeSwapInterface5TraitENSG_22TransposeSwapInterface5TraitENSS_13NeuronOpTraitENST_ILSU_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec4Log2EJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENS3_23MemoryEffectOpInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_20ReshapeSwapInterface5TraitENSG_22TransposeSwapInterface5TraitENSS_13NeuronOpTraitENST_ILSU_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec4Log2EJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENS3_23MemoryEffectOpInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_20ReshapeSwapInterface5TraitENSG_22TransposeSwapInterface5TraitENSS_13NeuronOpTraitENST_ILSU_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -1554,22 +1554,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Log2>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_20ReshapeSwapInterface5TraitENS7_22TransposeSwapInterface5TraitENSJ_13NeuronOpTraitENSK_ILSL_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_20ReshapeSwapInterface5TraitENS7_22TransposeSwapInterface5TraitENSJ_13NeuronOpTraitENSK_ILSL_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_20ReshapeSwapInterface5TraitENSB_22TransposeSwapInterface5TraitENSN_13NeuronOpTraitENSO_ILSP_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_20ReshapeSwapInterface5TraitENSB_22TransposeSwapInterface5TraitENSN_13NeuronOpTraitENSO_ILSP_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_20ReshapeSwapInterface5TraitENS7_22TransposeSwapInterface5TraitENSJ_13NeuronOpTraitENSK_ILSL_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_20ReshapeSwapInterface5TraitENS7_22TransposeSwapInterface5TraitENSJ_13NeuronOpTraitENSK_ILSL_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::Log2,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -1578,94 +1641,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::Log2>::hasTrait(uint64_t a
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_20ReshapeSwapInterface5TraitENSB_22TransposeSwapInterface5TraitENSN_13NeuronOpTraitENSO_ILSP_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec4Log2EJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENS2_23MemoryEffectOpInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_20ReshapeSwapInterface5TraitENSB_22TransposeSwapInterface5TraitENSN_13NeuronOpTraitENSO_ILSP_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Log2,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Log2,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Log2,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -1691,7 +1691,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Log2>::setInherentAttr(uin
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Log2>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -2034,8 +2034,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -2061,22 +2061,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -2085,94 +2148,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::hasTrait(uint64_t
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -2198,7 +2198,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::setInherentAttr(u
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MatMul>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -2808,7 +2808,7 @@ BOOL mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait
 
 uint64_t mlir::Op<mlir::anec::MatMul,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyNOperands(a1, 2) && (v8 = a1, (mlir::anec::MatMul::verifyInvariantsImpl(&v8) & 1) != 0))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyNOperands(a1, 2) & 1) != 0 && (v8 = a1, mlir::anec::MatMul::verifyInvariantsImpl(&v8)))
   {
     {
       mlir::anec::parentIsAtLeast<(mlir::anec::Family)2>();
@@ -2839,7 +2839,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::Model(void *a1,
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::MaxPool>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::MaxPool>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::MaxPool>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.max_pool", 13, a2, &mlir::detail::TypeIDResolver<mlir::anec::MaxPool,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.max_pool", 0xDuLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::MaxPool,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -2927,8 +2927,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::~Model(void *__p
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -2954,22 +2954,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -2978,94 +3041,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::hasTrait(uint64_
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -3091,7 +3091,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::setInherentAttr(
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::MaxPool>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -3313,7 +3313,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::MaxPool,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::OpTrait::impl *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v8 = a1, mlir::anec::L2NormPool::verifyInvariantsImpl(&v8)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v8 = a1, mlir::anec::L2NormPool::verifyInvariantsImpl(&v8)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -3394,8 +3394,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -3421,22 +3421,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -3445,94 +3508,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::hasTrait(uint64_t 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -3558,7 +3558,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::setInherentAttr(ui
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::NRelu>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -3828,7 +3828,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::NRelu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::NRelu::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::NRelu::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -3908,8 +3908,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Padding>::~Model(void *__p
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -3935,22 +3935,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Padding>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -3959,94 +4022,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::Padding>::hasTrait(uint64_
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -4072,7 +4072,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Padding>::setInherentAttr(
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Padding>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -4682,7 +4682,7 @@ BOOL mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait
 
 uint64_t mlir::Op<mlir::anec::Padding,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::Padding::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::Padding::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -4762,8 +4762,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::~Model(void
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -4789,22 +4789,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::foldHoo
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -4813,94 +4876,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::hasTrait(ui
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -4926,7 +4926,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::setInherent
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelShuffle>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -5164,7 +5164,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::PixelShuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::BatchToSpace::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::BatchToSpace::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -5244,8 +5244,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::~Model(vo
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -5271,22 +5271,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::foldH
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -5295,94 +5358,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::hasTrait(
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -5408,7 +5408,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::setInhere
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::PixelUnshuffle>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -5646,7 +5646,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::PixelUnshuffle,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::BatchToSpace::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::BatchToSpace::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -5726,8 +5726,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Quant>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -5753,22 +5753,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Quant>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -5777,94 +5840,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::Quant>::hasTrait(uint64_t 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -5890,7 +5890,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Quant>::setInherentAttr(ui
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Quant>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -6144,7 +6144,7 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypes
 
 uint64_t mlir::Op<mlir::anec::Quant,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::SupportConstantOperands,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants(mlir::anec::_anonymous_namespace_ *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5) && (v9 = a1, mlir::anec::DeQuant::verifyInvariantsImpl(&v9)))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5) & 1) != 0 && (v9 = a1, mlir::anec::DeQuant::verifyInvariantsImpl(&v9)))
   {
     {
       mlir::Op<mlir::anec::ArgMinMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants();
@@ -6224,8 +6224,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceAvgEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceAvgEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceAvgEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceAvgEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -6251,22 +6251,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::ReduceAvg,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -6275,94 +6338,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::hasTrait(uint6
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceAvgEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::ReduceAvg,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceAvg,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceAvg,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -6388,7 +6388,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceAvg>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -6521,10 +6521,10 @@ void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::ANECompilerVeri
   mlir::detail::InterfaceMap::insert(a1, v4, v3);
 }
 
-BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>::verifyWithANEC(int a1, uint64_t a2, mlir::CallableOpInterface *this, unint64_t a4)
+BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>::verifyWithANEC(int a1, mlir::Block **a2, mlir::CallableOpInterface *this, unint64_t a4, int a5)
 {
   mlir::CallableOpInterface::getArgAttrsAttr(this);
-  return mlir::anec::verifyReductionWithANEC(v9, a2, this, a4);
+  return mlir::anec::verifyReductionWithANEC(v11, a2, this, a4, a5);
 }
 
 void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::VerifyAttributesWithFamilyInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>>(uint64_t a1)
@@ -7116,8 +7116,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMaxEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMaxEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMaxEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMaxEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -7143,22 +7143,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::ReduceMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -7167,94 +7230,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::hasTrait(uint6
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMaxEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::ReduceMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceMax,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -7280,7 +7280,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMax>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -7413,10 +7413,10 @@ void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::ANECompilerVeri
   mlir::detail::InterfaceMap::insert(a1, v4, v3);
 }
 
-BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>::verifyWithANEC(int a1, uint64_t a2, mlir::CallableOpInterface *this, unint64_t a4)
+BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>::verifyWithANEC(int a1, mlir::Block **a2, mlir::CallableOpInterface *this, unint64_t a4, int a5)
 {
   mlir::CallableOpInterface::getArgAttrsAttr(this);
-  return mlir::anec::verifyReductionWithANEC(v9, a2, this, a4);
+  return mlir::anec::verifyReductionWithANEC(v11, a2, this, a4, a5);
 }
 
 void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::VerifyAttributesWithFamilyInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>>(uint64_t a1)
@@ -7613,8 +7613,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMinEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMinEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMinEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceMinEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -7640,22 +7640,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::ReduceMin,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -7664,94 +7727,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::hasTrait(uint6
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceMinEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::ReduceMin,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceMin,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceMin,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -7777,7 +7777,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceMin>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -7910,10 +7910,10 @@ void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::ANECompilerVeri
   mlir::detail::InterfaceMap::insert(a1, v4, v3);
 }
 
-BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>::verifyWithANEC(int a1, uint64_t a2, mlir::CallableOpInterface *this, unint64_t a4)
+BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>::verifyWithANEC(int a1, mlir::Block **a2, mlir::CallableOpInterface *this, unint64_t a4, int a5)
 {
   mlir::CallableOpInterface::getArgAttrsAttr(this);
-  return mlir::anec::verifyReductionWithANEC(v9, a2, this, a4);
+  return mlir::anec::verifyReductionWithANEC(v11, a2, this, a4, a5);
 }
 
 void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::VerifyAttributesWithFamilyInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>>(uint64_t a1)
@@ -8110,8 +8110,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceSumEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceSumEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceSumEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9ReduceSumEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_10OneOperandENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE2EE4ImplENSG_23PlistGeneratorInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSV_ILSW_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -8137,22 +8137,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_10OneOperandENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE2EE4ImplENS7_23PlistGeneratorInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENSM_ILSN_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::ReduceSum,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -8161,94 +8224,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::hasTrait(uint6
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9ReduceSumEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_10OneOperandENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE2EE4ImplENSB_23PlistGeneratorInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSQ_ILSR_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::ReduceSum,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceSum,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::ReduceSum,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -8274,7 +8274,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::ReduceSum>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -8407,10 +8407,10 @@ void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::ANECompilerVeri
   mlir::detail::InterfaceMap::insert(a1, v4, v3);
 }
 
-BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>::verifyWithANEC(int a1, uint64_t a2, mlir::CallableOpInterface *this, unint64_t a4)
+BOOL mlir::anec::detail::ANECompilerVerifierInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>::verifyWithANEC(int a1, mlir::Block **a2, mlir::CallableOpInterface *this, unint64_t a4, int a5)
 {
   mlir::CallableOpInterface::getArgAttrsAttr(this);
-  return mlir::anec::verifyReductionWithANEC(v9, a2, this, a4);
+  return mlir::anec::verifyReductionWithANEC(v11, a2, this, a4, a5);
 }
 
 void mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::VerifyAttributesWithFamilyInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>>(uint64_t a1)
@@ -8553,7 +8553,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::Model(void
   v10 = 0x300000000;
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::PlistGeneratorInterfaceInterfaceTraits::Model<mlir::anec::RegionReturn>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::RegionReturn>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.region_return", 18, a2, &mlir::detail::TypeIDResolver<mlir::anec::RegionReturn,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.region_return", 0x12uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::RegionReturn,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -8641,8 +8641,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::~Model(void
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -8668,22 +8668,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::foldHoo
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -8692,94 +8755,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::hasTrait(ui
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -8805,7 +8805,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::setInherent
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::RegionReturn>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -8906,148 +8906,148 @@ void mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterf
   mlir::detail::InterfaceMap::insert(a1, v4, v3);
 }
 
-BOOL mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>(uint64_t a1)
+BOOL mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>(uint64_t a1, uint64_t a2)
 {
   {
-    v54 = a1;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
-    a1 = v54;
-  }
-
-  v1 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id;
-  {
-    v46 = v1;
     v55 = a1;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::HasParent<mlir::pdl::RewriteOp>::Impl,mlir::OpTrait::OpInvariants>();
-    v1 = v46;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
     a1 = v55;
   }
 
-  v2 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v2 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroRegions<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroRegions>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v47 = v1;
+    v47 = v2;
     v56 = a1;
-    v39 = v2;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
-    v2 = v39;
-    v1 = v47;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::HasParent<mlir::pdl::RewriteOp>::Impl,mlir::OpTrait::OpInvariants>();
+    v2 = v47;
     a1 = v56;
   }
 
-  v3 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v3 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroResults<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroResults>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v48 = v1;
+    v48 = v2;
     v57 = a1;
-    v33 = v3;
-    v40 = v2;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::OneSuccessor,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::BranchOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::IsTerminator>();
-    v3 = v33;
-    v2 = v40;
-    v1 = v48;
+    v40 = v3;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
+    v3 = v40;
+    v2 = v48;
     a1 = v57;
   }
 
-  v4 = mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v4 = mlir::detail::TypeIDResolver<mlir::OpTrait::ZeroSuccessors<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ZeroSuccessors>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v49 = v1;
+    v49 = v2;
     v58 = a1;
-    v34 = v3;
-    v41 = v2;
-    v28 = v4;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
-    v4 = v28;
-    v3 = v34;
-    v2 = v41;
-    v1 = v49;
+    v34 = v4;
+    v41 = v3;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::OneSuccessor,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::BranchOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::IsTerminator>();
+    v4 = v34;
+    v3 = v41;
+    v2 = v49;
     a1 = v58;
   }
 
-  v5 = mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v5 = mlir::detail::TypeIDResolver<mlir::OpTrait::VariadicOperands<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::VariadicOperands>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v50 = v1;
+    v50 = v2;
     v59 = a1;
-    v35 = v3;
-    v42 = v2;
-    v24 = v5;
-    v29 = v4;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::OneSuccessor,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::BranchOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::IsTerminator>();
-    v5 = v24;
-    v4 = v29;
-    v3 = v35;
-    v2 = v42;
-    v1 = v50;
+    v35 = v4;
+    v42 = v3;
+    v29 = v5;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::FloatType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::arith::ArithFastMathInterface::Trait,mlir::InferTypeOpInterface::Trait>();
+    v5 = v29;
+    v4 = v35;
+    v3 = v42;
+    v2 = v50;
     a1 = v59;
   }
 
-  v6 = mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v6 = mlir::detail::TypeIDResolver<mlir::OpTrait::OpInvariants<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::OpInvariants>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v51 = v1;
+    v51 = v2;
     v60 = a1;
-    v36 = v3;
-    v43 = v2;
-    v25 = v5;
-    v30 = v4;
-    v21 = v6;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>();
-    v6 = v21;
-    v5 = v25;
-    v4 = v30;
-    v3 = v36;
-    v2 = v43;
-    v1 = v51;
+    v36 = v4;
+    v43 = v3;
+    v25 = v6;
+    v30 = v5;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::OneSuccessor,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::BranchOpInterface::Trait,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::IsTerminator>();
+    v6 = v25;
+    v5 = v30;
+    v4 = v36;
+    v3 = v43;
+    v2 = v51;
     a1 = v60;
   }
 
-  v7 = mlir::detail::TypeIDResolver<mlir::anec::PlistGeneratorInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::anec::PlistGeneratorInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v7 = mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v52 = v1;
+    v52 = v2;
     v61 = a1;
-    v37 = v3;
-    v44 = v2;
-    v26 = v5;
-    v31 = v4;
-    v19 = v7;
-    v22 = v6;
-    mlir::anec::getOpMinimumFamilyImpl<(mlir::anec::Family)0>();
-    v7 = v19;
-    v6 = v22;
-    v5 = v26;
-    v4 = v31;
-    v3 = v37;
-    v2 = v44;
-    v1 = v52;
+    v37 = v4;
+    v44 = v3;
+    v26 = v6;
+    v31 = v5;
+    v22 = v7;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>();
+    v7 = v22;
+    v6 = v26;
+    v5 = v31;
+    v4 = v37;
+    v3 = v44;
+    v2 = v52;
     a1 = v61;
   }
 
-  v8 = mlir::detail::TypeIDResolver<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id;
+  v8 = mlir::detail::TypeIDResolver<mlir::anec::PlistGeneratorInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::anec::PlistGeneratorInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id;
   {
-    v53 = v1;
+    v53 = v2;
     v62 = a1;
-    v38 = v3;
-    v45 = v2;
-    v27 = v5;
-    v32 = v4;
-    v20 = v7;
-    v23 = v6;
-    v18 = v8;
-    mlir::op_definition_impl::hasTrait<mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>();
-    v8 = v18;
-    v7 = v20;
-    v6 = v23;
-    v5 = v27;
-    v4 = v32;
-    v3 = v38;
-    v2 = v45;
-    v1 = v53;
+    v38 = v4;
+    v45 = v3;
+    v27 = v6;
+    v32 = v5;
+    v20 = v8;
+    v23 = v7;
+    mlir::anec::getOpMinimumFamilyImpl<(mlir::anec::Family)0>();
+    v8 = v20;
+    v7 = v23;
+    v6 = v27;
+    v5 = v32;
+    v4 = v38;
+    v3 = v45;
+    v2 = v53;
     a1 = v62;
   }
 
-  return v1 == a1 || v2 == a1 || v3 == a1 || v4 == a1 || v5 == a1 || v6 == a1 || v7 == a1 || v8 == a1 || mlir::detail::TypeIDResolver<mlir::ExecutionCostOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ExecutionCostOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id == a1;
+  v9 = mlir::detail::TypeIDResolver<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id;
+  {
+    v54 = v2;
+    v63 = a1;
+    v39 = v4;
+    v46 = v3;
+    v28 = v6;
+    v33 = v5;
+    v21 = v8;
+    v24 = v7;
+    v19 = v9;
+    mlir::op_definition_impl::hasTrait<mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>();
+    v9 = v19;
+    v8 = v21;
+    v7 = v24;
+    v6 = v28;
+    v5 = v33;
+    v4 = v39;
+    v3 = v46;
+    v2 = v54;
+    a1 = v63;
+  }
+
+  return v2 == a1 || v3 == a1 || v4 == a1 || v5 == a1 || v6 == a1 || v7 == a1 || v8 == a1 || v9 == a1 || mlir::detail::TypeIDResolver<mlir::ExecutionCostOpInterface::Trait<mlir::TypeID mlir::TypeID::get<mlir::ExecutionCostOpInterface::Trait>(void)::Empty>,void>::resolveTypeID(void)::id == a1;
 }
 
 uint64_t mlir::Op<mlir::anec::RegionReturn,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::anec::PlistGeneratorInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants(mlir::OpTrait::impl *a1, mlir::Operation *a2)
 {
-  if (!mlir::OpTrait::impl::verifyZeroRegions(a1, a2) || !mlir::OpTrait::impl::verifyZeroResults(a1, v3) || !mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) == 0 || (mlir::OpTrait::impl::verifyZeroResults(a1, v3) & 1) == 0 || (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) == 0)
   {
     return 0;
   }
@@ -9117,8 +9117,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Relu>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -9144,22 +9144,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Relu>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -9168,94 +9231,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::Relu>::hasTrait(uint64_t a
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::verifyRegionInvariants()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v5;
       }
 
-      else
-      {
-        v8 = v9[0];
-      }
-
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Relu,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ReshapeSwapInterface::Trait,mlir::anec::TransposeSwapInterface::Trait,mlir::OpTrait::anec::NeuronOpTrait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -9281,7 +9281,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Relu>::setInherentAttr(uin
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Relu>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -9624,8 +9624,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Resample>::~Model(void *__
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec8ResampleEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_9NOperandsILj2EE4ImplENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSI_11TypeChangerENSI_4anec13MinimumFamilyILNSG_6FamilyE3EE4ImplENS16_ILS17_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec8ResampleEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_9NOperandsILj2EE4ImplENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSI_11TypeChangerENSI_4anec13MinimumFamilyILNSG_6FamilyE3EE4ImplENS16_ILS17_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec8ResampleEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_9NOperandsILj2EE4ImplENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSI_11TypeChangerENSI_4anec13MinimumFamilyILNSG_6FamilyE3EE4ImplENS16_ILS17_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec8ResampleEJNS3_7OpTrait11ZeroRegionsENSI_9OneResultENSI_14OneTypedResultINS3_10MemRefTypeEE4ImplENSI_14ZeroSuccessorsENSI_9NOperandsILj2EE4ImplENSI_12OpInvariantsENS3_23MemoryEffectOpInterface5TraitENSG_22ZinIrUnitInfoInterface5TraitENSG_23PlistGeneratorInterface5TraitENSG_35VerifyAttributesWithFamilyInterface5TraitENSG_28ANECompilerVerifierInterface5TraitENSI_11TypeChangerENSI_4anec13MinimumFamilyILNSG_6FamilyE3EE4ImplENS16_ILS17_0EE4ImplENS3_24ExecutionCostOpInterface5TraitENS3_20InferTypeOpInterface5TraitENSG_25InferReturnTypesInterface5TraitENS3_30CompatibleReturnTypesInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1L_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -9651,124 +9651,124 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::Resample>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::hasTrait()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_9NOperandsILj2EE4ImplENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS9_11TypeChangerENS9_4anec13MinimumFamilyILNS7_6FamilyE3EE4ImplENSX_ILSY_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_9NOperandsILj2EE4ImplENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS9_11TypeChangerENS9_4anec13MinimumFamilyILNS7_6FamilyE3EE4ImplENSX_ILSY_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE[0])(v10, a2);
-  v7 = v11;
-  if (v11 >= 8)
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_9NOperandsILj2EE4ImplENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS9_11TypeChangerENS9_4anec13MinimumFamilyILNS7_6FamilyE3EE4ImplENSX_ILSY_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENS9_9OneResultENS9_14OneTypedResultINS2_10MemRefTypeEE4ImplENS9_14ZeroSuccessorsENS9_9NOperandsILj2EE4ImplENS9_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENS7_22ZinIrUnitInfoInterface5TraitENS7_23PlistGeneratorInterface5TraitENS7_35VerifyAttributesWithFamilyInterface5TraitENS7_28ANECompilerVerifierInterface5TraitENS9_11TypeChangerENS9_4anec13MinimumFamilyILNS7_6FamilyE3EE4ImplENSX_ILSY_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENS7_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1C_vE9CallbacksE(v8);
+  v5 = v9;
+  if (v9 >= 8)
   {
-    if ((v11 & 4) != 0)
+    if ((v9 & 4) != 0)
     {
-      v8 = v10[0];
-      if ((v11 & 2) != 0)
+      v6 = v8[0];
+      if ((v9 & 2) != 0)
       {
-        v8 = v10;
+        v6 = v8;
       }
 
-      v9 = result;
-      (*((v11 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v3, v4, v5, v6);
-      result = v9;
+      v7 = result;
+      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v6, v1, v2, v3, v4);
+      result = v7;
     }
 
-    if ((v7 & 2) == 0)
+    if ((v5 & 2) == 0)
     {
-      llvm::deallocate_buffer(v10[0], v10[1]);
+      llvm::deallocate_buffer(v8[0], v8[1]);
     }
   }
 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::printAssembly()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_9NOperandsILj2EE4ImplENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSD_11TypeChangerENSD_4anec13MinimumFamilyILNSB_6FamilyE3EE4ImplENS11_ILS12_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_9NOperandsILj2EE4ImplENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSD_11TypeChangerENSD_4anec13MinimumFamilyILNSB_6FamilyE3EE4ImplENS11_ILS12_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE[0])(v9, a2, a3, a4, a5);
-  v7 = v10;
-  if (v10 >= 8)
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_9NOperandsILj2EE4ImplENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSD_11TypeChangerENSD_4anec13MinimumFamilyILNSB_6FamilyE3EE4ImplENS11_ILS12_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec8ResampleEJNS2_7OpTrait11ZeroRegionsENSD_9OneResultENSD_14OneTypedResultINS2_10MemRefTypeEE4ImplENSD_14ZeroSuccessorsENSD_9NOperandsILj2EE4ImplENSD_12OpInvariantsENS2_23MemoryEffectOpInterface5TraitENSB_22ZinIrUnitInfoInterface5TraitENSB_23PlistGeneratorInterface5TraitENSB_35VerifyAttributesWithFamilyInterface5TraitENSB_28ANECompilerVerifierInterface5TraitENSD_11TypeChangerENSD_4anec13MinimumFamilyILNSB_6FamilyE3EE4ImplENS11_ILS12_0EE4ImplENS2_24ExecutionCostOpInterface5TraitENS2_20InferTypeOpInterface5TraitENSB_25InferReturnTypesInterface5TraitENS2_30CompatibleReturnTypesInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1G_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
   {
-    if ((v10 & 4) != 0)
+    if ((v5 & 4) != 0)
     {
-      if ((v10 & 2) != 0)
+      if ((v5 & 2) != 0)
       {
-        v8 = v9;
+        v3 = v4;
       }
 
       else
       {
-        v8 = v9[0];
+        v3 = v4[0];
       }
 
-      result = (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v6);
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
     }
 
-    if ((v7 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v9[0], v9[1]);
+      llvm::deallocate_buffer(v4[0], v4[1]);
     }
   }
 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::verifyInvariants(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::verifyInvariants()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Resample,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::TypeChanger,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Resample,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::TypeChanger,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v8 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v5 = v7;
+        v3 = v5;
       }
 
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v4 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::verifyRegionInvariants()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::Resample,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::TypeChanger,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::Resample,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::NOperands<2u>::Impl,mlir::OpTrait::OpInvariants,mlir::MemoryEffectOpInterface::Trait,mlir::anec::ZinIrUnitInfoInterface::Trait,mlir::anec::PlistGeneratorInterface::Trait,mlir::anec::VerifyAttributesWithFamilyInterface::Trait,mlir::anec::ANECompilerVerifierInterface::Trait,mlir::OpTrait::TypeChanger,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait,mlir::InferTypeOpInterface::Trait,mlir::anec::InferReturnTypesInterface::Trait,mlir::CompatibleReturnTypesInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v8 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v5 = v7;
+        v3 = v5;
       }
 
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v4 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -9794,7 +9794,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::Resample>::setInherentAttr
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::Resample>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {

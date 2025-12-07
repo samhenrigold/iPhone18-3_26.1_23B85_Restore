@@ -204,27 +204,25 @@ LABEL_28:
 
 - (id)uniqueIdentifier
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   identifier = [(WFContextualAction *)self identifier];
   applicationBundleIdentifier = [(WFRequestRideContextualAction *)self applicationBundleIdentifier];
-  v13[1] = applicationBundleIdentifier;
+  v12[1] = applicationBundleIdentifier;
   v5 = MEMORY[0x1E696AD98];
   destinationName = [(WFRequestRideContextualAction *)self destinationName];
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(destinationName, "hash")}];
   stringValue = [v7 stringValue];
-  v13[2] = stringValue;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+  v12[2] = stringValue;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
 
   v10 = [v9 componentsJoinedByString:@"."];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (WFRequestRideContextualAction)initWithApplicationBundleIdentifier:(id)identifier destination:(id)destination name:(id)name
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   obj = destination;
   destinationCopy = destination;
@@ -252,7 +250,7 @@ LABEL_28:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFRequestRideContextualAction.m" lineNumber:31 description:{@"Invalid parameter not satisfying: %@", @"destination"}];
 
 LABEL_3:
-  v38 = destinationCopy;
+  v37 = destinationCopy;
   if (!nameCopy)
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -272,16 +270,16 @@ LABEL_3:
   nameCopy3 = [v18 stringWithFormat:v19, nameCopy];
 
   v21 = [WFContextualActionParameter alloc];
-  v40 = @"BundleIdentifier";
-  v41 = identifierCopy;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  v39 = @"BundleIdentifier";
+  v40 = identifierCopy;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
   v23 = [(WFContextualActionParameter *)v21 initWithType:@"INAppDescriptor" displayString:0 wfParameterKey:@"IntentAppDefinition" wfSerializedRepresentation:v22];
-  v42[0] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+  v41[0] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
   v25 = [WFContextualActionIcon iconWithApplicationBundleIdentifier:identifierCopy];
-  v39.receiver = self;
-  v39.super_class = WFRequestRideContextualAction;
-  v26 = [(WFContextualAction *)&v39 initWithIdentifier:@"is.workflow.actions.ride.requestride" wfActionIdentifier:@"is.workflow.actions.ride.requestride" associatedAppBundleIdentifier:identifierCopy parameters:v24 displayString:nameCopy title:nameCopy2 subtitle:nameCopy3 icon:v25];
+  v38.receiver = self;
+  v38.super_class = WFRequestRideContextualAction;
+  v26 = [(WFContextualAction *)&v38 initWithIdentifier:@"is.workflow.actions.ride.requestride" wfActionIdentifier:@"is.workflow.actions.ride.requestride" associatedAppBundleIdentifier:identifierCopy parameters:v24 displayString:nameCopy title:nameCopy2 subtitle:nameCopy3 icon:v25];
 
   if (v26)
   {
@@ -297,7 +295,6 @@ LABEL_3:
     v31 = v26;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

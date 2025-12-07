@@ -94,7 +94,7 @@
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -112,9 +112,9 @@
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -125,13 +125,12 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_streamId forKey:@"streamId"];
   v5 = NSStringFromClass(self->_eventDataClass);
@@ -148,34 +147,32 @@ LABEL_7:
   pruningPolicy = self->_pruningPolicy;
   if (pruningPolicy)
   {
-    v15[0] = @"pruneOnAccess";
+    v14[0] = @"pruneOnAccess";
     v8 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPruningPolicy pruneOnAccess](pruningPolicy, "pruneOnAccess")}];
-    v16[0] = v8;
-    v15[1] = @"maxAge";
+    v15[0] = v8;
+    v14[1] = @"maxAge";
     v9 = MEMORY[0x1E696AD98];
     [(BMPruningPolicy *)self->_pruningPolicy maxAge];
     v10 = [v9 numberWithDouble:?];
-    v16[1] = v10;
-    v15[2] = @"maxStreamSize";
+    v15[1] = v10;
+    v14[2] = @"maxStreamSize";
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BMPruningPolicy maxStreamSize](self->_pruningPolicy, "maxStreamSize")}];
-    v16[2] = v11;
-    v15[3] = @"filterByAgeOnRead";
+    v15[2] = v11;
+    v14[3] = @"filterByAgeOnRead";
     v12 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMPruningPolicy filterByAgeOnRead](self->_pruningPolicy, "filterByAgeOnRead")}];
-    v16[3] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+    v15[3] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
     [coderCopy encodeObject:v13 forKey:@"pruningPolicy"];
   }
 
   [coderCopy encodeObject:self->_account forKey:@"account"];
   [coderCopy encodeObject:self->_remoteStreamName forKey:@"remoteName"];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BMStreamMetadata)initWithCoder:(id)coder
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"streamId"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventType"];
@@ -209,15 +206,15 @@ LABEL_7:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v39 = 16;
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __34__BMStreamMetadata_initWithCoder___block_invoke_39;
-      v36[3] = &unk_1E8338B28;
-      v36[4] = buf;
+      v38 = 16;
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __34__BMStreamMetadata_initWithCoder___block_invoke_39;
+      v35[3] = &unk_1E8338B28;
+      v35[4] = buf;
       if (initWithCoder__onceToken_38 != -1)
       {
-        dispatch_once(&initWithCoder__onceToken_38, v36);
+        dispatch_once(&initWithCoder__onceToken_38, v35);
       }
 
       v13 = *(*&buf[8] + 24);
@@ -239,7 +236,7 @@ LABEL_7:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v39 = 16;
+      v38 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __34__BMStreamMetadata_initWithCoder___block_invoke;
@@ -279,19 +276,19 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v33 = [BMPruningPolicy alloc];
-      v34 = [v20 objectForKeyedSubscript:@"pruneOnAccess"];
-      v32 = [v34 unsignedIntegerValue] != 0;
+      v32 = [BMPruningPolicy alloc];
+      v33 = [v20 objectForKeyedSubscript:@"pruneOnAccess"];
+      v31 = [v33 unsignedIntegerValue] != 0;
       [v20 objectForKeyedSubscript:@"filterByAgeOnRead"];
-      v22 = v35 = v5;
+      v22 = v34 = v5;
       bOOLValue = [v22 BOOLValue];
       v24 = [v20 objectForKeyedSubscript:@"maxAge"];
       [v24 doubleValue];
       v26 = v25;
       v27 = [v20 objectForKeyedSubscript:@"maxStreamSize"];
-      v21 = -[BMPruningPolicy initPruneOnAccess:filterByAgeOnRead:maxAge:maxStreamSize:](v33, "initPruneOnAccess:filterByAgeOnRead:maxAge:maxStreamSize:", v32, bOOLValue, [v27 unsignedIntValue], v26);
+      v21 = -[BMPruningPolicy initPruneOnAccess:filterByAgeOnRead:maxAge:maxStreamSize:](v32, "initPruneOnAccess:filterByAgeOnRead:maxAge:maxStreamSize:", v31, bOOLValue, [v27 unsignedIntValue], v26);
 
-      v5 = v35;
+      v5 = v34;
     }
 
     else
@@ -310,17 +307,15 @@ LABEL_26:
   selfCopy = 0;
 LABEL_27:
 
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Can't get class from class string - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Can't get class from class string - %@", &v2, 0xCu);
 }
 
 @end

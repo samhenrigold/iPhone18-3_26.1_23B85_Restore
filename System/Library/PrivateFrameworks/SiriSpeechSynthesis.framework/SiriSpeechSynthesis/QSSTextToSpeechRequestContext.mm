@@ -39,7 +39,7 @@ flatbuffers::DetachedBuffer *__45__QSSTextToSpeechRequestContext_flatbuffData__b
 
 - (Offset<siri::speech::schema_fb::TextToSpeechRequestContext>)addObjectToBuffer:(void *)buffer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   context_info = [(QSSTextToSpeechRequestContext *)self context_info];
   v6 = [context_info count];
   if (v6)
@@ -52,16 +52,11 @@ flatbuffers::DetachedBuffer *__45__QSSTextToSpeechRequestContext_flatbuffData__b
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  memset(v19, 0, sizeof(v19));
   obj = [(QSSTextToSpeechRequestContext *)self context_info];
-  if ([obj countByEnumeratingWithState:&v21 objects:v25 count:16])
+  if ([obj countByEnumeratingWithState:v19 objects:v20 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) addObjectToBuffer:{buffer, self}];
+    [**(&v19[0] + 1) addObjectToBuffer:{buffer, self}];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -90,9 +85,7 @@ flatbuffers::DetachedBuffer *__45__QSSTextToSpeechRequestContext_flatbuffData__b
   }
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, String);
-  v17.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v13 - v14 + v15);
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v13 - v14 + v15);
 }
 
 - (NSString)dialog_identifier

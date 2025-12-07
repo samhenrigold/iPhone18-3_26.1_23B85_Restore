@@ -34,11 +34,96 @@
   reviewedCopy = reviewed;
   selfCopy = self;
   v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = MEMORY[0x1EEE9AC00](v20 - 8);
-  v24 = &v52 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = MEMORY[0x1EEE9AC00](v20 - 8);
+  v23 = &v51 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v25 = &v51 - v24;
+  if (date)
+  {
+    sub_1B63BE974();
+    v26 = sub_1B63BE994();
+    (*(*(v26 - 8) + 56))(v25, 0, 1, v26);
+  }
+
+  else
+  {
+    v27 = sub_1B63BE994();
+    (*(*(v27 - 8) + 56))(v25, 1, 1, v27);
+  }
+
+  latitudeCopy = latitude;
+  longitudeCopy = longitude;
+  if (representation)
+  {
+    representationCopy = representation;
+    refreshedCopy = refreshed;
+    storageCopy = storage;
+    ratingCopy = rating;
+    identifierCopy = identifier;
+    v33 = sub_1B63BE924();
+    v52 = v34;
+    v53 = v33;
+  }
+
+  else
+  {
+    refreshedCopy2 = refreshed;
+    storageCopy2 = storage;
+    ratingCopy2 = rating;
+    identifierCopy2 = identifier;
+    v52 = 0xF000000000000000;
+    v53 = 0;
+  }
+
+  v56 = v25;
+  if (refreshed)
+  {
+    sub_1B63BE974();
+
+    v39 = 0;
+  }
+
+  else
+  {
+    v39 = 1;
+  }
+
+  v40 = sub_1B63BE994();
+  v41 = v23;
+  (*(*(v40 - 8) + 56))(v23, v39, 1, v40);
+  if (storage)
+  {
+    v42 = sub_1B63BE924();
+    v44 = v43;
+  }
+
+  else
+  {
+    v42 = 0;
+    v44 = 0xF000000000000000;
+  }
+
+  v45 = latitudeCopy;
+  v47 = v53;
+  v46 = longitudeCopy;
+  v48 = v52;
+  v49 = sub_1B6319B20(reviewedCopy, v56, latitudeCopy, longitudeCopy, v53, v52, v41, v42, v44, muid, index, rating, identifier, count, version);
+
+  sub_1B6284F64(v42, v44);
+  sub_1B6284F64(v47, v48);
+
+  return v49;
+}
+
+- (MSReviewedPlace)initWithStore:(id)store hasUserReviewed:(BOOL)reviewed lastSuggestedReviewDate:(id)date latitude:(id)latitude longitude:(id)longitude mapItemIdComparableRepresentation:(id)representation mapItemLastRefreshed:(id)refreshed mapItemStorage:(id)self0 muid:(unint64_t)self1 positionIndex:(int64_t)self2 rating:(id)self3 resultProviderIdentifier:(id)self4 uploadedPhotosCount:(int)self5 version:(signed __int16)self6
+{
+  reviewedCopy = reviewed;
+  selfCopy = self;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
+  v22 = MEMORY[0x1EEE9AC00](v21 - 8);
+  v24 = &v46 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v22);
-  v26 = &v52 - v25;
+  v26 = &v46 - v25;
   if (date)
   {
     sub_1B63BE974();
@@ -52,93 +137,6 @@
     (*(*(v28 - 8) + 56))(v26, 1, 1, v28);
   }
 
-  latitudeCopy = latitude;
-  longitudeCopy = longitude;
-  if (representation)
-  {
-    representationCopy = representation;
-    refreshedCopy = refreshed;
-    storageCopy = storage;
-    ratingCopy = rating;
-    identifierCopy = identifier;
-    v34 = sub_1B63BE924();
-    v53 = v35;
-    v54 = v34;
-  }
-
-  else
-  {
-    refreshedCopy2 = refreshed;
-    storageCopy2 = storage;
-    ratingCopy2 = rating;
-    identifierCopy2 = identifier;
-    v53 = 0xF000000000000000;
-    v54 = 0;
-  }
-
-  v57 = v26;
-  if (refreshed)
-  {
-    sub_1B63BE974();
-
-    v40 = 0;
-  }
-
-  else
-  {
-    v40 = 1;
-  }
-
-  v41 = sub_1B63BE994();
-  v42 = v24;
-  (*(*(v41 - 8) + 56))(v24, v40, 1, v41);
-  if (storage)
-  {
-    v43 = sub_1B63BE924();
-    v45 = v44;
-  }
-
-  else
-  {
-    v43 = 0;
-    v45 = 0xF000000000000000;
-  }
-
-  v46 = latitudeCopy;
-  v48 = v54;
-  v47 = longitudeCopy;
-  v49 = v53;
-  v50 = sub_1B6319B20(reviewedCopy, v57, latitudeCopy, longitudeCopy, v54, v53, v42, v43, v45, muid, index, rating, identifier, count, version);
-
-  sub_1B6284F64(v43, v45);
-  sub_1B6284F64(v48, v49);
-
-  return v50;
-}
-
-- (MSReviewedPlace)initWithStore:(id)store hasUserReviewed:(BOOL)reviewed lastSuggestedReviewDate:(id)date latitude:(id)latitude longitude:(id)longitude mapItemIdComparableRepresentation:(id)representation mapItemLastRefreshed:(id)refreshed mapItemStorage:(id)self0 muid:(unint64_t)self1 positionIndex:(int64_t)self2 rating:(id)self3 resultProviderIdentifier:(id)self4 uploadedPhotosCount:(int)self5 version:(signed __int16)self6
-{
-  reviewedCopy = reviewed;
-  selfCopy = self;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x1EEE9AC00](v21 - 8);
-  v25 = &v47 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v27 = &v47 - v26;
-  if (date)
-  {
-    sub_1B63BE974();
-    v28 = sub_1B63BE994();
-    (*(*(v28 - 8) + 56))(v27, 0, 1, v28);
-  }
-
-  else
-  {
-    v29 = sub_1B63BE994();
-    (*(*(v29 - 8) + 56))(v27, 1, 1, v29);
-  }
-
   storeCopy = store;
   latitudeCopy = latitude;
   longitudeCopy = longitude;
@@ -150,16 +148,16 @@
     storageCopy = storage;
     ratingCopy = rating;
     identifierCopy2 = identifier;
-    v35 = sub_1B63BE924();
-    v47 = v36;
-    v48 = v35;
+    v34 = sub_1B63BE924();
+    v46 = v35;
+    v47 = v34;
 
     if (refreshed)
     {
 LABEL_6:
       sub_1B63BE974();
 
-      v37 = 0;
+      v36 = 0;
       goto LABEL_9;
     }
   }
@@ -170,31 +168,31 @@ LABEL_6:
     storageCopy2 = storage;
     ratingCopy2 = rating;
     identifierCopy3 = identifier;
-    v47 = 0xF000000000000000;
-    v48 = 0;
+    v46 = 0xF000000000000000;
+    v47 = 0;
     if (refreshed)
     {
       goto LABEL_6;
     }
   }
 
-  v37 = 1;
+  v36 = 1;
 LABEL_9:
-  v42 = sub_1B63BE994();
-  (*(*(v42 - 8) + 56))(v25, v37, 1, v42);
+  v41 = sub_1B63BE994();
+  (*(*(v41 - 8) + 56))(v24, v36, 1, v41);
   if (storage)
   {
-    v43 = sub_1B63BE924();
-    v45 = v44;
+    v42 = sub_1B63BE924();
+    v44 = v43;
   }
 
   else
   {
-    v43 = 0;
-    v45 = 0xF000000000000000;
+    v42 = 0;
+    v44 = 0xF000000000000000;
   }
 
-  return ReviewedPlace.init(store:hasUserReviewed:lastSuggestedReviewDate:latitude:longitude:mapItemIdComparableRepresentation:mapItemLastRefreshed:mapItemStorage:muid:positionIndex:rating:resultProviderIdentifier:uploadedPhotosCount:version:)(storeCopy, reviewedCopy, v27, latitudeCopy, longitudeCopy, v48, v47, v25, v43, v45, muid, index, rating, identifierCopy, count, version);
+  return ReviewedPlace.init(store:hasUserReviewed:lastSuggestedReviewDate:latitude:longitude:mapItemIdComparableRepresentation:mapItemLastRefreshed:mapItemStorage:muid:positionIndex:rating:resultProviderIdentifier:uploadedPhotosCount:version:)(storeCopy, reviewedCopy, v26, latitudeCopy, longitudeCopy, v47, v46, v24, v42, v44, muid, index, rating, identifierCopy, count, version);
 }
 
 + (Class)managedClass
@@ -232,9 +230,9 @@ LABEL_9:
 - (NSNumber)latitude
 {
   selfCopy = self;
-  v3 = sub_1B6314258();
+  v4 = sub_1B6314258(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLatitude:(id)latitude
@@ -247,9 +245,9 @@ LABEL_9:
 - (NSNumber)longitude
 {
   selfCopy = self;
-  v3 = sub_1B63146F4();
+  v4 = sub_1B63146F4(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLongitude:(id)longitude
@@ -274,9 +272,9 @@ LABEL_9:
 - (NSNumber)rating
 {
   selfCopy = self;
-  v3 = sub_1B6316F14();
+  v4 = sub_1B6316F14(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setRating:(id)rating
@@ -289,9 +287,9 @@ LABEL_9:
 - (NSNumber)resultProviderIdentifier
 {
   selfCopy = self;
-  v3 = sub_1B63173B0();
+  v4 = sub_1B63173B0(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setResultProviderIdentifier:(id)identifier

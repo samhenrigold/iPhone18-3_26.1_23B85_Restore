@@ -1,6 +1,226 @@
-void sub_23F4A5768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23F4A4858(float64x2_t *a1, double *a2, uint64_t a3, uint64_t a4, int a5, void *a6, double a7, double a8, double a9, double a10)
 {
-  va_start(va, a11);
+  v41[8] = *MEMORY[0x277D85DE8];
+  v36 = a6;
+  v39 = 0.0;
+  v40 = 0.0;
+  sub_23F4A4B08(a1->f64, a2, &v40, &v39);
+  v19 = v40;
+  if (v40 <= 1.0)
+  {
+    v20 = v39;
+    if (v39 >= 0.0)
+    {
+      if ((v39 - v40) * a7 >= 0.0001)
+      {
+        if (v39 - v40 >= 0.8)
+        {
+          v34 = (v40 + v39) * 0.5;
+          sub_23F49FC10(v40, v34, a1, v41);
+          sub_23F4A4858(a2, v41, a4, a3, a5 ^ 1, v36, a9, a10, (v20 - v34) * a7, a8 + v19 * a7);
+          sub_23F49FC10((v19 + v20) * 0.5, v20, a1, v41);
+          v27 = a8 + v34 * a7;
+          v28 = a5 ^ 1;
+          v29 = a2;
+          v30 = a9;
+          v31 = a10;
+          v32 = a4;
+          v33 = (v20 - v34) * a7;
+        }
+
+        else
+        {
+          sub_23F49FC10(v40, v39, a1, v41);
+          v27 = a8 + v19 * a7;
+          v28 = a5 ^ 1;
+          v29 = a2;
+          v30 = a9;
+          v31 = a10;
+          v32 = a4;
+          v33 = (v20 - v19) * a7;
+        }
+
+        sub_23F4A4858(v29, v41, v32, a3, v28, v36, v30, v31, v33, v27);
+      }
+
+      else
+      {
+        v37 = 0.0;
+        v38 = 0.0;
+        sub_23F49FC10(v40, v39, a1, v41);
+        sub_23F4A4B08(a2, v41, &v38, &v37);
+        if ((v37 - v38) * a9 < 0.1)
+        {
+          v21 = (v37 + v38) * a9 * 0.5 + a10;
+          v22 = [AKTSDPathIntersection alloc];
+          if (a5)
+          {
+            v23 = a4;
+            v24 = v21;
+            v25 = a3;
+            v26 = (v19 + v20) * a7 * 0.5 + a8;
+          }
+
+          else
+          {
+            v23 = a3;
+            v24 = (v19 + v20) * a7 * 0.5 + a8;
+            v25 = a4;
+            v26 = v21;
+          }
+
+          v35 = [(AKTSDPathIntersection *)v22 initWithSegment:v23 atT:v25 onSegmentB:v24 atT:v26 atPoint:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v36];
+          [v36 addObject:v35];
+        }
+      }
+    }
+  }
+}
+
+double *sub_23F4A4B08(double *a1, double *a2, double *a3, double *a4)
+{
+  v28[8] = *MEMORY[0x277D85DE8];
+  v6 = a2[6];
+  v7 = a2[7];
+  v8 = v7 - a2[1];
+  v9 = v6 - *a2;
+  v10 = v9 * v9 + v8 * v8;
+  v11 = (1.0 / sqrtf(v10));
+  v12 = v8 * v11;
+  v13 = -(v9 * v11);
+  v14 = v7 * v13 + v12 * v6;
+  v15 = a1[1] * v13 + v12 * *a1 - v14;
+  v28[0] = 0;
+  *&v28[1] = v15;
+  v16 = a1[3] * v13 + v12 * a1[2] - v14;
+  v28[2] = 0x3FD5555555555555;
+  *&v28[3] = v16;
+  v17 = v13 * a1[5] + v12 * a1[4] - v14;
+  v28[4] = 0x3FE5555555555555;
+  *&v28[5] = v17;
+  v18 = v13 * a1[7] + v12 * a1[6] - v14;
+  v28[6] = 0x3FF0000000000000;
+  *&v28[7] = v18;
+  v19 = v13 * a2[3] + v12 * a2[2] - v14;
+  v20 = v13 * a2[5] + v12 * a2[4] - v14;
+  v21 = fmin(v19, fmin(v20, 0.0));
+  v22 = fmax(v19, fmax(v20, 0.0));
+  *a3 = 2.0;
+  *a4 = -1.0;
+  sub_23F4A4CD0(a3, a4, v28, v21);
+  result = sub_23F4A4CD0(a3, a4, v28, v22);
+  for (i = 0; i != 8; i += 2)
+  {
+    v25 = *&v28[i + 1];
+    if (v25 > v21 && v25 < v22)
+    {
+      v27 = *&v28[i];
+      *a3 = fmin(*a3, v27);
+      *a4 = fmax(*a4, v27);
+    }
+  }
+
+  return result;
+}
+
+double *sub_23F4A4CD0(double *result, double *a2, uint64_t a3, double a4)
+{
+  v4 = 0;
+  v5 = (a3 + 24);
+  v6 = 3;
+  do
+  {
+    if (v4 <= 2)
+    {
+      v7 = (a3 + 16 * v4);
+      v8 = v6;
+      v9 = v5;
+      do
+      {
+        v10 = v7[1];
+        if ((v10 <= a4 || *v9 <= a4) && (v10 >= a4 || *v9 >= a4))
+        {
+          v11 = *v7;
+          v12 = *(v9 - 1) - *v7;
+          if (v12 != 0.0)
+          {
+            v11 = v12 * (a4 - (v10 - v11 * (*v9 - v10) / v12)) / (*v9 - v10);
+          }
+
+          if (v11 < *result)
+          {
+            *result = v11;
+          }
+
+          if (v11 > *a2)
+          {
+            *a2 = v11;
+          }
+        }
+
+        v9 += 2;
+        --v8;
+      }
+
+      while (v8);
+    }
+
+    ++v4;
+    v5 += 2;
+    --v6;
+  }
+
+  while (v4 != 4);
+  return result;
+}
+
+void sub_23F4A4D94(float64x2_t *a1, uint64_t a2, void *a3, double a4)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 2.0;
+  v13 = a3;
+  v14 = -1.0;
+  sub_23F4A4CD0(&v15, &v14, a2, 0.0);
+  v7 = v15;
+  if (v15 <= 1.0)
+  {
+    v8 = v14;
+    if (v14 >= 0.0)
+    {
+      if (v14 - v15 >= 0.00005)
+      {
+        if (v14 - v15 >= a4 * 0.8)
+        {
+          v12 = (v15 + v14) * 0.5;
+          sub_23F49FC10(v15, v12, a1, v16);
+          sub_23F4A4D94(a1, v16, v13, v12 - v7);
+          sub_23F49FC10((v7 + v8) * 0.5, v8, a1, v16);
+          v11 = v8 - v12;
+          v10 = a1;
+        }
+
+        else
+        {
+          sub_23F49FC10(v15, v14, a1, v16);
+          v10 = a1;
+          v11 = v8 - v7;
+        }
+
+        sub_23F4A4D94(v10, v16, v13, v11);
+      }
+
+      else
+      {
+        v9 = [MEMORY[0x277CCABB0] numberWithDouble:(v15 + v14) * 0.5];
+        [v13 addObject:v9];
+      }
+    }
+  }
+}
+
+void sub_23F4A5768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -36,7 +256,7 @@ void sub_23F4A5784(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
         v22.size.width = v13;
         v22.size.height = v14;
         v16 = j__NSStringFromCGRect(v22);
-        AKLog(@"Proposed rectangle feature %@ intersects an existing annotation %@!");
+        AKLog();
 
         *(*(*(a1 + 32) + 8) + 24) = 1;
         *a4 = 1;
@@ -45,16 +265,16 @@ void sub_23F4A5784(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-id sub_23F4A66C0()
+id sub_23F4A66C0(uint64_t a1)
 {
   if (qword_27E39B7C8 != -1)
   {
     sub_23F4BD6EC();
   }
 
-  v1 = qword_27E39A300;
+  v2 = qword_27E39A300;
 
-  return v1;
+  return v2;
 }
 
 void sub_23F4A697C(uint64_t a1)
@@ -194,9 +414,11 @@ uint64_t AKSidecarMarkupGetApplicationFromDictionary(void *a1, void *a2, void *a
 
 uint64_t sub_23F4AAE68()
 {
-  qword_27E39A300 = os_log_create("com.apple.annotationkit", "continuityannotations");
+  v0 = os_log_create("com.apple.annotationkit", "continuityannotations");
+  v1 = qword_27E39A300;
+  qword_27E39A300 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_23F4AAEEC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -206,13 +428,14 @@ void sub_23F4AAEEC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_23F4AAF0C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23F4AAF0C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t sub_23F4ABA3C()
+uint64_t sub_23F4ABA3C(uint64_t a1, uint64_t a2)
 {
   if (qword_27E39B7D8 != -1)
   {
@@ -253,9 +476,9 @@ void *sub_23F4ABAF8()
   return v2;
 }
 
-void sub_23F4AD28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23F4AD28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -716,9 +939,9 @@ uint64_t sub_23F4B49C4(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_23F4B4D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F4B4D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -736,9 +959,9 @@ void sub_23F4B4DA0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_23F4B58D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F4B58D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -805,6 +1028,13 @@ void sub_23F4BCCB0(void *a1, uint64_t a2, uint64_t a3)
   objc_end_catch();
 }
 
+void sub_23F4BCD94(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_23F417DFC(&dword_23F3EC000, a2, a3, "Failed to decode object with expected classes: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_23F4BCE34(os_log_t log)
 {
   v3 = *MEMORY[0x277D85DE8];
@@ -813,25 +1043,41 @@ void sub_23F4BCE34(os_log_t log)
   _os_log_error_impl(&dword_23F3EC000, log, OS_LOG_TYPE_ERROR, "%s: Annotation version was > 0, but the text annotation was not encoded with a typingAttributesRTF property. This should not happen, except for some documents edited with earlier prelease versions.", &v1, 0xCu);
 }
 
-uint64_t sub_23F4BD000()
+void sub_23F4BCEB8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_23F4BD024(v0);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_23F417DFC(&dword_23F3EC000, a2, a3, "Encountered error while encoding attributed string to RTF data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_23F4BCF38(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_23F417DFC(&dword_23F3EC000, a2, a3, "Encountered error while decoding attributed string from RTF data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_23F4BD000()
+{
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_23F4BD024();
 }
 
 void sub_23F4BD124(void *a1)
 {
   [a1 pageIndex];
+  v7 = 136315394;
   sub_23F46D540();
-  sub_23F46D554(&dword_23F3EC000, v1, v2, "%s: Attempting geometric calculations, but this page's overlay view isn't hosted in a window. (page index: %lu)", v3, v4, v5, v6, 2u);
+  sub_23F46D554(&dword_23F3EC000, v1, v2, "%s: Attempting geometric calculations, but this page's overlay view isn't hosted in a window. (page index: %lu)", v3, v4, v5, v6, v7);
 }
 
 void sub_23F4BD1A8(void *a1)
 {
   [a1 pageIndex];
+  v7 = 136315394;
   sub_23F46D540();
-  sub_23F46D554(&dword_23F3EC000, v1, v2, "%s: Attempting geometric calculations, but this page's overlay view isn't hosted in a window. (page index: %lu)", v3, v4, v5, v6, 2u);
+  sub_23F46D554(&dword_23F3EC000, v1, v2, "%s: Attempting geometric calculations, but this page's overlay view isn't hosted in a window. (page index: %lu)", v3, v4, v5, v6, v7);
 }
 
 void sub_23F4BD22C(os_log_t log)
@@ -1018,7 +1264,7 @@ double sub_23F4BE14C()
     v0[2] = xmmword_23F4D94E0;
     v0[3] = unk_23F4D94F0;
     *(v0 + 8) = 0;
-    result = dbl_23F4D94D0[0];
+    *&result = 1;
     *v0 = xmmword_23F4D94C0;
     v0[1] = *dbl_23F4D94D0;
   }
@@ -1152,7 +1398,7 @@ LABEL_23:
   return v9;
 }
 
-void sub_23F4BE420(void **a1)
+void sub_23F4BE420(void *a1)
 {
   sub_23F4BE5EC(a1[1]);
 
@@ -2331,7 +2577,7 @@ LABEL_567:
     }
 
     v544 = v3[3] + v3[2] * 0.0;
-    v5(*(v3 + 1), v544);
+    v5(*(v3 + 1), a2, v544);
     result = 0;
     v3[6] = v544;
     return result;

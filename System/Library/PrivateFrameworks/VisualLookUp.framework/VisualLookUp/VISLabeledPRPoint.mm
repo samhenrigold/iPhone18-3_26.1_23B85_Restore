@@ -14,16 +14,20 @@
 
 - (void)setLabel:(id)label
 {
-  self->_label = [label copy];
+  v4 = [label copy];
+  label = self->_label;
+  self->_label = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, label);
 }
 
 - (void)setReadable_label:(id)readable_label
 {
-  self->_readable_label = [readable_label copy];
+  v4 = [readable_label copy];
+  readable_label = self->_readable_label;
+  self->_readable_label = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, readable_label);
 }
 
 - (void)writeTo:(id)to

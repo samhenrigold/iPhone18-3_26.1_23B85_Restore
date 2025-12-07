@@ -37,7 +37,6 @@
   [v13[0] closeSubpath];
   v12 = MEMORY[0x277D82BE0](v13[0]);
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -92,7 +91,7 @@
 
 - (CGRect)boundingRect
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v26 = a2;
   v25 = 1.79769313e308;
@@ -101,7 +100,7 @@
   v22 = 0.0;
   memset(__b, 0, sizeof(__b));
   obj = [(AKRoundedPath *)selfCopy points];
-  v19 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v32 count:16];
+  v19 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v28 count:16];
   if (v19)
   {
     v15 = *__b[2];
@@ -148,7 +147,7 @@
       if (v14 + 1 >= v17)
       {
         v16 = 0;
-        v17 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v32 count:16];
+        v17 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v28 count:16];
         if (!v17)
         {
           break;
@@ -159,11 +158,6 @@
 
   MEMORY[0x277D82BD8](obj);
   CGRectMake();
-  v28 = v10;
-  v29 = v11;
-  v30 = v12;
-  v31 = v13;
-  *MEMORY[0x277D85DE8];
   result.size.height = v13;
   result.size.width = v12;
   result.origin.y = v11;
@@ -190,7 +184,6 @@
   v7 = [v5 initWithRect:rectCopy.origin.x cornerRadii:rectCopy.origin.y smoothPillShapes:{rectCopy.size.width, rectCopy.size.height}];
   MEMORY[0x277D82BD8](v6);
   objc_storeStrong(v8, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -204,195 +197,195 @@
   objc_storeStrong(location, radii);
   shapesCopy = shapes;
   Mutable = CGPathCreateMutable();
-  v42 = [location[0] objectAtIndex:?];
-  [v42 sizeValue];
-  v89 = v5;
-  v90 = v6;
-  v41 = [location[0] objectAtIndex:0];
-  [v41 sizeValue];
-  v87 = v7;
-  v88 = v8;
-  CGSizeMake();
-  v91 = v9;
-  v92 = v10;
-  MEMORY[0x277D82BD8](v41);
-  MEMORY[0x277D82BD8](v42);
-  v44 = [location[0] objectAtIndex:?];
-  [v44 sizeValue];
-  v83 = v11;
-  v84 = v12;
-  v43 = [location[0] objectAtIndex:1];
-  [v43 sizeValue];
-  v81 = v13;
-  v82 = v14;
-  CGSizeMake();
-  v85 = v15;
-  v86 = v16;
-  MEMORY[0x277D82BD8](v43);
-  MEMORY[0x277D82BD8](v44);
-  v46 = [location[0] objectAtIndex:?];
-  [v46 sizeValue];
-  v77 = v17;
-  v78 = v18;
-  v45 = [location[0] objectAtIndex:3];
+  v45 = [location[0] objectAtIndex:?];
   [v45 sizeValue];
-  v75 = v19;
-  v76 = v20;
+  v92 = v5;
+  v93 = v6;
+  v44 = [location[0] objectAtIndex:0];
+  [v44 sizeValue];
+  v90 = v7;
+  v91 = v8;
   CGSizeMake();
-  v79 = v21;
-  v80 = v22;
-  MEMORY[0x277D82BD8](v45);
-  MEMORY[0x277D82BD8](v46);
-  v48 = [location[0] objectAtIndex:?];
-  [v48 sizeValue];
-  v71 = v23;
-  v72 = v24;
-  v47 = [location[0] objectAtIndex:2];
+  v94 = v9;
+  v95 = v10;
+  MEMORY[0x277D82BD8](v44);
+  *&v11 = MEMORY[0x277D82BD8](v45).n128_u64[0];
+  v47 = [location[0] objectAtIndex:v11];
   [v47 sizeValue];
-  v69 = v25;
-  v70 = v26;
+  v86 = v12;
+  v87 = v13;
+  v46 = [location[0] objectAtIndex:1];
+  [v46 sizeValue];
+  v84 = v14;
+  v85 = v15;
   CGSizeMake();
-  v73 = v27;
-  v74 = v28;
-  MEMORY[0x277D82BD8](v47);
+  v88 = v16;
+  v89 = v17;
+  MEMORY[0x277D82BD8](v46);
+  *&v18 = MEMORY[0x277D82BD8](v47).n128_u64[0];
+  v49 = [location[0] objectAtIndex:v18];
+  [v49 sizeValue];
+  v80 = v19;
+  v81 = v20;
+  v48 = [location[0] objectAtIndex:3];
+  [v48 sizeValue];
+  v78 = v21;
+  v79 = v22;
+  CGSizeMake();
+  v82 = v23;
+  v83 = v24;
   MEMORY[0x277D82BD8](v48);
+  *&v25 = MEMORY[0x277D82BD8](v49).n128_u64[0];
+  v51 = [location[0] objectAtIndex:v25];
+  [v51 sizeValue];
+  v74 = v26;
+  v75 = v27;
+  v50 = [location[0] objectAtIndex:2];
+  [v50 sizeValue];
+  v72 = v28;
+  v73 = v29;
+  CGSizeMake();
+  v76 = v30;
+  v77 = v31;
+  MEMORY[0x277D82BD8](v50);
+  MEMORY[0x277D82BD8](v51);
+  v71 = 3;
+  v70 = 3;
+  v69 = 3;
   v68 = 3;
-  v67 = 3;
-  v66 = 3;
-  v65 = 3;
-  v64 = 0;
-  v63 = 0;
-  if (v91 + v85 >= rectCopy.size.width)
+  v67 = 0;
+  v66 = 0;
+  if (v94 + v88 >= rectCopy.size.width)
   {
-    v62 = rectCopy.size.width * 0.5;
-    v91 = rectCopy.size.width * 0.5;
-    v85 = rectCopy.size.width * 0.5;
-    v68 &= 1u;
-    v67 &= 2u;
-    v64 = 1;
+    v65 = rectCopy.size.width * 0.5;
+    v94 = rectCopy.size.width * 0.5;
+    v88 = rectCopy.size.width * 0.5;
+    v71 &= 1u;
+    v70 &= 2u;
+    v67 = 1;
   }
 
-  if (v73 + v79 >= rectCopy.size.width)
+  if (v76 + v82 >= rectCopy.size.width)
   {
-    v61 = rectCopy.size.width * 0.5;
-    v73 = rectCopy.size.width * 0.5;
-    v79 = rectCopy.size.width * 0.5;
-    v65 &= 2u;
-    v66 &= 1u;
-    v64 = 1;
-  }
-
-  if (v92 + v74 >= rectCopy.size.height)
-  {
-    v60 = rectCopy.size.height * 0.5;
-    v92 = rectCopy.size.height * 0.5;
-    v74 = rectCopy.size.height * 0.5;
+    v64 = rectCopy.size.width * 0.5;
+    v76 = rectCopy.size.width * 0.5;
+    v82 = rectCopy.size.width * 0.5;
     v68 &= 2u;
-    v65 &= 1u;
-    v63 = 1;
+    v69 &= 1u;
+    v67 = 1;
   }
 
-  if (v86 + v80 >= rectCopy.size.height)
+  if (v95 + v77 >= rectCopy.size.height)
   {
-    v59 = rectCopy.size.height * 0.5;
-    v86 = rectCopy.size.height * 0.5;
-    v80 = rectCopy.size.height * 0.5;
-    v67 &= 1u;
-    v66 &= 2u;
-    v63 = 1;
+    v63 = rectCopy.size.height * 0.5;
+    v95 = rectCopy.size.height * 0.5;
+    v77 = rectCopy.size.height * 0.5;
+    v71 &= 2u;
+    v68 &= 1u;
+    v66 = 1;
   }
 
-  v39 = 0;
-  if (!v68)
+  if (v89 + v83 >= rectCopy.size.height)
   {
-    v39 = 0;
-    if (!v67)
+    v62 = rectCopy.size.height * 0.5;
+    v89 = rectCopy.size.height * 0.5;
+    v83 = rectCopy.size.height * 0.5;
+    v70 &= 1u;
+    v69 &= 2u;
+    v66 = 1;
+  }
+
+  v42 = 0;
+  if (!v71)
+  {
+    v42 = 0;
+    if (!v70)
     {
-      v39 = 0;
-      if (!v66)
+      v42 = 0;
+      if (!v69)
       {
-        v39 = v65 == 0;
+        v42 = v68 == 0;
       }
     }
   }
 
-  v58 = v39;
-  if (v39 || !shapesCopy)
+  v61 = v42;
+  if (v42 || !shapesCopy)
   {
-    v64 = 0;
-    v63 = 0;
+    v67 = 0;
+    v66 = 0;
   }
 
   CGRectGetMinX(rectCopy);
   CGRectGetMinY(rectCopy);
   CGPointMake();
-  v56 = v29;
-  y = v30;
+  v59 = v32;
+  y = v33;
   CGRectGetMaxX(rectCopy);
   CGRectGetMinY(rectCopy);
   CGPointMake();
-  v54 = v31;
-  v55 = v32;
+  v57 = v34;
+  v58 = v35;
   CGRectGetMinX(rectCopy);
   CGRectGetMaxY(rectCopy);
   CGPointMake();
-  v52 = v33;
-  v53 = v34;
+  v55 = v36;
+  v56 = v37;
   CGRectGetMaxX(rectCopy);
   CGRectGetMaxY(rectCopy);
   CGPointMake();
-  x = v35;
-  v51 = v36;
-  if (v64)
+  x = v38;
+  v54 = v39;
+  if (v67)
   {
-    v56 = v56 + v91 * 0.05;
-    v54 = v54 - v85 * 0.05;
-    v52 = v52 + v73 * 0.05;
-    x = x - v79 * 0.05;
+    v59 = v59 + v94 * 0.05;
+    v57 = v57 - v88 * 0.05;
+    v55 = v55 + v76 * 0.05;
+    x = x - v82 * 0.05;
   }
 
-  else if (v63)
+  else if (v66)
   {
-    y = y + v92 * 0.05;
-    v55 = v55 + v86 * 0.05;
-    v53 = v53 - v74 * 0.05;
-    v51 = v51 - v80 * 0.05;
+    y = y + v95 * 0.05;
+    v58 = v58 + v89 * 0.05;
+    v56 = v56 - v77 * 0.05;
+    v54 = v54 - v83 * 0.05;
   }
 
-  CGPathMoveToPoint(Mutable, 0, v56 + v91, y);
-  CGPathAddLineToPoint(Mutable, 0, v54 - v85, v55);
-  if (!__CGSizeEqualToSize(v85, v86, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
+  CGPathMoveToPoint(Mutable, 0, v59 + v94, y);
+  CGPathAddLineToPoint(Mutable, 0, v57 - v88, v58);
+  if (!__CGSizeEqualToSize(v88, v89, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
   {
-    [selfCopy addContinuousCornerToPath:Mutable trueCorner:2 cornerRadius:v67 corners:0 portion:v58 clockwise:v54 fullRadius:{v55, v85, v86}];
+    [selfCopy addContinuousCornerToPath:Mutable trueCorner:2 cornerRadius:v70 corners:0 portion:v61 clockwise:v57 fullRadius:{v58, v88, v89}];
   }
 
-  CGPathAddLineToPoint(Mutable, 0, x, v51 - v80);
-  if (!__CGSizeEqualToSize(v79, v80, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
+  CGPathAddLineToPoint(Mutable, 0, x, v54 - v83);
+  if (!__CGSizeEqualToSize(v82, v83, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
   {
-    [selfCopy addContinuousCornerToPath:Mutable trueCorner:8 cornerRadius:v66 corners:0 portion:v58 clockwise:x fullRadius:{v51, v79, v80}];
+    [selfCopy addContinuousCornerToPath:Mutable trueCorner:8 cornerRadius:v69 corners:0 portion:v61 clockwise:x fullRadius:{v54, v82, v83}];
   }
 
-  CGPathAddLineToPoint(Mutable, 0, v52 + v73, v53);
-  if (!__CGSizeEqualToSize(v73, v74, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
+  CGPathAddLineToPoint(Mutable, 0, v55 + v76, v56);
+  if (!__CGSizeEqualToSize(v76, v77, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
   {
-    [selfCopy addContinuousCornerToPath:Mutable trueCorner:4 cornerRadius:v65 corners:0 portion:v58 clockwise:v52 fullRadius:{v53, v73, v74}];
+    [selfCopy addContinuousCornerToPath:Mutable trueCorner:4 cornerRadius:v68 corners:0 portion:v61 clockwise:v55 fullRadius:{v56, v76, v77}];
   }
 
-  CGPathAddLineToPoint(Mutable, 0, v56, y + v92);
-  if (!__CGSizeEqualToSize(v91, v92, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
+  CGPathAddLineToPoint(Mutable, 0, v59, y + v95);
+  if (!__CGSizeEqualToSize(v94, v95, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)))
   {
-    [selfCopy addContinuousCornerToPath:Mutable trueCorner:1 cornerRadius:v68 corners:0 portion:v58 clockwise:v56 fullRadius:{y, v91, v92}];
+    [selfCopy addContinuousCornerToPath:Mutable trueCorner:1 cornerRadius:v71 corners:0 portion:v61 clockwise:v59 fullRadius:{y, v94, v95}];
   }
 
-  CGPathAddLineToPoint(Mutable, 0, v56 + v91, y);
-  v49 = objc_alloc_init(AKRoundedPath);
-  [(AKRoundedPath *)v49 setCGPath:Mutable];
+  CGPathAddLineToPoint(Mutable, 0, v59 + v94, y);
+  v52 = objc_alloc_init(AKRoundedPath);
+  [(AKRoundedPath *)v52 setCGPath:Mutable];
   CGPathRelease(Mutable);
-  v38 = MEMORY[0x277D82BE0](v49);
-  objc_storeStrong(&v49, 0);
+  v41 = MEMORY[0x277D82BE0](v52);
+  objc_storeStrong(&v52, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v38;
+  return v41;
 }
 
 - (void)addContinuousCornerToPath:(CGPath *)path trueCorner:(CGPoint)corner cornerRadius:(CGSize)radius corners:(unint64_t)corners portion:(unint64_t)portion clockwise:(BOOL)clockwise fullRadius:(BOOL)fullRadius
@@ -400,52 +393,52 @@
   cornerCopy = corner;
   radiusCopy = radius;
   selfCopy = self;
-  v118 = a2;
+  v116 = a2;
   pathCopy = path;
   cornersCopy = corners;
   portionCopy = portion;
   clockwiseCopy = clockwise;
   fullRadiusCopy = fullRadius;
-  v112 = 0.0;
-  v111 = 50.0;
+  v110 = 0.0;
+  v109 = 50.0;
   width = radius.width;
   height = radius.height;
   if (radius.width >= radius.height)
   {
-    v45 = height;
+    v43 = height;
   }
 
   else
   {
-    v45 = width;
+    v43 = width;
   }
 
-  v107 = v45;
-  v110 = v45;
-  v106 = v45;
-  v105 = 1.0;
+  v105 = v43;
+  v108 = v43;
+  v104 = v43;
+  v103 = 1.0;
   if (!fullRadiusCopy)
   {
-    v106 = v106 * 0.95;
-    v105 = 0.980263;
+    v104 = v104 * 0.95;
+    v103 = 0.980263;
   }
 
-  v104 = v106 * (1.0 - v105);
-  v103 = 0uLL;
-  v103 = *MEMORY[0x277CBF348];
+  v102 = v104 * (1.0 - v103);
+  v101 = 0uLL;
+  v101 = *MEMORY[0x277CBF348];
   switch(cornersCopy)
   {
     case 1uLL:
-      v112 = 180.0;
+      v110 = 180.0;
       break;
     case 2uLL:
-      v112 = 270.0;
+      v110 = 270.0;
       break;
     case 4uLL:
-      v112 = 90.0;
+      v110 = 90.0;
       break;
     case 8uLL:
-      v112 = 0.0;
+      v110 = 0.0;
       break;
   }
 
@@ -453,104 +446,102 @@
   {
     if (portionCopy == 1)
     {
-      v111 = v111 + 20.0;
-      v112 = v112 + 20.0;
-      *&v103 = -v104;
+      v109 = v109 + 20.0;
+      v110 = v110 + 20.0;
+      *&v101 = -v102;
     }
 
     else if (portionCopy == 2)
     {
-      v111 = v111 + 20.0;
-      *(&v103 + 1) = -v104;
+      v109 = v109 + 20.0;
+      *(&v101 + 1) = -v102;
     }
 
     else
     {
-      v112 = v112 + 20.0;
-      v106 = v106 / 1.528665;
+      v110 = v110 + 20.0;
+      v104 = v104 / 1.528665;
     }
   }
 
   else
   {
-    v111 = v111 + 40.0;
-    *&v103 = -v104;
-    *(&v103 + 1) = -v104;
+    v109 = v109 + 40.0;
+    *&v101 = -v102;
+    *(&v101 + 1) = -v102;
   }
 
-  v9 = *MEMORY[0x277CBF348];
-  v10 = *(MEMORY[0x277CBF348] + 8);
-  *&v102 = _interiorPointForCorner(cornersCopy, *&v103);
-  *(&v102 + 1) = v11;
-  v103 = v102;
-  v101 = 0.33 * v106 * 0.666666667;
-  v100 = sqrtf(1.1089);
-  v99 = v100 * v101;
-  v98 = 0.33 * v101 / v100;
-  v97 = v98 + v106 / v100;
-  v96 = v97 * 0.67;
-  v95 = v97 * 0.67 + v99 + v99 + v99 + v99;
-  v94 = v97 * 0.67 + v99 + v99;
-  v93 = v97 * 0.67 + v100 * v101;
-  v92 = v97 * 0.67 + v98 * 0.33;
-  v91 = v98;
+  *&v100 = _interiorPointForCorner(cornersCopy, *&v101);
+  *(&v100 + 1) = v9;
+  v101 = v100;
+  v99 = 0.33 * v104 * 0.666666667;
+  v98 = sqrtf(1.1089);
+  v97 = v98 * v99;
+  v96 = 0.33 * v99 / v98;
+  v95 = v96 + v104 / v98;
+  v94 = v95 * 0.67;
+  v93 = v95 * 0.67 + v97 + v97 + v97 + v97;
+  v92 = v95 * 0.67 + v97 + v97;
+  v91 = v95 * 0.67 + v98 * v99;
+  v90 = v95 * 0.67 + v96 * 0.33;
+  v89 = v96;
   CGPointMake();
-  v87 = v12;
-  v88 = v13;
-  v89 = _interiorPointForCorner(cornersCopy, v12);
-  v90 = v14;
+  v85 = v10;
+  v86 = v11;
+  v87 = _interiorPointForCorner(cornersCopy, v10);
+  v88 = v12;
   CGPointMake();
-  v83 = v15;
-  v84 = v16;
-  v85 = _interiorPointForCorner(cornersCopy, v15);
-  v86 = v17;
+  v81 = v13;
+  v82 = v14;
+  v83 = _interiorPointForCorner(cornersCopy, v13);
+  v84 = v15;
   CGPointMake();
-  v79 = v18;
-  v80 = v19;
-  v81 = _interiorPointForCorner(cornersCopy, v18);
-  v82 = v20;
+  v77 = v16;
+  v78 = v17;
+  v79 = _interiorPointForCorner(cornersCopy, v16);
+  v80 = v18;
   CGPointMake();
-  v75 = v21;
-  v76 = v22;
-  x = _interiorPointForCorner(cornersCopy, v21);
-  y = v23;
+  v73 = v19;
+  v74 = v20;
+  x = _interiorPointForCorner(cornersCopy, v19);
+  y = v21;
   CGPointMake();
-  v71 = v24;
-  v72 = v25;
-  cp2x = _interiorPointForCorner(cornersCopy, v24);
-  cp2y = v26;
+  v69 = v22;
+  v70 = v23;
+  cp2x = _interiorPointForCorner(cornersCopy, v22);
+  cp2y = v24;
   CGPointMake();
-  v67 = v27;
-  v68 = v28;
-  cp1x = _interiorPointForCorner(cornersCopy, v27);
-  cp1y = v29;
+  v65 = v25;
+  v66 = v26;
+  cp1x = _interiorPointForCorner(cornersCopy, v25);
+  cp1y = v27;
   CGPointMake();
-  v63 = v30;
-  v64 = v31;
-  v65 = _interiorPointForCorner(cornersCopy, v30);
-  v66 = v32;
+  v61 = v28;
+  v62 = v29;
+  v63 = _interiorPointForCorner(cornersCopy, v28);
+  v64 = v30;
   CGPointMake();
-  v59 = v33;
-  v60 = v34;
-  v61 = _interiorPointForCorner(cornersCopy, v33);
-  v62 = v35;
+  v57 = v31;
+  v58 = v32;
+  v59 = _interiorPointForCorner(cornersCopy, v31);
+  v60 = v33;
   CGPointMake();
-  v55 = v36;
-  v56 = v37;
-  v57 = _interiorPointForCorner(cornersCopy, v36);
-  v58 = v38;
+  v53 = v34;
+  v54 = v35;
+  v55 = _interiorPointForCorner(cornersCopy, v34);
+  v56 = v36;
   CGPointMake();
-  v51 = v39;
-  v52 = v40;
-  v53 = _interiorPointForCorner(cornersCopy, v39);
-  v54 = v41;
+  v49 = v37;
+  v50 = v38;
+  v51 = _interiorPointForCorner(cornersCopy, v37);
+  v52 = v39;
   CGPointMake();
-  v47 = v42;
-  v48 = v43;
-  v49 = _interiorPointForCorner(cornersCopy, v42);
-  v50 = v44;
+  v45 = v40;
+  v46 = v41;
+  v47 = _interiorPointForCorner(cornersCopy, v40);
+  v48 = v42;
   memset(&__b, 0, sizeof(__b));
-  CGAffineTransformMakeTranslation(&__b, *&v103, *(&v103 + 1));
+  CGAffineTransformMakeTranslation(&__b, *&v101, *(&v101 + 1));
   if (clockwiseCopy)
   {
     if (portionCopy)
@@ -560,18 +551,18 @@
 
     else
     {
-      CGPathAddCurveToPoint(pathCopy, 0, v49, v50, v49, v50, v49, v50);
+      CGPathAddCurveToPoint(pathCopy, 0, v47, v48, v47, v48, v47, v48);
     }
 
-    CGPathAddArc(pathCopy, &__b, v57, v58, v106 * v105, (v112 + v111) * 0.0174532925, v112 * 0.0174532925, 1);
+    CGPathAddArc(pathCopy, &__b, v55, v56, v104 * v103, (v110 + v109) * 0.0174532925, v110 * 0.0174532925, 1);
     if ((portionCopy & 2) != 0)
     {
-      CGPathAddCurveToPoint(pathCopy, &__b, v85, v86, v89, v90, v61, v62);
+      CGPathAddCurveToPoint(pathCopy, &__b, v83, v84, v87, v88, v59, v60);
     }
 
     else
     {
-      CGPathAddCurveToPoint(pathCopy, 0, v53, v54, v53, v54, v53, v54);
+      CGPathAddCurveToPoint(pathCopy, 0, v51, v52, v51, v52, v51, v52);
     }
   }
 
@@ -579,23 +570,23 @@
   {
     if (portionCopy)
     {
-      CGPathAddCurveToPoint(pathCopy, &__b, v89, v90, v85, v86, v81, v82);
+      CGPathAddCurveToPoint(pathCopy, &__b, v87, v88, v83, v84, v79, v80);
     }
 
     else
     {
-      CGPathAddCurveToPoint(pathCopy, 0, v53, v54, v53, v54, v53, v54);
+      CGPathAddCurveToPoint(pathCopy, 0, v51, v52, v51, v52, v51, v52);
     }
 
-    CGPathAddArc(pathCopy, &__b, v57, v58, v106 * v105, v112 * 0.0174532925, (v112 + v111) * 0.0174532925, 0);
+    CGPathAddArc(pathCopy, &__b, v55, v56, v104 * v103, v110 * 0.0174532925, (v110 + v109) * 0.0174532925, 0);
     if ((portionCopy & 2) != 0)
     {
-      CGPathAddCurveToPoint(pathCopy, &__b, cp2x, cp2y, cp1x, cp1y, v65, v66);
+      CGPathAddCurveToPoint(pathCopy, &__b, cp2x, cp2y, cp1x, cp1y, v63, v64);
     }
 
     else
     {
-      CGPathAddCurveToPoint(pathCopy, 0, v49, v50, v49, v50, v49, v50);
+      CGPathAddCurveToPoint(pathCopy, 0, v47, v48, v47, v48, v47, v48);
     }
   }
 }

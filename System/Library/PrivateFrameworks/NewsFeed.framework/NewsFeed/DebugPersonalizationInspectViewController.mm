@@ -58,7 +58,7 @@
 - (int64_t)numberOfSectionsInTableView:(id)view
 {
   v3 = self + OBJC_IVAR____TtC8NewsFeed41DebugPersonalizationInspectViewController_targetGroupData;
-  sub_1D5ECEDF4();
+  sub_1D5ECEDF4(0);
   v5 = *&v3[*(v4 + 48)];
   v6 = OBJC_IVAR____TtC8NewsFeed41DebugPersonalizationInspectViewDataSource_sections;
   swift_beginAccess();
@@ -86,15 +86,16 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v8 = sub_1D7172090(viewCopy, section);
+  sub_1D7172090(viewCopy, section);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
 {
   v5 = self + OBJC_IVAR____TtC8NewsFeed41DebugPersonalizationInspectViewController_targetGroupData;
-  sub_1D5ECEDF4();
+  sub_1D5ECEDF4(0);
   v7 = *&v5[*(v6 + 48)];
   v8 = OBJC_IVAR____TtC8NewsFeed41DebugPersonalizationInspectViewDataSource_sections;
   result = swift_beginAccess();

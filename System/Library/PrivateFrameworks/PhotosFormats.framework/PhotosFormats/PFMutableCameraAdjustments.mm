@@ -77,9 +77,11 @@
 {
   if (self->super._portraitEffectFilterName != name)
   {
-    self->super._portraitEffectFilterName = [name copy];
+    v5 = [name copy];
+    portraitEffectFilterName = self->super._portraitEffectFilterName;
+    self->super._portraitEffectFilterName = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, portraitEffectFilterName);
   }
 }
 
@@ -87,9 +89,11 @@
 {
   if (self->super._effectFilterName != name)
   {
-    self->super._effectFilterName = [name copy];
+    v5 = [name copy];
+    effectFilterName = self->super._effectFilterName;
+    self->super._effectFilterName = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, effectFilterName);
   }
 }
 

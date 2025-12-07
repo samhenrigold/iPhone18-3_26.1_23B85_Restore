@@ -7,25 +7,25 @@
 
 - (id)readInputBlock
 {
-  v9.receiver = self;
-  v9.super_class = ASDTIOA2OffsetStream;
-  readInputBlock = [(ASDTExclavesStream *)&v9 readInputBlock];
+  v10.receiver = self;
+  v10.super_class = ASDTIOA2OffsetStream;
+  readInputBlock = [(ASDTExclavesStream *)&v10 readInputBlock];
   sampleTimeOffset = [(ASDTIOA2OffsetStream *)self sampleTimeOffset];
-  v5 = ASDTIOA2LogType();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = ASDTIOA2LogType(sampleTimeOffset, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(ASDTIOA2OffsetStream *)v5 readInputBlock];
+    [(ASDTIOA2OffsetStream *)v6 readInputBlock];
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __38__ASDTIOA2OffsetStream_readInputBlock__block_invoke;
-  v8[3] = &unk_278CE8D50;
-  *&v8[5] = sampleTimeOffset;
-  v8[4] = readInputBlock;
-  v6 = MEMORY[0x245CEDA00](v8);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __38__ASDTIOA2OffsetStream_readInputBlock__block_invoke;
+  v9[3] = &unk_278CE8D50;
+  *&v9[5] = sampleTimeOffset;
+  v9[4] = readInputBlock;
+  v7 = MEMORY[0x245CEDA00](v9);
 
-  return v6;
+  return v7;
 }
 
 uint64_t __38__ASDTIOA2OffsetStream_readInputBlock__block_invoke(uint64_t a1, uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -57,11 +57,10 @@ uint64_t __38__ASDTIOA2OffsetStream_readInputBlock__block_invoke(uint64_t a1, ui
 
 - (void)readInputBlock
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_2416BA000, log, OS_LOG_TYPE_DEBUG, "Stream samples offset frames: %1.0lf", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_2416BA000, log, OS_LOG_TYPE_DEBUG, "Stream samples offset frames: %1.0lf", &v2, 0xCu);
 }
 
 @end

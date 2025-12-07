@@ -83,7 +83,7 @@
 
 - (void)loadSpecifiers
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"schooltime.addinterval"];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"SCHEDULE_EDITOR_ADD_TIME_INTERVAL" value:@"Add Time" table:@"SchoolTimeSettings"];
@@ -95,9 +95,9 @@
   [v6 setObject:&unk_28762D838 forKeyedSubscript:@"SCLListControllerCellEditingStyle"];
   [v6 setObject:v7 forKeyedSubscript:*MEMORY[0x277D3FF38]];
   [v6 setButtonAction:sel_addInterval_];
-  v16[0] = v3;
-  v16[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v3;
+  v15[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   addIntervalGroupSpecifiers = self->_addIntervalGroupSpecifiers;
   self->_addIntervalGroupSpecifiers = v8;
 
@@ -110,7 +110,6 @@
   [(SCLTimeIntervalDataSource *)self model:model2 didAddIntervalAtIndexes:v14];
 
   [(SCLTimeIntervalDataSource *)self applySpecifiers];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applySpecifiers
@@ -123,12 +122,12 @@
 
 - (id)createSpecifiersForIntervalsAtIndex:(unint64_t)index
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Group-%@", uUIDString];
-  v20 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:v21];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Group-%@", uUIDString];
+  v19 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:v20];
   v7 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:sel_setTimeInterval_forSpecifier_ get:0 detail:0 cell:-1 edit:0];
   [v7 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE58]];
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Interval-%@", uUIDString];
@@ -139,12 +138,12 @@
   [v7 setObject:self->_model forKeyedSubscript:@"SCLTimeIntervalTableViewCellDateConverter"];
   [(SCLTimeIntervalDataSource *)self configureSpecifier:v7 forIndex:index];
   objc_initWeak(&location, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke;
-  v26[3] = &unk_279B6F0D8;
-  objc_copyWeak(&v27, &location);
-  v9 = [v26 copy];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke;
+  v25[3] = &unk_279B6F0D8;
+  objc_copyWeak(&v26, &location);
+  v9 = [v25 copy];
   [v7 setObject:v9 forKeyedSubscript:@"SCLTimeIntervalTableViewCellPickerStateHandler"];
 
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -152,38 +151,36 @@
 
   objc_initWeak(&from, v7);
   v12 = MEMORY[0x277D753C0];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke_47;
-  v22[3] = &unk_279B6F100;
-  objc_copyWeak(&v23, &location);
-  objc_copyWeak(&v24, &from);
-  v13 = [v12 contextualActionWithStyle:1 title:v11 handler:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke_47;
+  v21[3] = &unk_279B6F100;
+  objc_copyWeak(&v22, &location);
+  objc_copyWeak(&v23, &from);
+  v13 = [v12 contextualActionWithStyle:1 title:v11 handler:v21];
   v14 = MEMORY[0x277D75AD8];
-  v30[0] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v16 = [v14 configurationWithActions:v15];
 
   [v7 setObject:v16 forKeyedSubscript:@"SCLListControllerTrailingSwipeActionsConfiguration"];
-  v29[0] = v20;
-  v29[1] = v7;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[0] = v19;
+  v28[1] = v7;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
 
-  objc_destroyWeak(&v24);
   objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&from);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 void __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [WeakRetained listController];
@@ -193,34 +190,34 @@ void __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
   [v8 setObject:v9 forKeyedSubscript:@"SCLTimeIntervalTableViewCellPickerState"];
 
-  v21 = v5;
+  v20 = v5;
   [v5 reloadWithSpecifier:v8 animated:1];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v20 = WeakRetained;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = WeakRetained;
   v10 = [WeakRetained intervalSpecifiers];
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     v14 = *MEMORY[0x277D40148];
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * v15);
+        v16 = *(*(&v21 + 1) + 8 * v15);
         if (v8 != v16)
         {
-          [*(*(&v22 + 1) + 8 * v15) setObject:&unk_28762D850 forKeyedSubscript:@"SCLTimeIntervalTableViewCellPickerState"];
+          [*(*(&v21 + 1) + 8 * v15) setObject:&unk_28762D850 forKeyedSubscript:@"SCLTimeIntervalTableViewCellPickerState"];
           v17 = [v16 propertyForKey:v14];
           [v17 reloadWithSpecifier:v16 animated:1];
         }
@@ -229,16 +226,14 @@ void __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  v18 = [v20 listController];
+  v18 = [v19 listController];
   [v18 endUpdates];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SCLTimeIntervalDataSource_createSpecifiersForIntervalsAtIndex___block_invoke_47(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -393,7 +388,7 @@ void __59__SCLTimeIntervalDataSource_model_didAddIntervalAtIndexes___block_invok
 
 - (void)model:(id)model didDeleteIntervalAtIndex:(unint64_t)index
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   listController = [(SCLSpecifierDataSource *)self listController];
   [listController beginUpdates];
 
@@ -404,9 +399,9 @@ void __59__SCLTimeIntervalDataSource_model_didAddIntervalAtIndexes___block_invok
   v10 = [listController2 getGroupSpecifierForSpecifier:v8];
 
   intervalGroupSpecifiers = self->_intervalGroupSpecifiers;
-  v15[0] = v8;
-  v15[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v8;
+  v14[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   [(NSMutableArray *)intervalGroupSpecifiers removeObjectsInArray:v12];
 
   [(SCLTimeIntervalDataSource *)self reconfigureAllSpecifiers];
@@ -415,7 +410,6 @@ void __59__SCLTimeIntervalDataSource_model_didAddIntervalAtIndexes___block_invok
   [listController3 endUpdates];
 
   [(SCLTimeIntervalDataSource *)self notifyDelegateOfModelUpdate];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)model:(id)model didUpdateIntervalAtIndex:(unint64_t)index

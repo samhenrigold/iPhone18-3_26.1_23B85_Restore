@@ -40,7 +40,7 @@
 
 - (id)specifiers
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = [PSUIPrivacyProxySpecifier alloc];
   WeakRetained = objc_loadWeakRetained(&self->_dataCache);
   v5 = objc_loadWeakRetained(&self->_context);
@@ -56,19 +56,17 @@
   {
     lowDataModeGroupSpecifier = [(PSUIDataModeSpecifier *)self->_dataModeSpecifier lowDataModeGroupSpecifier];
     dataModeSpecifier = self->_dataModeSpecifier;
-    v16[0] = lowDataModeGroupSpecifier;
-    v16[1] = dataModeSpecifier;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = lowDataModeGroupSpecifier;
+    v15[1] = dataModeSpecifier;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     [v7 addObjectsFromArray:v10];
   }
 
   groupSpecifier = [(PSUIPrivacyProxySpecifier *)v6 groupSpecifier];
-  v15[0] = groupSpecifier;
-  v15[1] = v6;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = groupSpecifier;
+  v14[1] = v6;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   [v7 addObjectsFromArray:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

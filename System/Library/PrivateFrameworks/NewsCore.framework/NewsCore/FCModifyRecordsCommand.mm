@@ -4,6 +4,7 @@
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
 - (FCModifyRecordsCommand)init;
 - (FCModifyRecordsCommand)initWithCoder:(id)coder;
+- (FCModifyRecordsCommand)initWithLocalRecords:(id)records merge:(BOOL)merge;
 - (FCModifyRecordsCommand)initWithLocalRecordsGenerator:(id)generator merge:(BOOL)merge;
 - (NSArray)createdOrModifiedRecordIDs;
 - (void)_didSaveRecords:(uint64_t)records;
@@ -85,6 +86,22 @@
   }
 
   return v7;
+}
+
+- (FCModifyRecordsCommand)initWithLocalRecords:(id)records merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  v6 = [records copy];
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __53__FCModifyRecordsCommand_initWithLocalRecords_merge___block_invoke;
+  aBlock[3] = &unk_1E7C3B578;
+  v12 = v6;
+  v7 = v6;
+  v8 = _Block_copy(aBlock);
+  v9 = [(FCModifyRecordsCommand *)self initWithLocalRecordsGenerator:v8 merge:mergeCopy];
+
+  return v9;
 }
 
 - (FCModifyRecordsCommand)initWithCoder:(id)coder
@@ -178,7 +195,7 @@
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   networkReachability = [contextCopy networkReachability];
@@ -187,15 +204,15 @@
   if (isCloudKitReachable)
   {
     internalPrivateDataContext = [contextCopy internalPrivateDataContext];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-    v18[3] = &unk_1E7C3FE20;
-    v18[4] = self;
-    v19 = contextCopy;
-    v20 = delegateCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+    v17[3] = &unk_1E7C3FE20;
+    v17[4] = self;
+    v18 = contextCopy;
+    v19 = delegateCopy;
     serviceCopy = service;
-    [internalPrivateDataContext prepareRecordZonesForUseWithCompletionHandler:v18];
+    [internalPrivateDataContext prepareRecordZonesForUseWithCompletionHandler:v17];
   }
 
   else
@@ -207,39 +224,36 @@
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
       *buf = 138543618;
-      v23 = v16;
-      v24 = 2048;
+      v22 = v16;
+      v23 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will not execute because CloudKit is not reachable", buf, 0x16u);
     }
 
     [delegateCopy command:self didFinishWithStatus:1];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = FCCommandQueueLog;
     if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = v4;
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = *(a1 + 32);
-      v19 = 138543874;
-      v20 = v17;
-      v21 = 2048;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v3;
-      _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "<%{public}@ %p> failed to prepare zones for use with error: %{public}@", &v19, 0x20u);
+      v13 = v4;
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = *(a1 + 32);
+      v17 = 138543874;
+      v18 = v15;
+      v19 = 2048;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v3;
+      _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "<%{public}@ %p> failed to prepare zones for use with error: %{public}@", &v17, 0x20u);
     }
 
     [*(a1 + 48) command:*(a1 + 32) didFinishWithStatus:{objc_msgSend(*(a1 + 32), "statusForCloudKitError:", v3)}];
@@ -267,8 +281,6 @@ void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService__
     v12 = [*(a1 + 40) internalPrivateDataContext];
     [(FCModifyRecordsCommand *)v11 handleLocalRecordsFromStream:v10 internalPrivateDataContext:v12 delegate:*(a1 + 48) qualityOfService:*(a1 + 56)];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleLocalRecordsFromStream:(void *)stream internalPrivateDataContext:(void *)context delegate:(uint64_t)delegate qualityOfService:
@@ -340,10 +352,10 @@ void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService__
 
 - (void)coalesceWithCommand:(id)command
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   objc_opt_class();
-  v41 = commandCopy;
+  v40 = commandCopy;
   if (commandCopy)
   {
     if (objc_opt_isKindOfClass())
@@ -366,7 +378,7 @@ void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService__
   localRecords = [(FCModifyRecordsCommand *)self localRecords];
   v8 = [localRecords fc_dictionaryWithKeySelector:sel_recordID];
 
-  v39 = v6;
+  v38 = v6;
   localRecords2 = [(FCModifyRecordsCommand *)v6 localRecords];
   v10 = [localRecords2 fc_dictionaryWithKeySelector:sel_recordID];
 
@@ -384,7 +396,7 @@ void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService__
     v15 = MEMORY[0x1E695E0F0];
   }
 
-  [v11 addObjectsFromArray:{v15, v39}];
+  [v11 addObjectsFromArray:{v15, v38}];
 
   allKeys2 = [v10 allKeys];
   v17 = allKeys2;
@@ -401,31 +413,31 @@ void __71__FCModifyRecordsCommand_executeWithContext_delegate_qualityOfService__
   [v11 addObjectsFromArray:v18];
 
   array = [MEMORY[0x1E695DF70] array];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v20 = v11;
-  v21 = [v20 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v21)
   {
     v22 = v21;
     selfCopy = self;
-    v47 = *v53;
-    v44 = v10;
-    v45 = v8;
-    v42 = v20;
-    v43 = array;
+    v46 = *v52;
+    v43 = v10;
+    v44 = v8;
+    v41 = v20;
+    v42 = array;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v53 != v47)
+        if (*v52 != v46)
         {
           objc_enumerationMutation(v20);
         }
 
-        v24 = *(*(&v52 + 1) + 8 * i);
+        v24 = *(*(&v51 + 1) + 8 * i);
         v25 = [v8 objectForKey:v24];
         v26 = [v10 objectForKey:v24];
         v27 = v26;
@@ -451,41 +463,41 @@ LABEL_36:
             goto LABEL_38;
           }
 
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
           changedKeys = [v26 changedKeys];
-          v31 = [changedKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+          v31 = [changedKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v49;
+            v33 = *v48;
             do
             {
               for (j = 0; j != v32; ++j)
               {
-                if (*v49 != v33)
+                if (*v48 != v33)
                 {
                   objc_enumerationMutation(changedKeys);
                 }
 
-                v35 = *(*(&v48 + 1) + 8 * j);
+                v35 = *(*(&v47 + 1) + 8 * j);
                 v36 = [v27 objectForKeyedSubscript:v35];
                 [v25 setObject:v36 forKeyedSubscript:v35];
               }
 
-              v32 = [changedKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+              v32 = [changedKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
             }
 
             while (v32);
           }
 
-          v8 = v45;
+          v8 = v44;
           self = selfCopy;
-          array = v43;
-          v10 = v44;
-          v20 = v42;
+          array = v42;
+          v10 = v43;
+          v20 = v41;
         }
 
         if (v25)
@@ -507,7 +519,7 @@ LABEL_36:
 LABEL_38:
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v22);
@@ -517,44 +529,42 @@ LABEL_38:
   {
     objc_setProperty_nonatomic_copy(self, v37, array, 24);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyToRemoteRecords:(id)records remoteDeletions:(id)deletions
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   deletionsCopy = deletions;
   localRecords = [(FCModifyRecordsCommand *)self localRecords];
   v8 = [localRecords fc_dictionaryWithKeyBlock:&__block_literal_global_32_0];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v9 = recordsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     v13 = 0x1EDB0F000uLL;
-    v29 = v9;
-    v30 = v8;
-    v28 = *v37;
+    v28 = v9;
+    v29 = v8;
+    v27 = *v36;
     do
     {
       v14 = 0;
-      v31 = v11;
+      v30 = v11;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * v14);
+        v15 = *(*(&v35 + 1) + 8 * v14);
         v16 = [v8 objectForKeyedSubscript:v15];
         if (v16)
         {
@@ -566,40 +576,40 @@ LABEL_38:
 
           else
           {
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
             v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
             changedKeys = [v16 changedKeys];
-            v19 = [changedKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v19 = [changedKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v33;
+              v21 = *v32;
               do
               {
                 for (i = 0; i != v20; ++i)
                 {
-                  if (*v33 != v21)
+                  if (*v32 != v21)
                   {
                     objc_enumerationMutation(changedKeys);
                   }
 
-                  v23 = *(*(&v32 + 1) + 8 * i);
+                  v23 = *(*(&v31 + 1) + 8 * i);
                   v24 = [v16 objectForKeyedSubscript:v23];
                   [v17 setObject:v24 forKeyedSubscript:v23];
                 }
 
-                v20 = [changedKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
+                v20 = [changedKeys countByEnumeratingWithState:&v31 objects:v39 count:16];
               }
 
               while (v20);
             }
 
-            v9 = v29;
-            v8 = v30;
-            v12 = v28;
-            v11 = v31;
+            v9 = v28;
+            v8 = v29;
+            v12 = v27;
+            v11 = v30;
             v13 = 0x1EDB0F000;
           }
         }
@@ -608,7 +618,7 @@ LABEL_38:
       }
 
       while (v14 != v11);
-      v11 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v11);
@@ -616,8 +626,6 @@ LABEL_38:
 
   allKeys = [v8 allKeys];
   [deletionsCopy fc_removeObjectsFromArray:allKeys];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)createdOrModifiedRecordIDs
@@ -630,28 +638,28 @@ LABEL_38:
 
 void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateDataContext_delegate_qualityOfService___block_invoke(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(a1 + 64);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v42 = __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateDataContext_delegate_qualityOfService___block_invoke_2;
-  v43 = &unk_1E7C3FE68;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v41 = __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateDataContext_delegate_qualityOfService___block_invoke_2;
+  v42 = &unk_1E7C3FE68;
   v7 = *(a1 + 48);
-  v39 = *(a1 + 32);
-  v8 = v39.i64[1];
+  v38 = *(a1 + 32);
+  v8 = v38.i64[1];
   v9 = *(a1 + 56);
   v10.i64[0] = v7;
   v10.i64[1] = v9;
-  v11 = vzip2q_s64(v39, v10);
-  v10.i64[1] = v39.i64[0];
-  v45 = v11;
-  v44 = v10;
-  v46 = *(a1 + 64);
+  v11 = vzip2q_s64(v38, v10);
+  v10.i64[1] = v38.i64[0];
+  v44 = v11;
+  v43 = v10;
+  v45 = *(a1 + 64);
   v12 = a2;
   v13 = v5;
-  v14 = v41;
+  v14 = v40;
   if (v4)
   {
     if ([v12 count])
@@ -691,21 +699,21 @@ void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateD
           *&buf[12] = 2048;
           *&buf[14] = v4;
           *&buf[22] = 2114;
-          v48 = v26;
+          v47 = v26;
           _os_log_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform fetch operation, operationID=%{public}@", buf, 0x20u);
         }
 
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke;
-        v48 = &unk_1E7C3FEE0;
-        v49 = v16;
-        v50 = v4;
-        v53 = v6;
-        v52 = v14;
-        v15 = v40;
-        v31 = v40;
-        v51 = v31;
+        v47 = &unk_1E7C3FEE0;
+        v48 = v16;
+        v49 = v4;
+        v52 = v6;
+        v51 = v14;
+        v15 = v39;
+        v31 = v39;
+        v50 = v31;
         v32 = v16;
         [(FCCKPrivateFetchRecordsOperation *)v17 setFetchRecordsCompletionBlock:buf];
         [(FCCKPrivateDatabase *)v31 addOperation:v17];
@@ -726,7 +734,7 @@ void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateD
           v24 = v6 == 33 || v6 == 25;
         }
 
-        [(FCOperation *)v17 setRelativePriority:v24, v39.i64[0]];
+        [(FCOperation *)v17 setRelativePriority:v24, v38.i64[0]];
         [(FCCKPrivateFetchRecordsOperation *)v17 setSavePolicy:1];
         v33 = [(FCOperation *)v17 operationID];
         v34 = FCCommandQueueLog;
@@ -740,17 +748,17 @@ void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateD
           *&buf[12] = 2048;
           *&buf[14] = v4;
           *&buf[22] = 2114;
-          v48 = v33;
+          v47 = v33;
           _os_log_impl(&dword_1B63EF000, v35, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform save operation, operationID=%{public}@", buf, 0x20u);
         }
 
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke_42;
-        v48 = &unk_1E7C3FEB8;
-        v49 = v4;
-        v50 = v33;
-        v51 = v14;
+        v47 = &unk_1E7C3FEB8;
+        v48 = v4;
+        v49 = v33;
+        v50 = v14;
         v26 = v33;
         [(FCCKPrivateFetchRecordsOperation *)v17 setSaveRecordsCompletionBlock:buf];
         [(FCCKPrivateDatabase *)v15 addOperation:v17];
@@ -772,67 +780,65 @@ void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateD
         _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> skipping work because CloudKit is not available", buf, 0x16u);
       }
 
-      v42(v14, 0);
+      v41(v14, 0);
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateDataContext_delegate_qualityOfService___block_invoke_2(uint64_t a1, uint64_t a2)
+void __108__FCModifyRecordsCommand_handleLocalRecordsFromStream_internalPrivateDataContext_delegate_qualityOfService___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2 || ([*(a1 + 32) isFinished] & 1) != 0)
   {
     v4 = *(a1 + 56);
     v5 = *(a1 + 40);
 
-    return [v4 command:v5 didFinishWithStatus:a2];
+    [v4 command:v5 didFinishWithStatus:a2];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
 
-    return [(FCModifyRecordsCommand *)v7 handleLocalRecordsFromStream:v8 internalPrivateDataContext:v9 delegate:v10 qualityOfService:v11];
+    [(FCModifyRecordsCommand *)v6 handleLocalRecordsFromStream:v7 internalPrivateDataContext:v8 delegate:v9 qualityOfService:v10];
   }
 }
 
 void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v6 || [v6 fc_isCKUnknownItemError])
   {
     v8 = [MEMORY[0x1E695DF70] array];
-    v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v9 = *(a1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v56 objects:v68 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (!v10)
     {
       goto LABEL_15;
     }
 
     v11 = v10;
-    v12 = *v57;
+    v12 = *v52;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v57 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v56 + 1) + 8 * i);
+        v14 = *(*(&v51 + 1) + 8 * i);
         v15 = [*(a1 + 32) objectForKey:v14];
         v16 = [v5 objectForKey:v14];
         if (v16)
@@ -856,7 +862,7 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
 LABEL_13:
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v56 objects:v68 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v51 objects:v63 count:16];
       if (!v11)
       {
 LABEL_15:
@@ -864,92 +870,89 @@ LABEL_15:
         v19 = FCCommandQueueLog;
         if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = *(a1 + 40);
-          v21 = v19;
-          v22 = objc_opt_class();
-          v23 = NSStringFromClass(v22);
-          v24 = *(a1 + 40);
-          v25 = [v5 count];
-          v26 = [v8 count];
+          v20 = v19;
+          v21 = objc_opt_class();
+          v22 = NSStringFromClass(v21);
+          v23 = *(a1 + 40);
+          v24 = [v5 count];
+          v25 = [v8 count];
           *buf = 138544130;
-          v61 = v23;
-          v62 = 2048;
-          v63 = v24;
-          v64 = 2048;
-          v65 = v25;
-          v66 = 2048;
-          v67 = v26;
-          _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> fetched %lu records, and has %lu records to save after merging", buf, 0x2Au);
+          v56 = v22;
+          v57 = 2048;
+          v58 = v23;
+          v59 = 2048;
+          v60 = v24;
+          v61 = 2048;
+          v62 = v25;
+          _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> fetched %lu records, and has %lu records to save after merging", buf, 0x2Au);
         }
 
         if ([v8 count] == 1)
         {
-          v27 = FCCommandQueueLog;
+          v26 = FCCommandQueueLog;
           if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
           {
-            v28 = *(a1 + 40);
-            v29 = v27;
-            v30 = objc_opt_class();
-            v31 = NSStringFromClass(v30);
-            v32 = *(a1 + 40);
-            v33 = [v8 firstObject];
-            v34 = [v33 changedKeys];
+            v27 = v26;
+            v28 = objc_opt_class();
+            v29 = NSStringFromClass(v28);
+            v30 = *(a1 + 40);
+            v31 = [v8 firstObject];
+            v32 = [v31 changedKeys];
             *buf = 138543874;
-            v61 = v31;
-            v62 = 2048;
-            v63 = v32;
-            v64 = 2114;
-            v65 = v34;
-            _os_log_impl(&dword_1B63EF000, v29, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will save record with changed keys: %{public}@", buf, 0x20u);
+            v56 = v29;
+            v57 = 2048;
+            v58 = v30;
+            v59 = 2114;
+            v60 = v32;
+            _os_log_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will save record with changed keys: %{public}@", buf, 0x20u);
           }
         }
 
         if ([v8 count])
         {
-          v35 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
-          [(FCCKPrivateSaveRecordsOperation *)v35 setRecordsToSave:v8];
-          [(FCOperation *)v35 setQualityOfService:*(a1 + 64)];
-          v36 = *(a1 + 64);
-          if (v36 == 9)
+          v33 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
+          [(FCCKPrivateSaveRecordsOperation *)v33 setRecordsToSave:v8];
+          [(FCOperation *)v33 setQualityOfService:*(a1 + 64)];
+          v34 = *(a1 + 64);
+          if (v34 == 9)
           {
-            v37 = -1;
+            v35 = -1;
           }
 
           else
           {
-            v37 = v36 == 33 || v36 == 25;
+            v35 = v34 == 33 || v34 == 25;
           }
 
-          [(FCOperation *)v35 setRelativePriority:v37];
-          [(FCCKPrivateSaveRecordsOperation *)v35 setSavePolicy:1];
-          v39 = [(FCOperation *)v35 operationID];
-          v40 = FCCommandQueueLog;
+          [(FCOperation *)v33 setRelativePriority:v35];
+          [(FCCKPrivateSaveRecordsOperation *)v33 setSavePolicy:1];
+          v37 = [(FCOperation *)v33 operationID];
+          v38 = FCCommandQueueLog;
           if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = *(a1 + 40);
-            v42 = v40;
-            v43 = objc_opt_class();
-            v44 = NSStringFromClass(v43);
-            v45 = *(a1 + 40);
+            v39 = v38;
+            v40 = objc_opt_class();
+            v41 = NSStringFromClass(v40);
+            v42 = *(a1 + 40);
             *buf = 138543874;
-            v61 = v44;
-            v62 = 2048;
-            v63 = v45;
-            v64 = 2114;
-            v65 = v39;
-            _os_log_impl(&dword_1B63EF000, v42, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform save operation, operationID=%{public}@", buf, 0x20u);
+            v56 = v41;
+            v57 = 2048;
+            v58 = v42;
+            v59 = 2114;
+            v60 = v37;
+            _os_log_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> will perform save operation, operationID=%{public}@", buf, 0x20u);
           }
 
-          v53[0] = MEMORY[0x1E69E9820];
-          v53[1] = 3221225472;
-          v53[2] = __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke_40;
-          v53[3] = &unk_1E7C3FEB8;
-          v53[4] = *(a1 + 40);
-          v54 = v39;
-          v55 = *(a1 + 56);
-          v46 = v39;
-          [(FCCKPrivateSaveRecordsOperation *)v35 setSaveRecordsCompletionBlock:v53];
-          [(FCCKPrivateDatabase *)*(a1 + 48) addOperation:v35];
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke_40;
+          v48[3] = &unk_1E7C3FEB8;
+          v48[4] = *(a1 + 40);
+          v49 = v37;
+          v50 = *(a1 + 56);
+          v43 = v37;
+          [(FCCKPrivateSaveRecordsOperation *)v33 setSaveRecordsCompletionBlock:v48];
+          [(FCCKPrivateDatabase *)*(a1 + 48) addOperation:v33];
         }
 
         else
@@ -962,32 +965,29 @@ LABEL_15:
     }
   }
 
-  v38 = FCCommandQueueLog;
+  v36 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
   {
-    v48 = *(a1 + 40);
-    v49 = v38;
-    v50 = objc_opt_class();
-    v51 = NSStringFromClass(v50);
-    v52 = *(a1 + 40);
+    v44 = v36;
+    v45 = objc_opt_class();
+    v46 = NSStringFromClass(v45);
+    v47 = *(a1 + 40);
     *buf = 138543874;
-    v61 = v51;
-    v62 = 2048;
-    v63 = v52;
-    v64 = 2114;
-    v65 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error fetching records: %{public}@", buf, 0x20u);
+    v56 = v46;
+    v57 = 2048;
+    v58 = v47;
+    v59 = 2114;
+    v60 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v44, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error fetching records: %{public}@", buf, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))(*(a1 + 56), [*(a1 + 40) statusForCloudKitError:v7]);
 LABEL_35:
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke_40(uint64_t *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -995,18 +995,17 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
     v7 = FCCommandQueueLog;
     if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
-      v9 = v7;
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = a1[4];
-      v23 = 138543874;
-      v24 = v11;
-      v25 = 2048;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error saving records after merge: %{public}@", &v23, 0x20u);
+      v8 = v7;
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = a1[4];
+      v20 = 138543874;
+      v21 = v10;
+      v22 = 2048;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error saving records after merge: %{public}@", &v20, 0x20u);
     }
   }
 
@@ -1015,36 +1014,33 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
     [(FCModifyRecordsCommand *)a1[4] _didSaveRecords:v5];
   }
 
-  v13 = [a1[4] statusForCloudKitError:v6];
-  v14 = FCCommandQueueLog;
+  v12 = [a1[4] statusForCloudKitError:v6];
+  v13 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = a1[4];
-    v16 = v14;
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = a1[4];
-    v20 = a1[5];
-    v21 = FCCommandStatusDescription(v13);
-    v23 = 138544130;
-    v24 = v18;
-    v25 = 2048;
-    v26 = v19;
-    v27 = 2114;
-    v28 = v20;
-    v29 = 2114;
-    v30 = v21;
-    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform save operation, operationID=%{public}@, status=%{public}@", &v23, 0x2Au);
+    v14 = v13;
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = a1[4];
+    v18 = a1[5];
+    v19 = FCCommandStatusDescription(v12);
+    v20 = 138544130;
+    v21 = v16;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 2114;
+    v25 = v18;
+    v26 = 2114;
+    v27 = v19;
+    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform save operation, operationID=%{public}@, status=%{public}@", &v20, 0x2Au);
   }
 
   (*(a1[6] + 16))(a1[6], [a1[4] statusForCloudKitError:v6]);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didSaveRecords:(uint64_t)records
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (records)
   {
@@ -1056,32 +1052,32 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
     {
       date = [MEMORY[0x1E695DF00] date];
       v8 = MEMORY[0x1E695DFD8];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __42__FCModifyRecordsCommand__didSaveRecords___block_invoke_2;
-      v21[3] = &unk_1E7C371F8;
-      v22 = v3;
-      v9 = [v8 fc_set:v21];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__FCModifyRecordsCommand__didSaveRecords___block_invoke_2;
+      v20[3] = &unk_1E7C371F8;
+      v21 = v3;
+      v9 = [v8 fc_set:v20];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         do
         {
           v13 = 0;
           do
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = FCZoneLastModifiedExternallySharedPreferenceKey(*(*(&v17 + 1) + 8 * v13));
+            v14 = FCZoneLastModifiedExternallySharedPreferenceKey(*(*(&v16 + 1) + 8 * v13));
             v15 = NewsCoreUserDefaults();
             [v15 setObject:date forKey:v14];
 
@@ -1089,20 +1085,18 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
         }
 
         while (v11);
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateDataContext_qualityOfService_completion___block_invoke_42(uint64_t *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1110,18 +1104,17 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
     v7 = FCCommandQueueLog;
     if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
-      v9 = v7;
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = a1[4];
-      v23 = 138543874;
-      v24 = v11;
-      v25 = 2048;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error saving records: %{public}@", &v23, 0x20u);
+      v8 = v7;
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = a1[4];
+      v20 = 138543874;
+      v21 = v10;
+      v22 = 2048;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "<%{public}@ %p> encountered error saving records: %{public}@", &v20, 0x20u);
     }
   }
 
@@ -1130,58 +1123,55 @@ void __107__FCModifyRecordsCommand_handleBatchOfLocalRecords_internalPrivateData
     [(FCModifyRecordsCommand *)a1[4] _didSaveRecords:v5];
   }
 
-  v13 = [a1[4] statusForCloudKitError:v6];
-  v14 = FCCommandQueueLog;
+  v12 = [a1[4] statusForCloudKitError:v6];
+  v13 = FCCommandQueueLog;
   if (os_log_type_enabled(FCCommandQueueLog, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = a1[4];
-    v16 = v14;
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = a1[4];
-    v20 = a1[5];
-    v21 = FCCommandStatusDescription(v13);
-    v23 = 138544130;
-    v24 = v18;
-    v25 = 2048;
-    v26 = v19;
-    v27 = 2114;
-    v28 = v20;
-    v29 = 2114;
-    v30 = v21;
-    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform save operation, operationID=%{public}@, status=%{public}@", &v23, 0x2Au);
+    v14 = v13;
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = a1[4];
+    v18 = a1[5];
+    v19 = FCCommandStatusDescription(v12);
+    v20 = 138544130;
+    v21 = v16;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 2114;
+    v25 = v18;
+    v26 = 2114;
+    v27 = v19;
+    _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@ %p> did perform save operation, operationID=%{public}@, status=%{public}@", &v20, 0x2Au);
   }
 
   (*(a1[6] + 16))();
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __42__FCModifyRecordsCommand__didSaveRecords___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * v8) recordID];
+        v9 = [*(*(&v12 + 1) + 8 * v8) recordID];
         v10 = [v9 zoneID];
         v11 = [v10 zoneName];
         [v3 addObject:v11];
@@ -1190,13 +1180,11 @@ void __42__FCModifyRecordsCommand__didSaveRecords___block_invoke_2(uint64_t a1, 
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

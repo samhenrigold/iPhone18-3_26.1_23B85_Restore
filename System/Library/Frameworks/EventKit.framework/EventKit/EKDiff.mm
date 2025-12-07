@@ -266,21 +266,19 @@ LABEL_39:
 
 void __39__EKDiff__keysToIgnoreForComputingDiff__block_invoke()
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = *MEMORY[0x1E6992598];
-  v7[0] = *MEMORY[0x1E6992588];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x1E6992588];
+  v6[1] = v1;
   v2 = *MEMORY[0x1E6992918];
-  v7[2] = *MEMORY[0x1E6992630];
-  v7[3] = v2;
-  v7[4] = *MEMORY[0x1E6992AA0];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:5];
+  v6[2] = *MEMORY[0x1E6992630];
+  v6[3] = v2;
+  v6[4] = *MEMORY[0x1E6992AA0];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:5];
   v4 = [v0 setWithArray:v3];
   v5 = _keysToIgnoreForComputingDiff_keysToIgnore;
   _keysToIgnoreForComputingDiff_keysToIgnore = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_keysToIgnoreForComputingUIDiff
@@ -351,7 +349,7 @@ void __41__EKDiff__keysToIgnoreForComputingUIDiff__block_invoke(uint64_t a1)
 
 uint64_t __78__EKDiff__populateSingleValueKeysForDiff_keysToIgnore_fetchKeysToIgnoreBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _nonNilObject];
   v5 = [objc_opt_class() specialComparisonBlocks];
@@ -371,8 +369,8 @@ LABEL_7:
   {
     v7 = [*(a1 + 32) _nonNilObject];
     v10 = objc_opt_class();
-    v17[0] = v3;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v3;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     v12 = [*(a1 + 32) firstObject];
     v13 = [*(a1 + 32) secondObject];
     v14 = [*(a1 + 56) _keysToIgnoreForComputingDiff];
@@ -384,13 +382,12 @@ LABEL_7:
   v9 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (void)_populateSingleValueRelationshipKeysForDiff:(id)diff keysToIgnore:(id)ignore fetchKeysToIgnoreBlock:(id)block
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   ignoreCopy = ignore;
   blockCopy = block;
@@ -403,27 +400,27 @@ LABEL_8:
   knownDerivedAndSingleValueRelationshipKeys = [objc_opt_class() knownDerivedAndSingleValueRelationshipKeys];
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = knownDerivedAndSingleValueRelationshipKeys;
-  v10 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v10 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   v11 = ignoreCopy;
   if (v10)
   {
     v12 = v10;
-    v13 = *v43;
+    v13 = *v42;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v43 != v13)
+        if (*v42 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v42 + 1) + 8 * i);
+        v15 = *(*(&v41 + 1) + 8 * i);
         if (([v11 containsObject:v15] & 1) == 0)
         {
           firstObject = [diffCopy firstObject];
@@ -471,9 +468,9 @@ LABEL_8:
               {
                 v28 = [EKDiff diffBetweenObject:v20 andObject:v22 fetchKeysToIgnoreBlock:blockCopy];
                 differentKeys = [v28 differentKeys];
-                v36 = [differentKeys count];
+                v35 = [differentKeys count];
 
-                if (v36)
+                if (v35)
                 {
                   [dictionary setObject:v28 forKeyedSubscript:v15];
                 }
@@ -491,7 +488,7 @@ LABEL_8:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v12 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v12);
@@ -505,13 +502,11 @@ LABEL_8:
   allKeys = [dictionary allKeys];
   v34 = [v32 setWithArray:allKeys];
   [diffCopy setDifferentRelationshipSingleValueKeys:v34];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_populateMultiValueRelationshipKeysForDiff:(id)diff keysToIgnore:(id)ignore fetchKeysToIgnoreBlock:(id)block
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   ignoreCopy = ignore;
   blockCopy = block;
@@ -523,20 +518,20 @@ LABEL_8:
   _nonNilObject = [diffCopy _nonNilObject];
   knownRelationshipMultiValueKeys = [objc_opt_class() knownRelationshipMultiValueKeys];
 
-  v96[0] = MEMORY[0x1E69E9820];
-  v96[1] = 3221225472;
-  v96[2] = __89__EKDiff__populateMultiValueRelationshipKeysForDiff_keysToIgnore_fetchKeysToIgnoreBlock___block_invoke;
-  v96[3] = &unk_1E77FDC18;
-  v63 = ignoreCopy;
-  v97 = v63;
+  v93[0] = MEMORY[0x1E69E9820];
+  v93[1] = 3221225472;
+  v93[2] = __89__EKDiff__populateMultiValueRelationshipKeysForDiff_keysToIgnore_fetchKeysToIgnoreBlock___block_invoke;
+  v93[3] = &unk_1E77FDC18;
+  v60 = ignoreCopy;
+  v94 = v60;
   v12 = diffCopy;
-  v98 = v12;
+  v95 = v12;
   selfCopy = self;
-  v13 = [knownRelationshipMultiValueKeys indexesOfObjectsPassingTest:v96];
-  v64 = knownRelationshipMultiValueKeys;
+  v13 = [knownRelationshipMultiValueKeys indexesOfObjectsPassingTest:v93];
+  v61 = knownRelationshipMultiValueKeys;
   v14 = [knownRelationshipMultiValueKeys objectsAtIndexes:v13];
 
-  v62 = v14;
+  v59 = v14;
   v15 = [MEMORY[0x1E695DFD8] setWithArray:v14];
   [v12 setDifferentRelationshipMultiValueKeys:v15];
 
@@ -550,223 +545,219 @@ LABEL_8:
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   dictionary3 = [MEMORY[0x1E695DF90] dictionary];
+  v89 = 0u;
+  v90 = 0u;
+  v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v95 = 0u;
   obj = [v12 differentRelationshipMultiValueKeys];
-  v73 = [obj countByEnumeratingWithState:&v92 objects:v103 count:16];
-  if (v73)
+  v70 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+  if (v70)
   {
-    v71 = *v93;
-    v72 = v12;
+    v68 = *v90;
+    v69 = v12;
     selfCopy2 = self;
     do
     {
       v18 = 0;
       do
       {
-        if (*v93 != v71)
+        if (*v90 != v68)
         {
           objc_enumerationMutation(obj);
         }
 
-        v74 = v18;
-        v19 = *(*(&v92 + 1) + 8 * v18);
-        v78 = [MEMORY[0x1E695DFA8] set];
-        v79 = [MEMORY[0x1E695DFA8] set];
+        v71 = v18;
+        v19 = *(*(&v89 + 1) + 8 * v18);
+        v75 = [MEMORY[0x1E695DFA8] set];
+        v76 = [MEMORY[0x1E695DFA8] set];
         dictionary4 = [*(v17 + 3984) dictionary];
-        v20 = *(v17 + 3984);
-        v21 = objc_opt_new();
-        v88 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v91 = 0u;
-        firstObject = [v12 firstObject];
-        v75 = v19;
-        v23 = [firstObject valueForKey:v19];
-
-        v24 = [v23 countByEnumeratingWithState:&v88 objects:v102 count:16];
-        if (v24)
-        {
-          v25 = v24;
-          v26 = *v89;
-          do
-          {
-            for (i = 0; i != v25; ++i)
-            {
-              if (*v89 != v26)
-              {
-                objc_enumerationMutation(v23);
-              }
-
-              v28 = *(*(&v88 + 1) + 8 * i);
-              uniqueIdentifier = [v28 uniqueIdentifier];
-              if ([uniqueIdentifier length])
-              {
-                [v21 setObject:v28 forKeyedSubscript:uniqueIdentifier];
-              }
-            }
-
-            v25 = [v23 countByEnumeratingWithState:&v88 objects:v102 count:16];
-          }
-
-          while (v25);
-        }
-
-        v30 = *(v17 + 3984);
-        v31 = objc_opt_new();
-        v84 = 0u;
+        v20 = objc_opt_new();
         v85 = 0u;
         v86 = 0u;
         v87 = 0u;
-        secondObject = [v12 secondObject];
-        v33 = [secondObject valueForKey:v75];
+        v88 = 0u;
+        firstObject = [v12 firstObject];
+        v72 = v19;
+        v22 = [firstObject valueForKey:v19];
 
-        v34 = [v33 countByEnumeratingWithState:&v84 objects:v101 count:16];
-        if (v34)
+        v23 = [v22 countByEnumeratingWithState:&v85 objects:v99 count:16];
+        if (v23)
         {
-          v35 = v34;
-          v36 = *v85;
+          v24 = v23;
+          v25 = *v86;
           do
           {
-            for (j = 0; j != v35; ++j)
+            for (i = 0; i != v24; ++i)
             {
-              if (*v85 != v36)
+              if (*v86 != v25)
               {
-                objc_enumerationMutation(v33);
+                objc_enumerationMutation(v22);
               }
 
-              v38 = *(*(&v84 + 1) + 8 * j);
-              uniqueIdentifier2 = [v38 uniqueIdentifier];
-              if ([uniqueIdentifier2 length])
+              v27 = *(*(&v85 + 1) + 8 * i);
+              uniqueIdentifier = [v27 uniqueIdentifier];
+              if ([uniqueIdentifier length])
               {
-                [v31 setObject:v38 forKeyedSubscript:uniqueIdentifier2];
+                [v20 setObject:v27 forKeyedSubscript:uniqueIdentifier];
               }
             }
 
-            v35 = [v33 countByEnumeratingWithState:&v84 objects:v101 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v85 objects:v99 count:16];
           }
 
-          while (v35);
+          while (v24);
         }
 
-        v40 = MEMORY[0x1E695DFD8];
-        allKeys = [v21 allKeys];
-        v42 = [v40 setWithArray:allKeys];
-        allKeys2 = [v31 allKeys];
-        v44 = [v42 setByAddingObjectsFromArray:allKeys2];
-
+        v29 = objc_opt_new();
+        v81 = 0u;
         v82 = 0u;
         v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v45 = v44;
-        v46 = [v45 countByEnumeratingWithState:&v80 objects:v100 count:16];
-        v47 = v78;
-        if (v46)
+        v84 = 0u;
+        secondObject = [v12 secondObject];
+        v31 = [secondObject valueForKey:v72];
+
+        v32 = [v31 countByEnumeratingWithState:&v81 objects:v98 count:16];
+        if (v32)
         {
-          v48 = v46;
-          v49 = *v81;
+          v33 = v32;
+          v34 = *v82;
           do
           {
-            for (k = 0; k != v48; ++k)
+            for (j = 0; j != v33; ++j)
             {
-              if (*v81 != v49)
+              if (*v82 != v34)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v31);
               }
 
-              v51 = *(*(&v80 + 1) + 8 * k);
-              v52 = [v21 objectForKeyedSubscript:v51];
-              v53 = [v31 objectForKeyedSubscript:v51];
-              v54 = v53;
-              if (!(v52 | v53))
+              v36 = *(*(&v81 + 1) + 8 * j);
+              uniqueIdentifier2 = [v36 uniqueIdentifier];
+              if ([uniqueIdentifier2 length])
+              {
+                [v29 setObject:v36 forKeyedSubscript:uniqueIdentifier2];
+              }
+            }
+
+            v33 = [v31 countByEnumeratingWithState:&v81 objects:v98 count:16];
+          }
+
+          while (v33);
+        }
+
+        v38 = MEMORY[0x1E695DFD8];
+        allKeys = [v20 allKeys];
+        v40 = [v38 setWithArray:allKeys];
+        allKeys2 = [v29 allKeys];
+        v42 = [v40 setByAddingObjectsFromArray:allKeys2];
+
+        v79 = 0u;
+        v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
+        v43 = v42;
+        v44 = [v43 countByEnumeratingWithState:&v77 objects:v97 count:16];
+        v45 = v75;
+        if (v44)
+        {
+          v46 = v44;
+          v47 = *v78;
+          do
+          {
+            for (k = 0; k != v46; ++k)
+            {
+              if (*v78 != v47)
+              {
+                objc_enumerationMutation(v43);
+              }
+
+              v49 = *(*(&v77 + 1) + 8 * k);
+              v50 = [v20 objectForKeyedSubscript:v49];
+              v51 = [v29 objectForKeyedSubscript:v49];
+              v52 = v51;
+              if (!(v50 | v51))
               {
                 [EKDiff _populateMultiValueRelationshipKeysForDiff:a2 keysToIgnore:selfCopy2 fetchKeysToIgnoreBlock:?];
 LABEL_40:
-                v56 = v47;
-                v57 = v54;
+                v54 = v45;
+                v55 = v52;
 LABEL_41:
-                [v56 addObject:v57];
+                [v54 addObject:v55];
                 goto LABEL_42;
               }
 
-              if (!v52)
+              if (!v50)
               {
                 goto LABEL_40;
               }
 
-              if (!v53)
+              if (!v51)
               {
-                v56 = v79;
-                v57 = v52;
+                v54 = v76;
+                v55 = v50;
                 goto LABEL_41;
               }
 
-              if (([v52 isEqual:v53 ignoringProperties:0] & 1) == 0)
+              if (([v50 isEqual:v51 ignoringProperties:0] & 1) == 0)
               {
-                v55 = [EKDiff diffBetweenObject:v52 andObject:v54 fetchKeysToIgnoreBlock:blockCopy];
-                [dictionary4 setObject:v55 forKeyedSubscript:v51];
+                v53 = [EKDiff diffBetweenObject:v50 andObject:v52 fetchKeysToIgnoreBlock:blockCopy];
+                [dictionary4 setObject:v53 forKeyedSubscript:v49];
 
-                v47 = v78;
+                v45 = v75;
               }
 
 LABEL_42:
             }
 
-            v48 = [v45 countByEnumeratingWithState:&v80 objects:v100 count:16];
+            v46 = [v43 countByEnumeratingWithState:&v77 objects:v97 count:16];
           }
 
-          while (v48);
+          while (v46);
         }
 
-        if ([v47 count])
+        if ([v45 count])
         {
-          [dictionary setObject:v47 forKeyedSubscript:v75];
+          [dictionary setObject:v45 forKeyedSubscript:v72];
         }
 
-        if ([v79 count])
+        if ([v76 count])
         {
-          [dictionary2 setObject:v79 forKeyedSubscript:v75];
+          [dictionary2 setObject:v76 forKeyedSubscript:v72];
         }
 
         if ([dictionary4 count])
         {
-          [dictionary3 setObject:dictionary4 forKeyedSubscript:v75];
+          [dictionary3 setObject:dictionary4 forKeyedSubscript:v72];
         }
 
-        v18 = v74 + 1;
-        v12 = v72;
+        v18 = v71 + 1;
+        v12 = v69;
         v17 = 0x1E695D000;
       }
 
-      while (v74 + 1 != v73);
-      v73 = [obj countByEnumeratingWithState:&v92 objects:v103 count:16];
+      while (v71 + 1 != v70);
+      v70 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
     }
 
-    while (v73);
+    while (v70);
   }
 
   if ([dictionary count])
   {
-    v58 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
-    [v12 setRelationshipMultiValueAdds:v58];
+    v56 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
+    [v12 setRelationshipMultiValueAdds:v56];
   }
 
   if ([dictionary2 count])
   {
-    v59 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary2];
-    [v12 setRelationshipMultiValueRemoves:v59];
+    v57 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary2];
+    [v12 setRelationshipMultiValueRemoves:v57];
   }
 
   if ([dictionary3 count])
   {
-    v60 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary3];
-    [v12 setRelationshipMultiValueModifies:v60];
+    v58 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary3];
+    [v12 setRelationshipMultiValueModifies:v58];
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__EKDiff__populateMultiValueRelationshipKeysForDiff_keysToIgnore_fetchKeysToIgnoreBlock___block_invoke(id *a1, void *a2)
@@ -826,7 +817,7 @@ uint64_t __89__EKDiff__populateMultiValueRelationshipKeysForDiff_keysToIgnore_fe
 
 uint64_t __52__EKDiff__populateIdentityKeysForDiff_keysToIgnore___block_invoke(id *a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([a1[4] containsObject:v3])
   {
@@ -837,15 +828,14 @@ uint64_t __52__EKDiff__populateIdentityKeysForDiff_keysToIgnore___block_invoke(i
   {
     v5 = [a1[5] _nonNilObject];
     v6 = objc_opt_class();
-    v13[0] = v3;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v3;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v8 = [a1[5] firstObject];
     v9 = [a1[5] secondObject];
     v10 = [a1[6] _keysToIgnoreForComputingDiff];
     v4 = [v6 _compareNonRelationshipKeys:v7 forObject:v8 againstObject:v9 propertiesToIgnore:v10] ^ 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -885,7 +875,7 @@ uint64_t __52__EKDiff__populateIdentityKeysForDiff_keysToIgnore___block_invoke(i
 
 uint64_t __53__EKDiff__populateImmutableKeysForDiff_keysToIgnore___block_invoke(id *a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([a1[4] containsObject:v3])
   {
@@ -896,56 +886,53 @@ uint64_t __53__EKDiff__populateImmutableKeysForDiff_keysToIgnore___block_invoke(
   {
     v5 = [a1[5] _nonNilObject];
     v6 = objc_opt_class();
-    v13[0] = v3;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v3;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v8 = [a1[5] firstObject];
     v9 = [a1[5] secondObject];
     v10 = [a1[6] _keysToIgnoreForComputingDiff];
     v4 = [v6 _compareNonRelationshipKeys:v7 forObject:v8 againstObject:v9 propertiesToIgnore:v10] ^ 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)_multiValueModifiedObjectsForKey:(id)key
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   relationshipMultiValueModifies = [(EKDiff *)self relationshipMultiValueModifies];
   v6 = [relationshipMultiValueModifies objectForKeyedSubscript:keyCopy];
 
   v7 = [MEMORY[0x1E695DFA8] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [v6 allValues];
-  v9 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        secondObject = [*(*(&v16 + 1) + 8 * i) secondObject];
+        secondObject = [*(*(&v15 + 1) + 8 * i) secondObject];
         [v7 addObject:secondObject];
       }
 
-      v10 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -975,121 +962,121 @@ uint64_t __53__EKDiff__populateImmutableKeysForDiff_keysToIgnore___block_invoke(
 
 - (id)summaryDictionary
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v146 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v133 = 0u;
   v134 = 0u;
   v135 = 0u;
   v136 = 0u;
-  v137 = 0u;
   differentSingleValueKeys = [(EKDiff *)self differentSingleValueKeys];
-  v5 = [differentSingleValueKeys countByEnumeratingWithState:&v134 objects:v146 count:16];
+  v5 = [differentSingleValueKeys countByEnumeratingWithState:&v133 objects:v145 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v135;
+    v7 = *v134;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v135 != v7)
+        if (*v134 != v7)
         {
           objc_enumerationMutation(differentSingleValueKeys);
         }
 
-        v9 = *(*(&v134 + 1) + 8 * i);
+        v9 = *(*(&v133 + 1) + 8 * i);
         null = [MEMORY[0x1E695DFB0] null];
         [dictionary setObject:null forKeyedSubscript:v9];
       }
 
-      v6 = [differentSingleValueKeys countByEnumeratingWithState:&v134 objects:v146 count:16];
+      v6 = [differentSingleValueKeys countByEnumeratingWithState:&v133 objects:v145 count:16];
     }
 
     while (v6);
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
+  v132 = 0u;
+  v129 = 0u;
+  v130 = 0u;
   differentIdentityKeys = [(EKDiff *)self differentIdentityKeys];
-  v12 = [differentIdentityKeys countByEnumeratingWithState:&v130 objects:v145 count:16];
+  v12 = [differentIdentityKeys countByEnumeratingWithState:&v129 objects:v144 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v131;
+    v14 = *v130;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v131 != v14)
+        if (*v130 != v14)
         {
           objc_enumerationMutation(differentIdentityKeys);
         }
 
-        v16 = *(*(&v130 + 1) + 8 * j);
+        v16 = *(*(&v129 + 1) + 8 * j);
         null2 = [MEMORY[0x1E695DFB0] null];
         [dictionary setObject:null2 forKeyedSubscript:v16];
       }
 
-      v13 = [differentIdentityKeys countByEnumeratingWithState:&v130 objects:v145 count:16];
+      v13 = [differentIdentityKeys countByEnumeratingWithState:&v129 objects:v144 count:16];
     }
 
     while (v13);
   }
 
-  v128 = 0u;
-  v129 = 0u;
-  v126 = 0u;
   v127 = 0u;
+  v128 = 0u;
+  v125 = 0u;
+  v126 = 0u;
   differentImmutableKeys = [(EKDiff *)self differentImmutableKeys];
-  v19 = [differentImmutableKeys countByEnumeratingWithState:&v126 objects:v144 count:16];
+  v19 = [differentImmutableKeys countByEnumeratingWithState:&v125 objects:v143 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v127;
+    v21 = *v126;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v127 != v21)
+        if (*v126 != v21)
         {
           objc_enumerationMutation(differentImmutableKeys);
         }
 
-        v23 = *(*(&v126 + 1) + 8 * k);
+        v23 = *(*(&v125 + 1) + 8 * k);
         null3 = [MEMORY[0x1E695DFB0] null];
         [dictionary setObject:null3 forKeyedSubscript:v23];
       }
 
-      v20 = [differentImmutableKeys countByEnumeratingWithState:&v126 objects:v144 count:16];
+      v20 = [differentImmutableKeys countByEnumeratingWithState:&v125 objects:v143 count:16];
     }
 
     while (v20);
   }
 
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
   v123 = 0u;
+  v124 = 0u;
+  v121 = 0u;
+  v122 = 0u;
   obj = [(EKDiff *)self differentRelationshipSingleValueKeys];
-  v25 = [obj countByEnumeratingWithState:&v122 objects:v143 count:16];
+  v25 = [obj countByEnumeratingWithState:&v121 objects:v142 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v123;
-    v88 = *v123;
+    v27 = *v122;
+    v87 = *v122;
     do
     {
       v28 = 0;
-      v89 = v26;
+      v88 = v26;
       do
       {
-        if (*v123 != v27)
+        if (*v122 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v122 + 1) + 8 * v28);
+        v29 = *(*(&v121 + 1) + 8 * v28);
         firstObject = [(EKDiff *)self firstObject];
         v31 = [firstObject valueForKey:v29];
 
@@ -1115,39 +1102,39 @@ uint64_t __53__EKDiff__populateImmutableKeysForDiff_keysToIgnore___block_invoke(
 
         else
         {
-          v93 = v28;
-          v94 = v29;
+          v92 = v28;
+          v93 = v29;
           v37 = [objc_msgSend(objc_opt_class() "meltedClass")];
           v38 = [objc_msgSend(objc_opt_class() "meltedClass")];
-          v92 = v37;
+          v91 = v37;
           [MEMORY[0x1E695DF70] arrayWithArray:v37];
-          v39 = v96 = v33;
-          v91 = v38;
+          v39 = v95 = v33;
+          v90 = v38;
           [v39 addObjectsFromArray:v38];
-          v120 = 0u;
-          v121 = 0u;
-          v118 = 0u;
           v119 = 0u;
+          v120 = 0u;
+          v117 = 0u;
+          v118 = 0u;
           v40 = v39;
           v34 = v33;
-          v100 = v40;
-          v41 = [v40 countByEnumeratingWithState:&v118 objects:v142 count:16];
+          v99 = v40;
+          v41 = [v40 countByEnumeratingWithState:&v117 objects:v141 count:16];
           if (v41)
           {
             v42 = v41;
-            v43 = *v119;
+            v43 = *v118;
             do
             {
               v44 = 0;
-              v98 = v42;
+              v97 = v42;
               do
               {
-                if (*v119 != v43)
+                if (*v118 != v43)
                 {
-                  objc_enumerationMutation(v100);
+                  objc_enumerationMutation(v99);
                 }
 
-                v45 = *(*(&v118 + 1) + 8 * v44);
+                v45 = *(*(&v117 + 1) + 8 * v44);
                 v46 = [v31 valueForKey:v45];
                 v47 = [v34 valueForKey:v45];
                 v48 = v47;
@@ -1169,13 +1156,13 @@ uint64_t __53__EKDiff__populateImmutableKeysForDiff_keysToIgnore___block_invoke(
                   }
 
 LABEL_44:
-                  v50 = [objc_opt_class() summaryKeyForChangedProperty:v94 subProperty:v45];
+                  v50 = [objc_opt_class() summaryKeyForChangedProperty:v93 subProperty:v45];
                   [MEMORY[0x1E695DFB0] null];
                   selfCopy = self;
                   v52 = v43;
                   v54 = v53 = v31;
-                  v34 = v96;
-                  [dictionary setObject:v54 forKeyedSubscript:v94];
+                  v34 = v95;
+                  [dictionary setObject:v54 forKeyedSubscript:v93];
 
                   null5 = [MEMORY[0x1E695DFB0] null];
                   [dictionary setObject:null5 forKeyedSubscript:v50];
@@ -1183,7 +1170,7 @@ LABEL_44:
                   v31 = v53;
                   v43 = v52;
                   self = selfCopy;
-                  v42 = v98;
+                  v42 = v97;
 
                   goto LABEL_45;
                 }
@@ -1200,158 +1187,156 @@ LABEL_45:
               }
 
               while (v42 != v44);
-              v57 = [v100 countByEnumeratingWithState:&v118 objects:v142 count:16];
+              v57 = [v99 countByEnumeratingWithState:&v117 objects:v141 count:16];
               v42 = v57;
             }
 
             while (v57);
           }
 
-          v27 = v88;
-          v26 = v89;
-          null4 = v92;
-          v28 = v93;
+          v27 = v87;
+          v26 = v88;
+          null4 = v91;
+          v28 = v92;
         }
 
         ++v28;
       }
 
       while (v28 != v26);
-      v26 = [obj countByEnumeratingWithState:&v122 objects:v143 count:16];
+      v26 = [obj countByEnumeratingWithState:&v121 objects:v142 count:16];
     }
 
     while (v26);
   }
 
-  v116 = 0u;
-  v117 = 0u;
-  v114 = 0u;
   v115 = 0u;
+  v116 = 0u;
+  v113 = 0u;
+  v114 = 0u;
   differentRelationshipMultiValueKeys = [(EKDiff *)self differentRelationshipMultiValueKeys];
-  v99 = [differentRelationshipMultiValueKeys countByEnumeratingWithState:&v114 objects:v141 count:16];
-  if (v99)
+  v98 = [differentRelationshipMultiValueKeys countByEnumeratingWithState:&v113 objects:v140 count:16];
+  if (v98)
   {
-    v97 = *v115;
+    v96 = *v114;
     do
     {
       v58 = 0;
       do
       {
-        if (*v115 != v97)
+        if (*v114 != v96)
         {
           objc_enumerationMutation(differentRelationshipMultiValueKeys);
         }
 
-        v101 = v58;
-        v59 = *(*(&v114 + 1) + 8 * v58);
+        v100 = v58;
+        v59 = *(*(&v113 + 1) + 8 * v58);
+        v109 = 0u;
         v110 = 0u;
         v111 = 0u;
         v112 = 0u;
-        v113 = 0u;
         relationshipMultiValueAdds = [(EKDiff *)self relationshipMultiValueAdds];
         v61 = [relationshipMultiValueAdds objectForKeyedSubscript:v59];
 
-        v62 = [v61 countByEnumeratingWithState:&v110 objects:v140 count:16];
+        v62 = [v61 countByEnumeratingWithState:&v109 objects:v139 count:16];
         if (v62)
         {
           v63 = v62;
-          v64 = *v111;
+          v64 = *v110;
           do
           {
             for (m = 0; m != v63; ++m)
             {
-              if (*v111 != v64)
+              if (*v110 != v64)
               {
                 objc_enumerationMutation(v61);
               }
 
-              v66 = *(*(&v110 + 1) + 8 * m);
+              v66 = *(*(&v109 + 1) + 8 * m);
               v67 = objc_opt_class();
               v68 = [objc_opt_class() summaryKeyForMultiValueAddOfPropertyKey:v59];
               [v67 _addObject:v66 forKey:v68 toDiff:dictionary];
             }
 
-            v63 = [v61 countByEnumeratingWithState:&v110 objects:v140 count:16];
+            v63 = [v61 countByEnumeratingWithState:&v109 objects:v139 count:16];
           }
 
           while (v63);
         }
 
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
         v107 = 0u;
+        v108 = 0u;
+        v105 = 0u;
+        v106 = 0u;
         relationshipMultiValueRemoves = [(EKDiff *)self relationshipMultiValueRemoves];
         v70 = [relationshipMultiValueRemoves objectForKeyedSubscript:v59];
 
-        v71 = [v70 countByEnumeratingWithState:&v106 objects:v139 count:16];
+        v71 = [v70 countByEnumeratingWithState:&v105 objects:v138 count:16];
         if (v71)
         {
           v72 = v71;
-          v73 = *v107;
+          v73 = *v106;
           do
           {
             for (n = 0; n != v72; ++n)
             {
-              if (*v107 != v73)
+              if (*v106 != v73)
               {
                 objc_enumerationMutation(v70);
               }
 
-              v75 = *(*(&v106 + 1) + 8 * n);
+              v75 = *(*(&v105 + 1) + 8 * n);
               v76 = objc_opt_class();
               v77 = [objc_opt_class() summaryKeyForMultiValueRemoveOfPropertyKey:v59];
               [v76 _addObject:v75 forKey:v77 toDiff:dictionary];
             }
 
-            v72 = [v70 countByEnumeratingWithState:&v106 objects:v139 count:16];
+            v72 = [v70 countByEnumeratingWithState:&v105 objects:v138 count:16];
           }
 
           while (v72);
         }
 
-        v104 = 0u;
-        v105 = 0u;
-        v102 = 0u;
         v103 = 0u;
+        v104 = 0u;
+        v101 = 0u;
+        v102 = 0u;
         v78 = [(EKDiff *)self _multiValueModifiedObjectsForKey:v59];
-        v79 = [v78 countByEnumeratingWithState:&v102 objects:v138 count:16];
+        v79 = [v78 countByEnumeratingWithState:&v101 objects:v137 count:16];
         if (v79)
         {
           v80 = v79;
-          v81 = *v103;
+          v81 = *v102;
           do
           {
             for (ii = 0; ii != v80; ++ii)
             {
-              if (*v103 != v81)
+              if (*v102 != v81)
               {
                 objc_enumerationMutation(v78);
               }
 
-              v83 = *(*(&v102 + 1) + 8 * ii);
+              v83 = *(*(&v101 + 1) + 8 * ii);
               v84 = objc_opt_class();
               v85 = [objc_opt_class() summaryKeyForMultiValueModifyOfPropertyKey:v59];
               [v84 _addObject:v83 forKey:v85 toDiff:dictionary];
             }
 
-            v80 = [v78 countByEnumeratingWithState:&v102 objects:v138 count:16];
+            v80 = [v78 countByEnumeratingWithState:&v101 objects:v137 count:16];
           }
 
           while (v80);
         }
 
-        v58 = v101 + 1;
+        v58 = v100 + 1;
       }
 
-      while (v101 + 1 != v99);
-      v99 = [differentRelationshipMultiValueKeys countByEnumeratingWithState:&v114 objects:v141 count:16];
+      while (v100 + 1 != v98);
+      v98 = [differentRelationshipMultiValueKeys countByEnumeratingWithState:&v113 objects:v140 count:16];
     }
 
-    while (v99);
+    while (v98);
   }
-
-  v86 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1439,34 +1424,34 @@ LABEL_45:
 
 + (void)_addSummaryWithDepth:(int64_t)depth toMutableString:(id)string forSingleValueKeys:(id)keys firstObject:(id)object secondObject:(id)secondObject
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   keysCopy = keys;
   objectCopy = object;
   if ([keysCopy count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v22 = keysCopy;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = keysCopy;
     obj = keysCopy;
-    v14 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * v17);
+          v18 = *(*(&v23 + 1) + 8 * v17);
           [stringCopy appendString:@"\n"];
           v19 = [objc_opt_class() _addChangeStarIfChangedKey:v18 onObject:objectCopy];
           [self _addPaddedHeaderToMutableString:stringCopy forKey:v19 withDepth:depth];
@@ -1477,45 +1462,43 @@ LABEL_45:
         }
 
         while (v15 != v17);
-        v15 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v15);
     }
 
-    keysCopy = v22;
+    keysCopy = v21;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addSummaryWithDepth:(int64_t)depth toMutableString:(id)string forRelationshipSingleValueKeys:(id)keys firstObject:(id)object secondObject:(id)secondObject
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   keysCopy = keys;
   objectCopy = object;
   secondObjectCopy = secondObject;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = keysCopy;
-  v28 = [keysCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v28)
+  v27 = [keysCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v27)
   {
-    v26 = *v31;
+    v25 = *v30;
     do
     {
       v14 = 0;
       do
       {
-        if (*v31 != v26)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * v14);
+        v15 = *(*(&v29 + 1) + 8 * v14);
         [stringCopy appendString:@"\n"];
         [self _addPaddedHeaderToMutableString:stringCopy forKey:v15 withDepth:depth];
         v16 = [objectCopy valueForKey:v15];
@@ -1554,51 +1537,49 @@ LABEL_13:
         ++v14;
       }
 
-      while (v28 != v14);
-      v23 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-      v28 = v23;
+      while (v27 != v14);
+      v23 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v27 = v23;
     }
 
     while (v23);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addSummaryWithDepth:(int64_t)depth toMutableString:(id)string forRelationshipMultiValueKeys:(id)keys firstObject:(id)object secondObject:(id)secondObject
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   keysCopy = keys;
   objectCopy = object;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = keysCopy;
-  v15 = [keysCopy countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v15 = [keysCopy countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     selfCopy = self;
     secondObjectCopy = secondObject;
-    v31 = *v42;
+    v30 = *v41;
     do
     {
       v18 = 0;
-      v34 = v16;
+      v33 = v16;
       do
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v41 + 1) + 8 * v18);
+        v19 = *(*(&v40 + 1) + 8 * v18);
         [stringCopy appendString:@"\n"];
         [self _addPaddedHeaderToMutableString:stringCopy forKey:v19 withDepth:depth];
-        v36 = v18;
+        v35 = v18;
         if (secondObject)
         {
           v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"There is a difference for the multi-valued key: %@", v19];
@@ -1614,27 +1595,27 @@ LABEL_13:
             [stringCopy appendString:@"(null)"];
           }
 
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           v20 = v22;
-          v23 = [v20 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v23 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v38;
+            v25 = *v37;
             do
             {
               v26 = 0;
               do
               {
-                if (*v38 != v25)
+                if (*v37 != v25)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v27 = *(*(&v37 + 1) + 8 * v26);
+                v27 = *(*(&v36 + 1) + 8 * v26);
                 eventStore = [objectCopy eventStore];
                 v29 = [v27 meltedObjectInStore:eventStore];
 
@@ -1653,7 +1634,7 @@ LABEL_13:
               }
 
               while (v24 != v26);
-              v24 = [v20 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v24 = [v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v24);
@@ -1661,21 +1642,19 @@ LABEL_13:
 
           self = selfCopy;
           secondObject = secondObjectCopy;
-          v17 = v31;
-          v16 = v34;
+          v17 = v30;
+          v16 = v33;
         }
 
-        v18 = v36 + 1;
+        v18 = v35 + 1;
       }
 
-      while (v36 + 1 != v16);
-      v16 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      while (v35 + 1 != v16);
+      v16 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v16);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addPaddedHeaderToMutableString:(id)string forKey:(id)key withDepth:(int64_t)depth
@@ -1742,29 +1721,29 @@ LABEL_13:
 
 - (id)changeSetForDiff
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   differentSingleValueKeys = [(EKDiff *)self differentSingleValueKeys];
-  v4 = [differentSingleValueKeys countByEnumeratingWithState:&v85 objects:v92 count:16];
+  v4 = [differentSingleValueKeys countByEnumeratingWithState:&v84 objects:v91 count:16];
   v5 = 0x1E695D000uLL;
   if (v4)
   {
     v6 = v4;
-    v7 = *v86;
+    v7 = *v85;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v86 != v7)
+        if (*v85 != v7)
         {
           objc_enumerationMutation(differentSingleValueKeys);
         }
 
-        v9 = *(*(&v85 + 1) + 8 * i);
+        v9 = *(*(&v84 + 1) + 8 * i);
         secondObject = [(EKDiff *)self secondObject];
         v11 = [secondObject valueForKey:v9];
         v12 = v11;
@@ -1783,33 +1762,33 @@ LABEL_13:
         [dictionary setObject:v14 forKeyedSubscript:v9];
       }
 
-      v6 = [differentSingleValueKeys countByEnumeratingWithState:&v85 objects:v92 count:16];
+      v6 = [differentSingleValueKeys countByEnumeratingWithState:&v84 objects:v91 count:16];
     }
 
     while (v6);
   }
 
   v15 = objc_opt_new();
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
   obj = [(EKDiff *)self differentRelationshipSingleValueKeys];
-  v69 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
-  if (v69)
+  v68 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
+  if (v68)
   {
-    v16 = *v82;
-    v65 = *v82;
+    v16 = *v81;
+    v64 = *v81;
     do
     {
-      for (j = 0; j != v69; ++j)
+      for (j = 0; j != v68; ++j)
       {
-        if (*v82 != v16)
+        if (*v81 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v81 + 1) + 8 * j);
+        v18 = *(*(&v80 + 1) + 8 * j);
         relationshipSingleValueModifies = [(EKDiff *)self relationshipSingleValueModifies];
         v20 = [relationshipSingleValueModifies objectForKeyedSubscript:v18];
 
@@ -1839,7 +1818,7 @@ LABEL_13:
         else
         {
           v27 = v5;
-          v80 = 0;
+          v79 = 0;
           secondObject3 = [(EKDiff *)self secondObject];
           v29 = [secondObject3 valueForKey:v18];
 
@@ -1847,8 +1826,8 @@ LABEL_13:
           eventStore = [secondObject4 eventStore];
           v32 = [v29 meltedObjectInStore:eventStore];
 
-          v33 = [(EKDiff *)self copyOfObject:v32 alreadyCopiedObjects:v15 madeNewCopy:&v80];
-          if (v80 == 1)
+          v33 = [(EKDiff *)self copyOfObject:v32 alreadyCopiedObjects:v15 madeNewCopy:&v79];
+          if (v79 == 1)
           {
             changeSetForDiff = [v20 changeSetForDiff];
             [v33 addChanges:changeSetForDiff];
@@ -1857,42 +1836,42 @@ LABEL_13:
           [dictionary setObject:v33 forKeyedSubscript:v18];
 
           v5 = v27;
-          v16 = v65;
+          v16 = v64;
         }
       }
 
-      v69 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
+      v68 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
     }
 
-    while (v69);
+    while (v68);
   }
 
   v36 = MEMORY[0x1E695DF90];
   relationshipMultiValueAdds = [(EKDiff *)self relationshipMultiValueAdds];
   v38 = [v36 dictionaryWithDictionary:relationshipMultiValueAdds];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   relationshipMultiValueModifies = [(EKDiff *)self relationshipMultiValueModifies];
-  v64 = [relationshipMultiValueModifies countByEnumeratingWithState:&v76 objects:v90 count:16];
-  if (v64)
+  v63 = [relationshipMultiValueModifies countByEnumeratingWithState:&v75 objects:v89 count:16];
+  if (v63)
   {
-    v62 = *v77;
-    v63 = v38;
+    v61 = *v76;
+    v62 = v38;
     do
     {
       v39 = 0;
       do
       {
-        if (*v77 != v62)
+        if (*v76 != v61)
         {
           objc_enumerationMutation(relationshipMultiValueModifies);
         }
 
-        v70 = v39;
-        v40 = *(*(&v76 + 1) + 8 * v39);
+        v69 = v39;
+        v40 = *(*(&v75 + 1) + 8 * v39);
         v41 = [v38 objectForKeyedSubscript:v40];
         v42 = v41;
         if (v41)
@@ -1911,32 +1890,32 @@ LABEL_13:
         obja = v40;
         v46 = [relationshipMultiValueModifies2 objectForKeyedSubscript:v40];
 
-        v74 = 0u;
-        v75 = 0u;
-        v72 = 0u;
         v73 = 0u;
-        v66 = v46;
+        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        v65 = v46;
         allValues = [v46 allValues];
-        v48 = [allValues countByEnumeratingWithState:&v72 objects:v89 count:16];
+        v48 = [allValues countByEnumeratingWithState:&v71 objects:v88 count:16];
         if (v48)
         {
           v49 = v48;
-          v50 = *v73;
+          v50 = *v72;
           do
           {
             for (k = 0; k != v49; ++k)
             {
-              if (*v73 != v50)
+              if (*v72 != v50)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v52 = *(*(&v72 + 1) + 8 * k);
-              v80 = 0;
+              v52 = *(*(&v71 + 1) + 8 * k);
+              v79 = 0;
               secondObject5 = [v52 secondObject];
-              v54 = [(EKDiff *)self copyOfObject:secondObject5 alreadyCopiedObjects:v15 madeNewCopy:&v80];
+              v54 = [(EKDiff *)self copyOfObject:secondObject5 alreadyCopiedObjects:v15 madeNewCopy:&v79];
 
-              if (v80 == 1)
+              if (v79 == 1)
               {
                 changeSetForDiff2 = [v52 changeSetForDiff];
                 [v54 addChanges:changeSetForDiff2];
@@ -1945,60 +1924,53 @@ LABEL_13:
               [v44 addObject:v54];
             }
 
-            v49 = [allValues countByEnumeratingWithState:&v72 objects:v89 count:16];
+            v49 = [allValues countByEnumeratingWithState:&v71 objects:v88 count:16];
           }
 
           while (v49);
         }
 
-        v38 = v63;
-        [v63 setObject:v44 forKeyedSubscript:obja];
+        v38 = v62;
+        [v62 setObject:v44 forKeyedSubscript:obja];
 
-        v39 = v70 + 1;
+        v39 = v69 + 1;
       }
 
-      while (v70 + 1 != v64);
-      v64 = [relationshipMultiValueModifies countByEnumeratingWithState:&v76 objects:v90 count:16];
+      while (v69 + 1 != v63);
+      v63 = [relationshipMultiValueModifies countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
-    while (v64);
+    while (v63);
   }
 
   v56 = [EKChangeSet alloc];
   relationshipMultiValueRemoves = [(EKDiff *)self relationshipMultiValueRemoves];
   v58 = [(EKChangeSet *)v56 initWithSingleValueChanges:dictionary multiValueAdditions:v38 multiValueRemovals:relationshipMultiValueRemoves];
 
-  v59 = *MEMORY[0x1E69E9840];
-
   return v58;
 }
 
 + (void)diffBetweenObject:(uint64_t)a1 andObject:(uint64_t)a2 fetchKeysToIgnoreBlock:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1A805E000, log, OS_LOG_TYPE_DEBUG, "Computing diff between %@ and %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1A805E000, log, OS_LOG_TYPE_DEBUG, "Computing diff between %@ and %@", &v3, 0x16u);
 }
 
 + (void)_populateSingleValueKeysForDiff:(void *)a1 keysToIgnore:fetchKeysToIgnoreBlock:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() differentSingleValueKeys];
   [v3 count];
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_populateMultiValueRelationshipKeysForDiff:(void *)a1 keysToIgnore:fetchKeysToIgnoreBlock:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() differentRelationshipMultiValueKeys];
   [v3 count];
@@ -2006,8 +1978,6 @@ LABEL_13:
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_populateMultiValueRelationshipKeysForDiff:(uint64_t)a1 keysToIgnore:(uint64_t)a2 fetchKeysToIgnoreBlock:.cold.3(uint64_t a1, uint64_t a2)
@@ -2018,7 +1988,6 @@ LABEL_13:
 
 + (void)_populateIdentityKeysForDiff:(void *)a1 keysToIgnore:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() differentIdentityKeys];
   [v3 count];
@@ -2026,13 +1995,10 @@ LABEL_13:
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_populateImmutableKeysForDiff:(void *)a1 keysToIgnore:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() differentImmutableKeys];
   [v3 count];
@@ -2040,8 +2006,6 @@ LABEL_13:
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

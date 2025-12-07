@@ -292,14 +292,14 @@ LABEL_19:
 {
   responseCopy = response;
   recipientHandle = [(PHDeclineWithMessageController *)self recipientHandle];
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(recipientHandle);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = responseCopy;
-    v21 = 2112;
-    v22 = recipientHandle;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "response: %@ recipientHandle: %@", &v19, 0x16u);
+    v22 = 138412546;
+    v23 = responseCopy;
+    v24 = 2112;
+    v25 = recipientHandle;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "response: %@ recipientHandle: %@", &v22, 0x16u);
   }
 
   value = [recipientHandle value];
@@ -310,23 +310,24 @@ LABEL_19:
     value2 = [recipientHandle value];
     if ([value2 length])
     {
-      v10 = [responseCopy length];
+      v11 = [responseCopy length];
 
-      if (v10)
+      if (v11)
       {
-        if ([(PHDeclineWithMessageController *)self isMessagesTheDefaultTextApp])
+        isMessagesTheDefaultTextApp = [(PHDeclineWithMessageController *)self isMessagesTheDefaultTextApp];
+        if (isMessagesTheDefaultTextApp)
         {
           incomingCall = [(PHDeclineWithMessageController *)self incomingCall];
           sendMessageIntentExtension = [incomingCall sendMessageIntentExtension];
 
-          v13 = sub_100004F84();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          v16 = sub_100004F84(v15);
+          v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
           if (sendMessageIntentExtension)
           {
-            if (v14)
+            if (v17)
             {
-              LOWORD(v19) = 0;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Using send message intent to send response", &v19, 2u);
+              LOWORD(v22) = 0;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Using send message intent to send response", &v22, 2u);
             }
 
             [(PHDeclineWithMessageController *)self sendDeclineViaIntentWithMessageResponse:responseCopy extension:sendMessageIntentExtension];
@@ -334,10 +335,10 @@ LABEL_19:
 
           else
           {
-            if (v14)
+            if (v17)
             {
-              LOWORD(v19) = 0;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Using ChatKit to send response", &v19, 2u);
+              LOWORD(v22) = 0;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Using ChatKit to send response", &v22, 2u);
             }
 
             [(PHDeclineWithMessageController *)self sendDeclineViaChatKitWithMessageResponse:responseCopy];
@@ -350,11 +351,11 @@ LABEL_19:
 
         else
         {
-          v16 = sub_100004F84();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v19 = sub_100004F84(isMessagesTheDefaultTextApp);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v19) = 0;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Messages app not installed, trying to open default messaging app", &v19, 2u);
+            LOWORD(v22) = 0;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Messages app not installed, trying to open default messaging app", &v22, 2u);
           }
 
           [(PHDeclineWithMessageController *)self openDefaultMessagingAppWithReply:responseCopy];
@@ -369,8 +370,8 @@ LABEL_19:
     }
   }
 
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v18 = sub_100004F84(v9);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_100256C64();
   }
@@ -384,69 +385,71 @@ LABEL_15:
   v3 = v2;
   if (v2)
   {
-    if ([v2 canChangeDefaultAppForCategory:10])
+    v4 = [v2 canChangeDefaultAppForCategory:10];
+    if (v4)
     {
-      v14 = 0;
-      v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.MobileSMS" allowPlaceholder:0 error:&v14];
-      v5 = v14;
-      if (v4)
+      v16 = 0;
+      v5 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.MobileSMS" allowPlaceholder:0 error:&v16];
+      v6 = v16;
+      v7 = v6;
+      if (v5)
       {
-        v6 = +[LSApplicationWorkspace defaultWorkspace];
-        v13 = v5;
-        v7 = [v6 defaultApplicationForCategory:3 error:&v13];
-        v8 = v13;
+        v8 = +[LSApplicationWorkspace defaultWorkspace];
+        v15 = v7;
+        v9 = [v8 defaultApplicationForCategory:3 error:&v15];
+        v10 = v15;
 
-        v9 = [v7 isEqual:v4];
-        v10 = sub_100004F84();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = [v9 isEqual:v5];
+        v12 = sub_100004F84(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = @"NO";
-          if (v9)
+          v13 = @"NO";
+          if (v11)
           {
-            v11 = @"YES";
+            v13 = @"YES";
           }
 
           *buf = 138412290;
-          v16 = v11;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "DefaultApp: Got App workspace isMessagesTheDefault %@", buf, 0xCu);
+          v18 = v13;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "DefaultApp: Got App workspace isMessagesTheDefault %@", buf, 0xCu);
         }
 
-        v5 = v8;
+        v7 = v10;
       }
 
       else
       {
-        v7 = sub_100004F84();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100004F84(v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v16 = v5;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DefaultApp: Can't find application record for domain com.apple.MobileSMS, error %@. Has Messages been uninstalled?", buf, 0xCu);
+          v18 = v7;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DefaultApp: Can't find application record for domain com.apple.MobileSMS, error %@. Has Messages been uninstalled?", buf, 0xCu);
         }
 
-        LOBYTE(v9) = 0;
+        LOBYTE(v11) = 0;
       }
     }
 
     else
     {
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100004F84(v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "DefaultApp: Can't change default app so behaving as if Messages is the default", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DefaultApp: Can't change default app so behaving as if Messages is the default", buf, 2u);
       }
 
-      LOBYTE(v9) = 1;
+      LOBYTE(v11) = 1;
     }
   }
 
   else
   {
-    LOBYTE(v9) = 1;
+    LOBYTE(v11) = 1;
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)openDefaultMessagingAppWithReply:(id)reply
@@ -461,28 +464,28 @@ LABEL_15:
   if (replyCopy)
   {
     v8 = [[NSURLQueryItem alloc] initWithName:@"body" value:replyCopy];
-    v17 = v8;
-    v9 = [NSArray arrayWithObjects:&v17 count:1];
+    v18 = v8;
+    v9 = [NSArray arrayWithObjects:&v18 count:1];
     [v6 setQueryItems:v9];
   }
 
   v10 = [v6 URL];
-  v16 = 0;
+  v17 = 0;
   v11 = TUOpenURLWithError();
   v12 = 0;
 
-  v13 = sub_100004F84();
-  v14 = v13;
+  v14 = sub_100004F84(v13);
+  v15 = v14;
   if (v11)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Successfully opened default messaging app", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Successfully opened default messaging app", v16, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     sub_100256CE8();
   }
@@ -490,14 +493,15 @@ LABEL_15:
 
 - (void)showCustomReplyWithMessageComposer
 {
-  if ([(PHDeclineWithMessageController *)self isMessagesTheDefaultTextApp])
+  isMessagesTheDefaultTextApp = [(PHDeclineWithMessageController *)self isMessagesTheDefaultTextApp];
+  if (isMessagesTheDefaultTextApp)
   {
     incomingCall = [(PHDeclineWithMessageController *)self incomingCall];
     provider = [incomingCall provider];
     isSystemProvider = [provider isSystemProvider];
 
     incomingCall2 = [(PHDeclineWithMessageController *)self incomingCall];
-    v7 = incomingCall2;
+    v8 = incomingCall2;
     if (isSystemProvider)
     {
       localSenderIdentity = [incomingCall2 localSenderIdentity];
@@ -505,19 +509,19 @@ LABEL_15:
       uUIDString = [accountUUID UUIDString];
       [(PHDeclineWithMessageController *)self setContextForCustomReplyWithSubscriptionIdentifier:uUIDString];
 
-      v11 = objc_alloc_init(PHMessageComposeViewController);
+      v12 = objc_alloc_init(PHMessageComposeViewController);
       recipientHandle = [(PHDeclineWithMessageController *)self recipientHandle];
       value = [recipientHandle value];
-      v20 = value;
-      v14 = [NSArray arrayWithObjects:&v20 count:1];
-      [(PHMessageComposeViewController *)v11 setRecipients:v14];
+      v21 = value;
+      v15 = [NSArray arrayWithObjects:&v21 count:1];
+      [(PHMessageComposeViewController *)v12 setRecipients:v15];
 
-      [(PHMessageComposeViewController *)v11 setBody:&stru_100361FD0];
-      [(PHMessageComposeViewController *)v11 setMessageComposeDelegate:self];
-      [(PHMessageComposeViewController *)v11 _setCanEditRecipients:0];
-      [(PHMessageComposeViewController *)v11 disableUserAttachments];
+      [(PHMessageComposeViewController *)v12 setBody:&stru_100361FD0];
+      [(PHMessageComposeViewController *)v12 setMessageComposeDelegate:self];
+      [(PHMessageComposeViewController *)v12 _setCanEditRecipients:0];
+      [(PHMessageComposeViewController *)v12 disableUserAttachments];
       customMessagePresentingViewController = [(PHDeclineWithMessageController *)self customMessagePresentingViewController];
-      [customMessagePresentingViewController presentViewController:v11 animated:1 completion:0];
+      [customMessagePresentingViewController presentViewController:v12 animated:1 completion:0];
     }
 
     else
@@ -529,25 +533,25 @@ LABEL_15:
         return;
       }
 
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100109CE0;
-      v18[3] = &unk_1003569B0;
-      v18[4] = self;
-      v11 = objc_retainBlock(v18);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100109CE0;
+      v19[3] = &unk_1003569B0;
+      v19[4] = self;
+      v12 = objc_retainBlock(v19);
       [(PHDeclineWithMessageController *)self declineCall];
       customMessagePresentingViewController = +[PHInCallUtilities sharedInstance];
-      [customMessagePresentingViewController requestPasscodeUnlockWithCompletion:v11];
+      [customMessagePresentingViewController requestPasscodeUnlockWithCompletion:v12];
     }
   }
 
   else
   {
-    v16 = sub_100004F84();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004F84(isMessagesTheDefaultTextApp);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Messages app not installed or default, trying to open default messaging app", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Messages app not installed or default, trying to open default messaging app", buf, 2u);
     }
 
     [(PHDeclineWithMessageController *)self openDefaultMessagingAppWithReply:0];
@@ -558,7 +562,7 @@ LABEL_15:
 - (void)sendDeclineViaChatKitWithMessageResponse:(id)response
 {
   responseCopy = response;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(responseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -600,7 +604,7 @@ LABEL_15:
 - (void)setContextForCustomReplyWithSubscriptionIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -644,11 +648,11 @@ LABEL_15:
 {
   responseCopy = response;
   extensionCopy = extension;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(extensionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = responseCopy;
+    v28 = responseCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "response: %@", buf, 0xCu);
   }
 
@@ -657,8 +661,8 @@ LABEL_15:
 
   v11 = [[INPerson alloc] initWithPersonHandle:personHandle nameComponents:0 displayName:0 image:0 contactIdentifier:0 customIdentifier:0];
   v12 = [INSendMessageIntent alloc];
-  v33 = v11;
-  v13 = [NSArray arrayWithObjects:&v33 count:1];
+  v34 = v11;
+  v13 = [NSArray arrayWithObjects:&v34 count:1];
   v14 = [v12 initWithRecipients:v13 content:responseCopy groupName:0 serviceName:0 sender:0];
 
   v15 = +[AFPreferences sharedPreferences];
@@ -666,40 +670,40 @@ LABEL_15:
 
   if (languageCode)
   {
-    v17 = objc_alloc_init(NSExtensionItem);
-    v31 = _INExtensionItemSiriLanguageCodeKey;
-    v32 = languageCode;
-    v18 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    [v17 setUserInfo:v18];
+    v18 = objc_alloc_init(NSExtensionItem);
+    v32 = _INExtensionItemSiriLanguageCodeKey;
+    v33 = languageCode;
+    v19 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    [v18 setUserInfo:v19];
 
-    v30 = v17;
-    v19 = [NSArray arrayWithObjects:&v30 count:1];
+    v31 = v18;
+    v20 = [NSArray arrayWithObjects:&v31 count:1];
   }
 
   else
   {
-    v19 = &__NSArray0__struct;
+    v20 = &__NSArray0__struct;
   }
 
-  v20 = sub_100004F84();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100004F84(v17);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = extensionCopy;
-    v28 = 2112;
-    v29 = v19;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Beginning extension request for %@ with input items: %@", buf, 0x16u);
+    v28 = extensionCopy;
+    v29 = 2112;
+    v30 = v20;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Beginning extension request for %@ with input items: %@", buf, 0x16u);
   }
 
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10010A88C;
-  v23[3] = &unk_1003599F0;
-  v24 = extensionCopy;
-  v25 = v14;
-  v21 = v14;
-  v22 = extensionCopy;
-  [v22 beginExtensionRequestWithOptions:1 inputItems:v19 completion:v23];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10010A88C;
+  v24[3] = &unk_1003599F0;
+  v25 = extensionCopy;
+  v26 = v14;
+  v22 = v14;
+  v23 = extensionCopy;
+  [v23 beginExtensionRequestWithOptions:1 inputItems:v20 completion:v24];
 }
 
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result
@@ -713,21 +717,25 @@ LABEL_15:
     }
   }
 
-  else if ([(NSString *)self->_cachedPreviouslyUsedLastAddressHandle length])
+  else
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [(NSString *)self->_cachedPreviouslyUsedLastAddressHandle length];
+    if (v7)
     {
-      cachedPreviouslyUsedLastAddressHandle = self->_cachedPreviouslyUsedLastAddressHandle;
-      v10 = 138412290;
-      v11 = cachedPreviouslyUsedLastAddressHandle;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Resetting Context to: %@ as user cancelled custom reply", &v10, 0xCu);
-    }
+      v8 = sub_100004F84(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        cachedPreviouslyUsedLastAddressHandle = self->_cachedPreviouslyUsedLastAddressHandle;
+        v11 = 138412290;
+        v12 = cachedPreviouslyUsedLastAddressHandle;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resetting Context to: %@ as user cancelled custom reply", &v11, 0xCu);
+      }
 
-    [(PHDeclineWithMessageController *)self setContextForCustomReplyWithSubscriptionIdentifier:self->_cachedPreviouslyUsedLastAddressHandle];
+      [(PHDeclineWithMessageController *)self setContextForCustomReplyWithSubscriptionIdentifier:self->_cachedPreviouslyUsedLastAddressHandle];
+    }
   }
 
-  v9 = self->_cachedPreviouslyUsedLastAddressHandle;
+  v10 = self->_cachedPreviouslyUsedLastAddressHandle;
   self->_cachedPreviouslyUsedLastAddressHandle = &stru_100361FD0;
 
   [controllerCopy dismissViewControllerAnimated:1 completion:0];

@@ -14,6 +14,7 @@
 + (void)deviceManager:(id)manager willPublishPhysicalDevice:(id)device;
 + (void)physicalDevice:(id)device getBatteryWithReply:(id)reply;
 + (void)physicalDevice:(id)device getSensorsEnabledWithReply:(id)reply;
++ (void)physicalDevice:(id)device setSensorsActive:(BOOL)active;
 @end
 
 @implementation _GCSonyPSVR2SenseControllerProfile
@@ -55,9 +56,16 @@
   [motionServiceServer readSensorsActiveWithReply:v8];
 }
 
++ (void)physicalDevice:(id)device setSensorsActive:(BOOL)active
+{
+  activeCopy = active;
+  motionServiceServer = [device motionServiceServer];
+  [motionServiceServer updateSensorsActive:activeCopy];
+}
+
 + (BOOL)device:(id)device fuseWithDevice:(id *)withDevice forClient:(id)client
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   configuration = [client configuration];
   if (([configuration spatialGamepadSupported] & 1) == 0)
@@ -81,45 +89,45 @@
 
           if (!strcmp(v12, "Sense Right"))
           {
-            v15 = +[_GCControllerManagerServer sharedInstance];
+            v14 = +[_GCControllerManagerServer sharedInstance];
+            v28 = 0u;
             v29 = 0u;
             v30 = 0u;
             v31 = 0u;
-            v32 = 0u;
-            physicalDevices = [v15 physicalDevices];
+            physicalDevices = [v14 physicalDevices];
             allValues = [physicalDevices allValues];
 
-            v18 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
-            if (v18)
+            v17 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+            if (v17)
             {
-              v19 = v18;
+              v18 = v17;
               withDeviceCopy = withDevice;
-              v28 = v15;
-              v20 = *v30;
+              v27 = v14;
+              v19 = *v29;
               while (2)
               {
-                for (i = 0; i != v19; ++i)
+                for (i = 0; i != v18; ++i)
                 {
-                  if (*v30 != v20)
+                  if (*v29 != v19)
                   {
                     objc_enumerationMutation(allValues);
                   }
 
-                  v22 = *(*(&v29 + 1) + 8 * i);
-                  v23 = [v22 propertyForKey:@"PSVR2DeviceType"];
+                  v21 = *(*(&v28 + 1) + 8 * i);
+                  v22 = [v21 propertyForKey:@"PSVR2DeviceType"];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    uTF8String2 = [v23 UTF8String];
+                    uTF8String2 = [v22 UTF8String];
                     if (uTF8String2)
                     {
-                      v25 = uTF8String2;
+                      v24 = uTF8String2;
                       if (strcmp(uTF8String2, "Unknown"))
                       {
-                        if (!strcmp(v25, "Sense Left"))
+                        if (!strcmp(v24, "Sense Left"))
                         {
-                          v26 = v22;
-                          *withDeviceCopy = v22;
+                          v25 = v21;
+                          *withDeviceCopy = v21;
 
                           v9 = 1;
                           goto LABEL_25;
@@ -129,8 +137,8 @@
                   }
                 }
 
-                v19 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
-                if (v19)
+                v18 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+                if (v18)
                 {
                   continue;
                 }
@@ -140,7 +148,7 @@
 
               v9 = 0;
 LABEL_25:
-              v15 = v28;
+              v14 = v27;
             }
 
             else
@@ -163,7 +171,6 @@ LABEL_9:
   v9 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -254,8 +261,8 @@ LABEL_14:
 
   else
   {
-    underlyingDevice = [nameCopy underlyingDevice];
-    v7 = [underlyingDevice propertyForKey:@"Product"];
+    v8 = objc_msgSend_underlyingDevice(nameCopy);
+    v7 = [v8 propertyForKey:@"Product"];
   }
 
   return v7;
@@ -270,18 +277,18 @@ LABEL_14:
 
 + (id)logicalDevice:(id)device makeControllerPhysicalInputProfileDescriptionWithIdentifier:(id)identifier bindings:(id)bindings forClient:(id)client
 {
-  v124[1] = *MEMORY[0x1E69E9840];
+  v123[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   identifierCopy = identifier;
   bindingsCopy = bindings;
   clientCopy = client;
-  v119 = 0;
-  LODWORD(bindings) = [self device:deviceCopy fuseWithDevice:&v119 forClient:clientCopy];
-  v116 = v119;
+  v118 = 0;
+  LODWORD(bindings) = [self device:deviceCopy fuseWithDevice:&v118 forClient:clientCopy];
+  v115 = v118;
   bindingsCopy2 = bindings;
-  v113 = deviceCopy;
-  v105 = clientCopy;
-  v106 = identifierCopy;
+  v112 = deviceCopy;
+  v104 = clientCopy;
+  v105 = identifierCopy;
   if (bindings)
   {
     spatialGamepadProductCategoryIncludesChirality = 1;
@@ -295,11 +302,11 @@ LABEL_14:
 
   v15 = [GCDeviceButtonInputDescription alloc];
   v16 = [*MEMORY[0x1E69A03F0] key];
-  v110 = [(GCDeviceButtonInputDescription *)v15 initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:v16 symbolName:@"xmark.circle" sourceAttributes:1 sourceExtendedEventField:4];
+  v109 = [(GCDeviceButtonInputDescription *)v15 initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:v16 symbolName:@"xmark.circle" sourceAttributes:1 sourceExtendedEventField:4];
 
   v17 = [GCDeviceButtonInputDescription alloc];
   v18 = [*MEMORY[0x1E69A03F8] key];
-  v114 = [(GCDeviceButtonInputDescription *)v17 initWithName:@"Button B" additionalAliases:0 attributes:2 nameLocalizationKey:v18 symbolName:@"circle.circle" sourceAttributes:1 sourceExtendedEventField:5];
+  v113 = [(GCDeviceButtonInputDescription *)v17 initWithName:@"Button B" additionalAliases:0 attributes:2 nameLocalizationKey:v18 symbolName:@"circle.circle" sourceAttributes:1 sourceExtendedEventField:5];
 
   v19 = [GCDeviceButtonInputDescription alloc];
   v20 = [*MEMORY[0x1E69A0428] key];
@@ -390,19 +397,19 @@ LABEL_14:
     v30 = @"Thumbstick";
   }
 
-  v97 = v30;
+  v96 = v30;
   v31 = @"Right Thumbstick Button";
   if (v21)
   {
     v31 = @"Thumbstick Button";
   }
 
-  v107 = v31;
-  v112 = [(GCDeviceButtonInputDescription *)v19 initWithName:v22 additionalAliases:0 attributes:2 nameLocalizationKey:v20 symbolName:@"square.circle" sourceAttributes:1 sourceExtendedEventField:6];
+  v106 = v31;
+  v111 = [(GCDeviceButtonInputDescription *)v19 initWithName:v22 additionalAliases:0 attributes:2 nameLocalizationKey:v20 symbolName:@"square.circle" sourceAttributes:1 sourceExtendedEventField:6];
 
   v32 = [GCDeviceButtonInputDescription alloc];
   v33 = [*MEMORY[0x1E69A0430] key];
-  v109 = [(GCDeviceButtonInputDescription *)v32 initWithName:v23 additionalAliases:0 attributes:2 nameLocalizationKey:v33 symbolName:@"triangle.circle" sourceAttributes:1 sourceExtendedEventField:7];
+  v108 = [(GCDeviceButtonInputDescription *)v32 initWithName:v23 additionalAliases:0 attributes:2 nameLocalizationKey:v33 symbolName:@"triangle.circle" sourceAttributes:1 sourceExtendedEventField:7];
 
   v34 = [GCDeviceButtonInputDescription alloc];
   v35 = [*MEMORY[0x1E69A0440] key];
@@ -410,38 +417,38 @@ LABEL_14:
 
   v37 = [GCDeviceButtonInputDescription alloc];
   v38 = [*MEMORY[0x1E69A0458] key];
-  v104 = [(GCDeviceButtonInputDescription *)v37 initWithName:v25 additionalAliases:0 attributes:2 nameLocalizationKey:v38 symbolName:@"r1.rectangle.roundedbottom" sourceAttributes:1 sourceExtendedEventField:9];
+  v103 = [(GCDeviceButtonInputDescription *)v37 initWithName:v25 additionalAliases:0 attributes:2 nameLocalizationKey:v38 symbolName:@"r1.rectangle.roundedbottom" sourceAttributes:1 sourceExtendedEventField:9];
 
   v39 = [GCDeviceButtonInputDescription alloc];
   v40 = [*MEMORY[0x1E69A0450] key];
-  v111 = [(GCDeviceButtonInputDescription *)v39 initWithName:v26 additionalAliases:0 attributes:2 nameLocalizationKey:v40 symbolName:@"l2.rectangle.roundedtop" sourceAttributes:0 sourceExtendedEventField:18];
+  v110 = [(GCDeviceButtonInputDescription *)v39 initWithName:v26 additionalAliases:0 attributes:2 nameLocalizationKey:v40 symbolName:@"l2.rectangle.roundedtop" sourceAttributes:0 sourceExtendedEventField:18];
 
   v41 = [GCDeviceButtonInputDescription alloc];
   v42 = [*MEMORY[0x1E69A0468] key];
   v43 = [(GCDeviceButtonInputDescription *)v41 initWithName:v27 additionalAliases:0 attributes:2 nameLocalizationKey:v42 symbolName:@"r2.rectangle.roundedtop" sourceAttributes:0 sourceExtendedEventField:19];
 
-  v100 = [[GCDeviceDirectionPadDescription alloc] initWithName:@"Direction Pad" additionalAliases:0 attributes:2 nameLocalizationKey:@"DIRECTION_PAD" symbolName:@"dpad" sourceAttributes:1 sourceUpExtendedEventField:0 sourceDownExtendedEventField:1 sourceLeftExtendedEventField:2 sourceRightExtendedEventField:3];
+  v99 = [[GCDeviceDirectionPadDescription alloc] initWithName:@"Direction Pad" additionalAliases:0 attributes:2 nameLocalizationKey:@"DIRECTION_PAD" symbolName:@"dpad" sourceAttributes:1 sourceUpExtendedEventField:0 sourceDownExtendedEventField:1 sourceLeftExtendedEventField:2 sourceRightExtendedEventField:3];
   v44 = [GCDeviceDirectionPadDescription alloc];
   v45 = [*MEMORY[0x1E69A0448] key];
-  v99 = [(GCDeviceDirectionPadDescription *)v44 initWithName:v28 additionalAliases:0 attributes:2 nameLocalizationKey:v45 symbolName:@"l.joystick" sourceAttributes:0 sourceUpExtendedEventField:10 sourceDownExtendedEventField:11 sourceLeftExtendedEventField:12 sourceRightExtendedEventField:13];
+  v98 = [(GCDeviceDirectionPadDescription *)v44 initWithName:v28 additionalAliases:0 attributes:2 nameLocalizationKey:v45 symbolName:@"l.joystick" sourceAttributes:0 sourceUpExtendedEventField:10 sourceDownExtendedEventField:11 sourceLeftExtendedEventField:12 sourceRightExtendedEventField:13];
 
   v46 = [GCDeviceButtonInputDescription alloc];
   v47 = [*MEMORY[0x1E69A0408] key];
-  v103 = [(GCDeviceButtonInputDescription *)v46 initWithName:v29 additionalAliases:0 attributes:2 nameLocalizationKey:v47 symbolName:@"l.joystick.press.down" sourceAttributes:0 sourceExtendedEventField:20];
+  v102 = [(GCDeviceButtonInputDescription *)v46 initWithName:v29 additionalAliases:0 attributes:2 nameLocalizationKey:v47 symbolName:@"l.joystick.press.down" sourceAttributes:0 sourceExtendedEventField:20];
 
   v48 = [GCDeviceDirectionPadDescription alloc];
   v49 = [*MEMORY[0x1E69A0460] key];
-  v50 = [(GCDeviceDirectionPadDescription *)v48 initWithName:v97 additionalAliases:0 attributes:2 nameLocalizationKey:v49 symbolName:@"r.joystick" sourceAttributes:0 sourceUpExtendedEventField:14 sourceDownExtendedEventField:15 sourceLeftExtendedEventField:16 sourceRightExtendedEventField:17];
+  v50 = [(GCDeviceDirectionPadDescription *)v48 initWithName:v96 additionalAliases:0 attributes:2 nameLocalizationKey:v49 symbolName:@"r.joystick" sourceAttributes:0 sourceUpExtendedEventField:14 sourceDownExtendedEventField:15 sourceLeftExtendedEventField:16 sourceRightExtendedEventField:17];
 
   v51 = [GCDeviceButtonInputDescription alloc];
   v52 = [*MEMORY[0x1E69A0420] key];
-  v53 = [(GCDeviceButtonInputDescription *)v51 initWithName:v107 additionalAliases:0 attributes:2 nameLocalizationKey:v52 symbolName:@"r.joystick.press.down" sourceAttributes:0 sourceExtendedEventField:21];
+  v53 = [(GCDeviceButtonInputDescription *)v51 initWithName:v106 additionalAliases:0 attributes:2 nameLocalizationKey:v52 symbolName:@"r.joystick.press.down" sourceAttributes:0 sourceExtendedEventField:21];
 
   v54 = [GCDeviceButtonInputDescription alloc];
   v55 = [*MEMORY[0x1E69A0470] key];
   v56 = [(GCDeviceButtonInputDescription *)v54 initWithName:@"Button Menu" additionalAliases:0 attributes:0x4000 nameLocalizationKey:v55 symbolName:@"capsule.portrait" sourceAttributes:1 sourceExtendedEventField:23];
 
-  if (v116)
+  if (v115)
   {
     v57 = bindingsCopy2;
   }
@@ -451,15 +458,15 @@ LABEL_14:
     v57 = 0;
   }
 
-  v115 = v36;
-  v108 = v53;
-  v96 = v43;
-  v98 = v50;
-  v95 = v56;
+  v114 = v36;
+  v107 = v53;
+  v95 = v43;
+  v97 = v50;
+  v94 = v56;
   if (v57 == 1)
   {
     firstObject = [bindingsCopy firstObject];
-    gamepadEventSource = [v116 gamepadEventSource];
+    gamepadEventSource = [v115 gamepadEventSource];
     v58 = [[_GCGamepadEventFusionConfig alloc] initWithSourceCount:2];
     [(_GCGamepadEventFusionConfig *)v58 setPassRule:1 forElement:6 forSourceAtIndex:1];
     [(_GCGamepadEventFusionConfig *)v58 setPassRule:1 forElement:7 forSourceAtIndex:1];
@@ -482,58 +489,58 @@ LABEL_14:
     [(_GCGamepadEventFusionConfig *)v58 setPassRule:1 forElement:22 forSourceAtIndex:0];
     [(_GCGamepadEventFusionConfig *)v58 setPassRule:1 forElement:23 forSourceAtIndex:0];
     v59 = [_GCGamepadEventFusionDescription alloc];
-    v123[0] = firstObject;
-    v123[1] = gamepadEventSource;
-    v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:2];
+    v122[0] = firstObject;
+    v122[1] = gamepadEventSource;
+    v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v122 count:2];
     v61 = v43;
     v62 = v53;
     v63 = v61;
     v64 = v60;
     v65 = [(_GCGamepadEventFusionDescription *)v59 initWithConfiguration:v58 sources:v60];
-    v124[0] = v65;
-    v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:v124 count:1];
+    v123[0] = v65;
+    v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:1];
 
-    v118 = [_GCDeviceExtendedGamepadComponentDescription alloc];
-    v122[0] = v56;
-    v122[1] = v112;
-    v122[2] = v109;
-    v122[3] = v110;
-    v122[4] = v114;
-    v122[5] = v36;
-    v66 = v104;
-    v122[6] = v111;
-    v122[7] = v104;
-    v67 = v99;
-    v68 = v100;
-    v122[8] = v63;
-    v122[9] = v99;
-    v122[10] = v103;
-    v122[11] = v50;
-    v122[12] = v62;
-    v122[13] = v100;
-    v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v122 count:14];
-    v102 = [(_GCDevicePhysicalInputComponentDescription *)v118 initWithIdentifier:v106 elements:v69 bindings:v92];
+    v117 = [_GCDeviceExtendedGamepadComponentDescription alloc];
+    v121[0] = v56;
+    v121[1] = v111;
+    v121[2] = v108;
+    v121[3] = v109;
+    v121[4] = v113;
+    v121[5] = v36;
+    v66 = v103;
+    v121[6] = v110;
+    v121[7] = v103;
+    v67 = v98;
+    v68 = v99;
+    v121[8] = v63;
+    v121[9] = v98;
+    v121[10] = v102;
+    v121[11] = v50;
+    v121[12] = v62;
+    v121[13] = v99;
+    v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:14];
+    v101 = [(_GCDevicePhysicalInputComponentDescription *)v117 initWithIdentifier:v105 elements:v69 bindings:v91];
 
-    v70 = v116;
+    v70 = v115;
     v71 = firstObject;
-    bindingsCopy = v92;
-    v72 = v103;
-    v73 = v106;
-    v74 = v109;
-    v76 = v111;
-    v75 = v112;
-    v77 = v110;
+    bindingsCopy = v91;
+    v72 = v102;
+    v73 = v105;
+    v74 = v108;
+    v76 = v110;
+    v75 = v111;
+    v77 = v109;
     goto LABEL_47;
   }
 
-  v75 = v112;
-  v78 = [v113 propertyForKey:@"PSVR2DeviceType"];
+  v75 = v111;
+  v78 = [v112 propertyForKey:@"PSVR2DeviceType"];
   objc_opt_class();
   v79 = v78;
-  v73 = v106;
-  v77 = v110;
-  v67 = v99;
-  v68 = v100;
+  v73 = v105;
+  v77 = v109;
+  v67 = v98;
+  v68 = v99;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_44;
@@ -553,83 +560,81 @@ LABEL_14:
 
   if (!strcmp(v81, "Sense Left"))
   {
-    v85 = [_GCDevicePhysicalInputComponentDescription alloc];
-    v121[0] = v56;
-    v121[1] = v112;
-    v121[2] = v109;
-    v121[3] = v115;
-    v121[4] = v111;
-    v121[5] = v99;
-    v121[6] = v103;
-    v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:7];
-    v87 = v85;
-    v76 = v111;
-    v72 = v103;
-    v102 = [(_GCDevicePhysicalInputComponentDescription *)v87 initWithIdentifier:v106 elements:v86 bindings:bindingsCopy];
+    v84 = [_GCDevicePhysicalInputComponentDescription alloc];
+    v120[0] = v56;
+    v120[1] = v111;
+    v120[2] = v108;
+    v120[3] = v114;
+    v120[4] = v110;
+    v120[5] = v98;
+    v120[6] = v102;
+    v85 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:7];
+    v86 = v84;
+    v76 = v110;
+    v72 = v102;
+    v101 = [(_GCDevicePhysicalInputComponentDescription *)v86 initWithIdentifier:v105 elements:v85 bindings:bindingsCopy];
 
-    v67 = v99;
-    v74 = v109;
-    v77 = v110;
-    v66 = v104;
+    v67 = v98;
+    v74 = v108;
+    v77 = v109;
+    v66 = v103;
     goto LABEL_46;
   }
 
   if (!strcmp(v81, "Sense Right"))
   {
-    v88 = [_GCDevicePhysicalInputComponentDescription alloc];
-    v89 = v50;
-    v90 = v88;
-    v120[0] = v56;
-    v120[1] = v110;
-    v66 = v104;
-    v120[2] = v114;
-    v120[3] = v104;
-    v120[4] = v43;
-    v120[5] = v89;
-    v120[6] = v108;
-    v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:7];
-    v76 = v111;
-    v102 = [(_GCDevicePhysicalInputComponentDescription *)v90 initWithIdentifier:v106 elements:v91 bindings:bindingsCopy];
+    v87 = [_GCDevicePhysicalInputComponentDescription alloc];
+    v88 = v50;
+    v89 = v87;
+    v119[0] = v56;
+    v119[1] = v109;
+    v66 = v103;
+    v119[2] = v113;
+    v119[3] = v103;
+    v119[4] = v43;
+    v119[5] = v88;
+    v119[6] = v107;
+    v90 = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:7];
+    v76 = v110;
+    v101 = [(_GCDevicePhysicalInputComponentDescription *)v89 initWithIdentifier:v105 elements:v90 bindings:bindingsCopy];
 
-    v67 = v99;
-    v74 = v109;
-    v77 = v110;
+    v67 = v98;
+    v74 = v108;
+    v77 = v109;
   }
 
   else
   {
 LABEL_44:
     v82 = [_GCDevicePhysicalInputComponentDescription alloc];
-    v76 = v111;
-    v102 = [(_GCDevicePhysicalInputComponentDescription *)v82 initWithIdentifier:v106 elements:MEMORY[0x1E695E0F0] bindings:bindingsCopy];
-    v74 = v109;
-    v66 = v104;
+    v76 = v110;
+    v101 = [(_GCDevicePhysicalInputComponentDescription *)v82 initWithIdentifier:v105 elements:MEMORY[0x1E695E0F0] bindings:bindingsCopy];
+    v74 = v108;
+    v66 = v103;
   }
 
-  v72 = v103;
+  v72 = v102;
 LABEL_46:
   v71 = v79;
-  v70 = v116;
+  v70 = v115;
 LABEL_47:
 
-  v83 = *MEMORY[0x1E69E9840];
-
-  return v102;
+  return v101;
 }
 
 + (id)logicalDevice:(id)device makeControllerInputDescriptionWithIdentifier:(id)identifier bindings:(id)bindings forClient:(id)client
 {
-  v220[1] = *MEMORY[0x1E69E9840];
+  v219[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   bindingsCopy = bindings;
   clientCopy = client;
-  v199 = 0;
+  v198 = 0;
   identifierCopy = identifier;
-  v181 = [self device:deviceCopy fuseWithDevice:&v199 forClient:clientCopy];
-  v186 = clientCopy;
-  v187 = deviceCopy;
-  v185 = v199;
-  if (v181)
+  v180 = [self device:deviceCopy fuseWithDevice:&v198 forClient:clientCopy];
+  v185 = clientCopy;
+  v186 = deviceCopy;
+  v184 = v198;
+  if (v180)
   {
     spatialGamepadProductCategoryIncludesChirality = 1;
   }
@@ -649,7 +654,7 @@ LABEL_47:
   v17 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"capsule.portrait"];
   [v14 setSymbol:v17];
 
-  v184 = v14;
+  v183 = v14;
   [v14 setEventPressedValueField:23];
   v18 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.create"];
   v19 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Menu"];
@@ -659,7 +664,7 @@ LABEL_47:
   v20 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"capsule.portrait"];
   [v18 setSymbol:v20];
 
-  v188 = v18;
+  v187 = v18;
   [v18 setEventPressedValueField:23];
   v21 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.xmark"];
   [v21 setSupportsTouch:1];
@@ -682,12 +687,12 @@ LABEL_47:
   [v24 setSymbol:v26];
 
   [v24 setEventPressedValueField:5];
-  v193 = v24;
+  v192 = v24;
   [v24 setEventTouchValueField:28];
   v27 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.square"];
   [v21 setSupportsTouch:1];
-  v178 = spatialGamepadProductCategoryIncludesChirality & 1;
-  v179 = spatialGamepadProductCategoryIncludesChirality;
+  v177 = spatialGamepadProductCategoryIncludesChirality & 1;
+  v178 = spatialGamepadProductCategoryIncludesChirality;
   if (spatialGamepadProductCategoryIncludesChirality)
   {
     v28 = @"Button X";
@@ -744,7 +749,7 @@ LABEL_47:
     v33 = @"Trigger";
   }
 
-  v190 = v33;
+  v189 = v33;
   v34 = [MEMORY[0x1E695DFD8] setWithObject:v28];
   [v27 setAliases:v34];
 
@@ -753,7 +758,7 @@ LABEL_47:
   [v27 setSymbol:v35];
 
   [v27 setEventPressedValueField:6];
-  v198 = v27;
+  v197 = v27;
   [v27 setEventTouchValueField:25];
   v36 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.triangle"];
   [v21 setSupportsTouch:1];
@@ -765,7 +770,7 @@ LABEL_47:
   [v36 setSymbol:v38];
 
   [v36 setEventPressedValueField:7];
-  v197 = v36;
+  v196 = v36;
   [v36 setEventTouchValueField:27];
   v39 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l1"];
   [v21 setSupportsTouch:1];
@@ -777,7 +782,7 @@ LABEL_47:
   [v39 setSymbol:v41];
 
   [v39 setEventPressedValueField:8];
-  v196 = v39;
+  v195 = v39;
   [v39 setEventTouchValueField:29];
   v42 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r1"];
   [v21 setSupportsTouch:1];
@@ -789,7 +794,7 @@ LABEL_47:
   [v42 setSymbol:v44];
 
   [v42 setEventPressedValueField:9];
-  v192 = v42;
+  v191 = v42;
   [v42 setEventTouchValueField:30];
   v45 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l2"];
   [v21 setSupportsTouch:1];
@@ -802,12 +807,12 @@ LABEL_47:
 
   [v45 setAnalog:1];
   [v45 setEventPressedValueField:18];
-  v195 = v45;
+  v194 = v45;
   [v45 setEventTouchValueField:31];
   v48 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r2"];
-  v194 = v21;
+  v193 = v21;
   [v21 setSupportsTouch:1];
-  v49 = [MEMORY[0x1E695DFD8] setWithObject:v190];
+  v49 = [MEMORY[0x1E695DFD8] setWithObject:v189];
   [v48 setAliases:v49];
 
   [v48 setLocalizedName:*MEMORY[0x1E69A0468]];
@@ -816,10 +821,10 @@ LABEL_47:
 
   [v48 setAnalog:1];
   [v48 setEventPressedValueField:19];
-  v191 = v48;
+  v190 = v48;
   [v48 setEventTouchValueField:32];
   v51 = [MEMORY[0x1E69A0698] descriptionWithIdentifier:@"stick.left"];
-  if (v178)
+  if (v177)
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"Left Thumbstick", @"Left Thumbstick Button", 0}];
   }
@@ -847,8 +852,8 @@ LABEL_47:
   localizedName = [v51 localizedName];
   symbol = [v51 symbol];
   v58 = [v54 sourceWithElementAliases:v55 localizedName:localizedName symbol:symbol direction:10];
-  v220[0] = v58;
-  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v220 count:1];
+  v219[0] = v58;
+  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v219 count:1];
   [v51 setXSources:v59];
 
   v60 = MEMORY[0x1E69A06B8];
@@ -856,8 +861,8 @@ LABEL_47:
   localizedName2 = [v51 localizedName];
   symbol2 = [v51 symbol];
   v64 = [v60 sourceWithElementAliases:v61 localizedName:localizedName2 symbol:symbol2 direction:5];
-  v219 = v64;
-  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v219 count:1];
+  v218 = v64;
+  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v218 count:1];
   [v51 setYSources:v65];
 
   v66 = MEMORY[0x1E69A06B8];
@@ -865,8 +870,8 @@ LABEL_47:
   localizedName3 = [v51 localizedName];
   symbol3 = [v51 symbol];
   v70 = [v66 sourceWithElementAliases:v67 localizedName:localizedName3 symbol:symbol3 direction:1];
-  v218 = v70;
-  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v218 count:1];
+  v217 = v70;
+  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v217 count:1];
   [v51 setUpSources:v71];
 
   v72 = MEMORY[0x1E69A06B8];
@@ -874,8 +879,8 @@ LABEL_47:
   localizedName4 = [v51 localizedName];
   symbol4 = [v51 symbol];
   v76 = [v72 sourceWithElementAliases:v73 localizedName:localizedName4 symbol:symbol4 direction:2];
-  v217 = v76;
-  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v217 count:1];
+  v216 = v76;
+  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v216 count:1];
   [v51 setRightSources:v77];
 
   v78 = MEMORY[0x1E69A06B8];
@@ -883,8 +888,8 @@ LABEL_47:
   localizedName5 = [v51 localizedName];
   symbol5 = [v51 symbol];
   v82 = [v78 sourceWithElementAliases:v79 localizedName:localizedName5 symbol:symbol5 direction:4];
-  v216 = v82;
-  v83 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v216 count:1];
+  v215 = v82;
+  v83 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v215 count:1];
   [v51 setDownSources:v83];
 
   v84 = MEMORY[0x1E69A06B8];
@@ -892,8 +897,8 @@ LABEL_47:
   localizedName6 = [v51 localizedName];
   symbol6 = [v51 symbol];
   v88 = [v84 sourceWithElementAliases:v85 localizedName:localizedName6 symbol:symbol6 direction:8];
-  v215 = v88;
-  v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v215 count:1];
+  v214 = v88;
+  v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v214 count:1];
   [v51 setLeftSources:v89];
 
   v90 = MEMORY[0x1E69A06B8];
@@ -901,20 +906,20 @@ LABEL_47:
   v92 = *MEMORY[0x1E69A0408];
   v93 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l.joystick.press.down"];
   v94 = [v90 sourceWithElementAliases:v91 localizedName:v92 symbol:v93];
-  v214 = v94;
-  v95 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v214 count:1];
+  v213 = v94;
+  v95 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v213 count:1];
   [v51 setPressedSources:v95];
 
   v96 = MEMORY[0x1E69A06B8];
   v97 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Thumbstick Button"];
   v98 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l.joystick.press.down"];
   v99 = [v96 sourceWithElementAliases:v97 localizedName:v92 symbol:v98];
-  v213 = v99;
-  v100 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v213 count:1];
+  v212 = v99;
+  v100 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v212 count:1];
   [v51 setTouchedSources:v100];
 
   v101 = [MEMORY[0x1E69A0698] descriptionWithIdentifier:@"stick.right"];
-  if (v179)
+  if (v178)
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"Right Thumbstick", @"Right Thumbstick Button", 0}];
   }
@@ -942,8 +947,8 @@ LABEL_47:
   localizedName7 = [v101 localizedName];
   symbol7 = [v101 symbol];
   v108 = [v104 sourceWithElementAliases:v105 localizedName:localizedName7 symbol:symbol7 direction:10];
-  v212 = v108;
-  v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v212 count:1];
+  v211 = v108;
+  v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v211 count:1];
   [v101 setXSources:v109];
 
   v110 = MEMORY[0x1E69A06B8];
@@ -951,8 +956,8 @@ LABEL_47:
   localizedName8 = [v101 localizedName];
   symbol8 = [v101 symbol];
   v114 = [v110 sourceWithElementAliases:v111 localizedName:localizedName8 symbol:symbol8 direction:5];
-  v211 = v114;
-  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v211 count:1];
+  v210 = v114;
+  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v210 count:1];
   [v101 setYSources:v115];
 
   v116 = MEMORY[0x1E69A06B8];
@@ -960,8 +965,8 @@ LABEL_47:
   localizedName9 = [v101 localizedName];
   symbol9 = [v101 symbol];
   v120 = [v116 sourceWithElementAliases:v117 localizedName:localizedName9 symbol:symbol9 direction:1];
-  v210 = v120;
-  v121 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v210 count:1];
+  v209 = v120;
+  v121 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v209 count:1];
   [v101 setUpSources:v121];
 
   v122 = MEMORY[0x1E69A06B8];
@@ -969,8 +974,8 @@ LABEL_47:
   localizedName10 = [v101 localizedName];
   symbol10 = [v101 symbol];
   v126 = [v122 sourceWithElementAliases:v123 localizedName:localizedName10 symbol:symbol10 direction:2];
-  v209 = v126;
-  v127 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v209 count:1];
+  v208 = v126;
+  v127 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v208 count:1];
   [v101 setRightSources:v127];
 
   v128 = MEMORY[0x1E69A06B8];
@@ -978,8 +983,8 @@ LABEL_47:
   localizedName11 = [v101 localizedName];
   symbol11 = [v101 symbol];
   v132 = [v128 sourceWithElementAliases:v129 localizedName:localizedName11 symbol:symbol11 direction:4];
-  v208 = v132;
-  v133 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v208 count:1];
+  v207 = v132;
+  v133 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v207 count:1];
   [v101 setDownSources:v133];
 
   v134 = MEMORY[0x1E69A06B8];
@@ -987,8 +992,8 @@ LABEL_47:
   localizedName12 = [v101 localizedName];
   symbol12 = [v101 symbol];
   v138 = [v134 sourceWithElementAliases:v135 localizedName:localizedName12 symbol:symbol12 direction:8];
-  v207 = v138;
-  v139 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v207 count:1];
+  v206 = v138;
+  v139 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v206 count:1];
   [v101 setLeftSources:v139];
 
   v140 = MEMORY[0x1E69A06B8];
@@ -996,16 +1001,16 @@ LABEL_47:
   v142 = *MEMORY[0x1E69A0420];
   v143 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r.joystick.press.down"];
   v144 = [v140 sourceWithElementAliases:v141 localizedName:v142 symbol:v143];
-  v206 = v144;
-  v145 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v206 count:1];
+  v205 = v144;
+  v145 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v205 count:1];
   [v101 setPressedSources:v145];
 
   v146 = MEMORY[0x1E69A06B8];
   v147 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick Button"];
   v148 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r.joystick.press.down"];
   v149 = [v146 sourceWithElementAliases:v147 localizedName:v142 symbol:v148];
-  v205 = v149;
-  v150 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v205 count:1];
+  v204 = v149;
+  v150 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v204 count:1];
   [v101 setTouchedSources:v150];
 
   v151 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"dpad"];
@@ -1022,9 +1027,9 @@ LABEL_47:
   [v151 setEventLeftValueField:2];
   [v151 setEventRightValueField:3];
   v154 = objc_opt_new();
-  if (v185)
+  if (v184)
   {
-    v155 = v181;
+    v155 = v180;
   }
 
   else
@@ -1035,7 +1040,7 @@ LABEL_47:
   if (v155 == 1)
   {
     firstObject = [bindingsCopy firstObject];
-    gamepadEventSource = [v185 gamepadEventSource];
+    gamepadEventSource = [v184 gamepadEventSource];
     v156 = [[_GCGamepadEventFusionConfig alloc] initWithSourceCount:2];
     [(_GCGamepadEventFusionConfig *)v156 setPassRule:1 forElement:6 forSourceAtIndex:1];
     [(_GCGamepadEventFusionConfig *)v156 setPassRule:1 forElement:7 forSourceAtIndex:1];
@@ -1058,43 +1063,43 @@ LABEL_47:
     [(_GCGamepadEventFusionConfig *)v156 setPassRule:1 forElement:22 forSourceAtIndex:0];
     [(_GCGamepadEventFusionConfig *)v156 setPassRule:1 forElement:23 forSourceAtIndex:0];
     v157 = [_GCGamepadEventFusionDescription alloc];
-    v203[0] = firstObject;
-    v203[1] = gamepadEventSource;
-    v158 = [MEMORY[0x1E695DEC8] arrayWithObjects:v203 count:2];
+    v202[0] = firstObject;
+    v202[1] = gamepadEventSource;
+    v158 = [MEMORY[0x1E695DEC8] arrayWithObjects:v202 count:2];
     v159 = [(_GCGamepadEventFusionDescription *)v157 initWithConfiguration:v156 sources:v158];
-    v204 = v159;
-    v160 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v204 count:1];
+    v203 = v159;
+    v160 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v203 count:1];
 
-    v202[0] = v194;
-    v202[1] = v193;
-    v161 = v184;
-    v202[2] = v184;
-    v202[3] = v198;
-    v202[4] = v197;
-    v202[5] = v196;
-    v202[6] = v195;
-    v202[7] = v51;
-    v202[8] = v192;
-    v202[9] = v191;
-    v202[10] = v101;
-    v202[11] = v151;
+    v201[0] = v193;
+    v201[1] = v192;
+    v161 = v183;
+    v201[2] = v183;
+    v201[3] = v197;
+    v201[4] = v196;
+    v201[5] = v195;
+    v201[6] = v194;
+    v201[7] = v51;
+    v201[8] = v191;
+    v201[9] = v190;
+    v201[10] = v101;
+    v201[11] = v151;
     v162 = firstObject;
-    v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v202 count:12];
+    v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v201 count:12];
     [v154 setElements:v163];
 
     v164 = v160;
     v165 = gamepadEventSource;
-    v166 = v187;
+    v166 = v186;
 LABEL_32:
 
     goto LABEL_38;
   }
 
-  v166 = v187;
-  v162 = [v187 propertyForKey:@"PSVR2DeviceType"];
+  v166 = v186;
+  v162 = [v186 propertyForKey:@"PSVR2DeviceType"];
   objc_opt_class();
   v164 = bindingsCopy;
-  v161 = v184;
+  v161 = v183;
   if (objc_opt_isKindOfClass())
   {
     uTF8String = [v162 UTF8String];
@@ -1105,13 +1110,13 @@ LABEL_32:
       {
         if (!strcmp(v168, "Sense Left"))
         {
-          v172 = &v201;
-          v174 = v197;
-          v173 = v198;
-          v201 = v184;
-          v176 = v195;
-          v175 = v196;
-          v177 = v51;
+          v171 = &v200;
+          v173 = v196;
+          v172 = v197;
+          v200 = v183;
+          v175 = v194;
+          v174 = v195;
+          v176 = v51;
         }
 
         else
@@ -1121,20 +1126,20 @@ LABEL_32:
             goto LABEL_38;
           }
 
-          v172 = &v200;
-          v200 = v188;
-          v174 = v193;
-          v173 = v194;
-          v176 = v191;
-          v175 = v192;
-          v177 = v101;
+          v171 = &v199;
+          v199 = v187;
+          v173 = v192;
+          v172 = v193;
+          v175 = v190;
+          v174 = v191;
+          v176 = v101;
         }
 
-        v172[1] = v173;
-        v172[2] = v174;
-        v172[3] = v175;
-        v172[4] = v176;
-        v172[5] = v177;
+        v171[1] = v172;
+        v171[2] = v173;
+        v171[3] = v174;
+        v171[4] = v175;
+        v171[5] = v176;
         v165 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
         [v154 setElements:v165];
         goto LABEL_32;
@@ -1145,7 +1150,6 @@ LABEL_32:
 LABEL_38:
 
   v169 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:identifierCopy controllerInputs:v154 bindings:v164];
-  v170 = *MEMORY[0x1E69E9840];
 
   return v169;
 }
@@ -1226,7 +1230,7 @@ LABEL_12:
 
 + (id)physicalDeviceGetHapticCapabilities:(id)capabilities
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [capabilities propertyForKey:@"PSVR2DeviceType"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1248,9 +1252,9 @@ LABEL_12:
 
   if (!strcmp(v5, "Sense Left"))
   {
-    v9 = [[GCHapticActuator alloc] initWithLabel:@"Low Band" type:0 index:0];
-    v12[0] = v9;
-    v10 = v12;
+    v8 = [[GCHapticActuator alloc] initWithLabel:@"Low Band" type:0 index:0];
+    v11[0] = v8;
+    v9 = v11;
   }
 
   else
@@ -1262,15 +1266,14 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v9 = [[GCHapticActuator alloc] initWithLabel:@"High Band" type:0 index:0];
-    v11 = v9;
-    v10 = &v11;
+    v8 = [[GCHapticActuator alloc] initWithLabel:@"High Band" type:0 index:0];
+    v10 = v8;
+    v9 = &v10;
   }
 
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
 LABEL_7:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

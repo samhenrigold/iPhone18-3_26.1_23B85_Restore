@@ -71,9 +71,9 @@
 - (id)handleGestureEvent:(id)event
 {
   eventCopy = event;
-  v31.receiver = self;
-  v31.super_class = SBMedusaWindowDragGestureDestinationModifier;
-  v5 = [(SBSwitcherModifier *)&v31 handleGestureEvent:eventCopy];
+  v30.receiver = self;
+  v30.super_class = SBMedusaWindowDragGestureDestinationModifier;
+  v5 = [(SBSwitcherModifier *)&v30 handleGestureEvent:eventCopy];
   self->_gesturePhase = [eventCopy phase];
   [eventCopy locationInContainerView];
   self->_location.x = v6;
@@ -84,58 +84,57 @@
   [eventCopy averageTouchVelocityOverTimeDuration:0.0416666667];
   self->_velocity.x = v10;
   self->_velocity.y = v11;
-  pendingEnterPlatterZoneResponse = self->_pendingEnterPlatterZoneResponse;
-  if (pendingEnterPlatterZoneResponse)
+  if (self->_pendingEnterPlatterZoneResponse)
   {
-    v13 = SBAppendSwitcherModifierResponse(pendingEnterPlatterZoneResponse, v5);
+    v12 = SBAppendSwitcherModifierResponse();
 
-    v14 = self->_pendingEnterPlatterZoneResponse;
+    pendingEnterPlatterZoneResponse = self->_pendingEnterPlatterZoneResponse;
     self->_pendingEnterPlatterZoneResponse = 0;
 
-    v5 = v13;
+    v5 = v12;
   }
 
   if ([eventCopy phase] == 1)
   {
     draggingAppLayoutsForWindowDrag = [(SBMedusaWindowDragGestureDestinationModifier *)self draggingAppLayoutsForWindowDrag];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent___block_invoke;
-    v30[3] = &unk_2783A8CB8;
-    v30[4] = self;
-    v16 = [draggingAppLayoutsForWindowDrag bs_firstObjectPassingTest:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent___block_invoke;
+    v29[3] = &unk_2783A8CB8;
+    v29[4] = self;
+    v15 = [draggingAppLayoutsForWindowDrag bs_firstObjectPassingTest:v29];
 
-    preferredDisplayOrdinal = [v16 preferredDisplayOrdinal];
+    preferredDisplayOrdinal = [v15 preferredDisplayOrdinal];
     displayOrdinal = [(SBMedusaWindowDragGestureDestinationModifier *)self displayOrdinal];
     self->_dragBeganInOtherSwitcher = preferredDisplayOrdinal != displayOrdinal;
     self->_dragBeganInOurSwitcher = preferredDisplayOrdinal == displayOrdinal;
   }
 
   _updateForWindowDrag = [(SBMedusaWindowDragGestureDestinationModifier *)self _updateForWindowDrag];
-  v20 = SBAppendSwitcherModifierResponse(_updateForWindowDrag, v5);
+  v19 = SBAppendSwitcherModifierResponse();
 
-  v21 = [(SBAppLayout *)self->_proposedAppLayout containsAllItemsFromAppLayout:self->_selectedLeafAppLayout];
+  v20 = [(SBAppLayout *)self->_proposedAppLayout containsAllItemsFromAppLayout:self->_selectedLeafAppLayout];
   [(SBMedusaWindowDragGestureDestinationModifier *)self _updateCurrentDropAction];
-  v22 = [(SBAppLayout *)self->_proposedAppLayout containsAllItemsFromAppLayout:self->_selectedLeafAppLayout];
-  if ([eventCopy phase] == 2 && v21 != v22)
+  v21 = [(SBAppLayout *)self->_proposedAppLayout containsAllItemsFromAppLayout:self->_selectedLeafAppLayout];
+  if ([eventCopy phase] == 2 && v20 != v21)
   {
-    v23 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:self->_currentDestination complete:0];
-    v24 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v23 gestureInitiated:1];
-    v25 = SBAppendSwitcherModifierResponse(v24, v20);
+    v22 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:self->_currentDestination complete:0];
+    v23 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v22 gestureInitiated:1];
+    v24 = SBAppendSwitcherModifierResponse();
 
-    v20 = v25;
+    v19 = v24;
   }
 
   if ([eventCopy phase] == 3)
   {
-    v26 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:self->_currentDestination complete:1];
-    v27 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v26 gestureInitiated:1];
-    v28 = SBAppendSwitcherModifierResponse(v27, v20);
+    v25 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:self->_currentDestination complete:1];
+    v26 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v25 gestureInitiated:1];
+    v27 = SBAppendSwitcherModifierResponse();
 
-    v20 = v28;
+    v19 = v27;
   }
 
-  return v20;
+  return v19;
 }
 
 uint64_t __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent___block_invoke(uint64_t a1, void *a2)
@@ -278,7 +277,8 @@ uint64_t __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent__
   v17 = self->_translation.x;
   [(SBMedusaWindowDragGestureDestinationModifier *)self _contentDraggingCommandeerWidth];
   v19 = v18;
-  if (BSFloatLessThanFloat() && (![(SBMedusaWindowDragGestureDestinationModifier *)self _draggingFullScreenApp]&& [(SBMedusaWindowDragGestureDestinationModifier *)self _isDragOverFullscreenRegionAtLocation:x inBounds:y, v8, v10, v12, v14]|| [(SBMedusaWindowDragGestureDestinationModifier *)self _layoutRoleForDraggedApp]== 3 && [(SBMedusaWindowDragGestureDestinationModifier *)self _isDragOverSideGutterRegionsAtLocation:x inBounds:y totalContentDragGutterWidth:v8, v10, v12, v14, v19]))
+  v20 = BSFloatLessThanFloat();
+  if (v20 && (![(SBMedusaWindowDragGestureDestinationModifier *)self _draggingFullScreenApp]&& (v20 = [(SBMedusaWindowDragGestureDestinationModifier *)self _isDragOverFullscreenRegionAtLocation:x inBounds:y, v8, v10, v12, v14], (v20 & 1) != 0) || (v20 = [(SBMedusaWindowDragGestureDestinationModifier *)self _layoutRoleForDraggedApp], v20 == 3) && (v20 = [(SBMedusaWindowDragGestureDestinationModifier *)self _isDragOverSideGutterRegionsAtLocation:x inBounds:y totalContentDragGutterWidth:v8, v10, v12, v14, v19], v20)))
   {
     ++self->_dragPauseCounter;
   }
@@ -288,21 +288,21 @@ uint64_t __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent__
     self->_dragPauseCounter = 0;
   }
 
-  v20 = SBScreenMaximumFramesPerSecond() * 0.05;
+  v22 = SBScreenMaximumFramesPerSecond(v20, v21) * 0.05;
   dragPauseCounter = self->_dragPauseCounter;
-  self->_enteredPlatterZone = dragPauseCounter > v20;
-  if (dragPauseCounter > v20)
+  self->_enteredPlatterZone = dragPauseCounter > v22;
+  if (dragPauseCounter > v22)
   {
     goto LABEL_13;
   }
 
-  v30 = v8;
-  v31 = v10;
-  v32 = v12;
-  v33 = v14;
-  v34 = x;
-  v35 = y;
-  if (!CGRectContainsPoint(*&v30, *&v34))
+  v32 = v8;
+  v33 = v10;
+  v34 = v12;
+  v35 = v14;
+  v36 = x;
+  v37 = y;
+  if (!CGRectContainsPoint(*&v32, *&v36))
   {
     if (!self->_enteredPlatterZone)
     {
@@ -314,7 +314,7 @@ uint64_t __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent__
 
   if ([(SBMedusaWindowDragGestureDestinationModifier *)self _draggingFullScreenApp])
   {
-    v36 = fmax(fabs(v17), y);
+    v38 = fmax(fabs(v17), y);
     goto LABEL_19;
   }
 
@@ -322,11 +322,11 @@ uint64_t __67__SBMedusaWindowDragGestureDestinationModifier_handleGestureEvent__
   {
     if (![(SBMedusaWindowDragGestureDestinationModifier *)self _draggingCenterWindow])
     {
-      v37 = y <= 150.0;
+      v39 = y <= 150.0;
 LABEL_20:
-      v38 = !v37;
-      self->_enteredPlatterZone = v38;
-      if (v37)
+      v40 = !v39;
+      self->_enteredPlatterZone = v40;
+      if (v39)
       {
         goto LABEL_27;
       }
@@ -334,66 +334,66 @@ LABEL_20:
       goto LABEL_13;
     }
 
-    v36 = fabs(v17);
+    v38 = fabs(v17);
 LABEL_19:
-    v37 = v36 <= 150.0;
+    v39 = v38 <= 150.0;
     goto LABEL_20;
   }
 
-  v40 = fabs(v17) > 150.0;
+  v42 = fabs(v17) > 150.0;
   if (y <= 150.0)
   {
-    v40 = 0;
+    v42 = 0;
   }
 
-  self->_enteredPlatterZone = v40;
-  if (!v40)
+  self->_enteredPlatterZone = v42;
+  if (!v42)
   {
     goto LABEL_27;
   }
 
 LABEL_13:
   [(CADisplayLink *)self->_displayLink invalidate];
-  v22 = self->_displayLink;
+  v24 = self->_displayLink;
   self->_displayLink = 0;
 
   if ([(SBMedusaWindowDragGestureDestinationModifier *)self _draggingSplitViewApp])
   {
-    v23 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:7 complete:0];
-    appLayout = [v23 appLayout];
+    v25 = [(SBMedusaWindowDragGestureDestinationModifier *)self _transitionRequestForDestination:7 complete:0];
+    appLayout = [v25 appLayout];
     currentAppLayout = self->_currentAppLayout;
     self->_currentAppLayout = appLayout;
 
     self->_isResizingToFullScreen = 1;
     self->_hasResizedEnoughToUnblur = 0;
     initialMainAppLayout = self->_initialMainAppLayout;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __68__SBMedusaWindowDragGestureDestinationModifier__updateForWindowDrag__block_invoke;
-    v41[3] = &unk_2783A8C90;
-    v41[4] = self;
-    v27 = [(SBAppLayout *)initialMainAppLayout appLayoutWithItemsPassingTest:v41];
-    if (v27)
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __68__SBMedusaWindowDragGestureDestinationModifier__updateForWindowDrag__block_invoke;
+    v43[3] = &unk_2783A8C90;
+    v43[4] = self;
+    v29 = [(SBAppLayout *)initialMainAppLayout appLayoutWithItemsPassingTest:v43];
+    if (v29)
     {
-      v28 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
-      [(SBSwitcherTransitionRequest *)v28 setAppLayout:v27];
-      [(SBSwitcherTransitionRequest *)v28 setSceneUpdatesOnly:1];
-      v29 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v28 gestureInitiated:1];
+      v30 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
+      [(SBSwitcherTransitionRequest *)v30 setAppLayout:v29];
+      [(SBSwitcherTransitionRequest *)v30 setSceneUpdatesOnly:1];
+      v31 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v30 gestureInitiated:1];
     }
 
     else
     {
-      v29 = 0;
+      v31 = 0;
     }
 
     goto LABEL_28;
   }
 
 LABEL_27:
-  v29 = 0;
+  v31 = 0;
 LABEL_28:
 
-  return v29;
+  return v31;
 }
 
 BOOL __68__SBMedusaWindowDragGestureDestinationModifier__updateForWindowDrag__block_invoke(uint64_t a1, void *a2)

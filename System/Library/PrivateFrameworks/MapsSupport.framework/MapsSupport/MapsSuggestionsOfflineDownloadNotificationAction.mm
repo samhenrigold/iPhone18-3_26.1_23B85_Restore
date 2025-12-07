@@ -53,19 +53,18 @@
       [v5 doubleValue];
 
       v6 = objc_alloc_init(GEOMapDataSubscriptionManager);
-      v7 = GEOConfigMapsSuggestionsOfflineMapsTipDefaultRegionRadius[1];
       GEOConfigGetInteger();
       GEOMapRectMakeWithRadialDistance();
-      v12 = [[GEOMapRegion alloc] initWithMapRect:{v8, v9, v10, v11}];
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_100031C38;
-      v17[3] = &unk_100067880;
-      v17[4] = obj;
-      v18 = v3;
-      v13 = v12;
-      v19 = v13;
-      v14 = [v6 determineEstimatedSizeForSubscriptionWithRegion:v13 dataTypes:1024 queue:&_dispatch_main_q completionHandler:v17];
+      v11 = [[GEOMapRegion alloc] initWithMapRect:{v7, v8, v9, v10}];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100031C38;
+      v16[3] = &unk_100067880;
+      v16[4] = obj;
+      v17 = v3;
+      v12 = v11;
+      v18 = v12;
+      v13 = [v6 determineEstimatedSizeForSubscriptionWithRegion:v12 dataTypes:1024 queue:&_dispatch_main_q completionHandler:v16];
       handler = obj->_handler;
       if (handler)
       {

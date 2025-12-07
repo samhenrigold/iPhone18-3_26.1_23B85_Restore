@@ -8,22 +8,22 @@
 {
   itemCopy = item;
   sourceCopy = source;
-  v20.receiver = self;
-  v20.super_class = IMTypingPluginChatItem;
-  v10 = [(IMTypingChatItem *)&v20 _initWithItem:itemCopy];
-  if (v10)
+  v14.receiver = self;
+  v14.super_class = IMTypingPluginChatItem;
+  v8 = [(IMTypingChatItem *)&v14 _initWithItem:itemCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_guid(itemCopy, v8, v9);
-    v12 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v10 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v10, v13, v12);
-    objc_msgSend_setDataSource_(v10, v14, sourceCopy);
-    v17 = objc_msgSend_typingIndicatorIcon(itemCopy, v15, v16);
-    v18 = v10[7];
-    v10[7] = v17;
+    [v8 _setGUID:v10];
+    [v8 setDataSource:sourceCopy];
+    typingIndicatorIcon = [itemCopy typingIndicatorIcon];
+    v12 = v8[7];
+    v8[7] = typingIndicatorIcon;
   }
 
-  return v10;
+  return v8;
 }
 
 @end

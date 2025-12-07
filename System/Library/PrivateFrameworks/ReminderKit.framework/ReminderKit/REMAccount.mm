@@ -395,12 +395,12 @@
 
 - (BOOL)MCIsManagedWithResultPtr:(BOOL *)ptr error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   store = [(REMAccount *)self store];
   objectID = [(REMAccount *)self objectID];
-  v15 = 0;
-  v9 = [store MCIsManagedAccountWithObjectID:objectID error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [store MCIsManagedAccountWithObjectID:objectID error:&v14];
+  v10 = v14;
 
   if (v9 || !v10)
   {
@@ -410,8 +410,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v18 = 2112;
-      v19 = v9;
+      v17 = 2112;
+      v18 = v9;
       _os_log_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_INFO, "Performed XPC -MCIsManagedAccountWithObjectID: successful {account: %@, result: %@}", buf, 0x16u);
     }
   }
@@ -431,7 +431,6 @@
     *error = v10;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10 == 0;
 }
 
@@ -526,34 +525,34 @@
 
 + (BOOL)isCloudBasedAccountType:(int64_t)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = cloudBasedAccountTypes();
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = cloudBasedAccountTypes(self);
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) integerValue] == type)
+        if ([*(*(&v11 + 1) + 8 * i) integerValue] == type)
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -566,51 +565,43 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)isConsideredEmptyWithResultPtr:(void *)a1 withError:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isConsideredEmptyWithResultPtr:withError:.cold.6()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "isConsideredEmpty: Error fetching lists from local account {error: %@}.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "isConsideredEmpty: Error fetching lists from local account {error: %@}.", v1, 0xCu);
 }
 
 - (void)MCIsManagedWithResultPtr:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_ERROR, "Performed XPC -MCIsManagedAccountWithObjectID: failed {account: %@, error: %@}", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_ERROR, "Performed XPC -MCIsManagedAccountWithObjectID: failed {account: %@, error: %@}", v2, 0x16u);
 }
 
 - (void)listIDsOrdering
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore read];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     objectID = [self objectID];
     OUTLINED_FUNCTION_2();
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (listIDsMergeableOrdering == nil) -- account.storage.listIDsMergeableOrdering should not be nil {objectID: %{public}@}", v5, 0xCu);
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (listIDsMergeableOrdering == nil) -- account.storage.listIDsMergeableOrdering should not be nil {objectID: %{public}@}", v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

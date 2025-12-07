@@ -7,44 +7,14 @@
 
 + (int)runWithConnection:(id)connection
 {
-  connectionCopy = connection;
-  if (([connectionCopy executeStatementString:@"CREATE TABLE message_global_data (ROWID INTEGER PRIMARY KEY AUTOINCREMENT errorMessage:{\nmessage_id INTEGER, \nUNIQUE(message_id) ON CONFLICT ABORT)", @"Creating message_global_data"}] & 1) == 0)
+  if ([v4 executeStatementString:@"CREATE TABLE message_global_data (ROWID INTEGER PRIMARY KEY AUTOINCREMENT errorMessage:{\nmessage_id INTEGER, \nUNIQUE(message_id) ON CONFLICT ABORT)", @"Creating message_global_data"}] & 1) != 0 && objc_msgSend(v4, "executeStatementString:errorMessage:", @"INSERT INTO message_global_data (message_id) SELECT DISTINCT message_id FROM messages", @"Populating message_global_data table") && objc_msgSend(v4, "executeStatementString:errorMessage:", @"DROP TRIGGER IF EXISTS after_delete_message\n", @"Dropping trigger") && objc_msgSend(v4, "executeStatementString:errorMessage:", @"ALTER TABLE messages RENAME TO messages_old", @"Moving messages table aside") && (objc_msgSend(self, "_messagesTableDefinition"), v5 = v4 = connection;
   {
-    goto LABEL_11;
-  }
-
-  if (![connectionCopy executeStatementString:@"INSERT INTO message_global_data (message_id) SELECT DISTINCT message_id FROM messages" errorMessage:@"Populating message_global_data table"])
-  {
-    goto LABEL_11;
-  }
-
-  if (![connectionCopy executeStatementString:@"DROP TRIGGER IF EXISTS after_delete_message;\n" errorMessage:@"Dropping trigger"])
-  {
-    goto LABEL_11;
-  }
-
-  if (![connectionCopy executeStatementString:@"ALTER TABLE messages RENAME TO messages_old" errorMessage:@"Moving messages table aside"])
-  {
-    goto LABEL_11;
-  }
-
-  _messagesTableDefinition = [self _messagesTableDefinition];
-  v6 = [connectionCopy executeStatementString:_messagesTableDefinition errorMessage:@"Adding new messages table"];
-
-  if ((v6 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  if ([connectionCopy executeStatementString:@"INSERT INTO messages (ROWID errorMessage:{message_id, global_message_id, remote_id, document_id, sender, subject_prefix, subject, summary, date_sent, date_received, mailbox, remote_mailbox, flags, read, flagged, deleted, size, conversation_id, date_last_viewed, original_mailbox, visible, sender_vip, encoding, content_type, sequence_identifier, external_id, unique_id, content_index_transaction_id, list_id_hash, journaled, flag_color, searchable_message) SELECT messages_old.ROWID, messages_old.message_id, message_global_data.ROWID, remote_id, document_id, sender, subject_prefix, subject, summary, date_sent, date_received, mailbox, remote_mailbox, flags, read, flagged, deleted, size, conversation_id, date_last_viewed, original_mailbox, visible, sender_vip, encoding, content_type, sequence_identifier, external_id, unique_id, content_index_transaction_id, list_id_hash, journaled, flag_color, searchable_message FROM messages_old JOIN message_global_data ON messages_old.message_id = message_global_data.message_id", @"Copying messages to new table"}] && objc_msgSend(connectionCopy, "executeStatementString:errorMessage:", @"DROP TABLE messages_old", @"Dropping old messages table") && objc_msgSend(self, "_recreateMessagesIndices:", connectionCopy) && (objc_msgSend(self, "_triggerDefinition"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(connectionCopy, "executeStatementString:errorMessage:", v7, @"Adding trigger"), v7, (v8 & 1) != 0))
-  {
-    [connectionCopy executeStatementString:@"INSERT INTO properties  (key errorMessage:{value) VALUES (NeedToMigrateFiles, 1)", @"Setting need to upgrade property"}];
+    [v4 executeStatementString:@"INSERT INTO properties  (key errorMessage:{value) VALUES (NeedToMigrateFiles, 1)", @"Setting need to upgrade property"}];
     v9 = 0;
   }
 
   else
   {
-LABEL_11:
     v9 = 1;
   }
 
@@ -53,33 +23,33 @@ LABEL_11:
 
 + (BOOL)_recreateMessagesIndices:(id)indices
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   indicesCopy = indices;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [&unk_1F2775220 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [&unk_1F2775220 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(&unk_1F2775220);
         }
 
-        if (([indicesCopy executeStatementString:*(*(&v10 + 1) + 8 * i) errorMessage:@"Adding index"] & 1) == 0)
+        if (([indicesCopy executeStatementString:*(*(&v9 + 1) + 8 * i) errorMessage:@"Adding index"] & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [&unk_1F2775220 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [&unk_1F2775220 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -92,7 +62,6 @@ LABEL_11:
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -345,13 +345,13 @@ LABEL_18:
 {
   if (![(ABFacebookMigrator *)self isCheckDone])
   {
-    v3 = ABAddressBookCopyValueForProperty([(ABFacebookMigrator *)self addressBook]);
+    v3 = ABAddressBookCopyValueForProperty([(ABFacebookMigrator *)self addressBook], @"MergeFacebookContacts");
     if (v3)
     {
       v4 = v3;
       v5 = ABAddressBookCopyAccountWithIdentifier([(ABFacebookMigrator *)self addressBook], v3);
       CFRelease(v4);
-      IntegerProperty = ABAddressBookGetIntegerProperty([(ABFacebookMigrator *)self addressBook]);
+      IntegerProperty = ABAddressBookGetIntegerProperty([(ABFacebookMigrator *)self addressBook], @"MergeFacebookContactsToSourceID");
       if (v5)
       {
         if ([(ABFacebookMigrator *)self _mergeContactsFromAccount:v5 toDestinationSourceID:IntegerProperty])
@@ -373,7 +373,7 @@ LABEL_18:
       }
     }
 
-    v14 = ABAddressBookCopyValueForProperty([(ABFacebookMigrator *)self addressBook]);
+    v14 = ABAddressBookCopyValueForProperty([(ABFacebookMigrator *)self addressBook], @"DeleteFacebookContacts");
     if (v14)
     {
       v15 = v14;
@@ -464,7 +464,7 @@ LABEL_18:
 
   v6 = v5;
   v7 = [self _performQuery:@"delete from ABMultiValue where     record_id in (select ROWID from ABPerson where storeid = ?)     and property = 22     and value like %.facebook.com%;" withStoreID:v5 connection:information];
-  v8 = v7 & [self _performQuery:@"delete from ABMultiValueEntry where parent_id in     (select abmv.UID from ABMultiValue as abmv join ABMultiValueEntry as abmve on abmv.UID = abmve.parent_id where         abmv.record_id in (select ROWID from ABPerson where StoreID = ?)         and abmv.property = 46         and abmve.key in (select ROWID from ABMultiValueEntryKey where value like \"service\"" withStoreID:v6 connection:information];
+  v8 = v7 & [self _performQuery:@"delete from ABMultiValueEntry where parent_id in     (select abmv.UID from ABMultiValue as abmv join ABMultiValueEntry as abmve on abmv.UID = abmve.parent_id where         abmv.record_id in (select ROWID from ABPerson where StoreID = ?)         and abmv.property = 46         and abmve.key in (select ROWID from ABMultiValueEntryKey where value like service" withStoreID:v6 connection:information];
   return v8 & [self _performQuery:@"delete from ABMultiValue where     record_id in (select ROWID from ABPerson where storeid = ?)     and property = 46     and UID not in (select parent_id from ABMultiValueEntry);" withStoreID:v6 connection:information];
 }
 

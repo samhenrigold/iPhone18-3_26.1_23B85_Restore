@@ -1,12 +1,12 @@
 @interface NSError(RBSErrors)
 + (id)rbs_errorClientNotAuthorized;
 + (id)rbs_errorClientNotEntitled:()RBSErrors permanent:;
-- (BOOL)rbs_isPermanentFailure;
+- (unint64_t)rbs_isPermanentFailure;
 @end
 
 @implementation NSError(RBSErrors)
 
-- (BOOL)rbs_isPermanentFailure
+- (unint64_t)rbs_isPermanentFailure
 {
   result = [(NSError *)self rbs_isServiceDenied];
   if (result)

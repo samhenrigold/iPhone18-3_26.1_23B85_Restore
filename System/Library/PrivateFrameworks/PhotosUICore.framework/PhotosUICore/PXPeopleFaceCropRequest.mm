@@ -103,8 +103,8 @@
   v3 = [(PXPeopleFaceCropRequest *)&v16 description];
   v4 = [v3 mutableCopy];
 
-  options = [(PXPeopleFaceCropRequest *)self options];
-  [v4 appendFormat:@":\noptions: %@", options];
+  v5 = objc_msgSend_options(self);
+  [v4 appendFormat:@":\noptions: %@", v5];
 
   face = [(PXPeopleFaceCropRequest *)self face];
   [v4 appendFormat:@"face: %@, \n", face];

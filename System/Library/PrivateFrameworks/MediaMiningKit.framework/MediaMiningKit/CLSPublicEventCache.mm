@@ -1181,7 +1181,7 @@ void __43__CLSPublicEventCache_publicEventsForMuid___block_invoke(uint64_t a1)
   return v15 & 1;
 }
 
-uint64_t __97__CLSPublicEventCache_insertBatchesOfPublicEventsByTimeLocationIdentifier_forTimeLocationTuples___block_invoke(uint64_t a1)
+void *__97__CLSPublicEventCache_insertBatchesOfPublicEventsByTimeLocationIdentifier_forTimeLocationTuples___block_invoke(uint64_t a1)
 {
   v53 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];

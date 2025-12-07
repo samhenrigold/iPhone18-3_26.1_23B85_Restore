@@ -55,8 +55,8 @@
 {
   v4 = objc_alloc(objc_opt_class());
   user = [(HFUserPhotosLibraryItem *)self user];
-  home = [(HFUserPhotosLibraryItem *)self home];
-  v7 = [v4 initWithUser:user inHome:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [v4 initWithUser:user inHome:v6];
 
   [v7 copyLatestResultsFromItem:self];
   return v7;
@@ -64,22 +64,22 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   user = [(HFUserPhotosLibraryItem *)self user];
   v6 = [HFUserNameFormatter alloc];
-  home = [(HFUserPhotosLibraryItem *)self home];
-  v8 = [(HFUserNameFormatter *)v6 initWithHome:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [(HFUserNameFormatter *)v6 initWithHome:v7];
 
   [(HFUserNameFormatter *)v8 setStyle:0];
-  home2 = [(HFUserPhotosLibraryItem *)self home];
-  v10 = [home2 hf_handleForUser:user];
+  v9 = objc_msgSend_home(self);
+  v10 = [v9 hf_handleForUser:user];
 
   if (+[HFUtilities isAMac])
   {
     v11 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:1000];
-    v57[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
+    v56[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
 
     v13 = +[HFContactStore defaultStore];
     v14 = [v13 contactForUserHandle:v10 withKeys:v12];
@@ -96,8 +96,8 @@
   [dictionary setObject:v22 forKeyedSubscript:@"title"];
 
   v23 = MEMORY[0x277CCABB0];
-  home3 = [(HFUserPhotosLibraryItem *)self home];
-  personManagerSettings = [home3 personManagerSettings];
+  v24 = objc_msgSend_home(self);
+  personManagerSettings = [v24 personManagerSettings];
   v26 = [v23 numberWithInt:{objc_msgSend(personManagerSettings, "isFaceClassificationEnabled") ^ 1}];
   [dictionary setObject:v26 forKeyedSubscript:@"isDisabled"];
 
@@ -107,12 +107,12 @@
   photosPersonManagerSettings = [user photosPersonManagerSettings];
   if (photosPersonManagerSettings)
   {
-    v50 = v15;
+    v49 = v15;
     v29 = v8;
     v30 = v10;
     user2 = [(HFUserPhotosLibraryItem *)self user];
-    home4 = [(HFUserPhotosLibraryItem *)self home];
-    currentUser = [home4 currentUser];
+    v32 = objc_msgSend_home(self);
+    currentUser = [v32 currentUser];
     v34 = [user2 isEqual:currentUser];
 
     isImportingFromPhotoLibraryEnabled = [photosPersonManagerSettings isImportingFromPhotoLibraryEnabled];
@@ -148,7 +148,7 @@
         v41 = 1;
         v8 = v29;
 LABEL_20:
-        v15 = v50;
+        v15 = v49;
         goto LABEL_21;
       }
 
@@ -159,8 +159,8 @@ LABEL_20:
     v42 = _HFLocalizedStringWithDefaultValue(v36, v36, 1);
     [dictionary setObject:v42 forKeyedSubscript:@"description"];
 
-    home5 = [(HFUserPhotosLibraryItem *)self home];
-    personManagerSettings2 = [home5 personManagerSettings];
+    v43 = objc_msgSend_home(self);
+    personManagerSettings2 = [v43 personManagerSettings];
     v41 = [personManagerSettings2 isFaceClassificationEnabled] ^ 1;
 
     goto LABEL_20;
@@ -175,10 +175,10 @@ LABEL_20:
   {
     *buf = 138412802;
     selfCopy = self;
-    v53 = 2080;
-    v54 = "[HFUserPhotosLibraryItem _subclass_updateWithOptions:]";
-    v55 = 2112;
-    v56 = v39;
+    v52 = 2080;
+    v53 = "[HFUserPhotosLibraryItem _subclass_updateWithOptions:]";
+    v54 = 2112;
+    v55 = v39;
     _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "%@ (%s): %@", buf, 0x20u);
   }
 
@@ -190,8 +190,6 @@ LABEL_21:
   v46 = [[HFItemUpdateOutcome alloc] initWithResults:dictionary];
   v47 = [MEMORY[0x277D2C900] futureWithResult:v46];
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v47;
 }
 
@@ -202,8 +200,8 @@ LABEL_21:
   name = [user name];
   [v3 appendString:name withName:@"user"];
 
-  home = [(HFUserPhotosLibraryItem *)self home];
-  v7 = [home description];
+  v6 = objc_msgSend_home(self);
+  v7 = [v6 description];
   [v3 appendString:v7 withName:@"home"];
 
   build = [v3 build];

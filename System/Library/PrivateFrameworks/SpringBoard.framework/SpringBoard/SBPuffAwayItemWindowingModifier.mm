@@ -142,7 +142,7 @@ LABEL_6:
 
   appLayout3 = [v6 appLayout];
   [(SBPuffAwayItemWindowingModifier *)self bestSupportedDefaultCornerRadiusForAppLayout:appLayout3];
-  [(SBPuffAwayItemWindowingModifier *)self frameForItem:v6];
+  objc_msgSend_frameForItem_(self);
   SBRectCornerRadiiForRadius();
   SBWindowingItemCornersMake(15, retstr, v12, v13, v14, v15);
 

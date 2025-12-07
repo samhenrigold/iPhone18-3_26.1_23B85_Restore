@@ -30,6 +30,7 @@
 - (BOOL)isWowEnabled;
 - (BOOL)isWowSupported;
 - (PLWifiAgent)init;
+- (id)decodeWifiEventLinkReason:(unsigned int)reason;
 - (id)wifiChipsetQuery;
 - (id)wifiManufacturerQuery;
 - (unint64_t)getCurrentChannelWidth:(__WiFiNetwork *)width;
@@ -40,11 +41,13 @@
 - (void)logAWDLStateEntry:(id)entry;
 - (void)logEventBackwardControlCPUPowerStats;
 - (void)logEventBackwardUserScanDuration;
+- (void)logEventBackwardWifiProperties:(BOOL)properties;
 - (void)logEventBackwardWifiProperties:(id)properties withNetworkProperties:(id)networkProperties shallModelPower:(BOOL)power;
 - (void)logEventForwardAWDLState:(id)state;
 - (void)logEventForwardHotspotState:(id)state;
 - (void)logEventForwardModuleInfo;
 - (void)logEventForwardRSSI:(id)i;
+- (void)logEventForwardWifiAssist:(BOOL)assist;
 - (void)logEventPointAWDLServicesAndPorts;
 - (void)logEventPointJoin:(unsigned __int8)join withStats:(id)stats;
 - (void)logEventPointRemoteControlSession:(id)session;
@@ -54,6 +57,7 @@
 - (void)logEventPointWakePNO:(id)o withParams:(id)params toEntry:(id)entry;
 - (void)logFromAJCallback:(id)callback withFlag:(unsigned __int8)flag withStats:(id)stats;
 - (void)logFromLinkChangeCallback:(id)callback withStats:(id)stats;
+- (void)logFromWiFiNoAvailableCallback:(id)callback withAvailability:(BOOL)availability withWakeParams:(id)params;
 - (void)modelWiFiPower:(id)power;
 - (void)modelWiFiSegmentPower:(id)power withDataPower:(double)dataPower withIdlePower:(double)idlePower withLocationPower:(double)locationPower withPipelinePower:(double)pipelinePower withTotalDuration:(double)duration;
 - (void)setWiFiAWDLDevice:(__WiFiDeviceClient *)device;
@@ -68,18 +72,17 @@
 
 void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v6 = a3;
+  v16 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = a3;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v6 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v8;
+    block[4] = v6;
     if (qword_2811F6760 != -1)
     {
       dispatch_once(&qword_2811F6760, block);
@@ -87,24 +90,22 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
 
     if (byte_2811F66BC == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Wifi Application Key Logger: %@ = %@", v6, v5];
-      v10 = MEMORY[0x277D3F178];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      v12 = [v11 lastPathComponent];
-      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke"];
-      [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:2564];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Wifi Application Key Logger: %@ = %@", v5, v4];
+      v8 = MEMORY[0x277D3F178];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      v10 = [v9 lastPathComponent];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke"];
+      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:2564];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v9;
-        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v15 = v7;
+        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasWiFi
@@ -165,7 +166,7 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
 
 - (id)wifiChipsetQuery
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   wifiChipset = self->_wifiChipset;
   if (wifiChipset)
   {
@@ -173,8 +174,8 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
   }
 
   v4 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"ModuleInfo"];
-  storage = [(PLOperator *)self storage];
-  v6 = [storage lastEntryForKey:v4];
+  v5 = objc_msgSend_storage(self);
+  v6 = [v5 lastEntryForKey:v4];
 
   if (v6)
   {
@@ -182,10 +183,10 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
     {
       v7 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __31__PLWifiAgent_wifiChipsetQuery__block_invoke;
-      v31 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v32 = v7;
+      v28 = 3221225472;
+      v29 = __31__PLWifiAgent_wifiChipsetQuery__block_invoke;
+      v30 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v31 = v7;
       if (qword_2811F68C8 != -1)
       {
         dispatch_once(&qword_2811F68C8, &block);
@@ -193,7 +194,7 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
 
       if (byte_2811F66E9 == 1)
       {
-        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"last module entry: %@", v6, block, v29, v30, v31, v32];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"last module entry: %@", v6, block, v28, v29, v30, v31];
         v9 = MEMORY[0x277D3F178];
         v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent = [v10 lastPathComponent];
@@ -204,7 +205,7 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke(uint64_t a1, void 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v34 = v8;
+          v33 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -369,7 +370,7 @@ LABEL_54:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v34 = v18;
+      v33 = v18;
       _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -383,7 +384,6 @@ LABEL_55:
 LABEL_56:
   v16 = wifiChipset;
 LABEL_57:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -391,13 +391,13 @@ LABEL_57:
 - (id)wifiManufacturerQuery
 {
   selfCopy = self;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   wifiManufacturer = self->_wifiManufacturer;
   if (!wifiManufacturer)
   {
     v4 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"ModuleInfo"];
-    storage = [(PLOperator *)selfCopy storage];
-    v6 = [storage lastEntryForKey:v4];
+    v5 = objc_msgSend_storage(selfCopy);
+    v6 = [v5 lastEntryForKey:v4];
 
     if (!v6)
     {
@@ -433,37 +433,37 @@ LABEL_37:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v47 = v8;
+          v46 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v37 = v6;
-    v38 = v4;
-    v35 = [v6 objectForKeyedSubscript:@"ModuleInfo"];
-    v14 = [v35 componentsSeparatedByString:@" "];
+    v36 = v6;
+    v37 = v4;
+    v34 = [v6 objectForKeyedSubscript:@"ModuleInfo"];
+    v14 = [v34 componentsSeparatedByString:@" "];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
-    v36 = selfCopy;
+    v15 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v35 = selfCopy;
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v41;
+      v18 = *v40;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v41 != v18)
+          if (*v40 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = [*(*(&v40 + 1) + 8 * i) componentsSeparatedByString:@"="];
+          v20 = [*(*(&v39 + 1) + 8 * i) componentsSeparatedByString:@"="];
           if ([v20 count] == 2)
           {
             v21 = [v20 objectAtIndexedSubscript:0];
@@ -478,7 +478,7 @@ LABEL_37:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v16);
@@ -489,16 +489,16 @@ LABEL_37:
       v17 = 0;
     }
 
-    v4 = v38;
+    v4 = v37;
     if ([v17 isEqualToString:@"u"])
     {
       v24 = @"usi";
-      selfCopy = v36;
+      selfCopy = v35;
     }
 
     else
     {
-      selfCopy = v36;
+      selfCopy = v35;
       if ([v17 isEqualToString:@"t"])
       {
         v24 = @"usi";
@@ -511,14 +511,14 @@ LABEL_37:
       }
 
       v25 = objc_opt_class();
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __36__PLWifiAgent_wifiManufacturerQuery__block_invoke_2622;
-      v39[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v39[4] = v25;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __36__PLWifiAgent_wifiManufacturerQuery__block_invoke_2622;
+      v38[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v38[4] = v25;
       if (qword_2811F68D8 != -1)
       {
-        dispatch_once(&qword_2811F68D8, v39);
+        dispatch_once(&qword_2811F68D8, v38);
       }
 
       if (byte_2811F66EB != 1)
@@ -539,15 +539,15 @@ LABEL_35:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v47 = v26;
+        v46 = v26;
         _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       v24 = @"murata";
-      v4 = v38;
+      v4 = v37;
     }
 
-    v6 = v37;
+    v6 = v36;
 LABEL_36:
     v32 = selfCopy->_wifiManufacturer;
     selfCopy->_wifiManufacturer = &v24->isa;
@@ -556,7 +556,6 @@ LABEL_36:
   }
 
 LABEL_38:
-  v33 = *MEMORY[0x277D85DE8];
 
   return wifiManufacturer;
 }
@@ -585,17 +584,17 @@ LABEL_38:
 
 - (void)logEventPointAWDLServicesAndPorts
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if ([(PLWifiAgent *)self hasWiFi])
   {
     monitor = self->_monitor;
-    v36 = 0;
-    v37 = 0;
     v35 = 0;
-    v4 = [(WiFiP2PAWDLStateMonitor *)monitor fetchAWDLActiveServices:&v37 withActivePorts:&v36 error:&v35];
-    v5 = v37;
-    v6 = v36;
-    v7 = v35;
+    v36 = 0;
+    v34 = 0;
+    v4 = [(WiFiP2PAWDLStateMonitor *)monitor fetchAWDLActiveServices:&v36 withActivePorts:&v35 error:&v34];
+    v5 = v36;
+    v6 = v35;
+    v7 = v34;
     v8 = PLLogWifi();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
     if (v4)
@@ -613,7 +612,7 @@ LABEL_38:
       if (v10 | v11)
       {
         selfCopy = self;
-        v34 = v7;
+        v33 = v7;
         if (v12)
         {
           *buf = 0;
@@ -633,7 +632,7 @@ LABEL_38:
 
         if (v10)
         {
-          v32 = v11;
+          v31 = v11;
           v17 = 0;
           v18 = 0;
           do
@@ -650,7 +649,7 @@ LABEL_38:
 
           while (v16 != v20);
 
-          v11 = v32;
+          v11 = v31;
         }
 
         if (v11 >= 4)
@@ -686,7 +685,7 @@ LABEL_38:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v39 = v8;
+          v38 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "Map of Active Services and Ports: %@", buf, 0xCu);
         }
 
@@ -694,7 +693,7 @@ LABEL_38:
         v30 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v29 withRawData:v8];
         [(PLOperator *)selfCopy logEntry:v30];
 
-        v7 = v34;
+        v7 = v33;
         goto LABEL_32;
       }
 
@@ -712,7 +711,7 @@ LABEL_12:
     else if (v9)
     {
       *buf = 138412290;
-      v39 = v7;
+      v38 = v7;
       v13 = "Call to fetch active services and ports failed with error: %@";
       v14 = v8;
       v15 = 12;
@@ -732,8 +731,6 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeModeledPower
@@ -786,22 +783,22 @@ LABEL_33:
 
 + (id)entryEventPointDefinitionWifiInstantPower
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F258] isPerfPowerMetricd])
   {
-    v13[0] = *MEMORY[0x277D3F4E8];
-    v11 = *MEMORY[0x277D3F568];
-    v12 = &unk_282C1CA28;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-    v14[0] = v2;
-    v13[1] = *MEMORY[0x277D3F540];
-    v9 = @"WifiPower";
+    v12[0] = *MEMORY[0x277D3F4E8];
+    v10 = *MEMORY[0x277D3F568];
+    v11 = &unk_282C1CA28;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v13[0] = v2;
+    v12[1] = *MEMORY[0x277D3F540];
+    v8 = @"WifiPower";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_RealFormat = [mEMORY[0x277D3F198] commonTypeDict_RealFormat];
-    v10 = commonTypeDict_RealFormat;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-    v14[1] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v9 = commonTypeDict_RealFormat;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    v13[1] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   }
 
   else
@@ -809,656 +806,626 @@ LABEL_33:
     v6 = MEMORY[0x277CBEC10];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)entryEventPointDefinitions
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Wake";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Wake";
   v2 = +[PLWifiAgent entryEventPointDefinitionWake];
-  v11[0] = v2;
-  v10[1] = @"AWDLServicesAndPorts";
+  v10[0] = v2;
+  v9[1] = @"AWDLServicesAndPorts";
   v3 = +[PLWifiAgent entryEventPointDefinitionAWDLServicesAndPorts];
-  v11[1] = v3;
-  v10[2] = @"Join";
+  v10[1] = v3;
+  v9[2] = @"Join";
   v4 = +[PLWifiAgent entryEventPointDefinitionJoin];
-  v11[2] = v4;
-  v10[3] = @"RemoteControlSession";
+  v10[2] = v4;
+  v9[3] = @"RemoteControlSession";
   v5 = +[PLWifiAgent entryEventPointDefinitionRemoteControlSession];
-  v11[3] = v5;
-  v10[4] = @"MetricMonitorInstantKeys";
+  v10[3] = v5;
+  v9[4] = @"MetricMonitorInstantKeys";
   v6 = +[PLWifiAgent entryEventPointDefinitionWifiInstantPower];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionWake
 {
-  v39[3] = *MEMORY[0x277D85DE8];
-  v38[0] = *MEMORY[0x277D3F4E8];
+  v38[3] = *MEMORY[0x277D85DE8];
+  v37[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4F8];
-  v36[0] = *MEMORY[0x277D3F568];
-  v36[1] = v2;
-  v37[0] = &unk_282C1CA38;
-  v37[1] = MEMORY[0x277CBEC38];
+  v35[0] = *MEMORY[0x277D3F568];
+  v35[1] = v2;
+  v36[0] = &unk_282C1CA38;
+  v36[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277D3F4A0];
-  v36[2] = *MEMORY[0x277D3F550];
-  v36[3] = v3;
-  v37[2] = MEMORY[0x277CBEC28];
-  v37[3] = MEMORY[0x277CBEC38];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
-  v39[0] = v29;
-  v38[1] = *MEMORY[0x277D3F540];
-  v34[0] = @"WakeReason";
+  v35[2] = *MEMORY[0x277D3F550];
+  v35[3] = v3;
+  v36[2] = MEMORY[0x277CBEC28];
+  v36[3] = MEMORY[0x277CBEC38];
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
+  v38[0] = v28;
+  v37[1] = *MEMORY[0x277D3F540];
+  v33[0] = @"WakeReason";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v35[0] = commonTypeDict_StringFormat;
-  v34[1] = @"WakeTime";
+  v34[0] = commonTypeDict_StringFormat;
+  v33[1] = @"WakeTime";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat];
-  v35[1] = commonTypeDict_RealFormat;
-  v34[2] = @"PID";
+  v34[1] = commonTypeDict_RealFormat;
+  v33[2] = @"PID";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v35[2] = commonTypeDict_IntegerFormat;
-  v34[3] = @"ProcessName";
+  v34[2] = commonTypeDict_IntegerFormat;
+  v33[3] = @"ProcessName";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withProcessName = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat_withProcessName];
-  v35[3] = commonTypeDict_StringFormat_withProcessName;
-  v34[4] = @"WakeLen";
+  v34[3] = commonTypeDict_StringFormat_withProcessName;
+  v33[4] = @"WakeLen";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v35[4] = commonTypeDict_IntegerFormat2;
-  v34[5] = @"spi";
+  v34[4] = commonTypeDict_IntegerFormat2;
+  v33[5] = @"spi";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v35[5] = commonTypeDict_IntegerFormat3;
-  v34[6] = @"seqNo";
+  v34[5] = commonTypeDict_IntegerFormat3;
+  v33[6] = @"seqNo";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v35[6] = commonTypeDict_IntegerFormat4;
-  v34[7] = @"TCPKAWakeReason";
+  v34[6] = commonTypeDict_IntegerFormat4;
+  v33[7] = @"TCPKAWakeReason";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat];
-  v35[7] = commonTypeDict_StringFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:8];
-  v39[1] = v8;
-  v38[2] = *MEMORY[0x277D3F500];
-  v32[0] = @"value";
+  v34[7] = commonTypeDict_StringFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:8];
+  v38[1] = v8;
+  v37[2] = *MEMORY[0x277D3F500];
+  v31[0] = @"value";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]9 commonTypeDict_StringFormat];
-  v32[1] = @"unit";
-  v33[0] = commonTypeDict_StringFormat3;
+  v31[1] = @"unit";
+  v32[0] = commonTypeDict_StringFormat3;
   v11 = *MEMORY[0x277D3F5B0];
-  v30[0] = *MEMORY[0x277D3F5A8];
-  v30[1] = v11;
-  v31[0] = &unk_282C12D68;
-  v31[1] = @"s";
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-  v33[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-  v39[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277D3F5A8];
+  v29[1] = v11;
+  v30[0] = &unk_282C12D68;
+  v30[1] = @"s";
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v32[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v38[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
 
   return v14;
 }
 
 + (id)entryEventPointDefinitionJoin
 {
-  v35[2] = *MEMORY[0x277D85DE8];
-  v34[0] = *MEMORY[0x277D3F4E8];
+  v34[2] = *MEMORY[0x277D85DE8];
+  v33[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4F8];
-  v32[0] = *MEMORY[0x277D3F568];
-  v32[1] = v2;
-  v33[0] = &unk_282C1CA48;
-  v33[1] = MEMORY[0x277CBEC28];
-  v32[2] = *MEMORY[0x277D3F550];
-  v33[2] = MEMORY[0x277CBEC28];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
-  v35[0] = v29;
-  v34[1] = *MEMORY[0x277D3F540];
-  v30[0] = @"State";
+  v31[0] = *MEMORY[0x277D3F568];
+  v31[1] = v2;
+  v32[0] = &unk_282C1CA48;
+  v32[1] = MEMORY[0x277CBEC28];
+  v31[2] = *MEMORY[0x277D3F550];
+  v32[2] = MEMORY[0x277CBEC28];
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v34[0] = v28;
+  v33[1] = *MEMORY[0x277D3F540];
+  v29[0] = @"State";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v31[0] = commonTypeDict_IntegerFormat;
-  v30[1] = @"Reason";
+  v30[0] = commonTypeDict_IntegerFormat;
+  v29[1] = @"Reason";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v31[1] = commonTypeDict_IntegerFormat2;
-  v30[2] = @"LPM_LPAS_POWER_BUDGET_REMAINING";
+  v30[1] = commonTypeDict_IntegerFormat2;
+  v29[2] = @"LPM_LPAS_POWER_BUDGET_REMAINING";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v31[2] = commonTypeDict_IntegerFormat3;
-  v30[3] = @"LPM_POWER_CONSUMPTION_DUE_TO_FRTS";
+  v30[2] = commonTypeDict_IntegerFormat3;
+  v29[3] = @"LPM_POWER_CONSUMPTION_DUE_TO_FRTS";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v31[3] = commonTypeDict_IntegerFormat4;
-  v30[4] = @"LPM_POWER_CONSUMPTION_DUE_TO_MAC";
+  v30[3] = commonTypeDict_IntegerFormat4;
+  v29[4] = @"LPM_POWER_CONSUMPTION_DUE_TO_MAC";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v31[4] = commonTypeDict_IntegerFormat5;
-  v30[5] = @"LPM_POWER_CONSUMPTION_DUE_TO_RF";
+  v30[4] = commonTypeDict_IntegerFormat5;
+  v29[5] = @"LPM_POWER_CONSUMPTION_DUE_TO_RF";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v31[5] = commonTypeDict_IntegerFormat6;
-  v30[6] = @"LPM_POWER_CONSUMPTION_DUE_TO_ROAM_SCAN";
+  v30[5] = commonTypeDict_IntegerFormat6;
+  v29[6] = @"LPM_POWER_CONSUMPTION_DUE_TO_ROAM_SCAN";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v31[6] = commonTypeDict_IntegerFormat7;
-  v30[7] = @"LPM_POWER_CONSUMPTION_DUE_TO_USER_SCAN";
+  v30[6] = commonTypeDict_IntegerFormat7;
+  v29[7] = @"LPM_POWER_CONSUMPTION_DUE_TO_USER_SCAN";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v31[7] = commonTypeDict_IntegerFormat8;
-  v30[8] = @"LPM_POWER_CONSUMPTION_IN_SELF_MANAGED_LPAS";
+  v30[7] = commonTypeDict_IntegerFormat8;
+  v29[8] = @"LPM_POWER_CONSUMPTION_IN_SELF_MANAGED_LPAS";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v31[8] = commonTypeDict_IntegerFormat9;
-  v30[9] = @"LPM_TOTAL_LPAS_DURATION";
+  v30[8] = commonTypeDict_IntegerFormat9;
+  v29[9] = @"LPM_TOTAL_LPAS_DURATION";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v31[9] = commonTypeDict_IntegerFormat10;
-  v30[10] = @"LPM_TOTAL_LPAS_POWER_PERIOD_REMAINING";
+  v30[9] = commonTypeDict_IntegerFormat10;
+  v29[10] = @"LPM_TOTAL_LPAS_POWER_PERIOD_REMAINING";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v31[10] = commonTypeDict_IntegerFormat11;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:11];
-  v35[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v30[10] = commonTypeDict_IntegerFormat11;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:11];
+  v34[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
   return v12;
 }
 
 + (id)entryEventPointDefinitionRemoteControlSession
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v23[0] = *MEMORY[0x277D3F4E8];
-  v21 = *MEMORY[0x277D3F568];
-  v22 = &unk_282C1CA28;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24[0] = v18;
-  v23[1] = *MEMORY[0x277D3F540];
-  v19[0] = @"Active";
+  v23[2] = *MEMORY[0x277D85DE8];
+  v22[0] = *MEMORY[0x277D3F4E8];
+  v20 = *MEMORY[0x277D3F568];
+  v21 = &unk_282C1CA28;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v17;
+  v22[1] = *MEMORY[0x277D3F540];
+  v18[0] = @"Active";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v20[0] = commonTypeDict_BoolFormat;
-  v19[1] = @"BundleID";
+  v19[0] = commonTypeDict_BoolFormat;
+  v18[1] = @"BundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v20[1] = commonTypeDict_StringFormat_withBundleID;
-  v19[2] = @"ConnectionID";
+  v19[1] = commonTypeDict_StringFormat_withBundleID;
+  v18[2] = @"ConnectionID";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v20[2] = commonTypeDict_StringFormat;
-  v19[3] = @"DeviceType";
+  v19[2] = commonTypeDict_StringFormat;
+  v18[3] = @"DeviceType";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v20[3] = commonTypeDict_IntegerFormat;
-  v19[4] = @"Reason";
+  v19[3] = commonTypeDict_IntegerFormat;
+  v18[4] = @"Reason";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-  v20[4] = commonTypeDict_StringFormat2;
-  v19[5] = @"TransportType";
+  v19[4] = commonTypeDict_StringFormat2;
+  v18[5] = @"TransportType";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v20[5] = commonTypeDict_IntegerFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
-  v24[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[5] = commonTypeDict_IntegerFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v23[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitionAWDLServicesAndPorts
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
-  v25 = *MEMORY[0x277D3F568];
-  v26 = &unk_282C1CA28;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v28[0] = v22;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"port_1";
+  v27[2] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
+  v24 = *MEMORY[0x277D3F568];
+  v25 = &unk_282C1CA28;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v27[0] = v21;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"port_1";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v24[0] = commonTypeDict_IntegerFormat;
-  v23[1] = @"port_2";
+  v23[0] = commonTypeDict_IntegerFormat;
+  v22[1] = @"port_2";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v24[1] = commonTypeDict_IntegerFormat2;
-  v23[2] = @"port_3";
+  v23[1] = commonTypeDict_IntegerFormat2;
+  v22[2] = @"port_3";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v24[2] = commonTypeDict_IntegerFormat3;
-  v23[3] = @"port_4";
+  v23[2] = commonTypeDict_IntegerFormat3;
+  v22[3] = @"port_4";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v24[3] = commonTypeDict_IntegerFormat4;
-  v23[4] = @"service_1";
+  v23[3] = commonTypeDict_IntegerFormat4;
+  v22[4] = @"service_1";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-  v24[4] = commonTypeDict_StringFormat;
-  v23[5] = @"service_2";
+  v23[4] = commonTypeDict_StringFormat;
+  v22[5] = @"service_2";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v24[5] = commonTypeDict_StringFormat2;
-  v23[6] = @"service_3";
+  v23[5] = commonTypeDict_StringFormat2;
+  v22[6] = @"service_3";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]7 commonTypeDict_StringFormat];
-  v24[6] = commonTypeDict_StringFormat3;
-  v23[7] = @"service_4";
+  v23[6] = commonTypeDict_StringFormat3;
+  v22[7] = @"service_4";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat4 = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat];
-  v24[7] = commonTypeDict_StringFormat4;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:8];
-  v28[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v23[7] = commonTypeDict_StringFormat4;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:8];
+  v27[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   return v11;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"AWDLState";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"AWDLState";
   v2 = +[PLWifiAgent entryEventForwardDefinitionAWDLState];
-  v11[0] = v2;
-  v10[1] = @"HotspotState";
+  v10[0] = v2;
+  v9[1] = @"HotspotState";
   v3 = +[PLWifiAgent entryEventForwardDefinitionHotspotState];
-  v11[1] = v3;
-  v10[2] = @"ModuleInfo";
+  v10[1] = v3;
+  v9[2] = @"ModuleInfo";
   v4 = +[PLWifiAgent entryEventForwardDefinitionModuleInfo];
-  v11[2] = v4;
-  v10[3] = @"WifiAssist";
+  v10[2] = v4;
+  v9[3] = @"WifiAssist";
   v5 = +[PLWifiAgent entryEventForwardDefinitionWifiAssist];
-  v11[3] = v5;
-  v10[4] = @"RSSI";
+  v10[3] = v5;
+  v9[4] = @"RSSI";
   v6 = +[PLWifiAgent entryEventForwardDefinitionRSSI];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitionModuleInfo
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277D3F4E8];
-  v17 = *MEMORY[0x277D3F568];
-  v18 = &unk_282C1CA28;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v20[0] = v14;
-  v19[1] = *MEMORY[0x277D3F540];
-  v15[0] = @"ChipInfo";
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277D3F4E8];
+  v16 = *MEMORY[0x277D3F568];
+  v17 = &unk_282C1CA28;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v19[0] = v13;
+  v18[1] = *MEMORY[0x277D3F540];
+  v14[0] = @"ChipInfo";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v16[0] = commonTypeDict_StringFormat;
-  v15[1] = @"ManufacturerId";
+  v15[0] = commonTypeDict_StringFormat;
+  v14[1] = @"ManufacturerId";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v16[1] = commonTypeDict_IntegerFormat;
-  v15[2] = @"ModuleInfo";
+  v15[1] = commonTypeDict_IntegerFormat;
+  v14[2] = @"ModuleInfo";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v16[2] = commonTypeDict_StringFormat2;
-  v15[3] = @"ProductId";
+  v15[2] = commonTypeDict_StringFormat2;
+  v14[3] = @"ProductId";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v16[3] = commonTypeDict_IntegerFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v15[3] = commonTypeDict_IntegerFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   return v11;
 }
 
 + (id)entryEventForwardDefinitionRSSI
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
+  v27[2] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v25[0] = *MEMORY[0x277D3F568];
-  v25[1] = v2;
-  v26[0] = &unk_282C1CA28;
-  v26[1] = MEMORY[0x277CBEC28];
-  v25[2] = *MEMORY[0x277D3F508];
+  v24[0] = *MEMORY[0x277D3F568];
+  v24[1] = v2;
+  v25[0] = &unk_282C1CA28;
+  v25[1] = MEMORY[0x277CBEC28];
+  v24[2] = *MEMORY[0x277D3F508];
   v3 = MEMORY[0x277CBEC38];
-  v26[2] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
-  v28[0] = v4;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"RSSI";
+  v25[2] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v27[0] = v4;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"RSSI";
   v5 = *MEMORY[0x277D3F5A8];
-  v22[0] = &unk_282C12D80;
+  v21[0] = &unk_282C12D80;
   v6 = *MEMORY[0x277D3F520];
-  v21[0] = v5;
-  v21[1] = v6;
-  v19 = *MEMORY[0x277D3F518];
-  v20 = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  v22[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  v23[1] = @"ScaledRSSI";
-  v24[0] = v8;
-  v17[1] = v6;
-  v18[0] = &unk_282C12D80;
-  v17[0] = v5;
-  v15 = *MEMORY[0x277D3F510];
-  v16 = &unk_282C1CA58;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v24[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-  v28[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[0] = v5;
+  v20[1] = v6;
+  v18 = *MEMORY[0x277D3F518];
+  v19 = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v21[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v22[1] = @"ScaledRSSI";
+  v23[0] = v8;
+  v16[1] = v6;
+  v17[0] = &unk_282C12D80;
+  v16[0] = v5;
+  v14 = *MEMORY[0x277D3F510];
+  v15 = &unk_282C1CA58;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v23[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v27[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionWifiAssist
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1CA28;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"WifiAssistFallback";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1CA28;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"WifiAssistFallback";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventForwardDefinitionHotspotState
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1CA28;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"HotSpotOn";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1CA28;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"HotSpotOn";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v12[1] = @"ADHS";
-  v13[0] = commonTypeDict_BoolFormat;
+  v11[1] = @"ADHS";
+  v12[0] = commonTypeDict_BoolFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_BoolFormat];
-  v13[1] = commonTypeDict_BoolFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_BoolFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionAWDLState
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1CA68;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"AWDLDown";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1CA68;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"AWDLDown";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v12[1] = @"AWDLRanging";
-  v13[0] = commonTypeDict_BoolFormat;
+  v11[1] = @"AWDLRanging";
+  v12[0] = commonTypeDict_BoolFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionPowerState
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1CA28;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"PowerOn";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1CA28;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"PowerOn";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventBackwardDefinitions
 {
-  v15[9] = *MEMORY[0x277D85DE8];
+  v14[9] = *MEMORY[0x277D85DE8];
   v2 = +[PLWifiAgent entryEventBackwardDefinitionBeaconProfile];
-  v15[0] = v2;
-  v14[1] = @"CumulativeProperties";
+  v14[0] = v2;
+  v13[1] = @"CumulativeProperties";
   v3 = +[PLWifiAgent entryEventBackwardDefinitionCumulativeBasic];
-  v15[1] = v3;
-  v14[2] = @"DiffProperties";
+  v14[1] = v3;
+  v13[2] = @"DiffProperties";
   v4 = +[PLWifiAgent entryEventBackwardDefinitionDiffBasic];
-  v15[2] = v4;
-  v14[3] = @"CumulativeUserScanDurations";
+  v14[2] = v4;
+  v13[3] = @"CumulativeUserScanDurations";
   v5 = +[PLWifiAgent entryEventBackwardDefinitionUserScan];
-  v15[3] = v5;
-  v14[4] = @"HotspotPowerStats";
+  v14[3] = v5;
+  v13[4] = @"HotspotPowerStats";
   v6 = +[PLWifiAgent entryEventBackwardDefinitionHotspotPowerStats];
-  v15[4] = v6;
-  v14[5] = @"AutoJoin";
+  v14[4] = v6;
+  v13[5] = @"AutoJoin";
   v7 = +[PLWifiAgent entryEventBackwardDefinitionAutoJoin];
-  v15[5] = v7;
-  v14[6] = @"Scans";
+  v14[5] = v7;
+  v13[6] = @"Scans";
   v8 = +[PLWifiAgent entryEventBackwardDefinitionScans];
-  v15[6] = v8;
-  v14[7] = @"ScanForwardStats";
+  v14[6] = v8;
+  v13[7] = @"ScanForwardStats";
   v9 = +[PLWifiAgent entryEventBackwardDefinitionScanForwardStats];
-  v15[7] = v9;
-  v14[8] = @"ControlCPUPowerStats";
+  v14[7] = v9;
+  v13[8] = @"ControlCPUPowerStats";
   v10 = +[PLWifiAgent entryEventBackwardDefinitionControlCPUPowerStats];
-  v15[8] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[8] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:9];
 
   return v11;
 }
 
 + (id)entryEventBackwardDefinitionAutoJoin
 {
-  v77[2] = *MEMORY[0x277D85DE8];
-  v76[0] = *MEMORY[0x277D3F4E8];
+  v76[2] = *MEMORY[0x277D85DE8];
+  v75[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v74[0] = *MEMORY[0x277D3F568];
-  v74[1] = v2;
-  v75[0] = &unk_282C1CA78;
-  v75[1] = MEMORY[0x277CBEC28];
-  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
-  v77[0] = v71;
-  v76[1] = *MEMORY[0x277D3F540];
-  v72[0] = @"AutoJoinAbortedCount";
+  v73[0] = *MEMORY[0x277D3F568];
+  v73[1] = v2;
+  v74[0] = &unk_282C1CA78;
+  v74[1] = MEMORY[0x277CBEC28];
+  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+  v76[0] = v70;
+  v75[1] = *MEMORY[0x277D3F540];
+  v71[0] = @"AutoJoinAbortedCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v73[0] = commonTypeDict_IntegerFormat;
-  v72[1] = @"AutoJoinCount";
+  v72[0] = commonTypeDict_IntegerFormat;
+  v71[1] = @"AutoJoinCount";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v73[1] = commonTypeDict_IntegerFormat2;
-  v72[2] = @"AutoJoinDidFindCandidateCount";
+  v72[1] = commonTypeDict_IntegerFormat2;
+  v71[2] = @"AutoJoinDidFindCandidateCount";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v73[2] = commonTypeDict_IntegerFormat3;
-  v72[3] = @"AutoJoinRetryCount";
+  v72[2] = commonTypeDict_IntegerFormat3;
+  v71[3] = @"AutoJoinRetryCount";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v73[3] = commonTypeDict_IntegerFormat4;
-  v72[4] = @"CombinedScanChannelCount";
+  v72[3] = commonTypeDict_IntegerFormat4;
+  v71[4] = @"CombinedScanChannelCount";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v73[4] = commonTypeDict_IntegerFormat5;
-  v72[5] = @"CombinedScanChannelCount2ghz";
+  v72[4] = commonTypeDict_IntegerFormat5;
+  v71[5] = @"CombinedScanChannelCount2ghz";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v73[5] = commonTypeDict_IntegerFormat6;
-  v72[6] = @"CombinedScanChannelCount5ghz";
+  v72[5] = commonTypeDict_IntegerFormat6;
+  v71[6] = @"CombinedScanChannelCount5ghz";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v73[6] = commonTypeDict_IntegerFormat7;
-  v72[7] = @"GasQueryCount";
+  v72[6] = commonTypeDict_IntegerFormat7;
+  v71[7] = @"GasQueryCount";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v73[7] = commonTypeDict_IntegerFormat8;
-  v72[8] = @"AutoHotspotCount";
+  v72[7] = commonTypeDict_IntegerFormat8;
+  v71[8] = @"AutoHotspotCount";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v73[8] = commonTypeDict_IntegerFormat9;
-  v72[9] = @"Unlocked";
+  v72[8] = commonTypeDict_IntegerFormat9;
+  v71[9] = @"Unlocked";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v73[9] = commonTypeDict_IntegerFormat10;
-  v72[10] = @"CountryCodeChanged";
+  v72[9] = commonTypeDict_IntegerFormat10;
+  v71[10] = @"CountryCodeChanged";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v73[10] = commonTypeDict_IntegerFormat11;
-  v72[11] = @"KnownNetworkAdded";
+  v72[10] = commonTypeDict_IntegerFormat11;
+  v71[11] = @"KnownNetworkAdded";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat];
-  v73[11] = commonTypeDict_IntegerFormat12;
-  v72[12] = @"LinkDown";
+  v72[11] = commonTypeDict_IntegerFormat12;
+  v71[12] = @"LinkDown";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat13 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v73[12] = commonTypeDict_IntegerFormat13;
-  v72[13] = @"AssocFailure";
+  v72[12] = commonTypeDict_IntegerFormat13;
+  v71[13] = @"AssocFailure";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat14 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat];
-  v73[13] = commonTypeDict_IntegerFormat14;
-  v72[14] = @"Retry";
+  v72[13] = commonTypeDict_IntegerFormat14;
+  v71[14] = @"Retry";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat15 = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat];
-  v73[14] = commonTypeDict_IntegerFormat15;
-  v72[15] = @"PowerOn";
+  v72[14] = commonTypeDict_IntegerFormat15;
+  v71[15] = @"PowerOn";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat16 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat];
-  v73[15] = commonTypeDict_IntegerFormat16;
-  v72[16] = @"AjEnabled";
+  v72[15] = commonTypeDict_IntegerFormat16;
+  v71[16] = @"AjEnabled";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat17 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat];
-  v73[16] = commonTypeDict_IntegerFormat17;
-  v72[17] = @"Manual";
+  v72[16] = commonTypeDict_IntegerFormat17;
+  v71[17] = @"Manual";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat18 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-  v73[17] = commonTypeDict_IntegerFormat18;
-  v72[18] = @"DarkWake";
+  v72[17] = commonTypeDict_IntegerFormat18;
+  v71[18] = @"DarkWake";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat19 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat];
-  v73[18] = commonTypeDict_IntegerFormat19;
-  v72[19] = @"UserWake";
+  v72[18] = commonTypeDict_IntegerFormat19;
+  v71[19] = @"UserWake";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat20 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-  v73[19] = commonTypeDict_IntegerFormat20;
-  v72[20] = @"CallEnded";
+  v72[19] = commonTypeDict_IntegerFormat20;
+  v71[20] = @"CallEnded";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat21 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat];
-  v73[20] = commonTypeDict_IntegerFormat21;
-  v72[21] = @"PlaybackEnded";
+  v72[20] = commonTypeDict_IntegerFormat21;
+  v71[21] = @"PlaybackEnded";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat22 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat];
-  v73[21] = commonTypeDict_IntegerFormat22;
-  v72[22] = @"DeviceUnlocked";
+  v72[21] = commonTypeDict_IntegerFormat22;
+  v71[22] = @"DeviceUnlocked";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat23 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat];
-  v73[22] = commonTypeDict_IntegerFormat23;
-  v72[23] = @"Registration";
+  v72[22] = commonTypeDict_IntegerFormat23;
+  v71[23] = @"Registration";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat24 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-  v73[23] = commonTypeDict_IntegerFormat24;
-  v72[24] = @"AppState";
+  v72[23] = commonTypeDict_IntegerFormat24;
+  v71[24] = @"AppState";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat25 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat];
-  v73[24] = commonTypeDict_IntegerFormat25;
-  v72[25] = @"MaintWake";
+  v72[24] = commonTypeDict_IntegerFormat25;
+  v71[25] = @"MaintWake";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat26 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-  v73[25] = commonTypeDict_IntegerFormat26;
-  v72[26] = @"NetServiceInactive";
+  v72[25] = commonTypeDict_IntegerFormat26;
+  v71[26] = @"NetServiceInactive";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat27 = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-  v73[26] = commonTypeDict_IntegerFormat27;
-  v72[27] = @"BssidChanged";
+  v72[26] = commonTypeDict_IntegerFormat27;
+  v71[27] = @"BssidChanged";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat28 = [mEMORY[0x277D3F198]28 commonTypeDict_IntegerFormat];
-  v73[27] = commonTypeDict_IntegerFormat28;
-  v72[28] = @"Retry(fg)";
+  v72[27] = commonTypeDict_IntegerFormat28;
+  v71[28] = @"Retry(fg)";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat29 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-  v73[28] = commonTypeDict_IntegerFormat29;
-  v72[29] = @"Retry(inactive)";
+  v72[28] = commonTypeDict_IntegerFormat29;
+  v71[29] = @"Retry(inactive)";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat30 = [mEMORY[0x277D3F198]30 commonTypeDict_IntegerFormat];
-  v73[29] = commonTypeDict_IntegerFormat30;
-  v72[30] = @"CombinedScanChannelCount6ghz";
+  v72[29] = commonTypeDict_IntegerFormat30;
+  v71[30] = @"CombinedScanChannelCount6ghz";
   mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat31 = [mEMORY[0x277D3F198]31 commonTypeDict_IntegerFormat];
-  v73[30] = commonTypeDict_IntegerFormat31;
-  v72[31] = @"Followup6ghzScanChannelCount";
+  v72[30] = commonTypeDict_IntegerFormat31;
+  v71[31] = @"Followup6ghzScanChannelCount";
   mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat32 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat];
-  v73[31] = commonTypeDict_IntegerFormat32;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:32];
-  v77[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v72[31] = commonTypeDict_IntegerFormat32;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:32];
+  v76[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
 
   return v12;
 }
@@ -1477,7 +1444,7 @@ LABEL_33:
 
 + (id)entryEventBackwardDefinitionScans
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isUsingAnOlderWifiChip])
   {
     v2 = MEMORY[0x277CBEC10];
@@ -1485,95 +1452,93 @@ LABEL_33:
 
   else
   {
-    v34[0] = *MEMORY[0x277D3F4E8];
+    v33[0] = *MEMORY[0x277D3F4E8];
     v3 = *MEMORY[0x277D3F550];
-    v32[0] = *MEMORY[0x277D3F568];
-    v32[1] = v3;
-    v33[0] = &unk_282C1CA28;
-    v33[1] = MEMORY[0x277CBEC28];
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-    v35[0] = v29;
-    v34[1] = *MEMORY[0x277D3F540];
-    v30[0] = @"Duration2G";
+    v31[0] = *MEMORY[0x277D3F568];
+    v31[1] = v3;
+    v32[0] = &unk_282C1CA28;
+    v32[1] = MEMORY[0x277CBEC28];
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v34[0] = v28;
+    v33[1] = *MEMORY[0x277D3F540];
+    v29[0] = @"Duration2G";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_ms];
-    v31[0] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v30[1] = @"Duration5G";
+    v30[0] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v29[1] = @"Duration5G";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_ms];
-    v31[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v30[2] = @"Duration6G";
+    v30[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v29[2] = @"Duration6G";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_ms];
-    v31[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v30[3] = @"Count2G";
+    v30[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v29[3] = @"Count2G";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-    v31[3] = commonTypeDict_IntegerFormat;
-    v30[4] = @"Count5G";
+    v30[3] = commonTypeDict_IntegerFormat;
+    v29[4] = @"Count5G";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-    v31[4] = commonTypeDict_IntegerFormat2;
-    v30[5] = @"Count6G";
+    v30[4] = commonTypeDict_IntegerFormat2;
+    v29[5] = @"Count6G";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-    v31[5] = commonTypeDict_IntegerFormat3;
-    v30[6] = @"CountActive";
+    v30[5] = commonTypeDict_IntegerFormat3;
+    v29[6] = @"CountActive";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-    v31[6] = commonTypeDict_IntegerFormat4;
-    v30[7] = @"CountPassive";
+    v30[6] = commonTypeDict_IntegerFormat4;
+    v29[7] = @"CountPassive";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-    v31[7] = commonTypeDict_IntegerFormat5;
-    v30[8] = @"Count2GSC";
+    v30[7] = commonTypeDict_IntegerFormat5;
+    v29[8] = @"Count2GSC";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-    v31[8] = commonTypeDict_IntegerFormat6;
-    v30[9] = @"Count5GSC";
+    v30[8] = commonTypeDict_IntegerFormat6;
+    v29[9] = @"Count5GSC";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-    v31[9] = commonTypeDict_IntegerFormat7;
-    v30[10] = @"Count6GSC";
+    v30[9] = commonTypeDict_IntegerFormat7;
+    v29[10] = @"Count6GSC";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-    v31[10] = commonTypeDict_IntegerFormat8;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:11];
-    v35[1] = v12;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v30[10] = commonTypeDict_IntegerFormat8;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:11];
+    v34[1] = v12;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 + (id)entryEventBackwardDefinitionScanForwardStats
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if ([self isScanForwardLoggingEnabled])
   {
-    v17[0] = *MEMORY[0x277D3F4E8];
-    v15 = *MEMORY[0x277D3F568];
-    v16 = &unk_282C1CA28;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[0] = v2;
-    v17[1] = *MEMORY[0x277D3F540];
-    v13[0] = @"ScanForwardCurrentBSSS";
+    v16[0] = *MEMORY[0x277D3F4E8];
+    v14 = *MEMORY[0x277D3F568];
+    v15 = &unk_282C1CA28;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v2;
+    v16[1] = *MEMORY[0x277D3F540];
+    v12[0] = @"ScanForwardCurrentBSSS";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_ms];
-    v14[0] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v13[1] = @"ScanForwardForwardedBSSS";
+    v13[0] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v12[1] = @"ScanForwardForwardedBSSS";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_ms];
-    v14[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v13[2] = @"ScanForwardTotalSPMIMSGS";
+    v13[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v12[2] = @"ScanForwardTotalSPMIMSGS";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_ms];
-    v14[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v18[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v17[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
@@ -1581,218 +1546,214 @@ LABEL_33:
     v10 = MEMORY[0x277CBEC10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)entryEventBackwardDefinitionControlCPUPowerStats
 {
-  v78[2] = *MEMORY[0x277D85DE8];
-  v77[0] = *MEMORY[0x277D3F4E8];
-  v75 = *MEMORY[0x277D3F568];
-  v76 = &unk_282C1CA28;
-  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-  v78[0] = v72;
-  v77[1] = *MEMORY[0x277D3F540];
-  v73[0] = @"DeepSleepCount";
+  v77[2] = *MEMORY[0x277D85DE8];
+  v76[0] = *MEMORY[0x277D3F4E8];
+  v74 = *MEMORY[0x277D3F568];
+  v75 = &unk_282C1CA28;
+  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+  v77[0] = v71;
+  v76[1] = *MEMORY[0x277D3F540];
+  v72[0] = @"DeepSleepCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v74[0] = commonTypeDict_IntegerFormat;
-  v73[1] = @"WarmSleepCount";
+  v73[0] = commonTypeDict_IntegerFormat;
+  v72[1] = @"WarmSleepCount";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v74[1] = commonTypeDict_IntegerFormat2;
-  v73[2] = @"AwakeCount";
+  v73[1] = commonTypeDict_IntegerFormat2;
+  v72[2] = @"AwakeCount";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v74[2] = commonTypeDict_IntegerFormat3;
-  v73[3] = @"AwakeL3Count";
+  v73[2] = commonTypeDict_IntegerFormat3;
+  v72[3] = @"AwakeL3Count";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v74[3] = commonTypeDict_IntegerFormat4;
-  v73[4] = @"DeepSleepDuration";
+  v73[3] = commonTypeDict_IntegerFormat4;
+  v72[4] = @"DeepSleepDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v74[4] = commonTypeDict_IntegerFormat5;
-  v73[5] = @"WarmSleepDuration";
+  v73[4] = commonTypeDict_IntegerFormat5;
+  v72[5] = @"WarmSleepDuration";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v74[5] = commonTypeDict_IntegerFormat6;
-  v73[6] = @"AwakeDuration";
+  v73[5] = commonTypeDict_IntegerFormat6;
+  v72[6] = @"AwakeDuration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v74[6] = commonTypeDict_IntegerFormat7;
-  v73[7] = @"AwakeL3Duration";
+  v73[6] = commonTypeDict_IntegerFormat7;
+  v72[7] = @"AwakeL3Duration";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v74[7] = commonTypeDict_IntegerFormat8;
-  v73[8] = @"CCPUIdleDuration";
+  v73[7] = commonTypeDict_IntegerFormat8;
+  v72[8] = @"CCPUIdleDuration";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v74[8] = commonTypeDict_IntegerFormat9;
-  v73[9] = @"WiFiUMACIdleDuration";
+  v73[8] = commonTypeDict_IntegerFormat9;
+  v72[9] = @"WiFiUMACIdleDuration";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v74[9] = commonTypeDict_IntegerFormat10;
-  v73[10] = @"WiFiPHY2GIdleDuration";
+  v73[9] = commonTypeDict_IntegerFormat10;
+  v72[10] = @"WiFiPHY2GIdleDuration";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v74[10] = commonTypeDict_IntegerFormat11;
-  v73[11] = @"WiFiPHY5GIdleDuration";
+  v73[10] = commonTypeDict_IntegerFormat11;
+  v72[11] = @"WiFiPHY5GIdleDuration";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat];
-  v74[11] = commonTypeDict_IntegerFormat12;
-  v73[12] = @"WiFiTXIdleDuration";
+  v73[11] = commonTypeDict_IntegerFormat12;
+  v72[12] = @"WiFiTXIdleDuration";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat13 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v74[12] = commonTypeDict_IntegerFormat13;
-  v73[13] = @"WiFiRXIdleDuration";
+  v73[12] = commonTypeDict_IntegerFormat13;
+  v72[13] = @"WiFiRXIdleDuration";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat14 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat];
-  v74[13] = commonTypeDict_IntegerFormat14;
-  v73[14] = @"WiFiLMACCommonIdleDuration";
+  v73[13] = commonTypeDict_IntegerFormat14;
+  v72[14] = @"WiFiLMACCommonIdleDuration";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat15 = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat];
-  v74[14] = commonTypeDict_IntegerFormat15;
-  v73[15] = @"WiFiLMAC2GIdleDuration";
+  v73[14] = commonTypeDict_IntegerFormat15;
+  v72[15] = @"WiFiLMAC2GIdleDuration";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat16 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat];
-  v74[15] = commonTypeDict_IntegerFormat16;
-  v73[16] = @"WiFiLMAC5GIdleDuration";
+  v73[15] = commonTypeDict_IntegerFormat16;
+  v72[16] = @"WiFiLMAC5GIdleDuration";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat17 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat];
-  v74[16] = commonTypeDict_IntegerFormat17;
-  v73[17] = @"WiFiScanIdleDuration";
+  v73[16] = commonTypeDict_IntegerFormat17;
+  v72[17] = @"WiFiScanIdleDuration";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat18 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-  v74[17] = commonTypeDict_IntegerFormat18;
-  v73[18] = @"BTMainIdleDuration";
+  v73[17] = commonTypeDict_IntegerFormat18;
+  v72[18] = @"BTMainIdleDuration";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat19 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat];
-  v74[18] = commonTypeDict_IntegerFormat19;
-  v73[19] = @"BTSecondaryIdleDuration";
+  v73[18] = commonTypeDict_IntegerFormat19;
+  v72[19] = @"BTSecondaryIdleDuration";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat20 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-  v74[19] = commonTypeDict_IntegerFormat20;
-  v73[20] = @"BTScanIdleDuration";
+  v73[19] = commonTypeDict_IntegerFormat20;
+  v72[20] = @"BTScanIdleDuration";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat21 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat];
-  v74[20] = commonTypeDict_IntegerFormat21;
-  v73[21] = @"BTPHY2GIdleDuration";
+  v73[20] = commonTypeDict_IntegerFormat21;
+  v72[21] = @"BTPHY2GIdleDuration";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat22 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat];
-  v74[21] = commonTypeDict_IntegerFormat22;
-  v73[22] = @"BTPHY5GIdleDuration";
+  v73[21] = commonTypeDict_IntegerFormat22;
+  v72[22] = @"BTPHY5GIdleDuration";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat23 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat];
-  v74[22] = commonTypeDict_IntegerFormat23;
-  v73[23] = @"PCIeL0EntryCount";
+  v73[22] = commonTypeDict_IntegerFormat23;
+  v72[23] = @"PCIeL0EntryCount";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat24 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-  v74[23] = commonTypeDict_IntegerFormat24;
-  v73[24] = @"PCIeL1EntryCount";
+  v73[23] = commonTypeDict_IntegerFormat24;
+  v72[24] = @"PCIeL1EntryCount";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat25 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat];
-  v74[24] = commonTypeDict_IntegerFormat25;
-  v73[25] = @"PCIeL1Dot1EntryCount";
+  v73[24] = commonTypeDict_IntegerFormat25;
+  v72[25] = @"PCIeL1Dot1EntryCount";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat26 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-  v74[25] = commonTypeDict_IntegerFormat26;
-  v73[26] = @"PCIeL1Dot2EntryCount";
+  v73[25] = commonTypeDict_IntegerFormat26;
+  v72[26] = @"PCIeL1Dot2EntryCount";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat27 = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-  v74[26] = commonTypeDict_IntegerFormat27;
-  v73[27] = @"PCIeL3EntryCount";
+  v73[26] = commonTypeDict_IntegerFormat27;
+  v72[27] = @"PCIeL3EntryCount";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat28 = [mEMORY[0x277D3F198]28 commonTypeDict_IntegerFormat];
-  v74[27] = commonTypeDict_IntegerFormat28;
-  v73[28] = @"PCIeL0Duration";
+  v73[27] = commonTypeDict_IntegerFormat28;
+  v72[28] = @"PCIeL0Duration";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat29 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-  v74[28] = commonTypeDict_IntegerFormat29;
-  v73[29] = @"PCIeL1Duration";
+  v73[28] = commonTypeDict_IntegerFormat29;
+  v72[29] = @"PCIeL1Duration";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat30 = [mEMORY[0x277D3F198]30 commonTypeDict_IntegerFormat];
-  v74[29] = commonTypeDict_IntegerFormat30;
-  v73[30] = @"PCIeL1Dot1Duration";
+  v73[29] = commonTypeDict_IntegerFormat30;
+  v72[30] = @"PCIeL1Dot1Duration";
   mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat31 = [mEMORY[0x277D3F198]31 commonTypeDict_IntegerFormat];
-  v74[30] = commonTypeDict_IntegerFormat31;
-  v73[31] = @"PCIeL1Dot2Duration";
+  v73[30] = commonTypeDict_IntegerFormat31;
+  v72[31] = @"PCIeL1Dot2Duration";
   mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat32 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat];
-  v74[31] = commonTypeDict_IntegerFormat32;
-  v73[32] = @"PCIeL3Duration";
+  v73[31] = commonTypeDict_IntegerFormat32;
+  v72[32] = @"PCIeL3Duration";
   mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat33 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat];
-  v74[32] = commonTypeDict_IntegerFormat33;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:33];
-  v78[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v73[32] = commonTypeDict_IntegerFormat33;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:33];
+  v77[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
 
   return v11;
 }
 
 + (id)entryEventBackwardDefinitionHotspotPowerStats
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] kPLWiFiClassIsOneOf:{1004010, 1004013, 1004014, 1004015, 1004016, 1004017, 1004018, 1004019, 0}])
   {
-    v32[0] = *MEMORY[0x277D3F4E8];
+    v31[0] = *MEMORY[0x277D3F4E8];
     v2 = *MEMORY[0x277D3F550];
-    v30[0] = *MEMORY[0x277D3F568];
-    v30[1] = v2;
-    v31[0] = &unk_282C1CA28;
-    v31[1] = MEMORY[0x277CBEC28];
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-    v33[0] = v27;
-    v32[1] = *MEMORY[0x277D3F540];
-    v28[0] = @"ADHSActiveStateCount";
+    v29[0] = *MEMORY[0x277D3F568];
+    v29[1] = v2;
+    v30[0] = &unk_282C1CA28;
+    v30[1] = MEMORY[0x277CBEC28];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v32[0] = v26;
+    v31[1] = *MEMORY[0x277D3F540];
+    v27[0] = @"ADHSActiveStateCount";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-    v29[0] = commonTypeDict_IntegerFormat;
-    v28[1] = @"ADHSDynamicStateCount";
+    v28[0] = commonTypeDict_IntegerFormat;
+    v27[1] = @"ADHSDynamicStateCount";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v29[1] = commonTypeDict_IntegerFormat2;
-    v28[2] = @"ADHSLowPowerStateCount";
+    v28[1] = commonTypeDict_IntegerFormat2;
+    v27[2] = @"ADHSLowPowerStateCount";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-    v29[2] = commonTypeDict_IntegerFormat3;
-    v28[3] = @"ADHSOffStateCount";
+    v28[2] = commonTypeDict_IntegerFormat3;
+    v27[3] = @"ADHSOffStateCount";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-    v29[3] = commonTypeDict_IntegerFormat4;
-    v28[4] = @"ADHSTXPackets";
+    v28[3] = commonTypeDict_IntegerFormat4;
+    v27[4] = @"ADHSTXPackets";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-    v29[4] = commonTypeDict_IntegerFormat5;
-    v28[5] = @"ADHSRXPackets";
+    v28[4] = commonTypeDict_IntegerFormat5;
+    v27[5] = @"ADHSRXPackets";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-    v29[5] = commonTypeDict_IntegerFormat6;
-    v28[6] = @"ADHSActiveStateDuration";
+    v28[5] = commonTypeDict_IntegerFormat6;
+    v27[6] = @"ADHSActiveStateDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_ms];
-    v29[6] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v28[7] = @"ADHSDynamicStateDuration";
+    v28[6] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v27[7] = @"ADHSDynamicStateDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_ms];
-    v29[7] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v28[8] = @"ADHSLowPowerStateDuration";
+    v28[7] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v27[8] = @"ADHSLowPowerStateDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_ms];
-    v29[8] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v28[9] = @"ADHSOffStateDuration";
+    v28[8] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v27[9] = @"ADHSOffStateDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_ms];
-    v29[9] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
-    v33[1] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v28[9] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10];
+    v32[1] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
   }
 
   else
@@ -1800,14 +1761,12 @@ LABEL_33:
     v12 = MEMORY[0x277CBEC10];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)entryEventBackwardDefinitionBeaconProfile
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isMac] & 1) != 0 || !objc_msgSend(self, "isBeaconLoggingEnabled"))
   {
     v13 = MEMORY[0x277CBEC10];
@@ -1815,518 +1774,514 @@ LABEL_33:
 
   else
   {
-    v23[0] = *MEMORY[0x277D3F4E8];
+    v22[0] = *MEMORY[0x277D3F4E8];
     v3 = *MEMORY[0x277D3F550];
-    v21[0] = *MEMORY[0x277D3F568];
-    v21[1] = v3;
-    v22[0] = &unk_282C1CA28;
-    v22[1] = MEMORY[0x277CBEC28];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-    v24[0] = v18;
-    v23[1] = *MEMORY[0x277D3F540];
-    v19[0] = @"ScheduleBeacon";
+    v20[0] = *MEMORY[0x277D3F568];
+    v20[1] = v3;
+    v21[0] = &unk_282C1CA28;
+    v21[1] = MEMORY[0x277CBEC28];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v23[0] = v17;
+    v22[1] = *MEMORY[0x277D3F540];
+    v18[0] = @"ScheduleBeacon";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-    v20[0] = commonTypeDict_IntegerFormat;
-    v19[1] = @"MissedBeacon";
+    v19[0] = commonTypeDict_IntegerFormat;
+    v18[1] = @"MissedBeacon";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v20[1] = commonTypeDict_IntegerFormat2;
-    v19[2] = @"ReceivedBeacon";
+    v19[1] = commonTypeDict_IntegerFormat2;
+    v18[2] = @"ReceivedBeacon";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-    v20[2] = commonTypeDict_IntegerFormat3;
-    v19[3] = @"TrimmedBeacon";
+    v19[2] = commonTypeDict_IntegerFormat3;
+    v18[3] = @"TrimmedBeacon";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-    v20[3] = commonTypeDict_IntegerFormat4;
-    v19[4] = @"WifiTimestamp";
+    v19[3] = commonTypeDict_IntegerFormat4;
+    v18[4] = @"WifiTimestamp";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-    v20[4] = commonTypeDict_IntegerFormat5;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
-    v24[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v19[4] = commonTypeDict_IntegerFormat5;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+    v23[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)entryEventBackwardDefinitionUserScan
 {
-  v23[2] = *MEMORY[0x277D85DE8];
-  v22[0] = *MEMORY[0x277D3F4E8];
+  v22[2] = *MEMORY[0x277D85DE8];
+  v21[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v20[0] = *MEMORY[0x277D3F568];
-  v20[1] = v2;
-  v21[0] = &unk_282C1CA28;
-  v21[1] = MEMORY[0x277CBEC28];
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v23[0] = v17;
-  v22[1] = *MEMORY[0x277D3F540];
-  v18[0] = @"AutojoinScanDuration";
+  v19[0] = *MEMORY[0x277D3F568];
+  v19[1] = v2;
+  v20[0] = &unk_282C1CA28;
+  v20[1] = MEMORY[0x277CBEC28];
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v22[0] = v16;
+  v21[1] = *MEMORY[0x277D3F540];
+  v17[0] = @"AutojoinScanDuration";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_ms];
-  v19[0] = commonTypeDict_IntegerFormat_withUnit_ms;
-  v18[1] = @"LocationScanDuration";
+  v18[0] = commonTypeDict_IntegerFormat_withUnit_ms;
+  v17[1] = @"LocationScanDuration";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_ms];
-  v19[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
-  v18[2] = @"PipelineScanDuration";
+  v18[1] = commonTypeDict_IntegerFormat_withUnit_ms2;
+  v17[2] = @"PipelineScanDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_ms];
-  v19[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
-  v18[3] = @"SetupScanDuration";
+  v18[2] = commonTypeDict_IntegerFormat_withUnit_ms3;
+  v17[3] = @"SetupScanDuration";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat_withUnit_ms];
-  v19[3] = commonTypeDict_IntegerFormat_withUnit_ms4;
-  v18[4] = @"UnknownScanDuration";
+  v18[3] = commonTypeDict_IntegerFormat_withUnit_ms4;
+  v17[4] = @"UnknownScanDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-  v19[4] = commonTypeDict_IntegerFormat_withUnit_ms5;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
-  v23[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[4] = commonTypeDict_IntegerFormat_withUnit_ms5;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v22[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
   return v12;
 }
 
 + (id)entryEventBackwardDefinitionCumulativeMultiCore
 {
-  v220[57] = *MEMORY[0x277D85DE8];
-  v207 = objc_alloc(MEMORY[0x277CBEB38]);
-  v219[0] = @"WifiTimestamp";
+  v219[57] = *MEMORY[0x277D85DE8];
+  v206 = objc_alloc(MEMORY[0x277CBEB38]);
+  v218[0] = @"WifiTimestamp";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_s];
-  v220[0] = commonTypeDict_IntegerFormat_withUnit_s;
-  v219[1] = @"PMDuration";
+  v219[0] = commonTypeDict_IntegerFormat_withUnit_s;
+  v218[1] = @"PMDuration";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[1] = commonTypeDict_IntegerFormat_withUnit_s2;
-  v219[2] = @"MPCDuration";
+  v219[1] = commonTypeDict_IntegerFormat_withUnit_s2;
+  v218[2] = @"MPCDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[2] = commonTypeDict_IntegerFormat_withUnit_s3;
-  v219[3] = @"TXDuration";
+  v219[2] = commonTypeDict_IntegerFormat_withUnit_s3;
+  v218[3] = @"TXDuration";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-  v219[4] = @"RXDuration";
+  v219[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+  v218[4] = @"RXDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-  v219[5] = @"HSICSuspendDuration";
+  v219[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+  v218[5] = @"HSICSuspendDuration";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-  v219[6] = @"HSICActiveDuration";
+  v219[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+  v218[6] = @"HSICActiveDuration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-  v219[7] = @"PNOScanSSIDDuration";
+  v219[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+  v218[7] = @"PNOScanSSIDDuration";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-  v219[8] = @"PNOBSSIDDuration";
+  v219[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+  v218[8] = @"PNOBSSIDDuration";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-  v219[9] = @"RoamScanDuration";
+  v219[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+  v218[9] = @"RoamScanDuration";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-  v219[10] = @"AssociatedScanDuration";
+  v219[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+  v218[10] = @"AssociatedScanDuration";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-  v219[11] = @"OtherScanDuration";
+  v219[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+  v218[11] = @"OtherScanDuration";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-  v219[12] = @"UserScanDuration";
+  v219[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+  v218[12] = @"UserScanDuration";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-  v219[13] = @"FRTSDuration";
+  v219[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+  v218[13] = @"FRTSDuration";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-  v219[14] = @"PCIESuspendDuration";
+  v219[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+  v218[14] = @"PCIESuspendDuration";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[14] = commonTypeDict_IntegerFormat_withUnit_us;
-  v219[15] = @"PCIEActiveDuration";
+  v219[14] = commonTypeDict_IntegerFormat_withUnit_us;
+  v218[15] = @"PCIEActiveDuration";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-  v219[16] = @"PCIEPERSTDuration";
+  v219[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+  v218[16] = @"PCIEPERSTDuration";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-  v219[17] = @"PCIEL0Count";
+  v219[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+  v218[17] = @"PCIEL0Count";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-  v220[17] = commonTypeDict_IntegerFormat;
-  v219[18] = @"PCIEL0Duration";
+  v219[17] = commonTypeDict_IntegerFormat;
+  v218[18] = @"PCIEL0Duration";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us4 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[18] = commonTypeDict_IntegerFormat_withUnit_us4;
-  v219[19] = @"PCIEL2Count";
+  v219[18] = commonTypeDict_IntegerFormat_withUnit_us4;
+  v218[19] = @"PCIEL2Count";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-  v220[19] = commonTypeDict_IntegerFormat2;
-  v219[20] = @"PCIEL2Duration";
+  v219[19] = commonTypeDict_IntegerFormat2;
+  v218[20] = @"PCIEL2Duration";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us5 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[20] = commonTypeDict_IntegerFormat_withUnit_us5;
-  v219[21] = @"PCIEL1Count";
+  v219[20] = commonTypeDict_IntegerFormat_withUnit_us5;
+  v218[21] = @"PCIEL1Count";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat];
-  v220[21] = commonTypeDict_IntegerFormat3;
-  v219[22] = @"PCIEL1Duration";
+  v219[21] = commonTypeDict_IntegerFormat3;
+  v218[22] = @"PCIEL1Duration";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us6 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[22] = commonTypeDict_IntegerFormat_withUnit_us6;
-  v219[23] = @"PCIEL11Count";
+  v219[22] = commonTypeDict_IntegerFormat_withUnit_us6;
+  v218[23] = @"PCIEL11Count";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-  v220[23] = commonTypeDict_IntegerFormat4;
-  v219[24] = @"PCIEL11Duration";
+  v219[23] = commonTypeDict_IntegerFormat4;
+  v218[24] = @"PCIEL11Duration";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us7 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[24] = commonTypeDict_IntegerFormat_withUnit_us7;
-  v219[25] = @"PCIEL12Count";
+  v219[24] = commonTypeDict_IntegerFormat_withUnit_us7;
+  v218[25] = @"PCIEL12Count";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-  v220[25] = commonTypeDict_IntegerFormat5;
-  v219[26] = @"PCIEL12Duration";
+  v219[25] = commonTypeDict_IntegerFormat5;
+  v218[26] = @"PCIEL12Duration";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us8 = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat_withUnit_us];
-  v220[26] = commonTypeDict_IntegerFormat_withUnit_us8;
-  v219[27] = @"AWDLTXDuration";
+  v219[26] = commonTypeDict_IntegerFormat_withUnit_us8;
+  v218[27] = @"AWDLTXDuration";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]28 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[27] = commonTypeDict_IntegerFormat_withUnit_ms4;
-  v219[28] = @"AWDLRXDuration";
+  v219[27] = commonTypeDict_IntegerFormat_withUnit_ms4;
+  v218[28] = @"AWDLRXDuration";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[28] = commonTypeDict_IntegerFormat_withUnit_ms5;
-  v219[29] = @"AWDLAWDuration";
+  v219[28] = commonTypeDict_IntegerFormat_withUnit_ms5;
+  v218[29] = @"AWDLAWDuration";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]30 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[29] = commonTypeDict_IntegerFormat_withUnit_s12;
-  v219[30] = @"AWDLScanDuration";
+  v219[29] = commonTypeDict_IntegerFormat_withUnit_s12;
+  v218[30] = @"AWDLScanDuration";
   mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]31 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[30] = commonTypeDict_IntegerFormat_withUnit_s13;
-  v219[31] = @"AutojoinScanDuration";
+  v219[30] = commonTypeDict_IntegerFormat_withUnit_s13;
+  v218[31] = @"AutojoinScanDuration";
   mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[31] = commonTypeDict_IntegerFormat_withUnit_ms6;
-  v219[32] = @"LocationScanDuration";
+  v219[31] = commonTypeDict_IntegerFormat_withUnit_ms6;
+  v218[32] = @"LocationScanDuration";
   mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[32] = commonTypeDict_IntegerFormat_withUnit_ms7;
-  v219[33] = @"PipelineScanDuration";
+  v219[32] = commonTypeDict_IntegerFormat_withUnit_ms7;
+  v218[33] = @"PipelineScanDuration";
   mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[33] = commonTypeDict_IntegerFormat_withUnit_ms8;
-  v219[34] = @"SetupScanDuration";
+  v219[33] = commonTypeDict_IntegerFormat_withUnit_ms8;
+  v218[34] = @"SetupScanDuration";
   mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[34] = commonTypeDict_IntegerFormat_withUnit_ms9;
-  v219[35] = @"UnknownScanDuration";
+  v219[34] = commonTypeDict_IntegerFormat_withUnit_ms9;
+  v218[35] = @"UnknownScanDuration";
   mEMORY[0x277D3F198]36 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]36 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[35] = commonTypeDict_IntegerFormat_withUnit_ms10;
-  v219[36] = @"CurrentChannel";
+  v219[35] = commonTypeDict_IntegerFormat_withUnit_ms10;
+  v218[36] = @"CurrentChannel";
   mEMORY[0x277D3F198]37 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]37 commonTypeDict_IntegerFormat];
-  v220[36] = commonTypeDict_IntegerFormat6;
-  v219[37] = @"CurrentSSID";
+  v219[36] = commonTypeDict_IntegerFormat6;
+  v218[37] = @"CurrentSSID";
   mEMORY[0x277D3F198]38 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]38 commonTypeDict_StringFormat];
-  v220[37] = commonTypeDict_StringFormat;
-  v219[38] = @"CurrentBandwidth";
+  v219[37] = commonTypeDict_StringFormat;
+  v218[38] = @"CurrentBandwidth";
   mEMORY[0x277D3F198]39 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]39 commonTypeDict_IntegerFormat];
-  v220[38] = commonTypeDict_IntegerFormat7;
-  v219[39] = @"WifiPowered";
+  v219[38] = commonTypeDict_IntegerFormat7;
+  v218[39] = @"WifiPowered";
   mEMORY[0x277D3F198]40 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]40 commonTypeDict_BoolFormat];
-  v220[39] = commonTypeDict_BoolFormat;
-  v219[40] = @"WowEnabled";
+  v219[39] = commonTypeDict_BoolFormat;
+  v218[40] = @"WowEnabled";
   mEMORY[0x277D3F198]41 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]41 commonTypeDict_BoolFormat];
-  v220[40] = commonTypeDict_BoolFormat2;
-  v219[41] = @"Carplay";
+  v219[40] = commonTypeDict_BoolFormat2;
+  v218[41] = @"Carplay";
   mEMORY[0x277D3F198]42 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]42 commonTypeDict_BoolFormat];
-  v220[41] = commonTypeDict_BoolFormat3;
-  v219[42] = @"SISOTXDuration";
+  v219[41] = commonTypeDict_BoolFormat3;
+  v218[42] = @"SISOTXDuration";
   mEMORY[0x277D3F198]43 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]43 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[42] = commonTypeDict_IntegerFormat_withUnit_ms11;
-  v219[43] = @"MIMOTXDuration";
+  v219[42] = commonTypeDict_IntegerFormat_withUnit_ms11;
+  v218[43] = @"MIMOTXDuration";
   mEMORY[0x277D3F198]44 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms12 = [mEMORY[0x277D3F198]44 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[43] = commonTypeDict_IntegerFormat_withUnit_ms12;
-  v219[44] = @"MIMORXDuration";
+  v219[43] = commonTypeDict_IntegerFormat_withUnit_ms12;
+  v218[44] = @"MIMORXDuration";
   mEMORY[0x277D3F198]45 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms13 = [mEMORY[0x277D3F198]45 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[44] = commonTypeDict_IntegerFormat_withUnit_ms13;
-  v219[45] = @"SISORXDuration";
+  v219[44] = commonTypeDict_IntegerFormat_withUnit_ms13;
+  v218[45] = @"SISORXDuration";
   mEMORY[0x277D3F198]46 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms14 = [mEMORY[0x277D3F198]46 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[45] = commonTypeDict_IntegerFormat_withUnit_ms14;
-  v219[46] = @"MIMOCSDuration";
+  v219[45] = commonTypeDict_IntegerFormat_withUnit_ms14;
+  v218[46] = @"MIMOCSDuration";
   mEMORY[0x277D3F198]47 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms15 = [mEMORY[0x277D3F198]47 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[46] = commonTypeDict_IntegerFormat_withUnit_ms15;
-  v219[47] = @"SISOCSDuration";
+  v219[46] = commonTypeDict_IntegerFormat_withUnit_ms15;
+  v218[47] = @"SISOCSDuration";
   mEMORY[0x277D3F198]48 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms16 = [mEMORY[0x277D3F198]48 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[47] = commonTypeDict_IntegerFormat_withUnit_ms16;
-  v219[48] = @"OCLRXDuration";
+  v219[47] = commonTypeDict_IntegerFormat_withUnit_ms16;
+  v218[48] = @"OCLRXDuration";
   mEMORY[0x277D3F198]49 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms17 = [mEMORY[0x277D3F198]49 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[48] = commonTypeDict_IntegerFormat_withUnit_ms17;
-  v219[49] = @"OCLCSDuration";
+  v219[48] = commonTypeDict_IntegerFormat_withUnit_ms17;
+  v218[49] = @"OCLCSDuration";
   mEMORY[0x277D3F198]50 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms18 = [mEMORY[0x277D3F198]50 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[49] = commonTypeDict_IntegerFormat_withUnit_ms18;
-  v219[50] = @"READINGTYPE";
+  v219[49] = commonTypeDict_IntegerFormat_withUnit_ms18;
+  v218[50] = @"READINGTYPE";
   mEMORY[0x277D3F198]51 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]51 commonTypeDict_IntegerFormat];
-  v220[50] = commonTypeDict_IntegerFormat8;
-  v219[51] = @"isADHSConnected";
+  v219[50] = commonTypeDict_IntegerFormat8;
+  v218[51] = @"isADHSConnected";
   mEMORY[0x277D3F198]52 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]52 commonTypeDict_IntegerFormat];
-  v220[51] = commonTypeDict_IntegerFormat9;
-  v219[52] = @"AutoHotspotBTScanDuration";
+  v219[51] = commonTypeDict_IntegerFormat9;
+  v218[52] = @"AutoHotspotBTScanDuration";
   mEMORY[0x277D3F198]53 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s14 = [mEMORY[0x277D3F198]53 commonTypeDict_IntegerFormat_withUnit_s];
-  v220[52] = commonTypeDict_IntegerFormat_withUnit_s14;
-  v219[53] = @"AutoHotspotBTScanCount";
+  v219[52] = commonTypeDict_IntegerFormat_withUnit_s14;
+  v218[53] = @"AutoHotspotBTScanCount";
   mEMORY[0x277D3F198]54 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]54 commonTypeDict_IntegerFormat];
-  v220[53] = commonTypeDict_IntegerFormat10;
-  v219[54] = @"OPSFullDuration";
+  v219[53] = commonTypeDict_IntegerFormat10;
+  v218[54] = @"OPSFullDuration";
   mEMORY[0x277D3F198]55 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms19 = [mEMORY[0x277D3F198]55 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[54] = commonTypeDict_IntegerFormat_withUnit_ms19;
-  v219[55] = @"OPSPartialDuration";
+  v219[54] = commonTypeDict_IntegerFormat_withUnit_ms19;
+  v218[55] = @"OPSPartialDuration";
   mEMORY[0x277D3F198]56 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms20 = [mEMORY[0x277D3F198]56 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[55] = commonTypeDict_IntegerFormat_withUnit_ms20;
-  v219[56] = @"PSBWDuration";
+  v219[55] = commonTypeDict_IntegerFormat_withUnit_ms20;
+  v218[56] = @"PSBWDuration";
   mEMORY[0x277D3F198]57 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms21 = [mEMORY[0x277D3F198]57 commonTypeDict_IntegerFormat_withUnit_ms];
-  v220[56] = commonTypeDict_IntegerFormat_withUnit_ms21;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v220 forKeys:v219 count:57];
-  v208 = [v207 initWithDictionary:v11];
+  v219[56] = commonTypeDict_IntegerFormat_withUnit_ms21;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v219 forKeys:v218 count:57];
+  v207 = [v206 initWithDictionary:v11];
 
   if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
   {
-    v217[0] = @"SCAssocScanCount";
+    v216[0] = @"SCAssocScanCount";
     mEMORY[0x277D3F198]58 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]58 commonTypeDict_IntegerFormat];
-    v218[0] = commonTypeDict_IntegerFormat11;
-    v217[1] = @"SCAssocScanDuration";
+    v217[0] = commonTypeDict_IntegerFormat11;
+    v216[1] = @"SCAssocScanDuration";
     mEMORY[0x277D3F198]59 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]59 commonTypeDict_IntegerFormat];
-    v218[1] = commonTypeDict_IntegerFormat12;
-    v217[2] = @"SCBlankedScanCount";
+    v217[1] = commonTypeDict_IntegerFormat12;
+    v216[2] = @"SCBlankedScanCount";
     mEMORY[0x277D3F198]60 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat13 = [mEMORY[0x277D3F198]60 commonTypeDict_IntegerFormat];
-    v218[2] = commonTypeDict_IntegerFormat13;
-    v217[3] = @"SCIdleDurationSISO";
+    v217[2] = commonTypeDict_IntegerFormat13;
+    v216[3] = @"SCIdleDurationSISO";
     mEMORY[0x277D3F198]61 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat14 = [mEMORY[0x277D3F198]61 commonTypeDict_IntegerFormat];
-    v218[3] = commonTypeDict_IntegerFormat14;
-    v217[4] = @"SCPMDuration";
+    v217[3] = commonTypeDict_IntegerFormat14;
+    v216[4] = @"SCPMDuration";
     mEMORY[0x277D3F198]62 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat15 = [mEMORY[0x277D3F198]62 commonTypeDict_IntegerFormat];
-    v218[4] = commonTypeDict_IntegerFormat15;
-    v217[5] = @"SCPNOScanCount";
+    v217[4] = commonTypeDict_IntegerFormat15;
+    v216[5] = @"SCPNOScanCount";
     mEMORY[0x277D3F198]63 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat16 = [mEMORY[0x277D3F198]63 commonTypeDict_IntegerFormat];
-    v218[5] = commonTypeDict_IntegerFormat16;
-    v217[6] = @"SCPNOScanDuration";
+    v217[5] = commonTypeDict_IntegerFormat16;
+    v216[6] = @"SCPNOScanDuration";
     mEMORY[0x277D3F198]64 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat17 = [mEMORY[0x277D3F198]64 commonTypeDict_IntegerFormat];
-    v218[6] = commonTypeDict_IntegerFormat17;
-    v217[7] = @"SCRoamScanCount";
+    v217[6] = commonTypeDict_IntegerFormat17;
+    v216[7] = @"SCRoamScanCount";
     mEMORY[0x277D3F198]65 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat18 = [mEMORY[0x277D3F198]65 commonTypeDict_IntegerFormat];
-    v218[7] = commonTypeDict_IntegerFormat18;
-    v217[8] = @"SCRoamScanDuration";
+    v217[7] = commonTypeDict_IntegerFormat18;
+    v216[8] = @"SCRoamScanDuration";
     mEMORY[0x277D3F198]66 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat19 = [mEMORY[0x277D3F198]66 commonTypeDict_IntegerFormat];
-    v218[8] = commonTypeDict_IntegerFormat19;
-    v217[9] = @"SCRXDurationSISO";
+    v217[8] = commonTypeDict_IntegerFormat19;
+    v216[9] = @"SCRXDurationSISO";
     mEMORY[0x277D3F198]67 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat20 = [mEMORY[0x277D3F198]67 commonTypeDict_IntegerFormat];
-    v218[9] = commonTypeDict_IntegerFormat20;
-    v217[10] = @"SCRXMPCDuration";
+    v217[9] = commonTypeDict_IntegerFormat20;
+    v216[10] = @"SCRXMPCDuration";
     mEMORY[0x277D3F198]68 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat21 = [mEMORY[0x277D3F198]68 commonTypeDict_IntegerFormat];
-    v218[10] = commonTypeDict_IntegerFormat21;
-    v217[11] = @"SCTimestamp";
+    v217[10] = commonTypeDict_IntegerFormat21;
+    v216[11] = @"SCTimestamp";
     mEMORY[0x277D3F198]69 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat22 = [mEMORY[0x277D3F198]69 commonTypeDict_IntegerFormat];
-    v218[11] = commonTypeDict_IntegerFormat22;
-    v217[12] = @"SCUserScanCount";
+    v217[11] = commonTypeDict_IntegerFormat22;
+    v216[12] = @"SCUserScanCount";
     mEMORY[0x277D3F198]70 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat23 = [mEMORY[0x277D3F198]70 commonTypeDict_IntegerFormat];
-    v218[12] = commonTypeDict_IntegerFormat23;
-    v217[13] = @"SCUserScanDuration";
+    v217[12] = commonTypeDict_IntegerFormat23;
+    v216[13] = @"SCUserScanDuration";
     mEMORY[0x277D3F198]71 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat24 = [mEMORY[0x277D3F198]71 commonTypeDict_IntegerFormat];
-    v218[13] = commonTypeDict_IntegerFormat24;
-    v217[14] = @"InactivityDuration";
+    v217[13] = commonTypeDict_IntegerFormat24;
+    v216[14] = @"InactivityDuration";
     mEMORY[0x277D3F198]72 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat25 = [mEMORY[0x277D3F198]72 commonTypeDict_IntegerFormat];
-    v218[14] = commonTypeDict_IntegerFormat25;
-    v217[15] = @"InactivityLPBeaconsMissed";
+    v217[14] = commonTypeDict_IntegerFormat25;
+    v216[15] = @"InactivityLPBeaconsMissed";
     mEMORY[0x277D3F198]73 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat26 = [mEMORY[0x277D3F198]73 commonTypeDict_IntegerFormat];
-    v218[15] = commonTypeDict_IntegerFormat26;
-    v217[16] = @"InactivityLPBeaconsReceived";
+    v217[15] = commonTypeDict_IntegerFormat26;
+    v216[16] = @"InactivityLPBeaconsReceived";
     mEMORY[0x277D3F198]74 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat27 = [mEMORY[0x277D3F198]74 commonTypeDict_IntegerFormat];
-    v218[16] = commonTypeDict_IntegerFormat27;
-    v217[17] = @"InactivityLPBeaconsScheduled";
+    v217[16] = commonTypeDict_IntegerFormat27;
+    v216[17] = @"InactivityLPBeaconsScheduled";
     mEMORY[0x277D3F198]75 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat28 = [mEMORY[0x277D3F198]75 commonTypeDict_IntegerFormat];
-    v218[17] = commonTypeDict_IntegerFormat28;
-    v217[18] = @"InactivityLPEarlyBeaconsTerminated";
+    v217[17] = commonTypeDict_IntegerFormat28;
+    v216[18] = @"InactivityLPEarlyBeaconsTerminated";
     mEMORY[0x277D3F198]76 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat29 = [mEMORY[0x277D3F198]76 commonTypeDict_IntegerFormat];
-    v218[18] = commonTypeDict_IntegerFormat29;
-    v217[19] = @"InactivityLPWakeDuration";
+    v217[18] = commonTypeDict_IntegerFormat29;
+    v216[19] = @"InactivityLPWakeDuration";
     mEMORY[0x277D3F198]77 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat30 = [mEMORY[0x277D3F198]77 commonTypeDict_IntegerFormat];
-    v218[19] = commonTypeDict_IntegerFormat30;
-    v217[20] = @"InactivityMPCBeaconsMissed";
+    v217[19] = commonTypeDict_IntegerFormat30;
+    v216[20] = @"InactivityMPCBeaconsMissed";
     mEMORY[0x277D3F198]78 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat31 = [mEMORY[0x277D3F198]78 commonTypeDict_IntegerFormat];
-    v218[20] = commonTypeDict_IntegerFormat31;
-    v217[21] = @"InactivityMPCBeaconsReceived";
+    v217[20] = commonTypeDict_IntegerFormat31;
+    v216[21] = @"InactivityMPCBeaconsReceived";
     mEMORY[0x277D3F198]79 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat32 = [mEMORY[0x277D3F198]79 commonTypeDict_IntegerFormat];
-    v218[21] = commonTypeDict_IntegerFormat32;
-    v217[22] = @"InactivityMPCBeaconsScheduled";
+    v217[21] = commonTypeDict_IntegerFormat32;
+    v216[22] = @"InactivityMPCBeaconsScheduled";
     mEMORY[0x277D3F198]80 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat33 = [mEMORY[0x277D3F198]80 commonTypeDict_IntegerFormat];
-    v218[22] = commonTypeDict_IntegerFormat33;
-    v217[23] = @"InactivityMPEarlyBeaconsTerminated";
+    v217[22] = commonTypeDict_IntegerFormat33;
+    v216[23] = @"InactivityMPEarlyBeaconsTerminated";
     mEMORY[0x277D3F198]81 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat34 = [mEMORY[0x277D3F198]81 commonTypeDict_IntegerFormat];
-    v218[23] = commonTypeDict_IntegerFormat34;
-    v217[24] = @"InactivityMPWakeDuration";
+    v217[23] = commonTypeDict_IntegerFormat34;
+    v216[24] = @"InactivityMPWakeDuration";
     mEMORY[0x277D3F198]82 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat35 = [mEMORY[0x277D3F198]82 commonTypeDict_IntegerFormat];
-    v218[24] = commonTypeDict_IntegerFormat35;
-    v217[25] = @"MulticastRXDuration";
+    v217[24] = commonTypeDict_IntegerFormat35;
+    v216[25] = @"MulticastRXDuration";
     mEMORY[0x277D3F198]83 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms22 = [mEMORY[0x277D3F198]83 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[25] = commonTypeDict_IntegerFormat_withUnit_ms22;
-    v217[26] = @"BroadcastRXDuration";
+    v217[25] = commonTypeDict_IntegerFormat_withUnit_ms22;
+    v216[26] = @"BroadcastRXDuration";
     mEMORY[0x277D3F198]84 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms23 = [mEMORY[0x277D3F198]84 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[26] = commonTypeDict_IntegerFormat_withUnit_ms23;
-    v217[27] = @"IBSSRXDuration";
+    v217[26] = commonTypeDict_IntegerFormat_withUnit_ms23;
+    v216[27] = @"IBSSRXDuration";
     mEMORY[0x277D3F198]85 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms24 = [mEMORY[0x277D3F198]85 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[27] = commonTypeDict_IntegerFormat_withUnit_ms24;
-    v217[28] = @"MBSSRXDuration";
+    v217[27] = commonTypeDict_IntegerFormat_withUnit_ms24;
+    v216[28] = @"MBSSRXDuration";
     mEMORY[0x277D3F198]86 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms25 = [mEMORY[0x277D3F198]86 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[28] = commonTypeDict_IntegerFormat_withUnit_ms25;
-    v217[29] = @"OBSSRXDuration";
+    v217[28] = commonTypeDict_IntegerFormat_withUnit_ms25;
+    v216[29] = @"OBSSRXDuration";
     mEMORY[0x277D3F198]87 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms26 = [mEMORY[0x277D3F198]87 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[29] = commonTypeDict_IntegerFormat_withUnit_ms26;
-    v217[30] = @"MulticastRxBytes";
+    v217[29] = commonTypeDict_IntegerFormat_withUnit_ms26;
+    v216[30] = @"MulticastRxBytes";
     mEMORY[0x277D3F198]88 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat36 = [mEMORY[0x277D3F198]88 commonTypeDict_IntegerFormat];
-    v218[30] = commonTypeDict_IntegerFormat36;
-    v217[31] = @"MulticastRxPkts";
+    v217[30] = commonTypeDict_IntegerFormat36;
+    v216[31] = @"MulticastRxPkts";
     mEMORY[0x277D3F198]89 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat37 = [mEMORY[0x277D3F198]89 commonTypeDict_IntegerFormat];
-    v218[31] = commonTypeDict_IntegerFormat37;
-    v217[32] = @"MulticastRxTotal";
+    v217[31] = commonTypeDict_IntegerFormat37;
+    v216[32] = @"MulticastRxTotal";
     mEMORY[0x277D3F198]90 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat38 = [mEMORY[0x277D3F198]90 commonTypeDict_IntegerFormat];
-    v218[32] = commonTypeDict_IntegerFormat38;
-    v217[33] = @"ExtPhyOfflineDuration2G";
+    v217[32] = commonTypeDict_IntegerFormat38;
+    v216[33] = @"ExtPhyOfflineDuration2G";
     mEMORY[0x277D3F198]91 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms27 = [mEMORY[0x277D3F198]91 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[33] = commonTypeDict_IntegerFormat_withUnit_ms27;
-    v217[34] = @"ExtPhyOfflineDuration5G";
+    v217[33] = commonTypeDict_IntegerFormat_withUnit_ms27;
+    v216[34] = @"ExtPhyOfflineDuration5G";
     mEMORY[0x277D3F198]92 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms28 = [mEMORY[0x277D3F198]92 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[34] = commonTypeDict_IntegerFormat_withUnit_ms28;
-    v217[35] = @"ExtPhyOfflineDurationSC";
+    v217[34] = commonTypeDict_IntegerFormat_withUnit_ms28;
+    v216[35] = @"ExtPhyOfflineDurationSC";
     mEMORY[0x277D3F198]93 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms29 = [mEMORY[0x277D3F198]93 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[35] = commonTypeDict_IntegerFormat_withUnit_ms29;
-    v217[36] = @"ExtPhyPowerGateDuration2G";
+    v217[35] = commonTypeDict_IntegerFormat_withUnit_ms29;
+    v216[36] = @"ExtPhyPowerGateDuration2G";
     mEMORY[0x277D3F198]94 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms30 = [mEMORY[0x277D3F198]94 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[36] = commonTypeDict_IntegerFormat_withUnit_ms30;
-    v217[37] = @"ExtPhyPowerGateDuration5G";
+    v217[36] = commonTypeDict_IntegerFormat_withUnit_ms30;
+    v216[37] = @"ExtPhyPowerGateDuration5G";
     mEMORY[0x277D3F198]95 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms31 = [mEMORY[0x277D3F198]95 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[37] = commonTypeDict_IntegerFormat_withUnit_ms31;
-    v217[38] = @"ExtPhyPowerGateDurationSC";
+    v217[37] = commonTypeDict_IntegerFormat_withUnit_ms31;
+    v216[38] = @"ExtPhyPowerGateDurationSC";
     mEMORY[0x277D3F198]96 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms32 = [mEMORY[0x277D3F198]96 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[38] = commonTypeDict_IntegerFormat_withUnit_ms32;
-    v217[39] = @"ExtPhyRXDuration2G";
+    v217[38] = commonTypeDict_IntegerFormat_withUnit_ms32;
+    v216[39] = @"ExtPhyRXDuration2G";
     mEMORY[0x277D3F198]97 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms33 = [mEMORY[0x277D3F198]97 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[39] = commonTypeDict_IntegerFormat_withUnit_ms33;
-    v217[40] = @"ExtPhyRXDuration5G";
+    v217[39] = commonTypeDict_IntegerFormat_withUnit_ms33;
+    v216[40] = @"ExtPhyRXDuration5G";
     mEMORY[0x277D3F198]98 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms34 = [mEMORY[0x277D3F198]98 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[40] = commonTypeDict_IntegerFormat_withUnit_ms34;
-    v217[41] = @"ExtPhyRXDurationSC";
+    v217[40] = commonTypeDict_IntegerFormat_withUnit_ms34;
+    v216[41] = @"ExtPhyRXDurationSC";
     mEMORY[0x277D3F198]99 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms35 = [mEMORY[0x277D3F198]99 commonTypeDict_IntegerFormat_withUnit_ms];
-    v218[41] = commonTypeDict_IntegerFormat_withUnit_ms35;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v218 forKeys:v217 count:42];
+    v217[41] = commonTypeDict_IntegerFormat_withUnit_ms35;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v217 forKeys:v216 count:42];
 
-    v12 = v208;
-    [v208 addEntriesFromDictionary:v13];
-    v215[0] = *MEMORY[0x277D3F4E8];
-    v213 = *MEMORY[0x277D3F568];
-    v214 = &unk_282C1CA88;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v214 forKeys:&v213 count:1];
-    v215[1] = *MEMORY[0x277D3F540];
-    v216[0] = v24;
-    v216[1] = v208;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v216 forKeys:v215 count:2];
+    v12 = v207;
+    [v207 addEntriesFromDictionary:v13];
+    v214[0] = *MEMORY[0x277D3F4E8];
+    v212 = *MEMORY[0x277D3F568];
+    v213 = &unk_282C1CA88;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v213 forKeys:&v212 count:1];
+    v214[1] = *MEMORY[0x277D3F540];
+    v215[0] = v24;
+    v215[1] = v207;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v215 forKeys:v214 count:2];
 
     goto LABEL_6;
   }
 
-  v12 = v208;
+  v12 = v207;
   if (([MEMORY[0x277D3F208] isWiFiClass:1004013] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004014))
   {
-    v211[0] = *MEMORY[0x277D3F4E8];
-    v209 = *MEMORY[0x277D3F568];
-    v210 = &unk_282C1CA38;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v210 forKeys:&v209 count:1];
-    v211[1] = *MEMORY[0x277D3F540];
-    v212[0] = v13;
-    v212[1] = v208;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v212 forKeys:v211 count:2];
+    v210[0] = *MEMORY[0x277D3F4E8];
+    v208 = *MEMORY[0x277D3F568];
+    v209 = &unk_282C1CA38;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v209 forKeys:&v208 count:1];
+    v210[1] = *MEMORY[0x277D3F540];
+    v211[0] = v13;
+    v211[1] = v207;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v211 forKeys:v210 count:2];
 LABEL_6:
 
     goto LABEL_7;
@@ -2335,14 +2290,12 @@ LABEL_6:
   v14 = MEMORY[0x277CBEC10];
 LABEL_7:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)entryEventBackwardDefinitionCumulativeBasic
 {
-  v573[2] = *MEMORY[0x277D85DE8];
+  v572[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] kPLWiFiClassIsOneOf:{1004013, 1004014, 1004015, 1004016, 1004017, 1004018, 1004019, 0}])
   {
     entryEventBackwardDefinitionCumulativeMultiCore = [self entryEventBackwardDefinitionCumulativeMultiCore];
@@ -2350,868 +2303,868 @@ LABEL_7:
 
   else if ([MEMORY[0x277D3F208] isWiFiClass:1004010])
   {
-    v572[0] = *MEMORY[0x277D3F4E8];
-    v570 = *MEMORY[0x277D3F568];
-    v571 = &unk_282C1CA38;
-    v533 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v571 forKeys:&v570 count:1];
-    v573[0] = v533;
-    v572[1] = *MEMORY[0x277D3F540];
-    v568[0] = @"WifiTimestamp";
+    v571[0] = *MEMORY[0x277D3F4E8];
+    v569 = *MEMORY[0x277D3F568];
+    v570 = &unk_282C1CA38;
+    v532 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v570 forKeys:&v569 count:1];
+    v572[0] = v532;
+    v571[1] = *MEMORY[0x277D3F540];
+    v567[0] = @"WifiTimestamp";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_s];
-    v569[0] = commonTypeDict_IntegerFormat_withUnit_s;
-    v568[1] = @"PMDuration";
+    v568[0] = commonTypeDict_IntegerFormat_withUnit_s;
+    v567[1] = @"PMDuration";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[1] = commonTypeDict_IntegerFormat_withUnit_s2;
-    v568[2] = @"MPCDuration";
+    v568[1] = commonTypeDict_IntegerFormat_withUnit_s2;
+    v567[2] = @"MPCDuration";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[2] = commonTypeDict_IntegerFormat_withUnit_s3;
-    v568[3] = @"TXDuration";
+    v568[2] = commonTypeDict_IntegerFormat_withUnit_s3;
+    v567[3] = @"TXDuration";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v568[4] = @"RXDuration";
+    v568[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v567[4] = @"RXDuration";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v568[5] = @"HSICSuspendDuration";
+    v568[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v567[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-    v568[6] = @"HSICActiveDuration";
+    v568[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+    v567[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-    v568[7] = @"PNOScanSSIDDuration";
+    v568[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+    v567[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-    v568[8] = @"PNOBSSIDDuration";
+    v568[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+    v567[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-    v568[9] = @"RoamScanDuration";
+    v568[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+    v567[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-    v568[10] = @"AssociatedScanDuration";
+    v568[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+    v567[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-    v568[11] = @"OtherScanDuration";
+    v568[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+    v567[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-    v568[12] = @"UserScanDuration";
+    v568[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+    v567[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-    v568[13] = @"FRTSDuration";
+    v568[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+    v567[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v568[14] = @"PCIESuspendDuration";
+    v568[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v567[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[14] = commonTypeDict_IntegerFormat_withUnit_us;
-    v568[15] = @"PCIEActiveDuration";
+    v568[14] = commonTypeDict_IntegerFormat_withUnit_us;
+    v567[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-    v568[16] = @"PCIEPERSTDuration";
+    v568[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+    v567[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-    v568[17] = @"PCIEL0Count";
+    v568[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+    v567[17] = @"PCIEL0Count";
     mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-    v569[17] = commonTypeDict_IntegerFormat;
-    v568[18] = @"PCIEL0Duration";
+    v568[17] = commonTypeDict_IntegerFormat;
+    v567[18] = @"PCIEL0Duration";
     mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us4 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[18] = commonTypeDict_IntegerFormat_withUnit_us4;
-    v568[19] = @"PCIEL2Count";
+    v568[18] = commonTypeDict_IntegerFormat_withUnit_us4;
+    v567[19] = @"PCIEL2Count";
     mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-    v569[19] = commonTypeDict_IntegerFormat2;
-    v568[20] = @"PCIEL2Duration";
+    v568[19] = commonTypeDict_IntegerFormat2;
+    v567[20] = @"PCIEL2Duration";
     mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us5 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[20] = commonTypeDict_IntegerFormat_withUnit_us5;
-    v568[21] = @"PCIEL1Count";
+    v568[20] = commonTypeDict_IntegerFormat_withUnit_us5;
+    v567[21] = @"PCIEL1Count";
     mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat];
-    v569[21] = commonTypeDict_IntegerFormat3;
-    v568[22] = @"PCIEL1Duration";
+    v568[21] = commonTypeDict_IntegerFormat3;
+    v567[22] = @"PCIEL1Duration";
     mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us6 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[22] = commonTypeDict_IntegerFormat_withUnit_us6;
-    v568[23] = @"PCIEL11Count";
+    v568[22] = commonTypeDict_IntegerFormat_withUnit_us6;
+    v567[23] = @"PCIEL11Count";
     mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-    v569[23] = commonTypeDict_IntegerFormat4;
-    v568[24] = @"PCIEL11Duration";
+    v568[23] = commonTypeDict_IntegerFormat4;
+    v567[24] = @"PCIEL11Duration";
     mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us7 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[24] = commonTypeDict_IntegerFormat_withUnit_us7;
-    v568[25] = @"PCIEL12Count";
+    v568[24] = commonTypeDict_IntegerFormat_withUnit_us7;
+    v567[25] = @"PCIEL12Count";
     mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-    v569[25] = commonTypeDict_IntegerFormat5;
-    v568[26] = @"PCIEL12Duration";
+    v568[25] = commonTypeDict_IntegerFormat5;
+    v567[26] = @"PCIEL12Duration";
     mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us8 = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat_withUnit_us];
-    v569[26] = commonTypeDict_IntegerFormat_withUnit_us8;
-    v568[27] = @"AWDLTXDuration";
+    v568[26] = commonTypeDict_IntegerFormat_withUnit_us8;
+    v567[27] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]28 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[27] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v568[28] = @"AWDLRXDuration";
+    v568[27] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v567[28] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[28] = commonTypeDict_IntegerFormat_withUnit_ms5;
-    v568[29] = @"AWDLAWDuration";
+    v568[28] = commonTypeDict_IntegerFormat_withUnit_ms5;
+    v567[29] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]30 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[29] = commonTypeDict_IntegerFormat_withUnit_s12;
-    v568[30] = @"AWDLScanDuration";
+    v568[29] = commonTypeDict_IntegerFormat_withUnit_s12;
+    v567[30] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]31 commonTypeDict_IntegerFormat_withUnit_s];
-    v569[30] = commonTypeDict_IntegerFormat_withUnit_s13;
-    v568[31] = @"AutojoinScanDuration";
+    v568[30] = commonTypeDict_IntegerFormat_withUnit_s13;
+    v567[31] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[31] = commonTypeDict_IntegerFormat_withUnit_ms6;
-    v568[32] = @"LocationScanDuration";
+    v568[31] = commonTypeDict_IntegerFormat_withUnit_ms6;
+    v567[32] = @"LocationScanDuration";
     mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[32] = commonTypeDict_IntegerFormat_withUnit_ms7;
-    v568[33] = @"PipelineScanDuration";
+    v568[32] = commonTypeDict_IntegerFormat_withUnit_ms7;
+    v567[33] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[33] = commonTypeDict_IntegerFormat_withUnit_ms8;
-    v568[34] = @"SetupScanDuration";
+    v568[33] = commonTypeDict_IntegerFormat_withUnit_ms8;
+    v567[34] = @"SetupScanDuration";
     mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[34] = commonTypeDict_IntegerFormat_withUnit_ms9;
-    v568[35] = @"UnknownScanDuration";
+    v568[34] = commonTypeDict_IntegerFormat_withUnit_ms9;
+    v567[35] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]36 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]36 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[35] = commonTypeDict_IntegerFormat_withUnit_ms10;
-    v568[36] = @"CurrentChannel";
+    v568[35] = commonTypeDict_IntegerFormat_withUnit_ms10;
+    v567[36] = @"CurrentChannel";
     mEMORY[0x277D3F198]37 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]37 commonTypeDict_IntegerFormat];
-    v569[36] = commonTypeDict_IntegerFormat6;
-    v568[37] = @"CurrentSSID";
+    v568[36] = commonTypeDict_IntegerFormat6;
+    v567[37] = @"CurrentSSID";
     mEMORY[0x277D3F198]38 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]38 commonTypeDict_StringFormat];
-    v569[37] = commonTypeDict_StringFormat;
-    v568[38] = @"CurrentBandwidth";
+    v568[37] = commonTypeDict_StringFormat;
+    v567[38] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]39 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]39 commonTypeDict_IntegerFormat];
-    v569[38] = commonTypeDict_IntegerFormat7;
-    v568[39] = @"WifiPowered";
+    v568[38] = commonTypeDict_IntegerFormat7;
+    v567[39] = @"WifiPowered";
     mEMORY[0x277D3F198]40 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]40 commonTypeDict_BoolFormat];
-    v569[39] = commonTypeDict_BoolFormat;
-    v568[40] = @"WowEnabled";
+    v568[39] = commonTypeDict_BoolFormat;
+    v567[40] = @"WowEnabled";
     mEMORY[0x277D3F198]41 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]41 commonTypeDict_BoolFormat];
-    v569[40] = commonTypeDict_BoolFormat2;
-    v568[41] = @"Carplay";
+    v568[40] = commonTypeDict_BoolFormat2;
+    v567[41] = @"Carplay";
     mEMORY[0x277D3F198]42 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]42 commonTypeDict_BoolFormat];
-    v569[41] = commonTypeDict_BoolFormat3;
-    v568[42] = @"SISOTXDuration";
+    v568[41] = commonTypeDict_BoolFormat3;
+    v567[42] = @"SISOTXDuration";
     mEMORY[0x277D3F198]43 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]43 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[42] = commonTypeDict_IntegerFormat_withUnit_ms11;
-    v568[43] = @"MIMOTXDuration";
+    v568[42] = commonTypeDict_IntegerFormat_withUnit_ms11;
+    v567[43] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]44 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms12 = [mEMORY[0x277D3F198]44 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[43] = commonTypeDict_IntegerFormat_withUnit_ms12;
-    v568[44] = @"MIMORXDuration";
+    v568[43] = commonTypeDict_IntegerFormat_withUnit_ms12;
+    v567[44] = @"MIMORXDuration";
     mEMORY[0x277D3F198]45 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms13 = [mEMORY[0x277D3F198]45 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[44] = commonTypeDict_IntegerFormat_withUnit_ms13;
-    v568[45] = @"SISORXDuration";
+    v568[44] = commonTypeDict_IntegerFormat_withUnit_ms13;
+    v567[45] = @"SISORXDuration";
     mEMORY[0x277D3F198]46 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms14 = [mEMORY[0x277D3F198]46 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[45] = commonTypeDict_IntegerFormat_withUnit_ms14;
-    v568[46] = @"MIMOCSDuration";
+    v568[45] = commonTypeDict_IntegerFormat_withUnit_ms14;
+    v567[46] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]47 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms15 = [mEMORY[0x277D3F198]47 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[46] = commonTypeDict_IntegerFormat_withUnit_ms15;
-    v568[47] = @"SISOCSDuration";
+    v568[46] = commonTypeDict_IntegerFormat_withUnit_ms15;
+    v567[47] = @"SISOCSDuration";
     mEMORY[0x277D3F198]48 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms16 = [mEMORY[0x277D3F198]48 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[47] = commonTypeDict_IntegerFormat_withUnit_ms16;
-    v568[48] = @"OCLRXDuration";
+    v568[47] = commonTypeDict_IntegerFormat_withUnit_ms16;
+    v567[48] = @"OCLRXDuration";
     mEMORY[0x277D3F198]49 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms17 = [mEMORY[0x277D3F198]49 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[48] = commonTypeDict_IntegerFormat_withUnit_ms17;
-    v568[49] = @"OCLCSDuration";
+    v568[48] = commonTypeDict_IntegerFormat_withUnit_ms17;
+    v567[49] = @"OCLCSDuration";
     mEMORY[0x277D3F198]50 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms18 = [mEMORY[0x277D3F198]50 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[49] = commonTypeDict_IntegerFormat_withUnit_ms18;
-    v568[50] = @"READINGTYPE";
+    v568[49] = commonTypeDict_IntegerFormat_withUnit_ms18;
+    v567[50] = @"READINGTYPE";
     mEMORY[0x277D3F198]51 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]51 commonTypeDict_IntegerFormat];
-    v569[50] = commonTypeDict_IntegerFormat8;
-    v568[51] = @"isADHSConnected";
+    v568[50] = commonTypeDict_IntegerFormat8;
+    v567[51] = @"isADHSConnected";
     mEMORY[0x277D3F198]52 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]52 commonTypeDict_IntegerFormat];
-    v569[51] = commonTypeDict_IntegerFormat9;
-    v568[52] = @"AutoHotspotBTScanDuration";
+    v568[51] = commonTypeDict_IntegerFormat9;
+    v567[52] = @"AutoHotspotBTScanDuration";
     mEMORY[0x277D3F198]53 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms19 = [mEMORY[0x277D3F198]53 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[52] = commonTypeDict_IntegerFormat_withUnit_ms19;
-    v568[53] = @"AutoHotspotBTScanCount";
+    v568[52] = commonTypeDict_IntegerFormat_withUnit_ms19;
+    v567[53] = @"AutoHotspotBTScanCount";
     mEMORY[0x277D3F198]54 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]54 commonTypeDict_IntegerFormat];
-    v569[53] = commonTypeDict_IntegerFormat10;
-    v568[54] = @"OPSFullDuration";
+    v568[53] = commonTypeDict_IntegerFormat10;
+    v567[54] = @"OPSFullDuration";
     mEMORY[0x277D3F198]55 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms20 = [mEMORY[0x277D3F198]55 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[54] = commonTypeDict_IntegerFormat_withUnit_ms20;
-    v568[55] = @"OPSPartialDuration";
+    v568[54] = commonTypeDict_IntegerFormat_withUnit_ms20;
+    v567[55] = @"OPSPartialDuration";
     mEMORY[0x277D3F198]56 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms21 = [mEMORY[0x277D3F198]56 commonTypeDict_IntegerFormat_withUnit_ms];
-    v569[55] = commonTypeDict_IntegerFormat_withUnit_ms21;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v569 forKeys:v568 count:56];
-    v573[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v573 forKeys:v572 count:2];
+    v568[55] = commonTypeDict_IntegerFormat_withUnit_ms21;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v568 forKeys:v567 count:56];
+    v572[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v572 forKeys:v571 count:2];
 
     entryEventBackwardDefinitionCumulativeMultiCore = v13;
   }
 
   else if ([MEMORY[0x277D3F208] isWiFiClass:1004007])
   {
-    v566[0] = *MEMORY[0x277D3F4E8];
-    v564 = *MEMORY[0x277D3F568];
-    v565 = &unk_282C1CA38;
-    v534 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v565 forKeys:&v564 count:1];
-    v567[0] = v534;
-    v566[1] = *MEMORY[0x277D3F540];
-    v562[0] = @"WifiTimestamp";
+    v565[0] = *MEMORY[0x277D3F4E8];
+    v563 = *MEMORY[0x277D3F568];
+    v564 = &unk_282C1CA38;
+    v533 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v564 forKeys:&v563 count:1];
+    v566[0] = v533;
+    v565[1] = *MEMORY[0x277D3F540];
+    v561[0] = @"WifiTimestamp";
     mEMORY[0x277D3F198]57 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s14 = [mEMORY[0x277D3F198]57 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[0] = commonTypeDict_IntegerFormat_withUnit_s14;
-    v562[1] = @"PMDuration";
+    v562[0] = commonTypeDict_IntegerFormat_withUnit_s14;
+    v561[1] = @"PMDuration";
     mEMORY[0x277D3F198]58 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s15 = [mEMORY[0x277D3F198]58 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[1] = commonTypeDict_IntegerFormat_withUnit_s15;
-    v562[2] = @"MPCDuration";
+    v562[1] = commonTypeDict_IntegerFormat_withUnit_s15;
+    v561[2] = @"MPCDuration";
     mEMORY[0x277D3F198]59 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s16 = [mEMORY[0x277D3F198]59 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[2] = commonTypeDict_IntegerFormat_withUnit_s16;
-    v562[3] = @"TXDuration";
+    v562[2] = commonTypeDict_IntegerFormat_withUnit_s16;
+    v561[3] = @"TXDuration";
     mEMORY[0x277D3F198]60 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms22 = [mEMORY[0x277D3F198]60 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[3] = commonTypeDict_IntegerFormat_withUnit_ms22;
-    v562[4] = @"RXDuration";
+    v562[3] = commonTypeDict_IntegerFormat_withUnit_ms22;
+    v561[4] = @"RXDuration";
     mEMORY[0x277D3F198]61 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms23 = [mEMORY[0x277D3F198]61 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[4] = commonTypeDict_IntegerFormat_withUnit_ms23;
-    v562[5] = @"HSICSuspendDuration";
+    v562[4] = commonTypeDict_IntegerFormat_withUnit_ms23;
+    v561[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]62 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s17 = [mEMORY[0x277D3F198]62 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[5] = commonTypeDict_IntegerFormat_withUnit_s17;
-    v562[6] = @"HSICActiveDuration";
+    v562[5] = commonTypeDict_IntegerFormat_withUnit_s17;
+    v561[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]63 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s18 = [mEMORY[0x277D3F198]63 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[6] = commonTypeDict_IntegerFormat_withUnit_s18;
-    v562[7] = @"PNOScanSSIDDuration";
+    v562[6] = commonTypeDict_IntegerFormat_withUnit_s18;
+    v561[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]64 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s19 = [mEMORY[0x277D3F198]64 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[7] = commonTypeDict_IntegerFormat_withUnit_s19;
-    v562[8] = @"PNOBSSIDDuration";
+    v562[7] = commonTypeDict_IntegerFormat_withUnit_s19;
+    v561[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]65 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s20 = [mEMORY[0x277D3F198]65 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[8] = commonTypeDict_IntegerFormat_withUnit_s20;
-    v562[9] = @"RoamScanDuration";
+    v562[8] = commonTypeDict_IntegerFormat_withUnit_s20;
+    v561[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]66 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s21 = [mEMORY[0x277D3F198]66 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[9] = commonTypeDict_IntegerFormat_withUnit_s21;
-    v562[10] = @"AssociatedScanDuration";
+    v562[9] = commonTypeDict_IntegerFormat_withUnit_s21;
+    v561[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]67 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s22 = [mEMORY[0x277D3F198]67 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[10] = commonTypeDict_IntegerFormat_withUnit_s22;
-    v562[11] = @"OtherScanDuration";
+    v562[10] = commonTypeDict_IntegerFormat_withUnit_s22;
+    v561[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]68 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s23 = [mEMORY[0x277D3F198]68 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[11] = commonTypeDict_IntegerFormat_withUnit_s23;
-    v562[12] = @"UserScanDuration";
+    v562[11] = commonTypeDict_IntegerFormat_withUnit_s23;
+    v561[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]69 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s24 = [mEMORY[0x277D3F198]69 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[12] = commonTypeDict_IntegerFormat_withUnit_s24;
-    v562[13] = @"FRTSDuration";
+    v562[12] = commonTypeDict_IntegerFormat_withUnit_s24;
+    v561[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]70 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms24 = [mEMORY[0x277D3F198]70 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[13] = commonTypeDict_IntegerFormat_withUnit_ms24;
-    v562[14] = @"PCIESuspendDuration";
+    v562[13] = commonTypeDict_IntegerFormat_withUnit_ms24;
+    v561[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]71 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us9 = [mEMORY[0x277D3F198]71 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[14] = commonTypeDict_IntegerFormat_withUnit_us9;
-    v562[15] = @"PCIEActiveDuration";
+    v562[14] = commonTypeDict_IntegerFormat_withUnit_us9;
+    v561[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]72 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us10 = [mEMORY[0x277D3F198]72 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[15] = commonTypeDict_IntegerFormat_withUnit_us10;
-    v562[16] = @"PCIEPERSTDuration";
+    v562[15] = commonTypeDict_IntegerFormat_withUnit_us10;
+    v561[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]73 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us11 = [mEMORY[0x277D3F198]73 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[16] = commonTypeDict_IntegerFormat_withUnit_us11;
-    v562[17] = @"PCIEL0Count";
+    v562[16] = commonTypeDict_IntegerFormat_withUnit_us11;
+    v561[17] = @"PCIEL0Count";
     mEMORY[0x277D3F198]74 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]74 commonTypeDict_IntegerFormat];
-    v563[17] = commonTypeDict_IntegerFormat11;
-    v562[18] = @"PCIEL0Duration";
+    v562[17] = commonTypeDict_IntegerFormat11;
+    v561[18] = @"PCIEL0Duration";
     mEMORY[0x277D3F198]75 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us12 = [mEMORY[0x277D3F198]75 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[18] = commonTypeDict_IntegerFormat_withUnit_us12;
-    v562[19] = @"PCIEL2Count";
+    v562[18] = commonTypeDict_IntegerFormat_withUnit_us12;
+    v561[19] = @"PCIEL2Count";
     mEMORY[0x277D3F198]76 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]76 commonTypeDict_IntegerFormat];
-    v563[19] = commonTypeDict_IntegerFormat12;
-    v562[20] = @"PCIEL2Duration";
+    v562[19] = commonTypeDict_IntegerFormat12;
+    v561[20] = @"PCIEL2Duration";
     mEMORY[0x277D3F198]77 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us13 = [mEMORY[0x277D3F198]77 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[20] = commonTypeDict_IntegerFormat_withUnit_us13;
-    v562[21] = @"PCIEL1Count";
+    v562[20] = commonTypeDict_IntegerFormat_withUnit_us13;
+    v561[21] = @"PCIEL1Count";
     mEMORY[0x277D3F198]78 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat13 = [mEMORY[0x277D3F198]78 commonTypeDict_IntegerFormat];
-    v563[21] = commonTypeDict_IntegerFormat13;
-    v562[22] = @"PCIEL1Duration";
+    v562[21] = commonTypeDict_IntegerFormat13;
+    v561[22] = @"PCIEL1Duration";
     mEMORY[0x277D3F198]79 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us14 = [mEMORY[0x277D3F198]79 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[22] = commonTypeDict_IntegerFormat_withUnit_us14;
-    v562[23] = @"PCIEL11Count";
+    v562[22] = commonTypeDict_IntegerFormat_withUnit_us14;
+    v561[23] = @"PCIEL11Count";
     mEMORY[0x277D3F198]80 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat14 = [mEMORY[0x277D3F198]80 commonTypeDict_IntegerFormat];
-    v563[23] = commonTypeDict_IntegerFormat14;
-    v562[24] = @"PCIEL11Duration";
+    v562[23] = commonTypeDict_IntegerFormat14;
+    v561[24] = @"PCIEL11Duration";
     mEMORY[0x277D3F198]81 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us15 = [mEMORY[0x277D3F198]81 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[24] = commonTypeDict_IntegerFormat_withUnit_us15;
-    v562[25] = @"PCIEL12Count";
+    v562[24] = commonTypeDict_IntegerFormat_withUnit_us15;
+    v561[25] = @"PCIEL12Count";
     mEMORY[0x277D3F198]82 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat15 = [mEMORY[0x277D3F198]82 commonTypeDict_IntegerFormat];
-    v563[25] = commonTypeDict_IntegerFormat15;
-    v562[26] = @"PCIEL12Duration";
+    v562[25] = commonTypeDict_IntegerFormat15;
+    v561[26] = @"PCIEL12Duration";
     mEMORY[0x277D3F198]83 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us16 = [mEMORY[0x277D3F198]83 commonTypeDict_IntegerFormat_withUnit_us];
-    v563[26] = commonTypeDict_IntegerFormat_withUnit_us16;
-    v562[27] = @"AWDLTXDuration";
+    v562[26] = commonTypeDict_IntegerFormat_withUnit_us16;
+    v561[27] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]84 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms25 = [mEMORY[0x277D3F198]84 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[27] = commonTypeDict_IntegerFormat_withUnit_ms25;
-    v562[28] = @"AWDLRXDuration";
+    v562[27] = commonTypeDict_IntegerFormat_withUnit_ms25;
+    v561[28] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]85 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms26 = [mEMORY[0x277D3F198]85 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[28] = commonTypeDict_IntegerFormat_withUnit_ms26;
-    v562[29] = @"AWDLAWDuration";
+    v562[28] = commonTypeDict_IntegerFormat_withUnit_ms26;
+    v561[29] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]86 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s25 = [mEMORY[0x277D3F198]86 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[29] = commonTypeDict_IntegerFormat_withUnit_s25;
-    v562[30] = @"AWDLScanDuration";
+    v562[29] = commonTypeDict_IntegerFormat_withUnit_s25;
+    v561[30] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]87 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s26 = [mEMORY[0x277D3F198]87 commonTypeDict_IntegerFormat_withUnit_s];
-    v563[30] = commonTypeDict_IntegerFormat_withUnit_s26;
-    v562[31] = @"AutojoinScanDuration";
+    v562[30] = commonTypeDict_IntegerFormat_withUnit_s26;
+    v561[31] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]88 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms27 = [mEMORY[0x277D3F198]88 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[31] = commonTypeDict_IntegerFormat_withUnit_ms27;
-    v562[32] = @"LocationScanDuration";
+    v562[31] = commonTypeDict_IntegerFormat_withUnit_ms27;
+    v561[32] = @"LocationScanDuration";
     mEMORY[0x277D3F198]89 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms28 = [mEMORY[0x277D3F198]89 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[32] = commonTypeDict_IntegerFormat_withUnit_ms28;
-    v562[33] = @"PipelineScanDuration";
+    v562[32] = commonTypeDict_IntegerFormat_withUnit_ms28;
+    v561[33] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]90 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms29 = [mEMORY[0x277D3F198]90 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[33] = commonTypeDict_IntegerFormat_withUnit_ms29;
-    v562[34] = @"SetupScanDuration";
+    v562[33] = commonTypeDict_IntegerFormat_withUnit_ms29;
+    v561[34] = @"SetupScanDuration";
     mEMORY[0x277D3F198]91 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms30 = [mEMORY[0x277D3F198]91 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[34] = commonTypeDict_IntegerFormat_withUnit_ms30;
-    v562[35] = @"UnknownScanDuration";
+    v562[34] = commonTypeDict_IntegerFormat_withUnit_ms30;
+    v561[35] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]92 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms31 = [mEMORY[0x277D3F198]92 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[35] = commonTypeDict_IntegerFormat_withUnit_ms31;
-    v562[36] = @"CurrentChannel";
+    v562[35] = commonTypeDict_IntegerFormat_withUnit_ms31;
+    v561[36] = @"CurrentChannel";
     mEMORY[0x277D3F198]93 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat16 = [mEMORY[0x277D3F198]93 commonTypeDict_IntegerFormat];
-    v563[36] = commonTypeDict_IntegerFormat16;
-    v562[37] = @"CurrentSSID";
+    v562[36] = commonTypeDict_IntegerFormat16;
+    v561[37] = @"CurrentSSID";
     mEMORY[0x277D3F198]94 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]94 commonTypeDict_StringFormat];
-    v563[37] = commonTypeDict_StringFormat2;
-    v562[38] = @"CurrentBandwidth";
+    v562[37] = commonTypeDict_StringFormat2;
+    v561[38] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]95 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat17 = [mEMORY[0x277D3F198]95 commonTypeDict_IntegerFormat];
-    v563[38] = commonTypeDict_IntegerFormat17;
-    v562[39] = @"WifiPowered";
+    v562[38] = commonTypeDict_IntegerFormat17;
+    v561[39] = @"WifiPowered";
     mEMORY[0x277D3F198]96 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat4 = [mEMORY[0x277D3F198]96 commonTypeDict_BoolFormat];
-    v563[39] = commonTypeDict_BoolFormat4;
-    v562[40] = @"WowEnabled";
+    v562[39] = commonTypeDict_BoolFormat4;
+    v561[40] = @"WowEnabled";
     mEMORY[0x277D3F198]97 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat5 = [mEMORY[0x277D3F198]97 commonTypeDict_BoolFormat];
-    v563[40] = commonTypeDict_BoolFormat5;
-    v562[41] = @"Carplay";
+    v562[40] = commonTypeDict_BoolFormat5;
+    v561[41] = @"Carplay";
     mEMORY[0x277D3F198]98 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat6 = [mEMORY[0x277D3F198]98 commonTypeDict_BoolFormat];
-    v563[41] = commonTypeDict_BoolFormat6;
-    v562[42] = @"SISOTXDuration";
+    v562[41] = commonTypeDict_BoolFormat6;
+    v561[42] = @"SISOTXDuration";
     mEMORY[0x277D3F198]99 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms32 = [mEMORY[0x277D3F198]99 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[42] = commonTypeDict_IntegerFormat_withUnit_ms32;
-    v562[43] = @"MIMOTXDuration";
+    v562[42] = commonTypeDict_IntegerFormat_withUnit_ms32;
+    v561[43] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]100 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms33 = [mEMORY[0x277D3F198]100 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[43] = commonTypeDict_IntegerFormat_withUnit_ms33;
-    v562[44] = @"MIMORXDuration";
+    v562[43] = commonTypeDict_IntegerFormat_withUnit_ms33;
+    v561[44] = @"MIMORXDuration";
     mEMORY[0x277D3F198]101 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms34 = [mEMORY[0x277D3F198]101 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[44] = commonTypeDict_IntegerFormat_withUnit_ms34;
-    v562[45] = @"SISORXDuration";
+    v562[44] = commonTypeDict_IntegerFormat_withUnit_ms34;
+    v561[45] = @"SISORXDuration";
     mEMORY[0x277D3F198]102 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms35 = [mEMORY[0x277D3F198]102 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[45] = commonTypeDict_IntegerFormat_withUnit_ms35;
-    v562[46] = @"MIMOCSDuration";
+    v562[45] = commonTypeDict_IntegerFormat_withUnit_ms35;
+    v561[46] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]103 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms36 = [mEMORY[0x277D3F198]103 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[46] = commonTypeDict_IntegerFormat_withUnit_ms36;
-    v562[47] = @"SISOCSDuration";
+    v562[46] = commonTypeDict_IntegerFormat_withUnit_ms36;
+    v561[47] = @"SISOCSDuration";
     mEMORY[0x277D3F198]104 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms37 = [mEMORY[0x277D3F198]104 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[47] = commonTypeDict_IntegerFormat_withUnit_ms37;
-    v562[48] = @"OCLRXDuration";
+    v562[47] = commonTypeDict_IntegerFormat_withUnit_ms37;
+    v561[48] = @"OCLRXDuration";
     mEMORY[0x277D3F198]105 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms38 = [mEMORY[0x277D3F198]105 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[48] = commonTypeDict_IntegerFormat_withUnit_ms38;
-    v562[49] = @"OCLCSDuration";
+    v562[48] = commonTypeDict_IntegerFormat_withUnit_ms38;
+    v561[49] = @"OCLCSDuration";
     mEMORY[0x277D3F198]106 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms39 = [mEMORY[0x277D3F198]106 commonTypeDict_IntegerFormat_withUnit_ms];
-    v563[49] = commonTypeDict_IntegerFormat_withUnit_ms39;
-    v562[50] = @"READINGTYPE";
+    v562[49] = commonTypeDict_IntegerFormat_withUnit_ms39;
+    v561[50] = @"READINGTYPE";
     mEMORY[0x277D3F198]107 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat18 = [mEMORY[0x277D3F198]107 commonTypeDict_IntegerFormat];
-    v563[50] = commonTypeDict_IntegerFormat18;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v563 forKeys:v562 count:51];
-    v567[1] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v567 forKeys:v566 count:2];
+    v562[50] = commonTypeDict_IntegerFormat18;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v562 forKeys:v561 count:51];
+    v566[1] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v566 forKeys:v565 count:2];
 
     entryEventBackwardDefinitionCumulativeMultiCore = v23;
   }
 
   else if ([MEMORY[0x277D3F208] isWiFiClass:1004005])
   {
-    v560[0] = *MEMORY[0x277D3F4E8];
-    v558 = *MEMORY[0x277D3F568];
-    v559 = &unk_282C1CA98;
-    v535 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v559 forKeys:&v558 count:1];
-    v561[0] = v535;
-    v560[1] = *MEMORY[0x277D3F540];
-    v556[0] = @"WifiTimestamp";
+    v559[0] = *MEMORY[0x277D3F4E8];
+    v557 = *MEMORY[0x277D3F568];
+    v558 = &unk_282C1CA98;
+    v534 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v558 forKeys:&v557 count:1];
+    v560[0] = v534;
+    v559[1] = *MEMORY[0x277D3F540];
+    v555[0] = @"WifiTimestamp";
     mEMORY[0x277D3F198]108 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s27 = [mEMORY[0x277D3F198]108 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[0] = commonTypeDict_IntegerFormat_withUnit_s27;
-    v556[1] = @"PMDuration";
+    v556[0] = commonTypeDict_IntegerFormat_withUnit_s27;
+    v555[1] = @"PMDuration";
     mEMORY[0x277D3F198]109 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s28 = [mEMORY[0x277D3F198]109 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[1] = commonTypeDict_IntegerFormat_withUnit_s28;
-    v556[2] = @"MPCDuration";
+    v556[1] = commonTypeDict_IntegerFormat_withUnit_s28;
+    v555[2] = @"MPCDuration";
     mEMORY[0x277D3F198]110 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s29 = [mEMORY[0x277D3F198]110 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[2] = commonTypeDict_IntegerFormat_withUnit_s29;
-    v556[3] = @"TXDuration";
+    v556[2] = commonTypeDict_IntegerFormat_withUnit_s29;
+    v555[3] = @"TXDuration";
     mEMORY[0x277D3F198]111 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms40 = [mEMORY[0x277D3F198]111 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[3] = commonTypeDict_IntegerFormat_withUnit_ms40;
-    v556[4] = @"RXDuration";
+    v556[3] = commonTypeDict_IntegerFormat_withUnit_ms40;
+    v555[4] = @"RXDuration";
     mEMORY[0x277D3F198]112 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms41 = [mEMORY[0x277D3F198]112 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[4] = commonTypeDict_IntegerFormat_withUnit_ms41;
-    v556[5] = @"HSICSuspendDuration";
+    v556[4] = commonTypeDict_IntegerFormat_withUnit_ms41;
+    v555[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]113 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s30 = [mEMORY[0x277D3F198]113 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[5] = commonTypeDict_IntegerFormat_withUnit_s30;
-    v556[6] = @"HSICActiveDuration";
+    v556[5] = commonTypeDict_IntegerFormat_withUnit_s30;
+    v555[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]114 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s31 = [mEMORY[0x277D3F198]114 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[6] = commonTypeDict_IntegerFormat_withUnit_s31;
-    v556[7] = @"PNOScanSSIDDuration";
+    v556[6] = commonTypeDict_IntegerFormat_withUnit_s31;
+    v555[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]115 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s32 = [mEMORY[0x277D3F198]115 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[7] = commonTypeDict_IntegerFormat_withUnit_s32;
-    v556[8] = @"PNOBSSIDDuration";
+    v556[7] = commonTypeDict_IntegerFormat_withUnit_s32;
+    v555[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]116 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s33 = [mEMORY[0x277D3F198]116 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[8] = commonTypeDict_IntegerFormat_withUnit_s33;
-    v556[9] = @"RoamScanDuration";
+    v556[8] = commonTypeDict_IntegerFormat_withUnit_s33;
+    v555[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]117 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s34 = [mEMORY[0x277D3F198]117 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[9] = commonTypeDict_IntegerFormat_withUnit_s34;
-    v556[10] = @"AssociatedScanDuration";
+    v556[9] = commonTypeDict_IntegerFormat_withUnit_s34;
+    v555[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]118 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s35 = [mEMORY[0x277D3F198]118 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[10] = commonTypeDict_IntegerFormat_withUnit_s35;
-    v556[11] = @"OtherScanDuration";
+    v556[10] = commonTypeDict_IntegerFormat_withUnit_s35;
+    v555[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]119 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s36 = [mEMORY[0x277D3F198]119 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[11] = commonTypeDict_IntegerFormat_withUnit_s36;
-    v556[12] = @"UserScanDuration";
+    v556[11] = commonTypeDict_IntegerFormat_withUnit_s36;
+    v555[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]120 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s37 = [mEMORY[0x277D3F198]120 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[12] = commonTypeDict_IntegerFormat_withUnit_s37;
-    v556[13] = @"FRTSDuration";
+    v556[12] = commonTypeDict_IntegerFormat_withUnit_s37;
+    v555[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]121 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms42 = [mEMORY[0x277D3F198]121 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[13] = commonTypeDict_IntegerFormat_withUnit_ms42;
-    v556[14] = @"PCIESuspendDuration";
+    v556[13] = commonTypeDict_IntegerFormat_withUnit_ms42;
+    v555[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]122 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us17 = [mEMORY[0x277D3F198]122 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[14] = commonTypeDict_IntegerFormat_withUnit_us17;
-    v556[15] = @"PCIEActiveDuration";
+    v556[14] = commonTypeDict_IntegerFormat_withUnit_us17;
+    v555[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]123 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us18 = [mEMORY[0x277D3F198]123 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[15] = commonTypeDict_IntegerFormat_withUnit_us18;
-    v556[16] = @"PCIEPERSTDuration";
+    v556[15] = commonTypeDict_IntegerFormat_withUnit_us18;
+    v555[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]124 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us19 = [mEMORY[0x277D3F198]124 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[16] = commonTypeDict_IntegerFormat_withUnit_us19;
-    v556[17] = @"PCIEL0Count";
+    v556[16] = commonTypeDict_IntegerFormat_withUnit_us19;
+    v555[17] = @"PCIEL0Count";
     mEMORY[0x277D3F198]125 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat19 = [mEMORY[0x277D3F198]125 commonTypeDict_IntegerFormat];
-    v557[17] = commonTypeDict_IntegerFormat19;
-    v556[18] = @"PCIEL0Duration";
+    v556[17] = commonTypeDict_IntegerFormat19;
+    v555[18] = @"PCIEL0Duration";
     mEMORY[0x277D3F198]126 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us20 = [mEMORY[0x277D3F198]126 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[18] = commonTypeDict_IntegerFormat_withUnit_us20;
-    v556[19] = @"PCIEL2Count";
+    v556[18] = commonTypeDict_IntegerFormat_withUnit_us20;
+    v555[19] = @"PCIEL2Count";
     mEMORY[0x277D3F198]127 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat20 = [mEMORY[0x277D3F198]127 commonTypeDict_IntegerFormat];
-    v557[19] = commonTypeDict_IntegerFormat20;
-    v556[20] = @"PCIEL2Duration";
+    v556[19] = commonTypeDict_IntegerFormat20;
+    v555[20] = @"PCIEL2Duration";
     mEMORY[0x277D3F198]128 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us21 = [mEMORY[0x277D3F198]128 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[20] = commonTypeDict_IntegerFormat_withUnit_us21;
-    v556[21] = @"PCIEL1Count";
+    v556[20] = commonTypeDict_IntegerFormat_withUnit_us21;
+    v555[21] = @"PCIEL1Count";
     mEMORY[0x277D3F198]129 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat21 = [mEMORY[0x277D3F198]129 commonTypeDict_IntegerFormat];
-    v557[21] = commonTypeDict_IntegerFormat21;
-    v556[22] = @"PCIEL1Duration";
+    v556[21] = commonTypeDict_IntegerFormat21;
+    v555[22] = @"PCIEL1Duration";
     mEMORY[0x277D3F198]130 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us22 = [mEMORY[0x277D3F198]130 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[22] = commonTypeDict_IntegerFormat_withUnit_us22;
-    v556[23] = @"PCIEL11Count";
+    v556[22] = commonTypeDict_IntegerFormat_withUnit_us22;
+    v555[23] = @"PCIEL11Count";
     mEMORY[0x277D3F198]131 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat22 = [mEMORY[0x277D3F198]131 commonTypeDict_IntegerFormat];
-    v557[23] = commonTypeDict_IntegerFormat22;
-    v556[24] = @"PCIEL11Duration";
+    v556[23] = commonTypeDict_IntegerFormat22;
+    v555[24] = @"PCIEL11Duration";
     mEMORY[0x277D3F198]132 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us23 = [mEMORY[0x277D3F198]132 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[24] = commonTypeDict_IntegerFormat_withUnit_us23;
-    v556[25] = @"PCIEL12Count";
+    v556[24] = commonTypeDict_IntegerFormat_withUnit_us23;
+    v555[25] = @"PCIEL12Count";
     mEMORY[0x277D3F198]133 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat23 = [mEMORY[0x277D3F198]133 commonTypeDict_IntegerFormat];
-    v557[25] = commonTypeDict_IntegerFormat23;
-    v556[26] = @"PCIEL12Duration";
+    v556[25] = commonTypeDict_IntegerFormat23;
+    v555[26] = @"PCIEL12Duration";
     mEMORY[0x277D3F198]134 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us24 = [mEMORY[0x277D3F198]134 commonTypeDict_IntegerFormat_withUnit_us];
-    v557[26] = commonTypeDict_IntegerFormat_withUnit_us24;
-    v556[27] = @"AWDLTXDuration";
+    v556[26] = commonTypeDict_IntegerFormat_withUnit_us24;
+    v555[27] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]135 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms43 = [mEMORY[0x277D3F198]135 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[27] = commonTypeDict_IntegerFormat_withUnit_ms43;
-    v556[28] = @"AWDLRXDuration";
+    v556[27] = commonTypeDict_IntegerFormat_withUnit_ms43;
+    v555[28] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]136 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms44 = [mEMORY[0x277D3F198]136 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[28] = commonTypeDict_IntegerFormat_withUnit_ms44;
-    v556[29] = @"AWDLAWDuration";
+    v556[28] = commonTypeDict_IntegerFormat_withUnit_ms44;
+    v555[29] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]137 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s38 = [mEMORY[0x277D3F198]137 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[29] = commonTypeDict_IntegerFormat_withUnit_s38;
-    v556[30] = @"AWDLScanDuration";
+    v556[29] = commonTypeDict_IntegerFormat_withUnit_s38;
+    v555[30] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]138 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s39 = [mEMORY[0x277D3F198]138 commonTypeDict_IntegerFormat_withUnit_s];
-    v557[30] = commonTypeDict_IntegerFormat_withUnit_s39;
-    v556[31] = @"AutojoinScanDuration";
+    v556[30] = commonTypeDict_IntegerFormat_withUnit_s39;
+    v555[31] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]139 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms45 = [mEMORY[0x277D3F198]139 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[31] = commonTypeDict_IntegerFormat_withUnit_ms45;
-    v556[32] = @"LocationScanDuration";
+    v556[31] = commonTypeDict_IntegerFormat_withUnit_ms45;
+    v555[32] = @"LocationScanDuration";
     mEMORY[0x277D3F198]140 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms46 = [mEMORY[0x277D3F198]140 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[32] = commonTypeDict_IntegerFormat_withUnit_ms46;
-    v556[33] = @"PipelineScanDuration";
+    v556[32] = commonTypeDict_IntegerFormat_withUnit_ms46;
+    v555[33] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]141 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms47 = [mEMORY[0x277D3F198]141 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[33] = commonTypeDict_IntegerFormat_withUnit_ms47;
-    v556[34] = @"SetupScanDuration";
+    v556[33] = commonTypeDict_IntegerFormat_withUnit_ms47;
+    v555[34] = @"SetupScanDuration";
     mEMORY[0x277D3F198]142 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms48 = [mEMORY[0x277D3F198]142 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[34] = commonTypeDict_IntegerFormat_withUnit_ms48;
-    v556[35] = @"UnknownScanDuration";
+    v556[34] = commonTypeDict_IntegerFormat_withUnit_ms48;
+    v555[35] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]143 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms49 = [mEMORY[0x277D3F198]143 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[35] = commonTypeDict_IntegerFormat_withUnit_ms49;
-    v556[36] = @"CurrentChannel";
+    v556[35] = commonTypeDict_IntegerFormat_withUnit_ms49;
+    v555[36] = @"CurrentChannel";
     mEMORY[0x277D3F198]144 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat24 = [mEMORY[0x277D3F198]144 commonTypeDict_IntegerFormat];
-    v557[36] = commonTypeDict_IntegerFormat24;
-    v556[37] = @"CurrentSSID";
+    v556[36] = commonTypeDict_IntegerFormat24;
+    v555[37] = @"CurrentSSID";
     mEMORY[0x277D3F198]145 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]145 commonTypeDict_StringFormat];
-    v557[37] = commonTypeDict_StringFormat3;
-    v556[38] = @"CurrentBandwidth";
+    v556[37] = commonTypeDict_StringFormat3;
+    v555[38] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]146 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat25 = [mEMORY[0x277D3F198]146 commonTypeDict_IntegerFormat];
-    v557[38] = commonTypeDict_IntegerFormat25;
-    v556[39] = @"WifiPowered";
+    v556[38] = commonTypeDict_IntegerFormat25;
+    v555[39] = @"WifiPowered";
     mEMORY[0x277D3F198]147 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat7 = [mEMORY[0x277D3F198]147 commonTypeDict_BoolFormat];
-    v557[39] = commonTypeDict_BoolFormat7;
-    v556[40] = @"WowEnabled";
+    v556[39] = commonTypeDict_BoolFormat7;
+    v555[40] = @"WowEnabled";
     mEMORY[0x277D3F198]148 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat8 = [mEMORY[0x277D3F198]148 commonTypeDict_BoolFormat];
-    v557[40] = commonTypeDict_BoolFormat8;
-    v556[41] = @"Carplay";
+    v556[40] = commonTypeDict_BoolFormat8;
+    v555[41] = @"Carplay";
     mEMORY[0x277D3F198]149 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat9 = [mEMORY[0x277D3F198]149 commonTypeDict_BoolFormat];
-    v557[41] = commonTypeDict_BoolFormat9;
-    v556[42] = @"SISOTXDuration";
+    v556[41] = commonTypeDict_BoolFormat9;
+    v555[42] = @"SISOTXDuration";
     mEMORY[0x277D3F198]150 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms50 = [mEMORY[0x277D3F198]150 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[42] = commonTypeDict_IntegerFormat_withUnit_ms50;
-    v556[43] = @"MIMOTXDuration";
+    v556[42] = commonTypeDict_IntegerFormat_withUnit_ms50;
+    v555[43] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]151 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms51 = [mEMORY[0x277D3F198]151 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[43] = commonTypeDict_IntegerFormat_withUnit_ms51;
-    v556[44] = @"MIMORXDuration";
+    v556[43] = commonTypeDict_IntegerFormat_withUnit_ms51;
+    v555[44] = @"MIMORXDuration";
     mEMORY[0x277D3F198]152 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms52 = [mEMORY[0x277D3F198]152 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[44] = commonTypeDict_IntegerFormat_withUnit_ms52;
-    v556[45] = @"SISORXDuration";
+    v556[44] = commonTypeDict_IntegerFormat_withUnit_ms52;
+    v555[45] = @"SISORXDuration";
     mEMORY[0x277D3F198]153 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms53 = [mEMORY[0x277D3F198]153 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[45] = commonTypeDict_IntegerFormat_withUnit_ms53;
-    v556[46] = @"MIMOCSDuration";
+    v556[45] = commonTypeDict_IntegerFormat_withUnit_ms53;
+    v555[46] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]154 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms54 = [mEMORY[0x277D3F198]154 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[46] = commonTypeDict_IntegerFormat_withUnit_ms54;
-    v556[47] = @"SISOCSDuration";
+    v556[46] = commonTypeDict_IntegerFormat_withUnit_ms54;
+    v555[47] = @"SISOCSDuration";
     mEMORY[0x277D3F198]155 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms55 = [mEMORY[0x277D3F198]155 commonTypeDict_IntegerFormat_withUnit_ms];
-    v557[47] = commonTypeDict_IntegerFormat_withUnit_ms55;
-    v556[48] = @"READINGTYPE";
+    v556[47] = commonTypeDict_IntegerFormat_withUnit_ms55;
+    v555[48] = @"READINGTYPE";
     mEMORY[0x277D3F198]156 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat26 = [mEMORY[0x277D3F198]156 commonTypeDict_IntegerFormat];
-    v557[48] = commonTypeDict_IntegerFormat26;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v557 forKeys:v556 count:49];
-    v561[1] = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v561 forKeys:v560 count:2];
+    v556[48] = commonTypeDict_IntegerFormat26;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v556 forKeys:v555 count:49];
+    v560[1] = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v560 forKeys:v559 count:2];
 
     entryEventBackwardDefinitionCumulativeMultiCore = v33;
   }
 
   else if (([MEMORY[0x277D3F208] isWiFiClass:1004011] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004012) && objc_msgSend(MEMORY[0x277D3F208], "kPLSoCClassOfDevice") < 1001205)
   {
-    v554[0] = *MEMORY[0x277D3F4E8];
-    v552 = *MEMORY[0x277D3F568];
-    v553 = &unk_282C1CAA8;
-    v536 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v553 forKeys:&v552 count:1];
-    v555[0] = v536;
-    v554[1] = *MEMORY[0x277D3F540];
-    v550[0] = @"WifiTimestamp";
+    v553[0] = *MEMORY[0x277D3F4E8];
+    v551 = *MEMORY[0x277D3F568];
+    v552 = &unk_282C1CAA8;
+    v535 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v552 forKeys:&v551 count:1];
+    v554[0] = v535;
+    v553[1] = *MEMORY[0x277D3F540];
+    v549[0] = @"WifiTimestamp";
     mEMORY[0x277D3F198]157 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s40 = [mEMORY[0x277D3F198]157 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[0] = commonTypeDict_IntegerFormat_withUnit_s40;
-    v550[1] = @"PMDuration";
+    v550[0] = commonTypeDict_IntegerFormat_withUnit_s40;
+    v549[1] = @"PMDuration";
     mEMORY[0x277D3F198]158 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s41 = [mEMORY[0x277D3F198]158 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[1] = commonTypeDict_IntegerFormat_withUnit_s41;
-    v550[2] = @"MPCDuration";
+    v550[1] = commonTypeDict_IntegerFormat_withUnit_s41;
+    v549[2] = @"MPCDuration";
     mEMORY[0x277D3F198]159 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s42 = [mEMORY[0x277D3F198]159 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[2] = commonTypeDict_IntegerFormat_withUnit_s42;
-    v550[3] = @"TXDuration";
+    v550[2] = commonTypeDict_IntegerFormat_withUnit_s42;
+    v549[3] = @"TXDuration";
     mEMORY[0x277D3F198]160 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms56 = [mEMORY[0x277D3F198]160 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[3] = commonTypeDict_IntegerFormat_withUnit_ms56;
-    v550[4] = @"RXDuration";
+    v550[3] = commonTypeDict_IntegerFormat_withUnit_ms56;
+    v549[4] = @"RXDuration";
     mEMORY[0x277D3F198]161 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms57 = [mEMORY[0x277D3F198]161 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[4] = commonTypeDict_IntegerFormat_withUnit_ms57;
-    v550[5] = @"HSICSuspendDuration";
+    v550[4] = commonTypeDict_IntegerFormat_withUnit_ms57;
+    v549[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]162 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s43 = [mEMORY[0x277D3F198]162 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[5] = commonTypeDict_IntegerFormat_withUnit_s43;
-    v550[6] = @"HSICActiveDuration";
+    v550[5] = commonTypeDict_IntegerFormat_withUnit_s43;
+    v549[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]163 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s44 = [mEMORY[0x277D3F198]163 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[6] = commonTypeDict_IntegerFormat_withUnit_s44;
-    v550[7] = @"PNOScanSSIDDuration";
+    v550[6] = commonTypeDict_IntegerFormat_withUnit_s44;
+    v549[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]164 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s45 = [mEMORY[0x277D3F198]164 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[7] = commonTypeDict_IntegerFormat_withUnit_s45;
-    v550[8] = @"PNOBSSIDDuration";
+    v550[7] = commonTypeDict_IntegerFormat_withUnit_s45;
+    v549[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]165 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s46 = [mEMORY[0x277D3F198]165 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[8] = commonTypeDict_IntegerFormat_withUnit_s46;
-    v550[9] = @"RoamScanDuration";
+    v550[8] = commonTypeDict_IntegerFormat_withUnit_s46;
+    v549[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]166 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s47 = [mEMORY[0x277D3F198]166 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[9] = commonTypeDict_IntegerFormat_withUnit_s47;
-    v550[10] = @"AssociatedScanDuration";
+    v550[9] = commonTypeDict_IntegerFormat_withUnit_s47;
+    v549[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]167 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s48 = [mEMORY[0x277D3F198]167 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[10] = commonTypeDict_IntegerFormat_withUnit_s48;
-    v550[11] = @"OtherScanDuration";
+    v550[10] = commonTypeDict_IntegerFormat_withUnit_s48;
+    v549[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]168 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s49 = [mEMORY[0x277D3F198]168 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[11] = commonTypeDict_IntegerFormat_withUnit_s49;
-    v550[12] = @"UserScanDuration";
+    v550[11] = commonTypeDict_IntegerFormat_withUnit_s49;
+    v549[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]169 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s50 = [mEMORY[0x277D3F198]169 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[12] = commonTypeDict_IntegerFormat_withUnit_s50;
-    v550[13] = @"FRTSDuration";
+    v550[12] = commonTypeDict_IntegerFormat_withUnit_s50;
+    v549[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]170 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms58 = [mEMORY[0x277D3F198]170 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[13] = commonTypeDict_IntegerFormat_withUnit_ms58;
-    v550[14] = @"PCIESuspendDuration";
+    v550[13] = commonTypeDict_IntegerFormat_withUnit_ms58;
+    v549[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]171 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us25 = [mEMORY[0x277D3F198]171 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[14] = commonTypeDict_IntegerFormat_withUnit_us25;
-    v550[15] = @"PCIEActiveDuration";
+    v550[14] = commonTypeDict_IntegerFormat_withUnit_us25;
+    v549[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]172 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us26 = [mEMORY[0x277D3F198]172 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[15] = commonTypeDict_IntegerFormat_withUnit_us26;
-    v550[16] = @"PCIEPERSTDuration";
+    v550[15] = commonTypeDict_IntegerFormat_withUnit_us26;
+    v549[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]173 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us27 = [mEMORY[0x277D3F198]173 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[16] = commonTypeDict_IntegerFormat_withUnit_us27;
-    v550[17] = @"PCIEL0Count";
+    v550[16] = commonTypeDict_IntegerFormat_withUnit_us27;
+    v549[17] = @"PCIEL0Count";
     mEMORY[0x277D3F198]174 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat27 = [mEMORY[0x277D3F198]174 commonTypeDict_IntegerFormat];
-    v551[17] = commonTypeDict_IntegerFormat27;
-    v550[18] = @"PCIEL0Duration";
+    v550[17] = commonTypeDict_IntegerFormat27;
+    v549[18] = @"PCIEL0Duration";
     mEMORY[0x277D3F198]175 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us28 = [mEMORY[0x277D3F198]175 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[18] = commonTypeDict_IntegerFormat_withUnit_us28;
-    v550[19] = @"PCIEL2Count";
+    v550[18] = commonTypeDict_IntegerFormat_withUnit_us28;
+    v549[19] = @"PCIEL2Count";
     mEMORY[0x277D3F198]176 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat28 = [mEMORY[0x277D3F198]176 commonTypeDict_IntegerFormat];
-    v551[19] = commonTypeDict_IntegerFormat28;
-    v550[20] = @"PCIEL2Duration";
+    v550[19] = commonTypeDict_IntegerFormat28;
+    v549[20] = @"PCIEL2Duration";
     mEMORY[0x277D3F198]177 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us29 = [mEMORY[0x277D3F198]177 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[20] = commonTypeDict_IntegerFormat_withUnit_us29;
-    v550[21] = @"PCIEL1Count";
+    v550[20] = commonTypeDict_IntegerFormat_withUnit_us29;
+    v549[21] = @"PCIEL1Count";
     mEMORY[0x277D3F198]178 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat29 = [mEMORY[0x277D3F198]178 commonTypeDict_IntegerFormat];
-    v551[21] = commonTypeDict_IntegerFormat29;
-    v550[22] = @"PCIEL1Duration";
+    v550[21] = commonTypeDict_IntegerFormat29;
+    v549[22] = @"PCIEL1Duration";
     mEMORY[0x277D3F198]179 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us30 = [mEMORY[0x277D3F198]179 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[22] = commonTypeDict_IntegerFormat_withUnit_us30;
-    v550[23] = @"PCIEL11Count";
+    v550[22] = commonTypeDict_IntegerFormat_withUnit_us30;
+    v549[23] = @"PCIEL11Count";
     mEMORY[0x277D3F198]180 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat30 = [mEMORY[0x277D3F198]180 commonTypeDict_IntegerFormat];
-    v551[23] = commonTypeDict_IntegerFormat30;
-    v550[24] = @"PCIEL11Duration";
+    v550[23] = commonTypeDict_IntegerFormat30;
+    v549[24] = @"PCIEL11Duration";
     mEMORY[0x277D3F198]181 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us31 = [mEMORY[0x277D3F198]181 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[24] = commonTypeDict_IntegerFormat_withUnit_us31;
-    v550[25] = @"PCIEL12Count";
+    v550[24] = commonTypeDict_IntegerFormat_withUnit_us31;
+    v549[25] = @"PCIEL12Count";
     mEMORY[0x277D3F198]182 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat31 = [mEMORY[0x277D3F198]182 commonTypeDict_IntegerFormat];
-    v551[25] = commonTypeDict_IntegerFormat31;
-    v550[26] = @"PCIEL12Duration";
+    v550[25] = commonTypeDict_IntegerFormat31;
+    v549[26] = @"PCIEL12Duration";
     mEMORY[0x277D3F198]183 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us32 = [mEMORY[0x277D3F198]183 commonTypeDict_IntegerFormat_withUnit_us];
-    v551[26] = commonTypeDict_IntegerFormat_withUnit_us32;
-    v550[27] = @"AWDLTXDuration";
+    v550[26] = commonTypeDict_IntegerFormat_withUnit_us32;
+    v549[27] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]184 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms59 = [mEMORY[0x277D3F198]184 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[27] = commonTypeDict_IntegerFormat_withUnit_ms59;
-    v550[28] = @"AWDLRXDuration";
+    v550[27] = commonTypeDict_IntegerFormat_withUnit_ms59;
+    v549[28] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]185 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms60 = [mEMORY[0x277D3F198]185 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[28] = commonTypeDict_IntegerFormat_withUnit_ms60;
-    v550[29] = @"AWDLAWDuration";
+    v550[28] = commonTypeDict_IntegerFormat_withUnit_ms60;
+    v549[29] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]186 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s51 = [mEMORY[0x277D3F198]186 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[29] = commonTypeDict_IntegerFormat_withUnit_s51;
-    v550[30] = @"AWDLScanDuration";
+    v550[29] = commonTypeDict_IntegerFormat_withUnit_s51;
+    v549[30] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]187 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s52 = [mEMORY[0x277D3F198]187 commonTypeDict_IntegerFormat_withUnit_s];
-    v551[30] = commonTypeDict_IntegerFormat_withUnit_s52;
-    v550[31] = @"AutojoinScanDuration";
+    v550[30] = commonTypeDict_IntegerFormat_withUnit_s52;
+    v549[31] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]188 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms61 = [mEMORY[0x277D3F198]188 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[31] = commonTypeDict_IntegerFormat_withUnit_ms61;
-    v550[32] = @"LocationScanDuration";
+    v550[31] = commonTypeDict_IntegerFormat_withUnit_ms61;
+    v549[32] = @"LocationScanDuration";
     mEMORY[0x277D3F198]189 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms62 = [mEMORY[0x277D3F198]189 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[32] = commonTypeDict_IntegerFormat_withUnit_ms62;
-    v550[33] = @"PipelineScanDuration";
+    v550[32] = commonTypeDict_IntegerFormat_withUnit_ms62;
+    v549[33] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]190 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms63 = [mEMORY[0x277D3F198]190 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[33] = commonTypeDict_IntegerFormat_withUnit_ms63;
-    v550[34] = @"SetupScanDuration";
+    v550[33] = commonTypeDict_IntegerFormat_withUnit_ms63;
+    v549[34] = @"SetupScanDuration";
     mEMORY[0x277D3F198]191 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms64 = [mEMORY[0x277D3F198]191 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[34] = commonTypeDict_IntegerFormat_withUnit_ms64;
-    v550[35] = @"UnknownScanDuration";
+    v550[34] = commonTypeDict_IntegerFormat_withUnit_ms64;
+    v549[35] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]192 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms65 = [mEMORY[0x277D3F198]192 commonTypeDict_IntegerFormat_withUnit_ms];
-    v551[35] = commonTypeDict_IntegerFormat_withUnit_ms65;
-    v550[36] = @"CurrentChannel";
+    v550[35] = commonTypeDict_IntegerFormat_withUnit_ms65;
+    v549[36] = @"CurrentChannel";
     mEMORY[0x277D3F198]193 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat32 = [mEMORY[0x277D3F198]193 commonTypeDict_IntegerFormat];
-    v551[36] = commonTypeDict_IntegerFormat32;
-    v550[37] = @"CurrentSSID";
+    v550[36] = commonTypeDict_IntegerFormat32;
+    v549[37] = @"CurrentSSID";
     mEMORY[0x277D3F198]194 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat4 = [mEMORY[0x277D3F198]194 commonTypeDict_StringFormat];
-    v551[37] = commonTypeDict_StringFormat4;
-    v550[38] = @"CurrentBandwidth";
+    v550[37] = commonTypeDict_StringFormat4;
+    v549[38] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]195 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat33 = [mEMORY[0x277D3F198]195 commonTypeDict_IntegerFormat];
-    v551[38] = commonTypeDict_IntegerFormat33;
-    v550[39] = @"WifiPowered";
+    v550[38] = commonTypeDict_IntegerFormat33;
+    v549[39] = @"WifiPowered";
     mEMORY[0x277D3F198]196 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat10 = [mEMORY[0x277D3F198]196 commonTypeDict_BoolFormat];
-    v551[39] = commonTypeDict_BoolFormat10;
-    v550[40] = @"WowEnabled";
+    v550[39] = commonTypeDict_BoolFormat10;
+    v549[40] = @"WowEnabled";
     mEMORY[0x277D3F198]197 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat11 = [mEMORY[0x277D3F198]197 commonTypeDict_BoolFormat];
-    v551[40] = commonTypeDict_BoolFormat11;
-    v550[41] = @"Carplay";
+    v550[40] = commonTypeDict_BoolFormat11;
+    v549[41] = @"Carplay";
     mEMORY[0x277D3F198]198 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat12 = [mEMORY[0x277D3F198]198 commonTypeDict_BoolFormat];
-    v551[41] = commonTypeDict_BoolFormat12;
-    v550[42] = @"READINGTYPE";
+    v550[41] = commonTypeDict_BoolFormat12;
+    v549[42] = @"READINGTYPE";
     mEMORY[0x277D3F198]199 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat34 = [mEMORY[0x277D3F198]199 commonTypeDict_IntegerFormat];
-    v551[42] = commonTypeDict_IntegerFormat34;
-    v550[43] = @"PhyOfflineDuration";
+    v550[42] = commonTypeDict_IntegerFormat34;
+    v549[43] = @"PhyOfflineDuration";
     mEMORY[0x277D3F198]200 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat35 = [mEMORY[0x277D3F198]200 commonTypeDict_IntegerFormat];
-    v551[43] = commonTypeDict_IntegerFormat35;
-    v550[44] = @"PhyCalibrationDuration";
+    v550[43] = commonTypeDict_IntegerFormat35;
+    v549[44] = @"PhyCalibrationDuration";
     mEMORY[0x277D3F198]201 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat36 = [mEMORY[0x277D3F198]201 commonTypeDict_IntegerFormat];
-    v551[44] = commonTypeDict_IntegerFormat36;
-    v550[45] = @"PhyCalibrationCount";
+    v550[44] = commonTypeDict_IntegerFormat36;
+    v549[45] = @"PhyCalibrationCount";
     mEMORY[0x277D3F198]202 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat37 = [mEMORY[0x277D3F198]202 commonTypeDict_IntegerFormat];
-    v551[45] = commonTypeDict_IntegerFormat37;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v551 forKeys:v550 count:46];
-    v555[1] = v42;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v555 forKeys:v554 count:2];
+    v550[45] = commonTypeDict_IntegerFormat37;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v550 forKeys:v549 count:46];
+    v554[1] = v42;
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v554 forKeys:v553 count:2];
 
     entryEventBackwardDefinitionCumulativeMultiCore = v43;
   }
@@ -3220,612 +3173,610 @@ LABEL_7:
   {
     if ([MEMORY[0x277D3F208] isWiFiClass:1004012] && objc_msgSend(MEMORY[0x277D3F208], "kPLSoCClassOfDevice") > 1001204)
     {
-      v548[0] = *MEMORY[0x277D3F4E8];
-      v546 = *MEMORY[0x277D3F568];
-      v547 = &unk_282C1CA38;
-      v537 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v547 forKeys:&v546 count:1];
-      v549[0] = v537;
-      v548[1] = *MEMORY[0x277D3F540];
-      v544[0] = @"WifiTimestamp";
+      v547[0] = *MEMORY[0x277D3F4E8];
+      v545 = *MEMORY[0x277D3F568];
+      v546 = &unk_282C1CA38;
+      v536 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v546 forKeys:&v545 count:1];
+      v548[0] = v536;
+      v547[1] = *MEMORY[0x277D3F540];
+      v543[0] = @"WifiTimestamp";
       mEMORY[0x277D3F198]203 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s53 = [mEMORY[0x277D3F198]203 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[0] = commonTypeDict_IntegerFormat_withUnit_s53;
-      v544[1] = @"PMDuration";
+      v544[0] = commonTypeDict_IntegerFormat_withUnit_s53;
+      v543[1] = @"PMDuration";
       mEMORY[0x277D3F198]204 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s54 = [mEMORY[0x277D3F198]204 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[1] = commonTypeDict_IntegerFormat_withUnit_s54;
-      v544[2] = @"MPCDuration";
+      v544[1] = commonTypeDict_IntegerFormat_withUnit_s54;
+      v543[2] = @"MPCDuration";
       mEMORY[0x277D3F198]205 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s55 = [mEMORY[0x277D3F198]205 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[2] = commonTypeDict_IntegerFormat_withUnit_s55;
-      v544[3] = @"TXDuration";
+      v544[2] = commonTypeDict_IntegerFormat_withUnit_s55;
+      v543[3] = @"TXDuration";
       mEMORY[0x277D3F198]206 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms66 = [mEMORY[0x277D3F198]206 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[3] = commonTypeDict_IntegerFormat_withUnit_ms66;
-      v544[4] = @"RXDuration";
+      v544[3] = commonTypeDict_IntegerFormat_withUnit_ms66;
+      v543[4] = @"RXDuration";
       mEMORY[0x277D3F198]207 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms67 = [mEMORY[0x277D3F198]207 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[4] = commonTypeDict_IntegerFormat_withUnit_ms67;
-      v544[5] = @"HSICSuspendDuration";
+      v544[4] = commonTypeDict_IntegerFormat_withUnit_ms67;
+      v543[5] = @"HSICSuspendDuration";
       mEMORY[0x277D3F198]208 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s56 = [mEMORY[0x277D3F198]208 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[5] = commonTypeDict_IntegerFormat_withUnit_s56;
-      v544[6] = @"HSICActiveDuration";
+      v544[5] = commonTypeDict_IntegerFormat_withUnit_s56;
+      v543[6] = @"HSICActiveDuration";
       mEMORY[0x277D3F198]209 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s57 = [mEMORY[0x277D3F198]209 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[6] = commonTypeDict_IntegerFormat_withUnit_s57;
-      v544[7] = @"PNOScanSSIDDuration";
+      v544[6] = commonTypeDict_IntegerFormat_withUnit_s57;
+      v543[7] = @"PNOScanSSIDDuration";
       mEMORY[0x277D3F198]210 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s58 = [mEMORY[0x277D3F198]210 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[7] = commonTypeDict_IntegerFormat_withUnit_s58;
-      v544[8] = @"PNOBSSIDDuration";
+      v544[7] = commonTypeDict_IntegerFormat_withUnit_s58;
+      v543[8] = @"PNOBSSIDDuration";
       mEMORY[0x277D3F198]211 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s59 = [mEMORY[0x277D3F198]211 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[8] = commonTypeDict_IntegerFormat_withUnit_s59;
-      v544[9] = @"RoamScanDuration";
+      v544[8] = commonTypeDict_IntegerFormat_withUnit_s59;
+      v543[9] = @"RoamScanDuration";
       mEMORY[0x277D3F198]212 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s60 = [mEMORY[0x277D3F198]212 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[9] = commonTypeDict_IntegerFormat_withUnit_s60;
-      v544[10] = @"AssociatedScanDuration";
+      v544[9] = commonTypeDict_IntegerFormat_withUnit_s60;
+      v543[10] = @"AssociatedScanDuration";
       mEMORY[0x277D3F198]213 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s61 = [mEMORY[0x277D3F198]213 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[10] = commonTypeDict_IntegerFormat_withUnit_s61;
-      v544[11] = @"OtherScanDuration";
+      v544[10] = commonTypeDict_IntegerFormat_withUnit_s61;
+      v543[11] = @"OtherScanDuration";
       mEMORY[0x277D3F198]214 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s62 = [mEMORY[0x277D3F198]214 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[11] = commonTypeDict_IntegerFormat_withUnit_s62;
-      v544[12] = @"UserScanDuration";
+      v544[11] = commonTypeDict_IntegerFormat_withUnit_s62;
+      v543[12] = @"UserScanDuration";
       mEMORY[0x277D3F198]215 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s63 = [mEMORY[0x277D3F198]215 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[12] = commonTypeDict_IntegerFormat_withUnit_s63;
-      v544[13] = @"FRTSDuration";
+      v544[12] = commonTypeDict_IntegerFormat_withUnit_s63;
+      v543[13] = @"FRTSDuration";
       mEMORY[0x277D3F198]216 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms68 = [mEMORY[0x277D3F198]216 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[13] = commonTypeDict_IntegerFormat_withUnit_ms68;
-      v544[14] = @"PCIESuspendDuration";
+      v544[13] = commonTypeDict_IntegerFormat_withUnit_ms68;
+      v543[14] = @"PCIESuspendDuration";
       mEMORY[0x277D3F198]217 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us33 = [mEMORY[0x277D3F198]217 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[14] = commonTypeDict_IntegerFormat_withUnit_us33;
-      v544[15] = @"PCIEActiveDuration";
+      v544[14] = commonTypeDict_IntegerFormat_withUnit_us33;
+      v543[15] = @"PCIEActiveDuration";
       mEMORY[0x277D3F198]218 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us34 = [mEMORY[0x277D3F198]218 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[15] = commonTypeDict_IntegerFormat_withUnit_us34;
-      v544[16] = @"PCIEPERSTDuration";
+      v544[15] = commonTypeDict_IntegerFormat_withUnit_us34;
+      v543[16] = @"PCIEPERSTDuration";
       mEMORY[0x277D3F198]219 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us35 = [mEMORY[0x277D3F198]219 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[16] = commonTypeDict_IntegerFormat_withUnit_us35;
-      v544[17] = @"PCIEL0Count";
+      v544[16] = commonTypeDict_IntegerFormat_withUnit_us35;
+      v543[17] = @"PCIEL0Count";
       mEMORY[0x277D3F198]220 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat38 = [mEMORY[0x277D3F198]220 commonTypeDict_IntegerFormat];
-      v545[17] = commonTypeDict_IntegerFormat38;
-      v544[18] = @"PCIEL0Duration";
+      v544[17] = commonTypeDict_IntegerFormat38;
+      v543[18] = @"PCIEL0Duration";
       mEMORY[0x277D3F198]221 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us36 = [mEMORY[0x277D3F198]221 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[18] = commonTypeDict_IntegerFormat_withUnit_us36;
-      v544[19] = @"PCIEL2Count";
+      v544[18] = commonTypeDict_IntegerFormat_withUnit_us36;
+      v543[19] = @"PCIEL2Count";
       mEMORY[0x277D3F198]222 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat39 = [mEMORY[0x277D3F198]222 commonTypeDict_IntegerFormat];
-      v545[19] = commonTypeDict_IntegerFormat39;
-      v544[20] = @"PCIEL2Duration";
+      v544[19] = commonTypeDict_IntegerFormat39;
+      v543[20] = @"PCIEL2Duration";
       mEMORY[0x277D3F198]223 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us37 = [mEMORY[0x277D3F198]223 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[20] = commonTypeDict_IntegerFormat_withUnit_us37;
-      v544[21] = @"PCIEL1Count";
+      v544[20] = commonTypeDict_IntegerFormat_withUnit_us37;
+      v543[21] = @"PCIEL1Count";
       mEMORY[0x277D3F198]224 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat40 = [mEMORY[0x277D3F198]224 commonTypeDict_IntegerFormat];
-      v545[21] = commonTypeDict_IntegerFormat40;
-      v544[22] = @"PCIEL1Duration";
+      v544[21] = commonTypeDict_IntegerFormat40;
+      v543[22] = @"PCIEL1Duration";
       mEMORY[0x277D3F198]225 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us38 = [mEMORY[0x277D3F198]225 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[22] = commonTypeDict_IntegerFormat_withUnit_us38;
-      v544[23] = @"PCIEL11Count";
+      v544[22] = commonTypeDict_IntegerFormat_withUnit_us38;
+      v543[23] = @"PCIEL11Count";
       mEMORY[0x277D3F198]226 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat41 = [mEMORY[0x277D3F198]226 commonTypeDict_IntegerFormat];
-      v545[23] = commonTypeDict_IntegerFormat41;
-      v544[24] = @"PCIEL11Duration";
+      v544[23] = commonTypeDict_IntegerFormat41;
+      v543[24] = @"PCIEL11Duration";
       mEMORY[0x277D3F198]227 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us39 = [mEMORY[0x277D3F198]227 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[24] = commonTypeDict_IntegerFormat_withUnit_us39;
-      v544[25] = @"PCIEL12Count";
+      v544[24] = commonTypeDict_IntegerFormat_withUnit_us39;
+      v543[25] = @"PCIEL12Count";
       mEMORY[0x277D3F198]228 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat42 = [mEMORY[0x277D3F198]228 commonTypeDict_IntegerFormat];
-      v545[25] = commonTypeDict_IntegerFormat42;
-      v544[26] = @"PCIEL12Duration";
+      v544[25] = commonTypeDict_IntegerFormat42;
+      v543[26] = @"PCIEL12Duration";
       mEMORY[0x277D3F198]229 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us40 = [mEMORY[0x277D3F198]229 commonTypeDict_IntegerFormat_withUnit_us];
-      v545[26] = commonTypeDict_IntegerFormat_withUnit_us40;
-      v544[27] = @"AWDLTXDuration";
+      v544[26] = commonTypeDict_IntegerFormat_withUnit_us40;
+      v543[27] = @"AWDLTXDuration";
       mEMORY[0x277D3F198]230 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms69 = [mEMORY[0x277D3F198]230 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[27] = commonTypeDict_IntegerFormat_withUnit_ms69;
-      v544[28] = @"AWDLRXDuration";
+      v544[27] = commonTypeDict_IntegerFormat_withUnit_ms69;
+      v543[28] = @"AWDLRXDuration";
       mEMORY[0x277D3F198]231 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms70 = [mEMORY[0x277D3F198]231 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[28] = commonTypeDict_IntegerFormat_withUnit_ms70;
-      v544[29] = @"AWDLAWDuration";
+      v544[28] = commonTypeDict_IntegerFormat_withUnit_ms70;
+      v543[29] = @"AWDLAWDuration";
       mEMORY[0x277D3F198]232 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s64 = [mEMORY[0x277D3F198]232 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[29] = commonTypeDict_IntegerFormat_withUnit_s64;
-      v544[30] = @"AWDLScanDuration";
+      v544[29] = commonTypeDict_IntegerFormat_withUnit_s64;
+      v543[30] = @"AWDLScanDuration";
       mEMORY[0x277D3F198]233 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s65 = [mEMORY[0x277D3F198]233 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[30] = commonTypeDict_IntegerFormat_withUnit_s65;
-      v544[31] = @"AutojoinScanDuration";
+      v544[30] = commonTypeDict_IntegerFormat_withUnit_s65;
+      v543[31] = @"AutojoinScanDuration";
       mEMORY[0x277D3F198]234 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms71 = [mEMORY[0x277D3F198]234 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[31] = commonTypeDict_IntegerFormat_withUnit_ms71;
-      v544[32] = @"LocationScanDuration";
+      v544[31] = commonTypeDict_IntegerFormat_withUnit_ms71;
+      v543[32] = @"LocationScanDuration";
       mEMORY[0x277D3F198]235 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms72 = [mEMORY[0x277D3F198]235 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[32] = commonTypeDict_IntegerFormat_withUnit_ms72;
-      v544[33] = @"PipelineScanDuration";
+      v544[32] = commonTypeDict_IntegerFormat_withUnit_ms72;
+      v543[33] = @"PipelineScanDuration";
       mEMORY[0x277D3F198]236 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms73 = [mEMORY[0x277D3F198]236 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[33] = commonTypeDict_IntegerFormat_withUnit_ms73;
-      v544[34] = @"SetupScanDuration";
+      v544[33] = commonTypeDict_IntegerFormat_withUnit_ms73;
+      v543[34] = @"SetupScanDuration";
       mEMORY[0x277D3F198]237 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms74 = [mEMORY[0x277D3F198]237 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[34] = commonTypeDict_IntegerFormat_withUnit_ms74;
-      v544[35] = @"UnknownScanDuration";
+      v544[34] = commonTypeDict_IntegerFormat_withUnit_ms74;
+      v543[35] = @"UnknownScanDuration";
       mEMORY[0x277D3F198]238 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms75 = [mEMORY[0x277D3F198]238 commonTypeDict_IntegerFormat_withUnit_ms];
-      v545[35] = commonTypeDict_IntegerFormat_withUnit_ms75;
-      v544[36] = @"CurrentChannel";
+      v544[35] = commonTypeDict_IntegerFormat_withUnit_ms75;
+      v543[36] = @"CurrentChannel";
       mEMORY[0x277D3F198]239 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat43 = [mEMORY[0x277D3F198]239 commonTypeDict_IntegerFormat];
-      v545[36] = commonTypeDict_IntegerFormat43;
-      v544[37] = @"CurrentSSID";
+      v544[36] = commonTypeDict_IntegerFormat43;
+      v543[37] = @"CurrentSSID";
       mEMORY[0x277D3F198]240 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_StringFormat5 = [mEMORY[0x277D3F198]240 commonTypeDict_StringFormat];
-      v545[37] = commonTypeDict_StringFormat5;
-      v544[38] = @"CurrentBandwidth";
+      v544[37] = commonTypeDict_StringFormat5;
+      v543[38] = @"CurrentBandwidth";
       mEMORY[0x277D3F198]241 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat44 = [mEMORY[0x277D3F198]241 commonTypeDict_IntegerFormat];
-      v545[38] = commonTypeDict_IntegerFormat44;
-      v544[39] = @"WifiPowered";
+      v544[38] = commonTypeDict_IntegerFormat44;
+      v543[39] = @"WifiPowered";
       mEMORY[0x277D3F198]242 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat13 = [mEMORY[0x277D3F198]242 commonTypeDict_BoolFormat];
-      v545[39] = commonTypeDict_BoolFormat13;
-      v544[40] = @"WowEnabled";
+      v544[39] = commonTypeDict_BoolFormat13;
+      v543[40] = @"WowEnabled";
       mEMORY[0x277D3F198]243 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat14 = [mEMORY[0x277D3F198]243 commonTypeDict_BoolFormat];
-      v545[40] = commonTypeDict_BoolFormat14;
-      v544[41] = @"Carplay";
+      v544[40] = commonTypeDict_BoolFormat14;
+      v543[41] = @"Carplay";
       mEMORY[0x277D3F198]244 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat15 = [mEMORY[0x277D3F198]244 commonTypeDict_BoolFormat];
-      v545[41] = commonTypeDict_BoolFormat15;
-      v544[42] = @"READINGTYPE";
+      v544[41] = commonTypeDict_BoolFormat15;
+      v543[42] = @"READINGTYPE";
       mEMORY[0x277D3F198]245 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat45 = [mEMORY[0x277D3F198]245 commonTypeDict_IntegerFormat];
-      v545[42] = commonTypeDict_IntegerFormat45;
-      v544[43] = @"PhyOfflineDuration";
+      v544[42] = commonTypeDict_IntegerFormat45;
+      v543[43] = @"PhyOfflineDuration";
       mEMORY[0x277D3F198]246 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat46 = [mEMORY[0x277D3F198]246 commonTypeDict_IntegerFormat];
-      v545[43] = commonTypeDict_IntegerFormat46;
-      v544[44] = @"PhyCalibrationDuration";
+      v544[43] = commonTypeDict_IntegerFormat46;
+      v543[44] = @"PhyCalibrationDuration";
       mEMORY[0x277D3F198]247 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat47 = [mEMORY[0x277D3F198]247 commonTypeDict_IntegerFormat];
-      v545[44] = commonTypeDict_IntegerFormat47;
-      v544[45] = @"PhyCalibrationCount";
+      v544[44] = commonTypeDict_IntegerFormat47;
+      v543[45] = @"PhyCalibrationCount";
       mEMORY[0x277D3F198]248 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat48 = [mEMORY[0x277D3F198]248 commonTypeDict_IntegerFormat];
-      v545[45] = commonTypeDict_IntegerFormat48;
-      v544[46] = @"PNOScanSSID5GDuration";
+      v544[45] = commonTypeDict_IntegerFormat48;
+      v543[46] = @"PNOScanSSID5GDuration";
       mEMORY[0x277D3F198]249 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s66 = [mEMORY[0x277D3F198]249 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[46] = commonTypeDict_IntegerFormat_withUnit_s66;
-      v544[47] = @"PNOBSSID5GDuration";
+      v544[46] = commonTypeDict_IntegerFormat_withUnit_s66;
+      v543[47] = @"PNOBSSID5GDuration";
       mEMORY[0x277D3F198]250 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s67 = [mEMORY[0x277D3F198]250 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[47] = commonTypeDict_IntegerFormat_withUnit_s67;
-      v544[48] = @"RoamScan5GDuration";
+      v544[47] = commonTypeDict_IntegerFormat_withUnit_s67;
+      v543[48] = @"RoamScan5GDuration";
       mEMORY[0x277D3F198]251 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s68 = [mEMORY[0x277D3F198]251 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[48] = commonTypeDict_IntegerFormat_withUnit_s68;
-      v544[49] = @"AssociatedScan5GDuration";
+      v544[48] = commonTypeDict_IntegerFormat_withUnit_s68;
+      v543[49] = @"AssociatedScan5GDuration";
       mEMORY[0x277D3F198]252 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s69 = [mEMORY[0x277D3F198]252 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[49] = commonTypeDict_IntegerFormat_withUnit_s69;
-      v544[50] = @"OtherScan5GDuration";
+      v544[49] = commonTypeDict_IntegerFormat_withUnit_s69;
+      v543[50] = @"OtherScan5GDuration";
       mEMORY[0x277D3F198]253 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s70 = [mEMORY[0x277D3F198]253 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[50] = commonTypeDict_IntegerFormat_withUnit_s70;
-      v544[51] = @"UserScan5GDuration";
+      v544[50] = commonTypeDict_IntegerFormat_withUnit_s70;
+      v543[51] = @"UserScan5GDuration";
       mEMORY[0x277D3F198]254 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s71 = [mEMORY[0x277D3F198]254 commonTypeDict_IntegerFormat_withUnit_s];
-      v545[51] = commonTypeDict_IntegerFormat_withUnit_s71;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v545 forKeys:v544 count:52];
-      v549[1] = v52;
-      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v549 forKeys:v548 count:2];
+      v544[51] = commonTypeDict_IntegerFormat_withUnit_s71;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v544 forKeys:v543 count:52];
+      v548[1] = v52;
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v548 forKeys:v547 count:2];
     }
 
     else
     {
-      v542[0] = *MEMORY[0x277D3F4E8];
-      v540 = *MEMORY[0x277D3F568];
-      v541 = &unk_282C1CAB8;
-      v537 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v541 forKeys:&v540 count:1];
-      v543[0] = v537;
-      v542[1] = *MEMORY[0x277D3F540];
-      v538[0] = @"WifiTimestamp";
+      v541[0] = *MEMORY[0x277D3F4E8];
+      v539 = *MEMORY[0x277D3F568];
+      v540 = &unk_282C1CAB8;
+      v536 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v540 forKeys:&v539 count:1];
+      v542[0] = v536;
+      v541[1] = *MEMORY[0x277D3F540];
+      v537[0] = @"WifiTimestamp";
       mEMORY[0x277D3F198]203 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s53 = [mEMORY[0x277D3F198]203 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[0] = commonTypeDict_IntegerFormat_withUnit_s53;
-      v538[1] = @"PMDuration";
+      v538[0] = commonTypeDict_IntegerFormat_withUnit_s53;
+      v537[1] = @"PMDuration";
       mEMORY[0x277D3F198]204 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s54 = [mEMORY[0x277D3F198]204 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[1] = commonTypeDict_IntegerFormat_withUnit_s54;
-      v538[2] = @"MPCDuration";
+      v538[1] = commonTypeDict_IntegerFormat_withUnit_s54;
+      v537[2] = @"MPCDuration";
       mEMORY[0x277D3F198]205 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s55 = [mEMORY[0x277D3F198]205 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[2] = commonTypeDict_IntegerFormat_withUnit_s55;
-      v538[3] = @"TXDuration";
+      v538[2] = commonTypeDict_IntegerFormat_withUnit_s55;
+      v537[3] = @"TXDuration";
       mEMORY[0x277D3F198]206 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms66 = [mEMORY[0x277D3F198]206 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[3] = commonTypeDict_IntegerFormat_withUnit_ms66;
-      v538[4] = @"RXDuration";
+      v538[3] = commonTypeDict_IntegerFormat_withUnit_ms66;
+      v537[4] = @"RXDuration";
       mEMORY[0x277D3F198]207 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms67 = [mEMORY[0x277D3F198]207 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[4] = commonTypeDict_IntegerFormat_withUnit_ms67;
-      v538[5] = @"HSICSuspendDuration";
+      v538[4] = commonTypeDict_IntegerFormat_withUnit_ms67;
+      v537[5] = @"HSICSuspendDuration";
       mEMORY[0x277D3F198]208 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s56 = [mEMORY[0x277D3F198]208 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[5] = commonTypeDict_IntegerFormat_withUnit_s56;
-      v538[6] = @"HSICActiveDuration";
+      v538[5] = commonTypeDict_IntegerFormat_withUnit_s56;
+      v537[6] = @"HSICActiveDuration";
       mEMORY[0x277D3F198]209 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s57 = [mEMORY[0x277D3F198]209 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[6] = commonTypeDict_IntegerFormat_withUnit_s57;
-      v538[7] = @"PNOScanSSIDDuration";
+      v538[6] = commonTypeDict_IntegerFormat_withUnit_s57;
+      v537[7] = @"PNOScanSSIDDuration";
       mEMORY[0x277D3F198]210 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s58 = [mEMORY[0x277D3F198]210 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[7] = commonTypeDict_IntegerFormat_withUnit_s58;
-      v538[8] = @"PNOBSSIDDuration";
+      v538[7] = commonTypeDict_IntegerFormat_withUnit_s58;
+      v537[8] = @"PNOBSSIDDuration";
       mEMORY[0x277D3F198]211 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s59 = [mEMORY[0x277D3F198]211 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[8] = commonTypeDict_IntegerFormat_withUnit_s59;
-      v538[9] = @"RoamScanDuration";
+      v538[8] = commonTypeDict_IntegerFormat_withUnit_s59;
+      v537[9] = @"RoamScanDuration";
       mEMORY[0x277D3F198]212 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s60 = [mEMORY[0x277D3F198]212 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[9] = commonTypeDict_IntegerFormat_withUnit_s60;
-      v538[10] = @"AssociatedScanDuration";
+      v538[9] = commonTypeDict_IntegerFormat_withUnit_s60;
+      v537[10] = @"AssociatedScanDuration";
       mEMORY[0x277D3F198]213 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s61 = [mEMORY[0x277D3F198]213 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[10] = commonTypeDict_IntegerFormat_withUnit_s61;
-      v538[11] = @"OtherScanDuration";
+      v538[10] = commonTypeDict_IntegerFormat_withUnit_s61;
+      v537[11] = @"OtherScanDuration";
       mEMORY[0x277D3F198]214 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s62 = [mEMORY[0x277D3F198]214 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[11] = commonTypeDict_IntegerFormat_withUnit_s62;
-      v538[12] = @"UserScanDuration";
+      v538[11] = commonTypeDict_IntegerFormat_withUnit_s62;
+      v537[12] = @"UserScanDuration";
       mEMORY[0x277D3F198]215 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s63 = [mEMORY[0x277D3F198]215 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[12] = commonTypeDict_IntegerFormat_withUnit_s63;
-      v538[13] = @"FRTSDuration";
+      v538[12] = commonTypeDict_IntegerFormat_withUnit_s63;
+      v537[13] = @"FRTSDuration";
       mEMORY[0x277D3F198]216 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms68 = [mEMORY[0x277D3F198]216 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[13] = commonTypeDict_IntegerFormat_withUnit_ms68;
-      v538[14] = @"PCIESuspendDuration";
+      v538[13] = commonTypeDict_IntegerFormat_withUnit_ms68;
+      v537[14] = @"PCIESuspendDuration";
       mEMORY[0x277D3F198]217 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us33 = [mEMORY[0x277D3F198]217 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[14] = commonTypeDict_IntegerFormat_withUnit_us33;
-      v538[15] = @"PCIEActiveDuration";
+      v538[14] = commonTypeDict_IntegerFormat_withUnit_us33;
+      v537[15] = @"PCIEActiveDuration";
       mEMORY[0x277D3F198]218 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us34 = [mEMORY[0x277D3F198]218 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[15] = commonTypeDict_IntegerFormat_withUnit_us34;
-      v538[16] = @"PCIEPERSTDuration";
+      v538[15] = commonTypeDict_IntegerFormat_withUnit_us34;
+      v537[16] = @"PCIEPERSTDuration";
       mEMORY[0x277D3F198]219 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us35 = [mEMORY[0x277D3F198]219 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[16] = commonTypeDict_IntegerFormat_withUnit_us35;
-      v538[17] = @"PCIEL0Count";
+      v538[16] = commonTypeDict_IntegerFormat_withUnit_us35;
+      v537[17] = @"PCIEL0Count";
       mEMORY[0x277D3F198]220 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat38 = [mEMORY[0x277D3F198]220 commonTypeDict_IntegerFormat];
-      v539[17] = commonTypeDict_IntegerFormat38;
-      v538[18] = @"PCIEL0Duration";
+      v538[17] = commonTypeDict_IntegerFormat38;
+      v537[18] = @"PCIEL0Duration";
       mEMORY[0x277D3F198]221 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us36 = [mEMORY[0x277D3F198]221 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[18] = commonTypeDict_IntegerFormat_withUnit_us36;
-      v538[19] = @"PCIEL2Count";
+      v538[18] = commonTypeDict_IntegerFormat_withUnit_us36;
+      v537[19] = @"PCIEL2Count";
       mEMORY[0x277D3F198]222 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat39 = [mEMORY[0x277D3F198]222 commonTypeDict_IntegerFormat];
-      v539[19] = commonTypeDict_IntegerFormat39;
-      v538[20] = @"PCIEL2Duration";
+      v538[19] = commonTypeDict_IntegerFormat39;
+      v537[20] = @"PCIEL2Duration";
       mEMORY[0x277D3F198]223 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us37 = [mEMORY[0x277D3F198]223 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[20] = commonTypeDict_IntegerFormat_withUnit_us37;
-      v538[21] = @"PCIEL1Count";
+      v538[20] = commonTypeDict_IntegerFormat_withUnit_us37;
+      v537[21] = @"PCIEL1Count";
       mEMORY[0x277D3F198]224 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat40 = [mEMORY[0x277D3F198]224 commonTypeDict_IntegerFormat];
-      v539[21] = commonTypeDict_IntegerFormat40;
-      v538[22] = @"PCIEL1Duration";
+      v538[21] = commonTypeDict_IntegerFormat40;
+      v537[22] = @"PCIEL1Duration";
       mEMORY[0x277D3F198]225 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us38 = [mEMORY[0x277D3F198]225 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[22] = commonTypeDict_IntegerFormat_withUnit_us38;
-      v538[23] = @"PCIEL11Count";
+      v538[22] = commonTypeDict_IntegerFormat_withUnit_us38;
+      v537[23] = @"PCIEL11Count";
       mEMORY[0x277D3F198]226 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat41 = [mEMORY[0x277D3F198]226 commonTypeDict_IntegerFormat];
-      v539[23] = commonTypeDict_IntegerFormat41;
-      v538[24] = @"PCIEL11Duration";
+      v538[23] = commonTypeDict_IntegerFormat41;
+      v537[24] = @"PCIEL11Duration";
       mEMORY[0x277D3F198]227 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us39 = [mEMORY[0x277D3F198]227 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[24] = commonTypeDict_IntegerFormat_withUnit_us39;
-      v538[25] = @"PCIEL12Count";
+      v538[24] = commonTypeDict_IntegerFormat_withUnit_us39;
+      v537[25] = @"PCIEL12Count";
       mEMORY[0x277D3F198]228 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat42 = [mEMORY[0x277D3F198]228 commonTypeDict_IntegerFormat];
-      v539[25] = commonTypeDict_IntegerFormat42;
-      v538[26] = @"PCIEL12Duration";
+      v538[25] = commonTypeDict_IntegerFormat42;
+      v537[26] = @"PCIEL12Duration";
       mEMORY[0x277D3F198]229 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_us40 = [mEMORY[0x277D3F198]229 commonTypeDict_IntegerFormat_withUnit_us];
-      v539[26] = commonTypeDict_IntegerFormat_withUnit_us40;
-      v538[27] = @"AWDLTXDuration";
+      v538[26] = commonTypeDict_IntegerFormat_withUnit_us40;
+      v537[27] = @"AWDLTXDuration";
       mEMORY[0x277D3F198]230 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms69 = [mEMORY[0x277D3F198]230 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[27] = commonTypeDict_IntegerFormat_withUnit_ms69;
-      v538[28] = @"AWDLRXDuration";
+      v538[27] = commonTypeDict_IntegerFormat_withUnit_ms69;
+      v537[28] = @"AWDLRXDuration";
       mEMORY[0x277D3F198]231 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms70 = [mEMORY[0x277D3F198]231 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[28] = commonTypeDict_IntegerFormat_withUnit_ms70;
-      v538[29] = @"AWDLAWDuration";
+      v538[28] = commonTypeDict_IntegerFormat_withUnit_ms70;
+      v537[29] = @"AWDLAWDuration";
       mEMORY[0x277D3F198]232 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s64 = [mEMORY[0x277D3F198]232 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[29] = commonTypeDict_IntegerFormat_withUnit_s64;
-      v538[30] = @"AWDLScanDuration";
+      v538[29] = commonTypeDict_IntegerFormat_withUnit_s64;
+      v537[30] = @"AWDLScanDuration";
       mEMORY[0x277D3F198]233 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_s65 = [mEMORY[0x277D3F198]233 commonTypeDict_IntegerFormat_withUnit_s];
-      v539[30] = commonTypeDict_IntegerFormat_withUnit_s65;
-      v538[31] = @"AutojoinScanDuration";
+      v538[30] = commonTypeDict_IntegerFormat_withUnit_s65;
+      v537[31] = @"AutojoinScanDuration";
       mEMORY[0x277D3F198]234 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms71 = [mEMORY[0x277D3F198]234 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[31] = commonTypeDict_IntegerFormat_withUnit_ms71;
-      v538[32] = @"LocationScanDuration";
+      v538[31] = commonTypeDict_IntegerFormat_withUnit_ms71;
+      v537[32] = @"LocationScanDuration";
       mEMORY[0x277D3F198]235 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms72 = [mEMORY[0x277D3F198]235 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[32] = commonTypeDict_IntegerFormat_withUnit_ms72;
-      v538[33] = @"PipelineScanDuration";
+      v538[32] = commonTypeDict_IntegerFormat_withUnit_ms72;
+      v537[33] = @"PipelineScanDuration";
       mEMORY[0x277D3F198]236 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms73 = [mEMORY[0x277D3F198]236 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[33] = commonTypeDict_IntegerFormat_withUnit_ms73;
-      v538[34] = @"SetupScanDuration";
+      v538[33] = commonTypeDict_IntegerFormat_withUnit_ms73;
+      v537[34] = @"SetupScanDuration";
       mEMORY[0x277D3F198]237 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms74 = [mEMORY[0x277D3F198]237 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[34] = commonTypeDict_IntegerFormat_withUnit_ms74;
-      v538[35] = @"UnknownScanDuration";
+      v538[34] = commonTypeDict_IntegerFormat_withUnit_ms74;
+      v537[35] = @"UnknownScanDuration";
       mEMORY[0x277D3F198]238 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat_withUnit_ms75 = [mEMORY[0x277D3F198]238 commonTypeDict_IntegerFormat_withUnit_ms];
-      v539[35] = commonTypeDict_IntegerFormat_withUnit_ms75;
-      v538[36] = @"CurrentChannel";
+      v538[35] = commonTypeDict_IntegerFormat_withUnit_ms75;
+      v537[36] = @"CurrentChannel";
       mEMORY[0x277D3F198]239 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat43 = [mEMORY[0x277D3F198]239 commonTypeDict_IntegerFormat];
-      v539[36] = commonTypeDict_IntegerFormat43;
-      v538[37] = @"CurrentSSID";
+      v538[36] = commonTypeDict_IntegerFormat43;
+      v537[37] = @"CurrentSSID";
       mEMORY[0x277D3F198]240 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_StringFormat5 = [mEMORY[0x277D3F198]240 commonTypeDict_StringFormat];
-      v539[37] = commonTypeDict_StringFormat5;
-      v538[38] = @"CurrentBandwidth";
+      v538[37] = commonTypeDict_StringFormat5;
+      v537[38] = @"CurrentBandwidth";
       mEMORY[0x277D3F198]241 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat44 = [mEMORY[0x277D3F198]241 commonTypeDict_IntegerFormat];
-      v539[38] = commonTypeDict_IntegerFormat44;
-      v538[39] = @"WifiPowered";
+      v538[38] = commonTypeDict_IntegerFormat44;
+      v537[39] = @"WifiPowered";
       mEMORY[0x277D3F198]255 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat16 = [mEMORY[0x277D3F198]255 commonTypeDict_BoolFormat];
-      v539[39] = commonTypeDict_BoolFormat16;
-      v538[40] = @"WowEnabled";
+      v538[39] = commonTypeDict_BoolFormat16;
+      v537[40] = @"WowEnabled";
       mEMORY[0x277D3F198]256 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat17 = [mEMORY[0x277D3F198]256 commonTypeDict_BoolFormat];
-      v539[40] = commonTypeDict_BoolFormat17;
-      v538[41] = @"Carplay";
+      v538[40] = commonTypeDict_BoolFormat17;
+      v537[41] = @"Carplay";
       mEMORY[0x277D3F198]257 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_BoolFormat18 = [mEMORY[0x277D3F198]257 commonTypeDict_BoolFormat];
-      v539[41] = commonTypeDict_BoolFormat18;
-      v538[42] = @"READINGTYPE";
+      v538[41] = commonTypeDict_BoolFormat18;
+      v537[42] = @"READINGTYPE";
       mEMORY[0x277D3F198]258 = [MEMORY[0x277D3F198] sharedInstance];
       commonTypeDict_IntegerFormat49 = [mEMORY[0x277D3F198]258 commonTypeDict_IntegerFormat];
-      v539[42] = commonTypeDict_IntegerFormat49;
-      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v539 forKeys:v538 count:43];
-      v543[1] = v62;
-      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v543 forKeys:v542 count:2];
+      v538[42] = commonTypeDict_IntegerFormat49;
+      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v538 forKeys:v537 count:43];
+      v542[1] = v62;
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v542 forKeys:v541 count:2];
     }
 
     entryEventBackwardDefinitionCumulativeMultiCore = v53;
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return entryEventBackwardDefinitionCumulativeMultiCore;
 }
 
 + (id)entryEventBackwardDefinitionDiffBasic
 {
-  v194[2] = *MEMORY[0x277D85DE8];
+  v191[2] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isWiFiClass:1004013] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004014))
   {
-    v193[0] = *MEMORY[0x277D3F4E8];
-    v191 = *MEMORY[0x277D3F568];
-    v192 = &unk_282C1CAC8;
-    v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
-    v194[0] = v105;
-    v193[1] = *MEMORY[0x277D3F540];
-    v189[0] = @"TimeDuration";
+    v190[0] = *MEMORY[0x277D3F4E8];
+    v188 = *MEMORY[0x277D3F568];
+    v189 = &unk_282C1CAC8;
+    v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+    v191[0] = v102;
+    v190[1] = *MEMORY[0x277D3F540];
+    v186[0] = @"TimeDuration";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat_withUnit_s];
-    v190[0] = commonTypeDict_IntegerFormat_withUnit_s;
-    v189[1] = @"PMDuration";
+    v187[0] = commonTypeDict_IntegerFormat_withUnit_s;
+    v186[1] = @"PMDuration";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[1] = commonTypeDict_IntegerFormat_withUnit_s2;
-    v189[2] = @"MPCDuration";
+    v187[1] = commonTypeDict_IntegerFormat_withUnit_s2;
+    v186[2] = @"MPCDuration";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[2] = commonTypeDict_IntegerFormat_withUnit_s3;
-    v189[3] = @"TXDuration";
+    v187[2] = commonTypeDict_IntegerFormat_withUnit_s3;
+    v186[3] = @"TXDuration";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v189[4] = @"RXDuration";
+    v187[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v186[4] = @"RXDuration";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v189[5] = @"HSICSuspendDuration";
+    v187[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v186[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-    v189[6] = @"HSICActiveDuration";
+    v187[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+    v186[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-    v189[7] = @"PNOScanSSIDDuration";
+    v187[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+    v186[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-    v189[8] = @"PNOBSSIDDuration";
+    v187[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+    v186[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-    v189[9] = @"RoamScanDuration";
+    v187[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+    v186[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-    v189[10] = @"AssociatedScanDuration";
+    v187[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+    v186[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-    v189[11] = @"OtherScanDuration";
+    v187[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+    v186[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-    v189[12] = @"UserScanDuration";
+    v187[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+    v186[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-    v189[13] = @"FRTSDuration";
+    v187[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+    v186[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v189[14] = @"PCIESuspendDuration";
+    v187[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v186[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-    v190[14] = commonTypeDict_IntegerFormat_withUnit_us;
-    v189[15] = @"PCIEActiveDuration";
+    v187[14] = commonTypeDict_IntegerFormat_withUnit_us;
+    v186[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-    v190[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-    v189[16] = @"PCIEPERSTDuration";
+    v187[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+    v186[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-    v190[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-    v189[17] = @"AWDLTXDuration";
+    v187[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+    v186[17] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v189[18] = @"AWDLRXDuration";
+    v187[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v186[18] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
-    v189[19] = @"AWDLAWDuration";
+    v187[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
+    v186[19] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[19] = commonTypeDict_IntegerFormat_withUnit_s12;
-    v189[20] = @"AWDLScanDuration";
+    v187[19] = commonTypeDict_IntegerFormat_withUnit_s12;
+    v186[20] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[20] = commonTypeDict_IntegerFormat_withUnit_s13;
-    v189[21] = @"AutojoinScanDuration";
+    v187[20] = commonTypeDict_IntegerFormat_withUnit_s13;
+    v186[21] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
-    v189[22] = @"LocationScanDuration";
+    v187[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
+    v186[22] = @"LocationScanDuration";
     mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
-    v189[23] = @"PipelineScanDuration";
+    v187[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
+    v186[23] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
-    v189[24] = @"SetupScanDuration";
+    v187[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
+    v186[24] = @"SetupScanDuration";
     mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
-    v189[25] = @"UnknownScanDuration";
+    v187[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
+    v186[25] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
-    v189[26] = @"CurrentChannel";
+    v187[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
+    v186[26] = @"CurrentChannel";
     mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-    v190[26] = commonTypeDict_IntegerFormat;
-    v189[27] = @"CurrentSSID";
+    v187[26] = commonTypeDict_IntegerFormat;
+    v186[27] = @"CurrentSSID";
     mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]28 commonTypeDict_StringFormat];
-    v190[27] = commonTypeDict_StringFormat;
-    v189[28] = @"CurrentBandwidth";
+    v187[27] = commonTypeDict_StringFormat;
+    v186[28] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-    v190[28] = commonTypeDict_IntegerFormat2;
-    v189[29] = @"WifiPowered";
+    v187[28] = commonTypeDict_IntegerFormat2;
+    v186[29] = @"WifiPowered";
     mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]30 commonTypeDict_BoolFormat];
-    v190[29] = commonTypeDict_BoolFormat;
-    v189[30] = @"WowEnabled";
+    v187[29] = commonTypeDict_BoolFormat;
+    v186[30] = @"WowEnabled";
     mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]31 commonTypeDict_BoolFormat];
-    v190[30] = commonTypeDict_BoolFormat2;
-    v189[31] = @"SISOTXDuration";
+    v187[30] = commonTypeDict_BoolFormat2;
+    v186[31] = @"SISOTXDuration";
     mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
-    v189[32] = @"MIMOTXDuration";
+    v187[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
+    v186[32] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms12 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
-    v189[33] = @"MIMORXDuration";
+    v187[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
+    v186[33] = @"MIMORXDuration";
     mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms13 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
-    v189[34] = @"SISORXDuration";
+    v187[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
+    v186[34] = @"SISORXDuration";
     mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms14 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[34] = commonTypeDict_IntegerFormat_withUnit_ms14;
-    v189[35] = @"MIMOCSDuration";
+    v187[34] = commonTypeDict_IntegerFormat_withUnit_ms14;
+    v186[35] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]36 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms15 = [mEMORY[0x277D3F198]36 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[35] = commonTypeDict_IntegerFormat_withUnit_ms15;
-    v189[36] = @"SISOCSDuration";
+    v187[35] = commonTypeDict_IntegerFormat_withUnit_ms15;
+    v186[36] = @"SISOCSDuration";
     mEMORY[0x277D3F198]37 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms16 = [mEMORY[0x277D3F198]37 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[36] = commonTypeDict_IntegerFormat_withUnit_ms16;
-    v189[37] = @"OCLRXDuration";
+    v187[36] = commonTypeDict_IntegerFormat_withUnit_ms16;
+    v186[37] = @"OCLRXDuration";
     mEMORY[0x277D3F198]38 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms17 = [mEMORY[0x277D3F198]38 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[37] = commonTypeDict_IntegerFormat_withUnit_ms17;
-    v189[38] = @"OCLCSDuration";
+    v187[37] = commonTypeDict_IntegerFormat_withUnit_ms17;
+    v186[38] = @"OCLCSDuration";
     mEMORY[0x277D3F198]39 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms18 = [mEMORY[0x277D3F198]39 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[38] = commonTypeDict_IntegerFormat_withUnit_ms18;
-    v189[39] = @"OPSFullDuration";
+    v187[38] = commonTypeDict_IntegerFormat_withUnit_ms18;
+    v186[39] = @"OPSFullDuration";
     mEMORY[0x277D3F198]40 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms19 = [mEMORY[0x277D3F198]40 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[39] = commonTypeDict_IntegerFormat_withUnit_ms19;
-    v189[40] = @"OPSPartialDuration";
+    v187[39] = commonTypeDict_IntegerFormat_withUnit_ms19;
+    v186[40] = @"OPSPartialDuration";
     mEMORY[0x277D3F198]41 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms20 = [mEMORY[0x277D3F198]41 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[40] = commonTypeDict_IntegerFormat_withUnit_ms20;
-    v189[41] = @"PSBWDuration";
+    v187[40] = commonTypeDict_IntegerFormat_withUnit_ms20;
+    v186[41] = @"PSBWDuration";
     mEMORY[0x277D3F198]42 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms21 = [mEMORY[0x277D3F198]42 commonTypeDict_IntegerFormat_withUnit_ms];
-    v190[41] = commonTypeDict_IntegerFormat_withUnit_ms21;
-    v189[42] = @"isADHSConnected";
+    v187[41] = commonTypeDict_IntegerFormat_withUnit_ms21;
+    v186[42] = @"isADHSConnected";
     mEMORY[0x277D3F198]43 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]43 commonTypeDict_IntegerFormat];
-    v190[42] = commonTypeDict_IntegerFormat3;
-    v189[43] = @"AutoHotspotBTScanDuration";
+    v187[42] = commonTypeDict_IntegerFormat3;
+    v186[43] = @"AutoHotspotBTScanDuration";
     mEMORY[0x277D3F198]44 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s14 = [mEMORY[0x277D3F198]44 commonTypeDict_IntegerFormat_withUnit_s];
-    v190[43] = commonTypeDict_IntegerFormat_withUnit_s14;
-    v189[44] = @"AutoHotspotBTScanCount";
+    v187[43] = commonTypeDict_IntegerFormat_withUnit_s14;
+    v186[44] = @"AutoHotspotBTScanCount";
     mEMORY[0x277D3F198]45 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]45 commonTypeDict_IntegerFormat];
-    v190[44] = commonTypeDict_IntegerFormat4;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:v189 count:45];
-    v194[1] = v10;
-    v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:v193 count:2];
+    v187[44] = commonTypeDict_IntegerFormat4;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:v186 count:45];
+    v191[1] = v10;
+    v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:v190 count:2];
 
     commonTypeDict_IntegerFormat_withUnit_s25 = commonTypeDict_IntegerFormat_withUnit_s;
     mEMORY[0x277D3F198]77 = mEMORY[0x277D3F198]31;
@@ -3839,7 +3790,7 @@ LABEL_7:
     mEMORY[0x277D3F198]74 = mEMORY[0x277D3F198]2;
     mEMORY[0x277D3F198]73 = mEMORY[0x277D3F198];
 
-    v19 = v105;
+    v19 = v102;
 LABEL_4:
 
 LABEL_5:
@@ -3850,191 +3801,191 @@ LABEL_6:
 
   if ([MEMORY[0x277D3F208] isWiFiClass:1004010])
   {
-    v187[0] = *MEMORY[0x277D3F4E8];
-    v185 = *MEMORY[0x277D3F568];
-    v186 = &unk_282C1CAC8;
-    v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
-    v188[0] = v106;
-    v187[1] = *MEMORY[0x277D3F540];
-    v183[0] = @"TimeDuration";
+    v184[0] = *MEMORY[0x277D3F4E8];
+    v182 = *MEMORY[0x277D3F568];
+    v183 = &unk_282C1CAC8;
+    v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+    v185[0] = v103;
+    v184[1] = *MEMORY[0x277D3F540];
+    v180[0] = @"TimeDuration";
     mEMORY[0x277D3F198]46 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s15 = [mEMORY[0x277D3F198]46 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[0] = commonTypeDict_IntegerFormat_withUnit_s15;
-    v183[1] = @"PMDuration";
+    v181[0] = commonTypeDict_IntegerFormat_withUnit_s15;
+    v180[1] = @"PMDuration";
     mEMORY[0x277D3F198]47 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s16 = [mEMORY[0x277D3F198]47 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[1] = commonTypeDict_IntegerFormat_withUnit_s16;
-    v183[2] = @"MPCDuration";
+    v181[1] = commonTypeDict_IntegerFormat_withUnit_s16;
+    v180[2] = @"MPCDuration";
     mEMORY[0x277D3F198]48 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s17 = [mEMORY[0x277D3F198]48 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[2] = commonTypeDict_IntegerFormat_withUnit_s17;
-    v183[3] = @"TXDuration";
+    v181[2] = commonTypeDict_IntegerFormat_withUnit_s17;
+    v180[3] = @"TXDuration";
     mEMORY[0x277D3F198]49 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]49 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v183[4] = @"RXDuration";
+    v181[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v180[4] = @"RXDuration";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v183[5] = @"HSICSuspendDuration";
+    v181[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v180[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-    v183[6] = @"HSICActiveDuration";
+    v181[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+    v180[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-    v183[7] = @"PNOScanSSIDDuration";
+    v181[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+    v180[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-    v183[8] = @"PNOBSSIDDuration";
+    v181[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+    v180[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-    v183[9] = @"RoamScanDuration";
+    v181[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+    v180[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-    v183[10] = @"AssociatedScanDuration";
+    v181[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+    v180[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-    v183[11] = @"OtherScanDuration";
+    v181[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+    v180[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-    v183[12] = @"UserScanDuration";
+    v181[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+    v180[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-    v183[13] = @"FRTSDuration";
+    v181[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+    v180[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v183[14] = @"PCIESuspendDuration";
+    v181[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v180[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-    v184[14] = commonTypeDict_IntegerFormat_withUnit_us;
-    v183[15] = @"PCIEActiveDuration";
+    v181[14] = commonTypeDict_IntegerFormat_withUnit_us;
+    v180[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-    v184[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-    v183[16] = @"PCIEPERSTDuration";
+    v181[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+    v180[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-    v184[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-    v183[17] = @"AWDLTXDuration";
+    v181[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+    v180[17] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v183[18] = @"AWDLRXDuration";
+    v181[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v180[18] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
-    v183[19] = @"AWDLAWDuration";
+    v181[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
+    v180[19] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[19] = commonTypeDict_IntegerFormat_withUnit_s12;
-    v183[20] = @"AWDLScanDuration";
+    v181[19] = commonTypeDict_IntegerFormat_withUnit_s12;
+    v180[20] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[20] = commonTypeDict_IntegerFormat_withUnit_s13;
-    v183[21] = @"AutojoinScanDuration";
+    v181[20] = commonTypeDict_IntegerFormat_withUnit_s13;
+    v180[21] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
-    v183[22] = @"LocationScanDuration";
+    v181[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
+    v180[22] = @"LocationScanDuration";
     mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
-    v183[23] = @"PipelineScanDuration";
+    v181[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
+    v180[23] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
-    v183[24] = @"SetupScanDuration";
+    v181[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
+    v180[24] = @"SetupScanDuration";
     mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
-    v183[25] = @"UnknownScanDuration";
+    v181[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
+    v180[25] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
-    v183[26] = @"CurrentChannel";
+    v181[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
+    v180[26] = @"CurrentChannel";
     mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-    v184[26] = commonTypeDict_IntegerFormat;
-    v183[27] = @"CurrentSSID";
+    v181[26] = commonTypeDict_IntegerFormat;
+    v180[27] = @"CurrentSSID";
     mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]28 commonTypeDict_StringFormat];
-    v184[27] = commonTypeDict_StringFormat;
-    v183[28] = @"CurrentBandwidth";
+    v181[27] = commonTypeDict_StringFormat;
+    v180[28] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-    v184[28] = commonTypeDict_IntegerFormat2;
-    v183[29] = @"WifiPowered";
+    v181[28] = commonTypeDict_IntegerFormat2;
+    v180[29] = @"WifiPowered";
     mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]30 commonTypeDict_BoolFormat];
-    v184[29] = commonTypeDict_BoolFormat;
-    v183[30] = @"WowEnabled";
+    v181[29] = commonTypeDict_BoolFormat;
+    v180[30] = @"WowEnabled";
     mEMORY[0x277D3F198]50 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]50 commonTypeDict_BoolFormat];
-    v184[30] = commonTypeDict_BoolFormat2;
-    v183[31] = @"SISOTXDuration";
+    v181[30] = commonTypeDict_BoolFormat2;
+    v180[31] = @"SISOTXDuration";
     mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
-    v183[32] = @"MIMOTXDuration";
+    v181[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
+    v180[32] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms12 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
-    v183[33] = @"MIMORXDuration";
+    v181[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
+    v180[33] = @"MIMORXDuration";
     mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms13 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
-    v183[34] = @"SISORXDuration";
+    v181[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
+    v180[34] = @"SISORXDuration";
     mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms14 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[34] = commonTypeDict_IntegerFormat_withUnit_ms14;
-    v183[35] = @"MIMOCSDuration";
+    v181[34] = commonTypeDict_IntegerFormat_withUnit_ms14;
+    v180[35] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]36 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms15 = [mEMORY[0x277D3F198]36 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[35] = commonTypeDict_IntegerFormat_withUnit_ms15;
-    v183[36] = @"SISOCSDuration";
+    v181[35] = commonTypeDict_IntegerFormat_withUnit_ms15;
+    v180[36] = @"SISOCSDuration";
     mEMORY[0x277D3F198]37 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms16 = [mEMORY[0x277D3F198]37 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[36] = commonTypeDict_IntegerFormat_withUnit_ms16;
-    v183[37] = @"OCLRXDuration";
+    v181[36] = commonTypeDict_IntegerFormat_withUnit_ms16;
+    v180[37] = @"OCLRXDuration";
     mEMORY[0x277D3F198]38 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms17 = [mEMORY[0x277D3F198]38 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[37] = commonTypeDict_IntegerFormat_withUnit_ms17;
-    v183[38] = @"OCLCSDuration";
+    v181[37] = commonTypeDict_IntegerFormat_withUnit_ms17;
+    v180[38] = @"OCLCSDuration";
     mEMORY[0x277D3F198]39 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms18 = [mEMORY[0x277D3F198]39 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[38] = commonTypeDict_IntegerFormat_withUnit_ms18;
-    v183[39] = @"OPSFullDuration";
+    v181[38] = commonTypeDict_IntegerFormat_withUnit_ms18;
+    v180[39] = @"OPSFullDuration";
     mEMORY[0x277D3F198]40 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms22 = [mEMORY[0x277D3F198]40 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[39] = commonTypeDict_IntegerFormat_withUnit_ms22;
-    v183[40] = @"OPSPartialDuration";
+    v181[39] = commonTypeDict_IntegerFormat_withUnit_ms22;
+    v180[40] = @"OPSPartialDuration";
     mEMORY[0x277D3F198]51 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms23 = [mEMORY[0x277D3F198]51 commonTypeDict_IntegerFormat_withUnit_ms];
-    v184[40] = commonTypeDict_IntegerFormat_withUnit_ms23;
-    v183[41] = @"isADHSConnected";
+    v181[40] = commonTypeDict_IntegerFormat_withUnit_ms23;
+    v180[41] = @"isADHSConnected";
     mEMORY[0x277D3F198]52 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]52 commonTypeDict_IntegerFormat];
-    v184[41] = commonTypeDict_IntegerFormat5;
-    v183[42] = @"AutoHotspotBTScanDuration";
+    v181[41] = commonTypeDict_IntegerFormat5;
+    v180[42] = @"AutoHotspotBTScanDuration";
     mEMORY[0x277D3F198]53 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s18 = [mEMORY[0x277D3F198]53 commonTypeDict_IntegerFormat_withUnit_s];
-    v184[42] = commonTypeDict_IntegerFormat_withUnit_s18;
-    v183[43] = @"AutoHotspotBTScanCount";
+    v181[42] = commonTypeDict_IntegerFormat_withUnit_s18;
+    v180[43] = @"AutoHotspotBTScanCount";
     mEMORY[0x277D3F198]54 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]54 commonTypeDict_IntegerFormat];
-    v184[43] = commonTypeDict_IntegerFormat6;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v184 forKeys:v183 count:44];
-    v188[1] = v30;
-    v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v188 forKeys:v187 count:2];
+    v181[43] = commonTypeDict_IntegerFormat6;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v181 forKeys:v180 count:44];
+    v185[1] = v29;
+    v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v185 forKeys:v184 count:2];
 
     mEMORY[0x277D3F198]77 = mEMORY[0x277D3F198]50;
     commonTypeDict_IntegerFormat_withUnit_s27 = commonTypeDict_IntegerFormat_withUnit_s17;
@@ -4046,7 +3997,7 @@ LABEL_6:
     mEMORY[0x277D3F198]76 = mEMORY[0x277D3F198]49;
 
     mEMORY[0x277D3F198]73 = mEMORY[0x277D3F198]46;
-    v19 = v106;
+    v19 = v103;
 
     commonTypeDict_IntegerFormat_withUnit_s25 = commonTypeDict_IntegerFormat_withUnit_s15;
     goto LABEL_4;
@@ -4054,177 +4005,177 @@ LABEL_6:
 
   if ([MEMORY[0x277D3F208] isWiFiClass:1004007])
   {
-    v181[0] = *MEMORY[0x277D3F4E8];
-    v179 = *MEMORY[0x277D3F568];
-    v180 = &unk_282C1CAC8;
-    v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-    v182[0] = v107;
-    v181[1] = *MEMORY[0x277D3F540];
-    v177[0] = @"TimeDuration";
+    v178[0] = *MEMORY[0x277D3F4E8];
+    v176 = *MEMORY[0x277D3F568];
+    v177 = &unk_282C1CAC8;
+    v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+    v179[0] = v104;
+    v178[1] = *MEMORY[0x277D3F540];
+    v174[0] = @"TimeDuration";
     mEMORY[0x277D3F198]55 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s19 = [mEMORY[0x277D3F198]55 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[0] = commonTypeDict_IntegerFormat_withUnit_s19;
-    v177[1] = @"PMDuration";
+    v175[0] = commonTypeDict_IntegerFormat_withUnit_s19;
+    v174[1] = @"PMDuration";
     mEMORY[0x277D3F198]56 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s20 = [mEMORY[0x277D3F198]56 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[1] = commonTypeDict_IntegerFormat_withUnit_s20;
-    v177[2] = @"MPCDuration";
+    v175[1] = commonTypeDict_IntegerFormat_withUnit_s20;
+    v174[2] = @"MPCDuration";
     mEMORY[0x277D3F198]57 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s21 = [mEMORY[0x277D3F198]57 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[2] = commonTypeDict_IntegerFormat_withUnit_s21;
-    v177[3] = @"TXDuration";
+    v175[2] = commonTypeDict_IntegerFormat_withUnit_s21;
+    v174[3] = @"TXDuration";
     mEMORY[0x277D3F198]58 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]58 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v177[4] = @"RXDuration";
+    v175[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v174[4] = @"RXDuration";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v177[5] = @"HSICSuspendDuration";
+    v175[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v174[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-    v177[6] = @"HSICActiveDuration";
+    v175[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+    v174[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-    v177[7] = @"PNOScanSSIDDuration";
+    v175[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+    v174[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-    v177[8] = @"PNOBSSIDDuration";
+    v175[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+    v174[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-    v177[9] = @"RoamScanDuration";
+    v175[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+    v174[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-    v177[10] = @"AssociatedScanDuration";
+    v175[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+    v174[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-    v177[11] = @"OtherScanDuration";
+    v175[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+    v174[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-    v177[12] = @"UserScanDuration";
+    v175[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+    v174[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-    v177[13] = @"FRTSDuration";
+    v175[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+    v174[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v177[14] = @"PCIESuspendDuration";
+    v175[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v174[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-    v178[14] = commonTypeDict_IntegerFormat_withUnit_us;
-    v177[15] = @"PCIEActiveDuration";
+    v175[14] = commonTypeDict_IntegerFormat_withUnit_us;
+    v174[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-    v178[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-    v177[16] = @"PCIEPERSTDuration";
+    v175[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+    v174[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-    v178[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-    v177[17] = @"AWDLTXDuration";
+    v175[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+    v174[17] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v177[18] = @"AWDLRXDuration";
+    v175[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v174[18] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
-    v177[19] = @"AWDLAWDuration";
+    v175[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
+    v174[19] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[19] = commonTypeDict_IntegerFormat_withUnit_s12;
-    v177[20] = @"AWDLScanDuration";
+    v175[19] = commonTypeDict_IntegerFormat_withUnit_s12;
+    v174[20] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_s];
-    v178[20] = commonTypeDict_IntegerFormat_withUnit_s13;
-    v177[21] = @"AutojoinScanDuration";
+    v175[20] = commonTypeDict_IntegerFormat_withUnit_s13;
+    v174[21] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
-    v177[22] = @"LocationScanDuration";
+    v175[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
+    v174[22] = @"LocationScanDuration";
     mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
-    v177[23] = @"PipelineScanDuration";
+    v175[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
+    v174[23] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
-    v177[24] = @"SetupScanDuration";
+    v175[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
+    v174[24] = @"SetupScanDuration";
     mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
-    v177[25] = @"UnknownScanDuration";
+    v175[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
+    v174[25] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
-    v177[26] = @"CurrentChannel";
+    v175[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
+    v174[26] = @"CurrentChannel";
     mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-    v178[26] = commonTypeDict_IntegerFormat;
-    v177[27] = @"CurrentSSID";
+    v175[26] = commonTypeDict_IntegerFormat;
+    v174[27] = @"CurrentSSID";
     mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]28 commonTypeDict_StringFormat];
-    v178[27] = commonTypeDict_StringFormat;
-    v177[28] = @"CurrentBandwidth";
+    v175[27] = commonTypeDict_StringFormat;
+    v174[28] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-    v178[28] = commonTypeDict_IntegerFormat2;
-    v177[29] = @"WifiPowered";
+    v175[28] = commonTypeDict_IntegerFormat2;
+    v174[29] = @"WifiPowered";
     mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]30 commonTypeDict_BoolFormat];
-    v178[29] = commonTypeDict_BoolFormat;
-    v177[30] = @"WowEnabled";
+    v175[29] = commonTypeDict_BoolFormat;
+    v174[30] = @"WowEnabled";
     mEMORY[0x277D3F198]59 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]59 commonTypeDict_BoolFormat];
-    v178[30] = commonTypeDict_BoolFormat2;
-    v177[31] = @"SISOTXDuration";
+    v175[30] = commonTypeDict_BoolFormat2;
+    v174[31] = @"SISOTXDuration";
     mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
-    v177[32] = @"MIMOTXDuration";
+    v175[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
+    v174[32] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms12 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
-    v177[33] = @"MIMORXDuration";
+    v175[32] = commonTypeDict_IntegerFormat_withUnit_ms12;
+    v174[33] = @"MIMORXDuration";
     mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms13 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
-    v177[34] = @"SISORXDuration";
+    v175[33] = commonTypeDict_IntegerFormat_withUnit_ms13;
+    v174[34] = @"SISORXDuration";
     mEMORY[0x277D3F198]35 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms24 = [mEMORY[0x277D3F198]35 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[34] = commonTypeDict_IntegerFormat_withUnit_ms24;
-    v177[35] = @"MIMOCSDuration";
+    v175[34] = commonTypeDict_IntegerFormat_withUnit_ms24;
+    v174[35] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]60 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms25 = [mEMORY[0x277D3F198]60 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[35] = commonTypeDict_IntegerFormat_withUnit_ms25;
-    v177[36] = @"SISOCSDuration";
+    v175[35] = commonTypeDict_IntegerFormat_withUnit_ms25;
+    v174[36] = @"SISOCSDuration";
     mEMORY[0x277D3F198]61 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms26 = [mEMORY[0x277D3F198]61 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[36] = commonTypeDict_IntegerFormat_withUnit_ms26;
-    v177[37] = @"OCLRXDuration";
+    v175[36] = commonTypeDict_IntegerFormat_withUnit_ms26;
+    v174[37] = @"OCLRXDuration";
     mEMORY[0x277D3F198]62 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms27 = [mEMORY[0x277D3F198]62 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[37] = commonTypeDict_IntegerFormat_withUnit_ms27;
-    v177[38] = @"OCLCSDuration";
+    v175[37] = commonTypeDict_IntegerFormat_withUnit_ms27;
+    v174[38] = @"OCLCSDuration";
     mEMORY[0x277D3F198]63 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms28 = [mEMORY[0x277D3F198]63 commonTypeDict_IntegerFormat_withUnit_ms];
-    v178[38] = commonTypeDict_IntegerFormat_withUnit_ms28;
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v178 forKeys:v177 count:39];
-    v182[1] = v39;
-    v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v182 forKeys:v181 count:2];
+    v175[38] = commonTypeDict_IntegerFormat_withUnit_ms28;
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:39];
+    v179[1] = v38;
+    v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v179 forKeys:v178 count:2];
 
     mEMORY[0x277D3F198]74 = mEMORY[0x277D3F198]56;
     commonTypeDict_IntegerFormat_withUnit_s25 = commonTypeDict_IntegerFormat_withUnit_s19;
 
     mEMORY[0x277D3F198]73 = mEMORY[0x277D3F198]55;
-    v19 = v107;
+    v19 = v104;
 
     mEMORY[0x277D3F198]77 = mEMORY[0x277D3F198]59;
     mEMORY[0x277D3F198]76 = mEMORY[0x277D3F198]58;
@@ -4236,167 +4187,165 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v40 = [MEMORY[0x277D3F208] isWiFiClass:1004005];
-  v41 = *MEMORY[0x277D3F4E8];
-  if (v40)
+  if ([MEMORY[0x277D3F208] isWiFiClass:1004005])
   {
-    v175[0] = *MEMORY[0x277D3F4E8];
-    v173 = *MEMORY[0x277D3F568];
-    v174 = &unk_282C1CA78;
-    v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
-    v176[0] = v108;
-    v175[1] = *MEMORY[0x277D3F540];
-    v171[0] = @"TimeDuration";
+    v172[0] = *MEMORY[0x277D3F4E8];
+    v170 = *MEMORY[0x277D3F568];
+    v171 = &unk_282C1CA78;
+    v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+    v173[0] = v105;
+    v172[1] = *MEMORY[0x277D3F540];
+    v168[0] = @"TimeDuration";
     mEMORY[0x277D3F198]64 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s22 = [mEMORY[0x277D3F198]64 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[0] = commonTypeDict_IntegerFormat_withUnit_s22;
-    v171[1] = @"PMDuration";
+    v169[0] = commonTypeDict_IntegerFormat_withUnit_s22;
+    v168[1] = @"PMDuration";
     mEMORY[0x277D3F198]65 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s23 = [mEMORY[0x277D3F198]65 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[1] = commonTypeDict_IntegerFormat_withUnit_s23;
-    v171[2] = @"MPCDuration";
+    v169[1] = commonTypeDict_IntegerFormat_withUnit_s23;
+    v168[2] = @"MPCDuration";
     mEMORY[0x277D3F198]66 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s24 = [mEMORY[0x277D3F198]66 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[2] = commonTypeDict_IntegerFormat_withUnit_s24;
-    v171[3] = @"TXDuration";
+    v169[2] = commonTypeDict_IntegerFormat_withUnit_s24;
+    v168[3] = @"TXDuration";
     mEMORY[0x277D3F198]67 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]67 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-    v171[4] = @"RXDuration";
+    v169[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+    v168[4] = @"RXDuration";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-    v171[5] = @"HSICSuspendDuration";
+    v169[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+    v168[5] = @"HSICSuspendDuration";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-    v171[6] = @"HSICActiveDuration";
+    v169[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+    v168[6] = @"HSICActiveDuration";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-    v171[7] = @"PNOScanSSIDDuration";
+    v169[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+    v168[7] = @"PNOScanSSIDDuration";
     mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-    v171[8] = @"PNOBSSIDDuration";
+    v169[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+    v168[8] = @"PNOBSSIDDuration";
     mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-    v171[9] = @"RoamScanDuration";
+    v169[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+    v168[9] = @"RoamScanDuration";
     mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-    v171[10] = @"AssociatedScanDuration";
+    v169[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+    v168[10] = @"AssociatedScanDuration";
     mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-    v171[11] = @"OtherScanDuration";
+    v169[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+    v168[11] = @"OtherScanDuration";
     mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-    v171[12] = @"UserScanDuration";
+    v169[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+    v168[12] = @"UserScanDuration";
     mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-    v171[13] = @"FRTSDuration";
+    v169[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+    v168[13] = @"FRTSDuration";
     mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-    v171[14] = @"PCIESuspendDuration";
+    v169[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+    v168[14] = @"PCIESuspendDuration";
     mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-    v172[14] = commonTypeDict_IntegerFormat_withUnit_us;
-    v171[15] = @"PCIEActiveDuration";
+    v169[14] = commonTypeDict_IntegerFormat_withUnit_us;
+    v168[15] = @"PCIEActiveDuration";
     mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-    v172[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-    v171[16] = @"PCIEPERSTDuration";
+    v169[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+    v168[16] = @"PCIEPERSTDuration";
     mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-    v172[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-    v171[17] = @"AutojoinScanDuration";
+    v169[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+    v168[17] = @"AutojoinScanDuration";
     mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
-    v171[18] = @"LocationScanDuration";
+    v169[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
+    v168[18] = @"LocationScanDuration";
     mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
-    v171[19] = @"PipelineScanDuration";
+    v169[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
+    v168[19] = @"PipelineScanDuration";
     mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[19] = commonTypeDict_IntegerFormat_withUnit_s12;
-    v171[20] = @"SetupScanDuration";
+    v169[19] = commonTypeDict_IntegerFormat_withUnit_s12;
+    v168[20] = @"SetupScanDuration";
     mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[20] = commonTypeDict_IntegerFormat_withUnit_s13;
-    v171[21] = @"UnknownScanDuration";
+    v169[20] = commonTypeDict_IntegerFormat_withUnit_s13;
+    v168[21] = @"UnknownScanDuration";
     mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
-    v171[22] = @"AWDLTXDuration";
+    v169[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
+    v168[22] = @"AWDLTXDuration";
     mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
-    v171[23] = @"AWDLRXDuration";
+    v169[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
+    v168[23] = @"AWDLRXDuration";
     mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
-    v171[24] = @"AWDLAWDuration";
+    v169[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
+    v168[24] = @"AWDLAWDuration";
     mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
-    v171[25] = @"AWDLScanDuration";
+    v169[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
+    v168[25] = @"AWDLScanDuration";
     mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat_withUnit_s];
-    v172[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
-    v171[26] = @"CurrentChannel";
+    v169[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
+    v168[26] = @"CurrentChannel";
     mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-    v172[26] = commonTypeDict_IntegerFormat;
-    v171[27] = @"CurrentSSID";
+    v169[26] = commonTypeDict_IntegerFormat;
+    v168[27] = @"CurrentSSID";
     mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198]28 commonTypeDict_StringFormat];
-    v172[27] = commonTypeDict_StringFormat;
-    v171[28] = @"CurrentBandwidth";
+    v169[27] = commonTypeDict_StringFormat;
+    v168[28] = @"CurrentBandwidth";
     mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-    v172[28] = commonTypeDict_IntegerFormat2;
-    v171[29] = @"WifiPowered";
+    v169[28] = commonTypeDict_IntegerFormat2;
+    v168[29] = @"WifiPowered";
     mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]30 commonTypeDict_BoolFormat];
-    v172[29] = commonTypeDict_BoolFormat;
-    v171[30] = @"WowEnabled";
+    v169[29] = commonTypeDict_BoolFormat;
+    v168[30] = @"WowEnabled";
     mEMORY[0x277D3F198]68 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]68 commonTypeDict_BoolFormat];
-    v172[30] = commonTypeDict_BoolFormat2;
-    v171[31] = @"SISOTXDuration";
+    v169[30] = commonTypeDict_BoolFormat2;
+    v168[31] = @"SISOTXDuration";
     mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms11 = [mEMORY[0x277D3F198]32 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
-    v171[32] = @"MIMOTXDuration";
+    v169[31] = commonTypeDict_IntegerFormat_withUnit_ms11;
+    v168[32] = @"MIMOTXDuration";
     mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms29 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[32] = commonTypeDict_IntegerFormat_withUnit_ms29;
-    v171[33] = @"MIMORXDuration";
+    v169[32] = commonTypeDict_IntegerFormat_withUnit_ms29;
+    v168[33] = @"MIMORXDuration";
     mEMORY[0x277D3F198]69 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms30 = [mEMORY[0x277D3F198]69 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[33] = commonTypeDict_IntegerFormat_withUnit_ms30;
-    v171[34] = @"SISORXDuration";
+    v169[33] = commonTypeDict_IntegerFormat_withUnit_ms30;
+    v168[34] = @"SISORXDuration";
     mEMORY[0x277D3F198]70 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms31 = [mEMORY[0x277D3F198]70 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[34] = commonTypeDict_IntegerFormat_withUnit_ms31;
-    v171[35] = @"MIMOCSDuration";
+    v169[34] = commonTypeDict_IntegerFormat_withUnit_ms31;
+    v168[35] = @"MIMOCSDuration";
     mEMORY[0x277D3F198]71 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms32 = [mEMORY[0x277D3F198]71 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[35] = commonTypeDict_IntegerFormat_withUnit_ms32;
-    v171[36] = @"SISOCSDuration";
+    v169[35] = commonTypeDict_IntegerFormat_withUnit_ms32;
+    v168[36] = @"SISOCSDuration";
     mEMORY[0x277D3F198]72 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat_withUnit_ms33 = [mEMORY[0x277D3F198]72 commonTypeDict_IntegerFormat_withUnit_ms];
-    v172[36] = commonTypeDict_IntegerFormat_withUnit_ms33;
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:37];
-    v176[1] = v50;
-    v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:2];
+    v169[36] = commonTypeDict_IntegerFormat_withUnit_ms33;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v169 forKeys:v168 count:37];
+    v173[1] = v47;
+    v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
 
     mEMORY[0x277D3F198]77 = mEMORY[0x277D3F198]68;
     mEMORY[0x277D3F198]76 = mEMORY[0x277D3F198]67;
@@ -4410,183 +4359,182 @@ LABEL_6:
     commonTypeDict_IntegerFormat_withUnit_s25 = commonTypeDict_IntegerFormat_withUnit_s22;
     mEMORY[0x277D3F198]73 = mEMORY[0x277D3F198]64;
 
-    v19 = v108;
+    v19 = v105;
     goto LABEL_6;
   }
 
-  v169[0] = *MEMORY[0x277D3F4E8];
-  v167 = *MEMORY[0x277D3F568];
-  v168 = &unk_282C1CA68;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v168 forKeys:&v167 count:1];
-  v170[0] = v19;
-  v169[1] = *MEMORY[0x277D3F540];
-  v165[0] = @"TimeDuration";
+  v166[0] = *MEMORY[0x277D3F4E8];
+  v164 = *MEMORY[0x277D3F568];
+  v165 = &unk_282C1CA68;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v165 forKeys:&v164 count:1];
+  v167[0] = v19;
+  v166[1] = *MEMORY[0x277D3F540];
+  v162[0] = @"TimeDuration";
   mEMORY[0x277D3F198]73 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s25 = [mEMORY[0x277D3F198]73 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[0] = commonTypeDict_IntegerFormat_withUnit_s25;
-  v165[1] = @"PMDuration";
+  v163[0] = commonTypeDict_IntegerFormat_withUnit_s25;
+  v162[1] = @"PMDuration";
   mEMORY[0x277D3F198]74 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s26 = [mEMORY[0x277D3F198]74 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[1] = commonTypeDict_IntegerFormat_withUnit_s26;
-  v165[2] = @"MPCDuration";
+  v163[1] = commonTypeDict_IntegerFormat_withUnit_s26;
+  v162[2] = @"MPCDuration";
   mEMORY[0x277D3F198]75 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s27 = [mEMORY[0x277D3F198]75 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[2] = commonTypeDict_IntegerFormat_withUnit_s27;
-  v165[3] = @"TXDuration";
+  v163[2] = commonTypeDict_IntegerFormat_withUnit_s27;
+  v162[3] = @"TXDuration";
   mEMORY[0x277D3F198]76 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms = [mEMORY[0x277D3F198]76 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[3] = commonTypeDict_IntegerFormat_withUnit_ms;
-  v165[4] = @"RXDuration";
+  v163[3] = commonTypeDict_IntegerFormat_withUnit_ms;
+  v162[4] = @"RXDuration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
-  v165[5] = @"HSICSuspendDuration";
+  v163[4] = commonTypeDict_IntegerFormat_withUnit_ms2;
+  v162[5] = @"HSICSuspendDuration";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[5] = commonTypeDict_IntegerFormat_withUnit_s4;
-  v165[6] = @"HSICActiveDuration";
+  v163[5] = commonTypeDict_IntegerFormat_withUnit_s4;
+  v162[6] = @"HSICActiveDuration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[6] = commonTypeDict_IntegerFormat_withUnit_s5;
-  v165[7] = @"PNOScanSSIDDuration";
+  v163[6] = commonTypeDict_IntegerFormat_withUnit_s5;
+  v162[7] = @"PNOScanSSIDDuration";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[7] = commonTypeDict_IntegerFormat_withUnit_s6;
-  v165[8] = @"PNOBSSIDDuration";
+  v163[7] = commonTypeDict_IntegerFormat_withUnit_s6;
+  v162[8] = @"PNOBSSIDDuration";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[8] = commonTypeDict_IntegerFormat_withUnit_s7;
-  v165[9] = @"RoamScanDuration";
+  v163[8] = commonTypeDict_IntegerFormat_withUnit_s7;
+  v162[9] = @"RoamScanDuration";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[9] = commonTypeDict_IntegerFormat_withUnit_s8;
-  v165[10] = @"AssociatedScanDuration";
+  v163[9] = commonTypeDict_IntegerFormat_withUnit_s8;
+  v162[10] = @"AssociatedScanDuration";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s9 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[10] = commonTypeDict_IntegerFormat_withUnit_s9;
-  v165[11] = @"OtherScanDuration";
+  v163[10] = commonTypeDict_IntegerFormat_withUnit_s9;
+  v162[11] = @"OtherScanDuration";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s10 = [mEMORY[0x277D3F198]12 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[11] = commonTypeDict_IntegerFormat_withUnit_s10;
-  v165[12] = @"UserScanDuration";
+  v163[11] = commonTypeDict_IntegerFormat_withUnit_s10;
+  v162[12] = @"UserScanDuration";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s11 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[12] = commonTypeDict_IntegerFormat_withUnit_s11;
-  v165[13] = @"FRTSDuration";
+  v163[12] = commonTypeDict_IntegerFormat_withUnit_s11;
+  v162[13] = @"FRTSDuration";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms3 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
-  v165[14] = @"PCIESuspendDuration";
+  v163[13] = commonTypeDict_IntegerFormat_withUnit_ms3;
+  v162[14] = @"PCIESuspendDuration";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us = [mEMORY[0x277D3F198]15 commonTypeDict_IntegerFormat_withUnit_us];
-  v166[14] = commonTypeDict_IntegerFormat_withUnit_us;
-  v165[15] = @"PCIEActiveDuration";
+  v163[14] = commonTypeDict_IntegerFormat_withUnit_us;
+  v162[15] = @"PCIEActiveDuration";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us2 = [mEMORY[0x277D3F198]16 commonTypeDict_IntegerFormat_withUnit_us];
-  v166[15] = commonTypeDict_IntegerFormat_withUnit_us2;
-  v165[16] = @"PCIEPERSTDuration";
+  v163[15] = commonTypeDict_IntegerFormat_withUnit_us2;
+  v162[16] = @"PCIEPERSTDuration";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_us3 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat_withUnit_us];
-  v166[16] = commonTypeDict_IntegerFormat_withUnit_us3;
-  v165[17] = @"AutojoinScanDuration";
+  v163[16] = commonTypeDict_IntegerFormat_withUnit_us3;
+  v162[17] = @"AutojoinScanDuration";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms4 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
-  v165[18] = @"LocationScanDuration";
+  v163[17] = commonTypeDict_IntegerFormat_withUnit_ms4;
+  v162[18] = @"LocationScanDuration";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms5 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
-  v165[19] = @"PipelineScanDuration";
+  v163[18] = commonTypeDict_IntegerFormat_withUnit_ms5;
+  v162[19] = @"PipelineScanDuration";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s12 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[19] = commonTypeDict_IntegerFormat_withUnit_s12;
-  v165[20] = @"SetupScanDuration";
+  v163[19] = commonTypeDict_IntegerFormat_withUnit_s12;
+  v162[20] = @"SetupScanDuration";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_s13 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[20] = commonTypeDict_IntegerFormat_withUnit_s13;
-  v165[21] = @"UnknownScanDuration";
+  v163[20] = commonTypeDict_IntegerFormat_withUnit_s13;
+  v162[21] = @"UnknownScanDuration";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms6 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
-  v165[22] = @"AWDLTXDuration";
+  v163[21] = commonTypeDict_IntegerFormat_withUnit_ms6;
+  v162[22] = @"AWDLTXDuration";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms7 = [mEMORY[0x277D3F198]23 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
-  v165[23] = @"AWDLRXDuration";
+  v163[22] = commonTypeDict_IntegerFormat_withUnit_ms7;
+  v162[23] = @"AWDLRXDuration";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms8 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat_withUnit_ms];
-  v166[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
-  v165[24] = @"AWDLAWDuration";
+  v163[23] = commonTypeDict_IntegerFormat_withUnit_ms8;
+  v162[24] = @"AWDLAWDuration";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms9 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
-  v165[25] = @"AWDLScanDuration";
+  v163[24] = commonTypeDict_IntegerFormat_withUnit_ms9;
+  v162[25] = @"AWDLScanDuration";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_withUnit_ms10 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat_withUnit_s];
-  v166[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
-  v165[26] = @"CurrentChannel";
+  v163[25] = commonTypeDict_IntegerFormat_withUnit_ms10;
+  v162[26] = @"CurrentChannel";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-  v166[26] = commonTypeDict_IntegerFormat;
-  v165[27] = @"CurrentSSID";
+  v163[26] = commonTypeDict_IntegerFormat;
+  v162[27] = @"CurrentSSID";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]28 commonTypeDict_StringFormat];
-  v166[27] = commonTypeDict_StringFormat;
-  v165[28] = @"CurrentBandwidth";
+  v163[27] = commonTypeDict_StringFormat;
+  v162[28] = @"CurrentBandwidth";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]29 commonTypeDict_IntegerFormat];
-  v166[28] = commonTypeDict_IntegerFormat2;
-  v165[29] = @"WifiPowered";
+  v163[28] = commonTypeDict_IntegerFormat2;
+  v162[29] = @"WifiPowered";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]30 commonTypeDict_BoolFormat];
-  v166[29] = commonTypeDict_BoolFormat;
-  v165[30] = @"WowEnabled";
+  v163[29] = commonTypeDict_BoolFormat;
+  v162[30] = @"WowEnabled";
   mEMORY[0x277D3F198]77 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]77 commonTypeDict_BoolFormat];
-  v166[30] = commonTypeDict_BoolFormat2;
-  mEMORY[0x277D3F198]32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:v165 count:31];
-  v170[1] = mEMORY[0x277D3F198]32;
-  v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v170 forKeys:v169 count:2];
+  v163[30] = commonTypeDict_BoolFormat2;
+  mEMORY[0x277D3F198]32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v163 forKeys:v162 count:31];
+  v167[1] = mEMORY[0x277D3F198]32;
+  v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v167 forKeys:v166 count:2];
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v109;
+  return v106;
 }
 
 - (void)setWifiManager:(__WiFiManagerClient *)manager
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if ([(PLWifiAgent *)self wifiManager]== manager)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([(PLWifiAgent *)self wifiManager]!= manager)
   {
-LABEL_15:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  wifiManager = [(PLWifiAgent *)self wifiManager];
-  v6 = MEMORY[0x277CBF058];
-  if (wifiManager)
-  {
-    [(PLWifiAgent *)self wifiManager];
-    WiFiManagerClientRegisterDeviceAttachmentCallback();
-    [(PLWifiAgent *)self wifiManager];
-    CFRunLoopGetMain();
-    v7 = *v6;
-    WiFiManagerClientUnscheduleFromRunLoop();
-  }
-
-  self->_wifiManager = manager;
-  if (![(PLWifiAgent *)self wifiManager])
-  {
-    if ([MEMORY[0x277D3F180] debugEnabled])
+    if ([(PLWifiAgent *)self wifiManager])
     {
-      v10 = objc_opt_class();
+      [(PLWifiAgent *)self wifiManager];
+      WiFiManagerClientRegisterDeviceAttachmentCallback();
+      [(PLWifiAgent *)self wifiManager];
+      CFRunLoopGetMain();
+      WiFiManagerClientUnscheduleFromRunLoop();
+    }
+
+    self->_wifiManager = manager;
+    if ([(PLWifiAgent *)self wifiManager])
+    {
+      [(PLWifiAgent *)self wifiManager];
+      CFRunLoopGetMain();
+      WiFiManagerClientScheduleWithRunLoop();
+      [(PLWifiAgent *)self wifiManager];
+      WiFiManagerClientRegisterDeviceAttachmentCallback();
+
+      [(PLWifiAgent *)self findWifiDevice];
+    }
+
+    else if ([MEMORY[0x277D3F180] debugEnabled])
+    {
+      v5 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __30__PLWifiAgent_setWifiManager___block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v10;
+      block[4] = v5;
       if (qword_2811F6700 != -1)
       {
         dispatch_once(&qword_2811F6700, block);
@@ -4594,38 +4542,26 @@ LABEL_15:
 
       if (_MergedGlobals_1_55 == 1)
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi manager reference"];
-        v12 = MEMORY[0x277D3F178];
-        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-        lastPathComponent = [v13 lastPathComponent];
-        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent setWifiManager:]"];
-        [v12 logMessage:v11 fromFile:lastPathComponent fromFunction:v15 fromLineNumber:2318];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi manager reference"];
+        v7 = MEMORY[0x277D3F178];
+        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+        lastPathComponent = [v8 lastPathComponent];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent setWifiManager:]"];
+        [v7 logMessage:v6 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:2318];
 
-        v16 = PLLogCommon();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v11 = PLLogCommon();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v20 = v11;
-          _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v14 = v6;
+          _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
-
-    goto LABEL_15;
   }
-
-  [(PLWifiAgent *)self wifiManager];
-  CFRunLoopGetMain();
-  v8 = *v6;
-  WiFiManagerClientScheduleWithRunLoop();
-  [(PLWifiAgent *)self wifiManager];
-  WiFiManagerClientRegisterDeviceAttachmentCallback();
-  v9 = *MEMORY[0x277D85DE8];
-
-  [(PLWifiAgent *)self findWifiDevice];
 }
 
-uint64_t __30__PLWifiAgent_setWifiManager___block_invoke(uint64_t a1)
+void *__30__PLWifiAgent_setWifiManager___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_55 = result;
@@ -4634,7 +4570,7 @@ uint64_t __30__PLWifiAgent_setWifiManager___block_invoke(uint64_t a1)
 
 - (void)setWiFiHotspotDevice:(__WiFiDeviceClient *)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([(PLWifiAgent *)self wifiHotspotDevice]!= device)
   {
     if ([(PLWifiAgent *)self wifiHotspotDevice])
@@ -4674,7 +4610,7 @@ uint64_t __30__PLWifiAgent_setWifiManager___block_invoke(uint64_t a1)
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v25 = v6;
+            v24 = v6;
 LABEL_19:
             _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             goto LABEL_16;
@@ -4688,19 +4624,19 @@ LABEL_19:
     else if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v12 = objc_opt_class();
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857;
-      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v22 = v12;
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857;
+      v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v21 = v12;
       if (qword_2811F6710 != -1)
       {
-        dispatch_once(&qword_2811F6710, &v18);
+        dispatch_once(&qword_2811F6710, &v17);
       }
 
       if (byte_2811F66B2 == 1)
       {
-        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi hotspot device reference", v18, v19, v20, v21, v22];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi hotspot device reference", v17, v18, v19, v20, v21];
         v13 = MEMORY[0x277D3F178];
         v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent2 = [v14 lastPathComponent];
@@ -4711,7 +4647,7 @@ LABEL_19:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v25 = v6;
+          v24 = v6;
           goto LABEL_19;
         }
 
@@ -4719,18 +4655,16 @@ LABEL_16:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke(uint64_t a1)
+void *__36__PLWifiAgent_setWiFiHotspotDevice___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B1 = result;
   return result;
 }
 
-uint64_t __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857(uint64_t a1)
+void *__36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B2 = result;
@@ -4739,7 +4673,7 @@ uint64_t __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857(uint64_t a1)
 
 - (void)setWiFiAWDLDevice:(__WiFiDeviceClient *)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([(PLWifiAgent *)self wifiAwdlDevice]!= device)
   {
     if ([(PLWifiAgent *)self wifiAwdlDevice])
@@ -4779,7 +4713,7 @@ uint64_t __36__PLWifiAgent_setWiFiHotspotDevice___block_invoke_857(uint64_t a1)
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v25 = v6;
+            v24 = v6;
 LABEL_19:
             _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             goto LABEL_16;
@@ -4793,19 +4727,19 @@ LABEL_19:
     else if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v12 = objc_opt_class();
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __33__PLWifiAgent_setWiFiAWDLDevice___block_invoke_866;
-      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v22 = v12;
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __33__PLWifiAgent_setWiFiAWDLDevice___block_invoke_866;
+      v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v21 = v12;
       if (qword_2811F6720 != -1)
       {
-        dispatch_once(&qword_2811F6720, &v18);
+        dispatch_once(&qword_2811F6720, &v17);
       }
 
       if (byte_2811F66B4 == 1)
       {
-        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi awdl device reference", v18, v19, v20, v21, v22];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi awdl device reference", v17, v18, v19, v20, v21];
         v13 = MEMORY[0x277D3F178];
         v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent2 = [v14 lastPathComponent];
@@ -4816,7 +4750,7 @@ LABEL_19:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v25 = v6;
+          v24 = v6;
           goto LABEL_19;
         }
 
@@ -4824,18 +4758,16 @@ LABEL_16:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLWifiAgent_setWiFiAWDLDevice___block_invoke(uint64_t a1)
+void *__33__PLWifiAgent_setWiFiAWDLDevice___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B3 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_setWiFiAWDLDevice___block_invoke_866(uint64_t a1)
+void *__33__PLWifiAgent_setWiFiAWDLDevice___block_invoke_866(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B4 = result;
@@ -4844,48 +4776,70 @@ uint64_t __33__PLWifiAgent_setWiFiAWDLDevice___block_invoke_866(uint64_t a1)
 
 - (void)setWifiDevice:(__WiFiDeviceClient *)device
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ([(PLWifiAgent *)self wifiDevice]== device)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([(PLWifiAgent *)self wifiDevice]!= device)
   {
-LABEL_25:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if ([(PLWifiAgent *)self wifiDevice])
-  {
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterPowerCallback();
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterExtendedLinkCallback();
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterDeviceAvailableCallback();
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterScanUpdateCallback();
-    if ([(PLWifiAgent *)self wifiManager])
-    {
-      [(PLWifiAgent *)self wifiManager];
-      WiFiManagerClientRegisterUserAutoJoinStateChangedCallback();
-    }
-
-    if ([MEMORY[0x277D3F180] fullMode])
+    if ([(PLWifiAgent *)self wifiDevice])
     {
       [(PLWifiAgent *)self wifiDevice];
-      WiFiDeviceClientRegisterLQMCallback();
-    }
-  }
+      WiFiDeviceClientRegisterPowerCallback();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterExtendedLinkCallback();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterDeviceAvailableCallback();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterScanUpdateCallback();
+      if ([(PLWifiAgent *)self wifiManager])
+      {
+        [(PLWifiAgent *)self wifiManager];
+        WiFiManagerClientRegisterUserAutoJoinStateChangedCallback();
+      }
 
-  self->_wifiDevice = device;
-  if (![(PLWifiAgent *)self wifiDevice])
-  {
-    if ([MEMORY[0x277D3F180] debugEnabled])
+      if ([MEMORY[0x277D3F180] fullMode])
+      {
+        [(PLWifiAgent *)self wifiDevice];
+        WiFiDeviceClientRegisterLQMCallback();
+      }
+    }
+
+    self->_wifiDevice = device;
+    if ([(PLWifiAgent *)self wifiDevice])
     {
-      v6 = objc_opt_class();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterPowerCallback();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterExtendedLinkCallback();
+      [(PLWifiAgent *)self wifiDevice];
+      WiFiDeviceClientRegisterDeviceAvailableCallback();
+      if (([MEMORY[0x277D3F180] taskMode] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F180], "fullMode"))
+      {
+        [(PLWifiAgent *)self wifiDevice];
+        WiFiDeviceClientRegisterScanUpdateCallback();
+      }
+
+      if ([(PLWifiAgent *)self wifiManager])
+      {
+        [(PLWifiAgent *)self wifiManager];
+        WiFiManagerClientRegisterUserAutoJoinStateChangedCallback();
+      }
+
+      if ([MEMORY[0x277D3F180] fullMode])
+      {
+        [(PLWifiAgent *)self wifiDevice];
+        WiFiDeviceClientRegisterLQMCallback();
+      }
+
+      [(PLWifiAgent *)self logEventForwardModuleInfo];
+    }
+
+    else if ([MEMORY[0x277D3F180] debugEnabled])
+    {
+      v5 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __29__PLWifiAgent_setWifiDevice___block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v6;
+      block[4] = v5;
       if (qword_2811F6728 != -1)
       {
         dispatch_once(&qword_2811F6728, block);
@@ -4893,56 +4847,26 @@ LABEL_25:
 
       if (byte_2811F66B5 == 1)
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi device reference"];
-        v8 = MEMORY[0x277D3F178];
-        v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-        lastPathComponent = [v9 lastPathComponent];
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent setWifiDevice:]"];
-        [v8 logMessage:v7 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:2420];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Was passed an invalid wifi device reference"];
+        v7 = MEMORY[0x277D3F178];
+        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+        lastPathComponent = [v8 lastPathComponent];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent setWifiDevice:]"];
+        [v7 logMessage:v6 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:2420];
 
-        v12 = PLLogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v11 = PLLogCommon();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v16 = v7;
-          _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v14 = v6;
+          _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
-
-    goto LABEL_25;
   }
-
-  [(PLWifiAgent *)self wifiDevice];
-  WiFiDeviceClientRegisterPowerCallback();
-  [(PLWifiAgent *)self wifiDevice];
-  WiFiDeviceClientRegisterExtendedLinkCallback();
-  [(PLWifiAgent *)self wifiDevice];
-  WiFiDeviceClientRegisterDeviceAvailableCallback();
-  if (([MEMORY[0x277D3F180] taskMode] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F180], "fullMode"))
-  {
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterScanUpdateCallback();
-  }
-
-  if ([(PLWifiAgent *)self wifiManager])
-  {
-    [(PLWifiAgent *)self wifiManager];
-    WiFiManagerClientRegisterUserAutoJoinStateChangedCallback();
-  }
-
-  if ([MEMORY[0x277D3F180] fullMode])
-  {
-    [(PLWifiAgent *)self wifiDevice];
-    WiFiDeviceClientRegisterLQMCallback();
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-
-  [(PLWifiAgent *)self logEventForwardModuleInfo];
 }
 
-uint64_t __29__PLWifiAgent_setWifiDevice___block_invoke(uint64_t a1)
+void *__29__PLWifiAgent_setWifiDevice___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B5 = result;
@@ -4951,7 +4875,7 @@ uint64_t __29__PLWifiAgent_setWifiDevice___block_invoke(uint64_t a1)
 
 - (void)findWifiDevice
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (![(PLWifiAgent *)self wifiManager])
   {
     if (![MEMORY[0x277D3F180] debugEnabled])
@@ -4960,14 +4884,14 @@ uint64_t __29__PLWifiAgent_setWifiDevice___block_invoke(uint64_t a1)
     }
 
     v46 = objc_opt_class();
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_902;
-    v53[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v53[4] = v46;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_902;
+    v52[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v52[4] = v46;
     if (qword_2811F6758 != -1)
     {
-      dispatch_once(&qword_2811F6758, v53);
+      dispatch_once(&qword_2811F6758, v52);
     }
 
     if (byte_2811F66BB != 1)
@@ -4988,7 +4912,7 @@ LABEL_58:
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v60 = v40;
+      v59 = v40;
       _os_log_debug_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -5008,14 +4932,14 @@ LABEL_58:
   else if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __29__PLWifiAgent_findWifiDevice__block_invoke;
-    v58[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v58[4] = v6;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __29__PLWifiAgent_findWifiDevice__block_invoke;
+    v57[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v57[4] = v6;
     if (qword_2811F6730 != -1)
     {
-      dispatch_once(&qword_2811F6730, v58);
+      dispatch_once(&qword_2811F6730, v57);
     }
 
     if (byte_2811F66B6 == 1)
@@ -5031,7 +4955,7 @@ LABEL_58:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v60 = v7;
+        v59 = v7;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -5045,14 +4969,14 @@ LABEL_58:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v14 = objc_opt_class();
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_878;
-      v57[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v57[4] = v14;
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_878;
+      v56[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v56[4] = v14;
       if (qword_2811F6738 != -1)
       {
-        dispatch_once(&qword_2811F6738, v57);
+        dispatch_once(&qword_2811F6738, v56);
       }
 
       if (byte_2811F66B7 == 1)
@@ -5068,7 +4992,7 @@ LABEL_58:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v60 = v15;
+          v59 = v15;
           _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -5079,7 +5003,7 @@ LABEL_58:
       v21 = 0;
       v22 = 0;
       v23 = 0;
-      v52 = v13;
+      v51 = v13;
       do
       {
         v24 = [v13 objectAtIndex:v21];
@@ -5111,12 +5035,12 @@ LABEL_58:
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v60 = v26;
+                v59 = v26;
                 _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
               v5 = 0x277D3F000uLL;
-              v13 = v52;
+              v13 = v51;
             }
           }
 
@@ -5129,14 +5053,14 @@ LABEL_58:
           if ([*(v5 + 384) debugEnabled])
           {
             v32 = objc_opt_class();
-            v55[0] = MEMORY[0x277D85DD0];
-            v55[1] = 3221225472;
-            v55[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_890;
-            v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v55[4] = v32;
+            v54[0] = MEMORY[0x277D85DD0];
+            v54[1] = 3221225472;
+            v54[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_890;
+            v54[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v54[4] = v32;
             if (qword_2811F6748 != -1)
             {
-              dispatch_once(&qword_2811F6748, v55);
+              dispatch_once(&qword_2811F6748, v54);
             }
 
             if (byte_2811F66B9 == 1)
@@ -5152,12 +5076,12 @@ LABEL_58:
               if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v60 = v33;
+                v59 = v33;
                 _os_log_debug_impl(&dword_21A4C6000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
               v5 = 0x277D3F000;
-              v13 = v52;
+              v13 = v51;
             }
           }
 
@@ -5182,14 +5106,14 @@ LABEL_58:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v39 = objc_opt_class();
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_896;
-    v54[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v54[4] = v39;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __29__PLWifiAgent_findWifiDevice__block_invoke_896;
+    v53[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v53[4] = v39;
     if (qword_2811F6750 != -1)
     {
-      dispatch_once(&qword_2811F6750, v54);
+      dispatch_once(&qword_2811F6750, v53);
     }
 
     if (byte_2811F66BA == 1)
@@ -5205,7 +5129,7 @@ LABEL_58:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v60 = v40;
+        v59 = v40;
         _os_log_debug_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -5214,46 +5138,44 @@ LABEL_57:
   }
 
 LABEL_59:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B6 = result;
   return result;
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_878(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke_878(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B7 = result;
   return result;
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_884(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke_884(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B8 = result;
   return result;
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_890(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke_890(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66B9 = result;
   return result;
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_896(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke_896(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BA = result;
   return result;
 }
 
-uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_902(uint64_t a1)
+void *__29__PLWifiAgent_findWifiDevice__block_invoke_902(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BB = result;
@@ -5295,11 +5217,11 @@ uint64_t __29__PLWifiAgent_findWifiDevice__block_invoke_902(uint64_t a1)
   return v3;
 }
 
-uint64_t __19__PLWifiAgent_init__block_invoke(uint64_t result, uint64_t a2)
+id *__19__PLWifiAgent_init__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleRemoteSessionCallbackWithUserInfo:a2];
+    return [result[4] handleRemoteSessionCallbackWithUserInfo:a2];
   }
 
   return result;
@@ -5307,57 +5229,56 @@ uint64_t __19__PLWifiAgent_init__block_invoke(uint64_t result, uint64_t a2)
 
 - (void)initOperatorDependancies
 {
-  v42[1] = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CBECE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   [(PLWifiAgent *)self setWifiManager:WiFiManagerClientCreate()];
-  v4 = objc_alloc(MEMORY[0x277D3F160]);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke;
-  v36[3] = &unk_2782597E8;
-  v36[4] = self;
-  v5 = [v4 initWithOperator:self forNotification:@"com.apple.airport.userNotification" requireState:1 withBlock:v36];
+  v3 = objc_alloc(MEMORY[0x277D3F160]);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke;
+  v34[3] = &unk_2782597E8;
+  v34[4] = self;
+  v4 = [v3 initWithOperator:self forNotification:@"com.apple.airport.userNotification" requireState:1 withBlock:v34];
   notificationWiFiChanged = self->_notificationWiFiChanged;
-  self->_notificationWiFiChanged = v5;
+  self->_notificationWiFiChanged = v4;
 
   if ([(PLOperator *)self isDebugEnabled])
   {
-    v7 = objc_alloc(MEMORY[0x277D3F1A8]);
-    v39[0] = &unk_282C12D98;
-    v39[1] = &unk_282C12DB0;
-    v40[0] = &unk_282C1CA28;
-    v40[1] = &unk_282C12DC8;
-    v41 = @"Level";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-    v42[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_934;
-    v35[3] = &unk_2782597E8;
-    v35[4] = self;
-    v10 = [v7 initWithOperator:self forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v9 withBlock:v35];
+    v6 = objc_alloc(MEMORY[0x277D3F1A8]);
+    v37[0] = &unk_282C12D98;
+    v37[1] = &unk_282C12DB0;
+    v38[0] = &unk_282C1CA28;
+    v38[1] = &unk_282C12DC8;
+    v39 = @"Level";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v40[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_934;
+    v33[3] = &unk_2782597E8;
+    v33[4] = self;
+    v9 = [v6 initWithOperator:self forEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v8 withBlock:v33];
     batteryLevelChanged = self->_batteryLevelChanged;
-    self->_batteryLevelChanged = v10;
+    self->_batteryLevelChanged = v9;
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935;
-  v34[3] = &unk_2782597E8;
-  v34[4] = self;
-  v12 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v34];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935;
+  v32[3] = &unk_2782597E8;
+  v32[4] = self;
+  v11 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v32];
   sbcLevelChanged = self->_sbcLevelChanged;
-  self->_sbcLevelChanged = v12;
+  self->_sbcLevelChanged = v11;
 
-  v14 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_942;
-  v33[3] = &unk_2782597E8;
-  v33[4] = self;
-  v15 = [v14 initWithOperator:self forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" withBlock:v33];
-  [(PLWifiAgent *)self setDeviceWake:v15];
+  v13 = objc_alloc(MEMORY[0x277D3F1A8]);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_942;
+  v31[3] = &unk_2782597E8;
+  v31[4] = self;
+  v14 = [v13 initWithOperator:self forEntryKey:@"PLSleepWakeAgent_EventForward_PowerState" withBlock:v31];
+  [(PLWifiAgent *)self setDeviceWake:v14];
   block[5] = MEMORY[0x277D85DD0];
   block[6] = 3221225472;
   block[7] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_950;
@@ -5366,12 +5287,12 @@ uint64_t __19__PLWifiAgent_init__block_invoke(uint64_t result, uint64_t a2)
   block[10] = 0;
   if (!tcp_connection_fallback_watcher_create() && [MEMORY[0x277D3F180] debugEnabled])
   {
-    v16 = objc_opt_class();
+    v15 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_951;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v16;
+    block[4] = v15;
     if (qword_2811F6778 != -1)
     {
       dispatch_once(&qword_2811F6778, block);
@@ -5379,55 +5300,53 @@ uint64_t __19__PLWifiAgent_init__block_invoke(uint64_t result, uint64_t a2)
 
     if (byte_2811F66BF == 1)
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to create cell fallback observer"];
-      v18 = MEMORY[0x277D3F178];
-      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      lastPathComponent = [v19 lastPathComponent];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]"];
-      [v18 logMessage:v17 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:2634];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to create cell fallback observer"];
+      v17 = MEMORY[0x277D3F178];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      lastPathComponent = [v18 lastPathComponent];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]"];
+      [v17 logMessage:v16 fromFile:lastPathComponent fromFunction:v20 fromLineNumber:2634];
 
-      v22 = PLLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v21 = PLLogCommon();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v38 = v17;
-        _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v36 = v16;
+        _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v23 = [objc_alloc(MEMORY[0x277D3F1F0]) initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:&__block_literal_global_961];
+  v22 = [objc_alloc(MEMORY[0x277D3F1F0]) initWithOperator:self forNotification:@"PLThermalMonitorNotification" withBlock:&__block_literal_global_961];
   thermalMonitorListener = self->_thermalMonitorListener;
-  self->_thermalMonitorListener = v23;
+  self->_thermalMonitorListener = v22;
 
-  v25 = objc_alloc(MEMORY[0x277D3F270]);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_972;
-  v31[3] = &unk_27825A1D8;
-  v31[4] = self;
-  v26 = [v25 initWithOperator:self withRegistration:&unk_282C19390 withBlock:v31];
+  v24 = objc_alloc(MEMORY[0x277D3F270]);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_972;
+  v29[3] = &unk_27825A1D8;
+  v29[4] = self;
+  v25 = [v24 initWithOperator:self withRegistration:&unk_282C19390 withBlock:v29];
   remoteControlSessionListener = self->_remoteControlSessionListener;
-  self->_remoteControlSessionListener = v26;
+  self->_remoteControlSessionListener = v25;
 
   if ([(PLWifiAgent *)self hasWiFi])
   {
-    v28 = objc_alloc_init(MEMORY[0x277D7BB28]);
+    v27 = objc_alloc_init(MEMORY[0x277D7BB28]);
     monitor = self->_monitor;
-    self->_monitor = v28;
+    self->_monitor = v27;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BC = result;
   return result;
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_934(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_934(uint64_t a1)
 {
   [*(a1 + 32) log];
   result = [MEMORY[0x277D3F208] isHomePod];
@@ -5441,19 +5360,18 @@ uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_934(uint64_t a
   return result;
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setRemainingAllowedRSSIEntryCount:3];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_3;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (qword_2811F6768 != -1)
     {
       dispatch_once(&qword_2811F6768, block);
@@ -5461,19 +5379,19 @@ uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935(uint64_t
 
     if (byte_2811F66BD == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Logging on mac"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke_2"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2583];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Logging on mac"];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke_2"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:2583];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v14 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v12 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
@@ -5482,14 +5400,13 @@ uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_935(uint64_t
   result = [MEMORY[0x277D3F208] isHomePod];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 32) writeModeledPower];
+    return [*(a1 + 32) writeModeledPower];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_3(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BD = result;
@@ -5498,25 +5415,24 @@ uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_3(uint64_t a1)
 
 void __39__PLWifiAgent_initOperatorDependancies__block_invoke_942(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = [a2 objectForKey:@"entry"];
-    v4 = v3;
-    if (v3)
+    v2 = [a2 objectForKey:@"entry"];
+    v3 = v2;
+    if (v2)
     {
-      [v3 objectForKeyedSubscript:@"Reason"];
+      [v2 objectForKeyedSubscript:@"Reason"];
     }
 
     else if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
+      v4 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_946;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v6;
+      block[4] = v4;
       if (qword_2811F6770 != -1)
       {
         dispatch_once(&qword_2811F6770, block);
@@ -5524,28 +5440,26 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke_942(uint64_t a1, v
 
       if (byte_2811F66BE == 1)
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: No entry object associated with SleepWake entry"];
-        v8 = MEMORY[0x277D3F178];
-        v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-        v10 = [v9 lastPathComponent];
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke"];
-        [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:2597];
+        v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: No entry object associated with SleepWake entry"];
+        v6 = MEMORY[0x277D3F178];
+        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+        v8 = [v7 lastPathComponent];
+        v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent initOperatorDependancies]_block_invoke"];
+        [v6 logMessage:v5 fromFile:v8 fromFunction:v9 fromLineNumber:2597];
 
-        v12 = PLLogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v10 = PLLogCommon();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v16 = v7;
-          _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v13 = v5;
+          _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_2_946(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_2_946(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BE = result;
@@ -5573,7 +5487,7 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke_950(uint64_t a1)
   }
 }
 
-uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_951(uint64_t a1)
+void *__39__PLWifiAgent_initOperatorDependancies__block_invoke_951(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66BF = result;
@@ -5582,38 +5496,35 @@ uint64_t __39__PLWifiAgent_initOperatorDependancies__block_invoke_951(uint64_t a
 
 void __39__PLWifiAgent_initOperatorDependancies__block_invoke_959(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLWifiAgent_initOperatorDependancies__block_invoke_972(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogWifi();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "RemoteControlSession payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "RemoteControlSession payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointRemoteControlSession:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)getCurrentChannelWidth:(__WiFiNetwork *)width
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   Property = WiFiNetworkGetProperty();
   if (Property)
   {
@@ -5621,7 +5532,7 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke_972(uint64_t a1, u
     CFNumberGetValue(Property, kCFNumberSInt32Type, &valuePtr);
     if ((valuePtr & 2) != 0)
     {
-      result = 20;
+      return 20;
     }
 
     else
@@ -5646,12 +5557,12 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke_972(uint64_t a1, u
 
       if ((valuePtr & 4) != 0)
       {
-        result = 40;
+        return 40;
       }
 
       else
       {
-        result = v4;
+        return v4;
       }
     }
   }
@@ -5684,27 +5595,88 @@ void __39__PLWifiAgent_initOperatorDependancies__block_invoke_972(uint64_t a1, u
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           valuePtr = 138412290;
-          v18 = v9;
+          v17 = v9;
           _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", &valuePtr, 0xCu);
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t __38__PLWifiAgent_getCurrentChannelWidth___block_invoke(uint64_t a1)
+void *__38__PLWifiAgent_getCurrentChannelWidth___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C0 = result;
   return result;
 }
 
-uint64_t __78__PLWifiAgent_logFromWiFiNoAvailableCallback_withAvailability_withWakeParams___block_invoke(uint64_t a1)
+- (id)decodeWifiEventLinkReason:(unsigned int)reason
+{
+  if (reason - 1 >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"other(%u)", *&reason];
+  }
+
+  else
+  {
+    v4 = off_278261A48[reason - 1];
+  }
+
+  return v4;
+}
+
+- (void)logFromWiFiNoAvailableCallback:(id)callback withAvailability:(BOOL)availability withWakeParams:(id)params
+{
+  availabilityCopy = availability;
+  v23 = *MEMORY[0x277D85DE8];
+  paramsCopy = params;
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v8 = objc_opt_class();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __78__PLWifiAgent_logFromWiFiNoAvailableCallback_withAvailability_withWakeParams___block_invoke;
+    v20[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v20[4] = v8;
+    if (qword_2811F6788 != -1)
+    {
+      dispatch_once(&qword_2811F6788, v20);
+    }
+
+    if (byte_2811F66C1 == 1)
+    {
+      paramsCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"before dispatch WiFi availability= %d:, wakeparams=%@", availabilityCopy, paramsCopy];
+      v10 = MEMORY[0x277D3F178];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      lastPathComponent = [v11 lastPathComponent];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromWiFiNoAvailableCallback:withAvailability:withWakeParams:]"];
+      [v10 logMessage:paramsCopy fromFile:lastPathComponent fromFunction:v13 fromLineNumber:2769];
+
+      v14 = PLLogCommon();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v22 = paramsCopy;
+        _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  workQueue = [(PLOperator *)self workQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __78__PLWifiAgent_logFromWiFiNoAvailableCallback_withAvailability_withWakeParams___block_invoke_999;
+  block[3] = &unk_2782619D8;
+  v19 = availabilityCopy;
+  block[4] = self;
+  v18 = paramsCopy;
+  v16 = paramsCopy;
+  dispatch_async(workQueue, block);
+}
+
+void *__78__PLWifiAgent_logFromWiFiNoAvailableCallback_withAvailability_withWakeParams___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C1 = result;
@@ -5745,17 +5717,16 @@ void __78__PLWifiAgent_logFromWiFiNoAvailableCallback_withAvailability_withWakeP
 
 void __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
+    v3 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v4;
+    block[4] = v3;
     if (qword_2811F6790 != -1)
     {
       dispatch_once(&qword_2811F6790, block);
@@ -5763,72 +5734,70 @@ void __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke(uint64
 
     if (byte_2811F66C2 == 1)
     {
-      v5 = MEMORY[0x277CCACA8];
-      v6 = [*(a1 + 32) className];
-      v7 = [v5 stringWithFormat:@"%@ got CFCallback %@", v6, *(a1 + 40)];
+      v4 = MEMORY[0x277CCACA8];
+      v5 = [*(a1 + 32) className];
+      v6 = [v4 stringWithFormat:@"%@ got CFCallback %@", v5, *(a1 + 40)];
 
-      v8 = MEMORY[0x277D3F178];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromLinkChangeCallback:withStats:]_block_invoke"];
-      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:2786];
+      v7 = MEMORY[0x277D3F178];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      v9 = [v8 lastPathComponent];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromLinkChangeCallback:withStats:]_block_invoke"];
+      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:2786];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v7;
-        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v22 = v6;
+        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_1005;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v14;
+    v12 = objc_opt_class();
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_1005;
+    v19[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19[4] = v12;
     if (qword_2811F6798 != -1)
     {
-      dispatch_once(&qword_2811F6798, v22);
+      dispatch_once(&qword_2811F6798, v19);
     }
 
     if (byte_2811F66C3 == 1)
     {
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"link change dic: %@", *(a1 + 48)];
-      v16 = MEMORY[0x277D3F178];
-      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      v18 = [v17 lastPathComponent];
-      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromLinkChangeCallback:withStats:]_block_invoke_2"];
-      [v16 logMessage:v15 fromFile:v18 fromFunction:v19 fromLineNumber:2787];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"link change dic: %@", *(a1 + 48)];
+      v14 = MEMORY[0x277D3F178];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      v16 = [v15 lastPathComponent];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromLinkChangeCallback:withStats:]_block_invoke_2"];
+      [v14 logMessage:v13 fromFile:v16 fromFunction:v17 fromLineNumber:2787];
 
-      v20 = PLLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v18 = PLLogCommon();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v15;
-        _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v22 = v13;
+        _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) log];
   objc_autoreleasePoolPop(v2);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_2(uint64_t a1)
+void *__51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C2 = result;
   return result;
 }
 
-uint64_t __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_1005(uint64_t a1)
+void *__51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_1005(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C3 = result;
@@ -5855,17 +5824,16 @@ uint64_t __51__PLWifiAgent_logFromLinkChangeCallback_withStats___block_invoke_10
 
 void __52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
+    v3 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v4;
+    block[4] = v3;
     if (qword_2811F67A0 != -1)
     {
       dispatch_once(&qword_2811F67A0, block);
@@ -5873,32 +5841,31 @@ void __52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke(uint6
 
     if (byte_2811F66C4 == 1)
     {
-      v5 = MEMORY[0x277CCACA8];
-      v6 = [*(a1 + 32) className];
-      v7 = [v5 stringWithFormat:@"%@ got AJCallback %@", v6, *(a1 + 40)];
+      v4 = MEMORY[0x277CCACA8];
+      v5 = [*(a1 + 32) className];
+      v6 = [v4 stringWithFormat:@"%@ got AJCallback %@", v5, *(a1 + 40)];
 
-      v8 = MEMORY[0x277D3F178];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromAJCallback:withFlag:withStats:]_block_invoke"];
-      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:2815];
+      v7 = MEMORY[0x277D3F178];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      v9 = [v8 lastPathComponent];
+      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logFromAJCallback:withFlag:withStats:]_block_invoke"];
+      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:2815];
 
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v16 = v7;
-        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v14 = v6;
+        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventPointJoin:*(a1 + 56) withStats:*(a1 + 48)];
   objc_autoreleasePoolPop(v2);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke_2(uint64_t a1)
+void *__52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C4 = result;
@@ -5907,7 +5874,7 @@ uint64_t __52__PLWifiAgent_logFromAJCallback_withFlag_withStats___block_invoke_2
 
 - (void)logEventPointWake:(id)wake
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   wakeCopy = wake;
   if ([(PLWifiAgent *)self hasWiFi])
   {
@@ -5925,14 +5892,14 @@ LABEL_12:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v12 = objc_opt_class();
-        v93[0] = MEMORY[0x277D85DD0];
-        v93[1] = 3221225472;
-        v93[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1027;
-        v93[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v93[4] = v12;
+        v92[0] = MEMORY[0x277D85DD0];
+        v92[1] = 3221225472;
+        v92[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1027;
+        v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v92[4] = v12;
         if (qword_2811F67B8 != -1)
         {
-          dispatch_once(&qword_2811F67B8, v93);
+          dispatch_once(&qword_2811F67B8, v92);
         }
 
         if (byte_2811F66C7 == 1)
@@ -5948,7 +5915,7 @@ LABEL_12:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v97 = v13;
+            v96 = v13;
             _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -5971,9 +5938,9 @@ LABEL_12:
       v29 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"Wake"];
       v30 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v29];
       [v30 setObject:v28 forKeyedSubscript:@"WakeReason"];
-      v87 = v27;
+      v86 = v27;
       [v30 setObject:v27 forKeyedSubscript:@"WakeTime"];
-      v88 = v20;
+      v87 = v20;
       [v30 setObject:v20 forKeyedSubscript:@"TCPKAWakeReason"];
       if (v11)
       {
@@ -5995,56 +5962,56 @@ LABEL_12:
 
         else if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v73 = objc_opt_class();
-          v90[0] = MEMORY[0x277D85DD0];
-          v90[1] = 3221225472;
-          v90[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1094;
-          v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v90[4] = v73;
+          v72 = objc_opt_class();
+          v89[0] = MEMORY[0x277D85DD0];
+          v89[1] = 3221225472;
+          v89[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1094;
+          v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v89[4] = v72;
           if (qword_2811F67D0 != -1)
           {
-            dispatch_once(&qword_2811F67D0, v90);
+            dispatch_once(&qword_2811F67D0, v89);
           }
 
           if (byte_2811F66CA == 1)
           {
-            v74 = v29;
-            v86 = v28;
-            v82 = v11;
-            v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: unrecognized wake reason: %@", v28];
-            v76 = MEMORY[0x277D3F178];
-            v77 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-            lastPathComponent2 = [v77 lastPathComponent];
-            v79 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWake:]"];
-            [v76 logMessage:v75 fromFile:lastPathComponent2 fromFunction:v79 fromLineNumber:2910];
+            v73 = v29;
+            v85 = v28;
+            v81 = v11;
+            v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: unrecognized wake reason: %@", v28];
+            v75 = MEMORY[0x277D3F178];
+            v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+            lastPathComponent2 = [v76 lastPathComponent];
+            v78 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWake:]"];
+            [v75 logMessage:v74 fromFile:lastPathComponent2 fromFunction:v78 fromLineNumber:2910];
 
-            v80 = PLLogCommon();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+            v79 = PLLogCommon();
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v97 = v75;
-              _os_log_debug_impl(&dword_21A4C6000, v80, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v96 = v74;
+              _os_log_debug_impl(&dword_21A4C6000, v79, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v11 = v82;
-            v28 = v86;
-            v29 = v74;
+            v11 = v81;
+            v28 = v85;
+            v29 = v73;
           }
         }
 
         goto LABEL_51;
       }
 
-      v85 = v28;
+      v84 = v28;
       [(PLWifiAgent *)self logEventPointWakeDataFrame:v11 withParams:v5 toEntry:v30];
       v32 = [v30 objectForKeyedSubscript:@"tcp_dest_port"];
-      v83 = v29;
-      v84 = wakeCopy;
+      v82 = v29;
+      v83 = wakeCopy;
       if (v32 && (v33 = v32, [v30 objectForKeyedSubscript:@"tcp_source_port"], v34 = objc_claimAutoreleasedReturnValue(), v34, v33, v34))
       {
         v35 = MEMORY[0x277CCABB0];
         v36 = [v30 objectForKeyedSubscript:@"tcp_dest_port"];
-        v89 = [v35 numberWithInteger:{objc_msgSend(v36, "integerValue")}];
+        v88 = [v35 numberWithInteger:{objc_msgSend(v36, "integerValue")}];
 
         v37 = MEMORY[0x277CCABB0];
         v38 = @"tcp_source_port";
@@ -6061,14 +6028,14 @@ LABEL_12:
           }
 
           v47 = objc_opt_class();
-          v92[0] = MEMORY[0x277D85DD0];
-          v92[1] = 3221225472;
-          v92[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1066;
-          v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v92[4] = v47;
+          v91[0] = MEMORY[0x277D85DD0];
+          v91[1] = 3221225472;
+          v91[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1066;
+          v91[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v91[4] = v47;
           if (qword_2811F67C0 != -1)
           {
-            dispatch_once(&qword_2811F67C0, v92);
+            dispatch_once(&qword_2811F67C0, v91);
           }
 
           if (byte_2811F66C8 != 1)
@@ -6076,7 +6043,7 @@ LABEL_12:
 LABEL_40:
             v46 = v11;
             v45 = 0;
-            v89 = 0;
+            v88 = 0;
             goto LABEL_41;
           }
 
@@ -6091,12 +6058,12 @@ LABEL_40:
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v97 = v44;
+            v96 = v44;
             _os_log_debug_impl(&dword_21A4C6000, v52, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
           v45 = 0;
-          v89 = 0;
+          v88 = 0;
 LABEL_30:
           v46 = v11;
 
@@ -6105,25 +6072,25 @@ LABEL_41:
           v54 = [v30 objectForKeyedSubscript:@"ip_destination"];
           v55 = [v30 objectForKeyedSubscript:@"ip_source"];
           v56 = [v30 objectForKeyedSubscript:@"ip_protocol"];
-          v57 = [v53 pidAndProcessNameForDestAddress:v54 withDestPort:v89 withSourceAddress:v55 withSourcePort:v45 withProtocol:v56];
+          v57 = [v53 pidAndProcessNameForDestAddress:v54 withDestPort:v88 withSourceAddress:v55 withSourcePort:v45 withProtocol:v56];
 
           v11 = v46;
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
             v58 = objc_opt_class();
-            v91[0] = MEMORY[0x277D85DD0];
-            v91[1] = 3221225472;
-            v91[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1082;
-            v91[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v91[4] = v58;
+            v90[0] = MEMORY[0x277D85DD0];
+            v90[1] = 3221225472;
+            v90[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1082;
+            v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v90[4] = v58;
             if (qword_2811F67C8 != -1)
             {
-              dispatch_once(&qword_2811F67C8, v91);
+              dispatch_once(&qword_2811F67C8, v90);
             }
 
             if (byte_2811F66C9 == 1)
             {
-              v81 = v46;
+              v80 = v46;
               v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"pidAndProcessName=%@", v57];
               v60 = MEMORY[0x277D3F178];
               v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
@@ -6135,11 +6102,11 @@ LABEL_41:
               if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v97 = v59;
+                v96 = v59;
                 _os_log_debug_impl(&dword_21A4C6000, v64, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v11 = v81;
+              v11 = v80;
             }
           }
 
@@ -6152,9 +6119,9 @@ LABEL_41:
             [v30 setObject:processName forKeyedSubscript:@"ProcessName"];
           }
 
-          wakeCopy = v84;
-          v28 = v85;
-          v29 = v83;
+          wakeCopy = v83;
+          v28 = v84;
+          v29 = v82;
 LABEL_51:
           [(PLOperator *)self logEntry:v30];
 
@@ -6163,7 +6130,7 @@ LABEL_51:
 
         v42 = MEMORY[0x277CCABB0];
         v43 = [v30 objectForKeyedSubscript:@"udp_dest_port"];
-        v89 = [v42 numberWithInteger:{objc_msgSend(v43, "integerValue")}];
+        v88 = [v42 numberWithInteger:{objc_msgSend(v43, "integerValue")}];
 
         v37 = MEMORY[0x277CCABB0];
         v38 = @"udp_source_port";
@@ -6176,25 +6143,25 @@ LABEL_51:
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v68 = objc_opt_class();
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1021;
-      v94[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v94[4] = v68;
+      v67 = objc_opt_class();
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = __33__PLWifiAgent_logEventPointWake___block_invoke_1021;
+      v93[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v93[4] = v67;
       if (qword_2811F67B0 != -1)
       {
-        dispatch_once(&qword_2811F67B0, v94);
+        dispatch_once(&qword_2811F67B0, v93);
       }
 
       if (byte_2811F66C6 == 1)
       {
         v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: woke up for wlan but WoW wakeup parameters dictionary returned nil"];
-        v69 = MEMORY[0x277D3F178];
-        v70 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-        lastPathComponent5 = [v70 lastPathComponent];
-        v72 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWake:]"];
-        [v69 logMessage:v5 fromFile:lastPathComponent5 fromFunction:v72 fromLineNumber:2859];
+        v68 = MEMORY[0x277D3F178];
+        v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+        lastPathComponent5 = [v69 lastPathComponent];
+        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWake:]"];
+        [v68 logMessage:v5 fromFile:lastPathComponent5 fromFunction:v71 fromLineNumber:2859];
 
         v11 = PLLogCommon();
         if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
@@ -6203,7 +6170,7 @@ LABEL_51:
         }
 
         *buf = 138412290;
-        v97 = v5;
+        v96 = v5;
         goto LABEL_10;
       }
     }
@@ -6240,7 +6207,7 @@ LABEL_52:
       }
 
       *buf = 138412290;
-      v97 = v5;
+      v96 = v5;
 LABEL_10:
       _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       goto LABEL_52;
@@ -6248,46 +6215,44 @@ LABEL_10:
   }
 
 LABEL_53:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C5 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1021(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke_1021(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C6 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1027(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke_1027(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C7 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1066(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke_1066(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C8 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1082(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke_1082(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66C9 = result;
   return result;
 }
 
-uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
+void *__33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CA = result;
@@ -6296,16 +6261,16 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
 
 - (void)logEventPointWakeDataFrame:(id)frame withParams:(id)params toEntry:(id)entry
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   entryCopy = entry;
   if ([frameCopy length] > 0xE)
   {
     [frameCopy getBytes:buf length:14];
     v15 = [frameCopy subdataWithRange:{14, objc_msgSend(frameCopy, "length") - 14}];
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", buf[0], buf[1], buf[2], buf[3], v95, BYTE1(v95)];;
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", BYTE2(v95), BYTE3(v95), BYTE4(v95), BYTE5(v95), BYTE6(v95), HIBYTE(v95)];;
-    v18 = [MEMORY[0x277D3F1F8] decodeEtherType:bswap32(v96) >> 16];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", buf[0], buf[1], buf[2], buf[3], v94, BYTE1(v94)];;
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", BYTE2(v94), BYTE3(v94), BYTE4(v94), BYTE5(v94), BYTE6(v94), HIBYTE(v94)];;
+    v18 = [MEMORY[0x277D3F1F8] decodeEtherType:bswap32(v95) >> 16];
     [entryCopy setObject:v17 forKeyedSubscript:@"RemoteMAC"];
     [entryCopy setObject:v16 forKeyedSubscript:@"LocalMAC"];
     [entryCopy setObject:v18 forKeyedSubscript:@"EtherType"];
@@ -6315,19 +6280,19 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
       debugEnabled = [MEMORY[0x277D3F180] debugEnabled];
       if (v19)
       {
-        v84 = v15;
-        v85 = v16;
+        v83 = v15;
+        v84 = v16;
         if (debugEnabled)
         {
           v21 = objc_opt_class();
-          v89[0] = MEMORY[0x277D85DD0];
-          v89[1] = 3221225472;
-          v89[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1128;
-          v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v89[4] = v21;
+          v88[0] = MEMORY[0x277D85DD0];
+          v88[1] = 3221225472;
+          v88[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1128;
+          v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v88[4] = v21;
           if (qword_2811F67E8 != -1)
           {
-            dispatch_once(&qword_2811F67E8, v89);
+            dispatch_once(&qword_2811F67E8, v88);
           }
 
           if (byte_2811F66CD == 1)
@@ -6342,9 +6307,9 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
             v27 = PLLogCommon();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
-              *v92 = 138412290;
-              v93 = v22;
-              _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", v92, 0xCu);
+              *v91 = 138412290;
+              v92 = v22;
+              _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", v91, 0xCu);
             }
           }
         }
@@ -6422,8 +6387,8 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
 
           if (!v77)
           {
-            v15 = v84;
-            v16 = v85;
+            v15 = v83;
+            v16 = v84;
             goto LABEL_42;
           }
 
@@ -6442,7 +6407,7 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
 
         [entryCopy setObject:v64 forKeyedSubscript:v65];
 
-        v16 = v85;
+        v16 = v84;
       }
 
       else
@@ -6453,14 +6418,14 @@ uint64_t __33__PLWifiAgent_logEventPointWake___block_invoke_1094(uint64_t a1)
         }
 
         v66 = objc_opt_class();
-        v90[0] = MEMORY[0x277D85DD0];
-        v90[1] = 3221225472;
-        v90[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1122;
-        v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v90[4] = v66;
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1122;
+        v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v89[4] = v66;
         if (qword_2811F67E0 != -1)
         {
-          dispatch_once(&qword_2811F67E0, v90);
+          dispatch_once(&qword_2811F67E0, v89);
         }
 
         if (byte_2811F66CC != 1)
@@ -6470,8 +6435,8 @@ LABEL_40:
           goto LABEL_42;
         }
 
-        v84 = v15;
-        v86 = v16;
+        v83 = v15;
+        v85 = v16;
         v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to decode IP packet"];
         v67 = MEMORY[0x277D3F178];
         v68 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
@@ -6482,15 +6447,15 @@ LABEL_40:
         v63 = PLLogCommon();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
         {
-          *v92 = 138412290;
-          v93 = v62;
-          _os_log_debug_impl(&dword_21A4C6000, v63, OS_LOG_TYPE_DEBUG, "%@", v92, 0xCu);
+          *v91 = 138412290;
+          v92 = v62;
+          _os_log_debug_impl(&dword_21A4C6000, v63, OS_LOG_TYPE_DEBUG, "%@", v91, 0xCu);
         }
 
-        v16 = v86;
+        v16 = v85;
       }
 
-      v15 = v84;
+      v15 = v83;
     }
 
     else
@@ -6501,14 +6466,14 @@ LABEL_40:
       }
 
       v71 = objc_opt_class();
-      v88[0] = MEMORY[0x277D85DD0];
-      v88[1] = 3221225472;
-      v88[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1191;
-      v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v88[4] = v71;
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1191;
+      v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v87[4] = v71;
       if (qword_2811F67F0 != -1)
       {
-        dispatch_once(&qword_2811F67F0, v88);
+        dispatch_once(&qword_2811F67F0, v87);
       }
 
       if (byte_2811F66CE != 1)
@@ -6516,7 +6481,7 @@ LABEL_40:
         goto LABEL_43;
       }
 
-      v87 = v16;
+      v86 = v16;
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unrelated etherType: %@", v18];
       v72 = MEMORY[0x277D3F178];
       v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
@@ -6527,12 +6492,12 @@ LABEL_40:
       v62 = PLLogCommon();
       if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
       {
-        *v92 = 138412290;
-        v93 = v19;
-        _os_log_debug_impl(&dword_21A4C6000, v62, OS_LOG_TYPE_DEBUG, "%@", v92, 0xCu);
+        *v91 = 138412290;
+        v92 = v19;
+        _os_log_debug_impl(&dword_21A4C6000, v62, OS_LOG_TYPE_DEBUG, "%@", v91, 0xCu);
       }
 
-      v16 = v87;
+      v16 = v86;
     }
 
 LABEL_42:
@@ -6567,39 +6532,37 @@ LABEL_43:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v95 = v9;
+        v94 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
 LABEL_44:
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke(uint64_t a1)
+void *__61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CB = result;
   return result;
 }
 
-uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1122(uint64_t a1)
+void *__61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1122(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CC = result;
   return result;
 }
 
-uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1128(uint64_t a1)
+void *__61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1128(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CD = result;
   return result;
 }
 
-uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1191(uint64_t a1)
+void *__61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block_invoke_1191(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CE = result;
@@ -6608,15 +6571,15 @@ uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block
 
 - (void)logEventPointWakePNO:(id)o withParams:(id)params toEntry:(id)entry
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   oCopy = o;
   entryCopy = entry;
   v9 = [params objectForCFString:@"IO80211InterfaceWoWWakeUpCommand"];
-  memset(v53, 0, sizeof(v53));
-  v49 = 0;
-  memset(v48, 0, sizeof(v48));
-  memset(v52, 0, 44);
-  v44 = v9;
+  memset(v52, 0, sizeof(v52));
+  v48 = 0;
+  memset(v47, 0, sizeof(v47));
+  memset(v51, 0, 44);
+  v43 = v9;
   if ([oCopy length] <= 0x67)
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -6644,10 +6607,10 @@ uint64_t __61__PLWifiAgent_logEventPointWakeDataFrame_withParams_toEntry___block
         v16 = PLLogCommon();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          *v54 = 138412290;
-          v55 = v11;
+          *v53 = 138412290;
+          v54 = v11;
 LABEL_40:
-          _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", v54, 0xCu);
+          _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", v53, 0xCu);
           goto LABEL_28;
         }
 
@@ -6658,26 +6621,26 @@ LABEL_40:
     goto LABEL_31;
   }
 
-  [oCopy getBytes:v53 length:48];
-  [oCopy getBytes:v48 range:{48, 56}];
-  if (v53[1] != 553648128)
+  [oCopy getBytes:v52 length:48];
+  [oCopy getBytes:v47 range:{48, 56}];
+  if (v52[1] != 553648128)
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v33 = objc_opt_class();
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1200;
-      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v46[4] = v33;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1200;
+      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v45[4] = v33;
       if (qword_2811F6800 != -1)
       {
-        dispatch_once(&qword_2811F6800, v46);
+        dispatch_once(&qword_2811F6800, v45);
       }
 
       if (byte_2811F66D0 == 1)
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi Logger wl_event_msg_t.event_type (0x%x) and wow_wakeup_command (%@ 0x%x) don't match", bswap32(v53[1]), v9, 16];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi Logger wl_event_msg_t.event_type (0x%x) and wow_wakeup_command (%@ 0x%x) don't match", bswap32(v52[1]), v9, 16];
         v34 = MEMORY[0x277D3F178];
         v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent2 = [v35 lastPathComponent];
@@ -6687,8 +6650,8 @@ LABEL_40:
         v16 = PLLogCommon();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          *v54 = 138412290;
-          v55 = v11;
+          *v53 = 138412290;
+          v54 = v11;
           goto LABEL_40;
         }
 
@@ -6703,21 +6666,21 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v48[2]];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v47[2]];
   [entryCopy setObject:v17 forKeyedSubscript:@"network_count"];
 
-  v18 = v48[2];
-  if (v48[2] >= 5)
+  v18 = v47[2];
+  if (v47[2] >= 5)
   {
     v19 = 5;
   }
 
   else
   {
-    v19 = v48[2];
+    v19 = v47[2];
   }
 
-  v48[2] = v19;
+  v47[2] = v19;
   if (!v18)
   {
     goto LABEL_31;
@@ -6730,51 +6693,51 @@ LABEL_31:
   {
     if (v20)
     {
-      [oCopy getBytes:v52 range:{v22, 44}];
+      [oCopy getBytes:v51 range:{v22, 44}];
     }
 
     else
     {
-      v23 = *((v48 | 0xC) + 0x10);
-      v52[0] = *(v48 | 0xC);
-      v52[1] = v23;
-      *(&v52[1] + 12) = *((v48 | 0xC) + 0x1C);
+      v23 = *((v47 | 0xC) + 0x10);
+      v51[0] = *(v47 | 0xC);
+      v51[1] = v23;
+      *(&v51[1] + 12) = *((v47 | 0xC) + 0x1C);
     }
 
-    if (BYTE7(v52[0]) >= 0x20u)
+    if (BYTE7(v51[0]) >= 0x20u)
     {
       v24 = 32;
     }
 
     else
     {
-      v24 = BYTE7(v52[0]);
+      v24 = BYTE7(v51[0]);
     }
 
-    BYTE7(v52[0]) = v24;
+    BYTE7(v51[0]) = v24;
     __memcpy_chk();
-    v54[v24] = 0;
-    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", LOBYTE(v52[0]), BYTE1(v52[0]), BYTE2(v52[0]), BYTE3(v52[0]), BYTE4(v52[0]), BYTE5(v52[0])];
+    v53[v24] = 0;
+    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x:%02x:%02x:%02x:%02x:%02x", LOBYTE(v51[0]), BYTE1(v51[0]), BYTE2(v51[0]), BYTE3(v51[0]), BYTE4(v51[0]), BYTE5(v51[0])];
 
-    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE6(v52[0])];
+    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE6(v51[0])];
     v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"network%d_channel", v20];
     [entryCopy setObject:v26 forKeyedSubscript:v27];
 
-    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:v54];
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:v53];
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"network%d_ssid", v20];
     [entryCopy setObject:v28 forKeyedSubscript:v29];
 
     v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"network%d_bssid", v20];
     [entryCopy setObject:v25 forKeyedSubscript:v30];
 
-    v31 = [MEMORY[0x277CCABB0] numberWithInt:SWORD4(v52[2])];
+    v31 = [MEMORY[0x277CCABB0] numberWithInt:SWORD4(v51[2])];
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"network%d_rssi", v20];
     [entryCopy setObject:v31 forKeyedSubscript:v32];
 
     ++v20;
     v22 += 44;
     v21 = v25;
-    if (v20 >= v48[2])
+    if (v20 >= v47[2])
     {
       goto LABEL_32;
     }
@@ -6785,15 +6748,15 @@ LABEL_31:
     goto LABEL_30;
   }
 
-  v39 = objc_opt_class();
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1209;
-  v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-  v45[4] = v39;
+  v38 = objc_opt_class();
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1209;
+  v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+  v44[4] = v38;
   if (qword_2811F6808 != -1)
   {
-    dispatch_once(&qword_2811F6808, v45);
+    dispatch_once(&qword_2811F6808, v44);
   }
 
   if (byte_2811F66D1 != 1)
@@ -6802,17 +6765,17 @@ LABEL_31:
   }
 
   v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"WoW wake payload too small to decode all PNO networks"];
-  v40 = MEMORY[0x277D3F178];
-  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-  lastPathComponent3 = [v41 lastPathComponent];
-  v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWakePNO:withParams:toEntry:]"];
-  [v40 logMessage:v11 fromFile:lastPathComponent3 fromFunction:v43 fromLineNumber:3004];
+  v39 = MEMORY[0x277D3F178];
+  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+  lastPathComponent3 = [v40 lastPathComponent];
+  v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventPointWakePNO:withParams:toEntry:]"];
+  [v39 logMessage:v11 fromFile:lastPathComponent3 fromFunction:v42 fromLineNumber:3004];
 
   v16 = PLLogCommon();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v51 = v11;
+    v50 = v11;
     _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -6821,25 +6784,23 @@ LABEL_29:
 LABEL_30:
   v25 = v21;
 LABEL_32:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke(uint64_t a1)
+void *__55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66CF = result;
   return result;
 }
 
-uint64_t __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1200(uint64_t a1)
+void *__55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1200(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D0 = result;
   return result;
 }
 
-uint64_t __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1209(uint64_t a1)
+void *__55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invoke_1209(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D1 = result;
@@ -6848,16 +6809,16 @@ uint64_t __55__PLWifiAgent_logEventPointWakePNO_withParams_toEntry___block_invok
 
 - (void)logEventPointWakeLink:(id)link withParams:(id)params toEntry:(id)entry
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   entryCopy = entry;
-  memset(v30, 0, sizeof(v30));
+  memset(v29, 0, sizeof(v29));
   if ([linkCopy length] > 0x2F)
   {
-    [linkCopy getBytes:v30 length:48];
-    if (DWORD1(v30[0]) == 0x10000000)
+    [linkCopy getBytes:v29 length:48];
+    if (DWORD1(v29[0]) == 0x10000000)
     {
-      v10 = [(PLWifiAgent *)self decodeWifiEventLinkReason:bswap32(HIDWORD(v30[0]))];
+      v10 = [(PLWifiAgent *)self decodeWifiEventLinkReason:bswap32(HIDWORD(v29[0]))];
       [entryCopy setObject:v10 forKeyedSubscript:@"loss_reason"];
 LABEL_16:
 
@@ -6867,19 +6828,19 @@ LABEL_16:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v16 = objc_opt_class();
-      v22 = MEMORY[0x277D85DD0];
-      v23 = 3221225472;
-      v24 = __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke_1236;
-      v25 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26 = v16;
+      v21 = MEMORY[0x277D85DD0];
+      v22 = 3221225472;
+      v23 = __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke_1236;
+      v24 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v25 = v16;
       if (qword_2811F6818 != -1)
       {
-        dispatch_once(&qword_2811F6818, &v22);
+        dispatch_once(&qword_2811F6818, &v21);
       }
 
       if (byte_2811F66D3 == 1)
       {
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi Logger wl_event_msg_t.event_type (0x%x) and wow_wakeup_command (0x%x) don't match", bswap32(DWORD1(v30[0])), 16, v22, v23, v24, v25, v26];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi Logger wl_event_msg_t.event_type (0x%x) and wow_wakeup_command (0x%x) don't match", bswap32(DWORD1(v29[0])), 16, v21, v22, v23, v24, v25];
         v17 = MEMORY[0x277D3F178];
         v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent = [v18 lastPathComponent];
@@ -6890,7 +6851,7 @@ LABEL_16:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v29 = v10;
+          v28 = v10;
           goto LABEL_19;
         }
 
@@ -6927,7 +6888,7 @@ LABEL_15:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v10;
+        v28 = v10;
 LABEL_19:
         _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         goto LABEL_15;
@@ -6938,18 +6899,16 @@ LABEL_19:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke(uint64_t a1)
+void *__56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D2 = result;
   return result;
 }
 
-uint64_t __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke_1236(uint64_t a1)
+void *__56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invoke_1236(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D3 = result;
@@ -6959,7 +6918,7 @@ uint64_t __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invo
 - (void)logEventPointJoin:(unsigned __int8)join withStats:(id)stats
 {
   joinCopy = join;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statsCopy = stats;
   if ([(PLWifiAgent *)self hasWiFi])
   {
@@ -7003,16 +6962,14 @@ uint64_t __56__PLWifiAgent_logEventPointWakeLink_withParams_toEntry___block_invo
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v12;
+        v20 = v12;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLWifiAgent_logEventPointJoin_withStats___block_invoke(uint64_t a1)
+void *__43__PLWifiAgent_logEventPointJoin_withStats___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D4 = result;
@@ -7031,18 +6988,18 @@ uint64_t __43__PLWifiAgent_logEventPointJoin_withStats___block_invoke(uint64_t a
 
 - (void)logEventForwardModuleInfo
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ([(PLWifiAgent *)self hasWiFi])
   {
     v3 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"ModuleInfo"];
-    storage = [(PLOperator *)self storage];
-    v5 = [storage lastEntryForKey:v3];
+    v4 = objc_msgSend_storage(self);
+    v5 = [v4 lastEntryForKey:v3];
 
     if (v5)
     {
 LABEL_32:
 
-      goto LABEL_33;
+      return;
     }
 
     [(PLWifiAgent *)self wifiDevice];
@@ -7050,14 +7007,14 @@ LABEL_32:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v7 = objc_opt_class();
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248;
-      v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v31[4] = v7;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v7;
       if (qword_2811F6830 != -1)
       {
-        dispatch_once(&qword_2811F6830, v31);
+        dispatch_once(&qword_2811F6830, v30);
       }
 
       if (byte_2811F66D6 == 1)
@@ -7073,7 +7030,7 @@ LABEL_32:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v34 = v8;
+          v33 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -7115,7 +7072,7 @@ LABEL_32:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v34 = v14;
+          v33 = v14;
           _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "WiFi Chipset: %@", buf, 0xCu);
         }
 
@@ -7181,26 +7138,23 @@ LABEL_31:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v34 = v3;
+        v33 = v3;
         _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       goto LABEL_31;
     }
   }
-
-LABEL_33:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke(uint64_t a1)
+void *__40__PLWifiAgent_logEventForwardModuleInfo__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D5 = result;
   return result;
 }
 
-uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t a1)
+void *__40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D6 = result;
@@ -7209,7 +7163,7 @@ uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t
 
 - (void)logEventForwardRSSI:(id)i
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   iCopy = i;
   if (iCopy)
   {
@@ -7217,10 +7171,10 @@ uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t
     {
       v5 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __35__PLWifiAgent_logEventForwardRSSI___block_invoke;
-      v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v21 = v5;
+      v17 = 3221225472;
+      v18 = __35__PLWifiAgent_logEventForwardRSSI___block_invoke;
+      v19 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v20 = v5;
       if (qword_2811F6838 != -1)
       {
         dispatch_once(&qword_2811F6838, &block);
@@ -7228,7 +7182,7 @@ uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t
 
       if (byte_2811F66D7 == 1)
       {
-        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"LinkQuality Callback: %@", iCopy, block, v18, v19, v20, v21];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"LinkQuality Callback: %@", iCopy, block, v17, v18, v19, v20];
         v7 = MEMORY[0x277D3F178];
         v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent = [v8 lastPathComponent];
@@ -7239,7 +7193,7 @@ uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v23 = v6;
+          v22 = v6;
           _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -7254,15 +7208,24 @@ uint64_t __40__PLWifiAgent_logEventForwardModuleInfo__block_invoke_1248(uint64_t
     [(PLOperator *)self logEntry:v15];
     [(PLWifiAgent *)self setRemainingAllowedRSSIEntryCount:[(PLWifiAgent *)self remainingAllowedRSSIEntryCount]- 1];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __35__PLWifiAgent_logEventForwardRSSI___block_invoke(uint64_t a1)
+void *__35__PLWifiAgent_logEventForwardRSSI___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D7 = result;
   return result;
+}
+
+- (void)logEventForwardWifiAssist:(BOOL)assist
+{
+  assistCopy = assist;
+  v7 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"WifiAssist"];
+  v5 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v7];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:assistCopy];
+  [v5 setObject:v6 forKeyedSubscript:@"WifiAssistFallback"];
+
+  [(PLOperator *)self logEntry:v5];
 }
 
 - (void)logAWDLStateEntry:(id)entry
@@ -7276,7 +7239,7 @@ uint64_t __35__PLWifiAgent_logEventForwardRSSI___block_invoke(uint64_t a1)
 
 - (void)logEventForwardAWDLState:(id)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (stateCopy)
   {
@@ -7306,15 +7269,15 @@ uint64_t __35__PLWifiAgent_logEventForwardRSSI___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v23 = stateCopy;
+          v22 = stateCopy;
           _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
     v12 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"AWDLState"];
-    storage = [(PLOperator *)self storage];
-    v14 = [storage lastEntryForKey:v12];
+    v13 = objc_msgSend_storage(self);
+    v14 = [v13 lastEntryForKey:v12];
 
     if (!v14 || ([v14 objectForKeyedSubscript:@"AWDLDown"], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "objectForKeyedSubscript:", @"LINK_CHANGED_IS_LINKDOWN"), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v15 != v16))
     {
@@ -7323,25 +7286,23 @@ uint64_t __35__PLWifiAgent_logEventForwardRSSI___block_invoke(uint64_t a1)
       [v17 setObject:v18 forKeyedSubscript:@"AWDLDown"];
 
       [v17 setObject:&unk_282C12DF8 forKeyedSubscript:@"AWDLRanging"];
-      v20 = 0;
+      v19 = 0;
       [(PLWifiAgent *)self wifiAwdlDevice];
       WiFiDeviceClientCopyInterfaceStateInfo();
       [(PLOperator *)self logEntry:v17];
       [(PLWifiAgent *)self logAWDLStateEntry:v17];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke(uint64_t a1)
+void *__40__PLWifiAgent_logEventForwardAWDLState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D8 = result;
   return result;
 }
 
-uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t a1)
+void *__40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66D9 = result;
@@ -7350,7 +7311,7 @@ uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t
 
 - (void)logEventForwardHotspotState:(id)state
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = stateCopy;
   if (stateCopy)
@@ -7391,15 +7352,15 @@ uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v48 = v12;
+              v47 = v12;
               _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
 
         v18 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"HotspotState"];
-        storage = [(PLOperator *)self storage];
-        v20 = [storage lastEntryForKey:v18];
+        v19 = objc_msgSend_storage(self);
+        v20 = [v19 lastEntryForKey:v18];
 
         if (v20)
         {
@@ -7428,15 +7389,15 @@ uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t
                     goto LABEL_19;
                   }
 
-                  v37 = objc_opt_class();
-                  v45[0] = MEMORY[0x277D85DD0];
-                  v45[1] = 3221225472;
-                  v45[2] = __43__PLWifiAgent_logEventForwardHotspotState___block_invoke_1298;
-                  v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-                  v45[4] = v37;
+                  v36 = objc_opt_class();
+                  v44[0] = MEMORY[0x277D85DD0];
+                  v44[1] = 3221225472;
+                  v44[2] = __43__PLWifiAgent_logEventForwardHotspotState___block_invoke_1298;
+                  v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+                  v44[4] = v36;
                   if (qword_2811F6858 != -1)
                   {
-                    dispatch_once(&qword_2811F6858, v45);
+                    dispatch_once(&qword_2811F6858, v44);
                   }
 
                   if (byte_2811F66DB != 1)
@@ -7445,18 +7406,18 @@ uint64_t __40__PLWifiAgent_logEventForwardAWDLState___block_invoke_1289(uint64_t
                   }
 
                   v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Same hotspot data: %@", v5];
-                  v38 = MEMORY[0x277D3F178];
-                  v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-                  lastPathComponent2 = [v39 lastPathComponent];
-                  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventForwardHotspotState:]"];
-                  [v38 logMessage:v29 fromFile:lastPathComponent2 fromFunction:v41 fromLineNumber:3313];
+                  v37 = MEMORY[0x277D3F178];
+                  v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+                  lastPathComponent2 = [v38 lastPathComponent];
+                  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventForwardHotspotState:]"];
+                  [v37 logMessage:v29 fromFile:lastPathComponent2 fromFunction:v40 fromLineNumber:3313];
 
-                  v42 = PLLogCommon();
-                  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+                  v41 = PLLogCommon();
+                  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v48 = v29;
-                    _os_log_debug_impl(&dword_21A4C6000, v42, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                    v47 = v29;
+                    _os_log_debug_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
 LABEL_18:
@@ -7491,18 +7452,16 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLWifiAgent_logEventForwardHotspotState___block_invoke(uint64_t a1)
+void *__43__PLWifiAgent_logEventForwardHotspotState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DA = result;
   return result;
 }
 
-uint64_t __43__PLWifiAgent_logEventForwardHotspotState___block_invoke_1298(uint64_t a1)
+void *__43__PLWifiAgent_logEventForwardHotspotState___block_invoke_1298(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DB = result;
@@ -7511,7 +7470,7 @@ uint64_t __43__PLWifiAgent_logEventForwardHotspotState___block_invoke_1298(uint6
 
 - (void)updateEventBackwardUserScanDuration:(id)duration
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   durationCopy = duration;
   if (durationCopy)
   {
@@ -7565,7 +7524,7 @@ LABEL_22:
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v31 = v22;
+                v30 = v22;
                 _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -7604,18 +7563,8 @@ LABEL_12:
       {
         v8 = [v5 count];
         v9 = [durationCopy objectForKey:@"SCAN_DWELL_TIME"];
-        if (!v9)
+        if (!v9 || (v10 = v9, [durationCopy objectForKey:@"SCAN_DWELL_TIME"], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEB68], "null"), v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v11 == v12))
         {
-          goto LABEL_19;
-        }
-
-        v10 = v9;
-        v11 = [durationCopy objectForKey:@"SCAN_DWELL_TIME"];
-        null = [MEMORY[0x277CBEB68] null];
-
-        if (v11 == null)
-        {
-LABEL_19:
           intValue = 110;
 LABEL_20:
           v17 = intValue * v8;
@@ -7646,11 +7595,9 @@ LABEL_29:
   }
 
 LABEL_31:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__PLWifiAgent_updateEventBackwardUserScanDuration___block_invoke(uint64_t a1)
+void *__51__PLWifiAgent_updateEventBackwardUserScanDuration___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DC = result;
@@ -7685,35 +7632,292 @@ uint64_t __51__PLWifiAgent_updateEventBackwardUserScanDuration___block_invoke(ui
   }
 }
 
-uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke(uint64_t a1)
+- (void)logEventBackwardWifiProperties:(BOOL)properties
+{
+  propertiesCopy = properties;
+  v62 = *MEMORY[0x277D85DE8];
+  if ([(PLWifiAgent *)self hasWiFi])
+  {
+    valuePtr = 115;
+    v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &valuePtr);
+    [(PLWifiAgent *)self wifiDevice];
+    v6 = WiFiDeviceClientCopyProperty();
+    CFRelease(v5);
+    [(PLWifiAgent *)self wifiDevice];
+    v7 = WiFiDeviceClientCopyCurrentNetwork();
+    v8 = PLLogWifi();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v61 = v6;
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "wifi properties: %@", buf, 0xCu);
+    }
+
+    v9 = objc_opt_new();
+    [v9 setObject:@"<error>" forKeyedSubscript:@"CurrentSSID"];
+    [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentChannel"];
+    [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentBandwidth"];
+    [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"Carplay"];
+    if (!v7)
+    {
+      null = [MEMORY[0x277CBEB68] null];
+      [v9 setObject:null forKeyedSubscript:@"CurrentSSID"];
+
+      [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentChannel"];
+      [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentBandwidth"];
+LABEL_35:
+      debugEnabled = [MEMORY[0x277D3F180] debugEnabled];
+      if (v6)
+      {
+        if (debugEnabled)
+        {
+          v38 = objc_opt_class();
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363;
+          v54[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v54[4] = v38;
+          if (qword_2811F6888 != -1)
+          {
+            dispatch_once(&qword_2811F6888, v54);
+          }
+
+          if (byte_2811F66E1 == 1)
+          {
+            propertiesCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"wifi properties dictionary: %@, need to model power=%d", v6, propertiesCopy];
+            v40 = MEMORY[0x277D3F178];
+            v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+            lastPathComponent = [v41 lastPathComponent];
+            v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:]"];
+            [v40 logMessage:propertiesCopy fromFile:lastPathComponent fromFunction:v43 fromLineNumber:3598];
+
+            v44 = PLLogCommon();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412290;
+              v61 = propertiesCopy;
+              _os_log_debug_impl(&dword_21A4C6000, v44, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            }
+          }
+        }
+
+        [(PLWifiAgent *)self logEventBackwardWifiProperties:v6 withNetworkProperties:v9 shallModelPower:propertiesCopy];
+      }
+
+      else if (debugEnabled)
+      {
+        v45 = objc_opt_class();
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1357;
+        v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v55[4] = v45;
+        if (qword_2811F6880 != -1)
+        {
+          dispatch_once(&qword_2811F6880, v55);
+        }
+
+        if (byte_2811F66E0 == 1)
+        {
+          v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"No wifi properties"];
+          v47 = MEMORY[0x277D3F178];
+          v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+          lastPathComponent2 = [v48 lastPathComponent];
+          v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:]"];
+          [v47 logMessage:v46 fromFile:lastPathComponent2 fromFunction:v50 fromLineNumber:3596];
+
+          v51 = PLLogCommon();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v61 = v46;
+            _os_log_debug_impl(&dword_21A4C6000, v51, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+        }
+      }
+
+LABEL_51:
+
+      return;
+    }
+
+    [v9 setObject:WiFiNetworkGetSSID() forKeyedSubscript:@"CurrentSSID"];
+    v10 = [v9 objectForKeyedSubscript:@"CurrentSSID"];
+
+    if (v10)
+    {
+      [v9 setObject:MEMORY[0x21CEDD0D0](v7) forKeyedSubscript:@"CurrentChannel"];
+      v11 = [v9 objectForKeyedSubscript:@"CurrentChannel"];
+
+      if (v11)
+      {
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PLWifiAgent getCurrentChannelWidth:](self, "getCurrentChannelWidth:", v7)}];
+        [v9 setObject:v12 forKeyedSubscript:@"CurrentBandwidth"];
+
+        v13 = MEMORY[0x21CEDD0D0](v7);
+        [v9 setObject:v13 forKeyedSubscript:@"CurrentChannel"];
+        if (WiFiNetworkGetOperatingBand() == 3)
+        {
+          v14 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v13, "intValue") + 1000}];
+          [v9 setObject:v14 forKeyedSubscript:@"CurrentChannel"];
+
+          if ([MEMORY[0x277D3F180] debugEnabled])
+          {
+            v15 = objc_opt_class();
+            v57[0] = MEMORY[0x277D85DD0];
+            v57[1] = 3221225472;
+            v57[2] = __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1343;
+            v57[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v57[4] = v15;
+            if (qword_2811F6870 != -1)
+            {
+              dispatch_once(&qword_2811F6870, v57);
+            }
+
+            if (byte_2811F66DE == 1)
+            {
+              v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"6G chan %lu", v13];
+              v52 = MEMORY[0x277D3F178];
+              v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+              lastPathComponent3 = [v17 lastPathComponent];
+              v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:]"];
+              [v52 logMessage:v16 fromFile:lastPathComponent3 fromFunction:v19 fromLineNumber:3583];
+
+              v20 = v16;
+              v21 = PLLogCommon();
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = 138412290;
+                v61 = v20;
+                _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              }
+            }
+          }
+        }
+
+        if ([MEMORY[0x277D3F180] debugEnabled])
+        {
+          v22 = objc_opt_class();
+          v56[0] = MEMORY[0x277D85DD0];
+          v56[1] = 3221225472;
+          v56[2] = __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1349;
+          v56[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v56[4] = v22;
+          if (qword_2811F6878 != -1)
+          {
+            dispatch_once(&qword_2811F6878, v56);
+          }
+
+          if (byte_2811F66DF == 1)
+          {
+            v53 = v13;
+            v23 = MEMORY[0x277CCACA8];
+            v24 = [v9 objectForKeyedSubscript:@"CurrentBandwidth"];
+            v25 = [v23 stringWithFormat:@"kPLWACurrentChannelWidthInMHz = %@", v24];
+
+            v26 = MEMORY[0x277D3F178];
+            v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+            lastPathComponent4 = [v27 lastPathComponent];
+            v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:]"];
+            [v26 logMessage:v25 fromFile:lastPathComponent4 fromFunction:v29 fromLineNumber:3586];
+
+            v30 = PLLogCommon();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412290;
+              v61 = v25;
+              _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            }
+
+            v13 = v53;
+          }
+        }
+
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      [v9 setObject:@"<unknown>" forKeyedSubscript:@"CurrentSSID"];
+    }
+
+    [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentChannel"];
+    [v9 setObject:&unk_282C12DF8 forKeyedSubscript:@"CurrentBandwidth"];
+LABEL_32:
+    if (WiFiNetworkIsCarPlay())
+    {
+      [v9 setObject:&unk_282C12E10 forKeyedSubscript:@"Carplay"];
+    }
+
+    CFRelease(v7);
+    goto LABEL_35;
+  }
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v31 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v31;
+    if (qword_2811F6868 != -1)
+    {
+      dispatch_once(&qword_2811F6868, block);
+    }
+
+    if (byte_2811F66DD == 1)
+    {
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"No wifi to log power properties about"];
+      v32 = MEMORY[0x277D3F178];
+      v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+      lastPathComponent5 = [v33 lastPathComponent];
+      v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:]"];
+      [v32 logMessage:v6 fromFile:lastPathComponent5 fromFunction:v35 fromLineNumber:3542];
+
+      v9 = PLLogCommon();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v61 = v6;
+        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+
+      goto LABEL_51;
+    }
+  }
+}
+
+void *__46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DD = result;
   return result;
 }
 
-uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1343(uint64_t a1)
+void *__46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1343(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DE = result;
   return result;
 }
 
-uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1349(uint64_t a1)
+void *__46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1349(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66DF = result;
   return result;
 }
 
-uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1357(uint64_t a1)
+void *__46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1357(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E0 = result;
   return result;
 }
 
-uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(uint64_t a1)
+void *__46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E1 = result;
@@ -7723,33 +7927,33 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
 - (void)logEventBackwardWifiProperties:(id)properties withNetworkProperties:(id)networkProperties shallModelPower:(BOOL)power
 {
   powerCopy = power;
-  v421[10] = *MEMORY[0x277D85DE8];
+  v420[10] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   networkPropertiesCopy = networkProperties;
-  v420[0] = @"SOFTAP_LOWPOWER_STATS_ACTIVE_STATE_DURATION";
-  v420[1] = @"SOFTAP_LOWPOWER_STATS_ACTIVE_STATE_COUNT";
-  v421[0] = @"ADHSActiveStateDuration";
-  v421[1] = @"ADHSActiveStateCount";
-  v420[2] = @"SOFTAP_LOWPOWER_STATS_DYNAMIC_STATE_DURATION";
-  v420[3] = @"SOFTAP_LOWPOWER_STATS_DYNAMIC_STATE_COUNT";
-  v421[2] = @"ADHSDynamicStateDuration";
-  v421[3] = @"ADHSDynamicStateDuration";
-  v420[4] = @"SOFTAP_LOWPOWER_STATS_LOWPOWER_STATE_COUNT";
-  v420[5] = @"SOFTAP_LOWPOWER_STATS_LOWPOWER_STATE_COUNT";
-  v421[4] = @"ADHSLowPowerStateDuration";
-  v421[5] = @"ADHSLowPowerStateDuration";
-  v420[6] = @"SOFTAP_LOWPOWER_STATS_OFF_STATE_COUNT";
-  v420[7] = @"SOFTAP_LOWPOWER_STATS_OFF_STATE_COUNT";
-  v421[6] = @"ADHSOffStateDuration";
-  v421[7] = @"ADHSOffStateDuration";
-  v420[8] = @"SOFTAP_LOWPOWER_STATS_TXPACKETS";
-  v420[9] = @"SOFTAP_LOWPOWER_STATS_RXPACKETS";
-  v421[8] = @"ADHSTXPackets";
-  v421[9] = @"ADHSRXPackets";
-  v349 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v421 forKeys:v420 count:10];
-  allValues = [v349 allValues];
+  v419[0] = @"SOFTAP_LOWPOWER_STATS_ACTIVE_STATE_DURATION";
+  v419[1] = @"SOFTAP_LOWPOWER_STATS_ACTIVE_STATE_COUNT";
+  v420[0] = @"ADHSActiveStateDuration";
+  v420[1] = @"ADHSActiveStateCount";
+  v419[2] = @"SOFTAP_LOWPOWER_STATS_DYNAMIC_STATE_DURATION";
+  v419[3] = @"SOFTAP_LOWPOWER_STATS_DYNAMIC_STATE_COUNT";
+  v420[2] = @"ADHSDynamicStateDuration";
+  v420[3] = @"ADHSDynamicStateDuration";
+  v419[4] = @"SOFTAP_LOWPOWER_STATS_LOWPOWER_STATE_COUNT";
+  v419[5] = @"SOFTAP_LOWPOWER_STATS_LOWPOWER_STATE_COUNT";
+  v420[4] = @"ADHSLowPowerStateDuration";
+  v420[5] = @"ADHSLowPowerStateDuration";
+  v419[6] = @"SOFTAP_LOWPOWER_STATS_OFF_STATE_COUNT";
+  v419[7] = @"SOFTAP_LOWPOWER_STATS_OFF_STATE_COUNT";
+  v420[6] = @"ADHSOffStateDuration";
+  v420[7] = @"ADHSOffStateDuration";
+  v419[8] = @"SOFTAP_LOWPOWER_STATS_TXPACKETS";
+  v419[9] = @"SOFTAP_LOWPOWER_STATS_RXPACKETS";
+  v420[8] = @"ADHSTXPackets";
+  v420[9] = @"ADHSRXPackets";
+  v348 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v420 forKeys:v419 count:10];
+  allValues = [v348 allValues];
   v8 = *MEMORY[0x277D3F5C8];
-  v333 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"HotspotPowerStats"];
+  v332 = [(PLOperator *)PLWifiAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"HotspotPowerStats"];
   v9 = [propertiesCopy objectForKeyedSubscript:@"CACHED_TIME_STAMP"];
   integerValue = [v9 integerValue];
 
@@ -7763,12 +7967,12 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
   integerValue4 = [v15 integerValue];
 
   v17 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"CumulativeProperties"];
-  v343 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"DiffProperties"];
-  v331 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"BeaconProfile"];
-  v336 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"AutoJoin"];
-  v335 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"Scans"];
-  v334 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"ScanForwardStats"];
-  v342 = v17;
+  v342 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"DiffProperties"];
+  v330 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"BeaconProfile"];
+  v335 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"AutoJoin"];
+  v334 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"Scans"];
+  v333 = [(PLOperator *)PLWifiAgent entryKeyForType:v8 andName:@"ScanForwardStats"];
+  v341 = v17;
   selfCopy = self;
   if ([MEMORY[0x277D3F258] isPerfPowerMetricd])
   {
@@ -7777,12 +7981,12 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
 
   else
   {
-    storage = [(PLOperator *)self storage];
-    v18 = [storage lastEntryForKey:v17];
+    v19 = objc_msgSend_storage(self);
+    v18 = [v19 lastEntryForKey:v17];
   }
 
-  v361 = (integerValue2 | integerValue3) != 0;
-  v346 = v18;
+  v360 = (integerValue2 | integerValue3) != 0;
+  v345 = v18;
   if (v18)
   {
     v20 = [(PLEntry *)v18 objectForKeyedSubscript:@"WifiTimestamp"];
@@ -7794,7 +7998,7 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
     unsignedIntegerValue = 0;
   }
 
-  v357 = integerValue;
+  v356 = integerValue;
   v21 = objc_opt_new();
   v22 = +[PLWifiAgent isBeaconLoggingEnabled];
   v23 = MEMORY[0x277CBEC10];
@@ -7812,7 +8016,7 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
     v26 = v23;
   }
 
-  v353 = v26;
+  v352 = v26;
   v27 = +[PLWifiAgent isScanForwardLoggingEnabled];
   v28 = &unk_282C19638;
   if (!v27)
@@ -7820,26 +8024,26 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
     v28 = v23;
   }
 
-  v354 = v28;
-  v340 = v21;
+  v353 = v28;
+  v339 = v21;
   [v21 addEntriesFromDictionary:&unk_282C193B8];
   kPLWiFiClassOfDevice = [MEMORY[0x277D3F208] kPLWiFiClassOfDevice];
   v30 = 0;
-  HIDWORD(v341) = 0;
+  HIDWORD(v340) = 0;
   v31 = &unk_282C194F8;
   v32 = &unk_282C194D0;
   v33 = &unk_282C194A8;
   v34 = &unk_282C19408;
   v35 = &unk_282C193E0;
-  v363 = propertiesCopy;
+  v362 = propertiesCopy;
   if (kPLWiFiClassOfDevice <= 1004010)
   {
     if (kPLWiFiClassOfDevice <= 1004005)
     {
       if ((kPLWiFiClassOfDevice - 1004001) >= 3)
       {
-        LODWORD(v341) = 0;
-        v339 = 0;
+        LODWORD(v340) = 0;
+        v338 = 0;
         if ((kPLWiFiClassOfDevice - 1004004) >= 2)
         {
           goto LABEL_45;
@@ -7849,8 +8053,8 @@ uint64_t __46__PLWifiAgent_logEventBackwardWifiProperties___block_invoke_1363(ui
       }
 
 LABEL_33:
-      LODWORD(v341) = 0;
-      v339 = 0;
+      LODWORD(v340) = 0;
+      v338 = 0;
 LABEL_44:
       [v21 addEntriesFromDictionary:v35];
       v35 = v34;
@@ -7873,8 +8077,8 @@ LABEL_44:
       goto LABEL_33;
     }
 
-    LODWORD(v341) = 0;
-    v339 = 0;
+    LODWORD(v340) = 0;
+    v338 = 0;
     if (kPLWiFiClassOfDevice != 1004010)
     {
       goto LABEL_45;
@@ -7888,10 +8092,10 @@ LABEL_41:
     v33 = v32;
     v32 = v31;
 LABEL_42:
-    v339 = HIDWORD(v341);
+    v338 = HIDWORD(v340);
     [v21 addEntriesFromDictionary:v35];
-    LODWORD(v341) = 1;
-    HIDWORD(v341) = v38;
+    LODWORD(v340) = 1;
+    HIDWORD(v340) = v38;
     v35 = v34;
     v34 = v33;
     v33 = v32;
@@ -7913,8 +8117,8 @@ LABEL_42:
 
       else
       {
-        LODWORD(v341) = 0;
-        v339 = 0;
+        LODWORD(v340) = 0;
+        v338 = 0;
         integerValue4 = v36;
         if (kPLWiFiClassOfDevice != 1004019)
         {
@@ -7946,7 +8150,7 @@ LABEL_42:
 
     [v21 addEntriesFromDictionary:v35];
     [v21 addEntriesFromDictionary:v34];
-    HIDWORD(v341) = 1;
+    HIDWORD(v340) = 1;
     v35 = v40;
     v34 = v33;
     v33 = v32;
@@ -7960,7 +8164,7 @@ LABEL_40:
     v33 = v32;
     v32 = v31;
     v31 = v37;
-    propertiesCopy = v363;
+    propertiesCopy = v362;
     integerValue4 = v36;
     goto LABEL_41;
   }
@@ -7972,8 +8176,8 @@ LABEL_40:
 
   if (kPLWiFiClassOfDevice == 1004011)
   {
-    v341 = 0;
-    v339 = 0;
+    v340 = 0;
+    v338 = 0;
     v30 = 0;
     v33 = &unk_282C19570;
     v34 = &unk_282C19548;
@@ -7985,8 +8189,8 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  LODWORD(v341) = 0;
-  v339 = 0;
+  LODWORD(v340) = 0;
+  v338 = 0;
   integerValue4 = v36;
   if (kPLWiFiClassOfDevice != 1004012)
   {
@@ -7999,28 +8203,28 @@ LABEL_45:
   [v21 addEntriesFromDictionary:&unk_282C193E0];
   [v21 addEntriesFromDictionary:&unk_282C19548];
   [v21 addEntriesFromDictionary:&unk_282C19570];
-  HIDWORD(v341) = 0;
+  HIDWORD(v340) = 0;
   if ([MEMORY[0x277D3F208] kPLSoCClassOfDevice] > 1001204)
   {
     v30 = &unk_282C19660;
-    LODWORD(v341) = 1;
-    v339 = 0;
+    LODWORD(v340) = 1;
+    v338 = 0;
     v35 = &unk_282C19598;
     goto LABEL_45;
   }
 
   v41 = 0;
-  LODWORD(v341) = 0;
-  v339 = 0;
+  LODWORD(v340) = 0;
+  v338 = 0;
 LABEL_46:
-  v42 = v342;
-  if (v361)
+  v42 = v341;
+  if (v360)
   {
-    if (integerValue4 > v357)
+    if (integerValue4 > v356)
     {
       if (unsignedIntegerValue)
       {
-        v43 = v357 > unsignedIntegerValue;
+        v43 = v356 > unsignedIntegerValue;
       }
 
       else
@@ -8042,15 +8246,15 @@ LABEL_46:
       goto LABEL_64;
     }
 
-    v46 = v357 > unsignedIntegerValue;
+    v46 = v356 > unsignedIntegerValue;
     v45 = 1;
     goto LABEL_60;
   }
 
   v45 = 1;
-  if (v346)
+  if (v345)
   {
-    v46 = v357 > unsignedIntegerValue;
+    v46 = v356 > unsignedIntegerValue;
 LABEL_60:
     if (v46)
     {
@@ -8068,24 +8272,24 @@ LABEL_60:
   v44 = 1;
 LABEL_64:
   v47 = 0x277CCA000uLL;
-  v355 = v41;
+  v354 = v41;
   while (1)
   {
     v48 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v42];
-    v351 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v343];
-    v352 = v48;
-    v345 = v45;
+    v350 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v342];
+    v351 = v48;
+    v344 = v45;
     if (v44 != 2)
     {
       break;
     }
 
-    if (v346)
+    if (v345)
     {
       if (![(PLWifiAgent *)selfCopy isWiFiPowered])
       {
-        v49 = [(PLEntry *)v346 copy];
-        v50 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v343];
+        v49 = [(PLEntry *)v345 copy];
+        v50 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v342];
         null = [MEMORY[0x277CBEB68] null];
         [v49 setObject:null forKeyedSubscript:@"CurrentSSID"];
 
@@ -8168,7 +8372,7 @@ LABEL_64:
           [v50 setObject:&unk_282C12DF8 forKeyedSubscript:@"OPSPartialDuration"];
         }
 
-        propertiesCopy = v363;
+        propertiesCopy = v362;
         if (([MEMORY[0x277D3F208] isWiFiClass:1004013] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004014))
         {
           [v50 setObject:&unk_282C12DF8 forKeyedSubscript:@"OPSFullDuration"];
@@ -8181,83 +8385,83 @@ LABEL_64:
           [v50 setObject:&unk_282C12DF8 forKeyedSubscript:@"SCRXDurationSISO"];
         }
 
-        if (v341)
+        if (v340)
         {
-          v370 = 0u;
-          v371 = 0u;
-          v368 = 0u;
           v369 = 0u;
-          v58 = [v41 countByEnumeratingWithState:&v368 objects:v408 count:16];
+          v370 = 0u;
+          v367 = 0u;
+          v368 = 0u;
+          v58 = [v41 countByEnumeratingWithState:&v367 objects:v407 count:16];
           if (v58)
           {
             v59 = v58;
-            v60 = *v369;
+            v60 = *v368;
             do
             {
               for (i = 0; i != v59; ++i)
               {
-                if (*v369 != v60)
+                if (*v368 != v60)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                [v50 setObject:&unk_282C12DF8 forKeyedSubscript:*(*(&v368 + 1) + 8 * i)];
+                [v50 setObject:&unk_282C12DF8 forKeyedSubscript:*(*(&v367 + 1) + 8 * i)];
               }
 
-              v59 = [v41 countByEnumeratingWithState:&v368 objects:v408 count:16];
+              v59 = [v41 countByEnumeratingWithState:&v367 objects:v407 count:16];
             }
 
             while (v59);
           }
         }
 
-        if (HIDWORD(v341))
+        if (HIDWORD(v340))
         {
-          v366 = 0u;
-          v367 = 0u;
-          v364 = 0u;
           v365 = 0u;
+          v366 = 0u;
+          v363 = 0u;
+          v364 = 0u;
           v62 = allValues;
-          v63 = [v62 countByEnumeratingWithState:&v364 objects:v407 count:16];
+          v63 = [v62 countByEnumeratingWithState:&v363 objects:v406 count:16];
           if (v63)
           {
             v64 = v63;
-            v65 = *v365;
+            v65 = *v364;
             do
             {
               for (j = 0; j != v64; ++j)
               {
-                if (*v365 != v65)
+                if (*v364 != v65)
                 {
                   objc_enumerationMutation(v62);
                 }
 
-                [v50 setObject:&unk_282C12DF8 forKeyedSubscript:*(*(&v364 + 1) + 8 * j)];
+                [v50 setObject:&unk_282C12DF8 forKeyedSubscript:*(*(&v363 + 1) + 8 * j)];
               }
 
-              v64 = [v62 countByEnumeratingWithState:&v364 objects:v407 count:16];
+              v64 = [v62 countByEnumeratingWithState:&v363 objects:v406 count:16];
             }
 
             while (v64);
           }
 
-          v41 = v355;
+          v41 = v354;
         }
 
         [v50 setObject:&unk_282C12DF8 forKeyedSubscript:@"TimeDuration"];
-        v67 = [(PLEntry *)v346 objectForKey:@"CurrentChannel"];
+        v67 = [(PLEntry *)v345 objectForKey:@"CurrentChannel"];
         [v50 setObject:v67 forKeyedSubscript:@"CurrentChannel"];
 
-        v68 = [(PLEntry *)v346 objectForKey:@"CurrentSSID"];
+        v68 = [(PLEntry *)v345 objectForKey:@"CurrentSSID"];
         [v50 setObject:v68 forKeyedSubscript:@"CurrentSSID"];
 
-        v69 = [(PLEntry *)v346 objectForKey:@"CurrentBandwidth"];
+        v69 = [(PLEntry *)v345 objectForKey:@"CurrentBandwidth"];
         [v50 setObject:v69 forKeyedSubscript:@"CurrentBandwidth"];
 
-        v70 = [(PLEntry *)v346 objectForKey:@"WowEnabled"];
+        v70 = [(PLEntry *)v345 objectForKey:@"WowEnabled"];
         [v50 setObject:v70 forKeyedSubscript:@"WowEnabled"];
 
-        v71 = [(PLEntry *)v346 objectForKey:@"WifiPowered"];
+        v71 = [(PLEntry *)v345 objectForKey:@"WifiPowered"];
         [v50 setObject:v71 forKeyedSubscript:@"WifiPowered"];
 
         v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
@@ -8273,9 +8477,9 @@ LABEL_64:
           [(PLOperator *)selfCopy logEntry:v57];
         }
 
-        v42 = v342;
-        v45 = v345;
-        v208 = v346;
+        v42 = v341;
+        v45 = v344;
+        v208 = v345;
         if (powerCopy)
         {
           [(PLWifiAgent *)selfCopy modelWiFiPower:v50];
@@ -8284,7 +8488,7 @@ LABEL_64:
         v44 = 2;
         v47 = 0x277CCA000;
 LABEL_291:
-        v346 = v208;
+        v345 = v208;
 
         goto LABEL_293;
       }
@@ -8292,7 +8496,7 @@ LABEL_291:
 
     else
     {
-      v346 = 0;
+      v345 = 0;
     }
 
     v44 = 2;
@@ -8320,18 +8524,18 @@ LABEL_293:
   v76 = [v73 numberWithUnsignedInteger:{objc_msgSend(v75, "integerValue")}];
   [v48 setObject:v76 forKeyedSubscript:@"WifiTimestamp"];
 
-  if (v346)
+  if (v345)
   {
     v77 = *(v47 + 2992);
     v78 = [v48 objectForKeyedSubscript:@"WifiTimestamp"];
     unsignedIntegerValue2 = [v78 unsignedIntegerValue];
-    v80 = [(PLEntry *)v346 objectForKeyedSubscript:@"WifiTimestamp"];
+    v80 = [(PLEntry *)v345 objectForKeyedSubscript:@"WifiTimestamp"];
     v81 = [v77 numberWithInteger:{unsignedIntegerValue2 - objc_msgSend(v80, "unsignedIntegerValue")}];
-    [v351 setObject:v81 forKeyedSubscript:@"TimeDuration"];
+    [v350 setObject:v81 forKeyedSubscript:@"TimeDuration"];
   }
 
-  v344 = v44;
-  v360 = &unk_282C16860;
+  v343 = v44;
+  v359 = &unk_282C16860;
   if (([MEMORY[0x277D3F208] isWiFiClass:1004011] & 1) == 0)
   {
     v82 = [MEMORY[0x277D3F208] isWiFiClass:1004012];
@@ -8341,38 +8545,38 @@ LABEL_293:
       v83 = &unk_282C16878;
     }
 
-    v360 = v83;
+    v359 = v83;
   }
 
-  v406 = 0u;
   v405 = 0u;
   v404 = 0u;
   v403 = 0u;
-  v84 = v340;
-  v85 = v346;
-  v362 = [v84 countByEnumeratingWithState:&v403 objects:v419 count:16];
-  if (v362)
+  v402 = 0u;
+  v84 = v339;
+  v85 = v345;
+  v361 = [v84 countByEnumeratingWithState:&v402 objects:v418 count:16];
+  if (v361)
   {
-    v358 = v44 != 0;
-    v356 = *v404;
+    v357 = v44 != 0;
+    v355 = *v403;
     do
     {
       v86 = 0;
       do
       {
         v87 = v85;
-        if (*v404 != v356)
+        if (*v403 != v355)
         {
           objc_enumerationMutation(v84);
         }
 
-        v88 = *(*(&v403 + 1) + 8 * v86);
+        v88 = *(*(&v402 + 1) + 8 * v86);
         v89 = [v84 objectForKeyedSubscript:v88];
-        v90 = [v89 objectAtIndexedSubscript:v358];
-        v91 = [v363 objectForKeyedSubscript:v90];
+        v90 = [v89 objectAtIndexedSubscript:v357];
+        v91 = [v362 objectForKeyedSubscript:v90];
         integerValue5 = [v91 integerValue];
 
-        if ([v360 containsObject:v88])
+        if ([v359 containsObject:v88])
         {
           v93 = integerValue5 / 0x3E8uLL;
         }
@@ -8426,12 +8630,12 @@ LABEL_124:
                 if ([MEMORY[0x277D3F180] debugEnabled])
                 {
                   v109 = objc_opt_class();
-                  v402[0] = MEMORY[0x277D85DD0];
-                  v402[1] = 3221225472;
-                  v402[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke;
-                  v402[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-                  v402[4] = v109;
-                  v110 = v402;
+                  v401[0] = MEMORY[0x277D85DD0];
+                  v401[1] = 3221225472;
+                  v401[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke;
+                  v401[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+                  v401[4] = v109;
+                  v110 = v401;
                   if (qword_2811F6890 != -1)
                   {
                     dispatch_once(&qword_2811F6890, v110);
@@ -8451,11 +8655,11 @@ LABEL_124:
                     if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v410 = v115;
+                      v409 = v115;
                       _os_log_debug_impl(&dword_21A4C6000, v117, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                     }
 
-                    v87 = v346;
+                    v87 = v345;
                   }
                 }
 
@@ -8465,12 +8669,12 @@ LABEL_124:
               v100 = 0;
 LABEL_146:
               v118 = [v99 numberWithUnsignedInteger:v100];
-              [v351 setObject:v118 forKeyedSubscript:v88];
+              [v350 setObject:v118 forKeyedSubscript:v88];
 
               v85 = v87;
 LABEL_147:
 
-              v48 = v352;
+              v48 = v351;
               goto LABEL_148;
             }
           }
@@ -8483,12 +8687,12 @@ LABEL_147:
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
             v101 = objc_opt_class();
-            v401[0] = MEMORY[0x277D85DD0];
-            v401[1] = 3221225472;
-            v401[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2505;
-            v401[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v401[4] = v101;
-            v102 = v401;
+            v400[0] = MEMORY[0x277D85DD0];
+            v400[1] = 3221225472;
+            v400[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2505;
+            v400[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v400[4] = v101;
+            v102 = v400;
             if (qword_2811F6898 != -1)
             {
               dispatch_once(&qword_2811F6898, v102);
@@ -8497,22 +8701,22 @@ LABEL_147:
             if (byte_2811F66E3 == 1)
             {
               v103 = [MEMORY[0x277CCACA8] stringWithFormat:@"diff[%@] = %lu - %lu", v88, v93, v97];
-              v347 = MEMORY[0x277D3F178];
+              v346 = MEMORY[0x277D3F178];
               v104 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
               lastPathComponent2 = [v104 lastPathComponent];
               v106 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:withNetworkProperties:shallModelPower:]"];
-              [v347 logMessage:v103 fromFile:lastPathComponent2 fromFunction:v106 fromLineNumber:4234];
+              [v346 logMessage:v103 fromFile:lastPathComponent2 fromFunction:v106 fromLineNumber:4234];
 
               v107 = v103;
               v108 = PLLogCommon();
               if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v410 = v107;
+                v409 = v107;
                 _os_log_debug_impl(&dword_21A4C6000, v108, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v87 = v346;
+              v87 = v345;
               v47 = 0x277CCA000uLL;
             }
           }
@@ -8526,15 +8730,15 @@ LABEL_148:
         ++v86;
       }
 
-      while (v362 != v86);
-      v362 = [v84 countByEnumeratingWithState:&v403 objects:v419 count:16];
+      while (v361 != v86);
+      v361 = [v84 countByEnumeratingWithState:&v402 objects:v418 count:16];
     }
 
-    while (v362);
+    while (v361);
   }
 
-  v346 = v85;
-  if (v85 && v344 == 1)
+  v345 = v85;
+  if (v85 && v343 == 1)
   {
     [(PLEntry *)v85 objectForKey:@"CurrentChannel"];
     v120 = v119 = v85;
@@ -8577,32 +8781,32 @@ LABEL_148:
 
   [v48 setObject:v125 forKeyedSubscript:@"WifiPowered"];
 
-  propertiesCopy = v363;
-  if (v341)
+  propertiesCopy = v362;
+  if (v340)
   {
-    v131 = [v363 objectForKeyedSubscript:@"AutoJoinPowerDiag"];
-    v132 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v336];
+    v131 = [v362 objectForKeyedSubscript:@"AutoJoinPowerDiag"];
+    v132 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v335];
+    v396 = 0u;
     v397 = 0u;
     v398 = 0u;
     v399 = 0u;
-    v400 = 0u;
-    allKeys = [v355 allKeys];
-    v134 = [allKeys countByEnumeratingWithState:&v397 objects:v418 count:16];
+    allKeys = [v354 allKeys];
+    v134 = [allKeys countByEnumeratingWithState:&v396 objects:v417 count:16];
     if (v134)
     {
       v135 = v134;
-      v136 = *v398;
+      v136 = *v397;
       do
       {
         for (k = 0; k != v135; ++k)
         {
-          if (*v398 != v136)
+          if (*v397 != v136)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v138 = *(*(&v397 + 1) + 8 * k);
-          v139 = [v355 objectForKeyedSubscript:v138];
+          v138 = *(*(&v396 + 1) + 8 * k);
+          v139 = [v354 objectForKeyedSubscript:v138];
           [v132 setObject:0 forKeyedSubscript:v139];
 
           v140 = [v131 objectForKey:v138];
@@ -8610,7 +8814,7 @@ LABEL_148:
           if (v140)
           {
             v141 = [v131 objectForKeyedSubscript:v138];
-            v142 = [v355 objectForKeyedSubscript:v138];
+            v142 = [v354 objectForKeyedSubscript:v138];
             [v132 setObject:v141 forKeyedSubscript:v142];
           }
 
@@ -8621,28 +8825,28 @@ LABEL_148:
           {
             v145 = [v131 objectForKeyedSubscript:@"auto_join_trigger_counts"];
             v146 = [v145 objectForKeyedSubscript:v138];
-            v147 = [v355 objectForKeyedSubscript:v138];
+            v147 = [v354 objectForKeyedSubscript:v138];
             [v132 setObject:v146 forKeyedSubscript:v147];
           }
         }
 
-        v135 = [allKeys countByEnumeratingWithState:&v397 objects:v418 count:16];
+        v135 = [allKeys countByEnumeratingWithState:&v396 objects:v417 count:16];
       }
 
       while (v135);
     }
 
     [(PLOperator *)selfCopy logEntry:v132];
-    v48 = v352;
+    v48 = v351;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v148 = objc_opt_class();
-      v396[0] = MEMORY[0x277D85DD0];
-      v396[1] = 3221225472;
-      v396[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2517;
-      v396[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v396[4] = v148;
-      v149 = v396;
+      v395[0] = MEMORY[0x277D85DD0];
+      v395[1] = 3221225472;
+      v395[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2517;
+      v395[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v395[4] = v148;
+      v149 = v395;
       if (qword_2811F68A0 != -1)
       {
         dispatch_once(&qword_2811F68A0, v149);
@@ -8661,70 +8865,70 @@ LABEL_148:
         if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v410 = v132;
+          v409 = v132;
           _os_log_debug_impl(&dword_21A4C6000, v155, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    propertiesCopy = v363;
+    propertiesCopy = v362;
   }
 
-  if (HIDWORD(v341))
+  if (HIDWORD(v340))
   {
     v156 = [propertiesCopy objectForKey:@"AutoHotspotLPHSPowerStats"];
 
     if (v156)
     {
-      v157 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v333];
+      v157 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v332];
       v158 = [propertiesCopy objectForKeyedSubscript:@"AutoHotspotLPHSPowerStats"];
+      v391 = 0u;
       v392 = 0u;
       v393 = 0u;
       v394 = 0u;
-      v395 = 0u;
-      allKeys2 = [v349 allKeys];
-      v160 = [allKeys2 countByEnumeratingWithState:&v392 objects:v417 count:16];
+      allKeys2 = [v348 allKeys];
+      v160 = [allKeys2 countByEnumeratingWithState:&v391 objects:v416 count:16];
       if (v160)
       {
         v161 = v160;
-        v162 = *v393;
+        v162 = *v392;
         do
         {
           for (m = 0; m != v161; ++m)
           {
-            if (*v393 != v162)
+            if (*v392 != v162)
             {
               objc_enumerationMutation(allKeys2);
             }
 
-            v164 = *(*(&v392 + 1) + 8 * m);
+            v164 = *(*(&v391 + 1) + 8 * m);
             v165 = [v158 objectForKey:v164];
 
             if (v165)
             {
               v166 = [v158 objectForKeyedSubscript:v164];
-              v167 = [v349 objectForKeyedSubscript:v164];
+              v167 = [v348 objectForKeyedSubscript:v164];
               [v157 setObject:v166 forKeyedSubscript:v167];
             }
           }
 
-          v161 = [allKeys2 countByEnumeratingWithState:&v392 objects:v417 count:16];
+          v161 = [allKeys2 countByEnumeratingWithState:&v391 objects:v416 count:16];
         }
 
         while (v161);
       }
 
       [(PLOperator *)selfCopy logEntry:v157];
-      v48 = v352;
+      v48 = v351;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v168 = objc_opt_class();
-        v391[0] = MEMORY[0x277D85DD0];
-        v391[1] = 3221225472;
-        v391[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2526;
-        v391[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v391[4] = v168;
-        v169 = v391;
+        v390[0] = MEMORY[0x277D85DD0];
+        v390[1] = 3221225472;
+        v390[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2526;
+        v390[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v390[4] = v168;
+        v169 = v390;
         if (qword_2811F68A8 != -1)
         {
           dispatch_once(&qword_2811F68A8, v169);
@@ -8743,7 +8947,7 @@ LABEL_148:
           if (os_log_type_enabled(v175, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v410 = v157;
+            v409 = v157;
             _os_log_debug_impl(&dword_21A4C6000, v175, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -8751,27 +8955,27 @@ LABEL_148:
     }
   }
 
-  if (v339)
+  if (v338)
   {
-    v389 = 0u;
-    v390 = 0u;
-    v387 = 0u;
     v388 = 0u;
-    v176 = [&unk_282C19688 countByEnumeratingWithState:&v387 objects:v416 count:16];
+    v389 = 0u;
+    v386 = 0u;
+    v387 = 0u;
+    v176 = [&unk_282C19688 countByEnumeratingWithState:&v386 objects:v415 count:16];
     if (v176)
     {
       v177 = v176;
-      v178 = *v388;
+      v178 = *v387;
       do
       {
         for (n = 0; n != v177; ++n)
         {
-          if (*v388 != v178)
+          if (*v387 != v178)
           {
             objc_enumerationMutation(&unk_282C19688);
           }
 
-          v180 = *(*(&v387 + 1) + 8 * n);
+          v180 = *(*(&v386 + 1) + 8 * n);
           v181 = [&unk_282C19688 objectForKeyedSubscript:v180];
           v182 = [propertiesCopy objectForKey:v181];
 
@@ -8783,29 +8987,29 @@ LABEL_148:
           }
         }
 
-        v177 = [&unk_282C19688 countByEnumeratingWithState:&v387 objects:v416 count:16];
+        v177 = [&unk_282C19688 countByEnumeratingWithState:&v386 objects:v415 count:16];
       }
 
       while (v177);
     }
   }
 
-  if (v346)
+  if (v345)
   {
-    v185 = [(PLEntry *)v346 objectForKey:@"CurrentChannel"];
-    [v351 setObject:v185 forKeyedSubscript:@"CurrentChannel"];
+    v185 = [(PLEntry *)v345 objectForKey:@"CurrentChannel"];
+    [v350 setObject:v185 forKeyedSubscript:@"CurrentChannel"];
 
-    v186 = [(PLEntry *)v346 objectForKey:@"CurrentSSID"];
-    [v351 setObject:v186 forKeyedSubscript:@"CurrentSSID"];
+    v186 = [(PLEntry *)v345 objectForKey:@"CurrentSSID"];
+    [v350 setObject:v186 forKeyedSubscript:@"CurrentSSID"];
 
-    v187 = [(PLEntry *)v346 objectForKey:@"CurrentBandwidth"];
-    [v351 setObject:v187 forKeyedSubscript:@"CurrentBandwidth"];
+    v187 = [(PLEntry *)v345 objectForKey:@"CurrentBandwidth"];
+    [v350 setObject:v187 forKeyedSubscript:@"CurrentBandwidth"];
 
-    v188 = [(PLEntry *)v346 objectForKey:@"WowEnabled"];
-    [v351 setObject:v188 forKeyedSubscript:@"WowEnabled"];
+    v188 = [(PLEntry *)v345 objectForKey:@"WowEnabled"];
+    [v350 setObject:v188 forKeyedSubscript:@"WowEnabled"];
 
-    v189 = [(PLEntry *)v346 objectForKey:@"WifiPowered"];
-    [v351 setObject:v189 forKeyedSubscript:@"WifiPowered"];
+    v189 = [(PLEntry *)v345 objectForKey:@"WifiPowered"];
+    [v350 setObject:v189 forKeyedSubscript:@"WifiPowered"];
   }
 
   v47 = 0x277CCA000uLL;
@@ -8824,36 +9028,36 @@ LABEL_148:
   v194 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_setupScanDuration];
   [v48 setObject:v194 forKeyedSubscript:@"SetupScanDuration"];
 
-  v41 = v355;
-  v45 = v345;
-  if (v346)
+  v41 = v354;
+  v45 = v344;
+  if (v345)
   {
-    v195 = [(PLEntry *)v346 objectForKeyedSubscript:@"AutojoinScanDuration"];
+    v195 = [(PLEntry *)v345 objectForKeyedSubscript:@"AutojoinScanDuration"];
     if (v195)
     {
       v196 = v195;
-      v197 = [(PLEntry *)v346 objectForKeyedSubscript:@"LocationScanDuration"];
+      v197 = [(PLEntry *)v345 objectForKeyedSubscript:@"LocationScanDuration"];
       if (!v197)
       {
 
 LABEL_224:
-        v45 = v345;
+        v45 = v344;
         goto LABEL_225;
       }
 
       v198 = v197;
-      v199 = [(PLEntry *)v346 objectForKeyedSubscript:@"PipelineScanDuration"];
+      v199 = [(PLEntry *)v345 objectForKeyedSubscript:@"PipelineScanDuration"];
       if (v199)
       {
         v200 = v199;
-        v201 = [(PLEntry *)v346 objectForKeyedSubscript:@"UnknownScanDuration"];
+        v201 = [(PLEntry *)v345 objectForKeyedSubscript:@"UnknownScanDuration"];
         if (v201)
         {
           v202 = v201;
-          v203 = [(PLEntry *)v346 objectForKeyedSubscript:@"SetupScanDuration"];
+          v203 = [(PLEntry *)v345 objectForKeyedSubscript:@"SetupScanDuration"];
 
-          v41 = v355;
-          v45 = v345;
+          v41 = v354;
+          v45 = v344;
           if (!v203)
           {
             goto LABEL_225;
@@ -8861,7 +9065,7 @@ LABEL_224:
 
           v204 = [v48 objectForKeyedSubscript:@"AutojoinScanDuration"];
           unsignedLongLongValue = [v204 unsignedLongLongValue];
-          v206 = [(PLEntry *)v346 objectForKeyedSubscript:@"AutojoinScanDuration"];
+          v206 = [(PLEntry *)v345 objectForKeyedSubscript:@"AutojoinScanDuration"];
           unsignedLongLongValue2 = [v206 unsignedLongLongValue];
 
           if (unsignedLongLongValue >= unsignedLongLongValue2)
@@ -8869,19 +9073,19 @@ LABEL_224:
             v290 = MEMORY[0x277CCABB0];
             v291 = [v48 objectForKeyedSubscript:@"AutojoinScanDuration"];
             unsignedLongLongValue3 = [v291 unsignedLongLongValue];
-            v293 = [(PLEntry *)v346 objectForKeyedSubscript:@"AutojoinScanDuration"];
+            v293 = [(PLEntry *)v345 objectForKeyedSubscript:@"AutojoinScanDuration"];
             v294 = [v290 numberWithUnsignedLongLong:{unsignedLongLongValue3 - objc_msgSend(v293, "unsignedLongLongValue")}];
-            [v351 setObject:v294 forKeyedSubscript:@"AutojoinScanDuration"];
+            [v350 setObject:v294 forKeyedSubscript:@"AutojoinScanDuration"];
           }
 
           else
           {
-            [v351 setObject:0 forKeyedSubscript:@"AutojoinScanDuration"];
+            [v350 setObject:0 forKeyedSubscript:@"AutojoinScanDuration"];
           }
 
           v295 = [v48 objectForKeyedSubscript:@"LocationScanDuration"];
           unsignedLongLongValue4 = [v295 unsignedLongLongValue];
-          v297 = [(PLEntry *)v346 objectForKeyedSubscript:@"LocationScanDuration"];
+          v297 = [(PLEntry *)v345 objectForKeyedSubscript:@"LocationScanDuration"];
           unsignedLongLongValue5 = [v297 unsignedLongLongValue];
 
           if (unsignedLongLongValue4 >= unsignedLongLongValue5)
@@ -8889,19 +9093,19 @@ LABEL_224:
             v299 = MEMORY[0x277CCABB0];
             v300 = [v48 objectForKeyedSubscript:@"LocationScanDuration"];
             unsignedLongLongValue6 = [v300 unsignedLongLongValue];
-            v302 = [(PLEntry *)v346 objectForKeyedSubscript:@"LocationScanDuration"];
+            v302 = [(PLEntry *)v345 objectForKeyedSubscript:@"LocationScanDuration"];
             v303 = [v299 numberWithUnsignedLongLong:{unsignedLongLongValue6 - objc_msgSend(v302, "unsignedLongLongValue")}];
-            [v351 setObject:v303 forKeyedSubscript:@"LocationScanDuration"];
+            [v350 setObject:v303 forKeyedSubscript:@"LocationScanDuration"];
           }
 
           else
           {
-            [v351 setObject:0 forKeyedSubscript:@"LocationScanDuration"];
+            [v350 setObject:0 forKeyedSubscript:@"LocationScanDuration"];
           }
 
           v304 = [v48 objectForKeyedSubscript:@"PipelineScanDuration"];
           unsignedLongLongValue7 = [v304 unsignedLongLongValue];
-          v306 = [(PLEntry *)v346 objectForKeyedSubscript:@"PipelineScanDuration"];
+          v306 = [(PLEntry *)v345 objectForKeyedSubscript:@"PipelineScanDuration"];
           unsignedLongLongValue8 = [v306 unsignedLongLongValue];
 
           if (unsignedLongLongValue7 >= unsignedLongLongValue8)
@@ -8909,19 +9113,19 @@ LABEL_224:
             v308 = MEMORY[0x277CCABB0];
             v309 = [v48 objectForKeyedSubscript:@"PipelineScanDuration"];
             unsignedLongLongValue9 = [v309 unsignedLongLongValue];
-            v311 = [(PLEntry *)v346 objectForKeyedSubscript:@"PipelineScanDuration"];
+            v311 = [(PLEntry *)v345 objectForKeyedSubscript:@"PipelineScanDuration"];
             v312 = [v308 numberWithUnsignedLongLong:{unsignedLongLongValue9 - objc_msgSend(v311, "unsignedLongLongValue")}];
-            [v351 setObject:v312 forKeyedSubscript:@"PipelineScanDuration"];
+            [v350 setObject:v312 forKeyedSubscript:@"PipelineScanDuration"];
           }
 
           else
           {
-            [v351 setObject:0 forKeyedSubscript:@"PipelineScanDuration"];
+            [v350 setObject:0 forKeyedSubscript:@"PipelineScanDuration"];
           }
 
           v313 = [v48 objectForKeyedSubscript:@"UnknownScanDuration"];
           unsignedLongLongValue10 = [v313 unsignedLongLongValue];
-          v315 = [(PLEntry *)v346 objectForKeyedSubscript:@"UnknownScanDuration"];
+          v315 = [(PLEntry *)v345 objectForKeyedSubscript:@"UnknownScanDuration"];
           unsignedLongLongValue11 = [v315 unsignedLongLongValue];
 
           if (unsignedLongLongValue10 >= unsignedLongLongValue11)
@@ -8929,37 +9133,37 @@ LABEL_224:
             v317 = MEMORY[0x277CCABB0];
             v318 = [v48 objectForKeyedSubscript:@"UnknownScanDuration"];
             unsignedLongLongValue12 = [v318 unsignedLongLongValue];
-            v320 = [(PLEntry *)v346 objectForKeyedSubscript:@"UnknownScanDuration"];
+            v320 = [(PLEntry *)v345 objectForKeyedSubscript:@"UnknownScanDuration"];
             v321 = [v317 numberWithUnsignedLongLong:{unsignedLongLongValue12 - objc_msgSend(v320, "unsignedLongLongValue")}];
-            [v351 setObject:v321 forKeyedSubscript:@"UnknownScanDuration"];
+            [v350 setObject:v321 forKeyedSubscript:@"UnknownScanDuration"];
           }
 
           else
           {
-            [v351 setObject:0 forKeyedSubscript:@"UnknownScanDuration"];
+            [v350 setObject:0 forKeyedSubscript:@"UnknownScanDuration"];
           }
 
           v322 = [v48 objectForKeyedSubscript:@"SetupScanDuration"];
           unsignedLongLongValue13 = [v322 unsignedLongLongValue];
-          v324 = [(PLEntry *)v346 objectForKeyedSubscript:@"SetupScanDuration"];
+          v324 = [(PLEntry *)v345 objectForKeyedSubscript:@"SetupScanDuration"];
           unsignedLongLongValue14 = [v324 unsignedLongLongValue];
 
           if (unsignedLongLongValue13 < unsignedLongLongValue14)
           {
-            [v351 setObject:0 forKeyedSubscript:@"SetupScanDuration"];
+            [v350 setObject:0 forKeyedSubscript:@"SetupScanDuration"];
             goto LABEL_223;
           }
 
           v326 = MEMORY[0x277CCABB0];
           v196 = [v48 objectForKeyedSubscript:@"SetupScanDuration"];
           unsignedLongLongValue15 = [v196 unsignedLongLongValue];
-          v328 = [(PLEntry *)v346 objectForKeyedSubscript:@"SetupScanDuration"];
+          v328 = [(PLEntry *)v345 objectForKeyedSubscript:@"SetupScanDuration"];
           v329 = [v326 numberWithUnsignedLongLong:{unsignedLongLongValue15 - objc_msgSend(v328, "unsignedLongLongValue")}];
-          [v351 setObject:v329 forKeyedSubscript:@"SetupScanDuration"];
+          [v350 setObject:v329 forKeyedSubscript:@"SetupScanDuration"];
 
 LABEL_222:
 LABEL_223:
-          v41 = v355;
+          v41 = v354;
           goto LABEL_224;
         }
       }
@@ -8969,17 +9173,17 @@ LABEL_223:
   }
 
 LABEL_225:
-  v209 = v344;
+  v209 = v343;
   v210 = selfCopy;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v211 = objc_opt_class();
-    v386[0] = MEMORY[0x277D85DD0];
-    v386[1] = 3221225472;
-    v386[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2532;
-    v386[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v386[4] = v211;
-    v212 = v386;
+    v385[0] = MEMORY[0x277D85DD0];
+    v385[1] = 3221225472;
+    v385[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2532;
+    v385[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v385[4] = v211;
+    v212 = v385;
     if (qword_2811F68B0 != -1)
     {
       dispatch_once(&qword_2811F68B0, v212);
@@ -8987,7 +9191,7 @@ LABEL_225:
 
     if (byte_2811F66E6 == 1)
     {
-      v213 = [MEMORY[0x277CCACA8] stringWithFormat:@"Last logged data: %@ current data:%@", v346, v48];
+      v213 = [MEMORY[0x277CCACA8] stringWithFormat:@"Last logged data: %@ current data:%@", v345, v48];
       v214 = MEMORY[0x277D3F178];
       v215 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
       lastPathComponent5 = [v215 lastPathComponent];
@@ -8998,17 +9202,17 @@ LABEL_225:
       if (os_log_type_enabled(v218, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v410 = v213;
+        v409 = v213;
         _os_log_debug_impl(&dword_21A4C6000, v218, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      v41 = v355;
-      v45 = v345;
+      v41 = v354;
+      v45 = v344;
       v210 = selfCopy;
     }
   }
 
-  v219 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v344];
+  v219 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v343];
   [v48 setObject:v219 forKeyedSubscript:@"READINGTYPE"];
 
   if ([MEMORY[0x277D3F258] isPerfPowerMetricd])
@@ -9021,7 +9225,7 @@ LABEL_225:
     [(PLOperator *)v210 logEntry:v48];
   }
 
-  v220 = v346;
+  v220 = v345;
   if (+[PLWifiAgent isBeaconLoggingEnabled])
   {
     v221 = [v48 objectForKeyedSubscript:@"CurrentChannel"];
@@ -9029,43 +9233,43 @@ LABEL_225:
     {
       v222 = [v48 objectForKeyedSubscript:@"WifiTimestamp"];
       integerValue6 = [v222 integerValue];
-      v224 = [(PLEntry *)v346 objectForKeyedSubscript:@"WifiTimestamp"];
+      v224 = [(PLEntry *)v345 objectForKeyedSubscript:@"WifiTimestamp"];
       v225 = [v224 integerValue] + 60000;
 
-      v41 = v355;
-      v220 = v346;
+      v41 = v354;
+      v220 = v345;
 
       v43 = integerValue6 <= v225;
       v210 = selfCopy;
-      v45 = v345;
+      v45 = v344;
       if (v43)
       {
         goto LABEL_247;
       }
 
-      v221 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v331];
+      v221 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v330];
+      v381 = 0u;
       v382 = 0u;
       v383 = 0u;
       v384 = 0u;
-      v385 = 0u;
-      v226 = [obj countByEnumeratingWithState:&v382 objects:v415 count:16];
+      v226 = [obj countByEnumeratingWithState:&v381 objects:v414 count:16];
       if (v226)
       {
         v227 = v226;
-        v228 = *v383;
+        v228 = *v382;
         do
         {
           for (ii = 0; ii != v227; ++ii)
           {
-            if (*v383 != v228)
+            if (*v382 != v228)
             {
               objc_enumerationMutation(obj);
             }
 
-            v230 = *(*(&v382 + 1) + 8 * ii);
+            v230 = *(*(&v381 + 1) + 8 * ii);
             v231 = [obj objectForKeyedSubscript:v230];
-            v232 = [v231 objectAtIndexedSubscript:v344 != 0];
-            v233 = [v363 objectForKeyedSubscript:v232];
+            v232 = [v231 objectAtIndexedSubscript:v343 != 0];
+            v233 = [v362 objectForKeyedSubscript:v232];
             integerValue7 = [v233 integerValue];
 
             v47 = 0x277CCA000uLL;
@@ -9073,52 +9277,52 @@ LABEL_225:
             [v221 setObject:v235 forKeyedSubscript:v230];
           }
 
-          v227 = [obj countByEnumeratingWithState:&v382 objects:v415 count:16];
+          v227 = [obj countByEnumeratingWithState:&v381 objects:v414 count:16];
         }
 
         while (v227);
       }
 
-      v48 = v352;
-      v236 = [v352 objectForKeyedSubscript:@"WifiTimestamp"];
+      v48 = v351;
+      v236 = [v351 objectForKeyedSubscript:@"WifiTimestamp"];
       [v221 setObject:v236 forKeyedSubscript:@"WifiTimestamp"];
 
       v210 = selfCopy;
       [(PLOperator *)selfCopy logEntry:v221];
-      propertiesCopy = v363;
-      v220 = v346;
-      v41 = v355;
-      v209 = v344;
-      v45 = v345;
+      propertiesCopy = v362;
+      v220 = v345;
+      v41 = v354;
+      v209 = v343;
+      v45 = v344;
     }
   }
 
 LABEL_247:
   if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
   {
-    v237 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v335];
+    v237 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v334];
+    v377 = 0u;
     v378 = 0u;
     v379 = 0u;
     v380 = 0u;
-    v381 = 0u;
-    v238 = [v353 countByEnumeratingWithState:&v378 objects:v414 count:16];
+    v238 = [v352 countByEnumeratingWithState:&v377 objects:v413 count:16];
     if (v238)
     {
       v239 = v238;
-      v240 = *v379;
+      v240 = *v378;
       do
       {
         for (jj = 0; jj != v239; ++jj)
         {
-          if (*v379 != v240)
+          if (*v378 != v240)
           {
-            objc_enumerationMutation(v353);
+            objc_enumerationMutation(v352);
           }
 
-          v242 = *(*(&v378 + 1) + 8 * jj);
-          v243 = [v353 objectForKeyedSubscript:v242];
-          v244 = [v243 objectAtIndexedSubscript:v344 != 0];
-          v245 = [v363 objectForKeyedSubscript:v244];
+          v242 = *(*(&v377 + 1) + 8 * jj);
+          v243 = [v352 objectForKeyedSubscript:v242];
+          v244 = [v243 objectAtIndexedSubscript:v343 != 0];
+          v245 = [v362 objectForKeyedSubscript:v244];
           integerValue8 = [v245 integerValue];
 
           v47 = 0x277CCA000uLL;
@@ -9126,92 +9330,92 @@ LABEL_247:
           [v237 setObject:v247 forKeyedSubscript:v242];
         }
 
-        v239 = [v353 countByEnumeratingWithState:&v378 objects:v414 count:16];
+        v239 = [v352 countByEnumeratingWithState:&v377 objects:v413 count:16];
       }
 
       while (v239);
     }
 
-    v48 = v352;
-    v248 = [v352 objectForKeyedSubscript:@"WifiTimestamp"];
+    v48 = v351;
+    v248 = [v351 objectForKeyedSubscript:@"WifiTimestamp"];
     [v237 setObject:v248 forKeyedSubscript:@"WifiTimestamp"];
 
-    propertiesCopy = v363;
+    propertiesCopy = v362;
     v210 = selfCopy;
-    v220 = v346;
-    v41 = v355;
-    v45 = v345;
+    v220 = v345;
+    v41 = v354;
+    v45 = v344;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v249 = objc_opt_class();
-      v377[0] = MEMORY[0x277D85DD0];
-      v377[1] = 3221225472;
-      v377[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2538;
-      v377[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v377[4] = v249;
-      v250 = v377;
+      v376[0] = MEMORY[0x277D85DD0];
+      v376[1] = 3221225472;
+      v376[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2538;
+      v376[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v376[4] = v249;
+      v250 = v376;
       if (qword_2811F68B8 != -1)
       {
         dispatch_once(&qword_2811F68B8, v250);
       }
 
-      v220 = v346;
+      v220 = v345;
       if (byte_2811F66E7 == 1)
       {
-        v353 = [MEMORY[0x277CCACA8] stringWithFormat:@" current data:%@ %@", v237, v353];
+        v352 = [MEMORY[0x277CCACA8] stringWithFormat:@" current data:%@ %@", v237, v352];
         v252 = MEMORY[0x277D3F178];
         v253 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent6 = [v253 lastPathComponent];
         v255 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:withNetworkProperties:shallModelPower:]"];
-        [v252 logMessage:v353 fromFile:lastPathComponent6 fromFunction:v255 fromLineNumber:4396];
+        [v252 logMessage:v352 fromFile:lastPathComponent6 fromFunction:v255 fromLineNumber:4396];
 
         v256 = PLLogCommon();
         if (os_log_type_enabled(v256, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v410 = v353;
+          v409 = v352;
           _os_log_debug_impl(&dword_21A4C6000, v256, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v41 = v355;
-        v45 = v345;
+        v41 = v354;
+        v45 = v344;
         v47 = 0x277CCA000;
-        v220 = v346;
+        v220 = v345;
         v210 = selfCopy;
       }
     }
 
     [(PLOperator *)v210 logEntry:v237];
 
-    v209 = v344;
+    v209 = v343;
   }
 
   if (+[PLWifiAgent isScanForwardLoggingEnabled])
   {
-    v257 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v334];
+    v257 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v333];
+    v372 = 0u;
     v373 = 0u;
     v374 = 0u;
     v375 = 0u;
-    v376 = 0u;
-    v258 = [v354 countByEnumeratingWithState:&v373 objects:v413 count:16];
+    v258 = [v353 countByEnumeratingWithState:&v372 objects:v412 count:16];
     if (v258)
     {
       v259 = v258;
       v260 = v209 != 0;
-      v261 = *v374;
+      v261 = *v373;
       do
       {
         for (kk = 0; kk != v259; ++kk)
         {
-          if (*v374 != v261)
+          if (*v373 != v261)
           {
-            objc_enumerationMutation(v354);
+            objc_enumerationMutation(v353);
           }
 
-          v263 = *(*(&v373 + 1) + 8 * kk);
-          v264 = [v354 objectForKeyedSubscript:v263];
+          v263 = *(*(&v372 + 1) + 8 * kk);
+          v264 = [v353 objectForKeyedSubscript:v263];
           v265 = [v264 objectAtIndexedSubscript:v260];
-          v266 = [v363 objectForKeyedSubscript:v265];
+          v266 = [v362 objectForKeyedSubscript:v265];
           integerValue9 = [v266 integerValue];
 
           v47 = 0x277CCA000uLL;
@@ -9219,108 +9423,108 @@ LABEL_247:
           [v257 setObject:v268 forKeyedSubscript:v263];
         }
 
-        v259 = [v354 countByEnumeratingWithState:&v373 objects:v413 count:16];
+        v259 = [v353 countByEnumeratingWithState:&v372 objects:v412 count:16];
       }
 
       while (v259);
     }
 
-    v48 = v352;
-    v269 = [v352 objectForKeyedSubscript:@"WifiTimestamp"];
+    v48 = v351;
+    v269 = [v351 objectForKeyedSubscript:@"WifiTimestamp"];
     [v257 setObject:v269 forKeyedSubscript:@"WifiTimestamp"];
 
     v210 = selfCopy;
-    v220 = v346;
-    v41 = v355;
+    v220 = v345;
+    v41 = v354;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v270 = objc_opt_class();
-      v372[0] = MEMORY[0x277D85DD0];
-      v372[1] = 3221225472;
-      v372[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2544;
-      v372[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v372[4] = v270;
-      v271 = v372;
+      v371[0] = MEMORY[0x277D85DD0];
+      v371[1] = 3221225472;
+      v371[2] = __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2544;
+      v371[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v371[4] = v270;
+      v271 = v371;
       if (qword_2811F68C0 != -1)
       {
         dispatch_once(&qword_2811F68C0, v271);
       }
 
-      v220 = v346;
+      v220 = v345;
       if (byte_2811F66E8 == 1)
       {
-        v354 = [MEMORY[0x277CCACA8] stringWithFormat:@"ScanForward current data: %@ %@", v257, v354];
+        v353 = [MEMORY[0x277CCACA8] stringWithFormat:@"ScanForward current data: %@ %@", v257, v353];
         v273 = MEMORY[0x277D3F178];
         v274 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
         lastPathComponent7 = [v274 lastPathComponent];
         v276 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent logEventBackwardWifiProperties:withNetworkProperties:shallModelPower:]"];
-        [v273 logMessage:v354 fromFile:lastPathComponent7 fromFunction:v276 fromLineNumber:4410];
+        [v273 logMessage:v353 fromFile:lastPathComponent7 fromFunction:v276 fromLineNumber:4410];
 
         v277 = PLLogCommon();
         if (os_log_type_enabled(v277, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v410 = v354;
+          v409 = v353;
           _os_log_debug_impl(&dword_21A4C6000, v277, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v41 = v355;
+        v41 = v354;
         v47 = 0x277CCA000;
-        v220 = v346;
+        v220 = v345;
         v210 = selfCopy;
       }
     }
 
     v278 = PLLogWifi();
-    propertiesCopy = v363;
+    propertiesCopy = v362;
     if (os_log_type_enabled(v278, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v410 = v257;
-      v411 = 2112;
-      v412 = v354;
+      v409 = v257;
+      v410 = 2112;
+      v411 = v353;
       _os_log_debug_impl(&dword_21A4C6000, v278, OS_LOG_TYPE_DEBUG, "ScanForward current data: %@ %@", buf, 0x16u);
     }
 
     [(PLOperator *)v210 logEntry:v257];
-    v45 = v345;
+    v45 = v344;
   }
 
-  v42 = v342;
+  v42 = v341;
   if (v220)
   {
-    v279 = [v351 objectForKeyedSubscript:@"TimeDuration"];
+    v279 = [v350 objectForKeyedSubscript:@"TimeDuration"];
     integerValue10 = [v279 integerValue];
 
     v43 = integerValue10 < 1;
-    v42 = v342;
+    v42 = v341;
     if (!v43)
     {
       if (v45 != 1)
       {
-        v281 = [v351 objectForKeyedSubscript:@"TimeDuration"];
+        v281 = [v350 objectForKeyedSubscript:@"TimeDuration"];
         v282 = [v281 integerValue] / 1000.0;
 
-        entryDate = [v351 entryDate];
-        entryDate2 = [(PLEntry *)v346 entryDate];
+        entryDate = [v350 entryDate];
+        entryDate2 = [(PLEntry *)v345 entryDate];
         [entryDate timeIntervalSinceDate:entryDate2];
         v286 = v285;
 
-        v42 = v342;
+        v42 = v341;
         if (v282 < v286)
         {
           v287 = MEMORY[0x277CBEAA8];
-          entryDate3 = [(PLEntry *)v346 entryDate];
+          entryDate3 = [(PLEntry *)v345 entryDate];
           v289 = [v287 dateWithTimeInterval:entryDate3 sinceDate:v282];
-          [v351 setEntryDate:v289];
+          [v350 setEntryDate:v289];
 
-          v42 = v342;
+          v42 = v341;
         }
       }
 
       if (powerCopy)
       {
-        [(PLWifiAgent *)v210 modelWiFiPower:v351];
+        [(PLWifiAgent *)v210 modelWiFiPower:v350];
       }
     }
   }
@@ -9331,7 +9535,7 @@ LABEL_247:
 
     if (!v208)
     {
-      v346 = 0;
+      v345 = 0;
       v44 = 0;
       goto LABEL_293;
     }
@@ -9343,73 +9547,72 @@ LABEL_247:
   }
 
 LABEL_310:
-  v330 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E2 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2505(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2505(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E3 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2517(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2517(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E4 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2526(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2526(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E5 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2532(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2532(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E6 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2538(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2538(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E7 = result;
   return result;
 }
 
-uint64_t __84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2544(uint64_t a1)
+void *__84__PLWifiAgent_logEventBackwardWifiProperties_withNetworkProperties_shallModelPower___block_invoke_2544(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E8 = result;
   return result;
 }
 
-uint64_t __31__PLWifiAgent_wifiChipsetQuery__block_invoke(uint64_t a1)
+void *__31__PLWifiAgent_wifiChipsetQuery__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66E9 = result;
   return result;
 }
 
-uint64_t __36__PLWifiAgent_wifiManufacturerQuery__block_invoke(uint64_t a1)
+void *__36__PLWifiAgent_wifiManufacturerQuery__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66EA = result;
   return result;
 }
 
-uint64_t __36__PLWifiAgent_wifiManufacturerQuery__block_invoke_2622(uint64_t a1)
+void *__36__PLWifiAgent_wifiManufacturerQuery__block_invoke_2622(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66EB = result;
@@ -9418,7 +9621,7 @@ uint64_t __36__PLWifiAgent_wifiManufacturerQuery__block_invoke_2622(uint64_t a1)
 
 - (void)modelWiFiPower:(id)power
 {
-  v495 = *MEMORY[0x277D85DE8];
+  v494 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
@@ -9444,27 +9647,27 @@ LABEL_88:
 
       v10 = [powerCopy objectForKeyedSubscript:@"PMDuration"];
       [v10 doubleValue];
-      v485 = v11;
+      v484 = v11;
 
       v12 = [powerCopy objectForKeyedSubscript:@"MPCDuration"];
       [v12 doubleValue];
-      v481 = v13;
+      v480 = v13;
 
       v14 = [powerCopy objectForKeyedSubscript:@"TimeDuration"];
       [v14 doubleValue];
-      v478 = v15;
+      v477 = v15;
 
       v16 = [powerCopy objectForKeyedSubscript:@"TXDuration"];
       [v16 doubleValue];
-      v475 = v17;
+      v474 = v17;
 
       v18 = [powerCopy objectForKeyedSubscript:@"RXDuration"];
       [v18 doubleValue];
-      v473 = v19;
+      v472 = v19;
 
       v20 = [powerCopy objectForKeyedSubscript:@"HSICActiveDuration"];
       [v20 doubleValue];
-      v470 = v21;
+      v469 = v21;
 
       v22 = [powerCopy objectForKeyedSubscript:@"AssociatedScanDuration"];
       [v22 doubleValue];
@@ -9492,7 +9695,7 @@ LABEL_88:
       self = v40;
       v44 = [powerCopy objectForKeyedSubscript:@"FRTSDuration"];
       [v44 doubleValue];
-      v467 = v45;
+      v466 = v45;
 
       v46 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"wifi"];
       wifiChipsetQuery = [(PLWifiAgent *)v40 wifiChipsetQuery];
@@ -9535,23 +9738,23 @@ LABEL_88:
         [v75 doubleValue];
         v77 = v76;
 
-        v78 = v478 - v485 - v481 - v475 - v473;
+        v78 = v477 - v484 - v480 - v474 - v472;
         if (v78 < 0.0)
         {
           v78 = 0.0;
         }
 
         v79 = v78 * v73;
-        v80 = v470 + v481 + v485 + v59 - v478;
+        v80 = v469 + v480 + v484 + v59 - v477;
         if (v80 < 0.0)
         {
           v80 = 0.0;
         }
 
         v81 = v80 * v77;
-        v82 = v475 * v65 + v473 * v69;
+        v82 = v474 * v65 + v472 * v69;
         v54 = v82 + v79 + v81;
-        v83 = v467 - v473 - v475;
+        v83 = v466 - v472 - v474;
         if (v83 < 0.0)
         {
           v83 = 0.0;
@@ -9575,7 +9778,7 @@ LABEL_88:
         [v51 doubleValue];
         v53 = v52;
 
-        v54 = (v478 - v485 - v481) * v53;
+        v54 = (v477 - v484 - v480) * v53;
         v55 = 0.0;
       }
     }
@@ -9586,214 +9789,225 @@ LABEL_88:
       {
         if ([MEMORY[0x277D3F208] kPLWiFiClassIsOneOf:{1004005, 1004007, 1004010, 1004013, 1004014, 1004015, 1004016, 1004017, 1004018, 0}])
         {
-          v193 = [powerCopy objectForKeyedSubscript:@"CurrentChannel"];
-          [v193 doubleValue];
-          v479 = v194;
+          v192 = [powerCopy objectForKeyedSubscript:@"CurrentChannel"];
+          [v192 doubleValue];
+          v478 = v193;
 
-          v195 = [powerCopy objectForKeyedSubscript:@"PMDuration"];
-          [v195 doubleValue];
-          v197 = v196;
+          v194 = [powerCopy objectForKeyedSubscript:@"PMDuration"];
+          [v194 doubleValue];
+          v196 = v195;
 
-          v198 = [powerCopy objectForKeyedSubscript:@"MPCDuration"];
-          [v198 doubleValue];
-          v200 = v199;
+          v197 = [powerCopy objectForKeyedSubscript:@"MPCDuration"];
+          [v197 doubleValue];
+          v199 = v198;
 
-          v201 = [powerCopy objectForKeyedSubscript:@"TimeDuration"];
-          [v201 doubleValue];
-          v203 = v202;
+          v200 = [powerCopy objectForKeyedSubscript:@"TimeDuration"];
+          [v200 doubleValue];
+          v202 = v201;
 
-          v204 = [powerCopy objectForKeyedSubscript:@"TXDuration"];
-          [v204 doubleValue];
-          v483 = v205;
+          v203 = [powerCopy objectForKeyedSubscript:@"TXDuration"];
+          [v203 doubleValue];
+          v482 = v204;
 
-          v206 = [powerCopy objectForKeyedSubscript:@"MIMOTXDuration"];
-          [v206 doubleValue];
-          v208 = v207;
+          v205 = [powerCopy objectForKeyedSubscript:@"MIMOTXDuration"];
+          [v205 doubleValue];
+          v207 = v206;
 
-          v209 = [powerCopy objectForKeyedSubscript:@"RXDuration"];
-          [v209 doubleValue];
-          v211 = v210;
+          v208 = [powerCopy objectForKeyedSubscript:@"RXDuration"];
+          [v208 doubleValue];
+          v210 = v209;
 
-          v212 = [powerCopy objectForKeyedSubscript:@"MIMORXDuration"];
-          [v212 doubleValue];
-          v214 = v213;
+          v211 = [powerCopy objectForKeyedSubscript:@"MIMORXDuration"];
+          [v211 doubleValue];
+          v213 = v212;
 
-          v215 = [powerCopy objectForKeyedSubscript:@"SISORXDuration"];
+          v214 = [powerCopy objectForKeyedSubscript:@"SISORXDuration"];
+          [v214 doubleValue];
+
+          v215 = [powerCopy objectForKeyedSubscript:@"MIMOCSDuration"];
           [v215 doubleValue];
+          v217 = v216;
 
-          v216 = [powerCopy objectForKeyedSubscript:@"MIMOCSDuration"];
-          [v216 doubleValue];
-          v218 = v217;
+          v218 = [powerCopy objectForKeyedSubscript:@"SISOCSDuration"];
+          [v218 doubleValue];
 
-          v219 = [powerCopy objectForKeyedSubscript:@"SISOCSDuration"];
+          v219 = [powerCopy objectForKeyedSubscript:@"OCLCSDuration"];
           [v219 doubleValue];
+          v462 = v220;
 
-          v220 = [powerCopy objectForKeyedSubscript:@"OCLCSDuration"];
-          [v220 doubleValue];
-          v463 = v221;
-
-          v474 = 0.0;
+          v473 = 0.0;
           if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
           {
-            v222 = [powerCopy objectForKeyedSubscript:@"SCRXDurationSISO"];
-            [v222 doubleValue];
-            v474 = v223;
+            v221 = [powerCopy objectForKeyedSubscript:@"SCRXDurationSISO"];
+            [v221 doubleValue];
+            v473 = v222;
           }
 
-          v224 = [powerCopy objectForKeyedSubscript:@"FRTSDuration"];
-          [v224 doubleValue];
-          v468 = v225;
+          v223 = [powerCopy objectForKeyedSubscript:@"FRTSDuration"];
+          [v223 doubleValue];
+          v467 = v224;
 
-          if (v214 <= v211)
+          if (v213 <= v210)
           {
-            v226 = v214;
+            v225 = v213;
           }
 
           else
           {
-            v226 = v211;
+            v225 = v210;
           }
 
-          v465 = v226;
-          if (v208 <= v483)
+          v464 = v225;
+          if (v207 <= v482)
           {
-            v227 = v208;
+            v226 = v207;
           }
 
           else
           {
-            v227 = v483;
+            v226 = v482;
           }
 
-          if (v203 - v211 - v483 - v197 - v200 >= 0.0)
+          if (v202 - v210 - v482 - v196 - v199 >= 0.0)
           {
-            v228 = v203 - v211 - v483 - v197 - v200;
+            v227 = v202 - v210 - v482 - v196 - v199;
           }
 
           else
           {
-            v228 = 0.0;
+            v227 = 0.0;
           }
 
-          if (v218 > v228)
+          if (v217 > v227)
           {
-            v218 = v228;
+            v217 = v227;
           }
 
-          v229 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"wifi"];
+          v228 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"wifi"];
           wifiChipsetQuery2 = [(PLWifiAgent *)self wifiChipsetQuery];
-          v476 = v229;
-          v231 = [v229 objectForKeyedSubscript:wifiChipsetQuery2];
+          v475 = v228;
+          v230 = [v228 objectForKeyedSubscript:wifiChipsetQuery2];
           wifiManufacturerQuery2 = [(PLWifiAgent *)self wifiManufacturerQuery];
-          v233 = [v231 objectForKeyedSubscript:wifiManufacturerQuery2];
+          v232 = [v230 objectForKeyedSubscript:wifiManufacturerQuery2];
 
-          if (v479 >= 0.0)
+          if (v478 >= 0.0)
           {
-            v472 = v233;
+            v471 = v232;
             selfCopy = self;
-            v280 = @"5";
-            if (v479 != 0.0)
+            v279 = @"5";
+            if (v478 != 0.0)
             {
-              v281 = @"2.4";
-              if (v479 > 11.0)
+              v280 = @"2.4";
+              if (v478 > 11.0)
               {
-                v281 = @"5";
+                v280 = @"5";
               }
 
-              v280 = v281;
+              v279 = v280;
             }
 
-            v282 = [powerCopy objectForKeyedSubscript:@"CurrentBandwidth"];
-            [v282 doubleValue];
-            v284 = v283;
+            v281 = [powerCopy objectForKeyedSubscript:@"CurrentBandwidth"];
+            [v281 doubleValue];
+            v283 = v282;
 
-            if (v284)
+            if (v283)
             {
-              v285 = v284;
+              v284 = v283;
             }
 
             else
             {
-              v285 = 20;
+              v284 = 20;
             }
 
-            v285 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v285];
-            v287 = [v233 objectForKeyedSubscript:v280];
-            v288 = [v287 objectForKeyedSubscript:v285];
-            v289 = [v288 objectForKeyedSubscript:@"mimo_tx"];
-            [v289 doubleValue];
-            v453 = v290;
+            v284 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v284];
+            v286 = [v232 objectForKeyedSubscript:v279];
+            v287 = [v286 objectForKeyedSubscript:v284];
+            v288 = [v287 objectForKeyedSubscript:@"mimo_tx"];
+            [v288 doubleValue];
+            v452 = v289;
 
-            v291 = [v233 objectForKeyedSubscript:v280];
-            v292 = [v291 objectForKeyedSubscript:v285];
-            v293 = [v292 objectForKeyedSubscript:@"mimo_rx"];
-            [v293 doubleValue];
-            v451 = v294;
+            v290 = [v232 objectForKeyedSubscript:v279];
+            v291 = [v290 objectForKeyedSubscript:v284];
+            v292 = [v291 objectForKeyedSubscript:@"mimo_rx"];
+            [v292 doubleValue];
+            v450 = v293;
 
-            v295 = [v233 objectForKeyedSubscript:v280];
-            v296 = [v295 objectForKeyedSubscript:v285];
-            v297 = [v296 objectForKeyedSubscript:@"mimo_cs"];
-            [v297 doubleValue];
-            v457 = v298;
+            v294 = [v232 objectForKeyedSubscript:v279];
+            v295 = [v294 objectForKeyedSubscript:v284];
+            v296 = [v295 objectForKeyedSubscript:@"mimo_cs"];
+            [v296 doubleValue];
+            v456 = v297;
 
-            v299 = [v233 objectForKeyedSubscript:v280];
-            v300 = [v299 objectForKeyedSubscript:v285];
-            v301 = [v300 objectForKeyedSubscript:@"siso_tx"];
-            [v301 doubleValue];
-            v449 = v302;
+            v298 = [v232 objectForKeyedSubscript:v279];
+            v299 = [v298 objectForKeyedSubscript:v284];
+            v300 = [v299 objectForKeyedSubscript:@"siso_tx"];
+            [v300 doubleValue];
+            v448 = v301;
 
-            v303 = [v233 objectForKeyedSubscript:v280];
-            v304 = [v303 objectForKeyedSubscript:v285];
-            v305 = [v304 objectForKeyedSubscript:@"siso_rx"];
-            [v305 doubleValue];
-            v447 = v306;
+            v302 = [v232 objectForKeyedSubscript:v279];
+            v303 = [v302 objectForKeyedSubscript:v284];
+            v304 = [v303 objectForKeyedSubscript:@"siso_rx"];
+            [v304 doubleValue];
+            v446 = v305;
 
-            v307 = [v233 objectForKeyedSubscript:v280];
-            v308 = [v307 objectForKeyedSubscript:v285];
-            v309 = [v308 objectForKeyedSubscript:@"siso_cs"];
-            [v309 doubleValue];
-            v461 = v310;
+            v306 = [v232 objectForKeyedSubscript:v279];
+            v307 = [v306 objectForKeyedSubscript:v284];
+            v308 = [v307 objectForKeyedSubscript:@"siso_cs"];
+            [v308 doubleValue];
+            v460 = v309;
 
-            v311 = [v233 objectForKeyedSubscript:v280];
-            v312 = [v311 objectForKeyedSubscript:v285];
-            v313 = [v312 objectForKeyedSubscript:@"ocl_cs"];
-            [v313 doubleValue];
-            v445 = v314;
+            v310 = [v232 objectForKeyedSubscript:v279];
+            v311 = [v310 objectForKeyedSubscript:v284];
+            v312 = [v311 objectForKeyedSubscript:@"ocl_cs"];
+            [v312 doubleValue];
+            v444 = v313;
 
-            v315 = 0.0;
+            v314 = 0.0;
             if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
             {
-              v316 = [v233 objectForKeyedSubscript:v280];
-              v317 = [v316 objectForKeyedSubscript:@"sc"];
-              [v317 doubleValue];
-              v315 = v318;
+              v315 = [v232 objectForKeyedSubscript:v279];
+              v316 = [v315 objectForKeyedSubscript:@"sc"];
+              [v316 doubleValue];
+              v314 = v317;
             }
 
-            v455 = v227;
-            v319 = v483 - v227;
-            v320 = v211 - v465;
+            v454 = v226;
+            v318 = v482 - v226;
+            v319 = v210 - v464;
             self = selfCopy;
-            v459 = v218;
+            v458 = v217;
             if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004007))
             {
-              v321 = v320 * v447 + v465 * v451;
+              v320 = v319 * v446 + v464 * v450;
               v6 = 0x277D3F000;
-              v237 = v476;
+              v236 = v475;
             }
 
             else
             {
-              v367 = [powerCopy objectForKeyedSubscript:@"OPSFullDuration"];
-              [v367 doubleValue];
-              v369 = v368;
+              v366 = [powerCopy objectForKeyedSubscript:@"OPSFullDuration"];
+              [v366 doubleValue];
+              v368 = v367;
 
-              v370 = [powerCopy objectForKeyedSubscript:@"OPSPartialDuration"];
-              [v370 doubleValue];
-              v372 = v371;
+              v369 = [powerCopy objectForKeyedSubscript:@"OPSPartialDuration"];
+              [v369 doubleValue];
+              v371 = v370;
 
-              if (v369 >= 0.0)
+              if (v368 >= 0.0)
               {
-                v373 = v369;
+                v372 = v368;
+              }
+
+              else
+              {
+                v372 = 0.0;
+              }
+
+              v442 = v372;
+              if (v371 >= 0.0)
+              {
+                v373 = v371;
               }
 
               else
@@ -9801,172 +10015,161 @@ LABEL_88:
                 v373 = 0.0;
               }
 
-              v443 = v373;
-              if (v372 >= 0.0)
+              v374 = [v232 objectForKeyedSubscript:v279];
+              v375 = [v374 objectForKeyedSubscript:v284];
+              v376 = [v375 objectForKeyedSubscript:@"ops_full"];
+              [v376 doubleValue];
+              v440 = v377;
+
+              v378 = [v232 objectForKeyedSubscript:v279];
+              v379 = [v378 objectForKeyedSubscript:v284];
+              v380 = [v379 objectForKeyedSubscript:@"ops_partial"];
+              [v380 doubleValue];
+              v382 = v381;
+
+              v383 = v319 * v446;
+              v236 = v475;
+              if (v464 <= v442 + v373)
               {
-                v374 = v372;
+                v320 = v383 + v464 * v450;
               }
 
               else
               {
-                v374 = 0.0;
-              }
-
-              v375 = [v233 objectForKeyedSubscript:v280];
-              v376 = [v375 objectForKeyedSubscript:v285];
-              v377 = [v376 objectForKeyedSubscript:@"ops_full"];
-              [v377 doubleValue];
-              v441 = v378;
-
-              v379 = [v233 objectForKeyedSubscript:v280];
-              v380 = [v379 objectForKeyedSubscript:v285];
-              v381 = [v380 objectForKeyedSubscript:@"ops_partial"];
-              [v381 doubleValue];
-              v383 = v382;
-
-              v384 = v320 * v447;
-              v237 = v476;
-              if (v465 <= v443 + v374)
-              {
-                v321 = v384 + v465 * v451;
-              }
-
-              else
-              {
-                v321 = v384 + (v465 - v443 - v374) * v451 + v374 * v383 + v443 * v441;
+                v320 = v383 + (v464 - v442 - v373) * v450 + v373 * v382 + v442 * v440;
               }
 
               self = selfCopy;
               v6 = 0x277D3F000uLL;
-              v218 = v459;
+              v217 = v458;
             }
 
-            v403 = v319 * v449;
-            v404 = v228 - v218;
-            if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100020) & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v463 > v218)
+            v402 = v318 * v448;
+            v403 = v227 - v217;
+            if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100020) & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v462 > v217)
             {
-              v405 = v457;
-              v406 = v404 * v461 + v218 * v457;
+              v404 = v456;
+              v405 = v403 * v460 + v217 * v456;
             }
 
             else
             {
-              v405 = v457;
-              v406 = v463 * v445 + (v218 - v463) * v457 + v404 * v461;
+              v404 = v456;
+              v405 = v462 * v444 + (v217 - v462) * v456 + v403 * v460;
             }
 
-            v407 = v403 + v455 * v453;
+            v406 = v402 + v454 * v452;
             if ([MEMORY[0x277D3F208] isUsingAnOlderWifiChip])
             {
-              v408 = 0.0;
+              v407 = 0.0;
             }
 
             else
             {
-              v408 = v474 * v315;
+              v407 = v473 * v314;
             }
 
             if ([*(v6 + 384) debugEnabled])
             {
-              v409 = objc_opt_class();
-              v492[0] = MEMORY[0x277D85DD0];
-              v492[1] = 3221225472;
-              v492[2] = __30__PLWifiAgent_modelWiFiPower___block_invoke;
-              v492[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v492[4] = v409;
+              v408 = objc_opt_class();
+              v491[0] = MEMORY[0x277D85DD0];
+              v491[1] = 3221225472;
+              v491[2] = __30__PLWifiAgent_modelWiFiPower___block_invoke;
+              v491[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v491[4] = v408;
               if (qword_2811F68E0 != -1)
               {
-                dispatch_once(&qword_2811F68E0, v492);
+                dispatch_once(&qword_2811F68E0, v491);
               }
 
               if (byte_2811F66EC == 1)
               {
-                v410 = [MEMORY[0x277CCACA8] stringWithFormat:@"txE = %f, rxE = %f, csE = %f, scE = %f", *&v407, *&v321, *&v406, *&v408];
-                v411 = MEMORY[0x277D3F178];
-                v412 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-                lastPathComponent = [v412 lastPathComponent];
-                v414 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent modelWiFiPower:]"];
-                [v411 logMessage:v410 fromFile:lastPathComponent fromFunction:v414 fromLineNumber:4984];
+                v409 = [MEMORY[0x277CCACA8] stringWithFormat:@"txE = %f, rxE = %f, csE = %f, scE = %f", *&v406, *&v320, *&v405, *&v407];
+                v410 = MEMORY[0x277D3F178];
+                v411 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+                lastPathComponent = [v411 lastPathComponent];
+                v413 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent modelWiFiPower:]"];
+                [v410 logMessage:v409 fromFile:lastPathComponent fromFunction:v413 fromLineNumber:4984];
 
-                v415 = PLLogCommon();
-                if (os_log_type_enabled(v415, OS_LOG_TYPE_DEBUG))
+                v414 = PLLogCommon();
+                if (os_log_type_enabled(v414, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v410;
-                  _os_log_debug_impl(&dword_21A4C6000, v415, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  *&buf[4] = v409;
+                  _os_log_debug_impl(&dword_21A4C6000, v414, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
                 self = selfCopy;
                 v6 = 0x277D3F000;
-                v237 = v476;
+                v236 = v475;
               }
             }
 
-            v416 = v407 + v321;
-            v417 = v416 + v406;
-            if (v468 - v211 - v483 >= 0.0)
+            v415 = v406 + v320;
+            v416 = v415 + v405;
+            if (v467 - v210 - v482 >= 0.0)
             {
-              v418 = v468 - v211 - v483;
+              v417 = v467 - v210 - v482;
             }
 
             else
             {
-              v418 = 0.0;
+              v417 = 0.0;
             }
 
-            v419 = [MEMORY[0x277D3F208] isWiFiClass:1004005];
-            if (v418 >= v459)
+            v418 = [MEMORY[0x277D3F208] isWiFiClass:1004005];
+            if (v417 >= v458)
             {
-              if ((v419 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v463 > v418)
+              if ((v418 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v462 > v417)
               {
-                v420 = (v418 - v459) * v461 + v459 * v405;
+                v419 = (v417 - v458) * v460 + v458 * v404;
               }
 
               else
               {
-                v420 = v463 * v445 + (v459 - v463) * v405 + (v418 - v459) * v461;
+                v419 = v462 * v444 + (v458 - v462) * v404 + (v417 - v458) * v460;
               }
             }
 
-            else if ((v419 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v463 > v418)
+            else if ((v418 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v462 > v417)
             {
-              v420 = v418 * v405;
+              v419 = v417 * v404;
             }
 
             else
             {
-              v420 = v463 * v445 + (v418 - v463) * v405;
+              v419 = v462 * v444 + (v417 - v462) * v404;
             }
 
-            v54 = v417 + v408;
-            if (v420 < 0.0)
+            v54 = v416 + v407;
+            if (v419 < 0.0)
             {
-              v420 = 0.0;
+              v419 = 0.0;
             }
 
-            v421 = v416 + v420;
-            if (v479 == 0.0)
+            v420 = v415 + v419;
+            if (v478 == 0.0)
             {
               v55 = 0.0;
             }
 
             else
             {
-              v55 = v421;
+              v55 = v420;
             }
 
-            v233 = v472;
+            v232 = v471;
           }
 
           else
           {
-            v234 = [v233 objectForKeyedSubscript:{@"scan", v479}];
-            [v234 doubleValue];
-            v236 = v235;
+            v233 = [v232 objectForKeyedSubscript:{@"scan", v478}];
+            [v233 doubleValue];
+            v235 = v234;
 
-            v54 = (v203 - v197 - v200) * v236;
+            v54 = (v202 - v196 - v199) * v235;
             v55 = 0.0;
-            v237 = v476;
+            v236 = v475;
           }
 
           goto LABEL_44;
@@ -10175,8 +10378,8 @@ LABEL_44:
               self = selfCopy3;
             }
 
-            v493 = v180;
-            v191 = [MEMORY[0x277CBEA60] arrayWithObjects:&v493 count:1];
+            v492 = v180;
+            v191 = [MEMORY[0x277CBEA60] arrayWithObjects:&v492 count:1];
             [(PLOperator *)self postEntries:v191];
           }
 
@@ -10189,224 +10392,235 @@ LABEL_44:
           goto LABEL_88;
         }
 
-        v238 = [powerCopy objectForKeyedSubscript:@"CurrentChannel"];
-        [v238 doubleValue];
-        v480 = v239;
+        v237 = [powerCopy objectForKeyedSubscript:@"CurrentChannel"];
+        [v237 doubleValue];
+        v479 = v238;
 
-        v240 = [powerCopy objectForKeyedSubscript:@"PMDuration"];
-        [v240 doubleValue];
-        v242 = v241;
+        v239 = [powerCopy objectForKeyedSubscript:@"PMDuration"];
+        [v239 doubleValue];
+        v241 = v240;
 
-        v243 = [powerCopy objectForKeyedSubscript:@"MPCDuration"];
-        [v243 doubleValue];
-        v245 = v244;
+        v242 = [powerCopy objectForKeyedSubscript:@"MPCDuration"];
+        [v242 doubleValue];
+        v244 = v243;
 
-        v246 = [powerCopy objectForKeyedSubscript:@"TimeDuration"];
-        [v246 doubleValue];
-        v248 = v247;
+        v245 = [powerCopy objectForKeyedSubscript:@"TimeDuration"];
+        [v245 doubleValue];
+        v247 = v246;
 
-        v249 = [powerCopy objectForKeyedSubscript:@"TXDuration"];
-        [v249 doubleValue];
-        v484 = v250;
+        v248 = [powerCopy objectForKeyedSubscript:@"TXDuration"];
+        [v248 doubleValue];
+        v483 = v249;
 
-        v251 = [powerCopy objectForKeyedSubscript:@"MIMOTXDuration"];
-        [v251 doubleValue];
-        v253 = v252;
+        v250 = [powerCopy objectForKeyedSubscript:@"MIMOTXDuration"];
+        [v250 doubleValue];
+        v252 = v251;
 
-        v254 = [powerCopy objectForKeyedSubscript:@"RXDuration"];
-        [v254 doubleValue];
-        v256 = v255;
+        v253 = [powerCopy objectForKeyedSubscript:@"RXDuration"];
+        [v253 doubleValue];
+        v255 = v254;
 
-        v257 = [powerCopy objectForKeyedSubscript:@"MIMORXDuration"];
-        [v257 doubleValue];
-        v259 = v258;
+        v256 = [powerCopy objectForKeyedSubscript:@"MIMORXDuration"];
+        [v256 doubleValue];
+        v258 = v257;
 
-        v260 = [powerCopy objectForKeyedSubscript:@"SISORXDuration"];
+        v259 = [powerCopy objectForKeyedSubscript:@"SISORXDuration"];
+        [v259 doubleValue];
+
+        v260 = [powerCopy objectForKeyedSubscript:@"MIMOCSDuration"];
         [v260 doubleValue];
+        v262 = v261;
 
-        v261 = [powerCopy objectForKeyedSubscript:@"MIMOCSDuration"];
-        [v261 doubleValue];
-        v263 = v262;
+        v263 = [powerCopy objectForKeyedSubscript:@"SISOCSDuration"];
+        [v263 doubleValue];
 
-        v264 = [powerCopy objectForKeyedSubscript:@"SISOCSDuration"];
+        v264 = [powerCopy objectForKeyedSubscript:@"OCLCSDuration"];
         [v264 doubleValue];
+        v465 = v265;
 
-        v265 = [powerCopy objectForKeyedSubscript:@"OCLCSDuration"];
-        [v265 doubleValue];
-        v466 = v266;
-
-        v477 = 0.0;
+        v476 = 0.0;
         if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
         {
-          v267 = [powerCopy objectForKeyedSubscript:@"SCRXDurationSISO"];
-          [v267 doubleValue];
-          v477 = v268;
+          v266 = [powerCopy objectForKeyedSubscript:@"SCRXDurationSISO"];
+          [v266 doubleValue];
+          v476 = v267;
         }
 
-        v269 = [powerCopy objectForKeyedSubscript:@"FRTSDuration"];
-        [v269 doubleValue];
-        v471 = v270;
+        v268 = [powerCopy objectForKeyedSubscript:@"FRTSDuration"];
+        [v268 doubleValue];
+        v470 = v269;
 
-        if (v259 <= v256)
+        if (v258 <= v255)
         {
-          v271 = v259;
-        }
-
-        else
-        {
-          v271 = v256;
-        }
-
-        v469 = v271;
-        if (v253 <= v484)
-        {
-          v272 = v253;
+          v270 = v258;
         }
 
         else
         {
-          v272 = v484;
+          v270 = v255;
         }
 
-        if (v248 - v256 - v484 - v242 - v245 >= 0.0)
+        v468 = v270;
+        if (v252 <= v483)
         {
-          v273 = v248 - v256 - v484 - v242 - v245;
+          v271 = v252;
         }
 
         else
         {
-          v273 = 0.0;
+          v271 = v483;
         }
 
-        if (v263 > v273)
+        if (v247 - v255 - v483 - v241 - v244 >= 0.0)
         {
-          v263 = v273;
+          v272 = v247 - v255 - v483 - v241 - v244;
+        }
+
+        else
+        {
+          v272 = 0.0;
+        }
+
+        if (v262 > v272)
+        {
+          v262 = v272;
         }
 
         v46 = [MEMORY[0x277D3F258] powerModelForOperatorName:@"wifi"];
         wifiChipsetQuery3 = [(PLWifiAgent *)self wifiChipsetQuery];
-        v275 = [v46 objectForKeyedSubscript:wifiChipsetQuery3];
-        v276 = [v275 objectForKeyedSubscript:@"usi"];
+        v274 = [v46 objectForKeyedSubscript:wifiChipsetQuery3];
+        v275 = [v274 objectForKeyedSubscript:@"usi"];
 
-        if (v480 >= 0.0)
+        if (v479 >= 0.0)
         {
-          v462 = v46;
+          v461 = v46;
           selfCopy4 = self;
-          v322 = @"5";
-          if (v480 != 0.0)
+          v321 = @"5";
+          if (v479 != 0.0)
           {
-            v323 = @"2.4";
-            if (v480 > 11.0)
+            v322 = @"2.4";
+            if (v479 > 11.0)
             {
-              v323 = @"5";
+              v322 = @"5";
             }
 
-            v322 = v323;
+            v321 = v322;
           }
 
-          v324 = [powerCopy objectForKeyedSubscript:@"CurrentBandwidth"];
-          [v324 doubleValue];
-          v326 = v325;
+          v323 = [powerCopy objectForKeyedSubscript:@"CurrentBandwidth"];
+          [v323 doubleValue];
+          v325 = v324;
 
-          v327 = [(__CFString *)v322 isEqualToString:@"2.4"];
-          if (v326)
+          v326 = [(__CFString *)v321 isEqualToString:@"2.4"];
+          if (v325)
           {
-            v328 = v327;
+            v327 = v326;
           }
 
           else
           {
-            v328 = 1;
+            v327 = 1;
           }
 
-          if (v328)
+          if (v327)
           {
-            v329 = 20;
+            v328 = 20;
           }
 
           else
           {
-            v329 = v326;
+            v328 = v325;
           }
 
-          v329 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v329];
-          [v276 objectForKeyedSubscript:v322];
-          v332 = v331 = v276;
-          v333 = [v332 objectForKeyedSubscript:v329];
-          v334 = [v333 objectForKeyedSubscript:@"mimo_tx"];
-          [v334 doubleValue];
-          v454 = v335;
+          v328 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v328];
+          [v275 objectForKeyedSubscript:v321];
+          v331 = v330 = v275;
+          v332 = [v331 objectForKeyedSubscript:v328];
+          v333 = [v332 objectForKeyedSubscript:@"mimo_tx"];
+          [v333 doubleValue];
+          v453 = v334;
 
-          v336 = [v331 objectForKeyedSubscript:v322];
-          v337 = [v336 objectForKeyedSubscript:v329];
-          v338 = [v337 objectForKeyedSubscript:@"mimo_rx"];
-          [v338 doubleValue];
-          v452 = v339;
+          v335 = [v330 objectForKeyedSubscript:v321];
+          v336 = [v335 objectForKeyedSubscript:v328];
+          v337 = [v336 objectForKeyedSubscript:@"mimo_rx"];
+          [v337 doubleValue];
+          v451 = v338;
 
-          v340 = [v331 objectForKeyedSubscript:v322];
-          v341 = [v340 objectForKeyedSubscript:v329];
-          v342 = [v341 objectForKeyedSubscript:@"mimo_cs"];
-          [v342 doubleValue];
-          v458 = v343;
+          v339 = [v330 objectForKeyedSubscript:v321];
+          v340 = [v339 objectForKeyedSubscript:v328];
+          v341 = [v340 objectForKeyedSubscript:@"mimo_cs"];
+          [v341 doubleValue];
+          v457 = v342;
 
-          v344 = [v331 objectForKeyedSubscript:v322];
-          v345 = [v344 objectForKeyedSubscript:v329];
-          v346 = [v345 objectForKeyedSubscript:@"siso_tx"];
-          [v346 doubleValue];
-          v450 = v347;
+          v343 = [v330 objectForKeyedSubscript:v321];
+          v344 = [v343 objectForKeyedSubscript:v328];
+          v345 = [v344 objectForKeyedSubscript:@"siso_tx"];
+          [v345 doubleValue];
+          v449 = v346;
 
-          v348 = [v331 objectForKeyedSubscript:v322];
-          v349 = [v348 objectForKeyedSubscript:v329];
-          v350 = [v349 objectForKeyedSubscript:@"siso_rx"];
-          [v350 doubleValue];
-          v448 = v351;
+          v347 = [v330 objectForKeyedSubscript:v321];
+          v348 = [v347 objectForKeyedSubscript:v328];
+          v349 = [v348 objectForKeyedSubscript:@"siso_rx"];
+          [v349 doubleValue];
+          v447 = v350;
 
-          v352 = [v331 objectForKeyedSubscript:v322];
-          v353 = [v352 objectForKeyedSubscript:v329];
-          v354 = [v353 objectForKeyedSubscript:@"siso_cs"];
-          [v354 doubleValue];
-          v464 = v355;
+          v351 = [v330 objectForKeyedSubscript:v321];
+          v352 = [v351 objectForKeyedSubscript:v328];
+          v353 = [v352 objectForKeyedSubscript:@"siso_cs"];
+          [v353 doubleValue];
+          v463 = v354;
 
-          v356 = [v331 objectForKeyedSubscript:v322];
-          v357 = [v356 objectForKeyedSubscript:v329];
-          v358 = [v357 objectForKeyedSubscript:@"ocl_cs"];
-          [v358 doubleValue];
-          v446 = v359;
+          v355 = [v330 objectForKeyedSubscript:v321];
+          v356 = [v355 objectForKeyedSubscript:v328];
+          v357 = [v356 objectForKeyedSubscript:@"ocl_cs"];
+          [v357 doubleValue];
+          v445 = v358;
 
-          v360 = 0.0;
+          v359 = 0.0;
           if (([MEMORY[0x277D3F208] isUsingAnOlderWifiChip] & 1) == 0)
           {
-            v361 = [v331 objectForKeyedSubscript:v322];
-            v362 = [v361 objectForKeyedSubscript:@"sc"];
-            [v362 doubleValue];
-            v360 = v363;
+            v360 = [v330 objectForKeyedSubscript:v321];
+            v361 = [v360 objectForKeyedSubscript:@"sc"];
+            [v361 doubleValue];
+            v359 = v362;
           }
 
-          v456 = v272;
-          v364 = v484 - v272;
-          v365 = v256 - v469;
+          v455 = v271;
+          v363 = v483 - v271;
+          v364 = v255 - v468;
           self = selfCopy4;
-          v460 = v263;
+          v459 = v262;
           if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || objc_msgSend(MEMORY[0x277D3F208], "isWiFiClass:", 1004007))
           {
-            v366 = v365 * v448 + v469 * v452;
+            v365 = v364 * v447 + v468 * v451;
             v6 = 0x277D3F000;
-            v276 = v331;
+            v275 = v330;
           }
 
           else
           {
-            v385 = [powerCopy objectForKeyedSubscript:@"OPSFullDuration"];
-            [v385 doubleValue];
-            v387 = v386;
+            v384 = [powerCopy objectForKeyedSubscript:@"OPSFullDuration"];
+            [v384 doubleValue];
+            v386 = v385;
 
-            v388 = [powerCopy objectForKeyedSubscript:@"OPSPartialDuration"];
-            [v388 doubleValue];
-            v390 = v389;
+            v387 = [powerCopy objectForKeyedSubscript:@"OPSPartialDuration"];
+            [v387 doubleValue];
+            v389 = v388;
 
-            if (v387 >= 0.0)
+            if (v386 >= 0.0)
             {
-              v391 = v387;
+              v390 = v386;
+            }
+
+            else
+            {
+              v390 = 0.0;
+            }
+
+            v443 = v390;
+            if (v389 >= 0.0)
+            {
+              v391 = v389;
             }
 
             else
@@ -10414,169 +10628,158 @@ LABEL_44:
               v391 = 0.0;
             }
 
-            v444 = v391;
-            if (v390 >= 0.0)
+            v392 = [v330 objectForKeyedSubscript:v321];
+            v393 = [v392 objectForKeyedSubscript:v328];
+            v394 = [v393 objectForKeyedSubscript:@"ops_full"];
+            [v394 doubleValue];
+            v441 = v395;
+
+            v396 = [v330 objectForKeyedSubscript:v321];
+            v397 = [v396 objectForKeyedSubscript:v328];
+            v398 = [v397 objectForKeyedSubscript:@"ops_partial"];
+            [v398 doubleValue];
+            v400 = v399;
+
+            v401 = v364 * v447;
+            if (v468 <= v443 + v391)
             {
-              v392 = v390;
+              v365 = v401 + v468 * v451;
             }
 
             else
             {
-              v392 = 0.0;
-            }
-
-            v393 = [v331 objectForKeyedSubscript:v322];
-            v394 = [v393 objectForKeyedSubscript:v329];
-            v395 = [v394 objectForKeyedSubscript:@"ops_full"];
-            [v395 doubleValue];
-            v442 = v396;
-
-            v397 = [v331 objectForKeyedSubscript:v322];
-            v398 = [v397 objectForKeyedSubscript:v329];
-            v399 = [v398 objectForKeyedSubscript:@"ops_partial"];
-            [v399 doubleValue];
-            v401 = v400;
-
-            v402 = v365 * v448;
-            if (v469 <= v444 + v392)
-            {
-              v366 = v402 + v469 * v452;
-            }
-
-            else
-            {
-              v366 = v402 + (v469 - v444 - v392) * v452 + v392 * v401 + v444 * v442;
+              v365 = v401 + (v468 - v443 - v391) * v451 + v391 * v400 + v443 * v441;
             }
 
             self = selfCopy4;
             v6 = 0x277D3F000uLL;
-            v276 = v331;
-            v263 = v460;
+            v275 = v330;
+            v262 = v459;
           }
 
-          v422 = v364 * v450;
-          v423 = v273 - v263;
-          if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100020) & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v466 > v263)
+          v421 = v363 * v449;
+          v422 = v272 - v262;
+          if (([MEMORY[0x277D3F208] isWiFiClass:1004005] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100020) & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v465 > v262)
           {
-            v424 = v458;
-            v425 = v423 * v464 + v263 * v458;
+            v423 = v457;
+            v424 = v422 * v463 + v262 * v457;
           }
 
           else
           {
-            v424 = v458;
-            v425 = v466 * v446 + (v263 - v466) * v458 + v423 * v464;
+            v423 = v457;
+            v424 = v465 * v445 + (v262 - v465) * v457 + v422 * v463;
           }
 
-          v426 = v422 + v456 * v454;
+          v425 = v421 + v455 * v453;
           if ([MEMORY[0x277D3F208] isUsingAnOlderWifiChip])
           {
-            v427 = 0.0;
+            v426 = 0.0;
           }
 
           else
           {
-            v427 = v477 * v360;
+            v426 = v476 * v359;
           }
 
           if ([*(v6 + 384) debugEnabled])
           {
-            v428 = objc_opt_class();
-            v491[0] = MEMORY[0x277D85DD0];
-            v491[1] = 3221225472;
-            v491[2] = __30__PLWifiAgent_modelWiFiPower___block_invoke_2685;
-            v491[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v491[4] = v428;
+            v427 = objc_opt_class();
+            v490[0] = MEMORY[0x277D85DD0];
+            v490[1] = 3221225472;
+            v490[2] = __30__PLWifiAgent_modelWiFiPower___block_invoke_2685;
+            v490[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v490[4] = v427;
             if (qword_2811F68E8 != -1)
             {
-              dispatch_once(&qword_2811F68E8, v491);
+              dispatch_once(&qword_2811F68E8, v490);
             }
 
             if (byte_2811F66ED == 1)
             {
-              v429 = [MEMORY[0x277CCACA8] stringWithFormat:@"txE = %f, rxE = %f, csE = %f, scE = %f", *&v426, *&v366, *&v425, *&v427];
-              v430 = MEMORY[0x277D3F178];
-              v431 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
-              lastPathComponent3 = [v431 lastPathComponent];
-              v433 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent modelWiFiPower:]"];
-              [v430 logMessage:v429 fromFile:lastPathComponent3 fromFunction:v433 fromLineNumber:5175];
+              v428 = [MEMORY[0x277CCACA8] stringWithFormat:@"txE = %f, rxE = %f, csE = %f, scE = %f", *&v425, *&v365, *&v424, *&v426];
+              v429 = MEMORY[0x277D3F178];
+              v430 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Radios/PLWifiAgent.m"];
+              lastPathComponent3 = [v430 lastPathComponent];
+              v432 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLWifiAgent modelWiFiPower:]"];
+              [v429 logMessage:v428 fromFile:lastPathComponent3 fromFunction:v432 fromLineNumber:5175];
 
-              v434 = PLLogCommon();
-              if (os_log_type_enabled(v434, OS_LOG_TYPE_DEBUG))
+              v433 = PLLogCommon();
+              if (os_log_type_enabled(v433, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                *&buf[4] = v429;
-                _os_log_debug_impl(&dword_21A4C6000, v434, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                *&buf[4] = v428;
+                _os_log_debug_impl(&dword_21A4C6000, v433, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
               self = selfCopy4;
               v6 = 0x277D3F000;
-              v46 = v462;
-              v276 = v331;
+              v46 = v461;
+              v275 = v330;
             }
           }
 
-          v435 = v426 + v366;
-          v436 = v435 + v425;
-          if (v471 - v256 - v484 >= 0.0)
+          v434 = v425 + v365;
+          v435 = v434 + v424;
+          if (v470 - v255 - v483 >= 0.0)
           {
-            v437 = v471 - v256 - v484;
+            v436 = v470 - v255 - v483;
           }
 
           else
           {
-            v437 = 0.0;
+            v436 = 0.0;
           }
 
-          v438 = [MEMORY[0x277D3F208] isWiFiClass:1004005];
-          if (v437 >= v460)
+          v437 = [MEMORY[0x277D3F208] isWiFiClass:1004005];
+          if (v436 >= v459)
           {
-            if ((v438 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v466 > v437)
+            if ((v437 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v465 > v436)
             {
-              v439 = (v437 - v460) * v464 + v460 * v424;
+              v438 = (v436 - v459) * v463 + v459 * v423;
             }
 
             else
             {
-              v439 = v466 * v446 + (v460 - v466) * v424 + (v437 - v460) * v464;
+              v438 = v465 * v445 + (v459 - v465) * v423 + (v436 - v459) * v463;
             }
           }
 
-          else if ((v438 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v466 > v437)
+          else if ((v437 & 1) != 0 || ([MEMORY[0x277D3F208] isDeviceClass:100020] & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F208], "isDeviceClass:", 100021) & 1) != 0 || v465 > v436)
           {
-            v439 = v437 * v424;
+            v438 = v436 * v423;
           }
 
           else
           {
-            v439 = v466 * v446 + (v437 - v466) * v424;
+            v438 = v465 * v445 + (v436 - v465) * v423;
           }
 
-          v54 = v436 + v427;
-          if (v439 < 0.0)
+          v54 = v435 + v426;
+          if (v438 < 0.0)
           {
-            v439 = 0.0;
+            v438 = 0.0;
           }
 
-          v440 = v435 + v439;
-          if (v480 == 0.0)
+          v439 = v434 + v438;
+          if (v479 == 0.0)
           {
             v55 = 0.0;
           }
 
           else
           {
-            v55 = v440;
+            v55 = v439;
           }
         }
 
         else
         {
-          v277 = [v276 objectForKeyedSubscript:{@"scan", v480}];
-          [v277 doubleValue];
-          v279 = v278;
+          v276 = [v275 objectForKeyedSubscript:{@"scan", v479}];
+          [v276 doubleValue];
+          v278 = v277;
 
-          v54 = (v248 - v242 - v245) * v279;
+          v54 = (v247 - v241 - v244) * v278;
           v55 = 0.0;
         }
 
@@ -10631,8 +10834,8 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v482 = v105;
-      v486 = v90;
+      v481 = v105;
+      v485 = v90;
       selfCopy5 = self;
       v113 = @"5";
       if (v87 != 0.0)
@@ -10679,7 +10882,7 @@ LABEL_42:
       [v132 doubleValue];
       v134 = v133;
 
-      v135 = v96 - v486 - v93 - v99 - v102;
+      v135 = v96 - v485 - v93 - v99 - v102;
       v55 = 0.0;
       if (v135 < 0.0)
       {
@@ -10690,7 +10893,7 @@ LABEL_42:
       v137 = v99 * v124 + v102 * v129;
       if (v87 != 0.0)
       {
-        v138 = v482 - v102 - v99;
+        v138 = v481 - v102 - v99;
         if (v138 < 0.0)
         {
           v138 = 0.0;
@@ -10709,25 +10912,23 @@ LABEL_42:
   }
 
 LABEL_89:
-
-  v192 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __30__PLWifiAgent_modelWiFiPower___block_invoke(uint64_t a1)
+void *__30__PLWifiAgent_modelWiFiPower___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66EC = result;
   return result;
 }
 
-uint64_t __30__PLWifiAgent_modelWiFiPower___block_invoke_2685(uint64_t a1)
+void *__30__PLWifiAgent_modelWiFiPower___block_invoke_2685(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66ED = result;
   return result;
 }
 
-uint64_t __30__PLWifiAgent_modelWiFiPower___block_invoke_2688(uint64_t a1)
+void *__30__PLWifiAgent_modelWiFiPower___block_invoke_2688(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F66EE = result;

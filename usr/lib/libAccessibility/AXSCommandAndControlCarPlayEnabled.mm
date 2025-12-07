@@ -3,7 +3,7 @@
 
 @implementation AXSCommandAndControlCarPlayEnabled
 
-uint64_t ___AXSCommandAndControlCarPlayEnabled_block_invoke()
+void *___AXSCommandAndControlCarPlayEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -22,7 +22,7 @@
   serialQueue = self->_serialQueue;
   requestCopy = request;
   dispatch_assert_queue_V2(serialQueue);
-  v9 = [requestCopy objectForKey:@"lastWin"];
+  v9 = objc_msgSend_objectForKey_(requestCopy);
 
   if (v9)
   {
@@ -70,7 +70,7 @@ LABEL_11:
   identifierCopy = identifier;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_serialQueue);
-  v11 = [requestCopy objectForKey:@"methodName"];
+  v11 = objc_msgSend_objectForKey_(requestCopy);
   v12 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
@@ -145,7 +145,7 @@ LABEL_13:
     if (!os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
 LABEL_9:
-      v19 = [AFError errorWithCode:1004, *v20, *&v20[16]];
+      v19 = [AFError errorWithCode:1004, *v20, *&v20[8]];
       completionCopy[2](completionCopy, 0, v19);
 
       goto LABEL_10;
@@ -161,7 +161,7 @@ LABEL_12:
     goto LABEL_9;
   }
 
-  v15 = [messageCopy objectForKey:@"methodType"];
+  v15 = objc_msgSend_objectForKey_(messageCopy);
   integerValue = [v15 integerValue];
 
   if (integerValue != 2)

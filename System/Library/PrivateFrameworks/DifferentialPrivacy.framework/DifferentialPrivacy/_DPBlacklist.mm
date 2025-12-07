@@ -68,7 +68,7 @@
 
 + (id)blacklistForKey:(id)key systemBlacklistDirectory:(id)directory runtimeBlacklistDirectory:(id)blacklistDirectory
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   directoryCopy = directory;
   blacklistDirectoryCopy = blacklistDirectory;
@@ -86,23 +86,23 @@
         v18 = +[_DPLog framework];
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v21 = objc_opt_class();
-          v27 = NSStringFromClass(v21);
-          v22 = NSStringFromSelector(a2);
+          v20 = objc_opt_class();
+          v26 = NSStringFromClass(v20);
+          v21 = NSStringFromSelector(a2);
           version = [v14 version];
           blacklist = [v14 blacklist];
           *buf = 138413570;
-          v29 = v27;
-          v30 = 2112;
-          v31 = v22;
-          v32 = 2112;
-          v33 = keyCopy;
-          v34 = 2048;
-          v35 = version;
-          v36 = 2048;
-          v37 = [blacklist count];
-          v38 = 2112;
-          v39 = directoryCopy;
+          v28 = v26;
+          v29 = 2112;
+          v30 = v21;
+          v31 = 2112;
+          v32 = keyCopy;
+          v33 = 2048;
+          v34 = version;
+          v35 = 2048;
+          v36 = [blacklist count];
+          v37 = 2112;
+          v38 = directoryCopy;
           _os_log_debug_impl(&dword_22622D000, v18, OS_LOG_TYPE_DEBUG, "%@, %@: selecting system blacklist with key: %@, version: %li, values count: %li, from directory: %@", buf, 0x3Eu);
         }
       }
@@ -117,22 +117,22 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         v15 = objc_opt_class();
-        v26 = NSStringFromClass(v15);
+        v25 = NSStringFromClass(v15);
         v16 = NSStringFromSelector(a2);
         version2 = [v12 version];
         blacklist2 = [v12 blacklist];
         *buf = 138413570;
-        v29 = v26;
-        v30 = 2112;
-        v31 = v16;
-        v32 = 2112;
-        v33 = keyCopy;
-        v34 = 2048;
-        v35 = version2;
-        v36 = 2048;
-        v37 = [blacklist2 count];
-        v38 = 2112;
-        v39 = blacklistDirectoryCopy;
+        v28 = v25;
+        v29 = 2112;
+        v30 = v16;
+        v31 = 2112;
+        v32 = keyCopy;
+        v33 = 2048;
+        v34 = version2;
+        v35 = 2048;
+        v36 = [blacklist2 count];
+        v37 = 2112;
+        v38 = blacklistDirectoryCopy;
         _os_log_debug_impl(&dword_22622D000, v14, OS_LOG_TYPE_DEBUG, "%@, %@: selecting runtime blacklist with key: %@, version: %li, values count: %li, from directory: %@", buf, 0x3Eu);
       }
     }
@@ -144,8 +144,6 @@
   }
 
   objc_sync_exit(v11);
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

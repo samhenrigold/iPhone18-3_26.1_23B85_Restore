@@ -10,8 +10,9 @@
 
 + (id)createLocalWithIdentifier:(id)identifier createdDate:(id)date priority:(unint64_t)priority badge:(BOOL)badge content:(id)content
 {
+  badgeCopy = badge;
   contentCopy = content;
-  v12 = [PKApplicationMessageRegistration _createLocalWithIdentifier:identifier createdDate:date priority:priority badge:badge];
+  v12 = [PKApplicationMessageRegistration _createLocalWithIdentifier:identifier createdDate:date priority:priority badge:badgeCopy];
   v13 = [[PKApplicationMessage alloc] _initWithRegistration:v12 content:contentCopy];
 
   return v13;

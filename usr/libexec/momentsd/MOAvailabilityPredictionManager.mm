@@ -470,24 +470,24 @@ void __170__MOAvailabilityPredictionManager_predictUserAvailabilityWithEvents_an
   bundlesCopy = bundles;
   eventsCopy = events;
   v15 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:1];
-  v420 = v15;
-  v16 = [NSArray arrayWithObjects:&v420 count:1];
+  v414 = v15;
+  v16 = [NSArray arrayWithObjects:&v414 count:1];
   v17 = [eventsCopy sortedArrayUsingDescriptors:v16];
 
   v18 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:1];
-  v419 = v18;
-  v19 = [NSArray arrayWithObjects:&v419 count:1];
-  v309 = [bundlesCopy sortedArrayUsingDescriptors:v19];
+  v413 = v18;
+  v19 = [NSArray arrayWithObjects:&v413 count:1];
+  v303 = [bundlesCopy sortedArrayUsingDescriptors:v19];
 
   v20 = +[NSBundle mainBundle];
   v21 = [v20 URLForResource:@"availabilityPredict061725" withExtension:@"mlmodelc"];
 
   v22 = objc_alloc_init(MLModelConfiguration);
-  v342 = 0;
-  v308 = [MLModel modelWithContentsOfURL:v21 configuration:v22 error:&v342];
-  v23 = v342;
-  v310 = v17;
-  v253 = v15;
+  v336 = 0;
+  v302 = [MLModel modelWithContentsOfURL:v21 configuration:v22 error:&v336];
+  v23 = v336;
+  v304 = v17;
+  v247 = v15;
   if (v23)
   {
     v25 = handlerCopy;
@@ -499,719 +499,713 @@ void __170__MOAvailabilityPredictionManager_predictUserAvailabilityWithEvents_an
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v23);
-    v27 = v309;
+    v27 = v303;
     goto LABEL_70;
   }
 
-  v245 = v22;
-  v246 = v21;
-  v247 = v18;
-  v244 = [NSPredicate predicateWithFormat:@"suggestionEvent.type IN %@", &off_10036DFC8];
+  v239 = v22;
+  v240 = v21;
+  v241 = v18;
+  v238 = [NSPredicate predicateWithFormat:@"suggestionEvent.type IN %@", &off_10036DFC8];
   v28 = [engagementEventsCopy filteredArrayUsingPredicate:?];
   [NSPredicate predicateWithFormat:@"suggestionEvent.type == %@", &off_10036B218];
-  v242 = v248 = engagementEventsCopy;
-  v241 = [engagementEventsCopy filteredArrayUsingPredicate:?];
+  v236 = v242 = engagementEventsCopy;
+  v235 = [engagementEventsCopy filteredArrayUsingPredicate:?];
   v29 = [MOAvailabilityPredictionManager getEngagementTimeArray:"getEngagementTimeArray:withKey:checkWriting:" withKey:? checkWriting:?];
   v30 = [(MOAvailabilityPredictionManager *)self getEngagementTimeArray:entryEngagementEventsCopy withKey:@"entryEvent" checkWriting:0];
   v31 = [(MOAvailabilityPredictionManager *)self getEngagementTimeArray:entryEngagementEventsCopy withKey:@"entryEvent" checkWriting:1];
-  v243 = v28;
+  v237 = v28;
   [(MOAvailabilityPredictionManager *)self getEngagementTimeArray:v28 withKey:@"suggestionEvent" checkWriting:0];
-  v237 = v239 = v30;
+  v231 = v233 = v30;
   v32 = [v30 arrayByAddingObjectsFromArray:?];
-  v240 = v29;
-  v33 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v29];
-  availabilityPredictionHourlyViewCountThreshold = self->_availabilityPredictionHourlyViewCountThreshold;
-  v235 = v33;
-  v35 = [MOAvailabilityPredictionManager filterHourlyOccurrenceCounts:"filterHourlyOccurrenceCounts:withThreshold:" withThreshold:?];
-  v36 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v32];
-  v238 = v31;
-  v37 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v31];
-  v233 = v36;
-  v234 = v35;
-  v231 = [(MOAvailabilityPredictionManager *)self mergeHourlyOccurrenceCounts:v35 withDict:v36];
-  v307 = [(MOAvailabilityPredictionManager *)self reformatHourlyOccurrenceCounts:?];
-  v232 = v37;
-  v304 = [(MOAvailabilityPredictionManager *)self reformatHourlyOccurrenceCounts:v37];
-  v236 = v32;
-  v38 = [(MOAvailabilityPredictionManager *)self findOverlappingEngagament:v32 forEvents:v17];
+  v234 = v29;
+  v229 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v29];
+  v33 = [MOAvailabilityPredictionManager filterHourlyOccurrenceCounts:"filterHourlyOccurrenceCounts:withThreshold:" withThreshold:?];
+  v34 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v32];
+  v232 = v31;
+  v35 = [(MOAvailabilityPredictionManager *)self getHourlyOccurrenceCounts:v31];
+  v227 = v34;
+  v228 = v33;
+  v225 = [(MOAvailabilityPredictionManager *)self mergeHourlyOccurrenceCounts:v33 withDict:v34];
+  v301 = [(MOAvailabilityPredictionManager *)self reformatHourlyOccurrenceCounts:?];
+  v226 = v35;
+  v298 = [(MOAvailabilityPredictionManager *)self reformatHourlyOccurrenceCounts:v35];
+  v230 = v32;
+  v36 = [(MOAvailabilityPredictionManager *)self findOverlappingEngagament:v32 forEvents:v17];
   defaultsManager = [(MOAvailabilityPredictionManager *)self defaultsManager];
   [defaultsManager deleteObjectForKey:@"AvailabilityPredictionEngagementPOICategories"];
 
-  v230 = v38;
-  v229 = [NSSet setWithArray:v38];
-  allObjects = [v229 allObjects];
+  v224 = v36;
+  v223 = [NSSet setWithArray:v36];
+  allObjects = [v223 allObjects];
   [(MOAvailabilityPredictionManager *)self saveEligiblePOICategories:allObjects];
 
-  v41 = +[NSDate date];
-  v42 = +[NSCalendar currentCalendar];
-  v303 = v41;
-  v43 = [v42 components:60 fromDate:v41];
-  [v43 setMinute:0];
-  [v43 setSecond:0];
-  v306 = v42;
-  v228 = v43;
-  v302 = [v42 dateFromComponents:v43];
-  v252 = objc_opt_new();
-  v417[0] = @"DowntimeDetectionTrimFractionKey";
-  v337 = [NSNumber numberWithDouble:self->_downtimeDetectionTrimFraction];
-  v418[0] = v337;
-  v417[1] = @"DowntimeDetectionWinLengthMinDefaultKey";
-  v334 = [NSNumber numberWithDouble:self->_downtimeDetectionWinLengthMin];
-  v418[1] = v334;
-  v417[2] = @"DowntimeDetectionWinLengthMaxDefaultKey";
-  v331 = [NSNumber numberWithDouble:self->_downtimeDetectionWinLengthMax];
-  v418[2] = v331;
-  v417[3] = @"DowntimeDetectionWinActivityRatioMaxDefaultKey";
-  v328 = [NSNumber numberWithDouble:self->_downtimeDetectionWinActivityRatioMax];
-  v418[3] = v328;
-  v417[4] = @"DowntimeDetectionMinNumDaysWithScreentimeThresholdKey";
-  v44 = [NSNumber numberWithDouble:self->_downtimeDetectionMinNumDaysWithScreentimeThreshold];
-  v418[4] = v44;
-  v417[5] = @"DowntimeDetectionMinNumObservationsThresholdKey";
-  v45 = [NSNumber numberWithDouble:self->_downtimeDetectionMinNumObservationsThreshold];
-  v418[5] = v45;
-  v417[6] = @"DowntimeDetectionMinActiveHoursThresholdKey";
-  v46 = [NSNumber numberWithDouble:self->_downtimeDetectionMinActiveHoursThreshold];
-  v418[6] = v46;
-  v417[7] = @"DowntimeDetectionOverallActivityThresholdKey";
-  v47 = [NSNumber numberWithDouble:self->_downtimeDetectionOverallActivityThreshold];
-  v418[7] = v47;
-  v417[8] = @"DowntimeDetectionRecentDaysMinNumDaysWithScreentimeThresholdKey";
-  v48 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinNumDaysWithScreentimeThreshold];
-  v418[8] = v48;
-  v417[9] = @"DowntimeDetectionRecentDaysMinNumObservationsThresholdKey";
-  v49 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinNumObservationsThreshold];
-  v418[9] = v49;
-  v417[10] = @"DowntimeDetectionRecentDaysMinActiveHoursThresholdKey";
-  v50 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinActiveHoursThreshold];
-  v418[10] = v50;
-  v417[11] = @"DowntimeDetectionRecentDaysOverallActivityThresholdKey";
-  v51 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysOverallActivityThreshold];
-  v418[11] = v51;
-  v52 = [NSDictionary dictionaryWithObjects:v418 forKeys:v417 count:12];
+  v39 = +[NSDate date];
+  v40 = +[NSCalendar currentCalendar];
+  v297 = v39;
+  v41 = [v40 components:60 fromDate:v39];
+  [v41 setMinute:0];
+  [v41 setSecond:0];
+  v300 = v40;
+  v222 = v41;
+  v296 = [v40 dateFromComponents:v41];
+  v246 = objc_opt_new();
+  v411[0] = @"DowntimeDetectionTrimFractionKey";
+  v331 = [NSNumber numberWithDouble:self->_downtimeDetectionTrimFraction];
+  v412[0] = v331;
+  v411[1] = @"DowntimeDetectionWinLengthMinDefaultKey";
+  v328 = [NSNumber numberWithDouble:self->_downtimeDetectionWinLengthMin];
+  v412[1] = v328;
+  v411[2] = @"DowntimeDetectionWinLengthMaxDefaultKey";
+  v325 = [NSNumber numberWithDouble:self->_downtimeDetectionWinLengthMax];
+  v412[2] = v325;
+  v411[3] = @"DowntimeDetectionWinActivityRatioMaxDefaultKey";
+  v322 = [NSNumber numberWithDouble:self->_downtimeDetectionWinActivityRatioMax];
+  v412[3] = v322;
+  v411[4] = @"DowntimeDetectionMinNumDaysWithScreentimeThresholdKey";
+  v42 = [NSNumber numberWithDouble:self->_downtimeDetectionMinNumDaysWithScreentimeThreshold];
+  v412[4] = v42;
+  v411[5] = @"DowntimeDetectionMinNumObservationsThresholdKey";
+  v43 = [NSNumber numberWithDouble:self->_downtimeDetectionMinNumObservationsThreshold];
+  v412[5] = v43;
+  v411[6] = @"DowntimeDetectionMinActiveHoursThresholdKey";
+  v44 = [NSNumber numberWithDouble:self->_downtimeDetectionMinActiveHoursThreshold];
+  v412[6] = v44;
+  v411[7] = @"DowntimeDetectionOverallActivityThresholdKey";
+  v45 = [NSNumber numberWithDouble:self->_downtimeDetectionOverallActivityThreshold];
+  v412[7] = v45;
+  v411[8] = @"DowntimeDetectionRecentDaysMinNumDaysWithScreentimeThresholdKey";
+  v46 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinNumDaysWithScreentimeThreshold];
+  v412[8] = v46;
+  v411[9] = @"DowntimeDetectionRecentDaysMinNumObservationsThresholdKey";
+  v47 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinNumObservationsThreshold];
+  v412[9] = v47;
+  v411[10] = @"DowntimeDetectionRecentDaysMinActiveHoursThresholdKey";
+  v48 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysMinActiveHoursThreshold];
+  v412[10] = v48;
+  v411[11] = @"DowntimeDetectionRecentDaysOverallActivityThresholdKey";
+  v49 = [NSNumber numberWithDouble:self->_downtimeDetectionRecentDaysOverallActivityThreshold];
+  v412[11] = v49;
+  v50 = [NSDictionary dictionaryWithObjects:v412 forKeys:v411 count:12];
 
-  v53 = v309;
+  v51 = v303;
   selfCopy = self;
   allowedScreentimeCategories = self->_allowedScreentimeCategories;
-  v341 = 0;
-  v55 = v310;
-  v251 = v52;
-  v56 = [MODowntimeDetectionUtilities downtimeDetectionPipeline:v310 withBundles:v309 withEngagement:v307 withDefaults:v52 withAllowedScreentimeCategories:allowedScreentimeCategories forRecentDays:1 error:&v341];
-  v57 = v341;
-  v58 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+  v335 = 0;
+  v53 = v304;
+  v245 = v50;
+  v54 = [MODowntimeDetectionUtilities downtimeDetectionPipeline:v304 withBundles:v303 withEngagement:v301 withDefaults:v50 withAllowedScreentimeCategories:allowedScreentimeCategories forRecentDays:1 error:&v335];
+  v55 = v335;
+  v56 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
   {
-    v59 = [v56 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-    v60 = [v56 objectForKeyedSubscript:@"downtimeWindowEndHour"];
-    v61 = [v56 objectForKeyedSubscript:@"downtimeWindowLength"];
+    v57 = [v54 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+    v58 = [v54 objectForKeyedSubscript:@"downtimeWindowEndHour"];
+    v59 = [v54 objectForKeyedSubscript:@"downtimeWindowLength"];
     *buf = 138412802;
-    v346 = v59;
-    v347 = 2112;
-    v348 = v60;
-    v349 = 2112;
-    v350 = v61;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "[APM] Downtime detection for recent days, window start hour: %@, window end hour: %@, window length: %@", buf, 0x20u);
+    v340 = v57;
+    v341 = 2112;
+    v342 = v58;
+    v343 = 2112;
+    v344 = v59;
+    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "[APM] Downtime detection for recent days, window start hour: %@, window end hour: %@, window length: %@", buf, 0x20u);
 
-    v53 = v309;
+    v51 = v303;
   }
 
-  v226 = v57;
-  if (v57)
+  v220 = v55;
+  if (v55)
   {
-    v62 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v57 code]);
-    v63 = @"downtimeDetectionErrorRecent";
-    v64 = v252;
+    v60 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v55 code]);
+    v61 = @"downtimeDetectionErrorRecent";
+    v62 = v246;
 LABEL_9:
-    [v64 setObject:v62 forKeyedSubscript:v63];
+    [v62 setObject:v60 forKeyedSubscript:v61];
 
     goto LABEL_10;
   }
 
-  v95 = [v56 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-  v64 = v252;
-  if (v95)
+  v93 = [v54 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+  v62 = v246;
+  if (v93)
   {
-    v96 = v95;
-    v97 = [v56 objectForKeyedSubscript:@"downtimeWindowLength"];
+    v94 = v93;
+    v95 = [v54 objectForKeyedSubscript:@"downtimeWindowLength"];
 
-    if (v97)
+    if (v95)
     {
-      v98 = [v56 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-      [v252 setObject:v98 forKeyedSubscript:@"downtimeWindowStartHourRecent"];
+      v96 = [v54 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+      [v246 setObject:v96 forKeyedSubscript:@"downtimeWindowStartHourRecent"];
 
-      v62 = [v56 objectForKeyedSubscript:@"downtimeWindowLength"];
-      v63 = @"downtimeWindowLengthRecent";
+      v60 = [v54 objectForKeyedSubscript:@"downtimeWindowLength"];
+      v61 = @"downtimeWindowLengthRecent";
       goto LABEL_9;
     }
   }
 
 LABEL_10:
-  v65 = selfCopy->_allowedScreentimeCategories;
-  v340 = 0;
-  v66 = [MODowntimeDetectionUtilities downtimeDetectionPipeline:v310 withBundles:v53 withEngagement:v307 withDefaults:v251 withAllowedScreentimeCategories:v65 forRecentDays:0 error:&v340];
-  v67 = v340;
-  v68 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-  if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+  v63 = selfCopy->_allowedScreentimeCategories;
+  v334 = 0;
+  v64 = [MODowntimeDetectionUtilities downtimeDetectionPipeline:v304 withBundles:v51 withEngagement:v301 withDefaults:v245 withAllowedScreentimeCategories:v63 forRecentDays:0 error:&v334];
+  v65 = v334;
+  v66 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
   {
-    v69 = [v66 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-    v70 = [v66 objectForKeyedSubscript:@"downtimeWindowEndHour"];
-    v71 = [v66 objectForKeyedSubscript:@"downtimeWindowLength"];
+    v67 = [v64 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+    v68 = [v64 objectForKeyedSubscript:@"downtimeWindowEndHour"];
+    v69 = [v64 objectForKeyedSubscript:@"downtimeWindowLength"];
     *buf = 138412802;
-    v346 = v69;
-    v347 = 2112;
-    v348 = v70;
-    v349 = 2112;
-    v350 = v71;
-    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "[APM] Downtime detection across all days, window start hour: %@, window end hour: %@, window length: %@", buf, 0x20u);
+    v340 = v67;
+    v341 = 2112;
+    v342 = v68;
+    v343 = 2112;
+    v344 = v69;
+    _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "[APM] Downtime detection across all days, window start hour: %@, window end hour: %@, window length: %@", buf, 0x20u);
   }
 
-  if (v67)
+  if (v65)
   {
-    v72 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v67 code]);
-    [v64 setObject:v72 forKeyedSubscript:@"downtimeDetectionErrorAllDays"];
-    v73 = selfCopy;
+    v70 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v65 code]);
+    [v62 setObject:v70 forKeyedSubscript:@"downtimeDetectionErrorAllDays"];
+    v71 = selfCopy;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v99 = [v66 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-  v73 = selfCopy;
-  if (v99)
+  v97 = [v64 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+  v71 = selfCopy;
+  if (v97)
   {
-    v100 = v99;
-    v101 = [v66 objectForKeyedSubscript:@"downtimeWindowLength"];
+    v98 = v97;
+    v99 = [v64 objectForKeyedSubscript:@"downtimeWindowLength"];
 
-    if (v101)
+    if (v99)
     {
-      v102 = [v66 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-      [v64 setObject:v102 forKeyedSubscript:@"downtimeWindowStartHourAllDays"];
+      v100 = [v64 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+      [v62 setObject:v100 forKeyedSubscript:@"downtimeWindowStartHourAllDays"];
 
-      v72 = [v66 objectForKeyedSubscript:@"downtimeWindowLength"];
-      [v64 setObject:v72 forKeyedSubscript:@"downtimeWindowLengthAllDays"];
+      v70 = [v64 objectForKeyedSubscript:@"downtimeWindowLength"];
+      [v62 setObject:v70 forKeyedSubscript:@"downtimeWindowLengthAllDays"];
       goto LABEL_14;
     }
   }
 
 LABEL_15:
-  v74 = [v66 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-  v75 = [v56 objectForKeyedSubscript:@"downtimeWindowStartHour"];
-  defaultsManager2 = [(MOAvailabilityPredictionManager *)v73 defaultsManager];
-  v250 = [defaultsManager2 objectForKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
+  v72 = [v64 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+  v73 = [v54 objectForKeyedSubscript:@"downtimeWindowStartHour"];
+  defaultsManager2 = [(MOAvailabilityPredictionManager *)v71 defaultsManager];
+  v244 = [defaultsManager2 objectForKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
 
-  defaultsManager3 = [(MOAvailabilityPredictionManager *)v73 defaultsManager];
+  defaultsManager3 = [(MOAvailabilityPredictionManager *)v71 defaultsManager];
   [defaultsManager3 deleteObjectForKey:@"downtimeWindowStartHour"];
 
-  v224 = v67;
-  v222 = v75;
-  if (v74 && v75)
+  v218 = v65;
+  v216 = v73;
+  if (v72 && v73)
   {
-    [v75 doubleValue];
-    v79 = v78;
-    [v74 doubleValue];
-    if ([MODowntimeDetectionUtilities isBeforeHour:v79 comparedTo:v80])
+    [v73 doubleValue];
+    v77 = v76;
+    [v72 doubleValue];
+    if ([MODowntimeDetectionUtilities isBeforeHour:v77 comparedTo:v78])
     {
-      v81 = v75;
+      v79 = v73;
     }
 
     else
     {
-      v81 = v74;
+      v79 = v72;
     }
 
-    [v81 doubleValue];
-    downtimeDetectionDefaultSleepStartHour = v82;
+    [v79 doubleValue];
+    downtimeDetectionDefaultSleepStartHour = v80;
     defaultsManager4 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v85 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
-    [defaultsManager4 setObject:v85 forKey:@"DowntimeDetectionWindowStartHour"];
+    v83 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
+    [defaultsManager4 setObject:v83 forKey:@"DowntimeDetectionWindowStartHour"];
 
     defaultsManager5 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v87 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
-    [defaultsManager5 setObject:v87 forKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
+    v85 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
+    [defaultsManager5 setObject:v85 forKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
 
-    v88 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+    v86 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepStartHour;
-      _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "[APM] Downtime detection reconciled window start hour: %f", buf, 0xCu);
+      v340 = *&downtimeDetectionDefaultSleepStartHour;
+      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "[APM] Downtime detection reconciled window start hour: %f", buf, 0xCu);
     }
 
-    v89 = &off_10036B230;
+    v87 = &off_10036B230;
   }
 
-  else if (v74)
+  else if (v72)
   {
-    [v74 doubleValue];
-    downtimeDetectionDefaultSleepStartHour = v90;
+    [v72 doubleValue];
+    downtimeDetectionDefaultSleepStartHour = v88;
     defaultsManager6 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v92 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
-    [defaultsManager6 setObject:v92 forKey:@"DowntimeDetectionWindowStartHour"];
+    v90 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
+    [defaultsManager6 setObject:v90 forKey:@"DowntimeDetectionWindowStartHour"];
 
     defaultsManager7 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v94 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
-    [defaultsManager7 setObject:v94 forKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
+    v92 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
+    [defaultsManager7 setObject:v92 forKey:@"DowntimeDetectionWindowStartHourUserHistoricalDefault"];
 
-    v88 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+    v86 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepStartHour;
-      _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "[APM] Downtime detection using overall start hour only: %f", buf, 0xCu);
+      v340 = *&downtimeDetectionDefaultSleepStartHour;
+      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "[APM] Downtime detection using overall start hour only: %f", buf, 0xCu);
     }
 
-    v89 = &off_10036B248;
+    v87 = &off_10036B248;
   }
 
-  else if (v250)
+  else if (v244)
   {
-    [v250 doubleValue];
-    downtimeDetectionDefaultSleepStartHour = v103;
-    v88 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+    [v244 doubleValue];
+    downtimeDetectionDefaultSleepStartHour = v101;
+    v86 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepStartHour;
-      _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "[APM] Downtime detection using personalized default start hour: %f", buf, 0xCu);
+      v340 = *&downtimeDetectionDefaultSleepStartHour;
+      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "[APM] Downtime detection using personalized default start hour: %f", buf, 0xCu);
     }
 
-    v89 = &off_10036B260;
+    v87 = &off_10036B260;
   }
 
   else
   {
     downtimeDetectionDefaultSleepStartHour = selfCopy->_downtimeDetectionDefaultSleepStartHour;
-    v88 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+    v86 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepStartHour;
-      _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "[APM] Downtime detection using population default start hour: %f", buf, 0xCu);
+      v340 = *&downtimeDetectionDefaultSleepStartHour;
+      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "[APM] Downtime detection using population default start hour: %f", buf, 0xCu);
     }
 
-    v89 = &off_10036B278;
+    v87 = &off_10036B278;
   }
 
-  v104 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
-  [v64 setObject:v104 forKeyedSubscript:@"downtimeWindowStartHourSelected"];
+  v102 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepStartHour];
+  [v62 setObject:v102 forKeyedSubscript:@"downtimeWindowStartHourSelected"];
 
-  [v64 setObject:v89 forKeyedSubscript:@"downtimeSelectionMechanism"];
-  v105 = [v66 objectForKeyedSubscript:@"downtimeWindowEndHour"];
-  v106 = [v56 objectForKeyedSubscript:@"downtimeWindowEndHour"];
+  [v62 setObject:v87 forKeyedSubscript:@"downtimeSelectionMechanism"];
+  v103 = [v64 objectForKeyedSubscript:@"downtimeWindowEndHour"];
+  v104 = [v54 objectForKeyedSubscript:@"downtimeWindowEndHour"];
   defaultsManager8 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-  v249 = [defaultsManager8 objectForKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
+  v243 = [defaultsManager8 objectForKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
 
   defaultsManager9 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
   [defaultsManager9 deleteObjectForKey:@"downtimeWindowEndHour"];
 
-  v227 = v56;
-  v225 = v66;
-  v220 = v106;
-  v221 = v105;
-  if (!v105 || !v106)
+  v221 = v54;
+  v219 = v64;
+  v214 = v104;
+  v215 = v103;
+  if (!v103 || !v104)
   {
-    if (v105)
+    if (v103)
     {
-      [v105 doubleValue];
-      downtimeDetectionDefaultSleepEndHour = v121;
+      [v103 doubleValue];
+      downtimeDetectionDefaultSleepEndHour = v119;
       defaultsManager10 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-      v123 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
-      [defaultsManager10 setObject:v123 forKey:@"DowntimeDetectionWindowEndHour"];
+      v121 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
+      [defaultsManager10 setObject:v121 forKey:@"DowntimeDetectionWindowEndHour"];
 
       defaultsManager11 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-      v125 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
-      [defaultsManager11 setObject:v125 forKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
+      v123 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
+      [defaultsManager11 setObject:v123 forKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
 
-      v119 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-      if (!os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+      v117 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+      if (!os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
         goto LABEL_56;
       }
 
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepEndHour;
-      v120 = "[APM] Downtime detection using overall end hour only: %f";
+      v340 = *&downtimeDetectionDefaultSleepEndHour;
+      v118 = "[APM] Downtime detection using overall end hour only: %f";
     }
 
-    else if (v249)
+    else if (v243)
     {
-      [v249 doubleValue];
-      downtimeDetectionDefaultSleepEndHour = v126;
-      v119 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-      if (!os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+      [v243 doubleValue];
+      downtimeDetectionDefaultSleepEndHour = v124;
+      v117 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+      if (!os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
         goto LABEL_56;
       }
 
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepEndHour;
-      v120 = "[APM] Downtime detection using personalized default end hour: %f";
+      v340 = *&downtimeDetectionDefaultSleepEndHour;
+      v118 = "[APM] Downtime detection using personalized default end hour: %f";
     }
 
     else
     {
       downtimeDetectionDefaultSleepEndHour = selfCopy->_downtimeDetectionDefaultSleepEndHour;
-      v119 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-      if (!os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+      v117 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+      if (!os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
         goto LABEL_56;
       }
 
       *buf = 134217984;
-      v346 = *&downtimeDetectionDefaultSleepEndHour;
-      v120 = "[APM] Downtime detection using population default end hour: %f";
+      v340 = *&downtimeDetectionDefaultSleepEndHour;
+      v118 = "[APM] Downtime detection using population default end hour: %f";
     }
 
     goto LABEL_55;
   }
 
-  [v105 doubleValue];
-  v110 = v109;
-  [v106 doubleValue];
-  if ([MODowntimeDetectionUtilities isBeforeHour:v110 comparedTo:v111])
+  [v103 doubleValue];
+  v108 = v107;
+  [v104 doubleValue];
+  if ([MODowntimeDetectionUtilities isBeforeHour:v108 comparedTo:v109])
   {
-    v112 = v106;
+    v110 = v104;
   }
 
   else
   {
-    v112 = v105;
+    v110 = v103;
   }
 
-  [v112 doubleValue];
-  downtimeDetectionDefaultSleepEndHour = v113;
+  [v110 doubleValue];
+  downtimeDetectionDefaultSleepEndHour = v111;
   defaultsManager12 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-  v116 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
-  [defaultsManager12 setObject:v116 forKey:@"DowntimeDetectionWindowEndHour"];
+  v114 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
+  [defaultsManager12 setObject:v114 forKey:@"DowntimeDetectionWindowEndHour"];
 
   defaultsManager13 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-  v118 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
-  [defaultsManager13 setObject:v118 forKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
+  v116 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
+  [defaultsManager13 setObject:v116 forKey:@"DowntimeDetectionWindowEndHourUserHistoricalDefault"];
 
-  v119 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-  if (os_log_type_enabled(v119, OS_LOG_TYPE_INFO))
+  v117 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+  if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v346 = *&downtimeDetectionDefaultSleepEndHour;
-    v120 = "[APM] Downtime detection reconciled window end hour: %f";
+    v340 = *&downtimeDetectionDefaultSleepEndHour;
+    v118 = "[APM] Downtime detection reconciled window end hour: %f";
 LABEL_55:
-    _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_INFO, v120, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_INFO, v118, buf, 0xCu);
   }
 
 LABEL_56:
-  v223 = v74;
+  v217 = v72;
 
-  v127 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
-  [v64 setObject:v127 forKeyedSubscript:@"downtimeWindowEndHourSelected"];
+  v125 = [NSNumber numberWithDouble:downtimeDetectionDefaultSleepEndHour];
+  [v62 setObject:v125 forKeyedSubscript:@"downtimeWindowEndHourSelected"];
 
-  v305 = +[NSMutableArray array];
-  v128 = 1.0;
-  v129 = 24;
-  v130 = 0.25;
-  v131 = 1.0;
-  v132 = selfCopy;
+  v299 = +[NSMutableArray array];
+  v126 = 1.0;
+  v127 = 24;
+  v128 = 0.25;
+  v129 = 1.0;
+  v130 = selfCopy;
   do
   {
-    v335 = v129;
-    v131 = [v302 dateByAddingTimeInterval:v132->_availabilityPredictionWindowSize * v131];
-    v133 = [(MOAvailabilityPredictionManager *)v132 extractFeaturesWithEvents:v55 andBundles:v309 andHourlyEngagement:v307 andHourlyWritingEngagement:v304 forWindow:downtimeDetectionDefaultSleepStartHour withDowntimeWindowStartHour:downtimeDetectionDefaultSleepEndHour andDowntimeWindowEndHour:?];
-    v134 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
+    v329 = v127;
+    v129 = [v296 dateByAddingTimeInterval:v130[5] * v129];
+    v131 = [v130 extractFeaturesWithEvents:v53 andBundles:v303 andHourlyEngagement:v301 andHourlyWritingEngagement:v298 forWindow:downtimeDetectionDefaultSleepStartHour withDowntimeWindowStartHour:downtimeDetectionDefaultSleepEndHour andDowntimeWindowEndHour:?];
+    v132 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v132, OS_LOG_TYPE_INFO))
     {
-      v332 = [v133 objectForKeyedSubscript:@"downtimeStartHour"];
-      [v332 doubleValue];
-      v295 = v135;
-      v329 = [v133 objectForKeyedSubscript:@"downtimeEndHour"];
-      [v329 doubleValue];
-      v293 = v136;
-      v326 = [v133 objectForKeyedSubscript:@"hour"];
+      v326 = [v131 objectForKeyedSubscript:@"downtimeStartHour"];
       [v326 doubleValue];
-      v292 = v137;
-      v324 = [v133 objectForKeyedSubscript:@"weekday"];
-      [v324 doubleValue];
-      v290 = v138;
-      v322 = [v133 objectForKeyedSubscript:@"motionActivityCount"];
-      [v322 doubleValue];
-      v289 = v139;
-      v320 = [v133 objectForKeyedSubscript:@"motionActivityCountShortLookback"];
+      v289 = v133;
+      v323 = [v131 objectForKeyedSubscript:@"downtimeEndHour"];
+      [v323 doubleValue];
+      v287 = v134;
+      v320 = [v131 objectForKeyedSubscript:@"hour"];
       [v320 doubleValue];
-      v288 = v140;
-      v318 = [v133 objectForKeyedSubscript:@"motionActivityOverlapCountShortLookback"];
+      v286 = v135;
+      v318 = [v131 objectForKeyedSubscript:@"weekday"];
       [v318 doubleValue];
-      v286 = v141;
-      v316 = [v133 objectForKeyedSubscript:@"engagementCount"];
+      v284 = v136;
+      v316 = [v131 objectForKeyedSubscript:@"motionActivityCount"];
       [v316 doubleValue];
-      v284 = v142;
-      v314 = [v133 objectForKeyedSubscript:@"engagementCountMidLookback"];
+      v283 = v137;
+      v314 = [v131 objectForKeyedSubscript:@"motionActivityCountShortLookback"];
       [v314 doubleValue];
-      v283 = v143;
-      v312 = [v133 objectForKeyedSubscript:@"engagementCountBin1MidLookback"];
+      v282 = v138;
+      v312 = [v131 objectForKeyedSubscript:@"motionActivityOverlapCountShortLookback"];
       [v312 doubleValue];
-      v281 = v144;
-      v301 = [v133 objectForKeyedSubscript:@"healthandfitnessScreentimeCount"];
-      [v301 doubleValue];
-      v280 = v145;
-      v300 = [v133 objectForKeyedSubscript:@"healthandfitnessScreentimeCountMidLookback"];
-      [v300 doubleValue];
-      v278 = v146;
-      v299 = [v133 objectForKeyedSubscript:@"healthandfitnessScreentimeCountShortLookback"];
-      [v299 doubleValue];
-      v276 = v147;
-      v298 = [v133 objectForKeyedSubscript:@"screentimeCount"];
-      [v298 doubleValue];
-      v275 = v148;
-      v297 = [v133 objectForKeyedSubscript:@"screentimeSameWeekdayProbability"];
-      [v297 doubleValue];
-      v273 = v149;
-      v296 = [v133 objectForKeyedSubscript:@"screentimeCountShortLookback"];
-      [v296 doubleValue];
-      v272 = v150;
-      v294 = [v133 objectForKeyedSubscript:@"overMedianScreentimeSameWeekdayProbability"];
+      v280 = v139;
+      v310 = [v131 objectForKeyedSubscript:@"engagementCount"];
+      [v310 doubleValue];
+      v278 = v140;
+      v308 = [v131 objectForKeyedSubscript:@"engagementCountMidLookback"];
+      [v308 doubleValue];
+      v277 = v141;
+      v306 = [v131 objectForKeyedSubscript:@"engagementCountBin1MidLookback"];
+      [v306 doubleValue];
+      v275 = v142;
+      v295 = [v131 objectForKeyedSubscript:@"healthandfitnessScreentimeCount"];
+      [v295 doubleValue];
+      v274 = v143;
+      v294 = [v131 objectForKeyedSubscript:@"healthandfitnessScreentimeCountMidLookback"];
       [v294 doubleValue];
-      v270 = v151;
-      v291 = [v133 objectForKeyedSubscript:@"overMedianScreentimeSameWeekdayProbabilityShortLookback"];
+      v272 = v144;
+      v293 = [v131 objectForKeyedSubscript:@"healthandfitnessScreentimeCountShortLookback"];
+      [v293 doubleValue];
+      v270 = v145;
+      v292 = [v131 objectForKeyedSubscript:@"screentimeCount"];
+      [v292 doubleValue];
+      v269 = v146;
+      v291 = [v131 objectForKeyedSubscript:@"screentimeSameWeekdayProbability"];
       [v291 doubleValue];
-      v268 = v152;
-      v287 = [v133 objectForKeyedSubscript:@"over20MinScreentimeSameWeekdayProbability"];
-      [v287 doubleValue];
-      v267 = v153;
-      v285 = [v133 objectForKeyedSubscript:@"over20MinScreentimeCountMidLookback"];
+      v267 = v147;
+      v290 = [v131 objectForKeyedSubscript:@"screentimeCountShortLookback"];
+      [v290 doubleValue];
+      v266 = v148;
+      v288 = [v131 objectForKeyedSubscript:@"overMedianScreentimeSameWeekdayProbability"];
+      [v288 doubleValue];
+      v264 = v149;
+      v285 = [v131 objectForKeyedSubscript:@"overMedianScreentimeSameWeekdayProbabilityShortLookback"];
       [v285 doubleValue];
-      v265 = v154;
-      v282 = [v133 objectForKeyedSubscript:@"callCount"];
-      [v282 doubleValue];
-      v264 = v155;
-      v279 = [v133 objectForKeyedSubscript:@"musicCount"];
+      v262 = v150;
+      v281 = [v131 objectForKeyedSubscript:@"over20MinScreentimeSameWeekdayProbability"];
+      [v281 doubleValue];
+      v261 = v151;
+      v279 = [v131 objectForKeyedSubscript:@"over20MinScreentimeCountMidLookback"];
       [v279 doubleValue];
-      v263 = v156;
-      v277 = [v133 objectForKeyedSubscript:@"musicCountShortLookback"];
-      [v277 doubleValue];
-      v262 = v157;
-      v274 = [v133 objectForKeyedSubscript:@"atHomeCount"];
-      [v274 doubleValue];
-      v261 = v158;
-      v271 = [v133 objectForKeyedSubscript:@"atHomeCountShortLookback"];
+      v259 = v152;
+      v276 = [v131 objectForKeyedSubscript:@"callCount"];
+      [v276 doubleValue];
+      v258 = v153;
+      v273 = [v131 objectForKeyedSubscript:@"musicCount"];
+      [v273 doubleValue];
+      v257 = v154;
+      v271 = [v131 objectForKeyedSubscript:@"musicCountShortLookback"];
       [v271 doubleValue];
-      v260 = v159;
-      v269 = [v133 objectForKeyedSubscript:@"atWorkCount"];
-      [v269 doubleValue];
-      v259 = v160;
-      v266 = [v133 objectForKeyedSubscript:@"atWorkSameWeekdayProbability"];
-      [v266 doubleValue];
-      v258 = v161;
-      v162 = [v133 objectForKeyedSubscript:@"atWorkCountShortLookback"];
+      v256 = v155;
+      v268 = [v131 objectForKeyedSubscript:@"atHomeCount"];
+      [v268 doubleValue];
+      v255 = v156;
+      v265 = [v131 objectForKeyedSubscript:@"atHomeCountShortLookback"];
+      [v265 doubleValue];
+      v254 = v157;
+      v263 = [v131 objectForKeyedSubscript:@"atWorkCount"];
+      [v263 doubleValue];
+      v253 = v158;
+      v260 = [v131 objectForKeyedSubscript:@"atWorkSameWeekdayProbability"];
+      [v260 doubleValue];
+      v252 = v159;
+      v160 = [v131 objectForKeyedSubscript:@"atWorkCountShortLookback"];
+      [v160 doubleValue];
+      v251 = v161;
+      v162 = [v131 objectForKeyedSubscript:@"weekdayPrevScreentimeCount"];
       [v162 doubleValue];
-      v257 = v163;
-      v164 = [v133 objectForKeyedSubscript:@"weekdayPrevScreentimeCount"];
+      v250 = v163;
+      v164 = [v131 objectForKeyedSubscript:@"firstScreentimeOfDay"];
       [v164 doubleValue];
-      v256 = v165;
-      v166 = [v133 objectForKeyedSubscript:@"firstScreentimeOfDay"];
-      [v166 doubleValue];
-      v168 = v167;
-      v169 = [v133 objectForKeyedSubscript:@"lastScreentimeOfDay"];
-      [v169 doubleValue];
-      v170 = downtimeDetectionDefaultSleepEndHour;
-      v172 = v171;
-      v173 = [v133 objectForKeyedSubscript:@"isAfternoon"];
-      [v173 doubleValue];
-      v175 = v174;
-      v176 = [v133 objectForKeyedSubscript:@"isEvening"];
-      [v176 doubleValue];
-      v178 = v177;
-      v179 = [v133 objectForKeyedSubscript:@"isMorning"];
-      [v179 doubleValue];
-      v181 = v180;
-      v182 = [v133 objectForKeyedSubscript:@"isNight"];
-      [v182 doubleValue];
-      v346 = v295;
-      v348 = v293;
-      v350 = v292;
-      v352 = v290;
+      v166 = v165;
+      v167 = [v131 objectForKeyedSubscript:@"lastScreentimeOfDay"];
+      [v167 doubleValue];
+      v168 = downtimeDetectionDefaultSleepEndHour;
+      v170 = v169;
+      v171 = [v131 objectForKeyedSubscript:@"isAfternoon"];
+      [v171 doubleValue];
+      v173 = v172;
+      v174 = [v131 objectForKeyedSubscript:@"isEvening"];
+      [v174 doubleValue];
+      v176 = v175;
+      v177 = [v131 objectForKeyedSubscript:@"isMorning"];
+      [v177 doubleValue];
+      v179 = v178;
+      v180 = [v131 objectForKeyedSubscript:@"isNight"];
+      [v180 doubleValue];
+      v340 = v289;
+      v342 = v287;
+      v344 = v286;
+      v346 = v284;
       *buf = 134226946;
+      v341 = 2048;
+      v343 = 2048;
+      v345 = 2048;
       v347 = 2048;
+      v348 = v283;
       v349 = 2048;
+      v350 = v282;
       v351 = 2048;
+      v352 = v280;
       v353 = 2048;
-      v354 = v289;
+      v354 = v278;
       v355 = 2048;
-      v356 = v288;
+      v356 = v277;
       v357 = 2048;
-      v358 = v286;
+      v358 = v275;
       v359 = 2048;
-      v360 = v284;
+      v360 = v274;
       v361 = 2048;
-      v362 = v283;
+      v362 = v272;
       v363 = 2048;
-      v364 = v281;
+      v364 = v270;
       v365 = 2048;
-      v366 = v280;
+      v366 = v269;
       v367 = 2048;
-      v368 = v278;
+      v368 = v267;
       v369 = 2048;
-      v370 = v276;
+      v370 = v266;
       v371 = 2048;
-      v372 = v275;
+      v372 = v264;
       v373 = 2048;
-      v374 = v273;
+      v374 = v262;
       v375 = 2048;
-      v376 = v272;
+      v376 = v261;
       v377 = 2048;
-      v378 = v270;
+      v378 = v259;
       v379 = 2048;
-      v380 = v268;
+      v380 = v258;
       v381 = 2048;
-      v382 = v267;
+      v382 = v257;
       v383 = 2048;
-      v384 = v265;
+      v384 = v256;
       v385 = 2048;
-      v386 = v264;
+      v386 = v255;
       v387 = 2048;
-      v388 = v263;
+      v388 = v254;
       v389 = 2048;
-      v390 = v262;
+      v390 = v253;
       v391 = 2048;
-      v392 = v261;
+      v392 = v252;
       v393 = 2048;
-      v394 = v260;
+      v394 = v251;
       v395 = 2048;
-      v396 = v259;
+      v396 = v250;
       v397 = 2048;
-      v398 = v258;
+      v398 = v166;
       v399 = 2048;
-      v400 = v257;
+      v400 = v170;
+      downtimeDetectionDefaultSleepEndHour = v168;
       v401 = 2048;
-      v402 = v256;
+      v402 = v173;
       v403 = 2048;
-      v404 = v168;
+      v404 = v176;
+      v126 = 1.0;
       v405 = 2048;
-      v406 = v172;
-      downtimeDetectionDefaultSleepEndHour = v170;
+      v406 = v179;
+      v128 = 0.25;
       v407 = 2048;
-      v408 = v175;
-      v409 = 2048;
-      v410 = v178;
-      v128 = 1.0;
-      v411 = 2048;
-      v412 = v181;
-      v130 = 0.25;
-      v413 = 2048;
-      v414 = v183;
-      v415 = 2112;
-      v416 = v131;
-      _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_INFO, "[APM] Extracted feature array after scaling: [downtimeStartHour:%.5f, downtimeEndHour:%.5f, hour:%.5f, weekday:%.5f, motionActivityCount:%.5f, motionActivityCountShortLookback:%.5f, motionActivityOverlapCountShortLookback:%.5f, engagementCount:%.5f, engagementCountMidLookback:%.5f, engagementCountBin1MidLookback:%.5f, healthandfitnessScreentimeCount:%.5f, healthandfitnessScreentimeCountMidLookback:%.5f, healthandfitnessScreentimeCountShortLookback:%.5f, screentimeCount:%.5f, screentimeSameWeekdayProbability:%.5f, screentimeCountShortLookback:%.5f, overMedianScreentimeSameWeekdayProbability:%.5f, overMedianScreentimeSameWeekdayProbabilityShortLookback:%.5f, over20MinScreentimeSameWeekdayProbability:%.5f, over20MinScreentimeCountMidLookback:%.5f, callCount:%.5f, musicCount:%.5f, musicCountShortLookback:%.5f, atHomeCount:%.5f, atHomeCountShortLookback:%.5f, atWorkCount:%.5f, atWorkSameWeekdayProbability:%.5f, atWorkCountShortLookback:%.5f, weekdayPrevScreentimeCount:%.5f, firstScreentimeOfDay:%.5f, lastScreentimeOfDay:%.5f, isAfternoon:%.5f, isEvening:%.5f, isMorning:%.5f, isNight:%.5f] for window %@", buf, 0x16Au);
+      v408 = v181;
+      v409 = 2112;
+      v410 = v129;
+      _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_INFO, "[APM] Extracted feature array after scaling: [downtimeStartHour:%.5f, downtimeEndHour:%.5f, hour:%.5f, weekday:%.5f, motionActivityCount:%.5f, motionActivityCountShortLookback:%.5f, motionActivityOverlapCountShortLookback:%.5f, engagementCount:%.5f, engagementCountMidLookback:%.5f, engagementCountBin1MidLookback:%.5f, healthandfitnessScreentimeCount:%.5f, healthandfitnessScreentimeCountMidLookback:%.5f, healthandfitnessScreentimeCountShortLookback:%.5f, screentimeCount:%.5f, screentimeSameWeekdayProbability:%.5f, screentimeCountShortLookback:%.5f, overMedianScreentimeSameWeekdayProbability:%.5f, overMedianScreentimeSameWeekdayProbabilityShortLookback:%.5f, over20MinScreentimeSameWeekdayProbability:%.5f, over20MinScreentimeCountMidLookback:%.5f, callCount:%.5f, musicCount:%.5f, musicCountShortLookback:%.5f, atHomeCount:%.5f, atHomeCountShortLookback:%.5f, atWorkCount:%.5f, atWorkSameWeekdayProbability:%.5f, atWorkCountShortLookback:%.5f, weekdayPrevScreentimeCount:%.5f, firstScreentimeOfDay:%.5f, lastScreentimeOfDay:%.5f, isAfternoon:%.5f, isEvening:%.5f, isMorning:%.5f, isNight:%.5f] for window %@", buf, 0x16Au);
 
-      v132 = selfCopy;
-      v55 = v310;
+      v130 = selfCopy;
+      v53 = v304;
     }
 
-    v313 = [(MOAvailabilityPredictionManager *)v132 runMLmodelWithFeatures:v133 andModel:v308];
-    v184 = objc_alloc_init(NSDateComponents);
-    [v184 setDay:-28];
-    v333 = v184;
-    v185 = [v306 dateByAddingComponents:v184 toDate:v303 options:0];
-    v327 = [NSPredicate predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 1, 4];
-    v325 = [v55 filteredArrayUsingPredicate:?];
-    v330 = v185;
-    v186 = [MOAvailabilityPredictionManager copyAndTrim:v132 toWindowStartDate:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" returnAsMOEvent:?];
-    availabilityPredictionWindowSize = v132->_availabilityPredictionWindowSize;
-    LOBYTE(v218) = 0;
-    v323 = v186;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:v132 forWindow:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" windowSize:v218 checkTime:@"locationFilter" checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v130 = [NSNumber numberWithDouble:v188 * v130];
-    v321 = [NSPredicate predicateWithFormat:@"category == %d", 20];
-    v319 = [v55 filteredArrayUsingPredicate:?];
-    v190 = [(MOAvailabilityPredictionManager *)v132 filterScreentimeEvents:?];
-    v191 = v132->_allowedScreentimeCategories;
-    v317 = v190;
-    v315 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:"getTotalScreentimeDurations:withAllowedScreentimeCategories:" withAllowedScreentimeCategories:?];
-    v192 = [v315 objectForKeyedSubscript:@"durationArray"];
-    v193 = [NSPredicate predicateWithFormat:@"overMedian == YES"];
-    v194 = [v192 filteredArrayUsingPredicate:v193];
-    LOBYTE(v219) = 0;
-    [(MOAvailabilityPredictionManager *)v132 countOccurenceOfEvents:v194 forWindow:v131 windowSize:v132->_availabilityPredictionWindowSize checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v219 forFeature:@"screentimeFilter"];
-    v1302 = [NSNumber numberWithDouble:v195 * v130];
-    v197 = [v131 dateByAddingTimeInterval:v132->_availabilityPredictionWindowSize];
-    v198 = [MOTime simpleTimetagFromStartDate:v131 endDate:v197];
+    v307 = [v130 runMLmodelWithFeatures:v131 andModel:v302];
+    v182 = objc_alloc_init(NSDateComponents);
+    [v182 setDay:-28];
+    v327 = v182;
+    v183 = [v300 dateByAddingComponents:v182 toDate:v297 options:0];
+    v321 = [NSPredicate predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 1, 4];
+    v319 = [v53 filteredArrayUsingPredicate:?];
+    v324 = v183;
+    LOBYTE(v212) = 0;
+    v317 = [v130 copyAndTrim:? toWindowStartDate:? returnAsMOEvent:?];
+    [v130 countOccurenceOfEvents:v212 forWindow:@"locationFilter" windowSize:? checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v128 = [NSNumber numberWithDouble:v184 * v128];
+    v315 = [NSPredicate predicateWithFormat:@"category == %d", 20];
+    v313 = [v53 filteredArrayUsingPredicate:?];
+    v311 = [v130 filterScreentimeEvents:?];
+    v309 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:"getTotalScreentimeDurations:withAllowedScreentimeCategories:" withAllowedScreentimeCategories:?];
+    v186 = [v309 objectForKeyedSubscript:@"durationArray"];
+    v187 = [NSPredicate predicateWithFormat:@"overMedian == YES"];
+    v188 = [v186 filteredArrayUsingPredicate:v187];
+    LOBYTE(v213) = 0;
+    [v130 countOccurenceOfEvents:v188 forWindow:v129 windowSize:v130[5] checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v213 forFeature:@"screentimeFilter"];
+    v1282 = [NSNumber numberWithDouble:v189 * v128];
+    v191 = [v129 dateByAddingTimeInterval:v130[5]];
+    v192 = [MOTime simpleTimetagFromStartDate:v129 endDate:v191];
 
-    v199 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-    if (os_log_type_enabled(v199, OS_LOG_TYPE_INFO))
+    v193 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+    if (os_log_type_enabled(v193, OS_LOG_TYPE_INFO))
     {
       *buf = 138414082;
-      v346 = @"predictionDate";
+      v340 = @"predictionDate";
+      v341 = 2112;
+      v342 = v129;
+      v343 = 2112;
+      v344 = @"availabilityProbability";
+      v345 = 2112;
+      v346 = v307;
       v347 = 2112;
-      v348 = v131;
+      v348 = @"locationFilterProbability";
       v349 = 2112;
-      v350 = @"availabilityProbability";
+      v350 = v128;
       v351 = 2112;
-      v352 = v313;
+      v352 = @"screentimeFilterProbability";
       v353 = 2112;
-      v354 = @"locationFilterProbability";
-      v355 = 2112;
-      v356 = v130;
-      v357 = 2112;
-      v358 = @"screentimeFilterProbability";
-      v359 = 2112;
-      v360 = v1302;
-      _os_log_impl(&_mh_execute_header, v199, OS_LOG_TYPE_INFO, "[APM] %@ %@: %@ %@, %@ %@, %@ %@", buf, 0x52u);
+      v354 = v1282;
+      _os_log_impl(&_mh_execute_header, v193, OS_LOG_TYPE_INFO, "[APM] %@ %@: %@ %@, %@ %@, %@ %@", buf, 0x52u);
     }
 
-    v344[0] = v131;
-    v343[0] = @"predictionDate";
-    v343[1] = @"predictionDateTimeTag";
-    v200 = [NSNumber numberWithUnsignedInteger:v198];
-    v344[1] = v200;
-    v344[2] = v313;
-    v343[2] = @"availabilityProbability";
-    v343[3] = @"locationFilterProbability";
-    v343[4] = @"screentimeFilterProbability";
-    v344[3] = v130;
-    v344[4] = v1302;
-    v201 = [NSDictionary dictionaryWithObjects:v344 forKeys:v343 count:5];
-    [v305 addObject:v201];
+    v338[0] = v129;
+    v337[0] = @"predictionDate";
+    v337[1] = @"predictionDateTimeTag";
+    v194 = [NSNumber numberWithUnsignedInteger:v192];
+    v338[1] = v194;
+    v338[2] = v307;
+    v337[2] = @"availabilityProbability";
+    v337[3] = @"locationFilterProbability";
+    v337[4] = @"screentimeFilterProbability";
+    v338[3] = v128;
+    v338[4] = v1282;
+    v195 = [NSDictionary dictionaryWithObjects:v338 forKeys:v337 count:5];
+    [v299 addObject:v195];
 
-    v202 = v335;
-    v132 = selfCopy;
-    if (v335 == 1)
+    v196 = v329;
+    v130 = selfCopy;
+    if (v329 == 1)
     {
       defaultsManager14 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-      [defaultsManager14 setObject:v131 forKey:@"AvailabilityPredictionLastWindowConsidered"];
+      [defaultsManager14 setObject:v129 forKey:@"AvailabilityPredictionLastWindowConsidered"];
 
-      v202 = 1;
+      v196 = 1;
     }
 
-    v131 = v131 + v128;
-    v129 = v202 - 1;
-    v55 = v310;
+    v129 = v129 + v126;
+    v127 = v196 - 1;
+    v53 = v304;
   }
 
-  while (v129);
-  v339 = [NSPredicate predicateWithFormat:@"category == %d", 20];
-  v336 = [v310 filteredArrayUsingPredicate:?];
-  v204 = [MODowntimeDetectionUtilities getUniqueDays:"getUniqueDays:withCalendar:" withCalendar:?];
-  v205 = objc_alloc_init(NSDictionary);
-  v206 = [v204 count];
-  v207 = 88;
-  if (selfCopy->_downtimeDetectionMinNumDaysWithScreentimeThreshold > v206)
+  while (v127);
+  v333 = [NSPredicate predicateWithFormat:@"category == %d", 20];
+  v330 = [v304 filteredArrayUsingPredicate:?];
+  v198 = [MODowntimeDetectionUtilities getUniqueDays:"getUniqueDays:withCalendar:" withCalendar:?];
+  v199 = objc_alloc_init(NSDictionary);
+  v200 = [v198 count];
+  v201 = 88;
+  if (selfCopy->_downtimeDetectionMinNumDaysWithScreentimeThreshold > v200)
   {
-    v207 = 96;
+    v201 = 96;
   }
 
-  v208 = [(MOAvailabilityPredictionManager *)selfCopy findOptimalDateWithPrediction:v305 withPredictionProbabilityThreshold:*(&selfCopy->super.isa + v207)];
+  v202 = [(MOAvailabilityPredictionManager *)selfCopy findOptimalDateWithPrediction:v299 withPredictionProbabilityThreshold:*(&selfCopy->super.isa + v201)];
 
   defaultsManager15 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-  v210 = defaultsManager15;
-  if (v208)
+  v204 = defaultsManager15;
+  if (v202)
   {
-    v211 = [v208 objectForKeyedSubscript:@"predictionDate"];
-    [v210 setObject:v211 forKey:@"AvailabilityPredictionOptimalDate"];
+    v205 = [v202 objectForKeyedSubscript:@"predictionDate"];
+    [v204 setObject:v205 forKey:@"AvailabilityPredictionOptimalDate"];
 
     defaultsManager16 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v213 = [v208 objectForKeyedSubscript:@"consecutiveEndDate"];
-    [defaultsManager16 setObject:v213 forKey:@"AvailabilityPredictionOptimalEndDate"];
+    v207 = [v202 objectForKeyedSubscript:@"consecutiveEndDate"];
+    [defaultsManager16 setObject:v207 forKey:@"AvailabilityPredictionOptimalEndDate"];
 
     defaultsManager17 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-    v215 = [v208 objectForKeyedSubscript:@"availabilityProbability"];
-    [defaultsManager17 setObject:v215 forKey:@"AvailabilityPredictionOptimalDateProbability"];
+    v209 = [v202 objectForKeyedSubscript:@"availabilityProbability"];
+    [defaultsManager17 setObject:v209 forKey:@"AvailabilityPredictionOptimalDateProbability"];
   }
 
   else
@@ -1222,21 +1216,21 @@ LABEL_56:
     [defaultsManager17 deleteObjectForKey:@"AvailabilityPredictionOptimalEndDate"];
   }
 
-  engagementEventsCopy = v248;
+  engagementEventsCopy = v242;
   v25 = handlerCopy;
   v24 = entryEngagementEventsCopy;
   v23 = 0;
 
   defaultsManager18 = [(MOAvailabilityPredictionManager *)selfCopy defaultsManager];
-  [defaultsManager18 setObject:v303 forKey:@"AvailabilityPredictionLastRunStartDate"];
+  [defaultsManager18 setObject:v297 forKey:@"AvailabilityPredictionLastRunStartDate"];
 
-  v217 = [v305 copy];
-  (v25)[2](v25, v217, v252, 0);
+  v211 = [v299 copy];
+  (v25)[2](v25, v211, v246, 0);
 
-  v27 = v309;
-  v21 = v246;
-  v18 = v247;
-  v22 = v245;
+  v27 = v303;
+  v21 = v240;
+  v18 = v241;
+  v22 = v239;
 LABEL_70:
 }
 
@@ -1251,23 +1245,23 @@ LABEL_70:
   v18 = +[NSDate date];
   v19 = objc_alloc_init(NSDateComponents);
   [v19 setDay:-2];
-  v234 = v19;
-  v300 = [v17 dateByAddingComponents:v19 toDate:v18 options:0];
+  v208 = v19;
+  v274 = [v17 dateByAddingComponents:v19 toDate:v18 options:0];
   v20 = &GEOPOICategoryGasStation_ptr;
-  v300 = [NSPredicate predicateWithFormat:@"endDate >= %@", v300];
+  v274 = [NSPredicate predicateWithFormat:@"endDate >= %@", v274];
   v21 = objc_alloc_init(NSDateComponents);
   [v21 setDay:-7];
-  v233 = v21;
+  v207 = v21;
   v22 = [v17 dateByAddingComponents:v21 toDate:v18 options:0];
   v23 = [NSPredicate predicateWithFormat:@"%K >= %@", @"startDate", v22];
   v24 = [NSPredicate predicateWithFormat:@"endDate >= %@", v22];
   v25 = objc_alloc_init(NSDateComponents);
   [v25 setDay:-28];
-  v229 = v25;
-  v235 = v18;
-  v296 = [v17 dateByAddingComponents:v25 toDate:v18 options:0];
-  v228 = [v17 components:32 fromDate:windowCopy];
-  hour = [v228 hour];
+  v203 = v25;
+  v209 = v18;
+  v270 = [v17 dateByAddingComponents:v25 toDate:v18 options:0];
+  v202 = [v17 components:32 fromDate:windowCopy];
+  hour = [v202 hour];
   [MOAvailabilityPredictionManager getWeekday:windowCopy];
   v28 = v27;
   v29 = 0.0;
@@ -1301,7 +1295,7 @@ LABEL_70:
     v32 = 1.0;
   }
 
-  v292 = hour;
+  v266 = hour;
   if ((hour - 21) >= 0xFFFFFFFFFFFFFFF0)
   {
     v33 = 0.0;
@@ -1312,178 +1306,160 @@ LABEL_70:
     v33 = 1.0;
   }
 
-  LOBYTE(v153) = 0;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:engagementCopy forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v153 forFeature:@"engagementCount"];
-  v216 = v34;
-  v236 = engagementCopy;
-  v35 = [engagementCopy filteredArrayUsingPredicate:v23];
-  availabilityPredictionWindowSize = self->_availabilityPredictionWindowSize;
-  LOBYTE(v154) = 0;
-  v227 = v35;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v154 windowSize:@"engagementCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v214 = v37;
-  v231 = v23;
-  v38 = [writingEngagementCopy filteredArrayUsingPredicate:v23];
-  v39 = self->_availabilityPredictionWindowSize;
-  LOBYTE(v155) = 0;
-  v226 = v38;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v155 windowSize:@"engagementCountBin1MidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v286 = v40;
-  v225 = [NSPredicate predicateWithFormat:@"category == %d", 20];
-  v41 = [eventsCopy filteredArrayUsingPredicate:?];
-  v42 = [(MOAvailabilityPredictionManager *)self filterScreentimeEvents:v41];
-  v230 = v24;
-  v222 = [v42 filteredArrayUsingPredicate:v24];
-  v232 = v22;
-  v294 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
-  v221 = [v42 filteredArrayUsingPredicate:v300];
-  v43 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
-  v224 = v41;
-  v295 = windowCopy;
-  v223 = v42;
-  v220 = v43;
-  v291 = v33;
-  v290 = v30;
-  v289 = v32;
-  v288 = v31;
-  if ([v41 count])
+  LOBYTE(v127) = 0;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:engagementCopy forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v127 forFeature:@"engagementCount"];
+  v190 = v34;
+  v210 = engagementCopy;
+  [engagementCopy filteredArrayUsingPredicate:v23];
+  v201 = LOBYTE(v128) = 0;
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v128 windowSize:@"engagementCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v188 = v35;
+  v205 = v23;
+  [writingEngagementCopy filteredArrayUsingPredicate:v23];
+  v200 = LOBYTE(v129) = 0;
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v129 windowSize:@"engagementCountBin1MidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v260 = v36;
+  v199 = [NSPredicate predicateWithFormat:@"category == %d", 20];
+  v37 = [eventsCopy filteredArrayUsingPredicate:?];
+  v38 = [(MOAvailabilityPredictionManager *)self filterScreentimeEvents:v37];
+  v204 = v24;
+  v196 = [v38 filteredArrayUsingPredicate:v24];
+  v206 = v22;
+  v268 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
+  v195 = [v38 filteredArrayUsingPredicate:v274];
+  v39 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
+  v198 = v37;
+  v269 = windowCopy;
+  v197 = v38;
+  v194 = v39;
+  v265 = v33;
+  v264 = v30;
+  v263 = v32;
+  v262 = v31;
+  if ([v37 count])
   {
-    v266 = v28;
-    LOBYTE(v156) = 0;
-    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v42 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v156 forFeature:@"screentimeCount"];
-    v282 = v44;
-    LOBYTE(v157) = 0;
-    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v43 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v157 forFeature:@"screentimeCountShortLookback"];
-    v284 = v45;
-    LOBYTE(v158) = 0;
-    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v42 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v158 forFeature:@"screentimeSameWeekdayProbability"];
+    v240 = v28;
+    LOBYTE(v130) = 0;
+    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v38 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v130 forFeature:@"screentimeCount"];
+    v256 = v40;
+    LOBYTE(v131) = 0;
+    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v39 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v131 forFeature:@"screentimeCountShortLookback"];
+    v258 = v41;
+    LOBYTE(v132) = 0;
+    [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v38 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v132 forFeature:@"screentimeSameWeekdayProbability"];
+    v43 = v42;
+    v237 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v38 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
+    v44 = [v237 objectForKeyedSubscript:@"durationArray"];
+    v45 = [NSPredicate predicateWithFormat:@"overMedian == YES"];
+    [v44 filteredArrayUsingPredicate:v45];
+    v231 = LOBYTE(v133) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v133 windowSize:@"overMedianScreentimeSameWeekdayProbability" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
     v47 = v46;
-    v263 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v42 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
-    v48 = [v263 objectForKeyedSubscript:@"durationArray"];
-    v49 = [NSPredicate predicateWithFormat:@"overMedian == YES"];
-    v50 = [v48 filteredArrayUsingPredicate:v49];
-    v51 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v159) = 0;
-    v257 = v50;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v159 windowSize:@"overMedianScreentimeSameWeekdayProbability" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v228 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v39 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
+    v225 = [v228 objectForKeyedSubscript:@"durationArray"];
+    v234 = v45;
+    [v225 filteredArrayUsingPredicate:v45];
+    v222 = LOBYTE(v134) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v134 windowSize:@"overMedianScreentimeSameWeekdayProbabilityShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v254 = v48;
+    v220 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v268 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
+    v49 = [v220 objectForKeyedSubscript:@"durationArray"];
+    v50 = [NSPredicate predicateWithFormat:@"over20Min == YES"];
+    v217 = v49;
+    [v49 filteredArrayUsingPredicate:v50];
+    v211 = LOBYTE(v135) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v135 windowSize:@"over20MinScreentimeCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v252 = v51;
+    v244 = v44;
+    v214 = v50;
+    [v44 filteredArrayUsingPredicate:v50];
+    v186 = LOBYTE(v136) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v136 windowSize:@"over20MinScreentimeSameWeekdayProbability" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
     v53 = v52;
-    v254 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v43 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
-    v251 = [v254 objectForKeyedSubscript:@"durationArray"];
-    v260 = v49;
-    v54 = [v251 filteredArrayUsingPredicate:v49];
-    v55 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v160) = 0;
-    v248 = v54;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v160 windowSize:@"overMedianScreentimeSameWeekdayProbabilityShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v280 = v56;
-    v246 = [MODowntimeDetectionUtilities getTotalScreentimeDurations:v294 withAllowedScreentimeCategories:self->_allowedScreentimeCategories];
-    v57 = [v246 objectForKeyedSubscript:@"durationArray"];
-    v58 = [NSPredicate predicateWithFormat:@"over20Min == YES"];
-    v243 = v57;
-    v59 = [v57 filteredArrayUsingPredicate:v58];
-    v60 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v161) = 0;
-    v237 = v59;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v161 windowSize:@"over20MinScreentimeCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v278 = v61;
-    v270 = v48;
-    v240 = v58;
-    v62 = [v48 filteredArrayUsingPredicate:v58];
-    v63 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v162) = 0;
-    v212 = v62;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v162 windowSize:@"over20MinScreentimeSameWeekdayProbability" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v65 = v64;
-    v66 = [NSPredicate predicateWithFormat:@"ANY screenTimeEvent.appCategoryUsages.appCategory == %d", 13];
-    v67 = [v42 filteredArrayUsingPredicate:v66];
-    v68 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v163) = 0;
-    v208 = v67;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v163 windowSize:@"healthandfitnessScreentimeCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v276 = v69;
-    v70 = [v294 filteredArrayUsingPredicate:v66];
-    v71 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v164) = 0;
-    v206 = v70;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v164 windowSize:@"healthandfitnessScreentimeCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v274 = v72;
-    v210 = v66;
-    v73 = [v43 filteredArrayUsingPredicate:v66];
-    v74 = self->_availabilityPredictionWindowSize;
-    LOBYTE(v165) = 0;
-    v204 = v73;
-    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v165 windowSize:@"healthandfitnessScreentimeCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-    v272 = v75;
-    v76 = [v17 component:512 fromDate:windowCopy];
-    v310 = 0u;
-    v311 = 0u;
-    v312 = 0u;
-    v313 = 0u;
-    v77 = v42;
-    v78 = [v77 countByEnumeratingWithState:&v310 objects:v390 count:16];
-    if (v78)
+    v54 = [NSPredicate predicateWithFormat:@"ANY screenTimeEvent.appCategoryUsages.appCategory == %d", 13];
+    [v38 filteredArrayUsingPredicate:v54];
+    v182 = LOBYTE(v137) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v137 windowSize:@"healthandfitnessScreentimeCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v250 = v55;
+    [v268 filteredArrayUsingPredicate:v54];
+    v180 = LOBYTE(v138) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v138 windowSize:@"healthandfitnessScreentimeCountMidLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v248 = v56;
+    v184 = v54;
+    [v39 filteredArrayUsingPredicate:v54];
+    v178 = LOBYTE(v139) = 0;
+    [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v139 windowSize:@"healthandfitnessScreentimeCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+    v246 = v57;
+    v58 = [v17 component:512 fromDate:windowCopy];
+    v284 = 0u;
+    v285 = 0u;
+    v286 = 0u;
+    v287 = 0u;
+    v59 = v38;
+    v60 = [v59 countByEnumeratingWithState:&v284 objects:v364 count:16];
+    if (v60)
     {
-      v79 = v78;
-      v80 = *v311;
+      v61 = v60;
+      v62 = *v285;
       do
       {
-        for (i = 0; i != v79; i = i + 1)
+        for (i = 0; i != v61; i = i + 1)
         {
-          if (*v311 != v80)
+          if (*v285 != v62)
           {
-            objc_enumerationMutation(v77);
+            objc_enumerationMutation(v59);
           }
 
-          startDate = [*(*(&v310 + 1) + 8 * i) startDate];
-          v83 = [v17 component:512 fromDate:startDate];
+          startDate = [*(*(&v284 + 1) + 8 * i) startDate];
+          v65 = [v17 component:512 fromDate:startDate];
 
-          if (v83 == v76)
+          if (v65 == v58)
           {
             v29 = v29 + 1.0;
           }
         }
 
-        v79 = [v77 countByEnumeratingWithState:&v310 objects:v390 count:16];
+        v61 = [v59 countByEnumeratingWithState:&v284 objects:v364 count:16];
       }
 
-      while (v79);
+      while (v61);
     }
 
-    v84 = [(MOAvailabilityPredictionManager *)self checkNonzeroMedianScreentimeUsagePerHour:v270];
-    v85 = [NSPredicate predicateWithFormat:@"nonzeroMedianCheck == YES"];
-    v86 = [v84 filteredArrayUsingPredicate:v85];
-    v87 = [v86 valueForKeyPath:@"@distinctUnionOfObjects.hour"];
-    v88 = [v87 sortedArrayUsingSelector:"compare:"];
+    v66 = [(MOAvailabilityPredictionManager *)self checkNonzeroMedianScreentimeUsagePerHour:v244];
+    v67 = [NSPredicate predicateWithFormat:@"nonzeroMedianCheck == YES"];
+    v68 = [v66 filteredArrayUsingPredicate:v67];
+    v69 = [v68 valueForKeyPath:@"@distinctUnionOfObjects.hour"];
+    v70 = [v69 sortedArrayUsingSelector:"compare:"];
 
-    v308 = 0u;
-    v309 = 0u;
-    v306 = 0u;
-    v307 = 0u;
-    v89 = v88;
-    v90 = [v89 countByEnumeratingWithState:&v306 objects:v389 count:16];
-    if (v90)
+    v282 = 0u;
+    v283 = 0u;
+    v280 = 0u;
+    v281 = 0u;
+    v71 = v70;
+    v72 = [v71 countByEnumeratingWithState:&v280 objects:v363 count:16];
+    if (v72)
     {
-      v91 = v90;
-      v92 = *v307;
+      v73 = v72;
+      v74 = *v281;
       while (2)
       {
-        for (j = 0; j != v91; j = j + 1)
+        for (j = 0; j != v73; j = j + 1)
         {
-          if (*v307 != v92)
+          if (*v281 != v74)
           {
-            objc_enumerationMutation(v89);
+            objc_enumerationMutation(v71);
           }
 
-          v94 = *(*(&v306 + 1) + 8 * j);
-          if ([v94 integerValue] >= 6)
+          v76 = *(*(&v280 + 1) + 8 * j);
+          if ([v76 integerValue] >= 6)
           {
-            integerValue = [v94 integerValue];
+            integerValue = [v76 integerValue];
             goto LABEL_33;
           }
         }
 
-        v91 = [v89 countByEnumeratingWithState:&v306 objects:v389 count:16];
-        if (v91)
+        v73 = [v71 countByEnumeratingWithState:&v280 objects:v363 count:16];
+        if (v73)
         {
           continue;
         }
@@ -1495,39 +1471,39 @@ LABEL_70:
     integerValue = 0;
 LABEL_33:
 
-    v304 = 0u;
-    v305 = 0u;
-    v302 = 0u;
-    v303 = 0u;
-    reverseObjectEnumerator = [v89 reverseObjectEnumerator];
+    v278 = 0u;
+    v279 = 0u;
+    v276 = 0u;
+    v277 = 0u;
+    reverseObjectEnumerator = [v71 reverseObjectEnumerator];
     allObjects = [reverseObjectEnumerator allObjects];
 
-    integerValue2 = [allObjects countByEnumeratingWithState:&v302 objects:v388 count:16];
+    integerValue2 = [allObjects countByEnumeratingWithState:&v276 objects:v362 count:16];
     if (integerValue2)
     {
-      v200 = integerValue;
-      v202 = v86;
-      v99 = v85;
-      v100 = v84;
-      v101 = *v303;
+      v174 = integerValue;
+      v176 = v68;
+      v81 = v67;
+      v82 = v66;
+      v83 = *v277;
       while (2)
       {
         for (k = 0; k != integerValue2; k = k + 1)
         {
-          if (*v303 != v101)
+          if (*v277 != v83)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v103 = *(*(&v302 + 1) + 8 * k);
-          if ([v103 integerValue] <= 23)
+          v85 = *(*(&v276 + 1) + 8 * k);
+          if ([v85 integerValue] <= 23)
           {
-            integerValue2 = [v103 integerValue];
+            integerValue2 = [v85 integerValue];
             goto LABEL_43;
           }
         }
 
-        integerValue2 = [allObjects countByEnumeratingWithState:&v302 objects:v388 count:16];
+        integerValue2 = [allObjects countByEnumeratingWithState:&v276 objects:v362 count:16];
         if (integerValue2)
         {
           continue;
@@ -1537,334 +1513,326 @@ LABEL_33:
       }
 
 LABEL_43:
-      v84 = v100;
-      v85 = v99;
-      integerValue = v200;
-      v86 = v202;
+      v66 = v82;
+      v67 = v81;
+      integerValue = v174;
+      v68 = v176;
     }
 
-    v104 = v47 * 0.25;
-    v105 = v53 * 0.25;
-    v106 = v65 * 0.25;
+    v86 = v43 * 0.25;
+    v87 = v47 * 0.25;
+    v88 = v53 * 0.25;
 
-    if (v292 == integerValue)
+    if (v266 == integerValue)
     {
-      v107 = 1.0;
+      v89 = 1.0;
     }
 
     else
     {
-      v107 = 0.0;
+      v89 = 0.0;
     }
 
-    if (v292 == integerValue2)
+    if (v266 == integerValue2)
     {
-      v108 = 1.0;
+      v90 = 1.0;
     }
 
     else
     {
-      v108 = 0.0;
+      v90 = 0.0;
     }
 
-    windowCopy = v295;
-    v28 = v266;
+    windowCopy = v269;
+    v28 = v240;
     v20 = &GEOPOICategoryGasStation_ptr;
   }
 
   else
   {
-    v108 = NAN;
-    v107 = NAN;
+    v90 = NAN;
+    v89 = NAN;
     v29 = NAN;
-    v272 = NAN;
-    v274 = NAN;
-    v276 = NAN;
-    v106 = NAN;
-    v278 = NAN;
-    v280 = NAN;
-    v105 = NAN;
-    v104 = NAN;
-    v284 = NAN;
-    v282 = NAN;
+    v246 = NAN;
+    v248 = NAN;
+    v250 = NAN;
+    v88 = NAN;
+    v252 = NAN;
+    v254 = NAN;
+    v87 = NAN;
+    v86 = NAN;
+    v258 = NAN;
+    v256 = NAN;
   }
 
-  v261 = v104;
-  v264 = v105;
-  v267 = v106;
-  v269 = v107;
-  v271 = v108;
-  v213 = [v20[193] predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 1, 4];
-  v109 = [eventsCopy filteredArrayUsingPredicate:?];
-  v110 = [(MOAvailabilityPredictionManager *)self copyAndTrim:v109 toWindowStartDate:v296 returnAsMOEvent:0];
-  v111 = [v17 dateByAddingUnit:64 value:30 toDate:windowCopy options:0];
-  LOBYTE(v166) = 0;
-  v209 = v110;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v110 forWindow:v111 windowSize:60 checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v166 forFeature:@"atHomeCount"];
-  v258 = v112;
-  v211 = v109;
-  v205 = [v109 filteredArrayUsingPredicate:v300];
-  LOBYTE(v167) = 0;
-  v203 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v167 windowSize:@"atHomeCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v255 = v113;
-  v201 = [v20[193] predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 2, 4];
-  v114 = [eventsCopy filteredArrayUsingPredicate:?];
-  LOBYTE(v168) = 0;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v114 forWindow:v111 windowSize:60 checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v168 forFeature:@"atWorkCount"];
-  v252 = v115;
-  LOBYTE(v169) = 0;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v114 forWindow:v111 windowSize:60 checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v169 forFeature:@"atWorkSameWeekdayProbability"];
-  v249 = v116 * 0.25;
-  v199 = v114;
-  v198 = [v114 filteredArrayUsingPredicate:v300];
-  LOBYTE(v170) = 0;
-  v197 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
-  v207 = v111;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v170 windowSize:@"atWorkCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v247 = v117;
-  v196 = [v20[193] predicateWithFormat:@"category == %d", 10];
-  v195 = [eventsCopy filteredArrayUsingPredicate:?];
-  v118 = [(MOAvailabilityPredictionManager *)self getCallStartDates:?];
-  v119 = self->_availabilityPredictionWindowSize;
-  LOBYTE(v171) = 0;
-  v194 = v118;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v171 windowSize:@"callCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v244 = v120;
-  v193 = [v20[193] predicateWithFormat:@"category == %d", 6];
-  v121 = [eventsCopy filteredArrayUsingPredicate:?];
-  v122 = [(MOAvailabilityPredictionManager *)self getMediaPlaySessionStartDates:v121];
-  v123 = self->_availabilityPredictionWindowSize;
-  LOBYTE(v172) = 0;
-  v191 = v122;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v172 windowSize:@"musicCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v241 = v124;
-  v192 = v121;
-  v190 = [v121 filteredArrayUsingPredicate:v300];
-  v189 = [(MOAvailabilityPredictionManager *)self getMediaPlaySessionStartDates:?];
-  v125 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
-  v126 = self->_availabilityPredictionWindowSize;
-  LOBYTE(v173) = 0;
-  v188 = v125;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v173 windowSize:@"musicCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v238 = v127;
-  v187 = [v20[193] predicateWithFormat:@"bundleSubType IN %@", &off_10036DFE0];
-  v128 = [bundlesCopy filteredArrayUsingPredicate:?];
-  LOBYTE(v174) = 0;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v128 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v174 forFeature:@"motionActivityCount"];
-  v130 = v129;
-  v186 = v128;
-  v131 = [v128 filteredArrayUsingPredicate:v300];
-  v132 = [(MOAvailabilityPredictionManager *)self copyAndTrim:v131 toWindowStartDate:v300 returnAsMOEvent:0];
-  v133 = self->_availabilityPredictionWindowSize;
-  LOBYTE(v175) = 0;
-  v184 = v132;
-  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v175 windowSize:@"motionActivityCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
-  v135 = v134;
-  LOBYTE(v176) = 1;
-  v185 = v131;
-  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v131 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v176 forFeature:@"motionActivityOverlapCountShortLookback"];
-  v137 = v136;
-  v138 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
-  v179 = v137;
-  v181 = v135;
-  if (os_log_type_enabled(v138, OS_LOG_TYPE_INFO))
+  v235 = v86;
+  v238 = v87;
+  v241 = v88;
+  v243 = v89;
+  v245 = v90;
+  v187 = [v20[193] predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 1, 4];
+  v91 = [eventsCopy filteredArrayUsingPredicate:?];
+  v92 = [(MOAvailabilityPredictionManager *)self copyAndTrim:v91 toWindowStartDate:v270 returnAsMOEvent:0];
+  v93 = [v17 dateByAddingUnit:64 value:30 toDate:windowCopy options:0];
+  LOBYTE(v140) = 0;
+  v183 = v92;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v92 forWindow:v93 windowSize:60 checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v140 forFeature:@"atHomeCount"];
+  v232 = v94;
+  v185 = v91;
+  v179 = [v91 filteredArrayUsingPredicate:v274];
+  LOBYTE(v141) = 0;
+  v177 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v141 windowSize:@"atHomeCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v229 = v95;
+  v175 = [v20[193] predicateWithFormat:@"(category == %d) AND (placeUserType == %d) AND (provider == %d)", 1, 2, 4];
+  v96 = [eventsCopy filteredArrayUsingPredicate:?];
+  LOBYTE(v142) = 0;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v96 forWindow:v93 windowSize:60 checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v142 forFeature:@"atWorkCount"];
+  v226 = v97;
+  LOBYTE(v143) = 0;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v96 forWindow:v93 windowSize:60 checkTime:1 checkWeekday:1 addBuffer:0 checkOverlapPercentage:v143 forFeature:@"atWorkSameWeekdayProbability"];
+  v223 = v98 * 0.25;
+  v173 = v96;
+  v172 = [v96 filteredArrayUsingPredicate:v274];
+  LOBYTE(v144) = 0;
+  v171 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
+  v181 = v93;
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v144 windowSize:@"atWorkCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v221 = v99;
+  v170 = [v20[193] predicateWithFormat:@"category == %d", 10];
+  v169 = [eventsCopy filteredArrayUsingPredicate:?];
+  [(MOAvailabilityPredictionManager *)self getCallStartDates:?];
+  v168 = LOBYTE(v145) = 0;
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v145 windowSize:@"callCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v218 = v100;
+  v167 = [v20[193] predicateWithFormat:@"category == %d", 6];
+  v101 = [eventsCopy filteredArrayUsingPredicate:?];
+  [(MOAvailabilityPredictionManager *)self getMediaPlaySessionStartDates:v101];
+  v165 = LOBYTE(v146) = 0;
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v146 windowSize:@"musicCount" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v215 = v102;
+  v166 = v101;
+  v164 = [v101 filteredArrayUsingPredicate:v274];
+  v163 = [(MOAvailabilityPredictionManager *)self getMediaPlaySessionStartDates:?];
+  LOBYTE(v147) = 0;
+  v162 = [MOAvailabilityPredictionManager copyAndTrim:"copyAndTrim:toWindowStartDate:returnAsMOEvent:" toWindowStartDate:? returnAsMOEvent:?];
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v147 windowSize:@"musicCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v212 = v103;
+  v161 = [v20[193] predicateWithFormat:@"bundleSubType IN %@", &off_10036DFE0];
+  v104 = [bundlesCopy filteredArrayUsingPredicate:?];
+  LOBYTE(v148) = 0;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v104 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v148 forFeature:@"motionActivityCount"];
+  v106 = v105;
+  v160 = v104;
+  v107 = [v104 filteredArrayUsingPredicate:v274];
+  LOBYTE(v149) = 0;
+  v158 = [(MOAvailabilityPredictionManager *)self copyAndTrim:v107 toWindowStartDate:v274 returnAsMOEvent:0];
+  [MOAvailabilityPredictionManager countOccurenceOfEvents:"countOccurenceOfEvents:forWindow:windowSize:checkTime:checkWeekday:addBuffer:checkOverlapPercentage:forFeature:" forWindow:v149 windowSize:@"motionActivityCountShortLookback" checkTime:? checkWeekday:? addBuffer:? checkOverlapPercentage:? forFeature:?];
+  v109 = v108;
+  LOBYTE(v150) = 1;
+  v159 = v107;
+  [(MOAvailabilityPredictionManager *)self countOccurenceOfEvents:v107 forWindow:windowCopy windowSize:self->_availabilityPredictionWindowSize checkTime:1 checkWeekday:0 addBuffer:0 checkOverlapPercentage:v150 forFeature:@"motionActivityOverlapCountShortLookback"];
+  v111 = v110;
+  v112 = _mo_log_facility_get_os_log(&MOLogFacilityAvailabilityPredictionManager);
+  v153 = v111;
+  v155 = v109;
+  if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
   {
     *buf = 134226946;
-    v139 = v292;
+    v113 = v266;
     hourCopy3 = hour;
     hourCopy2 = hour;
-    v318 = 2048;
+    v292 = 2048;
     endHourCopy = endHour;
+    v294 = 2048;
+    v295 = v266;
+    v296 = 2048;
+    v297 = v28;
+    v298 = 2048;
+    v299 = v106;
+    v300 = 2048;
+    v301 = v109;
+    v302 = 2048;
+    v303 = v111;
+    v304 = 2048;
+    v115 = v188;
+    v116 = v190;
+    v305 = v190;
+    v306 = 2048;
+    v307 = v188;
+    v308 = 2048;
+    v309 = v260;
+    v310 = 2048;
+    v311 = v250;
+    v312 = 2048;
+    v313 = v248;
+    v314 = 2048;
+    v315 = v246;
+    v316 = 2048;
+    v317 = v256;
+    v318 = 2048;
+    v319 = v235;
     v320 = 2048;
-    v321 = v292;
+    v321 = v258;
     v322 = 2048;
-    v323 = v28;
+    v323 = v238;
     v324 = 2048;
-    v325 = v130;
+    v325 = v254;
     v326 = 2048;
-    v327 = v135;
+    v327 = v241;
     v328 = 2048;
-    v329 = v137;
+    v329 = v252;
     v330 = 2048;
-    v141 = v214;
-    v142 = v216;
-    v331 = v216;
+    v331 = v218;
     v332 = 2048;
-    v333 = v214;
+    v333 = v215;
     v334 = 2048;
-    v335 = v286;
+    v335 = v212;
     v336 = 2048;
-    v337 = v276;
+    v337 = v232;
     v338 = 2048;
-    v339 = v274;
+    v339 = v229;
     v340 = 2048;
-    v341 = v272;
+    v341 = v226;
     v342 = 2048;
-    v343 = v282;
+    v343 = v223;
     v344 = 2048;
-    v345 = v261;
+    v345 = v221;
     v346 = 2048;
-    v347 = v284;
+    v347 = v29;
     v348 = 2048;
-    v349 = v264;
+    v349 = v243;
     v350 = 2048;
-    v351 = v280;
+    v351 = v245;
     v352 = 2048;
-    v353 = v267;
+    v353 = v262;
     v354 = 2048;
-    v355 = v278;
+    v355 = v263;
     v356 = 2048;
-    v357 = v244;
+    v357 = v264;
     v358 = 2048;
-    v359 = v241;
-    v360 = 2048;
-    v361 = v238;
-    v362 = 2048;
-    v363 = v258;
-    v364 = 2048;
-    v365 = v255;
-    v366 = 2048;
-    v367 = v252;
-    v368 = 2048;
-    v369 = v249;
-    v370 = 2048;
-    v371 = v247;
-    v372 = 2048;
-    v373 = v29;
-    v374 = 2048;
-    v375 = v269;
-    v376 = 2048;
-    v377 = v271;
-    v378 = 2048;
-    v379 = v288;
-    v380 = 2048;
-    v381 = v289;
-    v382 = 2048;
-    v383 = v290;
-    v384 = 2048;
-    v385 = v291;
-    v386 = 2112;
-    v387 = windowCopy;
-    _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_INFO, "[APM] Extracted feature array before scaling: [downtimeStartHour:%.5f, downtimeEndHour:%.5f, hour:%.5f, weekday:%.5f, motionActivityCount:%.5f, motionActivityCountShortLookback:%.5f, motionActivityOverlapCountShortLookback:%.5f, engagementCount:%.5f, engagementCountMidLookback:%.5f, engagementCountBin1MidLookback:%.5f, healthandfitnessScreentimeCount:%.5f, healthandfitnessScreentimeCountMidLookback:%.5f, healthandfitnessScreentimeCountShortLookback:%.5f, screentimeCount:%.5f, screentimeSameWeekdayProbability:%.5f, screentimeCountShortLookback:%.5f, overMedianScreentimeSameWeekdayProbability:%.5f, overMedianScreentimeSameWeekdayProbabilityShortLookback:%.5f, over20MinScreentimeSameWeekdayProbability:%.5f, over20MinScreentimeCountMidLookback:%.5f, callCount:%.5f, musicCount:%.5f, musicCountShortLookback:%.5f, atHomeCount:%.5f, atHomeCountShortLookback:%.5f, atWorkCount:%.5f, atWorkSameWeekdayProbability:%.5f, atWorkCountShortLookback:%.5f, weekdayPrevScreentimeCount:%.5f, firstScreentimeOfDay:%.5f, lastScreentimeOfDay:%.5f, isAfternoon:%.5f, isEvening:%.5f, isMorning:%.5f, isNight:%.5f] for window %@", buf, 0x16Au);
+    v359 = v265;
+    v360 = 2112;
+    v361 = windowCopy;
+    _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_INFO, "[APM] Extracted feature array before scaling: [downtimeStartHour:%.5f, downtimeEndHour:%.5f, hour:%.5f, weekday:%.5f, motionActivityCount:%.5f, motionActivityCountShortLookback:%.5f, motionActivityOverlapCountShortLookback:%.5f, engagementCount:%.5f, engagementCountMidLookback:%.5f, engagementCountBin1MidLookback:%.5f, healthandfitnessScreentimeCount:%.5f, healthandfitnessScreentimeCountMidLookback:%.5f, healthandfitnessScreentimeCountShortLookback:%.5f, screentimeCount:%.5f, screentimeSameWeekdayProbability:%.5f, screentimeCountShortLookback:%.5f, overMedianScreentimeSameWeekdayProbability:%.5f, overMedianScreentimeSameWeekdayProbabilityShortLookback:%.5f, over20MinScreentimeSameWeekdayProbability:%.5f, over20MinScreentimeCountMidLookback:%.5f, callCount:%.5f, musicCount:%.5f, musicCountShortLookback:%.5f, atHomeCount:%.5f, atHomeCountShortLookback:%.5f, atWorkCount:%.5f, atWorkSameWeekdayProbability:%.5f, atWorkCountShortLookback:%.5f, weekdayPrevScreentimeCount:%.5f, firstScreentimeOfDay:%.5f, lastScreentimeOfDay:%.5f, isAfternoon:%.5f, isEvening:%.5f, isMorning:%.5f, isNight:%.5f] for window %@", buf, 0x16Au);
   }
 
   else
   {
-    v139 = v292;
-    v142 = v216;
+    v113 = v266;
+    v116 = v190;
     hourCopy3 = hour;
-    v141 = v214;
+    v115 = v188;
   }
 
-  v314[0] = @"downtimeStartHour";
-  v293 = [MLFeatureValue featureValueWithDouble:(hourCopy3 - self->_downtimeStartHourFeatureScaleMean) / self->_downtimeStartHourFeatureScaleStd];
-  v315[0] = v293;
-  v314[1] = @"downtimeEndHour";
-  v219 = [MLFeatureValue featureValueWithDouble:(endHour - self->_downtimeEndHourFeatureScaleMean) / self->_downtimeEndHourFeatureScaleStd];
-  v315[1] = v219;
-  v314[2] = @"hour";
-  v217 = [MLFeatureValue featureValueWithDouble:(v139 - self->_hourFeatureScaleMean) / self->_hourFeatureScaleStd];
-  v315[2] = v217;
-  v314[3] = @"weekday";
-  v215 = [MLFeatureValue featureValueWithDouble:(v28 - self->_weekdayFeatureScaleMean) / self->_weekdayFeatureScaleStd];
-  v315[3] = v215;
-  v314[4] = @"motionActivityCount";
-  v183 = [MLFeatureValue featureValueWithDouble:(v130 - self->_motionActivityCountFeatureScaleMean) / self->_motionActivityCountFeatureScaleStd];
-  v315[4] = v183;
-  v314[5] = @"motionActivityCountShortLookback";
-  v182 = [MLFeatureValue featureValueWithDouble:(v181 - self->_motionActivityCountShortLookbackFeatureScaleMean) / self->_motionActivityCountShortLookbackFeatureScaleStd];
-  v315[5] = v182;
-  v314[6] = @"motionActivityOverlapCountShortLookback";
-  v180 = [MLFeatureValue featureValueWithDouble:(v179 - self->_motionActivityOverlapCountShortLookbackFeatureScaleMean) / self->_motionActivityOverlapCountShortLookbackFeatureScaleStd];
-  v315[6] = v180;
-  v314[7] = @"engagementCount";
-  v178 = [MLFeatureValue featureValueWithDouble:(v142 - self->_engagementCountFeatureScaleMean) / self->_engagementCountFeatureScaleStd];
-  v315[7] = v178;
-  v314[8] = @"engagementCountMidLookback";
-  v177 = [MLFeatureValue featureValueWithDouble:(v141 - self->_engagementCountMidLookbackFeatureScaleMean) / self->_engagementCountMidLookbackFeatureScaleStd];
-  v315[8] = v177;
-  v314[9] = @"engagementCountBin1MidLookback";
-  v287 = [MLFeatureValue featureValueWithDouble:(v286 - self->_engagementCountBin1MidLookbackFeatureScaleMean) / self->_engagementCountBin1MidLookbackFeatureScaleStd];
-  v315[9] = v287;
-  v314[10] = @"healthandfitnessScreentimeCount";
-  v277 = [MLFeatureValue featureValueWithDouble:(v276 - self->_healthandfitnessScreentimeCountFeatureScaleMean) / self->_healthandfitnessScreentimeCountFeatureScaleStd];
-  v315[10] = v277;
-  v314[11] = @"healthandfitnessScreentimeCountMidLookback";
-  v275 = [MLFeatureValue featureValueWithDouble:(v274 - self->_healthandfitnessScreentimeCountMidLookbackFeatureScaleMean) / self->_healthandfitnessScreentimeCountMidLookbackFeatureScaleStd];
-  v315[11] = v275;
-  v314[12] = @"healthandfitnessScreentimeCountShortLookback";
-  v273 = [MLFeatureValue featureValueWithDouble:(v272 - self->_healthandfitnessScreentimeCountShortLookbackFeatureScaleMean) / self->_healthandfitnessScreentimeCountShortLookbackFeatureScaleStd];
-  v315[12] = v273;
-  v314[13] = @"screentimeCount";
-  v283 = [MLFeatureValue featureValueWithDouble:(v282 - self->_screentimeCountFeatureScaleMean) / self->_screentimeCountFeatureScaleStd];
-  v315[13] = v283;
-  v314[14] = @"screentimeSameWeekdayProbability";
-  v262 = [MLFeatureValue featureValueWithDouble:(v261 - self->_screentimeSameWeekdayProbabilityFeatureScaleMean) / self->_screentimeSameWeekdayProbabilityFeatureScaleStd];
-  v315[14] = v262;
-  v314[15] = @"screentimeCountShortLookback";
-  v285 = [MLFeatureValue featureValueWithDouble:(v284 - self->_screentimeCountShortLookbackFeatureScaleMean) / self->_screentimeCountShortLookbackFeatureScaleStd];
-  v315[15] = v285;
-  v314[16] = @"overMedianScreentimeSameWeekdayProbability";
-  v265 = [MLFeatureValue featureValueWithDouble:(v264 - self->_overMedianScreentimeSameWeekdayProbabilityFeatureScaleMean) / self->_overMedianScreentimeSameWeekdayProbabilityFeatureScaleStd];
-  v315[16] = v265;
-  v314[17] = @"overMedianScreentimeSameWeekdayProbabilityShortLookback";
-  v281 = [MLFeatureValue featureValueWithDouble:(v280 - self->_overMedianScreentimeSameWeekdayProbabilityShortLookbackFeatureScaleMean) / self->_overMedianScreentimeSameWeekdayProbabilityShortLookbackFeatureScaleStd];
-  v315[17] = v281;
-  v314[18] = @"over20MinScreentimeSameWeekdayProbability";
-  v268 = [MLFeatureValue featureValueWithDouble:(v267 - self->_over20MinScreentimeSameWeekdayProbabilityFeatureScaleMean) / self->_over20MinScreentimeSameWeekdayProbabilityFeatureScaleStd];
-  v315[18] = v268;
-  v314[19] = @"over20MinScreentimeCountMidLookback";
-  v279 = [MLFeatureValue featureValueWithDouble:(v278 - self->_over20MinScreentimeCountMidLookbackFeatureScaleMean) / self->_over20MinScreentimeCountMidLookbackFeatureScaleStd];
-  v315[19] = v279;
-  v314[20] = @"callCount";
-  v245 = [MLFeatureValue featureValueWithDouble:(v244 - self->_callCountFeatureScaleMean) / self->_callCountFeatureScaleStd];
-  v315[20] = v245;
-  v314[21] = @"musicCount";
-  v242 = [MLFeatureValue featureValueWithDouble:(v241 - self->_musicCountFeatureScaleMean) / self->_musicCountFeatureScaleStd];
-  v315[21] = v242;
-  v314[22] = @"musicCountShortLookback";
-  v239 = [MLFeatureValue featureValueWithDouble:(v238 - self->_musicCountShortLookbackFeatureScaleMean) / self->_musicCountShortLookbackFeatureScaleStd];
-  v315[22] = v239;
-  v314[23] = @"atHomeCount";
-  v259 = [MLFeatureValue featureValueWithDouble:(v258 - self->_atHomeCountFeatureScaleMean) / self->_atHomeCountFeatureScaleStd];
-  v315[23] = v259;
-  v314[24] = @"atHomeCountShortLookback";
-  v256 = [MLFeatureValue featureValueWithDouble:(v255 - self->_atHomeCountShortLookbackFeatureScaleMean) / self->_atHomeCountShortLookbackFeatureScaleStd];
-  v315[24] = v256;
-  v314[25] = @"atWorkCount";
-  v253 = [MLFeatureValue featureValueWithDouble:(v252 - self->_atWorkCountFeatureScaleMean) / self->_atWorkCountFeatureScaleStd];
-  v315[25] = v253;
-  v314[26] = @"atWorkSameWeekdayProbability";
-  v250 = [MLFeatureValue featureValueWithDouble:(v249 - self->_atWorkSameWeekdayProbabilityFeatureScaleMean) / self->_atWorkSameWeekdayProbabilityFeatureScaleStd];
-  v315[26] = v250;
-  v314[27] = @"atWorkCountShortLookback";
-  v143 = [MLFeatureValue featureValueWithDouble:(v247 - self->_atWorkCountShortLookbackFeatureScaleMean) / self->_atWorkCountShortLookbackFeatureScaleStd];
-  v315[27] = v143;
-  v314[28] = @"weekdayPrevScreentimeCount";
-  v144 = [MLFeatureValue featureValueWithDouble:(v29 - self->_weekdayPrevScreentimeCountFeatureScaleMean) / self->_weekdayPrevScreentimeCountFeatureScaleStd];
-  v315[28] = v144;
-  v314[29] = @"firstScreentimeOfDay";
-  v145 = [MLFeatureValue featureValueWithDouble:(v269 - self->_firstScreentimeOfDayFeatureScaleMean) / self->_firstScreentimeOfDayFeatureScaleStd];
-  v315[29] = v145;
-  v314[30] = @"lastScreentimeOfDay";
-  v146 = [MLFeatureValue featureValueWithDouble:(v271 - self->_lastScreentimeOfDayFeatureScaleMean) / self->_lastScreentimeOfDayFeatureScaleStd];
-  v315[30] = v146;
-  v314[31] = @"isAfternoon";
-  v147 = [MLFeatureValue featureValueWithDouble:(v288 - self->_isAfternoonFeatureScaleMean) / self->_isAfternoonFeatureScaleStd];
-  v315[31] = v147;
-  v314[32] = @"isEvening";
-  v148 = [MLFeatureValue featureValueWithDouble:(v289 - self->_isEveningFeatureScaleMean) / self->_isEveningFeatureScaleStd];
-  v315[32] = v148;
-  v314[33] = @"isMorning";
-  v149 = [MLFeatureValue featureValueWithDouble:(v290 - self->_isMorningFeatureScaleMean) / self->_isMorningFeatureScaleStd];
-  v315[33] = v149;
-  v314[34] = @"isNight";
-  v150 = [MLFeatureValue featureValueWithDouble:(v291 - self->_isNightFeatureScaleMean) / self->_isNightFeatureScaleStd];
-  v315[34] = v150;
-  v151 = [NSDictionary dictionaryWithObjects:v315 forKeys:v314 count:35];
+  v288[0] = @"downtimeStartHour";
+  v267 = [MLFeatureValue featureValueWithDouble:(hourCopy3 - self->_downtimeStartHourFeatureScaleMean) / self->_downtimeStartHourFeatureScaleStd];
+  v289[0] = v267;
+  v288[1] = @"downtimeEndHour";
+  v193 = [MLFeatureValue featureValueWithDouble:(endHour - self->_downtimeEndHourFeatureScaleMean) / self->_downtimeEndHourFeatureScaleStd];
+  v289[1] = v193;
+  v288[2] = @"hour";
+  v191 = [MLFeatureValue featureValueWithDouble:(v113 - self->_hourFeatureScaleMean) / self->_hourFeatureScaleStd];
+  v289[2] = v191;
+  v288[3] = @"weekday";
+  v189 = [MLFeatureValue featureValueWithDouble:(v28 - self->_weekdayFeatureScaleMean) / self->_weekdayFeatureScaleStd];
+  v289[3] = v189;
+  v288[4] = @"motionActivityCount";
+  v157 = [MLFeatureValue featureValueWithDouble:(v106 - self->_motionActivityCountFeatureScaleMean) / self->_motionActivityCountFeatureScaleStd];
+  v289[4] = v157;
+  v288[5] = @"motionActivityCountShortLookback";
+  v156 = [MLFeatureValue featureValueWithDouble:(v155 - self->_motionActivityCountShortLookbackFeatureScaleMean) / self->_motionActivityCountShortLookbackFeatureScaleStd];
+  v289[5] = v156;
+  v288[6] = @"motionActivityOverlapCountShortLookback";
+  v154 = [MLFeatureValue featureValueWithDouble:(v153 - self->_motionActivityOverlapCountShortLookbackFeatureScaleMean) / self->_motionActivityOverlapCountShortLookbackFeatureScaleStd];
+  v289[6] = v154;
+  v288[7] = @"engagementCount";
+  v152 = [MLFeatureValue featureValueWithDouble:(v116 - self->_engagementCountFeatureScaleMean) / self->_engagementCountFeatureScaleStd];
+  v289[7] = v152;
+  v288[8] = @"engagementCountMidLookback";
+  v151 = [MLFeatureValue featureValueWithDouble:(v115 - self->_engagementCountMidLookbackFeatureScaleMean) / self->_engagementCountMidLookbackFeatureScaleStd];
+  v289[8] = v151;
+  v288[9] = @"engagementCountBin1MidLookback";
+  v261 = [MLFeatureValue featureValueWithDouble:(v260 - self->_engagementCountBin1MidLookbackFeatureScaleMean) / self->_engagementCountBin1MidLookbackFeatureScaleStd];
+  v289[9] = v261;
+  v288[10] = @"healthandfitnessScreentimeCount";
+  v251 = [MLFeatureValue featureValueWithDouble:(v250 - self->_healthandfitnessScreentimeCountFeatureScaleMean) / self->_healthandfitnessScreentimeCountFeatureScaleStd];
+  v289[10] = v251;
+  v288[11] = @"healthandfitnessScreentimeCountMidLookback";
+  v249 = [MLFeatureValue featureValueWithDouble:(v248 - self->_healthandfitnessScreentimeCountMidLookbackFeatureScaleMean) / self->_healthandfitnessScreentimeCountMidLookbackFeatureScaleStd];
+  v289[11] = v249;
+  v288[12] = @"healthandfitnessScreentimeCountShortLookback";
+  v247 = [MLFeatureValue featureValueWithDouble:(v246 - self->_healthandfitnessScreentimeCountShortLookbackFeatureScaleMean) / self->_healthandfitnessScreentimeCountShortLookbackFeatureScaleStd];
+  v289[12] = v247;
+  v288[13] = @"screentimeCount";
+  v257 = [MLFeatureValue featureValueWithDouble:(v256 - self->_screentimeCountFeatureScaleMean) / self->_screentimeCountFeatureScaleStd];
+  v289[13] = v257;
+  v288[14] = @"screentimeSameWeekdayProbability";
+  v236 = [MLFeatureValue featureValueWithDouble:(v235 - self->_screentimeSameWeekdayProbabilityFeatureScaleMean) / self->_screentimeSameWeekdayProbabilityFeatureScaleStd];
+  v289[14] = v236;
+  v288[15] = @"screentimeCountShortLookback";
+  v259 = [MLFeatureValue featureValueWithDouble:(v258 - self->_screentimeCountShortLookbackFeatureScaleMean) / self->_screentimeCountShortLookbackFeatureScaleStd];
+  v289[15] = v259;
+  v288[16] = @"overMedianScreentimeSameWeekdayProbability";
+  v239 = [MLFeatureValue featureValueWithDouble:(v238 - self->_overMedianScreentimeSameWeekdayProbabilityFeatureScaleMean) / self->_overMedianScreentimeSameWeekdayProbabilityFeatureScaleStd];
+  v289[16] = v239;
+  v288[17] = @"overMedianScreentimeSameWeekdayProbabilityShortLookback";
+  v255 = [MLFeatureValue featureValueWithDouble:(v254 - self->_overMedianScreentimeSameWeekdayProbabilityShortLookbackFeatureScaleMean) / self->_overMedianScreentimeSameWeekdayProbabilityShortLookbackFeatureScaleStd];
+  v289[17] = v255;
+  v288[18] = @"over20MinScreentimeSameWeekdayProbability";
+  v242 = [MLFeatureValue featureValueWithDouble:(v241 - self->_over20MinScreentimeSameWeekdayProbabilityFeatureScaleMean) / self->_over20MinScreentimeSameWeekdayProbabilityFeatureScaleStd];
+  v289[18] = v242;
+  v288[19] = @"over20MinScreentimeCountMidLookback";
+  v253 = [MLFeatureValue featureValueWithDouble:(v252 - self->_over20MinScreentimeCountMidLookbackFeatureScaleMean) / self->_over20MinScreentimeCountMidLookbackFeatureScaleStd];
+  v289[19] = v253;
+  v288[20] = @"callCount";
+  v219 = [MLFeatureValue featureValueWithDouble:(v218 - self->_callCountFeatureScaleMean) / self->_callCountFeatureScaleStd];
+  v289[20] = v219;
+  v288[21] = @"musicCount";
+  v216 = [MLFeatureValue featureValueWithDouble:(v215 - self->_musicCountFeatureScaleMean) / self->_musicCountFeatureScaleStd];
+  v289[21] = v216;
+  v288[22] = @"musicCountShortLookback";
+  v213 = [MLFeatureValue featureValueWithDouble:(v212 - self->_musicCountShortLookbackFeatureScaleMean) / self->_musicCountShortLookbackFeatureScaleStd];
+  v289[22] = v213;
+  v288[23] = @"atHomeCount";
+  v233 = [MLFeatureValue featureValueWithDouble:(v232 - self->_atHomeCountFeatureScaleMean) / self->_atHomeCountFeatureScaleStd];
+  v289[23] = v233;
+  v288[24] = @"atHomeCountShortLookback";
+  v230 = [MLFeatureValue featureValueWithDouble:(v229 - self->_atHomeCountShortLookbackFeatureScaleMean) / self->_atHomeCountShortLookbackFeatureScaleStd];
+  v289[24] = v230;
+  v288[25] = @"atWorkCount";
+  v227 = [MLFeatureValue featureValueWithDouble:(v226 - self->_atWorkCountFeatureScaleMean) / self->_atWorkCountFeatureScaleStd];
+  v289[25] = v227;
+  v288[26] = @"atWorkSameWeekdayProbability";
+  v224 = [MLFeatureValue featureValueWithDouble:(v223 - self->_atWorkSameWeekdayProbabilityFeatureScaleMean) / self->_atWorkSameWeekdayProbabilityFeatureScaleStd];
+  v289[26] = v224;
+  v288[27] = @"atWorkCountShortLookback";
+  v117 = [MLFeatureValue featureValueWithDouble:(v221 - self->_atWorkCountShortLookbackFeatureScaleMean) / self->_atWorkCountShortLookbackFeatureScaleStd];
+  v289[27] = v117;
+  v288[28] = @"weekdayPrevScreentimeCount";
+  v118 = [MLFeatureValue featureValueWithDouble:(v29 - self->_weekdayPrevScreentimeCountFeatureScaleMean) / self->_weekdayPrevScreentimeCountFeatureScaleStd];
+  v289[28] = v118;
+  v288[29] = @"firstScreentimeOfDay";
+  v119 = [MLFeatureValue featureValueWithDouble:(v243 - self->_firstScreentimeOfDayFeatureScaleMean) / self->_firstScreentimeOfDayFeatureScaleStd];
+  v289[29] = v119;
+  v288[30] = @"lastScreentimeOfDay";
+  v120 = [MLFeatureValue featureValueWithDouble:(v245 - self->_lastScreentimeOfDayFeatureScaleMean) / self->_lastScreentimeOfDayFeatureScaleStd];
+  v289[30] = v120;
+  v288[31] = @"isAfternoon";
+  v121 = [MLFeatureValue featureValueWithDouble:(v262 - self->_isAfternoonFeatureScaleMean) / self->_isAfternoonFeatureScaleStd];
+  v289[31] = v121;
+  v288[32] = @"isEvening";
+  v122 = [MLFeatureValue featureValueWithDouble:(v263 - self->_isEveningFeatureScaleMean) / self->_isEveningFeatureScaleStd];
+  v289[32] = v122;
+  v288[33] = @"isMorning";
+  v123 = [MLFeatureValue featureValueWithDouble:(v264 - self->_isMorningFeatureScaleMean) / self->_isMorningFeatureScaleStd];
+  v289[33] = v123;
+  v288[34] = @"isNight";
+  v124 = [MLFeatureValue featureValueWithDouble:(v265 - self->_isNightFeatureScaleMean) / self->_isNightFeatureScaleStd];
+  v289[34] = v124;
+  v125 = [NSDictionary dictionaryWithObjects:v289 forKeys:v288 count:35];
 
-  return v151;
+  return v125;
 }
 
 + (double)getWeekday:(id)weekday
@@ -3307,35 +3275,35 @@ LABEL_16:
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error loading the ML model: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error loading the ML model: %@", v4, v5, v6, v7);
 }
 
 void __61__MOAvailabilityPredictionManager_saveEligiblePOICategories___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Remove existing categories hit error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Remove existing categories hit error: %@", v4, v5, v6, v7);
 }
 
 void __61__MOAvailabilityPredictionManager_saveEligiblePOICategories___block_invoke_2149_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Store categories hit error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Store categories hit error: %@", v4, v5, v6, v7);
 }
 
 - (void)runMLmodelWithFeatures:(void *)a1 andModel:.cold.1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error creating input features: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error creating input features: %@", v4, v5, v6, v7);
 }
 
 - (void)runMLmodelWithFeatures:(void *)a1 andModel:.cold.2(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error during prediction: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[APM] Error during prediction: %@", v4, v5, v6, v7);
 }
 
 @end

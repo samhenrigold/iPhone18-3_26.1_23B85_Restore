@@ -7,10 +7,10 @@
 
 - (uint64_t)_mapkit_CGAffineTransformValue
 {
-  x8_0[1] = 0u;
-  x8_0[2] = 0u;
-  *x8_0 = 0u;
-  return [self getValue:x8_0 size:48];
+  a2[1] = 0u;
+  a2[2] = 0u;
+  *a2 = 0u;
+  return [self getValue:a2 size:48];
 }
 
 + (id)_mapkit_valueWithCGPoint:()MKCAExtrasAdditions

@@ -402,51 +402,52 @@ id __153__LPTextView_attributedString_resolvedAgainstStyle_withEmphasizedTextExp
 
 void __153__LPTextView_attributedString_resolvedAgainstStyle_withEmphasizedTextExpression_tintColor_lineBreakMode_usesVibrancy_forLTR_withFont_userInterfaceStyle___block_invoke_13(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
-    v11 = LPLogChannelUI();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = LPLogChannelUI(v3, v4);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __153__LPTextView_attributedString_resolvedAgainstStyle_withEmphasizedTextExpression_tintColor_lineBreakMode_usesVibrancy_forLTR_withFont_userInterfaceStyle___block_invoke_13_cold_1(a1, v11);
+      __153__LPTextView_attributedString_resolvedAgainstStyle_withEmphasizedTextExpression_tintColor_lineBreakMode_usesVibrancy_forLTR_withFont_userInterfaceStyle___block_invoke_13_cold_1(a1, v13);
     }
 
     abort();
   }
 
+  v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v4 = [*(*(*(a1 + 48) + 8) + 40) allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v6 = [*(*(*(a1 + 48) + 8) + 40) allKeys];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
   {
-    v6 = *v13;
+    v8 = *v15;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v6)
+        if (*v15 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v6);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = [v3 objectForKeyedSubscript:v8];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [v5 objectForKeyedSubscript:v10];
 
-        if (v9)
+        if (v11)
         {
-          v10 = [v3 objectForKeyedSubscript:v8];
-          [*(*(*(a1 + 48) + 8) + 40) setObject:v10 forKeyedSubscript:v8];
+          v12 = [v5 objectForKeyedSubscript:v10];
+          [*(*(*(a1 + 48) + 8) + 40) setObject:v12 forKeyedSubscript:v10];
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;

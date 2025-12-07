@@ -10,42 +10,43 @@
   topLevelSectionIdentifier = [request topLevelSectionIdentifier];
 
   v5 = MEMORY[0x277D750F8];
-  v6 = NCUserNotificationsUIKitFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_DELIVER_IMMEDIATELY" value:&stru_282FE84F8 table:0];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __66__NCNotificationManagementPromotionAlertController__configureView__block_invoke;
-  v26[3] = &unk_2783728A8;
-  v26[4] = self;
-  v8 = topLevelSectionIdentifier;
-  v27 = v8;
-  v9 = [v5 _actionWithTitle:v7 image:0 style:0 handler:0 shouldDismissHandler:v26];
+  v7 = NCUserNotificationsUIKitFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_DELIVER_IMMEDIATELY" value:&stru_282FE84F8 table:0];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __66__NCNotificationManagementPromotionAlertController__configureView__block_invoke;
+  v28[3] = &unk_2783728A8;
+  v28[4] = self;
+  v9 = topLevelSectionIdentifier;
+  v29 = v9;
+  v10 = [v5 _actionWithTitle:v8 image:0 style:0 handler:0 shouldDismissHandler:v28];
 
-  [(NCNotificationManagementPromotionAlertController *)self addAction:v9];
+  [(NCNotificationManagementPromotionAlertController *)self addAction:v10];
   settingsDelegate = [(NCNotificationManagementAlertController *)self settingsDelegate];
-  v11 = [settingsDelegate notificationManagementControllerRequestsSystemSettings:self];
+  v12 = [settingsDelegate notificationManagementControllerRequestsSystemSettings:self];
 
-  if ([v11 isScheduledDeliveryEnabled])
+  isScheduledDeliveryEnabled = [v12 isScheduledDeliveryEnabled];
+  if (isScheduledDeliveryEnabled)
   {
-    v12 = MEMORY[0x277D750F8];
-    v13 = NCUserNotificationsUIKitFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_DELIVER_IN_SUMMARY" value:&stru_282FE84F8 table:0];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __66__NCNotificationManagementPromotionAlertController__configureView__block_invoke_2;
-    v23 = &unk_2783728A8;
+    v14 = MEMORY[0x277D750F8];
+    v15 = NCUserNotificationsUIKitFrameworkBundle(isScheduledDeliveryEnabled);
+    v16 = [v15 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_DELIVER_IN_SUMMARY" value:&stru_282FE84F8 table:0];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __66__NCNotificationManagementPromotionAlertController__configureView__block_invoke_2;
+    v25 = &unk_2783728A8;
     selfCopy = self;
-    v25 = v8;
-    v15 = [v12 _actionWithTitle:v14 image:0 style:0 handler:0 shouldDismissHandler:&v20];
+    v27 = v9;
+    v17 = [v14 _actionWithTitle:v16 image:0 style:0 handler:0 shouldDismissHandler:&v22];
 
-    [(NCNotificationManagementPromotionAlertController *)self addAction:v15, v20, v21, v22, v23, selfCopy];
+    [(NCNotificationManagementPromotionAlertController *)self addAction:v17, v22, v23, v24, v25, selfCopy];
   }
 
-  v16 = MEMORY[0x277D750F8];
-  v17 = NCUserNotificationsUIKitFrameworkBundle();
-  v18 = [v17 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
-  v19 = [v16 actionWithTitle:v18 style:1 handler:0];
-  [(NCNotificationManagementPromotionAlertController *)self addAction:v19];
+  v18 = MEMORY[0x277D750F8];
+  v19 = NCUserNotificationsUIKitFrameworkBundle(isScheduledDeliveryEnabled);
+  v20 = [v19 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
+  v21 = [v18 actionWithTitle:v20 style:1 handler:0];
+  [(NCNotificationManagementPromotionAlertController *)self addAction:v21];
 }
 
 uint64_t __66__NCNotificationManagementPromotionAlertController__configureView__block_invoke(uint64_t a1)

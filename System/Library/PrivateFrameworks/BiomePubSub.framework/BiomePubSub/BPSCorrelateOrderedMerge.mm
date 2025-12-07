@@ -9,17 +9,16 @@
 
 - (BPSCorrelateOrderedMerge)initWithA:(id)a b:(id)b comparator:(id)comparator
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v16[0] = a;
-  v16[1] = b;
+  v15[2] = *MEMORY[0x1E69E9840];
+  v15[0] = a;
+  v15[1] = b;
   v8 = MEMORY[0x1E695DEC8];
   comparatorCopy = comparator;
   bCopy = b;
   aCopy = a;
-  v12 = [v8 arrayWithObjects:v16 count:2];
+  v12 = [v8 arrayWithObjects:v15 count:2];
 
   v13 = [(BPSCorrelateOrderedMerge *)self initWithPublishers:v12 comparator:comparatorCopy];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

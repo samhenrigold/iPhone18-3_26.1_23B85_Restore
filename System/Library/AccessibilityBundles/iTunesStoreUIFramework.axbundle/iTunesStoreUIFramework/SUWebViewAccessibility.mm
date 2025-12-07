@@ -40,17 +40,16 @@ LABEL_6:
 
 - (BOOL)accessibilityScroll:(int64_t)scroll
 {
-  v10[2] = *MEMORY[0x29EDCA608];
+  v9[2] = *MEMORY[0x29EDCA608];
   defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
-  v9[0] = @"key";
-  v9[1] = @"direction";
-  v10[0] = @"scroll";
+  v8[0] = @"key";
+  v8[1] = @"direction";
+  v9[0] = @"scroll";
   v5 = [MEMORY[0x29EDBA070] numberWithInteger:scroll];
-  v10[1] = v5;
-  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [defaultCenter postNotificationName:@"AXActionForWebNotification" object:0 userInfo:v6];
 
-  v7 = *MEMORY[0x29EDCA608];
   return 0;
 }
 

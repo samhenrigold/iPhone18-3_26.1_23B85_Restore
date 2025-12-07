@@ -86,7 +86,7 @@
   v7 = SecPasswordGenerate();
   if (!v7)
   {
-    v8 = WMSLogComponent();
+    v8 = WMSLogComponent(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[(WiFiPasswordController *)CFSTR(""unknown];

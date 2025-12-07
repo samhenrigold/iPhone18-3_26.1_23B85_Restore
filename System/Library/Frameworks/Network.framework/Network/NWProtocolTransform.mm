@@ -105,8 +105,9 @@
 
 - (void)setMultipathService:(int)service
 {
+  v3 = *&service;
   internalTransform = [(NWProtocolTransform *)self internalTransform];
-  nw_protocol_transform_set_multipath_service(internalTransform, service);
+  nw_protocol_transform_set_multipath_service(internalTransform, v3);
 }
 
 - (int)multipathService
@@ -133,8 +134,9 @@
 
 - (void)setProhibitDirect:(BOOL)direct
 {
+  directCopy = direct;
   internalTransform = [(NWProtocolTransform *)self internalTransform];
-  nw_protocol_transform_set_prohibit_direct(internalTransform, direct);
+  nw_protocol_transform_set_prohibit_direct(internalTransform, directCopy);
 }
 
 - (BOOL)prohibitDirect
@@ -147,9 +149,8 @@
 
 - (void)setFallbackMode:(unint64_t)mode
 {
-  modeCopy = mode;
   internalTransform = [(NWProtocolTransform *)self internalTransform];
-  nw_protocol_transform_set_fallback_mode(internalTransform, modeCopy);
+  nw_protocol_transform_set_fallback_mode(internalTransform, mode);
 }
 
 - (unint64_t)fallbackMode
@@ -326,7 +327,7 @@ LABEL_8:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWProtocolTransform initWithCTransform:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -405,7 +406,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWProtocolTransform initWithCTransform:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null cTransform", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -496,7 +497,7 @@ LABEL_4:
     v18 = __nwlog_obj();
     *buf = 136446210;
     v28 = "[NWProtocolTransform init]";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -592,7 +593,7 @@ LABEL_15:
     v6 = gLogObj;
     *buf = 136446210;
     v28 = "[NWProtocolTransform init]";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s nw_protocol_transform_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;

@@ -1,3 +1,87 @@
+void __cxx_global_var_init_6_56(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)117,(char)116,(char)99,(char)79,(char)102,(char)102,(char)115,(char)101,(char)116>::Key = HSUtil::CoderKey::New("utcOffset", a2);
+  }
+}
+
+void __cxx_global_var_init_7_56(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)115,(char)116,(char)97,(char)116,(char)101>::Key = HSUtil::CoderKey::New("state", a2);
+  }
+}
+
+void __cxx_global_var_init_8_57(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)100,(char)97,(char)116,(char)97>::Key = HSUtil::CoderKey::New("data", a2);
+  }
+}
+
+void __cxx_global_var_init_15_14(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)118,(char)101,(char)110,(char)100,(char)111,(char)114,(char)73,(char)68>::Key = HSUtil::CoderKey::New("vendorID", a2);
+  }
+}
+
+void __cxx_global_var_init_16_14(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)112,(char)114,(char)111,(char)100,(char)117,(char)99,(char)116,(char)73,(char)68>::Key = HSUtil::CoderKey::New("productID", a2);
+  }
+}
+
+void __cxx_global_var_init_17_14(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)111,(char)119,(char)110,(char)101,(char)114,(char)82,(char)101,(char)103,(char)105,(char)115,(char)116,(char)114,(char)121,(char)73,(char)68>::Key = HSUtil::CoderKey::New("ownerRegistryID", a2);
+  }
+}
+
+void __cxx_global_var_init_18_17(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)109,(char)105,(char)110,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("minForce", a2);
+  }
+}
+
+void __cxx_global_var_init_19_16(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)97,(char)99,(char)99,(char)117,(char)114,(char)97,(char)116,(char)101,(char)77,(char)97,(char)120,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("accurateMaxForce", a2);
+  }
+}
+
+void __cxx_global_var_init_20_13(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)101,(char)120,(char)116,(char)101,(char)110,(char)100,(char)101,(char)100,(char)77,(char)97,(char)120,(char)70,(char)111,(char)114,(char)99,(char)101>::Key = HSUtil::CoderKey::New("extendedMaxForce", a2);
+  }
+}
+
+void __cxx_global_var_init_21_14(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)109,(char)97,(char)120,(char)72,(char)111,(char)118,(char)101,(char)114,(char)72,(char)101,(char)105,(char)103,(char)104,(char)116>::Key = HSUtil::CoderKey::New("maxHoverHeight", a2);
+  }
+}
+
+void __cxx_global_var_init_22_14(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)104,(char)111,(char)118,(char)101,(char)114,(char)68,(char)105,(char)115,(char)97,(char)98,(char)108,(char)101,(char)100>::Key = HSUtil::CoderKey::New("hoverDisabled", a2);
+  }
+}
+
+void __cxx_global_var_init_23_15(uint64_t a1, const char *a2)
+{
+  {
+    HSUtil::CoderKey::Literal<(char)119,(char)105,(char)100,(char)116,(char)104,(char)77,(char)109>::Key = HSUtil::CoderKey::New("widthMm", a2);
+  }
+}
+
 void __cxx_global_var_init_24_14(uint64_t a1, const char *a2)
 {
   {
@@ -15,11 +99,11 @@ void __cxx_global_var_init_67()
 void sub_9FC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
 {
   HSUtil::Buffer::~Buffer(&a9);
-  HSUtil::Decoder::~Decoder(&a19);
+  HSUtil::Decoder::~Decoder(&a19, v20, v21, v22);
   _Unwind_Resume(a1);
 }
 
-void HSUtil::Decoder::decodeData(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeData(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
@@ -31,24 +115,24 @@ void HSUtil::Decoder::decodeData(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
     v5[3] = v4;
     v5[0] = v4;
     v5[1] = v4;
-    HSUtil::Decoder::_readData(this, &v7, v5);
+    HSUtil::Decoder::_readData(v5, this, &v7);
     if (*this)
     {
-      *a2 = &off_108FA0;
-      *(a2 + 8) = &off_108FF8;
-      *(a2 + 16) = &off_109018;
-      *(a2 + 24) = &off_109030;
-      *(a2 + 32) = off_109048;
-      *(a2 + 40) = 0;
-      *(a2 + 48) = 0;
-      *(a2 + 56) = 0;
-      *(a2 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
       *(this + 9) = v7;
-      HSUtil::Buffer::Buffer(a2, v5);
+      HSUtil::Buffer::Buffer(a1, v5);
     }
 
     HSUtil::Buffer::~Buffer(v5);
@@ -56,19 +140,19 @@ void HSUtil::Decoder::decodeData(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    *a2 = &off_108FA0;
-    *(a2 + 8) = &off_108FF8;
-    *(a2 + 16) = &off_109018;
-    *(a2 + 24) = &off_109030;
-    *(a2 + 32) = off_109048;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    *(a2 + 56) = 0;
-    *(a2 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 }
 
-void HSUtil::Decoder::_readData(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::Decoder::_readData(uint64_t *__return_ptr a3@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>)
 {
   if (*(this + 6))
   {
@@ -77,7 +161,7 @@ void HSUtil::Decoder::_readData(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, 
 
   else
   {
-    HSUtil::Decoder::_readDataByCopy(this, a2, a3);
+    HSUtil::Decoder::_readDataByCopy(a3, this, a2);
   }
 }
 
@@ -102,10 +186,10 @@ void sub_A026C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_A0518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_A0518(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = HSTBackboardBridge;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -116,10 +200,10 @@ void sub_A2124(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_A2778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_A2778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a9);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -292,7 +376,7 @@ uint64_t HSTPipeline::Contact::encode(HSTPipeline::Contact *this, HSUtil::Encode
   return 1;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTPipeline::Position const>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, HSTPipeline::Position *a3)
+uint64_t HSUtil::Encoder::encodeCodable<HSTPipeline::Position const>(uint64_t result, const HSUtil::CoderKey *a2, HSTPipeline::Position *a3)
 {
   if (!*result)
   {
@@ -320,7 +404,7 @@ uint64_t HSTPipeline::Contact::decode(HSTPipeline::Contact *this, HSUtil::Decode
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -554,7 +638,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::Position>(HSUtil::D
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -581,7 +665,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::Velocity>(HSUtil::D
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -875,7 +959,7 @@ uint64_t HSTContactStabilizerConfig::FloatRange::decode(HSTContactStabilizerConf
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeArray(a2, &v7);
+  HSUtil::Decoder::decodeArray(&v7, a2);
   if (v7)
   {
     memset(__b, 170, sizeof(__b));
@@ -999,7 +1083,7 @@ uint64_t HSTContactStabilizerConfig::FloatRangeGain::decode(HSTContactStabilizer
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeMap(a2, &v7);
+  HSUtil::Decoder::decodeMap(&v7, a2);
   if (v7)
   {
     memset(__b, 170, sizeof(__b));
@@ -1077,7 +1161,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTContactStabilizerConfig::Floa
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -1138,7 +1222,7 @@ uint64_t HSTContactStabilizerConfig::decode(HSTContactStabilizerConfig *this, HS
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeMap(a2, &v7);
+  HSUtil::Decoder::decodeMap(&v7, a2);
   HSUtil::Decoder::decodeCodable<HSTContactStabilizerConfig::FloatRange>(&v7, HSUtil::CoderKey::Literal<(char)101,(char)120,(char)99,(char)101,(char)115,(char)115,(char)105,(char)118,(char)101,(char)69,(char)99,(char)99,(char)101,(char)110,(char)116,(char)114,(char)105,(char)99,(char)105,(char)116,(char)121>::Key, this);
   if (v7)
   {
@@ -1308,7 +1392,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTContactStabilizerConfig::Floa
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -1440,10 +1524,11 @@ HSUtil::Encoder *HSUtil::Encoder::encodeArrayStart(HSUtil::Encoder *result, cons
   return result;
 }
 
-void sub_A5BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_A5BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  HSUtil::Decoder::~Decoder(&a9);
-  HSUtil::Decoder::~Decoder(&a19);
+  va_start(va, a18);
+  HSUtil::Decoder::~Decoder(&a9, a2, a3, a4);
+  HSUtil::Decoder::~Decoder(va, v19, v20, v21);
   _Unwind_Resume(a1);
 }
 
@@ -1466,7 +1551,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTContactStabilizerConfig>(HSUt
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -1474,52 +1559,52 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTContactStabilizerConfig>(HSUt
   return result;
 }
 
-unint64_t *HSUtil::Decoder::decodeArray@<X0>(unint64_t *this@<X0>, const HSUtil::CoderKey *a2@<X1>, uint64_t a3@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeArray@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, const HSUtil::CoderKey *a3@<X1>)
 {
-  if (*this >= 5 || (v4 = this, v11 = this[9], this = HSUtil::Decoder::_findKey(this, &v11, a2), *v4))
+  if (*this >= 5 || (v4 = this, v13 = *(this + 9), this = HSUtil::Decoder::_findKey(this, &v13, a3), *v4))
   {
-    *a3 = 5;
-    *(a3 + 8) = a3;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   else
   {
     *&v5 = 0xAAAAAAAAAAAAAAAALL;
     *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v11 = v5;
+    v12 = v5;
     v9 = v5;
     v10 = v5;
-    v7 = v5;
     v8 = v5;
-    v6 = v5;
-    HSUtil::Decoder::_readArray(v4, &v11, &v6);
+    HSUtil::Decoder::_readArray(&v8, v4, &v13);
     if (*v4 == 3)
     {
       *v4 = 13;
-      *a3 = 5;
-      *(a3 + 8) = a3;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = 0u;
-      *(a3 + 48) = 0u;
-      *(a3 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v4[9] = v11;
-      HSUtil::Decoder::Decoder(a3, &v6);
+      *(v4 + 9) = v13;
+      HSUtil::Decoder::Decoder(a1, &v8, v6, v7);
     }
 
-    if (v8)
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
-    this = v7;
-    *&v7 = 0;
+    this = v9;
+    *&v9 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -1548,10 +1633,10 @@ uint64_t HSUtil::Decoder::decodeCodable<ContactStabilizer>(uint64_t result, Cont
   return result;
 }
 
-void sub_A627C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_A627C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a9);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -1638,7 +1723,7 @@ uint64_t StatContact::decode(StatContact *this, HSUtil::Decoder *a2)
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -1790,7 +1875,7 @@ LABEL_9:
 LABEL_10:
   if (*(this + 88) == 1)
   {
-    v10 = InstabilityFilter::_timeInRange(this);
+    v10 = InstabilityFilter::_timeInRange(this, a2);
     v11 = *(this + 1);
     v12 = (*(this + 2) - *(this + 6)) / 1000000.0;
     v13 = v12 / 0.00800000038;
@@ -1799,216 +1884,216 @@ LABEL_10:
     v16 = 1.0;
     v17 = (v15 * (1.0 - v14)) + (v14 * *(this + 24));
     *(this + 24) = v17;
-    v18 = pow(0.949999988, v13);
-    *(this + 25) = (*(this + 6) * (1.0 - v18)) + (v18 * *(this + 25));
-    v19 = *(this + 16);
-    if (v15 <= v19)
+    v19 = pow(0.949999988, v13);
+    *(this + 25) = (*(this + 6) * (1.0 - v19)) + (v19 * *(this + 25));
+    v20 = *(this + 16);
+    if (v15 <= v20)
     {
-      v20 = v6;
+      v21 = v6;
     }
 
     else
     {
-      v20 = (this + 16);
+      v21 = (this + 16);
     }
 
-    v21 = v20[4];
-    if (v21 > 0.0)
+    v22 = v21[4];
+    if (v22 > 0.0)
     {
-      v22 = fabsf(((v15 - v19) * 100.0) / v21);
-      v23 = 1.0;
+      v23 = fabsf(((v15 - v20) * 100.0) / v22);
+      v24 = 1.0;
       if (a4)
       {
-        v23 = v11[11];
+        v24 = v11[11];
       }
 
-      v24 = v23 * v11[9];
-      v25 = 0.0;
-      if (v22 > v24)
+      v25 = v24 * v11[9];
+      v26 = 0.0;
+      if (v23 > v25)
       {
-        v26 = v23 * v11[10];
-        v25 = 1.0;
-        if (v22 < v26)
+        v27 = v24 * v11[10];
+        v26 = 1.0;
+        if (v23 < v27)
         {
-          v25 = ((v22 - v24) / (v26 - v24));
+          v26 = ((v23 - v25) / (v27 - v25));
         }
       }
 
-      v27 = pow(v25, 1.5);
+      v29 = pow(v26, 1.5);
       if (((v15 < v17) & a4) != 0)
       {
-        v28 = 0.0;
+        v30 = 0.0;
       }
 
       else
       {
-        v28 = v27;
+        v30 = v29;
       }
 
-      v29 = v11[8] + -1.0;
-      v30 = InstabilityFilter::_timeInRange(this);
-      v31 = 1.0;
-      if (v30 > 0.0)
+      v31 = v11[8] + -1.0;
+      v32 = InstabilityFilter::_timeInRange(this, v28);
+      v33 = 1.0;
+      if (v32 > 0.0)
       {
-        v31 = 0.0;
-        if (v30 < 0.5)
+        v33 = 0.0;
+        if (v32 < 0.5)
         {
-          v31 = (0.5 - v30) + (0.5 - v30);
+          v33 = (0.5 - v32) + (0.5 - v32);
         }
       }
 
-      v32 = (v29 * v31) + 1.0;
-      v33 = *(this + 6);
-      v34 = *(this + 7);
-      v35 = vabds_f32(v33, *(this + 14));
-      v36 = vabds_f32(v34, *(this + 15));
-      if (v35 > v36)
+      v34 = (v31 * v33) + 1.0;
+      v35 = *(this + 6);
+      v36 = *(this + 7);
+      v37 = vabds_f32(v35, *(this + 14));
+      v38 = vabds_f32(v36, *(this + 15));
+      if (v37 > v38)
       {
-        v36 = v35;
+        v38 = v37;
       }
 
       v11 = *(this + 1);
-      v37 = v32 * v11[6];
-      v38 = 0.0;
-      if (v36 > v37)
+      v39 = v34 * v11[6];
+      v40 = 0.0;
+      if (v38 > v39)
       {
-        v38 = ((v36 - v37) / ((v32 * v11[7]) - v37));
+        v40 = ((v38 - v39) / ((v34 * v11[7]) - v39));
       }
 
-      v39 = pow(v38, 1.5);
-      v40 = *(this + 26);
-      v41 = 0.25;
-      if (v40 >= v39)
+      v41 = pow(v40, 1.5);
+      v42 = *(this + 26);
+      v43 = 0.25;
+      if (v42 >= v41)
       {
-        v41 = 0.75;
+        v43 = 0.75;
         if (*(this + 8) < *(this + 24))
         {
-          v41 = 0.5;
+          v43 = 0.5;
         }
       }
 
-      v42 = (*(this + 2) - *(this + 6)) / 1000000.0;
-      v43 = pow(v41, v42 / 0.00800000038);
-      v44 = ((1.0 - v43) * v39) + (v43 * v40);
-      *(this + 26) = v44;
-      v46 = v11[2];
-      v45 = v11[3];
-      v47 = 0.0;
-      v48 = 0.0;
-      if (v33 > v46)
+      v44 = (*(this + 2) - *(this + 6)) / 1000000.0;
+      v45 = pow(v43, v44 / 0.00800000038);
+      v46 = ((1.0 - v45) * v41) + (v45 * v42);
+      *(this + 26) = v46;
+      v48 = v11[2];
+      v47 = v11[3];
+      v49 = 0.0;
+      v50 = 0.0;
+      if (v35 > v48)
       {
-        v48 = (v33 - v46) / (v45 - v46);
+        v50 = (v35 - v48) / (v47 - v48);
       }
 
-      v50 = v11[4];
-      v49 = v11[5];
-      if (v34 > v50)
+      v52 = v11[4];
+      v51 = v11[5];
+      if (v36 > v52)
       {
-        v47 = (v34 - v50) / (v49 - v50);
+        v49 = (v36 - v52) / (v51 - v52);
       }
 
-      if (v34 <= 6.0)
+      if (v36 <= 6.0)
       {
-        v51 = 1.0;
-        if (v33 > 6.0)
+        v53 = 1.0;
+        if (v35 > 6.0)
         {
-          v51 = v33 / 6.0;
+          v53 = v35 / 6.0;
         }
       }
 
       else
       {
-        v51 = v33 / v34;
+        v53 = v35 / v36;
       }
 
-      v52 = 0.0;
-      if (v51 > *v11)
+      v54 = 0.0;
+      if (v53 > *v11)
       {
-        v52 = (v51 - *v11) / (v11[1] - *v11);
+        v54 = (v53 - *v11) / (v11[1] - *v11);
       }
 
-      v53 = *(this + 25);
-      v54 = (v53 - v49) / ((v45 + 0.5) - v49);
-      if (v53 <= v49)
+      v55 = *(this + 25);
+      v56 = (v55 - v51) / ((v47 + 0.5) - v51);
+      if (v55 <= v51)
       {
-        v54 = 0.0;
+        v56 = 0.0;
       }
 
-      if (v44 <= v52)
+      if (v46 <= v54)
       {
-        v44 = v52;
+        v46 = v54;
       }
 
-      if (v47 <= v48)
+      if (v49 <= v50)
       {
-        v47 = v48;
+        v49 = v50;
       }
 
-      if (v44 <= v47)
+      if (v46 <= v49)
       {
-        v44 = v47;
+        v46 = v49;
       }
 
-      if (v44 <= v54)
+      if (v46 <= v56)
       {
-        v44 = v54;
+        v46 = v56;
       }
 
-      if (v28 <= v44)
+      if (v30 <= v46)
       {
-        v16 = v44;
+        v16 = v46;
       }
 
       else
       {
-        v16 = v28;
+        v16 = v30;
       }
     }
 
-    v55 = 0.0;
+    v57 = 0.0;
     if ((a4 & 1) == 0)
     {
-      v56 = InstabilityFilter::_timeInRange(this);
-      if (v56 <= 0.0)
+      v58 = InstabilityFilter::_timeInRange(this, v18);
+      if (v58 <= 0.0)
       {
-        v59 = 1.0;
-        v58 = 0.2;
+        v61 = 1.0;
+        v60 = 0.2;
       }
 
       else
       {
-        v57 = v11[13];
-        v58 = 0.0;
-        v59 = 0.0;
-        if (v57 > v56)
+        v59 = v11[13];
+        v60 = 0.0;
+        v61 = 0.0;
+        if (v59 > v58)
         {
-          v59 = (v57 - v56) / v57;
+          v61 = (v59 - v58) / v59;
         }
 
-        v60 = v11[14];
-        if (v60 > v56)
+        v62 = v11[14];
+        if (v62 > v58)
         {
-          v58 = ((v60 - v56) / v60) * 0.2;
+          v60 = ((v62 - v58) / v62) * 0.2;
         }
       }
 
-      if (v59 <= v58)
+      if (v61 <= v60)
       {
-        v55 = v58;
+        v57 = v60;
       }
 
       else
       {
-        v55 = v59;
+        v57 = v61;
       }
     }
 
-    if (v16 > v55)
+    if (v16 > v57)
     {
-      v55 = v16;
+      v57 = v16;
     }
 
-    *this = v55;
+    *this = v57;
   }
 }
 
@@ -2093,7 +2178,7 @@ uint64_t ContactStabilizer::_applyHysteresis(ContactStabilizer *this, const Posi
   return v4 | (v5 << 32);
 }
 
-float InstabilityFilter::_timeInRange(InstabilityFilter *this)
+float InstabilityFilter::_timeInRange(InstabilityFilter *this, uint64_t a2)
 {
   if ((*(this + 88) & 1) == 0)
   {
@@ -2244,7 +2329,7 @@ uint64_t ContactStabilizer::encode(ContactStabilizer *this, HSUtil::Encoder *a2)
   return 1;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<InstabilityFilter const>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, InstabilityFilter *a3)
+uint64_t HSUtil::Encoder::encodeCodable<InstabilityFilter const>(uint64_t result, const HSUtil::CoderKey *a2, InstabilityFilter *a3)
 {
   if (!*result)
   {
@@ -2315,7 +2400,7 @@ uint64_t InstabilityFilter::encode(InstabilityFilter *this, HSUtil::Encoder *a2)
   return 1;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<InstabilityFilter::StabilizerContact const>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, InstabilityFilter::StabilizerContact *a3)
+uint64_t HSUtil::Encoder::encodeCodable<InstabilityFilter::StabilizerContact const>(uint64_t result, const HSUtil::CoderKey *a2, InstabilityFilter::StabilizerContact *a3)
 {
   if (!*result)
   {
@@ -2481,7 +2566,7 @@ uint64_t ContactStabilizer::decode(ContactStabilizer *this, HSUtil::Decoder *a2)
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -2598,7 +2683,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<InstabilityFilter>(HSUtil::Decod
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -2664,7 +2749,7 @@ uint64_t InstabilityFilter::decode(InstabilityFilter *this, HSUtil::Decoder *a2)
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -2886,7 +2971,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<InstabilityFilter::StabilizerCon
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -2952,7 +3037,7 @@ uint64_t InstabilityFilter::StabilizerContact::decode(InstabilityFilter::Stabili
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -3499,7 +3584,7 @@ uint64_t HSTHIDEventGeneratorConfig::decode(HSTHIDEventGeneratorConfig *this, HS
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeMap(a2, &v7);
+  HSUtil::Decoder::decodeMap(&v7, a2);
   if (v7)
   {
     memset(__b, 170, sizeof(__b));
@@ -3564,7 +3649,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::SurfaceSize>(HSUtil
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -3622,7 +3707,7 @@ HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTHIDEventGeneratorConfig>(HSUt
   return result;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTContactFrameMetadata>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, HSTContactFrameMetadata *a3)
+uint64_t HSUtil::Encoder::encodeCodable<HSTContactFrameMetadata>(uint64_t result, const HSUtil::CoderKey *a2, HSTContactFrameMetadata *a3)
 {
   if (!*result)
   {
@@ -3641,10 +3726,11 @@ HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTContactFrameMetadata>(HSUtil:
   return result;
 }
 
-void sub_AD6D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_AD6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  HSUtil::Decoder::~Decoder(&a9);
-  HSUtil::Decoder::~Decoder(&a19);
+  va_start(va, a18);
+  HSUtil::Decoder::~Decoder(&a9, a2, a3, a4);
+  HSUtil::Decoder::~Decoder(va, v19, v20, v21);
   _Unwind_Resume(a1);
 }
 
@@ -3667,7 +3753,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTHIDEventGeneratorConfig>(HSUt
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -3694,7 +3780,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTContactFrameMetadata>(HSUtil:
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -4021,26 +4107,26 @@ void __cxx_global_var_init_23_18(uint64_t a1, const char *a2)
   }
 }
 
-void sub_AEA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_AEA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
 
-void HSUtil::Decoder::decodeString(HSUtil::Decoder *this@<X0>, const HSUtil::CoderKey *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::Decoder::decodeString(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, const HSUtil::CoderKey *a3@<X1>)
 {
-  if (*this >= 5 || (v8 = *(this + 9), HSUtil::Decoder::_findKey(this, &v8, a2), *this))
+  if (*this >= 5 || (v8 = *(this + 9), HSUtil::Decoder::_findKey(this, &v8, a3), *this))
   {
-    *a3 = &off_108FA0;
-    *(a3 + 8) = &off_108FF8;
-    *(a3 + 16) = &off_109018;
-    *(a3 + 24) = &off_109030;
-    *(a3 + 32) = off_109048;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 
   else
@@ -4056,30 +4142,30 @@ void HSUtil::Decoder::decodeString(HSUtil::Decoder *this@<X0>, const HSUtil::Cod
     if (*this == 3)
     {
       *this = 13;
-      *a3 = &off_108FA0;
-      *(a3 + 8) = &off_108FF8;
-      *(a3 + 16) = &off_109018;
-      *(a3 + 24) = &off_109030;
-      *(a3 + 32) = off_109048;
-      *(a3 + 40) = 0;
-      *(a3 + 48) = 0;
-      *(a3 + 56) = 0;
-      *(a3 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
       *(this + 9) = v8;
-      HSUtil::Buffer::Buffer(a3, v6);
+      HSUtil::Buffer::Buffer(a1, v6);
     }
 
     HSUtil::Buffer::~Buffer(v6);
   }
 }
 
-void sub_AF058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_AF058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4588,7 +4674,7 @@ uint64_t HSTContactFrameMetadata::Image::decode(HSTContactFrameMetadata::Image *
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeArray(a2, &v7);
+  HSUtil::Decoder::decodeArray(&v7, a2);
   if (v7)
   {
     memset(__b, 170, sizeof(__b));
@@ -4703,7 +4789,7 @@ uint64_t HSTContactFrameMetadata::Tritium3::decode(HSTContactFrameMetadata::Trit
   v8 = v3;
   v9 = v3;
   v7 = v3;
-  HSUtil::Decoder::decodeArray(a2, &v7);
+  HSUtil::Decoder::decodeArray(&v7, a2);
   if (v7)
   {
     memset(__b, 170, sizeof(__b));
@@ -4864,7 +4950,7 @@ uint64_t HSTContactFrameMetadata::decode(HSTContactFrameMetadata *this, HSUtil::
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(a2, &v10);
+  HSUtil::Decoder::decodeMap(&v10, a2);
   if (v10)
   {
     memset(__b, 170, sizeof(__b));
@@ -5055,25 +5141,23 @@ id HSUtil::Decoder::decodeNSData(HSUtil::Decoder *this, const HSUtil::CoderKey *
   return v3;
 }
 
-void *std::vector<HSTPipeline::Contact>::reserve(void *result, unint64_t a2)
+void std::vector<HSTPipeline::Contact>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 6)
+  if (a2 > (a1[2] - *a1) >> 6)
   {
     if (!(a2 >> 58))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(a1, a2);
     }
 
     std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void sub_B3A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_B3A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a18);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -5095,7 +5179,7 @@ uint64_t HSUtil::Decoder::decodeCodable<HSTContactFrameMetadata>(uint64_t result
   return result;
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<HSTPipeline::Relative3DDelta>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, HSTPipeline::Relative3DDelta *a3)
+uint64_t HSUtil::Encoder::encodeCodable<HSTPipeline::Relative3DDelta>(uint64_t result, const HSUtil::CoderKey *a2, HSTPipeline::Relative3DDelta *a3)
 {
   if (!*result)
   {
@@ -5133,7 +5217,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<HSTPipeline::Relative3DDelta>(HS
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -5677,11 +5761,11 @@ HSUtil::File *HSUtil::File::File(HSUtil::File *this, const char *a2, uint64_t a3
   return this;
 }
 
-void sub_B75CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_B75CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::FileDescriptor::~FileDescriptor(va);
-  HSUtil::FileDescriptor::~FileDescriptor(v2);
+  HSUtil::FileDescriptor::~FileDescriptor(v3);
   _Unwind_Resume(a1);
 }
 
@@ -5775,7 +5859,7 @@ uint64_t HSTPipeline::Position::decode(HSTPipeline::Position *this, HSUtil::Deco
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -5863,7 +5947,7 @@ uint64_t HSTPipeline::Velocity::decode(HSTPipeline::Velocity *this, HSUtil::Deco
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -5931,7 +6015,7 @@ uint64_t HSTPipeline::SurfaceSize::decode(HSTPipeline::SurfaceSize *this, HSUtil
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -6032,7 +6116,7 @@ uint64_t HSTPipeline::SurfaceCoordinates::decode(HSTPipeline::SurfaceCoordinates
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -6151,7 +6235,7 @@ uint64_t HSTPipeline::SensorSize::decode(HSTPipeline::SensorSize *this, HSUtil::
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -6248,7 +6332,7 @@ uint64_t HSTPipeline::Relative3DDelta::decode(HSTPipeline::Relative3DDelta *this
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeArray(a2, &v8);
+  HSUtil::Decoder::decodeArray(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -6449,18 +6533,21 @@ void HSUtil::SendRight::SendRight()
 
 void HSTPipeline::CreateMousePipeline()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::CreateTrackpadPipeline()
@@ -6482,15 +6569,24 @@ void HSTPipeline::CreateTrackpadPipeline()
   _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Assertion failed (%s @ %s:%ju): %s", v1, 0x2Au);
 }
 
+void MTGestureConfig_::decodeFromMap()
+{
+  v5 = 136315906;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
+}
+
 void MTChordCycling_::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTParserPath_::filterContactForScreenUI(uint64_t a1, uint8_t *buf, int a3, os_log_t log)
@@ -6518,52 +6614,60 @@ void MTParserPath_::filterContactForScreenUI(uint64_t a1, int *a2, os_log_t log)
 
 void MTPathStates_::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTTimeState_::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTHandMotion_::clearHandMotion(char a1, NSObject *a2)
@@ -6575,189 +6679,219 @@ void MTHandMotion_::clearHandMotion(char a1, NSObject *a2)
 
 void MTHandStatistics_::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTChordCycling_::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTForceManagement_::decodeFromMap()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTHandStatistics_::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTPathStates_::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTForceManagement_::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTGestureConfig_::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void MTRestZoneIntegrator_::clearMotion(char a1, NSObject *a2)
@@ -6769,548 +6903,636 @@ void MTRestZoneIntegrator_::clearMotion(char a1, NSObject *a2)
 
 void HSTPipeline::Contact::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactStabilizerConfig::FloatRange::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactStabilizerConfig::FloatRangeGain::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactStabilizerConfig::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void StatContact::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void ContactStabilizer::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void InstabilityFilter::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void InstabilityFilter::StabilizerContact::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTHIDEventGeneratorConfig::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactFrameMetadata::Image::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactFrameMetadata::Tritium3::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTContactFrameMetadata::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::Position::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::Velocity::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::SurfaceSize::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::SurfaceCoordinates::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::SensorSize::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void HSTPipeline::Relative3DDelta::decode()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCompareFlags compareOptions)

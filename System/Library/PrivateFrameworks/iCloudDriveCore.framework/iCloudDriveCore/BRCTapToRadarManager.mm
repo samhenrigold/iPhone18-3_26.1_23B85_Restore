@@ -163,7 +163,7 @@ void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componen
 
 void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_16(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -176,70 +176,78 @@ void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componen
         __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_16_cold_2();
       }
 
-      if (getRadarDraftClass() && getRadarComponentClass() && getTapToRadarServiceClass())
+      RadarDraftClass = getRadarDraftClass();
+      if (RadarDraftClass)
       {
-        getRadarDraftClass();
-        v10 = objc_opt_new();
-        [v10 setTitle:*(a1 + 32)];
-        [v10 setProblemDescription:*(a1 + 40)];
-        [v10 setClassification:2];
-        [v10 setReproducibility:6];
-        v11 = [objc_alloc(getRadarComponentClass()) initWithName:*(a1 + 48) version:*(a1 + 56) identifier:*(a1 + 104)];
-        [v10 setComponent:v11];
-
-        if (*(a1 + 112))
+        RadarComponentClass = getRadarComponentClass(RadarDraftClass);
+        if (RadarComponentClass)
         {
-          v12 = 6;
+          if (getTapToRadarServiceClass(RadarComponentClass))
+          {
+            getRadarDraftClass();
+            v12 = objc_opt_new();
+            [v12 setTitle:*(a1 + 32)];
+            [v12 setProblemDescription:*(a1 + 40)];
+            [v12 setClassification:2];
+            [v12 setReproducibility:6];
+            v13 = [objc_alloc((getRadarComponentClass)()) initWithName:*(a1 + 48) version:*(a1 + 56) identifier:*(a1 + 104)];
+            [v12 setComponent:v13];
+
+            if (*(a1 + 112))
+            {
+              v14 = 6;
+            }
+
+            else
+            {
+              v14 = 0;
+            }
+
+            [v12 setAutoDiagnostics:v14];
+            [v12 setIsUserInitiated:0];
+            [v12 setKeywords:*(a1 + 64)];
+            [v12 setAttachments:*(a1 + 72)];
+            [v12 setDeleteOnAttach:1];
+            if (*(a1 + 80))
+            {
+              [v12 setDeviceIDs:?];
+            }
+
+            v15 = [(objc_class *)(getTapToRadarServiceClass)() shared];
+            v21[0] = MEMORY[0x277D85DD0];
+            v21[1] = 3221225472;
+            v21[2] = __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_26;
+            v21[3] = &unk_278501F20;
+            v16 = *(a1 + 88);
+            v22 = *(a1 + 96);
+            [v15 createDraft:v12 forProcessNamed:@"iCloud Drive" withDisplayReason:v16 completionHandler:v21];
+
+            goto LABEL_22;
+          }
         }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        [v10 setAutoDiagnostics:v12];
-        [v10 setIsUserInitiated:0];
-        [v10 setKeywords:*(a1 + 64)];
-        [v10 setAttachments:*(a1 + 72)];
-        [v10 setDeleteOnAttach:1];
-        if (*(a1 + 80))
-        {
-          [v10 setDeviceIDs:?];
-        }
-
-        v13 = [(objc_class *)getTapToRadarServiceClass() shared];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_26;
-        v20[3] = &unk_278501F20;
-        v14 = *(a1 + 88);
-        v21 = *(a1 + 96);
-        [v13 createDraft:v10 forProcessNamed:@"iCloud Drive" withDisplayReason:v14 completionHandler:v20];
-
-        goto LABEL_22;
       }
 
-      v17 = brc_bread_crumbs();
-      v18 = brc_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v17;
-        _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed gathering TapToRadarKit%@", buf, 0xCu);
+        v24 = v19;
+        _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed gathering TapToRadarKit%@", buf, 0xCu);
       }
 
-      v15 = *(a1 + 96);
-      v16 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Failed gathering TapToRadarKit"];
+      v17 = *(a1 + 96);
+      v18 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Failed gathering TapToRadarKit"];
     }
 
     else
     {
-      v15 = *(a1 + 96);
-      v16 = [MEMORY[0x277CCA9B8] brc_errorThrottledWithDescription:@"Throttled by cloud telemetry"];
+      v17 = *(a1 + 96);
+      v18 = [MEMORY[0x277CCA9B8] brc_errorThrottledWithDescription:@"Throttled by cloud telemetry"];
     }
 
-    v10 = v16;
-    (*(v15 + 16))(v15, v16);
+    v12 = v18;
+    (*(v17 + 16))(v17, v18);
 LABEL_22:
 
     goto LABEL_23;
@@ -254,13 +262,11 @@ LABEL_22:
 
   (*(*(a1 + 96) + 16))();
 LABEL_23:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_26(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -268,11 +274,11 @@ void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componen
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
-      v8 = v3;
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Tap to radar returned error: (%@)%@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v3;
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Tap to radar returned error: (%@)%@", &v6, 0x16u);
     }
   }
 
@@ -287,47 +293,6 @@ void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componen
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)requestTapToRadarWithTitle:description:componentName:componentVersion:componentID:keywords:attachments:sendFullLog:displayReason:triggerRootCause:additionalDevices:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Not internal build, ignoring tap to radar request%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_14_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Tap To Radar was throttled%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_16_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] TTR Server Decision failed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_16_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Creating a radar draft request%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __206__BRCTapToRadarManager_requestTapToRadarWithTitle_description_componentName_componentVersion_componentID_keywords_attachments_sendFullLog_displayReason_triggerRootCause_additionalDevices_completionHandler___block_invoke_26_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Tap to radar returned successfuly%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

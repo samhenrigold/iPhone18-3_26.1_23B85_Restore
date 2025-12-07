@@ -1,4 +1,5 @@
 @interface GLKShaderBlockNode
++ (GLKBigInt_s)maskForLabel:(id)label root:(id)root index:(int)index;
 + (id)copyTreeWithRoot:(id)root parent:(id)parent;
 + (id)copyTreeWithRootButNotSiblings:(id)siblings parent:(id)parent;
 + (unsigned)nodeCt:(id)ct nodeCt:(unsigned int *)nodeCt;
@@ -6,6 +7,7 @@
 + (void)insertNode:(id)node afterSibling:(id)sibling;
 + (void)printTree:(id)tree;
 + (void)printTreeVerbose:(id)verbose;
++ (void)setIndicesForRoot:(id)root andReplaceLoopVar:(id)var baseLabel:(id)label basePropertyClass:(int)class usingIndex:(unsigned int)index indexString:(id)string;
 + (void)setMasksWithRoot:(id)root treeRoot:(id)treeRoot mask:(GLKBigInt_s *)mask;
 - (GLKBigInt_s)mask;
 - (GLKShaderBlockNode)init;
@@ -88,6 +90,56 @@
   return v6;
 }
 
++ (GLKBigInt_s)maskForLabel:(id)label root:(id)root index:(int)index
+{
+  v5 = *&index;
+  if ([root index] != index || !objc_msgSend(objc_msgSend(root, "label"), "isEqualToString:", label))
+  {
+    if (![root children])
+    {
+      goto LABEL_9;
+    }
+
+    mask = +[GLKShaderBlockNode maskForLabel:root:index:](GLKShaderBlockNode, "maskForLabel:root:index:", label, [root children], v5);
+    if (mask)
+    {
+      goto LABEL_12;
+    }
+
+    if (!v9)
+    {
+LABEL_9:
+      if (![root next])
+      {
+        goto LABEL_11;
+      }
+
+      mask = +[GLKShaderBlockNode maskForLabel:root:index:](GLKShaderBlockNode, "maskForLabel:root:index:", label, [root next], v5);
+      if (mask)
+      {
+        goto LABEL_12;
+      }
+
+      if (!v9)
+      {
+LABEL_11:
+        mask = 0;
+        v9 = 0;
+        goto LABEL_12;
+      }
+    }
+
+    mask = 0;
+    goto LABEL_12;
+  }
+
+  mask = [root mask];
+LABEL_12:
+  result.n1 = v9;
+  result.n0 = mask;
+  return result;
+}
+
 + (void)setMasksWithRoot:(id)root treeRoot:(id)treeRoot mask:(GLKBigInt_s *)mask
 {
   v8 = +[GLKShaderBlockNode maskForLabel:root:index:](GLKShaderBlockNode, "maskForLabel:root:index:", [root label], treeRoot, objc_msgSend(root, "index"));
@@ -156,6 +208,48 @@
   }
 
   return *nodeCt;
+}
+
++ (void)setIndicesForRoot:(id)root andReplaceLoopVar:(id)var baseLabel:(id)label basePropertyClass:(int)class usingIndex:(unsigned int)index indexString:(id)string
+{
+  v9 = *&index;
+  v10 = *&class;
+  if ([root indexedMask])
+  {
+    [root setIndex:v9];
+    if ([root propertyClass] == v10)
+    {
+      [root setPropertyClass:(v9 + v10)];
+    }
+  }
+
+  else
+  {
+    [root setIndex:0];
+  }
+
+  if ([objc_msgSend(root "label")])
+  {
+    [root setLabel:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@%d", objc_msgSend(root, "label"), v9)}];
+    [root setType:1];
+  }
+
+  if ([root blockText])
+  {
+    [objc_msgSend(root "blockText")];
+  }
+
+  if ([root children])
+  {
+    +[GLKShaderBlockNode setIndicesForRoot:andReplaceLoopVar:baseLabel:basePropertyClass:usingIndex:indexString:](GLKShaderBlockNode, "setIndicesForRoot:andReplaceLoopVar:baseLabel:basePropertyClass:usingIndex:indexString:", [root children], var, label, v10, v9, string);
+  }
+
+  if ([root next])
+  {
+    next = [root next];
+
+    [GLKShaderBlockNode setIndicesForRoot:next andReplaceLoopVar:var baseLabel:label basePropertyClass:v10 usingIndex:v9 indexString:string];
+  }
 }
 
 + (void)printTree:(id)tree

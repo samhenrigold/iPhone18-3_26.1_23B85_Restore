@@ -172,7 +172,7 @@
   v10.super_class = SBRootFolder;
   selfCopy = self;
   icons = [(SBFolder *)&v10 icons];
-  sub_1BEB20D28(0, &qword_1EBDBFEA0);
+  sub_1BEB20D28(0, &qword_1EBDBFEA0, off_1E8087510);
   v4 = sub_1BEE471AC();
 
   v11 = v4;
@@ -189,7 +189,7 @@
 
 - (void)_didExplicitlyRemoveHiddenLists:(id)lists
 {
-  sub_1BEB20D28(0, &qword_1EBDBFF10);
+  sub_1BEB20D28(0, &qword_1EBDBFF10, off_1E8087640);
   v4 = sub_1BEE471AC();
   selfCopy = self;
   SBRootFolder._didExplicitlyRemoveHiddenLists(_:)(v4);

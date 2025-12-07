@@ -28,57 +28,57 @@
   v5 = v4;
   if (v4)
   {
-    v256 = 0u;
+    v259 = 0u;
+    v260 = 0u;
     v257 = 0u;
-    v254 = 0u;
-    v255 = 0u;
-    obj = v4;
-    v243 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v254, v253, 16);
-    if (!v243)
+    v258 = 0u;
+    obja = v4;
+    v245 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v6, &v257, v256, 16);
+    if (!v245)
     {
       v240 = 0;
       goto LABEL_113;
     }
 
-    v245 = *v255;
-    v242 = v5;
+    v248 = *v258;
+    v243 = v5;
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v255 != v245)
+        if (*v258 != v248)
         {
-          objc_enumerationMutation(obj);
+          objc_enumerationMutation(obja);
         }
 
-        v247 = v7;
-        v8 = *(*(&v254 + 1) + 8 * v7);
+        v250 = v7;
+        v8 = *(*(&v257 + 1) + 8 * v7);
         v9 = objc_opt_new();
-        v249 = 0u;
-        v250 = 0u;
-        v251 = 0u;
         v252 = 0u;
+        v253 = 0u;
+        v254 = 0u;
+        v255 = 0u;
         v10 = v8;
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v249, v248, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v252, v251, 16);
         if (!v12)
         {
           goto LABEL_106;
         }
 
         v15 = v12;
-        v16 = *v250;
+        v16 = *v253;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v250 != v16)
+            if (*v253 != v16)
             {
               objc_enumerationMutation(v10);
             }
 
-            v18 = *(*(&v249 + 1) + 8 * i);
-            v19 = objc_msgSend_objectForKeyedSubscript_(v10, v13, v18, v14, v242);
+            v18 = *(*(&v252 + 1) + 8 * i);
+            v19 = objc_msgSend_objectForKeyedSubscript_(v10, v13, v18, v14, v243);
             if (objc_msgSend_isEqualToString_(v18, v20, @"ChromaDenoiseLumaThresholdGain", v21))
             {
               v24 = [GainValueArray alloc];
@@ -92,7 +92,7 @@
 LABEL_112:
 
                 v240 = -1;
-                v5 = v242;
+                v5 = v243;
                 goto LABEL_113;
               }
             }
@@ -518,7 +518,7 @@ LABEL_112:
             }
           }
 
-          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v249, v248, 16);
+          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v252, v251, 16);
           if (v15)
           {
             continue;
@@ -530,14 +530,14 @@ LABEL_112:
 LABEL_106:
 
         objc_msgSend_addObject_(self->tuningParameters->bands, v237, v9, v238);
-        v7 = v247 + 1;
+        v7 = v250 + 1;
       }
 
-      while (v247 + 1 != v243);
+      while (v250 + 1 != v245);
       v240 = 0;
-      v5 = v242;
-      v243 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v239, &v254, v253, 16);
-      if (!v243)
+      v5 = v243;
+      v245 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v239, &v257, v256, 16);
+      if (!v245)
       {
 LABEL_113:
 
@@ -546,7 +546,7 @@ LABEL_113:
     }
   }
 
-  v240 = FigSignalErrorAtGM();
+  v240 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v242, v244, obj);
 LABEL_114:
 
   return v240;

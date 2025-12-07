@@ -283,7 +283,7 @@ LABEL_45:
 
 - (id)beginPair:(id *)pair
 {
-  v60[16] = *MEMORY[0x29EDCA608];
+  v59[16] = *MEMORY[0x29EDCA608];
   v5 = [(SETransceiveHelper *)self->_transceiver selectWithAID:@"A00000015153504341534400"];
   v9 = v5;
   if (v5)
@@ -295,9 +295,9 @@ LABEL_5:
   }
 
   transceiver = self->_transceiver;
-  v58 = 0;
-  v11 = [(SETransceiveHelper *)transceiver copySeid:&v58];
-  v9 = v58;
+  v57 = 0;
+  v11 = [(SETransceiveHelper *)transceiver copySeid:&v57];
+  v9 = v57;
   seid = self->_seid;
   self->_seid = v11;
 
@@ -307,98 +307,98 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v19 = self->_transceiver;
-  v57 = 0;
-  v20 = [(SETransceiveHelper *)v19 copyCasdCert:&v57];
-  v21 = v57;
-  v9 = v21;
-  if (v21 || !v20)
+  v18 = self->_transceiver;
+  v56 = 0;
+  v19 = [(SETransceiveHelper *)v18 copyCasdCert:&v56];
+  v20 = v56;
+  v9 = v20;
+  if (v20 || !v19)
   {
-    _ObjCLogWrapOutError(pair, v21, 0, "[AlohaPairingController beginPair:]", @"Error encountered when retrieving casdCertificate %@\n", v22, v23, v24, v21);
+    _ObjCLogWrapOutError(pair, v20, 0, "[AlohaPairingController beginPair:]", @"Error encountered when retrieving casdCertificate %@\n", v21, v22, v23, v20);
   }
 
   else
   {
-    v25 = self->_transceiver;
-    v56 = 0;
-    v26 = [(SETransceiveHelper *)v25 copyDeviceType:&v56];
-    v27 = v56;
-    v9 = v27;
-    if (!v27 && v26 != 255)
+    v24 = self->_transceiver;
+    v55 = 0;
+    v25 = [(SETransceiveHelper *)v24 copyDeviceType:&v55];
+    v26 = v55;
+    v9 = v26;
+    if (!v26 && v25 != 255)
     {
-      if (v26 == 32 || v26 == 115 || v26 == 100)
+      if (v25 == 32 || v25 == 115 || v25 == 100)
       {
         v9 = 0;
-        _ObjCLogOutError(pair, 0, "[AlohaPairingController beginPair:]", @"seDeviceType does not support A9\n", v28, v29, v30, v31, v51);
+        _ObjCLogOutError(pair, 0, "[AlohaPairingController beginPair:]", @"seDeviceType does not support A9\n", v27, v28, v29, v30, v50);
         v16 = 0;
       }
 
       else
       {
-        v32 = self->_transceiver;
-        v55 = 0;
-        v33 = [(SETransceiveHelper *)v32 copyA9Parameters:&v55];
-        v9 = v55;
-        if (!v9 && v33 && [v33 count] == 2)
+        v31 = self->_transceiver;
+        v54 = 0;
+        v32 = [(SETransceiveHelper *)v31 copyA9Parameters:&v54];
+        v9 = v54;
+        if (!v9 && v32 && [v32 count] == 2)
         {
-          v38 = [MEMORY[0x29EDBA070] numberWithLongLong:MGGetSInt64Answer()];
+          v37 = [MEMORY[0x29EDBA070] numberWithLongLong:MGGetSInt64Answer()];
           ecid = self->_ecid;
-          self->_ecid = v38;
+          self->_ecid = v37;
 
-          v40 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:MGGetSInt64Answer()];
+          v39 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:MGGetSInt64Answer()];
           apChipId = self->_apChipId;
-          self->_apChipId = v40;
+          self->_apChipId = v39;
 
-          v59[0] = @"Command";
-          v59[1] = @"ECID";
-          v42 = self->_ecid;
-          v60[0] = @"BeginPair";
-          v60[1] = v42;
-          v60[2] = self->_apChipId;
-          v59[2] = @"ApChipId";
-          v59[3] = @"ApBoardId";
-          v54 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:MGGetSInt64Answer()];
-          v60[3] = v54;
-          v60[4] = _MergedGlobals_7;
-          v59[4] = @"ApSecurityDomain";
-          v59[5] = @"SOCProductionMode";
-          v53 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v60[5] = v53;
-          v59[6] = @"SOCSecurityMode";
+          v58[0] = @"Command";
+          v58[1] = @"ECID";
+          v41 = self->_ecid;
+          v59[0] = @"BeginPair";
+          v59[1] = v41;
+          v59[2] = self->_apChipId;
+          v58[2] = @"ApChipId";
+          v58[3] = @"ApBoardId";
+          v53 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:MGGetSInt64Answer()];
+          v59[3] = v53;
+          v59[4] = _MergedGlobals_7;
+          v58[4] = @"ApSecurityDomain";
+          v58[5] = @"SOCProductionMode";
           v52 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v60[6] = v52;
-          v59[7] = @"ApEffectiveProductionMode";
+          v59[5] = v52;
+          v58[6] = @"SOCSecurityMode";
+          v51 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
+          v59[6] = v51;
+          v58[7] = @"ApEffectiveProductionMode";
+          v42 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
+          v59[7] = v42;
+          v58[8] = @"ApEffectiveSecurityMode";
           v43 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v60[7] = v43;
-          v59[8] = @"ApEffectiveSecurityMode";
+          v59[8] = v43;
+          v58[9] = @"SEPEffectiveProductionMode";
           v44 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v60[8] = v44;
-          v59[9] = @"SEPEffectiveProductionMode";
+          v59[9] = v44;
+          v58[10] = @"SEPEffectiveSecurityMode";
           v45 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v60[9] = v45;
-          v59[10] = @"SEPEffectiveSecurityMode";
-          v46 = [MEMORY[0x29EDBA070] numberWithBool:MGGetBoolAnswer()];
-          v47 = self->_seid;
-          v60[10] = v46;
-          v60[11] = v47;
-          v59[11] = @"SEID";
-          v59[12] = @"CASDCert";
-          v60[12] = v20;
-          v59[13] = @"OBKG";
-          v48 = [v33 objectAtIndexedSubscript:1];
-          v60[13] = v48;
-          v59[14] = @"ServerA9CertSN";
-          v49 = [v33 objectAtIndexedSubscript:0];
-          v59[15] = @"AlohaVersion";
+          v46 = self->_seid;
+          v59[10] = v45;
+          v59[11] = v46;
+          v58[11] = @"SEID";
+          v58[12] = @"CASDCert";
+          v59[12] = v19;
+          v58[13] = @"OBKG";
+          v47 = [v32 objectAtIndexedSubscript:1];
+          v59[13] = v47;
+          v58[14] = @"ServerA9CertSN";
+          v48 = [v32 objectAtIndexedSubscript:0];
+          v58[15] = @"AlohaVersion";
           alohaVersion = self->_alohaVersion;
-          v60[14] = v49;
-          v60[15] = alohaVersion;
-          v16 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v60 forKeys:v59 count:16];
+          v59[14] = v48;
+          v59[15] = alohaVersion;
+          v16 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v59 forKeys:v58 count:16];
         }
 
         else
         {
-          _ObjCLogOutError(pair, 0, "[AlohaPairingController beginPair:]", @"Error when copying a9 params %@\n", v34, v35, v36, v37, v9);
+          _ObjCLogOutError(pair, 0, "[AlohaPairingController beginPair:]", @"Error when copying a9 params %@\n", v33, v34, v35, v36, v9);
           v16 = 0;
         }
       }
@@ -406,21 +406,20 @@ LABEL_5:
       goto LABEL_21;
     }
 
-    _ObjCLogWrapOutError(pair, v27, 0, "[AlohaPairingController beginPair:]", @"Unable to retrieve seDeviceType with error %@\n", v29, v30, v31, v27);
+    _ObjCLogWrapOutError(pair, v26, 0, "[AlohaPairingController beginPair:]", @"Unable to retrieve seDeviceType with error %@\n", v28, v29, v30, v26);
   }
 
   v16 = 0;
 LABEL_21:
 
 LABEL_6:
-  v17 = *MEMORY[0x29EDCA608];
 
   return v16;
 }
 
 - (id)processAuthReqPayload:(id)payload outError:(id *)error
 {
-  v76[3] = *MEMORY[0x29EDCA608];
+  v75[3] = *MEMORY[0x29EDCA608];
   payloadCopy = payload;
   v7 = objc_opt_new();
   [v7 setValue:@"AUTHRESP" forKey:@"Command"];
@@ -446,90 +445,90 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v74 = 0;
-  v23 = SSEGetAttV2AuthKey(self->_seid, v14, &v74);
-  v66 = v74;
+  v73 = 0;
+  v22 = SSEGetAttV2AuthKey(self->_seid, v14, &v73);
+  v65 = v73;
   asHexString = [(__CFData *)v14 asHexString];
   _ObjCLog(2, "[AlohaPairingController processAuthReqPayload:outError:]", &cfstr_CalledSsgetatt.isa);
 
-  if (!v23 && v66)
+  if (!v22 && v65)
   {
-    v64 = objc_opt_new();
-    [v64 setValue:v66 forKey:@"attV2AuthKey"];
-    v73 = 0;
-    v75[0] = @"VerifyData";
+    v63 = objc_opt_new();
+    [v63 setValue:v65 forKey:@"attV2AuthKey"];
+    v72 = 0;
+    v74[0] = @"VerifyData";
+    v27 = [MEMORY[0x29EDBA070] numberWithBool:0];
+    v75[0] = v27;
+    v74[1] = @"StripImg4";
     v28 = [MEMORY[0x29EDBA070] numberWithBool:0];
-    v76[0] = v28;
-    v75[1] = @"StripImg4";
+    v75[1] = v28;
+    v74[2] = @"GetCombined";
     v29 = [MEMORY[0x29EDBA070] numberWithBool:0];
-    v76[1] = v29;
-    v75[2] = @"GetCombined";
-    v30 = [MEMORY[0x29EDBA070] numberWithBool:0];
-    v76[2] = v30;
-    v31 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v76 forKeys:v75 count:3];
-    v65 = [v31 mutableCopy];
+    v75[2] = v29;
+    v30 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
+    v64 = [v30 mutableCopy];
 
-    v32 = AMFDRSealingMapCopyLocalDataForClass();
-    v36 = v32;
-    v37 = 0;
-    if (v32)
+    v31 = AMFDRSealingMapCopyLocalDataForClass();
+    v35 = v31;
+    v36 = 0;
+    if (v31)
     {
-      memset(v72, 0, sizeof(v72));
-      v71 = 0u;
-      v70[0] = [v32 DERItem];
-      v70[1] = v38;
-      v39 = DERParseSequence(v70, &img4BlobSpec, 0x2000000000000010, &v71, 0x30uLL);
-      if (v39)
+      memset(v71, 0, sizeof(v71));
+      v70 = 0u;
+      v69[0] = [v31 DERItem];
+      v69[1] = v37;
+      v38 = DERParseSequence(v69, &img4BlobSpec, 0x2000000000000010, &v70, 0x30uLL);
+      if (v38)
       {
-        _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when parsing IMG4Blob %d\n", v40, v41, v42, v43, v39);
+        _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when parsing IMG4Blob %d\n", v39, v40, v41, v42, v38);
       }
 
       else
       {
-        v69 = 0u;
-        memset(v68, 0, sizeof(v68));
-        v46 = DERParseSequenceContent(v72, 4u, &scrtBlobSpecItems, v68, 0x40uLL);
-        if (!v46)
+        v68 = 0u;
+        memset(v67, 0, sizeof(v67));
+        v45 = DERParseSequenceContent(v71, 4u, &scrtBlobSpecItems, v67, 0x40uLL);
+        if (!v45)
         {
-          v56 = [MEMORY[0x29EDB8DA0] dataWithBytes:v69 length:?];
-          if (v56)
+          v55 = [MEMORY[0x29EDB8DA0] dataWithBytes:v68 length:?];
+          if (v55)
           {
-            [v64 setValue:v56 forKey:@"SCRT"];
+            [v63 setValue:v55 forKey:@"SCRT"];
             transceiver = self->_transceiver;
-            v58 = [payloadCopy objectForKeyedSubscript:@"HSMChallengeSE"];
-            v59 = [MEMORY[0x29EDBA070] numberWithLongLong:MGGetSInt64Answer()];
-            v67 = 0;
-            v60 = [(SETransceiveHelper *)transceiver copySESignature:v66 hsmChallengeSE:v58 ecid:v59 outError:&v67];
-            v37 = v67;
+            v57 = [payloadCopy objectForKeyedSubscript:@"HSMChallengeSE"];
+            v58 = [MEMORY[0x29EDBA070] numberWithLongLong:MGGetSInt64Answer()];
+            v66 = 0;
+            v59 = [(SETransceiveHelper *)transceiver copySESignature:v65 hsmChallengeSE:v57 ecid:v58 outError:&v66];
+            v36 = v66;
 
-            [v64 setValue:v60 forKey:@"SESignature"];
-            [v7 setValue:v64 forKey:@"DATA"];
+            [v63 setValue:v59 forKey:@"SESignature"];
+            [v7 setValue:v63 forKey:@"DATA"];
             [v7 setValue:qword_2A197F338 forKey:@"ErrorCode"];
             [v7 setValue:@"Success" forKey:@"ErrorMessage"];
-            v61 = v7;
+            v60 = v7;
           }
 
           else
           {
-            _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"SCRT is nil\n", v52, v53, v54, v55, asHexString);
-            v62 = v7;
-            v37 = 0;
+            _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"SCRT is nil\n", v51, v52, v53, v54, asHexString);
+            v61 = v7;
+            v36 = 0;
           }
 
           goto LABEL_21;
         }
 
-        _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when parsing SCRTBlob %d\n", v47, v48, v49, v50, v46);
+        _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when parsing SCRTBlob %d\n", v46, v47, v48, v49, v45);
       }
 
-      v51 = v7;
-      v37 = 0;
+      v50 = v7;
+      v36 = 0;
     }
 
     else
     {
-      _ObjCLogWrapOutError(error, 0, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when geting scrt %@ or scrt absent %d\n", v33, v34, v35, v73);
-      v45 = v7;
+      _ObjCLogWrapOutError(error, 0, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Error encountered when geting scrt %@ or scrt absent %d\n", v32, v33, v34, v72);
+      v44 = v7;
     }
 
 LABEL_21:
@@ -537,45 +536,38 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Bad status received when getting Auth Key V2 %d or nil for AuthKey %d\n", v24, v25, v26, v27, v23);
-  v44 = v7;
+  _ObjCLogOutError(error, 0, "[AlohaPairingController processAuthReqPayload:outError:]", @"Bad status received when getting Auth Key V2 %d or nil for AuthKey %d\n", v23, v24, v25, v26, v22);
+  v43 = v7;
 LABEL_22:
 
 LABEL_7:
-  v21 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
 
 - (id)processApduReqPayload:(id)payload outError:(id *)error
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   payloadCopy = payload;
-  v11 = objc_opt_new();
-  [v11 setValue:@"APDURESP" forKey:@"Command"];
-  [v11 setValue:qword_2A197F338 forKey:@"ErrorCode"];
-  [v11 setValue:@"Success" forKey:@"ErrorMessage"];
-  [v11 setValue:self->_fullServerSessionID forKey:@"SessionId"];
-  [v11 setValue:*MEMORY[0x29EDB8E88] forKey:@"DATA"];
+  v10 = objc_opt_new();
+  [v10 setValue:@"APDURESP" forKey:@"Command"];
+  [v10 setValue:qword_2A197F338 forKey:@"ErrorCode"];
+  [v10 setValue:@"Success" forKey:@"ErrorMessage"];
+  [v10 setValue:self->_fullServerSessionID forKey:@"SessionId"];
+  [v10 setValue:*MEMORY[0x29EDB8E88] forKey:@"DATA"];
   v5 = objc_opt_new();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
+  memset(v13, 0, sizeof(v13));
   obj = payloadCopy;
-  if ([obj countByEnumeratingWithState:&v14 objects:v18 count:16])
+  if ([obj countByEnumeratingWithState:v13 objects:v14 count:16])
   {
-    *v15;
-    *v15;
-    v6 = **(&v14 + 1);
-    v7 = **(&v14 + 1);
-    SERestoreInfo::CApdu::CApdu(&v13, [v6 bytes], objc_msgSend(v6, "length"));
+    v6 = **(&v13[0] + 1);
+    v7 = **(&v13[0] + 1);
+    SERestoreInfo::CApdu::CApdu(&v12, [v6 bytes], objc_msgSend(v6, "length"), 0);
   }
 
-  [v11 setValue:v5 forKey:@"DATA"];
-  v8 = *MEMORY[0x29EDCA608];
+  [v10 setValue:v5 forKey:@"DATA"];
 
-  return v11;
+  return v10;
 }
 
 - (id)processEndPair:(id)pair
@@ -766,7 +758,7 @@ void __59__AlohaPairingController_getReverseProxySettings_outError___block_invok
       }
 
       std::mutex::lock((v3 + 24));
-      if ((*(v3 + 136) & 1) != 0 || (v8.__ptr_ = 0, v4 = *(v3 + 16), std::exception_ptr::~exception_ptr(&v8), v4))
+      if ((*(v3 + 136) & 1) != 0 || (v5.__ptr_ = 0, v4 = *(v3 + 16), std::exception_ptr::~exception_ptr(&v5), v4))
       {
         std::__throw_future_error[abi:ne200100](2u);
       }
@@ -780,10 +772,7 @@ void __59__AlohaPairingController_getReverseProxySettings_outError___block_invok
 
     _ObjCLogNSError(0, 0, "[AlohaPairingController getReverseProxySettings:outError:]_block_invoke", &cfstr_ProxyAbortedD.isa, a2);
   }
-  v5 = ;
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 40) + 8) + 40) = ;
 
   MEMORY[0x2A1C71028]();
 }

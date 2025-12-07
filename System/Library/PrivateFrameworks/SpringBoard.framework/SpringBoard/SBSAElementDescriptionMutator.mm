@@ -19,7 +19,7 @@
   result = self->_elementDescription;
   if (result)
   {
-    return [(CGAffineTransform *)result leadingViewTransform];
+    return objc_msgSend_leadingViewTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -33,7 +33,7 @@
   result = self->_elementDescription;
   if (result)
   {
-    return [(CGAffineTransform *)result trailingViewTransform];
+    return objc_msgSend_trailingViewTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -47,7 +47,7 @@
   result = self->_elementDescription;
   if (result)
   {
-    return [(CGAffineTransform *)result minimalViewTransform];
+    return objc_msgSend_minimalViewTransform(result, a3);
   }
 
   *&retstr->c = 0u;

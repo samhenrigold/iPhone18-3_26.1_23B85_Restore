@@ -100,7 +100,7 @@
             v19 = firstObject;
             do
             {
-              [v19 timestamp];
+              objc_msgSend_timestamp(v19);
               v21 = v24;
               CMTimeSubtract(&time, &v21, &rhs);
               if (CMTimeGetSeconds(&time) <= self->_bufferInterval)

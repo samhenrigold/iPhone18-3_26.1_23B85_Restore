@@ -225,7 +225,7 @@
 - (void)loadConfig
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = sub_1000E0594();
+  v4 = sub_1000E0594(PDFileManager);
   v5 = sub_1000E0A78(v4);
 
   v15 = 0;
@@ -283,7 +283,7 @@ LABEL_11:
   v5 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
 
   v6 = sub_10010A850(@"Update Config");
-  v7 = sub_1000E0594();
+  v7 = sub_1000E0594(PDFileManager);
   v8 = sub_1000E0A78(v7);
   [v5 writeToURL:v8 atomically:1];
 
@@ -298,7 +298,7 @@ LABEL_11:
     self->_mode = mode;
     [(PDDaemon *)self saveUpdatedConfig];
     [CLSUtil postNotification:"com.apple.progressd.devModeChanged"];
-    v5 = sub_1000B51E4();
+    v5 = sub_1000B51E4(PDAnalytics);
     if (v5)
     {
       v5[8] = mode != 0;
@@ -543,7 +543,7 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Clean exit with reason: %{public}@", &v11, 0xCu);
     }
 
-    v8 = sub_1000B51E4();
+    v8 = sub_1000B51E4(PDAnalytics);
     sub_1000B61E0(v8);
   }
 
@@ -811,7 +811,7 @@ LABEL_7:
 
 - (void)_initializeSubsystemsIfNeeded
 {
-  if (!self->_systemsInitialized && sub_100140F84())
+  if (!self->_systemsInitialized && sub_100140F84(PDSystemAvailability))
   {
     v3 = sub_10010A850(@"DaemonInitializeSubsystems");
     CLSInitLog();
@@ -865,7 +865,7 @@ LABEL_7:
           _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to truncate database. Delete database files and terminate", buf, 2u);
         }
 
-        v12 = sub_1000E0594();
+        v12 = sub_1000E0594(PDFileManager);
         v37 = 0;
         v13 = sub_1000E1674(v12, &v37);
         v14 = v37;
@@ -896,7 +896,7 @@ LABEL_7:
       goto LABEL_47;
     }
 
-    v17 = sub_10003E1B4();
+    v17 = sub_10003E1B4(PDAccountInfo);
     [(PDDatabase *)self->_database lock];
     v18 = sub_10016A49C(self->_database, @"currentAccountInfoID");
     CLSInitLog();
@@ -1020,12 +1020,12 @@ LABEL_47:
 
 - (BOOL)canEnableNoUserMode
 {
-  if (sub_1000B280C())
+  if (sub_1000B280C(PDClient))
   {
     return 1;
   }
 
-  return sub_1000B2988();
+  return sub_1000B2988(PDClient);
 }
 
 - (void)_updateBiomeClientWithDatabase:(id)database
@@ -1140,14 +1140,14 @@ LABEL_21:
   }
 
 LABEL_23:
-  v23 = sub_10003E1B4();
+  v23 = sub_10003E1B4(PDAccountInfo);
   sub_1000E13B8(PDFileManager, v23);
 }
 
 - (void)_cleanupSavedResponseDirectory
 {
   v2 = +[NSFileManager defaultManager];
-  v3 = sub_1000E0594();
+  v3 = sub_1000E0594(PDFileManager);
   v4 = sub_1000E0C78(v3);
   v8 = 0;
   v5 = [v2 removeItemAtURL:v4 error:&v8];
@@ -1168,7 +1168,7 @@ LABEL_23:
 
 - (void)_invalidateAndDeleteManagers
 {
-  sub_100121110();
+  sub_100121110(PDOperationsManager);
   userNotificationManager = self->_userNotificationManager;
   if (userNotificationManager)
   {
@@ -1180,7 +1180,7 @@ LABEL_23:
   operationsManager = self->_operationsManager;
   if (operationsManager)
   {
-    sub_100121140(operationsManager);
+    sub_100121140(&operationsManager->super.isa);
     v6 = self->_operationsManager;
     self->_operationsManager = 0;
   }
@@ -1208,7 +1208,7 @@ LABEL_23:
 
 - (id)_databaseInstance
 {
-  v2 = sub_1000E0594();
+  v2 = sub_1000E0594(PDFileManager);
   v3 = sub_1000E0B4C(v2);
 
   v4 = sub_10010B23C([PDDatabase alloc], v3);
@@ -1221,7 +1221,7 @@ LABEL_23:
   teacherDevDatabase = self->_teacherDevDatabase;
   if (!teacherDevDatabase)
   {
-    v4 = sub_1000E0594();
+    v4 = sub_1000E0594(PDFileManager);
     v5 = sub_1000E0BB0(v4);
 
     v6 = sub_10010B23C([PDDatabase alloc], v5);
@@ -1245,7 +1245,7 @@ LABEL_23:
   studentDevDatabase = self->_studentDevDatabase;
   if (!studentDevDatabase)
   {
-    v4 = sub_1000E0594();
+    v4 = sub_1000E0594(PDFileManager);
     v5 = sub_1000E0C14(v4);
 
     v6 = sub_10010B23C([PDDatabase alloc], v5);
@@ -1266,11 +1266,11 @@ LABEL_23:
 
 - (id)statusReportCurrentUser
 {
-  v3 = sub_10003E1B4();
+  v3 = sub_10003E1B4(PDAccountInfo);
   database = [(PDDaemon *)self database];
   v5 = sub_1000711FC(database);
   v6 = sub_1000717E8(database);
-  v46 = sub_100071704(database);
+  v43 = sub_100071704(database);
   if (v3)
   {
     if ([*(v3 + 24) aa_isManagedAppleID])
@@ -1289,44 +1289,44 @@ LABEL_23:
     v7 = @"NO";
   }
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_1000DBBF4;
-  v54 = sub_1000DBC04;
-  v55 = objc_opt_new();
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = sub_1000DBBF4;
+  v51 = sub_1000DBC04;
+  v52 = objc_opt_new();
   if (v5)
   {
     v8 = objc_opt_class();
     objectID = [v5 objectID];
-    v79 = objectID;
-    v10 = [NSArray arrayWithObjects:&v79 count:1];
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_1000DD488;
-    v47[3] = &unk_100204AC8;
-    v48 = database;
-    v49 = &v50;
-    [v48 selectAll:v8 where:@"personID = ?" bindings:v10 block:v47];
+    v76 = objectID;
+    v10 = [NSArray arrayWithObjects:&v76 count:1];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_1000DD488;
+    v44[3] = &unk_100204AC8;
+    v45 = database;
+    v46 = &v47;
+    [v45 selectAll:v8 where:@"personID = ?" bindings:v10 block:v44];
 
-    v60[0] = @"orgID";
+    v57[0] = @"orgID";
     orgID = [v5 orgID];
     v11 = orgID;
-    v12 = v46;
+    v12 = v43;
     if (!orgID)
     {
       v11 = &stru_100206880;
     }
 
-    if (!v46)
+    if (!v43)
     {
       v12 = &stru_100206880;
     }
 
-    v69[0] = v11;
-    v69[1] = v12;
-    v60[1] = @"organizationName";
-    v60[2] = @"objectID";
+    v66[0] = v11;
+    v66[1] = v12;
+    v57[1] = @"organizationName";
+    v57[2] = @"objectID";
     objectID2 = [v5 objectID];
     v13 = objectID2;
     if (!objectID2)
@@ -1334,8 +1334,8 @@ LABEL_23:
       v13 = &stru_100206880;
     }
 
-    v69[2] = v13;
-    v60[3] = @"name";
+    v66[2] = v13;
+    v57[3] = @"name";
     displayName = [v5 displayName];
     v14 = displayName;
     if (!displayName)
@@ -1343,8 +1343,8 @@ LABEL_23:
       v14 = &stru_100206880;
     }
 
-    v69[3] = v14;
-    v60[4] = @"progressTrackingAllowed";
+    v66[3] = v14;
+    v57[4] = @"progressTrackingAllowed";
     if ([v5 isProgressTrackingAllowed])
     {
       v15 = @"YES";
@@ -1355,10 +1355,10 @@ LABEL_23:
       v15 = @"NO";
     }
 
-    v69[4] = v15;
-    v69[5] = v7;
-    v60[5] = @"hasManagedAccount";
-    v60[6] = @"isSearchable";
+    v66[4] = v15;
+    v66[5] = v7;
+    v57[5] = @"hasManagedAccount";
+    v57[6] = @"isSearchable";
     if ([v5 isSearchable])
     {
       v16 = @"YES";
@@ -1369,19 +1369,19 @@ LABEL_23:
       v16 = @"NO";
     }
 
-    v69[6] = v16;
-    v60[7] = @"role (orion)";
-    v41 = [CLSPerson stringForRole:v6];
-    v69[7] = v41;
-    v60[8] = @"roles (asm)";
-    v17 = v51[5];
+    v66[6] = v16;
+    v57[7] = @"role (orion)";
+    v38 = [CLSPerson stringForRole:v6];
+    v66[7] = v38;
+    v57[8] = @"roles (asm)";
+    v17 = v48[5];
     if (!v17)
     {
       v17 = &stru_100206880;
     }
 
-    v69[8] = v17;
-    v60[9] = @"data-separated";
+    v66[8] = v17;
+    v57[9] = @"data-separated";
     if (v3)
     {
       if (*(v3 + 8))
@@ -1394,8 +1394,8 @@ LABEL_23:
         v18 = @"NO";
       }
 
-      v70 = v18;
-      v61 = @"openFromManagedToUnmanaged";
+      v67 = v18;
+      v58 = @"openFromManagedToUnmanaged";
       if (*(v3 + 10))
       {
         v19 = @"YES";
@@ -1406,8 +1406,8 @@ LABEL_23:
         v19 = @"NO";
       }
 
-      v71 = v19;
-      v62 = @"openFromUnmanagedToManaged";
+      v68 = v19;
+      v59 = @"openFromUnmanagedToManaged";
       if (*(v3 + 11))
       {
         v20 = @"YES";
@@ -1418,8 +1418,8 @@ LABEL_23:
         v20 = @"NO";
       }
 
-      v72 = v20;
-      v63 = @"hasUbiquityEnabled";
+      v69 = v20;
+      v60 = @"hasUbiquityEnabled";
       if (*(v3 + 9))
       {
         v21 = @"YES";
@@ -1430,119 +1430,108 @@ LABEL_23:
         v21 = @"NO";
       }
 
-      v73 = v21;
-      v64 = @"rosterServiceAuthenticationState";
-      v22 = *(v3 + 12);
+      v70 = v21;
+      v61 = @"rosterServiceAuthenticationState";
     }
 
     else
     {
+      v67 = @"NO";
+      v68 = @"NO";
+      v58 = @"openFromManagedToUnmanaged";
+      v59 = @"openFromUnmanagedToManaged";
+      v69 = @"NO";
       v70 = @"NO";
-      v71 = @"NO";
-      v61 = @"openFromManagedToUnmanaged";
-      v62 = @"openFromUnmanagedToManaged";
-      v72 = @"NO";
-      v73 = @"NO";
-      v63 = @"hasUbiquityEnabled";
-      v64 = @"rosterServiceAuthenticationState";
+      v60 = @"hasUbiquityEnabled";
+      v61 = @"rosterServiceAuthenticationState";
     }
 
+    v22 = NSStringFromCLSAuthenticationState();
+    v71 = v22;
+    v62 = @"handoutServiceAuthenticationState";
     v23 = NSStringFromCLSAuthenticationState();
-    v74 = v23;
-    v65 = @"handoutServiceAuthenticationState";
+    v72 = v23;
+    v63 = @"iCloudDriveAuthenticationState";
+    v24 = NSStringFromCLSAuthenticationState();
+    v73 = v24;
+    v64 = @"schoolworkUbiquitousContainerURL";
     if (v3)
     {
-      v24 = *(v3 + 16);
-    }
-
-    v25 = NSStringFromCLSAuthenticationState();
-    v75 = v25;
-    v66 = @"iCloudDriveAuthenticationState";
-    if (v3)
-    {
-      v26 = *(v3 + 20);
-    }
-
-    v27 = NSStringFromCLSAuthenticationState();
-    v76 = v27;
-    v67 = @"schoolworkUbiquitousContainerURL";
-    if (v3)
-    {
-      v28 = *(v3 + 80);
+      v25 = *(v3 + 80);
     }
 
     else
     {
-      v28 = 0;
+      v25 = 0;
     }
 
-    v29 = v28;
-    absoluteString = [v29 absoluteString];
-    v31 = absoluteString;
+    v26 = v25;
+    absoluteString = [v26 absoluteString];
+    v28 = absoluteString;
     if (absoluteString)
     {
-      v32 = absoluteString;
+      v29 = absoluteString;
     }
 
     else
     {
-      v32 = &stru_100206880;
+      v29 = &stru_100206880;
     }
 
-    v77 = v32;
-    v68 = @"schoolworkUbiquitousContainerError";
+    v74 = v29;
+    v65 = @"schoolworkUbiquitousContainerError";
     if (v3)
     {
-      v33 = *(v3 + 88);
+      v30 = *(v3 + 88);
     }
 
     else
     {
-      v33 = 0;
+      v30 = 0;
     }
 
-    v34 = v33;
-    v35 = v34;
-    if (v34)
+    v31 = v30;
+    v32 = v31;
+    if (v31)
     {
-      v36 = v34;
+      v33 = v31;
     }
 
     else
     {
-      v36 = &stru_100206880;
+      v33 = &stru_100206880;
     }
 
-    v78 = v36;
-    v37 = [NSDictionary dictionaryWithObjects:v69 forKeys:v60 count:18, v41];
+    v75 = v33;
+    v34 = [NSDictionary dictionaryWithObjects:v66 forKeys:v57 count:18, v38];
   }
 
   else
   {
     if (sub_1000DC5E0(self))
     {
-      v58 = @"none";
-      v59 = @"(No User Mode)";
-      v38 = &v58;
-      v39 = &v59;
+      v55 = @"none";
+      v56 = @"(No User Mode)";
+      v35 = &v55;
+      v36 = &v56;
     }
 
     else
     {
-      v56 = @"none";
-      v57 = &stru_100206880;
-      v38 = &v56;
-      v39 = &v57;
+      v53 = @"none";
+      v54 = &stru_100206880;
+      v35 = &v53;
+      v36 = &v54;
     }
 
-    v38[1] = @"hasManagedAccount";
-    v39[1] = v7;
-    v37 = [NSDictionary dictionaryWithObjects:"dictionaryWithObjects:forKeys:count:" forKeys:? count:?];
+    v35[1] = @"hasManagedAccount";
+    v36[1] = v7;
+    v34 = [NSDictionary dictionaryWithObjects:"dictionaryWithObjects:forKeys:count:" forKeys:? count:?];
   }
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v47, 8);
 
-  return v37;
+  return v34;
 }
 
 - (id)miniStatusReport
@@ -1561,8 +1550,8 @@ LABEL_23:
 - (NSDictionary)statusReport
 {
   v3 = objc_opt_new();
-  v4 = sub_10003E1B4();
-  v64 = v4;
+  v4 = sub_10003E1B4(PDAccountInfo);
+  v63 = v4;
   if (v4)
   {
     v5 = *(v4 + 48);
@@ -1571,7 +1560,7 @@ LABEL_23:
       [v3 setObject:v5 forKeyedSubscript:@"GSTokenSchoolwork"];
     }
 
-    v6 = v64[7];
+    v6 = v63[7];
   }
 
   else
@@ -1587,31 +1576,31 @@ LABEL_23:
     [v3 setObject:v7 forKeyedSubscript:@"GSTokenAXM"];
   }
 
-  v58 = v7;
-  v8 = v64;
-  if (v64)
+  v57 = v7;
+  v8 = v63;
+  if (v63)
   {
-    v8 = v64[3];
+    v8 = v63[3];
   }
 
   v9 = v8;
 
   if (v9)
   {
-    v79 = 0;
-    v80 = &v79;
-    v81 = 0x3032000000;
-    v82 = sub_1000DBBF4;
-    v83 = sub_1000DBC04;
-    v84 = 0;
-    v76[0] = _NSConcreteStackBlock;
-    v76[1] = 3221225472;
-    v76[2] = sub_1000DE084;
-    v76[3] = &unk_100204B10;
-    v78 = &v79;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x3032000000;
+    v81 = sub_1000DBBF4;
+    v82 = sub_1000DBC04;
+    v83 = 0;
+    v75[0] = _NSConcreteStackBlock;
+    v75[1] = 3221225472;
+    v75[2] = sub_1000DE084;
+    v75[3] = &unk_100204B10;
+    v77 = &v78;
     v10 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &stru_100204AE8);
-    v77 = v10;
-    sub_10004010C(PDAccountInfo, v76);
+    v76 = v10;
+    sub_10004010C(PDAccountInfo, v75);
     v11 = dispatch_time(0, 60000000000);
     if (dispatch_block_wait(v10, v11))
     {
@@ -1624,13 +1613,13 @@ LABEL_23:
       }
     }
 
-    v13 = v80[5];
+    v13 = v79[5];
     if (v13)
     {
       [v3 setObject:v13 forKeyedSubscript:@"iCloud Quota Info"];
     }
 
-    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v78, 8);
   }
 
   v14 = +[NSBundle mainBundle];
@@ -1641,118 +1630,129 @@ LABEL_23:
   v17 = [NSString stringWithFormat:@"%@ (%@)", v15, v16];
   [v3 setObject:v17 forKeyedSubscript:@"version"];
 
-  mode = self->_mode;
-  v19 = NSStringFromDevMode();
-  [v3 setObject:v19 forKeyedSubscript:@"Dev Mode"];
+  v18 = NSStringFromDevMode();
+  [v3 setObject:v18 forKeyedSubscript:@"Dev Mode"];
 
   database = [(PDDaemon *)self database];
   statusReportCurrentUser = [(PDDaemon *)self statusReportCurrentUser];
   [v3 setObject:statusReportCurrentUser forKeyedSubscript:@"current user"];
 
-  v22 = sub_100043B24(database);
-  dictionaryRepresentation = [v22 dictionaryRepresentation];
+  v21 = sub_100043B24(database);
+  dictionaryRepresentation = [v21 dictionaryRepresentation];
   [v3 setObject:dictionaryRepresentation forKeyedSubscript:@"service config (orion)"];
 
-  v24 = sub_1000BA854(database);
-  dictionaryRepresentation2 = [v24 dictionaryRepresentation];
+  v23 = sub_1000BA854(database);
+  dictionaryRepresentation2 = [v23 dictionaryRepresentation];
   [v3 setObject:dictionaryRepresentation2 forKeyedSubscript:@"service config (asm)"];
 
-  v26 = objc_opt_new();
-  v27 = objc_opt_class();
-  v73[0] = _NSConcreteStackBlock;
-  v73[1] = 3221225472;
-  v73[2] = sub_1000DE218;
-  v73[3] = &unk_100204B38;
-  v61 = v26;
-  v74 = v61;
-  [database selectAll:v27 block:v73];
-  [v3 setObject:v61 forKeyedSubscript:@"blocked apps"];
-  v28 = objc_opt_new();
+  v25 = objc_opt_new();
+  v26 = objc_opt_class();
+  v72[0] = _NSConcreteStackBlock;
+  v72[1] = 3221225472;
+  v72[2] = sub_1000DE218;
+  v72[3] = &unk_100204B38;
+  v60 = v25;
+  v73 = v60;
+  [database selectAll:v26 block:v72];
+  [v3 setObject:v60 forKeyedSubscript:@"blocked apps"];
+  v27 = objc_opt_new();
   [(PDDaemon *)self lock];
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
-  v29 = self->_servers;
-  v30 = [(NSMutableSet *)v29 countByEnumeratingWithState:&v69 objects:v87 count:16];
-  if (v30)
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v28 = self->_servers;
+  v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v68 objects:v86 count:16];
+  if (v29)
   {
-    v31 = *v70;
+    v30 = *v69;
     do
     {
-      for (i = 0; i != v30; i = i + 1)
+      for (i = 0; i != v29; i = i + 1)
       {
-        if (*v70 != v31)
+        if (*v69 != v30)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v28);
         }
 
-        statusReport = [*(*(&v69 + 1) + 8 * i) statusReport];
-        [v28 addObject:statusReport];
+        statusReport = [*(*(&v68 + 1) + 8 * i) statusReport];
+        [v27 addObject:statusReport];
       }
 
-      v30 = [(NSMutableSet *)v29 countByEnumeratingWithState:&v69 objects:v87 count:16];
+      v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v68 objects:v86 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   [(PDDaemon *)self unlock];
-  v60 = [[NSString alloc] initWithFormat:@"%ld connected clients", objc_msgSend(v28, "count")];
-  [v3 setObject:v28 forKeyedSubscript:v60];
-  v34 = +[PDUserDefaults sharedDefaults];
-  dictionaryRepresentation3 = [v34 dictionaryRepresentation];
+  v59 = [[NSString alloc] initWithFormat:@"%ld connected clients", objc_msgSend(v27, "count")];
+  [v3 setObject:v27 forKeyedSubscript:v59];
+  v33 = +[PDUserDefaults sharedDefaults];
+  dictionaryRepresentation3 = [v33 dictionaryRepresentation];
   [v3 setObject:dictionaryRepresentation3 forKeyedSubscript:@"userDefaults"];
 
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_1000DE278;
-  v67[3] = &unk_100204B60;
-  v59 = objc_opt_new();
-  v68 = v59;
-  v62 = objc_retainBlock(v67);
-  [database selectAll:objc_opt_class() block:v62];
-  [database selectAll:objc_opt_class() block:v62];
-  [v3 setObject:v59 forKeyedSubscript:@"Pending sync items"];
+  v66[0] = _NSConcreteStackBlock;
+  v66[1] = 3221225472;
+  v66[2] = sub_1000DE278;
+  v66[3] = &unk_100204B60;
+  v58 = objc_opt_new();
+  v67 = v58;
+  v61 = objc_retainBlock(v66);
+  [database selectAll:objc_opt_class() block:v61];
+  [database selectAll:objc_opt_class() block:v61];
+  [v3 setObject:v58 forKeyedSubscript:@"Pending sync items"];
   operationsManager = [(PDDaemon *)self operationsManager];
-  v37 = sub_100126240(operationsManager);
-  [v3 setObject:v37 forKeyedSubscript:@"Operations report"];
+  v36 = sub_100126240(operationsManager);
+  [v3 setObject:v36 forKeyedSubscript:@"Operations report"];
 
-  v38 = objc_opt_new();
-  v39 = objc_opt_class();
-  v65[0] = _NSConcreteStackBlock;
-  v65[1] = 3221225472;
-  v65[2] = sub_1000DE2EC;
-  v65[3] = &unk_100204B88;
-  v40 = v38;
-  v66 = v40;
-  [database selectAll:v39 block:v65];
-  [v3 setObject:v40 forKeyedSubscript:@"endpoints"];
-  v41 = objc_opt_new();
-  v42 = [PDURLRequestOperation setAppleInternalHeadersForRequest:v41];
-  if (!v42)
+  v37 = objc_opt_new();
+  v38 = objc_opt_class();
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000DE2EC;
+  v64[3] = &unk_100204B88;
+  v39 = v37;
+  v65 = v39;
+  [database selectAll:v38 block:v64];
+  [v3 setObject:v39 forKeyedSubscript:@"endpoints"];
+  v40 = objc_opt_new();
+  v41 = [PDURLRequestOperation setAppleInternalHeadersForRequest:v40];
+  if (!v41)
   {
-    allHTTPHeaderFields = [v41 allHTTPHeaderFields];
+    allHTTPHeaderFields = [v40 allHTTPHeaderFields];
     [v3 setObject:allHTTPHeaderFields forKeyedSubscript:@"anisetteHeader"];
   }
 
   operationsManager2 = [(PDDaemon *)self operationsManager];
-  v45 = sub_100125AF0(operationsManager2);
-  v46 = @"opportunistic";
-  if (v45)
+  v44 = sub_100125AF0(operationsManager2);
+  v45 = @"opportunistic";
+  if (v44)
   {
-    v46 = @"enabled";
+    v45 = @"enabled";
   }
 
-  v47 = v46;
+  v46 = v45;
 
-  [v3 setObject:v47 forKeyedSubscript:@"Push Type"];
-  v48 = +[PDUserDefaults sharedDefaults];
-  dictionaryRepresentation4 = [v48 dictionaryRepresentation];
+  [v3 setObject:v46 forKeyedSubscript:@"Push Type"];
+  v47 = +[PDUserDefaults sharedDefaults];
+  dictionaryRepresentation4 = [v47 dictionaryRepresentation];
   [v3 setObject:dictionaryRepresentation4 forKeyedSubscript:@"userDefaults"];
 
-  v85[0] = @"ASM sync";
+  v84[0] = @"ASM sync";
   if (sub_1000507D8(database))
+  {
+    v49 = @"YES";
+  }
+
+  else
+  {
+    v49 = @"NO";
+  }
+
+  v85[0] = v49;
+  v84[1] = @"Orion sync";
+  if (sub_100050844(database))
   {
     v50 = @"YES";
   }
@@ -1762,9 +1762,9 @@ LABEL_23:
     v50 = @"NO";
   }
 
-  v86[0] = v50;
-  v85[1] = @"Orion sync";
-  if (sub_100050844(database))
+  v85[1] = v50;
+  v84[2] = @"iCloud Drive initial sync";
+  if (sub_1000508B0(database))
   {
     v51 = @"YES";
   }
@@ -1774,39 +1774,27 @@ LABEL_23:
     v51 = @"NO";
   }
 
-  v86[1] = v51;
-  v85[2] = @"iCloud Drive initial sync";
-  if (sub_1000508B0(database))
+  v85[2] = v51;
+  v52 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:3];
+  [v3 setObject:v52 forKeyedSubscript:@"Server sync status"];
+  v53 = sub_10012EC1C(PDFileSyncManager);
+  if ([v53 count])
   {
-    v52 = @"YES";
+    [v3 setObject:v53 forKeyedSubscript:@"Cached PDFileSyncAgent Info"];
+  }
+
+  v54 = [(PDBiomeClient *)self->_biomeClient biomeSubscriptionStatus]- 1;
+  if (v54 > 2)
+  {
+    v55 = @"Unknown";
   }
 
   else
   {
-    v52 = @"NO";
+    v55 = *(&off_100204BA8 + v54);
   }
 
-  v86[2] = v52;
-  v53 = [NSDictionary dictionaryWithObjects:v86 forKeys:v85 count:3];
-  [v3 setObject:v53 forKeyedSubscript:@"Server sync status"];
-  v54 = sub_10012EC1C();
-  if ([v54 count])
-  {
-    [v3 setObject:v54 forKeyedSubscript:@"Cached PDFileSyncAgent Info"];
-  }
-
-  v55 = [(PDBiomeClient *)self->_biomeClient biomeSubscriptionStatus]- 1;
-  if (v55 > 2)
-  {
-    v56 = @"Unknown";
-  }
-
-  else
-  {
-    v56 = *(&off_100204BA8 + v55);
-  }
-
-  [v3 setObject:v56 forKeyedSubscript:@"biomeSubscriptionStatus"];
+  [v3 setObject:v55 forKeyedSubscript:@"biomeSubscriptionStatus"];
 
   return v3;
 }

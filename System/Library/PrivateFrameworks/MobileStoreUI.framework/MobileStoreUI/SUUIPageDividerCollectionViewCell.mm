@@ -106,12 +106,12 @@
 
 - (void)setColoringWithColorScheme:(id)scheme
 {
-  primaryTextColor = [scheme primaryTextColor];
+  v4 = objc_msgSend_primaryTextColor(scheme, a2);
   topDividerLine = self->_topDividerLine;
-  v10 = primaryTextColor;
-  if (primaryTextColor)
+  v10 = v4;
+  if (v4)
   {
-    [(UIView *)topDividerLine setBackgroundColor:primaryTextColor];
+    [(UIView *)topDividerLine setBackgroundColor:v4];
     bottomDividerLine = self->_bottomDividerLine;
     if (bottomDividerLine)
     {

@@ -143,7 +143,7 @@ LABEL_4:
   {
 LABEL_10:
     v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-    v7 = SBAppendSwitcherModifierResponse(v6, v4);
+    v7 = SBAppendSwitcherModifierResponse();
 
     v4 = v7;
   }
@@ -169,7 +169,7 @@ LABEL_10:
   [(SBHardwareButtonLaunchZoomUpAnimationToken *)self->_zoomupAnimationToken preludeAnimationVelocity];
   v10 = [v9 valueWithCGPoint:?];
   v11 = [[SBInjectVelocitySwitcherEventResponse alloc] initWithVelocity:v10 forKey:@"position" appLayout:self->_appLayout];
-  v12 = SBAppendSwitcherModifierResponse(v11, v5);
+  v12 = SBAppendSwitcherModifierResponse();
 
   return v12;
 }
@@ -187,7 +187,7 @@ LABEL_10:
   {
     self->_dropletEffectRequired = 0;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -217,7 +217,7 @@ LABEL_10:
   v12 = [[SBMatchMoveToDropletSwitcherEventResponse alloc] initWithAppLayout:self->_appLayout active:1];
   [(SBChainableModifierEventResponse *)v4 addChildResponse:v12];
 
-  v13 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+  v13 = SBAppendSwitcherModifierResponse();
 
   return v13;
 }
@@ -240,7 +240,7 @@ LABEL_10:
   zoomupAnimationToken = self->_zoomupAnimationToken;
   self->_zoomupAnimationToken = 0;
 
-  v9 = SBAppendSwitcherModifierResponse(v4, transitionDidEnd);
+  v9 = SBAppendSwitcherModifierResponse();
 
   return v9;
 }

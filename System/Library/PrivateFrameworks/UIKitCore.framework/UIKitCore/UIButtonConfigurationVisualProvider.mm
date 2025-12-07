@@ -93,7 +93,7 @@
 
 - (void)_layoutContent
 {
-  [(UIButtonConfigurationVisualProvider *)self _layoutDataUpdatingIfNecessary];
+  objc_msgSend__layoutDataUpdatingIfNecessary(self, a2);
   v4 = 0.0;
   v3 = 0.0;
   v6 = 0.0;
@@ -126,7 +126,7 @@
   if ((LOBYTE(self[1].var1.width) & 1) == 0)
   {
     [($FAF8FB4E17ADDBD5CADBCA981CDA5A29 *)self _layoutBounds];
-    self = [($FAF8FB4E17ADDBD5CADBCA981CDA5A29 *)selfCopy _layoutDataInBounds:?];
+    self = objc_msgSend__layoutDataInBounds_(selfCopy);
     v5 = v25;
     *&selfCopy->var6.var1 = v26;
     v6 = v28;
@@ -404,9 +404,10 @@ LABEL_6:
     _layoutEngine = [(UIView *)self->_button _layoutEngine];
     if (_layoutEngine)
     {
-      [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:[(UIView *)self->_button _nsis_compatibleBoundsInEngine:_layoutEngine]];
-      v4 = v5;
-      if (v5 != self->_previousFirstBaselineOffsetForAttributeLowering || (v4 = v6, v6 != self->_previousLastBaselineOffsetForAttributeLowering))
+      v4 = [(UIView *)self->_button _nsis_compatibleBoundsInEngine:_layoutEngine];
+      objc_msgSend__layoutDataInBounds_(self, v4);
+      v5 = v6;
+      if (v6 != self->_previousFirstBaselineOffsetForAttributeLowering || (v5 = v7, v7 != self->_previousLastBaselineOffsetForAttributeLowering))
       {
         [(UIView *)self->_button _invalidateBaselineConstraints];
       }
@@ -470,7 +471,7 @@ id __93__UIButtonConfigurationVisualProvider_contextMenuInteraction_configuratio
 {
   v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [*(*(a1 + 32) + 288) menu];
+  v4 = objc_msgSend_menu(*(*(a1 + 32) + 288));
   v5 = [*(*(a1 + 32) + 288) _menuProvider];
 
   if (v5)
@@ -1061,22 +1062,23 @@ LABEL_6:
     else if ([(UIView *)self->_button _wantsAutolayout]&& (([(UIButton *)self->_button _activeSizeToFitLayoutEngine], (v13 = objc_claimAutoreleasedReturnValue()) != 0) || ([(UIView *)self->_button _layoutEngine], (v13 = objc_claimAutoreleasedReturnValue()) != 0)))
     {
       v14 = v13;
-      [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:[(UIView *)self->_button _nsis_compatibleBoundsInEngine:v13]];
+      v15 = [(UIView *)self->_button _nsis_compatibleBoundsInEngine:v13];
+      objc_msgSend__layoutDataInBounds_(self, v15);
 
-      baselineOffsets = v17;
+      baselineOffsets = v18;
     }
 
     else
     {
-      [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, height];
-      baselineOffsets = v16;
+      objc_msgSend__layoutDataInBounds_(self, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, height);
+      baselineOffsets = v17;
     }
   }
 
   else
   {
-    [(UIButtonConfigurationVisualProvider *)self _layoutDataUpdatingIfNecessary];
-    baselineOffsets = v18;
+    objc_msgSend__layoutDataUpdatingIfNecessary(self);
+    baselineOffsets = v19;
   }
 
   lastFromBottom = baselineOffsets.lastFromBottom;
@@ -1140,7 +1142,7 @@ LABEL_6:
   height = size.height;
   width = size.width;
   [(UIButtonConfigurationVisualProvider *)self updateConfigurationIfNecessary];
-  [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, height, 0, 0, 0, 0];
+  objc_msgSend__layoutDataInBounds_(self, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, height, 0, 0, 0, 0);
   v7 = 0.0;
   v6 = 0.0;
   result.height = v7;
@@ -1180,7 +1182,7 @@ LABEL_6:
   x = a4.origin.x;
   [(UIButtonConfigurationVisualProvider *)self updateConfigurationIfNecessary];
   _currentConfiguration = [(UIButton *)self->_button _currentConfiguration];
-  [(UIButtonConfigurationVisualProvider *)self _layoutDataInBounds:_currentConfiguration forConfiguration:x, y, width, height];
+  objc_msgSend__layoutDataInBounds_forConfiguration_(self, x, y, width, height);
 
   return result;
 }
@@ -3042,9 +3044,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v11 = [image isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(image);
 
-      if (!v11)
+      if (!isEqual)
       {
         LOBYTE(v12) = 1;
 LABEL_18:
@@ -3066,7 +3068,7 @@ LABEL_18:
       LOBYTE(v12) = 1;
       if (v13 && preferredSymbolConfiguration)
       {
-        v12 = [preferredSymbolConfiguration isEqual:v13] ^ 1;
+        v12 = objc_msgSend_isEqual_(preferredSymbolConfiguration) ^ 1;
       }
     }
 
@@ -3178,25 +3180,24 @@ void __73__UIButtonConfigurationVisualProvider__updateImageViewWithConfiguration
     effectiveContentView = [(UIButtonConfigurationVisualProvider *)self effectiveContentView];
     [effectiveContentView addSubview:self->_indicatorView];
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __73__UIButtonConfigurationVisualProvider__updateIndicatorWithConfiguration___block_invoke;
-    v14[3] = &unk_1E70F6228;
-    v14[4] = self;
-    v10 = _resolvedIndicator;
-    v15 = v10;
-    v16 = configurationCopy;
-    [(UIButtonConfigurationVisualProvider *)self _animateContentIfNeededWithBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__UIButtonConfigurationVisualProvider__updateIndicatorWithConfiguration___block_invoke;
+    v13[3] = &unk_1E70F6228;
+    v13[4] = self;
+    v14 = _resolvedIndicator;
+    v15 = configurationCopy;
+    [(UIButtonConfigurationVisualProvider *)self _animateContentIfNeededWithBlock:v13];
     image = [(UIImageView *)self->_indicatorView image];
-    v12 = [image isEqual:v10] ^ 1;
+    v11 = objc_msgSend_isEqual_(image) ^ 1;
   }
 
   else
   {
-    LOBYTE(v12) = [(UIView *)indicatorView _removeFromSuperviewIfNeeded];
+    LOBYTE(v11) = [(UIView *)indicatorView _removeFromSuperviewIfNeeded];
   }
 
-  return v12;
+  return v11;
 }
 
 void __73__UIButtonConfigurationVisualProvider__updateIndicatorWithConfiguration___block_invoke(uint64_t a1)

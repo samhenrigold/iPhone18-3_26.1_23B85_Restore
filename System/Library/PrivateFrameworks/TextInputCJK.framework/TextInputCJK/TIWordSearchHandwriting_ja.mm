@@ -56,7 +56,7 @@
 
 - (id)generatePredictionsWithCandidateContext:(id)context stringContext:(id)stringContext option:(unint64_t)option
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   stringContextCopy = stringContext;
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(contextCopy, "count")}];
@@ -67,26 +67,26 @@
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v12 = contextCopy;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          CandidateFromContextString = *(*(&v24 + 1) + 8 * i);
+          CandidateFromContextString = *(*(&v23 + 1) + 8 * i);
           Type = MecabraCandidateGetType();
           if (Type != 1 && Type != 7)
           {
@@ -98,20 +98,18 @@
           [v10 addObject:CandidateFromContextString];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
     }
 
-    v23.receiver = self;
-    v23.super_class = TIWordSearchHandwriting_ja;
-    array = [(TIWordSearchHandwriting *)&v23 generatePredictionsWithCandidateContext:v10 stringContext:stringContextCopy option:option];
+    v22.receiver = self;
+    v22.super_class = TIWordSearchHandwriting_ja;
+    array = [(TIWordSearchHandwriting *)&v22 generatePredictionsWithCandidateContext:v10 stringContext:stringContextCopy option:option];
   }
 
   v20 = array;
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

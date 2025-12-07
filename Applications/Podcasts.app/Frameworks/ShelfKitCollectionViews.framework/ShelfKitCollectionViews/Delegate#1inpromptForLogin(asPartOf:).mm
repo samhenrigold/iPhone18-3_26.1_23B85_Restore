@@ -17,7 +17,7 @@
 
   v5 = sub_30BF58();
   __swift_project_value_buffer(v5, qword_3FA8F8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB490);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB490, &unk_317CF0);
   sub_30B708();
   *(swift_allocObject() + 16) = xmmword_315430;
   sub_30B698();
@@ -37,7 +37,7 @@
 
   v4 = sub_30BF58();
   __swift_project_value_buffer(v4, qword_3FA8F8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB490);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB490, &unk_317CF0);
   sub_30B708();
   *(swift_allocObject() + 16) = xmmword_315430;
   sub_30B698();

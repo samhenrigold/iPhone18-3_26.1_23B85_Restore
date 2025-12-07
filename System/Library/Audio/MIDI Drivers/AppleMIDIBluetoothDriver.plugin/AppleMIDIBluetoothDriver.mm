@@ -231,7 +231,7 @@ void sub_1374(uint64_t a1, const void *a2, void *a3, uint64_t a4)
     v8 = *(a1 + 80);
     if (v8 >= *(a1 + 88))
     {
-      v9 = sub_1524(a1 + 72, &v11, &value, a4);
+      v9 = sub_1524((a1 + 72), &v11, &value, a4);
     }
 
     else
@@ -280,21 +280,21 @@ uint64_t sub_14B4(uint64_t a1, uint64_t a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t sub_1524(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t sub_1524(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 + 1 > 0x555555555555555)
   {
     sub_182C();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v8 = 0x555555555555555;
   }
@@ -314,14 +314,14 @@ uint64_t sub_1524(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   v16 = 48 * v4;
   sub_166C((48 * v4), a2, a3, a4);
   v17 = 48 * v4 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 48 * v4 + *a1 - v9;
   sub_1974(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -330,9 +330,9 @@ uint64_t sub_1524(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   return v14;
 }
 
-void sub_1658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_1A6C(va);
   _Unwind_Resume(a1);
 }
@@ -349,9 +349,9 @@ void *sub_166C(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
   return a1;
 }
 
-void sub_16F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_16F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_17AC(va);
   _Unwind_Resume(a1);
 }
@@ -712,7 +712,7 @@ void **sub_2288(void **result, __int128 *a2)
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -743,10 +743,10 @@ void **sub_2288(void **result, __int128 *a2)
   return result;
 }
 
-void sub_24F4(uint64_t *a1)
+void sub_24F4(uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -755,7 +755,7 @@ void sub_24F4(uint64_t *a1)
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 void sub_2670(_Unwind_Exception *exception_object)
@@ -789,18 +789,18 @@ void **sub_27F8(void **a1)
   return a1;
 }
 
-void sub_282C(uint64_t a1)
+void sub_282C(uint64_t result)
 {
-  v2 = *(a1 + 8);
-  v1 = *(a1 + 16);
+  v2 = *(result + 8);
+  v1 = *(result + 16);
   while (v1 != v2)
   {
-    *(a1 + 16) = v1 - 16;
+    *(result + 16) = v1 - 16;
     v4 = *(v1 - 8);
     if (v4)
     {
       sub_2C18(v4);
-      v1 = *(a1 + 16);
+      v1 = *(result + 16);
     }
 
     else
@@ -839,8 +839,7 @@ void sub_29F0(void *a1, uint64_t *a2, unsigned int *a3)
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_186B0;
-  v3 = *a3;
-  sub_2AF0((a1 + 3), *a2);
+  sub_2AF0((a1 + 3), *a2, *a3);
 }
 
 void sub_2A74(std::__shared_weak_count *a1)
@@ -851,12 +850,13 @@ void sub_2A74(std::__shared_weak_count *a1)
   operator delete();
 }
 
-void sub_2AF0(uint64_t a1, uint64_t a2)
+void sub_2AF0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   sub_FEEC((a1 + 16));
   *(a1 + 8) = 1;
   *a1 = off_186E8;
-  sub_FF3C((a1 + 16), a2);
+  sub_FF3C((a1 + 16), a2, v3);
 }
 
 void sub_2BA0(uint64_t a1)
@@ -970,7 +970,7 @@ uint64_t sub_3060(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   a1[4] = a3;
   a1[5] = a4;
-  (*(*v5 + 16))(v5);
+  (*(*v5 + 16))(v5, a2);
   return 0;
 }
 
@@ -1104,9 +1104,9 @@ uint64_t sub_360C(uint64_t a1, _DWORD *a2)
   return sub_477C(&v6);
 }
 
-void sub_36E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_36E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_477C(va);
   _Unwind_Resume(a1);
 }
@@ -1308,10 +1308,10 @@ LABEL_43:
         {
           if (*v9 == v27)
           {
-            v30 = *(v9 + 8);
-            if (*(v30 + v9 + 10 - 1) != 247 && __dst != 240)
+            v30 = v9[4];
+            if (*(v9 + v30 + 9) != 247 && __dst != 240)
             {
-              if (v9 + 10 + v6 + v30 <= v28)
+              if (v9 + v6 + v30 + 10 <= v28)
               {
 LABEL_56:
                 result = (v9 + v30 + 10);
@@ -1321,7 +1321,7 @@ LABEL_56:
                   if (!v6)
                   {
 LABEL_80:
-                    *(v9 + 8) += v6;
+                    v9[4] += v6;
                     goto LABEL_81;
                   }
 
@@ -1377,10 +1377,10 @@ LABEL_78:
 
           else
           {
-            v30 = *(v9 + 8);
+            v30 = v9[4];
           }
 
-          v9 = (v9 + v30 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+          v9 = ((v9 + v30 + 13) & 0xFFFFFFFFFFFFFFFCLL);
         }
 
         if (v9 + v6 + 10 <= v28)
@@ -1388,7 +1388,7 @@ LABEL_78:
           LODWORD(v30) = 0;
           *(v7 + 64) = v29 + 1;
           *v9 = v27;
-          *(v9 + 8) = 0;
+          v9[4] = 0;
           goto LABEL_56;
         }
 
@@ -1511,10 +1511,10 @@ LABEL_40:
       if (*v9 == v8)
       {
         v12 = BYTE2(v3);
-        v13 = *(v9 + 8);
-        if (v12 != 240 && *(v13 + v9 + 10 - 1) != 247)
+        v13 = v9[4];
+        if (v12 != 240 && *(v9 + v13 + 9) != 247)
         {
-          if (v9 + 10 + v13 + v6 <= v10)
+          if (v9 + v13 + v6 + 10 <= v10)
           {
 LABEL_70:
             result = (v9 + v13 + 10);
@@ -1555,10 +1555,10 @@ LABEL_67:
 
       else
       {
-        v13 = *(v9 + 8);
+        v13 = v9[4];
       }
 
-      v9 = (v9 + v13 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+      v9 = ((v9 + v13 + 13) & 0xFFFFFFFFFFFFFFFCLL);
     }
 
     if (v9 + v6 + 10 <= v10)
@@ -1566,7 +1566,7 @@ LABEL_67:
       LODWORD(v13) = 0;
       *(v7 + 64) = v11 + 1;
       *v9 = v8;
-      *(v9 + 8) = 0;
+      v9[4] = 0;
       goto LABEL_70;
     }
 
@@ -1872,10 +1872,10 @@ LABEL_43:
         {
           if (*v9 == v27)
           {
-            v30 = *(v9 + 8);
-            if (*(v30 + v9 + 10 - 1) != 247 && __dst != 240)
+            v30 = v9[4];
+            if (*(v9 + v30 + 9) != 247 && __dst != 240)
             {
-              if (v9 + 10 + v6 + v30 <= v28)
+              if (v9 + v6 + v30 + 10 <= v28)
               {
 LABEL_56:
                 result = (v9 + v30 + 10);
@@ -1885,7 +1885,7 @@ LABEL_56:
                   if (!v6)
                   {
 LABEL_80:
-                    *(v9 + 8) += v6;
+                    v9[4] += v6;
                     goto LABEL_81;
                   }
 
@@ -1941,10 +1941,10 @@ LABEL_78:
 
           else
           {
-            v30 = *(v9 + 8);
+            v30 = v9[4];
           }
 
-          v9 = (v9 + v30 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+          v9 = ((v9 + v30 + 13) & 0xFFFFFFFFFFFFFFFCLL);
         }
 
         if (v9 + v6 + 10 <= v28)
@@ -1952,7 +1952,7 @@ LABEL_78:
           LODWORD(v30) = 0;
           *(v7 + 64) = v29 + 1;
           *v9 = v27;
-          *(v9 + 8) = 0;
+          v9[4] = 0;
           goto LABEL_56;
         }
 
@@ -2075,10 +2075,10 @@ LABEL_40:
       if (*v9 == v8)
       {
         v12 = BYTE2(v3);
-        v13 = *(v9 + 8);
-        if (v12 != 240 && *(v13 + v9 + 10 - 1) != 247)
+        v13 = v9[4];
+        if (v12 != 240 && *(v9 + v13 + 9) != 247)
         {
-          if (v9 + 10 + v13 + v6 <= v10)
+          if (v9 + v13 + v6 + 10 <= v10)
           {
 LABEL_70:
             result = (v9 + v13 + 10);
@@ -2119,10 +2119,10 @@ LABEL_67:
 
       else
       {
-        v13 = *(v9 + 8);
+        v13 = v9[4];
       }
 
-      v9 = (v9 + v13 + 13) & 0xFFFFFFFFFFFFFFFCLL;
+      v9 = ((v9 + v13 + 13) & 0xFFFFFFFFFFFFFFFCLL);
     }
 
     if (v9 + v6 + 10 <= v10)
@@ -2130,7 +2130,7 @@ LABEL_67:
       LODWORD(v13) = 0;
       *(v7 + 64) = v11 + 1;
       *v9 = v8;
-      *(v9 + 8) = 0;
+      v9[4] = 0;
       goto LABEL_70;
     }
 
@@ -2154,18 +2154,18 @@ uint64_t sub_477C(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_4854(uint64_t *result, uint64_t *a2)
+uint64_t *sub_4854(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void sub_48D8(std::__shared_weak_count *a1)
@@ -2186,17 +2186,40 @@ uint64_t sub_4910(uint64_t a1)
   return result;
 }
 
-void sub_4A64()
+void sub_4A64(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1D970, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1D970, memory_order_acquire) & 1) == 0)
   {
     sub_FFC0();
   }
 }
 
-void sub_8EB0()
+void sub_591C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 buf)
 {
-  if ((atomic_load_explicit(&qword_1D980, memory_order_acquire) & 1) == 0)
+  if (a2)
+  {
+    v17 = __cxa_begin_catch(a1);
+    sub_4A64(v17, v18);
+    v19 = qword_1D968;
+    if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "BTLEMIDIDriverCentral.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 251;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: retrieveConnectedPeripheralsWithServices threw an exception.", &buf, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x58E8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_8EB0(uint64_t result, uint64_t a2)
+{
+  if ((atomic_load_explicit(byte_1D980, memory_order_acquire) & 1) == 0)
   {
     sub_10020();
   }
@@ -2210,17 +2233,17 @@ id sub_B204(uint64_t a1)
   return [v2 sendIfReady];
 }
 
-void sub_B5F8()
+void sub_B5F8(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1D990, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1D990, memory_order_acquire) & 1) == 0)
   {
     sub_10080();
   }
 }
 
-void sub_BDA4()
+void sub_BDA4(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1D9A0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1D9A0, memory_order_acquire) & 1) == 0)
   {
     sub_100E0();
   }
@@ -2241,7 +2264,7 @@ MIDIPacket *sub_C6A8(MIDIPacketList *pktlist)
 
 uint64_t sub_C70C(MIDIPacketList *a1)
 {
-  *&a1->numPackets = off_188B0;
+  *&a1->numPackets = &off_188B0;
   sub_C6A8(a1);
 
   return sub_C764(a1);
@@ -2249,7 +2272,7 @@ uint64_t sub_C70C(MIDIPacketList *a1)
 
 uint64_t sub_C764(uint64_t a1)
 {
-  *a1 = off_188D8;
+  *a1 = &off_188D8;
   if (*(a1 + 48))
   {
     __assert_rtn("~MIDIPacketEmitter", "MIDIPacketEmitter.h", 33, "TheList()->numPackets == 0");
@@ -2316,7 +2339,7 @@ uint64_t sub_C908(uint64_t a1, uint64_t a2)
 uint64_t sub_C95C(uint64_t a1)
 {
   v2 = sub_C9C8(a1);
-  *v2 = off_188B0;
+  *v2 = &off_188B0;
   *(v2 + 1072) = 0;
   *(v2 + 1076) = 0;
   *(a1 + 40) = MIDIPacketListInit((v2 + 48));
@@ -2325,7 +2348,7 @@ uint64_t sub_C95C(uint64_t a1)
 
 uint64_t sub_C9C8(uint64_t a1)
 {
-  *a1 = off_188D8;
+  *a1 = &off_188D8;
   *(a1 + 32) = 0;
   *(a1 + 40) = MIDIPacketListInit((a1 + 48));
   return a1;
@@ -2393,19 +2416,20 @@ void sub_CB30(uint64_t a1)
 {
   v2 = a1 + 16;
   v3 = (*(*(a1 + 16) + 16))(a1 + 16);
-  *(a1 + 128) = MIDITimerTaskCreate();
-  sub_CD8C();
-  v4 = qword_1D9A8;
+  v4 = MIDITimerTaskCreate();
+  *(a1 + 128) = v4;
+  sub_CD8C(v4, v5);
+  v6 = qword_1D9A8;
   if (os_log_type_enabled(qword_1D9A8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 128);
+    v7 = *(a1 + 128);
     *buf = 136315650;
-    v7 = "BTLEMIDIDataSender.mm";
-    v8 = 1024;
-    v9 = 67;
-    v10 = 2048;
-    v11 = v5;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created mWriteSignalTimer = %p", buf, 0x1Cu);
+    v9 = "BTLEMIDIDataSender.mm";
+    v10 = 1024;
+    v11 = 67;
+    v12 = 2048;
+    v13 = v7;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created mWriteSignalTimer = %p", buf, 0x1Cu);
   }
 
   if (v3)
@@ -2440,9 +2464,9 @@ void sub_CCA8(uint64_t a1)
   }
 }
 
-void sub_CD8C()
+void sub_CD8C(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1D9B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1D9B0, memory_order_acquire) & 1) == 0)
   {
     sub_10140();
   }
@@ -2452,29 +2476,29 @@ void *sub_CDBC(void *a1)
 {
   v2 = a1 + 2;
   v3 = (*(a1[2] + 16))(a1 + 2);
+  v5 = v3;
   if (v2[14])
   {
-    sub_CD8C();
-    v4 = qword_1D9A8;
+    sub_CD8C(v3, v4);
+    v6 = qword_1D9A8;
     if (os_log_type_enabled(qword_1D9A8, OS_LOG_TYPE_DEBUG))
     {
-      v5 = a1[16];
+      v7 = a1[16];
       *buf = 136315650;
-      v9 = "BTLEMIDIDataSender.mm";
-      v10 = 1024;
-      v11 = 76;
-      v12 = 2048;
-      v13 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d Disposing of mWriteSignalTimer %p", buf, 0x1Cu);
+      v10 = "BTLEMIDIDataSender.mm";
+      v11 = 1024;
+      v12 = 76;
+      v13 = 2048;
+      v14 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Disposing of mWriteSignalTimer %p", buf, 0x1Cu);
     }
 
-    v6 = a1[16];
     MIDITimerTaskDispose();
     a1[16] = 0;
   }
 
   result = sub_DA6C(a1 + 13);
-  if (v3)
+  if (v5)
   {
     return (*(*v2 + 24))(v2);
   }
@@ -2499,8 +2523,8 @@ uint64_t sub_CF34(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
     return 4294956463;
   }
 
-  v17 = a1 + 16;
-  v18 = (*(*(a1 + 16) + 16))();
+  v15 = a1 + 16;
+  v16 = (*(*(a1 + 16) + 16))();
   if (*a2 >= 1)
   {
     v8 = a2 + 1;
@@ -2518,9 +2542,9 @@ uint64_t sub_CF34(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
       memcpy(&__dst, v8 + 10, *(v8 + 4));
     }
 
-    v21 = a4;
-    v22 = 0;
-    v20 = a3;
+    v19 = a4;
+    v20 = 0;
+    v18 = a3;
     if (!v10)
     {
       v10 = mach_absolute_time();
@@ -2548,24 +2572,22 @@ uint64_t sub_CF34(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
   if (!*(a1 + 2144))
   {
     *(a1 + 2144) = 1;
-    v14 = *(a1 + 128);
     mach_absolute_time();
-    v15 = *(a1 + 136);
     __udivti3();
     MIDITimerTaskSetNextWakeTime();
   }
 
-  if (v18)
+  if (v16)
   {
-    (*(*v17 + 24))(v17);
+    (*(*v15 + 24))(v15);
   }
 
   return 0;
 }
 
-void sub_D1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_D1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_DAD0(va);
   _Unwind_Resume(a1);
 }
@@ -2607,7 +2629,7 @@ LABEL_5:
   v43 = v3;
   v44 = 0;
   v47 = 0;
-  v6 = (v3 + 104);
+  v6 = v3 + 104;
   while (1)
   {
     for (i = *(v3 + 112); i != v6; i = i[1])
@@ -2832,96 +2854,96 @@ void sub_D5E8(void *a1)
 {
   while (a1[15] && ((*(*a1 + 8))(a1) & 1) == 0)
   {
-    sub_F8F0(a1[1] - 8, *(a1[14] + 104));
-    if (!v13)
+    v2 = sub_F8F0(a1[1] - 8, *(a1[14] + 104));
+    if (!v17)
     {
       __assert_rtn("_DoWrite", "BTLEMIDIDataSender.mm", 432, "writeBuffer != nullptr");
     }
 
-    if (*(v13 + 44) == 1)
+    if (*(v17 + 44) == 1)
     {
-      sub_CD8C();
-      v2 = qword_1D9A8;
+      sub_CD8C(v2, v3);
+      v4 = qword_1D9A8;
       if (os_log_type_enabled(qword_1D9A8, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v19[0]) = 136315394;
-        *(v19 + 4) = "BTLEMIDIDataSender.mm";
-        WORD2(v19[1]) = 1024;
-        *(&v19[1] + 6) = 436;
-        v3 = v19;
-        v4 = v2;
-        v5 = "%25s:%-5d ERROR: All BLE MIDI data buffers are in use. Is Bluetooth backed up?";
+        LODWORD(v23[0]) = 136315394;
+        *(v23 + 4) = "BTLEMIDIDataSender.mm";
+        WORD2(v23[1]) = 1024;
+        *(&v23[1] + 6) = 436;
+        v5 = v23;
+        v6 = v4;
+        v7 = "%25s:%-5d ERROR: All BLE MIDI data buffers are in use. Is Bluetooth backed up?";
 LABEL_12:
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, v5, v3, 0x12u);
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, v7, v5, 0x12u);
       }
     }
 
     else
     {
-      atomic_fetch_add((v13 + 8), 1u);
-      memset(v19, 0, sizeof(v19));
-      sub_D1D4(a1, v13, v19);
-      v6 = v19[1];
-      if (v19[1])
+      atomic_fetch_add((v17 + 8), 1u);
+      memset(v23, 0, sizeof(v23));
+      sub_D1D4(a1, v17, v23);
+      v10 = v23[1];
+      if (v23[1])
       {
-        v7 = v19[0];
-        if (!v19[0] || v7 == [*(a1[1] + 104) validatePeripheral:v19[0]])
+        v11 = v23[0];
+        if (!v23[0] || (v8 = [*(a1[1] + 104) validatePeripheral:v23[0]], v11 == v8))
         {
-          v10 = SLODWORD(v19[2]);
-          if (LODWORD(v19[2]))
+          v14 = SLODWORD(v23[2]);
+          if (LODWORD(v23[2]))
           {
-            v11 = objc_autoreleasePoolPush();
-            *(v13 + 44) = 1;
-            v12 = [[NSData alloc] initWithBytesNoCopy:*(v13 + 24) length:v10 freeWhenDone:0];
-            if (v7)
+            v15 = objc_autoreleasePoolPush();
+            *(v17 + 44) = 1;
+            v16 = [[NSData alloc] initWithBytesNoCopy:*(v17 + 24) length:v14 freeWhenDone:0];
+            if (v11)
             {
-              [v7 writeValue:v12 forCharacteristic:v6 type:1];
-              *(v13 + 44) = 0;
-              if (atomic_fetch_add((v13 + 8), 0xFFFFFFFF) == 1)
+              [v11 writeValue:v16 forCharacteristic:v10 type:1];
+              *(v17 + 44) = 0;
+              if (atomic_fetch_add((v17 + 8), 0xFFFFFFFF) == 1)
               {
-                (*(*v13 + 16))();
+                (*(*v17 + 16))();
               }
 
-              bzero(*(v13 + 24), *(v13 + 40));
+              bzero(*(v17 + 24), *(v17 + 40));
             }
 
             else
             {
               [objc_msgSend(*(a1[1] + 112) "bleDevice")];
-              [(**a1)(a1) enqueue:v12];
+              [(**a1)(a1) enqueue:v16];
             }
 
-            objc_autoreleasePoolPop(v11);
+            objc_autoreleasePoolPop(v15);
           }
 
-          v9 = 1;
+          v13 = 1;
           goto LABEL_14;
         }
       }
 
-      sub_CD8C();
-      v8 = qword_1D9A8;
+      sub_CD8C(v8, v9);
+      v12 = qword_1D9A8;
       if (os_log_type_enabled(qword_1D9A8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "BTLEMIDIDataSender.mm";
-        v17 = 1024;
-        v18 = 449;
-        v3 = buf;
-        v4 = v8;
-        v5 = "%25s:%-5d [!] BLEMIDIDataSender::_DoWrite() not doing any work";
+        v20 = "BTLEMIDIDataSender.mm";
+        v21 = 1024;
+        v22 = 449;
+        v5 = buf;
+        v6 = v12;
+        v7 = "%25s:%-5d [!] BLEMIDIDataSender::_DoWrite() not doing any work";
         goto LABEL_12;
       }
     }
 
-    v9 = 0;
+    v13 = 0;
 LABEL_14:
-    if (v14)
+    if (v18)
     {
-      sub_2C18(v14);
+      sub_2C18(v18);
     }
 
-    if ((v9 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       return;
     }
@@ -3020,7 +3042,6 @@ _BYTE *sub_DAD0(_BYTE *a1)
 {
   if (a1[8] == 1)
   {
-    v2 = *a1;
     (*(**a1 + 24))();
   }
 
@@ -3045,7 +3066,7 @@ void sub_DF68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_DFA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_DFA8(const void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   sub_FF4();
   sub_F98C(v5, a4);
@@ -3053,11 +3074,11 @@ void sub_DFA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   operator new();
 }
 
-void sub_E0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_E0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_17AC(va);
-  sub_FCF8(v6 + 8);
+  sub_FCF8(v11 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -3069,50 +3090,50 @@ void sub_E0D0(uint64_t a1, xpc_object_t xdict)
   {
     v5 = xpc_dictionary_get_string(xdict, "deviceID");
     v6 = xpc_dictionary_get_string(xdict, "name");
-    v7 = v6;
+    v8 = v6;
     if (v5 && v6)
     {
-      v8 = [NSString stringWithUTF8String:v5];
-      v9 = [NSString stringWithUTF8String:v7];
+      v9 = [NSString stringWithUTF8String:v5];
+      v10 = [NSString stringWithUTF8String:v8];
 
-      sub_E2C0(v3, v8, v9);
+      sub_E2C0(v3, v9, v10);
     }
 
     else
     {
-      sub_E290();
-      v10 = qword_1D9C8;
+      sub_E290(v6, v7);
+      v11 = qword_1D9C8;
       if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
       {
-        v11 = "(null deviceID)";
+        v12 = "(null deviceID)";
         if (v5)
         {
-          v11 = v5;
+          v12 = v5;
         }
 
-        v14 = "BTLEMIDIDriver.mm";
-        v15 = 1024;
-        v16 = 176;
-        v12 = "null name";
-        v13 = 136315906;
-        v18 = v11;
-        v17 = 2080;
-        if (v7)
+        v15 = "BTLEMIDIDriver.mm";
+        v16 = 1024;
+        v17 = 176;
+        v13 = "null name";
+        v14 = 136315906;
+        v19 = v12;
+        v18 = 2080;
+        if (v8)
         {
-          v12 = v7;
+          v13 = v8;
         }
 
-        v19 = 2080;
-        v20 = v12;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d AppleMIDIBluetoothDriver received an invalid XPC event: %s, %s", &v13, 0x26u);
+        v20 = 2080;
+        v21 = v13;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AppleMIDIBluetoothDriver received an invalid XPC event: %s, %s", &v14, 0x26u);
       }
     }
   }
 }
 
-void sub_E290()
+void sub_E290(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_1D9D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1D9D0, memory_order_acquire) & 1) == 0)
   {
     sub_101A0();
   }
@@ -3120,7 +3141,7 @@ void sub_E290()
 
 id sub_E2C0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_E290();
+  sub_E290(a1, a2);
   v6 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
@@ -3159,20 +3180,20 @@ void sub_E440(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_E478(uint64_t a1)
+uint64_t sub_E478(uint64_t a1, uint64_t a2)
 {
-  sub_E290();
-  v2 = qword_1D9C8;
+  sub_E290(a1, a2);
+  v3 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v26 = "BTLEMIDIDriver.mm";
-    v27 = 1024;
-    v28 = 229;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::Start()", buf, 0x12u);
+    v35 = "BTLEMIDIDriver.mm";
+    v36 = 1024;
+    v37 = 229;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::Start()", buf, 0x12u);
   }
 
-  v3 = off_1D8B0;
+  v4 = off_1D8B0;
   sub_E9F4(a1);
   if (*(a1 + 2280))
   {
@@ -3189,40 +3210,41 @@ uint64_t sub_E478(uint64_t a1)
     sub_EA6C();
   }
 
-  v4 = +[BLEMIDIAccessor nullDevice];
-  *(a1 + 100) = v4;
-  v5 = (a1 + 100);
-  if (v4)
+  v5 = +[BLEMIDIAccessor nullDevice];
+  *(a1 + 100) = v5;
+  v7 = (a1 + 100);
+  if (v5)
   {
-    v6 = kMIDIPropertyOffline;
+    v8 = kMIDIPropertyOffline;
     goto LABEL_10;
   }
 
-  sub_E290();
-  v7 = qword_1D9C8;
+  sub_E290(v5, v6);
+  v9 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v26 = "BTLEMIDIDriver.mm";
-    v27 = 1024;
-    v28 = 244;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Creating null device ...", buf, 0x12u);
+    v35 = "BTLEMIDIDriver.mm";
+    v36 = 1024;
+    v37 = 244;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Creating null device ...", buf, 0x12u);
   }
 
-  v8 = MIDIDeviceCreate((a1 + 8), off_1D8B8, off_1D8C0, off_1D8C8, (a1 + 100));
-  sub_E290();
-  v9 = qword_1D9C8;
-  if (v8)
+  v10 = MIDIDeviceCreate((a1 + 8), off_1D8B8, off_1D8C0, off_1D8C8, (a1 + 100));
+  v11 = v10;
+  sub_E290(v10, v12);
+  v13 = qword_1D9C8;
+  if (v11)
   {
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v26 = "BTLEMIDIDriver.mm";
-      v27 = 1024;
-      v28 = 247;
-      v29 = 1024;
-      v30 = v8;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] Error %d creating BLE MIDI null device. No new Bluetooth connections are possible.", buf, 0x18u);
+      v35 = "BTLEMIDIDriver.mm";
+      v36 = 1024;
+      v37 = 247;
+      v38 = 1024;
+      v39 = v11;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] Error %d creating BLE MIDI null device. No new Bluetooth connections are possible.", buf, 0x18u);
     }
 
     return 4294956463;
@@ -3230,23 +3252,24 @@ uint64_t sub_E478(uint64_t a1)
 
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *v5;
+    v24 = *v7;
     *buf = 136315650;
-    v26 = "BTLEMIDIDriver.mm";
-    v27 = 1024;
-    v28 = 250;
-    v29 = 1024;
-    v30 = v17;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Null device created with MIDIDeviceRef %u", buf, 0x18u);
+    v35 = "BTLEMIDIDriver.mm";
+    v36 = 1024;
+    v37 = 250;
+    v38 = 1024;
+    v39 = v24;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d      Null device created with MIDIDeviceRef %u", buf, 0x18u);
   }
 
-  MIDIObjectSetIntegerProperty(*v5, @"is BLE MIDI null device", 1);
-  v6 = kMIDIPropertyOffline;
-  MIDIObjectSetIntegerProperty(*v5, kMIDIPropertyOffline, 1);
-  v18 = MIDISetupAddDevice(*v5);
-  sub_E290();
-  v19 = qword_1D9C8;
-  if (v18)
+  MIDIObjectSetIntegerProperty(*v7, @"is BLE MIDI null device", 1);
+  v8 = kMIDIPropertyOffline;
+  MIDIObjectSetIntegerProperty(*v7, kMIDIPropertyOffline, 1);
+  v25 = MIDISetupAddDevice(*v7);
+  v26 = v25;
+  sub_E290(v25, v27);
+  v28 = qword_1D9C8;
+  if (v26)
   {
     if (!os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
@@ -3254,14 +3277,14 @@ uint64_t sub_E478(uint64_t a1)
     }
 
     *buf = 136315650;
-    v26 = "BTLEMIDIDriver.mm";
-    v27 = 1024;
-    v28 = 260;
-    v29 = 1024;
-    v30 = v18;
-    v20 = "%25s:%-5d [!] MIDISetupAddDevice = %d";
-    v21 = v19;
-    v22 = OS_LOG_TYPE_ERROR;
+    v35 = "BTLEMIDIDriver.mm";
+    v36 = 1024;
+    v37 = 260;
+    v38 = 1024;
+    v39 = v26;
+    v29 = "%25s:%-5d [!] MIDISetupAddDevice = %d";
+    v30 = v28;
+    v31 = OS_LOG_TYPE_ERROR;
   }
 
   else
@@ -3271,23 +3294,23 @@ uint64_t sub_E478(uint64_t a1)
       goto LABEL_10;
     }
 
-    v23 = *v5;
+    v32 = *v7;
     *buf = 136315650;
-    v26 = "BTLEMIDIDriver.mm";
-    v27 = 1024;
-    v28 = 262;
-    v29 = 1024;
-    v30 = v23;
-    v20 = "%25s:%-5d      Successfully added null device = %u";
-    v21 = v19;
-    v22 = OS_LOG_TYPE_DEBUG;
+    v35 = "BTLEMIDIDriver.mm";
+    v36 = 1024;
+    v37 = 262;
+    v38 = 1024;
+    v39 = v32;
+    v29 = "%25s:%-5d      Successfully added null device = %u";
+    v30 = v28;
+    v31 = OS_LOG_TYPE_DEBUG;
   }
 
-  _os_log_impl(&dword_0, v21, v22, v20, buf, 0x18u);
+  _os_log_impl(&dword_0, v30, v31, v29, buf, 0x18u);
 LABEL_10:
-  MIDIObjectSetIntegerProperty(*v5, v6, 0);
+  MIDIObjectSetIntegerProperty(*v7, v8, 0);
   str = 0;
-  MIDIObjectGetStringProperty(*v5, @"Bluetooth Advertising Name", &str);
+  MIDIObjectGetStringProperty(*v7, @"Bluetooth Advertising Name", &str);
   if (str)
   {
     CFRelease(str);
@@ -3295,7 +3318,7 @@ LABEL_10:
 
   else
   {
-    MIDIObjectSetStringProperty(*v5, @"Bluetooth Advertising Name", v3);
+    MIDIObjectSetStringProperty(*v7, @"Bluetooth Advertising Name", v4);
   }
 
   if (qword_1D9C0)
@@ -3304,24 +3327,24 @@ LABEL_10:
     qword_1D9C0 = 0;
   }
 
-  v10 = MIDIClientCreate(@"BLE MIDI Client", sub_EBB0, a1, (a1 + 104));
-  sub_E290();
-  v11 = qword_1D9C8;
-  if (v10)
+  v14 = MIDIClientCreate(@"BLE MIDI Client", sub_EBB0, a1, (a1 + 104));
+  sub_E290(v14, v15);
+  v16 = qword_1D9C8;
+  if (v14)
   {
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v26 = "BTLEMIDIDriver.mm";
-      v27 = 1024;
-      v28 = 287;
-      v29 = 1024;
-      v30 = v10;
-      v12 = "%25s:%-5d [!]] MIDIClientCreate = %d, no notifications can be received.";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_ERROR;
+      v35 = "BTLEMIDIDriver.mm";
+      v36 = 1024;
+      v37 = 287;
+      v38 = 1024;
+      v39 = v14;
+      v17 = "%25s:%-5d [!]] MIDIClientCreate = %d, no notifications can be received.";
+      v18 = v16;
+      v19 = OS_LOG_TYPE_ERROR;
 LABEL_28:
-      _os_log_impl(&dword_0, v13, v14, v12, buf, 0x18u);
+      _os_log_impl(&dword_0, v18, v19, v17, buf, 0x18u);
     }
   }
 
@@ -3330,33 +3353,33 @@ LABEL_28:
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v26 = "BTLEMIDIDriver.mm";
-      v27 = 1024;
-      v28 = 291;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d      BLE MIDI client process created and awaiting notifications.", buf, 0x12u);
+      v35 = "BTLEMIDIDriver.mm";
+      v36 = 1024;
+      v37 = 291;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "%25s:%-5d      BLE MIDI client process created and awaiting notifications.", buf, 0x12u);
     }
 
     sub_ECF4(a1);
     sub_CB30(a1 + 128);
     *(a1 + 96) = 0;
-    sub_E290();
-    v15 = qword_1D9C8;
+    sub_E290(v20, v21);
+    v22 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "BTLEMIDIDriver.mm";
-      v27 = 1024;
-      v28 = 301;
-      v29 = 1024;
-      v30 = 0;
-      v12 = "%25s:%-5d [-] BLEMIDIDriver::Start() = %d";
-      v13 = v15;
-      v14 = OS_LOG_TYPE_INFO;
+      v35 = "BTLEMIDIDriver.mm";
+      v36 = 1024;
+      v37 = 301;
+      v38 = 1024;
+      v39 = 0;
+      v17 = "%25s:%-5d [-] BLEMIDIDriver::Start() = %d";
+      v18 = v22;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_28;
     }
   }
 
-  return v10;
+  return v14;
 }
 
 ItemCount sub_E9F4(uint64_t a1)
@@ -3400,25 +3423,29 @@ void sub_EA6C()
   }
 }
 
-void sub_EBB0(uint64_t a1, uint64_t a2)
+void sub_EBB0(uint64_t result, uint64_t a2)
 {
-  if (*a1 == 4 && !*(a1 + 12) && *(a1 + 8) == *(a2 + 100) && (CFEqual(*(a1 + 16), @"BLE MIDI Local Peripheral") || CFEqual(*(a1 + 16), @"BLE MIDI Remote Peripheral") || CFEqual(*(a1 + 16), @"disconnect device")))
+  if (*result == 4 && !*(result + 12) && *(result + 8) == *(a2 + 100))
   {
-    sub_E290();
-    v4 = qword_1D9C8;
-    if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_DEBUG))
+    v4 = CFEqual(*(result + 16), @"BLE MIDI Local Peripheral");
+    if (v4 || (v4 = CFEqual(*(result + 16), @"BLE MIDI Remote Peripheral"), v4) || (v4 = CFEqual(*(result + 16), @"disconnect device"), v4))
     {
-      v5 = *(a1 + 16);
-      v6 = 136315650;
-      v7 = "BTLEMIDIDriver.mm";
-      v8 = 1024;
-      v9 = 357;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d [?] Property set on null device: %@", &v6, 0x1Cu);
-    }
+      sub_E290(v4, v5);
+      v6 = qword_1D9C8;
+      if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = *(result + 16);
+        v8 = 136315650;
+        v9 = "BTLEMIDIDriver.mm";
+        v10 = 1024;
+        v11 = 357;
+        v12 = 2112;
+        v13 = v7;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d [?] Property set on null device: %@", &v8, 0x1Cu);
+      }
 
-    sub_EF60(a2, a1);
+      sub_EF60(a2, result);
+    }
   }
 }
 
@@ -3440,33 +3467,33 @@ id sub_ECF4(uint64_t a1)
   return result;
 }
 
-uint64_t sub_ED54(uint64_t a1)
+uint64_t sub_ED54(uint64_t a1, uint64_t a2)
 {
-  sub_E290();
-  v2 = qword_1D9C8;
+  sub_E290(a1, a2);
+  v3 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "BTLEMIDIDriver.mm";
-    v7 = 1024;
-    v8 = 307;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::Stop()", &v5, 0x12u);
+    v8 = 136315394;
+    v9 = "BTLEMIDIDriver.mm";
+    v10 = 1024;
+    v11 = 307;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::Stop()", &v8, 0x12u);
   }
 
   *(a1 + 96) = 1;
   sub_CDBC((a1 + 128));
   MIDIClientDispose(*(a1 + 104));
   *(a1 + 104) = 0;
-  sub_E9F4(a1);
-  sub_E290();
-  v3 = qword_1D9C8;
+  v4 = sub_E9F4(a1);
+  sub_E290(v4, v5);
+  v6 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "BTLEMIDIDriver.mm";
-    v7 = 1024;
-    v8 = 317;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%25s:%-5d [-] BLEMIDIDriver::Stop()", &v5, 0x12u);
+    v8 = 136315394;
+    v9 = "BTLEMIDIDriver.mm";
+    v10 = 1024;
+    v11 = 317;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%25s:%-5d [-] BLEMIDIDriver::Stop()", &v8, 0x12u);
   }
 
   return 0;
@@ -3528,14 +3555,14 @@ void sub_EF60(uint64_t a1, uint64_t a2)
     return;
   }
 
-  sub_E290();
+  sub_E290(a1, a2);
   v4 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "BTLEMIDIDriver.mm";
-    v26 = 1024;
-    v27 = 392;
+    v30 = "BTLEMIDIDriver.mm";
+    v31 = 1024;
+    v32 = 392;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::NullDevicePropertyChanged()", buf, 0x12u);
   }
 
@@ -3553,19 +3580,19 @@ void sub_EF60(uint64_t a1, uint64_t a2)
     {
       MIDIObjectRemoveProperty(*(a1 + 100), @"disconnect device");
       v7 = [BLEMIDIAccessor midiDeviceForUUID:cf isLocalPeripheral:0 isRemotePeripheral:1];
-      sub_E290();
-      v8 = qword_1D9C8;
+      sub_E290(v7, v8);
+      v9 = qword_1D9C8;
       if (v7)
       {
         if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v25 = "BTLEMIDIDriver.mm";
-          v26 = 1024;
-          v27 = 402;
-          v28 = 2112;
-          v29[0] = cf;
-          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%25s:%-5d      Request to deactivate UUID: %@", buf, 0x1Cu);
+          v30 = "BTLEMIDIDriver.mm";
+          v31 = 1024;
+          v32 = 402;
+          v33 = 2112;
+          v34[0] = cf;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d      Request to deactivate UUID: %@", buf, 0x1Cu);
         }
 
         sub_F37C(a1, v7);
@@ -3574,12 +3601,12 @@ void sub_EF60(uint64_t a1, uint64_t a2)
       else if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v25 = "BTLEMIDIDriver.mm";
-        v26 = 1024;
-        v27 = 405;
-        v28 = 2112;
-        v29[0] = cf;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] Couldn't find any connected peripherals with UUID %@.", buf, 0x1Cu);
+        v30 = "BTLEMIDIDriver.mm";
+        v31 = 1024;
+        v32 = 405;
+        v33 = 2112;
+        v34[0] = cf;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] Couldn't find any connected peripherals with UUID %@.", buf, 0x1Cu);
       }
 
       if (cf)
@@ -3597,69 +3624,69 @@ void sub_EF60(uint64_t a1, uint64_t a2)
     return;
   }
 
-  v10 = DictionaryProperty;
+  v12 = DictionaryProperty;
   if (DictionaryProperty)
   {
-    sub_E290();
-    v20 = qword_1D9C8;
+    sub_E290(DictionaryProperty, v11);
+    v25 = qword_1D9C8;
     if (!os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
       return;
     }
 
-    v21 = *(a2 + 16);
+    v26 = *(a2 + 16);
     *buf = 136315906;
-    v25 = "BTLEMIDIDriver.mm";
-    v26 = 1024;
-    v27 = 424;
-    v28 = 1024;
-    LODWORD(v29[0]) = v10;
-    WORD2(v29[0]) = 2112;
-    *(v29 + 6) = v21;
-    v16 = "%25s:%-5d [!] BLEMIDIDriver::NullDevicePropertyChanged() - Error %d encountered for property %@.";
-    v17 = v20;
-    v18 = OS_LOG_TYPE_ERROR;
-    v19 = 34;
+    v30 = "BTLEMIDIDriver.mm";
+    v31 = 1024;
+    v32 = 424;
+    v33 = 1024;
+    LODWORD(v34[0]) = v12;
+    WORD2(v34[0]) = 2112;
+    *(v34 + 6) = v26;
+    v21 = "%25s:%-5d [!] BLEMIDIDriver::NullDevicePropertyChanged() - Error %d encountered for property %@.";
+    v22 = v25;
+    v23 = OS_LOG_TYPE_ERROR;
+    v24 = 34;
 LABEL_23:
-    _os_log_impl(&dword_0, v17, v18, v16, buf, v19);
+    _os_log_impl(&dword_0, v22, v23, v21, buf, v24);
     return;
   }
 
   MIDIObjectRemoveProperty(*(a1 + 100), *(a2 + 16));
-  v11 = [(__CFDictionary *)outDict objectForKey:@"BLE MIDI Device UUID"];
-  v12 = [(__CFDictionary *)outDict objectForKey:kMIDIPropertyName];
-  if (v11)
+  v13 = [(__CFDictionary *)outDict objectForKey:@"BLE MIDI Device UUID"];
+  v14 = [(__CFDictionary *)outDict objectForKey:kMIDIPropertyName];
+  if (v13)
   {
-    v13 = v12;
-    sub_E290();
-    v14 = qword_1D9C8;
+    v16 = v14;
+    sub_E290(v14, v15);
+    v17 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v25 = "BTLEMIDIDriver.mm";
-      v26 = 1024;
-      v27 = 432;
-      v28 = 2112;
-      v29[0] = v11;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%25s:%-5d      Request to activate UUID: %@", buf, 0x1Cu);
+      v30 = "BTLEMIDIDriver.mm";
+      v31 = 1024;
+      v32 = 432;
+      v33 = 2112;
+      v34[0] = v13;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d      Request to activate UUID: %@", buf, 0x1Cu);
     }
 
-    [*(a1 + 112) activateUUID:v11 withName:{v13, cf}];
+    [*(a1 + 112) activateUUID:v13 withName:{v16, cf}];
   }
 
   CFRelease(outDict);
-  sub_E290();
-  v15 = qword_1D9C8;
+  sub_E290(v18, v19);
+  v20 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "BTLEMIDIDriver.mm";
-    v26 = 1024;
-    v27 = 436;
-    v16 = "%25s:%-5d [-] BLEMIDIDriver::NullDevicePropertyChanged()";
-    v17 = v15;
-    v18 = OS_LOG_TYPE_INFO;
-    v19 = 18;
+    v30 = "BTLEMIDIDriver.mm";
+    v31 = 1024;
+    v32 = 436;
+    v21 = "%25s:%-5d [-] BLEMIDIDriver::NullDevicePropertyChanged()";
+    v22 = v20;
+    v23 = OS_LOG_TYPE_INFO;
+    v24 = 18;
     goto LABEL_23;
   }
 }
@@ -3676,15 +3703,15 @@ uint64_t sub_F37C(uint64_t a1, uint64_t obj)
   StringProperty = MIDIObjectGetStringProperty(obj, @"BLE MIDI Device UUID", &str);
   if (!str || StringProperty)
   {
-    sub_E290();
-    v7 = qword_1D9C8;
+    sub_E290(StringProperty, v7);
+    v10 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "BTLEMIDIDriver.mm";
-      v12 = 1024;
-      v13 = 456;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Device has no UUID. Returing kMIDINotPermitted.", buf, 0x12u);
+      v14 = "BTLEMIDIDriver.mm";
+      v15 = 1024;
+      v16 = 456;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Device has no UUID. Returing kMIDINotPermitted.", buf, 0x12u);
     }
 
     return 4294956452;
@@ -3692,22 +3719,23 @@ uint64_t sub_F37C(uint64_t a1, uint64_t obj)
 
   else
   {
-    if ([BLEMIDIAccessor deviceIsRemotePeripheral:obj])
+    v8 = [BLEMIDIAccessor deviceIsRemotePeripheral:obj];
+    if (v8)
     {
       v4 = sub_F538(a1, str);
     }
 
     else
     {
-      sub_E290();
-      v8 = qword_1D9C8;
+      sub_E290(v8, v9);
+      v11 = qword_1D9C8;
       if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v11 = "BTLEMIDIDriver.mm";
-        v12 = 1024;
-        v13 = 463;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%25s:%-5d WARNING: Can't disconnect remote central, but the device was set to offline.", buf, 0x12u);
+        v14 = "BTLEMIDIDriver.mm";
+        v15 = 1024;
+        v16 = 463;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d WARNING: Can't disconnect remote central, but the device was set to offline.", buf, 0x12u);
       }
 
       v4 = 0;
@@ -3721,32 +3749,32 @@ uint64_t sub_F37C(uint64_t a1, uint64_t obj)
 
 uint64_t sub_F538(uint64_t a1, uint64_t a2)
 {
-  sub_E290();
+  sub_E290(a1, a2);
   v4 = qword_1D9C8;
   if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "BTLEMIDIDriver.mm";
-    v12 = 1024;
-    v13 = 471;
-    v14 = 2112;
-    v15 = a2;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::DisconnectDeviceWithUUID(%@)", &v10, 0x1Cu);
+    v13 = 136315650;
+    v14 = "BTLEMIDIDriver.mm";
+    v15 = 1024;
+    v16 = 471;
+    v17 = 2112;
+    v18 = a2;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "%25s:%-5d [+] BLEMIDIDriver::DisconnectDeviceWithUUID(%@)", &v13, 0x1Cu);
   }
 
   v5 = [*(a1 + 112) peripheralWithUUID:a2];
   if (v5)
   {
-    [*(a1 + 112) cancelConnectionForPeripheral:v5];
-    sub_E290();
-    v6 = qword_1D9C8;
+    v7 = [*(a1 + 112) cancelConnectionForPeripheral:v5];
+    sub_E290(v7, v8);
+    v9 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "BTLEMIDIDriver.mm";
-      v12 = 1024;
-      v13 = 483;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "%25s:%-5d [-] BLEMIDIDriver::DisconnectDeviceWithUUID = noErr", &v10, 0x12u);
+      v13 = 136315394;
+      v14 = "BTLEMIDIDriver.mm";
+      v15 = 1024;
+      v16 = 483;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d [-] BLEMIDIDriver::DisconnectDeviceWithUUID = noErr", &v13, 0x12u);
     }
 
     return 0;
@@ -3754,24 +3782,24 @@ uint64_t sub_F538(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_E290();
-    v8 = qword_1D9C8;
-    v7 = 4294956454;
+    sub_E290(0, v6);
+    v11 = qword_1D9C8;
+    v10 = 4294956454;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315906;
-      v11 = "BTLEMIDIDriver.mm";
-      v12 = 1024;
-      v13 = 478;
-      v14 = 2112;
-      v15 = a2;
-      v16 = 1024;
-      v17 = -10842;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] BLEMIDIDriver::DisconnectDevice() - No peripheral found with uuid %@, returning %d", &v10, 0x22u);
+      v13 = 136315906;
+      v14 = "BTLEMIDIDriver.mm";
+      v15 = 1024;
+      v16 = 478;
+      v17 = 2112;
+      v18 = a2;
+      v19 = 1024;
+      v20 = -10842;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d [!] BLEMIDIDriver::DisconnectDevice() - No peripheral found with uuid %@, returning %d", &v13, 0x22u);
     }
   }
 
-  return v7;
+  return v10;
 }
 
 id sub_F750(uint64_t a1, uint64_t a2)
@@ -3800,17 +3828,17 @@ id sub_F790(uint64_t a1, uint64_t a2)
   else
   {
     v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"peripheral = %@, peripheral.name = %@. Returning nil", v3, [v3 name]);
-    sub_E290();
-    v6 = qword_1D9C8;
+    sub_E290(v5, v6);
+    v7 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v9 = "BTLEMIDIDriver.mm";
-      v10 = 1024;
-      v11 = 545;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %@", buf, 0x1Cu);
+      v10 = "BTLEMIDIDriver.mm";
+      v11 = 1024;
+      v12 = 545;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d %@", buf, 0x1Cu);
     }
 
     return 0;
@@ -3897,9 +3925,9 @@ uint64_t sub_FB48(uint64_t a1, void *a2)
   return sub_F98C((a2 + 2), a1 + 16);
 }
 
-void sub_FB80(void *a1)
+void sub_FB80(char *a1)
 {
-  sub_FCF8(a1 + 16);
+  sub_FCF8((a1 + 16));
 
   operator delete(a1);
 }
@@ -3984,7 +4012,7 @@ void sub_FE14(uint64_t a1, void *a2)
 {
   if (*a2)
   {
-    sub_E290();
+    sub_E290(a1, a2);
     v3 = qword_1D9C8;
     if (os_log_type_enabled(qword_1D9C8, OS_LOG_TYPE_INFO))
     {
@@ -4008,73 +4036,73 @@ void *sub_FEEC(void *result)
   return result;
 }
 
-uint64_t sub_FEFC(uint64_t result)
+uint64_t sub_FEFC(uint64_t a1)
 {
-  if (*(result + 16))
+  if (*(a1 + 16))
   {
     operator delete[]();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_FFC0()
 {
-  if (__cxa_guard_acquire(&qword_1D970))
+  if (__cxa_guard_acquire(byte_1D970))
   {
     qword_1D968 = os_log_create("com.apple.coremidi", "blecen");
 
-    __cxa_guard_release(&qword_1D970);
+    __cxa_guard_release(byte_1D970);
   }
 }
 
 void sub_10020()
 {
-  if (__cxa_guard_acquire(&qword_1D980))
+  if (__cxa_guard_acquire(byte_1D980))
   {
     qword_1D978 = os_log_create("com.apple.coremidi", "blelcp");
 
-    __cxa_guard_release(&qword_1D980);
+    __cxa_guard_release(byte_1D980);
   }
 }
 
 void sub_10080()
 {
-  if (__cxa_guard_acquire(&qword_1D990))
+  if (__cxa_guard_acquire(byte_1D990))
   {
     qword_1D988 = os_log_create("com.apple.coremidi", "btlets");
 
-    __cxa_guard_release(&qword_1D990);
+    __cxa_guard_release(byte_1D990);
   }
 }
 
 void sub_100E0()
 {
-  if (__cxa_guard_acquire(&qword_1D9A0))
+  if (__cxa_guard_acquire(byte_1D9A0))
   {
     qword_1D998 = os_log_create("com.apple.coremidi", "btdrcv");
 
-    __cxa_guard_release(&qword_1D9A0);
+    __cxa_guard_release(byte_1D9A0);
   }
 }
 
 void sub_10140()
 {
-  if (__cxa_guard_acquire(&qword_1D9B0))
+  if (__cxa_guard_acquire(byte_1D9B0))
   {
     qword_1D9A8 = os_log_create("com.apple.coremidi", "btdsnd");
 
-    __cxa_guard_release(&qword_1D9B0);
+    __cxa_guard_release(byte_1D9B0);
   }
 }
 
 void sub_101A0()
 {
-  if (__cxa_guard_acquire(&qword_1D9D0))
+  if (__cxa_guard_acquire(byte_1D9D0))
   {
     qword_1D9C8 = os_log_create("com.apple.coremidi", "bledrv");
 
-    __cxa_guard_release(&qword_1D9D0);
+    __cxa_guard_release(byte_1D9D0);
   }
 }
 

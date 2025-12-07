@@ -58,30 +58,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_actionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_actionHistory)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    relativeTimeSinceAnchorInSeconds = self->_relativeTimeSinceAnchorInSeconds;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -234,7 +233,7 @@ LABEL_13:
       goto LABEL_11;
     }
 
-    [(ATXAnchorModelPBLaunchHistoryMetadata *)actionHistory mergeFrom:?];
+    actionHistory = [(ATXAnchorModelPBLaunchHistoryMetadata *)actionHistory mergeFrom:?];
   }
 
   else
@@ -244,7 +243,7 @@ LABEL_13:
       goto LABEL_11;
     }
 
-    [(ATXAnchorModelPBLinkActionMetadata *)self setActionHistory:?];
+    actionHistory = [(ATXAnchorModelPBLinkActionMetadata *)self setActionHistory:?];
   }
 
   fromCopy = v7;
@@ -255,7 +254,7 @@ LABEL_11:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](actionHistory, fromCopy);
 }
 
 @end

@@ -138,7 +138,7 @@
 
 uint64_t __50__SSDownloadManifestResponse_initWithXPCEncoding___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  if (MEMORY[0x1DA6E0380](a3) == MEMORY[0x1E69E9EB0])
+  if (MEMORY[0x1DA6E0380](a3, a2) == MEMORY[0x1E69E9EB0])
   {
     v5 = [[SSDownload alloc] initWithPersistentIdentifier:xpc_int64_get_value(a3)];
     [*(a1 + 32) addObject:v5];

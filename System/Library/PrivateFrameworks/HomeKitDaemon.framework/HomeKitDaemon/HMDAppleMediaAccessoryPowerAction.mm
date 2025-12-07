@@ -28,19 +28,17 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDAction *)self uuid];
   v5 = [v3 initWithName:@"UUID" value:uuid];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAppleMediaAccessoryPowerAction *)self type];
   v7 = HMActionTypeAsString();
   v8 = [v6 initWithName:@"Type" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -60,7 +58,7 @@
 
 - (HMDAppleMediaAccessoryPowerAction)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDAction alloc] initWithCoder:coderCopy];
   if (v5)
@@ -84,13 +82,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v20.receiver = selfCopy;
-      v20.super_class = HMDAppleMediaAccessoryPowerAction;
-      v17 = [(HMDAppleMediaAccessoryPowerAction *)&v20 class];
+      v19.receiver = selfCopy;
+      v19.super_class = HMDAppleMediaAccessoryPowerAction;
+      v17 = [(HMDAppleMediaAccessoryPowerAction *)&v19 class];
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode base class: %@", buf, 0x16u);
     }
 
@@ -98,13 +96,12 @@
     v13 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -171,19 +168,19 @@
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v29 = v33 = selfCopy;
+      v29 = v32 = selfCopy;
       [v13 accessoryUUID];
-      v30 = v34 = v26;
+      v30 = v33 = v26;
       *buf = 138543874;
-      v36 = v29;
-      v37 = 2112;
-      v38 = v13;
-      v39 = 2112;
-      v40 = v30;
+      v35 = v29;
+      v36 = 2112;
+      v37 = v13;
+      v38 = 2112;
+      v39 = v30;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unknown accessory saved in object model %@: %@", buf, 0x20u);
 
-      v26 = v34;
-      selfCopy = v33;
+      v26 = v33;
+      selfCopy = v32;
     }
 
     objc_autoreleasePoolPop(v26);
@@ -207,12 +204,12 @@ LABEL_21:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v36 = v24;
-      v37 = 2112;
-      v38 = v11;
-      v39 = 2112;
-      v40 = objc_opt_class();
-      v25 = v40;
+      v35 = v24;
+      v36 = 2112;
+      v37 = v11;
+      v38 = 2112;
+      v39 = objc_opt_class();
+      v25 = v39;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", buf, 0x20u);
     }
 
@@ -222,8 +219,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
@@ -254,7 +249,7 @@ LABEL_22:
 
 - (HMDAppleMediaAccessoryPowerAction)initWithModelObject:(id)object parent:(id)parent error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   parentCopy = parent;
   v10 = objectCopy;
@@ -296,7 +291,7 @@ LABEL_22:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v36;
+        v50 = v36;
         _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Parent is not an actionset", buf, 0xCu);
       }
 
@@ -328,14 +323,14 @@ LABEL_22:
       {
         v39 = HMFGetLogIdentifier();
         [v12 accessoryUUID];
-        v40 = v49 = v37;
+        v40 = v48 = v37;
         *buf = 138543618;
-        v51 = v39;
-        v52 = 2112;
-        v53 = v40;
+        v50 = v39;
+        v51 = 2112;
+        v52 = v40;
         _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Unable to find accessory with UUID: %@", buf, 0x16u);
 
-        v37 = v49;
+        v37 = v48;
       }
 
       objc_autoreleasePoolPop(v37);
@@ -366,7 +361,7 @@ LABEL_22:
       v21 = 0;
     }
 
-    v48 = v21;
+    v47 = v21;
 
     if (v20)
     {
@@ -388,14 +383,14 @@ LABEL_22:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v27 = v47 = v24;
+        v27 = v46 = v24;
         *buf = 138543618;
-        v51 = v27;
-        v52 = 2048;
-        v53 = unsignedIntegerValue;
+        v50 = v27;
+        v51 = 2048;
+        v52 = unsignedIntegerValue;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Invalid target sleep wake state: %lu", buf, 0x16u);
 
-        v24 = v47;
+        v24 = v46;
       }
 
       objc_autoreleasePoolPop(v24);
@@ -404,7 +399,7 @@ LABEL_22:
         v28 = MEMORY[0x277CCA9B8];
         v29 = 3;
 LABEL_36:
-        [v28 hmErrorWithCode:{v29, v47, v48}];
+        [v28 hmErrorWithCode:{v29, v46, v47}];
         *error = v33 = 0;
 LABEL_40:
 
@@ -424,9 +419,9 @@ LABEL_42:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v51 = v43;
-        v52 = 2112;
-        v53 = 0;
+        v50 = v43;
+        v51 = 2112;
+        v52 = 0;
         _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Accessory is not an Apple Media Accessory: %@", buf, 0x16u);
       }
 
@@ -450,7 +445,7 @@ LABEL_42:
   {
     v32 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v51 = v32;
+    v50 = v32;
     _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Action model does not exist", buf, 0xCu);
   }
 
@@ -468,7 +463,6 @@ LABEL_42:
 
 LABEL_43:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -504,13 +498,13 @@ LABEL_43:
 
 - (id)associatedAccessories
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDAppleMediaAccessoryPowerAction *)self accessory];
   v3 = accessory;
   if (accessory)
   {
-    v7[0] = accessory;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = accessory;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
@@ -518,14 +512,12 @@ LABEL_43:
     v4 = MEMORY[0x277CBEBF8];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)executeWithSource:(unint64_t)source clientName:(id)name completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
   v9 = objc_autoreleasePoolPush();
@@ -535,7 +527,7 @@ LABEL_43:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v27 = v12;
+    v26 = v12;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Executing Apple TV Power Action", buf, 0xCu);
   }
 
@@ -561,15 +553,15 @@ LABEL_43:
     objc_initWeak(buf, selfCopy);
     accessory = [(HMDAppleMediaAccessoryPowerAction *)selfCopy accessory];
     mediaProfile = [accessory mediaProfile];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __84__HMDAppleMediaAccessoryPowerAction_executeWithSource_clientName_completionHandler___block_invoke;
-    v23[3] = &unk_278689728;
-    objc_copyWeak(&v25, buf);
-    v24 = handlerCopy;
-    [mediaProfile handleSetValue:v14 withRequestProperty:@"HMDMediaProfileSetPowerKey" withCompletionHandler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __84__HMDAppleMediaAccessoryPowerAction_executeWithSource_clientName_completionHandler___block_invoke;
+    v22[3] = &unk_278689728;
+    objc_copyWeak(&v24, buf);
+    v23 = handlerCopy;
+    [mediaProfile handleSetValue:v14 withRequestProperty:@"HMDMediaProfileSetPowerKey" withCompletionHandler:v22];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
@@ -583,21 +575,19 @@ LABEL_43:
       v18 = HMFGetLogIdentifier();
       targetSleepWakeState2 = [(HMDAppleMediaAccessoryPowerAction *)v16 targetSleepWakeState];
       *buf = 138543618;
-      v27 = v18;
-      v28 = 2048;
-      v29 = targetSleepWakeState2;
+      v26 = v18;
+      v27 = 2048;
+      v28 = targetSleepWakeState2;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Invalid target sleep wake state set: %tu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDAppleMediaAccessoryPowerAction_executeWithSource_clientName_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -613,12 +603,12 @@ void __84__HMDAppleMediaAccessoryPowerAction_executeWithSource_clientName_comple
     }
 
     v12 = HMFGetLogIdentifier();
-    v20 = 138543874;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v5;
+    v19 = 138543874;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v5;
     v13 = "%{public}@Failed to execute %@ with error: %@";
     v14 = v11;
     v15 = OS_LOG_TYPE_ERROR;
@@ -633,17 +623,17 @@ void __84__HMDAppleMediaAccessoryPowerAction_executeWithSource_clientName_comple
     }
 
     v12 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v9;
+    v19 = 138543618;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v9;
     v13 = "%{public}@Successfully executed %@";
     v14 = v11;
     v15 = OS_LOG_TYPE_DEFAULT;
     v16 = 22;
   }
 
-  _os_log_impl(&dword_229538000, v14, v15, v13, &v20, v16);
+  _os_log_impl(&dword_229538000, v14, v15, v13, &v19, v16);
 
 LABEL_7:
   objc_autoreleasePoolPop(v8);
@@ -653,8 +643,6 @@ LABEL_7:
   {
     (*(v17 + 2))(v17, v5);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
@@ -672,7 +660,7 @@ LABEL_7:
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAppleMediaAccessoryPowerAction targetSleepWakeState](self, "targetSleepWakeState")}];
   [v4 setObject:v8 forKeyedSubscript:*MEMORY[0x277CCF220]];
 
-  v9 = [v4 copy];
+  v9 = objc_msgSend_copy(v4);
 
   return v9;
 }
@@ -717,15 +705,14 @@ LABEL_7:
 
 void __48__HMDAppleMediaAccessoryPowerAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v27_247368;
-  logCategory__hmf_once_v27_247368 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27_247368;
+  logCategory__hmf_once_v27_247368 = v0;
 }
 
 + (id)actionWithDictionaryRepresentation:(id)representation home:(id)home
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   homeCopy = home;
   v8 = [representationCopy hmf_numberForKey:*MEMORY[0x277CD2058]];
@@ -791,14 +778,14 @@ void __48__HMDAppleMediaAccessoryPowerAction_logCategory__block_invoke()
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v24 = v42 = v21;
+        v24 = v41 = v21;
         *buf = 138543618;
-        v45 = v24;
-        v46 = 2048;
-        v47 = unsignedIntegerValue;
+        v44 = v24;
+        v45 = 2048;
+        v46 = unsignedIntegerValue;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid power state: %tu", buf, 0x16u);
 
-        v21 = v42;
+        v21 = v41;
       }
 
       v25 = v21;
@@ -813,14 +800,14 @@ void __48__HMDAppleMediaAccessoryPowerAction_logCategory__block_invoke()
       {
         v34 = HMFGetLogIdentifier();
         [(HMDAppleMediaAccessoryPowerActionModel *)v13 accessoryUUID];
-        v35 = v43 = v31;
+        v35 = v42 = v31;
         *buf = 138543618;
-        v45 = v34;
-        v46 = 2112;
-        v47 = v35;
+        v44 = v34;
+        v45 = 2112;
+        v46 = v35;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find an Apple TV in the home with UUID: %@", buf, 0x16u);
 
-        v31 = v43;
+        v31 = v42;
       }
 
       v25 = v31;
@@ -840,17 +827,15 @@ LABEL_22:
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v29;
-    v46 = 2112;
-    v47 = v9;
+    v44 = v29;
+    v45 = 2112;
+    v46 = v9;
     _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Invalid action type: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v26);
   v30 = 0;
 LABEL_23:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

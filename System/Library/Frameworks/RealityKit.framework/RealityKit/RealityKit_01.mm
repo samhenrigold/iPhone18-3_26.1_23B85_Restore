@@ -1,4 +1,4 @@
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t (*a7)(void))
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -44,7 +44,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(a5);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
   v14 = *(a7(0) - 8);
   v15 = *(v14 + 72);
   v16 = (*(v14 + 80) + 32) & ~*(v14 + 80);
@@ -58,7 +58,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -131,7 +131,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_12CoreGraphics7CGFloatVtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_12CoreGraphics7CGFloatVtGMd, &_ss23_ContiguousArrayStorageCySS_12CoreGraphics7CGFloatVtGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -155,7 +155,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_12CoreGraphics7CGFloatVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_12CoreGraphics7CGFloatVtMd, &_sSS_12CoreGraphics7CGFloatVtMR);
     swift_arrayInitWithCopy();
   }
 
@@ -202,7 +202,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit23EntityGestureRecognizer_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit23EntityGestureRecognizer_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit23EntityGestureRecognizer_pGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -232,20 +232,20 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit23EntityGestureRecognizer_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit23EntityGestureRecognizer_pMd, &_s10RealityKit23EntityGestureRecognizer_pMR);
     swift_arrayInitWithCopy();
   }
 
   return v10;
 }
 
-uint64_t outlined consume of Set<SpatialTrackingSession.Configuration.SceneUnderstandingCapability>.Index._Variant(uint64_t a1, uint64_t a2, char a3)
+uint64_t outlined consume of Set<SpatialTrackingSession.Configuration.SceneUnderstandingCapability>.Index._Variant(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
 void one-time initialization function for disable10BitPassthrough()
@@ -635,26 +635,26 @@ LABEL_31:
   }
 }
 
-uint64_t RKARSystem.activateWorldOriginVisualization()()
+void RKARSystem.activateWorldOriginVisualization()()
 {
   v1 = type metadata accessor for Scene.AnchorCollection();
   v2 = *(v1 - 8);
-  result = MEMORY[0x1EEE9AC00](v1);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v1);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = OBJC_IVAR____TtC10RealityKit10RKARSystem_worldOrigin;
   if (!*(v0 + OBJC_IVAR____TtC10RealityKit10RKARSystem_worldOrigin))
   {
-    v7 = result;
+    v7 = v3;
     v8 = specialized RKARSystem.createDebugAxis()();
     Entity.turnIntoNinja()();
-    result = swift_unknownObjectWeakLoadStrong();
-    if (result)
+    Strong = swift_unknownObjectWeakLoadStrong();
+    if (Strong)
     {
-      v9 = result;
-      if (!*(result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+      v10 = Strong;
+      if (!*(Strong + OBJC_IVAR____TtC10RealityKit6ARView__scene))
       {
         __break(1u);
-        return result;
+        return;
       }
 
       dispatch thunk of Scene.anchors.getter();
@@ -665,43 +665,39 @@ uint64_t RKARSystem.activateWorldOriginVisualization()()
 
     *(v0 + v6) = v8;
   }
-
-  return result;
 }
 
-uint64_t RKARSystem.deactivateWorldOriginVisualization()()
+void RKARSystem.deactivateWorldOriginVisualization()()
 {
   v1 = type metadata accessor for Scene.AnchorCollection();
   v2 = *(v1 - 8);
-  result = MEMORY[0x1EEE9AC00](v1);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = OBJC_IVAR____TtC10RealityKit10RKARSystem_worldOrigin;
+  MEMORY[0x1EEE9AC00](v1);
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = OBJC_IVAR____TtC10RealityKit10RKARSystem_worldOrigin;
   if (*(v0 + OBJC_IVAR____TtC10RealityKit10RKARSystem_worldOrigin))
   {
-    result = swift_unknownObjectWeakLoadStrong();
-    if (result)
+    Strong = swift_unknownObjectWeakLoadStrong();
+    if (Strong)
     {
-      v7 = result;
-      if (!*(result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+      v7 = Strong;
+      if (!*(Strong + OBJC_IVAR____TtC10RealityKit6ARView__scene))
       {
         __break(1u);
-        return result;
+        return;
       }
 
       dispatch thunk of Scene.anchors.getter();
 
       Scene.AnchorCollection.removeNinja(_:)();
 
-      (*(v2 + 8))(v5, v1);
+      (*(v2 + 8))(v4, v1);
     }
 
-    *(v0 + v6) = 0;
+    *(v0 + v5) = 0;
   }
-
-  return result;
 }
 
-uint64_t RKARSystem.createDebugVisualizationForAnchors(in:)(void *a1)
+void RKARSystem.createDebugVisualizationForAnchors(in:)(void *a1)
 {
   v2 = v1;
   v28 = type metadata accessor for Scene.AnchorCollection();
@@ -710,7 +706,7 @@ uint64_t RKARSystem.createDebugVisualizationForAnchors(in:)(void *a1)
   v27 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v36 = type metadata accessor for UUID();
   v6 = *(v36 - 8);
-  result = MEMORY[0x1EEE9AC00](v36);
+  *&v7 = MEMORY[0x1EEE9AC00](v36).n128_u64[0];
   v35 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugOptions;
   if ((*(v2 + OBJC_IVAR____TtC10RealityKit10RKARSystem_debugOptions) & 8) != 0)
@@ -776,6 +772,9 @@ uint64_t RKARSystem.createDebugVisualizationForAnchors(in:)(void *a1)
             if (!*(Strong + OBJC_IVAR____TtC10RealityKit6ARView__scene))
             {
               __break(1u);
+LABEL_17:
+
+              return;
             }
 
             v16 = v27;
@@ -808,6 +807,7 @@ uint64_t RKARSystem.createDebugVisualizationForAnchors(in:)(void *a1)
         ++v13;
         if (v21 == i)
         {
+          goto LABEL_17;
         }
       }
 
@@ -818,26 +818,24 @@ LABEL_21:
       ;
     }
   }
-
-  return result;
 }
 
-uint64_t RKARSystem.createDebugVisualizationForAnchorPlanes(in:)(void *a1)
+void RKARSystem.createDebugVisualizationForAnchorPlanes(in:)(void *a1)
 {
   v2 = v1;
-  v65 = *MEMORY[0x1E69E9840];
-  v47 = type metadata accessor for Scene.AnchorCollection();
-  v4 = *(v47 - 8);
-  MEMORY[0x1EEE9AC00](v47);
-  v46 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v53 = type metadata accessor for UUID();
-  v6 = *(v53 - 8);
-  result = MEMORY[0x1EEE9AC00](v53);
-  v52 = (&v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v67 = *MEMORY[0x1E69E9840];
+  v49 = type metadata accessor for Scene.AnchorCollection();
+  v4 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v48 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for UUID();
+  v6 = *(v55 - 8);
+  *&v7 = MEMORY[0x1EEE9AC00](v55).n128_u64[0];
+  v54 = (&v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   v9 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugOptions;
   if ((*(v2 + OBJC_IVAR____TtC10RealityKit10RKARSystem_debugOptions) & 0x10) == 0)
   {
-    return result;
+    return;
   }
 
   v10 = [a1 anchors];
@@ -854,6 +852,8 @@ LABEL_38:
     }
 
 LABEL_39:
+
+    return;
   }
 
   v12 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -865,19 +865,19 @@ LABEL_39:
 LABEL_4:
   v13 = 0;
   v14 = v11 & 0xC000000000000001;
-  v55 = v11 & 0xFFFFFFFFFFFFFF8;
-  v50 = OBJC_IVAR____TtC10RealityKit10RKARSystem_arView;
-  v44 = "__probeDebugGeometry";
-  v45 = (v4 + 8);
-  v41 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugProbesByAnchorIdentifier;
-  v43 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugPlanesByAnchorIdentifier;
-  v48 = v6 + 1;
-  v42 = "__axisDebugGeometry";
+  v57 = v11 & 0xFFFFFFFFFFFFFF8;
+  v52 = OBJC_IVAR____TtC10RealityKit10RKARSystem_arView;
+  v46 = "__probeDebugGeometry";
+  v47 = (v4 + 8);
+  v43 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugProbesByAnchorIdentifier;
+  v45 = OBJC_IVAR____TtC10RealityKit10RKARSystem_debugPlanesByAnchorIdentifier;
+  v50 = v6 + 1;
+  v44 = "__axisDebugGeometry";
   v4 = 0x1E6986000uLL;
-  v49 = xmmword_1E12531A0;
-  v54 = v9;
-  v56 = v11 & 0xC000000000000001;
-  v57 = v12;
+  v51 = xmmword_1E12531A0;
+  v56 = v9;
+  v58 = v11 & 0xC000000000000001;
+  v59 = v12;
   while (1)
   {
     if (v14)
@@ -887,7 +887,7 @@ LABEL_4:
 
     else
     {
-      if (v13 >= *(v55 + 16))
+      if (v13 >= *(v57 + 16))
       {
         goto LABEL_36;
       }
@@ -915,38 +915,38 @@ LABEL_37:
     }
 
     objc_opt_self();
-    v30 = swift_dynamicCastObjCClass();
-    if (v30 && (*(v2 + v9) & 0x10) != 0)
+    v31 = swift_dynamicCastObjCClass();
+    if (v31 && (*(v2 + v9) & 0x10) != 0)
     {
-      v6 = v30;
-      [v30 extent];
-      v51 = v31;
+      v6 = v31;
+      [v31 extent];
+      v53 = v32;
       type metadata accessor for __ServiceLocator();
       static __ServiceLocator.shared.getter();
       dispatch thunk of __ServiceLocator.assetService.getter();
 
-      v32 = v63;
-      v33 = v64;
-      __swift_project_boxed_opaque_existential_1(&v59, v63);
-      (*(v33 + 32))(v32, v33);
-      __swift_destroy_boxed_opaque_existential_1(&v59);
-      v59 = 0x1000100010001;
-      v60 = 0;
-      v61 = v51;
-      v62 = DWORD2(v51);
-      LOWORD(v63) = 257;
-      BYTE2(v63) = 1;
+      v33 = v65;
+      v34 = v66;
+      __swift_project_boxed_opaque_existential_1(&v61, v65);
+      (*(v34 + 32))(v33, v34);
+      __swift_destroy_boxed_opaque_existential_1(&v61);
+      v61 = 0x1000100010001;
+      v62 = 0;
+      v63 = v53;
+      v64 = DWORD2(v53);
+      LOWORD(v65) = 257;
+      BYTE2(v65) = 1;
       if (REAssetManagerMeshMemoryAssetCreateBox())
       {
         type metadata accessor for MeshResource();
         swift_allocObject();
         MeshResource.init(_:)();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd);
-        v34 = swift_allocObject();
-        *(v34 + 16) = v49;
-        *(v34 + 56) = type metadata accessor for UnlitMaterial();
-        *(v34 + 64) = MEMORY[0x1E697A178];
-        boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((v34 + 32));
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMR);
+        v35 = swift_allocObject();
+        *(v35 + 16) = v51;
+        *(v35 + 56) = type metadata accessor for UnlitMaterial();
+        *(v35 + 64) = MEMORY[0x1E697A178];
+        boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((v35 + 32));
 
         RKARSystem.debugProbeMaterial.getter(boxed_opaque_existential_0);
         type metadata accessor for ModelEntity();
@@ -958,40 +958,40 @@ LABEL_37:
         [v6 transform];
         HasTransform.setTransformMatrix(_:relativeTo:)();
         Entity.turnIntoNinja()();
-        result = swift_unknownObjectWeakLoadStrong();
-        if (result)
+        Strong = swift_unknownObjectWeakLoadStrong();
+        if (Strong)
         {
-          v36 = result;
-          if (!*(result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+          v38 = Strong;
+          if (!*(Strong + OBJC_IVAR____TtC10RealityKit6ARView__scene))
           {
             goto LABEL_43;
           }
 
-          v37 = v46;
+          v39 = v48;
           dispatch thunk of Scene.anchors.getter();
 
           Scene.AnchorCollection.appendNinja(_:)();
-          (*v45)(v37, v47);
+          (*v47)(v39, v49);
         }
 
-        v38 = [v6 identifier];
-        v6 = v52;
+        v40 = [v6 identifier];
+        v6 = v54;
         static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v29 = &v66;
+        v30 = &v68;
 LABEL_28:
-        v39 = *(v29 - 32);
+        v41 = *(v30 - 32);
         swift_beginAccess();
 
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v58 = *(v2 + v39);
-        *(v2 + v39) = 0x8000000000000000;
+        v60 = *(v2 + v41);
+        *(v2 + v41) = 0x8000000000000000;
         specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v25, v6, isUniquelyReferenced_nonNull_native);
-        (*v48)(v6, v53);
-        *(v2 + v39) = v58;
+        (*v50)(v6, v55);
+        *(v2 + v41) = v60;
         swift_endAccess();
 
-        v9 = v54;
+        v9 = v56;
       }
 
       else
@@ -999,8 +999,8 @@ LABEL_28:
       }
 
 LABEL_31:
-      v14 = v56;
-      v12 = v57;
+      v14 = v58;
+      v12 = v59;
       v4 = 0x1E6986000;
       goto LABEL_6;
     }
@@ -1011,6 +1011,8 @@ LABEL_6:
     ++v13;
     if (v17 == v12)
     {
+
+      return;
     }
   }
 
@@ -1034,20 +1036,20 @@ LABEL_6:
     goto LABEL_30;
   }
 
-  v58 = v20;
+  v60 = v20;
   type metadata accessor for __ServiceLocator();
   static __ServiceLocator.shared.getter();
   dispatch thunk of __ServiceLocator.assetService.getter();
 
-  v21 = v63;
-  v22 = v64;
-  __swift_project_boxed_opaque_existential_1(&v59, v63);
+  v21 = v65;
+  v22 = v66;
+  __swift_project_boxed_opaque_existential_1(&v61, v65);
   (*(v22 + 32))(v21, v22);
-  __swift_destroy_boxed_opaque_existential_1(&v59);
+  __swift_destroy_boxed_opaque_existential_1(&v61);
   if (!REAssetManagerMeshMemoryAssetCreate())
   {
     RERelease();
-    v9 = v54;
+    v9 = v56;
 LABEL_30:
 
     goto LABEL_31;
@@ -1059,9 +1061,9 @@ LABEL_30:
   RERelease();
   RERelease();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMR);
   v23 = swift_allocObject();
-  *(v23 + 16) = v49;
+  *(v23 + 16) = v51;
   *(v23 + 56) = type metadata accessor for UnlitMaterial();
   *(v23 + 64) = MEMORY[0x1E697A178];
   v24 = __swift_allocate_boxed_opaque_existential_0((v23 + 32));
@@ -1076,37 +1078,36 @@ LABEL_30:
   [v6 transform];
   HasTransform.setTransformMatrix(_:relativeTo:)();
   Entity.turnIntoNinja()();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (!result)
+  v26 = swift_unknownObjectWeakLoadStrong();
+  if (!v26)
   {
 LABEL_20:
-    v28 = [v6 identifier];
-    v6 = v52;
+    v29 = [v6 identifier];
+    v6 = v54;
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v29 = &v67;
+    v30 = &v69;
     goto LABEL_28;
   }
 
-  v26 = result;
-  if (*(result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  v27 = v26;
+  if (*(v26 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
 
-    v27 = v46;
+    v28 = v48;
     dispatch thunk of Scene.anchors.getter();
 
     Scene.AnchorCollection.appendNinja(_:)();
-    (*v45)(v27, v47);
+    (*v47)(v28, v49);
     goto LABEL_20;
   }
 
   __break(1u);
 LABEL_43:
   __break(1u);
-  return result;
 }
 
-uint64_t RKARSystem.removeAllAnchorDebugVisualization()(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+char *RKARSystem.removeAllAnchorDebugVisualization()(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
 {
   v36 = a4;
   v39 = type metadata accessor for Scene.AnchorCollection();
@@ -1115,10 +1116,10 @@ uint64_t RKARSystem.removeAllAnchorDebugVisualization()(uint64_t *a1, uint64_t a
   v38 = &v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v40 = a1;
   v41 = a2;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(a1);
-  v10 = MEMORY[0x1EEE9AC00](v44);
-  v47 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x1EEE9AC00](v44);
+  v47 = &v35 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
   v43 = &v35 - v12;
   v13 = *a3;
   swift_beginAccess();
@@ -1159,7 +1160,7 @@ LABEL_11:
     if (result)
     {
       v32 = result;
-      if (!*(result + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+      if (!*&result[OBJC_IVAR____TtC10RealityKit6ARView__scene])
       {
         goto LABEL_16;
       }
@@ -1176,7 +1177,7 @@ LABEL_11:
     }
 
     v18 &= v18 - 1;
-    result = outlined destroy of ARConfigurationCreateResult?(v47, v40);
+    result = outlined destroy of ARConfigurationCreateResult?(v47, v40, v41);
   }
 
   while (1)
@@ -1410,7 +1411,7 @@ uint64_t specialized RKARSystem.createDebugAxis(with:position:color:)(void *a1, 
   UnlitMaterial.__tintColor.setter();
   type metadata accessor for MeshResource();
   static MeshResource.generateBox(size:cornerRadius:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit8Material_pGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_1E12531A0;
   v10 = MEMORY[0x1E697A178];
@@ -1453,7 +1454,7 @@ uint64_t specialized RKARSystem.createDebugAxis()()
 
   dispatch thunk of Entity.name.setter();
   HasHierarchy.children.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1E1253220;
   *(v11 + 32) = v6;
@@ -1562,19 +1563,19 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance ARView.
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARView.Environment.Reverb.Preset()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARView.Environment.Reverb.Preset(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1E12F47F0](v1);
+  MEMORY[0x1E12F47F0](v2);
   return Hasher._finalize()();
 }
 
-uint64_t ARView.Environment.SceneUnderstanding.validateOptions()()
+void ARView.Environment.SceneUnderstanding.validateOptions()()
 {
   v1 = v0[2];
   v2 = *v0;
-  if ((*v0 & v1) != 0 && (static os_log_type_t.debug.getter(), type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log), v3 = static OS_os_log.default.getter(), os_log(_:dso:log:type:_:)(), v3, v1 = v0[2], (v1 & v2) != 0))
+  if ((*v0 & v1) != 0 && (static os_log_type_t.debug.getter(), type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log, 0x1E69E9BF8), v3 = static OS_os_log.default.getter(), os_log(_:dso:log:type:_:)(), v3, v1 = v0[2], (v1 & v2) != 0))
   {
     v4 = ~v2;
   }
@@ -1585,8 +1586,8 @@ uint64_t ARView.Environment.SceneUnderstanding.validateOptions()()
   }
 
   v0[2] = v4 & v1;
-  v6 = v1;
-  return ARView.Environment.SceneUnderstanding.options.didset(&v6);
+  v5 = v1;
+  ARView.Environment.SceneUnderstanding.options.didset(&v5);
 }
 
 BOOL protocol witness for SetAlgebra.insert(_:) in conformance ARView.Environment.SceneUnderstanding.Options(_DWORD *a1, int *a2)
@@ -1758,7 +1759,7 @@ LABEL_17:
     if (v2 < 0 && (v2 & 0x7FFFFFFF) != 0)
     {
       static os_log_type_t.debug.getter();
-      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log);
+      type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log, 0x1E69E9BF8);
       v11 = static OS_os_log.default.getter();
       os_log(_:dso:log:type:_:)();
 
@@ -1803,7 +1804,7 @@ LABEL_17:
   else
   {
     static os_log_type_t.debug.getter();
-    type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log);
+    type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for OS_os_log, 0x1E69E9BF8);
     v19 = static OS_os_log.default.getter();
     os_log(_:dso:log:type:_:)();
 
@@ -1811,7 +1812,7 @@ LABEL_17:
   }
 }
 
-void (*ARView.Environment.SceneUnderstanding.options.modify(uint64_t a1))(_DWORD *a1, char a2)
+uint64_t (*ARView.Environment.SceneUnderstanding.options.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 8);
@@ -1954,14 +1955,14 @@ Swift::Void __swiftcall ARView.updateEnvironment()()
   v69 = *(v70 - 8);
   MEMORY[0x1EEE9AC00](v70);
   v71 = (&v69 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ImageBasedLightComponentVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24ImageBasedLightComponentVSgMd, &_s17RealityFoundation24ImageBasedLightComponentVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v72 = &v69 - v4;
   v5 = type metadata accessor for __SkyboxMaterial();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17__SkyboxComponentVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17__SkyboxComponentVSgMd, &_s17RealityFoundation17__SkyboxComponentVSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v69 - v10;
   v12 = &v0[OBJC_IVAR____TtC10RealityKit6ARView_environment];
@@ -2057,7 +2058,7 @@ LABEL_50:
   if (v17[24] == 2)
   {
     v26 = *(v17 + 2);
-    type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for UIColor);
+    type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for UIColor, 0x1E69DC888);
     v27 = objc_opt_self();
     outlined copy of ARView.Environment.Background.Value(v26, 2);
     v28 = [v27 blackColor];
@@ -2454,18 +2455,18 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance ARView.Environ
   return MEMORY[0x1E12F47F0](v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARView.Environment.Reverb()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARView.Environment.Reverb(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 6)
+  if (v2 == 6)
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  else if (v1 == 7)
+  else if (v2 == 7)
   {
-    v1 = 2;
+    v2 = 2;
   }
 
   else
@@ -2473,7 +2474,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARV
     MEMORY[0x1E12F47F0](1);
   }
 
-  MEMORY[0x1E12F47F0](v1);
+  MEMORY[0x1E12F47F0](v2);
   return Hasher._finalize()();
 }
 
@@ -2551,7 +2552,7 @@ unint64_t lazy protocol witness table accessor for type [ARView.Environment.Reve
   result = lazy protocol witness table cache variable for type [ARView.Environment.Reverb.Preset] and conformance [A];
   if (!lazy protocol witness table cache variable for type [ARView.Environment.Reverb.Preset] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit6ARViewC11EnvironmentV6ReverbO6PresetOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit6ARViewC11EnvironmentV6ReverbO6PresetOGMd, &_sSay10RealityKit6ARViewC11EnvironmentV6ReverbO6PresetOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [ARView.Environment.Reverb.Preset] and conformance [A]);
   }
@@ -3615,7 +3616,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t ParticleEmitterComponent.Timing.VariableDuration.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v9 - v6;
@@ -3636,7 +3637,7 @@ uint64_t ParticleEmitterComponent.Timing.VariableDuration.encode(to:)(void *a1)
 
 uint64_t ParticleEmitterComponent.Timing.VariableDuration.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO16VariableDurationV10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15[-v7];
@@ -3819,10 +3820,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Partic
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ParticleEmitterComponent.Timing.RepeatingCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ParticleEmitterComponent.Timing.RepeatingCodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized ParticleEmitterComponent.Timing.RepeatingCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized ParticleEmitterComponent.Timing.RepeatingCodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -3842,17 +3843,17 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t ParticleEmitterComponent.Timing.encode(to:)(void *a1)
 {
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v27 = *(v32 - 8);
   MEMORY[0x1EEE9AC00](v32);
   v31 = &v25[-v3];
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v5 = *(v4 - 8);
   v34 = v4;
   v35 = v5;
   MEMORY[0x1EEE9AC00](v4);
   v33 = &v25[-v6];
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedEncodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v39 = *(v37 - 8);
   MEMORY[0x1EEE9AC00](v37);
   v8 = &v25[-v7];
@@ -3935,16 +3936,16 @@ uint64_t ParticleEmitterComponent.Timing.encode(to:)(void *a1)
 uint64_t ParticleEmitterComponent.Timing.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v43 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO19RepeatingCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v41 = *(v3 - 8);
   v42 = v3;
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v36 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO14OnceCodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v40 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v36 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMd, &_ss22KeyedDecodingContainerVy17RealityFoundation24ParticleEmitterComponentV0D3KitE6TimingO10CodingKeys33_31E119A518A7B63AF3C0FF5FAD501B2DLLOGMR);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = &v36 - v11;
@@ -4037,7 +4038,7 @@ uint64_t ParticleEmitterComponent.Timing.init(from:)@<X0>(void *a1@<X0>, uint64_
       v20 = type metadata accessor for DecodingError();
       swift_allocError();
       v22 = v21;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       *v22 = &type metadata for ParticleEmitterComponent.Timing;
       KeyedDecodingContainer.codingPath.getter();
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -4051,7 +4052,7 @@ uint64_t ParticleEmitterComponent.Timing.init(from:)@<X0>(void *a1@<X0>, uint64_
   return __swift_destroy_boxed_opaque_existential_1(v45);
 }
 
-uint64_t ParticleEmitterComponent.timing.getter@<X0>(uint64_t a1@<X8>)
+void ParticleEmitterComponent.timing.getter(uint64_t a1@<X8>)
 {
   ParticleEmitterComponent.warmupDuration.getter();
   v2 = 0;
@@ -4073,34 +4074,33 @@ uint64_t ParticleEmitterComponent.timing.getter@<X0>(uint64_t a1@<X8>)
     v2 = v11;
   }
 
-  result = ParticleEmitterComponent.shouldLoop.getter();
-  if (result)
+  if (ParticleEmitterComponent.shouldLoop.getter())
   {
-    result = ParticleEmitterComponent.idleDuration.getter();
-    v13 = 0;
-    v15 = vabdd_f64(0.0, v14);
-    if (v15 > 0.00001)
+    ParticleEmitterComponent.idleDuration.getter();
+    v12 = 0;
+    v14 = vabdd_f64(0.0, v13);
+    if (v14 > 0.00001)
     {
-      v22 = v8;
+      v21 = v8;
       ParticleEmitterComponent.idleDuration.getter();
-      v13 = v18;
-      result = ParticleEmitterComponent.idleDurationVariation.getter();
-      v20 = v19;
-      v17 = 0;
-      v21 = vabdd_f64(0.0, v20);
-      if (v21 > 0.00001)
+      v12 = v17;
+      ParticleEmitterComponent.idleDurationVariation.getter();
+      v19 = v18;
+      v16 = 0;
+      v20 = vabdd_f64(0.0, v19);
+      if (v20 > 0.00001)
       {
-        result = ParticleEmitterComponent.idleDurationVariation.getter();
+        ParticleEmitterComponent.idleDurationVariation.getter();
       }
 
-      v16 = v21 <= 0.00001;
-      v8 = v22;
+      v15 = v20 <= 0.00001;
+      v8 = v21;
     }
 
     else
     {
+      v15 = 0;
       v16 = 0;
-      v17 = 0;
     }
 
     *a1 = v5;
@@ -4108,9 +4108,9 @@ uint64_t ParticleEmitterComponent.timing.getter@<X0>(uint64_t a1@<X8>)
     *(a1 + 16) = v8;
     *(a1 + 24) = v2;
     *(a1 + 32) = v10 <= 0.00001;
-    *(a1 + 40) = v13;
-    *(a1 + 48) = v17;
-    *(a1 + 56) = v16 & 0xFEFF | ((v15 <= 0.00001) << 8) | 0x8000;
+    *(a1 + 40) = v12;
+    *(a1 + 48) = v16;
+    *(a1 + 56) = v15 & 0xFEFF | ((v14 <= 0.00001) << 8) | 0x8000;
   }
 
   else
@@ -4128,11 +4128,9 @@ uint64_t ParticleEmitterComponent.timing.getter@<X0>(uint64_t a1@<X8>)
     *(a1 + 33) = 0;
     *(a1 + 56) = 0;
   }
-
-  return result;
 }
 
-uint64_t ParticleEmitterComponent.timing.setter()
+uint64_t ParticleEmitterComponent.timing.setter(uint64_t a1)
 {
   ParticleEmitterComponent.shouldLoop.setter();
   ParticleEmitterComponent.warmupDuration.setter();
@@ -4143,7 +4141,7 @@ uint64_t ParticleEmitterComponent.timing.setter()
   return ParticleEmitterComponent.idleDurationVariation.setter();
 }
 
-void (*ParticleEmitterComponent.timing.modify(uint64_t *a1))(void **a1)
+uint64_t (*ParticleEmitterComponent.timing.modify(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -4161,10 +4159,15 @@ void (*ParticleEmitterComponent.timing.modify(uint64_t *a1))(void **a1)
   return ParticleEmitterComponent.timing.modify;
 }
 
-void ParticleEmitterComponent.timing.modify(void **a1)
+void ParticleEmitterComponent.timing.modify(_OWORD **a1)
 {
   v1 = *a1;
-  ParticleEmitterComponent.timing.setter();
+  v2 = (*a1)[1];
+  v3[0] = **a1;
+  v3[1] = v2;
+  v4[0] = v1[2];
+  *(v4 + 10) = *(v1 + 42);
+  ParticleEmitterComponent.timing.setter(v3);
 
   free(v1);
 }
@@ -4269,17 +4272,17 @@ LABEL_15:
   return (v8 >> 8) & 1;
 }
 
-uint64_t specialized static ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = *(a1 + 16);
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   v7 = *(a2 + 16);
   if ((v4 & 1) == 0)
   {
-    if ((*(a2 + 16) & 1) == 0)
+    if ((a2[2] & 1) == 0)
     {
       type metadata accessor for NSObject();
       outlined copy of ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue(v5, v6, 0);
@@ -4293,10 +4296,10 @@ uint64_t specialized static ParticleEmitterComponent.ParticleEmitter.ParticleCol
     goto LABEL_6;
   }
 
-  if ((*(a2 + 16) & 1) == 0)
+  if ((a2[2] & 1) == 0)
   {
 LABEL_6:
-    outlined copy of ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue(*a2, *(a2 + 8), v7);
+    outlined copy of ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue(*a2, a2[1], v7);
     outlined copy of ParticleEmitterComponent.ParticleEmitter.ParticleColor.ColorValue(v2, v3, v4);
     v8 = 0;
     goto LABEL_10;
@@ -4452,7 +4455,7 @@ uint64_t outlined consume of ParticleEmitterComponent.ParticleEmitter.ParticleCo
   {
     v8 = a3 & 1;
 
-    return (a7)(a1, a2, v8);
+    return (a7)(a1, a2, v8, a4, a5);
   }
 }
 
@@ -5520,41 +5523,12 @@ id EntityRotationGestureRecognizer.__allocating_init(target:action:)(void *a1, u
   {
     v6 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
     v7 = *(v4 - 8);
-    MEMORY[0x1EEE9AC00](v6);
-    v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v9);
-    v10 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v7 + 8))(v9, v4);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = [objc_allocWithZone(v2) initWithTarget:v10 action:a2];
-  swift_unknownObjectRelease();
-  return v11;
-}
-
-id EntityRotationGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2)
-{
-  v5 = &v2[OBJC_IVAR____TtC10RealityKit31EntityRotationGestureRecognizer_entity];
-  *v5 = 0;
-  *(v5 + 1) = 0;
-  outlined init with copy of Any?(a1, v16);
-  v6 = v17;
-  if (v17)
-  {
-    v7 = __swift_project_boxed_opaque_existential_1(v16, v17);
-    v8 = *(v6 - 8);
-    MEMORY[0x1EEE9AC00](v7);
-    v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v10);
+    v8 = MEMORY[0x1EEE9AC00](v6);
+    v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v10, v8);
     v11 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v8 + 8))(v10, v6);
-    __swift_destroy_boxed_opaque_existential_1(v16);
+    (*(v7 + 8))(v10, v4);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
   else
@@ -5562,20 +5536,49 @@ id EntityRotationGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2
     v11 = 0;
   }
 
-  v12 = type metadata accessor for EntityRotationGestureRecognizer();
-  v15.receiver = v2;
-  v15.super_class = v12;
-  v13 = objc_msgSendSuper2(&v15, sel_initWithTarget_action_, v11, a2);
+  v12 = [objc_allocWithZone(v2) initWithTarget:v11 action:a2];
   swift_unknownObjectRelease();
-  outlined destroy of ARConfigurationCreateResult?(a1, &_sypSgMd);
-  return v13;
+  return v12;
 }
 
-id EntityRotationGestureRecognizer.__deallocating_deinit()
+id EntityRotationGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for EntityRotationGestureRecognizer();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = &v2[OBJC_IVAR____TtC10RealityKit31EntityRotationGestureRecognizer_entity];
+  *v5 = 0;
+  *(v5 + 1) = 0;
+  outlined init with copy of Any?(a1, v17);
+  v6 = v18;
+  if (v18)
+  {
+    v7 = __swift_project_boxed_opaque_existential_1(v17, v18);
+    v8 = *(v6 - 8);
+    v9 = MEMORY[0x1EEE9AC00](v7);
+    v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v11, v9);
+    v12 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v8 + 8))(v11, v6);
+    __swift_destroy_boxed_opaque_existential_1(v17);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = type metadata accessor for EntityRotationGestureRecognizer();
+  v16.receiver = v2;
+  v16.super_class = v13;
+  v14 = objc_msgSendSuper2(&v16, sel_initWithTarget_action_, v12, a2);
+  swift_unknownObjectRelease();
+  outlined destroy of ARConfigurationCreateResult?(a1, &_sypSgMd, &_sypSgMR);
+  return v14;
+}
+
+id EntityRotationGestureRecognizer.__deallocating_deinit(uint64_t a1)
+{
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for EntityRotationGestureRecognizer();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 void (*protocol witness for EntityGestureRecognizer.entity.modify in conformance EntityRotationGestureRecognizer(uint64_t **a1))(void *a1)
@@ -5625,15 +5628,15 @@ uint64_t AnchorEntity.__allocating_init(anchor:)(void *a1)
 {
   v2 = type metadata accessor for AnchoringComponent.Target();
   v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [a1 identifier];
+  *&v4 = MEMORY[0x1EEE9AC00](v2).n128_u64[0];
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = [a1 identifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v3 + 104))(v5, *MEMORY[0x1E697A270], v2);
-  v7 = dispatch thunk of AnchorEntity.__allocating_init(_:)();
+  (*(v3 + 104))(v6, *MEMORY[0x1E697A270], v2);
+  v8 = dispatch thunk of AnchorEntity.__allocating_init(_:)();
 
-  return v7;
+  return v8;
 }
 
 uint64_t AnchoringComponent.AccessoryAnchoringSource.init(device:)()
@@ -5690,38 +5693,38 @@ void AnchoringComponent.init(_:)(void *a1)
 {
   v2 = type metadata accessor for AnchoringComponent.Target();
   v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [a1 identifier];
+  *&v4 = MEMORY[0x1EEE9AC00](v2).n128_u64[0];
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = [a1 identifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v3 + 104))(v5, *MEMORY[0x1E697A270], v2);
+  (*(v3 + 104))(v6, *MEMORY[0x1E697A270], v2);
   AnchoringComponent.init(_:)();
 }
 
 ARReferenceObject_optional __swiftcall __ARReferenceProvider.fetchReferenceObject(group:name:)(Swift::String group, Swift::String name)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17ReferenceObjectARVSgMd);
-  v3 = MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v3);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation17ReferenceObjectARVSgMd, &_s17RealityFoundation17ReferenceObjectARVSgMR);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
   v7 = &v13 - v6;
   dispatch thunk of __ARReferenceProvider.fetchReferenceObject(group:name:)();
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v7, v5, &_s17RealityFoundation17ReferenceObjectARVSgMd);
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v7, v4, &_s17RealityFoundation17ReferenceObjectARVSgMd, &_s17RealityFoundation17ReferenceObjectARVSgMR);
   v8 = type metadata accessor for ReferenceObjectAR();
   v9 = *(v8 - 8);
-  if ((*(v9 + 48))(v5, 1, v8) == 1)
+  if ((*(v9 + 48))(v4, 1, v8) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v7, &_s17RealityFoundation17ReferenceObjectARVSgMd);
-    outlined destroy of ARConfigurationCreateResult?(v5, &_s17RealityFoundation17ReferenceObjectARVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v7, &_s17RealityFoundation17ReferenceObjectARVSgMd, &_s17RealityFoundation17ReferenceObjectARVSgMR);
+    outlined destroy of ARConfigurationCreateResult?(v4, &_s17RealityFoundation17ReferenceObjectARVSgMd, &_s17RealityFoundation17ReferenceObjectARVSgMR);
     v11 = 0;
   }
 
   else
   {
     v12 = ReferenceImageAR.image.getter();
-    outlined destroy of ARConfigurationCreateResult?(v7, &_s17RealityFoundation17ReferenceObjectARVSgMd);
-    (*(v9 + 8))(v5, v8);
+    outlined destroy of ARConfigurationCreateResult?(v7, &_s17RealityFoundation17ReferenceObjectARVSgMd, &_s17RealityFoundation17ReferenceObjectARVSgMR);
+    (*(v9 + 8))(v4, v8);
     v11 = v12;
   }
 
@@ -5730,30 +5733,30 @@ ARReferenceObject_optional __swiftcall __ARReferenceProvider.fetchReferenceObjec
   return result;
 }
 
-uint64_t __ARReferenceProvider.fetchReferenceImage(group:name:physicalWidth:)()
+uint64_t __ARReferenceProvider.fetchReferenceImage(group:name:physicalWidth:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation16ReferenceImageARVSgMd);
-  v1 = MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v1);
-  v5 = &v10 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation16ReferenceImageARVSgMd, &_s17RealityFoundation16ReferenceImageARVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v15 - v9;
   dispatch thunk of __ARReferenceProvider.fetchReferenceImage(group:name:physicalWidth:)();
-  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v5, v3, &_s17RealityFoundation16ReferenceImageARVSgMd);
-  v6 = type metadata accessor for ReferenceImageAR();
-  v7 = *(v6 - 8);
-  if ((*(v7 + 48))(v3, 1, v6) == 1)
+  outlined init with copy of CheckedContinuation<related decl 'e' for ARErrorCode?, Never>?(v10, v7, &_s17RealityFoundation16ReferenceImageARVSgMd, &_s17RealityFoundation16ReferenceImageARVSgMR);
+  v11 = type metadata accessor for ReferenceImageAR();
+  v12 = *(v11 - 8);
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v5, &_s17RealityFoundation16ReferenceImageARVSgMd);
-    outlined destroy of ARConfigurationCreateResult?(v3, &_s17RealityFoundation16ReferenceImageARVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation16ReferenceImageARVSgMd, &_s17RealityFoundation16ReferenceImageARVSgMR);
+    outlined destroy of ARConfigurationCreateResult?(v7, &_s17RealityFoundation16ReferenceImageARVSgMd, &_s17RealityFoundation16ReferenceImageARVSgMR);
     return 0;
   }
 
   else
   {
-    v9 = ReferenceImageAR.image.getter();
-    outlined destroy of ARConfigurationCreateResult?(v5, &_s17RealityFoundation16ReferenceImageARVSgMd);
-    (*(v7 + 8))(v3, v6);
-    return v9;
+    v14 = ReferenceImageAR.image.getter();
+    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation16ReferenceImageARVSgMd, &_s17RealityFoundation16ReferenceImageARVSgMR);
+    (*(v12 + 8))(v7, v11);
+    return v14;
   }
 }
 
@@ -5785,123 +5788,123 @@ Swift::Bool __swiftcall __REAnchoringType.isEqualToARAnchor(anchor:)(ARAnchor an
   v2 = type metadata accessor for __REAnchoringType.Classification();
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for __REAnchoringType.Alignment();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for __REAnchoringType();
   v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v11 + 16))(v13, v1, v10);
-  v14 = (*(v11 + 88))(v13, v10);
-  if (v14 == *MEMORY[0x1E697A238])
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v11 + 16))(v14, v1, v10, v12);
+  v15 = (*(v11 + 88))(v14, v10);
+  if (v15 == *MEMORY[0x1E697A238])
   {
-    (*(v11 + 96))(v13, v10);
-    v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit17__REAnchoringTypeO9AlignmentV9alignment_AC14ClassificationV14classificationtMd) + 48);
-    (*(v7 + 32))(v9, v13, v6);
-    (*(v3 + 32))(v5, &v13[v15], v2);
-    v16 = __REAnchoringType.isSurfaceAnchoringEqualToARAnchor(anchor:alignment:classification:)(isa);
+    (*(v11 + 96))(v14, v10);
+    v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit17__REAnchoringTypeO9AlignmentV9alignment_AC14ClassificationV14classificationtMd, &_s10RealityKit17__REAnchoringTypeO9AlignmentV9alignment_AC14ClassificationV14classificationtMR) + 48);
+    (*(v7 + 32))(v9, v14, v6);
+    (*(v3 + 32))(v5, &v14[v16], v2);
+    v17 = __REAnchoringType.isSurfaceAnchoringEqualToARAnchor(anchor:alignment:classification:)(isa, v9, v5);
     (*(v3 + 8))(v5, v2);
     (*(v7 + 8))(v9, v6);
   }
 
   else
   {
-    if (v14 == *MEMORY[0x1E697A228])
+    if (v15 == *MEMORY[0x1E697A228])
     {
-      (*(v11 + 96))(v13, v10);
+      (*(v11 + 96))(v14, v10);
       objc_opt_self();
-      v16 = swift_dynamicCastObjCClass() != 0;
-      v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV3url_AA11MeasurementVySo12NSUnitLengthCG13physicalWidthtMd) + 48);
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo12NSUnitLengthCGMd);
-      (*(*(v18 - 8) + 8))(&v13[v17], v18);
+      v17 = swift_dynamicCastObjCClass() != 0;
+      v18 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLV3url_AA11MeasurementVySo12NSUnitLengthCG13physicalWidthtMd, &_s10Foundation3URLV3url_AA11MeasurementVySo12NSUnitLengthCG13physicalWidthtMR) + 48);
+      v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo12NSUnitLengthCGMd, &_s10Foundation11MeasurementVySo12NSUnitLengthCGMR);
+      (*(*(v19 - 8) + 8))(&v14[v18], v19);
     }
 
     else
     {
-      if (v14 == *MEMORY[0x1E697A220])
+      if (v15 == *MEMORY[0x1E697A220])
       {
         objc_opt_self();
-        v16 = swift_dynamicCastObjCClass() != 0;
-        return v16 & 1;
+        v17 = swift_dynamicCastObjCClass() != 0;
+        return v17 & 1;
       }
 
-      if (v14 != *MEMORY[0x1E697A230])
+      if (v15 != *MEMORY[0x1E697A230])
       {
-        (*(v11 + 8))(v13, v10);
-        v16 = 0;
-        return v16 & 1;
+        (*(v11 + 8))(v14, v10);
+        v17 = 0;
+        return v17 & 1;
       }
 
-      (*(v11 + 96))(v13, v10);
+      (*(v11 + 96))(v14, v10);
       objc_opt_self();
-      v16 = swift_dynamicCastObjCClass() != 0;
+      v17 = swift_dynamicCastObjCClass() != 0;
     }
 
-    v19 = type metadata accessor for URL();
-    (*(*(v19 - 8) + 8))(v13, v19);
+    v20 = type metadata accessor for URL();
+    (*(*(v20 - 8) + 8))(v14, v20);
   }
 
-  return v16 & 1;
+  return v17 & 1;
 }
 
-uint64_t __REAnchoringType.isSurfaceAnchoringEqualToARAnchor(anchor:alignment:classification:)(void *a1)
+uint64_t __REAnchoringType.isSurfaceAnchoringEqualToARAnchor(anchor:alignment:classification:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = type metadata accessor for __REAnchoringType.Alignment();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for __REAnchoringType.Alignment();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   objc_opt_self();
-  v6 = swift_dynamicCastObjCClass();
-  if (!v6)
+  v8 = swift_dynamicCastObjCClass();
+  if (!v8)
   {
     goto LABEL_10;
   }
 
-  v7 = v6;
-  v8 = a1;
-  v9 = [v7 alignment];
-  if (v9 == 1)
+  v9 = v8;
+  v10 = a1;
+  v11 = [v9 alignment];
+  if (v11 == 1)
   {
     static __REAnchoringType.Classification.floor.getter();
   }
 
   else
   {
-    if (v9)
+    if (v11)
     {
 LABEL_9:
 
 LABEL_10:
-      v12 = 0;
-      return v12 & 1;
+      v14 = 0;
+      return v14 & 1;
     }
 
     static __REAnchoringType.Classification.wall.getter();
   }
 
-  lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment, MEMORY[0x1E697A240]);
-  v10 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-  v11 = *(v3 + 8);
-  v11(v5, v2);
-  if ((v10 & 1) == 0)
+  lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment, MEMORY[0x1E697A240], MEMORY[0x1E697A250]);
+  v12 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+  v13 = *(v5 + 8);
+  v13(v7, v4);
+  if ((v12 & 1) == 0)
   {
     static __REAnchoringType.Classification.any.getter();
-    lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment, MEMORY[0x1E697A240]);
+    lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment, MEMORY[0x1E697A240], MEMORY[0x1E697A248]);
     dispatch thunk of RawRepresentable.rawValue.getter();
     dispatch thunk of RawRepresentable.rawValue.getter();
-    v11(v5, v2);
-    if (v14[1] != v14[0])
+    v13(v7, v4);
+    if (v16[1] != v16[0])
     {
       goto LABEL_9;
     }
   }
 
-  v12 = __REAnchoringType.isEqualToARPlaneAnchorClassification(_:classification:)(v7);
+  v14 = __REAnchoringType.isEqualToARPlaneAnchorClassification(_:classification:)(v9);
 
-  return v12 & 1;
+  return v14 & 1;
 }
 
 uint64_t __REAnchoringType.isEqualToARPlaneAnchorClassification(_:classification:)(void *a1)
@@ -5910,7 +5913,7 @@ uint64_t __REAnchoringType.isEqualToARPlaneAnchorClassification(_:classification
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (![objc_opt_self() isClassificationSupported] || (static __REAnchoringType.Classification.any.getter(), lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Classification and conformance __REAnchoringType.Classification, MEMORY[0x1E697A208]), dispatch thunk of RawRepresentable.rawValue.getter(), dispatch thunk of RawRepresentable.rawValue.getter(), v6 = *(v3 + 8), v6(v5, v2), v11[1] == v11[0]))
+  if (![objc_opt_self() isClassificationSupported] || (static __REAnchoringType.Classification.any.getter(), lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Classification and conformance __REAnchoringType.Classification, MEMORY[0x1E697A208], MEMORY[0x1E697A210]), dispatch thunk of RawRepresentable.rawValue.getter(), dispatch thunk of RawRepresentable.rawValue.getter(), v6 = *(v3 + 8), v6(v5, v2), v11[1] == v11[0]))
   {
     v7 = 1;
     return v7 & 1;
@@ -5945,7 +5948,7 @@ uint64_t __REAnchoringType.isEqualToARPlaneAnchorClassification(_:classification
       case 5:
         static __REAnchoringType.Classification.seat.getter();
 LABEL_15:
-        lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Classification and conformance __REAnchoringType.Classification, MEMORY[0x1E697A208]);
+        lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(&lazy protocol witness table cache variable for type __REAnchoringType.Classification and conformance __REAnchoringType.Classification, MEMORY[0x1E697A208], MEMORY[0x1E697A218]);
         v7 = dispatch thunk of SetAlgebra.isSuperset(of:)();
         v6(v5, v2);
         return v7 & 1;
@@ -5966,7 +5969,7 @@ LABEL_15:
   return v7 & 1;
 }
 
-uint64_t lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type __REAnchoringType.Alignment and conformance __REAnchoringType.Alignment(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5985,127 +5988,127 @@ void __swiftcall EntityGestureRecognizer.planeForUnprojection(heightOffset:)(sim
   v6 = v2;
   v9 = type metadata accessor for AnchoringComponent();
   v10 = *(v9 - 8);
-  (MEMORY[0x1EEE9AC00])();
-  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd);
-  v13 = (MEMORY[0x1EEE9AC00])();
-  v15 = &v62 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = (&v62 - v16);
-  v18 = (*(v5 + 8))(v6, v5);
-  if (!v18)
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v64 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMR);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v64 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  v19 = (&v64 - v18);
+  v20 = (*(v5 + 8))(v6, v5, v17);
+  if (!v20)
   {
     goto LABEL_18;
   }
 
-  v64.i64[0] = v4;
-  v67 = retstr;
-  LODWORD(v19) = heightOffset;
+  v66.i64[0] = v4;
+  v69 = retstr;
+  LODWORD(v21) = heightOffset;
   if ((heightOffset & 0x100000000) != 0)
   {
-    *&v19 = 0.0;
+    *&v21 = 0.0;
   }
 
-  v66 = v19;
-  v65.i64[0] = *v18;
-  v20 = Entity.anchor.getter();
-  if (v20)
+  v68 = v21;
+  v67.i64[0] = *v20;
+  v22 = Entity.anchor.getter();
+  if (v22)
   {
-    v22 = v20;
-    v23 = v21;
-    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd);
-    *v17 = v22;
-    v17[1] = v23;
-    v63.i64[0] = v9;
+    v24 = v22;
+    v25 = v23;
+    v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMR);
+    *v19 = v24;
+    v19[1] = v25;
+    v65.i64[0] = v9;
 
     HasAnchoring.anchoring.getter();
     AnchoringComponent.target.getter();
 
-    (*(v10 + 8))(v12, v63.i64[0]);
-    (*(*(v24 - 8) + 56))(v17, 0, 1, v24);
+    (*(v10 + 8))(v12, v65.i64[0]);
+    (*(*(v26 - 8) + 56))(v19, 0, 1, v26);
   }
 
   else
   {
-    v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd);
-    (*(*(v25 - 8) + 56))(v17, 1, 1, v25);
+    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMR);
+    (*(*(v27 - 8) + 56))(v19, 1, 1, v27);
   }
 
-  outlined init with copy of (HasAnchoring, AnchoringComponent.Target)?(v17, v15);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd);
-  if ((*(*(v26 - 8) + 48))(v15, 1, v26) == 1)
+  outlined init with copy of (HasAnchoring, AnchoringComponent.Target)?(v19, v15);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtMR);
+  if ((*(*(v28 - 8) + 48))(v15, 1, v28) == 1)
   {
     HasTransform.transformMatrix(relativeTo:)();
-    v64 = v27;
-    v65 = v28;
+    v66 = v29;
+    v67 = v30;
 
-    v29 = vmulq_f32(v64, v64);
-    *v29.i8 = vadd_f32(*v29.i8, *&vextq_s8(v29, v29, 8uLL));
-    v29.i32[0] = vadd_f32(*v29.i8, vdup_lane_s32(*v29.i8, 1)).u32[0];
-    v30 = vrsqrte_f32(v29.u32[0]);
-    v31 = vmul_f32(v30, vrsqrts_f32(v29.u32[0], vmul_f32(v30, v30)));
-    v64 = vmulq_n_f32(v64, vmul_f32(v31, vrsqrts_f32(v29.u32[0], vmul_f32(v31, v31))).f32[0]);
-    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v17);
-    v32 = v64;
-    retstr = v67;
+    v31 = vmulq_f32(v66, v66);
+    *v31.i8 = vadd_f32(*v31.i8, *&vextq_s8(v31, v31, 8uLL));
+    v31.i32[0] = vadd_f32(*v31.i8, vdup_lane_s32(*v31.i8, 1)).u32[0];
+    v32 = vrsqrte_f32(v31.u32[0]);
+    v33 = vmul_f32(v32, vrsqrts_f32(v31.u32[0], vmul_f32(v32, v32)));
+    v66 = vmulq_n_f32(v66, vmul_f32(v33, vrsqrts_f32(v31.u32[0], vmul_f32(v33, v33))).f32[0]);
+    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v19);
+    v34 = v66;
+    retstr = v69;
 LABEL_21:
-    v49 = 0;
-    v50 = vaddq_f32(v65, vmulq_n_f32(v32, *&v66));
+    v51 = 0;
+    v52 = vaddq_f32(v67, vmulq_n_f32(v34, *&v68));
     goto LABEL_22;
   }
 
-  v33 = *(v26 + 48);
-  v34 = type metadata accessor for AnchoringComponent.Target();
-  v35 = *(v34 - 8);
-  v36 = (*(v35 + 88))(&v15[v33], v34);
-  retstr = v67;
-  if (v36 != *MEMORY[0x1E697A278])
+  v35 = *(v28 + 48);
+  v36 = type metadata accessor for AnchoringComponent.Target();
+  v37 = *(v36 - 8);
+  v38 = (*(v37 + 88))(&v15[v35], v36);
+  retstr = v69;
+  if (v38 != *MEMORY[0x1E697A278])
   {
     HasTransform.transformMatrix(relativeTo:)();
-    v64 = v44;
-    v65 = v45;
+    v66 = v46;
+    v67 = v47;
 
-    v46 = vmulq_f32(v64, v64);
-    *v46.i8 = vadd_f32(*v46.i8, *&vextq_s8(v46, v46, 8uLL));
-    v46.i32[0] = vadd_f32(*v46.i8, vdup_lane_s32(*v46.i8, 1)).u32[0];
-    v47 = vrsqrte_f32(v46.u32[0]);
-    v48 = vmul_f32(v47, vrsqrts_f32(v46.u32[0], vmul_f32(v47, v47)));
-    v64 = vmulq_n_f32(v64, vmul_f32(v48, vrsqrts_f32(v46.u32[0], vmul_f32(v48, v48))).f32[0]);
-    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v17);
-    (*(v35 + 8))(&v15[v33], v34);
-    v32 = v64;
+    v48 = vmulq_f32(v66, v66);
+    *v48.i8 = vadd_f32(*v48.i8, *&vextq_s8(v48, v48, 8uLL));
+    v48.i32[0] = vadd_f32(*v48.i8, vdup_lane_s32(*v48.i8, 1)).u32[0];
+    v49 = vrsqrte_f32(v48.u32[0]);
+    v50 = vmul_f32(v49, vrsqrts_f32(v48.u32[0], vmul_f32(v49, v49)));
+    v66 = vmulq_n_f32(v66, vmul_f32(v50, vrsqrts_f32(v48.u32[0], vmul_f32(v50, v50))).f32[0]);
+    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v19);
+    (*(v37 + 8))(&v15[v35], v36);
+    v34 = v66;
     goto LABEL_21;
   }
 
-  v37 = [v64.i64[0] view];
-  if (!v37)
+  v39 = [v66.i64[0] view];
+  if (!v39)
   {
-    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v17);
+    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v19);
 
 LABEL_18:
-    v49 = 1;
-    v32 = 0uLL;
-    v50 = 0uLL;
+    v51 = 1;
+    v34 = 0uLL;
+    v52 = 0uLL;
 LABEL_22:
     retstr->value.columns[0] = 0u;
-    retstr->value.columns[1] = v32;
+    retstr->value.columns[1] = v34;
     retstr->value.columns[2] = 0u;
-    retstr->value.columns[3] = v50;
-    retstr->is_nil = v49;
+    retstr->value.columns[3] = v52;
+    retstr->is_nil = v51;
     return;
   }
 
-  v38 = v37;
-  type metadata accessor for ARView();
-  v39 = swift_dynamicCastClass();
-  if (!v39)
+  v40 = v39;
+  type metadata accessor for ARView(0);
+  v41 = swift_dynamicCastClass();
+  if (!v41)
   {
 
-    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v17);
+    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v19);
     goto LABEL_18;
   }
 
-  if (*(v39 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  if (*(v41 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
 
     active = dispatch thunk of Scene.internalActiveCamera.getter();
@@ -6115,39 +6118,39 @@ LABEL_22:
       type metadata accessor for Entity();
       HasTransform.transformMatrix(relativeTo:)();
       Transform.init(matrix:)();
-      v63 = v42;
-      v64 = v41;
-      v62 = v43;
+      v65 = v44;
+      v66 = v43;
+      v64 = v45;
     }
 
     else
     {
       Transform.init()();
-      v63 = v52;
-      v64 = v51;
-      v62 = v53;
+      v65 = v54;
+      v66 = v53;
+      v64 = v55;
     }
 
-    specialized simd_float4x4.init(translation:rotation:scale:)(*&v62, v63);
-    v63 = v54;
-    v64 = v55;
-    HasTransform.position(relativeTo:)();
+    specialized simd_float4x4.init(translation:rotation:scale:)(v64, v65, v66);
     v65 = v56;
+    v66 = v57;
+    HasTransform.position(relativeTo:)();
+    v67 = v58;
 
-    v57 = vsubq_f32(0, v63);
-    v58.i32[0] = vextq_s8(v65, v65, 8uLL).u32[0];
-    v58.i32[1] = 1.0;
-    v59 = vadd_f32(vmul_f32(vsub_f32(*v65.f32, *v64.f32), *v57.f32), vmul_f32(vsub_f32(v58, *&vextq_s8(v64, v64, 8uLL)), *&vextq_s8(v57, v57, 8uLL)));
-    v60 = vmulq_f32(v57, v57);
-    *v60.i8 = vadd_f32(*v60.i8, *&vextq_s8(v60, v60, 8uLL));
-    v61 = vaddq_f32(v64, vmulq_n_f32(v57, vadd_f32(v59, vdup_lane_s32(v59, 1)).f32[0]));
-    v59.i32[0] = vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)).u32[0];
-    *v60.i8 = vrsqrte_f32(v59.u32[0]);
-    *v60.i8 = vmul_f32(*v60.i8, vrsqrts_f32(v59.u32[0], vmul_f32(*v60.i8, *v60.i8)));
-    v64 = vmulq_n_f32(v57, vmul_f32(*v60.i8, vrsqrts_f32(v59.u32[0], vmul_f32(*v60.i8, *v60.i8))).f32[0]);
-    v65 = v61;
-    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v17);
-    v32 = vsubq_f32(0, v64);
+    v59 = vsubq_f32(0, v65);
+    v60.i32[0] = vextq_s8(v67, v67, 8uLL).u32[0];
+    v60.i32[1] = 1.0;
+    v61 = vadd_f32(vmul_f32(vsub_f32(*v67.f32, *v66.f32), *v59.f32), vmul_f32(vsub_f32(v60, *&vextq_s8(v66, v66, 8uLL)), *&vextq_s8(v59, v59, 8uLL)));
+    v62 = vmulq_f32(v59, v59);
+    *v62.i8 = vadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL));
+    v63 = vaddq_f32(v66, vmulq_n_f32(v59, vadd_f32(v61, vdup_lane_s32(v61, 1)).f32[0]));
+    v61.i32[0] = vadd_f32(*v62.i8, vdup_lane_s32(*v62.i8, 1)).u32[0];
+    *v62.i8 = vrsqrte_f32(v61.u32[0]);
+    *v62.i8 = vmul_f32(*v62.i8, vrsqrts_f32(v61.u32[0], vmul_f32(*v62.i8, *v62.i8)));
+    v66 = vmulq_n_f32(v59, vmul_f32(*v62.i8, vrsqrts_f32(v61.u32[0], vmul_f32(*v62.i8, *v62.i8))).f32[0]);
+    v67 = v63;
+    outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(v19);
+    v34 = vsubq_f32(0, v66);
     goto LABEL_21;
   }
 
@@ -6165,8 +6168,8 @@ id EntityGestureRecognizer.location(in:)(uint64_t a1)
   if (result)
   {
     v9 = result;
-    type metadata accessor for ARView();
-    if (!swift_dynamicCastClass() || (v15.value.columns[0].i8[0] = 1, EntityGestureRecognizer.planeForUnprojection(heightOffset:)(&v15, 0x100000000), v15.is_nil) || (v10 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v5, v7, *v15.value.columns[0].i64, v15.value.columns[1], *v15.value.columns[2].i64, v15.value.columns[3]), (v11 & 1) != 0))
+    type metadata accessor for ARView(0);
+    if (!swift_dynamicCastClass() || (v15.value.columns[0].i8[0] = 1, EntityGestureRecognizer.planeForUnprojection(heightOffset:)(&v15, 0x100000000), v15.is_nil) || (v10 = ARView.unproject(_:ontoPlane:relativeToCamera:)(0, v5, v7, v15.value.columns[0], v15.value.columns[1], v15.value.columns[2], v15.value.columns[3]), (v11 & 1) != 0))
     {
 
       return 0;
@@ -6194,14 +6197,14 @@ id EntityGestureRecognizer.location(in:)(uint64_t a1)
 
 uint64_t outlined init with copy of (HasAnchoring, AnchoringComponent.Target)?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of (HasAnchoring, AnchoringComponent.Target)?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMd, &_s10RealityKit12HasAnchoring_p_AA0D9ComponentV6TargetOtSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -6256,60 +6259,60 @@ void PointLightComponent.color.modify(void **a1, char a2)
   }
 }
 
-void PointLightComponent.init(color:intensity:attenuationRadius:)(void *a1)
+void PointLightComponent.init(color:intensity:attenuationRadius:)(void *a1, float a2, float a3)
 {
-  v1 = [a1 CGColor];
+  v3 = [a1 CGColor];
   PointLightComponent.init(cgColor:intensity:attenuationRadius:)();
 }
 
-void PointLightComponent.init(color:intensity:attenuationRadius:attenuationFalloffExponent:)(void *a1)
+void PointLightComponent.init(color:intensity:attenuationRadius:attenuationFalloffExponent:)(void *a1, float a2, float a3, float a4)
 {
-  v1 = [a1 CGColor];
+  v4 = [a1 CGColor];
   PointLightComponent.init(cgColor:intensity:attenuationRadius:attenuationFalloffExponent:)();
 }
 
 uint64_t PointLightComponent.customMirror.getter@<X0>(uint64_t a1@<X8>)
 {
-  v22[1] = a1;
+  v23[1] = a1;
   v2 = type metadata accessor for Mirror.AncestorRepresentation();
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v5 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v5 = v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = v22 - v7;
+  v8 = v23 - v7;
   v9 = type metadata accessor for PointLightComponent();
-  MEMORY[0x1EEE9AC00](v9);
-  (*(v11 + 16))(v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_1E1254230;
-  *(v12 + 32) = 0x726F6C6F63;
-  *(v12 + 40) = 0xE500000000000000;
-  v13 = PointLightComponent.__color.getter();
-  v14 = [objc_allocWithZone(MEMORY[0x1E69DC888]) initWithCGColor_];
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  (*(v12 + 16))(v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v9, v10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
+  v13 = swift_allocObject();
+  *(v13 + 16) = xmmword_1E1254230;
+  *(v13 + 32) = 0x726F6C6F63;
+  *(v13 + 40) = 0xE500000000000000;
+  v14 = PointLightComponent.__color.getter();
+  v15 = [objc_allocWithZone(MEMORY[0x1E69DC888]) initWithCGColor_];
 
-  v15 = type metadata accessor for UIColor();
-  *(v12 + 48) = v14;
-  *(v12 + 72) = v15;
-  *(v12 + 80) = 0x7469736E65746E69;
-  *(v12 + 88) = 0xE900000000000079;
+  v16 = type metadata accessor for UIColor();
+  *(v13 + 48) = v15;
+  *(v13 + 72) = v16;
+  *(v13 + 80) = 0x7469736E65746E69;
+  *(v13 + 88) = 0xE900000000000079;
   PointLightComponent.intensity.getter();
-  v16 = MEMORY[0x1E69E6448];
-  *(v12 + 96) = v17;
-  *(v12 + 120) = v16;
-  *(v12 + 128) = 0xD000000000000011;
-  *(v12 + 136) = 0x80000001E12577C0;
+  v17 = MEMORY[0x1E69E6448];
+  *(v13 + 96) = v18;
+  *(v13 + 120) = v17;
+  *(v13 + 128) = 0xD000000000000011;
+  *(v13 + 136) = 0x80000001E12577C0;
   PointLightComponent.attenuationRadius.getter();
-  *(v12 + 144) = v18;
-  *(v12 + 168) = v16;
-  *(v12 + 176) = 0xD00000000000001ALL;
-  *(v12 + 184) = 0x80000001E12577E0;
+  *(v13 + 144) = v19;
+  *(v13 + 168) = v17;
+  *(v13 + 176) = 0xD00000000000001ALL;
+  *(v13 + 184) = 0x80000001E12577E0;
   PointLightComponent.attenuationFalloffExponent.getter();
-  *(v12 + 216) = v16;
-  *(v12 + 192) = v19;
-  v20 = type metadata accessor for Mirror.DisplayStyle();
-  (*(*(v20 - 8) + 56))(v8, 1, 1, v20);
+  *(v13 + 216) = v17;
+  *(v13 + 192) = v20;
+  v21 = type metadata accessor for Mirror.DisplayStyle();
+  (*(*(v21 - 8) + 56))(v8, 1, 1, v21);
   (*(v3 + 104))(v5, *MEMORY[0x1E69E75D8], v2);
   return Mirror.init<A>(_:children:displayStyle:ancestorRepresentation:)();
 }
@@ -6334,13 +6337,13 @@ uint64_t ARView.PostProcessContext.realityViewPostProcessContext.getter()
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16MTLCommandBuffer_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16MTLCommandBuffer_pMd, &_sSo16MTLCommandBuffer_pMR);
   return PostProcessEffectContext.init(_:_:_:_:_:_:_:)();
 }
 
-void (*ARView.PostProcessContext.realityViewPostProcessContext.read(void *a1))(void *a1)
+uint64_t (*ARView.PostProcessContext.realityViewPostProcessContext.read(unint64_t *a1))()
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24PostProcessEffectContextVySo16MTLCommandBuffer_pGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation24PostProcessEffectContextVySo16MTLCommandBuffer_pGMd, &_s17RealityFoundation24PostProcessEffectContextVySo16MTLCommandBuffer_pGMR);
   a1[1] = v3;
   v4 = *(v3 - 8);
   a1[2] = v4;
@@ -6361,7 +6364,7 @@ void (*ARView.PostProcessContext.realityViewPostProcessContext.read(void *a1))(v
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16MTLCommandBuffer_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16MTLCommandBuffer_pMd, &_sSo16MTLCommandBuffer_pMR);
   PostProcessEffectContext.init(_:_:_:_:_:_:_:)();
   return ARView.PostProcessContext.realityViewPostProcessContext.read;
 }
@@ -6443,11 +6446,11 @@ void ARView.renderOptions.setter(void *a1)
   }
 }
 
-void *ARView.renderOptions.modify(void *result)
+uint64_t (*ARView.renderOptions.modify(uint64_t (*result)()))()
 {
   v2 = OBJC_IVAR____TtC10RealityKit6ARView_arSystem;
-  result[1] = v1;
-  result[2] = v2;
+  *(result + 1) = v1;
+  *(result + 2) = v2;
   v3 = *(v1 + v2);
   if (v3)
   {
@@ -6573,7 +6576,7 @@ LABEL_5:
   return result;
 }
 
-void *one-time initialization function for gpuClass()
+id one-time initialization function for gpuClass()
 {
   result = MTLCreateSystemDefaultDevice();
   if (result)
@@ -6831,7 +6834,7 @@ LABEL_12:
   *(v1 + v9) = v16;
   v26 = v15;
 LABEL_18:
-  v20 = RKARSystem.renderOptions.didset(&v26);
+  RKARSystem.renderOptions.didset(&v26);
 LABEL_19:
   if (one-time initialization token for modelIdentifier != -1)
   {
@@ -7139,7 +7142,7 @@ uint64_t specialized static RKARSystem.__queryModelIdentifier()()
   v32 = *&v35.machine[80];
   v33 = *&v35.machine[64];
   v31 = *&v35.machine[96];
-  *(&v40 + 1) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8V_A255BtMd);
+  *(&v40 + 1) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8V_A255BtMd, &_ss4Int8V_A255BtMR);
   v3 = swift_allocObject();
   *&v39 = v3;
   v4 = v29;
@@ -7228,19 +7231,19 @@ uint64_t specialized static RKARSystem.__queryModelIdentifier()()
 
 uint64_t outlined init with copy of (label: String?, value: Any)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd, &_sSSSg5label_yp5valuetMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of (label: String?, value: Any)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd, &_sSSSg5label_yp5valuetMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   return specialized closure #1 in Sequence<>.contains(_:)(a1, *(v1 + 16)) & 1;
 }
@@ -7296,7 +7299,7 @@ void specialized SIMD.subscript.getter(__n128 a1, double a2)
   }
 }
 
-uint64_t ARView.project(_:)(double a1)
+uint64_t ARView.project(_:)(__n128 a1)
 {
   v2 = *(v1 + OBJC_IVAR____TtC10RealityKit6ARView_arSystem);
   if (v2)
@@ -7308,9 +7311,10 @@ uint64_t ARView.project(_:)(double a1)
   return result;
 }
 
-uint64_t ARView.project(_:isAR:)(uint64_t result, double a2)
+uint64_t ARView.project(_:isAR:)(uint64_t result, __n128 a2)
 {
   v3 = v2;
+  v24 = a2.n128_f64[0];
   if ((result & 1) == 0)
   {
     if (!*&v2[OBJC_IVAR____TtC10RealityKit6ARView__scene])
@@ -7429,22 +7433,22 @@ LABEL_27:
   }
 
   [v3 bounds];
-  [v6 projectPoint:v7 orientation:a2 viewportSize:{v13, v14}];
+  [v6 projectPoint:v7 orientation:v24 viewportSize:{v13, v14}];
   v16 = v15;
 
   return v16;
 }
 
-uint64_t ARView.unproject(_:viewport:)()
+uint64_t ARView.unproject(_:viewport:)(double a1, double a2, double a3, double a4, double a5, double a6)
 {
-  if (!*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+  if (!*(v6 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
   {
     __break(1u);
   }
 
   active = dispatch thunk of Scene.internalActiveCamera.getter();
 
-  v4 = 0;
+  v10 = 0;
   if (active)
   {
     Entity.coreEntity.getter();
@@ -7472,7 +7476,7 @@ uint64_t ARView.unproject(_:viewport:)()
       if (!REEntityGetComponentByClass())
       {
 
-        return v4;
+        return v10;
       }
 
       REOrthographicCameraComponentCalculateProjectionWithAspectRatio();
@@ -7483,13 +7487,13 @@ uint64_t ARView.unproject(_:viewport:)()
 LABEL_9:
     REConvertProjectionToMatrix4x4();
     REProjectionUnprojectPoint();
-    v4 = v2;
+    v10 = v8;
   }
 
-  return v4;
+  return v10;
 }
 
-uint64_t ARView.unproject(_:ontoPlane:relativeToCamera:)(uint64_t result, double a2, double a3, double a4, float32x4_t a5, double a6, float32x4_t a7)
+uint64_t ARView.unproject(_:ontoPlane:relativeToCamera:)(uint64_t result, double a2, double a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float32x4_t a7)
 {
   v8 = *&v7[OBJC_IVAR____TtC10RealityKit6ARView_arSystem];
   if (!v8)
@@ -7511,11 +7515,11 @@ LABEL_26:
       if (active)
       {
         [v7 bounds];
-        v11 = ARView.unproject(_:viewport:)();
-        if (v12)
+        v17 = ARView.unproject(_:viewport:)(a2, a3, v13, v14, v15, v16);
+        if (v18)
         {
 
-          return v11;
+          return v17;
         }
 
         Entity.coreEntity.getter();
@@ -7523,37 +7527,37 @@ LABEL_26:
         if (REEntityGetComponentByClass())
         {
           RETransformComponentGetWorldMatrix4x4F();
-          v43 = v22;
-          v44 = v23;
-          v45 = v24;
-          v46 = v25;
+          v49 = v28;
+          v50 = v29;
+          v51 = v30;
+          v52 = v31;
           simd_float4x4.transform(position:)();
-          v27 = a5;
-          v28 = a7;
+          v33 = a5;
+          v34 = a7;
           if (v9)
           {
-            v28 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, a7.f32[0]), v44, *a7.f32, 1), v45, a7, 2), v46, a7, 3);
-            v27 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, a5.f32[0]), v44, *a5.f32, 1), v45, a5, 2), v46, a5, 3);
+            v34 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, a7.f32[0]), v50, *a7.f32, 1), v51, a7, 2), v52, a7, 3);
+            v33 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, a5.f32[0]), v50, *a5.f32, 1), v51, a5, 2), v52, a5, 3);
           }
 
-          v29 = vsubq_f32(v26, v46);
-          v30 = vmulq_f32(v29, v29);
-          *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
-          *v30.f32 = vrsqrte_f32(v31);
-          *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
-          v32 = vmulq_n_f32(v29, vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).f32[0]);
-          v33 = vsubq_f32(v28, v46);
-          v48 = *v32.i8;
-          v50 = vadd_f32(vmul_laneq_f32(*&vzip2q_s32(v33, v32), v27, 2), vadd_f32(vrev64_s32(vmul_f32(__PAIR64__(v33.u32[1], v32.u32[0]), *v27.f32)), vmul_f32(__PAIR64__(v32.u32[1], v33.u32[0]), *v27.f32)));
+          v35 = vsubq_f32(v32, v52);
+          v36 = vmulq_f32(v35, v35);
+          *&v37 = v36.f32[2] + vaddv_f32(*v36.f32);
+          *v36.f32 = vrsqrte_f32(v37);
+          *v36.f32 = vmul_f32(*v36.f32, vrsqrts_f32(v37, vmul_f32(*v36.f32, *v36.f32)));
+          v38 = vmulq_n_f32(v35, vmul_f32(*v36.f32, vrsqrts_f32(v37, vmul_f32(*v36.f32, *v36.f32))).f32[0]);
+          v39 = vsubq_f32(v34, v52);
+          v54 = *v38.i8;
+          v56 = vadd_f32(vmul_laneq_f32(*&vzip2q_s32(v39, v38), v33, 2), vadd_f32(vrev64_s32(vmul_f32(__PAIR64__(v39.u32[1], v38.u32[0]), *v33.f32)), vmul_f32(__PAIR64__(v38.u32[1], v39.u32[0]), *v33.f32)));
 
-          if (fabsf(v50.f32[1]) >= 0.00000011921)
+          if (fabsf(v56.f32[1]) >= 0.00000011921)
           {
             __asm { FMOV            V1.2S, #1.0 }
 
-            v39 = vand_s8(vbsl_s8(0x8000000080000000, _D1, v50), vorr_s8(vcltz_f32(v50), vcgtz_f32(v50)));
-            if (vceq_f32(v39, vdup_lane_s32(v39, 1)).u32[0])
+            v45 = vand_s8(vbsl_s8(0x8000000080000000, _D1, v56), vorr_s8(vcltz_f32(v56), vcgtz_f32(v56)));
+            if (vceq_f32(v45, vdup_lane_s32(v45, 1)).u32[0])
             {
-              return vadd_f32(*v46.f32, vmul_n_f32(v48, v50.f32[0] / v50.f32[1]));
+              return vadd_f32(*v52.f32, vmul_n_f32(v54, v56.f32[0] / v56.f32[1]));
             }
           }
         }
@@ -7569,93 +7573,93 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v13 = [v7 session];
-  v14 = [v13 currentFrame];
+  v19 = [v7 session];
+  v20 = [v19 currentFrame];
 
-  if (!v14)
+  if (!v20)
   {
     return 0;
   }
 
   if (v9)
   {
-    v15 = [v14 camera];
-    [v15 transform];
-    v41 = v16;
-    v42 = v17;
+    v21 = [v20 camera];
+    [v21 transform];
+    v47 = v22;
+    v48 = v23;
   }
 
-  v18 = [v14 camera];
+  v24 = [v20 camera];
   if (v7[OBJC_IVAR____TtC10RealityKit6ARView_viewCounterRotating] != 1)
   {
-    v19 = [v7 window];
-    if (v19 && (v20 = v19, v21 = [v19 windowScene], v20, v21))
+    v25 = [v7 window];
+    if (v25 && (v26 = v25, v27 = [v25 windowScene], v26, v27))
     {
-      [v21 interfaceOrientation];
+      [v27 interfaceOrientation];
     }
 
     else
     {
-      v21 = [objc_opt_self() sharedApplication];
-      [v21 statusBarOrientation];
+      v27 = [objc_opt_self() sharedApplication];
+      [v27 statusBarOrientation];
     }
   }
 
   [v7 bounds];
-  v40 = ARCamera.unprojectPoint(_:ontoPlane:orientation:viewportSize:)();
+  v46 = ARCamera.unprojectPoint(_:ontoPlane:orientation:viewportSize:)();
 
-  return v40;
+  return v46;
 }
 
-void ARView.ray(through:)(float32x4_t *a1@<X8>)
+void ARView.ray(through:)(float32x4_t *a1@<X8>, double a2@<D0>, double a3@<D1>)
 {
-  if (*&v1[OBJC_IVAR____TtC10RealityKit6ARView__scene])
+  if (*&v3[OBJC_IVAR____TtC10RealityKit6ARView__scene])
   {
 
     active = dispatch thunk of Scene.internalActiveCamera.getter();
 
-    v4 = 0uLL;
+    v8 = 0uLL;
     if (!active)
     {
-      v8 = 1;
-      v12 = 0uLL;
+      v16 = 1;
+      v20 = 0uLL;
 LABEL_8:
-      *a1 = v4;
-      a1[1] = v12;
-      a1[2].i8[0] = v8;
+      *a1 = v8;
+      a1[1] = v20;
+      a1[2].i8[0] = v16;
       return;
     }
 
-    [v1 bounds];
-    ARView.unproject(_:viewport:)();
-    if ((v5 & 1) == 0)
+    [v3 bounds];
+    ARView.unproject(_:viewport:)(a2, a3, v9, v10, v11, v12);
+    if ((v13 & 1) == 0)
     {
       Entity.coreEntity.getter();
       RETransformComponentGetComponentType();
       if (REEntityGetComponentByClass())
       {
         RETransformComponentGetWorldMatrix4x4F();
-        v13 = v6;
+        v21 = v14;
         simd_float4x4.transform(position:)();
-        v14 = v7;
+        v22 = v15;
 
-        v4 = v13;
-        v8 = 0;
-        v9 = vsubq_f32(v14, v13);
-        v4.i32[3] = 0;
-        v10 = vmulq_f32(v9, v9);
-        *&v11 = v10.f32[2] + vaddv_f32(*v10.f32);
-        *v10.f32 = vrsqrte_f32(v11);
-        *v10.f32 = vmul_f32(*v10.f32, vrsqrts_f32(v11, vmul_f32(*v10.f32, *v10.f32)));
-        v12 = vmulq_n_f32(v9, vmul_f32(*v10.f32, vrsqrts_f32(v11, vmul_f32(*v10.f32, *v10.f32))).f32[0]);
+        v8 = v21;
+        v16 = 0;
+        v17 = vsubq_f32(v22, v21);
+        v8.i32[3] = 0;
+        v18 = vmulq_f32(v17, v17);
+        *&v19 = v18.f32[2] + vaddv_f32(*v18.f32);
+        *v18.f32 = vrsqrte_f32(v19);
+        *v18.f32 = vmul_f32(*v18.f32, vrsqrts_f32(v19, vmul_f32(*v18.f32, *v18.f32)));
+        v20 = vmulq_n_f32(v17, vmul_f32(*v18.f32, vrsqrts_f32(v19, vmul_f32(*v18.f32, *v18.f32))).f32[0]);
       }
 
       else
       {
 
-        v8 = 1;
-        v12 = 0uLL;
-        v4 = 0uLL;
+        v16 = 1;
+        v20 = 0uLL;
+        v8 = 0uLL;
       }
 
       goto LABEL_8;
@@ -7670,12 +7674,12 @@ LABEL_8:
   __break(1u);
 }
 
-void ARView.hitTest(_:query:mask:)()
+void ARView.hitTest(_:query:mask:)(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  ARView.ray(through:)(&v1);
-  if ((v2 & 1) == 0)
+  ARView.ray(through:)(&v5, a3, a4);
+  if ((v6 & 1) == 0)
   {
-    if (*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+    if (*(v4 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
     {
 
       Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
@@ -7688,124 +7692,124 @@ void ARView.hitTest(_:query:mask:)()
   }
 }
 
-void ARView.hitTest(_:requireInputTarget:query:mask:)(char a1)
+void ARView.hitTest(_:requireInputTarget:query:mask:)(char a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation20InputTargetComponentVSgMd);
-  MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = &v39 - v4;
-  v58 = type metadata accessor for Entity.ComponentSet();
-  v6 = *(v58 - 8);
-  MEMORY[0x1EEE9AC00](v58);
-  v8 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for InputTargetComponent();
-  v10 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v56 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for CollisionCastHit();
-  v46 = *(v47 - 8);
-  v12 = (MEMORY[0x1EEE9AC00])(v47);
-  v41 = &v39 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v48 = &v39 - v14;
-  ARView.ray(through:)(v61);
-  if (v62)
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation20InputTargetComponentVSgMd, &_s17RealityFoundation20InputTargetComponentVSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v45 - v10;
+  v64 = type metadata accessor for Entity.ComponentSet();
+  v12 = *(v64 - 8);
+  MEMORY[0x1EEE9AC00](v64);
+  v14 = &v45 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for InputTargetComponent();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v62 = &v45 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = type metadata accessor for CollisionCastHit();
+  v52 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v47 = &v45 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v54 = &v45 - v20;
+  ARView.ray(through:)(v67, a4, a5);
+  if (v68)
   {
-    v15 = MEMORY[0x1E69E7CC0];
+    v21 = MEMORY[0x1E69E7CC0];
   }
 
   else
   {
-    if (!*(v1 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+    if (!*(v5 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
     {
 LABEL_39:
       __break(1u);
       return;
     }
 
-    v57 = v61[0];
-    v55 = v61[1];
+    v63 = v67[0];
+    v61 = v67[1];
 
-    v15 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
+    v21 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
   }
 
-  v16 = v48;
+  v22 = v54;
   if (a1)
   {
-    v45 = *(v15 + 16);
-    if (!v45)
+    v51 = *(v21 + 16);
+    if (!v51)
     {
 LABEL_37:
 
       return;
     }
 
-    v17 = 0;
-    v40 = (*(v46 + 80) + 32) & ~*(v46 + 80);
-    v43 = v15 + v40;
-    v52 = v46 + 16;
-    v57.i64[0] = v6 + 8;
-    v18 = (v10 + 48);
-    v54 = (v10 + 8);
-    v55.i64[0] = v10 + 32;
-    v42 = (v46 + 8);
-    v39 = (v46 + 32);
-    v51 = MEMORY[0x1E69E7CC0];
-    v19 = v47;
-    v44 = v15;
-    while (v17 < *(v15 + 16))
+    v23 = 0;
+    v46 = (*(v52 + 80) + 32) & ~*(v52 + 80);
+    v49 = v21 + v46;
+    v58 = v52 + 16;
+    v63.i64[0] = v12 + 8;
+    v24 = (v16 + 48);
+    v60 = (v16 + 8);
+    v61.i64[0] = v16 + 32;
+    v48 = (v52 + 8);
+    v45 = (v52 + 32);
+    v57 = MEMORY[0x1E69E7CC0];
+    v25 = v53;
+    v50 = v21;
+    while (v23 < *(v21 + 16))
     {
-      v20 = v17;
-      v21 = *(v46 + 72);
-      v53 = v20 + 1;
-      v49 = v21;
-      v50 = *(v46 + 16);
-      v50(v16, v43 + v21 * v20, v19);
-      v22 = CollisionCastHit.entity.getter();
+      v26 = v23;
+      v27 = *(v52 + 72);
+      v59 = v26 + 1;
+      v55 = v27;
+      v56 = *(v52 + 16);
+      v56(v22, v49 + v27 * v26, v25);
+      v28 = CollisionCastHit.entity.getter();
       swift_getKeyPath();
-      v23 = MEMORY[0x1E69E7CC0];
+      v29 = MEMORY[0x1E69E7CC0];
 
-      if (v22)
+      if (v28)
       {
         while (1)
         {
           dispatch thunk of Entity.components.getter();
           Entity.ComponentSet.subscript.getter();
-          v25 = *v57.i64[0];
-          (*v57.i64[0])(v8, v58);
-          v26 = *v18;
-          if ((*v18)(v5, 1, v9) == 1)
+          v31 = *v63.i64[0];
+          (*v63.i64[0])(v14, v64);
+          v32 = *v24;
+          if ((*v24)(v11, 1, v15) == 1)
           {
             break;
           }
 
 LABEL_19:
-          (*v55.i64[0])(v56, v5, v9);
-          v28 = InputTargetComponent.isEnabled.getter();
+          (*v61.i64[0])(v62, v11, v15);
+          v34 = InputTargetComponent.isEnabled.getter();
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v23 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v23 + 2) + 1, 1, v23);
+            v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v29 + 2) + 1, 1, v29);
           }
 
-          v30 = *(v23 + 2);
-          v29 = *(v23 + 3);
-          if (v30 >= v29 >> 1)
+          v36 = *(v29 + 2);
+          v35 = *(v29 + 3);
+          if (v36 >= v35 >> 1)
           {
-            v23 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v23);
+            v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1, v29);
           }
 
-          (*v54)(v56, v9);
-          *(v23 + 2) = v30 + 1;
-          v23[v30 + 32] = v28 & 1;
-          if (v22)
+          (*v60)(v62, v15);
+          *(v29 + 2) = v36 + 1;
+          v29[v36 + 32] = v34 & 1;
+          if (v28)
           {
-            v59 = v22;
+            v65 = v28;
 
             swift_getAtKeyPath();
 
-            v24 = v60;
+            v30 = v66;
 
-            v22 = v24;
-            if (v24)
+            v28 = v30;
+            if (v30)
             {
               continue;
             }
@@ -7814,27 +7818,27 @@ LABEL_19:
           goto LABEL_24;
         }
 
-        v27 = v22;
+        v33 = v28;
         while (1)
         {
 
-          outlined destroy of InputTargetComponent?(v5);
-          v59 = v27;
+          outlined destroy of InputTargetComponent?(v11);
+          v65 = v33;
 
           swift_getAtKeyPath();
 
-          v22 = v60;
+          v28 = v66;
 
-          if (!v22)
+          if (!v28)
           {
             break;
           }
 
           dispatch thunk of Entity.components.getter();
           Entity.ComponentSet.subscript.getter();
-          v25(v8, v58);
-          v27 = v22;
-          if (v26(v5, 1, v9) != 1)
+          v31(v14, v64);
+          v33 = v28;
+          if (v32(v11, 1, v15) != 1)
           {
             goto LABEL_19;
           }
@@ -7843,62 +7847,62 @@ LABEL_19:
 
 LABEL_24:
 
-      v31 = 0;
-      v32 = *(v23 + 2);
-      v19 = v47;
-      v16 = v48;
-      v15 = v44;
-      while (v32 != v31)
+      v37 = 0;
+      v38 = *(v29 + 2);
+      v25 = v53;
+      v22 = v54;
+      v21 = v50;
+      while (v38 != v37)
       {
-        v33 = &v23[v31++];
-        if ((v33[32] & 1) == 0)
+        v39 = &v29[v37++];
+        if ((v39[32] & 1) == 0)
         {
-          (*v42)(v48, v47);
+          (*v48)(v54, v53);
 
           goto LABEL_9;
         }
       }
 
-      if (v32)
+      if (v38)
       {
-        v50(v41, v16, v19);
+        v56(v47, v22, v25);
         if (swift_isUniquelyReferenced_nonNull_native())
         {
-          v34 = v51;
+          v40 = v57;
         }
 
         else
         {
-          v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v51[2] + 1, 1, v51);
+          v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57);
         }
 
-        v35 = v49;
-        v37 = v34[2];
-        v36 = v34[3];
-        if (v37 >= v36 >> 1)
+        v41 = v55;
+        v43 = v40[2];
+        v42 = v40[3];
+        if (v43 >= v42 >> 1)
         {
-          v51 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v36 > 1, v37 + 1, 1, v34);
+          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v40);
         }
 
         else
         {
-          v51 = v34;
+          v57 = v40;
         }
 
-        (*v42)(v16, v19);
-        v38 = v51;
-        v51[2] = v37 + 1;
-        (*v39)(&v38[v40 + v37 * v35], v41, v19);
+        (*v48)(v22, v25);
+        v44 = v57;
+        v57[2] = v43 + 1;
+        (*v45)(&v44[v46 + v43 * v41], v47, v25);
       }
 
       else
       {
-        (*v42)(v16, v19);
+        (*v48)(v22, v25);
       }
 
 LABEL_9:
-      v17 = v53;
-      if (v53 == v45)
+      v23 = v59;
+      if (v59 == v51)
       {
         goto LABEL_37;
       }
@@ -7909,53 +7913,53 @@ LABEL_9:
   }
 }
 
-void ARView.entity(at:)()
+void ARView.entity(at:)(double a1, double a2)
 {
-  v1 = type metadata accessor for CollisionGroup();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for CollisionGroup();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   Type = type metadata accessor for CollisionCastQueryType();
-  v6 = *(Type - 8);
+  v10 = *(Type - 8);
   MEMORY[0x1EEE9AC00](Type);
-  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for CollisionCastHit();
-  v10 = *(v9 - 8);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 104))(v8, *MEMORY[0x1E697A2D8], Type, v11);
+  v12 = v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for CollisionCastHit();
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = v19 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v10 + 104))(v12, *MEMORY[0x1E697A2D8], Type, v15);
   static CollisionGroup.all.getter();
-  ARView.ray(through:)(v17);
-  if (v18)
+  ARView.ray(through:)(v21, a1, a2);
+  if (v22)
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v18 = MEMORY[0x1E69E7CC0];
   }
 
   else
   {
-    v16 = v1;
-    if (!*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+    v20 = v5;
+    if (!*(v2 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
     {
       __break(1u);
       return;
     }
 
-    v15[0] = v17[1];
-    v15[1] = v17[0];
+    v19[0] = v21[1];
+    v19[1] = v21[0];
 
-    v14 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
+    v18 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
 
-    v1 = v16;
+    v5 = v20;
   }
 
-  (*(v2 + 8))(v4, v1);
-  (*(v6 + 8))(v8, Type);
-  if (*(v14 + 16))
+  (*(v6 + 8))(v8, v5);
+  (*(v10 + 8))(v12, Type);
+  if (*(v18 + 16))
   {
-    (*(v10 + 16))(v13, v14 + ((*(v10 + 80) + 32) & ~*(v10 + 80)), v9);
+    (*(v14 + 16))(v17, v18 + ((*(v14 + 80) + 32) & ~*(v14 + 80)), v13);
 
     CollisionCastHit.entity.getter();
-    (*(v10 + 8))(v13, v9);
+    (*(v14 + 8))(v17, v13);
   }
 
   else
@@ -7963,68 +7967,68 @@ void ARView.entity(at:)()
   }
 }
 
-void ARView.entities(at:)()
+void ARView.entities(at:)(double a1, double a2)
 {
-  v23 = type metadata accessor for CollisionCastHit();
-  v1 = *(v23 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v3 = &v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for CollisionGroup();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = type metadata accessor for CollisionCastHit();
+  v5 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for CollisionGroup();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   Type = type metadata accessor for CollisionCastQueryType();
-  v9 = *(Type - 8);
-  v10 = MEMORY[0x1EEE9AC00](Type);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 104))(v12, *MEMORY[0x1E697A2D0], Type, v10);
+  v13 = *(Type - 8);
+  v14 = MEMORY[0x1EEE9AC00](Type);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v13 + 104))(v16, *MEMORY[0x1E697A2D0], Type, v14);
   static CollisionGroup.all.getter();
-  ARView.ray(through:)(v26);
-  v13 = MEMORY[0x1E69E7CC0];
-  if ((v27 & 1) == 0)
+  ARView.ray(through:)(v30, a1, a2);
+  v17 = MEMORY[0x1E69E7CC0];
+  if ((v31 & 1) == 0)
   {
-    if (!*(v0 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
+    if (!*(v2 + OBJC_IVAR____TtC10RealityKit6ARView__scene))
     {
       __break(1u);
       return;
     }
 
-    v24 = v26[0];
-    v22 = v26[1];
+    v28 = v30[0];
+    v26 = v30[1];
 
-    v13 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
+    v17 = Scene.raycast(origin:direction:length:query:mask:relativeTo:)();
   }
 
-  (*(v5 + 8))(v7, v4);
-  (*(v9 + 8))(v12, Type);
-  v14 = *(v13 + 16);
-  if (v14)
+  (*(v9 + 8))(v11, v8);
+  (*(v13 + 8))(v16, Type);
+  v18 = *(v17 + 16);
+  if (v18)
   {
-    v25 = MEMORY[0x1E69E7CC0];
+    v29 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray.reserveCapacity(_:)();
-    v16 = *(v1 + 16);
-    v15 = v1 + 16;
-    v24.i64[0] = v16;
-    v17 = *(v15 + 64);
-    v22.i64[0] = v13;
-    v18 = v13 + ((v17 + 32) & ~v17);
-    v19 = *(v15 + 56);
-    v20 = v23;
-    v21 = (v15 - 8);
+    v20 = *(v5 + 16);
+    v19 = v5 + 16;
+    v28.i64[0] = v20;
+    v21 = *(v19 + 64);
+    v26.i64[0] = v17;
+    v22 = v17 + ((v21 + 32) & ~v21);
+    v23 = *(v19 + 56);
+    v24 = v27;
+    v25 = (v19 - 8);
     do
     {
-      (v24.i64[0])(v3, v18, v20);
+      (v28.i64[0])(v7, v22, v24);
       CollisionCastHit.entity.getter();
-      (*v21)(v3, v20);
+      (*v25)(v7, v24);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      v18 += v19;
-      --v14;
+      v22 += v23;
+      --v18;
     }
 
-    while (v14);
+    while (v18);
   }
 }
 
@@ -8065,7 +8069,7 @@ uint64_t ARView.hitTest(_:types:)(uint64_t a1, double a2, double a3)
   v23.y = v13;
   v19 = CGPointApplyAffineTransform(v23, &v22);
   v20 = [v9 hitTest:a1 types:{v19.x, v19.y}];
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARHitTestResult);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARHitTestResult, 0x1E6986478);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   return v14;
@@ -8144,13 +8148,13 @@ id ARView.trackedRaycast(from:allowing:alignment:updateHandler:)(ARRaycastTarget
   return v13;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed [ARRaycastResult]) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed [ARRaycastResult]) -> ()(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARRaycastResult);
-  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = *(a1 + 32);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARRaycastResult, 0x1E69864B0);
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v1(v2);
+  v2(v3);
 }
 
 uint64_t ARView.raycast(from:allowing:alignment:)(ARRaycastTarget a1, ARRaycastTargetAlignment a2, double a3, double a4)
@@ -8165,7 +8169,7 @@ uint64_t ARView.raycast(from:allowing:alignment:)(ARRaycastTarget a1, ARRaycastT
   v7 = [v4 session];
   v8 = [v7 raycast_];
 
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARRaycastResult);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARRaycastResult, 0x1E69864B0);
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   return v9;
@@ -8173,7 +8177,7 @@ uint64_t ARView.raycast(from:allowing:alignment:)(ARRaycastTarget a1, ARRaycastT
 
 uint64_t outlined destroy of InputTargetComponent?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation20InputTargetComponentVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation20InputTargetComponentVSgMd, &_s17RealityFoundation20InputTargetComponentVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8208,11 +8212,11 @@ uint64_t GroupActivitiesSynchronizationIdentity.init(participant:isLocal:)(_BYTE
   v11 = MEMORY[0x1EEE9AC00](v9);
   v13 = &v29[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v14 = *(v10 + 16);
-  v14(v13, a1, v9, v11);
-  type metadata accessor for GroupActivitiesSynchronizationIdentity.State();
+  (v14)(v13, a1, v9, v11);
+  type metadata accessor for GroupActivitiesSynchronizationIdentity.State(0);
   v15 = swift_allocObject();
   *(v15 + OBJC_IVAR____TtCC10RealityKit38GroupActivitiesSynchronizationIdentityP33_7E3E0600D4E33AA58CAA5FAB3E0E71EC5State_peerID) = 0;
-  (v14)(v15 + OBJC_IVAR____TtCC10RealityKit38GroupActivitiesSynchronizationIdentityP33_7E3E0600D4E33AA58CAA5FAB3E0E71EC5State_participant, v13, v9);
+  v14(v15 + OBJC_IVAR____TtCC10RealityKit38GroupActivitiesSynchronizationIdentityP33_7E3E0600D4E33AA58CAA5FAB3E0E71EC5State_participant, v13, v9);
   Participant.id.getter();
   v16 = UUID.uuidString.getter();
   v18 = v17;
@@ -8306,7 +8310,7 @@ uint64_t GroupActivitiesSynchronizationIdentity.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t type metadata accessor for GroupActivitiesSynchronizationIdentity.State()
+uint64_t type metadata accessor for GroupActivitiesSynchronizationIdentity.State(uint64_t a1)
 {
   result = type metadata singleton initialization cache for GroupActivitiesSynchronizationIdentity.State;
   if (!type metadata singleton initialization cache for GroupActivitiesSynchronizationIdentity.State)
@@ -8317,10 +8321,10 @@ uint64_t type metadata accessor for GroupActivitiesSynchronizationIdentity.State
   return result;
 }
 
-uint64_t type metadata completion function for GroupActivitiesSynchronizationIdentity.State()
+uint64_t type metadata completion function for GroupActivitiesSynchronizationIdentity.State(uint64_t a1)
 {
   result = type metadata accessor for Participant();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -8565,17 +8569,17 @@ uint64_t SpatialTrackingSession.Configuration.supportedConfiguration()@<X0>(uint
 {
   v3 = type metadata accessor for SpatialTrackingSession.Configuration.Camera();
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v14 - v5;
-  v7 = type metadata accessor for ARConfigurationCreateResult();
+  v7 = type metadata accessor for ARConfigurationCreateResult(0);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   createARConfiguration(requestedConfiguration:)(v1, v6);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v6, &_s10RealityKit27ARConfigurationCreateResultVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v6, &_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
     SpatialTrackingSession.Configuration.camera.getter();
     return SpatialTrackingSession.Configuration.init(tracking:sceneUnderstanding:camera:)();
   }
@@ -8590,7 +8594,7 @@ uint64_t SpatialTrackingSession.Configuration.supportedConfiguration()@<X0>(uint
   }
 }
 
-uint64_t type metadata accessor for ARConfigurationCreateResult()
+uint64_t type metadata accessor for ARConfigurationCreateResult(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ARConfigurationCreateResult;
   if (!type metadata singleton initialization cache for ARConfigurationCreateResult)
@@ -8603,14 +8607,14 @@ uint64_t type metadata accessor for ARConfigurationCreateResult()
 
 ARConfiguration_optional __swiftcall SpatialTrackingSession.Configuration.arConfiguration()()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
   MEMORY[0x1EEE9AC00](v1 - 8);
   v3 = (&v8 - v2);
   createARConfiguration(requestedConfiguration:)(v0, &v8 - v2);
-  v4 = type metadata accessor for ARConfigurationCreateResult();
+  v4 = type metadata accessor for ARConfigurationCreateResult(0);
   if ((*(*(v4 - 8) + 48))(v3, 1, v4) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v3, &_s10RealityKit27ARConfigurationCreateResultVSgMd);
+    outlined destroy of ARConfigurationCreateResult?(v3, &_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
     v6 = 0;
   }
 
@@ -8628,7 +8632,7 @@ ARConfiguration_optional __swiftcall SpatialTrackingSession.Configuration.arConf
 
 uint64_t ARConfigurationCreateResult.filteredSpatialTrackingConfiguration.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for ARConfigurationCreateResult() + 20);
+  v3 = *(type metadata accessor for ARConfigurationCreateResult(0) + 20);
   v4 = type metadata accessor for SpatialTrackingSession.Configuration();
   v5 = *(*(v4 - 8) + 16);
 
@@ -8637,7 +8641,7 @@ uint64_t ARConfigurationCreateResult.filteredSpatialTrackingConfiguration.getter
 
 uint64_t ARConfigurationCreateResult.numOfSupportingCapabilities.getter()
 {
-  type metadata accessor for ARConfigurationCreateResult();
+  type metadata accessor for ARConfigurationCreateResult(0);
   v0 = *(SpatialTrackingSession.Configuration.anchorCapabilitySet.getter() + 16);
 
   v1 = *(SpatialTrackingSession.Configuration.sceneUnderstandingCapabilities.getter() + 16);
@@ -8651,7 +8655,7 @@ uint64_t ARConfigurationCreateResult.numOfSupportingCapabilities.getter()
   return result;
 }
 
-uint64_t specialized ARConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:)@<X0>(void (*a1)(__n128)@<X1>, uint64_t a2@<X8>)
+uint64_t specialized ARConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:)@<X0>(uint64_t (*a1)(__n128)@<X1>, uint64_t a2@<X8>)
 {
   v24 = a2;
   v3 = type metadata accessor for SpatialTrackingSession.Configuration.Camera();
@@ -8667,7 +8671,7 @@ uint64_t specialized ARConfigurationBuilder.filterSupportingConfiguration(reques
   a1(v12);
   SpatialTrackingSession.Configuration.camera.getter();
   SpatialTrackingSession.Configuration.camera.getter();
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688], MEMORY[0x1E697A690]);
   LOBYTE(a1) = dispatch thunk of static Equatable.== infix(_:_:)();
   v15 = *(v4 + 8);
   v15(v6, v3);
@@ -8714,7 +8718,7 @@ uint64_t ARConfigurationBuilder.filterSupportingConfiguration(requestedConfigura
   (*(a2 + 8))(a1, a2, v13);
   SpatialTrackingSession.Configuration.camera.getter();
   SpatialTrackingSession.Configuration.camera.getter();
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688], MEMORY[0x1E697A690]);
   v16 = dispatch thunk of static Equatable.== infix(_:_:)();
   v17 = *(v6 + 8);
   v17(v8, v5);
@@ -8758,13 +8762,13 @@ uint64_t ARWorldTrackingConfigurationBuilder.supportingConfiguration()@<X0>(uint
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARWorldTrackingConfiguration);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARWorldTrackingConfiguration, 0x1E69864E8);
   if ([swift_getObjCClassFromMetadata() isSupported])
   {
     v23 = v10;
     v24 = v9;
     v25 = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMR);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_1E1252E70;
     static SpatialTrackingSession.Configuration.AnchorCapability.world.getter();
@@ -8786,7 +8790,7 @@ uint64_t ARWorldTrackingConfigurationBuilder.supportingConfiguration()@<X0>(uint
     }
 
     v16 = [v15 supportsSceneReconstruction_];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMR);
     v17 = type metadata accessor for SpatialTrackingSession.Configuration.SceneUnderstandingCapability();
     v18 = *(v17 - 8);
     v19 = (*(v18 + 80) + 32) & ~*(v18 + 80);
@@ -8874,7 +8878,7 @@ void ARWorldTrackingConfigurationBuilder.filterSupportingConfiguration(requested
   v29 = *MEMORY[0x1E697A678];
   v90 = *(v23 + 104);
   v90(v25, v29, v22);
-  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688]);
+  lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera, MEMORY[0x1E697A688], MEMORY[0x1E697A690]);
   v30 = dispatch thunk of static Equatable.== infix(_:_:)();
   v31 = *(v23 + 8);
   v31(v25, v22);
@@ -8929,7 +8933,7 @@ LABEL_20:
     v49(v45, v51, v9);
     v52 = v81;
     static SpatialTrackingSession.Configuration.AnchorCapability.plane.getter();
-    lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+    lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
     LOBYTE(v51) = dispatch thunk of static Equatable.== infix(_:_:)();
     v53 = *(v48 + 8);
     v53(v52, v9);
@@ -9075,7 +9079,7 @@ uint64_t ARWorldTrackingConfigurationBuilder.createARConfiguration(requestedConf
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v32 - v9;
   v11 = type metadata accessor for SpatialTrackingSession.Configuration();
@@ -9085,8 +9089,8 @@ uint64_t ARWorldTrackingConfigurationBuilder.createARConfiguration(requestedConf
   specialized ARConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:)(ARWorldTrackingConfigurationBuilder.supportingConfiguration(), v10);
   if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
-    v15 = type metadata accessor for ARConfigurationCreateResult();
+    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
+    v15 = type metadata accessor for ARConfigurationCreateResult(0);
     return (*(*(v15 - 8) + 56))(a1, 1, 1, v15);
   }
 
@@ -9144,7 +9148,7 @@ LABEL_10:
   }
 
 LABEL_11:
-  v31 = type metadata accessor for ARConfigurationCreateResult();
+  v31 = type metadata accessor for ARConfigurationCreateResult(0);
   v34(&v25[*(v31 + 20)], v14, v11);
   *v25 = v18;
   return (*(*(v31 - 8) + 56))(v25, 0, 1, v31);
@@ -9162,11 +9166,11 @@ uint64_t ARFaceTrackingConfigurationBuilder.supportingConfiguration()@<X0>(uint6
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARFaceTrackingConfiguration);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARFaceTrackingConfiguration, 0x1E6986460);
   if ([swift_getObjCClassFromMetadata() isSupported])
   {
     v16[0] = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMR);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_1E1252F40;
     static SpatialTrackingSession.Configuration.AnchorCapability.face.getter();
@@ -9294,7 +9298,7 @@ uint64_t ARFaceTrackingConfigurationBuilder.createARConfiguration(requestedConfi
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v21 - v7;
   v9 = type metadata accessor for SpatialTrackingSession.Configuration();
@@ -9304,8 +9308,8 @@ uint64_t ARFaceTrackingConfigurationBuilder.createARConfiguration(requestedConfi
   specialized ARConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:)(ARFaceTrackingConfigurationBuilder.supportingConfiguration(), v8);
   if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v8, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
-    v13 = type metadata accessor for ARConfigurationCreateResult();
+    outlined destroy of ARConfigurationCreateResult?(v8, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
+    v13 = type metadata accessor for ARConfigurationCreateResult(0);
     return (*(*(v13 - 8) + 56))(a1, 1, 1, v13);
   }
 
@@ -9325,7 +9329,7 @@ uint64_t ARFaceTrackingConfigurationBuilder.createARConfiguration(requestedConfi
       [v16 setWorldTrackingEnabled_];
     }
 
-    v19 = type metadata accessor for ARConfigurationCreateResult();
+    v19 = type metadata accessor for ARConfigurationCreateResult(0);
     v20 = v22;
     v15(v22 + *(v19 + 20), v12, v9);
     *v20 = v16;
@@ -9339,10 +9343,10 @@ uint64_t ARBodyTrackingConfigurationBuilder.supportingConfiguration()()
   v1 = *(v0 - 8);
   MEMORY[0x1EEE9AC00](v0);
   v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARBodyTrackingConfiguration);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for ARBodyTrackingConfiguration, 0x1E6986428);
   if ([swift_getObjCClassFromMetadata() isSupported])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV16AnchorCapabilityVGMR);
     type metadata accessor for SpatialTrackingSession.Configuration.AnchorCapability();
     v4 = swift_allocObject();
     *(v4 + 16) = xmmword_1E1254230;
@@ -9354,7 +9358,7 @@ uint64_t ARBodyTrackingConfigurationBuilder.supportingConfiguration()()
     swift_setDeallocating();
     swift_arrayDestroy();
     swift_deallocClassInstance();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation22SpatialTrackingSessionC13ConfigurationV28SceneUnderstandingCapabilityVGMR);
     v5 = type metadata accessor for SpatialTrackingSession.Configuration.SceneUnderstandingCapability();
     v6 = *(v5 - 8);
     v7 = (*(v6 + 80) + 32) & ~*(v6 + 80);
@@ -9475,7 +9479,7 @@ LABEL_15:
     v83 = v52;
     v52(v49, v41, v10);
     static SpatialTrackingSession.Configuration.AnchorCapability.plane.getter();
-    lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640]);
+    lazy protocol witness table accessor for type SpatialTrackingSession.Configuration.Camera and conformance SpatialTrackingSession.Configuration.Camera(&lazy protocol witness table cache variable for type SpatialTrackingSession.Configuration.AnchorCapability and conformance SpatialTrackingSession.Configuration.AnchorCapability, MEMORY[0x1E697A640], MEMORY[0x1E697A650]);
     v43 = v49;
     LOBYTE(v53) = dispatch thunk of static Equatable.== infix(_:_:)();
     v54 = *(v51 + 8);
@@ -9599,7 +9603,7 @@ uint64_t ARBodyTrackingConfigurationBuilder.createARConfiguration(requestedConfi
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v28 - v9;
   v11 = type metadata accessor for SpatialTrackingSession.Configuration();
@@ -9609,8 +9613,8 @@ uint64_t ARBodyTrackingConfigurationBuilder.createARConfiguration(requestedConfi
   specialized ARConfigurationBuilder.filterSupportingConfiguration(requestedConfiguration:)(ARBodyTrackingConfigurationBuilder.supportingConfiguration(), v10);
   if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd);
-    v15 = type metadata accessor for ARConfigurationCreateResult();
+    outlined destroy of ARConfigurationCreateResult?(v10, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMd, &_s17RealityFoundation22SpatialTrackingSessionC13ConfigurationVSgMR);
+    v15 = type metadata accessor for ARConfigurationCreateResult(0);
     return (*(*(v15 - 8) + 56))(a1, 1, 1, v15);
   }
 
@@ -9655,7 +9659,7 @@ uint64_t ARBodyTrackingConfigurationBuilder.createARConfiguration(requestedConfi
       [v17 setPlaneDetection_];
     }
 
-    v27 = type metadata accessor for ARConfigurationCreateResult();
+    v27 = type metadata accessor for ARConfigurationCreateResult(0);
     v29(&v26[*(v27 + 20)], v14, v11);
     *v26 = v17;
     return (*(*(v27 - 8) + 56))(v26, 0, 1, v27);
@@ -9666,20 +9670,20 @@ uint64_t createARConfiguration(requestedConfiguration:)@<X0>(uint64_t a1@<X0>, u
 {
   v40 = a1;
   v37 = a2;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v36 - v3;
-  v41 = type metadata accessor for ARConfigurationCreateResult();
+  v41 = type metadata accessor for ARConfigurationCreateResult(0);
   v5 = *(v41 - 8);
-  v6 = MEMORY[0x1EEE9AC00](v41);
-  v36 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v38 = &v36 - v9;
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v12 = &v36 - v11;
-  MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v41);
+  v36 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v38 = &v36 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v36 - v10;
+  MEMORY[0x1EEE9AC00](v12);
   v14 = &v36 - v13;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit22ARConfigurationBuilder_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10RealityKit22ARConfigurationBuilder_pGMd, &_ss23_ContiguousArrayStorageCy10RealityKit22ARConfigurationBuilder_pGMR);
   inited = swift_initStackObject();
   v16 = 0;
   *(inited + 56) = &type metadata for ARWorldTrackingConfigurationBuilder;
@@ -9699,13 +9703,13 @@ uint64_t createARConfiguration(requestedConfiguration:)@<X0>(uint64_t a1@<X0>, u
     (*(v18 + 32))(v40, v19, v18);
     if ((*(v5 + 48))(v4, 1, v41) == 1)
     {
-      outlined destroy of ARConfigurationCreateResult?(v4, &_s10RealityKit27ARConfigurationCreateResultVSgMd);
+      outlined destroy of ARConfigurationCreateResult?(v4, &_s10RealityKit27ARConfigurationCreateResultVSgMd, &_s10RealityKit27ARConfigurationCreateResultVSgMR);
     }
 
     else
     {
       outlined init with take of ARConfigurationCreateResult(v4, v14);
-      outlined init with copy of ARConfigurationCreateResult(v14, v12);
+      outlined init with copy of ARConfigurationCreateResult(v14, v11);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17[2] + 1, 1, v17);
@@ -9715,12 +9719,12 @@ uint64_t createARConfiguration(requestedConfiguration:)@<X0>(uint64_t a1@<X0>, u
       v20 = v17[3];
       if (v21 >= v20 >> 1)
       {
-        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v20 > 1, v21 + 1, 1, v17);
+        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v17);
       }
 
       outlined destroy of ARConfigurationCreateResult(v14);
       v17[2] = v21 + 1;
-      outlined init with take of ARConfigurationCreateResult(v12, v17 + ((*(v39 + 80) + 32) & ~*(v39 + 80)) + *(v39 + 72) * v21);
+      outlined init with take of ARConfigurationCreateResult(v11, v17 + ((*(v39 + 80) + 32) & ~*(v39 + 80)) + *(v39 + 72) * v21);
     }
 
     v16 += 40;

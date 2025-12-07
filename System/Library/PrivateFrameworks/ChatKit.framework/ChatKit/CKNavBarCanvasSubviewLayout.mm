@@ -21,7 +21,7 @@
 {
   v37.receiver = self;
   v37.super_class = CKNavBarCanvasSubviewLayout;
-  result = objc_msgSendSuper2(&v37, sel_init);
+  result = objc_msgSendSuper2(&v37, sel_init, a11, a12, a13, a14, a15, a16);
   if (result)
   {
     result[9] = a2;

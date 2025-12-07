@@ -16,7 +16,7 @@
 
 - (void)setHyperlinkURL:(id)l
 {
-  v4 = sub_1005B981C(&unk_1019F33C0);
+  v4 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   if (l)
@@ -32,7 +32,7 @@
     (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
   }
 
-  sub_10000CAAC(v6, &unk_1019F33C0);
+  sub_10000CAAC(v6, &unk_1019F33C0, &unk_101468A60);
 }
 
 - (_TtC8Freeform8CRLAsset)metadataPayload
@@ -51,7 +51,7 @@
   v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
   v8 = &v19 - v7;
-  sub_1005B981C(&unk_1019F61D0);
+  sub_1005B981C(&unk_1019F61D0, qword_10146E9A0);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_10146BDE0;
   static UTType.url.getter();
@@ -82,7 +82,7 @@
   selfCopy = self;
   static UTType._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v11 = sub_100A7CD48();
+  v11 = sub_100A7CD48(v8);
   v13 = v12;
 
   (*(v6 + 8))(v8, v5);
@@ -140,7 +140,7 @@
 
 - (Class)repClass
 {
-  type metadata accessor for CRLURLRep();
+  type metadata accessor for CRLURLRep(0);
 
   return swift_getObjCClassFromMetadata();
 }

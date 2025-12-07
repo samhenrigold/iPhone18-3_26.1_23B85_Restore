@@ -94,10 +94,9 @@
       a2 = [MEMORY[0x1E696AD98] numberWithInteger:v11];
     }
 
-    v12 = self[1];
     objc_opt_class();
-    v13 = [[NSSQLBindVariable alloc] initWithValue:a2 sqlType:id propertyDescription:0 allowCoercion:(objc_opt_isKindOfClass() & 1) == 0];
-    [v9 addObject:v13];
+    v12 = [[NSSQLBindVariable alloc] initWithValue:a2 sqlType:id propertyDescription:0 allowCoercion:(objc_opt_isKindOfClass() & 1) == 0];
+    [v9 addObject:v12];
   }
 
   return self != 0;
@@ -125,14 +124,14 @@
 
       else if ([constantValue isNSString])
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@'", self->_constantValue];
+        v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_constantValue);
       }
 
       else if ([self->_constantValue isNSDate])
       {
         v38 = MEMORY[0x1E696AEC0];
         [self->_constantValue timeIntervalSinceReferenceDate];
-        v10 = [v38 stringWithFormat:@"%f", v39];
+        v10 = objc_msgSend_stringWithFormat_(v38, v39);
       }
 
       else
@@ -352,10 +351,10 @@ LABEL_64:
       }
 
 LABEL_73:
-      v51 = [objc_msgSend(context valueForKey:{@"explicitRestrictingEntityQualifier", "lastObject"}];
-      if ([v51 isEqual:MEMORY[0x1E695E118]])
+      lastObject = [objc_msgSend_valueForKey_(context) lastObject];
+      if ([lastObject isEqual:MEMORY[0x1E695E118]])
       {
-        v52 = [context valueForKey:@"persistentStore"];
+        v52 = objc_msgSend_valueForKey_(context);
         model = [v52 model];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -376,69 +375,69 @@ LABEL_73:
           {
             if (model)
             {
-              v63 = model[3];
+              v62 = model[3];
             }
 
             else
             {
-              v63 = 0;
+              v62 = 0;
             }
 
-            allKeys = [v63 allKeys];
-            v65 = MEMORY[0x1E695E0F0];
+            allKeys = [v62 allKeys];
+            v64 = MEMORY[0x1E695E0F0];
             if (allKeys)
             {
-              v66 = allKeys;
+              v65 = allKeys;
             }
 
             else
             {
-              v66 = MEMORY[0x1E695E0F0];
+              v65 = MEMORY[0x1E695E0F0];
             }
 
             identifier = [v52 identifier];
             if (identifier)
             {
-              v68 = identifier;
+              v67 = identifier;
             }
 
             else
             {
-              v68 = @"no store ID";
+              v67 = @"no store ID";
             }
 
             configurationName = [v52 configurationName];
             if (configurationName)
             {
-              v70 = configurationName;
+              v69 = configurationName;
             }
 
             else
             {
-              v70 = @"no config";
+              v69 = @"no config";
             }
 
-            v71 = [objc_msgSend(model "managedObjectModel")];
-            if (v71)
+            v70 = [objc_msgSend(model "managedObjectModel")];
+            if (v70)
             {
-              v65 = [v71 valueForKey:@"name"];
+              v64 = objc_msgSend_valueForKey_(v70);
             }
 
             v83[0] = @"KnownEntities";
             v83[1] = @"StoreID";
-            v84[0] = v66;
-            v84[1] = v68;
+            v84[0] = v65;
+            v84[1] = v67;
             v83[2] = @"Configuration";
             v83[3] = @"ConfigurationEntities";
-            v84[2] = v70;
-            v84[3] = v65;
-            v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:4];
-            if (![objc_msgSend(objc_msgSend(model "managedObjectModel")] || (objc_msgSend(v65, "containsObject:", entityDescription) & 1) != 0 || (v73 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@ is not in current configuration - %@.", entityDescription, v70)) == 0)
+            v84[2] = v69;
+            v84[3] = v64;
+            v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:4];
+            if (!objc_msgSend_valueForKey_([objc_msgSend(model "managedObjectModel")]) || (objc_msgSend(v64, "containsObject:", entityDescription) & 1) != 0 || (v72 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], entityDescription, v69)) == 0)
             {
-              v73 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a valid entity name.", v73, entityDescription];
+              v72 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], entityDescription);
             }
 
-            [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D930], v73, v72), @"NSUnderlyingException"}];
+            [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D930], v72, v71), @"NSUnderlyingException"}];
             v22 = 0;
             goto LABEL_83;
           }
@@ -446,8 +445,8 @@ LABEL_73:
           v54 = v55;
           entityDescription = [v55 entityDescription];
 LABEL_80:
-          v56 = [context valueForKey:@"explicitRestrictingEntityQualifier"];
-          [v56 replaceObjectAtIndex:objc_msgSend(v56 withObject:{"indexOfObject:", v51), v54}];
+          v56 = objc_msgSend_valueForKey_(context);
+          [v56 replaceObjectAtIndex:objc_msgSend(v56 withObject:{"indexOfObject:", lastObject), v54}];
         }
       }
 
@@ -489,32 +488,33 @@ LABEL_112:
     v84[0] = 0;
     if (entityDescription)
     {
-      v76 = [propertyDescription encode:entityDescription withRegistry:objc_msgSend(objc_msgSend(objc_msgSend(context error:{"valueForKey:", @"persistentStore", "persistentStoreCoordinator"), "codableAdapterRegistry"), v84}];
-      if (v76)
+      v75 = [propertyDescription encode:entityDescription withRegistry:objc_msgSend(objc_msgSend(objc_msgSend_valueForKey_(context) error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), v84}];
+      if (v75)
       {
         v23 = 10;
-        entityDescription = v76;
+        entityDescription = v75;
         goto LABEL_73;
       }
 
-      v77 = v84[0];
+      v76 = v84[0];
       if (v84[0])
       {
         v85[0] = *MEMORY[0x1E696AA08];
         v83[0] = v84[0];
-        v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v85 count:1];
-        v77 = v84[0];
+        v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v85 count:1];
+        v76 = v84[0];
 LABEL_126:
-        objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Failed to encode %@: %@", entityDescription, v77), v78}]);
+        v78 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{entityDescription, v76), v77}];
+        objc_exception_throw(v78);
       }
     }
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
-    v78 = 0;
+    v77 = 0;
     goto LABEL_126;
   }
 
@@ -549,7 +549,6 @@ LABEL_83:
 LABEL_90:
   v60 = [(__CFString *)v10 mutableCopy];
   objc_autoreleasePoolPop(v5);
-  v61 = *MEMORY[0x1E69E9840];
   return v60;
 }
 

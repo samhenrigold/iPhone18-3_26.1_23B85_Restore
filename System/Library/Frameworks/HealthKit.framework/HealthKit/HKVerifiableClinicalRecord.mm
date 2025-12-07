@@ -118,11 +118,10 @@ void __230__HKVerifiableClinicalRecord_verifiableClinicalRecordWithType_startDat
   v24 = v4[22];
   v4[22] = v23;
 
-  v25 = *(a1 + 104);
-  v28 = [objc_opt_class() sourceTypeForInternalType:*(a1 + 112)];
-  v26 = [v28 copy];
-  v27 = v4[19];
-  v4[19] = v26;
+  v27 = [objc_opt_class() sourceTypeForInternalType:*(a1 + 112)];
+  v25 = [v27 copy];
+  v26 = v4[19];
+  v4[19] = v25;
 }
 
 - (HKVerifiableClinicalRecord)init
@@ -168,17 +167,17 @@ void __230__HKVerifiableClinicalRecord_verifiableClinicalRecordWithType_startDat
 
 - (HKVerifiableClinicalRecord)initWithCoder:(id)coder
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v39.receiver = self;
-  v39.super_class = HKVerifiableClinicalRecord;
-  v5 = [(HKSample *)&v39 initWithCoder:coderCopy];
+  v38.receiver = self;
+  v38.super_class = HKVerifiableClinicalRecord;
+  v5 = [(HKSample *)&v38 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v41[0] = objc_opt_class();
-    v41[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+    v40[0] = objc_opt_class();
+    v40[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"RecordTypes"];
     recordTypes = v5->_recordTypes;
@@ -205,9 +204,9 @@ void __230__HKVerifiableClinicalRecord_verifiableClinicalRecordWithType_startDat
     v5->_subject = v19;
 
     v21 = MEMORY[0x1E695DFD8];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"ItemNames"];
     itemNames = v5->_itemNames;
@@ -240,7 +239,6 @@ void __230__HKVerifiableClinicalRecord_verifiableClinicalRecordWithType_startDat
     v5->_originIdentifier = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

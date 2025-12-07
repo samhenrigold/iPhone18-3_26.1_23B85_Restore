@@ -61,27 +61,27 @@
   if (!self->_bufferInfo.components)
   {
     v10 = objc_msgSend_get(self, v6, v7, v8, v9);
-    v15 = v10;
+    v14 = v10;
     if (v10)
     {
-      objc_msgSend_bufferInfo(v10, v11, v12, v13, v14);
+      objc_msgSend_bufferInfo(v10, v11, v12, v13);
     }
 
     else
     {
-      v19 = 0u;
-      v20 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v17 = 0u;
     }
 
-    *&self->_bufferInfo.componentType = v18;
-    *&self->_bufferInfo.count = v19;
-    *&self->_bufferInfo.componentByteSize = v20;
+    *&self->_bufferInfo.componentType = v17;
+    *&self->_bufferInfo.count = v18;
+    *&self->_bufferInfo.componentByteSize = v19;
   }
 
-  v16 = *&self->_bufferInfo.count;
+  v15 = *&self->_bufferInfo.count;
   *&retstr->componentType = *&self->_bufferInfo.componentType;
-  *&retstr->count = v16;
+  *&retstr->count = v15;
   *&retstr->componentByteSize = *&self->_bufferInfo.componentByteSize;
   objc_sync_exit(WeakRetained);
 

@@ -16,6 +16,7 @@
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_reorderSwitcherSnapshotView;
 - (void)_setShape:(unint64_t)shape;
 - (void)_setUpMetalView;
@@ -137,6 +138,16 @@
   [(CLKUIMetalQuadView *)self->_quadView removeFromSuperview];
   quadView = self->_quadView;
   self->_quadView = 0;
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKAtiumFaceView;
+  groupCopy = group;
+  [(NTKAtiumFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (id)createFaceColorPalette
@@ -467,21 +478,19 @@
 
 - (void)atiumQuadDidUpdateAnimatingOverrideDate:(id)date
 {
-  isAnimatingOverrideDate = [date isAnimatingOverrideDate];
-  quadView = self->_quadView;
-  if (isAnimatingOverrideDate)
+  if ([date isAnimatingOverrideDate])
   {
-    v6 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v6 = 30;
+    v4 = 30;
   }
 
-  v7 = self->_quadView;
+  quadView = self->_quadView;
 
-  [(CLKUIMetalQuadView *)v7 setPreferredFramesPerSecond:v6];
+  [(CLKUIMetalQuadView *)quadView setPreferredFramesPerSecond:v4];
 }
 
 - (id)_snapshotWithPigment:(id)pigment analogDialShape:(unint64_t)shape size:(CGSize)size scale:(double)scale

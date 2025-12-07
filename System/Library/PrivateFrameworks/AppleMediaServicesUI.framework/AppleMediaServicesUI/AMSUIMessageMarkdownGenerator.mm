@@ -159,7 +159,7 @@
 
 - (id)fontWithTraits:(unsigned int)traits
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   currentFont = [(AMSUIMessageMarkdownGenerator *)self currentFont];
   fontDescriptor = [currentFont fontDescriptor];
   v6 = [fontDescriptor symbolicTraits] | traits;
@@ -184,15 +184,15 @@
     {
       v12 = objc_opt_class();
       v13 = AMSLogKey();
-      v17 = 138544130;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v13;
-      v21 = 2114;
-      v22 = currentFont;
-      v23 = 1024;
-      v24 = v6;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Font %{public}@, does not support traits %u", &v17, 0x26u);
+      v16 = 138544130;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v13;
+      v20 = 2114;
+      v21 = currentFont;
+      v22 = 1024;
+      v23 = v6;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Font %{public}@, does not support traits %u", &v16, 0x26u);
     }
 
     v9 = currentFont;
@@ -200,14 +200,12 @@
 
   v14 = v9;
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)reconcileElementAttributes:(id)attributes withFont:(id)font
 {
-  v53[2] = *MEMORY[0x1E69E9840];
+  v52[2] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   fontCopy = font;
   if ([attributesCopy count])
@@ -239,13 +237,13 @@
     }
 
     v15 = fontName;
-    v47 = v11;
+    v46 = v11;
 
     [fontCopy pointSize];
     v17 = v16;
     v18 = [attributesCopy objectForKeyedSubscript:@"font-size"];
 
-    v46 = v15;
+    v45 = v15;
     if (v18)
     {
       v19 = [attributesCopy objectForKeyedSubscript:@"font-size"];
@@ -314,29 +312,29 @@
     if (v35)
     {
       v37 = *MEMORY[0x1E69DB8A8];
-      v38 = v47;
-      v52[1] = v23;
-      v53[0] = v47;
-      v52[0] = v37;
-      v50 = *v27;
+      v38 = v46;
+      v51[1] = v23;
+      v52[0] = v46;
+      v51[0] = v37;
+      v49 = *v27;
       v39 = [MEMORY[0x1E696AD98] numberWithDouble:v26];
-      v51 = v39;
-      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v53[1] = v40;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+      v50 = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v52[1] = v40;
+      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
       v42 = [v36 fontDescriptorWithFontAttributes:v41];
 
-      v43 = v46;
+      v43 = v45;
     }
 
     else
     {
-      v43 = v46;
-      v48 = *MEMORY[0x1E69DB8B8];
-      v49 = v46;
-      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v43 = v45;
+      v47 = *MEMORY[0x1E69DB8B8];
+      v48 = v45;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       v42 = [v36 fontDescriptorWithFontAttributes:v39];
-      v38 = v47;
+      v38 = v46;
     }
 
     v10 = [MEMORY[0x1E69DB878] fontWithDescriptor:v42 size:v17];
@@ -347,29 +345,25 @@
     v10 = fontCopy;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)parserDidStartDocument:(id)document
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
   [v4 setAlignment:4];
   v5 = MEMORY[0x1E695DF90];
-  v9 = *MEMORY[0x1E69DB688];
-  v10[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E69DB688];
+  v9[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v5 dictionaryWithDictionary:v6];
   [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser parseErrorOccurred:(id)occurred
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   occurredCopy = occurred;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
@@ -382,22 +376,21 @@
   {
     v8 = objc_opt_class();
     v9 = AMSLogKey();
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = occurredCopy;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to parse with error: %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = occurredCopy;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to parse with error: %{public}@", &v10, 0x20u);
   }
 
   [(AMSUIMessageMarkdownGenerator *)self setDidParseEverything:0];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser didStartElement:(unint64_t)element attributes:(id)attributes
 {
-  v75[2] = *MEMORY[0x1E69E9840];
+  v74[2] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   accumulator = [(AMSUIMessageMarkdownGenerator *)self accumulator];
   [accumulator beginEditing];
@@ -410,19 +403,19 @@
       v11 = [(AMSUIMessageMarkdownGenerator *)self reconcileElementAttributes:attributesCopy withFont:currentFont];
 
       v24 = MEMORY[0x1E695DF90];
-      v58[0] = *MEMORY[0x1E69DB688];
+      v57[0] = *MEMORY[0x1E69DB688];
       configuration = [(AMSUIMessageMarkdownGenerator *)self configuration];
       paragraphStyle = [configuration paragraphStyle];
       v27 = *MEMORY[0x1E69DB648];
-      v59[0] = paragraphStyle;
-      v59[1] = v11;
+      v58[0] = paragraphStyle;
+      v58[1] = v11;
       v28 = *MEMORY[0x1E69DB650];
-      v58[1] = v27;
-      v58[2] = v28;
+      v57[1] = v27;
+      v57[2] = v28;
       configuration2 = [(AMSUIMessageMarkdownGenerator *)self configuration];
       color = [configuration2 color];
-      v59[2] = color;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:3];
+      v58[2] = color;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
       v31 = [v24 dictionaryWithDictionary:v30];
       [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v31];
     }
@@ -449,11 +442,11 @@ LABEL_25:
 
       v33 = MEMORY[0x1E695DF90];
       v34 = *MEMORY[0x1E69DB648];
-      v60[0] = *MEMORY[0x1E69DB6B8];
-      v60[1] = v34;
-      v61[0] = &unk_1F394A600;
-      v61[1] = v11;
-      v60[2] = *MEMORY[0x1E69DB650];
+      v59[0] = *MEMORY[0x1E69DB6B8];
+      v59[1] = v34;
+      v60[0] = &unk_1F394A600;
+      v60[1] = v11;
+      v59[2] = *MEMORY[0x1E69DB650];
       configuration = [(AMSUIMessageMarkdownGenerator *)self configuration];
       paragraphStyle = [configuration strikeThroughColor];
       color = paragraphStyle;
@@ -463,8 +456,8 @@ LABEL_25:
         color = [configuration2 color];
       }
 
-      v61[2] = color;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:3];
+      v60[2] = color;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:3];
       v36 = [v33 dictionaryWithDictionary:v35];
       [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v36];
 
@@ -486,28 +479,28 @@ LABEL_24:
     {
       if (element == 3)
       {
-        v51 = MEMORY[0x1E695DF90];
-        v68 = *MEMORY[0x1E69DB648];
-        v52 = [(AMSUIMessageMarkdownGenerator *)self fontWithTraits:0];
-        v69 = v52;
-        v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-        v54 = [v51 dictionaryWithDictionary:v53];
-        [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v54];
+        v50 = MEMORY[0x1E695DF90];
+        v67 = *MEMORY[0x1E69DB648];
+        v51 = [(AMSUIMessageMarkdownGenerator *)self fontWithTraits:0];
+        v68 = v51;
+        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        v53 = [v50 dictionaryWithDictionary:v52];
+        [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v53];
 
-        v55 = [attributesCopy objectForKeyedSubscript:@"href"];
+        v54 = [attributesCopy objectForKeyedSubscript:@"href"];
 
-        if (!v55)
+        if (!v54)
         {
           goto LABEL_26;
         }
 
-        v56 = MEMORY[0x1E695DF90];
-        v66 = *MEMORY[0x1E69DB670];
+        v55 = MEMORY[0x1E695DF90];
+        v65 = *MEMORY[0x1E69DB670];
         v11 = [attributesCopy objectForKeyedSubscript:@"href"];
-        v67 = v11;
-        configuration3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-        v57 = [v56 dictionaryWithDictionary:configuration3];
-        [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v57];
+        v66 = v11;
+        configuration3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+        v56 = [v55 dictionaryWithDictionary:configuration3];
+        [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v56];
 
         goto LABEL_22;
       }
@@ -517,17 +510,17 @@ LABEL_24:
 
       v12 = MEMORY[0x1E695DF90];
       v13 = *MEMORY[0x1E69DB648];
-      v62[0] = *MEMORY[0x1E69DB758];
-      v62[1] = v13;
-      v63[0] = &unk_1F394A600;
-      v63[1] = v11;
-      v62[2] = *MEMORY[0x1E69DB650];
+      v61[0] = *MEMORY[0x1E69DB758];
+      v61[1] = v13;
+      v62[0] = &unk_1F394A600;
+      v62[1] = v11;
+      v61[2] = *MEMORY[0x1E69DB650];
       configuration3 = [(AMSUIMessageMarkdownGenerator *)self configuration];
       color2 = [configuration3 color];
-      v63[2] = color2;
+      v62[2] = color2;
       v16 = MEMORY[0x1E695DF20];
-      v17 = v63;
-      v18 = v62;
+      v17 = v62;
+      v18 = v61;
       v19 = 3;
 LABEL_21:
       v40 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:v19];
@@ -543,16 +536,16 @@ LABEL_22:
 
     v12 = MEMORY[0x1E695DF90];
     v38 = *MEMORY[0x1E69DB648];
-    v65[0] = v11;
+    v64[0] = v11;
     v39 = *MEMORY[0x1E69DB650];
-    v64[0] = v38;
-    v64[1] = v39;
+    v63[0] = v38;
+    v63[1] = v39;
     configuration3 = [(AMSUIMessageMarkdownGenerator *)self configuration];
     color2 = [configuration3 color];
-    v65[1] = color2;
+    v64[1] = color2;
     v16 = MEMORY[0x1E695DF20];
-    v17 = v65;
-    v18 = v64;
+    v17 = v64;
+    v18 = v63;
 LABEL_20:
     v19 = 2;
     goto LABEL_21;
@@ -560,22 +553,22 @@ LABEL_20:
 
   if (!element)
   {
-    v72 = *MEMORY[0x1E69DB8B0];
-    v73 = &unk_1F394AB90;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v71 = *MEMORY[0x1E69DB8B0];
+    v72 = &unk_1F394AB90;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
     v42 = [(AMSUIMessageMarkdownGenerator *)self currentFontAddingFontAttributes:v11];
     configuration = [(AMSUIMessageMarkdownGenerator *)self reconcileElementAttributes:attributesCopy withFont:v42];
 
     v43 = MEMORY[0x1E695DF90];
     v44 = *MEMORY[0x1E69DB648];
-    v71[0] = configuration;
+    v70[0] = configuration;
     v45 = *MEMORY[0x1E69DB650];
-    v70[0] = v44;
-    v70[1] = v45;
+    v69[0] = v44;
+    v69[1] = v45;
     configuration4 = [(AMSUIMessageMarkdownGenerator *)self configuration];
     color3 = [configuration4 color];
-    v71[1] = color3;
-    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
+    v70[1] = color3;
+    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:2];
     v49 = [v43 dictionaryWithDictionary:v48];
     [(AMSUIMessageMarkdownGenerator *)self pushAttributes:v49];
 
@@ -589,27 +582,25 @@ LABEL_20:
 
     v12 = MEMORY[0x1E695DF90];
     v21 = *MEMORY[0x1E69DB648];
-    v75[0] = v11;
+    v74[0] = v11;
     v22 = *MEMORY[0x1E69DB650];
-    v74[0] = v21;
-    v74[1] = v22;
+    v73[0] = v21;
+    v73[1] = v22;
     configuration3 = [(AMSUIMessageMarkdownGenerator *)self configuration];
     color2 = [configuration3 color];
-    v75[1] = color2;
+    v74[1] = color2;
     v16 = MEMORY[0x1E695DF20];
-    v17 = v75;
-    v18 = v74;
+    v17 = v74;
+    v18 = v73;
     goto LABEL_20;
   }
 
 LABEL_26:
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser didEndElement:(unint64_t)element
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   if (element == 8)
   {
     symbol = [(AMSUIMessageMarkdownGenerator *)self symbol];
@@ -649,8 +640,8 @@ LABEL_26:
         v21 = MEMORY[0x1E69DCAD8];
         configuration2 = [(AMSUIMessageMarkdownGenerator *)self configuration];
         color2 = [configuration2 color];
-        v33[0] = color2;
-        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+        v32[0] = color2;
+        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
         v25 = [v21 configurationWithPaletteColors:v24];
 
         v26 = [v25 configurationByApplyingConfiguration:v18];
@@ -678,7 +669,6 @@ LABEL_26:
   [accumulator2 endEditing];
 
   [(AMSUIMessageMarkdownGenerator *)self setSymbol:0];
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser didFindArtworkWithIdentifier:(id)identifier

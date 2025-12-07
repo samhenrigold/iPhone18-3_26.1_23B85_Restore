@@ -12,25 +12,25 @@
 - (void)previousPage
 {
   selfCopy = self;
-  sub_100018688();
+  sub_100018688(selfCopy);
 }
 
 - (void)nextPage
 {
   selfCopy = self;
-  sub_10001886C();
+  sub_10001886C(selfCopy);
 }
 
 - (void)refresh
 {
   selfCopy = self;
-  sub_100018A50();
+  sub_100018A50(selfCopy);
 }
 
 - (void)done
 {
   selfCopy = self;
-  sub_100018B90();
+  sub_100018B90(selfCopy);
 }
 
 - (_TtC8Business23IMBWebNavigationToolbar)initWithFrame:(CGRect)frame

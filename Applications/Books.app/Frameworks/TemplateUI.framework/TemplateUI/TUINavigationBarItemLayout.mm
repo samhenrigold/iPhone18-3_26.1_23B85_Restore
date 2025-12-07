@@ -10,11 +10,11 @@
 {
   v10 = 0u;
   v11 = 0u;
-  v3 = COERCE_FLOAT([(TUILayout *)self specifiedWidth]);
+  v3 = COERCE_FLOAT(objc_msgSend_specifiedWidth(self, a2));
   v12 = 0u;
   v13 = 0u;
-  children = [(TUILayout *)self children];
-  v5 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = objc_msgSend_children(self, 0);
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
@@ -25,16 +25,16 @@
       {
         if (*v11 != v7)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v4);
         }
 
         v9 = *(*(&v10 + 1) + 8 * i);
         [v9 setSpecifiedWidthComputeInherited:1];
         [v9 setContainingWidth:v3];
-        [v9 validateLayout];
+        objc_msgSend_validateLayout(v9);
       }
 
-      v6 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -44,7 +44,7 @@
 - (BOOL)collectHostingPropertiesWithCollector:(id)collector
 {
   collectorCopy = collector;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   hostingIdentifiers = [v5 hostingIdentifiers];
 
   if (hostingIdentifiers)
@@ -79,12 +79,12 @@
 - (id)newRenderModelCompatibleWithKind:(unint64_t)kind context:(id)context
 {
   contextCopy = context;
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   width = [v6 width];
   v83 = v7;
 
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v8 = objc_msgSend_children(self);
+  firstObject = [v8 firstObject];
 
   if (firstObject)
   {
@@ -96,12 +96,12 @@
     v94 = 0;
   }
 
-  v10 = [(TUILayout *)self box];
+  v10 = objc_msgSend_box(self);
   v86 = firstObject;
   if ([v10 axHasNonDefaultAttributess])
   {
     v11 = [TUIAXAttributes alloc];
-    v12 = [(TUILayout *)self box];
+    v12 = objc_msgSend_box(self);
     v93 = [(TUIAXAttributes *)v11 initWithAXAttributes:v12];
   }
 
@@ -110,20 +110,20 @@
     v93 = 0;
   }
 
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   actionHandler = [v13 actionHandler];
 
-  v15 = [(TUILayout *)self box];
+  v15 = objc_msgSend_box(self);
   menuContainer = [v15 menuContainer];
   menuModel = [menuContainer menuModel];
-  v18 = [(TUILayout *)self box];
+  v18 = objc_msgSend_box(self);
   menuIsPrimary = [v18 menuIsPrimary];
   actionObject = [actionHandler actionObject];
   v92 = actionHandler;
   actionDelegate = [actionHandler actionDelegate];
   v91 = [menuModel menuWithIsPrimary:menuIsPrimary actionObject:actionObject actionDelegate:actionDelegate];
 
-  v22 = [(TUILayout *)self box];
+  v22 = objc_msgSend_box(self);
   menuContainer2 = [v22 menuContainer];
   imageModelsToLoad = [menuContainer2 imageModelsToLoad];
 
@@ -190,49 +190,49 @@
   v37 = v83;
   v38 = *(&width + 1);
   v39 = *&width;
-  v84 = [(TUILayout *)self box:0.0];
+  v84 = objc_msgSend_box(self, 0.0, *&width, v25, *(&width + 1));
   itemType = [v84 itemType];
-  v82 = [(TUILayout *)self box];
+  v82 = objc_msgSend_box(self);
   identifier2 = [v82 identifier];
-  v81 = [(TUILayout *)self box];
+  v81 = objc_msgSend_box(self);
   obja = [v81 title];
-  v80 = [(TUILayout *)self box];
+  v80 = objc_msgSend_box(self);
   attributedTitle = [v80 attributedTitle];
-  v79 = [(TUILayout *)self box];
+  v79 = objc_msgSend_box(self);
   image = [v79 image];
-  v78 = [(TUILayout *)self box];
+  v78 = objc_msgSend_box(self);
   isEnabled = [v78 isEnabled];
-  v77 = [(TUILayout *)self box];
+  v77 = objc_msgSend_box(self);
   buttonType = [v77 buttonType];
-  v76 = [(TUILayout *)self box];
+  v76 = objc_msgSend_box(self);
   buttonRole = [v76 buttonRole];
-  v75 = [(TUILayout *)self box];
+  v75 = objc_msgSend_box(self);
   text = [v75 text];
-  v73 = [(TUILayout *)self box];
+  v73 = objc_msgSend_box(self);
   searchTextMaxLength = [v73 searchTextMaxLength];
-  v71 = [(TUILayout *)self box];
+  v71 = objc_msgSend_box(self);
   placeholderText = [v71 placeholderText];
   environment = [contextCopy environment];
   v58 = TUIKeyboardAppearanceFromEnvironmentStyle([environment style]);
-  v68 = [(TUILayout *)self box];
+  v68 = objc_msgSend_box(self);
   [v68 navigationBarBackgroundOpacity];
   v41 = v40;
-  v65 = [(TUILayout *)self box];
+  v65 = objc_msgSend_box(self);
   observeTrigger = [v65 observeTrigger];
-  v63 = [(TUILayout *)self box];
+  v63 = objc_msgSend_box(self);
   observeTriggerValue = [v63 observeTriggerValue];
-  v62 = [(TUILayout *)self box];
+  v62 = objc_msgSend_box(self);
   ignoreInsetsForOpacityTrigger = [v62 ignoreInsetsForOpacityTrigger];
-  v59 = [(TUILayout *)self box];
+  v59 = objc_msgSend_box(self);
   refId = [v59 refId];
-  v44 = [(TUILayout *)self box];
+  v44 = objc_msgSend_box(self);
   [v44 refInstance];
   v46 = v45 = self;
-  v47 = [(TUILayout *)v45 box];
+  v47 = objc_msgSend_box(v45);
   hostingIdentifiers = [v47 hostingIdentifiers];
-  v49 = [(TUILayout *)v45 box];
+  v49 = objc_msgSend_box(v45);
   hostingProperties = [v49 hostingProperties];
-  v51 = [(TUILayout *)v45 box];
+  v51 = objc_msgSend_box(v45);
   LOBYTE(v55) = [v51 prefersNoPlatter];
   LOBYTE(v54) = ignoreInsetsForOpacityTrigger;
   LOBYTE(v53) = isEnabled;

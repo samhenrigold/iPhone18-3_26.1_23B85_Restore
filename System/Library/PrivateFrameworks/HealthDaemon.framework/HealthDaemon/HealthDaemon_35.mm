@@ -1,2518 +1,3 @@
-void sub_228FB1D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
-{
-  if (v31)
-  {
-  }
-
-  if (v29)
-  {
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_updateSourceOrder(uint64_t a1)
-{
-  v1 = *(a1 + 376);
-  v2 = *(a1 + 392);
-  if (v1 != (*(a1 + 400) - v2) >> 3)
-  {
-    *(a1 + 400) = v2;
-    std::vector<long long>::reserve((a1 + 392), v1);
-    for (i = *(a1 + 368); i; i = *i)
-    {
-      v7 = i[2];
-      std::vector<long long>::push_back[abi:ne200100](a1 + 392, &v7);
-    }
-
-    WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-    if (WeakRetained)
-    {
-      v6 = objc_loadWeakRetained((a1 + 88));
-      [v6 orderSourceIDs:a1 + 392];
-    }
-  }
-}
-
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeThroughTime(uint64_t a1, double a2)
-{
-  v4 = *(a1 + 16);
-  if (v4 > 0.0 && *(a1 + 8) > a2)
-  {
-    a2 = v4 * floor(a2 / v4);
-  }
-
-  v5 = *(a1 + 56);
-  if (v5 < a2)
-  {
-    while (1)
-    {
-      v6 = *(a1 + 104);
-      __p = *(a1 + 96);
-      v7 = 0xAAAAAAAAAAAAAAABLL * (v6 - __p);
-      if (v7 == 1)
-      {
-        break;
-      }
-
-      if (!v7)
-      {
-        goto LABEL_85;
-      }
-
-      v8 = a2;
-      v9 = a2;
-      v10 = v5;
-      v11 = *(a1 + 96);
-      if (__p != v6)
-      {
-        do
-        {
-          v12 = *(v11 + 8);
-          v13 = *(v11 + 16);
-          if (v12 > v10 && v12 < v9)
-          {
-            v9 = *(v11 + 8);
-          }
-
-          if (v13 > v5)
-          {
-            v15 = *(v11 + 16);
-          }
-
-          else
-          {
-            v15 = v8;
-          }
-
-          if (v13 < v8)
-          {
-            v10 = v5;
-            v8 = v15;
-          }
-
-          v11 += 48;
-        }
-
-        while (v11 != v6);
-      }
-
-      if (v8 >= v9)
-      {
-        v16 = v9;
-      }
-
-      else
-      {
-        v16 = v8;
-      }
-
-      v17 = *(a1 + 16);
-      if (v17 > 0.0)
-      {
-        v18 = v17 * floor(v16 / v17);
-        v19 = v17 * floor((v17 + v5) / v17);
-        if (v18 >= v19)
-        {
-          v16 = v18;
-        }
-
-        else
-        {
-          v16 = v19;
-        }
-      }
-
-      *(a1 + 96) = 0;
-      *(a1 + 104) = 0;
-      *(a1 + 112) = 0;
-      if (__p != v6)
-      {
-        if (v7 < 0x555555555555556)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(v7);
-        }
-
-        std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
-      }
-
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_updateSourceOrder(a1);
-      WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-      v21 = __clz(v7);
-      if (WeakRetained)
-      {
-        *&v69.var0 = a1;
-        v22 = 126 - 2 * v21;
-        if (__p == v6)
-        {
-          v23 = 0;
-        }
-
-        else
-        {
-          v23 = v22;
-        }
-
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,false>(__p, v6, &v69, v23, 1);
-      }
-
-      else
-      {
-        v34 = 126 - 2 * v21;
-        if (__p == v6)
-        {
-          v23 = 0;
-        }
-
-        else
-        {
-          v23 = v34;
-        }
-      }
-
-      std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(__p, v6, v23, 1);
-      if (*(a1 + 25) == 1)
-      {
-        v63 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      }
-
-      else
-      {
-        v63 = 0;
-      }
-
-      if (__p != v6)
-      {
-        v64 = 0;
-        v35 = 0;
-        for (i = __p; i != v6; i += 3)
-        {
-          v37 = i[1];
-          *&v68.var0 = *i;
-          *&v68.var2 = v37;
-          *&v68.var4 = *(i + 4);
-          var0 = v68.var0;
-          v39 = *&v37;
-          if (*&v37 - v68.var1 - (v16 - v68.var1) >= 0.01)
-          {
-            if (v16 - v68.var1 >= 0.01)
-            {
-              var3 = v68.var3;
-              var4 = v68.var4;
-              v68.var2 = v16;
-              if (v68.var4)
-              {
-                var5 = v68.var5;
-                v42 = v16;
-LABEL_53:
-                HDRawQuantitySample::applyMask(&v68, (a1 + 64));
-                v43 = *(i + 42);
-                v44 = *(i + 41);
-                v66 = *(i + 40);
-                if (!v68.var4)
-                {
-                  goto LABEL_71;
-                }
-
-                if (v35)
-                {
-                  v45 = v68.var3;
-                  if (v64 == v68.var3 || *(a1 + 24) == 1)
-                  {
-                    HDStatisticsRelative<HDStatisticsSleepStages>::addSample((a1 + 120), &v68, v43 ^ 1);
-                    LOBYTE(v43) = 1;
-                  }
-                }
-
-                else
-                {
-                  HDStatisticsRelative<HDStatisticsSleepStages>::addSample((a1 + 120), &v68, v43 ^ 1);
-                  LOBYTE(v43) = 1;
-                  v45 = v68.var3;
-                  v64 = v68.var3;
-                }
-
-                if (*(a1 + 25) != 1)
-                {
-                  goto LABEL_70;
-                }
-
-                v46 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_bundleIdentifierForSourceID(a1, v45);
-                if (!v46)
-                {
-                  goto LABEL_69;
-                }
-
-                v47 = [v63 objectForKeyedSubscript:v46];
-                v48 = v47;
-                if (v47)
-                {
-                  if ([v47 longLongValue] != v45 && *(a1 + 24) != 1)
-                  {
-LABEL_68:
-
-LABEL_69:
-LABEL_70:
-                    v35 = 1;
-LABEL_71:
-                    if (var4)
-                    {
-                      v69.var0 = var0;
-                      v69.var1 = v42;
-                      v69.var2 = v39;
-                      v69.var3 = var3;
-                      v69.var4 = var4;
-                      v69.var5 = var5;
-                      LOBYTE(v70) = v66;
-                      BYTE1(v70) = v44;
-                      BYTE2(v70) = v43;
-                      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, &v69);
-                    }
-
-                    continue;
-                  }
-                }
-
-                else
-                {
-                  v62 = [MEMORY[0x277CCABB0] numberWithLongLong:v45];
-                  [v63 setObject:v62 forKeyedSubscript:v46];
-                }
-
-                v49 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_canonicalSourceIDForSourceID(a1, v45);
-                v50 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_statisticsForSource(a1, v49);
-                HDStatisticsRelative<HDStatisticsSleepStages>::addSample(v50, &v68, v44 ^ 1);
-                LOBYTE(v44) = 1;
-                goto LABEL_68;
-              }
-            }
-
-            else
-            {
-              v68.var4 = 0;
-            }
-          }
-
-          else if (v68.var4)
-          {
-            var5 = 0;
-            var4 = 0;
-            var3 = 0;
-            v39 = 0.0;
-            v42 = 0.0;
-            goto LABEL_53;
-          }
-
-          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, i);
-        }
-      }
-
-      *(a1 + 56) = v16;
-
-      if (__p)
-      {
-        operator delete(__p);
-      }
-
-LABEL_86:
-      v59 = *(a1 + 56);
-      if (v59 == v5)
-      {
-        v60 = [MEMORY[0x277CCA890] currentHandler];
-        v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeThroughTime(double) [Statistics = HDStatisticsRelative<HDStatisticsSleepStages>]"];
-        [v60 handleFailureInFunction:v61 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
-
-        v59 = *(a1 + 56);
-      }
-
-      v5 = v59;
-      if (v59 >= a2)
-      {
-        return;
-      }
-    }
-
-    v24 = *(__p + 1);
-    v25 = *(__p + 2);
-    v26 = *(__p + 3);
-    v27 = *(__p + 32);
-    v28 = *(__p + 33);
-    if (a2 - v24 >= 0.01)
-    {
-      if (v25 - v24 - (a2 - v24) < 0.01)
-      {
-        v32 = 0;
-        v33 = 0;
-        v31 = 0.0;
-        v30 = *(__p + 2);
-        v29 = *(__p + 32);
-        v25 = 0.0;
-        v27 = 0;
-LABEL_78:
-        v51 = *(__p + 42);
-        v52 = *(__p + 41);
-        v53 = *(__p + 40);
-        v54 = *__p;
-        v69.var1 = *(__p + 1);
-        v69.var2 = v30;
-        v69.var3 = v26;
-        v69.var4 = v29;
-        v69.var5 = v28;
-        *(&v69.var5 + 1) = *(__p + 34);
-        *(&v69.var5 + 5) = *(__p + 19);
-        *(&v70 + 1) = v31;
-        *&v71 = v25;
-        *(&v71 + 1) = v32;
-        LOBYTE(v72) = v27;
-        HIBYTE(v72) = v33;
-        v69.var0 = v54;
-        *&v70 = v54;
-        HDRawQuantitySample::applyMask(&v69, (a1 + 64));
-        if (v69.var4)
-        {
-          HDStatisticsRelative<HDStatisticsSleepStages>::addSample((a1 + 120), &v69, v51 ^ 1);
-          if (*(a1 + 25) == 1)
-          {
-            v55 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_canonicalSourceIDForSourceID(a1, v69.var3);
-            v56 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_statisticsForSource(a1, v55);
-            HDStatisticsRelative<HDStatisticsSleepStages>::addSample(v56, &v69, v52 ^ 1);
-          }
-
-          v53 = 1;
-          LOBYTE(v52) = 1;
-          LOBYTE(v51) = 1;
-        }
-
-        if (v72 == 1)
-        {
-          *&v68.var4 = v72;
-          v57 = v71;
-          v58 = *(a1 + 96);
-          *v58 = v70;
-          *(v58 + 16) = v57;
-          *(v58 + 32) = *&v68.var4;
-          *(v58 + 40) = v53;
-          *(v58 + 41) = v52;
-          *(v58 + 42) = v51;
-        }
-
-        else
-        {
-          *(a1 + 104) = *(a1 + 96);
-        }
-
-LABEL_85:
-        *(a1 + 56) = a2;
-        goto LABEL_86;
-      }
-
-      v30 = a2;
-      v29 = *(__p + 32);
-      v31 = a2;
-    }
-
-    else
-    {
-      v29 = 0;
-      v30 = *(__p + 2);
-      v31 = *(__p + 1);
-    }
-
-    v32 = *(__p + 3);
-    v33 = *(__p + 33);
-    goto LABEL_78;
-  }
-}
-
-double HDStatisticsRelative<HDStatisticsSleepStages>::addSample(int *a1, const HDRawQuantitySample *a2, int a3)
-{
-  result = a2->var0;
-  if (a2->var0 == 1.79769313e308)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2 * (a2->var0 != -1.79769313e308);
-  }
-
-  v5 = *a1;
-  if (v4)
-  {
-    if (v4 != 1)
-    {
-      if (v5 == 2)
-      {
-        v7 = (a1 + 2);
-        a3 = 1;
-        return HDStatisticsSleepStages::addSample(v7, a2, a3);
-      }
-
-      v6 = 2;
-LABEL_15:
-      *a1 = v6;
-      *(a1 + 6) = 0u;
-      *(a1 + 2) = 0u;
-      *(a1 + 10) = xmmword_229170D50;
-      *(a1 + 7) = 0;
-      *(a1 + 4) = xmmword_229170D60;
-      *(a1 + 10) = 0;
-      *(a1 + 22) = xmmword_229170D70;
-      *(a1 + 13) = 0;
-      *(a1 + 7) = xmmword_229170D80;
-      *(a1 + 16) = 0;
-      *(a1 + 34) = xmmword_229170D90;
-      *(a1 + 19) = 0;
-      *(a1 + 20) = 0x7FFFFFFFFFFFFFFFLL;
-      v7 = (a1 + 2);
-      return HDStatisticsSleepStages::addSample(v7, a2, a3);
-    }
-
-    if (!v5)
-    {
-      v6 = 1;
-      goto LABEL_15;
-    }
-  }
-
-  else if (!v5)
-  {
-    v8 = *(a1 + 1);
-    v7 = (a1 + 2);
-    if (!v8)
-    {
-      return HDStatisticsSleepStages::addSample(v7, a2, a3);
-    }
-  }
-
-  return result;
-}
-
-void *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_statisticsForSource(uint64_t a1, uint64_t a2)
-{
-  v7 = a2;
-  v3 = *(a1 + 336);
-  if (!v3)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = (a1 + 336);
-  v5 = (a1 + 336);
-  do
-  {
-    if (v3[4] >= a2)
-    {
-      v5 = v3;
-    }
-
-    v3 = v3[v3[4] < a2];
-  }
-
-  while (v3);
-  if (v5 == v4 || v5[4] > a2)
-  {
-LABEL_8:
-    v8 = &v7;
-    std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 328, a2);
-    v8 = &v7;
-    v5 = std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 328, v7);
-  }
-
-  return v5 + 5;
-}
-
-uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_canonicalSourceIDForSourceID(uint64_t a1, uint64_t *a2)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-  if (WeakRetained)
-  {
-    v5 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::find<unsigned long long>((a1 + 416), a2);
-    if (v5)
-    {
-      return v5[3];
-    }
-
-    else
-    {
-      v6 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 456), v9);
-      if (v7)
-      {
-        a2 = v7[3];
-      }
-
-      else
-      {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 456), v9)[3] = a2;
-        v6 = v9[0];
-      }
-    }
-  }
-
-  return a2;
-}
-
-id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
-{
-  v9[0] = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-  if (WeakRetained)
-  {
-    v5 = std::__hash_table<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,health::TransactionalCache<unsigned long long,health::FilePage>::CacheLine>>>::find<unsigned long long>((a1 + 496), a2);
-    if (v5)
-    {
-      WeakRetained = v5[3];
-    }
-
-    else
-    {
-      v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
-
-      if (WeakRetained)
-      {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 496), a2);
-        objc_storeStrong(v7 + 3, WeakRetained);
-      }
-    }
-  }
-
-  return WeakRetained;
-}
-
-void *std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsSleepStages>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
-      {
-        break;
-      }
-
-      v2 = *v3;
-      if (!*v3)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v4 >= a2)
-    {
-      return v3;
-    }
-
-    v2 = v3[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,false>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v256 = *MEMORY[0x277D85DE8];
-LABEL_2:
-  v10 = a2 - 3;
-  v11 = a1;
-  while (1)
-  {
-    a1 = v11;
-    v12 = a2 - v11;
-    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 4);
-    if (v13 <= 2)
-    {
-      if (v13 < 2)
-      {
-        goto LABEL_375;
-      }
-
-      if (v13 == 2)
-      {
-        v104 = *(a2 - 3);
-        v105 = *(v11 + 24);
-        if (v104 != v105)
-        {
-          v106 = *(*a3 + 392);
-          v107 = *(*a3 + 400);
-          if (v106 == v107)
-          {
-            v109 = *(*a3 + 392);
-            v108 = v109;
-          }
-
-          else
-          {
-            v108 = *(*a3 + 392);
-            v109 = v108;
-            do
-            {
-              if (*v109 == v104)
-              {
-                goto LABEL_189;
-              }
-
-              v109 += 8;
-            }
-
-            while (v109 != v107);
-            v109 = *(*a3 + 400);
-LABEL_189:
-            while (*v108 != v105)
-            {
-              v108 += 8;
-              if (v108 == v107)
-              {
-                v108 = *(*a3 + 400);
-                break;
-              }
-            }
-          }
-
-          if (v109 - v106 < v108 - v106)
-          {
-            *v243 = *(v11 + 16);
-            *&v243[16] = *(v11 + 32);
-            v235 = *v11;
-            v226 = *v10;
-            v227 = *(a2 - 2);
-            *(v11 + 27) = *(a2 - 21);
-            *v11 = v226;
-            *(v11 + 16) = v227;
-            *(a2 - 21) = *&v243[11];
-            *v10 = v235;
-            *(a2 - 2) = *v243;
-          }
-        }
-
-LABEL_375:
-        v228 = *MEMORY[0x277D85DE8];
-        return;
-      }
-
-      goto LABEL_10;
-    }
-
-    if (v13 == 3)
-    {
-      break;
-    }
-
-    if (v13 == 4)
-    {
-      v111 = *MEMORY[0x277D85DE8];
-
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(v11, v11 + 48, v11 + 96, (a2 - 3), a3);
-      return;
-    }
-
-    if (v13 == 5)
-    {
-      v110 = *MEMORY[0x277D85DE8];
-
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(v11, v11 + 48, v11 + 96, v11 + 144, (a2 - 3), a3);
-      return;
-    }
-
-LABEL_10:
-    if (v12 <= 1151)
-    {
-      v112 = (v11 + 48);
-      v114 = v11 == a2 || v112 == a2;
-      if (a5)
-      {
-        if (!v114)
-        {
-          v115 = v11;
-          do
-          {
-            v116 = v115;
-            v115 = v112;
-            v117 = *(v116 + 72);
-            v118 = *(v116 + 24);
-            if (v117 != v118)
-            {
-              v119 = *(*a3 + 392);
-              v120 = *(*a3 + 400);
-              if (v119 == v120)
-              {
-                v122 = *(*a3 + 392);
-                v121 = v122;
-              }
-
-              else
-              {
-                v121 = *(*a3 + 392);
-                v122 = v121;
-                do
-                {
-                  if (*v122 == v117)
-                  {
-                    goto LABEL_213;
-                  }
-
-                  v122 += 8;
-                }
-
-                while (v122 != v120);
-                v122 = *(*a3 + 400);
-LABEL_213:
-                while (*v121 != v118)
-                {
-                  v121 += 8;
-                  if (v121 == v120)
-                  {
-                    v121 = *(*a3 + 400);
-                    break;
-                  }
-                }
-              }
-
-              if (v122 - v119 < v121 - v119)
-              {
-                v239 = *(v115 + 16);
-                v231 = *v115;
-                v249 = *(v116 + 80);
-                v123 = v115;
-                while (1)
-                {
-                  v124 = *(v116 + 16);
-                  *v123 = *v116;
-                  *(v123 + 16) = v124;
-                  *(v123 + 27) = *(v116 + 27);
-                  if (v116 == v11)
-                  {
-                    break;
-                  }
-
-                  v123 = v116;
-                  v125 = *(v116 - 24);
-                  if (v117 != v125)
-                  {
-                    v126 = *(*a3 + 392);
-                    v127 = *(*a3 + 400);
-                    if (v126 == v127)
-                    {
-                      v129 = *(*a3 + 392);
-                      v128 = v129;
-                    }
-
-                    else
-                    {
-                      v128 = *(*a3 + 392);
-                      v129 = v128;
-                      do
-                      {
-                        if (*v129 == v117)
-                        {
-                          goto LABEL_226;
-                        }
-
-                        v129 += 8;
-                      }
-
-                      while (v129 != v127);
-                      v129 = *(*a3 + 400);
-LABEL_226:
-                      while (*v128 != v125)
-                      {
-                        v128 += 8;
-                        if (v128 == v127)
-                        {
-                          v128 = *(*a3 + 400);
-                          break;
-                        }
-                      }
-                    }
-
-                    v116 = v123 - 48;
-                    if (v129 - v126 < v128 - v126)
-                    {
-                      continue;
-                    }
-                  }
-
-                  goto LABEL_233;
-                }
-
-                v123 = v11;
-LABEL_233:
-                *v123 = v231;
-                *(v123 + 16) = v239;
-                *(v123 + 24) = v117;
-                *(v123 + 32) = v249;
-                *(v123 + 39) = *(&v249 + 7);
-              }
-            }
-
-            v112 = (v115 + 48);
-          }
-
-          while ((v115 + 48) != a2);
-        }
-      }
-
-      else if (!v114)
-      {
-        do
-        {
-          v211 = a1;
-          a1 = v112;
-          v212 = *(v211 + 72);
-          v213 = *(v211 + 24);
-          if (v212 != v213)
-          {
-            v214 = *(*a3 + 392);
-            v215 = *(*a3 + 400);
-            if (v214 == v215)
-            {
-              v217 = *(*a3 + 392);
-              v216 = v217;
-            }
-
-            else
-            {
-              v216 = *(*a3 + 392);
-              v217 = v216;
-              do
-              {
-                if (*v217 == v212)
-                {
-                  goto LABEL_352;
-                }
-
-                v217 += 8;
-              }
-
-              while (v217 != v215);
-              v217 = *(*a3 + 400);
-LABEL_352:
-              while (*v216 != v213)
-              {
-                v216 += 8;
-                if (v216 == v215)
-                {
-                  v216 = *(*a3 + 400);
-                  break;
-                }
-              }
-            }
-
-            if (v217 - v214 < v216 - v214)
-            {
-              v242 = *(a1 + 16);
-              v234 = *a1;
-              v252 = *(v211 + 80);
-              v218 = a1;
-              do
-              {
-                v219 = v218;
-                v218 = v211;
-                v220 = *(v211 + 16);
-                *v219 = *v211;
-                v219[1] = v220;
-                *(v219 + 27) = *(v211 + 27);
-                v221 = *(v211 - 24);
-                if (v212 == v221)
-                {
-                  break;
-                }
-
-                v222 = *(*a3 + 392);
-                v223 = *(*a3 + 400);
-                if (v222 == v223)
-                {
-                  v225 = *(*a3 + 392);
-                  v224 = v225;
-                }
-
-                else
-                {
-                  v224 = *(*a3 + 392);
-                  v225 = v224;
-                  do
-                  {
-                    if (*v225 == v212)
-                    {
-                      goto LABEL_364;
-                    }
-
-                    v225 += 8;
-                  }
-
-                  while (v225 != v223);
-                  v225 = *(*a3 + 400);
-LABEL_364:
-                  while (*v224 != v221)
-                  {
-                    v224 += 8;
-                    if (v224 == v223)
-                    {
-                      v224 = *(*a3 + 400);
-                      break;
-                    }
-                  }
-                }
-
-                v211 = v218 - 48;
-              }
-
-              while (v225 - v222 < v224 - v222);
-              *v218 = v234;
-              *(v218 + 16) = v242;
-              *(v218 + 24) = v212;
-              *(v218 + 32) = v252;
-              *(v218 + 39) = *(&v252 + 7);
-            }
-          }
-
-          v112 = (a1 + 48);
-        }
-
-        while ((a1 + 48) != a2);
-      }
-
-      goto LABEL_375;
-    }
-
-    if (!a4)
-    {
-      if (v11 != a2)
-      {
-        v130 = (v13 - 2) >> 1;
-        v131 = v130;
-        do
-        {
-          v132 = v131;
-          if (v130 >= v131)
-          {
-            v133 = (2 * v131) | 1;
-            v134 = v11 + 48 * v133;
-            if (2 * v132 + 2 < v13)
-            {
-              v135 = *(v134 + 24);
-              v136 = *(v134 + 72);
-              if (v135 != v136)
-              {
-                v138 = *(*a3 + 392);
-                v137 = *(*a3 + 400);
-                if (v138 == v137)
-                {
-                  v140 = *(*a3 + 392);
-                  v139 = v140;
-                }
-
-                else
-                {
-                  v139 = *(*a3 + 392);
-                  v140 = v139;
-                  do
-                  {
-                    if (*v140 == v135)
-                    {
-                      goto LABEL_246;
-                    }
-
-                    v140 += 8;
-                  }
-
-                  while (v140 != v137);
-                  v140 = *(*a3 + 400);
-LABEL_246:
-                  while (*v139 != v136)
-                  {
-                    v139 += 8;
-                    if (v139 == v137)
-                    {
-                      v139 = *(*a3 + 400);
-                      break;
-                    }
-                  }
-                }
-
-                v141 = (v140 - v138);
-                v142 = (v139 - v138);
-                v143 = v141 < v142;
-                if (v141 >= v142)
-                {
-                  v144 = 0;
-                }
-
-                else
-                {
-                  v144 = 48;
-                }
-
-                v134 += v144;
-                if (v143)
-                {
-                  v133 = 2 * v132 + 2;
-                }
-              }
-            }
-
-            v145 = v11 + 48 * v132;
-            v146 = *(v134 + 24);
-            v147 = *(v145 + 24);
-            if (v146 == v147)
-            {
-              goto LABEL_266;
-            }
-
-            v149 = *(*a3 + 392);
-            v148 = *(*a3 + 400);
-            if (v149 == v148)
-            {
-              v151 = *(*a3 + 392);
-              v150 = v151;
-            }
-
-            else
-            {
-              v150 = *(*a3 + 392);
-              v151 = v150;
-              do
-              {
-                if (*v151 == v146)
-                {
-                  goto LABEL_261;
-                }
-
-                v151 += 8;
-              }
-
-              while (v151 != v148);
-              v151 = *(*a3 + 400);
-LABEL_261:
-              while (*v150 != v147)
-              {
-                v150 += 8;
-                if (v150 == v148)
-                {
-                  v150 = *(*a3 + 400);
-                  break;
-                }
-              }
-            }
-
-            if (v151 - v149 >= v150 - v149)
-            {
-LABEL_266:
-              v240 = *(v145 + 16);
-              v232 = *v145;
-              v250 = *(v145 + 32);
-              v152 = *v134;
-              v153 = *(v134 + 16);
-              *(v145 + 27) = *(v134 + 27);
-              *v145 = v152;
-              *(v145 + 16) = v153;
-              if (v130 >= v133)
-              {
-                while (1)
-                {
-                  v155 = 2 * v133;
-                  v133 = (2 * v133) | 1;
-                  v154 = v11 + 48 * v133;
-                  v156 = v155 + 2;
-                  if (v156 < v13)
-                  {
-                    v157 = *(v154 + 24);
-                    v158 = *(v154 + 72);
-                    if (v157 != v158)
-                    {
-                      v159 = *(*a3 + 392);
-                      v160 = *(*a3 + 400);
-                      if (v159 == v160)
-                      {
-                        v162 = *(*a3 + 392);
-                        v161 = v162;
-                      }
-
-                      else
-                      {
-                        v161 = *(*a3 + 392);
-                        v162 = v161;
-                        do
-                        {
-                          if (*v162 == v157)
-                          {
-                            goto LABEL_275;
-                          }
-
-                          v162 += 8;
-                        }
-
-                        while (v162 != v160);
-                        v162 = *(*a3 + 400);
-LABEL_275:
-                        while (*v161 != v158)
-                        {
-                          v161 += 8;
-                          if (v161 == v160)
-                          {
-                            v161 = *(*a3 + 400);
-                            break;
-                          }
-                        }
-                      }
-
-                      v163 = (v162 - v159);
-                      v164 = (v161 - v159);
-                      v165 = v163 < v164;
-                      if (v163 >= v164)
-                      {
-                        v166 = 0;
-                      }
-
-                      else
-                      {
-                        v166 = 48;
-                      }
-
-                      v154 += v166;
-                      if (v165)
-                      {
-                        v133 = v156;
-                      }
-                    }
-                  }
-
-                  v167 = *(v154 + 24);
-                  if (v167 != v147)
-                  {
-                    v169 = *(*a3 + 392);
-                    v168 = *(*a3 + 400);
-                    if (v169 == v168)
-                    {
-                      v171 = *(*a3 + 392);
-                      v170 = v171;
-                    }
-
-                    else
-                    {
-                      v170 = *(*a3 + 392);
-                      v171 = v170;
-                      do
-                      {
-                        if (*v171 == v167)
-                        {
-                          goto LABEL_290;
-                        }
-
-                        v171 += 8;
-                      }
-
-                      while (v171 != v168);
-                      v171 = *(*a3 + 400);
-LABEL_290:
-                      while (*v170 != v147)
-                      {
-                        v170 += 8;
-                        if (v170 == v168)
-                        {
-                          v170 = *(*a3 + 400);
-                          break;
-                        }
-                      }
-                    }
-
-                    if (v171 - v169 < v170 - v169)
-                    {
-                      break;
-                    }
-                  }
-
-                  v172 = *v154;
-                  v173 = *(v154 + 16);
-                  *(v134 + 27) = *(v154 + 27);
-                  *v134 = v172;
-                  *(v134 + 16) = v173;
-                  v134 = v154;
-                  if (v130 < v133)
-                  {
-                    goto LABEL_296;
-                  }
-                }
-              }
-
-              v154 = v134;
-LABEL_296:
-              *v154 = v232;
-              *(v154 + 16) = v240;
-              *(v154 + 24) = v147;
-              *(v154 + 32) = v250;
-              *(v154 + 39) = *(&v250 + 7);
-            }
-          }
-
-          v131 = v132 - 1;
-        }
-
-        while (v132);
-        v174 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 4);
-        do
-        {
-          v175 = 0;
-          v176 = *(v11 + 16);
-          *v241 = v176;
-          *&v241[16] = *(v11 + 32);
-          v233 = *v11;
-          v177 = v11;
-          do
-          {
-            v178 = v177;
-            v179 = v177 + 48 * v175;
-            v177 = v179 + 48;
-            v180 = 2 * v175;
-            v175 = (2 * v175) | 1;
-            v181 = v180 + 2;
-            if (v180 + 2 < v174)
-            {
-              v182 = *(v179 + 72);
-              v183 = *(v179 + 120);
-              if (v182 != v183)
-              {
-                v185 = *(*a3 + 392);
-                v184 = *(*a3 + 400);
-                if (v185 == v184)
-                {
-                  v187 = *(*a3 + 392);
-                  v186 = v187;
-                }
-
-                else
-                {
-                  v186 = *(*a3 + 392);
-                  v187 = v186;
-                  do
-                  {
-                    if (*v187 == v182)
-                    {
-                      goto LABEL_307;
-                    }
-
-                    v187 += 8;
-                  }
-
-                  while (v187 != v184);
-                  v187 = *(*a3 + 400);
-LABEL_307:
-                  while (*v186 != v183)
-                  {
-                    v186 += 8;
-                    if (v186 == v184)
-                    {
-                      v186 = *(*a3 + 400);
-                      break;
-                    }
-                  }
-                }
-
-                v188 = v179 + 96;
-                if (v187 - v185 < v186 - v185)
-                {
-                  v177 = v188;
-                  v175 = v181;
-                }
-              }
-            }
-
-            v189 = *v177;
-            v190 = *(v177 + 16);
-            *(v178 + 27) = *(v177 + 27);
-            *v178 = v189;
-            v178[1] = v190;
-          }
-
-          while (v175 <= (v174 - 2) / 2);
-          a2 -= 3;
-          if (v177 == a2)
-          {
-            *(v177 + 27) = *&v241[11];
-            *v177 = v233;
-            *(v177 + 16) = *v241;
-          }
-
-          else
-          {
-            v191 = *a2;
-            v192 = a2[1];
-            *(v177 + 27) = *(a2 + 27);
-            *v177 = v191;
-            *(v177 + 16) = v192;
-            *(a2 + 27) = *&v241[11];
-            *a2 = v233;
-            a2[1] = *v241;
-            v193 = v177 - v11 + 48;
-            if (v193 >= 49)
-            {
-              v194 = (0xAAAAAAAAAAAAAAABLL * (v193 >> 4) - 2) >> 1;
-              v195 = v11 + 48 * v194;
-              v196 = *(v195 + 24);
-              v197 = *(v177 + 24);
-              if (v196 != v197)
-              {
-                v199 = *(*a3 + 392);
-                v198 = *(*a3 + 400);
-                if (v199 == v198)
-                {
-                  v201 = *(*a3 + 392);
-                  v200 = v201;
-                }
-
-                else
-                {
-                  v200 = *(*a3 + 392);
-                  v201 = v200;
-                  do
-                  {
-                    if (*v201 == v196)
-                    {
-                      goto LABEL_322;
-                    }
-
-                    v201 += 8;
-                  }
-
-                  while (v201 != v198);
-                  v201 = *(*a3 + 400);
-LABEL_322:
-                  while (*v200 != v197)
-                  {
-                    v200 += 8;
-                    if (v200 == v198)
-                    {
-                      v200 = *(*a3 + 400);
-                      break;
-                    }
-                  }
-                }
-
-                if (v201 - v199 < v200 - v199)
-                {
-                  v255 = *(v177 + 16);
-                  v202 = *(v177 + 32);
-                  v246 = v202;
-                  v251 = *v177;
-                  do
-                  {
-                    v203 = v177;
-                    v177 = v195;
-                    v204 = *v195;
-                    v205 = *(v195 + 16);
-                    *(v203 + 27) = *(v195 + 27);
-                    *v203 = v204;
-                    v203[1] = v205;
-                    if (!v194)
-                    {
-                      break;
-                    }
-
-                    v194 = (v194 - 1) >> 1;
-                    v195 = v11 + 48 * v194;
-                    v206 = *(v195 + 24);
-                    if (v206 == v197)
-                    {
-                      break;
-                    }
-
-                    v208 = *(*a3 + 392);
-                    v207 = *(*a3 + 400);
-                    if (v208 == v207)
-                    {
-                      v210 = *(*a3 + 392);
-                      v209 = v210;
-                    }
-
-                    else
-                    {
-                      v209 = *(*a3 + 392);
-                      v210 = v209;
-                      do
-                      {
-                        if (*v210 == v206)
-                        {
-                          goto LABEL_339;
-                        }
-
-                        v210 += 8;
-                      }
-
-                      while (v210 != v207);
-                      v210 = *(*a3 + 400);
-LABEL_339:
-                      while (*v209 != v197)
-                      {
-                        v209 += 8;
-                        if (v209 == v207)
-                        {
-                          v209 = *(*a3 + 400);
-                          break;
-                        }
-                      }
-                    }
-                  }
-
-                  while (v210 - v208 < v209 - v208);
-                  *v177 = v251;
-                  *(v177 + 16) = v255;
-                  *(v177 + 24) = v197;
-                  *(v177 + 32) = v246;
-                  *(v177 + 39) = *(&v246 + 7);
-                }
-              }
-            }
-          }
-
-          v143 = v174-- <= 2;
-        }
-
-        while (!v143);
-      }
-
-      goto LABEL_375;
-    }
-
-    v14 = v13 >> 1;
-    v15 = (v11 + 48 * (v13 >> 1));
-    if (v12 < 0x1801)
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(v15, a1, a2 - 3, a3);
-    }
-
-    else
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, v15, a2 - 3, a3);
-      v16 = 3 * v14;
-      v17 = (a1 + 48 * v14 - 48);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>((a1 + 48), v17, a2 - 6, a3);
-      v18 = (a1 + 48 + 16 * v16);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>((a1 + 96), v18, a2 - 9, a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(v17, v15, v18, a3);
-      *v236 = *(a1 + 16);
-      *&v236[16] = *(a1 + 32);
-      v229 = *a1;
-      v19 = *(v15 + 27);
-      v20 = v15[1];
-      *a1 = *v15;
-      *(a1 + 16) = v20;
-      *(a1 + 27) = v19;
-      *(v15 + 27) = *&v236[11];
-      *v15 = v229;
-      v15[1] = *v236;
-    }
-
-    --a4;
-    if (a5)
-    {
-      v21 = *(a1 + 24);
-      v22 = *a3;
-      goto LABEL_28;
-    }
-
-    v23 = *(a1 - 24);
-    v21 = *(a1 + 24);
-    if (v23 == v21)
-    {
-      goto LABEL_99;
-    }
-
-    v22 = *a3;
-    v24 = *(*a3 + 392);
-    v25 = *(*a3 + 400);
-    if (v24 == v25)
-    {
-      v27 = *(*a3 + 392);
-      v26 = v27;
-    }
-
-    else
-    {
-      v26 = *(*a3 + 392);
-      v27 = v26;
-      do
-      {
-        if (*v27 == v23)
-        {
-          goto LABEL_23;
-        }
-
-        v27 += 8;
-      }
-
-      while (v27 != v25);
-      v27 = *(*a3 + 400);
-LABEL_23:
-      while (*v26 != v21)
-      {
-        v26 += 8;
-        if (v26 == v25)
-        {
-          v26 = *(*a3 + 400);
-          break;
-        }
-      }
-    }
-
-    if (v27 - v24 >= v26 - v24)
-    {
-LABEL_99:
-      v254 = *(a1 + 16);
-      v66 = *(a1 + 32);
-      v245 = v66;
-      v248 = *a1;
-      v67 = *(a2 - 3);
-      if (v21 == v67)
-      {
-        goto LABEL_123;
-      }
-
-      v68 = *(*a3 + 392);
-      v69 = *(*a3 + 400);
-      v70 = v68;
-      if (v68 == v69)
-      {
-        v71 = *(*a3 + 392);
-      }
-
-      else
-      {
-        while (*v70 != v21)
-        {
-          v70 += 8;
-          if (v70 == v69)
-          {
-            v70 = *(*a3 + 400);
-            break;
-          }
-        }
-
-        v71 = *(*a3 + 392);
-        while (*v71 != v67)
-        {
-          v71 += 8;
-          if (v71 == v69)
-          {
-            v71 = *(*a3 + 400);
-            break;
-          }
-        }
-      }
-
-      if (v70 - v68 >= v71 - v68)
-      {
-LABEL_123:
-        v11 = a1 + 48;
-        if (a1 + 48 < a2)
-        {
-          v75 = *a3;
-          v76 = a1;
-          do
-          {
-            v77 = *(v76 + 72);
-            v76 = v11;
-            if (v21 != v77)
-            {
-              v78 = *(v75 + 392);
-              v79 = *(v75 + 400);
-              if (v78 == v79)
-              {
-                v81 = *(v75 + 392);
-                v80 = v81;
-              }
-
-              else
-              {
-                v80 = *(v75 + 392);
-                v81 = v80;
-                do
-                {
-                  if (*v81 == v21)
-                  {
-                    goto LABEL_131;
-                  }
-
-                  v81 += 8;
-                }
-
-                while (v81 != v79);
-                v81 = *(v75 + 400);
-LABEL_131:
-                while (*v80 != v77)
-                {
-                  v80 += 8;
-                  if (v80 == v79)
-                  {
-                    v80 = *(v75 + 400);
-                    break;
-                  }
-                }
-              }
-
-              if (v81 - v78 < v80 - v78)
-              {
-                break;
-              }
-            }
-
-            v11 += 48;
-          }
-
-          while (v76 + 48 < a2);
-        }
-      }
-
-      else
-      {
-        v11 = a1;
-        do
-        {
-          do
-          {
-            v72 = *(v11 + 72);
-            v11 += 48;
-          }
-
-          while (v21 == v72);
-          v73 = *(*a3 + 392);
-          if (v68 == v69)
-          {
-            v74 = *(*a3 + 392);
-          }
-
-          else
-          {
-            while (*v73 != v21)
-            {
-              v73 += 8;
-              if (v73 == v69)
-              {
-                v73 = *(*a3 + 400);
-                break;
-              }
-            }
-
-            v74 = *(*a3 + 392);
-            while (*v74 != v72)
-            {
-              v74 += 8;
-              if (v74 == v69)
-              {
-                v74 = *(*a3 + 400);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v73 - v68 >= v74 - v68);
-      }
-
-      v82 = a2;
-      if (v11 < a2)
-      {
-        v83 = *a3;
-        v82 = a2;
-        do
-        {
-          v84 = *(v82 - 3);
-          v82 -= 3;
-          if (v21 == v84)
-          {
-            break;
-          }
-
-          v85 = *(v83 + 392);
-          v86 = *(v83 + 400);
-          if (v85 == v86)
-          {
-            v88 = *(v83 + 392);
-            v87 = v88;
-          }
-
-          else
-          {
-            v87 = *(v83 + 392);
-            v88 = v87;
-            do
-            {
-              if (*v88 == v21)
-              {
-                goto LABEL_145;
-              }
-
-              v88 += 8;
-            }
-
-            while (v88 != v86);
-            v88 = *(v83 + 400);
-LABEL_145:
-            while (*v87 != v84)
-            {
-              v87 += 8;
-              if (v87 == v86)
-              {
-                v87 = *(v83 + 400);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v88 - v85 < v87 - v85);
-      }
-
-      while (v11 < v82)
-      {
-        *v238 = *(v11 + 16);
-        *&v238[16] = *(v11 + 32);
-        v230 = *v11;
-        v89 = *v82;
-        v90 = v82[1];
-        *(v11 + 27) = *(v82 + 27);
-        *v11 = v89;
-        *(v11 + 16) = v90;
-        *(v82 + 27) = *&v238[11];
-        *v82 = v230;
-        v82[1] = *v238;
-        v91 = *a3;
-        do
-        {
-          do
-          {
-            v92 = *(v11 + 72);
-            v11 += 48;
-          }
-
-          while (v21 == v92);
-          v93 = *(v91 + 392);
-          v94 = *(v91 + 400);
-          v95 = v93;
-          if (v93 == v94)
-          {
-            v96 = *(v91 + 392);
-          }
-
-          else
-          {
-            while (*v95 != v21)
-            {
-              v95 += 8;
-              if (v95 == v94)
-              {
-                v95 = *(v91 + 400);
-                break;
-              }
-            }
-
-            v96 = *(v91 + 392);
-            while (*v96 != v92)
-            {
-              v96 += 8;
-              if (v96 == v94)
-              {
-                v96 = *(v91 + 400);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v95 - v93 >= v96 - v93);
-        do
-        {
-          v97 = *(v82 - 3);
-          v82 -= 3;
-          if (v21 == v97)
-          {
-            break;
-          }
-
-          v98 = v93;
-          if (v93 == v94)
-          {
-            v99 = v93;
-          }
-
-          else
-          {
-            while (*v98 != v21)
-            {
-              v98 += 8;
-              if (v98 == v94)
-              {
-                v98 = v94;
-                break;
-              }
-            }
-
-            v99 = v93;
-            while (*v99 != v97)
-            {
-              v99 += 8;
-              if (v99 == v94)
-              {
-                v99 = v94;
-                break;
-              }
-            }
-          }
-        }
-
-        while (v98 - v93 < v99 - v93);
-      }
-
-      v100 = (v11 - 48);
-      if (v11 - 48 != a1)
-      {
-        v101 = *v100;
-        v102 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v101;
-        *(a1 + 16) = v102;
-      }
-
-      a5 = 0;
-      *v100 = v248;
-      *(v11 - 32) = v254;
-      *(v11 - 24) = v21;
-      *(v11 - 9) = *(&v245 + 7);
-      *(v11 - 16) = v245;
-    }
-
-    else
-    {
-LABEL_28:
-      v253 = *(a1 + 16);
-      v28 = *(a1 + 32);
-      v244 = v28;
-      v247 = *a1;
-      v29 = a1;
-      do
-      {
-        v30 = v29;
-        v29 += 48;
-        v31 = *(v30 + 72);
-        if (v31 == v21)
-        {
-          break;
-        }
-
-        v32 = *(v22 + 392);
-        v33 = *(v22 + 400);
-        if (v32 == v33)
-        {
-          v35 = *(v22 + 392);
-          v34 = v35;
-        }
-
-        else
-        {
-          v34 = *(v22 + 392);
-          v35 = v34;
-          do
-          {
-            if (*v35 == v31)
-            {
-              goto LABEL_35;
-            }
-
-            v35 += 8;
-          }
-
-          while (v35 != v33);
-          v35 = *(v22 + 400);
-LABEL_35:
-          while (*v34 != v21)
-          {
-            v34 += 8;
-            if (v34 == v33)
-            {
-              v34 = *(v22 + 400);
-              break;
-            }
-          }
-        }
-      }
-
-      while (v35 - v32 < v34 - v32);
-      v36 = a2;
-      if (v30 == a1)
-      {
-        v36 = a2;
-        if (v29 < a2)
-        {
-          v36 = a2;
-          do
-          {
-            v42 = *(v36 - 3);
-            v36 -= 3;
-            if (v42 != v21)
-            {
-              v43 = *(v22 + 392);
-              v44 = *(v22 + 400);
-              if (v43 == v44)
-              {
-                v46 = *(v22 + 392);
-                v45 = v46;
-              }
-
-              else
-              {
-                v45 = *(v22 + 392);
-                v46 = v45;
-                do
-                {
-                  if (*v46 == v42)
-                  {
-                    goto LABEL_61;
-                  }
-
-                  v46 += 8;
-                }
-
-                while (v46 != v44);
-                v46 = *(v22 + 400);
-LABEL_61:
-                while (*v45 != v21)
-                {
-                  v45 += 8;
-                  if (v45 == v44)
-                  {
-                    v45 = *(v22 + 400);
-                    break;
-                  }
-                }
-              }
-
-              if (v46 - v43 < v45 - v43)
-              {
-                break;
-              }
-            }
-          }
-
-          while (v29 < v36);
-        }
-      }
-
-      else
-      {
-        do
-        {
-          do
-          {
-            v37 = *(v36 - 3);
-            v36 -= 3;
-          }
-
-          while (v37 == v21);
-          v38 = *(v22 + 392);
-          v39 = *(v22 + 400);
-          if (v38 == v39)
-          {
-            v41 = *(v22 + 392);
-            v40 = v41;
-          }
-
-          else
-          {
-            v40 = *(v22 + 392);
-            v41 = v40;
-            do
-            {
-              if (*v41 == v37)
-              {
-                goto LABEL_47;
-              }
-
-              v41 += 8;
-            }
-
-            while (v41 != v39);
-            v41 = *(v22 + 400);
-LABEL_47:
-            while (*v40 != v21)
-            {
-              v40 += 8;
-              if (v40 == v39)
-              {
-                v40 = *(v22 + 400);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v41 - v38 >= v40 - v38);
-      }
-
-      v11 = v29;
-      if (v29 < v36)
-      {
-        v47 = v36;
-        do
-        {
-          *v237 = *(v11 + 16);
-          *&v237[16] = *(v11 + 32);
-          v48 = *v11;
-          v50 = *v47;
-          v49 = v47[1];
-          *(v11 + 27) = *(v47 + 27);
-          *v11 = v50;
-          *(v11 + 16) = v49;
-          *(v47 + 27) = *&v237[11];
-          *v47 = v48;
-          v47[1] = *v237;
-          v51 = *a3;
-          do
-          {
-            v52 = *(v11 + 72);
-            v11 += 48;
-            if (v52 == v21)
-            {
-              break;
-            }
-
-            v53 = *(v51 + 392);
-            v54 = *(v51 + 400);
-            if (v53 == v54)
-            {
-              v56 = *(v51 + 392);
-              v55 = v56;
-            }
-
-            else
-            {
-              v55 = *(v51 + 392);
-              v56 = v55;
-              do
-              {
-                if (*v56 == v52)
-                {
-                  goto LABEL_76;
-                }
-
-                v56 += 8;
-              }
-
-              while (v56 != v54);
-              v56 = *(v51 + 400);
-LABEL_76:
-              while (*v55 != v21)
-              {
-                v55 += 8;
-                if (v55 == v54)
-                {
-                  v55 = *(v51 + 400);
-                  break;
-                }
-              }
-            }
-          }
-
-          while (v56 - v53 < v55 - v53);
-          do
-          {
-            do
-            {
-              v57 = *(v47 - 3);
-              v47 -= 3;
-            }
-
-            while (v57 == v21);
-            v58 = *(v51 + 392);
-            v59 = *(v51 + 400);
-            if (v58 == v59)
-            {
-              v61 = *(v51 + 392);
-              v60 = v61;
-            }
-
-            else
-            {
-              v60 = *(v51 + 392);
-              v61 = v60;
-              do
-              {
-                if (*v61 == v57)
-                {
-                  goto LABEL_87;
-                }
-
-                v61 += 8;
-              }
-
-              while (v61 != v59);
-              v61 = *(v51 + 400);
-LABEL_87:
-              while (*v60 != v21)
-              {
-                v60 += 8;
-                if (v60 == v59)
-                {
-                  v60 = *(v51 + 400);
-                  break;
-                }
-              }
-            }
-          }
-
-          while (v61 - v58 >= v60 - v58);
-        }
-
-        while (v11 < v47);
-      }
-
-      v62 = (v11 - 48);
-      if (v11 - 48 != a1)
-      {
-        v63 = *v62;
-        v64 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v63;
-        *(a1 + 16) = v64;
-      }
-
-      *v62 = v247;
-      *(v11 - 32) = v253;
-      *(v11 - 24) = v21;
-      *(v11 - 9) = *(&v244 + 7);
-      *(v11 - 16) = v244;
-      if (v29 < v36)
-      {
-        goto LABEL_98;
-      }
-
-      v65 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*>(a1, v11 - 48, a3);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*>(v11, a2, a3))
-      {
-        a2 = (v11 - 48);
-        if (!v65)
-        {
-          goto LABEL_2;
-        }
-
-        goto LABEL_375;
-      }
-
-      if (!v65)
-      {
-LABEL_98:
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,false>(a1, v11 - 48, a3, a4, a5 & 1);
-        a5 = 0;
-      }
-    }
-  }
-
-  v103 = *MEMORY[0x277D85DE8];
-
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(v11, (v11 + 48), a2 - 3, a3);
-}
-
-__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
-{
-  v4 = *(a2 + 3);
-  v5 = *(a1 + 3);
-  if (v4 == v5)
-  {
-    goto LABEL_21;
-  }
-
-  v6 = *(*a4 + 392);
-  v7 = *(*a4 + 400);
-  v8 = v6;
-  if (v6 == v7)
-  {
-    v9 = *(*a4 + 392);
-  }
-
-  else
-  {
-    while (*v8 != v4)
-    {
-      v8 += 8;
-      if (v8 == v7)
-      {
-        v8 = *(*a4 + 400);
-        break;
-      }
-    }
-
-    v9 = *(*a4 + 392);
-    while (*v9 != v5)
-    {
-      v9 += 8;
-      if (v9 == v7)
-      {
-        v9 = *(*a4 + 400);
-        break;
-      }
-    }
-  }
-
-  if (v8 - v6 >= v9 - v6)
-  {
-LABEL_21:
-    v13 = *(a3 + 3);
-    if (v13 != v4)
-    {
-      v14 = *(*a4 + 392);
-      v15 = *(*a4 + 400);
-      if (v14 == v15)
-      {
-        v17 = *(*a4 + 392);
-        v16 = v17;
-      }
-
-      else
-      {
-        v16 = *(*a4 + 392);
-        v17 = v16;
-        do
-        {
-          if (*v17 == v13)
-          {
-            goto LABEL_27;
-          }
-
-          v17 += 8;
-        }
-
-        while (v17 != v15);
-        v17 = *(*a4 + 400);
-LABEL_27:
-        while (*v16 != v4)
-        {
-          v16 += 8;
-          if (v16 == v15)
-          {
-            v16 = *(*a4 + 400);
-            break;
-          }
-        }
-      }
-
-      if (v17 - v14 < v16 - v14)
-      {
-        v18 = *a2;
-        *v46 = a2[1];
-        *&v46[16] = a2[2];
-        v19 = *(a3 + 27);
-        v20 = a3[1];
-        *a2 = *a3;
-        a2[1] = v20;
-        *(a2 + 27) = v19;
-        *a3 = v18;
-        a3[1] = *v46;
-        result = *&v46[11];
-        *(a3 + 27) = *&v46[11];
-        v22 = *(a2 + 3);
-        v23 = *(a1 + 3);
-        if (v22 != v23)
-        {
-          v24 = *(*a4 + 392);
-          v25 = *(*a4 + 400);
-          if (v24 == v25)
-          {
-            v27 = *(*a4 + 392);
-            v26 = v27;
-          }
-
-          else
-          {
-            v26 = *(*a4 + 392);
-            v27 = v26;
-            do
-            {
-              if (*v27 == v22)
-              {
-                goto LABEL_38;
-              }
-
-              v27 += 8;
-            }
-
-            while (v27 != v25);
-            v27 = *(*a4 + 400);
-LABEL_38:
-            while (*v26 != v23)
-            {
-              v26 += 8;
-              if (v26 == v25)
-              {
-                v26 = *(*a4 + 400);
-                break;
-              }
-            }
-          }
-
-          if (v27 - v24 < v26 - v24)
-          {
-            v41 = *a1;
-            *v48 = a1[1];
-            *&v48[16] = a1[2];
-            v42 = *(a2 + 27);
-            v43 = a2[1];
-            *a1 = *a2;
-            a1[1] = v43;
-            *(a1 + 27) = v42;
-            *a2 = v41;
-            a2[1] = *v48;
-            result = *&v48[11];
-            *(a2 + 27) = *&v48[11];
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v10 = *(a3 + 3);
-    if (v10 != v4)
-    {
-      v11 = *(*a4 + 392);
-      if (v6 == v7)
-      {
-        v12 = *(*a4 + 392);
-      }
-
-      else
-      {
-        while (*v11 != v10)
-        {
-          v11 += 8;
-          if (v11 == v7)
-          {
-            v11 = *(*a4 + 400);
-            break;
-          }
-        }
-
-        v12 = *(*a4 + 392);
-        while (*v12 != v4)
-        {
-          v12 += 8;
-          if (v12 == v7)
-          {
-            v12 = *(*a4 + 400);
-            break;
-          }
-        }
-      }
-
-      if (v11 - v6 < v12 - v6)
-      {
-        v28 = a1[1];
-        v29 = *a1;
-        *v49 = *(&v28 + 1);
-        *&v49[8] = a1[2];
-        v30 = *(a3 + 27);
-        v31 = a3[1];
-        *a1 = *a3;
-        a1[1] = v31;
-        *(a1 + 27) = v30;
-LABEL_59:
-        *a3 = v29;
-        a3[1] = v28;
-        result = *&v49[3];
-        *(a3 + 27) = *&v49[3];
-        return result;
-      }
-    }
-
-    v32 = *a1;
-    *v47 = a1[1];
-    *&v47[16] = a1[2];
-    v33 = *(a2 + 27);
-    v34 = a2[1];
-    *a1 = *a2;
-    a1[1] = v34;
-    *(a1 + 27) = v33;
-    *a2 = v32;
-    a2[1] = *v47;
-    result = *&v47[11];
-    *(a2 + 27) = *&v47[11];
-    v35 = *(a3 + 3);
-    v36 = *(a2 + 3);
-    if (v35 != v36)
-    {
-      v37 = *(*a4 + 392);
-      v38 = *(*a4 + 400);
-      if (v37 == v38)
-      {
-        v40 = *(*a4 + 392);
-        v39 = v40;
-      }
-
-      else
-      {
-        v39 = *(*a4 + 392);
-        v40 = v39;
-        do
-        {
-          if (*v40 == v35)
-          {
-            goto LABEL_50;
-          }
-
-          v40 += 8;
-        }
-
-        while (v40 != v38);
-        v40 = *(*a4 + 400);
-LABEL_50:
-        while (*v39 != v36)
-        {
-          v39 += 8;
-          if (v39 == v38)
-          {
-            v39 = *(*a4 + 400);
-            break;
-          }
-        }
-      }
-
-      if (v40 - v37 < v39 - v37)
-      {
-        v28 = a2[1];
-        v29 = *a2;
-        *v49 = *(&v28 + 1);
-        *&v49[8] = a2[2];
-        v44 = *(a3 + 27);
-        v45 = a3[1];
-        *a2 = *a3;
-        a2[1] = v45;
-        *(a2 + 27) = v44;
-        goto LABEL_59;
-      }
-    }
-  }
-
-  return result;
-}
-
 __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result.n128_u64[0] = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, a2, a3, a5).n128_u64[0];
@@ -2688,11 +173,11 @@ LABEL_29:
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5, uint64_t a6)
 {
   result.n128_u64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, a2, a3, a4, a6).n128_u64[0];
-  v13 = *(a5 + 24);
-  v14 = *(a4 + 24);
+  v13 = *(a5 + 3);
+  v14 = *(a4 + 3);
   if (v13 != v14)
   {
     v15 = *(*a6 + 392);
@@ -2734,19 +219,19 @@ LABEL_7:
     if (v18 - v15 < v17 - v15)
     {
       v19 = *a4;
-      *v49 = *(a4 + 16);
-      *&v49[16] = *(a4 + 32);
+      *v49 = a4[1];
+      *&v49[16] = a4[2];
       v20 = *(a5 + 27);
-      v21 = *(a5 + 16);
+      v21 = a5[1];
       *a4 = *a5;
-      *(a4 + 16) = v21;
+      a4[1] = v21;
       *(a4 + 27) = v20;
       *a5 = v19;
-      *(a5 + 16) = *v49;
+      a5[1] = *v49;
       result = *&v49[11];
       *(a5 + 27) = *&v49[11];
-      v22 = *(a4 + 24);
-      v23 = *(a3 + 24);
+      v22 = *(a4 + 3);
+      v23 = *(a3 + 3);
       if (v22 != v23)
       {
         v24 = *(*a6 + 392);
@@ -2788,19 +273,19 @@ LABEL_18:
         if (v27 - v24 < v26 - v24)
         {
           v28 = *a3;
-          *v50 = *(a3 + 16);
-          *&v50[16] = *(a3 + 32);
+          *v50 = a3[1];
+          *&v50[16] = a3[2];
           v29 = *(a4 + 27);
-          v30 = *(a4 + 16);
+          v30 = a4[1];
           *a3 = *a4;
-          *(a3 + 16) = v30;
+          a3[1] = v30;
           *(a3 + 27) = v29;
           *a4 = v28;
-          *(a4 + 16) = *v50;
+          a4[1] = *v50;
           result = *&v50[11];
           *(a4 + 27) = *&v50[11];
-          v31 = *(a3 + 24);
-          v32 = *(a2 + 24);
+          v31 = *(a3 + 3);
+          v32 = *(a2 + 3);
           if (v31 != v32)
           {
             v33 = *(*a6 + 392);
@@ -2842,19 +327,19 @@ LABEL_29:
             if (v36 - v33 < v35 - v33)
             {
               v37 = *a2;
-              *v51 = *(a2 + 16);
-              *&v51[16] = *(a2 + 32);
+              *v51 = a2[1];
+              *&v51[16] = a2[2];
               v38 = *(a3 + 27);
-              v39 = *(a3 + 16);
+              v39 = a3[1];
               *a2 = *a3;
-              *(a2 + 16) = v39;
+              a2[1] = v39;
               *(a2 + 27) = v38;
               *a3 = v37;
-              *(a3 + 16) = *v51;
+              a3[1] = *v51;
               result = *&v51[11];
               *(a3 + 27) = *&v51[11];
-              v40 = *(a2 + 24);
-              v41 = *(a1 + 24);
+              v40 = *(a2 + 3);
+              v41 = *(a1 + 3);
               if (v40 != v41)
               {
                 v42 = *(*a6 + 392);
@@ -2896,15 +381,15 @@ LABEL_40:
                 if (v45 - v42 < v44 - v42)
                 {
                   v46 = *a1;
-                  *v52 = *(a1 + 16);
-                  *&v52[16] = *(a1 + 32);
+                  *v52 = a1[1];
+                  *&v52[16] = a1[2];
                   v47 = *(a2 + 27);
-                  v48 = *(a2 + 16);
+                  v48 = a2[1];
                   *a1 = *a2;
-                  *(a1 + 16) = v48;
+                  a1[1] = v48;
                   *(a1 + 27) = v47;
                   *a2 = v46;
-                  *(a2 + 16) = *v52;
+                  a2[1] = *v52;
                   result = *&v52[11];
                   *(a2 + 27) = *&v52[11];
                 }
@@ -2921,7 +406,6 @@ LABEL_40:
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v6 <= 2)
   {
@@ -2971,43 +455,41 @@ LABEL_10:
 
           if (v12 - v9 < v11 - v9)
           {
-            v31 = (a2 - 48);
-            v32 = *a1;
-            *v37 = *(a1 + 16);
-            *&v37[16] = *(a1 + 32);
-            v33 = *(a2 - 21);
-            v34 = *(a2 - 32);
+            v30 = (a2 - 48);
+            v31 = *a1;
+            *v36 = *(a1 + 16);
+            *&v36[16] = *(a1 + 32);
+            v32 = *(a2 - 21);
+            v33 = *(a2 - 32);
             *a1 = *(a2 - 48);
-            *(a1 + 16) = v34;
-            *(a1 + 27) = v33;
-            *v31 = v32;
-            v31[1] = *v37;
-            *(v31 + 27) = *&v37[11];
+            *(a1 + 16) = v33;
+            *(a1 + 27) = v32;
+            *v30 = v31;
+            v30[1] = *v36;
+            *(v30 + 27) = *&v36[11];
           }
         }
 
-        goto LABEL_50;
+        return 1;
       }
 
       goto LABEL_18;
     }
 
-LABEL_50:
-    result = 1;
-    goto LABEL_51;
+    return 1;
   }
 
   switch(v6)
   {
     case 3:
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, (a1 + 48), (a2 - 48), a3);
-      goto LABEL_50;
+      return 1;
     case 4:
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a2 - 48, a3);
-      goto LABEL_50;
+      return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 48, a3);
-      goto LABEL_50;
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_SampleRemainder*,0>(a1, (a1 + 48), (a1 + 96), (a1 + 144), (a2 - 48), a3);
+      return 1;
   }
 
 LABEL_18:
@@ -3016,7 +498,7 @@ LABEL_18:
   v14 = a1 + 144;
   if (a1 + 144 == a2)
   {
-    goto LABEL_50;
+    return 1;
   }
 
   v15 = 0;
@@ -3064,9 +546,9 @@ LABEL_26:
 
       if (v21 - v18 < v20 - v18)
       {
-        v35 = *v14;
-        v36 = *(v14 + 16);
-        v38 = *(v14 + 32);
+        v34 = *v14;
+        v35 = *(v14 + 16);
+        v37 = *(v14 + 32);
         v22 = v14;
         while (1)
         {
@@ -3131,14 +613,14 @@ LABEL_39:
 
         v22 = a1;
 LABEL_46:
-        *v22 = v35;
-        *(v22 + 16) = v36;
+        *v22 = v34;
+        *(v22 + 16) = v35;
         *(v22 + 24) = v16;
-        *(v22 + 32) = v38;
-        *(v22 + 39) = *(&v38 + 7);
+        *(v22 + 32) = v37;
+        *(v22 + 39) = *(&v37 + 7);
         if (++v15 == 8)
         {
-          break;
+          return v14 + 48 == a2;
         }
       }
     }
@@ -3147,14 +629,9 @@ LABEL_46:
     v14 += 48;
     if (v14 == a2)
     {
-      goto LABEL_50;
+      return 1;
     }
   }
-
-  result = v14 + 48 == a2;
-LABEL_51:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_addStatisticsFromFinishedBucket<HDStatisticsSleepStages>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>> const&)::{lambda(HDStatisticsRelative<HDStatisticsSleepStages> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_addStatisticsFromFinishedBucket<HDStatisticsSleepStages>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>> const&)::{lambda(HDStatisticsRelative<HDStatisticsSleepStages> const&)#1}>,HDStatisticsSleepStages const& ()(HDStatisticsRelative<HDStatisticsSleepStages> const&)>::target(uint64_t a1, uint64_t a2)
@@ -3185,8 +662,9 @@ uint64_t std::__function::__value_func<HDStatisticsSleepStages const& ()(HDStati
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_primitiveAddSample(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_primitiveAddSample(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 688) == 1)
   {
     if ((a3 & 1) == 0)
@@ -3195,64 +673,62 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
       return 0;
     }
 
-    v8 = *(a2 + 8);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 8);
-  v10 = *(a1 + 40);
-  if (v10)
+  v8 = a2[1];
+  v9 = *(a1 + 40);
+  if (v9)
   {
     if (*(a1 + 688))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
 
     else
     {
-      v11 = *(a1 + 176);
-      v13 = *(a1 + 120);
-      if (v11 <= v13)
+      v10 = *(a1 + 176);
+      v12 = *(a1 + 120);
+      if (v10 <= v12)
       {
-        v11 = -1.79769313e308;
+        v10 = -1.79769313e308;
       }
 
-      if (v11 < v13)
+      if (v10 < v12)
       {
-        v11 = *(a1 + 120);
+        v10 = *(a1 + 120);
       }
     }
   }
 
   else
   {
-    v11 = *(a1 + 176);
-    if (v11 <= *(a1 + 120))
+    v10 = *(a1 + 176);
+    if (v10 <= *(a1 + 120))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
   }
 
-  if (v9 >= v11)
+  if (v8 >= v10)
   {
-    if (v10 && a3)
+    if (v9 && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v14 = *(a2 + 16);
-    v15 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
-    v12 = (*(*a1 + 128))(a1, v15, a4);
+    v13 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+    v11 = (*(*a1 + 128))(a1, v13, a4);
   }
 
-  return v12;
+  return v11;
 }
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_advanceToTime(uint64_t a1, double a2)
@@ -3291,7 +767,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
       v10 = v9;
       v11 = [v6 endDate];
       [v11 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket((a1 + 112), v10, v12);
+      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket(a1 + 112, v10, v12);
     }
 
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsSleepStages>>::_didChangeBucket(a1, v7);
@@ -3401,7 +877,7 @@ LABEL_10:
 LABEL_15:
   v29 = v18;
   v30 = v13;
-  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 360), v16);
+  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 360), v16, &v39 + 1);
   if (*(a1 + 112) != *(a1 + 104) || *(a1 + 136) > 0)
   {
     v21 = v30;
@@ -3473,12 +949,12 @@ LABEL_29:
   {
     v27 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_canonicalSourceIDForSourceID(v11, v16);
     v28 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsSleepStages>>::_statisticsForSource(v11, v27);
-    if (!*(v28 + 200) || v28[22] <= v6)
+    if (!*(v28 + 200) || *(v28 + 22) <= v6)
     {
       v28[21] = v5;
-      v28[22] = v6;
-      v28[23] = v7;
-      *(v28 + 24) = v8;
+      *(v28 + 22) = v6;
+      *(v28 + 23) = v7;
+      v28[24] = v8;
       *(v28 + 200) = v9;
       *(v28 + 201) = v10;
     }
@@ -3516,12 +992,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[68], a1[69], 0xCCCCCCCCCCCCCCCDLL * ((a1[69] - a1[68]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 544), *(a1 + 552), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 552) - *(a1 + 544)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -3802,29 +1278,12 @@ void sub_228FB5B78(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI23HDStatisticsSleepStagesEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -3879,7 +1338,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
           v23 = v22;
           v24 = [v19 endDate];
           [v24 timeIntervalSinceReferenceDate];
-          HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket((v15 + 112), v23, v25);
+          HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsSleepStages>>::advanceBucket(v15 + 112, v23, v25);
 
           if (v20)
           {
@@ -3903,7 +1362,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v14;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI23HDStatisticsSleepStagesEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI23HDStatisticsSleepStagesEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v9 = *(a1 + 32) - a6;
   if (v9 >= 0.01)
@@ -4008,13 +1467,13 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v7;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI23HDStatisticsSleepStagesEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI23HDStatisticsSleepStagesEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v10 = *(a1 + 32);
-  *v14 = a5;
-  *&v14[1] = a6;
-  *&v14[2] = a7;
-  v14[3] = a2;
+  v14[0] = a5;
+  v14[1] = a6;
+  v14[2] = a7;
+  *&v14[3] = a2;
   v15 = 1;
   v11 = [MEMORY[0x277CBEAA8] distantFuture];
   [v11 timeIntervalSinceReferenceDate];
@@ -4180,7 +1639,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSle
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::setDateInterval(uint64_t a1, void *a2)
 {
   v6 = a2;
-  v3 = [v6 copy];
+  v3 = objc_msgSend_copy(v6);
   v4 = *(a1 + 64);
   *(a1 + 64) = v3;
 
@@ -4245,7 +1704,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSle
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::setStatisticsHandler(uint64_t a1, void *a2)
 {
   v5 = a2;
-  v3 = [v5 copy];
+  v3 = objc_msgSend_copy(v5);
   v4 = *(a1 + 96);
   *(a1 + 96) = v3;
 }
@@ -4276,9 +1735,9 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStag
   return v1;
 }
 
-void sub_228FB6A84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228FB6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(va);
   _Unwind_Resume(a1);
 }
@@ -4351,7 +1810,6 @@ LABEL_4:
 
       if (v15 > *(a2 + 8))
       {
-        v17 = *(a2 + 16);
         v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
         v14 = (*(*a1 + 128))(a1, v8, a3);
         goto LABEL_8;
@@ -4377,7 +1835,7 @@ LABEL_23:
 
 uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (*(a1 + 642) == 1)
@@ -4387,14 +1845,14 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSle
   }
 
   *(a1 + 642) = 1;
-  v68 = a3;
+  v67 = a3;
   if (!(*(v5 + 2))(v5, a3))
   {
     v7 = 0;
     goto LABEL_80;
   }
 
-  v67 = v6;
+  v66 = v6;
   if (*(a1 + 641))
   {
     goto LABEL_5;
@@ -4404,26 +1862,26 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSle
   if (!v9)
   {
     v8 = 0;
-    v69 = 0;
+    v68 = 0;
     goto LABEL_28;
   }
 
   if (!*(a1 + 40))
   {
 LABEL_5:
-    v69 = 0;
+    v68 = 0;
     v8 = 1;
     goto LABEL_28;
   }
 
   [v9 sortUsingComparator:&__block_literal_global_1148];
-  v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v10 = *(a1 + 664);
-  v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
   if (!v11)
   {
 
@@ -4432,17 +1890,17 @@ LABEL_5:
   }
 
   v12 = 0;
-  v13 = *v71;
+  v13 = *v70;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v71 != v13)
+      if (*v70 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v70 + 1) + 8 * i);
+      v15 = *(*(&v69 + 1) + 8 * i);
       v16 = v15;
       if (v12)
       {
@@ -4469,7 +1927,7 @@ LABEL_5:
 
         else
         {
-          [v69 addObject:v12];
+          [v68 addObject:v12];
           v26 = v16;
         }
 
@@ -4484,14 +1942,14 @@ LABEL_5:
 LABEL_21:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
   }
 
   while (v11);
 
   if (v12)
   {
-    [v69 addObject:v12];
+    [v68 addObject:v12];
   }
 
 LABEL_27:
@@ -4512,7 +1970,7 @@ LABEL_28:
     goto LABEL_46;
   }
 
-  v30 = [v69 lastObject];
+  v30 = [v68 lastObject];
   if (v30)
   {
     v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_currentBucketInterval(a1);
@@ -4579,32 +2037,32 @@ LABEL_44:
   *(a1 + 688) = 0;
   *(a1 + 672) = 0;
   *(a1 + 680) = 0;
-  if ([v69 count])
+  if ([v68 count])
   {
 LABEL_46:
-    v44 = v69;
+    v44 = v68;
     if (v44)
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       v45 = v44;
-      v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
       if (v46)
       {
-        v47 = *v71;
+        v47 = *v70;
         while (2)
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v71 != v47)
+            if (*v70 != v47)
             {
               objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v70 + 1) + 8 * j);
-            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveInvalidateInterval(a1, v49, v68);
+            v49 = *(*(&v69 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveInvalidateInterval(a1, v49, v67);
 
             if (!v50)
             {
@@ -4613,7 +2071,7 @@ LABEL_46:
             }
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
           if (v46)
           {
             continue;
@@ -4626,7 +2084,7 @@ LABEL_46:
       goto LABEL_58;
     }
 
-    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveInvalidateInterval(a1, 0, v68))
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveInvalidateInterval(a1, 0, v67))
     {
       goto LABEL_58;
     }
@@ -4654,12 +2112,12 @@ LABEL_58:
     if (v29 != v28)
     {
       v55 = v28;
-      v51 = v68;
+      v51 = v67;
       do
       {
         v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveAddSample(a1, v55, 1, v51);
         v54 = v56;
-        v55 += 40;
+        v55 += 5;
         if (v55 == v29)
         {
           v57 = 0;
@@ -4670,7 +2128,7 @@ LABEL_58:
           v57 = v56;
         }
 
-        v51 = v68;
+        v51 = v67;
       }
 
       while ((v57 & 1) != 0);
@@ -4690,7 +2148,7 @@ LABEL_58:
       v62 = v61;
       v63 = [v58 endDate];
       [v63 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket((a1 + 112), v62, v64);
+      HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket(a1 + 112, v62, v64);
 
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_didChangeBucket(a1, v59);
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_notifyForCurrentBucket(a1);
@@ -4708,7 +2166,7 @@ LABEL_58:
     if (*(a1 + 644) == 1)
     {
       *(a1 + 644) = 0;
-      v6 = v67;
+      v6 = v66;
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_notifyForCurrentBucket(a1);
       v7 = 1;
       goto LABEL_80;
@@ -4722,12 +2180,11 @@ LABEL_58:
     v7 = 0;
   }
 
-  v6 = v67;
+  v6 = v66;
 LABEL_80:
   *(a1 + 642) = 0;
 LABEL_81:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -4843,31 +2300,26 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
   v3 = a2;
   [v3 encodeBool:*(a1 + 640) forKey:@"needs_config"];
   v3;
-  v28[0] = &unk_283BF1A08;
-  v28[1] = 0;
-  v29 = 0;
+  v23[0] = &unk_283BF1A08;
+  v23[1] = 0;
+  v24 = 0;
   v4 = *(a1 + 112);
-  LOBYTE(v29) = 1;
-  v28[2] = v4;
-  memset(&v28[3], 0, 24);
-  statistics::StatisticsEngine::makeCurrentBucket(v28);
+  LOBYTE(v24) = 1;
+  v23[2] = v4;
+  memset(&v23[3], 0, 24);
+  statistics::StatisticsEngine::makeCurrentBucket(v23);
   v9 = &unk_283BE6258;
   v13 = 0;
   v14 = 0;
   v12 = 0;
-  v27 = 511;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
+  v22 = 511;
+  memset(v17, 0, sizeof(v17));
+  v18 = 0;
   v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
   v6 = *(a1 + 136);
-  v25 = *(a1 + 144);
-  v26 = *(a1 + 145);
-  v24 = *(a1 + 148) == 0;
+  v20 = *(a1 + 144);
+  v21 = *(a1 + 145);
+  v19 = *(a1 + 148) == 0;
   v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
   v10 = v5;
   v11 = v7;
@@ -4877,22 +2329,22 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
   v8 = *(a1 + 216);
   if (v8 != *(a1 + 224))
   {
-    v30 = &unk_283BEB0A8;
-    v37 = 127;
-    v33 = vextq_s8(*v8, *v8, 8uLL);
-    v31 = v8[1].i64[0];
-    v32 = v8[1].i64[1];
-    v36 = 0;
-    v35 = v8[2].i8[9];
-    v34 = v8[2].i8[10];
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>();
+    v25[0] = &unk_283BEB0A8;
+    v30 = 127;
+    v26 = vextq_s8(*v8, *v8, 8uLL);
+    v25[1] = v8[1].i64[0];
+    v25[2] = v8[1].i64[1];
+    v29 = 0;
+    v28 = v8[2].i8[9];
+    v27 = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(v17, v25);
   }
 
   statistics::StatisticsBucket::makeStatistics(&v9);
   HDStatisticsSleepStages::archive((a1 + 240));
 }
 
-void sub_228FB7B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_228FB7B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
 {
   statistics::StatisticsEngine::~StatisticsEngine(&a34);
 
@@ -4907,73 +2359,71 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
   HDStatisticsBucket<HDStatisticsSleepStages>::HDStatisticsBucket(&v24.n128_i64[1], 0, -1.79769313e308, 1.79769313e308);
   *__p = 0u;
   v26 = 0u;
-  v73 = 0;
-  PB::Reader::Reader(v72, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v73]);
-  v65 = &unk_283BF1A08;
-  v66 = 0;
-  v70 = 0;
-  v68 = 0;
-  v69 = 0;
   v71 = 0;
-  statistics::StatisticsEngine::readFrom(&v65, v72);
-  v24.n128_u64[0] = v67;
-  if (v66)
+  PB::Reader::Reader(v70, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v71]);
+  v63 = &unk_283BF1A08;
+  v64 = 0;
+  v68 = 0;
+  v66 = 0;
+  v67 = 0;
+  v69 = 0;
+  statistics::StatisticsEngine::readFrom(&v63, v70);
+  v24.n128_u64[0] = v65;
+  if (v64)
   {
     v30 = 0;
-    v33 = 0uLL;
+    memset(v33, 0, sizeof(v33));
+    memset(v34, 0, sizeof(v34));
+    v36 = xmmword_229170D50;
     v35 = 0;
-    v34 = 0;
-    memset(v36, 0, sizeof(v36));
-    v38 = xmmword_229170D50;
     v37 = 0;
+    v38 = xmmword_229170D60;
+    v40 = xmmword_229170D70;
     v39 = 0;
-    v40 = xmmword_229170D60;
-    v42 = xmmword_229170D70;
     v41 = 0;
+    v42 = xmmword_229170D80;
+    v44 = xmmword_229170D90;
     v43 = 0;
-    v44 = xmmword_229170D80;
-    v46 = xmmword_229170D90;
     v45 = 0;
-    v47 = 0;
-    v50[1] = 0;
-    v50[0] = 0;
-    v48 = 0x7FFFFFFFFFFFFFFFLL;
-    v49 = v50;
-    v51 = 0u;
+    v48[1] = 0;
+    v48[0] = 0;
+    v46 = 0x7FFFFFFFFFFFFFFFLL;
+    v47 = v48;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 1065353216;
     v52 = 0u;
-    v53 = 1065353216;
+    v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v57 = 0;
-    v58 = 1065353216;
-    v59 = 0u;
+    v55 = 0;
+    v56 = 1065353216;
+    v57 = 0u;
+    v58 = 0u;
+    v59 = 1065353216;
     v60 = 0u;
-    v61 = 1065353216;
-    v62 = 0u;
-    v63 = 0u;
-    v64 = 1065353216;
-    v27 = vextq_s8(*(v66 + 8), *(v66 + 8), 8uLL);
-    v5 = *(v66 + 72);
-    v28 = *(v66 + 64);
-    LOWORD(v29) = *(v66 + 185);
-    v31 = vextq_s8(*(v66 + 24), *(v66 + 24), 8uLL);
+    v61 = 0u;
+    v62 = 1065353216;
+    v27 = vextq_s8(*(v64 + 8), *(v64 + 8), 8uLL);
+    v5 = *(v64 + 72);
+    v28 = *(v64 + 64);
+    LOWORD(v29) = *(v64 + 185);
+    v31 = vextq_s8(*(v64 + 24), *(v64 + 24), 8uLL);
     v32 = v5;
-    v6 = *(v66 + 80);
-    v7 = *(v66 + 88);
-    for (i = v66; v6 != v7; ++v6)
+    v6 = *(v64 + 80);
+    v7 = *(v64 + 88);
+    for (i = v64; v6 != v7; ++v6)
     {
       v8 = *v6;
-      v77 = 1;
-      v78 = 0;
+      v75 = 1;
+      v76 = 0;
       v9 = *(v8 + 8);
       v10 = *(v8 + 16);
-      v74 = vextq_s8(*(v8 + 24), *(v8 + 24), 8uLL);
-      v75 = v9;
-      v76 = v10;
-      v79 = *(v8 + 41);
-      v80 = *(v8 + 40);
-      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v36, v74.i8);
+      v72 = vextq_s8(*(v8 + 24), *(v8 + 24), 8uLL);
+      v73 = v9;
+      v74 = v10;
+      v77 = *(v8 + 41);
+      v78 = *(v8 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v34, v72.i8);
     }
 
     v11 = i[13];
@@ -5008,15 +2458,15 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
         v15 = *(*v13 + 8);
       }
 
-      HKIntervalMask<double>::_insertInterval(&v33, v17, v15);
+      HKIntervalMask<double>::_insertInterval(v33, v17, v15);
     }
 
     HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=(&v24.n128_i64[1], &v27);
     HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(&v27);
   }
 
-  v18 = v68;
-  for (k = v69; v18 != k; v18 += 8)
+  v18 = v66;
+  for (k = v67; v18 != k; v18 += 8)
   {
     v20 = *(*v18 + 8);
     v21 = *(*v18 + 16);
@@ -5027,7 +2477,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
     std::vector<HDRawQuantitySample>::push_back[abi:ne200100](__p, v27.i8);
   }
 
-  statistics::StatisticsEngine::~StatisticsEngine(&v65);
+  statistics::StatisticsEngine::~StatisticsEngine(&v63);
 
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=((a1 + 112), &v24);
   if (__p[0])
@@ -5039,34 +2489,34 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
   HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(&v24.n128_i64[1]);
 }
 
-void sub_228FB811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228FB811C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(v17 + 448);
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a3);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v17 + 368);
-  v19 = STACK[0x3E8];
+  va_start(va, a24);
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(v24 + 448);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a10);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v24 + 368);
+  v26 = STACK[0x3E8];
   if (STACK[0x3E8])
   {
-    STACK[0x3F0] = v19;
-    operator delete(v19);
+    STACK[0x3F0] = v26;
+    operator delete(v26);
   }
 
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v17 + 304);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v24 + 304);
   std::__tree<long>::destroy(STACK[0x3B0]);
-  v20 = STACK[0x2F0];
+  v27 = STACK[0x2F0];
   if (STACK[0x2F0])
   {
-    STACK[0x2F8] = v20;
-    operator delete(v20);
+    STACK[0x2F8] = v27;
+    operator delete(v27);
   }
 
-  objc_destroyWeak((v17 + 88));
-  v21 = STACK[0x2D0];
+  objc_destroyWeak((v24 + 88));
+  v28 = STACK[0x2D0];
   if (STACK[0x2D0])
   {
-    STACK[0x2D8] = v21;
-    operator delete(v21);
+    STACK[0x2D8] = v28;
+    operator delete(v28);
   }
 
   statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x480]);
@@ -5217,7 +2667,7 @@ uint64_t HDStatisticsBucket<HDStatisticsSleepStages>::HDStatisticsBucket(uint64_
   *(a1 + 56) = v5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 64, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
   objc_copyWeak((a1 + 88), (a2 + 88));
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
@@ -5392,7 +2842,7 @@ LABEL_23:
   *(a1 + 344) = 0;
   *(a1 + 352) = 0;
   *(a1 + 360) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 344, *(a2 + 344), *(a2 + 352), (*(a2 + 352) - *(a2 + 344)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 344), *(a2 + 344), *(a2 + 352), (*(a2 + 352) - *(a2 + 344)) >> 3);
   std::unordered_map<long long,long long>::unordered_map(a1 + 368, a2 + 368);
   std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 408, a2 + 408);
   std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 448, a2 + 448);
@@ -5432,7 +2882,7 @@ void sub_228FB8928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_statisticsFromFinishedBucket(uint64_t a1, uint64_t a2)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = objc_alloc(MEMORY[0x277CBEAA8]);
   v6 = 40;
@@ -5441,8 +2891,8 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStag
     v6 = 0;
   }
 
-  v89 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
-  v92 = a2;
+  v87 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
+  v90 = a2;
   if (*(a2 + 8) == 1.79769313e308)
   {
     v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 48)];
@@ -5455,255 +2905,254 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStag
 
   v8 = v7;
   v9 = *(a1 + 16);
-  v10 = *(a1 + 16);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = *(a1 + 16);
-    if ([v11 shouldUseUnderlyingTypeForStatistics])
+    v10 = *(a1 + 16);
+    if ([v10 shouldUseUnderlyingTypeForStatistics])
     {
-      v12 = [v11 underlyingSampleType];
+      v11 = [v10 underlyingSampleType];
 
-      v9 = v12;
+      v9 = v11;
     }
   }
 
-  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v89 endDate:v8];
+  v12 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v87 endDate:v8];
   if (*(a1 + 24))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
 
     if (WeakRetained)
     {
-      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v16 = *(a2 + 344);
-      v17 = *(a2 + 352);
-      while (v16 != v17)
+      v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v15 = *(a2 + 344);
+      v16 = *(a2 + 352);
+      while (v15 != v16)
       {
-        v18 = *v16;
-        v19 = objc_loadWeakRetained((a1 + 48));
-        v20 = [v19 sourceForSourceID:v18];
+        v17 = *v15;
+        v18 = objc_loadWeakRetained((a1 + 48));
+        v19 = [v18 sourceForSourceID:v17];
 
-        if (v20)
+        if (v19)
         {
-          if (([v15 containsObject:v20] & 1) == 0)
+          if (([v14 containsObject:v19] & 1) == 0)
           {
-            [v15 addObject:v20];
+            [v14 addObject:v19];
           }
         }
 
-        ++v16;
+        ++v15;
       }
 
-      v21 = [v15 copy];
-      [v13 _setSources:v21];
+      v20 = objc_msgSend_copy(v14);
+      [v12 _setSources:v20];
     }
   }
 
-  v103[0] = &unk_283BF1938;
-  v104 = v103;
-  v90 = v13;
-  v22 = *(v92 + 232);
-  v99 = *(v92 + 216);
+  v101[0] = &unk_283BF1938;
+  v102 = v101;
+  v88 = v12;
+  v21 = *(v90 + 232);
+  v97 = *(v90 + 216);
+  v98 = v21;
+  v22 = *(v90 + 264);
+  v99 = *(v90 + 248);
   v100 = v22;
-  v23 = *(v92 + 264);
-  v101 = *(v92 + 248);
-  v102 = v23;
-  v24 = *(v92 + 168);
-  v95 = *(v92 + 152);
+  v23 = *(v90 + 168);
+  v93 = *(v90 + 152);
+  v94 = v23;
+  v24 = *(v90 + 200);
+  v95 = *(v90 + 184);
   v96 = v24;
-  v25 = *(v92 + 200);
-  v97 = *(v92 + 184);
-  v98 = v25;
-  v26 = *(v92 + 136);
-  *__p = *(v92 + 120);
-  v94 = v26;
-  if (!v104)
+  v25 = *(v90 + 136);
+  *__p = *(v90 + 120);
+  v92 = v25;
+  if (!v102)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v27 = ((*(*v104 + 48))(v104, __p) + 32);
-  v28 = 0.0;
-  v29 = 0x7FFFFFFFFFFFFFFFLL;
-  v30 = 144;
-  v31 = 0x7FFFFFFFFFFFFFFFLL;
+  v26 = ((*(*v102 + 48))(v102, __p) + 32);
+  v27 = 0.0;
+  v28 = 0x7FFFFFFFFFFFFFFFLL;
+  v29 = 144;
+  v30 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    v32 = *(v27 - 1);
-    if (v32 > 2.22507386e-308 && v32 >= v28)
+    v31 = *(v26 - 1);
+    if (v31 > 2.22507386e-308 && v31 >= v27)
     {
-      if (v32 <= v28)
+      if (v31 <= v27)
       {
-        if (*v27 < v29)
+        if (*v26 < v28)
         {
-          v31 = *(v27 - 2);
-          v28 = *(v27 - 1);
-          v29 = *v27;
+          v30 = *(v26 - 2);
+          v27 = *(v26 - 1);
+          v28 = *v26;
         }
       }
 
       else
       {
-        v31 = *(v27 - 2);
-        v29 = *v27;
-        v28 = *(v27 - 1);
+        v30 = *(v26 - 2);
+        v28 = *v26;
+        v27 = *(v26 - 1);
       }
     }
 
-    v27 += 3;
-    v30 -= 24;
+    v26 += 3;
+    v29 -= 24;
   }
 
-  while (v30);
-  if (v31 != 0x7FFFFFFFFFFFFFFFLL)
+  while (v29);
+  if (v30 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v34 = [MEMORY[0x277CCABB0] numberWithInteger:{2.22507386e-308, v28}];
-    [v90 setCategoryValue:v34];
+    v33 = [MEMORY[0x277CCABB0] numberWithInteger:{2.22507386e-308, v27}];
+    [v88 setCategoryValue:v33];
   }
 
-  v35 = *(v92 + 232);
-  v99 = *(v92 + 216);
+  v34 = *(v90 + 232);
+  v97 = *(v90 + 216);
+  v98 = v34;
+  v35 = *(v90 + 264);
+  v99 = *(v90 + 248);
   v100 = v35;
-  v36 = *(v92 + 264);
-  v101 = *(v92 + 248);
-  v102 = v36;
-  v37 = *(v92 + 168);
-  v95 = *(v92 + 152);
+  v36 = *(v90 + 168);
+  v93 = *(v90 + 152);
+  v94 = v36;
+  v37 = *(v90 + 200);
+  v95 = *(v90 + 184);
   v96 = v37;
-  v38 = *(v92 + 200);
-  v97 = *(v92 + 184);
-  v98 = v38;
-  v39 = *(v92 + 136);
-  *__p = *(v92 + 120);
-  v94 = v39;
-  if (!v104)
+  v38 = *(v90 + 136);
+  *__p = *(v90 + 120);
+  v92 = v38;
+  if (!v102)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  [v90 setDataCount:{*(*(*v104 + 48))(v104, __p)}];
+  [v88 setDataCount:{*(*(*v102 + 48))(v102, __p)}];
   if ((*(a1 + 24) & 1) == 0)
   {
     goto LABEL_88;
   }
 
-  v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v40 = *(v92 + 344);
-  v41 = *(v92 + 352);
-  while (v40 != v41)
+  v89 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v39 = *(v90 + 344);
+  v40 = *(v90 + 352);
+  while (v39 != v40)
   {
-    v42 = *v40;
-    v43 = objc_loadWeakRetained((a1 + 48));
-    v44 = [v43 sourceForSourceID:v42];
+    v41 = *v39;
+    v42 = objc_loadWeakRetained((a1 + 48));
+    v43 = [v42 sourceForSourceID:v41];
 
-    if (v44 && ([v91 containsObject:v44] & 1) == 0)
+    if (v43 && ([v89 containsObject:v43] & 1) == 0)
     {
-      [v91 addObject:v44];
+      [v89 addObject:v43];
     }
 
-    ++v40;
+    ++v39;
   }
 
-  v45 = [v91 copy];
-  [v90 _setSources:v45];
+  v44 = objc_msgSend_copy(v89);
+  [v88 _setSources:v44];
 
+  v84 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v86 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v88 = objc_alloc_init(MEMORY[0x277CBEB38]);
   *__p = 0u;
-  v94 = 0u;
-  LODWORD(v95) = 1065353216;
-  v46 = *(v92 + 280);
-  if (v46 == (v92 + 288))
+  v92 = 0u;
+  LODWORD(v93) = 1065353216;
+  v45 = *(v90 + 280);
+  if (v45 == (v90 + 288))
   {
     goto LABEL_87;
   }
 
-  v85 = &v94;
+  v83 = &v92;
   do
   {
-    v47 = HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(v92, v46[4]);
-    v48 = v47;
-    if (!v47)
+    v46 = HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(v90, v45[4]);
+    v47 = v46;
+    if (!v46)
     {
       goto LABEL_63;
     }
 
-    v49 = [v47 hash];
-    v50 = v49;
-    v51 = __p[1];
+    v48 = [v46 hash];
+    v49 = v48;
+    v50 = __p[1];
     if (!__p[1])
     {
       goto LABEL_61;
     }
 
-    v52 = vcnt_s8(__p[1]);
-    v52.i16[0] = vaddlv_u8(v52);
-    v53 = v52.u32[0];
-    if (v52.u32[0] > 1uLL)
+    v51 = vcnt_s8(__p[1]);
+    v51.i16[0] = vaddlv_u8(v51);
+    v52 = v51.u32[0];
+    if (v51.u32[0] > 1uLL)
     {
-      v54 = v49;
-      if (v49 >= __p[1])
+      v53 = v48;
+      if (v48 >= __p[1])
       {
-        v54 = v49 % __p[1];
+        v53 = v48 % __p[1];
       }
     }
 
     else
     {
-      v54 = (__p[1] - 1) & v49;
+      v53 = (__p[1] - 1) & v48;
     }
 
-    v55 = *(__p[0] + v54);
-    if (!v55 || (v56 = *v55) == 0)
+    v54 = *(__p[0] + v53);
+    if (!v54 || (v55 = *v54) == 0)
     {
 LABEL_61:
       operator new();
     }
 
-    v87 = __p[1] - 1;
+    v85 = __p[1] - 1;
     while (1)
     {
-      v57 = v56[1];
-      if (v57 == v50)
+      v56 = v55[1];
+      if (v56 == v49)
       {
         break;
       }
 
-      if (v53 > 1)
+      if (v52 > 1)
       {
-        if (v57 >= v51)
+        if (v56 >= v50)
         {
-          v57 %= v51;
+          v56 %= v50;
         }
       }
 
       else
       {
-        v57 &= v87;
+        v56 &= v85;
       }
 
-      if (v57 != v54)
+      if (v56 != v53)
       {
         goto LABEL_61;
       }
 
 LABEL_60:
-      v56 = *v56;
-      if (!v56)
+      v55 = *v55;
+      if (!v55)
       {
         goto LABEL_61;
       }
     }
 
-    v58 = v56[2];
-    v59 = v48;
-    v60 = v59;
-    if (v58 != v59)
+    v57 = v55[2];
+    v58 = v47;
+    v59 = v58;
+    if (v57 != v58)
     {
-      v61 = [v58 isEqualToString:v59];
+      v60 = [v57 isEqualToString:v58];
 
-      if (v61)
+      if (v60)
       {
         goto LABEL_62;
       }
@@ -5712,120 +3161,119 @@ LABEL_60:
     }
 
 LABEL_62:
-    v62 = *(v46 + 5);
-    *(v56 + 5) = *(v46 + 7);
-    *(v56 + 3) = v62;
-    v63 = *(v46 + 9);
-    v64 = *(v46 + 11);
-    v65 = *(v46 + 13);
-    *(v56 + 13) = *(v46 + 15);
-    *(v56 + 11) = v65;
-    *(v56 + 9) = v64;
-    *(v56 + 7) = v63;
-    v66 = *(v46 + 17);
-    v67 = *(v46 + 19);
-    v68 = *(v46 + 21);
-    *(v56 + 21) = *(v46 + 23);
-    *(v56 + 19) = v68;
-    *(v56 + 17) = v67;
-    *(v56 + 15) = v66;
+    v61 = *(v45 + 5);
+    *(v55 + 5) = *(v45 + 7);
+    *(v55 + 3) = v61;
+    v62 = *(v45 + 9);
+    v63 = *(v45 + 11);
+    v64 = *(v45 + 13);
+    *(v55 + 13) = *(v45 + 15);
+    *(v55 + 11) = v64;
+    *(v55 + 9) = v63;
+    *(v55 + 7) = v62;
+    v65 = *(v45 + 17);
+    v66 = *(v45 + 19);
+    v67 = *(v45 + 21);
+    *(v55 + 21) = *(v45 + 23);
+    *(v55 + 19) = v67;
+    *(v55 + 17) = v66;
+    *(v55 + 15) = v65;
 
 LABEL_63:
-    v69 = v46[1];
-    if (v69)
+    v68 = v45[1];
+    if (v68)
     {
       do
       {
-        v70 = v69;
-        v69 = *v69;
+        v69 = v68;
+        v68 = *v68;
       }
 
-      while (v69);
+      while (v68);
     }
 
     else
     {
       do
       {
-        v70 = v46[2];
-        v71 = *v70 == v46;
-        v46 = v70;
+        v69 = v45[2];
+        v70 = *v69 == v45;
+        v45 = v69;
       }
 
-      while (!v71);
+      while (!v70);
     }
 
-    v46 = v70;
+    v45 = v69;
   }
 
-  while (v70 != (v92 + 288));
-  for (i = v94; i; i = *i)
+  while (v69 != (v90 + 288));
+  for (i = v92; i; i = *i)
   {
-    v73 = i[2];
-    if (!v104)
+    v72 = i[2];
+    if (!v102)
     {
       goto LABEL_91;
     }
 
-    v74 = ((*(*v104 + 48))(v104, i + 3) + 32);
-    v75 = 0.0;
-    v76 = 0x7FFFFFFFFFFFFFFFLL;
-    v77 = 144;
-    v78 = 0x7FFFFFFFFFFFFFFFLL;
+    v73 = ((*(*v102 + 48))(v102, i + 3) + 32);
+    v74 = 0.0;
+    v75 = 0x7FFFFFFFFFFFFFFFLL;
+    v76 = 144;
+    v77 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
-      v79 = *(v74 - 1);
-      if (v79 > 2.22507386e-308 && v79 >= v75)
+      v78 = *(v73 - 1);
+      if (v78 > 2.22507386e-308 && v78 >= v74)
       {
-        if (v79 <= v75)
+        if (v78 <= v74)
         {
-          if (*v74 < v76)
+          if (*v73 < v75)
           {
-            v78 = *(v74 - 2);
-            v75 = *(v74 - 1);
-            v76 = *v74;
+            v77 = *(v73 - 2);
+            v74 = *(v73 - 1);
+            v75 = *v73;
           }
         }
 
         else
         {
-          v78 = *(v74 - 2);
-          v76 = *v74;
-          v75 = *(v74 - 1);
+          v77 = *(v73 - 2);
+          v75 = *v73;
+          v74 = *(v73 - 1);
         }
       }
 
-      v74 += 3;
-      v77 -= 24;
+      v73 += 3;
+      v76 -= 24;
     }
 
-    while (v77);
-    if (v78 != 0x7FFFFFFFFFFFFFFFLL)
+    while (v76);
+    if (v77 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v81 = [MEMORY[0x277CCABB0] numberWithInteger:v75];
-      [v86 setObject:v81 forKeyedSubscript:v73];
+      v80 = [MEMORY[0x277CCABB0] numberWithInteger:v74];
+      [v84 setObject:v80 forKeyedSubscript:v72];
     }
 
-    if (!v104)
+    if (!v102)
     {
 LABEL_91:
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v82 = [MEMORY[0x277CCABB0] numberWithLongLong:{*(*(*v104 + 48))(v104, i + 3)}];
-    [v88 setObject:v82 forKeyedSubscript:v73];
+    v81 = [MEMORY[0x277CCABB0] numberWithLongLong:{*(*(*v102 + 48))(v102, i + 3)}];
+    [v86 setObject:v81 forKeyedSubscript:v72];
   }
 
 LABEL_87:
   std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>>>::~__hash_table(__p);
-  [v90 setCategoryValueBySource:v86];
-  [v90 setDataCountBySource:v88];
+  [v88 setCategoryValueBySource:v84];
+  [v88 setDataCountBySource:v86];
 
 LABEL_88:
-  std::__function::__value_func<HDStatisticsSleepStages const& ()(HDStatisticsSleepStages const&)>::~__value_func[abi:ne200100](v103);
-  v83 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<HDStatisticsSleepStages const& ()(HDStatisticsSleepStages const&)>::~__value_func[abi:ne200100](v101);
 
-  return v90;
+  return v88;
 }
 
 void HDStatisticsBucket<HDStatisticsSleepStages>::_updateSourceOrder(uint64_t a1)
@@ -5887,16 +3335,16 @@ void HDStatisticsBucket<HDStatisticsSleepStages>::_mergeThroughTime(uint64_t a1,
       {
         do
         {
-          v13 = *(v12 + 8);
-          v14 = *(v12 + 16);
+          v13 = v12->n128_f64[1];
+          v14 = v12[1].n128_f64[0];
           if (v13 > v11 && v13 < v10)
           {
-            v10 = *(v12 + 8);
+            v10 = v12->n128_f64[1];
           }
 
           if (v14 > v5)
           {
-            v16 = *(v12 + 16);
+            v16 = v12[1].n128_f64[0];
           }
 
           else
@@ -5910,7 +3358,7 @@ void HDStatisticsBucket<HDStatisticsSleepStages>::_mergeThroughTime(uint64_t a1,
             v9 = v16;
           }
 
-          v12 += 48;
+          v12 += 3;
         }
 
         while (v12 != v7);
@@ -6109,21 +3557,21 @@ LABEL_54:
                       v60 = HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(a1, v59);
                       if ((v45 & 1) == 0)
                       {
-                        ++*v60;
+                        *v60 = (*v60 + 1);
                       }
 
                       v61 = &v60[3 * *&v93];
-                      v62 = v61[3];
-                      v63 = *(v61 + 4);
+                      v62 = *(v61 + 3);
+                      v63 = v61[4];
                       v64 = v60[1];
                       if (v64 < v63)
                       {
-                        v63 = v64 + 1;
-                        v60[1] = v64 + 1;
+                        v63 = (v64 + 1);
+                        v60[1] = (v64 + 1);
                       }
 
-                      v61[3] = v62 + *&v94 - *(&v93 + 1);
-                      *(v61 + 4) = v63;
+                      *(v61 + 3) = v62 + *&v94 - *(&v93 + 1);
+                      v61[4] = v63;
                       v45 = 1;
 LABEL_81:
 
@@ -6264,21 +3712,21 @@ LABEL_91:
             v76 = HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(a1, v75);
             if ((v66 & 1) == 0)
             {
-              ++*v76;
+              *v76 = (*v76 + 1);
             }
 
             v77 = &v76[3 * v69];
-            v78 = v77[3];
-            v79 = *(v77 + 4);
+            v78 = *(v77 + 3);
+            v79 = v77[4];
             v80 = v76[1];
             if (v80 < v79)
             {
-              v79 = v80 + 1;
-              v76[1] = v80 + 1;
+              v79 = (v80 + 1);
+              v76[1] = (v80 + 1);
             }
 
-            v77[3] = v74 + v78;
-            *(v77 + 4) = v79;
+            *(v77 + 3) = v74 + v78;
+            v77[4] = v79;
           }
 
           v67 = 1;
@@ -6327,7 +3775,7 @@ LABEL_106:
   }
 }
 
-void *HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(uint64_t a1, uint64_t a2)
+uint64_t **HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(uint64_t a1, uint64_t a2)
 {
   v7 = a2;
   v3 = *(a1 + 288);
@@ -6340,12 +3788,12 @@ void *HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(uint64_t
   v5 = (a1 + 288);
   do
   {
-    if (v3[4] >= a2)
+    if (*(v3 + 32) >= a2)
     {
       v5 = v3;
     }
 
-    v3 = v3[v3[4] < a2];
+    v3 = *(v3 + 8 * (*(v3 + 32) < a2));
   }
 
   while (v3);
@@ -6353,9 +3801,9 @@ void *HDStatisticsBucket<HDStatisticsSleepStages>::_statisticsForSource(uint64_t
   {
 LABEL_8:
     v8 = &v7;
-    std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 280, a2);
+    std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 280), a2, &v8);
     v8 = &v7;
-    v5 = std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 280, v7);
+    v5 = std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 280), v7, &v8);
   }
 
   return v5 + 5;
@@ -6376,8 +3824,8 @@ uint64_t *HDStatisticsBucket<HDStatisticsSleepStages>::_canonicalSourceIDForSour
     else
     {
       v6 = HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 408), v9);
+      v9 = v6;
+      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 408), &v9);
       if (v7)
       {
         a2 = v7[3];
@@ -6385,9 +3833,9 @@ uint64_t *HDStatisticsBucket<HDStatisticsSleepStages>::_canonicalSourceIDForSour
 
       else
       {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 408), v9)[3] = a2;
-        v6 = v9[0];
+        v10 = &v9;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 408), &v9, &v10)[3] = a2;
+        v6 = v9;
       }
     }
   }
@@ -6397,7 +3845,7 @@ uint64_t *HDStatisticsBucket<HDStatisticsSleepStages>::_canonicalSourceIDForSour
 
 id HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
 {
-  v9[0] = a2;
+  v9 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
 
   if (WeakRetained)
@@ -6411,12 +3859,12 @@ id HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(uin
     else
     {
       v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
+      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9}];
 
       if (WeakRetained)
       {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 448), a2);
+        v10 = &v9;
+        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 448), a2, &v10);
         objc_storeStrong(v7 + 3, WeakRetained);
       }
     }
@@ -6425,10 +3873,10 @@ id HDStatisticsBucket<HDStatisticsSleepStages>::_bundleIdentifierForSourceID(uin
   return WeakRetained;
 }
 
-void *std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<long long,HDStatisticsSleepStages>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsSleepStages>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsSleepStages>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -6438,27 +3886,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6493,8 +3941,9 @@ uint64_t std::__function::__value_func<HDStatisticsSleepStages const& ()(HDStati
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveAddSample(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveAddSample(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 640) == 1)
   {
     if ((a3 & 1) == 0)
@@ -6503,64 +3952,62 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSle
       return 0;
     }
 
-    v8 = *(a2 + 8);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 8);
-  v10 = *(a1 + 40);
-  if (v10)
+  v8 = a2[1];
+  v9 = *(a1 + 40);
+  if (v9)
   {
     if (*(a1 + 640))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
 
     else
     {
-      v11 = *(a1 + 176);
-      v13 = *(a1 + 120);
-      if (v11 <= v13)
+      v10 = *(a1 + 176);
+      v12 = *(a1 + 120);
+      if (v10 <= v12)
       {
-        v11 = -1.79769313e308;
+        v10 = -1.79769313e308;
       }
 
-      if (v11 < v13)
+      if (v10 < v12)
       {
-        v11 = *(a1 + 120);
+        v10 = *(a1 + 120);
       }
     }
   }
 
   else
   {
-    v11 = *(a1 + 176);
-    if (v11 <= *(a1 + 120))
+    v10 = *(a1 + 176);
+    if (v10 <= *(a1 + 120))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
   }
 
-  if (v9 >= v11)
+  if (v8 >= v10)
   {
-    if (v10 && a3)
+    if (v9 && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsSleepStages>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsSleepStages>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v14 = *(a2 + 16);
-    v15 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
-    v12 = (*(*a1 + 128))(a1, v15, a4);
+    v13 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+    v11 = (*(*a1 + 128))(a1, v13, a4);
   }
 
-  return v12;
+  return v11;
 }
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_advanceToTime(uint64_t a1, double a2)
@@ -6599,7 +4046,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
       v10 = v9;
       v11 = [v6 endDate];
       [v11 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket((a1 + 112), v10, v12);
+      HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket(a1 + 112, v10, v12);
     }
 
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_didChangeBucket(a1, v7);
@@ -6710,7 +4157,7 @@ LABEL_11:
 LABEL_16:
   v23 = v13;
   v24 = v12;
-  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 312), v8);
+  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 312), v8, &v33 + 1);
   if (*(a1 + 112) != *(a1 + 104) || *(a1 + 128) > 0)
   {
     v16 = v24;
@@ -6806,12 +4253,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepSt
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[62], a1[63], 0xCCCCCCCCCCCCCCCDLL * ((a1[63] - a1[62]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 496), *(a1 + 504), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 504) - *(a1 + 496)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsSleepStages>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -7072,29 +4519,12 @@ void sub_228FBB378(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStatisticsSleepStagesE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -7149,7 +4579,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStat
           v23 = v22;
           v24 = [v19 endDate];
           [v24 timeIntervalSinceReferenceDate];
-          HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket((v15 + 112), v23, v25);
+          HDStatisticsCollectionEngine<HDStatisticsSleepStages>::advanceBucket(v15 + 112, v23, v25);
 
           if (v20)
           {
@@ -7173,7 +4603,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStat
   return v14;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStatisticsSleepStagesE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStatisticsSleepStagesE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v9 = *(a1 + 32) - a6;
   if (v9 >= 0.01)
@@ -7278,13 +4708,13 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStat
   return v7;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStatisticsSleepStagesE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStatisticsSleepStagesE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v10 = *(a1 + 32);
-  *v14 = a5;
-  *&v14[1] = a6;
-  *&v14[2] = a7;
-  v14[3] = a2;
+  v14[0] = a5;
+  v14[1] = a6;
+  v14[2] = a7;
+  *&v14[3] = a2;
   v15 = 1;
   v11 = [MEMORY[0x277CBEAA8] distantFuture];
   [v11 timeIntervalSinceReferenceDate];
@@ -7293,10 +4723,11 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI23HDStat
   return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsSleepStages>::_primitiveAddSample(v10, v14, a3, a4);
 }
 
-void sub_228FBCCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_228FBCCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v40 - 136), 8);
+  va_start(va, a39);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v39 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7349,19 +4780,19 @@ void statistics::StatisticsEngine::~StatisticsEngine(statistics::StatisticsEngin
   JUMPOUT(0x22AAC8590);
 }
 
-uint64_t statistics::StatisticsEngine::StatisticsEngine(uint64_t this, const statistics::StatisticsEngine *a2)
+statistics::StatisticsEngine *statistics::StatisticsEngine::StatisticsEngine(statistics::StatisticsEngine *this, const statistics::StatisticsEngine *a2)
 {
   *this = &unk_283BF1A08;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  *(this + 40) = 0;
-  *(this + 48) = 0;
+  *(this + 1) = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 5) = 0;
+  *(this + 12) = 0;
   if (*(a2 + 48))
   {
     v2 = *(a2 + 2);
     *(this + 48) = 1;
-    *(this + 16) = v2;
+    *(this + 2) = v2;
   }
 
   if (*(a2 + 1))
@@ -7372,8 +4803,7 @@ uint64_t statistics::StatisticsEngine::StatisticsEngine(uint64_t this, const sta
   v3 = *(a2 + 3);
   if (v3 != *(a2 + 4))
   {
-    v4 = *v3;
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample const&>();
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample const&>(this + 3, *v3);
   }
 
   return this;
@@ -7498,22 +4928,21 @@ uint64_t statistics::StatisticsEngine::formatText(statistics::StatisticsEngine *
 
   if (*(this + 48))
   {
-    v6 = *(this + 2);
     PB::TextFormatter::format(a2, "currentBucketIndex");
   }
 
-  v7 = *(this + 3);
-  v8 = *(this + 4);
-  while (v7 != v8)
+  v6 = *(this + 3);
+  v7 = *(this + 4);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2, "remainders");
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "remainders");
   }
 
   return MEMORY[0x2821A4560](a2);
 }
 
-uint64_t statistics::StatisticsEngine::readFrom(statistics::StatisticsEngine *this, PB::Reader *a2)
+uint64_t statistics::StatisticsEngine::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -7562,7 +4991,7 @@ LABEL_19:
       v22 = v10 >> 3;
       if ((v10 >> 3) == 3)
       {
-        PB::PtrVector<statistics::RawQuantitySample>::emplace_back<>();
+        PB::PtrVector<statistics::RawQuantitySample>::emplace_back<>(this + 3);
       }
 
       if (v22 == 2)
@@ -7654,7 +5083,7 @@ LABEL_39:
         }
 
 LABEL_43:
-        *(this + 2) = v28;
+        this[2] = v28;
       }
 
       else
@@ -7723,22 +5152,21 @@ uint64_t statistics::StatisticsEngine::writeTo(uint64_t this, PB::Writer *a2)
   v3 = this;
   if (*(this + 48))
   {
-    v4 = *(this + 16);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v5 = v3[1];
-  if (v5)
+  v4 = v3[1];
+  if (v4)
   {
-    this = PB::Writer::writeSubmessage(a2, v5);
+    this = PB::Writer::writeSubmessage(a2, v4);
   }
 
-  v7 = v3[3];
-  v6 = v3[4];
-  while (v7 != v6)
+  v6 = v3[3];
+  v5 = v3[4];
+  while (v6 != v5)
   {
-    v8 = *v7++;
-    this = PB::Writer::writeSubmessage(a2, v8);
+    v7 = *v6++;
+    this = PB::Writer::writeSubmessage(a2, v7);
   }
 
   return this;
@@ -7746,7 +5174,6 @@ uint64_t statistics::StatisticsEngine::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL statistics::StatisticsEngine::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 48);
   if (*(a1 + 48))
   {
     if ((*(a2 + 48) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
@@ -7760,17 +5187,17 @@ BOOL statistics::StatisticsEngine::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 8);
-  v6 = *(a2 + 8);
-  if (v5)
+  v4 = *(a1 + 8);
+  v5 = *(a2 + 8);
+  if (v4)
   {
-    if (!v6 || !statistics::StatisticsBucket::operator==(v5, v6) && *(a1 + 8) | *(a2 + 8))
+    if (!v5 || !statistics::StatisticsBucket::operator==(v4, v5) && *(a1 + 8) | *(a2 + 8))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
@@ -7823,9 +5250,9 @@ unint64_t statistics::StatisticsEngine::hash_value(statistics::StatisticsEngine 
   return v4 ^ v2 ^ v7;
 }
 
-uint64_t statistics::StatisticsEngine::makeCurrentBucket(uint64_t this)
+void *statistics::StatisticsEngine::makeCurrentBucket(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8231,15 +5658,15 @@ __n128 HDStatisticsAverageSampleDuration::splitSampleAtTime@<Q0>(uint64_t a1@<X0
   return result;
 }
 
-__int128 *HDStatisticsAverageSampleDuration::splitSampleAtTime(__int128 *result, uint64_t a2, int a3, double a4)
+double *HDStatisticsAverageSampleDuration::splitSampleAtTime(double *result, _OWORD *a2, int a3, double a4)
 {
-  v4 = result + 2;
-  if ((result[2] & 1) == 0)
+  v4 = (result + 4);
+  if ((result[4] & 1) == 0)
   {
     goto LABEL_5;
   }
 
-  v5 = *(result + 1);
+  v5 = result[1];
   v6 = v5 <= a4;
   if (a3)
   {
@@ -8249,16 +5676,16 @@ __int128 *HDStatisticsAverageSampleDuration::splitSampleAtTime(__int128 *result,
   if (!v6)
   {
     v7 = *result;
-    v8 = result[1];
-    *(a2 + 32) = *(result + 16);
+    v8 = *(result + 1);
+    *(a2 + 16) = *(result + 16);
     *a2 = v7;
-    *(a2 + 16) = v8;
+    a2[1] = v8;
   }
 
   else
   {
 LABEL_5:
-    v4 = (a2 + 32);
+    v4 = a2 + 2;
   }
 
   *v4 = 0;
@@ -8333,14 +5760,14 @@ double HDStatisticsAverageSampleDuration::unarchive@<D0>(HDStatisticsAverageSamp
   *(a2 + 8) = *(this + 3);
   result = *(this + 12);
   *a2 = result;
-  v4 = *(this + 14);
-  if (v4)
+  v3 = *(this + 14);
+  if (v3)
   {
-    result = *(v4 + 8);
-    v5 = *(v4 + 16);
-    *(a2 + 16) = vextq_s8(*(v4 + 24), *(v4 + 24), 8uLL);
+    result = *(v3 + 8);
+    v4 = *(v3 + 16);
+    *(a2 + 16) = vextq_s8(*(v3 + 24), *(v3 + 24), 8uLL);
     *(a2 + 32) = result;
-    *(a2 + 40) = v5;
+    *(a2 + 40) = v4;
     *(a2 + 48) = 1;
   }
 
@@ -8366,20 +5793,19 @@ void HDStatisticsAverageSampleDuration::archive(int8x16_t *this@<X0>, uint64_t a
   *(a2 + 204) = 65;
   *(a2 + 96) = v6;
   statistics::Statistics::makeMostRecentDatum(a2);
-  v7[0] = &unk_283BEB0A8;
-  v11 = 127;
-  v8 = vextq_s8(this[1], this[1], 8uLL);
-  v7[1] = this[2].i64[0];
-  v7[2] = this[2].i64[1];
-  v9 = 0;
+  v7 = &unk_283BEB0A8;
+  v12 = 127;
+  v9 = vextq_s8(this[1], this[1], 8uLL);
+  v8 = this[2];
   v10 = 0;
-  statistics::RawQuantitySample::operator=(*v4, v7);
-  PB::Base::~Base(v7);
+  v11 = 0;
+  statistics::RawQuantitySample::operator=(*v4, &v7);
+  PB::Base::~Base(&v7);
 }
 
 id HDPredicateForContainerIdentifierAndDatabaseScope(uint64_t a1, uint64_t a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = _HDSQLiteValueForString();
   v5 = [v3 predicateWithProperty:@"container_id" equalToValue:v4];
@@ -8389,14 +5815,19 @@ id HDPredicateForContainerIdentifierAndDatabaseScope(uint64_t a1, uint64_t a2)
   v8 = [v6 predicateWithProperty:@"database_scope" equalToValue:v7];
 
   v9 = MEMORY[0x277D10B20];
-  v14[0] = v5;
-  v14[1] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v5;
+  v13[1] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v9 predicateMatchingAllPredicates:v10];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
+}
+
+void sub_228FC9154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__164(uint64_t result, uint64_t a2)
@@ -8406,9 +5837,9 @@ uint64_t __Block_byref_object_copy__164(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228FCA098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8420,44 +5851,44 @@ uint64_t __Block_byref_object_copy__165(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228FCA264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228FCA448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228FCA62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228FCA7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228FCA994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCA994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228FCAB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FCAB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8560,21 +5991,21 @@ void sub_228FCC830(_Unwind_Exception *exception_object)
 
 void health::POSIXFile::mmap(health::POSIXFile *this, char *a2, char *a3)
 {
-  v10 = a3;
-  v11 = a2;
+  v11 = a3;
+  v12 = a2;
   if (mmap(0, a3, 1, 2, *(this + 2), a2) != -1)
   {
     operator new();
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  v4 = *__error();
-  v5 = std::system_category();
-  v6 = __error();
+  v5 = *__error();
+  v6 = std::system_category();
   v7 = __error();
-  v8 = strerror(*v7);
-  health::FormatString<unsigned long &,long long &,int &,char *>(&v9, "Error occurred attempting to mmap {0} bytes at {1}: {2} {3}", &v10, &v11, v6, &v8);
-  MEMORY[0x22AAC8340](exception, v4, v5, &v9);
+  v8 = __error();
+  v9 = strerror(*v8);
+  health::FormatString<unsigned long &,long long &,int &,char *>(&v10, "Error occurred attempting to mmap {0} bytes at {1}: {2} {3}", &v11, &v12, v7, &v9);
+  MEMORY[0x22AAC8340](exception, v5, v6, &v10);
   __cxa_throw(exception, MEMORY[0x277D82718], MEMORY[0x277D82650]);
 }
 
@@ -8601,12 +6032,12 @@ void sub_228FCCA60(_Unwind_Exception *exception_object)
 
 uint64_t health::POSIXFile::close(uint64_t this)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(this + 8) != -1)
   {
     v1 = this;
     v2 = 3;
-    v28 = 3;
+    v27 = 3;
     while (1)
     {
       this = close(*(v1 + 8));
@@ -8622,25 +6053,25 @@ uint64_t health::POSIXFile::close(uint64_t this)
         v4 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
-          v16 = *__error();
-          v17 = __error();
-          v18 = strerror(*v17);
+          v15 = *__error();
+          v16 = __error();
+          v17 = strerror(*v16);
           *buf = 67109378;
-          *&buf[4] = v16;
-          LOWORD(v30) = 2082;
-          *(&v30 + 2) = v18;
+          *&buf[4] = v15;
+          LOWORD(v29) = 2082;
+          *(&v29 + 2) = v17;
           _os_log_fault_impl(&dword_228986000, v4, OS_LOG_TYPE_FAULT, "Unexpected errno value for file close: %d %{public}s", buf, 0x12u);
           v4 = *v3;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v27, "false");
-        std::string::basic_string[abi:ne200100]<0>(v26, "close");
-        std::string::basic_string[abi:ne200100]<0>(v25, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDVirtualFilesystem.cpp");
+        std::string::basic_string[abi:ne200100]<0>(v26, "false");
+        std::string::basic_string[abi:ne200100]<0>(v25, "close");
+        std::string::basic_string[abi:ne200100]<0>(v24, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDVirtualFilesystem.cpp");
         v5 = __error();
         v6 = __error();
         *buf = strerror(*v6);
         health::FormatString<int &,char *>(&__p, "Unexpected errno value for file close: {0} {1}", v5, buf);
-        health::_HDAssertImplementation<std::logic_error>(v4, v27, v26, v25, 137, &__p);
+        health::_HDAssertImplementation<std::logic_error>(v4, v26, v25, v24, 137, &__p);
       }
 
       if (!--v2)
@@ -8650,38 +6081,37 @@ uint64_t health::POSIXFile::close(uint64_t this)
         v8 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
-          v13 = *__error();
-          v14 = __error();
-          v15 = strerror(*v14);
+          v12 = *__error();
+          v13 = __error();
+          v14 = strerror(*v13);
           *buf = 67109634;
           *&buf[4] = 3;
-          LOWORD(v30) = 1024;
-          *(&v30 + 2) = v13;
-          WORD3(v30) = 2082;
-          *(&v30 + 1) = v15;
+          LOWORD(v29) = 1024;
+          *(&v29 + 2) = v12;
+          WORD3(v29) = 2082;
+          *(&v29 + 1) = v14;
           _os_log_fault_impl(&dword_228986000, v8, OS_LOG_TYPE_FAULT, "Reached max retry count (%d) for file close: %d %{public}s", buf, 0x18u);
           v8 = *v7;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v23, "false");
-        std::string::basic_string[abi:ne200100]<0>(v22, "close");
-        std::string::basic_string[abi:ne200100]<0>(v21, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDVirtualFilesystem.cpp");
+        std::string::basic_string[abi:ne200100]<0>(v22, "false");
+        std::string::basic_string[abi:ne200100]<0>(v21, "close");
+        std::string::basic_string[abi:ne200100]<0>(v20, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDVirtualFilesystem.cpp");
         v10 = __error();
         v11 = __error();
-        v19 = strerror(*v11);
-        memset(&v20, 0, sizeof(v20));
-        *buf = &v19;
-        *&v30 = v10;
-        *(&v30 + 1) = &v28;
-        health::FormatImplementation<int const&,int &,char *>("Reached max retry count ({0}) for file close: {1} {2}", &v20, 0, buf);
-        health::_HDAssertImplementation<std::logic_error>(v8, v23, v22, v21, 142, &v20);
+        v18 = strerror(*v11);
+        memset(&v19, 0, sizeof(v19));
+        *buf = &v18;
+        *&v29 = v10;
+        *(&v29 + 1) = &v27;
+        health::FormatImplementation<int const&,int &,char *>("Reached max retry count ({0}) for file close: {1} {2}", &v19, 0, buf);
+        health::_HDAssertImplementation<std::logic_error>(v8, v22, v21, v20, 142, &v19);
       }
     }
 
     *(v1 + 8) = -1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -9088,35 +6518,37 @@ void health::InMemoryFile::truncate(health::InMemoryFile *this, unint64_t a2)
   }
 }
 
-void health::InMemoryFilesystem::open(uint64_t a1@<X0>, void **a2@<X1>, char a3@<W2>, void *a4@<X8>)
+void health::InMemoryFilesystem::open(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t *a5@<X8>)
 {
-  v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, a2);
-  v8 = *(v6 + 56);
-  v7 = *(v6 + 64);
-  if (v7)
-  {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
+  v5 = a3;
+  v10 = a2;
+  v7 = std::__tree<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &v10);
+  v9 = v7[7];
+  v8 = v7[8];
   if (v8)
   {
-    *a4 = v8;
-    a4[1] = v7;
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (v9)
+  {
+    *a5 = v9;
+    a5[1] = v8;
   }
 
   else
   {
-    if (a3)
+    if (v5)
     {
       operator new();
     }
 
-    *a4 = 0;
-    a4[1] = 0;
-    if (v7)
+    *a5 = 0;
+    a5[1] = 0;
+    if (v8)
     {
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 }
@@ -9131,7 +6563,7 @@ void sub_228FCDC3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void health::InMemoryFilesystem::unlink(void *a1, void **a2)
+void health::InMemoryFilesystem::unlink(void *a1, char *a2)
 {
   v2 = a1 + 2;
   v3 = a1[2];
@@ -9140,7 +6572,7 @@ void health::InMemoryFilesystem::unlink(void *a1, void **a2)
     v6 = a1 + 2;
     do
     {
-      v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v3 + 4, a2);
+      v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v3 + 32), a2);
       if ((v7 & 0x80u) == 0)
       {
         v6 = v3;
@@ -9150,7 +6582,7 @@ void health::InMemoryFilesystem::unlink(void *a1, void **a2)
     }
 
     while (v3);
-    if (v6 != v2 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v6 + 4) & 0x80) == 0)
+    if (v6 != v2 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v6 + 32) & 0x80) == 0)
     {
       v8 = v6[1];
       if (v8)
@@ -9446,7 +6878,7 @@ LABEL_6:
         v16 = v14;
       }
 
-      health::FormatImplementation<int &,char *>(v30, a2, &v16[a3 - v9], a4);
+      health::FormatImplementation<int &,char *>(v30, a2, v16 + a3 - v9, a4);
       if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v17 = a2;
@@ -9457,7 +6889,7 @@ LABEL_6:
         v17 = a2->__r_.__value_.__r.__words[0];
       }
 
-      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v26, &v17[a3 - v9], &__p);
+      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v26, v17 + a3 - v9, &__p);
       goto LABEL_39;
     }
 
@@ -9485,7 +6917,7 @@ LABEL_49:
     v18 = v19;
   }
 
-  health::FormatImplementation<int &,char *>(v13, a2, &v18[a3 - v9], a4);
+  health::FormatImplementation<int &,char *>(v13, a2, v18 + a3 - v9, a4);
   if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v20 = a2;
@@ -9496,7 +6928,7 @@ LABEL_49:
     v20 = a2->__r_.__value_.__r.__words[0];
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, &v20[a3 - v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, v20 + a3 - v9, &__p);
   if (SBYTE7(v33) < 0)
   {
     operator delete(__p);
@@ -9533,4 +6965,2683 @@ void health::FormatterParameters<0ul,int &,char *>::formatOptionsAtIndex<int &,c
   }
 
   __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<unsigned long &,long long &,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
+{
+  v34 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v34 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v34 = &v11->__r_.__value_.__s.__data_[2];
+    v25 = v11->__r_.__value_.__s.__data_[2];
+    if ((v25 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v26 = 0;
+      v27 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v34 = v27;
+        v26 = (v25 & 0xF) + 10 * v26;
+        v28 = *v27++;
+        LOBYTE(v25) = v28;
+      }
+
+      while ((v28 - 58) >= 0xFFFFFFF6);
+      v34 = v27;
+      if (*(v27 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,unsigned long &,long long &,int &,char *>::formatOptionsAtIndex<unsigned long &,long long &,int &,char *>(v26);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_70;
+  }
+
+  health::FormatOptions::FormatOptions(&v30, &v34);
+  v13 = v34;
+  if (*(&v30 + 1) > 1)
+  {
+    if (*(&v30 + 1) == 2)
+    {
+      health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v30);
+      v23 = BYTE7(v37);
+      if (SBYTE7(v37) < 0)
+      {
+        v23 = v36;
+      }
+
+      v24 = *(&v31 + 1);
+      if (*(&v31 + 1) <= v23)
+      {
+        v24 = v23;
+      }
+
+      if (v31)
+      {
+        v23 = v24;
+      }
+
+      health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, v23 + a3 + v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v16 = a2;
+      }
+
+      else
+      {
+        v16 = a2->__r_.__value_.__r.__words[0];
+      }
+
+      goto LABEL_58;
+    }
+
+    if (*(&v30 + 1) != 3)
+    {
+      goto LABEL_71;
+    }
+
+    v17 = **a4;
+    __p = v17;
+    if (v17)
+    {
+      v17 = strlen(v17);
+    }
+
+    v36 = v17;
+    v37 = v30;
+    v38 = v31;
+    v39 = v32;
+    v40 = v33;
+    v18 = *(&v31 + 1);
+    if (*(&v31 + 1) <= v17)
+    {
+      v18 = v17;
+    }
+
+    if (v31)
+    {
+      v19 = v18;
+    }
+
+    else
+    {
+      v19 = v17;
+    }
+
+    health::FormatImplementation<unsigned long &,long long &,int &,char *>(v34, a2, v19 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v30, v20 + a3 + v9, &__p);
+  }
+
+  else
+  {
+    if (*(&v30 + 1))
+    {
+      if (*(&v30 + 1) == 1)
+      {
+        health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[2], &v30);
+        v14 = BYTE7(v37);
+        if (SBYTE7(v37) < 0)
+        {
+          v14 = v36;
+        }
+
+        v15 = *(&v31 + 1);
+        if (*(&v31 + 1) <= v14)
+        {
+          v15 = v14;
+        }
+
+        if (v31)
+        {
+          v14 = v15;
+        }
+
+        health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, v14 + a3 + v9, a4);
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v16 = a2;
+        }
+
+        else
+        {
+          v16 = a2->__r_.__value_.__r.__words[0];
+        }
+
+        goto LABEL_58;
+      }
+
+LABEL_71:
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_70:
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    health::TypeFormatter<unsigned long &,void>::TypeFormatter(&__p, a4[3], &v30);
+    v21 = BYTE7(v37);
+    if (SBYTE7(v37) < 0)
+    {
+      v21 = v36;
+    }
+
+    v22 = *(&v31 + 1);
+    if (*(&v31 + 1) <= v21)
+    {
+      v22 = v21;
+    }
+
+    if (v31)
+    {
+      v21 = v22;
+    }
+
+    health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, v21 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v16 = a2;
+    }
+
+    else
+    {
+      v16 = a2->__r_.__value_.__r.__words[0];
+    }
+
+LABEL_58:
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, v16 + a3 + v9, &__p);
+    if (SBYTE7(v37) < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,unsigned long &,long long &,int &,char *>::formatOptionsAtIndex<unsigned long &,long long &,int &,char *>(uint64_t a1)
+{
+  if (!a1 || a1 == 1 || a1 == 2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  else
+  {
+    v3 = __cxa_allocate_exception(0x10uLL);
+    exception = v3;
+    if (a1 == 3)
+    {
+      std::runtime_error::runtime_error(v3, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(v3, "Parameter index out of bounds.");
+    }
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+uint64_t health::TypeFormatter<unsigned long &,void>::TypeFormatter(uint64_t a1, void *a2, uint64_t a3)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
+  v6 = v16;
+  if (*(a3 + 16) == 1)
+  {
+    *(v19 + *(v16 - 24)) = *(a3 + 24);
+  }
+
+  if (*(a3 + 32) == 1)
+  {
+    *(&v18 + *(v6 - 24)) = *(a3 + 40);
+  }
+
+  v7 = (&v16 + *(v6 - 24));
+  v8 = *(a3 + 52);
+  if (v7[1].__fmtflags_ == -1)
+  {
+    std::ios_base::getloc(v7);
+    v9 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
+    (v9->__vftable[2].~facet_0)(v9, 32);
+    std::locale::~locale(&v14);
+  }
+
+  v7[1].__fmtflags_ = v8;
+  MEMORY[0x22AAC83C0](&v16, *a2);
+  if ((v24 & 0x10) != 0)
+  {
+    v11 = v23;
+    if (v23 < v20)
+    {
+      v23 = v20;
+      v11 = v20;
+    }
+
+    v12 = v19[3];
+  }
+
+  else
+  {
+    if ((v24 & 8) == 0)
+    {
+      v10 = 0;
+      HIBYTE(v15) = 0;
+      goto LABEL_20;
+    }
+
+    v12 = v19[0];
+    v11 = v19[2];
+  }
+
+  v10 = v11 - v12;
+  if (v11 - v12 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v10 >= 0x17)
+  {
+    operator new();
+  }
+
+  HIBYTE(v15) = v11 - v12;
+  if (v10)
+  {
+    memmove(&v14, v12, v10);
+  }
+
+LABEL_20:
+  *(&v14 + v10) = 0;
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  *a1 = v14;
+  *(a1 + 16) = v15;
+  v16 = *MEMORY[0x277D82828];
+  *(&v16 + *(v16 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v17 = MEMORY[0x277D82878] + 16;
+  if (v22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  v17 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v18);
+  std::ostream::~ostream();
+  MEMORY[0x22AAC8550](&v25);
+  return a1;
+}
+
+void sub_228FCEF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  std::locale::~locale(&a9);
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
+  {
+    operator delete(*v11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__shared_ptr_emplace<health::POSIXMappedFileExtent>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_283BF1D58;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+void health::FormatImplementation<long long &,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
+{
+  v32 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v32 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v32 = &v11->__r_.__value_.__s.__data_[2];
+    v23 = v11->__r_.__value_.__s.__data_[2];
+    if ((v23 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v24 = 0;
+      v25 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v32 = v25;
+        v24 = (v23 & 0xF) + 10 * v24;
+        v26 = *v25++;
+        LOBYTE(v23) = v26;
+      }
+
+      while ((v26 - 58) >= 0xFFFFFFF6);
+      v32 = v25;
+      if (*(v25 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,long long &,int &,char *>::formatOptionsAtIndex<long long &,int &,char *>(v24);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_59;
+  }
+
+  health::FormatOptions::FormatOptions(&v28, &v32);
+  v13 = v32;
+  if (*(&v28 + 1))
+  {
+    if (*(&v28 + 1) != 1)
+    {
+      if (*(&v28 + 1) == 2)
+      {
+        v14 = **a4;
+        __p = v14;
+        if (v14)
+        {
+          v14 = strlen(v14);
+        }
+
+        v34 = v14;
+        v35 = v28;
+        v36 = v29;
+        v37 = v30;
+        v38 = v31;
+        v15 = *(&v29 + 1);
+        if (*(&v29 + 1) <= v14)
+        {
+          v15 = v14;
+        }
+
+        if (v29)
+        {
+          v16 = v15;
+        }
+
+        else
+        {
+          v16 = v14;
+        }
+
+        health::FormatImplementation<long long &,int &,char *>(v32, a2, v16 + a3 + v9, a4);
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v17 = a2;
+        }
+
+        else
+        {
+          v17 = a2->__r_.__value_.__r.__words[0];
+        }
+
+        health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v28, v17 + a3 + v9, &__p);
+        goto LABEL_49;
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_59:
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v28);
+    v18 = BYTE7(v35);
+    if (SBYTE7(v35) < 0)
+    {
+      v18 = v34;
+    }
+
+    v19 = *(&v29 + 1);
+    if (*(&v29 + 1) <= v18)
+    {
+      v19 = v18;
+    }
+
+    if (v29)
+    {
+      v18 = v19;
+    }
+
+    health::FormatImplementation<long long &,int &,char *>(v13, a2, v18 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  else
+  {
+    health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[2], &v28);
+    v21 = BYTE7(v35);
+    if (SBYTE7(v35) < 0)
+    {
+      v21 = v34;
+    }
+
+    v22 = *(&v29 + 1);
+    if (*(&v29 + 1) <= v21)
+    {
+      v22 = v21;
+    }
+
+    if (v29)
+    {
+      v21 = v22;
+    }
+
+    health::FormatImplementation<long long &,int &,char *>(v13, a2, v21 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v20 + a3 + v9, &__p);
+  if (SBYTE7(v35) < 0)
+  {
+    operator delete(__p);
+  }
+
+LABEL_49:
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,long long &,int &,char *>::formatOptionsAtIndex<long long &,int &,char *>(uint64_t a1)
+{
+  if (a1 && a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v2 = exception;
+    if (a1 == 2)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v2 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<int const&,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
+{
+  v55 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v55 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v55 = &v11->__r_.__value_.__s.__data_[2];
+    v45 = v11->__r_.__value_.__s.__data_[2];
+    if ((v45 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v46 = 0;
+      v47 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v55 = v47;
+        v46 = (v45 & 0xF) + 10 * v46;
+        v48 = *v47++;
+        LOBYTE(v45) = v48;
+      }
+
+      while ((v48 - 58) >= 0xFFFFFFF6);
+      v55 = v47;
+      if (*(v47 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,int const&,int &,char *>::formatOptionsAtIndex<int const&,int &,char *>(v46);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_125;
+  }
+
+  health::FormatOptions::FormatOptions(&v51, &v55);
+  v13 = v55;
+  if (!*(&v51 + 1))
+  {
+    v22 = *(a4 + 16);
+    __p[1] = 0;
+    v57 = 0;
+    __p[0] = 0;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v60);
+    v23 = v60;
+    if (v52 == 1)
+    {
+      *(&v62 + *(v60 - 3) + 8) = *(&v52 + 1);
+    }
+
+    v50 = v13;
+    if (v53 == 1)
+    {
+      *(&v62 + *(v23 - 3)) = *(&v53 + 1);
+    }
+
+    v24 = (&v60 + *(v23 - 3));
+    v25 = SLOBYTE(__c[1]);
+    if (v24[1].__fmtflags_ == -1)
+    {
+      std::ios_base::getloc(v24);
+      v26 = std::locale::use_facet(__dst, MEMORY[0x277D82680]);
+      (v26->__vftable[2].~facet_0)(v26, 32);
+      std::locale::~locale(__dst);
+    }
+
+    v24[1].__fmtflags_ = v25;
+    MEMORY[0x22AAC83A0](&v60, *v22);
+    if ((v69 & 0x10) != 0)
+    {
+      v28 = v68;
+      if (v68 < *(&__src + 1))
+      {
+        v68 = *(&__src + 1);
+        v28 = *(&__src + 1);
+      }
+
+      v29 = __src;
+    }
+
+    else
+    {
+      if ((v69 & 8) == 0)
+      {
+        v27 = 0;
+        HIBYTE(v59) = 0;
+        goto LABEL_59;
+      }
+
+      v29 = *(&v62 + 1);
+      v28 = *(&v63 + 1);
+    }
+
+    v27 = v28 - v29;
+    if (v28 - v29 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v27 >= 0x17)
+    {
+      operator new();
+    }
+
+    HIBYTE(v59) = v28 - v29;
+    if (v27)
+    {
+      memmove(__dst, v29, v27);
+    }
+
+LABEL_59:
+    *(&__dst[0].__locale_ + v27) = 0;
+    if (SHIBYTE(v57) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    *__p = *&__dst[0].__locale_;
+    v57 = v59;
+    v60 = *MEMORY[0x277D82828];
+    *(&v60 + *(v60 - 3)) = *(MEMORY[0x277D82828] + 24);
+    v61 = MEMORY[0x277D82878] + 16;
+    if (v67 < 0)
+    {
+      operator delete(v66);
+    }
+
+    v61 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(&v62);
+    std::ostream::~ostream();
+    MEMORY[0x22AAC8550](&v70);
+    v30 = SHIBYTE(v57);
+    if (v57 >= 0)
+    {
+      v31 = HIBYTE(v57);
+    }
+
+    else
+    {
+      v31 = __p[1];
+    }
+
+    v32 = *(&v52 + 1);
+    if (*(&v52 + 1) <= v31)
+    {
+      v32 = v31;
+    }
+
+    if (v52)
+    {
+      v33 = v32;
+    }
+
+    else
+    {
+      v33 = v31;
+    }
+
+    health::FormatImplementation<int const&,int &,char *>(v50, a2, v33 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v34 = a2;
+    }
+
+    else
+    {
+      v34 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    v35 = v34 + a3 + v9;
+    if (v52 == 1)
+    {
+      v36 = *(&v52 + 1) - v31;
+      if (*(&v52 + 1) > v31)
+      {
+        if (v51)
+        {
+          if (v51 != 1)
+          {
+            if (v51 != 2 || (memset(v35, LOBYTE(__c[1]), *(&v52 + 1) - v31), !v31))
+            {
+LABEL_90:
+              if ((v30 & 0x80000000) == 0)
+              {
+                goto LABEL_93;
+              }
+
+              goto LABEL_91;
+            }
+
+            if (v30 >= 0)
+            {
+              v37 = __p;
+            }
+
+            else
+            {
+              v37 = __p[0];
+            }
+
+            v38 = &v35[v36];
+LABEL_89:
+            memmove(v38, v37, v31);
+            goto LABEL_90;
+          }
+
+          if (v36 >= 2)
+          {
+            if (v36 >> 1 <= 1)
+            {
+              v39 = 1;
+            }
+
+            else
+            {
+              v39 = v36 >> 1;
+            }
+
+            memset(v35, LOBYTE(__c[1]), v39);
+            v35 += v39;
+          }
+
+          if (v31)
+          {
+            if (v30 >= 0)
+            {
+              v40 = __p;
+            }
+
+            else
+            {
+              v40 = __p[0];
+            }
+
+            memmove(v35, v40, v31);
+          }
+
+          if (v36 - (v36 >> 1) <= 1)
+          {
+            v41 = 1;
+          }
+
+          else
+          {
+            v41 = v36 - (v36 >> 1);
+          }
+
+          v42 = LOBYTE(__c[1]);
+          v43 = &v35[v31];
+        }
+
+        else
+        {
+          if (v31)
+          {
+            if (v30 >= 0)
+            {
+              v44 = __p;
+            }
+
+            else
+            {
+              v44 = __p[0];
+            }
+
+            memmove(v35, v44, v31);
+          }
+
+          v42 = LOBYTE(__c[1]);
+          v43 = &v35[v31];
+          v41 = v36;
+        }
+
+        memset(v43, v42, v41);
+        if ((v30 & 0x80000000) == 0)
+        {
+          goto LABEL_93;
+        }
+
+LABEL_91:
+        v21 = __p[0];
+        goto LABEL_92;
+      }
+    }
+
+    if (!v31)
+    {
+      goto LABEL_90;
+    }
+
+    if (v30 >= 0)
+    {
+      v37 = __p;
+    }
+
+    else
+    {
+      v37 = __p[0];
+    }
+
+    v38 = v34 + a3 + v9;
+    goto LABEL_89;
+  }
+
+  if (*(&v51 + 1) != 1)
+  {
+    if (*(&v51 + 1) == 2)
+    {
+      v14 = **a4;
+      v60 = v14;
+      if (v14)
+      {
+        v14 = strlen(v14);
+      }
+
+      v62 = v51;
+      v63 = v52;
+      __src = v53;
+      v61 = v14;
+      v65 = *__c;
+      v15 = *(&v52 + 1);
+      if (*(&v52 + 1) <= v14)
+      {
+        v15 = v14;
+      }
+
+      if (v52)
+      {
+        v16 = v15;
+      }
+
+      else
+      {
+        v16 = v14;
+      }
+
+      health::FormatImplementation<int const&,int &,char *>(v55, a2, v16 + a3 + v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = a2;
+      }
+
+      else
+      {
+        v17 = a2->__r_.__value_.__r.__words[0];
+      }
+
+      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v51, v17 + a3 + v9, &v60);
+      goto LABEL_93;
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_125:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::TypeFormatter<int &,void>::TypeFormatter(&v60, *(a4 + 8), &v51);
+  v18 = BYTE7(v62);
+  if (SBYTE7(v62) < 0)
+  {
+    v18 = v61;
+  }
+
+  v19 = *(&v52 + 1);
+  if (*(&v52 + 1) <= v18)
+  {
+    v19 = v18;
+  }
+
+  if (v52)
+  {
+    v18 = v19;
+  }
+
+  health::FormatImplementation<int const&,int &,char *>(v13, a2, v18 + a3 + v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v20 = a2;
+  }
+
+  else
+  {
+    v20 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v51, v20 + a3 + v9, &v60);
+  if (SBYTE7(v62) < 0)
+  {
+    v21 = v60;
+LABEL_92:
+    operator delete(v21);
+  }
+
+LABEL_93:
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,int const&,int &,char *>::formatOptionsAtIndex<int const&,int &,char *>(uint64_t a1)
+{
+  if (a1 && a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v2 = exception;
+    if (a1 == 2)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v2 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<std::string const&,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
+{
+  v32 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v32 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v32 = &v11->__r_.__value_.__s.__data_[2];
+    v23 = v11->__r_.__value_.__s.__data_[2];
+    if ((v23 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v24 = 0;
+      v25 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v32 = v25;
+        v24 = (v23 & 0xF) + 10 * v24;
+        v26 = *v25++;
+        LOBYTE(v23) = v26;
+      }
+
+      while ((v26 - 58) >= 0xFFFFFFF6);
+      v32 = v25;
+      if (*(v25 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,std::string const&,int &,char *>::formatOptionsAtIndex<std::string const&,int &,char *>(v24);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_59;
+  }
+
+  health::FormatOptions::FormatOptions(&v28, &v32);
+  v13 = v32;
+  if (*(&v28 + 1))
+  {
+    if (*(&v28 + 1) != 1)
+    {
+      if (*(&v28 + 1) == 2)
+      {
+        v14 = **a4;
+        __p = v14;
+        if (v14)
+        {
+          v14 = strlen(v14);
+        }
+
+        v34 = v14;
+        v35 = v28;
+        v36 = v29;
+        v37 = v30;
+        v38 = v31;
+        v15 = *(&v29 + 1);
+        if (*(&v29 + 1) <= v14)
+        {
+          v15 = v14;
+        }
+
+        if (v29)
+        {
+          v16 = v15;
+        }
+
+        else
+        {
+          v16 = v14;
+        }
+
+        health::FormatImplementation<std::string const&,int &,char *>(v32, a2, v16 + a3 + v9, a4);
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v17 = a2;
+        }
+
+        else
+        {
+          v17 = a2->__r_.__value_.__r.__words[0];
+        }
+
+        health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v28, v17 + a3 + v9, &__p);
+        goto LABEL_49;
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_59:
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v28);
+    v18 = BYTE7(v35);
+    if (SBYTE7(v35) < 0)
+    {
+      v18 = v34;
+    }
+
+    v19 = *(&v29 + 1);
+    if (*(&v29 + 1) <= v18)
+    {
+      v19 = v18;
+    }
+
+    if (v29)
+    {
+      v18 = v19;
+    }
+
+    health::FormatImplementation<std::string const&,int &,char *>(v13, a2, v18 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  else
+  {
+    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, a4[2], &v28);
+    v21 = BYTE7(v35);
+    if (SBYTE7(v35) < 0)
+    {
+      v21 = v34;
+    }
+
+    v22 = *(&v29 + 1);
+    if (*(&v29 + 1) <= v21)
+    {
+      v22 = v21;
+    }
+
+    if (v29)
+    {
+      v21 = v22;
+    }
+
+    health::FormatImplementation<std::string const&,int &,char *>(v13, a2, v21 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v20 + a3 + v9, &__p);
+  if (SBYTE7(v35) < 0)
+  {
+    operator delete(__p);
+  }
+
+LABEL_49:
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,std::string const&,int &,char *>::formatOptionsAtIndex<std::string const&,int &,char *>(uint64_t a1)
+{
+  if (a1 && a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v2 = exception;
+    if (a1 == 2)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v2 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void std::__shared_ptr_emplace<health::POSIXFile>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_283BF1DA8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+void std::__shared_ptr_emplace<std::vector<unsigned char>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_283BF1DF8;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+void std::__shared_ptr_emplace<std::vector<unsigned char>>::__on_zero_shared(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    *(a1 + 32) = v2;
+    operator delete(v2);
+  }
+}
+
+void std::__shared_ptr_emplace<health::InMemoryMappedFileExtent>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_283BF1E48;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, __int128 **a3)
+{
+  v4 = a1 + 1;
+  v3 = a1[1];
+  if (!v3)
+  {
+    goto LABEL_7;
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v6 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 32) & 0x80) == 0)
+      {
+        break;
+      }
+
+      v3 = *v6;
+      v4 = v6;
+      if (!*v6)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, a2) & 0x80) == 0)
+    {
+      break;
+    }
+
+    v4 = (v6 + 1);
+    v3 = v6[1];
+    if (!v3)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (!*v4)
+  {
+LABEL_7:
+    operator new();
+  }
+
+  return *v4;
+}
+
+void sub_228FD059C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<health::InMemoryFile>>,0>(v2 + 32);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__shared_ptr_emplace<health::InMemoryFile>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_283BF1E98;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+uint64_t HDCodableWorkoutConfigurationReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v42 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v42 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v42 & 0x7F) << v5;
+        if ((v42 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        break;
+      }
+
+      switch(v13)
+      {
+        case 3:
+          v23 = 0;
+          v24 = 0;
+          v25 = 0;
+          *(a1 + 48) |= 8u;
+          while (1)
+          {
+            v43 = 0;
+            v26 = [a2 position] + 1;
+            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+            {
+              v28 = [a2 data];
+              [v28 getBytes:&v43 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v25 |= (v43 & 0x7F) << v23;
+            if ((v43 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v23 += 7;
+            v11 = v24++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_59;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v25;
+          }
+
+LABEL_59:
+          v38 = 32;
+LABEL_68:
+          *(a1 + v38) = v22;
+          break;
+        case 4:
+          *(a1 + 48) |= 4u;
+          v41 = 0;
+          v29 = [a2 position] + 8;
+          if (v29 >= [a2 position] && (v30 = objc_msgSend(a2, "position") + 8, v30 <= objc_msgSend(a2, "length")))
+          {
+            v39 = [a2 data];
+            [v39 getBytes:&v41 range:{objc_msgSend(a2, "position"), 8}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          *(a1 + 24) = v41;
+          break;
+        case 5:
+          v14 = PBReaderReadString();
+          v15 = *(a1 + 40);
+          *(a1 + 40) = v14;
+
+          break;
+        default:
+          goto LABEL_54;
+      }
+
+LABEL_71:
+      v40 = [a2 position];
+      if (v40 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 == 1)
+    {
+      v31 = 0;
+      v32 = 0;
+      v33 = 0;
+      *(a1 + 48) |= 1u;
+      while (1)
+      {
+        v45 = 0;
+        v34 = [a2 position] + 1;
+        if (v34 >= [a2 position] && (v35 = objc_msgSend(a2, "position") + 1, v35 <= objc_msgSend(a2, "length")))
+        {
+          v36 = [a2 data];
+          [v36 getBytes:&v45 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v33 |= (v45 & 0x7F) << v31;
+        if ((v45 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v31 += 7;
+        v11 = v32++ >= 9;
+        if (v11)
+        {
+          v22 = 0;
+          goto LABEL_63;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v22 = 0;
+      }
+
+      else
+      {
+        v22 = v33;
+      }
+
+LABEL_63:
+      v38 = 8;
+    }
+
+    else
+    {
+      if (v13 != 2)
+      {
+LABEL_54:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_71;
+      }
+
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      *(a1 + 48) |= 2u;
+      while (1)
+      {
+        v44 = 0;
+        v19 = [a2 position] + 1;
+        if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+        {
+          v21 = [a2 data];
+          [v21 getBytes:&v44 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v18 |= (v44 & 0x7F) << v16;
+        if ((v44 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v16 += 7;
+        v11 = v17++ >= 9;
+        if (v11)
+        {
+          v22 = 0;
+          goto LABEL_67;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v22 = 0;
+      }
+
+      else
+      {
+        v22 = v18;
+      }
+
+LABEL_67:
+      v38 = 16;
+    }
+
+    goto LABEL_68;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t HDCodableRoutineLocationRequestReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v22 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v22 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v22 & 0x7F) << v5;
+        if ((v22 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = 0;
+        v14 = 0;
+        v15 = 0;
+        *(a1 + 12) |= 1u;
+        while (1)
+        {
+          v23 = 0;
+          v16 = [a2 position] + 1;
+          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
+          {
+            v18 = [a2 data];
+            [v18 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v15 |= (v23 & 0x7F) << v13;
+          if ((v23 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v13 += 7;
+          v11 = v14++ >= 9;
+          if (v11)
+          {
+            v19 = 0;
+            goto LABEL_32;
+          }
+        }
+
+        v19 = [a2 hasError] ? 0 : v15;
+LABEL_32:
+        *(a1 + 8) = v19;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v21 = [a2 position];
+    }
+
+    while (v21 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_228FD39F4(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v4 - 88));
+  _Unwind_Resume(a1);
+}
+
+void sub_228FD55B8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v4 - 112));
+  _Unwind_Resume(a1);
+}
+
+uint64_t statistics::Interval::Interval(uint64_t this)
+{
+  *this = &unk_283BF1F08;
+  *(this + 24) = 0;
+  return this;
+}
+
+{
+  *this = &unk_283BF1F08;
+  *(this + 24) = 0;
+  return this;
+}
+
+void statistics::Interval::~Interval(statistics::Interval *this)
+{
+  PB::Base::~Base(this);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+double statistics::Interval::Interval(statistics::Interval *this, const statistics::Interval *a2)
+{
+  *this = &unk_283BF1F08;
+  *(this + 6) = 0;
+  if ((*(a2 + 24) & 2) != 0)
+  {
+    result = *(a2 + 2);
+    *(this + 24) = 2;
+    *(this + 2) = result;
+    v2 = 3;
+    if ((*(a2 + 24) & 1) == 0)
+    {
+      return result;
+    }
+
+    goto LABEL_5;
+  }
+
+  v2 = 1;
+  if (*(a2 + 24))
+  {
+LABEL_5:
+    result = *(a2 + 1);
+    *(this + 24) = v2;
+    *(this + 1) = result;
+  }
+
+  return result;
+}
+
+uint64_t statistics::Interval::operator=(uint64_t a1, const statistics::Interval *a2)
+{
+  if (a1 != a2)
+  {
+    statistics::Interval::Interval(&v6, a2);
+    v3 = *(a1 + 24);
+    *(a1 + 24) = v8;
+    v8 = v3;
+    v4 = *(a1 + 8);
+    *(a1 + 8) = v7;
+    v7 = v4;
+    PB::Base::~Base(&v6);
+  }
+
+  return a1;
+}
+
+double statistics::swap(statistics *this, statistics::Interval *a2, statistics::Interval *a3)
+{
+  v3 = *(this + 6);
+  *(this + 6) = *(a2 + 6);
+  *(a2 + 6) = v3;
+  v4 = *(this + 2);
+  *(this + 2) = *(a2 + 2);
+  *(a2 + 2) = v4;
+  result = *(this + 1);
+  *(this + 1) = *(a2 + 1);
+  *(a2 + 1) = result;
+  return result;
+}
+
+double statistics::Interval::Interval(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_283BF1F08;
+  *(a1 + 24) = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(a1 + 16) = *(a2 + 16);
+  result = *(a2 + 8);
+  *(a1 + 8) = result;
+  return result;
+}
+
+{
+  *a1 = &unk_283BF1F08;
+  *(a1 + 24) = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(a1 + 16) = *(a2 + 16);
+  result = *(a2 + 8);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t statistics::Interval::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v7 = &unk_283BF1F08;
+    v3 = *(a2 + 24);
+    *(a2 + 24) = 0;
+    v9 = *(a1 + 24);
+    v4 = *(a1 + 8);
+    v5 = *(a2 + 8);
+    *(a1 + 24) = v3;
+    *(a1 + 8) = v5;
+    v8 = v4;
+    PB::Base::~Base(&v7);
+  }
+
+  return a1;
+}
+
+uint64_t statistics::Interval::formatText(statistics::Interval *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 24);
+  if (v5)
+  {
+    PB::TextFormatter::format(a2, "end", *(this + 1));
+    v5 = *(this + 24);
+  }
+
+  if ((v5 & 2) != 0)
+  {
+    PB::TextFormatter::format(a2, "start", *(this + 2));
+  }
+
+  return MEMORY[0x2821A4560](a2);
+}
+
+uint64_t statistics::Interval::readFrom(statistics::Interval *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        v15 = 0;
+        v16 = 0;
+        v10 = 0;
+        v17 = (v7 + v2);
+        v18 = v3 >= v2;
+        v19 = v3 - v2;
+        if (!v18)
+        {
+          v19 = 0;
+        }
+
+        v20 = v2 + 1;
+        while (v19)
+        {
+          v21 = *v17;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
+          {
+            goto LABEL_18;
+          }
+
+          v15 += 7;
+          ++v17;
+          --v19;
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
+          {
+            goto LABEL_24;
+          }
+        }
+
+        v4 = 1;
+        *(a2 + 24) = 1;
+        goto LABEL_35;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_24;
+        }
+      }
+
+LABEL_18:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_35;
+      }
+
+      if ((v10 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v10 >> 3) == 1)
+      {
+        *(this + 24) |= 2u;
+        v2 = *(a2 + 1);
+        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+        {
+          goto LABEL_28;
+        }
+
+        *(this + 2) = *(*a2 + v2);
+LABEL_30:
+        v2 = *(a2 + 1) + 8;
+        *(a2 + 1) = v2;
+        goto LABEL_31;
+      }
+
+LABEL_24:
+      if (!PB::Reader::skip(a2))
+      {
+        v22 = 0;
+        return v22 & 1;
+      }
+
+      v2 = *(a2 + 1);
+LABEL_31:
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_35;
+      }
+    }
+
+    *(this + 24) |= 1u;
+    v2 = *(a2 + 1);
+    if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
+    {
+LABEL_28:
+      *(a2 + 24) = 1;
+      goto LABEL_31;
+    }
+
+    *(this + 1) = *(*a2 + v2);
+    goto LABEL_30;
+  }
+
+LABEL_35:
+  v22 = v4 ^ 1;
+  return v22 & 1;
+}
+
+uint64_t statistics::Interval::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 24);
+  if ((v4 & 2) != 0)
+  {
+    this = PB::Writer::write(a2, *(this + 16));
+    v4 = *(v3 + 24);
+  }
+
+  if (v4)
+  {
+    v5 = *(v3 + 8);
+
+    return PB::Writer::write(a2, v5);
+  }
+
+  return this;
+}
+
+BOOL statistics::Interval::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 24) & 2) != 0)
+  {
+    if ((*(a2 + 24) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 24) & 2) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 24) & 1) == 0;
+  if (*(a1 + 24))
+  {
+    return (*(a2 + 24) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+  }
+
+  return v2;
+}
+
+uint64_t statistics::Interval::hash_value(statistics::Interval *this)
+{
+  if ((*(this + 24) & 2) != 0)
+  {
+    v1 = *(this + 2);
+    if (v1 == 0.0)
+    {
+      v1 = 0.0;
+    }
+
+    if (*(this + 24))
+    {
+      goto LABEL_3;
+    }
+
+LABEL_9:
+    v2 = 0.0;
+    return *&v2 ^ *&v1;
+  }
+
+  v1 = 0.0;
+  if ((*(this + 24) & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_3:
+  v2 = *(this + 1);
+  if (v2 == 0.0)
+  {
+    v2 = 0.0;
+  }
+
+  return *&v2 ^ *&v1;
+}
+
+void sub_228FE1BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose((v38 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__166(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228FE2A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__167(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_228FE2DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE2FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE3364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE36E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE3F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE4498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE4854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228FE6070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t health::DataStore::DataStore(uint64_t a1, __int128 *a2)
+{
+  v3[0] = 0;
+  v3[1] = 0;
+  return health::DataStore::DataStore(a1, a2, v3, 0);
+}
+
+{
+  v3[0] = 0;
+  v3[1] = 0;
+  return health::DataStore::DataStore(a1, a2, v3, 0);
+}
+
+uint64_t health::DataStore::DataStore(uint64_t a1, __int128 *a2, void *a3, uint64_t a4)
+{
+  v9[4] = *MEMORY[0x277D85DE8];
+  v5 = a3[1];
+  v7[0] = *a3;
+  v7[1] = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  health::BlockAccessFile::BlockAccessFile(a1, a2, v7, a4);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  *(a1 + 864) = 0u;
+  v9[0] = &unk_283BF1FB8;
+  v9[1] = a1;
+  v9[3] = v9;
+  health::BlockAccessFile::performReadTransactionWithLambda(a1, v9);
+  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v9);
+  if (!*(a1 + 864))
+  {
+    v8[0] = &unk_283BF2038;
+    v8[1] = a1;
+    v8[3] = v8;
+    health::BlockAccessFile::performWriteTransactionWithLambda(a1, v8);
+    std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v8);
+  }
+
+  return a1;
+}
+
+void sub_228FE74FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
+  health::TransactionalFile::~TransactionalFile(v7);
+  _Unwind_Resume(a1);
+}
+
+uint64_t health::DataStore::performReadTransactionWithLambda(uint64_t a1, uint64_t a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  v3[0] = &unk_283BF20C8;
+  v3[1] = a1;
+  v3[2] = a2;
+  v3[3] = v3;
+  health::BlockAccessFile::performReadTransactionWithLambda(a1, v3);
+  return std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v3);
+}
+
+void sub_228FE75FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t health::DataStore::checkIntegrity(uint64_t a1, uint64_t a2)
+{
+  v6[4] = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_283BF21C8;
+  v6[1] = a2;
+  v6[3] = v6;
+  health::BlockAccessFile::checkIntegrity(a1, v6);
+  std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](v6);
+  v5[0] = &unk_283BF2258;
+  v5[1] = a1;
+  v5[2] = a2;
+  v5[3] = v5;
+  health::BlockAccessFile::performReadTransactionWithLambda(a1, v5);
+  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v5);
+  return 1;
+}
+
+void sub_228FE76E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+{
+  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](&a17);
+  if (a2 == 1)
+  {
+    v24 = *__cxa_begin_catch(a1);
+    a10 = *(*(v24 - 8) + 8) & 0x7FFFFFFFFFFFFFFFLL;
+    a9 = (*(v24 + 16))();
+    health::FormatString<char const*,char const*>(&__p, &a10, &a9);
+    v25 = *(v21 + 24);
+    if (v25)
+    {
+      (*(*v25 + 48))(v25, &__p);
+      if (a16 < 0)
+      {
+        operator delete(__p);
+      }
+
+      __cxa_end_catch();
+      JUMPOUT(0x228FE76B0);
+    }
+
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void health::FormatString<char const*,char const*>(std::string *a1, const char **a2, const char **a3)
+{
+  v3[0] = a3;
+  v3[1] = a2;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<char const*,char const*>("Integrity checking failed due to caught exception: {0} {1}", a1, 0, v3);
+}
+
+void sub_228FE7860(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t health::DataStore::rebuildIndex(health::DataStore *this)
+{
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_283BF22D8;
+  v2[1] = this;
+  v2[3] = v2;
+  health::BlockAccessFile::performWriteTransactionWithLambda(this, v2);
+  return std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v2);
+}
+
+void sub_228FE7900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t health::DataStore::enumerateObjectTreeForInspecting(uint64_t a1, uint64_t a2)
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  v3[0] = &unk_283BF23E8;
+  v3[1] = a1;
+  v3[2] = a2;
+  v3[3] = v3;
+  health::BlockAccessFile::performReadTransactionWithLambda(a1, v3);
+  return std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v3);
+}
+
+void sub_228FE7998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void health::DataStore::checkIntegrityForInspecting(uint64_t a1, uint64_t a2)
+{
+  v23[4] = *MEMORY[0x277D85DE8];
+  if (*(a1 + 327) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v21, *(a1 + 304), *(a1 + 312));
+  }
+
+  else
+  {
+    v21 = *(a1 + 304);
+  }
+
+  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v21.__r_.__value_.__l.__size_;
+  }
+
+  v5 = v19;
+  std::string::basic_string[abi:ne200100](v19, size + 4);
+  if (v20 < 0)
+  {
+    v5 = v19[0];
+  }
+
+  if (size)
+  {
+    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v6 = &v21;
+    }
+
+    else
+    {
+      v6 = v21.__r_.__value_.__r.__words[0];
+    }
+
+    memmove(v5, v6, size);
+  }
+
+  strcpy(v5 + size, "-wal");
+  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v7 = &v21;
+  }
+
+  else
+  {
+    v7 = v21.__r_.__value_.__r.__words[0];
+  }
+
+  v8 = stat(v7, &v18);
+  st_size = v18.st_size;
+  if (v20 >= 0)
+  {
+    v10 = v19;
+  }
+
+  else
+  {
+    v10 = v19[0];
+  }
+
+  v11 = stat(v10, &v16);
+  if (v8)
+  {
+    v12 = -1;
+  }
+
+  else
+  {
+    v12 = st_size;
+  }
+
+  v13 = v16.st_size;
+  if (v11)
+  {
+    v13 = 0;
+  }
+
+  v14 = v13 + v12;
+  v17 = v14;
+  if (v14 < 0)
+  {
+    v22[0] = __error();
+    v22[1] = &v21;
+    memset(&__p, 0, sizeof(__p));
+    health::FormatImplementation<std::string &,int &>("HFD file [{0}] size cannot be determined (error {1}).", &__p, 0, v22);
+    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a2 + 24), 0, 0, 0, &__p);
+  }
+
+  else
+  {
+    if (v14)
+    {
+      goto LABEL_31;
+    }
+
+    health::FormatString<std::string &>(&__p, "HFD file [{0}] is empty.", &v21);
+    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a2 + 24), 0, 0, 0, &__p);
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+LABEL_31:
+  v23[0] = &unk_283BF2468;
+  v23[1] = a2;
+  v23[3] = v23;
+  health::BlockAccessFile::checkIntegrity(a1, v23);
+  std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](v23);
+  v22[5] = 0;
+  operator new();
+}
+
+void sub_228FE7C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v15 - 161) < 0)
+  {
+    operator delete(*(v15 - 184));
+  }
+
+  if (*(v15 - 137) < 0)
+  {
+    operator delete(*(v15 - 160));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7[0] = a3;
+  v7[1] = a4;
+  v6 = a2;
+  if (!a1)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  return (*(*a1 + 48))(a1, &v6, v7, a5);
+}
+
+void health::FormatString<std::string &>(std::string *a1, std::string *a2, uint64_t *a3)
+{
+  v3 = a3;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<std::string &>(a2, a1, 0, &v3);
+}
+
+void sub_228FE7D70(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void health::DataStore::_checkBlockIntegrity(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, unint64_t a6, uint64_t a7)
+{
+  v16 = a3;
+  v17 = a4;
+  if (a3 + a4 > a6)
+  {
+    health::FormatString<std::string &>(&__p, "HFD block [{0}] is not strictly within file bounds.", a5);
+    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a7 + 24), 2, a3, a4, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
+
+  if (health::BlockAccessFile::isBlockUsingFreeSpace(a1, &v16, a2))
+  {
+    v13 = v16;
+    v14 = v17;
+    health::FormatString<std::string &>(&__p, "HFD block [{0}] is using space that is marked free.", a5);
+    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a7 + 24), 3, v13, v14, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+  }
 }

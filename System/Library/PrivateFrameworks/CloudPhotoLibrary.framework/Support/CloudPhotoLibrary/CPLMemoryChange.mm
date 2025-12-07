@@ -268,7 +268,7 @@ LABEL_7:
     if (sub_10002B0A8(v12))
     {
       sub_1000187DC();
-      sub_1000A1044(&_mh_execute_header, v13, v14, "Failed to find any assetListData from %@", v15, v16, v17, v18, v32);
+      sub_1000A1044(&_mh_execute_header, v13, v14, "Failed to find any assetListData from %@", v15, v16, v17, v18);
     }
   }
 

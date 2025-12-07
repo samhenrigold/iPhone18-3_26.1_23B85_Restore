@@ -42,7 +42,7 @@
   }
 
   specifierCopy = specifier;
-  sub_1BA0A7300(style, v7, v9, specifier);
+  sub_1BA0A7300(style, v7, v9, specifier, v11);
   return result;
 }
 
@@ -57,7 +57,7 @@
 {
   specifierCopy = specifier;
   selfCopy = self;
-  sub_1BA0A7560(specifier);
+  sub_1BA0A7560(specifier, v6);
 }
 
 @end

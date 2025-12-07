@@ -280,7 +280,7 @@ void MicIssueDetectorCorev1::~MicIssueDetectorCorev1(MicIssueDetectorCorev1 *thi
   MicIssueDetectorCore::~MicIssueDetectorCore(this);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -862,7 +862,8 @@ const UInt8 *BeamformerBase::ReadVectorFromDictionary(BeamformerBase *this, CFDi
   Value = CFDictionaryGetValue(theDict, key);
   Length = CFDataGetLength(Value);
   v6 = Length >> 2;
-  std::vector<float>::vector[abi:ne200100](this, Length >> 2);
+  v11 = 0;
+  std::vector<float>::vector[abi:ne200100](this, Length >> 2, &v11);
   result = CFDataGetBytePtr(Value);
   if (Length >= 4)
   {
@@ -3156,10 +3157,10 @@ uint64_t NoiseSuppression::Noise::VPv3::Init(NoiseSuppression::Noise::VPv3 *this
   v10 = *(this + 3);
   v39 = 0;
   std::vector<float>::assign(this + 35, v10, &v39, v11);
-  std::vector<BOOL>::resize(this + 304, *(this + 3), 0);
+  std::vector<BOOL>::resize(this + 38, *(this + 3), 0);
   v12 = *(this + 3);
   LOBYTE(v39) = 0;
-  std::vector<BOOL>::assign(this + 38, v12, &v39);
+  std::vector<BOOL>::assign(this + 304, v12, &v39);
   std::vector<float>::resize(this + 15, *(this + 37));
   v13 = *(this + 37);
   v39 = 0;
@@ -3234,16 +3235,16 @@ uint64_t NoiseSuppression::Noise::VPv3::Init(NoiseSuppression::Noise::VPv3 *this
   return result;
 }
 
-void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
+void std::vector<BOOL>::assign(uint64_t a1, unint64_t a2, _BYTE *a3)
 {
-  a1[1] = 0;
+  *(a1 + 8) = 0;
   if (a2)
   {
-    v6 = a1[2];
+    v6 = *(a1 + 16);
     v7 = v6 << 6;
     if (v6 << 6 >= a2)
     {
-      a1[1] = a2;
+      *(a1 + 8) = a2;
     }
 
     else
@@ -3276,10 +3277,10 @@ void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
       v12 = *(&v15 + 1);
       v14 = *a1;
       v10 = v14;
-      v13 = *(a1 + 1);
+      v13 = *(a1 + 8);
       *a1 = v11;
-      a1[1] = a2;
-      a1[2] = v12;
+      *(a1 + 8) = a2;
+      *(a1 + 16) = v12;
       v15 = v13;
       if (v10)
       {
@@ -8665,276 +8666,278 @@ void SeparationBase::SeparationBase(SeparationBase *this, int a2, unsigned int a
   *(this + 12) = *&a17;
   *(this + 26) = a19;
   *(this + 108) = xmmword_1DE09BE30;
-  LODWORD(v101) = 1065353216;
-  std::vector<float>::vector[abi:ne200100](this + 16, a3);
+  LODWORD(v103) = 1065353216;
+  std::vector<float>::vector[abi:ne200100](this + 16, a3, &v103);
   v20 = *(this + 12);
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 19, v20);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 19, v20, &v103);
   v21 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 22, v21);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 22, v21, &v103);
   v22 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 25, v22);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 25, v22, &v103);
   v23 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 28, v23);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 28, v23, &v103);
   v24 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 31, v24);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 31, v24, &v103);
   v25 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 34, v25);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 34, v25, &v103);
   v26 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 37, v26);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 37, v26, &v103);
   v27 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 40, v27);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 40, v27, &v103);
   v28 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 43, v28);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 43, v28, &v103);
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 46, *(this + 11));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 49, *(this + 11));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 52, *(this + 11));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 55, *(this + 11));
   v29 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 58, v29);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 58, v29, &v103);
   v30 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 61, v30);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 61, v30, &v103);
   v31 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 64, v31);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 64, v31, &v103);
   v32 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 67, v32);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 67, v32, &v103);
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 70, *(this + 13));
-  std::vector<float>::vector[abi:ne200100](&v101, *(this + 12));
+  v33 = *(this + 12);
+  v102 = 0;
+  std::vector<float>::vector[abi:ne200100](&v103, v33, &v102);
   std::vector<std::vector<float>>::vector[abi:ne200100](this + 73, 2uLL);
-  if (v101)
+  if (v103)
   {
-    v102 = v101;
-    operator delete(v101);
+    v104 = v103;
+    operator delete(v103);
   }
 
-  v33 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 76, v33);
   v34 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 79, v34);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 76, v34, &v103);
   v35 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 82, v35);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 79, v35, &v103);
   v36 = (*(this + 12) * *(this + 11));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 85, v36);
-  v37 = *(this + 12);
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 88, v37);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 82, v36, &v103);
+  v37 = (*(this + 12) * *(this + 11));
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 85, v37, &v103);
   v38 = *(this + 12);
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 91, v38);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 88, v38, &v103);
+  v39 = *(this + 12);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 91, v39, &v103);
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 94, *(this + 11));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 97, *(this + 11));
   *(this + 100) = *(this + 88);
   *(this + 101) = *(this + 91);
-  v39 = *(this + 12);
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 102, v39);
-  v40 = *(this + 11);
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 105, v40);
-  v41 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 108, v41);
+  v40 = *(this + 12);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 102, v40, &v103);
+  v41 = *(this + 11);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 105, v41, &v103);
   v42 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 111, v42);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 108, v42, &v103);
   v43 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 114, v43);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 111, v43, &v103);
   v44 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 117, v44);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 114, v44, &v103);
   v45 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 120, v45);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 117, v45, &v103);
   v46 = (*(this + 12) * *(this + 13));
-  LODWORD(v101) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 123, v46);
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 120, v46, &v103);
+  v47 = (*(this + 12) * *(this + 13));
+  LODWORD(v103) = 0;
+  std::vector<float>::vector[abi:ne200100](this + 123, v47, &v103);
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 126, *(this + 13));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 129, *(this + 13));
   std::vector<DSPSplitComplex>::vector[abi:ne200100](this + 132, *(this + 13));
-  v47 = *(this + 11);
-  std::vector<float>::vector[abi:ne200100](&v101, (*(this + 12) * *(this + 13)));
-  std::vector<std::vector<float>>::vector[abi:ne200100](this + 135, v47);
-  if (v101)
-  {
-    v102 = v101;
-    operator delete(v101);
-  }
-
   v48 = *(this + 11);
-  std::vector<float>::vector[abi:ne200100](&v101, (*(this + 12) * *(this + 13)));
-  std::vector<std::vector<float>>::vector[abi:ne200100](this + 138, v48);
-  if (v101)
+  std::vector<float>::vector[abi:ne200100](&v103, (*(this + 12) * *(this + 13)));
+  std::vector<std::vector<float>>::vector[abi:ne200100](this + 135, v48);
+  if (v103)
   {
-    v102 = v101;
-    operator delete(v101);
+    v104 = v103;
+    operator delete(v103);
   }
 
   v49 = *(this + 11);
-  std::vector<DSPSplitComplex>::vector[abi:ne200100](&v101, *(this + 13));
-  std::vector<std::vector<DSPSplitComplex>>::vector[abi:ne200100](this + 141, v49);
-  if (v101)
+  std::vector<float>::vector[abi:ne200100](&v103, (*(this + 12) * *(this + 13)));
+  std::vector<std::vector<float>>::vector[abi:ne200100](this + 138, v49);
+  if (v103)
   {
-    v102 = v101;
-    operator delete(v101);
+    v104 = v103;
+    operator delete(v103);
   }
 
-  v50 = *(this + 2);
-  v52 = *(this + 11);
-  v51 = *(this + 12);
-  v53 = v51 + -1.0;
-  *(this + 14) = ((v50 * *(this + 18)) / v53);
-  v54 = v50 / (v53 + v53);
-  *&v54 = v54;
-  *(this + 84) = vmin_u32(vcvt_u32_f32(vrnda_f32(vabs_f32(vdiv_f32(*(this + 76), vdup_lane_s32(*&v54, 0))))), vdup_n_s32(v51 - 1));
-  if (v52)
+  v50 = *(this + 11);
+  std::vector<DSPSplitComplex>::vector[abi:ne200100](&v103, *(this + 13));
+  std::vector<std::vector<DSPSplitComplex>>::vector[abi:ne200100](this + 141, v50);
+  if (v103)
   {
-    v55 = 0;
-    v56 = *(this + 22);
-    v57 = *(this + 25);
-    v58 = *(this + 28);
-    v59 = *(this + 31);
-    v60 = *(this + 34);
-    v61 = *(this + 37);
-    v62 = *(this + 40);
-    v63 = *(this + 43);
-    v64 = *(this + 76);
-    v65 = (*(this + 97) + 8);
-    v66 = (*(this + 46) + 8);
-    v67 = *(this + 79);
-    v68 = (*(this + 94) + 8);
-    v69 = (*(this + 49) + 8);
-    v70 = *(this + 82);
-    v71 = (*(this + 55) + 8);
-    v72 = (*(this + 52) + 8);
-    v73 = v52;
-    v74 = *(this + 85);
+    v104 = v103;
+    operator delete(v103);
+  }
+
+  v51 = *(this + 2);
+  v53 = *(this + 11);
+  v52 = *(this + 12);
+  v54 = v52 + -1.0;
+  *(this + 14) = ((v51 * *(this + 18)) / v54);
+  v55 = v51 / (v54 + v54);
+  *&v55 = v55;
+  *(this + 84) = vmin_u32(vcvt_u32_f32(vrnda_f32(vabs_f32(vdiv_f32(*(this + 76), vdup_lane_s32(*&v55, 0))))), vdup_n_s32(v52 - 1));
+  if (v53)
+  {
+    v56 = 0;
+    v57 = *(this + 22);
+    v58 = *(this + 25);
+    v59 = *(this + 28);
+    v60 = *(this + 31);
+    v61 = *(this + 34);
+    v62 = *(this + 37);
+    v63 = *(this + 40);
+    v64 = *(this + 43);
+    v65 = *(this + 76);
+    v66 = (*(this + 97) + 8);
+    v67 = (*(this + 46) + 8);
+    v68 = *(this + 79);
+    v69 = (*(this + 94) + 8);
+    v70 = (*(this + 49) + 8);
+    v71 = *(this + 82);
+    v72 = (*(this + 55) + 8);
+    v73 = (*(this + 52) + 8);
+    v74 = v53;
+    v75 = *(this + 85);
     do
     {
-      *(v66 - 1) = v56 + 4 * v55;
-      *v66 = v57 + 4 * v55;
-      *(v69 - 1) = v58 + 4 * v55;
-      *v69 = v59 + 4 * v55;
-      *(v72 - 1) = v60 + 4 * v55;
-      *v72 = v61 + 4 * v55;
-      *(v71 - 1) = v62 + 4 * v55;
-      *v71 = v63 + 4 * v55;
-      *(v68 - 1) = v64 + 4 * v55;
-      *v68 = v67 + 4 * v55;
-      *(v65 - 1) = v70 + 4 * v55;
-      *v65 = v74 + 4 * v55;
-      v55 += v51;
-      v65 += 2;
+      *(v67 - 1) = v57 + 4 * v56;
+      *v67 = v58 + 4 * v56;
+      *(v70 - 1) = v59 + 4 * v56;
+      *v70 = v60 + 4 * v56;
+      *(v73 - 1) = v61 + 4 * v56;
+      *v73 = v62 + 4 * v56;
+      *(v72 - 1) = v63 + 4 * v56;
+      *v72 = v64 + 4 * v56;
+      *(v69 - 1) = v65 + 4 * v56;
+      *v69 = v68 + 4 * v56;
+      *(v66 - 1) = v71 + 4 * v56;
+      *v66 = v75 + 4 * v56;
+      v56 += v52;
       v66 += 2;
-      v68 += 2;
+      v67 += 2;
       v69 += 2;
-      v71 += 2;
+      v70 += 2;
       v72 += 2;
-      --v73;
+      v73 += 2;
+      --v74;
     }
 
-    while (v73);
-  }
-
-  if (v51)
-  {
-    v75 = 0;
-    v76 = *(this + 102);
-    do
-    {
-      *(v76 + 4 * v75) = ((v51 + -1.0) + (v51 + -1.0)) * (((*(this + 7) * v75) / v51) + 1.0);
-      ++v75;
-    }
-
-    while (v51 != v75);
+    while (v74);
   }
 
   if (v52)
   {
-    v77 = 0;
-    v78 = *(this + 13);
+    v76 = 0;
+    v77 = *(this + 102);
     do
     {
-      if (v78)
+      *(v77 + 4 * v76) = ((v52 + -1.0) + (v52 + -1.0)) * (((*(this + 7) * v76) / v52) + 1.0);
+      ++v76;
+    }
+
+    while (v52 != v76);
+  }
+
+  if (v53)
+  {
+    v78 = 0;
+    v79 = *(this + 13);
+    do
+    {
+      if (v79)
       {
-        v79 = 0;
-        v80 = *(*(this + 135) + 24 * v77);
-        v81 = *(*(this + 138) + 24 * v77);
-        v82 = (*(*(this + 141) + 24 * v77) + 8);
-        v83 = v78;
+        v80 = 0;
+        v81 = *(*(this + 135) + 24 * v78);
+        v82 = *(*(this + 138) + 24 * v78);
+        v83 = (*(*(this + 141) + 24 * v78) + 8);
+        v84 = v79;
         do
         {
-          *(v82 - 1) = v80 + 4 * v79;
-          *v82 = v81 + 4 * v79;
-          v82 += 2;
-          v79 += v51;
-          --v83;
+          *(v83 - 1) = v81 + 4 * v80;
+          *v83 = v82 + 4 * v80;
+          v83 += 2;
+          v80 += v52;
+          --v84;
         }
 
-        while (v83);
+        while (v84);
       }
 
-      ++v77;
+      ++v78;
     }
 
-    while (v77 != v52);
+    while (v78 != v53);
   }
 
   SeparationBase::ResetiV(this);
-  v84 = *(this + 13);
-  if (v84)
+  v85 = *(this + 13);
+  if (v85)
   {
-    v85 = 0;
-    v86 = *(this + 12);
-    v87 = *(this + 108);
-    v88 = *(this + 117);
-    v89 = *(this + 111);
-    v90 = *(this + 120);
-    v91 = *(this + 114);
-    v92 = *(this + 123);
-    v93 = (*(this + 70) + 8);
-    v94 = *(this + 64);
-    v95 = (*(this + 126) + 8);
-    v96 = (*(this + 132) + 8);
-    v97 = (*(this + 129) + 8);
-    v98 = *(this + 67);
+    v86 = 0;
+    v87 = *(this + 12);
+    v88 = *(this + 108);
+    v89 = *(this + 117);
+    v90 = *(this + 111);
+    v91 = *(this + 120);
+    v92 = *(this + 114);
+    v93 = *(this + 123);
+    v94 = (*(this + 70) + 8);
+    v95 = *(this + 64);
+    v96 = (*(this + 126) + 8);
+    v97 = (*(this + 132) + 8);
+    v98 = (*(this + 129) + 8);
+    v99 = *(this + 67);
     do
     {
-      *(v95 - 1) = v87 + 4 * v85;
-      *v95 = v88 + 4 * v85;
-      *(v97 - 1) = v89 + 4 * v85;
-      *v97 = v90 + 4 * v85;
-      *(v96 - 1) = v91 + 4 * v85;
-      *v96 = v92 + 4 * v85;
-      v99 = v94 + 4 * v85;
-      v100 = v98 + 4 * v85;
-      v85 += v86;
-      *(v93 - 1) = v99;
-      *v93 = v100;
-      v93 += 2;
-      v95 += 2;
+      *(v96 - 1) = v88 + 4 * v86;
+      *v96 = v89 + 4 * v86;
+      *(v98 - 1) = v90 + 4 * v86;
+      *v98 = v91 + 4 * v86;
+      *(v97 - 1) = v92 + 4 * v86;
+      *v97 = v93 + 4 * v86;
+      v100 = v95 + 4 * v86;
+      v101 = v99 + 4 * v86;
+      v86 += v87;
+      *(v94 - 1) = v100;
+      *v94 = v101;
+      v94 += 2;
       v96 += 2;
       v97 += 2;
-      --v84;
+      v98 += 2;
+      --v85;
     }
 
-    while (v84);
+    while (v85);
   }
 
   SeparationBase::ResetWA(this);

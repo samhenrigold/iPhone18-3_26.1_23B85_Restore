@@ -8,8 +8,8 @@
 {
   v4 = MEMORY[0x277CD1D90];
   optionsCopy = options;
-  service = [(HFServiceItem *)self service];
-  serviceType = [service serviceType];
+  v6 = objc_msgSend_service(self);
+  serviceType = [v6 serviceType];
   v8 = [v4 hf_sensorCharacteristicTypeForServiceType:serviceType];
 
   v9 = [MEMORY[0x277CBEB98] setWithObject:v8];
@@ -29,7 +29,7 @@
 
 id __51__HFSensorServiceItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 readResponse];
   v5 = [v4 responseForCharacteristicType:*(a1 + 32)];
@@ -55,9 +55,9 @@ id __51__HFSensorServiceItem__subclass_updateWithOptions___block_invoke(uint64_t
     }
 
     v12 = *MEMORY[0x277CCF7E8];
-    v29[0] = *MEMORY[0x277CCF770];
-    v29[1] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = *MEMORY[0x277CCF770];
+    v28[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v14 = [v13 containsObject:*(a1 + 32)];
 
     if (v14)
@@ -92,8 +92,6 @@ id __51__HFSensorServiceItem__subclass_updateWithOptions___block_invoke(uint64_t
   v24 = MEMORY[0x277D2C900];
   v25 = [HFItemUpdateOutcome outcomeWithResults:v7];
   v26 = [v24 futureWithResult:v25];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

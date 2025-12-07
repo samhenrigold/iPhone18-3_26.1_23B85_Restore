@@ -124,20 +124,20 @@ void __83__AMSUIWebWrapperViewController_webViewController_handleDelegateAction_
 
 - (void)webViewController:(id)controller didResolveWithResult:(id)result error:(id)error completion:(id)completion
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   wrapperContext = [(AMSUIWebWrapperViewController *)self wrapperContext];
   dataProvider = [wrapperContext dataProvider];
-  v18[0] = @"result";
+  v17[0] = @"result";
   null = resultCopy;
   if (!resultCopy)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = @"error";
-  v19[0] = null;
+  v17[1] = @"error";
+  v18[0] = null;
   v13 = AMSUIWebJSError(errorCopy);
   null2 = v13;
   if (!v13)
@@ -145,8 +145,8 @@ void __83__AMSUIWebWrapperViewController_webViewController_handleDelegateAction_
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v18[1] = null2;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v16 = [dataProvider postEvent:@"RouteResolve" options:v15];
 
   if (!v13)
@@ -156,8 +156,6 @@ void __83__AMSUIWebWrapperViewController_webViewController_handleDelegateAction_
   if (!resultCopy)
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

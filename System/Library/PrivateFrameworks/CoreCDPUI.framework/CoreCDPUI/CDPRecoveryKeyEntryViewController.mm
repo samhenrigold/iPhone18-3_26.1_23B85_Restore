@@ -712,25 +712,25 @@ LABEL_27:
   }
 }
 
-void __76__CDPRecoveryKeyEntryViewController_skipRecoveryKeyDuringPasswordResetFlow___block_invoke(uint64_t a1)
+void __76__CDPRecoveryKeyEntryViewController_skipRecoveryKeyDuringPasswordResetFlow___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __76__CDPRecoveryKeyEntryViewController_skipRecoveryKeyDuringPasswordResetFlow___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = [WeakRetained _addEscapeOption:*(a1 + 32) forEvent:*(*(*(a1 + 48) + 8) + 40)];
-    v6 = *(*(a1 + 48) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v6 = [WeakRetained _addEscapeOption:*(a1 + 32) forEvent:*(*(*(a1 + 48) + 8) + 40)];
+    v7 = *(*(a1 + 48) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    v8 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
-    [v8 sendEvent:*(*(*(a1 + 48) + 8) + 40)];
+    v9 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
+    [v9 sendEvent:*(*(*(a1 + 48) + 8) + 40)];
   }
 
   [*(a1 + 40) dismissAlerts];
@@ -799,10 +799,10 @@ void __76__CDPRecoveryKeyEntryViewController_skipRecoveryKeyDuringPasswordResetF
   [(CDPRecoveryKeyEntryViewController *)self presentViewController:v9 animated:1 completion:0];
 }
 
-uint64_t __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke(uint64_t a1)
+uint64_t __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke_cold_1();
   }
@@ -810,10 +810,10 @@ uint64_t __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block
   return [*(*(a1 + 32) + 1600) handleForgotRecoveryKeyWithCDPStateError:-5308];
 }
 
-uint64_t __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke_106(uint64_t a1)
+uint64_t __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke_106(uint64_t a1, uint64_t a2)
 {
-  v2 = _CDPLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __61__CDPRecoveryKeyEntryViewController_handleForgotRecoveryKey___block_invoke_106_cold_1();
   }
@@ -975,13 +975,17 @@ void __83__CDPRecoveryKeyEntryViewController__handleRecoveryKeyValidationWithSuc
 - (void)disableUserInteractionAndStartSpinner
 {
   navigationItem = [self navigationItem];
-  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Starting spinner for item: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = navigationItem;
+  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Starting spinner for item: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)enableUserInteractionAndStopSpinner
 {
   navigationItem = [self navigationItem];
-  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Stopping spinner for item: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = navigationItem;
+  OUTLINED_FUNCTION_3_0(&dword_2451DB000, v2, v3, "Stopping spinner for item: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)dealloc
@@ -1238,6 +1242,27 @@ LABEL_11:
 LABEL_12:
 
   return v8;
+}
+
+- (void)handleRecoveryKeyEscapeDuringDataRecoveryFlow:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = -5215;
+  OUTLINED_FUNCTION_2_0(&dword_2451DB000, a1, a3, "iOS: Sending error %ld because user chose to try RK later.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)handleRecoveryKeyEscapeDuringDataRecoveryFlow:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = -5218;
+  OUTLINED_FUNCTION_2_0(&dword_2451DB000, a1, a3, "iOS: Sending error %ld because user doesnt have their RK and has custodian recovery available.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)skipRecoveryKeyDuringPasswordResetFlow:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = -5215;
+  OUTLINED_FUNCTION_2_0(&dword_2451DB000, a1, a3, "iOS: RKMandate is false. Skipping recovery flow with error: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -1,4 +1,179 @@
-uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
+void adv_record_create_(__int16 a1, unsigned int a2, const void *a3, int *a4, int a5)
+{
+  v10 = a2;
+  v11 = a2 + 79;
+  v12 = malloc_type_calloc(1uLL, v11, 0xC8D28F7FuLL);
+  if (!v12)
+  {
+    v22 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      v27 = 136446722;
+      v28 = "adv_record_create_";
+      v29 = 2048;
+      *v30 = 1;
+      *&v30[8] = 2048;
+      *&v30[10] = v11;
+      v23 = "%{public}s: strict_calloc(%zu, %zu) failed";
+      v24 = v22;
+      v25 = 32;
+LABEL_27:
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v23, &v27, v25);
+    }
+
+LABEL_28:
+    __break(1u);
+    return;
+  }
+
+  v13 = v12;
+  if (a2)
+  {
+    v14 = malloc_type_malloc(v10, 0xEFB008DBuLL);
+    if (v14)
+    {
+      *(v13 + 64) = v14;
+      memcpy(v14, a3, v10);
+      goto LABEL_5;
+    }
+
+    v26 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      v27 = 136446210;
+      v28 = "adv_record_create_";
+      v23 = "%{public}s: strict allocator failed";
+      v24 = v26;
+      v25 = 12;
+      goto LABEL_27;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_5:
+  *(v13 + 16) = a4;
+  v15 = global_os_log;
+  if (a4)
+  {
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = *a4;
+      v27 = 136447490;
+      v28 = "adv_record_create_";
+      v29 = 1024;
+      *v30 = v16;
+      *&v30[4] = 2048;
+      *&v30[6] = a4;
+      *&v30[14] = 2080;
+      *&v30[16] = "host";
+      v31 = 2080;
+      v32 = "srp-mdns-proxy.c";
+      v33 = 1024;
+      v34 = a5;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", &v27, 0x36u);
+    }
+
+    v17 = *a4;
+    if (*a4)
+    {
+      v18 = v17 + 1;
+      *a4 = v17 + 1;
+      v15 = global_os_log;
+      if (v17 + 1 >= 10001)
+      {
+        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          goto LABEL_20;
+        }
+
+        v27 = 136447490;
+        v28 = "adv_record_create_";
+        v29 = 1024;
+        *v30 = v18;
+        *&v30[4] = 2048;
+        *&v30[6] = a4;
+        *&v30[14] = 2080;
+        *&v30[16] = "host";
+        v31 = 2080;
+        v32 = "srp-mdns-proxy.c";
+        v33 = 1024;
+        v34 = a5;
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      ++adv_host_created;
+      *a4 = 1;
+      v15 = global_os_log;
+    }
+  }
+
+  *(v13 + 72) = a1;
+  *(v13 + 74) = a2;
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = *v13;
+    v27 = 136447490;
+    v28 = "adv_record_create_";
+    v29 = 1024;
+    *v30 = v19;
+    *&v30[4] = 2048;
+    *&v30[6] = v13;
+    *&v30[14] = 2080;
+    *&v30[16] = "new_record";
+    v31 = 2080;
+    v32 = "srp-mdns-proxy.c";
+    v33 = 1024;
+    v34 = a5;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", &v27, 0x36u);
+  }
+
+  v20 = *v13;
+  if (*v13)
+  {
+    v21 = v20 + 1;
+    *v13 = v20 + 1;
+    if (v20 + 1 >= 10001)
+    {
+      v15 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_20;
+      }
+
+      v27 = 136447490;
+      v28 = "adv_record_create_";
+      v29 = 1024;
+      *v30 = v21;
+      *&v30[4] = 2048;
+      *&v30[6] = v13;
+      *&v30[14] = 2080;
+      *&v30[16] = "new_record";
+      v31 = 2080;
+      v32 = "srp-mdns-proxy.c";
+      v33 = 1024;
+      v34 = a5;
+LABEL_19:
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", &v27, 0x36u);
+LABEL_20:
+      abort();
+    }
+  }
+
+  else
+  {
+    ++adv_record_created;
+    v21 = 1;
+    *v13 = 1;
+  }
+
+  srp_log_ref_final(v13, v21, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", a5);
+}
+
+uint64_t register_host_record(uint64_t a1, int *a2, int a3)
 {
   result = srp_mdns_shared_registration_txn_setup(*(a1 + 8));
   if (!result)
@@ -6,25 +181,25 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     return result;
   }
 
-  v7 = *(a2 + 8);
+  v7 = *(a2 + 1);
   if (v7 && (a3 & 1) == 0)
   {
-    if (*(a2 + 32))
+    if (*(a2 + 4))
     {
       srp_mdns_shared_record_remove_(*(a1 + 8), a2, 1, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2841);
-      v7 = *(a2 + 8);
+      v7 = *(a2 + 1);
     }
 
-    v8 = *(a2 + 24);
-    *(a2 + 32) = v7;
-    *(a2 + 40) = v8;
-    *(a2 + 8) = 0;
-    *(a2 + 24) = 0;
+    v8 = *(a2 + 3);
+    *(a2 + 4) = v7;
+    *(a2 + 5) = v8;
+    *(a2 + 1) = 0;
+    *(a2 + 3) = 0;
   }
 
   v9 = *(a1 + 8);
   v10 = *(*(v9 + 16) + 8);
-  v11 = *(a2 + 72);
+  v11 = *(a2 + 36);
   v12 = global_os_log;
   v13 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
   if (v11 == 28)
@@ -46,8 +221,8 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
 
     v23 = *(v9 + 368);
     v24 = *(a1 + 56);
-    v25 = *(a2 + 74);
-    v26 = *(a2 + 64);
+    v25 = *(a2 + 37);
+    v26 = *(a2 + 8);
     v27 = *v26;
     if ((v27 & 0xFE) == 0xFC)
     {
@@ -76,7 +251,7 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     *&v56[8] = 2048;
     *&v56[10] = v10;
     *&v56[18] = 2048;
-    *&v56[20] = a2 + 8;
+    *&v56[20] = a2 + 2;
     *&v56[28] = 1024;
     *&v56[30] = 16;
     *&v56[34] = 1024;
@@ -130,13 +305,13 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     v14 = *(v9 + 368);
     v15 = "";
     v16 = *(a1 + 56);
-    v17 = *(a2 + 74);
+    v17 = *(a2 + 37);
     if (a3)
     {
       v15 = "skipping ";
     }
 
-    v18 = *(a2 + 64);
+    v18 = *(a2 + 8);
     *buf = 136450051;
     v54 = "register_host_record";
     v55 = 2082;
@@ -144,7 +319,7 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     *&v56[8] = 2048;
     *&v56[10] = v10;
     *&v56[18] = 2048;
-    *&v56[20] = a2 + 8;
+    *&v56[20] = a2 + 2;
     *&v56[28] = 1024;
     *&v56[30] = 16;
     *&v56[34] = 1024;
@@ -184,13 +359,13 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     v29 = *(v9 + 368);
     v30 = "";
     v31 = *(a1 + 56);
-    v32 = *(a2 + 74);
+    v32 = *(a2 + 37);
     if (a3)
     {
       v30 = "skipping ";
     }
 
-    v33 = *(a2 + 64);
+    v33 = *(a2 + 8);
     *buf = 136449538;
     v54 = "register_host_record";
     v55 = 2082;
@@ -198,7 +373,7 @@ uint64_t register_host_record(uint64_t a1, uint64_t a2, int a3)
     *&v56[8] = 2048;
     *&v56[10] = v10;
     *&v56[18] = 2048;
-    *&v56[20] = a2 + 8;
+    *&v56[20] = a2 + 2;
     *&v56[28] = 1024;
     *&v56[30] = 16;
     *&v56[34] = 1024;
@@ -247,7 +422,7 @@ LABEL_31:
   }
 
   v37 = srp_message_tsr_attribute_generate(v36, *(a1 + 176), v52 + 4);
-  v38 = DNSServiceRegisterRecordWithAttribute(v10, (a2 + 8), *(*(a1 + 8) + 368), *(a1 + 56), *(a2 + 72), *(a2 + 74), *(a2 + 64), v37, register_host_record_completion, a2, v52[0], v52[1], v52[2]);
+  v38 = DNSServiceRegisterRecordWithAttribute(v10, a2 + 1, *(*(a1 + 8) + 368), *(a1 + 56), *(a2 + 36), *(a2 + 37), *(a2 + 8), v37, register_host_record_completion, a2, v52[0], v52[1], v52[2]);
   DNSServiceAttributeDeallocate(v37);
   if (v38)
   {
@@ -313,7 +488,7 @@ LABEL_43:
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
       v44 = *(a1 + 48);
-      v45 = *(a2 + 8);
+      v45 = *(a2 + 1);
       *buf = 136447491;
       v54 = "register_host_record";
       v55 = 2160;
@@ -330,7 +505,7 @@ LABEL_43:
       v43 = global_os_log;
     }
 
-    *(a2 + 24) = *(*(a1 + 8) + 16);
+    *(a2 + 3) = *(*(a1 + 8) + 16);
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       v46 = *a2;
@@ -396,7 +571,7 @@ LABEL_43:
   return result;
 }
 
-void update_failed(uint64_t a1, unsigned int a2, int a3)
+void update_failed(uint64_t *a1, unsigned int a2, int a3)
 {
   v6 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
@@ -453,15 +628,15 @@ void update_failed(uint64_t a1, unsigned int a2, int a3)
     *a1 = 1;
   }
 
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   *(v12 + 257) = 0;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   adv_update_cancel(a1);
   if (v13)
   {
-    advertise_finished(*(v12 + 48), v13[1], v13[4], a2, 0, 1);
+    advertise_finished(*(v12 + 48), *(v13 + 8), *(v13 + 32), a2, 0, 1);
     srp_parse_client_updates_free_(v13, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1142);
-    *(a1 + 16) = 0;
+    a1[2] = 0;
     if (a3)
     {
       v14 = *(v12 + 248);
@@ -661,9 +836,9 @@ LABEL_28:
   }
 }
 
-uint64_t register_instance(uint64_t a1)
+uint64_t register_instance(int *a1)
 {
-  v2 = *(*(a1 + 40) + 8);
+  v2 = *(*(a1 + 5) + 8);
   result = srp_mdns_shared_registration_txn_setup(v2);
   if (result)
   {
@@ -672,8 +847,8 @@ uint64_t register_instance(uint64_t a1)
     v5 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 64);
-      v7 = *(a1 + 72);
+      v6 = *(a1 + 8);
+      v7 = *(a1 + 9);
       if (*(a1 + 135))
       {
         v8 = "skipping ";
@@ -684,8 +859,8 @@ uint64_t register_instance(uint64_t a1)
         v8 = "";
       }
 
-      v9 = *(*(a1 + 40) + 56);
-      v10 = *(a1 + 80);
+      v9 = *(*(a1 + 5) + 56);
+      v10 = a1[20];
       *buf = 136448771;
       v37 = "register_instance";
       v38 = 2082;
@@ -713,34 +888,34 @@ uint64_t register_instance(uint64_t a1)
 
     if (*(a1 + 135) == 1)
     {
-      v11 = *(*(a1 + 48) + 16);
+      v11 = *(*(a1 + 6) + 16);
       if (v11)
       {
-        *(a1 + 112) = *(v11 + 32);
+        *(a1 + 14) = *(v11 + 32);
       }
 
       return 1;
     }
 
-    v12 = *(a1 + 24);
+    v12 = *(a1 + 3);
     if (v12)
     {
       ioloop_dnssd_txn_cancel(v12);
-      ioloop_dnssd_txn_release_(*(a1 + 24), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2298);
-      *(a1 + 24) = 0;
+      ioloop_dnssd_txn_release_(*(a1 + 3), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2298);
+      *(a1 + 3) = 0;
     }
 
-    v13 = *(a1 + 8);
+    v13 = *(a1 + 1);
     if (v13)
     {
-      *(a1 + 24) = v13;
+      *(a1 + 3) = v13;
       ioloop_dnssd_txn_retain_(v13, 2306);
-      ioloop_dnssd_txn_release_(*(a1 + 8), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2307);
-      *(a1 + 8) = 0;
-      *(a1 + 32) = *(a1 + 16);
+      ioloop_dnssd_txn_release_(*(a1 + 1), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2307);
+      *(a1 + 1) = 0;
+      *(a1 + 4) = *(a1 + 2);
     }
 
-    v14 = *(a1 + 48);
+    v14 = *(a1 + 6);
     if (v14)
     {
       v15 = *(v14 + 16);
@@ -752,19 +927,19 @@ uint64_t register_instance(uint64_t a1)
 
     else
     {
-      v16 = *(a1 + 104);
+      v16 = *(a1 + 13);
     }
 
-    v17 = srp_message_tsr_attribute_generate(v16, *(*(a1 + 40) + 176), v35);
-    v18 = DNSServiceRegisterWithAttribute(&sdRef, *(v2 + 368), *(a1 + 64), *(a1 + 72), "local", *(*(a1 + 40) + 56), (bswap32(*(a1 + 80)) >> 16), *(a1 + 96), *(a1 + 88), v17, register_instance_completion, a1, v33);
+    v17 = srp_message_tsr_attribute_generate(v16, *(*(a1 + 5) + 176), v35);
+    v18 = DNSServiceRegisterWithAttribute(&sdRef, *(v2 + 368), *(a1 + 8), *(a1 + 9), "local", *(*(a1 + 5) + 56), (bswap32(*(a1 + 40)) >> 16), *(a1 + 48), *(a1 + 11), v17, register_instance_completion, a1, v33);
     DNSServiceAttributeDeallocate(v17);
     if (!v18)
     {
       v22 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = *(a1 + 64);
-        v24 = *(*(a1 + 40) + 48);
+        v23 = *(a1 + 8);
+        v24 = *(*(a1 + 5) + 48);
         if (!v24)
         {
           v24 = "<null>";
@@ -789,15 +964,15 @@ uint64_t register_instance(uint64_t a1)
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: DNSServiceRegister, TSR for instance %{private, mask.hash}s host %{private, mask.hash}s set to %{public}s(instance %p sdref %p)", buf, 0x52u);
       }
 
-      v25 = *(a1 + 48);
+      v25 = *(a1 + 6);
       if (v25)
       {
         ++*(v25 + 88);
         *(a1 + 133) = 1;
       }
 
-      *(a1 + 8) = ioloop_dnssd_txn_add_subordinate_(sdRef, a1, adv_instance_context_release, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2358);
-      *(a1 + 16) = *(v2 + 16);
+      *(a1 + 1) = ioloop_dnssd_txn_add_subordinate_(sdRef, a1, adv_instance_context_release, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2358);
+      *(a1 + 2) = *(v2 + 16);
       v26 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
@@ -1121,8 +1296,9 @@ void record_txn_forget(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 }
 
-void register_instance_completion(uint64_t a1, int a2, int a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7)
+void register_instance_completion(uint64_t a1, int a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, void *a7)
 {
+  v8 = a3;
   if (a3 == -65563 || a3 == -65569)
   {
     v12 = srp_log_ref_check(a7, "adv_instance", "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2060);
@@ -1142,7 +1318,7 @@ void register_instance_completion(uint64_t a1, int a2, int a3, uint64_t a4, cons
       *&v76[8] = 1024;
       *&v76[10] = a2;
       *&v76[14] = 1024;
-      *&v76[16] = a3;
+      *&v76[16] = v8;
       *&v76[20] = 2048;
       *&v76[22] = a7;
       *&v76[30] = 2082;
@@ -1153,8 +1329,8 @@ void register_instance_completion(uint64_t a1, int a2, int a3, uint64_t a4, cons
     return;
   }
 
-  v19 = *(a7 + 40);
-  v18 = *(a7 + 48);
+  v19 = a7[5];
+  v18 = a7[6];
   v20 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -1214,7 +1390,7 @@ LABEL_113:
     *a7 = 1;
   }
 
-  if (!srp_mdns_cancel_previous_instance(v19, a7, a1, a6, a3, "update"))
+  if (!srp_mdns_cancel_previous_instance(v19, a7, a1, a6, v8, "update"))
   {
     v27 = global_os_log;
     if (v18)
@@ -1238,7 +1414,7 @@ LABEL_113:
           _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: registration for service %{private, mask.hash}s.%{private, mask.hash}s completed with invalid state.", buf, 0x34u);
         }
 
-        v30 = *(a7 + 48);
+        v30 = a7[6];
         if (!v30)
         {
           goto LABEL_31;
@@ -1265,7 +1441,7 @@ LABEL_113:
               *&v76[34] = 1024;
               *&v76[36] = 2083;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-              v30 = *(a7 + 48);
+              v30 = a7[6];
               v31 = *v30;
             }
 
@@ -1286,7 +1462,7 @@ LABEL_113:
                 *&v76[28] = 1024;
                 *&v76[30] = 2083;
                 _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-                v30 = *(a7 + 48);
+                v30 = a7[6];
               }
 
               ++adv_update_finalized;
@@ -1294,7 +1470,7 @@ LABEL_113:
             }
 
 LABEL_31:
-            *(a7 + 48) = 0;
+            a7[6] = 0;
             goto LABEL_99;
           }
 
@@ -1399,7 +1575,7 @@ LABEL_133:
         *v18 = 1;
       }
 
-      v38 = *(a7 + 48);
+      v38 = a7[6];
       if (v38)
       {
         v39 = *v38;
@@ -1467,7 +1643,7 @@ LABEL_133:
           *&v76[34] = 1024;
           *&v76[36] = 2093;
           _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          v38 = *(a7 + 48);
+          v38 = a7[6];
           v39 = *v38;
         }
 
@@ -1488,7 +1664,7 @@ LABEL_133:
             *&v76[28] = 1024;
             *&v76[30] = 2093;
             _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-            v38 = *(a7 + 48);
+            v38 = a7[6];
           }
 
           ++adv_update_finalized;
@@ -1496,17 +1672,17 @@ LABEL_133:
         }
       }
 
-      *(a7 + 48) = 0;
+      a7[6] = 0;
       v27 = global_os_log;
     }
 
     v41 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-    if (a3)
+    if (v8)
     {
       if (v41)
       {
-        v42 = *(a7 + 64);
-        v43 = *(a7 + 72);
+        v42 = a7[8];
+        v43 = a7[9];
         v44 = *(v19 + 56);
         *buf = 136448515;
         v74 = "register_instance_completion";
@@ -1527,7 +1703,7 @@ LABEL_133:
         v82 = 2081;
         v83 = v44;
         v84 = 1024;
-        LODWORD(v85) = a3;
+        LODWORD(v85) = v8;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: registration for service %{private, mask.hash}s.%{private, mask.hash}s.%{private, mask.hash}s -> %{private, mask.hash}s failed with code %d", buf, 0x62u);
       }
 
@@ -1536,7 +1712,7 @@ LABEL_133:
         goto LABEL_74;
       }
 
-      if (a3 == -65548)
+      if (v8 == -65548)
       {
         v45 = 6;
       }
@@ -1547,7 +1723,7 @@ LABEL_133:
       }
 
       update_failed(v18, v45, 1);
-      v46 = *(a7 + 48);
+      v46 = a7[6];
       if (v46)
       {
         v47 = *v46;
@@ -1615,7 +1791,7 @@ LABEL_133:
           *&v76[34] = 1024;
           *&v76[36] = 2147;
           _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          v46 = *(a7 + 48);
+          v46 = a7[6];
           v47 = *v46;
         }
 
@@ -1636,14 +1812,14 @@ LABEL_133:
             *&v76[28] = 1024;
             *&v76[30] = 2147;
             _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-            v46 = *(a7 + 48);
+            v46 = a7[6];
           }
 
           ++adv_update_finalized;
           adv_update_finalize(v46);
         }
 
-        *(a7 + 48) = 0;
+        a7[6] = 0;
       }
 
       v50 = *v18;
@@ -1716,12 +1892,12 @@ LABEL_133:
         }
 
 LABEL_74:
-        v53 = *(a7 + 8);
+        v53 = a7[1];
         if (v53)
         {
           ioloop_dnssd_txn_cancel(v53);
-          ioloop_dnssd_txn_release_(*(a7 + 8), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2177);
-          *(a7 + 8) = 0;
+          ioloop_dnssd_txn_release_(a7[1], "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2177);
+          a7[1] = 0;
           goto LABEL_99;
         }
 
@@ -1768,8 +1944,8 @@ LABEL_98:
     {
       if (v41)
       {
-        v54 = *(a7 + 64);
-        v55 = *(a7 + 72);
+        v54 = a7[8];
+        v55 = a7[9];
         v56 = *(v19 + 56);
         *buf = 136449795;
         v74 = "register_instance_completion";
@@ -1812,7 +1988,7 @@ LABEL_98:
           goto LABEL_99;
         }
 
-        v68 = *(a7 + 64);
+        v68 = a7[8];
         *buf = 136448259;
         v74 = "register_instance_completion";
         v75 = 2160;
@@ -1843,16 +2019,16 @@ LABEL_98:
         goto LABEL_99;
       }
 
-      v57 = *(v18 + 16);
+      v57 = v18[2];
       if (v57)
       {
-        *(a7 + 112) = *(v57 + 32);
+        a7[14] = *(v57 + 32);
       }
 
-      v58 = *(v18 + 96);
-      v59 = *(v18 + 92) + 1;
-      *(v18 + 92) = v59;
-      if (*(v18 + 100) == v58 && v59 == *(v18 + 88))
+      v58 = *(v18 + 24);
+      v59 = *(v18 + 23) + 1;
+      *(v18 + 23) = v59;
+      if (*(v18 + 25) == v58 && v59 == *(v18 + 22))
       {
         srp_mdns_update_finished(v18);
       }
@@ -2187,9 +2363,9 @@ size_t srp_format_time_offset(char *a1, uint64_t a2)
   return strftime(a1, 0x1CuLL, "%F %T", &v5);
 }
 
-void adv_update_cancel(uint64_t a1)
+void adv_update_cancel(uint64_t *a1)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -2305,7 +2481,7 @@ LABEL_172:
       *v2 = 1;
     }
 
-    v15 = *(a1 + 8);
+    v15 = a1[1];
     if (v15)
     {
       v16 = *v15;
@@ -2372,7 +2548,7 @@ LABEL_172:
         v64 = 1024;
         v65 = 1048;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v15 = *(a1 + 8);
+        v15 = a1[1];
         v16 = *v15;
       }
 
@@ -2393,7 +2569,7 @@ LABEL_172:
           *&v63[28] = 1024;
           *&v63[30] = 1048;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          v15 = *(a1 + 8);
+          v15 = a1[1];
         }
 
         ++adv_host_finalized;
@@ -2401,7 +2577,7 @@ LABEL_172:
       }
     }
 
-    *(a1 + 8) = 0;
+    a1[1] = 0;
     v19 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
@@ -2634,7 +2810,7 @@ LABEL_174:
   }
 
   adv_update_free_instance_vectors(a1);
-  v32 = *(a1 + 40);
+  v32 = a1[5];
   if (v32)
   {
     if (*(v32 + 4) < 1)
@@ -2678,14 +2854,14 @@ LABEL_174:
         }
 
         ++v33;
-        v32 = *(a1 + 40);
+        v32 = a1[5];
       }
 
       while (v33 < *(v32 + 4));
     }
 
     adv_record_vec_remove_update(v32, a1);
-    v37 = *(a1 + 40);
+    v37 = a1[5];
     if (v37)
     {
       v38 = *v37;
@@ -2752,7 +2928,7 @@ LABEL_174:
         v64 = 1024;
         v65 = 1093;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v37 = *(a1 + 40);
+        v37 = a1[5];
         v38 = *v37;
       }
 
@@ -2773,7 +2949,7 @@ LABEL_174:
           *&v63[28] = 1024;
           *&v63[30] = 1093;
           _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          v37 = *(a1 + 40);
+          v37 = a1[5];
         }
 
         ++adv_record_vec_finalized;
@@ -2781,7 +2957,7 @@ LABEL_174:
       }
     }
 
-    *(a1 + 40) = 0;
+    a1[5] = 0;
   }
 
   else
@@ -2789,11 +2965,11 @@ LABEL_174:
     v34 = 0;
   }
 
-  v40 = *(a1 + 32);
+  v40 = a1[4];
   if (v40)
   {
     adv_record_vec_remove_update(v40, a1);
-    v41 = *(a1 + 32);
+    v41 = a1[4];
     if (v41)
     {
       v42 = *v41;
@@ -2860,7 +3036,7 @@ LABEL_174:
         v64 = 1024;
         v65 = 1099;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v41 = *(a1 + 32);
+        v41 = a1[4];
         v42 = *v41;
       }
 
@@ -2881,7 +3057,7 @@ LABEL_174:
           *&v63[28] = 1024;
           *&v63[30] = 1099;
           _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          v41 = *(a1 + 32);
+          v41 = a1[4];
         }
 
         ++adv_record_vec_finalized;
@@ -2889,10 +3065,10 @@ LABEL_174:
       }
     }
 
-    *(a1 + 32) = 0;
+    a1[4] = 0;
   }
 
-  v44 = *(a1 + 48);
+  v44 = a1[6];
   if (!v44)
   {
     goto LABEL_117;
@@ -2944,7 +3120,7 @@ LABEL_174:
         v64 = 1024;
         v65 = 1105;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v44 = *(a1 + 48);
+        v44 = a1[6];
         isa = v44[6].isa;
         v46 = *isa;
       }
@@ -2966,12 +3142,12 @@ LABEL_174:
           *&v63[28] = 1024;
           *&v63[30] = 1105;
           _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          isa = *(*(a1 + 48) + 48);
+          isa = *(a1[6] + 48);
         }
 
         ++adv_update_finalized;
         adv_update_finalize(isa);
-        v44 = *(a1 + 48);
+        v44 = a1[6];
       }
 
       v44[6].isa = 0;
@@ -3005,7 +3181,7 @@ LABEL_100:
   if (v2)
   {
     srp_mdns_shared_record_remove_(*(v2 + 8), v44, 1, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1115);
-    srp_mdns_shared_record_remove_(*(v2 + 8), *(a1 + 48), 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1116);
+    srp_mdns_shared_record_remove_(*(v2 + 8), a1[6], 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1116);
   }
 
   else if ((v34 & 1) == 0)
@@ -3019,10 +3195,10 @@ LABEL_100:
     }
   }
 
-  v49 = *(a1 + 48);
+  v49 = a1[6];
   if (v49 && srp_log_ref_check(v49, "adv_record", "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1118))
   {
-    v50 = *(a1 + 48);
+    v50 = a1[6];
     v51 = *v50;
     if (!*v50)
     {
@@ -3091,7 +3267,7 @@ LABEL_173:
       v64 = 1024;
       v65 = 1118;
       _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      v50 = *(a1 + 48);
+      v50 = a1[6];
       v51 = *v50;
     }
 
@@ -3112,18 +3288,18 @@ LABEL_173:
         *&v63[28] = 1024;
         *&v63[30] = 1118;
         _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-        v50 = *(a1 + 48);
+        v50 = a1[6];
       }
 
       ++adv_record_finalized;
       adv_record_finalize(v50);
-      v50 = *(a1 + 48);
+      v50 = a1[6];
     }
 
     srp_log_ref_final(v50, v53, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1118);
   }
 
-  *(a1 + 48) = 0;
+  a1[6] = 0;
 LABEL_117:
   if (!v2)
   {
@@ -3340,9 +3516,9 @@ void delete_host(uint64_t a1)
   }
 }
 
-void *host_ready(uint64_t a1)
+void *host_ready(int *a1)
 {
-  v2 = (*(a1 + 8) + 8);
+  v2 = (*(a1 + 1) + 8);
   do
   {
     result = v2;
@@ -3362,12 +3538,12 @@ void *host_ready(uint64_t a1)
   while (!v5);
   if (v4)
   {
-    if (*(a1 + 40))
+    if (*(a1 + 5))
     {
       v6 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 56);
+        v7 = *(a1 + 7);
         *buf = 136446723;
         *&buf[4] = "host_ready";
         *&buf[12] = 2160;
@@ -3377,7 +3553,7 @@ void *host_ready(uint64_t a1)
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: reached with pending updates on host %{private, mask.hash}s.", buf, 0x20u);
       }
 
-      ioloop_add_wake_event(*(a1 + 24), a1, lease_callback, srp_adv_host_context_release, 0x2710u);
+      ioloop_add_wake_event(*(a1 + 3), a1, lease_callback, srp_adv_host_context_release, 0x2710u);
       v8 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
@@ -3436,7 +3612,7 @@ void *host_ready(uint64_t a1)
       *&buf[8] = 0;
       gettimeofday(buf, 0);
       result = 0;
-      *(a1 + 248) = 1000 * *buf + *&buf[8] / 1000 + 10000;
+      *(a1 + 31) = 1000 * *buf + *&buf[8] / 1000 + 10000;
     }
   }
 
@@ -3560,8 +3736,9 @@ LABEL_16:
   }
 }
 
-void register_host_record_completion(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
+void register_host_record_completion(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int *a5)
 {
+  v6 = a4;
   if (a4 == -65563 || a4 == -65569)
   {
     v11 = srp_log_ref_check(a5, "adv_record", "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2533);
@@ -3583,7 +3760,7 @@ void register_host_record_completion(uint64_t a1, uint64_t a2, int a3, int a4, u
       *&v75[32] = 1024;
       *&v75[34] = a3;
       *&v75[38] = 1024;
-      *&v75[40] = a4;
+      *&v75[40] = v6;
       *&v75[44] = 2048;
       *&v75[46] = a5;
       *&v75[54] = 2082;
@@ -3609,7 +3786,7 @@ void register_host_record_completion(uint64_t a1, uint64_t a2, int a3, int a4, u
 
   if (a5)
   {
-    if (*(a5 + 8) != a2 && *(a5 + 32) != a2)
+    if (*(a5 + 1) != a2 && *(a5 + 4) != a2)
     {
       v14 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
@@ -3627,7 +3804,7 @@ LABEL_27:
       return;
     }
 
-    v16 = *(a5 + 16);
+    v16 = *(a5 + 2);
     v17 = global_os_log;
     if (!v16)
     {
@@ -3703,12 +3880,12 @@ LABEL_142:
     }
 
     srp_log_ref_final(a5, v20, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2564);
-    if (srp_mdns_cancel_previous_record(v16, a5, a2, a4, "register"))
+    if (srp_mdns_cancel_previous_record(v16, a5, a2, v6, "register"))
     {
       goto LABEL_116;
     }
 
-    v24 = *(a5 + 48);
+    v24 = *(a5 + 6);
     if (v24)
     {
       v25 = v16[5];
@@ -3721,15 +3898,15 @@ LABEL_142:
           *v75 = 136446210;
           *&v75[4] = "register_host_record_completion";
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: registration for host record completed with invalid state.", v75, 0xCu);
-          v24 = *(a5 + 48);
+          v24 = *(a5 + 6);
         }
 
         adv_update_cancel(v24);
-        v28 = *(a5 + 48);
+        v28 = *(a5 + 6);
         if (!v28)
         {
 LABEL_45:
-          *(a5 + 48) = 0;
+          *(a5 + 6) = 0;
           srp_mdns_shared_record_remove_(v16[1], a5, 1, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2578);
           srp_mdns_shared_record_remove_(v16[1], a5, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 2579);
           goto LABEL_116;
@@ -3778,7 +3955,7 @@ LABEL_45:
             *&v75[48] = 1024;
             *&v75[50] = 2576;
             _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", v75, 0x36u);
-            v28 = *(a5 + 48);
+            v28 = *(a5 + 6);
             v29 = *v28;
           }
 
@@ -3799,7 +3976,7 @@ LABEL_45:
               *&v75[42] = 1024;
               *&v75[44] = 2576;
               _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", v75, 0x30u);
-              v28 = *(a5 + 48);
+              v28 = *(a5 + 6);
             }
 
             ++adv_update_finalized;
@@ -3888,17 +4065,17 @@ LABEL_139:
       }
     }
 
-    if (!a4)
+    if (!v6)
     {
       if (*(a5 + 76) == 1)
       {
         *(a5 + 76) = 0;
         if (v24)
         {
-          v44 = v24[24];
-          v45 = v24[25] + 1;
-          v24[25] = v45;
-          if (v45 == v44 && v24[23] == v24[22])
+          v44 = *(v24 + 24);
+          v45 = *(v24 + 25) + 1;
+          *(v24 + 25) = v45;
+          if (v45 == v44 && *(v24 + 23) == *(v24 + 22))
           {
             srp_mdns_update_finished(v24);
           }
@@ -3912,7 +4089,7 @@ LABEL_139:
         v46 = " got spurious success callback after completion.";
       }
 
-      v47 = *(a5 + 72);
+      v47 = *(a5 + 36);
       v48 = global_os_log;
       v49 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
       switch(v47)
@@ -3924,7 +4101,7 @@ LABEL_139:
           }
 
           v62 = v16[7];
-          v63 = *(a5 + 64);
+          v63 = *(a5 + 8);
           v64 = *v63;
           if ((v64 & 0xFE) == 0xFC)
           {
@@ -4004,7 +4181,7 @@ LABEL_139:
           }
 
           v50 = v16[7];
-          v51 = *(a5 + 64);
+          v51 = *(a5 + 8);
           *v75 = 136447747;
           *&v75[4] = "register_host_record_completion";
           *&v75[12] = 2160;
@@ -4247,7 +4424,7 @@ LABEL_136:
       goto LABEL_139;
     }
 
-    v36 = *(a5 + 72);
+    v36 = *(a5 + 36);
     v37 = global_os_log;
     v38 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
     switch(v36)
@@ -4256,7 +4433,7 @@ LABEL_136:
         if (v38)
         {
           v56 = v16[7];
-          v57 = *(a5 + 64);
+          v57 = *(a5 + 8);
           v58 = *v57;
           if ((v58 & 0xFE) == 0xFC)
           {
@@ -4305,7 +4482,7 @@ LABEL_136:
           v86 = 2097;
           v87 = v57 + 8;
           v88 = 1024;
-          LODWORD(v89) = a4;
+          LODWORD(v89) = v6;
           v41 = "%{public}s: registration for host %{private, mask.hash}s address {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P} failed, error code = %d.";
           v42 = v37;
           v43 = 126;
@@ -4324,7 +4501,7 @@ LABEL_136:
           *&v75[22] = 2081;
           *&v75[24] = v55;
           *&v75[32] = 1024;
-          *&v75[34] = a4;
+          *&v75[34] = v6;
           v41 = "%{public}s: registration for host %{private, mask.hash}s key failed, error code = %d.";
           v42 = v37;
           v43 = 38;
@@ -4336,7 +4513,7 @@ LABEL_136:
         if (v38)
         {
           v39 = v16[7];
-          v40 = *(a5 + 64);
+          v40 = *(a5 + 8);
           *v75 = 136447747;
           *&v75[4] = "register_host_record_completion";
           *&v75[12] = 2160;
@@ -4350,7 +4527,7 @@ LABEL_136:
           *&v75[48] = 2097;
           *&v75[50] = v40;
           *&v75[58] = 1024;
-          *&v75[60] = a4;
+          *&v75[60] = v6;
           v41 = "%{public}s: registration for host %{private, mask.hash}s address %{private, mask.hash, network:in_addr}.4P failed, error code = %d.";
           v42 = v37;
           v43 = 64;
@@ -4372,7 +4549,7 @@ LABEL_92:
           *&v75[32] = 1024;
           *&v75[34] = v36;
           *&v75[38] = 1024;
-          *&v75[40] = a4;
+          *&v75[40] = v6;
           v41 = "%{public}s: registration for host %{private, mask.hash}s unknown record type %d failed, error code = %d.";
           v42 = v37;
           v43 = 44;
@@ -4384,7 +4561,7 @@ LABEL_92:
 
     if (v24)
     {
-      if (a4 == -65548)
+      if (v6 == -65548)
       {
         v67 = 6;
       }
@@ -5077,7 +5254,7 @@ LABEL_16:
   }
 }
 
-void lease_callback(uint64_t a1)
+void lease_callback(int *a1)
 {
   *v48 = 0;
   *&v48[8] = 0;
@@ -5104,7 +5281,7 @@ void lease_callback(uint64_t a1)
   v7 = 1000 * v2 + v3 / 1000;
   if (v6)
   {
-    v8 = *(a1 + 48);
+    v8 = *(a1 + 6);
     *v48 = 136446723;
     *&v48[4] = "lease_callback";
     *&v48[12] = 2160;
@@ -5114,7 +5291,7 @@ void lease_callback(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: host %{private, mask.hash}s", v48, 0x20u);
   }
 
-  if (*(a1 + 248) < v7)
+  if (*(a1 + 31) < v7)
   {
     delete_host(a1);
     return;
@@ -5123,7 +5300,7 @@ void lease_callback(uint64_t a1)
   v11 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 48);
+    v12 = *(a1 + 6);
     *v48 = 136446723;
     *&v48[4] = "lease_callback";
     *&v48[12] = 2160;
@@ -5133,7 +5310,7 @@ void lease_callback(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: host %{private, mask.hash}s is still alive", v48, 0x20u);
   }
 
-  v13 = *(a1 + 104);
+  v13 = *(a1 + 13);
   if (!v13)
   {
     v36 = global_os_log;
@@ -5155,7 +5332,7 @@ LABEL_40:
   if (v14 <= 0)
   {
     v32 = 0;
-    v30 = *(a1 + 248);
+    v30 = *(a1 + 31);
   }
 
   else
@@ -5173,7 +5350,7 @@ LABEL_40:
         {
           if (v19)
           {
-            v27 = *(a1 + 48);
+            v27 = *(a1 + 6);
             v28 = *(v16 + 8);
             v29 = *(v16 + 9);
             *v48 = 136447747;
@@ -5198,7 +5375,7 @@ LABEL_40:
         {
           if (v19)
           {
-            v20 = *(a1 + 48);
+            v20 = *(a1 + 6);
             v21 = *(v16 + 8);
             v22 = *(v16 + 9);
             *v48 = 136447747;
@@ -5225,7 +5402,7 @@ LABEL_40:
             ioloop_dnssd_txn_release_(v23, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/srp-mdns-proxy.c", 1406);
           }
 
-          *(*(*(a1 + 104) + 8) + 8 * v15) = 0;
+          *(*(*(a1 + 13) + 8) + 8 * v15) = 0;
           v24 = *v16;
           if (!*v16)
           {
@@ -5323,12 +5500,12 @@ LABEL_61:
       }
 
       ++v15;
-      v13 = *(a1 + 104);
+      v13 = *(a1 + 13);
       v14 = *(v13 + 4);
     }
 
     while (v15 < v14);
-    v30 = *(a1 + 248);
+    v30 = *(a1 + 31);
     if (v14 < 1)
     {
       v32 = 0;
@@ -5351,7 +5528,7 @@ LABEL_61:
             v30 = v35;
           }
 
-          v13 = *(a1 + 104);
+          v13 = *(a1 + 13);
         }
 
         ++v31;
@@ -5365,7 +5542,7 @@ LABEL_61:
   v37 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = *(a1 + 48);
+    v38 = *(a1 + 6);
     *v48 = 136446979;
     *&v48[4] = "lease_callback";
     *&v48[12] = 2160;
@@ -5375,7 +5552,7 @@ LABEL_61:
     *&v48[32] = 1024;
     *&v48[34] = v14 - v32;
     _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}s: host %{private, mask.hash}s lost %d instances", v48, 0x26u);
-    v13 = *(a1 + 104);
+    v13 = *(a1 + 13);
   }
 
   *(v13 + 4) = v32;
@@ -5389,7 +5566,7 @@ LABEL_61:
     v39 = v30 - v7;
   }
 
-  ioloop_add_wake_event(*(a1 + 24), a1, lease_callback, srp_adv_host_context_release, v39);
+  ioloop_add_wake_event(*(a1 + 3), a1, lease_callback, srp_adv_host_context_release, v39);
   v40 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -6321,15 +6498,15 @@ LABEL_63:
   }
 }
 
-void service_publisher_re_advertise_record(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void service_publisher_re_advertise_record(uint64_t a1, uint64_t a2, int *a3, char a4)
 {
   v7 = *(a2 + 8);
   v8 = *(*(v7 + 16) + 8);
-  v9 = (a3 + 8);
-  v10 = *(a3 + 8);
+  v9 = (a3 + 2);
+  v10 = *(a3 + 1);
   if (v10)
   {
-    if (*(a3 + 24) == *(a1 + 16))
+    if (*(a3 + 3) == *(a1 + 16))
     {
       if ((a4 & 1) == 0)
       {
@@ -6373,7 +6550,7 @@ void service_publisher_re_advertise_record(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v15 = srp_message_tsr_attribute_generate(0, *(a2 + 176), v26 + 4);
-  v16 = DNSServiceRegisterRecordWithAttribute(v8, v9, *(a1 + 368), *(a2 + 56), *(a3 + 72), *(a3 + 74), *(a3 + 64), v15, service_publisher_record_callback, a3, v26[0], v26[1], v26[2]);
+  v16 = DNSServiceRegisterRecordWithAttribute(v8, v9, *(a1 + 368), *(a2 + 56), *(a3 + 36), *(a3 + 37), *(a3 + 8), v15, service_publisher_record_callback, a3, v26[0], v26[1], v26[2]);
   v17 = global_os_log;
   v18 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
   if (v16)
@@ -6398,7 +6575,7 @@ void service_publisher_re_advertise_record(uint64_t a1, uint64_t a2, uint64_t a3
     if (v18)
     {
       v20 = *(a2 + 48);
-      v21 = *(a3 + 8);
+      v21 = *(a3 + 1);
       *buf = 136447234;
       v28 = "service_publisher_re_advertise_record";
       v29 = 2082;
@@ -6413,7 +6590,7 @@ void service_publisher_re_advertise_record(uint64_t a1, uint64_t a2, uint64_t a3
       v17 = global_os_log;
     }
 
-    *(a3 + 24) = *(*(a2 + 8) + 16);
+    *(a3 + 3) = *(*(a2 + 8) + 16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v22 = *a3;
@@ -8012,7 +8189,7 @@ LABEL_9:
   return 4;
 }
 
-void service_publisher_queue_update(void *a1, int *a2, int a3)
+void service_publisher_queue_update(int *a1, int *a2, int a3)
 {
   v4 = a2[5];
   if ((v4 - 2) >= 3)
@@ -8020,7 +8197,7 @@ void service_publisher_queue_update(void *a1, int *a2, int a3)
     v14 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
     {
-      v15 = a1[9];
+      v15 = *(a1 + 9);
       v16 = 136446722;
       v17 = "service_publisher_queue_update";
       v18 = 2082;
@@ -8033,13 +8210,13 @@ void service_publisher_queue_update(void *a1, int *a2, int a3)
 
   else
   {
-    v7 = a1[14];
+    v7 = *(a1 + 14);
     if (thread_service_equal(v7, a2))
     {
       v8 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
       {
-        v9 = a1[9];
+        v9 = *(a1 + 9);
         v16 = 136446722;
         v17 = "service_publisher_queue_update";
         v18 = 2082;
@@ -8053,23 +8230,23 @@ void service_publisher_queue_update(void *a1, int *a2, int a3)
     a2[8] = a3;
     if (a3 == 6)
     {
-      v10 = a1[14];
+      v10 = *(a1 + 14);
       if (v10)
       {
         thread_service_release_(v10, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 661);
       }
 
-      a1[14] = a2;
+      *(a1 + 14) = a2;
       thread_service_retain_(a2, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 664);
-      *(a1[10] + 423) = 1;
+      *(*(a1 + 10) + 423) = 1;
     }
 
-    v11 = (a1 + 16);
+    v11 = a1 + 32;
     do
     {
       v12 = v11;
       v13 = *v11;
-      v11 = (*v11 + 2);
+      v11 = (*v11 + 8);
     }
 
     while (v13);
@@ -8079,9 +8256,9 @@ void service_publisher_queue_update(void *a1, int *a2, int a3)
   }
 }
 
-void service_publisher_start_wait(uint64_t a1, unsigned int a2)
+void service_publisher_start_wait(int *a1, unsigned int a2)
 {
-  ioloop_add_wake_event(*(a1 + 88), a1, service_publisher_wait_expired, service_publisher_context_release, a2);
+  ioloop_add_wake_event(*(a1 + 11), a1, service_publisher_wait_expired, service_publisher_context_release, a2);
   v3 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -8137,13 +8314,13 @@ void service_publisher_start_wait(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t service_publisher_can_publish(uint64_t a1)
+uint64_t service_publisher_can_publish(int *a1)
 {
-  v2 = *(a1 + 80);
+  v2 = *(a1 + 10);
   v3 = "";
-  if (*(a1 + 144) == 2)
+  if (a1[36] == 2)
   {
-    if (*(a1 + 136))
+    if (*(a1 + 17))
     {
       v4 = "";
     }
@@ -8224,7 +8401,7 @@ uint64_t service_publisher_can_publish(uint64_t a1)
     v15 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 72);
+      v16 = *(a1 + 9);
       *buf = 136446466;
       v59 = "service_publisher_can_publish";
       v60 = 2082;
@@ -8352,12 +8529,12 @@ LABEL_40:
   v52 = v9;
   if (*(v2 + 320))
   {
-    v26 = *(a1 + 96);
+    v26 = *(a1 + 12);
     if (v26)
     {
       ioloop_cancel_wake_event(v26);
-      ioloop_wakeup_release_(*(a1 + 96), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 1497);
-      *(a1 + 96) = 0;
+      ioloop_wakeup_release_(*(a1 + 12), "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 1497);
+      *(a1 + 12) = 0;
     }
 
     v27 = "";
@@ -8367,10 +8544,10 @@ LABEL_40:
   {
     if ((HIDWORD(v57) | v56 | v57) == 1)
     {
-      if (!*(a1 + 96))
+      if (!*(a1 + 12))
       {
         v28 = ioloop_wakeup_create_("/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/service-publisher.c", 1484);
-        *(a1 + 96) = v28;
+        *(a1 + 12) = v28;
         ioloop_add_wake_event(v28, a1, service_publisher_sed_timeout_expired, service_publisher_context_release, 0x1F4u);
         v29 = global_os_log;
         if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
@@ -8434,7 +8611,7 @@ LABEL_40:
     v27 = " / no neighbor ";
   }
 
-  v34 = *(a1 + 144);
+  v34 = a1[36];
   if (v34 == 3)
   {
     if (*(v2 + 422) == 1)
@@ -8468,7 +8645,7 @@ LABEL_78:
   v36 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = *(a1 + 72);
+    v37 = *(a1 + 9);
     v38 = *(a1 + 162);
     v39 = ": can't publish";
     v40 = *(a1 + 163);
@@ -8637,7 +8814,6 @@ uint64_t service_publisher_stale_service_present(uint64_t a1)
     }
 
     v7 = *(a1 + 112);
-    v8 = *(v1 + 417);
     if (v7)
     {
       break;
@@ -8981,9 +9157,9 @@ LABEL_17:
   }
 }
 
-void service_publisher_queue_run(uint64_t a1)
+void service_publisher_queue_run(int *a1)
 {
-  v2 = *(a1 + 128);
+  v2 = *(a1 + 16);
   if (!v2)
   {
     v12 = global_os_log;
@@ -8992,7 +9168,7 @@ void service_publisher_queue_run(uint64_t a1)
       return;
     }
 
-    v13 = *(a1 + 72);
+    v13 = *(a1 + 9);
     *buf = 136446466;
     v31 = "service_publisher_queue_run";
     v32 = 2082;
@@ -9010,7 +9186,7 @@ void service_publisher_queue_run(uint64_t a1)
       return;
     }
 
-    v14 = *(a1 + 72);
+    v14 = *(a1 + 9);
     *buf = 136446466;
     v31 = "service_publisher_queue_run";
     v32 = 2082;
@@ -9025,7 +9201,7 @@ LABEL_12:
 
   if (v3 == 6)
   {
-    v15 = service_publisher_service_update(a1, *(a1 + 128), 1);
+    v15 = service_publisher_service_update(a1, *(a1 + 16), 1);
     if (!v15)
     {
       *(v2 + 32) = 4;
@@ -9091,7 +9267,7 @@ LABEL_38:
     v17 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 72);
+      v18 = *(a1 + 9);
       *buf = 136446722;
       v31 = "service_publisher_queue_run";
       v32 = 2082;
@@ -9101,7 +9277,7 @@ LABEL_38:
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}s: %{public}s cti_add_service failed: %d", buf, 0x1Cu);
     }
 
-    *(a1 + 128) = *(v2 + 8);
+    *(a1 + 16) = *(v2 + 8);
     v19 = v2;
     v20 = 626;
 LABEL_22:
@@ -9122,14 +9298,14 @@ LABEL_22:
     }
 
     snprintf(buf, 0x100uLL, "is in unexpected state %s on the publication queue", v21);
-    thread_service_note(*(a1 + 72), v2, buf);
-    *(a1 + 128) = *(v2 + 8);
+    thread_service_note(*(a1 + 9), v2, buf);
+    *(a1 + 16) = *(v2 + 8);
     v19 = v2;
     v20 = 637;
     goto LABEL_22;
   }
 
-  v4 = service_publisher_service_update(a1, *(a1 + 128), 0);
+  v4 = service_publisher_service_update(a1, *(a1 + 16), 0);
   if (!v4)
   {
     *(v2 + 32) = 5;
@@ -9190,7 +9366,7 @@ LABEL_22:
   v6 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 72);
+    v7 = *(a1 + 9);
     *buf = 136446722;
     v31 = "service_publisher_queue_run";
     v32 = 2082;
@@ -10691,10 +10867,10 @@ uint64_t service_publisher_action_waiting_to_publish(uint64_t a1, uint64_t a2)
     {
       if (v6)
       {
-        v7 = v4[5];
-        v8 = v4[1];
+        v7 = *(v4 + 5);
+        v8 = *(v4 + 1);
         v9 = *(a2 + 8);
-        v10 = v4[3];
+        v10 = *(v4 + 3);
         v16 = 136447491;
         v17 = "service_publisher_action_waiting_to_publish";
         v18 = 2082;
@@ -10715,7 +10891,7 @@ uint64_t service_publisher_action_waiting_to_publish(uint64_t a1, uint64_t a2)
 LABEL_13:
         if (service_publisher_can_publish(v4))
         {
-          ioloop_cancel_wake_event(v4[11]);
+          ioloop_cancel_wake_event(*(v4 + 11));
           return 4;
         }
 
@@ -10724,7 +10900,7 @@ LABEL_13:
           result = service_publisher_have_competing_unicast_service(v4);
           if (result)
           {
-            ioloop_cancel_wake_event(v4[11]);
+            ioloop_cancel_wake_event(*(v4 + 11));
             return 3;
           }
         }
@@ -10735,9 +10911,9 @@ LABEL_13:
 
     else if (v6)
     {
-      v13 = v4[5];
-      v14 = v4[1];
-      v15 = v4[3];
+      v13 = *(v4 + 5);
+      v14 = *(v4 + 1);
+      v15 = *(v4 + 3);
       v16 = 136447235;
       v17 = "service_publisher_action_waiting_to_publish";
       v18 = 2082;
@@ -10984,7 +11160,7 @@ LABEL_15:
   }
 }
 
-void make_delete(void *a1, void *a2, uint64_t **a3, uint64_t **a4)
+void make_delete(void *a1, void *a2, uint64_t **a3, uint64_t ***a4)
 {
   if (*a3)
   {
@@ -11196,10 +11372,10 @@ LABEL_18:
   }
 }
 
-void srp_dns_evaluate(uint64_t a1, uint64_t a2, uint64_t a3)
+void srp_dns_evaluate(uint64_t *a1, uint64_t a2, unsigned __int16 *a3)
 {
   v4 = buf;
-  v5 = *(a3 + 90);
+  v5 = a3[45];
   if ((v5 & 0x80) != 0)
   {
     v8 = global_os_log;
@@ -11255,9 +11431,9 @@ LABEL_16:
     goto LABEL_467;
   }
 
-  v12 = a3 + 88;
-  v13 = *(a3 + 64);
-  v456 = (a3 + 88);
+  v12 = a3 + 44;
+  v13 = a3[32];
+  v456 = a3 + 44;
   if (v13 < 3 || (v5 & 0x7C) != 0x2C)
   {
     goto LABEL_394;
@@ -11267,8 +11443,8 @@ LABEL_16:
   memset(v471, 0, 64);
   memset(&v465[24], 0, 32);
   v466 = 0;
-  *v465 = a3 + 88;
-  *&v465[8] = a3 + 88;
+  *v465 = a3 + 44;
+  *&v465[8] = a3 + 44;
   v3 = v12 + v13;
   *&v465[16] = v12 + v13;
   v15 = malloc_type_malloc(0x2710uLL, 0x6C4BE4C0uLL);
@@ -11319,7 +11495,7 @@ LABEL_16:
     *v472 = dns_pres_name_parse("default.service.arpa.");
   }
 
-  if ((v17 & 2) != 0 && !srpk_integer_from_wire_max_(v465, &v474, 127, 128, 869))
+  if ((v17 & 2) != 0 && !srpk_integer_from_wire_max_(v465, &v474, 0x7Fu, 128, 869))
   {
     goto LABEL_393;
   }
@@ -11451,7 +11627,7 @@ LABEL_40:
         else if ((v34 & 0x20) != 0)
         {
 LABEL_47:
-          srpk_integer_from_wire_max_(v465, &v463, 127, 128, 696);
+          srpk_integer_from_wire_max_(v465, &v463, 0x7Fu, 128, 696);
           if ((v34 & 0x10) == 0)
           {
             goto LABEL_81;
@@ -11472,7 +11648,7 @@ LABEL_83:
             v460 = 0;
             v461 = 0;
             v459 = 0;
-            if (srpk_integer_from_wire_max_(v465, &v461, 127, 128, 738) && ((v34 & 4) == 0 || srpk_integer_from_wire_max_(v465, &v460, 127, 128, 741)))
+            if (srpk_integer_from_wire_max_(v465, &v461, 0x7Fu, 128, 738) && ((v34 & 4) == 0 || srpk_integer_from_wire_max_(v465, &v460, 0x7Fu, 128, 741)))
             {
               if ((v34 & 2) == 0)
               {
@@ -11481,7 +11657,7 @@ LABEL_83:
                 goto LABEL_215;
               }
 
-              if (srpk_integer_from_wire_max_(v465, &v459, 127, 128, 744))
+              if (srpk_integer_from_wire_max_(v465, &v459, 0x7Fu, 128, 744))
               {
                 v65 = v459;
                 v66 = v459 >> 8;
@@ -11856,7 +12032,7 @@ LABEL_298:
                                     if (**&v465[8] < 0)
                                     {
                                       v464 = 0;
-                                      if (srpk_integer_from_wire_max_(v465, &v464, 63, 64, 637))
+                                      if (srpk_integer_from_wire_max_(v465, &v464, 0x3Fu, 64, 637))
                                       {
                                         v204 = v464;
                                         v205 = global_os_log;
@@ -11946,7 +12122,7 @@ LABEL_298:
                                       srpk_label_cache_(v465, 5, 660);
                                       v201 = v200;
                                       *v468 = 0;
-                                      if (srpk_integer_from_wire_max_(v465, v468, 63, 64, 662))
+                                      if (srpk_integer_from_wire_max_(v465, v468, 0x3Fu, 64, 662))
                                       {
                                         v202 = *v468;
                                         if (srpk_space_(*&v465[8], *&v465[16], *v468, 665))
@@ -12267,7 +12443,7 @@ LABEL_119:
         }
 
 LABEL_80:
-        srpk_integer_from_wire_max_(v465, &v462, 127, 128, 701);
+        srpk_integer_from_wire_max_(v465, &v462, 0x7Fu, 128, 701);
         goto LABEL_81;
       }
 
@@ -12514,7 +12690,7 @@ LABEL_140:
         }
       }
 
-      if (!srpk_integer_from_wire_max_(v465, v468, 127, 128, 445))
+      if (!srpk_integer_from_wire_max_(v465, v468, 0x7Fu, 128, 445))
       {
         v138 = global_os_log;
         if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
@@ -12788,7 +12964,7 @@ LABEL_196:
     }
 
 LABEL_147:
-    if (srpk_integer_from_wire_max_(v465, &v464, 127, 128, 513))
+    if (srpk_integer_from_wire_max_(v465, &v464, 0x7Fu, 128, 513))
     {
       v37 = v464;
 LABEL_149:
@@ -13018,7 +13194,7 @@ LABEL_332:
   }
 
   v458 = 0;
-  if ((v221 & 0x10) != 0 && !srpk_integer_from_wire_max_(v465, &v458, 127, 128, 938))
+  if ((v221 & 0x10) != 0 && !srpk_integer_from_wire_max_(v465, &v458, 0x7Fu, 128, 938))
   {
     goto LABEL_393;
   }
@@ -13026,7 +13202,7 @@ LABEL_332:
   v457 = 0;
   if ((v221 & 8) != 0)
   {
-    if (!srpk_integer_from_wire_max_(v465, &v457, 127, 128, 944))
+    if (!srpk_integer_from_wire_max_(v465, &v457, 0x7Fu, 128, 944))
     {
       goto LABEL_393;
     }
@@ -15275,7 +15451,7 @@ LABEL_504:
   srp_update_start();
 }
 
-uint64_t send_fail_response(uint64_t a1, uint64_t a2, unsigned int a3)
+BOOL send_fail_response(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
   v41 = 0u;
   v42 = 0u;

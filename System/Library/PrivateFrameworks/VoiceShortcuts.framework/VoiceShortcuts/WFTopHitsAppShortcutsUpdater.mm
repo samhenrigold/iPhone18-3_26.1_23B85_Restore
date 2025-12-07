@@ -40,7 +40,7 @@
 
 void __73__WFTopHitsAppShortcutsUpdater_registerForUpcomingMediaSuggestionChanged__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -60,45 +60,43 @@ void __73__WFTopHitsAppShortcutsUpdater_registerForUpcomingMediaSuggestionChange
         v9 = getWFTopHitsLogObject();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 136315394;
-          v12 = "[WFTopHitsAppShortcutsUpdater registerForUpcomingMediaSuggestionChanged]_block_invoke";
-          v13 = 2112;
-          v14 = v8;
-          _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Received media suggestion update for %@, triggering update", &v11, 0x16u);
+          v10 = 136315394;
+          v11 = "[WFTopHitsAppShortcutsUpdater registerForUpcomingMediaSuggestionChanged]_block_invoke";
+          v12 = 2112;
+          v13 = v8;
+          _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Received media suggestion update for %@, triggering update", &v10, 0x16u);
         }
 
         [v2 updateWithCompletion:&__block_literal_global_214_7434];
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = getWFTopHitsLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]";
+    v13 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]";
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s Attempting App Shortcuts update", buf, 0xCu);
   }
 
   v5 = [MEMORY[0x277D23BB0] policyWithBundleIdentifier:*MEMORY[0x277D7A2D8]];
-  v12 = 0;
-  v6 = [v5 connectionWithError:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [v5 connectionWithError:&v11];
+  v7 = v11;
   if (v6)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __54__WFTopHitsAppShortcutsUpdater__updateWithCompletion___block_invoke;
-    v10[3] = &unk_2789001E0;
-    v11 = completionCopy;
-    [v6 updateAppShortcutParametersWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __54__WFTopHitsAppShortcutsUpdater__updateWithCompletion___block_invoke;
+    v9[3] = &unk_2789001E0;
+    v10 = completionCopy;
+    [v6 updateAppShortcutParametersWithCompletionHandler:v9];
   }
 
   else
@@ -107,21 +105,19 @@ void __73__WFTopHitsAppShortcutsUpdater_registerForUpcomingMediaSuggestionChange
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]";
-      v15 = 2112;
-      v16 = v7;
+      v13 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]";
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_ERROR, "%s App Shortcuts update connection failed: %@", buf, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, v7);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WFTopHitsAppShortcutsUpdater__updateWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = getWFTopHitsLogObject();
   v5 = v4;
@@ -129,23 +125,23 @@ void __54__WFTopHitsAppShortcutsUpdater__updateWithCompletion___block_invoke(uin
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]_block_invoke";
-      v15 = 2112;
-      v16 = v3;
+      v12 = 136315394;
+      v13 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]_block_invoke";
+      v14 = 2112;
+      v15 = v3;
       v6 = "%s App Shortcuts update failed: %@";
       v7 = v5;
       v8 = OS_LOG_TYPE_ERROR;
       v9 = 22;
 LABEL_6:
-      _os_log_impl(&dword_23103C000, v7, v8, v6, &v13, v9);
+      _os_log_impl(&dword_23103C000, v7, v8, v6, &v12, v9);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]_block_invoke";
+    v12 = 136315138;
+    v13 = "[WFTopHitsAppShortcutsUpdater _updateWithCompletion:]_block_invoke";
     v6 = "%s App Shortcuts update completed";
     v7 = v5;
     v8 = OS_LOG_TYPE_DEFAULT;
@@ -154,7 +150,6 @@ LABEL_6:
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3, v10, v11);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithCompletion:(id)completion
@@ -184,37 +179,35 @@ void __53__WFTopHitsAppShortcutsUpdater_updateWithCompletion___block_invoke(uint
 
 - (void)handleFavoriteCallsUpdate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = getWFTopHitsLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[WFTopHitsAppShortcutsUpdater handleFavoriteCallsUpdate]";
-    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Got favorite calls updated notification, triggering App Shortcuts update", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFTopHitsAppShortcutsUpdater handleFavoriteCallsUpdate]";
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Got favorite calls updated notification, triggering App Shortcuts update", &v4, 0xCu);
   }
 
   [(WFTopHitsAppShortcutsUpdater *)self updateWithCompletion:&__block_literal_global_197];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRecentCallsUpdate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = getWFTopHitsLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[WFTopHitsAppShortcutsUpdater handleRecentCallsUpdate]";
-    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Got recent calls updated notification, triggering App Shortcuts update", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFTopHitsAppShortcutsUpdater handleRecentCallsUpdate]";
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Got recent calls updated notification, triggering App Shortcuts update", &v4, 0xCu);
   }
 
   [(WFTopHitsAppShortcutsUpdater *)self updateWithCompletion:&__block_literal_global_195];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationRegistered:(id)registered
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   registeredCopy = registered;
   userInfo = [registeredCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"isPlaceholder"];
@@ -265,21 +258,19 @@ void __53__WFTopHitsAppShortcutsUpdater_updateWithCompletion___block_invoke(uint
       v15 = getWFTopHitsLogObject();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 136315138;
-        v18 = "[WFTopHitsAppShortcutsUpdater applicationRegistered:]";
-        _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Shortcuts app installed, triggering App Shortcuts update", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "[WFTopHitsAppShortcutsUpdater applicationRegistered:]";
+        _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Shortcuts app installed, triggering App Shortcuts update", &v16, 0xCu);
       }
 
       [(WFTopHitsAppShortcutsUpdater *)self updateWithCompletion:&__block_literal_global_193];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   xpcEventHandler = [(WFTopHitsAppShortcutsUpdater *)self xpcEventHandler];
   [xpcEventHandler addObserver:self selector:sel_applicationRegistered_ name:@"ApplicationRegistered"];
 
@@ -291,12 +282,12 @@ void __53__WFTopHitsAppShortcutsUpdater_updateWithCompletion___block_invoke(uint
 
   [(WFTopHitsAppShortcutsUpdater *)self registerForUpcomingMediaSuggestionChanged];
   v6 = [[WFXPCActivityScheduler alloc] initWithActivityIdentifier:@"com.apple.siriactionsd.UpdateAppShortcutsCheckIn"];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __37__WFTopHitsAppShortcutsUpdater_start__block_invoke;
-  v14[3] = &unk_278900208;
-  v14[4] = self;
-  [(WFXPCActivityScheduler *)v6 scheduleWithRunHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __37__WFTopHitsAppShortcutsUpdater_start__block_invoke;
+  v13[3] = &unk_278900208;
+  v13[4] = self;
+  [(WFXPCActivityScheduler *)v6 scheduleWithRunHandler:v13];
   lastAppShortcutUpdateDate = [MEMORY[0x277CBEBD0] lastAppShortcutUpdateDate];
   if (lastAppShortcutUpdateDate && (v8 = objc_opt_new(), [v8 timeIntervalSinceDate:lastAppShortcutUpdateDate], v10 = v9, v8, v10 <= 3600.0))
   {
@@ -304,9 +295,9 @@ void __53__WFTopHitsAppShortcutsUpdater_updateWithCompletion___block_invoke(uint
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v16 = "[WFTopHitsAppShortcutsUpdater start]";
-      v17 = 2112;
-      v18 = lastAppShortcutUpdateDate;
+      v15 = "[WFTopHitsAppShortcutsUpdater start]";
+      v16 = 2112;
+      v17 = lastAppShortcutUpdateDate;
       _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_DEFAULT, "%s Last update at: %@ was within the past hour, ignoring initial update", buf, 0x16u);
     }
   }
@@ -317,46 +308,43 @@ void __53__WFTopHitsAppShortcutsUpdater_updateWithCompletion___block_invoke(uint
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v16 = "[WFTopHitsAppShortcutsUpdater start]";
-      v17 = 2112;
-      v18 = lastAppShortcutUpdateDate;
+      v15 = "[WFTopHitsAppShortcutsUpdater start]";
+      v16 = 2112;
+      v17 = lastAppShortcutUpdateDate;
       _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s Last update at: %@ was more than an hour ago, performing initial App Shortcuts update", buf, 0x16u);
     }
 
     [(WFTopHitsAppShortcutsUpdater *)self updateWithCompletion:&__block_literal_global_7462];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__WFTopHitsAppShortcutsUpdater_start__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = getWFTopHitsLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
+    v12 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
     _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEFAULT, "%s Triggering scheduled App Shortcuts update", buf, 0xCu);
   }
 
   v6 = *(a1 + 32);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __37__WFTopHitsAppShortcutsUpdater_start__block_invoke_178;
-  v10[3] = &unk_2789001E0;
-  v11 = v4;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __37__WFTopHitsAppShortcutsUpdater_start__block_invoke_178;
+  v9[3] = &unk_2789001E0;
+  v10 = v4;
   v7 = v4;
-  [v6 updateWithCompletion:v10];
+  [v6 updateWithCompletion:v9];
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void __37__WFTopHitsAppShortcutsUpdater_start__block_invoke_183(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = getWFTopHitsLogObject();
   v4 = v3;
@@ -364,31 +352,29 @@ void __37__WFTopHitsAppShortcutsUpdater_start__block_invoke_183(uint64_t a1, voi
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
-      v12 = 2114;
-      v13 = v2;
+      v9 = 136315394;
+      v10 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
+      v11 = 2114;
+      v12 = v2;
       v5 = "%s Initial App Shortcuts update completed with error: %{public}@";
       v6 = v4;
       v7 = OS_LOG_TYPE_ERROR;
       v8 = 22;
 LABEL_6:
-      _os_log_impl(&dword_23103C000, v6, v7, v5, &v10, v8);
+      _os_log_impl(&dword_23103C000, v6, v7, v5, &v9, v8);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
+    v9 = 136315138;
+    v10 = "[WFTopHitsAppShortcutsUpdater start]_block_invoke";
     v5 = "%s Initial App Shortcuts update completed!";
     v6 = v4;
     v7 = OS_LOG_TYPE_DEFAULT;
     v8 = 12;
     goto LABEL_6;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WFTopHitsAppShortcutsUpdater)initWithXPCEventHandler:(id)handler

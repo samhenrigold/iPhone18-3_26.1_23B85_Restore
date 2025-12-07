@@ -101,10 +101,7 @@ uint64_t __64___TVCarouselView__updateContentOffsetForFocusedIndex_animated___bl
 
 uint64_t __64___TVCarouselView__updateContentOffsetForFocusedIndex_animated___block_invoke_2(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CCAA70] indexPathForItem:*(a1 + 40) inSection:0];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 440);
-  *(v3 + 440) = v2;
+  *(*(a1 + 32) + 440) = [MEMORY[0x277CCAA70] indexPathForItem:*(a1 + 40) inSection:0];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -7,33 +7,30 @@
 
 - (ASDTNonSecurePathEnableProperty)initWithConfig:(id)config
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v4 = [config mutableCopy];
   [v4 setObject:&unk_285354858 forKey:@"Selector"];
-  v10[0] = @"Scope";
-  v10[1] = @"Value";
-  v11[0] = &unk_285354870;
-  v11[1] = &unk_285354888;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"Scope";
+  v9[1] = @"Value";
+  v10[0] = &unk_285354870;
+  v10[1] = &unk_285354888;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 asdtAddMissingEntriesFromDictionary:v5];
 
-  v9.receiver = self;
-  v9.super_class = ASDTNonSecurePathEnableProperty;
-  v6 = [(ASDTUInt32Property *)&v9 initWithConfig:v4];
+  v8.receiver = self;
+  v8.super_class = ASDTNonSecurePathEnableProperty;
+  v6 = [(ASDTUInt32Property *)&v8 initWithConfig:v4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (id)createForInput
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"Subclass";
-  v7[0] = @"ASDTNonSecurePathEnableProperty";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"Subclass";
+  v6[0] = @"ASDTNonSecurePathEnableProperty";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = [ASDTCustomProperty customPropertyForConfig:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

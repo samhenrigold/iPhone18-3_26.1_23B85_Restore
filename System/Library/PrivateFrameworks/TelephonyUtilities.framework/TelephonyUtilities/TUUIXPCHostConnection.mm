@@ -93,20 +93,18 @@ void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDeleg
 
 void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDelegate_queue___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for TUUIXPCHostConnection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for TUUIXPCHostConnection: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) connectionDelegate];
   [v4 connectionInvalidated:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDelegate_queue___block_invoke_95(uint64_t a1)
@@ -127,20 +125,18 @@ void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDeleg
 
 void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDelegate_queue___block_invoke_2_96(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call TUUIXPCHostConnection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call TUUIXPCHostConnection: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) connection];
   [v4 invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -178,7 +174,7 @@ void __82__TUUIXPCHostConnection_initWithConnection_hostDelegate_connectionDeleg
 
 void __62__TUUIXPCHostConnection_shouldHostHandleMRCommand_completion___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -209,7 +205,7 @@ void __62__TUUIXPCHostConnection_shouldHostHandleMRCommand_completion___block_in
 
 void __79__TUUIXPCHostConnection_shouldHostHandleMRCommand_sourceIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -236,7 +232,7 @@ void __79__TUUIXPCHostConnection_shouldHostHandleMRCommand_sourceIdentifier_comp
 
 void __59__TUUIXPCHostConnection_handleRedialCommandWhileScreening___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -263,7 +259,7 @@ void __59__TUUIXPCHostConnection_handleRedialCommandWhileScreening___block_invok
 
 void __44__TUUIXPCHostConnection_fetchInCallUIState___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -290,7 +286,7 @@ void __44__TUUIXPCHostConnection_fetchInCallUIState___block_invoke(uint64_t a1)
 
 void __50__TUUIXPCHostConnection_fetchRemoteControlStatus___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

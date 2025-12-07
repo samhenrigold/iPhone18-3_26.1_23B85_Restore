@@ -10,15 +10,15 @@
 
 + (id)filterConvergingLocations:(id)locations
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   v4 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   reverseObjectEnumerator = [locationsCopy reverseObjectEnumerator];
-  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -27,18 +27,18 @@
 
   v7 = v6;
   v8 = 0;
-  v9 = *v29;
+  v9 = *v28;
   do
   {
     v10 = 0;
     do
     {
-      if (*v29 != v9)
+      if (*v28 != v9)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v11 = *(*(&v28 + 1) + 8 * v10);
+      v11 = *(*(&v27 + 1) + 8 * v10);
       if (!v8)
       {
         goto LABEL_10;
@@ -82,7 +82,7 @@ LABEL_12:
     }
 
     while (v7 != v10);
-    v23 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v23 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
     v7 = v23;
   }
 
@@ -91,8 +91,6 @@ LABEL_19:
 
   reverseObjectEnumerator2 = [v4 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator2 allObjects];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -108,7 +106,7 @@ LABEL_19:
 
 + (id)downsampleLocations:(id)locations errorFunction:(id)function errorThreshold:(double)threshold outputSize:(unint64_t)size
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   v10 = MEMORY[0x1BFB54DD0](function);
   if (!function)
@@ -136,24 +134,22 @@ LABEL_19:
     v14 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 134218496;
+      v16 = 134218496;
       sizeCopy = size;
-      v19 = 2048;
-      v20 = [locationsCopy count];
-      v21 = 2048;
-      v22 = [v12 count];
-      _os_log_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_INFO, "RTLocationDownsampler: desired output size, %lu, input size, %lu, output size, %lu", &v17, 0x20u);
+      v18 = 2048;
+      v19 = [locationsCopy count];
+      v20 = 2048;
+      v21 = [v12 count];
+      _os_log_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_INFO, "RTLocationDownsampler: desired output size, %lu, input size, %lu, output size, %lu", &v16, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)_downsampleLocations:(id)locations errorFunction:(id)function errorThreshold:(double)threshold
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   functionCopy = function;
   v9 = functionCopy;
@@ -165,10 +161,10 @@ LABEL_19:
       goto LABEL_13;
     }
 
-    *v25 = 0;
+    *v24 = 0;
     v12 = "Invalid parameter not satisfying: locations";
 LABEL_12:
-    _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, v12, v25, 2u);
+    _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, v12, v24, 2u);
     goto LABEL_13;
   }
 
@@ -180,7 +176,7 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    *v25 = 0;
+    *v24 = 0;
     v12 = "Invalid parameter not satisfying: errorFunction";
     goto LABEL_12;
   }
@@ -190,7 +186,7 @@ LABEL_12:
     v11 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
+      *v24 = 0;
       v12 = "Invalid parameter not satisfying: errorThreshold > 0";
       goto LABEL_12;
     }
@@ -205,51 +201,51 @@ LABEL_13:
   {
     if (([locationsCopy count] - 3) > 0xFFFFFFFFFFFFFFFDLL)
     {
-      v15 = 0;
-      v16 = 0.0;
+      v14 = 0;
+      v15 = 0.0;
     }
 
     else
     {
-      v15 = 0;
-      v16 = 0.0;
-      v17 = 1;
+      v14 = 0;
+      v15 = 0.0;
+      v16 = 1;
       do
       {
-        v18 = [locationsCopy objectAtIndex:v17];
-        v19 = (v9)[2](v9, v18, locationsCopy);
-        if (v19 > v16)
+        v17 = [locationsCopy objectAtIndex:v16];
+        v18 = (v9)[2](v9, v17, locationsCopy);
+        if (v18 > v15)
         {
-          v15 = v17;
-          v16 = v19;
+          v14 = v16;
+          v15 = v18;
         }
 
-        ++v17;
+        ++v16;
       }
 
-      while (v17 < [locationsCopy count] - 1);
+      while (v16 < [locationsCopy count] - 1);
     }
 
-    if (v16 <= threshold)
+    if (v15 <= threshold)
     {
       firstObject = [locationsCopy firstObject];
-      v26[0] = firstObject;
+      v25[0] = firstObject;
       lastObject = [locationsCopy lastObject];
-      v26[1] = lastObject;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+      v25[1] = lastObject;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     }
 
     else
     {
-      v20 = [locationsCopy subarrayWithRange:{0, v15 + 1}];
-      firstObject = [RTLocationDownsampler _downsampleLocations:v20 errorFunction:v9 errorThreshold:threshold];
+      v19 = [locationsCopy subarrayWithRange:{0, v14 + 1}];
+      firstObject = [RTLocationDownsampler _downsampleLocations:v19 errorFunction:v9 errorThreshold:threshold];
 
-      v22 = [locationsCopy subarrayWithRange:{v15, objc_msgSend(locationsCopy, "count") - v15}];
-      lastObject = [RTLocationDownsampler _downsampleLocations:v22 errorFunction:v9 errorThreshold:threshold];
+      v21 = [locationsCopy subarrayWithRange:{v14, objc_msgSend(locationsCopy, "count") - v14}];
+      lastObject = [RTLocationDownsampler _downsampleLocations:v21 errorFunction:v9 errorThreshold:threshold];
 
       v10 = objc_opt_new();
-      v24 = [firstObject subarrayWithRange:{0, objc_msgSend(firstObject, "count") - 1}];
-      [v10 addObjectsFromArray:v24];
+      v23 = [firstObject subarrayWithRange:{0, objc_msgSend(firstObject, "count") - 1}];
+      [v10 addObjectsFromArray:v23];
 
       [v10 addObjectsFromArray:lastObject];
     }
@@ -262,14 +258,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)_downsampleLocations:(id)locations errorFunction:(id)function outputSize:(int64_t)size
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   functionCopy = function;
   v9 = functionCopy;
@@ -326,27 +320,27 @@ LABEL_31:
   {
     sizeCopy = size;
     v10 = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v11 = locationsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v45;
+      v14 = *v44;
       v15 = -1.0;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v45 != v14)
+          if (*v44 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v44 + 1) + 8 * i);
+          v17 = *(*(&v43 + 1) + 8 * i);
           [v17 altitude];
           if (v18 >= 0.0 && ([v17 horizontalAccuracy], v19 <= 650.0))
           {
@@ -357,37 +351,37 @@ LABEL_31:
 
           else
           {
-            v42 = 0u;
-            memset(v43, 0, 28);
-            v40 = 0u;
             v41 = 0u;
-            v38 = 0u;
+            memset(v42, 0, 28);
             v39 = 0u;
-            memset(v37, 0, sizeof(v37));
+            v40 = 0u;
+            v37 = 0u;
+            v38 = 0u;
+            memset(v36, 0, sizeof(v36));
             *buf = 0u;
             if (v17)
             {
-              [v17 clientLocation];
+              objc_msgSend_clientLocation(v17);
             }
 
-            *(v37 + 12) = v15;
+            *(v36 + 12) = v15;
             v20 = objc_alloc(MEMORY[0x1E6985C40]);
-            v34[6] = v41;
-            v34[7] = v42;
-            v35[0] = v43[0];
-            *(v35 + 12) = *(v43 + 12);
-            v34[2] = v37[1];
-            v34[3] = v38;
-            v34[4] = v39;
-            v34[5] = v40;
-            v34[0] = *buf;
-            v34[1] = v37[0];
-            v21 = [v20 initWithClientLocation:v34];
+            v33[6] = v40;
+            v33[7] = v41;
+            v34[0] = v42[0];
+            *(v34 + 12) = *(v42 + 12);
+            v33[2] = v36[1];
+            v33[3] = v37;
+            v33[4] = v38;
+            v33[5] = v39;
+            v33[0] = *buf;
+            v33[1] = v36[0];
+            v21 = [v20 initWithClientLocation:v33];
             [v10 addObject:v21];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v13);
@@ -427,8 +421,6 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return sampledLocations;
 }

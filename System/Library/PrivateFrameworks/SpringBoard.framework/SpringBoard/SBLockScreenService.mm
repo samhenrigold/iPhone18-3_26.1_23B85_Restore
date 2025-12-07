@@ -315,14 +315,15 @@ LABEL_3:
   return 1;
 }
 
-void __88__SBLockScreenService_passcodeEntryTransientOverlayViewController_authenticatePasscode___block_invoke(uint64_t a1, int a2)
+void __88__SBLockScreenService_passcodeEntryTransientOverlayViewController_authenticatePasscode___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v20 = *MEMORY[0x277D85DE8];
   v4 = SBLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"no";
-    if (a2)
+    if (v2)
     {
       v5 = @"yes";
     }
@@ -332,11 +333,11 @@ void __88__SBLockScreenService_passcodeEntryTransientOverlayViewController_authe
     _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "SBLockScreenService auth attempt succeeded: %@", &v18, 0xCu);
   }
 
-  if ((a2 & 1) != 0 || [*(*(a1 + 32) + 144) isBlocked])
+  if ((v2 & 1) != 0 || [*(*(a1 + 32) + 144) isBlocked])
   {
     [*(a1 + 32) _setPasscodeVisible:0 animated:1];
     v6 = *(*(a1 + 32) + 120);
-    if (a2)
+    if (v2)
     {
       (*(v6 + 16))(v6, 0);
     }
@@ -423,7 +424,7 @@ void __65__SBLockScreenService_listener_didReceiveConnection_withContext___block
     _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "SBLockScreenService: invalidated remotely", &v19, 2u);
   }
 
-  if ([*(*(a1 + 32) + 64) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(*(a1 + 32) + 64)))
   {
     v5 = SBLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -454,7 +455,7 @@ void __65__SBLockScreenService_listener_didReceiveConnection_withContext___block
     }
   }
 
-  if ([*(*(a1 + 32) + 80) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(*(a1 + 32) + 80)))
   {
     v11 = SBLogCommon();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -501,9 +502,9 @@ void __65__SBLockScreenService_listener_didReceiveConnection_withContext___block
   remoteProcess = [currentContext remoteProcess];
 
   mEMORY[0x277D0AAF8] = [MEMORY[0x277D0AAF8] sharedSystemClientAuthenticator];
-  auditToken = [remoteProcess auditToken];
+  v8 = objc_msgSend_auditToken(remoteProcess);
   v21 = 0;
-  v9 = [mEMORY[0x277D0AAF8] authenticateAuditToken:auditToken error:&v21];
+  v9 = [mEMORY[0x277D0AAF8] authenticateAuditToken:v8 error:&v21];
   v10 = v21;
 
   if (v9)
@@ -579,14 +580,14 @@ uint64_t __59__SBLockScreenService_launchEmergencyDialerWithCompletion___block_i
   optionsCopy = options;
   currentContext = [v7 currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v11 = objc_msgSend_auditToken(remoteProcess);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __73__SBLockScreenService_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke;
   v13[3] = &unk_2783A9FC8;
   v14 = completionCopy;
   v12 = completionCopy;
-  [(SBLockScreenService *)self requestPasscodeUnlockUIForClient:auditToken options:optionsCopy description:@"SBSRequestPasscodeUnlockUI" withCompletion:v13];
+  [(SBLockScreenService *)self requestPasscodeUnlockUIForClient:v11 options:optionsCopy description:@"SBSRequestPasscodeUnlockUI" withCompletion:v13];
 }
 
 uint64_t __73__SBLockScreenService_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke(uint64_t a1)
@@ -607,14 +608,14 @@ uint64_t __73__SBLockScreenService_requestPasscodeUnlockUIWithOptions_withComple
   optionsCopy = options;
   currentContext = [v7 currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v11 = objc_msgSend_auditToken(remoteProcess);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __72__SBLockScreenService_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke;
   v13[3] = &unk_2783A9FC8;
   v14 = completionCopy;
   v12 = completionCopy;
-  [(SBLockScreenService *)self requestPasscodeCheckUIForClient:auditToken options:optionsCopy description:@"SBSRequestPasscodeCheckUI" withCompletion:v13];
+  [(SBLockScreenService *)self requestPasscodeCheckUIForClient:v11 options:optionsCopy description:@"SBSRequestPasscodeCheckUI" withCompletion:v13];
 }
 
 uint64_t __72__SBLockScreenService_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke(uint64_t a1)
@@ -641,7 +642,7 @@ uint64_t __72__SBLockScreenService_requestPasscodeCheckUIWithOptions_withComplet
     remoteProcess = [currentContext remoteProcess];
     if ([remoteProcess hasEntitlement:@"com.apple.springboard.preventDeviceLock"])
     {
-      if (([(NSMutableSet *)self->_connectionsPreventingPasscodeLock containsObject:currentContext]& 1) == 0)
+      if ((objc_msgSend_containsObject_(self->_connectionsPreventingPasscodeLock) & 1) == 0)
       {
         v9 = SBLogCommon();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -686,7 +687,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if ([(NSMutableSet *)self->_connectionsPreventingPasscodeLock containsObject:currentContext])
+  if (objc_msgSend_containsObject_(self->_connectionsPreventingPasscodeLock))
   {
     [(NSMutableSet *)self->_connectionsPreventingPasscodeLock removeObject:currentContext];
     v13 = SBLogCommon();
@@ -732,7 +733,7 @@ LABEL_21:
     remoteProcess = [currentContext remoteProcess];
     if ([remoteProcess hasEntitlement:@"com.apple.springboard.preventSpuriousScreenUndim"])
     {
-      if (([(NSMutableSet *)self->_connectionsPreventingSpuriousScreenUndim containsObject:currentContext]& 1) != 0)
+      if (objc_msgSend_containsObject_(self->_connectionsPreventingSpuriousScreenUndim))
       {
         goto LABEL_20;
       }
@@ -787,7 +788,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if ([(NSMutableSet *)self->_connectionsPreventingSpuriousScreenUndim containsObject:currentContext])
+  if (objc_msgSend_containsObject_(self->_connectionsPreventingSpuriousScreenUndim))
   {
     [(NSMutableSet *)self->_connectionsPreventingSpuriousScreenUndim removeObject:currentContext];
     v19 = SBLogCommon();
@@ -884,22 +885,9 @@ uint64_t __57__SBLockScreenService_lockDeviceAnimated_withCompletion___block_inv
 
 - (void)migrateIncomingNotificationsToHistory
 {
-  currentContext = [MEMORY[0x277CF3280] currentContext];
-  remoteProcess = [currentContext remoteProcess];
-
-  if ([remoteProcess hasEntitlement:@"com.apple.springboard.notificationList"])
-  {
-    [(SBLockScreenManager *)self->_lockScreenManager migrateNotificationsToHistory];
-  }
-
-  else
-  {
-    v5 = SBLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [(SBLockScreenService *)remoteProcess migrateIncomingNotificationsToHistory:v5];
-    }
-  }
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "SBLockScreenService: Insufficient authorization to modify notification list for client: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)requestPasscodeUnlockUIForClient:options:description:withCompletion:.cold.1()
@@ -932,6 +920,20 @@ uint64_t __57__SBLockScreenService_lockDeviceAnimated_withCompletion___block_inv
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_0_3();
   [v0 handleFailureInMethod:@"description" object:? file:? lineNumber:? description:?];
+}
+
+- (void)setPreventPasscodeLock:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "SBLockScreenService: Insufficient authorization to preventPasscodeLock for client: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setPreventSpuriousScreenUndim:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "SBLockScreenService: Insufficient authorization to preventSpuriousScreenUndim for client: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

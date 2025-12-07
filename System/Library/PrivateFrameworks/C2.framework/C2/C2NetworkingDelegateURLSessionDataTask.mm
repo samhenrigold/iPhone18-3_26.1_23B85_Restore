@@ -172,7 +172,7 @@ void __58__C2NetworkingDelegateURLSessionDataTask_willSendRequest___block_invoke
 
 - (void)_drainInputStream:(id)stream sinkData:(id)data completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   dataCopy = data;
   handlerCopy = handler;
@@ -188,48 +188,46 @@ void __58__C2NetworkingDelegateURLSessionDataTask_willSendRequest___block_invoke
 
   else
   {
-    bzero(v29, 0x8000uLL);
-    v13 = [streamCopy read:v29 maxLength:0x8000];
+    bzero(v28, 0x8000uLL);
+    v13 = [streamCopy read:v28 maxLength:0x8000];
     if (v13 < 1)
     {
       [streamCopy close];
       -[C2NetworkingDelegateURLSessionDataTask setCountOfBytesSent:](self, "setCountOfBytesSent:", [dataCopy length]);
       clientQueue2 = [(C2NetworkingDelegateURLSessionDataTask *)self clientQueue];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __87__C2NetworkingDelegateURLSessionDataTask__drainInputStream_sinkData_completionHandler___block_invoke_3;
-      v21[3] = &unk_278D40430;
-      v23 = handlerCopy;
-      v22 = dataCopy;
-      dispatch_async(clientQueue2, v21);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __87__C2NetworkingDelegateURLSessionDataTask__drainInputStream_sinkData_completionHandler___block_invoke_3;
+      v20[3] = &unk_278D40430;
+      v22 = handlerCopy;
+      v21 = dataCopy;
+      dispatch_async(clientQueue2, v20);
 
-      v18 = v23;
+      v18 = v22;
     }
 
     else
     {
       v14 = v13;
-      v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v29 length:v13];
+      v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v28 length:v13];
       [dataCopy appendData:v15];
 
       session = [(C2NetworkingDelegateURLSessionDataTask *)self session];
       delegateQueue = [session delegateQueue];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __87__C2NetworkingDelegateURLSessionDataTask__drainInputStream_sinkData_completionHandler___block_invoke;
-      v24[3] = &unk_278D404A8;
-      v24[4] = self;
-      v28 = v14;
-      v25 = dataCopy;
-      v26 = streamCopy;
-      v27 = handlerCopy;
-      [delegateQueue addOperationWithBlock:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __87__C2NetworkingDelegateURLSessionDataTask__drainInputStream_sinkData_completionHandler___block_invoke;
+      v23[3] = &unk_278D404A8;
+      v23[4] = self;
+      v27 = v14;
+      v24 = dataCopy;
+      v25 = streamCopy;
+      v26 = handlerCopy;
+      [delegateQueue addOperationWithBlock:v23];
 
-      v18 = v25;
+      v18 = v24;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __87__C2NetworkingDelegateURLSessionDataTask__drainInputStream_sinkData_completionHandler___block_invoke(uint64_t a1)
@@ -352,7 +350,7 @@ void __87__C2NetworkingDelegateURLSessionDataTask_setupRequestBodyForRequest_com
 
 - (void)processRequest:(id)request configuration:(id)configuration completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   configurationCopy = configuration;
   handlerCopy = handler;
@@ -376,15 +374,15 @@ void __87__C2NetworkingDelegateURLSessionDataTask_setupRequestBodyForRequest_com
     networkingDelegate2 = [session2 networkingDelegate];
     if (v15)
     {
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke;
-      v35[3] = &unk_278D40548;
-      v35[4] = self;
-      v36 = handlerCopy;
-      [networkingDelegate2 processRequest:requestCopy callback:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke;
+      v34[3] = &unk_278D40548;
+      v34[4] = self;
+      v35 = handlerCopy;
+      [networkingDelegate2 processRequest:requestCopy callback:v34];
 
-      v18 = v36;
+      v18 = v35;
     }
 
     else
@@ -395,15 +393,15 @@ void __87__C2NetworkingDelegateURLSessionDataTask_setupRequestBodyForRequest_com
       networkingDelegate3 = [session3 networkingDelegate];
       if (v19)
       {
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke_3;
-        v33[3] = &unk_278D40570;
-        v33[4] = self;
-        v34 = handlerCopy;
-        [networkingDelegate3 handleRequest:requestCopy completionHandler:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke_3;
+        v32[3] = &unk_278D40570;
+        v32[4] = self;
+        v33 = handlerCopy;
+        [networkingDelegate3 handleRequest:requestCopy completionHandler:v32];
 
-        v18 = v34;
+        v18 = v33;
       }
 
       else
@@ -417,20 +415,20 @@ void __87__C2NetworkingDelegateURLSessionDataTask_setupRequestBodyForRequest_com
             [C2NetworkingDelegateURLSessionDataTask processRequest:configuration:completionHandler:];
           }
 
-          v26 = C2_DEFAULT_LOG_INTERNAL_1;
+          v25 = C2_DEFAULT_LOG_INTERNAL_1;
           if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
-            v27 = v26;
+            v26 = v25;
             session4 = [(C2NetworkingDelegateURLSessionDataTask *)self session];
             session5 = [(C2NetworkingDelegateURLSessionDataTask *)self session];
             networkingDelegate4 = [session5 networkingDelegate];
             *buf = 138412802;
             selfCopy = self;
-            v39 = 2112;
-            v40 = session4;
-            v41 = 2112;
-            v42 = networkingDelegate4;
-            _os_log_impl(&dword_242158000, v27, OS_LOG_TYPE_ERROR, "Unable to identify appropriate selector on network delegate. self=%@, session=%@, networkingDelegate=%@", buf, 0x20u);
+            v38 = 2112;
+            v39 = session4;
+            v40 = 2112;
+            v41 = networkingDelegate4;
+            _os_log_impl(&dword_242158000, v26, OS_LOG_TYPE_ERROR, "Unable to identify appropriate selector on network delegate. self=%@, session=%@, networkingDelegate=%@", buf, 0x20u);
           }
 
           __assert_rtn("[C2NetworkingDelegateURLSessionDataTask processRequest:configuration:completionHandler:]", "C2NetworkingDelegateURLSession.m", 209, "false");
@@ -438,20 +436,18 @@ void __87__C2NetworkingDelegateURLSessionDataTask_setupRequestBodyForRequest_com
 
         session6 = [(C2NetworkingDelegateURLSessionDataTask *)self session];
         networkingDelegate5 = [session6 networkingDelegate];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke_5;
-        v31[3] = &unk_278D40570;
-        v31[4] = self;
-        v32 = handlerCopy;
-        [networkingDelegate5 handleRequest:requestCopy configuration:configurationCopy completionHandler:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke_5;
+        v30[3] = &unk_278D40570;
+        v30[4] = self;
+        v31 = handlerCopy;
+        [networkingDelegate5 handleRequest:requestCopy configuration:configurationCopy completionHandler:v30];
 
-        v18 = v32;
+        v18 = v31;
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __89__C2NetworkingDelegateURLSessionDataTask_processRequest_configuration_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

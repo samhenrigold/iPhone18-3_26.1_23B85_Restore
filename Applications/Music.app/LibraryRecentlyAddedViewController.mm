@@ -89,7 +89,7 @@
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   IndexPath.init(index:)();
   v9.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
@@ -102,14 +102,14 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v16 = sub_1007E3CB0(viewCopy, v11, v13);
+  v16 = sub_1007E3CB0(viewCopy, v11, v13, v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -120,7 +120,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -136,7 +136,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -184,7 +184,7 @@
 {
   v4 = type metadata accessor for UIContentUnavailableConfigurationState();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UIContentUnavailableConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

@@ -21,7 +21,7 @@
 
 - (MSEmailModel)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(MSEmailModel *)self init];
   if (v5)
@@ -29,9 +29,9 @@
     if ([coderCopy containsValueForKey:@"MSCodingKeyVersion"] && objc_msgSend(coderCopy, "decodeInt32ForKey:", @"MSCodingKeyVersion") == 1)
     {
       v6 = MEMORY[0x1E695DFD8];
-      v25[0] = objc_opt_class();
-      v25[1] = objc_opt_class();
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+      v24[0] = objc_opt_class();
+      v24[1] = objc_opt_class();
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
       v8 = [v6 setWithArray:v7];
 
       v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MSCodingKeySubject"];
@@ -72,7 +72,6 @@
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

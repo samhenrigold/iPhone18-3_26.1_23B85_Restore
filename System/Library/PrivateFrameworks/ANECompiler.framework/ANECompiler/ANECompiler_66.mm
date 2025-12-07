@@ -1,3 +1,1262 @@
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(operations_research::sat::LiteralWithCoeff const&,operations_research::sat::LiteralWithCoeff const&),operations_research::sat::LiteralWithCoeff*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, uint64_t (**a6)(__n128 *, __n128 *))
+{
+  v12 = (*a6)(a2, a1);
+  v13 = (*a6)(a3, a2);
+  if (v12)
+  {
+    if (v13)
+    {
+      v14 = *a1;
+      *a1 = *a3;
+LABEL_9:
+      *a3 = v14;
+      goto LABEL_10;
+    }
+
+    v17 = *a1;
+    *a1 = *a2;
+    *a2 = v17;
+    if ((*a6)(a3, a2))
+    {
+      v14 = *a2;
+      *a2 = *a3;
+      goto LABEL_9;
+    }
+  }
+
+  else if (v13)
+  {
+    v15 = *a2;
+    *a2 = *a3;
+    *a3 = v15;
+    if ((*a6)(a2, a1))
+    {
+      v16 = *a1;
+      *a1 = *a2;
+      *a2 = v16;
+    }
+  }
+
+LABEL_10:
+  if ((*a6)(a4, a3))
+  {
+    v18 = *a3;
+    *a3 = *a4;
+    *a4 = v18;
+    if ((*a6)(a3, a2))
+    {
+      v19 = *a2;
+      *a2 = *a3;
+      *a3 = v19;
+      if ((*a6)(a2, a1))
+      {
+        v20 = *a1;
+        *a1 = *a2;
+        *a2 = v20;
+      }
+    }
+  }
+
+  if ((*a6)(a5, a4))
+  {
+    v22 = *a4;
+    *a4 = *a5;
+    *a5 = v22;
+    if ((*a6)(a4, a3))
+    {
+      v23 = *a3;
+      *a3 = *a4;
+      *a4 = v23;
+      if ((*a6)(a3, a2))
+      {
+        v24 = *a2;
+        *a2 = *a3;
+        *a3 = v24;
+        if ((*a6)(a2, a1))
+        {
+          result = *a1;
+          *a1 = *a2;
+          *a2 = result;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(operations_research::sat::LiteralWithCoeff const&,operations_research::sat::LiteralWithCoeff const&),operations_research::sat::LiteralWithCoeff*>(__n128 *a1, __n128 *a2, uint64_t (**a3)(__n128 *, __n128 *))
+{
+  v6 = a2 - a1;
+  if (v6 > 2)
+  {
+    if (v6 == 3)
+    {
+      v11 = a2 - 1;
+      v12 = (*a3)(a1 + 1, a1);
+      v13 = (*a3)(v11, a1 + 1);
+      if (v12)
+      {
+        if (v13)
+        {
+          v14 = *a1;
+          *a1 = *v11;
+        }
+
+        else
+        {
+          v32 = *a1;
+          *a1 = a1[1];
+          a1[1] = v32;
+          if (!(*a3)(v11, a1 + 1))
+          {
+            goto LABEL_3;
+          }
+
+          v14 = a1[1];
+          a1[1] = *v11;
+        }
+
+        *v11 = v14;
+        v7 = 1;
+        return v7 & 1;
+      }
+
+      if (!v13)
+      {
+        goto LABEL_3;
+      }
+
+      v26 = a1[1];
+      a1[1] = *v11;
+      *v11 = v26;
+      if (!(*a3)(a1 + 1, a1))
+      {
+        goto LABEL_3;
+      }
+
+LABEL_53:
+      v45 = *a1;
+      *a1 = a1[1];
+      a1[1] = v45;
+      goto LABEL_3;
+    }
+
+    if (v6 != 4)
+    {
+      if (v6 == 5)
+      {
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(operations_research::sat::LiteralWithCoeff const&,operations_research::sat::LiteralWithCoeff const&),operations_research::sat::LiteralWithCoeff*,0>(a1, a1 + 1, a1 + 2, a1 + 3, a2 - 1, a3);
+        v7 = 1;
+        return v7 & 1;
+      }
+
+      goto LABEL_15;
+    }
+
+    v22 = a2 - 1;
+    v23 = (*a3)(a1 + 1, a1);
+    v24 = (*a3)(a1 + 2, a1 + 1);
+    if (v23)
+    {
+      if (v24)
+      {
+        v25 = *a1;
+        *a1 = a1[2];
+LABEL_49:
+        a1[2] = v25;
+        goto LABEL_50;
+      }
+
+      v42 = *a1;
+      *a1 = a1[1];
+      a1[1] = v42;
+      if ((*a3)(a1 + 2, a1 + 1))
+      {
+        v25 = a1[1];
+        a1[1] = a1[2];
+        goto LABEL_49;
+      }
+    }
+
+    else if (v24)
+    {
+      v30 = a1[1];
+      a1[1] = a1[2];
+      a1[2] = v30;
+      if ((*a3)(a1 + 1, a1))
+      {
+        v31 = *a1;
+        *a1 = a1[1];
+        a1[1] = v31;
+      }
+    }
+
+LABEL_50:
+    if (!(*a3)(v22, a1 + 2))
+    {
+      goto LABEL_3;
+    }
+
+    v43 = a1[2];
+    a1[2] = *v22;
+    *v22 = v43;
+    if (!(*a3)(a1 + 2, a1 + 1))
+    {
+      goto LABEL_3;
+    }
+
+    v44 = a1[1];
+    a1[1] = a1[2];
+    a1[2] = v44;
+    if (!(*a3)(a1 + 1, a1))
+    {
+      goto LABEL_3;
+    }
+
+    goto LABEL_53;
+  }
+
+  if (v6 < 2)
+  {
+LABEL_3:
+    v7 = 1;
+    return v7 & 1;
+  }
+
+  if (v6 == 2)
+  {
+    v9 = a2 - 1;
+    if ((*a3)(a2 - 1, a1))
+    {
+      v10 = *a1;
+      *a1 = *v9;
+      *v9 = v10;
+      v7 = 1;
+      return v7 & 1;
+    }
+
+    goto LABEL_3;
+  }
+
+LABEL_15:
+  v16 = (*a3)(a1 + 1, a1);
+  v17 = a1 + 2;
+  v15 = a1 + 2;
+  v18 = (*a3)(a1 + 2, a1 + 1);
+  if (v16)
+  {
+    if (v18)
+    {
+      v20 = *a1;
+      v21 = a1 + 2;
+      *a1 = *v15;
+      *v15 = v20;
+    }
+
+    else
+    {
+      v33 = *a1;
+      *a1 = a1[1];
+      a1[1] = v33;
+      v34 = (*a3)(a1 + 2, a1 + 1);
+      v21 = a1 + 2;
+      if (v34)
+      {
+        v35 = a1[1];
+        a1[1] = *v17;
+        *v17 = v35;
+      }
+    }
+  }
+
+  else
+  {
+    v21 = a1 + 2;
+    if (v18)
+    {
+      v27 = a1[1];
+      a1[1] = *v17;
+      *v17 = v27;
+      v28 = (*a3)(a1 + 1, a1);
+      v21 = a1 + 2;
+      if (v28)
+      {
+        v29 = *a1;
+        *a1 = a1[1];
+        a1[1] = v29;
+      }
+    }
+  }
+
+  v36 = a1 + 3;
+  if (&a1[3] == a2)
+  {
+LABEL_45:
+    v41 = 1;
+  }
+
+  else
+  {
+    v37 = 0;
+    v38 = 0;
+    while (!(*a3)(v36, v21))
+    {
+LABEL_38:
+      v21 = v36;
+      v37 += 16;
+      if (++v36 == a2)
+      {
+        goto LABEL_45;
+      }
+    }
+
+    v46[0] = *v36;
+    v39 = v37;
+    do
+    {
+      v40 = (a1 + v39);
+      *(a1 + v39 + 48) = *(a1 + v39 + 32);
+      if (v39 == -32)
+      {
+        *a1 = v46[0];
+        if (++v38 != 8)
+        {
+          goto LABEL_38;
+        }
+
+        goto LABEL_44;
+      }
+
+      v39 -= 16;
+    }
+
+    while (((*a3)(v46, v40 + 1) & 1) != 0);
+    *(a1 + v39 + 48) = v46[0];
+    if (++v38 != 8)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_44:
+    v41 = 0;
+    v19 = &v36[1] == a2;
+  }
+
+  v7 = v41 | v19;
+  return v7 & 1;
+}
+
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(operations_research::sat::LiteralWithCoeff const&,operations_research::sat::LiteralWithCoeff const&),operations_research::sat::LiteralWithCoeff*,operations_research::sat::LiteralWithCoeff*>(char *a1, char *a2, __int128 *a3, uint64_t (**a4)(__int128 *, char *))
+{
+  if (a1 == a2)
+  {
+    return a3;
+  }
+
+  v53 = v4;
+  v54 = v5;
+  v50 = a2;
+  v48 = a3;
+  v49 = a2 - a1;
+  v8 = (a2 - a1) >> 4;
+  v9 = v8 - 2;
+  if (v8 >= 2)
+  {
+    v10 = v9 >> 1;
+    v11 = v9 >> 1;
+    do
+    {
+      v13 = 16 * v11;
+      if (v10 >= (16 * v11) >> 4)
+      {
+        v14 = (v13 >> 3) | 1;
+        v15 = &a1[16 * v14];
+        if ((v13 >> 3) + 2 < v8 && (*a4)(&a1[16 * v14], v15 + 16))
+        {
+          ++v15;
+          v14 = (v13 >> 3) + 2;
+        }
+
+        v16 = &a1[v13];
+        if (((*a4)(v15, &a1[v13]) & 1) == 0)
+        {
+          v52 = *v16;
+          do
+          {
+            v17 = v15;
+            *v16 = *v15;
+            if (v10 < v14)
+            {
+              break;
+            }
+
+            v18 = (2 * v14) | 1;
+            v15 = &a1[16 * v18];
+            v19 = 2 * v14 + 2;
+            if (v19 < v8 && (*a4)(&a1[16 * v18], v15 + 16))
+            {
+              ++v15;
+              v18 = v19;
+            }
+
+            v16 = v17;
+            v14 = v18;
+          }
+
+          while (!(*a4)(v15, &v52));
+          *v17 = v52;
+        }
+      }
+
+      v12 = v11-- <= 0;
+    }
+
+    while (!v12);
+  }
+
+  i = v50;
+  v21 = v48;
+  if (v50 != v48)
+  {
+    if (v8 < 2)
+    {
+      i = v50;
+      do
+      {
+        if ((*a4)(i, a1))
+        {
+          v22 = *i;
+          *i = *a1;
+          *a1 = v22;
+        }
+
+        ++i;
+      }
+
+      while (i != v48);
+      goto LABEL_45;
+    }
+
+    v23 = (a1 + 16);
+    for (i = v50; i != v21; ++i)
+    {
+      if ((*a4)(i, a1))
+      {
+        v24 = *i;
+        *i = *a1;
+        *a1 = v24;
+        if (v49 == 32)
+        {
+          v25 = v23;
+          v26 = 1;
+          if (((*a4)(v23, a1) & 1) == 0)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        else
+        {
+          v27 = (*a4)(v23, a1 + 32);
+          if (v27)
+          {
+            v25 = (a1 + 32);
+          }
+
+          else
+          {
+            v25 = v23;
+          }
+
+          if (v27)
+          {
+            v26 = 2;
+          }
+
+          else
+          {
+            v26 = 1;
+          }
+
+          if (((*a4)(v25, a1) & 1) == 0)
+          {
+LABEL_38:
+            v52 = *a1;
+            v28 = a1;
+            do
+            {
+              v30 = v25;
+              *v28 = *v25;
+              if (((v8 - 2) >> 1) < v26)
+              {
+                break;
+              }
+
+              v31 = (2 * v26) | 1;
+              v25 = &a1[16 * v31];
+              v32 = 2 * v26 + 2;
+              if (v32 < v8 && (*a4)(&a1[16 * v31], v25 + 16))
+              {
+                ++v25;
+                v31 = v32;
+              }
+
+              v29 = (*a4)(v25, &v52);
+              v28 = v30;
+              v26 = v31;
+            }
+
+            while (!v29);
+            *v30 = v52;
+            v23 = (a1 + 16);
+            v21 = v48;
+          }
+        }
+      }
+    }
+  }
+
+LABEL_45:
+  if (v8 >= 2)
+  {
+    do
+    {
+      v34 = 0;
+      v51 = *a1;
+      v35 = a1;
+      do
+      {
+        v36 = &v35[16 * v34];
+        v37 = (v36 + 16);
+        v38 = (2 * v34) | 1;
+        v39 = 2 * v34 + 2;
+        if (v39 < v8)
+        {
+          v40 = (v36 + 32);
+          if ((*a4)(v36 + 1, v36 + 32))
+          {
+            v37 = v40;
+            v38 = v39;
+          }
+        }
+
+        *v35 = *v37;
+        v35 = v37;
+        v34 = v38;
+      }
+
+      while (v38 <= ((v8 - 2) >> 1));
+      v41 = (v50 - 16);
+      v42 = v37 == (v50 - 16);
+      v50 -= 16;
+      if (v42)
+      {
+        *v37 = v51;
+      }
+
+      else
+      {
+        *v37 = *v41;
+        *v41 = v51;
+        v43 = (v37 - a1 + 16) >> 4;
+        v12 = v43 < 2;
+        v44 = v43 - 2;
+        if (!v12)
+        {
+          v45 = v44 >> 1;
+          v46 = &a1[16 * (v44 >> 1)];
+          if ((*a4)(v46, v37))
+          {
+            v52 = *v37;
+            do
+            {
+              v47 = v46;
+              *v37 = *v46;
+              if (!v45)
+              {
+                break;
+              }
+
+              v45 = (v45 - 1) >> 1;
+              v46 = &a1[16 * v45];
+              v37 = v47;
+            }
+
+            while (((*a4)(v46, &v52) & 1) != 0);
+            *v47 = v52;
+          }
+        }
+      }
+
+      v12 = v8-- <= 2;
+    }
+
+    while (!v12);
+  }
+
+  return i;
+}
+
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<operations_research::sat::UpperBoundedLinearConstraint *>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<operations_research::sat::UpperBoundedLinearConstraint *>>>>::resize_impl(unint64_t *a1, unint64_t a2)
+{
+  v3 = *a1;
+  v4 = a1[1] & 1;
+  v5 = 0;
+  v2 = *(a1 + 1);
+  *a1 = a2;
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,32ul,false,false,8ul>(&v2, a1);
+}
+
+__n128 absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,std::vector<operations_research::sat::UpperBoundedLinearConstraint *>>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,std::vector<operations_research::sat::UpperBoundedLinearConstraint *>>>>::transfer_slot_fn(uint64_t a1, void *a2, uint64_t a3)
+{
+  *a2 = *a3;
+  a2[1] = 0;
+  a2[2] = 0;
+  a2[3] = 0;
+  result = *(a3 + 8);
+  *(a2 + 1) = result;
+  a2[3] = *(a3 + 24);
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 24) = 0;
+  return result;
+}
+
+uint64_t std::__split_buffer<std::unique_ptr<operations_research::sat::UpperBoundedLinearConstraint>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  while (v2 != v3)
+  {
+    v5 = *--v2;
+    v4 = v5;
+    *(a1 + 16) = v2;
+    *v2 = 0;
+    if (v5)
+    {
+      v6 = v4[9];
+      if (v6)
+      {
+        v4[10] = v6;
+        operator delete(v6);
+      }
+
+      v7 = v4[6];
+      if (v7)
+      {
+        v4[7] = v7;
+        operator delete(v7);
+      }
+
+      v8 = v4[3];
+      if (v8)
+      {
+        v4[4] = v8;
+        operator delete(v8);
+      }
+
+      MEMORY[0x23EED9460](v4, 0x1030C40B4F52BC7);
+      v2 = *(a1 + 16);
+    }
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::vector<std::unique_ptr<operations_research::sat::UpperBoundedLinearConstraint>>::__append(char **a1, unint64_t a2)
+{
+  v4 = a1[1];
+  v3 = a1[2];
+  if (a2 <= (v3 - v4) >> 3)
+  {
+    if ((a2 & 0x1FFFFFFFFFFFFFFFLL) != 0)
+    {
+      v11 = 8 * a2;
+      bzero(a1[1], 8 * a2);
+      v4 += v11;
+    }
+
+    a1[1] = v4;
+  }
+
+  else
+  {
+    v5 = (v4 - *a1) >> 3;
+    if ((v5 + a2) >> 61)
+    {
+      std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v6 = v3 - *a1;
+    v7 = v6 >> 2;
+    if (v6 >> 2 <= v5 + a2)
+    {
+      v7 = v5 + a2;
+    }
+
+    if (v6 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v8 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v8 = v7;
+    }
+
+    v17[4] = a1;
+    if (v8)
+    {
+      if (!(v8 >> 61))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v12 = (8 * v5);
+    if ((a2 & 0x1FFFFFFFFFFFFFFFLL) != 0)
+    {
+      v9 = 8 * a2;
+      bzero(v12, 8 * a2);
+      v10 = &v12[v9];
+    }
+
+    else
+    {
+      v10 = v12;
+    }
+
+    v13 = *a1;
+    v14 = a1[1] - *a1;
+    v15 = &v12[-v14];
+    memcpy(v15, *a1, v14);
+    *a1 = v15;
+    a1[1] = v10;
+    v16 = a1[2];
+    a1[2] = 0;
+    v17[2] = v13;
+    v17[3] = v16;
+    v17[0] = v13;
+    v17[1] = v13;
+    std::__split_buffer<std::unique_ptr<operations_research::sat::UpperBoundedLinearConstraint>>::~__split_buffer(v17);
+  }
+}
+
+void std::vector<operations_research::sat::PbConstraints::ConstraintIndexWithCoeff>::__append(uint64_t a1, unint64_t a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (a2 <= (v3 - v4) >> 4)
+  {
+    if ((a2 & 0xFFFFFFFFFFFFFFFLL) != 0)
+    {
+      v11 = 16 * a2;
+      bzero(*(a1 + 8), 16 * a2);
+      v4 += v11;
+    }
+
+    *(a1 + 8) = v4;
+  }
+
+  else
+  {
+    v5 = (v4 - *a1) >> 4;
+    if ((v5 + a2) >> 60)
+    {
+      std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v6 = v3 - *a1;
+    v7 = v6 >> 3;
+    if (v6 >> 3 <= v5 + a2)
+    {
+      v7 = v5 + a2;
+    }
+
+    if (v6 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v8 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v8 = v7;
+    }
+
+    if (v8)
+    {
+      if (!(v8 >> 60))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v12 = (16 * v5);
+    if ((a2 & 0xFFFFFFFFFFFFFFFLL) != 0)
+    {
+      v9 = 16 * a2;
+      bzero(v12, 16 * a2);
+      v10 = &v12[v9];
+    }
+
+    else
+    {
+      v10 = v12;
+    }
+
+    v13 = *a1;
+    v14 = *(a1 + 8) - *a1;
+    v15 = &v12[-v14];
+    memcpy(v15, *a1, v14);
+    *a1 = v15;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = 0;
+    if (v13)
+    {
+
+      operator delete(v13);
+    }
+  }
+}
+
+uint64_t operations_research::sat::PrecedenceRelations::Add(uint64_t a1, int a2, int a3, uint64_t a4)
+{
+  result = 0;
+  v6 = a2;
+  if (a2 != a3 && a4 - *(*(*(a1 + 24) + 152) + 24 * (a2 ^ 1)) > *(*(*(a1 + 24) + 152) + 24 * a3))
+  {
+    if (operations_research::sat::PrecedenceRelations::GetOffset(a1, a2, a3) >= a4)
+    {
+      return 0;
+    }
+
+    else
+    {
+      operations_research::sat::PrecedenceRelations::AddInternal(a1, v6, a3, a4);
+      if (a2 <= a3)
+      {
+        v11 = a3;
+      }
+
+      else
+      {
+        v11 = a2;
+      }
+
+      if ((*(a1 + 160) & 1) == 0)
+      {
+        v12 = v11 | 1;
+        if (v12 >= *(a1 + 40))
+        {
+          v13 = v12 + 1;
+          *(a1 + 40) = v12 + 1;
+          v14 = *(a1 + 64);
+          v15 = *(a1 + 72);
+          __x = 0;
+          v16 = (v15 - v14) >> 2;
+          if (v13 <= v16)
+          {
+            if (v13 < v16)
+            {
+              *(a1 + 72) = v14 + 4 * v13;
+            }
+          }
+
+          else
+          {
+            std::vector<int>::__append((a1 + 64), v13 - v16, &__x);
+          }
+        }
+      }
+
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+unint64_t operations_research::sat::PrecedenceRelations::GetOffset(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a3 ^ 1u;
+  v4 = v3 | (a2 << 32);
+  v5 = v3 < a2;
+  v6 = a2 | (v3 << 32);
+  if (v5)
+  {
+    v7 = v4;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(a1 + 240);
+  if (v8 > 1)
+  {
+    v9 = 0;
+    v10 = HIDWORD(v7) + ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7)));
+    v11 = 0x9DDFEA08EB382D69 * v10;
+    v12 = (v10 * 0x9DDFEA08EB382D69) >> 64;
+    _X12 = *(a1 + 256);
+    __asm { PRFM            #4, [X12] }
+
+    v18 = v12 ^ v11;
+    v19 = vdup_n_s8(v18 & 0x7F);
+    v20 = ((v18 >> 7) ^ (_X12 >> 12)) & v8;
+    v21 = *(_X12 + v20);
+    v22 = vceq_s8(v21, v19);
+    if (!v22)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_8:
+    while (1)
+    {
+      v23 = (v20 + (__clz(__rbit64(v22)) >> 3)) & v8;
+      v24 = *(a1 + 264) + 16 * v23;
+      if (*v24 == v7 && *(v24 + 4) == HIDWORD(v7))
+      {
+        break;
+      }
+
+      v22 &= ((v22 & 0x8080808080808080) - 1) & 0x8080808080808080;
+      if (!v22)
+      {
+LABEL_13:
+        while (!*&vceq_s8(v21, 0x8080808080808080))
+        {
+          v9 += 8;
+          v20 = (v9 + v20) & v8;
+          v21 = *(_X12 + v20);
+          v22 = vceq_s8(v21, v19);
+          if (v22)
+          {
+            goto LABEL_8;
+          }
+        }
+
+        return 0x8000000000000002;
+      }
+    }
+
+    if (!(_X12 + v23))
+    {
+      return 0x8000000000000002;
+    }
+
+    return -*(v24 + 8);
+  }
+
+  if (*(a1 + 248) >= 2uLL)
+  {
+    v27 = *(a1 + 256) == v7 && *(a1 + 260) == HIDWORD(v7);
+    v28 = &absl::lts_20240722::container_internal::kSooControl;
+    if (v27)
+    {
+      v24 = a1 + 256;
+    }
+
+    else
+    {
+      v28 = 0;
+      v24 = 0;
+    }
+
+    if (v28)
+    {
+      return -*(v24 + 8);
+    }
+  }
+
+  return 0x8000000000000002;
+}
+
+uint64_t operations_research::sat::PrecedenceRelations::AddInternal(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  v4 = a2;
+  v23 = a3;
+  v6 = a3 ^ 1u;
+  if (v6 >= a2)
+  {
+    v7 = a2 | (v6 << 32);
+  }
+
+  else
+  {
+    v7 = v6 | (a2 << 32);
+  }
+
+  v8 = -a4;
+  v26 = v7;
+  v27 = -a4;
+  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>(a1 + 240, &v26, &v20);
+  if (v22 == 1)
+  {
+    v9 = v21;
+    *v21 = v26;
+    v9[1] = v27;
+  }
+
+  v24 = v7;
+  v25 = v8;
+  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>(a1 + 304, &v24, &v26);
+  if (v28 != 1 || (v10 = v27, *v27 = v24, *(v10 + 8) = v25, (v28 & 1) == 0))
+  {
+    v11 = *(v27 + 8);
+    if (v11 >= v8)
+    {
+      v11 = v8;
+    }
+
+    *(v27 + 8) = v11;
+  }
+
+  v12 = v22;
+  if (v22 == 1)
+  {
+    if (v6 <= v4)
+    {
+      v13 = v4;
+    }
+
+    else
+    {
+      v13 = v6;
+    }
+
+    v14 = v13 + 1;
+    v15 = *(a1 + 336);
+    v16 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 344) - v15) >> 3);
+    if (v14 > v16)
+    {
+      std::vector<std::vector<operations_research::sat::GenericLiteralWatcher::WatchData>>::__append(a1 + 336, v14 - v16);
+      v15 = *(a1 + 336);
+    }
+
+    std::vector<int>::push_back[abi:ne200100](v15 + 24 * v4, &v23);
+    v17 = *(a1 + 336) + 24 * (v23 ^ 1);
+    LODWORD(v26) = v4 ^ 1;
+    std::vector<int>::push_back[abi:ne200100](v17, &v26);
+  }
+
+  else
+  {
+    v18 = v21[1];
+    if (v18 >= v8)
+    {
+      v18 = v8;
+    }
+
+    v21[1] = v18;
+  }
+
+  return v12;
+}
+
+void operations_research::sat::PrecedenceRelations::PushConditionalRelation(void *a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v56 = a2;
+  v57 = a3;
+  v55 = a6;
+  if (a3 && (*(a1[2] + 8) & 0xFFFFFFF) != 0)
+  {
+    v7 = a4 << 32;
+    v8 = a4 | (a5 << 32);
+    v9 = a4;
+    if (a4 > a5)
+    {
+      v8 = (a4 << 32) | a5;
+    }
+
+    v54 = v8;
+    v49 = v8;
+    v50 = a6;
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>((a1 + 38), &v49, &v51);
+    if (v53 != 1 || (v11 = v52, *v52 = v49, v11[1] = v50, (v53 & 1) == 0))
+    {
+      if (v55 >= v52[1])
+      {
+        return;
+      }
+
+      v52[1] = v55;
+    }
+
+    v12 = -1431655765 * ((a1[25] - a1[24]) >> 4);
+    v49 = v54;
+    LODWORD(v50) = v12;
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,int>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>((a1 + 34), &v49, &v51);
+    if (v53 == 1 && (v13 = v52, *v52 = v49, *(v13 + 2) = v50, (v53 & 1) != 0))
+    {
+      v14 = a1[28];
+      if (a1[27] == v14 || *(v14 - 8) != (*(a1[2] + 8) & 0xFFFFFFF))
+      {
+        v15 = -1431655765 * ((a1[25] - a1[24]) >> 4);
+        LODWORD(v49) = *(a1[2] + 8) & 0xFFFFFFF;
+        HIDWORD(v49) = v15;
+        std::vector<long long>::push_back[abi:ne200100]((a1 + 27), &v49);
+      }
+
+      LODWORD(v49) = -1;
+      v16 = a1[25];
+      if (v16 >= a1[26])
+      {
+        v36 = std::vector<operations_research::sat::PrecedenceRelations::ConditionalEntry>::__emplace_back_slow_path<int,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> &,std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const&,absl::lts_20240722::Span<operations_research::sat::Literal const> &>(a1 + 24, &v49, &v55, &v54, &v56);
+        v37 = v9;
+        v38 = a5;
+      }
+
+      else
+      {
+        v18 = v54;
+        v17 = v55;
+        v20 = v56;
+        v19 = v57;
+        *v16 = -1;
+        *(v16 + 8) = v17;
+        *(v16 + 16) = v18;
+        *(v16 + 24) = 0;
+        v21 = (4 * v19) >> 2;
+        if (v21 >= 5)
+        {
+          if (!(v21 >> 62))
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v37 = v9;
+        v38 = a5;
+        if ((v19 & 0x3FFFFFFFFFFFFFFFLL) != 0)
+        {
+          v39 = v20;
+          v40 = (4 * v19) >> 2;
+          v41 = (v16 + 32);
+          do
+          {
+            v42 = *v39++;
+            *v41++ = v42;
+            --v40;
+          }
+
+          while (v40);
+        }
+
+        *(v16 + 24) = (4 * v19) >> 1;
+        v36 = v16 + 48;
+        a1[25] = v16 + 48;
+      }
+
+      v43 = v38 << 32;
+      a1[25] = v36;
+      if (v37 <= v38)
+      {
+        v37 = v38;
+      }
+
+      v44 = v37 + 1;
+      v45 = a1[45];
+      v46 = 0xAAAAAAAAAAAAAAABLL * ((a1[46] - v45) >> 3);
+      if (v44 > v46)
+      {
+        std::vector<std::vector<operations_research::sat::GenericLiteralWatcher::WatchData>>::__append((a1 + 45), v44 - v46);
+        LODWORD(v38) = a5;
+        v45 = a1[45];
+      }
+
+      LODWORD(v49) = v38 ^ 1;
+      std::vector<int>::push_back[abi:ne200100](v45 + 24 * SHIDWORD(v7), &v49);
+      v47 = a1[45] + 24 * SHIDWORD(v43);
+      LODWORD(v49) = v9 ^ 1;
+      std::vector<int>::push_back[abi:ne200100](v47, &v49);
+    }
+
+    else
+    {
+      v22 = *(v52 + 2);
+      *(v52 + 2) = v12;
+      v23 = a1[27];
+      v48 = v22;
+      v24 = a1[28];
+      if (v23 == v24 || *(v24 - 8) != (*(a1[2] + 8) & 0xFFFFFFF))
+      {
+        v25 = -1431655765 * ((a1[25] - a1[24]) >> 4);
+        LODWORD(v49) = *(a1[2] + 8) & 0xFFFFFFF;
+        HIDWORD(v49) = v25;
+        std::vector<long long>::push_back[abi:ne200100]((a1 + 27), &v49);
+      }
+
+      v26 = a1[25];
+      if (v26 >= a1[26])
+      {
+        a1[25] = std::vector<operations_research::sat::PrecedenceRelations::ConditionalEntry>::__emplace_back_slow_path<int,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> &,std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const&,absl::lts_20240722::Span<operations_research::sat::Literal const> &>(a1 + 24, &v48, &v55, &v54, &v56);
+      }
+
+      else
+      {
+        v28 = v54;
+        v27 = v55;
+        v30 = v56;
+        v29 = v57;
+        *v26 = v22;
+        *(v26 + 8) = v27;
+        *(v26 + 16) = v28;
+        *(v26 + 24) = 0;
+        v31 = (4 * v29) >> 2;
+        if (v31 >= 5)
+        {
+          if (!(v31 >> 62))
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        if ((v29 & 0x3FFFFFFFFFFFFFFFLL) != 0)
+        {
+          v32 = v30;
+          v33 = (4 * v29) >> 2;
+          v34 = (v26 + 32);
+          do
+          {
+            v35 = *v32++;
+            *v34++ = v35;
+            --v33;
+          }
+
+          while (v33);
+        }
+
+        *(v26 + 24) = (4 * v29) >> 1;
+        a1[25] = v26 + 48;
+        a1[25] = v26 + 48;
+      }
+    }
+  }
+
+  else
+  {
+
+    operations_research::sat::PrecedenceRelations::Add(a1, a4, a5 ^ 1, -a6);
+  }
+}
+
 void sub_23CC86D24(_Unwind_Exception *exception_object)
 {
   if (*(v2 + 24))
@@ -104,7 +1363,7 @@ LABEL_29:
 
           else
           {
-            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,int>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>(this + 272, (v10 - 32), v39);
+            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,int>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>(this + 272, (v10 - 32), &v39);
             if (v41 == 1)
             {
               v13 = v40;
@@ -174,8 +1433,8 @@ LABEL_5:
     while (1)
     {
       v20 = (v17 + (__clz(__rbit64(v19)) >> 3)) & v4;
-      v21 = result[33] + 16 * v20;
-      if (*v21 == a2 && *(v21 + 4) == HIDWORD(a2))
+      v21 = (result[33] + 16 * v20);
+      if (*v21 == a2 && *(v21 + 1) == HIDWORD(a2))
       {
         break;
       }
@@ -217,7 +1476,7 @@ LABEL_10:
     v26 = &absl::lts_20240722::container_internal::kSooControl;
     if (v25)
     {
-      v21 = (result + 32);
+      v21 = result + 32;
     }
 
     else
@@ -232,9 +1491,9 @@ LABEL_10:
     }
   }
 
-  if (*(v21 + 8) < a3)
+  if (v21[1] < a3)
   {
-    v3 = *(v21 + 8);
+    v3 = v21[1];
   }
 
 LABEL_16:
@@ -298,7 +1557,7 @@ LABEL_39:
 
   else
   {
-    result = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>((result + 38), &v42, v43);
+    result = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>((result + 38), &v42, &v43);
     if (v45 == 1)
     {
       v24 = v44;
@@ -520,16 +1779,16 @@ LABEL_13:
 
 void operations_research::sat::PrecedenceRelations::Build(operations_research::sat::PrecedenceRelations *this)
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   if ((*(this + 160) & 1) == 0)
   {
     *(this + 160) = 1;
     v2 = *(this + 10);
+    v118 = 0;
     v119 = 0;
     v120 = 0;
-    v121 = 0;
-    v125[0] = &v119;
-    LOBYTE(v125[1]) = 0;
+    v124[0] = &v118;
+    LOBYTE(v124[1]) = 0;
     if (v2)
     {
       if ((v2 & 0x80000000) == 0)
@@ -542,8 +1801,8 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
 
     if (*(this + 17) != *(this + 18))
     {
-      absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v125, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 218);
-      absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v125);
+      absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v124, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 218);
+      absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v124);
     }
 
     util::StaticGraph<int,int>::ReserveArcs(this + 32, *(this + 62) & 0xFFFFFFFE);
@@ -574,32 +1833,32 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
 
       do
       {
-        *v125 = *v3;
-        v122 = -v125[1];
-        if (v125[1] <= 0)
+        *v124 = *v3;
+        v121 = -v124[1];
+        if (v124[1] <= 0)
         {
-          LODWORD(v124) = v125[0];
-          v6 = HIDWORD(v125[0]) ^ 1;
-          util::StaticGraph<int,int>::AddArc(this + 32, v125[0], HIDWORD(v125[0]) ^ 1);
-          std::vector<long long>::push_back[abi:ne200100](this + 136, &v122);
-          v7 = 0xAAAAAAAAAAAAAAABLL * ((v120 - v119) >> 3);
-          if (SHIDWORD(v125[0]) >= v7)
+          LODWORD(v123) = v124[0];
+          v6 = HIDWORD(v124[0]) ^ 1;
+          util::StaticGraph<int,int>::AddArc(this + 32, v124[0], HIDWORD(v124[0]) ^ 1);
+          std::vector<long long>::push_back[abi:ne200100](this + 136, &v121);
+          v7 = 0xAAAAAAAAAAAAAAABLL * ((v119 - v118) >> 3);
+          if (SHIDWORD(v124[0]) >= v7)
           {
-            absl::lts_20240722::log_internal::MakeCheckOpString<operations_research::StrongIndex<operations_research::sat::BooleanVariable_index_tag_> const&,unsigned long long>(v125 + 1, v7, "var_pair.second < before.size()");
+            absl::lts_20240722::log_internal::MakeCheckOpString<operations_research::StrongIndex<operations_research::sat::BooleanVariable_index_tag_> const&,unsigned long long>(v124 + 1, v7, "var_pair.second < before.size()");
           }
 
-          std::vector<int>::push_back[abi:ne200100](v119 + 24 * v6, &v124);
-          LODWORD(v124) = HIDWORD(v125[0]);
-          v8 = LODWORD(v125[0]) ^ 1;
-          util::StaticGraph<int,int>::AddArc(this + 32, SHIDWORD(v125[0]), LODWORD(v125[0]) ^ 1);
-          std::vector<long long>::push_back[abi:ne200100](this + 136, &v122);
-          v9 = 0xAAAAAAAAAAAAAAABLL * ((v120 - v119) >> 3);
-          if (SHIDWORD(v125[0]) >= v9)
+          std::vector<int>::push_back[abi:ne200100](v118 + 24 * v6, &v123);
+          LODWORD(v123) = HIDWORD(v124[0]);
+          v8 = LODWORD(v124[0]) ^ 1;
+          util::StaticGraph<int,int>::AddArc(this + 32, SHIDWORD(v124[0]), LODWORD(v124[0]) ^ 1);
+          std::vector<long long>::push_back[abi:ne200100](this + 136, &v121);
+          v9 = 0xAAAAAAAAAAAAAAABLL * ((v119 - v118) >> 3);
+          if (SHIDWORD(v124[0]) >= v9)
           {
-            absl::lts_20240722::log_internal::MakeCheckOpString<operations_research::StrongIndex<operations_research::sat::BooleanVariable_index_tag_> const&,unsigned long long>(v125 + 1, v9, "var_pair.second < before.size()");
+            absl::lts_20240722::log_internal::MakeCheckOpString<operations_research::StrongIndex<operations_research::sat::BooleanVariable_index_tag_> const&,unsigned long long>(v124 + 1, v9, "var_pair.second < before.size()");
           }
 
-          std::vector<int>::push_back[abi:ne200100](v119 + 24 * v8, &v124);
+          std::vector<int>::push_back[abi:ne200100](v118 + 24 * v8, &v123);
         }
 
         v11 = *(v4 + 1);
@@ -623,13 +1882,13 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
       while (v10 != 255);
     }
 
+    v115 = 0;
     v116 = 0;
     v117 = 0;
-    v118 = 0;
-    util::StaticGraph<int,int>::Build(this + 32, &v116);
-    if (v116 != v117)
+    util::StaticGraph<int,int>::Build(this + 32, &v115);
+    if (v115 != v116)
     {
-      if ((v117 - v116) < 0x7FFFFFFFFFFFFFFDLL)
+      if ((v116 - v115) < 0x7FFFFFFFFFFFFFFDLL)
       {
         operator new();
       }
@@ -637,59 +1896,59 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
       std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
     }
 
-    v125[0] = 0;
-    v125[1] = 0;
+    v124[0] = 0;
+    v124[1] = 0;
+    v125 = 0;
+    v121 = v124;
+    v122 = 0;
     v126 = 0;
-    v122 = v125;
-    v123 = 0;
-    v127 = 0;
-    v129 = 0;
-    v130 = 0;
     v128 = 0;
+    v129 = 0;
+    v127 = 0;
     __p = 0u;
-    v132 = 0u;
+    v131 = 0u;
     if (*(this + 12) >= 1)
     {
       v13 = 0;
       do
       {
-        util::internal::DenseIntTopologicalSorterTpl<true>::AddEdge(v125, *(*(this + 14) + 4 * v13), *(*(this + 11) + 4 * v13));
+        util::internal::DenseIntTopologicalSorterTpl<true>::AddEdge(v124, *(*(this + 14) + 4 * v13), *(*(this + 11) + 4 * v13));
         ++v13;
       }
 
       while (v13 < *(this + 12));
     }
 
-    v115 = 0;
     v114 = 0;
+    v113 = 0;
     *(this + 22) = *(this + 21);
-    while (util::internal::DenseIntTopologicalSorterTpl<true>::GetNext(v125, &v115, &v114, 0))
+    while (util::internal::DenseIntTopologicalSorterTpl<true>::GetNext(v124, &v114, &v113, 0))
     {
-      LODWORD(v122) = v115;
-      std::vector<int>::push_back[abi:ne200100](this + 168, &v122);
-      if (v114 == 1)
+      LODWORD(v121) = v114;
+      std::vector<int>::push_back[abi:ne200100](this + 168, &v121);
+      if (v113 == 1)
       {
         *(this + 161) = 0;
         goto LABEL_123;
       }
     }
 
-    v14 = v114;
-    *(this + 161) = v114 ^ 1;
+    v14 = v113;
+    *(this + 161) = v113 ^ 1;
     if ((v14 & 1) == 0)
     {
       v15 = *(this + 21);
-      v101 = *(this + 22);
-      if (v15 != v101)
+      v100 = *(this + 22);
+      if (v15 != v100)
       {
         v16 = 0;
-        v111 = (this + 256);
-        v105 = (this + 320);
+        v110 = (this + 256);
+        v104 = (this + 320);
         while (1)
         {
-          v102 = v15;
+          v101 = v15;
           v17 = *v15;
-          v113 = *v15;
+          v112 = *v15;
           if (++v16 >= 1000001)
           {
             goto LABEL_122;
@@ -707,7 +1966,7 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
           }
 
           v24 = *v23;
-          v103 = v24;
+          v102 = v24;
           while (v19 != v24)
           {
             if (++v16 >= 1000001)
@@ -715,32 +1974,32 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
               break;
             }
 
-            v104 = v19;
-            v108 = *(*(this + 17) + 8 * v19);
-            v109 = *(*(this + 11) + 4 * v19);
-            if (operations_research::sat::PrecedenceRelations::AddInternal(this, v113, v109, v108))
+            v103 = v19;
+            v107 = *(*(this + 17) + 8 * v19);
+            v108 = *(*(this + 11) + 4 * v19);
+            if (operations_research::sat::PrecedenceRelations::AddInternal(this, v112, v108, v107))
             {
-              std::vector<int>::push_back[abi:ne200100](v119 + 24 * v109, &v113);
+              std::vector<int>::push_back[abi:ne200100](v118 + 24 * v108, &v112);
             }
 
-            v26 = v119 + 24 * v113;
+            v26 = v118 + 24 * v112;
             v27 = *v26;
-            v107 = *(v26 + 1);
-            if (*v26 != v107)
+            v106 = *(v26 + 1);
+            if (*v26 != v106)
             {
-              v110 = v109 ^ 1;
-              v106 = (v109 ^ 1) << 32;
+              v109 = v108 ^ 1;
+              v105 = (v108 ^ 1) << 32;
               while (1)
               {
                 v29 = *v27;
-                v112 = *v27;
+                v111 = *v27;
                 if (v16 == 1000000)
                 {
                   v16 = 1000001;
                   goto LABEL_37;
                 }
 
-                v30 = v113 ^ 1;
+                v30 = v112 ^ 1;
                 v31 = v29 | (v30 << 32);
                 v32 = __ROR8__(v31, 32);
                 if (v29 > v30)
@@ -755,11 +2014,11 @@ void operations_research::sat::PrecedenceRelations::Build(operations_research::s
                   v35 = HIDWORD(v31) + ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v31)));
                   v36 = ((v35 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v35);
                   v37 = vdup_n_s8(v36 & 0x7F);
-                  _X12 = *v111;
+                  _X12 = *v110;
                   __asm { PRFM            #4, [X12] }
 
-                  v43 = ((v36 >> 7) ^ (*v111 >> 12)) & v33;
-                  v44 = *(*v111 + v43);
+                  v43 = ((v36 >> 7) ^ (*v110 >> 12)) & v33;
+                  v44 = *(*v110 + v43);
                   v45 = vceq_s8(v44, v37);
                   if (!v45)
                   {
@@ -825,10 +2084,10 @@ LABEL_149:
                   }
                 }
 
-                v51 = *(v47 + 1) - v108;
-                LODWORD(v122) = v109;
-                v52 = __ROR8__(v106 | v29, 32);
-                v53 = v110 >= v29 ? v106 | v29 : v52;
+                v51 = *(v47 + 1) - v107;
+                LODWORD(v121) = v108;
+                v52 = __ROR8__(v105 | v29, 32);
+                v53 = v109 >= v29 ? v105 | v29 : v52;
                 if (v33 > 1)
                 {
                   break;
@@ -854,7 +2113,7 @@ LABEL_149:
                 {
                   *(this + 31) = 2;
                   v54 = this + 256;
-                  *v111 = v53;
+                  *v110 = v53;
                   *(this + 33) = v51;
                   v55 = 1;
                   v56 = *(this + 38);
@@ -868,7 +2127,7 @@ LABEL_88:
                 if (*(this + 39) <= 1uLL)
                 {
                   *(this + 39) = 2;
-                  *v105 = v53;
+                  *v104 = v53;
                   *(this + 41) = v51;
                   if (!v55)
                   {
@@ -905,14 +2164,14 @@ LABEL_44:
                 }
 
 LABEL_115:
-                if (v110 <= v29)
+                if (v109 <= v29)
                 {
                   v82 = v29;
                 }
 
                 else
                 {
-                  v82 = v109 ^ 1;
+                  v82 = v108 ^ 1;
                 }
 
                 v83 = v82 + 1;
@@ -924,28 +2183,28 @@ LABEL_115:
                   v84 = *(this + 42);
                 }
 
-                std::vector<int>::push_back[abi:ne200100](v84 + 24 * v29, &v122);
-                v86 = *(this + 42) + 24 * (v122 ^ 1);
-                LODWORD(v124) = v29 ^ 1;
-                std::vector<int>::push_back[abi:ne200100](v86, &v124);
-                std::vector<int>::push_back[abi:ne200100](v119 + 24 * v109, &v112);
+                std::vector<int>::push_back[abi:ne200100](v84 + 24 * v29, &v121);
+                v86 = *(this + 42) + 24 * (v121 ^ 1);
+                LODWORD(v123) = v29 ^ 1;
+                std::vector<int>::push_back[abi:ne200100](v86, &v123);
+                std::vector<int>::push_back[abi:ne200100](v118 + 24 * v108, &v111);
 LABEL_47:
                 ++v16;
-                if (++v27 == v107)
+                if (++v27 == v106)
                 {
                   goto LABEL_37;
                 }
               }
 
               v57 = 0;
-              _X9 = *v111;
+              _X9 = *v110;
               __asm { PRFM            #4, [X9] }
 
               v60 = HIDWORD(v53) + ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v53) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v53)));
               v25 = ((v60 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v60);
               v61 = vdup_n_s8(v25 & 0x7F);
-              v62 = ((v25 >> 7) ^ (*v111 >> 12)) & v33;
-              v63 = *(*v111 + v62);
+              v62 = ((v25 >> 7) ^ (*v110 >> 12)) & v33;
+              v63 = *(*v110 + v62);
               v64 = vceq_s8(v63, v61);
               if (!v64)
               {
@@ -1004,14 +2263,14 @@ LABEL_84:
 
 LABEL_103:
               v70 = 0;
-              _X9 = *v105;
+              _X9 = *v104;
               __asm { PRFM            #4, [X9] }
 
               v73 = HIDWORD(v53) + ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v53) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v53)));
               v25 = ((v73 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v73);
               v74 = vdup_n_s8(v25 & 0x7F);
-              v75 = ((v25 >> 7) ^ (*v105 >> 12)) & v56;
-              v76 = *(*v105 + v75);
+              v75 = ((v25 >> 7) ^ (*v104 >> 12)) & v56;
+              v76 = *(*v104 + v75);
               v77 = vceq_s8(v76, v74);
               if (!v77)
               {
@@ -1064,12 +2323,12 @@ LABEL_109:
             }
 
 LABEL_37:
-            v24 = v103;
-            v19 = v104 + 1;
+            v24 = v102;
+            v19 = v103 + 1;
           }
 
-          v15 = v102 + 1;
-          if (v102 + 1 == v101)
+          v15 = v101 + 1;
+          if (v101 + 1 == v100)
           {
             goto LABEL_122;
           }
@@ -1080,15 +2339,15 @@ LABEL_37:
 LABEL_122:
       if (dword_2810BD5C0 >= 2 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled2(&operations_research::sat::PrecedenceRelations::Build(void)::$_0::operator() const(void)::site, dword_2810BD5C0))
       {
-        absl::lts_20240722::log_internal::LogMessage::LogMessage(&v122, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 307);
-        v99 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&v122, 2);
-        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v99, "Full precedences. Work=", 0x17uLL);
-        LODWORD(v124) = v16;
-        v100 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v99, &v124);
-        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v100, " Relations=", 0xBuLL);
-        v124 = *(this + 31) >> 1;
-        absl::lts_20240722::log_internal::LogMessage::operator<<<unsigned long,0>(v100, &v124);
-        absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v122);
+        absl::lts_20240722::log_internal::LogMessage::LogMessage(&v121, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 307);
+        v98 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&v121, 2);
+        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v98, "Full precedences. Work=", 0x17uLL);
+        LODWORD(v123) = v16;
+        v99 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v98, &v123);
+        absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v99, " Relations=", 0xBuLL);
+        v123 = *(this + 31) >> 1;
+        absl::lts_20240722::log_internal::LogMessage::operator<<<unsigned long,0>(v99, &v123);
+        absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v121);
       }
     }
 
@@ -1099,20 +2358,20 @@ LABEL_123:
       operator delete(__p);
     }
 
-    if (v128)
+    if (v127)
     {
-      v129 = v128;
-      operator delete(v128);
+      v128 = v127;
+      operator delete(v127);
     }
 
-    v87 = v125[0];
-    if (v125[0])
+    v87 = v124[0];
+    if (v124[0])
     {
-      v88 = v125[1];
-      v89 = v125[0];
-      if (v125[1] != v125[0])
+      v88 = v124[1];
+      v89 = v124[0];
+      if (v124[1] != v124[0])
       {
-        v90 = v125[1];
+        v90 = v124[1];
         do
         {
           v91 = *(v90 - 24);
@@ -1126,27 +2385,27 @@ LABEL_123:
         }
 
         while (v90 != v87);
-        v89 = v125[0];
+        v89 = v124[0];
       }
 
-      v125[1] = v87;
+      v124[1] = v87;
       operator delete(v89);
     }
 
-    if (v116)
+    if (v115)
     {
-      v117 = v116;
-      operator delete(v116);
+      v116 = v115;
+      operator delete(v115);
     }
 
-    v92 = v119;
-    if (v119)
+    v92 = v118;
+    if (v118)
     {
-      v93 = v120;
-      v94 = v119;
-      if (v120 != v119)
+      v93 = v119;
+      v94 = v118;
+      if (v119 != v118)
       {
-        v95 = v120;
+        v95 = v119;
         do
         {
           v97 = *(v95 - 3);
@@ -1162,20 +2421,19 @@ LABEL_123:
         }
 
         while (v95 != v92);
-        v94 = v119;
+        v94 = v118;
       }
 
-      v120 = v92;
+      v119 = v92;
       operator delete(v94);
     }
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23CC883B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, void *a33)
+void sub_23CC883B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, ...)
 {
-  util::internal::DenseIntTopologicalSorterTpl<true>::~DenseIntTopologicalSorterTpl(&a33);
+  va_start(va, a32);
+  util::internal::DenseIntTopologicalSorterTpl<true>::~DenseIntTopologicalSorterTpl(va);
   if (__p)
   {
     operator delete(__p);
@@ -1185,7 +2443,7 @@ void sub_23CC883B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void **util::internal::DenseIntTopologicalSorterTpl<true>::~DenseIntTopologicalSorterTpl(void **a1)
+void ***util::internal::DenseIntTopologicalSorterTpl<true>::~DenseIntTopologicalSorterTpl(void ***a1)
 {
   v2 = a1[8];
   if (v2)
@@ -1266,18 +2524,18 @@ void operations_research::sat::PrecedenceRelations::ComputeFullPrecedences(opera
       absl::lts_20240722::log_internal::LogMessage::LogMessage(v250, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 318);
       v236 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(v250, 2);
       absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v236, "num_nodes: ", 0xBuLL);
-      LODWORD(v261) = *(this + 10);
-      v237 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v236, &v261);
+      LODWORD(v262) = *(this + 10);
+      v237 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v236, &v262);
       absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v237, " num_arcs: ", 0xBuLL);
-      LODWORD(v261) = *(this + 12);
-      v238 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v237, &v261);
+      LODWORD(v262) = *(this + 12);
+      v238 = absl::lts_20240722::log_internal::LogMessage::operator<<<int,0>(v237, &v262);
       absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v238, " is_dag: ", 9uLL);
-      LOBYTE(v261) = *(this + 161);
-      absl::lts_20240722::log_internal::LogMessage::operator<<<BOOL,0>(v238, &v261);
+      LOBYTE(v262) = *(this + 161);
+      absl::lts_20240722::log_internal::LogMessage::operator<<<BOOL,0>(v238, &v262);
       absl::lts_20240722::log_internal::LogMessage::~LogMessage(v250);
     }
 
-    v261 = xmmword_23CE306D0;
+    v262 = xmmword_23CE306D0;
     v9 = *a2;
     v8 = a2[1];
     v10 = v8 - *a2;
@@ -1320,14 +2578,14 @@ void operations_research::sat::PrecedenceRelations::ComputeFullPrecedences(opera
         if (v258 > 1)
         {
           v28 = 0;
-          _X12 = v259;
+          _X12 = v260;
           __asm { PRFM            #4, [X12] }
 
           v31 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v18) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v18));
           v21 = v31 >> 7;
           v22 = vdup_n_s8(v31 & 0x7F);
-          v32 = ((v31 >> 7) ^ (v259 >> 12)) & v258;
-          v33 = *(v259 + v32);
+          v32 = ((v31 >> 7) ^ (v260 >> 12)) & v258;
+          v33 = *(v260 + v32);
           v34 = vceq_s8(v33, v22);
           if (!v34)
           {
@@ -1335,7 +2593,7 @@ void operations_research::sat::PrecedenceRelations::ComputeFullPrecedences(opera
           }
 
 LABEL_35:
-          while (*(v260 + 4 * ((v32 + (__clz(__rbit64(v34)) >> 3)) & v258)) != v18)
+          while (*(v261 + 4 * ((v32 + (__clz(__rbit64(v34)) >> 3)) & v258)) != v18)
           {
             v34 &= ((v34 & 0x8080808080808080) - 1) & 0x8080808080808080;
             if (!v34)
@@ -1345,7 +2603,7 @@ LABEL_37:
               {
                 v28 += 8;
                 v32 = (v28 + v32) & v258;
-                v33 = *(v259 + v32);
+                v33 = *(v260 + v32);
                 v34 = vceq_s8(v33, v22);
                 if (v34)
                 {
@@ -1358,7 +2616,7 @@ LABEL_37:
           }
         }
 
-        else if (*(&v258 + 1) < 2uLL || v259 != v18)
+        else if (v259 < 2 || v260 != v18)
         {
           v20 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v18) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v18));
           v21 = v20 >> 7;
@@ -1497,7 +2755,7 @@ LABEL_46:
 
           if (v258 <= 1)
           {
-            if (*(&v258 + 1) < 2uLL || v259 != v251)
+            if (v259 < 2 || v260 != v251)
             {
               goto LABEL_62;
             }
@@ -1873,7 +3131,7 @@ LABEL_133:
                   v99 = *(v73 + 1) + v249;
                   if (*v75 != *v73)
                   {
-                    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl(v69 + 8, 3);
+                    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl((v69 + 8), 3uLL);
                   }
 
                   v100 = v99 < *v76;
@@ -1886,7 +3144,7 @@ LABEL_133:
 LABEL_99:
                   if (*v75 != *v73)
                   {
-                    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl(v69 + 8, 3);
+                    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl((v69 + 8), 3uLL);
                   }
 
                   v79 = v69 + 32;
@@ -1917,10 +3175,10 @@ LABEL_134:
             if (v258 <= 1)
             {
               v133 = v248;
-              if (*(&v258 + 1) >= 2uLL)
+              if (v259 >= 2)
               {
-                v134 = v259;
-                if (v259 == v251)
+                v134 = v260;
+                if (v260 == v251)
                 {
                   goto LABEL_141;
                 }
@@ -1929,16 +3187,16 @@ LABEL_134:
 LABEL_172:
               if (((*(&v252 + 1) >> 1) + 1) >= *(v69 + 16) >> 1)
               {
-                if (v261 > 1)
+                if (v262 > 1)
                 {
                   v55 = 0;
-                  _X10 = v262;
+                  _X10 = v263;
                   __asm { PRFM            #4, [X10] }
 
-                  for (k = v247 ^ (v262 >> 12); ; k = v55 + v51)
+                  for (k = v247 ^ (v263 >> 12); ; k = v55 + v51)
                   {
-                    v51 = k & v261;
-                    v52 = *(v262 + v51);
+                    v51 = k & v262;
+                    v52 = *(v263 + v51);
                     v53 = vceq_s8(v52, v65);
                     if (v53)
                     {
@@ -1956,8 +3214,8 @@ LABEL_59:
 
                   while (1)
                   {
-                    v54 = (v51 + (__clz(__rbit64(v53)) >> 3)) & v261;
-                    if (*(v263 + 4 * v54) == v133)
+                    v54 = (v51 + (__clz(__rbit64(v53)) >> 3)) & v262;
+                    if (*(v264 + 4 * v54) == v133)
                     {
                       break;
                     }
@@ -1969,23 +3227,23 @@ LABEL_59:
                     }
                   }
 
-                  absl::lts_20240722::container_internal::EraseMetaOnly(&v261, v54);
+                  absl::lts_20240722::container_internal::EraseMetaOnly(&v262, v54);
                 }
 
-                else if (*(&v261 + 1) >= 2uLL && v262 == v133)
+                else if (*(&v262 + 1) >= 2uLL && v263 == v133)
                 {
-                  *(&v261 + 1) = 0;
+                  *(&v262 + 1) = 0;
                 }
               }
 
-              else if (v261 > 1)
+              else if (v262 > 1)
               {
                 v167 = 0;
-                _X9 = v262;
+                _X9 = v263;
                 __asm { PRFM            #4, [X9] }
 
-                v170 = (v247 ^ (v262 >> 12)) & v261;
-                v171 = *(v262 + v170);
+                v170 = (v247 ^ (v263 >> 12)) & v262;
+                v171 = *(v263 + v170);
                 v172 = vceq_s8(v171, v65);
                 if (!v172)
                 {
@@ -1993,7 +3251,7 @@ LABEL_59:
                 }
 
 LABEL_181:
-                while (*(v263 + 4 * ((v170 + (__clz(__rbit64(v172)) >> 3)) & v261)) != v133)
+                while (*(v264 + 4 * ((v170 + (__clz(__rbit64(v172)) >> 3)) & v262)) != v133)
                 {
                   v172 &= ((v172 & 0x8080808080808080) - 1) & 0x8080808080808080;
                   if (!v172)
@@ -2008,8 +3266,8 @@ LABEL_183:
                       }
 
                       v167 += 8;
-                      v170 = (v167 + v170) & v261;
-                      v171 = *(v262 + v170);
+                      v170 = (v167 + v170) & v262;
+                      v171 = *(v263 + v170);
                       v172 = vceq_s8(v171, v65);
                       if (v172)
                       {
@@ -2017,40 +3275,40 @@ LABEL_183:
                       }
                     }
 
-                    v176 = absl::lts_20240722::container_internal::PrepareInsertNonSoo(&v261, v245, (v170 + (__clz(__rbit64(v173)) >> 3)) & v261, v167, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::GetPolicyFunctions(void)::value);
-                    *(v263 + 4 * v176) = v133;
+                    v176 = absl::lts_20240722::container_internal::PrepareInsertNonSoo(&v262, v245, (v170 + (__clz(__rbit64(v173)) >> 3)) & v262, v167, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::GetPolicyFunctions(void)::value);
+                    *(v264 + 4 * v176) = v133;
                     goto LABEL_62;
                   }
                 }
               }
 
-              else if (*(&v261 + 1) > 1uLL)
+              else if (*(&v262 + 1) > 1uLL)
               {
-                if (v262 != v133)
+                if (v263 != v133)
                 {
-                  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::resize_impl(&v261, 3);
+                  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>::resize_impl(&v262, 3uLL);
                 }
               }
 
               else
               {
-                *(&v261 + 1) = 2;
-                LODWORD(v262) = v133;
+                *(&v262 + 1) = 2;
+                LODWORD(v263) = v133;
               }
 
               goto LABEL_62;
             }
 
             v142 = 0;
-            _X11 = v259;
+            _X11 = v260;
             __asm { PRFM            #4, [X11] }
 
             v134 = v251;
             v145 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251));
             v146 = vdup_n_s8(v145 & 0x7F);
             v133 = v248;
-            v147 = ((v145 >> 7) ^ (v259 >> 12)) & v258;
-            v148 = *(v259 + v147);
+            v147 = ((v145 >> 7) ^ (v260 >> 12)) & v258;
+            v148 = *(v260 + v147);
             v149 = vceq_s8(v148, v146);
             if (!v149)
             {
@@ -2058,7 +3316,7 @@ LABEL_183:
             }
 
 LABEL_151:
-            while (*(v260 + 4 * ((v147 + (__clz(__rbit64(v149)) >> 3)) & v258)) != v251)
+            while (*(v261 + 4 * ((v147 + (__clz(__rbit64(v149)) >> 3)) & v258)) != v251)
             {
               v149 &= ((v149 & 0x8080808080808080) - 1) & 0x8080808080808080;
               if (!v149)
@@ -2068,7 +3326,7 @@ LABEL_153:
                 {
                   v142 += 8;
                   v147 = (v142 + v147) & v258;
-                  v148 = *(v259 + v147);
+                  v148 = *(v260 + v147);
                   v149 = vceq_s8(v148, v146);
                   if (v149)
                   {
@@ -2122,7 +3380,7 @@ LABEL_165:
               }
 
 LABEL_144:
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>(v69 + 8, &v251, v250);
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>((v69 + 8), &v251, v250);
               if (v250[16] == 1)
               {
                 v136 = *&v250[8];
@@ -2132,7 +3390,7 @@ LABEL_144:
 
               v137 = *&v250[8];
               v138 = *(*&v250[8] + 8);
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>(v69 + 8, &v251, v250);
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>((v69 + 8), &v251, v250);
               if (v250[16] == 1)
               {
                 v139 = *&v250[8];
@@ -2156,7 +3414,7 @@ LABEL_144:
               }
 
 LABEL_168:
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>(v69 + 8, &v251, v250);
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::find_or_prepare_insert<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>((v69 + 8), &v251, v250);
               if (v250[16] == 1)
               {
                 v166 = *&v250[8];
@@ -2173,13 +3431,13 @@ LABEL_168:
           }
 
           v150 = 0;
-          _X12 = v259;
+          _X12 = v260;
           __asm { PRFM            #4, [X12] }
 
           v153 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251));
           v154 = vdup_n_s8(v153 & 0x7F);
-          v155 = ((v153 >> 7) ^ (v259 >> 12)) & v258;
-          v156 = *(v259 + v155);
+          v155 = ((v153 >> 7) ^ (v260 >> 12)) & v258;
+          v156 = *(v260 + v155);
           v157 = vceq_s8(v156, v154);
           if (!v157)
           {
@@ -2189,7 +3447,7 @@ LABEL_168:
           do
           {
 LABEL_157:
-            if (*(v260 + 4 * ((v155 + (__clz(__rbit64(v157)) >> 3)) & v258)) == v251)
+            if (*(v261 + 4 * ((v155 + (__clz(__rbit64(v157)) >> 3)) & v258)) == v251)
             {
               goto LABEL_69;
             }
@@ -2203,7 +3461,7 @@ LABEL_159:
           {
             v150 += 8;
             v155 = (v150 + v155) & v258;
-            v156 = *(v259 + v155);
+            v156 = *(v260 + v155);
             v157 = vceq_s8(v156, v154);
             if (v157)
             {
@@ -2216,17 +3474,17 @@ LABEL_62:
           v50 = v246;
         }
 
-        if (v261 > 1)
+        if (v262 > 1)
         {
           v215 = 0;
-          _X11 = v262;
+          _X11 = v263;
           __asm { PRFM            #4, [X11] }
 
           v177 = v251;
           v218 = (((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v251));
           v219 = vdup_n_s8(v218 & 0x7F);
-          v220 = ((v218 >> 7) ^ (v262 >> 12)) & v261;
-          v221 = *(v262 + v220);
+          v220 = ((v218 >> 7) ^ (v263 >> 12)) & v262;
+          v221 = *(v263 + v220);
           v222 = vceq_s8(v221, v219);
           if (!v222)
           {
@@ -2236,7 +3494,7 @@ LABEL_62:
           do
           {
 LABEL_242:
-            if (*(v263 + 4 * ((v220 + (__clz(__rbit64(v222)) >> 3)) & v261)) == v251)
+            if (*(v264 + 4 * ((v220 + (__clz(__rbit64(v222)) >> 3)) & v262)) == v251)
             {
               goto LABEL_193;
             }
@@ -2249,8 +3507,8 @@ LABEL_244:
           while (!*&vceq_s8(v221, 0x8080808080808080))
           {
             v215 += 8;
-            v220 = (v215 + v220) & v261;
-            v221 = *(v262 + v220);
+            v220 = (v215 + v220) & v262;
+            v221 = *(v263 + v220);
             v222 = vceq_s8(v221, v219);
             if (v222)
             {
@@ -2259,10 +3517,10 @@ LABEL_244:
           }
         }
 
-        else if (*(&v261 + 1) >= 2uLL)
+        else if (*(&v262 + 1) >= 2uLL)
         {
-          v177 = v262;
-          if (v262 == v251)
+          v177 = v263;
+          if (v263 == v251)
           {
 LABEL_193:
             if ((*(&v252 + 1) & 0xFFFFFFFFFFFFFFFELL) != 2)
@@ -2603,19 +3861,19 @@ LABEL_253:
 
     if (v258 >= 2)
     {
-      operator delete((v259 - (BYTE8(v258) & 1) - 8));
+      operator delete((v260 - (v259 & 1) - 8));
     }
 
-    if (v261 >= 2)
+    if (v262 >= 2)
     {
-      operator delete((v262 - (BYTE8(v261) & 1) - 8));
+      operator delete((v263 - (BYTE8(v262) & 1) - 8));
     }
   }
 }
 
-void sub_23CC89C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23CC89C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2711,11 +3969,11 @@ void operations_research::sat::PrecedenceRelations::CollectPrecedences(std::vect
     {
       v22 = &v21[6 * v20];
       v24 = *v22;
-      v23 = v22[1];
+      v23 = *(v22 + 1);
       if (v23 != *v22)
       {
         v78 = v17 << 32;
-        v74 = v22[1];
+        v74 = *(v22 + 1);
         do
         {
           v26 = *v24;
@@ -2817,11 +4075,11 @@ LABEL_23:
     {
       v38 = &v37[6 * v73];
       v40 = *v38;
-      v39 = v38[1];
+      v39 = *(v38 + 1);
       if (v39 != *v38)
       {
         v79 = v17 << 32;
-        v75 = v38[1];
+        v75 = *(v38 + 1);
         do
         {
           v42 = *v40;
@@ -3025,7 +4283,6 @@ void operations_research::sat::PrecedencesPropagator::~PrecedencesPropagator(ope
   *(this + 5) = &unk_284F440A8;
   if (dword_27E25D210 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&operations_research::sat::PrecedencesPropagator::~PrecedencesPropagator()::$_0::operator() const(void)::site, dword_27E25D210) && *(this + 9))
   {
-    v32 = *(this + 61);
     operator new();
   }
 
@@ -3288,7 +4545,7 @@ uint64_t operations_research::sat::PrecedencesPropagator::Propagate(operations_r
         {
           v28 = *v8;
           v10 = *(this + 34);
-          v11 = 4 * *v8;
+          v11 = 4 * v28;
           v12 = *(v10 + v11) - 1;
           *(v10 + v11) = v12;
           if (!v12)
@@ -3326,14 +4583,14 @@ uint64_t operations_research::sat::PrecedencesPropagator::Propagate(operations_r
 
             if (v17 >> 1 == v19)
             {
-              absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v16);
+              absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v16, &v28);
             }
 
             *(v18 + (v17 >> 1)) = v28;
             *v16 = v17 + 2;
           }
 
-          ++v8;
+          v8 = (v8 + 4);
           v9 -= 4;
         }
 
@@ -3598,7 +4855,7 @@ LABEL_15:
 
 uint64_t operations_research::sat::PrecedencesPropagator::BellmanFordTarjan(operations_research::sat::PrecedencesPropagator *this, operations_research::sat::Trail *a2)
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   v3 = ((*(this + 20) - *(this + 19)) >> 5);
   std::vector<BOOL>::resize(this + 416, v3, 0);
   __x[0] = -1;
@@ -3609,9 +4866,9 @@ uint64_t operations_research::sat::PrecedencesPropagator::BellmanFordTarjan(oper
     if (v3 < v5)
     {
       *(this + 56) = v4 + 4 * v3;
-      v116 = this;
+      v114 = this;
       v6 = 1;
-      v115 = 1;
+      v113 = 1;
       v7 = *(this + 48);
       if (!v7)
       {
@@ -3623,7 +4880,7 @@ LABEL_7:
           goto LABEL_110;
         }
 
-        goto LABEL_115;
+        return v6;
       }
 
       goto LABEL_11;
@@ -3635,9 +4892,9 @@ LABEL_7:
     std::vector<int>::__append((this + 440), v3 - v5, __x);
   }
 
-  v116 = this;
+  v114 = this;
   v6 = 1;
-  v115 = 1;
+  v113 = 1;
   v7 = *(this + 48);
   if (!v7)
   {
@@ -3690,7 +4947,7 @@ LABEL_10:
         goto LABEL_110;
       }
 
-      goto LABEL_115;
+      return v6;
     }
   }
 
@@ -3762,32 +5019,31 @@ LABEL_18:
     v43 = *(v42 + v41) & (1 << v40);
     if (v39 >= v27 && v43 == 0)
     {
-      v45 = *(this + 22);
-      v46 = *(this + 45);
-      v47 = *(this + 44);
-      if (v46 == v47)
+      v45 = *(this + 45);
+      v46 = *(this + 44);
+      if (v45 == v46)
       {
-        v48 = 0;
+        v47 = 0;
       }
 
       else
       {
-        v48 = ((v46 - v47) << 7) - 1;
+        v47 = ((v45 - v46) << 7) - 1;
       }
 
-      v49 = *(this + 48);
-      v50 = v49 + *(this + 47);
-      if (v48 == v50)
+      v48 = *(this + 48);
+      v49 = v48 + *(this + 47);
+      if (v47 == v49)
       {
         std::deque<int>::__add_back_capacity(this + 43);
-        v47 = *(this + 44);
-        v49 = *(this + 48);
-        v50 = *(this + 47) + v49;
+        v46 = *(this + 44);
+        v48 = *(this + 48);
+        v49 = *(this + 47) + v48;
         v42 = *(this + 49);
       }
 
-      *(*(v47 + ((v50 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v50 & 0x3FF)) = v40;
-      *(this + 48) = v49 + 1;
+      *(*(v46 + ((v49 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v49 & 0x3FF)) = v40;
+      *(this + 48) = v48 + 1;
       *(v42 + ((*(v22 + 4) >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << *(v22 + 4);
     }
 
@@ -3795,24 +5051,24 @@ LABEL_18:
   }
 
   *__x = 0;
-  v112 = 0;
-  v113 = 0;
+  v110 = 0;
+  v111 = 0;
   operations_research::sat::PrecedencesPropagator::AnalyzePositiveCycle(this, v20, v28, __x, this + 37, this + 40);
   v29 = *__x;
-  v30 = v112;
-  if (*__x == v112)
+  v30 = v110;
+  if (*__x == v110)
   {
     ++*(this + 61);
-    v51 = *(this + 8);
-    v52 = *(this + 37);
-    v53 = *(this + 38);
-    v54 = *(this + 40);
-    v55 = *(this + 41);
-    v56 = *(v51 + 840);
-    *(v56 + 120) = 0;
-    std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((v56 + 72), v52, v53, (v53 - v52) >> 2);
-    operations_research::sat::IntegerTrail::MergeReasonInto(v51, v54, (v55 - v54) >> 4, (v56 + 72));
-    v57 = 0;
+    v50 = *(this + 8);
+    v51 = *(this + 37);
+    v52 = *(this + 38);
+    v53 = *(this + 40);
+    v54 = *(this + 41);
+    v55 = *(v50 + 840);
+    *(v55 + 120) = 0;
+    std::vector<operations_research::sat::Literal>::__assign_with_size[abi:ne200100]<operations_research::sat::Literal const*,operations_research::sat::Literal const*>((v55 + 72), v51, v52, (v52 - v51) >> 2);
+    operations_research::sat::IntegerTrail::MergeReasonInto(v50, v53, (v54 - v53) >> 4, (v55 + 72));
+    v56 = 0;
     if (v29)
     {
       goto LABEL_62;
@@ -3821,7 +5077,7 @@ LABEL_18:
     goto LABEL_63;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(*__x, v112, &v114, 126 - 2 * __clz((v112 - *__x) >> 2), 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(*__x, v110, &v112, 126 - 2 * __clz((v110 - *__x) >> 2), 1);
   v31 = v29 + 1;
   while (v31 != v30)
   {
@@ -3846,7 +5102,7 @@ LABEL_18:
       if (v34 + 1 != v30)
       {
         v30 = v34 + 1;
-        v112 = v34 + 1;
+        v110 = v34 + 1;
       }
 
       break;
@@ -3858,44 +5114,44 @@ LABEL_18:
     goto LABEL_61;
   }
 
-  v58 = v29;
+  v57 = v29;
   while (2)
   {
-    v59 = *v58;
-    if ((*(*(*(this + 7) + 24) + ((v59 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v59 & 0x3F ^ 1u)))
+    v58 = *v57;
+    if ((*(*(*(this + 7) + 24) + ((v58 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v58 & 0x3F ^ 1)))
     {
-      v63 = *(this + 38);
-      v62 = *(this + 39);
-      if (v63 >= v62)
+      v62 = *(this + 38);
+      v61 = *(this + 39);
+      if (v62 >= v61)
       {
-        v65 = *(this + 37);
-        v66 = v63 - v65;
-        v67 = (v63 - v65) >> 2;
-        v68 = v67 + 1;
-        if ((v67 + 1) >> 62)
+        v64 = *(this + 37);
+        v65 = v62 - v64;
+        v66 = (v62 - v64) >> 2;
+        v67 = v66 + 1;
+        if ((v66 + 1) >> 62)
         {
           goto LABEL_116;
         }
 
-        v69 = v62 - v65;
-        if (v69 >> 1 > v68)
+        v68 = v61 - v64;
+        if (v68 >> 1 > v67)
         {
-          v68 = v69 >> 1;
+          v67 = v68 >> 1;
         }
 
-        if (v69 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v68 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v70 = 0x3FFFFFFFFFFFFFFFLL;
+          v69 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v70 = v68;
+          v69 = v67;
         }
 
-        if (v70)
+        if (v69)
         {
-          if (!(v70 >> 62))
+          if (!(v69 >> 62))
           {
             operator new();
           }
@@ -3903,68 +5159,68 @@ LABEL_18:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v71 = (v63 - v65) >> 2;
-        v72 = (4 * v67);
-        v73 = (4 * v67 - 4 * v71);
-        *v72 = v59;
-        v64 = (v72 + 1);
-        memcpy(v73, v65, v66);
-        *(this + 37) = v73;
-        *(this + 38) = v64;
+        v70 = (v62 - v64) >> 2;
+        v71 = (4 * v66);
+        v72 = (4 * v66 - 4 * v70);
+        *v71 = v58;
+        v63 = (v71 + 1);
+        memcpy(v72, v64, v65);
+        *(this + 37) = v72;
+        *(this + 38) = v63;
         *(this + 39) = 0;
-        if (v65)
+        if (v64)
         {
-          operator delete(v65);
+          operator delete(v64);
         }
       }
 
       else
       {
-        *v63 = v59;
-        v64 = v63 + 4;
+        *v62 = v58;
+        v63 = v62 + 4;
       }
 
-      *(this + 38) = v64;
-      v74 = *(this + 8);
-      v75 = *(this + 37);
-      v76 = *(this + 40);
-      v77 = *(this + 41);
-      v78 = *(v74 + 840);
-      *(v78 + 120) = 0;
-      v79 = *(v78 + 72);
-      v80 = v64 - v75;
-      v81 = *(v78 + 88);
-      if (v81 - v79 < (v64 - v75))
+      *(this + 38) = v63;
+      v73 = *(this + 8);
+      v74 = *(this + 37);
+      v75 = *(this + 40);
+      v76 = *(this + 41);
+      v77 = *(v73 + 840);
+      *(v77 + 120) = 0;
+      v78 = *(v77 + 72);
+      v79 = v63 - v74;
+      v80 = *(v77 + 88);
+      if (v80 - v78 < (v63 - v74))
       {
-        if (v79)
+        if (v78)
         {
-          *(v78 + 80) = v79;
-          operator delete(v79);
-          v81 = 0;
-          *(v78 + 72) = 0;
-          *(v78 + 80) = 0;
-          *(v78 + 88) = 0;
+          *(v77 + 80) = v78;
+          operator delete(v78);
+          v80 = 0;
+          *(v77 + 72) = 0;
+          *(v77 + 80) = 0;
+          *(v77 + 88) = 0;
         }
 
-        v82 = v80 >> 2;
-        if (!((v80 >> 2) >> 62))
+        v81 = v79 >> 2;
+        if (!((v79 >> 2) >> 62))
         {
-          if (v81 >> 1 > v82)
+          if (v80 >> 1 > v81)
           {
-            v82 = v81 >> 1;
+            v81 = v80 >> 1;
           }
 
-          if (v81 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v80 >= 0x7FFFFFFFFFFFFFFCLL)
           {
-            v83 = 0x3FFFFFFFFFFFFFFFLL;
+            v82 = 0x3FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v83 = v82;
+            v82 = v81;
           }
 
-          if (!(v83 >> 62))
+          if (!(v82 >> 62))
           {
             operator new();
           }
@@ -3974,26 +5230,26 @@ LABEL_116:
         std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
       }
 
-      v84 = *(v78 + 80);
-      v85 = v84 - v79;
-      if (v84 - v79 >= v80)
+      v83 = *(v77 + 80);
+      v84 = v83 - v78;
+      if (v83 - v78 >= v79)
       {
-        if (v64 != v75)
+        if (v63 != v74)
         {
-          v110 = v74;
+          v108 = v73;
+          v88 = v75;
           v89 = v76;
-          v90 = v77;
-          memmove(v79, v75, v80);
-          v77 = v90;
+          memmove(v78, v74, v79);
           v76 = v89;
-          v74 = v110;
+          v75 = v88;
+          v73 = v108;
         }
 
-        v91 = &v79[v80];
+        v90 = &v78[v79];
 LABEL_105:
-        *(v78 + 80) = v91;
-        operations_research::sat::IntegerTrail::MergeReasonInto(v74, v76, (v77 - v76) >> 4, (v78 + 72));
-        v57 = 0;
+        *(v77 + 80) = v90;
+        operations_research::sat::IntegerTrail::MergeReasonInto(v73, v75, (v76 - v75) >> 4, (v77 + 72));
+        v56 = 0;
         if (v29)
         {
           goto LABEL_62;
@@ -4002,12 +5258,12 @@ LABEL_105:
         goto LABEL_63;
       }
 
-      if (v84 == v79)
+      if (v83 == v78)
       {
-        v86 = *(v78 + 80);
-        v87 = &v75[v85];
-        v88 = v86;
-        if (&v75[v85] == v64)
+        v85 = *(v77 + 80);
+        v86 = &v74[v84];
+        v87 = v85;
+        if (&v74[v84] == v63)
         {
           goto LABEL_104;
         }
@@ -4015,50 +5271,50 @@ LABEL_105:
 
       else
       {
-        v108 = v76;
-        v109 = v74;
-        __src = v75;
-        v107 = v77;
-        memmove(v79, v75, v84 - v79);
-        v85 = v84 - v79;
-        v75 = __src;
-        v77 = v107;
-        v76 = v108;
-        v74 = v109;
-        v86 = *(v78 + 80);
-        v87 = &__src[v84 - v79];
-        v88 = v86;
-        if (v87 == v64)
+        v106 = v75;
+        v107 = v73;
+        __src = v74;
+        v105 = v76;
+        memmove(v78, v74, v83 - v78);
+        v84 = v83 - v78;
+        v74 = __src;
+        v76 = v105;
+        v75 = v106;
+        v73 = v107;
+        v85 = *(v77 + 80);
+        v86 = &__src[v83 - v78];
+        v87 = v85;
+        if (v86 == v63)
         {
           goto LABEL_104;
         }
       }
 
-      v92 = &v79[v64] - &v84[v75] - 4;
-      if (v92 >= 0x1C)
+      v91 = &v78[v63] - &v83[v74] - 4;
+      if (v91 >= 0x1C)
       {
-        v88 = v86;
-        if ((&v79[v86] - &v84[v75]) >= 0x20)
+        v87 = v85;
+        if ((&v78[v85] - &v83[v74]) >= 0x20)
         {
-          v93 = (v92 >> 2) + 1;
-          v94 = 4 * (v93 & 0x7FFFFFFFFFFFFFF8);
-          v87 += v94;
-          v88 = (v86 + v94);
-          v95 = (v86 + 16);
-          v96 = &v75[v85 + 16];
-          v97 = v93 & 0x7FFFFFFFFFFFFFF8;
+          v92 = (v91 >> 2) + 1;
+          v93 = 4 * (v92 & 0x7FFFFFFFFFFFFFF8);
+          v86 += v93;
+          v87 = (v85 + v93);
+          v94 = (v85 + 16);
+          v95 = &v74[v84 + 16];
+          v96 = v92 & 0x7FFFFFFFFFFFFFF8;
           do
           {
-            v98 = *v96;
-            *(v95 - 1) = *(v96 - 1);
-            *v95 = v98;
-            v95 += 2;
-            v96 += 32;
-            v97 -= 8;
+            v97 = *v95;
+            *(v94 - 1) = *(v95 - 1);
+            *v94 = v97;
+            v94 += 2;
+            v95 += 32;
+            v96 -= 8;
           }
 
-          while (v97);
-          if (v93 == (v93 & 0x7FFFFFFFFFFFFFF8))
+          while (v96);
+          if (v92 == (v92 & 0x7FFFFFFFFFFFFFF8))
           {
             goto LABEL_104;
           }
@@ -4067,24 +5323,24 @@ LABEL_105:
 
       else
       {
-        v88 = v86;
+        v87 = v85;
       }
 
       do
       {
-        v99 = *v87;
+        v98 = *v86;
+        v86 += 4;
+        *v87 = v98;
         v87 += 4;
-        *v88 = v99;
-        v88 += 4;
       }
 
-      while (v87 != v64);
+      while (v86 != v63);
 LABEL_104:
-      v91 = v88;
+      v90 = v87;
       goto LABEL_105;
     }
 
-    if (++v58 != v30)
+    if (++v57 != v30)
     {
       continue;
     }
@@ -4092,21 +5348,21 @@ LABEL_104:
     break;
   }
 
-  v60 = v29;
+  v59 = v29;
   do
   {
-    v61 = *v60;
-    if (((*(*(*(this + 7) + 24) + ((v61 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v61) & 1) == 0)
+    v60 = *v59;
+    if (((*(*(*(this + 7) + 24) + ((v60 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v60) & 1) == 0)
     {
-      operations_research::sat::IntegerTrail::EnqueueLiteral(*(this + 8), v61, *(this + 37), (*(this + 38) - *(this + 37)) >> 2, *(this + 40), (*(this + 41) - *(this + 40)) >> 4);
+      operations_research::sat::IntegerTrail::EnqueueLiteral(*(this + 8), v60, *(this + 37), (*(this + 38) - *(this + 37)) >> 2, *(this + 40), (*(this + 41) - *(this + 40)) >> 4);
     }
 
-    ++v60;
+    ++v59;
   }
 
-  while (v60 != v30);
+  while (v59 != v30);
 LABEL_61:
-  v57 = 1;
+  v56 = 1;
   if (v29)
   {
 LABEL_62:
@@ -4114,7 +5370,7 @@ LABEL_62:
   }
 
 LABEL_63:
-  if (v57)
+  if (v56)
   {
     goto LABEL_18;
   }
@@ -4125,23 +5381,23 @@ LABEL_107:
   v9 = *(this + 17);
   if (v8 == v9)
   {
-    goto LABEL_115;
+    return v6;
   }
 
 LABEL_110:
-  v100 = (*(this + 20) - *(this + 19)) >> 5;
+  v99 = (*(this + 20) - *(this + 19)) >> 5;
   do
   {
-    v101 = *v8;
-    if (v101 < v100)
+    v100 = *v8;
+    if (v100 < v99)
     {
-      v102 = *(this + 55);
-      v103 = *(v102 + 4 * v101);
-      if (v103 != -1)
+      v101 = *(this + 55);
+      v102 = *(v101 + 4 * v100);
+      if (v102 != -1)
       {
-        *(*(this + 22) + (v103 << 6) + 56) = 0;
-        *(v102 + 4 * v101) = -1;
-        *(*(this + 52) + ((v101 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= ~(1 << v101);
+        *(*(this + 22) + (v102 << 6) + 56) = 0;
+        *(v101 + 4 * v100) = -1;
+        *(*(this + 52) + ((v100 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= ~(1 << v100);
       }
     }
 
@@ -4149,22 +5405,20 @@ LABEL_110:
   }
 
   while (v8 != v9);
-LABEL_115:
-  v104 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void sub_23CC8B748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23CC8B748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   absl::lts_20240722::Cleanup<absl::lts_20240722::cleanup_internal::Tag,operations_research::sat::PrecedencesPropagator::BellmanFordTarjan(operations_research::sat::Trail *)::$_0>::~Cleanup(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(uint64_t this, operations_research::sat::Trail *a2)
+uint64_t *operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(uint64_t *this, operations_research::sat::Trail *a2)
 {
-  v3 = *(this + 128);
-  v61 = *(this + 136);
+  v3 = this[16];
+  v61 = this[17];
   if (v3 != v61)
   {
     v4 = this;
@@ -4173,8 +5427,8 @@ uint64_t operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(
     {
       v64 = v3;
       v5 = *v3;
-      v6 = *(v4 + 200);
-      if (v5 < ((*(v4 + 208) - v6) >> 5))
+      v6 = v4[25];
+      if (v5 < ((v4[26] - v6) >> 5))
       {
         v7 = (v6 + 32 * v5);
         v10 = *v7;
@@ -4191,7 +5445,7 @@ uint64_t operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(
           v63 = v11;
           do
           {
-            v13 = (*(v4 + 224) + (*v9 << 6));
+            v13 = (v4[28] + (*v9 << 6));
             v14 = *(v13 + 3);
             v15 = (v13 + 8);
             v16 = (v13 + 8);
@@ -4220,7 +5474,7 @@ uint64_t operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(
               while (v18);
               if (v17 == 1 && ((*(*(a2 + 3) + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v2 & 0x3F ^ 1u)) & 1) == 0)
               {
-                v21 = *(*(v4 + 64) + 40);
+                v21 = *(v4[8] + 40);
                 v22 = v13[4];
                 if (v22 == -1)
                 {
@@ -4236,9 +5490,9 @@ uint64_t operations_research::sat::PrecedencesPropagator::PropagateOptionalArcs(
                 v25 = *(v21 + 8 * v24);
                 if (*(v13 + 1) + v25 + v23 > -*(v21 + ((8 * v13[1]) ^ 8)))
                 {
-                  v26 = *(v4 + 320);
-                  *(v4 + 328) = v26;
-                  v27 = *(v4 + 336);
+                  v26 = v4[40];
+                  v4[41] = v26;
+                  v27 = v4[42];
                   if (v26 >= v27)
                   {
                     v29 = v27 - v26;
@@ -4267,11 +5521,11 @@ LABEL_75:
                   *v26 = v24;
                   v26[1] = v25;
                   v28 = v26 + 2;
-                  *(v4 + 328) = v28;
+                  v4[41] = v28;
                   v33 = v13[1];
-                  if (*(*(*(v4 + 64) + 40) + ((8 * v33) ^ 8)) - 1 <= 0x7FFFFFFFFFFFFFFDLL)
+                  if (*(*(v4[8] + 40) + ((8 * v33) ^ 8)) - 1 <= 0x7FFFFFFFFFFFFFFDLL)
                   {
-                    v34 = *(*(*(v4 + 64) + 40) + ((8 * v33) ^ 8));
+                    v34 = *(*(v4[8] + 40) + ((8 * v33) ^ 8));
                   }
 
                   else
@@ -4280,10 +5534,10 @@ LABEL_75:
                   }
 
                   v35 = v33 ^ 1;
-                  v36 = *(v4 + 336);
+                  v36 = v4[42];
                   if (v28 >= v36)
                   {
-                    v38 = *(v4 + 320);
+                    v38 = v4[40];
                     v39 = v28 - v38;
                     v40 = (v28 - v38) >> 4;
                     v41 = v40 + 1;
@@ -4323,9 +5577,9 @@ LABEL_75:
                     v44[1] = v34;
                     v37 = 16 * v40 + 16;
                     memcpy(0, v38, v39);
-                    *(v4 + 320) = 0;
-                    *(v4 + 328) = v37;
-                    *(v4 + 336) = 0;
+                    v4[40] = 0;
+                    v4[41] = v37;
+                    v4[42] = 0;
                     if (v38)
                     {
                       operator delete(v38);
@@ -4339,18 +5593,18 @@ LABEL_75:
                     v37 = (v28 + 2);
                   }
 
-                  *(v4 + 328) = v37;
+                  v4[41] = v37;
                   v45 = v13[4];
                   if (v45 != -1)
                   {
-                    v46 = *(*(*(v4 + 64) + 40) + 8 * v45);
+                    v46 = *(*(v4[8] + 40) + 8 * v45);
                     *&v65 = v13[4];
                     *(&v65 + 1) = v46;
-                    std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](v4 + 320, &v65);
+                    std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100]((v4 + 40), &v65);
                   }
 
-                  v47 = *(v4 + 296);
-                  *(v4 + 304) = v47;
+                  v47 = v4[37];
+                  v4[38] = v47;
                   v48 = *(v13 + 3);
                   if (v48)
                   {
@@ -4365,7 +5619,7 @@ LABEL_75:
                       if (*v15 != v2)
                       {
                         v50 = *v15 ^ 1;
-                        v51 = *(v4 + 312);
+                        v51 = v4[39];
                         if (v47 < v51)
                         {
                           *v47++ = v50;
@@ -4373,7 +5627,7 @@ LABEL_75:
 
                         else
                         {
-                          v52 = *(v4 + 296);
+                          v52 = v4[37];
                           v53 = v47 - v52;
                           v54 = (v47 - v52) >> 2;
                           v55 = v54 + 1;
@@ -4414,16 +5668,16 @@ LABEL_75:
                           *v59 = v50;
                           v47 = v59 + 1;
                           memcpy(v60, v52, v53);
-                          *(v4 + 296) = v60;
-                          *(v4 + 304) = v47;
-                          *(v4 + 312) = 0;
+                          v4[37] = v60;
+                          v4[38] = v47;
+                          v4[39] = 0;
                           if (v52)
                           {
                             operator delete(v52);
                           }
                         }
 
-                        *(v4 + 304) = v47;
+                        v4[38] = v47;
                       }
 
                       ++v15;
@@ -4431,7 +5685,7 @@ LABEL_75:
                     }
 
                     while (v49);
-                    v12 = *(v4 + 296);
+                    v12 = v4[37];
                   }
 
                   else
@@ -4439,8 +5693,8 @@ LABEL_75:
                     v12 = v47;
                   }
 
-                  ++*(v4 + 504);
-                  this = operations_research::sat::IntegerTrail::EnqueueLiteral(*(v4 + 64), v2 ^ 1u, v12, (v47 - v12) >> 2, *(v4 + 320), (*(v4 + 328) - *(v4 + 320)) >> 4);
+                  ++v4[63];
+                  this = operations_research::sat::IntegerTrail::EnqueueLiteral(v4[8], v2 ^ 1u, v12, (v47 - v12) >> 2, v4[40], (v4[41] - v4[40]) >> 4);
                 }
 
                 a2 = v62;
@@ -4672,15 +5926,15 @@ void operations_research::sat::PrecedencesPropagator::AdjustSizeFor(uint64_t a1,
   }
 }
 
-void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, int a3, uint64_t a4, int a5, int *a6, uint64_t a7)
+void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, unsigned int a3, uint64_t a4, int a5, int *a6, uint64_t a7)
 {
   v8 = a6;
-  v92 = *MEMORY[0x277D85DE8];
-  v82 = a2;
-  v81 = a4;
-  v80 = a5;
-  v79[0] = a6;
-  v79[1] = a7;
+  v91 = *MEMORY[0x277D85DE8];
+  v81 = a2;
+  v80 = a4;
+  v79 = a5;
+  v78[0] = a6;
+  v78[1] = a7;
   operations_research::sat::PrecedencesPropagator::AdjustSizeFor(a1, a2);
   operations_research::sat::PrecedencesPropagator::AdjustSizeFor(a1, a3);
   if (a5 != -1)
@@ -4688,18 +5942,18 @@ void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, i
     operations_research::sat::PrecedencesPropagator::AdjustSizeFor(a1, a5);
   }
 
-  v89 = 0;
+  v88 = 0;
   if ((a7 & 0x3FFFFFFFFFFFFFFFLL) != 0)
   {
     v13 = 4 * a7;
     do
     {
       v14 = *v8;
-      LODWORD(v83) = *v8;
-      v15 = v89;
-      if (v89)
+      LODWORD(v82) = *v8;
+      v15 = v88;
+      if (v88)
       {
-        v16 = *(&v90 + 1);
+        v16 = *(&v89 + 1);
       }
 
       else
@@ -4707,26 +5961,26 @@ void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, i
         v16 = 6;
       }
 
-      if (v89 >> 1 == v16)
+      if (v88 >> 1 == v16)
       {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(&v89);
+        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(&v88, &v82);
       }
 
-      v17 = v90;
-      if ((v89 & 1) == 0)
+      v17 = v89;
+      if ((v88 & 1) == 0)
       {
-        v17 = &v90;
+        v17 = &v89;
       }
 
-      *(v17 + (v89 >> 1)) = v14;
-      v89 = v15 + 2;
+      *(v17 + (v88 >> 1)) = v14;
+      v88 = v15 + 2;
       ++v8;
       v13 -= 4;
     }
 
     while (v13);
-    v18 = v89;
-    v12 = v90;
+    v18 = v88;
+    v12 = v89;
   }
 
   else
@@ -4741,7 +5995,7 @@ void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, i
 
   else
   {
-    v19 = &v90;
+    v19 = &v89;
   }
 
   v20 = 126 - 2 * __clz((2 * v18) >> 2);
@@ -4755,21 +6009,21 @@ void operations_research::sat::PrecedencesPropagator::AddArc(void *a1, int a2, i
     v21 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(v19, (v19 + ((2 * v18) & 0xFFFFFFFFFFFFFFFCLL)), &v83, v21, 1);
-  v22 = v89;
-  if (v89)
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::StrongIndex<operations_research::glop::ColIndex_index_tag_> *,false>(v19, (v19 + ((2 * v18) & 0xFFFFFFFFFFFFFFFCLL)), &v82, v21, 1);
+  v22 = v88;
+  if (v88)
   {
-    v23 = v90;
+    v23 = v89;
   }
 
   else
   {
-    v23 = &v90;
+    v23 = &v89;
   }
 
-  v24 = v89 >> 1;
-  v25 = &v23[4 * (v89 >> 1)];
-  if ((v89 & 0x7FFFFFFFFFFFFFFELL) != 0)
+  v24 = v88 >> 1;
+  v25 = &v23[4 * (v88 >> 1)];
+  if ((v88 & 0x7FFFFFFFFFFFFFFELL) != 0)
   {
     v23 += 4;
     v26 = 4 * v24 - 4;
@@ -4815,14 +6069,14 @@ LABEL_30:
 
   if (v22)
   {
-    v33 = v90;
-    v32 = (v90 + 4 * v24);
+    v33 = v89;
+    v32 = (v89 + 4 * v24);
   }
 
   else
   {
-    v32 = &v90 + 4 * v24;
-    v33 = &v90;
+    v32 = &v89 + 4 * v24;
+    v33 = &v89;
   }
 
   if (v25 != v32)
@@ -4830,14 +6084,14 @@ LABEL_30:
     v34 = v32 - v25;
     v35 = ((v25 - v33) >> 2) + ((v32 - v25) >> 2);
     memmove(v25, &v33[4 * v35], 4 * (v24 - v35));
-    v22 = v89 - (v34 >> 1);
-    v89 = v22;
+    v22 = v88 - (v34 >> 1);
+    v88 = v22;
   }
 
   v36 = a1[7];
   if ((*(v36 + 8) & 0xFFFFFFF) != 0)
   {
-    if (v82 != a3)
+    if (v81 != a3)
     {
       goto LABEL_73;
     }
@@ -4847,17 +6101,17 @@ LABEL_30:
 
   if (v22)
   {
-    v37 = v90;
+    v37 = v89;
   }
 
   else
   {
-    v37 = &v90;
+    v37 = &v89;
   }
 
   if ((v22 & 0x7FFFFFFFFFFFFFFELL) == 0)
   {
-    v47 = 0;
+    v46 = 0;
     goto LABEL_71;
   }
 
@@ -4881,37 +6135,37 @@ LABEL_52:
     {
       if (v22)
       {
-        v46 = v90;
+        v45 = v89;
       }
 
       else
       {
-        v46 = &v90;
+        v45 = &v89;
       }
 
-      v47 = v38;
-      v48 = 6;
+      v46 = v38;
+      v47 = 6;
       if (v22)
       {
-        v48 = *(&v90 + 1);
+        v47 = *(&v89 + 1);
       }
 
-      if (v47 > v39)
+      if (v46 > v39)
       {
-        if (v48 < v47)
+        if (v47 < v46)
         {
-          v49 = 2 * v48;
-          if (v49 <= v47)
+          v48 = 2 * v47;
+          if (v48 <= v46)
           {
-            v50 = v47;
+            v49 = v46;
           }
 
           else
           {
-            v50 = v49;
+            v49 = v48;
           }
 
-          if (!(v50 >> 62))
+          if (!(v49 >> 62))
           {
             operator new();
           }
@@ -4919,17 +6173,17 @@ LABEL_52:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        bzero(v46 + 4 * v39, 4 * (v47 - v39));
-        v89 = v89 & 1 | (2 * v47);
-        if (v82 != a3)
+        bzero(v45 + 4 * v39, 4 * (v46 - v39));
+        v88 = v88 & 1 | (2 * v46);
+        if (v81 != a3)
         {
 LABEL_73:
-          v51 = v80;
-          if (v80 == -1)
+          v50 = v79;
+          if (v79 == -1)
           {
-            v51 = -1;
-            v54 = v89;
-            if (v89 < 2)
+            v50 = -1;
+            v53 = v88;
+            if (v88 < 2)
             {
               goto LABEL_77;
             }
@@ -4937,20 +6191,20 @@ LABEL_73:
 
           else
           {
-            v52 = *(a1[8] + 152);
-            v53 = *(v52 + 24 * v80);
-            if (!(v53 + *(v52 + 24 * (v80 ^ 1))))
+            v51 = *(a1[8] + 152);
+            v52 = *(v51 + 24 * v79);
+            if (!(v52 + *(v51 + 24 * (v79 ^ 1))))
             {
-              v81 += v53;
-              v51 = -1;
-              v80 = -1;
+              v80 += v52;
+              v50 = -1;
+              v79 = -1;
             }
 
-            v54 = v89;
-            if (v89 < 2)
+            v53 = v88;
+            if (v88 < 2)
             {
 LABEL_77:
-              if (v51 != -1)
+              if (v50 != -1)
               {
                 goto LABEL_78;
               }
@@ -4959,19 +6213,19 @@ LABEL_77:
             }
           }
 
-          v55 = a1[29];
-          v78 = (v55 - a1[28]) >> 6;
-          *&v83 = __PAIR64__(a3, v82);
-          *(&v83 + 1) = v81;
-          v84 = v51;
-          v85 = 0;
-          if (v54)
+          v54 = a1[29];
+          v77 = (v54 - a1[28]) >> 6;
+          *&v82 = __PAIR64__(a3, v81);
+          *(&v82 + 1) = v80;
+          v83 = v50;
+          v84 = 0;
+          if (v53)
           {
-            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::InitFrom(&v85, &v89);
-            v55 = a1[29];
-            v58 = a1[30];
-            v88 = 0;
-            if (v55 < v58)
+            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::InitFrom(&v84, &v88);
+            v54 = a1[29];
+            v57 = a1[30];
+            v87 = 0;
+            if (v54 < v57)
             {
               goto LABEL_82;
             }
@@ -4979,106 +6233,106 @@ LABEL_77:
 
           else
           {
-            v85 = v54;
-            *__p = v90;
-            v87 = v91;
-            v88 = 0;
-            if (v55 < a1[30])
+            v84 = v53;
+            *__p = v89;
+            v86 = v90;
+            v87 = 0;
+            if (v54 < a1[30])
             {
 LABEL_82:
-              v56 = v83;
-              *(v55 + 16) = v84;
-              *v55 = v56;
-              *(v55 + 24) = 0;
-              *(v55 + 24) = v85;
-              v57 = *__p;
-              *(v55 + 48) = v87;
-              *(v55 + 32) = v57;
-              v85 = 0;
-              *(v55 + 56) = v88;
-              a1[29] = v55 + 64;
+              v55 = v82;
+              *(v54 + 16) = v83;
+              *v54 = v55;
+              *(v54 + 24) = 0;
+              *(v54 + 24) = v84;
+              v56 = *__p;
+              *(v54 + 48) = v86;
+              *(v54 + 32) = v56;
+              v84 = 0;
+              *(v54 + 56) = v87;
+              a1[29] = v54 + 64;
               goto LABEL_86;
             }
           }
 
-          v59 = std::vector<operations_research::sat::PrecedencesPropagator::ArcInfo>::__emplace_back_slow_path<operations_research::sat::PrecedencesPropagator::ArcInfo>(a1 + 28, &v83);
-          v60 = v85;
-          a1[29] = v59;
-          if (v60)
+          v58 = std::vector<operations_research::sat::PrecedencesPropagator::ArcInfo>::__emplace_back_slow_path<operations_research::sat::PrecedencesPropagator::ArcInfo>(a1 + 28, &v82);
+          v59 = v84;
+          a1[29] = v58;
+          if (v59)
           {
             operator delete(__p[0]);
           }
 
 LABEL_86:
-          v61 = a1[25];
-          v62 = (v61 + 32 * v82);
-          v64 = v62 + 1;
-          v63 = *v62;
-          if (*v62)
+          v60 = a1[25];
+          v61 = (v60 + 32 * v81);
+          v63 = v61 + 1;
+          v62 = *v61;
+          if (*v61)
           {
-            v64 = v62[1];
-            v65 = v62[2];
+            v63 = v61[1];
+            v64 = v61[2];
           }
 
           else
           {
-            v65 = 6;
+            v64 = 6;
           }
 
-          if (v63 >> 1 == v65)
+          if (v62 >> 1 == v64)
           {
-            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v62);
+            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v61, &v77);
           }
 
-          *(v64 + (v63 >> 1)) = v78;
-          *v62 = v63 + 2;
-          v66 = (v61 + ((32 * a3) ^ 0x20));
-          v68 = v66 + 1;
-          v67 = *v66;
-          if (*v66)
+          *(v63 + (v62 >> 1)) = v77;
+          *v61 = v62 + 2;
+          v65 = (v60 + ((32 * a3) ^ 0x20));
+          v67 = v65 + 1;
+          v66 = *v65;
+          if (*v65)
           {
-            v68 = v66[1];
-            v69 = v66[2];
+            v67 = v65[1];
+            v68 = v65[2];
           }
 
           else
           {
-            v69 = 6;
+            v68 = 6;
           }
 
-          if (v67 >> 1 == v69)
+          if (v66 >> 1 == v68)
           {
-            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v66);
+            absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v65, &v77);
           }
 
-          *(v68 + (v67 >> 1)) = v78;
-          *v66 = v67 + 2;
-          if (v80 != -1)
+          *(v67 + (v66 >> 1)) = v77;
+          *v65 = v66 + 2;
+          if (v79 != -1)
           {
-            v74 = (a1[25] + 32 * v80);
-            v76 = v74 + 1;
-            v75 = *v74;
-            if (*v74)
+            v73 = (a1[25] + 32 * v79);
+            v75 = v73 + 1;
+            v74 = *v73;
+            if (*v73)
             {
-              v76 = v74[1];
-              v77 = v74[2];
+              v75 = v73[1];
+              v76 = v73[2];
             }
 
             else
             {
-              v77 = 6;
+              v76 = 6;
             }
 
-            if (v75 >> 1 == v77)
+            if (v74 >> 1 == v76)
             {
-              absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v74);
+              absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::EmplaceBackSlow<operations_research::sat::Literal const&>(v73, &v77);
             }
 
-            *(v76 + (v75 >> 1)) = v78;
-            *v74 = v75 + 2;
+            *(v75 + (v74 >> 1)) = v77;
+            *v73 = v74 + 2;
           }
 
-          if (v80 != -1)
+          if (v79 != -1)
           {
 LABEL_78:
             operator new();
@@ -5091,26 +6345,26 @@ LABEL_106:
 LABEL_72:
         if (dword_27E25D228 >= 1 && absl::lts_20240722::log_internal::VLogSite::SlowIsEnabled1(&operations_research::sat::PrecedencesPropagator::AddArc(operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,absl::lts_20240722::Span<operations_research::sat::Literal const>)::$_0::operator() const(void)::site, dword_27E25D228))
         {
-          absl::lts_20240722::log_internal::LogMessage::LogMessage(&v83, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 649);
-          v70 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&v83, 1);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v70, "Self arc! This could be presolved. ", 0x23uLL);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v70, "var:", 4uLL);
-          v71 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,0>(v70, &v82);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v71, " offset:", 8uLL);
-          v72 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongInt64<operations_research::sat::Coefficient_integer_tag_>,0>(v71, &v81);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v72, " offset_var:", 0xCuLL);
-          v73 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,0>(v72, &v80);
-          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v73, " conditioned_by:", 0x10uLL);
-          absl::lts_20240722::log_internal::LogMessage::operator<<<absl::lts_20240722::Span<operations_research::sat::Literal const>,0>(v73, v79);
-          absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v83);
+          absl::lts_20240722::log_internal::LogMessage::LogMessage(&v82, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 649);
+          v69 = absl::lts_20240722::log_internal::LogMessage::WithVerbosity(&v82, 1);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v69, "Self arc! This could be presolved. ", 0x23uLL);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v69, "var:", 4uLL);
+          v70 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,0>(v69, &v81);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v70, " offset:", 8uLL);
+          v71 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongInt64<operations_research::sat::Coefficient_integer_tag_>,0>(v70, &v80);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v71, " offset_var:", 0xCuLL);
+          v72 = absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,0>(v71, &v79);
+          absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v72, " conditioned_by:", 0x10uLL);
+          absl::lts_20240722::log_internal::LogMessage::operator<<<absl::lts_20240722::Span<operations_research::sat::Literal const>,0>(v72, v78);
+          absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v82);
         }
 
         goto LABEL_73;
       }
 
 LABEL_71:
-      v89 = v22 & 1 | (2 * v47);
-      if (v82 != a3)
+      v88 = v22 & 1 | (2 * v46);
+      if (v81 != a3)
       {
         goto LABEL_73;
       }
@@ -5121,22 +6375,20 @@ LABEL_71:
 
   if (((v44 >> (v43 & 0x3F ^ 1u)) & 1) == 0)
   {
-    v42 = v90;
+    v42 = v89;
     if ((v22 & 1) == 0)
     {
-      v42 = &v90;
+      v42 = &v89;
     }
 
     *(v42 + v38++) = v43;
     goto LABEL_52;
   }
 
-  if (v89)
+  if (v88)
   {
-    operator delete(v90);
+    operator delete(v89);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CC8CE88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, char a26, void *a27)
@@ -5263,14 +6515,12 @@ uint64_t operations_research::sat::PrecedencesPropagator::DisassembleSubtree(voi
   return 0;
 }
 
-void operations_research::sat::PrecedencesPropagator::AnalyzePositiveCycle(void *a1, int a2, uint64_t a3, void *a4, void *a5, void *a6)
+void operations_research::sat::PrecedencesPropagator::AnalyzePositiveCycle(void *a1, signed int a2, uint64_t a3, void *a4, int **a5, void *a6)
 {
   a4[1] = *a4;
   a5[1] = *a5;
   a6[1] = *a6;
-  v6 = a1[20] - a1[19];
-  v7 = *(a1[22] + (a2 << 6) + 4);
-  v8 = a2;
+  v6 = a2;
   operator new();
 }
 
@@ -5494,7 +6744,7 @@ LABEL_71:
   v11 = 0;
   v64 = 0;
   v65 = 0;
-  v61 = *(*(v59 + 152) + 24 * v10);
+  v61 = *(*(v59 + 19) + 24 * v10);
   v12 = v10 & 0xFFFFFFFE;
   v66 = v10 & 0xFFFFFFFE;
   v13 = 4 * a6;
@@ -5684,7 +6934,7 @@ LABEL_28:
     }
 
 LABEL_29:
-    v32 -= *(*(v59 + 152) + 24 * (v31 ^ 1)) * *(v11 - 16);
+    v32 -= *(*(v59 + 19) + 24 * (v31 ^ 1)) * *(v11 - 16);
 LABEL_30:
     if (v61 >= v32)
     {
@@ -5810,9 +7060,9 @@ LABEL_72:
   return v56 > 3;
 }
 
-void sub_23CC8E1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, void *a19)
+void sub_23CC8E1B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, void *a19)
 {
-  MEMORY[0x23EED9460](v20, 0x10A1C4030526E8DLL);
+  MEMORY[0x23EED9460](v20, 0x10A1C4030526E8DLL, a3, a4, a5, a6, a7, a8);
   if (v19)
   {
     operator delete(v19);
@@ -5860,7 +7110,7 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
   v7 = *(operations_research::sat::Model::GetOrCreate<operations_research::sat::Trail>(a4) + 8) & 0xFFFFFFF;
   if (v7)
   {
-    operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsFromClause(v7);
+    operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsFromClause(v7, v36);
   }
 
   if (a3 < 2 || (a3 & 0x3FFFFFFFFFFFFFFFLL) == 0)
@@ -6077,12 +7327,12 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
   v4 = operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(a2);
   v5 = operations_research::sat::Model::GetOrCreate<operations_research::sat::SatSolver>(a2);
   v6 = v5;
+  v75 = 0;
   v76 = 0;
   v77 = 0;
-  v78 = 0;
-  LODWORD(v79) = 0;
+  LODWORD(v78) = 0;
   v7 = *this;
-  v70 = v4;
+  v69 = v4;
   if (*(this + 1) == *this)
   {
     v29 = 0;
@@ -6107,8 +7357,8 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
 
         if (v12 == 1)
         {
-          v13 = v77;
-          v14 = 0xAAAAAAAAAAAAAAABLL * ((v77 - v76) >> 3);
+          v13 = v76;
+          v14 = 0xAAAAAAAAAAAAAAABLL * ((v76 - v75) >> 3);
           if (v11 >= v14)
           {
             v15 = v11 + 1;
@@ -6116,10 +7366,10 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
             {
               if (v15 < v14)
               {
-                v16 = v76 + 24 * v15;
-                if (v77 != v16)
+                v16 = v75 + 24 * v15;
+                if (v76 != v16)
                 {
-                  v17 = v77;
+                  v17 = v76;
                   do
                   {
                     v19 = *(v17 - 3);
@@ -6137,17 +7387,17 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
                   while (v17 != v16);
                 }
 
-                v77 = v16;
+                v76 = v16;
               }
             }
 
             else
             {
-              std::vector<std::vector<int>>::__append(&v76, v15 - v14);
+              std::vector<std::vector<int>>::__append(&v75, v15 - v14);
             }
           }
 
-          std::vector<int>::push_back[abi:ne200100](v76 + 24 * *(v10 + 8), &v79);
+          std::vector<int>::push_back[abi:ne200100](v75 + 24 * *(v10 + 8), &v78);
         }
       }
 
@@ -6162,22 +7412,22 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
 
         if (v21 == 1)
         {
-          v22 = v77;
-          v23 = 0xAAAAAAAAAAAAAAABLL * ((v77 - v76) >> 3);
+          v22 = v76;
+          v23 = 0xAAAAAAAAAAAAAAABLL * ((v76 - v75) >> 3);
           if (v20 >= v23)
           {
             v24 = v20 + 1;
             if (v24 > v23)
             {
-              std::vector<std::vector<int>>::__append(&v76, v24 - v23);
+              std::vector<std::vector<int>>::__append(&v75, v24 - v23);
             }
 
             else if (v24 < v23)
             {
-              v25 = v76 + 24 * v24;
-              if (v77 != v25)
+              v25 = v75 + 24 * v24;
+              if (v76 != v25)
               {
-                v26 = v77;
+                v26 = v76;
                 do
                 {
                   v28 = *(v26 - 3);
@@ -6195,31 +7445,31 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
                 while (v26 != v25);
               }
 
-              v77 = v25;
+              v76 = v25;
             }
           }
 
-          std::vector<int>::push_back[abi:ne200100](v76 + 24 * *(v10 + 24), &v79);
+          std::vector<int>::push_back[abi:ne200100](v75 + 24 * *(v10 + 24), &v78);
         }
       }
 
-      LODWORD(v79) = v79 + 1;
-      v9 = v79;
+      LODWORD(v78) = v78 + 1;
+      v9 = v78;
       v7 = *this;
     }
 
-    while (0x6DB6DB6DB6DB6DB7 * ((*(this + 1) - *this) >> 3) > v79);
-    v29 = v76;
-    v30 = v77;
+    while (0x6DB6DB6DB6DB6DB7 * ((*(this + 1) - *this) >> 3) > v78);
+    v29 = v75;
+    v30 = v76;
     v6 = v8;
-    v4 = v70;
+    v4 = v69;
   }
 
   if ((-1431655765 * ((v30 - v29) >> 3)) >= 1)
   {
     v31 = 0;
     v32 = 0;
-    v68 = v6;
+    v67 = v6;
     while (1)
     {
       if (*&v29[24 * v31 + 8] - *&v29[24 * v31] < 5uLL)
@@ -6230,16 +7480,16 @@ uint64_t operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterTh
 
       if (operations_research::TimeLimit::LimitReached(v4))
       {
-        goto LABEL_91;
+        goto LABEL_90;
       }
 
       operations_research::sat::SatSolver::Backtrack(v6, 0);
       if (*(v6 + 528))
       {
-        goto LABEL_91;
+        goto LABEL_90;
       }
 
-      v34 = v76 + 24 * v31;
+      v34 = v75 + 24 * v31;
       v35 = *v34;
       v36 = *(v34 + 1);
       while (1)
@@ -6267,69 +7517,69 @@ LABEL_44:
         break;
       }
 
-      operations_research::sat::SatSolver::GetLastIncompatibleDecisions(v6, &v79);
-      v39 = v80;
-      __p = v79;
-      if (v79 != v80)
+      operations_research::sat::SatSolver::GetLastIncompatibleDecisions(&v78, v6);
+      v39 = v79;
+      __p = v78;
+      if (v78 != v79)
       {
-        v54 = v80 - v79 - 4;
-        v55 = v79;
-        if (v54 <= 0x1B)
+        v53 = v79 - v78 - 4;
+        v54 = v78;
+        if (v53 <= 0x1B)
         {
-          goto LABEL_102;
+          goto LABEL_101;
         }
 
-        v56 = (v54 >> 2) + 1;
-        v55 = (v79 + 4 * (v56 & 0x7FFFFFFFFFFFFFF8));
-        v57 = v79 + 1;
-        v58 = v56 & 0x7FFFFFFFFFFFFFF8;
-        v59.i64[0] = 0x100000001;
-        v59.i64[1] = 0x100000001;
+        v55 = (v53 >> 2) + 1;
+        v54 = (v78 + 4 * (v55 & 0x7FFFFFFFFFFFFFF8));
+        v56 = v78 + 1;
+        v57 = v55 & 0x7FFFFFFFFFFFFFF8;
+        v58.i64[0] = 0x100000001;
+        v58.i64[1] = 0x100000001;
         do
         {
-          v60 = veorq_s8(*v57, v59);
-          v57[-1] = veorq_s8(v57[-1], v59);
-          *v57 = v60;
-          v57 += 2;
-          v58 -= 8;
+          v59 = veorq_s8(*v56, v58);
+          v56[-1] = veorq_s8(v56[-1], v58);
+          *v56 = v59;
+          v56 += 2;
+          v57 -= 8;
         }
 
-        while (v58);
-        if (v56 != (v56 & 0x7FFFFFFFFFFFFFF8))
+        while (v57);
+        if (v55 != (v55 & 0x7FFFFFFFFFFFFFF8))
         {
-LABEL_102:
+LABEL_101:
           do
           {
-            v55->i32[0] ^= 1u;
-            v55 = (v55 + 4);
+            v54->i32[0] ^= 1u;
+            v54 = (v54 + 4);
           }
 
-          while (v55 != v39);
+          while (v54 != v39);
         }
       }
 
 LABEL_51:
       operations_research::sat::SatSolver::Backtrack(v6, 0);
-      v71 = (v39 - __p) >> 2;
-      if (v71 >= 2)
+      v70 = (v39 - __p) >> 2;
+      if (v70 >= 2)
       {
-        v69 = v32;
+        v68 = v32;
+        v72 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::EmptyNode(void)::empty_node;
         v73 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::EmptyNode(void)::empty_node;
-        v74 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::EmptyNode(void)::empty_node;
-        v75 = 0;
+        v74 = 0;
         if (__p != v39)
         {
           v41 = __p;
           do
           {
-            absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::insert_hint_unique<operations_research::sat::Literal,operations_research::sat::Literal&>(&v73, v74, v74[10], v41, v41, &v79);
+            absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::insert_hint_unique<operations_research::sat::Literal,operations_research::sat::Literal&>(&v72, v73, v73[10], v41, &v78, v41);
             ++v41;
           }
 
           while (v41 != v39);
         }
 
-        v42 = v76 + 24 * v31;
+        v42 = v75 + 24 * v31;
         v44 = *v42;
         v43 = *(v42 + 1);
         if (*v42 != v43)
@@ -6337,9 +7587,9 @@ LABEL_51:
           do
           {
             v45 = *(*this + 56 * *v44);
-            v46 = v73;
-            v47 = *(v73 + 10);
-            if (!*(v73 + 10))
+            v46 = v72;
+            v47 = *(v72 + 10);
+            if (!*(v72 + 10))
             {
               goto LABEL_67;
             }
@@ -6378,20 +7628,11 @@ LABEL_67:
               v46 = *v46;
               if (v46[11])
               {
-                v50 = v74;
-LABEL_74:
-                v50[10];
                 goto LABEL_60;
               }
             }
 
-            v50 = v74;
-            if (v45 < *&v46[4 * v47 + 12])
-            {
-              goto LABEL_74;
-            }
-
-            if (v46 != v74 || v47 != v74[10])
+            if (v45 >= *&v46[4 * v47 + 12] && (v46 != v73 || v47 != v73[10]))
             {
               operator new();
             }
@@ -6403,12 +7644,12 @@ LABEL_60:
           while (v44 != v43);
         }
 
-        v52 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddRelationFromIndices(this, v31, __p, v71, 0, 0, a2);
-        v53 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddRelationFromIndices(this, v31 ^ 1, __p, v71, 0, 0, a2);
-        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::clear(&v73);
-        v33 = (v69 + v52 + v53);
-        v6 = v68;
-        v4 = v70;
+        v51 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddRelationFromIndices(this, v31, __p, v70, 0, 0, a2);
+        v52 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddRelationFromIndices(this, v31 ^ 1, __p, v70, 0, 0, a2);
+        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::clear(&v72);
+        v33 = (v68 + v51 + v52);
+        v6 = v67;
+        v4 = v69;
         v40 = __p;
         if (__p)
         {
@@ -6429,92 +7670,75 @@ LABEL_53:
 
 LABEL_39:
       ++v31;
-      v29 = v76;
+      v29 = v75;
       v32 = v33;
-      if (v31 >= (-1431655765 * ((v77 - v76) >> 3)))
+      if (v31 >= (-1431655765 * ((v76 - v75) >> 3)))
       {
-        goto LABEL_90;
+        goto LABEL_89;
       }
     }
 
     if (v38 == 1)
     {
-      goto LABEL_91;
+      goto LABEL_90;
     }
 
     goto LABEL_44;
   }
 
   v33 = 0;
-LABEL_90:
+LABEL_89:
   operations_research::sat::SatSolver::Backtrack(v6, 0);
   v32 = v33;
-LABEL_91:
-  v61 = v76;
-  if (v76)
+LABEL_90:
+  v60 = v75;
+  if (v75)
   {
-    v62 = v77;
-    v63 = v76;
-    if (v77 != v76)
+    v61 = v76;
+    v62 = v75;
+    if (v76 != v75)
     {
-      v64 = v77;
+      v63 = v76;
       do
       {
-        v66 = *(v64 - 3);
-        v64 -= 24;
-        v65 = v66;
-        if (v66)
+        v65 = *(v63 - 3);
+        v63 -= 24;
+        v64 = v65;
+        if (v65)
         {
-          *(v62 - 2) = v65;
-          operator delete(v65);
+          *(v61 - 2) = v64;
+          operator delete(v64);
         }
 
-        v62 = v64;
+        v61 = v63;
       }
 
-      while (v64 != v61);
-      v63 = v76;
+      while (v63 != v60);
+      v62 = v75;
     }
 
-    v77 = v61;
-    operator delete(v63);
+    v76 = v60;
+    operator delete(v62);
   }
 
   return v32;
 }
 
-void sub_23CC8F0F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23CC8F0F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  va_start(va, a7);
+  va_start(va, a14);
   absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::set_params<operations_research::sat::Literal,std::less<operations_research::sat::Literal>,std::allocator<operations_research::sat::Literal>,256,false>>::clear(va);
   JUMPOUT(0x23CC8F104);
 }
 
-absl::lts_20240722::numbers_internal *operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraints(operations_research::sat::GreaterThanAtLeastOneOfDetector *this, operations_research::sat::Model *a2, char a3)
+absl::lts_20240722::numbers_internal *operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraints(char **this, operations_research::sat::Model *a2, char a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = operations_research::sat::Model::GetOrCreate<operations_research::TimeLimit>(a2);
   v7 = operations_research::sat::Model::GetOrCreate<operations_research::sat::SatSolver>(a2);
   v8 = operations_research::sat::Model::GetOrCreate<operations_research::sat::ClauseManager>(a2);
   v10 = operations_research::sat::Model::GetOrCreate<operations_research::SolverLogger>(a2);
-  if (*v10 != 1)
-  {
-    goto LABEL_3;
-  }
-
-  v36 = "[Precedences] num_relations=";
-  v37 = 28;
-  v11 = absl::lts_20240722::numbers_internal::FastIntToBuffer(0x6DB6DB6DB6DB6DB7 * ((*(this + 1) - *this) >> 3), v35, v9);
-  v33 = v35;
-  v34 = v11 - v35;
-  v31 = " num_clauses=";
-  v32 = 13;
-  v13 = absl::lts_20240722::numbers_internal::FastIntToBuffer((*(v8 + 288) - *(v8 + 280)) >> 3, &v30[0].__r_.__value_.__r.__words[2], v12);
-  v30[0].__r_.__value_.__r.__words[0] = &v30[0].__r_.__value_.__r.__words[2];
-  v30[0].__r_.__value_.__l.__size_ = v13 - &v30[0].__r_.__value_.__r.__words[2];
-  absl::lts_20240722::StrCat(&v36, &v33, &v31, v30, &__p);
-  operations_research::SolverLogger::LogInfo(v10, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 1326, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  if (*v10 == 1 && (v35 = "[Precedences] num_relations=", v36 = 28, v11 = absl::lts_20240722::numbers_internal::FastIntToBuffer(0x6DB6DB6DB6DB6DB7 * ((this[1] - *this) >> 3), v34, v9), v32 = v34, v33 = v11 - v34, v30 = " num_clauses=", v31 = 13, v13 = absl::lts_20240722::numbers_internal::FastIntToBuffer((*(v8 + 36) - *(v8 + 35)) >> 3, &v29[0].__r_.__value_.__r.__words[2], v12), v29[0].__r_.__value_.__r.__words[0] = &v29[0].__r_.__value_.__r.__words[2], v29[0].__r_.__value_.__l.__size_ = v13 - &v29[0].__r_.__value_.__r.__words[2], absl::lts_20240722::StrCat(&v35, &v32, &v30, v29, &__p), operations_research::SolverLogger::LogInfo(v10, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 1326, &__p), SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0))
   {
     operator delete(__p.__r_.__value_.__l.__data_);
     if (a3)
@@ -6523,19 +7747,15 @@ absl::lts_20240722::numbers_internal *operations_research::sat::GreaterThanAtLea
     }
   }
 
-  else
+  else if (a3)
   {
-LABEL_3:
-    if (a3)
-    {
 LABEL_13:
-      v16 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsWithClauseAutoDetection(this, a2);
-      goto LABEL_14;
-    }
+    v16 = operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsWithClauseAutoDetection(this, a2);
+    goto LABEL_14;
   }
 
-  v15 = *(v8 + 280);
-  v14 = *(v8 + 288);
+  v15 = *(v8 + 35);
+  v14 = *(v8 + 36);
   if ((v14 - v15) > 0x7A11FF)
   {
     goto LABEL_13;
@@ -6544,58 +7764,58 @@ LABEL_13:
   if (v15 == v14)
   {
     v16 = 0;
-    v18 = *(v7 + 16);
+    v18 = *(v7 + 4);
     if ((v18 - 1) <= 0xF423E)
     {
 LABEL_29:
-      v28 = 1;
+      v27 = 1;
       while ((operations_research::TimeLimit::LimitReached(v6) & 1) == 0 && (*(v7 + 528) & 1) == 0)
       {
-        LODWORD(v36) = v28 - 1;
-        HIDWORD(v36) = v28;
-        v16 = (operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsFromClause(this, &v36, 2uLL, a2) + v16);
-        v28 += 2;
+        LODWORD(v35) = v27 - 1;
+        HIDWORD(v35) = v27;
+        v16 = (operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsFromClause(this, &v35, 2uLL, a2) + v16);
+        v27 += 2;
         if (!--v18)
         {
           goto LABEL_14;
         }
       }
 
-      goto LABEL_27;
+      return v16;
     }
 
 LABEL_14:
     if (v16 >= 1 && *v10 == 1)
     {
-      v36 = "[Precedences] Added ";
-      v37 = 20;
-      v19 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v16, v35, v9);
-      v33 = v35;
-      v34 = v19 - v35;
-      v31 = " GreaterThanAtLeastOneOf() constraints.";
-      v32 = 39;
-      absl::lts_20240722::StrCat(&v36, &v33, &v31, v30);
-      operations_research::SolverLogger::LogInfo(v10, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 1374, v30);
-      if (SHIBYTE(v30[0].__r_.__value_.__r.__words[2]) < 0)
+      v35 = "[Precedences] Added ";
+      v36 = 20;
+      v19 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v16, v34, v9);
+      v32 = v34;
+      v33 = v19 - v34;
+      v30 = " GreaterThanAtLeastOneOf() constraints.";
+      v31 = 39;
+      absl::lts_20240722::StrCat(&v35, &v32, &v30, v29);
+      operations_research::SolverLogger::LogInfo(v10, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/precedences.cc", 1374, v29);
+      if (SHIBYTE(v29[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v30[0].__r_.__value_.__l.__data_);
+        operator delete(v29[0].__r_.__value_.__l.__data_);
       }
     }
 
     v20 = *this;
-    *(this + 1) = 0;
-    *(this + 2) = 0;
+    this[1] = 0;
+    this[2] = 0;
     *this = 0;
     if (v20)
     {
       operator delete(v20);
     }
 
-    v22 = *(this + 3);
-    v21 = *(this + 4);
-    *(this + 3) = 0;
-    *(this + 4) = 0;
-    *(this + 5) = 0;
+    v22 = this[3];
+    v21 = this[4];
+    this[3] = 0;
+    this[4] = 0;
+    this[5] = 0;
     if (v22)
     {
       if (v21 != v22)
@@ -6621,7 +7841,7 @@ LABEL_14:
       operator delete(v22);
     }
 
-    goto LABEL_27;
+    return v16;
   }
 
   v16 = 0;
@@ -6630,13 +7850,13 @@ LABEL_14:
     v17 = *v15;
     if (operations_research::TimeLimit::LimitReached(v6) & 1) != 0 || (*(v7 + 528))
     {
-      break;
+      return v16;
     }
 
     v16 = (operations_research::sat::GreaterThanAtLeastOneOfDetector::AddGreaterThanAtLeastOneOfConstraintsFromClause(this, v17 + 1, *v17, a2) + v16);
     if (++v15 == v14)
     {
-      v18 = *(v7 + 16);
+      v18 = *(v7 + 4);
       if ((v18 - 1) > 0xF423E)
       {
         goto LABEL_14;
@@ -6645,10 +7865,6 @@ LABEL_14:
       goto LABEL_29;
     }
   }
-
-LABEL_27:
-  v26 = *MEMORY[0x277D85DE8];
-  return v16;
 }
 
 void sub_23CC8F480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -6967,15 +8183,21 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   if (v5)
   {
     v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)))) + *(a1 + 20);
+    v7 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v6)) & 0x7F;
   }
 
-  v8 = *a1;
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  v7 = *(a1 + 16);
+  else
+  {
+    v7 = 0x80;
+  }
+
+  v9 = *a1;
+  v10 = v3 & 1;
+  v11 = v2 < 2;
+  v12 = v5;
+  v8 = *(a1 + 16);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,false,true,8ul>(&v7, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,false,true,8ul>(&v8, a1, v7);
 }
 
 __n128 absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::transfer_slot_fn(uint64_t a1, __n128 *a2, __n128 *a3)
@@ -7188,16 +8410,16 @@ void sub_23CC8FE90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::raw_hash_set(_OWORD *a1, unint64_t a2)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v2 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,std::allocator<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_> const,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
   }
 
-  return result;
+  return v2;
 }
 
 unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,int>>>::find_or_prepare_insert<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>@<X0>(unint64_t result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
@@ -7302,25 +8524,31 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   if (v5)
   {
     v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16)))) + *(a1 + 20);
-  }
-
-  v8 = *a1;
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  if (v5)
-  {
-    *&v7 = *(a1 + 16);
-    DWORD2(v7) = *(a1 + 24);
+    v7 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v6)) & 0x7F;
   }
 
   else
   {
-    v7 = *(a1 + 16);
+    v7 = 0x80;
+  }
+
+  v9 = *a1;
+  v10 = v3 & 1;
+  v11 = v2 < 2;
+  v12 = v5;
+  if (v5)
+  {
+    *&v8 = *(a1 + 16);
+    DWORD2(v8) = *(a1 + 24);
+  }
+
+  else
+  {
+    v8 = *(a1 + 16);
   }
 
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,12ul,false,true,4ul>(&v7, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,12ul,false,true,4ul>(&v8, a1, v7);
 }
 
 void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>,int>,absl::lts_20240722::hash_internal::Hash<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::equal_to<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>>,std::allocator<std::pair<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const,int>>>::transfer_slot_fn(uint64_t a1, uint64_t a2, uint64_t *a3)
@@ -7330,7 +8558,7 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   *a2 = v3;
 }
 
-uint64_t std::vector<operations_research::sat::PrecedenceRelations::ConditionalEntry>::__emplace_back_slow_path<int,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> &,std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const&,absl::lts_20240722::Span<operations_research::sat::Literal const> &>(uint64_t *a1, _DWORD *a2, uint64_t *a3, uint64_t *a4, int **a5)
+uint64_t std::vector<operations_research::sat::PrecedenceRelations::ConditionalEntry>::__emplace_back_slow_path<int,operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_> &,std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>> const&,absl::lts_20240722::Span<operations_research::sat::Literal const> &>(unint64_t *a1, _DWORD *a2, uint64_t *a3, uint64_t *a4, int **a5)
 {
   v5 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v6 = v5 + 1;
@@ -7446,12 +8674,12 @@ uint64_t std::vector<operations_research::sat::PrecedenceRelations::ConditionalE
   return v9 + 48;
 }
 
-void sub_23CC90A10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CC90A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 24))
+  va_start(va, a3);
+  if (*(v3 + 24))
   {
-    operator delete(*(v2 + 32));
+    operator delete(*(v3 + 32));
   }
 
   std::__split_buffer<operations_research::sat::PrecedenceRelations::ConditionalEntry>::~__split_buffer(va);
@@ -7596,9 +8824,9 @@ uint64_t std::vector<operations_research::sat::FullIntegerPrecedence>::__emplace
   return v7;
 }
 
-void sub_23CC90EBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CC90EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<operations_research::sat::FullIntegerPrecedence>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7796,34 +9024,28 @@ uint64_t std::vector<operations_research::sat::PrecedencesPropagator::ArcInfo>::
 
 void *absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::Literal,6ul,std::allocator<operations_research::sat::Literal>>::InitFrom(void *a1, void *a2)
 {
-  v4 = *a2 >> 1;
   if (*a2)
   {
     if ((*a2 & 0x8000000000000000) == 0)
     {
-      if (v4 > 0xC)
-      {
-        v5 = *a2 >> 1;
-      }
-
       operator new();
     }
 
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  result = memcpy(a1 + 1, a2 + 1, 4 * v4);
+  result = memcpy(a1 + 1, a2 + 1, 4 * (*a2 >> 1));
   *a1 = *a2;
   return result;
 }
 
-int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>>::find_or_prepare_insert<operations_research::sat::Literal>@<X0>(int64_t result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>>::find_or_prepare_insert<operations_research::sat::Literal>@<X0>(unint64_t *result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
-  if (*result > 1uLL)
+  if (*result > 1)
   {
     v6 = 0;
-    _X10 = *(result + 16);
+    _X10 = result[2];
     __asm { PRFM            #4, [X10] }
 
     v13 = *a2;
@@ -7838,7 +9060,7 @@ int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722:
     }
 
 LABEL_5:
-    v19 = *(result + 24);
+    v19 = result[3];
     do
     {
       v20 = (v16 + (__clz(__rbit64(v18)) >> 3)) & v3;
@@ -7875,20 +9097,20 @@ LABEL_8:
 
     v22 = result;
     result = absl::lts_20240722::container_internal::PrepareInsertNonSoo(result, v14, (v16 + (__clz(__rbit64(v21)) >> 3)) & v3, v6, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>>::GetPolicyFunctions(void)::value);
-    v24 = *(v22 + 24) + 4 * result;
-    *a3 = *(v22 + 16) + result;
+    v24 = v22[3] + 4 * result;
+    *a3 = result + v22[2];
     *(a3 + 8) = v24;
     *(a3 + 16) = 1;
   }
 
   else
   {
-    if (*(result + 8) > 1uLL)
+    if (result[1] > 1)
     {
-      v4 = (result + 16);
-      if (*(result + 16) != *a2)
+      v4 = result + 2;
+      if (*(result + 4) != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,absl::lts_20240722::hash_internal::Hash<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::equal_to<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>,std::allocator<operations_research::StrongIndex<operations_research::sat::LiteralIndex_index_tag_>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -7896,8 +9118,8 @@ LABEL_8:
 
     else
     {
-      *(result + 8) = 2;
-      v4 = (result + 16);
+      result[1] = 2;
+      v4 = result + 2;
       v5 = 1;
     }
 
@@ -7909,7 +9131,7 @@ LABEL_8:
   return result;
 }
 
-__n128 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(__n128 *a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t *a5, uint64_t a6)
+__n128 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(__n128 *a1, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, int64_t a6)
 {
   if (a4 < 2)
   {
@@ -7918,15 +9140,15 @@ __n128 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
 
   if (a4 == 2)
   {
-    v6 = *(a2 - 2);
+    v6 = a2[-1].n128_i32[2];
     v7 = a1->n128_u32[0];
-    if (v6 < a1->n128_u32[0] || v7 >= v6 && *(a2 - 1) < a1->n128_u32[1])
+    if (v6 < a1->n128_u32[0] || v7 >= v6 && a2[-1].n128_u32[3] < a1->n128_u32[1])
     {
       a1->n128_u32[0] = v6;
-      *(a2 - 2) = v7;
-      v8 = a1->n128_i32[1];
-      a1->n128_u32[1] = *(a2 - 1);
-      *(a2 - 1) = v8;
+      a2[-1].n128_u32[2] = v7;
+      v8 = a1->n128_u32[1];
+      a1->n128_u32[1] = a2[-1].n128_u32[3];
+      a2[-1].n128_u32[3] = v8;
     }
 
     return result;
@@ -7939,7 +9161,7 @@ __n128 std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
       return result;
     }
 
-    v19 = &a1->n128_u32[2];
+    v19 = &a1->n128_u64[1];
     if (&a1->n128_i8[8] == a2)
     {
       return result;
@@ -7951,8 +9173,8 @@ LABEL_19:
     v22 = v21;
     v21 = v19;
     v23 = *v19;
-    v24 = *v22;
-    if (v23 >= *v22 && (v24 < v23 || v22[3] >= v22[1]))
+    v24 = v22->n128_u32[0];
+    if (v23 >= v22->n128_u32[0] && (v24 < v23 || v22->n128_u32[3] >= v22->n128_u32[1]))
     {
       goto LABEL_18;
     }
@@ -7960,7 +9182,7 @@ LABEL_19:
     v25 = v21->n128_u32[0];
     v26 = v21->n128_i32[1];
     v21->n128_u32[0] = v24;
-    v21->n128_u32[1] = v22[1];
+    v21->n128_u32[1] = v22->n128_u32[1];
     if (v22 == a1)
     {
 LABEL_16:
@@ -7983,10 +9205,10 @@ LABEL_16:
         {
           v22 = (a1 + v27);
 LABEL_17:
-          *v22 = v25;
-          v22[1] = v26;
+          v22->n128_u32[0] = v25;
+          v22->n128_u32[1] = v26;
 LABEL_18:
-          v19 = &v21->n128_u32[2];
+          v19 = &v21->n128_u64[1];
           v20 += 8;
           if (&v21->n128_i8[8] != a2)
           {
@@ -8003,7 +9225,7 @@ LABEL_18:
         }
       }
 
-      v22 -= 2;
+      v22 = (v22 - 8);
       v29 = (a1 + v27);
       v29->n128_u32[0] = v30;
       v29->n128_u32[1] = v28;
@@ -8022,9 +9244,9 @@ LABEL_18:
   if (a4 <= a6)
   {
     std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(a1, v13, a3, a4 >> 1, a5);
-    v35 = &a5[v10];
+    v35 = (a5 + 8 * v10);
     std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>((a1 + v11), a2, a3, v12, v35);
-    v36 = &a5[a4];
+    v36 = &a5->n128_i8[8 * a4];
     if ((a4 & 0x3FFFFFFFFFFFFFFELL) != 0)
     {
       v37 = v35;
@@ -8032,12 +9254,13 @@ LABEL_18:
       v39 = a1;
       while (v37 != v36)
       {
-        v40 = *v37;
-        v41 = *v38;
-        if (*v37 < *v38 || v41 >= v40 && *(v37 + 1) < *(v38 + 1))
+        v40 = v37->n128_u32[0];
+        v41 = v38->n128_u32[0];
+        if (v37->n128_u32[0] < v38->n128_u32[0] || v41 >= v40 && v37->n128_u32[1] < v38->n128_u32[1])
         {
           v39->n128_u32[0] = v40;
-          v39->n128_u32[1] = *(v37++ + 1);
+          v39->n128_u32[1] = v37->n128_u32[1];
+          v37 = (v37 + 8);
           v39 = (v39 + 8);
           if (v38 == v35)
           {
@@ -8048,7 +9271,8 @@ LABEL_18:
         else
         {
           v39->n128_u32[0] = v41;
-          v39->n128_u32[1] = *(v38++ + 1);
+          v39->n128_u32[1] = v38->n128_u32[1];
+          v38 = (v38 + 8);
           v39 = (v39 + 8);
           if (v38 == v35)
           {
@@ -8059,7 +9283,7 @@ LABEL_18:
 
       if (v38 != v35)
       {
-        v45 = &a5[v11 / 8] - v38 - 8;
+        v45 = a5 + v11 - v38 - 8;
         if (v45 >= 0x118)
         {
           v57 = v45 & 0xFFFFFFFFFFFFFFF8;
@@ -8074,14 +9298,14 @@ LABEL_18:
             v46 = v38;
           }
 
-          else if (v39 >= (v38 + v57 + 8) || v38 >= (&v39->n128_i64[1] + v57))
+          else if (v39 >= &v38->n128_i8[v57 + 8] || v38 >= &v39->n128_i8[v57 + 8])
           {
             v59 = v39 + 2;
             v60 = (v45 >> 3) + 1;
-            v61 = v60 & 0x3FFFFFFFFFFFFFF8;
-            v46 = &v38[v61];
-            v39 = (v39 + v61 * 8);
-            v62 = (v38 + 4);
+            v61 = 8 * (v60 & 0x3FFFFFFFFFFFFFF8);
+            v46 = (v38 + v61);
+            v39 = (v39 + v61);
+            v62 = v38 + 2;
             v63 = v60 & 0x3FFFFFFFFFFFFFF8;
             do
             {
@@ -8118,8 +9342,9 @@ LABEL_18:
 
         do
         {
-          v39->n128_u32[0] = *v46;
-          v39->n128_u32[1] = *(v46++ + 1);
+          v39->n128_u32[0] = v46->n128_u32[0];
+          v39->n128_u32[1] = v46->n128_u32[1];
+          v46 = (v46 + 8);
           v39 = (v39 + 8);
         }
 
@@ -8144,11 +9369,11 @@ LABEL_42:
         else
         {
           v49 = (v42 >> 3) + 1;
-          v50 = v49 & 0x3FFFFFFFFFFFFFF8;
-          v43 = &v37[v50];
-          v44 = (v39 + v50 * 8);
+          v50 = 8 * (v49 & 0x3FFFFFFFFFFFFFF8);
+          v43 = (v37 + v50);
+          v44 = (v39 + v50);
           v51 = v39 + 2;
-          v52 = (v37 + 4);
+          v52 = v37 + 2;
           v53 = v49 & 0x3FFFFFFFFFFFFFF8;
           do
           {
@@ -8174,8 +9399,9 @@ LABEL_42:
 
         do
         {
-          v44->n128_u32[0] = *v43;
-          v44->n128_u32[1] = *(v43++ + 1);
+          v44->n128_u32[0] = v43->n128_u32[0];
+          v44->n128_u32[1] = v43->n128_u32[1];
+          v43 = (v43 + 8);
           v44 = (v44 + 8);
         }
 
@@ -8187,7 +9413,7 @@ LABEL_42:
   else
   {
     std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(a1, v13, a3, a4 >> 1, a5, a6);
-    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(a1 + v11, a2, a3, v12, a5, a6);
+    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>((a1 + v11), a2, a3, v12, a5, a6);
 
     std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(a1, a1 + v11, a2, a3, v10, v12, a5, a6);
   }
@@ -8195,43 +9421,44 @@ LABEL_42:
   return result;
 }
 
-uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+void std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(__n128 *a1, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5)
 {
   if (a4)
   {
     if (a4 == 1)
     {
-      v5 = result;
+      v5 = a1;
 LABEL_30:
-      *a5 = *v5;
-      return result;
+      a5->n128_u64[0] = v5->n128_u64[0];
+      return;
     }
 
     if (a4 == 2)
     {
-      v5 = a2 - 1;
-      v6 = *(a2 - 2);
-      if (v6 < *result || *result >= v6 && *(a2 - 1) < *(result + 1))
+      v5 = (a2 - 8);
+      v6 = a2[-1].n128_i32[2];
+      if (v6 < a1->n128_u32[0] || a1->n128_u32[0] >= v6 && a2[-1].n128_u32[3] < a1->n128_u32[1])
       {
-        v7 = result;
-        result = v5;
+        v7 = a1;
+        a1 = v5;
         v5 = v7;
       }
 
-      *a5++ = *result;
+      a5->n128_u64[0] = a1->n128_u64[0];
+      a5 = (a5 + 8);
       goto LABEL_30;
     }
 
     if (a4 > 8)
     {
       v20 = a4 >> 1;
-      v21 = a4 >> 1;
-      v22 = &result[v21];
-      v23 = result;
+      v21 = 8 * (a4 >> 1);
+      v22 = (a1 + v21);
+      v23 = a1;
       v27 = a5;
-      (std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>)();
-      result = std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(v22, a2, a3, a4 - v20, &v27[v21], a4 - v20);
-      if (v21 * 8)
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(a1, (a1 + v21), a3, v20, a5, v20);
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(v22, a2, a3, a4 - v20, (v27 + v21), a4 - v20);
+      if (v21)
       {
         v28 = v27;
         v29 = v27;
@@ -8240,11 +9467,13 @@ LABEL_30:
         v32 = v23;
         while (v30 != a2)
         {
-          if (*v30 < *v32 || *v32 >= *v30 && *(v30 + 1) < *(v32 + 1))
+          if (v30->n128_u32[0] < v32->n128_u32[0] || v32->n128_u32[0] >= v30->n128_u32[0] && v30->n128_u32[1] < v32->n128_u32[1])
           {
-            v33 = *v30++;
-            *v28++ = v33;
-            v29 += 8;
+            v33 = v30->n128_u64[0];
+            v30 = (v30 + 8);
+            v28->n128_u64[0] = v33;
+            v28 = (v28 + 8);
+            v29 = (v29 + 8);
             if (v32 == v22)
             {
               goto LABEL_42;
@@ -8253,9 +9482,11 @@ LABEL_30:
 
           else
           {
-            v34 = *v32++;
-            *v28++ = v34;
-            v29 += 8;
+            v34 = v32->n128_u64[0];
+            v32 = (v32 + 8);
+            v28->n128_u64[0] = v34;
+            v28 = (v28 + 8);
+            v29 = (v29 + 8);
             if (v32 == v22)
             {
               goto LABEL_42;
@@ -8270,17 +9501,17 @@ LABEL_30:
           {
             if ((v29 - v32) >= 0x20)
             {
-              v47 = v28 + 2;
+              v47 = v28 + 1;
               v48 = (v44 >> 3) + 1;
-              v49 = v48 & 0x3FFFFFFFFFFFFFFCLL;
-              v28 = (v28 + v49 * 8);
-              v45 = &v32[v49];
-              v50 = (v32 + 2);
+              v49 = 8 * (v48 & 0x3FFFFFFFFFFFFFFCLL);
+              v28 = (v28 + v49);
+              v45 = (v32 + v49);
+              v50 = v32 + 1;
               v51 = v48 & 0x3FFFFFFFFFFFFFFCLL;
               do
               {
                 v52 = *v50;
-                *(v47 - 1) = *(v50 - 1);
+                v47[-1] = v50[-1];
                 *v47 = v52;
                 v50 += 2;
                 v47 += 2;
@@ -8290,7 +9521,7 @@ LABEL_30:
               while (v51);
               if (v48 == (v48 & 0x3FFFFFFFFFFFFFFCLL))
               {
-                return result;
+                return;
               }
             }
 
@@ -8307,8 +9538,10 @@ LABEL_30:
 
           do
           {
-            v53 = *v45++;
-            *v28++ = v53;
+            v53 = v45->n128_u64[0];
+            v45 = (v45 + 8);
+            v28->n128_u64[0] = v53;
+            v28 = (v28 + 8);
           }
 
           while (v45 != v22);
@@ -8333,16 +9566,16 @@ LABEL_42:
           else
           {
             v36 = (v35 >> 3) + 1;
-            v37 = v36 & 0x3FFFFFFFFFFFFFFCLL;
-            v38 = &v28[v37];
-            v39 = &v30[v37];
-            v40 = (v30 + 2);
-            v41 = v28 + 2;
+            v37 = 8 * (v36 & 0x3FFFFFFFFFFFFFFCLL);
+            v38 = (v28 + v37);
+            v39 = (v30 + v37);
+            v40 = v30 + 1;
+            v41 = v28 + 1;
             v42 = v36 & 0x3FFFFFFFFFFFFFFCLL;
             do
             {
               v43 = *v40;
-              *(v41 - 1) = *(v40 - 1);
+              v41[-1] = v40[-1];
               *v41 = v43;
               v40 += 2;
               v41 += 2;
@@ -8352,14 +9585,16 @@ LABEL_42:
             while (v42);
             if (v36 == (v36 & 0x3FFFFFFFFFFFFFFCLL))
             {
-              return result;
+              return;
             }
           }
 
           do
           {
-            v46 = *v39++;
-            *v38++ = v46;
+            v46 = v39->n128_u64[0];
+            v39 = (v39 + 8);
+            v38->n128_u64[0] = v46;
+            v38 = (v38 + 8);
           }
 
           while (v39 != v31);
@@ -8367,11 +9602,11 @@ LABEL_42:
       }
     }
 
-    else if (result != a2)
+    else if (a1 != a2)
     {
-      v8 = result + 1;
-      *a5 = *result;
-      if (result + 1 != a2)
+      v8 = &a1->n128_u64[1];
+      a5->n128_u64[0] = a1->n128_u64[0];
+      if (&a1->n128_i8[8] != a2)
       {
         v9 = 0;
         v10 = a5;
@@ -8379,15 +9614,16 @@ LABEL_42:
         do
         {
           v13 = v8;
-          v15 = *v11++;
+          v15 = v11->n128_u32[0];
+          v11 = (v11 + 8);
           v14 = v15;
-          if (*v13 >= v15 && (v14 < *v13 || *(result + 3) >= *(v10 + 1)))
+          if (*v13 >= v15 && (v14 < *v13 || a1->n128_u32[3] >= v10->n128_u32[1]))
           {
-            *v11 = *v13;
+            v11->n128_u64[0] = *v13;
             goto LABEL_13;
           }
 
-          v10[1] = *v10;
+          v10->n128_u64[1] = v10->n128_u64[0];
           v12 = a5;
           if (v10 == a5)
           {
@@ -8397,10 +9633,10 @@ LABEL_42:
           v16 = v9;
           while (1)
           {
-            v19 = *(a5 + v16 - 8);
+            v19 = *(&a5->n128_i32[-2] + v16);
             if (*v13 < v19)
             {
-              v17 = *(a5 + v16 - 4);
+              v17 = *(&a5->n128_i32[-1] + v16);
               goto LABEL_18;
             }
 
@@ -8409,18 +9645,18 @@ LABEL_42:
               break;
             }
 
-            v17 = *(a5 + v16 - 4);
-            if (*(result + 3) >= v17)
+            v17 = *(&a5->n128_i32[-1] + v16);
+            if (a1->n128_u32[3] >= v17)
             {
               v12 = v10;
               goto LABEL_12;
             }
 
 LABEL_18:
-            --v10;
+            v10 = (v10 - 8);
             v18 = (a5 + v16);
-            *v18 = v19;
-            v18[1] = v17;
+            v18->n128_u32[0] = v19;
+            v18->n128_u32[1] = v17;
             v16 -= 8;
             if (!v16)
             {
@@ -8431,21 +9667,19 @@ LABEL_18:
 
           v12 = (a5 + v16);
 LABEL_12:
-          *v12 = *v13;
-          *(v12 + 1) = *(result + 3);
+          v12->n128_u32[0] = *v13;
+          v12->n128_u32[1] = a1->n128_u32[3];
 LABEL_13:
           v8 = v13 + 1;
           v9 += 8;
           v10 = v11;
-          result = v13;
+          a1 = v13;
         }
 
         while (v13 + 1 != a2);
       }
     }
   }
-
-  return result;
 }
 
 char *std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(char *result, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -8467,8 +9701,8 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::
     v13 = -a5;
     while (1)
     {
-      v15 = *&result[v11];
-      if (v12 < v15 || v15 >= v12 && *(a2 + 1) < *&result[v11 + 4])
+      v15 = *&v11[result];
+      if (v12 < v15 || v15 >= v12 && *(a2 + 1) < *&v11[result + 4])
       {
         break;
       }
@@ -8481,12 +9715,12 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::
     }
 
     v16 = -v13;
-    v17 = &result[v11];
+    v17 = &v11[result];
     if (-v13 >= a6)
     {
       if (v13 == -1)
       {
-        v47 = &result[v11];
+        v47 = &v11[result];
         *v47 = v12;
         *a2 = v15;
         v48 = *(v47 + 1);
@@ -8610,11 +9844,11 @@ LABEL_17:
       v18 = a6 / 2;
       v19 = &a2[8 * (a6 / 2)];
       v20 = a2;
-      if (a2 - result != v11)
+      if ((a2 - result) != v11)
       {
         v39 = (a2 - result - v11) >> 3;
         v40 = *v19;
-        v20 = &result[v11];
+        v20 = &v11[result];
         do
         {
           v41 = v39 >> 1;
@@ -8643,7 +9877,7 @@ LABEL_31:
     v35 = a6 - v18;
     if (v21 + v18 >= a6 - (v21 + v18) - v13)
     {
-      std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(v22, v19);
+      std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(v22, v19, a3, a4, -v13 - v21, a6 - v18, a7, a8);
       a2 = v20;
       a5 = v21;
       a3 = v22;
@@ -8660,7 +9894,7 @@ LABEL_31:
       v36 = v20;
       v37 = a3;
       v38 = -v13 - v21;
-      std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(&result[v11], v36);
+      std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(&v11[result], v36, v22, a4, v21, v18, a7, a8);
       a5 = v38;
       a3 = v37;
       a2 = v19;
@@ -8674,1086 +9908,4 @@ LABEL_31:
   }
 
   return std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(result, a2, a3, a4, a5, a6, a7);
-}
-
-char *std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>,int> *>>(char *result, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  if (a5 <= a6)
-  {
-    if (result == a2)
-    {
-      return result;
-    }
-
-    v16 = a2 - result - 8;
-    if (v16 < 0x18)
-    {
-      v17 = a7;
-      v18 = result;
-    }
-
-    else
-    {
-      v17 = a7;
-      v18 = result;
-      if ((a7 - result) > 0x1F)
-      {
-        v19 = (v16 >> 3) + 1;
-        v20 = 8 * (v19 & 0x3FFFFFFFFFFFFFFCLL);
-        v17 = (a7 + v20);
-        v18 = &result[v20];
-        v21 = (result + 16);
-        v22 = (a7 + 16);
-        v23 = v19 & 0x3FFFFFFFFFFFFFFCLL;
-        do
-        {
-          v24 = *v21;
-          *(v22 - 1) = *(v21 - 1);
-          *v22 = v24;
-          v21 += 2;
-          v22 += 2;
-          v23 -= 4;
-        }
-
-        while (v23);
-        if (v19 == (v19 & 0x3FFFFFFFFFFFFFFCLL))
-        {
-LABEL_32:
-          v35 = v17 - 1;
-          if (v17 == a7)
-          {
-            return result;
-          }
-
-          v36 = a7;
-          while (a2 != a3)
-          {
-            v37 = *a2;
-            v38 = *v36;
-            if (*a2 < *v36 || v38 >= v37 && *(a2 + 1) < v36[1])
-            {
-              *result = v37;
-              *(result + 1) = *(a2 + 1);
-              a2 += 8;
-              result += 8;
-              if (v36 == v17)
-              {
-                return result;
-              }
-            }
-
-            else
-            {
-              *result = v38;
-              *(result + 1) = v36[1];
-              v36 += 2;
-              result += 8;
-              if (v36 == v17)
-              {
-                return result;
-              }
-            }
-          }
-
-          v39 = (v16 & 0xFFFFFFFFFFFFFFF8) + a7 - v36;
-          if (v39 >= 0x138)
-          {
-            v41 = &result[v39 & 0xFFFFFFFFFFFFFFF8];
-            if (v41 >= result && v41 + 4 >= result + 4)
-            {
-              if (result >= v36 + (v39 & 0xFFFFFFFFFFFFFFF8) + 8 || v36 >= v41 + 2)
-              {
-                v43 = (v39 >> 3) + 1;
-                v44 = result + 32;
-                v45 = 2 * (v43 & 0x3FFFFFFFFFFFFFF8);
-                result += v45 * 4;
-                v40 = &v36[v45];
-                v46 = (v36 + 8);
-                v47 = v43 & 0x3FFFFFFFFFFFFFF8;
-                do
-                {
-                  v49 = *(v46 - 2);
-                  v48 = *(v46 - 1);
-                  v51 = *v46;
-                  v50 = v46[1];
-                  v46 += 4;
-                  *(v44 - 2) = v49;
-                  *(v44 - 1) = v48;
-                  *v44 = v51;
-                  v44[1] = v50;
-                  v44 += 4;
-                  v47 -= 8;
-                }
-
-                while (v47);
-                if (v43 == (v43 & 0x3FFFFFFFFFFFFFF8))
-                {
-                  return result;
-                }
-              }
-
-              else
-              {
-                v40 = v36;
-              }
-            }
-
-            else
-            {
-              v40 = v36;
-            }
-          }
-
-          else
-          {
-            v40 = v36;
-          }
-
-          do
-          {
-            *result = *v40;
-            *(result + 1) = v40[1];
-            result += 8;
-            v52 = v40 == v35;
-            v40 += 2;
-          }
-
-          while (!v52);
-          return result;
-        }
-      }
-    }
-
-    do
-    {
-      v34 = *v18;
-      v18 += 8;
-      *v17++ = v34;
-    }
-
-    while (v18 != a2);
-    goto LABEL_32;
-  }
-
-  if (a2 == a3)
-  {
-    return result;
-  }
-
-  v7 = a3 - a2 - 8;
-  if (v7 < 0x18)
-  {
-    v8 = a7;
-    v9 = a2;
-    do
-    {
-LABEL_17:
-      v25 = *v9;
-      v9 += 8;
-      *v8 = v25;
-      v8 += 8;
-    }
-
-    while (v9 != a3);
-    goto LABEL_18;
-  }
-
-  v8 = a7;
-  v9 = a2;
-  if ((a7 - a2) <= 0x1F)
-  {
-    goto LABEL_17;
-  }
-
-  v10 = (v7 >> 3) + 1;
-  v11 = 8 * (v10 & 0x3FFFFFFFFFFFFFFCLL);
-  v8 = a7 + v11;
-  v9 = &a2[v11];
-  v12 = (a2 + 16);
-  v13 = (a7 + 16);
-  v14 = v10 & 0x3FFFFFFFFFFFFFFCLL;
-  do
-  {
-    v15 = *v12;
-    *(v13 - 1) = *(v12 - 1);
-    *v13 = v15;
-    v12 += 2;
-    v13 += 2;
-    v14 -= 4;
-  }
-
-  while (v14);
-  if (v10 != (v10 & 0x3FFFFFFFFFFFFFFCLL))
-  {
-    goto LABEL_17;
-  }
-
-LABEL_18:
-  if (v8 != a7)
-  {
-    v26 = a3 - 4;
-    while (a2 != result)
-    {
-      v28 = *(a2 - 2);
-      v29 = v8 - 8;
-      v30 = *(v8 - 8);
-      if (v30 < v28 || v28 >= v30 && *(v8 - 4) < *(a2 - 1))
-      {
-        v27 = a2;
-        a2 -= 8;
-        *(v26 - 1) = v28;
-        *v26 = *(v27 - 1);
-        v26 -= 8;
-        if (v8 == a7)
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-        v31 = *(v8 - 8);
-        v32 = v8;
-        v8 -= 8;
-        *(v26 - 1) = v31;
-        *v26 = *(v32 - 4);
-        v26 -= 8;
-        if (v29 == a7)
-        {
-          return result;
-        }
-      }
-    }
-
-    while (v8 != a7)
-    {
-      v33 = *(v8 - 8);
-      v8 -= 8;
-      *(v26 - 1) = v33;
-      *v26 = *(v8 + 4);
-      v26 -= 8;
-    }
-  }
-
-  return result;
-}
-
-void OUTLINED_FUNCTION_0_12(uint64_t a1@<X8>)
-{
-  v2 = (*(a1 + 24) - (*(a1 + 16) & 1) - 8);
-
-  operator delete(v2);
-}
-
-unint64_t AbslFlagHelpGenForcp_model_debug_postsolve::NonConst@<X0>(_BYTE *a1@<X8>)
-{
-  result = strlen(absl::lts_20240722::flags_internal::kStrippedFlagHelp);
-  if (result >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v4 = result;
-  if (result >= 0x17)
-  {
-    operator new();
-  }
-
-  a1[23] = result;
-  if (result)
-  {
-    result = memcpy(a1, absl::lts_20240722::flags_internal::kStrippedFlagHelp, result);
-    a1[v4] = 0;
-  }
-
-  else
-  {
-    *a1 = 0;
-  }
-
-  return result;
-}
-
-uint64_t operations_research::sat::PresolveContext::GetLiteralRepresentative(operations_research::sat::PresolveContext *this, uint64_t a2)
-{
-  v2 = a2;
-  if (~a2 <= a2)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = ~a2;
-  }
-
-  operations_research::sat::PresolveContext::GetAffineRelation(this, v4, &v12);
-  if (operations_research::Domain::Min((*(this + 53) + 24 * v4)) < 0 || operations_research::Domain::Max((*(this + 53) + 24 * v4)) >= 2)
-  {
-    operations_research::sat::PresolveContext::GetLiteralRepresentative(v11);
-  }
-
-  v5 = v12;
-  v6 = ~v12;
-  if (~v12 <= v12)
-  {
-    v7 = v12;
-  }
-
-  else
-  {
-    v7 = ~v12;
-  }
-
-  if ((operations_research::Domain::Min((*(this + 53) + 24 * v7)) & 0x8000000000000000) == 0 && operations_research::Domain::Max((*(this + 53) + 24 * v7)) <= 1)
-  {
-    if (v14)
-    {
-      v8 = v13 + v14 == 1;
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    v9 = v8;
-    if ((v2 & 0x80000000) != 0)
-    {
-      if (v9)
-      {
-        return v6;
-      }
-
-      else
-      {
-        return v5;
-      }
-    }
-
-    else if (v9)
-    {
-      return v5;
-    }
-
-    else
-    {
-      return v6;
-    }
-  }
-
-  return v2;
-}
-
-uint64_t operations_research::sat::PresolveContext::NewIntVar(operations_research::sat::PresolveContext *this, const operations_research::Domain *a2)
-{
-  v4 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-  operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(a2, v4);
-  operations_research::sat::PresolveContext::InitializeNewDomains(this);
-  return (*(*this + 32) - 1);
-}
-
-void operations_research::sat::PresolveContext::InitializeNewDomains(operations_research::sat::PresolveContext *this)
-{
-  v1 = *(*this + 32);
-  if (0xAAAAAAAAAAAAAAABLL * ((*(this + 54) - *(this + 53)) >> 3) != v1)
-  {
-    operations_research::SparseBitset<int>::Resize(this + 136, v1);
-    operations_research::SparseBitset<int>::Resize(this + 192, v1);
-    v4 = *(this + 85);
-    v5 = *(this + 84);
-    v6 = (v4 - v5) >> 5;
-    if (v1 <= v6)
-    {
-      if (v1 < v6)
-      {
-        v7 = v5 + 32 * v1;
-        if (v4 != v7)
-        {
-          v8 = *(this + 85);
-          do
-          {
-            v9 = *(v8 - 32);
-            v8 -= 32;
-            if (v9 >= 2)
-            {
-              operator delete((*(v4 - 16) - (*(v4 - 24) & 1) - 8));
-            }
-
-            v4 = v8;
-          }
-
-          while (v8 != v7);
-        }
-
-        *(this + 85) = v7;
-      }
-    }
-
-    else
-    {
-      std::vector<absl::lts_20240722::flat_hash_set<long long,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<long long>>>::__append(this + 84, v1 - v6);
-    }
-
-    v10 = *(this + 90);
-    v11 = (*(this + 91) - v10) >> 2;
-    if (v1 <= v11)
-    {
-      if (v1 < v11)
-      {
-        *(this + 91) = v10 + 4 * v1;
-      }
-    }
-
-    else
-    {
-      std::vector<int>::__append(this + 30, v1 - v11);
-    }
-
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((*(this + 54) - *(this + 53)) >> 3);
-    if (v1 <= v12)
-    {
-LABEL_27:
-      v23 = 0;
-      v21 = *(this + 60);
-      v22 = (*(this + 61) - v21) >> 3;
-      if (v1 <= v22)
-      {
-        if (v1 < v22)
-        {
-          *(this + 61) = v21 + 8 * v1;
-        }
-      }
-
-      else
-      {
-        std::vector<unsigned long long>::__append(this + 480, v1 - v22, &v23);
-      }
-
-      std::vector<BOOL>::resize(this + 456, v1, 0);
-    }
-
-    else
-    {
-      v13 = v12;
-      v14 = 8 * v12 + 8;
-      while (1)
-      {
-        LODWORD(v23) = v13;
-        v15 = *(this + 18);
-        v16 = *(v15 + 8 * (v13 >> 6));
-        if ((v16 & (1 << v13)) == 0)
-        {
-          *(v15 + 8 * (v13 >> 6)) = v16 | (1 << v13);
-          std::vector<int>::push_back[abi:ne200100](this + 168, &v23);
-        }
-
-        v17 = *this + 24;
-        if (*v17)
-        {
-          v17 = *v17 + v14 - 1;
-        }
-
-        operations_research::Domain::FromFlatSpanOfIntervals(*(*v17 + 24), *(*v17 + 16), &v23, v3);
-        v18 = *(this + 54);
-        if (v18 >= *(this + 55))
-        {
-          v19 = std::vector<operations_research::Domain>::__emplace_back_slow_path<operations_research::Domain>(this + 424, &v23);
-          v20 = v23;
-          *(this + 54) = v19;
-          if (v20)
-          {
-            operator delete(__p);
-            v19 = *(this + 54);
-          }
-        }
-
-        else
-        {
-          *v18 = 0;
-          *v18 = v23;
-          *(v18 + 8) = __p;
-          v19 = v18 + 24;
-          *(this + 54) = v18 + 24;
-        }
-
-        if (operations_research::Domain::IsEmpty((v19 - 24)))
-        {
-          break;
-        }
-
-        ++v13;
-        v14 += 8;
-        if (v1 == v13)
-        {
-          goto LABEL_27;
-        }
-      }
-
-      *(this + 416) = 1;
-    }
-  }
-}
-
-void sub_23CC927FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p)
-{
-  if (a10)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t operations_research::sat::PresolveContext::NewIntVarWithDefinition(uint64_t a1, uint64_t *a2, int *a3, uint64_t a4)
-{
-  v8 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*a1 + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-  operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(a2, v8);
-  operations_research::sat::PresolveContext::InitializeNewDomains(a1);
-  result = (*(*a1 + 32) - 1);
-  if (*(a1 + 448) == 1)
-  {
-    if ((a4 & 0xFFFFFFFFFFFFFFFLL) != 0)
-    {
-      v10 = 0;
-      v11 = &a3[4 * a4];
-      while (1)
-      {
-        v12 = *a3;
-        if ((v12 & 0x80000000) != 0)
-        {
-          operations_research::sat::PresolveContext::NewIntVarWithDefinition(*a3);
-        }
-
-        v13 = *(a1 + 480);
-        v14 = (*(a1 + 488) - v13) >> 3;
-        if (v14 < v12)
-        {
-          operations_research::sat::PresolveContext::NewIntVarWithDefinition(*a3, v14);
-        }
-
-        v15 = *(a1 + 456);
-        if (((*(v15 + ((v12 >> 3) & 0x1FFFFFF8)) >> v12) & 1) == 0)
-        {
-          break;
-        }
-
-        v10 += *(v13 + 8 * v12) * *(a3 + 1);
-        a3 += 4;
-        if (a3 == v11)
-        {
-          goto LABEL_10;
-        }
-      }
-    }
-
-    else
-    {
-      v10 = 0;
-      v15 = *(a1 + 456);
-      v13 = *(a1 + 480);
-LABEL_10:
-      *(v15 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
-      *(v13 + 8 * result) = v10;
-    }
-  }
-
-  return result;
-}
-
-uint64_t operations_research::sat::PresolveContext::NewBoolVar(operations_research::sat::PresolveContext *this)
-{
-  operations_research::Domain::Domain(v5, 0, 1);
-  v2 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-  operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(v5, v2);
-  operations_research::sat::PresolveContext::InitializeNewDomains(this);
-  v3 = *(*this + 32);
-  if (v5[0])
-  {
-    operator delete(v5[1]);
-  }
-
-  return (v3 - 1);
-}
-
-void sub_23CC929C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p)
-{
-  if (a10)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t operations_research::sat::PresolveContext::NewBoolVarWithClause(uint64_t a1, int *a2, uint64_t a3)
-{
-  result = operations_research::sat::PresolveContext::NewBoolVar(a1);
-  if (*(a1 + 448) != 1)
-  {
-    return result;
-  }
-
-  v7 = *(a1 + 456);
-  if ((a3 & 0x3FFFFFFFFFFFFFFFLL) == 0)
-  {
-    goto LABEL_19;
-  }
-
-  v8 = &a2[a3];
-  v9 = 1;
-  while (1)
-  {
-    while (1)
-    {
-      v10 = *a2;
-      v11 = ~*a2 <= *a2 ? *a2 : ~v10;
-      v12 = v11;
-      if ((*(v7 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v11))
-      {
-        break;
-      }
-
-      v9 = 0;
-      if (++a2 == v8)
-      {
-        return result;
-      }
-    }
-
-    v13 = *(a1 + 480);
-    v14 = *(v13 + 8 * v12);
-    if (v10 < 0)
-    {
-      break;
-    }
-
-    if (v14 == 1)
-    {
-      v15 = result;
-      v16 = (result >> 3) & 0x1FFFFFFFFFFFFFF8;
-      goto LABEL_18;
-    }
-
-LABEL_5:
-    if (++a2 == v8)
-    {
-      if (v9)
-      {
-        goto LABEL_19;
-      }
-
-      return result;
-    }
-  }
-
-  if (v14)
-  {
-    goto LABEL_5;
-  }
-
-  v15 = result;
-  v16 = (result >> 3) & 0x1FFFFFFFFFFFFFF8;
-LABEL_18:
-  *(v7 + v16) |= 1 << v15;
-  *(v13 + 8 * result) = 1;
-  if ((v9 & 1) == 0)
-  {
-    return result;
-  }
-
-LABEL_19:
-  v17 = result >> 6;
-  v18 = *(v7 + 8 * v17);
-  if ((v18 & (1 << result)) == 0)
-  {
-    *(v7 + 8 * v17) = v18 | (1 << result);
-    *(*(a1 + 480) + 8 * result) = 0;
-  }
-
-  return result;
-}
-
-uint64_t operations_research::sat::PresolveContext::GetTrueLiteral(operations_research::sat::PresolveContext *this)
-{
-  if ((*(this + 792) & 1) == 0)
-  {
-    *(this + 792) = 1;
-    operations_research::Domain::Domain(v4, 1);
-    v2 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-    operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(v4, v2);
-    operations_research::sat::PresolveContext::InitializeNewDomains(this);
-    *(this + 199) = *(*this + 32) - 1;
-    if (v4[0])
-    {
-      operator delete(v4[1]);
-    }
-  }
-
-  return *(this + 199);
-}
-
-void sub_23CC92BB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p)
-{
-  if (a10)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-int *operations_research::sat::PresolveContext::AddImplication(int *this, int a2, int a3)
-{
-  if (a2 != a3)
-  {
-    v5 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*this + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-    v6 = v5;
-    v7 = (v5 + 16);
-    v8 = *(v5 + 16);
-    v9 = v8;
-    if (v8 == HIDWORD(v8))
-    {
-      google::protobuf::RepeatedField<int>::Grow(v5 + 16, HIDWORD(v8), (HIDWORD(v8) + 1));
-      v9 = *v7;
-    }
-
-    v10 = *(v6 + 24);
-    *(v6 + 16) = v9 + 1;
-    *(v10 + 4 * v9) = a2;
-    if (*(v6 + 60) == 4)
-    {
-      this = *(v6 + 48);
-    }
-
-    else
-    {
-      operations_research::sat::ConstraintProto::clear_constraint(v6);
-      *(v6 + 60) = 4;
-      v11 = *(v6 + 8);
-      if (v11)
-      {
-        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
-      }
-
-      this = google::protobuf::Arena::DefaultConstruct<operations_research::sat::BoolArgumentProto>(v11);
-      *(v6 + 48) = this;
-    }
-
-    v12 = this + 4;
-    v13 = *(this + 2);
-    v14 = v13;
-    if (v13 == HIDWORD(v13))
-    {
-      v16 = this;
-      google::protobuf::RepeatedField<int>::Grow(this + 4, HIDWORD(v13), (HIDWORD(v13) + 1));
-      this = v16;
-      v14 = *v12;
-    }
-
-    v15 = *(this + 3);
-    this[4] = v14 + 1;
-    *(v15 + 4 * v14) = a3;
-  }
-
-  return this;
-}
-
-uint64_t operations_research::sat::PresolveContext::AddImplyInDomain(operations_research::sat::PresolveContext *this, unsigned int a2, unsigned int a3, const operations_research::Domain *a4)
-{
-  v7 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((*this + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-  v8 = (v7 + 16);
-  v9 = *(v7 + 16);
-  if (*(v7 + 16) <= 0)
-  {
-    if (*(v7 + 20) < 1)
-    {
-      google::protobuf::RepeatedField<int>::Grow(v8, v9, 1);
-      LODWORD(v9) = *(v7 + 16);
-      v10 = *(v7 + 24);
-      *(v7 + 16) = 1;
-      if (v9 == 1)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v10 = *(v7 + 24);
-      *(v7 + 16) = 1;
-    }
-
-    v11 = 4 * v9;
-    v12 = v10 + v11;
-    v13 = -v9 & 0x3FFFFFFFFFFFFFFFLL;
-    if (v13 < 7)
-    {
-      goto LABEL_11;
-    }
-
-    v14 = v13 + 1;
-    v12 += 4 * (v14 & 0x7FFFFFFFFFFFFFF8);
-    v15 = vdupq_n_s32(a2);
-    v16 = (v11 + v10 + 16);
-    v17 = v14 & 0x7FFFFFFFFFFFFFF8;
-    do
-    {
-      v16[-1] = v15;
-      *v16 = v15;
-      v16 += 2;
-      v17 -= 8;
-    }
-
-    while (v17);
-    if (v14 != (v14 & 0x7FFFFFFFFFFFFFF8))
-    {
-LABEL_11:
-      v18 = v12 - 4;
-      do
-      {
-        *(v18 + 4) = a2;
-        v18 += 4;
-      }
-
-      while (v18 != v10);
-    }
-  }
-
-  else if (v9 != 1)
-  {
-    *v8 = 1;
-  }
-
-LABEL_13:
-  if (*(v7 + 60) == 12)
-  {
-    v19 = *(v7 + 48);
-    v20 = (v19 + 16);
-    v21 = *(v19 + 16);
-    if (*(v19 + 16) > 0)
-    {
-LABEL_15:
-      if (v21 != 1)
-      {
-        *v20 = 1;
-      }
-
-      goto LABEL_29;
-    }
-  }
-
-  else
-  {
-    operations_research::sat::ConstraintProto::clear_constraint(v7);
-    *(v7 + 60) = 12;
-    v22 = *(v7 + 8);
-    if (v22)
-    {
-      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
-    v19 = google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearConstraintProto>(v22);
-    *(v7 + 48) = v19;
-    v20 = (v19 + 16);
-    v21 = *(v19 + 16);
-    if (*(v19 + 16) > 0)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  if (*(v19 + 20) < 1)
-  {
-    google::protobuf::RepeatedField<int>::Grow(v20, v21, 1);
-    LODWORD(v21) = *(v19 + 16);
-    v23 = *(v19 + 24);
-    *(v19 + 16) = 1;
-    if (v21 == 1)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  else
-  {
-    v23 = *(v19 + 24);
-    *(v19 + 16) = 1;
-  }
-
-  v24 = 4 * v21;
-  v25 = v23 + v24;
-  v26 = -v21 & 0x3FFFFFFFFFFFFFFFLL;
-  if (v26 < 7)
-  {
-    goto LABEL_27;
-  }
-
-  v27 = v26 + 1;
-  v25 += 4 * (v27 & 0x7FFFFFFFFFFFFFF8);
-  v28 = vdupq_n_s32(a3);
-  v29 = (v24 + v23 + 16);
-  v30 = v27 & 0x7FFFFFFFFFFFFFF8;
-  do
-  {
-    v29[-1] = v28;
-    *v29 = v28;
-    v29 += 2;
-    v30 -= 8;
-  }
-
-  while (v30);
-  if (v27 != (v27 & 0x7FFFFFFFFFFFFFF8))
-  {
-LABEL_27:
-    v31 = v25 - 4;
-    do
-    {
-      *(v31 + 4) = a3;
-      v31 += 4;
-    }
-
-    while (v31 != v23);
-  }
-
-LABEL_29:
-  v32 = (v19 + 40);
-  v33 = *(v19 + 40);
-  if (v33 <= 0)
-  {
-    if (*(v19 + 44) < 1)
-    {
-      google::protobuf::RepeatedField<long long>::Grow(v32, v33);
-      LODWORD(v33) = *(v19 + 40);
-      v34 = *(v19 + 48);
-      *(v19 + 40) = 1;
-      if (v33 == 1)
-      {
-        goto LABEL_36;
-      }
-    }
-
-    else
-    {
-      v34 = *(v19 + 48);
-      *(v19 + 40) = 1;
-    }
-
-    memset_pattern16((v34 + 8 * v33), &unk_23CE4D740, 8 - 8 * v33);
-  }
-
-  else if (v33 != 1)
-  {
-    *v32 = 1;
-  }
-
-LABEL_36:
-
-  return operations_research::sat::FillDomainInProto<operations_research::sat::LinearConstraintProto>(a4, v19);
-}
-
-BOOL operations_research::sat::PresolveContext::IsFixed(operations_research::sat::PresolveContext *this, int a2)
-{
-  if (~a2 <= a2)
-  {
-    v2 = a2;
-  }
-
-  else
-  {
-    v2 = ~a2;
-  }
-
-  return operations_research::Domain::IsFixed((*(this + 53) + 24 * v2));
-}
-
-BOOL operations_research::sat::PresolveContext::CanBeUsedAsLiteral(operations_research::sat::PresolveContext *this, int a2)
-{
-  if (~a2 <= a2)
-  {
-    v3 = a2;
-  }
-
-  else
-  {
-    v3 = ~a2;
-  }
-
-  return (operations_research::Domain::Min((*(this + 53) + 24 * v3)) & 0x8000000000000000) == 0 && operations_research::Domain::Max((*(this + 53) + 24 * v3)) < 2;
-}
-
-BOOL operations_research::sat::PresolveContext::LiteralIsTrue(operations_research::sat::PresolveContext *this, unsigned int a2)
-{
-  if ((a2 & 0x80000000) != 0)
-  {
-    return operations_research::Domain::Max((*(this + 53) + 24 * ~a2)) == 0;
-  }
-
-  else
-  {
-    return operations_research::Domain::Min((*(this + 53) + 24 * a2)) == 1;
-  }
-}
-
-BOOL operations_research::sat::PresolveContext::LiteralIsFalse(operations_research::sat::PresolveContext *this, unsigned int a2)
-{
-  if ((a2 & 0x80000000) != 0)
-  {
-    return operations_research::Domain::Min((*(this + 53) + 24 * ~a2)) == 1;
-  }
-
-  else
-  {
-    return operations_research::Domain::Max((*(this + 53) + 24 * a2)) == 0;
-  }
-}
-
-uint64_t operations_research::sat::PresolveContext::MinOf(operations_research::sat::PresolveContext *this, unsigned int a2)
-{
-  if ((a2 & 0x80000000) != 0)
-  {
-    return -operations_research::Domain::Max((*(this + 53) + 24 * ~a2));
-  }
-
-  v3 = (*(this + 53) + 24 * a2);
-
-  return operations_research::Domain::Min(v3);
-}
-
-uint64_t operations_research::sat::PresolveContext::MaxOf(operations_research::sat::PresolveContext *this, unsigned int a2)
-{
-  if ((a2 & 0x80000000) != 0)
-  {
-    return -operations_research::Domain::Min((*(this + 53) + 24 * ~a2));
-  }
-
-  v3 = (*(this + 53) + 24 * a2);
-
-  return operations_research::Domain::Max(v3);
-}
-
-uint64_t operations_research::sat::PresolveContext::FixedValue(operations_research::sat::PresolveContext *this, int a2)
-{
-  if (~a2 <= a2)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = ~a2;
-  }
-
-  if (!operations_research::Domain::IsFixed((*(this + 53) + 24 * v4)))
-  {
-    operations_research::sat::PresolveContext::FixedValue(&v6);
-  }
-
-  result = operations_research::Domain::Min((*(this + 53) + 24 * v4));
-  if (a2 < 0)
-  {
-    return -result;
-  }
-
-  return result;
 }

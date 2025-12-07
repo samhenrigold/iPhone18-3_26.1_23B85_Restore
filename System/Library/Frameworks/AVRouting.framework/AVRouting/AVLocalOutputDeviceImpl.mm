@@ -14,7 +14,7 @@
 {
   if (handler)
   {
-    v5 = AVLocalizedErrorWithUnderlyingOSStatus(-16726, 0);
+    v5 = AVLocalizedErrorWithUnderlyingOSStatus(4294950570, 0);
     v6 = *(handler + 2);
 
     v6(handler, v5);
@@ -33,7 +33,7 @@
 {
   if (error)
   {
-    *error = AVLocalizedErrorWithUnderlyingOSStatus(-11862, 0);
+    *error = AVLocalizedErrorWithUnderlyingOSStatus(4294955434, 0);
   }
 
   return 0;
@@ -43,7 +43,7 @@
 {
   if (error)
   {
-    *error = AVLocalizedErrorWithUnderlyingOSStatus(-11862, 0);
+    *error = AVLocalizedErrorWithUnderlyingOSStatus(4294955434, 0);
   }
 
   return 0;
@@ -53,7 +53,7 @@
 {
   if (error)
   {
-    *error = AVLocalizedErrorWithUnderlyingOSStatus(-11862, 0);
+    *error = AVLocalizedErrorWithUnderlyingOSStatus(4294955434, 0);
   }
 
   return 0;
@@ -63,7 +63,7 @@
 {
   if (error)
   {
-    *error = AVLocalizedErrorWithUnderlyingOSStatus(-11862, 0);
+    *error = AVLocalizedErrorWithUnderlyingOSStatus(4294955434, 0);
   }
 
   return 0;

@@ -84,7 +84,6 @@
   }
 
   PBDataWriterWriteSubmessage();
-  activationMode = self->_activationMode;
   PBDataWriterWriteInt32Field();
   if (self->_launchURL)
   {
@@ -93,21 +92,20 @@
 
   if (*&self->_has)
   {
-    behavior = self->_behavior;
     PBDataWriterWriteInt32Field();
   }
 
-  v6 = toCopy;
+  v4 = toCopy;
   if (self->_behaviorParameters)
   {
     PBDataWriterWriteDataField();
-    v6 = toCopy;
+    v4 = toCopy;
   }
 
   if (self->_behaviorParametersNulls)
   {
     PBDataWriterWriteDataField();
-    v6 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -220,7 +218,6 @@
     }
   }
 
-  v8 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_behavior != *(equalCopy + 6))
@@ -232,7 +229,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_18:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_19;
   }
 
@@ -245,17 +242,17 @@ LABEL_18:
   behaviorParametersNulls = self->_behaviorParametersNulls;
   if (behaviorParametersNulls | *(equalCopy + 5))
   {
-    v11 = [(NSData *)behaviorParametersNulls isEqual:?];
+    v10 = [(NSData *)behaviorParametersNulls isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_19:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -297,7 +294,7 @@ LABEL_19:
       goto LABEL_9;
     }
 
-    [(BLTPBAppearance *)appearance mergeFrom:?];
+    appearance = [(BLTPBAppearance *)appearance mergeFrom:?];
   }
 
   else
@@ -307,7 +304,7 @@ LABEL_19:
       goto LABEL_9;
     }
 
-    [(BLTPBAction *)self setAppearance:?];
+    appearance = [(BLTPBAction *)self setAppearance:?];
   }
 
   fromCopy = v7;
@@ -315,7 +312,7 @@ LABEL_9:
   self->_activationMode = fromCopy[2];
   if (*(fromCopy + 7))
   {
-    [(BLTPBAction *)self setLaunchURL:?];
+    appearance = [(BLTPBAction *)self setLaunchURL:?];
     fromCopy = v7;
   }
 
@@ -327,16 +324,17 @@ LABEL_9:
 
   if (*(fromCopy + 4))
   {
-    [(BLTPBAction *)self setBehaviorParameters:?];
+    appearance = [(BLTPBAction *)self setBehaviorParameters:?];
     fromCopy = v7;
   }
 
   if (*(fromCopy + 5))
   {
-    [(BLTPBAction *)self setBehaviorParametersNulls:?];
+    appearance = [(BLTPBAction *)self setBehaviorParametersNulls:?];
+    fromCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](appearance, fromCopy);
 }
 
 @end

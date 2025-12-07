@@ -68,7 +68,7 @@ void sub_1AD946BE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AD947DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id location)
+void sub_1AD947DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id location)
 {
   _Block_object_dispose(&a33, 8);
   objc_destroyWeak(&location);
@@ -110,17 +110,17 @@ id initFUFactoryProvider_Default()
   return v1;
 }
 
-void sub_1AD94A454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AD94A454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD94A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AD94A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -292,9 +292,9 @@ id PKConvertErrorToAddSecureElementPassProvisioningErrorDomain(void *a1)
   }
 
   v3 = [v1 domain];
-  v4 = [v3 isEqualToString:@"PKSubcredentialProvisioningErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (!v4)
+  if (!isEqualToString)
   {
     v6 = PKLogFacilityTypeGetObject(0x17uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -366,7 +366,7 @@ LABEL_19:
   }
 
 LABEL_12:
-  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PKAddSecureElementPassErrorDomain" code:v8 userInfo:{0, *v12}];
+  v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PKAddSecureElementPassErrorDomain" code:v8 userInfo:{0, *v12, *&v12[8]}];
 
   return v9;
 }
@@ -394,9 +394,9 @@ id PKConvertDAErrorToSubcredentialProvisioningErrorDomain(void *a1, void *a2)
   }
 
   v7 = [v3 domain];
-  v8 = [v7 isEqualToString:*MEMORY[0x1E699A0F8]];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v10 = PKLogFacilityTypeGetObject(0x17uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -584,9 +584,9 @@ id PKSubcredentialProvisioningError(void *a1, uint64_t a2, uint64_t a3, uint64_t
   return v14;
 }
 
-void sub_1AD94E550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AD94E550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -605,9 +605,9 @@ void sub_1AD94E898(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AD950100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD950100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -619,16 +619,16 @@ void sub_1AD9538C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AD954A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD954A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD954BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD954BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -957,26 +957,26 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"initiated"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"active" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"active"], v6, (v7 & 1) != 0))
+    if (v5 == @"active" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_15;
     }
 
     v8 = v6;
-    if (v8 == @"canceled" || (v9 = v8, v10 = [(__CFString *)v8 isEqualToString:@"canceled"], v9, (v10 & 1) != 0))
+    if (v8 == @"canceled" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(v8), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_15;
     }
 
     v11 = v9;
-    if (v11 == @"closed" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"closed"], v12, v13))
+    if (v11 == @"closed" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, v13))
     {
       v4 = 4;
       goto LABEL_15;
@@ -995,12 +995,12 @@ LABEL_15:
 uint64_t PKPaymentTransactionQuestionTypeFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([v1 isEqualToString:@"origin"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"travel"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
@@ -2011,12 +2011,12 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"provisioned"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"failed" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"failed"], v6, v7))
+    if (v5 == @"failed" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, v7))
     {
       v4 = 2;
       goto LABEL_9;
@@ -2691,16 +2691,16 @@ id PKIssuerProvisioningExtensionConsumerContextExportedInterface()
   return WeakRetained;
 }
 
-void sub_1AD968B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1AD968B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD969018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AD969018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2761,24 +2761,24 @@ uint64_t PKISO_CategoryFromField(void *a1, void *a2)
 
   if (!v5)
   {
-    goto LABEL_127;
+    goto LABEL_125;
   }
 
-  v7 = [(__CFString *)v5 isEqualToString:@"org.iso.18013.5.1"];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v7)
+  if (isEqualToString)
   {
 LABEL_4:
     v8 = v4;
     if (v8 == @"given_name")
     {
-      goto LABEL_124;
+      goto LABEL_122;
     }
 
     v9 = v8;
     if (v8)
     {
-      v10 = [(__CFString *)v8 isEqualToString:@"given_name"];
+      v10 = objc_msgSend_isEqualToString_(v8);
 
       if ((v10 & 1) == 0)
       {
@@ -2786,7 +2786,7 @@ LABEL_4:
         if (v11 != @"family_name")
         {
           v12 = v11;
-          v13 = [(__CFString *)v11 isEqualToString:@"family_name"];
+          v13 = objc_msgSend_isEqualToString_(v11);
 
           if ((v13 & 1) == 0)
           {
@@ -2794,7 +2794,7 @@ LABEL_4:
             if (v14 != @"resident_address")
             {
               v15 = v14;
-              v16 = [(__CFString *)v14 isEqualToString:@"resident_address"];
+              v16 = objc_msgSend_isEqualToString_(v14);
 
               if ((v16 & 1) == 0)
               {
@@ -2802,7 +2802,7 @@ LABEL_4:
                 if (v17 != @"resident_city")
                 {
                   v18 = v17;
-                  v19 = [(__CFString *)v17 isEqualToString:@"resident_city"];
+                  v19 = objc_msgSend_isEqualToString_(v17);
 
                   if ((v19 & 1) == 0)
                   {
@@ -2810,7 +2810,7 @@ LABEL_4:
                     if (v20 != @"resident_state")
                     {
                       v21 = v20;
-                      v22 = [(__CFString *)v20 isEqualToString:@"resident_state"];
+                      v22 = objc_msgSend_isEqualToString_(v20);
 
                       if ((v22 & 1) == 0)
                       {
@@ -2818,7 +2818,7 @@ LABEL_4:
                         if (v23 != @"resident_postal_code")
                         {
                           v24 = v23;
-                          v25 = [(__CFString *)v23 isEqualToString:@"resident_postal_code"];
+                          v25 = objc_msgSend_isEqualToString_(v23);
 
                           if ((v25 & 1) == 0)
                           {
@@ -2826,7 +2826,7 @@ LABEL_4:
                             if (v26 != @"resident_country")
                             {
                               v27 = v26;
-                              v28 = [(__CFString *)v26 isEqualToString:@"resident_country"];
+                              v28 = objc_msgSend_isEqualToString_(v26);
 
                               if ((v28 & 1) == 0)
                               {
@@ -2834,7 +2834,7 @@ LABEL_4:
                                 if (v29 != @"birth_date")
                                 {
                                   v30 = v29;
-                                  v31 = [(__CFString *)v29 isEqualToString:@"birth_date"];
+                                  v31 = objc_msgSend_isEqualToString_(v29);
 
                                   if ((v31 & 1) == 0)
                                   {
@@ -2842,7 +2842,7 @@ LABEL_4:
                                     if (v32 != @"portrait")
                                     {
                                       v33 = v32;
-                                      v34 = [(__CFString *)v32 isEqualToString:@"portrait"];
+                                      v34 = objc_msgSend_isEqualToString_(v32);
 
                                       if ((v34 & 1) == 0)
                                       {
@@ -2850,7 +2850,7 @@ LABEL_4:
                                         if (v35 != @"eye_colour")
                                         {
                                           v36 = v35;
-                                          v37 = [(__CFString *)v35 isEqualToString:@"eye_colour"];
+                                          v37 = objc_msgSend_isEqualToString_(v35);
 
                                           if ((v37 & 1) == 0)
                                           {
@@ -2858,7 +2858,7 @@ LABEL_4:
                                             if (v38 != @"hair_colour")
                                             {
                                               v39 = v38;
-                                              v40 = [(__CFString *)v38 isEqualToString:@"hair_colour"];
+                                              v40 = objc_msgSend_isEqualToString_(v38);
 
                                               if ((v40 & 1) == 0)
                                               {
@@ -2866,7 +2866,7 @@ LABEL_4:
                                                 if (v41 != @"sex")
                                                 {
                                                   v42 = v41;
-                                                  v43 = [(__CFString *)v41 isEqualToString:@"sex"];
+                                                  v43 = objc_msgSend_isEqualToString_(v41);
 
                                                   if ((v43 & 1) == 0)
                                                   {
@@ -2874,7 +2874,7 @@ LABEL_4:
                                                     if (v44 != @"height")
                                                     {
                                                       v45 = v44;
-                                                      v46 = [(__CFString *)v44 isEqualToString:@"height"];
+                                                      v46 = objc_msgSend_isEqualToString_(v44);
 
                                                       if ((v46 & 1) == 0)
                                                       {
@@ -2882,7 +2882,7 @@ LABEL_4:
                                                         if (v47 != @"document_number")
                                                         {
                                                           v48 = v47;
-                                                          v49 = [(__CFString *)v47 isEqualToString:@"document_number"];
+                                                          v49 = objc_msgSend_isEqualToString_(v47);
 
                                                           if ((v49 & 1) == 0)
                                                           {
@@ -2890,7 +2890,7 @@ LABEL_4:
                                                             if (v50 != @"expiry_date")
                                                             {
                                                               v51 = v50;
-                                                              v52 = [(__CFString *)v50 isEqualToString:@"expiry_date"];
+                                                              v52 = objc_msgSend_isEqualToString_(v50);
 
                                                               if ((v52 & 1) == 0)
                                                               {
@@ -2898,16 +2898,14 @@ LABEL_4:
                                                                 if (v53 != @"issue_date")
                                                                 {
                                                                   v54 = v53;
-                                                                  v55 = [(__CFString *)v53 isEqualToString:@"issue_date"];
+                                                                  v55 = objc_msgSend_isEqualToString_(v53);
 
                                                                   if ((v55 & 1) == 0)
                                                                   {
                                                                     v56 = v54;
                                                                     if (v56 != @"issuing_authority")
                                                                     {
-                                                                      v57 = v56;
-                                                                      v58 = @"issuing_authority";
-                                                                      goto LABEL_39;
+                                                                      goto LABEL_38;
                                                                     }
                                                                   }
                                                                 }
@@ -2916,7 +2914,7 @@ LABEL_4:
                                                           }
                                                         }
 
-                                                        goto LABEL_47;
+                                                        goto LABEL_46;
                                                       }
                                                     }
                                                   }
@@ -2943,233 +2941,243 @@ LABEL_4:
         }
       }
 
-      goto LABEL_124;
+      goto LABEL_122;
     }
   }
 
   else
   {
-    v63 = v6;
-    if (v63 != @"org.iso.18013.5.1.aamva")
+    v60 = v6;
+    if (v60 != @"org.iso.18013.5.1.aamva")
     {
-      v64 = v63;
-      v65 = [(__CFString *)v63 isEqualToString:@"org.iso.18013.5.1.aamva"];
+      v61 = v60;
+      v62 = objc_msgSend_isEqualToString_(v60);
 
-      if (!v65)
+      if (!v62)
       {
-        v68 = v64;
-        if (v68 == @"org.iso.23220.1" || (v69 = v68, v70 = [(__CFString *)v68 isEqualToString:@"org.iso.23220.1"], v69, v70))
+        v65 = v61;
+        if (v65 == @"org.iso.23220.1" || (v66 = v65, v67 = objc_msgSend_isEqualToString_(v65), v66, v67))
         {
-          v71 = v4;
-          if (v71 != @"family_name")
+          v68 = v4;
+          if (v68 != @"family_name")
           {
-            v9 = v71;
-            if (!v71)
+            v9 = v68;
+            if (!v68)
             {
-              goto LABEL_128;
+              goto LABEL_126;
             }
 
-            v72 = [(__CFString *)v71 isEqualToString:@"family_name"];
+            v69 = objc_msgSend_isEqualToString_(v68);
 
-            if ((v72 & 1) == 0)
+            if ((v69 & 1) == 0)
             {
-              v73 = v9;
-              if (v73 != @"family_name_latin_character")
+              v70 = v9;
+              if (v70 != @"family_name_latin_character")
               {
-                v74 = v73;
-                v75 = [(__CFString *)v73 isEqualToString:@"family_name_latin_character"];
+                v71 = v70;
+                v72 = objc_msgSend_isEqualToString_(v70);
 
-                if ((v75 & 1) == 0)
+                if ((v72 & 1) == 0)
                 {
-                  v76 = v74;
-                  if (v76 != @"given_name")
+                  v73 = v71;
+                  if (v73 != @"given_name")
                   {
-                    v77 = v76;
-                    v78 = [(__CFString *)v76 isEqualToString:@"given_name"];
+                    v74 = v73;
+                    v75 = objc_msgSend_isEqualToString_(v73);
 
-                    if ((v78 & 1) == 0)
+                    if ((v75 & 1) == 0)
                     {
-                      v79 = v77;
-                      if (v79 != @"given_name_latin_character")
+                      v76 = v74;
+                      if (v76 != @"given_name_latin_character")
                       {
-                        v80 = v79;
-                        v81 = [(__CFString *)v79 isEqualToString:@"given_name_latin_character"];
+                        v77 = v76;
+                        v78 = objc_msgSend_isEqualToString_(v76);
 
-                        if ((v81 & 1) == 0)
+                        if ((v78 & 1) == 0)
                         {
-                          v82 = v80;
-                          if (v82 != @"birth_date")
+                          v79 = v77;
+                          if (v79 != @"birth_date")
                           {
-                            v83 = v82;
-                            v84 = [(__CFString *)v82 isEqualToString:@"birth_date"];
+                            v80 = v79;
+                            v81 = objc_msgSend_isEqualToString_(v79);
 
-                            if ((v84 & 1) == 0)
+                            if ((v81 & 1) == 0)
                             {
-                              v85 = v83;
-                              if (v85 != @"resident_postal_code")
+                              v82 = v80;
+                              if (v82 != @"resident_postal_code")
                               {
-                                v86 = v85;
-                                v87 = [(__CFString *)v85 isEqualToString:@"resident_postal_code"];
+                                v83 = v82;
+                                v84 = objc_msgSend_isEqualToString_(v82);
 
-                                if ((v87 & 1) == 0)
+                                if ((v84 & 1) == 0)
                                 {
-                                  v88 = v86;
-                                  if (v88 != @"document_number")
+                                  v85 = v83;
+                                  if (v85 != @"document_number")
                                   {
-                                    v89 = v88;
-                                    v90 = [(__CFString *)v88 isEqualToString:@"document_number"];
+                                    v86 = v85;
+                                    v87 = objc_msgSend_isEqualToString_(v85);
 
-                                    if ((v90 & 1) == 0)
+                                    if ((v87 & 1) == 0)
                                     {
-                                      v91 = v89;
-                                      if (v91 != @"sex")
+                                      v88 = v86;
+                                      if (v88 != @"sex")
                                       {
-                                        v92 = v91;
-                                        v93 = [(__CFString *)v91 isEqualToString:@"sex"];
+                                        v89 = v88;
+                                        v90 = objc_msgSend_isEqualToString_(v88);
 
-                                        if ((v93 & 1) == 0)
+                                        if ((v90 & 1) == 0)
                                         {
-                                          v94 = v92;
-                                          if (v94 != @"nationality")
+                                          v91 = v89;
+                                          if (v91 != @"nationality")
                                           {
-                                            v95 = v94;
-                                            v96 = [(__CFString *)v94 isEqualToString:@"nationality"];
+                                            v92 = v91;
+                                            v93 = objc_msgSend_isEqualToString_(v91);
 
-                                            if ((v96 & 1) == 0)
+                                            if ((v93 & 1) == 0)
                                             {
-                                              v97 = v95;
-                                              if (v97 != @"portrait")
+                                              v94 = v92;
+                                              if (v94 != @"portrait")
                                               {
-                                                v98 = v97;
-                                                v99 = [(__CFString *)v97 isEqualToString:@"portrait"];
+                                                v95 = v94;
+                                                v96 = objc_msgSend_isEqualToString_(v94);
 
-                                                if ((v99 & 1) == 0)
+                                                if ((v96 & 1) == 0)
                                                 {
-                                                  v100 = v98;
-                                                  if (v100 != @"resident_address")
+                                                  v97 = v95;
+                                                  if (v97 != @"resident_address")
                                                   {
-                                                    v101 = v100;
-                                                    v102 = [(__CFString *)v100 isEqualToString:@"resident_address"];
+                                                    v98 = v97;
+                                                    v99 = objc_msgSend_isEqualToString_(v97);
 
-                                                    if ((v102 & 1) == 0)
+                                                    if ((v99 & 1) == 0)
                                                     {
-                                                      v103 = v101;
-                                                      if (v103 != @"resident_address_latin_character")
+                                                      v100 = v98;
+                                                      if (v100 != @"resident_address_latin_character")
                                                       {
-                                                        v104 = v103;
-                                                        v105 = [(__CFString *)v103 isEqualToString:@"resident_address_latin_character"];
+                                                        v101 = v100;
+                                                        v102 = objc_msgSend_isEqualToString_(v100);
 
-                                                        if ((v105 & 1) == 0)
+                                                        if ((v102 & 1) == 0)
                                                         {
-                                                          v106 = v104;
-                                                          if (v106 != @"resident_city")
+                                                          v103 = v101;
+                                                          if (v103 != @"resident_city")
                                                           {
-                                                            v107 = v106;
-                                                            v108 = [(__CFString *)v106 isEqualToString:@"resident_city"];
+                                                            v104 = v103;
+                                                            v105 = objc_msgSend_isEqualToString_(v103);
 
-                                                            if ((v108 & 1) == 0)
+                                                            if ((v105 & 1) == 0)
                                                             {
-                                                              v109 = v107;
-                                                              if (v109 != @"resident_city_latin_character")
+                                                              v106 = v104;
+                                                              if (v106 != @"resident_city_latin_character")
                                                               {
-                                                                v110 = v109;
-                                                                v111 = [(__CFString *)v109 isEqualToString:@"resident_city_latin_character"];
+                                                                v107 = v106;
+                                                                v108 = objc_msgSend_isEqualToString_(v106);
 
-                                                                if ((v111 & 1) == 0 && ([(__CFString *)v110 isEqualToString:@"resident_postal_code"]& 1) == 0)
+                                                                if ((v108 & 1) == 0 && (objc_msgSend_isEqualToString_(v107) & 1) == 0)
                                                                 {
-                                                                  v112 = v110;
-                                                                  if (v112 != @"resident_postal_code_latin_character")
+                                                                  v109 = v107;
+                                                                  if (v109 != @"resident_postal_code_latin_character")
                                                                   {
-                                                                    v113 = v112;
-                                                                    v114 = [(__CFString *)v112 isEqualToString:@"resident_postal_code_latin_character"];
+                                                                    v110 = v109;
+                                                                    v111 = objc_msgSend_isEqualToString_(v109);
 
-                                                                    if ((v114 & 1) == 0)
+                                                                    if ((v111 & 1) == 0)
                                                                     {
-                                                                      v115 = v113;
-                                                                      if (v115 != @"resident_state")
+                                                                      v112 = v110;
+                                                                      if (v112 != @"resident_state")
                                                                       {
-                                                                        v116 = v115;
-                                                                        v117 = [(__CFString *)v115 isEqualToString:@"resident_state"];
+                                                                        v113 = v112;
+                                                                        v114 = objc_msgSend_isEqualToString_(v112);
 
-                                                                        if ((v117 & 1) == 0)
+                                                                        if ((v114 & 1) == 0)
                                                                         {
-                                                                          v118 = v116;
-                                                                          if (v118 != @"resident_state_latin_character")
+                                                                          v115 = v113;
+                                                                          if (v115 != @"resident_state_latin_character")
                                                                           {
-                                                                            v119 = v118;
-                                                                            v120 = [(__CFString *)v118 isEqualToString:@"resident_state_latin_character"];
+                                                                            v116 = v115;
+                                                                            v117 = objc_msgSend_isEqualToString_(v115);
 
-                                                                            if ((v120 & 1) == 0)
+                                                                            if ((v117 & 1) == 0)
                                                                             {
-                                                                              v121 = v119;
-                                                                              if (v121 != @"resident_country")
+                                                                              v118 = v116;
+                                                                              if (v118 != @"resident_country")
                                                                               {
-                                                                                v122 = v121;
-                                                                                v123 = [(__CFString *)v121 isEqualToString:@"resident_country"];
+                                                                                v119 = v118;
+                                                                                v120 = objc_msgSend_isEqualToString_(v118);
 
-                                                                                if ((v123 & 1) == 0)
+                                                                                if ((v120 & 1) == 0)
                                                                                 {
-                                                                                  if (([(__CFString *)v122 isEqualToString:@"document_number"]& 1) == 0)
+                                                                                  if ((objc_msgSend_isEqualToString_(v119) & 1) == 0)
                                                                                   {
-                                                                                    v124 = v122;
-                                                                                    if (v124 != @"expiry_date")
+                                                                                    v121 = v119;
+                                                                                    if (v121 != @"expiry_date")
                                                                                     {
-                                                                                      v125 = v124;
-                                                                                      v126 = [(__CFString *)v124 isEqualToString:@"expiry_date"];
+                                                                                      v122 = v121;
+                                                                                      v123 = objc_msgSend_isEqualToString_(v121);
 
-                                                                                      if ((v126 & 1) == 0)
+                                                                                      if ((v123 & 1) == 0)
                                                                                       {
-                                                                                        v127 = v125;
-                                                                                        if (v127 != @"issue_date")
+                                                                                        v124 = v122;
+                                                                                        if (v124 != @"issue_date")
                                                                                         {
-                                                                                          v128 = v127;
-                                                                                          v129 = [(__CFString *)v127 isEqualToString:@"issue_date"];
+                                                                                          v125 = v124;
+                                                                                          v126 = objc_msgSend_isEqualToString_(v124);
 
-                                                                                          if ((v129 & 1) == 0)
+                                                                                          if ((v126 & 1) == 0)
                                                                                           {
-                                                                                            v130 = v128;
-                                                                                            if (v130 != @"issuing_country")
+                                                                                            v127 = v125;
+                                                                                            if (v127 != @"issuing_country")
                                                                                             {
-                                                                                              v131 = v130;
-                                                                                              v132 = [(__CFString *)v130 isEqualToString:@"issuing_country"];
+                                                                                              v128 = v127;
+                                                                                              v129 = objc_msgSend_isEqualToString_(v127);
 
-                                                                                              if ((v132 & 1) == 0)
+                                                                                              if ((v129 & 1) == 0)
                                                                                               {
-                                                                                                v133 = v131;
-                                                                                                if (v133 != @"issuing_authority")
+                                                                                                v130 = v128;
+                                                                                                if (v130 != @"issuing_authority")
                                                                                                 {
-                                                                                                  v134 = v133;
-                                                                                                  v135 = [(__CFString *)v133 isEqualToString:@"issuing_authority"];
+                                                                                                  v131 = v130;
+                                                                                                  v132 = objc_msgSend_isEqualToString_(v130);
 
-                                                                                                  if ((v135 & 1) == 0)
+                                                                                                  if ((v132 & 1) == 0)
                                                                                                   {
-                                                                                                    v136 = v134;
-                                                                                                    if (v136 != @"issuing_authority_latin_character")
+                                                                                                    v133 = v131;
+                                                                                                    if (v133 != @"issuing_authority_latin_character")
                                                                                                     {
-                                                                                                      v137 = v136;
-                                                                                                      v138 = [(__CFString *)v136 isEqualToString:@"issuing_authority_latin_character"];
+                                                                                                      v134 = v133;
+                                                                                                      v135 = objc_msgSend_isEqualToString_(v133);
 
-                                                                                                      if ((v138 & 1) == 0)
+                                                                                                      if ((v135 & 1) == 0)
                                                                                                       {
-                                                                                                        v139 = v137;
-                                                                                                        if (v139 != @"issuing_subdivision")
+                                                                                                        v56 = v134;
+                                                                                                        if (v56 != @"issuing_subdivision")
                                                                                                         {
-                                                                                                          v57 = v139;
-                                                                                                          v58 = @"issuing_subdivision";
-LABEL_39:
-                                                                                                          v59 = [(__CFString *)v57 isEqualToString:v58];
+LABEL_38:
+                                                                                                          v57 = v56;
+                                                                                                          v58 = objc_msgSend_isEqualToString_(v56);
 
-                                                                                                          if ((v59 & 1) == 0)
+                                                                                                          if ((v58 & 1) == 0)
                                                                                                           {
-                                                                                                            v60 = v57;
-                                                                                                            if (v60 != @"driving_privileges")
+                                                                                                            v59 = v57;
+                                                                                                            if (v59 != @"driving_privileges")
                                                                                                             {
-                                                                                                              v61 = v60;
-                                                                                                              v62 = @"driving_privileges";
-                                                                                                              goto LABEL_109;
+LABEL_107:
+                                                                                                              v145 = v59;
+                                                                                                              v146 = objc_msgSend_isEqualToString_(v59);
+
+                                                                                                              if (v146)
+                                                                                                              {
+                                                                                                                goto LABEL_108;
+                                                                                                              }
+
+LABEL_125:
+                                                                                                              v9 = 0;
+                                                                                                              goto LABEL_126;
                                                                                                             }
 
-                                                                                                            goto LABEL_110;
+LABEL_108:
+                                                                                                            v9 = 3;
+                                                                                                            goto LABEL_126;
                                                                                                           }
                                                                                                         }
                                                                                                       }
@@ -3184,9 +3192,9 @@ LABEL_39:
                                                                                     }
                                                                                   }
 
-LABEL_47:
+LABEL_46:
                                                                                   v9 = 2;
-                                                                                  goto LABEL_128;
+                                                                                  goto LABEL_126;
                                                                                 }
                                                                               }
                                                                             }
@@ -3227,76 +3235,76 @@ LABEL_47:
 
         else
         {
-          v151 = v69;
-          if (v151 != @"org.iso.23220.1.jp")
+          v147 = v66;
+          if (v147 != @"org.iso.23220.1.jp")
           {
-            v152 = v151;
-            v153 = [(__CFString *)v151 isEqualToString:@"org.iso.23220.1.jp"];
+            v148 = v147;
+            v149 = objc_msgSend_isEqualToString_(v147);
 
-            if (!v153)
+            if (!v149)
             {
-              goto LABEL_127;
+              goto LABEL_125;
             }
           }
 
-          v154 = v4;
-          if (v154 != @"full_name_unicode")
+          v150 = v4;
+          if (v150 != @"full_name_unicode")
           {
-            v9 = v154;
-            if (!v154)
+            v9 = v150;
+            if (!v150)
             {
-              goto LABEL_128;
+              goto LABEL_126;
             }
 
-            v155 = [(__CFString *)v154 isEqualToString:@"full_name_unicode"];
+            v151 = objc_msgSend_isEqualToString_(v150);
 
-            if ((v155 & 1) == 0)
+            if ((v151 & 1) == 0)
             {
-              v156 = v9;
-              if (v156 != @"resident_address_unicode")
+              v152 = v9;
+              if (v152 != @"resident_address_unicode")
               {
-                v157 = v156;
-                v158 = [(__CFString *)v156 isEqualToString:@"resident_address_unicode"];
+                v153 = v152;
+                v154 = objc_msgSend_isEqualToString_(v152);
 
-                if ((v158 & 1) == 0)
+                if ((v154 & 1) == 0)
                 {
-                  v159 = v157;
-                  if (v159 != @"sex_unicode")
+                  v155 = v153;
+                  if (v155 != @"sex_unicode")
                   {
-                    v160 = v159;
-                    v161 = [(__CFString *)v159 isEqualToString:@"sex_unicode"];
+                    v156 = v155;
+                    v157 = objc_msgSend_isEqualToString_(v155);
 
-                    if ((v161 & 1) == 0)
+                    if ((v157 & 1) == 0)
                     {
-                      v162 = v160;
-                      if (v162 != @"local_gov_code_unicode")
+                      v158 = v156;
+                      if (v158 != @"local_gov_code_unicode")
                       {
-                        v163 = v162;
-                        v164 = [(__CFString *)v162 isEqualToString:@"local_gov_code_unicode"];
+                        v159 = v158;
+                        v160 = objc_msgSend_isEqualToString_(v158);
 
-                        if ((v164 & 1) == 0)
+                        if ((v160 & 1) == 0)
                         {
-                          v165 = v163;
-                          if (v165 != @"portrait")
+                          v161 = v159;
+                          if (v161 != @"portrait")
                           {
-                            v166 = v165;
-                            v167 = [(__CFString *)v165 isEqualToString:@"portrait"];
+                            v162 = v161;
+                            v163 = objc_msgSend_isEqualToString_(v161);
 
-                            if ((v167 & 1) == 0)
+                            if ((v163 & 1) == 0)
                             {
-                              v168 = v166;
-                              if (v168 != @"individual_number_unicode")
+                              v164 = v162;
+                              if (v164 != @"individual_number_unicode")
                               {
-                                v169 = v168;
-                                v170 = [(__CFString *)v168 isEqualToString:@"individual_number_unicode"];
+                                v165 = v164;
+                                v166 = objc_msgSend_isEqualToString_(v164);
 
-                                if (!v170)
+                                if (!v166)
                                 {
-                                  goto LABEL_127;
+                                  goto LABEL_125;
                                 }
                               }
 
-                              goto LABEL_47;
+                              goto LABEL_46;
                             }
                           }
                         }
@@ -3309,73 +3317,59 @@ LABEL_47:
           }
         }
 
-LABEL_124:
+LABEL_122:
         v9 = 1;
-        goto LABEL_128;
+        goto LABEL_126;
       }
     }
 
-    v66 = v4;
-    if (v66 == @"DHS_compliance")
+    v63 = v4;
+    if (v63 == @"DHS_compliance")
     {
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
-    v9 = v66;
-    if (v66)
+    v9 = v63;
+    if (v63)
     {
-      v67 = [(__CFString *)v66 isEqualToString:@"DHS_compliance"];
+      v64 = objc_msgSend_isEqualToString_(v63);
 
-      if (v67)
+      if (v64)
       {
-        goto LABEL_47;
+        goto LABEL_46;
       }
 
-      v140 = v9;
-      if (v140 != @"sex")
+      v136 = v9;
+      if (v136 != @"sex")
       {
-        v141 = v140;
-        v142 = [(__CFString *)v140 isEqualToString:@"sex"];
+        v137 = v136;
+        v138 = objc_msgSend_isEqualToString_(v136);
 
-        if ((v142 & 1) == 0)
+        if ((v138 & 1) == 0)
         {
-          v143 = v141;
-          if (v143 != @"organ_donor")
+          v139 = v137;
+          if (v139 != @"organ_donor")
           {
-            v144 = v143;
-            v145 = [(__CFString *)v143 isEqualToString:@"organ_donor"];
+            v140 = v139;
+            v141 = objc_msgSend_isEqualToString_(v139);
 
-            if ((v145 & 1) == 0)
+            if ((v141 & 1) == 0)
             {
-              v146 = v144;
-              if (v146 != @"veteran")
+              v142 = v140;
+              if (v142 != @"veteran")
               {
-                v147 = v146;
-                v148 = [(__CFString *)v146 isEqualToString:@"veteran"];
+                v143 = v142;
+                v144 = objc_msgSend_isEqualToString_(v142);
 
-                if ((v148 & 1) == 0)
+                if ((v144 & 1) == 0)
                 {
-                  v149 = v147;
-                  if (v149 != @"domestic_driving_privileges")
+                  v59 = v143;
+                  if (v59 != @"domestic_driving_privileges")
                   {
-                    v61 = v149;
-                    v62 = @"domestic_driving_privileges";
-LABEL_109:
-                    v150 = [(__CFString *)v61 isEqualToString:v62];
-
-                    if (v150)
-                    {
-                      goto LABEL_110;
-                    }
-
-LABEL_127:
-                    v9 = 0;
-                    goto LABEL_128;
+                    goto LABEL_107;
                   }
 
-LABEL_110:
-                  v9 = 3;
-                  goto LABEL_128;
+                  goto LABEL_108;
                 }
               }
             }
@@ -3383,11 +3377,11 @@ LABEL_110:
         }
       }
 
-      goto LABEL_124;
+      goto LABEL_122;
     }
   }
 
-LABEL_128:
+LABEL_126:
 
   return v9;
 }
@@ -3399,7 +3393,7 @@ BOOL PKPaymentTransactionAmountModifierTypeFromString(void *a1)
   v4 = 1;
   if (v1 != @"discount")
   {
-    if (!v1 || (v3 = [@"discount" isEqualToString:v1], v2, !v3))
+    if (!v1 || (isEqualToString = objc_msgSend_isEqualToString_(@"discount"), v2, !isEqualToString))
     {
       v4 = 0;
     }
@@ -3472,12 +3466,12 @@ id PKApplicationAuthorizationViewServiceInterface_Remote()
 uint64_t PKPeerPaymentRecipientStatusFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([@"valid" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"valid"))
   {
     v2 = 1;
   }
 
-  else if ([@"invalid" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"invalid"))
   {
     v2 = 2;
   }
@@ -3512,22 +3506,22 @@ __CFString *PKPeerPaymentRecipientStatusToString(uint64_t a1)
 uint64_t PKPeerPaymentRecipientStatusReasonFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([@"none" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"none"))
   {
-    v2 = 0;
+    isEqualToString = 0;
   }
 
-  else if ([@"notinfamily" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"notinfamily"))
   {
-    v2 = 2;
+    isEqualToString = 2;
   }
 
   else
   {
-    v2 = [@"accountclosed" isEqualToString:v1];
+    isEqualToString = objc_msgSend_isEqualToString_(@"accountclosed");
   }
 
-  return v2;
+  return isEqualToString;
 }
 
 __CFString *PKPeerPaymentRecipientStatusReasonToString(uint64_t a1)
@@ -3630,12 +3624,12 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v3 = [(__CFString *)v1 isEqualToString:@"toggle"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"checkmark" || (v6 = v5, v7 = [(__CFString *)v5 isEqualToString:@"checkmark"], v6, v7))
+    if (v5 == @"checkmark" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(v5), v6, v7))
     {
       v4 = 2;
       goto LABEL_9;
@@ -3654,22 +3648,22 @@ LABEL_9:
 uint64_t PKAccountPaymentStateFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"posted"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"scheduled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"cancelled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"failed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
@@ -3699,9 +3693,9 @@ uint64_t PKAccountPaymentFundingSourceTypeFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
   v2 = [@"ACH" lowercaseString];
-  v3 = [v1 isEqualToString:v2];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if (v3)
+  if (isEqualToString)
   {
     v4 = 1;
   }
@@ -3709,7 +3703,7 @@ uint64_t PKAccountPaymentFundingSourceTypeFromString(void *a1)
   else
   {
     v5 = [@"APC" lowercaseString];
-    v6 = [v1 isEqualToString:v5];
+    v6 = objc_msgSend_isEqualToString_(v1);
 
     if (v6)
     {
@@ -3719,7 +3713,7 @@ uint64_t PKAccountPaymentFundingSourceTypeFromString(void *a1)
     else
     {
       v7 = [@"offline" lowercaseString];
-      v8 = [v1 isEqualToString:v7];
+      v8 = objc_msgSend_isEqualToString_(v1);
 
       if (v8)
       {
@@ -3729,7 +3723,7 @@ uint64_t PKAccountPaymentFundingSourceTypeFromString(void *a1)
       else
       {
         v9 = [@"savings" lowercaseString];
-        v10 = [v1 isEqualToString:v9];
+        v10 = objc_msgSend_isEqualToString_(v1);
 
         if (v10)
         {
@@ -3739,7 +3733,7 @@ uint64_t PKAccountPaymentFundingSourceTypeFromString(void *a1)
         else
         {
           v11 = [@"RDFI" lowercaseString];
-          v12 = [v1 isEqualToString:v11];
+          v12 = objc_msgSend_isEqualToString_(v1);
 
           if (v12)
           {
@@ -3777,37 +3771,37 @@ __CFString *PKAccountPaymentFundingSourceTypeToString(uint64_t a1)
 uint64_t PKAccountPaymentFrequencyFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([v1 isEqualToString:@"now"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"once"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"daily"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"weekly"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"biweekly"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"monthly"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"paymentduedate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
@@ -3838,17 +3832,17 @@ __CFString *PKAccountPaymentFrequencyToString(uint64_t a1)
 uint64_t PKAccountPaymentPresetFromString(void *a1)
 {
   v1 = [a1 lowercaseString];
-  if ([v1 isEqualToString:@"fixedamount"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"minimumdue"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"statementbalance"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
@@ -3879,12 +3873,12 @@ __CFString *PKAccountPaymentPresetToString(uint64_t a1)
 uint64_t PKAccountPaymentFundingSourceStatusFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"available"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"unavailable"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
@@ -3935,27 +3929,28 @@ void sub_1AD97B048(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AD97DE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_1AD97DE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a55, 8);
-  _Block_object_dispose(&a61, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AD97F190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1AD97F190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 152), 8);
-  _Block_object_dispose((v10 - 120), 8);
+  _Block_object_dispose((v17 - 152), 8);
+  _Block_object_dispose((v17 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3985,7 +3980,7 @@ Class initFHPaymentRingSuggestionController()
 
   result = objc_getClass("FHPaymentRingSuggestionController");
   qword_1EB5B7E48 = result;
-  getFHPaymentRingSuggestionControllerClass[0] = FHPaymentRingSuggestionControllerFunction;
+  getFHPaymentRingSuggestionControllerClass = FHPaymentRingSuggestionControllerFunction;
   return result;
 }
 
@@ -4211,38 +4206,38 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1AD989900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1AD989900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t PKPaymentTransactionFeeItemTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([@"creditCard" isEqualToString:v1])
+  if (objc_msgSend_isEqualToString_(@"creditCard"))
   {
     v2 = 1;
   }
 
-  else if ([@"foreignTransaction" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"foreignTransaction"))
   {
     v2 = 2;
   }
 
-  else if ([@"serviceCharge" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"serviceCharge"))
   {
     v2 = 3;
   }
 
-  else if ([@"instantWithdrawal" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"instantWithdrawal"))
   {
     v2 = 4;
   }
 
-  else if ([@"other" isEqualToString:v1])
+  else if (objc_msgSend_isEqualToString_(@"other"))
   {
     v2 = 100;
   }
@@ -4278,7 +4273,7 @@ Class initIMOneTimeCodeAccelerator()
 
   result = objc_getClass("IMOneTimeCodeAccelerator");
   qword_1EB5A0090 = result;
-  getIMOneTimeCodeAcceleratorClass[0] = IMOneTimeCodeAcceleratorFunction;
+  getIMOneTimeCodeAcceleratorClass = IMOneTimeCodeAcceleratorFunction;
   return result;
 }
 
@@ -4365,26 +4360,26 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v3 = [@"upcoming" isEqualToString:v1];
+  isEqualToString = objc_msgSend_isEqualToString_(@"upcoming");
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"inProgress" || (v6 = v5, v7 = [@"inProgress" isEqualToString:v5], v6, (v7 & 1) != 0))
+    if (v5 == @"inProgress" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(@"inProgress"), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_15;
     }
 
     v8 = v6;
-    if (v8 == @"redeemed" || (v9 = v8, v10 = [@"redeemed" isEqualToString:v8], v9, (v10 & 1) != 0))
+    if (v8 == @"redeemed" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(@"redeemed"), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_15;
     }
 
     v11 = v9;
-    if (v11 == @"expired" || (v12 = v11, v13 = [@"expired" isEqualToString:v11], v12, v13))
+    if (v11 == @"expired" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"expired"), v12, v13))
     {
       v4 = 4;
       goto LABEL_15;
@@ -4429,33 +4424,33 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v3 = [@"spendGet" isEqualToString:v1];
+  isEqualToString = objc_msgSend_isEqualToString_(@"spendGet");
 
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v5 = v2;
-    if (v5 == @"acceleratedDailyCash" || (v6 = v5, v7 = [@"acceleratedDailyCash" isEqualToString:v5], v6, (v7 & 1) != 0))
+    if (v5 == @"acceleratedDailyCash" || (v6 = v5, v7 = objc_msgSend_isEqualToString_(@"acceleratedDailyCash"), v6, (v7 & 1) != 0))
     {
       v4 = 2;
       goto LABEL_18;
     }
 
     v8 = v6;
-    if (v8 == @"frequencyBased" || (v9 = v8, v10 = [@"frequencyBased" isEqualToString:v8], v9, (v10 & 1) != 0))
+    if (v8 == @"frequencyBased" || (v9 = v8, v10 = objc_msgSend_isEqualToString_(@"frequencyBased"), v9, (v10 & 1) != 0))
     {
       v4 = 3;
       goto LABEL_18;
     }
 
     v11 = v9;
-    if (v11 == @"genericOneTime" || (v12 = v11, v13 = [@"genericOneTime" isEqualToString:v11], v12, (v13 & 1) != 0))
+    if (v11 == @"genericOneTime" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"genericOneTime"), v12, (v13 & 1) != 0))
     {
       v4 = 4;
       goto LABEL_18;
     }
 
     v14 = v12;
-    if (v14 == @"genericIncremental" || (v15 = v14, v16 = [@"genericIncremental" isEqualToString:v14], v15, v16))
+    if (v14 == @"genericIncremental" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"genericIncremental"), v15, v16))
     {
       v4 = 5;
       goto LABEL_18;
@@ -4534,7 +4529,7 @@ double PKPassViewFrontSize(uint64_t a1)
 {
   v2 = PKScreenSize();
 
-  return PKPassFrontFaceContentSizeForScreenSize(a1, v2);
+  return PKPassFrontFaceContentSizeForScreenSize(a1, v2, v3);
 }
 
 double PKPassHeightAdjustmentForStyleForScreenSize(unint64_t a1, double a2, double a3)
@@ -4644,61 +4639,61 @@ id PKPassFrontFaceImageForScreenSize(void *a1, void *a2, CGFloat *a3, double *a4
 
   v21 = [v18 passStyle];
   v22 = v21 == 5;
-  v237 = 0;
-  v238 = &v237;
-  v150 = v21;
-  v239 = 0x3032000000;
+  v238 = 0;
+  v239 = &v238;
+  v151 = v21;
+  v240 = 0x3032000000;
   if (v21 == 7)
   {
     v22 = 2;
   }
 
-  v146 = v22;
-  v240 = __Block_byref_object_copy__67;
-  v241 = __Block_byref_object_dispose__67;
-  v242 = 0;
+  v147 = v22;
+  v241 = __Block_byref_object_copy__67;
+  v242 = __Block_byref_object_dispose__67;
+  v243 = 0;
+  v236[0] = 0;
+  v236[1] = v236;
+  v236[2] = 0x2020000000;
+  v237 = 0;
   v235[0] = 0;
   v235[1] = v235;
   v235[2] = 0x2020000000;
-  v236 = 0;
-  v234[0] = 0;
-  v234[1] = v234;
-  v234[2] = 0x2020000000;
-  v234[3] = 0;
+  v235[3] = 0;
   v23 = v18;
   v24 = v19;
   v25 = v20;
   v26 = v23;
   v27 = [v23 passStyle];
-  v143 = a3;
-  v144 = a4;
-  v145 = a5;
+  v144 = a3;
+  v145 = a4;
+  v146 = a5;
+  v262 = 0;
+  v263 = &v262;
+  v264 = 0x3032000000;
+  v265 = __Block_byref_object_copy__67;
+  v266 = __Block_byref_object_dispose__67;
+  v267 = 0;
+  v258 = 0;
+  v259 = &v258;
+  v260 = 0x2020000000;
   v261 = 0;
-  v262 = &v261;
-  v263 = 0x3032000000;
-  v264 = __Block_byref_object_copy__67;
-  v265 = __Block_byref_object_dispose__67;
-  v266 = 0;
+  v254 = 0;
+  v255 = &v254;
+  v256 = 0x2020000000;
   v257 = 0;
-  v258 = &v257;
-  v259 = 0x2020000000;
-  v260 = 0;
-  v253 = 0;
-  v254 = &v253;
-  v255 = 0x2020000000;
-  v256 = 0;
   aBlock = MEMORY[0x1E69E9820];
   p_aBlock = 3221225472;
-  v245 = ___ExtractBackgroundFromBundle_block_invoke;
-  v246 = &unk_1E79DF2D0;
-  v249 = &v253;
+  v246 = ___ExtractBackgroundFromBundle_block_invoke;
+  v247 = &unk_1E79DF2D0;
+  v250 = &v254;
   v28 = v24;
-  v247 = v28;
-  v250 = &v257;
-  v251 = &v261;
-  v252 = a10;
+  v248 = v28;
+  v251 = &v258;
+  v252 = &v262;
+  v253 = a10;
   v29 = v25;
-  v248 = v29;
+  v249 = v29;
   v30 = _Block_copy(&aBlock);
   v31 = 0;
   v32 = objc_autoreleasePoolPush();
@@ -4706,7 +4701,7 @@ id PKPassFrontFaceImageForScreenSize(void *a1, void *a2, CGFloat *a3, double *a4
   {
     if (v27 == 9)
     {
-      if ((v254[3] & 1) == 0)
+      if ((v255[3] & 1) == 0)
       {
         v30[2](v30, @"artwork", 0);
       }
@@ -4720,27 +4715,27 @@ id PKPassFrontFaceImageForScreenSize(void *a1, void *a2, CGFloat *a3, double *a4
 
     v31 = 0;
 LABEL_14:
-    if ((v254[3] & 1) == 0)
+    if ((v255[3] & 1) == 0)
     {
       v30[2](v30, @"background", 1);
     }
   }
 
-  v33 = *(v254 + 24);
+  v33 = *(v255 + 24);
   v34 = v27 == 6;
-  v35 = v258[3];
-  v36 = v262[5];
+  v35 = v259[3];
+  v36 = v263[5];
   objc_autoreleasePoolPop(v32);
 
-  _Block_object_dispose(&v253, 8);
-  _Block_object_dispose(&v257, 8);
-  _Block_object_dispose(&v261, 8);
+  _Block_object_dispose(&v254, 8);
+  _Block_object_dispose(&v258, 8);
+  _Block_object_dispose(&v262, 8);
 
-  v157 = v28;
+  v158 = v28;
   document = v35;
   v37 = v29;
-  v155 = (v35 | v36) != 0;
-  v154 = PKColorSpaceStandardRGB();
+  v156 = (v35 | v36) != 0;
+  v155 = PKColorSpaceStandardRGB();
   v38 = *MEMORY[0x1E695F050];
   v39 = *(MEMORY[0x1E695F050] + 8);
   v40 = *(MEMORY[0x1E695F050] + 16);
@@ -4749,31 +4744,31 @@ LABEL_14:
   rect_8 = v39;
   rect_16 = v38;
   rect_24 = v41;
-  v170 = v40;
-  if (v150 == 6)
+  v171 = v40;
+  if (v151 == 6)
   {
-    v142 = 0;
-    v159 = v41;
-    v160 = v40;
+    v143 = 0;
+    v160 = v41;
+    v161 = v40;
 LABEL_26:
-    v158 = v39;
+    v159 = v39;
     rect = v38;
     goto LABEL_27;
   }
 
-  v268.origin.x = _LogoRect(v150, a10);
-  rect = v268.origin.x;
-  y = v268.origin.y;
-  height = v268.size.height;
-  if (CGRectIsNull(v268) || (v150 - 9 >= 2 ? (v44 = PKPassBundleLogoImageName) : (v44 = PKPassBundlePrimaryLogoImageName), [PKImage imageNamed:*v44 inBundle:v157 screenScale:v29 suffix:a10], (v45 = objc_claimAutoreleasedReturnValue()) == 0))
+  v269.origin.x = _LogoRect(v151, a10);
+  rect = v269.origin.x;
+  y = v269.origin.y;
+  height = v269.size.height;
+  if (CGRectIsNull(v269) || (v151 - 9 >= 2 ? (v44 = PKPassBundleLogoImageName) : (v44 = PKPassBundlePrimaryLogoImageName), [PKImage imageNamed:*v44 inBundle:v158 screenScale:v29 suffix:a10], (v45 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v142 = 0;
-    v159 = rect_24;
-    v160 = v170;
+    v143 = 0;
+    v160 = rect_24;
+    v161 = v171;
     goto LABEL_26;
   }
 
-  if (v150 == 9)
+  if (v151 == 9)
   {
     v46 = 30.0;
     v47 = 126.0;
@@ -4781,32 +4776,32 @@ LABEL_26:
 
   else
   {
-    _LogoRect(v150, a10);
-    v47 = v78;
-    v46 = v79;
+    _LogoRect(v151, a10);
+    v47 = v79;
+    v46 = v80;
   }
 
-  v80 = [PKImageResizingConstraints constraintsWithMaxSize:v47, v46];
+  v81 = [PKImageResizingConstraints constraintsWithMaxSize:v47, v46];
   [v45 scale];
-  [v80 setOutputScale:?];
-  v81 = [v45 resizedImageWithConstraints:v80];
+  [v81 setOutputScale:?];
+  v82 = [v45 resizedImageWithConstraints:v81];
 
-  [v81 size];
-  v160 = v82;
-  v142 = v81;
-  v159 = v83;
-  *&v82 = y + (height - v83) * 0.5;
-  v158 = roundf(*&v82);
+  [v82 size];
+  v161 = v83;
+  v143 = v82;
+  v160 = v84;
+  *&v83 = y + (height - v84) * 0.5;
+  v159 = roundf(*&v83);
 
 LABEL_27:
   v48 = *MEMORY[0x1E695F060];
-  v151 = *(MEMORY[0x1E695F060] + 8);
-  v163 = *MEMORY[0x1E695F058];
-  v164 = *(MEMORY[0x1E695F058] + 8);
-  v161 = *(MEMORY[0x1E695F058] + 24);
-  v162 = *(MEMORY[0x1E695F058] + 16);
+  v152 = *(MEMORY[0x1E695F060] + 8);
+  v164 = *MEMORY[0x1E695F058];
+  v165 = *(MEMORY[0x1E695F058] + 8);
+  v162 = *(MEMORY[0x1E695F058] + 24);
+  v163 = *(MEMORY[0x1E695F058] + 16);
   v49 = (v34 & ~v33 | v31) & 1;
-  if (((v150 != 7) & (v155 | v49)) != 0)
+  if (((v151 != 7) & (v156 | v49)) != 0)
   {
     v50 = 0;
   }
@@ -4815,12 +4810,12 @@ LABEL_27:
   {
     v51 = a8;
     v52 = a9;
-    v269.origin.x = PKPassFaceStripImageFrameForScreenSize(v26, a8, a9);
-    x = v269.origin.x;
-    v54 = v269.origin.y;
-    width = v269.size.width;
-    v56 = v269.size.height;
-    IsNull = CGRectIsNull(v269);
+    v270.origin.x = PKPassFaceStripImageFrameForScreenSize(v26, a8, a9);
+    x = v270.origin.x;
+    v54 = v270.origin.y;
+    width = v270.size.width;
+    v56 = v270.size.height;
+    IsNull = CGRectIsNull(v270);
     if (IsNull)
     {
       v58 = 0;
@@ -4828,36 +4823,36 @@ LABEL_27:
 
     else
     {
-      v58 = [PKImage imageNamed:@"strip" inBundle:v157 screenScale:v29 suffix:a10];
+      v58 = [PKImage imageNamed:@"strip" inBundle:v158 screenScale:v29 suffix:a10];
     }
 
-    objc_storeStrong(v238 + 5, v58);
+    objc_storeStrong(v239 + 5, v58);
     if (!IsNull)
     {
     }
 
-    if (v238[5])
+    if (v239[5])
     {
       v50 = 1;
-      if (v150 != 7)
+      if (v151 != 7)
       {
         v59 = 0;
         v60 = 0;
         rect_8 = v54;
         rect_16 = x;
         rect_24 = v56;
-        v170 = width;
-        v156 = v48;
+        v171 = width;
+        v157 = v48;
         a9 = v52;
         a8 = v51;
-        v61 = v151;
+        v61 = v152;
         goto LABEL_76;
       }
 
       rect_8 = v54;
       rect_16 = x;
       rect_24 = v56;
-      v170 = width;
+      v171 = width;
     }
 
     else
@@ -4869,16 +4864,16 @@ LABEL_27:
     a8 = v51;
   }
 
-  v62 = [PKImage imageNamed:@"thumbnail" inBundle:v157 screenScale:v29 suffix:a10];
+  v62 = [PKImage imageNamed:@"thumbnail" inBundle:v158 screenScale:v29 suffix:a10];
   if (!v62)
   {
     v59 = 0;
-    v61 = v151;
+    v61 = v152;
 LABEL_54:
 
     v59 = 0;
     v60 = 0;
-    v156 = v48;
+    v157 = v48;
     goto LABEL_76;
   }
 
@@ -4908,17 +4903,17 @@ LABEL_54:
     v59 = [v62 resizedImageWithConstraints:v66];
 
     [v59 size];
-    v156 = v67;
+    v157 = v67;
     v61 = v68;
 
     goto LABEL_51;
   }
 
 LABEL_48:
-  if (v150 == 7)
+  if (v151 == 7)
   {
     [v62 size];
-    v156 = v69;
+    v157 = v69;
     v61 = v70;
     v59 = v62;
   }
@@ -4926,14 +4921,14 @@ LABEL_48:
   else
   {
     v59 = v62;
-    v61 = v151;
-    v156 = v48;
+    v61 = v152;
+    v157 = v48;
   }
 
 LABEL_51:
-  if (v156 == v48 && v61 == v151)
+  if (v157 == v48 && v61 == v152)
   {
-    v48 = v156;
+    v48 = v157;
     goto LABEL_54;
   }
 
@@ -4945,21 +4940,21 @@ LABEL_51:
 
   v71 = v26;
   v72 = [v71 passStyle];
-  v73 = PKPassFrontFaceContentSizeForScreenSize(v72, a8);
+  v73 = PKPassFrontFaceContentSizeForScreenSize(v72, a8, a9);
   if (v72 == 2)
   {
     v74 = 15.0;
-    v164 = 68.0;
+    v165 = 68.0;
 LABEL_69:
+    v86 = 0.0;
     v85 = 0.0;
-    v84 = 0.0;
     goto LABEL_70;
   }
 
   if (v72 != 5)
   {
     v74 = 0.0;
-    v164 = 0.0;
+    v165 = 0.0;
     if (v72 == 7)
     {
       v75 = [v71 layoutModeForScreenSize:{a8, a9}];
@@ -4973,321 +4968,322 @@ LABEL_69:
         v76 = 105.0;
       }
 
-      v270.origin.x = rect_16;
-      v270.origin.y = rect_8;
-      v270.size.height = rect_24;
-      v270.size.width = v170;
-      if (CGRectIsNull(v270))
+      v271.origin.x = rect_16;
+      v271.origin.y = rect_8;
+      v271.size.height = rect_24;
+      v271.size.width = v171;
+      if (CGRectIsNull(v271))
       {
-        v77 = dbl_1ADB9AEF0[v75 == 0];
+        v78.n128_u64[0] = qword_1ADB9AEF0[v75 == 0];
       }
 
       else if (v75)
       {
-        v77 = 98.0;
+        v78.n128_u64[0] = 0x4058800000000000;
       }
 
       else
       {
-        v271.origin.x = rect_16;
-        v271.origin.y = rect_8;
-        v271.size.height = rect_24;
-        v271.size.width = v170;
-        v77 = CGRectGetMaxY(v271) + -52.5;
+        v272.origin.x = rect_16;
+        v272.origin.y = rect_8;
+        v272.size.height = rect_24;
+        v272.size.width = v171;
+        v78.n128_f64[0] = CGRectGetMaxY(v272) + -52.5;
       }
 
-      v163 = PKRectRoundToPixelWithScale((v73 - v76) * 0.5, v77, v76, v76, a10);
-      v164 = v86;
-      v161 = v88;
-      v162 = v87;
+      v77.n128_f64[0] = (v73 - v76) * 0.5;
+      v164 = PKRectRoundToPixelWithScale(v77, v78, v76, v76, a10);
+      v165 = v87;
+      v162 = v89;
+      v163 = v88;
       goto LABEL_75;
     }
 
     goto LABEL_69;
   }
 
-  v84 = 5.0;
-  v85 = 6.0;
+  v85 = 5.0;
+  v86 = 6.0;
   v74 = 15.0;
-  v164 = 72.0;
+  v165 = 72.0;
 LABEL_70:
-  v162 = v84 + v156 + v84;
-  v163 = v73 - v74 - v84 - v84 - v156;
-  v161 = v85 + v61 + v84;
+  v163 = v85 + v157 + v85;
+  v164 = v73 - v74 - v85 - v85 - v157;
+  v162 = v86 + v61 + v85;
 LABEL_75:
 
   v60 = 1;
 LABEL_76:
   objc_autoreleasePoolPop(context);
-  v89 = [v26 passStyle];
-  v90 = v89;
-  if ((v155 | v49))
+  v90 = [v26 passStyle];
+  v91 = v90;
+  if ((v156 | v49))
   {
-    v92 = PKPassFrontFaceContentSizeForScreenSize(v89, a8);
+    v93 = PKPassFrontFaceContentSizeForScreenSize(v90, a8, a9);
   }
 
   else
   {
-    v93 = PKPassFrontFaceEdgeStyle(v89);
-    v94 = _ConstructionInsetsForEdgeStyle(v93);
-    v96 = v95;
-    v92 = PKPassFrontFaceContentSizeForScreenSize(v90, a8);
-    v272.origin.x = rect;
-    v272.origin.y = v158;
-    v272.size.height = v159;
-    v272.size.width = v160;
-    if (!CGRectIsNull(v272))
+    v94 = PKPassFrontFaceEdgeStyle(v90);
+    v95 = _ConstructionInsetsForEdgeStyle(v94);
+    v97 = v96;
+    v93 = PKPassFrontFaceContentSizeForScreenSize(v91, a8, a9);
+    v273.origin.x = rect;
+    v273.origin.y = v159;
+    v273.size.height = v160;
+    v273.size.width = v161;
+    if (!CGRectIsNull(v273))
     {
-      v273.origin.x = rect;
-      v273.origin.y = v158;
-      v273.size.height = v159;
-      v273.size.width = v160;
-      v94 = fmax(CGRectGetMaxY(v273), v94);
+      v274.origin.x = rect;
+      v274.origin.y = v159;
+      v274.size.height = v160;
+      v274.size.width = v161;
+      v95 = fmax(CGRectGetMaxY(v274), v95);
     }
 
-    v274.origin.y = rect_8;
-    v274.origin.x = rect_16;
-    v274.size.height = rect_24;
-    v274.size.width = v170;
-    if (!CGRectIsNull(v274))
+    v275.origin.y = rect_8;
+    v275.origin.x = rect_16;
+    v275.size.height = rect_24;
+    v275.size.width = v171;
+    if (!CGRectIsNull(v275))
     {
-      v275.origin.y = rect_8;
-      v275.origin.x = rect_16;
-      v275.size.height = rect_24;
-      v275.size.width = v170;
-      v94 = fmax(CGRectGetMaxY(v275), v94);
+      v276.origin.y = rect_8;
+      v276.origin.x = rect_16;
+      v276.size.height = rect_24;
+      v276.size.width = v171;
+      v95 = fmax(CGRectGetMaxY(v276), v95);
     }
 
-    v276.origin.x = v163;
-    v276.origin.y = v164;
-    v276.size.height = v161;
-    v276.size.width = v162;
-    if (!CGRectIsEmpty(v276))
+    v277.origin.x = v164;
+    v277.origin.y = v165;
+    v277.size.height = v162;
+    v277.size.width = v163;
+    if (!CGRectIsEmpty(v277))
     {
-      v277.origin.x = v163;
-      v277.origin.y = v164;
-      v277.size.height = v161;
-      v277.size.width = v162;
-      v94 = fmax(CGRectGetMaxY(v277), v94);
+      v278.origin.x = v164;
+      v278.origin.y = v165;
+      v278.size.height = v162;
+      v278.size.width = v163;
+      v95 = fmax(CGRectGetMaxY(v278), v95);
     }
 
-    v91 = v96 + v94;
+    v92 = v97 + v95;
   }
 
-  v97 = PKSizeRoundToPixelWithScale(v92, v91, 0.0);
-  v99 = v98;
-  v139 = v61;
-  v141 = a8;
+  v98 = PKSizeRoundToPixelWithScale(v93, v92, 0.0);
+  v100 = v99;
+  v140 = v61;
+  v142 = a8;
   contexta = a9;
-  v152 = PKPassFrontFaceEdgeStyle(v150);
-  v100 = *MEMORY[0x1E695EFF8];
-  v101 = *(MEMORY[0x1E695EFF8] + 8);
-  v102 = v97 + 24.0;
-  v103 = v99 + 8.0;
-  v104 = a10 != 1.0 && a10 > 0.0;
-  v153 = a10;
-  v140 = v50;
-  v138 = v60;
-  v105 = v49;
-  if (v104)
+  v153 = PKPassFrontFaceEdgeStyle(v151);
+  v101 = *MEMORY[0x1E695EFF8];
+  v102 = *(MEMORY[0x1E695EFF8] + 8);
+  v103 = v98 + 24.0;
+  v104 = v100 + 8.0;
+  v105 = a10 != 1.0 && a10 > 0.0;
+  v154 = a10;
+  v141 = v50;
+  v139 = v60;
+  v106 = v49;
+  if (v105)
   {
-    v132 = a10 * v100;
     v133 = a10 * v101;
-    v106 = a10 * v102;
+    v134 = a10 * v102;
     v107 = a10 * v103;
-    v108 = a10 * 12.0;
-    v109 = a10 * 4.0;
-    v134 = a10 * v99;
-    v135 = a10 * v97;
-    v110 = a10 * v103;
-    v111 = a10 * v102;
-    v136 = v108;
+    v108 = a10 * v104;
+    v109 = a10 * 12.0;
+    v110 = a10 * 4.0;
+    v135 = a10 * v100;
+    v136 = a10 * v98;
+    v111 = a10 * v104;
+    v112 = a10 * v103;
     v137 = v109;
+    v138 = v110;
   }
 
   else
   {
-    v106 = a10 * v102;
     v107 = a10 * v103;
-    v109 = a10 * 4.0;
-    v110 = v99 + 8.0;
-    v112 = a10;
-    v111 = v97 + 24.0;
-    v136 = 12.0;
-    v137 = 4.0;
-    v108 = v112 * 12.0;
-    v132 = *MEMORY[0x1E695EFF8];
-    v133 = *(MEMORY[0x1E695EFF8] + 8);
-    v134 = v99;
-    v135 = v97;
-  }
-
-  v113 = ceil(v106);
-  if (!v104)
-  {
-    v113 = v97 + 24.0;
+    v108 = a10 * v104;
+    v110 = a10 * 4.0;
+    v111 = v100 + 8.0;
+    v113 = a10;
+    v112 = v98 + 24.0;
+    v137 = 12.0;
+    v138 = 4.0;
+    v109 = v113 * 12.0;
+    v133 = *MEMORY[0x1E695EFF8];
+    v134 = *(MEMORY[0x1E695EFF8] + 8);
+    v135 = v100;
+    v136 = v98;
   }
 
   v114 = ceil(v107);
-  if (!v104)
+  if (!v105)
   {
-    v114 = v99 + 8.0;
+    v114 = v98 + 24.0;
   }
 
-  v115 = vcvtpd_u64_f64(v109);
-  if (v104)
+  v115 = ceil(v108);
+  if (!v105)
   {
-    v116 = v115;
+    v115 = v100 + 8.0;
   }
 
-  else
+  v116 = vcvtpd_u64_f64(v110);
+  if (v105)
   {
-    v116 = 4;
-  }
-
-  v117 = vcvtpd_u64_f64(v108);
-  if (v104)
-  {
-    v118 = v117;
+    v117 = v116;
   }
 
   else
   {
-    v118 = 12;
+    v117 = 4;
   }
 
-  result = [PKBitmapContext create16FloatWithSize:v113 configuration:v114, 65538];
-  v120 = result;
+  v118 = vcvtpd_u64_f64(v109);
+  if (v105)
+  {
+    v119 = v118;
+  }
+
+  else
+  {
+    v119 = 12;
+  }
+
+  result = [PKBitmapContext create16FloatWithSize:v114 configuration:v115, 65538];
+  v121 = result;
   if (result)
   {
-    v172[0] = MEMORY[0x1E69E9820];
-    v172[1] = 3221225472;
-    v172[2] = __PKPassFrontFaceImageForScreenSize_block_invoke;
-    v172[3] = &unk_1E79DF260;
-    v229 = v104;
-    v183 = v153;
-    v131 = v26;
-    v173 = v131;
-    v184 = v100;
+    v173[0] = MEMORY[0x1E69E9820];
+    v173[1] = 3221225472;
+    v173[2] = __PKPassFrontFaceImageForScreenSize_block_invoke;
+    v173[3] = &unk_1E79DF260;
+    v230 = v105;
+    v184 = v154;
+    v132 = v26;
+    v174 = v132;
     v185 = v101;
-    v186 = v97 + 24.0;
-    v187 = v99 + 8.0;
-    v230 = v155;
-    v121 = v36;
-    v174 = v121;
-    v188 = xmmword_1ADB9AF00;
-    v189 = v97;
-    v190 = v99;
-    v191 = v150;
-    v192 = document;
-    v122 = v120;
-    v193 = v132;
-    v194 = v133;
-    v195 = v111;
-    v196 = v110;
+    v186 = v102;
+    v187 = v98 + 24.0;
+    v188 = v100 + 8.0;
+    v231 = v156;
+    v122 = v36;
     v175 = v122;
-    v180 = v235;
-    v181 = v234;
-    v197 = xmmword_1ADB9AF10;
-    v198 = xmmword_1ADB9AF10;
-    v199 = v97;
-    v200 = v99;
-    v201 = v141;
-    v202 = contexta;
-    v123 = v157;
+    v189 = xmmword_1ADB9AF00;
+    v190 = v98;
+    v191 = v100;
+    v192 = v151;
+    v193 = document;
+    v123 = v121;
+    v194 = v133;
+    v195 = v134;
+    v196 = v112;
+    v197 = v111;
     v176 = v123;
-    v231 = v105;
-    v124 = v37;
+    v181 = v236;
+    v182 = v235;
+    v198 = xmmword_1ADB9AF10;
+    v199 = xmmword_1ADB9AF10;
+    v200 = v98;
+    v201 = v100;
+    v202 = v142;
+    v203 = contexta;
+    v124 = v158;
     v177 = v124;
-    v125 = v142;
-    v203 = rect;
-    v204 = v158;
-    v205 = v160;
-    v206 = v159;
-    v232 = v140;
+    v232 = v106;
+    v125 = v37;
     v178 = v125;
-    v182 = &v237;
-    v207 = rect_16;
-    v208 = rect_8;
-    v209 = v170;
-    v210 = rect_24;
-    v233 = v138;
-    v211 = v156;
-    v212 = v139;
-    v213 = v146;
-    v214 = v163;
-    v215 = v164;
-    v216 = v162;
-    v217 = v161;
-    v126 = v59;
+    v126 = v143;
+    v204 = rect;
+    v205 = v159;
+    v206 = v161;
+    v207 = v160;
+    v233 = v141;
     v179 = v126;
-    v218 = v136;
+    v183 = &v238;
+    v208 = rect_16;
+    v209 = rect_8;
+    v210 = v171;
+    v211 = rect_24;
+    v234 = v139;
+    v212 = v157;
+    v213 = v140;
+    v214 = v147;
+    v215 = v164;
+    v216 = v165;
+    v217 = v163;
+    v218 = v162;
+    v127 = v59;
+    v180 = v127;
     v219 = v137;
-    v220 = v135;
-    v221 = v134;
-    v222 = v116;
-    v223 = v118;
-    v224 = v116;
-    v225 = v118;
-    v226 = v154;
-    v227 = v152;
-    v228 = a6;
-    [v122 accessContext:v172];
+    v220 = v138;
+    v221 = v136;
+    v222 = v135;
+    v223 = v117;
+    v224 = v119;
+    v225 = v117;
+    v226 = v119;
+    v227 = v155;
+    v228 = v153;
+    v229 = a6;
+    [v123 accessContext:v173];
     if (document)
     {
       CGPDFDocumentRelease(document);
     }
 
-    if (v143)
-    {
-      *v143 = rect;
-      v143[1] = v158;
-      v143[2] = v160;
-      v143[3] = v159;
-    }
-
     if (v144)
     {
-      *v144 = v163;
-      v144[1] = v164;
-      v144[2] = v162;
-      v144[3] = v161;
+      *v144 = rect;
+      v144[1] = v159;
+      v144[2] = v161;
+      v144[3] = v160;
     }
 
     if (v145)
     {
-      *v145 = rect_16;
-      v145[1] = rect_8;
-      v145[2] = v170;
-      v145[3] = rect_24;
+      *v145 = v164;
+      v145[1] = v165;
+      v145[2] = v163;
+      v145[3] = v162;
     }
 
-    v127 = [PKBitmapConversionDescriptor create8Uint:rect_16];
-    [v127 setColorSpace:v154 withPolicy:&__block_literal_global_102];
-    v128 = [v127 convertFromContext:v122];
+    if (v146)
+    {
+      *v146 = rect_16;
+      v146[1] = rect_8;
+      v146[2] = v171;
+      v146[3] = rect_24;
+    }
+
+    v128 = [PKBitmapConversionDescriptor create8Uint:rect_16];
+    [v128 setColorSpace:v155 withPolicy:&__block_literal_global_102];
+    v129 = [v128 convertFromContext:v123];
     aBlock = 0;
     p_aBlock = &aBlock;
-    v245 = 0x3032000000;
-    v246 = __Block_byref_object_copy__67;
-    v247 = __Block_byref_object_dispose__67;
-    v248 = 0;
-    v171[0] = MEMORY[0x1E69E9820];
-    v171[1] = 3221225472;
-    v171[2] = __PKPassFrontFaceImageForScreenSize_block_invoke_8_103;
-    v171[3] = &unk_1E79DF2A8;
-    v171[4] = &aBlock;
-    *&v171[5] = v153;
-    [v128 accessContext:v171];
-    _ConstructionInsetsForEdgeStyle(v152);
-    v130 = [*(p_aBlock + 40) resizableImageByTilingWithCapInsets:{v103 - v129, 0.0, v129, 0.0}];
+    v246 = 0x3032000000;
+    v247 = __Block_byref_object_copy__67;
+    v248 = __Block_byref_object_dispose__67;
+    v249 = 0;
+    v172[0] = MEMORY[0x1E69E9820];
+    v172[1] = 3221225472;
+    v172[2] = __PKPassFrontFaceImageForScreenSize_block_invoke_8_103;
+    v172[3] = &unk_1E79DF2A8;
+    v172[4] = &aBlock;
+    *&v172[5] = v154;
+    [v129 accessContext:v172];
+    _ConstructionInsetsForEdgeStyle(v153);
+    v131 = [*(p_aBlock + 40) resizableImageByTilingWithCapInsets:{v104 - v130, 0.0, v130, 0.0}];
     _Block_object_dispose(&aBlock, 8);
 
-    _Block_object_dispose(v234, 8);
     _Block_object_dispose(v235, 8);
+    _Block_object_dispose(v236, 8);
 
-    _Block_object_dispose(&v237, 8);
+    _Block_object_dispose(&v238, 8);
 
-    return v130;
+    return v131;
   }
 
   else
@@ -7415,7 +7411,7 @@ LABEL_103:
     }
   }
 
-  v13 = *(v4 + 1);
+  v13 = v4[1];
   if (v12 * *v4 > v13)
   {
     goto LABEL_94;
@@ -7438,7 +7434,7 @@ LABEL_103:
     goto LABEL_94;
   }
 
-  if ((v4[2] & 0x1F) == 2)
+  if ((v4[4] & 0x1F) == 2)
   {
     v58 = 0;
     v59 = 1;
@@ -7446,7 +7442,7 @@ LABEL_103:
 
   else
   {
-    if ((v4[2] & 0x1F) != 1)
+    if ((v4[4] & 0x1F) != 1)
     {
 LABEL_101:
       __break(1u);
@@ -7578,7 +7574,7 @@ LABEL_97:
       v29 = 0;
     }
 
-    v27 = v17 - v57;
+    v27 = (v17 - v57);
     if (v17 < v57)
     {
       v27 = 0;
@@ -7589,7 +7585,7 @@ LABEL_97:
 
   if (v17)
   {
-    for (i = 0; i != v17; ++i)
+    for (i = 0; i != v17; i = (i + 1))
     {
       if (v15)
       {
@@ -7672,7 +7668,7 @@ LABEL_97:
       }
     }
 
-    v51 = CGColorCreate(v4[1], result);
+    v51 = CGColorCreate(*(v4 + 1), result);
     if (*v60)
     {
       CFRelease(*v60);
@@ -7699,7 +7695,7 @@ LABEL_97:
     }
   }
 
-  v56 = CGColorCreate(v4[1], v46);
+  v56 = CGColorCreate(*(v4 + 1), v46);
   free(v46);
   free(v18);
   if ((v20 & 1) == 0)
@@ -7864,52 +7860,52 @@ id PKPassFrontFaceDynamicLayerImage(void *a1, void *a2, void *a3, int a4, void *
   if (v19 | v20)
   {
     v21 = PKScreenSize();
-    v22 = PKPassFrontFaceContentSizeForScreenSize(v15, v21);
-    v24 = v23;
-    v25 = [v16 PKDictionaryForKey:@"dynamicLayerConfiguration"];
-    v26 = v25;
-    if (a4 && [v25 PKBoolForKey:@"parallaxEnabled"])
+    v23 = PKPassFrontFaceContentSizeForScreenSize(v15, v21, v22);
+    v25 = v24;
+    v26 = [v16 PKDictionaryForKey:@"dynamicLayerConfiguration"];
+    v27 = v26;
+    if (a4 && [v26 PKBoolForKey:@"parallaxEnabled"])
     {
       [v20 scale];
-      v22 = PKSizeRoundToPixelWithScale(v22 * 1.1, v24 * 1.1, v27);
-      v24 = v28;
+      v23 = PKSizeRoundToPixelWithScale(v23 * 1.1, v25 * 1.1, v28);
+      v25 = v29;
     }
 
-    BitmapContext = _CreateBitmapContext(0, 1, 0, v22, v24, a6);
-    v31 = *MEMORY[0x1E695EFF8];
-    v30 = *(MEMORY[0x1E695EFF8] + 8);
+    BitmapContext = _CreateBitmapContext(0, 1, 0, v23, v25, a6);
+    v32 = *MEMORY[0x1E695EFF8];
+    v31 = *(MEMORY[0x1E695EFF8] + 8);
     if (v20)
     {
       [v20 size];
-      v34 = v22 / v32;
-      if (v32 == 0.0)
-      {
-        v34 = 1.0;
-      }
-
-      v35 = v24 / v33;
+      v35 = v23 / v33;
       if (v33 == 0.0)
       {
         v35 = 1.0;
       }
 
-      if (fmax(v34, v35) != 1.0)
+      v36 = v25 / v34;
+      if (v34 == 0.0)
       {
-        if (v34 <= v35)
+        v36 = 1.0;
+      }
+
+      if (fmax(v35, v36) != 1.0)
+      {
+        if (v35 <= v36)
         {
-          v32 = v24 * (v32 / v33);
-          v33 = v24;
+          v33 = v25 * (v33 / v34);
+          v34 = v25;
         }
 
         else
         {
-          v33 = v22 * (v33 / v32);
-          v32 = v22;
+          v34 = v23 * (v34 / v33);
+          v33 = v23;
         }
       }
 
-      v38 = PKSizeCeilToPixelWithScale(v32, v33, a6);
-      [v20 drawInRect:BitmapContext inContext:{PKSizeAlignedInRectWithScale(0x100000001uLL, v38, v39, v31, v30, v22, v24, a6)}];
+      v39 = PKSizeCeilToPixelWithScale(v33, v34, a6);
+      [v20 drawInRect:BitmapContext inContext:{PKSizeAlignedInRectWithScale(0x100000001uLL, v39, v40, v32, v31, v23, v25, a6)}];
     }
 
     else if (v19)
@@ -7919,23 +7915,23 @@ id PKPassFrontFaceDynamicLayerImage(void *a1, void *a2, void *a3, int a4, void *
         Page = CGPDFDocumentGetPage(v19, 1uLL);
         if (Page)
         {
-          _DrawPDFPageInRect(BitmapContext, Page, v31, v30, v22, v24);
+          _DrawPDFPageInRect(BitmapContext, Page, v32, v31, v23, v25);
         }
       }
 
       CGPDFDocumentRelease(v19);
     }
 
-    v36 = PKGetImageFromBitmapContext(BitmapContext, a6);
+    v37 = PKGetImageFromBitmapContext(BitmapContext, a6);
     CGContextRelease(BitmapContext);
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
   }
 
-  return v36;
+  return v37;
 }
 
 id PKPassFrontFaceDynamicLayerEmitterImage(void *a1, void *a2, void *a3, void *a4, double a5)
@@ -8395,11 +8391,11 @@ unint64_t PKFamilyMemberTypeFromFAMemberType(unint64_t result)
   return result;
 }
 
-void sub_1AD99DE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1AD99DE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8695,12 +8691,12 @@ PKCatalogGroup *_GroupFromDictionary(void *a1)
 uint64_t PKIssuerMessagingFlagContextTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"account"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"application"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
@@ -8834,7 +8830,7 @@ Class initMCCSecretAgentController()
 
   result = objc_getClass("MCCSecretAgentController");
   _MergedGlobals_265 = result;
-  getMCCSecretAgentControllerClass[0] = MCCSecretAgentControllerFunction;
+  getMCCSecretAgentControllerClass = MCCSecretAgentControllerFunction;
   return result;
 }
 
@@ -9008,7 +9004,7 @@ LABEL_9:
   v6 = PKLogFacilityTypeGetObject(7uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
+    v7[0] = 0;
     _os_log_impl(&dword_1AD337000, v6, OS_LOG_TYPE_DEFAULT, "PKSecureElementConsistencyChecker: Ending consistency check...", v7, 2u);
   }
 
@@ -9231,7 +9227,14 @@ PKSecureElementConsistencyCheckResult *CheckConsistencyWithDeviceState(void *a1,
   return v53;
 }
 
-void __CheckConsistencyWithDeviceState_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void sub_1AD9A6AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __CheckConsistencyWithDeviceState_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v59 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -9410,14 +9413,4 @@ LABEL_22:
 
     while (v38);
   }
-}
-
-void __CheckConsistencyWithDeviceState_block_invoke_265(uint64_t a1, void *a2)
-{
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __CheckConsistencyWithDeviceState_block_invoke_2;
-  v3[3] = &unk_1E79DF9D0;
-  v4 = *(a1 + 32);
-  [a2 enumerateKeysAndObjectsUsingBlock:v3];
 }

@@ -44,7 +44,7 @@
 {
   selfCopy = self;
   location[1] = a2;
-  location[0] = *(&_CertUILogObjects + 2);
+  location[0] = _CertUILogObjects[2];
   v5 = 16;
   if (os_log_type_enabled(location[0], OS_LOG_TYPE_ERROR))
   {

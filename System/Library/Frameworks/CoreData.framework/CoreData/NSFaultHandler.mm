@@ -1,8 +1,8 @@
 @interface NSFaultHandler
 + (void)initialize;
+- (_DWORD)fulfillFault:(uint64_t)fault withContext:;
+- (_DWORD)fulfillFault:(uint64_t)fault withContext:(id *)context error:;
 - (id)fulfillFault:(id)fault withContext:(id)context forIndex:(unint64_t)index;
-- (id)fulfillFault:(uint64_t)fault withContext:;
-- (id)fulfillFault:(uint64_t)fault withContext:(id *)context error:;
 - (id)initWithPersistenceStore:(id)result;
 - (id)retainedFulfillAggregateFaultForObject:(void *)object andRelationship:(uint64_t)relationship withContext:;
 - (uint64_t)retainedOrderedFaultInformationForAggregateFaultForObject:(void *)object andRelationship:(uint64_t)relationship withContext:(id *)context error:;
@@ -50,7 +50,7 @@
   return result;
 }
 
-- (id)fulfillFault:(uint64_t)fault withContext:(id *)context error:
+- (_DWORD)fulfillFault:(uint64_t)fault withContext:(id *)context error:
 {
   if (result)
   {
@@ -65,7 +65,7 @@
   return result;
 }
 
-- (id)fulfillFault:(uint64_t)fault withContext:
+- (_DWORD)fulfillFault:(uint64_t)fault withContext:
 {
   if (result)
   {
@@ -92,10 +92,10 @@
 
 - (id)retainedFulfillAggregateFaultForObject:(void *)object andRelationship:(uint64_t)relationship withContext:
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   if (_PF_Threading_Debugging_level)
@@ -108,27 +108,24 @@
   {
     if (_propertyType == 3)
     {
-      v38 = 0;
+      v36 = 0;
       v8 = [objc_msgSend(object "fetchRequest")];
       v9 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{a2, @"FETCH_SOURCE", object, @"FETCHED_PROPERTY", 0}];
       v10 = [objc_msgSend(v8 "predicate")];
       [v8 setPredicate:v10];
       [v10 allowEvaluation];
-      v11 = [relationship executeFetchRequest:v8 error:&v38];
+      v11 = [relationship executeFetchRequest:v8 error:&v36];
 
-      if (!v38)
+      if (!v36)
       {
-        v12 = v11;
-LABEL_17:
-        v22 = *MEMORY[0x1E69E9840];
-        return v12;
+        return v11;
       }
 
-      v23 = *MEMORY[0x1E696A778];
-      code = [v38 code];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData could not fulfill a fetched property because '%@'", objc_msgSend(v38, "localizedDescription")];
-      v26 = +[_NSCoreDataException exceptionWithName:code:reason:userInfo:](_NSCoreDataException, v23, code, v25, [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v38, *MEMORY[0x1E696AA08], objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObject:", a2), @"NSAffectedObjectsErrorKey", object, @"Fetched Property", 0}]);
-      v27 = objc_autoreleasePoolPush();
+      v21 = *MEMORY[0x1E696A778];
+      code = [v36 code];
+      v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v36 localizedDescription]);
+      v24 = +[_NSCoreDataException exceptionWithName:code:reason:userInfo:](_NSCoreDataException, v21, code, v23, [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v36, *MEMORY[0x1E696AA08], objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObject:", a2), @"NSAffectedObjectsErrorKey", object, @"Fetched Property", 0}]);
+      v25 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(2))
       {
         if (_pflogging_catastrophic_mode)
@@ -139,15 +136,15 @@ LABEL_17:
             goto LABEL_26;
           }
 
-          code2 = [v38 code];
-          userInfo = [v26 userInfo];
-          *v39 = 138412802;
-          *&v39[4] = v26;
-          v40 = 2048;
-          v41 = code2;
-          v42 = 2112;
-          v43 = userInfo;
-          v31 = "CoreData: error: CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@\n";
+          code2 = [v36 code];
+          userInfo = [v24 userInfo];
+          *v37 = 138412802;
+          *&v37[4] = v24;
+          v38 = 2048;
+          v39 = code2;
+          v40 = 2112;
+          v41 = userInfo;
+          v29 = "CoreData: error: CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@\n";
         }
 
         else
@@ -158,74 +155,71 @@ LABEL_17:
             goto LABEL_26;
           }
 
-          code3 = [v38 code];
-          userInfo2 = [v26 userInfo];
-          *v39 = 138412802;
-          *&v39[4] = v26;
-          v40 = 2048;
-          v41 = code3;
-          v42 = 2112;
-          v43 = userInfo2;
-          v31 = "CoreData: warning: CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@\n";
+          code3 = [v36 code];
+          userInfo2 = [v24 userInfo];
+          *v37 = 138412802;
+          *&v37[4] = v24;
+          v38 = 2048;
+          v39 = code3;
+          v40 = 2112;
+          v41 = userInfo2;
+          v29 = "CoreData: warning: CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@\n";
         }
 
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v31, v39, 0x20u);
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v29, v37, 0x20u);
       }
 
 LABEL_26:
-      v34 = _pflogging_catastrophic_mode;
-      code4 = [v38 code];
-      userInfo3 = [v26 userInfo];
-      v37 = 1;
-      if (!v34)
+      v32 = _pflogging_catastrophic_mode;
+      code4 = [v36 code];
+      userInfo3 = [v24 userInfo];
+      v35 = 1;
+      if (!v32)
       {
-        v37 = 2;
+        v35 = 2;
       }
 
-      _NSCoreDataLog_console(v37, "CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@", v26, code4, userInfo3);
-      objc_autoreleasePoolPop(v27);
-      objc_exception_throw(v26);
+      _NSCoreDataLog_console(v35, "CoreData Debug Logging: Exception = %@ with error code = %ld and userInfo = %@", v24, code4, userInfo3);
+      objc_autoreleasePoolPop(v25);
+      objc_exception_throw(v24);
     }
 
-    *v39 = 0;
+    *v37 = 0;
     objectID = [a2 objectID];
-    v17 = objectID;
-    v18 = atomic_load((relationship + 48));
-    if (v18)
+    v16 = objectID;
+    v17 = atomic_load((relationship + 48));
+    if (v17)
     {
-      v19 = objc_autoreleasePoolPush();
-      v12 = [*(relationship + 32) newValueForRelationship:object forObjectWithID:v17 withContext:relationship error:v39];
-      v20 = *v39;
-      objc_autoreleasePoolPop(v19);
-      v21 = *v39;
-      goto LABEL_17;
+      v18 = objc_autoreleasePoolPush();
+      v12 = [*(relationship + 32) newValueForRelationship:object forObjectWithID:v16 withContext:relationship error:v37];
+      v19 = *v37;
+      objc_autoreleasePoolPop(v18);
+      v20 = *v37;
+      return v12;
     }
 
     if ([objectID persistentStore] && (objc_msgSend(a2, "isInserted") & 1) == 0 && (objc_msgSend(object, "isTransient") & 1) == 0)
     {
       [(NSManagedObjectContext *)relationship lockObjectStore];
-      v12 = [*(relationship + 32) newValueForRelationship:object forObjectWithID:v17 withContext:relationship error:v39];
+      v12 = [*(relationship + 32) newValueForRelationship:object forObjectWithID:v16 withContext:relationship error:v37];
       [(NSManagedObjectContext *)relationship unlockObjectStore];
-      goto LABEL_17;
+      return v12;
     }
 
-LABEL_15:
-    v12 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v13 = NSArray_EmptyArray;
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (uint64_t)retainedOrderedFaultInformationForAggregateFaultForObject:(void *)object andRelationship:(uint64_t)relationship withContext:(id *)context error:
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   if (_PF_Threading_Debugging_level)
@@ -243,18 +237,18 @@ LABEL_15:
       v12 = atomic_load((relationship + 48));
       if (v12)
       {
-        v23 = 0;
-        v20 = objc_autoreleasePoolPush();
-        v18 = [*(relationship + 32) _newOrderedRelationshipInformationForRelationship:object forObjectWithID:v11 withContext:relationship error:&v23];
-        v21 = v23;
-        objc_autoreleasePoolPop(v20);
-        v22 = v23;
-        if (context && v23)
+        v21 = 0;
+        v18 = objc_autoreleasePoolPush();
+        v17 = [*(relationship + 32) _newOrderedRelationshipInformationForRelationship:object forObjectWithID:v11 withContext:relationship error:&v21];
+        v19 = v21;
+        objc_autoreleasePoolPop(v18);
+        v20 = v21;
+        if (context && v21)
         {
-          *context = v23;
+          *context = v21;
         }
 
-        goto LABEL_15;
+        return v17;
       }
 
       if ([objectID persistentStore] && (objc_msgSend(a2, "isInserted") & 1) == 0 && (objc_msgSend(object, "isTransient") & 1) == 0)
@@ -262,30 +256,25 @@ LABEL_15:
         [(NSManagedObjectContext *)relationship lockObjectStore];
         v13 = [*(relationship + 32) _newOrderedRelationshipInformationForRelationship:object forObjectWithID:v11 withContext:relationship error:context];
         [(NSManagedObjectContext *)relationship unlockObjectStore];
-        v14 = *MEMORY[0x1E69E9840];
         return v13;
       }
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   if (!context)
   {
-LABEL_14:
-    v18 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  v16 = MEMORY[0x1E696ABC0];
-  v17 = *MEMORY[0x1E696A250];
-  v24 = @"message";
-  v25[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to retrieve ordering information from fault for object %@ and relationship %@ due to nil NSManagedObjectContext", objc_msgSend(a2, "objectID"), objc_msgSend(object, "name")];
-  v18 = 0;
-  *context = [v16 errorWithDomain:v17 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v25, &v24, 1)}];
-LABEL_15:
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  v15 = MEMORY[0x1E696ABC0];
+  v16 = *MEMORY[0x1E696A250];
+  v22 = @"message";
+  v23[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [a2 objectID], objc_msgSend(object, "name"));
+  v17 = 0;
+  *context = [v15 errorWithDomain:v16 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v23, &v22, 1)}];
+  return v17;
 }
 
 - (void)turnObject:(uint64_t)object intoFaultWithContext:

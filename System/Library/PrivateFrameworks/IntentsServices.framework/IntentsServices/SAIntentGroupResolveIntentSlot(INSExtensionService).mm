@@ -6,7 +6,7 @@
 
 - (void)ins_sendIntent:()INSExtensionService toExtensionProxy:onQueue:completionHandler:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -18,9 +18,9 @@
     v16 = v15;
     backingStore = [v10 backingStore];
     *buf = 136315394;
-    v36 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
-    v37 = 2112;
-    v38 = backingStore;
+    v35 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
+    v36 = 2112;
+    v37 = backingStore;
     _os_log_impl(&dword_25553C000, v16, OS_LOG_TYPE_INFO, "%s intent.backingStore = %@", buf, 0x16u);
 
     v15 = *v14;
@@ -31,9 +31,9 @@
     v18 = v15;
     intentSlotKeyPath = [self intentSlotKeyPath];
     *buf = 136315394;
-    v36 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
-    v37 = 2112;
-    v38 = intentSlotKeyPath;
+    v35 = "[SAIntentGroupResolveIntentSlot(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
+    v36 = 2112;
+    v37 = intentSlotKeyPath;
     _os_log_impl(&dword_25553C000, v18, OS_LOG_TYPE_INFO, "%s intentSlotKeyPath = %@", buf, 0x16u);
   }
 
@@ -41,29 +41,27 @@
   ins_afAnalyticsContext = [self ins_afAnalyticsContext];
   [v20 logEventWithType:607 context:ins_afAnalyticsContext contextNoCopy:1];
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke;
-  v34[3] = &unk_2797EAC50;
-  v34[4] = self;
-  [v11 setResponseHandler:v34];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke;
+  v33[3] = &unk_2797EAC50;
+  v33[4] = self;
+  [v11 setResponseHandler:v33];
   intentSlotKeyPath2 = [self intentSlotKeyPath];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_2;
-  v28[3] = &unk_2797EA928;
-  v29 = v12;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __113__SAIntentGroupResolveIntentSlot_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_2;
+  v27[3] = &unk_2797EA928;
+  v28 = v12;
   selfCopy = self;
-  v31 = v10;
-  v32 = intentSlotKeyPath2;
-  v33 = v13;
+  v30 = v10;
+  v31 = intentSlotKeyPath2;
+  v32 = v13;
   v23 = v13;
   v24 = intentSlotKeyPath2;
   v25 = v10;
   v26 = v12;
-  [v11 resolveIntentSlotKeyPath:v24 completionHandler:v28];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [v11 resolveIntentSlotKeyPath:v24 completionHandler:v27];
 }
 
 @end

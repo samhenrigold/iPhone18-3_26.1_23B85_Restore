@@ -15,13 +15,10 @@
 - (id)volatileDomainForName:()NSUserDefaults;
 - (id)volatileDomainNames;
 - (uint64_t)BOOLForKey:()NSUserDefaults;
-- (uint64_t)_didEndKeyValueObserving;
-- (uint64_t)_willBeginKeyValueObserving;
 - (uint64_t)arrayForKey:()NSUserDefaults;
 - (uint64_t)dataForKey:()NSUserDefaults;
 - (uint64_t)dictionaryForKey:()NSUserDefaults;
 - (uint64_t)integerForKey:()NSUserDefaults;
-- (uint64_t)longForKey:()NSUserDefaults;
 - (uint64_t)removeSuiteNamed:()NSUserDefaults;
 - (uint64_t)removeVolatileDomainForName:()NSUserDefaults;
 - (uint64_t)searchList;
@@ -35,8 +32,11 @@
 - (uint64_t)setPersistentDomain:()NSUserDefaults forName:;
 - (uint64_t)setVolatileDomain:()NSUserDefaults forName:;
 - (uint64_t)stringForKey:()NSUserDefaults;
+- (void)_didEndKeyValueObserving;
 - (void)_initWithSuiteName:()NSUserDefaults container:;
+- (void)_willBeginKeyValueObserving;
 - (void)addSuiteNamed:()NSUserDefaults;
+- (void)longForKey:()NSUserDefaults;
 - (void)registerDefaults:()NSUserDefaults;
 - (void)setSearchList:()NSUserDefaults;
 - (void)setURL:()NSUserDefaults forKey:;
@@ -97,7 +97,7 @@
   return v2;
 }
 
-- (uint64_t)_willBeginKeyValueObserving
+- (void)_willBeginKeyValueObserving
 {
   result = [self _kvo];
   if (!result)
@@ -110,7 +110,7 @@
   return result;
 }
 
-- (uint64_t)_didEndKeyValueObserving
+- (void)_didEndKeyValueObserving
 {
   result = [self _kvo];
   if (result)
@@ -127,9 +127,9 @@
 {
   [self _identifier];
   [self _container];
-  v2 = _CFPreferencesCopyAppValueWithContainer();
+  v4 = _CFPreferencesCopyAppValueWithContainer();
 
-  return v2;
+  return v4;
 }
 
 - (uint64_t)setObject:()NSUserDefaults forKey:
@@ -137,20 +137,20 @@
   [self _identifier];
   [self _container];
   _CFPreferencesSetAppValueWithContainer();
-  v2 = +[NSNotificationCenter defaultCenter];
+  v5 = +[NSNotificationCenter defaultCenter];
 
-  return [(NSNotificationCenter *)v2 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
+  return [(NSNotificationCenter *)v5 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
 }
 
 - (id)objectForKey:()NSUserDefaults inDomain:
 {
-  if (!a4 || [(__CFString *)a4 isEqualToString:&stru_1EEEFDF90])
+  if (!a4 || objc_msgSend_isEqualToString_(a4, a2, &stru_1EEEFDF90))
   {
     v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@: domain name cannot be nil or empty", _NSMethodExceptionProem(self, a2)), 0}];
     objc_exception_throw(v11);
   }
 
-  if ([(__CFString *)a4 isEqualToString:@"NSGlobalDomain"])
+  if (objc_msgSend_isEqualToString_(a4))
   {
     v8 = *MEMORY[0x1E695E890];
   }
@@ -167,13 +167,13 @@
 
 - (uint64_t)setObject:()NSUserDefaults forKey:inDomain:
 {
-  if (!a5 || [(__CFString *)a5 isEqualToString:&stru_1EEEFDF90])
+  if (!a5 || objc_msgSend_isEqualToString_(a5, a2, &stru_1EEEFDF90))
   {
     v15 = [NSString stringWithFormat:@"%@: domain name cannot be nil or empty", _NSMethodExceptionProem(self, a2)];
     goto LABEL_14;
   }
 
-  if ([(__CFString *)a5 isEqualToString:@"NSGlobalDomain"])
+  if (objc_msgSend_isEqualToString_(a5))
   {
     v10 = *MEMORY[0x1E695E890];
     v11 = *MEMORY[0x1E695E8B8];
@@ -183,7 +183,7 @@
     goto LABEL_10;
   }
 
-  if (([(__CFString *)a5 isEqualToString:@"NSRegistrationDomain"]& 1) != 0 || [(__CFString *)a5 isEqualToString:@"NSArgumentDomain"])
+  if ((objc_msgSend_isEqualToString_(a5) & 1) != 0 || objc_msgSend_isEqualToString_(a5))
   {
     if (a3)
     {
@@ -337,7 +337,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)longForKey:()NSUserDefaults
+- (void)longForKey:()NSUserDefaults
 {
   v4[1] = *MEMORY[0x1E69E9840];
   result = [self objectForKey:?];
@@ -423,7 +423,7 @@ LABEL_4:
   v8 = [self objectForKey:a3];
   if (_NSIsNSString())
   {
-    if (([v8 isEqualToString:@"YES"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v8) & 1) == 0)
     {
       v9 = [v8 length];
       v6 = 1;
@@ -479,14 +479,14 @@ LABEL_4:
 
 - (uint64_t)setInteger:()NSUserDefaults forKey:
 {
-  v6 = [NSNumber numberWithInteger:?];
+  v6 = [NSNumber numberWithInteger:a3];
 
   return [self setObject:v6 forKey:a4];
 }
 
 - (uint64_t)setLong:()NSUserDefaults forKey:
 {
-  v6 = [NSNumber numberWithLongLong:?];
+  v6 = [NSNumber numberWithLongLong:a3];
 
   return [self setObject:v6 forKey:a4];
 }
@@ -507,7 +507,7 @@ LABEL_4:
 
 - (uint64_t)setBool:()NSUserDefaults forKey:
 {
-  v6 = [NSNumber numberWithBool:?];
+  v6 = [NSNumber numberWithBool:a3];
 
   return [self setObject:v6 forKey:a4];
 }
@@ -542,7 +542,7 @@ LABEL_4:
 
 - (void)addSuiteNamed:()NSUserDefaults
 {
-  if (([a3 isEqualToString:@"NSGlobalDomain"] & 1) != 0 || (MainBundle = CFBundleGetMainBundle(), objc_msgSend(a3, "isEqualToString:", CFBundleGetIdentifier(MainBundle))))
+  if ((objc_msgSend_isEqualToString_(a3, a2, @"NSGlobalDomain") & 1) != 0 || (MainBundle = CFBundleGetMainBundle(), CFBundleGetIdentifier(MainBundle), objc_msgSend_isEqualToString_(a3)))
   {
 
     _NSUserDefaults_Log_Nonsensical_Suites(a3);
@@ -601,7 +601,7 @@ LABEL_4:
 - (void)_initWithSuiteName:()NSUserDefaults container:
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (a3 && (([a3 isEqualToString:@"NSGlobalDomain"] & 1) != 0 || (MainBundle = CFBundleGetMainBundle(), objc_msgSend(a3, "isEqualToString:", CFBundleGetIdentifier(MainBundle)))))
+  if (a3 && ((objc_msgSend_isEqualToString_(a3, a2, @"NSGlobalDomain") & 1) != 0 || (MainBundle = CFBundleGetMainBundle(), CFBundleGetIdentifier(MainBundle), objc_msgSend_isEqualToString_(a3))))
   {
     _NSUserDefaults_Log_Nonsensical_Suites(a3);
 
@@ -651,25 +651,25 @@ LABEL_4:
 
 - (id)volatileDomainForName:()NSUserDefaults
 {
-  v0 = _CFXPreferencesCopyDictionaryForNamedVolatileSource();
+  v3 = _CFXPreferencesCopyDictionaryForNamedVolatileSource();
 
-  return v0;
+  return v3;
 }
 
 - (uint64_t)setVolatileDomain:()NSUserDefaults forName:
 {
   _CFXPreferencesReplaceValuesInNamedVolatileSource();
-  v2 = +[NSNotificationCenter defaultCenter];
+  v5 = +[NSNotificationCenter defaultCenter];
 
-  return [(NSNotificationCenter *)v2 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
+  return [(NSNotificationCenter *)v5 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
 }
 
 - (uint64_t)removeVolatileDomainForName:()NSUserDefaults
 {
   _CFXPreferencesRemoveNamedVolatileSource();
-  v2 = +[NSNotificationCenter defaultCenter];
+  v4 = +[NSNotificationCenter defaultCenter];
 
-  return [(NSNotificationCenter *)v2 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
+  return [(NSNotificationCenter *)v4 postNotificationName:@"NSUserDefaultsDidChangeNotification" object:self userInfo:0];
 }
 
 - (CFArrayRef)persistentDomainNames
@@ -690,7 +690,7 @@ LABEL_4:
 
 - (id)persistentDomainForName:()NSUserDefaults
 {
-  [a3 isEqualToString:@"NSGlobalDomain"];
+  objc_msgSend_isEqualToString_(a3, a2, @"NSGlobalDomain");
   v3 = _CFXPreferencesCopyDictionaryForSourceWithBundleID();
 
   return v3;

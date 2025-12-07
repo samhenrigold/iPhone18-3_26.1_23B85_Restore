@@ -411,7 +411,7 @@ void __54__GKMatchmakerHostViewController_extensionObjectProxy__block_invoke(uin
   v25 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   v5 = MEMORY[0x277CCAAC8];
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(extensionCopy);
   v22 = 0;
   v7 = [v5 unarchivedObjectOfClasses:v6 fromData:extensionCopy error:&v22];
   v8 = v22;

@@ -14,11 +14,11 @@
 
 - (SFHashDetail)initWithProtobuf:(id)protobuf
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v24.receiver = self;
-  v24.super_class = SFHashDetail;
-  v5 = [(SFHashDetail *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SFHashDetail;
+  v5 = [(SFHashDetail *)&v23 init];
   if (v5)
   {
     full_hash = [protobufCopy full_hash];
@@ -45,32 +45,32 @@
       v9 = 0;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = [protobufCopy sba:0 entity:?types];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          if (*(*(&v20 + 1) + 8 * i))
+          if (*(*(&v19 + 1) + 8 * i))
           {
             [v9 addObject:?];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v12);
@@ -93,7 +93,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

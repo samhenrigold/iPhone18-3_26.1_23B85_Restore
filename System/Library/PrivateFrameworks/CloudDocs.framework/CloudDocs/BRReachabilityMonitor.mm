@@ -3,6 +3,7 @@
 - (BOOL)isCellularNetwork;
 - (BOOL)isNetworkReachable;
 - (BRReachabilityMonitor)init;
+- (void)_updateCellularNetworkStatusForObserver:(id)observer isCellularNetwork:(BOOL)network previousCellularStatus:(BOOL)status;
 - (void)addObserver:(id)observer;
 - (void)dealloc;
 - (void)removeObserver:(id)observer;
@@ -58,30 +59,28 @@ void __29__BRReachabilityMonitor_init__block_invoke(uint64_t a1, void *a2)
 
 void __29__BRReachabilityMonitor_init__block_invoke_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Got network updated status %u%@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Got network updated status %u%@", v3, 0x12u);
 }
 
 void __29__BRReachabilityMonitor_init__block_invoke_cold_2(_BYTE *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = "NO";
   if (*a1)
   {
     v3 = "YES";
   }
 
-  v5 = 136315394;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Got cellular network %s%@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315394;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Got cellular network %s%@", &v4, 0x16u);
 }
 
 + (id)sharedReachabilityMonitor
@@ -101,6 +100,23 @@ uint64_t __50__BRReachabilityMonitor_sharedReachabilityMonitor__block_invoke()
   sharedReachabilityMonitor_monitor = objc_alloc_init(BRReachabilityMonitor);
 
   return MEMORY[0x1EEE66BB8]();
+}
+
+- (void)_updateCellularNetworkStatusForObserver:(id)observer isCellularNetwork:(BOOL)network previousCellularStatus:(BOOL)status
+{
+  statusCopy = status;
+  networkCopy = network;
+  observerCopy = observer;
+  if (networkCopy != statusCopy)
+  {
+    v9 = observerCopy;
+    if (objc_opt_respondsToSelector())
+    {
+      [v9 reachabilityMonitor:self didChangeCellularNetworkTo:networkCopy];
+    }
+  }
+
+  MEMORY[0x1EEE66BE0]();
 }
 
 - (BRReachabilityMonitor)init
@@ -143,31 +159,31 @@ uint64_t __50__BRReachabilityMonitor_sharedReachabilityMonitor__block_invoke()
 
 void __29__BRReachabilityMonitor_init__block_invoke_8(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (*(a1 + 48) == 1)
         {
-          [*(*(&v9 + 1) + 8 * v6) reachabilityMonitor:*(a1 + 40) didChangeReachabilityStatusTo:{*(*(a1 + 32) + 24), v9}];
+          [*(*(&v8 + 1) + 8 * v6) reachabilityMonitor:*(a1 + 40) didChangeReachabilityStatusTo:{*(*(a1 + 32) + 24), v8}];
         }
 
         if (*(a1 + 49) == 1)
@@ -179,13 +195,11 @@ void __29__BRReachabilityMonitor_init__block_invoke_8(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -269,14 +283,12 @@ uint64_t __37__BRReachabilityMonitor_addObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 8) addObject:*(a1 + 40)];
   [*(a1 + 40) reachabilityMonitor:*(a1 + 32) didChangeReachabilityStatusTo:*(*(a1 + 32) + 24)];
-  v2 = *(a1 + 40);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 40);
+    v3 = *(a1 + 40);
 
-    return [v4 reachabilityMonitor:? didChangeCellularNetworkTo:?];
+    return [v3 reachabilityMonitor:? didChangeCellularNetworkTo:?];
   }
 
   return result;

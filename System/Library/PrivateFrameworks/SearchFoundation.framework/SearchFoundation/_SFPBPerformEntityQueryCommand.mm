@@ -7,6 +7,7 @@
 - (id)dictionaryRepresentation;
 - (int)enabledDomainsAtIndex:(unint64_t)index;
 - (unint64_t)hash;
+- (void)addEnabledDomains:(int)domains;
 - (void)addFilterQueries:(id)queries;
 - (void)setBundleIdentifier:(id)identifier;
 - (void)setEnabledDomains:(id)domains;
@@ -21,7 +22,7 @@
 
 - (_SFPBPerformEntityQueryCommand)initWithFacade:(id)facade
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBPerformEntityQueryCommand *)self init];
   if (v5)
@@ -116,32 +117,32 @@
       v33 = 0;
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     filterQueries2 = [facadeCopy filterQueries];
-    v35 = [filterQueries2 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v35 = [filterQueries2 countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v56;
+      v37 = *v55;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v56 != v37)
+          if (*v55 != v37)
           {
             objc_enumerationMutation(filterQueries2);
           }
 
-          if (*(*(&v55 + 1) + 8 * i))
+          if (*(*(&v54 + 1) + 8 * i))
           {
             [v33 addObject:?];
           }
         }
 
-        v36 = [filterQueries2 countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v36 = [filterQueries2 countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v36);
@@ -159,32 +160,32 @@
       v40 = 0;
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     enabledDomains2 = [facadeCopy enabledDomains];
-    v42 = [enabledDomains2 countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v42 = [enabledDomains2 countByEnumeratingWithState:&v50 objects:v58 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v52;
+      v44 = *v51;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v52 != v44)
+          if (*v51 != v44)
           {
             objc_enumerationMutation(enabledDomains2);
           }
 
-          if (*(*(&v51 + 1) + 8 * j))
+          if (*(*(&v50 + 1) + 8 * j))
           {
             [v40 addObject:?];
           }
         }
 
-        v43 = [enabledDomains2 countByEnumeratingWithState:&v51 objects:v59 count:16];
+        v43 = [enabledDomains2 countByEnumeratingWithState:&v50 objects:v58 count:16];
       }
 
       while (v43);
@@ -202,17 +203,16 @@
     v48 = v5;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBPerformEntityQueryCommand)initWithDictionary:(id)dictionary
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v62.receiver = self;
-  v62.super_class = _SFPBPerformEntityQueryCommand;
-  v5 = [(_SFPBPerformEntityQueryCommand *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = _SFPBPerformEntityQueryCommand;
+  v5 = [(_SFPBPerformEntityQueryCommand *)&v61 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"searchString"];
@@ -231,7 +231,7 @@
       [(_SFPBPerformEntityQueryCommand *)v5 setTokenString:v9];
     }
 
-    v48 = v8;
+    v47 = v8;
     v10 = [dictionaryCopy objectForKeyedSubscript:@"symbolImage"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -249,7 +249,7 @@
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"entityIdentifier"];
     objc_opt_class();
-    v53 = v13;
+    v52 = v13;
     if (objc_opt_isKindOfClass())
     {
       v14 = [v13 copy];
@@ -258,7 +258,7 @@
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"entityBackgroundColor"];
     objc_opt_class();
-    v52 = v15;
+    v51 = v15;
     if (objc_opt_isKindOfClass())
     {
       v16 = [[_SFPBColor alloc] initWithDictionary:v15];
@@ -267,7 +267,7 @@
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"metadata"];
     objc_opt_class();
-    v51 = v17;
+    v50 = v17;
     if (objc_opt_isKindOfClass())
     {
       v18 = [[_SFPBDrillDownMetadata alloc] initWithDictionary:v17];
@@ -276,15 +276,15 @@
 
     v19 = [dictionaryCopy objectForKeyedSubscript:@"drilldownMetadata"];
     objc_opt_class();
-    v50 = v19;
+    v49 = v19;
     if (objc_opt_isKindOfClass())
     {
       v20 = [[_SFPBDrillDownMetadata alloc] initWithDictionary:v19];
       [(_SFPBPerformEntityQueryCommand *)v5 setDrilldownMetadata:v20];
     }
 
-    v46 = v12;
-    v47 = v10;
+    v45 = v12;
+    v46 = v10;
     v21 = [dictionaryCopy objectForKeyedSubscript:@"tokenImage"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -295,31 +295,31 @@
 
     v23 = [dictionaryCopy objectForKeyedSubscript:@"filterQueries"];
     objc_opt_class();
-    v49 = v23;
-    v45 = v21;
+    v48 = v23;
+    v44 = v21;
     if (objc_opt_isKindOfClass())
     {
       v24 = v6;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
-      v25 = v49;
-      v26 = [v25 countByEnumeratingWithState:&v58 objects:v64 count:16];
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v25 = v48;
+      v26 = [v25 countByEnumeratingWithState:&v57 objects:v63 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v59;
+        v28 = *v58;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v59 != v28)
+            if (*v58 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v58 + 1) + 8 * i);
+            v30 = *(*(&v57 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -328,41 +328,41 @@
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v58 objects:v64 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v57 objects:v63 count:16];
         }
 
         while (v27);
       }
 
       v6 = v24;
-      v21 = v45;
+      v21 = v44;
     }
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"enabledDomains"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v44 = v6;
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
+      v43 = v6;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v33 = v32;
-      v34 = [v33 countByEnumeratingWithState:&v54 objects:v63 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v53 objects:v62 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v55;
+        v36 = *v54;
         do
         {
           for (j = 0; j != v35; ++j)
           {
-            if (*v55 != v36)
+            if (*v54 != v36)
             {
               objc_enumerationMutation(v33);
             }
 
-            v38 = *(*(&v54 + 1) + 8 * j);
+            v38 = *(*(&v53 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -370,17 +370,17 @@
             }
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v54 objects:v63 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v53 objects:v62 count:16];
         }
 
         while (v35);
       }
 
-      v6 = v44;
-      v21 = v45;
+      v6 = v43;
+      v21 = v44;
     }
 
-    v39 = [dictionaryCopy objectForKeyedSubscript:{@"bundleIdentifier", v44}];
+    v39 = [dictionaryCopy objectForKeyedSubscript:{@"bundleIdentifier", v43}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -391,7 +391,6 @@
     v41 = v5;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -890,7 +889,7 @@ LABEL_59:
 
 - (void)writeTo:(id)to
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   toCopy = to;
   searchString = [(_SFPBPerformEntityQueryCommand *)self searchString];
   if (searchString)
@@ -946,67 +945,66 @@ LABEL_59:
   }
 
   filterQueries = [(_SFPBPerformEntityQueryCommand *)self filterQueries];
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v14 = [filterQueries countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v14 = [filterQueries countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v29;
     do
     {
       v17 = 0;
       do
       {
-        if (*v31 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(filterQueries);
         }
 
-        v18 = *(*(&v30 + 1) + 8 * v17);
         PBDataWriterWriteStringField();
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [filterQueries countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v15 = [filterQueries countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v15);
   }
 
   enabledDomains = [(_SFPBPerformEntityQueryCommand *)self enabledDomains];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v20 = [enabledDomains countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v20)
+  v19 = [enabledDomains countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v19)
   {
-    v21 = v20;
-    v22 = *v27;
+    v20 = v19;
+    v21 = *v25;
     do
     {
-      v23 = 0;
+      v22 = 0;
       do
       {
-        if (*v27 != v22)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(enabledDomains);
         }
 
-        [*(*(&v26 + 1) + 8 * v23) intValue];
+        [*(*(&v24 + 1) + 8 * v22) intValue];
         PBDataWriterWriteInt32Field();
-        ++v23;
+        ++v22;
       }
 
-      while (v21 != v23);
-      v21 = [enabledDomains countByEnumeratingWithState:&v26 objects:v34 count:16];
+      while (v20 != v22);
+      v20 = [enabledDomains countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   bundleIdentifier = [(_SFPBPerformEntityQueryCommand *)self bundleIdentifier];
@@ -1014,15 +1012,11 @@ LABEL_59:
   {
     PBDataWriterWriteStringField();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v4;
+  self->_bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1035,11 +1029,26 @@ LABEL_59:
   return intValue;
 }
 
+- (void)addEnabledDomains:(int)domains
+{
+  v3 = *&domains;
+  enabledDomains = self->_enabledDomains;
+  if (!enabledDomains)
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v7 = self->_enabledDomains;
+    self->_enabledDomains = array;
+
+    enabledDomains = self->_enabledDomains;
+  }
+
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  [(NSArray *)enabledDomains addObject:v8];
+}
+
 - (void)setEnabledDomains:(id)domains
 {
-  v4 = [domains copy];
-  enabledDomains = self->_enabledDomains;
-  self->_enabledDomains = v4;
+  self->_enabledDomains = [domains copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1064,36 +1073,28 @@ LABEL_59:
 
 - (void)setFilterQueries:(id)queries
 {
-  v4 = [queries copy];
-  filterQueries = self->_filterQueries;
-  self->_filterQueries = v4;
+  self->_filterQueries = [queries copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setEntityIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  entityIdentifier = self->_entityIdentifier;
-  self->_entityIdentifier = v4;
+  self->_entityIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTokenString:(id)string
 {
-  v4 = [string copy];
-  tokenString = self->_tokenString;
-  self->_tokenString = v4;
+  self->_tokenString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSearchString:(id)string
 {
-  v4 = [string copy];
-  searchString = self->_searchString;
-  self->_searchString = v4;
+  self->_searchString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -119,9 +119,9 @@ LABEL_14:
 
     if (identifierCopy && v13)
     {
-      v16 = [v13 isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-      if (v16)
+      if (isEqualToString)
       {
         goto LABEL_17;
       }

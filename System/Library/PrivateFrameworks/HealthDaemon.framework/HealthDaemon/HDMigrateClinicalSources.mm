@@ -39,11 +39,9 @@ uint64_t ___HDMigrateClinicalSources_block_invoke_3(uint64_t a1, uint64_t a2, ui
   return v8;
 }
 
-uint64_t ___HDMigrateClinicalSources_block_invoke_4(uint64_t a1)
+uint64_t ___HDMigrateClinicalSources_block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

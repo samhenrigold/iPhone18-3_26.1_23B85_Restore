@@ -1,25 +1,42 @@
 @interface MTLBuiltInMeshArgument
 - (BOOL)isEqual:(id)equal;
+- (MTLBuiltInMeshArgument)initWithName:(id)name type:(unint64_t)type access:(unint64_t)access active:(BOOL)active index:(unint64_t)index dataType:(unint64_t)dataType builtInType:(unint64_t)inType meshVertexStructType:(id)self0 meshPrimitiveStructType:(id)self1 meshVertexCount:(unsigned __int16)self2 meshPrimitiveCount:(unsigned __int16)self3 meshTopologyType:(unint64_t)self4;
 - (id)formattedDescription:(unint64_t)description;
 - (void)dealloc;
 @end
 
 @implementation MTLBuiltInMeshArgument
 
+- (MTLBuiltInMeshArgument)initWithName:(id)name type:(unint64_t)type access:(unint64_t)access active:(BOOL)active index:(unint64_t)index dataType:(unint64_t)dataType builtInType:(unint64_t)inType meshVertexStructType:(id)self0 meshPrimitiveStructType:(id)self1 meshVertexCount:(unsigned __int16)self2 meshPrimitiveCount:(unsigned __int16)self3 meshTopologyType:(unint64_t)self4
+{
+  dataTypeCopy = dataType;
+  v17.receiver = self;
+  v17.super_class = MTLBuiltInMeshArgument;
+  v15 = [(MTLBindingInternal *)&v17 initWithName:name type:type access:access index:index active:active arrayLength:1];
+  v15->_builtInType = inType;
+  v15->_builtInDataType = dataTypeCopy;
+  v15->_meshVertexStruct = structType;
+  v15->_meshPrimitiveStruct = primitiveStructType;
+  v15->_meshVertexCount = count;
+  v15->_meshPrimitiveCount = primitiveCount;
+  v15->_meshTopologyType = topologyType;
+  return v15;
+}
+
 - (id)formattedDescription:(unint64_t)description
 {
-  v27[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
-  v20 = MEMORY[0x1E696AEC0];
-  v21.receiver = self;
-  v21.super_class = MTLBuiltInMeshArgument;
-  v6 = [(MTLBindingInternal *)&v21 formattedDescription:description];
-  v27[0] = v5;
-  v27[1] = @"BuiltInArgumentType =";
-  v27[2] = MTLBuiltInArgumentTypeString(self->_builtInType);
-  v7 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:{3), "componentsJoinedByString:", @" "}];
+  v19 = MEMORY[0x1E696AEC0];
+  v20.receiver = self;
+  v20.super_class = MTLBuiltInMeshArgument;
+  v6 = [(MTLBindingInternal *)&v20 formattedDescription:description];
   v26[0] = v5;
-  v26[1] = @"MeshVertexStructMembers =";
+  v26[1] = @"BuiltInArgumentType =";
+  v26[2] = MTLBuiltInArgumentTypeString(self->_builtInType);
+  v7 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:{3), "componentsJoinedByString:", @" "}];
+  v25[0] = v5;
+  v25[1] = @"MeshVertexStructMembers =";
   meshVertexStruct = self->_meshVertexStruct;
   if (meshVertexStruct)
   {
@@ -31,10 +48,10 @@
     v9 = @"nil";
   }
 
-  v26[2] = v9;
-  v10 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:{3), "componentsJoinedByString:", @" "}];
-  v25[0] = v5;
-  v25[1] = @"MeshPrimitiveStructMembers =";
+  v25[2] = v9;
+  v10 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:{3), "componentsJoinedByString:", @" "}];
+  v24[0] = v5;
+  v24[1] = @"MeshPrimitiveStructMembers =";
   meshPrimitiveStruct = self->_meshPrimitiveStruct;
   if (meshPrimitiveStruct)
   {
@@ -46,18 +63,18 @@
     v12 = @"nil";
   }
 
-  v25[2] = v12;
-  v13 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:{3), "componentsJoinedByString:", @" "}];
-  v24[0] = v5;
-  v24[1] = @"MeshVertexCount =";
-  v24[2] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_meshVertexCount];
-  v14 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:{3), "componentsJoinedByString:", @" "}];
+  v24[2] = v12;
+  v13 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:{3), "componentsJoinedByString:", @" "}];
   v23[0] = v5;
-  v23[1] = @"MeshPrimitiveCount =";
-  v23[2] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_meshPrimitiveCount];
-  v15 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:{3), "componentsJoinedByString:", @" "}];
+  v23[1] = @"MeshVertexCount =";
+  v23[2] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_meshVertexCount];
+  v14 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:{3), "componentsJoinedByString:", @" "}];
   v22[0] = v5;
-  v22[1] = @"MeshTopologyType =";
+  v22[1] = @"MeshPrimitiveCount =";
+  v22[2] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_meshPrimitiveCount];
+  v15 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:{3), "componentsJoinedByString:", @" "}];
+  v21[0] = v5;
+  v21[1] = @"MeshTopologyType =";
   meshTopologyType = self->_meshTopologyType;
   if (meshTopologyType > 3)
   {
@@ -69,10 +86,8 @@
     v17 = off_1E6EEB250[meshTopologyType];
   }
 
-  v22[2] = v17;
-  result = [v20 stringWithFormat:@"%@%@%@%@%@%@%@", v6, v7, v10, v13, v14, v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v22, 3), "componentsJoinedByString:", @" "];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  v21[2] = v17;
+  return [v19 stringWithFormat:@"%@%@%@%@%@%@%@", v6, v7, v10, v13, v14, v15, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v21, 3), "componentsJoinedByString:", @" "];
 }
 
 - (void)dealloc

@@ -640,63 +640,33 @@ LABEL_44:
 - (void)transitionWillBegin:(int64_t)begin willBeDisplayed:(BOOL)displayed
 {
   v5 = 1.0;
-  v6 = 1;
-  v7 = 2;
-  if (begin)
-  {
-    v7 = 0;
-  }
-
-  if (begin != 1)
-  {
-    v6 = v7;
-  }
-
   if (displayed)
   {
     v5 = 0.0;
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = 0;
   }
 
   [(ConversationHeaderView *)self setAlpha:v5, 0.0];
-  [(ConversationHeaderView *)self _transformForLocation:v8];
-  v9[0] = v9[3];
-  v9[1] = v9[4];
-  v9[2] = v9[5];
-  [(ConversationHeaderView *)self setTransform:v9];
+  objc_msgSend__transformForLocation_(self);
+  v6[0] = v6[3];
+  v6[1] = v6[4];
+  v6[2] = v6[5];
+  [(ConversationHeaderView *)self setTransform:v6];
 }
 
 - (void)performTransition:(int64_t)transition willBeDisplayed:(BOOL)displayed
 {
   v5 = 1.0;
-  v6 = 2;
-  if (transition != 1)
-  {
-    v6 = transition == 0;
-  }
-
-  if (displayed)
-  {
-    v7 = 0;
-  }
-
-  else
+  if (!displayed)
   {
     v5 = 0.0;
-    v7 = v6;
   }
 
   [(ConversationHeaderView *)self setAlpha:v5, 0.0];
-  [(ConversationHeaderView *)self _transformForLocation:v7];
-  v8[0] = v8[3];
-  v8[1] = v8[4];
-  v8[2] = v8[5];
-  [(ConversationHeaderView *)self setTransform:v8];
+  objc_msgSend__transformForLocation_(self);
+  v6[0] = v6[3];
+  v6[1] = v6[4];
+  v6[2] = v6[5];
+  [(ConversationHeaderView *)self setTransform:v6];
 }
 
 - (void)transitionCompleted:(int64_t)completed willBeDisplayed:(BOOL)displayed

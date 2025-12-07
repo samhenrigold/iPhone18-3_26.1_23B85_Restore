@@ -13,7 +13,7 @@
 
 - (ABPK3DLifting)init
 {
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(v14) = 0;
@@ -67,19 +67,16 @@ LABEL_7:
 
 - (void)dealloc
 {
-  plan = self->_plan;
   espresso_plan_destroy();
-  context = self->_context;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = ABPK3DLifting;
-  [(ABPK3DLifting *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = ABPK3DLifting;
+  [(ABPK3DLifting *)&v3 dealloc];
 }
 
 - (BOOL)initMLNetwork
 {
-  [(ABPK3DLifting *)self _startLoading3DLiftingMLModelSignpost];
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance([(ABPK3DLifting *)self _startLoading3DLiftingMLModelSignpost]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf) = 0;
@@ -109,45 +106,40 @@ LABEL_7:
     if (context)
     {
       Espresso::get_internal_context(&buf, context, v17);
-      v18 = self->_context;
       self->_plan = espresso_create_plan();
-      v19 = [v9 stringByAppendingPathComponent:@"model.espresso.net"];
-      plan = self->_plan;
-      [v19 UTF8String];
+      v18 = [v9 stringByAppendingPathComponent:@"model.espresso.net"];
+      [v18 UTF8String];
       espresso_plan_add_network();
-      v21 = self->_plan;
       espresso_plan_build();
-      v22 = self->_network.plan;
-      v23 = *&self->_network.network_index;
-      v24 = [(NSArray *)self->_outputTensorNames objectAtIndexedSubscript:0];
-      [v24 UTF8String];
+      v19 = [(NSArray *)self->_outputTensorNames objectAtIndexedSubscript:0];
+      [v19 UTF8String];
       espresso_network_bind_buffer();
 
-      v25 = self->_inputTensorNames;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __30__ABPK3DLifting_initMLNetwork__block_invoke;
-      v30[3] = &unk_278C718C0;
-      v30[4] = self;
-      [(NSArray *)v25 enumerateObjectsUsingBlock:v30];
-      v26 = self->_outputTensorNames;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __30__ABPK3DLifting_initMLNetwork__block_invoke_2;
-      v29[3] = &unk_278C718C0;
-      v29[4] = self;
-      [(NSArray *)v26 enumerateObjectsUsingBlock:v29];
+      v20 = self->_inputTensorNames;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __30__ABPK3DLifting_initMLNetwork__block_invoke;
+      v25[3] = &unk_278C718C0;
+      v25[4] = self;
+      [(NSArray *)v20 enumerateObjectsUsingBlock:v25];
+      v21 = self->_outputTensorNames;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __30__ABPK3DLifting_initMLNetwork__block_invoke_2;
+      v24[3] = &unk_278C718C0;
+      v24[4] = self;
+      [(NSArray *)v21 enumerateObjectsUsingBlock:v24];
 
-      if (v32)
+      if (v27)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
       }
 
       goto LABEL_9;
     }
 
 LABEL_10:
-    v27 = 0;
+    v22 = 0;
     goto LABEL_11;
   }
 
@@ -166,44 +158,31 @@ LABEL_10:
 
 LABEL_9:
   [(ABPK3DLifting *)self _endLoading3DLiftingMLModelSignpost];
-  v27 = 1;
+  v22 = 1;
 LABEL_11:
 
-  return v27;
+  return v22;
 }
 
 void __30__ABPK3DLifting_initMLNetwork__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 40);
-  v6 = *(v4 + 48);
-  [v3 UTF8String];
+  v2 = a2;
+  [v2 UTF8String];
   espresso_network_query_blob_dimensions();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __30__ABPK3DLifting_initMLNetwork__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 40);
-  v6 = *(v4 + 48);
-  [v3 UTF8String];
+  v2 = a2;
+  [v2 UTF8String];
   espresso_network_query_blob_dimensions();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int)runLiftingModelWithData:(id)data atTimestamp:(double)timestamp
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  [(ABPK3DLifting *)self _startRunLiftingModelSignpostWithTimestamp:timestamp];
-  v7 = __ABPKLogSharedInstance();
+  v7 = __ABPKLogSharedInstance([(ABPK3DLifting *)self _startRunLiftingModelSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -234,41 +213,14 @@ void __30__ABPK3DLifting_initMLNetwork__block_invoke_2(uint64_t a1, void *a2)
 
   else
   {
-    plan = self->_network.plan;
-    v32 = *&self->_network.network_index;
-    v33 = [(NSArray *)self->_inputTensorNames objectAtIndexedSubscript:0];
-    v34 = v33;
-    [v33 UTF8String];
-    LODWORD(plan) = espresso_network_bind_buffer();
+    v31 = [(NSArray *)self->_inputTensorNames objectAtIndexedSubscript:0];
+    v32 = v31;
+    [v31 UTF8String];
+    v33 = espresso_network_bind_buffer();
 
-    if (plan)
+    if (v33 || ([dataCopy liftingData], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "liftingData3D"), v34, v36 = *buf, v37 = *v35, v38 = v35[1], v39 = v35[3], *(*buf + 32) = v35[2], v36[3] = v39, *v36 = v37, v36[1] = v38, v40 = v35[4], v41 = v35[5], v42 = v35[7], v36[6] = v35[6], v36[7] = v42, v36[4] = v40, v36[5] = v41, espresso_plan_execute_sync()))
     {
-      goto LABEL_13;
-    }
-
-    liftingData2 = [dataCopy liftingData];
-    liftingData3D2 = [liftingData2 liftingData3D];
-
-    v37 = *buf;
-    v38 = *liftingData3D2;
-    v39 = liftingData3D2[1];
-    v40 = liftingData3D2[3];
-    *(*buf + 32) = liftingData3D2[2];
-    v37[3] = v40;
-    *v37 = v38;
-    v37[1] = v39;
-    v41 = liftingData3D2[4];
-    v42 = liftingData3D2[5];
-    v43 = liftingData3D2[7];
-    v37[6] = liftingData3D2[6];
-    v37[7] = v43;
-    v37[4] = v41;
-    v37[5] = v42;
-    v44 = self->_plan;
-    if (espresso_plan_execute_sync())
-    {
-LABEL_13:
-      v45 = -6662;
+      v43 = -6662;
       goto LABEL_18;
     }
   }
@@ -290,67 +242,66 @@ LABEL_13:
       _H0 = *(bytes2 + 2 * [v28 strideChannels] * j);
       __asm { FCVT            S0, H0 }
 
-      *(v65 + j) = _S0;
+      *(v62 + j) = _S0;
     }
   }
 
   else
   {
     data = self->_outputTensor.data;
-    v47 = data[9];
-    v65[8] = data[8];
-    v65[9] = v47;
-    v48 = data[11];
-    v65[10] = data[10];
-    v65[11] = v48;
-    v49 = data[5];
-    v65[4] = data[4];
-    v65[5] = v49;
-    v50 = data[7];
-    v65[6] = data[6];
-    v65[7] = v50;
-    v51 = data[1];
-    v65[0] = *data;
-    v65[1] = v51;
-    v52 = data[3];
-    v65[2] = data[2];
-    v65[3] = v52;
+    v45 = data[9];
+    v62[8] = data[8];
+    v62[9] = v45;
+    v46 = data[11];
+    v62[10] = data[10];
+    v62[11] = v46;
+    v47 = data[5];
+    v62[4] = data[4];
+    v62[5] = v47;
+    v48 = data[7];
+    v62[6] = data[6];
+    v62[7] = v48;
+    v49 = data[1];
+    v62[0] = *data;
+    v62[1] = v49;
+    v50 = data[3];
+    v62[2] = data[2];
+    v62[3] = v50;
   }
 
-  v53 = 0;
+  v51 = 0;
   *buf = 0u;
-  v63[0] = 0u;
-  v54 = 1;
+  v60[0] = 0u;
+  v52 = 1;
   __asm { FMOV            V1.2S, #-10.0 }
 
-  v56 = -_D1;
+  v54 = -_D1;
   do
   {
-    *&v20 = *(v65 + v53);
-    v57 = vmla_f32(*(&unk_23EE28A94 + v53), *(&unk_23EE28B54 + v53), *&v20);
-    DWORD2(v20) = *(v65 + v53 + 8);
-    v58 = &buf[v54 * 16];
-    *v58 = v20;
-    v63[v54] = v20;
-    *(v58 + 2) = (*(&unk_23EE28A94 + v53 + 8) + (*(&v20 + 2) * *(&unk_23EE28B54 + v53 + 8))) * 10.0;
-    *v58 = vmul_f32(v57, *&v56);
-    v53 += 12;
-    ++v54;
+    *&v20 = *(v62 + v51);
+    v55 = vmla_f32(*(&unk_23EE28A94 + v51), *(&unk_23EE28B54 + v51), *&v20);
+    DWORD2(v20) = *(v62 + v51 + 8);
+    v56 = &buf[v52 * 16];
+    *v56 = v20;
+    v60[v52] = v20;
+    *(v56 + 2) = (*(&unk_23EE28A94 + v51 + 8) + (*(&v20 + 2) * *(&unk_23EE28B54 + v51 + 8))) * 10.0;
+    *v56 = vmul_f32(v55, *&v54);
+    v51 += 12;
+    ++v52;
   }
 
-  while (v53 != 192);
-  [(ABPK3DLifting *)self _adjustBoneLength:buf, COERCE_DOUBLE(COERCE_UNSIGNED_INT(10.0)), v63[0]];
+  while (v51 != 192);
+  [(ABPK3DLifting *)self _adjustBoneLength:buf, COERCE_DOUBLE(COERCE_UNSIGNED_INT(10.0)), v60[0]];
   [(ABPK3DLifting *)self _transformRelativeToHip:buf count:17];
-  v59 = [[ABPK3DLiftingResult alloc] initWithJoints:buf numberOfJoints:17 rawNetworkOutputs:v63 referenceDetectionResult:dataCopy];
+  v57 = [[ABPK3DLiftingResult alloc] initWithJoints:buf numberOfJoints:17 rawNetworkOutputs:v60 referenceDetectionResult:dataCopy];
   liftingResult = self->_liftingResult;
-  self->_liftingResult = v59;
+  self->_liftingResult = v57;
 
   [(ABPK3DLifting *)self _endPostProcessDataSignpostWithTimestamp:timestamp];
-  v45 = 0;
+  v43 = 0;
 LABEL_18:
 
-  v61 = *MEMORY[0x277D85DE8];
-  return v45;
+  return v43;
 }
 
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)get3DLiftingResultsAsModelPoses
@@ -386,19 +337,19 @@ LABEL_18:
 {
   v3 = v2;
   v38 = *MEMORY[0x277D85DE8];
-  v5 = __ABPKLogSharedInstance();
+  v5 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " ABPK3DLifting: Adjust bone length ", buf, 2u);
   }
 
-  memcpy(buf, v3, sizeof(buf));
-  v6 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = memcpy(buf, v3, sizeof(buf));
+  v7 = __ABPKLogSharedInstance(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *v32 = 0;
-    _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " ABPK3DLifting: _abpkLiftingSkeletonDefinition once init ", v32, 2u);
+    _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " ABPK3DLifting: _abpkLiftingSkeletonDefinition once init ", v32, 2u);
   }
 
   v33 = 0u;
@@ -408,38 +359,38 @@ LABEL_18:
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v7 = [(ABPKSkeletonDefinition *)self->_abpkLiftingSkeletonDefinition getChildrenIndices:0];
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v8)
+  v8 = [(ABPKSkeletonDefinition *)self->_abpkLiftingSkeletonDefinition getChildrenIndices:0];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v9)
   {
-    v9 = *v29;
+    v10 = *v29;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v29 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        intValue = [*(*(&v28 + 1) + 8 * v10) intValue];
+        intValue = [*(*(&v28 + 1) + 8 * v11) intValue];
         std::deque<std::pair<int,int>>::push_back(v32, &intValue);
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      while (v9 != v11);
+      v9 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   for (i = *(&v34 + 1); *(&v34 + 1); i = *(&v34 + 1))
   {
-    v12 = (*(*&v32[8] + ((v34 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v34 & 0x1FF));
-    v14 = *v12;
-    v13 = v12[1];
+    v13 = (*(*&v32[8] + ((v34 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v34 & 0x1FF));
+    v15 = *v13;
+    v14 = v13[1];
     *&v34 = v34 + 1;
     *(&v34 + 1) = i - 1;
     if (v34 >= 0x400)
@@ -449,46 +400,45 @@ LABEL_18:
       *&v34 = v34 - 512;
     }
 
-    v15 = vsubq_f32(v3[v14], v3[v13]);
-    v16 = vmulq_f32(v15, v15);
-    v16.f32[0] = sqrtf(v16.f32[2] + vaddv_f32(*v16.f32));
-    buf[v14] = vmlaq_n_f32(buf[v13], vdivq_f32(v15, vdupq_lane_s32(*v16.f32, 0)), [ABPK3DLifting _adjustBoneLength:]::bones[v14] * 1000.0);
+    v16 = vsubq_f32(v3[v15], v3[v14]);
+    v17 = vmulq_f32(v16, v16);
+    v17.f32[0] = sqrtf(v17.f32[2] + vaddv_f32(*v17.f32));
+    buf[v15] = vmlaq_n_f32(buf[v14], vdivq_f32(v16, vdupq_lane_s32(*v17.f32, 0)), [ABPK3DLifting _adjustBoneLength:]::bones[v15] * 1000.0);
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v17 = [(ABPKSkeletonDefinition *)self->_abpkLiftingSkeletonDefinition getChildrenIndices:v14, 0];
-    v18 = [v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
-    if (v18)
+    v18 = [(ABPKSkeletonDefinition *)self->_abpkLiftingSkeletonDefinition getChildrenIndices:v15, 0];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    if (v19)
     {
-      v19 = *v24;
-      v20 = v14 << 32;
+      v20 = *v24;
+      v21 = v15 << 32;
       do
       {
-        v21 = 0;
+        v22 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v24 != v20)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          intValue = v20 | [*(*(&v23 + 1) + 8 * v21) intValue];
+          intValue = v21 | [*(*(&v23 + 1) + 8 * v22) intValue];
           std::deque<std::pair<int,int>>::push_back(v32, &intValue);
-          ++v21;
+          ++v22;
         }
 
-        while (v18 != v21);
-        v18 = [v17 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        while (v19 != v22);
+        v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
   }
 
   memcpy(v3, buf, 0x110uLL);
   std::deque<std::pair<int,int>>::~deque[abi:ne200100](v32);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transformRelativeToHip:(ABPK3DLifting *)self count:(SEL)count

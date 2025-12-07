@@ -43,7 +43,7 @@
   tracker = self->_tracker;
   if (tracker)
   {
-    [(FTCinematicTapToTrack *)tracker predictRectForPoint:buffer inColorBuffer:point.x, point.y];
+    objc_msgSend_predictRectForPoint_inColorBuffer_(tracker, a2, buffer, point.x, point.y);
     v6 = 0;
     v5 = 0;
     v8 = 0;
@@ -98,7 +98,7 @@
   tracker = self->_tracker;
   if (tracker)
   {
-    [(FTCinematicTapToTrack *)tracker stepTrackingWithFrame:buffer];
+    objc_msgSend_stepTrackingWithFrame_(tracker, a2, buffer);
     v10 = *(&v19 + 1);
     v9 = v19;
     v12 = *(&v20 + 1);

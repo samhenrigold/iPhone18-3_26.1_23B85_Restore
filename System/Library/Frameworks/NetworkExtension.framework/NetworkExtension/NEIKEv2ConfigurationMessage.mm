@@ -1,6 +1,7 @@
 @interface NEIKEv2ConfigurationMessage
 - (NEIKEv2ConfigurationMessage)initWithWithAttributes:(id)attributes;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEIKEv2ConfigurationMessage
@@ -46,6 +47,47 @@ LABEL_4:
   }
 
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = v7;
+  if (self)
+  {
+    v9 = self->_configurationType - 1;
+    if (v9 < 4)
+    {
+      configurationType = off_1E7F08088[v9];
+      [v7 appendPrettyObject:configurationType withName:@"Type" andIndent:v5 options:options];
+LABEL_6:
+      Property = objc_getProperty(self, v11, 16, 1);
+      goto LABEL_7;
+    }
+
+    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+    configurationType = self->_configurationType;
+  }
+
+  else
+  {
+    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+    configurationType = 0;
+  }
+
+  configurationType = [v12 initWithFormat:@"%u", configurationType];
+  [v8 appendPrettyObject:configurationType withName:@"Type" andIndent:v5 options:options];
+  if (self)
+  {
+    goto LABEL_6;
+  }
+
+  Property = 0;
+LABEL_7:
+  [v8 appendPrettyObject:Property withName:@"Attributes" andIndent:v5 options:options];
+
+  return v8;
 }
 
 - (NEIKEv2ConfigurationMessage)initWithWithAttributes:(id)attributes

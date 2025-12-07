@@ -17,7 +17,7 @@ uint64_t __internal_symptom_new_block_invoke()
   return result;
 }
 
-uint64_t loadedCoreMotion()
+uint64_t loadedCoreMotion(uint64_t a1, uint64_t a2)
 {
   if (loadedCoreMotion_symbolLoadOnce != -1)
   {
@@ -29,7 +29,7 @@ uint64_t loadedCoreMotion()
 
 void __loadedCoreMotion_block_invoke()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = dlopen("/System/Library/Frameworks/CoreMotion.framework/CoreMotion", 6);
   v1 = getenv("DYLD_IMAGE_SUFFIX");
   v2 = v1;
@@ -53,59 +53,56 @@ void __loadedCoreMotion_block_invoke()
     }
   }
 
-  if (v0)
-  {
-    cmMotionActivityManagerClass = objc_getClass("CMMotionActivityManager");
-    loadedCoreMotion_symbolsLoaded = cmMotionActivityManagerClass != 0;
-    dlclose(v0);
-    if (loadedCoreMotion_symbolsLoaded == 1)
-    {
-      v6 = netepochsLogHandle;
-      if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = "[null]";
-        *__path = 136315650;
-        if (v2)
-        {
-          v7 = v2;
-        }
-
-        *&__path[4] = "CMMotionActivityManager";
-        v15 = 2080;
-        v16 = v3;
-        v17 = 2080;
-        v18 = v7;
-        v8 = "MotionStateRelay: Successfully loaded %s class from CoreMotion framework with%s suffix %s.";
-        v9 = v6;
-        v10 = OS_LOG_TYPE_DEFAULT;
-        v11 = 32;
-        goto LABEL_16;
-      }
-    }
-  }
-
-  else
+  if (!v0)
   {
     v12 = netepochsLogHandle;
-    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *__path = 136315138;
+      return;
+    }
+
+    *__path = 136315138;
+    *&__path[4] = "CMMotionActivityManager";
+    v8 = "MotionStateRelay: Failed to load %s class in CoreMotion framework.";
+    v9 = v12;
+    v10 = OS_LOG_TYPE_ERROR;
+    v11 = 12;
+    goto LABEL_16;
+  }
+
+  cmMotionActivityManagerClass = objc_getClass("CMMotionActivityManager");
+  loadedCoreMotion_symbolsLoaded = cmMotionActivityManagerClass != 0;
+  dlclose(v0);
+  if (loadedCoreMotion_symbolsLoaded == 1)
+  {
+    v6 = netepochsLogHandle;
+    if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = "[null]";
+      *__path = 136315650;
+      if (v2)
+      {
+        v7 = v2;
+      }
+
       *&__path[4] = "CMMotionActivityManager";
-      v8 = "MotionStateRelay: Failed to load %s class in CoreMotion framework.";
-      v9 = v12;
-      v10 = OS_LOG_TYPE_ERROR;
-      v11 = 12;
+      v14 = 2080;
+      v15 = v3;
+      v16 = 2080;
+      v17 = v7;
+      v8 = "MotionStateRelay: Successfully loaded %s class from CoreMotion framework with%s suffix %s.";
+      v9 = v6;
+      v10 = OS_LOG_TYPE_DEFAULT;
+      v11 = 32;
 LABEL_16:
       _os_log_impl(&dword_23255B000, v9, v10, v8, __path, v11);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t isMotionActivityAvailable()
+uint64_t isMotionActivityAvailable(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (loadedCoreMotion_symbolLoadOnce != -1)
   {
     loadedCoreMotion_cold_1();
@@ -113,37 +110,36 @@ uint64_t isMotionActivityAvailable()
 
   if (loadedCoreMotion_symbolsLoaded == 1)
   {
-    v0 = [cmMotionActivityManagerClass isActivityAvailable];
+    v2 = [cmMotionActivityManagerClass isActivityAvailable];
   }
 
   else
   {
-    v1 = netepochsLogHandle;
+    v3 = netepochsLogHandle;
     if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_ERROR, "MotionStateRelay: CoreMotion framework not available.", &v6, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "MotionStateRelay: CoreMotion framework not available.", &v7, 2u);
     }
 
-    v0 = 0;
+    v2 = 0;
   }
 
-  v2 = netepochsLogHandle;
+  v4 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = @"NOT ";
-    if (v0)
+    v5 = @"NOT ";
+    if (v2)
     {
-      v3 = &stru_2847966D8;
+      v5 = &stru_2847966D8;
     }
 
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "MotionStateRelay: motion activity class (CMMotionActivityManager) is %@available.", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "MotionStateRelay: motion activity class (CMMotionActivityManager) is %@available.", &v7, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return v0;
+  return v2;
 }
 
 __CFString *hexStringForData(void *a1)
@@ -426,9 +422,9 @@ LABEL_62:
   return [a2 hasError] ^ 1;
 }
 
-void sub_23263D7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23263D7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -522,10 +518,10 @@ uint64_t RefreshExpressions(uint64_t result)
   return result;
 }
 
-void UpdateExpression(uint64_t a1, void *a2, uint64_t a3)
+void UpdateExpression(uint64_t result, void *a2, uint64_t a3)
 {
   v6 = *a2;
-  v7 = *(a1 + 48);
+  v7 = *(result + 48);
   v8 = *(*(v7 + 360) + 56) + 32 * a3;
   *v8 = v6;
   if (v6 > 30)
@@ -648,7 +644,7 @@ LABEL_36:
       if (v6 == 6)
       {
         *(v8 + 8) = *(v7 + 24) + 8;
-        EnvIncrementFactCount(a1, *(*(*(v7 + 360) + 56) + 32 * a3 + 8));
+        EnvIncrementFactCount(result, *(*(*(v7 + 360) + 56) + 32 * a3 + 8));
         goto LABEL_42;
       }
 
@@ -673,7 +669,7 @@ LABEL_36:
 LABEL_41:
   *(v8 + 8) = v10;
 LABEL_42:
-  v15 = *(a1 + 48);
+  v15 = *(result + 48);
   v16 = *(*(v15 + 360) + 56);
   v18 = a2[2];
   v17 = a2[3];
@@ -698,9 +694,9 @@ LABEL_42:
   *(v20 + 32 * a3 + 16) = v21;
 }
 
-void ClearBloadedExpressions(uint64_t a1)
+void ClearBloadedExpressions(void *result)
 {
-  v1 = *(a1 + 48);
+  v1 = result[6];
   v2 = *(v1 + 360);
   if (!*(v2 + 48))
   {
@@ -717,19 +713,19 @@ void ClearBloadedExpressions(uint64_t a1)
     {
       if (((1 << v7) & 0x20000010CLL) != 0)
       {
-        DecrementSymbolCount(a1, *(v6 + v4 + 8));
+        DecrementSymbolCount(result, *(v6 + v4 + 8));
         goto LABEL_16;
       }
 
       if (v7 == 1)
       {
-        DecrementIntegerCount(a1, *(v6 + v4 + 8));
+        DecrementIntegerCount(result, *(v6 + v4 + 8));
         goto LABEL_16;
       }
 
       if (v7 == 6)
       {
-        EnvDecrementFactCount(a1, *(v6 + v4 + 8));
+        EnvDecrementFactCount(result, *(v6 + v4 + 8));
         goto LABEL_16;
       }
     }
@@ -743,7 +739,7 @@ void ClearBloadedExpressions(uint64_t a1)
         {
           if ((*(v8 + 8) & 0x4000) != 0)
           {
-            DecrementBitMapCount(a1, *(v6 + v4 + 8));
+            DecrementBitMapCount(result, *(v6 + v4 + 8));
           }
         }
       }
@@ -751,12 +747,12 @@ void ClearBloadedExpressions(uint64_t a1)
 
     else
     {
-      DecrementFloatCount(a1, *(v6 + v4 + 8));
+      DecrementFloatCount(result, *(v6 + v4 + 8));
     }
 
 LABEL_16:
     ++v5;
-    v1 = *(a1 + 48);
+    v1 = result[6];
     v2 = *(v1 + 360);
     v9 = *(v2 + 48);
     v4 += 32;
@@ -765,8 +761,8 @@ LABEL_16:
   while (v5 < v9);
   if (32 * v9)
   {
-    genfree(a1, *(v2 + 56), 32 * v9);
-    v1 = *(a1 + 48);
+    genfree(result, *(v2 + 56), 32 * v9);
+    v1 = result[6];
   }
 
 LABEL_19:
@@ -3493,21 +3489,21 @@ void sub_23264E42C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2326519C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2326519C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232652794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_232652794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t loadCarKit()
+uint64_t loadCarKit(uint64_t a1, uint64_t a2)
 {
   if (loadCarKit_symbolLoadOnce != -1)
   {
@@ -3519,7 +3515,7 @@ uint64_t loadCarKit()
 
 void __loadCarKit_block_invoke()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = dlopen("/System/Library/PrivateFrameworks/CarKit.framework/CarKit", 6);
   v1 = getenv("DYLD_IMAGE_SUFFIX");
   v2 = v1;
@@ -3543,67 +3539,67 @@ void __loadCarKit_block_invoke()
     }
   }
 
-  if (!v0)
+  if (v0)
   {
-    v12 = bbhLogHandle;
-    if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
+    ckCARAutomaticDNDStatusClass = objc_getClass("CARAutomaticDNDStatus");
+    loadCarKit_symbolsLoaded = ckCARAutomaticDNDStatusClass != 0;
+    dlclose(v0);
+    v6 = bbhLogHandle;
+    if (loadCarKit_symbolsLoaded == 1)
     {
-      goto LABEL_20;
+      if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
+      {
+        return;
+      }
+
+      v7 = "[null]";
+      *__path = 136315650;
+      if (v2)
+      {
+        v7 = v2;
+      }
+
+      *&__path[4] = "CARAutomaticDNDStatus";
+      v14 = 2080;
+      v15 = v3;
+      v16 = 2080;
+      v17 = v7;
+      v8 = "Successfully loaded %s class from CarKit framework with%s suffix %s.";
+      v9 = v6;
+      v10 = OS_LOG_TYPE_INFO;
+      v11 = 32;
+      goto LABEL_19;
     }
 
-    *__path = 136315138;
-    *&__path[4] = "/System/Library/PrivateFrameworks/CarKit.framework/CarKit";
-    v8 = "Failed to load CarKit at %s";
-    v9 = v12;
-LABEL_18:
-    v10 = OS_LOG_TYPE_ERROR;
-    v11 = 12;
-LABEL_19:
-    _os_log_impl(&dword_23255B000, v9, v10, v8, __path, v11);
-    goto LABEL_20;
-  }
-
-  ckCARAutomaticDNDStatusClass = objc_getClass("CARAutomaticDNDStatus");
-  loadCarKit_symbolsLoaded = ckCARAutomaticDNDStatusClass != 0;
-  dlclose(v0);
-  v6 = bbhLogHandle;
-  if (loadCarKit_symbolsLoaded != 1)
-  {
     if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_20;
+      return;
     }
 
     *__path = 136315138;
     *&__path[4] = "CARAutomaticDNDStatus";
     v8 = "Failed to load %s class from CarKit.";
     v9 = v6;
-    goto LABEL_18;
   }
 
-  if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
+  else
   {
-    v7 = "[null]";
-    *__path = 136315650;
-    if (v2)
+    v12 = bbhLogHandle;
+    if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v7 = v2;
+      return;
     }
 
-    *&__path[4] = "CARAutomaticDNDStatus";
-    v15 = 2080;
-    v16 = v3;
-    v17 = 2080;
-    v18 = v7;
-    v8 = "Successfully loaded %s class from CarKit framework with%s suffix %s.";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_INFO;
-    v11 = 32;
-    goto LABEL_19;
+    *__path = 136315138;
+    *&__path[4] = "/System/Library/PrivateFrameworks/CarKit.framework/CarKit";
+    v8 = "Failed to load CarKit at %s";
+    v9 = v12;
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = OS_LOG_TYPE_ERROR;
+  v11 = 12;
+LABEL_19:
+  _os_log_impl(&dword_23255B000, v9, v10, v8, __path, v11);
 }
 
 void sub_2326549D0(_Unwind_Exception *a1)
@@ -3613,16 +3609,16 @@ void sub_2326549D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_232656CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232656CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3663,7 +3659,7 @@ uint64_t GetResetGlobalsCommand(uint64_t a1)
 uint64_t ShowDefglobalsCommand(uint64_t a1)
 {
   v3 = 0;
-  result = EnvArgCountCheck(a1, "show-defglobals", 2u, 1);
+  result = EnvArgCountCheck(a1, "show-defglobals", 2, 1);
   if (result != -1)
   {
     if (result == 1)
@@ -3739,7 +3735,7 @@ LABEL_10:
       EnvPrintRouter(a1, a2, "?*");
       EnvPrintRouter(a1, a2, *(*v9 + 24));
       EnvPrintRouter(a1, a2, "* = ");
-      PrintDataObject(a1, a2, (v9 + 8), v15, v10, v11, v12, v13, v14);
+      PrintDataObject(a1, a2, (v9 + 8));
       result = EnvPrintRouter(a1, a2, "\n");
       v9 = v9[4];
       if (!v9)
@@ -3769,9 +3765,9 @@ uint64_t FactCommandDefinitions(uint64_t a1)
   return FuncSeqOvlFlags(a1, "assert", 0, 0);
 }
 
-uint64_t FactsCommand(char *a1)
+uint64_t FactsCommand(uint64_t *a1)
 {
-  result = EnvArgCountCheck(a1, "facts", 2u, 4);
+  result = EnvArgCountCheck(a1, "facts", 2, 4);
   if (result == -1)
   {
     return result;
@@ -3800,7 +3796,7 @@ LABEL_13:
       if (result != -2)
       {
         v7 = result;
-        result = GetFactsArgument(a1, v6 + 3, v3);
+        result = GetFactsArgument(a1, (v6 + 3), v3);
         if (result != -2)
         {
           return EnvFacts(a1, "wdisplay", CurrentModule, v5, v7, result);
@@ -3843,14 +3839,14 @@ LABEL_16:
   return result;
 }
 
-void *AssertCommand(uint64_t a1, uint64_t a2)
+char *AssertCommand(uint64_t *a1, uint64_t a2)
 {
   v17 = 0u;
   v18 = 0u;
   v16 = 0u;
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
-  v4 = *(**(*(a1 + 48) + 352) + 16);
+  v4 = *(**(a1[6] + 352) + 16);
   v5 = *(v4 + 8);
   if (*(v5 + 56))
   {
@@ -3942,79 +3938,73 @@ void *AssertCommand(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t RetractCommand(uint64_t result)
+uint64_t *RetractCommand(uint64_t *result)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
-  v17 = 0u;
-  v15 = 0u;
-  v1 = *(**(*(result + 48) + 352) + 16);
+  v12 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
+  v10 = 0u;
+  v8 = 0u;
+  v1 = *(**(result[6] + 352) + 16);
   if (v1)
   {
     v2 = result;
-    v3 = 1;
-    while (1)
+    for (i = 1; ; ++i)
     {
-      EvaluateExpression(v2, v1, &v15);
-      if (WORD4(v15) == 6)
+      EvaluateExpression(v2, v1, &v8);
+      if (WORD4(v8) == 6)
       {
         break;
       }
 
-      if (WORD4(v15) == 2)
+      if (WORD4(v8) == 2)
       {
-        v13 = *(v16 + 24);
-        if (*v13 == 42 && !v13[1])
+        v7 = *(v9 + 24);
+        if (*v7 == 42 && !v7[1])
         {
-          result = RemoveAllFacts(v2);
-          goto LABEL_19;
+          return RemoveAllFacts(v2);
         }
       }
 
-      else if (WORD4(v15) == 1)
+      else if (WORD4(v8) == 1)
       {
-        v4 = *(v16 + 24);
+        v4 = *(v9 + 24);
         if (v4 < 0)
         {
-          result = ExpectedTypeError1(v2, "retract", v3, "fact-address, fact-index, or the symbol *");
-          goto LABEL_19;
+          return ExpectedTypeError1(v2, "retract", i, "fact-address, fact-index, or the symbol *");
         }
 
-        IndexedFact = FindIndexedFact(v2, *(v16 + 24));
+        IndexedFact = FindIndexedFact(v2, *(v9 + 24));
         if (!IndexedFact)
         {
-          gensprintf(v18, "f-%lld", v6, v7, v8, v9, v10, v11, v4);
-          result = CantFindItemErrorMessage(v2, "fact", v18);
+          gensprintf(v11, "f-%lld", v4);
+          result = CantFindItemErrorMessage(v2, "fact", v11);
           goto LABEL_14;
         }
 
-        v12 = IndexedFact;
+        v6 = IndexedFact;
         goto LABEL_13;
       }
 
-      ExpectedTypeError1(v2, "retract", v3, "fact-address, fact-index, or the symbol *");
+      ExpectedTypeError1(v2, "retract", i, "fact-address, fact-index, or the symbol *");
       result = SetEvaluationError(v2, 1);
 LABEL_14:
-      ++v3;
       v1 = *(v1 + 24);
       if (!v1)
       {
-        goto LABEL_19;
+        return result;
       }
     }
 
-    v12 = v16;
+    v6 = v9;
 LABEL_13:
-    result = EnvRetract(v2, v12);
+    result = EnvRetract(v2, v6);
     goto LABEL_14;
   }
 
-LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t AssertStringFunction(uint64_t a1, uint64_t a2)
+uint64_t AssertStringFunction(char *a1, uint64_t a2)
 {
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
@@ -4024,7 +4014,7 @@ uint64_t AssertStringFunction(uint64_t a1, uint64_t a2)
     v6 = 0u;
     v7 = 0u;
     v5 = 0u;
-    result = EnvArgTypeCheck(a1, "assert-string", 1, 3, &v5);
+    result = EnvArgTypeCheck(a1, "assert-string", 1, 3u, &v5);
     if (result)
     {
       result = EnvAssertString(a1, *(v6 + 24));
@@ -4063,9 +4053,9 @@ uint64_t SetFactDuplicationCommand(uint64_t a1)
   return FactDuplication;
 }
 
-uint64_t SaveFactsCommand(uint64_t a1)
+char *SaveFactsCommand(uint64_t *a1)
 {
-  v2 = EnvArgCountCheck(a1, "save-facts", 1u, 1);
+  v2 = EnvArgCountCheck(a1, "save-facts", 1, 1);
   if (v2 == -1)
   {
     return 0;
@@ -4087,7 +4077,7 @@ uint64_t SaveFactsCommand(uint64_t a1)
 
     else
     {
-      result = EnvArgTypeCheck(a1, "save-facts", 2, 2, &v9);
+      result = EnvArgTypeCheck(a1, "save-facts", 2, 2u, &v9);
       if (!result)
       {
         return result;
@@ -4117,7 +4107,7 @@ uint64_t SaveFactsCommand(uint64_t a1)
 
       else
       {
-        v7 = *(*(*(**(*(a1 + 48) + 352) + 16) + 24) + 24);
+        v7 = *(*(*(**(a1[6] + 352) + 16) + 24) + 24);
       }
     }
 
@@ -4180,7 +4170,7 @@ void *AssertParse(char *a1, uint64_t a2, char *a3)
   return v5;
 }
 
-uint64_t GetFactsArgument(uint64_t a1, int a2, int a3)
+uint64_t GetFactsArgument(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 > a3)
   {
@@ -4189,10 +4179,11 @@ uint64_t GetFactsArgument(uint64_t a1, int a2, int a3)
 
   v11 = v3;
   v12 = v4;
+  v6 = a2;
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  if (EnvArgTypeCheck(a1, "facts", a2, 1, &v8))
+  if (EnvArgTypeCheck(a1, "facts", a2, 1u, &v8))
   {
     result = *(v9 + 24);
     if ((result & 0x8000000000000000) == 0)
@@ -4200,7 +4191,7 @@ uint64_t GetFactsArgument(uint64_t a1, int a2, int a3)
       return result;
     }
 
-    ExpectedTypeError1(a1, "facts", a2, "positive number");
+    ExpectedTypeError1(a1, "facts", v6, "positive number");
     SetHaltExecution(a1, 1);
     SetEvaluationError(a1, 1);
   }
@@ -4208,7 +4199,7 @@ uint64_t GetFactsArgument(uint64_t a1, int a2, int a3)
   return -2;
 }
 
-uint64_t EnvSaveFactsDriver(uint64_t a1, char *a2, int a3, uint64_t a4)
+uint64_t EnvSaveFactsDriver(uint64_t *a1, char *a2, int a3, uint64_t a4)
 {
   v8 = GenOpen(a1, a2, "w");
   if (!v8)
@@ -4219,7 +4210,7 @@ uint64_t EnvSaveFactsDriver(uint64_t a1, char *a2, int a3, uint64_t a4)
 
   v9 = v8;
   SetFastSave(a1, v8);
-  v10 = *(*(a1 + 48) + 424);
+  v10 = *(a1[6] + 424);
   v12 = *v10;
   v11 = v10[1];
   *v10 = 0x100000001;
@@ -4238,7 +4229,7 @@ LABEL_18:
     if (!NextFactInScope)
     {
 LABEL_30:
-      v27 = *(*(a1 + 48) + 424);
+      v27 = *(a1[6] + 424);
       *v27 = v32;
       v27[1] = v33;
       v27[2] = v31;
@@ -4315,7 +4306,7 @@ LABEL_28:
   while (1)
   {
     EvaluateExpression(a1, v20, v17);
-    if (*(*(*(a1 + 48) + 352) + 8))
+    if (*(*(a1[6] + 352) + 8))
     {
       break;
     }
@@ -4367,7 +4358,7 @@ LABEL_14:
   }
 
   rm(a1, ptr, v14);
-  v30 = *(*(a1 + 48) + 424);
+  v30 = *(a1[6] + 424);
   *v30 = v32;
   v30[1] = v33;
   v30[2] = v31;
@@ -4416,7 +4407,7 @@ BOOL EnvLoadFacts(uint64_t a1, char *a2)
   }
 }
 
-void *StandardLoadFact(uint64_t a1, char *a2, unsigned __int16 *a3)
+void *StandardLoadFact(char *a1, char *a2, unsigned __int16 *a3)
 {
   v9 = 0;
   GetToken(a1, a2, a3);
@@ -4490,11 +4481,11 @@ uint64_t EnvLoadFactsFromString(uint64_t a1, char *__s, uint64_t a3)
   return *(*(*(a1 + 48) + 352) + 8) == 0;
 }
 
-uint64_t ParseRuleLHS(uint64_t a1, char *a2, uint64_t a3, char *a4, int *a5)
+unsigned __int16 *ParseRuleLHS(char *a1, char *a2, uint64_t a3, char *a4, int *a5)
 {
   v17 = 0;
   *a5 = 0;
-  v10 = *(*(a1 + 48) + 152);
+  v10 = *(*(a1 + 6) + 152);
   *(v10 + 92) = 0;
   *(v10 + 96) = 0;
   *(v10 + 104) = 0;
@@ -4540,7 +4531,7 @@ LABEL_10:
   }
 }
 
-uint64_t PropagatePatternType(uint64_t result, uint64_t a2)
+void *PropagatePatternType(void *result, uint64_t a2)
 {
   if (result)
   {
@@ -4613,7 +4604,7 @@ uint64_t LHSPattern(uint64_t a1, char *a2, int a3, const char *a4, _DWORD *a5, i
     v16 = v20;
     if (*a5 != 1)
     {
-      *(v20 + 8) = v18;
+      v20[1] = v18;
       goto LABEL_123;
     }
 
@@ -4661,7 +4652,8 @@ LABEL_25:
         v22 = 0;
         v23 = 0;
         v24 = 0;
-        v59 = 152;
+        LOWORD(v59) = 152;
+        HIDWORD(v59) = 0;
         v60 = 1;
         v25 = "the or conditional element";
       }
@@ -4672,7 +4664,8 @@ LABEL_25:
         v22 = 0;
         v23 = 0;
         v24 = 0;
-        v59 = 0x100000097;
+        LOWORD(v59) = 151;
+        HIDWORD(v59) = 1;
         v60 = 0;
         v25 = "the and conditional element";
       }
@@ -4680,10 +4673,11 @@ LABEL_25:
       else if (!strcmp(v21, "not"))
       {
         SavePPBuffer(a1, " ");
+        HIDWORD(v59) = 0;
         v60 = 0;
         v23 = 0;
         v24 = 0;
-        v59 = 153;
+        LOWORD(v59) = 153;
         v22 = 1;
         v25 = "the not conditional element";
       }
@@ -4691,10 +4685,11 @@ LABEL_25:
       else if (!strcmp(v21, "exists"))
       {
         PPCRAndIndent(a1);
+        HIDWORD(v59) = 0;
         v60 = 0;
         v22 = 0;
         v24 = 0;
-        v59 = 156;
+        LOWORD(v59) = 156;
         v23 = 1;
         v25 = "the exists conditional element";
       }
@@ -4702,10 +4697,11 @@ LABEL_25:
       else if (!strcmp(v21, "forall"))
       {
         PPCRAndIndent(a1);
+        HIDWORD(v59) = 0;
         v60 = 0;
         v22 = 0;
         v23 = 0;
-        v59 = 157;
+        LOWORD(v59) = 157;
         v24 = 1;
         v25 = "the forall conditional element";
       }
@@ -5011,7 +5007,7 @@ LABEL_68:
           goto LABEL_71;
         }
 
-        SalienceRangeError(a1, 240, 16);
+        SalienceRangeError(a1, -10000, 10000);
       }
 
       else
@@ -5085,7 +5081,7 @@ LABEL_124:
   return v16;
 }
 
-uint64_t GroupPatterns(char *a1, uint64_t a2, uint64_t a3, char *a4, _DWORD *a5)
+uint64_t GroupPatterns(char *a1, uint64_t a2, int a3, char *a4, _DWORD *a5)
 {
   v10 = LHSPattern(a1, a2, a3, a4, a5, 0, 0, 0);
   v11 = 0;
@@ -5133,7 +5129,7 @@ LABEL_7:
   return v12;
 }
 
-uint64_t SimplePatternParse(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+void *SimplePatternParse(void *a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   if (*a3 != 2)
   {
@@ -5157,7 +5153,7 @@ LABEL_11:
   v12 = v11;
   *v11 = 150;
   *(v11 + 16) &= 0xFFFFFFFC;
-  v13 = **(*(a1 + 48) + 152);
+  v13 = **(a1[6] + 152);
   if (v13)
   {
     while (!(*(v13 + 24))(*(a3 + 8), v10))
@@ -5169,9 +5165,9 @@ LABEL_11:
       }
     }
 
-    *(v12 + 48) = v13;
+    v12[6] = v13;
     v16 = (*(v13 + 32))(a1, a2, a3);
-    *(v12 + 192) = v16;
+    v12[24] = v16;
     if (v16)
     {
       PropagatePatternType(v12, v13);
@@ -5192,7 +5188,7 @@ LABEL_8:
   return 0;
 }
 
-uint64_t TagLHSLogicalNodes(uint64_t result)
+unsigned __int16 *TagLHSLogicalNodes(unsigned __int16 *result)
 {
   if (result)
   {
@@ -5288,7 +5284,7 @@ LABEL_13:
       if (AssertArgument)
       {
         v24 = *AssertArgument;
-        if (v24 == 36 || v24 == 30 && *(AssertArgument[1] + 16) == 109)
+        if (v24 == 36 || v24 == 30 && *(*(AssertArgument + 1) + 16) == 109)
         {
           *a4 = 1;
           SingleFieldSlotCardinalityError(a1, *(*v17 + 24));
@@ -5444,7 +5440,7 @@ LABEL_3:
 LABEL_62:
     if (*(v34 + 8))
     {
-      v39 = EnvAddBitMap(a1, byte_232816C48, 1u);
+      v39 = EnvAddBitMap(a1, byte_232816C48, 1);
       v40 = GenConstant(a1, 62, v39);
       v40[2] = v38;
       v38 = v40;
@@ -5677,47 +5673,47 @@ uint64_t InitializeFactReteFunctions(uint64_t a1)
   return InstallPrimitive(a1, v54, 61);
 }
 
-void *FactGenPNConstant(uint64_t a1, uint64_t a2)
+void *FactGenPNConstant(uint64_t a1, unsigned __int16 *a2)
 {
   v16 = 0;
   v15 = 0;
-  if ((*(a2 + 16) & 0x10000) == 0)
+  if ((*(a2 + 4) & 0x10000) == 0)
   {
     ClearBitString(&v16, 4u);
-    LOBYTE(v16) = (v16 & 0xFE | *(a2 + 16) & 1) ^ 1;
-    HIWORD(v16) = *(a2 + 72) - 1;
-    v4 = EnvAddBitMap(a1, &v16, 4u);
+    LOBYTE(v16) = (v16 & 0xFE | a2[8] & 1) ^ 1;
+    HIWORD(v16) = a2[36] - 1;
+    v4 = EnvAddBitMap(a1, &v16, 4);
     v5 = a1;
     v6 = 60;
 LABEL_12:
     v8 = GenConstant(v5, v6, v4);
-    v8[2] = GenConstant(a1, *a2, *(a2 + 8));
+    v8[2] = GenConstant(a1, *a2, *(a2 + 1));
     return v8;
   }
 
-  if (!*(a2 + 20) || *(a2 + 20) == 1 && !*(a2 + 22))
+  if (!a2[10] || a2[10] == 1 && !a2[11])
   {
     ClearBitString(&v15, 8u);
-    v10 = v15 & 0xFC | *(a2 + 16) & 1;
-    WORD2(v15) = *(a2 + 72) - 1;
-    v11 = 26;
-    if (!*(a2 + 20))
+    v10 = v15 & 0xFC | a2[8] & 1;
+    WORD2(v15) = a2[36] - 1;
+    v11 = 13;
+    if (!a2[10])
     {
-      v11 = 24;
+      v11 = 12;
     }
 
-    v12 = v10 | (2 * (*(a2 + 20) == 0));
-    v13 = *(a2 + v11);
+    v12 = v10 | (2 * (a2[10] == 0));
+    v13 = a2[v11];
     LOBYTE(v15) = v12 ^ 1;
     WORD1(v15) = v13;
-    v4 = EnvAddBitMap(a1, &v15, 8u);
+    v4 = EnvAddBitMap(a1, &v15, 8);
     v5 = a1;
     v6 = 61;
     goto LABEL_12;
   }
 
   v7 = 24;
-  if ((*(a2 + 16) & 1) == 0)
+  if ((*(a2 + 4) & 1) == 0)
   {
     v7 = 16;
   }
@@ -5727,7 +5723,7 @@ LABEL_12:
   *a2 = 35;
   v8[2] = FactGenGetfield(a1, a2);
   *a2 = v9;
-  *(v8[2] + 24) = GenConstant(a1, v9, *(a2 + 8));
+  *(v8[2] + 24) = GenConstant(a1, v9, *(a2 + 1));
   return v8;
 }
 
@@ -5758,7 +5754,7 @@ void *FactGenGetfield(uint64_t a1, unsigned __int16 *a2)
     v10 = 0;
     ClearBitString(&v10, 2u);
     v10 = a2[36] - 1;
-    v4 = EnvAddBitMap(a1, &v10, 2u);
+    v4 = EnvAddBitMap(a1, &v10, 2);
     return GenConstant(a1, 55, v4);
   }
 }
@@ -5798,7 +5794,7 @@ uint64_t *FactGetVarPN3(uint64_t a1, unsigned __int16 *a2)
   }
 
   WORD2(v10) = v5;
-  return EnvAddBitMap(a1, &v10, 8u);
+  return EnvAddBitMap(a1, &v10, 8);
 }
 
 uint64_t *FactGetVarPN1(uint64_t a1, uint64_t a2)
@@ -5830,7 +5826,7 @@ uint64_t *FactGetVarPN1(uint64_t a1, uint64_t a2)
     }
   }
 
-  return EnvAddBitMap(a1, &v7, 8u);
+  return EnvAddBitMap(a1, &v7, 8);
 }
 
 void *FactGenGetvar(uint64_t a1, unsigned __int16 *a2, int a3)
@@ -5925,7 +5921,7 @@ LABEL_7:
   LOBYTE(v9) = v9 | 2;
 LABEL_9:
   WORD1(v9) = v7;
-  return EnvAddBitMap(a1, &v9, 8u);
+  return EnvAddBitMap(a1, &v9, 8);
 }
 
 uint64_t *FactGetVarJN3(uint64_t a1, unsigned __int16 *a2, int a3)
@@ -5989,7 +5985,7 @@ LABEL_9:
   }
 
   WORD2(v14) = v9;
-  return EnvAddBitMap(a1, &v14, 0xCu);
+  return EnvAddBitMap(a1, &v14, 12);
 }
 
 uint64_t *FactGetVarJN1(uint64_t a1, uint64_t a2, int a3)
@@ -6039,7 +6035,7 @@ LABEL_9:
     }
   }
 
-  return EnvAddBitMap(a1, &v11, 8u);
+  return EnvAddBitMap(a1, &v11, 8);
 }
 
 void *FactGenCheckLength(uint64_t a1, unsigned __int16 *a2)
@@ -6079,7 +6075,7 @@ void *FactGenCheckLength(uint64_t a1, unsigned __int16 *a2)
   }
 
   WORD1(v10) = v6;
-  v9 = EnvAddBitMap(a1, &v10, 8u);
+  v9 = EnvAddBitMap(a1, &v10, 8);
   return GenConstant(a1, 53, v9);
 }
 
@@ -6090,7 +6086,7 @@ void *FactGenCheckZeroLength(uint64_t a1, __int16 a2)
   WORD2(v6) = a2 - 1;
   LOBYTE(v6) = v6 | 1;
   WORD1(v6) = 0;
-  v4 = EnvAddBitMap(a1, &v6, 8u);
+  v4 = EnvAddBitMap(a1, &v6, 8);
   return GenConstant(a1, 53, v4);
 }
 
@@ -6203,7 +6199,7 @@ LABEL_11:
   v8 = 0;
   ClearBitString(&v8, 2u);
   v8 = a3[36] - 1;
-  result = EnvAddBitMap(a1, &v8, 2u);
+  result = EnvAddBitMap(a1, &v8, 2);
 LABEL_16:
   *(a2 + 8) = result;
   return result;
@@ -6242,7 +6238,7 @@ void *FactPNVariableComparison(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     LOBYTE(v17) = v17 & 0xFC | v12;
-    v13 = EnvAddBitMap(a1, &v17, 8u);
+    v13 = EnvAddBitMap(a1, &v17, 8);
     return GenConstant(a1, 50, v13);
   }
 
@@ -6321,7 +6317,7 @@ void *FactJNVariableComparison(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
       }
 
       LOBYTE(v32) = v18 | v32 & 0xFC;
-      v19 = EnvAddBitMap(a1, &v32, 0xCu);
+      v19 = EnvAddBitMap(a1, &v32, 12);
       v20 = a1;
       v21 = 51;
       return GenConstant(v20, v21, v19);
@@ -6405,7 +6401,7 @@ void *FactJNVariableComparison(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
     }
 
     LOBYTE(v30) = v29 | v27;
-    v19 = EnvAddBitMap(a1, &v30, 0x10u);
+    v19 = EnvAddBitMap(a1, &v30, 16);
     v20 = a1;
     v21 = 52;
     return GenConstant(v20, v21, v19);
@@ -6611,9 +6607,9 @@ LABEL_11:
   return result;
 }
 
-uint64_t CleanCurrentGarbageFrame(uint64_t result, uint64_t a2)
+void *CleanCurrentGarbageFrame(void *result, uint64_t a2)
 {
-  v2 = *(*(result + 48) + 440);
+  v2 = *(result[6] + 440);
   v3 = v2[14];
   if (*v3)
   {
@@ -6621,7 +6617,7 @@ uint64_t CleanCurrentGarbageFrame(uint64_t result, uint64_t a2)
     if (a2)
     {
       v6 = ValueInstall(result, a2);
-      for (i = **(*(v5 + 48) + 440); i; i = *(i + 24))
+      for (i = **(v5[6] + 440); i; i = *(i + 24))
       {
         v8 = *(i + 8);
         if (*(i + 32))
@@ -6954,7 +6950,7 @@ char *InsertInString(uint64_t a1, char *__s, uint64_t a3, char *a4, void *a5, un
   return a4;
 }
 
-char *AppendNToString(uint64_t a1, char *__src, char *a3, size_t __n, uint64_t *a5, unint64_t *a6)
+char *AppendNToString(uint64_t a1, char *__src, char *a3, size_t __n, uint64_t *a5, size_t *a6)
 {
   v8 = a3;
   if (__src[__n - 1])
@@ -6985,7 +6981,7 @@ char *AppendNToString(uint64_t a1, char *__src, char *a3, size_t __n, uint64_t *
   return v8;
 }
 
-void *AddFunctionToCallListWithContext(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void *a5, __int16 a6, uint64_t a7)
+_DWORD *AddFunctionToCallListWithContext(uint64_t a1, uint64_t a2, int a3, uint64_t a4, _DWORD *a5, __int16 a6, uint64_t a7)
 {
   v13 = *(a1 + 48);
   v14 = *(v13 + 472);
@@ -7016,7 +7012,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (*(a5 + 4) <= a3)
+  if (a5[4] <= a3)
   {
     v18 = v16;
     v19 = a5;
@@ -7027,10 +7023,10 @@ LABEL_12:
   do
   {
     v18 = v17;
-    v17 = v17[3];
+    v17 = *(v17 + 24);
   }
 
-  while (v17 && *(v17 + 4) > a3);
+  while (v17 && *(v17 + 16) > a3);
   v16[3] = v17;
   v19 = v16;
 LABEL_13:
@@ -7058,7 +7054,7 @@ uint64_t DeallocateCallList(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t ItemHashValue(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
+uint64_t ItemHashValue(uint64_t a1, int a2, uint64_t a3, unint64_t a4, __n128 a5)
 {
   if (a2 > 3)
   {
@@ -7068,9 +7064,9 @@ uint64_t ItemHashValue(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
 
         return HashMultifield(a3, a4);
       case 5:
-        v9 = *(a3 + 24);
+        v10 = *(a3 + 24);
 
-        return HashExternalAddress(v9, a4);
+        return HashExternalAddress(v10, a4);
       case 6:
         return *(a3 + 56) % a4;
       default:
@@ -7080,9 +7076,9 @@ uint64_t ItemHashValue(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
 
   else if ((a2 - 2) < 2)
   {
-    v7 = *(a3 + 24);
+    v8 = *(a3 + 24);
 
-    return HashSymbol(v7, a4);
+    return HashSymbol(v8, a4);
   }
 
   else
@@ -7091,9 +7087,9 @@ uint64_t ItemHashValue(uint64_t a1, int a2, uint64_t a3, unint64_t a4)
     {
       if (a2 == 1)
       {
-        v5 = *(a3 + 24);
+        v6 = *(a3 + 24);
 
-        return HashInteger(v5, a4);
+        return HashInteger(v6, a4);
       }
 
 LABEL_18:
@@ -7101,9 +7097,9 @@ LABEL_18:
       return 0;
     }
 
-    v8 = *(a3 + 24);
+    v9 = *(a3 + 24);
 
-    return HashFloat(a4, v8);
+    return HashFloat(a4, v9);
   }
 }
 
@@ -7122,10 +7118,10 @@ uint64_t (*YieldTime(uint64_t a1))(void)
   return result;
 }
 
-uint64_t EnvDecrementGCLocks(uint64_t result)
+void *EnvDecrementGCLocks(void *result)
 {
   v1 = result;
-  v2 = *(result + 48);
+  v2 = result[6];
   v3 = *(v2 + 440);
   v4 = *(v3 + 16);
   if (v4 >= 1)
@@ -7349,7 +7345,7 @@ uint64_t UTF8CharNum(uint64_t a1, unint64_t a2)
   return result;
 }
 
-BOOL CheckArgumentAgainstRestriction(uint64_t a1, unsigned __int16 *a2, int a3)
+BOOL CheckArgumentAgainstRestriction(void *a1, unsigned __int16 *a2, int a3)
 {
   v5 = ExpressionToConstraintRecord(a1, a2);
   v6 = ArgumentTypeToConstraintRecord(a1, a3);
@@ -7389,16 +7385,16 @@ uint64_t IdenticalExpression(void *a1, void *a2)
     return v3 == v2;
   }
 
-  while (*v3 == *v2 && v3[1] == v2[1])
+  while (*v3 == *v2 && *(v3 + 1) == *(v2 + 1))
   {
-    result = IdenticalExpression(v3[2], v2[2]);
+    result = IdenticalExpression(*(v3 + 2), *(v2 + 2));
     if (!result)
     {
       return result;
     }
 
-    v3 = v3[3];
-    v2 = v2[3];
+    v3 = *(v3 + 3);
+    v2 = *(v2 + 3);
     if (!v3 || !v2)
     {
       return v3 == v2;
@@ -7418,16 +7414,16 @@ uint64_t CountArguments(uint64_t a1)
   return i;
 }
 
-void *CopyExpression(uint64_t a1, uint64_t a2)
+void *CopyExpression(uint64_t a1, void *a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v4 = GenConstant(a1, *a2, *(a2 + 8));
-  v4[2] = CopyExpression(a1, *(a2 + 16));
-  v5 = *(a2 + 24);
+  v4 = GenConstant(a1, *a2, a2[1]);
+  v4[2] = CopyExpression(a1, a2[2]);
+  v5 = a2[3];
   if (v5)
   {
     v6 = v4;
@@ -7529,9 +7525,10 @@ uint64_t ExpressionSize(uint64_t a1)
   do
   {
     ++v2;
-    if (*(v1 + 16))
+    v3 = *(v1 + 16);
+    if (v3)
     {
-      v2 += ExpressionSize();
+      v2 += ExpressionSize(v3);
     }
 
     v1 = *(v1 + 24);
@@ -7541,79 +7538,79 @@ uint64_t ExpressionSize(uint64_t a1)
   return v2;
 }
 
-uint64_t PrintExpression(uint64_t result, FILE *a2, uint64_t *a3, __n128 a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t PrintExpression(uint64_t result, FILE *a2, uint64_t *a3)
 {
   if (a3)
   {
-    v9 = a3;
+    v3 = a3;
     for (i = result; ; EnvPrintRouter(i, a2, " "))
     {
-      v12 = *v9;
-      if (*v9 <= 0x21u)
+      v6 = *v3;
+      if (v6 <= 0x21)
       {
-        if (v12 == 30)
+        if (v6 == 30)
         {
           EnvPrintRouter(i, a2, "(");
-          EnvPrintRouter(i, a2, *(*v9[1] + 24));
-          if (v9[2])
+          EnvPrintRouter(i, a2, *(*v3[1] + 24));
+          if (v3[2])
           {
             EnvPrintRouter(i, a2, " ");
-            v21 = v9[2];
+            v15 = v3[2];
           }
 
           else
           {
-            v21 = 0;
+            v15 = 0;
           }
 
-          PrintExpression(i, a2, v21);
-          v19 = i;
-          v20 = a2;
-          v18 = ")";
+          PrintExpression(i, a2, v15);
+          v13 = i;
+          v14 = a2;
+          v12 = ")";
           goto LABEL_13;
         }
 
-        if (v12 != 33)
+        if (v6 != 33)
         {
 LABEL_10:
-          v16 = *(*(i + 48) + 352);
-          v17 = *v16;
-          *v16 = v9;
-          result = PrintAtom(i, a2, v12, v9[1], a6, a7, a8, a9, a4);
-          **(*(i + 48) + 352) = v17;
+          v10 = *(*(i + 48) + 352);
+          v11 = *v10;
+          *v10 = v3;
+          result = PrintAtom(i, a2, v6, v3[1]);
+          **(*(i + 48) + 352) = v11;
           goto LABEL_14;
         }
       }
 
       else
       {
-        if (v12 == 34 || v12 == 36)
+        if (v6 == 34 || v6 == 36)
         {
-          v13 = i;
-          v14 = a2;
-          v15 = "$?";
+          v7 = i;
+          v8 = a2;
+          v9 = "$?";
           goto LABEL_12;
         }
 
-        if (v12 != 35)
+        if (v6 != 35)
         {
           goto LABEL_10;
         }
       }
 
+      v7 = i;
+      v8 = a2;
+      v9 = "?";
+LABEL_12:
+      EnvPrintRouter(v7, v8, v9);
+      v12 = *(v3[1] + 24);
       v13 = i;
       v14 = a2;
-      v15 = "?";
-LABEL_12:
-      EnvPrintRouter(v13, v14, v15);
-      v18 = *(v9[1] + 24);
-      v19 = i;
-      v20 = a2;
 LABEL_13:
-      result = EnvPrintRouter(v19, v20, v18);
+      result = EnvPrintRouter(v13, v14, v12);
 LABEL_14:
-      v9 = v9[3];
-      if (!v9)
+      v3 = v3[3];
+      if (!v3)
       {
         return result;
       }
@@ -7749,26 +7746,26 @@ uint64_t AppendExpressions(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2326654E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2326654E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_232667920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id location, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id a49, id a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, id a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v69 + 40));
-  objc_destroyWeak((v68 + 40));
+  objc_destroyWeak((v67 + 40));
+  objc_destroyWeak((v66 + 40));
   objc_destroyWeak(&location);
-  objc_destroyWeak((v70 + 32));
-  objc_destroyWeak((v71 + 40));
+  objc_destroyWeak((v68 + 32));
+  objc_destroyWeak((v69 + 40));
   objc_destroyWeak(&a49);
   objc_destroyWeak(&a50);
   objc_destroyWeak(&a55);
   objc_destroyWeak(&a61);
-  objc_destroyWeak(&a67);
-  objc_destroyWeak(&a68);
+  objc_destroyWeak(&a65);
+  objc_destroyWeak(&a66);
   objc_destroyWeak(&STACK[0x208]);
   objc_destroyWeak(&STACK[0x238]);
   objc_destroyWeak(&STACK[0x240]);

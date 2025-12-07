@@ -6,6 +6,7 @@
 - (NSArray)outputs;
 - (NSDictionary)metadata;
 - (VisionCoreE5RTFunction)initWithProgramLibrary:(id)library name:(id)name ownedFunctionHandle:(e5rt_program_function *)handle;
+- (VisionCoreImageTensorDescriptor)_newDescriptorForIOPort:(void *)port named:(void *)named error:;
 - (e5rt_execution_stream_operation)createOperationExecutionStreamWithError:(id *)error;
 - (id)_tensorDescriptorOfClass:(uint64_t)class providedByBlock:(uint64_t)block error:;
 - (id)description;
@@ -16,7 +17,6 @@
 - (id)descriptorsForInputs:(id)inputs error:(id *)error;
 - (id)descriptorsForOutputs:(id)outputs error:(id *)error;
 - (id)prepareForExecutionWithError:(id *)error;
-- (uint64_t)_newDescriptorForIOPort:(void *)port named:(void *)named error:;
 - (void)_buildDescriptorsCaches;
 - (void)dealloc;
 @end
@@ -70,7 +70,7 @@
 
   else
   {
-    v10 = 0;
+    *v10 = 0;
     precompiled_compute_operation_with_options = e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options();
     if (precompiled_compute_operation_with_options)
     {
@@ -88,15 +88,15 @@
 
     else
     {
-      v6 = v10;
+      v6 = *v10;
     }
 
     e5rt_precompiled_compute_op_create_options_release();
     v8 = _VisionCoreSignpostLog();
     if (os_signpost_enabled(v8))
     {
-      LOWORD(v10) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DECDA000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreE5RTCreateExecutionStreamOperation", &unk_1DED1344A, &v10, 2u);
+      *v10 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DECDA000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreE5RTCreateExecutionStreamOperation", &unk_1DED1344A, v10, 2u);
     }
   }
 
@@ -540,7 +540,7 @@ LABEL_33:
   return v29;
 }
 
-- (uint64_t)_newDescriptorForIOPort:(void *)port named:(void *)named error:
+- (VisionCoreImageTensorDescriptor)_newDescriptorForIOPort:(void *)port named:(void *)named error:
 {
   portCopy = port;
   if (!self)

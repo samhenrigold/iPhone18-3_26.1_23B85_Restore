@@ -22,17 +22,17 @@
 
 - (SRDTranscriptionResult)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = SRDTranscriptionResult;
-  v5 = [(SRDTranscriptionResult *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SRDTranscriptionResult;
+  v5 = [(SRDTranscriptionResult *)&v23 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"tokenSausage"];
@@ -64,7 +64,6 @@
     v5->_utteranceID = [v21 unsignedIntegerValue];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

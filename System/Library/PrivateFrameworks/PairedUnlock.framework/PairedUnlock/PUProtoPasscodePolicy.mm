@@ -40,12 +40,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  modificationAllowed = self->_modificationAllowed;
-  v7 = toCopy;
   PBDataWriterWriteBOOLField();
   if (*&self->_has)
   {
-    minimumLength = self->_minimumLength;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -81,7 +78,6 @@
     goto LABEL_10;
   }
 
-  v5 = *(equalCopy + 12);
   if (self->_modificationAllowed)
   {
     if ((*(equalCopy + 12) & 1) == 0)
@@ -93,11 +89,11 @@
   else if (*(equalCopy + 12))
   {
 LABEL_10:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_11;
   }
 
-  v6 = (*(equalCopy + 16) & 1) == 0;
+  v5 = (*(equalCopy + 16) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 16) & 1) == 0 || self->_minimumLength != *(equalCopy + 2))
@@ -105,12 +101,12 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_11:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

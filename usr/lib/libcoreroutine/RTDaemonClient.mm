@@ -3542,12 +3542,12 @@ void __53__RTDaemonClient_fetchStoredVisitsWithOptions_reply___block_invoke(uint
   dispatch_async(v7, v11);
 }
 
-void __53__RTDaemonClient_fetchStoredVisitsWithOptions_reply___block_invoke_2(uint64_t a1)
+void __53__RTDaemonClient_fetchStoredVisitsWithOptions_reply___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 32) executableName];
-  v5 = [v2 filterVisits:v3 executable:v4];
+  v3 = objc_opt_class();
+  v4 = *(a1 + 40);
+  v5 = [*(a1 + 32) executableName];
+  v6 = [v3 filterVisits:v4 executable:v5];
 
   (*(*(a1 + 56) + 16))();
 }

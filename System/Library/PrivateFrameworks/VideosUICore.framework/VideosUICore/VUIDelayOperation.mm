@@ -100,7 +100,7 @@
 
 - (void)executionDidBegin
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.VUIDelayOperation.%p", self];
   v4 = dispatch_queue_create([v3 UTF8String], 0);
   v5 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v4);
@@ -109,14 +109,14 @@
   handler[1] = 3221225472;
   handler[2] = __38__VUIDelayOperation_executionDidBegin__block_invoke;
   handler[3] = &unk_279E217C0;
-  objc_copyWeak(&v18, &location);
+  objc_copyWeak(&v19, &location);
   dispatch_source_set_event_handler(v5, handler);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __38__VUIDelayOperation_executionDidBegin__block_invoke_18;
-  v15[3] = &unk_279E217C0;
-  objc_copyWeak(&v16, &location);
-  dispatch_source_set_cancel_handler(v5, v15);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __38__VUIDelayOperation_executionDidBegin__block_invoke_18;
+  v16[3] = &unk_279E217C0;
+  objc_copyWeak(&v17, &location);
+  dispatch_source_set_cancel_handler(v5, v16);
   [(VUIDelayOperation *)self delay];
   v7 = v6;
   [(VUIDelayOperation *)self tolerance];
@@ -144,12 +144,12 @@
   }
 
   dispatch_source_set_timer(v5, v13, 0xFFFFFFFFFFFFFFFFLL, (v9 * 1000000000.0));
-  v14 = VUICDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUICDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_270E6E000, v14, OS_LOG_TYPE_DEFAULT, "Delay operation timer will begin %@", buf, 0xCu);
+    _os_log_impl(&dword_270E6E000, v15, OS_LOG_TYPE_DEFAULT, "Delay operation timer will begin %@", buf, 0xCu);
   }
 
   dispatch_resume(v5);
@@ -159,44 +159,46 @@
     [(VUIDelayOperation *)self _cancelTimer];
   }
 
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
 void __38__VUIDelayOperation_executionDidBegin__block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = VUICDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 138412290;
-      v4 = WeakRetained;
-      _os_log_impl(&dword_270E6E000, v2, OS_LOG_TYPE_DEFAULT, "Delay operation timer did fire %@", &v3, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_270E6E000, v3, OS_LOG_TYPE_DEFAULT, "Delay operation timer did fire %@", &v4, 0xCu);
     }
 
-    [WeakRetained finishExecutionIfPossible];
+    [v2 finishExecutionIfPossible];
   }
 }
 
 void __38__VUIDelayOperation_executionDidBegin__block_invoke_18(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = VUICDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 138412290;
-      v4 = WeakRetained;
-      _os_log_impl(&dword_270E6E000, v2, OS_LOG_TYPE_DEFAULT, "Delay operation timer cancelled %@", &v3, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_270E6E000, v3, OS_LOG_TYPE_DEFAULT, "Delay operation timer cancelled %@", &v4, 0xCu);
     }
 
-    [WeakRetained finishExecutionIfPossible];
+    [v2 finishExecutionIfPossible];
   }
 }
 

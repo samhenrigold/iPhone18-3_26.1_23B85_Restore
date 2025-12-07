@@ -19,7 +19,7 @@
 
   if (dataSource && [movedAssets count] && objc_msgSend(dataSource, "numberOfSections") == 1)
   {
-    [dataSource firstSectionIndexPath];
+    objc_msgSend_firstSectionIndexPath(dataSource);
     v11 = [dataSource assetsInSectionIndexPath:v41];
     v12 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndexesInRange:{0, objc_msgSend(v11, "count")}];
     v13 = [v11 objectsAtIndexes:v12];
@@ -167,7 +167,7 @@ void __52__PXStoryRearrangeMemoryAssetsAction_performAction___block_invoke_3(uin
   v4 = *(a1 + 32);
   if (v4)
   {
-    [*(a1 + 32) firstSectionIndexPath];
+    objc_msgSend_firstSectionIndexPath(*(a1 + 32));
   }
 
   else

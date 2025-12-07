@@ -26,31 +26,30 @@
 
 - (void)setStencilStoreActionOptions:(unint64_t)options
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setStencilStoreActionOptions:options];
-  v6 = v16;
-  *(v16 + 8) = -16026;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -16026;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -62,41 +61,40 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = options;
+  *v7 = var0;
+  *(v7 + 1) = options;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setStencilStoreAction:(unint64_t)action
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setStencilStoreAction:action];
-  v6 = v16;
-  *(v16 + 8) = -16160;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -16160;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -108,41 +106,40 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = action;
+  *v7 = var0;
+  *(v7 + 1) = action;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setDepthStoreActionOptions:(unint64_t)options
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setDepthStoreActionOptions:options];
-  v6 = v16;
-  *(v16 + 8) = -16027;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -16027;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -154,41 +151,40 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = options;
+  *v7 = var0;
+  *(v7 + 1) = options;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setDepthStoreAction:(unint64_t)action
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setDepthStoreAction:action];
-  v6 = v16;
-  *(v16 + 8) = -16161;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -16161;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -200,41 +196,40 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = action;
+  *v7 = var0;
+  *(v7 + 1) = action;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setColorStoreActionOptions:(unint64_t)options atIndex:(unint64_t)index
 {
-  v18 = 0u;
-  v19 = 0u;
   v17 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
+  v18 = 0u;
+  v16 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setColorStoreActionOptions:options atIndex:index];
-  v8 = v18;
-  *(v18 + 8) = -16028;
-  v9 = BYTE9(v19);
-  if (BYTE9(v19) > 0x28uLL)
+  v7 = v17;
+  *(v17 + 8) = -16028;
+  v8 = BYTE9(v18);
+  if (BYTE9(v18) > 0x28uLL)
   {
-    v11 = *(*(&v17 + 1) + 24);
-    v12 = BYTE10(v19);
-    ++BYTE10(v19);
-    v10 = GTTraceMemPool_allocateBytes(v11, *(&v18 + 1), v12 | 0x1800000000) + 16;
-    v9 = v12;
+    v10 = *(*(&v16 + 1) + 24);
+    v11 = BYTE10(v18);
+    ++BYTE10(v18);
+    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1800000000) + 16;
+    v8 = v11;
   }
 
   else
   {
-    v10 = (v8 + BYTE9(v19));
-    BYTE9(v19) += 24;
+    v9 = (v7 + BYTE9(v18));
+    BYTE9(v18) += 24;
   }
 
-  *(v8 + 13) = v9;
+  *(v7 + 13) = v8;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -246,42 +241,41 @@
     var0 = 0;
   }
 
-  *v10 = var0;
-  *(v10 + 1) = options;
-  *(v10 + 2) = index;
+  *v9 = var0;
+  *(v9 + 1) = options;
+  *(v9 + 2) = index;
   s();
-  *v15 = v16;
-  *(v15 + 8) = BYTE8(v19);
-  *(v18 + 15) |= 8u;
+  *v14 = v15;
+  *(v14 + 8) = BYTE8(v18);
+  *(v17 + 15) |= 8u;
 }
 
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index
 {
-  v18 = 0u;
-  v19 = 0u;
   v17 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
+  v18 = 0u;
+  v16 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setColorStoreAction:action atIndex:index];
-  v8 = v18;
-  *(v18 + 8) = -16162;
-  v9 = BYTE9(v19);
-  if (BYTE9(v19) > 0x28uLL)
+  v7 = v17;
+  *(v17 + 8) = -16162;
+  v8 = BYTE9(v18);
+  if (BYTE9(v18) > 0x28uLL)
   {
-    v11 = *(*(&v17 + 1) + 24);
-    v12 = BYTE10(v19);
-    ++BYTE10(v19);
-    v10 = GTTraceMemPool_allocateBytes(v11, *(&v18 + 1), v12 | 0x1800000000) + 16;
-    v9 = v12;
+    v10 = *(*(&v16 + 1) + 24);
+    v11 = BYTE10(v18);
+    ++BYTE10(v18);
+    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1800000000) + 16;
+    v8 = v11;
   }
 
   else
   {
-    v10 = (v8 + BYTE9(v19));
-    BYTE9(v19) += 24;
+    v9 = (v7 + BYTE9(v18));
+    BYTE9(v18) += 24;
   }
 
-  *(v8 + 13) = v9;
+  *(v7 + 13) = v8;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -293,43 +287,42 @@
     var0 = 0;
   }
 
-  *v10 = var0;
-  *(v10 + 1) = action;
-  *(v10 + 2) = index;
+  *v9 = var0;
+  *(v9 + 1) = action;
+  *(v9 + 2) = index;
   s();
-  *v15 = v16;
-  *(v15 + 8) = BYTE8(v19);
-  *(v18 + 15) |= 8u;
+  *v14 = v15;
+  *(v14 + 8) = BYTE8(v18);
+  *(v17 + 15) |= 8u;
 }
 
 - (void)pushDebugGroup:(id)group
 {
   groupCopy = group;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject pushDebugGroup:groupCopy];
-  v6 = v19;
-  *(v19 + 8) = -16283;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -16283;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -345,47 +338,46 @@
   if (uTF8String)
   {
     uTF8String2 = [groupCopy UTF8String];
-    v15 = strlen([groupCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([groupCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (void)popDebugGroup
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject popDebugGroup];
-  v4 = v14;
-  *(v14 + 8) = -16282;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -16282;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -397,11 +389,11 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)insertSplit
@@ -415,31 +407,30 @@
 - (void)insertDebugSignpost:(id)signpost
 {
   signpostCopy = signpost;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject insertDebugSignpost:signpostCopy];
-  v6 = v19;
-  *(v19 + 8) = -16284;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -16284;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -455,188 +446,184 @@
   if (uTF8String)
   {
     uTF8String2 = [signpostCopy UTF8String];
-    v15 = strlen([signpostCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([signpostCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
-  s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
-}
-
-- (void)endEncoding
-{
-  v14 = 0u;
-  v15 = 0u;
-  v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
-  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject endEncoding];
-  v4 = v14;
-  *(v14 + 8) = -16285;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
-  {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
-  }
-
-  else
-  {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
-  }
-
-  *(v4 + 13) = v5;
-  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  *v6 = var0;
-  s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
-}
-
-- (void)dealloc
-{
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -16287;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
-  {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
-  }
-
-  else
-  {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
-  }
-
-  *(v4 + 13) = v5;
-  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  *v6 = var0;
-  s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
-  GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTLParallelRenderCommandEncoder;
-  [(CaptureMTLParallelRenderCommandEncoder *)&v13 dealloc];
-}
-
-- (void)barrierAfterQueueStages:(unint64_t)stages beforeStages:(unint64_t)beforeStages
-{
-  v18 = 0u;
-  v19 = 0u;
-  v17 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
-  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject barrierAfterQueueStages:stages beforeStages:beforeStages];
-  v8 = v18;
-  *(v18 + 8) = -14956;
-  v9 = BYTE9(v19);
-  if (BYTE9(v19) > 0x28uLL)
-  {
-    v11 = *(*(&v17 + 1) + 24);
-    v12 = BYTE10(v19);
-    ++BYTE10(v19);
-    v10 = GTTraceMemPool_allocateBytes(v11, *(&v18 + 1), v12 | 0x1800000000) + 16;
-    v9 = v12;
-  }
-
-  else
-  {
-    v10 = (v8 + BYTE9(v19));
-    BYTE9(v19) += 24;
-  }
-
-  *(v8 + 13) = v9;
-  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  *v10 = var0;
-  *(v10 + 1) = stages;
-  *(v10 + 2) = beforeStages;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
   *v15 = v16;
   *(v15 + 8) = BYTE8(v19);
   *(v18 + 15) |= 8u;
 }
 
-- (void)setLabel:(id)label
+- (void)endEncoding
 {
-  labelCopy = label;
-  v19 = 0u;
-  v20 = 0u;
-  v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
-  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setLabel:labelCopy];
-  v6 = v19;
-  *(v19 + 8) = -16288;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
+  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject endEncoding];
+  v3 = v13;
+  *(v13 + 8) = -16285;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v6 + 13) = v7;
+  *(v3 + 13) = v4;
+  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  *v5 = var0;
+  s();
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
+}
+
+- (void)dealloc
+{
+  v14 = 0u;
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -16287;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
+  {
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
+  }
+
+  else
+  {
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
+  }
+
+  *(v3 + 13) = v4;
+  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  *v5 = var0;
+  s();
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
+  GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
+  v12.receiver = self;
+  v12.super_class = CaptureMTLParallelRenderCommandEncoder;
+  [(CaptureMTLParallelRenderCommandEncoder *)&v12 dealloc];
+}
+
+- (void)barrierAfterQueueStages:(unint64_t)stages beforeStages:(unint64_t)beforeStages
+{
+  v17 = 0u;
+  v18 = 0u;
+  v16 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
+  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject barrierAfterQueueStages:stages beforeStages:beforeStages];
+  v7 = v17;
+  *(v17 + 8) = -14956;
+  v8 = BYTE9(v18);
+  if (BYTE9(v18) > 0x28uLL)
+  {
+    v10 = *(*(&v16 + 1) + 24);
+    v11 = BYTE10(v18);
+    ++BYTE10(v18);
+    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1800000000) + 16;
+    v8 = v11;
+  }
+
+  else
+  {
+    v9 = (v7 + BYTE9(v18));
+    BYTE9(v18) += 24;
+  }
+
+  *(v7 + 13) = v8;
+  traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  *v9 = var0;
+  *(v9 + 1) = stages;
+  *(v9 + 2) = beforeStages;
+  s();
+  *v14 = v15;
+  *(v14 + 8) = BYTE8(v18);
+  *(v17 + 15) |= 8u;
+}
+
+- (void)setLabel:(id)label
+{
+  labelCopy = label;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
+  [(MTLParallelRenderCommandEncoderSPI *)self->_baseObject setLabel:labelCopy];
+  v5 = v18;
+  *(v18 + 8) = -16288;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
+  {
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
+  }
+
+  else
+  {
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
+  }
+
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLParallelRenderCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -652,18 +639,18 @@
   if (uTF8String)
   {
     uTF8String2 = [labelCopy UTF8String];
-    v15 = strlen([labelCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([labelCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

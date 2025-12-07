@@ -34,7 +34,7 @@
 
 - (void)updateSingleGroupItems:(id)items
 {
-  sub_2151A6C9C(0, &qword_281199620);
+  sub_2151A6C9C(0, &qword_281199620, 0x277D751E0);
   v4 = sub_2154A1F4C();
   selfCopy = self;
   ICNoteEditorContextualInputAccessoryView.updateItemsWithScope(standardItems:characterItems:paragraphItems:)(v4, MEMORY[0x277D84F90], MEMORY[0x277D84F90]);
@@ -42,7 +42,7 @@
 
 - (void)updateItemsWithStandardScope:(id)scope characterScope:(id)characterScope paragraphScope:(id)paragraphScope
 {
-  sub_2151A6C9C(0, &qword_281199620);
+  sub_2151A6C9C(0, &qword_281199620, 0x277D751E0);
   v6 = sub_2154A1F4C();
   v7 = sub_2154A1F4C();
   v8 = sub_2154A1F4C();
@@ -75,23 +75,26 @@
 {
   v2 = (self + OBJC_IVAR___ICNoteEditorContextualInputAccessoryView_bouncedSelectionHandler);
   v3 = *(&self->super.super.super.isa + OBJC_IVAR___ICNoteEditorContextualInputAccessoryView_bouncedSelectionHandler);
-  selfCopy = self;
   if (v3)
   {
-    sub_2151BD748(v3);
+    v4 = v2[1];
+    selfCopy = self;
+    sub_2151BD748(v3, v4);
     v3(1);
-    sub_2151AF750(v3);
-    v5 = *v2;
+    sub_2151AF750(v3, v4);
+    v6 = *v2;
   }
 
   else
   {
-    v5 = 0;
+    selfCopy2 = self;
+    v6 = 0;
   }
 
+  v8 = v2[1];
   *v2 = 0;
   v2[1] = 0;
-  sub_2151AF750(v5);
+  sub_2151AF750(v6, v8);
 }
 
 - (void)layoutSubviews

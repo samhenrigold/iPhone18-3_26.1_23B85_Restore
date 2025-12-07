@@ -100,7 +100,7 @@
   pairingManager = [(IDSDevicePropertiesStateNotifier *)self pairingManager];
   pairedDeviceUniqueID = [pairingManager pairedDeviceUniqueID];
 
-  LODWORD(pairingManager) = [pairedDeviceUniqueID isEqualToIgnoringCase:stateCopy];
+  LODWORD(pairingManager) = objc_msgSend_isEqualToIgnoringCase_(pairedDeviceUniqueID);
   if (pairingManager)
   {
     deliveryController = [(IDSDevicePropertiesStateNotifier *)self deliveryController];
@@ -172,7 +172,7 @@ LABEL_11:
   dCopy = d;
   if ([dCopy length])
   {
-    if ([dCopy isEqualToIgnoringCase:IDSDeviceDefaultPairedDeviceUniqueID])
+    if (objc_msgSend_isEqualToIgnoringCase_(dCopy))
     {
       pairingManager = [(IDSDevicePropertiesStateNotifier *)self pairingManager];
       pairedDeviceUniqueID = [pairingManager pairedDeviceUniqueID];

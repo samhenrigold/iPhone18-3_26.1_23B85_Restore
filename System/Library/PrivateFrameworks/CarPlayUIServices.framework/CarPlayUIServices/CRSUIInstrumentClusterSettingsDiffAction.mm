@@ -52,7 +52,6 @@ uint64_t __154__CRSUIInstrumentClusterSettingsDiffAction__performActionsForUISce
   v1 = result;
   if (*(result + 41) == 1)
   {
-    v2 = *(result + 32);
     result = objc_opt_respondsToSelector();
     if (result)
     {
@@ -62,7 +61,6 @@ uint64_t __154__CRSUIInstrumentClusterSettingsDiffAction__performActionsForUISce
 
   if (*(v1 + 42) == 1)
   {
-    v3 = *(v1 + 32);
     result = objc_opt_respondsToSelector();
     if (result)
     {
@@ -72,7 +70,6 @@ uint64_t __154__CRSUIInstrumentClusterSettingsDiffAction__performActionsForUISce
 
   if (*(v1 + 44) == 1)
   {
-    v4 = *(v1 + 32);
     result = objc_opt_respondsToSelector();
     if (result)
     {
@@ -82,13 +79,12 @@ uint64_t __154__CRSUIInstrumentClusterSettingsDiffAction__performActionsForUISce
 
   if (*(v1 + 43) == 1)
   {
-    v5 = *(v1 + 32);
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v6 = *(v1 + 32);
+      v2 = *(v1 + 32);
 
-      return [v6 updateSceneForNewItemTypeSetting];
+      return [v2 updateSceneForNewItemTypeSetting];
     }
   }
 

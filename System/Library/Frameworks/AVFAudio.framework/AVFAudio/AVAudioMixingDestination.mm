@@ -398,8 +398,8 @@
 
 - (id)destinationForMixer:(id)mixer bus:(unint64_t)bus
 {
-  v30 = *MEMORY[0x1E69E9840];
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v14, *(self->_impl + 1));
+  v29 = *MEMORY[0x1E69E9840];
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v13, *(self->_impl + 1));
   if (!mixer)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -411,17 +411,17 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v19 = "AVAEInternal.h";
-      v20 = 1024;
-      v21 = 71;
-      v22 = 2080;
-      v23 = "AVAudioNode.mm";
-      v24 = 1024;
-      v25 = 492;
-      v26 = 2080;
-      v27 = "[AVAudioMixingDestination destinationForMixer:bus:]";
-      v28 = 2080;
-      v29 = "mixer";
+      v18 = "AVAEInternal.h";
+      v19 = 1024;
+      v20 = 71;
+      v21 = 2080;
+      v22 = "AVAudioNode.mm";
+      v23 = 1024;
+      v24 = 492;
+      v25 = 2080;
+      v26 = "[AVAudioMixingDestination destinationForMixer:bus:]";
+      v27 = 2080;
+      v28 = "mixer";
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -429,31 +429,28 @@
   }
 
   impl = self->_impl;
-  impl = [mixer impl];
-  v10 = (*(*impl + 240))(impl, bus);
+  v9 = objc_msgSend_impl(mixer);
+  v10 = (*(*v9 + 240))(v9, bus);
   v11 = (*(*impl + 16))(impl, mixer, v10);
-  if (v17 == 1)
+  if (v16 == 1)
   {
-    std::recursive_mutex::unlock(v16);
+    std::recursive_mutex::unlock(v15);
   }
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    std::recursive_mutex::unlock(v14);
+    std::recursive_mutex::unlock(v13);
   }
 
   if (v11)
   {
-    result = self;
+    return self;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)dealloc

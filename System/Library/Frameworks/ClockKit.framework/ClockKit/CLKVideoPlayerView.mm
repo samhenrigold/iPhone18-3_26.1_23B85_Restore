@@ -37,9 +37,9 @@
 
 - (CLKVideoPlayerView)initWithFrame:(CGRect)frame
 {
-  v29.receiver = self;
-  v29.super_class = CLKVideoPlayerView;
-  v3 = [(CLKVideoPlayerView *)&v29 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v30.receiver = self;
+  v30.super_class = CLKVideoPlayerView;
+  v3 = [(CLKVideoPlayerView *)&v30 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (!v3)
   {
     return v3;
@@ -60,24 +60,24 @@
   *(v3 + 51) = v8;
 
   [v3 addSubview:*(v3 + 51)];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v10 = getAVQueuePlayerClass_softClass;
-  v37 = getAVQueuePlayerClass_softClass;
+  v38 = getAVQueuePlayerClass_softClass;
   if (!getAVQueuePlayerClass_softClass)
   {
-    *&v30 = MEMORY[0x277D85DD0];
-    *(&v30 + 1) = 3221225472;
-    v31 = __getAVQueuePlayerClass_block_invoke;
-    v32 = &unk_278A1E6A0;
-    v33 = &v34;
-    __getAVQueuePlayerClass_block_invoke(&v30);
-    v10 = v35[3];
+    *&v31 = MEMORY[0x277D85DD0];
+    *(&v31 + 1) = 3221225472;
+    v32 = __getAVQueuePlayerClass_block_invoke;
+    v33 = &unk_278A1E6A0;
+    v34 = &v35;
+    __getAVQueuePlayerClass_block_invoke(&v31);
+    v10 = v36[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   v12 = objc_alloc_init(v10);
   v13 = *(v3 + 52);
   *(v3 + 52) = v12;
@@ -92,53 +92,53 @@
 
   objc_initWeak(&location, v3);
   _CMTimeMakeWithSeconds(0xFFFFFFFFLL, 0.0);
-  v16 = v30;
-  *(v3 + 61) = v31;
+  v16 = v31;
+  *(v3 + 61) = v32;
   *(v3 + 472) = v16;
   v17 = *(v3 + 52);
   _CMTimeMakeWithSeconds(60, 10.0);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __36__CLKVideoPlayerView_initWithFrame___block_invoke;
-  v26[3] = &unk_278A1FCE0;
-  objc_copyWeak(&v27, &location);
-  v18 = [v17 addPeriodicTimeObserverForInterval:&v30 queue:0 usingBlock:v26];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __36__CLKVideoPlayerView_initWithFrame___block_invoke;
+  v27[3] = &unk_278A1FCE0;
+  objc_copyWeak(&v28, &location);
+  v18 = [v17 addPeriodicTimeObserverForInterval:&v31 queue:0 usingBlock:v27];
   v19 = *(v3 + 58);
   *(v3 + 58) = v18;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v21 = getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr;
-  v37 = getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr;
+  v38 = getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr;
   if (!getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr)
   {
-    *&v30 = MEMORY[0x277D85DD0];
-    *(&v30 + 1) = 3221225472;
-    v31 = __getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_block_invoke;
-    v32 = &unk_278A1E6A0;
-    v33 = &v34;
+    *&v31 = MEMORY[0x277D85DD0];
+    *(&v31 + 1) = 3221225472;
+    v32 = __getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_block_invoke;
+    v33 = &unk_278A1E6A0;
+    v34 = &v35;
     v22 = AVFoundationLibrary();
     v23 = dlsym(v22, "AVPlayerItemDidPlayToEndTimeNotification");
-    *(v33[1] + 24) = v23;
-    getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr = *(v33[1] + 24);
-    v21 = v35[3];
+    *(v34[1] + 24) = v23;
+    getAVPlayerItemDidPlayToEndTimeNotificationSymbolLoc_ptr = *(v34[1] + 24);
+    v21 = v36[3];
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   if (v21)
   {
     v24 = *v21;
     [defaultCenter addObserver:v3 selector:sel__handleDidPlayToEndTime_ name:v24 object:0];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
     return v3;
   }
 
-  dlerror();
-  result = abort_report_np();
+  v26 = dlerror();
+  result = abort_report_np("%s", v26);
   __break(1u);
   return result;
 }
@@ -194,43 +194,44 @@ void __36__CLKVideoPlayerView_initWithFrame___block_invoke(uint64_t a1, __int128
     goto LABEL_12;
   }
 
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v4 = getAVLayerVideoGravityResizeAspectSymbolLoc_ptr;
-  v13 = getAVLayerVideoGravityResizeAspectSymbolLoc_ptr;
+  v14 = getAVLayerVideoGravityResizeAspectSymbolLoc_ptr;
   if (!getAVLayerVideoGravityResizeAspectSymbolLoc_ptr)
   {
     v5 = AVFoundationLibrary();
-    v11[3] = dlsym(v5, "AVLayerVideoGravityResizeAspect");
-    getAVLayerVideoGravityResizeAspectSymbolLoc_ptr = v11[3];
-    v4 = v11[3];
+    v12[3] = dlsym(v5, "AVLayerVideoGravityResizeAspect");
+    getAVLayerVideoGravityResizeAspectSymbolLoc_ptr = v12[3];
+    v4 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v4)
   {
     [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
 LABEL_7:
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     v4 = getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr;
-    v13 = getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr;
+    v14 = getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr;
     if (!getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr)
     {
       v6 = AVFoundationLibrary();
-      v11[3] = dlsym(v6, "AVLayerVideoGravityResizeAspectFill");
-      getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr = v11[3];
-      v4 = v11[3];
+      v12[3] = dlsym(v6, "AVLayerVideoGravityResizeAspectFill");
+      getAVLayerVideoGravityResizeAspectFillSymbolLoc_ptr = v12[3];
+      v4 = v12[3];
     }
 
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
     if (!v4)
     {
-      v9 = [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
-      _Block_object_dispose(&v10, 8);
-      _Unwind_Resume(v9);
+      [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
+      v10 = v9;
+      _Block_object_dispose(&v11, 8);
+      _Unwind_Resume(v10);
     }
   }
 
@@ -397,19 +398,19 @@ void __46__CLKVideoPlayerView__handleDidPlayToEndTime___block_invoke_18(uint64_t
   p_willBeginPlayingTime = &self->_willBeginPlayingTime;
   if (self->_willBeginPlayingTime.timescale >= 1)
   {
-    v8 = *&changed->var0;
+    v9 = *&changed->var0;
     var3 = changed->var3;
-    v6 = *&p_willBeginPlayingTime->value;
+    v7 = *&p_willBeginPlayingTime->value;
     epoch = self->_willBeginPlayingTime.epoch;
-    if (_CMTimeCompare(&v8, &v6))
+    if (_CMTimeCompare(&v9, &v7, changed, v3))
     {
       if (self->_pausedViewEnabled)
       {
         [(CLKVideoPlayerView *)self _hidePausedView];
       }
 
-      getkCMTimePositiveInfinity(&v8);
-      *&p_willBeginPlayingTime->value = v8;
+      getkCMTimePositiveInfinity(&v9);
+      *&p_willBeginPlayingTime->value = v9;
       p_willBeginPlayingTime->epoch = var3;
       kdebug_trace();
       delegate = [(CLKVideoPlayerView *)self delegate];
@@ -446,7 +447,7 @@ void __46__CLKVideoPlayerView__handleDidPlayToEndTime___block_invoke_18(uint64_t
     seekRequested = self->_seekRequested;
     if (seekRequested)
     {
-      [(NSValue *)seekRequested CMTimeValue];
+      objc_msgSend_CMTimeValue(seekRequested);
       [(CLKVideoPlayerView *)self _seekToTime:v5];
     }
 
@@ -752,7 +753,7 @@ uint64_t __30__CLKVideoPlayerView__preroll__block_invoke(uint64_t a1, uint64_t a
   player = self->_player;
   if (player)
   {
-    [(AVQueuePlayer *)player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -810,25 +811,25 @@ uint64_t __34__CLKVideoPlayerView__seekToTime___block_invoke(uint64_t a1)
 {
   kdebug_trace();
   *(*(a1 + 32) + 504) = 0;
-  v2 = *(*(a1 + 32) + 512);
-  if (v2)
+  v4 = *(*(a1 + 32) + 512);
+  if (v4)
   {
-    [v2 CMTimeValue];
+    objc_msgSend_CMTimeValue(v4);
   }
 
   else
   {
-    v8 = 0uLL;
-    v9 = 0;
+    v10 = 0uLL;
+    v11 = 0;
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 56);
-  if (!_CMTimeCompare(&v6, &v8))
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 56);
+  if (!_CMTimeCompare(&v8, &v10, v2, v3))
   {
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 512);
-    *(v3 + 512) = 0;
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 512);
+    *(v5 + 512) = 0;
   }
 
   return [*(a1 + 32) _performNextRequest];
@@ -955,6 +956,20 @@ uint64_t __34__CLKVideoPlayerView__seekToTime___block_invoke(uint64_t a1)
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)_loadVideo:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23702D000, a2, a3, "Failed to load video from %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_queueVideo:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23702D000, a2, a3, "Too many queued videos attempts from %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

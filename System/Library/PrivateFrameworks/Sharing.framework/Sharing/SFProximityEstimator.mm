@@ -50,15 +50,18 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v9 = 0;
+  NSAppendPrintF(&v9, "SFProximityEstimator");
+  v3 = v9;
   descriptionParams = [(SFProximityEstimator *)self descriptionParams];
+  v5 = descriptionParams;
   if (descriptionParams)
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v8 = v3;
+    NSAppendPrintF(&v8, "%@", descriptionParams);
+    v6 = v8;
 
-    v3 = v5;
+    v3 = v6;
   }
 
   return v3;
@@ -68,50 +71,54 @@
 {
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:&stru_1F1D30528];
   v4 = v3;
-  if (self->_rssiEnter)
+  rssiEnter = self->_rssiEnter;
+  if (rssiEnter)
   {
-    v16 = v3;
-    rssiEnter = self->_rssiEnter;
-    NSAppendPrintF();
-    v5 = v16;
-
-    v4 = v5;
-  }
-
-  if (self->_rssiExit)
-  {
-    rssiExit = self->_rssiExit;
-    NSAppendPrintF();
-    v6 = v4;
+    v20 = v3;
+    NSAppendPrintF(&v20, ", en=%d", rssiEnter);
+    v6 = v20;
 
     v4 = v6;
   }
 
-  if (self->_rssiImmediate)
+  rssiExit = self->_rssiExit;
+  if (rssiExit)
   {
-    rssiImmediate = self->_rssiImmediate;
-    NSAppendPrintF();
-    v7 = v4;
-
-    v4 = v7;
-  }
-
-  if (self->_rssiNear)
-  {
-    rssiNear = self->_rssiNear;
-    NSAppendPrintF();
-    v8 = v4;
+    v19 = v4;
+    NSAppendPrintF(&v19, ", ex=%d", rssiExit);
+    v8 = v19;
 
     v4 = v8;
+  }
+
+  rssiImmediate = self->_rssiImmediate;
+  if (rssiImmediate)
+  {
+    v18 = v4;
+    NSAppendPrintF(&v18, ", imm=%d", rssiImmediate);
+    v10 = v18;
+
+    v4 = v10;
+  }
+
+  rssiNear = self->_rssiNear;
+  if (rssiNear)
+  {
+    v17 = v4;
+    NSAppendPrintF(&v17, ", ne=%d", rssiNear);
+    v12 = v17;
+
+    v4 = v12;
   }
 
   if (self->_rssiFar)
   {
     rssiFar = self->_rssiFar;
-    NSAppendPrintF();
-    v9 = v4;
+    v16 = v4;
+    NSAppendPrintF(&v16, ", far=%d", rssiFar);
+    v13 = v16;
 
-    v4 = v9;
+    v4 = v13;
   }
 
   return v4;
@@ -128,7 +135,7 @@
   if ((v7 & 0x80000000) == 0 && !SFDeviceIsVirtualMachine())
   {
     v8 = 0;
-    goto LABEL_62;
+    goto LABEL_85;
   }
 
   if (v7 == [deviceCopy rssiEstimate])
@@ -157,7 +164,7 @@
         v8 |= 0x10u;
         if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_39;
+          LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Small bubble enter: %d, %@\n", *p_rssiEnter, deviceCopy);
         }
       }
     }
@@ -170,7 +177,7 @@
         v8 |= 0x10u;
         if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_39;
+          LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Medium bubble enter: %d, %@\n", *p_rssiEnter, deviceCopy);
         }
       }
     }
@@ -181,86 +188,81 @@
       v8 |= 0x10u;
       if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
       {
-LABEL_39:
-        v19 = *p_rssiEnter;
-        v20 = deviceCopy;
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Bubble enter: %d, %@\n", *p_rssiEnter, deviceCopy);
       }
     }
   }
 
   else
   {
-    p_rssiEnter = &self->_rssiExit;
-    if (v7 >= self->_rssiExit)
+    p_rssiExit = &self->_rssiExit;
+    if (v7 < self->_rssiExit)
     {
-      goto LABEL_40;
-    }
-
-    if (closeProximityEstimatorSmall == self)
-    {
-      if ([deviceCopy insideSmallBubble])
+      if (closeProximityEstimatorSmall == self)
       {
-        [deviceCopy setInsideSmallBubble:0];
+        if ([deviceCopy insideSmallBubble])
+        {
+          [deviceCopy setInsideSmallBubble:0];
+          v8 |= 0x10u;
+          if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Small bubble exit: %d, %@\n", *p_rssiExit, deviceCopy);
+          }
+        }
+      }
+
+      else if (closeProximityEstimatorMedium == self)
+      {
+        if ([deviceCopy insideMediumBubble])
+        {
+          [deviceCopy setInsideMediumBubble:0];
+          v8 |= 0x10u;
+          if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Medium bubble exit: %d, %@\n", *p_rssiExit, deviceCopy);
+          }
+        }
+      }
+
+      else if ([deviceCopy insideBubble])
+      {
+        [deviceCopy setInsideBubble:0];
         v8 |= 0x10u;
         if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_39;
+          LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Bubble exit: %d, %@\n", *p_rssiExit, deviceCopy);
         }
-      }
-    }
-
-    else if (closeProximityEstimatorMedium == self)
-    {
-      if ([deviceCopy insideMediumBubble])
-      {
-        [deviceCopy setInsideMediumBubble:0];
-        v8 |= 0x10u;
-        if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
-        {
-          goto LABEL_39;
-        }
-      }
-    }
-
-    else if ([deviceCopy insideBubble])
-    {
-      [deviceCopy setInsideBubble:0];
-      v8 |= 0x10u;
-      if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
-      {
-        goto LABEL_39;
       }
     }
   }
 
-LABEL_40:
   distance = [deviceCopy distance];
+  v15 = distance;
   if (distance != 60)
   {
     if (distance == 20)
     {
       if (v7 < self->_rssiImmediate)
       {
-        v14 = v7 <= self->_rssiFar;
-        v15 = 60;
-        v16 = 20;
+        v16 = v7 <= self->_rssiFar;
+        v17 = 60;
+        v18 = 20;
 LABEL_51:
-        if (v14)
+        if (v16)
         {
-          v17 = v15;
+          v19 = v17;
         }
 
         else
         {
-          v17 = v16;
+          v19 = v18;
         }
 
         goto LABEL_56;
       }
 
 LABEL_54:
-      v17 = 10;
+      v19 = 10;
       goto LABEL_56;
     }
 
@@ -268,13 +270,13 @@ LABEL_54:
     {
       if (v7 <= self->_rssiFar)
       {
-        v17 = 60;
+        v19 = 60;
         goto LABEL_56;
       }
 
-      v14 = v7 <= self->_rssiNear;
-      v15 = 20;
-      v16 = 10;
+      v16 = v7 <= self->_rssiNear;
+      v17 = 20;
+      v18 = 10;
       goto LABEL_51;
     }
   }
@@ -286,27 +288,93 @@ LABEL_54:
 
   if (v7 >= self->_rssiNear)
   {
-    v17 = 20;
+    v19 = 20;
   }
 
   else
   {
-    v17 = 60;
+    v19 = 60;
   }
 
 LABEL_56:
-  if (v17 != distance)
+  if (v19 != distance)
   {
-    [deviceCopy setDistance:v17];
-    if (gLogCategory_SFProximityEstimator <= 30 && (gLogCategory_SFProximityEstimator != -1 || _LogCategory_Initialize()))
+    [deviceCopy setDistance:v19];
+    if (gLogCategory_SFProximityEstimator > 30 || gLogCategory_SFProximityEstimator == -1 && !_LogCategory_Initialize())
     {
-      LogPrintF();
+LABEL_84:
+      v8 |= 2u;
+      goto LABEL_85;
     }
 
-    v8 |= 2u;
+    if (v15 <= 29)
+    {
+      switch(v15)
+      {
+        case 0:
+          v20 = "Unknown";
+          goto LABEL_78;
+        case 10:
+          v20 = "Immediate";
+          goto LABEL_78;
+        case 20:
+          v20 = "Near";
+          goto LABEL_78;
+      }
+    }
+
+    else if (v15 > 49)
+    {
+      if (v15 == 50)
+      {
+        v20 = "House";
+        goto LABEL_78;
+      }
+
+      if (v15 == 60)
+      {
+        v20 = "Far";
+        goto LABEL_78;
+      }
+    }
+
+    else
+    {
+      if (v15 == 30)
+      {
+        v20 = "Personal";
+        goto LABEL_78;
+      }
+
+      if (v15 == 40)
+      {
+        v20 = "Room";
+LABEL_78:
+        if (v19 > 39)
+        {
+          v21 = "Far";
+        }
+
+        else if (v19 == 10)
+        {
+          v21 = "Immediate";
+        }
+
+        else
+        {
+          v21 = "Near";
+        }
+
+        LogPrintF(&gLogCategory_SFProximityEstimator, "[SFProximityEstimator updateWithSFBLEDevice:]", 30, "Distance changed: %s -> %s, %@\n", v20, v21, deviceCopy);
+        goto LABEL_84;
+      }
+    }
+
+    v20 = "?";
+    goto LABEL_78;
   }
 
-LABEL_62:
+LABEL_85:
 
   return v8;
 }

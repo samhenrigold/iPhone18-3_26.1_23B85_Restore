@@ -189,7 +189,7 @@ LABEL_6:
   positionCopy = position;
   selfCopy = self;
 
-  sub_1D79E75B0();
+  sub_1D79E75B0(sub_1D7B0931C, v7);
 }
 
 - (void)articleHostViewControllerDidScrollToBottomOfPrimaryContent:(id)content

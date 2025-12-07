@@ -22,6 +22,7 @@
 - (void)collectAllAssetTypesWithGM;
 - (void)downloadAllAssetsWithCompletion:(id)completion;
 - (void)queryAssets;
+- (void)setAssetsAvailable:(BOOL)available;
 - (void)startAssetQueryTimer;
 - (void)stopAssetQueryTimer;
 @end
@@ -43,7 +44,7 @@
 - (MSDAssetUpdater)initWithUAFConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -82,6 +83,13 @@
   return unsignedIntegerValue;
 }
 
+- (void)setAssetsAvailable:(BOOL)available
+{
+  v5 = [NSNumber numberWithBool:available];
+  preferences = [(MSDAssetUpdater *)self preferences];
+  [preferences setObject:v5 forKey:@"AssetsAvailable"];
+}
+
 - (BOOL)assetsAvailable
 {
   preferences = [(MSDAssetUpdater *)self preferences];
@@ -94,35 +102,91 @@
 - (BOOL)queryAndDownloadAssetsWithForceGMAssetTypes:(BOOL)types withError:(id *)error
 {
   typesCopy = types;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_10007FA10;
+  v28 = sub_10007FA20;
+  v29 = 0;
+  v7 = dispatch_semaphore_create(0);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
+  if (typesCopy)
+  {
+    [(MSDAssetUpdater *)self collectAllAssetTypesWithGM];
+  }
+
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10007FA28;
+  v16[3] = &unk_10016B7A8;
+  v18 = &v24;
+  v19 = &v20;
+  v8 = v7;
+  v17 = v8;
+  [(MSDAssetUpdater *)self downloadAllAssetsWithCompletion:v16];
+  v9 = dispatch_time(0, 7200000000000);
+  v10 = dispatch_semaphore_wait(v8, v9);
+  if (v10)
+  {
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000DCEE0();
+    }
+
+    v12 = (v25 + 5);
+    obj = v25[5];
+    sub_1000C1390(&obj, 3727744775, @"Timed out while downloading support for Apple Intelligence");
+    objc_storeStrong(v12, obj);
+    *(v21 + 24) = 0;
+  }
+
+  if (error)
+  {
+    *error = v25[5];
+  }
+
+  [(MSDAssetUpdater *)self collectAllAssetTypes];
+  v13 = *(v21 + 24);
+
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
+
+  return v13;
+}
+
+- (BOOL)downloadAssetsWithError:(id *)error
+{
   v23 = 0;
   v24 = &v23;
   v25 = 0x3032000000;
   v26 = sub_10007FA10;
   v27 = sub_10007FA20;
   v28 = 0;
-  v7 = dispatch_semaphore_create(0);
+  v5 = dispatch_semaphore_create(0);
   v19 = 0;
   v20 = &v19;
   v21 = 0x2020000000;
   v22 = 1;
-  if (typesCopy)
-  {
-    [(MSDAssetUpdater *)self collectAllAssetTypesWithGM];
-  }
-
+  uafConnection = [(MSDAssetUpdater *)self uafConnection];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
-  v15[2] = sub_10007FA28;
+  v15[2] = sub_10007FCA8;
   v15[3] = &unk_10016B7A8;
   v17 = &v23;
   v18 = &v19;
-  v8 = v7;
-  v16 = v8;
-  [(MSDAssetUpdater *)self downloadAllAssetsWithCompletion:v15];
-  v9 = dispatch_time(0, 7200000000000);
-  if (dispatch_semaphore_wait(v8, v9))
+  v7 = v5;
+  v16 = v7;
+  [uafConnection downloadAllAssetsFromUAFWithCompletion:v15];
+
+  v8 = dispatch_time(0, 7200000000000);
+  v9 = dispatch_semaphore_wait(v7, v8);
+  if (v9)
   {
-    v10 = sub_100063A54();
+    v10 = sub_100063A54(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCEE0();
@@ -130,7 +194,7 @@
 
     v11 = (v24 + 5);
     obj = v24[5];
-    sub_1000C1390(&obj, 3727744775, @"Timed out while downloading support for Apple Intelligence");
+    sub_1000C1424(&obj, 3727744775, @"Timed out while downloading support for Apple Intelligence");
     objc_storeStrong(v11, obj);
     *(v20 + 24) = 0;
   }
@@ -140,66 +204,12 @@
     *error = v24[5];
   }
 
-  [(MSDAssetUpdater *)self collectAllAssetTypes];
   v12 = *(v20 + 24);
 
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
 
   return v12;
-}
-
-- (BOOL)downloadAssetsWithError:(id *)error
-{
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_10007FA10;
-  v26 = sub_10007FA20;
-  v27 = 0;
-  v5 = dispatch_semaphore_create(0);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
-  uafConnection = [(MSDAssetUpdater *)self uafConnection];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10007FCA8;
-  v14[3] = &unk_10016B7A8;
-  v16 = &v22;
-  v17 = &v18;
-  v7 = v5;
-  v15 = v7;
-  [uafConnection downloadAllAssetsFromUAFWithCompletion:v14];
-
-  v8 = dispatch_time(0, 7200000000000);
-  if (dispatch_semaphore_wait(v7, v8))
-  {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000DCEE0();
-    }
-
-    v10 = (v23 + 5);
-    obj = v23[5];
-    sub_1000C1424(&obj, 3727744775, @"Timed out while downloading support for Apple Intelligence");
-    objc_storeStrong(v10, obj);
-    *(v19 + 24) = 0;
-  }
-
-  if (error)
-  {
-    *error = v23[5];
-  }
-
-  v11 = *(v19 + 24);
-
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
-
-  return v11;
 }
 
 - (BOOL)handleSiriAssetsWithError:(id *)error
@@ -216,55 +226,56 @@
 
 - (BOOL)downloadSiriAssetsWithError:(id *)error
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_10007FA10;
-  v26 = sub_10007FA20;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10007FA10;
+  v27 = sub_10007FA20;
+  v28 = 0;
   v5 = dispatch_semaphore_create(0);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
   uafConnection = [(MSDAssetUpdater *)self uafConnection];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10007FFF8;
-  v14[3] = &unk_10016B7D0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10007FFF8;
+  v15[3] = &unk_10016B7D0;
   v7 = v5;
-  v15 = v7;
-  v16 = &v22;
-  v17 = &v18;
-  [uafConnection downloadSiriAssetsFromUAFWithCompletion:v14];
+  v16 = v7;
+  v17 = &v23;
+  v18 = &v19;
+  [uafConnection downloadSiriAssetsFromUAFWithCompletion:v15];
 
   v8 = dispatch_time(0, 7200000000000);
-  if (dispatch_semaphore_wait(v7, v8))
+  v9 = dispatch_semaphore_wait(v7, v8);
+  if (v9)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCF54();
     }
 
-    v10 = (v23 + 5);
-    obj = v23[5];
+    v11 = (v24 + 5);
+    obj = v24[5];
     sub_1000C1424(&obj, 3727744775, @"Timed out while downloading support for Siri.");
-    objc_storeStrong(v10, obj);
-    *(v19 + 24) = 0;
+    objc_storeStrong(v11, obj);
+    *(v20 + 24) = 0;
   }
 
   if (error)
   {
-    *error = v23[5];
+    *error = v24[5];
   }
 
-  v11 = *(v19 + 24);
+  v12 = *(v20 + 24);
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)checkSiriAssetsAvailable
@@ -277,37 +288,37 @@
 
 - (BOOL)queryAndDownloadSiriAssetsWithError:(id *)error
 {
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_10007FA10;
-  v35 = sub_10007FA20;
-  v36 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_10007FA10;
+  v36 = sub_10007FA20;
+  v37 = 0;
   v5 = dispatch_semaphore_create(0);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
   [(MSDAssetUpdater *)self collectAllAssetTypesWithGM];
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   assetTypes = [(MSDAssetUpdater *)self assetTypes];
-  v7 = [assetTypes countByEnumeratingWithState:&v23 objects:v37 count:16];
+  v7 = [assetTypes countByEnumeratingWithState:&v24 objects:v38 count:16];
   if (v7)
   {
-    v8 = *v24;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v24 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(assetTypes);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         if (([v10 hasPrefix:@"com.apple.MobileAsset.UAF.Siri"] & 1) == 0)
         {
           assetTypes2 = [(MSDAssetUpdater *)self assetTypes];
@@ -315,49 +326,50 @@
         }
       }
 
-      v7 = [assetTypes countByEnumeratingWithState:&v23 objects:v37 count:16];
+      v7 = [assetTypes countByEnumeratingWithState:&v24 objects:v38 count:16];
     }
 
     while (v7);
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100080448;
-  v19[3] = &unk_10016B7A8;
-  v21 = &v31;
-  v22 = &v27;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100080448;
+  v20[3] = &unk_10016B7A8;
+  v22 = &v32;
+  v23 = &v28;
   v12 = v5;
-  v20 = v12;
-  [(MSDAssetUpdater *)self downloadAllAssetsWithCompletion:v19];
+  v21 = v12;
+  [(MSDAssetUpdater *)self downloadAllAssetsWithCompletion:v20];
   v13 = dispatch_time(0, 7200000000000);
-  if (dispatch_semaphore_wait(v12, v13))
+  v14 = dispatch_semaphore_wait(v12, v13);
+  if (v14)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000DCEE0();
     }
 
-    v15 = (v32 + 5);
-    obj = v32[5];
+    v16 = (v33 + 5);
+    obj = v33[5];
     sub_1000C1390(&obj, 3727744775, @"Timed out while downloading support for Apple Intelligence");
-    objc_storeStrong(v15, obj);
-    *(v28 + 24) = 0;
+    objc_storeStrong(v16, obj);
+    *(v29 + 24) = 0;
   }
 
   if (error)
   {
-    *error = v32[5];
+    *error = v33[5];
   }
 
   [(MSDAssetUpdater *)self collectAllAssetTypes];
-  v16 = *(v28 + 24);
+  v17 = *(v29 + 24);
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
 
-  return v16 & 1;
+  return v17 & 1;
 }
 
 - (void)downloadAllAssetsWithCompletion:(id)completion
@@ -400,93 +412,100 @@
   errorCopy = error;
   assetsCopy = assets;
   dsema = dispatch_semaphore_create(0);
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 1;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_10007FA10;
-  v35 = sub_10007FA20;
-  v36 = 0;
-  v27 = 0u;
-  v28 = 0u;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 1;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_10007FA10;
+  v37 = sub_10007FA20;
+  v38 = 0;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = assetsCopy;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v44 count:16];
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v46 count:16];
+  v6 = v5;
   if (v5)
   {
-    v6 = *v28;
+    v7 = *v30;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      v8 = 0;
+      do
       {
-        if (*v28 != v6)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
-        v9 = sub_100063A54();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v9 = *(*(&v29 + 1) + 8 * v8);
+        v10 = sub_100063A54(v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          assetId = [v8 assetId];
-          sub_1000DD0B8(assetId, buf, &v43, v9);
+          assetId = [v9 assetId];
+          sub_1000DD0B8(assetId, buf, &v45, v10);
         }
 
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = sub_100080FA0;
-        v23[3] = &unk_10016B848;
-        v23[4] = v8;
-        v25 = &v31;
-        v26 = &v37;
-        v24 = dsema;
-        [v8 startDownload:v23];
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_100080FA0;
+        v25[3] = &unk_10016B848;
+        v25[4] = v9;
+        v27 = &v33;
+        v28 = &v39;
+        v26 = dsema;
+        [v9 startDownload:v25];
+
+        v8 = v8 + 1;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v44 count:16];
+      while (v6 != v8);
+      v5 = [obj countByEnumeratingWithState:&v29 objects:v46 count:16];
+      v6 = v5;
     }
 
     while (v5);
   }
 
-  v11 = -1;
-  while ([obj count] > v11 + 1)
+  v12 = -1;
+  while ([obj count] > v12 + 1)
   {
-    v12 = dispatch_time(0, 300000000000);
-    ++v11;
-    if (dispatch_semaphore_wait(dsema, v12))
+    v13 = dispatch_time(0, 300000000000);
+    v14 = dispatch_semaphore_wait(dsema, v13);
+    ++v12;
+    if (v14)
     {
-      v13 = sub_100063A54();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v14 = [obj objectAtIndexedSubscript:v11];
-        assetType = [v14 assetType];
-        sub_1000DD114(assetType, v41, v13, v14);
+        v16 = [obj objectAtIndexedSubscript:v12];
+        assetType = [v16 assetType];
+        sub_1000DD114(assetType, v43, v15, v16);
       }
 
-      v16 = (v32 + 5);
-      v22 = v32[5];
-      sub_1000C1424(&v22, 3727744775, @"Asset download timed out");
-      objc_storeStrong(v16, v22);
-      *(v38 + 24) = 0;
+      v18 = (v34 + 5);
+      v24 = v34[5];
+      sub_1000C1424(&v24, 3727744775, @"Asset download timed out");
+      objc_storeStrong(v18, v24);
+      *(v40 + 24) = 0;
       break;
     }
   }
 
   if (errorCopy)
   {
-    *errorCopy = v32[5];
+    *errorCopy = v34[5];
   }
 
-  v17 = *(v38 + 24);
-  _Block_object_dispose(&v31, 8);
+  v19 = *(v40 + 24);
+  _Block_object_dispose(&v33, 8);
 
-  _Block_object_dispose(&v37, 8);
-  return v17 & 1;
+  _Block_object_dispose(&v39, 8);
+  return v19 & 1;
 }
 
 + (id)assetToString:(id)string
@@ -564,38 +583,44 @@
 + (id)allAssetTypes
 {
   v2 = +[NSMutableArray array];
-  if (+[MSDAssetUpdater shouldIncludeGMAssetTypes])
+  v3 = +[MSDAssetUpdater shouldIncludeGMAssetTypes];
+  if (v3)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Including GreyMatter asset types!", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Including GreyMatter asset types!", v7, 2u);
     }
 
     [v2 addObject:@"GreyMatterAssetTypes"];
   }
 
-  v4 = [NSArray arrayWithArray:v2];
+  v5 = [NSArray arrayWithArray:v2];
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)shouldIncludeGMAssetTypes
 {
-  if (+[MSDGreyMatterHelper isOptedIn](MSDGreyMatterHelper, "isOptedIn") && +[MSDHubFeatureFlags enableAIModelAutoUpdate])
+  v2 = +[MSDGreyMatterHelper isOptedIn];
+  if (v2)
   {
-    return 1;
+    v2 = +[MSDHubFeatureFlags enableAIModelAutoUpdate];
+    if (v2)
+    {
+      return 1;
+    }
   }
 
-  v3 = sub_100063A54();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100063A54(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4[0] = 67109376;
-    v4[1] = +[MSDGreyMatterHelper isOptedIn];
-    v5 = 1024;
-    v6 = +[MSDHubFeatureFlags enableAIModelAutoUpdate];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "GreyMatter is not opted in (%d) or feature flag for 'EnableAIModelAutoUpdate' is disabled (%d).", v4, 0xEu);
+    v5[0] = 67109376;
+    v5[1] = +[MSDGreyMatterHelper isOptedIn];
+    v6 = 1024;
+    v7 = +[MSDHubFeatureFlags enableAIModelAutoUpdate];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "GreyMatter is not opted in (%d) or feature flag for 'EnableAIModelAutoUpdate' is disabled (%d).", v5, 0xEu);
   }
 
   return 0;
@@ -622,13 +647,13 @@
   v2 = +[NSMutableArray array];
   v3 = +[NSFileManager defaultManager];
   v4 = [NSURL fileURLWithPath:@"/System/Library/UnifiedAssetFramework/AssetSets"];
-  v32 = 0;
-  v5 = [v3 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v32];
-  v6 = v32;
+  v35 = 0;
+  v5 = [v3 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v35];
+  v6 = v35;
 
   if (!v5)
   {
-    obj = sub_100063A54();
+    obj = sub_100063A54(v7);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       sub_1000DD2CC(v6);
@@ -637,100 +662,100 @@
     goto LABEL_23;
   }
 
-  v30 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v32 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (!v7)
+  v8 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+  if (!v8)
   {
 LABEL_23:
-    v9 = 0;
     v10 = 0;
+    v11 = 0;
     goto LABEL_24;
   }
 
-  v8 = v7;
-  v25 = v5;
-  v9 = 0;
+  v9 = v8;
+  v28 = v5;
   v10 = 0;
-  v11 = *v29;
+  v11 = 0;
+  v12 = *v32;
   do
   {
-    for (i = 0; i != v8; i = i + 1)
+    for (i = 0; i != v9; i = i + 1)
     {
-      v13 = v6;
-      v14 = v10;
-      if (*v29 != v11)
+      v14 = v6;
+      v15 = v11;
+      if (*v32 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v28 + 1) + 8 * i);
-      v27 = v6;
-      v10 = [NSDictionary dictionaryWithContentsOfURL:v15 error:&v27];
-      v6 = v27;
+      v16 = *(*(&v31 + 1) + 8 * i);
+      v30 = v6;
+      v11 = [NSDictionary dictionaryWithContentsOfURL:v16 error:&v30];
+      v6 = v30;
 
-      if (v10)
+      if (v11)
       {
-        v16 = [v10 objectForKey:@"AutoAssetType"];
+        v18 = [v11 objectForKey:@"AutoAssetType"];
 
-        v17 = sub_100063A54();
-        v18 = v17;
-        if (v16)
+        v20 = sub_100063A54(v19);
+        v21 = v20;
+        if (v18)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v34 = v16;
-            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Found asset type %{public}@", buf, 0xCu);
+            v37 = v18;
+            _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Found asset type %{public}@", buf, 0xCu);
           }
 
-          [v2 addObject:v16];
-          v9 = v16;
+          [v2 addObject:v18];
+          v10 = v18;
         }
 
         else
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            path = [v15 path];
+            path = [v16 path];
             *buf = 138543618;
-            v34 = @"AutoAssetType";
-            v35 = 2114;
-            v36 = path;
-            _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "No %{public}@ key in plist at %{public}@", buf, 0x16u);
+            v37 = @"AutoAssetType";
+            v38 = 2114;
+            v39 = path;
+            _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "No %{public}@ key in plist at %{public}@", buf, 0x16u);
           }
 
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v19 = sub_100063A54();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sub_100063A54(v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          path2 = [v15 path];
+          path2 = [v16 path];
           localizedDescription = [v6 localizedDescription];
           *buf = 138543618;
-          v34 = path2;
-          v35 = 2114;
-          v36 = localizedDescription;
-          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to read %{public}@ as a dictionary with error - %{public}@", buf, 0x16u);
+          v37 = path2;
+          v38 = 2114;
+          v39 = localizedDescription;
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to read %{public}@ as a dictionary with error - %{public}@", buf, 0x16u);
         }
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
+    v9 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
   }
 
-  while (v8);
-  v5 = v25;
+  while (v9);
+  v5 = v28;
 LABEL_24:
 
-  v23 = v2;
+  v26 = v2;
   return v2;
 }
 
@@ -759,33 +784,33 @@ LABEL_24:
   {
     if (v5)
     {
-      v8 = 1;
+      v9 = 1;
       goto LABEL_12;
     }
   }
 
   else
   {
-    [v3 appendString:@"\nDevice is not in demo mode."];
+    v8 = [v3 appendString:@"\nDevice is not in demo mode."];
   }
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100063A54(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v3;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Timer should not fire. Reasons:%{public}@\nEnd of reasons.", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = v3;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Timer should not fire. Reasons:%{public}@\nEnd of reasons.", &v12, 0xCu);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_12:
 
-  return v8;
+  return v9;
 }
 
 - (void)startAssetQueryTimer
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -793,16 +818,17 @@ LABEL_12:
   }
 
   timerShouldFire = [(MSDAssetUpdater *)self timerShouldFire];
-  v5 = sub_100063A54();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (timerShouldFire)
+  v5 = timerShouldFire;
+  v6 = sub_100063A54(timerShouldFire);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       queryInterval = [(MSDAssetUpdater *)self queryInterval];
       *buf = 134217984;
-      v11 = queryInterval;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting asset query timer with interval %lu.", buf, 0xCu);
+      v12 = queryInterval;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting asset query timer with interval %lu.", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
@@ -810,25 +836,25 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = sub_100081C8C;
     block[3] = &unk_100169C78;
-    objc_copyWeak(&v9, buf);
+    objc_copyWeak(&v10, buf);
     dispatch_async(&_dispatch_main_q, block);
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not starting asset query timer.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Not starting asset query timer.", buf, 2u);
     }
   }
 }
 
 - (void)stopAssetQueryTimer
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -860,66 +886,66 @@ LABEL_12:
 - (id)runQueryWithAssetType:(id)type
 {
   typeCopy = type;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v5 = dispatch_semaphore_create(0);
   v6 = [[MAAssetQuery alloc] initWithType:typeCopy];
   v7 = MGCopyAnswer();
   [v6 addKeyValuePair:@"SupportedDevices" with:v7];
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     *&buf[4] = typeCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Running catalog download for asset type %{public}@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Running catalog download for asset type %{public}@", buf, 0xCu);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100082600;
-  v18[3] = &unk_10016B870;
-  v9 = typeCopy;
-  v19 = v9;
-  v21 = &v22;
-  v10 = v5;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100082600;
+  v19[3] = &unk_10016B870;
+  v10 = typeCopy;
   v20 = v10;
-  [MAAsset startCatalogDownload:v9 then:v18];
-  v11 = dispatch_time(0, 30000000000);
-  v12 = dispatch_semaphore_wait(v10, v11);
-  if (*(v23 + 24) != 1 || v12)
+  v22 = &v23;
+  v11 = v5;
+  v21 = v11;
+  [MAAsset startCatalogDownload:v10 then:v19];
+  v12 = dispatch_time(0, 30000000000);
+  v13 = dispatch_semaphore_wait(v11, v12);
+  if (*(v24 + 24) != 1 || v13)
   {
-    v16 = sub_100063A54();
-    sub_1000DD480(v16, v9, buf);
+    v17 = sub_100063A54(v13);
+    sub_1000DD480(v17, v10, buf);
 LABEL_13:
 
-    v14 = 0;
+    v15 = 0;
     goto LABEL_8;
   }
 
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100063A54(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *&buf[4] = v9;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Running query for asset type %{public}@", buf, 0xCu);
+    *&buf[4] = v10;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Running query for asset type %{public}@", buf, 0xCu);
   }
 
-  v14 = [(MSDAssetUpdater *)self checkAssetAvailabilityWithQuery:v6];
-  if (!v14)
+  v15 = [(MSDAssetUpdater *)self checkAssetAvailabilityWithQuery:v6];
+  if (!v15)
   {
-    v17 = sub_100063A54();
-    sub_1000DD538(v17, buf);
+    v18 = sub_100063A54(0);
+    sub_1000DD538(v18, buf);
     goto LABEL_13;
   }
 
 LABEL_8:
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v14;
+  return v15;
 }
 
 - (id)checkAssetAvailabilityWithQuery:(id)query

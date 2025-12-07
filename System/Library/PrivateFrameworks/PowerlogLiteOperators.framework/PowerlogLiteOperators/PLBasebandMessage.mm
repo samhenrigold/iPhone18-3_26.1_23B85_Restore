@@ -15,7 +15,7 @@
 
 + (id)messageWithData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   bytes = [dataCopy bytes];
   v5 = &bytes[2 * (*bytes == 129)];
@@ -56,7 +56,7 @@
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v22 = v9;
+            v21 = v9;
             _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -104,12 +104,10 @@ LABEL_21:
 LABEL_22:
   v17 = [[v15 alloc] initWithData:dataCopy];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
-uint64_t __37__PLBasebandMessage_messageWithData___block_invoke(uint64_t a1)
+void *__37__PLBasebandMessage_messageWithData___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_104 = result;
@@ -143,15 +141,15 @@ uint64_t __37__PLBasebandMessage_messageWithData___block_invoke(uint64_t a1)
 
 - (BOOL)isTimestampValid:(char *)valid
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __38__PLBasebandMessage_isTimestampValid___block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v4;
+    v13 = 3221225472;
+    v14 = __38__PLBasebandMessage_isTimestampValid___block_invoke;
+    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16 = v4;
     if (qword_2811F7DA8 != -1)
     {
       dispatch_once(&qword_2811F7DA8, &block);
@@ -159,7 +157,7 @@ uint64_t __37__PLBasebandMessage_messageWithData___block_invoke(uint64_t a1)
 
     if (byte_2811F7D99 == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage isTimestampValid:]", block, v14, v15, v16, v17];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage isTimestampValid:]", block, v13, v14, v15, v16];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandMessage.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -170,18 +168,16 @@ uint64_t __37__PLBasebandMessage_messageWithData___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v5;
+        v18 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  result = bswap64(*valid) != 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return bswap64(*valid) != 0;
 }
 
-uint64_t __38__PLBasebandMessage_isTimestampValid___block_invoke(uint64_t a1)
+void *__38__PLBasebandMessage_isTimestampValid___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D99 = result;
@@ -190,7 +186,7 @@ uint64_t __38__PLBasebandMessage_isTimestampValid___block_invoke(uint64_t a1)
 
 - (NSDate)timestamp
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -233,14 +229,14 @@ uint64_t __38__PLBasebandMessage_isTimestampValid___block_invoke(uint64_t a1)
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v18 = objc_opt_class();
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __30__PLBasebandMessage_timestamp__block_invoke_391;
-      v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v27[4] = v18;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __30__PLBasebandMessage_timestamp__block_invoke_391;
+      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v26[4] = v18;
       if (qword_2811F7DB8 != -1)
       {
-        dispatch_once(&qword_2811F7DB8, v27);
+        dispatch_once(&qword_2811F7DB8, v26);
       }
 
       if (byte_2811F7D9B == 1)
@@ -276,19 +272,18 @@ uint64_t __38__PLBasebandMessage_isTimestampValid___block_invoke(uint64_t a1)
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
 LABEL_22:
-  v25 = *MEMORY[0x277D85DE8];
 
   return monotonicDate;
 }
 
-uint64_t __30__PLBasebandMessage_timestamp__block_invoke(uint64_t a1)
+void *__30__PLBasebandMessage_timestamp__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9A = result;
   return result;
 }
 
-uint64_t __30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
+void *__30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9B = result;
@@ -297,15 +292,15 @@ uint64_t __30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
 
 - (NSDate)calibratedTimestamp
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __40__PLBasebandMessage_calibratedTimestamp__block_invoke;
-    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v21 = v3;
+    v17 = 3221225472;
+    v18 = __40__PLBasebandMessage_calibratedTimestamp__block_invoke;
+    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v20 = v3;
     if (qword_2811F7DC0 != -1)
     {
       dispatch_once(&qword_2811F7DC0, &block);
@@ -313,7 +308,7 @@ uint64_t __30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
 
     if (byte_2811F7D9C == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage calibratedTimestamp]", block, v18, v19, v20, v21];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage calibratedTimestamp]", block, v17, v18, v19, v20];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -324,7 +319,7 @@ uint64_t __30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v4;
+        v22 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -336,12 +331,10 @@ uint64_t __30__PLBasebandMessage_timestamp__block_invoke_391(uint64_t a1)
   timestamp = [(PLBasebandMessage *)self timestamp];
   v14 = [v10 dateWithTimeInterval:timestamp sinceDate:v12];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
-uint64_t __40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
+void *__40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9C = result;
@@ -350,15 +343,15 @@ uint64_t __40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
 
 - (BOOL)isCalibratedDateGood
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __41__PLBasebandMessage_isCalibratedDateGood__block_invoke;
-    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v21 = v3;
+    v17 = 3221225472;
+    v18 = __41__PLBasebandMessage_isCalibratedDateGood__block_invoke;
+    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v20 = v3;
     if (qword_2811F7DC8 != -1)
     {
       dispatch_once(&qword_2811F7DC8, &block);
@@ -366,7 +359,7 @@ uint64_t __40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
 
     if (byte_2811F7D9D == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage isCalibratedDateGood]", block, v18, v19, v20, v21];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage isCalibratedDateGood]", block, v17, v18, v19, v20];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -377,7 +370,7 @@ uint64_t __40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v4;
+        v22 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -388,12 +381,20 @@ uint64_t __40__PLBasebandMessage_calibratedTimestamp__block_invoke(uint64_t a1)
   [calibratedTimestamp timeIntervalSinceDate:apTimestamp];
   v13 = v12;
 
-  result = v13 >= 0.0 && v13 <= 60.0 || v13 < 0.0 && v13 > -86400.0;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  if (v13 >= 0.0 && v13 <= 60.0)
+  {
+    return 1;
+  }
+
+  if (v13 < 0.0)
+  {
+    return v13 > -86400.0;
+  }
+
+  return 0;
 }
 
-uint64_t __41__PLBasebandMessage_isCalibratedDateGood__block_invoke(uint64_t a1)
+void *__41__PLBasebandMessage_isCalibratedDateGood__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9D = result;
@@ -457,7 +458,7 @@ uint64_t __41__PLBasebandMessage_isCalibratedDateGood__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
+void *__39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9E = result;
@@ -466,15 +467,15 @@ uint64_t __39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
 
 - (void)logMsgAll
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __30__PLBasebandMessage_logMsgAll__block_invoke;
-    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v21 = v3;
+    v17 = 3221225472;
+    v18 = __30__PLBasebandMessage_logMsgAll__block_invoke;
+    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v20 = v3;
     if (qword_2811F7DD8 != -1)
     {
       dispatch_once(&qword_2811F7DD8, &block);
@@ -482,7 +483,7 @@ uint64_t __39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
 
     if (byte_2811F7D9F == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage logMsgAll]", block, v18, v19, v20, v21];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandMessage logMsgAll]", block, v17, v18, v19, v20];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -493,7 +494,7 @@ uint64_t __39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v4;
+        v22 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -517,10 +518,9 @@ uint64_t __39__PLBasebandMessage_logEntry_withBody___block_invoke(uint64_t a1)
   [(PLBBMsgRoot *)v10 setMsgType:msgType];
 
   [(PLBBMsgAll *)v10 logEventNoneBBMsgAll];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __30__PLBasebandMessage_logMsgAll__block_invoke(uint64_t a1)
+void *__30__PLBasebandMessage_logMsgAll__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7D9F = result;

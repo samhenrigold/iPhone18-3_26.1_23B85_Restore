@@ -163,50 +163,50 @@ LABEL_26:
 
 - (id)serializeWithError:(id *)error
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v85 = 0u;
+  v85 = *MEMORY[0x277D85DE8];
   v84 = 0u;
-  v82 = 0u;
   v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
-  v74 = 0u;
+  v78 = 0u;
   v75 = 0u;
-  v72 = 0u;
+  v76 = 0u;
   v73 = 0u;
-  v70 = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
+  v68 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v64 = 0u;
   TLV8BufferInit();
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   multicastBridgingRules = [(HMDNetworkRouterLANFirewallRuleList *)self multicastBridgingRules];
-  v6 = [multicastBridgingRules countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v6 = [multicastBridgingRules countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v58;
+    v9 = *v57;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v58 != v9)
+      if (*v57 != v9)
       {
         objc_enumerationMutation(multicastBridgingRules);
       }
 
-      v11 = *(*(&v57 + 1) + 8 * v10);
+      v11 = *(*(&v56 + 1) + 8 * v10);
       if (v8)
       {
         if (TLV8BufferAppend())
@@ -215,9 +215,9 @@ LABEL_3:
         }
       }
 
-      v56 = 0;
-      v12 = [v11 serializeWithError:&v56];
-      v13 = v56;
+      v55 = 0;
+      v12 = [v11 serializeWithError:&v55];
+      v13 = v55;
       if (v13)
       {
 LABEL_46:
@@ -247,7 +247,7 @@ LABEL_46:
       v8 = 1;
       if (v7 == v10)
       {
-        v7 = [multicastBridgingRules countByEnumeratingWithState:&v57 objects:v64 count:16];
+        v7 = [multicastBridgingRules countByEnumeratingWithState:&v56 objects:v63 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -262,27 +262,27 @@ LABEL_46:
   {
 LABEL_12:
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     multicastBridgingRules = [(HMDNetworkRouterLANFirewallRuleList *)self staticPortRules];
-    v15 = [multicastBridgingRules countByEnumeratingWithState:&v52 objects:v63 count:16];
+    v15 = [multicastBridgingRules countByEnumeratingWithState:&v51 objects:v62 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v53;
+      v18 = *v52;
 LABEL_14:
       v19 = 0;
       while (1)
       {
-        if (*v53 != v18)
+        if (*v52 != v18)
         {
           objc_enumerationMutation(multicastBridgingRules);
         }
 
-        v20 = *(*(&v52 + 1) + 8 * v19);
+        v20 = *(*(&v51 + 1) + 8 * v19);
         if (v17)
         {
           if (TLV8BufferAppend())
@@ -291,9 +291,9 @@ LABEL_14:
           }
         }
 
-        v51 = 0;
-        v12 = [v20 serializeWithError:&v51];
-        v13 = v51;
+        v50 = 0;
+        v12 = [v20 serializeWithError:&v50];
+        v13 = v50;
         if (v13)
         {
           goto LABEL_46;
@@ -312,7 +312,7 @@ LABEL_14:
         v17 = 1;
         if (v16 == v19)
         {
-          v16 = [multicastBridgingRules countByEnumeratingWithState:&v52 objects:v63 count:16];
+          v16 = [multicastBridgingRules countByEnumeratingWithState:&v51 objects:v62 count:16];
           if (v16)
           {
             goto LABEL_14;
@@ -327,27 +327,27 @@ LABEL_14:
     {
 LABEL_23:
 
-      v50 = 0u;
-      v48 = 0u;
       v49 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
       multicastBridgingRules = [(HMDNetworkRouterLANFirewallRuleList *)self dynamicPortRules];
-      v22 = [multicastBridgingRules countByEnumeratingWithState:&v47 objects:v62 count:16];
+      v22 = [multicastBridgingRules countByEnumeratingWithState:&v46 objects:v61 count:16];
       if (v22)
       {
         v23 = v22;
         v24 = 0;
-        v25 = *v48;
+        v25 = *v47;
 LABEL_25:
         v26 = 0;
         while (1)
         {
-          if (*v48 != v25)
+          if (*v47 != v25)
           {
             objc_enumerationMutation(multicastBridgingRules);
           }
 
-          v27 = *(*(&v47 + 1) + 8 * v26);
+          v27 = *(*(&v46 + 1) + 8 * v26);
           if (v24)
           {
             if (TLV8BufferAppend())
@@ -356,9 +356,9 @@ LABEL_25:
             }
           }
 
-          v46 = 0;
-          v12 = [v27 serializeWithError:&v46];
-          v13 = v46;
+          v45 = 0;
+          v12 = [v27 serializeWithError:&v45];
+          v13 = v45;
           if (v13)
           {
             goto LABEL_46;
@@ -377,7 +377,7 @@ LABEL_25:
           v24 = 1;
           if (v23 == v26)
           {
-            v23 = [multicastBridgingRules countByEnumeratingWithState:&v47 objects:v62 count:16];
+            v23 = [multicastBridgingRules countByEnumeratingWithState:&v46 objects:v61 count:16];
             if (v23)
             {
               goto LABEL_25;
@@ -392,34 +392,34 @@ LABEL_25:
       {
 LABEL_34:
 
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
         multicastBridgingRules = [(HMDNetworkRouterLANFirewallRuleList *)self staticICMPRules];
-        v29 = [multicastBridgingRules countByEnumeratingWithState:&v42 objects:v61 count:16];
+        v29 = [multicastBridgingRules countByEnumeratingWithState:&v41 objects:v60 count:16];
         if (!v29)
         {
 LABEL_45:
 
-          v36 = [MEMORY[0x277CBEA90] dataWithBytes:v65 length:?];
+          v36 = [MEMORY[0x277CBEA90] dataWithBytes:v64 length:?];
           v37 = 0;
           goto LABEL_52;
         }
 
         v30 = v29;
         v31 = 0;
-        v32 = *v43;
+        v32 = *v42;
 LABEL_36:
         v33 = 0;
         while (1)
         {
-          if (*v43 != v32)
+          if (*v42 != v32)
           {
             objc_enumerationMutation(multicastBridgingRules);
           }
 
-          v34 = *(*(&v42 + 1) + 8 * v33);
+          v34 = *(*(&v41 + 1) + 8 * v33);
           if (v31)
           {
             if (TLV8BufferAppend())
@@ -428,9 +428,9 @@ LABEL_36:
             }
           }
 
-          v41 = 0;
-          v12 = [v34 serializeWithError:&v41];
-          v13 = v41;
+          v40 = 0;
+          v12 = [v34 serializeWithError:&v40];
+          v13 = v40;
           if (v13)
           {
             goto LABEL_46;
@@ -449,7 +449,7 @@ LABEL_36:
           v31 = 1;
           if (v30 == v33)
           {
-            v30 = [multicastBridgingRules countByEnumeratingWithState:&v42 objects:v61 count:16];
+            v30 = [multicastBridgingRules countByEnumeratingWithState:&v41 objects:v60 count:16];
             if (v30)
             {
               goto LABEL_36;
@@ -478,8 +478,6 @@ LABEL_51:
 
 LABEL_52:
   TLV8BufferFree();
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

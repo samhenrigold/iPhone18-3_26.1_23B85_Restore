@@ -16,7 +16,7 @@
 - (PXPhotoKitSocialGroupActionManager)initWithSocialGroups:(id)groups photoLibrary:(id)library
 {
   ObjectType = swift_getObjectType();
-  sub_1A3C52C70(0, &qword_1EB126C28);
+  sub_1A3C52C70(0, &qword_1EB126C28, 0x1E6978AD8);
   *(&self->super.super.isa + OBJC_IVAR___PXPhotoKitSocialGroupActionManager_socialGroups) = sub_1A524CA34();
   *(&self->super.super.isa + OBJC_IVAR___PXPhotoKitSocialGroupActionManager_photoLibrary) = library;
   v9.receiver = self;
@@ -55,9 +55,10 @@ LABEL_9:
 
 - (id)actionPerformerForActionType:(id)type
 {
-  sub_1A524C674();
+  v4 = sub_1A524C674();
+  v6 = v5;
   selfCopy = self;
-  sub_1A4680B60();
+  sub_1A4680B60(v4, v6);
 }
 
 - (id)actionPerformerForActionType:(id)type parameters:(id)parameters
@@ -65,7 +66,7 @@ LABEL_9:
   v5 = sub_1A524C674();
   v7 = v6;
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
   v8 = sub_1A524C3E4();
   selfCopy = self;
   v10 = sub_1A4681620(v5, v7, v8);

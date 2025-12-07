@@ -1,5 +1,6 @@
 @interface DCCredentialElement
 - (DCCredentialElement)initWithCoder:(id)coder;
+- (DCCredentialElement)initWithElementIdentifier:(id)identifier BOOLValue:(BOOL)value;
 - (DCCredentialElement)initWithElementIdentifier:(id)identifier doubleValue:(double)value;
 - (DCCredentialElement)initWithElementIdentifier:(id)identifier intValue:(int64_t)value;
 - (DCCredentialElement)initWithElementIdentifier:(id)identifier stringValue:(id)value dataValue:(id)dataValue dateValue:(id)dateValue birthDateValue:(id)birthDateValue numberValue:(id)numberValue arrayValue:(id)arrayValue dictionaryValue:(id)self0 numericTypeHint:(unint64_t)self1;
@@ -194,6 +195,17 @@
   identifierCopy = identifier;
   v8 = [v6 numberWithDouble:value];
   v9 = [(DCCredentialElement *)self initWithElementIdentifier:identifierCopy stringValue:0 dataValue:0 dateValue:0 birthDateValue:0 numberValue:v8 arrayValue:0 dictionaryValue:0 numericTypeHint:2];
+
+  return v9;
+}
+
+- (DCCredentialElement)initWithElementIdentifier:(id)identifier BOOLValue:(BOOL)value
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  identifierCopy = identifier;
+  v8 = [v6 numberWithBool:valueCopy];
+  v9 = [(DCCredentialElement *)self initWithElementIdentifier:identifierCopy stringValue:0 dataValue:0 dateValue:0 birthDateValue:0 numberValue:v8 arrayValue:0 dictionaryValue:0 numericTypeHint:3];
 
   return v9;
 }

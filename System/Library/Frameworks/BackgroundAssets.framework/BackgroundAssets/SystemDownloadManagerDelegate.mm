@@ -33,31 +33,30 @@
 - (void)download:(BADownload *)download didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DE87DB0, &qword_236E84C50);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = download;
-  v14[3] = challenge;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_236E82034();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = download;
+  v13[3] = challenge;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_236E82034();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_236E85450;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_236E85450;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_236E85048;
-  v17[5] = v16;
+  v16[4] = &unk_236E85048;
+  v16[5] = v15;
   downloadCopy = download;
   challengeCopy = challenge;
   selfCopy = self;
-  sub_236E7A3F4(0, 0, v12, &unk_236E85050, v17);
+  sub_236E7A3F4(0, 0, v11, &unk_236E85050, v16);
 }
 
 - (void)download:(id)download failedWithError:(id)error
@@ -72,15 +71,14 @@
 {
   v6 = sub_236E819F4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = (&v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = (&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_236E819C4();
   downloadCopy = download;
   selfCopy = self;
-  sub_236E60950(downloadCopy, v10);
+  sub_236E60950(downloadCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

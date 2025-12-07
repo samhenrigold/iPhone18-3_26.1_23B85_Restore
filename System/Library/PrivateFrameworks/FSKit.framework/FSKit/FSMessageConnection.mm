@@ -34,7 +34,7 @@
 void __34__FSMessageConnection_logMessage___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = fskit_std_log();
+  v3 = fskit_std_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __34__FSMessageConnection_logMessage___block_invoke_cold_1(v2);
@@ -103,7 +103,7 @@ void __44__FSMessageConnection_getLocalizationSetup___block_invoke(uint64_t a1)
 void __44__FSMessageConnection_getLocalizationSetup___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __34__FSMessageConnection_logMessage___block_invoke_cold_1(v3);
@@ -154,7 +154,7 @@ void __44__FSMessageConnection_getLocalizationSetup___block_invoke_2(uint64_t a1
 - (void)connect:(id)connect
 {
   connectCopy = connect;
-  v5 = fskit_std_log();
+  v5 = fskit_std_log(connectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(FSMessageConnection(Private) *)v5 connect:v6, v7, v8, v9, v10, v11, v12];
@@ -162,88 +162,89 @@ void __44__FSMessageConnection_getLocalizationSetup___block_invoke_2(uint64_t a1
 
   if (self->_connection)
   {
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = fskit_std_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(FSMessageConnection(Private) *)v13 connect:v14, v15, v16, v17, v18, v19, v20];
+      [(FSMessageConnection(Private) *)v14 connect:v15, v16, v17, v18, v19, v20, v21];
     }
 
-    v21 = fs_errorForPOSIXError(17);
-    connectCopy[2](connectCopy, v21);
+    v22 = fs_errorForPOSIXError(17);
+    connectCopy[2](connectCopy, v22);
   }
 
   else
   {
     objc_initWeak(&location, self);
-    v22 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:self->_endpoint];
+    v23 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:self->_endpoint];
     connection = self->_connection;
-    self->_connection = v22;
+    self->_connection = v23;
 
-    v24 = +[FSKitConstants FSTaskOperations];
-    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v24];
+    v25 = +[FSKitConstants FSTaskOperations];
+    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v25];
 
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __40__FSMessageConnection_Private__connect___block_invoke;
     aBlock[3] = &unk_278FECDB8;
-    objc_copyWeak(&v56, &location);
-    v25 = _Block_copy(aBlock);
-    [(NSXPCConnection *)self->_connection setInterruptionHandler:v25];
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:v25];
+    objc_copyWeak(&v59, &location);
+    v26 = _Block_copy(aBlock);
+    [(NSXPCConnection *)self->_connection setInterruptionHandler:v26];
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:v26];
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v56);
+    objc_destroyWeak(&v59);
 
     objc_destroyWeak(&location);
     location = 0;
     p_location = &location;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__3;
-    v53 = __Block_byref_object_dispose__3;
-    v54 = 0;
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__3;
-    v47 = __Block_byref_object_dispose__3;
-    v48 = 0;
-    v26 = dispatch_group_create();
-    dispatch_group_enter(v26);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __40__FSMessageConnection_Private__connect___block_invoke_78;
-    v39[3] = &unk_278FED640;
-    v41 = &location;
-    v42 = &v43;
-    v27 = v26;
-    v40 = v27;
-    [(FSMessageConnection *)self getLocalizationSetup:v39];
-    v28 = dispatch_time(0, 10000000000);
-    if (dispatch_group_wait(v27, v28))
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__3;
+    v56 = __Block_byref_object_dispose__3;
+    v57 = 0;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy__3;
+    v50 = __Block_byref_object_dispose__3;
+    v51 = 0;
+    v27 = dispatch_group_create();
+    dispatch_group_enter(v27);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __40__FSMessageConnection_Private__connect___block_invoke_78;
+    v42[3] = &unk_278FED640;
+    v44 = &location;
+    v45 = &v46;
+    v28 = v27;
+    v43 = v28;
+    [(FSMessageConnection *)self getLocalizationSetup:v42];
+    v29 = dispatch_time(0, 10000000000);
+    v30 = dispatch_group_wait(v28, v29);
+    if (v30)
     {
-      v29 = fskit_std_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = fskit_std_log(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [FSMessageConnection(Private) connect:v29];
+        [FSMessageConnection(Private) connect:v31];
       }
 
-      v30 = fs_errorForPOSIXError(57);
-      connectCopy[2](connectCopy, v30);
+      v32 = fs_errorForPOSIXError(57);
+      connectCopy[2](connectCopy, v32);
     }
 
     else
     {
       objc_storeStrong(&self->_locale, p_location[5]);
-      objc_storeStrong(&self->_preferredLanguages, v44[5]);
-      v31 = fskit_std_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      objc_storeStrong(&self->_preferredLanguages, v47[5]);
+      v34 = fskit_std_log(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        [(FSMessageConnection(Private) *)v31 connect:v32, v33, v34, v35, v36, v37, v38];
+        [(FSMessageConnection(Private) *)v34 connect:v35, v36, v37, v38, v39, v40, v41];
       }
 
       connectCopy[2](connectCopy, 0);
     }
 
-    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v46, 8);
     _Block_object_dispose(&location, 8);
   }
 }
@@ -280,12 +281,13 @@ void __40__FSMessageConnection_Private__connect___block_invoke_78(uint64_t a1, v
   v8 = a2;
   v9 = a3;
   v10 = a4;
+  v11 = v10;
   if (v10)
   {
-    v11 = fskit_std_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = fskit_std_log(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __40__FSMessageConnection_Private__connect___block_invoke_78_cold_1(v10);
+      __40__FSMessageConnection_Private__connect___block_invoke_78_cold_1(v11);
     }
   }
 
@@ -371,7 +373,7 @@ void __40__FSMessageConnection_Private__connect___block_invoke_78(uint64_t a1, v
 void __61__FSMessageConnection_Private__completedLocked_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __34__FSMessageConnection_logMessage___block_invoke_cold_1(v3);
@@ -464,7 +466,7 @@ void __52__FSMessageConnection_Private__prompt_replyHandler___block_invoke(uint6
 void __52__FSMessageConnection_Private__prompt_replyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __34__FSMessageConnection_logMessage___block_invoke_cold_1(v3);
@@ -515,7 +517,7 @@ void __61__FSMessageConnection_Private__promptTrueFalse_replyHandler___block_inv
 void __61__FSMessageConnection_Private__promptTrueFalse_replyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __34__FSMessageConnection_logMessage___block_invoke_cold_1(v3);
@@ -542,21 +544,21 @@ void __61__FSMessageConnection_Private__promptTrueFalse_replyHandler___block_inv
 
   if (v15)
   {
-    v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v15 locale:self->_locale arguments:arguments];
+    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v15 locale:self->_locale arguments:arguments];
   }
 
   else
   {
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = fskit_std_log(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [FSMessageConnection(Private) localizedMessage:table:bundle:arguments:];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (FSMessageConnection)initWithEndpoint:(id)endpoint
@@ -618,23 +620,17 @@ void __61__FSMessageConnection_Private__promptTrueFalse_replyHandler___block_inv
 
 void __34__FSMessageConnection_logMessage___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__FSMessageConnection_Private__connect___block_invoke_78_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 description];
+  v6 = [a1 description];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

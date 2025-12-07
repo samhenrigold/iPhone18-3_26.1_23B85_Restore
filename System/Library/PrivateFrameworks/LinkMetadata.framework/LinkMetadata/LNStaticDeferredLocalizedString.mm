@@ -344,15 +344,15 @@ LABEL_24:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   os_unfair_lock_lock(&self->_localizedStringResourceLock);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __51__LNStaticDeferredLocalizedString_encodeWithCoder___block_invoke;
-  v34[3] = &unk_1E72B1260;
-  v34[4] = self;
-  v5 = MEMORY[0x193AD9570](v34);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __51__LNStaticDeferredLocalizedString_encodeWithCoder___block_invoke;
+  v33[3] = &unk_1E72B1260;
+  v33[4] = self;
+  v5 = MEMORY[0x193AD9570](v33);
   localizedStringResource = self->_localizedStringResource;
   if (localizedStringResource)
   {
@@ -434,9 +434,9 @@ LABEL_22:
               [v14 if_setObjectIfNonNil:v25 forKey:&unk_1F02FEFE8];
               [v14 if_setObjectIfNonNil:v22 forKey:&unk_1F02FF018];
               [v14 if_setObjectIfNonNil:v29 forKey:&unk_1F02FF000];
-              v35 = v13;
-              v36[0] = v14;
-              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+              v34 = v13;
+              v35[0] = v14;
+              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
               [coderCopy encodeObject:v32 forKey:@"prelocalizedStrings"];
 
               goto LABEL_23;
@@ -467,8 +467,6 @@ LABEL_12:
   }
 
 LABEL_23:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (LNStaticDeferredLocalizedString)initWithCoder:(id)coder
@@ -765,19 +763,8 @@ LABEL_30:
   }
   v8 = ;
   localeIdentifier = [v8 localeIdentifier];
-  if (!localeIdentifier)
+  if (!localeIdentifier || (v10 = localeIdentifier, -[LNStaticDeferredLocalizedString prelocalizedStrings](self, "prelocalizedStrings"), v11 = objc_claimAutoreleasedReturnValue(), [v8 localeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), v13, v12, v11, v10, !v13))
   {
-    goto LABEL_9;
-  }
-
-  v10 = localeIdentifier;
-  prelocalizedStrings = [(LNStaticDeferredLocalizedString *)self prelocalizedStrings];
-  localeIdentifier2 = [v8 localeIdentifier];
-  v13 = [prelocalizedStrings objectForKeyedSubscript:localeIdentifier2];
-
-  if (!v13)
-  {
-LABEL_9:
     localizedStringResource = [(LNStaticDeferredLocalizedString *)self localizedStringResource];
 
     if (!localizedStringResource)
@@ -790,16 +777,16 @@ LABEL_9:
     v19 = [localizedStringResource2 copy];
 
     [v19 setLocale:v8];
-    prelocalizedStrings3 = objc_alloc_init(MEMORY[0x1E696B108]);
-    [prelocalizedStrings3 setPluralizationNumber:numberCopy];
-    v21 = [v19 localizeWithOptions:prelocalizedStrings3];
+    prelocalizedStrings2 = objc_alloc_init(MEMORY[0x1E696B108]);
+    [prelocalizedStrings2 setPluralizationNumber:numberCopy];
+    v21 = [v19 localizeWithOptions:prelocalizedStrings2];
     goto LABEL_11;
   }
 
   integerValue = [numberCopy integerValue];
-  prelocalizedStrings2 = [(LNStaticDeferredLocalizedString *)self prelocalizedStrings];
-  localeIdentifier3 = [v8 localeIdentifier];
-  v17 = [prelocalizedStrings2 objectForKeyedSubscript:localeIdentifier3];
+  prelocalizedStrings = [(LNStaticDeferredLocalizedString *)self prelocalizedStrings];
+  localeIdentifier2 = [v8 localeIdentifier];
+  v17 = [prelocalizedStrings objectForKeyedSubscript:localeIdentifier2];
   v18 = v17;
   if (integerValue < 2)
   {
@@ -807,9 +794,9 @@ LABEL_9:
 
     if (!v19)
     {
-      prelocalizedStrings3 = [(LNStaticDeferredLocalizedString *)self prelocalizedStrings];
-      localeIdentifier4 = [v8 localeIdentifier];
-      v27 = [prelocalizedStrings3 objectForKeyedSubscript:localeIdentifier4];
+      prelocalizedStrings2 = [(LNStaticDeferredLocalizedString *)self prelocalizedStrings];
+      localeIdentifier3 = [v8 localeIdentifier];
+      v27 = [prelocalizedStrings2 objectForKeyedSubscript:localeIdentifier3];
       v24 = [v27 objectForKeyedSubscript:&unk_1F02FEFE8];
 
       goto LABEL_12;
@@ -827,8 +814,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  prelocalizedStrings3 = [v8 localeIdentifier];
-  v21 = [(LNStaticDeferredLocalizedString *)self localizedStringWithPluralizationNumber:&unk_1F02FF018 forLocaleIdentifier:prelocalizedStrings3];
+  prelocalizedStrings2 = [v8 localeIdentifier];
+  v21 = [(LNStaticDeferredLocalizedString *)self localizedStringWithPluralizationNumber:&unk_1F02FF018 forLocaleIdentifier:prelocalizedStrings2];
 LABEL_11:
   v24 = v21;
 LABEL_12:

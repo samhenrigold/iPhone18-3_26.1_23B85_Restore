@@ -1,4 +1,4 @@
-double timebaseConversionFactor()
+double timebaseConversionFactor(uint64_t a1, uint64_t a2)
 {
   if (qword_10001A160 != -1)
   {
@@ -17,7 +17,7 @@ void sub_100000F00(id a1)
 
 uint64_t applyTailspinConfig(uint64_t a1)
 {
-  v2 = shared_ht_log_handle();
+  v2 = shared_ht_log_handle(a1);
   v3 = v2;
   if (a1)
   {
@@ -53,11 +53,12 @@ uint64_t configureTailspinForEPL(int a1)
 {
   v2 = +[PerfDiagsSelfEnablementController isAnyModeActive];
   v3 = sub_100000FEC();
-  v4 = shared_ht_log_handle();
-  v5 = v4;
-  if ((v2 & 1) != 0 || v3)
+  v4 = v3;
+  v5 = shared_ht_log_handle(v3);
+  v6 = v5;
+  if ((v2 & 1) != 0 || v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100008494();
     }
@@ -65,17 +66,17 @@ uint64_t configureTailspinForEPL(int a1)
     return 0;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "ConfigureTailspinForEPL: Other HangTracer enablement modes are NOT active, attempt to configure tailspin", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "ConfigureTailspinForEPL: Other HangTracer enablement modes are NOT active, attempt to configure tailspin", v12, 2u);
   }
 
-  v6 = tailspin_config_create_with_default_config();
-  if (!v6)
+  v7 = tailspin_config_create_with_default_config();
+  if (!v7)
   {
-    v9 = shared_ht_log_handle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = shared_ht_log_handle(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100008460();
     }
@@ -83,21 +84,22 @@ uint64_t configureTailspinForEPL(int a1)
     return 0;
   }
 
-  v7 = v6;
+  v8 = v7;
   if (a1)
   {
     tailspin_enabled_set();
   }
 
-  v8 = applyTailspinConfig(v7);
+  v9 = applyTailspinConfig(v8);
   tailspin_config_free();
-  return v8;
+  return v9;
 }
 
-void sub_10000116C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000116C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000011D8(id a1)
@@ -126,16 +128,17 @@ void sub_100002F30(id a1)
   _objc_release_x1();
 }
 
-void sub_10000537C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000537C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  objc_destroyWeak((v33 + 80));
+  va_start(va, a32);
+  objc_destroyWeak((v32 + 80));
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v34 - 208), 8);
-  _Block_object_dispose((v34 - 176), 8);
-  _Block_object_dispose((v34 - 144), 8);
-  objc_destroyWeak((v34 - 104));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 208), 8);
+  _Block_object_dispose((v33 - 176), 8);
+  _Block_object_dispose((v33 - 144), 8);
+  objc_destroyWeak((v33 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -143,7 +146,7 @@ void sub_1000053E0(uint64_t a1, int a2)
 {
   if (*(*(*(a1 + 40) + 8) + 24) == a2)
   {
-    v3 = shared_ht_log_handle();
+    v3 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -155,7 +158,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 48) + 8) + 24) == a2)
   {
-    v3 = shared_ht_log_handle();
+    v3 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -166,7 +169,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 56) + 8) + 24) == a2)
   {
-    v3 = shared_ht_log_handle();
+    v3 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -177,7 +180,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 64) + 8) + 24) == a2)
   {
-    v3 = shared_ht_log_handle();
+    v3 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -193,7 +196,7 @@ LABEL_16:
       goto LABEL_18;
     }
 
-    v3 = shared_ht_log_handle();
+    v3 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -212,45 +215,45 @@ LABEL_18:
 
   if (v6 != v8)
   {
-    v9 = shared_ht_log_handle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = shared_ht_log_handle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       if (v6)
       {
-        v10 = @"ON";
+        v11 = @"ON";
       }
 
       else
       {
-        v10 = @"OFF";
+        v11 = @"OFF";
       }
 
-      v11 = objc_loadWeakRetained((a1 + 80));
-      if ([v11 hangtracerDaemonEnabled])
+      v12 = objc_loadWeakRetained((a1 + 80));
+      if ([v12 hangtracerDaemonEnabled])
       {
-        v12 = @"ON";
+        v13 = @"ON";
       }
 
       else
       {
-        v12 = @"OFF";
+        v13 = @"OFF";
       }
 
       *buf = 138412546;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "HTPrefs: HangTracer Enabled State Changed: %@ -> %@", buf, 0x16u);
+      v22 = v11;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "HTPrefs: HangTracer Enabled State Changed: %@ -> %@", buf, 0x16u);
     }
 
-    v13 = objc_loadWeakRetained((a1 + 80));
-    v14 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v13 hangtracerDaemonEnabled]);
-    v19 = v14;
-    v15 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v14 = objc_loadWeakRetained((a1 + 80));
+    v15 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v14 hangtracerDaemonEnabled]);
+    v20 = v15;
+    v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
-    v16 = +[NSNotificationCenter defaultCenter];
-    v17 = objc_loadWeakRetained((a1 + 80));
-    [v16 postNotificationName:@"com.apple.hangtracer.daemonstate" object:v17 userInfo:v15];
+    v17 = +[NSNotificationCenter defaultCenter];
+    v18 = objc_loadWeakRetained((a1 + 80));
+    [v17 postNotificationName:@"com.apple.hangtracer.daemonstate" object:v18 userInfo:v16];
   }
 }
 
@@ -260,7 +263,7 @@ void sub_100005730(uint64_t a1, int a2)
   {
     v6 = v2;
     v7 = v3;
-    v4 = shared_ht_log_handle();
+    v4 = shared_ht_log_handle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v5 = 0;
@@ -273,7 +276,7 @@ void cleanupDiagnosticLogsDirectory(void *a1)
 {
   v1 = a1;
   v2 = +[NSFileManager defaultManager];
-  v3 = shared_ht_log_handle();
+  v3 = shared_ht_log_handle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100008904();
@@ -306,7 +309,7 @@ void cleanupDiagnosticLogsDirectory(void *a1)
         v17 = 0;
         v12 = [v2 removeItemAtURL:v11 error:&v17];
         v13 = v17;
-        v14 = shared_ht_log_handle();
+        v14 = shared_ht_log_handle(v13);
         v15 = v14;
         if (v12)
         {
@@ -339,7 +342,7 @@ BOOL sub_1000064AC(id a1, NSURL *a2, NSError *a3)
 {
   v4 = a2;
   v5 = a3;
-  v6 = shared_ht_log_handle();
+  v6 = shared_ht_log_handle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -371,7 +374,7 @@ void persistAndUnredactLogs(int a1)
   v6 = v5;
   if (v4)
   {
-    v7 = shared_ht_log_handle();
+    v7 = shared_ht_log_handle(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -385,7 +388,7 @@ void persistAndUnredactLogs(int a1)
       v10 = v9;
       if (v8)
       {
-        v11 = shared_ht_log_handle();
+        v11 = shared_ht_log_handle(v9);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -400,7 +403,7 @@ LABEL_14:
 
       if (v9)
       {
-        v11 = shared_ht_log_handle();
+        v11 = shared_ht_log_handle(v9);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_100008A80(v10);
@@ -417,7 +420,7 @@ LABEL_14:
       v10 = v14;
       if (v13)
       {
-        v11 = shared_ht_log_handle();
+        v11 = shared_ht_log_handle(v14);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -432,7 +435,7 @@ LABEL_21:
 
       if (v14)
       {
-        v11 = shared_ht_log_handle();
+        v11 = shared_ht_log_handle(v14);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1000089FC(v10);
@@ -449,7 +452,7 @@ LABEL_22:
 
   if (v5)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100008978(v6);
@@ -461,10 +464,11 @@ LABEL_22:
 LABEL_23:
 }
 
-void sub_100006818(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006818(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100006FF0(id a1)
@@ -478,7 +482,7 @@ void sub_100006FF0(id a1)
 
   else
   {
-    v2 = shared_pl_log_handle();
+    v2 = shared_pl_log_handle(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_100008BB4();
@@ -493,16 +497,16 @@ void sub_100007F58(id a1)
   _objc_release_x1();
 }
 
-id shared_pl_log_handle()
+id shared_pl_log_handle(uint64_t a1)
 {
   if (qword_10001A1C0 != -1)
   {
     sub_10000904C();
   }
 
-  v1 = qword_10001A1B8;
+  v2 = qword_10001A1B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000081C4(id a1)
@@ -552,16 +556,16 @@ id arrayOfCFPrefsWithPrefix(const __CFString *a1, void *a2, uint64_t a3)
   return v7;
 }
 
-id shared_ht_log_handle()
+id shared_ht_log_handle(uint64_t a1)
 {
   if (qword_10001A1D0 != -1)
   {
     sub_100009060();
   }
 
-  v1 = qword_10001A1C8;
+  v2 = qword_10001A1C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000083D4(id a1)
@@ -569,13 +573,6 @@ void sub_1000083D4(id a1)
   qword_10001A1C8 = os_log_create("com.apple.hangtracer", "");
 
   _objc_release_x1();
-}
-
-void sub_10000855C(uint64_t a1, uint64_t *a2)
-{
-  v7 = *a2;
-  sub_100006214();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_1000085F0()
@@ -614,21 +611,21 @@ void sub_100008978(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006838();
-  sub_100006818(&_mh_execute_header, v2, v3, "Failed to validate os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_100006818(&_mh_execute_header, v2, v3, "Failed to validate os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_1000089FC(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006838();
-  sub_100006818(&_mh_execute_header, v2, v3, "Failed to remove os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_100006818(&_mh_execute_header, v2, v3, "Failed to remove os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_100008A80(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006838();
-  sub_100006818(&_mh_execute_header, v2, v3, "Failed to install os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_100006818(&_mh_execute_header, v2, v3, "Failed to install os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_100008BE8()

@@ -180,7 +180,7 @@ void __72__PLAnalysisCoordinator_analyzeLibraryForFeature_withCompletionHandler_
   v3 = [*(a1 + 32) managedObjectContext];
   v4 = [v3 executeFetchRequest:v10 error:0];
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v5 = 0;
     do
@@ -195,7 +195,7 @@ void __72__PLAnalysisCoordinator_analyzeLibraryForFeature_withCompletionHandler_
       ++v5;
     }
 
-    while (v5 < [v4 count]);
+    while (v5 < objc_msgSend_count(v4));
   }
 }
 

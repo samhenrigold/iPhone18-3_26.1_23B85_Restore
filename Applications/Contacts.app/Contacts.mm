@@ -518,28 +518,27 @@ void sub_10000BD44(uint64_t a1)
 
 void sub_10000BE60(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = [objc_opt_class() log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Showing contact card from URL open for %@", &v9, 0xCu);
+    v3 = *(a1 + 40);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Showing contact card from URL open for %@", &v8, 0xCu);
   }
 
-  v5 = *(a1 + 48);
-  v6 = [*(a1 + 32) splitViewController];
-  v7 = v6;
-  v8 = *(a1 + 40);
-  if (v5 == 1)
+  v4 = *(a1 + 48);
+  v5 = [*(a1 + 32) splitViewController];
+  v6 = v5;
+  v7 = *(a1 + 40);
+  if (v4 == 1)
   {
-    [v6 showEditingCardForContact:v8];
+    [v5 showEditingCardForContact:v7];
   }
 
   else
   {
-    [v6 showCardForContact:v8 fallbackToFirstContact:0];
+    [v5 showCardForContact:v7 fallbackToFirstContact:0];
   }
 }
 

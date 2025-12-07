@@ -1379,339 +1379,58 @@ LABEL_184:
   }
 
   isReadonly = [(NEKCalendarAttributes *)self isReadonly];
-  if (isReadonly != [changeCopy readOnly])
-  {
-    goto LABEL_54;
-  }
-
-  isHidden = [(NEKCalendarAttributes *)self isHidden];
-  if (isHidden != [changeCopy isHidden])
-  {
-    goto LABEL_54;
-  }
-
-  isImmutable = [(NEKCalendarAttributes *)self isImmutable];
-  if (isImmutable != [changeCopy isImmutableRaw])
-  {
-    goto LABEL_54;
-  }
-
-  isInbox = [(NEKCalendarAttributes *)self isInbox];
-  if (isInbox != [changeCopy isInbox])
-  {
-    goto LABEL_54;
-  }
-
-  isNotificationsCollection = [(NEKCalendarAttributes *)self isNotificationsCollection];
-  if (isNotificationsCollection != [changeCopy isNotificationsCollection])
-  {
-    goto LABEL_54;
-  }
-
-  isSharingInvitation = [(NEKCalendarAttributes *)self isSharingInvitation];
-  if (isSharingInvitation != [changeCopy isSharingInvitation])
-  {
-    goto LABEL_54;
-  }
-
-  isSubscribed = [(NEKCalendarAttributes *)self isSubscribed];
-  if (isSubscribed != [changeCopy isSubscribed])
-  {
-    goto LABEL_54;
-  }
-
-  isHolidyCalendar = [(NEKCalendarAttributes *)self isHolidyCalendar];
-  if (isHolidyCalendar != [changeCopy isSubscribedHolidayCalendar])
-  {
-    goto LABEL_54;
-  }
-
-  isFamilyCalendar = [(NEKCalendarAttributes *)self isFamilyCalendar];
-  if (isFamilyCalendar != [changeCopy isFamilyCalendar])
-  {
-    goto LABEL_54;
-  }
-
-  isIgnoringEventAlerts = [(NEKCalendarAttributes *)self isIgnoringEventAlerts];
-  if (isIgnoringEventAlerts != [changeCopy isIgnoringEventAlerts])
-  {
-    goto LABEL_54;
-  }
-
-  isIgnoringSharedCalendarNotifications = [(NEKCalendarAttributes *)self isIgnoringSharedCalendarNotifications];
-  if (isIgnoringSharedCalendarNotifications != [changeCopy isIgnoringSharedCalendarNotifications])
-  {
-    goto LABEL_54;
-  }
-
-  isSchedulingProhibited = [(NEKCalendarAttributes *)self isSchedulingProhibited];
-  if (isSchedulingProhibited == [changeCopy allowsScheduling])
-  {
-    goto LABEL_54;
-  }
-
-  isDefaultCalendarForStore = [(NEKCalendarAttributes *)self isDefaultCalendarForStore];
-  if (isDefaultCalendarForStore != [changeCopy isDefaultSchedulingCalendar])
-  {
-    goto LABEL_54;
-  }
-
-  displayOrder = [(NEKCalendarAttributes *)self displayOrder];
-  if (displayOrder != [changeCopy displayOrder])
-  {
-    goto LABEL_54;
-  }
-
-  sharingStatus = [(NEKCalendarAttributes *)self sharingStatus];
-  if (sharingStatus != [changeCopy sharingStatus])
-  {
-    goto LABEL_54;
-  }
-
-  sharingInvitationResponse = [(NEKCalendarAttributes *)self sharingInvitationResponse];
-  if (sharingInvitationResponse != [changeCopy sharingInvitationResponse])
-  {
-    goto LABEL_54;
-  }
-
-  canBePublished = [(NEKCalendarAttributes *)self canBePublished];
-  if (canBePublished != [changeCopy canBePublished])
-  {
-    goto LABEL_54;
-  }
-
-  canBeShared = [(NEKCalendarAttributes *)self canBeShared];
-  if (canBeShared != [changeCopy canBeShared])
-  {
-    goto LABEL_54;
-  }
-
-  isPublished = [(NEKCalendarAttributes *)self isPublished];
-  if (isPublished != [changeCopy isPublished])
-  {
-    goto LABEL_54;
-  }
-
-  invitationStatus = [(NEKCalendarAttributes *)self invitationStatus];
-  if (invitationStatus != [changeCopy invitationStatus])
-  {
-    goto LABEL_54;
-  }
-
-  allowEvents = [changeCopy allowEvents];
-  if ((allowEvents ^ [(NEKCalendarAttributes *)self supportedEntityTypes]))
-  {
-    goto LABEL_54;
-  }
-
-  allowReminders = [changeCopy allowReminders];
-  if ((allowReminders ^ [(NEKCalendarAttributes *)self supportedEntityTypes]))
-  {
-    goto LABEL_54;
-  }
-
-  title2 = [(NEKCalendarAttributes *)self title];
-  unlocalizedTitle = [changeCopy unlocalizedTitle];
-  v44 = sub_100051F74(title2, unlocalizedTitle, @"title");
-
-  if (!v44)
-  {
-    goto LABEL_54;
-  }
-
-  digest = [(NEKCalendarAttributes *)self digest];
-  digest2 = [changeCopy digest];
-  v47 = sub_100051F74(digest, digest2, @"digest");
-
-  if (!v47)
-  {
-    goto LABEL_54;
-  }
-
-  symbolicColorName = [(NEKCalendarAttributes *)self symbolicColorName];
-  symbolicColorName2 = [changeCopy symbolicColorName];
-  v50 = sub_100051F74(symbolicColorName, symbolicColorName2, @"symbolicColorName");
-
-  if (!v50)
-  {
-    goto LABEL_54;
-  }
-
-  colorString = [(NEKCalendarAttributes *)self colorString];
-  colorString2 = [changeCopy colorString];
-  v53 = sub_100051F74(colorString, colorString2, @"colorString");
-
-  if (!v53)
-  {
-    goto LABEL_54;
-  }
-
-  notes = [(NEKCalendarAttributes *)self notes];
-  notes2 = [changeCopy notes];
-  v56 = sub_100051F74(notes, notes2, @"notes");
-
-  if (!v56)
-  {
-    goto LABEL_54;
-  }
-
-  subCalAccountID = [(NEKCalendarAttributes *)self subCalAccountID];
-  subcalAccountID = [changeCopy subcalAccountID];
-  v59 = sub_100051F74(subCalAccountID, subcalAccountID, @"subCalAccountID");
-
-  if (!v59)
-  {
-    goto LABEL_54;
-  }
-
-  pushKey = [(NEKCalendarAttributes *)self pushKey];
-  pushKey2 = [changeCopy pushKey];
-  v62 = sub_100051F74(pushKey, pushKey2, @"pushKey");
-
-  if (!v62)
-  {
-    goto LABEL_54;
-  }
-
-  sharedOwnerName = [(NEKCalendarAttributes *)self sharedOwnerName];
-  sharedOwnerName2 = [changeCopy sharedOwnerName];
-  v65 = sub_100051F74(sharedOwnerName, sharedOwnerName2, @"sharedOwnerName");
-
-  if (!v65)
-  {
-    goto LABEL_54;
-  }
-
-  sharedOwnerAddress = [(NEKCalendarAttributes *)self sharedOwnerAddress];
-  sharedOwnerAddress2 = [changeCopy sharedOwnerAddress];
-  v68 = sub_100051F74(sharedOwnerAddress, sharedOwnerAddress2, @"sharedOwnerAddress");
-
-  if (!v68)
-  {
-    goto LABEL_54;
-  }
-
-  publishedURL = [(NEKCalendarAttributes *)self publishedURL];
-  publishURL = [changeCopy publishURL];
-  v71 = sub_100051F74(publishedURL, publishURL, @"publishedURL");
-
-  if (!v71)
-  {
-    goto LABEL_54;
-  }
-
-  externalID = [(NEKCalendarAttributes *)self externalID];
-  externalID2 = [changeCopy externalID];
-  v74 = sub_100051F74(externalID, externalID2, @"externalID");
-
-  if (!v74)
-  {
-    goto LABEL_54;
-  }
-
-  externalRepresentation = [(NEKCalendarAttributes *)self externalRepresentation];
-  externalRepresentation2 = [changeCopy externalRepresentation];
-  v77 = sub_100051F74(externalRepresentation, externalRepresentation2, @"externalRepresentation");
-
-  if (!v77)
-  {
-    goto LABEL_54;
-  }
-
-  selfIdentityDisplayName = [(NEKCalendarAttributes *)self selfIdentityDisplayName];
-  selfIdentityDisplayName2 = [changeCopy selfIdentityDisplayName];
-  v80 = sub_100051F74(selfIdentityDisplayName, selfIdentityDisplayName2, @"selfIdentityDisplayName");
-
-  if (!v80)
-  {
-    goto LABEL_54;
-  }
-
-  selfIdentityEmail = [(NEKCalendarAttributes *)self selfIdentityEmail];
-  selfIdentityEmail2 = [changeCopy selfIdentityEmail];
-  v83 = sub_100051F74(selfIdentityEmail, selfIdentityEmail2, @"selfIdentityEmail");
-
-  if (!v83)
-  {
-    goto LABEL_54;
-  }
-
-  selfIdentityAddress = [(NEKCalendarAttributes *)self selfIdentityAddress];
-  selfIdentityAddress2 = [changeCopy selfIdentityAddress];
-  v86 = sub_100051F74(selfIdentityAddress, selfIdentityAddress2, @"selfIdentityAddress");
-
-  if (!v86)
-  {
-    goto LABEL_54;
-  }
-
-  selfIdentityFirstName = [(NEKCalendarAttributes *)self selfIdentityFirstName];
-  selfIdentityFirstName2 = [changeCopy selfIdentityFirstName];
-  v89 = sub_100051F74(selfIdentityFirstName, selfIdentityFirstName2, @"selfIdentityFirstName");
-
-  if (!v89)
-  {
-    goto LABEL_54;
-  }
-
-  selfIdentityLastName = [(NEKCalendarAttributes *)self selfIdentityLastName];
-  selfIdentityLastName2 = [changeCopy selfIdentityLastName];
-  v92 = sub_100051F74(selfIdentityLastName, selfIdentityLastName2, @"selfIdentityLastName");
-
-  if (!v92)
-  {
-    goto LABEL_54;
-  }
-
-  ownerIdentityDisplayName = [(NEKCalendarAttributes *)self ownerIdentityDisplayName];
-  ownerIdentityDisplayName2 = [changeCopy ownerIdentityDisplayName];
-  v95 = sub_100051F74(ownerIdentityDisplayName, ownerIdentityDisplayName2, @"ownerIdentityDisplayName");
-
-  if (!v95)
-  {
-    goto LABEL_54;
-  }
-
-  ownerIdentityAddress = [(NEKCalendarAttributes *)self ownerIdentityAddress];
-  ownerIdentityAddress2 = [changeCopy ownerIdentityAddress];
-  v98 = sub_100051F74(ownerIdentityAddress, ownerIdentityAddress2, @"ownerIdentityAddress");
-
-  if (!v98)
-  {
-    goto LABEL_54;
-  }
-
-  ownerIdentityEmail = [(NEKCalendarAttributes *)self ownerIdentityEmail];
-  ownerIdentityEmail2 = [changeCopy ownerIdentityEmail];
-  v101 = sub_100051F74(ownerIdentityEmail, ownerIdentityEmail2, @"ownerIdentityEmail");
-
-  if (!v101)
-  {
-    goto LABEL_54;
-  }
-
-  ownerIdentityFirstName = [(NEKCalendarAttributes *)self ownerIdentityFirstName];
-  ownerIdentityFirstName2 = [changeCopy ownerIdentityFirstName];
-  v104 = sub_100051F74(ownerIdentityFirstName, ownerIdentityFirstName2, @"ownerIdentityFirstName");
-
-  if (!v104)
-  {
-    goto LABEL_54;
-  }
-
-  ownerIdentityLastName = [(NEKCalendarAttributes *)self ownerIdentityLastName];
-  ownerIdentityLastName2 = [changeCopy ownerIdentityLastName];
-  v107 = sub_100051F74(ownerIdentityLastName, ownerIdentityLastName2, @"ownerIdentityLastName");
-
-  if (v107)
+  if (isReadonly == [changeCopy readOnly]
+    && (v21 = -[NEKCalendarAttributes isHidden](self, "isHidden"), v21 == [changeCopy isHidden])
+    && (v22 = -[NEKCalendarAttributes isImmutable](self, "isImmutable"), v22 == [changeCopy isImmutableRaw])
+    && (v23 = -[NEKCalendarAttributes isInbox](self, "isInbox"), v23 == [changeCopy isInbox])
+    && (v24 = -[NEKCalendarAttributes isNotificationsCollection](self, "isNotificationsCollection"), v24 == [changeCopy isNotificationsCollection])
+    && (v25 = -[NEKCalendarAttributes isSharingInvitation](self, "isSharingInvitation"), v25 == [changeCopy isSharingInvitation])
+    && (v26 = -[NEKCalendarAttributes isSubscribed](self, "isSubscribed"), v26 == [changeCopy isSubscribed])
+    && (v27 = -[NEKCalendarAttributes isHolidyCalendar](self, "isHolidyCalendar"), v27 == [changeCopy isSubscribedHolidayCalendar])
+    && (v28 = -[NEKCalendarAttributes isFamilyCalendar](self, "isFamilyCalendar"), v28 == [changeCopy isFamilyCalendar])
+    && (v29 = -[NEKCalendarAttributes isIgnoringEventAlerts](self, "isIgnoringEventAlerts"), v29 == [changeCopy isIgnoringEventAlerts])
+    && (v30 = -[NEKCalendarAttributes isIgnoringSharedCalendarNotifications](self, "isIgnoringSharedCalendarNotifications"), v30 == [changeCopy isIgnoringSharedCalendarNotifications])
+    && (v31 = -[NEKCalendarAttributes isSchedulingProhibited](self, "isSchedulingProhibited"), v31 != [changeCopy allowsScheduling])
+    && (v32 = -[NEKCalendarAttributes isDefaultCalendarForStore](self, "isDefaultCalendarForStore"), v32 == [changeCopy isDefaultSchedulingCalendar])
+    && (v33 = -[NEKCalendarAttributes displayOrder](self, "displayOrder"), v33 == [changeCopy displayOrder])
+    && (v34 = -[NEKCalendarAttributes sharingStatus](self, "sharingStatus"), v34 == [changeCopy sharingStatus])
+    && (v35 = -[NEKCalendarAttributes sharingInvitationResponse](self, "sharingInvitationResponse"), v35 == [changeCopy sharingInvitationResponse])
+    && (v36 = -[NEKCalendarAttributes canBePublished](self, "canBePublished"), v36 == [changeCopy canBePublished])
+    && (v37 = -[NEKCalendarAttributes canBeShared](self, "canBeShared"), v37 == [changeCopy canBeShared])
+    && (v38 = -[NEKCalendarAttributes isPublished](self, "isPublished"), v38 == [changeCopy isPublished])
+    && (v39 = -[NEKCalendarAttributes invitationStatus](self, "invitationStatus"), v39 == [changeCopy invitationStatus])
+    && (v40 = [changeCopy allowEvents], ((v40 ^ -[NEKCalendarAttributes supportedEntityTypes](self, "supportedEntityTypes")) & 1) == 0)
+    && (v41 = [changeCopy allowReminders], ((v41 ^ -[NEKCalendarAttributes supportedEntityTypes](self, "supportedEntityTypes")) & 1) == 0)
+    && (-[NEKCalendarAttributes title](self, "title"), v42 = objc_claimAutoreleasedReturnValue(), [changeCopy unlocalizedTitle], v43 = objc_claimAutoreleasedReturnValue(), v44 = sub_100051F74(v42, v43, @"title"), v43, v42, v44)
+    && (-[NEKCalendarAttributes digest](self, "digest"), v45 = objc_claimAutoreleasedReturnValue(), [changeCopy digest], v46 = objc_claimAutoreleasedReturnValue(), v47 = sub_100051F74(v45, v46, @"digest"), v46, v45, v47)
+    && (-[NEKCalendarAttributes symbolicColorName](self, "symbolicColorName"), v48 = objc_claimAutoreleasedReturnValue(), [changeCopy symbolicColorName], v49 = objc_claimAutoreleasedReturnValue(), v50 = sub_100051F74(v48, v49, @"symbolicColorName"), v49, v48, v50)
+    && (-[NEKCalendarAttributes colorString](self, "colorString"), v51 = objc_claimAutoreleasedReturnValue(), [changeCopy colorString], v52 = objc_claimAutoreleasedReturnValue(), v53 = sub_100051F74(v51, v52, @"colorString"), v52, v51, v53)
+    && (-[NEKCalendarAttributes notes](self, "notes"), v54 = objc_claimAutoreleasedReturnValue(), [changeCopy notes], v55 = objc_claimAutoreleasedReturnValue(), v56 = sub_100051F74(v54, v55, @"notes"), v55, v54, v56)
+    && (-[NEKCalendarAttributes subCalAccountID](self, "subCalAccountID"), v57 = objc_claimAutoreleasedReturnValue(), [changeCopy subcalAccountID], v58 = objc_claimAutoreleasedReturnValue(), v59 = sub_100051F74(v57, v58, @"subCalAccountID"), v58, v57, v59)
+    && (-[NEKCalendarAttributes pushKey](self, "pushKey"), v60 = objc_claimAutoreleasedReturnValue(), [changeCopy pushKey], v61 = objc_claimAutoreleasedReturnValue(), v62 = sub_100051F74(v60, v61, @"pushKey"), v61, v60, v62)
+    && (-[NEKCalendarAttributes sharedOwnerName](self, "sharedOwnerName"), v63 = objc_claimAutoreleasedReturnValue(), [changeCopy sharedOwnerName], v64 = objc_claimAutoreleasedReturnValue(), v65 = sub_100051F74(v63, v64, @"sharedOwnerName"), v64, v63, v65)
+    && (-[NEKCalendarAttributes sharedOwnerAddress](self, "sharedOwnerAddress"), v66 = objc_claimAutoreleasedReturnValue(), [changeCopy sharedOwnerAddress], v67 = objc_claimAutoreleasedReturnValue(), v68 = sub_100051F74(v66, v67, @"sharedOwnerAddress"), v67, v66, v68)
+    && (-[NEKCalendarAttributes publishedURL](self, "publishedURL"), v69 = objc_claimAutoreleasedReturnValue(), [changeCopy publishURL], v70 = objc_claimAutoreleasedReturnValue(), v71 = sub_100051F74(v69, v70, @"publishedURL"), v70, v69, v71)
+    && (-[NEKCalendarAttributes externalID](self, "externalID"), v72 = objc_claimAutoreleasedReturnValue(), [changeCopy externalID], v73 = objc_claimAutoreleasedReturnValue(), v74 = sub_100051F74(v72, v73, @"externalID"), v73, v72, v74)
+    && (-[NEKCalendarAttributes externalRepresentation](self, "externalRepresentation"), v75 = objc_claimAutoreleasedReturnValue(), [changeCopy externalRepresentation], v76 = objc_claimAutoreleasedReturnValue(), v77 = sub_100051F74(v75, v76, @"externalRepresentation"), v76, v75, v77)
+    && (-[NEKCalendarAttributes selfIdentityDisplayName](self, "selfIdentityDisplayName"), v78 = objc_claimAutoreleasedReturnValue(), [changeCopy selfIdentityDisplayName], v79 = objc_claimAutoreleasedReturnValue(), v80 = sub_100051F74(v78, v79, @"selfIdentityDisplayName"), v79, v78, v80)
+    && (-[NEKCalendarAttributes selfIdentityEmail](self, "selfIdentityEmail"), v81 = objc_claimAutoreleasedReturnValue(), [changeCopy selfIdentityEmail], v82 = objc_claimAutoreleasedReturnValue(), v83 = sub_100051F74(v81, v82, @"selfIdentityEmail"), v82, v81, v83)
+    && (-[NEKCalendarAttributes selfIdentityAddress](self, "selfIdentityAddress"), v84 = objc_claimAutoreleasedReturnValue(), [changeCopy selfIdentityAddress], v85 = objc_claimAutoreleasedReturnValue(), v86 = sub_100051F74(v84, v85, @"selfIdentityAddress"), v85, v84, v86)
+    && (-[NEKCalendarAttributes selfIdentityFirstName](self, "selfIdentityFirstName"), v87 = objc_claimAutoreleasedReturnValue(), [changeCopy selfIdentityFirstName], v88 = objc_claimAutoreleasedReturnValue(), v89 = sub_100051F74(v87, v88, @"selfIdentityFirstName"), v88, v87, v89)
+    && (-[NEKCalendarAttributes selfIdentityLastName](self, "selfIdentityLastName"), v90 = objc_claimAutoreleasedReturnValue(), [changeCopy selfIdentityLastName], v91 = objc_claimAutoreleasedReturnValue(), v92 = sub_100051F74(v90, v91, @"selfIdentityLastName"), v91, v90, v92)
+    && (-[NEKCalendarAttributes ownerIdentityDisplayName](self, "ownerIdentityDisplayName"), v93 = objc_claimAutoreleasedReturnValue(), [changeCopy ownerIdentityDisplayName], v94 = objc_claimAutoreleasedReturnValue(), v95 = sub_100051F74(v93, v94, @"ownerIdentityDisplayName"), v94, v93, v95)
+    && (-[NEKCalendarAttributes ownerIdentityAddress](self, "ownerIdentityAddress"), v96 = objc_claimAutoreleasedReturnValue(), [changeCopy ownerIdentityAddress], v97 = objc_claimAutoreleasedReturnValue(), v98 = sub_100051F74(v96, v97, @"ownerIdentityAddress"), v97, v96, v98)
+    && (-[NEKCalendarAttributes ownerIdentityEmail](self, "ownerIdentityEmail"), v99 = objc_claimAutoreleasedReturnValue(), [changeCopy ownerIdentityEmail], v100 = objc_claimAutoreleasedReturnValue(), v101 = sub_100051F74(v99, v100, @"ownerIdentityEmail"), v100, v99, v101)
+    && (-[NEKCalendarAttributes ownerIdentityFirstName](self, "ownerIdentityFirstName"), v102 = objc_claimAutoreleasedReturnValue(), [changeCopy ownerIdentityFirstName], v103 = objc_claimAutoreleasedReturnValue(), v104 = sub_100051F74(v102, v103, @"ownerIdentityFirstName"), v103, v102, v104)
+    && (-[NEKCalendarAttributes ownerIdentityLastName](self, "ownerIdentityLastName"), v105 = objc_claimAutoreleasedReturnValue(), [changeCopy ownerIdentityLastName], v106 = objc_claimAutoreleasedReturnValue(), v107 = sub_100051F74(v105, v106, @"ownerIdentityLastName"), v106, v105, v107))
   {
     v108 = *(qword_1000D18A8 + 8);
     v109 = 0;
     if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
     {
       v110 = v108;
-      title3 = [(NEKCalendarAttributes *)self title];
-      v112 = sub_10002CDF8(title3);
+      title2 = [(NEKCalendarAttributes *)self title];
+      v112 = sub_10002CDF8(title2);
       uUID2 = [(NEKCalendarAttributes *)self UUID];
       v115 = 138543618;
       v116 = v112;

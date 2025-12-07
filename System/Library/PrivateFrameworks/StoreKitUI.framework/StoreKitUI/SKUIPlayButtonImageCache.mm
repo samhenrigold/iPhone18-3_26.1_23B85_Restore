@@ -45,40 +45,40 @@ uint64_t __47__SKUIPlayButtonImageCache_imageCacheForStyle___block_invoke()
     [SKUIPlayButtonImageCache initWithStyle:];
   }
 
-  v17.receiver = self;
-  v17.super_class = SKUIPlayButtonImageCache;
-  v5 = [(SKUIPlayButtonImageCache *)&v17 init];
-  v6 = v5;
+  v18.receiver = self;
+  v18.super_class = SKUIPlayButtonImageCache;
+  v5 = [(SKUIPlayButtonImageCache *)&v18 init];
+  v7 = v5;
   if (v5)
   {
     v5->_imageLock._os_unfair_lock_opaque = 0;
-    v7 = SKUIBundle();
-    bundle = v6->_bundle;
-    v6->_bundle = v7;
+    v8 = SKUIBundle(v5, v6);
+    bundle = v7->_bundle;
+    v7->_bundle = v8;
 
     if (style <= 2)
     {
-      v9 = off_2781FF758[style];
-      v10 = off_2781FF770[style];
-      playImageName = v6->_playImageName;
-      v6->_playImageName = &v9->isa;
+      v10 = off_2781FF758[style];
+      v11 = off_2781FF770[style];
+      playImageName = v7->_playImageName;
+      v7->_playImageName = &v10->isa;
 
-      pauseImageName = v6->_pauseImageName;
-      v6->_pauseImageName = &v10->isa;
+      pauseImageName = v7->_pauseImageName;
+      v7->_pauseImageName = &v11->isa;
 
-      stopImageName = v6->_stopImageName;
-      v6->_stopImageName = @"UniversalPlayButtonStopIcon";
+      stopImageName = v7->_stopImageName;
+      v7->_stopImageName = @"UniversalPlayButtonStopIcon";
     }
 
-    if (!v6->_playImage)
+    if (!v7->_playImage)
     {
-      v14 = [MEMORY[0x277D755B8] imageNamed:v6->_playImageName inBundle:v6->_bundle];
-      playImage = v6->_playImage;
-      v6->_playImage = v14;
+      v15 = [MEMORY[0x277D755B8] imageNamed:v7->_playImageName inBundle:v7->_bundle];
+      playImage = v7->_playImage;
+      v7->_playImage = v15;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (UIImage)playImage

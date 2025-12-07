@@ -1073,7 +1073,7 @@ LABEL_13:
 - (void)forgotSecurityCode
 {
   v22 = 0;
-  PSKeychainSyncGetCircleMembershipStatus(&v22, 0);
+  PSKeychainSyncGetCircleMembershipStatus(&v22, 0, 0);
   v3 = MEMORY[0x1E69DC650];
   v4 = PS_LocalizedStringForKeychainSync(@"SECURITY_CODE_REQUIRED");
   if (v22)
@@ -1151,26 +1151,26 @@ void __58__PSKeychainSyncSecurityCodeController_forgotSecurityCode__block_invoke
 void __58__PSKeychainSyncSecurityCodeController_forgotSecurityCode__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v26 = 0;
-  v4 = PSSecureBackupAccountInfo(&v26, 1);
-  v5 = v26;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v27 = 0;
+  v4 = PSSecureBackupAccountInfo(&v27, 1);
+  v5 = v27;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
   v6 = getkSecureBackupIsEnabledKeySymbolLoc_ptr_1;
-  v35 = getkSecureBackupIsEnabledKeySymbolLoc_ptr_1;
+  v36 = getkSecureBackupIsEnabledKeySymbolLoc_ptr_1;
   if (!getkSecureBackupIsEnabledKeySymbolLoc_ptr_1)
   {
-    v27 = MEMORY[0x1E69E9820];
-    v28 = 3221225472;
-    v29 = __getkSecureBackupIsEnabledKeySymbolLoc_block_invoke_1;
-    v30 = &unk_1E71DBC78;
-    v31 = &v32;
-    __getkSecureBackupIsEnabledKeySymbolLoc_block_invoke_1(&v27);
-    v6 = v33[3];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __getkSecureBackupIsEnabledKeySymbolLoc_block_invoke_1;
+    v31 = &unk_1E71DBC78;
+    v32 = &v33;
+    __getkSecureBackupIsEnabledKeySymbolLoc_block_invoke_1(&v28);
+    v6 = v34[3];
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v33, 8);
   if (!v6)
   {
     [PSContactsAuthorizationLevelController dealloc];
@@ -1180,29 +1180,30 @@ void __58__PSKeychainSyncSecurityCodeController_forgotSecurityCode__block_invoke
   v7 = [v4 objectForKey:*v6];
   v8 = [v7 BOOLValue];
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
   v9 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
-  v35 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
+  v36 = getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr;
   if (!getBYSetupAssistantHasCompletedInitialRunSymbolLoc_ptr)
   {
-    v27 = MEMORY[0x1E69E9820];
-    v28 = 3221225472;
-    v29 = __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke;
-    v30 = &unk_1E71DBC78;
-    v31 = &v32;
-    __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke(&v27);
-    v9 = v33[3];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke;
+    v31 = &unk_1E71DBC78;
+    v32 = &v33;
+    __getBYSetupAssistantHasCompletedInitialRunSymbolLoc_block_invoke(&v28);
+    v9 = v34[3];
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v33, 8);
   if (!v9)
   {
 LABEL_15:
-    v24 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v32, 8);
-    _Unwind_Resume(v24);
+    [PSContactsAuthorizationLevelController dealloc];
+    v25 = v24;
+    _Block_object_dispose(&v33, 8);
+    _Unwind_Resume(v25);
   }
 
   v10 = v9();
@@ -1236,12 +1237,12 @@ LABEL_15:
 
   v21 = MEMORY[0x1E69DC648];
   v22 = PS_LocalizedStringForKeychainSync(@"RESET");
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __58__PSKeychainSyncSecurityCodeController_forgotSecurityCode__block_invoke_3;
-  v25[3] = &unk_1E71DC288;
-  v25[4] = *(a1 + 32);
-  v23 = [v21 actionWithTitle:v22 style:0 handler:v25];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __58__PSKeychainSyncSecurityCodeController_forgotSecurityCode__block_invoke_3;
+  v26[3] = &unk_1E71DC288;
+  v26[4] = *(a1 + 32);
+  v23 = [v21 actionWithTitle:v22 style:0 handler:v26];
   [v17 addAction:v23];
 
   [*(a1 + 32) presentViewController:v17 animated:1 completion:0];

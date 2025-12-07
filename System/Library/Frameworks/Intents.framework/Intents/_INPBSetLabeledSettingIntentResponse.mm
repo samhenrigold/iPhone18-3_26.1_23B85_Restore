@@ -187,7 +187,6 @@ LABEL_18:
 
   if (errorDetail)
   {
-    errorDetail = self->_errorDetail;
     PBDataWriterWriteStringField();
   }
 
@@ -195,18 +194,16 @@ LABEL_18:
 
   if (oldValue)
   {
-    oldValue = self->_oldValue;
     PBDataWriterWriteStringField();
   }
 
   updatedValue = [(_INPBSetLabeledSettingIntentResponse *)self updatedValue];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (updatedValue)
   {
-    updatedValue = self->_updatedValue;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)setupTypeAsString:(int)string;
 - (int)StringAsSetupType:(id)type;
 - (int)setupType;
 - (unint64_t)hash;
@@ -40,6 +41,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)setupTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"TinkerPairingMigrationSetup";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"TinkerPairingInitialSetup";
+  }
+
+  return v4;
 }
 
 - (int)StringAsSetupType:(id)type
@@ -152,61 +176,59 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_requestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_guardianIcloudIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    setupType = self->_setupType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_guardianFirstName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_guardianLastName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    guardianDSID = self->_guardianDSID;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_profileIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_tinkerFirstName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_tinkerLastName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -341,7 +363,6 @@
     }
   }
 
-  v7 = *(equalCopy + 80);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_setupType != *(equalCopy + 14))
@@ -353,7 +374,7 @@
   else if ((*(equalCopy + 80) & 2) != 0)
   {
 LABEL_26:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_27;
   }
 
@@ -372,7 +393,6 @@ LABEL_26:
     }
   }
 
-  v10 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_guardianDSID != *(equalCopy + 1))
@@ -404,17 +424,17 @@ LABEL_26:
   tinkerLastName = self->_tinkerLastName;
   if (tinkerLastName | *(equalCopy + 9))
   {
-    v14 = [(NSString *)tinkerLastName isEqual:?];
+    v12 = [(NSString *)tinkerLastName isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v12 = 1;
   }
 
 LABEL_27:
 
-  return v14;
+  return v12;
 }
 
 - (unint64_t)hash

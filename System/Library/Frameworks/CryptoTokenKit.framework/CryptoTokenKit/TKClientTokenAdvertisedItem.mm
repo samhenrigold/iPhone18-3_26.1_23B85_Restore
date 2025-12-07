@@ -8,7 +8,6 @@
 - (id)keychainClass;
 - (unint64_t)keyUsage;
 - (void)certificateRef;
-- (void)keyRef;
 @end
 
 @implementation TKClientTokenAdvertisedItem
@@ -96,10 +95,10 @@
 
     if (!self->_secRef)
     {
-      v15 = TK_LOG_client_1();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = TK_LOG_client_1(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(TKClientTokenAdvertisedItem *)tokenID keyRef];
+        [TKClientTokenAdvertisedItem keyRef];
       }
     }
 
@@ -135,8 +134,8 @@
       token = [session token];
       tokenID = [token tokenID];
 
-      v13 = TK_LOG_client_1();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = TK_LOG_client_1(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(TKClientTokenAdvertisedItem *)tokenID certificateRef];
       }
@@ -164,23 +163,13 @@
   }
 }
 
-- (void)keyRef
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_11(&dword_1DF413000, v3, v4, "Failed to create key from advertised item of token %{public}@, error: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)certificateRef
 {
-  *v4 = 138543618;
-  *&v4[4] = self;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_11(&dword_1DF413000, a2, a3, "Failed to create certificate from advertised item of token %{public}@, data: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = self;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_11(&dword_1DF413000, a2, a3, "Failed to create certificate from advertised item of token %{public}@, data: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

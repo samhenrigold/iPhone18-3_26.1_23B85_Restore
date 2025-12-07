@@ -94,13 +94,13 @@ LABEL_5:
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_18BA1799C();
+  sub_18BA1799C(selfCopy);
 }
 
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_18BA191C8();
+  sub_18BA191C8(selfCopy);
 }
 
 @end

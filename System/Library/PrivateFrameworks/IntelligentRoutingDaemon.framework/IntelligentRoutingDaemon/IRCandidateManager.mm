@@ -69,37 +69,37 @@
 
 - (void)updateCandidates:(id)candidates withHistoryEventsContainer:(id)container
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   containerCopy = container;
   v6 = [MEMORY[0x277CBEB58] set];
-  v57 = [MEMORY[0x277CBEB58] set];
+  v56 = [MEMORY[0x277CBEB58] set];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v7 = candidatesCopy;
-  v59 = [v7 countByEnumeratingWithState:&v60 objects:v72 count:16];
-  if (v59)
+  v58 = [v7 countByEnumeratingWithState:&v59 objects:v71 count:16];
+  if (v58)
   {
-    v54 = v6;
-    v56 = 0;
-    v9 = *v61;
+    v53 = v6;
+    v55 = 0;
+    v9 = *v60;
     v10 = MEMORY[0x277D21308];
     *&v8 = 136315906;
-    v52 = v8;
-    v55 = v7;
+    v51 = v8;
+    v54 = v7;
     selfCopy5 = self;
     do
     {
-      for (i = 0; i != v59; ++i)
+      for (i = 0; i != v58; ++i)
       {
-        if (*v61 != v9)
+        if (*v60 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v60 + 1) + 8 * i);
+        v13 = *(*(&v59 + 1) + 8 * i);
         candidatesContainer = [(IRCandidateManager *)selfCopy5 candidatesContainer];
         candidateIdentifier = [v13 candidateIdentifier];
         v16 = [candidatesContainer candidateForCandidateIdentifier:candidateIdentifier];
@@ -123,46 +123,31 @@
             v25 = v24;
             v26 = [IRLogQEUtility getCandidateAsString:v22];
             *buf = 136315650;
-            v65 = "#candidate-manager, ";
-            v66 = 2112;
-            v67 = v23;
-            v68 = 2112;
-            v69 = v26;
+            v64 = "#candidate-manager, ";
+            v65 = 2112;
+            v66 = v23;
+            v67 = 2112;
+            v68 = v26;
             _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEFAULT, "%s[%@], Updating candidate:\n %@", buf, 0x20u);
           }
 
-          if (![v16 isEqual:v22])
-          {
-            goto LABEL_17;
-          }
-
-          lastSeenDate = [v22 lastSeenDate];
-          lastSeenDate2 = [v16 lastSeenDate];
-          v29 = +[IRPreferences shared];
-          candidateUpdateTimeIntervalSeconds = [v29 candidateUpdateTimeIntervalSeconds];
-          v31 = [lastSeenDate2 dateByAddingTimeInterval:{objc_msgSend(candidateUpdateTimeIntervalSeconds, "unsignedIntegerValue")}];
-          v32 = [lastSeenDate isEarlierThan:v31];
-
-          v7 = v55;
-          v10 = MEMORY[0x277D21308];
-
-          if (v32)
+          if ([v16 isEqual:v22] && (objc_msgSend(v22, "lastSeenDate"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "lastSeenDate"), v28 = objc_claimAutoreleasedReturnValue(), +[IRPreferences shared](IRPreferences, "shared"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "candidateUpdateTimeIntervalSeconds"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "dateByAddingTimeInterval:", objc_msgSend(v30, "unsignedIntegerValue")), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v27, "isEarlierThan:", v31), v31, v7 = v54, v30, v10 = MEMORY[0x277D21308], v29, v28, v27, v32))
           {
             v33 = dispatch_get_specific(*v10);
             v34 = *MEMORY[0x277D21260];
             if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
             {
               v35 = v34;
-              lastSeenDate3 = [v16 lastSeenDate];
-              lastSeenDate4 = [v22 lastSeenDate];
-              *buf = v52;
-              v65 = "#candidate-manager, ";
-              v66 = 2112;
-              v67 = v33;
-              v68 = 2112;
-              v69 = lastSeenDate3;
-              v70 = 2112;
-              v71 = lastSeenDate4;
+              lastSeenDate = [v16 lastSeenDate];
+              lastSeenDate2 = [v22 lastSeenDate];
+              *buf = v51;
+              v64 = "#candidate-manager, ";
+              v65 = 2112;
+              v66 = v33;
+              v67 = 2112;
+              v68 = lastSeenDate;
+              v69 = 2112;
+              v70 = lastSeenDate2;
               _os_log_impl(&dword_25543D000, v35, OS_LOG_TYPE_DEBUG, "%s[%@], Update candidate was requested but not needed, lastSeenDate: %@, currentDate: %@", buf, 0x2Au);
 
               v10 = MEMORY[0x277D21308];
@@ -173,10 +158,9 @@
 
           else
           {
-LABEL_17:
             if (v16)
             {
-              [v54 addObject:v16];
+              [v53 addObject:v16];
               selfCopy5 = self;
             }
 
@@ -185,14 +169,14 @@ LABEL_17:
               v41 = [(IRCandidateManager *)self _lastUsedDateForCandidate:v22 fromHistoryEventsContainer:containerCopy];
               v42 = [v22 copyWithReplacementLastUsedDate:v41];
 
-              lastSeenDate5 = [v42 lastSeenDate];
-              v22 = [v42 copyWithReplacementFirstSeenDate:lastSeenDate5];
+              lastSeenDate3 = [v42 lastSeenDate];
+              v22 = [v42 copyWithReplacementFirstSeenDate:lastSeenDate3];
 
               selfCopy5 = self;
             }
 
-            [v57 addObject:v22];
-            v56 = 1;
+            [v56 addObject:v22];
+            v55 = 1;
           }
         }
 
@@ -204,30 +188,30 @@ LABEL_17:
             v39 = v38;
             v40 = [IRLogQEUtility getCandidateAsString:v22];
             *buf = 136315650;
-            v65 = "#candidate-manager, ";
-            v66 = 2112;
-            v67 = v23;
-            v68 = 2112;
-            v69 = v40;
+            v64 = "#candidate-manager, ";
+            v65 = 2112;
+            v66 = v23;
+            v67 = 2112;
+            v68 = v40;
             _os_log_impl(&dword_25543D000, v39, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate update error] Candidate is not valid to be updated:\n %@", buf, 0x20u);
           }
         }
       }
 
-      v59 = [v7 countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v58 = [v7 countByEnumeratingWithState:&v59 objects:v71 count:16];
     }
 
-    while (v59);
+    while (v58);
 
-    v6 = v54;
-    if (v56)
+    v6 = v53;
+    if (v55)
     {
-      if ([v54 count])
+      if ([v53 count])
       {
-        [(IRCandidateManager *)selfCopy5 _deleteCandidates:v54];
+        [(IRCandidateManager *)selfCopy5 _deleteCandidates:v53];
       }
 
-      [(IRCandidateManager *)selfCopy5 _addCandidates:v57];
+      [(IRCandidateManager *)selfCopy5 _addCandidates:v56];
       [(IRCandidateManager *)selfCopy5 _handleCandidatesCleanup];
       v44 = dispatch_get_specific(*MEMORY[0x277D21308]);
       v45 = *MEMORY[0x277D21260];
@@ -239,14 +223,14 @@ LABEL_17:
         candidates = [candidatesContainer2 candidates];
         v50 = [v46 numberWithUnsignedInteger:{objc_msgSend(candidates, "count")}];
         *buf = 136315650;
-        v65 = "#candidate-manager, ";
-        v66 = 2112;
-        v67 = v44;
-        v68 = 2112;
-        v69 = v50;
+        v64 = "#candidate-manager, ";
+        v65 = 2112;
+        v66 = v44;
+        v67 = 2112;
+        v68 = v50;
         _os_log_impl(&dword_25543D000, v47, OS_LOG_TYPE_INFO, "%s[%@], Number of candidates: %@", buf, 0x20u);
 
-        v7 = v55;
+        v7 = v54;
         selfCopy5 = self;
       }
 
@@ -257,13 +241,11 @@ LABEL_17:
   else
   {
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBrokerCandidates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidates = [candidatesContainer candidates];
   v5 = [candidates allWhere:&__block_literal_global_16];
@@ -281,19 +263,17 @@ LABEL_17:
       candidatesContainer2 = [(IRCandidateManager *)self candidatesContainer];
       candidates2 = [candidatesContainer2 candidates];
       v12 = [v8 numberWithUnsignedInteger:{objc_msgSend(candidates2, "count")}];
-      v14 = 136315650;
-      v15 = "#candidate-manager, ";
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "%s[%@], Number of candidates: %@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "#candidate-manager, ";
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "%s[%@], Number of candidates: %@", &v13, 0x20u);
     }
 
     [(IRCandidateManager *)self _didUpdateContextWithReason:@"Delete Broker candidates"];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __44__IRCandidateManager_deleteBrokerCandidates__block_invoke(uint64_t a1, void *a2)
@@ -314,7 +294,7 @@ uint64_t __44__IRCandidateManager_deleteBrokerCandidates__block_invoke_2(uint64_
 
 - (void)deleteCandidate:(id)candidate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidateIdentifier = [candidateCopy candidateIdentifier];
@@ -340,20 +320,20 @@ uint64_t __44__IRCandidateManager_deleteBrokerCandidates__block_invoke_2(uint64_
     v13 = [IRLogQEUtility getCandidateAsString:v9];
     v14 = v13;
     v15 = @"YES";
-    v18 = 136315906;
-    v19 = "#candidate-manager, ";
+    v17 = 136315906;
+    v18 = "#candidate-manager, ";
     if (!v7)
     {
       v15 = @"NO";
     }
 
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v15;
-    _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_DEFAULT, "%s[%@], Deleting candidate:\n %@,\n is known candidate: %@", &v18, 0x2Au);
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v15;
+    _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_DEFAULT, "%s[%@], Deleting candidate:\n %@,\n is known candidate: %@", &v17, 0x2Au);
   }
 
   if (v7)
@@ -363,100 +343,96 @@ uint64_t __44__IRCandidateManager_deleteBrokerCandidates__block_invoke_2(uint64_
 
     [(IRCandidateManager *)self _didUpdateContextWithReason:@"Delete candidate"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyAddEventForCandidateIdentifier:(id)identifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   v6 = [candidatesContainer candidateForCandidateIdentifier:identifierCopy];
 
   if (v6)
   {
-    v27 = identifierCopy;
+    v26 = identifierCopy;
     v7 = [MEMORY[0x277CBEB58] setWithObject:v6];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v26 = v6;
+    v25 = v6;
     nodes = [v6 nodes];
-    v9 = [nodes countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v9 = [nodes countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v33;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v34 != v11)
+          if (*v33 != v11)
           {
             objc_enumerationMutation(nodes);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
+          v13 = *(*(&v32 + 1) + 8 * i);
           avOutpuDeviceIdentifier = [v13 avOutpuDeviceIdentifier];
 
           if (avOutpuDeviceIdentifier)
           {
             candidatesContainer2 = [(IRCandidateManager *)self candidatesContainer];
             candidates = [candidatesContainer2 candidates];
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __59__IRCandidateManager_notifyAddEventForCandidateIdentifier___block_invoke;
-            v32[3] = &unk_2797E0CD0;
-            v32[4] = v13;
-            v17 = [candidates allWhere:v32];
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __59__IRCandidateManager_notifyAddEventForCandidateIdentifier___block_invoke;
+            v31[3] = &unk_2797E0CD0;
+            v31[4] = v13;
+            v17 = [candidates allWhere:v31];
             [v7 unionSet:v17];
           }
         }
 
-        v10 = [nodes countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v10 = [nodes countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v10);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v19 = v7;
-    v20 = [v19 countByEnumeratingWithState:&v28 objects:v37 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v27 objects:v36 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v29;
+      v22 = *v28;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v29 != v22)
+          if (*v28 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [*(*(&v28 + 1) + 8 * j) copyWithReplacementLastUsedDate:date];
+          v24 = [*(*(&v27 + 1) + 8 * j) copyWithReplacementLastUsedDate:date];
           [(IRCandidateManager *)self _updateCandidate:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v28 objects:v37 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v27 objects:v36 count:16];
       }
 
       while (v21);
     }
 
     [(IRCandidateManager *)self _handleCandidatesCleanup];
-    v6 = v26;
-    identifierCopy = v27;
+    v6 = v25;
+    identifierCopy = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__IRCandidateManager_notifyAddEventForCandidateIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -495,21 +471,21 @@ uint64_t __59__IRCandidateManager_notifyAddEventForCandidateIdentifier___block_i
 
 void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setAvodDevices:*(a1 + 32)];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   v4 = [v3 avodDevices];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_2;
-  v11[3] = &unk_2797E1E58;
-  v11[4] = v3;
-  v11[5] = &v12;
-  [v4 enumerateObjectsUsingBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_2;
+  v10[3] = &unk_2797E1E58;
+  v10[4] = v3;
+  v10[5] = &v11;
+  [v4 enumerateObjectsUsingBlock:v10];
 
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v6 = *MEMORY[0x277D21260];
@@ -519,22 +495,20 @@ void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke(u
     v8 = [v3 avodDevices];
     v9 = [v7 numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
     *buf = 136315650;
-    v17 = "#candidate-manager, ";
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v9;
+    v16 = "#candidate-manager, ";
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], Memory: Number of Avod Devices: %@", buf, 0x20u);
   }
 
-  if (*(v13 + 24) == 1)
+  if (*(v12 + 24) == 1)
   {
     [v3 _didUpdateContextWithReason:@"Avod device updated"];
   }
 
-  _Block_object_dispose(&v12, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 }
 
 void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_2(uint64_t a1, void *a2)
@@ -554,15 +528,15 @@ void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_2
 
 void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_3(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 nodes];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_4;
-  v22[3] = &unk_2797E0D40;
-  v23 = *(a1 + 32);
-  v5 = [v4 firstWhere:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_4;
+  v21[3] = &unk_2797E0D40;
+  v22 = *(a1 + 32);
+  v5 = [v4 firstWhere:v21];
 
   if (v5 && ([v5 avOutputDevice], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqual:", *(a1 + 32)), v6, (v7 & 1) == 0))
   {
@@ -570,14 +544,14 @@ void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_3
     v9 = [v5 copyWithReplacementAvOutputDevice:*(a1 + 32)];
 
     v10 = [v3 nodes];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_5;
-    v20 = &unk_2797E1E08;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_5;
+    v19 = &unk_2797E1E08;
     v5 = v9;
-    v21 = v5;
-    v11 = [v10 map:&v17];
-    v8 = [v3 copyWithReplacementNodes:{v11, v17, v18, v19, v20}];
+    v20 = v5;
+    v11 = [v10 map:&v16];
+    v8 = [v3 copyWithReplacementNodes:{v11, v16, v17, v18, v19}];
 
     [*(a1 + 40) _updateCandidate:v8];
     v12 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -587,13 +561,13 @@ void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_3
       v14 = v13;
       v15 = [v8 candidateIdentifier];
       *buf = 136315906;
-      v25 = "#candidate-manager, ";
-      v26 = 2112;
-      v27 = v12;
-      v28 = 2112;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v8;
+      v24 = "#candidate-manager, ";
+      v25 = 2112;
+      v26 = v12;
+      v27 = 2112;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v8;
       _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_DEFAULT, "%s[%@], Candidate [%@] updated with new avoutput device: %@", buf, 0x2Au);
     }
   }
@@ -602,8 +576,6 @@ void __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_3
   {
     v8 = v3;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_4(uint64_t a1, void *a2)
@@ -648,21 +620,21 @@ void *__56__IRCandidateManager_provider_didUpdateAVOutputDevices___block_invoke_
 
 void __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setRapportDevices:*(a1 + 32)];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   v4 = [v3 rapportDevices];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_2;
-  v11[3] = &unk_2797E1EA8;
-  v11[4] = v3;
-  v11[5] = &v12;
-  [v4 enumerateObjectsUsingBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_2;
+  v10[3] = &unk_2797E1EA8;
+  v10[4] = v3;
+  v10[5] = &v11;
+  [v4 enumerateObjectsUsingBlock:v10];
 
   v5 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v6 = *MEMORY[0x277D21260];
@@ -672,22 +644,20 @@ void __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke(ui
     v8 = [v3 rapportDevices];
     v9 = [v7 numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
     *buf = 136315650;
-    v17 = "#candidate-manager, ";
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v9;
+    v16 = "#candidate-manager, ";
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], Memory: Number of Rapport Devices: %@", buf, 0x20u);
   }
 
-  if (*(v13 + 24) == 1)
+  if (*(v12 + 24) == 1)
   {
     [v3 _didUpdateContextWithReason:@"Raport device updated"];
   }
 
-  _Block_object_dispose(&v12, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 }
 
 void __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_2(uint64_t a1, void *a2)
@@ -707,45 +677,45 @@ void __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_2(
 
 void __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_3(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 nodes];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_4;
-  v50[3] = &unk_2797E0D40;
-  v51 = *(a1 + 32);
-  v5 = [v4 firstWhere:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_4;
+  v49[3] = &unk_2797E0D40;
+  v50 = *(a1 + 32);
+  v5 = [v4 firstWhere:v49];
 
   if (!v5)
   {
     v6 = [v3 nodes];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_5;
-    v48[3] = &unk_2797E0D40;
-    v49 = *(a1 + 32);
-    v5 = [v6 firstWhere:v48];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_5;
+    v47[3] = &unk_2797E0D40;
+    v48 = *(a1 + 32);
+    v5 = [v6 firstWhere:v47];
 
     if (!v5)
     {
       v7 = [v3 nodes];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_6;
-      v46[3] = &unk_2797E0D40;
-      v47 = *(a1 + 32);
-      v5 = [v7 firstWhere:v46];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_6;
+      v45[3] = &unk_2797E0D40;
+      v46 = *(a1 + 32);
+      v5 = [v7 firstWhere:v45];
 
       if (!v5)
       {
         v8 = [v3 nodes];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_7;
-        v44[3] = &unk_2797E0D40;
-        v45 = *(a1 + 32);
-        v5 = [v8 firstWhere:v44];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_7;
+        v43[3] = &unk_2797E0D40;
+        v44 = *(a1 + 32);
+        v5 = [v8 firstWhere:v43];
 
         if (!v5)
         {
@@ -768,31 +738,31 @@ LABEL_7:
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v37 = a1;
+  v36 = a1;
   v11 = [v5 copyWithReplacementRapportDevice:*(a1 + 32)];
 
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v36 = v3;
+  v35 = v3;
   obj = [v3 nodes];
-  v13 = [obj countByEnumeratingWithState:&v40 objects:v60 count:16];
+  v13 = [obj countByEnumeratingWithState:&v39 objects:v59 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v41;
+    v15 = *v40;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * i);
+        v17 = *(*(&v39 + 1) + 8 * i);
         v18 = [v17 rapportIdentifier];
         v19 = [v11 rapportIdentifier];
         v20 = [v18 isEqual:v19];
@@ -823,17 +793,17 @@ LABEL_7:
         }
 
         v30 = v27;
-        [v39 addObject:v30];
+        [v38 addObject:v30];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v40 objects:v60 count:16];
+      v14 = [obj countByEnumeratingWithState:&v39 objects:v59 count:16];
     }
 
     while (v14);
   }
 
-  v12 = [v36 copyWithReplacementNodes:v39];
-  [*(v37 + 40) _updateCandidate:v12];
+  v12 = [v35 copyWithReplacementNodes:v38];
+  [*(v36 + 40) _updateCandidate:v12];
   v31 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v32 = *MEMORY[0x277D21270];
   if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
@@ -841,18 +811,17 @@ LABEL_7:
     v33 = v32;
     v34 = [v12 candidateIdentifier];
     *buf = 136315906;
-    v53 = "#candidate-manager, ";
-    v54 = 2112;
-    v55 = v31;
-    v56 = 2112;
-    v57 = v34;
-    v58 = 2112;
-    v59 = v12;
+    v52 = "#candidate-manager, ";
+    v53 = 2112;
+    v54 = v31;
+    v55 = 2112;
+    v56 = v34;
+    v57 = 2112;
+    v58 = v12;
     _os_log_impl(&dword_25543D000, v33, OS_LOG_TYPE_DEFAULT, "%s[%@], Candidate [%@] updated with new rapport device: %@", buf, 0x2Au);
   }
 
 LABEL_22:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invoke_4(uint64_t a1, void *a2)
@@ -893,7 +862,7 @@ uint64_t __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invok
 
 - (void)synchronizeAndFetchFromDBOnDisk
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   store = [(IRCandidateManager *)self store];
   fetchCandidatesContainer = [store fetchCandidatesContainer];
   [(IRCandidateManager *)self setCandidatesContainer:fetchCandidatesContainer];
@@ -912,31 +881,29 @@ uint64_t __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invok
       candidatesContainer2 = [(IRCandidateManager *)self candidatesContainer];
       candidates = [candidatesContainer2 candidates];
       v13 = [v9 numberWithUnsignedInteger:{objc_msgSend(candidates, "count")}];
-      v15 = 136315650;
-      v16 = "#candidate-manager, ";
-      v17 = 2112;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_DEFAULT, "%s[%@], Loading candidates container from store with %@ candidates", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "#candidate-manager, ";
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_25543D000, v10, OS_LOG_TYPE_DEFAULT, "%s[%@], Loading candidates container from store with %@ candidates", &v14, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315394;
-    v16 = "#candidate-manager, ";
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate container fetch error] Could not fetch candidates container", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "#candidate-manager, ";
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate container fetch error] Could not fetch candidates container", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCandidates:(id)candidates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidates = [candidatesContainer candidates];
@@ -953,32 +920,30 @@ uint64_t __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invok
     v11 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315650;
-      v14 = "#candidate-manager, ";
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = candidatesCopy;
-      _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate Manager add error] Could not add a new candidates: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "#candidate-manager, ";
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = candidatesCopy;
+      _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate Manager add error] Could not add a new candidates: %@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCandidate:(id)candidate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidates = [candidatesContainer candidates];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __39__IRCandidateManager__updateCandidate___block_invoke;
-  v14[3] = &unk_2797E1ED0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __39__IRCandidateManager__updateCandidate___block_invoke;
+  v13[3] = &unk_2797E1ED0;
   v7 = candidateCopy;
-  v15 = v7;
-  v8 = [candidates map:v14];
+  v14 = v7;
+  v8 = [candidates map:v13];
   v9 = [IRCandidatesContainerDO candidatesContainerDOWithCandidates:v8];
   [(IRCandidateManager *)self setCandidatesContainer:v9];
 
@@ -992,16 +957,14 @@ uint64_t __55__IRCandidateManager_provider_didUpdateRapportDevices___block_invok
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v17 = "#candidate-manager, ";
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v7;
+      v16 = "#candidate-manager, ";
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v7;
       _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate Manager update error] Could not update candidate: %@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void *__39__IRCandidateManager__updateCandidate___block_invoke(uint64_t a1, void *a2)
@@ -1024,17 +987,17 @@ void *__39__IRCandidateManager__updateCandidate___block_invoke(uint64_t a1, void
 
 - (void)_deleteCandidates:(id)candidates
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidates = [candidatesContainer candidates];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __40__IRCandidateManager__deleteCandidates___block_invoke;
-  v14[3] = &unk_2797E0CD0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __40__IRCandidateManager__deleteCandidates___block_invoke;
+  v13[3] = &unk_2797E0CD0;
   v7 = candidatesCopy;
-  v15 = v7;
-  v8 = [candidates allWhere:v14];
+  v14 = v7;
+  v8 = [candidates allWhere:v13];
   v9 = [IRCandidatesContainerDO candidatesContainerDOWithCandidates:v8];
   [(IRCandidateManager *)self setCandidatesContainer:v9];
 
@@ -1048,16 +1011,14 @@ void *__39__IRCandidateManager__updateCandidate___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v17 = "#candidate-manager, ";
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v7;
+      v16 = "#candidate-manager, ";
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v7;
       _os_log_impl(&dword_25543D000, v12, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate Manager delete error] Could not delete candidates: %@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __40__IRCandidateManager__deleteCandidates___block_invoke(uint64_t a1, void *a2)
@@ -1077,20 +1038,20 @@ BOOL __40__IRCandidateManager__deleteCandidates___block_invoke(uint64_t a1, void
 
 - (void)_handleCandidatesCleanup
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [MEMORY[0x277CBEB58] set];
   candidatesContainer = [(IRCandidateManager *)self candidatesContainer];
   candidates = [candidatesContainer candidates];
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __46__IRCandidateManager__handleCandidatesCleanup__block_invoke;
-  v26 = &unk_2797E13F8;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __46__IRCandidateManager__handleCandidatesCleanup__block_invoke;
+  v25 = &unk_2797E13F8;
   v7 = v3;
-  v27 = v7;
+  v26 = v7;
   v8 = v4;
-  v28 = v8;
-  [candidates enumerateObjectsUsingBlock:&v23];
+  v27 = v8;
+  [candidates enumerateObjectsUsingBlock:&v22];
 
   v9 = [MEMORY[0x277CBEB58] set];
   v10 = +[IRPreferences shared];
@@ -1114,20 +1075,18 @@ BOOL __40__IRCandidateManager__deleteCandidates___block_invoke(uint64_t a1, void
       v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
       v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
       *buf = 136315906;
-      v30 = "#candidate-manager, ";
-      v31 = 2112;
-      v32 = v16;
-      v33 = 2112;
-      v34 = v20;
-      v35 = 2112;
-      v36 = v21;
+      v29 = "#candidate-manager, ";
+      v30 = 2112;
+      v31 = v16;
+      v32 = 2112;
+      v33 = v20;
+      v34 = 2112;
+      v35 = v21;
       _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_INFO, "%s[%@], Candidates cleanup: usedCandidates: %@ seenCandidates: %@", buf, 0x2Au);
     }
 
     [(IRCandidateManager *)self _deleteCandidates:v9];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __46__IRCandidateManager__handleCandidatesCleanup__block_invoke(uint64_t a1, void *a2)
@@ -1344,14 +1303,14 @@ uint64_t __63__IRCandidateManager__nodesForCandidate_fromExistingCandidate___blo
 
 - (id)_oldestCandidatesFrom:(id)from forKey:(id)key limit:(unint64_t)limit
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCAC98];
   fromCopy = from;
   v9 = [v7 sortDescriptorWithKey:key ascending:1];
   allObjects = [fromCopy allObjects];
 
-  v17[0] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v12 = [allObjects sortedArrayUsingDescriptors:v11];
 
   if ([v12 count] <= limit)
@@ -1365,8 +1324,6 @@ uint64_t __63__IRCandidateManager__nodesForCandidate_fromExistingCandidate___blo
   }
 
   v14 = [v12 subarrayWithRange:{0, v13}];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -94,18 +94,30 @@
   v6 = fromCopy[1];
   if (bulletin)
   {
-    if (v6)
+    if (!v6)
     {
-      [(BLTPBBulletinSummary *)bulletin mergeFrom:?];
+      goto LABEL_7;
     }
+
+    v7 = fromCopy;
+    bulletin = [(BLTPBBulletinSummary *)bulletin mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(BLTPBAddBulletinSummaryRequest *)self setBulletin:?];
+    if (!v6)
+    {
+      goto LABEL_7;
+    }
+
+    v7 = fromCopy;
+    bulletin = [(BLTPBAddBulletinSummaryRequest *)self setBulletin:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_7:
+
+  MEMORY[0x2821F96F8](bulletin, fromCopy);
 }
 
 @end

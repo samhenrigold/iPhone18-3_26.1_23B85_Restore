@@ -1,87 +1,85 @@
 id arrayOfCFPrefsWithPrefix(const __CFString *a1, void *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.", a3];
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = CFPreferencesCopyKeyList(a1, v5, *MEMORY[0x277CBF010]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v8;
-  v10 = [(__CFArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(__CFArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         if ([v14 hasPrefix:v6])
         {
           [v7 addObject:v14];
         }
       }
 
-      v11 = [(__CFArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(__CFArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
-id getPrefWithOverrideProfile(void *a1, void *a2)
+id getPrefWithOverrideProfile(void *a1, void *a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = MEMORY[0x277CCACA8];
-  v5 = a2;
-  v6 = [v4 stringWithFormat:@"HTProfile.%@", v3];
-  v7 = [v5 objectForKeyedSubscript:v6];
+  v4 = a1;
+  v5 = MEMORY[0x277CCACA8];
+  v6 = a2;
+  v7 = [v5 stringWithFormat:@"HTProfile.%@", v4];
+  v8 = [v6 objectForKeyedSubscript:v7];
 
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v8 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v8 = v7;
+    v9 = v8;
   }
 
   else
   {
-    v9 = CFPreferencesCopyValue(v3, *MEMORY[0x277D0FA18], *MEMORY[0x277D0FB48], *MEMORY[0x277CBF010]);
-    if (v9 && (objc_opt_respondsToSelector() & 1) != 0)
+    v10 = CFPreferencesCopyValue(v4, *MEMORY[0x277D0FA18], *MEMORY[0x277D0FB48], *MEMORY[0x277CBF010]);
+    if (v10 && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v8 = v9;
+      v9 = v10;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  return v8;
+  return v9;
 }
 
-id HTTerminationAllAvailableReasons()
+id HTTerminationAllAvailableReasons(uint64_t a1)
 {
   if (HTTerminationAllAvailableReasons_onceToken != -1)
   {
     HTTerminationAllAvailableReasons_cold_1();
   }
 
-  v1 = HTTerminationAllAvailableReasons_allReasons;
+  v2 = HTTerminationAllAvailableReasons_allReasons;
 
-  return v1;
+  return v2;
 }
 
 void __HTTerminationAllAvailableReasons_block_invoke()
@@ -961,63 +959,66 @@ void HTAnalyticsSendEventLazy(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v5 = getAnalyticsSendEventLazySymbolLoc_ptr;
-  v11 = getAnalyticsSendEventLazySymbolLoc_ptr;
+  v12 = getAnalyticsSendEventLazySymbolLoc_ptr;
   if (!getAnalyticsSendEventLazySymbolLoc_ptr)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
-    v7[3] = &unk_2796A9020;
-    v7[4] = &v8;
-    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v7);
-    v5 = v9[3];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
+    v8[3] = &unk_2796A9020;
+    v8[4] = &v9;
+    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v8);
+    v5 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v5)
   {
-    v6 = HTAnalyticsSendEventLazy_cold_1();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v6);
+    HTAnalyticsSendEventLazy_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   v5(v3, v4);
 }
 
-uint64_t CoreAnalyticsLibraryCore()
+uint64_t CoreAnalyticsLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!CoreAnalyticsLibraryCore_frameworkLibrary)
   {
     CoreAnalyticsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = CoreAnalyticsLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return CoreAnalyticsLibraryCore_frameworkLibrary;
 }
 
 uint64_t __CoreAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = CoreAnalyticsLibraryCore();
+  v5 = 0;
+  v2 = CoreAnalyticsLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "AnalyticsSendEventLazy");
@@ -1061,11 +1062,12 @@ id stringFromXpcDictionary(void *a1, id a2)
   return v7;
 }
 
-void sub_2510B34F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id location, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_2510B34F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id location, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
+  va_start(va, a49);
   objc_destroyWeak(&location);
   _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a50, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1085,22 +1087,22 @@ void __requestWithLogFile_block_invoke(uint64_t a1, void *a2)
 
 Class __getNEVPNManagerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!NetworkExtensionLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __NetworkExtensionLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2796A91D0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __NetworkExtensionLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2796A91D0;
+    v6 = 0;
     NetworkExtensionLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (NetworkExtensionLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1108,7 +1110,7 @@ Class __getNEVPNManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1123,37 +1125,33 @@ LABEL_4:
   }
 
   getNEVPNManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __NetworkExtensionLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NetworkExtensionLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2510B4C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45)
+void sub_2510B4C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45)
 {
   _Block_object_dispose(&a40, 8);
   objc_destroyWeak(&a45);
   _Unwind_Resume(a1);
 }
 
-id getDataTypePaths()
+id getDataTypePaths(uint64_t a1)
 {
   if (getDataTypePaths_onceToken != -1)
   {
     getDataTypePaths_cold_1();
   }
 
-  v1 = getDataTypePaths__dataPathsArray;
+  v2 = getDataTypePaths__dataPathsArray;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy__41(uint64_t result, uint64_t a2)
@@ -1221,29 +1219,27 @@ uint64_t HTDeveloperSettingsIsInternalBuild()
 
 void __bootSessionUUID_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  memset(v4, 0, sizeof(v4));
-  v3 = 37;
-  if (!sysctlbyname("kern.bootsessionuuid", v4, &v3, 0, 0))
+  v4 = *MEMORY[0x277D85DE8];
+  memset(v3, 0, sizeof(v3));
+  v2 = 37;
+  if (!sysctlbyname("kern.bootsessionuuid", v3, &v2, 0, 0))
   {
-    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
+    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
     v1 = bootSessionUUID_bootUUID;
     bootSessionUUID_bootUUID = v0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-id shared_ht_log_handle()
+id shared_ht_log_handle(uint64_t a1)
 {
   if (shared_ht_log_handle_onceToken != -1)
   {
     shared_ht_log_handle_cold_1();
   }
 
-  v1 = shared_ht_log_handle___ht_log_handle;
+  v2 = shared_ht_log_handle___ht_log_handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __shared_ht_log_handle_block_invoke()
@@ -1255,7 +1251,7 @@ uint64_t __shared_ht_log_handle_block_invoke()
 
 uint64_t applyTailspinConfig(uint64_t a1)
 {
-  v2 = shared_ht_log_handle();
+  v2 = shared_ht_log_handle(a1);
   v3 = v2;
   if (a1)
   {
@@ -1279,23 +1275,23 @@ uint64_t applyTailspinConfig(uint64_t a1)
   }
 }
 
-uint64_t configureTailspinForSelfEnableConfig()
+uint64_t configureTailspinForSelfEnableConfig(uint64_t a1)
 {
-  v0 = shared_ht_log_handle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = shared_ht_log_handle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    configureTailspinForSelfEnableConfig_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    configureTailspinForSelfEnableConfig_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 
   return 0;
 }
 
-uint64_t configureTailspinForEPL()
+uint64_t configureTailspinForEPL(uint64_t a1)
 {
-  v0 = shared_ht_log_handle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = shared_ht_log_handle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    configureTailspinForEPL_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    configureTailspinForEPL_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 
   return 0;
@@ -1303,39 +1299,38 @@ uint64_t configureTailspinForEPL()
 
 uint64_t configureTailspinForThirdPartyDevelopment(int a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = arrayOfCFPrefsWithPrefix(*MEMORY[0x277D0FA18], *MEMORY[0x277D0FB48], *MEMORY[0x277D0FAA0]);
   v3 = [v2 count];
 
   if (v3)
   {
-    v4 = shared_ht_log_handle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = shared_ht_log_handle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "configureTailspinForThirdPartyDevelopment";
-      _os_log_impl(&dword_2510AF000, v4, OS_LOG_TYPE_INFO, "%s: Not configuring tailspin since EPL is active", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "configureTailspinForThirdPartyDevelopment";
+      _os_log_impl(&dword_2510AF000, v5, OS_LOG_TYPE_INFO, "%s: Not configuring tailspin since EPL is active", &v10, 0xCu);
     }
 
 LABEL_10:
 
-    v10 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
-  v5 = tailspin_config_create_with_default_config();
-  if (!v5)
+  v6 = tailspin_config_create_with_default_config();
+  if (!v6)
   {
-    v4 = shared_ht_log_handle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = shared_ht_log_handle(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      configureTailspinForThirdPartyDevelopment_cold_1(v4);
+      configureTailspinForThirdPartyDevelopment_cold_1(v5);
     }
 
     goto LABEL_10;
   }
 
-  v6 = v5;
+  v7 = v6;
   if (a1)
   {
     tailspin_enabled_set();
@@ -1344,16 +1339,16 @@ LABEL_10:
     tailspin_full_sampling_period_set();
   }
 
-  v7 = applyTailspinConfig(v6);
-  MEMORY[0x25306A4A0](v6);
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
+  v8 = applyTailspinConfig(v7);
+  MEMORY[0x25306A4A0](v7);
+  return v8;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id HTSettingsBundle()
@@ -2024,8 +2019,7 @@ id HTUILearnMoreFileTypesIPS()
   v0 = HTUILearnMoreFileTypesIPS_str;
   if (!HTUILearnMoreFileTypesIPS_str)
   {
-    v1 = HTSettingsBundle();
-    v2 = objc_claimAutoreleasedReturnValue();
+    v2 = v1 = HTSettingsBundle();
     v3 = HTUILearnMoreFileTypesIPS_str;
     HTUILearnMoreFileTypesIPS_str = v2;
 
@@ -2710,7 +2704,7 @@ __CFString *HTUIInternalTerminationsUnselectAllButton()
   return v1;
 }
 
-uint64_t HTUIAsteriskedRangeFromString(void *a1)
+char *HTUIAsteriskedRangeFromString(void *a1)
 {
   v1 = a1;
   v2 = [v1 localizedStandardRangeOfString:@"*"];
@@ -3824,7 +3818,7 @@ unint64_t sub_2510BE15C()
   return result;
 }
 
-char *sub_2510BE1A8(char *a1, int64_t a2, char a3)
+char *sub_2510BE1A8(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2510BE1C8(a1, a2, a3, *v3);
   *v3 = result;
@@ -3915,7 +3909,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3942,7 +3935,7 @@ uint64_t HTTerminationReason.subReasons.getter(uint64_t a1)
       {
         case 0x8000:
           swift_beginAccess();
-          v54 = qword_27F415E30;
+          v55 = qword_27F415E30;
           swift_beginAccess();
           v3 = MEMORY[0x277D84F90];
           do
@@ -3954,40 +3947,41 @@ uint64_t HTTerminationReason.subReasons.getter(uint64_t a1)
                 v3 = sub_2510C2C54(0, *(v3 + 2) + 1, 1, v3, &qword_27F4162F0, &qword_2510C8EA0);
               }
 
-              v56 = *(v3 + 2);
-              v55 = *(v3 + 3);
-              if (v56 >= v55 >> 1)
+              v57 = *(v3 + 2);
+              v56 = *(v3 + 3);
+              if (v57 >= v56 >> 1)
               {
-                v3 = sub_2510C2C54((v55 > 1), v56 + 1, 1, v3, &qword_27F4162F0, &qword_2510C8EA0);
+                v3 = sub_2510C2C54((v56 > 1), v57 + 1, 1, v3, &qword_27F4162F0, &qword_2510C8EA0);
               }
 
-              *(v3 + 2) = v56 + 1;
-              *&v3[8 * v56 + 32] = v54;
-              v57 = 2 * v54;
+              *(v3 + 2) = v57 + 1;
+              *&v3[8 * v57 + 32] = v55;
+              v58 = 2 * v55;
               if (qword_27F415E38 >= 0x40)
               {
                 break;
               }
 
-              v54 *= 2;
-              if (1 << qword_27F415E38 < v57)
+              v55 *= 2;
+              if (1 << qword_27F415E38 < v58)
               {
                 goto LABEL_139;
               }
             }
 
-            v54 = 0;
+            v55 = 0;
           }
 
-          while (!v57);
+          while (!v58);
 LABEL_139:
           v47 = &unk_27F415ED0;
           v48 = type metadata accessor for HTRunningBoardTerminationReason;
           v49 = type metadata accessor for HTRunningBoardTerminationReason;
+          v50 = &protocol conformance descriptor for HTRunningBoardTerminationReason;
           goto LABEL_172;
         case 0x40000:
           swift_beginAccess();
-          v67 = qword_27F415E40;
+          v68 = qword_27F415E40;
           swift_beginAccess();
           v3 = MEMORY[0x277D84F90];
           do
@@ -3999,36 +3993,37 @@ LABEL_139:
                 v3 = sub_2510C2C54(0, *(v3 + 2) + 1, 1, v3, &qword_27F4162F8, &qword_2510C8EA8);
               }
 
-              v69 = *(v3 + 2);
-              v68 = *(v3 + 3);
-              if (v69 >= v68 >> 1)
+              v70 = *(v3 + 2);
+              v69 = *(v3 + 3);
+              if (v70 >= v69 >> 1)
               {
-                v3 = sub_2510C2C54((v68 > 1), v69 + 1, 1, v3, &qword_27F4162F8, &qword_2510C8EA8);
+                v3 = sub_2510C2C54((v69 > 1), v70 + 1, 1, v3, &qword_27F4162F8, &qword_2510C8EA8);
               }
 
-              *(v3 + 2) = v69 + 1;
-              *&v3[8 * v69 + 32] = v67;
-              v70 = 2 * v67;
+              *(v3 + 2) = v70 + 1;
+              *&v3[8 * v70 + 32] = v68;
+              v71 = 2 * v68;
               if (qword_27F415E48 >= 0x40)
               {
                 break;
               }
 
-              v67 *= 2;
-              if (1 << qword_27F415E48 < v70)
+              v68 *= 2;
+              if (1 << qword_27F415E48 < v71)
               {
                 goto LABEL_167;
               }
             }
 
-            v67 = 0;
+            v68 = 0;
           }
 
-          while (!v70);
+          while (!v71);
 LABEL_167:
           v47 = &unk_27F415EC8;
           v48 = type metadata accessor for HTLibSystemTerminationReason;
           v49 = type metadata accessor for HTLibSystemTerminationReason;
+          v50 = &protocol conformance descriptor for HTLibSystemTerminationReason;
           goto LABEL_172;
         case 0x100000:
           swift_beginAccess();
@@ -4072,10 +4067,10 @@ LABEL_167:
 
           while (!v19);
 LABEL_169:
-          v71 = *(v3 + 3);
-          if ((v17 + 2) > (v71 >> 1))
+          v72 = *(v3 + 3);
+          if ((v17 + 2) > (v72 >> 1))
           {
-            v3 = sub_2510C2C54((v71 > 1), v17 + 2, 1, v3, &qword_27F416300, &qword_2510C8EB0);
+            v3 = sub_2510C2C54((v72 > 1), v17 + 2, 1, v3, &qword_27F416300, &qword_2510C8EB0);
           }
 
           *(v3 + 2) = v17 + 2;
@@ -4083,6 +4078,7 @@ LABEL_169:
           v47 = &unk_27F415EC0;
           v48 = type metadata accessor for HTWatchdogTerminationReason;
           v49 = type metadata accessor for HTWatchdogTerminationReason;
+          v50 = &protocol conformance descriptor for HTWatchdogTerminationReason;
           goto LABEL_172;
       }
     }
@@ -4134,6 +4130,7 @@ LABEL_115:
         v47 = &unk_27F415EA8;
         v48 = type metadata accessor for HTEndpointSecurityTerminationReason;
         v49 = type metadata accessor for HTEndpointSecurityTerminationReason;
+        v50 = &protocol conformance descriptor for HTEndpointSecurityTerminationReason;
         goto LABEL_172;
       }
 
@@ -4180,26 +4177,27 @@ LABEL_115:
 
         while (!v28);
 LABEL_143:
-        v60 = *(v3 + 3);
-        v61 = v26 + 2;
-        if ((v26 + 2) > (v60 >> 1))
+        v61 = *(v3 + 3);
+        v62 = v26 + 2;
+        if ((v26 + 2) > (v61 >> 1))
         {
-          v3 = sub_2510C2C54((v60 > 1), v26 + 2, 1, v3, &qword_27F416320, &qword_2510C8ED0);
+          v3 = sub_2510C2C54((v61 > 1), v26 + 2, 1, v3, &qword_27F416320, &qword_2510C8ED0);
         }
 
-        *(v3 + 2) = v61;
+        *(v3 + 2) = v62;
         *&v3[8 * v27 + 32] = 0x100000;
-        v62 = *(v3 + 3);
-        if ((v26 + 3) > (v62 >> 1))
+        v63 = *(v3 + 3);
+        if ((v26 + 3) > (v63 >> 1))
         {
-          v3 = sub_2510C2C54((v62 > 1), v26 + 3, 1, v3, &qword_27F416320, &qword_2510C8ED0);
+          v3 = sub_2510C2C54((v63 > 1), v26 + 3, 1, v3, &qword_27F416320, &qword_2510C8ED0);
         }
 
         *(v3 + 2) = v26 + 3;
-        *&v3[8 * v61 + 32] = 0x200000;
+        *&v3[8 * v62 + 32] = 0x200000;
         v47 = &unk_27F415EA0;
         v48 = type metadata accessor for HTBacklightServicesTerminationReason;
         v49 = type metadata accessor for HTBacklightServicesTerminationReason;
+        v50 = &protocol conformance descriptor for HTBacklightServicesTerminationReason;
         goto LABEL_172;
       }
     }
@@ -4251,6 +4249,7 @@ LABEL_113:
         v47 = &unk_27F415EB8;
         v48 = type metadata accessor for HTWatchKitTerminationReason;
         v49 = type metadata accessor for HTWatchKitTerminationReason;
+        v50 = &protocol conformance descriptor for HTWatchKitTerminationReason;
         goto LABEL_172;
       }
 
@@ -4299,6 +4298,7 @@ LABEL_141:
         v47 = &unk_27F415EB0;
         v48 = type metadata accessor for HTGuardTerminationReason;
         v49 = type metadata accessor for HTGuardTerminationReason;
+        v50 = &protocol conformance descriptor for HTGuardTerminationReason;
         goto LABEL_172;
       }
     }
@@ -4311,7 +4311,7 @@ LABEL_141:
       case 2:
         swift_beginAccess();
         v3 = MEMORY[0x277D84F90];
-        v50 = qword_27F415DC8;
+        v51 = qword_27F415DC8;
         do
         {
           while (1)
@@ -4321,55 +4321,56 @@ LABEL_141:
               v3 = sub_2510C2C54(0, *(v3 + 2) + 1, 1, v3, &qword_27F4162B8, &qword_2510C8E68);
             }
 
-            v52 = *(v3 + 2);
-            v51 = *(v3 + 3);
-            if (v52 >= v51 >> 1)
+            v53 = *(v3 + 2);
+            v52 = *(v3 + 3);
+            if (v53 >= v52 >> 1)
             {
-              v3 = sub_2510C2C54((v51 > 1), v52 + 1, 1, v3, &qword_27F4162B8, &qword_2510C8E68);
+              v3 = sub_2510C2C54((v52 > 1), v53 + 1, 1, v3, &qword_27F4162B8, &qword_2510C8E68);
             }
 
-            *(v3 + 2) = v52 + 1;
-            *&v3[8 * v52 + 32] = v50;
+            *(v3 + 2) = v53 + 1;
+            *&v3[8 * v53 + 32] = v51;
             if (qword_27F416660 != -1)
             {
               swift_once();
             }
 
-            v53 = 2 * v50;
+            v54 = 2 * v51;
             swift_beginAccess();
             if (qword_27F416668 >= 0x40)
             {
               break;
             }
 
-            v50 *= 2;
-            if (1 << qword_27F416668 < v53)
+            v51 *= 2;
+            if (1 << qword_27F416668 < v54)
             {
               goto LABEL_136;
             }
           }
 
-          v50 = 0;
+          v51 = 0;
         }
 
-        while (!v53);
+        while (!v54);
 LABEL_136:
-        v59 = *(v3 + 2);
-        v58 = *(v3 + 3);
-        if (v59 >= v58 >> 1)
+        v60 = *(v3 + 2);
+        v59 = *(v3 + 3);
+        if (v60 >= v59 >> 1)
         {
-          v3 = sub_2510C2C54((v58 > 1), v59 + 1, 1, v3, &qword_27F4162B8, &qword_2510C8E68);
+          v3 = sub_2510C2C54((v59 > 1), v60 + 1, 1, v3, &qword_27F4162B8, &qword_2510C8E68);
         }
 
-        *(v3 + 2) = v59 + 1;
-        *&v3[8 * v59 + 32] = 0x20000000000;
+        *(v3 + 2) = v60 + 1;
+        *&v3[8 * v60 + 32] = 0x20000000000;
         v47 = &unk_27F415F08;
         v48 = type metadata accessor for HTJetsamTerminationReason;
         v49 = type metadata accessor for HTJetsamTerminationReason;
+        v50 = &protocol conformance descriptor for HTJetsamTerminationReason;
         goto LABEL_172;
       case 4:
         swift_beginAccess();
-        v63 = qword_27F415DD0;
+        v64 = qword_27F415DD0;
         swift_beginAccess();
         v3 = MEMORY[0x277D84F90];
         do
@@ -4381,36 +4382,37 @@ LABEL_136:
               v3 = sub_2510C2C54(0, *(v3 + 2) + 1, 1, v3, &qword_27F4162C0, &qword_2510C8E70);
             }
 
-            v65 = *(v3 + 2);
-            v64 = *(v3 + 3);
-            if (v65 >= v64 >> 1)
+            v66 = *(v3 + 2);
+            v65 = *(v3 + 3);
+            if (v66 >= v65 >> 1)
             {
-              v3 = sub_2510C2C54((v64 > 1), v65 + 1, 1, v3, &qword_27F4162C0, &qword_2510C8E70);
+              v3 = sub_2510C2C54((v65 > 1), v66 + 1, 1, v3, &qword_27F4162C0, &qword_2510C8E70);
             }
 
-            *(v3 + 2) = v65 + 1;
-            *&v3[8 * v65 + 32] = v63;
-            v66 = 2 * v63;
+            *(v3 + 2) = v66 + 1;
+            *&v3[8 * v66 + 32] = v64;
+            v67 = 2 * v64;
             if (qword_27F415DD8 >= 0x40)
             {
               break;
             }
 
-            v63 *= 2;
-            if (1 << qword_27F415DD8 < v66)
+            v64 *= 2;
+            if (1 << qword_27F415DD8 < v67)
             {
               goto LABEL_166;
             }
           }
 
-          v63 = 0;
+          v64 = 0;
         }
 
-        while (!v66);
+        while (!v67);
 LABEL_166:
         v47 = &unk_27F415F00;
         v48 = type metadata accessor for HTSignalTerminationReason;
         v49 = type metadata accessor for HTSignalTerminationReason;
+        v50 = &protocol conformance descriptor for HTSignalTerminationReason;
         goto LABEL_172;
       case 8:
         swift_beginAccess();
@@ -4456,6 +4458,7 @@ LABEL_168:
         v47 = &unk_27F415EF8;
         v48 = type metadata accessor for HTCodeSigningTerminationReason;
         v49 = type metadata accessor for HTCodeSigningTerminationReason;
+        v50 = &protocol conformance descriptor for HTCodeSigningTerminationReason;
         goto LABEL_172;
     }
   }
@@ -4507,6 +4510,7 @@ LABEL_114:
       v47 = &unk_27F415EE0;
       v48 = type metadata accessor for HTExecTerminationReason;
       v49 = type metadata accessor for HTExecTerminationReason;
+      v50 = &protocol conformance descriptor for HTExecTerminationReason;
       goto LABEL_172;
     }
 
@@ -4555,6 +4559,7 @@ LABEL_142:
       v47 = &unk_27F415ED8;
       v48 = type metadata accessor for HTSpringBoardTerminationReason;
       v49 = type metadata accessor for HTSpringBoardTerminationReason;
+      v50 = &protocol conformance descriptor for HTSpringBoardTerminationReason;
       goto LABEL_172;
     }
   }
@@ -4615,6 +4620,7 @@ LABEL_110:
       v47 = &unk_27F415EF0;
       v48 = type metadata accessor for HTDYLDTerminationReason;
       v49 = type metadata accessor for HTDYLDTerminationReason;
+      v50 = &protocol conformance descriptor for HTDYLDTerminationReason;
       goto LABEL_172;
     }
 
@@ -4663,111 +4669,110 @@ LABEL_140:
       v47 = &unk_27F415EE8;
       v48 = type metadata accessor for HTLibXPCTerminationReason;
       v49 = type metadata accessor for HTLibXPCTerminationReason;
+      v50 = &protocol conformance descriptor for HTLibXPCTerminationReason;
 LABEL_172:
-      v1 = sub_2510BF7F0(v3, v48, v47, v49);
+      v1 = sub_2510BF7F0(v3, v48, v47, v49, v50);
     }
   }
 
   return v1;
 }
 
-uint64_t sub_2510BF7F0(uint64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)(uint64_t))
+uint64_t sub_2510BF7F0(uint64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
-  v4 = *(a1 + 16);
-  v5 = MEMORY[0x277D84F90];
-  if (v4)
+  v5 = *(a1 + 16);
+  v6 = MEMORY[0x277D84F90];
+  if (v5)
   {
-    v19 = MEMORY[0x277D84F90];
-    sub_2510C2D50(0, v4, 0);
-    v5 = v19;
-    v10 = (a1 + 32);
+    v21 = MEMORY[0x277D84F90];
+    sub_2510C2D50(0, v5, 0);
+    v6 = v21;
+    v12 = (a1 + 32);
     do
     {
-      v12 = *v10++;
-      v11 = v12;
-      v19 = v5;
-      v14 = *(v5 + 16);
-      v13 = *(v5 + 24);
-      if (v14 >= v13 >> 1)
+      v14 = *v12++;
+      v13 = v14;
+      v21 = v6;
+      v16 = *(v6 + 16);
+      v15 = *(v6 + 24);
+      if (v16 >= v15 >> 1)
       {
-        sub_2510C2D50((v13 > 1), v14 + 1, 1);
-        v5 = v19;
+        sub_2510C2D50((v15 > 1), v16 + 1, 1);
+        v6 = v21;
       }
 
-      v17 = a2(0);
-      v18 = sub_2510C3798(a3, a4);
-      *&v16 = v11;
-      *(v5 + 16) = v14 + 1;
-      sub_2510C51A0(&v16, v5 + 40 * v14 + 32);
-      --v4;
+      v19 = a2(0);
+      v20 = sub_2510C3798(a3, a4, a5);
+      *&v18 = v13;
+      *(v6 + 16) = v16 + 1;
+      sub_2510C51A0(&v18, v6 + 40 * v16 + 32);
+      --v5;
     }
 
-    while (v4);
+    while (v5);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t static HTTerminationSubReason.allCases.getter(uint64_t a1, void *a2)
 {
   v5 = *(a1 - 8);
-  v6 = *(v5 + 64);
-  v7 = (MEMORY[0x28223BE20])();
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v22 - v10;
-  v31 = sub_2510C59B4();
-  v12 = a2[3];
-  v28 = v2;
-  v12(a1, a2);
-  v26 = a2[1];
-  v13 = *(v26 + 8);
+  v6 = MEMORY[0x28223BE20](a1);
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = &v20 - v9;
+  v29 = sub_2510C59B4();
+  v11 = a2[3];
+  v26 = v2;
+  v11(a1, a2);
+  v24 = a2[1];
   sub_2510C59D4();
-  v27 = a2;
-  v24 = a2[4];
-  v25 = a2 + 4;
-  v14 = v30;
-  v15 = *(v5 + 16);
+  v25 = a2;
+  v22 = a2[4];
+  v23 = a2 + 4;
+  v12 = v28;
+  v13 = *(v5 + 16);
   v5 += 16;
-  v23 = v15;
-  v16 = (v5 - 8);
-  v17 = (v5 + 16);
-  v15(v9, v11, a1);
+  v21 = v13;
+  v14 = (v5 - 8);
+  v15 = (v5 + 16);
+  v13(v8, v10, a1);
   while (1)
   {
     sub_2510C5A04();
     sub_2510C59F4();
-    v18 = 2 * v14;
-    v29 = 2 * v14;
+    v16 = 2 * v12;
+    v27 = 2 * v12;
     sub_2510C5A44();
-    v19 = *v16;
-    (*v16)(v11, a1);
-    (*v17)(v11, v9, a1);
-    v20 = v24(a1, v27);
-    if (v20 > 0x3F)
+    v17 = *v14;
+    (*v14)(v10, a1);
+    (*v15)(v10, v8, a1);
+    v18 = v22(a1, v25);
+    if (v18 > 0x3F)
     {
       break;
     }
 
-    v14 *= 2;
-    if (1 << v20 < v18)
+    v12 *= 2;
+    if (1 << v18 < v16)
     {
       goto LABEL_6;
     }
 
 LABEL_3:
-    v23(v9, v11, a1);
+    v21(v8, v10, a1);
   }
 
-  v14 = 0;
-  if (!v18)
+  v12 = 0;
+  if (!v16)
   {
     goto LABEL_3;
   }
 
 LABEL_6:
-  v19(v11, a1);
-  return v31;
+  v17(v10, a1);
+  return v29;
 }
 
 double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4783,21 +4788,24 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
       {
         case 0x8000:
           type metadata accessor for HTRunningBoardTerminationReason(0);
-          *(a2 + 24) = v19;
+          *(a2 + 24) = v20;
           v7 = &unk_27F415ED0;
           v8 = type metadata accessor for HTRunningBoardTerminationReason;
+          v9 = &protocol conformance descriptor for HTRunningBoardTerminationReason;
           goto LABEL_34;
         case 0x40000:
           type metadata accessor for HTLibSystemTerminationReason(0);
-          *(a2 + 24) = v21;
+          *(a2 + 24) = v22;
           v7 = &unk_27F415EC8;
           v8 = type metadata accessor for HTLibSystemTerminationReason;
+          v9 = &protocol conformance descriptor for HTLibSystemTerminationReason;
           goto LABEL_34;
         case 0x100000:
           type metadata accessor for HTWatchdogTerminationReason(0);
-          *(a2 + 24) = v11;
+          *(a2 + 24) = v12;
           v7 = &unk_27F415EC0;
           v8 = type metadata accessor for HTWatchdogTerminationReason;
+          v9 = &protocol conformance descriptor for HTWatchdogTerminationReason;
           goto LABEL_34;
       }
     }
@@ -4807,18 +4815,20 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
       if (a1 == 0x8000000)
       {
         type metadata accessor for HTEndpointSecurityTerminationReason(0);
-        *(a2 + 24) = v17;
+        *(a2 + 24) = v18;
         v7 = &unk_27F415EA8;
         v8 = type metadata accessor for HTEndpointSecurityTerminationReason;
+        v9 = &protocol conformance descriptor for HTEndpointSecurityTerminationReason;
         goto LABEL_34;
       }
 
       if (a1 == 0x100000000)
       {
         type metadata accessor for HTBacklightServicesTerminationReason(0);
-        *(a2 + 24) = v13;
+        *(a2 + 24) = v14;
         v7 = &unk_27F415EA0;
         v8 = type metadata accessor for HTBacklightServicesTerminationReason;
+        v9 = &protocol conformance descriptor for HTBacklightServicesTerminationReason;
         goto LABEL_34;
       }
     }
@@ -4828,18 +4838,20 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
       if (a1 == 0x400000)
       {
         type metadata accessor for HTWatchKitTerminationReason(0);
-        *(a2 + 24) = v15;
+        *(a2 + 24) = v16;
         v7 = &unk_27F415EB8;
         v8 = type metadata accessor for HTWatchKitTerminationReason;
+        v9 = &protocol conformance descriptor for HTWatchKitTerminationReason;
         goto LABEL_34;
       }
 
       if (a1 == 0x800000)
       {
         type metadata accessor for HTGuardTerminationReason(0);
-        *(a2 + 24) = v9;
+        *(a2 + 24) = v10;
         v7 = &unk_27F415EB0;
         v8 = type metadata accessor for HTGuardTerminationReason;
+        v9 = &protocol conformance descriptor for HTGuardTerminationReason;
         goto LABEL_34;
       }
     }
@@ -4851,21 +4863,24 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
     {
       case 2:
         type metadata accessor for HTJetsamTerminationReason(0);
-        *(a2 + 24) = v18;
+        *(a2 + 24) = v19;
         v7 = &unk_27F415F08;
         v8 = type metadata accessor for HTJetsamTerminationReason;
+        v9 = &protocol conformance descriptor for HTJetsamTerminationReason;
         goto LABEL_34;
       case 4:
         type metadata accessor for HTSignalTerminationReason(0);
-        *(a2 + 24) = v20;
+        *(a2 + 24) = v21;
         v7 = &unk_27F415F00;
         v8 = type metadata accessor for HTSignalTerminationReason;
+        v9 = &protocol conformance descriptor for HTSignalTerminationReason;
         goto LABEL_34;
       case 8:
         type metadata accessor for HTCodeSigningTerminationReason(0);
-        *(a2 + 24) = v10;
+        *(a2 + 24) = v11;
         v7 = &unk_27F415EF8;
         v8 = type metadata accessor for HTCodeSigningTerminationReason;
+        v9 = &protocol conformance descriptor for HTCodeSigningTerminationReason;
         goto LABEL_34;
     }
   }
@@ -4875,18 +4890,20 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
     if (a1 == 512)
     {
       type metadata accessor for HTExecTerminationReason(0);
-      *(a2 + 24) = v16;
+      *(a2 + 24) = v17;
       v7 = &unk_27F415EE0;
       v8 = type metadata accessor for HTExecTerminationReason;
+      v9 = &protocol conformance descriptor for HTExecTerminationReason;
       goto LABEL_34;
     }
 
     if (a1 == 1024)
     {
       type metadata accessor for HTSpringBoardTerminationReason(0);
-      *(a2 + 24) = v12;
+      *(a2 + 24) = v13;
       v7 = &unk_27F415ED8;
       v8 = type metadata accessor for HTSpringBoardTerminationReason;
+      v9 = &protocol conformance descriptor for HTSpringBoardTerminationReason;
       goto LABEL_34;
     }
   }
@@ -4896,9 +4913,10 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
     if (a1 == 64)
     {
       type metadata accessor for HTDYLDTerminationReason(0);
-      *(a2 + 24) = v14;
+      *(a2 + 24) = v15;
       v7 = &unk_27F415EF0;
       v8 = type metadata accessor for HTDYLDTerminationReason;
+      v9 = &protocol conformance descriptor for HTDYLDTerminationReason;
       goto LABEL_34;
     }
 
@@ -4908,8 +4926,9 @@ double HTTerminationReason.trackedSubReasons.getter@<D0>(uint64_t a1@<X0>, uint6
       *(a2 + 24) = v6;
       v7 = &unk_27F415EE8;
       v8 = type metadata accessor for HTLibXPCTerminationReason;
+      v9 = &protocol conformance descriptor for HTLibXPCTerminationReason;
 LABEL_34:
-      *(a2 + 32) = sub_2510C3798(v7, v8);
+      *(a2 + 32) = sub_2510C3798(v7, v8, v9);
       *a2 = v5;
       return result;
     }
@@ -4966,7 +4985,7 @@ uint64_t static HTJetsamTerminationReason.lastCaseRawValue.setter(uint64_t a1)
   return result;
 }
 
-uint64_t (*static HTJetsamTerminationReason.lastCaseRawValue.modify())()
+uint64_t (*static HTJetsamTerminationReason.lastCaseRawValue.modify(uint64_t a1))()
 {
   if (qword_27F416660 != -1)
   {
@@ -5617,7 +5636,7 @@ char *sub_2510C2C54(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, u
   return v12;
 }
 
-void *sub_2510C2D50(void *a1, int64_t a2, char a3)
+void *sub_2510C2D50(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2510C2D70(a1, a2, a3, *v3);
   *v3 = result;
@@ -5994,7 +6013,7 @@ LABEL_9:
   return v1;
 }
 
-uint64_t sub_2510C3798(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2510C3798(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6012,7 +6031,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -6022,91 +6040,91 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
 
 uint64_t sub_2510C3978(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415F30, type metadata accessor for HTJetsamTerminationReason);
+  result = sub_2510C3798(&qword_27F415F30, type metadata accessor for HTJetsamTerminationReason, &unk_2510C8E1C);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3A00(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415F48, type metadata accessor for HTSignalTerminationReason);
+  result = sub_2510C3798(&qword_27F415F48, type metadata accessor for HTSignalTerminationReason, &unk_2510C8DE0);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3A88(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415F60, type metadata accessor for HTCodeSigningTerminationReason);
+  result = sub_2510C3798(&qword_27F415F60, type metadata accessor for HTCodeSigningTerminationReason, &unk_2510C8DA4);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3B10(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415F78, type metadata accessor for HTDYLDTerminationReason);
+  result = sub_2510C3798(&qword_27F415F78, type metadata accessor for HTDYLDTerminationReason, &unk_2510C8D68);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3B98(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415F90, type metadata accessor for HTLibXPCTerminationReason);
+  result = sub_2510C3798(&qword_27F415F90, type metadata accessor for HTLibXPCTerminationReason, &unk_2510C8D2C);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3C20(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415FA8, type metadata accessor for HTExecTerminationReason);
+  result = sub_2510C3798(&qword_27F415FA8, type metadata accessor for HTExecTerminationReason, &unk_2510C8CF0);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3CA8(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415FC0, type metadata accessor for HTSpringBoardTerminationReason);
+  result = sub_2510C3798(&qword_27F415FC0, type metadata accessor for HTSpringBoardTerminationReason, &unk_2510C8CB4);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3D30(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415FD8, type metadata accessor for HTRunningBoardTerminationReason);
+  result = sub_2510C3798(&qword_27F415FD8, type metadata accessor for HTRunningBoardTerminationReason, &unk_2510C8C78);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3DB8(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F415FF0, type metadata accessor for HTLibSystemTerminationReason);
+  result = sub_2510C3798(&qword_27F415FF0, type metadata accessor for HTLibSystemTerminationReason, &unk_2510C8C3C);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3E40(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F416008, type metadata accessor for HTWatchdogTerminationReason);
+  result = sub_2510C3798(&qword_27F416008, type metadata accessor for HTWatchdogTerminationReason, &unk_2510C8C00);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3EC8(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F416020, type metadata accessor for HTWatchKitTerminationReason);
+  result = sub_2510C3798(&qword_27F416020, type metadata accessor for HTWatchKitTerminationReason, &unk_2510C8BC4);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3F50(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F416038, type metadata accessor for HTGuardTerminationReason);
+  result = sub_2510C3798(&qword_27F416038, type metadata accessor for HTGuardTerminationReason, &unk_2510C8B88);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_2510C3FD8(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F416050, type metadata accessor for HTEndpointSecurityTerminationReason);
+  result = sub_2510C3798(&qword_27F416050, type metadata accessor for HTEndpointSecurityTerminationReason, &unk_2510C8B4C);
   *(a1 + 8) = result;
   return result;
 }
@@ -6126,17 +6144,17 @@ uint64_t sub_2510C4060(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t sub_2510C40B4(uint64_t a1)
 {
-  result = sub_2510C3798(&qword_27F416068, type metadata accessor for HTBacklightServicesTerminationReason);
+  result = sub_2510C3798(&qword_27F416068, type metadata accessor for HTBacklightServicesTerminationReason, &unk_2510C8B10);
   *(a1 + 8) = result;
   return result;
 }
 
-void sub_2510C415C(uint64_t a1, unint64_t *a2)
+void sub_2510C415C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -6213,18 +6231,17 @@ uint64_t HTHang.creationDate.getter@<X0>(uint64_t a1@<X8>)
   return v5(a1, 0, 1, v4);
 }
 
-uint64_t HTAnalyticsSendEventLazy_cold_1()
+void HTAnalyticsSendEventLazy_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(HTHangSymbolicator *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[HTHangSymbolicator sharedSymbolicator];
 }
 
 void configureTailspinForThirdPartyDevelopment_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "configureTailspinForThirdPartyDevelopment";
-  _os_log_error_impl(&dword_2510AF000, log, OS_LOG_TYPE_ERROR, "%s: Failed to create tailspin config object", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "configureTailspinForThirdPartyDevelopment";
+  _os_log_error_impl(&dword_2510AF000, log, OS_LOG_TYPE_ERROR, "%s: Failed to create tailspin config object", &v1, 0xCu);
 }

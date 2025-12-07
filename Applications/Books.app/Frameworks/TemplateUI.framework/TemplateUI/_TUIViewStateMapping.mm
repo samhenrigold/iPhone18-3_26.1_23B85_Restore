@@ -56,7 +56,7 @@
   {
     bindingCopy = binding;
     v10 = &bindingCopy;
-    v8 = sub_106F88(&self->_bindingMap.__table_.__bucket_list_.__ptr_, &bindingCopy.var0);
+    v8 = sub_106F88(&self->_bindingMap.__table_.__bucket_list_.__ptr_, &bindingCopy.var0, &std::piecewise_construct, &v10);
     objc_storeStrong(v8 + 3, state);
   }
 }

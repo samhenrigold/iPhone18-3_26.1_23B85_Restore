@@ -11,7 +11,7 @@
 
 - (id)pointCloudByRemovingPeridotShortRangeOccludedPoints:(id)points
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pointsCopy = points;
   if (pointsCopy)
   {
@@ -22,9 +22,9 @@
     {
       [v6 bankIds];
       [v6 spotIds];
-      v36[0] = 0;
-      v36[1] = 0;
-      *v35 = v36;
+      v37[0] = 0;
+      v37[1] = 0;
+      *v36 = v37;
       if ([v6 length])
       {
         operator new();
@@ -41,13 +41,13 @@
         do
         {
           v15 = v14;
-          v16 = v36[0];
-          if (v36[0])
+          v16 = v37[0];
+          if (v37[0])
           {
             v17 = &peridotSensorMap + 16 * i + 2 * v14;
             v18 = *v17;
             v19 = v17[1];
-            v20 = v36;
+            v20 = v37;
             do
             {
               v21 = *(v16 + 32);
@@ -81,7 +81,7 @@
             }
 
             while (v16);
-            if (v20 != v36)
+            if (v20 != v37)
             {
               v25 = *(v20 + 32);
               if (v18 >= v25 && (v25 < v18 || v19 >= *(v20 + 33)))
@@ -118,7 +118,7 @@
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v38 = v8;
+            v39 = v8;
             _os_log_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ADAggregatedPointCloudRefiner: filtered %d spots", buf, 8u);
           }
         }
@@ -126,7 +126,7 @@
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          v38 = v8;
+          v39 = v8;
           _os_log_debug_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ADAggregatedPointCloudRefiner: filtered %d spots", buf, 8u);
         }
       }
@@ -136,14 +136,14 @@
       [v30 setConfidenceThreshold:v31];
       v32 = [(ADJasperPointCloud *)v7 pointCloudByApplyingFilter:v30];
 
-      std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(v36[0]);
+      std::__tree<Element *,Element::ElementCompare,std::allocator<Element *>>::destroy(v37[0], v33);
       v6 = v32;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v35 = 0;
-      _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ADAggregatedPointCloudRefiner failed removing short range points", v35, 2u);
+      *v36 = 0;
+      _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ADAggregatedPointCloudRefiner failed removing short range points", v36, 2u);
     }
   }
 

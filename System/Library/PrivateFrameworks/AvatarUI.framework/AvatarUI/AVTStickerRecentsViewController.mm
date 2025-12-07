@@ -160,7 +160,7 @@
   if (v9)
   {
     v10 = [AVTStickerRecentsButtonItem alloc];
-    v11 = AVTAvatarUIBundle();
+    v11 = AVTAvatarUIBundle(v10);
     v12 = [v11 localizedStringForKey:@"STICKER_RECENTS_BUTTON_TITLE" value:&stru_1F39618F0 table:@"Localized"];
     v13 = [(AVTStickerRecentsButtonItem *)v10 initWithLocalizedDescription:v12];
     buttonItem = v9->_buttonItem;

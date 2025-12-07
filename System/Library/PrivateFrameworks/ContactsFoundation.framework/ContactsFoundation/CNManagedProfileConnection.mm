@@ -38,15 +38,17 @@
 
 uint64_t __46__CNManagedProfileConnection_sharedConnection__block_invoke(uint64_t a1)
 {
-  sharedConnection_cn_once_object_2 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedConnection_cn_once_object_2;
+  sharedConnection_cn_once_object_2 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (CNManagedProfileConnection)init
 {
-  sharedConnection = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
-  v4 = [(CNManagedProfileConnection *)self initWithProfileConnection:sharedConnection];
+  v3 = [getMCProfileConnectionClass(self a2)];
+  v4 = [(CNManagedProfileConnection *)self initWithProfileConnection:v3];
 
   return v4;
 }

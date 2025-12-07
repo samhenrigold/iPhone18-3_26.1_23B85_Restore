@@ -31,9 +31,9 @@
 
 - (RPAssertionTracker)init
 {
-  v17.receiver = self;
-  v17.super_class = RPAssertionTracker;
-  v2 = [(RPAssertionTracker *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = RPAssertionTracker;
+  v2 = [(RPAssertionTracker *)&v16 init];
   v3 = v2;
   if (v2)
   {
@@ -58,9 +58,8 @@
     handler[1] = 3221225472;
     handler[2] = sub_100090340;
     handler[3] = &unk_1001AA970;
-    v16 = v3;
+    v15 = v3;
     dispatch_source_set_event_handler(v12, handler);
-    v13 = v3->_checkTimer;
     CUDispatchTimerSet();
   }
 
@@ -102,9 +101,12 @@
 - (void)_activate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1001D4810 <= 30 && (dword_1001D4810 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4810 <= 30)
   {
-    sub_100123DD0();
+    if (dword_1001D4810 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100123DD0(v3, v4, v5);
+    }
   }
 
   dispatch_activate(self->_checkTimer);
@@ -126,17 +128,20 @@
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1001D4810 <= 30 && (dword_1001D4810 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4810 <= 30)
   {
-    sub_100123DEC();
+    if (dword_1001D4810 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100123DEC(v3, v4, v5);
+    }
   }
 
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3221225472;
-  v4[2] = sub_1000906E8;
-  v4[3] = &unk_1001AA970;
-  v4[4] = self;
-  [(RPAssertionTracker *)self _withAssertionsLock:v4];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000906E8;
+  v7[3] = &unk_1001AA970;
+  v7[4] = self;
+  [(RPAssertionTracker *)self _withAssertionsLock:v7];
   checkTimer = self->_checkTimer;
   if (checkTimer)
   {
@@ -237,9 +242,12 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_timerRunning)
   {
-    if (dword_1001D4810 <= 10 && (dword_1001D4810 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4810 <= 10)
     {
-      sub_100123EA0();
+      if (dword_1001D4810 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100123EA0(v3, v4, v5);
+      }
     }
 
     self->_timerRunning = 1;
@@ -254,9 +262,12 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_timerRunning)
   {
-    if (dword_1001D4810 <= 10 && (dword_1001D4810 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4810 <= 10)
     {
-      sub_100123EBC();
+      if (dword_1001D4810 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100123EBC(v3, v4, v5);
+      }
     }
 
     self->_timerRunning = 0;

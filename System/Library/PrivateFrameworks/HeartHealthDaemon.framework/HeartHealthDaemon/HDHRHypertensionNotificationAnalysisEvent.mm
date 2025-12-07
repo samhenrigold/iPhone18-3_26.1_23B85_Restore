@@ -77,7 +77,7 @@
 
 - (id)makeIHAGatedEventPayloadWithDataSource:(id)source error:(id *)error
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v148 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = [(HDHRHypertensionNotificationAnalysisEvent *)self _ihaDemographicsPayloadWithDataSource:sourceCopy];
@@ -89,291 +89,288 @@
   v9 = *MEMORY[0x277CCBBA8];
   v10 = [MEMORY[0x277CCD250] correlationTypeForIdentifier:*MEMORY[0x277CCBBA8]];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  dateInterval = self->_dateInterval;
   p_dateInterval = &self->_dateInterval;
-  v13 = HDAnalyticsCountOfSamples();
-  v14 = 0;
+  v12 = HDAnalyticsCountOfSamples();
+  v13 = 0;
 
-  v131 = v10;
-  if (v13)
+  v126 = v10;
+  if (v12)
   {
-    v15 = HDHRAnalyticsPropertyNameTotalCountBpValuesEntered;
-    v16 = v6;
-    v17 = v13;
-    v18 = v13;
+    v14 = HDHRAnalyticsPropertyNameTotalCountBpValuesEntered;
+    v15 = v6;
+    v16 = v12;
+    v17 = v12;
   }
 
   else
   {
     _HKInitializeLogging();
-    v19 = HKLogAnalytics();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HKLogAnalytics();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [HDHRHypertensionNotificationAnalysisEvent makeIHAGatedEventPayloadWithDataSource:error:];
     }
 
-    v17 = 0;
+    v16 = 0;
 
-    v18 = *MEMORY[0x277CCB7A0];
-    v15 = HDHRAnalyticsPropertyNameTotalCountBpValuesEntered;
-    v16 = v6;
+    v17 = *MEMORY[0x277CCB7A0];
+    v14 = HDHRAnalyticsPropertyNameTotalCountBpValuesEntered;
+    v15 = v6;
   }
 
-  [v16 setObject:v18 forKeyedSubscript:v15];
-  v20 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8E0]];
-  v21 = objc_loadWeakRetained(&self->_profile);
-  v22 = *p_dateInterval;
-  v130 = v20;
-  v23 = HDHRAnalyticsCountOfSamples(v21, v20);
-  [v6 setObject:v23 forKeyedSubscript:HDHRAnalyticsPropertyNameNumStandHoursInPast30Days];
+  [v15 setObject:v17 forKeyedSubscript:v14];
+  v19 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8E0]];
+  v20 = objc_loadWeakRetained(&self->_profile);
+  v125 = v19;
+  v21 = HDHRAnalyticsCountOfSamples(v20, v19, *p_dateInterval, 0);
+  [v6 setObject:v21 forKeyedSubscript:HDHRAnalyticsPropertyNameNumStandHoursInPast30Days];
 
-  v132 = sourceCopy;
+  v127 = sourceCopy;
   environmentDataSource = [sourceCopy environmentDataSource];
   calendarCache = [environmentDataSource calendarCache];
   currentCalendar = [calendarCache currentCalendar];
 
-  v27 = [MEMORY[0x277CBEAB8] hk_dateComponentsForCalendarUnit:32];
-  v129 = currentCalendar;
-  [v27 setCalendar:currentCalendar];
+  v25 = [MEMORY[0x277CBEAB8] hk_dateComponentsForCalendarUnit:32];
+  v124 = currentCalendar;
+  [v25 setCalendar:currentCalendar];
 
-  v28 = objc_loadWeakRetained(&self->_profile);
+  v26 = objc_loadWeakRetained(&self->_profile);
   heartRateType = [MEMORY[0x277CCD830] heartRateType];
-  v30 = *p_dateInterval;
   selfCopy = self;
-  v31 = objc_loadWeakRetained(&self->_profile);
-  v32 = HDHRBackgroundHeartRateContextPredicate(v31);
-  v128 = v27;
-  v33 = HDAnalyticsCountOfIntervalsForQuantityType();
-  v34 = 0;
+  v28 = objc_loadWeakRetained(&self->_profile);
+  v29 = HDHRBackgroundHeartRateContextPredicate(v28);
+  v123 = v25;
+  v30 = HDAnalyticsCountOfIntervalsForQuantityType();
+  v31 = 0;
 
-  v133 = v33;
-  if (v33)
+  v128 = v30;
+  if (v30)
   {
-    v35 = HDHRAnalyticsPropertyNameNumBGHRHoursPast30Days;
-    v36 = v6;
-    v37 = v33;
+    v32 = HDHRAnalyticsPropertyNameNumBGHRHoursPast30Days;
+    v33 = v6;
+    v34 = v30;
   }
 
   else
   {
     _HKInitializeLogging();
-    v38 = HKLogAnalytics();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v35 = HKLogAnalytics();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [HDHRHypertensionNotificationAnalysisEvent makeIHAGatedEventPayloadWithDataSource:error:];
     }
 
-    v37 = *MEMORY[0x277CCB7A0];
-    v35 = HDHRAnalyticsPropertyNameNumBGHRHoursPast30Days;
-    v36 = v6;
+    v34 = *MEMORY[0x277CCB7A0];
+    v32 = HDHRAnalyticsPropertyNameNumBGHRHoursPast30Days;
+    v33 = v6;
   }
 
-  [v36 setObject:v37 forKeyedSubscript:v35];
-  v39 = v17;
+  [v33 setObject:v34 forKeyedSubscript:v32];
+  v36 = v16;
 
   p_isa = &selfCopy->super.isa;
-  v41 = objc_loadWeakRetained(&selfCopy->_profile);
-  v42 = *p_dateInterval;
+  v38 = objc_loadWeakRetained(&selfCopy->_profile);
+  v39 = *p_dateInterval;
+  v40 = v38;
+  v41 = v39;
+  v42 = v9;
   v43 = v41;
-  v44 = v42;
-  v45 = v9;
-  v46 = v44;
-  v47 = [MEMORY[0x277CCD720] correlationTypeForIdentifier:v45];
-  v48 = HDSampleEntityPredicateForDateInterval();
-  v142 = 0;
-  v49 = [MEMORY[0x277D10848] samplesWithType:v47 profile:v43 encodingOptions:MEMORY[0x277CBEC10] predicate:v48 limit:0 anchor:0 error:&v142];
-  v50 = v142;
-  v126 = v48;
-  v127 = v47;
-  if (v50)
+  v44 = [MEMORY[0x277CCD720] correlationTypeForIdentifier:v42];
+  v45 = HDSampleEntityPredicateForDateInterval();
+  v137 = 0;
+  v46 = [MEMORY[0x277D10848] samplesWithType:v44 profile:v40 encodingOptions:MEMORY[0x277CBEC10] predicate:v45 limit:0 anchor:0 error:&v137];
+  v47 = v137;
+  v121 = v45;
+  v122 = v44;
+  if (v47)
   {
-    v51 = v50;
-    v52 = 0;
-    v53 = v50;
-    v54 = v49;
-    v55 = v39;
-    v56 = v133;
+    v48 = v47;
+    v49 = 0;
+    v50 = v47;
+    v51 = v46;
+    v52 = v36;
+    v53 = v128;
     goto LABEL_39;
   }
 
-  v125 = v46;
-  v137 = v49;
-  if (![v49 count])
+  v120 = v43;
+  v132 = v46;
+  if (![v46 count])
   {
     _HKInitializeLogging();
-    v98 = HKLogAnalytics();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+    v95 = HKLogAnalytics();
+    if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
     {
-      *v151 = 138412290;
-      v152 = v125;
-      _os_log_impl(&dword_229486000, v98, OS_LOG_TYPE_DEFAULT, "No Blood Pressure samples found for date interval: %@", v151, 0xCu);
+      *v146 = 138412290;
+      v147 = v120;
+      _os_log_impl(&dword_229486000, v95, OS_LOG_TYPE_DEFAULT, "No Blood Pressure samples found for date interval: %@", v146, 0xCu);
     }
 
-    v53 = 0;
-    v52 = 0;
-    v46 = v125;
-    v54 = v49;
-    v55 = v39;
-    v56 = v133;
+    v50 = 0;
+    v49 = 0;
+    v43 = v120;
+    v51 = v46;
+    v52 = v36;
+    v53 = v128;
     goto LABEL_38;
   }
 
-  v124 = v43;
-  v136 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC980]];
-  v57 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC978]];
-  v138 = 0u;
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
-  v58 = v49;
-  v59 = [v58 countByEnumeratingWithState:&v138 objects:v151 count:16];
-  if (!v59)
+  v119 = v40;
+  v131 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC980]];
+  v54 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC978]];
+  v133 = 0u;
+  v134 = 0u;
+  v135 = 0u;
+  v136 = 0u;
+  v55 = v46;
+  v56 = [v55 countByEnumeratingWithState:&v133 objects:v146 count:16];
+  if (!v56)
   {
-    v54 = v49;
+    v51 = v46;
 
-    v55 = v39;
-    v56 = v133;
+    v52 = v36;
+    v53 = v128;
 LABEL_34:
     _HKInitializeLogging();
-    v94 = HKLogAnalytics();
-    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+    v91 = HKLogAnalytics();
+    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v144 = v125;
-      _os_log_impl(&dword_229486000, v94, OS_LOG_TYPE_DEFAULT, "Zero correlated Blood Pressure samples found for date interval: %@", buf, 0xCu);
+      v139 = v120;
+      _os_log_impl(&dword_229486000, v91, OS_LOG_TYPE_DEFAULT, "Zero correlated Blood Pressure samples found for date interval: %@", buf, 0xCu);
     }
 
-    v52 = 0;
+    v49 = 0;
     goto LABEL_37;
   }
 
-  v60 = v59;
-  v122 = v6;
-  v123 = v39;
-  v61 = 0;
-  v62 = *v139;
-  v63 = 0.0;
-  v64 = 0.0;
+  v57 = v56;
+  v117 = v6;
+  v118 = v36;
+  v58 = 0;
+  v59 = *v134;
+  v60 = 0.0;
+  v61 = 0.0;
   do
   {
-    for (i = 0; i != v60; ++i)
+    for (i = 0; i != v57; ++i)
     {
-      if (*v139 != v62)
+      if (*v134 != v59)
       {
-        objc_enumerationMutation(v58);
+        objc_enumerationMutation(v55);
       }
 
-      v66 = *(*(&v138 + 1) + 8 * i);
-      v67 = [v66 objectsForType:v136];
-      allObjects = [v67 allObjects];
+      v63 = *(*(&v133 + 1) + 8 * i);
+      v64 = [v63 objectsForType:v131];
+      allObjects = [v64 allObjects];
       firstObject = [allObjects firstObject];
 
-      v70 = [v66 objectsForType:v57];
-      allObjects2 = [v70 allObjects];
+      v67 = [v63 objectsForType:v54];
+      allObjects2 = [v67 allObjects];
       firstObject2 = [allObjects2 firstObject];
 
       if (firstObject)
       {
-        v73 = firstObject2 == 0;
+        v70 = firstObject2 == 0;
       }
 
       else
       {
-        v73 = 1;
+        v70 = 1;
       }
 
-      if (!v73)
+      if (!v70)
       {
         quantity = [firstObject quantity];
         millimeterOfMercuryUnit = [MEMORY[0x277CCDAB0] millimeterOfMercuryUnit];
         [quantity doubleValueForUnit:millimeterOfMercuryUnit];
-        v77 = v76;
+        v74 = v73;
 
-        v64 = v64 + v77;
+        v61 = v61 + v74;
         quantity2 = [firstObject2 quantity];
         millimeterOfMercuryUnit2 = [MEMORY[0x277CCDAB0] millimeterOfMercuryUnit];
         [quantity2 doubleValueForUnit:millimeterOfMercuryUnit2];
-        v81 = v80;
+        v78 = v77;
 
-        v63 = v63 + v81;
-        ++v61;
+        v60 = v60 + v78;
+        ++v58;
       }
 
-      v54 = v137;
+      v51 = v132;
     }
 
-    v60 = [v58 countByEnumeratingWithState:&v138 objects:v151 count:16];
+    v57 = [v55 countByEnumeratingWithState:&v133 objects:v146 count:16];
   }
 
-  while (v60);
+  while (v57);
 
-  v6 = v122;
-  v55 = v123;
-  v56 = v133;
+  v6 = v117;
+  v52 = v118;
+  v53 = v128;
   p_isa = &selfCopy->super.isa;
-  if (!v61)
+  if (!v58)
   {
     goto LABEL_34;
   }
 
-  v121 = v57;
-  v82 = v64 / v61;
-  v83 = v63 / v61;
+  v116 = v54;
+  v79 = v61 / v58;
+  v80 = v60 / v58;
   _HKInitializeLogging();
-  v84 = HKLogAnalytics();
-  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+  v81 = HKLogAnalytics();
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
-    v85 = [MEMORY[0x277CCABB0] numberWithInteger:v61];
+    v82 = [MEMORY[0x277CCABB0] numberWithInteger:v58];
+    v83 = HKSensitiveLogItem();
+    v84 = HKSensitiveLogItem();
+    v85 = [MEMORY[0x277CCABB0] numberWithDouble:v79];
     v86 = HKSensitiveLogItem();
-    v87 = HKSensitiveLogItem();
-    v88 = [MEMORY[0x277CCABB0] numberWithDouble:v82];
-    v89 = HKSensitiveLogItem();
-    v90 = [MEMORY[0x277CCABB0] numberWithDouble:v83];
-    v91 = HKSensitiveLogItem();
+    v87 = [MEMORY[0x277CCABB0] numberWithDouble:v80];
+    v88 = HKSensitiveLogItem();
     *buf = 138413058;
-    v144 = v86;
-    v145 = 2112;
-    v146 = v87;
-    v147 = 2112;
-    v148 = v89;
-    v149 = 2112;
-    v150 = v91;
-    _os_log_impl(&dword_229486000, v84, OS_LOG_TYPE_DEFAULT, "Blood Pressure average of %@ samples within date interval: %@ is systolic: %@ and diastolic: %@", buf, 0x2Au);
+    v139 = v83;
+    v140 = 2112;
+    v141 = v84;
+    v142 = 2112;
+    v143 = v86;
+    v144 = 2112;
+    v145 = v88;
+    _os_log_impl(&dword_229486000, v81, OS_LOG_TYPE_DEFAULT, "Blood Pressure average of %@ samples within date interval: %@ is systolic: %@ and diastolic: %@", buf, 0x2Au);
 
-    v55 = v123;
+    v52 = v118;
     p_isa = &selfCopy->super.isa;
   }
 
-  v92 = MEMORY[0x277CCD7E8];
+  v89 = MEMORY[0x277CCD7E8];
   millimeterOfMercuryUnit3 = [MEMORY[0x277CCDAB0] millimeterOfMercuryUnit];
-  v94 = [v92 quantityWithUnit:millimeterOfMercuryUnit3 doubleValue:v82];
+  v91 = [v89 quantityWithUnit:millimeterOfMercuryUnit3 doubleValue:v79];
 
-  v95 = MEMORY[0x277CCD7E8];
+  v92 = MEMORY[0x277CCD7E8];
   millimeterOfMercuryUnit4 = [MEMORY[0x277CCDAB0] millimeterOfMercuryUnit];
-  v97 = [v95 quantityWithUnit:millimeterOfMercuryUnit4 doubleValue:v83];
+  v94 = [v92 quantityWithUnit:millimeterOfMercuryUnit4 doubleValue:v80];
 
-  v52 = [MEMORY[0x277CCD080] categoryForClassificationGuidelines:0 systolic:v94 diastolic:v97];
+  v49 = [MEMORY[0x277CCD080] categoryForClassificationGuidelines:0 systolic:v91 diastolic:v94];
 
-  v56 = v133;
-  v54 = v137;
-  v57 = v121;
+  v53 = v128;
+  v51 = v132;
+  v54 = v116;
 LABEL_37:
 
-  v53 = 0;
-  v43 = v124;
-  v46 = v125;
+  v50 = 0;
+  v40 = v119;
+  v43 = v120;
 LABEL_38:
-  v51 = 0;
+  v48 = 0;
 LABEL_39:
 
-  v99 = v53;
-  if (v99)
+  v96 = v50;
+  if (v96)
   {
     _HKInitializeLogging();
-    v100 = HKLogAnalytics();
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+    v97 = HKLogAnalytics();
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
-      [(HDHRHypertensionNotificationAnalysisEvent *)p_dateInterval makeIHAGatedEventPayloadWithDataSource:v99 error:v100];
+      [(HDHRHypertensionNotificationAnalysisEvent *)p_dateInterval makeIHAGatedEventPayloadWithDataSource:v96 error:v97];
     }
 
 LABEL_42:
@@ -382,59 +379,56 @@ LABEL_42:
     goto LABEL_47;
   }
 
-  if (!v52)
+  if (!v49)
   {
     _HKInitializeLogging();
-    v100 = HKLogAnalytics();
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+    v97 = HKLogAnalytics();
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
-      [(HDHRHypertensionNotificationAnalysisEvent *)p_dateInterval makeIHAGatedEventPayloadWithDataSource:v100 error:v115, v116, v117, v118, v119, v120];
+      [(HDHRHypertensionNotificationAnalysisEvent *)p_dateInterval makeIHAGatedEventPayloadWithDataSource:v97 error:v110, v111, v112, v113, v114, v115];
     }
 
     goto LABEL_42;
   }
 
-  v101 = HDHRBloodPressureClassificationAnalyticsString(v52);
+  v98 = HDHRBloodPressureClassificationAnalyticsString(v49);
   _HKInitializeLogging();
-  v102 = HKLogAnalytics();
-  if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+  v99 = HKLogAnalytics();
+  if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
   {
-    v103 = HKSensitiveLogItem();
-    *v151 = 138412290;
-    v152 = v103;
-    _os_log_impl(&dword_229486000, v102, OS_LOG_TYPE_DEFAULT, "Blood Pressure analytics classification: %@", v151, 0xCu);
+    v100 = HKSensitiveLogItem();
+    *v146 = 138412290;
+    v147 = v100;
+    _os_log_impl(&dword_229486000, v99, OS_LOG_TYPE_DEFAULT, "Blood Pressure analytics classification: %@", v146, 0xCu);
   }
 
-  [v6 setObject:v101 forKeyedSubscript:HDHRAnalyticsPropertyNameMeanEnteredBpCategory];
+  [v6 setObject:v98 forKeyedSubscript:HDHRAnalyticsPropertyNameMeanEnteredBpCategory];
 LABEL_47:
 
-  v104 = [MEMORY[0x277CCD8D8] dataTypeWithCode:139];
-  v105 = objc_loadWeakRetained(p_isa + 1);
-  v106 = *p_dateInterval;
-  v107 = HDAnalyticsCountOfSamples();
-  v108 = 0;
+  v101 = [MEMORY[0x277CCD8D8] dataTypeWithCode:139];
+  v102 = objc_loadWeakRetained(p_isa + 1);
+  v103 = HDAnalyticsCountOfSamples();
+  v104 = 0;
 
-  v109 = v107;
-  if (!v55)
+  v105 = v103;
+  if (!v52)
   {
     _HKInitializeLogging();
-    v110 = HKLogAnalytics();
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+    v106 = HKLogAnalytics();
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
     {
       [HDHRHypertensionNotificationAnalysisEvent makeIHAGatedEventPayloadWithDataSource:error:];
     }
 
-    v109 = *MEMORY[0x277CCB7A0];
+    v105 = *MEMORY[0x277CCB7A0];
   }
 
-  [v6 setObject:v109 forKeyedSubscript:HDHRAnalyticsPropertyNameNumHRVValuesPast30Days];
-  v111 = [p_isa _isAFibHistoryEnabledWithDataSource:v132];
-  [v6 setObject:v111 forKeyedSubscript:HDHRAnalyticsPropertyNameIsAfibHistoryEnabled];
+  [v6 setObject:v105 forKeyedSubscript:HDHRAnalyticsPropertyNameNumHRVValuesPast30Days];
+  v107 = [p_isa _isAFibHistoryEnabledWithDataSource:v127];
+  [v6 setObject:v107 forKeyedSubscript:HDHRAnalyticsPropertyNameIsAfibHistoryEnabled];
 
-  v112 = [p_isa _daysSinceHTNLastEnabled:v132];
-  [v6 setObject:v112 forKeyedSubscript:HDHRAnalyticsPropertyNameDaysSinceNotificationsLastEnabled];
-
-  v113 = *MEMORY[0x277D85DE8];
+  v108 = [p_isa _daysSinceHTNLastEnabled:v127];
+  [v6 setObject:v108 forKeyedSubscript:HDHRAnalyticsPropertyNameDaysSinceNotificationsLastEnabled];
 
   return v6;
 }
@@ -511,85 +505,94 @@ LABEL_47:
 
 - (id)_dnuNumDaysWatchWornAnalyticsWithCalendar:(id)calendar
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [MEMORY[0x277CBEAB8] hk_dateComponentsForCalendarUnit:32];
-  v38 = calendarCopy;
+  v36 = calendarCopy;
   [v6 setCalendar:calendarCopy];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   heartRateType = [MEMORY[0x277CCD830] heartRateType];
-  dateInterval = self->_dateInterval;
-  v10 = objc_loadWeakRetained(&self->_profile);
-  v11 = HDHRBackgroundHeartRateContextPredicate(v10);
-  v43 = 0;
-  v12 = HDAnalyticsStatisticsCollectionOfIntervalsForQuantityType();
-  v13 = 0;
+  v9 = objc_loadWeakRetained(&self->_profile);
+  v10 = HDHRBackgroundHeartRateContextPredicate(v9);
+  v41 = 0;
+  v11 = HDAnalyticsStatisticsCollectionOfIntervalsForQuantityType();
+  v12 = 0;
 
-  if (v12)
+  if (v11)
   {
-    v41 = 0u;
-    v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    statistics = [v12 statistics];
-    v15 = [statistics countByEnumeratingWithState:&v39 objects:v44 count:16];
-    if (v15)
+    v37 = 0u;
+    v38 = 0u;
+    statistics = [v11 statistics];
+    v14 = [statistics countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v34 = v13;
-      v35 = v12;
-      v36 = v6;
-      v37 = v5;
+      v15 = v14;
+      v32 = v12;
+      v33 = v11;
+      v34 = v6;
+      v35 = v5;
+      v16 = 0;
       v17 = 0;
       v18 = 0;
       v19 = 0;
-      v20 = 0;
-      v21 = *v40;
+      v20 = *v38;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v21)
+          if (*v38 != v20)
           {
             objc_enumerationMutation(statistics);
           }
 
-          v23 = *(*(&v39 + 1) + 8 * i);
-          if ([v23 dataCount])
+          v22 = *(*(&v37 + 1) + 8 * i);
+          if ([v22 dataCount])
           {
-            startDate = [v23 startDate];
-            v25 = [startDate hk_dayIndexWithCalendar:v38];
+            startDate = [v22 startDate];
+            v24 = [startDate hk_dayIndexWithCalendar:v36];
 
-            if (v25 == v17)
+            if (v24 == v16)
             {
-              ++v20;
+              ++v19;
             }
 
             else
             {
-              if (v20 > 7)
+              if (v19 > 7)
+              {
+                ++v17;
+              }
+
+              if (v19 > 11)
               {
                 ++v18;
               }
 
-              if (v20 > 11)
-              {
-                ++v19;
-              }
-
-              v17 = v25;
-              v20 = 1;
+              v16 = v24;
+              v19 = 1;
             }
           }
         }
 
-        v16 = [statistics countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v15 = [statistics countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
-      while (v16);
+      while (v15);
 
-      if (v20 <= 7)
+      if (v19 <= 7)
+      {
+        v25 = v17;
+      }
+
+      else
+      {
+        v25 = v17 + 1;
+      }
+
+      if (v19 <= 11)
       {
         v26 = v18;
       }
@@ -599,51 +602,39 @@ LABEL_47:
         v26 = v18 + 1;
       }
 
-      if (v20 <= 11)
-      {
-        v27 = v19;
-      }
-
-      else
-      {
-        v27 = v19 + 1;
-      }
-
-      v6 = v36;
-      v5 = v37;
-      v13 = v34;
-      v12 = v35;
+      v6 = v34;
+      v5 = v35;
+      v12 = v32;
+      v11 = v33;
     }
 
     else
     {
 
+      v25 = 0;
       v26 = 0;
-      v27 = 0;
     }
 
-    v30 = [MEMORY[0x277CCABB0] numberWithInteger:v26];
-    [v5 setObject:v30 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan8Hours];
+    v29 = [MEMORY[0x277CCABB0] numberWithInteger:v25];
+    [v5 setObject:v29 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan8Hours];
 
-    v31 = [MEMORY[0x277CCABB0] numberWithInteger:v27];
-    [v5 setObject:v31 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan12Hours];
+    v30 = [MEMORY[0x277CCABB0] numberWithInteger:v26];
+    [v5 setObject:v30 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan12Hours];
   }
 
   else
   {
     _HKInitializeLogging();
-    v28 = HKLogAnalytics();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = HKLogAnalytics();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [HDHRHypertensionNotificationAnalysisEvent _dnuNumDaysWatchWornAnalyticsWithCalendar:];
     }
 
-    v29 = *MEMORY[0x277CCB7A0];
+    v28 = *MEMORY[0x277CCB7A0];
     [v5 setObject:*MEMORY[0x277CCB7A0] forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan8Hours];
-    [v5 setObject:v29 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan12Hours];
+    [v5 setObject:v28 forKeyedSubscript:HDHRAnalyticsPropertyNameNumDaysWatchWornMoreThan12Hours];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -734,35 +725,11 @@ LABEL_47:
 
   v6 = [v5 featureStatusWithError:0];
   v7 = v6;
-  if (!v6)
+  if (v6 && [v6 isOnboardingRecordPresent] && (objc_msgSend(v7, "onboardingRecord"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "featureSettings"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9) && (objc_msgSend(v7, "onboardingRecord"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "featureSettings"), v11 = objc_claimAutoreleasedReturnValue(), v12 = *MEMORY[0x277CCC120], objc_msgSend(v11, "numberForKey:", *MEMORY[0x277CCC120]), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "intValue"), v13, v11, v10, v14 == 1))
   {
-    goto LABEL_7;
-  }
-
-  if (![v6 isOnboardingRecordPresent])
-  {
-    goto LABEL_7;
-  }
-
-  onboardingRecord = [v7 onboardingRecord];
-  featureSettings = [onboardingRecord featureSettings];
-
-  if (!featureSettings)
-  {
-    goto LABEL_7;
-  }
-
-  onboardingRecord2 = [v7 onboardingRecord];
-  featureSettings2 = [onboardingRecord2 featureSettings];
-  v12 = *MEMORY[0x277CCC120];
-  v13 = [featureSettings2 numberForKey:*MEMORY[0x277CCC120]];
-  intValue = [v13 intValue];
-
-  if (intValue == 1)
-  {
-    onboardingRecord3 = [v7 onboardingRecord];
-    featureSettings3 = [onboardingRecord3 featureSettings];
-    v17 = [featureSettings3 modificationDateForKey:v12];
+    onboardingRecord = [v7 onboardingRecord];
+    featureSettings = [onboardingRecord featureSettings];
+    v17 = [featureSettings modificationDateForKey:v12];
 
     if (v17)
     {
@@ -785,63 +752,28 @@ LABEL_47:
 
   else
   {
-LABEL_7:
     v24 = *MEMORY[0x277CCB798];
   }
 
   return v24;
 }
 
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get count of Blood Pressure sample types with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get number of hours with bg hr samples with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)makeIHAGatedEventPayloadWithDataSource:(os_log_t)log error:.cold.3(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "Could not get average blood pressure for date interval: %@ with error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "Could not get average blood pressure for date interval: %@ with error: %{public}@", &v4, 0x16u);
 }
 
 - (void)makeIHAGatedEventPayloadWithDataSource:(uint64_t)a3 error:(uint64_t)a4 .cold.4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Average blood pressure classification is nil for date interval: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get count of HRV sample types with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dnuNumDaysWatchWornAnalyticsWithCalendar:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not get count of hours with bghr with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Average blood pressure classification is nil for date interval: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

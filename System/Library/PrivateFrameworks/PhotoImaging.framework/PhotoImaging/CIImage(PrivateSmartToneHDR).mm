@@ -53,7 +53,7 @@
   v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
   v48 = [v7 contextWithOptions:v12];
 
-  [v10 extent];
+  objc_msgSend_extent(v10);
   v67 = CGRectIntegral(v66);
   x = v67.origin.x;
   y = v67.origin.y;

@@ -351,16 +351,16 @@ LABEL_12:
   return v9;
 }
 
-id sub_83C0()
+id sub_83C0(uint64_t a1)
 {
   if (qword_167E0 != -1)
   {
     sub_9688();
   }
 
-  v1 = qword_167D8;
+  v2 = qword_167D8;
 
-  return v1;
+  return v2;
 }
 
 NSAttributedString *__cdecl sub_9344(id a1, NSString *a2, unint64_t a3, CLKTextProviderStyle *a4)

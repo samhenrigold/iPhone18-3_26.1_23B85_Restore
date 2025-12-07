@@ -49,10 +49,10 @@ void __47__HFLocationManagerDispatcher_sharedDispatcher__block_invoke_2()
 
 - (HFLocationManagerDispatcher)init
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = HFLocationManagerDispatcher;
-  v2 = [(HFLocationManagerDispatcher *)&v19 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = HFLocationManagerDispatcher;
+  v2 = [(HFLocationManagerDispatcher *)&v18 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, 0xFFFF8000, 0);
@@ -73,9 +73,9 @@ void __47__HFLocationManagerDispatcher_sharedDispatcher__block_invoke_2()
     {
       locationManager = v2->_locationManager;
       *buf = 138412546;
-      v21 = v2;
-      v22 = 2112;
-      v23 = locationManager;
+      v20 = v2;
+      v21 = 2112;
+      v22 = locationManager;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Initialized location manager dispatcher: %@ with manager: %@", buf, 0x16u);
     }
 
@@ -84,7 +84,7 @@ void __47__HFLocationManagerDispatcher_sharedDispatcher__block_invoke_2()
     {
       v13 = v2->_locationObservers;
       *buf = 138412290;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Initializing location observers: %@", buf, 0xCu);
     }
 
@@ -93,11 +93,10 @@ void __47__HFLocationManagerDispatcher_sharedDispatcher__block_invoke_2()
     block[1] = 3221225472;
     block[2] = __35__HFLocationManagerDispatcher_init__block_invoke;
     block[3] = &unk_277DF3D38;
-    v18 = v2;
+    v17 = v2;
     dispatch_async(queue, block);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -207,7 +206,7 @@ void __58__HFLocationManagerDispatcher_getAuthorizationStatusAsync__block_invoke
 
 void __64__HFLocationManagerDispatcher__updateCachedAuthorizationStatus___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -219,26 +218,24 @@ void __64__HFLocationManagerDispatcher__updateCachedAuthorizationStatus___block_
     }
 
     *buf = 67109378;
-    v11 = v3;
-    v12 = 2080;
-    v13 = v4;
+    v10 = v3;
+    v11 = 2080;
+    v12 = v4;
     _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updating location services authorization status to %d (%s)", buf, 0x12u);
   }
 
   [*(a1 + 32) setHasInitializedAuthorizationStatus:1];
   [*(a1 + 32) setCachedAuthorizationStatus:*(a1 + 40)];
   v5 = [*(a1 + 32) pendingAuthorizationStatusFutures];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __64__HFLocationManagerDispatcher__updateCachedAuthorizationStatus___block_invoke_17;
-  v8[3] = &__block_descriptor_36_e18_v16__0__NAFuture_8l;
-  v9 = *(a1 + 40);
-  [v5 na_each:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __64__HFLocationManagerDispatcher__updateCachedAuthorizationStatus___block_invoke_17;
+  v7[3] = &__block_descriptor_36_e18_v16__0__NAFuture_8l;
+  v8 = *(a1 + 40);
+  [v5 na_each:v7];
 
   v6 = [*(a1 + 32) pendingAuthorizationStatusFutures];
   [v6 removeAllObjects];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HFLocationManagerDispatcher__updateCachedAuthorizationStatus___block_invoke_17(uint64_t a1, void *a2)
@@ -294,7 +291,7 @@ void __51__HFLocationManagerDispatcher_triggerLocationFetch__block_invoke(uint64
 
 - (void)dispatchLocationManagerObserverMessage:(SEL)message withBlock:(id)block sender:(id)sender
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   senderCopy = sender;
   v10 = HFLogForCategory(0x2DuLL);
@@ -302,83 +299,75 @@ void __51__HFLocationManagerDispatcher_triggerLocationFetch__block_invoke(uint64
   {
     locationObservers = [(HFLocationManagerDispatcher *)self locationObservers];
     *buf = 138412290;
-    v20 = locationObservers;
+    v19 = locationObservers;
     _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "all observers:%@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_withBlock_sender___block_invoke;
-  v15[3] = &unk_277DF4488;
-  v15[4] = self;
-  v16 = senderCopy;
-  v17 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_withBlock_sender___block_invoke;
+  v14[3] = &unk_277DF4488;
+  v14[4] = self;
+  v15 = senderCopy;
+  v16 = blockCopy;
   messageCopy = message;
   v12 = blockCopy;
   v13 = senderCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v14);
 }
 
 void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_withBlock_sender___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) locationObservers];
   v3 = [v2 copy];
 
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = HFLogForCategory(0x2DuLL);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v18 = v8;
+          v16 = v8;
           _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "observer:%@", buf, 0xCu);
         }
 
-        if (v8 != *(a1 + 40))
+        if (v8 != *(a1 + 40) && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v10 = *(a1 + 56);
-          if (objc_opt_respondsToSelector())
+          v10 = HFLogForCategory(0x2DuLL);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = HFLogForCategory(0x2DuLL);
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              v18 = v8;
-              _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "observer responds to selector:%@", buf, 0xCu);
-            }
-
-            (*(*(a1 + 48) + 16))();
+            *buf = 138412290;
+            v16 = v8;
+            _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "observer responds to selector:%@", buf, 0xCu);
           }
+
+          (*(*(a1 + 48) + 16))();
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
@@ -398,33 +387,31 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
 
 - (void)locationManager:(id)manager didUpdateHeading:(id)heading
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   headingCopy = heading;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = headingCopy;
+    v16 = headingCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didUpdateHeading: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __64__HFLocationManagerDispatcher_locationManager_didUpdateHeading___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = headingCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __64__HFLocationManagerDispatcher_locationManager_didUpdateHeading___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = headingCopy;
   v10 = headingCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 - (void)locationManager:(id)manager didDetermineState:(int64_t)state forRegion:(id)region
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v11 = HFLogForCategory(0x2DuLL);
@@ -432,28 +419,26 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
   {
     *buf = 67109378;
     stateCopy = state;
-    v21 = 2112;
-    v22 = regionCopy;
+    v20 = 2112;
+    v21 = regionCopy;
     _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "didDetermineState: %d forRegion: %@", buf, 0x12u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __75__HFLocationManagerDispatcher_locationManager_didDetermineState_forRegion___block_invoke;
-  v15[3] = &unk_277DF44D8;
-  v17 = regionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __75__HFLocationManagerDispatcher_locationManager_didDetermineState_forRegion___block_invoke;
+  v14[3] = &unk_277DF44D8;
+  v16 = regionCopy;
   stateCopy2 = state;
-  v16 = managerCopy;
+  v15 = managerCopy;
   v12 = regionCopy;
   v13 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v15 sender:0];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v14 sender:0];
 }
 
 - (void)locationManager:(id)manager didRangeBeacons:(id)beacons inRegion:(id)region
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   beaconsCopy = beacons;
   regionCopy = region;
@@ -461,30 +446,28 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = beaconsCopy;
-    v23 = 2112;
-    v24 = regionCopy;
+    v21 = beaconsCopy;
+    v22 = 2112;
+    v23 = regionCopy;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "didRangeBeacons: %@ inRegion: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __72__HFLocationManagerDispatcher_locationManager_didRangeBeacons_inRegion___block_invoke;
-  v17[3] = &unk_277DF4500;
-  v18 = managerCopy;
-  v19 = beaconsCopy;
-  v20 = regionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __72__HFLocationManagerDispatcher_locationManager_didRangeBeacons_inRegion___block_invoke;
+  v16[3] = &unk_277DF4500;
+  v17 = managerCopy;
+  v18 = beaconsCopy;
+  v19 = regionCopy;
   v13 = regionCopy;
   v14 = beaconsCopy;
   v15 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v17 sender:0];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v16 sender:0];
 }
 
 - (void)locationManager:(id)manager rangingBeaconsDidFailForRegion:(id)region withError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   errorCopy = error;
@@ -492,108 +475,100 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = regionCopy;
-    v23 = 2112;
-    v24 = errorCopy;
+    v21 = regionCopy;
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "rangingBeaconsDidFailForRegion: %@ withError: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __88__HFLocationManagerDispatcher_locationManager_rangingBeaconsDidFailForRegion_withError___block_invoke;
-  v17[3] = &unk_277DF4500;
-  v18 = managerCopy;
-  v19 = regionCopy;
-  v20 = errorCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __88__HFLocationManagerDispatcher_locationManager_rangingBeaconsDidFailForRegion_withError___block_invoke;
+  v16[3] = &unk_277DF4500;
+  v17 = managerCopy;
+  v18 = regionCopy;
+  v19 = errorCopy;
   v13 = errorCopy;
   v14 = regionCopy;
   v15 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v17 sender:0];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v16 sender:0];
 }
 
 - (void)locationManager:(id)manager didEnterRegion:(id)region
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = regionCopy;
+    v16 = regionCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didEnterRegion: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__HFLocationManagerDispatcher_locationManager_didEnterRegion___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = regionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__HFLocationManagerDispatcher_locationManager_didEnterRegion___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = regionCopy;
   v10 = regionCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 - (void)locationManager:(id)manager didExitRegion:(id)region
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = regionCopy;
+    v16 = regionCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didExitRegion: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__HFLocationManagerDispatcher_locationManager_didExitRegion___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = regionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __61__HFLocationManagerDispatcher_locationManager_didExitRegion___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = regionCopy;
   v10 = regionCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = errorCopy;
+    v16 = errorCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didFailWithError: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __64__HFLocationManagerDispatcher_locationManager_didFailWithError___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = errorCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __64__HFLocationManagerDispatcher_locationManager_didFailWithError___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 - (void)locationManager:(id)manager monitoringDidFailForRegion:(id)region withError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   errorCopy = error;
@@ -601,30 +576,28 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = regionCopy;
-    v23 = 2112;
-    v24 = errorCopy;
+    v21 = regionCopy;
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "monitoringDidFailForRegion: %@ withError: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __84__HFLocationManagerDispatcher_locationManager_monitoringDidFailForRegion_withError___block_invoke;
-  v17[3] = &unk_277DF4500;
-  v18 = managerCopy;
-  v19 = regionCopy;
-  v20 = errorCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __84__HFLocationManagerDispatcher_locationManager_monitoringDidFailForRegion_withError___block_invoke;
+  v16[3] = &unk_277DF4500;
+  v17 = managerCopy;
+  v18 = regionCopy;
+  v19 = errorCopy;
   v13 = errorCopy;
   v14 = regionCopy;
   v15 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v17 sender:0];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v16 sender:0];
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   if (+[HFUtilities isAMac](HFUtilities, "isAMac") || +[HFUtilities isAVisionPro])
   {
@@ -635,48 +608,44 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = authorizationCopy;
-    v13 = 1024;
+    v11 = authorizationCopy;
+    v12 = 1024;
     authorizationStatus = [authorizationCopy authorizationStatus];
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "locationManagerDidChangeAuthorization: %@ status: %d", buf, 0x12u);
   }
 
   -[HFLocationManagerDispatcher _updateCachedAuthorizationStatus:](self, "_updateCachedAuthorizationStatus:", [authorizationCopy authorizationStatus]);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __69__HFLocationManagerDispatcher_locationManagerDidChangeAuthorization___block_invoke;
-  v9[3] = &unk_277DF4528;
-  v10 = authorizationCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __69__HFLocationManagerDispatcher_locationManagerDidChangeAuthorization___block_invoke;
+  v8[3] = &unk_277DF4528;
+  v9 = authorizationCopy;
   v7 = authorizationCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v9 sender:0];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v8 sender:0];
 }
 
 - (void)locationManager:(id)manager didStartMonitoringForRegion:(id)region
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = regionCopy;
+    v16 = regionCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didStartMonitoringForRegion: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__HFLocationManagerDispatcher_locationManager_didStartMonitoringForRegion___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = regionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__HFLocationManagerDispatcher_locationManager_didStartMonitoringForRegion___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = regionCopy;
   v10 = regionCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 - (void)locationManagerDidPauseLocationUpdates:(id)updates
@@ -719,28 +688,26 @@ void __87__HFLocationManagerDispatcher_dispatchLocationManagerObserverMessage_wi
 
 - (void)locationManager:(id)manager didFinishDeferredUpdatesWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   v9 = HFLogForCategory(0x2DuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = errorCopy;
+    v16 = errorCopy;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "didFinishDeferredUpdatesWithError: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __81__HFLocationManagerDispatcher_locationManager_didFinishDeferredUpdatesWithError___block_invoke;
-  v13[3] = &unk_277DF44B0;
-  v14 = managerCopy;
-  v15 = errorCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __81__HFLocationManagerDispatcher_locationManager_didFinishDeferredUpdatesWithError___block_invoke;
+  v12[3] = &unk_277DF44B0;
+  v13 = managerCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = managerCopy;
-  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v13 sender:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HFLocationManagerDispatcher *)self dispatchLocationManagerObserverMessage:a2 withBlock:v12 sender:0];
 }
 
 @end

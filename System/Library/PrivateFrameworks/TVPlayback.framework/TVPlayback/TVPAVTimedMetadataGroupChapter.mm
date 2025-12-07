@@ -19,7 +19,7 @@
     v21 = 0u;
     if (groupCopy)
     {
-      [groupCopy timeRange];
+      objc_msgSend_timeRange(groupCopy);
       if ((BYTE12(v21) & 1) != 0 && (BYTE4(v23) & 1) != 0 && !*(&v23 + 1) && (*(&v22 + 1) & 0x8000000000000000) == 0)
       {
         v9 = [TVPTimeRange alloc];

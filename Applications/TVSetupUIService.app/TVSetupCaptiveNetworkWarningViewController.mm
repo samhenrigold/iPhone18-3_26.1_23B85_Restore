@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000154BC();
+  sub_1000154BC(selfCopy);
 }
 
 - (_TtC16TVSetupUIService42TVSetupCaptiveNetworkWarningViewController)initWithContentView:(id)view

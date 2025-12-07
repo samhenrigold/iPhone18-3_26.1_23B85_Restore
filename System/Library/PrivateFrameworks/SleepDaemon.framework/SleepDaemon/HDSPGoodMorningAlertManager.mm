@@ -94,63 +94,60 @@
 
 - (void)updateState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] updateState", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __42__HDSPGoodMorningAlertManager_updateState__block_invoke;
-  v6[3] = &unk_279C7B108;
-  v6[4] = self;
-  [(HDSPGoodMorningAlertManager *)self _withLock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __42__HDSPGoodMorningAlertManager_updateState__block_invoke;
+  v5[3] = &unk_279C7B108;
+  v5[4] = self;
+  [(HDSPGoodMorningAlertManager *)self _withLock:v5];
 }
 
 - (void)significantTimeChangeDetected:(id)detected
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] significantTimeChangeDetected", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] significantTimeChangeDetected", &v6, 0xCu);
   }
 
   [(HDSPGoodMorningAlertManager *)self updateState];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleModelManager:(id)manager didUpdateSleepScheduleModel:(id)model
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = modelCopy;
-    v7 = v10;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2114;
+    v11 = modelCopy;
+    v7 = v9;
+    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v8, 0x16u);
   }
 
   [(HDSPGoodMorningAlertManager *)self updateState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state reason:(unint64_t)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -160,39 +157,37 @@
     v11 = NSStringFromHKSPSleepScheduleState();
     v12 = NSStringFromHKSPSleepScheduleStateChangeReason();
     *buf = 138544130;
-    v20 = v8;
-    v21 = 2114;
-    v22 = v10;
-    v23 = 2114;
-    v24 = v11;
-    v25 = 2114;
-    v26 = v12;
+    v19 = v8;
+    v20 = 2114;
+    v21 = v10;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 2114;
+    v25 = v12;
     _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleepScheduleStateChanged from %{public}@ to %{public}@ for %{public}@", buf, 0x2Au);
   }
 
   if (change == 2)
   {
-    v13 = &v16;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
+    v13 = &v15;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
     v14 = __80__HDSPGoodMorningAlertManager_sleepScheduleStateDidChange_previousState_reason___block_invoke_2;
     goto LABEL_8;
   }
 
   if (change == 1 && HKSPSleepScheduleStateChangeReasonIsExpected())
   {
-    v13 = v18;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
+    v13 = v17;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
     v14 = __80__HDSPGoodMorningAlertManager_sleepScheduleStateDidChange_previousState_reason___block_invoke;
 LABEL_8:
     v13[2] = v14;
     v13[3] = &unk_279C7B108;
     v13[4] = self;
-    [(HDSPGoodMorningAlertManager *)self _withLock:v16, v17];
+    [(HDSPGoodMorningAlertManager *)self _withLock:v15, v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)providerIdentifier
@@ -204,47 +199,45 @@ LABEL_8:
 
 - (id)upcomingEventsDueAfterDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__18;
-  v20 = __Block_byref_object_dispose__18;
-  v21 = MEMORY[0x277CBEBF8];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __58__HDSPGoodMorningAlertManager_upcomingEventsDueAfterDate___block_invoke;
-  v13[3] = &unk_279C7B6C8;
-  v13[4] = self;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__18;
+  v19 = __Block_byref_object_dispose__18;
+  v20 = MEMORY[0x277CBEBF8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__HDSPGoodMorningAlertManager_upcomingEventsDueAfterDate___block_invoke;
+  v12[3] = &unk_279C7B6C8;
+  v12[4] = self;
   v5 = dateCopy;
-  v14 = v5;
-  v15 = &v16;
-  [(HDSPGoodMorningAlertManager *)self _withLock:v13];
+  v13 = v5;
+  v14 = &v15;
+  [(HDSPGoodMorningAlertManager *)self _withLock:v12];
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
-    v8 = v17[5];
+    v8 = v16[5];
     *buf = 138543618;
-    v23 = v7;
-    v24 = 2114;
-    v25 = v8;
+    v22 = v7;
+    v23 = 2114;
+    v24 = v8;
     v9 = v7;
     _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] scheduling expiration of %{public}@", buf, 0x16u);
   }
 
-  v10 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v10;
 }
 
 void __58__HDSPGoodMorningAlertManager_upcomingEventsDueAfterDate___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) stateMachine];
   v3 = [v2 currentStateExpirationDate];
 
@@ -255,19 +248,17 @@ void __58__HDSPGoodMorningAlertManager_upcomingEventsDueAfterDate___block_invoke
     v6 = [v5 currentStateIdentifier];
     v7 = [v4 sleepEventWithIdentifier:v6 dueDate:v3];
 
-    v12[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = *(*(a1 + 48) + 8);
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepEventIsDue:(id)due
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dueCopy = due;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -276,22 +267,20 @@ void __58__HDSPGoodMorningAlertManager_upcomingEventsDueAfterDate___block_invoke
     v7 = v6;
     identifier = [dueCopy identifier];
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2114;
-    v16 = identifier;
+    v13 = v6;
+    v14 = 2114;
+    v15 = identifier;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ expired", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __47__HDSPGoodMorningAlertManager_sleepEventIsDue___block_invoke;
-  v11[3] = &unk_279C7B2D0;
-  v11[4] = self;
-  v12 = dueCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47__HDSPGoodMorningAlertManager_sleepEventIsDue___block_invoke;
+  v10[3] = &unk_279C7B2D0;
+  v10[4] = self;
+  v11 = dueCopy;
   v9 = dueCopy;
-  [(HDSPGoodMorningAlertManager *)self _withLock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(HDSPGoodMorningAlertManager *)self _withLock:v10];
 }
 
 void __47__HDSPGoodMorningAlertManager_sleepEventIsDue___block_invoke(uint64_t a1)
@@ -350,18 +339,17 @@ void __47__HDSPGoodMorningAlertManager_eventIdentifiers__block_invoke_2(uint64_t
 
 - (void)goodMorningWasDismissed
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] goodMorningWasDismissed", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] goodMorningWasDismissed", &v5, 0xCu);
   }
 
   [(HDSPGoodMorningAlertManager *)self updateState];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)currentDate
@@ -451,22 +439,36 @@ LABEL_6:
 
 - (void)presentAlertForGoodMorning
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling observers to present good morning alert", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling observers to present good morning alert", &v5, 0xCu);
   }
 
   [(HKSPObserverSet *)self->_goodMorningAlertObservers enumerateObserversWithBlock:&__block_literal_global_22];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissAlertForGoodMorning
 {
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = HKSPLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling observers to dismiss good morning alert", &v5, 0xCu);
+  }
+
+  [(HKSPObserverSet *)self->_goodMorningAlertObservers enumerateObserversWithBlock:&__block_literal_global_300];
+}
+
+- (void)scheduleStateExpiration
+{
   v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -474,47 +476,27 @@ LABEL_6:
     v6 = 138543362;
     v7 = objc_opt_class();
     v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling observers to dismiss good morning alert", &v6, 0xCu);
-  }
-
-  [(HKSPObserverSet *)self->_goodMorningAlertObservers enumerateObserversWithBlock:&__block_literal_global_300];
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)scheduleStateExpiration
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = HKSPLogForCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we have events to schedule", &v7, 0xCu);
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we have events to schedule", &v6, 0xCu);
   }
 
   sleepEventDelegate = [(HDSPGoodMorningAlertManager *)self sleepEventDelegate];
   [sleepEventDelegate eventProviderHasUpcomingEvents:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unscheduleStateExpiration
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we no longer have events to schedule", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] telling scheduler we no longer have events to schedule", &v6, 0xCu);
   }
 
   sleepEventDelegate = [(HDSPGoodMorningAlertManager *)self sleepEventDelegate];
   [sleepEventDelegate eventProviderCancelledEvents:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentState
@@ -540,10 +522,7 @@ LABEL_6:
 
 uint64_t __44__HDSPGoodMorningAlertManager__currentState__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) currentState];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) currentState];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -137,7 +137,7 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
 
 - (void)setFence
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queue = [(ULCMPDRFenceProvider *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -155,9 +155,9 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 68289026;
-        v28 = 0;
-        v29 = 2082;
-        v30 = "";
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
         _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Requested PDR fence without an active session! Starting Motion Session}", buf, 0x12u);
       }
 
@@ -170,9 +170,9 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
       if (os_signpost_enabled(logObject_MicroLocation_Default))
       {
         *buf = 68289026;
-        v28 = 0;
-        v29 = 2082;
-        v30 = "";
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
         _os_signpost_emit_with_name_impl(&dword_258FE9000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Requested PDR fence without an active session! Starting Motion Session", "{msg%{public}.0s:Requested PDR fence without an active session! Starting Motion Session}", buf, 0x12u);
       }
 
@@ -202,15 +202,15 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
       v14 = v13;
       isFenceActive = [(ULCMPDRFenceProvider *)self isFenceActive];
       *buf = 68289794;
-      v28 = 0;
-      v29 = 2082;
-      v30 = "";
-      v31 = 2082;
-      v32 = uTF8String;
-      v33 = 2050;
-      v34 = v14;
-      v35 = 1026;
-      v36 = isFenceActive;
+      v27 = 0;
+      v28 = 2082;
+      v29 = "";
+      v30 = 2082;
+      v31 = uTF8String;
+      v32 = 2050;
+      v33 = v14;
+      v34 = 1026;
+      v35 = isFenceActive;
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Setting PDR fence , fence identifier is:%{public, location:escape_only}s, fence size in m:%{public}.2f, previous fence state:%{public}hhd}", buf, 0x2Cu);
     }
 
@@ -220,15 +220,15 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
     radius2 = [(ULCMPDRFenceProvider *)self radius];
     [radius2 floatValue];
     v20 = v19;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __32__ULCMPDRFenceProvider_setFence__block_invoke;
-    v24[3] = &unk_2798D54A8;
-    objc_copyWeak(&v25, &location);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __32__ULCMPDRFenceProvider_setFence__block_invoke;
+    v23[3] = &unk_2798D54A8;
+    objc_copyWeak(&v24, &location);
     LODWORD(v21) = v20;
-    [fenceManager2 setFence:fenceIdentifier3 withRadius:v24 withCompletion:v21];
+    [fenceManager2 setFence:fenceIdentifier3 withRadius:v23 withCompletion:v21];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
   }
 
   else
@@ -247,7 +247,6 @@ void __36__ULCMPDRFenceProvider_startSession__block_invoke(uint64_t a1, void *a2
   }
 
   objc_destroyWeak(&location);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __32__ULCMPDRFenceProvider_setFence__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -272,7 +271,7 @@ void __32__ULCMPDRFenceProvider_setFence__block_invoke(uint64_t a1, void *a2, vo
 
 - (void)clearFence
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(ULCMPDRFenceProvider *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -292,13 +291,13 @@ void __32__ULCMPDRFenceProvider_setFence__block_invoke(uint64_t a1, void *a2, vo
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       fenceIdentifier = self->_fenceIdentifier;
-      v13 = 138412290;
-      v14 = fenceIdentifier;
+      v12 = 138412290;
+      v13 = fenceIdentifier;
       v8 = "Clearing PDR fence, with identifier: %@ -- will not receive any more fence breach notifications";
       v9 = v6;
       v10 = 12;
 LABEL_10:
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
     }
   }
 
@@ -312,20 +311,18 @@ LABEL_10:
     v11 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v8 = "No fence active -- ignoring request to clear fence";
       v9 = v11;
       v10 = 2;
       goto LABEL_10;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFenceCross:(id)cross error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   crossCopy = cross;
   errorCopy = error;
   [(ULCMPDRFenceProvider *)self setIsFenceActive:0];
@@ -341,11 +338,11 @@ LABEL_10:
     {
       v9 = v8;
       localizedDescription = [errorCopy localizedDescription];
-      v16 = 138412546;
-      v17 = localizedDescription;
-      v18 = 2112;
-      v19 = crossCopy;
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "PDR fence completion error, PDR fence completed with error: %@ and identifier %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = localizedDescription;
+      v17 = 2112;
+      v18 = crossCopy;
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "PDR fence completion error, PDR fence completed with error: %@ and identifier %@", &v15, 0x16u);
     }
 
     if ([errorCopy code] == 103)
@@ -369,9 +366,9 @@ LABEL_10:
     v14 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = crossCopy;
-      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "PDR fence completed sucessfully, with identifier: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = crossCopy;
+      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "PDR fence completed sucessfully, with identifier: %@", &v15, 0xCu);
     }
 
     onErrorIndication = [(ULCMPDRFenceProvider *)self onMotionMeasurements];
@@ -379,13 +376,11 @@ LABEL_10:
     fenceName = [(ULCMPDRFenceProvider *)self fenceName];
     (onErrorIndication[2])(onErrorIndication, v12, fenceName);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStatusUpdateError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -400,15 +395,15 @@ LABEL_10:
     fenceIdentifier = [(ULCMPDRFenceProvider *)self fenceIdentifier];
     v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[ULCMPDRFenceProvider isSessionStarted](self, "isSessionStarted")}];
     v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[ULCMPDRFenceProvider isFenceActive](self, "isFenceActive")}];
-    v12 = 138413058;
-    v13 = localizedDescription;
-    v14 = 2112;
-    v15 = fenceIdentifier;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "PDR fence error, PDR fence cleared with error: %@ and identifier %@, session is started: %@, fence is active: %@", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = localizedDescription;
+    v13 = 2112;
+    v14 = fenceIdentifier;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "PDR fence error, PDR fence cleared with error: %@ and identifier %@, session is started: %@, fence is active: %@", &v11, 0x2Au);
   }
 
   if ([(ULCMPDRFenceProvider *)self isFenceActive])
@@ -421,13 +416,11 @@ LABEL_10:
     [(ULCMPDRFenceProvider *)self endSession];
     [(ULCMPDRFenceProvider *)self startSession];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStatusUpdate:(id)update withError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   errorCopy = error;
   if (errorCopy)
@@ -449,9 +442,9 @@ LABEL_10:
     v11 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = updateCopy;
-      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "get PDR status: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = updateCopy;
+      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "get PDR status: %@", &v14, 0xCu);
     }
 
     onErrorIndication = [MEMORY[0x277CBEB38] dictionaryWithDictionary:updateCopy];
@@ -461,8 +454,6 @@ LABEL_10:
     onStatusReport = [(ULCMPDRFenceProvider *)self onStatusReport];
     onStatusReport[2](onStatusReport, onErrorIndication);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isAvailable

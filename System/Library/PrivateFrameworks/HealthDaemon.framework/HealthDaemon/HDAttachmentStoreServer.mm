@@ -258,40 +258,40 @@ uint64_t __102__HDAttachmentStoreServer_remote_attachmentReferencesForObjectIden
 
 - (void)remote_streamDataForAttachment:(id)attachment
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __58__HDAttachmentStoreServer_remote_streamDataForAttachment___block_invoke;
-  v30[3] = &unk_2786138D0;
-  v30[4] = self;
-  v5 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __58__HDAttachmentStoreServer_remote_streamDataForAttachment___block_invoke;
+  v29[3] = &unk_2786138D0;
+  v29[4] = self;
+  v5 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v29];
   identifier = [attachmentCopy identifier];
   profile = [(HDStandardTaskServer *)self profile];
-  v29 = 0;
-  v8 = [HDAttachmentEntity attachmentWithIdentifier:identifier profile:profile error:&v29];
-  v9 = v29;
+  v28 = 0;
+  v8 = [HDAttachmentEntity attachmentWithIdentifier:identifier profile:profile error:&v28];
+  v9 = v28;
 
   if (v8)
   {
-    v28 = v9;
-    v10 = [(HDAttachmentStoreServer *)self _isAuthorizedToReadAttachment:v8 error:&v28];
-    v11 = v28;
+    v27 = v9;
+    v10 = [(HDAttachmentStoreServer *)self _isAuthorizedToReadAttachment:v8 error:&v27];
+    v11 = v27;
 
     if (v10)
     {
       profile2 = [(HDStandardTaskServer *)self profile];
       attachmentManager = [profile2 attachmentManager];
-      v27 = v11;
-      v14 = [attachmentManager readerForAttachment:v8 error:&v27];
-      v15 = v27;
+      v26 = v11;
+      v14 = [attachmentManager readerForAttachment:v8 error:&v26];
+      v15 = v26;
 
       if (v14)
       {
         v16 = *MEMORY[0x277CCB850];
-        v26 = v15;
-        v17 = [v14 readDataUpToLength:v16 offset:0 error:&v26];
-        v18 = v26;
+        v25 = v15;
+        v17 = [v14 readDataUpToLength:v16 offset:0 error:&v25];
+        v18 = v25;
 
         if (v17)
         {
@@ -301,9 +301,9 @@ uint64_t __102__HDAttachmentStoreServer_remote_attachmentReferencesForObjectIden
             [v5 clientRemote_streamDataForAttachment:attachmentCopy dataChunk:v17 error:0 done:0];
             v19 += [v17 length];
 
-            v26 = v18;
-            v17 = [v14 readDataUpToLength:v16 offset:v19 error:&v26];
-            v15 = v26;
+            v25 = v18;
+            v17 = [v14 readDataUpToLength:v16 offset:v19 error:&v25];
+            v15 = v25;
 
             v18 = v15;
             if (!v17)
@@ -325,15 +325,15 @@ LABEL_14:
         v22 = *MEMORY[0x277CCC280];
         if (os_log_type_enabled(*MEMORY[0x277CCC280], OS_LOG_TYPE_ERROR))
         {
-          v24 = v22;
+          v23 = v22;
           identifier2 = [attachmentCopy identifier];
           *buf = 138543874;
           selfCopy = self;
-          v33 = 2114;
-          v34 = identifier2;
-          v35 = 2114;
-          v36 = v15;
-          _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to read file for attachment %{public}@. %{public}@", buf, 0x20u);
+          v32 = 2114;
+          v33 = identifier2;
+          v34 = 2114;
+          v35 = v15;
+          _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to read file for attachment %{public}@. %{public}@", buf, 0x20u);
         }
 
         [v14 close];
@@ -363,72 +363,68 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HDAttachmentStoreServer_remote_streamDataForAttachment___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to get HKAttachmentStore remote object proxy: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to get HKAttachmentStore remote object proxy: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_isAuthorizedToReadAttachment:(uint64_t)attachment error:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v27 = v5;
+  v26 = v5;
   if (self)
   {
     v6 = v5;
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
     profile = [self profile];
     attachmentManager = [profile attachmentManager];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __63__HDAttachmentStoreServer__isAuthorizedToReadAttachment_error___block_invoke;
-    v34[3] = &unk_27861B210;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __63__HDAttachmentStoreServer__isAuthorizedToReadAttachment_error___block_invoke;
+    v33[3] = &unk_27861B210;
     v10 = v7;
-    v35 = v10;
-    v11 = [attachmentManager attachmentReferencesForAttachment:v6 error:attachment enumerationHandler:v34];
+    v34 = v10;
+    v11 = [attachmentManager attachmentReferencesForAttachment:v6 error:attachment enumerationHandler:v33];
 
     if (v11)
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       obj = v10;
-      v12 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v12 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v12)
       {
         v13 = v12;
-        v26 = v10;
+        v25 = v10;
         attachmentCopy = attachment;
-        v14 = *v31;
+        v14 = *v30;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v31 != v14)
+            if (*v30 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v30 + 1) + 8 * i);
+            v16 = *(*(&v29 + 1) + 8 * i);
             profile2 = [self profile];
             attachmentManager2 = [profile2 attachmentManager];
             objectIdentifier = [v16 objectIdentifier];
@@ -443,7 +439,7 @@ void __58__HDAttachmentStoreServer_remote_streamDataForAttachment___block_invoke
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v13 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
           if (v13)
           {
             continue;
@@ -454,7 +450,7 @@ void __58__HDAttachmentStoreServer_remote_streamDataForAttachment___block_invoke
 
         v23 = 0;
 LABEL_14:
-        v10 = v26;
+        v10 = v25;
       }
 
       else
@@ -474,13 +470,12 @@ LABEL_14:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (void)remote_getDataChunkForAttachment:(id)attachment chunkSize:(unint64_t)size offset:(unint64_t)offset completion:(id)completion
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
@@ -497,9 +492,9 @@ LABEL_14:
 
   offsetCopy = offset;
   sizeCopy = size;
-  v41 = 0;
-  v39 = attachmentCopy;
-  identifier2 = [v39 identifier];
+  v40 = 0;
+  v38 = attachmentCopy;
+  identifier2 = [v38 identifier];
   profile = [(HDStandardTaskServer *)self profile];
   *buf = 0;
   v18 = [HDAttachmentEntity attachmentWithIdentifier:identifier2 profile:profile error:buf];
@@ -510,14 +505,14 @@ LABEL_14:
     if (v19)
     {
       v19 = v19;
-      v23 = v39;
+      v23 = v38;
     }
 
     else
     {
       v25 = MEMORY[0x277CCA9B8];
-      v23 = v39;
-      identifier3 = [v39 identifier];
+      v23 = v38;
+      identifier3 = [v38 identifier];
       v27 = [v25 hk_error:118 format:{@"The attachment with identifier %@ was not found.", identifier3}];
 
       v19 = v27;
@@ -530,12 +525,12 @@ LABEL_13:
     }
 
     v28 = v19;
-    v41 = v19;
+    v40 = v19;
 
     goto LABEL_13;
   }
 
-  if (![(HDAttachmentStoreServer *)self _isAuthorizedToReadAttachment:v18 error:&v41])
+  if (![(HDAttachmentStoreServer *)self _isAuthorizedToReadAttachment:v18 error:&v40])
   {
     v14 = 0;
     goto LABEL_10;
@@ -543,25 +538,25 @@ LABEL_13:
 
   profile2 = [(HDStandardTaskServer *)self profile];
   attachmentManager = [profile2 attachmentManager];
-  v14 = [attachmentManager readerForAttachment:v18 error:&v41];
+  v14 = [attachmentManager readerForAttachment:v18 error:&v40];
 
   if (!v14)
   {
 LABEL_10:
-    v23 = v39;
+    v23 = v38;
     goto LABEL_14;
   }
 
   os_unfair_lock_lock(&self->_lock);
   v22 = self->_openReadersByAttachment;
-  v23 = v39;
-  identifier4 = [v39 identifier];
+  v23 = v38;
+  identifier4 = [v38 identifier];
   [(NSMutableDictionary *)v22 setObject:v14 forKeyedSubscript:identifier4];
 
   os_unfair_lock_unlock(&self->_lock);
 LABEL_14:
 
-  v15 = v41;
+  v15 = v40;
   if (!v14)
   {
     completionCopy[2](completionCopy, 0, v15);
@@ -572,9 +567,9 @@ LABEL_14:
   size = sizeCopy;
 LABEL_16:
   v29 = v15;
-  v40 = v15;
-  v30 = [v14 readDataUpToLength:size offset:offset error:&v40];
-  v15 = v40;
+  v39 = v15;
+  v30 = [v14 readDataUpToLength:size offset:offset error:&v39];
+  v15 = v39;
 
   if (v30)
   {
@@ -595,22 +590,21 @@ LABEL_16:
     v33 = *MEMORY[0x277CCC280];
     if (os_log_type_enabled(*MEMORY[0x277CCC280], OS_LOG_TYPE_ERROR))
     {
-      v35 = v33;
+      v34 = v33;
       identifier7 = [attachmentCopy identifier];
       *buf = 138543874;
       *&buf[4] = self;
-      v43 = 2114;
-      v44 = identifier7;
-      v45 = 2114;
-      v46 = v15;
-      _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to read file for attachment %{public}@. %{public}@", buf, 0x20u);
+      v42 = 2114;
+      v43 = identifier7;
+      v44 = 2114;
+      v45 = v15;
+      _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "[attachments] %{public}@: Failed to read file for attachment %{public}@. %{public}@", buf, 0x20u);
     }
 
     completionCopy[2](completionCopy, 0, v15);
   }
 
 LABEL_24:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_closeReaderForAttachmentIdentifier:(uint64_t)identifier

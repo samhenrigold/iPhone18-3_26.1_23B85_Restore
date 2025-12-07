@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)featuresAsString:(int)string;
+- (id)modeAsString:(int)string;
 - (int)StringAsFeatures:(id)features;
 - (int)StringAsMode:(id)mode;
 - (int)features;
@@ -44,25 +46,40 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)modeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769F4D0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Disabled"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"Presence"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"InfraOnly"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"Detailed"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -88,35 +105,86 @@
   }
 }
 
+- (id)featuresAsString:(int)string
+{
+  if (string > 3)
+  {
+    switch(string)
+    {
+      case 4:
+        v4 = @"Video";
+
+        break;
+      case 8:
+        v4 = @"RemoteControl";
+
+        break;
+      case 256:
+        v4 = @"Companion";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"Screen";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"Audio";
+  }
+
+  else
+  {
+    v4 = @"None";
+  }
+
+  return v4;
+}
+
 - (int)StringAsFeatures:(id)features
 {
   featuresCopy = features;
-  if ([featuresCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 0;
   }
 
-  else if ([featuresCopy isEqualToString:@"Audio"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 1;
   }
 
-  else if ([featuresCopy isEqualToString:@"Screen"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 2;
   }
 
-  else if ([featuresCopy isEqualToString:@"Video"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 4;
   }
 
-  else if ([featuresCopy isEqualToString:@"RemoteControl"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 8;
   }
 
-  else if ([featuresCopy isEqualToString:@"Companion"])
+  else if (objc_msgSend_isEqualToString_(featuresCopy))
   {
     v4 = 256;
   }
@@ -220,26 +288,24 @@ LABEL_22:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    mode = self->_mode;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    features = self->_features;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_configuration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -301,7 +367,6 @@ LABEL_22:
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) == 0 || self->_mode != *(equalCopy + 5))
@@ -313,7 +378,7 @@ LABEL_22:
   else if ((*(equalCopy + 24) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -333,17 +398,17 @@ LABEL_14:
   configuration = self->_configuration;
   if (configuration | *(equalCopy + 1))
   {
-    v7 = [(_MRDiscoverySessionConfigurationProtobuf *)configuration isEqual:?];
+    v6 = [(_MRDiscoverySessionConfigurationProtobuf *)configuration isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

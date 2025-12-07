@@ -1,10 +1,10 @@
 @interface BWDepthSynchronizerNode
 + (void)initialize;
+- (BOOL)_isDepthExpectedForSampleBuffer:(uint64_t)buffer;
+- (id)_cleanupDepthBufferQueue;
 - (id)initForStreaming:(BOOL)streaming maxQueueDepth:(int)depth separateDepthComponentsEnabled:(BOOL)enabled;
 - (uint64_t)_attachDepthDataToSampleBufferOrReportDepthMissing:(_BYTE *)missing isDepthMissing:;
-- (uint64_t)_cleanupDepthBufferQueue;
-- (uint64_t)_setupDepthMediaConfigurationForOutput:(uint64_t)output inputAttachedMediaKey:(uint64_t)key outputAttachedMediaKey:;
-- (unint64_t)_isDepthExpectedForSampleBuffer:(uint64_t)buffer;
+- (void)_setupDepthMediaConfigurationForOutput:(uint64_t)output inputAttachedMediaKey:(uint64_t)key outputAttachedMediaKey:;
 - (void)_tryToEmitBuffers;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
@@ -52,7 +52,7 @@
       depthCopy = depth;
     }
 
-    *(v9 + 152) = depthCopy;
+    v9->_maxQueueDepth = depthCopy;
     v14 = 1;
     do
     {
@@ -60,7 +60,7 @@
       v16 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v9 index:v12];
       [(BWNodeInput *)v16 setFormatRequirements:objc_alloc_init(BWVideoFormatRequirements)];
       [(BWNodeInput *)v16 setPassthroughMode:1];
-      [(BWNodeInput *)v16 setRetainedBufferCount:*(v9 + 152) + *(v9 + 208)];
+      [(BWNodeInput *)v16 setRetainedBufferCount:v9->_maxQueueDepth + v9->_streaming];
       if (v11)
       {
         v17 = objc_alloc_init(BWNodeInputMediaConfiguration);
@@ -80,7 +80,7 @@
         }
       }
 
-      [v9 addInput:v16];
+      [(BWNode *)v9 addInput:v16];
 
       v14 = 0;
       v11 = 1;
@@ -88,13 +88,13 @@
     }
 
     while ((v15 & 1) != 0);
-    *(v9 + 192) = [objc_msgSend(v9 "inputs")];
-    *(v9 + 200) = [objc_msgSend(v9 "inputs")];
+    v9->_imageInput = [(NSArray *)[(BWNode *)v9 inputs] objectAtIndexedSubscript:0];
+    v9->_depthInput = [(NSArray *)[(BWNode *)v9 inputs] objectAtIndexedSubscript:1];
     v19 = [[BWNodeOutput alloc] initWithMediaType:1986618469 node:v9];
     [(BWNodeOutputMediaConfiguration *)[(BWNodeOutput *)v19 primaryMediaConfiguration] setFormatRequirements:objc_alloc_init(BWVideoFormatRequirements)];
     [(BWNodeOutput *)v19 setPassthroughMode:1];
     v20 = @"PrimaryFormat";
-    if (*(v9 + 185))
+    if (v9->_separateDepthComponentsEnabled)
     {
       [(BWDepthSynchronizerNode *)v9 _setupDepthMediaConfigurationForOutput:v19 inputAttachedMediaKey:@"PrimaryFormat" outputAttachedMediaKey:@"DepthData_DX"];
       v21 = v9;
@@ -111,19 +111,19 @@
     }
 
     [(BWDepthSynchronizerNode *)v21 _setupDepthMediaConfigurationForOutput:v22 inputAttachedMediaKey:v20 outputAttachedMediaKey:v23];
-    [v9 addOutput:v19];
+    [(BWNode *)v9 addOutput:v19];
 
-    *(v9 + 232) = 0;
-    *(v9 + 136) = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(v9 + 144) = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v9->_bufferServicingLock._os_unfair_lock_opaque = 0;
+    v9->_imageBufferQueue = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v9->_depthBufferQueue = objc_alloc_init(MEMORY[0x1E695DF70]);
     v24 = MEMORY[0x1E6960C70];
     v25 = *MEMORY[0x1E6960C70];
-    *(v9 + 260) = *MEMORY[0x1E6960C70];
+    *(&v9->_lastReceivedImagePTS.epoch + 4) = *MEMORY[0x1E6960C70];
     v26 = *(v24 + 16);
-    *(v9 + 276) = v26;
-    *(v9 + 236) = v25;
-    *(v9 + 252) = v26;
-    atomic_store(0, (v9 + 132));
+    *&v9->_lastReceivedDepthPTS.flags = v26;
+    *(&v9->_bufferServicingLock + 1) = v25;
+    *&v9->_lastReceivedImagePTS.flags = v26;
+    atomic_store(0, &v9->_depthInputHasReceivedEOD);
   }
 
   return v9;
@@ -167,7 +167,7 @@
             v16 = [v13 mediaPropertiesForAttachedMediaKey:v15];
             if (!v16)
             {
-              if ([v15 isEqualToString:@"PrimaryFormat"])
+              if (objc_msgSend_isEqualToString_(v15))
               {
                 v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ output %@ has no media properties for the primary format (provided media key is %@)", self, v13, key];
                 objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0]);
@@ -355,7 +355,7 @@ BOOL __44__BWDepthSynchronizerNode__tryToEmitBuffers__block_invoke(uint64_t a1, 
   return v6 == [v3 settingsID];
 }
 
-- (uint64_t)_setupDepthMediaConfigurationForOutput:(uint64_t)output inputAttachedMediaKey:(uint64_t)key outputAttachedMediaKey:
+- (void)_setupDepthMediaConfigurationForOutput:(uint64_t)output inputAttachedMediaKey:(uint64_t)key outputAttachedMediaKey:
 {
   if (result)
   {
@@ -398,7 +398,7 @@ BOOL __44__BWDepthSynchronizerNode__tryToEmitBuffers__block_invoke(uint64_t a1, 
         v31 = v2;
         v10 = (*(self + 208) & 1) == 0 && *(self + 168) && (v9 = CMGetAttachment(v4, @"StillSettings", 0), ([objc_msgSend(v9 "captureSettings")] & 0x2000) != 0) && objc_msgSend(v9, "settingsID") <= *(self + 168);
         v11 = v3;
-        if ((v6 > v7 || (v5 & 1) == 0) | v8 & 1)
+        if ((v6 > v7 || !v5) | v8 & 1)
         {
           v12 = 1;
         }
@@ -523,7 +523,7 @@ LABEL_26:
   }
 }
 
-- (unint64_t)_isDepthExpectedForSampleBuffer:(uint64_t)buffer
+- (BOOL)_isDepthExpectedForSampleBuffer:(uint64_t)buffer
 {
   if (!buffer)
   {
@@ -657,17 +657,17 @@ LABEL_4:
   return v6;
 }
 
-- (uint64_t)_cleanupDepthBufferQueue
+- (id)_cleanupDepthBufferQueue
 {
   if (result)
   {
     v1 = result;
-    for (result = [*(result + 144) count]; result; result = objc_msgSend(OUTLINED_FUNCTION_0_80(), "count"))
+    for (result = [result[18] count]; result; result = objc_msgSend(OUTLINED_FUNCTION_0_80(), "count"))
     {
       v2 = [OUTLINED_FUNCTION_0_80() objectAtIndexedSubscript:0];
       result = [CMGetAttachment(v2 @"ExtendedCaptureID"];
       v3 = result;
-      if (*(v1 + 208))
+      if (v1[26])
       {
         v4 = 0;
       }
@@ -686,7 +686,7 @@ LABEL_4:
         }
       }
 
-      if (v3 > *(v1 + 156) + v4)
+      if (v3 > *(v1 + 39) + v4)
       {
         break;
       }
@@ -694,7 +694,7 @@ LABEL_4:
       [OUTLINED_FUNCTION_0_80() removeObject:v2];
     }
 
-    if ((*(v1 + 208) & 1) == 0 && *(v1 + 168))
+    if ((v1[26] & 1) == 0 && v1[21])
     {
       v5 = OUTLINED_FUNCTION_0_80();
       v7[0] = MEMORY[0x1E69E9820];

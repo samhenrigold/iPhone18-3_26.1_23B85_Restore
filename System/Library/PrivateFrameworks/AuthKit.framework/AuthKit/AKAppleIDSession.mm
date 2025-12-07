@@ -32,7 +32,7 @@
 {
   v4 = 0;
   v4 = [(AKAppleIDSession *)self initWithIdentifier:?];
-  v3 = MEMORY[0x1E69E5928]();
+  v3 = MEMORY[0x1E69E5928](v4);
   objc_storeStrong(&v4, 0);
   return v3;
 }
@@ -255,7 +255,6 @@ LABEL_14:
 
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
@@ -367,7 +366,6 @@ LABEL_14:
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAppleIDSession_URLSession_task_getAppleIDRequestOrHeadersForResponse_completionHandler___block_invoke(void *a1, void *a2)
@@ -412,8 +410,6 @@ void __92__AKAppleIDSession_URLSession_task_getAppleIDRequestOrHeadersForRespons
   {
     (*(a1[7] + 16))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAppleIDSession_URLSession_task_getAppleIDRequestOrHeadersForResponse_completionHandler___block_invoke_59(void *a1, void *a2)
@@ -466,7 +462,6 @@ void __92__AKAppleIDSession_URLSession_task_getAppleIDRequestOrHeadersForRespons
 
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task getAppleIDHeadersForResponse:(id)response completionHandler:(id)handler
@@ -553,7 +548,6 @@ void __92__AKAppleIDSession_URLSession_task_getAppleIDRequestOrHeadersForRespons
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_completionHandler___block_invoke(void *a1, void *a2)
@@ -598,8 +592,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   {
     (*(a1[7] + 16))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_completionHandler___block_invoke_63(void *a1, void *a2)
@@ -720,7 +712,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)appleIDHeadersUsingAnisetteWithCompletion:(id)completion
@@ -796,7 +787,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleResponse:(id)response forRequest:(id)request shouldRetry:(BOOL *)retry
@@ -858,7 +848,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   _Block_object_dispose(&v21, 8);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_genericAppleIDHeadersDictionaryForRequest:(id)request
@@ -913,7 +902,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1037,7 +1025,6 @@ void __83__AKAppleIDSession_URLSession_task_getAppleIDHeadersForResponse_complet
   objc_storeStrong(&v32, 0);
   objc_storeStrong(v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1207,7 +1194,6 @@ void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion
   objc_storeStrong(v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion___block_invoke_70(uint64_t a1)
@@ -1239,7 +1225,6 @@ void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v9, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion___block_invoke_71(uint64_t a1, void *a2, void *a3)
@@ -1247,23 +1232,22 @@ void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v7 = 0;
-  objc_storeStrong(&v7, a3);
-  v6[1] = a1;
+  v6 = 0;
+  objc_storeStrong(&v6, a3);
+  v5[1] = a1;
   if (location[0])
   {
-    v6[0] = [MEMORY[0x1E695AC18] ak_proxiedHeadersForDevice:*(*(a1 + 32) + 48) anisetteData:location[0]];
-    if (v6[0])
+    v5[0] = [MEMORY[0x1E695AC18] ak_proxiedHeadersForDevice:*(*(a1 + 32) + 48) anisetteData:location[0]];
+    if (v5[0])
     {
-      [*(a1 + 40) addEntriesFromDictionary:v6[0]];
+      [*(a1 + 40) addEntriesFromDictionary:v5[0]];
     }
 
-    objc_storeStrong(v6, 0);
+    objc_storeStrong(v5, 0);
   }
 
-  v3 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1549,7 +1533,6 @@ void __73__AKAppleIDSession__generateAppleIDHeadersForSessionTask_withCompletion
   objc_storeStrong(&v84, 0);
   objc_storeStrong(&v85, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion___block_invoke(NSObject *a1, void *a2)
@@ -1568,7 +1551,6 @@ void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion___block_invoke_82(void *a1, char a2, id obj)
@@ -1609,7 +1591,6 @@ void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion___block_invoke_84(uint64_t a1, char a2, id obj)
@@ -1680,7 +1661,6 @@ void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion___block_invoke_86(void *a1, void *a2)
@@ -1737,7 +1717,6 @@ void __73__AKAppleIDSession__handleAnisetteURLResponse_forRequest_withCompletion
   objc_storeStrong(&v22, 0);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __91__AKAppleIDSession__handleAnisetteReprovisionWithRequestURL_anisetteController_completion___block_invoke(void *a1, char a2, id obj)
@@ -1787,7 +1766,6 @@ void __91__AKAppleIDSession__handleAnisetteReprovisionWithRequestURL_anisetteCon
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __91__AKAppleIDSession__handleAnisetteReprovisionWithRequestURL_anisetteController_completion___block_invoke_92(void *a1, char a2, id obj)
@@ -1829,7 +1807,6 @@ void __91__AKAppleIDSession__handleAnisetteReprovisionWithRequestURL_anisetteCon
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleURLSwitchingResponse:(id)response forRequest:(id)request withCompletion:(id)completion
@@ -1943,48 +1920,46 @@ void __91__AKAppleIDSession__handleAnisetteReprovisionWithRequestURL_anisetteCon
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKAppleIDSession__handleURLSwitchingResponse_forRequest_withCompletion___block_invoke(uint64_t a1, char a2, id obj)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = a1;
-  v15 = a2;
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = a1;
+  v14 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v13[1] = a1;
-  if (v15)
+  v12[1] = a1;
+  if (v14)
   {
-    v13[0] = [*(a1 + 32) urlAtKey:*(a1 + 40)];
-    if (v13[0])
+    v12[0] = [*(a1 + 32) urlAtKey:*(a1 + 40)];
+    if (v12[0])
     {
-      [*(a1 + 48) setURL:v13[0]];
-      v3 = *(a1 + 48);
+      [*(a1 + 48) setURL:v12[0]];
       (*(*(a1 + 56) + 16))();
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v12 = _AKLogSystem();
-      v11 = 16;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = _AKLogSystem();
+      v10 = 16;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        log = v12;
-        type = v11;
-        __os_log_helper_16_0_0(v10);
-        _os_log_error_impl(&dword_193225000, log, type, "No URL found for UrlKey after URLBag update, ignoring URL Switching request", v10, 2u);
+        log = v11;
+        type = v10;
+        __os_log_helper_16_0_0(v9);
+        _os_log_error_impl(&dword_193225000, log, type, "No URL found for UrlKey after URLBag update, ignoring URL Switching request", v9, 2u);
       }
 
-      objc_storeStrong(&v12, 0);
-      v9 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7088];
+      objc_storeStrong(&v11, 0);
+      v8 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7088];
       (*(*(a1 + 56) + 16))();
-      v8 = 1;
-      objc_storeStrong(&v9, 0);
+      v7 = 1;
+      objc_storeStrong(&v8, 0);
     }
 
-    objc_storeStrong(v13, 0);
+    objc_storeStrong(v12, 0);
   }
 
   else
@@ -1992,17 +1967,16 @@ void __74__AKAppleIDSession__handleURLSwitchingResponse_forRequest_withCompletio
     oslog = _AKLogSystem();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v17, location);
-      _os_log_error_impl(&dword_193225000, oslog, OS_LOG_TYPE_ERROR, "URLBag failed to update with error: %@, ignoring URL Switching request", v17, 0xCu);
+      __os_log_helper_16_2_1_8_64(v16, location);
+      _os_log_error_impl(&dword_193225000, oslog, OS_LOG_TYPE_ERROR, "URLBag failed to update with error: %@, ignoring URL Switching request", v16, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
     (*(*(a1 + 56) + 16))();
-    v8 = 0;
+    v7 = 0;
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_reportOnRequest:(id)request response:(id)response attestationData:(id)data
@@ -2118,7 +2092,6 @@ void __62__AKAppleIDSession__reportOnRequest_response_attestationData___block_in
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetDeviceIdentityWithCompletion:(id)completion

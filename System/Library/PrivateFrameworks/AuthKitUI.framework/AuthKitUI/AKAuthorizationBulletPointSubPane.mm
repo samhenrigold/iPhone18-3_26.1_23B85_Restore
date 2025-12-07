@@ -339,7 +339,6 @@
   [(AKAuthorizationSubPane *)&v47 addToConstraints:location[0] context:v52, v6];
   objc_storeStrong(&v52, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setImage:(id)image

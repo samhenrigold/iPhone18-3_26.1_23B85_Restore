@@ -68,9 +68,10 @@
   }
 
   imageCopy = image;
-  v11 = sub_1891CC648(v7, v9, image, position);
+  *&v11 = position;
+  v12 = sub_1891CC648(v7, v9, image, v11);
 
-  return v11;
+  return v12;
 }
 
 + (id)tickWithPosition:(float)position title:(id)title image:(id)image
@@ -89,22 +90,28 @@
 
   swift_getObjCClassMetadata();
   imageCopy = image;
-  v11 = sub_1891CA104(position, v7, v9, image);
+  v11 = sub_1891CA104(v7, v9, image, position);
 
   return v11;
 }
 
 - (int64_t)hash
 {
-  v3 = *&self->_tick[OBJC_IVAR___UISliderTick__tick + 16];
+  v3 = *&self->_tick[OBJC_IVAR___UISliderTick__tick];
+  v4 = *&self->_tick[OBJC_IVAR___UISliderTick__tick + 8];
+  v5 = *&self->_tick[OBJC_IVAR___UISliderTick__tick + 16];
+  v11 = *(&self->super.isa + OBJC_IVAR___UISliderTick__tick);
+  v12 = v3;
+  v13 = v4;
+  v14 = v5;
   sub_18A4A8888();
-  v4 = v3;
+  v6 = v5;
   selfCopy = self;
 
-  UISlider.TrackConfiguration.Tick.hash(into:)();
-  v6 = sub_18A4A88E8();
+  UISlider.TrackConfiguration.Tick.hash(into:)(v10);
+  v8 = sub_18A4A88E8();
 
-  return v6;
+  return v8;
 }
 
 - (UISliderTick)initWithCoder:(id)coder

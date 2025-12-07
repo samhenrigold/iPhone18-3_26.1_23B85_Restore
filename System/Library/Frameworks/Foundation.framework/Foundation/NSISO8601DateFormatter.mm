@@ -95,7 +95,7 @@
     goto LABEL_7;
   }
 
-  if (![(NSString *)[(NSTimeZone *)v4 name] isEqualToString:@"GMT"])
+  if ((objc_msgSend_isEqualToString_([(NSTimeZone *)v4 name]) & 1) == 0)
   {
 
     self->_timeZone = 0;

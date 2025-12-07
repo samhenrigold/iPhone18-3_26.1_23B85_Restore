@@ -29,12 +29,12 @@
   return v2;
 }
 
-uint64_t __57__PXUIAssetBadgeViewAccessibility_isAccessibilityElement__block_invoke(uint64_t a1)
+uint64_t __57__PXUIAssetBadgeViewAccessibility_isAccessibilityElement__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 badgeInfo];
+    objc_msgSend_badgeInfo(v3, a2);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -79,12 +79,12 @@ uint64_t __57__PXUIAssetBadgeViewAccessibility_isAccessibilityElement__block_inv
   return v2;
 }
 
-void __53__PXUIAssetBadgeViewAccessibility_accessibilityValue__block_invoke(uint64_t a1)
+void __53__PXUIAssetBadgeViewAccessibility_accessibilityValue__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 badgeInfo];
+    objc_msgSend_badgeInfo(v2, a2);
   }
 }
 

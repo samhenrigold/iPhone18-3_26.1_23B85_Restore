@@ -56,7 +56,7 @@
     v17 = tokenForCurrentProcess;
     if (tokenForCurrentProcess)
     {
-      [tokenForCurrentProcess realToken];
+      objc_msgSend_realToken(tokenForCurrentProcess);
     }
 
     else
@@ -134,7 +134,7 @@
   return v3;
 }
 
-uint64_t __60__SBSystemStatusStatusItemDataPublisher_isStatusItemEnabled__block_invoke(uint64_t a1)
+void *__60__SBSystemStatusStatusItemDataPublisher_isStatusItemEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -399,7 +399,7 @@ void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_i
         v5 = SBLogStatusBarish();
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_1();
+          __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_1(WeakRetained);
         }
 
         goto LABEL_12;
@@ -411,7 +411,7 @@ void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_i
       v11 = SBLogStatusBarish();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_2();
+        __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_2(WeakRetained);
       }
 
       v8 = *(a1 + 40);
@@ -484,16 +484,20 @@ LABEL_16:
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBSystemStatusStatusItemDataPublisher.m" lineNumber:145 description:{@"Invalid parameter not satisfying: %@", @"operation"}];
 }
 
-void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_1()
+void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_1(uint64_t a1)
 {
-  v0 = STStatusItemIdentifierDescription();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "SBSystemStatusStatusItemDataPublisher attempting to add attribution for %{public}@ when we already have one!", v3, v4, v5, v6, 2u);
+  v1 = STStatusItemIdentifierDescription();
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "SBSystemStatusStatusItemDataPublisher attempting to add attribution for %{public}@ when we already have one!", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_2()
+void __63__SBSystemStatusStatusItemDataPublisher__queue_startOperation___block_invoke_3_cold_2(uint64_t a1)
 {
-  v0 = STStatusItemIdentifierDescription();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v1, v2, "SBSystemStatusStatusItemDataPublisher attempted to remove attribution for %{public}@ but it didn't match what we had!", v3, v4, v5, v6, 2u);
+  v1 = STStatusItemIdentifierDescription();
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "SBSystemStatusStatusItemDataPublisher attempted to remove attribution for %{public}@ but it didn't match what we had!", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -25,32 +25,30 @@
 
 + (id)startDateKeyPaths
 {
-  v5[7] = *MEMORY[0x1E69E9840];
-  v5[0] = @"day0Start";
-  v5[1] = @"day1Start";
-  v5[2] = @"day2Start";
-  v5[3] = @"day3Start";
-  v5[4] = @"day4Start";
-  v5[5] = @"day5Start";
-  v5[6] = @"day6Start";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
+  v4[0] = @"day0Start";
+  v4[1] = @"day1Start";
+  v4[2] = @"day2Start";
+  v4[3] = @"day3Start";
+  v4[4] = @"day4Start";
+  v4[5] = @"day5Start";
+  v4[6] = @"day6Start";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
 
   return v2;
 }
 
 + (id)endDateKeyPaths
 {
-  v5[7] = *MEMORY[0x1E69E9840];
-  v5[0] = @"day0End";
-  v5[1] = @"day1End";
-  v5[2] = @"day2End";
-  v5[3] = @"day3End";
-  v5[4] = @"day4End";
-  v5[5] = @"day5End";
-  v5[6] = @"day6End";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
+  v4[0] = @"day0End";
+  v4[1] = @"day1End";
+  v4[2] = @"day2End";
+  v4[3] = @"day3End";
+  v4[4] = @"day4End";
+  v4[5] = @"day5End";
+  v4[6] = @"day6End";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
 
   return v2;
 }
@@ -167,7 +165,7 @@ LABEL_17:
 
 - (void)setScheduleRepresentation:(id)representation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   simpleSchedule = [representationCopy simpleSchedule];
   v6 = simpleSchedule;
@@ -178,76 +176,74 @@ LABEL_17:
     [(STBlueprintSchedule *)self setStartTime:startTime endTime:endTime];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   customScheduleItems = [representationCopy customScheduleItems];
-  v10 = [customScheduleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [customScheduleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(customScheduleItems);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         startTime2 = [v14 startTime];
         endTime2 = [v14 endTime];
         -[STBlueprintSchedule setStartTime:endTime:forDay:](self, "setStartTime:endTime:forDay:", startTime2, endTime2, [v14 day]);
       }
 
-      v11 = [customScheduleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [customScheduleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStartTime:(id)time endTime:(id)endTime
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   endTimeCopy = endTime;
   v8 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:*MEMORY[0x1E695D850]];
   v9 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"UTC"];
   [v8 setTimeZone:v9];
 
-  v34 = timeCopy;
+  v33 = timeCopy;
   v10 = [v8 dateFromComponents:timeCopy];
-  v32 = v8;
-  v33 = endTimeCopy;
+  v31 = v8;
+  v32 = endTimeCopy;
   v11 = [v8 dateFromComponents:endTimeCopy];
   v12 = +[STBlueprintSchedule startDateKeyPaths];
-  v30 = +[STBlueprintSchedule endDateKeyPaths];
+  v29 = +[STBlueprintSchedule endDateKeyPaths];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v40;
+    v16 = *v39;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v40 != v16)
+        if (*v39 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * i);
+        v18 = *(*(&v38 + 1) + 8 * i);
         v19 = [(STBlueprintSchedule *)self valueForKey:v18];
         v20 = [v19 isEqualToDate:v10];
 
@@ -257,34 +253,34 @@ LABEL_17:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v15);
   }
 
-  v31 = v13;
+  v30 = v13;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v21 = v30;
-  v22 = [v21 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v21 = v29;
+  v22 = [v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v36;
+    v24 = *v35;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v36 != v24)
+        if (*v35 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v35 + 1) + 8 * j);
+        v26 = *(*(&v34 + 1) + 8 * j);
         v27 = [(STBlueprintSchedule *)self valueForKey:v26];
         v28 = [v27 isEqualToDate:v11];
 
@@ -294,13 +290,11 @@ LABEL_17:
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v23);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStartTime:(id)time endTime:(id)endTime forDay:(unint64_t)day
@@ -713,7 +707,7 @@ LABEL_6:
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKeyedSubscript:@"calendarIdentifier"];
   [(STBlueprintSchedule *)self setCalendarIdentifier:v5];
@@ -736,73 +730,72 @@ LABEL_6:
   [(STBlueprintSchedule *)self setEnabled:bOOLValue];
   v10 = +[STBlueprintSchedule startDateKeyPaths];
   v11 = +[STBlueprintSchedule endDateKeyPaths];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         v18 = [representationCopy objectForKeyedSubscript:v17];
         [(STBlueprintSchedule *)self setValue:v18 forKeyPath:v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v14);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v19 = v11;
-  v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v29;
+    v22 = *v28;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v29 != v22)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v28 + 1) + 8 * j);
-        v25 = [representationCopy objectForKeyedSubscript:{v24, v28}];
+        v24 = *(*(&v27 + 1) + 8 * j);
+        v25 = [representationCopy objectForKeyedSubscript:{v24, v27}];
         [(STBlueprintSchedule *)self setValue:v25 forKeyPath:v24];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v21);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   calendarIdentifier = [(STBlueprintSchedule *)self calendarIdentifier];
   [v3 setObject:calendarIdentifier forKeyedSubscript:@"calendarIdentifier"];
@@ -815,68 +808,67 @@ LABEL_6:
 
   v7 = +[STBlueprintSchedule startDateKeyPaths];
   v8 = +[STBlueprintSchedule endDateKeyPaths];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         v15 = [(STBlueprintSchedule *)self valueForKeyPath:v14];
         [v3 setObject:v15 forKeyedSubscript:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = v8;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * j);
-        v22 = [(STBlueprintSchedule *)self valueForKeyPath:v21, v26];
+        v21 = *(*(&v25 + 1) + 8 * j);
+        v22 = [(STBlueprintSchedule *)self valueForKeyPath:v21, v25];
         [v3 setObject:v22 forKeyedSubscript:v21];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v18);
   }
 
   v23 = [v3 copy];
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -899,7 +891,7 @@ LABEL_6:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintSchedule validateForUpdate:update];
+        [STBlueprintSchedule validateForUpdate:];
       }
     }
 
@@ -913,7 +905,7 @@ LABEL_6:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintSchedule validateForUpdate:update];
+      [STBlueprintSchedule validateForUpdate:];
     }
 
     v7 = 0;
@@ -940,7 +932,7 @@ LABEL_6:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintSchedule validateForInsert:insert];
+        [STBlueprintSchedule validateForInsert:];
       }
     }
 
@@ -954,7 +946,7 @@ LABEL_6:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintSchedule validateForInsert:insert];
+      [STBlueprintSchedule validateForInsert:];
     }
 
     v7 = 0;
@@ -980,7 +972,7 @@ LABEL_6:
       v6 = +[STLog coreDataValidation];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [STBlueprintSchedule validateForDelete:delete];
+        [STBlueprintSchedule validateForDelete:];
       }
     }
 
@@ -994,7 +986,7 @@ LABEL_6:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STBlueprintSchedule validateForDelete:delete];
+      [STBlueprintSchedule validateForDelete:];
     }
 
     v7 = 0;
@@ -1005,21 +997,20 @@ LABEL_6:
 
 - (BOOL)_validateBlueprint:(id)blueprint
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   blueprintCopy = blueprint;
   blueprint = [(STBlueprintSchedule *)self blueprint];
 
   if (!blueprint)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"STBlueprintSchedule is missing a blueprint.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"STBlueprintSchedule is missing a blueprint.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:549 userInfo:v7];
     [blueprintCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return blueprint != 0;
 }
 
@@ -1029,28 +1020,28 @@ LABEL_6:
   [v4 handleFailureInMethod:a1 object:a2 file:@"STBlueprintSchedule.m" lineNumber:214 description:{@"Invalid parameter not satisfying: %@", @"day < 7"}];
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for update on BlueprintSchedule failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for update on BlueprintSchedule failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for insert on BlueprintSchedule failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for insert on BlueprintSchedule failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v1, v2, "%{public}s Built-in CoreData Validation for delete on BlueprintSchedule failed with: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for delete on BlueprintSchedule failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

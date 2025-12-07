@@ -6,34 +6,34 @@
 
 - (MTLSPathUnion)initWithPaths:(id)paths
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
-  v30.receiver = self;
-  v30.super_class = MTLSPathUnion;
-  v4 = [(MTLSPath *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = MTLSPathUnion;
+  v4 = [(MTLSPath *)&v29 init];
   if (v4)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     obj = pathsCopy;
-    v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v5)
     {
       indicesCount2 = 0;
-      v22 = *v27;
+      v21 = *v26;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v27 != v22)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
           v8 = 0;
-          v9 = *(*(&v26 + 1) + 8 * i);
+          v9 = *(*(&v25 + 1) + 8 * i);
           while ([v9 instanceCount] > v8)
           {
             v10 = [v9 copy];
@@ -45,13 +45,13 @@
             indices2 = [v10 indices];
             indicesCount = [v10 indicesCount];
             __p = 0;
+            v23 = 0;
             v24 = 0;
-            v25 = 0;
             std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(&__p, indices, indices2 + 2 * indicesCount, (indices2 + 2 * indicesCount - indices) >> 1);
             v15 = __p;
-            if (v24 != __p)
+            if (v23 != __p)
             {
-              v16 = (v24 - __p) >> 1;
+              v16 = (v23 - __p) >> 1;
               if (v16 <= 1)
               {
                 v16 = 1;
@@ -72,7 +72,7 @@
             -[MTLSPath appendPatchInfo:count:](v4, "appendPatchInfo:count:", [v10 patchInfo], objc_msgSend(v10, "patchInfoCount"));
             if (__p)
             {
-              v24 = __p;
+              v23 = __p;
               operator delete(__p);
             }
 
@@ -80,14 +80,13 @@
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v5);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -14,18 +14,17 @@
 
 - (SFDeviceOperationCDPSetup)init
 {
-  v7.receiver = self;
-  v7.super_class = SFDeviceOperationCDPSetup;
-  v2 = [(SFDeviceOperationCDPSetup *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFDeviceOperationCDPSetup;
+  v2 = [(SFDeviceOperationCDPSetup *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)activate
@@ -41,34 +40,38 @@
 
 - (void)_activate
 {
-  if (gLogCategory_SFDeviceOperationCDPSetup <= 30 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceOperationCDPSetup <= 30)
   {
-    [SFDeviceOperationCDPSetup _activate];
+    if (gLogCategory_SFDeviceOperationCDPSetup != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceOperationCDPSetup *)self _activate];
+    }
   }
 
-  self->_startTicks = mach_absolute_time();
-  if (self->_sfSession)
+  selfCopy->_startTicks = mach_absolute_time();
+  if (selfCopy->_sfSession)
   {
-    v3 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-    timeoutTimer = self->_timeoutTimer;
-    self->_timeoutTimer = v3;
+    v4 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, selfCopy->_dispatchQueue);
+    timeoutTimer = selfCopy->_timeoutTimer;
+    selfCopy->_timeoutTimer = v4;
 
-    v5 = self->_timeoutTimer;
+    v6 = selfCopy->_timeoutTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __38__SFDeviceOperationCDPSetup__activate__block_invoke;
     handler[3] = &unk_1E788B198;
-    handler[4] = self;
-    dispatch_source_set_event_handler(v5, handler);
-    SFDispatchTimerSet(self->_timeoutTimer, 180.0, -1.0, -10.0);
-    dispatch_activate(self->_timeoutTimer);
-    [(SFDeviceOperationCDPSetup *)self _run];
+    handler[4] = selfCopy;
+    dispatch_source_set_event_handler(v6, handler);
+    SFDispatchTimerSet(selfCopy->_timeoutTimer, 180.0, -1.0, -10.0);
+    dispatch_activate(selfCopy->_timeoutTimer);
+    [(SFDeviceOperationCDPSetup *)selfCopy _run];
   }
 
   else
   {
-    v6 = NSErrorWithOSStatusF();
-    [(SFDeviceOperationCDPSetup *)self _complete:v6];
+    v7 = NSErrorWithOSStatusF(4294960591, "NoSFSession");
+    [(SFDeviceOperationCDPSetup *)selfCopy _complete:v7];
   }
 }
 
@@ -77,7 +80,7 @@ void __38__SFDeviceOperationCDPSetup__activate__block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   if ((v1[36] & 1) == 0)
   {
-    v2 = NSErrorWithOSStatusF();
+    v2 = NSErrorWithOSStatusF(4294896149, "CDP Setup timed out");
     [v1 _complete:v2];
   }
 }
@@ -97,7 +100,7 @@ void __39__SFDeviceOperationCDPSetup_invalidate__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 36) = 1;
   v1 = *(a1 + 32);
-  v2 = NSErrorWithOSStatusF();
+  v2 = NSErrorWithOSStatusF(4294896148, "InvalidatedCalled");
   [v1 _complete:v2];
 }
 
@@ -111,7 +114,6 @@ void __39__SFDeviceOperationCDPSetup_invalidate__block_invoke(uint64_t a1)
   if (v4)
   {
     mach_absolute_time();
-    startTicks = self->_startTicks;
     UpTicksToSecondsF();
     self->_metricSeconds = metricSeconds;
     if (!_completeCopy)
@@ -131,14 +133,13 @@ void __39__SFDeviceOperationCDPSetup_invalidate__block_invoke(uint64_t a1)
         metricSeconds = self->_metricSeconds;
       }
 
-      v13 = metricSeconds;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceOperationCDPSetup, "[SFDeviceOperationCDPSetup _complete:]", 30, "Succeeded (%f seconds)\n", metricSeconds);
       goto LABEL_11;
     }
 
     if (gLogCategory_SFDeviceOperationCDPSetup <= 60 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationCDPSetup _complete:];
+      [SFDeviceOperationCDPSetup _complete:_completeCopy];
     }
   }
 
@@ -153,9 +154,9 @@ LABEL_11:
   timeoutTimer = self->_timeoutTimer;
   if (timeoutTimer)
   {
-    v11 = timeoutTimer;
-    dispatch_source_cancel(v11);
-    v12 = self->_timeoutTimer;
+    v10 = timeoutTimer;
+    dispatch_source_cancel(v10);
+    v11 = self->_timeoutTimer;
     self->_timeoutTimer = 0;
   }
 
@@ -167,6 +168,7 @@ LABEL_11:
 
 - (int)_runCDPApprovalServerStart
 {
+  selfCopy = self;
   cdpApprovalServerState = self->_cdpApprovalServerState;
   if (cdpApprovalServerState != 4 && cdpApprovalServerState != 2)
   {
@@ -178,76 +180,79 @@ LABEL_11:
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_cdpApprovalServerState;
+            return selfCopy->_cdpApprovalServerState;
           }
 
-          v21 = self->_cdpApprovalServerState;
+          cdpApprovalServerState = selfCopy->_cdpApprovalServerState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationCDPSetup, "[SFDeviceOperationCDPSetup _runCDPApprovalServerStart]", 30, "CDP approval server hasn't started yet (%d)\n", cdpApprovalServerState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationCDPSetup <= 30 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationCDPSetup <= 30)
       {
-        [SFDeviceOperationCDPSetup _runCDPApprovalServerStart];
+        if (gLogCategory_SFDeviceOperationCDPSetup != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceOperationCDPSetup *)self _runCDPApprovalServerStart];
+        }
       }
 
-      self->_cdpApprovalServerState = 1;
-      messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
+      selfCopy->_cdpApprovalServerState = 1;
+      messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
       if (messageSessionTemplate)
       {
-        v6 = messageSessionTemplate;
+        v7 = messageSessionTemplate;
         defaultStore = [(objc_class *)getACAccountStoreClass_2() defaultStore];
         aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
-        v9 = objc_alloc_init(getCDPContextClass());
-        cdpContext = self->_cdpContext;
-        self->_cdpContext = v9;
+        v10 = objc_alloc_init(getCDPContextClass());
+        cdpContext = selfCopy->_cdpContext;
+        selfCopy->_cdpContext = v10;
 
         username = [aa_primaryAppleAccount username];
-        [(CDPContext *)self->_cdpContext setAppleID:username];
+        [(CDPContext *)selfCopy->_cdpContext setAppleID:username];
 
-        v12 = MEMORY[0x1E696AD98];
+        v13 = MEMORY[0x1E696AD98];
         aa_personID = [aa_primaryAppleAccount aa_personID];
-        v14 = [v12 numberWithLongLong:{objc_msgSend(aa_personID, "longLongValue")}];
-        [(CDPContext *)self->_cdpContext setDsid:v14];
+        v15 = [v13 numberWithLongLong:{objc_msgSend(aa_personID, "longLongValue")}];
+        [(CDPContext *)selfCopy->_cdpContext setDsid:v15];
 
-        [(CDPContext *)self->_cdpContext setSharingChannel:v6];
-        [(CDPContext *)self->_cdpContext set_skipEscrowFetches:self->_skipEscrowFetches];
-        v15 = [objc_alloc(getCDPStateControllerClass()) initWithContext:self->_cdpContext];
-        cdpController = self->_cdpController;
-        self->_cdpController = v15;
+        [(CDPContext *)selfCopy->_cdpContext setSharingChannel:v7];
+        v16 = [(CDPContext *)selfCopy->_cdpContext set_skipEscrowFetches:selfCopy->_skipEscrowFetches];
+        v17 = [objc_alloc(getCDPStateControllerClass(v16)) initWithContext:selfCopy->_cdpContext];
+        cdpController = selfCopy->_cdpController;
+        selfCopy->_cdpController = v17;
 
-        v17 = self->_presentingViewController;
-        if (v17)
+        v19 = selfCopy->_presentingViewController;
+        if (v19)
         {
-          v18 = [objc_alloc(getCDPUIControllerClass()) initWithPresentingViewController:v17];
-          [v18 setDelegate:self];
-          [v18 setForceInlinePresentation:1];
-          [(CDPStateController *)self->_cdpController setUiProvider:v18];
+          v20 = [objc_alloc(getCDPUIControllerClass()) initWithPresentingViewController:v19];
+          [v20 setDelegate:selfCopy];
+          [v20 setForceInlinePresentation:1];
+          [(CDPStateController *)selfCopy->_cdpController setUiProvider:v20];
         }
 
-        v19 = self->_cdpController;
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke;
-        v22[3] = &unk_1E788C170;
-        v22[4] = self;
-        [(CDPStateController *)v19 startCircleApplicationApprovalServer:v22];
+        v21 = selfCopy->_cdpController;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke;
+        v23[3] = &unk_1E788C170;
+        v23[4] = selfCopy;
+        [(CDPStateController *)v21 startCircleApplicationApprovalServer:v23];
       }
 
       else
       {
-        self->_cdpApprovalServerState = 3;
-        v6 = NSErrorWithOSStatusF();
-        [(SFDeviceOperationCDPSetup *)self _complete:v6];
+        selfCopy->_cdpApprovalServerState = 3;
+        v7 = NSErrorWithOSStatusF(4294960551, "No message session");
+        [(SFDeviceOperationCDPSetup *)selfCopy _complete:v7];
       }
     }
   }
 
-  return self->_cdpApprovalServerState;
+  return selfCopy->_cdpApprovalServerState;
 }
 
 void __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke(uint64_t a1, char a2, void *a3)
@@ -266,9 +271,9 @@ void __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke(ui
   dispatch_async(v7, block);
 }
 
-uint64_t __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke_2(uint64_t result)
+void *__55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke_2(void *result)
 {
-  if ((*(*(result + 32) + 36) & 1) == 0)
+  if ((*(result[4] + 36) & 1) == 0)
   {
     v2 = result;
     if (gLogCategory_SFDeviceOperationCDPSetup <= 30 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
@@ -276,8 +281,8 @@ uint64_t __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invok
       __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke_2_cold_1(v2);
     }
 
-    *(*(v2 + 32) + 8) = 4;
-    v3 = *(v2 + 32);
+    *(v2[4] + 8) = 4;
+    v3 = v2[4];
 
     return [v3 _run];
   }
@@ -287,7 +292,8 @@ uint64_t __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invok
 
 - (int)_runCDPSetupRequest
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v12[1] = *MEMORY[0x1E69E9840];
   cdpSetupRequestState = self->_cdpSetupRequestState;
   if (cdpSetupRequestState != 4 && cdpSetupRequestState != 2)
   {
@@ -299,42 +305,42 @@ uint64_t __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invok
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_14;
+            return selfCopy->_cdpSetupRequestState;
           }
 
-          v10 = self->_cdpSetupRequestState;
+          cdpSetupRequestState = selfCopy->_cdpSetupRequestState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationCDPSetup, "[SFDeviceOperationCDPSetup _runCDPSetupRequest]", 30, "CDP approval server hasn't started yet (%d)\n", cdpSetupRequestState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationCDPSetup <= 30 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationCDPSetup <= 30)
       {
-        [SFDeviceOperationCDPSetup _runCDPSetupRequest];
+        if (gLogCategory_SFDeviceOperationCDPSetup != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceOperationCDPSetup *)self _runCDPSetupRequest];
+        }
       }
 
-      v12 = @"cdpRepair";
-      v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_isRepair];
-      v13[0] = v5;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = @"cdpRepair";
+      v6 = [MEMORY[0x1E696AD98] numberWithBool:selfCopy->_isRepair];
+      v12[0] = v6;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
-      sfSession = self->_sfSession;
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke;
-      v11[3] = &unk_1E788B548;
-      v11[4] = self;
-      [(SFSession *)sfSession sendRequestID:@"_cdpSetup" options:0 request:v6 responseHandler:v11];
+      sfSession = selfCopy->_sfSession;
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke;
+      v10[3] = &unk_1E788B548;
+      v10[4] = selfCopy;
+      [(SFSession *)sfSession sendRequestID:@"_cdpSetup" options:0 request:v7 responseHandler:v10];
     }
   }
 
-LABEL_14:
-  result = self->_cdpSetupRequestState;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return selfCopy->_cdpSetupRequestState;
 }
 
 void __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -351,7 +357,7 @@ void __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke(uint64_t 
       {
         if (gLogCategory_SFDeviceOperationCDPSetup != -1 || (v10 = _LogCategory_Initialize(), v9 = v11, v10))
         {
-          __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke_cold_1();
+          __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke_cold_1(v9);
           v9 = v11;
         }
       }
@@ -376,9 +382,13 @@ void __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke(uint64_t 
 {
   controllerCopy = controller;
   viewControllerCopy = viewController;
-  if (gLogCategory_SFDeviceOperationCDPSetup <= 30 && (gLogCategory_SFDeviceOperationCDPSetup != -1 || _LogCategory_Initialize()))
+  v8 = viewControllerCopy;
+  if (gLogCategory_SFDeviceOperationCDPSetup <= 30)
   {
-    [SFDeviceOperationCDPSetup uiController:didPresentRootViewController:];
+    if (gLogCategory_SFDeviceOperationCDPSetup != -1 || (viewControllerCopy = _LogCategory_Initialize(), viewControllerCopy))
+    {
+      [(SFDeviceOperationCDPSetup *)viewControllerCopy uiController:v6 didPresentRootViewController:v7];
+    }
   }
 }
 
@@ -401,9 +411,13 @@ void __48__SFDeviceOperationCDPSetup__runCDPSetupRequest__block_invoke(uint64_t 
 
 uint64_t __55__SFDeviceOperationCDPSetup__runCDPApprovalServerStart__block_invoke_2_cold_1(uint64_t a1)
 {
-  *(a1 + 48);
-  v2 = *(a1 + 40);
-  return LogPrintF();
+  v1 = "no";
+  if (*(a1 + 48))
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceOperationCDPSetup, "[SFDeviceOperationCDPSetup _runCDPApprovalServerStart]_block_invoke_2", 30, "CDP approval server started: success %s, %{error}\n", v1, *(a1 + 40));
 }
 
 @end

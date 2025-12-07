@@ -67,11 +67,10 @@
 
 + (void)cohortInstanceWithPrecision:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 4;
-  _os_log_debug_impl(&dword_24AB24000, log, OS_LOG_TYPE_DEBUG, "Cohort precision exceeds max precision. Capping at %lu", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 4;
+  _os_log_debug_impl(&dword_24AB24000, log, OS_LOG_TYPE_DEBUG, "Cohort precision exceeds max precision. Capping at %lu", &v1, 0xCu);
 }
 
 @end

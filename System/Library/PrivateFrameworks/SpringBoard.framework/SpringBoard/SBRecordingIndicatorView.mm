@@ -67,12 +67,12 @@
 
 - (void)_commonInit
 {
-  if (self)
+  if (result)
   {
-    return [self _setAllowsHighContrastForBackgroundColor:1];
+    return [result _setAllowsHighContrastForBackgroundColor:1];
   }
 
-  return self;
+  return result;
 }
 
 - (double)blurRadius

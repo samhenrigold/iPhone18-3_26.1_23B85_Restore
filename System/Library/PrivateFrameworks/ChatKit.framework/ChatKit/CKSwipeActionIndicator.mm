@@ -81,7 +81,7 @@
 - (void)setBlurRadius:(double)radius
 {
   selfCopy = self;
-  sub_19092103C();
+  sub_19092103C(radius);
 }
 
 - (CKSwipeActionIndicator)initWithFrame:(CGRect)frame

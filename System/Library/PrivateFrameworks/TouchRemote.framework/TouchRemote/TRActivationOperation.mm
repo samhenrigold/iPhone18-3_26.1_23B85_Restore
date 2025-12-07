@@ -7,23 +7,23 @@
 
 - (void)execute
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([(TRActivationOperation *)self isCancelled])
+  v12 = *MEMORY[0x277D85DE8];
+  isCancelled = [(TRActivationOperation *)self isCancelled];
+  if (isCancelled)
   {
     userCancelledError = [objc_opt_class() userCancelledError];
     [(TROperation *)self finishWithError:userCancelledError];
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (_TRLogEnabled == 1)
     {
-      v4 = TRLogHandle();
+      v4 = TRLogHandle(isCancelled);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v12 = "[TRActivationOperation execute]";
+        v11 = "[TRActivationOperation execute]";
         _os_log_impl(&dword_26F2A2000, v4, OS_LOG_TYPE_DEFAULT, "%s Send Activation Request", buf, 0xCu);
       }
     }
@@ -31,17 +31,15 @@
     v5 = objc_alloc_init(TRSetupActivationRequest);
     objc_initWeak(buf, self);
     session = [(TROperation *)self session];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __32__TRActivationOperation_execute__block_invoke;
-    v9[3] = &unk_279DCECD0;
-    objc_copyWeak(&v10, buf);
-    [session sendRequest:v5 withResponseHandler:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __32__TRActivationOperation_execute__block_invoke;
+    v8[3] = &unk_279DCECD0;
+    objc_copyWeak(&v9, buf);
+    [session sendRequest:v5 withResponseHandler:v8];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -71,47 +69,46 @@ void __32__TRActivationOperation_execute__block_invoke(uint64_t a1, void *a2, vo
 {
   v20 = *MEMORY[0x277D85DE8];
   responseCopy = response;
+  v5 = responseCopy;
   if (_TRLogEnabled == 1)
   {
-    v5 = TRLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TRLogHandle(responseCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       v17 = "[TRActivationOperation _handleResponse:]";
       v18 = 2112;
-      v19 = responseCopy;
-      _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "%s Handle Activation Response: %@", buf, 0x16u);
+      v19 = v5;
+      _os_log_impl(&dword_26F2A2000, v6, OS_LOG_TYPE_DEFAULT, "%s Handle Activation Response: %@", buf, 0x16u);
     }
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = responseCopy;
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "activated", @"TRActivationOperationIsActivatedKey"}];
-    v15 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v9 = [v8 mutableCopy];
+    v7 = v5;
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v7, "activated", @"TRActivationOperationIsActivatedKey"}];
+    v15 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v10 = [v9 mutableCopy];
 
-    error = [v6 error];
+    error = [v7 error];
 
     if (error)
     {
-      error2 = [v6 error];
-      [v9 setObject:error2 forKeyedSubscript:@"TRActivationOperationErrorKey"];
+      error2 = [v7 error];
+      [v10 setObject:error2 forKeyedSubscript:@"TRActivationOperationErrorKey"];
     }
 
-    v12 = [v9 copy];
-    [(TROperation *)self finishWithResult:v12];
+    v13 = [v10 copy];
+    [(TROperation *)self finishWithResult:v13];
   }
 
   else
   {
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-10000 userInfo:0];
-    [(TROperation *)self finishWithError:v6];
+    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-10000 userInfo:0];
+    [(TROperation *)self finishWithError:v7];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

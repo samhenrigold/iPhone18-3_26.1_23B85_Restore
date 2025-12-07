@@ -1,7 +1,9 @@
 @interface WLKUserSettings
+- (WLKUserSettings)initWithBrandId:(id)id shouldHide:(BOOL)hide;
 - (WLKUserSettings)initWithDictionary:(id)dictionary;
 - (WLKUserSettings)initWithFavoritesSyncEnabled:(BOOL)enabled;
 - (WLKUserSettings)initWithPostPlayAutoPlaySettings:(id)settings;
+- (WLKUserSettings)initWithTabId:(id)id shouldPin:(BOOL)pin;
 - (id)_patchData;
 - (id)_patchJSONDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -107,15 +109,69 @@
   return v6;
 }
 
+- (WLKUserSettings)initWithBrandId:(id)id shouldHide:(BOOL)hide
+{
+  hideCopy = hide;
+  v17[1] = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  v13.receiver = self;
+  v13.super_class = WLKUserSettings;
+  v7 = [(WLKUserSettings *)&v13 init];
+  if (v7)
+  {
+    v16 = idCopy;
+    v14 = @"isHidden";
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:hideCopy];
+    v15 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    brandSidebarSetting = v7->_brandSidebarSetting;
+    v7->_brandSidebarSetting = v10;
+
+    *&v7->_initWithFavoritesSync = 256;
+    v7->_initWithPostPlayAutoPlaySetting = 0;
+  }
+
+  return v7;
+}
+
+- (WLKUserSettings)initWithTabId:(id)id shouldPin:(BOOL)pin
+{
+  pinCopy = pin;
+  v17[1] = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  v13.receiver = self;
+  v13.super_class = WLKUserSettings;
+  v7 = [(WLKUserSettings *)&v13 init];
+  if (v7)
+  {
+    v16 = idCopy;
+    v14 = @"isPinned";
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:pinCopy];
+    v15 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    brandSidebarSetting = v7->_brandSidebarSetting;
+    v7->_brandSidebarSetting = v10;
+
+    *&v7->_initWithFavoritesSync = 256;
+    v7->_initWithPostPlayAutoPlaySetting = 0;
+  }
+
+  return v7;
+}
+
 - (id)_patchJSONDictionary
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (self->_initWithFavoritesSync)
   {
-    v15 = @"favoritesSyncEnabled";
+    v14 = @"favoritesSyncEnabled";
     v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_favoritesSyncEnabled];
-    v16[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 LABEL_3:
     v5 = v4;
 
@@ -125,9 +181,9 @@ LABEL_3:
   if (self->_initWithBrandSidebarSetting)
   {
     brandSidebarSetting = self->_brandSidebarSetting;
-    v13 = @"brandSidebarSetting";
-    v14 = brandSidebarSetting;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = @"brandSidebarSetting";
+    v13 = brandSidebarSetting;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   }
 
   else
@@ -159,7 +215,6 @@ LABEL_3:
   }
 
 LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

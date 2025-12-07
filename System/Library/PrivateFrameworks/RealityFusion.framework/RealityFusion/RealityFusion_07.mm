@@ -1,784 +1,4 @@
-void sub_261834C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void RFLoggingObserverSetDidSaveFullSnapshotCallback(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  std::function<void ()(unsigned long)>::operator=<void({block_pointer} {__strong}&)(unsigned long),void>((*(a1 + 16) + 40), v3);
-}
-
-void *std::function<void ()(unsigned long)>::operator=<void({block_pointer} {__strong}&)(unsigned long),void>(void *a1, uint64_t a2)
-{
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  if (a2)
-  {
-    v3 = v7;
-    v7[0] = &unk_28740A8E0;
-    v7[1] = MEMORY[0x26670D530](a2);
-    v8 = v7;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  if (v7 != a1)
-  {
-    v4 = a1[3];
-    if (v3 == v7)
-    {
-      if (v4 == a1)
-      {
-        (*(*v3 + 24))(v3, v9);
-        (*(*v8 + 32))(v8);
-        v8 = 0;
-        (*(*a1[3] + 24))(a1[3], v7);
-        (*(*a1[3] + 32))(a1[3]);
-        a1[3] = 0;
-        v8 = v7;
-        (*(v9[0] + 24))(v9, a1);
-        (*(v9[0] + 32))(v9);
-      }
-
-      else
-      {
-        (*(*v3 + 24))(v3, a1);
-        (*(*v8 + 32))(v8);
-        v8 = a1[3];
-      }
-
-      a1[3] = a1;
-    }
-
-    else if (v4 == a1)
-    {
-      (*(*v4 + 24))(v4, v7);
-      (*(*a1[3] + 32))(a1[3]);
-      a1[3] = v8;
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = a1[3];
-      a1[3] = v3;
-    }
-  }
-
-  std::__function::__value_func<void ()(unsigned long)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return a1;
-}
-
-void sub_261834FA8(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void RFLoggingObserverSetDidSaveSnapshotCallback(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  std::function<void ()(unsigned long)>::operator=<void({block_pointer} {__strong}&)(unsigned long),void>((*(a1 + 16) + 8), v3);
-}
-
-uint64_t RFLoggingObserverSetDidUpdateMeshAssetsCallback(uint64_t a1, uint64_t a2)
-{
-  v14[3] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 16);
-  v9 = &unk_28740A970;
-  v10 = MEMORY[0x26670D530](a2);
-  v13 = v12;
-  v11 = &v9;
-  v12[0] = &unk_28740A970;
-  v4 = v2 + 72;
-  v12[1] = MEMORY[0x26670D530](v10, v3);
-  if (v12 != (v2 + 72))
-  {
-    v5 = v13;
-    v6 = *(v2 + 96);
-    if (v13 == v12)
-    {
-      if (v6 == v4)
-      {
-        (*(*v13 + 24))();
-        (*(*v13 + 32))(v13);
-        v13 = 0;
-        (*(**(v2 + 96) + 24))(*(v2 + 96), v12);
-        (*(**(v2 + 96) + 32))(*(v2 + 96));
-        *(v2 + 96) = 0;
-        v13 = v12;
-        (*(v14[0] + 24))(v14, v2 + 72);
-        (*(v14[0] + 32))(v14);
-      }
-
-      else
-      {
-        (*(*v13 + 24))();
-        (*(*v13 + 32))(v13);
-        v13 = *(v2 + 96);
-      }
-
-      *(v2 + 96) = v4;
-    }
-
-    else if (v6 == v4)
-    {
-      (*(*v6 + 24))(*(v2 + 96), v12);
-      (*(**(v2 + 96) + 32))(*(v2 + 96));
-      *(v2 + 96) = v13;
-      v13 = v12;
-    }
-
-    else
-    {
-      v13 = *(v2 + 96);
-      *(v2 + 96) = v5;
-    }
-  }
-
-  std::__function::__value_func<void ()(unsigned long,std::vector<std::string> const&)>::~__value_func[abi:ne200100](v12);
-  result = std::__function::__value_func<void ()(unsigned long,std::vector<std::string> const&)>::~__value_func[abi:ne200100](&v9);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_2618352F4(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer15LoggingConsumerEEEE13registerClassEv_block_invoke()
-{
-  v0 = 0;
-  v1 = 1;
-  for (i = 114; i != 91; i = aStdStringViewR_22[v0++ + 51])
-  {
-    if (i == 93)
-    {
-      v3 = -1;
-      goto LABEL_8;
-    }
-
-    if (!i)
-    {
-      v0 = 0;
-      v6 = 0;
-      goto LABEL_16;
-    }
-
-LABEL_9:
-    ;
-  }
-
-  v3 = 1;
-LABEL_8:
-  v1 += v3;
-  if (v1)
-  {
-    goto LABEL_9;
-  }
-
-  if (v0 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v0 >= 0x17)
-  {
-    operator new();
-  }
-
-  v6 = v0;
-  if (v0)
-  {
-    memcpy(&__dst, "rf::data_flow::consumer::LoggingConsumer]", v0);
-  }
-
-LABEL_16:
-  *(&__dst + v0) = 0;
-  xmmword_2810C4BF0 = 0u;
-  xmmword_2810C4C00 = 0u;
-  xmmword_2810C4C10 = 0u;
-  unk_2810C4C20 = 0u;
-  xmmword_2810C4C30 = 0u;
-  unk_2810C4C40 = 0u;
-  p_dst = &__dst;
-  if (v6 < 0)
-  {
-    p_dst = __dst;
-  }
-
-  *(&xmmword_2810C4BF0 + 1) = p_dst;
-  *&xmmword_2810C4C00 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>>::initCallback;
-  *&xmmword_2810C4C10 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>>::finalizeCallback;
-  qword_2810C4C28 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>>::copyFormattingDescriptionCallback;
-  *&xmmword_2810C4C30 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>>::copyDebugDescriptionCallback;
-  _MergedGlobals_14 = _CFRuntimeRegisterClass();
-  if (v6 < 0)
-  {
-    operator delete(__dst);
-  }
-}
-
-void sub_261835490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::LoggingConsumer>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    rf::data_flow::consumer::LoggingConsumer::~LoggingConsumer((v2 + 16));
-
-    JUMPOUT(0x26670D060);
-  }
-
-  return result;
-}
-
-void std::__function::__func<RFLoggingServiceSaveFullSnapshotToFile::$_0,std::allocator<RFLoggingServiceSaveFullSnapshotToFile::$_0>,void ()(std::string const&)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__function::__func<RFLoggingServiceSaveFullSnapshotToFile::$_0,std::allocator<RFLoggingServiceSaveFullSnapshotToFile::$_0>,void ()(std::string const&)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_28740A750;
-  result = MEMORY[0x26670D530](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<RFLoggingServiceSaveFullSnapshotToFile::$_0,std::allocator<RFLoggingServiceSaveFullSnapshotToFile::$_0>,void ()(std::string const&)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-void std::__function::__func<RFLoggingServiceSaveFullSnapshotToFile::$_0,std::allocator<RFLoggingServiceSaveFullSnapshotToFile::$_0>,void ()(std::string const&)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v3 = a2;
-    }
-
-    else
-    {
-      v3 = *a2;
-    }
-
-    v4 = strlen(v3);
-    v5 = CFURLCreateWithBytes(0, v3, v4, 0, 0);
-    cf = v5;
-    if (!v5)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    (*(v2 + 16))(v2, v5);
-    CFRelease(cf);
-  }
-}
-
-void sub_26183575C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<RFLoggingServiceSaveFullSnapshotToFile::$_0,std::allocator<RFLoggingServiceSaveFullSnapshotToFile::$_0>,void ()(std::string const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void applesauce::CF::URLRef::~URLRef(const void **this)
-{
-  v1 = *this;
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-}
-
-const void **applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(const void **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<RFLoggingServiceStartSavingSnapshotsToFiles::$_0,std::allocator<RFLoggingServiceStartSavingSnapshotsToFiles::$_0>,void ()(std::string const&)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__function::__func<RFLoggingServiceStartSavingSnapshotsToFiles::$_0,std::allocator<RFLoggingServiceStartSavingSnapshotsToFiles::$_0>,void ()(std::string const&)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_28740A7E0;
-  result = MEMORY[0x26670D530](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<RFLoggingServiceStartSavingSnapshotsToFiles::$_0,std::allocator<RFLoggingServiceStartSavingSnapshotsToFiles::$_0>,void ()(std::string const&)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-void std::__function::__func<RFLoggingServiceStartSavingSnapshotsToFiles::$_0,std::allocator<RFLoggingServiceStartSavingSnapshotsToFiles::$_0>,void ()(std::string const&)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v3 = a2;
-    }
-
-    else
-    {
-      v3 = *a2;
-    }
-
-    v4 = strlen(v3);
-    v5 = CFURLCreateWithBytes(0, v3, v4, 0, 0);
-    cf = v5;
-    if (!v5)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    (*(v2 + 16))(v2, v5);
-    CFRelease(cf);
-  }
-}
-
-void sub_261835A74(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<RFLoggingServiceStartSavingSnapshotsToFiles::$_0,std::allocator<RFLoggingServiceStartSavingSnapshotsToFiles::$_0>,void ()(std::string const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer16LoggingCallbacksEEEE13registerClassEv_block_invoke()
-{
-  v0 = 0;
-  v1 = 1;
-  for (i = 114; i != 91; i = aStdStringViewR_23[v0++ + 51])
-  {
-    if (i == 93)
-    {
-      v3 = -1;
-      goto LABEL_8;
-    }
-
-    if (!i)
-    {
-      v0 = 0;
-      v6 = 0;
-      goto LABEL_16;
-    }
-
-LABEL_9:
-    ;
-  }
-
-  v3 = 1;
-LABEL_8:
-  v1 += v3;
-  if (v1)
-  {
-    goto LABEL_9;
-  }
-
-  if (v0 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v0 >= 0x17)
-  {
-    operator new();
-  }
-
-  v6 = v0;
-  if (v0)
-  {
-    memcpy(&__dst, "rf::data_flow::consumer::LoggingCallbacks]", v0);
-  }
-
-LABEL_16:
-  *(&__dst + v0) = 0;
-  xmmword_2810C4C50 = 0u;
-  xmmword_2810C4C60 = 0u;
-  xmmword_2810C4C70 = 0u;
-  unk_2810C4C80 = 0u;
-  xmmword_2810C4C90 = 0u;
-  unk_2810C4CA0 = 0u;
-  p_dst = &__dst;
-  if (v6 < 0)
-  {
-    p_dst = __dst;
-  }
-
-  *(&xmmword_2810C4C50 + 1) = p_dst;
-  *&xmmword_2810C4C60 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>>::initCallback;
-  *&xmmword_2810C4C70 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>>::finalizeCallback;
-  qword_2810C4C88 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>>::copyFormattingDescriptionCallback;
-  *&xmmword_2810C4C90 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>>::copyDebugDescriptionCallback;
-  qword_2810C4BE0 = _CFRuntimeRegisterClass();
-  if (v6 < 0)
-  {
-    operator delete(__dst);
-  }
-}
-
-void sub_261835C88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    std::__function::__value_func<void ()(unsigned long,std::vector<std::string> const&)>::~__value_func[abi:ne200100](v2 + 72);
-    std::__function::__value_func<void ()(unsigned long)>::~__value_func[abi:ne200100](v2 + 40);
-    std::__function::__value_func<void ()(unsigned long)>::~__value_func[abi:ne200100](v2 + 8);
-
-    JUMPOUT(0x26670D060);
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__value_func<void ()(unsigned long)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>::makeSharedPtr(void *a1, CFTypeRef cf)
-{
-  CFRetain(cf);
-  *a1 = *(cf + 2) + 8;
-  operator new();
-}
-
-void sub_261835E34(void *a1)
-{
-  __cxa_begin_catch(a1);
-  CFRelease(*v1);
-  __cxa_rethrow();
-}
-
-void std::__shared_ptr_pointer<rf::data_flow::consumer::LoggingCallbacks *,rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>::makeSharedPtr(void)::{lambda(rf::data_flow::consumer::LoggingCallbacks *)#1},std::allocator<rf::data_flow::consumer::LoggingCallbacks>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__shared_ptr_pointer<rf::data_flow::consumer::LoggingCallbacks *,rf::CustomCFObject<rf::data_flow::consumer::LoggingCallbacks>::makeSharedPtr(void)::{lambda(rf::data_flow::consumer::LoggingCallbacks *)#1},std::allocator<rf::data_flow::consumer::LoggingCallbacks>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<void({block_pointer} {__strong})(unsigned long),std::allocator<void({block_pointer} {__strong})(unsigned long)>,void ()(unsigned long)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(unsigned long),std::allocator<void({block_pointer} {__strong})(unsigned long)>,void ()(unsigned long)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_28740A8E0;
-  result = MEMORY[0x26670D530](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(unsigned long),std::allocator<void({block_pointer} {__strong})(unsigned long)>,void ()(unsigned long)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return MEMORY[0x2821F96F8]();
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(unsigned long),std::allocator<void({block_pointer} {__strong})(unsigned long)>,void ()(unsigned long)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0,std::allocator<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0>,void ()(unsigned long,std::vector<std::string> const&)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x26670D060);
-}
-
-uint64_t std::__function::__func<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0,std::allocator<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0>,void ()(unsigned long,std::vector<std::string> const&)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_28740A970;
-  result = MEMORY[0x26670D530](*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0,std::allocator<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0>,void ()(unsigned long,std::vector<std::string> const&)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-void std::__function::__func<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0,std::allocator<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0>,void ()(unsigned long,std::vector<std::string> const&)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  if (*(a1 + 8))
-  {
-    v5 = *a2;
-    Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    v7 = *a3;
-    v8 = a3[1];
-    while (v7 != v8)
-    {
-      v9 = v7;
-      if (*(v7 + 23) < 0)
-      {
-        v9 = *v7;
-      }
-
-      v10 = CFStringCreateWithCString(0, v9, 0x8000100u);
-      CFArrayAppendValue(Mutable, v10);
-      CFRelease(v10);
-      v7 += 24;
-    }
-
-    (*(*(a1 + 8) + 16))();
-
-    CFRelease(Mutable);
-  }
-}
-
-uint64_t std::__function::__func<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0,std::allocator<RFLoggingObserverSetDidUpdateMeshAssetsCallback::$_0>,void ()(unsigned long,std::vector<std::string> const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(unsigned long,std::vector<std::string> const&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void rf::detail::removePRRMeshesFrom(uint64_t *a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 1065353216;
-  v5 = *a2;
-  v6 = a2[1];
-  if (*a2 != v6)
-  {
-    v8 = a1;
-    do
-    {
-      v9 = rf::realityFusionLogObject(a1);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        rf::data_flow::RFUUID::string(v5, __p);
-        v10 = (SBYTE7(v21) & 0x80u) == 0 ? __p : __p[0];
-        *buf = 136446210;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_2617CB000, v9, OS_LOG_TYPE_DEFAULT, "ARState: Removing prr mesh %{public}s", buf, 0xCu);
-        if (SBYTE7(v21) < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::__erase_unique<rf::data_flow::RFUUID>((*v8 + 1952), v5);
-      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::__erase_unique<rf::data_flow::RFUUID>((*v8 + 1992), v5);
-      if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::reference_wrapper<rf::data_flow::Room const>>>>::find<rf::data_flow::RFUUID>((*v8 + 40), v5))
-      {
-        goto LABEL_12;
-      }
-
-      v11 = rf::realityFusionLogObject(0);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        rf::data_flow::RFUUID::string(v5, __p);
-        v16 = (SBYTE7(v21) & 0x80u) == 0 ? __p : __p[0];
-        *buf = 136446210;
-        *&buf[4] = v16;
-        _os_log_error_impl(&dword_2617CB000, v11, OS_LOG_TYPE_ERROR, "removePRRMeshesFrom(): Mesh %{public}s to be removed but doesn't exist in prrMeshDictionary!", buf, 0xCu);
-        if (SBYTE7(v21) < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      if ((a3 & 1) == 0)
-      {
-LABEL_12:
-        *buf = *v5;
-        v19 = *(v5 + 16);
-        v12 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>((*v8 + 40), v5);
-        if (!v12)
-        {
-          std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-        }
-
-        *__p = *buf;
-        v21 = v19;
-        v13 = v12[7];
-        v22 = v12[6];
-        v23 = v13;
-        if (v13)
-        {
-          atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>(a4, __p);
-        if (v23)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-        }
-
-        v14 = *(v5 + 32);
-        v15 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(a4, v5);
-        if (!v15)
-        {
-          std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-        }
-
-        *(v15[6] + 120) = v14;
-        a1 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::__erase_unique<rf::data_flow::RFUUID>((*v8 + 40), v5);
-      }
-
-      v5 += 40;
-    }
-
-    while (v5 != v6);
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-void *rf::detail::updatePRRMeshesAt@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void rf::detail::updatePRRMeshesAt(uint64_t *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X8>)
 {
   v61 = *MEMORY[0x277D85DE8];
   *a3 = 0u;
@@ -788,17 +8,16 @@ void *rf::detail::updatePRRMeshesAt@<X0>(void *result@<X0>, uint64_t *a2@<X1>, u
   v4 = a2[1];
   if (*a2 != v4)
   {
-    v5 = result;
     do
     {
-      result = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>((*v5 + 40), v3);
-      if (result)
+      if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>((*a1 + 40), v3))
       {
-        v6 = *v5;
+        v6 = *a1;
         v7 = *(v3 + 16);
         v21 = *v3;
         v22 = v7;
-        v8 = *(std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::piecewise_construct_t const&,std::tuple<rf::data_flow::RFUUID const&>,std::tuple<>>((v6 + 40), &v21)[6] + 32);
+        *&v20 = &v21;
+        v8 = *(std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::piecewise_construct_t const&,std::tuple<rf::data_flow::RFUUID const&>,std::tuple<>>((v6 + 40), &v21, &std::piecewise_construct, &v20)[6] + 32);
         v9 = *(v3 + 16);
         v21 = *v3;
         v22 = v9;
@@ -907,27 +126,24 @@ void *rf::detail::updatePRRMeshesAt@<X0>(void *result@<X0>, uint64_t *a2@<X1>, u
 
     while (v3 != v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_261836980(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_261836980(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  if (a3)
+  va_start(va, a16);
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
   rf::data_flow::consumer::Mesh::~Mesh(va);
-  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v9);
+  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v16);
   _Unwind_Resume(a1);
 }
 
-rf *rf::detail::insertPRRMeshesInto@<X0>(rf *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void rf::detail::insertPRRMeshesInto(rf *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X8>)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   *a3 = 0u;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 1065353216;
@@ -936,96 +152,97 @@ rf *rf::detail::insertPRRMeshesInto@<X0>(rf *result@<X0>, uint64_t *a2@<X1>, uin
   {
     v4 = (v3 + 176);
     v5 = *(v3 + 16);
-    v23[0] = *v3;
-    v23[1] = v5;
-    v24 = 1;
+    v22[0] = *v3;
+    v22[1] = v5;
+    v23 = 1;
     v6 = *(v3 + 32);
     v7 = *(v3 + 48);
     v8 = *(v3 + 80);
-    v27 = *(v3 + 64);
-    v28 = v8;
-    v25 = v6;
-    v26 = v7;
-    v29 = *(v3 + 96);
-    v30 = 1;
-    v31 = *(v3 + 104);
-    LOBYTE(v32) = 0;
-    v34 = 0;
+    v26 = *(v3 + 64);
+    v27 = v8;
+    v24 = v6;
+    v25 = v7;
+    v28 = *(v3 + 96);
+    v29 = 1;
+    v30 = *(v3 + 104);
+    LOBYTE(v31) = 0;
+    v33 = 0;
     if (*(v3 + 136) == 1)
     {
       v9 = *(v3 + 112);
       *(v4 - 8) = 0;
-      v32 = v9;
-      v33 = *(v4 - 7);
-      v34 = 1;
+      v31 = v9;
+      v32 = *(v4 - 7);
+      v33 = 1;
     }
 
-    LOBYTE(v35) = 0;
-    v37 = 0;
+    LOBYTE(v34) = 0;
+    v36 = 0;
     if (*(v4 - 8) == 1)
     {
       v10 = *(v4 - 4);
       *(v4 - 4) = 0;
-      v35 = v10;
-      v36 = *(v4 - 3);
-      v37 = 1;
+      v34 = v10;
+      v35 = *(v4 - 3);
+      v36 = 1;
     }
 
-    LOBYTE(v38) = 0;
-    v40 = 0;
+    LOBYTE(v37) = 0;
+    v39 = 0;
     if (*(v4 + 24) == 1)
     {
       v11 = *v4;
       *v4 = 0;
-      v38 = v11;
-      v39 = *(v4 + 1);
-      v40 = 1;
+      v37 = v11;
+      v38 = *(v4 + 1);
+      v39 = 1;
     }
 
-    LOBYTE(v41) = 0;
-    v43 = 0;
+    LOBYTE(v40) = 0;
+    v42 = 0;
     if (*(v4 + 56) == 1)
     {
       v12 = v4[4];
       v4[4] = 0;
-      v41 = v12;
-      v42 = *(v4 + 5);
-      v43 = 1;
+      v40 = v12;
+      v41 = *(v4 + 5);
+      v42 = 1;
     }
 
-    LOBYTE(v44) = 0;
-    v46 = 0;
+    LOBYTE(v43) = 0;
+    v45 = 0;
     if (*(v4 + 88) == 1)
     {
       v13 = v4[8];
       v4[8] = 0;
-      v44 = v13;
-      v45 = *(v4 + 9);
-      v46 = 1;
+      v43 = v13;
+      v44 = *(v4 + 9);
+      v45 = 1;
     }
 
-    LOBYTE(v47) = 0;
-    v49 = 0;
+    LOBYTE(v46) = 0;
+    v48 = 0;
     if (*(v4 + 120) == 1)
     {
       v14 = v4[12];
       v4[12] = 0;
-      v47 = v14;
-      v48 = *(v4 + 13);
-      v49 = 1;
+      v46 = v14;
+      v47 = *(v4 + 13);
+      v48 = 1;
     }
 
-    LOBYTE(v50) = 0;
-    v52 = 0;
+    LOBYTE(v49) = 0;
+    v51 = 0;
     if (*(v4 + 152) == 1)
     {
       v15 = v4[16];
       v4[16] = 0;
-      v50 = v15;
-      v51 = *(v4 + 17);
-      v52 = 1;
+      v49 = v15;
+      v50 = *(v4 + 17);
+      v51 = 1;
     }
 
+    v52 = 0;
     v53 = 0;
     v54 = 0;
     v55 = 0;
@@ -1034,12 +251,11 @@ rf *rf::detail::insertPRRMeshesInto@<X0>(rf *result@<X0>, uint64_t *a2@<X1>, uin
     v58 = 0;
     v59 = 0;
     v60 = 0;
-    v61 = 0;
-    v16 = rf::realityFusionLogObject(result);
+    v16 = rf::realityFusionLogObject(a1);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      rf::data_flow::RFUUID::string(v23, __p);
-      if (v20 >= 0)
+      rf::data_flow::RFUUID::string(__p, v22);
+      if (v19 >= 0)
       {
         v17 = __p;
       }
@@ -1052,7 +268,7 @@ rf *rf::detail::insertPRRMeshesInto@<X0>(rf *result@<X0>, uint64_t *a2@<X1>, uin
       buf = 136446210;
       *buf_4 = v17;
       _os_log_impl(&dword_2617CB000, v16, OS_LOG_TYPE_DEFAULT, "ARState: Adding prr mesh %{public}s", &buf, 0xCu);
-      if (v20 < 0)
+      if (v19 < 0)
       {
         operator delete(__p[0]);
       }
@@ -1060,17 +276,14 @@ rf *rf::detail::insertPRRMeshesInto@<X0>(rf *result@<X0>, uint64_t *a2@<X1>, uin
 
     std::allocate_shared[abi:ne200100]<rf::data_flow::consumer::Mesh,std::allocator<rf::data_flow::consumer::Mesh>,rf::data_flow::consumer::Mesh,0>();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_261836D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_261836D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   rf::data_flow::consumer::Mesh::~Mesh(va);
-  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v15);
+  std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v22);
   _Unwind_Resume(a1);
 }
 
@@ -1101,41 +314,37 @@ void *rf::PlacementComponentTypeInfo::initWithType(void *a1, uint64_t a2, uint64
 
 void *std::function<unsigned char const* ()(REComponent *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<unsigned char const* ()(REComponent *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<unsigned char const* ()(REComponent *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<unsigned char const* ()(REComponent *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<unsigned char const* ()(REComponent *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<unsigned char const* ()(REComponent *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<BOOL ()(REComponent *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(REComponent *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<BOOL ()(REComponent *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<BOOL ()(REComponent *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(REComponent *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<BOOL ()(REComponent *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<BOOL ()(REComponent *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<void ()(REComponent *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(REComponent *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(REComponent *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(REComponent *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(REComponent *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::function<RESRT ()(REComponent *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<RESRT ()(REComponent *)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<RESRT ()(REComponent *)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<RESRT ()(REComponent *)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<RESRT ()(REComponent *)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
@@ -1190,7 +399,7 @@ uint64_t std::__function::__value_func<unsigned char const* ()(REComponent *)>::
 
 void *std::__function::__value_func<unsigned char const* ()(REComponent *)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1200,15 +409,15 @@ void *std::__function::__value_func<unsigned char const* ()(REComponent *)>::swa
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1236,7 +445,6 @@ void *std::__function::__value_func<unsigned char const* ()(REComponent *)>::swa
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1293,7 +501,7 @@ uint64_t std::__function::__value_func<BOOL ()(REComponent *)>::__value_func[abi
 
 void *std::__function::__value_func<BOOL ()(REComponent *)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1303,15 +511,15 @@ void *std::__function::__value_func<BOOL ()(REComponent *)>::swap[abi:ne200100](
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1339,7 +547,6 @@ void *std::__function::__value_func<BOOL ()(REComponent *)>::swap[abi:ne200100](
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1421,7 +628,7 @@ uint64_t std::__function::__value_func<RESRT ()(REComponent *)>::__value_func[ab
 
 void *std::__function::__value_func<RESRT ()(REComponent *)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1431,15 +638,15 @@ void *std::__function::__value_func<RESRT ()(REComponent *)>::swap[abi:ne200100]
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1467,7 +674,6 @@ void *std::__function::__value_func<RESRT ()(REComponent *)>::swap[abi:ne200100]
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1499,7 +705,6 @@ uint64_t std::__function::__value_func<RESRT ()(REComponent *)>::~__value_func[a
 
 void RFQueryServiceCreate()
 {
-  v0 = *MEMORY[0x277CBECE8];
   if (qword_2810C4CB8 != -1)
   {
     dispatch_once(&qword_2810C4CB8, &__block_literal_global_13);
@@ -1512,11 +717,11 @@ void RFQueryServiceCreate()
 void RFQueryServiceEvaluateEntityQuery(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v10 = a4;
-  v11[0] = a2;
+  v11 = a2;
   v7 = *(a3 + 16);
   v8 = *(a1 + 16);
-  v11[2] = v11;
-  for (i = std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::__unordered_map_hasher<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::hash<REScene const*>,std::equal_to<REScene const*>,true>,std::__unordered_map_equal<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::equal_to<REScene const*>,std::hash<REScene const*>,true>,std::allocator<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>>>::__emplace_unique_key_args<REScene const*,std::piecewise_construct_t const&,std::tuple<REScene const*&&>,std::tuple<>>((v8 + 40), v11)[5]; i; i = *i)
+  v12 = &v11;
+  for (i = std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::__unordered_map_hasher<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::hash<REScene const*>,std::equal_to<REScene const*>,true>,std::__unordered_map_equal<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::equal_to<REScene const*>,std::hash<REScene const*>,true>,std::allocator<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>>>::__emplace_unique_key_args<REScene const*,std::piecewise_construct_t const&,std::tuple<REScene const*&&>,std::tuple<>>((v8 + 40), &v11, &std::piecewise_construct, &v12)[5]; i; i = *i)
   {
     if ((***(v7 + 8))(*(v7 + 8), (i + 6)) && !*(i + 20))
     {
@@ -1635,7 +840,7 @@ uint64_t std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::__unordered_map_hasher<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::hash<REScene const*>,std::equal_to<REScene const*>,true>,std::__unordered_map_equal<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::equal_to<REScene const*>,std::hash<REScene const*>,true>,std::allocator<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>>>::__deallocate_node(uint64_t a1, void *a2)
+void std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::__unordered_map_hasher<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::hash<REScene const*>,std::equal_to<REScene const*>,true>,std::__unordered_map_equal<REScene const*,std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>,std::equal_to<REScene const*>,std::hash<REScene const*>,true>,std::allocator<std::__hash_value_type<REScene const*,std::unordered_map<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>>>>::__deallocate_node(uint64_t a1, void **a2)
 {
   if (a2)
   {
@@ -1643,7 +848,7 @@ void std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<
     do
     {
       v3 = *v2;
-      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>::~__hash_table((v2 + 3));
+      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::variant<csq::EntryWithProperties<rf::query::REEntityProperty,rf::query::PositionProperty>>>>>::~__hash_table(v2 + 3);
       operator delete(v2);
       v2 = v3;
     }
@@ -1652,10 +857,10 @@ void std::__hash_table<std::__hash_value_type<REScene const*,std::unordered_map<
   }
 }
 
-unint64_t rf::data_flow::details::NodeStore::createNode(void *a1, __int128 *a2, std::string *a3)
+unint64_t rf::data_flow::details::NodeStore::createNode(float *a1, __int128 *a2, std::string *a3)
 {
-  v6 = a1[5] + 1;
-  a1[5] = v6;
+  v6 = *(a1 + 5) + 1;
+  *(a1 + 5) = v6;
   v18 = v6;
   std::to_string(&v16, v6);
   v7 = std::string::insert(&v16, 0, "Node ", 5uLL);
@@ -1679,7 +884,7 @@ unint64_t rf::data_flow::details::NodeStore::createNode(void *a1, __int128 *a2, 
   *(a2 + 1) = 0;
   *(a2 + 2) = 0;
   *a2 = 0;
-  v9 = a1[1];
+  v9 = *(a1 + 2);
   if (!*&v9)
   {
     goto LABEL_20;
@@ -1984,10 +1189,10 @@ void rf::data_flow::consumer::ClientMeshReconstructionConsumer::consumeLatestUpd
       EventBus = REEngineGetEventBus();
       MEMORY[0x26670C400]("RESceneWillRemoveEvent");
       ComponentsOfClass = MEMORY[0x277D85DD0];
-      v63 = 3321888768;
-      v64 = ___ZZN2rf9data_flow8consumer32ClientMeshReconstructionConsumer25listenToSceneRemovalEventEP16REServiceLocatorENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke;
-      v65 = &__block_descriptor_40_ea8_32c115_ZTSKZN2rf9data_flow8consumer32ClientMeshReconstructionConsumer25listenToSceneRemovalEventEP16REServiceLocatorE3__0_e14_I24__0_v8r_v16l;
-      v66 = a1;
+      v57 = 3321888768;
+      v58 = ___ZZN2rf9data_flow8consumer32ClientMeshReconstructionConsumer25listenToSceneRemovalEventEP16REServiceLocatorENK3__0cvU13block_pointerF20REEventHandlerResultPvPKvEEv_block_invoke;
+      v59 = &__block_descriptor_40_ea8_32c115_ZTSKZN2rf9data_flow8consumer32ClientMeshReconstructionConsumer25listenToSceneRemovalEventEP16REServiceLocatorE3__0_e14_I24__0_v8r_v16l;
+      v60 = a1;
       v7 = MEMORY[0x26670D530](&ComponentsOfClass);
       v8 = REEventBusSubscribeBlock();
       if ((*(a1 + 152) & 1) == 0)
@@ -2001,17 +1206,17 @@ void rf::data_flow::consumer::ClientMeshReconstructionConsumer::consumeLatestUpd
     }
   }
 
-  v61[0] = i;
-  if (std::__hash_table<std::__hash_value_type<REScene *,std::set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::set<REEntity *>>>>::find<REScene *>((a1 + 160), v61))
+  v55[0] = i;
+  if (std::__hash_table<std::__hash_value_type<REScene *,std::set<REEntity *>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::set<REEntity *>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::set<REEntity *>>>>::find<REScene *>((a1 + 160), v55))
   {
     goto LABEL_64;
   }
 
-  v63 = 0;
-  v64 = 0;
-  ComponentsOfClass = &v63;
-  v10 = 0x9DDFEA08EB382D69 * ((8 * (v61[0] & 0x1FFFFFFF) + 8) ^ HIDWORD(v61[0]));
-  v11 = 0x9DDFEA08EB382D69 * (HIDWORD(v61[0]) ^ (v10 >> 47) ^ v10);
+  v57 = 0;
+  v58 = 0;
+  ComponentsOfClass = &v57;
+  v10 = 0x9DDFEA08EB382D69 * ((8 * (v55[0] & 0x1FFFFFFF) + 8) ^ (v55[0] >> 32));
+  v11 = 0x9DDFEA08EB382D69 * ((v55[0] >> 32) ^ (v10 >> 47) ^ v10);
   v12 = 0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47));
   v13 = *(a1 + 168);
   if (!*&v13)
@@ -2076,32 +1281,19 @@ LABEL_28:
     }
   }
 
-  if (v17[2] != v61[0])
+  if (v17[2] != v55[0])
   {
     goto LABEL_28;
   }
 
   if (v17 + 3 != &ComponentsOfClass)
   {
-    v60 = i;
+    v54 = i;
     v19 = ComponentsOfClass;
-    if (!v17[5])
-    {
-      goto LABEL_54;
-    }
-
-    v21 = v17 + 4;
-    v20 = v17[4];
-    v22 = v17[3];
-    v17[3] = (v17 + 4);
-    v20[2] = 0;
-    v17[4] = 0;
-    v17[5] = 0;
-    v23 = v22[1] ? v22[1] : v22;
-    if (v23)
+    if (v17[5] && ((v21 = v17 + 4, v20 = v17[4], v22 = v17[3], v17[3] = (v17 + 4), v20[2] = 0, v17[4] = 0, v17[5] = 0, v22[1]) ? (v23 = v22[1]) : (v23 = v22), v23))
     {
       v24 = std::__tree<REEntity *>::_DetachedTreeCache::__detach_next(v23);
-      if (v19 == &v63)
+      if (v19 == &v57)
       {
         v25 = v23;
         v31 = v19;
@@ -2189,14 +1381,14 @@ LABEL_43:
           v19 = v31;
         }
 
-        while (v31 != &v63);
+        while (v31 != &v57);
       }
 
       std::__tree<rf::synthetic::SceneUnderstandingType>::destroy((v17 + 3), v25);
       if (v24)
       {
         v33 = v24[2];
-        for (i = v60; v33; v33 = v33[2])
+        for (i = v54; v33; v33 = v33[2])
         {
           v24 = v33;
         }
@@ -2206,46 +1398,44 @@ LABEL_43:
 
       else
       {
-        i = v60;
+        i = v54;
       }
     }
 
     else
     {
-LABEL_54:
       v31 = v19;
-      i = v60;
+      i = v54;
     }
 
-    if (v31 != &v63)
+    if (v31 != &v57)
     {
       operator new();
     }
   }
 
-  std::__tree<rf::synthetic::SceneUnderstandingType>::destroy(&ComponentsOfClass, v63);
+  std::__tree<rf::synthetic::SceneUnderstandingType>::destroy(&ComponentsOfClass, v57);
 LABEL_64:
   rf::data_flow::consumer::EntitiesProcessor::consumeLatestUpdate(a1 + 80, a2);
   v34 = *(a1 + 16);
   std::mutex::lock(v34);
   RESceneUnderstandingComponentGetComponentType();
   ComponentsOfClass = RESceneGetComponentsOfClass();
-  v63 = v35;
-  v64 = 0;
-  v65 = 0;
+  v57 = v35;
+  v58 = 0;
+  v59 = 0;
   v36 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::ClientDirtyOption,BOOL>(1, *(a1 + 32), *(a1 + 40));
   v37 = v36;
   v38 = i;
   if (v36 >= 0x100u)
   {
     v40 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(&ComponentsOfClass);
-    v41 = &ComponentsOfClass[v63];
+    v41 = &ComponentsOfClass[v57];
     if (v40 != v41)
     {
       v42 = v39;
       do
       {
-        v43 = *v40;
         REComponentGetEntity();
         RERigidBodyComponentGetComponentType();
         if (v37)
@@ -2266,18 +1456,17 @@ LABEL_64:
           REEntityRemoveComponentByClass();
         }
 
-        v44 = v40 + 1;
+        v43 = v40 + 1;
         v40 = (*v42 + 8 * v42[1]);
-        while (v44 != v40)
+        while (v43 != v40)
         {
-          v45 = *v44;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v40 = v44;
+            v40 = v43;
             break;
           }
 
-          ++v44;
+          ++v43;
         }
       }
 
@@ -2285,17 +1474,16 @@ LABEL_64:
     }
   }
 
-  v46 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::ClientDirtyOption,BOOL>(0, *(a1 + 32), *(a1 + 40));
-  if (v46 >= 0x100u && (v46 & 1) == 0)
+  v44 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::ClientDirtyOption,BOOL>(0, *(a1 + 32), *(a1 + 40));
+  if (v44 >= 0x100u && (v44 & 1) == 0)
   {
-    v48 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(&ComponentsOfClass);
-    v49 = &ComponentsOfClass[v63];
-    if (v48 != v49)
+    v46 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(&ComponentsOfClass);
+    v47 = &ComponentsOfClass[v57];
+    if (v46 != v47)
     {
-      v50 = v47;
+      v48 = v45;
       do
       {
-        v51 = *v48;
         REComponentGetEntity();
         REColliderComponentGetComponentType();
         if (REEntityGetComponentByClass())
@@ -2304,41 +1492,40 @@ LABEL_64:
           REEntityRemoveComponentByClass();
         }
 
-        v52 = v48 + 1;
-        v48 = (*v50 + 8 * v50[1]);
-        while (v52 != v48)
+        v49 = v46 + 1;
+        v46 = (*v48 + 8 * v48[1]);
+        while (v49 != v46)
         {
-          v53 = *v52;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v48 = v52;
+            v46 = v49;
             break;
           }
 
-          ++v52;
+          ++v49;
         }
       }
 
-      while (v48 != v49);
+      while (v46 != v47);
     }
   }
 
-  v54 = *(a1 + 24);
-  if (v54)
+  v50 = *(a1 + 24);
+  if (v50)
   {
-    v55 = 3104;
+    v51 = 3104;
     if (!*(a1 + 72))
     {
-      v55 = 0;
+      v51 = 0;
     }
 
-    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(&ComponentsOfClass, v34 + 64 + v55);
-    *(a1 + 72) = v54;
-    if (v65)
+    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(&ComponentsOfClass, &v34[1] + v51);
+    *(a1 + 72) = v50;
+    if (v59)
     {
-      std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(v61, &ComponentsOfClass);
-      rf::helpers::updateSceneUnderstandingPhysicsComponentsWithMeshUpdates(v38, v61, *(a1 + 25), *(a1 + 26));
-      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v61);
+      std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(v55, &ComponentsOfClass);
+      rf::helpers::updateSceneUnderstandingPhysicsComponentsWithMeshUpdates(v38, v55, *(a1 + 25), *(a1 + 26));
+      std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(v55);
     }
 
     std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(&ComponentsOfClass);
@@ -2346,17 +1533,17 @@ LABEL_64:
 
   else
   {
-    *(a1 + 72) = v54;
+    *(a1 + 72) = v50;
   }
 
   if (*(a1 + 56))
   {
     std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::__deallocate_node(a1 + 32, *(a1 + 48));
     *(a1 + 48) = 0;
-    v56 = *(a1 + 40);
-    if (v56)
+    v52 = *(a1 + 40);
+    if (v52)
     {
-      for (j = 0; j != v56; ++j)
+      for (j = 0; j != v52; ++j)
       {
         *(*(a1 + 32) + 8 * j) = 0;
       }
@@ -2367,15 +1554,13 @@ LABEL_64:
 
   if (re::internal::enableSignposts(0, 0))
   {
-    v58 = *(v34 + 88);
-    v59 = *(v34 + 128);
     kdebug_trace();
   }
 
   std::mutex::unlock(v34);
 }
 
-void sub_261839320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *a17)
+void sub_261839320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   std::__tree<rf::synthetic::SceneUnderstandingType>::destroy(v18, v17[4]);
   operator delete(v17);
@@ -2383,74 +1568,68 @@ void sub_261839320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::ClientMeshReconstructionConsumer::setRigidbodyEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::ClientMeshReconstructionConsumer::setRigidbodyEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[25] != a2)
+  if (*(this + 25) != a2)
   {
-    this[25] = a2;
+    *(this + 25) = a2;
+    v2 = 1;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(this + 4, 1);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(this + 8, 1, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261839440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261839440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::ClientMeshReconstructionConsumer::setCollisionEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::ClientMeshReconstructionConsumer::setCollisionEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[24] != a2)
+  if (*(this + 24) != a2)
   {
-    this[24] = a2;
+    *(this + 24) = a2;
+    v2 = 0;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(this + 4, 0);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(this + 8, 0, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_2618394F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2618394F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(uint64_t a1)
+void *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(uint64_t *a1)
 {
   if (*(a1 + 24) == 1)
   {
-    return *(a1 + 16);
+    return a1[2];
   }
 
   v2 = *a1;
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if (v3)
   {
     v4 = 8 * v3;
-    v5 = &v2[v3];
-    while (1)
+    v5 = v2 + 8 * v3;
+    while (RESceneUnderstandingComponentGetSourceType() != 1)
     {
-      v6 = *v2;
-      if (RESceneUnderstandingComponentGetSourceType() == 1)
-      {
-        break;
-      }
-
-      ++v2;
+      v2 += 8;
       v4 -= 8;
       if (!v4)
       {
@@ -2460,7 +1639,7 @@ uint64_t *std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filt
     }
   }
 
-  *(a1 + 16) = v2;
+  a1[2] = v2;
   *(a1 + 24) = 1;
   return v2;
 }
@@ -2717,7 +1896,7 @@ uint64_t std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow:
   std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>> const&>(a1, (i + 2));
+    std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>> const&>(a1, (i + 2), (i + 2));
   }
 
   return a1;
@@ -2790,32 +1969,32 @@ void std::__hash_table<std::__hash_value_type<REScene *,std::set<REEntity *>>,st
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(void *result, int a2)
+float *std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::ClientDirtyOption,std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::ClientDirtyOption>,std::hash<rf::data_flow::consumer::ClientDirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::ClientDirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::ClientDirtyOption,std::pair<rf::data_flow::consumer::ClientDirtyOption const,std::any>>(float *result, int a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = *(result + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*result + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -2823,39 +2002,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -2863,9 +2042,9 @@ LABEL_17:
   return result;
 }
 
-void sub_261839E3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261839E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,std::any>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,std::any>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2915,7 +2094,7 @@ void *std::__tree<REEntity *>::_DetachedTreeCache::__detach_next(uint64_t a1)
   return result;
 }
 
-id *RFGetARAnchorFromAnchorSourceComponent()
+id *RFGetARAnchorFromAnchorSourceComponent(uint64_t a1)
 {
   Object = RECustomComponentGetObject();
   if (Object)
@@ -3154,17 +2333,17 @@ uint64_t rf::data_flow::provider::SyntheticARData::SyntheticARData(uint64_t a1, 
   return a1;
 }
 
-double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::SyntheticARData *this, rf::data_flow::provider::InputData *a2)
+double rf::data_flow::provider::SyntheticARData::appendUpdatedData(uint64_t this, rf::data_flow::provider::InputData *a2)
 {
-  v94 = *MEMORY[0x277D85DE8];
-  if (*(this + 19) != *(this + 18))
+  v93 = *MEMORY[0x277D85DE8];
+  if (*(this + 152) != *(this + 144))
   {
     v4 = 0;
     v5 = 0;
     do
     {
-      v6 = *(this + 33);
-      if (v4 >= (*(this + 34) - v6) >> 5)
+      v6 = *(this + 264);
+      if (v4 >= (*(this + 272) - v6) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3177,9 +2356,9 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
 
       if (!uuid_is_null(v7))
       {
-        rf::data_flow::provider::InputMesh::InputMesh(v71, *(*(this + 18) + 16 * v4));
-        v8 = *(this + 33);
-        if (v4 >= (*(this + 34) - v8) >> 5)
+        rf::data_flow::provider::InputMesh::InputMesh(v70, *(*(this + 144) + 16 * v4));
+        v8 = *(this + 264);
+        if (v4 >= (*(this + 272) - v8) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
@@ -3187,54 +2366,54 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
         v9 = 0;
         v10 = (v8 + 32 * v4);
         v11 = v10[1];
-        *v71 = *v10;
-        *&v71[16] = v11;
-        v12 = *(this + 3);
-        v13 = *(this + 4);
-        v14 = *(this + 5);
-        v15 = *(this + 6);
+        *v70 = *v10;
+        *&v70[16] = v11;
+        v12 = *(this + 48);
+        v13 = *(this + 64);
+        v14 = *(this + 80);
+        v15 = *(this + 96);
+        v62 = v71;
         v63 = v72;
         v64 = v73;
         v65 = v74;
-        v66 = v75;
         do
         {
-          *(&v67 + v9) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*(&v63 + v9))), v13, *(&v63 + v9), 1), v14, *(&v63 + v9), 2), v15, *(&v63 + v9), 3);
+          *(&v66 + v9) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12, COERCE_FLOAT(*(&v62 + v9))), v13, *(&v62 + v9), 1), v14, *(&v62 + v9), 2), v15, *(&v62 + v9), 3);
           v9 += 16;
         }
 
         while (v9 != 64);
+        v71 = v66;
         v72 = v67;
         v73 = v68;
         v74 = v69;
-        v75 = v70;
-        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a2 + 3, v71);
+        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a2 + 3, v70);
 
-        if (v92 == 1)
+        if (v91 == 1)
         {
         }
 
-        if (v90 == 1)
+        if (v89 == 1)
         {
         }
 
-        if (v88 == 1)
+        if (v87 == 1)
         {
         }
 
-        if (v85 == 1)
+        if (v84 == 1)
         {
         }
 
-        if (v83 == 1)
+        if (v82 == 1)
         {
         }
 
-        if (v81 == 1)
+        if (v80 == 1)
         {
         }
 
-        if (v79 == 1)
+        if (v78 == 1)
         {
         }
       }
@@ -3242,17 +2421,17 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
       v4 = ++v5;
     }
 
-    while (v5 < ((*(this + 19) - *(this + 18)) >> 4));
+    while (v5 < ((*(this + 152) - *(this + 144)) >> 4));
   }
 
-  if (*(this + 22) != *(this + 21))
+  if (*(this + 176) != *(this + 168))
   {
     v16 = 0;
     v17 = 0;
     do
     {
-      v18 = *(this + 36);
-      if (v16 >= (*(this + 37) - v18) >> 5)
+      v18 = *(this + 288);
+      if (v16 >= (*(this + 296) - v18) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3265,9 +2444,9 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
 
       if (!uuid_is_null(v19))
       {
-        rf::data_flow::provider::InputMesh::InputMesh(v71, *(*(this + 21) + 16 * v16));
-        v20 = *(this + 36);
-        if (v16 >= (*(this + 37) - v20) >> 5)
+        rf::data_flow::provider::InputMesh::InputMesh(v70, *(*(this + 168) + 16 * v16));
+        v20 = *(this + 288);
+        if (v16 >= (*(this + 296) - v20) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
@@ -3275,54 +2454,54 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
         v21 = 0;
         v22 = (v20 + 32 * v16);
         v23 = v22[1];
-        *v71 = *v22;
-        *&v71[16] = v23;
-        v24 = *(this + 3);
-        v25 = *(this + 4);
-        v26 = *(this + 5);
-        v27 = *(this + 6);
+        *v70 = *v22;
+        *&v70[16] = v23;
+        v24 = *(this + 48);
+        v25 = *(this + 64);
+        v26 = *(this + 80);
+        v27 = *(this + 96);
+        v62 = v71;
         v63 = v72;
         v64 = v73;
         v65 = v74;
-        v66 = v75;
         do
         {
-          *(&v67 + v21) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&v63 + v21))), v25, *(&v63 + v21), 1), v26, *(&v63 + v21), 2), v27, *(&v63 + v21), 3);
+          *(&v66 + v21) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&v62 + v21))), v25, *(&v62 + v21), 1), v26, *(&v62 + v21), 2), v27, *(&v62 + v21), 3);
           v21 += 16;
         }
 
         while (v21 != 64);
+        v71 = v66;
         v72 = v67;
         v73 = v68;
         v74 = v69;
-        v75 = v70;
-        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a2 + 91, v71);
+        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a2 + 91, v70);
 
-        if (v92 == 1)
+        if (v91 == 1)
         {
         }
 
-        if (v90 == 1)
+        if (v89 == 1)
         {
         }
 
-        if (v88 == 1)
+        if (v87 == 1)
         {
         }
 
-        if (v85 == 1)
+        if (v84 == 1)
         {
         }
 
-        if (v83 == 1)
+        if (v82 == 1)
         {
         }
 
-        if (v81 == 1)
+        if (v80 == 1)
         {
         }
 
-        if (v79 == 1)
+        if (v78 == 1)
         {
         }
       }
@@ -3330,17 +2509,17 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
       v16 = ++v17;
     }
 
-    while (v17 < ((*(this + 22) - *(this + 21)) >> 4));
+    while (v17 < ((*(this + 176) - *(this + 168)) >> 4));
   }
 
-  v62 = 0;
-  if (*(this + 25) != *(this + 24))
+  v61 = 0;
+  if (*(this + 200) != *(this + 192))
   {
     v28 = 0;
     do
     {
-      v29 = *(this + 39);
-      if (v28 >= (*(this + 40) - v29) >> 5)
+      v29 = *(this + 312);
+      if (v28 >= (*(this + 320) - v29) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3353,34 +2532,34 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
 
       if (!uuid_is_null(v30))
       {
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v71, *(*(this + 24) + 16 * v62));
-        *&v67 = this;
-        *(&v67 + 1) = &v62;
-        *&v68 = a2;
-        if (v87 == -1)
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v70, *(*(this + 192) + 16 * v61));
+        *&v66 = this;
+        *(&v66 + 1) = &v61;
+        *&v67 = a2;
+        if (v86 == -1)
         {
           std::__throw_bad_variant_access[abi:ne200100]();
         }
 
-        *&v63 = &v67;
-        (off_28740AAD0[v87])(&v63, v71);
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v71);
+        *&v62 = &v66;
+        (off_28740AAD0[v86])(&v62, v70);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v70);
       }
 
-      v28 = ++v62;
+      v28 = ++v61;
     }
 
-    while (v62 < ((*(this + 25) - *(this + 24)) >> 4));
+    while (v61 < ((*(this + 200) - *(this + 192)) >> 4));
   }
 
-  if (*(this + 28) != *(this + 27))
+  if (*(this + 224) != *(this + 216))
   {
     v31 = 0;
     v32 = 0;
     do
     {
-      v33 = *(this + 42);
-      if (v31 >= (*(this + 43) - v33) >> 5)
+      v33 = *(this + 336);
+      if (v31 >= (*(this + 344) - v33) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3393,61 +2572,61 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
 
       if (!uuid_is_null(v34))
       {
-        v35 = *(*(this + 27) + 16 * v31);
-        v74 = v35[4];
-        v75 = v35[5];
-        v76 = v35[6];
-        v77 = v35[7];
-        *v71 = *v35;
-        *&v71[16] = v35[1];
-        v72 = v35[2];
-        v73 = v35[3];
-        v36 = *(this + 42);
-        if (v31 >= (*(this + 43) - v36) >> 5)
+        v35 = *(*(this + 216) + 16 * v31);
+        v73 = v35[4];
+        v74 = v35[5];
+        v75 = v35[6];
+        v76 = v35[7];
+        *v70 = *v35;
+        *&v70[16] = v35[1];
+        v71 = v35[2];
+        v72 = v35[3];
+        v36 = *(this + 336);
+        if (v31 >= (*(this + 344) - v36) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
 
         v37 = 0;
         v38 = (v36 + 32 * v31);
-        *v71 = *v38;
-        *&v71[16] = v38[1];
-        v39 = *(this + 3);
-        v40 = *(this + 4);
-        v41 = *(this + 5);
-        v42 = *(this + 6);
+        *v70 = *v38;
+        *&v70[16] = v38[1];
+        v39 = *(this + 48);
+        v40 = *(this + 64);
+        v41 = *(this + 80);
+        v42 = *(this + 96);
+        v62 = v71;
         v63 = v72;
         v64 = v73;
         v65 = v74;
-        v66 = v75;
         do
         {
-          *(&v67 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v39, COERCE_FLOAT(*(&v63 + v37))), v40, *(&v63 + v37), 1), v41, *(&v63 + v37), 2), v42, *(&v63 + v37), 3);
+          *(&v66 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v39, COERCE_FLOAT(*(&v62 + v37))), v40, *(&v62 + v37), 1), v41, *(&v62 + v37), 2), v42, *(&v62 + v37), 3);
           v37 += 16;
         }
 
         while (v37 != 64);
+        v71 = v66;
         v72 = v67;
         v73 = v68;
         v74 = v69;
-        v75 = v70;
-        std::vector<rf::data_flow::SceneObject>::push_back[abi:ne200100](a2 + 656, v71);
+        std::vector<rf::data_flow::SceneObject>::push_back[abi:ne200100](a2 + 656, v70);
       }
 
       v31 = ++v32;
     }
 
-    while (v32 < ((*(this + 28) - *(this + 27)) >> 4));
+    while (v32 < ((*(this + 224) - *(this + 216)) >> 4));
   }
 
-  if (*(this + 31) != *(this + 30))
+  if (*(this + 248) != *(this + 240))
   {
     v43 = 0;
     v44 = 0;
     do
     {
-      v45 = *(this + 45);
-      if (v43 >= (*(this + 46) - v45) >> 5)
+      v45 = *(this + 360);
+      if (v43 >= (*(this + 368) - v45) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3460,54 +2639,54 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
 
       if (!uuid_is_null(v46))
       {
-        v47 = *(*(this + 30) + 16 * v43);
-        v73 = *(v47 + 48);
-        v74 = *(v47 + 64);
-        v75 = *(v47 + 80);
-        v76 = *(v47 + 96);
-        *v71 = *v47;
-        *&v71[16] = *(v47 + 16);
-        v72 = *(v47 + 32);
-        LOBYTE(v77) = 0;
-        BYTE8(v77) = 0;
+        v47 = *(*(this + 240) + 16 * v43);
+        v72 = *(v47 + 48);
+        v73 = *(v47 + 64);
+        v74 = *(v47 + 80);
+        v75 = *(v47 + 96);
+        *v70 = *v47;
+        *&v70[16] = *(v47 + 16);
+        v71 = *(v47 + 32);
+        LOBYTE(v76) = 0;
+        BYTE8(v76) = 0;
         if (*(v47 + 120) == 1)
         {
-          *&v77 = *(v47 + 112);
-          BYTE8(v77) = 1;
+          *&v76 = *(v47 + 112);
+          BYTE8(v76) = 1;
         }
 
-        v78 = *(v47 + 128);
-        v48 = *(this + 45);
-        if (v43 >= (*(this + 46) - v48) >> 5)
+        v77 = *(v47 + 128);
+        v48 = *(this + 360);
+        if (v43 >= (*(this + 368) - v48) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
 
         v49 = 0;
         v50 = (v48 + 32 * v43);
-        *v71 = *v50;
-        *&v71[16] = v50[1];
-        v51 = *(this + 3);
-        v52 = *(this + 4);
-        v53 = *(this + 5);
-        v54 = *(this + 6);
+        *v70 = *v50;
+        *&v70[16] = v50[1];
+        v51 = *(this + 48);
+        v52 = *(this + 64);
+        v53 = *(this + 80);
+        v54 = *(this + 96);
+        v62 = v71;
         v63 = v72;
         v64 = v73;
         v65 = v74;
-        v66 = v75;
         do
         {
-          *(&v67 + v49) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v51, COERCE_FLOAT(*(&v63 + v49))), v52, *(&v63 + v49), 1), v53, *(&v63 + v49), 2), v54, *(&v63 + v49), 3);
+          *(&v66 + v49) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v51, COERCE_FLOAT(*(&v62 + v49))), v52, *(&v62 + v49), 1), v53, *(&v62 + v49), 2), v54, *(&v62 + v49), 3);
           v49 += 16;
         }
 
         while (v49 != 64);
+        v71 = v66;
         v72 = v67;
         v73 = v68;
         v74 = v69;
-        v75 = v70;
-        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](a2 + 73, v71);
-        if (BYTE8(v77) == 1)
+        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](a2 + 73, v70);
+        if (BYTE8(v76) == 1)
         {
         }
       }
@@ -3515,44 +2694,43 @@ double rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow
       v43 = ++v44;
     }
 
-    while (v44 < ((*(this + 31) - *(this + 30)) >> 4));
+    while (v44 < ((*(this + 248) - *(this + 240)) >> 4));
   }
 
   if (*(this + 39) < 0)
   {
-    std::string::__init_copy_ctor_external(v71, *(this + 2), *(this + 3));
+    std::string::__init_copy_ctor_external(v70, *(this + 16), *(this + 24));
   }
 
   else
   {
-    *v71 = *(this + 1);
-    *&v71[16] = *(this + 4);
+    *v70 = *(this + 16);
+    *&v70[16] = *(this + 32);
   }
 
-  v55 = *(this + 4);
-  v72 = *(this + 3);
-  v73 = v55;
-  v56 = *(this + 6);
-  v74 = *(this + 5);
-  v75 = v56;
+  v55 = *(this + 64);
+  v71 = *(this + 48);
+  v72 = v55;
+  v56 = *(this + 96);
+  v73 = *(this + 80);
+  v74 = v56;
   v57 = (a2 + 1840);
   if (*(a2 + 1863) < 0)
   {
     operator delete(*v57);
   }
 
-  *v57 = *v71;
-  v58 = v73;
-  *(a2 + 117) = v72;
+  *v57 = *v70;
+  v58 = v72;
+  *(a2 + 117) = v71;
   *(a2 + 118) = v58;
-  result = *&v74;
-  v60 = v75;
-  *(a2 + 119) = v74;
-  *(a2 + 232) = *&v71[16];
+  result = *&v73;
+  v60 = v74;
+  *(a2 + 119) = v73;
+  *(a2 + 232) = *&v70[16];
   *(a2 + 120) = v60;
-  *(a2 + 510) = *(this + 97);
+  *(a2 + 510) = *(this + 388);
   *(a2 + 2044) = 1;
-  v61 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3603,12 +2781,12 @@ void std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](id
     std::allocator_traits<std::allocator<rf::data_flow::provider::InputMesh>>::construct[abi:ne200100]<rf::data_flow::provider::InputMesh,rf::data_flow::provider::InputMesh,void,0>(v11, a2);
     v12 = *a1;
     v13 = a1[1];
-    v14 = *a1 - v13;
-    v15 = (v11 + v14);
+    v14 = (*a1 - v13);
+    v15 = &v14[v11];
     if (v13 != *a1)
     {
       v16 = *a1;
-      v17 = v11 + v14;
+      v17 = &v14[v11];
       do
       {
         std::allocator_traits<std::allocator<rf::data_flow::provider::InputMesh>>::construct[abi:ne200100]<rf::data_flow::provider::InputMesh,rf::data_flow::provider::InputMesh,void,0>(v17, v16);
@@ -3627,7 +2805,7 @@ void std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](id
       v12 = *a1;
     }
 
-    v6 = v11 + 352;
+    v6 = (v11 + 352);
     *a1 = v15;
     a1[1] = v6;
     a1[2] = 0;
@@ -3640,7 +2818,7 @@ void std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](id
   else
   {
     std::allocator_traits<std::allocator<rf::data_flow::provider::InputMesh>>::construct[abi:ne200100]<rf::data_flow::provider::InputMesh,rf::data_flow::provider::InputMesh,void,0>(a1[1], a2);
-    v6 = (v5 + 44);
+    v6 = v5 + 44;
   }
 
   a1[1] = v6;
@@ -3799,7 +2977,7 @@ void **std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](voi
     *(144 * v13 + 0x80) = *(a2 + 16);
     *&v31 = v17 + 144;
     v24 = result[1];
-    v25 = v17 + *result - v24;
+    v25 = (v17 + *result - v24);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<rf::data_flow::EnvironmentProbe>,rf::data_flow::EnvironmentProbe*>(result, *result, v24, v25);
     v26 = *v3;
     *v3 = v25;
@@ -3846,24 +3024,24 @@ void **std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](voi
   return result;
 }
 
-void sub_26183B0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26183B0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<rf::data_flow::EnvironmentProbe>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-std::string *rf::data_flow::provider::SyntheticARData::appendRemovedData(uint64_t a1, uint64_t a2)
+std::string *rf::data_flow::provider::SyntheticARData::appendRemovedData(uint64_t is_null, uint64_t a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 152) != *(a1 + 144))
+  v50 = *MEMORY[0x277D85DE8];
+  if (*(is_null + 152) != *(is_null + 144))
   {
     v4 = 0;
     v5 = 1;
     do
     {
-      v6 = *(a1 + 264);
-      if (v4 >= (*(a1 + 272) - v6) >> 5)
+      v6 = *(is_null + 264);
+      if (v4 >= (*(is_null + 272) - v6) >> 5)
       {
 LABEL_60:
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
@@ -3877,8 +3055,8 @@ LABEL_60:
 
       if (!uuid_is_null(v7))
       {
-        v8 = *(a1 + 264);
-        if (v4 >= (*(a1 + 272) - v8) >> 5)
+        v8 = *(is_null + 264);
+        if (v4 >= (*(is_null + 272) - v8) >> 5)
         {
           goto LABEL_60;
         }
@@ -3889,20 +3067,20 @@ LABEL_60:
       v4 = v5++;
     }
 
-    while (v4 < (*(a1 + 152) - *(a1 + 144)) >> 4);
+    while (v4 < (*(is_null + 152) - *(is_null + 144)) >> 4);
   }
 
-  v44 = [MEMORY[0x277CBEAA8] date];
-  [v44 timeIntervalSince1970];
-  if (*(a1 + 176) != *(a1 + 168))
+  v43 = [MEMORY[0x277CBEAA8] date];
+  [v43 timeIntervalSince1970];
+  if (*(is_null + 176) != *(is_null + 168))
   {
     v10 = v9;
     v11 = 0;
     v12 = 1;
     do
     {
-      v13 = *(a1 + 288);
-      if (v11 >= (*(a1 + 296) - v13) >> 5)
+      v13 = *(is_null + 288);
+      if (v11 >= (*(is_null + 296) - v13) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -3915,15 +3093,15 @@ LABEL_60:
 
       if (!uuid_is_null(v14))
       {
-        v15 = *(a1 + 288);
-        if (v11 >= (*(a1 + 296) - v15) >> 5)
+        v15 = *(is_null + 288);
+        if (v11 >= (*(is_null + 296) - v15) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
 
         v16 = (v15 + 32 * v11);
-        v48 = *v16;
-        v49 = v16[1];
+        v47 = *v16;
+        v48 = v16[1];
         v17 = *(a2 + 760);
         v18 = *(a2 + 768);
         if (v17 >= v18)
@@ -3963,8 +3141,8 @@ LABEL_60:
           }
 
           v26 = 40 * v23;
-          v27 = v49;
-          *v26 = v48;
+          v27 = v48;
+          *v26 = v47;
           *(v26 + 16) = v27;
           *(v26 + 32) = v10;
           v20 = 40 * v23 + 40;
@@ -3994,17 +3172,17 @@ LABEL_60:
       v11 = v12++;
     }
 
-    while (v11 < (*(a1 + 176) - *(a1 + 168)) >> 4);
+    while (v11 < (*(is_null + 176) - *(is_null + 168)) >> 4);
   }
 
-  v46 = 0;
-  if (*(a1 + 200) != *(a1 + 192))
+  v45 = 0;
+  if (*(is_null + 200) != *(is_null + 192))
   {
     v29 = 0;
     do
     {
-      v30 = *(a1 + 312);
-      if (v29 >= (*(a1 + 320) - v30) >> 5)
+      v30 = *(is_null + 312);
+      if (v29 >= (*(is_null + 320) - v30) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -4017,34 +3195,34 @@ LABEL_60:
 
       if (!uuid_is_null(v31))
       {
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v48, *(*(a1 + 192) + 16 * v46));
-        v45[0] = a1;
-        v45[1] = &v46;
-        v45[2] = a2;
-        if (v50 == -1)
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v47, *(*(is_null + 192) + 16 * v45));
+        v44[0] = is_null;
+        v44[1] = &v45;
+        v44[2] = a2;
+        if (v49 == -1)
         {
           std::__throw_bad_variant_access[abi:ne200100]();
         }
 
-        v47 = v45;
-        (off_28740AB00[v50])(&v47, &v48);
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v48);
+        v46 = v44;
+        (off_28740AB00[v49])(&v46, &v47);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v47);
       }
 
-      v29 = ++v46;
+      v29 = ++v45;
     }
 
-    while (v46 < ((*(a1 + 200) - *(a1 + 192)) >> 4));
+    while (v45 < ((*(is_null + 200) - *(is_null + 192)) >> 4));
   }
 
-  if (*(a1 + 224) != *(a1 + 216))
+  if (*(is_null + 224) != *(is_null + 216))
   {
     v32 = 0;
     v33 = 1;
     do
     {
-      v34 = *(a1 + 336);
-      if (v32 >= (*(a1 + 344) - v34) >> 5)
+      v34 = *(is_null + 336);
+      if (v32 >= (*(is_null + 344) - v34) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -4057,8 +3235,8 @@ LABEL_60:
 
       if (!uuid_is_null(v35))
       {
-        v36 = *(a1 + 336);
-        if (v32 >= (*(a1 + 344) - v36) >> 5)
+        v36 = *(is_null + 336);
+        if (v32 >= (*(is_null + 344) - v36) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
@@ -4069,17 +3247,17 @@ LABEL_60:
       v32 = v33++;
     }
 
-    while (v32 < (*(a1 + 224) - *(a1 + 216)) >> 4);
+    while (v32 < (*(is_null + 224) - *(is_null + 216)) >> 4);
   }
 
-  if (*(a1 + 248) != *(a1 + 240))
+  if (*(is_null + 248) != *(is_null + 240))
   {
     v37 = 0;
     v38 = 1;
     do
     {
-      v39 = *(a1 + 360);
-      if (v37 >= (*(a1 + 368) - v39) >> 5)
+      v39 = *(is_null + 360);
+      if (v37 >= (*(is_null + 368) - v39) >> 5)
       {
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
@@ -4092,8 +3270,8 @@ LABEL_60:
 
       if (!uuid_is_null(v40))
       {
-        v41 = *(a1 + 360);
-        if (v37 >= (*(a1 + 368) - v41) >> 5)
+        v41 = *(is_null + 360);
+        if (v37 >= (*(is_null + 368) - v41) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
@@ -4104,13 +3282,12 @@ LABEL_60:
       v37 = v38++;
     }
 
-    while (v37 < (*(a1 + 248) - *(a1 + 240)) >> 4);
+    while (v37 < (*(is_null + 248) - *(is_null + 240)) >> 4);
   }
 
-  result = std::string::operator=((a2 + 1816), (a1 + 16));
+  result = std::string::operator=((a2 + 1816), (is_null + 16));
   *(a2 + 2040) = 0;
   *(a2 + 2044) = 1;
-  v43 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4179,7 +3356,7 @@ void std::vector<rf::data_flow::RFUUID>::push_back[abi:ne200100](uint64_t a1, _O
 
 void rf::data_flow::provider::SyntheticARData::appendUpdateProbe(float32x4_t *this, void **a2, const unsigned __int8 *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (this[15].i64[1] != this[15].i64[0])
   {
     v6 = 0;
@@ -4202,57 +3379,57 @@ void rf::data_flow::provider::SyntheticARData::appendUpdateProbe(float32x4_t *th
       {
         v10 = *(this[15].i64[0] + 16 * v6);
         v11 = *(v10 + 80);
-        v26 = *(v10 + 64);
-        v27 = v11;
-        v28 = *(v10 + 96);
+        v25 = *(v10 + 64);
+        v26 = v11;
+        v27 = *(v10 + 96);
         v12 = *(v10 + 16);
-        v22 = *v10;
-        v23 = v12;
+        v21 = *v10;
+        v22 = v12;
         v13 = *(v10 + 48);
-        v24 = *(v10 + 32);
-        v25 = v13;
-        LOBYTE(v29) = 0;
-        v30 = 0;
+        v23 = *(v10 + 32);
+        v24 = v13;
+        LOBYTE(v28) = 0;
+        v29 = 0;
         if (*(v10 + 120) == 1)
         {
-          v29 = *(v10 + 112);
-          v30 = 1;
+          v28 = *(v10 + 112);
+          v29 = 1;
         }
 
-        v31 = *(v10 + 128);
-        v33.i8[0] = 0;
-        v33.i64[1] = 0;
+        v30 = *(v10 + 128);
+        v32.i8[0] = 0;
+        v32.i64[1] = 0;
         uuid_clear(uu);
         v14 = 0;
-        v22 = *a3;
-        v23 = v33;
+        v21 = *a3;
+        v22 = v32;
         v15 = this[3];
         v16 = this[4];
         v17 = this[5];
         v18 = this[6];
-        v21[0] = v24;
-        v21[1] = v25;
-        v21[2] = v26;
-        v21[3] = v27;
+        v20[0] = v23;
+        v20[1] = v24;
+        v20[2] = v25;
+        v20[3] = v26;
         do
         {
-          *&uu[v14 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v15, COERCE_FLOAT(v21[v14])), v16, *&v21[v14], 1), v17, v21[v14], 2), v18, v21[v14], 3);
+          *&uu[v14 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v15, COERCE_FLOAT(v20[v14])), v16, *&v20[v14], 1), v17, v20[v14], 2), v18, v20[v14], 3);
           ++v14;
         }
 
         while (v14 != 4);
-        v24 = *uu;
+        v23 = *uu;
+        v24 = v32;
         v25 = v33;
         v26 = v34;
-        v27 = v35;
-        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](a2 + 70, &v22);
-        v33.i8[0] = 0;
-        v33.i64[1] = 0;
+        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100](a2 + 70, &v21);
+        v32.i8[0] = 0;
+        v32.i64[1] = 0;
         uuid_clear(uu);
-        v19 = v33;
+        v19 = v32;
         this[7] = *a3;
         this[8] = v19;
-        if (v30 == 1)
+        if (v29 == 1)
         {
         }
       }
@@ -4262,8 +3439,6 @@ void rf::data_flow::provider::SyntheticARData::appendUpdateProbe(float32x4_t *th
 
     while (v7 < ((this[15].i64[1] - this[15].i64[0]) >> 4));
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26183B888(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, char a32)
@@ -4275,9 +3450,9 @@ void sub_26183B888(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, float32x4_t *a2, uint64_t a3)
+void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t is_null, float32x4_t *a2, uint64_t a3)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   if (a2[9].i64[1] != a2[9].i64[0])
   {
     v5 = 0;
@@ -4290,7 +3465,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v8 = (v7 + 32 * v5);
+      v8 = v7 + 32 * v5;
       if (*(v8 + 16) == 1)
       {
         v8 = *v8;
@@ -4298,70 +3473,70 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
 
       if (uuid_is_null(v8))
       {
-        rf::data_flow::provider::InputMesh::InputMesh(&v62, *(a2[9].i64[0] + 16 * v5));
-        LOBYTE(v87) = 0;
-        *(&v87 + 1) = 0;
+        rf::data_flow::provider::InputMesh::InputMesh(&v61, *(a2[9].i64[0] + 16 * v5));
+        LOBYTE(v86) = 0;
+        *(&v86 + 1) = 0;
         uuid_clear(uu);
         uuid_generate_random(uu);
         v9 = 0;
-        v62 = *uu;
-        v63 = v87;
+        v61 = *uu;
+        v62 = v86;
         v10 = a2[3];
         v11 = a2[4];
         v12 = a2[5];
         v13 = a2[6];
+        v57 = v63;
         v58 = v64;
         v59 = v65;
         v60 = v66;
-        v61 = v67;
         do
         {
-          *&uu[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(*(&v58 + v9))), v11, *(&v58 + v9), 1), v12, *(&v58 + v9), 2), v13, *(&v58 + v9), 3);
+          *&uu[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(*(&v57 + v9))), v11, *(&v57 + v9), 1), v12, *(&v57 + v9), 2), v13, *(&v57 + v9), 3);
           v9 += 16;
         }
 
         while (v9 != 64);
-        v64 = *uu;
+        v63 = *uu;
+        v64 = v86;
         v65 = v87;
         v66 = v88;
-        v67 = v89;
         v14 = a2[16].i64[1];
         if (v5 >= (a2[17].i64[0] - v14) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v15 = v63;
+        v15 = v62;
         v16 = (v14 + 32 * v5);
-        *v16 = v62;
+        *v16 = v61;
         v16[1] = v15;
-        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a3, &v62);
+        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100](a3, &v61);
 
-        if (v84 == 1)
+        if (v83 == 1)
         {
         }
 
-        if (v82 == 1)
+        if (v81 == 1)
         {
         }
 
-        if (v80 == 1)
+        if (v79 == 1)
         {
         }
 
-        if (v77 == 1)
+        if (v76 == 1)
         {
         }
 
-        if (v75 == 1)
+        if (v74 == 1)
         {
         }
 
-        if (v73 == 1)
+        if (v72 == 1)
         {
         }
 
-        if (v71 == 1)
+        if (v70 == 1)
         {
         }
       }
@@ -4384,7 +3559,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v20 = (v19 + 32 * v17);
+      v20 = v19 + 32 * v17;
       if (*(v20 + 16) == 1)
       {
         v20 = *v20;
@@ -4392,70 +3567,70 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
 
       if (uuid_is_null(v20))
       {
-        rf::data_flow::provider::InputMesh::InputMesh(&v62, *(a2[10].i64[1] + 16 * v17));
-        LOBYTE(v87) = 0;
-        *(&v87 + 1) = 0;
+        rf::data_flow::provider::InputMesh::InputMesh(&v61, *(a2[10].i64[1] + 16 * v17));
+        LOBYTE(v86) = 0;
+        *(&v86 + 1) = 0;
         uuid_clear(uu);
         uuid_generate_random(uu);
         v21 = 0;
-        v62 = *uu;
-        v63 = v87;
+        v61 = *uu;
+        v62 = v86;
         v22 = a2[3];
         v23 = a2[4];
         v24 = a2[5];
         v25 = a2[6];
+        v57 = v63;
         v58 = v64;
         v59 = v65;
         v60 = v66;
-        v61 = v67;
         do
         {
-          *&uu[v21] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&v58 + v21))), v23, *(&v58 + v21), 1), v24, *(&v58 + v21), 2), v25, *(&v58 + v21), 3);
+          *&uu[v21] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&v57 + v21))), v23, *(&v57 + v21), 1), v24, *(&v57 + v21), 2), v25, *(&v57 + v21), 3);
           v21 += 16;
         }
 
         while (v21 != 64);
-        v64 = *uu;
+        v63 = *uu;
+        v64 = v86;
         v65 = v87;
         v66 = v88;
-        v67 = v89;
         v26 = a2[18].i64[0];
         if (v17 >= (a2[18].i64[1] - v26) >> 5)
         {
           std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v27 = v63;
+        v27 = v62;
         v28 = (v26 + 32 * v17);
-        *v28 = v62;
+        *v28 = v61;
         v28[1] = v27;
-        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100]((a3 + 704), &v62);
+        std::vector<rf::data_flow::provider::InputMesh>::push_back[abi:ne200100]((a3 + 704), &v61);
 
-        if (v84 == 1)
+        if (v83 == 1)
         {
         }
 
-        if (v82 == 1)
+        if (v81 == 1)
         {
         }
 
-        if (v80 == 1)
+        if (v79 == 1)
         {
         }
 
-        if (v77 == 1)
+        if (v76 == 1)
         {
         }
 
-        if (v75 == 1)
+        if (v74 == 1)
         {
         }
 
-        if (v73 == 1)
+        if (v72 == 1)
         {
         }
 
-        if (v71 == 1)
+        if (v70 == 1)
         {
         }
       }
@@ -4466,7 +3641,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
     while (v18 < ((a2[11].i64[0] - a2[10].i64[1]) >> 4));
   }
 
-  v57 = 0;
+  v56 = 0;
   if (a2[12].i64[1] != a2[12].i64[0])
   {
     v29 = 0;
@@ -4478,7 +3653,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v31 = (v30 + 32 * v29);
+      v31 = v30 + 32 * v29;
       if (*(v31 + 16) == 1)
       {
         v31 = *v31;
@@ -4486,24 +3661,24 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
 
       if (uuid_is_null(v31))
       {
-        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v62, *(a2[12].i64[0] + 16 * v57));
+        std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v61, *(a2[12].i64[0] + 16 * v56));
         *uu = a2;
-        *&uu[8] = &v57;
-        *&v87 = a3;
-        if (v79 == -1)
+        *&uu[8] = &v56;
+        *&v86 = a3;
+        if (v78 == -1)
         {
           std::__throw_bad_variant_access[abi:ne200100]();
         }
 
-        *&v58 = uu;
-        (off_28740AB30[v79])(&v58, &v62);
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v62);
+        *&v57 = uu;
+        (off_28740AB30[v78])(&v57, &v61);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v61);
       }
 
-      v29 = ++v57;
+      v29 = ++v56;
     }
 
-    while (v57 < ((a2[12].i64[1] - a2[12].i64[0]) >> 4));
+    while (v56 < ((a2[12].i64[1] - a2[12].i64[0]) >> 4));
   }
 
   if (a2[14].i64[0] != a2[13].i64[1])
@@ -4518,7 +3693,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v35 = (v34 + 32 * v32);
+      v35 = v34 + 32 * v32;
       if (*(v35 + 16) == 1)
       {
         v35 = *v35;
@@ -4527,40 +3702,40 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
       if (uuid_is_null(v35))
       {
         v36 = *(a2[13].i64[1] + 16 * v32);
-        v66 = v36[4];
-        v67 = v36[5];
-        v68 = v36[6];
-        v69 = v36[7];
-        v62 = *v36;
-        v63 = v36[1];
-        v64 = v36[2];
-        v65 = v36[3];
-        LOBYTE(v87) = 0;
-        *(&v87 + 1) = 0;
+        v65 = v36[4];
+        v66 = v36[5];
+        v67 = v36[6];
+        v68 = v36[7];
+        v61 = *v36;
+        v62 = v36[1];
+        v63 = v36[2];
+        v64 = v36[3];
+        LOBYTE(v86) = 0;
+        *(&v86 + 1) = 0;
         uuid_clear(uu);
         uuid_generate_random(uu);
         v37 = 0;
-        v62 = *uu;
-        v63 = v87;
+        v61 = *uu;
+        v62 = v86;
         v38 = a2[3];
         v39 = a2[4];
         v40 = a2[5];
         v41 = a2[6];
+        v57 = v63;
         v58 = v64;
         v59 = v65;
         v60 = v66;
-        v61 = v67;
         do
         {
-          *&uu[v37] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v38, COERCE_FLOAT(*(&v58 + v37))), v39, *(&v58 + v37), 1), v40, *(&v58 + v37), 2), v41, *(&v58 + v37), 3);
+          *&uu[v37] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v38, COERCE_FLOAT(*(&v57 + v37))), v39, *(&v57 + v37), 1), v40, *(&v57 + v37), 2), v41, *(&v57 + v37), 3);
           v37 += 16;
         }
 
         while (v37 != 64);
-        v64 = *uu;
+        v63 = *uu;
+        v64 = v86;
         v65 = v87;
         v66 = v88;
-        v67 = v89;
         v42 = a2[21].i64[0];
         if (v32 >= (a2[21].i64[1] - v42) >> 5)
         {
@@ -4568,9 +3743,9 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         }
 
         v43 = (v42 + 32 * v32);
-        *v43 = v62;
-        v43[1] = v63;
-        std::vector<rf::data_flow::SceneObject>::push_back[abi:ne200100](a3 + 632, &v62);
+        *v43 = v61;
+        v43[1] = v62;
+        std::vector<rf::data_flow::SceneObject>::push_back[abi:ne200100](a3 + 632, &v61);
       }
 
       v32 = ++v33;
@@ -4591,7 +3766,7 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v47 = (v46 + 32 * v44);
+      v47 = v46 + 32 * v44;
       if (*(v47 + 16) == 1)
       {
         v47 = *v47;
@@ -4600,48 +3775,48 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
       if (uuid_is_null(v47))
       {
         v48 = *(a2[15].i64[0] + 16 * v44);
-        v65 = *(v48 + 48);
-        v66 = *(v48 + 64);
-        v67 = *(v48 + 80);
-        v68 = *(v48 + 96);
-        v62 = *v48;
-        v63 = *(v48 + 16);
-        v64 = *(v48 + 32);
-        LOBYTE(v69) = 0;
-        BYTE8(v69) = 0;
+        v64 = *(v48 + 48);
+        v65 = *(v48 + 64);
+        v66 = *(v48 + 80);
+        v67 = *(v48 + 96);
+        v61 = *v48;
+        v62 = *(v48 + 16);
+        v63 = *(v48 + 32);
+        LOBYTE(v68) = 0;
+        BYTE8(v68) = 0;
         if (*(v48 + 120) == 1)
         {
-          *&v69 = *(v48 + 112);
-          BYTE8(v69) = 1;
+          *&v68 = *(v48 + 112);
+          BYTE8(v68) = 1;
         }
 
-        v70 = *(v48 + 128);
-        LOBYTE(v87) = 0;
-        *(&v87 + 1) = 0;
+        v69 = *(v48 + 128);
+        LOBYTE(v86) = 0;
+        *(&v86 + 1) = 0;
         uuid_clear(uu);
         uuid_generate_random(uu);
         v49 = 0;
-        v62 = *uu;
-        v63 = v87;
+        v61 = *uu;
+        v62 = v86;
         v50 = a2[3];
         v51 = a2[4];
         v52 = a2[5];
         v53 = a2[6];
+        v57 = v63;
         v58 = v64;
         v59 = v65;
         v60 = v66;
-        v61 = v67;
         do
         {
-          *&uu[v49] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v50, COERCE_FLOAT(*(&v58 + v49))), v51, *(&v58 + v49), 1), v52, *(&v58 + v49), 2), v53, *(&v58 + v49), 3);
+          *&uu[v49] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v50, COERCE_FLOAT(*(&v57 + v49))), v51, *(&v57 + v49), 1), v52, *(&v57 + v49), 2), v53, *(&v57 + v49), 3);
           v49 += 16;
         }
 
         while (v49 != 64);
-        v64 = *uu;
+        v63 = *uu;
+        v64 = v86;
         v65 = v87;
         v66 = v88;
-        v67 = v89;
         v54 = a2[22].i64[1];
         if (v44 >= (a2[23].i64[0] - v54) >> 5)
         {
@@ -4649,10 +3824,10 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
         }
 
         v55 = (v54 + 32 * v44);
-        *v55 = v62;
-        v55[1] = v63;
-        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100]((a3 + 560), &v62);
-        if (BYTE8(v69) == 1)
+        *v55 = v61;
+        v55[1] = v62;
+        std::vector<rf::data_flow::EnvironmentProbe>::push_back[abi:ne200100]((a3 + 560), &v61);
+        if (BYTE8(v68) == 1)
         {
         }
       }
@@ -4665,7 +3840,6 @@ void rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(uint64_t a1, 
 
   *(a3 + 2040) = a2[24].i32[1];
   *(a3 + 2044) = 1;
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26183C05C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
@@ -4689,17 +3863,17 @@ void std::vector<std::shared_ptr<rf::data_flow::provider::InputMesh>>::__vdeallo
   }
 }
 
-void *std::vector<rf::data_flow::RFUUID>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<rf::data_flow::RFUUID>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<rf::data_flow::RFUUID>::__vallocate[abi:ne200100](result, a2);
+    std::vector<rf::data_flow::RFUUID>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26183C180(_Unwind_Exception *exception_object)
@@ -4894,7 +4068,81 @@ uint64_t std::allocator_traits<std::allocator<rf::data_flow::provider::InputMesh
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = **a1;
+  v4 = (*a1)[1]->u32[0];
+  v5 = v3[19].i64[1];
+  if (v4 >= (v3[20].i64[0] - v5) >> 5)
+  {
+    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v7 = 0;
+  v8 = (v5 + 32 * v4);
+  v9 = v8[1];
+  *a2 = *v8;
+  a2[1] = v9;
+  v10 = v3[3];
+  v11 = v3[4];
+  v12 = v3[5];
+  v13 = v3[6];
+  v14 = a2[3];
+  v15 = a2[4];
+  v16 = a2[5];
+  v27[0] = a2[2];
+  v27[1] = v14;
+  v27[2] = v15;
+  v27[3] = v16;
+  do
+  {
+    *(&v28 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v27[v7])), v11, *&v27[v7], 1), v12, v27[v7], 2), v13, v27[v7], 3);
+    ++v7;
+  }
+
+  while (v7 != 4);
+  v17 = v29;
+  v18 = v30;
+  v19 = v31;
+  a2[2] = v28;
+  a2[3] = v17;
+  a2[4] = v18;
+  a2[5] = v19;
+  *(a2 + 25) = 2;
+  v20 = v2[2];
+  v21 = a2[5];
+  v32 = a2[4];
+  v33[0] = v21;
+  *(v33 + 9) = *(a2 + 89);
+  v22 = a2[1];
+  v28 = *a2;
+  v29 = v22;
+  v23 = a2[3];
+  v30 = a2[2];
+  v31 = v23;
+  v34 = *(a2 + 14);
+  v24 = a2[11];
+  v37 = a2[10];
+  v38 = v24;
+  v39 = a2[12];
+  v25 = a2[9];
+  v35 = a2[8];
+  v36 = v25;
+  v40 = 0;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v28);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v28);
+}
+
+void sub_26183C64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+{
+  v44 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1]->u32[0];
@@ -4954,23 +4202,213 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   v25 = a2[9];
   v36 = a2[8];
   v37 = v25;
-  v41 = 0;
+  v26 = *(a2 + 27);
+  v41 = *(a2 + 26);
+  memset(v42, 0, 24);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v42, v26, *(a2 + 28), (*(a2 + 28) - v26) >> 4);
+  v43 = 1;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v29);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29);
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29);
 }
 
-void sub_26183C64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183C7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = **a1;
+  v4 = (*a1)[1]->u32[0];
+  v5 = v3[19].i64[1];
+  if (v4 >= (v3[20].i64[0] - v5) >> 5)
+  {
+    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v7 = 0;
+  v8 = (v5 + 32 * v4);
+  v9 = v8[1];
+  *a2 = *v8;
+  a2[1] = v9;
+  v10 = v3[3];
+  v11 = v3[4];
+  v12 = v3[5];
+  v13 = v3[6];
+  v14 = a2[3];
+  v15 = a2[4];
+  v16 = a2[5];
+  v25[0] = a2[2];
+  v25[1] = v14;
+  v25[2] = v15;
+  v25[3] = v16;
+  do
+  {
+    *(&v26 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v25[v7])), v11, *&v25[v7], 1), v12, v25[v7], 2), v13, v25[v7], 3);
+    ++v7;
+  }
+
+  while (v7 != 4);
+  v17 = v27;
+  v18 = v28;
+  v19 = v29;
+  a2[2] = v26;
+  a2[3] = v17;
+  a2[4] = v18;
+  a2[5] = v19;
+  *(a2 + 25) = 2;
+  v20 = v2[2];
+  v21 = a2[5];
+  v30 = a2[4];
+  v31[0] = v21;
+  *(v31 + 9) = *(a2 + 89);
+  v22 = a2[1];
+  v26 = *a2;
+  v27 = v22;
+  v23 = a2[3];
+  v28 = a2[2];
+  v29 = v23;
+  v32 = *(a2 + 14);
+  v33 = *(a2 + 128);
+  if (*(a2 + 159) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v34, *(a2 + 17), *(a2 + 18));
+  }
+
+  else
+  {
+    v34 = *(a2 + 136);
+  }
+
+  if (*(a2 + 183) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v35, *(a2 + 20), *(a2 + 21));
+  }
+
+  else
+  {
+    v35 = *(a2 + 10);
+  }
+
+  v36 = a2[12];
+  v37 = 2;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v26);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26);
+}
+
+void sub_26183C998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+{
+  if (a39 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = **a1;
+  v4 = (*a1)[1]->u32[0];
+  v5 = v3[19].i64[1];
+  if (v4 >= (v3[20].i64[0] - v5) >> 5)
+  {
+    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v7 = 0;
+  v8 = (v5 + 32 * v4);
+  v9 = v8[1];
+  *a2 = *v8;
+  a2[1] = v9;
+  v10 = v3[3];
+  v11 = v3[4];
+  v12 = v3[5];
+  v13 = v3[6];
+  v14 = a2[3];
+  v15 = a2[4];
+  v16 = a2[5];
+  v27[0] = a2[2];
+  v27[1] = v14;
+  v27[2] = v15;
+  v27[3] = v16;
+  do
+  {
+    *(&v28 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v27[v7])), v11, *&v27[v7], 1), v12, v27[v7], 2), v13, v27[v7], 3);
+    ++v7;
+  }
+
+  while (v7 != 4);
+  v17 = v29;
+  v18 = v30;
+  v19 = v31;
+  a2[2] = v28;
+  a2[3] = v17;
+  a2[4] = v18;
+  a2[5] = v19;
+  *(a2 + 25) = 2;
+  v20 = v2[2];
+  v21 = a2[5];
+  v32 = a2[4];
+  v33[0] = v21;
+  *(v33 + 9) = *(a2 + 89);
+  v22 = a2[1];
+  v28 = *a2;
+  v29 = v22;
+  v23 = a2[3];
+  v30 = a2[2];
+  v31 = v23;
+  v34 = *(a2 + 14);
+  if (*(a2 + 151) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v35, *(a2 + 16), *(a2 + 17));
+  }
+
+  else
+  {
+    v35 = *(a2 + 8);
+  }
+
+  if (*(a2 + 175) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v36, *(a2 + 19), *(a2 + 20));
+  }
+
+  else
+  {
+    v36 = *(a2 + 152);
+  }
+
+  v24 = a2[12];
+  v37 = a2[11];
+  v38 = v24;
+  v25 = a2[14];
+  v39 = a2[13];
+  v40 = v25;
+  v41 = 3;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v28);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v28);
+}
+
+void sub_26183CB78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+{
+  if (a38 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+{
+  v46 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1]->u32[0];
@@ -5023,34 +4461,33 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   v32 = a2[2];
   v33 = v23;
   v36 = *(a2 + 14);
-  v24 = a2[11];
-  v39 = a2[10];
-  v40 = v24;
+  v24 = a2[13];
   v41 = a2[12];
-  v25 = a2[9];
+  v42 = v24;
+  v25 = a2[15];
+  v43 = a2[14];
+  v44 = v25;
+  v26 = a2[9];
   v37 = a2[8];
-  v38 = v25;
-  v26 = *(a2 + 27);
-  v42 = *(a2 + 26);
-  memset(v43, 0, 24);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v43, v26, *(a2 + 28), (*(a2 + 28) - v26) >> 4);
-  v44 = 1;
+  v38 = v26;
+  v27 = a2[11];
+  v39 = a2[10];
+  v40 = v27;
+  v45 = 4;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v30);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v30);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v30);
 }
 
-void sub_26183C7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183CD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1]->u32[0];
@@ -5072,77 +4509,51 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
   v14 = a2[3];
   v15 = a2[4];
   v16 = a2[5];
-  v26[0] = a2[2];
-  v26[1] = v14;
-  v26[2] = v15;
-  v26[3] = v16;
+  v25[0] = a2[2];
+  v25[1] = v14;
+  v25[2] = v15;
+  v25[3] = v16;
   do
   {
-    *(&v27 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v26[v7])), v11, *&v26[v7], 1), v12, v26[v7], 2), v13, v26[v7], 3);
+    *(&v26 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v25[v7])), v11, *&v25[v7], 1), v12, v25[v7], 2), v13, v25[v7], 3);
     ++v7;
   }
 
   while (v7 != 4);
-  v17 = v28;
-  v18 = v29;
-  v19 = v30;
-  a2[2] = v27;
+  v17 = v27;
+  v18 = v28;
+  v19 = v29;
+  a2[2] = v26;
   a2[3] = v17;
   a2[4] = v18;
   a2[5] = v19;
   *(a2 + 25) = 2;
   v20 = v2[2];
   v21 = a2[5];
-  v31 = a2[4];
-  v32[0] = v21;
-  *(v32 + 9) = *(a2 + 89);
+  v30 = a2[4];
+  v31[0] = v21;
+  *(v31 + 9) = *(a2 + 89);
   v22 = a2[1];
-  v27 = *a2;
-  v28 = v22;
+  v26 = *a2;
+  v27 = v22;
   v23 = a2[3];
-  v29 = a2[2];
-  v30 = v23;
-  v33 = *(a2 + 14);
-  v34 = *(a2 + 128);
-  if (*(a2 + 159) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v35, *(a2 + 17), *(a2 + 18));
-  }
-
-  else
-  {
-    v35 = *(a2 + 136);
-  }
-
-  if (*(a2 + 183) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v36, *(a2 + 20), *(a2 + 21));
-  }
-
-  else
-  {
-    v36 = *(a2 + 10);
-  }
-
-  v37 = a2[12];
-  v38 = 2;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v27);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v27);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  v28 = a2[2];
+  v29 = v23;
+  v32 = *(a2 + 14);
+  v33 = *(a2 + 32);
+  v34 = 5;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v26);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26);
 }
 
-void sub_26183C998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+void sub_26183CE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  if (a39 < 0)
-  {
-    operator delete(__p);
-  }
-
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   v2 = *a1;
@@ -5154,246 +4565,74 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
     std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v7 = 0;
-  v8 = (v5 + 32 * v4);
-  v9 = v8[1];
-  *a2 = *v8;
-  a2[1] = v9;
-  v10 = v3[3];
-  v11 = v3[4];
-  v12 = v3[5];
-  v13 = v3[6];
-  v14 = a2[3];
-  v15 = a2[4];
-  v16 = a2[5];
-  v28[0] = a2[2];
-  v28[1] = v14;
-  v28[2] = v15;
-  v28[3] = v16;
+  v6 = 0;
+  v7 = (v5 + 32 * v4);
+  v8 = v7[1];
+  *a2 = *v7;
+  a2[1] = v8;
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = a2[3];
+  v14 = a2[4];
+  v15 = a2[5];
+  v29[0] = a2[2];
+  v29[1] = v13;
+  v29[2] = v14;
+  v29[3] = v15;
   do
   {
-    *(&v29 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v28[v7])), v11, *&v28[v7], 1), v12, v28[v7], 2), v13, v28[v7], 3);
-    ++v7;
+    *(&v30 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v29[v6])), v10, *&v29[v6], 1), v11, v29[v6], 2), v12, v29[v6], 3);
+    ++v6;
   }
 
-  while (v7 != 4);
-  v17 = v30;
-  v18 = v31;
-  v19 = v32;
-  a2[2] = v29;
-  a2[3] = v17;
-  a2[4] = v18;
-  a2[5] = v19;
-  *(a2 + 25) = 2;
-  v20 = v2[2];
-  v21 = a2[5];
-  v33 = a2[4];
-  v34[0] = v21;
-  *(v34 + 9) = *(a2 + 89);
-  v22 = a2[1];
-  v29 = *a2;
-  v30 = v22;
-  v23 = a2[3];
-  v31 = a2[2];
-  v32 = v23;
-  v35 = *(a2 + 14);
-  if (*(a2 + 151) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v36, *(a2 + 16), *(a2 + 17));
-  }
-
-  else
-  {
-    v36 = *(a2 + 8);
-  }
-
-  if (*(a2 + 175) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v37, *(a2 + 19), *(a2 + 20));
-  }
-
-  else
-  {
-    v37 = *(a2 + 152);
-  }
-
-  v24 = a2[12];
-  v38 = a2[11];
-  v39 = v24;
-  v25 = a2[14];
-  v40 = a2[13];
-  v41 = v25;
-  v42 = 3;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v29);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29);
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183CB78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
-{
-  if (a38 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = **a1;
-  v4 = (*a1)[1]->u32[0];
-  v5 = v3[19].i64[1];
-  if (v4 >= (v3[20].i64[0] - v5) >> 5)
-  {
-    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v7 = 0;
-  v8 = (v5 + 32 * v4);
-  v9 = v8[1];
-  *a2 = *v8;
-  a2[1] = v9;
-  v10 = v3[3];
-  v11 = v3[4];
-  v12 = v3[5];
-  v13 = v3[6];
-  v14 = a2[3];
-  v15 = a2[4];
-  v16 = a2[5];
-  v30[0] = a2[2];
-  v30[1] = v14;
-  v30[2] = v15;
-  v30[3] = v16;
-  do
-  {
-    *(&v31 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v30[v7])), v11, *&v30[v7], 1), v12, v30[v7], 2), v13, v30[v7], 3);
-    ++v7;
-  }
-
-  while (v7 != 4);
+  while (v6 != 4);
+  v16 = v31;
   v17 = v32;
   v18 = v33;
-  v19 = v34;
-  a2[2] = v31;
-  a2[3] = v17;
-  a2[4] = v18;
-  a2[5] = v19;
-  *(a2 + 25) = 2;
-  v20 = v2[2];
-  v21 = a2[5];
-  v35 = a2[4];
-  v36[0] = v21;
-  *(v36 + 9) = *(a2 + 89);
-  v22 = a2[1];
-  v31 = *a2;
-  v32 = v22;
-  v23 = a2[3];
-  v33 = a2[2];
-  v34 = v23;
-  v37 = *(a2 + 14);
-  v24 = a2[13];
-  v42 = a2[12];
-  v43 = v24;
-  v25 = a2[15];
-  v44 = a2[14];
-  v45 = v25;
-  v26 = a2[9];
-  v38 = a2[8];
-  v39 = v26;
-  v27 = a2[11];
-  v40 = a2[10];
-  v41 = v27;
-  v46 = 4;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v31);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v31);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  a2[2] = v30;
+  a2[3] = v16;
+  a2[4] = v17;
+  a2[5] = v18;
+  v19 = v2[2];
+  v20 = a2[5];
+  v34 = a2[4];
+  v35[0] = v20;
+  *(v35 + 9) = *(a2 + 89);
+  v21 = a2[1];
+  v30 = *a2;
+  v31 = v21;
+  v22 = a2[3];
+  v32 = a2[2];
+  v33 = v22;
+  v23 = *(a2 + 14);
+  *(a2 + 14) = 0;
+  v36 = v23;
+  v24 = a2[8];
+  v25 = a2[9];
+  v26 = a2[12];
+  v40 = a2[11];
+  v41 = v26;
+  v27 = a2[10];
+  v38 = v25;
+  v39 = v27;
+  v37 = v24;
+  v42 = 0;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v30);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v30);
 }
 
-void sub_26183CD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183CFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendUpdatedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = **a1;
-  v4 = (*a1)[1]->u32[0];
-  v5 = v3[19].i64[1];
-  if (v4 >= (v3[20].i64[0] - v5) >> 5)
-  {
-    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v7 = 0;
-  v8 = (v5 + 32 * v4);
-  v9 = v8[1];
-  *a2 = *v8;
-  a2[1] = v9;
-  v10 = v3[3];
-  v11 = v3[4];
-  v12 = v3[5];
-  v13 = v3[6];
-  v14 = a2[3];
-  v15 = a2[4];
-  v16 = a2[5];
-  v26[0] = a2[2];
-  v26[1] = v14;
-  v26[2] = v15;
-  v26[3] = v16;
-  do
-  {
-    *(&v27 + v7 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(v26[v7])), v11, *&v26[v7], 1), v12, v26[v7], 2), v13, v26[v7], 3);
-    ++v7;
-  }
-
-  while (v7 != 4);
-  v17 = v28;
-  v18 = v29;
-  v19 = v30;
-  a2[2] = v27;
-  a2[3] = v17;
-  a2[4] = v18;
-  a2[5] = v19;
-  *(a2 + 25) = 2;
-  v20 = v2[2];
-  v21 = a2[5];
-  v31 = a2[4];
-  v32[0] = v21;
-  *(v32 + 9) = *(a2 + 89);
-  v22 = a2[1];
-  v27 = *a2;
-  v28 = v22;
-  v23 = a2[3];
-  v29 = a2[2];
-  v30 = v23;
-  v33 = *(a2 + 14);
-  v34 = *(a2 + 32);
-  v35 = 5;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v20[6], &v27);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v27);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183CE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
-{
-  v44 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1]->u32[0];
@@ -5447,30 +4686,194 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   v23 = *(a2 + 14);
   *(a2 + 14) = 0;
   v37 = v23;
-  v24 = a2[8];
-  v25 = a2[9];
+  v24 = a2[9];
+  v38 = a2[8];
+  v39 = v24;
+  v25 = a2[10];
   v26 = a2[12];
+  v27 = *(a2 + 26);
   v41 = a2[11];
   v42 = v26;
-  v27 = a2[10];
-  v39 = v25;
-  v40 = v27;
-  v38 = v24;
-  v43 = 0;
+  v40 = v25;
+  v44 = *(a2 + 216);
+  v28 = *(a2 + 29);
+  v43 = v27;
+  v45 = v28;
+  *(a2 + 216) = 0uLL;
+  *(a2 + 29) = 0;
+  v46 = 1;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v31);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v31);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v31);
 }
 
-void sub_26183CFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183D114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+{
+  v40 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = **a1;
+  v4 = (*a1)[1]->u32[0];
+  v5 = v3[19].i64[1];
+  if (v4 >= (v3[20].i64[0] - v5) >> 5)
+  {
+    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v6 = 0;
+  v7 = (v5 + 32 * v4);
+  v8 = v7[1];
+  *a2 = *v7;
+  a2[1] = v8;
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = a2[3];
+  v14 = a2[4];
+  v15 = a2[5];
+  v25[0] = a2[2];
+  v25[1] = v13;
+  v25[2] = v14;
+  v25[3] = v15;
+  do
+  {
+    *(&v26 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v25[v6])), v10, *&v25[v6], 1), v11, v25[v6], 2), v12, v25[v6], 3);
+    ++v6;
+  }
+
+  while (v6 != 4);
+  v16 = v27;
+  v17 = v28;
+  v18 = v29;
+  a2[2] = v26;
+  a2[3] = v16;
+  a2[4] = v17;
+  a2[5] = v18;
+  v19 = v2[2];
+  v20 = a2[5];
+  v30 = a2[4];
+  v31[0] = v20;
+  *(v31 + 9) = *(a2 + 89);
+  v21 = a2[1];
+  v26 = *a2;
+  v27 = v21;
+  v22 = a2[3];
+  v28 = a2[2];
+  v29 = v22;
+  v23 = *(a2 + 14);
+  *(a2 + 14) = 0;
+  v32 = v23;
+  v33 = *(a2 + 128);
+  v34 = *(a2 + 136);
+  v35 = *(a2 + 19);
+  *(a2 + 136) = 0uLL;
+  v36 = a2[10];
+  v37 = *(a2 + 22);
+  *(a2 + 152) = 0uLL;
+  *(a2 + 168) = 0uLL;
+  v38 = a2[12];
+  v39 = 2;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v26);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26);
+}
+
+void sub_26183D284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
+{
+  v46 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = **a1;
+  v4 = (*a1)[1]->u32[0];
+  v5 = v3[19].i64[1];
+  if (v4 >= (v3[20].i64[0] - v5) >> 5)
+  {
+    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v6 = 0;
+  v7 = (v5 + 32 * v4);
+  v8 = v7[1];
+  *a2 = *v7;
+  a2[1] = v8;
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = a2[3];
+  v14 = a2[4];
+  v15 = a2[5];
+  v29[0] = a2[2];
+  v29[1] = v13;
+  v29[2] = v14;
+  v29[3] = v15;
+  do
+  {
+    *(&v30 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v29[v6])), v10, *&v29[v6], 1), v11, v29[v6], 2), v12, v29[v6], 3);
+    ++v6;
+  }
+
+  while (v6 != 4);
+  v16 = v31;
+  v17 = v32;
+  v18 = v33;
+  a2[2] = v30;
+  a2[3] = v16;
+  a2[4] = v17;
+  a2[5] = v18;
+  v19 = v2[2];
+  v20 = a2[5];
+  v34 = a2[4];
+  v35[0] = v20;
+  *(v35 + 9) = *(a2 + 89);
+  v21 = a2[1];
+  v30 = *a2;
+  v31 = v21;
+  v22 = a2[3];
+  v32 = a2[2];
+  v33 = v22;
+  v23 = *(a2 + 14);
+  *(a2 + 14) = 0;
+  v36 = v23;
+  v24 = *(a2 + 18);
+  v37 = a2[8];
+  a2[8] = 0uLL;
+  v25 = *(a2 + 21);
+  v38 = v24;
+  v40 = v25;
+  v39 = *(a2 + 152);
+  a2[10] = 0uLL;
+  a2[9] = 0uLL;
+  v26 = a2[12];
+  v41 = a2[11];
+  v42 = v26;
+  v27 = a2[14];
+  v43 = a2[13];
+  v44 = v27;
+  v45 = 3;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v30);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v30);
+}
+
+void sub_26183D3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
   v48 = *MEMORY[0x277D85DE8];
   v2 = *a1;
@@ -5526,293 +4929,35 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   v23 = *(a2 + 14);
   *(a2 + 14) = 0;
   v38 = v23;
-  v24 = a2[9];
-  v39 = a2[8];
-  v40 = v24;
-  v25 = a2[10];
-  v26 = a2[12];
-  v27 = *(a2 + 26);
-  v42 = a2[11];
-  v43 = v26;
-  v41 = v25;
-  v45 = *(a2 + 216);
-  v28 = *(a2 + 29);
-  v44 = v27;
-  v46 = v28;
-  *(a2 + 27) = 0;
-  *(a2 + 28) = 0;
-  *(a2 + 29) = 0;
-  v47 = 1;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v32);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v32);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183D114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
-{
-  v41 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = **a1;
-  v4 = (*a1)[1]->u32[0];
-  v5 = v3[19].i64[1];
-  if (v4 >= (v3[20].i64[0] - v5) >> 5)
-  {
-    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v6 = 0;
-  v7 = (v5 + 32 * v4);
-  v8 = v7[1];
-  *a2 = *v7;
-  a2[1] = v8;
-  v9 = v3[3];
-  v10 = v3[4];
-  v11 = v3[5];
-  v12 = v3[6];
-  v13 = a2[3];
-  v14 = a2[4];
-  v15 = a2[5];
-  v26[0] = a2[2];
-  v26[1] = v13;
-  v26[2] = v14;
-  v26[3] = v15;
-  do
-  {
-    *(&v27 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v26[v6])), v10, *&v26[v6], 1), v11, v26[v6], 2), v12, v26[v6], 3);
-    ++v6;
-  }
-
-  while (v6 != 4);
-  v16 = v28;
-  v17 = v29;
-  v18 = v30;
-  a2[2] = v27;
-  a2[3] = v16;
-  a2[4] = v17;
-  a2[5] = v18;
-  v19 = v2[2];
-  v20 = a2[5];
-  v31 = a2[4];
-  v32[0] = v20;
-  *(v32 + 9) = *(a2 + 89);
-  v21 = a2[1];
-  v27 = *a2;
-  v28 = v21;
-  v22 = a2[3];
-  v29 = a2[2];
-  v30 = v22;
-  v23 = *(a2 + 14);
-  *(a2 + 14) = 0;
-  v33 = v23;
-  v34 = *(a2 + 128);
-  v35 = *(a2 + 136);
-  v36 = *(a2 + 19);
-  *(a2 + 17) = 0;
-  *(a2 + 18) = 0;
-  v37 = a2[10];
-  v38 = *(a2 + 22);
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
-  v39 = a2[12];
-  v40 = 2;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v27);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v27);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183D284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = **a1;
-  v4 = (*a1)[1]->u32[0];
-  v5 = v3[19].i64[1];
-  if (v4 >= (v3[20].i64[0] - v5) >> 5)
-  {
-    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v6 = 0;
-  v7 = (v5 + 32 * v4);
-  v8 = v7[1];
-  *a2 = *v7;
-  a2[1] = v8;
-  v9 = v3[3];
-  v10 = v3[4];
-  v11 = v3[5];
-  v12 = v3[6];
-  v13 = a2[3];
-  v14 = a2[4];
-  v15 = a2[5];
-  v30[0] = a2[2];
-  v30[1] = v13;
-  v30[2] = v14;
-  v30[3] = v15;
-  do
-  {
-    *(&v31 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v30[v6])), v10, *&v30[v6], 1), v11, v30[v6], 2), v12, v30[v6], 3);
-    ++v6;
-  }
-
-  while (v6 != 4);
-  v16 = v32;
-  v17 = v33;
-  v18 = v34;
-  a2[2] = v31;
-  a2[3] = v16;
-  a2[4] = v17;
-  a2[5] = v18;
-  v19 = v2[2];
-  v20 = a2[5];
-  v35 = a2[4];
-  v36[0] = v20;
-  *(v36 + 9) = *(a2 + 89);
-  v21 = a2[1];
-  v31 = *a2;
-  v32 = v21;
-  v22 = a2[3];
-  v33 = a2[2];
-  v34 = v22;
-  v23 = *(a2 + 14);
-  *(a2 + 14) = 0;
-  v37 = v23;
-  v24 = *(a2 + 18);
-  v38 = a2[8];
-  *(a2 + 16) = 0;
-  *(a2 + 17) = 0;
-  v25 = *(a2 + 21);
-  v39 = v24;
-  v41 = v25;
-  v40 = *(a2 + 152);
-  *(a2 + 20) = 0;
-  *(a2 + 21) = 0;
-  *(a2 + 18) = 0;
-  *(a2 + 19) = 0;
-  v26 = a2[12];
-  v42 = a2[11];
-  v43 = v26;
-  v27 = a2[14];
-  v44 = a2[13];
-  v45 = v27;
-  v46 = 3;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v31);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v31);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183D3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
-{
-  v49 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = **a1;
-  v4 = (*a1)[1]->u32[0];
-  v5 = v3[19].i64[1];
-  if (v4 >= (v3[20].i64[0] - v5) >> 5)
-  {
-    std::vector<rf::data_flow::RFUUID>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v6 = 0;
-  v7 = (v5 + 32 * v4);
-  v8 = v7[1];
-  *a2 = *v7;
-  a2[1] = v8;
-  v9 = v3[3];
-  v10 = v3[4];
-  v11 = v3[5];
-  v12 = v3[6];
-  v13 = a2[3];
-  v14 = a2[4];
-  v15 = a2[5];
-  v32[0] = a2[2];
-  v32[1] = v13;
-  v32[2] = v14;
-  v32[3] = v15;
-  do
-  {
-    *(&v33 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v32[v6])), v10, *&v32[v6], 1), v11, v32[v6], 2), v12, v32[v6], 3);
-    ++v6;
-  }
-
-  while (v6 != 4);
-  v16 = v34;
-  v17 = v35;
-  v18 = v36;
-  a2[2] = v33;
-  a2[3] = v16;
-  a2[4] = v17;
-  a2[5] = v18;
-  v19 = v2[2];
-  v20 = a2[5];
-  v37 = a2[4];
-  v38[0] = v20;
-  *(v38 + 9) = *(a2 + 89);
-  v21 = a2[1];
-  v33 = *a2;
-  v34 = v21;
-  v22 = a2[3];
-  v35 = a2[2];
-  v36 = v22;
-  v23 = *(a2 + 14);
-  *(a2 + 14) = 0;
-  v39 = v23;
   v24 = a2[8];
   v25 = a2[9];
   v26 = a2[11];
-  v42 = a2[10];
-  v43 = v26;
-  v40 = v24;
-  v41 = v25;
+  v41 = a2[10];
+  v42 = v26;
+  v39 = v24;
+  v40 = v25;
   v27 = a2[12];
   v28 = a2[13];
   v29 = a2[15];
-  v46 = a2[14];
-  v47 = v29;
-  v44 = v27;
-  v45 = v28;
-  v48 = 4;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v33);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v33);
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  v45 = a2[14];
+  v46 = v29;
+  v43 = v27;
+  v44 = v28;
+  v47 = 4;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v32);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v32);
 }
 
-void sub_26183D548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183D548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::appendRemovedData(rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, __int128 *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1]->u32[0];
@@ -5834,63 +4979,61 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispa
   v13 = a2[3];
   v14 = a2[4];
   v15 = a2[5];
-  v26[0] = a2[2];
-  v26[1] = v13;
-  v26[2] = v14;
-  v26[3] = v15;
+  v25[0] = a2[2];
+  v25[1] = v13;
+  v25[2] = v14;
+  v25[3] = v15;
   do
   {
-    *(&v27 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v26[v6])), v10, *&v26[v6], 1), v11, v26[v6], 2), v12, v26[v6], 3);
+    *(&v26 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v9, COERCE_FLOAT(v25[v6])), v10, *&v25[v6], 1), v11, v25[v6], 2), v12, v25[v6], 3);
     ++v6;
   }
 
   while (v6 != 4);
-  v16 = v28;
-  v17 = v29;
-  v18 = v30;
-  a2[2] = v27;
+  v16 = v27;
+  v17 = v28;
+  v18 = v29;
+  a2[2] = v26;
   a2[3] = v16;
   a2[4] = v17;
   a2[5] = v18;
   v19 = v2[2];
   v20 = a2[5];
-  v31 = a2[4];
-  v32[0] = v20;
-  *(v32 + 9) = *(a2 + 89);
+  v30 = a2[4];
+  v31[0] = v20;
+  *(v31 + 9) = *(a2 + 89);
   v21 = a2[1];
-  v27 = *a2;
-  v28 = v21;
+  v26 = *a2;
+  v27 = v21;
   v22 = a2[3];
-  v29 = a2[2];
-  v30 = v22;
+  v28 = a2[2];
+  v29 = v22;
   v23 = *(a2 + 14);
   *(a2 + 14) = 0;
-  v33 = v23;
-  v34 = *(a2 + 32);
-  v35 = 5;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v27);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v27);
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  v32 = v23;
+  v33 = *(a2 + 32);
+  v34 = 5;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v19[7].i64[1], &v26);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26);
 }
 
-void sub_26183D684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183D684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  LOBYTE(v31) = 0;
-  *(&v31 + 1) = 0;
+  LOBYTE(v30) = 0;
+  *(&v30 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   v4 = 0;
-  v5 = v31;
+  v5 = v30;
   *a2 = *uu;
   *(a2 + 16) = v5;
   v6 = (*v3)[3];
@@ -5900,20 +5043,20 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   v10 = *(a2 + 48);
   v11 = *(a2 + 64);
   v12 = *(a2 + 80);
-  v29[0] = *(a2 + 32);
-  v29[1] = v10;
-  v29[2] = v11;
-  v29[3] = v12;
+  v28[0] = *(a2 + 32);
+  v28[1] = v10;
+  v28[2] = v11;
+  v28[3] = v12;
   do
   {
-    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v29[v4])), v7, *&v29[v4], 1), v8, v29[v4], 2), v9, v29[v4], 3);
+    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v28[v4])), v7, *&v28[v4], 1), v8, v28[v4], 2), v9, v28[v4], 3);
     ++v4;
   }
 
   while (v4 != 4);
-  v13 = v31;
-  v14 = v32;
-  v15 = v33;
+  v13 = v30;
+  v14 = v31;
+  v15 = v32;
   *(a2 + 32) = *uu;
   *(a2 + 48) = v13;
   *(a2 + 64) = v14;
@@ -5924,208 +5067,40 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   v16[1] = v17;
   v18 = v3[2];
   v19 = *(a2 + 80);
-  v34 = *(a2 + 64);
-  v35[0] = v19;
-  *(v35 + 9) = *(a2 + 89);
+  v33 = *(a2 + 64);
+  v34[0] = v19;
+  *(v34 + 9) = *(a2 + 89);
   v20 = *(a2 + 16);
   *uu = *a2;
-  v31 = v20;
+  v30 = v20;
   v21 = *(a2 + 48);
-  v32 = *(a2 + 32);
-  v33 = v21;
+  v31 = *(a2 + 32);
+  v32 = v21;
   v22 = *(a2 + 112);
   *(a2 + 112) = 0;
-  v36 = v22;
+  v35 = v22;
   v23 = *(a2 + 128);
   v24 = *(a2 + 144);
   v25 = *(a2 + 192);
-  v40 = *(a2 + 176);
-  v41 = v25;
+  v39 = *(a2 + 176);
+  v40 = v25;
   v26 = *(a2 + 160);
-  v38 = v24;
-  v39 = v26;
-  v37 = v23;
-  v42 = 0;
+  v37 = v24;
+  v38 = v26;
+  v36 = v23;
+  v41 = 0;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
 }
 
-void sub_26183D7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183D7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  LOBYTE(v32) = 0;
-  *(&v32 + 1) = 0;
-  uuid_clear(uu);
-  uuid_generate_random(uu);
-  v4 = 0;
-  v5 = v32;
-  *a2 = *uu;
-  *(a2 + 16) = v5;
-  v6 = (*v3)[3];
-  v7 = (*v3)[4];
-  v8 = (*v3)[5];
-  v9 = (*v3)[6];
-  v10 = *(a2 + 48);
-  v11 = *(a2 + 64);
-  v12 = *(a2 + 80);
-  v30[0] = *(a2 + 32);
-  v30[1] = v10;
-  v30[2] = v11;
-  v30[3] = v12;
-  do
-  {
-    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v30[v4])), v7, *&v30[v4], 1), v8, v30[v4], 2), v9, v30[v4], 3);
-    ++v4;
-  }
-
-  while (v4 != 4);
-  v13 = v32;
-  v14 = v33;
-  v15 = v34;
-  *(a2 + 32) = *uu;
-  *(a2 + 48) = v13;
-  *(a2 + 64) = v14;
-  *(a2 + 80) = v15;
-  v16 = ((*v3)[19].i64[1] + 32 * v3[1]->u32[0]);
-  v17 = *(a2 + 16);
-  *v16 = *a2;
-  v16[1] = v17;
-  v18 = v3[2];
-  v19 = *(a2 + 80);
-  v35 = *(a2 + 64);
-  v36[0] = v19;
-  *(v36 + 9) = *(a2 + 89);
-  v20 = *(a2 + 16);
-  *uu = *a2;
-  v32 = v20;
-  v21 = *(a2 + 48);
-  v33 = *(a2 + 32);
-  v34 = v21;
-  v22 = *(a2 + 112);
-  *(a2 + 112) = 0;
-  v37 = v22;
-  v23 = *(a2 + 144);
-  v38 = *(a2 + 128);
-  v39 = v23;
-  v24 = *(a2 + 160);
-  v25 = *(a2 + 192);
-  v26 = *(a2 + 208);
-  v41 = *(a2 + 176);
-  v42 = v25;
-  v40 = v24;
-  v44 = *(a2 + 216);
-  v27 = *(a2 + 232);
-  v43 = v26;
-  v45 = v27;
-  *(a2 + 216) = 0;
-  *(a2 + 224) = 0;
-  *(a2 + 232) = 0;
-  v46 = 1;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
-{
-  v40 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  LOBYTE(v27) = 0;
-  *(&v27 + 1) = 0;
-  uuid_clear(uu);
-  uuid_generate_random(uu);
-  v4 = 0;
-  v5 = v27;
-  *a2 = *uu;
-  *(a2 + 16) = v5;
-  v6 = (*v3)[3];
-  v7 = (*v3)[4];
-  v8 = (*v3)[5];
-  v9 = (*v3)[6];
-  v10 = *(a2 + 48);
-  v11 = *(a2 + 64);
-  v12 = *(a2 + 80);
-  v25[0] = *(a2 + 32);
-  v25[1] = v10;
-  v25[2] = v11;
-  v25[3] = v12;
-  do
-  {
-    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v25[v4])), v7, *&v25[v4], 1), v8, v25[v4], 2), v9, v25[v4], 3);
-    ++v4;
-  }
-
-  while (v4 != 4);
-  v13 = v27;
-  v14 = v28;
-  v15 = v29;
-  *(a2 + 32) = *uu;
-  *(a2 + 48) = v13;
-  *(a2 + 64) = v14;
-  *(a2 + 80) = v15;
-  v16 = ((*v3)[19].i64[1] + 32 * v3[1]->u32[0]);
-  v17 = *(a2 + 16);
-  *v16 = *a2;
-  v16[1] = v17;
-  v18 = v3[2];
-  v19 = *(a2 + 80);
-  v30 = *(a2 + 64);
-  v31[0] = v19;
-  *(v31 + 9) = *(a2 + 89);
-  v20 = *(a2 + 16);
-  *uu = *a2;
-  v27 = v20;
-  v21 = *(a2 + 48);
-  v28 = *(a2 + 32);
-  v29 = v21;
-  v22 = *(a2 + 112);
-  *(a2 + 112) = 0;
-  v32 = v22;
-  v33 = *(a2 + 128);
-  v34 = *(a2 + 136);
-  v35 = *(a2 + 152);
-  *(a2 + 136) = 0;
-  *(a2 + 144) = 0;
-  v36 = *(a2 + 160);
-  v37 = *(a2 + 176);
-  *(a2 + 152) = 0;
-  *(a2 + 160) = 0;
-  *(a2 + 168) = 0;
-  *(a2 + 176) = 0;
-  v38 = *(a2 + 192);
-  v39 = 2;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_26183DB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
 {
   v46 = *MEMORY[0x277D85DE8];
   v3 = *a1;
@@ -6182,46 +5157,206 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
   v36 = v22;
   v23 = *(a2 + 144);
   v37 = *(a2 + 128);
+  v38 = v23;
+  v24 = *(a2 + 160);
+  v25 = *(a2 + 192);
+  v26 = *(a2 + 208);
+  v40 = *(a2 + 176);
+  v41 = v25;
+  v39 = v24;
+  v43 = *(a2 + 216);
+  v27 = *(a2 + 232);
+  v42 = v26;
+  v44 = v27;
+  *(a2 + 216) = 0;
+  *(a2 + 224) = 0;
+  *(a2 + 232) = 0;
+  v45 = 1;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
+}
+
+void sub_26183D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
+{
+  v39 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  LOBYTE(v26) = 0;
+  *(&v26 + 1) = 0;
+  uuid_clear(uu);
+  uuid_generate_random(uu);
+  v4 = 0;
+  v5 = v26;
+  *a2 = *uu;
+  *(a2 + 16) = v5;
+  v6 = (*v3)[3];
+  v7 = (*v3)[4];
+  v8 = (*v3)[5];
+  v9 = (*v3)[6];
+  v10 = *(a2 + 48);
+  v11 = *(a2 + 64);
+  v12 = *(a2 + 80);
+  v24[0] = *(a2 + 32);
+  v24[1] = v10;
+  v24[2] = v11;
+  v24[3] = v12;
+  do
+  {
+    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v24[v4])), v7, *&v24[v4], 1), v8, v24[v4], 2), v9, v24[v4], 3);
+    ++v4;
+  }
+
+  while (v4 != 4);
+  v13 = v26;
+  v14 = v27;
+  v15 = v28;
+  *(a2 + 32) = *uu;
+  *(a2 + 48) = v13;
+  *(a2 + 64) = v14;
+  *(a2 + 80) = v15;
+  v16 = ((*v3)[19].i64[1] + 32 * v3[1]->u32[0]);
+  v17 = *(a2 + 16);
+  *v16 = *a2;
+  v16[1] = v17;
+  v18 = v3[2];
+  v19 = *(a2 + 80);
+  v29 = *(a2 + 64);
+  v30[0] = v19;
+  *(v30 + 9) = *(a2 + 89);
+  v20 = *(a2 + 16);
+  *uu = *a2;
+  v26 = v20;
+  v21 = *(a2 + 48);
+  v27 = *(a2 + 32);
+  v28 = v21;
+  v22 = *(a2 + 112);
+  *(a2 + 112) = 0;
+  v31 = v22;
+  v32 = *(a2 + 128);
+  v33 = *(a2 + 136);
+  v34 = *(a2 + 152);
+  *(a2 + 136) = 0;
+  *(a2 + 144) = 0;
+  v35 = *(a2 + 160);
+  v36 = *(a2 + 176);
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  *(a2 + 168) = 0;
+  *(a2 + 176) = 0;
+  v37 = *(a2 + 192);
+  v38 = 2;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
+}
+
+void sub_26183DB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
+{
+  v45 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  LOBYTE(v30) = 0;
+  *(&v30 + 1) = 0;
+  uuid_clear(uu);
+  uuid_generate_random(uu);
+  v4 = 0;
+  v5 = v30;
+  *a2 = *uu;
+  *(a2 + 16) = v5;
+  v6 = (*v3)[3];
+  v7 = (*v3)[4];
+  v8 = (*v3)[5];
+  v9 = (*v3)[6];
+  v10 = *(a2 + 48);
+  v11 = *(a2 + 64);
+  v12 = *(a2 + 80);
+  v28[0] = *(a2 + 32);
+  v28[1] = v10;
+  v28[2] = v11;
+  v28[3] = v12;
+  do
+  {
+    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v28[v4])), v7, *&v28[v4], 1), v8, v28[v4], 2), v9, v28[v4], 3);
+    ++v4;
+  }
+
+  while (v4 != 4);
+  v13 = v30;
+  v14 = v31;
+  v15 = v32;
+  *(a2 + 32) = *uu;
+  *(a2 + 48) = v13;
+  *(a2 + 64) = v14;
+  *(a2 + 80) = v15;
+  v16 = ((*v3)[19].i64[1] + 32 * v3[1]->u32[0]);
+  v17 = *(a2 + 16);
+  *v16 = *a2;
+  v16[1] = v17;
+  v18 = v3[2];
+  v19 = *(a2 + 80);
+  v33 = *(a2 + 64);
+  v34[0] = v19;
+  *(v34 + 9) = *(a2 + 89);
+  v20 = *(a2 + 16);
+  *uu = *a2;
+  v30 = v20;
+  v21 = *(a2 + 48);
+  v31 = *(a2 + 32);
+  v32 = v21;
+  v22 = *(a2 + 112);
+  *(a2 + 112) = 0;
+  v35 = v22;
+  v23 = *(a2 + 144);
+  v36 = *(a2 + 128);
   *(a2 + 128) = 0;
   *(a2 + 136) = 0;
   v24 = *(a2 + 168);
-  v38 = v23;
-  v40 = v24;
-  v39 = *(a2 + 152);
+  v37 = v23;
+  v39 = v24;
+  v38 = *(a2 + 152);
   *(a2 + 160) = 0;
   *(a2 + 168) = 0;
   *(a2 + 144) = 0;
   *(a2 + 152) = 0;
   v25 = *(a2 + 192);
-  v41 = *(a2 + 176);
-  v42 = v25;
+  v40 = *(a2 + 176);
+  v41 = v25;
   v26 = *(a2 + 224);
-  v43 = *(a2 + 208);
-  v44 = v26;
-  v45 = 3;
+  v42 = *(a2 + 208);
+  v43 = v26;
+  v44 = 3;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
 }
 
-void sub_26183DCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183DCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  LOBYTE(v33) = 0;
-  *(&v33 + 1) = 0;
+  LOBYTE(v32) = 0;
+  *(&v32 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   v4 = 0;
-  v5 = v33;
+  v5 = v32;
   *a2 = *uu;
   *(a2 + 16) = v5;
   v6 = (*v3)[3];
@@ -6231,20 +5366,20 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   v10 = *(a2 + 48);
   v11 = *(a2 + 64);
   v12 = *(a2 + 80);
-  v31[0] = *(a2 + 32);
-  v31[1] = v10;
-  v31[2] = v11;
-  v31[3] = v12;
+  v30[0] = *(a2 + 32);
+  v30[1] = v10;
+  v30[2] = v11;
+  v30[3] = v12;
   do
   {
-    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v31[v4])), v7, *&v31[v4], 1), v8, v31[v4], 2), v9, v31[v4], 3);
+    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v30[v4])), v7, *&v30[v4], 1), v8, v30[v4], 2), v9, v30[v4], 3);
     ++v4;
   }
 
   while (v4 != 4);
-  v13 = v33;
-  v14 = v34;
-  v15 = v35;
+  v13 = v32;
+  v14 = v33;
+  v15 = v34;
   *(a2 + 32) = *uu;
   *(a2 + 48) = v13;
   *(a2 + 64) = v14;
@@ -6255,56 +5390,54 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   v16[1] = v17;
   v18 = v3[2];
   v19 = *(a2 + 80);
-  v36 = *(a2 + 64);
-  v37[0] = v19;
-  *(v37 + 9) = *(a2 + 89);
+  v35 = *(a2 + 64);
+  v36[0] = v19;
+  *(v36 + 9) = *(a2 + 89);
   v20 = *(a2 + 16);
   *uu = *a2;
-  v33 = v20;
+  v32 = v20;
   v21 = *(a2 + 48);
-  v34 = *(a2 + 32);
-  v35 = v21;
+  v33 = *(a2 + 32);
+  v34 = v21;
   v22 = *(a2 + 112);
   *(a2 + 112) = 0;
-  v38 = v22;
+  v37 = v22;
   v23 = *(a2 + 128);
   v24 = *(a2 + 144);
   v25 = *(a2 + 176);
-  v41 = *(a2 + 160);
-  v42 = v25;
-  v39 = v23;
-  v40 = v24;
+  v40 = *(a2 + 160);
+  v41 = v25;
+  v38 = v23;
+  v39 = v24;
   v26 = *(a2 + 192);
   v27 = *(a2 + 208);
   v28 = *(a2 + 240);
-  v45 = *(a2 + 224);
-  v46 = v28;
-  v43 = v26;
-  v44 = v27;
-  v47 = 4;
+  v44 = *(a2 + 224);
+  v45 = v28;
+  v42 = v26;
+  v43 = v27;
+  v46 = 4;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
 }
 
-void sub_26183DE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183DE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<rf::data_flow::provider::SyntheticARData::sampleDataAllAtOnce(rf::data_flow::provider::InputFrame const&,rf::data_flow::provider::SyntheticARData&,rf::data_flow::provider::InputData &)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor> &>(float32x4_t ***a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  LOBYTE(v27) = 0;
-  *(&v27 + 1) = 0;
+  LOBYTE(v26) = 0;
+  *(&v26 + 1) = 0;
   uuid_clear(uu);
   uuid_generate_random(uu);
   v4 = 0;
-  v5 = v27;
+  v5 = v26;
   *a2 = *uu;
   *(a2 + 16) = v5;
   v6 = (*v3)[3];
@@ -6314,20 +5447,20 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispa
   v10 = *(a2 + 48);
   v11 = *(a2 + 64);
   v12 = *(a2 + 80);
-  v25[0] = *(a2 + 32);
-  v25[1] = v10;
-  v25[2] = v11;
-  v25[3] = v12;
+  v24[0] = *(a2 + 32);
+  v24[1] = v10;
+  v24[2] = v11;
+  v24[3] = v12;
   do
   {
-    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v25[v4])), v7, *&v25[v4], 1), v8, v25[v4], 2), v9, v25[v4], 3);
+    *&uu[v4 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6, COERCE_FLOAT(v24[v4])), v7, *&v24[v4], 1), v8, v24[v4], 2), v9, v24[v4], 3);
     ++v4;
   }
 
   while (v4 != 4);
-  v13 = v27;
-  v14 = v28;
-  v15 = v29;
+  v13 = v26;
+  v14 = v27;
+  v15 = v28;
   *(a2 + 32) = *uu;
   *(a2 + 48) = v13;
   *(a2 + 64) = v14;
@@ -6338,36 +5471,34 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispa
   v16[1] = v17;
   v18 = v3[2];
   v19 = *(a2 + 80);
-  v30 = *(a2 + 64);
-  v31[0] = v19;
-  *(v31 + 9) = *(a2 + 89);
+  v29 = *(a2 + 64);
+  v30[0] = v19;
+  *(v30 + 9) = *(a2 + 89);
   v20 = *(a2 + 16);
   *uu = *a2;
-  v27 = v20;
+  v26 = v20;
   v21 = *(a2 + 48);
-  v28 = *(a2 + 32);
-  v29 = v21;
+  v27 = *(a2 + 32);
+  v28 = v21;
   v22 = *(a2 + 112);
   *(a2 + 112) = 0;
-  v32 = v22;
-  v33 = *(a2 + 128);
-  v34 = 5;
+  v31 = v22;
+  v32 = *(a2 + 128);
+  v33 = 5;
   std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::push_back[abi:ne200100](&v18[4].i64[1], uu);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uu);
 }
 
-void sub_26183DF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26183DF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void rf::helpers::createInputMeshFromARMeshAnchor(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [v5 geometry];
   v7 = [v6 normals];
@@ -6375,36 +5506,42 @@ void rf::helpers::createInputMeshFromARMeshAnchor(void *a1@<X0>, int a2@<W1>, ui
   {
     rf::getMessage("ARMeshAnchor must always provide normals!", __p);
     rf::internal::logAssert(__p);
-    if (v56 < 0)
+    if (v57 < 0)
     {
       operator delete(__p[0]);
     }
 
-    rf::internal::debugBreakHandler(v33);
-    v54 = 0;
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v59 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    rf::getMessage("ARMeshAnchor must always provide normals!", v52);
-    if (v53 >= 0)
+    rf::internal::debugBreakHandler(v32);
+    v55 = 0;
+    memset(v60, 0, sizeof(v60));
+    v33 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    rf::getMessage("ARMeshAnchor must always provide normals!", v53);
+    if (v33)
     {
-      v34 = v52;
+      v34 = 3;
     }
 
     else
     {
-      v34 = v52[0];
+      v34 = 2;
     }
 
-    v57 = 136315138;
-    v58 = v34;
-    _os_log_send_and_compose_impl();
-    if (v53 < 0)
+    if (v54 >= 0)
     {
-      operator delete(v52[0]);
+      v35 = v53;
+    }
+
+    else
+    {
+      v35 = v53[0];
+    }
+
+    v58 = 136315138;
+    v59 = v35;
+    _os_log_send_and_compose_impl(v34, &v55, v60, 80, &dword_2617CB000, MEMORY[0x277D86220], 16, "RealityFusion Assert Fatal: %s", &v58);
+    if (v54 < 0)
+    {
+      operator delete(v53[0]);
     }
 
     _os_crash_msg();
@@ -6412,42 +5549,42 @@ void rf::helpers::createInputMeshFromARMeshAnchor(void *a1@<X0>, int a2@<W1>, ui
   }
 
   [v5 transform];
-  v48 = v9;
-  v50 = v8;
-  v44 = v11;
-  v46 = v10;
-  v43 = [v5 identifier];
-  rf::data_flow::RFUUID::copy(v43, a3);
-  *(a3 + 32) = v50;
-  *(a3 + 48) = v48;
-  *(a3 + 64) = v46;
-  *(a3 + 80) = v44;
+  v49 = v9;
+  v51 = v8;
+  v45 = v11;
+  v47 = v10;
+  v44 = [v5 identifier];
+  rf::data_flow::RFUUID::copy(a3, v44);
+  *(a3 + 32) = v51;
+  *(a3 + 48) = v49;
+  *(a3 + 64) = v47;
+  *(a3 + 80) = v45;
   *(a3 + 96) = 0;
   *(a3 + 100) = a2;
   [v5 lastUpdateTimestamp];
   *(a3 + 104) = v12;
-  v51 = [v5 geometry];
-  v49 = [v51 vertices];
-  v13 = [v49 buffer];
-  v47 = [v5 geometry];
-  v45 = [v47 vertices];
-  v14 = [v45 format];
-  v42 = [v5 geometry];
-  v41 = [v42 vertices];
-  v15 = [v41 count];
+  v52 = [v5 geometry];
+  v50 = [v52 vertices];
+  v13 = [v50 buffer];
+  v48 = [v5 geometry];
+  v46 = [v48 vertices];
+  v14 = [v46 format];
+  v43 = [v5 geometry];
+  v42 = [v43 vertices];
+  v15 = [v42 count];
   *(a3 + 112) = v13;
   *(a3 + 120) = v14;
   *(a3 + 128) = v15;
   *(a3 + 136) = 1;
-  v40 = [v5 geometry];
-  v39 = [v40 normals];
-  v16 = [v39 buffer];
-  v38 = [v5 geometry];
-  v37 = [v38 normals];
-  v17 = [v37 format];
-  v36 = [v5 geometry];
-  v35 = [v36 normals];
-  v18 = [v35 count];
+  v41 = [v5 geometry];
+  v40 = [v41 normals];
+  v16 = [v40 buffer];
+  v39 = [v5 geometry];
+  v38 = [v39 normals];
+  v17 = [v38 format];
+  v37 = [v5 geometry];
+  v36 = [v37 normals];
+  v18 = [v36 count];
   *(a3 + 144) = v16;
   *(a3 + 152) = v17;
   *(a3 + 160) = v18;
@@ -6492,8 +5629,6 @@ void rf::helpers::createInputMeshFromARMeshAnchor(void *a1@<X0>, int a2@<W1>, ui
   *(a3 + 304) = 0;
   *(a3 + 328) = 0;
   *(a3 + 336) = v5;
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26183E41C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, id a20, void *a21, uint64_t a22, void *a23, uint64_t a24, void *a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -6515,8 +5650,8 @@ void sub_26183E41C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void rf::helpers::getBaseAnchorPropertiesFromARAnchor(rf::helpers *this@<X0>, uint64_t a2@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = this;
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = this;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
   uuid_clear(a2);
@@ -6527,32 +5662,29 @@ void rf::helpers::getBaseAnchorPropertiesFromARAnchor(rf::helpers *this@<X0>, ui
   *(a2 + 96) = 16842752;
   *(a2 + 104) = 0;
   *(a2 + 112) = 0;
-  v5 = [(rf::helpers *)v4 identifier];
-  rf::data_flow::RFUUID::copy(v5, v13);
-  v6 = v13[1];
-  *a2 = v13[0];
-  *(a2 + 16) = v6;
+  v4 = [(rf::helpers *)v3 identifier];
+  rf::data_flow::RFUUID::copy(v11, v4);
+  v5 = v11[1];
+  *a2 = v11[0];
+  *(a2 + 16) = v5;
 
-  [(rf::helpers *)v4 transform];
-  *(a2 + 32) = v7;
-  *(a2 + 48) = v8;
-  *(a2 + 64) = v9;
-  *(a2 + 80) = v10;
-  if ([(rf::helpers *)v4 conformsToProtocol:&unk_28740D950])
+  [(rf::helpers *)v3 transform];
+  *(a2 + 32) = v6;
+  *(a2 + 48) = v7;
+  *(a2 + 64) = v8;
+  *(a2 + 80) = v9;
+  if ([(rf::helpers *)v3 conformsToProtocol:&unk_28740D950])
   {
-    *(a2 + 99) = [(rf::helpers *)v4 isTracked];
+    *(a2 + 99) = [(rf::helpers *)v3 isTracked];
   }
 
   *(a2 + 100) = 1;
-  v11 = *(a2 + 112);
-  *(a2 + 112) = v4;
-
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *(a2 + 112);
+  *(a2 + 112) = v3;
 }
 
 void RFPhysicalDeviceCameraStreamConfigCreate()
 {
-  v0 = *MEMORY[0x277CBECE8];
   if (qword_2810C4D28 != -1)
   {
     dispatch_once(&qword_2810C4D28, &__block_literal_global_14);
@@ -6660,19 +5792,19 @@ uint64_t *std::unique_ptr<rf::CustomCFObject<rf::REPhysicalDeviceCameraStreamCon
 
 void rf::internal::logAssert(const char *a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v2 = backtrace(buf, 48);
   v3 = backtrace_symbols(buf, v2);
+  v51 = 0;
   v52 = 0;
   v53 = 0;
-  v54 = 0;
   v4 = v2 - 3;
   if (v4 >= 5)
   {
     for (i = 4; i != v4; ++i)
     {
       v6 = v3[i];
-      std::string::basic_string[abi:ne200100]<0>(&v62, v6);
+      std::string::basic_string[abi:ne200100]<0>(&v61, v6);
       v7 = *v6;
       v8 = v6;
       while ((v7 & 0xFFFFFFDF) != 0)
@@ -6708,7 +5840,7 @@ void rf::internal::logAssert(const char *a1)
         *v8++ = 0;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v61, v6);
+      std::string::basic_string[abi:ne200100]<0>(&v60, v6);
       for (j = *v8; (j & 0xFFFFFFDF) != 0; j = v14)
       {
         v14 = *++v8;
@@ -6750,28 +5882,28 @@ void rf::internal::logAssert(const char *a1)
       }
 
 LABEL_31:
-      std::string::basic_string[abi:ne200100]<0>(&v60, v8);
+      std::string::basic_string[abi:ne200100]<0>(&v59, v8);
       std::string::basic_string[abi:ne200100]<0>(&__p, v16 + 1);
-      if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v20 = &v60;
+        v20 = &v59;
       }
 
       else
       {
-        v20 = v60.__r_.__value_.__r.__words[0];
+        v20 = v59.__r_.__value_.__r.__words[0];
       }
 
       v21 = __cxa_demangle(v20, 0, 0, 0);
       if (v21)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v64, v21);
+        std::string::basic_string[abi:ne200100]<0>(&v63, v21);
         free(v21);
-        v22 = v64;
-        size = v65;
-        v58[0] = v66;
-        *(v58 + 3) = *(&v66 + 3);
-        LOBYTE(v16) = HIBYTE(v66);
+        v22 = v63;
+        size = v64;
+        v57[0] = v65;
+        *(v57 + 3) = *(&v65 + 3);
+        LOBYTE(v16) = HIBYTE(v65);
       }
 
       else
@@ -6779,14 +5911,14 @@ LABEL_31:
         v22 = 0;
       }
 
-      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v55, v61.__r_.__value_.__l.__data_, v61.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v54, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v55 = v61;
+        v54 = v60;
       }
 
       if (v21)
@@ -6795,38 +5927,38 @@ LABEL_31:
         {
           v23 = v22;
 LABEL_47:
-          std::string::__init_copy_ctor_external(&v56, v23, size);
+          std::string::__init_copy_ctor_external(&v55, v23, size);
           goto LABEL_48;
         }
 
-        v56.__r_.__value_.__r.__words[0] = v22;
-        v56.__r_.__value_.__l.__size_ = size;
-        LODWORD(v56.__r_.__value_.__r.__words[2]) = v58[0];
-        *(&v56.__r_.__value_.__r.__words[2] + 3) = *(v58 + 3);
-        *(&v56.__r_.__value_.__s + 23) = v16;
+        v55.__r_.__value_.__r.__words[0] = v22;
+        v55.__r_.__value_.__l.__size_ = size;
+        LODWORD(v55.__r_.__value_.__r.__words[2]) = v57[0];
+        *(&v55.__r_.__value_.__r.__words[2] + 3) = *(v57 + 3);
+        *(&v55.__r_.__value_.__s + 23) = v16;
       }
 
       else
       {
-        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
         {
-          size = v60.__r_.__value_.__l.__size_;
-          v23 = v60.__r_.__value_.__r.__words[0];
+          size = v59.__r_.__value_.__l.__size_;
+          v23 = v59.__r_.__value_.__r.__words[0];
           goto LABEL_47;
         }
 
-        v56 = v60;
+        v55 = v59;
       }
 
 LABEL_48:
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v57, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v56, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v57 = __p;
+        v56 = __p;
       }
 
       if (v21 && (v16 & 0x80) != 0)
@@ -6839,37 +5971,37 @@ LABEL_48:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
+      if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v59.__r_.__value_.__l.__data_);
+      }
+
       if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v60.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+      if (v62 < 0)
       {
-        operator delete(v61.__r_.__value_.__l.__data_);
+        operator delete(v61);
       }
 
-      if (v63 < 0)
+      v24 = v52;
+      if (v52 >= v53)
       {
-        operator delete(v62);
-      }
-
-      v24 = v53;
-      if (v53 >= v54)
-      {
-        v26 = 0x8E38E38E38E38E39 * ((v53 - v52) >> 3);
+        v26 = 0x8E38E38E38E38E39 * ((v52 - v51) >> 3);
         v27 = v26 + 1;
         if (v26 + 1 > 0x38E38E38E38E38ELL)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x1C71C71C71C71C72 * ((v54 - v52) >> 3) > v27)
+        if (0x1C71C71C71C71C72 * ((v53 - v51) >> 3) > v27)
         {
-          v27 = 0x1C71C71C71C71C72 * ((v54 - v52) >> 3);
+          v27 = 0x1C71C71C71C71C72 * ((v53 - v51) >> 3);
         }
 
-        if (0x8E38E38E38E38E39 * ((v54 - v52) >> 3) >= 0x1C71C71C71C71C7)
+        if (0x8E38E38E38E38E39 * ((v53 - v51) >> 3) >= 0x1C71C71C71C71C7)
         {
           v28 = 0x38E38E38E38E38ELL;
         }
@@ -6879,7 +6011,7 @@ LABEL_48:
           v28 = v27;
         }
 
-        v68 = &v52;
+        v67 = &v51;
         if (v28)
         {
           if (v28 <= 0x38E38E38E38E38ELL)
@@ -6890,52 +6022,52 @@ LABEL_48:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v32 = 8 * ((v53 - v52) >> 3);
-        v64 = 0;
+        v32 = 8 * ((v52 - v51) >> 3);
+        v63 = 0;
+        v64 = v32;
         v65 = v32;
-        v66 = v32;
-        v67 = 0;
-        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+        v66 = 0;
+        if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external((8 * ((v53 - v52) >> 3)), v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external((8 * ((v52 - v51) >> 3)), v54.__r_.__value_.__l.__data_, v54.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *v32 = *&v55.__r_.__value_.__l.__data_;
-          *(72 * v26 + 0x10) = *(&v55.__r_.__value_.__l + 2);
+          *v32 = *&v54.__r_.__value_.__l.__data_;
+          *(72 * v26 + 0x10) = *(&v54.__r_.__value_.__l + 2);
+        }
+
+        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external((v32 + 24), v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          *(72 * v26 + 0x18) = *&v55.__r_.__value_.__l.__data_;
+          *(72 * v26 + 0x28) = *(&v55.__r_.__value_.__l + 2);
         }
 
         if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external((v32 + 24), v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external((v32 + 48), v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *(72 * v26 + 0x18) = *&v56.__r_.__value_.__l.__data_;
-          *(72 * v26 + 0x28) = *(&v56.__r_.__value_.__l + 2);
+          *(72 * v26 + 0x30) = *&v56.__r_.__value_.__l.__data_;
+          *(72 * v26 + 0x40) = *(&v56.__r_.__value_.__l + 2);
         }
 
-        if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+        v33 = v65;
+        v34 = v51;
+        size = v52;
+        v35 = (v64 + v51 - v52);
+        if (v52 != v51)
         {
-          std::string::__init_copy_ctor_external((v32 + 48), v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          *(72 * v26 + 0x30) = *&v57.__r_.__value_.__l.__data_;
-          *(72 * v26 + 0x40) = *(&v57.__r_.__value_.__l + 2);
-        }
-
-        v33 = v66;
-        v34 = v52;
-        size = v53;
-        v35 = (v65 + v52 - v53);
-        if (v53 != v52)
-        {
-          v36 = v52;
-          v37 = v65 + v52 - v53;
+          v36 = v51;
+          v37 = v64 + v51 - v52;
           do
           {
             v38 = *&v36->__r_.__value_.__l.__data_;
@@ -6968,68 +6100,63 @@ LABEL_48:
           }
 
           while (v34 != size);
-          v34 = v52;
+          v34 = v51;
         }
 
         v31 = v33 + 3;
-        v52 = v35;
-        v53 = v31;
-        v41 = v54;
-        v54 = v67;
-        v66 = v34;
-        v67 = v41;
-        v64 = v34;
+        v51 = v35;
+        v52 = v31;
+        v41 = v53;
+        v53 = v66;
         v65 = v34;
-        std::__split_buffer<re::StackFrame>::~__split_buffer(&v64);
+        v66 = v41;
+        v63 = v34;
+        v64 = v34;
+        std::__split_buffer<re::StackFrame>::~__split_buffer(&v63);
       }
 
       else
       {
-        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v53, v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v52, v54.__r_.__value_.__l.__data_, v54.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v25 = *&v55.__r_.__value_.__l.__data_;
-          v53->__r_.__value_.__r.__words[2] = v55.__r_.__value_.__r.__words[2];
+          v25 = *&v54.__r_.__value_.__l.__data_;
+          v52->__r_.__value_.__r.__words[2] = v54.__r_.__value_.__r.__words[2];
           *&v24->__r_.__value_.__l.__data_ = v25;
+        }
+
+        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(v24 + 1, v55.__r_.__value_.__l.__data_, v55.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v29 = *&v55.__r_.__value_.__l.__data_;
+          v24[1].__r_.__value_.__r.__words[2] = v55.__r_.__value_.__r.__words[2];
+          *&v24[1].__r_.__value_.__l.__data_ = v29;
         }
 
         if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v24 + 1, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v24 + 2, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v29 = *&v56.__r_.__value_.__l.__data_;
-          v24[1].__r_.__value_.__r.__words[2] = v56.__r_.__value_.__r.__words[2];
-          *&v24[1].__r_.__value_.__l.__data_ = v29;
-        }
-
-        if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(v24 + 2, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v30 = *&v57.__r_.__value_.__l.__data_;
-          v24[2].__r_.__value_.__r.__words[2] = v57.__r_.__value_.__r.__words[2];
+          v30 = *&v56.__r_.__value_.__l.__data_;
+          v24[2].__r_.__value_.__r.__words[2] = v56.__r_.__value_.__r.__words[2];
           *&v24[2].__r_.__value_.__l.__data_ = v30;
         }
 
         v31 = v24 + 3;
       }
 
-      v53 = v31;
-      if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v57.__r_.__value_.__l.__data_);
-      }
-
+      v52 = v31;
       if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v56.__r_.__value_.__l.__data_);
@@ -7038,6 +6165,11 @@ LABEL_48:
       if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v55.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v54.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -7057,9 +6189,9 @@ LABEL_48:
     _os_log_impl(&dword_2617CB000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Assertion failed: %s", buf, 0xCu);
   }
 
-  v44 = v52;
-  v45 = v53;
-  if (v52 != v53)
+  v44 = v51;
+  v45 = v52;
+  if (v51 != v52)
   {
     v46 = MEMORY[0x277D86220];
     do
@@ -7086,10 +6218,10 @@ LABEL_48:
 
         *buf = 136315650;
         *&buf[4] = v47;
-        v70 = 2080;
-        v71 = v48;
-        v72 = 2080;
-        v73 = v49;
+        v69 = 2080;
+        v70 = v48;
+        v71 = 2080;
+        v72 = v49;
         _os_log_impl(&dword_2617CB000, v46, OS_LOG_TYPE_ERROR, "%s %s %s", buf, 0x20u);
       }
 
@@ -7105,26 +6237,24 @@ LABEL_48:
   }
 
   fprintf(*MEMORY[0x277D85DF8], "Assertion failed: %s\nCheck os_log for additional details!\n", v42);
-  *buf = &v52;
+  *buf = &v51;
   std::vector<re::StackFrame>::__destroy_vector::operator()[abi:ne200100](buf);
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t rf::internal::debugBreakHandler(rf::internal *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  *v4 = 0xE00000001;
-  v5 = 1;
-  v6 = getpid();
-  v3 = 648;
-  result = sysctl(v4, 4u, v7, &v3, 0, 0);
-  if ((v8 & 0x800) != 0)
+  v8 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  *v3 = 0xE00000001;
+  v4 = 1;
+  v5 = getpid();
+  v2 = 648;
+  result = sysctl(v3, 4u, v6, &v2, 0, 0);
+  if ((v7 & 0x800) != 0)
   {
-    result = raise(5);
+    return raise(5);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7209,7 +6339,7 @@ void std::vector<re::StackFrame>::__destroy_vector::operator()[abi:ne200100](voi
   }
 }
 
-uint64_t rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(int a1, uint64_t a2, unint64_t a3)
+uint64_t rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::find<rf::data_flow::consumer::DirtyOption>(a2, a3, a1);
   if (v3)
@@ -7278,15 +6408,15 @@ uint64_t rf::data_flow::consumer::MeshReconstructionConsumer::setARStateData(uin
 
 void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(uint64_t a1, uint64_t a2)
 {
-  v183 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   rf::data_flow::consumer::EntitiesProcessor::consumeLatestUpdate(a1 + 128, a2);
   if (*(a2 + 32) != 1 || *(a2 + 16) != 1)
   {
-    goto LABEL_221;
+    return;
   }
 
-  v167 = *(a1 + 16);
-  std::mutex::lock(v167);
+  v114 = *(a1 + 16);
+  std::mutex::lock(v114);
   if ((*(a2 + 16) & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
@@ -7295,21 +6425,20 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
   v4 = MEMORY[0x26670CB10](*(a2 + 8));
   if (v4)
   {
-    v6 = (a1 + 112);
-    v5 = *(a1 + 112);
+    v5 = (a1 + 112);
     if (REAssetGetAssetManager() != v4)
     {
       AssetHandle = REAssetManagerCreateAssetHandle();
       *buf = AssetHandle;
       REAssetHandleLoadAsync();
-      v8 = *(a1 + 40);
-      if (!v8 || v8 == *v6)
+      v7 = *(a1 + 40);
+      if (!v7 || v7 == *v5)
       {
         *(a1 + 40) = AssetHandle;
       }
 
-      v9 = *(a1 + 48);
-      if (!v9 || v9 == *v6)
+      v8 = *(a1 + 48);
+      if (!v8 || v8 == *v5)
       {
         *(a1 + 48) = AssetHandle;
       }
@@ -7324,78 +6453,81 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v166 = *(a2 + 24);
+  v113 = *(a2 + 24);
   RESceneUnderstandingRootComponentGetComponentType();
-  ComponentsOfClass = RESceneGetComponentsOfClass();
-  if (v11 != 1)
+  RESceneGetComponentsOfClass();
+  if (v9 != 1)
   {
     rf::getMessage("We should have a root entity!", &__p);
     rf::internal::logAssert(&__p);
-    if (SHIBYTE(v171) < 0)
+    if (SHIBYTE(v118) < 0)
     {
       operator delete(__p);
     }
 
-    rf::internal::debugBreakHandler(v161);
-    v168 = 0;
-    v177 = 0u;
-    v178 = 0u;
-    v176 = 0u;
+    rf::internal::debugBreakHandler(v106);
+    v115 = 0;
+    v124 = 0u;
+    v125 = 0u;
+    v123 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v107 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     rf::getMessage("We should have a root entity!", uu);
-    if (v181 >= 0)
+    if (v107)
     {
-      v162 = uu;
+      v108 = 3;
     }
 
     else
     {
-      v162 = *uu;
+      v108 = 2;
     }
 
-    LODWORD(v174[0]) = 136315138;
-    *(v174 + 4) = v162;
-    _os_log_send_and_compose_impl();
-    if (v181 < 0)
+    if (v128 >= 0)
+    {
+      v109 = uu;
+    }
+
+    else
+    {
+      v109 = *uu;
+    }
+
+    *v121 = 136315138;
+    *&v121[4] = v109;
+    _os_log_send_and_compose_impl(v108, &v115, buf, 80, &dword_2617CB000, MEMORY[0x277D86220], 16, "RealityFusion Assert Fatal: %s", v121);
+    if (v128 < 0)
     {
       operator delete(*uu);
     }
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_270;
+    goto LABEL_269;
   }
 
-  v12 = *ComponentsOfClass;
   REComponentGetEntity();
   RESceneUnderstandingRenderOptionsComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
-  v13 = *(a1 + 24);
   RESceneUnderstandingRenderOptionsComponentSetOcclusionEnabled();
-  v14 = *(a1 + 27);
   RESceneUnderstandingRenderOptionsComponentSetWireframeEnabled();
-  v15 = *(a1 + 29);
   RESceneUnderstandingRenderOptionsComponentSetDepthFeatheringEnabled();
-  v16 = *(a1 + 28);
   RESceneUnderstandingRenderOptionsComponentSetShadowEnabled();
-  v17 = *(a1 + 26);
   RESceneUnderstandingRenderOptionsComponentSetPhysicsEnabled();
   RESceneUnderstandingComponentGetComponentType();
   *buf = RESceneGetComponentsOfClass();
-  *&buf[8] = v18;
+  *&buf[8] = v10;
   *&buf[16] = 0uLL;
-  v163 = (a1 + 64);
+  v110 = (a1 + 64);
   if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(0, *(a1 + 64), *(a1 + 72)) >= 0x100u && (*(a1 + 24) & 1) == 0 && (*(a1 + 28) & 1) == 0 && (*(a1 + 27) & 1) == 0 && (*(a1 + 30) & 1) == 0 && (*(a1 + 32) & 1) == 0)
   {
-    v20 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v21 = *buf + 8 * *&buf[8];
-    if (v20 != v21)
+    v12 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v13 = *buf + 8 * *&buf[8];
+    if (v12 != v13)
     {
-      v22 = v19;
+      v14 = v11;
       do
       {
-        v23 = *v20;
         REComponentGetEntity();
         REMeshComponentGetComponentType();
         if (REEntityGetComponentByClass())
@@ -7411,26 +6543,106 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
           REEntityRemoveComponentByClass();
         }
 
-        v24 = v20 + 1;
-        v20 = (*v22 + 8 * v22[1]);
-        while (v24 != v20)
+        v15 = v12 + 1;
+        v12 = (*v14 + 8 * v14[1]);
+        while (v15 != v12)
         {
-          v25 = *v24;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v20 = v24;
+            v12 = v15;
             break;
           }
 
-          ++v24;
+          ++v15;
         }
       }
 
-      while (v20 != v21);
+      while (v12 != v13);
     }
   }
 
   if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(4, *(a1 + 64), *(a1 + 72)) >= 0x100u && (*(a1 + 24) & 1) == 0 && (*(a1 + 28) & 1) == 0 && (*(a1 + 27) & 1) == 0 && (*(a1 + 30) & 1) == 0 && (*(a1 + 32) & 1) == 0)
+  {
+    v17 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v18 = *buf + 8 * *&buf[8];
+    if (v17 != v18)
+    {
+      v19 = v16;
+      do
+      {
+        REComponentGetEntity();
+        REMeshComponentGetComponentType();
+        if (REEntityGetComponentByClass())
+        {
+          REMeshComponentGetComponentType();
+          REEntityRemoveComponentByClass();
+        }
+
+        REMaterialParameterBlockArrayComponentGetComponentType();
+        if (REEntityGetComponentByClass())
+        {
+          REMaterialParameterBlockArrayComponentGetComponentType();
+          REEntityRemoveComponentByClass();
+        }
+
+        v20 = v17 + 1;
+        v17 = (*v19 + 8 * v19[1]);
+        while (v20 != v17)
+        {
+          if (RESceneUnderstandingComponentGetSourceType() == 1)
+          {
+            v17 = v20;
+            break;
+          }
+
+          ++v20;
+        }
+      }
+
+      while (v17 != v18);
+    }
+  }
+
+  if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(5, *(a1 + 64), *(a1 + 72)) >= 0x100u && ((*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || *(a1 + 32) == 1))
+  {
+    v22 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v23 = *buf + 8 * *&buf[8];
+    if (v22 != v23)
+    {
+      v24 = v21;
+      do
+      {
+        REComponentGetEntity();
+        REMaterialParameterBlockArrayComponentGetComponentType();
+        if (REEntityGetComponentByClass())
+        {
+          REMaterialParameterBlockArrayComponentGetBlockAtIndex();
+          REMaterialParameterBlockSetBool();
+          if (*(a1 + 56) == 1)
+          {
+            RENetworkMarkComponentDirty();
+          }
+        }
+
+        v25 = v22 + 1;
+        v22 = (*v24 + 8 * v24[1]);
+        while (v25 != v22)
+        {
+          if (RESceneUnderstandingComponentGetSourceType() == 1)
+          {
+            v22 = v25;
+            break;
+          }
+
+          ++v25;
+        }
+      }
+
+      while (v22 != v23);
+    }
+  }
+
+  if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(6, *(a1 + 64), *(a1 + 72)) >= 0x100u && ((*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || *(a1 + 32) == 1))
   {
     v27 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
     v28 = *buf + 8 * *&buf[8];
@@ -7439,34 +6651,29 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
       v29 = v26;
       do
       {
-        v30 = *v27;
         REComponentGetEntity();
-        REMeshComponentGetComponentType();
-        if (REEntityGetComponentByClass())
-        {
-          REMeshComponentGetComponentType();
-          REEntityRemoveComponentByClass();
-        }
-
         REMaterialParameterBlockArrayComponentGetComponentType();
         if (REEntityGetComponentByClass())
         {
-          REMaterialParameterBlockArrayComponentGetComponentType();
-          REEntityRemoveComponentByClass();
+          REMaterialParameterBlockArrayComponentGetBlockAtIndex();
+          REMaterialParameterBlockSetBool();
+          if (*(a1 + 56) == 1)
+          {
+            RENetworkMarkComponentDirty();
+          }
         }
 
-        v31 = v27 + 1;
+        v30 = v27 + 1;
         v27 = (*v29 + 8 * v29[1]);
-        while (v31 != v27)
+        while (v30 != v27)
         {
-          v32 = *v31;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v27 = v31;
+            v27 = v30;
             break;
           }
 
-          ++v31;
+          ++v30;
         }
       }
 
@@ -7474,109 +6681,23 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
     }
   }
 
-  if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(5, *(a1 + 64), *(a1 + 72)) >= 0x100u && ((*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || *(a1 + 32) == 1))
+  v31 = std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::find<rf::data_flow::consumer::DirtyOption>(*(a1 + 64), *(a1 + 72), 3);
+  if (v31)
   {
-    v34 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v35 = *buf + 8 * *&buf[8];
-    if (v34 != v35)
-    {
-      v36 = v33;
-      do
-      {
-        v37 = *v34;
-        REComponentGetEntity();
-        REMaterialParameterBlockArrayComponentGetComponentType();
-        if (REEntityGetComponentByClass())
-        {
-          REMaterialParameterBlockArrayComponentGetBlockAtIndex();
-          v38 = *(a1 + 28);
-          REMaterialParameterBlockSetBool();
-          if (*(a1 + 56) == 1)
-          {
-            RENetworkMarkComponentDirty();
-          }
-        }
-
-        v39 = v34 + 1;
-        v34 = (*v36 + 8 * v36[1]);
-        while (v39 != v34)
-        {
-          v40 = *v39;
-          if (RESceneUnderstandingComponentGetSourceType() == 1)
-          {
-            v34 = v39;
-            break;
-          }
-
-          ++v39;
-        }
-      }
-
-      while (v34 != v35);
-    }
-  }
-
-  if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(6, *(a1 + 64), *(a1 + 72)) >= 0x100u && ((*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || *(a1 + 32) == 1))
-  {
-    v42 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v43 = *buf + 8 * *&buf[8];
-    if (v42 != v43)
-    {
-      v44 = v41;
-      do
-      {
-        v45 = *v42;
-        REComponentGetEntity();
-        REMaterialParameterBlockArrayComponentGetComponentType();
-        if (REEntityGetComponentByClass())
-        {
-          REMaterialParameterBlockArrayComponentGetBlockAtIndex();
-          v46 = *(a1 + 30);
-          REMaterialParameterBlockSetBool();
-          if (*(a1 + 56) == 1)
-          {
-            RENetworkMarkComponentDirty();
-          }
-        }
-
-        v47 = v42 + 1;
-        v42 = (*v44 + 8 * v44[1]);
-        while (v47 != v42)
-        {
-          v48 = *v47;
-          if (RESceneUnderstandingComponentGetSourceType() == 1)
-          {
-            v42 = v47;
-            break;
-          }
-
-          ++v47;
-        }
-      }
-
-      while (v42 != v43);
-    }
-  }
-
-  v49 = std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::find<rf::data_flow::consumer::DirtyOption>(*(a1 + 64), *(a1 + 72), 3);
-  if (v49)
-  {
-    v50 = v49[3];
+    v32 = v31[3];
     {
       std::__throw_bad_any_cast[abi:ne200100]();
     }
 
-    v52 = *v51;
     if ((*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || *(a1 + 32) == 1)
     {
-      v54 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-      v55 = *buf + 8 * *&buf[8];
-      if (v54 != v55)
+      v34 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+      v35 = *buf + 8 * *&buf[8];
+      if (v34 != v35)
       {
-        v56 = v53;
+        v36 = v33;
         do
         {
-          v57 = *v54;
           REComponentGetEntity();
           REMeshComponentGetComponentType();
           if (REEntityGetComponentByClass())
@@ -7588,41 +6709,39 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
             }
           }
 
-          v58 = v54 + 1;
-          v54 = (*v56 + 8 * v56[1]);
-          while (v58 != v54)
+          v37 = v34 + 1;
+          v34 = (*v36 + 8 * v36[1]);
+          while (v37 != v34)
           {
-            v59 = *v58;
             if (RESceneUnderstandingComponentGetSourceType() == 1)
             {
-              v54 = v58;
+              v34 = v37;
               break;
             }
 
-            ++v58;
+            ++v37;
           }
         }
 
-        while (v54 != v55);
+        while (v34 != v35);
       }
     }
   }
 
-  v60 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(2, *(a1 + 64), *(a1 + 72));
-  v61 = v60;
-  if (v60 >= 0x100u)
+  v38 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(2, *(a1 + 64), *(a1 + 72));
+  v39 = v38;
+  if (v38 >= 0x100u)
   {
-    v63 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v64 = *buf + 8 * *&buf[8];
-    if (v63 != v64)
+    v41 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v42 = *buf + 8 * *&buf[8];
+    if (v41 != v42)
     {
-      v65 = v62;
+      v43 = v40;
       do
       {
-        v66 = *v63;
         REComponentGetEntity();
         RERigidBodyComponentGetComponentType();
-        if (v61)
+        if (v39)
         {
           if (REEntityAddComponentByClass())
           {
@@ -7640,36 +6759,34 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
           REEntityRemoveComponentByClass();
         }
 
-        v67 = v63 + 1;
-        v63 = (*v65 + 8 * v65[1]);
-        while (v67 != v63)
+        v44 = v41 + 1;
+        v41 = (*v43 + 8 * v43[1]);
+        while (v44 != v41)
         {
-          v68 = *v67;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v63 = v67;
+            v41 = v44;
             break;
           }
 
-          ++v67;
+          ++v44;
         }
       }
 
-      while (v63 != v64);
+      while (v41 != v42);
     }
   }
 
-  v69 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(1, *(a1 + 64), *(a1 + 72));
-  if (v69 >= 0x100u && (v69 & 1) == 0)
+  v45 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(1, *(a1 + 64), *(a1 + 72));
+  if (v45 >= 0x100u && (v45 & 1) == 0)
   {
-    v71 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v72 = *buf + 8 * *&buf[8];
-    if (v71 != v72)
+    v47 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v48 = *buf + 8 * *&buf[8];
+    if (v47 != v48)
     {
-      v73 = v70;
+      v49 = v46;
       do
       {
-        v74 = *v71;
         REComponentGetEntity();
         REColliderComponentGetComponentType();
         if (REEntityGetComponentByClass())
@@ -7678,73 +6795,68 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
           REEntityRemoveComponentByClass();
         }
 
-        v75 = v71 + 1;
-        v71 = (*v73 + 8 * v73[1]);
-        while (v75 != v71)
+        v50 = v47 + 1;
+        v47 = (*v49 + 8 * v49[1]);
+        while (v50 != v47)
         {
-          v76 = *v75;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v71 = v75;
+            v47 = v50;
             break;
           }
 
-          ++v75;
+          ++v50;
         }
       }
 
-      while (v71 != v72);
+      while (v47 != v48);
     }
   }
 
-  v77 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(8, *(a1 + 64), *(a1 + 72));
-  if (v77 >= 0x100u && v77 == 0)
+  v51 = rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(8, *(a1 + 64), *(a1 + 72));
+  if (v51 >= 0x100u && v51 == 0)
   {
-    v80 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v81 = *buf + 8 * *&buf[8];
-    if (v80 != v81)
+    v54 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v55 = *buf + 8 * *&buf[8];
+    if (v54 != v55)
     {
-      v82 = v79;
+      v56 = v53;
       do
       {
-        v83 = *v80;
         if (RESceneUnderstandingComponentIsEntityType())
         {
-          v84 = *v80;
           REComponentGetEntity();
           REAcousticMeshComponentGetComponentType();
           REEntityRemoveComponentByClass();
         }
 
-        v85 = v80 + 1;
-        v80 = (*v82 + 8 * v82[1]);
-        while (v85 != v80)
+        v57 = v54 + 1;
+        v54 = (*v56 + 8 * v56[1]);
+        while (v57 != v54)
         {
-          v86 = *v85;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v80 = v85;
+            v54 = v57;
             break;
           }
 
-          ++v85;
+          ++v57;
         }
       }
 
-      while (v80 != v81);
+      while (v54 != v55);
     }
   }
 
   if (rf::helpers::findInDirtyOptions<rf::data_flow::consumer::DirtyOption,BOOL>(9, *(a1 + 64), *(a1 + 72)) >= 0x100u && (*(a1 + 24) & 1) == 0 && (*(a1 + 28) & 1) == 0 && (*(a1 + 27) & 1) == 0 && (*(a1 + 30) & 1) == 0 && (*(a1 + 32) & 1) == 0)
   {
-    v88 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
-    v89 = *buf + 8 * *&buf[8];
-    if (v88 != v89)
+    v59 = std::ranges::__begin::__fn::operator()[abi:ne200100]<std::ranges::filter_view[abi:llvm18_nua]<std::span<REComponent *,18446744073709551615ul>,rf::data_flow::consumer::ClientMeshReconstructionConsumer::updateComponentsInSceneWithConfigChange(REScene *)::$_0> &>(buf);
+    v60 = *buf + 8 * *&buf[8];
+    if (v59 != v60)
     {
-      v90 = v87;
+      v61 = v58;
       do
       {
-        v91 = *v88;
         REComponentGetEntity();
         REMeshComponentGetComponentType();
         if (REEntityGetComponentByClass())
@@ -7760,45 +6872,42 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
           REEntityRemoveComponentByClass();
         }
 
-        v92 = v88 + 1;
-        v88 = (*v90 + 8 * v90[1]);
-        while (v92 != v88)
+        v62 = v59 + 1;
+        v59 = (*v61 + 8 * v61[1]);
+        while (v62 != v59)
         {
-          v93 = *v92;
           if (RESceneUnderstandingComponentGetSourceType() == 1)
           {
-            v88 = v92;
+            v59 = v62;
             break;
           }
 
-          ++v92;
+          ++v62;
         }
       }
 
-      while (v88 != v89);
+      while (v59 != v60);
     }
   }
 
-  v94 = *(*(a1 + 16) + 4064);
-  v95 = v94 > 4;
-  v96 = (1 << v94) & 0x15;
-  if (v95 || v96 == 0)
+  v63 = *(*(a1 + 16) + 4064);
+  v64 = v63 > 4;
+  v65 = (1 << v63) & 0x15;
+  if (v64 || v65 == 0)
   {
-    v98 = (a1 + 120);
+    v67 = (a1 + 120);
     if (*(a1 + 120) == 1)
     {
       RESceneUnderstandingComponentGetComponentType();
-      v100 = RESceneGetComponentsOfClass();
-      if (v101)
+      ComponentsOfClass = RESceneGetComponentsOfClass();
+      if (v70)
       {
-        v102 = v100;
-        v103 = 8 * v101;
+        v71 = ComponentsOfClass;
+        v72 = 8 * v70;
         do
         {
-          v104 = *v102;
           if ((RESceneUnderstandingComponentIsEntityType() & 1) == 0)
           {
-            v105 = *v102;
             REComponentGetEntity();
             REAnchorComponentGetComponentType();
             if (REEntityGetComponentByClass())
@@ -7806,8 +6915,8 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
               IsAnchorExternal = REAnchorComponentGetIsAnchorExternal();
               if ((IsAnchorExternal & 1) == 0)
               {
-                v107 = rf::realityFusionLogObject(IsAnchorExternal);
-                if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+                v74 = rf::realityFusionLogObject(IsAnchorExternal);
+                if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
                 {
                   Name = REEntityGetName();
                   LocalId = REEntityGetLocalId();
@@ -7815,7 +6924,7 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
                   *&buf[4] = Name;
                   *&buf[12] = 2048;
                   *&buf[14] = LocalId;
-                  _os_log_impl(&dword_2617CB000, v107, OS_LOG_TYPE_DEFAULT, "MeshReconstructionConsumer: Mark SU mesh entity %s(%llu) as external.", buf, 0x16u);
+                  _os_log_impl(&dword_2617CB000, v74, OS_LOG_TYPE_DEFAULT, "MeshReconstructionConsumer: Mark SU mesh entity %s(%llu) as external.", buf, 0x16u);
                 }
 
                 REAnchorComponentSetIsAnchorExternal();
@@ -7823,58 +6932,42 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::consumeLatestUpdate(ui
             }
           }
 
-          ++v102;
-          v103 -= 8;
+          v71 += 8;
+          v72 -= 8;
         }
 
-        while (v103);
+        while (v72);
       }
     }
 
-    v99 = 0;
+    v68 = 0;
   }
 
   else
   {
-    v98 = (a1 + 120);
-    v99 = 1;
+    v67 = (a1 + 120);
+    v68 = 1;
   }
 
-  *v98 = v99;
+  *v67 = v68;
   if ((*(a2 + 16) & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v164 = v167 + 1;
-  v165 = *(a2 + 8);
+  v111 = v114 + 1;
+  v112 = *(a2 + 8);
   if (*(a1 + 24) & 1) != 0 || (*(a1 + 28) & 1) != 0 || (*(a1 + 27) & 1) != 0 || (*(a1 + 30) & 1) != 0 || (*(a1 + 32))
   {
-    v110 = 3064;
+    v77 = 3064;
     if (!*(a1 + 104))
     {
-      v110 = 0;
+      v77 = 0;
     }
 
-    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(buf, v164 + v110);
+    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(buf, v111 + v77);
     *(a1 + 104) = 1;
-    if (!*&buf[24])
-    {
-      goto LABEL_190;
-    }
-
-    RESceneUnderstandingComponentGetComponentType();
-    __p = RESceneGetComponentsOfClass();
-    v170 = v111;
-    v172 = 0;
-    v173 = 0;
-    v171 = buf;
-    *uu = &v171;
-    v112 = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::MeshReconstructionConsumer::updateMeshComponentsInSceneWithSnapshot(REServiceLocator *,REScene *,rf::LockedARStateData &)::$_0>,std::identity>(__p, __p + v111, uu);
-    v172 = v112;
-    LOBYTE(v173) = 1;
-    v113 = __p + 8 * v170;
-    if (v112 == v113)
+    if (!*&buf[24] || (RESceneUnderstandingComponentGetComponentType(), __p = RESceneGetComponentsOfClass(), v117 = v78, v119 = 0, v120 = 0, v118 = buf, *uu = &v118, v79 = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::MeshReconstructionConsumer::updateMeshComponentsInSceneWithSnapshot(REServiceLocator *,REScene *,rf::LockedARStateData &)::$_0>,std::identity>(__p, __p + v78, uu), v119 = v79, LOBYTE(v120) = 1, v80 = __p + 8 * v117, v79 == v80))
     {
 LABEL_190:
       std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(buf);
@@ -7883,21 +6976,20 @@ LABEL_190:
 
     while (1)
     {
-      v141 = *v112;
       REComponentGetEntity();
       REAnchorComponentGetComponentType();
       if (REEntityGetComponentByClass())
       {
-        v142 = REAnchorComponentGetIsAnchorExternal();
-        if (v142)
+        v95 = REAnchorComponentGetIsAnchorExternal();
+        if (v95)
         {
-          v143 = rf::realityFusionLogObject(v142);
-          if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
+          v96 = rf::realityFusionLogObject(v95);
+          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
           {
-            v144 = REEntityGetLocalId();
+            v97 = REEntityGetLocalId();
             *uu = 134217984;
-            *&uu[4] = v144;
-            _os_log_impl(&dword_2617CB000, v143, OS_LOG_TYPE_DEFAULT, "MeshReconstructionConsumer: Mark SU mesh entity %llu as relocalized.", uu, 0xCu);
+            *&uu[4] = v97;
+            _os_log_impl(&dword_2617CB000, v96, OS_LOG_TYPE_DEFAULT, "MeshReconstructionConsumer: Mark SU mesh entity %llu as relocalized.", uu, 0xCu);
           }
 
           REAnchorComponentSetIsAnchorExternal();
@@ -7906,40 +6998,32 @@ LABEL_190:
 
       REMeshComponentGetComponentType();
       REEntityGetOrAddComponentByClass();
-      v145 = *v112;
       IdentifierPtr = RESceneUnderstandingComponentGetIdentifierPtr();
-      v180 = 0;
-      v182 = 0;
+      v127 = 0;
+      v129 = 0;
       uuid_clear(uu);
       *uu = IdentifierPtr;
-      v180 = 1;
-      v174[0] = uu;
-      v147 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::piecewise_construct_t const&,std::tuple<rf::data_flow::RFUUID const&>,std::tuple<>>(buf, uu);
-      v149 = v147[6];
-      v148 = v147[7];
-      if (v148)
+      v127 = 1;
+      *v121 = uu;
+      v99 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::__emplace_unique_key_args<rf::data_flow::RFUUID,std::piecewise_construct_t const&,std::tuple<rf::data_flow::RFUUID const&>,std::tuple<>>(buf, uu, &std::piecewise_construct, v121);
+      v101 = v99[6];
+      v100 = v99[7];
+      if (v100)
       {
-        atomic_fetch_add_explicit(&v148->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v100->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       Mesh = REMeshComponentGetMesh();
-      if ((*(v149 + 376) & 1) == 0)
+      if ((*(v101 + 376) & 1) == 0)
       {
         break;
       }
 
-      if (Mesh != *(v149 + 368))
+      if (Mesh != *(v101 + 368))
       {
         REMeshComponentSetMesh();
         if (!REMeshComponentGetMaterialCount())
         {
-          v151 = 40;
-          if (*(v149 + 112))
-          {
-            v151 = 48;
-          }
-
-          v152 = *(a1 + v151);
           REMeshComponentAddMaterial();
         }
 
@@ -7951,49 +7035,40 @@ LABEL_190:
         REMaterialParameterBlockArrayComponentGetComponentType();
         REEntityGetOrAddComponentByClass();
         BlockAtIndex = REMaterialParameterBlockArrayComponentGetBlockAtIndex();
-        v174[0] = 0;
+        *v121 = 0;
         if (BlockAtIndex)
         {
           RERetain();
-          v174[0] = BlockAtIndex;
+          *v121 = BlockAtIndex;
         }
 
         else
         {
-          MEMORY[0x26670CB70](v165);
-          v154 = 40;
-          if (*(v149 + 112))
-          {
-            v154 = 48;
-          }
-
-          v155 = *(a1 + v154);
-          v168 = RERenderManagerMaterialParameterBlockCreateWithAsset();
-          v156 = v174[0];
-          v174[0] = v168;
-          if (v156)
+          MEMORY[0x26670CB70](v112);
+          v115 = RERenderManagerMaterialParameterBlockCreateWithAsset();
+          v104 = *v121;
+          *v121 = v115;
+          if (v104)
           {
             RERelease();
           }
 
-          v168 = 0;
-          RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(&v168);
+          v115 = 0;
+          RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(&v115);
           REMaterialParameterBlockArrayComponentSetBlockAtIndex();
         }
 
-        v157 = *(a1 + 28);
         REMaterialParameterBlockSetBool();
-        v158 = *(a1 + 30);
         REMaterialParameterBlockSetBool();
-        if (*(v149 + 280) == 1)
+        if (*(v101 + 280) == 1)
         {
-          [*(v149 + 256) length];
+          [*(v101 + 256) length];
         }
 
         REMaterialParameterBlockSetBool();
-        if (*(v149 + 312) == 1)
+        if (*(v101 + 312) == 1)
         {
-          [*(v149 + 288) length];
+          [*(v101 + 288) length];
         }
 
         REMaterialParameterBlockSetBool();
@@ -8002,43 +7077,42 @@ LABEL_190:
           RENetworkMarkComponentDirty();
         }
 
-        RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(v174);
+        RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(v121);
         if (re::internal::enableSignposts(0, 0))
         {
-          if (!*(v149 + 24))
+          if (!*(v101 + 24))
           {
-            if (*(v149 + 16))
+            if (*(v101 + 16))
             {
-              v160 = *v149;
+              v105 = *v101;
             }
 
             else
             {
-              v160 = v149;
+              v105 = v101;
             }
 
-            *(v149 + 24) = ((*v160 >> 2) + (*v160 << 6) + v160[1] + 2654435769) ^ *v160;
+            *(v101 + 24) = ((*v105 >> 2) + (*v105 << 6) + v105[1] + 2654435769) ^ *v105;
           }
 
-          v159 = *(v149 + 32);
           kdebug_trace();
         }
       }
 
-      if (v148)
+      if (v100)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v148);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v100);
       }
 
-      *uu = &v171;
-      v112 = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::MeshReconstructionConsumer::updateMeshComponentsInSceneWithSnapshot(REServiceLocator *,REScene *,rf::LockedARStateData &)::$_0>,std::identity>(v112 + 1, __p + v170, uu);
-      if (v112 == v113)
+      *uu = &v118;
+      v79 = std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::MeshReconstructionConsumer::updateMeshComponentsInSceneWithSnapshot(REServiceLocator *,REScene *,rf::LockedARStateData &)::$_0>,std::identity>(v79 + 1, __p + v117, uu);
+      if (v79 == v80)
       {
         goto LABEL_190;
       }
     }
 
-LABEL_270:
+LABEL_269:
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
@@ -8047,15 +7121,13 @@ LABEL_191:
   if (*(a1 + 31) == 1)
   {
     RESceneUnderstandingComponentGetComponentType();
-    v114 = RESceneGetComponentsOfClass();
-    if (v115)
+    v81 = RESceneGetComponentsOfClass();
+    if (v82)
     {
-      v116 = v114;
-      v117 = 8 * v115;
-      v118 = MEMORY[0x277D860B8];
+      v83 = v81;
+      v84 = 8 * v82;
       do
       {
-        v119 = *v116;
         if (RESceneUnderstandingComponentIsEntityType())
         {
           Entity = REComponentGetEntity();
@@ -8065,45 +7137,37 @@ LABEL_191:
             SelfEnabled = REEntityGetSelfEnabled();
             if (*(a1 + 57) != SelfEnabled)
             {
-              v122 = rf::realityFusionLogObject(SelfEnabled);
-              if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+              v87 = rf::realityFusionLogObject(SelfEnabled);
+              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
               {
-                v123 = *(a1 + 57);
-                v124 = REEntityGetName();
+                v88 = *(a1 + 57);
+                v89 = REEntityGetName();
                 *buf = 67109378;
-                *&buf[4] = v123;
+                *&buf[4] = v88;
                 *&buf[8] = 2080;
-                *&buf[10] = v124;
-                _os_log_impl(&dword_2617CB000, v122, OS_LOG_TYPE_DEFAULT, "Setting enabled=%d for AcousticMeshComponent on entity: %s", buf, 0x12u);
+                *&buf[10] = v89;
+                _os_log_impl(&dword_2617CB000, v87, OS_LOG_TYPE_DEFAULT, "Setting enabled=%d for AcousticMeshComponent on entity: %s", buf, 0x12u);
               }
 
               MEMORY[0x26670C3A0](Entity, *(a1 + 57));
             }
 
-            v125 = RESceneUnderstandingComponentGetIdentifierPtr();
+            v90 = RESceneUnderstandingComponentGetIdentifierPtr();
             buf[16] = 0;
             *&buf[24] = 0;
             uuid_clear(buf);
-            *buf = v125;
+            *buf = v90;
             buf[16] = 1;
-            v126 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(v167[50].__m_.__opaque, buf);
-            if (v126)
+            if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(v114[50].__m_.__opaque, buf))
             {
               RETransformComponentGetComponentType();
               REEntityGetComponentByClass();
-              v127 = v118[2];
-              v128 = v118[3];
-              v129 = *v118;
-              v130 = v118[1];
               RETransformComponentSetWorldMatrix4x4F();
-              v131 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(&v167[1].__m_.__opaque[32], buf);
-              if (v131)
+              if (std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(&v114[1].__m_.__opaque[32], buf))
               {
-                v132 = *(v131[6] + 120);
                 REAcousticMeshComponentSetLastUpdateTimestamp();
               }
 
-              v133 = v126[6];
               REAcousticMeshComponentSetARMesh();
               if (*(a1 + 56) == 1)
               {
@@ -8113,29 +7177,29 @@ LABEL_191:
           }
         }
 
-        ++v116;
-        v117 -= 8;
+        v83 += 8;
+        v84 -= 8;
       }
 
-      while (v117);
+      while (v84);
     }
   }
 
-  v134 = *(a1 + 25);
-  if (v134)
+  v91 = *(a1 + 25);
+  if (v91)
   {
-    v135 = 3104;
+    v92 = 3104;
     if (!*(a1 + 105))
     {
-      v135 = 0;
+      v92 = 0;
     }
 
-    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(buf, v164 + v135);
-    *(a1 + 105) = v134;
+    std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(buf, v111 + v92);
+    *(a1 + 105) = v91;
     if (*&buf[24])
     {
       std::unordered_map<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::Mesh>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,std::shared_ptr<rf::data_flow::consumer::Mesh>>>>::unordered_map(&__p, buf);
-      rf::helpers::updateSceneUnderstandingPhysicsComponentsWithMeshUpdates(v166, &__p, *(a1 + 26), *(a1 + 56));
+      rf::helpers::updateSceneUnderstandingPhysicsComponentsWithMeshUpdates(v113, &__p, *(a1 + 26), *(a1 + 56));
       std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,std::shared_ptr<rf::data_flow::consumer::MeshVisualizer::DebugVisMesh>>>>::~__hash_table(&__p);
     }
 
@@ -8144,19 +7208,19 @@ LABEL_191:
 
   else
   {
-    *(a1 + 105) = v134;
+    *(a1 + 105) = v91;
   }
 
   if (*(a1 + 88))
   {
-    std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::__deallocate_node(v163, *(a1 + 80));
+    std::__hash_table<std::__hash_value_type<unsigned long,std::any>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::any>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::any>>>::__deallocate_node(v110, *(a1 + 80));
     *(a1 + 80) = 0;
-    v136 = *(a1 + 72);
-    if (v136)
+    v93 = *(a1 + 72);
+    if (v93)
     {
-      for (i = 0; i != v136; ++i)
+      for (i = 0; i != v93; ++i)
       {
-        *(*v163 + 8 * i) = 0;
+        *(*v110 + 8 * i) = 0;
       }
     }
 
@@ -8165,299 +7229,287 @@ LABEL_191:
 
   if (re::internal::enableSignposts(0, 0))
   {
-    v138 = *&v167[1].__m_.__opaque[16];
-    sig = v167[2].__m_.__sig;
     kdebug_trace();
   }
 
-  std::mutex::unlock(v167);
-LABEL_221:
-  v140 = *MEMORY[0x277D85DE8];
+  std::mutex::unlock(v114);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setRigidbodyEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setRigidbodyEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[26] != a2)
+  if (*(this + 26) != a2)
   {
-    this[26] = a2;
+    *(this + 26) = a2;
+    v2 = 2;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 2);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 2, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261840BE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setCollisionEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setCollisionEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[25] != a2)
+  if (*(this + 25) != a2)
   {
-    this[25] = a2;
+    *(this + 25) = a2;
+    v2 = 1;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 1);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 1, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261840C94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setOcclusionEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setOcclusionEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[24] != a2)
+  if (*(this + 24) != a2)
   {
-    this[24] = a2;
+    *(this + 24) = a2;
+    v2 = 0;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 0);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 0, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261840D44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t (**rf::data_flow::consumer::MeshReconstructionConsumer::setMeshMaterial(uint64_t (**result)(void, void, void, void, void), uint64_t (*a2)(void, void, void, void, void)))(void, void, void, void, void)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setMeshMaterial(float *result, uint64_t (*a2)(void, void, void, void, void))
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (result[5] != a2)
+  if (*(result + 5) != a2)
   {
-    result[5] = a2;
+    *(result + 5) = a2;
+    v2 = 3;
     v3[0] = std::__any_imp::_SmallHandler<REAsset *>::__handle[abi:ne200100];
     v3[1] = a2;
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(result + 8, 3);
-    result = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(result + 16, 3, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_261840DF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t (**rf::data_flow::consumer::MeshReconstructionConsumer::setSyntheticMeshMaterial(uint64_t (**result)(void, void, void, void, void), uint64_t (*a2)(void, void, void, void, void)))(void, void, void, void, void)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setSyntheticMeshMaterial(float *result, uint64_t (*a2)(void, void, void, void, void))
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (result[6] != a2)
+  if (*(result + 6) != a2)
   {
-    result[6] = a2;
+    *(result + 6) = a2;
+    v2 = 3;
     v3[0] = std::__any_imp::_SmallHandler<REAsset *>::__handle[abi:ne200100];
     v3[1] = a2;
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(result + 8, 3);
-    result = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(result + 16, 3, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_261840E9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setWireframeEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setWireframeEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[27] != a2)
+  if (*(this + 27) != a2)
   {
-    this[27] = a2;
+    *(this + 27) = a2;
+    v2 = 4;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 4);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 4, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261840F50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261840F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setLightingEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setLightingEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[28] != a2)
+  if (*(this + 28) != a2)
   {
-    this[28] = a2;
+    *(this + 28) = a2;
+    v2 = 5;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 5);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 5, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_261841004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_261841004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setDynamicLightingEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setDynamicLightingEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[30] != a2)
+  if (*(this + 30) != a2)
   {
-    this[30] = a2;
+    *(this + 30) = a2;
+    v2 = 6;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 6);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 6, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_2618410B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2618410B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *rf::data_flow::consumer::MeshReconstructionConsumer::setAtmosphereOcclusionEnabled(_BYTE *this, int a2)
+float *rf::data_flow::consumer::MeshReconstructionConsumer::setAtmosphereOcclusionEnabled(float *this, int a2)
 {
   v3[4] = *MEMORY[0x277D85DE8];
-  if (this[32] != a2)
+  if (*(this + 32) != a2)
   {
-    this[32] = a2;
+    *(this + 32) = a2;
+    v2 = 9;
     v3[1] = a2;
     v3[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 8, 9);
-    this = std::any::reset[abi:ne200100](v3);
+    std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(this + 16, 9, &v2);
+    return std::any::reset[abi:ne200100](v3);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-void sub_26184116C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26184116C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t rf::data_flow::consumer::MeshReconstructionConsumer::getBoundingBox@<X0>(int a1@<W2>, float32x4_t *a2@<X8>)
+void rf::data_flow::consumer::MeshReconstructionConsumer::getBoundingBox(int a3@<W2>, float32x4_t *a4@<X8>)
 {
   RESceneUnderstandingComponentGetComponentType();
-  result = RESceneGetComponentsOfClass();
-  v6 = result;
-  v7 = v5;
-  v8.i64[0] = 0x7F0000007FLL;
-  v8.i64[1] = 0x7F0000007FLL;
-  *a2 = vnegq_f32(v8);
-  a2[1] = v8;
-  if (v5)
+  ComponentsOfClass = RESceneGetComponentsOfClass();
+  v8 = ComponentsOfClass;
+  v9 = v7;
+  v10.i64[0] = 0x7F0000007FLL;
+  v10.i64[1] = 0x7F0000007FLL;
+  *a4 = vnegq_f32(v10);
+  a4[1] = v10;
+  if (v7)
   {
-    v9 = 8 * v5;
-    for (i = result; ; ++i)
+    v11 = 8 * v7;
+    v12 = ComponentsOfClass;
+    while (RESceneUnderstandingComponentGetSourceType() != 1)
     {
-      v11 = *i;
-      result = RESceneUnderstandingComponentGetSourceType();
-      if (result == 1)
+      v12 += 8;
+      v11 -= 8;
+      if (!v11)
       {
-        break;
-      }
-
-      v9 -= 8;
-      if (!v9)
-      {
-        return result;
+        return;
       }
     }
   }
 
   else
   {
-    i = result;
+    v12 = ComponentsOfClass;
   }
 
-  v12 = (v6 + 8 * v7);
-  if (i != v12)
+  v13 = v8 + 8 * v9;
+  if (v12 != v13)
   {
-    v13.i64[0] = 0x7F0000007FLL;
-    v13.i64[1] = 0x7F0000007FLL;
     v14.i64[0] = 0x7F0000007FLL;
     v14.i64[1] = 0x7F0000007FLL;
-    v21 = vnegq_f32(v13);
-    v22 = v14;
+    v15.i64[0] = 0x7F0000007FLL;
+    v15.i64[1] = 0x7F0000007FLL;
+    v20 = vnegq_f32(v14);
+    v21 = v15;
     while (1)
     {
-      v15 = *i;
-      result = REComponentGetEntity();
-      if (a1 != 1)
+      REComponentGetEntity();
+      if (a3 != 1)
       {
         break;
       }
 
       RETransformComponentGetComponentType();
-      result = REEntityGetComponentByClass();
-      if (result)
+      if (REEntityGetComponentByClass())
       {
         REColliderComponentGetComponentType();
-        result = REEntityGetComponentByClass();
-        if (result)
+        if (REEntityGetComponentByClass())
         {
           REColliderComponentGetShape();
           RECollisionShapeAssetGetCollisionShape();
           RETransformComponentGetWorldPose();
-          result = RECollisionShapeGetBoundingBox();
+          RECollisionShapeGetBoundingBox();
 LABEL_16:
-          v19 = v21;
-          v18 = v22;
+          v19 = v20;
+          v18 = v21;
           v19.i32[3] = 0;
           v16.i32[3] = 0;
           v18.i32[3] = 0;
           v17.i32[3] = 0;
-          v21 = vminnmq_f32(v19, v16);
-          v22 = vmaxnmq_f32(v18, v17);
-          *a2 = v21;
-          a2[1] = v22;
+          v20 = vminnmq_f32(v19, v16);
+          v21 = vmaxnmq_f32(v18, v17);
+          *a4 = v20;
+          a4[1] = v21;
           goto LABEL_17;
         }
       }
@@ -8465,69 +7517,64 @@ LABEL_16:
       do
       {
 LABEL_17:
-        if (++i == v12)
+        v12 += 8;
+        if (v12 == v13)
         {
-          return result;
+          return;
         }
-
-        v20 = *i;
-        result = RESceneUnderstandingComponentGetSourceType();
       }
 
-      while (result != 1);
-      if (i == v12)
+      while (RESceneUnderstandingComponentGetSourceType() != 1);
+      if (v12 == v13)
       {
-        return result;
+        return;
       }
     }
 
-    if (!a1)
+    if (!a3)
     {
       RETransformComponentGetComponentType();
-      result = REEntityGetComponentByClass();
-      if (!result)
+      if (!REEntityGetComponentByClass())
       {
         goto LABEL_17;
       }
 
       RETransformComponentGetWorldMatrix4x4F();
-      result = REEntityComputeMeshBounds();
+      REEntityComputeMeshBounds();
     }
 
     goto LABEL_16;
   }
-
-  return result;
 }
 
-void rf::data_flow::consumer::MeshReconstructionConsumer::exportAcousticMeshComponents(uint64_t a1, uint64_t a2, void *a3)
+void rf::data_flow::consumer::MeshReconstructionConsumer::exportAcousticMeshComponents(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   RESceneUnderstandingComponentGetComponentType();
   RESceneGetComponentsOfClass();
-  v9 = [MEMORY[0x277CCAA00] defaultManager];
+  v10 = [MEMORY[0x277CCAA00] defaultManager];
   a3;
-  v4 = [v9 createDirectoryAtURL:? withIntermediateDirectories:? attributes:? error:?];
-  v5 = 0;
-  v8 = v5;
-  if (v5)
+  v5 = [v10 createDirectoryAtURL:? withIntermediateDirectories:? attributes:? error:?];
+  v6 = 0;
+  v9 = v6;
+  if (v6)
   {
-    v6 = v4;
+    v7 = v5;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v7 = rf::realityFusionLogObject(v5);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = rf::realityFusionLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       block = 138412290;
-      block_4 = v8;
-      _os_log_error_impl(&dword_2617CB000, v7, OS_LOG_TYPE_ERROR, "[MeshReconstructionConsumer::exportAcousticMeshComponentsInScene] Could not create export directory: %@", &block, 0xCu);
+      block_4 = v9;
+      _os_log_error_impl(&dword_2617CB000, v8, OS_LOG_TYPE_ERROR, "[MeshReconstructionConsumer::exportAcousticMeshComponentsInScene] Could not create export directory: %@", &block, 0xCu);
     }
   }
 
@@ -8536,17 +7583,17 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::exportAcousticMeshComp
 
 void ___ZNK2rf9data_flow8consumer26MeshReconstructionConsumer28exportAcousticMeshComponentsEP7REScenePK7__CFURLNSt3__18functionIFvP7NSErrorEEE_block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (**(a1 + 32) != 1)
   {
     v4 = 0;
     goto LABEL_5;
   }
 
-  v8 = *MEMORY[0x277CCA450];
+  v7 = *MEMORY[0x277CCA450];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"RealityFusion MeshReconstructionConsumer::exportAcousticMeshComponents has failure in exporting acoustic meshes. For details look for logs containing [MeshReconstructionConsumer::exportAcousticMeshComponentsInScene]"];
-  v9[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v4 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"RealityFusion" code:-1 userInfo:v3];
   if (*(a1 + 32))
@@ -8557,17 +7604,15 @@ LABEL_5:
 
   if (*(a1 + 64))
   {
-    v7 = v4;
+    v6 = v4;
     v5 = *(a1 + 64);
     if (!v5)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v5 + 48))(v5, &v7);
+    (*(*v5 + 48))(v5, &v6);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void rf::data_flow::consumer::MeshReconstructionConsumer::~MeshReconstructionConsumer(id *this)
@@ -8587,7 +7632,7 @@ void rf::data_flow::consumer::MeshReconstructionConsumer::~MeshReconstructionCon
   JUMPOUT(0x26670D060);
 }
 
-void *RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(void *a1)
+uint64_t *RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(uint64_t *a1)
 {
   if (*a1)
   {
@@ -8600,27 +7645,26 @@ void *RESharedPtr<REMaterialParameterBlock>::~RESharedPtr(void *a1)
 void *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>,std::__wrap_iter<REComponent **>,std::reference_wrapper<rf::data_flow::consumer::MeshReconstructionConsumer::updateMeshComponentsInSceneWithSnapshot(REServiceLocator *,REScene *,rf::LockedARStateData &)::$_0>,std::identity>(void *a1, void *a2, void ***a3)
 {
   v3 = a2;
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a1 != a2)
   {
     v5 = a1;
     while (1)
     {
       v6 = *a3;
-      v7 = *v5;
       if (RESceneUnderstandingComponentGetSourceType() != 2)
       {
-        v8 = *v6;
+        v7 = *v6;
         IdentifierPtr = RESceneUnderstandingComponentGetIdentifierPtr();
-        v14 = 0;
-        v15 = 0;
+        v12 = 0;
+        v13 = 0;
         uuid_clear(uu);
         *uu = IdentifierPtr;
-        v14 = 1;
-        v10 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(v8, uu);
-        if (v10)
+        v12 = 1;
+        v9 = std::__hash_table<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,std::__unordered_map_hasher<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,true>,std::__unordered_map_equal<rf::data_flow::RFUUID,std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>,rf::data_flow::RFUUID::Equality,rf::data_flow::RFUUID::Hash,true>,std::allocator<std::__hash_value_type<rf::data_flow::RFUUID,rf::data_flow::EnvironmentProbe>>>::find<rf::data_flow::RFUUID>(v7, uu);
+        if (v9)
         {
-          if (*(v10[6] + 376))
+          if (*(v9[6] + 376))
           {
             break;
           }
@@ -8629,15 +7673,13 @@ void *std::ranges::__find_if_impl[abi:ne200100]<std::__wrap_iter<REComponent **>
 
       if (++v5 == v3)
       {
-        goto LABEL_9;
+        return v3;
       }
     }
 
-    v3 = v5;
+    return v5;
   }
 
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -8695,15 +7737,15 @@ LABEL_9:
 
 void ___ZZNK2rf9data_flow8consumer26MeshReconstructionConsumer28exportAcousticMeshComponentsEP7REScenePK7__CFURLNSt3__18functionIFvP7NSErrorEEEEN3__0clEP11REComponent_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CD7AD0]);
   v3 = [*(a1 + 64) allocator];
   v4 = [v2 initWithBufferAllocator:v3];
 
   [v4 addObject:*(a1 + 64)];
   v5 = MEMORY[0x277CCACA8];
-  rf::data_flow::RFUUID::string((a1 + 32), __p);
-  if (v14 >= 0)
+  rf::data_flow::RFUUID::string(__p, (a1 + 32));
+  if (v13 >= 0)
   {
     v6 = __p;
   }
@@ -8714,7 +7756,7 @@ void ___ZZNK2rf9data_flow8consumer26MeshReconstructionConsumer28exportAcousticMe
   }
 
   v7 = [v5 stringWithFormat:@"%s.obj", v6];
-  if (v14 < 0)
+  if (v13 < 0)
   {
     operator delete(*__p);
   }
@@ -8734,8 +7776,6 @@ void ___ZZNK2rf9data_flow8consumer26MeshReconstructionConsumer28exportAcousticMe
       _os_log_error_impl(&dword_2617CB000, v11, OS_LOG_TYPE_ERROR, "[MeshReconstructionConsumer::exportAcousticMeshComponentsInScene]: error when exporting mdlAsset %@", __p, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __copy_helper_block_ea8_32c170_ZTSZZNK2rf9data_flow8consumer26MeshReconstructionConsumer28exportAcousticMeshComponentsEP7REScenePK7__CFURLNSt3__18functionIFvP7NSErrorEEEEN3__0clEP11REComponentEUlSB_E_(uint64_t a1, uint64_t a2)
@@ -8819,32 +7859,32 @@ uint64_t *std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::Dirt
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(void *result, int a2)
+float *std::__hash_table<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::__unordered_map_hasher<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::hash<rf::data_flow::consumer::DirtyOption>,std::equal_to<rf::data_flow::consumer::DirtyOption>,true>,std::__unordered_map_equal<rf::data_flow::consumer::DirtyOption,std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>,std::equal_to<rf::data_flow::consumer::DirtyOption>,std::hash<rf::data_flow::consumer::DirtyOption>,true>,std::allocator<std::__hash_value_type<rf::data_flow::consumer::DirtyOption,std::any>>>::__emplace_unique_key_args<rf::data_flow::consumer::DirtyOption,std::pair<rf::data_flow::consumer::DirtyOption const,std::any>>(float *result, int a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = *(result + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*result + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8852,39 +7892,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -8892,9 +7932,9 @@ LABEL_17:
   return result;
 }
 
-void sub_2618422E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2618422E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,std::any>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,std::any>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8926,7 +7966,6 @@ uint64_t std::__function::__value_func<void ()(NSError *)>::__value_func[abi:ne2
 
 void RFRayCastingServiceCreate()
 {
-  v0 = *MEMORY[0x277CBECE8];
   if (qword_2810C4D98 != -1)
   {
     dispatch_once(&qword_2810C4D98, &__block_literal_global_15);
@@ -9105,7 +8144,6 @@ void *rf::TrackableResourceComponent::registerTrackableResourceComponent(void *t
   if (!*this)
   {
     v1 = this;
-    v2 = this[17];
     this = RECustomComponentTypeCreate();
     *v1 = this;
   }
@@ -9192,38 +8230,25 @@ uint64_t rf::TrackableResourceComponent::registerTrackableResourceComponent(void
   return result;
 }
 
-uint64_t rf::helpers::drawArrowWithSphere(uint64_t a1, uint64_t a2, float32x4_t *a3, float32x4_t *a4, __int128 *a5)
+uint64_t rf::helpers::drawArrowWithSphere(uint64_t a1, uint64_t a2, __n128 *a3, float32x4_t *a4, __n128 *a5)
 {
-  v8 = *a4;
-  v9 = *a3;
   REPrimitiveRenderAddLine();
   REPrimitiveRenderSetLineWidth();
-  v10 = *a5;
   REPrimitiveRenderSetLineColor();
-  v11 = vaddq_f32(*a3, vmulq_f32(*a4, vdupq_n_s32(0x3DCCCCCDu)));
   REPrimitiveRenderAddShape();
-  v12 = *a5;
   REPrimitiveRenderSetShapeColor();
 
   return REPrimitiveRenderSetShapeScale();
 }
 
-uint64_t rf::helpers::drawAxis(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t rf::helpers::drawAxis(uint64_t a1, uint64_t a2, float32x4_t *a3)
 {
-  v4 = *(a3 + 16);
-  v5 = vmulq_f32(*a3, 0);
-  v6 = *(a3 + 32);
-  v7 = *(a3 + 48);
   REPrimitiveRenderAddLine();
   REPrimitiveRenderSetLineWidth();
   REPrimitiveRenderSetLineColor();
-  v8 = *(a3 + 48);
-  v9 = vmlaq_f32(vmlaq_f32(vmulq_f32(*a3, 0), 0, *(a3 + 16)), 0, *(a3 + 32));
   REPrimitiveRenderAddLine();
   REPrimitiveRenderSetLineWidth();
   REPrimitiveRenderSetLineColor();
-  v10 = *(a3 + 48);
-  v11 = vmlaq_f32(vmlaq_f32(vmulq_f32(*a3, 0), 0, *(a3 + 16)), 0, *(a3 + 32));
   REPrimitiveRenderAddLine();
   REPrimitiveRenderSetLineWidth();
 
@@ -9269,180 +8294,168 @@ uint64_t rf::helpers::drawAxisWithSphere(uint64_t a1, uint64_t a2, float32x4_t *
   return rf::helpers::drawArrowWithSphere(a1, a2, &v25, &v26, &v24);
 }
 
-uint64_t rf::helpers::drawAnchorCube(uint64_t a1, uint64_t a2, float32x4_t *a3)
+uint64_t rf::helpers::drawAnchorCube(uint64_t a1, uint64_t a2, float32x4_t *a3, int a4)
 {
-  v3 = a3[1];
-  v4 = a3[2];
-  v5 = vaddq_f32(a3[3], vmlaq_f32(vmlaq_f32(vmulq_f32(*a3, 0), 0, v3), 0, v4));
+  v4 = a3[1];
+  v5 = a3[2];
   v7[0] = *a3;
-  v7[1] = v3;
-  v7[2] = v4;
+  v7[1] = v4;
+  v7[2] = v5;
   re::makeQuaternionFromMatrix<float>(v7);
   REPrimitiveRenderAddShape();
   REPrimitiveRenderSetShapeColor();
   return REPrimitiveRenderSetShapeScale();
 }
 
-uint64_t rf::helpers::drawPlaneRect(uint64_t a1, uint64_t a2, float32x4_t *a3, float *a4)
+uint64_t rf::helpers::drawPlaneRect(uint64_t a1, uint64_t a2, float32x4_t *a3, float *a4, __n128 a5)
 {
-  v4 = 0;
-  v23[16] = *MEMORY[0x277D85DE8];
-  v5 = a3[2];
-  v22 = a3[3];
-  v6 = vmulq_f32(*a3, *a3);
-  v7 = vaddv_f32(*v6.f32);
-  *v6.f32 = vrsqrte_f32(COERCE_UNSIGNED_INT(v6.f32[2] + v7));
-  *v6.f32 = vmul_f32(*v6.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v6.f32[2] + v7), vmul_f32(*v6.f32, *v6.f32)));
-  v6.i32[0] = vmul_f32(*v6.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v6.f32[2] + v7), vmul_f32(*v6.f32, *v6.f32))).u32[0];
-  v8 = vmulq_f32(v5, v5);
-  *&v9 = v8.f32[2] + vaddv_f32(*v8.f32);
-  *v8.f32 = vrsqrte_f32(v9);
-  *v8.f32 = vmul_f32(*v8.f32, vrsqrts_f32(v9, vmul_f32(*v8.f32, *v8.f32)));
-  v10 = vmulq_n_f32(vmulq_n_f32(*a3, v6.f32[0]), *a4 * 0.5);
-  v11 = vaddq_f32(v22, v10);
-  v12 = vmulq_n_f32(vmulq_n_f32(v5, vmul_f32(*v8.f32, vrsqrts_f32(v9, vmul_f32(*v8.f32, *v8.f32))).f32[0]), a4[2] * 0.5);
-  v13 = vsubq_f32(v22, v10);
-  v20 = vaddq_f32(v12, v13);
-  v21 = vaddq_f32(v12, v11);
-  v18 = vsubq_f32(v11, v12);
-  v19 = vsubq_f32(v13, v12);
-  v23[0] = &v21;
-  v23[1] = &v20;
-  v23[2] = &v21;
-  v23[3] = &v18;
-  v23[10] = &v22;
-  v23[11] = &v21;
-  v23[4] = &v20;
-  v23[5] = &v19;
-  v23[6] = &v19;
-  v23[7] = &v18;
-  v23[8] = &v19;
-  v23[9] = &v22;
-  v23[12] = &v18;
-  v23[13] = &v22;
-  v23[14] = &v22;
-  v23[15] = &v20;
+  v5 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v6 = a3[2];
+  v20 = a3[3];
+  v7 = vmulq_f32(*a3, *a3);
+  v8 = vaddv_f32(*v7.f32);
+  *v7.f32 = vrsqrte_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8));
+  *v7.f32 = vmul_f32(*v7.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8), vmul_f32(*v7.f32, *v7.f32)));
+  v7.i32[0] = vmul_f32(*v7.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8), vmul_f32(*v7.f32, *v7.f32))).u32[0];
+  v9 = vmulq_f32(v6, v6);
+  *&v10 = v9.f32[2] + vaddv_f32(*v9.f32);
+  *v9.f32 = vrsqrte_f32(v10);
+  *v9.f32 = vmul_f32(*v9.f32, vrsqrts_f32(v10, vmul_f32(*v9.f32, *v9.f32)));
+  v11 = vmulq_n_f32(vmulq_n_f32(*a3, v7.f32[0]), *a4 * 0.5);
+  v12 = vaddq_f32(v20, v11);
+  v13 = vmulq_n_f32(vmulq_n_f32(v6, vmul_f32(*v9.f32, vrsqrts_f32(v10, vmul_f32(*v9.f32, *v9.f32))).f32[0]), a4[2] * 0.5);
+  v14 = vsubq_f32(v20, v11);
+  v18 = vaddq_f32(v13, v14);
+  v19 = vaddq_f32(v13, v12);
+  v16 = vsubq_f32(v12, v13);
+  v17 = vsubq_f32(v14, v13);
+  v21 = &v19;
+  v22 = &v18;
+  v23 = &v19;
+  v24 = &v16;
+  v31 = &v20;
+  v32 = &v19;
+  v25 = &v18;
+  v26 = &v17;
+  v27 = &v17;
+  v28 = &v16;
+  v29 = &v17;
+  v30 = &v20;
+  v33 = &v16;
+  v34 = &v20;
+  v35 = &v20;
+  v36 = &v18;
   do
   {
-    v14 = *v23[v4];
-    v15 = *v23[v4 + 1];
     REPrimitiveRenderAddLine();
     REPrimitiveRenderSetLineColor();
     result = REPrimitiveRenderSetLineWidth();
-    v4 += 2;
+    v5 += 16;
   }
 
-  while (v4 != 16);
-  v17 = *MEMORY[0x277D85DE8];
+  while (v5 != 128);
   return result;
 }
 
-uint64_t rf::helpers::drawBox(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
+uint64_t rf::helpers::drawBox(uint64_t a1, uint64_t a2, float32x4_t *a3, __n128 *a4)
 {
-  v5 = *(a3 + 16);
-  v6 = *(a3 + 32);
-  v14 = *(a3 + 48);
-  v15[0] = *a3;
-  v15[1] = v5;
-  v15[2] = v6;
-  re::makeQuaternionFromMatrix<float>(v15);
+  v4 = a3[1];
+  v5 = a3[2];
+  v12[0] = *a3;
+  v12[1] = v4;
+  v12[2] = v5;
+  re::makeQuaternionFromMatrix<float>(v12);
   REPrimitiveRenderAddShape();
   __asm { FMOV            V0.4S, #1.0 }
 
   REPrimitiveRenderSetShapeColor();
-  v12 = *a4;
   return REPrimitiveRenderSetShapeScale();
 }
 
-uint64_t rf::helpers::drawSphere(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
+uint64_t rf::helpers::drawSphere(uint64_t a1, uint64_t a2, float32x4_t *a3, __n128 *a4, int32x2_t a5)
 {
-  v5 = *(a3 + 16);
-  v6 = *(a3 + 32);
-  v9 = *(a3 + 48);
-  v10[0] = *a3;
-  v10[1] = v5;
-  v10[2] = v6;
-  re::makeQuaternionFromMatrix<float>(v10);
+  v5 = a3[1];
+  v6 = a3[2];
+  v8[0] = *a3;
+  v8[1] = v5;
+  v8[2] = v6;
+  re::makeQuaternionFromMatrix<float>(v8);
   REPrimitiveRenderAddShape();
-  v7 = *a4;
   REPrimitiveRenderSetShapeColor();
   return REPrimitiveRenderSetShapeScale();
 }
 
-uint64_t rf::helpers::drawBoundingBox(uint64_t a1, uint64_t a2, float32x4_t *a3, float *a4, __int128 *a5)
+uint64_t rf::helpers::drawBoundingBox(uint64_t a1, uint64_t a2, float32x4_t *a3, float *a4, __n128 *a5)
 {
-  v6 = 0;
-  v40[24] = *MEMORY[0x277D85DE8];
-  v7 = a3[1];
-  v8 = vmulq_f32(*a3, *a3);
-  v9 = vaddv_f32(*v8.f32);
-  *v8.f32 = vrsqrte_f32(COERCE_UNSIGNED_INT(v8.f32[2] + v9));
-  *v8.f32 = vmul_f32(*v8.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v8.f32[2] + v9), vmul_f32(*v8.f32, *v8.f32)));
-  v10 = vmulq_f32(v7, v7);
-  *&v11 = v10.f32[2] + vaddv_f32(*v10.f32);
-  *v10.f32 = vrsqrte_f32(v11);
-  *v10.f32 = vmul_f32(*v10.f32, vrsqrts_f32(v11, vmul_f32(*v10.f32, *v10.f32)));
-  v13 = a3[2];
-  v12 = a3[3];
-  v14 = vmulq_f32(v13, v13);
-  v15 = vaddv_f32(*v14.f32);
-  v10.i32[0] = vmul_f32(*v10.f32, vrsqrts_f32(v11, vmul_f32(*v10.f32, *v10.f32))).u32[0];
-  v16 = vrsqrte_f32(COERCE_UNSIGNED_INT(v14.f32[2] + v15));
-  v17 = vmul_f32(v16, vrsqrts_f32(COERCE_UNSIGNED_INT(v14.f32[2] + v15), vmul_f32(v16, v16)));
-  v18 = vmulq_n_f32(vmulq_n_f32(*a3, vmul_f32(*v8.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v8.f32[2] + v9), vmul_f32(*v8.f32, *v8.f32))).f32[0]), *a4 * 0.5);
-  v19 = vaddq_f32(v12, v18);
-  v20 = vmulq_n_f32(vmulq_n_f32(v13, vmul_f32(v17, vrsqrts_f32(COERCE_UNSIGNED_INT(v14.f32[2] + v15), vmul_f32(v17, v17))).f32[0]), a4[2] * 0.5);
-  v21 = vaddq_f32(v19, v20);
-  v22 = vmulq_n_f32(vmulq_n_f32(v7, v10.f32[0]), a4[1] * 0.5);
-  v23 = vsubq_f32(v12, v18);
-  v24 = vaddq_f32(v23, v20);
-  v38 = vaddq_f32(v22, v24);
-  v39 = vaddq_f32(v22, v21);
-  v25 = vsubq_f32(v23, v20);
-  v26 = vsubq_f32(v19, v20);
-  v36 = vaddq_f32(v22, v26);
-  v37 = vaddq_f32(v22, v25);
-  v34 = vsubq_f32(v24, v22);
-  v35 = vsubq_f32(v21, v22);
-  v32 = vsubq_f32(v26, v22);
-  v33 = vsubq_f32(v25, v22);
-  v40[0] = &v39;
-  v40[1] = &v38;
-  v40[2] = &v39;
-  v40[3] = &v36;
-  v40[4] = &v38;
-  v40[5] = &v37;
-  v40[6] = &v37;
-  v40[7] = &v36;
-  v40[8] = &v35;
-  v40[9] = &v34;
-  v40[10] = &v35;
-  v40[11] = &v32;
-  v40[12] = &v34;
-  v40[13] = &v33;
-  v40[14] = &v33;
-  v40[15] = &v32;
-  v40[16] = &v39;
-  v40[17] = &v35;
-  v40[18] = &v38;
-  v40[19] = &v34;
-  v40[20] = &v36;
-  v40[21] = &v32;
-  v40[22] = &v37;
-  v40[23] = &v33;
+  v5 = 0;
+  v59 = *MEMORY[0x277D85DE8];
+  v6 = a3[1];
+  v7 = vmulq_f32(*a3, *a3);
+  v8 = vaddv_f32(*v7.f32);
+  *v7.f32 = vrsqrte_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8));
+  *v7.f32 = vmul_f32(*v7.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8), vmul_f32(*v7.f32, *v7.f32)));
+  v9 = vmulq_f32(v6, v6);
+  *&v10 = v9.f32[2] + vaddv_f32(*v9.f32);
+  *v9.f32 = vrsqrte_f32(v10);
+  *v9.f32 = vmul_f32(*v9.f32, vrsqrts_f32(v10, vmul_f32(*v9.f32, *v9.f32)));
+  v12 = a3[2];
+  v11 = a3[3];
+  v13 = vmulq_f32(v12, v12);
+  v14 = vaddv_f32(*v13.f32);
+  v9.i32[0] = vmul_f32(*v9.f32, vrsqrts_f32(v10, vmul_f32(*v9.f32, *v9.f32))).u32[0];
+  v15 = vrsqrte_f32(COERCE_UNSIGNED_INT(v13.f32[2] + v14));
+  v16 = vmul_f32(v15, vrsqrts_f32(COERCE_UNSIGNED_INT(v13.f32[2] + v14), vmul_f32(v15, v15)));
+  v17 = vmulq_n_f32(vmulq_n_f32(*a3, vmul_f32(*v7.f32, vrsqrts_f32(COERCE_UNSIGNED_INT(v7.f32[2] + v8), vmul_f32(*v7.f32, *v7.f32))).f32[0]), *a4 * 0.5);
+  v18 = vaddq_f32(v11, v17);
+  v19 = vmulq_n_f32(vmulq_n_f32(v12, vmul_f32(v16, vrsqrts_f32(COERCE_UNSIGNED_INT(v13.f32[2] + v14), vmul_f32(v16, v16))).f32[0]), a4[2] * 0.5);
+  v20 = vaddq_f32(v18, v19);
+  v21 = vmulq_n_f32(vmulq_n_f32(v6, v9.f32[0]), a4[1] * 0.5);
+  v22 = vsubq_f32(v11, v17);
+  v23 = vaddq_f32(v22, v19);
+  v33 = vaddq_f32(v21, v23);
+  v34 = vaddq_f32(v21, v20);
+  v24 = vsubq_f32(v22, v19);
+  v25 = vsubq_f32(v18, v19);
+  v31 = vaddq_f32(v21, v25);
+  v32 = vaddq_f32(v21, v24);
+  v29 = vsubq_f32(v23, v21);
+  v30 = vsubq_f32(v20, v21);
+  v27 = vsubq_f32(v25, v21);
+  v28 = vsubq_f32(v24, v21);
+  v35 = &v34;
+  v36 = &v33;
+  v37 = &v34;
+  v38 = &v31;
+  v39 = &v33;
+  v40 = &v32;
+  v41 = &v32;
+  v42 = &v31;
+  v43 = &v30;
+  v44 = &v29;
+  v45 = &v30;
+  v46 = &v27;
+  v47 = &v29;
+  v48 = &v28;
+  v49 = &v28;
+  v50 = &v27;
+  v51 = &v34;
+  v52 = &v30;
+  v53 = &v33;
+  v54 = &v29;
+  v55 = &v31;
+  v56 = &v27;
+  v57 = &v32;
+  v58 = &v28;
   do
   {
-    v27 = *v40[v6];
-    v28 = *v40[v6 + 1];
     REPrimitiveRenderAddLine();
-    v29 = *a5;
     REPrimitiveRenderSetLineColor();
     result = REPrimitiveRenderSetLineWidth();
-    v6 += 2;
+    v5 += 16;
   }
 
-  while (v6 != 24);
-  v31 = *MEMORY[0x277D85DE8];
+  while (v5 != 192);
   return result;
 }
 
@@ -9527,7 +8540,7 @@ uint64_t re::makeQuaternionFromMatrix<float>(float32x4_t *a1)
   return v3;
 }
 
-float rf::ColorPalette::setColor(void *a1, int a2, _OWORD *a3, float result)
+float rf::ColorPalette::setColor(void *a1, int a2, __int128 *a3, float result)
 {
   if (a2 >= 1 && (a1[1] - *a1) >> 4 > a2)
   {
@@ -9571,7 +8584,7 @@ float rf::ColorPalette::setColor(void *a1, int a2, _OWORD *a3, float result)
     *(&v6 + 1) = v8;
     if (*(&v4 + 2) <= 1.0)
     {
-      LODWORD(v9) = DWORD2(*(a3 + 8));
+      LODWORD(v9) = *(a3 + 1);
     }
 
     else
@@ -9644,7 +8657,7 @@ uint64_t rf::ColorPalette::setColorVisibility(uint64_t this, unsigned int a2)
 
 rf::ColorPaletteMaterialARKit *rf::ColorPaletteMaterialARKit::ColorPaletteMaterialARKit(rf::ColorPaletteMaterialARKit *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *this = 0;
   *(this + 1) = 0;
   *(this + 2) = 0;
@@ -9655,35 +8668,34 @@ rf::ColorPaletteMaterialARKit *rf::ColorPaletteMaterialARKit::ColorPaletteMateri
   v7 = this + 48;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  v10[0] = xmmword_261865B20;
-  v10[1] = xmmword_261865B20;
-  v10[2] = xmmword_261865B30;
-  v10[3] = xmmword_261865B40;
-  v10[4] = xmmword_261865B50;
-  v10[5] = xmmword_261865B60;
-  v10[6] = xmmword_261865B70;
-  v10[7] = xmmword_261865B80;
-  v10[8] = xmmword_261865B90;
-  v10[9] = xmmword_261865BA0;
-  v10[10] = xmmword_261865BB0;
-  v10[11] = xmmword_261865BC0;
-  v10[12] = xmmword_261865BD0;
-  v10[13] = xmmword_261865BE0;
-  v10[14] = xmmword_261865BF0;
-  v10[15] = xmmword_261865C00;
-  v10[16] = xmmword_261865C10;
-  v10[17] = xmmword_261865C20;
-  v10[18] = xmmword_261865C30;
-  v10[19] = xmmword_261865C40;
-  v10[20] = xmmword_261865C50;
-  v10[21] = xmmword_261865C60;
-  v10[22] = xmmword_261865C70;
-  v10[23] = xmmword_261865C80;
-  v10[24] = xmmword_261865C90;
-  v10[25] = xmmword_261865CA0;
-  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(this, v10, v11, 0x1AuLL);
+  v9[0] = xmmword_261865B20;
+  v9[1] = xmmword_261865B20;
+  v9[2] = xmmword_261865B30;
+  v9[3] = xmmword_261865B40;
+  v9[4] = xmmword_261865B50;
+  v9[5] = xmmword_261865B60;
+  v9[6] = xmmword_261865B70;
+  v9[7] = xmmword_261865B80;
+  v9[8] = xmmword_261865B90;
+  v9[9] = xmmword_261865BA0;
+  v9[10] = xmmword_261865BB0;
+  v9[11] = xmmword_261865BC0;
+  v9[12] = xmmword_261865BD0;
+  v9[13] = xmmword_261865BE0;
+  v9[14] = xmmword_261865BF0;
+  v9[15] = xmmword_261865C00;
+  v9[16] = xmmword_261865C10;
+  v9[17] = xmmword_261865C20;
+  v9[18] = xmmword_261865C30;
+  v9[19] = xmmword_261865C40;
+  v9[20] = xmmword_261865C50;
+  v9[21] = xmmword_261865C60;
+  v9[22] = xmmword_261865C70;
+  v9[23] = xmmword_261865C80;
+  v9[24] = xmmword_261865C90;
+  v9[25] = xmmword_261865CA0;
+  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(this, v9, v10, 0x1AuLL);
   std::vector<BOOL>::resize(v7, (*(this + 1) - *this) >> 4);
-  v8 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -9797,4 +8809,1305 @@ LABEL_26:
   {
     v8[v14] |= 0xFFFFFFFFFFFFFFFFLL >> -(v4 & 0x3F);
   }
+}
+
+void sub_261843E7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+rf::ColorPaletteClassificationARKit *rf::ColorPaletteClassificationARKit::ColorPaletteClassificationARKit(rf::ColorPaletteClassificationARKit *this)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  *this = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  __asm { FMOV            V0.4S, #1.0 }
+
+  *(this + 2) = _Q0;
+  *(this + 6) = 0;
+  v7 = this + 48;
+  *(this + 7) = 0;
+  *(this + 8) = 0;
+  v9[0] = xmmword_261865CB0;
+  v9[1] = xmmword_26185E190;
+  v9[2] = xmmword_261865AF0;
+  v9[3] = xmmword_261865CC0;
+  v9[4] = xmmword_261865CD0;
+  v9[5] = xmmword_261865CE0;
+  v9[6] = xmmword_261865CF0;
+  v9[7] = xmmword_261865D00;
+  v9[8] = xmmword_261865D10;
+  v9[9] = xmmword_261865D20;
+  v9[10] = xmmword_261865D30;
+  v9[11] = xmmword_261865D40;
+  v9[12] = xmmword_261865D50;
+  v9[13] = xmmword_261865D60;
+  v9[14] = xmmword_261865D70;
+  v9[15] = xmmword_261865D80;
+  v9[16] = xmmword_261865D90;
+  v9[17] = xmmword_261865DA0;
+  v9[18] = xmmword_261865DB0;
+  v9[19] = xmmword_261865DC0;
+  v9[20] = xmmword_261865DD0;
+  v9[21] = xmmword_261865DE0;
+  v9[22] = xmmword_261865DF0;
+  v9[23] = xmmword_261865E00;
+  v9[24] = xmmword_261865E10;
+  v9[25] = xmmword_261865E20;
+  v9[26] = xmmword_261865E30;
+  v9[27] = xmmword_261865E40;
+  v9[28] = xmmword_261865E50;
+  v9[29] = xmmword_261865E60;
+  v9[30] = xmmword_261865E70;
+  v9[31] = xmmword_261865E80;
+  v9[32] = xmmword_261865E90;
+  v9[33] = xmmword_261865EA0;
+  v9[34] = xmmword_261865EB0;
+  v9[35] = xmmword_261865EC0;
+  v9[36] = xmmword_261865ED0;
+  v9[37] = xmmword_261865EE0;
+  v9[38] = xmmword_261865EF0;
+  v9[39] = xmmword_261865F00;
+  v9[40] = xmmword_261865F10;
+  v9[41] = xmmword_261865F20;
+  _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(this, v9, v10, 0x2AuLL);
+  std::vector<BOOL>::resize(v7, (*(this + 1) - *this) >> 4);
+  return this;
+}
+
+void **_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPKS1_S7_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
+{
+  v7 = result;
+  v8 = result[2];
+  v9 = *result;
+  if (a4 > (v8 - *result) >> 4)
+  {
+    if (v9)
+    {
+      result[1] = v9;
+      operator delete(v9);
+      v8 = 0;
+      *v7 = 0;
+      v7[1] = 0;
+      v7[2] = 0;
+    }
+
+    v10 = v8 >> 3;
+    if (v8 >> 3 <= a4)
+    {
+      v10 = a4;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v11 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(v7, v11);
+  }
+
+  v12 = result[1];
+  v13 = v12 - v9;
+  if (a4 <= (v12 - v9) >> 4)
+  {
+    v19 = a3 - __src;
+    if (a3 != __src)
+    {
+      result = memmove(*result, __src, v19);
+    }
+
+    v18 = &v9[v19];
+  }
+
+  else
+  {
+    if (v12 != v9)
+    {
+      result = memmove(*result, __src, v12 - v9);
+      v12 = v7[1];
+    }
+
+    v14 = &__src[v13];
+    v15 = v12;
+    if (&__src[v13] != a3)
+    {
+      v15 = v12;
+      v16 = v12;
+      do
+      {
+        v17 = *v14;
+        v14 += 16;
+        *v16++ = v17;
+        v15 += 16;
+      }
+
+      while (v14 != a3);
+    }
+
+    v18 = v15;
+  }
+
+  v7[1] = v18;
+  return result;
+}
+
+void RFSyntheticEnvironmentServiceCreate()
+{
+  if (qword_2810C4E08 != -1)
+  {
+    dispatch_once(&qword_2810C4E08, &__block_literal_global_16);
+  }
+
+  _CFRuntimeCreateInstance();
+  operator new();
+}
+
+uint64_t RFSyntheticEnvironmentServiceUpdateByDeltaTime(uint64_t a1, uint64_t a2, float a3)
+{
+  v5 = *(a1 + 16);
+  ECSManagerNullable = RESceneGetECSManagerNullable();
+  if (ECSManagerNullable)
+  {
+    ECSManagerNullable = REECSManagerGetServiceLocator();
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v9 = a3;
+  v10 = ECSManagerNullable;
+  v11 = v7;
+  v12 = a2;
+  v13 = 1;
+  v14 = 0;
+  return (*(*(v5 + 8) + 16))(v5 + 8, &v9);
+}
+
+uint64_t RFSyntheticEnvironmentServiceSetFinishedLoadingCallback(uint64_t a1, uint64_t a2)
+{
+  v11[3] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  v8 = 0;
+  if (a2)
+  {
+    v7[0] = &unk_28740ACD8;
+    v7[1] = MEMORY[0x26670D530](a2);
+    v8 = v7;
+    v10 = v9;
+    unk_28740ACF0(v7, v9);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v3 = v2 + 184;
+  if (v9 != (v2 + 184))
+  {
+    v4 = v10;
+    v5 = *(v2 + 208);
+    if (v10 == v9)
+    {
+      if (v5 == v3)
+      {
+        (*(*v10 + 24))();
+        (*(*v10 + 32))(v10);
+        v10 = 0;
+        (*(**(v2 + 208) + 24))(*(v2 + 208), v9);
+        (*(**(v2 + 208) + 32))(*(v2 + 208));
+        *(v2 + 208) = 0;
+        v10 = v9;
+        (*(v11[0] + 24))(v11, v2 + 184);
+        (*(v11[0] + 32))(v11);
+      }
+
+      else
+      {
+        (*(*v10 + 24))();
+        (*(*v10 + 32))(v10);
+        v10 = *(v2 + 208);
+      }
+
+      *(v2 + 208) = v3;
+    }
+
+    else if (v5 == v3)
+    {
+      (*(*v5 + 24))(*(v2 + 208), v9);
+      (*(**(v2 + 208) + 32))(*(v2 + 208));
+      *(v2 + 208) = v10;
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = *(v2 + 208);
+      *(v2 + 208) = v4;
+    }
+  }
+
+  std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](v9);
+  return std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](v7);
+}
+
+void sub_261844670(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer28SyntheticEnvironmentConsumerEEEE13registerClassEv_block_invoke()
+{
+  v0 = 0;
+  v1 = 1;
+  for (i = 114; i != 91; i = aStdStringViewR_27[v0++ + 51])
+  {
+    if (i == 93)
+    {
+      v3 = -1;
+      goto LABEL_8;
+    }
+
+    if (!i)
+    {
+      v0 = 0;
+      v6 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    ;
+  }
+
+  v3 = 1;
+LABEL_8:
+  v1 += v3;
+  if (v1)
+  {
+    goto LABEL_9;
+  }
+
+  if (v0 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v0 >= 0x17)
+  {
+    operator new();
+  }
+
+  v6 = v0;
+  if (v0)
+  {
+    memcpy(&__dst, "rf::data_flow::consumer::SyntheticEnvironmentConsumer]", v0);
+  }
+
+LABEL_16:
+  *(&__dst + v0) = 0;
+  xmmword_2810C4E10 = 0u;
+  xmmword_2810C4E20 = 0u;
+  xmmword_2810C4E30 = 0u;
+  unk_2810C4E40 = 0u;
+  xmmword_2810C4E50 = 0u;
+  unk_2810C4E60 = 0u;
+  p_dst = &__dst;
+  if (v6 < 0)
+  {
+    p_dst = __dst;
+  }
+
+  *(&xmmword_2810C4E10 + 1) = p_dst;
+  *&xmmword_2810C4E20 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::initCallback;
+  *&xmmword_2810C4E30 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::finalizeCallback;
+  qword_2810C4E48 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::copyFormattingDescriptionCallback;
+  *&xmmword_2810C4E50 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>>::copyDebugDescriptionCallback;
+  _MergedGlobals_18 = _CFRuntimeRegisterClass();
+  if (v6 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_26184482C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::SyntheticEnvironmentConsumer>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    rf::data_flow::consumer::SyntheticEnvironmentConsumer::~SyntheticEnvironmentConsumer((v2 + 8));
+
+    JUMPOUT(0x26670D060);
+  }
+
+  return result;
+}
+
+void std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::~__func(uint64_t a1)
+{
+
+  JUMPOUT(0x26670D060);
+}
+
+uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::__clone(uint64_t a1, void *a2)
+{
+  *a2 = &unk_28740ACD8;
+  result = MEMORY[0x26670D530](*(a1 + 8));
+  a2[1] = result;
+  return result;
+}
+
+uint64_t std::__function::__func<void({block_pointer} {__strong})(NSURL *,NSError *),std::allocator<void({block_pointer} {__strong})(NSURL *,NSError *)>,void ()(NSURL *,NSError *)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(NSURL *,NSError *)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void RFVFXCollisionServiceCreate()
+{
+  if (qword_2810C4E78 != -1)
+  {
+    dispatch_once(&qword_2810C4E78, &__block_literal_global_17);
+  }
+
+  _CFRuntimeCreateInstance();
+  operator new();
+}
+
+uint64_t RFVFXCollisionServiceUpdateByDeltaTime(uint64_t a1, uint64_t a2, float a3)
+{
+  v5 = *(a1 + 16);
+  ECSManagerNullable = RESceneGetECSManagerNullable();
+  if (ECSManagerNullable)
+  {
+    ECSManagerNullable = REECSManagerGetServiceLocator();
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v9 = a3;
+  v10 = ECSManagerNullable;
+  v11 = v7;
+  v12 = a2;
+  v13 = 1;
+  v14 = 0;
+  return (*(*(v5 + 8) + 16))(v5 + 8, &v9);
+}
+
+void ___ZN2rf17ClassRegistrationINS_14CustomCFObjectINS_9data_flow8consumer20VFXCollisionConsumerEEEE13registerClassEv_block_invoke()
+{
+  v0 = 0;
+  v1 = 1;
+  for (i = 114; i != 91; i = aStdStringViewR_28[v0++ + 51])
+  {
+    if (i == 93)
+    {
+      v3 = -1;
+      goto LABEL_8;
+    }
+
+    if (!i)
+    {
+      v0 = 0;
+      v6 = 0;
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    ;
+  }
+
+  v3 = 1;
+LABEL_8:
+  v1 += v3;
+  if (v1)
+  {
+    goto LABEL_9;
+  }
+
+  if (v0 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v0 >= 0x17)
+  {
+    operator new();
+  }
+
+  v6 = v0;
+  if (v0)
+  {
+    memcpy(&__dst, "rf::data_flow::consumer::VFXCollisionConsumer]", v0);
+  }
+
+LABEL_16:
+  *(&__dst + v0) = 0;
+  xmmword_2810C4E80 = 0u;
+  xmmword_2810C4E90 = 0u;
+  xmmword_2810C4EA0 = 0u;
+  unk_2810C4EB0 = 0u;
+  xmmword_2810C4EC0 = 0u;
+  unk_2810C4ED0 = 0u;
+  p_dst = &__dst;
+  if (v6 < 0)
+  {
+    p_dst = __dst;
+  }
+
+  *(&xmmword_2810C4E80 + 1) = p_dst;
+  *&xmmword_2810C4E90 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::initCallback;
+  *&xmmword_2810C4EA0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::finalizeCallback;
+  qword_2810C4EB8 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::copyFormattingDescriptionCallback;
+  *&xmmword_2810C4EC0 = rf::ClassRegistration<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>>::copyDebugDescriptionCallback;
+  _MergedGlobals_19 = _CFRuntimeRegisterClass();
+  if (v6 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_261844DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::unique_ptr<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>::BridgableObject,std::default_delete<rf::CustomCFObject<rf::data_flow::consumer::VFXCollisionConsumer>::BridgableObject>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    *(v2 + 8) = &unk_287408E60;
+    std::__hash_table<std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::__unordered_map_hasher<REScene *,std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::hash<REScene *>,std::equal_to<REScene *>,true>,std::__unordered_map_equal<REScene *,std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>,std::equal_to<REScene *>,std::hash<REScene *>,true>,std::allocator<std::__hash_value_type<REScene *,std::unordered_map<REComponent *,std::unordered_map<rf::data_flow::RFUUID,long long,rf::data_flow::RFUUID::Hash,rf::data_flow::RFUUID::Equality,std::allocator<std::pair<rf::data_flow::RFUUID const,long long>>>>>>>::~__hash_table(v2 + 40);
+
+    JUMPOUT(0x26670D060);
+  }
+
+  return result;
+}
+
+void sub_261845584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void **a43)
+{
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
+
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x960]);
+  a43 = &a32;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a43);
+  rf::data_flow::provider::InputData::~InputData(&STACK[0xA00]);
+  _Unwind_Resume(a1);
+}
+
+void std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  v4 = *(a2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v4 + 48))(v4, &v5);
+}
+
+uint64_t anonymous namespace::isInputProbe(_anonymous_namespace_ *this, ARAnchor *a2)
+{
+  v2 = this;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  return isKindOfClass & 1;
+}
+
+void anonymous namespace::createInputProbeFromARAnchor(_anonymous_namespace_ *this@<X0>, uint64_t a2@<X8>)
+{
+  v38 = *MEMORY[0x277D85DE8];
+  v3 = this;
+  v4 = [(_anonymous_namespace_ *)v3 identifier];
+  rf::data_flow::RFUUID::copy(v29, v4);
+  [(_anonymous_namespace_ *)v3 transform];
+  v30 = v5;
+  v31 = v6;
+  v32 = v7;
+  v33 = v8;
+  [(_anonymous_namespace_ *)v3 extent];
+  v34 = v9;
+  LOBYTE(v35) = 0;
+  v36 = 0;
+  v37 = 1065353216;
+
+  v10 = [(_anonymous_namespace_ *)v3 environmentTexture];
+  LOBYTE(v4) = v10 == 0;
+
+  if ((v4 & 1) == 0)
+  {
+    v11 = [(_anonymous_namespace_ *)v3 environmentTexture];
+    if (v36 == 1)
+    {
+      v12 = v35;
+      v35 = v11;
+    }
+
+    else
+    {
+      v35 = v11;
+      v36 = 1;
+    }
+  }
+
+  v13 = rf::realityFusionLogObject(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    rf::data_flow::RFUUID::string(__p, v29);
+    v14 = v24;
+    v15 = __p[0];
+    v16 = [(_anonymous_namespace_ *)v3 environmentTexture];
+    v17 = v16;
+    v18 = __p;
+    if (v14 < 0)
+    {
+      v18 = v15;
+    }
+
+    *buf = 136446466;
+    v26 = v18;
+    v27 = 2048;
+    v28 = v16;
+    _os_log_impl(&dword_2617CB000, v13, OS_LOG_TYPE_DEFAULT, "RFARSessionObserver: Updating probe %{public}s with texture %p", buf, 0x16u);
+
+    if (v24 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v19 = v33;
+  v20 = v34;
+  *(a2 + 64) = v32;
+  *(a2 + 80) = v19;
+  *(a2 + 96) = v20;
+  v21 = v29[1];
+  *a2 = v29[0];
+  *(a2 + 16) = v21;
+  v22 = v31;
+  *(a2 + 32) = v30;
+  *(a2 + 48) = v22;
+  *(a2 + 112) = 0;
+  *(a2 + 120) = 0;
+  if (v36 == 1)
+  {
+    *(a2 + 112) = v35;
+    *(a2 + 120) = 1;
+  }
+
+  *(a2 + 128) = v37;
+}
+
+void sub_261845978(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, char a35)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a35 == 1)
+  {
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t anonymous namespace::isInputAnchor(_anonymous_namespace_ *this, ARAnchor *a2)
+{
+  v2 = this;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    isInputProbe = 1;
+  }
+
+  else
+  {
+  }
+
+  return isInputProbe ^ 1u;
+}
+
+void sub_26184602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, void **a31, uint64_t a32, void **a33)
+{
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a31);
+
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x910]);
+  a33 = &a28;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a33);
+  rf::data_flow::provider::InputData::~InputData(&STACK[0x9B0]);
+  _Unwind_Resume(a1);
+}
+
+void sub_261846914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35)
+{
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
+
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](&STACK[0x950]);
+  a14 = &a32;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a14);
+  rf::data_flow::provider::InputData::~InputData(&STACK[0x9F0]);
+  _Unwind_Resume(a1);
+}
+
+void sub_261846FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, void **a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59)
+{
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&a35);
+
+  STACK[0x9E0] = &a32;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&STACK[0x9E0]);
+  rf::data_flow::provider::InputData::~InputData(&a59);
+  _Unwind_Resume(a1);
+}
+
+void sub_2618473CC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+uint64_t *std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](a2 + 8);
+  v6 = *(*(a2 + 8) + 8);
+  if (v6 == v4)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v7 = v4;
+    v8 = v5;
+    v9 = 0;
+    do
+    {
+      v10 = v7 + 1;
+      v7 = *(*v8 + 1);
+      while (v10 != v7)
+      {
+        if (v8[1](*v10))
+        {
+          v7 = v10;
+          break;
+        }
+
+        ++v10;
+      }
+
+      ++v9;
+    }
+
+    while (v7 != v6);
+  }
+
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](a2 + 8);
+  if (v9)
+  {
+    if (v9 < 0x1C71C71C71C71C8)
+    {
+      std::allocator<rf::data_flow::EnvironmentProbe>::allocate_at_least[abi:ne200100](a1, v9);
+    }
+
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  return a1;
+}
+
+void std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(uint64_t *a1)
+{
+  if (*a1)
+  {
+    std::vector<rf::data_flow::EnvironmentProbe>::clear[abi:ne200100](a1);
+    operator delete(*a1);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+}
+
+void anonymous namespace::createInputAnchorFromARAnchor(_anonymous_namespace_ *this, ARAnchor *a2)
+{
+  v153 = *MEMORY[0x277D85DE8];
+  v127 = a2;
+  rf::helpers::getBaseAnchorPropertiesFromARAnchor(v127, &v146);
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v4 = v127;
+    v5 = [(ARAnchor *)v4 planeExtent];
+    [v5 rotationOnYAxis];
+    v7 = __sincosf_stret(v6);
+
+    [(ARAnchor *)v4 center];
+    *v125 = v8;
+    v9 = [(ARAnchor *)v4 geometry];
+    v10 = [v9 boundaryVertexCount];
+
+    __p[0] = 0;
+    __p[1] = 0;
+    v129 = 0;
+    if (v10)
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        v12 = [(ARAnchor *)v4 geometry];
+        v13 = [v12 boundaryVertices];
+        v14 = __p[1];
+        if (__p[1] >= v129)
+        {
+          v16 = (__p[1] - __p[0]) >> 4;
+          if ((v16 + 1) >> 60)
+          {
+            _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
+          }
+
+          v17 = (v129 - __p[0]) >> 3;
+          if (v17 <= v16 + 1)
+          {
+            v17 = v16 + 1;
+          }
+
+          if (v129 - __p[0] >= 0x7FFFFFFFFFFFFFF0)
+          {
+            v18 = 0xFFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v18 = v17;
+          }
+
+          if (v18)
+          {
+            _ZNSt3__19allocatorIDv3_fE17allocate_at_leastB8ne200100Em(__p, v18);
+          }
+
+          v19 = (16 * v16);
+          *v19 = *(v13 + 16 * i);
+          v15 = (16 * v16 + 16);
+          v20 = v19 - (__p[1] - __p[0]);
+          memcpy(v20, __p[0], __p[1] - __p[0]);
+          v21 = __p[0];
+          __p[0] = v20;
+          __p[1] = v15;
+          v129 = 0;
+          if (v21)
+          {
+            operator delete(v21);
+          }
+        }
+
+        else
+        {
+          *__p[1] = *(v13 + 16 * i);
+          v15 = v14 + 16;
+        }
+
+        __p[1] = v15;
+      }
+    }
+
+    v130 = v146;
+    v131 = v147;
+    v120 = v149;
+    v132 = v148;
+    v144 = v150;
+    v22 = *&v151[4];
+    v145 = *v151;
+    v142 = *&v151[8];
+    v143 = v151[24];
+    v23 = v152;
+    v152 = 0;
+    v24 = [(ARAnchor *)v4 planeExtent];
+    [v24 width];
+    v118 = v25;
+    v26 = [(ARAnchor *)v4 planeExtent];
+    [v26 height];
+    v115 = v27;
+    v28 = [(ARAnchor *)v4 alignment];
+    v29 = [(ARAnchor *)v4 classification];
+    v114 = *__p;
+    v30 = v129;
+    __p[1] = 0;
+    v129 = 0;
+    __p[0] = 0;
+
+    v31 = vrsqrte_f32(1065353216);
+    v32 = vmul_f32(v31, vrsqrts_f32(1065353216, vmul_f32(v31, v31)));
+    v43 = vmulq_n_f32(xmmword_26185DD10, vmul_f32(v32, vrsqrts_f32(1065353216, vmul_f32(v32, v32))).f32[0]);
+    v33 = vmulq_f32(v43, v43).f32[0];
+    v34 = vmuls_lane_f32(v43.f32[1], *v43.f32, 1);
+    v35 = vmuls_lane_f32(v43.f32[2], v43, 2);
+    v36 = vmuls_lane_f32(v43.f32[0], *v43.f32, 1);
+    v37 = vmuls_lane_f32(v43.f32[0], v43, 2);
+    v32.f32[0] = vmuls_lane_f32(v43.f32[1], v43, 2);
+    v38 = v7.__sinval * v43.f32[0];
+    v39 = vmuls_lane_f32(v7.__sinval, *v43.f32, 1);
+    v43.f32[0] = vmuls_lane_f32(v7.__sinval, v43, 2);
+    v40 = -(v43.f32[0] - (v36 * (1.0 - v7.__cosval)));
+    v41 = v43.f32[0] + (v36 * (1.0 - v7.__cosval));
+    v42 = -(v38 - (v32.f32[0] * (1.0 - v7.__cosval)));
+    v43.i32[3] = 0;
+    v43.f32[0] = v33 + (v7.__cosval * (1.0 - v33));
+    v43.f32[1] = v41;
+    HIDWORD(v45) = 0;
+    HIDWORD(v44) = 0;
+    *&v44 = v40;
+    *(&v44 + 1) = v34 + (v7.__cosval * (1.0 - v34));
+    *(&v44 + 2) = v38 + (v32.f32[0] * (1.0 - v7.__cosval));
+    *&v45 = v39 + (v37 * (1.0 - v7.__cosval));
+    *(&v45 + 1) = v42;
+    *(&v45 + 2) = v35 + (v7.__cosval * (1.0 - v35));
+    v46 = *v125;
+    HIDWORD(v46) = 1.0;
+    *&v47 = LODWORD(v33);
+    *&v47 = v118;
+    *(&v47 + 1) = LODWORD(v115);
+    if (v29)
+    {
+      goto LABEL_18;
+    }
+
+    v57 = vmulq_f32(v120, xmmword_26185DD10);
+    if (fabsf(v57.f32[2] + vaddv_f32(*v57.f32)) <= 0.70711)
+    {
+      if (v118 > 1.0 && v115 > 1.0)
+      {
+        v29 = 1;
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      if (v120.f32[1] < 0.0)
+      {
+        v29 = 3;
+LABEL_18:
+        v48 = v131;
+        *this = v130;
+        *(this + 1) = v48;
+        *(this + 2) = v132;
+        *(this + 3) = v120;
+        *(this + 4) = v144;
+        *(this + 20) = v145;
+        *(this + 21) = v22;
+        *(this + 88) = v142;
+        *(this + 104) = v143;
+        *(this + 14) = v23;
+        v43.f32[2] = -(v39 - (v37 * (1.0 - v7.__cosval)));
+        *(this + 8) = v43;
+        *(this + 9) = v44;
+        *(this + 10) = v45;
+        *(this + 11) = v46;
+        *(this + 12) = v47;
+        *(this + 52) = v28;
+        *(this + 53) = v29;
+        *(this + 216) = v114;
+        *(this + 29) = v30;
+        *(this + 64) = 1;
+        if (__p[0])
+        {
+          __p[1] = __p[0];
+          operator delete(__p[0]);
+        }
+
+        goto LABEL_58;
+      }
+
+      if (v22 < -0.5)
+      {
+        v29 = 2;
+        goto LABEL_18;
+      }
+
+      if (v118 > 0.4 && v115 > 0.4)
+      {
+        v29 = 4;
+        goto LABEL_18;
+      }
+    }
+
+    v29 = 0;
+    goto LABEL_18;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v49 = v127;
+    v134 = v150;
+    v135[0] = *v151;
+    *(v135 + 9) = *&v151[9];
+    v130 = v146;
+    v131 = v147;
+    v132 = v148;
+    v133 = v149;
+    v50 = v152;
+    v152 = 0;
+    v136 = v50;
+    v137[0] = [(ARAnchor *)v49 isDetectionOnly];
+    v51 = objc_msgSend_name(v49);
+    if (v51)
+    {
+      v124 = objc_msgSend_name(v49);
+      v52 = v124;
+      std::string::basic_string[abi:ne200100]<0>(&v137[8], [v124 UTF8String]);
+    }
+
+    else
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v137[8], "");
+    }
+
+    v122 = [(ARAnchor *)v49 referenceImage];
+    v71 = [v122 resourceGroupName];
+    if (v71)
+    {
+      v117 = [(ARAnchor *)v49 referenceImage];
+      v2 = [v117 resourceGroupName];
+      v72 = v2;
+      std::string::basic_string[abi:ne200100]<0>(&v137[32], [v2 UTF8String]);
+    }
+
+    else
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v137[32], "");
+    }
+
+    [(ARAnchor *)v49 estimatedScaleFactor];
+    v74 = v73;
+    v75 = [(ARAnchor *)v49 referenceImage];
+    [v75 physicalSize];
+    v77 = v76;
+    v78 = [(ARAnchor *)v49 referenceImage];
+    [v78 physicalSize];
+    *&v79 = v77;
+    v80.i64[0] = v79;
+    *&v82 = v81;
+    v80.i64[1] = v82;
+    v83 = v74;
+    v139 = vmulq_n_f32(v80, v83);
+
+    if (v71)
+    {
+    }
+
+    if (v51)
+    {
+    }
+
+    v84 = v135[0];
+    *(this + 4) = v134;
+    *(this + 5) = v84;
+    *(this + 89) = *(v135 + 9);
+    v85 = v131;
+    *this = v130;
+    *(this + 1) = v85;
+    v86 = v133;
+    *(this + 2) = v132;
+    *(this + 3) = v86;
+    v87 = v136;
+    v136 = 0;
+    *(this + 14) = v87;
+    *(this + 128) = v137[0];
+    *(this + 136) = *&v137[8];
+    *(this + 19) = *&v137[24];
+    memset(&v137[8], 0, 24);
+    *(this + 10) = *&v137[32];
+    *(this + 22) = v138;
+    *&v137[32] = 0;
+    *&v137[40] = 0;
+    *&v138 = 0;
+    *(this + 12) = v139;
+    *(this + 64) = 2;
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v53 = v127;
+      v134 = v150;
+      v135[0] = *v151;
+      *(v135 + 9) = *&v151[9];
+      v130 = v146;
+      v131 = v147;
+      v132 = v148;
+      v133 = v149;
+      v54 = v152;
+      v152 = 0;
+      v136 = v54;
+      v55 = objc_msgSend_name(v53);
+      if (v55)
+      {
+        v124 = objc_msgSend_name(v53);
+        v56 = v124;
+        std::string::basic_string[abi:ne200100]<0>(v137, [v124 UTF8String]);
+      }
+
+      else
+      {
+        std::string::basic_string[abi:ne200100]<0>(v137, "");
+      }
+
+      v123 = [(ARAnchor *)v53 referenceObject];
+      v94 = [v123 resourceGroupName];
+      if (v94)
+      {
+        v117 = [(ARAnchor *)v53 referenceObject];
+        v2 = [v117 resourceGroupName];
+        v95 = v2;
+        std::string::basic_string[abi:ne200100]<0>(&v137[24], [v2 UTF8String]);
+      }
+
+      else
+      {
+        std::string::basic_string[abi:ne200100]<0>(&v137[24], "");
+      }
+
+      v139.i8[0] = 0;
+      v139.i64[1] = 0;
+      uuid_clear(&v138);
+      v96 = [(ARAnchor *)v53 referenceObject];
+      [v96 center];
+      v140 = v97;
+      v98 = [(ARAnchor *)v53 referenceObject];
+      [v98 extent];
+      v141 = v99;
+
+      if (v94)
+      {
+      }
+
+      if (v55)
+      {
+      }
+
+      v100 = v135[0];
+      *(this + 4) = v134;
+      *(this + 5) = v100;
+      *(this + 89) = *(v135 + 9);
+      v101 = v131;
+      *this = v130;
+      *(this + 1) = v101;
+      v102 = v133;
+      *(this + 2) = v132;
+      *(this + 3) = v102;
+      v103 = v136;
+      v136 = 0;
+      *(this + 14) = v103;
+      v104 = *v137;
+      *(this + 18) = *&v137[16];
+      *(this + 8) = v104;
+      memset(v137, 0, 24);
+      *(this + 21) = *&v137[40];
+      *(this + 152) = *&v137[24];
+      memset(&v137[24], 0, 24);
+      v105 = v139;
+      *(this + 11) = v138;
+      *(this + 12) = v105;
+      v106 = v141;
+      *(this + 13) = v140;
+      *(this + 14) = v106;
+      *(this + 64) = 3;
+    }
+
+    else
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v58 = v127;
+        v134 = v150;
+        v135[0] = *v151;
+        *(v135 + 9) = *&v151[9];
+        v130 = v146;
+        v131 = v147;
+        v132 = v148;
+        v133 = v149;
+        v59 = v152;
+        v152 = 0;
+        [(ARAnchor *)v58 leftEyeTransform];
+        v121 = v61;
+        *v126 = v60;
+        v116 = v63;
+        v119 = v62;
+        [(ARAnchor *)v58 rightEyeTransform];
+        v64 = v135[0];
+        *(this + 4) = v134;
+        *(this + 5) = v64;
+        *(this + 89) = *(v135 + 9);
+        v65 = v131;
+        *this = v130;
+        *(this + 1) = v65;
+        v66 = v133;
+        *(this + 2) = v132;
+        *(this + 3) = v66;
+        *(this + 14) = v59;
+        *(this + 8) = *v126;
+        *(this + 9) = v121;
+        *(this + 10) = v119;
+        *(this + 11) = v116;
+        *(this + 12) = v67;
+        *(this + 13) = v68;
+        *(this + 14) = v69;
+        *(this + 15) = v70;
+        *(this + 64) = 4;
+      }
+
+      else
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v88 = v127;
+          v134 = v150;
+          v135[0] = *v151;
+          *(v135 + 9) = *&v151[9];
+          v130 = v146;
+          v131 = v147;
+          v132 = v148;
+          v133 = v149;
+          v89 = v152;
+          v152 = 0;
+          [(ARAnchor *)v88 estimatedScaleFactor];
+          *&v90 = v90;
+          v91 = v135[0];
+          *(this + 4) = v134;
+          *(this + 5) = v91;
+          *(this + 89) = *(v135 + 9);
+          v92 = v131;
+          *this = v130;
+          *(this + 1) = v92;
+          v93 = v133;
+          *(this + 2) = v132;
+          *(this + 3) = v93;
+          *(this + 14) = v89;
+          *(this + 32) = LODWORD(v90);
+          *(this + 64) = 5;
+        }
+
+        else
+        {
+          v134 = v150;
+          v135[0] = *v151;
+          *(v135 + 9) = *&v151[9];
+          v130 = v146;
+          v131 = v147;
+          v132 = v148;
+          v133 = v149;
+          v107 = v152;
+          v152 = 0;
+          v136 = v107;
+          v137[0] = 0;
+          v137[24] = 0;
+          *&v137[32] = 0;
+          uuid_clear(&v137[8]);
+          v137[40] = 0;
+          v139.i8[8] = 0;
+          v108 = v135[0];
+          *(this + 4) = v134;
+          *(this + 5) = v108;
+          *(this + 89) = *(v135 + 9);
+          v109 = v131;
+          *this = v130;
+          *(this + 1) = v109;
+          v110 = v133;
+          *(this + 2) = v132;
+          *(this + 3) = v110;
+          v111 = v136;
+          v136 = 0;
+          *(this + 14) = v111;
+          v112 = v138;
+          *(this + 10) = *&v137[32];
+          *(this + 11) = v112;
+          *(this + 12) = v139;
+          v113 = *&v137[16];
+          *(this + 8) = *v137;
+          *(this + 9) = v113;
+          *(this + 64) = 0;
+        }
+      }
+    }
+  }
+
+LABEL_58:
 }

@@ -76,7 +76,7 @@
   return queue;
 }
 
-uint64_t __49__UNSApplicationService_isApplicationForeground___block_invoke(void *a1)
+void *__49__UNSApplicationService_isApplicationForeground___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

@@ -24,10 +24,10 @@
 
 - (void)viewDidLoad
 {
-  v74[3] = *MEMORY[0x277D85DE8];
-  v71.receiver = self;
-  v71.super_class = CARSetupAssetReadySoonViewController;
-  [(CARSetupAssetReadySoonViewController *)&v71 viewDidLoad];
+  v73[3] = *MEMORY[0x277D85DE8];
+  v70.receiver = self;
+  v70.super_class = CARSetupAssetReadySoonViewController;
+  [(CARSetupAssetReadySoonViewController *)&v70 viewDidLoad];
   view = [(CARSetupAssetReadySoonViewController *)self view];
   [(CARSetupAssetReadySoonViewController *)self setOverrideUserInterfaceStyle:2];
   navigationItem = [(CARSetupAssetReadySoonViewController *)self navigationItem];
@@ -39,17 +39,17 @@
   safeAreaLayoutGuide = [view safeAreaLayoutGuide];
   obj = objc_alloc_init(MEMORY[0x277D756B8]);
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v60 = [v4 localizedStringForKey:@"READY_SOON_CARD_TITLE" value:&stru_2855A1F50 table:@"Localizable-Themed"];
+  v59 = [v4 localizedStringForKey:@"READY_SOON_CARD_TITLE" value:&stru_2855A1F50 table:@"Localizable-Themed"];
 
-  [obj setText:v60];
+  [obj setText:v59];
   v5 = MEMORY[0x277D74310];
   traitCollection = [(CARSetupAssetReadySoonViewController *)self traitCollection];
   v7 = [v5 preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76A08] compatibleWithTraitCollection:traitCollection];
 
-  v59 = [v7 fontDescriptorWithSymbolicTraits:2];
+  v58 = [v7 fontDescriptorWithSymbolicTraits:2];
 
-  v58 = [MEMORY[0x277D74300] fontWithDescriptor:v59 size:0.0];
-  [obj setFont:v58];
+  v57 = [MEMORY[0x277D74300] fontWithDescriptor:v58 size:0.0];
+  [obj setFont:v57];
   [obj setTextAlignment:1];
   [obj setNumberOfLines:0];
   labelColor = [MEMORY[0x277D75348] labelColor];
@@ -61,55 +61,55 @@
   leadingAnchor = [obj leadingAnchor];
   leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
   v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:30.0];
-  v74[0] = v11;
+  v73[0] = v11;
   trailingAnchor = [obj trailingAnchor];
   trailingAnchor2 = [safeAreaLayoutGuide trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-30.0];
-  v74[1] = v14;
+  v73[1] = v14;
   topAnchor = [obj topAnchor];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
   v17 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:60.0];
-  v74[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:3];
+  v73[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
   [view addConstraints:v18];
 
-  v66 = objc_alloc_init(MEMORY[0x277D756B8]);
+  v65 = objc_alloc_init(MEMORY[0x277D756B8]);
   v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v20 = [v19 localizedStringForKey:@"READY_SOON_CARD_MESSAGE" value:&stru_2855A1F50 table:@"Localizable-Themed"];
 
-  [v66 setText:v20];
+  [v65 setText:v20];
   v21 = MEMORY[0x277D74310];
   traitCollection2 = [(CARSetupAssetReadySoonViewController *)self traitCollection];
-  v57 = [v21 preferredFontDescriptorWithTextStyle:*MEMORY[0x277D769D0] compatibleWithTraitCollection:traitCollection2];
+  v56 = [v21 preferredFontDescriptorWithTextStyle:*MEMORY[0x277D769D0] compatibleWithTraitCollection:traitCollection2];
 
-  v56 = [MEMORY[0x277D74300] fontWithDescriptor:v57 size:0.0];
-  [v66 setFont:v56];
-  [v66 setTextAlignment:1];
-  [v66 setNumberOfLines:0];
+  v55 = [MEMORY[0x277D74300] fontWithDescriptor:v56 size:0.0];
+  [v65 setFont:v55];
+  [v65 setTextAlignment:1];
+  [v65 setNumberOfLines:0];
   secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
-  [v66 setTextColor:secondaryLabelColor];
+  [v65 setTextColor:secondaryLabelColor];
 
-  [v66 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [view addSubview:v66];
-  objc_storeStrong(&self->_subtitleLabel, v66);
-  leadingAnchor3 = [v66 leadingAnchor];
+  [v65 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [view addSubview:v65];
+  objc_storeStrong(&self->_subtitleLabel, v65);
+  leadingAnchor3 = [v65 leadingAnchor];
   leadingAnchor4 = [safeAreaLayoutGuide leadingAnchor];
   v26 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:30.0];
-  v73[0] = v26;
-  trailingAnchor3 = [v66 trailingAnchor];
+  v72[0] = v26;
+  trailingAnchor3 = [v65 trailingAnchor];
   trailingAnchor4 = [safeAreaLayoutGuide trailingAnchor];
   v29 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-30.0];
-  v73[1] = v29;
-  topAnchor3 = [v66 topAnchor];
+  v72[1] = v29;
+  topAnchor3 = [v65 topAnchor];
   bottomAnchor = [obj bottomAnchor];
   v32 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:60.0];
-  v73[2] = v32;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
+  v72[2] = v32;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:3];
   [view addConstraints:v33];
 
   objc_initWeak(&location, self);
   v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v55 = [v34 localizedStringForKey:@"READY_SOON_CARD_DISMISS" value:&stru_2855A1F50 table:@"Localizable-Themed"];
+  v54 = [v34 localizedStringForKey:@"READY_SOON_CARD_DISMISS" value:&stru_2855A1F50 table:@"Localizable-Themed"];
 
   grayButtonConfiguration = [MEMORY[0x277D75230] grayButtonConfiguration];
   labelColor2 = [MEMORY[0x277D75348] labelColor];
@@ -117,12 +117,12 @@
 
   v36 = MEMORY[0x277D75220];
   v37 = MEMORY[0x277D750C8];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __51__CARSetupAssetReadySoonViewController_viewDidLoad__block_invoke;
-  v68[3] = &unk_278D8F558;
-  objc_copyWeak(&v69, &location);
-  v38 = [v37 actionWithTitle:v55 image:0 identifier:0 handler:v68];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __51__CARSetupAssetReadySoonViewController_viewDidLoad__block_invoke;
+  v67[3] = &unk_278D8F558;
+  objc_copyWeak(&v68, &location);
+  v38 = [v37 actionWithTitle:v54 image:0 identifier:0 handler:v67];
   v39 = [v36 buttonWithConfiguration:grayButtonConfiguration primaryAction:v38];
 
   [v39 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -130,30 +130,28 @@
   objc_storeStrong(&self->_doneButton, v39);
   vala = [v39 centerXAnchor];
   centerXAnchor = [safeAreaLayoutGuide centerXAnchor];
-  v53 = [vala constraintEqualToAnchor:centerXAnchor];
-  v72[0] = v53;
+  v52 = [vala constraintEqualToAnchor:centerXAnchor];
+  v71[0] = v52;
   topAnchor4 = [v39 topAnchor];
-  bottomAnchor2 = [v66 bottomAnchor];
-  v50 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
-  v72[1] = v50;
+  bottomAnchor2 = [v65 bottomAnchor];
+  v49 = [topAnchor4 constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
+  v71[1] = v49;
   bottomAnchor3 = [v39 bottomAnchor];
   bottomAnchor4 = [safeAreaLayoutGuide bottomAnchor];
   v42 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-30.0];
-  v72[2] = v42;
+  v71[2] = v42;
   widthAnchor = [v39 widthAnchor];
   widthAnchor2 = [safeAreaLayoutGuide widthAnchor];
   v45 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.75];
-  v72[3] = v45;
+  v71[3] = v45;
   heightAnchor = [v39 heightAnchor];
   v47 = [heightAnchor constraintEqualToConstant:50.0];
-  v72[4] = v47;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:5];
+  v71[4] = v47;
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:5];
   [view addConstraints:v48];
 
-  objc_destroyWeak(&v69);
+  objc_destroyWeak(&v68);
   objc_destroyWeak(&location);
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CARSetupAssetReadySoonViewController_viewDidLoad__block_invoke(uint64_t a1)

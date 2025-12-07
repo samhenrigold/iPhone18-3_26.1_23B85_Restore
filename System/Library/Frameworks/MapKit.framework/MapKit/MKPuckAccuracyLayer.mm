@@ -3,13 +3,13 @@
 
 @implementation MKPuckAccuracyLayer
 
-id __45___MKPuckAccuracyLayer_setAccuracy_duration___block_invoke(id result, int a2)
+double *__45___MKPuckAccuracyLayer_setAccuracy_duration___block_invoke(double *result, int a2)
 {
   if (a2)
   {
     v4 = *(result + 4);
     v5 = *(v4 + 72);
-    v6 = *(result + 5);
+    v6 = result[5];
     v7 = vabdd_f64(v6, v5) < 0.01 || v6 < v5;
     *(v4 + 81) = v7;
     v8 = *(result + 4);

@@ -5,6 +5,7 @@
 - (REMListBadge)badge;
 - (void)setBadge:(id)badge;
 - (void)setBadgeEmblem:(id)emblem;
+- (void)setShowingLargeAttachments:(BOOL)attachments;
 @end
 
 @implementation REMListAppearanceContextChangeItem
@@ -63,6 +64,13 @@
   emblem = [badge emblem];
 
   return emblem;
+}
+
+- (void)setShowingLargeAttachments:(BOOL)attachments
+{
+  attachmentsCopy = attachments;
+  listChangeItem = [(REMListAppearanceContextChangeItem *)self listChangeItem];
+  [listChangeItem setShowingLargeAttachments:attachmentsCopy];
 }
 
 - (BOOL)showingLargeAttachments

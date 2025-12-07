@@ -1,6 +1,7 @@
 @interface WFWorkflowParameterStateDescriptor
 + (unint64_t)storageBehaviorForPropertyWithKey:(id)key;
 - (WFWorkflowParameterStateDescriptor)initWithWorkflowName:(id)name workflowIdentifier:(id)identifier isSelf:(BOOL)self;
+- (WFWorkflowParameterStateDescriptor)initWithWorkflowReference:(id)reference isSelf:(BOOL)self;
 - (id)displayNameWithDatabase:(id)database containingWorkflow:(id)workflow;
 - (id)matchingWorkflowInDatabase:(id)database containingWorkflow:(id)workflow;
 @end
@@ -10,7 +11,7 @@
 + (unint64_t)storageBehaviorForPropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"cachedDisplayName"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 0;
   }
@@ -73,6 +74,33 @@
   }
 
   return cachedDisplayName;
+}
+
+- (WFWorkflowParameterStateDescriptor)initWithWorkflowReference:(id)reference isSelf:(BOOL)self
+{
+  selfCopy = self;
+  referenceCopy = reference;
+  if (!referenceCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFWorkflowParameterState.m" lineNumber:58 description:{@"Invalid parameter not satisfying: %@", @"workflowReference"}];
+  }
+
+  name = [referenceCopy name];
+  identifier = [referenceCopy identifier];
+  v10 = [(WFWorkflowParameterStateDescriptor *)self initWithWorkflowName:name workflowIdentifier:identifier isSelf:selfCopy];
+
+  if (v10)
+  {
+    workflowName = [(WFWorkflowParameterStateDescriptor *)v10 workflowName];
+    v12 = [workflowName copy];
+    cachedDisplayName = v10->_cachedDisplayName;
+    v10->_cachedDisplayName = v12;
+
+    v14 = v10;
+  }
+
+  return v10;
 }
 
 - (WFWorkflowParameterStateDescriptor)initWithWorkflowName:(id)name workflowIdentifier:(id)identifier isSelf:(BOOL)self

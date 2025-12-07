@@ -1,279 +1,3 @@
-void llvm::vfs::InMemoryFileSystem::InMemoryFileSystem(llvm::vfs::InMemoryFileSystem *this)
-{
-  *(this + 2) = 0;
-  *this = &unk_2868A1EE0;
-  operator new();
-}
-
-void llvm::vfs::InMemoryFileSystem::~InMemoryFileSystem(void **this)
-{
-  *this = &unk_2868A1EE0;
-  if (*(this + 47) < 0)
-  {
-    operator delete(this[3]);
-  }
-
-  v2 = this[2];
-  this[2] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-}
-
-{
-  *this = &unk_2868A1EE0;
-  if (*(this + 47) < 0)
-  {
-    operator delete(this[3]);
-  }
-
-  v2 = this[2];
-  this[2] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-}
-
-{
-  *this = &unk_2868A1EE0;
-  if (*(this + 47) < 0)
-  {
-    operator delete(this[3]);
-  }
-
-  v2 = this[2];
-  this[2] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  JUMPOUT(0x259C63180);
-}
-
-uint64_t llvm::vfs::InMemoryFileSystem::addFile(uint64_t a1, uint64_t a2, time_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void (*a9)(uint64_t *__return_ptr, uint64_t, __int128 *), uint64_t a10)
-{
-  v80 = *MEMORY[0x277D85DE8];
-  v66 = v68;
-  v67 = xmmword_257371870;
-  llvm::Twine::toVector(a2, &v66);
-  (*(*a1 + 112))(a1, &v66);
-  if (*(a1 + 48) == 1)
-  {
-    llvm::sys::path::remove_dots(&v66, 1, 0);
-  }
-
-  if (!v67)
-  {
-    goto LABEL_45;
-  }
-
-  v48 = a4;
-  v16 = *(a1 + 16);
-  llvm::sys::path::begin(v66, v67, 0, v63);
-  llvm::sys::path::end(v66, v67, v62);
-  if ((a5 & 0x100000000) != 0)
-  {
-    v17 = a5;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v49 = v17;
-  if ((a6 & 0x100000000) != 0)
-  {
-    v18 = a6;
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  if ((a7 & 0x100000000) != 0)
-  {
-    v19 = a7;
-  }
-
-  else
-  {
-    v19 = 2;
-  }
-
-  v47 = v19;
-  if ((a8 & 0x100000000) != 0)
-  {
-    v20 = a8;
-  }
-
-  else
-  {
-    v20 = 511;
-  }
-
-  v21 = v64;
-  v22 = v65;
-  llvm::sys::path::const_iterator::operator++(v63);
-  if (llvm::sys::path::const_iterator::operator==(v63, v62))
-  {
-LABEL_17:
-    Child = llvm::vfs::detail::InMemoryDirectory::getChild(v16, v21, v22);
-    if (!Child)
-    {
-      v33 = v66;
-      v34 = v67;
-      v35 = *v48;
-      *v48 = 0;
-      v69 = *(v16 + 64);
-      v70 = v33;
-      v71 = v34;
-      v72 = v21;
-      v73 = v22;
-      v74 = a3;
-      v75 = v35;
-      v76 = v49;
-      v77 = v18;
-      v78 = v47;
-      v79 = v20;
-      a9(&v51, a10, &v69);
-      v36 = v75;
-      v75 = 0;
-      if (v36)
-      {
-        (*(*v36 + 8))(v36);
-      }
-
-      *&v69 = v21;
-      *(&v69 + 1) = v22;
-      std::__tree<std::__value_type<std::string,std::unique_ptr<llvm::vfs::detail::InMemoryNode>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<llvm::vfs::detail::InMemoryNode>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<llvm::vfs::detail::InMemoryNode>>>>::__emplace_unique_impl<llvm::StringRef &,std::unique_ptr<llvm::vfs::detail::InMemoryNode>>();
-    }
-
-    v24 = *(Child + 8);
-    if (v24 == 2)
-    {
-      v25 = v47 == 3;
-LABEL_20:
-      v26 = v25;
-      goto LABEL_46;
-    }
-
-    v37 = *v48;
-    if (*v48)
-    {
-      v38 = *(v37 + 8);
-      v39 = *(v37 + 16) - v38;
-      if (v24 == 3)
-      {
-LABEL_34:
-        (*(**(Child + 40) + 32))(&v69);
-        v40 = v70 ^ 1;
-        if ((v70 & 1) != 0 || (v41 = *(v69 + 8), v42 = *(v69 + 16), v42 - v41 != v39))
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v43 = v42 == v41 || memcmp(v41, v38, v39) == 0;
-          v26 = v40 & v43;
-        }
-
-        goto LABEL_46;
-      }
-    }
-
-    else
-    {
-      v39 = 0;
-      v38 = "";
-      if (v24 == 3)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    if (v24 <= 1)
-    {
-      (*(*Child + 32))(&v69);
-      if ((v70 & 1) == 0)
-      {
-        v44 = *(v69 + 8);
-        v45 = *(v69 + 16);
-        if (v45 - v44 == v39)
-        {
-          if (v45 == v44)
-          {
-            v26 = 1;
-            goto LABEL_46;
-          }
-
-          v25 = memcmp(v44, v38, v39) == 0;
-          goto LABEL_20;
-        }
-      }
-    }
-
-LABEL_45:
-    v26 = 0;
-    goto LABEL_46;
-  }
-
-  while (1)
-  {
-    v27 = llvm::vfs::detail::InMemoryDirectory::getChild(v16, v21, v22);
-    if (!v27)
-    {
-      LOWORD(v72) = 261;
-      *&v69 = v66;
-      *(&v69 + 1) = v21 + v22 - v66;
-      v28 = *(v16 + 72);
-      v29 = llvm::hash_value(v21, v22);
-      v30 = __ROR8__(v29 + 16, 16);
-      v31 = (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v30 ^ ((0x9DDFEA08EB382D69 * (v28 ^ v30 ^ 0xFF51AFD7ED558CCDLL)) >> 47) ^ (0x9DDFEA08EB382D69 * (v28 ^ v30 ^ 0xFF51AFD7ED558CCDLL)))) ^ ((0x9DDFEA08EB382D69 * (v30 ^ ((0x9DDFEA08EB382D69 * (v28 ^ v30 ^ 0xFF51AFD7ED558CCDLL)) >> 47) ^ (0x9DDFEA08EB382D69 * (v28 ^ v30 ^ 0xFF51AFD7ED558CCDLL)))) >> 47))) ^ v29;
-      v32 = 1000000000 * (std::chrono::system_clock::from_time_t(a3).__d_.__rep_ / 1000000);
-      llvm::Twine::str(&v69, __p);
-      v53 = -1;
-      v54 = v31;
-      v55 = v32;
-      v56 = v49;
-      v57 = v18;
-      v58 = 0;
-      v59 = 3;
-      v60 = v20 | 0x1C0;
-      v61 = 0;
-      operator new();
-    }
-
-    v16 = v27;
-    if (*(v27 + 8) != 2)
-    {
-      break;
-    }
-
-    v21 = v64;
-    v22 = v65;
-    llvm::sys::path::const_iterator::operator++(v63);
-    if (llvm::sys::path::const_iterator::operator==(v63, v62))
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v26 = 0;
-LABEL_46:
-  if (v66 != v68)
-  {
-    free(v66);
-  }
-
-  return v26 & 1;
-}
-
 uint64_t llvm::vfs::detail::InMemoryDirectory::getChild(uint64_t a1, const void *a2, size_t a3)
 {
   if (a2)
@@ -656,7 +380,7 @@ LABEL_71:
       v35 = 261;
       v34[0] = v55;
       v34[1] = v56;
-      llvm::vfs::InMemoryFileSystem::lookupNode(&__src, this, v34, 1, a4 + 1);
+      llvm::vfs::InMemoryFileSystem::lookupNode(this, v34, 1, a4 + 1, &__src);
       if (v54)
       {
         v25 = *(a5 + 160);
@@ -1023,36 +747,36 @@ void llvm::vfs::InMemoryFileSystem::openFileForRead(llvm::vfs::InMemoryFileSyste
 
 void llvm::vfs::InMemoryFileSystem::dir_begin(llvm::vfs::InMemoryFileSystem *this, const llvm::Twine *a2, std::error_code *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  llvm::vfs::InMemoryFileSystem::lookupNode(this, a2, 1, 0, v9);
-  if (v11)
+  v13 = *MEMORY[0x277D85DE8];
+  llvm::vfs::InMemoryFileSystem::lookupNode(this, a2, 1, 0, v10);
+  if (v12)
   {
-    v5 = v9[1];
-    *&a3->__val_ = v9[0];
-    a3->__cat_ = v5;
+    v6 = v10[1];
+    *&a3->__val_ = v10[0];
+    a3->__cat_ = v6;
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      v6 = *(v10 + 8) == 2;
+      v7 = *(v11 + 8) == 2;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    if (v6)
+    if (v7)
     {
       llvm::Twine::str(a2, &__p);
       operator new();
     }
 
-    v7 = std::generic_category();
+    v8 = std::generic_category();
     *&a3->__val_ = 20;
-    a3->__cat_ = v7;
+    a3->__cat_ = v8;
   }
 
   operator new();
@@ -1299,8 +1023,7 @@ void llvm::vfs::RedirectingFileSystem::getCurrentWorkingDirectory(llvm::vfs::Red
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 40);
-    a2->__r_.__value_.__r.__words[2] = *(this + 7);
+    *a2 = *(this + 40);
   }
 }
 
@@ -1405,14 +1128,14 @@ LABEL_3:
   return v6 | v5;
 }
 
-void *llvm::vfs::RedirectingFileSystem::makeAbsolute(uint64_t a1, uint64_t a2)
+void *llvm::vfs::RedirectingFileSystem::makeAbsolute(uint64_t a1, uint64_t a2, Style a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17 = 261;
-  v4 = *(a2 + 8);
+  v19 = *MEMORY[0x277D85DE8];
+  v18 = 261;
+  v5 = *(a2 + 8);
   __p = *a2;
-  v14 = v4;
-  if (llvm::sys::path::is_absolute(&__p, 1) & 1) != 0 || (v12 = 261, v5 = *(a2 + 8), v11[0] = *a2, v11[1] = v5, (llvm::sys::path::is_absolute(v11, 3)))
+  v15 = v5;
+  if (llvm::sys::path::is_absolute(&__p, 1) & 1) != 0 || (v13 = 261, v6 = *(a2 + 8), v12[0] = *a2, v12[1] = v6, (llvm::sys::path::is_absolute(v12, 3)))
   {
     std::system_category();
     return 0;
@@ -1420,15 +1143,15 @@ void *llvm::vfs::RedirectingFileSystem::makeAbsolute(uint64_t a1, uint64_t a2)
 
   else
   {
-    v7 = (*(*a1 + 72))(&__p, a1);
-    if (v16)
+    v8 = (*(*a1 + 72))(&__p, a1);
+    if (v17)
     {
       return __p;
     }
 
     else
     {
-      if (v15 >= 0)
+      if (v16 >= 0)
       {
         p_p = &__p;
       }
@@ -1438,22 +1161,22 @@ void *llvm::vfs::RedirectingFileSystem::makeAbsolute(uint64_t a1, uint64_t a2)
         p_p = __p;
       }
 
-      if (v15 >= 0)
+      if (v16 >= 0)
       {
-        v9 = v15;
+        v10 = v16;
       }
 
       else
       {
-        v9 = v14;
+        v10 = v15;
       }
 
-      result = llvm::vfs::RedirectingFileSystem::makeAbsolute(v7, p_p, v9, a2);
-      if ((v16 & 1) == 0 && v15 < 0)
+      result = llvm::vfs::RedirectingFileSystem::makeAbsolute(v8, p_p, v10, a2);
+      if ((v17 & 1) == 0 && v16 < 0)
       {
-        v10 = result;
+        v11 = result;
         operator delete(__p);
-        return v10;
+        return v11;
       }
     }
   }
@@ -1499,7 +1222,7 @@ LABEL_40:
 
   __dst.__r_.__value_.__r.__words[0] = a2;
   __dst.__r_.__value_.__l.__size_ = a3;
-  first_of = llvm::StringRef::find_first_of(&__dst, "/\", 2, 0);
+  first_of = llvm::StringRef::find_first_of(&__dst, "/\"", 2, 0);
   if (first_of == -1 || *(__dst.__r_.__value_.__r.__words[0] + first_of) == 47)
   {
     v7 = 2;
@@ -1677,7 +1400,7 @@ uint64_t anonymous namespace::getExistingStyle(uint64_t a1, uint64_t a2)
 {
   v4[0] = a1;
   v4[1] = a2;
-  first_of = llvm::StringRef::find_first_of(v4, "/\", 2, 0);
+  first_of = llvm::StringRef::find_first_of(v4, "/\"", 2, 0);
   if (first_of == -1)
   {
     return 0;
@@ -1693,11 +1416,11 @@ uint64_t anonymous namespace::getExistingStyle(uint64_t a1, uint64_t a2)
 
 void llvm::vfs::RedirectingFileSystem::dir_begin(llvm::vfs::RedirectingFileSystem *this@<X0>, llvm::formatv_object_base **a2@<X1>, std::error_code *a3@<X2>, std::error_code *a4@<X8>)
 {
-  v66[32] = *MEMORY[0x277D85DE8];
-  *v65 = v66;
-  *&v65[8] = xmmword_25736B790;
-  llvm::Twine::toVector(a2, v65);
-  v8 = (*(*this + 112))(this, v65);
+  v67[32] = *MEMORY[0x277D85DE8];
+  *v66 = v67;
+  *&v66[8] = xmmword_25736B790;
+  llvm::Twine::toVector(a2, v66);
+  v8 = (*(*this + 112))(this, v66);
   *&a3->__val_ = v8;
   a3->__cat_ = v9;
   if (v8)
@@ -1707,15 +1430,15 @@ void llvm::vfs::RedirectingFileSystem::dir_begin(llvm::vfs::RedirectingFileSyste
     goto LABEL_74;
   }
 
-  llvm::vfs::RedirectingFileSystem::lookupPath(this, *v65, *&v65[8], &v56);
-  if ((v64 & 1) == 0)
+  llvm::vfs::RedirectingFileSystem::lookupPath(this, *v66, *&v66[8], &v57);
+  if ((v65 & 1) == 0)
   {
-    v49 = 261;
-    __p = *v65;
-    llvm::vfs::RedirectingFileSystem::status(&__p, this, a2, &v56, &v50);
-    if (v55)
+    v50 = 261;
+    __p = *v66;
+    llvm::vfs::RedirectingFileSystem::status(&v51, &__p, this, a2, &v57);
+    if (v56)
     {
-      if (*(this + 26) != 2 && ((v11 = v50, v12 = v51, !v59) || *(v59 + 8) == 1) && std::generic_category() == v12 && v11 == 2)
+      if (*(this + 26) != 2 && ((v11 = v51, v12 = v52, !v60) || *(v60 + 8) == 1) && std::generic_category() == v12 && v11 == 2)
       {
         (*(**(this + 8) + 56))(*(this + 8), a2, a3);
         v13 = 1;
@@ -1723,8 +1446,8 @@ void llvm::vfs::RedirectingFileSystem::dir_begin(llvm::vfs::RedirectingFileSyste
 
       else
       {
-        v24 = v51;
-        *&a3->__val_ = v50;
+        v24 = v52;
+        *&a3->__val_ = v51;
         a3->__cat_ = v24;
         *&a4->__val_ = 0;
         a4->__cat_ = 0;
@@ -1732,15 +1455,15 @@ void llvm::vfs::RedirectingFileSystem::dir_begin(llvm::vfs::RedirectingFileSyste
       }
 
 LABEL_65:
-      if ((v13 & 1) == 0 && v52 < 0)
+      if ((v13 & 1) == 0 && v53 < 0)
       {
-        operator delete(v50);
+        operator delete(v51);
       }
 
       goto LABEL_68;
     }
 
-    if (v54 != 3)
+    if (v55 != 3)
     {
       v25 = std::generic_category();
       v13 = 0;
@@ -1751,23 +1474,23 @@ LABEL_65:
       goto LABEL_65;
     }
 
-    v46 = 0;
-    v45.__val_ = 0;
+    v47 = 0;
+    v46.__val_ = 0;
     v17 = std::system_category();
-    v45.__cat_ = v17;
-    v18 = v59;
-    v19 = *(v59 + 8);
+    v46.__cat_ = v17;
+    v18 = v60;
+    v19 = *(v60 + 8);
     if (v19 == 2)
     {
-      v20 = *(v59 + 40);
-      LODWORD(v21) = *(v59 + 63);
+      v20 = *(v60 + 40);
+      LODWORD(v21) = *(v60 + 63);
       v22 = v21 >> 31;
       if (v21 >= 0)
       {
-        v20 = (v59 + 40);
+        v20 = (v60 + 40);
       }
 
-      v23 = (v59 + 48);
+      v23 = (v60 + 48);
     }
 
     else
@@ -1777,15 +1500,15 @@ LABEL_65:
         operator new();
       }
 
-      v20 = &v60;
-      LODWORD(v21) = v62;
-      v22 = v62 >> 31;
-      if (v62 < 0)
+      v20 = &v61;
+      LODWORD(v21) = v63;
+      v22 = v63 >> 31;
+      if (v63 < 0)
       {
-        v20 = v60;
+        v20 = v61;
       }
 
-      v23 = &v61;
+      v23 = &v62;
     }
 
     v26 = *v23;
@@ -1796,22 +1519,22 @@ LABEL_65:
     }
 
     v27 = *(this + 8);
-    v49 = 261;
+    v50 = 261;
     *&__p = v20;
     *(&__p + 1) = v21;
-    (*(*v27 + 56))(&v44);
-    v28 = v44;
-    v44 = 0;
-    cat = v46.__cat_;
-    v46 = v28;
+    (*(*v27 + 56))(&v45);
+    v28 = v45;
+    v45 = 0;
+    cat = v47.__cat_;
+    v47 = v28;
     if (cat && !atomic_fetch_add(&cat->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (cat->__on_zero_shared)(cat);
       std::__shared_weak_count::__release_weak(cat);
     }
 
-    v30 = v44.__cat_;
-    if (v44.__cat_ && !atomic_fetch_add(&v44.__cat_[1], 0xFFFFFFFFFFFFFFFFLL))
+    v30 = v45.__cat_;
+    if (v45.__cat_ && !atomic_fetch_add(&v45.__cat_[1], 0xFFFFFFFFFFFFFFFFLL))
     {
       (v30->__on_zero_shared)(v30);
       std::__shared_weak_count::__release_weak(v30);
@@ -1826,45 +1549,45 @@ LABEL_65:
 
     if ((v31 & 1) == 0)
     {
-      llvm::SmallString<256u>::operator std::string(v65, &__p);
+      llvm::SmallString<256u>::operator std::string(v66, &__p);
     }
 
-    val = v45.__val_;
-    if (v45.__val_)
+    val = v46.__val_;
+    if (v46.__val_)
     {
       v34 = std::generic_category();
-      if (val != 2 || v45.__cat_ != v34)
+      if (val != 2 || v46.__cat_ != v34)
       {
-        *a3 = v45;
+        *a3 = v46;
         *&a4->__val_ = 0;
         a4->__cat_ = 0;
         goto LABEL_61;
       }
 
       __p = 0uLL;
-      llvm::vfs::directory_iterator::operator=(&v46, &__p);
+      llvm::vfs::directory_iterator::operator=(&v47, &__p);
       std::shared_ptr<llvm::vfs::detail::DirIterImpl>::~shared_ptr[abi:nn200100](&__p);
     }
 
     if (*(this + 26) != 2)
     {
-      v44.__val_ = 0;
-      v44.__cat_ = v17;
+      v45.__val_ = 0;
+      v45.__cat_ = v17;
       v36 = *(this + 8);
-      v49 = 261;
-      __p = *v65;
-      (*(*v36 + 56))(&v43);
-      v37 = v44.__val_;
-      if (v44.__val_)
+      v50 = 261;
+      __p = *v66;
+      (*(*v36 + 56))(&v44);
+      v37 = v45.__val_;
+      if (v45.__val_)
       {
         v38 = std::generic_category();
-        if (v37 != 2 || v44.__cat_ != v38)
+        if (v37 != 2 || v45.__cat_ != v38)
         {
-          *a3 = v44;
+          *a3 = v45;
           *&a4->__val_ = 0;
           a4->__cat_ = 0;
-          v41 = *(&v43 + 1);
-          if (*(&v43 + 1) && !atomic_fetch_add((*(&v43 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+          v41 = *(&v44 + 1);
+          if (*(&v44 + 1) && !atomic_fetch_add((*(&v44 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
           {
             (v41->__on_zero_shared)(v41);
             std::__shared_weak_count::__release_weak(v41);
@@ -1874,88 +1597,88 @@ LABEL_65:
         }
 
         __p = 0uLL;
-        llvm::vfs::directory_iterator::operator=(&v43, &__p);
+        llvm::vfs::directory_iterator::operator=(&v44, &__p);
         std::shared_ptr<llvm::vfs::detail::DirIterImpl>::~shared_ptr[abi:nn200100](&__p);
       }
 
-      *&__p = &v48;
+      *&__p = &v49;
       *(&__p + 1) = 0x200000000;
       if (*(this + 26))
       {
-        v39 = &v46;
+        v39 = &v47;
       }
 
       else
       {
-        v39 = &v43;
+        v39 = &v44;
       }
 
       if (*(this + 26))
       {
-        v40 = &v43;
+        v40 = &v44;
       }
 
       else
       {
-        v40 = &v46;
+        v40 = &v47;
       }
 
       llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::push_back(&__p, v39);
       llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::push_back(&__p, v40);
     }
 
-    v35 = v46;
-    *a3 = v45;
+    v35 = v47;
+    *a3 = v46;
     *a4 = v35;
-    v46 = 0;
+    v47 = 0;
 LABEL_61:
-    v42 = v46.__cat_;
-    if (v46.__cat_ && !atomic_fetch_add(&v46.__cat_[1], 0xFFFFFFFFFFFFFFFFLL))
+    v42 = v47.__cat_;
+    if (v47.__cat_ && !atomic_fetch_add(&v47.__cat_[1], 0xFFFFFFFFFFFFFFFFLL))
     {
       (v42->__on_zero_shared)(v42);
       std::__shared_weak_count::__release_weak(v42);
     }
 
-    v13 = v55;
+    v13 = v56;
     goto LABEL_65;
   }
 
-  if (*(this + 26) != 2 && (v14 = v56, v15 = v57, std::generic_category() == v15) && v14 == 2)
+  if (*(this + 26) != 2 && (v14 = v57, v15 = v58, std::generic_category() == v15) && v14 == 2)
   {
     v16 = *(this + 8);
-    v53 = 261;
-    v50 = *v65;
-    v51 = *&v65[8];
-    (*(*v16 + 56))(v16, &v50, a3);
+    v54 = 261;
+    v51 = *v66;
+    v52 = *&v66[8];
+    (*(*v16 + 56))(v16, &v51, a3);
   }
 
   else
   {
-    v10 = v57;
-    *&a3->__val_ = v56;
+    v10 = v58;
+    *&a3->__val_ = v57;
     a3->__cat_ = v10;
     *&a4->__val_ = 0;
     a4->__cat_ = 0;
   }
 
 LABEL_68:
-  if ((v64 & 1) == 0)
+  if ((v65 & 1) == 0)
   {
-    if (v63 == 1 && v62 < 0)
+    if (v64 == 1 && v63 < 0)
     {
-      operator delete(v60);
+      operator delete(v61);
     }
 
-    if (v56 != &v58)
+    if (v57 != &v59)
     {
-      free(v56);
+      free(v57);
     }
   }
 
 LABEL_74:
-  if (*v65 != v66)
+  if (*v66 != v67)
   {
-    free(*v65);
+    free(*v66);
   }
 }
 
@@ -2120,14 +1843,14 @@ LABEL_29:
   }
 }
 
-void llvm::vfs::RedirectingFileSystem::status(llvm::formatv_object_base **this@<X1>, uint64_t a2@<X0>, llvm::formatv_object_base **a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::vfs::RedirectingFileSystem::status(uint64_t *__return_ptr a1@<X8>, llvm::formatv_object_base **this@<X1>, uint64_t a3@<X0>, llvm::formatv_object_base **a4@<X2>, uint64_t a5@<X3>)
 {
   v77 = *MEMORY[0x277D85DE8];
-  v8 = *(a4 + 272);
+  v8 = *(a5 + 272);
   v9 = *(v8 + 8);
   if (v9 == 2)
   {
-    v46 = a3;
+    v46 = a4;
     v10 = (v8 + 40);
     v11 = *(v8 + 63);
     if ((v11 & 0x8000000000000000) != 0)
@@ -2145,9 +1868,9 @@ void llvm::vfs::RedirectingFileSystem::status(llvm::formatv_object_base **this@<
 
   if (v9 == 1)
   {
-    v46 = a3;
-    v10 = (a4 + 280);
-    v11 = *(a4 + 303);
+    v46 = a4;
+    v10 = (a5 + 280);
+    v11 = *(a5 + 303);
     if ((v11 & 0x8000000000000000) == 0)
     {
 LABEL_9:
@@ -2207,26 +1930,26 @@ LABEL_17:
         operator delete(v14);
       }
 
-      v18 = (*(*a2 + 112))(a2, v72);
+      v18 = (*(*a3 + 112))(a3, v72);
       if (v18)
       {
-        *(a5 + 80) |= 1u;
-        *a5 = v18;
-        *(a5 + 8) = v19;
+        *(a1 + 80) |= 1u;
+        *a1 = v18;
+        a1[1] = v19;
         goto LABEL_64;
       }
 
-      v20 = *(a2 + 64);
+      v20 = *(a3 + 64);
       WORD4(v58) = 261;
       __p[0] = v72[0];
       __p[1] = v72[1];
       (*(*v20 + 40))(&__dst);
       if (v71)
       {
-        *(a5 + 80) |= 1u;
+        *(a1 + 80) |= 1u;
         v21 = __dst.__r_.__value_.__l.__size_;
-        *a5 = __dst.__r_.__value_.__r.__words[0];
-        *(a5 + 8) = v21;
+        *a1 = __dst.__r_.__value_.__r.__words[0];
+        a1[1] = v21;
 LABEL_64:
         if (v72[0] != &v73)
         {
@@ -2287,7 +2010,7 @@ LABEL_64:
         v36 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
       }
 
-      v38 = *(*(a4 + 272) + 64);
+      v38 = *(*(a5 + 272) + 64);
       if (v38)
       {
         v39 = v38 == 1;
@@ -2295,7 +2018,7 @@ LABEL_64:
 
       else
       {
-        v39 = *(a2 + 98);
+        v39 = *(a3 + 98);
       }
 
       if (v36 < 0)
@@ -2370,15 +2093,15 @@ LABEL_64:
 
       v65 = v40;
 LABEL_59:
-      *(a5 + 80) &= ~1u;
-      *a5 = v62;
-      *(a5 + 16) = *v63;
+      *(a1 + 80) &= ~1u;
+      *a1 = v62;
+      a1[2] = *v63;
       v62 = 0uLL;
       *v63 = 0;
-      *(a5 + 24) = *&v63[8];
-      *(a5 + 40) = *&v63[24];
-      *(a5 + 56) = v64;
-      *(a5 + 72) = v65;
+      *(a1 + 3) = *&v63[8];
+      *(a1 + 5) = *&v63[24];
+      *(a1 + 7) = v64;
+      *(a1 + 72) = v65;
       if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v48.__r_.__value_.__l.__data_);
@@ -2392,7 +2115,7 @@ LABEL_59:
       goto LABEL_64;
     }
 
-    v11 = *(a4 + 288);
+    v11 = *(a5 + 288);
     v10 = *v10;
     if (!v10)
     {
@@ -2438,18 +2161,18 @@ LABEL_8:
   *(&v74 + 1) = v25;
   v75 = v24;
   v76 = 0;
-  *(a5 + 80) &= ~1u;
-  *a5 = *v72;
-  *(a5 + 16) = v72[2];
+  *(a1 + 80) &= ~1u;
+  *a1 = *v72;
+  a1[2] = v72[2];
   memset(v72, 0, sizeof(v72));
   *&v74 = v23;
   v26 = v73;
   v27 = v74;
   v28 = v75;
-  *(a5 + 72) = 0;
-  *(a5 + 56) = v28;
-  *(a5 + 40) = v27;
-  *(a5 + 24) = v26;
+  *(a1 + 72) = 0;
+  *(a1 + 7) = v28;
+  *(a1 + 5) = v27;
+  *(a1 + 3) = v26;
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst.__r_.__value_.__l.__data_);
@@ -2459,8 +2182,7 @@ LABEL_8:
 uint64_t llvm::vfs::directory_iterator::operator=(uint64_t result, __int128 *a2)
 {
   v2 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = *(result + 8);
   *result = v2;
   if (v3)
@@ -2506,7 +2228,7 @@ const void **llvm::SmallString<256u>::operator std::string@<X0>(const void **res
   return result;
 }
 
-uint64_t llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::push_back(uint64_t result, __int128 *a2)
+uint64_t llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::push_back(uint64_t result, char *a2)
 {
   v2 = *(result + 8);
   v3 = *result;
@@ -2514,10 +2236,10 @@ uint64_t llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::pus
   {
     if (v3 > a2 || v3 + 16 * v2 <= a2)
     {
-      llvm::SmallVectorTemplateBase<std::shared_ptr<mlir::anec::ANECIROutput>,false>::grow();
+      llvm::SmallVectorTemplateBase<std::shared_ptr<mlir::anec::ANECIROutput>,false>::grow(result, v2 + 1);
     }
 
-    llvm::SmallVectorTemplateBase<std::shared_ptr<mlir::anec::ANECIROutput>,false>::grow();
+    llvm::SmallVectorTemplateBase<std::shared_ptr<mlir::anec::ANECIROutput>,false>::grow(result, v2 + 1);
   }
 
   v4 = *(result + 8);
@@ -2533,27 +2255,27 @@ uint64_t llvm::SmallVectorTemplateBase<llvm::vfs::directory_iterator,false>::pus
   return result;
 }
 
-char **llvm::SmallVector<llvm::vfs::directory_iterator,2u>::~SmallVector(char **a1)
+char ***llvm::SmallVector<llvm::vfs::directory_iterator,2u>::~SmallVector(char ***a1)
 {
   v2 = *a1;
   v3 = *(a1 + 2);
   if (v3)
   {
-    v4 = v2 - 8;
-    v5 = 16 * v3;
+    v4 = v2 - 1;
+    v5 = 2 * v3;
     do
     {
-      v6 = *&v4[v5];
+      v6 = v4[v5];
       if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
         (v6->__on_zero_shared)(v6);
         std::__shared_weak_count::__release_weak(v6);
       }
 
-      v5 -= 16;
+      v5 -= 2;
     }
 
-    while (v5);
+    while (v5 * 8);
     v2 = *a1;
   }
 
@@ -2638,7 +2360,7 @@ uint64_t llvm::vfs::RedirectingFileSystem::setFallthrough(uint64_t this, int a2)
   return this;
 }
 
-void llvm::vfs::RedirectingFileSystem::getRoots(llvm::vfs::RedirectingFileSystem *this@<X0>, void *a2@<X8>)
+void llvm::vfs::RedirectingFileSystem::getRoots(llvm::vfs::RedirectingFileSystem *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -2678,7 +2400,7 @@ void llvm::vfs::RedirectingFileSystem::getRoots(llvm::vfs::RedirectingFileSystem
   }
 }
 
-void *llvm::vfs::RedirectingFileSystem::printImpl(uint64_t a1, llvm::raw_ostream *this, int a3, int a4)
+llvm::raw_ostream *llvm::vfs::RedirectingFileSystem::printImpl(uint64_t a1, llvm::raw_ostream *this, int a3, int a4)
 {
   if (a4)
   {
@@ -2747,8 +2469,8 @@ LABEL_6:
   if (v14 > *(v11 + 3) - v12)
   {
     result = llvm::raw_ostream::write(v11, v13, v14);
-    v16 = result[4];
-    if (result[3] - v16 > 1uLL)
+    v16 = *(result + 4);
+    if (*(result + 3) - v16 > 1uLL)
     {
       goto LABEL_17;
     }
@@ -2775,7 +2497,7 @@ LABEL_28:
 
 LABEL_17:
   *v16 = 2601;
-  result[4] += 2;
+  *(result + 4) += 2;
   if (!a3)
   {
     return result;
@@ -3132,41 +2854,41 @@ uint64_t llvm::vfs::RedirectingFileSystem::visitChildFileSystems(uint64_t result
 
 void llvm::vfs::RedirectingFileSystem::create(llvm::MemoryBuffer **a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  llvm::SourceMgr::SourceMgr(v2);
-  llvm::MemoryBuffer::getMemBufferRef(*a1, &__str);
-  llvm::yaml::Stream::Stream();
+  v11 = *MEMORY[0x277D85DE8];
+  llvm::SourceMgr::SourceMgr(v9);
+  llvm::MemoryBuffer::getMemBufferRef(&__str, *a1);
+  llvm::yaml::Stream::Stream(&v8, &__str, v9, 1, 0);
 }
 
-uint64_t llvm::vfs::RedirectingFileSystemParser::parse(llvm ****this, llvm::yaml::Node *a2, llvm::vfs::RedirectingFileSystem *a3)
+uint64_t llvm::vfs::RedirectingFileSystemParser::parse(llvm::yaml::Stream **this, llvm::yaml::Node *a2, llvm::vfs::RedirectingFileSystem *a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (a2 && *(a2 + 8) == 4)
   {
-    *&v49 = "version";
-    *(&v49 + 1) = 7;
-    v50 = 1;
-    *&v51 = "case-sensitive";
-    *(&v51 + 1) = 14;
-    v52 = 0;
-    *&v53 = "use-external-names";
-    *(&v53 + 1) = 18;
+    v50[0] = "version";
+    v50[1] = 7;
+    v51 = 1;
+    v52 = "case-sensitive";
+    v53 = 14;
     v54 = 0;
-    *&v55 = "root-relative";
-    *(&v55 + 1) = 13;
+    v55[0] = "use-external-names";
+    v55[1] = 18;
     v56 = 0;
-    *&v57 = "overlay-relative";
-    *(&v57 + 1) = 16;
+    v57[0] = "root-relative";
+    v57[1] = 13;
     v58 = 0;
-    *&v59 = "fallthrough";
-    *(&v59 + 1) = 11;
+    v59[0] = "overlay-relative";
+    v59[1] = 16;
     v60 = 0;
-    *&v61 = "redirecting-with";
-    *(&v61 + 1) = 16;
+    v61[0] = "fallthrough";
+    v61[1] = 11;
     v62 = 0;
-    *&v63 = "roots";
-    *(&v63 + 1) = 5;
-    v64 = 1;
+    v63[0] = "redirecting-with";
+    v63[1] = 16;
+    v64 = 0;
+    v65[0] = "roots";
+    v65[1] = 5;
+    v66 = 1;
     v45 = 16;
     buffer = llvm::allocate_buffer(0x180uLL, 8uLL);
     v43 = buffer;
@@ -3187,14 +2909,14 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parse(llvm ****this, llvm::yaml
     *(buffer + 312) = xmmword_25736B6D0;
     buffer[21] = xmmword_25736B6D0;
     *(buffer + 360) = xmmword_25736B6D0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v49, &v50, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v51, &v52, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v53, &v54, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v55, &v56, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v57, &v58, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v59, &v60, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v61, &v62, &v46);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v63, &v64, &v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v50, &v51, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, &v52, &v54, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v55, &v56, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v57, &v58, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v59, &v60, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v61, &v62, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v63, &v64, v46);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v43, v65, &v66, v46);
     *(a2 + 76) = 0;
     llvm::yaml::MappingNode::increment(a2);
     if (!*(a2 + 10))
@@ -3230,14 +2952,14 @@ LABEL_78:
           {
             v39 = *v29;
             v38 = *(v29 + 1);
-            v65 = "missing key '";
-            *(&v66 + 1) = v39;
-            v67 = v38;
-            v68 = 1283;
-            *&v46 = &v65;
-            v47 = "'";
-            v48 = 770;
-            llvm::yaml::Stream::printError(*this, a2, &v46, 0);
+            v67 = "missing key '";
+            *(&v68 + 1) = v39;
+            v69 = v38;
+            v70 = 1283;
+            *v46 = &v67;
+            v48 = "'";
+            v49 = 770;
+            llvm::yaml::Stream::printError(*this, a2, v46, 0);
           }
 
           else
@@ -3265,8 +2987,8 @@ LABEL_78:
     while (1)
     {
       v7 = *(a2 + 10);
-      v65 = &v67;
-      v66 = xmmword_25739DC40;
+      v67 = &v69;
+      v68 = xmmword_25739DC40;
       Key = llvm::yaml::KeyValueNode::getKey(v7);
       if (Key)
       {
@@ -3280,14 +3002,14 @@ LABEL_78:
 
       if (!v9)
       {
-        *&v46 = "expected string";
-        v48 = 259;
+        *v46 = "expected string";
+        v49 = 259;
         v30 = Key;
         v31 = *this;
         goto LABEL_72;
       }
 
-      Value = llvm::yaml::ScalarNode::getValue(Key, &v65);
+      Value = llvm::yaml::ScalarNode::getValue(Key, &v67);
       v12 = v11;
       v13 = llvm::yaml::KeyValueNode::getKey(v7);
       if (!llvm::vfs::RedirectingFileSystemParser::checkDuplicateOrUnknownKey(this, v13, Value, v12, &v43))
@@ -3350,9 +3072,9 @@ LABEL_57:
           goto LABEL_49;
         }
 
-        *&v46 = "fallthrough";
-        *(&v46 + 1) = 11;
-        v26 = *(llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](&v43, &v46) + 1);
+        *v46 = "fallthrough";
+        v47 = 11;
+        v26 = *(llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](&v43, v46) + 1);
         v30 = llvm::yaml::KeyValueNode::getValue(v7);
         if (v26 == 1)
         {
@@ -3372,7 +3094,7 @@ LABEL_57:
 
       else if (v12 == 5)
       {
-        if (*Value != 1953460082 || Value[4] != 115)
+        if (*Value != 1953460082 || *(Value + 4) != 115)
         {
           goto LABEL_49;
         }
@@ -3389,16 +3111,16 @@ LABEL_57:
         llvm::yaml::SequenceNode::increment(v19);
         if (v20[10])
         {
-          llvm::vfs::RedirectingFileSystemParser::parseEntry(this, v20[10], a3, 1, &v46);
-          if (v46)
+          llvm::vfs::RedirectingFileSystemParser::parseEntry(v46, this, v20[10], a3, 1);
+          if (*v46)
           {
             operator new();
           }
 
 LABEL_73:
-          if (v65 != &v67)
+          if (v67 != &v69)
           {
-            free(v65);
+            free(v67);
           }
 
 LABEL_75:
@@ -3418,25 +3140,25 @@ LABEL_75:
         v21 = llvm::yaml::KeyValueNode::getValue(v7);
         if (!v21 || *(v21 + 8) != 1)
         {
-          *&v46 = "expected string";
-          v48 = 259;
+          *v46 = "expected string";
+          v49 = 259;
           v35 = v21;
           v37 = *this;
           goto LABEL_92;
         }
 
         v22 = llvm::yaml::ScalarNode::getValue(v21, &v40);
-        *&v46 = 0;
-        if (llvm::getAsSignedInteger(v22, v23, 0xA, &v46) || v46 != v46)
+        *v46 = 0;
+        if (llvm::getAsSignedInteger(v22, v23, 0xA, v46) || *v46 != *v46)
         {
           v35 = llvm::yaml::KeyValueNode::getValue(v7);
           v36 = "expected integer";
 LABEL_91:
-          *&v46 = v36;
-          v48 = 259;
+          *v46 = v36;
+          v49 = 259;
           v37 = *this;
 LABEL_92:
-          llvm::yaml::Stream::printError(v37, v35, &v46, 0);
+          llvm::yaml::Stream::printError(v37, v35, v46, 0);
           if (v40 != &v42)
           {
             free(v40);
@@ -3445,14 +3167,14 @@ LABEL_92:
           goto LABEL_73;
         }
 
-        if ((v46 & 0x80000000) != 0)
+        if ((*v46 & 0x80000000) != 0)
         {
           v35 = llvm::yaml::KeyValueNode::getValue(v7);
           v36 = "invalid version number";
           goto LABEL_91;
         }
 
-        if (v46)
+        if (*v46)
         {
           v35 = llvm::yaml::KeyValueNode::getValue(v7);
           v36 = "version mismatch, expected 0";
@@ -3472,30 +3194,30 @@ LABEL_92:
           goto LABEL_49;
         }
 
-        *&v46 = "redirecting-with";
-        *(&v46 + 1) = 16;
-        if (*(llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](&v43, &v46) + 1) == 1)
+        *v46 = "redirecting-with";
+        v47 = 16;
+        if (*(llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](&v43, v46) + 1) == 1)
         {
           v30 = llvm::yaml::KeyValueNode::getValue(v7);
 LABEL_86:
           v32 = "'fallthrough' and 'redirecting-with' are mutually exclusive";
 LABEL_71:
-          *&v46 = v32;
-          v48 = 259;
+          *v46 = v32;
+          v49 = 259;
           v31 = *this;
 LABEL_72:
-          llvm::yaml::Stream::printError(v31, v30, &v46, 0);
+          llvm::yaml::Stream::printError(v31, v30, v46, 0);
           goto LABEL_73;
         }
 
-        LOBYTE(v46) = 0;
+        v46[0] = 0;
         v14 = llvm::yaml::KeyValueNode::getValue(v7);
-        if (!llvm::vfs::RedirectingFileSystemParser::parseScalarBool(this, v14, &v46))
+        if (!llvm::vfs::RedirectingFileSystemParser::parseScalarBool(this, v14, v46))
         {
           goto LABEL_73;
         }
 
-        if (v46)
+        if (v46[0])
         {
           v15 = 0;
         }
@@ -3509,9 +3231,9 @@ LABEL_72:
       }
 
 LABEL_51:
-      if (v65 != &v67)
+      if (v67 != &v69)
       {
-        free(v65);
+        free(v67);
       }
 
       llvm::yaml::MappingNode::increment(a2);
@@ -3522,9 +3244,9 @@ LABEL_51:
     }
   }
 
-  *&v49 = "expected mapping node";
-  WORD4(v51) = 259;
-  llvm::yaml::Stream::printError(*this, a2, &v49, 0);
+  v50[0] = "expected mapping node";
+  LOWORD(v53) = 259;
+  llvm::yaml::Stream::printError(*this, a2, v50, 0);
   return 0;
 }
 
@@ -3611,7 +3333,7 @@ LABEL_49:
     v26 = 257;
     v22 = (atomic_fetch_add(llvm::vfs::getNextVirtualUniqueID(void)::UID, 1u) + 1);
     v23 = 1000 * std::chrono::system_clock::now().__d_.__rep_;
-    llvm::Twine::str(&v25, __p);
+    llvm::Twine::str(v25, __p);
     __p[3] = -1;
     __p[4] = v22;
     v29 = 0;
@@ -3753,7 +3475,7 @@ uint64_t llvm::vfs::RedirectingFileSystem::LookupResult::LookupResult(uint64_t a
 
   v26[0] = v15;
   v26[1] = v14;
-  first_of = llvm::StringRef::find_first_of(v26, "/\", 2, 0);
+  first_of = llvm::StringRef::find_first_of(v26, "/\"", 2, 0);
   if (first_of == -1)
   {
     v17 = 0;
@@ -3842,7 +3564,7 @@ void llvm::vfs::RedirectingFileSystem::LookupResult::getPath(uint64_t a1, void *
     do
     {
       v7 = *v5++;
-      v8 = (v7 + 16);
+      v8 = v7 + 16;
       v9 = *(v7 + 16);
       v10 = *(v7 + 39);
       if (v10 >= 0)
@@ -3850,7 +3572,7 @@ void llvm::vfs::RedirectingFileSystem::LookupResult::getPath(uint64_t a1, void *
         v9 = v8;
       }
 
-      v11 = v8[1];
+      v11 = *(v8 + 8);
       if (v10 >= 0)
       {
         v11 = v10;
@@ -3894,7 +3616,7 @@ void llvm::vfs::RedirectingFileSystem::LookupResult::getPath(uint64_t a1, void *
   llvm::sys::path::append(a2, &v24, v22, v20, v18);
 }
 
-uint64_t llvm::vfs::RedirectingFileSystem::makeCanonicalForLookup(uint64_t a1, uint64_t a2)
+unint64_t llvm::vfs::RedirectingFileSystem::makeCanonicalForLookup(uint64_t a1, void *a2)
 {
   v12[32] = *MEMORY[0x277D85DE8];
   v3 = (*(*a1 + 112))(a1);
@@ -3918,14 +3640,14 @@ uint64_t llvm::vfs::RedirectingFileSystem::makeCanonicalForLookup(uint64_t a1, u
     }
 
     v7 = __src;
-    *(a2 + 8) = 0;
-    if (*(a2 + 16) < v6)
+    a2[1] = 0;
+    if (a2[2] < v6)
     {
       llvm::SmallVectorBase<unsigned long long>::grow_pod();
     }
 
     memcpy(*a2, v7, v6);
-    *(a2 + 8) += v6;
+    a2[1] += v6;
     std::system_category();
     v5 = 0;
     v8 = __src;
@@ -3943,7 +3665,7 @@ uint64_t anonymous namespace::canonicalize(uint64_t a1, _BYTE *a2, unint64_t a3)
 {
   v13[0] = a2;
   v13[1] = a3;
-  first_of = llvm::StringRef::find_first_of(v13, "/\", 2, 0);
+  first_of = llvm::StringRef::find_first_of(v13, "/\"", 2, 0);
   if (first_of == -1)
   {
     v7 = 0;
@@ -4200,7 +3922,7 @@ LABEL_56:
     v41 = *a3;
     v42 = v33;
     v43 = a3[2];
-    llvm::vfs::RedirectingFileSystem::lookupPathImpl(a1, __src, &v41, *v30, a5);
+    llvm::vfs::RedirectingFileSystem::lookupPathImpl(a1, __src, &v41, *v30, a5, a6);
     v34 = *(a6 + 312);
     if ((v34 & 1) == 0)
     {
@@ -4300,58 +4022,58 @@ LABEL_8:
 
 void llvm::vfs::RedirectingFileSystem::getExternalStatus(llvm::vfs::RedirectingFileSystem *this@<X0>, llvm::formatv_object_base **a2@<X2>, uint64_t a3@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   (*(**(this + 8) + 40))(__p);
-  if (v24)
+  if (v23)
   {
     *(a3 + 80) |= 1u;
-    v6 = __p[1];
+    v5 = __p[1];
     *a3 = __p[0];
-    *(a3 + 8) = v6;
+    *(a3 + 8) = v5;
     return;
   }
 
-  if (v23 == 1)
+  if (v22 == 1)
   {
     *(a3 + 80) &= ~1u;
-    *(a3 + 16) = v19;
-    *(a3 + 72) = v23;
+    *(a3 + 16) = v18;
+    *(a3 + 72) = v22;
     *a3 = *__p;
     __p[0] = 0;
     __p[1] = 0;
-    v19 = 0;
-    *(a3 + 24) = v20;
-    *(a3 + 40) = v21;
-    *(a3 + 56) = v22;
+    v18 = 0;
+    *(a3 + 24) = v19;
+    *(a3 + 40) = v20;
+    *(a3 + 56) = v21;
   }
 
   else
   {
-    v11 = v20;
+    v10 = v19;
+    v6 = v20;
     v7 = v21;
-    v8 = v22;
-    v9 = *(&v21 + 1);
-    llvm::Twine::str(a2, &v12);
-    v10 = v12;
-    v14 = v11;
-    *&v15 = v7;
-    *(&v15 + 1) = v9;
-    v16 = v8;
-    v17 = 0;
+    v8 = *(&v20 + 1);
+    llvm::Twine::str(a2, &v11);
+    v9 = v11;
+    v13 = v10;
+    *&v14 = v6;
+    *(&v14 + 1) = v8;
+    v15 = v7;
+    v16 = 0;
     *(a3 + 80) &= ~1u;
-    *a3 = v10;
-    *(a3 + 16) = v13;
+    *a3 = v9;
+    *(a3 + 16) = v12;
     *(a3 + 72) = 0;
-    *(a3 + 56) = v16;
-    *(a3 + 40) = v15;
-    *(a3 + 24) = v14;
-    if (v24)
+    *(a3 + 56) = v15;
+    *(a3 + 40) = v14;
+    *(a3 + 24) = v13;
+    if (v23)
     {
       return;
     }
   }
 
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v18) < 0)
   {
     operator delete(__p[0]);
   }
@@ -4411,7 +4133,7 @@ void llvm::vfs::RedirectingFileSystem::status(llvm::vfs::RedirectingFileSystem *
   {
     v16 = 261;
     v15 = *v31;
-    llvm::vfs::RedirectingFileSystem::status(&v15, this, a2, &v24, &v17);
+    llvm::vfs::RedirectingFileSystem::status(&v17, &v15, this, a2, &v24);
     if (v23)
     {
       if (!*(this + 26))
@@ -4813,11 +4535,11 @@ LABEL_30:
 
 void llvm::vfs::RedirectingFileSystem::openFileForRead(llvm::vfs::RedirectingFileSystem *this@<X0>, llvm::formatv_object_base **a2@<X1>, uint64_t a3@<X8>)
 {
-  v74[32] = *MEMORY[0x277D85DE8];
-  *v73 = v74;
-  *&v73[8] = xmmword_25736B790;
-  llvm::Twine::toVector(a2, v73);
-  v6 = (*(*this + 112))(this, v73);
+  v75[32] = *MEMORY[0x277D85DE8];
+  *v74 = v75;
+  *&v74[8] = xmmword_25736B790;
+  llvm::Twine::toVector(a2, v74);
+  v6 = (*(*this + 112))(this, v74);
   if (v6)
   {
     *(a3 + 16) |= 1u;
@@ -4832,14 +4554,14 @@ void llvm::vfs::RedirectingFileSystem::openFileForRead(llvm::vfs::RedirectingFil
   }
 
   v8 = *(this + 8);
-  v65[8] = 261;
-  v64 = *v73;
-  (*(*v8 + 48))(v71);
-  llvm::vfs::File::getWithPath(v71, a2, a3);
-  if ((v72 & 1) == 0)
+  v66[8] = 261;
+  v65 = *v74;
+  (*(*v8 + 48))(v72);
+  llvm::vfs::File::getWithPath(v72, a2, a3);
+  if ((v73 & 1) == 0)
   {
-    v9 = v71[0];
-    v71[0] = 0;
+    v9 = v72[0];
+    v72[0] = 0;
     if (v9)
     {
       (*(*v9 + 8))(v9);
@@ -4849,20 +4571,21 @@ void llvm::vfs::RedirectingFileSystem::openFileForRead(llvm::vfs::RedirectingFil
   if (*(a3 + 16))
   {
 LABEL_11:
-    llvm::vfs::RedirectingFileSystem::lookupPath(this, *v73, *&v73[8], &v64);
-    if (v70)
+    llvm::vfs::RedirectingFileSystem::lookupPath(this, *v74, *&v74[8], &v65);
+    if (v71)
     {
-      if (!*(this + 26) && (v16 = v64, v17 = *(&v64 + 1), std::generic_category() == v17) && v16 == 2)
+      if (!*(this + 26) && (v16 = v65, v17 = *(&v65 + 1), std::generic_category() == v17) && v16 == 2)
       {
         v18 = *(this + 8);
-        v61[4] = 261;
-        *v60 = *v73;
-        (*(*v18 + 48))(v62);
-        llvm::vfs::File::getWithPath(v62, a2, a3);
-        if ((v63 & 1) == 0)
+        v62[4] = 261;
+        *v61 = *v74;
+        *&v61[8] = *&v74[8];
+        (*(*v18 + 48))(v63);
+        llvm::vfs::File::getWithPath(v63, a2, a3);
+        if ((v64 & 1) == 0)
         {
-          v19 = v62[0];
-          v62[0] = 0;
+          v19 = v63[0];
+          v63[0] = 0;
           if (v19)
           {
             (*(*v19 + 8))(v19);
@@ -4872,8 +4595,8 @@ LABEL_11:
 
       else
       {
-        v10 = *(&v64 + 1);
-        v11 = v64;
+        v10 = *(&v65 + 1);
+        v11 = v65;
         *(a3 + 16) |= 1u;
         *a3 = v11;
         *(a3 + 8) = v10;
@@ -4882,14 +4605,14 @@ LABEL_11:
       goto LABEL_80;
     }
 
-    v12 = *(v66 + 8);
+    v12 = *(v67 + 8);
     if (v12 == 1)
     {
       v15 = __len;
       v13 = xmmword_25736B790;
       if ((__len & 0x8000000000000000) == 0)
       {
-        v14 = v67;
+        v14 = v68;
 LABEL_30:
         if (v15 >= 0x17)
         {
@@ -4928,8 +4651,8 @@ LABEL_36:
           v25 = size;
         }
 
-        *v60 = v61;
-        *&v60[8] = v13;
+        *v61 = v62;
+        *&v61[8] = v13;
         if (v25 >= 0x101)
         {
           llvm::SmallVectorBase<unsigned long long>::grow_pod();
@@ -4938,17 +4661,17 @@ LABEL_36:
         v26 = 0;
         if (v25)
         {
-          memcpy(*v60, p_dst, v25);
-          v26 = *&v60[8];
+          memcpy(*v61, p_dst, v25);
+          v26 = *&v61[8];
         }
 
-        *&v60[8] = v26 + v25;
+        *&v61[8] = v26 + v25;
         if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v23);
         }
 
-        v27 = (*(*this + 112))(this, v60);
+        v27 = (*(*this + 112))(this, v61);
         if (v27)
         {
           *(a3 + 16) |= 1u;
@@ -4957,47 +4680,47 @@ LABEL_36:
           goto LABEL_78;
         }
 
-        v29 = v66;
+        v29 = v67;
         v30 = *(this + 8);
-        WORD4(v48) = 261;
-        *&__dst.__r_.__value_.__l.__data_ = *v60;
-        (*(*v30 + 48))(v55);
-        v46 = 261;
+        WORD4(v49) = 261;
+        *&__dst.__r_.__value_.__l.__data_ = *v61;
+        (*(*v30 + 48))(v56);
+        v47 = 261;
         __p[0] = v14;
         __p[1] = v15;
-        llvm::vfs::File::getWithPath(v55, __p, &v57);
-        if ((v56 & 1) == 0)
+        llvm::vfs::File::getWithPath(v56, __p, &v58);
+        if ((v57 & 1) == 0)
         {
-          v31 = v55[0];
-          v55[0] = 0;
+          v31 = v56[0];
+          v56[0] = 0;
           if (v31)
           {
             (*(*v31 + 8))(v31);
           }
         }
 
-        if (v59)
+        if (v60)
         {
-          if (*(this + 26) || (v36 = v57, v37 = v58, v66) && *(v66 + 8) != 1 || std::generic_category() != v37 || v36 != 2)
+          if (*(this + 26) || (v36 = v58, v37 = v59, v67) && *(v67 + 8) != 1 || std::generic_category() != v37 || v36 != 2)
           {
             *(a3 + 16) |= 1u;
-            v32 = v58;
-            *a3 = v57;
+            v32 = v59;
+            *a3 = v58;
             *(a3 + 8) = v32;
             goto LABEL_78;
           }
 
           v38 = *(this + 8);
-          WORD4(v48) = 261;
-          *&__dst.__r_.__value_.__l.__data_ = *v73;
-          (*(*v38 + 48))(v53);
-          llvm::vfs::File::getWithPath(v53, a2, a3);
-          if ((v54 & 1) != 0 || (v39 = v53[0], v53[0] = 0, !v39))
+          WORD4(v49) = 261;
+          *&__dst.__r_.__value_.__l.__data_ = *v74;
+          (*(*v38 + 48))(v54);
+          llvm::vfs::File::getWithPath(v54, a2, a3);
+          if ((v55 & 1) != 0 || (v39 = v54[0], v54[0] = 0, !v39))
           {
 LABEL_78:
-            if (*v60 != v61)
+            if (*v61 != v62)
             {
-              free(*v60);
+              free(*v61);
             }
 
             goto LABEL_80;
@@ -5006,8 +4729,8 @@ LABEL_78:
 
         else
         {
-          (*(*v57 + 16))(&__dst);
-          if ((v52 & 1) == 0)
+          (*(*v58 + 16))(&__dst);
+          if ((v53 & 1) == 0)
           {
             v34 = *(v29 + 64);
             if (v34)
@@ -5022,35 +4745,35 @@ LABEL_78:
 
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
-              std::string::__init_copy_ctor_external(&v40, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+              std::string::__init_copy_ctor_external(&v41, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
             }
 
             else
             {
-              v40 = __dst;
+              v41 = __dst;
             }
 
-            v41 = v48;
             v42 = v49;
             v43 = v50;
             v44 = v51;
-            getRedirectedFileStatus(__p, a2, v35 & 1, &v40);
-            if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+            v45 = v52;
+            getRedirectedFileStatus(__p, a2, v35 & 1, &v41);
+            if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v40.__r_.__value_.__l.__data_);
+              operator delete(v41.__r_.__value_.__l.__data_);
             }
           }
 
           v33 = *&__dst.__r_.__value_.__l.__data_;
           *(a3 + 16) |= 1u;
           *a3 = v33;
-          if (v59)
+          if (v60)
           {
             goto LABEL_78;
           }
 
-          v39 = v57;
-          if (!v57)
+          v39 = v58;
+          if (!v58)
           {
             goto LABEL_78;
           }
@@ -5060,8 +4783,8 @@ LABEL_78:
         goto LABEL_78;
       }
 
-      v14 = v67[0];
-      v15 = v67[1];
+      v14 = v68[0];
+      v15 = v68[1];
     }
 
     else
@@ -5074,27 +4797,27 @@ LABEL_78:
         *a3 = 22;
         *(a3 + 8) = v20;
 LABEL_80:
-        if ((v70 & 1) == 0)
+        if ((v71 & 1) == 0)
         {
           if (__len_1 == 1 && __len < 0)
           {
-            operator delete(v67[0]);
+            operator delete(v68[0]);
           }
 
-          if (v64 != v65)
+          if (v65 != v66)
           {
-            free(v64);
+            free(v65);
           }
         }
 
         goto LABEL_3;
       }
 
-      v14 = *(v66 + 40);
-      v15 = *(v66 + 63);
+      v14 = *(v67 + 40);
+      v15 = *(v67 + 63);
       if ((v15 & 0x8000000000000000) == 0)
       {
-        v14 = (v66 + 40);
+        v14 = (v67 + 40);
 LABEL_29:
         if (v15 >= 0x7FFFFFFFFFFFFFF8)
         {
@@ -5104,7 +4827,7 @@ LABEL_29:
         goto LABEL_30;
       }
 
-      v15 = *(v66 + 48);
+      v15 = *(v67 + 48);
     }
 
     if (!v14)
@@ -5120,9 +4843,9 @@ LABEL_29:
   }
 
 LABEL_3:
-  if (*v73 != v74)
+  if (*v74 != v75)
   {
-    free(*v73);
+    free(*v74);
   }
 }
 
@@ -5288,16 +5011,16 @@ LABEL_2:
   return v6 | (v7 << 32);
 }
 
-void llvm::vfs::getVFSFromYAML(llvm::MemoryBuffer **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+void llvm::vfs::getVFSFromYAML(llvm::MemoryBuffer **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, atomic_uint **a6)
 {
-  v6 = *a1;
+  v7 = *a1;
   *a1 = 0;
-  v7 = v6;
+  v8 = v7;
   *a6 = 0;
-  llvm::vfs::RedirectingFileSystem::create(&v7);
+  llvm::vfs::RedirectingFileSystem::create(&v8);
 }
 
-void llvm::vfs::collectVFSFromYAML(llvm::MemoryBuffer **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+void llvm::vfs::collectVFSFromYAML(llvm::MemoryBuffer **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, atomic_uint **a7)
 {
   v8[60] = *MEMORY[0x277D85DE8];
   v7 = *a1;
@@ -5307,15 +5030,15 @@ void llvm::vfs::collectVFSFromYAML(llvm::MemoryBuffer **a1, uint64_t a2, uint64_
   llvm::vfs::RedirectingFileSystem::create(v8);
 }
 
-void getVFSEntries(uint64_t a1, uint64_t a2, uint64_t a3)
+void getVFSEntries(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v57[16] = *MEMORY[0x277D85DE8];
+  v56[16] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 8);
   if (v5 == 1)
   {
-    v55 = v57;
-    v56 = xmmword_257371870;
-    v14 = *(a2 + 8);
+    v54 = v56;
+    v55 = xmmword_257371870;
+    v14 = *(a2 + 2);
     if (v14)
     {
       v15 = a1;
@@ -5327,18 +5050,18 @@ void getVFSEntries(uint64_t a1, uint64_t a2, uint64_t a3)
         v18 = *v16;
         v19 = v16[1];
         v16 += 2;
-        *&v43 = v18;
-        *(&v43 + 1) = v19;
-        v54 = 257;
-        v51 = 257;
-        v49 = 257;
-        llvm::sys::path::append(&v55, &v43, &v52, v50, v48);
+        *&v42 = v18;
+        *(&v42 + 1) = v19;
+        v53 = 257;
+        v50 = 257;
+        v48 = 257;
+        llvm::sys::path::append(&v54, &v42, &v51, v49, v47);
       }
 
       while (v16 != v17);
-      v20 = v56;
+      v20 = v55;
       a1 = v15;
-      if ((v56 + 1) > *(&v56 + 1))
+      if ((v55 + 1) > *(&v55 + 1))
       {
         llvm::SmallVectorBase<unsigned long long>::grow_pod();
       }
@@ -5349,8 +5072,8 @@ void getVFSEntries(uint64_t a1, uint64_t a2, uint64_t a3)
       v20 = 0;
     }
 
-    *(v55 + v20) = 0;
-    v50[0] = v55;
+    *(v54 + v20) = 0;
+    v49[0] = v54;
     v23 = *(a1 + 40);
     v21 = a1 + 40;
     v22 = v23;
@@ -5365,35 +5088,35 @@ void getVFSEntries(uint64_t a1, uint64_t a2, uint64_t a3)
       v24 = *(v21 + 8);
     }
 
-    v52 = v22;
-    v53 = v24;
-    llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<char const*,llvm::StringRef>(&v43, v50, &v52, 0);
+    v51 = v22;
+    v52 = v24;
+    llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<char const*,llvm::StringRef>(&v42, v49, &v51, 0);
     v25 = *(a3 + 8);
     v26 = *a3;
     if (v25 < *(a3 + 12))
     {
 LABEL_39:
-      v39 = v26 + 56 * *(a3 + 8);
-      v40 = v43;
-      *(v39 + 16) = v44;
-      *v39 = v40;
-      v44 = 0;
-      v43 = 0uLL;
-      v41 = __p;
-      *(v39 + 40) = v46;
-      *(v39 + 24) = v41;
-      v46 = 0;
+      v38 = v26 + 56 * *(a3 + 8);
+      v39 = v42;
+      *(v38 + 16) = v43;
+      *v38 = v39;
+      v43 = 0;
+      v42 = 0uLL;
+      v40 = __p;
+      *(v38 + 40) = v45;
+      *(v38 + 24) = v40;
+      v45 = 0;
       __p = 0uLL;
-      *(v39 + 48) = v47;
+      *(v38 + 48) = v46;
       ++*(a3 + 8);
-      if (SHIBYTE(v46) < 0)
+      if (SHIBYTE(v45) < 0)
       {
         operator delete(__p);
-        if ((SHIBYTE(v44) & 0x80000000) == 0)
+        if ((SHIBYTE(v43) & 0x80000000) == 0)
         {
 LABEL_41:
-          v42 = v55;
-          if (v55 == v57)
+          v41 = v54;
+          if (v54 == v56)
           {
             return;
           }
@@ -5402,31 +5125,31 @@ LABEL_41:
         }
       }
 
-      else if ((SHIBYTE(v44) & 0x80000000) == 0)
+      else if ((SHIBYTE(v43) & 0x80000000) == 0)
       {
         goto LABEL_41;
       }
 
-      operator delete(v43);
-      v42 = v55;
-      if (v55 == v57)
+      operator delete(v42);
+      v41 = v54;
+      if (v54 == v56)
       {
         return;
       }
 
 LABEL_42:
-      free(v42);
+      free(v41);
       return;
     }
 
-    if (v26 > &v43 || v26 + 56 * v25 <= &v43)
+    if (v26 > &v42 || v26 + 56 * v25 <= &v42)
     {
 LABEL_53:
-      llvm::SmallVectorTemplateBase<llvm::vfs::YAMLVFSEntry,false>::grow();
+      llvm::SmallVectorTemplateBase<llvm::vfs::YAMLVFSEntry,false>::grow(a3, v25 + 1);
     }
 
 LABEL_54:
-    llvm::SmallVectorTemplateBase<llvm::vfs::YAMLVFSEntry,false>::grow();
+    llvm::SmallVectorTemplateBase<llvm::vfs::YAMLVFSEntry,false>::grow(a3, v25 + 1);
   }
 
   if (v5)
@@ -5441,9 +5164,9 @@ LABEL_54:
       v27 = 0;
     }
 
-    v55 = v57;
-    v56 = xmmword_257371870;
-    v28 = *(a2 + 8);
+    v54 = v56;
+    v55 = xmmword_257371870;
+    v28 = *(a2 + 2);
     if (v28)
     {
       v29 = *a2;
@@ -5454,17 +5177,17 @@ LABEL_54:
         v31 = *v29;
         v32 = v29[1];
         v29 += 2;
-        *&v43 = v31;
-        *(&v43 + 1) = v32;
-        v54 = 257;
-        v51 = 257;
-        v49 = 257;
-        llvm::sys::path::append(&v55, &v43, &v52, v50, v48);
+        *&v42 = v31;
+        *(&v42 + 1) = v32;
+        v53 = 257;
+        v50 = 257;
+        v48 = 257;
+        llvm::sys::path::append(&v54, &v42, &v51, v49, v47);
       }
 
       while (v29 != v30);
-      v33 = v56;
-      if ((v56 + 1) > *(&v56 + 1))
+      v33 = v55;
+      if ((v55 + 1) > *(&v55 + 1))
       {
         llvm::SmallVectorBase<unsigned long long>::grow_pod();
       }
@@ -5475,8 +5198,8 @@ LABEL_54:
       v33 = 0;
     }
 
-    *(v55 + v33) = 0;
-    v50[0] = v55;
+    *(v54 + v33) = 0;
+    v49[0] = v54;
     v36 = *(v27 + 40);
     v35 = v27 + 40;
     v34 = v36;
@@ -5491,17 +5214,17 @@ LABEL_54:
       v37 = *(v35 + 8);
     }
 
-    v52 = v34;
-    v53 = v37;
-    llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<char const*,llvm::StringRef>(&v43, v50, &v52, 0);
-    v38 = *(a3 + 8);
+    v51 = v34;
+    v52 = v37;
+    llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<char const*,llvm::StringRef>(&v42, v49, &v51, 0);
+    v25 = *(a3 + 8);
     v26 = *a3;
-    if (v38 < *(a3 + 12))
+    if (v25 < *(a3 + 12))
     {
       goto LABEL_39;
     }
 
-    if (v26 > &v43 || v26 + 56 * v38 <= &v43)
+    if (v26 > &v42 || v26 + 56 * v25 <= &v42)
     {
       goto LABEL_53;
     }
@@ -5513,7 +5236,7 @@ LABEL_54:
   v7 = *(a1 + 48);
   if (v6 != v7)
   {
-    v8 = *(a2 + 8);
+    v8 = *(a2 + 2);
     do
     {
       v9 = *(*v6 + 39);
@@ -5537,7 +5260,7 @@ LABEL_54:
         v11 = *(*v6 + 24);
       }
 
-      if (v8 >= *(a2 + 12))
+      if (v8 >= *(a2 + 3))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
@@ -5545,11 +5268,11 @@ LABEL_54:
       v12 = (*a2 + 16 * v8);
       *v12 = v10;
       v12[1] = v11;
-      ++*(a2 + 8);
+      ++*(a2 + 2);
       v13 = *v6++;
       getVFSEntries(v13, a2, a3);
-      v8 = *(a2 + 8) - 1;
-      *(a2 + 8) = v8;
+      v8 = *(a2 + 2) - 1;
+      *(a2 + 2) = v8;
     }
 
     while (v6 != v7);
@@ -5571,7 +5294,7 @@ char *llvm::vfs::YAMLVFSWriter::addEntry(uint64_t a1, uint64_t a2, uint64_t a3, 
 
   else
   {
-    result = llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v7, v11, v10, a6) + 56;
+    result = (llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v7, v11, v10, a6) + 7);
   }
 
   *(a1 + 8) = result;
@@ -5593,7 +5316,7 @@ char *llvm::vfs::YAMLVFSWriter::addFileMapping(uint64_t a1, uint64_t a2, uint64_
 
   else
   {
-    result = llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v6, v10, v9, 0) + 56;
+    result = (llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v6, v10, v9, 0) + 7);
   }
 
   *(a1 + 8) = result;
@@ -5615,7 +5338,7 @@ char *llvm::vfs::YAMLVFSWriter::addDirectoryMapping(uint64_t a1, uint64_t a2, ui
 
   else
   {
-    result = llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v6, v10, v9, 1) + 56;
+    result = (llvm::vfs::YAMLVFSEntry::YAMLVFSEntry<llvm::StringRef &,llvm::StringRef &>(v6, v10, v9, 1) + 7);
   }
 
   *(a1 + 8) = result;
@@ -7196,8 +6919,7 @@ void llvm::vfs::InMemoryFileSystem::getCurrentWorkingDirectory(llvm::vfs::InMemo
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
@@ -7394,34 +7116,34 @@ void anonymous namespace::RealFileSystem::~RealFileSystem(void **this)
   JUMPOUT(0x259C63180);
 }
 
-void anonymous namespace::RealFileSystem::status(_anonymous_namespace_::RealFileSystem *this@<X0>, const llvm::Twine *a2@<X1>, uint64_t a3@<X8>)
+void anonymous namespace::RealFileSystem::status(_anonymous_namespace_::RealFileSystem *this@<X0>, const llvm::Twine *a2@<X1>, uint64_t a4@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v22[0].st_mtimespec.tv_nsec = 0;
-  v22[0].st_ctimespec.tv_sec = &v22[0].st_birthtimespec.tv_nsec;
-  *&v22[0].st_ctimespec.tv_nsec = xmmword_25736B790;
-  memset(v22, 0, 44);
-  *(&v22[0].st_atimespec.tv_nsec + 4) = 0xFFFFLL;
-  WORD2(v22[0].st_mtimespec.tv_sec) = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v23[0].st_mtimespec.tv_nsec = 0;
+  v23[0].st_ctimespec.tv_sec = &v23[0].st_birthtimespec.tv_nsec;
+  *&v23[0].st_ctimespec.tv_nsec = xmmword_25736B790;
+  memset(v23, 0, 44);
+  *(&v23[0].st_atimespec.tv_nsec + 4) = 0xFFFFLL;
+  WORD2(v23[0].st_mtimespec.tv_sec) = 0;
   if (*(this + 328) == 1 && (*(this + 320) & 1) == 0)
   {
-    llvm::Twine::toVector(a2, &v22[0].st_ctimespec);
-    *&v19[16] = 261;
-    v10 = *(this + 22);
+    llvm::Twine::toVector(a2, &v23[0].st_ctimespec);
+    *&v20[16] = 261;
+    v11 = *(this + 22);
     st_ctimespec.tv_sec = *(this + 21);
-    st_ctimespec.tv_nsec = v10;
-    llvm::sys::fs::make_absolute(&st_ctimespec, &v22[0].st_ctimespec);
-    *&v19[16] = 261;
-    st_ctimespec = v22[0].st_ctimespec;
-    v6 = llvm::sys::fs::status(&st_ctimespec, v22, 1);
-    if (v6)
+    st_ctimespec.tv_nsec = v11;
+    llvm::sys::fs::make_absolute(&st_ctimespec, &v23[0].st_ctimespec);
+    *&v20[16] = 261;
+    st_ctimespec = v23[0].st_ctimespec;
+    v7 = llvm::sys::fs::status(&st_ctimespec, v23, 1);
+    if (v7)
     {
 LABEL_4:
-      *(a3 + 80) |= 1u;
-      *a3 = v6;
-      *(a3 + 8) = v7;
-      tv_sec = v22[0].st_ctimespec.tv_sec;
-      if (v22[0].st_ctimespec.tv_sec == &v22[0].st_birthtimespec.tv_nsec)
+      *(a4 + 80) |= 1u;
+      *a4 = v7;
+      *(a4 + 8) = v8;
+      tv_sec = v23[0].st_ctimespec.tv_sec;
+      if (v23[0].st_ctimespec.tv_sec == &v23[0].st_birthtimespec.tv_nsec)
       {
         return;
       }
@@ -7432,39 +7154,39 @@ LABEL_4:
 
   else
   {
-    v5 = *(a2 + 1);
+    v6 = *(a2 + 1);
     st_ctimespec = *a2;
-    *v19 = v5;
-    *&v19[16] = *(a2 + 4);
-    v6 = llvm::sys::fs::status(&st_ctimespec, v22, 1);
-    if (v6)
+    *v20 = v6;
+    *&v20[16] = *(a2 + 4);
+    v7 = llvm::sys::fs::status(&st_ctimespec, v23, 1);
+    if (v7)
     {
       goto LABEL_4;
     }
   }
 
-  UniqueID = llvm::sys::fs::file_status::getUniqueID(v22);
-  v13 = v12;
-  LastModificationTime = llvm::sys::fs::basic_file_status::getLastModificationTime(v22);
-  v15 = v22[0].st_atimespec.tv_sec;
-  tv_nsec = v22[0].st_atimespec.tv_nsec;
-  v17 = *&v22[0].st_rdev;
+  UniqueID = llvm::sys::fs::file_status::getUniqueID(v23);
+  v14 = v13;
+  LastModificationTime = llvm::sys::fs::basic_file_status::getLastModificationTime(v23);
+  v16 = v23[0].st_atimespec.tv_sec;
+  tv_nsec = v23[0].st_atimespec.tv_nsec;
+  v18 = *&v23[0].st_rdev;
   llvm::Twine::str(a2, &st_ctimespec);
-  *&v19[8] = UniqueID;
-  *&v19[16] = v13;
-  *&v20 = LastModificationTime;
-  *(&v20 + 1) = v17;
-  *&v21 = v15;
-  *(&v21 + 1) = tv_nsec;
-  *(a3 + 80) &= ~1u;
-  *a3 = st_ctimespec;
-  *(a3 + 16) = *v19;
-  *(a3 + 72) = 0;
-  *(a3 + 56) = v21;
-  *(a3 + 40) = v20;
-  *(a3 + 24) = *&v19[8];
-  tv_sec = v22[0].st_ctimespec.tv_sec;
-  if (v22[0].st_ctimespec.tv_sec == &v22[0].st_birthtimespec.tv_nsec)
+  *&v20[8] = UniqueID;
+  *&v20[16] = v14;
+  *&v21 = LastModificationTime;
+  *(&v21 + 1) = v18;
+  *&v22 = v16;
+  *(&v22 + 1) = tv_nsec;
+  *(a4 + 80) &= ~1u;
+  *a4 = st_ctimespec;
+  *(a4 + 16) = *v20;
+  *(a4 + 72) = 0;
+  *(a4 + 56) = v22;
+  *(a4 + 40) = v21;
+  *(a4 + 24) = *&v20[8];
+  tv_sec = v23[0].st_ctimespec.tv_sec;
+  if (v23[0].st_ctimespec.tv_sec == &v23[0].st_birthtimespec.tv_nsec)
   {
     return;
   }
@@ -7539,35 +7261,35 @@ void anonymous namespace::RealFileSystem::openFileForRead(_anonymous_namespace_:
   }
 }
 
-void anonymous namespace::RealFileSystem::dir_begin(_anonymous_namespace_::RealFileSystem *this, const llvm::Twine *a2, std::error_code *a3)
+void anonymous namespace::RealFileSystem::dir_begin(_anonymous_namespace_::RealFileSystem *this, const llvm::Twine *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = &v11;
-  v10 = xmmword_257371870;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = &v12;
+  v11 = xmmword_257371870;
   if (*(this + 328) == 1 && (*(this + 320) & 1) == 0)
   {
-    llvm::Twine::toVector(a2, &v9);
-    v13 = 261;
-    v5 = *(this + 22);
-    v12[0] = *(this + 21);
-    v12[1] = v5;
-    llvm::sys::fs::make_absolute(v12, &v9);
-    LOWORD(v8) = 261;
-    v6 = __PAIR128__(v10, v9);
+    llvm::Twine::toVector(a2, &v10);
+    v14 = 261;
+    v6 = *(this + 22);
+    v13[0] = *(this + 21);
+    v13[1] = v6;
+    llvm::sys::fs::make_absolute(v13, &v10);
+    LOWORD(v9) = 261;
+    v7 = __PAIR128__(v11, v10);
   }
 
   else
   {
-    v3 = *(a2 + 1);
-    v6 = *a2;
-    v7 = v3;
-    v8 = *(a2 + 4);
+    v4 = *(a2 + 1);
+    v7 = *a2;
+    v8 = v4;
+    v9 = *(a2 + 4);
   }
 
   operator new();
 }
 
-unint64_t anonymous namespace::RealFileSystem::setCurrentWorkingDirectory(_anonymous_namespace_::RealFileSystem *this, const llvm::Twine *a2)
+unint64_t anonymous namespace::RealFileSystem::setCurrentWorkingDirectory(_anonymous_namespace_::RealFileSystem *this, const char **a2)
 {
   v29[16] = *MEMORY[0x277D85DE8];
   if ((*(this + 328) & 1) == 0)
@@ -7589,7 +7311,7 @@ unint64_t anonymous namespace::RealFileSystem::setCurrentWorkingDirectory(_anony
     v3 = *(a2 + 1);
     *v16 = *a2;
     *&v16[16] = v3;
-    v17 = *(a2 + 4);
+    v17 = a2[4];
   }
 
   else
@@ -8446,7 +8168,7 @@ LABEL_17:
     }
   }
 
-  llvm::sys::fs::directory_entry::status((v3 + 8), v17);
+  llvm::sys::fs::directory_entry::status(v17, (v3 + 8));
   if (v19)
   {
     v7 = 9;
@@ -8496,7 +8218,7 @@ LABEL_11:
   return v2;
 }
 
-uint64_t llvm::vfs::detail::InMemoryDirectory::InMemoryDirectory(uint64_t a1, __int128 *a2)
+uint64_t llvm::vfs::detail::InMemoryDirectory::InMemoryDirectory(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a2 + 23);
   if (v4 >= 0)
@@ -8516,7 +8238,7 @@ uint64_t llvm::vfs::detail::InMemoryDirectory::InMemoryDirectory(uint64_t a1, __
 
   else
   {
-    v6 = *(a2 + 1);
+    v6 = a2[1];
   }
 
   *a1 = &unk_2868A25C8;
@@ -8543,14 +8265,14 @@ uint64_t llvm::vfs::detail::InMemoryDirectory::InMemoryDirectory(uint64_t a1, __
   *(v10 + v9) = 0;
   *a1 = &unk_2868A2570;
   v11 = *a2;
-  *(a1 + 56) = *(a2 + 2);
+  *(a1 + 56) = a2[2];
   *(a1 + 40) = v11;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   *a2 = 0;
-  v12 = *(a2 + 24);
-  v13 = *(a2 + 40);
-  v14 = *(a2 + 56);
+  v12 = *(a2 + 3);
+  v13 = *(a2 + 5);
+  v14 = *(a2 + 7);
   *(a1 + 112) = *(a2 + 72);
   *(a1 + 80) = v13;
   *(a1 + 96) = v14;
@@ -8875,27 +8597,27 @@ double llvm::vfs::detail::anonymous namespace::InMemoryFileAdaptor::status@<D0>(
 
 char *llvm::vfs::detail::anonymous namespace::InMemoryFileAdaptor::getBuffer@<X0>(llvm::vfs::detail::_anonymous_namespace_::InMemoryFileAdaptor *this@<X0>, uint64_t a2@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  result = (*(**(this + 1) + 32))(v12);
-  if (v13)
+  v13 = *MEMORY[0x277D85DE8];
+  result = (*(**(this + 1) + 32))(v11);
+  if (v12)
   {
-    v5 = v12[0];
-    v6 = v12[1];
+    v4 = v11[0];
+    v5 = v11[1];
     *(a2 + 16) |= 1u;
-    *(a2 + 8) = v6;
+    *(a2 + 8) = v5;
   }
 
   else
   {
-    v7 = *(v12[0] + 8);
-    v8 = *(v12[0] + 16) - v7;
-    v9 = (*(*v12[0] + 16))(v12[0]);
-    result = llvm::MemoryBuffer::getMemBuffer(v7, v8, v9, v10, &v11);
+    v6 = *(v11[0] + 8);
+    v7 = *(v11[0] + 16) - v6;
+    v8 = (*(*v11[0] + 16))(v11[0]);
+    result = llvm::MemoryBuffer::getMemBuffer(v6, v7, v8, v9, &v10);
     *(a2 + 16) &= ~1u;
-    v5 = v11;
+    v4 = v10;
   }
 
-  *a2 = v5;
+  *a2 = v4;
   return result;
 }
 
@@ -8913,23 +8635,24 @@ double llvm::vfs::detail::anonymous namespace::InMemoryFileAdaptor::setPath(void
   return result;
 }
 
-uint64_t llvm::vfs::RedirectingFileSystemParser::checkDuplicateOrUnknownKey(llvm ****a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t llvm::vfs::RedirectingFileSystemParser::checkDuplicateOrUnknownKey(llvm ****a1, uint64_t a2, llvm::hashing::detail *a3, uint64_t a4, uint64_t *a5)
 {
-  *&v16 = a3;
-  *(&v16 + 1) = a4;
-  if (llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>,llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>::doFind<llvm::StringRef>(a5, &v16))
+  v15 = a3;
+  v16 = a4;
+  if (llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>,llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>::doFind<llvm::StringRef>(a5, &v15))
   {
-    v8 = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](a5, &v16);
+    v8 = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](a5, &v15);
     v9 = *(v8 + 1);
     if (v9 == 1)
     {
-      v11 = "duplicate key '";
-      v12 = v16;
-      v13 = 1283;
-      v14[0] = &v11;
-      v14[2] = "'";
-      v15 = 770;
-      llvm::yaml::Stream::printError(*a1, a2, v14, 0);
+      v11[0] = "duplicate key '";
+      v11[2] = v15;
+      v11[3] = v16;
+      v12 = 1283;
+      v13[0] = v11;
+      v13[2] = "'";
+      v14 = 770;
+      llvm::yaml::Stream::printError(*a1, a2, v13, 0);
       return 0;
     }
 
@@ -8942,32 +8665,32 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::checkDuplicateOrUnknownKey(llvm
 
   else
   {
-    v14[0] = "unknown key";
-    v15 = 259;
-    llvm::yaml::Stream::printError(*a1, a2, v14, 0);
+    v13[0] = "unknown key";
+    v14 = 259;
+    llvm::yaml::Stream::printError(*a1, a2, v13, 0);
     return 0;
   }
 }
 
-void llvm::vfs::RedirectingFileSystemParser::parseEntry(llvm::yaml::Stream **this@<X0>, llvm::yaml::Node *a2@<X1>, llvm::vfs::RedirectingFileSystem *a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void llvm::vfs::RedirectingFileSystemParser::parseEntry(void **__return_ptr a1@<X8>, llvm::yaml::Stream **this@<X0>, llvm::yaml::Node *a3@<X1>, llvm::vfs::RedirectingFileSystem *a4@<X2>, int a5@<W3>)
 {
   v140 = *MEMORY[0x277D85DE8];
-  if (a2 && *(a2 + 8) == 4)
+  if (a3 && *(a3 + 8) == 4)
   {
-    *&v130 = "name";
-    *(&v130 + 1) = 4;
+    v130[0] = "name";
+    v130[1] = 4;
     v131 = 1;
-    *&v132 = "type";
-    *(&v132 + 1) = 4;
+    v132[0] = "type";
+    v132[1] = 4;
     v133 = 1;
-    *&v134 = "contents";
-    *(&v134 + 1) = 8;
+    v134[0] = "contents";
+    v134[1] = 8;
     v135 = 0;
-    *&v136 = "external-contents";
-    *(&v136 + 1) = 17;
+    v136[0] = "external-contents";
+    v136[1] = 17;
     v137 = 0;
-    *&v138 = "use-external-name";
-    *(&v138 + 1) = 17;
+    v138[0] = "use-external-name";
+    v138[1] = 17;
     v139 = 0;
     v106 = 8;
     buffer = llvm::allocate_buffer(0xC0uLL, 8uLL);
@@ -8981,11 +8704,11 @@ void llvm::vfs::RedirectingFileSystemParser::parseEntry(llvm::yaml::Stream **thi
     *(buffer + 120) = xmmword_25736B6D0;
     buffer[9] = xmmword_25736B6D0;
     *(buffer + 168) = xmmword_25736B6D0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, &v130, &v131, &v127);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, &v132, &v133, &v127);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, &v134, &v135, &v127);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, &v136, &v137, &v127);
-    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, &v138, &v139, &v127);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, v130, &v131, &v127);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, v132, &v133, &v127);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, v134, &v135, &v127);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, v136, &v137, &v127);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::try_emplace<llvm::vfs::RedirectingFileSystemParser::KeyStatus const&>(&v104, v138, &v139, &v127);
     __p = 0;
     v102 = 0;
     v103 = 0;
@@ -8995,9 +8718,9 @@ void llvm::vfs::RedirectingFileSystemParser::parseEntry(llvm::yaml::Stream **thi
     v124 = v126;
     v125 = xmmword_25736B790;
     v100 = 0;
-    *(a2 + 76) = 0;
-    llvm::yaml::MappingNode::increment(a2);
-    if (!*(a2 + 10))
+    *(a3 + 76) = 0;
+    llvm::yaml::MappingNode::increment(a3);
+    if (!*(a3 + 10))
     {
       if (llvm::yaml::Stream::failed(*this))
       {
@@ -9010,11 +8733,11 @@ void llvm::vfs::RedirectingFileSystemParser::parseEntry(llvm::yaml::Stream **thi
     v11 = 0;
     v90 = 0;
     v91 = 0;
-    v92 = a3;
-    v89 = a3 + 72;
+    v92 = a4;
+    v89 = a4 + 72;
     while (1)
     {
-      v12 = *(a2 + 10);
+      v12 = *(a3 + 10);
       p_dst = &v117;
       v116 = xmmword_25736B790;
       Key = llvm::yaml::KeyValueNode::getKey(v12);
@@ -9061,7 +8784,7 @@ void llvm::vfs::RedirectingFileSystemParser::parseEntry(llvm::yaml::Stream **thi
               llvm::yaml::Stream::printError(*this, v54, &__dst, 0);
 LABEL_83:
               v23 = 0;
-              *a5 = 0;
+              *a1 = 0;
               v11 = 1;
               goto LABEL_37;
             }
@@ -9272,7 +8995,7 @@ LABEL_10:
         llvm::yaml::Stream::printError(v16, v15, &__dst, 0);
 LABEL_36:
         v23 = 0;
-        *a5 = 0;
+        *a1 = 0;
         goto LABEL_37;
       }
 
@@ -9294,8 +9017,8 @@ LABEL_37:
         goto LABEL_133;
       }
 
-      llvm::yaml::MappingNode::increment(a2);
-      if (!*(a2 + 10))
+      llvm::yaml::MappingNode::increment(a3);
+      if (!*(a3 + 10))
       {
         v60 = llvm::yaml::Stream::failed(*this);
         if (v60)
@@ -9360,11 +9083,11 @@ LABEL_157:
 LABEL_130:
               LOWORD(v118) = v64;
               v65 = *this;
-              v66 = a2;
+              v66 = a3;
 LABEL_131:
               llvm::yaml::Stream::printError(v65, v66, &p_dst, 0);
 LABEL_132:
-              *a5 = 0;
+              *a1 = 0;
 LABEL_133:
               if (v124 != v126)
               {
@@ -9412,7 +9135,7 @@ LABEL_125:
           {
             if (v90 != 1 || v11 != 1)
             {
-              if (a4)
+              if (a5)
               {
                 LOWORD(v118) = 261;
                 p_dst = v124;
@@ -9521,7 +9244,7 @@ LABEL_152:
 LABEL_169:
               v96[0] = llvm::sys::path::filename(v75, v76, v72);
               v96[1] = v79;
-              *a5 = 0;
+              *a1 = 0;
               if (v90)
               {
                 if (v90 == 1)
@@ -9607,7 +9330,7 @@ LABEL_128:
             v95 = 257;
             v99 = 257;
             v97 = 257;
-            llvm::sys::path::append(&__dst, &__src, &v94, &v98, v96);
+            llvm::sys::path::append(&__dst, &__src, v94, &v98, v96);
           }
 
           else
@@ -9702,7 +9425,7 @@ LABEL_128:
           v114 = 259;
           llvm::yaml::Stream::printError(*this, v46, &__dst, 0);
           v23 = 0;
-          *a5 = 0;
+          *a1 = 0;
           v11 = 2;
         }
 
@@ -9740,8 +9463,8 @@ LABEL_31:
 
   v127 = "expected mapping node for file or directory entry";
   v129[4] = 259;
-  llvm::yaml::Stream::printError(*this, a2, &v127, 0);
-  *a5 = 0;
+  llvm::yaml::Stream::printError(*this, a3, &v127, 0);
+  *a1 = 0;
 }
 
 uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, llvm::yaml::Node *a2, BOOL *a3)
@@ -9760,7 +9483,7 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, 
   v12 = v6;
   if (v6 == 4)
   {
-    if (!llvm::StringRef::compare_insensitive(&Value, "true", 4uLL))
+    if (!llvm::StringRef::compare_insensitive(&Value, "true", 4))
     {
       goto LABEL_15;
     }
@@ -9770,7 +9493,7 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, 
 
   if (v6 == 2)
   {
-    if (!llvm::StringRef::compare_insensitive(&Value, "on", 2uLL))
+    if (!llvm::StringRef::compare_insensitive(&Value, "on", 2))
     {
       goto LABEL_15;
     }
@@ -9780,7 +9503,7 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, 
 
   if (v6 == 3)
   {
-    if (!llvm::StringRef::compare_insensitive(&Value, "yes", 3uLL))
+    if (!llvm::StringRef::compare_insensitive(&Value, "yes", 3))
     {
       goto LABEL_15;
     }
@@ -9790,7 +9513,7 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, 
 
   if (v6 == 5)
   {
-    if (!llvm::StringRef::compare_insensitive(&Value, "false", 5uLL))
+    if (!llvm::StringRef::compare_insensitive(&Value, "false", 5))
     {
       goto LABEL_31;
     }
@@ -9799,7 +9522,7 @@ uint64_t llvm::vfs::RedirectingFileSystemParser::parseScalarBool(llvm ****this, 
 LABEL_23:
     if (v6 == 3)
     {
-      if (!llvm::StringRef::compare_insensitive(&Value, "off", 3uLL))
+      if (!llvm::StringRef::compare_insensitive(&Value, "off", 3))
       {
         goto LABEL_31;
       }
@@ -9809,7 +9532,7 @@ LABEL_23:
 
     if (v6 == 2)
     {
-      if (!llvm::StringRef::compare_insensitive(&Value, "no", 2uLL))
+      if (!llvm::StringRef::compare_insensitive(&Value, "no", 2))
       {
         goto LABEL_31;
       }
@@ -9874,4 +9597,224 @@ LABEL_19:
   }
 
   return v7;
+}
+
+char **llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>,llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::operator[](uint64_t a1, llvm::hashing::detail **a2)
+{
+  v9 = 0;
+  v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>,llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>::LookupBucketFor<llvm::StringRef>(a1, a2, &v9);
+  v5 = v9;
+  if ((v4 & 1) == 0)
+  {
+    v10 = v9;
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 16);
+    if (4 * v6 + 4 >= 3 * v7)
+    {
+      v7 *= 2;
+    }
+
+    else if (v7 + ~v6 - *(a1 + 12) > v7 >> 3)
+    {
+      *(a1 + 8) = v6 + 1;
+      if (*v5 == -1)
+      {
+LABEL_6:
+        *v5 = *a2;
+        *(v5 + 8) = 0;
+        return v5 + 2;
+      }
+
+LABEL_5:
+      --*(a1 + 12);
+      goto LABEL_6;
+    }
+
+    llvm::DenseMap<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,llvm::vfs::RedirectingFileSystemParser::KeyStatus>>::grow(a1, v7);
+    llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>,llvm::StringRef,unsigned int,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,unsigned int>>::LookupBucketFor<llvm::StringRef>(a1, a2, &v10);
+    v5 = v10;
+    ++*(a1 + 8);
+    if (*v5 == -1)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  return v5 + 2;
+}
+
+uint64_t llvm::vfs::RedirectingFileSystemParser::parseRedirectKind(llvm ****this, llvm::yaml::Node *a2)
+{
+  v11[2] = *MEMORY[0x277D85DE8];
+  v9 = v11;
+  v10 = xmmword_2573A2BA0;
+  if (!a2 || *(a2 + 8) != 1)
+  {
+    Value = "expected string";
+    v8 = 259;
+    llvm::yaml::Stream::printError(*this, a2, &Value, 0);
+LABEL_13:
+    v3 = 0;
+    v4 = 0;
+    goto LABEL_14;
+  }
+
+  Value = llvm::yaml::ScalarNode::getValue(a2, &v9);
+  v7 = v2;
+  if (v2 == 11)
+  {
+    if (!llvm::StringRef::compare_insensitive(&Value, "fallthrough", 0xB))
+    {
+      v4 = 0;
+      v3 = 0x100000000;
+      goto LABEL_14;
+    }
+
+    v2 = v7;
+  }
+
+  if (v2 != 8)
+  {
+LABEL_9:
+    if (v2 == 13 && !llvm::StringRef::compare_insensitive(&Value, "redirect-only", 0xD))
+    {
+      v3 = 0x100000000;
+      v4 = 2;
+      goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (llvm::StringRef::compare_insensitive(&Value, "fallback", 8))
+  {
+    v2 = v7;
+    goto LABEL_9;
+  }
+
+  v3 = 0x100000000;
+  v4 = 1;
+LABEL_14:
+  if (v9 != v11)
+  {
+    free(v9);
+  }
+
+  return v4 | v3;
+}
+
+uint64_t llvm::vfs::RedirectingFileSystemParser::parseRootRelativeKind(llvm ****this, llvm::yaml::Node *a2)
+{
+  v12[2] = *MEMORY[0x277D85DE8];
+  v10 = v12;
+  v11 = xmmword_2573A2BA0;
+  if (a2 && *(a2 + 8) == 1)
+  {
+    Value = llvm::yaml::ScalarNode::getValue(a2, &v10);
+    v8 = v2;
+    if (v2 == 3)
+    {
+      if (!llvm::StringRef::compare_insensitive(&Value, "cwd", 3))
+      {
+        v4 = 0;
+        v3 = 0x100000000;
+        v5 = v10;
+        if (v10 == v12)
+        {
+          return v4 | v3;
+        }
+
+        goto LABEL_12;
+      }
+
+      v2 = v8;
+    }
+
+    if (v2 == 11 && !llvm::StringRef::compare_insensitive(&Value, "overlay-dir", 0xB))
+    {
+      v3 = 0x100000000;
+      v4 = 1;
+      v5 = v10;
+      if (v10 == v12)
+      {
+        return v4 | v3;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    Value = "expected string";
+    v9 = 259;
+    llvm::yaml::Stream::printError(*this, a2, &Value, 0);
+  }
+
+  v3 = 0;
+  v4 = 0;
+  v5 = v10;
+  if (v10 != v12)
+  {
+LABEL_12:
+    free(v5);
+  }
+
+  return v4 | v3;
+}
+
+llvm::vfs::RedirectingFileSystemParser *llvm::vfs::RedirectingFileSystemParser::uniqueOverlayTree(llvm::vfs::RedirectingFileSystemParser *this, llvm::vfs::RedirectingFileSystem *a2, llvm::vfs::RedirectingFileSystem::Entry *a3, llvm::vfs::RedirectingFileSystem::Entry *a4)
+{
+  v4 = a4;
+  v5 = *(a3 + 39);
+  if (v5 >= 0)
+  {
+    v6 = a3 + 16;
+  }
+
+  else
+  {
+    v6 = *(a3 + 2);
+  }
+
+  if (v5 >= 0)
+  {
+    v7 = *(a3 + 39);
+  }
+
+  else
+  {
+    v7 = *(a3 + 3);
+  }
+
+  v8 = *(a3 + 2);
+  switch(v8)
+  {
+    case 2:
+      operator new();
+    case 1:
+      operator new();
+    case 0:
+      v10 = this;
+      if (v7)
+      {
+        v12 = v6;
+        v13 = a3;
+        this = llvm::vfs::RedirectingFileSystemParser::lookupOrCreateEntry(a2, v12, v7, a4);
+        a3 = v13;
+        v4 = this;
+      }
+
+      v14 = *(a3 + 5);
+      for (i = *(a3 + 6); v14 != i; this = llvm::vfs::RedirectingFileSystemParser::uniqueOverlayTree(v10, a2, v16, v4))
+      {
+        v16 = *v14++;
+      }
+
+      break;
+  }
+
+  return this;
 }

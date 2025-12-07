@@ -176,27 +176,21 @@
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)_startTimeForOperation:(SEL)operation
 {
   [(CLKMediaAsset *)self->_mediaAsset stillDisplayTime];
-  v5.n128_f64[0] = fmax(v5.n128_f64[0] + _startTimeForOperation__startTimeOffsets[a4], 0.0);
 
-  return CLKcall_CMTimeMakeWithSeconds(1000, v5);
+  return CLKcall_CMTimeMakeWithSeconds();
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)_endTimeForOperation:(SEL)operation
 {
   [(CLKMediaAsset *)self->_mediaAsset stillDisplayTime];
-  v7 = v6 + _endTimeForOperation__endTimeOffsets[a4];
   [(CLKMediaAsset *)self->_mediaAsset videoDuration];
-  if (v7 < v8.n128_f64[0])
-  {
-    v8.n128_f64[0] = v7;
-  }
 
-  return CLKcall_CMTimeMakeWithSeconds(1000, v8);
+  return CLKcall_CMTimeMakeWithSeconds();
 }
 
 - (void)prepareToPlayWithOperation:(int64_t)operation
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if ((operation - 4) > 0xFFFFFFFFFFFFFFFCLL)
   {
     video = [(CLKMediaAsset *)self->_mediaAsset video];
@@ -246,16 +240,16 @@
             imageOrientation = [image2 imageOrientation];
 
             v18 = *(MEMORY[0x277CBF2C0] + 16);
-            *&v45.a = *MEMORY[0x277CBF2C0];
-            *&v45.c = v18;
-            *&v45.tx = *(MEMORY[0x277CBF2C0] + 32);
+            *&v43.a = *MEMORY[0x277CBF2C0];
+            *&v43.c = v18;
+            *&v43.tx = *(MEMORY[0x277CBF2C0] + 32);
             if ((imageOrientation - 1) <= 2)
             {
-              CGAffineTransformMakeRotation(&v45, dbl_2370A4C50[imageOrientation - 1]);
+              CGAffineTransformMakeRotation(&v43, dbl_2370A4C50[imageOrientation - 1]);
             }
 
             v19 = self->_posterLayer;
-            buf = v45;
+            buf = v43;
             [(CALayer *)v19 setContentsTransform:&buf];
             [(CALayer *)self->_posterLayer setOpacity:0.0];
             [MEMORY[0x277CD9FF0] commit];
@@ -279,53 +273,53 @@
           }
 
           [(CLKMediaAsset *)self->_mediaAsset stillDisplayTime];
-          CLKcall_CMTimeMakeWithSeconds(1000, v27);
+          CLKcall_CMTimeMakeWithSeconds();
           player2 = [(CLKVideoPlayerView *)self->_videoPlayerView player];
           currentItem2 = [player2 currentItem];
-          *&buf.a = v43;
-          buf.c = v44;
+          *&buf.a = v41;
+          buf.c = v42;
           [currentItem2 setForwardPlaybackEndTime:&buf];
 
-          v30 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"opacity"];
-          [v30 setFromValue:&unk_284A35018];
-          [v30 setToValue:&unk_284A35028];
-          [v30 setDuration:0.065];
-          [v30 setFillMode:*MEMORY[0x277CDA238]];
-          [v30 setRemovedOnCompletion:0];
+          v29 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"opacity"];
+          [v29 setFromValue:&unk_284A35018];
+          [v29 setToValue:&unk_284A35028];
+          [v29 setDuration:0.065];
+          [v29 setFillMode:*MEMORY[0x277CDA238]];
+          [v29 setRemovedOnCompletion:0];
           [(CLKMediaAsset *)self->_mediaAsset stillDisplayTime];
-          [v30 setBeginTime:v31 + -0.065];
-          [(CALayer *)self->_posterLayer addAnimation:v30 forKey:@"poster"];
+          [v29 setBeginTime:v30 + -0.065];
+          [(CALayer *)self->_posterLayer addAnimation:v29 forKey:@"poster"];
         }
 
         else
         {
           player3 = [(CLKVideoPlayerView *)self->_videoPlayerView player];
           currentItem3 = [player3 currentItem];
-          *&buf.a = v41;
-          buf.c = v42;
+          *&buf.a = v39;
+          buf.c = v40;
           [currentItem3 setForwardPlaybackEndTime:&buf];
 
           [MEMORY[0x277CD9FF0] begin];
           [MEMORY[0x277CD9FF0] setDisableActions:1];
           [(CALayer *)self->_posterLayer removeAllAnimations];
           [(CALayer *)self->_posterLayer setOpacity:0.0];
-          commit = [MEMORY[0x277CD9FF0] commit];
+          [MEMORY[0x277CD9FF0] commit];
         }
 
         memset(&buf, 0, 24);
-        CLKget_kCMTimePositiveInfinity(&buf, commit);
+        CLKget_kCMTimePositiveInfinity();
         if (operation == 1)
         {
-          CLKget_kCMTimeZero(&v39);
-          *&buf.a = v39;
-          buf.c = v40;
+          CLKget_kCMTimeZero(&v37);
+          *&buf.a = v37;
+          buf.c = v38;
         }
 
-        v35 = self->_videoPlayerView;
-        [(CLKMediaAssetView *)self _startTimeForOperation:operation];
-        v37 = *&buf.a;
+        v33 = self->_videoPlayerView;
+        objc_msgSend__startTimeForOperation_(self);
+        v35 = *&buf.a;
         c = buf.c;
-        [(CLKVideoPlayerView *)v35 seekToTime:&v39 tolerance:&v37];
+        [(CLKVideoPlayerView *)v33 seekToTime:&v37 tolerance:&v35];
         [(CLKVideoPlayerView *)self->_videoPlayerView preroll];
         self->_preparedForOperation = operation;
       }
@@ -402,7 +396,7 @@ uint64_t __49__CLKMediaAssetView__transitionFromPosterToVideo__block_invoke(uint
       self->_transitionOperation = operation;
       memset(buf, 0, sizeof(buf));
       v25 = 0;
-      [(CLKMediaAssetView *)self _endTimeForOperation:operation];
+      objc_msgSend__endTimeForOperation_(self);
       objc_initWeak(&location, self);
       if (self->_timeObserver)
       {
@@ -546,7 +540,7 @@ uint64_t __40__CLKMediaAssetView_pauseWithOperation___block_invoke(uint64_t a1)
   return [*(*(a1 + 32) + 424) setAlpha:1.0];
 }
 
-uint64_t __40__CLKMediaAssetView_pauseWithOperation___block_invoke_2(uint64_t a1)
+void *__40__CLKMediaAssetView_pauseWithOperation___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 408) pause];
   *(*(a1 + 32) + 472) = 0;

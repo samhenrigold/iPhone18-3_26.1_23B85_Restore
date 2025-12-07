@@ -3,7 +3,7 @@
 
 @implementation NSData
 
-uint64_t __28__NSData_NSData___isCompact__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__28__NSData_NSData___isCompact__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   result = [*(a1 + 32) length];
   if (a4 != result)
@@ -33,7 +33,7 @@ uint64_t __32__NSData_NSData__isEqualToData___block_invoke(void *a1, const void 
   return result;
 }
 
-uint64_t __32__NSData_NSData__isEqualToData___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__32__NSData_NSData__isEqualToData___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v9[8] = *MEMORY[0x1E69E9840];
   v7 = *(a1 + 32);
@@ -127,7 +127,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t __55__NSData_NSData___initWithBase64EncodedObject_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__55__NSData_NSData___initWithBase64EncodedObject_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [*(a1 + 32) _decodeBase64EncodedCharacterBuffer:a2 length:a4 options:*(a1 + 48) buffer:*(a1 + 56) bufferLength:*(a1 + 64) state:*(*(a1 + 40) + 8) + 32];
   if ((result & 1) == 0)
@@ -213,28 +213,28 @@ void *__54__NSData_NSData___base64EncodingAsString_withOptions___block_invoke(vo
   return result;
 }
 
-uint64_t __84__NSData_NSDataCompression___produceDataWithCompressionOperation_algorithm_handler___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__84__NSData_NSDataCompression___produceDataWithCompressionOperation_algorithm_handler___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(result + 32) appendBytes:a2 length:a3];
+      return [result[4] appendBytes:a2 length:a3];
     }
   }
 
   return result;
 }
 
-uint64_t __84__NSData_NSDataCompression___produceDataWithCompressionOperation_algorithm_handler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__84__NSData_NSDataCompression___produceDataWithCompressionOperation_algorithm_handler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 32) processBytes:a2 size:?];
+  result = [*(a1 + 32) processBytes:a2 size:a4];
   *(*(*(a1 + 40) + 8) + 24) = result;
   *a5 = *(*(*(a1 + 40) + 8) + 24) ^ 1;
   return result;
 }
 
-uint64_t __78__NSData_NSDataCompression___decompressedDataUsingCompressionAlgorithm_error___block_invoke(uint64_t result, void *a2)
+void *__78__NSData_NSDataCompression___decompressedDataUsingCompressionAlgorithm_error___block_invoke(void *result, void *a2)
 {
   v7[5] = *MEMORY[0x1E69E9840];
   if (a2)
@@ -249,13 +249,13 @@ uint64_t __78__NSData_NSDataCompression___decompressedDataUsingCompressionAlgori
     v7[3] = &unk_1E69F2A70;
     v7[4] = a2;
     result = [v4 initWithBytesNoCopy:v5 length:v6 deallocator:v7];
-    *(*(*(v3 + 32) + 8) + 40) = result;
+    *(*(v3[4] + 8) + 40) = result;
   }
 
   return result;
 }
 
-uint64_t __76__NSData_NSDataCompression___compressedDataUsingCompressionAlgorithm_error___block_invoke(uint64_t result, void *a2)
+void *__76__NSData_NSDataCompression___compressedDataUsingCompressionAlgorithm_error___block_invoke(void *result, void *a2)
 {
   v7[5] = *MEMORY[0x1E69E9840];
   if (a2)
@@ -270,7 +270,7 @@ uint64_t __76__NSData_NSDataCompression___compressedDataUsingCompressionAlgorith
     v7[3] = &unk_1E69F2A70;
     v7[4] = a2;
     result = [v4 initWithBytesNoCopy:v5 length:v6 deallocator:v7];
-    *(*(*(v3 + 32) + 8) + 40) = result;
+    *(*(v3[4] + 8) + 40) = result;
   }
 
   return result;

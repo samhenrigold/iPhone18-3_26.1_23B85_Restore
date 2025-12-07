@@ -121,10 +121,10 @@
 {
   seriesCopy = series;
   v11 = objc_msgSend_p_selectedSeries(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_index(seriesCopy, v12, v13, v14, v15);
-  v21 = objc_msgSend_containsIndex_(v11, v17, v18, v19, v20, v16);
+  v15 = objc_msgSend_index(seriesCopy, v12, v13, v14);
+  v20 = objc_msgSend_containsIndex_(v11, v16, v17, v18, v19, v15);
 
-  return v21 ^ 1;
+  return v20 ^ 1;
 }
 
 - (void)addLabelBoundsForMerging:(CGRect)merging

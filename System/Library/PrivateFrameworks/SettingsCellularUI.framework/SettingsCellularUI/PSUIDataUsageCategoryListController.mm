@@ -32,15 +32,15 @@
 
 - (id)specifiers
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
   {
     if ([(PSUIDataUsageCategoryListController *)self shouldShowSpinner])
     {
-      v15[0] = self->_spinnerSpecifier;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v14[0] = self->_spinnerSpecifier;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
       v6 = *(&self->super.super.super.super.super.isa + v3);
       *(&self->super.super.super.super.super.isa + v3) = v5;
     }
@@ -63,8 +63,6 @@
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

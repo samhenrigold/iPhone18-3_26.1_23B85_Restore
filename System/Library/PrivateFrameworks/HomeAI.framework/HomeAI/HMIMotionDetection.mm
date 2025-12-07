@@ -45,12 +45,12 @@
 
 + (id)firstMotionDetectionInArray:(id)array withMode:(unint64_t)mode
 {
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __59__HMIMotionDetection_firstMotionDetectionInArray_withMode___block_invoke;
-  v6[3] = &__block_descriptor_40_e28_B16__0__HMIMotionDetection_8l;
-  v6[4] = mode;
-  v4 = [array na_firstObjectPassingTest:v6];
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __59__HMIMotionDetection_firstMotionDetectionInArray_withMode___block_invoke;
+  v9 = &__block_descriptor_40_e28_B16__0__HMIMotionDetection_8l;
+  modeCopy = mode;
+  v4 = [array na_firstObjectPassingTest:?];
 
   return v4;
 }
@@ -74,27 +74,25 @@
     }
 
     motionVectors2 = [(HMIMotionDetection *)self motionVectors];
-    v16 = [motionVectors2 objectAtIndexedSubscript:v11];
+    v16 = [motionVectors2 objectAtIndexedSubscript:?];
 
     [v16 target];
     v18 = v17;
     v20 = v19;
     v21 = [v16 eventClass] != class && objc_msgSend(v16, "eventClass") != 0;
-    v27.origin.x = x;
-    v27.origin.y = y;
-    v27.size.width = width;
-    v27.size.height = height;
-    v26.x = v18;
-    v26.y = v20;
-    if (!(v21 | !CGRectContainsPoint(v27, v26)))
+    v26.origin.x = x;
+    v26.origin.y = y;
+    v26.size.width = width;
+    v26.size.height = height;
+    v25.x = v18;
+    v25.y = v20;
+    if (!(v21 | !CGRectContainsPoint(v26, v25)))
     {
       [v16 distance];
-      v23 = sqrt(v22) + v12;
-      v12 = v23;
-      *&v23 = confidence;
+      v12 = sqrt(v22) + v12;
       if (confidence > 0.6)
       {
-        [v16 setEventClass:{class, v23}];
+        [v16 setEventClass:?];
       }
     }
 
@@ -106,36 +104,26 @@
 
 - (BOOL)applyEventTypeAndCheckIfSubBoundingIsStatic:(CGRect)static eventClass:(Class)class confidence:(float)confidence
 {
-  height = static.size.height;
-  width = static.size.width;
-  y = static.origin.y;
-  x = static.origin.x;
   classMotionScoreMap = [(HMIMotionDetection *)self classMotionScoreMap];
   classPaddingMap = [(HMIMotionDetection *)self classPaddingMap];
-  v14 = [classPaddingMap objectForKeyedSubscript:class];
-  [v14 floatValue];
-  v16 = v15;
+  v9 = [classPaddingMap objectForKeyedSubscript:?];
+  [v9 floatValue];
 
-  v17 = [classMotionScoreMap objectForKeyedSubscript:class];
-  [v17 floatValue];
-  v19 = v18;
+  v10 = [classMotionScoreMap objectForKeyedSubscript:?];
+  [v10 floatValue];
+  v12 = v11;
 
   [(HMIMotionDetection *)self size];
-  [HMIVisionUtilities applyPadding:x withOriginalSize:y padding:width, height, v20, v21, v16, v16];
-  v23 = v22;
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
+  [HMIVisionUtilities applyPadding:"applyPadding:withOriginalSize:padding:" withOriginalSize:? padding:?];
   if (objc_opt_class() == class)
   {
-    class = objc_opt_class();
+    objc_opt_class();
   }
 
-  *&v30 = confidence;
-  [(HMIMotionDetection *)self scoreForSubBoundingBox:class eventClass:v23 confidence:v25, v27, v29, v30];
-  v32 = v31 < v19;
+  [HMIMotionDetection scoreForSubBoundingBox:"scoreForSubBoundingBox:eventClass:confidence:" eventClass:? confidence:?];
+  v14 = v13 < v12;
 
-  return v32;
+  return v14;
 }
 
 - (id)classMotionScoreMap
@@ -152,14 +140,14 @@
 
 void __41__HMIMotionDetection_classMotionScoreMap__block_invoke()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_284075B60;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_284075B70;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_284075B60;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v5 = &unk_284075B60;
+  v3 = objc_opt_class();
+  v6 = &unk_284075B70;
+  v4 = objc_opt_class();
+  v7 = &unk_284075B60;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = [HMIMotionDetection classMotionScoreMap]::motionScoreMap;
   [HMIMotionDetection classMotionScoreMap]::motionScoreMap = v0;
 }
@@ -178,14 +166,14 @@ void __41__HMIMotionDetection_classMotionScoreMap__block_invoke()
 
 void __37__HMIMotionDetection_classPaddingMap__block_invoke()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_284075B80;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_284075B90;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_284075B80;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v5 = &unk_284075B80;
+  v3 = objc_opt_class();
+  v6 = &unk_284075B90;
+  v4 = objc_opt_class();
+  v7 = &unk_284075B80;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = [HMIMotionDetection classPaddingMap]::paddingMap;
   [HMIMotionDetection classPaddingMap]::paddingMap = v0;
 }

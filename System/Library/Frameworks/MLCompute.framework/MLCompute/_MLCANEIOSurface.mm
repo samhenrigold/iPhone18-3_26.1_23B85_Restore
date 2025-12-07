@@ -94,7 +94,7 @@ LABEL_12:
   if (v4)
   {
     v5 = v4;
-    v6 = [softLinkClass_ANEIOSurfaceObject() objectWithIOSurface:v4];
+    v6 = [softLinkClass_ANEIOSurfaceObject(v4) objectWithIOSurface:v4];
     CFRelease(v5);
   }
 
@@ -114,29 +114,26 @@ LABEL_12:
 
 - (void)initWithDataLength:(const char *)a1 liveIOStatus:.cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: AppleNeuralEngine framework is not available", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: AppleNeuralEngine framework is not available", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)initWithDataLength:(const char *)a1 liveIOStatus:.cold.2(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: failed to create an IOSurface object", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: failed to create an IOSurface object", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)aneIOSurfaceObjectWithDataLength:(const char *)a1 .cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: failed to allocate an IOSurface", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: failed to allocate an IOSurface", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

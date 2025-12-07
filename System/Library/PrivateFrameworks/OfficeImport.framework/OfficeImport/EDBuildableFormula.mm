@@ -69,7 +69,7 @@
     v5 = [MEMORY[0x277CCACA8] stringWithOcText:OcTextFromPtgStr];
     if (OcTextFromPtgStr)
     {
-      (*(*OcTextFromPtgStr + 8))(OcTextFromPtgStr);
+      (*(OcTextFromPtgStr->var0 + 1))(OcTextFromPtgStr);
     }
   }
 

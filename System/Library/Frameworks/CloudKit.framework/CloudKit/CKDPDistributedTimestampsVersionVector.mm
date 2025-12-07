@@ -234,7 +234,6 @@
       v5 = 0;
       do
       {
-        v6 = self->_clockValues.list[v5];
         PBDataWriterWriteUint64Field();
         ++v5;
       }
@@ -250,15 +249,14 @@
     PBDataWriterPlaceMark();
     if (self->_clockValueLengths.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_clockValueLengths.list[v7];
         PBDataWriterWriteUint64Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_clockValueLengths.count);
+      while (v6 < self->_clockValueLengths.count);
     }
 
     PBDataWriterRecallMark();
@@ -269,15 +267,14 @@
     PBDataWriterPlaceMark();
     if (self->_stateValues.count)
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        v10 = self->_stateValues.list[v9];
         PBDataWriterWriteInt32Field();
-        ++v9;
+        ++v7;
       }
 
-      while (v9 < self->_stateValues.count);
+      while (v7 < self->_stateValues.count);
     }
 
     PBDataWriterRecallMark();
@@ -289,15 +286,14 @@
     PBDataWriterPlaceMark();
     if (p_stateValueLengths->count)
     {
-      v12 = 0;
+      v9 = 0;
       do
       {
-        v13 = p_stateValueLengths->list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v9;
       }
 
-      while (v12 < p_stateValueLengths->count);
+      while (v9 < p_stateValueLengths->count);
     }
 
     PBDataWriterRecallMark();

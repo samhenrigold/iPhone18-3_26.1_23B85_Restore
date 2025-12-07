@@ -34,7 +34,7 @@
 
 - (id)baseUrlForTreatmentsWithNamespaceName:(id)name
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [MEMORY[0x277D73B50] namespaceIdFromName:nameCopy];
   if (v6)
@@ -50,9 +50,9 @@
   v8 = v7;
   v9 = MEMORY[0x277CBEBC0];
   _treatmentBasePath = [(TRITreatmentInfo *)self _treatmentBasePath];
-  v16[0] = _treatmentBasePath;
-  v16[1] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = _treatmentBasePath;
+  v15[1] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v12 = [v9 fileURLWithPathComponents:v11];
 
   if (!v12)
@@ -60,8 +60,6 @@
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRITreatmentInfo.m" lineNumber:50 description:{@"base URL for treatments with namespace %@ is nil", nameCopy}];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -124,15 +122,15 @@
 
 - (id)urlWithDir:(id)dir
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (dir)
   {
     v3 = MEMORY[0x277CBEBC0];
-    v10[0] = dir;
-    v10[1] = @"info.plist";
+    v9[0] = dir;
+    v9[1] = @"info.plist";
     v4 = MEMORY[0x277CBEA60];
     dirCopy = dir;
-    v6 = [v4 arrayWithObjects:v10 count:2];
+    v6 = [v4 arrayWithObjects:v9 count:2];
     v7 = [v3 fileURLWithPathComponents:v6];
   }
 
@@ -140,8 +138,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -157,12 +153,12 @@
 
 - (BOOL)loadFromUrl:(id)url
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (url)
   {
-    v20 = 0;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:url error:&v20];
-    v5 = v20;
+    v19 = 0;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:url error:&v19];
+    v5 = v19;
     v6 = v5;
     if (v4)
     {
@@ -203,11 +199,11 @@
         namespaceName = [(TRITreatmentInfo *)self namespaceName];
         treatmentId = [(TRITreatmentInfo *)self treatmentId];
         *buf = 138412802;
-        v22 = namespaceName;
-        v23 = 2112;
-        v24 = treatmentId;
-        v25 = 2112;
-        v26 = v6;
+        v21 = namespaceName;
+        v22 = 2112;
+        v23 = treatmentId;
+        v24 = 2112;
+        v25 = v6;
         _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "could not load treatment info for namespace %@ with treatment id %@ -- %@", buf, 0x20u);
       }
     }
@@ -221,16 +217,15 @@
       namespaceName2 = [(TRITreatmentInfo *)self namespaceName];
       treatmentId2 = [(TRITreatmentInfo *)self treatmentId];
       *buf = 138412546;
-      v22 = namespaceName2;
-      v23 = 2112;
-      v24 = treatmentId2;
+      v21 = namespaceName2;
+      v22 = 2112;
+      v23 = treatmentId2;
       _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, "could not load treatment info for namespace %@ with treatment id %@ -- path is nil", buf, 0x16u);
     }
 
     v8 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -293,7 +288,7 @@
 
 - (BOOL)saveToUrl:(id)url
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   urlCopy = url;
   if (urlCopy)
   {
@@ -305,9 +300,9 @@
       [currentHandler handleFailureInMethod:a2 object:self file:@"TRITreatmentInfo.m" lineNumber:141 description:{@"Expression was unexpectedly nil/false: %@", @"url.path"}];
     }
 
-    v27 = 0;
-    v8 = [defaultManager triCreateDirectoryForPath:path isDirectory:0 error:&v27];
-    v9 = v27;
+    v26 = 0;
+    v8 = [defaultManager triCreateDirectoryForPath:path isDirectory:0 error:&v26];
+    v9 = v26;
 
     if (!v8)
     {
@@ -317,13 +312,13 @@
         namespaceName = [(TRITreatmentInfo *)self namespaceName];
         treatmentId = [(TRITreatmentInfo *)self treatmentId];
         *buf = 138413058;
-        v29 = namespaceName;
-        v30 = 2112;
-        v31 = treatmentId;
-        v32 = 2112;
-        v33 = urlCopy;
-        v34 = 2112;
-        v35 = v9;
+        v28 = namespaceName;
+        v29 = 2112;
+        v30 = treatmentId;
+        v31 = 2112;
+        v32 = urlCopy;
+        v33 = 2112;
+        v34 = v9;
         _os_log_error_impl(&dword_22EA6B000, infoDictionary, OS_LOG_TYPE_ERROR, "failed to create directory to save treatment info for namespace %@ with treatment id %@ to path %@ -- %@", buf, 0x2Au);
       }
 
@@ -333,9 +328,9 @@
     }
 
     infoDictionary = [(TRITreatmentInfo *)self infoDictionary];
-    v26 = v9;
-    v11 = [infoDictionary writeToURL:urlCopy error:&v26];
-    v12 = v26;
+    v25 = v9;
+    v11 = [infoDictionary writeToURL:urlCopy error:&v25];
+    v12 = v25;
 
     if (v11)
     {
@@ -355,7 +350,7 @@ LABEL_19:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = urlCopy;
+        v28 = urlCopy;
         _os_log_error_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_ERROR, "Failed to remove file protection from info.plist at %@", buf, 0xCu);
       }
     }
@@ -368,13 +363,13 @@ LABEL_19:
         namespaceName2 = [(TRITreatmentInfo *)self namespaceName];
         treatmentId2 = [(TRITreatmentInfo *)self treatmentId];
         *buf = 138413058;
-        v29 = namespaceName2;
-        v30 = 2112;
-        v31 = treatmentId2;
-        v32 = 2112;
-        v33 = urlCopy;
-        v34 = 2112;
-        v35 = v12;
+        v28 = namespaceName2;
+        v29 = 2112;
+        v30 = treatmentId2;
+        v31 = 2112;
+        v32 = urlCopy;
+        v33 = 2112;
+        v34 = v12;
         _os_log_error_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_ERROR, "could save treatment info for namespace %@ with treatment id %@ to path %@ -- %@", buf, 0x2Au);
       }
     }
@@ -389,16 +384,15 @@ LABEL_19:
     namespaceName3 = [(TRITreatmentInfo *)self namespaceName];
     treatmentId3 = [(TRITreatmentInfo *)self treatmentId];
     *buf = 138412546;
-    v29 = namespaceName3;
-    v30 = 2112;
-    v31 = treatmentId3;
+    v28 = namespaceName3;
+    v29 = 2112;
+    v30 = treatmentId3;
     _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "could save treatment info for namespace %@ with treatment id %@ -- path is nil", buf, 0x16u);
   }
 
   v15 = 0;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

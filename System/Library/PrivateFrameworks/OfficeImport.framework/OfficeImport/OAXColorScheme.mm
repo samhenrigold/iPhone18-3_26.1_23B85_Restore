@@ -47,7 +47,7 @@
 
 void __36__OAXColorScheme_schemeColorEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __36__OAXColorScheme_schemeColorEnumMap__block_invoke_cold_1();
   }
@@ -123,11 +123,11 @@ void __36__OAXColorScheme_schemeColorEnumMap__block_invoke()
 
 void __36__OAXColorScheme_schemeColorEnumMap__block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs))
+  if (__cxa_guard_acquire(_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs))
   {
     __cxa_atexit(__cxx_global_array_dtor_4, 0, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs);
+    __cxa_guard_release(_ZGVZZ36__OAXColorScheme_schemeColorEnumMap_EUb_E22schemeColorEnumStructs);
   }
 }
 

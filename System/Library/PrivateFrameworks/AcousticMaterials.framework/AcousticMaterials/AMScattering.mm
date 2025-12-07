@@ -9,11 +9,11 @@
 
 - (AMScattering)initWithValues:(id)values error:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v42.receiver = self;
-  v42.super_class = AMScattering;
-  v7 = [(AMScattering *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = AMScattering;
+  v7 = [(AMScattering *)&v41 init];
   v8 = MEMORY[0x277CBEB98];
   allKeys = [valuesCopy allKeys];
   v10 = [v8 setWithArray:allKeys];
@@ -30,9 +30,9 @@
     }
 
     v38 = MEMORY[0x277CCA9B8];
-    v43 = *MEMORY[0x277CCA450];
-    v44[0] = @"At least one mandatory key was not found in input dictionary.";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+    v42 = *MEMORY[0x277CCA450];
+    v43[0] = @"At least one mandatory key was not found in input dictionary.";
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
     *error = [v38 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:5 userInfo:v39];
 
 LABEL_6:
@@ -87,7 +87,6 @@ LABEL_6:
   error = v7;
 LABEL_7:
 
-  v40 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -139,61 +138,7 @@ LABEL_7:
     materialName = [(AMScattering *)v6 materialName];
     LODWORD(materialName) = [(NSString *)materialName isEqualToString:materialName];
 
-    if (!materialName)
-    {
-      goto LABEL_14;
-    }
-
-    materialDescription = self->_materialDescription;
-    materialDescription = [(AMScattering *)v6 materialDescription];
-    LODWORD(materialDescription) = [(NSString *)materialDescription isEqualToString:materialDescription];
-
-    if (!materialDescription)
-    {
-      goto LABEL_14;
-    }
-
-    frequencyBands = self->_frequencyBands;
-    frequencyBands = [(AMScattering *)v6 frequencyBands];
-    LODWORD(frequencyBands) = [(NSArray *)frequencyBands isEqualToArray:frequencyBands];
-
-    if (!frequencyBands)
-    {
-      goto LABEL_14;
-    }
-
-    scatteringUserData = self->_scatteringUserData;
-    scatteringUserData = [(AMScattering *)v6 scatteringUserData];
-    LODWORD(scatteringUserData) = [(NSArray *)scatteringUserData isEqualToArray:scatteringUserData];
-
-    if (!scatteringUserData)
-    {
-      goto LABEL_14;
-    }
-
-    scatteringReferenceData = self->_scatteringReferenceData;
-    scatteringReferenceData = [(AMScattering *)v6 scatteringReferenceData];
-    LODWORD(scatteringReferenceData) = [(NSArray *)scatteringReferenceData isEqualToArray:scatteringReferenceData];
-
-    if (!scatteringReferenceData)
-    {
-      goto LABEL_14;
-    }
-
-    uncertaintyReferenceData = self->_uncertaintyReferenceData;
-    uncertaintyReferenceData = [(AMScattering *)v6 uncertaintyReferenceData];
-    LODWORD(uncertaintyReferenceData) = [(NSArray *)uncertaintyReferenceData isEqualToArray:uncertaintyReferenceData];
-
-    if (!uncertaintyReferenceData)
-    {
-      goto LABEL_14;
-    }
-
-    numDataPointsReferenceData = self->_numDataPointsReferenceData;
-    numDataPointsReferenceData = [(AMScattering *)v6 numDataPointsReferenceData];
-    LODWORD(numDataPointsReferenceData) = [(NSArray *)numDataPointsReferenceData isEqualToArray:numDataPointsReferenceData];
-
-    if (numDataPointsReferenceData)
+    if (materialName && (materialDescription = self->_materialDescription, [(AMScattering *)v6 materialDescription], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(materialDescription) = [(NSString *)materialDescription isEqualToString:v10], v10, materialDescription) && (frequencyBands = self->_frequencyBands, [(AMScattering *)v6 frequencyBands], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(frequencyBands) = [(NSArray *)frequencyBands isEqualToArray:v12], v12, frequencyBands) && (scatteringUserData = self->_scatteringUserData, [(AMScattering *)v6 scatteringUserData], v14 = objc_claimAutoreleasedReturnValue(), LODWORD(scatteringUserData) = [(NSArray *)scatteringUserData isEqualToArray:v14], v14, scatteringUserData) && (scatteringReferenceData = self->_scatteringReferenceData, [(AMScattering *)v6 scatteringReferenceData], v16 = objc_claimAutoreleasedReturnValue(), LODWORD(scatteringReferenceData) = [(NSArray *)scatteringReferenceData isEqualToArray:v16], v16, scatteringReferenceData) && (uncertaintyReferenceData = self->_uncertaintyReferenceData, [(AMScattering *)v6 uncertaintyReferenceData], v18 = objc_claimAutoreleasedReturnValue(), LODWORD(uncertaintyReferenceData) = [(NSArray *)uncertaintyReferenceData isEqualToArray:v18], v18, uncertaintyReferenceData) && (numDataPointsReferenceData = self->_numDataPointsReferenceData, [(AMScattering *)v6 numDataPointsReferenceData], v20 = objc_claimAutoreleasedReturnValue(), LODWORD(numDataPointsReferenceData) = [(NSArray *)numDataPointsReferenceData isEqualToArray:v20], v20, numDataPointsReferenceData))
     {
       totalNumDataSetsReferenceData = self->_totalNumDataSetsReferenceData;
       v22 = totalNumDataSetsReferenceData == [(AMScattering *)v6 totalNumDataSetsReferenceData];
@@ -201,7 +146,6 @@ LABEL_7:
 
     else
     {
-LABEL_14:
       v22 = 0;
     }
   }
@@ -216,7 +160,7 @@ LABEL_14:
 
 - (BOOL)validatedWithoutError:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = [(NSArray *)self->_frequencyBands count];
   if ([(NSArray *)self->_scatteringUserData count]== v5 && [(NSArray *)self->_scatteringReferenceData count]== v5 && [(NSArray *)self->_uncertaintyReferenceData count]== v5 && [(NSArray *)self->_numDataPointsReferenceData count]== v5)
   {
@@ -225,13 +169,13 @@ LABEL_14:
       if (error)
       {
         v6 = MEMORY[0x277CCA9B8];
-        v31 = *MEMORY[0x277CCA450];
-        v32 = @"Name and/or description is empty.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x277CCA450];
+        v31 = @"Name and/or description is empty.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         v8 = v6;
         v9 = 2;
 LABEL_11:
-        *error = [v8 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:v9 userInfo:{v7, v26}];
+        *error = [v8 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:v9 userInfo:{v7, v25}];
       }
     }
 
@@ -241,79 +185,78 @@ LABEL_11:
       {
         if (!error)
         {
-          goto LABEL_12;
+          return 0;
         }
 
-        v24 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = @"The value of totalNumDataSetsReferenceData is negative.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-        v8 = v24;
+        v23 = MEMORY[0x277CCA9B8];
+        v28 = *MEMORY[0x277CCA450];
+        v29 = @"The value of totalNumDataSetsReferenceData is negative.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v8 = v23;
         v9 = 4;
         goto LABEL_11;
       }
 
       if (!v5)
       {
-        result = 1;
-        goto LABEL_13;
+        return 1;
       }
 
-      v13 = 0;
-      v14 = 1;
-      v15 = &unk_285016A40;
+      v12 = 0;
+      v13 = 1;
+      v14 = &unk_285016A40;
       while (1)
       {
-        v16 = [(NSArray *)self->_scatteringUserData objectAtIndexedSubscript:v13, v26];
-        if (!valueIsBetween(v16, v15, &unk_285016A58))
+        v15 = [(NSArray *)self->_scatteringUserData objectAtIndexedSubscript:v12, v25];
+        if (!valueIsBetween(v15, v14, &unk_285016A58))
         {
           break;
         }
 
-        v17 = [(NSArray *)self->_scatteringReferenceData objectAtIndexedSubscript:v13];
-        if (!valueIsBetween(v17, v15, &unk_285016A58))
+        v16 = [(NSArray *)self->_scatteringReferenceData objectAtIndexedSubscript:v12];
+        if (!valueIsBetween(v16, v14, &unk_285016A58))
         {
           goto LABEL_27;
         }
 
-        v18 = [(NSArray *)self->_uncertaintyReferenceData objectAtIndexedSubscript:v13];
-        if (!valueIsBetween(v18, v15, &unk_285016A58))
+        v17 = [(NSArray *)self->_uncertaintyReferenceData objectAtIndexedSubscript:v12];
+        if (!valueIsBetween(v17, v14, &unk_285016A58))
         {
 
 LABEL_27:
           break;
         }
 
-        v19 = v14;
-        v20 = [(NSArray *)self->_numDataPointsReferenceData objectAtIndexedSubscript:v13];
-        v21 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalNumDataSetsReferenceData];
-        v26 = v16;
-        v22 = v15;
-        IsBetween = valueIsBetween(v20, v15, v21);
+        v18 = v13;
+        v19 = [(NSArray *)self->_numDataPointsReferenceData objectAtIndexedSubscript:v12];
+        v20 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalNumDataSetsReferenceData];
+        v25 = v15;
+        v21 = v14;
+        IsBetween = valueIsBetween(v19, v14, v20);
 
         if (!IsBetween)
         {
           goto LABEL_29;
         }
 
-        v13 = v19;
-        v14 = v19 + 1;
+        v12 = v18;
+        v13 = v18 + 1;
         result = 1;
-        v15 = v22;
-        if (v5 <= v19)
+        v14 = v21;
+        if (v5 <= v18)
         {
-          goto LABEL_13;
+          return result;
         }
       }
 
 LABEL_29:
       if (error)
       {
-        v25 = MEMORY[0x277CCA9B8];
-        v27 = *MEMORY[0x277CCA450];
-        v28 = @"At least one value in one of the data sets lies outside the permitted value ranges.";
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-        v8 = v25;
+        v24 = MEMORY[0x277CCA9B8];
+        v26 = *MEMORY[0x277CCA450];
+        v27 = @"At least one value in one of the data sets lies outside the permitted value ranges.";
+        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v8 = v24;
         v9 = 5;
         goto LABEL_11;
       }
@@ -323,19 +266,15 @@ LABEL_29:
   else if (error)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v34[0] = @"Data arrays have different lengths.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x277CCA450];
+    v33[0] = @"Data arrays have different lengths.";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v8 = v10;
     v9 = 1;
     goto LABEL_11;
   }
 
-LABEL_12:
-  result = 0;
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 @end

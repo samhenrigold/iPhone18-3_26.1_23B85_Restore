@@ -188,23 +188,7 @@
       v5 = equalCopy;
       phase = [(SUControllerProgress *)v5 phase];
       phase2 = [(SUControllerProgress *)self phase];
-      if (![phase isEqualToString:phase2])
-      {
-        goto LABEL_8;
-      }
-
-      [(SUControllerProgress *)v5 portionComplete];
-      v9 = v8;
-      [(SUControllerProgress *)self portionComplete];
-      if (v9 != v10)
-      {
-        goto LABEL_8;
-      }
-
-      [(SUControllerProgress *)v5 estimatedTimeRemaining];
-      v12 = v11;
-      [(SUControllerProgress *)self estimatedTimeRemaining];
-      if (v12 == v13 && (v14 = [(SUControllerProgress *)v5 isDone], v14 == [(SUControllerProgress *)self isDone]) && (v15 = [(SUControllerProgress *)v5 isStalled], v15 == [(SUControllerProgress *)self isStalled]))
+      if ([phase isEqualToString:phase2] && (-[SUControllerProgress portionComplete](v5, "portionComplete"), v9 = v8, -[SUControllerProgress portionComplete](self, "portionComplete"), v9 == v10) && (-[SUControllerProgress estimatedTimeRemaining](v5, "estimatedTimeRemaining"), v12 = v11, -[SUControllerProgress estimatedTimeRemaining](self, "estimatedTimeRemaining"), v12 == v13) && (v14 = -[SUControllerProgress isDone](v5, "isDone"), v14 == -[SUControllerProgress isDone](self, "isDone")) && (v15 = -[SUControllerProgress isStalled](v5, "isStalled"), v15 == -[SUControllerProgress isStalled](self, "isStalled")))
       {
         actionText = [(SUControllerProgress *)v5 actionText];
         actionText2 = [(SUControllerProgress *)self actionText];
@@ -213,7 +197,6 @@
 
       else
       {
-LABEL_8:
         v16 = 0;
       }
     }

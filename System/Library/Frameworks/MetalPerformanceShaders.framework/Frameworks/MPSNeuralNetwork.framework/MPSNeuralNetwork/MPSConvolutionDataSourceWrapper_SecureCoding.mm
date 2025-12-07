@@ -94,8 +94,8 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v175 = objc_msgSend_debugDescription(self->super._dataSource, v154, v155, v156, v157, v158, v159, v160);
-      MTLReportFailure();
+      v187 = objc_msgSend_debugDescription(self->super._dataSource, v154, v155, v156, v157, v158, v159, v160);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x1F6, @"Error: Can not encode convolution data source. It doesn not conform to NSSSecureCoding.\n\t%@\n", v161, v162, v163, v164);
     }
   }
 
@@ -127,12 +127,12 @@
       objc_msgSend_supportsSecureCoding(v72, v73, v74, v75, v76, v77, v78, v79);
     }
 
-    if (!objc_msgSend_conformsToProtocol_(self->super._batchNorm, v66, &unk_284D09FA0, v67, v68, v69, v70, v71, v175) || (v80 = objc_opt_class(), (objc_msgSend_supportsSecureCoding(v80, v81, v82, v83, v84, v85, v86, v87) & 1) == 0))
+    if (!objc_msgSend_conformsToProtocol_(self->super._batchNorm, v66, &unk_284D09FA0, v67, v68, v69, v70, v71, v187) || (v80 = objc_opt_class(), (objc_msgSend_supportsSecureCoding(v80, v81, v82, v83, v84, v85, v86, v87) & 1) == 0))
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v175 = objc_msgSend_debugDescription(self->super._batchNorm, v168, v169, v170, v171, v172, v173, v174);
-        MTLReportFailure();
+        v187 = objc_msgSend_debugDescription(self->super._batchNorm, v176, v177, v178, v179, v180, v181, v182);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x200, @"Error: Can not encode convolution. The fused batch norm descriptor doesn not conform to NSSSecureCoding.\n\t%@\n", v183, v184, v185, v186);
       }
     }
 
@@ -166,12 +166,12 @@
       objc_msgSend_supportsSecureCoding(v116, v117, v118, v119, v120, v121, v122, v123);
     }
 
-    if (!objc_msgSend_conformsToProtocol_(self->super._neuron, v110, &unk_284D09FA0, v111, v112, v113, v114, v115, v175) || (v124 = objc_opt_class(), (objc_msgSend_supportsSecureCoding(v124, v125, v126, v127, v128, v129, v130, v131) & 1) == 0))
+    if (!objc_msgSend_conformsToProtocol_(self->super._neuron, v110, &unk_284D09FA0, v111, v112, v113, v114, v115, v187) || (v124 = objc_opt_class(), (objc_msgSend_supportsSecureCoding(v124, v125, v126, v127, v128, v129, v130, v131) & 1) == 0))
     {
       if (MTLReportFailureTypeEnabled())
       {
-        objc_msgSend_debugDescription(self->super._neuron, v161, v162, v163, v164, v165, v166, v167);
-        MTLReportFailure();
+        objc_msgSend_debugDescription(self->super._neuron, v165, v166, v167, v168, v169, v170, v171);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/DataSourceWrappers.mm", 0x20B, @"Error: Can not encode convolution. The fused batch neuron doesn not conform to NSSSecureCoding.\n\t%@\n", v172, v173, v174, v175);
       }
     }
 

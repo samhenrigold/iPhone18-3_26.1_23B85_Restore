@@ -4,6 +4,7 @@
 + (id)defaultConfigurationWiFi;
 + (id)defaultConfigurationWiredEthernet;
 + (id)evaluateInterfaceName:(int)name;
++ (id)fileSizeConfigurationWithTimeout:(int)timeout timeout:(unint64_t)a4 downloadFileSize:(int)size uploadFileSize:(int)fileSize;
 + (id)interfaceServiceName:(int)name;
 - (NPTPerformanceTestConfiguration)init;
 - (NPTPerformanceTestConfiguration)initWithCoder:(id)coder;
@@ -241,6 +242,21 @@
   [(NPTPerformanceTestConfiguration *)v2 setInterfaceType:0];
 
   return v2;
+}
+
++ (id)fileSizeConfigurationWithTimeout:(int)timeout timeout:(unint64_t)a4 downloadFileSize:(int)size uploadFileSize:(int)fileSize
+{
+  v6 = *&fileSize;
+  v7 = *&size;
+  v9 = *&timeout;
+  v10 = objc_alloc_init(NPTPerformanceTestConfiguration);
+  [(NPTPerformanceTestConfiguration *)v10 setInterfaceType:v9];
+  [(NPTPerformanceTestConfiguration *)v10 setTestDuration:a4];
+  [(NPTPerformanceTestConfiguration *)v10 setStopAtFileSize:1];
+  [(NPTPerformanceTestConfiguration *)v10 setDownloadSize:v7];
+  [(NPTPerformanceTestConfiguration *)v10 setUploadSize:v6];
+
+  return v10;
 }
 
 - (void)setInterfaceType:(int)type

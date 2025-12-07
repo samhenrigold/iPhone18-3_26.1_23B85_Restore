@@ -212,11 +212,11 @@
 
 - (id)accessibilityLabel
 {
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy_;
-  v46 = __Block_byref_object_dispose_;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy_;
+  v45 = __Block_byref_object_dispose_;
   string = [MEMORY[0x29EDBA0F8] string];
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsStoryColorGradeEditorItem])
   {
@@ -232,7 +232,7 @@
       accessibilityLabel = 0;
     }
 
-    objc_storeStrong(v43 + 5, accessibilityLabel);
+    objc_storeStrong(v42 + 5, accessibilityLabel);
     if (v5)
     {
     }
@@ -259,15 +259,14 @@
         accessibilityLabel2 = 0;
       }
 
-      objc_storeStrong(v43 + 5, accessibilityLabel2);
+      objc_storeStrong(v42 + 5, accessibilityLabel2);
       if (v11)
       {
       }
 
       _axChapterHeadersInSubgroups = [(AXPhotosGroupAccessibilityElement *)self _axChapterHeadersInSubgroups];
-      v15 = v43[5];
-      v16 = [_axChapterHeadersInSubgroups count];
-      if (v16)
+      v15 = [_axChapterHeadersInSubgroups count];
+      if (v15)
       {
         firstObject = [_axChapterHeadersInSubgroups firstObject];
         accessibilityLabel3 = [firstObject accessibilityLabel];
@@ -278,13 +277,13 @@
         accessibilityLabel3 = 0;
       }
 
-      v36 = accessibilityLabel3;
-      v37 = @"__AXStringForVariablesSentinel";
-      v18 = __UIAXStringForVariables();
-      v19 = v43[5];
-      v43[5] = v18;
+      v35 = accessibilityLabel3;
+      v36 = @"__AXStringForVariablesSentinel";
+      v17 = __UIAXStringForVariables();
+      v18 = v42[5];
+      v42[5] = v17;
 
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_23;
       }
@@ -294,17 +293,17 @@
     {
       _axSectionHeadersInSubgroups = [v9 safeStringForKey:@"title"];
       _axChapterHeadersInSubgroups = [v9 safeStringForKey:@"subtitle"];
-      v36 = _axChapterHeadersInSubgroups;
-      v37 = @"__AXStringForVariablesSentinel";
+      v35 = _axChapterHeadersInSubgroups;
+      v36 = @"__AXStringForVariablesSentinel";
       v14 = __UIAXStringForVariables();
-      firstObject = v43[5];
-      v43[5] = v14;
+      firstObject = v42[5];
+      v42[5] = v14;
     }
 
 LABEL_23:
   }
 
-  if ([(AXPhotosGroupAccessibilityElement *)self _axIsStoryLayout:v36])
+  if ([(AXPhotosGroupAccessibilityElement *)self _axIsStoryLayout:v35])
   {
     _axStoryFullsizeLayoutInSubgroups = [(AXPhotosGroupAccessibilityElement *)self _axStoryFullsizeLayoutInSubgroups];
     if ([_axStoryFullsizeLayoutInSubgroups count])
@@ -312,107 +311,104 @@ LABEL_23:
       firstObject2 = [_axStoryFullsizeLayoutInSubgroups firstObject];
       _axStoryClipLayoutInSubgroups = [firstObject2 _axStoryClipLayoutInSubgroups];
 
-      v23 = MEMORY[0x29C2E6A40](_axStoryClipLayoutInSubgroups);
-      v24 = v43[5];
-      v43[5] = v23;
+      v22 = MEMORY[0x29C2E6A40](_axStoryClipLayoutInSubgroups);
+      v23 = v42[5];
+      v42[5] = v22;
     }
   }
 
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsMemoriesScrubberInStoryViewController])
   {
-    v25 = accessibilityPhotosUICoreLocalizedString(@"memories.scrubber");
-    v26 = v43[5];
-    v43[5] = v25;
+    v24 = accessibilityPhotosUICoreLocalizedString(@"memories.scrubber");
+    v25 = v42[5];
+    v42[5] = v24;
   }
 
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsMemoriesStyleSwitcherInStoryViewController])
   {
-    v27 = v43[5];
-    v43[5] = 0;
+    v26 = v42[5];
+    v42[5] = 0;
   }
 
-  v28 = v43[5];
-  if (v28 && ![v28 length])
+  v27 = v42[5];
+  if (v27 && ![v27 length])
   {
-    v29 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:2];
-    v41[0] = MEMORY[0x29EDCA5F8];
-    v41[1] = 3221225472;
-    v41[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke;
-    v41[3] = &unk_29F2E5E08;
-    v41[4] = &v42;
-    [v29 enumerateObjectsUsingBlock:v41];
-    v30 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:1];
+    v28 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:2];
     v40[0] = MEMORY[0x29EDCA5F8];
     v40[1] = 3221225472;
-    v40[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_2;
+    v40[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke;
     v40[3] = &unk_29F2E5E08;
-    v40[4] = &v42;
-    [v30 enumerateObjectsUsingBlock:v40];
-    v31 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:6];
+    v40[4] = &v41;
+    [v28 enumerateObjectsUsingBlock:v40];
+    v29 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:1];
     v39[0] = MEMORY[0x29EDCA5F8];
     v39[1] = 3221225472;
-    v39[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3;
+    v39[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_2;
     v39[3] = &unk_29F2E5E08;
-    v39[4] = &v42;
-    [v31 enumerateObjectsUsingBlock:v39];
+    v39[4] = &v41;
+    [v29 enumerateObjectsUsingBlock:v39];
+    v30 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:6];
+    v38[0] = MEMORY[0x29EDCA5F8];
+    v38[1] = 3221225472;
+    v38[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3;
+    v38[3] = &unk_29F2E5E08;
+    v38[4] = &v41;
+    [v30 enumerateObjectsUsingBlock:v38];
   }
 
-  v32 = v43[5];
-  if (v32 && [v32 length])
+  v31 = v42[5];
+  if (v31 && [v31 length])
   {
-    accessibilityLabel4 = v43[5];
+    accessibilityLabel4 = v42[5];
   }
 
   else
   {
-    v38.receiver = self;
-    v38.super_class = AXPhotosGroupAccessibilityElement;
-    accessibilityLabel4 = [(AXPhotosGroupAccessibilityElement *)&v38 accessibilityLabel];
+    v37.receiver = self;
+    v37.super_class = AXPhotosGroupAccessibilityElement;
+    accessibilityLabel4 = [(AXPhotosGroupAccessibilityElement *)&v37 accessibilityLabel];
   }
 
-  v34 = accessibilityLabel4;
-  _Block_object_dispose(&v42, 8);
+  v33 = accessibilityLabel4;
+  _Block_object_dispose(&v41, 8);
 
-  return v34;
+  return v33;
 }
 
 void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  v7 = [a2 accessibilityLabel];
-  v4 = __UIAXStringForVariables();
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v6 = [a2 accessibilityLabel];
+  v3 = __UIAXStringForVariables();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  v7 = [a2 accessibilityLabel];
-  v4 = __UIAXStringForVariables();
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v6 = [a2 accessibilityLabel];
+  v3 = __UIAXStringForVariables();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  v7 = [a2 accessibilityLabel];
-  v4 = __UIAXStringForVariables();
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v6 = [a2 accessibilityLabel];
+  v3 = __UIAXStringForVariables();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)accessibilityValue
 {
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy_;
+  v48 = __Block_byref_object_dispose_;
   string = [MEMORY[0x29EDBA0F8] string];
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsMonthsView]|| [(AXPhotosGroupAccessibilityElement *)self _axIsYearsView])
   {
@@ -434,15 +430,14 @@ void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3(
       accessibilityValue = 0;
     }
 
-    objc_storeStrong(v46 + 5, accessibilityValue);
+    objc_storeStrong(v45 + 5, accessibilityValue);
     if (v5)
     {
     }
 
     _axChapterHeadersInSubgroups = [(AXPhotosGroupAccessibilityElement *)self _axChapterHeadersInSubgroups];
-    v8 = v46[5];
-    v9 = [_axChapterHeadersInSubgroups count];
-    if (v9)
+    v8 = [_axChapterHeadersInSubgroups count];
+    if (v8)
     {
       accessibilityValue = [_axChapterHeadersInSubgroups firstObject];
       v6AccessibilityValue = [accessibilityValue accessibilityValue];
@@ -453,11 +448,11 @@ void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3(
       v6AccessibilityValue = 0;
     }
 
-    v11 = __UIAXStringForVariables();
-    v12 = v46[5];
-    v46[5] = v11;
+    v10 = __UIAXStringForVariables();
+    v11 = v45[5];
+    v45[5] = v10;
 
-    if (v9)
+    if (v8)
     {
     }
 
@@ -470,78 +465,77 @@ void __55__AXPhotosGroupAccessibilityElement_accessibilityLabel__block_invoke_3(
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsMemoriesScrubberInStoryViewController])
   {
     group = [(AXPhotosGroupAccessibilityElement *)self group];
-    v14 = [group safeValueForKey:@"_axInfoSource"];
+    v13 = [group safeValueForKey:@"_axInfoSource"];
 
-    v15 = [v14 safeUnsignedIntegerForKey:@"_axScrubberFractionNumerator"];
-    v16 = [v14 safeUnsignedIntegerForKey:@"_axScrubberFractionDenominator"];
+    v14 = [v13 safeUnsignedIntegerForKey:@"_axScrubberFractionNumerator"];
+    v15 = [v13 safeUnsignedIntegerForKey:@"_axScrubberFractionDenominator"];
     _axCurrentLeafInStory = [(AXPhotosGroupAccessibilityElement *)self _axCurrentLeafInStory];
-    v18 = [_axCurrentLeafInStory safeValueForKey:@"_content"];
-    v19 = MEMORY[0x29EDBA0F8];
-    v20 = accessibilityPhotosUICoreLocalizedString(@"memories.scrubber.choice");
-    v21 = [v19 localizedStringWithFormat:v20, v15, v16];
-    accessibilityLabel = [v18 accessibilityLabel];
-    v41 = @"__AXStringForVariablesSentinel";
-    v22 = __UIAXStringForVariables();
-    v23 = v46[5];
-    v46[5] = v22;
+    v17 = [_axCurrentLeafInStory safeValueForKey:@"_content"];
+    v18 = MEMORY[0x29EDBA0F8];
+    v19 = accessibilityPhotosUICoreLocalizedString(@"memories.scrubber.choice");
+    v20 = [v18 localizedStringWithFormat:v19, v14, v15];
+    accessibilityLabel = [v17 accessibilityLabel];
+    v40 = @"__AXStringForVariablesSentinel";
+    v21 = __UIAXStringForVariables();
+    v22 = v45[5];
+    v45[5] = v21;
   }
 
   if ([(AXPhotosGroupAccessibilityElement *)self _axIsMemoriesStyleSwitcherInStoryViewController:accessibilityLabel])
   {
     group2 = [(AXPhotosGroupAccessibilityElement *)self group];
-    v25 = [group2 safeValueForKey:@"_axInfoSource"];
+    v24 = [group2 safeValueForKey:@"_axInfoSource"];
 
-    v26 = [v25 safeUnsignedIntegerForKey:@"_axSwitcherFractionNumerator"];
-    v27 = [v25 safeUnsignedIntegerForKey:@"_axSwitcherFractionDenominator"];
-    v28 = [v25 safeStringForKey:@"_axStyleTitle"];
-    v29 = MEMORY[0x29EDBA0F8];
-    v30 = accessibilityPhotosUICoreLocalizedString(@"memories.style.choice");
-    v31 = [v29 localizedStringWithFormat:v30, v26, v27];
-    v40 = v28;
-    v42 = @"__AXStringForVariablesSentinel";
-    v32 = __UIAXStringForVariables();
-    v33 = v46[5];
-    v46[5] = v32;
+    v25 = [v24 safeUnsignedIntegerForKey:@"_axSwitcherFractionNumerator"];
+    v26 = [v24 safeUnsignedIntegerForKey:@"_axSwitcherFractionDenominator"];
+    v27 = [v24 safeStringForKey:@"_axStyleTitle"];
+    v28 = MEMORY[0x29EDBA0F8];
+    v29 = accessibilityPhotosUICoreLocalizedString(@"memories.style.choice");
+    v30 = [v28 localizedStringWithFormat:v29, v25, v26];
+    v39 = v27;
+    v41 = @"__AXStringForVariablesSentinel";
+    v31 = __UIAXStringForVariables();
+    v32 = v45[5];
+    v45[5] = v31;
   }
 
-  if (![v46[5] length])
+  if (![v45[5] length])
   {
-    v34 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:1];
-    v44[0] = MEMORY[0x29EDCA5F8];
-    v44[1] = 3221225472;
-    v44[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityValue__block_invoke;
-    v44[3] = &unk_29F2E5E08;
-    v44[4] = &v45;
-    [v34 enumerateObjectsUsingBlock:v44];
+    v33 = [(AXPhotosGroupAccessibilityElement *)self _axFilterLeafsByContentKind:1];
+    v43[0] = MEMORY[0x29EDCA5F8];
+    v43[1] = 3221225472;
+    v43[2] = __55__AXPhotosGroupAccessibilityElement_accessibilityValue__block_invoke;
+    v43[3] = &unk_29F2E5E08;
+    v43[4] = &v44;
+    [v33 enumerateObjectsUsingBlock:v43];
   }
 
-  v35 = v46[5];
-  if (v35 && [v35 length])
+  v34 = v45[5];
+  if (v34 && [v34 length])
   {
-    accessibilityValue2 = v46[5];
+    accessibilityValue2 = v45[5];
   }
 
   else
   {
-    v43.receiver = self;
-    v43.super_class = AXPhotosGroupAccessibilityElement;
-    accessibilityValue2 = [(AXPhotosGroupAccessibilityElement *)&v43 accessibilityValue];
+    v42.receiver = self;
+    v42.super_class = AXPhotosGroupAccessibilityElement;
+    accessibilityValue2 = [(AXPhotosGroupAccessibilityElement *)&v42 accessibilityValue];
   }
 
-  v37 = accessibilityValue2;
-  _Block_object_dispose(&v45, 8);
+  v36 = accessibilityValue2;
+  _Block_object_dispose(&v44, 8);
 
-  return v37;
+  return v36;
 }
 
 void __55__AXPhotosGroupAccessibilityElement_accessibilityValue__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(*(*(a1 + 32) + 8) + 40);
-  v7 = [a2 accessibilityValue];
-  v4 = __UIAXStringForVariables();
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v6 = [a2 accessibilityValue];
+  v3 = __UIAXStringForVariables();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)_accessibilityScrollStatus
@@ -743,14 +737,14 @@ LABEL_13:
 
 - (id)accessibilityCustomActions
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   if (![(AXPhotosGroupAccessibilityElement *)self _axIsMonthsView])
   {
     if (![(AXPhotosGroupAccessibilityElement *)self _axIsStoryLayout])
     {
-      v32.receiver = self;
-      v32.super_class = AXPhotosGroupAccessibilityElement;
-      accessibilityCustomActions = [(AXPhotosGroupAccessibilityElement *)&v32 accessibilityCustomActions];
+      v31.receiver = self;
+      v31.super_class = AXPhotosGroupAccessibilityElement;
+      accessibilityCustomActions = [(AXPhotosGroupAccessibilityElement *)&v31 accessibilityCustomActions];
       goto LABEL_31;
     }
 
@@ -761,33 +755,33 @@ LABEL_13:
       goto LABEL_29;
     }
 
-    v30 = _axStoryThumbnailChromeLayoutInSubgroups;
+    v29 = _axStoryThumbnailChromeLayoutInSubgroups;
     firstObject = [_axStoryThumbnailChromeLayoutInSubgroups firstObject];
     _axLeafAccessibilityElements = [firstObject _axLeafAccessibilityElements];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v13 = _axLeafAccessibilityElements;
-    v14 = [v13 countByEnumeratingWithState:&v37 objects:v44 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v36 objects:v43 count:16];
     if (!v14)
     {
       goto LABEL_28;
     }
 
     v15 = v14;
-    v16 = *v38;
+    v16 = *v37;
 LABEL_14:
     v17 = 0;
     while (1)
     {
-      if (*v38 != v16)
+      if (*v37 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v37 + 1) + 8 * v17);
+      v18 = *(*(&v36 + 1) + 8 * v17);
       leaf = [v18 leaf];
       v20 = [leaf safeValueForKey:@"axView"];
 
@@ -814,30 +808,30 @@ LABEL_21:
             if (v21)
             {
               accessibilityLabel = [v20 accessibilityLabel];
-              v35[0] = MEMORY[0x29EDCA5F8];
-              v35[1] = 3221225472;
-              v35[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke_2;
-              v35[3] = &unk_29F2E5E30;
-              v36[0] = v20;
-              v36[1] = v18;
-              v24 = [v22 initWithName:accessibilityLabel actionHandler:v35];
+              v34[0] = MEMORY[0x29EDCA5F8];
+              v34[1] = 3221225472;
+              v34[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke_2;
+              v34[3] = &unk_29F2E5E30;
+              v35[0] = v20;
+              v35[1] = v18;
+              v24 = [v22 initWithName:accessibilityLabel actionHandler:v34];
 
               [accessibilityCustomActions addObject:v24];
-              v25 = v36;
+              v25 = v35;
             }
 
             else
             {
               accessibilityLabel2 = [v18 accessibilityLabel];
-              v33[0] = MEMORY[0x29EDCA5F8];
-              v33[1] = 3221225472;
-              v33[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke_3;
-              v33[3] = &unk_29F2E5E58;
-              v34 = v20;
-              v27 = [v22 initWithName:accessibilityLabel2 actionHandler:v33];
+              v32[0] = MEMORY[0x29EDCA5F8];
+              v32[1] = 3221225472;
+              v32[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke_3;
+              v32[3] = &unk_29F2E5E58;
+              v33 = v20;
+              v27 = [v22 initWithName:accessibilityLabel2 actionHandler:v32];
 
               [accessibilityCustomActions addObject:v27];
-              v25 = &v34;
+              v25 = &v33;
             }
           }
         }
@@ -845,12 +839,12 @@ LABEL_21:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v37 objects:v44 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v36 objects:v43 count:16];
         if (!v15)
         {
 LABEL_28:
 
-          _axStoryThumbnailChromeLayoutInSubgroups = v30;
+          _axStoryThumbnailChromeLayoutInSubgroups = v29;
           goto LABEL_29;
         }
 
@@ -883,13 +877,13 @@ LABEL_28:
         {
           v8 = objc_alloc(MEMORY[0x29EDC78E0]);
           accessibilityLabel3 = [v6 accessibilityLabel];
-          v41[0] = MEMORY[0x29EDCA5F8];
-          v41[1] = 3221225472;
-          v41[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke;
-          v41[3] = &unk_29F2E5E30;
-          v42 = v6;
-          v43 = _axStoryThumbnailChromeLayoutInSubgroups;
-          v10 = [v8 initWithName:accessibilityLabel3 actionHandler:v41];
+          v40[0] = MEMORY[0x29EDCA5F8];
+          v40[1] = 3221225472;
+          v40[2] = __63__AXPhotosGroupAccessibilityElement_accessibilityCustomActions__block_invoke;
+          v40[3] = &unk_29F2E5E30;
+          v41 = v6;
+          v42 = _axStoryThumbnailChromeLayoutInSubgroups;
+          v10 = [v8 initWithName:accessibilityLabel3 actionHandler:v40];
 
           [accessibilityCustomActions addObject:v10];
         }
@@ -900,7 +894,6 @@ LABEL_28:
 LABEL_29:
 
 LABEL_31:
-  v28 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }
@@ -1236,14 +1229,12 @@ void __76__AXPhotosGroupAccessibilityElement__cleanupStaleGroupAccessibilityElem
 
 - (id)_axGroupsAccessibilityElements
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   _axUnsortedGroupsAccessibilityElements = [(AXPhotosGroupAccessibilityElement *)self _axUnsortedGroupsAccessibilityElements];
   v3 = [MEMORY[0x29EDBA0F0] sortDescriptorWithKey:@"group.subgroupIndex" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
   v5 = [_axUnsortedGroupsAccessibilityElements sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
@@ -1509,62 +1500,59 @@ void __77__AXPhotosGroupAccessibilityElement__updateLeafAccessibilityElementsIfN
   [(AXPhotosGroupAccessibilityElement *)self _axCleanupAccessibilityElements:v11 withUpdatedKeys:v10];
 }
 
-void __94__AXPhotosGroupAccessibilityElement__updateLeafAccessibilityElements_forVisibleSpriteIndexes___block_invoke(id *a1)
+void __94__AXPhotosGroupAccessibilityElement__updateLeafAccessibilityElements_forVisibleSpriteIndexes___block_invoke(id *a1, uint64_t a2)
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = 0;
-  v9 = a1[4];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy_;
+  v12 = __Block_byref_object_dispose_;
+  v13 = 0;
   AXPerformSafeBlock();
-  v2 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v3 = v9[5];
+  _Block_object_dispose(&v8, 8);
 
-  if (!v2)
+  if (!v3)
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x3032000000;
-    v13 = __Block_byref_object_copy_;
-    v14 = __Block_byref_object_dispose_;
-    v15 = 0;
-    v8 = a1[4];
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3032000000;
+    v11 = __Block_byref_object_copy_;
+    v12 = __Block_byref_object_dispose_;
+    v13 = 0;
     AXPerformSafeBlock();
-    v3 = v11[5];
-    _Block_object_dispose(&v10, 8);
+    v4 = v9[5];
+    _Block_object_dispose(&v8, 8);
 
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x3032000000;
-    v13 = __Block_byref_object_copy_;
-    v14 = __Block_byref_object_dispose_;
-    v15 = 0;
-    v7 = a1[4];
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x3032000000;
+    v11 = __Block_byref_object_copy_;
+    v12 = __Block_byref_object_dispose_;
+    v13 = 0;
     AXPerformSafeBlock();
-    v2 = v11[5];
-    _Block_object_dispose(&v10, 8);
+    v3 = v9[5];
+    _Block_object_dispose(&v8, 8);
   }
 
-  v4 = [a1[4] _axUniqueIdentifierForLeaf:v2];
-  if (v4)
+  v5 = [a1[4] _axUniqueIdentifierForLeaf:v3];
+  if (v5)
   {
-    v5 = [a1[5] objectForKey:v4];
-    if (v5)
+    v6 = [a1[5] objectForKey:v5];
+    if (v6)
     {
-      v6 = v5;
-      [(AXPhotosLeafAccessibilityElement *)v5 setLeaf:v2];
+      v7 = v6;
+      [(AXPhotosLeafAccessibilityElement *)v6 setLeaf:v3];
     }
 
     else
     {
-      v6 = [[AXPhotosLeafAccessibilityElement alloc] initWithAccessibilityContainer:a1[4] forLeaf:v2];
-      [a1[5] setObject:v6 forKey:v4];
+      v7 = [[AXPhotosLeafAccessibilityElement alloc] initWithAccessibilityContainer:a1[4] forLeaf:v3];
+      [a1[5] setObject:v7 forKey:v5];
     }
   }
 
-  [a1[6] axSafelyAddObject:v4];
+  [a1[6] axSafelyAddObject:v5];
 }
 
 void __94__AXPhotosGroupAccessibilityElement__updateLeafAccessibilityElements_forVisibleSpriteIndexes___block_invoke_2(uint64_t a1)
@@ -1620,7 +1608,6 @@ uint64_t __62__AXPhotosGroupAccessibilityElement__axUnloadStaleLeafObjects__bloc
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)
   {
-    v4 = *(a1 + 40);
     return AXPerformSafeBlock();
   }
 
@@ -1671,14 +1658,12 @@ void __62__AXPhotosGroupAccessibilityElement__axUnloadStaleLeafObjects__block_in
 
 - (id)_axLeafAccessibilityElements
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   _axUnsortedLeafAccessibilityElements = [(AXPhotosGroupAccessibilityElement *)self _axUnsortedLeafAccessibilityElements];
   v3 = [MEMORY[0x29EDBA0F0] sortDescriptorWithKey:@"leaf.spriteIndex" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
   v5 = [_axUnsortedLeafAccessibilityElements sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }
@@ -1783,12 +1768,11 @@ void __85__AXPhotosGroupAccessibilityElement__axContainingGroup_performedAction_
 
 void __62__AXPhotosGroupAccessibilityElement__axShouldShowAlternateUI___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsProtocol();
-  v4 = PXGAXCreateActionUserInfo();
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v2 = __UIAccessibilityCastAsProtocol();
+  v3 = PXGAXCreateActionUserInfo();
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)_axMoreButtonInMonthsView
@@ -1958,39 +1942,31 @@ void __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___bloc
 
 void __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsProtocol();
-  *(*(*(a1 + 40) + 8) + 24) = [v3 axSpriteIndexClosestToSpriteIndex:*(a1 + 56) inDirection:*(a1 + 48)];
+  v2 = __UIAccessibilityCastAsProtocol();
+  *(*(*(a1 + 40) + 8) + 24) = [v2 axSpriteIndexClosestToSpriteIndex:*(a1 + 56) inDirection:*(a1 + 48)];
 }
 
 uint64_t __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) loadLeafAtSpriteIndexIfNeeded:*(a1 + 48) usingOptions:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) loadLeafAtSpriteIndexIfNeeded:*(a1 + 48) usingOptions:1];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___block_invoke_4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) loadedLeafAtSpriteIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) loadedLeafAtSpriteIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 void __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___block_invoke_5(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsProtocol();
-  v4 = PXGAXCreateActionUserInfo();
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v2 = __UIAccessibilityCastAsProtocol();
+  v3 = PXGAXCreateActionUserInfo();
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)_axCurrentLeafInStory
@@ -2093,9 +2069,8 @@ void __66__AXPhotosGroupAccessibilityElement__axMoveToNextInfoInDirection___bloc
 
 void __75__AXPhotosGroupAccessibilityElement__axMoveStoryForInfoSource_inDirection___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsProtocol();
-  *(*(*(a1 + 40) + 8) + 24) = [v3 axSpriteIndexClosestToSpriteIndex:*(a1 + 56) inDirection:*(a1 + 48)];
+  v2 = __UIAccessibilityCastAsProtocol();
+  *(*(*(a1 + 40) + 8) + 24) = [v2 axSpriteIndexClosestToSpriteIndex:*(a1 + 56) inDirection:*(a1 + 48)];
 }
 
 void __75__AXPhotosGroupAccessibilityElement__axMoveStoryForInfoSource_inDirection___block_invoke_2(uint64_t a1)
@@ -2118,12 +2093,11 @@ void __75__AXPhotosGroupAccessibilityElement__axMoveStoryForInfoSource_inDirecti
 
 void __75__AXPhotosGroupAccessibilityElement__axMoveStoryForInfoSource_inDirection___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsProtocol();
-  v4 = PXGAXCreateActionUserInfo();
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v2 = __UIAccessibilityCastAsProtocol();
+  v3 = PXGAXCreateActionUserInfo();
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (void)_axRefreshGridGroupData:(id)data
@@ -2585,40 +2559,39 @@ uint64_t __72__AXPhotosGroupAccessibilityElement__accessibilityInStoryViewContro
 
 - (id)_axFilterStaleKeys:(id)keys usingIndexSet:(id)set
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   keysCopy = keys;
   setCopy = set;
   indexSet = [MEMORY[0x29EDBA048] indexSet];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = keysCopy;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [indexSet addIndex:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "integerValue", v15)}];
+        [indexSet addIndex:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "integerValue", v14)}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   [indexSet removeIndexes:setCopy];
-  v13 = *MEMORY[0x29EDCA608];
 
   return indexSet;
 }

@@ -99,12 +99,11 @@
 
 - (void)_prepareWithContext:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = (*(a1 + 104) - *(a1 + 96)) >> 2;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Will enumerate %llu EPs", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Will enumerate %llu EPs", &v3, 0xCu);
 }
 
 @end

@@ -107,17 +107,15 @@
 
 + (id)_defaultPlaylistEntryKind
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   MPModelPlaylistEntryClass = getMPModelPlaylistEntryClass();
   _defaultSongKind = [self _defaultSongKind];
   _defaultTVEpisodeKind = [self _defaultTVEpisodeKind];
-  v11[1] = _defaultTVEpisodeKind;
+  v10[1] = _defaultTVEpisodeKind;
   _defaultMovieKind = [self _defaultMovieKind];
-  v11[2] = _defaultMovieKind;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = _defaultMovieKind;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   v8 = [MPModelPlaylistEntryClass kindWithKinds:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -473,28 +471,26 @@ LABEL_35:
 
 + (id)_defaultRecentlyAddedObjectKind
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   MPModelGenericObjectClass_1 = getMPModelGenericObjectClass_1();
   v4 = getMPModelRelationshipGenericAlbum_0();
-  v16[0] = v4;
+  v15[0] = v4;
   _defaultAlbumKindForTracks = [self _defaultAlbumKindForTracks];
-  v17[0] = _defaultAlbumKindForTracks;
+  v16[0] = _defaultAlbumKindForTracks;
   v6 = getMPModelRelationshipGenericMovie_0();
-  v16[1] = v6;
+  v15[1] = v6;
   _defaultMovieKind = [self _defaultMovieKind];
-  v17[1] = _defaultMovieKind;
+  v16[1] = _defaultMovieKind;
   v8 = getMPModelRelationshipGenericPlaylist_1();
-  v16[2] = v8;
+  v15[2] = v8;
   _defaultPlaylistKind = [self _defaultPlaylistKind];
-  v17[2] = _defaultPlaylistKind;
+  v16[2] = _defaultPlaylistKind;
   v10 = getMPModelRelationshipGenericTVSeason_0();
-  v16[3] = v10;
+  v15[3] = v10;
   _defaultTVSeasonKind = [self _defaultTVSeasonKind];
-  v17[3] = _defaultTVSeasonKind;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = _defaultTVSeasonKind;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v13 = [MPModelGenericObjectClass_1 kindWithRelationshipKinds:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -636,42 +632,36 @@ LABEL_35:
 
 + (id)_defaultPlaylistEntryKindForTracks
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   MPModelPlaylistEntryClass = getMPModelPlaylistEntryClass();
   _defaultSongKindForTracks = [self _defaultSongKindForTracks];
-  v9[0] = _defaultSongKindForTracks;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = _defaultSongKindForTracks;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [MPModelPlaylistEntryClass kindWithKinds:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)_defaultPlaylistEntryKindForSongs
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   MPModelPlaylistEntryClass = getMPModelPlaylistEntryClass();
   v4 = [self _songKindForVariants:1];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [MPModelPlaylistEntryClass kindWithKinds:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)_defaultPlaylistEntryKindForMusicVideos
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   MPModelPlaylistEntryClass = getMPModelPlaylistEntryClass();
   v4 = [self _songKindForVariants:2];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [MPModelPlaylistEntryClass kindWithKinds:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

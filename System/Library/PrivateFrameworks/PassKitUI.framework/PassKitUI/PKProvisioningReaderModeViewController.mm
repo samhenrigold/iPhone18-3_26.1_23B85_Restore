@@ -217,25 +217,25 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __59__PKProvisioningReaderModeViewController__updateToUIState___block_invoke(uint64_t a1)
+void __59__PKProvisioningReaderModeViewController__updateToUIState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2048;
-    v14 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "%@, Updating UI state to %lu", &v11, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v12 = 138412546;
+    v13 = v4;
+    v14 = 2048;
+    v15 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "%@, Updating UI state to %lu", &v12, 0x16u);
   }
 
-  v5 = *(a1 + 40);
-  if ((v5 - 4) >= 2)
+  v6 = *(a1 + 40);
+  if ((v6 - 4) >= 2)
   {
-    if (v5 == 1)
+    if (v6 == 1)
     {
       [*(a1 + 32) _hideBackButton:0];
     }
@@ -243,18 +243,18 @@ void __59__PKProvisioningReaderModeViewController__updateToUIState___block_invok
 
   else
   {
-    v6 = [*(a1 + 32) navigationItem];
-    v7 = objc_alloc(MEMORY[0x1E69DC708]);
-    v8 = PKLocalizedPaymentString(&cfstr_Next.isa);
-    v9 = [v7 initWithTitle:v8 style:2 target:*(a1 + 32) action:sel__done_];
+    v7 = [*(a1 + 32) navigationItem];
+    v8 = objc_alloc(MEMORY[0x1E69DC708]);
+    v9 = PKLocalizedPaymentString(&cfstr_Next.isa);
+    v10 = [v8 initWithTitle:v9 style:2 target:*(a1 + 32) action:sel__done_];
 
-    [v6 setHidesBackButton:1];
-    [v6 setRightBarButtonItem:v9];
+    [v7 setHidesBackButton:1];
+    [v7 setRightBarButtonItem:v10];
   }
 
   [*(*(a1 + 32) + 1032) setState:*(a1 + 40) animated:1];
-  v10 = [*(a1 + 32) view];
-  [v10 setNeedsLayout];
+  v11 = [*(a1 + 32) view];
+  [v11 setNeedsLayout];
 }
 
 - (void)_done:(id)_done
@@ -375,63 +375,63 @@ uint64_t __127__PKProvisioningReaderModeViewController_contactlessCardIngester_d
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __95__PKProvisioningReaderModeViewController_contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke(uint64_t a1)
+void __95__PKProvisioningReaderModeViewController_contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  if (v2 == 2)
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 48);
+  if (v3 == 2)
   {
-    v3 = dispatch_time(0, 1000000000);
+    v4 = dispatch_time(0, 1000000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __95__PKProvisioningReaderModeViewController_contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke_2;
     block[3] = &unk_1E8010970;
     block[4] = *(a1 + 32);
-    dispatch_after(v3, MEMORY[0x1E69E96A0], block);
+    dispatch_after(v4, MEMORY[0x1E69E96A0], block);
     [*(a1 + 32) _invalidateCardNotFoundTimer];
     [*(a1 + 32) _hideBackButton:1];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 1048);
-    if (v5 == 5)
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 1048);
+    if (v6 == 5)
     {
-      v6 = *(v4 + 1032);
-      v7 = 0.98;
-      v8 = 7.0;
+      v7 = *(v5 + 1032);
+      v8 = 0.98;
+      v9 = 7.0;
     }
 
     else
     {
-      if (v5 != 1)
+      if (v6 != 1)
       {
         goto LABEL_9;
       }
 
-      v6 = *(v4 + 1032);
-      v7 = 0.179104478;
-      v8 = 6.0;
+      v7 = *(v5 + 1032);
+      v8 = 0.179104478;
+      v9 = 6.0;
     }
 
-    [v6 setTransferringProgress:v7 duration:v8];
+    [v7 setTransferringProgress:v8 duration:v9];
   }
 
-  else if (v2 == 10)
+  else if (v3 == 10)
   {
     [*(a1 + 32) _startCardNotFoundTimer];
   }
 
 LABEL_9:
-  v9 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
     *buf = 138412802;
-    v14 = v10;
-    v15 = 2080;
-    v16 = "[PKProvisioningReaderModeViewController contactlessCardIngester:didUpdateCardIngestionStatus:]_block_invoke";
-    v17 = 2048;
-    v18 = v11;
-    _os_log_impl(&dword_1BD026000, v9, OS_LOG_TYPE_DEFAULT, "%@, %s:%lu", buf, 0x20u);
+    v15 = v11;
+    v16 = 2080;
+    v17 = "[PKProvisioningReaderModeViewController contactlessCardIngester:didUpdateCardIngestionStatus:]_block_invoke";
+    v18 = 2048;
+    v19 = v12;
+    _os_log_impl(&dword_1BD026000, v10, OS_LOG_TYPE_DEFAULT, "%@, %s:%lu", buf, 0x20u);
   }
 }
 

@@ -332,21 +332,22 @@ void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_inv
   }
 }
 
-void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_invoke_2(uint64_t a1)
+void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() activeAnimator];
-  v3 = *(a1 + 32);
+  v3 = [objc_opt_class() activeAnimator];
+  v4 = *(a1 + 32);
 
-  if (v2 == v3)
+  if (v3 == v4)
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
 
-    [v4 _performAnimation];
+    [v5 _performAnimation];
   }
 }
 
-void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_invoke_3(uint64_t a1, int a2, int a3)
+void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_invoke_3(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = [objc_opt_class() activeAnimator];
   v7 = *(a1 + 32);
 
@@ -354,7 +355,7 @@ void __61__SBUISystemApertureElementSourceAnimator_animateTransition___block_inv
   {
     v8 = *(a1 + 32);
 
-    [v8 _finishTransition:a2 & ~a3];
+    [v8 _finishTransition:v4 & ~a3];
   }
 }
 

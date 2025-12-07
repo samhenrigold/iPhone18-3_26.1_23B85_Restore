@@ -151,14 +151,14 @@ void __31__MFWidgetController_scheduler__block_invoke()
 
 void __48__MFWidgetController_reloadTimelinesWithReason___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2;
   v4 = *(a1 + 56);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    LOWORD(v12[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2149C9000, v3, OS_SIGNPOST_EVENT, v4, "RELOAD WIDGET TIMELINE", "Reload timelines", v12, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2149C9000, v3, OS_SIGNPOST_EVENT, v4, "RELOAD WIDGET TIMELINE", "Reload timelines", v11, 2u);
   }
 
   v5 = [*(a1 + 40) timelineController];
@@ -178,8 +178,8 @@ void __48__MFWidgetController_reloadTimelinesWithReason___block_invoke(uint64_t 
     v7 = +[MFWidgetController log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12[0]) = 0;
-      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "Reload timelines", v12, 2u);
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "Reload timelines", v11, 2u);
     }
   }
 
@@ -188,21 +188,18 @@ void __48__MFWidgetController_reloadTimelinesWithReason___block_invoke(uint64_t 
   v10 = *(a1 + 56);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v12[0] = 67109120;
-    v12[1] = v6 == 0;
-    _os_signpost_emit_with_name_impl(&dword_2149C9000, v9, OS_SIGNPOST_INTERVAL_END, v10, "RELOAD WIDGET TIMELINE", "Reload timelines completed (success=%{BOOL}d) enableTelemetry=YES ", v12, 8u);
+    v11[0] = 67109120;
+    v11[1] = v6 == 0;
+    _os_signpost_emit_with_name_impl(&dword_2149C9000, v9, OS_SIGNPOST_INTERVAL_END, v10, "RELOAD WIDGET TIMELINE", "Reload timelines completed (success=%{BOOL}d) enableTelemetry=YES ", v11, 8u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MFWidgetController_reloadTimelinesWithReason___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_2149C9000, a2, OS_LOG_TYPE_ERROR, "Reload timelines failed with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_2149C9000, a2, OS_LOG_TYPE_ERROR, "Reload timelines failed with error: %{public}@", &v2, 0xCu);
 }
 
 @end

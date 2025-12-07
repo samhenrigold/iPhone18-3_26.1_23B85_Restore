@@ -16,7 +16,6 @@
 - (void)dealloc;
 - (void)describePropertiesWithBuilder:(id)builder;
 - (void)nts_initCGImage;
-- (void)nts_invalidateImageQuality;
 - (void)nts_invalidateImageSize;
 - (void)nts_updateRepresentation;
 - (void)setCompressionQuality:(id)quality;
@@ -338,22 +337,12 @@ void *__45__CNVCardMutableImage_setCompressionQuality___block_invoke(uint64_t a1
   if (result[12] != *(a1 + 40))
   {
     [result nts_invalidateImageQuality];
-    v3 = [*(a1 + 40) copy];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 96);
-    *(v4 + 96) = v3;
+    *(*(a1 + 32) + 96) = [*(a1 + 40) copy];
 
     return MEMORY[0x2821F96F8]();
   }
 
   return result;
-}
-
-- (void)nts_invalidateImageQuality
-{
-  data = self->super._data;
-  self->super._data = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (id)cropRects
@@ -482,9 +471,7 @@ LABEL_17:
   [(CNVCardMutableImage *)self nts_initCGImage];
   if (!self->super._data)
   {
-    v3 = [(CNVCardMutableImage *)self renderCGImage:self->_CGImage];
-    data = self->super._data;
-    self->super._data = v3;
+    self->super._data = [(CNVCardMutableImage *)self renderCGImage:self->_CGImage];
 
     MEMORY[0x2821F96F8]();
   }
@@ -660,14 +647,13 @@ LABEL_26:
 
 uint64_t __45__CNVCardMutableImage_scaleCropRects_factor___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x277CCAE60];
-  v4 = *(a1 + 32);
+  v2 = MEMORY[0x277CCAE60];
+  v3 = *(a1 + 32);
   [a2 rectValue];
-  v5 = *(a1 + 40);
-  [v4 scaleRect:? byFactor:?];
-  v9 = NSIntegralRect(v8);
+  [v3 scaleRect:? byFactor:?];
+  v7 = NSIntegralRect(v6);
 
-  return [v3 valueWithRect:{v9.origin.x, v9.origin.y, v9.size.width, v9.size.height}];
+  return [v2 valueWithRect:{v7.origin.x, v7.origin.y, v7.size.width, v7.size.height}];
 }
 
 + (CGRect)scaleRect:(CGRect)rect byFactor:(double)factor
@@ -841,9 +827,9 @@ LABEL_20:
 
 uint64_t __39__CNVCardMutableImage_isSourceLossless__block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getCIImageClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getCIImageClass_block_invoke_cold_1();
 }
 
 @end

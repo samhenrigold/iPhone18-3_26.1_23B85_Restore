@@ -97,7 +97,7 @@
   else
   {
     v5 = objc_alloc(MEMORY[0x277CBEBC0]);
-    v6 = NTKCacheDirectory();
+    v6 = NTKCacheDirectory(v5);
     v7 = [v5 initFileURLWithPath:v6];
 
     overrideUrl2 = [v7 URLByAppendingPathComponent:@"bundle-complication-identifier-cache.plist"];
@@ -124,111 +124,16 @@
 
 - (void)_load
 {
-  [(NTKBundleComplicationIdentifierCache *)self _loadCachedModel];
-  if (!self->_model)
-  {
-    v3 = [NTKBundleComplicationIdentifierCacheModel alloc];
-    _expectedCacheIdentifier = [(NTKBundleComplicationIdentifierCache *)self _expectedCacheIdentifier];
-    v5 = [(NTKBundleComplicationIdentifierCacheModel *)v3 initWithBuildVersion:_expectedCacheIdentifier];
-    model = self->_model;
-    self->_model = v5;
-
-    [(NTKBundleComplicationIdentifierCache *)self _updateCacheModel:self->_model];
-    v7 = self->_model;
-    v27 = 0;
-    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v27];
-    v9 = v27;
-    v10 = v9;
-    if (v8)
-    {
-
-      _cacheURL = [(NTKBundleComplicationIdentifierCache *)self _cacheURL];
-      v26 = 0;
-      v12 = [v8 writeToURL:_cacheURL options:1 error:&v26];
-      v10 = v26;
-
-      if (v12)
-      {
-LABEL_9:
-
-        return;
-      }
-
-      v13 = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        [(NTKBundleComplicationIdentifierCache *)v10 _load:v13];
-      }
-    }
-
-    else
-    {
-      v13 = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        [(NTKBundleComplicationIdentifierCache *)v10 _load:v13];
-      }
-    }
-
-    goto LABEL_9;
-  }
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "NTKBundleComplicationIdentifierCache: Failed to archive cache with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_loadCachedModel
 {
-  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  _cacheURL = [(NTKBundleComplicationIdentifierCache *)self _cacheURL];
-  path = [_cacheURL path];
-  v6 = [defaultManager fileExistsAtPath:path];
-
-  if (v6)
-  {
-    v7 = MEMORY[0x277CBEA90];
-    _cacheURL2 = [(NTKBundleComplicationIdentifierCache *)self _cacheURL];
-    v25 = 0;
-    v9 = [v7 dataWithContentsOfURL:_cacheURL2 options:0 error:&v25];
-    v10 = v25;
-
-    if (v9)
-    {
-
-      v24 = 0;
-      v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v24];
-      v10 = v24;
-      if (v11)
-      {
-        buildVersion = [v11 buildVersion];
-        _expectedCacheIdentifier = [(NTKBundleComplicationIdentifierCache *)self _expectedCacheIdentifier];
-        v14 = [buildVersion isEqualToString:_expectedCacheIdentifier];
-
-        if (v14)
-        {
-          v15 = v11;
-          p_super = &self->_model->super;
-          self->_model = v15;
-        }
-
-        else
-        {
-          p_super = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
-          if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
-          {
-            *v23 = 0;
-            _os_log_impl(&dword_22D9C5000, p_super, OS_LOG_TYPE_DEFAULT, "NTKBundleComplicationIdentifierCache: Cached is outdated, rebuilding...", v23, 2u);
-          }
-        }
-      }
-
-      else
-      {
-        p_super = _NTKLoggingObjectForDomain(56, "NTKLoggingDomainBundleComplicationMigration");
-        if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
-        {
-          [(NTKBundleComplicationIdentifierCache *)v10 _loadCachedModel:v17];
-        }
-      }
-    }
-  }
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "NTKBundleComplicationIdentifierCache: Failed to load cache with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_updateCacheModel:(id)model

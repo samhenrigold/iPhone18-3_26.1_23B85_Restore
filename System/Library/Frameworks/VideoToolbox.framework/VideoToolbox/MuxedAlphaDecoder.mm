@@ -192,7 +192,7 @@ LABEL_35:
     v10 = *(*(*(a1 + 32) + 8) + 24);
     v11 = *(*(*(a1 + 56) + 8) + 24);
     v12 = *(*(*(a1 + 64) + 8) + 24);
-    VTVideoDecoderGetCMBaseObject(*(a1 + 88));
+    VTVideoDecoderGetCMBaseObject();
     DerivedStorage = CMBaseObjectGetDerivedStorage();
     VTDecoderSessionEmitDecodedMultiImageFrame(*(DerivedStorage + 8), v9, v10, v11, v12);
     --*(DerivedStorage + 120);
@@ -265,7 +265,7 @@ uint64_t __MuxedAlphaDecoder_DecodeFrame_block_invoke_5_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

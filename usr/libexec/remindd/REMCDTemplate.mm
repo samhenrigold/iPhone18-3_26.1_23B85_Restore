@@ -37,6 +37,8 @@
   contextCopy = context;
   v12 = static REMCDTemplate.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -73,6 +75,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDTemplate.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord
@@ -115,19 +119,20 @@
   {
     v4 = savedReminders;
     type metadata accessor for REMCDSavedReminder();
-    sub_10027D940(&qword_100944240, type metadata accessor for REMCDSavedReminder);
+    sub_10027D940(&qword_100944240, type metadata accessor for REMCDSavedReminder, &protocol conformance descriptor for NSObject);
     v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
     v6 = sub_100278454(v5);
+    v5, v7, v8, v9, v10, v11, v12, v13;
+    v14 = sub_100270E28(v6, type metadata accessor for REMCDSavedReminder);
 
-    v7 = sub_100270E28(v6, type metadata accessor for REMCDSavedReminder);
-
-    sub_100271468(v7);
+    sub_100271468(v14);
   }
 
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  &_swiftEmptyArrayStorage, v16, v17, v18, v19, v20, v21, v22;
 
-  return v8.super.isa;
+  return v15.super.isa;
 }
 
 + (NSString)cdEntityName
@@ -136,9 +141,10 @@
   if (!cdEntityName)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v3 = String._bridgeToObjectiveC()();
-
-    cdEntityName = v3;
+    v4 = v3;
+    v5 = String._bridgeToObjectiveC()();
+    v4, v6, v7, v8, v9, v10, v11, v12;
+    cdEntityName = v5;
   }
 
   return cdEntityName;
@@ -164,11 +170,12 @@
 
 + (id)keyPathsForValuesAffectingEffectiveMinimumSupportedVersion
 {
-  sub_1001A5660(&off_1008E35C0);
+  v2 = sub_1001A5660(&off_1008E35C0);
   sub_100034610(&unk_1008E35E0);
-  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v2.super.isa;
+  return v3.super.isa;
 }
 
 - (BOOL)isConnectedToAccountObject:(id)object

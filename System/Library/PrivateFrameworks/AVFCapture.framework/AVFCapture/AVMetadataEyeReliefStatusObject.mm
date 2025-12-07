@@ -32,7 +32,7 @@
   if (v13)
   {
     v13->_eyeReliefStatus = status;
-    v15 = [dict objectForKeyedSubscript:*MEMORY[0x1E6991240]];
+    v15 = objc_msgSend_objectForKeyedSubscript_(dict);
     if (v15)
     {
       [v15 floatValue];
@@ -49,7 +49,7 @@
   eyeReliefStatus = [object eyeReliefStatus];
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
   }
 
   else
@@ -93,7 +93,7 @@
   }
 
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }

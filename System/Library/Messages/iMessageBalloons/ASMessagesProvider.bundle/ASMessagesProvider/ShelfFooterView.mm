@@ -9,14 +9,17 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  v4 = sub_651608();
-  v6 = v5;
+  v6.n128_f64[0] = width;
+  v7 = sub_651608(v6, height);
+  v9 = v8;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
@@ -33,7 +36,7 @@
   v2 = v6.receiver;
   [(ShelfFooterView *)&v6 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC18ASMessagesProvider15ShelfFooterView_separator];
-  sub_BE70(0, &qword_93E540);
+  sub_BE70(0, &qword_93E540, UIColor_ptr);
   v4 = sub_769FB0();
   [v3 setBackgroundColor:{v4, v6.receiver, v6.super_class}];
 

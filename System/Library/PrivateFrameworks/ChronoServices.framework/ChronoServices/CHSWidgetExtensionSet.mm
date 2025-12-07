@@ -23,23 +23,21 @@
 
 - (NSArray)widgetExtensionContainers
 {
-  v2 = *(self + OBJC_IVAR___CHSWidgetExtensionSet_widgetExtensionContainers);
   type metadata accessor for CHSWidgetExtensionContainer(0);
 
-  v3 = sub_195FA0B28();
+  v2 = sub_195FA0B28();
 
-  return v3;
+  return v2;
 }
 
 - (NSSet)allExtensions
 {
-  v2 = *(self + OBJC_IVAR___CHSWidgetExtensionSet_allExtensions);
   sub_195EB4B30(0, &qword_1EAEEC4B8, off_1E7452788);
   sub_195EB4C00();
 
-  v3 = sub_195FA0BE8();
+  v2 = sub_195FA0BE8();
 
-  return v3;
+  return v2;
 }
 
 - (CHSWidgetExtensionSet)initWithExtensions:(id)extensions equivalentBundleIdentifierResolver:(id)resolver iconResolver:(id)iconResolver
@@ -64,18 +62,14 @@
 - (void)setWidgetExtensionContainers:(id)containers
 {
   type metadata accessor for CHSWidgetExtensionContainer(0);
-  v4 = sub_195FA0B38();
-  v5 = *(self + OBJC_IVAR___CHSWidgetExtensionSet_widgetExtensionContainers);
-  *(self + OBJC_IVAR___CHSWidgetExtensionSet_widgetExtensionContainers) = v4;
+  *(self + OBJC_IVAR___CHSWidgetExtensionSet_widgetExtensionContainers) = sub_195FA0B38();
 }
 
 - (void)setAllExtensions:(id)extensions
 {
   sub_195EB4B30(0, &qword_1EAEEC4B8, off_1E7452788);
   sub_195EB4C00();
-  v4 = sub_195FA0BF8();
-  v5 = *(self + OBJC_IVAR___CHSWidgetExtensionSet_allExtensions);
-  *(self + OBJC_IVAR___CHSWidgetExtensionSet_allExtensions) = v4;
+  *(self + OBJC_IVAR___CHSWidgetExtensionSet_allExtensions) = sub_195FA0BF8();
 }
 
 @end

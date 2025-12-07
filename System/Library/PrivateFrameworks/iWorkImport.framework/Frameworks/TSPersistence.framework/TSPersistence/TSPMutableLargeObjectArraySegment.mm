@@ -98,42 +98,42 @@
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_276AE7CF4;
-  v28[3] = &unk_27A6E2898;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_276AE7CF4;
+  v27[3] = &unk_27A6E2898;
   v7 = archiverCopy;
-  v29 = v7;
+  v28 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v28);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v27);
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   selfCopy2 = self;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v24, v31, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v23, v30, 16);
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       v14 = 0;
       do
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(selfCopy2);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * v14);
+        v15 = *(*(&v23 + 1) + 8 * v14);
         v16 = *(message + 5);
         if (!v16)
         {
           v18 = *(message + 9);
 LABEL_11:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 6, v18 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 24), v18 + 1);
           v16 = *(message + 5);
           v18 = *v16;
           goto LABEL_12;
@@ -144,7 +144,7 @@ LABEL_11:
         if (v17 < *v16)
         {
           *(message + 8) = v17 + 1;
-          objc_msgSend_setStrongReference_message_(v7, v11, v15, *&v16[2 * v17 + 2], v24);
+          objc_msgSend_setStrongReference_message_(v7, v11, v15, *&v16[2 * v17 + 2], v23);
           goto LABEL_13;
         }
 
@@ -160,19 +160,17 @@ LABEL_12:
         v21 = *(message + 5) + 8 * v20;
         *(message + 8) = v20 + 1;
         *(v21 + 8) = v19;
-        objc_msgSend_setStrongReference_message_(v7, v22, v15, v19, v24);
+        objc_msgSend_setStrongReference_message_(v7, v22, v15, v19, v23);
 LABEL_13:
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v24, v31, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v23, v30, 16);
     }
 
     while (v12);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver

@@ -7,10 +7,10 @@
 - (void)viewServiceDidTerminateWithError:(id)error
 {
   errorCopy = error;
-  _SLLog(v3, 3, @"_SLAuthHostViewController: (this may be harmless) viewServiceDidTerminateWithError: %@");
-  v8.receiver = self;
-  v8.super_class = _SLAuthHostViewController;
-  [(_UIRemoteViewController *)&v8 viewServiceDidTerminateWithError:errorCopy, errorCopy];
+  _SLLog(v3, 3, @"_SLAuthHostViewController: (this may be harmless) viewServiceDidTerminateWithError: %@", v6, v7, v8, v9, v10, errorCopy);
+  v13.receiver = self;
+  v13.super_class = _SLAuthHostViewController;
+  [(_UIRemoteViewController *)&v13 viewServiceDidTerminateWithError:errorCopy];
 
   viewServiceTerminationBlock = [(_SLAuthHostViewController *)self viewServiceTerminationBlock];
 

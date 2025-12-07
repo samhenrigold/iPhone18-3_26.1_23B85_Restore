@@ -9,11 +9,10 @@
 {
   v3 = sub_25BEF8098();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25BEF8088();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 
   return 0;
 }

@@ -102,7 +102,7 @@
       v11 = v10;
       if (v10)
       {
-        [v10 frameRect];
+        objc_msgSend_frameRect(v10);
         v13 = v18;
         v12 = v19;
       }
@@ -196,7 +196,7 @@
       v11 = v10;
       if (v10)
       {
-        [v10 contentRect];
+        objc_msgSend_contentRect(v10);
         v13 = v33;
         v12 = v34;
       }

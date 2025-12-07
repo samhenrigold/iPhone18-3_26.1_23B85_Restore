@@ -2,6 +2,7 @@
 + (void)initialize;
 - (id)activateUsingCompletionOperationAtStop:(id)stop activationTicket:(id)ticket;
 - (void)__park;
+- (void)activateAtStop:(id)stop activationTicket:(id)ticket activationQoS:(unsigned int)s finalDestination:(id)destination finalTicket:(id)finalTicket;
 - (void)executeStopOnItinerary:(id)itinerary;
 - (void)goodbye;
 - (void)hello;
@@ -30,9 +31,36 @@
   }
 }
 
+- (void)activateAtStop:(id)stop activationTicket:(id)ticket activationQoS:(unsigned int)s finalDestination:(id)destination finalTicket:(id)finalTicket
+{
+  v9 = *&s;
+  stopCopy = stop;
+  ticketCopy = ticket;
+  destinationCopy = destination;
+  finalTicketCopy = finalTicket;
+  if (!stopCopy)
+  {
+    sub_2480B3F00(a2, self, v15, v16, v17);
+  }
+
+  if (self->_itinerary)
+  {
+    sub_2480B3F7C();
+  }
+
+  v19 = objc_opt_new();
+  itinerary = self->_itinerary;
+  self->_itinerary = v19;
+
+  objc_msgSend_setFinalDestination_(self->_itinerary, v21, destinationCopy, v22, v23);
+  objc_msgSend_setFinalDestinationTicket_(self->_itinerary, v24, finalTicketCopy, v25, v26);
+  objc_msgSend_setNextStop_mode_ticket_desiredQoS_(self->_itinerary, v27, stopCopy, @"Activating", ticketCopy, v9);
+  objc_msgSend_goodbye(self, v28, v29, v30, v31);
+}
+
 - (void)__park
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = qword_27EE86478;
   v4 = os_signpost_id_make_with_pointer(qword_27EE86478, self);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -41,9 +69,9 @@
     if (os_signpost_enabled(v3))
     {
       mode = self->_mode;
-      v10 = 138412290;
-      v11 = mode;
-      _os_signpost_emit_with_name_impl(&dword_248087000, v3, OS_SIGNPOST_EVENT, v5, "Mobile Agent Parked", "Parked in mode %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = mode;
+      _os_signpost_emit_with_name_impl(&dword_248087000, v3, OS_SIGNPOST_EVENT, v5, "Mobile Agent Parked", "Parked in mode %@", &v9, 0xCu);
     }
   }
 
@@ -54,7 +82,6 @@
   self->_itinerary = 0;
 
   self->_movementType = 0;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeStopOnItinerary:(id)itinerary
@@ -70,7 +97,7 @@
 
 - (void)hello
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   movementType = self->_movementType;
   if ((movementType - 1) >= 2)
@@ -93,13 +120,13 @@
         v12 = objc_msgSend_agentDiagnosticsName(self, v8, v9, v10, v11);
         mode = self->_mode;
         v14 = self->_movementType;
-        v34 = 138412802;
-        v35 = v12;
-        v36 = 2112;
-        v37 = mode;
-        v38 = 1024;
-        v39 = v14;
-        _os_signpost_emit_with_name_impl(&dword_248087000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Mobile Agent Exec", "Agent %@ executing mode %@.  Movement type is %d", &v34, 0x1Cu);
+        v33 = 138412802;
+        v34 = v12;
+        v35 = 2112;
+        v36 = mode;
+        v37 = 1024;
+        v38 = v14;
+        _os_signpost_emit_with_name_impl(&dword_248087000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Mobile Agent Exec", "Agent %@ executing mode %@.  Movement type is %d", &v33, 0x1Cu);
       }
     }
 
@@ -112,9 +139,9 @@
       if (os_signpost_enabled(v18))
       {
         v25 = objc_msgSend_nextMovementType(self, v21, v22, v23, v24);
-        v34 = 67109120;
-        LODWORD(v35) = v25;
-        _os_signpost_emit_with_name_impl(&dword_248087000, v18, OS_SIGNPOST_INTERVAL_END, v20, "Mobile Agent Exec", "Finished with next movement type %d", &v34, 8u);
+        v33 = 67109120;
+        LODWORD(v34) = v25;
+        _os_signpost_emit_with_name_impl(&dword_248087000, v18, OS_SIGNPOST_INTERVAL_END, v20, "Mobile Agent Exec", "Finished with next movement type %d", &v33, 8u);
       }
     }
 
@@ -125,7 +152,6 @@
   }
 
   objc_autoreleasePoolPop(v3);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)goodbye

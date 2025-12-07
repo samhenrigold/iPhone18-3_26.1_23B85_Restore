@@ -16,6 +16,7 @@
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateBackgroundAndPlatterAlpha:(double)alpha;
 - (void)_updateComplicationCenterOffsetForStyle:(unint64_t)style;
@@ -24,6 +25,8 @@
 - (void)cleanupAfterEditing;
 - (void)layoutSubviews;
 - (void)prepareForEditing;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)updateTime:(CLKClockTimerDate *)time;
 @end
@@ -340,6 +343,16 @@ LABEL_9:
   [(UIView *)self->_pin setCenter:v3 * 0.5, v4 * 0.5];
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKParameciumFaceView;
+  groupCopy = group;
+  [(NTKParameciumFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)_updateBackgroundAndPlatterAlpha:(double)alpha
 {
   if (self->_snapshotContentViewsLoaded)
@@ -431,37 +444,31 @@ LABEL_9:
   {
     style = [optionCopy style];
     style2 = [toOptionCopy style];
-    v20 = style2;
-    v21 = style << 32;
-    v22 = style2 << 32;
+    v18 = style2;
+    v19 = style << 32;
+    v20 = style2 << 32;
     CLKInterpolateBetweenFloatsUnclipped();
     [(NTKParameciumCompositeQuad *)self->_compositeQuad setTickShadows:?];
-    v23 = flt_BE38[style];
-    v24 = flt_BE38[v20];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v25 = v25;
-    self->_simpleProgress = *&v25;
-    v26 = flt_BE2C[style];
-    v27 = flt_BE2C[v20];
+    *&v21 = v21;
+    self->_simpleProgress = *&v21;
     CLKInterpolateBetweenFloatsUnclipped();
     [(NTKParameciumCompositeQuad *)self->_compositeQuad setShowsNumbers:?];
-    v28 = flt_BE20[style];
-    v29 = flt_BE20[v20];
     CLKInterpolateBetweenFloatsUnclipped();
-    v31 = v30;
+    v23 = v22;
     CLKInterpolateBetweenFloatsUnclipped();
-    v33 = v32;
-    if (style << 32 == 0x100000000 && v22 == 0x200000000 || v21 == 0x200000000 && v22 == 0x100000000)
+    v25 = v24;
+    if (style << 32 == 0x100000000 && v20 == 0x200000000 || v19 == 0x200000000 && v20 == 0x100000000)
     {
-      v31 = floorf(v31);
+      v23 = floorf(v23);
     }
 
-    [(NTKParameciumCompositeQuad *)self->_compositeQuad setShowsTicks:v31];
-    [(NTKParameciumCompositeQuad *)self->_compositeQuad setShowsConfetti:v33];
+    [(NTKParameciumCompositeQuad *)self->_compositeQuad setShowsTicks:v23];
+    [(NTKParameciumCompositeQuad *)self->_compositeQuad setShowsConfetti:v25];
     [(NTKParameciumCompositeQuad *)self->_compositeQuad setConfettiRotation:0.0];
     if (fraction >= 0.5)
     {
-      style = v20;
+      style = v18;
     }
 
     else
@@ -470,19 +477,19 @@ LABEL_9:
     }
 
     CLKMapFractionIntoRange();
-    v35 = v34;
+    v27 = v26;
     CLKMapFractionIntoRange();
-    memset(&v40, 0, sizeof(v40));
-    CGAffineTransformMakeScale(&v40, v36, v36);
+    memset(&v32, 0, sizeof(v32));
+    CGAffineTransformMakeScale(&v32, v28, v28);
     [(NTKParameciumFaceView *)self _updateComplicationCenterOffsetForStyle:style];
-    if (v22 == 0x200000000 || v21 == 0x200000000)
+    if (v20 == 0x200000000 || v19 == 0x200000000)
     {
-      v37 = [(NTKParameciumFaceView *)self normalComplicationDisplayWrapperForSlot:NTKComplicationSlotSubdialTop];
-      display = [v37 display];
+      v29 = [(NTKParameciumFaceView *)self normalComplicationDisplayWrapperForSlot:NTKComplicationSlotSubdialTop];
+      display = [v29 display];
 
-      [display setAlpha:v35];
-      v39 = v40;
-      [display setTransform:&v39];
+      [display setAlpha:v27];
+      v31 = v32;
+      [display setTransform:&v31];
     }
 
     [(NTKParameciumFaceView *)self _updateConfettiRotationRate];
@@ -491,12 +498,12 @@ LABEL_9:
 
   if (mode == 15)
   {
-    v15 = flt_BE18[[optionCopy background]];
-    v16 = flt_BE18[[toOptionCopy background]];
+    [optionCopy background];
+    [toOptionCopy background];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v17 = v17;
-    self->_backgroundOn = *&v17;
-    [(NTKParameciumCompositeQuad *)self->_compositeQuad setBackgroundOn:*&v17];
+    *&v15 = v15;
+    self->_backgroundOn = *&v15;
+    [(NTKParameciumCompositeQuad *)self->_compositeQuad setBackgroundOn:*&v15];
 LABEL_16:
     [(NTKParameciumFaceView *)self _updateBackgroundAndPlatterAlpha:1.0];
   }
@@ -617,6 +624,21 @@ LABEL_16:
   }
 
 LABEL_8:
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = NTKParameciumFaceView;
+  [(NTKParameciumFaceView *)&v3 screenWillTurnOnAnimated:animated];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKParameciumFaceView;
+  [(NTKParameciumFaceView *)&v4 screenDidTurnOffAnimated:animated];
+  self->_filteredAccMagnitude = 0.0;
 }
 
 + (id)_swatchForEditModeDependsOnOptions:(int64_t)options forDevice:(id)device

@@ -111,16 +111,14 @@
 
 + (id)filterBySettingNameNotEmptyPropertyOnFilter:(id)filter
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"name";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"name";
   v3 = MEMORY[0x277D22B98];
   filterCopy = filter;
   v5 = [[v3 alloc] initWithComparator:2 value:&stru_2843F5C58];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [filterCopy filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -134,34 +132,32 @@
 
 + (id)filterWithUUID:(id)d
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   filter = [self filter];
   v6 = objc_alloc(MEMORY[0x277D22C78]);
   labels = [filter labels];
-  v12 = @"id";
-  v13[0] = dCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"id";
+  v12[0] = dCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [v6 initWithLabels:labels domain:200 properties:v8];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)filterWithName:(id)name
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   filter = [self filter];
   v6 = objc_alloc(MEMORY[0x277D22C78]);
   labels = [filter labels];
-  v12 = @"name";
-  v13[0] = nameCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"name";
+  v12[0] = nameCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [v6 initWithLabels:labels domain:200 properties:v8];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

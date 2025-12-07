@@ -148,7 +148,7 @@
           v18[2](v18, v48, v54, @".y");
         }
 
-        else if (([v17 isEqualToString:@"bounds"] & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", @"contentsRect") & 1) != 0 || objc_msgSend(v17, "isEqualToString:", @"contentsCenter"))
+        else if ((objc_msgSend_isEqualToString_(v17) & 1) != 0 || (objc_msgSend_isEqualToString_(v17) & 1) != 0 || objc_msgSend_isEqualToString_(v17))
         {
           pendingAnimation6 = [(_UIViewAdditiveAnimationAction *)self pendingAnimation];
           fromValue5 = [pendingAnimation6 fromValue];

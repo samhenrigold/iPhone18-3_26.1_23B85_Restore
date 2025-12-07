@@ -84,7 +84,7 @@
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
   v8 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
   v9 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
+  v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
   if (Count >= 1)
   {
     for (i = 0; Count != i; ++i)
@@ -110,19 +110,18 @@
         {
 
 LABEL_15:
-          entityType = self->_entityType;
           if (CalEntityIsOfType())
           {
             if (CalEntityIsOfType())
             {
-              v17 = CalEventOccurrenceCreateForInitialOccurrence();
-              [v19 addObject:v17];
-              CFRelease(v17);
+              v16 = CalEventOccurrenceCreateForInitialOccurrence();
+              [v18 addObject:v16];
+              CFRelease(v16);
             }
 
             else if (CalEntityIsOfType())
             {
-              [v19 addObject:ValueAtIndex];
+              [v18 addObject:ValueAtIndex];
             }
           }
 
@@ -142,7 +141,7 @@ LABEL_15:
     CFRelease(v5);
   }
 
-  return v19;
+  return v18;
 }
 
 @end

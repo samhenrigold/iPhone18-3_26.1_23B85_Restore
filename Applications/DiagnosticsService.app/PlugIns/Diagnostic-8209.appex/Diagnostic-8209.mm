@@ -1,7 +1,7 @@
-void sub_100002DD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100002DD0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = RFSelfDiagExtensionHelper;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

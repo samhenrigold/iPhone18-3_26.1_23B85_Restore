@@ -56,9 +56,9 @@
     +[UIColor(MailUI) mailConversationViewCollapsedCellLabelColor];
   }
 
-  v1 = mailConversationViewCollapsedCellLabelColor_sInstance;
+  v2 = mailConversationViewCollapsedCellLabelColor_sInstance;
 
-  return v1;
+  return v2;
 }
 
 + (id)mailDockViewShadowGradientColors

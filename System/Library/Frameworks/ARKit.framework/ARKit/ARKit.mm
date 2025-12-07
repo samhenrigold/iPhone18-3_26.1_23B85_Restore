@@ -24,28 +24,26 @@ void _printFormat(FILE *a1, void *a2, uint64_t a3)
   v6 = a2;
   v7 = [[v5 alloc] initWithFormat:v6 arguments:a3];
 
-  fprintf(a1, "%s\n", [v7 UTF8String]);
-  v8 = _ARLogGeneral();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = fprintf(a1, "%s\n", [v7 UTF8String]);
+  v9 = _ARLogGeneral(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v11 = v7;
-    _os_log_impl(&dword_233983000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_233983000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-id _ARLogGeneral()
+id _ARLogGeneral(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken != -1)
   {
     _ARLogGeneral_cold_1();
   }
 
-  v1 = _ARLogGeneral_logObj;
+  v2 = _ARLogGeneral_logObj;
 
-  return v1;
+  return v2;
 }
 
 void _printMessageWithColor(FILE *a1, void *a2, void *a3)
@@ -67,16 +65,14 @@ void _printMessageWithColor(FILE *a1, void *a2, void *a3)
     fputs([v6 UTF8String], a1);
   }
 
-  fprintf(a1, "%s\n", v7);
-  v8 = _ARLogGeneral();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = fprintf(a1, "%s\n", v7);
+  v9 = _ARLogGeneral(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v11 = v6;
-    _os_log_impl(&dword_233983000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_233983000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void _printError(void *a1, uint64_t a2)

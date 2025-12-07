@@ -118,22 +118,8 @@ LABEL_11:
 LABEL_12:
 
   analytics = [(RTPredictedContextResult *)self analytics];
-  if (!analytics)
+  if (!analytics && (-[RTPredictedContextResult analytics](v7, "analytics"), (predictedContexts2 = objc_claimAutoreleasedReturnValue()) == 0) || (-[RTPredictedContextResult analytics](self, "analytics"), v13 = objc_claimAutoreleasedReturnValue(), -[RTPredictedContextResult analytics](v7, "analytics"), v14 = objc_claimAutoreleasedReturnValue(), v11 &= [v13 isEqual:v14], v14, v13, !analytics))
   {
-    predictedContexts2 = [(RTPredictedContextResult *)v7 analytics];
-    if (!predictedContexts2)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  analytics2 = [(RTPredictedContextResult *)self analytics];
-  analytics3 = [(RTPredictedContextResult *)v7 analytics];
-  v11 &= [analytics2 isEqual:analytics3];
-
-  if (!analytics)
-  {
-LABEL_15:
   }
 
 LABEL_17:
@@ -192,30 +178,29 @@ LABEL_17:
 
 BOOL __68__RTPredictedContextResult_nextStepPredictedContextsWithFilterMask___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() contextTypeMaskForContext:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() contextTypeMaskForContext:v3];
 
-  return (*(a1 + 40) & v5) != 0;
+  return (*(a1 + 40) & v4) != 0;
 }
 
 - (id)currentPredictedContextsWithType:(unint64_t)type
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   v6 = [date dateByAddingTimeInterval:900.0];
   v7 = MEMORY[0x1E696AE18];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __61__RTPredictedContextResult_currentPredictedContextsWithType___block_invoke;
-  v37[3] = &unk_1E80B4BC8;
-  v37[4] = self;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __61__RTPredictedContextResult_currentPredictedContextsWithType___block_invoke;
+  v36[3] = &unk_1E80B4BC8;
+  v36[4] = self;
   typeCopy = type;
   v8 = date;
-  v38 = v8;
+  v37 = v8;
   v9 = v6;
-  v39 = v9;
-  v10 = [v7 predicateWithBlock:v37];
+  v38 = v9;
+  v10 = [v7 predicateWithBlock:v36];
   predictedContexts = [(RTPredictedContextResult *)self predictedContexts];
   v12 = [predictedContexts filteredArrayUsingPredicate:v10];
 
@@ -225,32 +210,32 @@ BOOL __68__RTPredictedContextResult_nextStepPredictedContextsWithFilterMask___bl
     goto LABEL_21;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   predictedContexts2 = [(RTPredictedContextResult *)self predictedContexts];
-  v15 = [predictedContexts2 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v15 = [predictedContexts2 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = v9;
+    v30 = v9;
     obj = predictedContexts2;
-    v29 = v12;
-    v30 = v10;
+    v28 = v12;
+    v29 = v10;
     v17 = v8;
     v18 = 0;
-    v19 = *v34;
+    v19 = *v33;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v33 + 1) + 8 * i);
+        v21 = *(*(&v32 + 1) + 8 * i);
         if (([objc_opt_class() contextTypeMaskForContext:v21] & type) != 0)
         {
           dateInterval = [v21 dateInterval];
@@ -266,15 +251,15 @@ BOOL __68__RTPredictedContextResult_nextStepPredictedContextsWithFilterMask___bl
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v16 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v16);
 
     v8 = v17;
-    v10 = v30;
-    v9 = v31;
-    v12 = v29;
+    v10 = v29;
+    v9 = v30;
+    v12 = v28;
     if (v18)
     {
       goto LABEL_20;
@@ -287,12 +272,11 @@ BOOL __68__RTPredictedContextResult_nextStepPredictedContextsWithFilterMask___bl
 
   v18 = v9;
 LABEL_20:
-  v26 = [(RTPredictedContextResult *)self unknownPredictedContextFromStart:v8 end:v18, v29, v30, v31];
-  v41 = v26;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+  v26 = [(RTPredictedContextResult *)self unknownPredictedContextFromStart:v8 end:v18, v28, v29, v30];
+  v40 = v26;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
 
 LABEL_21:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -300,32 +284,31 @@ LABEL_21:
 BOOL __61__RTPredictedContextResult_currentPredictedContextsWithType___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[4];
   if ((a1[7] & [objc_opt_class() contextTypeMaskForContext:v3]) != 0)
   {
-    v5 = [v3 dateInterval];
-    v6 = [v5 endDate];
-    v7 = [v6 date];
-    if ([v7 compare:a1[5]] == -1)
+    v4 = [v3 dateInterval];
+    v5 = [v4 endDate];
+    v6 = [v5 date];
+    if ([v6 compare:a1[5]] == -1)
     {
-      v11 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = [v3 dateInterval];
-      v9 = [v8 startDate];
-      v10 = [v9 date];
-      v11 = [v10 compare:a1[6]] != 1;
+      v7 = [v3 dateInterval];
+      v8 = [v7 startDate];
+      v9 = [v8 date];
+      v10 = [v9 compare:a1[6]] != 1;
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)predictedContextsWithType:(unint64_t)type afterContext:(id)context
@@ -362,26 +345,25 @@ BOOL __61__RTPredictedContextResult_currentPredictedContextsWithType___block_inv
 BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[4];
   if ((a1[6] & [objc_opt_class() contextTypeMaskForContext:v3]) != 0)
   {
-    v5 = [v3 dateInterval];
-    v6 = [v5 startDate];
-    v7 = [v6 date];
-    v8 = [v7 compare:a1[5]] != -1;
+    v4 = [v3 dateInterval];
+    v5 = [v4 startDate];
+    v6 = [v5 date];
+    v7 = [v6 compare:a1[5]] != -1;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)predictedSequencesAfterContext:(id)context
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
@@ -392,19 +374,19 @@ BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___blo
       v6 = NSStringFromClass(v5);
       v7 = NSStringFromSelector(a2);
       *buf = 138412803;
-      v73 = v6;
-      v74 = 2112;
-      v75 = v7;
-      v76 = 2117;
-      v77 = contextCopy;
+      v72 = v6;
+      v73 = 2112;
+      v74 = v7;
+      v75 = 2117;
+      v76 = contextCopy;
       _os_log_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_INFO, "%@, %@, input predictedContext, %{sensitive}@", buf, 0x20u);
     }
   }
 
   date = [MEMORY[0x1E695DF00] date];
   v9 = date;
-  v50 = date;
-  v51 = contextCopy;
+  v49 = date;
+  v50 = contextCopy;
   if (contextCopy)
   {
     dateInterval = [contextCopy dateInterval];
@@ -412,26 +394,26 @@ BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___blo
     obj = [endDate date];
 
     v12 = [v9 dateByAddingTimeInterval:86400.0];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     predictedContexts = [(RTPredictedContextResult *)self predictedContexts];
-    v14 = [predictedContexts countByEnumeratingWithState:&v65 objects:v71 count:16];
+    v14 = [predictedContexts countByEnumeratingWithState:&v64 objects:v70 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v66;
+      v16 = *v65;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v66 != v16)
+          if (*v65 != v16)
           {
             objc_enumerationMutation(predictedContexts);
           }
 
-          v18 = *(*(&v65 + 1) + 8 * i);
+          v18 = *(*(&v64 + 1) + 8 * i);
           dateInterval2 = [v18 dateInterval];
           endDate2 = [dateInterval2 endDate];
           date2 = [endDate2 date];
@@ -447,7 +429,7 @@ BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___blo
           }
         }
 
-        v15 = [predictedContexts countByEnumeratingWithState:&v65 objects:v71 count:16];
+        v15 = [predictedContexts countByEnumeratingWithState:&v64 objects:v70 count:16];
       }
 
       while (v15);
@@ -473,61 +455,61 @@ BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___blo
       v31 = NSStringFromSelector(a2);
       v32 = [v27 count];
       *buf = 138412802;
-      v73 = v30;
-      v74 = 2112;
-      v75 = v31;
-      v76 = 2048;
-      v77 = v32;
+      v72 = v30;
+      v73 = 2112;
+      v74 = v31;
+      v75 = 2048;
+      v76 = v32;
       _os_log_impl(&dword_1BF1C4000, v28, OS_LOG_TYPE_INFO, "%@, %@, generated sequences before filling gaps with unknown state and computing probabilities, %lu", buf, 0x20u);
     }
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   obja = v27;
-  v34 = [obja countByEnumeratingWithState:&v61 objects:v70 count:16];
+  v34 = [obja countByEnumeratingWithState:&v60 objects:v69 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v62;
+    v36 = *v61;
     do
     {
       for (j = 0; j != v35; ++j)
       {
-        if (*v62 != v36)
+        if (*v61 != v36)
         {
           objc_enumerationMutation(obja);
         }
 
-        v38 = *(*(&v61 + 1) + 8 * j);
+        v38 = *(*(&v60 + 1) + 8 * j);
+        v56 = 0u;
         v57 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
         v39 = v38;
-        v40 = [v39 countByEnumeratingWithState:&v57 objects:v69 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v56 objects:v68 count:16];
         if (v40)
         {
           v41 = v40;
-          v42 = *v58;
+          v42 = *v57;
           v43 = 1.0;
           do
           {
             for (k = 0; k != v41; ++k)
             {
-              if (*v58 != v42)
+              if (*v57 != v42)
               {
                 objc_enumerationMutation(v39);
               }
 
-              [*(*(&v57 + 1) + 8 * k) probability];
+              [*(*(&v56 + 1) + 8 * k) probability];
               v43 = v43 * v45;
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v57 objects:v69 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v56 objects:v68 count:16];
           }
 
           while (v41);
@@ -543,59 +525,54 @@ BOOL __67__RTPredictedContextResult_predictedContextsWithType_afterContext___blo
         [array addObject:v47];
       }
 
-      v35 = [obja countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v35 = [obja countByEnumeratingWithState:&v60 objects:v69 count:16];
     }
 
     while (v35);
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __59__RTPredictedContextResult_predictedSequencesAfterContext___block_invoke;
-  v56[3] = &unk_1E80B4C18;
-  v56[4] = self;
-  v56[5] = a2;
-  [array enumerateObjectsUsingBlock:v56];
-
-  v48 = *MEMORY[0x1E69E9840];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __59__RTPredictedContextResult_predictedSequencesAfterContext___block_invoke;
+  v55[3] = &unk_1E80B4C18;
+  v55[4] = self;
+  v55[5] = a2;
+  [array enumerateObjectsUsingBlock:v55];
 
   return array;
 }
 
 void __59__RTPredictedContextResult_predictedSequencesAfterContext___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityPredictedContext);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = NSStringFromSelector(*(a1 + 40));
-      v12 = 138413059;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v11;
-      v16 = 2048;
-      v17 = a3;
-      v18 = 2117;
-      v19 = v5;
-      _os_log_debug_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_DEBUG, "%@, %@, idx, %lu, output sequence, %{sensitive}@", &v12, 0x2Au);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = NSStringFromSelector(*(a1 + 40));
+      v10 = 138413059;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2048;
+      v15 = a3;
+      v16 = 2117;
+      v17 = v5;
+      _os_log_debug_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_DEBUG, "%@, %@, idx, %lu, output sequence, %{sensitive}@", &v10, 0x2Au);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)generateSequencesFromDate:(id)date toDate:(id)toDate
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   toDateCopy = toDate;
-  v45 = dateCopy;
+  v44 = dateCopy;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v8 = _rt_log_facility_get_os_log(RTLogFacilityPredictedContext);
@@ -605,13 +582,13 @@ void __59__RTPredictedContextResult_predictedSequencesAfterContext___block_invok
       v10 = NSStringFromClass(v9);
       v11 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v62 = v10;
-      v63 = 2112;
-      v64 = v11;
-      v65 = 2112;
-      v66 = dateCopy;
-      v67 = 2112;
-      v68 = toDateCopy;
+      v61 = v10;
+      v62 = 2112;
+      v63 = v11;
+      v64 = 2112;
+      v65 = dateCopy;
+      v66 = 2112;
+      v67 = toDateCopy;
       _os_log_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_INFO, "%@, %@, startDate, %@, endDate, %@", buf, 0x2Au);
     }
   }
@@ -623,41 +600,41 @@ void __59__RTPredictedContextResult_predictedSequencesAfterContext___block_invok
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   predictedContexts = [(RTPredictedContextResult *)self predictedContexts];
-  v49 = [predictedContexts countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (!v49)
+  v48 = [predictedContexts countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (!v48)
   {
 
 LABEL_31:
     if ([dateCopy compare:toDateCopy] == -1)
     {
       v39 = [(RTPredictedContextResult *)self unknownPredictedContextFromStart:dateCopy end:toDateCopy];
-      v58 = v39;
-      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+      v57 = v39;
+      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
       [array addObject:v40];
     }
 
     goto LABEL_33;
   }
 
-  v43 = predictedContexts;
-  v44 = toDateCopy;
+  v42 = predictedContexts;
+  v43 = toDateCopy;
   v14 = 0;
-  v48 = *v55;
+  v47 = *v54;
   do
   {
-    for (i = 0; i != v49; ++i)
+    for (i = 0; i != v48; ++i)
     {
-      if (*v55 != v48)
+      if (*v54 != v47)
       {
         objc_enumerationMutation(predictedContexts);
       }
 
-      v16 = *(*(&v54 + 1) + 8 * i);
+      v16 = *(*(&v53 + 1) + 8 * i);
       dateInterval = [v16 dateInterval];
       endDate = [dateInterval endDate];
       date = [endDate date];
@@ -687,63 +664,61 @@ LABEL_31:
           [array2 addObject:v28];
         }
 
-        v47 = date3;
+        v46 = date3;
         [array2 addObject:v16];
         dateInterval4 = [v16 dateInterval];
         endDate2 = [dateInterval4 endDate];
         date4 = [endDate2 date];
 
-        v32 = [(RTPredictedContextResult *)self generateSequencesFromDate:date4 toDate:v44];
+        v32 = [(RTPredictedContextResult *)self generateSequencesFromDate:date4 toDate:v43];
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
-        v33 = [v32 countByEnumeratingWithState:&v50 objects:v59 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v49 objects:v58 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v51;
+          v35 = *v50;
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v51 != v35)
+              if (*v50 != v35)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v37 = *(*(&v50 + 1) + 8 * j);
+              v37 = *(*(&v49 + 1) + 8 * j);
               v38 = [array2 mutableCopy];
               [v38 addObjectsFromArray:v37];
               [array addObject:v38];
             }
 
-            v34 = [v32 countByEnumeratingWithState:&v50 objects:v59 count:16];
+            v34 = [v32 countByEnumeratingWithState:&v49 objects:v58 count:16];
           }
 
           while (v34);
         }
 
         v14 = 1;
-        dateCopy = v45;
-        predictedContexts = v43;
+        dateCopy = v44;
+        predictedContexts = v42;
       }
     }
 
-    v49 = [predictedContexts countByEnumeratingWithState:&v54 objects:v60 count:16];
+    v48 = [predictedContexts countByEnumeratingWithState:&v53 objects:v59 count:16];
   }
 
-  while (v49);
+  while (v48);
 
-  toDateCopy = v44;
+  toDateCopy = v43;
   if ((v14 & 1) == 0)
   {
     goto LABEL_31;
   }
 
 LABEL_33:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return array;
 }

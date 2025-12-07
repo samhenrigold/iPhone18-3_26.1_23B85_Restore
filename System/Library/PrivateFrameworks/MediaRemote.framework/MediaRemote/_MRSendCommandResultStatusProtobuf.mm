@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusCodeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsStatusCode:(id)code;
 - (int)StringAsType:(id)type;
 - (int)statusCode;
@@ -29,105 +31,263 @@
   }
 }
 
+- (id)statusCodeAsString:(int)string
+{
+  if (string > 103)
+  {
+    if (string <= 108)
+    {
+      if (string <= 105)
+      {
+        if (string == 104)
+        {
+          v4 = @"SubscriptionRequiredForSharedQueue";
+        }
+
+        else
+        {
+          v4 = @"InsertionPositionNotSpecified";
+        }
+      }
+
+      else if (string == 106)
+      {
+        v4 = @"InvalidInsertionPosition";
+      }
+
+      else if (string == 107)
+      {
+        v4 = @"RequestParametersOutOfBounds";
+      }
+
+      else
+      {
+        v4 = @"SkipLimitReached";
+      }
+
+      return v4;
+    }
+
+    if (string <= 403)
+    {
+      if (string == 109)
+      {
+        v4 = @"CannotModifyQueueWithPlaybackTokenItems";
+
+        return v4;
+      }
+
+      if (string == 401)
+      {
+        v4 = @"AuthenticationFailure";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 404:
+          v4 = @"UnsupportedCommand";
+
+          return v4;
+        case 501:
+          v4 = @"MediaServicesUnavailable";
+
+          return v4;
+        case 555:
+          v4 = @"Timeout";
+
+          return v4;
+      }
+    }
+
+LABEL_85:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 19)
+  {
+    if (string > 100)
+    {
+      if (string == 101)
+      {
+        v4 = @"QueueIsUserCurated";
+      }
+
+      else if (string == 102)
+      {
+        v4 = @"UserModifiedQueueDisable";
+      }
+
+      else
+      {
+        v4 = @"UserQueueModificationNotSupportedForCurrentItem";
+      }
+
+      return v4;
+    }
+
+    if (string == 20)
+    {
+      v4 = @"DeviceNotFound";
+
+      return v4;
+    }
+
+    if (string == 100)
+    {
+      v4 = @"SkipAdProhibited";
+
+      return v4;
+    }
+
+    goto LABEL_85;
+  }
+
+  if (string <= 1)
+  {
+    if (!string)
+    {
+      v4 = @"Success";
+
+      return v4;
+    }
+
+    if (string == 1)
+    {
+      v4 = @"NoSuchContent";
+
+      return v4;
+    }
+
+    goto LABEL_85;
+  }
+
+  switch(string)
+  {
+    case 2:
+      v4 = @"CommandFailed";
+
+      break;
+    case 3:
+      v4 = @"UIKitLegacy";
+
+      break;
+    case 10:
+      v4 = @"NoActionableNowPlayingItem";
+
+      return v4;
+    default:
+      goto LABEL_85;
+  }
+
+  return v4;
+}
+
 - (int)StringAsStatusCode:(id)code
 {
   codeCopy = code;
-  if ([codeCopy isEqualToString:@"Success"])
+  if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 0;
   }
 
-  else if ([codeCopy isEqualToString:@"NoSuchContent"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 1;
   }
 
-  else if ([codeCopy isEqualToString:@"CommandFailed"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 2;
   }
 
-  else if ([codeCopy isEqualToString:@"NoActionableNowPlayingItem"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 10;
   }
 
-  else if ([codeCopy isEqualToString:@"DeviceNotFound"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 20;
   }
 
-  else if ([codeCopy isEqualToString:@"UIKitLegacy"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 3;
   }
 
-  else if ([codeCopy isEqualToString:@"SkipAdProhibited"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 100;
   }
 
-  else if ([codeCopy isEqualToString:@"QueueIsUserCurated"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 101;
   }
 
-  else if ([codeCopy isEqualToString:@"UserModifiedQueueDisable"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 102;
   }
 
-  else if ([codeCopy isEqualToString:@"UserQueueModificationNotSupportedForCurrentItem"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 103;
   }
 
-  else if ([codeCopy isEqualToString:@"SubscriptionRequiredForSharedQueue"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 104;
   }
 
-  else if ([codeCopy isEqualToString:@"InsertionPositionNotSpecified"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 105;
   }
 
-  else if ([codeCopy isEqualToString:@"InvalidInsertionPosition"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 106;
   }
 
-  else if ([codeCopy isEqualToString:@"RequestParametersOutOfBounds"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 107;
   }
 
-  else if ([codeCopy isEqualToString:@"SkipLimitReached"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 108;
   }
 
-  else if ([codeCopy isEqualToString:@"CannotModifyQueueWithPlaybackTokenItems"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 109;
   }
 
-  else if ([codeCopy isEqualToString:@"AuthenticationFailure"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 401;
   }
 
-  else if ([codeCopy isEqualToString:@"MediaServicesUnavailable"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 501;
   }
 
-  else if ([codeCopy isEqualToString:@"Timeout"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 555;
   }
 
-  else if ([codeCopy isEqualToString:@"UnsupportedCommand"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = 404;
   }
@@ -168,25 +328,68 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"Error";
+    }
+
+    else
+    {
+      if (string != 999)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"Custom";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 1)
+      {
+        v4 = @"Dialog";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Dialog"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Error"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Custom"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 999;
   }
@@ -434,44 +637,42 @@ LABEL_60:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    statusCode = self->_statusCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_dialog)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_customData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_customDataType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -563,7 +764,6 @@ LABEL_60:
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_statusCode != *(equalCopy + 10))
@@ -575,7 +775,7 @@ LABEL_60:
   else if (*(equalCopy + 48))
   {
 LABEL_20:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_21;
   }
 
@@ -619,17 +819,17 @@ LABEL_20:
   customDataType = self->_customDataType;
   if (customDataType | *(equalCopy + 2))
   {
-    v10 = [(NSString *)customDataType isEqual:?];
+    v9 = [(NSString *)customDataType isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_21:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

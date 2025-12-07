@@ -141,7 +141,7 @@ LABEL_27:
   return [v40 invalidate];
 }
 
-void sub_1000020BC(void *a1, void *a2, void *a3)
+void sub_1000020BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -149,23 +149,22 @@ void sub_1000020BC(void *a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Map Preview: geocoderHandler error '%@'", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Map Preview: geocoderHandler error '%@'", &v9, 0xCu);
     }
 
-    (*(a1[5] + 16))();
+    (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v7 = a1[5];
+    v7 = *(a1 + 40);
     v8 = [v5 firstObject];
     (*(v7 + 16))(v7, 0, v8);
   }
 
-  v9 = a1[4];
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 }
 
 void sub_1000021EC(uint64_t a1, void *a2, void *a3)
@@ -258,21 +257,19 @@ void sub_100002558(uint64_t a1)
     v3 = 0;
   }
 
-  v4 = *(a1 + 48);
-  v5 = v3;
+  v4 = v3;
   (*(*(a1 + 56) + 16))();
 }
 
-uint64_t sub_1000025DC(void *a1, void *a2)
+uint64_t sub_1000025DC(uint64_t a1, void *a2)
 {
-  v3 = a1[5];
+  v3 = *(a1 + 40);
   v4 = [a2 firstObject];
   (*(v3 + 16))(v3, v4, 0);
 
-  v5 = a1[4];
-  v6 = *(a1[6] + 16);
+  v5 = *(*(a1 + 48) + 16);
 
-  return v6();
+  return v5();
 }
 
 void sub_100002C9C(id a1)
@@ -559,8 +556,7 @@ void sub_100003C3C(uint64_t a1, void *a2)
 uint64_t sub_100003D20(void *a1)
 {
   [*(a1[4] + 8) setFlights:a1[5]];
-  v2 = *(a1[4] + 8);
-  v3 = *(a1[6] + 16);
+  v2 = *(a1[6] + 16);
 
-  return v3();
+  return v2();
 }

@@ -1,7 +1,7 @@
 @interface CSProminentTimeView
 + (double)_lightVariantWeightForBaseFont:(uint64_t)font;
-+ (id)_fontVariantForBaseFont:(uint64_t)font weight:(void *)weight size:;
-+ (id)_lightVariantForBaseFont:(void *)font size:;
++ (id)_fontVariantForBaseFont:(double)font weight:(double)weight size:;
++ (id)_lightVariantForBaseFont:(double)font size:;
 + (id)_prominentFontFromBaseFont:(id)font usingLightVariant:(BOOL)variant usingLandscapeVariant:(BOOL)landscapeVariant;
 + (id)_prominentFontFromBaseFont:(id)font usingTextWeight:(double)weight usingLandscapeVariant:(BOOL)variant;
 - (BOOL)animatesTimeChanges;
@@ -11,6 +11,7 @@
 - (CGSize)intrinsicContentSize;
 - (CSProminentTimeView)initWithDate:(id)date baseFont:(id)font textColor:(id)color;
 - (CSProminentTimeView)initWithDate:(id)date font:(id)font textColor:(id)color;
+- (_BYTE)_setNeedsFontUpdate;
 - (double)_baseTightTimeHeight;
 - (double)_effectiveAdaptiveTextHeight;
 - (double)_sizeForString:(void *)string font:;
@@ -39,7 +40,6 @@
 - (void)_isPortrait;
 - (void)_queryFontAbilities;
 - (void)_selectFontForTextHeight:(double)height portraitFraction:(double)fraction textWeight:;
-- (void)_setNeedsFontUpdate;
 - (void)_setPortrait:(uint64_t)portrait;
 - (void)_updateAdaptiveFontProviderConfiguration;
 - (void)_updateCurrentFont;
@@ -202,15 +202,15 @@
   return selfCopy;
 }
 
-- (void)_setNeedsFontUpdate
+- (_BYTE)_setNeedsFontUpdate
 {
-  if (self)
+  if (result)
   {
-    *(self + 506) = 1;
-    return [self setNeedsLayout];
+    result[506] = 1;
+    return [result setNeedsLayout];
   }
 
-  return self;
+  return result;
 }
 
 - (void)layoutSubviews
@@ -965,24 +965,24 @@ uint64_t __36__CSProminentTimeView__setPortrait___block_invoke_2(uint64_t a1)
 
   v11 = v10;
   +[CSProminentLayoutController fontSizeForElementType:isLandscapeVariant:](CSProminentLayoutController, "fontSizeForElementType:isLandscapeVariant:", [self elementType], variantCopy);
-  v13 = [(CSProminentTimeView *)weight _fontVariantForBaseFont:v12 weight:self size:v11];
+  v13 = [(CSProminentTimeView *)self _fontVariantForBaseFont:v11 weight:weight size:v12];
 
   return v13;
 }
 
-+ (id)_fontVariantForBaseFont:(uint64_t)font weight:(void *)weight size:
++ (id)_fontVariantForBaseFont:(double)font weight:(double)weight size:
 {
-  weightCopy = weight;
+  v6 = a2;
   objc_opt_self();
-  if (self >= 0.0 && ([weightCopy cs_supportsVariantWeights] & 1) != 0)
+  if (font >= 0.0 && ([v6 cs_supportsVariantWeights] & 1) != 0)
   {
-    v7 = [weightCopy cs_fontWithVariantWeight:self];
-    v8 = [v7 fontWithSize:a2];
+    v7 = [v6 cs_fontWithVariantWeight:font];
+    v8 = [v7 fontWithSize:weight];
   }
 
   else
   {
-    v8 = [weightCopy fontWithSize:a2];
+    v8 = [v6 fontWithSize:weight];
   }
 
   return v8;
@@ -1009,7 +1009,7 @@ uint64_t __36__CSProminentTimeView__setPortrait___block_invoke_2(uint64_t a1)
   v13 = v12;
   if (variantCopy)
   {
-    v14 = [(CSProminentTimeView *)v12 _lightVariantForBaseFont:self size:v11];
+    v14 = [(CSProminentTimeView *)self _lightVariantForBaseFont:v11 size:v12];
   }
 
   else
@@ -1021,12 +1021,12 @@ uint64_t __36__CSProminentTimeView__setPortrait___block_invoke_2(uint64_t a1)
   return v14;
 }
 
-+ (id)_lightVariantForBaseFont:(void *)font size:
++ (id)_lightVariantForBaseFont:(double)font size:
 {
-  fontCopy = font;
+  v4 = a2;
   v5 = objc_opt_self();
-  v6 = [(CSProminentTimeView *)v5 _lightVariantWeightForBaseFont:fontCopy];
-  v7 = [(CSProminentTimeView *)v6 _fontVariantForBaseFont:self weight:v5 size:fontCopy];
+  v6 = [(CSProminentTimeView *)v5 _lightVariantWeightForBaseFont:v4];
+  v7 = [(CSProminentTimeView *)v5 _fontVariantForBaseFont:v4 weight:v6 size:font];
 
   return v7;
 }
@@ -1188,7 +1188,7 @@ uint64_t __36__CSProminentTimeView__setPortrait___block_invoke_2(uint64_t a1)
 
 - (void)_attemptTimeMaterialUpdate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self)
   {
     textLabel = [self textLabel];
@@ -1197,25 +1197,25 @@ uint64_t __36__CSProminentTimeView__setPortrait___block_invoke_2(uint64_t a1)
       standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
       v4 = [standardUserDefaults BOOLForKey:@"SBDisallowGlassTime"];
 
-      v5 = CSLogCommon();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = CSLogCommon(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v7[0] = 67109120;
-        v7[1] = v4;
-        _os_log_debug_impl(&dword_1A2D63000, v5, OS_LOG_TYPE_DEBUG, "CSProminentTimeView disallowGlassTime: %{BOOL}u", v7, 8u);
+        v8[0] = 67109120;
+        v8[1] = v4;
+        _os_log_debug_impl(&dword_1A2D63000, v6, OS_LOG_TYPE_DEBUG, "CSProminentTimeView disallowGlassTime: %{BOOL}u", v8, 8u);
       }
 
       if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
       {
-        v6 = self[552] & (v4 ^ 1);
+        v7 = self[552] & (v4 ^ 1);
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
 
-      [textLabel setUsesGlassMaterial:self[505] & v6 & 1];
+      [textLabel setUsesGlassMaterial:self[505] & v7 & 1];
     }
   }
 }

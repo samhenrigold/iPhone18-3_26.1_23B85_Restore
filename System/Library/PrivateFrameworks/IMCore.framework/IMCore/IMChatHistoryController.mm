@@ -26,75 +26,75 @@
 
 - (IMChatHistoryController)init
 {
-  v11.receiver = self;
-  v11.super_class = IMChatHistoryController;
-  v4 = [(IMChatHistoryController *)&v11 init];
-  if (v4)
+  v6.receiver = self;
+  v6.super_class = IMChatHistoryController;
+  v2 = [(IMChatHistoryController *)&v6 init];
+  if (v2)
   {
-    v5 = objc_msgSend_sharedController(IMDaemonController, v2, v3);
-    v8 = objc_msgSend_listener(v5, v6, v7);
-    objc_msgSend_addHandler_(v8, v9, v4);
+    v3 = +[IMDaemonController sharedController];
+    listener = [v3 listener];
+    [listener addHandler:v2];
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v7 = objc_msgSend_listener(v4, v5, v6);
-  objc_msgSend_removeHandler_(v7, v8, self);
+  v3 = +[IMDaemonController sharedController];
+  listener = [v3 listener];
+  [listener removeHandler:self];
 
-  v9.receiver = self;
-  v9.super_class = IMChatHistoryController;
-  [(IMChatHistoryController *)&v9 dealloc];
+  v5.receiver = self;
+  v5.super_class = IMChatHistoryController;
+  [(IMChatHistoryController *)&v5 dealloc];
 }
 
 - (void)loadMessageWithGUID:(id)d completionBlock:(id)block
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   blockCopy = block;
   if (blockCopy)
   {
-    v10 = blockCopy;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v11 = objc_msgSend_sharedRegistry(IMChatRegistry, v8, v9);
-    v14 = objc_msgSend_cachedChats(v11, v12, v13);
+    v8 = blockCopy;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v9 = +[IMChatRegistry sharedRegistry];
+    cachedChats = [v9 cachedChats];
 
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v42, v46, 16);
-    if (v16)
+    v11 = [cachedChats countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v11)
     {
-      v18 = v16;
-      v19 = *v43;
+      v12 = v11;
+      v13 = *v25;
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v43 != v19)
+          if (*v25 != v13)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(cachedChats);
           }
 
-          v21 = objc_msgSend_messageForGUID_(*(*(&v42 + 1) + 8 * i), v17, dCopy);
-          if (v21)
+          v15 = [*(*(&v24 + 1) + 8 * i) messageForGUID:dCopy];
+          if (v15)
           {
-            v39 = v21;
-            v40 = objc_msgSend_copy(v10, v17, v22);
+            v22 = v15;
+            v23 = [v8 copy];
 
-            v37 = v39;
-            v10 = v40;
+            v21 = v22;
+            v8 = v23;
             im_dispatch_after();
 
             goto LABEL_14;
           }
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v42, v46, 16);
-        if (v18)
+        v12 = [cachedChats countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v12)
         {
           continue;
         }
@@ -110,18 +110,16 @@
       self->_runningQueries = Mutable;
     }
 
-    v14 = objc_msgSend_stringGUID(MEMORY[0x1E696AEC0], v23, v24);
-    v29 = objc_msgSend_sharedController(IMDaemonController, v27, v28);
-    v32 = objc_msgSend_remoteDaemon(v29, v30, v31);
-    objc_msgSend_loadMessageWithGUID_queryID_(v32, v33, dCopy, v14);
+    cachedChats = [MEMORY[0x1E696AEC0] stringGUID];
+    v18 = +[IMDaemonController sharedController];
+    remoteDaemon = [v18 remoteDaemon];
+    [remoteDaemon loadMessageWithGUID:dCopy queryID:cachedChats];
 
-    v34 = self->_runningQueries;
-    v37 = objc_msgSend_copy(v10, v35, v36);
-    objc_msgSend_setObject_forKey_(v34, v38, v37, v14);
+    v20 = self->_runningQueries;
+    v21 = [v8 copy];
+    [(NSMutableDictionary *)v20 setObject:v21 forKey:cachedChats];
 LABEL_14:
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadItemWithGUID:(id)d completionBlock:(id)block
@@ -137,14 +135,14 @@ LABEL_14:
       self->_runningQueries = Mutable;
     }
 
-    v11 = objc_msgSend_stringGUID(MEMORY[0x1E696AEC0], v6, v7);
-    v14 = objc_msgSend_sharedController(IMDaemonController, v12, v13);
-    v17 = objc_msgSend_remoteDaemon(v14, v15, v16);
-    objc_msgSend_loadItemWithGUID_queryID_(v17, v18, dCopy, v11);
+    stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
+    v10 = +[IMDaemonController sharedController];
+    remoteDaemon = [v10 remoteDaemon];
+    [remoteDaemon loadItemWithGUID:dCopy queryID:stringGUID];
 
-    v19 = self->_runningQueries;
-    v22 = objc_msgSend_copy(blockCopy, v20, v21);
-    objc_msgSend_setObject_forKey_(v19, v23, v22, v11);
+    v12 = self->_runningQueries;
+    v13 = [blockCopy copy];
+    [(NSMutableDictionary *)v12 setObject:v13 forKey:stringGUID];
   }
 }
 
@@ -161,206 +159,200 @@ LABEL_14:
       self->_runningQueries = Mutable;
     }
 
-    v11 = objc_msgSend_stringGUID(MEMORY[0x1E696AEC0], v6, v7);
-    v14 = objc_msgSend_sharedController(IMDaemonController, v12, v13);
-    v17 = objc_msgSend_remoteDaemon(v14, v15, v16);
-    objc_msgSend_loadMessageItemWithGUID_queryID_(v17, v18, dCopy, v11);
+    stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
+    v10 = +[IMDaemonController sharedController];
+    remoteDaemon = [v10 remoteDaemon];
+    [remoteDaemon loadMessageItemWithGUID:dCopy queryID:stringGUID];
 
-    v19 = self->_runningQueries;
-    v22 = objc_msgSend_copy(blockCopy, v20, v21);
-    objc_msgSend_setObject_forKey_(v19, v23, v22, v11);
+    v12 = self->_runningQueries;
+    v13 = [blockCopy copy];
+    [(NSMutableDictionary *)v12 setObject:v13 forKey:stringGUID];
   }
 }
 
 - (void)messageQuery:(id)query finishedWithResult:(id)result chatGUIDs:(id)ds
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   resultCopy = result;
   dsCopy = ds;
-  v12 = objc_msgSend_objectForKey_(self->_runningQueries, v11, queryCopy);
-  if (v12)
+  v11 = [(NSMutableDictionary *)self->_runningQueries objectForKey:queryCopy];
+  if (v11)
   {
     selfCopy = self;
-    v51 = queryCopy;
-    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v55 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v50 = dsCopy;
-    v14 = dsCopy;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v55, v59, 16);
-    if (v16)
+    v32 = queryCopy;
+    v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v31 = dsCopy;
+    v13 = dsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v14)
     {
-      v19 = v16;
-      v20 = *v56;
+      v15 = v14;
+      v16 = *v37;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v56 != v20)
+          if (*v37 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v22 = *(*(&v55 + 1) + 8 * i);
-          v23 = objc_msgSend_sharedRegistry(IMChatRegistry, v17, v18, selfCopy);
-          v25 = objc_msgSend_existingChatWithGUID_(v23, v24, v22);
+          v18 = *(*(&v36 + 1) + 8 * i);
+          v19 = +[IMChatRegistry sharedRegistry];
+          v20 = [v19 existingChatWithGUID:v18];
 
-          if (v25)
+          if (v20)
           {
-            objc_msgSend_addObject_(v13, v26, v25);
+            [v12 addObject:v20];
           }
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v55, v59, 16);
+        v15 = [v13 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
-      while (v19);
+      while (v15);
     }
 
-    v29 = objc_msgSend_lastObject(v13, v27, v28);
-    v32 = objc_msgSend_account(v29, v30, v31);
+    lastObject = [v12 lastObject];
+    account = [lastObject account];
 
-    v35 = objc_msgSend_sender(resultCopy, v33, v34);
-    v37 = objc_msgSend_imHandleWithID_alreadyCanonical_(v32, v36, v35, 1);
+    sender = [resultCopy sender];
+    v24 = [account imHandleWithID:sender alreadyCanonical:1];
 
-    v40 = objc_msgSend_handle(resultCopy, v38, v39);
-    v42 = objc_msgSend_imHandleWithID_alreadyCanonical_(v32, v41, v40, 1);
+    handle = [resultCopy handle];
+    v26 = [account imHandleWithID:handle alreadyCanonical:1];
 
-    v44 = objc_msgSend_messageFromIMMessageItem_sender_subject_(IMMessage, v43, resultCopy, v37, v42);
-    v53 = v13;
-    v54 = v12;
-    v52 = v44;
-    v45 = v13;
-    v46 = v44;
+    v27 = [IMMessage messageFromIMMessageItem:resultCopy sender:v24 subject:v26];
+    v34 = v12;
+    v35 = v11;
+    v33 = v27;
+    v28 = v12;
+    v29 = v27;
     im_dispatch_after();
-    queryCopy = v51;
-    objc_msgSend_removeObjectForKey_(selfCopy->_runningQueries, v47, v51);
+    queryCopy = v32;
+    [(NSMutableDictionary *)selfCopy->_runningQueries removeObjectForKey:v32];
 
-    dsCopy = v50;
+    dsCopy = v31;
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)itemQuery:(id)query finishedWithResult:(id)result chatGUIDs:(id)ds
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   resultCopy = result;
   dsCopy = ds;
-  v12 = objc_msgSend_objectForKey_(self->_runningQueries, v11, queryCopy);
-  if (v12)
+  v11 = [(NSMutableDictionary *)self->_runningQueries objectForKey:queryCopy];
+  if (v11)
   {
     selfCopy = self;
-    v31 = resultCopy;
-    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v14 = dsCopy;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v35, v39, 16);
-    if (v16)
+    v23 = resultCopy;
+    v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v13 = dsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v14)
     {
-      v19 = v16;
-      v20 = *v36;
+      v15 = v14;
+      v16 = *v28;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v20)
+          if (*v28 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v22 = *(*(&v35 + 1) + 8 * i);
-          v23 = objc_msgSend_sharedRegistry(IMChatRegistry, v17, v18, selfCopy);
-          v25 = objc_msgSend_existingChatWithGUID_(v23, v24, v22);
+          v18 = *(*(&v27 + 1) + 8 * i);
+          v19 = +[IMChatRegistry sharedRegistry];
+          v20 = [v19 existingChatWithGUID:v18];
 
-          if (v25)
+          if (v20)
           {
-            objc_msgSend_addObject_(v13, v26, v25);
+            [v12 addObject:v20];
           }
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v35, v39, 16);
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
-      while (v19);
+      while (v15);
     }
 
-    v34 = v12;
-    resultCopy = v31;
-    v32 = v31;
-    v33 = v13;
-    v27 = v13;
+    v26 = v11;
+    resultCopy = v23;
+    v24 = v23;
+    v25 = v12;
+    v21 = v12;
     im_dispatch_after();
-    objc_msgSend_removeObjectForKey_(selfCopy->_runningQueries, v28, queryCopy);
+    [(NSMutableDictionary *)selfCopy->_runningQueries removeObjectForKey:queryCopy];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageItemQuery:(id)query finishedWithResult:(id)result chatGUIDs:(id)ds
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   resultCopy = result;
   dsCopy = ds;
-  v12 = objc_msgSend_objectForKey_(self->_runningQueries, v11, queryCopy);
-  if (v12)
+  v11 = [(NSMutableDictionary *)self->_runningQueries objectForKey:queryCopy];
+  if (v11)
   {
     selfCopy = self;
-    v31 = resultCopy;
-    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v14 = dsCopy;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v35, v39, 16);
-    if (v16)
+    v23 = resultCopy;
+    v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v13 = dsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v14)
     {
-      v19 = v16;
-      v20 = *v36;
+      v15 = v14;
+      v16 = *v28;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v20)
+          if (*v28 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v22 = *(*(&v35 + 1) + 8 * i);
-          v23 = objc_msgSend_sharedRegistry(IMChatRegistry, v17, v18, selfCopy);
-          v25 = objc_msgSend_existingChatWithGUID_(v23, v24, v22);
+          v18 = *(*(&v27 + 1) + 8 * i);
+          v19 = +[IMChatRegistry sharedRegistry];
+          v20 = [v19 existingChatWithGUID:v18];
 
-          if (v25)
+          if (v20)
           {
-            objc_msgSend_addObject_(v13, v26, v25);
+            [v12 addObject:v20];
           }
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v35, v39, 16);
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
-      while (v19);
+      while (v15);
     }
 
-    v34 = v12;
-    resultCopy = v31;
-    v32 = v31;
-    v33 = v13;
-    v27 = v13;
+    v26 = v11;
+    resultCopy = v23;
+    v24 = v23;
+    v25 = v12;
+    v21 = v12;
     im_dispatch_after();
-    objc_msgSend_removeObjectForKey_(selfCopy->_runningQueries, v28, queryCopy);
+    [(NSMutableDictionary *)selfCopy->_runningQueries removeObjectForKey:queryCopy];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 @end

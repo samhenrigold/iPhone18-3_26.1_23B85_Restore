@@ -20,26 +20,34 @@
 - (void)appLaunchDatesWithReply:(id)reply;
 - (void)appLaunchInformationWithReply:(id)reply;
 - (void)benchmarkAppPrediction:(unint64_t)prediction reply:(id)reply;
+- (void)benchmarkAppPredictionForConsumerSubType:(unsigned __int8)type ntimes:(unint64_t)ntimes reply:(id)reply;
+- (void)blendedSuggestionsForConsumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)buildAnchorModelTrainingDataset:(id)dataset;
 - (void)categoryLaunchInformationWithReply:(id)reply;
 - (void)clearAllDataForStressTestWithReply:(id)reply;
 - (void)clearBlendingSuggestionsForClientModel:(int64_t)model withReply:(id)reply;
+- (void)clearDigestFeedbackHistogramWithShouldResetBookmarks:(BOOL)bookmarks reply:(id)reply;
 - (void)clearNotificationsWithReply:(id)reply;
 - (void)createAppPredictionLogs:(id)logs;
 - (void)dealloc;
 - (void)donateSuggestion:(id)suggestion forClientModel:(int64_t)model withReply:(id)reply;
+- (void)dumpNotificationJSONFromSource:(id)source startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)dumpPredictionTableForMMExpert:(id)expert reply:(id)reply;
 - (void)evaluateInfoSuggestionsWithCompletionHandler:(id)handler;
 - (void)feedbackClear:(id)clear;
 - (void)feedbackLaunched:(id)launched rejected:(id)rejected reply:(id)reply;
+- (void)feedbackLaunchedWithConsumerSubType:(unsigned __int8)type forBundleId:(id)id rejected:(id)rejected reply:(id)reply;
 - (void)fetchPIDFromServer:(id)server;
 - (void)fetchPosterDescriptorsWithReply:(id)reply;
 - (void)fetchSuggestionsForSourceId:(id)id reply:(id)reply;
 - (void)forceMagicalMomentsAppPredictionForBundleId:(id)id expert:(id)expert reply:(id)reply;
 - (void)forceNotificationAndSuggestionDbUpdate:(id)update;
 - (void)generateDataForStressTestWithReply:(id)reply;
+- (void)generateSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)generateSerializedMissedNotificationBundleFromFileData:(id)data modeString:(id)string reply:(id)reply;
+- (void)generateSerializedMissedNotificationBundleFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)generateSerializedNotificationDigestFromFileData:(id)data digestTimeString:(id)string reply:(id)reply;
+- (void)generateSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply;
 - (void)getActionLogs:(id)logs;
 - (void)getActionPrivacyFriendlyLogs:(id)logs;
 - (void)getAppFeedbackData:(id)data;
@@ -47,6 +55,8 @@
 - (void)getInfoPredictionsInString:(id)string;
 - (void)getInfoSuggestionsInString:(id)string;
 - (void)getModeTimelineDataFromStartDate:(id)date reply:(id)reply;
+- (void)getParseTreeForConsumerSubType:(unsigned __int8)type reply:(id)reply;
+- (void)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)histogramsInMemory:(id)memory;
 - (void)histogramsInMemoryBySize:(id)size;
 - (void)inspectInferredActivitySessionStream:(id)stream fromTimestamp:(double)timestamp reply:(id)reply;
@@ -56,6 +66,9 @@
 - (void)nPlusOneStudyDryRunResultFilterByExtensionBundleId:(id)id reply:(id)reply;
 - (void)performHomeScreenCoreAnalyticsDryRunWithCustomStartDate:(id)date reply:(id)reply;
 - (void)predictAppsAndReturnInputsAndSubscores:(id)subscores;
+- (void)predictItemsAndReturnInputsAndSubscoresForConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIds:(id)ids candidateActiontypes:(id)actiontypes reply:(id)reply;
+- (void)predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply;
+- (void)predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply;
 - (void)processAppDirectoryFeedbackWithReply:(id)reply;
 - (void)processHomeScreenFeedbackWithReply:(id)reply;
 - (void)processLockscreenFeedbackWithReply:(id)reply;
@@ -71,9 +84,11 @@
 - (void)schedulePredictionsForAnchorModel:(id)model anchorType:(id)type reply:(id)reply;
 - (void)scheduledPredictionsForAnchorModelWithReply:(id)reply;
 - (void)setDigestFeedbackHistogramValueForBundleId:(id)id location:(id)location feedback:(id)feedback value:(id)value withReply:(id)reply;
+- (void)setTestMode:(BOOL)mode withCompletion:(id)completion;
 - (void)showDigestFeedbackHistogramForBundleId:(id)id withReply:(id)reply;
 - (void)trainAnchorModel:(id)model;
 - (void)trainMagicalMomentsAppPredictor:(id)predictor;
+- (void)trainModeEntityModelsWithDeferTrainingWhenApplicable:(BOOL)applicable reply:(id)reply;
 - (void)trainModeSetupPredictionModelWithReply:(id)reply;
 - (void)triggerBackgroundJobWithIdentifier:(id)identifier configuration:(id)configuration completion:(id)completion;
 - (void)triggerPredictionsUpdateWithCompletion:(id)completion;
@@ -367,6 +382,23 @@
   [v7 feedbackClear:v6];
 }
 
+- (void)feedbackLaunchedWithConsumerSubType:(unsigned __int8)type forBundleId:(id)id rejected:(id)rejected reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __87___ATXInspectionClient_feedbackLaunchedWithConsumerSubType_forBundleId_rejected_reply___block_invoke;
+  v16[3] = &unk_278598B30;
+  v17 = replyCopy;
+  v12 = replyCopy;
+  rejectedCopy = rejected;
+  idCopy = id;
+  v15 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v16];
+  [v15 feedbackLaunchedWithConsumerSubType:typeCopy forBundleId:idCopy rejected:rejectedCopy reply:v12];
+}
+
 - (void)feedbackLaunched:(id)launched rejected:(id)rejected reply:(id)reply
 {
   replyCopy = reply;
@@ -383,6 +415,58 @@
   [v13 feedbackLaunchedWithConsumerSubType:9 forBundleId:launchedCopy rejected:rejectedCopy reply:v10];
 }
 
+- (void)predictItemsAndReturnInputsAndSubscoresForConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIds:(id)ids candidateActiontypes:(id)actiontypes reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __135___ATXInspectionClient_predictItemsAndReturnInputsAndSubscoresForConsumerSubType_intent_candidateBundleIds_candidateActiontypes_reply___block_invoke;
+  v19[3] = &unk_278598B30;
+  v20 = replyCopy;
+  v14 = replyCopy;
+  actiontypesCopy = actiontypes;
+  idsCopy = ids;
+  intentCopy = intent;
+  v18 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v19];
+  [v18 predictItemsAndReturnInputsAndSubscoresForConsumerSubType:typeCopy intent:intentCopy candidateBundleIds:idsCopy candidateActiontypes:actiontypesCopy reply:v14];
+}
+
+- (void)predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __148___ATXInspectionClient_predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers_candidateActiontypes_consumerSubType_reply___block_invoke;
+  v16[3] = &unk_278598B30;
+  v17 = replyCopy;
+  v12 = replyCopy;
+  actiontypesCopy = actiontypes;
+  identifiersCopy = identifiers;
+  v15 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v16];
+  [v15 predictItemsAndReturnMetaDataAndInputsAndSubScoresWithCandidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy consumerSubType:typeCopy reply:v12];
+}
+
+- (void)predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __130___ATXInspectionClient_predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers_candidateActiontypes_consumerSubType_reply___block_invoke;
+  v16[3] = &unk_278598B30;
+  v17 = replyCopy;
+  v12 = replyCopy;
+  actiontypesCopy = actiontypes;
+  identifiersCopy = identifiers;
+  v15 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v16];
+  [v15 predictItemsAndReturnStageScoresWithCandidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy consumerSubType:typeCopy reply:v12];
+}
+
 - (void)predictAppsAndReturnInputsAndSubscores:(id)subscores
 {
   subscoresCopy = subscores;
@@ -395,6 +479,51 @@
   v6 = subscoresCopy;
   v7 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v8];
   [v7 predictAppsAndReturnInputsAndSubscores:v6];
+}
+
+- (void)getParseTreeForConsumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61___ATXInspectionClient_getParseTreeForConsumerSubType_reply___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = replyCopy;
+  v8 = replyCopy;
+  v9 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v9 getParseTreeForConsumerSubType:typeCopy reply:v8];
+}
+
+- (void)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __74___ATXInspectionClient_getPredictionModelDetailsForConsumerSubType_reply___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = replyCopy;
+  v8 = replyCopy;
+  v9 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v9 getPredictionModelDetailsForConsumerSubType:typeCopy reply:v8];
+}
+
+- (void)benchmarkAppPredictionForConsumerSubType:(unsigned __int8)type ntimes:(unint64_t)ntimes reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __78___ATXInspectionClient_benchmarkAppPredictionForConsumerSubType_ntimes_reply___block_invoke;
+  v12[3] = &unk_278598B30;
+  v13 = replyCopy;
+  v10 = replyCopy;
+  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v12];
+  [v11 benchmarkAppPredictionForConsumerSubType:typeCopy ntimes:ntimes reply:v10];
 }
 
 - (void)benchmarkAppPrediction:(unint64_t)prediction reply:(id)reply
@@ -838,6 +967,21 @@
   [v9 clearBlendingSuggestionsForClientModel:model withReply:v8];
 }
 
+- (void)blendedSuggestionsForConsumerSubType:(unsigned __int8)type reply:(id)reply
+{
+  typeCopy = type;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __67___ATXInspectionClient_blendedSuggestionsForConsumerSubType_reply___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = replyCopy;
+  v8 = replyCopy;
+  v9 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v9 blendedSuggestionsForConsumerSubType:typeCopy reply:v8];
+}
+
 - (void)buildAnchorModelTrainingDataset:(id)dataset
 {
   datasetCopy = dataset;
@@ -1010,6 +1154,21 @@
   [v10 nPlusOneStudyDryRunResultFilterByExtensionBundleId:idCopy reply:v8];
 }
 
+- (void)trainModeEntityModelsWithDeferTrainingWhenApplicable:(BOOL)applicable reply:(id)reply
+{
+  applicableCopy = applicable;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __83___ATXInspectionClient_trainModeEntityModelsWithDeferTrainingWhenApplicable_reply___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = replyCopy;
+  v8 = replyCopy;
+  v9 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v9 trainModeEntityModelsWithDeferTrainingWhenApplicable:applicableCopy reply:v8];
+}
+
 - (void)trainModeSetupPredictionModelWithReply:(id)reply
 {
   replyCopy = reply;
@@ -1084,6 +1243,44 @@
   [v13 generateSerializedNotificationDigestFromFileData:dataCopy digestTimeString:stringCopy reply:v10];
 }
 
+- (void)generateSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __126___ATXInspectionClient_generateSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_inferMessages_reply___block_invoke;
+  v22[3] = &unk_278598B30;
+  v23 = replyCopy;
+  v16 = replyCopy;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v21 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+  [v21 generateSerializedNotificationDigestFromSource:sourceCopy digestTimeString:stringCopy startDate:dateCopy endDate:endDateCopy inferMessages:messagesCopy reply:v16];
+}
+
+- (void)generateSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __136___ATXInspectionClient_generateSerializedAppGroupedNotificationDigestFromSource_digestTimeString_startDate_endDate_inferMessages_reply___block_invoke;
+  v22[3] = &unk_278598B30;
+  v23 = replyCopy;
+  v16 = replyCopy;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v21 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+  [v21 generateSerializedAppGroupedNotificationDigestFromSource:sourceCopy digestTimeString:stringCopy startDate:dateCopy endDate:endDateCopy inferMessages:messagesCopy reply:v16];
+}
+
 - (void)generateSerializedMissedNotificationBundleFromFileData:(id)data modeString:(id)string reply:(id)reply
 {
   replyCopy = reply;
@@ -1098,6 +1295,43 @@
   dataCopy = data;
   v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v14];
   [v13 generateSerializedMissedNotificationBundleFromFileData:dataCopy modeString:stringCopy reply:v10];
+}
+
+- (void)generateSerializedMissedNotificationBundleFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __126___ATXInspectionClient_generateSerializedMissedNotificationBundleFromSource_modeString_startDate_endDate_inferMessages_reply___block_invoke;
+  v22[3] = &unk_278598B30;
+  v23 = replyCopy;
+  v16 = replyCopy;
+  endDateCopy = endDate;
+  dateCopy = date;
+  stringCopy = string;
+  sourceCopy = source;
+  v21 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+  [v21 generateSerializedMissedNotificationBundleFromSource:sourceCopy modeString:stringCopy startDate:dateCopy endDate:endDateCopy inferMessages:messagesCopy reply:v16];
+}
+
+- (void)dumpNotificationJSONFromSource:(id)source startDate:(id)date endDate:(id)endDate inferMessages:(BOOL)messages reply:(id)reply
+{
+  messagesCopy = messages;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __93___ATXInspectionClient_dumpNotificationJSONFromSource_startDate_endDate_inferMessages_reply___block_invoke;
+  v19[3] = &unk_278598B30;
+  v20 = replyCopy;
+  v14 = replyCopy;
+  endDateCopy = endDate;
+  dateCopy = date;
+  sourceCopy = source;
+  v18 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v19];
+  [v18 dumpNotificationJSONFromSource:sourceCopy startDate:dateCopy endDate:endDateCopy inferMessages:messagesCopy reply:v14];
 }
 
 - (void)clearNotificationsWithReply:(id)reply
@@ -1162,6 +1396,21 @@
   idCopy = id;
   v19 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v20];
   [v19 setDigestFeedbackHistogramValueForBundleId:idCopy location:locationCopy feedback:feedbackCopy value:valueCopy withReply:v14];
+}
+
+- (void)clearDigestFeedbackHistogramWithShouldResetBookmarks:(BOOL)bookmarks reply:(id)reply
+{
+  bookmarksCopy = bookmarks;
+  replyCopy = reply;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __83___ATXInspectionClient_clearDigestFeedbackHistogramWithShouldResetBookmarks_reply___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = replyCopy;
+  v8 = replyCopy;
+  v9 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v9 clearDigestFeedbackHistogramWithShouldResetBookmarks:bookmarksCopy reply:v8];
 }
 
 - (void)getCurrentLocationWithReply:(id)reply
@@ -1234,6 +1483,21 @@
   timestampCopy = timestamp;
   v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v14];
   [v13 logNotificationMetricsFromStartTimestamp:timestampCopy toEndTimestamp:endTimestampCopy withCompletion:v10];
+}
+
+- (void)setTestMode:(BOOL)mode withCompletion:(id)completion
+{
+  modeCopy = mode;
+  completionCopy = completion;
+  xpcConnection = self->_xpcConnection;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __51___ATXInspectionClient_setTestMode_withCompletion___block_invoke;
+  v10[3] = &unk_278598B30;
+  v11 = completionCopy;
+  v8 = completionCopy;
+  v9 = [(NSXPCConnection *)xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v10];
+  [v9 setTestMode:modeCopy withCompletion:v8];
 }
 
 - (void)triggerPredictionsUpdateWithCompletion:(id)completion

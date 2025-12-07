@@ -17,7 +17,7 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -25,17 +25,16 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting the IDS session handler", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDIDSSession *)selfCopy->_idsSession endSession];
   [(HMDIDSService *)selfCopy->_idsStreamService removeDelegate:selfCopy];
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraIDSSessionHandler;
-  [(HMDCameraIDSSessionHandler *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraIDSSessionHandler;
+  [(HMDCameraIDSSessionHandler *)&v7 dealloc];
 }
 
 - (HMDCameraIDSSessionHandler)initWithSessionID:(id)d workQueue:(id)queue idsStreamService:(id)service
@@ -93,10 +92,9 @@ LABEL_9:
 
 void __41__HMDCameraIDSSessionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_158378;
-  logCategory__hmf_once_v2_158378 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_158378;
+  logCategory__hmf_once_v2_158378 = v0;
 }
 
 @end

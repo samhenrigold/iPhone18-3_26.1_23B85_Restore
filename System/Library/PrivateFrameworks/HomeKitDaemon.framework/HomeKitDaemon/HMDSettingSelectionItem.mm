@@ -105,7 +105,7 @@
       identifier = v5->_identifier;
       v5->_identifier = uUID;
 
-      v8 = [titleCopy copy];
+      v8 = objc_msgSend_copy(titleCopy);
       title = v5->_title;
       v5->_title = v8;
     }

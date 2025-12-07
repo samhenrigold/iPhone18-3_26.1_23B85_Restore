@@ -104,18 +104,18 @@ LABEL_4:
 
 - (uint64_t)initWithName:(char *)a1 withOutput:.cold.1(char **a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: OOM!", "[PSWriter initWithName:withOutput:]");
-  v2 = __PSGraphLogSharedInstance();
+  v1 = asprintf(a1, "%s: OOM!", "[PSWriter initWithName:withOutput:]");
+  v2 = __PSGraphLogSharedInstance(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v11 = "[PSWriter initWithName:withOutput:]";
-    v12 = 1024;
-    v13 = 52;
-    v14 = 2080;
-    v15 = "[PSWriter initWithName:withOutput:]";
+    v9 = "[PSWriter initWithName:withOutput:]";
+    v10 = 1024;
+    v11 = 52;
+    v12 = 2080;
+    v13 = "[PSWriter initWithName:withOutput:]";
     _os_log_impl(&dword_25EC85000, v2, OS_LOG_TYPE_FAULT, "%s:%d %s: OOM!", buf, 0x1Cu);
   }
 
@@ -123,13 +123,13 @@ LABEL_4:
   if (v3)
   {
     v4 = v3;
-    v5 = __PSGraphLogSharedInstance();
+    v5 = __PSGraphLogSharedInstance(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[PSWriter initWithName:withOutput:]";
-      v12 = 1024;
-      v13 = v4;
+      v9 = "[PSWriter initWithName:withOutput:]";
+      v10 = 1024;
+      v11 = v4;
       _os_log_impl(&dword_25EC85000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -139,9 +139,8 @@ LABEL_4:
     usleep(0x1E8480u);
   }
 
-  v6 = *a1;
-  v7 = abort_with_reason();
-  return ps_resource::get_databuffer_ptr(v7, v8);
+  v6 = abort_with_reason();
+  return ps_resource::get_databuffer_ptr(v6);
 }
 
 @end

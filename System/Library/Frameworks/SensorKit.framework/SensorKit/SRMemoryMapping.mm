@@ -1,9 +1,9 @@
 @interface SRMemoryMapping
 + (void)initialize;
-- (BOOL)isValidWriteToDestinationAddress:(unint64_t)address withLength:(uint64_t)length bytes:;
 - (id)initWithSize:(int)size protection:(int)protection advice:(uint64_t)advice offset:;
+- (uint64_t)isValidWriteToDestinationAddress:(unint64_t)address withLength:(uint64_t)length bytes:;
 - (uint64_t)mapWithFileHandle:(uint64_t)result;
-- (void)appendBytes:(unint64_t)bytes length:;
+- (void)appendBytes:(size_t)bytes length:;
 - (void)dealloc;
 - (void)sync;
 @end
@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     mappedAddress = self->_mappedAddress;
@@ -49,37 +49,37 @@
       if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_INFO))
       {
         *buf = 134349056;
-        v12 = mappedAddress;
+        v11 = mappedAddress;
         _os_log_impl(&dword_1C914D000, v4, OS_LOG_TYPE_INFO, "Unmapping %{public}p", buf, 0xCu);
       }
 
       pageAlignedSize = self->_pageAlignedSize;
       if (munmap(mappedAddress, pageAlignedSize))
       {
-        v7 = SRLogMemoryMapping;
+        v6 = SRLogMemoryMapping;
         if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_INFO))
+        {
+          v7 = *__error();
+          *buf = 134349568;
+          v11 = mappedAddress;
+          v12 = 2048;
+          v13 = pageAlignedSize;
+          v14 = 1026;
+          v15 = v7;
+          _os_log_impl(&dword_1C914D000, v6, OS_LOG_TYPE_INFO, "Unable to unmap %{public}p size %zu because %{public, darwin.errno}d", buf, 0x1Cu);
+          v6 = SRLogMemoryMapping;
+        }
+
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
         {
           v8 = *__error();
           *buf = 134349568;
-          v12 = mappedAddress;
-          v13 = 2048;
-          v14 = pageAlignedSize;
-          v15 = 1026;
-          v16 = v8;
-          _os_log_impl(&dword_1C914D000, v7, OS_LOG_TYPE_INFO, "Unable to unmap %{public}p size %zu because %{public, darwin.errno}d", buf, 0x1Cu);
-          v7 = SRLogMemoryMapping;
-        }
-
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-        {
-          v9 = *__error();
-          *buf = 134349568;
-          v12 = mappedAddress;
-          v13 = 2048;
-          v14 = pageAlignedSize;
-          v15 = 1026;
-          v16 = v9;
-          _os_log_fault_impl(&dword_1C914D000, v7, OS_LOG_TYPE_FAULT, "Unable to unmap %{public}p size %zu because %{public, darwin.errno}d", buf, 0x1Cu);
+          v11 = mappedAddress;
+          v12 = 2048;
+          v13 = pageAlignedSize;
+          v14 = 1026;
+          v15 = v8;
+          _os_log_fault_impl(&dword_1C914D000, v6, OS_LOG_TYPE_FAULT, "Unable to unmap %{public}p size %zu because %{public, darwin.errno}d", buf, 0x1Cu);
         }
 
         abort();
@@ -89,15 +89,14 @@
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = SRMemoryMapping;
-  [(SRMemoryMapping *)&v10 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SRMemoryMapping;
+  [(SRMemoryMapping *)&v9 dealloc];
 }
 
 - (uint64_t)mapWithFileHandle:(uint64_t)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -112,13 +111,13 @@
       result = os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_FAULT);
       if (result)
       {
-        v14 = *__error();
-        v16 = 138543618;
-        v17 = a2;
-        v18 = 1026;
-        v19 = v14;
-        _os_log_fault_impl(&dword_1C914D000, v12, OS_LOG_TYPE_FAULT, "Unable to mmap storage file %{public}@ because %{public, darwin.errno}d", &v16, 0x12u);
-        result = 0;
+        v13 = *__error();
+        v15 = 138543618;
+        v16 = a2;
+        v17 = 1026;
+        v18 = v13;
+        _os_log_fault_impl(&dword_1C914D000, v12, OS_LOG_TYPE_FAULT, "Unable to mmap storage file %{public}@ because %{public, darwin.errno}d", &v15, 0x12u);
+        return 0;
       }
     }
 
@@ -140,55 +139,52 @@
         v11 = SRLogMemoryMapping;
         if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_FAULT))
         {
-          v15 = *__error();
-          v16 = 67240192;
-          LODWORD(v17) = v15;
-          _os_log_fault_impl(&dword_1C914D000, v11, OS_LOG_TYPE_FAULT, "Failed to madvise() because %{public, darwin.errno}d", &v16, 8u);
+          v14 = *__error();
+          v15 = 67240192;
+          LODWORD(v16) = v14;
+          _os_log_fault_impl(&dword_1C914D000, v11, OS_LOG_TYPE_FAULT, "Failed to madvise() because %{public, darwin.errno}d", &v15, 8u);
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)sync
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = *(self + 40);
     if (v2 + 1 >= 2)
     {
-      v6 = self + 16;
-      v4 = *(self + 16);
-      v5 = *(v6 + 8);
-      if (v5 != v4)
+      v5 = self + 16;
+      v3 = *(self + 16);
+      v4 = *(v5 + 8);
+      if (v4 != v3)
       {
-        if (msync(v2, v5 - v4, 16))
+        if (msync(v2, v4 - v3, 16))
         {
-          v7 = SRLogMemoryMapping;
+          v6 = SRLogMemoryMapping;
           if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_ERROR))
           {
-            v8 = *__error();
-            v9[0] = 67240192;
-            v9[1] = v8;
-            _os_log_error_impl(&dword_1C914D000, v7, OS_LOG_TYPE_ERROR, "Failed to msync because %{public, darwin.errno}d", v9, 8u);
+            v7 = *__error();
+            v8[0] = 67240192;
+            v8[1] = v7;
+            _os_log_error_impl(&dword_1C914D000, v6, OS_LOG_TYPE_ERROR, "Failed to msync because %{public, darwin.errno}d", v8, 8u);
           }
         }
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (BOOL)isValidWriteToDestinationAddress:(unint64_t)address withLength:(uint64_t)length bytes:
+- (uint64_t)isValidWriteToDestinationAddress:(unint64_t)address withLength:(uint64_t)length bytes:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v4 = result;
@@ -200,106 +196,86 @@
         v5 = *(v4 + 40);
         if ((v5 + 1) < 2)
         {
-LABEL_5:
-          result = 0;
-          goto LABEL_6;
+          return 0;
         }
 
-        v8 = *(v4 + 24);
-        if (__CFADD__(v8, address))
+        v7 = *(v4 + 24);
+        if (__CFADD__(v7, address))
         {
-          v9 = SRLogMemoryMapping;
+          v8 = SRLogMemoryMapping;
           result = os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_ERROR);
-          if (!result)
+          if (result)
           {
-            goto LABEL_6;
+            v14 = 134349056;
+            addressCopy = address;
+            _os_log_error_impl(&dword_1C914D000, v8, OS_LOG_TYPE_ERROR, "%{public}zu is too large to write", &v14, 0xCu);
+            return 0;
           }
-
-          v16 = 134349056;
-          addressCopy = address;
-          _os_log_error_impl(&dword_1C914D000, v9, OS_LOG_TYPE_ERROR, "%{public}zu is too large to write", &v16, 0xCu);
-          goto LABEL_5;
-        }
-
-        v11 = v5 + *(v4 + 56);
-        if (a2 + address > v11)
-        {
-          v12 = SRLogMemoryMapping;
-          result = os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_FAULT);
-          if (!result)
-          {
-            goto LABEL_6;
-          }
-
-          v16 = 134349568;
-          addressCopy = a2;
-          v18 = 2050;
-          addressCopy2 = address;
-          v20 = 2050;
-          v21 = v11;
-          _os_log_fault_impl(&dword_1C914D000, v12, OS_LOG_TYPE_FAULT, "writing to %{public}p with length %{public}lu would go past end of file (%{public}p)", &v16, 0x20u);
-          goto LABEL_5;
-        }
-
-        v13 = *(v4 + 16);
-        if (v8 >= a2)
-        {
-          v14 = v13 >= a2;
-          v15 = v13 == a2;
         }
 
         else
         {
-          v14 = 1;
-          v15 = 0;
-        }
+          v10 = v5 + *(v4 + 56);
+          if (a2 + address <= v10)
+          {
+            v12 = *(v4 + 16);
+            return v7 >= a2 && v12 <= a2;
+          }
 
-        result = v15 || !v14;
+          else
+          {
+            v11 = SRLogMemoryMapping;
+            result = os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_FAULT);
+            if (result)
+            {
+              v14 = 134349568;
+              addressCopy = a2;
+              v16 = 2050;
+              addressCopy2 = address;
+              v18 = 2050;
+              v19 = v10;
+              _os_log_fault_impl(&dword_1C914D000, v11, OS_LOG_TYPE_FAULT, "writing to %{public}p with length %{public}lu would go past end of file (%{public}p)", &v14, 0x20u);
+              return 0;
+            }
+          }
+        }
       }
     }
   }
 
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-- (void)appendBytes:(unint64_t)bytes length:
+- (void)appendBytes:(size_t)bytes length:
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (!self)
+  v13 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    goto LABEL_6;
-  }
-
-  v6 = self[3];
-  if (![(SRMemoryMapping *)self isValidWriteToDestinationAddress:v6 withLength:bytes bytes:a2])
-  {
-    goto LABEL_6;
-  }
-
-  v7 = self[6] - self[3] + self[2];
-  if (v7 < bytes)
-  {
-    v8 = SRLogMemoryMapping;
-    if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_INFO))
+    v6 = self[3];
+    if ([(SRMemoryMapping *)self isValidWriteToDestinationAddress:v6 withLength:bytes bytes:a2])
     {
-      v11 = 134349312;
-      bytesCopy = bytes;
-      v13 = 2050;
-      v14 = v7;
-      _os_log_impl(&dword_1C914D000, v8, OS_LOG_TYPE_INFO, "More bytes requested %{public}zu than the capacity %{public}zu. Client should call -freeSpace: to avoid this", &v11, 0x16u);
+      v7 = self[6] - self[3] + self[2];
+      if (v7 >= bytes)
+      {
+        self[3] = &v6[bytes];
+
+        memcpy(v6, a2, bytes);
+      }
+
+      else
+      {
+        v8 = SRLogMemoryMapping;
+        if (os_log_type_enabled(SRLogMemoryMapping, OS_LOG_TYPE_INFO))
+        {
+          v9 = 134349312;
+          bytesCopy = bytes;
+          v11 = 2050;
+          v12 = v7;
+          _os_log_impl(&dword_1C914D000, v8, OS_LOG_TYPE_INFO, "More bytes requested %{public}zu than the capacity %{public}zu. Client should call -freeSpace: to avoid this", &v9, 0x16u);
+        }
+      }
     }
-
-LABEL_6:
-    v9 = *MEMORY[0x1E69E9840];
-    return;
   }
-
-  self[3] = &v6[bytes];
-  v10 = *MEMORY[0x1E69E9840];
-
-  memcpy(v6, a2, bytes);
 }
 
 @end

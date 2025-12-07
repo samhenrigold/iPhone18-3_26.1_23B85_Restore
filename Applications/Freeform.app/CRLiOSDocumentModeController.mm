@@ -346,42 +346,42 @@
       sub_10130DA10(v31);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not change mode while we are already changing the mode.", v32, v33, v34, v35, v36, v37, v38, "[CRLiOSDocumentModeController p_setMode:animated:forced:]");
-    v39 = [NSString stringWithUTF8String:"[CRLiOSDocumentModeController p_setMode:animated:forced:]"];
-    v40 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLiOSDocumentModeController.m"];
-    [CRLAssertionHandler handleFailureInFunction:v39 file:v40 lineNumber:81 isFatal:1 description:"Should not change mode while we are already changing the mode."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not change mode while we are already changing the mode.", "[CRLiOSDocumentModeController p_setMode:animated:forced:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLiOSDocumentModeController.m", 81);
+    v32 = [NSString stringWithUTF8String:"[CRLiOSDocumentModeController p_setMode:animated:forced:]"];
+    v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLApplication/CRLiOSDocumentModeController.m"];
+    [CRLAssertionHandler handleFailureInFunction:v32 file:v33 lineNumber:81 isFatal:1 description:"Should not change mode while we are already changing the mode."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v41, v42);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v34, v35);
     abort();
   }
 
-  v43 = forcedCopy;
-  v44 = animatedCopy;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v36 = forcedCopy;
+  v37 = animatedCopy;
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v11 = self->_observedEditorControllers;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v52;
+    v14 = *v45;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v52 != v14)
+        if (*v45 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v51 + 1) + 8 * i);
+        v16 = *(*(&v44 + 1) + 8 * i);
         v17 = +[NSNotificationCenter defaultCenter];
         [v17 removeObserver:self name:@"CRLEditorControllerSelectionPathDidChangeNotification" object:v16];
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v13);
@@ -392,31 +392,31 @@
   observedEditorControllers = self->_observedEditorControllers;
   self->_observedEditorControllers = v19;
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v21 = self->_observedEditorControllers;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v48;
+    v24 = *v41;
     do
     {
       for (j = 0; j != v23; j = j + 1)
       {
-        if (*v48 != v24)
+        if (*v41 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v47 + 1) + 8 * j);
+        v26 = *(*(&v40 + 1) + 8 * j);
         v27 = +[NSNotificationCenter defaultCenter];
         [v27 addObserver:self selector:"p_editorControllerSelectionPathDidChange:" name:@"CRLEditorControllerSelectionPathDidChangeNotification" object:v26];
       }
 
-      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v23);
@@ -428,14 +428,14 @@
   if (([v30 isEqual:modeCopy2] & 1) == 0)
   {
     self->_currentlyChangingMode = 1;
-    [(CRLiOSDocumentMode *)modeCopy2 modeWillEndForMode:v30 forced:v43];
-    [v30 modeWillBeginFromMode:modeCopy2 forced:v43];
-    [(CRLiOSDocumentModeController *)self p_notifyAllObserversOfModeChangeTo:v30 from:modeCopy2 animated:v44 didChange:0];
+    [(CRLiOSDocumentMode *)modeCopy2 modeWillEndForMode:v30 forced:v36];
+    [v30 modeWillBeginFromMode:modeCopy2 forced:v36];
+    [(CRLiOSDocumentModeController *)self p_notifyAllObserversOfModeChangeTo:v30 from:modeCopy2 animated:v37 didChange:0];
     objc_storeStrong(&self->_mode, mode);
     objc_storeStrong(&self->_previousMode, mode);
-    [(CRLiOSDocumentMode *)modeCopy2 modeDidEndForMode:v30 forced:v43];
-    [v30 modeDidBeginFromMode:modeCopy2 forced:v43];
-    [(CRLiOSDocumentModeController *)self p_notifyAllObserversOfModeChangeTo:v30 from:modeCopy2 animated:v44 didChange:1];
+    [(CRLiOSDocumentMode *)modeCopy2 modeDidEndForMode:v30 forced:v36];
+    [v30 modeDidBeginFromMode:modeCopy2 forced:v36];
+    [(CRLiOSDocumentModeController *)self p_notifyAllObserversOfModeChangeTo:v30 from:modeCopy2 animated:v37 didChange:1];
     self->_currentlyChangingMode = 0;
   }
 }

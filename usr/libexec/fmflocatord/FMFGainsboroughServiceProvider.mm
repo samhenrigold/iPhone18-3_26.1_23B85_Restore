@@ -140,74 +140,74 @@ LABEL_6:
 
 - (void)logState
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider simulation active", &v18, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider simulation active", &v25, 2u);
   }
 
-  v4 = sub_100002830();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002830(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     udid = [(FMFGainsboroughServiceProvider *)self udid];
-    v18 = 138412290;
-    v19 = udid;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider udid %@", &v18, 0xCu);
+    v25 = 138412290;
+    v26 = udid;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider udid %@", &v25, 0xCu);
   }
 
-  v6 = sub_100002830();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    deviceName = [(FMFGainsboroughServiceProvider *)self deviceName];
-    v18 = 138412290;
-    v19 = deviceName;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider deviceName %@", &v18, 0xCu);
-  }
-
-  v8 = sub_100002830();
+  v8 = sub_100002830(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
+    deviceName = [(FMFGainsboroughServiceProvider *)self deviceName];
+    v25 = 138412290;
+    v26 = deviceName;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider deviceName %@", &v25, 0xCu);
+  }
+
+  v11 = sub_100002830(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
     connectionStatusString = [(FMFGainsboroughServiceProvider *)self connectionStatusString];
-    v18 = 138412290;
-    v19 = connectionStatusString;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider connectionStatusString %@", &v18, 0xCu);
+    v25 = 138412290;
+    v26 = connectionStatusString;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider connectionStatusString %@", &v25, 0xCu);
   }
 
-  v10 = sub_100002830();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    wristStatusString = [(FMFGainsboroughServiceProvider *)self wristStatusString];
-    v18 = 138412290;
-    v19 = wristStatusString;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider wristStatusString %@", &v18, 0xCu);
-  }
-
-  v12 = sub_100002830();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-  {
-    lastActiveDate = [(FMFGainsboroughServiceProvider *)self lastActiveDate];
-    v18 = 138412290;
-    v19 = lastActiveDate;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider lastActiveDate %@", &v18, 0xCu);
-  }
-
-  v14 = sub_100002830();
+  v14 = sub_100002830(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    companionUDID = [(FMFGainsboroughServiceProvider *)self companionUDID];
-    v18 = 138412290;
-    v19 = companionUDID;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider companionUDID %@", &v18, 0xCu);
+    wristStatusString = [(FMFGainsboroughServiceProvider *)self wristStatusString];
+    v25 = 138412290;
+    v26 = wristStatusString;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider wristStatusString %@", &v25, 0xCu);
   }
 
-  v16 = sub_100002830();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100002830(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    lastActiveDate = [(FMFGainsboroughServiceProvider *)self lastActiveDate];
+    v25 = 138412290;
+    v26 = lastActiveDate;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider lastActiveDate %@", &v25, 0xCu);
+  }
+
+  v20 = sub_100002830(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    companionUDID = [(FMFGainsboroughServiceProvider *)self companionUDID];
+    v25 = 138412290;
+    v26 = companionUDID;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider companionUDID %@", &v25, 0xCu);
+  }
+
+  v23 = sub_100002830(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     companionUDID2 = [(FMFGainsboroughServiceProvider *)self companionUDID];
-    v18 = 138412290;
-    v19 = companionUDID2;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider pairingId %@", &v18, 0xCu);
+    v25 = 138412290;
+    v26 = companionUDID2;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider pairingId %@", &v25, 0xCu);
   }
 }
 
@@ -353,8 +353,7 @@ LABEL_11:
   [v3 fm_safelyMapKey:@"fenceVersion" toObject:fenceVersion];
 
   _constructPairedDevicesInfo = [(FMFGainsboroughServiceProvider *)self _constructPairedDevicesInfo];
-  [v3 setObject:_constructPairedDevicesInfo forKeyedSubscript:@"otherDevices"];
-  v28 = sub_100002830();
+  v28 = sub_100002830([v3 setObject:_constructPairedDevicesInfo forKeyedSubscript:@"otherDevices"]);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     v30 = 138412290;
@@ -408,8 +407,7 @@ LABEL_11:
   v21 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v20 isRegionMonitoringAvailable]);
   [v3 setObject:v21 forKeyedSubscript:@"fenceMonitoringCapable"];
 
-  [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"supportsNotifyV2"];
-  v22 = sub_100002830();
+  v22 = sub_100002830([v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"supportsNotifyV2"]);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     v24 = 138412290;
@@ -430,15 +428,15 @@ LABEL_11:
   v6 = v5;
   if (v5)
   {
-    [v5 batteryStats];
+    objc_msgSend_batteryStats(v5);
   }
 
-  v7 = sub_100002830();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100002830(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider simulated device info %@", buf, 0xCu);
+    v11 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMFGainsboroughServiceProvider simulated device info %@", buf, 0xCu);
   }
 
   return v3;
@@ -471,8 +469,7 @@ LABEL_11:
   [v4 fm_safelyMapKey:@"deviceClass" toObject:@"iPhone"];
   [v4 fm_safelyMapKey:@"platform" toObject:@"iphoneos"];
   [v4 fm_safelyMapKey:@"deviceName" toObject:@"Gainsborough's iPhone"];
-  [v3 addObject:v4];
-  v10 = sub_100002830();
+  v10 = sub_100002830([v3 addObject:v4]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;

@@ -52,16 +52,16 @@
 - (CUINamedIconLayerGroup)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme resolvingWithBlock:(id)block
 {
   nameCopy = name;
-  v20.receiver = self;
-  v20.super_class = CUINamedIconLayerGroup;
-  v9 = [(CUINamedLookup *)&v20 initWithName:name usingRenditionKey:key fromTheme:?];
+  v14.receiver = self;
+  v14.super_class = CUINamedIconLayerGroup;
+  v9 = [(CUINamedLookup *)&v14 initWithName:name usingRenditionKey:key fromTheme:?];
   v10 = v9;
   if (v9)
   {
     _rendition = [(CUINamedLookup *)v9 _rendition];
     if ([(CUIThemeRendition *)_rendition type]!= 1020)
     {
-      _CUILog(4, "CoreUI: Attempting to create named icon layer stack '%@' from inappropriate rendition type: %@", v12, v13, v14, v15, v16, v17, nameCopy);
+      _CUILog(4, "CoreUI: Attempting to create named icon layer stack '%@' from inappropriate rendition type: %@", nameCopy, _rendition);
 LABEL_8:
 
       return 0;
@@ -73,9 +73,9 @@ LABEL_8:
       nameCopy = [(CUIThemeRendition *)_rendition name];
     }
 
-    v18 = [objc_opt_class() _createLayers:nameCopy fromTheme:theme baseRendition:_rendition withBlock:block];
-    v10->_layers = v18;
-    if (!v18)
+    v12 = [objc_opt_class() _createLayers:nameCopy fromTheme:theme baseRendition:_rendition withBlock:block];
+    v10->_layers = v12;
+    if (!v12)
     {
       goto LABEL_8;
     }
@@ -86,8 +86,8 @@ LABEL_8:
 
 - (BOOL)_updateFromCatalog:(id)catalog displayGamut:(int64_t)gamut deviceIdiom:(int64_t)idiom appearanceName:(id)name
 {
-  v22.receiver = self;
-  v22.super_class = CUINamedIconLayerGroup;
+  v15.receiver = self;
+  v15.super_class = CUINamedIconLayerGroup;
   v11 = [CUINamedLookup _updateFromCatalog:sel__updateFromCatalog_displayGamut_deviceIdiom_appearanceName_ displayGamut:? deviceIdiom:? appearanceName:?];
   if (v11)
   {
@@ -113,9 +113,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    gradientOrColorName = [(CUINamedIconLayerGroup *)self gradientOrColorName];
-    [(CUINamedLookup *)self name];
-    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", v15, v16, v17, v18, v19, v20, gradientOrColorName);
+    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", [(CUINamedIconLayerGroup *)self gradientOrColorName], [(CUINamedLookup *)self name]);
     LOBYTE(v11) = 0;
   }
 

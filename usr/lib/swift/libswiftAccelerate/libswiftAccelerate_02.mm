@@ -1,3 +1,69 @@
+uint64_t destructiveInjectEnumTag for BNNS.PoolingType(uint64_t result, unsigned int a2)
+{
+  if (a2 >= 5)
+  {
+    *result = a2 - 5;
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *(result + 40) = 0u;
+    *(result + 56) = 0u;
+    *(result + 72) = 0u;
+    *(result + 88) = 0u;
+    *(result + 104) = 0u;
+    *(result + 120) = 0u;
+    *(result + 136) = 0u;
+    *(result + 152) = 0u;
+    *(result + 168) = 0u;
+    LOBYTE(a2) = 5;
+    *(result + 184) = 0u;
+  }
+
+  *(result + 200) = a2;
+  return result;
+}
+
+uint64_t dispatch thunk of BNNS.PoolingLayer.apply(batchSize:input:output:)(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v4 = a2[17];
+  v5 = *(a2 + 36);
+  v6 = a2[19];
+  v7 = *(a2 + 40);
+  v8 = a3[17];
+  v9 = *(a3 + 36);
+  v10 = a3[19];
+  v11 = *(a3 + 40);
+  v12 = *(*v3 + 192);
+  v28 = *a2;
+  v29 = *(a2 + 1);
+  v30 = *(a2 + 3);
+  v31 = *(a2 + 5);
+  v32 = *(a2 + 7);
+  v33 = *(a2 + 9);
+  v34 = *(a2 + 11);
+  v35 = *(a2 + 13);
+  v36 = *(a2 + 15);
+  v37 = v4;
+  v38 = v5;
+  v39 = v6;
+  v40 = v7;
+  v41 = *(a2 + 164);
+  v14 = *a3;
+  v15 = *(a3 + 1);
+  v16 = *(a3 + 3);
+  v17 = *(a3 + 5);
+  v18 = *(a3 + 7);
+  v19 = *(a3 + 9);
+  v20 = *(a3 + 11);
+  v21 = *(a3 + 13);
+  v22 = *(a3 + 15);
+  v23 = v8;
+  v24 = v9;
+  v25 = v10;
+  v26 = v11;
+  v27 = *(a3 + 164);
+  return v12(a1, &v28, &v14);
+}
+
 uint64_t dispatch thunk of BNNS.PoolingLayer.applyBackward(batchSize:input:output:outputGradient:generatingInputGradient:generatingBiasGradient:)(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, __int128 *a6)
 {
   v7 = *(a2 + 36);
@@ -320,7 +386,7 @@ LABEL_12:
 
 uint64_t BNNS.ConvolutionLayer.applyBackward(batchSize:input:output:outputGradient:generatingInputGradient:generatingWeightsGradient:generatingBiasGradient:)(size_t a1, uint64_t a2, uint64_t a3, __int128 *a4, _OWORD *a5, uint64_t a6, uint64_t a7)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v11 = a4[6];
   *&out_delta.stride[5] = a4[7];
   v12 = a4[9];
@@ -355,136 +421,148 @@ uint64_t BNNS.ConvolutionLayer.applyBackward(batchSize:input:output:outputGradie
   *&in_delta.size[3] = a5[2];
   *&in_delta.size[5] = v21;
   v22 = *(a6 + 144);
-  *&v68.stride[7] = *(a6 + 128);
-  *&v68.data_type = v22;
-  *&v68.table_data_type = *(a6 + 160);
+  *&v80.stride[7] = *(a6 + 128);
+  *&v80.data_type = v22;
+  *&v80.table_data_type = *(a6 + 160);
   v23 = *(a6 + 80);
-  *&v68.size[7] = *(a6 + 64);
-  *&v68.stride[1] = v23;
+  *&v80.size[7] = *(a6 + 64);
+  *&v80.stride[1] = v23;
   v24 = *(a6 + 112);
-  *&v68.stride[3] = *(a6 + 96);
-  *&v68.stride[5] = v24;
+  *&v80.stride[3] = *(a6 + 96);
+  *&v80.stride[5] = v24;
   v25 = *(a6 + 16);
-  *&v68.flags = *a6;
-  *&v68.size[1] = v25;
+  *&v80.flags = *a6;
+  *&v80.size[1] = v25;
   v26 = *(a6 + 48);
-  *&v68.size[3] = *(a6 + 32);
-  v69 = *(a6 + 176);
-  *&v68.size[5] = v26;
-  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v68) == 1)
+  *&v80.size[3] = *(a6 + 32);
+  v81 = *(a6 + 176);
+  *&v80.size[5] = v26;
+  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v80) == 1)
   {
     v27 = *(a7 + 144);
-    *&v66.stride[7] = *(a7 + 128);
-    *&v66.data_type = v27;
-    *&v66.table_data_type = *(a7 + 160);
+    *&v78.stride[7] = *(a7 + 128);
+    *&v78.data_type = v27;
+    *&v78.table_data_type = *(a7 + 160);
     v28 = *(a7 + 80);
-    *&v66.size[7] = *(a7 + 64);
-    *&v66.stride[1] = v28;
+    *&v78.size[7] = *(a7 + 64);
+    *&v78.stride[1] = v28;
     v29 = *(a7 + 112);
-    *&v66.stride[3] = *(a7 + 96);
-    *&v66.stride[5] = v29;
+    *&v78.stride[3] = *(a7 + 96);
+    *&v78.stride[5] = v29;
     v30 = *(a7 + 16);
-    *&v66.flags = *a7;
-    *&v66.size[1] = v30;
+    *&v78.flags = *a7;
+    *&v78.size[1] = v30;
     v31 = *(a7 + 48);
-    *&v66.size[3] = *(a7 + 32);
-    v67 = *(a7 + 176);
-    *&v66.size[5] = v31;
-    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v66) == 1)
+    *&v78.size[3] = *(a7 + 32);
+    v79 = *(a7 + 176);
+    *&v78.size[5] = v31;
+    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v78) == 1)
     {
       v32 = *(v7 + 16);
       v33 = *(a2 + 136);
-      BNNSNDArrayDescriptor.shape.getter(&v59);
-      v34 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(&v57);
-      v35 = BNNS.Shape.batchStride.getter();
-      v36 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(v61);
-      v37 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v60);
-      v38 = BNNS.Shape.batchStride.getter();
+      BNNSNDArrayDescriptor.shape.getter(&v71);
+      BNNS.Shape.batchStride.getter();
+      v35 = v34;
+      BNNSNDArrayDescriptor.shape.getter(&v69);
+      BNNS.Shape.batchStride.getter();
+      v37 = v36;
+      v38 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      v40 = v39;
+      BNNSNDArrayDescriptor.shape.getter(v72);
+      BNNS.Shape.batchStride.getter();
       weights_delta = 0;
-      v54 = 0;
+      v66 = 0;
     }
 
     else
     {
-      v59 = v66;
+      v71 = v78;
       v32 = *(v7 + 16);
       v33 = *(a2 + 136);
-      BNNSNDArrayDescriptor.shape.getter(&v57);
-      v34 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v61);
-      v35 = BNNS.Shape.batchStride.getter();
-      v36 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(v60);
-      v37 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v58);
-      v38 = BNNS.Shape.batchStride.getter();
+      BNNSNDArrayDescriptor.shape.getter(&v69);
+      BNNS.Shape.batchStride.getter();
+      v35 = v50;
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      v37 = v51;
+      v38 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(v72);
+      BNNS.Shape.batchStride.getter();
+      v40 = v52;
+      BNNSNDArrayDescriptor.shape.getter(v70);
+      BNNS.Shape.batchStride.getter();
       weights_delta = 0;
-      v54 = &v59;
+      v66 = &v71;
     }
 
     goto LABEL_7;
   }
 
-  v59 = v68;
-  v39 = *(a7 + 144);
-  *&v64.stride[7] = *(a7 + 128);
-  *&v64.data_type = v39;
-  *&v64.table_data_type = *(a7 + 160);
-  v40 = *(a7 + 80);
-  *&v64.size[7] = *(a7 + 64);
-  *&v64.stride[1] = v40;
-  v41 = *(a7 + 112);
-  *&v64.stride[3] = *(a7 + 96);
-  *&v64.stride[5] = v41;
-  v42 = *(a7 + 16);
-  *&v64.flags = *a7;
-  *&v64.size[1] = v42;
-  v43 = *(a7 + 48);
-  *&v64.size[3] = *(a7 + 32);
-  v65 = *(a7 + 176);
-  *&v64.size[5] = v43;
-  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v64) == 1)
+  v71 = v80;
+  v42 = *(a7 + 144);
+  *&v76.stride[7] = *(a7 + 128);
+  *&v76.data_type = v42;
+  *&v76.table_data_type = *(a7 + 160);
+  v43 = *(a7 + 80);
+  *&v76.size[7] = *(a7 + 64);
+  *&v76.stride[1] = v43;
+  v44 = *(a7 + 112);
+  *&v76.stride[3] = *(a7 + 96);
+  *&v76.stride[5] = v44;
+  v45 = *(a7 + 16);
+  *&v76.flags = *a7;
+  *&v76.size[1] = v45;
+  v46 = *(a7 + 48);
+  *&v76.size[3] = *(a7 + 32);
+  v77 = *(a7 + 176);
+  *&v76.size[5] = v46;
+  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v76) == 1)
   {
     v32 = *(v7 + 16);
     v33 = *(a2 + 136);
-    BNNSNDArrayDescriptor.shape.getter(&v57);
-    v34 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v61);
-    v35 = BNNS.Shape.batchStride.getter();
-    v36 = *(a3 + 136);
-    BNNSNDArrayDescriptor.shape.getter(v60);
-    v37 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v58);
-    v38 = BNNS.Shape.batchStride.getter();
-    weights_delta = &v59;
-    v54 = 0;
+    BNNSNDArrayDescriptor.shape.getter(&v69);
+    BNNS.Shape.batchStride.getter();
+    v35 = v47;
+    BNNSNDArrayDescriptor.shape.getter(v73);
+    BNNS.Shape.batchStride.getter();
+    v37 = v48;
+    v38 = *(a3 + 136);
+    BNNSNDArrayDescriptor.shape.getter(v72);
+    BNNS.Shape.batchStride.getter();
+    v40 = v49;
+    BNNSNDArrayDescriptor.shape.getter(v70);
+    BNNS.Shape.batchStride.getter();
+    weights_delta = &v71;
+    v66 = 0;
 LABEL_7:
-    result = BNNSFilterApplyBackwardBatch(v32, a1, v33, v34, &in_delta, v35, v36, v37, &out_delta, v38, weights_delta, v54);
+    result = BNNSFilterApplyBackwardBatch(v32, a1, v33, v35, &in_delta, v37, v38, v40, &out_delta, v41, weights_delta, v66);
     goto LABEL_9;
   }
 
-  v57 = v64;
-  v45 = *(v7 + 16);
-  v46 = *(a2 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v61);
-  v47 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v60);
-  v48 = BNNS.Shape.batchStride.getter();
-  v49 = *(a3 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v58);
-  v50 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v56);
-  v52 = BNNS.Shape.batchStride.getter();
-  result = BNNSFilterApplyBackwardBatch(v45, a1, v46, v47, &in_delta, v48, v49, v50, &out_delta, v52, &v59, &v57);
+  v69 = v76;
+  v54 = *(v7 + 16);
+  v55 = *(a2 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v73);
+  BNNS.Shape.batchStride.getter();
+  v57 = v56;
+  BNNSNDArrayDescriptor.shape.getter(v72);
+  BNNS.Shape.batchStride.getter();
+  v59 = v58;
+  v60 = *(a3 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v70);
+  BNNS.Shape.batchStride.getter();
+  v62 = v61;
+  BNNSNDArrayDescriptor.shape.getter(v68);
+  BNNS.Shape.batchStride.getter();
+  result = BNNSFilterApplyBackwardBatch(v54, a1, v55, v57, &in_delta, v59, v60, v62, &out_delta, v63, &v71, &v69);
 LABEL_9:
   if (result)
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v51 = 0;
+    *v64 = 0;
     return swift_willThrow();
   }
 
@@ -861,6 +939,76 @@ uint64_t static vDSP.convert(splitComplexVector:toInterleavedComplexVector:)(uin
   return a5(v11, 1, v8 + 32, 2, v9);
 }
 
+uint64_t BNNSGraph.Builder.Tensor.sum(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_sum(_:_:_:_:_:), v7, v5, 0xD000000000000019, 0x80000001B7E7CA30, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.sumOfSquares(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_sum_square(_:_:_:_:_:), v7, v5, 0xD000000000000022, 0x80000001B7E7CA50, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.product(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_prod(_:_:_:_:_:), v7, v5, 0xD00000000000001DLL, 0x80000001B7E7CA80, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.mean(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_mean(_:_:_:_:_:), v7, v5, 0xD00000000000001ALL, 0x80000001B7E7CAA0, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.minimum(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_reduce_min(_:_:_:_:_:), v7, v5, 0xD00000000000001DLL, 0x80000001B7E7CAC0, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.maximum(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_reduce_max(_:_:_:_:_:), v7, v5, 0xD00000000000001DLL, 0x80000001B7E7CAE0, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.l1Norm(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_l1_norm(_:_:_:_:_:), v7, v5, 0xD00000000000001CLL, 0x80000001B7E7CB00, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.l2Norm(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_l2_norm(_:_:_:_:_:), v7, v5, 0xD00000000000001CLL, 0x80000001B7E7CB20, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.logSum(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_log_sum(_:_:_:_:_:), v7, v5, 0xD00000000000001CLL, 0x80000001B7E7CB40, a3, a4);
+}
+
+uint64_t BNNSGraph.Builder.Tensor.logSumExp(axes:keepDimensions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = a2;
+  v7 = specialized BNNSGraph.Builder.Tensor.arrayToBitmask(_:)(a1);
+  return BNNSGraph.Builder.Tensor.operationHelper(fn:axis:keep:funcName:)(@nonobjc _bnns_graph_builder_register_log_sum_exp(_:_:_:_:_:), v7, v5, 0xD00000000000001FLL, 0x80000001B7E7CB60, a3, a4);
+}
+
 double one-time initialization function for fillAll()
 {
   result = 0.0;
@@ -895,32 +1043,36 @@ uint64_t BNNSGraph.Builder.Tensor.subscript.getter@<X0>(uint64_t a1@<X0>, uint64
   BNNSGraph.Builder.Tensor.getSlice(begin:end:)(v5, v6, a2, a3);
 }
 
-double key path getter for BNNSGraph.Builder.Tensor.subscript(_:) : <A>BNNSGraph.Builder.Tensor<A>A@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+double key path getter for BNNSGraph.Builder.Tensor.subscript(_:) : <A>BNNSGraph.Builder.Tensor<A>A@<D0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>, uint64_t *a5@<X0>)
 {
-  v4 = *a2;
-  v11 = *a1;
-  v5 = *(a1 + 3);
-  v12 = *(a1 + 1);
-  v13 = v5;
-  v6 = type metadata accessor for BNNSGraph.Builder.Tensor();
-  BNNSGraph.Builder.Tensor.subscript.getter(v4, v6, &v8);
-  *a3 = v8;
-  *(a3 + 8) = v9;
-  result = *&v10;
-  *(a3 + 24) = v10;
+  v7 = *(a1 + a2 - 16);
+  v6 = *(a1 + a2 - 8);
+  v8 = *a1;
+  v15 = *a5;
+  v9 = *(a5 + 3);
+  v16 = *(a5 + 1);
+  v17 = v9;
+  v10 = type metadata accessor for BNNSGraph.Builder.Tensor(0, v7, v6, a3);
+  BNNSGraph.Builder.Tensor.subscript.getter(v8, v10, &v12);
+  *a4 = v12;
+  *(a4 + 8) = v13;
+  result = *&v14;
+  *(a4 + 24) = v14;
   return result;
 }
 
-double key path setter for BNNSGraph.Builder.Tensor.subscript(_:) : <A>BNNSGraph.Builder.Tensor<A>A(uint64_t a1, uint64_t a2, uint64_t *a3)
+double key path setter for BNNSGraph.Builder.Tensor.subscript(_:) : <A>BNNSGraph.Builder.Tensor<A>A(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v3 = *a3;
-  v7 = *a1;
-  v4 = *(a1 + 24);
-  v8 = *(a1 + 8);
-  v9 = v4;
-  v5 = type metadata accessor for BNNSGraph.Builder.Tensor();
+  v4 = *(a3 + a4 - 16);
+  v5 = *(a3 + a4 - 8);
+  v6 = *a3;
+  v10 = *a1;
+  v7 = *(a1 + 3);
+  v11 = *(a1 + 1);
+  v12 = v7;
+  v8 = type metadata accessor for BNNSGraph.Builder.Tensor(0, v4, v5, a4);
 
-  *&result = BNNSGraph.Builder.Tensor.subscript.setter(&v7, v3, v5).n128_u64[0];
+  *&result = BNNSGraph.Builder.Tensor.subscript.setter(&v10, v6, v8).n128_u64[0];
   return result;
 }
 
@@ -1140,7 +1292,7 @@ void BNNSGraph.Builder.Tensor.subscript.modify(uint64_t **a1, char a2)
   free(v2);
 }
 
-uint64_t specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint64_t a1)
+char *specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint64_t a1)
 {
   v1 = *(a1 + 16);
   if (!v1)
@@ -1155,8 +1307,8 @@ uint64_t specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint
   {
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v3, v28);
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v28, v27);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV10SliceIndex_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV10SliceIndex_pMd, &_s10Accelerate9BNNSGraphO7BuilderV10SliceIndex_pMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
     if (swift_dynamicCast())
     {
       v5 = v26;
@@ -1178,14 +1330,14 @@ uint64_t specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint
     }
 
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v28, v27);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNySiGMd, &_sSNySiGMR);
     if (swift_dynamicCast())
     {
       break;
     }
 
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v28, v27);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeFromVySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeFromVySiGMd, &_ss16PartialRangeFromVySiGMR);
     if (swift_dynamicCast())
     {
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -1220,7 +1372,7 @@ uint64_t specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint
     }
 
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v28, v27);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss19PartialRangeThroughVySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss19PartialRangeThroughVySiGMd, &_ss19PartialRangeThroughVySiGMR);
     if (swift_dynamicCast())
     {
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -1247,7 +1399,7 @@ uint64_t specialized BNNSGraph.Builder.Tensor.calculateBeginAndEnd(ranges:)(uint
     else
     {
       outlined init with copy of BNNSGraph.Builder.SliceIndex(v28, v27);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeUpToVySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16PartialRangeUpToVySiGMd, &_ss16PartialRangeUpToVySiGMR);
       if (swift_dynamicCast())
       {
         v5 = v25;
@@ -1390,9 +1542,9 @@ uint64_t outlined init with copy of BNNSGraph.Builder.SliceIndex(uint64_t a1, ui
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -1410,7 +1562,7 @@ Swift::Int BNNS.LearningPhase.hashValue.getter(char a1)
   return Hasher._finalize()();
 }
 
-uint64_t BNNS.FusedLayer.apply(batchSize:input:output:for:)(uint64_t result, uint64_t a2, uint64_t a3, char a4)
+void BNNS.FusedLayer.apply(batchSize:input:output:for:)(size_t result, uint64_t a2, uint64_t a3, char a4)
 {
   v5 = *(a2 + 136);
   if (!v5)
@@ -1419,36 +1571,32 @@ uint64_t BNNS.FusedLayer.apply(batchSize:input:output:for:)(uint64_t result, uin
     goto LABEL_7;
   }
 
-  v8 = result;
   v9 = *(v4 + 16);
-  BNNSNDArrayDescriptor.shape.getter(v15);
-  result = BNNS.Shape.batchStride.getter();
-  v10 = *(a3 + 136);
-  if (!v10)
+  BNNSNDArrayDescriptor.shape.getter(v16);
+  BNNS.Shape.batchStride.getter();
+  v11 = *(a3 + 136);
+  if (!v11)
   {
 LABEL_7:
     __break(1u);
-    return result;
+    return;
   }
 
-  v11 = result;
-  BNNSNDArrayDescriptor.shape.getter(v14);
-  v12 = BNNS.Shape.batchStride.getter();
-  result = BNNSFusedFilterApplyBatch(v9, v8, v5, v11, v10, v12, (a4 & 1) == 0);
-  if (result)
+  v12 = v10;
+  BNNSNDArrayDescriptor.shape.getter(v15);
+  BNNS.Shape.batchStride.getter();
+  if (BNNSFusedFilterApplyBatch(v9, result, v5, v12, v11, v13, (a4 & 1) == 0))
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v13 = 0;
-    return swift_willThrow();
+    *v14 = 0;
+    swift_willThrow();
   }
-
-  return result;
 }
 
 uint64_t BNNS.FusedLayer.applyBackward(batchSize:input:output:outputGradient:generatingInputGradient:generatingParameterGradients:)(size_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _OWORD *a5, uint64_t a6)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v11 = *(a6 + 16);
   v12 = MEMORY[0x1E69E7CC0];
   if (v11)
@@ -1510,8 +1658,8 @@ uint64_t BNNS.FusedLayer.applyBackward(batchSize:input:output:outputGradient:gen
     }
 
     while (v11);
-    v6 = v55;
-    a3 = v56;
+    v6 = v59;
+    a3 = v60;
   }
 
   v29 = a5[9];
@@ -1548,34 +1696,38 @@ uint64_t BNNS.FusedLayer.applyBackward(batchSize:input:output:outputGradient:gen
   *&out_delta.size[5] = v38;
   v39 = *(v6 + 16);
   v40 = *(a2 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v61);
-  v41 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v60);
-  v42 = BNNS.Shape.batchStride.getter();
-  v43 = *(a3 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v59);
-  v44 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v58);
-  out_delta_stride = BNNS.Shape.batchStride.getter();
+  BNNSNDArrayDescriptor.shape.getter(v65);
+  BNNS.Shape.batchStride.getter();
+  v42 = v41;
+  BNNSNDArrayDescriptor.shape.getter(v64);
+  BNNS.Shape.batchStride.getter();
+  v44 = v43;
+  v45 = *(a3 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v63);
+  BNNS.Shape.batchStride.getter();
+  v47 = v46;
+  BNNSNDArrayDescriptor.shape.getter(v62);
+  BNNS.Shape.batchStride.getter();
+  out_delta_stride = v48;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
     v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v12 + 2), 0, v12);
   }
 
-  v46 = (v12 + 32);
-  if (BNNSFusedFilterApplyBackwardBatch(v39, a1, v40, v41, &in_delta, v42, v43, v44, &out_delta, out_delta_stride, v12 + 4))
+  v50 = (v12 + 32);
+  if (BNNSFusedFilterApplyBackwardBatch(v39, a1, v40, v42, &in_delta, v44, v45, v47, &out_delta, out_delta_stride, v12 + 4))
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v47 = 0;
+    *v51 = 0;
     swift_willThrow();
     for (i = *(v12 + 2); i; --i)
     {
-      v50 = *v46++;
-      v49 = v50;
-      if (v50)
+      v54 = *v50++;
+      v53 = v54;
+      if (v54)
       {
-        MEMORY[0x1B8CB2C50](v49, -1, -1);
+        MEMORY[0x1B8CB2C50](v53, -1, -1);
       }
     }
   }
@@ -1584,11 +1736,11 @@ uint64_t BNNS.FusedLayer.applyBackward(batchSize:input:output:outputGradient:gen
   {
     for (j = *(v12 + 2); j; --j)
     {
-      v54 = *v46++;
-      v53 = v54;
-      if (v54)
+      v58 = *v50++;
+      v57 = v58;
+      if (v58)
       {
-        MEMORY[0x1B8CB2C50](v53, -1, -1);
+        MEMORY[0x1B8CB2C50](v57, -1, -1);
       }
     }
   }
@@ -2076,7 +2228,7 @@ uint64_t BNNS.FusedConvolutionNormalizationLayer.__allocating_init(input:output:
   v123 = v143[2];
   v124 = v71;
   v125 = v79;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd, &_ss23_ContiguousArrayStorageCySVGMR);
   v80 = swift_allocObject();
   *(v80 + 16) = xmmword_1B7E77850;
   *(v80 + 32) = __dst;
@@ -2549,7 +2701,7 @@ uint64_t BNNS.FusedFullyConnectedNormalizationLayer.__allocating_init(input:outp
   v116 = v127[2];
   v117 = v77;
   v118 = v79;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd, &_ss23_ContiguousArrayStorageCySVGMR);
   v80 = swift_allocObject();
   *(v80 + 16) = xmmword_1B7E77850;
   *(v80 + 32) = __dst;
@@ -2590,7 +2742,7 @@ uint64_t BNNS.FusedFullyConnectedNormalizationLayer.__allocating_init(input:outp
 
 void *closure #1 in closure #1 in closure #1 in BNNS.FusedConvolutionNormalizationLayer.init(input:output:convolutionWeights:convolutionBias:convolutionStride:convolutionDilationStride:convolutionPadding:normalization:normalizationBeta:normalizationGamma:normalizationMomentum:normalizationEpsilon:normalizationActivation:filterParameters:)(const BNNSFilterParameters *a1, const void *a2, char **a3, int a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd, &_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMR);
   v8 = swift_allocObject();
   *(v8 + 32) = a4;
   memcpy(v14, a2, 0x169uLL);
@@ -2748,65 +2900,65 @@ uint64_t dispatch thunk of BNNS.FusedLayer.applyBackward(batchSize:input:output:
   return v29(a1, &v72, &v58, &v44, &v30, a6);
 }
 
-uint64_t static BNNSGraph.Builder.OperationParameter.* infix(_:_:)@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, void)@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+uint64_t static BNNSGraph.Builder.OperationParameter.* infix(_:_:)@<X0>(uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, void)@<X4>, uint64_t a6@<X5>, uint64_t x8_0@<X8>)
 {
-  v21 = *a1;
-  v12 = v21;
-  v13 = *(a3 + 24);
+  v25 = *a2;
+  v13 = v25;
+  v14 = *(a4 + 24);
 
-  v16 = *(a1 + 1);
-  v17 = *(a1 + 3);
-  *&v22 = a1[1];
-  v13(&v24, &v21, a2, a3);
+  v20 = *(a2 + 1);
+  v21 = *(a2 + 3);
+  *&v26 = a2[1];
+  v14(&v28, &v25, a3, a4);
 
+  v25 = v28;
+  v26 = v29;
+  v27 = v30;
+  v22 = v13;
+  v24 = v21;
+  v23 = v20;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v18 = type metadata accessor for BNNSGraph.Builder.Tensor(0, AssociatedTypeWitness, AssociatedConformanceWitness, v17);
+  BNNSGraph.Builder.Tensor.operationHelper(fn:y:funcName:)(a5, &v22, a6, 0xE700000000000000, v18, x8_0);
+}
+
+uint64_t static BNNSGraph.Builder.OperationParameter.* infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, void)@<X4>, uint64_t a6@<X5>, uint64_t x8_0@<X8>)
+{
+  v25 = *a1;
+  v12 = *(a1 + 3);
+  v26 = *(a1 + 1);
+  v27 = v12;
+  v19 = v25;
+  *&v20 = v26;
+  v13 = *(a4 + 24);
+
+  v13(&v22, &v19, a3, a4);
+
+  v19 = v22;
+  v20 = v23;
   v21 = v24;
-  v22 = v25;
-  v23 = v26;
-  v18 = v12;
-  v20 = v17;
-  v19 = v16;
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v14 = type metadata accessor for BNNSGraph.Builder.Tensor();
-  BNNSGraph.Builder.Tensor.operationHelper(fn:y:funcName:)(a4, &v18, a5, 0xE700000000000000, v14, a6);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v17 = type metadata accessor for BNNSGraph.Builder.Tensor(0, AssociatedTypeWitness, AssociatedConformanceWitness, v16);
+  BNNSGraph.Builder.Tensor.operationHelper(fn:y:funcName:)(a5, &v19, a6, 0xE700000000000000, v17, x8_0);
 }
 
-uint64_t static BNNSGraph.Builder.OperationParameter.* infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, void)@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+uint64_t static BNNSGraph.Builder.Tensor<>..== infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, void)@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t x8_0@<X8>)
 {
-  v21 = *a1;
-  v11 = *(a1 + 3);
-  v22 = *(a1 + 1);
-  v23 = v11;
-  v15 = v21;
-  *&v16 = v22;
-  v12 = *(a3 + 24);
-
-  v12(&v18, &v15, a2, a3);
-
-  v15 = v18;
-  v16 = v19;
-  v17 = v20;
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v13 = type metadata accessor for BNNSGraph.Builder.Tensor();
-  BNNSGraph.Builder.Tensor.operationHelper(fn:y:funcName:)(a4, &v15, a5, 0xE700000000000000, v13, a6);
+  v13 = *a2;
+  v19 = *a1;
+  v14 = *(a1 + 3);
+  v20 = *(a1 + 1);
+  v21 = v14;
+  v16 = v13;
+  v17 = *(a2 + 1);
+  v18 = *(a2 + 3);
+  type metadata accessor for BNNSGraph.Builder.Tensor(0, a3, a4, a4);
+  return BNNSGraph.Builder.Tensor.operationHelper_BOOL(fn:y:funcName:)(a6, &v16, a7, a8, x8_0);
 }
 
-uint64_t static BNNSGraph.Builder.Tensor<>..== infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t (*a3)(uint64_t, uint64_t, uint64_t, void)@<X5>, uint64_t a4@<X6>, uint64_t a5@<X7>, uint64_t a6@<X8>)
-{
-  v10 = *a2;
-  v16 = *a1;
-  v11 = *(a1 + 3);
-  v17 = *(a1 + 1);
-  v18 = v11;
-  v13 = v10;
-  v14 = *(a2 + 1);
-  v15 = *(a2 + 3);
-  type metadata accessor for BNNSGraph.Builder.Tensor();
-  return BNNSGraph.Builder.Tensor.operationHelper_BOOL(fn:y:funcName:)(a3, &v13, a4, a5, a6);
-}
-
-uint64_t static BNNSGraph.Builder.Tensor<>..! prefix(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t static BNNSGraph.Builder.Tensor<>..! prefix(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -2846,7 +2998,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t static BNNSGraph.Builder.Tensor<>..& infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static BNNSGraph.Builder.Tensor<>..& infix(_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -2887,7 +3039,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t static BNNSGraph.Builder.Tensor<>..| infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static BNNSGraph.Builder.Tensor<>..| infix(_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -2928,7 +3080,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t static BNNSGraph.Builder.Tensor<>..^ infix(_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static BNNSGraph.Builder.Tensor<>..^ infix(_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -2969,7 +3121,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t vImage.PixelBuffer<>.flatten(channelOrdering:backgroundColor:isPremultiplied:destination:)(_BYTE *a1, char a2, char a3, char a4, char a5, char a6, uint64_t a7)
+vImage_Error vImage.PixelBuffer<>.flatten(channelOrdering:backgroundColor:isPremultiplied:destination:)(_BYTE *a1, char a2, char a3, char a4, char a5, char a6, uint64_t a7)
 {
   v22[4] = *MEMORY[0x1E69E9840];
   v8 = *v7;
@@ -3085,7 +3237,7 @@ LABEL_27:
   return v14(v22, v21, v20, a6 & 1, 0);
 }
 
-uint64_t vImage.PixelBuffer<>.flatten(channelOrdering:backgroundColor:isPremultiplied:destination:)(_BYTE *a1, char a2, uint64_t a3, float a4, float a5, float a6, float a7)
+vImage_Error vImage.PixelBuffer<>.flatten(channelOrdering:backgroundColor:isPremultiplied:destination:)(_BYTE *a1, char a2, uint64_t a3, float a4, float a5, float a6, float a7)
 {
   v22[4] = *MEMORY[0x1E69E9840];
   v8 = *v7;
@@ -3303,7 +3455,7 @@ uint64_t static BNNS.tile(input:output:filterParameters:)(__int128 *a1, __int128
   v15 = a2[3];
   v34 = a2[2];
   v35 = v15;
-  result = MEMORY[0x1B8CB1E70](&v43, &v32, 0);
+  result = MEMORY[0x1B8CB1E70](&v43, &v32, 0, a4, 1, a6);
   if (result)
   {
 LABEL_5:
@@ -3398,7 +3550,7 @@ uint64_t static BNNS.tileBackward(outputGradient:generatingInputGradient:filterP
   v15 = a2[3];
   v34 = a2[2];
   v35 = v15;
-  result = MEMORY[0x1B8CB1E80](&v32, &v43, 0);
+  result = MEMORY[0x1B8CB1E80](&v32, &v43, 0, a4, 1, a6);
   if (result)
   {
 LABEL_5:
@@ -3705,7 +3857,7 @@ uint64_t BNNS.CropResizeLayer.apply(input:regionOfInterest:output:filterParamete
   v64 = a3[3];
   v65 = v26;
   v63 = v29;
-  result = MEMORY[0x1B8CB1950](&v58, &v83, &v72, &v61, 0);
+  result = MEMORY[0x1B8CB1950](&v58, &v83, &v72, &v61, 0, 1, a7);
   if (result)
   {
 LABEL_5:
@@ -3854,7 +4006,7 @@ uint64_t BNNS.CropResizeLayer.applyBackward(regionOfInterest:outputGradient:gene
   v64 = a2[3];
   v65 = v26;
   v63 = v29;
-  result = MEMORY[0x1B8CB1960](&v58, &v83, &v72, &v61, 0);
+  result = MEMORY[0x1B8CB1960](&v58, &v83, &v72, &v61, 0, 1, a7);
   if (result)
   {
 LABEL_5:
@@ -4059,7 +4211,7 @@ uint64_t static BNNS.gather(input:indices:output:axis:filterParameters:)(_OWORD 
     goto LABEL_5;
   }
 
-  result = MEMORY[0x1B8CB1B60](a4, v31, v30, v29, 0);
+  result = MEMORY[0x1B8CB1B60](a4, v31, v30, v29, 0, a6, 1, a8);
   if (result)
   {
 LABEL_5:
@@ -4138,7 +4290,7 @@ uint64_t static BNNS.gatherND(input:indices:output:filterParameters:)(_OWORD *a1
     goto LABEL_5;
   }
 
-  result = MEMORY[0x1B8CB1B70](v30, v29, v28, 0);
+  result = MEMORY[0x1B8CB1B70](v30, v29, v28, 0, a5, 1, a7);
   if (result)
   {
 LABEL_5:
@@ -4419,7 +4571,7 @@ uint64_t static BNNS.scatter(input:indices:output:axis:filterParameters:)(_OWORD
     goto LABEL_5;
   }
 
-  result = MEMORY[0x1B8CB1E40](a4, 15, v31, v30, v29, 0);
+  result = MEMORY[0x1B8CB1E40](a4, 15, v31, v30, v29, 0, 1, a8);
   if (result)
   {
 LABEL_5:
@@ -4498,7 +4650,7 @@ uint64_t static BNNS.scatterND(input:indices:output:filterParameters:)(_OWORD *a
     goto LABEL_5;
   }
 
-  result = MEMORY[0x1B8CB1E50](15, v30, v29, v28, 0);
+  result = MEMORY[0x1B8CB1E50](15, v30, v29, v28, 0, 1, a7);
   if (result)
   {
 LABEL_5:
@@ -4511,72 +4663,72 @@ LABEL_5:
   return result;
 }
 
-void static BNNSNDArrayDescriptor.allocate<A>(randomNormalUsing:mean:standardDeviation:shape:batchSize:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
+void static BNNSNDArrayDescriptor.allocate<A>(randomNormalUsing:mean:standardDeviation:shape:batchSize:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a8@<X8>)
 {
-  v29 = a2;
-  v30 = a3;
-  v38 = *MEMORY[0x1E69E9840];
-  v10 = *(a5 - 8);
+  v31 = a2;
+  v32 = a3;
+  v40 = *MEMORY[0x1E69E9840];
+  v12 = *(a5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v12 = &v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(v13 + 112);
-  v34[6] = *(v13 + 96);
-  v34[7] = v14;
-  v35 = *(v13 + 128);
-  v15 = *(v13 + 48);
-  v34[2] = *(v13 + 32);
-  v34[3] = v15;
-  v16 = *(v13 + 80);
-  v34[4] = *(v13 + 64);
-  v34[5] = v16;
-  v17 = *(v13 + 16);
-  v34[0] = *v13;
-  v34[1] = v17;
-  v20 = (*(v18 + 8))(v19, v18);
-  helper #1 <A>(_:) in static BNNSNDArrayDescriptor.allocateUninitialized(scalarType:shape:batchSize:)(a4, v34, v20, &v33);
-  v21 = *(a1 + 16);
-  v22 = *(v10 + 16);
-  v22(v12, v29, a5);
+  v14 = &v31 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(v15 + 112);
+  v36[6] = *(v15 + 96);
+  v36[7] = v16;
+  v37 = *(v15 + 128);
+  v17 = *(v15 + 48);
+  v36[2] = *(v15 + 32);
+  v36[3] = v17;
+  v18 = *(v15 + 80);
+  v36[4] = *(v15 + 64);
+  v36[5] = v18;
+  v19 = *(v15 + 16);
+  v36[0] = *v15;
+  v36[1] = v19;
+  v22 = (*(v20 + 8))(v21, v20);
+  helper #1 <A>(_:) in static BNNSNDArrayDescriptor.allocateUninitialized(scalarType:shape:batchSize:)(a4, v36, v22, &v35);
+  v23 = *(a1 + 16);
+  v24 = *(v12 + 16);
+  v24(v14, v31, a5);
   lazy protocol witness table accessor for type Float and conformance Float();
   BinaryFloatingPoint.init<A>(_:)();
-  v23 = *&v36.flags;
-  v22(v12, v30, a5);
+  v25 = *&v38.flags;
+  v24(v14, v32, a5);
   BinaryFloatingPoint.init<A>(_:)();
-  if (BNNSRandomFillNormalFloat(v21, &v33, v23, *&v31.flags))
+  if (BNNSRandomFillNormalFloat(v23, &v35, v25, *&v33.flags))
   {
-    if (v33.data)
+    if (v35.data)
     {
-      MEMORY[0x1B8CB2C50](v33.data, -1, -1);
+      MEMORY[0x1B8CB2C50](v35.data, -1, -1);
     }
 
-    _sSo21BNNSNDArrayDescriptoraSgWOi0_(&v36);
+    _sSo21BNNSNDArrayDescriptoraSgWOi0_(&v38);
   }
 
   else
   {
-    v31 = v33;
-    _sSo21BNNSNDArrayDescriptoraSgWOi_(&v31);
-    v36 = v31;
-    v37 = v32;
+    v33 = v35;
+    _sSo21BNNSNDArrayDescriptoraSgWOi_(&v33);
+    v38 = v33;
+    v39 = v34;
   }
 
-  v24 = *&v36.data_type;
-  *(a6 + 128) = *&v36.stride[7];
-  *(a6 + 144) = v24;
-  *(a6 + 160) = *&v36.table_data_type;
-  *(a6 + 176) = v37;
-  v25 = *&v36.stride[1];
-  *(a6 + 64) = *&v36.size[7];
-  *(a6 + 80) = v25;
-  v26 = *&v36.stride[5];
-  *(a6 + 96) = *&v36.stride[3];
-  *(a6 + 112) = v26;
-  v27 = *&v36.size[1];
-  *a6 = *&v36.flags;
-  *(a6 + 16) = v27;
-  v28 = *&v36.size[5];
-  *(a6 + 32) = *&v36.size[3];
-  *(a6 + 48) = v28;
+  v26 = *&v38.data_type;
+  *(a8 + 128) = *&v38.stride[7];
+  *(a8 + 144) = v26;
+  *(a8 + 160) = *&v38.table_data_type;
+  *(a8 + 176) = v39;
+  v27 = *&v38.stride[1];
+  *(a8 + 64) = *&v38.size[7];
+  *(a8 + 80) = v27;
+  v28 = *&v38.stride[5];
+  *(a8 + 96) = *&v38.stride[3];
+  *(a8 + 112) = v28;
+  v29 = *&v38.size[1];
+  *a8 = *&v38.flags;
+  *(a8 + 16) = v29;
+  v30 = *&v38.size[5];
+  *(a8 + 32) = *&v38.size[3];
+  *(a8 + 48) = v30;
 }
 
 unint64_t lazy protocol witness table accessor for type Float and conformance Float()
@@ -6160,12 +6312,13 @@ uint64_t BNNS.BroadcastMatrixMultiplyLayer.apply(batchSize:inputA:inputB:output:
       v7 = *(a4 + 136);
       if (v7)
       {
-        BNNSNDArrayDescriptor.shape.getter(v24);
-        v18 = BNNS.Shape.batchStride.getter();
-        v19 = *(v4 + 16);
-        BNNSNDArrayDescriptor.shape.getter(v24);
-        v20 = BNNS.Shape.batchStride.getter();
-        result = BNNSFilterApplyBatch(v19, a1, v6, v18, v7, v20);
+        BNNSNDArrayDescriptor.shape.getter(v27);
+        BNNS.Shape.batchStride.getter();
+        v21 = v20;
+        v22 = *(v4 + 16);
+        BNNSNDArrayDescriptor.shape.getter(v27);
+        BNNS.Shape.batchStride.getter();
+        result = BNNSFilterApplyBatch(v22, a1, v6, v21, v7, v23);
         if (!result)
         {
           return result;
@@ -6176,11 +6329,11 @@ uint64_t BNNS.BroadcastMatrixMultiplyLayer.apply(batchSize:inputA:inputB:output:
     }
 
 LABEL_11:
-    v17 = 2;
+    v19 = 2;
 LABEL_14:
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v21 = v17;
+    *v24 = v19;
     return swift_willThrow();
   }
 
@@ -6202,18 +6355,20 @@ LABEL_14:
     goto LABEL_11;
   }
 
-  v25 = *(v4 + 16);
-  BNNSNDArrayDescriptor.shape.getter(v24);
-  v13 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v23);
-  v14 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(&v22);
-  v15 = BNNS.Shape.batchStride.getter();
-  result = BNNSFilterApplyTwoInputBatch(v25, a1, v9, v13, v10, v14, v11, v15);
+  v28 = *(v4 + 16);
+  BNNSNDArrayDescriptor.shape.getter(v27);
+  BNNS.Shape.batchStride.getter();
+  v14 = v13;
+  BNNSNDArrayDescriptor.shape.getter(v26);
+  BNNS.Shape.batchStride.getter();
+  v16 = v15;
+  BNNSNDArrayDescriptor.shape.getter(v25);
+  BNNS.Shape.batchStride.getter();
+  result = BNNSFilterApplyTwoInputBatch(v28, a1, v9, v14, v10, v16, v11, v17);
   if (result)
   {
 LABEL_13:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
@@ -6223,117 +6378,122 @@ LABEL_13:
 uint64_t BNNS.BroadcastMatrixMultiplyLayer.applyBackward(batchSize:inputA:inputB:output:outputGradient:generatingInputAGradient:generatingInputBGradient:)(size_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, _OWORD *a6, _OWORD *a7)
 {
   v9 = a6;
-  v87 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   v12 = a6[9];
-  v85[8] = a6[8];
-  v85[9] = v12;
-  v85[10] = a6[10];
+  v95[8] = a6[8];
+  v95[9] = v12;
+  v95[10] = a6[10];
   v13 = a6[5];
-  v85[4] = a6[4];
-  v85[5] = v13;
+  v95[4] = a6[4];
+  v95[5] = v13;
   v14 = a6[6];
-  v85[7] = a6[7];
-  v85[6] = v14;
+  v95[7] = a6[7];
+  v95[6] = v14;
   v15 = a6[1];
-  v85[0] = *a6;
-  v85[1] = v15;
+  v95[0] = *a6;
+  v95[1] = v15;
   v16 = a6[2];
-  v85[3] = a6[3];
-  v85[2] = v16;
+  v95[3] = a6[3];
+  v95[2] = v16;
   v17 = a7[9];
-  v86[8] = a7[8];
-  v86[9] = v17;
-  v86[10] = a7[10];
+  v96[8] = a7[8];
+  v96[9] = v17;
+  v96[10] = a7[10];
   v18 = a7[5];
-  v86[4] = a7[4];
-  v86[5] = v18;
+  v96[4] = a7[4];
+  v96[5] = v18;
   v19 = a7[6];
-  v86[7] = a7[7];
-  v86[6] = v19;
+  v96[7] = a7[7];
+  v96[6] = v19;
   v20 = a7[1];
-  v86[0] = *a7;
-  v86[1] = v20;
+  v96[0] = *a7;
+  v96[1] = v20;
   v21 = a7[2];
-  v86[3] = a7[3];
-  v86[2] = v21;
+  v96[3] = a7[3];
+  v96[2] = v21;
   if (*(v7 + 24))
   {
-    v71 = *(a3 + 136);
+    v81 = *(a3 + 136);
     BNNSNDArrayDescriptor.shape.getter(&out_delta);
-    v22 = BNNS.Shape.batchStride.getter();
+    BNNS.Shape.batchStride.getter();
+    v23 = v22;
     BNNSNDArrayDescriptor.shape.getter(&out_delta);
-    v23 = BNNS.Shape.batchStride.getter();
-    v24 = v86;
+    BNNS.Shape.batchStride.getter();
+    v25 = v24;
+    v26 = v96;
     goto LABEL_5;
   }
 
   if (*(v7 + 25))
   {
-    v71 = *(a2 + 136);
+    v81 = *(a2 + 136);
     BNNSNDArrayDescriptor.shape.getter(&out_delta);
-    v22 = BNNS.Shape.batchStride.getter();
+    BNNS.Shape.batchStride.getter();
+    v23 = v27;
     BNNSNDArrayDescriptor.shape.getter(&out_delta);
-    v23 = BNNS.Shape.batchStride.getter();
-    v24 = v85;
+    BNNS.Shape.batchStride.getter();
+    v25 = v28;
+    v26 = v95;
     v9 = a7;
 LABEL_5:
-    v25 = v9[9];
-    *&v83.stride[7] = v9[8];
-    *&v83.data_type = v25;
-    *&v83.table_data_type = v9[10];
-    v26 = v9[5];
-    *&v83.size[7] = v9[4];
-    *&v83.stride[1] = v26;
-    v27 = v9[6];
-    *&v83.stride[5] = v9[7];
-    *&v83.stride[3] = v27;
-    v28 = v9[1];
-    *&v83.flags = *v9;
-    *&v83.size[1] = v28;
-    v29 = v9[2];
-    *&v83.size[5] = v9[3];
-    *&v83.size[3] = v29;
-    v30 = v24[9];
-    *&v84.stride[7] = v24[8];
-    *&v84.data_type = v30;
-    *&v84.table_data_type = v24[10];
-    v31 = v24[5];
-    *&v84.size[7] = v24[4];
-    *&v84.stride[1] = v31;
-    v32 = v24[6];
-    *&v84.stride[5] = v24[7];
-    *&v84.stride[3] = v32;
-    v33 = v24[1];
-    *&v84.flags = *v24;
-    *&v84.size[1] = v33;
-    v34 = v24[2];
-    *&v84.size[5] = v24[3];
-    *&v84.size[3] = v34;
-    v35 = a5[9];
+    v29 = v9[9];
+    *&v93.stride[7] = v9[8];
+    *&v93.data_type = v29;
+    *&v93.table_data_type = v9[10];
+    v30 = v9[5];
+    *&v93.size[7] = v9[4];
+    *&v93.stride[1] = v30;
+    v31 = v9[6];
+    *&v93.stride[5] = v9[7];
+    *&v93.stride[3] = v31;
+    v32 = v9[1];
+    *&v93.flags = *v9;
+    *&v93.size[1] = v32;
+    v33 = v9[2];
+    *&v93.size[5] = v9[3];
+    *&v93.size[3] = v33;
+    v34 = v26[9];
+    *&v94.stride[7] = v26[8];
+    *&v94.data_type = v34;
+    *&v94.table_data_type = v26[10];
+    v35 = v26[5];
+    *&v94.size[7] = v26[4];
+    *&v94.stride[1] = v35;
+    v36 = v26[6];
+    *&v94.stride[5] = v26[7];
+    *&v94.stride[3] = v36;
+    v37 = v26[1];
+    *&v94.flags = *v26;
+    *&v94.size[1] = v37;
+    v38 = v26[2];
+    *&v94.size[5] = v26[3];
+    *&v94.size[3] = v38;
+    v39 = a5[9];
     *&out_delta.stride[7] = a5[8];
-    *&out_delta.data_type = v35;
+    *&out_delta.data_type = v39;
     *&out_delta.table_data_type = a5[10];
-    v36 = a5[5];
+    v40 = a5[5];
     *&out_delta.size[7] = a5[4];
-    *&out_delta.stride[1] = v36;
-    v37 = a5[6];
+    *&out_delta.stride[1] = v40;
+    v41 = a5[6];
     *&out_delta.stride[5] = a5[7];
-    *&out_delta.stride[3] = v37;
-    v38 = a5[1];
+    *&out_delta.stride[3] = v41;
+    v42 = a5[1];
     *&out_delta.flags = *a5;
-    *&out_delta.size[1] = v38;
-    v39 = a5[2];
+    *&out_delta.size[1] = v42;
+    v43 = a5[2];
     *&out_delta.size[5] = a5[3];
-    *&out_delta.size[3] = v39;
-    in_delta = v84;
-    inB_delta = v83;
-    v40 = *(v7 + 16);
-    v41 = *(a4 + 136);
-    BNNSNDArrayDescriptor.shape.getter(v79);
-    v42 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v78);
-    v43 = BNNS.Shape.batchStride.getter();
-    result = BNNSFilterApplyBackwardBatch(v40, a1, v71, v22, &in_delta, v23, v41, v42, &out_delta, v43, &inB_delta, 0);
+    *&out_delta.size[3] = v43;
+    in_delta = v94;
+    inB_delta = v93;
+    v44 = *(v7 + 16);
+    v45 = *(a4 + 136);
+    BNNSNDArrayDescriptor.shape.getter(v89);
+    BNNS.Shape.batchStride.getter();
+    v47 = v46;
+    BNNSNDArrayDescriptor.shape.getter(v88);
+    BNNS.Shape.batchStride.getter();
+    result = BNNSFilterApplyBackwardBatch(v44, a1, v81, v23, &in_delta, v25, v45, v47, &out_delta, v48, &inB_delta, 0);
     if (!result)
     {
       return result;
@@ -6342,71 +6502,76 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v46 = a5[9];
+  v51 = a5[9];
   *&out_delta.stride[7] = a5[8];
-  *&out_delta.data_type = v46;
+  *&out_delta.data_type = v51;
   *&out_delta.table_data_type = a5[10];
-  v47 = a5[5];
+  v52 = a5[5];
   *&out_delta.size[7] = a5[4];
-  *&out_delta.stride[1] = v47;
-  v48 = a5[6];
+  *&out_delta.stride[1] = v52;
+  v53 = a5[6];
   *&out_delta.stride[5] = a5[7];
-  *&out_delta.stride[3] = v48;
-  v49 = a5[1];
+  *&out_delta.stride[3] = v53;
+  v54 = a5[1];
   *&out_delta.flags = *a5;
-  *&out_delta.size[1] = v49;
-  v50 = a5[2];
+  *&out_delta.size[1] = v54;
+  v55 = a5[2];
   *&out_delta.size[5] = a5[3];
-  *&out_delta.size[3] = v50;
-  v51 = a6[9];
+  *&out_delta.size[3] = v55;
+  v56 = a6[9];
   *&in_delta.stride[7] = a6[8];
-  *&in_delta.data_type = v51;
+  *&in_delta.data_type = v56;
   *&in_delta.table_data_type = a6[10];
-  v52 = a6[5];
+  v57 = a6[5];
   *&in_delta.size[7] = a6[4];
-  *&in_delta.stride[1] = v52;
-  v53 = a6[6];
+  *&in_delta.stride[1] = v57;
+  v58 = a6[6];
   *&in_delta.stride[5] = a6[7];
-  *&in_delta.stride[3] = v53;
-  v54 = a6[1];
+  *&in_delta.stride[3] = v58;
+  v59 = a6[1];
   *&in_delta.flags = *a6;
-  *&in_delta.size[1] = v54;
-  v55 = a6[2];
+  *&in_delta.size[1] = v59;
+  v60 = a6[2];
   *&in_delta.size[5] = a6[3];
-  *&in_delta.size[3] = v55;
-  v56 = a7[9];
+  *&in_delta.size[3] = v60;
+  v61 = a7[9];
   *&inB_delta.stride[7] = a7[8];
-  *&inB_delta.data_type = v56;
+  *&inB_delta.data_type = v61;
   *&inB_delta.table_data_type = a7[10];
-  v57 = a7[5];
+  v62 = a7[5];
   *&inB_delta.size[7] = a7[4];
-  *&inB_delta.stride[1] = v57;
-  v58 = a7[7];
+  *&inB_delta.stride[1] = v62;
+  v63 = a7[7];
   *&inB_delta.stride[3] = a7[6];
-  *&inB_delta.stride[5] = v58;
-  v59 = a7[1];
+  *&inB_delta.stride[5] = v63;
+  v64 = a7[1];
   *&inB_delta.flags = *a7;
-  *&inB_delta.size[1] = v59;
-  v60 = a7[3];
+  *&inB_delta.size[1] = v64;
+  v65 = a7[3];
   *&inB_delta.size[3] = a7[2];
-  *&inB_delta.size[5] = v60;
-  v70 = *(v7 + 16);
-  v72 = *(a2 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v79);
-  inA_stride = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v78);
-  v62 = BNNS.Shape.batchStride.getter();
-  v63 = *(a3 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v77);
-  v64 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v76);
-  v65 = BNNS.Shape.batchStride.getter();
-  v66 = *(a4 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v75);
-  v67 = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v74);
-  v68 = BNNS.Shape.batchStride.getter();
-  result = BNNSFilterApplyBackwardTwoInputBatch(v70, a1, v72, inA_stride, &in_delta, v62, v63, v64, &inB_delta, v65, v66, v67, &out_delta, v68, 0, 0);
+  *&inB_delta.size[5] = v65;
+  v80 = *(v7 + 16);
+  v82 = *(a2 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v89);
+  BNNS.Shape.batchStride.getter();
+  inA_stride = v67;
+  BNNSNDArrayDescriptor.shape.getter(v88);
+  BNNS.Shape.batchStride.getter();
+  v69 = v68;
+  v70 = *(a3 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v87);
+  BNNS.Shape.batchStride.getter();
+  v72 = v71;
+  BNNSNDArrayDescriptor.shape.getter(v86);
+  BNNS.Shape.batchStride.getter();
+  v74 = v73;
+  v75 = *(a4 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v85);
+  BNNS.Shape.batchStride.getter();
+  v77 = v76;
+  BNNSNDArrayDescriptor.shape.getter(v84);
+  BNNS.Shape.batchStride.getter();
+  result = BNNSFilterApplyBackwardTwoInputBatch(v80, a1, v82, inA_stride, &in_delta, v69, v70, v72, &inB_delta, v74, v75, v77, &out_delta, v78, 0, 0);
   if (!result)
   {
     return result;
@@ -6415,7 +6580,7 @@ LABEL_5:
 LABEL_6:
   lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
   swift_allocError();
-  *v45 = 0;
+  *v50 = 0;
   return swift_willThrow();
 }
 
@@ -6824,11 +6989,11 @@ uint64_t static vDSP.convertElements<A, B>(of:to:)(uint64_t a1, uint64_t a2, uin
   return static vDSP.convertElements<A, B>(of:to:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.convertElements<A, B>(of:to:));
 }
 
-uint64_t closure #1 in static vDSP.float16ToFloat<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t closure #1 in static vDSP.float16ToFloat<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a6);
-  v16 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6);
-  a9(a3, a1, a4, v15, a5, v16);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a6, a7);
+  v17 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6, a7);
+  a9(a3, a1, a4, v16, a5, v17);
   result = (*(a5 + 16))(a4, a5);
   *a2 = result;
   return result;
@@ -7028,57 +7193,67 @@ LABEL_11:
 
 uint64_t static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 959);
 }
 
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 1000);
 }
 
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 1041);
 }
 
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 1082);
 }
 
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 1123);
 }
 
 {
-  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:));
+  return static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), partial apply for closure #2 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:), 1164);
 }
 
-uint64_t closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t a9, unint64_t *a10, void (*a11)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t closure #1 in static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t *a9, unint64_t *a10, void (*a11)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a8);
-  v17 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a10, a8);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a8, a9);
+  v17 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a10, a8, a9);
   a11(a3, a1, a4, v16, a6, v17);
   result = (*(a6 + 16))(a4, a6);
   *a2 = result;
   return result;
 }
 
-uint64_t static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void *, uint64_t *), uint64_t (*a8)(void *, uint64_t *))
+uint64_t static vDSP.integerToFloatingPoint<A, B>(_:floatingPointType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void *, uint64_t *), uint64_t (*a8)(void *, uint64_t *), uint64_t a9)
 {
   if (swift_dynamicCastMetatype())
   {
-    v12 = (*(a5 + 16))(a3, a5);
-    v13 = MEMORY[0x1EEE9AC00](v12);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v13, a7);
+    v16 = (*(a5 + 16))(a3, a5);
+    v17 = MEMORY[0x1EEE9AC00](v16);
+    v23 = a3;
+    v24 = a4;
+    v25 = a5;
+    v26 = a6;
+    v27 = a1;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v17, a7, v22);
 LABEL_5:
-    v16 = _arrayForceCast<A, B>(_:)();
+    v20 = _arrayForceCast<A, B>(_:)();
 
-    return v16;
+    return v20;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v14 = (*(a5 + 16))(a3, a5);
-    v15 = MEMORY[0x1EEE9AC00](v14);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v15, a8);
+    v18 = (*(a5 + 16))(a3, a5);
+    v19 = MEMORY[0x1EEE9AC00](v18);
+    v23 = a3;
+    v24 = a4;
+    v25 = a5;
+    v26 = a6;
+    v27 = a1;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v19, a8, v22);
     goto LABEL_5;
   }
 
@@ -7091,56 +7266,92 @@ LABEL_5:
   return result;
 }
 
-uint64_t static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (swift_dynamicCastMetatype())
   {
-    v8 = (*(a6 + 16))(a4, a6);
-    v9 = MEMORY[0x1EEE9AC00](v8);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5UInt8V_Tt1gq5(v9, partial apply for closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v13 = (*(a6 + 16))(a4, a6);
+    v14 = MEMORY[0x1EEE9AC00](v13);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5UInt8V_Tt1gq5(v14, partial apply for closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
 LABEL_13:
-    v20 = _arrayForceCast<A, B>(_:)();
+    v25 = _arrayForceCast<A, B>(_:)();
 
-    return v20;
+    return v25;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v10 = (*(a6 + 16))(a4, a6);
-    v11 = MEMORY[0x1EEE9AC00](v10);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt16V_Tt1gq5(v11, partial apply for closure #2 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v15 = (*(a6 + 16))(a4, a6);
+    v16 = MEMORY[0x1EEE9AC00](v15);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt16V_Tt1gq5(v16, partial apply for closure #2 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v12 = (*(a6 + 16))(a4, a6);
-    v13 = MEMORY[0x1EEE9AC00](v12);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt32V_Tt1gq5(v13, partial apply for closure #3 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v17 = (*(a6 + 16))(a4, a6);
+    v18 = MEMORY[0x1EEE9AC00](v17);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt32V_Tt1gq5(v18, partial apply for closure #3 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v14 = (*(a6 + 16))(a4, a6);
-    v15 = MEMORY[0x1EEE9AC00](v14);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs4Int8V_Tt1gq5(v15, partial apply for closure #4 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v19 = (*(a6 + 16))(a4, a6);
+    v20 = MEMORY[0x1EEE9AC00](v19);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs4Int8V_Tt1gq5(v20, partial apply for closure #4 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v16 = (*(a6 + 16))(a4, a6);
-    v17 = MEMORY[0x1EEE9AC00](v16);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int16V_Tt1gq5(v17, partial apply for closure #5 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v21 = (*(a6 + 16))(a4, a6);
+    v22 = MEMORY[0x1EEE9AC00](v21);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int16V_Tt1gq5(v22, partial apply for closure #5 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v18 = (*(a6 + 16))(a4, a6);
-    v19 = MEMORY[0x1EEE9AC00](v18);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int32V_Tt1gq5(v19, partial apply for closure #6 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v23 = (*(a6 + 16))(a4, a6);
+    v24 = MEMORY[0x1EEE9AC00](v23);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int32V_Tt1gq5(v24, partial apply for closure #6 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
@@ -7156,52 +7367,88 @@ LABEL_13:
 {
   if (swift_dynamicCastMetatype())
   {
-    v8 = (*(a6 + 16))(a4, a6);
-    v9 = MEMORY[0x1EEE9AC00](v8);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5UInt8V_Tt1gq5(v9, partial apply for closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v13 = (*(a6 + 16))(a4, a6);
+    v14 = MEMORY[0x1EEE9AC00](v13);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5UInt8V_Tt1gq5(v14, partial apply for closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
 LABEL_13:
-    v20 = _arrayForceCast<A, B>(_:)();
+    v25 = _arrayForceCast<A, B>(_:)();
 
-    return v20;
+    return v25;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v10 = (*(a6 + 16))(a4, a6);
-    v11 = MEMORY[0x1EEE9AC00](v10);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt16V_Tt1gq5(v11, partial apply for closure #2 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v15 = (*(a6 + 16))(a4, a6);
+    v16 = MEMORY[0x1EEE9AC00](v15);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt16V_Tt1gq5(v16, partial apply for closure #2 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v12 = (*(a6 + 16))(a4, a6);
-    v13 = MEMORY[0x1EEE9AC00](v12);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt32V_Tt1gq5(v13, partial apply for closure #3 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v17 = (*(a6 + 16))(a4, a6);
+    v18 = MEMORY[0x1EEE9AC00](v17);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs6UInt32V_Tt1gq5(v18, partial apply for closure #3 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v14 = (*(a6 + 16))(a4, a6);
-    v15 = MEMORY[0x1EEE9AC00](v14);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs4Int8V_Tt1gq5(v15, partial apply for closure #4 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v19 = (*(a6 + 16))(a4, a6);
+    v20 = MEMORY[0x1EEE9AC00](v19);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs4Int8V_Tt1gq5(v20, partial apply for closure #4 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v16 = (*(a6 + 16))(a4, a6);
-    v17 = MEMORY[0x1EEE9AC00](v16);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int16V_Tt1gq5(v17, partial apply for closure #5 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v21 = (*(a6 + 16))(a4, a6);
+    v22 = MEMORY[0x1EEE9AC00](v21);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int16V_Tt1gq5(v22, partial apply for closure #5 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    v18 = (*(a6 + 16))(a4, a6);
-    v19 = MEMORY[0x1EEE9AC00](v18);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int32V_Tt1gq5(v19, partial apply for closure #6 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:));
+    v23 = (*(a6 + 16))(a4, a6);
+    v24 = MEMORY[0x1EEE9AC00](v23);
+    v28 = a4;
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a1;
+    v33 = a3;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5Int32V_Tt1gq5(v24, partial apply for closure #6 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:), v27);
     goto LABEL_13;
   }
 
@@ -7214,10 +7461,10 @@ LABEL_13:
   return result;
 }
 
-uint64_t closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t a10, unint64_t *a11, void (*a12)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t closure #1 in static vDSP.floatingPointToInteger<A, B>(_:integerType:rounding:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t *a10, unint64_t *a11, void (*a12)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(a9);
-  v18 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a11, a9);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(a9, a10);
+  v18 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a11, a9, a10);
   a12(a3, a1, a4, a5, v17, a7, v18);
   result = (*(a7 + 16))(a5, a7);
   *a2 = result;
@@ -7233,11 +7480,11 @@ uint64_t static vDSP.float16ToFloat<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3
   return a5(v10, a4, v12);
 }
 
-uint64_t closure #1 in static vDSP.floatToDouble<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t closure #1 in static vDSP.floatToDouble<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a6);
-  v16 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6);
-  a9(a3, a1, a4, v15, a5, v16);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a6, a7);
+  v17 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6, a7);
+  a9(a3, a1, a4, v16, a5, v17);
   result = (*(a5 + 16))(a4, a5);
   *a2 = result;
   return result;
@@ -7639,89 +7886,93 @@ vImage_Error partial apply for closure #1 in closure #1 in static vDSP.convertEl
 
 uint64_t static BNNS.applyTopK(k:input:bestValues:bestIndices:axis:batchSize:filterParameters:)(uint64_t a1, _OWORD *a2, __int128 *a3, _OWORD *a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t (*a11)(uint64_t, uint64_t, uint64_t, _OWORD *, uint64_t, _OWORD *, uint64_t, _OWORD *, uint64_t, int *))
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v14 = a2[9];
-  v49[8] = a2[8];
-  v49[9] = v14;
-  v49[10] = a2[10];
+  v53[8] = a2[8];
+  v53[9] = v14;
+  v53[10] = a2[10];
   v15 = a2[5];
-  v49[4] = a2[4];
-  v49[5] = v15;
+  v53[4] = a2[4];
+  v53[5] = v15;
   v16 = a2[7];
-  v49[6] = a2[6];
-  v49[7] = v16;
+  v53[6] = a2[6];
+  v53[7] = v16;
   v17 = a2[1];
-  v49[0] = *a2;
-  v49[1] = v17;
+  v53[0] = *a2;
+  v53[1] = v17;
   v18 = a2[3];
-  v49[2] = a2[2];
-  v49[3] = v18;
+  v53[2] = a2[2];
+  v53[3] = v18;
   v19 = a3[8];
   v20 = a3[9];
   v21 = a3[6];
-  v48[7] = a3[7];
-  v48[8] = v19;
+  v52[7] = a3[7];
+  v52[8] = v19;
   v22 = a3[10];
-  v48[9] = v20;
-  v48[10] = v22;
+  v52[9] = v20;
+  v52[10] = v22;
   v23 = a3[4];
   v24 = a3[5];
   v25 = a3[2];
-  v48[3] = a3[3];
-  v48[4] = v23;
-  v48[5] = v24;
-  v48[6] = v21;
+  v52[3] = a3[3];
+  v52[4] = v23;
+  v52[5] = v24;
+  v52[6] = v21;
   v26 = *a3;
-  v48[1] = a3[1];
-  v48[2] = v25;
+  v52[1] = a3[1];
+  v52[2] = v25;
   v27 = a4[9];
-  v47[8] = a4[8];
-  v47[9] = v27;
-  v47[10] = a4[10];
-  v48[0] = v26;
+  v51[8] = a4[8];
+  v51[9] = v27;
+  v51[10] = a4[10];
+  v52[0] = v26;
   v28 = a4[5];
-  v47[4] = a4[4];
-  v47[5] = v28;
+  v51[4] = a4[4];
+  v51[5] = v28;
   v29 = a4[7];
-  v47[6] = a4[6];
-  v47[7] = v29;
+  v51[6] = a4[6];
+  v51[7] = v29;
   v30 = a4[1];
-  v47[0] = *a4;
-  v47[1] = v30;
+  v51[0] = *a4;
+  v51[1] = v30;
   v31 = a4[3];
-  v47[2] = a4[2];
-  v47[3] = v31;
+  v51[2] = a4[2];
+  v51[3] = v31;
   if (a9 == 1)
   {
-    BNNSNDArrayDescriptor.shape.getter(v46);
-    v32 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v45);
-    v33 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v44);
-    v34 = BNNS.Shape.batchStride.getter();
-    result = a11(a1, a5, a6, v49, v32, v48, v33, v47, v34, 0);
+    BNNSNDArrayDescriptor.shape.getter(v50);
+    BNNS.Shape.batchStride.getter();
+    v33 = v32;
+    BNNSNDArrayDescriptor.shape.getter(v49);
+    BNNS.Shape.batchStride.getter();
+    v35 = v34;
+    BNNSNDArrayDescriptor.shape.getter(v48);
+    BNNS.Shape.batchStride.getter();
+    result = a11(a1, a5, a6, v53, v33, v52, v35, v51, v36, 0);
   }
 
   else
   {
-    v40 = a7;
-    v41 = a8;
-    v42 = a9;
-    v43 = a10;
-    BNNSNDArrayDescriptor.shape.getter(v46);
-    v36 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v45);
-    v37 = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v44);
-    v38 = BNNS.Shape.batchStride.getter();
-    result = a11(a1, a5, a6, v49, v36, v48, v37, v47, v38, &v40);
+    v44 = a7;
+    v45 = a8;
+    v46 = a9;
+    v47 = a10;
+    BNNSNDArrayDescriptor.shape.getter(v50);
+    BNNS.Shape.batchStride.getter();
+    v39 = v38;
+    BNNSNDArrayDescriptor.shape.getter(v49);
+    BNNS.Shape.batchStride.getter();
+    v41 = v40;
+    BNNSNDArrayDescriptor.shape.getter(v48);
+    BNNS.Shape.batchStride.getter();
+    result = a11(a1, a5, a6, v53, v39, v52, v41, v51, v42, &v44);
   }
 
   if (result)
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v39 = 0;
+    *v43 = 0;
     return swift_willThrow();
   }
 
@@ -7951,7 +8202,7 @@ LABEL_6:
 
   if (*a5)
   {
-    return a7(a3, result, 1, *a5, 1);
+    return (a7)(a3, result, 1, *a5, 1, a6);
   }
 
 LABEL_7:
@@ -8039,29 +8290,50 @@ LABEL_7:
   return result;
 }
 
-uint64_t static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:)(uint64_t a1, _DWORD *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v13 = a1;
+  v29[1] = *MEMORY[0x1E69E9840];
   if (a4)
   {
-    v8 = (*(a8 + 16))(a6, a8);
-    v9 = MEMORY[0x1EEE9AC00](v8);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v9, partial apply for closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:));
+    v28 = 0;
+    v29[0] = 0;
+    v27 = 0;
+    v14 = (*(a8 + 16))(a6, a8, a3);
+    v15 = MEMORY[0x1EEE9AC00](v14);
+    v19 = a5;
+    v20 = a6;
+    v21 = a7;
+    v22 = a8;
+    v23 = a2;
+    v24 = &v27;
+    v25 = v29;
+    v26 = &v28;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v15, partial apply for closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:), v18);
+
+    if (__CFADD__(v29[0], v28))
+    {
+      __break(1u);
+    }
+
+    else if (((v29[0] + v28) & 0x8000000000000000) == 0)
+    {
+      goto LABEL_4;
+    }
+
+    __break(1u);
   }
 
+LABEL_4:
   MEMORY[0x1EEE9AC00](a1);
-  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v10, partial apply for closure #2 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:));
-}
-
-{
-  if (a4)
-  {
-    v8 = (*(a8 + 16))(a6, a8);
-    v9 = MEMORY[0x1EEE9AC00](v8);
-    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v9, partial apply for closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:));
-  }
-
-  MEMORY[0x1EEE9AC00](a1);
-  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v10, partial apply for closure #2 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:));
+  v19 = a5;
+  v20 = a6;
+  v21 = a7;
+  v22 = a8;
+  v23 = v13;
+  v24 = a2;
+  v25 = v16;
+  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v16, partial apply for closure #2 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:), v18);
 }
 
 void closure #1 in closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:)(const float *a1, uint64_t a2, const float *a3, float **a4, uint64_t a5, vDSP_Length *a6, vDSP_Length *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -8091,6 +8363,52 @@ LABEL_7:
   __break(1u);
 }
 
+uint64_t static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:)(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v13 = a1;
+  v29[1] = *MEMORY[0x1E69E9840];
+  if (a4)
+  {
+    v28 = 0;
+    v29[0] = 0;
+    v27 = 0;
+    v14 = (*(a8 + 16))(a6, a8, a3);
+    v15 = MEMORY[0x1EEE9AC00](v14);
+    v19 = a5;
+    v20 = a6;
+    v21 = a7;
+    v22 = a8;
+    v23 = a2;
+    v24 = &v27;
+    v25 = v29;
+    v26 = &v28;
+    _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v15, partial apply for closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:), v18);
+
+    if (__CFADD__(v29[0], v28))
+    {
+      __break(1u);
+    }
+
+    else if (((v29[0] + v28) & 0x8000000000000000) == 0)
+    {
+      goto LABEL_4;
+    }
+
+    __break(1u);
+  }
+
+LABEL_4:
+  MEMORY[0x1EEE9AC00](a1);
+  v19 = a5;
+  v20 = a6;
+  v21 = a7;
+  v22 = a8;
+  v23 = v13;
+  v24 = a2;
+  v25 = v16;
+  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v16, partial apply for closure #2 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:), v18);
+}
+
 void closure #1 in closure #1 in static vDSP.compress<A, B>(_:gatingVector:nonZeroGatingCount:)(const double *a1, uint64_t a2, const double *a3, double **a4, uint64_t a5, vDSP_Length *a6, vDSP_Length *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (!a1)
@@ -8118,19 +8436,19 @@ LABEL_7:
   __break(1u);
 }
 
-uint64_t partial apply for closure #1 in static vDSP.taperedMerge<A, B>(_:_:)(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t partial apply for closure #1 in static vDSP.taperedMerge<A, B>(_:_:)(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v11 = v6[2];
-  v10 = v6[3];
-  v18 = v6[5];
-  v19 = v6[4];
-  v12 = v6[6];
-  v13 = v6[7];
-  v17 = v6[8];
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  v15 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a5, a3);
-  result = a6(v12, v13, a1, v11, v10, v14, v19, v18, v15);
-  *a2 = v17;
+  v12 = v6[2];
+  v11 = v6[3];
+  v19 = v6[5];
+  v20 = v6[4];
+  v13 = v6[6];
+  v14 = v6[7];
+  v18 = v6[8];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v16 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a5, a3, a4);
+  result = a6(v13, v14, a1, v12, v11, v15, v20, v19, v16);
+  *a2 = v18;
   return result;
 }
 
@@ -8297,36 +8615,36 @@ uint64_t partial apply for closure #1 in closure #1 in static vDSP.taperedMerge<
   return (*(v5 + 16))(a3, v8, MEMORY[0x1E69E7CA8] + 8, v4);
 }
 
-uint64_t BNNS.Shape.batchStride.getter()
+void BNNS.Shape.batchStride.getter()
 {
-  BNNS.Shape.size.getter(&v39);
-  v1 = v39;
-  v0 = v40;
-  v3 = v41;
-  v2 = v42;
-  v5 = v43;
-  v4 = v44;
-  v7 = v45;
-  v6 = v46;
-  result = BNNS.Shape.stride.getter(&v39);
-  v9 = v39;
+  BNNS.Shape.size.getter(&v38);
+  v1 = v38;
+  v0 = v39;
+  v3 = v40;
+  v2 = v41;
+  v5 = v42;
+  v4 = v43;
+  v7 = v44;
+  v6 = v45;
+  BNNS.Shape.stride.getter(&v38);
+  v8 = v38;
   if (v1 <= 1)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v1;
-  }
-
-  if (v39 <= 1)
   {
     v9 = 1;
   }
 
-  v11 = v10 * v9;
-  if ((v10 * v9) >> 64 != (v10 * v9) >> 63)
+  else
+  {
+    v9 = v1;
+  }
+
+  if (v38 <= 1)
+  {
+    v8 = 1;
+  }
+
+  v10 = v9 * v8;
+  if ((v9 * v8) >> 64 != (v9 * v8) >> 63)
   {
     __break(1u);
 LABEL_64:
@@ -8357,230 +8675,227 @@ LABEL_76:
     __break(1u);
 LABEL_77:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v0 <= 1)
   {
-    v12 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v12 = v0;
+    v11 = v0;
   }
 
-  v13 = v11 * v12;
-  if ((v11 * v12) >> 64 != (v11 * v12) >> 63)
+  v12 = v10 * v11;
+  if ((v10 * v11) >> 64 != (v10 * v11) >> 63)
   {
     goto LABEL_64;
   }
 
-  if (v40 <= 1)
+  if (v39 <= 1)
   {
-    v14 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v14 = v40;
+    v13 = v39;
   }
 
-  v15 = v13 * v14;
-  if ((v13 * v14) >> 64 != (v13 * v14) >> 63)
+  v14 = v12 * v13;
+  if ((v12 * v13) >> 64 != (v12 * v13) >> 63)
   {
     goto LABEL_65;
   }
 
   if (v3 <= 1)
   {
-    v16 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v16 = v3;
+    v15 = v3;
   }
 
-  v17 = v15 * v16;
-  if ((v15 * v16) >> 64 != (v15 * v16) >> 63)
+  v16 = v14 * v15;
+  if ((v14 * v15) >> 64 != (v14 * v15) >> 63)
   {
     goto LABEL_66;
   }
 
-  if (v41 <= 1)
+  if (v40 <= 1)
   {
-    v18 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v18 = v41;
+    v17 = v40;
   }
 
-  v19 = v17 * v18;
-  if ((v17 * v18) >> 64 != (v17 * v18) >> 63)
+  v18 = v16 * v17;
+  if ((v16 * v17) >> 64 != (v16 * v17) >> 63)
   {
     goto LABEL_67;
   }
 
   if (v2 <= 1)
   {
-    v20 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v20 = v2;
+    v19 = v2;
   }
 
-  v21 = v19 * v20;
-  if ((v19 * v20) >> 64 != (v19 * v20) >> 63)
+  v20 = v18 * v19;
+  if ((v18 * v19) >> 64 != (v18 * v19) >> 63)
   {
     goto LABEL_68;
   }
 
-  if (v42 <= 1)
+  if (v41 <= 1)
   {
-    v22 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v22 = v42;
+    v21 = v41;
   }
 
-  v23 = v21 * v22;
-  if ((v21 * v22) >> 64 != (v21 * v22) >> 63)
+  v22 = v20 * v21;
+  if ((v20 * v21) >> 64 != (v20 * v21) >> 63)
   {
     goto LABEL_69;
   }
 
   if (v5 <= 1)
   {
-    v24 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v24 = v5;
+    v23 = v5;
   }
 
-  v25 = v23 * v24;
-  if ((v23 * v24) >> 64 != (v23 * v24) >> 63)
+  v24 = v22 * v23;
+  if ((v22 * v23) >> 64 != (v22 * v23) >> 63)
   {
     goto LABEL_70;
   }
 
-  if (v43 <= 1)
+  if (v42 <= 1)
   {
-    v26 = 1;
+    v25 = 1;
   }
 
   else
   {
-    v26 = v43;
+    v25 = v42;
   }
 
-  v27 = v25 * v26;
-  if ((v25 * v26) >> 64 != (v25 * v26) >> 63)
+  v26 = v24 * v25;
+  if ((v24 * v25) >> 64 != (v24 * v25) >> 63)
   {
     goto LABEL_71;
   }
 
   if (v4 <= 1)
   {
-    v28 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v28 = v4;
+    v27 = v4;
   }
 
-  v29 = v27 * v28;
-  if ((v27 * v28) >> 64 != (v27 * v28) >> 63)
+  v28 = v26 * v27;
+  if ((v26 * v27) >> 64 != (v26 * v27) >> 63)
   {
     goto LABEL_72;
   }
 
-  if (v44 <= 1)
+  if (v43 <= 1)
   {
-    v30 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v30 = v44;
+    v29 = v43;
   }
 
-  v31 = v29 * v30;
-  if ((v29 * v30) >> 64 != (v29 * v30) >> 63)
+  v30 = v28 * v29;
+  if ((v28 * v29) >> 64 != (v28 * v29) >> 63)
   {
     goto LABEL_73;
   }
 
   if (v7 <= 1)
   {
-    v32 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v32 = v7;
+    v31 = v7;
   }
 
-  v33 = v31 * v32;
-  if ((v31 * v32) >> 64 != (v31 * v32) >> 63)
+  v32 = v30 * v31;
+  if ((v30 * v31) >> 64 != (v30 * v31) >> 63)
   {
     goto LABEL_74;
   }
 
-  if (v45 <= 1)
+  if (v44 <= 1)
   {
-    v34 = 1;
+    v33 = 1;
   }
 
   else
   {
-    v34 = v45;
+    v33 = v44;
   }
 
-  v35 = v33 * v34;
-  if ((v33 * v34) >> 64 != (v33 * v34) >> 63)
+  v34 = v32 * v33;
+  if ((v32 * v33) >> 64 != (v32 * v33) >> 63)
   {
     goto LABEL_75;
   }
 
   if (v6 <= 1)
   {
-    v36 = 1;
+    v35 = 1;
   }
 
   else
   {
-    v36 = v6;
+    v35 = v6;
   }
 
-  v37 = v35 * v36;
-  if ((v35 * v36) >> 64 != (v35 * v36) >> 63)
+  v36 = v34 * v35;
+  if ((v34 * v35) >> 64 != (v34 * v35) >> 63)
   {
     goto LABEL_76;
   }
 
-  v38 = v46;
-  if (v46 <= 1)
+  v37 = v45;
+  if (v45 <= 1)
   {
-    v38 = 1;
+    v37 = 1;
   }
 
-  result = v37 * v38;
-  if ((v37 * v38) >> 64 != (v37 * v38) >> 63)
+  if ((v36 * v37) >> 64 != (v36 * v37) >> 63)
   {
     goto LABEL_77;
   }
-
-  return result;
 }
 
 uint64_t BNNS.Shape.layout.getter()
@@ -8601,74 +8916,74 @@ uint64_t BNNS.Shape.layout.getter()
   switch(_s10Accelerate4BNNSO5ShapeOWOg(v7))
   {
     case 1u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 131073;
     case 2u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 0x20000;
     case 3u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       v6 = 163840;
       goto LABEL_23;
     case 4u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 163840;
     case 5u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 196608;
     case 6u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 229377;
     case 7u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 229376;
     case 8u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 196609;
     case 9u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 196610;
     case 0xAu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 0x40000;
     case 0xBu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       v6 = 294912;
       goto LABEL_23;
     case 0xCu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 294912;
     case 0xDu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 360449;
     case 0xEu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 360448;
     case 0xFu:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       v6 = 425984;
       goto LABEL_23;
     case 0x10u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 425984;
     case 0x11u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 491521;
     case 0x12u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       return 491520;
     case 0x13u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       v6 = 557056;
 LABEL_23:
       result = v6 | 1u;
       break;
     case 0x14u:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       result = 557056;
       break;
     default:
-      destructiveProjectEnumData for vImage(v7);
+      destructiveProjectEnumData for vImage();
       result = 0x10000;
       break;
   }
@@ -8676,7 +8991,7 @@ LABEL_23:
   return result;
 }
 
-void *BNNS.Shape.size.getter@<X0>(uint64_t a1@<X8>)
+void BNNS.Shape.size.getter(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 112);
   v12[6] = *(v1 + 96);
@@ -8697,60 +9012,60 @@ void *BNNS.Shape.size.getter@<X0>(uint64_t a1@<X8>)
     case 2u:
     case 3u:
     case 4u:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      *&v9 = result[1];
+      *&v9 = v7[1];
       goto LABEL_9;
     case 5u:
     case 6u:
     case 7u:
     case 8u:
     case 9u:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      v9 = *(result + 1);
+      v9 = *(v7 + 1);
       goto LABEL_9;
     case 0xAu:
     case 0xBu:
     case 0xCu:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      v9 = *(result + 1);
-      *&v10 = result[3];
+      v9 = *(v7 + 1);
+      *&v10 = v7[3];
       goto LABEL_10;
     case 0xDu:
     case 0xEu:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      v9 = *(result + 1);
-      v10 = *(result + 3);
+      v9 = *(v7 + 1);
+      v10 = *(v7 + 3);
       goto LABEL_10;
     case 0xFu:
     case 0x10u:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      v9 = *(result + 1);
-      v10 = *(result + 3);
-      *&v11 = result[5];
+      v9 = *(v7 + 1);
+      v10 = *(v7 + 3);
+      *&v11 = v7[5];
       goto LABEL_11;
     case 0x11u:
     case 0x12u:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
-      v9 = *(result + 1);
-      v10 = *(result + 3);
-      v11 = *(result + 5);
+      v9 = *(v7 + 1);
+      v10 = *(v7 + 3);
+      v11 = *(v7 + 5);
       goto LABEL_11;
     case 0x13u:
     case 0x14u:
-      result = destructiveProjectEnumData for vImage(v12);
-      v9 = *(result + 1);
-      v10 = *(result + 3);
-      v11 = *(result + 5);
-      v8 = result[7];
+      destructiveProjectEnumData for vImage();
+      v9 = *(v7 + 1);
+      v10 = *(v7 + 3);
+      v11 = *(v7 + 5);
+      v8 = v7[7];
       goto LABEL_11;
     default:
-      result = destructiveProjectEnumData for vImage(v12);
+      destructiveProjectEnumData for vImage();
       v8 = 0;
       v9 = 0uLL;
 LABEL_9:
@@ -8758,121 +9073,121 @@ LABEL_9:
 LABEL_10:
       v11 = 0uLL;
 LABEL_11:
-      *a1 = *result;
+      *a1 = *v7;
       *(a1 + 8) = v9;
       *(a1 + 24) = v10;
       *(a1 + 40) = v11;
       *(a1 + 56) = v8;
-      return result;
+      return;
   }
 }
 
-uint64_t BNNS.Shape.stride.getter@<X0>(uint64_t a1@<X8>)
+void BNNS.Shape.stride.getter(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 112);
-  v13[6] = *(v1 + 96);
-  v13[7] = v3;
-  v14 = *(v1 + 128);
+  v20[6] = *(v1 + 96);
+  v20[7] = v3;
+  v21 = *(v1 + 128);
   v4 = *(v1 + 48);
-  v13[2] = *(v1 + 32);
-  v13[3] = v4;
+  v20[2] = *(v1 + 32);
+  v20[3] = v4;
   v5 = *(v1 + 80);
-  v13[4] = *(v1 + 64);
-  v13[5] = v5;
+  v20[4] = *(v1 + 64);
+  v20[5] = v5;
   v6 = *(v1 + 16);
-  v13[0] = *v1;
-  v13[1] = v6;
-  switch(_s10Accelerate4BNNSO5ShapeOWOg(v13))
+  v20[0] = *v1;
+  v20[1] = v6;
+  switch(_s10Accelerate4BNNSO5ShapeOWOg(v20))
   {
     case 1u:
     case 2u:
     case 3u:
     case 4u:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 16);
-      *&v10 = *(result + 24);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v14 + 16);
+      *&v10 = *(v14 + 24);
       goto LABEL_9;
     case 5u:
     case 6u:
     case 7u:
     case 8u:
     case 9u:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 24);
-      v10 = *(result + 32);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v18 + 24);
+      v10 = *(v18 + 32);
       goto LABEL_9;
     case 0xAu:
     case 0xBu:
     case 0xCu:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 32);
-      v10 = *(result + 40);
-      *&v11 = *(result + 56);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v17 + 32);
+      v10 = *(v17 + 40);
+      *&v12 = *(v17 + 56);
       goto LABEL_10;
     case 0xDu:
     case 0xEu:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 40);
-      v10 = *(result + 48);
-      v11 = *(result + 64);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v15 + 40);
+      v10 = *(v15 + 48);
+      v12 = *(v15 + 64);
       goto LABEL_10;
     case 0xFu:
     case 0x10u:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 48);
-      v10 = *(result + 56);
-      v11 = *(result + 72);
-      *&v12 = *(result + 88);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v11 + 48);
+      v10 = *(v11 + 56);
+      v12 = *(v11 + 72);
+      *&v13 = *(v11 + 88);
       goto LABEL_11;
     case 0x11u:
     case 0x12u:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 56);
-      v10 = *(result + 64);
-      v11 = *(result + 80);
-      v12 = *(result + 96);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = v16 + 7;
+      v10 = v16[4];
+      v12 = v16[5];
+      v13 = v16[6];
       goto LABEL_11;
     case 0x13u:
     case 0x14u:
-      result = destructiveProjectEnumData for vImage(v13);
-      v9 = (result + 64);
-      v10 = *(result + 72);
-      v11 = *(result + 88);
-      v12 = *(result + 104);
-      v8 = *(result + 120);
+      destructiveProjectEnumData for vImage();
+      v9 = (v19 + 64);
+      v10 = *(v19 + 72);
+      v12 = *(v19 + 88);
+      v13 = *(v19 + 104);
+      v7 = *(v19 + 120);
       goto LABEL_11;
     default:
-      result = destructiveProjectEnumData for vImage(v13);
-      v8 = 0;
-      v9 = (result + 8);
+      destructiveProjectEnumData for vImage();
+      v7 = 0;
+      v9 = (v8 + 8);
       v10 = 0uLL;
 LABEL_9:
-      v11 = 0uLL;
-LABEL_10:
       v12 = 0uLL;
+LABEL_10:
+      v13 = 0uLL;
 LABEL_11:
       *a1 = *v9;
       *(a1 + 8) = v10;
-      *(a1 + 24) = v11;
-      *(a1 + 40) = v12;
-      *(a1 + 56) = v8;
-      return result;
+      *(a1 + 24) = v12;
+      *(a1 + 40) = v13;
+      *(a1 + 56) = v7;
+      return;
   }
 }
 
-uint64_t BNNS.Shape.init(_:dataLayout:stride:)@<X0>(uint64_t result@<X0>, unsigned __int8 *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void *BNNS.Shape.init(_:dataLayout:stride:)@<X0>(void *result@<X0>, unsigned __int8 *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = result;
   v7 = *a2;
   if (v7 == 21)
   {
-    result = static BNNS.defaultLayoutForDimensions(_:)(*(result + 16), v14);
+    result = static BNNS.defaultLayoutForDimensions(_:)(result[2], v14);
     v7 = LOBYTE(v14[0]);
     if (LOBYTE(v14[0]) == 21)
     {

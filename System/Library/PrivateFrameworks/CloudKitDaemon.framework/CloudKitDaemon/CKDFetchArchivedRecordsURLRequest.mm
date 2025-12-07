@@ -62,30 +62,30 @@
 
 - (void)fillOutEquivalencyPropertiesBuilder:(id)builder
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   v4 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = objc_msgSend_recordZoneIDs(self, v5, v6);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v33, v37, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v32, v36, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v34;
+    v12 = *v33;
     do
     {
       v13 = 0;
       do
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * v13);
+        v14 = *(*(&v32 + 1) + 8 * v13);
         v15 = objc_msgSend_configurationsByRecordZoneID(self, v9, v10, builderCopy);
         v17 = objc_msgSend_objectForKeyedSubscript_(v15, v16, v14);
         v20 = objc_msgSend_previousServerChangeToken(v17, v18, v19);
@@ -103,18 +103,16 @@
       }
 
       while (v11 != v13);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v33, v37, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v32, v36, 16);
     }
 
     while (v11);
   }
 
-  v32.receiver = self;
-  v32.super_class = CKDFetchArchivedRecordsURLRequest;
-  [(CKDURLRequest *)&v32 fillOutEquivalencyPropertiesBuilder:builderCopy];
+  v31.receiver = self;
+  v31.super_class = CKDFetchArchivedRecordsURLRequest;
+  [(CKDURLRequest *)&v31 fillOutEquivalencyPropertiesBuilder:builderCopy];
   objc_msgSend_setObject_forKeyedSubscript_(builderCopy, v28, v4, @"zid->token");
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fillOutRequestProperties:(id)properties
@@ -130,10 +128,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -153,38 +150,38 @@
 
 - (id)_handleRecords:(id)records
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   recordsCopy = records;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v5, &v30, v34, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v5, &v29, v33, 16);
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v31;
-    v28 = *MEMORY[0x277CBBF50];
+    v9 = *v30;
+    v27 = *MEMORY[0x277CBBF50];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(recordsCopy);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v15 = objc_msgSend_recordFetchedBlock(self, v13, v14);
 
         if (v15)
         {
           v18 = objc_msgSend_translator(self, v16, v17);
-          v29 = v8;
-          v20 = objc_msgSend_recordFromPRecord_error_(v18, v19, v11, &v29);
-          v21 = v29;
+          v28 = v8;
+          v20 = objc_msgSend_recordFromPRecord_error_(v18, v19, v11, &v28);
+          v21 = v28;
 
           if (v20)
           {
@@ -194,7 +191,7 @@
 
           else
           {
-            objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v22, v28, 2006, @"Invalid data received from server");
+            objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v22, v27, 2006, @"Invalid data received from server");
             v21 = v24 = v21;
           }
 
@@ -204,7 +201,7 @@
         objc_autoreleasePoolPop(v12);
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v25, &v30, v34, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v25, &v29, v33, 16);
     }
 
     while (v7);
@@ -214,8 +211,6 @@
   {
     v8 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -290,7 +285,7 @@
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   v7 = objc_msgSend_zoneIDsByRequestOperationUUID(self, v5, v6);
   v10 = objc_msgSend_response(failureCopy, v8, v9);
@@ -308,14 +303,14 @@
     v21 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v52 = v21;
-      v55 = objc_msgSend_error(v18, v53, v54);
-      v58 = objc_msgSend_errorDescription(v55, v56, v57);
+      v51 = v21;
+      v54 = objc_msgSend_error(v18, v52, v53);
+      v57 = objc_msgSend_errorDescription(v54, v55, v56);
       *buf = 138543618;
-      v65 = v15;
-      v66 = 2114;
-      v67 = v58;
-      _os_log_debug_impl(&dword_22506F000, v52, OS_LOG_TYPE_DEBUG, "Error fetching archived records in zone %{public}@: %{public}@", buf, 0x16u);
+      v64 = v15;
+      v65 = 2114;
+      v66 = v57;
+      _os_log_debug_impl(&dword_22506F000, v51, OS_LOG_TYPE_DEBUG, "Error fetching archived records in zone %{public}@: %{public}@", buf, 0x16u);
     }
 
     v22 = MEMORY[0x277CBC560];
@@ -334,33 +329,33 @@
 
     else
     {
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v38 = objc_msgSend_zoneIDsByRequestOperationUUID(self, v34, v35);
       v36 = objc_msgSend_allValues(v38, v39, v40);
 
-      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v41, &v59, v63, 16);
+      v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v41, &v58, v62, 16);
       if (v42)
       {
         v45 = v42;
-        v46 = *v60;
+        v46 = *v59;
         do
         {
           for (i = 0; i != v45; ++i)
           {
-            if (*v60 != v46)
+            if (*v59 != v46)
             {
               objc_enumerationMutation(v36);
             }
 
-            v48 = *(*(&v59 + 1) + 8 * i);
+            v48 = *(*(&v58 + 1) + 8 * i);
             v49 = objc_msgSend_nodeErrorsByZoneID(self, v43, v44);
             objc_msgSend_setObject_forKeyedSubscript_(v49, v50, v33, v48);
           }
 
-          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v43, &v59, v63, 16);
+          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v43, &v58, v62, 16);
         }
 
         while (v45);
@@ -368,8 +363,6 @@
       }
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -10,8 +10,8 @@
 
 + (id)pf_errorWithCode:()PosterFoundation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = *MEMORY[0x1E696A588];
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E696A588];
   if ((a3 - 1) > 2)
   {
     v5 = @"Unknown error.";
@@ -22,11 +22,9 @@
     v5 = *(&off_1E8189F38 + a3 - 1);
   }
 
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [self pf_errorWithCode:a3 underlyingError:0 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

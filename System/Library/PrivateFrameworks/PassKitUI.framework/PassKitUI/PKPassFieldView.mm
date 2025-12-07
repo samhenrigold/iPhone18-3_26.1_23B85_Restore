@@ -245,9 +245,9 @@
 
 - (void)layoutSubviews
 {
-  v53.receiver = self;
-  v53.super_class = PKPassFieldView;
-  [(PKPassFieldView *)&v53 layoutSubviews];
+  v75.receiver = self;
+  v75.super_class = PKPassFieldView;
+  [(PKPassFieldView *)&v75 layoutSubviews];
   [(PKPassFieldView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -260,30 +260,46 @@
   if (valueSignificant)
   {
     [(UILabel *)self->_valueLabel frame];
-    rect = fmax(v10, v25);
-    PKSizeAlignedInRect();
-    v26 = v8;
-    v27 = v4;
-    v28 = v14;
-    v30 = v29;
-    v32 = v31;
-    v34 = v33;
-    v36 = v35;
+    v37.n128_u64[0] = v33.n128_u64[0];
+    v38.n128_u64[0] = v34.n128_u64[0];
+    v39.n128_f64[0] = fmax(v10, v34.n128_f64[0]);
+    rect = v39.n128_f64[0];
+    if (_shouldDisplayLabel)
+    {
+      v40 = 3;
+    }
+
+    else
+    {
+      v40 = 0x100000003;
+    }
+
+    v33.n128_f64[0] = v4;
+    v34.n128_f64[0] = v6;
+    v35.n128_f64[0] = v8;
+    PKSizeAlignedInRect(v40, v37, v38, v33, v34, v35, v39, v36);
+    v41 = v8;
+    v42 = v4;
+    v43 = v14;
+    v45 = v44;
+    v47 = v46;
+    v49 = v48;
+    v51 = v50;
     [(UILabel *)self->_valueLabel setFrame:?];
-    v56.origin.x = v30;
-    v14 = v28;
-    v4 = v27;
-    v8 = v26;
-    v56.origin.y = v32;
-    v56.size.width = v34;
-    v56.size.height = v36;
-    v37 = v14 + CGRectGetMaxY(v56);
-    v57.origin.x = v4;
-    v57.origin.y = v6;
-    v57.size.width = v26;
-    v57.size.height = rect;
-    v10 = CGRectGetMaxY(v57) - v37;
-    v6 = v37;
+    v78.origin.x = v45;
+    v14 = v43;
+    v4 = v42;
+    v8 = v41;
+    v78.origin.y = v47;
+    v78.size.width = v49;
+    v78.size.height = v51;
+    v52 = v14 + CGRectGetMaxY(v78);
+    v79.origin.x = v4;
+    v79.origin.y = v6;
+    v79.size.width = v41;
+    v79.size.height = rect;
+    v10 = CGRectGetMaxY(v79) - v52;
+    v6 = v52;
     if (!_shouldDisplayLabel)
     {
 LABEL_3:
@@ -302,53 +318,73 @@ LABEL_3:
   }
 
   [(UILabel *)self->_labelLabel frame];
-  v39 = fmax(v10, v38);
-  PKSizeAlignedInRect();
-  v41 = v40;
-  recta = v8;
-  v42 = v4;
-  v43 = v14;
-  v45 = v44;
-  v47 = v46;
-  v49 = v48;
-  [(UILabel *)self->_labelLabel setFrame:?];
-  v58.origin.x = v41;
-  v58.origin.y = v45;
-  v58.size.width = v47;
-  v58.size.height = v49;
-  v50 = v43 + CGRectGetMaxY(v58);
-  v4 = v42;
-  v8 = recta;
-  v59.origin.x = v4;
-  v59.origin.y = v6;
-  v59.size.width = recta;
-  v59.size.height = v39;
-  v10 = CGRectGetMaxY(v59) - v50;
-  v6 = v50;
+  v58.n128_u64[0] = v53.n128_u64[0];
+  v59.n128_u64[0] = v54.n128_u64[0];
+  v60 = fmax(v10, v54.n128_f64[0]);
   if (valueSignificant)
   {
-    return;
+    v61 = 0x100000003;
   }
 
+  else
+  {
+    v61 = 3;
+  }
+
+  v53.n128_f64[0] = v4;
+  v54.n128_f64[0] = v6;
+  v55.n128_f64[0] = v8;
+  v56.n128_f64[0] = v60;
+  PKSizeAlignedInRect(v61, v58, v59, v53, v54, v55, v56, v57);
+  v63 = v62;
+  recta = v8;
+  v64 = v4;
+  v65 = v14;
+  v67 = v66;
+  v69 = v68;
+  v71 = v70;
+  [(UILabel *)self->_labelLabel setFrame:?];
+  v80.origin.x = v63;
+  v80.origin.y = v67;
+  v80.size.width = v69;
+  v80.size.height = v71;
+  v72 = v65 + CGRectGetMaxY(v80);
+  v4 = v64;
+  v8 = recta;
+  v81.origin.x = v4;
+  v81.origin.y = v6;
+  v81.size.width = recta;
+  v81.size.height = v60;
+  v10 = CGRectGetMaxY(v81) - v72;
+  v6 = v72;
+  if (!valueSignificant)
+  {
 LABEL_4:
-  [(UILabel *)self->_valueLabel frame];
-  v16 = fmax(v10, v15);
-  PKSizeAlignedInRect();
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  [(UILabel *)self->_valueLabel setFrame:?];
-  v54.origin.x = v18;
-  v54.origin.y = v20;
-  v54.size.width = v22;
-  v54.size.height = v24;
-  CGRectGetMaxY(v54);
-  v55.origin.x = v4;
-  v55.origin.y = v6;
-  v55.size.width = v8;
-  v55.size.height = v16;
-  CGRectGetMaxY(v55);
+    [(UILabel *)self->_valueLabel frame];
+    v16.n128_u64[0] = v15;
+    v18.n128_f64[0] = v17;
+    v19 = fmax(v10, v17);
+    v20.n128_f64[0] = v4;
+    v21.n128_f64[0] = v6;
+    v22.n128_f64[0] = v8;
+    v23.n128_f64[0] = v19;
+    PKSizeAlignedInRect(0x100000003, v16, v18, v20, v21, v22, v23, v24);
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
+    v32 = v31;
+    [(UILabel *)self->_valueLabel setFrame:?];
+    v76.origin.x = v26;
+    v76.origin.y = v28;
+    v76.size.width = v30;
+    v76.size.height = v32;
+    CGRectGetMaxY(v76);
+    v77.origin.x = v4;
+    v77.origin.y = v6;
+    v77.size.width = v8;
+    v77.size.height = v19;
+    CGRectGetMaxY(v77);
+  }
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

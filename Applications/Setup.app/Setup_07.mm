@@ -1,3 +1,624 @@
+void sub_1001EC0A0(NSObject *a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v17 = 0;
+  objc_storeStrong(&v17, a3);
+  oslog[1] = a1;
+  [(objc_class *)a1[4].isa _stopSpinningForIdentifier:@"family"];
+  if (v17)
+  {
+    oslog[0] = _BYLoggingFacility();
+    v15 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
+    {
+      sub_100071CBC(buf, v17);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], v15, "Failed to look up family members: %{public}@", buf, 0xCu);
+    }
+
+    objc_storeStrong(oslog, 0);
+  }
+
+  else if ([location[0] count])
+  {
+    v14 = _BYLoggingFacility();
+    v13 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      sub_10006AE18(v20, location[0]);
+      _os_log_impl(&_mh_execute_header, v14, v13, "Found family members: %@", v20, 0xCu);
+    }
+
+    objc_storeStrong(&v14, 0);
+    [(objc_class *)a1[4].isa _removeAccountsToSignIn:location[0]];
+    v12 = _BYLoggingFacility();
+    v11 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [(objc_class *)a1[4].isa storeAccountsToSignIn];
+      sub_10006AE18(v19, v5);
+      _os_log_impl(&_mh_execute_header, v12, v11, "Accounts to sign-in after removing family members: %@", v19, 0xCu);
+    }
+
+    objc_storeStrong(&v12, 0);
+  }
+
+  else
+  {
+    v10 = _BYLoggingFacility();
+    v9 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v10;
+      v7 = v9;
+      sub_10006AA68(v8);
+      _os_log_impl(&_mh_execute_header, v6, v7, "Found no family members", v8, 2u);
+    }
+
+    objc_storeStrong(&v10, 0);
+  }
+
+  [(objc_class *)a1[4].isa _authenticateThenSignInNextAccount];
+  objc_storeStrong(&v17, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1001ECC00(uint64_t a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  [*(a1 + 32) setMediaLinkedAccountDSID:location[0]];
+  dispatch_group_leave(*(a1 + 40));
+  objc_storeStrong(location, 0);
+}
+
+uint64_t sub_1001ECC5C(uint64_t result)
+{
+  v1 = result;
+  if (*(result + 40))
+  {
+    v2 = [*(result + 32) storeAccountsToSignIn];
+    [v2 count];
+
+    return (*(*(v1 + 40) + 16))();
+  }
+
+  return result;
+}
+
+void sub_1001ECDF0(uint64_t a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v81 = 0;
+  objc_storeStrong(&v81, a3);
+  v80 = a1;
+  [*(a1 + 32) setStoreAccountMap:location[0]];
+  v5 = objc_alloc_init(NSMutableArray);
+  [*(a1 + 32) setStoreAccountsToSignIn:v5];
+
+  memset(__b, 0, sizeof(__b));
+  v6 = [location[0] allKeys];
+  v7 = [v6 countByEnumeratingWithState:__b objects:v87 count:16];
+  if (v7)
+  {
+    v8 = *__b[2];
+    do
+    {
+      for (i = 0; i < v7; ++i)
+      {
+        if (*__b[2] != v8)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v79 = *(__b[1] + 8 * i);
+        v10 = [*(a1 + 32) storeAccountMap];
+        v77 = [v10 objectForKeyedSubscript:v79];
+
+        v76 = [v77 objectForKeyedSubscript:@"dsid"];
+        v75 = [v77 objectForKeyedSubscript:@"altDsid"];
+        v11 = [BuddyStoreAccount alloc];
+        v74 = [(BuddyStoreAccount *)v11 initWithUsername:v79 dsid:v76 altDSID:v75];
+        v12 = [*(a1 + 32) storeAccountsToSignIn];
+        [v12 addObject:v74];
+
+        objc_storeStrong(&v74, 0);
+        objc_storeStrong(&v75, 0);
+        objc_storeStrong(&v76, 0);
+        objc_storeStrong(&v77, 0);
+      }
+
+      v7 = [v6 countByEnumeratingWithState:__b objects:v87 count:16];
+    }
+
+    while (v7);
+  }
+
+  v13 = [*(a1 + 32) storeAccountsToSignIn];
+  v67 = _NSConcreteStackBlock;
+  v68 = -1073741824;
+  v69 = 0;
+  v70 = sub_1001ED7D8;
+  v71 = &unk_10032EDF8;
+  v72 = *(a1 + 32);
+  v14 = [v13 indexOfObjectPassingTest:&v67];
+
+  v73 = v14;
+  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v15 = [*(a1 + 32) storeAccountsToSignIn];
+    v66 = [v15 objectAtIndexedSubscript:v73];
+
+    v16 = [*(a1 + 32) storeAccountsToSignIn];
+    [v16 removeObjectAtIndex:v73];
+
+    v17 = [*(a1 + 32) storeAccountsToSignIn];
+    [v17 insertObject:v66 atIndex:0];
+
+    objc_storeStrong(&v66, 0);
+  }
+
+  if (v81)
+  {
+    v65 = 0x7FFFFFFFFFFFFFFFLL;
+    for (j = 0; ; ++j)
+    {
+      v18 = j;
+      v19 = [*(a1 + 32) storeAccountsToSignIn];
+      v20 = [v19 count];
+
+      if (v18 >= v20)
+      {
+        break;
+      }
+
+      v21 = [*(a1 + 32) storeAccountsToSignIn];
+      v63 = [v21 objectAtIndexedSubscript:j];
+
+      v22 = [v63 username];
+      v23 = [v22 isEqualToString:v81];
+
+      if (v23)
+      {
+        v65 = j;
+        v62 = 4;
+      }
+
+      else
+      {
+        v62 = 0;
+      }
+
+      objc_storeStrong(&v63, 0);
+      if (v62)
+      {
+        break;
+      }
+    }
+
+    v61 = 0;
+    if (v65 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v24 = [BuddyStoreAccount alloc];
+      v25 = [(BuddyStoreAccount *)v24 initWithUsername:v81 dsid:0 altDSID:0];
+      v26 = v61;
+      v61 = v25;
+    }
+
+    else
+    {
+      v28 = [*(a1 + 32) storeAccountsToSignIn];
+      v29 = [v28 objectAtIndex:v65];
+      v30 = v61;
+      v61 = v29;
+
+      v31 = [*(a1 + 32) storeAccountsToSignIn];
+      [v31 removeObject:v61];
+    }
+
+    v27 = [*(a1 + 32) storeAccountsToSignIn];
+    [v27 insertObject:v61 atIndex:0];
+
+    [*(a1 + 32) setActiveBuddyStoreAccount:v61];
+    objc_storeStrong(&v61, 0);
+  }
+
+  v32 = [*(a1 + 32) _primaryAccountInfo];
+  v60 = [v32 username];
+
+  v33 = [*(a1 + 32) _primaryAccountInfo];
+  v59 = [v33 altDSID];
+
+  oslog = _BYLoggingFacility();
+  v57 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+  {
+    v34 = [*(a1 + 32) storeAccountsToSignIn];
+    sub_10006AE18(buf, v34);
+    _os_log_impl(&_mh_execute_header, oslog, v57, "Store accounts to sign in: %@", buf, 0xCu);
+  }
+
+  objc_storeStrong(&oslog, 0);
+  v56 = _BYLoggingFacility();
+  v55 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+  {
+    sub_10006AE18(v85, v60);
+    _os_log_impl(&_mh_execute_header, v56, v55, "Primary Apple ID: %@", v85, 0xCu);
+  }
+
+  objc_storeStrong(&v56, 0);
+  v54 = _BYLoggingFacility();
+  v53 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  {
+    v35 = [*(a1 + 32) activeBuddyStoreAccount];
+    sub_10006AE18(v84, v35);
+    _os_log_impl(&_mh_execute_header, v54, v53, "Active store account: %@", v84, 0xCu);
+  }
+
+  objc_storeStrong(&v54, 0);
+  v36 = [*(a1 + 32) _primaryAccountInfo];
+  v52 = [v36 dsid];
+
+  v37 = [*(a1 + 32) storeAccountsToSignIn];
+  v44 = _NSConcreteStackBlock;
+  v45 = -1073741824;
+  v46 = 0;
+  v47 = sub_1001ED88C;
+  v48 = &unk_10032EE20;
+  v49 = v59;
+  v50 = v52;
+  v38 = [v37 indexOfObjectPassingTest:&v44];
+
+  v51 = v38;
+  if (v38 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v43 = _BYLoggingFacility();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      v39 = [*(a1 + 32) storeAccountsToSignIn];
+      v40 = [v39 objectAtIndexedSubscript:v51];
+      v41 = [v40 username];
+      sub_10006AE18(v83, v41);
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Skipping owner account %@...", v83, 0xCu);
+    }
+
+    objc_storeStrong(&v43, 0);
+    v42 = [*(a1 + 32) storeAccountsToSignIn];
+    [v42 removeObjectAtIndex:v51];
+  }
+
+  (*(*(a1 + 40) + 16))();
+  objc_storeStrong(&v50, 0);
+  objc_storeStrong(&v49, 0);
+  objc_storeStrong(&v52, 0);
+  objc_storeStrong(&v59, 0);
+  objc_storeStrong(&v60, 0);
+  objc_storeStrong(&v72, 0);
+  objc_storeStrong(&v81, 0);
+  objc_storeStrong(location, 0);
+}
+
+uint64_t sub_1001ED7D8(void *a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v3 = a1[4];
+  v4 = [location[0] username];
+  v5 = [location[0] altDSID];
+  LOBYTE(v3) = [v3 _isPrimaryAccountWithUsername:v4 orAltDSID:v5];
+
+  objc_storeStrong(location, 0);
+  return v3 & 1;
+}
+
+uint64_t sub_1001ED88C(void *a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v3 = [location[0] altDSID];
+  v4 = [v3 isEqualToString:a1[4]];
+
+  if (v4)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v5 = [location[0] dsid];
+    v8 = [v5 isEqualToString:a1[5]] & 1;
+  }
+
+  objc_storeStrong(location, 0);
+  return v8 & 1;
+}
+
+id sub_1001EE048(uint64_t a1, uint64_t a2)
+{
+  result = objc_retainBlock(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_1001EE080(uint64_t a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v10[2] = a1;
+  if (*(*(*(a1 + 40) + 8) + 40))
+  {
+    dispatch_block_cancel(*(*(*(a1 + 40) + 8) + 40));
+  }
+
+  v3 = &_dispatch_main_q;
+  v4 = _NSConcreteStackBlock;
+  v5 = -1073741824;
+  v6 = 0;
+  v7 = sub_1001EE1B8;
+  v8 = &unk_10032EE70;
+  v10[1] = *(a1 + 48);
+  v10[0] = *(a1 + 32);
+  v9 = location[0];
+  dispatch_async(v3, &v4);
+
+  objc_storeStrong(&v9, 0);
+  objc_storeStrong(v10, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1001EE1B8(NSObject *a1)
+{
+  oslog[2] = a1;
+  oslog[1] = a1;
+  if ((*(*(a1[6].isa + 1) + 24) & 1) == 0)
+  {
+    *(*(a1[6].isa + 1) + 24) = 1;
+    if (a1[5].isa)
+    {
+      v2 = [(objc_class *)a1[4].isa value];
+      v3 = [v2 BOOLValue];
+
+      if (v3)
+      {
+        oslog[0] = _BYLoggingFacility();
+        v17 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
+        {
+          v4 = [(objc_class *)a1[4].isa value];
+          sub_100071CBC(buf, v4);
+          _os_log_impl(&_mh_execute_header, oslog[0], v17, "Media linked account result: %{public}@", buf, 0xCu);
+        }
+
+        objc_storeStrong(oslog, 0);
+        isa = a1[5].isa;
+        v6 = [(objc_class *)a1[4].isa value];
+        (*(isa + 2))(isa, v6);
+      }
+
+      else
+      {
+        v16 = _BYLoggingFacility();
+        v15 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          v7 = v16;
+          v8 = v15;
+          sub_10006AA68(v14);
+          _os_log_impl(&_mh_execute_header, v7, v8, "No media linked account found", v14, 2u);
+        }
+
+        objc_storeStrong(&v16, 0);
+        (*(a1[5].isa + 2))();
+      }
+    }
+
+    else
+    {
+      v13 = _BYLoggingFacility();
+      v12 = 16;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v9 = v13;
+        v10 = v12;
+        sub_10006AA68(v11);
+        _os_log_error_impl(&_mh_execute_header, v9, v10, "Completion handler missing.", v11, 2u);
+      }
+
+      objc_storeStrong(&v13, 0);
+    }
+  }
+}
+
+uint64_t sub_1001EE424(NSObject *a1)
+{
+  oslog[2] = a1;
+  oslog[1] = a1;
+  oslog[0] = _BYLoggingFacility();
+  v6 = 16;
+  if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
+  {
+    v2 = oslog[0];
+    v3 = v6;
+    sub_10006AA68(v5);
+    _os_log_error_impl(&_mh_execute_header, v2, v3, "AMS cache promise did not respond in time. Timing out!", v5, 2u);
+  }
+
+  objc_storeStrong(oslog, 0);
+  return (*(a1[4].isa + 2))();
+}
+
+void sub_1001EE4DC(uint64_t a1)
+{
+  if (*(*(*(a1 + 32) + 8) + 40))
+  {
+    dispatch_block_perform(DISPATCH_BLOCK_ASSIGN_CURRENT, *(*(*(a1 + 32) + 8) + 40));
+  }
+}
+
+void sub_1001EE524(NSObject *a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v17 = 0;
+  objc_storeStrong(&v17, a3);
+  oslog[1] = a1;
+  if (v17)
+  {
+    oslog[0] = _BYLoggingFacility();
+    v15 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 0;
+      v11 = 0;
+      if (_BYIsInternalInstall())
+      {
+        v5 = v17;
+      }
+
+      else if (v17)
+      {
+        v14 = [v17 domain];
+        v13 = 1;
+        v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v14, [v17 code]);
+        v12 = v5;
+        v11 = 1;
+      }
+
+      else
+      {
+        v5 = 0;
+      }
+
+      sub_100071CBC(buf, v5);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], v15, "AMS cache update failed to resolve with error: %{public}@", buf, 0xCu);
+      if (v11)
+      {
+      }
+
+      if (v13)
+      {
+      }
+    }
+
+    objc_storeStrong(oslog, 0);
+    (*(a1[4].isa + 2))();
+  }
+
+  else
+  {
+    v10 = _BYLoggingFacility();
+    v9 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v10;
+      v7 = v9;
+      sub_10006AA68(v8);
+      _os_log_impl(&_mh_execute_header, v6, v7, "AMS cache updated", v8, 2u);
+    }
+
+    objc_storeStrong(&v10, 0);
+    (*(a1[4].isa + 2))();
+  }
+
+  objc_storeStrong(&v17, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1001EE798(NSObject *a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v22 = 0;
+  objc_storeStrong(&v22, a3);
+  oslog[1] = a1;
+  if (v22)
+  {
+    oslog[0] = _BYLoggingFacility();
+    v20 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
+    {
+      v18 = 0;
+      v16 = 0;
+      if (_BYIsInternalInstall())
+      {
+        v5 = v22;
+      }
+
+      else if (v22)
+      {
+        v19 = [v22 domain];
+        v18 = 1;
+        v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v19, [v22 code]);
+        v17 = v5;
+        v16 = 1;
+      }
+
+      else
+      {
+        v5 = 0;
+      }
+
+      sub_100071CBC(buf, v5);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], v20, "AMS cache promise failure to resolve with error: %{public}@", buf, 0xCu);
+      if (v16)
+      {
+      }
+
+      if (v18)
+      {
+      }
+    }
+
+    objc_storeStrong(oslog, 0);
+    (*(a1[4].isa + 2))();
+  }
+
+  else if ([location[0] isStale])
+  {
+    v15 = _BYLoggingFacility();
+    v14 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v15;
+      v7 = v14;
+      sub_10006AA68(v13);
+      _os_log_impl(&_mh_execute_header, v6, v7, "AMS cache promise resolved with stale response. Wait for update.", v13, 2u);
+    }
+
+    objc_storeStrong(&v15, 0);
+  }
+
+  else
+  {
+    v12 = _BYLoggingFacility();
+    v11 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v12;
+      v9 = v11;
+      sub_10006AA68(v10);
+      _os_log_impl(&_mh_execute_header, v8, v9, "AMS cache promise resolved with non-stale response", v10, 2u);
+    }
+
+    objc_storeStrong(&v12, 0);
+    (*(a1[4].isa + 2))();
+  }
+
+  objc_storeStrong(&v22, 0);
+  objc_storeStrong(location, 0);
+}
+
 void sub_1001F0FA0(NSObject *a1)
 {
   oslog[2] = a1;
@@ -636,7 +1257,7 @@ void sub_1001F96A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_1001FA118(uint64_t *a1, unint64_t a2)
+uint64_t *sub_1001FA118(void *a1, unint64_t a2)
 {
   v8 = a1;
   v7 = a2;
@@ -657,7 +1278,7 @@ uint64_t *sub_1001FA118(uint64_t *a1, unint64_t a2)
   return result;
 }
 
-void **sub_1001FA204(uint64_t *a1, unint64_t a2)
+void **sub_1001FA204(void *a1, unint64_t a2)
 {
   v8 = a1;
   v7 = a2;
@@ -800,7 +1421,7 @@ uint64_t sub_1001FB914(void *a1)
   return a1[1] - 24;
 }
 
-uint64_t sub_1001FB99C(void *a1, unint64_t a2)
+unint64_t sub_1001FB99C(void *a1, unint64_t a2)
 {
   if (a2 >= sub_1001FB974(a1))
   {
@@ -813,7 +1434,7 @@ uint64_t sub_1001FB99C(void *a1, unint64_t a2)
 uint64_t sub_1001FBCBC(uint64_t a1)
 {
   v3[1] = a1;
-  sub_1001FBF0C();
+  sub_1001FBF0C(a1);
   v3[0] = 0xAAAAAAAAAAAAAAALL;
   sub_1001FBF34();
   v2 = 0x7FFFFFFFFFFFFFFFLL;
@@ -823,14 +1444,14 @@ uint64_t sub_1001FBCBC(uint64_t a1)
 void sub_1001FBD9C(uint64_t *a1, uint64_t *a2)
 {
   sub_1001FC31C();
-  v7 = a2[1] + 24 * ((a1[1] - *a1) / -24);
+  v8 = a2[1] + 24 * ((a1[1] - *a1) / -24);
   sub_1001FC39C();
   v4 = v3;
   sub_1001FC39C();
   v6 = v5;
   sub_1001FC39C();
-  sub_1001FC32C(a1, v4, v6);
-  a2[1] = v7;
+  sub_1001FC32C(a1, v4, v6, v7);
+  a2[1] = v8;
   a1[1] = *a1;
   sub_1001FC3B0(a1, a2 + 1);
   sub_1001FC3B0(a1 + 1, a2 + 2);
@@ -865,32 +1486,32 @@ std::logic_error *sub_1001FC0A0(std::logic_error *a1, const char *a2)
   return a1;
 }
 
-void *sub_1001FC0FC(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_1001FC0FC(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
-    sub_1001FC1A8(result[4], a2);
+    sub_1001FC1A8(a1[4], a2);
   }
 
-  *result = 0;
-  v4 = *result + 24 * a3;
-  result[2] = v4;
-  result[1] = v4;
-  result[3] = *result;
-  return result;
+  *a1 = 0;
+  v4 = *a1 + 24 * a3;
+  a1[2] = v4;
+  a1[1] = v4;
+  a1[3] = *a1;
+  return a1;
 }
 
 void sub_1001FC1EC(uint64_t a1, unint64_t a2)
 {
-  sub_1001FBF0C();
+  sub_1001FBF0C(a1);
   if (a2 > 0xAAAAAAAAAAAAAAALL)
   {
     sub_1001FC240();
   }
 
-  sub_1001FC274();
+  sub_1001FC274(a2);
 }
 
 void sub_1001FC240()
@@ -899,12 +1520,12 @@ void sub_1001FC240()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void *sub_1001FC32C(uint64_t a1, uint64_t a2, uint64_t a3)
+void *sub_1001FC32C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   sub_1001FC39C();
-  v4 = v3;
+  v5 = v4;
   sub_1001FC39C();
-  return memcpy(v4, v5, 24 * ((a3 - a2) / 24));
+  return memcpy(v5, v6, 24 * ((a3 - a2) / 24));
 }
 
 uint64_t *sub_1001FC3B0(uint64_t *result, uint64_t *a2)
@@ -922,8 +1543,8 @@ uint64_t *sub_1001FC400(uint64_t *a1)
   {
     v2 = a1[4];
     v3 = *a1;
-    sub_1001FC4D0(a1);
-    sub_1001FC498(v2, v3);
+    v4 = sub_1001FC4D0(a1);
+    sub_1001FC498(v2, v3, v4);
   }
 
   return a1;
@@ -932,10 +1553,10 @@ uint64_t *sub_1001FC400(uint64_t *a1)
 uint64_t *sub_1001FC528(uint64_t *result, uint64_t a2)
 {
   v2 = result;
-  while (a2 != v2[2])
+  while (a2 != *(v2 + 16))
   {
-    v3 = v2[4];
-    v2[2] -= 24;
+    v3 = *(v2 + 32);
+    *(v2 + 16) -= 24;
     sub_1001FC39C();
     result = sub_1001FC594(v3, v4);
   }
@@ -960,16 +1581,16 @@ uint64_t *sub_1001FC758(uint64_t *a1)
   return a1;
 }
 
-void sub_1001FC7E4(uint64_t **a1)
+void sub_1001FC7E4(uint64_t **result)
 {
-  if (**a1)
+  if (**result)
   {
-    sub_1001FC878(*a1);
+    sub_1001FC878(*result);
     sub_1001FC8C8();
-    v2 = *a1;
-    v3 = **a1;
-    sub_1001FC910(*a1);
-    sub_1001FC8D8(v2, v3);
+    v2 = *result;
+    v3 = **result;
+    v4 = sub_1001FC910(*result);
+    sub_1001FC8D8(v2, v3, v4);
   }
 }
 
@@ -980,21 +1601,21 @@ void sub_1001FC878(uint64_t *a1)
   sub_1001FC9D0();
 }
 
-void sub_1001FC958(uint64_t a1, uint64_t a2)
+void sub_1001FC958(uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); a2 != i; i -= 64)
+  for (i = *(result + 8); a2 != i; i -= 64)
   {
     sub_1001FCA14();
-    sub_1001FC9E4();
+    sub_1001FC9E4(result, v3);
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 uint64_t sub_1001FCAD8(uint64_t a1)
 {
   v3[1] = a1;
-  sub_1001FCCC8();
+  sub_1001FCCC8(a1);
   v3[0] = 0x3FFFFFFFFFFFFFFLL;
   sub_1001FBF34();
   v2 = 0x7FFFFFFFFFFFFFFFLL;
@@ -1021,32 +1642,32 @@ void sub_1001FCB8C(uint64_t *a1, uint64_t *a2)
   sub_1001FCF88();
 }
 
-void *sub_1001FCD00(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_1001FCD00(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
-    sub_1001FCDAC(result[4], a2);
+    sub_1001FCDAC(a1[4], a2);
   }
 
-  *result = 0;
-  v4 = *result + (a3 << 6);
-  result[2] = v4;
-  result[1] = v4;
-  result[3] = *result;
-  return result;
+  *a1 = 0;
+  v4 = *a1 + (a3 << 6);
+  a1[2] = v4;
+  a1[1] = v4;
+  a1[3] = *a1;
+  return a1;
 }
 
 void sub_1001FCDF0(uint64_t a1, unint64_t a2)
 {
-  sub_1001FCCC8();
+  sub_1001FCCC8(a1);
   if (a2 > 0x3FFFFFFFFFFFFFFLL)
   {
     sub_1001FC240();
   }
 
-  sub_1001FCE40();
+  sub_1001FCE40(a2);
 }
 
 void *sub_1001FCEE4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1072,20 +1693,21 @@ void **sub_1001FCF9C(void **a1)
   {
     v2 = a1[4];
     v3 = *a1;
-    sub_1001FD034(a1);
-    sub_1001FC8D8(v2, v3);
+    v4 = sub_1001FD034(a1);
+    sub_1001FC8D8(v2, v3, v4);
   }
 
   return a1;
 }
 
-void sub_1001FD088(uint64_t a1, uint64_t a2)
+void sub_1001FD088(uint64_t result, uint64_t a2)
 {
-  while (a2 != *(a1 + 16))
+  while (a2 != *(result + 16))
   {
-    *(a1 + 16) -= 64;
+    v3 = *(result + 32);
+    *(result + 16) -= 64;
     sub_1001FCA14();
-    sub_1001FC9E4();
+    sub_1001FC9E4(v3, v4);
   }
 }
 
@@ -1401,7 +2023,7 @@ void *sub_1001FE21C(void *result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void *sub_1001FE2D8(void *a1, uint64_t *a2)
+uint64_t *sub_1001FE2D8(uint64_t *a1, uint64_t *a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1414,7 +2036,7 @@ void *sub_1001FE2D8(void *a1, uint64_t *a2)
   return a1;
 }
 
-uint64_t sub_1001FE364(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t sub_1001FE364(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v11 = a1;
   v10 = a2;
@@ -1431,7 +2053,7 @@ uint64_t sub_1001FE364(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
   return sub_1001FE578(v7);
 }
 
-void sub_1001FE44C(uint64_t a1, unint64_t a2)
+void sub_1001FE44C(uint64_t *a1, unint64_t a2)
 {
   if (a2 > sub_1001FCAD8(a1))
   {
@@ -1463,20 +2085,20 @@ uint64_t sub_1001FE614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = sub_1001FE69C(a2, a3);
   v6 = v5;
-  sub_1001FE730();
+  sub_1001FE730(a4);
   v8 = sub_1001FE6F4(a1, v4, v6, v7);
   return sub_1001FE758(a4, v8);
 }
 
 uint64_t sub_1001FE69C(uint64_t a1, uint64_t a2)
 {
-  v6[2] = a1;
-  v6[1] = a2;
-  sub_1001FE730();
-  v6[0] = v2;
-  sub_1001FE730();
+  v8 = a1;
+  v7 = a2;
+  sub_1001FE730(a1);
+  v6 = v2;
+  sub_1001FE730(v7);
   v5 = v3;
-  return sub_1001FE788(v6, &v5);
+  return sub_1001FE788(&v6, &v5);
 }
 
 void *sub_1001FE80C(void *result, void *a2, void *a3)
@@ -1496,7 +2118,7 @@ uint64_t sub_1001FE8CC(uint64_t a1, uint64_t a2, uint64_t a3)
   v16 = v3;
   v5 = v3;
   v6 = v4;
-  sub_1001FE730();
+  sub_1001FE730(v18);
   v8 = sub_1001FE978(&v13, v5, v6, v7);
   v15 = v9;
   v14 = v8;
@@ -1580,16 +2202,16 @@ uint64_t *sub_1001FEDB4(uint64_t *a1)
   return a1;
 }
 
-void sub_1001FEE40(uint64_t **a1)
+void sub_1001FEE40(uint64_t **result)
 {
-  if (**a1)
+  if (**result)
   {
-    sub_1001FEED4(*a1);
+    sub_1001FEED4(*result);
     sub_1001FEF24();
-    v2 = *a1;
-    v3 = **a1;
-    sub_1001FEF6C(*a1);
-    sub_1001FEF34(v2, v3);
+    v2 = *result;
+    v3 = **result;
+    v4 = sub_1001FEF6C(*result);
+    sub_1001FEF34(v2, v3, v4);
   }
 }
 
@@ -1630,16 +2252,16 @@ uint64_t *sub_1001FF2C8(uint64_t *a1)
   return a1;
 }
 
-void sub_1001FF354(uint64_t **a1)
+void sub_1001FF354(uint64_t **result)
 {
-  if (**a1)
+  if (**result)
   {
-    sub_1001FF3E8(*a1);
+    sub_1001FF3E8(*result);
     sub_1001FF438();
-    v2 = *a1;
-    v3 = **a1;
-    sub_1001FF480(*a1);
-    sub_1001FF448(v2, v3);
+    v2 = *result;
+    v3 = **result;
+    v4 = sub_1001FF480(*result);
+    sub_1001FF448(v2, v3, v4);
   }
 }
 
@@ -1650,15 +2272,15 @@ void sub_1001FF3E8(uint64_t *a1)
   sub_1001FF520();
 }
 
-void sub_1001FF4A8(uint64_t a1, uint64_t a2)
+void sub_1001FF4A8(uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); a2 != i; i -= 24)
+  for (i = *(result + 8); a2 != i; i -= 24)
   {
     sub_1001FF564();
-    sub_1001FF534();
+    sub_1001FF534(result, v3);
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void *sub_1001FF6D4(uint64_t a1, void *a2)
@@ -1754,39 +2376,39 @@ void sub_1001FFB08(uint64_t *a1, uint64_t *a2)
 uint64_t sub_1001FFC48(uint64_t a1)
 {
   v3[1] = a1;
-  sub_1001FFCB0();
+  sub_1001FFCB0(a1);
   v3[0] = 0xAAAAAAAAAAAAAAALL;
   sub_1001FBF34();
   v2 = 0x7FFFFFFFFFFFFFFFLL;
   return *sub_1001FBEDC(v3, &v2);
 }
 
-void *sub_1001FFCE8(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_1001FFCE8(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
-    sub_1001FFD94(result[4], a2);
+    sub_1001FFD94(a1[4], a2);
   }
 
-  *result = 0;
-  v4 = *result + 24 * a3;
-  result[2] = v4;
-  result[1] = v4;
-  result[3] = *result;
-  return result;
+  *a1 = 0;
+  v4 = *a1 + 24 * a3;
+  a1[2] = v4;
+  a1[1] = v4;
+  a1[3] = *a1;
+  return a1;
 }
 
 void sub_1001FFDD8(uint64_t a1, unint64_t a2)
 {
-  sub_1001FFCB0();
+  sub_1001FFCB0(a1);
   if (a2 > 0xAAAAAAAAAAAAAAALL)
   {
     sub_1001FC240();
   }
 
-  sub_1001FFE2C();
+  sub_1001FFE2C(a2);
 }
 
 void *sub_1001FFED4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1812,8 +2434,8 @@ uint64_t *sub_1001FFF94(uint64_t *a1)
   {
     v2 = a1[4];
     v3 = *a1;
-    sub_10020002C(a1);
-    sub_1001FEF34(v2, v3);
+    v4 = sub_10020002C(a1);
+    sub_1001FEF34(v2, v3, v4);
   }
 
   return a1;
@@ -1822,10 +2444,10 @@ uint64_t *sub_1001FFF94(uint64_t *a1)
 uint64_t *sub_100200084(uint64_t *result, uint64_t a2)
 {
   v2 = result;
-  while (a2 != v2[2])
+  while (a2 != *(v2 + 16))
   {
-    v3 = v2[4];
-    v2[2] -= 24;
+    v3 = *(v2 + 32);
+    *(v2 + 16) -= 24;
     sub_1001FF078();
     result = sub_1001FF048(v3, v4);
   }
@@ -1835,36 +2457,36 @@ uint64_t *sub_100200084(uint64_t *result, uint64_t a2)
 
 void *sub_1002000F0(uint64_t a1, double *a2, double *a3, double *a4, double *a5)
 {
-  v14 = a1;
-  v13 = a2;
-  v12 = a3;
-  v11 = a4;
-  v10 = a5;
-  sub_100200268(&v8, a1);
-  sub_1001FF564();
-  sub_1002002B4(a1, v6, v13, v12, v11, v10);
-  v9 += 24;
-  return sub_100200304(&v8);
-}
-
-uint64_t sub_10020018C(uint64_t *a1, double *a2, double *a3, double *a4, double *a5)
-{
   v18 = a1;
   v17 = a2;
   v16 = a3;
   v15 = a4;
   v14 = a5;
+  sub_100200268(&v12, a1);
+  sub_1001FF564();
+  sub_1002002B4(a1, v6, v17, v16, v15, v14, v7, v8, v9, v10);
+  v13 += 24;
+  return sub_100200304(&v12);
+}
+
+uint64_t sub_10020018C(uint64_t *a1, double *a2, double *a3, double *a4, double *a5)
+{
+  v22 = a1;
+  v21 = a2;
+  v20 = a3;
+  v19 = a4;
+  v18 = a5;
   v6 = sub_1001FB974(a1);
   v7 = sub_100200494(a1, v6 + 1);
   v8 = sub_1001FB974(a1);
-  sub_100200538(v12, v7, v8, a1);
+  sub_100200538(v16, v7, v8, a1);
   sub_1001FF564();
-  sub_1002002B4(a1, v9, v17, v16, v15, v14);
-  v13 += 24;
-  sub_100200588(a1, v12);
-  v10 = a1[1];
-  sub_100200690(v12);
-  return v10;
+  sub_1002002B4(a1, v9, v21, v20, v19, v18, v10, v11, v12, v13);
+  v17 += 24;
+  sub_100200588(a1, v16);
+  v14 = a1[1];
+  sub_100200690(v16);
+  return v14;
 }
 
 void *sub_10020033C(void *result, uint64_t a2, uint64_t a3)
@@ -1875,11 +2497,15 @@ void *sub_10020033C(void *result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-float sub_100200384(uint64_t a1, uint64_t a2, double *a3, double *a4, double *a5, double *a6)
+float sub_100200384(uint64_t a1, uint64_t a2, double *a3, double *a4, double *a5, double *a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
-  v6 = *a5;
-  v7 = *a6;
-  return sub_1002003E8(a2, *a3, *a4, v6, v7);
+  a7.n128_f64[0] = *a3;
+  a8.n128_f64[0] = *a4;
+  a9.n128_f64[0] = *a5;
+  a9.n128_f32[0] = *a5;
+  a10.n128_f64[0] = *a6;
+  a10.n128_f32[0] = *a6;
+  return sub_1002003E8(a2, a7, a8, a9, a10);
 }
 
 float sub_100200430(uint64_t a1, double a2, double a3, float a4, float a5)
@@ -1935,39 +2561,39 @@ void sub_100200588(uint64_t *a1, uint64_t *a2)
 uint64_t sub_1002006C8(uint64_t a1)
 {
   v3[1] = a1;
-  sub_100200730();
+  sub_100200730(a1);
   v3[0] = 0xAAAAAAAAAAAAAAALL;
   sub_1001FBF34();
   v2 = 0x7FFFFFFFFFFFFFFFLL;
   return *sub_1001FBEDC(v3, &v2);
 }
 
-void *sub_100200768(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_100200768(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result[3] = 0;
-  result[4] = a4;
+  a1[3] = 0;
+  a1[4] = a4;
   if (a2)
   {
-    sub_100200814(result[4], a2);
+    sub_100200814(a1[4], a2);
   }
 
-  *result = 0;
-  v4 = *result + 24 * a3;
-  result[2] = v4;
-  result[1] = v4;
-  result[3] = *result;
-  return result;
+  *a1 = 0;
+  v4 = *a1 + 24 * a3;
+  a1[2] = v4;
+  a1[1] = v4;
+  a1[3] = *a1;
+  return a1;
 }
 
 void sub_100200858(uint64_t a1, unint64_t a2)
 {
-  sub_100200730();
+  sub_100200730(a1);
   if (a2 > 0xAAAAAAAAAAAAAAALL)
   {
     sub_1001FC240();
   }
 
-  sub_1002008AC();
+  sub_1002008AC(a2);
 }
 
 void *sub_100200954(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1993,20 +2619,21 @@ void **sub_100200A14(void **a1)
   {
     v2 = a1[4];
     v3 = *a1;
-    sub_100200AAC(a1);
-    sub_1001FF448(v2, v3);
+    v4 = sub_100200AAC(a1);
+    sub_1001FF448(v2, v3, v4);
   }
 
   return a1;
 }
 
-void sub_100200B04(uint64_t a1, uint64_t a2)
+void sub_100200B04(uint64_t result, uint64_t a2)
 {
-  while (a2 != *(a1 + 16))
+  while (a2 != *(result + 16))
   {
-    *(a1 + 16) -= 24;
+    v3 = *(result + 32);
+    *(result + 16) -= 24;
     sub_1001FF564();
-    sub_1001FF534();
+    sub_1001FF534(v3, v4);
   }
 }
 
@@ -2027,16 +2654,16 @@ uint64_t *sub_100200CE0(uint64_t *a1)
   return a1;
 }
 
-void sub_100200D6C(uint64_t **a1)
+void sub_100200D6C(uint64_t **result)
 {
-  if (**a1)
+  if (**result)
   {
-    sub_100200E00(*a1);
+    sub_100200E00(*result);
     sub_1001FC31C();
-    v2 = *a1;
-    v3 = **a1;
-    sub_1001FBC94(*a1);
-    sub_1001FC498(v2, v3);
+    v2 = *result;
+    v3 = **result;
+    v4 = sub_1001FBC94(*result);
+    sub_1001FC498(v2, v3, v4);
   }
 }
 
@@ -3696,27 +4323,42 @@ void sub_10020EFE4(NSAssertionHandler *a1)
 
 void sub_10020F128()
 {
-  if (!sub_10020F250())
+  v2 = 0;
+  if (!sub_10020F250(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *CommunicationsSetupUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyAppleIDFacetimeRegistrationManager.m" lineNumber:19 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyAppleIDFacetimeRegistrationManager.m" lineNumber:19 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_10020F250()
+uint64_t sub_10020F250(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7418;
+  v9 = qword_1003A7418;
   if (!qword_1003A7418)
   {
-    sub_10020F304();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_10020F304;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_10020F304(&v2);
   }
 
   return qword_1003A7418;
 }
 
-uint64_t sub_10020F304()
+uint64_t sub_10020F304(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7418 = result;
@@ -3840,27 +4482,42 @@ void sub_10020FB5C(NSAssertionHandler *a1)
 
 void sub_10020FCA0()
 {
-  if (!sub_10020FDC8())
+  v2 = 0;
+  if (!sub_10020FDC8(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AppleIDSetupLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySafetySettingsPresentationManager.m" lineNumber:37 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySafetySettingsPresentationManager.m" lineNumber:37 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_10020FDC8()
+uint64_t sub_10020FDC8(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7428;
+  v9 = qword_1003A7428;
   if (!qword_1003A7428)
   {
-    sub_10020FE7C();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_10020FE7C;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_10020FE7C(&v2);
   }
 
   return qword_1003A7428;
 }
 
-uint64_t sub_10020FE7C()
+uint64_t sub_10020FE7C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7428 = result;
@@ -3869,7 +4526,7 @@ uint64_t sub_10020FE7C()
 
 Class sub_10020FF10(uint64_t a1)
 {
-  sub_10020FDC8();
+  sub_10020FDC8(0);
   result = objc_getClass("AISSafetySettingsContext");
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_1003A7430 = *(*(*(a1 + 32) + 8) + 24);
@@ -4179,27 +4836,42 @@ void sub_100213F38(NSAssertionHandler *a1)
 
 void sub_10021407C()
 {
-  if (!sub_1002141A4())
+  v2 = 0;
+  if (!sub_1002141A4(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SpringBoardFoundationLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyLockscreenSceneDelegate.m" lineNumber:20 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyLockscreenSceneDelegate.m" lineNumber:20 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1002141A4()
+uint64_t sub_1002141A4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7440;
+  v9 = qword_1003A7440;
   if (!qword_1003A7440)
   {
-    sub_100214258();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100214258;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100214258(&v2);
   }
 
   return qword_1003A7440;
 }
 
-uint64_t sub_100214258()
+uint64_t sub_100214258(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7440 = result;
@@ -5427,14 +6099,20 @@ uint64_t sub_100228A68(uint64_t result, uint64_t a2)
 
 uint64_t sub_100229A24()
 {
-  v3 = sub_10022CB04();
+  v4 = 0;
+  v3 = sub_10022CB04(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *WiFiKitLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyWiFiController.m" lineNumber:41 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyWiFiController.m" lineNumber:41 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
@@ -5442,13 +6120,19 @@ uint64_t sub_100229A24()
 
 void sub_100229B50()
 {
-  if (!sub_10022CC4C())
+  v2 = 0;
+  if (!sub_10022CC4C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *WiFiKitUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyWiFiController.m" lineNumber:42 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyWiFiController.m" lineNumber:42 description:@"%s", v2];
 
     __break(1u);
+  }
+
+  if (v2)
+  {
+    free(v2);
   }
 }
 
@@ -5687,34 +6371,52 @@ void sub_10022C23C(id *a1, void *a2)
   objc_storeStrong(location, 0);
 }
 
-uint64_t sub_10022CB04()
+uint64_t sub_10022CB04(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7478;
+  v9 = qword_1003A7478;
   if (!qword_1003A7478)
   {
-    sub_10022CBB8();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_10022CBB8;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_10022CBB8(&v2);
   }
 
   return qword_1003A7478;
 }
 
-uint64_t sub_10022CBB8()
+uint64_t sub_10022CBB8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7478 = result;
   return result;
 }
 
-uint64_t sub_10022CC4C()
+uint64_t sub_10022CC4C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7480;
+  v9 = qword_1003A7480;
   if (!qword_1003A7480)
   {
-    sub_10022CD00();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_10022CD00;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_10022CD00(&v2);
   }
 
   return qword_1003A7480;
 }
 
-uint64_t sub_10022CD00()
+uint64_t sub_10022CD00(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7480 = result;
@@ -6060,27 +6762,42 @@ void sub_10022FF20(NSAssertionHandler *a1)
 
 void sub_100230064()
 {
-  if (!sub_10023018C())
+  v2 = 0;
+  if (!sub_10023018C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SeedingLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudConfigController.m" lineNumber:46 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudConfigController.m" lineNumber:46 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_10023018C()
+uint64_t sub_10023018C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A74B0;
+  v9 = qword_1003A74B0;
   if (!qword_1003A74B0)
   {
-    sub_100230240();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_100230240;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_100230240(&v2);
   }
 
   return qword_1003A74B0;
 }
 
-uint64_t sub_100230240()
+uint64_t sub_100230240(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A74B0 = result;
@@ -6634,17 +7351,26 @@ uint64_t sub_100241234()
   return v3() & 1;
 }
 
-uint64_t sub_1002414F4()
+uint64_t sub_1002414F4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A74D0;
+  v9 = qword_1003A74D0;
   if (!qword_1003A74D0)
   {
-    sub_1002415A8();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1002415A8;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1002415A8(&v2);
   }
 
   return qword_1003A74D0;
 }
 
-uint64_t sub_1002415A8()
+uint64_t sub_1002415A8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A74D0 = result;
@@ -6686,14 +7412,20 @@ void *sub_100241738(uint64_t a1)
 
 uint64_t sub_1002417A4()
 {
-  v3 = sub_1002414F4();
+  v4 = 0;
+  v3 = sub_1002414F4(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SpringBoardServicesLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYDevice.m" lineNumber:17 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYDevice.m" lineNumber:17 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
@@ -6774,27 +7506,42 @@ void sub_1002423C0(NSAssertionHandler *a1)
 
 void sub_100242504()
 {
-  if (!sub_10024262C())
+  v2 = 0;
+  if (!sub_10024262C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *CoreCDPLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYSecurityInterface.m" lineNumber:18 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYSecurityInterface.m" lineNumber:18 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_10024262C()
+uint64_t sub_10024262C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A74F8;
+  v9 = qword_1003A74F8;
   if (!qword_1003A74F8)
   {
-    sub_1002426E0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1002426E0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1002426E0(&v2);
   }
 
   return qword_1003A74F8;
 }
 
-uint64_t sub_1002426E0()
+uint64_t sub_1002426E0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A74F8 = result;
@@ -7720,30 +8467,45 @@ void sub_10024C31C(NSAssertionHandler *a1)
 
 uint64_t sub_10024C460()
 {
-  v3 = sub_10024C58C();
+  v4 = 0;
+  v3 = sub_10024C58C(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SIMSetupSupportLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMActivationController.m" lineNumber:25 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMActivationController.m" lineNumber:25 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
 }
 
-uint64_t sub_10024C58C()
+uint64_t sub_10024C58C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7548;
+  v9 = qword_1003A7548;
   if (!qword_1003A7548)
   {
-    sub_10024C640();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_10024C640;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_10024C640(&v2);
   }
 
   return qword_1003A7548;
 }
 
-uint64_t sub_10024C640()
+uint64_t sub_10024C640(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7548 = result;

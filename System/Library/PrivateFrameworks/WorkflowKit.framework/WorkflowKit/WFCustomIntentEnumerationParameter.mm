@@ -43,34 +43,34 @@
 
 - (NSArray)possibleStates
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   possibleStates = self->_possibleStates;
   if (!possibleStates)
   {
     v4 = objc_opt_new();
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     enumAttribute = [(WFCustomIntentEnumerationParameter *)self enumAttribute];
     codableEnum = [enumAttribute codableEnum];
     values = [codableEnum values];
 
-    v8 = [values countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [values countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(values);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           if ([v12 index])
           {
             enumNamesToKeys = [(WFCustomIntentEnumerationParameter *)self enumNamesToKeys];
@@ -94,7 +94,7 @@
           }
         }
 
-        v9 = [values countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [values countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v9);
@@ -106,8 +106,6 @@
 
     possibleStates = self->_possibleStates;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return possibleStates;
 }

@@ -1,10 +1,10 @@
 @interface HMSetupAccessoryPayload(HFAdditions)
-- (uint64_t)hf_requiresEthernet;
+- (void)hf_requiresEthernet;
 @end
 
 @implementation HMSetupAccessoryPayload(HFAdditions)
 
-- (uint64_t)hf_requiresEthernet
+- (void)hf_requiresEthernet
 {
   if ([self communicationProtocol] == 2)
   {
@@ -14,7 +14,7 @@
   result = [self supportsIP];
   if (result)
   {
-    return [self supportsWAC] ^ 1;
+    return ([self supportsWAC] ^ 1);
   }
 
   return result;

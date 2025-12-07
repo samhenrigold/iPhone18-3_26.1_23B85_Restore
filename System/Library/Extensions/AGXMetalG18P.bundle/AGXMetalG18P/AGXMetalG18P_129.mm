@@ -1,4 +1,4 @@
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,4u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,4u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -5885,7 +5885,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,2ul,8u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,2ul,8u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -9797,11 +9797,11 @@ double __os_log_helper_16_2_1_8_32(uint64_t a1)
   return result;
 }
 
-__IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readRegion(uint64_t a1, int a2, int a3, int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned __int8 *a10, uint64_t a11, uint64_t a12)
+__IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readRegion(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned __int8 *a10, uint64_t a11, uint64_t a12)
 {
   v14 = a4;
   v16 = a10;
-  v90 = __PAIR64__(a3, a2);
+  v94 = __PAIR64__(a3, a2);
   result = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::validateRegion(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
   if (!result)
   {
@@ -9816,8 +9816,8 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
     IOSurfaceLockPlane();
   }
 
-  v85 = a7;
-  v88 = v18 + a9;
+  v89 = a7;
+  v92 = v18 + a9;
   v21 = *(a1 + 184);
   if (v21)
   {
@@ -9829,11 +9829,11 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
   if (!v22)
   {
     v34 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getStride<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Units)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Op)0>(a1, 0);
-    CPUPtr = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v88, 0);
+    CPUPtr = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v92, 0);
     if (a6)
     {
       v36 = a6;
-      v37 = (CPUPtr + v34 * HIDWORD(v90) + v19 * v90);
+      v37 = (CPUPtr + v34 * HIDWORD(v94) + v19 * v94);
       do
       {
         memcpy(v16, v37, v19 * a5);
@@ -9854,7 +9854,7 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
   {
     if (v25 == 2)
     {
-      v82 = v24;
+      v86 = v24;
       v40 = *(a1 + 144) + a9;
       v41 = *(a1 + 132);
       v42 = *(a1 + 128) >> (*(a1 + 144) + a9);
@@ -9874,44 +9874,44 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
         v44 = 1;
       }
 
-      v80 = v44;
+      v84 = v44;
       v45 = *(a1 + 136) >> v40;
       if (v45 <= 1)
       {
         v45 = 1;
       }
 
-      v78 = v45;
-      AddressingBaseLevelWidthInBlocks = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelWidthInBlocks(a1, v88);
-      AddressingBaseLevelHeightInBlocks = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelHeightInBlocks(a1, v88);
+      v82 = v45;
+      AddressingBaseLevelWidthInBlocks = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelWidthInBlocks(a1, v92);
+      AddressingBaseLevelHeightInBlocks = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelHeightInBlocks(a1, v92);
       v48 = *(a1 + 584);
-      if (v48 && *(v48 + 1304) > v88)
+      if (v48 && *(v48 + 1304) > v92)
       {
-        v49 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v88, 0);
-        v50 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(*(a1 + 584), a8, v88, 0);
+        v49 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v92, 0);
+        v50 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(*(a1 + 584), a8, v92, 0);
         v51 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
         v52 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)0>(*(a1 + 584), 0);
-        AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readCompressedRegion3D(a1, v49, a10, v50, v43, v80, v90, HIDWORD(v90), v14, a5, a6, v85, a11, a12, v51, v52, a9);
+        AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readCompressedRegion3D(a1, v49, a10, v50, v43, v84, v94, HIDWORD(v94), v14, a5, a6, v89, a11, a12, v51, v52, a9);
       }
 
-      else if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::isLevelTiled(a1, v88))
+      else if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::isLevelTiled(a1, v92))
       {
-        v81 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v88, 0);
-        v79 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
+        v85 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v92, 0);
+        v83 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
         DetwiddleFunc = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getDetwiddleFunc(a1);
         v54 = v24;
-        if (v85)
+        if (v89)
         {
           v55 = DetwiddleFunc;
           v56 = *(a1 + 128);
           v58 = *(a1 + 216);
           v57 = *(a1 + 220);
-          v59 = v85;
+          v59 = v89;
           v60 = *(a1 + 333);
           do
           {
-            TiledMemory<(TwiddleOrder)1>::convertTiles2D<true>(v16, v81 + v79 * v14, v56, v88, v90, HIDWORD(v90), a5, a6, a11, v58, v57, v54, v55, v60);
-            v54 = v82;
+            TiledMemory<(TwiddleOrder)1>::convertTiles2D<true>(v16, v85 + v83 * v14, v56, v92, v94, HIDWORD(v94), a5, a6, a11, v58, v57, v54, v55, v60);
+            v54 = v86;
             ++v14;
             v16 += a12;
             --v59;
@@ -9924,44 +9924,44 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
       else
       {
         v63 = a1 + 260;
-        v83 = 1 << -__clz(AddressingBaseLevelWidthInBlocks - 1);
-        v77 = 1 << -__clz(AddressingBaseLevelHeightInBlocks - 1);
+        v87 = 1 << -__clz(AddressingBaseLevelWidthInBlocks - 1);
+        v81 = 1 << -__clz(AddressingBaseLevelHeightInBlocks - 1);
         if (*(a1 + 240) == 1)
         {
           v64 = *(a1 + 72);
-          *&v94 = __PAIR64__(a8, v88);
-          DWORD2(v94) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 0);
-          HIDWORD(v94) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 1);
-          LODWORD(v95) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::tailSize(a1, 0, 0);
-          *(&v95 + 1) = v64;
-          v65 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
-          v66 = 0;
-          DWORD1(v95) = 8 * ((v65 + (*(a1 + 236) << 8) - 1) & -(*(a1 + 236) << 8)) / *(a1 + 236);
-          v67 = &v94;
-          v68 = a12;
+          *&v98 = __PAIR64__(a8, v92);
+          DWORD2(v98) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 0);
+          HIDWORD(v98) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 1);
+          LODWORD(v99) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::tailSize(a1, 0, 0, v65, v66);
+          *(&v99 + 1) = v64;
+          v67 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
+          v68 = 0;
+          DWORD1(v99) = 8 * ((v67 + (*(a1 + 236) << 8) - 1) & -(*(a1 + 236) << 8)) / *(a1 + 236);
+          v69 = &v98;
+          v70 = a12;
         }
 
         else
         {
-          v67 = 0;
+          v69 = 0;
           if (!*(a1 + 232))
           {
             v63 = 0;
           }
 
-          v68 = a12;
-          v66 = v88;
+          v70 = a12;
+          v68 = v92;
         }
 
-        v74 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v66, 0);
-        v75 = agxsTwiddle3DAddressCompressed<false,4u,2u,16ul,(TwiddleOrder)1>;
+        v78 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, v68, 0);
+        v79 = agxsTwiddle3DAddressCompressed<false,4u,2u,16ul,(TwiddleOrder)1>;
         switch(*(a1 + 32))
         {
           case 0x82:
           case 0x83:
           case 0x8CLL:
           case 0x8DLL:
-            v75 = agxsTwiddle3DAddressCompressed<false,4u,4u,8ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,4u,4u,8ul,(TwiddleOrder)1>;
             break;
           case 0x84:
           case 0x85:
@@ -9976,7 +9976,7 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
           case 0xBALL:
           case 0xCCLL:
           case 0xDELL:
-            v75 = agxsTwiddle3DAddressCompressed<false,4u,4u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,4u,4u,16ul,(TwiddleOrder)1>;
             break;
           case 0xB9:
           case 0xCBLL:
@@ -9985,80 +9985,80 @@ __IOSurface *AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::H
           case 0xBBLL:
           case 0xCDLL:
           case 0xDFLL:
-            v75 = agxsTwiddle3DAddressCompressed<false,5u,4u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,5u,4u,16ul,(TwiddleOrder)1>;
             break;
           case 0xBCLL:
           case 0xCELL:
           case 0xE0:
-            v75 = agxsTwiddle3DAddressCompressed<false,5u,5u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,5u,5u,16ul,(TwiddleOrder)1>;
             break;
           case 0xBDLL:
           case 0xCFLL:
           case 0xE1:
-            v75 = agxsTwiddle3DAddressCompressed<false,6u,5u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,6u,5u,16ul,(TwiddleOrder)1>;
             break;
           case 0xBELL:
           case 0xD0:
           case 0xE2:
-            v75 = agxsTwiddle3DAddressCompressed<false,6u,6u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,6u,6u,16ul,(TwiddleOrder)1>;
             break;
           case 0xBFLL:
           case 0xD1:
           case 0xE3:
-            v75 = agxsTwiddle3DAddressCompressed<false,8u,4u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,8u,4u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC0:
           case 0xD2:
           case 0xE4:
-            v75 = agxsTwiddle3DAddressCompressed<false,8u,5u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,8u,5u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC1:
           case 0xD3:
           case 0xE5:
-            v75 = agxsTwiddle3DAddressCompressed<false,8u,6u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,8u,6u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC2:
           case 0xD4:
           case 0xE6:
-            v75 = agxsTwiddle3DAddressCompressed<false,8u,8u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,8u,8u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC3:
           case 0xD5:
           case 0xE7:
-            v75 = agxsTwiddle3DAddressCompressed<false,10u,5u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,10u,5u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC4:
           case 0xD6:
           case 0xE8:
-            v75 = agxsTwiddle3DAddressCompressed<false,10u,6u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,10u,6u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC5:
           case 0xD7:
           case 0xE9:
-            v75 = agxsTwiddle3DAddressCompressed<false,10u,8u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,10u,8u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC6:
           case 0xD8:
           case 0xEALL:
-            v75 = agxsTwiddle3DAddressCompressed<false,10u,10u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,10u,10u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC7:
           case 0xD9:
           case 0xEBLL:
-            v75 = agxsTwiddle3DAddressCompressed<false,12u,10u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,12u,10u,16ul,(TwiddleOrder)1>;
             break;
           case 0xC8:
           case 0xDALL:
           case 0xECLL:
-            v75 = agxsTwiddle3DAddressCompressed<false,12u,12u,16ul,(TwiddleOrder)1>;
+            v79 = agxsTwiddle3DAddressCompressed<false,12u,12u,16ul,(TwiddleOrder)1>;
             break;
           default:
-            v75 = *(&off_2A23FAA88 + __clz(__rbit32(*(*(a1 + 208) + 49))));
+            v79 = *(&off_2A23FAA88 + __clz(__rbit32(*(*(a1 + 208) + 49))));
             break;
         }
 
-        v76 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
-        (v75)(v74, a10, v43, v80, v78, v83, v77, v76, v90, __PAIR64__(a5, v14), __PAIR64__(v85, a6), a11, v68, v63, v67);
+        v80 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(a1, 0);
+        (v79)(v78, a10, v43, v84, v82, v87, v81, v80, v94, __PAIR64__(a5, v14), __PAIR64__(v89, a6), a11, v70, v63, v69);
       }
 
       goto LABEL_74;
@@ -10094,82 +10094,82 @@ LABEL_74:
     v27 = 1;
   }
 
-  v86 = v27;
-  v87 = v26;
-  v28 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelWidthInBlocks(a1, v88);
-  result = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelHeightInBlocks(a1, v88);
+  v90 = v27;
+  v91 = v26;
+  v28 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelWidthInBlocks(a1, v92);
+  result = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getAddressingBaseLevelHeightInBlocks(a1, v92);
   if (a8 < 6 || (v22 & 0x10000) != 0)
   {
     v29 = result;
     v30 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getDetwiddleFunc(a1);
     v31 = *(a1 + 584);
-    if (v31 && *(v31 + 1304) > v88)
+    if (v31 && *(v31 + 1304) > v92)
     {
-      v32 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v88, 0);
-      v33 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(*(a1 + 584), a8, v88, 0);
-      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readCompressedRegion2D<true>(a1, v32, a10, v33, v87, v86, v90, HIDWORD(v90), a5, a6, a11, a9);
+      v32 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v92, 0);
+      v33 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(*(a1 + 584), a8, v92, 0);
+      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::readCompressedRegion2D<true>(a1, v32, a10, v33, v91, v90, v94, HIDWORD(v94), __SPAIR64__(a6, a5), a11, a9);
     }
 
     else
     {
       v38 = v30;
-      if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::isLevelTiled(a1, v88))
+      if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::isLevelTiled(a1, v92))
       {
-        v39 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v88, 0);
-        TiledMemory<(TwiddleOrder)1>::convertTiles2D<true>(a10, v39, *(a1 + 128), v88, v90, HIDWORD(v90), a5, a6, a11, *(a1 + 216), *(a1 + 220), v24, v38, *(a1 + 333));
+        v39 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v92, 0);
+        TiledMemory<(TwiddleOrder)1>::convertTiles2D<true>(a10, v39, *(a1 + 128), v92, v94, HIDWORD(v94), a5, a6, a11, *(a1 + 216), *(a1 + 220), v24, v38, *(a1 + 333));
       }
 
       else if (v23 == 3)
       {
         v61 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, 0, 0);
-        v98 = 0;
-        v96 = 0u;
-        v97 = 0u;
-        v94 = 0u;
-        v95 = 0u;
+        v102 = 0;
+        v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
         v62 = *(a1 + 208);
-        InterchangeTiledMemory::getPlaneInfo(&v94, 0, *(a1 + 32), *(v62 + 49));
-        CompressedTileWidthOfPlane = v94;
-        v93 = *(&v94 + 1);
+        InterchangeTiledMemory::getPlaneInfo(&v98, 0, *(a1 + 32), *(v62 + 49));
+        CompressedTileWidthOfPlane = v98;
+        v97 = *(&v98 + 1);
         if (*(a1 + 168))
         {
           CompressedTileWidthOfPlane = IOSurfaceGetCompressedTileWidthOfPlane();
-          LOBYTE(v93) = IOSurfaceGetCompressedTileHeightOfPlane();
+          LOBYTE(v97) = IOSurfaceGetCompressedTileHeightOfPlane();
           v62 = *(a1 + 208);
         }
 
-        InterchangeTiledMemory::read(v61, a10, v87, v90, HIDWORD(v90), a5, a6, a11, &CompressedTileWidthOfPlane, v62);
+        InterchangeTiledMemory::read(v61, a10, v91, v94, HIDWORD(v94), a5, a6, a11, &CompressedTileWidthOfPlane, v62);
       }
 
       else
       {
-        v69 = (1 << -__clz(v28 - 1));
-        v70 = (1 << -__clz(v29 - 1));
-        v71 = a1 + 260;
+        v71 = (1 << -__clz(v28 - 1));
+        v72 = (1 << -__clz(v29 - 1));
+        v73 = a1 + 260;
         if (*(a1 + 240) == 1)
         {
-          v84 = *(a1 + 72);
-          *&v94 = __PAIR64__(a8, v88);
-          DWORD2(v94) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 0);
-          HIDWORD(v94) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 1);
-          LODWORD(v95) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::tailSize(a1, 0, 0);
-          *(&v95 + 1) = v84;
-          v72 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, 0, 0);
-          v73 = &v94;
+          v88 = *(a1 + 72);
+          *&v98 = __PAIR64__(a8, v92);
+          DWORD2(v98) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 0);
+          HIDWORD(v98) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::firstMipInTail(a1, 1);
+          LODWORD(v99) = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::tailSize(a1, 0, 0, v74, v75);
+          *(&v99 + 1) = v88;
+          v76 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, 0, 0, 0);
+          v77 = &v98;
         }
 
         else
         {
           if (!*(a1 + 232))
           {
-            v71 = 0;
+            v73 = 0;
           }
 
-          v72 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v88, 0);
-          v73 = 0;
+          v76 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getCPUPtr(a1, a8, v92, 0);
+          v77 = 0;
         }
 
-        (v38)(v72, a10, v87, v86, v69, v70, v90, HIDWORD(v90), __PAIR64__(a6, a5), a11, v71, v73);
+        (v38)(v76, a10, v91, v90, v71, v72, v94, HIDWORD(v94), __PAIR64__(a6, a5), a11, v73, v77);
       }
     }
 

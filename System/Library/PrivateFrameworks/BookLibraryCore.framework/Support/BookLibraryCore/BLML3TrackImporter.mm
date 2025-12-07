@@ -120,15 +120,15 @@
 
   else
   {
-    itemDownloadIdentifier = [itemCopy itemDownloadIdentifier];
+    v14 = objc_msgSend_itemDownloadIdentifier(itemCopy);
 
-    if (!itemDownloadIdentifier)
+    if (!v14)
     {
       goto LABEL_8;
     }
 
-    itemDownloadIdentifier2 = [itemCopy itemDownloadIdentifier];
-    v13 = [ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertyDownloadIdentifier equalToValue:itemDownloadIdentifier2];
+    v15 = objc_msgSend_itemDownloadIdentifier(itemCopy);
+    v13 = [ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertyDownloadIdentifier equalToValue:v15];
 
     v16 = [ML3Track anyInLibrary:libraryCopy predicate:v13];
     v17 = v16;
@@ -401,12 +401,12 @@ LABEL_8:
   }
 
   [v10 setObject:&off_100129BA8 forKey:&off_100129FB0];
-  itemDownloadIdentifier3 = [itemCopy itemDownloadIdentifier];
+  v82 = objc_msgSend_itemDownloadIdentifier(itemCopy);
 
-  if (itemDownloadIdentifier3)
+  if (v82)
   {
-    itemDownloadIdentifier4 = [itemCopy itemDownloadIdentifier];
-    [v10 setObject:itemDownloadIdentifier4 forKey:&off_100129FC8];
+    v83 = objc_msgSend_itemDownloadIdentifier(itemCopy);
+    [v10 setObject:v83 forKey:&off_100129FC8];
   }
 
   [v10 setObject:&off_100129BA8 forKey:&off_100129FE0];

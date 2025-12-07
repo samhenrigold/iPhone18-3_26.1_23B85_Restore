@@ -21,6 +21,7 @@
 - (void)_dynamicStoreCallbackForKeys:(id)keys;
 - (void)_flushStaleTransitions;
 - (void)_pathUpdate:(id)update;
+- (void)_processLinkQualityUpdateWithChangedKey:(id)key updatedLinkQuality:(int)quality;
 - (void)_unscheduleLinkQualityMonitor;
 - (void)_unschedulePathEvaluator;
 - (void)_updateOffTransitionsForLinkQualityChange;
@@ -429,13 +430,13 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
 
 - (void)_unschedulePathEvaluator
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - _unschedulePathEvaluatorOnIvarQueue", &v6, 0xCu);
+    _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ - _unschedulePathEvaluatorOnIvarQueue", &v5, 0xCu);
   }
 
   [(NSRecursiveLock *)self->_recursiveLock lock];
@@ -447,7 +448,6 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
   }
 
   [(NSRecursiveLock *)self->_recursiveLock unlock];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createPathEvaluator
@@ -463,28 +463,25 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
   else
   {
     objc_initWeak(&location, self);
-    pathParameters = self->_pathParameters;
     evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
     evaluator = self->_evaluator;
     self->_evaluator = evaluator_for_endpoint;
 
-    v7 = self->_evaluator;
-    v10 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v11, &location);
+    v7 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v8, &location);
     nw_path_evaluator_set_update_handler();
-    v8 = self->_evaluator;
-    v9 = nw_path_evaluator_copy_path();
-    [(NSRecursiveLock *)self->_recursiveLock unlock:v10];
-    [(PCInterfaceUsabilityMonitor *)self _pathUpdate:v9];
+    v6 = nw_path_evaluator_copy_path();
+    [(NSRecursiveLock *)self->_recursiveLock unlock:v7];
+    [(PCInterfaceUsabilityMonitor *)self _pathUpdate:v6];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(&location);
   }
 }
 
 + (BOOL)isPathUltraConstrained:(id)constrained
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   constrainedCopy = constrained;
   v5 = MEMORY[0x25F8B2210]();
   v6 = [objc_alloc(MEMORY[0x277CC3650]) initAgentDataFromInternetPath:constrainedCopy];
@@ -503,24 +500,23 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
   v9 = +[PCLog usabilityMonitor];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138544130;
+    v11 = 138544130;
     selfCopy = self;
-    v14 = 1024;
-    v15 = dataPlanTier;
-    v16 = 1024;
-    v17 = v5;
-    v18 = 1024;
-    v19 = v8;
-    _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor: Plan tier %d, path is ultra constrained %{BOOL}d, isUltraConstrained %{BOOL}d", &v12, 0x1Eu);
+    v13 = 1024;
+    v14 = dataPlanTier;
+    v15 = 1024;
+    v16 = v5;
+    v17 = 1024;
+    v18 = v8;
+    _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor: Plan tier %d, path is ultra constrained %{BOOL}d, isUltraConstrained %{BOOL}d", &v11, 0x1Eu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)_pathUpdate:(id)update
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   status = nw_path_get_status(updateCopy);
   v6 = status == nw_path_status_satisfied;
@@ -562,21 +558,21 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
       interfaceConstraint = self->_interfaceConstraint;
       *buf = 138544130;
       selfCopy4 = self;
-      v62 = 2114;
-      v63 = v15;
-      v64 = 2048;
-      v65 = v9;
-      v66 = 2048;
-      *v67 = interfaceConstraint;
+      v61 = 2114;
+      v62 = v15;
+      v63 = 2048;
+      v64 = v9;
+      v65 = 2048;
+      *v66 = interfaceConstraint;
       _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor [%{public}@]: Interface constraint changed. Old constraint: %ld; New constraint: %ld;", buf, 0x2Au);
     }
 
-    v57 = 1;
+    v56 = 1;
   }
 
   else
   {
-    v57 = 0;
+    v56 = 0;
   }
 
   p_lastInterface = &self->_lastInterface;
@@ -586,7 +582,7 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
     v19 = +[PCLog usabilityMonitor];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v54 = status == nw_path_status_satisfied;
+      v53 = status == nw_path_status_satisfied;
       v20 = self->_interfaceIdentifier;
       v21 = @"unknown";
       if (v20 == 1)
@@ -626,7 +622,7 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
         name = "<none>";
       }
 
-      v52 = status;
+      v51 = status;
       if (v7)
       {
         v26 = nw_interface_get_name(v7);
@@ -641,20 +637,20 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
 
       *buf = 138544642;
       selfCopy4 = self;
-      v62 = 2114;
-      v63 = v23;
-      v64 = 2080;
-      v65 = name;
-      v66 = 1024;
-      *v67 = index;
-      *&v67[4] = 2080;
-      *&v67[6] = v26;
-      *&v67[14] = 1024;
-      *&v67[16] = v27;
+      v61 = 2114;
+      v62 = v23;
+      v63 = 2080;
+      v64 = name;
+      v65 = 1024;
+      *v66 = index;
+      *&v66[4] = 2080;
+      *&v66[6] = v26;
+      *&v66[14] = 1024;
+      *&v66[16] = v27;
       _os_log_impl(&dword_25E3EF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor [%{public}@]: current interface changed from %s (%u) to %s (%u)", buf, 0x36u);
 
-      status = v52;
-      v6 = v54;
+      status = v51;
+      v6 = v53;
     }
 
     objc_storeStrong(&self->_lastInterface, v7);
@@ -671,7 +667,7 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
     v30 = +[PCLog usabilityMonitor];
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v55 = v6;
+      v54 = v6;
       v31 = self->_interfaceIdentifier;
       v32 = @"unknown";
       if (v31 == 1)
@@ -711,7 +707,7 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
         v36 = "<none>";
       }
 
-      v53 = status;
+      v52 = status;
       if (v8)
       {
         v38 = nw_interface_get_name(v8);
@@ -726,20 +722,20 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
 
       *buf = 138544642;
       selfCopy4 = self;
-      v62 = 2114;
-      v63 = v34;
-      v64 = 2080;
-      v65 = v36;
-      v66 = 1024;
-      *v67 = v37;
-      *&v67[4] = 2080;
-      *&v67[6] = v38;
-      *&v67[14] = 1024;
-      *&v67[16] = v39;
+      v61 = 2114;
+      v62 = v34;
+      v63 = 2080;
+      v64 = v36;
+      v65 = 1024;
+      *v66 = v37;
+      *&v66[4] = 2080;
+      *&v66[6] = v38;
+      *&v66[14] = 1024;
+      *&v66[16] = v39;
       _os_log_impl(&dword_25E3EF000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor [%{public}@]: current delegate interface changed from %s (%u) to %s (%u)", buf, 0x36u);
 
-      status = v53;
-      v6 = v55;
+      status = v52;
+      v6 = v54;
     }
 
     objc_storeStrong(&self->_lastDelegateInterface, v8);
@@ -770,7 +766,7 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
       }
 
       v45 = v44;
-      v56 = v8;
+      v55 = v8;
       v46 = v6;
       if (self->_isPathSatisfied)
       {
@@ -795,16 +791,16 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
       reason_description = nw_path_get_reason_description();
       *buf = 138544386;
       selfCopy4 = self;
-      v62 = 2114;
-      v63 = v45;
-      v64 = 2080;
-      v65 = v47;
+      v61 = 2114;
+      v62 = v45;
+      v63 = 2080;
+      v64 = v47;
       v6 = v46;
-      v8 = v56;
-      v66 = 2080;
-      *v67 = v48;
-      *&v67[8] = 2080;
-      *&v67[10] = reason_description;
+      v8 = v55;
+      v65 = 2080;
+      *v66 = v48;
+      *&v66[8] = 2080;
+      *&v66[10] = reason_description;
       _os_log_impl(&dword_25E3EF000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ InterfaceUsabilityMonitor [%{public}@]: path changed from %s to %s (%s)", buf, 0x34u);
     }
 
@@ -816,27 +812,25 @@ void __54__PCInterfaceUsabilityMonitor__callDelegateWithBlock___block_invoke(uin
     [(NSRecursiveLock *)self->_recursiveLock unlock];
   }
 
-  if (v57)
-  {
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke;
-    v59[3] = &unk_279A1A0E0;
-    v59[4] = self;
-    [(PCInterfaceUsabilityMonitor *)self _callDelegateWithBlock:v59];
-  }
-
-  if (isPathSatisfied != v6)
+  if (v56)
   {
     v58[0] = MEMORY[0x277D85DD0];
     v58[1] = 3221225472;
-    v58[2] = __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke_2;
+    v58[2] = __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke;
     v58[3] = &unk_279A1A0E0;
     v58[4] = self;
     [(PCInterfaceUsabilityMonitor *)self _callDelegateWithBlock:v58];
   }
 
-  v50 = *MEMORY[0x277D85DE8];
+  if (isPathSatisfied != v6)
+  {
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke_2;
+    v57[3] = &unk_279A1A0E0;
+    v57[4] = self;
+    [(PCInterfaceUsabilityMonitor *)self _callDelegateWithBlock:v57];
+  }
 }
 
 void __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke(uint64_t a1, void *a2)
@@ -869,22 +863,19 @@ void __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke_2(uint64_t a1,
     nw_parameters_set_required_interface_type(self->_pathParameters, nw_interface_type_cellular);
     if (_os_feature_enabled_impl())
     {
-      v5 = self->_pathParameters;
       nw_parameters_set_allow_ultra_constrained();
     }
   }
 
   else
   {
-    v6 = xpc_array_create(0, 0);
-    xpc_array_set_uint64(v6, 0xFFFFFFFFFFFFFFFFLL, 2uLL);
-    v7 = self->_pathParameters;
+    v5 = xpc_array_create(0, 0);
+    xpc_array_set_uint64(v5, 0xFFFFFFFFFFFFFFFFLL, 2uLL);
     nw_parameters_set_prohibited_interface_types();
   }
 
-  v9 = xpc_array_create(0, 0);
-  xpc_array_set_uint64(v9, 0xFFFFFFFFFFFFFFFFLL, 0x1389uLL);
-  v8 = self->_pathParameters;
+  v6 = xpc_array_create(0, 0);
+  xpc_array_set_uint64(v6, 0xFFFFFFFFFFFFFFFFLL, 0x1389uLL);
   nw_parameters_set_prohibited_interface_subtypes();
   [(NSRecursiveLock *)self->_recursiveLock unlock];
   [(PCInterfaceUsabilityMonitor *)self _createPathEvaluator];
@@ -939,6 +930,73 @@ void __43__PCInterfaceUsabilityMonitor__pathUpdate___block_invoke_2(uint64_t a1,
   }
 }
 
+- (void)_processLinkQualityUpdateWithChangedKey:(id)key updatedLinkQuality:(int)quality
+{
+  v4 = *&quality;
+  v31 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  [(NSRecursiveLock *)self->_recursiveLock lock];
+  lqKey = self->_lqKey;
+  if (lqKey && CFEqual(keyCopy, lqKey) && self->_linkQuality != v4)
+  {
+    v8 = +[PCLog usabilityMonitor];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      interfaceIdentifier = self->_interfaceIdentifier;
+      v10 = @"unknown";
+      if (interfaceIdentifier == 1)
+      {
+        v10 = @"WWAN";
+      }
+
+      if (interfaceIdentifier)
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = @"NonCellular";
+      }
+
+      v12 = v11;
+      lastInterface = self->_lastInterface;
+      v14 = [PCInterfaceUsabilityMonitor stringForLinkQuality:self->_linkQuality];
+      v15 = [PCInterfaceUsabilityMonitor stringForLinkQuality:v4];
+      *buf = 138544642;
+      selfCopy = self;
+      v21 = 2114;
+      v22 = v12;
+      v23 = 2114;
+      v24 = lastInterface;
+      v25 = 2114;
+      v26 = v14;
+      v27 = 2114;
+      v28 = v15;
+      v29 = 1024;
+      v30 = v4;
+      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Interface Manager: %{public}@(%{public}@) LinkQuality changed from %{public}@ to %{public}@ (%d)", buf, 0x3Au);
+    }
+
+    linkQuality = self->_linkQuality;
+    self->_linkQuality = v4;
+    [(PCInterfaceUsabilityMonitor *)self _updateOffTransitionsForLinkQualityChange];
+    [(NSRecursiveLock *)self->_recursiveLock unlock];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_updatedLinkQuality___block_invoke;
+    v17[3] = &unk_279A1A108;
+    v17[4] = self;
+    v18 = linkQuality;
+    [(PCInterfaceUsabilityMonitor *)self _callDelegateWithBlock:v17];
+  }
+
+  else
+  {
+    [(NSRecursiveLock *)self->_recursiveLock unlock];
+  }
+}
+
 void __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_updatedLinkQuality___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -950,39 +1008,39 @@ void __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_u
 
 - (void)_dynamicStoreCallback:(id)callback
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v5 = [callbackCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v5 = [callbackCopy countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     key = *MEMORY[0x277CE16B0];
     v8 = 0x279A19000uLL;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(callbackCopy);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = SCDynamicStoreCopyValue(self->_dynamicStore, v10);
         usabilityMonitor = [*(v8 + 2760) usabilityMonitor];
         if (os_log_type_enabled(usabilityMonitor, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
           selfCopy = self;
-          v28 = 2114;
-          v29 = v10;
-          v30 = 2114;
-          v31 = v11;
+          v27 = 2114;
+          v28 = v10;
+          v29 = 2114;
+          v30 = v11;
           _os_log_impl(&dword_25E3EF000, usabilityMonitor, OS_LOG_TYPE_DEFAULT, "%{public}@ _dynamicStoreCallback - processing changedKey %{public}@ linkQualityInfo %{public}@.", buf, 0x20u);
         }
 
@@ -1014,13 +1072,11 @@ void __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_u
         }
       }
 
-      v6 = [callbackCopy countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v6 = [callbackCopy countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dynamicStoreCallbackForKeys:(id)keys
@@ -1037,7 +1093,7 @@ void __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_u
 
 - (BOOL)_createLinkQualityMonitor:(BOOL)monitor
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   lastDelegateInterface = self->_lastDelegateInterface;
   if (lastDelegateInterface)
@@ -1092,10 +1148,10 @@ void __90__PCInterfaceUsabilityMonitor__processLinkQualityUpdateWithChangedKey_u
           lqKey = self->_lqKey;
           *buf = 138543874;
           selfCopy = self;
-          v22 = 2114;
-          v23 = v7;
-          v24 = 2114;
-          v25 = lqKey;
+          v21 = 2114;
+          v22 = v7;
+          v23 = 2114;
+          v24 = lqKey;
           _os_log_impl(&dword_25E3EF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Interface manager: creating monitor for interface: %{public}@ LinkQuality key: %{public}@", buf, 0x20u);
         }
 
@@ -1131,7 +1187,6 @@ LABEL_18:
 LABEL_19:
 
   objc_autoreleasePoolPop(v5);
-  v17 = *MEMORY[0x277D85DE8];
   return monitor;
 }
 

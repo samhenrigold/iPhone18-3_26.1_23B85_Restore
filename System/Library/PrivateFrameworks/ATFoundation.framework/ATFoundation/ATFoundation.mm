@@ -317,16 +317,23 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_223934400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2239341E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  va_start(va, a13);
+  va_start(va, a42);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_223937BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_223934400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a15);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_223937BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -362,67 +369,63 @@ id getATStoreMediaAssetLinkClass()
   return v1;
 }
 
-void sub_223938DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223938DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getATStoreMediaAssetLinkClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
   if (!AirTrafficDeviceLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __AirTrafficDeviceLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_2784E90A0;
-    v9 = 0;
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __AirTrafficDeviceLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_2784E90A0;
+    v8 = 0;
     AirTrafficDeviceLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AirTrafficDeviceLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AirTrafficDeviceLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"ATAssetLinkController.m" lineNumber:29 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *AirTrafficDeviceLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"ATAssetLinkController.m" lineNumber:29 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("ATStoreMediaAssetLink");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getATStoreMediaAssetLinkClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"ATAssetLinkController.m" lineNumber:30 description:{@"Unable to find class %s", "ATStoreMediaAssetLink"}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getATStoreMediaAssetLinkClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"ATAssetLinkController.m" lineNumber:30 description:{@"Unable to find class %s", "ATStoreMediaAssetLink"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getATStoreMediaAssetLinkClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AirTrafficDeviceLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AirTrafficDeviceLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -433,9 +436,9 @@ void sub_22393AA64(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22393CEE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22393CEE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -536,9 +539,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_22393FED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22393FED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -585,9 +588,10 @@ uint64_t __Block_byref_object_copy__2064(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22394B330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_22394B330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a42, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

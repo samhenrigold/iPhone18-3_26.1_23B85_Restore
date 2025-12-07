@@ -43,7 +43,7 @@
 
 - (MIBUNWConnection)initWithConfiguration:(id)configuration messageFramer:(id)framer dispatchQueue:(id)queue statusDelegate:(id)delegate
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   framerCopy = framer;
   queueCopy = queue;
@@ -72,7 +72,7 @@
 
     v18 = [configurationCopy objectForKey:@"InterfaceName"];
     parameters = nw_parameters_create_secure_tcp(*MEMORY[0x277CD9238], *MEMORY[0x277CD9230]);
-    v31 = delegateCopy;
+    v30 = delegateCopy;
     if (!v18)
     {
       if (MIBUOnceToken != -1)
@@ -80,7 +80,7 @@
         [MIBUNWConnection initWithConfiguration:messageFramer:dispatchQueue:statusDelegate:];
       }
 
-      v30 = queueCopy;
+      v29 = queueCopy;
       v24 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
@@ -102,8 +102,8 @@
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v35 = 2114;
-      v36 = v18;
+      v34 = 2114;
+      v35 = v18;
       _os_log_impl(&dword_259B04000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: configure connection with interface name: %{public}@", buf, 0x16u);
     }
 
@@ -112,7 +112,7 @@
     if (v20)
     {
       v21 = v20;
-      v30 = queueCopy;
+      v29 = queueCopy;
       nw_parameters_require_interface(parameters, v20);
 
 LABEL_25:
@@ -123,7 +123,7 @@ LABEL_25:
       v27 = nw_connection_create(host, parameters);
       if (v27)
       {
-        self = [(MIBUNWConnection *)self initWithNWConnection:v27 dispatchQueue:v30 statusDelegate:v31];
+        self = [(MIBUNWConnection *)self initWithNWConnection:v27 dispatchQueue:v29 statusDelegate:v30];
         selfCopy3 = self;
       }
 
@@ -142,7 +142,7 @@ LABEL_25:
         selfCopy3 = 0;
       }
 
-      queueCopy = v30;
+      queueCopy = v29;
       goto LABEL_36;
     }
 
@@ -153,7 +153,7 @@ LABEL_25:
 LABEL_35:
         selfCopy3 = 0;
 LABEL_36:
-        delegateCopy = v31;
+        delegateCopy = v30;
 
 LABEL_37:
         goto LABEL_38;
@@ -183,17 +183,16 @@ LABEL_37:
   {
     *buf = 138543874;
     selfCopy4 = self;
-    v35 = 2114;
-    v36 = v14;
-    v37 = 2114;
-    v38 = v16;
+    v34 = 2114;
+    v35 = v14;
+    v36 = 2114;
+    v37 = v16;
     _os_log_error_impl(&dword_259B04000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Invalid remote address or remote port specified: %{public}@:%{public}@", buf, 0x20u);
   }
 
   selfCopy3 = 0;
 LABEL_38:
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy3;
 }
 
@@ -337,12 +336,11 @@ void __85__MIBUNWConnection_initWithConfiguration_messageFramer_dispatchQueue_st
   if (self->_state != state)
   {
     self->_state = state;
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
-      v6 = self->_delegate;
+      delegate = self->_delegate;
 
-      [(MIBUNWConnectionDelegate *)v6 unicastConnection:self didEnterNewState:state];
+      [(MIBUNWConnectionDelegate *)delegate unicastConnection:self didEnterNewState:state];
     }
   }
 }
@@ -359,13 +357,10 @@ void __85__MIBUNWConnection_initWithConfiguration_messageFramer_dispatchQueue_st
 
 - (void)_open
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot open connection when in state: %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot open connection when in state: %lu", v6, v7, v8, v9);
 }
 
 void __25__MIBUNWConnection__open__block_invoke()
@@ -392,13 +387,10 @@ void __25__MIBUNWConnection__open__block_invoke_32(uint64_t a1, uint64_t a2, NSO
 
 - (void)_close
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot close connection when in state: %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot close connection when in state: %lu", v6, v7, v8, v9);
 }
 
 void __26__MIBUNWConnection__close__block_invoke()
@@ -474,13 +466,10 @@ void __48__MIBUNWConnection__sendMessage_withCompletion___block_invoke_38(uint64
 
 - (void)_scheduleNextMessageReception
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot schedule next message reception when in state: %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot schedule next message reception when in state: %lu", v6, v7, v8, v9);
 }
 
 void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke()
@@ -501,7 +490,7 @@ void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke()
 
 void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_42(uint64_t a1, void *a2, void *a3, int a4, NSObject *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = NSErrorFromNWError(a5);
@@ -549,14 +538,12 @@ LABEL_16:
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     v14 = *(a1 + 32);
-    v17 = 138543362;
-    v18 = v14;
-    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Receive message got connection closed.", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v14;
+    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Receive message got connection closed.", &v16, 0xCu);
   }
 
 LABEL_17:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_2()
@@ -593,7 +580,7 @@ void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_45()
 
 - (void)_handleNewConnectionState:(int)state error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
@@ -606,13 +593,13 @@ void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_45()
   {
     v8 = v7;
     v9 = NSStringFromNWConnectionState(state);
-    v15 = 138543874;
+    v11 = 138543874;
     selfCopy = self;
-    v17 = 2114;
-    v18 = v9;
-    v19 = 2114;
-    v20 = errorCopy;
-    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: New connection state: %{public}@, error: %{public}@", &v15, 0x20u);
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2114;
+    v16 = errorCopy;
+    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: New connection state: %{public}@, error: %{public}@", &v11, 0x20u);
   }
 
   [(MIBUNWConnection *)self _cancelTimerForWaitingState];
@@ -629,7 +616,6 @@ void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_45()
       self->_connection = 0;
 
       [(MIBUNWConnection *)self setState:4];
-      delegate = self->_delegate;
       if (objc_opt_respondsToSelector())
       {
         [(MIBUNWConnectionDelegate *)self->_delegate unicastConnectionDidClose:self withError:errorCopy];
@@ -645,20 +631,16 @@ void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_45()
   else if (state == 3)
   {
     [(MIBUNWConnection *)self setState:2];
-    v10 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(MIBUNWConnectionDelegate *)self->_delegate unicastConnectionDidOpen:self];
     }
 
-    v11 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(MIBUNWConnection *)self _scheduleNextMessageReception];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUNWConnection__handleNewConnectionState_error___block_invoke()
@@ -772,7 +754,7 @@ void __56__MIBUNWConnection__getRemoteIPv6AddressFromConnection___block_invoke_6
 
 uint64_t __46__MIBUNWConnection__setupTimerForWaitingState__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     __46__MIBUNWConnection__setupTimerForWaitingState__block_invoke_cold_1();
@@ -782,17 +764,15 @@ uint64_t __46__MIBUNWConnection__setupTimerForWaitingState__block_invoke(uint64_
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 1024;
-    v9 = 30;
-    _os_log_impl(&dword_259B04000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection timed out after staying in waiting state for %d seconds.", &v6, 0x12u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 1024;
+    v8 = 30;
+    _os_log_impl(&dword_259B04000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection timed out after staying in waiting state for %d seconds.", &v5, 0x12u);
   }
 
   [*(a1 + 32) _close];
-  result = [*(a1 + 32) _cancelTimerForWaitingState];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _cancelTimerForWaitingState];
 }
 
 void __46__MIBUNWConnection__setupTimerForWaitingState__block_invoke_2()
@@ -824,70 +804,56 @@ void __46__MIBUNWConnection__setupTimerForWaitingState__block_invoke_2()
 
 - (void)initWithConfiguration:messageFramer:dispatchQueue:statusDelegate:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfiguration:messageFramer:dispatchQueue:statusDelegate:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithConfiguration:messageFramer:dispatchQueue:statusDelegate:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessage:(uint64_t)a1 withCompletion:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot send message reception when in state: %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_259B04000, v4, v5, "%{public}@: Cannot send message reception when in state: %lu", v6, v7, v8, v9);
 }
 
 void __49__MIBUNWConnection__scheduleNextMessageReception__block_invoke_42_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to receive message from connection: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to receive message from connection: %{public}@", &v4, 0x16u);
 }
 
 - (void)_getRemoteIPv6AddressFromConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getRemoteIPv6AddressFromConnection:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

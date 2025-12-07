@@ -45,14 +45,14 @@
 
 - (void)deleteIntentsWithIdentifiers:(id)identifiers bundleID:(id)d
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
   v8 = [identifiersCopy count];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   if (!v8)
   {
     v9 = __biome_log_for_category();
@@ -64,18 +64,18 @@
   }
 
   storeStream = self->_storeStream;
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __56__BMIntentStream_deleteIntentsWithIdentifiers_bundleID___block_invoke;
-  v25 = &unk_1E6E52F28;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __56__BMIntentStream_deleteIntentsWithIdentifiers_bundleID___block_invoke;
+  v24 = &unk_1E6E52F28;
   v11 = dCopy;
-  v26 = v11;
+  v25 = v11;
   v12 = identifiersCopy;
-  v27 = v12;
-  v28 = &v30;
-  v29 = v8;
-  [(BMStoreStream *)storeStream pruneWithPredicateBlock:&v22];
-  v13 = v31[3];
+  v26 = v12;
+  v27 = &v29;
+  v28 = v8;
+  [(BMStoreStream *)storeStream pruneWithPredicateBlock:&v21];
+  v13 = v30[3];
   if (v13 == [v12 count])
   {
     v14 = __biome_log_for_category();
@@ -83,7 +83,7 @@
     {
       v15 = [v12 count];
       *buf = 134217984;
-      v35 = v15;
+      v34 = v15;
       v16 = "Deleted all intents identifiers matching %lu specified";
       v17 = v14;
       v18 = 12;
@@ -97,12 +97,12 @@ LABEL_10:
     v14 = __biome_log_for_category();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = v31[3];
+      v19 = v30[3];
       v20 = [v12 count];
       *buf = 134218240;
-      v35 = v19;
-      v36 = 2048;
-      v37 = v20;
+      v34 = v19;
+      v35 = 2048;
+      v36 = v20;
       v16 = "Deleted %ld intents matching %lu provided";
       v17 = v14;
       v18 = 22;
@@ -110,8 +110,7 @@ LABEL_10:
     }
   }
 
-  _Block_object_dispose(&v30, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v29, 8);
 }
 
 uint64_t __56__BMIntentStream_deleteIntentsWithIdentifiers_bundleID___block_invoke(void *a1, void *a2, _BYTE *a3)
@@ -230,40 +229,40 @@ LABEL_21:
 
 - (void)deleteIntentsWithGroupIdentifiers:(id)identifiers bundleID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dCopy = d;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__2;
-  v23 = __Block_byref_object_dispose__2;
-  v24 = objc_opt_new();
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__2;
+  v22 = __Block_byref_object_dispose__2;
+  v23 = objc_opt_new();
   if ([identifiersCopy count])
   {
     storeStream = self->_storeStream;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __61__BMIntentStream_deleteIntentsWithGroupIdentifiers_bundleID___block_invoke;
-    v15[3] = &unk_1E6E52F50;
-    v16 = dCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __61__BMIntentStream_deleteIntentsWithGroupIdentifiers_bundleID___block_invoke;
+    v14[3] = &unk_1E6E52F50;
+    v15 = dCopy;
     v9 = identifiersCopy;
-    v17 = v9;
-    v18 = &v19;
-    [(BMStoreStream *)storeStream pruneWithPredicateBlock:v15];
+    v16 = v9;
+    v17 = &v18;
+    [(BMStoreStream *)storeStream pruneWithPredicateBlock:v14];
     v10 = __biome_log_for_category();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v20[5] count];
+      v11 = [v19[5] count];
       v12 = [v9 count];
       *buf = 134218240;
-      v26 = v11;
-      v27 = 2048;
-      v28 = v12;
+      v25 = v11;
+      v26 = 2048;
+      v27 = v12;
       _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Deleted %lu intents matching %lu provided group identifiers", buf, 0x16u);
     }
 
-    v13 = v16;
+    v13 = v15;
   }
 
   else
@@ -276,8 +275,7 @@ LABEL_21:
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __61__BMIntentStream_deleteIntentsWithGroupIdentifiers_bundleID___block_invoke(void *a1, void *a2)

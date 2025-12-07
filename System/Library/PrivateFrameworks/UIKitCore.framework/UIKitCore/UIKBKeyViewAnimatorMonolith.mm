@@ -40,9 +40,9 @@
   traitsCopy = traits;
   screenTraitsCopy = screenTraits;
   representedString = [keyCopy representedString];
-  v12 = [representedString isEqualToString:@"Recent-Inputs"];
+  isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-  if (v12)
+  if (isEqualToString)
   {
     goto LABEL_2;
   }
@@ -125,7 +125,7 @@ LABEL_3:
   }
 }
 
-void __81__UIKBKeyViewAnimatorMonolith_floatingContentView_didFinishTransitioningToState___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __81__UIKBKeyViewAnimatorMonolith_floatingContentView_didFinishTransitioningToState___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v4 = *(a1 + 32);
   v5 = a2;
@@ -362,7 +362,7 @@ LABEL_11:
     v30 = MEMORY[0x1E696B098];
     if (v22)
     {
-      [v22 transform];
+      objc_msgSend_transform(v22);
     }
 
     else
@@ -412,7 +412,7 @@ LABEL_11:
     v37 = MEMORY[0x1E696B098];
     if (v33)
     {
-      [v33 transform];
+      objc_msgSend_transform(v33);
     }
 
     else

@@ -7,7 +7,7 @@
 
 - (id)pf_sha256Hash
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   uTF8String = [self UTF8String];
   v2 = strlen(uTF8String);
   CC_SHA256(uTF8String, v2, md);
@@ -19,8 +19,6 @@
 
   v5 = [MEMORY[0x1E696AEC0] stringWithString:v3];
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -31,9 +29,9 @@
     +[NSString(PosterFoundation) pf_bootInstanceIdentifier];
   }
 
-  v1 = pf_bootInstanceIdentifier_uuid;
+  v2 = pf_bootInstanceIdentifier_uuid;
 
-  return v1;
+  return v2;
 }
 
 @end

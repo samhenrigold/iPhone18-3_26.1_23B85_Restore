@@ -19,7 +19,7 @@
   v2 = [(PKTextInputKeyboardAssistantItem *)&v15 init];
   if (v2)
   {
-    v3 = +[UIImage _pk_keyboardButtonImage];
+    v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
     [v2 setImage:v3];
 
     [v2 setTarget:v2];
@@ -112,12 +112,12 @@ void __40__PKTextInputKeyboardAssistantItem_init__block_invoke_2(uint64_t a1, vo
   {
     if (self->_floatingKeyboardType == 1)
     {
-      +[UIImage _pk_emojiButtonImage];
+      +[(UIImage *)MEMORY[0x1E69DCAB8]];
     }
 
     else
     {
-      +[UIImage _pk_keyboardButtonImage];
+      +[(UIImage *)MEMORY[0x1E69DCAB8]];
     }
     v4 = ;
   }

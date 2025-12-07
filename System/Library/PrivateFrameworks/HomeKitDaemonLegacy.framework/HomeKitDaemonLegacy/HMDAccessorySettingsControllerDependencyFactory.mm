@@ -9,30 +9,28 @@
 
 - (void)assertWithCondition:(BOOL)condition message:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (!condition)
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = HMFGetLogIdentifier();
+      v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: %@", buf, 0x16u);
+      v14 = v10;
+      v15 = 2112;
+      v16 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v7);
     messageCopy = [[HMDAssertionLogEvent alloc] initWithReason:@"%@", messageCopy];
-    v13 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v13 submitLogEvent:messageCopy];
+    v12 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v12 submitLogEvent:messageCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createMessageHandlerWithQueue:(id)queue delegate:(id)delegate

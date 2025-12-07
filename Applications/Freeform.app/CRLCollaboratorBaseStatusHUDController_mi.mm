@@ -63,7 +63,7 @@
 
 - (NSDate)timeStartedShowing
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC8Freeform41CRLCollaboratorBaseStatusHUDController_mi_timeStartedShowing;
@@ -85,7 +85,7 @@
 
 - (void)setTimeStartedShowing:(id)showing
 {
-  v5 = sub_1005B981C(&qword_101A0A320);
+  v5 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (showing)

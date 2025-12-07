@@ -39,9 +39,10 @@
 
 uint64_t __46__PRUISDeviceMotionController__sbUserDefaults__block_invoke()
 {
-  _sbUserDefaults_sbUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v0 = [MEMORY[0x1E695E000] standardUserDefaults];
+  _sbUserDefaults_sbUserDefaults = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (PRUISDeviceMotionController)init
@@ -149,23 +150,23 @@ uint64_t __46__PRUISDeviceMotionController__sbUserDefaults__block_invoke()
 
 - (void)_queue_setDeviceMotionActivityLevel:(int64_t)level
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0)
   {
     BSDispatchQueueAssert();
     os_unfair_lock_lock(&self->_lock);
     if (self->_lock_deviceMotionActivityLevel != level)
     {
-      v5 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = PRUISLogMotionEvents(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = PRUISStringFromDeviceMotionActivityLevel(self->_lock_deviceMotionActivityLevel);
-        v7 = PRUISStringFromDeviceMotionActivityLevel(level);
-        v8 = 138412546;
-        v9 = v6;
-        v10 = 2112;
-        v11 = v7;
-        _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Device motion activity level updated from %@ to %@", &v8, 0x16u);
+        v7 = PRUISStringFromDeviceMotionActivityLevel(self->_lock_deviceMotionActivityLevel);
+        v8 = PRUISStringFromDeviceMotionActivityLevel(level);
+        v9 = 138412546;
+        v10 = v7;
+        v11 = 2112;
+        v12 = v8;
+        _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "Device motion activity level updated from %@ to %@", &v9, 0x16u);
       }
 
       self->_lock_deviceMotionActivityLevel = level;
@@ -211,10 +212,11 @@ uint64_t __46__PRUISDeviceMotionController__sbUserDefaults__block_invoke()
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0)
   {
     BSDispatchQueueAssert();
-    if ([(PRUISDeviceMotionDisablementAssertionManager *)self->_disableAssertionManager isDeviceMotionDisabled])
+    isDeviceMotionDisabled = [(PRUISDeviceMotionDisablementAssertionManager *)self->_disableAssertionManager isDeviceMotionDisabled];
+    if (isDeviceMotionDisabled)
     {
-      v3 = PRUISLogMotionEvents();
-      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = PRUISLogMotionEvents(isDeviceMotionDisabled);
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_6:
 
@@ -222,26 +224,27 @@ LABEL_6:
       }
 
       *buf = 0;
-      v4 = "Can't start motion generation because device motion updates are currently disabled.";
-      v5 = buf;
+      v5 = "Can't start motion generation because device motion updates are currently disabled.";
+      v6 = buf;
 LABEL_5:
-      _os_log_impl(&dword_1CAE63000, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 2u);
+      _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
       goto LABEL_6;
     }
 
     if (!self->_queue_isGeneratingMotionEvents)
     {
-      if (![(PRUISDeviceMotionProviding *)self->_motionProvider areMotionEventsAvailable])
+      areMotionEventsAvailable = [(PRUISDeviceMotionProviding *)self->_motionProvider areMotionEventsAvailable];
+      if (!areMotionEventsAvailable)
       {
-        v3 = PRUISLogMotionEvents();
-        if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        v4 = PRUISLogMotionEvents(areMotionEventsAvailable);
+        if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_6;
         }
 
-        v6 = 0;
-        v4 = "Device motion updates are not available.";
-        v5 = &v6;
+        v8 = 0;
+        v5 = "Device motion updates are not available.";
+        v6 = &v8;
         goto LABEL_5;
       }
 
@@ -287,33 +290,33 @@ LABEL_5:
 
 - (double)updateMotionUpdateInterval:(double)interval reason:(int64_t)reason
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   hasBeenSignalled = [(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled];
   result = -1.0;
   if ((hasBeenSignalled & 1) == 0)
   {
-    [(PRUISDeviceMotionProviding *)self->_motionProvider motionUpdateInterval];
-    v10 = v9;
-    v11 = PRUISLogMotionEvents();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    motionUpdateInterval = [(PRUISDeviceMotionProviding *)self->_motionProvider motionUpdateInterval];
+    v11 = v10;
+    v12 = PRUISLogMotionEvents(motionUpdateInterval);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       if (reason > 2)
       {
-        v12 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v12 = off_1E83A7848[reason];
+        v13 = off_1E83A7848[reason];
       }
 
-      v16 = 134218498;
-      intervalCopy2 = v10;
-      v18 = 2048;
+      v18 = 134218498;
+      intervalCopy2 = v11;
+      v20 = 2048;
       intervalCopy = interval;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "Current device motion update interval is %f (s). Attempting to update to %f (s) for reason: %@", &v16, 0x20u);
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "Current device motion update interval is %f (s). Attempting to update to %f (s) for reason: %@", &v18, 0x20u);
     }
 
     if (reason)
@@ -322,8 +325,8 @@ LABEL_5:
       {
         if (interval < 0.0083 || interval > 0.0333)
         {
-          v13 = PRUISLogMotionEvents();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = PRUISLogMotionEvents(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [PRUISDeviceMotionController updateMotionUpdateInterval:reason:];
           }
@@ -337,13 +340,13 @@ LABEL_5:
         if (reason != 2)
         {
 LABEL_21:
-          v14 = PRUISLogMotionEvents();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v16 = PRUISLogMotionEvents(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            [(PRUISDeviceMotionController *)reason updateMotionUpdateInterval:v14 reason:interval];
+            [(PRUISDeviceMotionController *)reason updateMotionUpdateInterval:v16 reason:interval];
           }
 
-          interval = v10;
+          interval = v11;
 LABEL_24:
 
           return interval;
@@ -351,8 +354,8 @@ LABEL_24:
 
         if (interval < 0.0083 || interval > 0.0333)
         {
-          v13 = PRUISLogMotionEvents();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = PRUISLogMotionEvents(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             [PRUISDeviceMotionController updateMotionUpdateInterval:reason:];
           }
@@ -364,16 +367,15 @@ LABEL_20:
       }
     }
 
-    [(PRUISDeviceMotionProviding *)self->_motionProvider setMotionUpdateInterval:interval];
-    v14 = PRUISLogMotionEvents();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = PRUISLogMotionEvents([(PRUISDeviceMotionProviding *)self->_motionProvider setMotionUpdateInterval:interval]);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = off_1E83A7848[reason];
-      v16 = 134218242;
+      v17 = off_1E83A7848[reason];
+      v18 = 134218242;
       intervalCopy2 = interval;
-      v18 = 2112;
-      intervalCopy = *&v15;
-      _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "Device motion update interval is updated to %f for reason: %@", &v16, 0x16u);
+      v20 = 2112;
+      intervalCopy = *&v17;
+      _os_log_impl(&dword_1CAE63000, v16, OS_LOG_TYPE_DEFAULT, "Device motion update interval is updated to %f for reason: %@", &v18, 0x16u);
     }
 
     goto LABEL_24;
@@ -426,7 +428,7 @@ LABEL_20:
     if (isReducedMotionEnabled != IsReduceMotionEnabled)
     {
       v6 = IsReduceMotionEnabled;
-      v7 = PRUISLogMotionEvents();
+      v7 = PRUISLogMotionEvents(IsReduceMotionEnabled);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v9[0] = 67109120;
@@ -446,7 +448,7 @@ LABEL_20:
 
 - (void)_lowPowerModeDidChange:(id)change
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0)
   {
     isLowPowerModeEnabled = [(PRUISDeviceMotionSettings *)self->_deviceMotionSettings isLowPowerModeEnabled];
@@ -455,12 +457,12 @@ LABEL_20:
 
     if (isLowPowerModeEnabled != isLowPowerModeEnabled2)
     {
-      v7 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PRUISLogMotionEvents(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9[0] = 67109120;
-        v9[1] = isLowPowerModeEnabled2;
-        _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "Low Power mode enabled: %{BOOL}u", v9, 8u);
+        v10[0] = 67109120;
+        v10[1] = isLowPowerModeEnabled2;
+        _os_log_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEFAULT, "Low Power mode enabled: %{BOOL}u", v10, 8u);
       }
 
       [(PRUISDeviceMotionSettings *)self->_deviceMotionSettings setLowPowerModeEnabled:isLowPowerModeEnabled2];
@@ -484,7 +486,7 @@ LABEL_20:
 uint64_t __90__PRUISDeviceMotionController_deviceMotionDisableAssertionManager_didDisableDeviceMotion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v3 = PRUISLogMotionEvents();
+  v3 = PRUISLogMotionEvents(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {

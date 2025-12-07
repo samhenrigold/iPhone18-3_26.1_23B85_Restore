@@ -7,6 +7,7 @@
 - (void)flashTapped:(id)tapped;
 - (void)flipTapped:(id)tapped;
 - (void)setFlashState:(BOOL)state;
+- (void)setFlashUIEnabled:(BOOL)enabled;
 - (void)takePicture:(id)picture;
 - (void)updateConstraints;
 @end
@@ -228,6 +229,24 @@ LABEL_15:
     stateCopy = state;
     flashButton = [(CameraTargetView *)self flashButton];
     [flashButton setFlashMode:stateCopy];
+  }
+}
+
+- (void)setFlashUIEnabled:(BOOL)enabled
+{
+  if ((self->_cameraPresentation & 8) != 0)
+  {
+    enabledCopy = enabled;
+    if (!enabled)
+    {
+      [(CameraTargetView *)self setFlashState:0];
+    }
+
+    flashButton = [(CameraTargetView *)self flashButton];
+    [flashButton setEnabled:enabledCopy];
+
+    flashButton2 = [(CameraTargetView *)self flashButton];
+    [flashButton2 setHidden:enabledCopy ^ 1];
   }
 }
 

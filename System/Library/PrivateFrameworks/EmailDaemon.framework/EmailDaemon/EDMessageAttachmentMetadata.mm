@@ -45,14 +45,15 @@
   {
     v17->_globalMessageID = d;
     objc_storeStrong(&v17->_name, name);
-    if ([(__CFString *)partCopy isEqualToString:&stru_1F45B4608])
+    v19 = [(__CFString *)partCopy isEqualToString:&stru_1F45B4608];
+    if (v19)
     {
-      v19 = EDAttachmentsLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = EDAttachmentsLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         dCopy = d;
-        _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Updating MIME part number to 1 for globalMessageID: %lld", buf, 0xCu);
+        _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Updating MIME part number to 1 for globalMessageID: %lld", buf, 0xCu);
       }
 
       partCopy = @"1";
@@ -63,7 +64,6 @@
     objc_storeStrong(&v18->_remoteURL, l);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -167,14 +167,15 @@
 {
   v10 = *MEMORY[0x1E69E9840];
   numberCopy = number;
-  if ([(__CFString *)numberCopy isEqualToString:&stru_1F45B4608])
+  v5 = [(__CFString *)numberCopy isEqualToString:&stru_1F45B4608];
+  if (v5)
   {
-    v5 = EDAttachmentsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = EDAttachmentsLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134217984;
       globalMessageID = [(EDMessageAttachmentMetadata *)self globalMessageID];
-      _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Updating MIME part number to 1 for globalMessageID: %lld", &v8, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Updating MIME part number to 1 for globalMessageID: %lld", &v8, 0xCu);
     }
 
     numberCopy = @"1";
@@ -182,8 +183,6 @@
 
   mimePartNumber = self->_mimePartNumber;
   self->_mimePartNumber = &numberCopy->isa;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

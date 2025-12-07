@@ -11,7 +11,7 @@
   v3 = v11;
   v4 = v12;
   sub_1000226D4(v10, v11);
-  v5 = type metadata accessor for ServerRateLimitConfiguration();
+  v5 = type metadata accessor for ServerRateLimitConfiguration(0);
   v9[3] = v5;
   v9[0] = self;
   v6 = *(v4 + 16);

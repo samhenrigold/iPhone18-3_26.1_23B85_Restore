@@ -1,2690 +1,416 @@
-void UserGraph.insertSampleTexture(for:)(__int128 *a1@<X0>, _OWORD *a2@<X8>)
-{
-  v3 = v2;
-  specialized ShaderGraphNode.output(labeled:)(&v84, 7632239, 0xE300000000000000, *(a1 + 2));
-  v6 = v85;
-  if (v85)
-  {
-    v80 = a2;
-    v97 = v86;
-    outlined destroy of String(&v97);
-    v7 = specialized ShaderGraphNode.metalTextureType.getter(*a1);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-    v8 = swift_allocObject();
-    *(v8 + 16) = xmmword_265F21D70;
-    v9 = one-time initialization token for sampler;
-
-    if (v9 != -1)
-    {
-      swift_once();
-    }
-
-    v10 = static MetalDataType.sampler;
-    *(v8 + 32) = 0x72656C706D6173;
-    *(v8 + 40) = 0xE700000000000000;
-    *(v8 + 48) = v10;
-    *(v8 + 56) = 0x65727574786574;
-    *(v8 + 64) = 0xE700000000000000;
-    *(v8 + 72) = v7;
-    *(v8 + 80) = 0x746C7561666564;
-    *(v8 + 88) = 0xE700000000000000;
-    *(v8 + 96) = v6;
-    v11 = one-time initialization token for float2;
-
-    if (v11 != -1)
-    {
-      swift_once();
-    }
-
-    v98 = v3;
-    v12 = static MetalDataType.float2;
-    *(v8 + 104) = 0x64726F6F63;
-    *(v8 + 112) = 0xE500000000000000;
-    *(v8 + 120) = v12;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_265F1F670;
-    v14 = one-time initialization token for texture2d_half;
-
-    if (v14 != -1)
-    {
-      swift_once();
-    }
-
-    v15 = *(*v7 + 128);
-
-    v17 = v15(v16);
-
-    v18 = "ND_sample_texture2d_float";
-    v19 = 0xD000000000000018;
-    if ((v17 & 1) == 0)
-    {
-      v19 = 0xD000000000000019;
-      v18 = "realitykit_cubeimage_";
-    }
-
-    *(v13 + 32) = v19;
-    *(v13 + 40) = v18 | 0x8000000000000000;
-    v20 = *(a1 + 1);
-    specialized ShaderGraphNode.output(labeled:)(v87, 1935763810, 0xE400000000000000, v20);
-    if (v87[1])
-    {
-      outlined destroy of [Input](v87, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-      if (one-time initialization token for bias != -1)
-      {
-        swift_once();
-      }
-
-      v21 = static MetalDataType.bias;
-
-      v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-      v24 = *(v22 + 2);
-      v23 = *(v22 + 3);
-      if (v24 >= v23 >> 1)
-      {
-        v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v22);
-      }
-
-      *(v22 + 2) = v24 + 1;
-      v25 = &v22[24 * v24];
-      *(v25 + 4) = 1935763810;
-      *(v25 + 5) = 0xE400000000000000;
-      *(v25 + 6) = v21;
-      v27 = *(v13 + 16);
-      v26 = *(v13 + 24);
-      if (v27 >= v26 >> 1)
-      {
-        v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v26 > 1), v27 + 1, 1, v13);
-      }
-
-      *(v13 + 16) = v27 + 1;
-      v28 = v13 + 16 * v27;
-      *(v28 + 32) = 1935763810;
-      *(v28 + 40) = 0xE400000000000000;
-    }
-
-    else
-    {
-      v22 = MEMORY[0x277D84F90];
-    }
-
-    specialized ShaderGraphNode.output(labeled:)(v88, 0x6C6576656CLL, 0xE500000000000000, v20);
-    if (v88[1])
-    {
-      outlined destroy of [Input](v88, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-      if (one-time initialization token for level != -1)
-      {
-        swift_once();
-      }
-
-      v40 = static MetalDataType.level;
-
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 2) + 1, 1, v22);
-      }
-
-      v42 = *(v22 + 2);
-      v41 = *(v22 + 3);
-      if (v42 >= v41 >> 1)
-      {
-        v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v22);
-      }
-
-      *(v22 + 2) = v42 + 1;
-      v43 = &v22[24 * v42];
-      *(v43 + 4) = 0x6C6576656CLL;
-      *(v43 + 5) = 0xE500000000000000;
-      *(v43 + 6) = v40;
-      v45 = *(v13 + 16);
-      v44 = *(v13 + 24);
-      if (v45 >= v44 >> 1)
-      {
-        v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v13);
-      }
-
-      *(v13 + 16) = v45 + 1;
-      v46 = v13 + 16 * v45;
-      *(v46 + 32) = 6582124;
-      *(v46 + 40) = 0xE300000000000000;
-    }
-
-    specialized ShaderGraphNode.output(labeled:)(v89, 0x746E656964617267, 0xEC000000785F6432, v20);
-    if (v89[1])
-    {
-      outlined destroy of [Input](v89, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-      specialized ShaderGraphNode.output(labeled:)(v90, 0x746E656964617267, 0xEC000000795F6432, v20);
-      if (v90[1])
-      {
-        outlined destroy of [Input](v90, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-        if (one-time initialization token for gradient2d != -1)
-        {
-          swift_once();
-        }
-
-        v47 = static MetalDataType.gradient2d;
-
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 2) + 1, 1, v22);
-        }
-
-        v49 = *(v22 + 2);
-        v48 = *(v22 + 3);
-        if (v49 >= v48 >> 1)
-        {
-          v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v49 + 1, 1, v22);
-        }
-
-        *(v22 + 2) = v49 + 1;
-        v50 = &v22[24 * v49];
-        *(v50 + 4) = 0x746E656964617267;
-        *(v50 + 5) = 0xE800000000000000;
-        *(v50 + 6) = v47;
-        v52 = *(v13 + 16);
-        v51 = *(v13 + 24);
-        if (v52 >= v51 >> 1)
-        {
-          v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v51 > 1), v52 + 1, 1, v13);
-        }
-
-        *(v13 + 16) = v52 + 1;
-        v53 = v13 + 16 * v52;
-        *(v53 + 32) = 0x746E656964617267;
-        *(v53 + 40) = 0xEA00000000006432;
-      }
-    }
-
-    specialized ShaderGraphNode.output(labeled:)(v91, 0x746E656964617267, 0xEC000000785F6433, v20);
-    if (v91[1])
-    {
-      outlined destroy of [Input](v91, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-      specialized ShaderGraphNode.output(labeled:)(v92, 0x746E656964617267, 0xEC000000795F6433, v20);
-      if (v92[1])
-      {
-        outlined destroy of [Input](v92, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-        specialized ShaderGraphNode.output(labeled:)(v93, 0x746E656964617267, 0xEC0000007A5F6433, v20);
-        if (v93[1])
-        {
-          outlined destroy of [Input](v93, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-          if (one-time initialization token for gradient2d != -1)
-          {
-            swift_once();
-          }
-
-          v54 = static MetalDataType.gradient2d;
-
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 2) + 1, 1, v22);
-          }
-
-          v56 = *(v22 + 2);
-          v55 = *(v22 + 3);
-          if (v56 >= v55 >> 1)
-          {
-            v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v55 > 1), v56 + 1, 1, v22);
-          }
-
-          *(v22 + 2) = v56 + 1;
-          v57 = &v22[24 * v56];
-          *(v57 + 4) = 0x746E656964617267;
-          *(v57 + 5) = 0xE800000000000000;
-          *(v57 + 6) = v54;
-          v59 = *(v13 + 16);
-          v58 = *(v13 + 24);
-          if (v59 >= v58 >> 1)
-          {
-            v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v58 > 1), v59 + 1, 1, v13);
-          }
-
-          *(v13 + 16) = v59 + 1;
-          v60 = v13 + 16 * v59;
-          *(v60 + 32) = 0x746E656964617267;
-          *(v60 + 40) = 0xEA00000000006433;
-        }
-      }
-    }
-
-    isUniquelyReferenced_nonNull_native = specialized ShaderGraphNode.output(labeled:)(v94, 0x5F646F6C5F6E696DLL, 0xED0000706D616C63, v20);
-    if (v94[1])
-    {
-      outlined destroy of [Input](v94, &_s11ShaderGraph5InputVSgMd, &_s11ShaderGraph5InputVSgMR);
-      if (one-time initialization token for min_lod_clamp != -1)
-      {
-        swift_once();
-      }
-
-      v62 = static MetalDataType.min_lod_clamp;
-
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-      {
-        isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 2) + 1, 1, v22);
-        v22 = isUniquelyReferenced_nonNull_native;
-      }
-
-      v64 = *(v22 + 2);
-      v63 = *(v22 + 3);
-      if (v64 >= v63 >> 1)
-      {
-        isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v64 + 1, 1, v22);
-        v22 = isUniquelyReferenced_nonNull_native;
-      }
-
-      *(v22 + 2) = v64 + 1;
-      v65 = &v22[24 * v64];
-      strcpy(v65 + 32, "min_lod_clamp");
-      *(v65 + 23) = -4864;
-      *(v65 + 6) = v62;
-      v67 = *(v13 + 16);
-      v66 = *(v13 + 24);
-      if (v67 >= v66 >> 1)
-      {
-        isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v66 > 1), v67 + 1, 1, v13);
-        v13 = isUniquelyReferenced_nonNull_native;
-      }
-
-      *(v13 + 16) = v67 + 1;
-      v68 = v13 + 16 * v67;
-      strcpy((v68 + 32), "min_lod_clamp");
-      *(v68 + 46) = -4864;
-    }
-
-    v69 = (*(*v6 + 144))(isUniquelyReferenced_nonNull_native);
-    if (v69)
-    {
-      v71 = *(v69 + 24);
-      v70 = *(v69 + 32);
-
-      v73 = *(v13 + 16);
-      v72 = *(v13 + 24);
-      if (v73 >= v72 >> 1)
-      {
-        v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), v73 + 1, 1, v13);
-      }
-
-      *(v13 + 16) = v73 + 1;
-      v74 = v13 + 16 * v73;
-      *(v74 + 32) = v71;
-      *(v74 + 40) = v70;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-      lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR);
-      BidirectionalCollection<>.joined(separator:)();
-
-      specialized Array.append<A>(contentsOf:)(v22);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-      v75 = swift_allocObject();
-      *(v75 + 16) = xmmword_265F1F670;
-      *(v75 + 32) = 7632239;
-      *(v75 + 40) = 0xE300000000000000;
-      *(v75 + 48) = v6;
-      v76 = swift_allocObject();
-
-      *(v76 + 16) = String.init<A>(_:)();
-      *(v76 + 24) = v77;
-      *(v76 + 32) = v6;
-
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v8, v75, v76 | 0x2000000000000000, &v95);
-
-      swift_setDeallocating();
-      v78 = *(v75 + 16);
-      swift_arrayDestroy();
-      swift_deallocClassInstance();
-
-      v79 = v96[0];
-      *v80 = v95;
-      v80[1] = v79;
-      *(v80 + 25) = *(v96 + 9);
-    }
-
-    else
-    {
-      __break(1u);
-    }
-  }
-
-  else
-  {
-    MEMORY[0x266771550](7632239, 0xE300000000000000);
-    MEMORY[0x266771550](32, 0xE100000000000000);
-    v81 = *a1;
-    *v83 = a1[1];
-    *&v83[9] = *(a1 + 25);
-    _print_unlocked<A, B>(_:_:)();
-
-    v82 = *a1;
-    *v83 = a1[1];
-    *&v83[9] = *(a1 + 25);
-    _print_unlocked<A, B>(_:_:)();
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    v29 = swift_allocError();
-    *v30 = 8;
-    *(v30 + 8) = 0;
-    *(v30 + 16) = 0xE000000000000000;
-    swift_willThrow();
-    v31 = v29;
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v32 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v32, logger);
-    v33 = v29;
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v34, v35))
-    {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      *v36 = 138412290;
-      v38 = v29;
-      v39 = _swift_stdlib_bridgeErrorToNSError();
-      *(v36 + 4) = v39;
-      *v37 = v39;
-      _os_log_impl(&dword_265D7D000, v34, v35, "%@", v36, 0xCu);
-      outlined destroy of [Input](v37, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x266773120](v37, -1, -1);
-      MEMORY[0x266773120](v36, -1, -1);
-    }
-
-    swift_willThrow();
-  }
-}
-
-uint64_t Input.prependUnaryFunction(_:argumentType:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
-{
-  v33[4] = a4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F1F670;
-  *(inited + 32) = 28265;
-  *(inited + 40) = 0xE200000000000000;
-  *(inited + 48) = a3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  v9 = swift_initStackObject();
-  *(v9 + 16) = xmmword_265F1F670;
-  v10 = v5[1];
-  *(v9 + 32) = 7632239;
-  *(v9 + 40) = 0xE300000000000000;
-  *(v9 + 48) = v10;
-  v11 = swift_allocObject();
-  *(v11 + 16) = a1;
-  *(v11 + 24) = a2;
-  *(v11 + 32) = v10;
-  swift_retain_n();
-
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v9, v11 | 0x2000000000000000, &v19);
-  swift_setDeallocating();
-  v12 = *(inited + 16);
-  swift_arrayDestroy();
-
-  swift_setDeallocating();
-  v13 = *(v9 + 16);
-  swift_arrayDestroy();
-  v33[0] = *&v20[0];
-  specialized ShaderGraphNode.output(labeled:)(&v21, 7632239, 0xE300000000000000, *&v20[0]);
-  if (v22)
-  {
-    v26[0] = v21;
-    v26[1] = v22;
-    v27 = v23;
-    v28 = v24;
-    v29 = v25;
-    UserGraph.connect(_:to:)(v26, v5);
-
-    v30 = v27;
-    result = outlined destroy of String(&v30);
-    v15 = v20[0];
-    *a5 = v19;
-    a5[1] = v15;
-    *(a5 + 25) = *(v20 + 9);
-  }
-
-  else
-  {
-    MEMORY[0x266771550](7632239, 0xE300000000000000);
-    MEMORY[0x266771550](32, 0xE100000000000000);
-    _print_unlocked<A, B>(_:_:)();
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    swift_allocError();
-    *v16 = 14;
-    *(v16 + 8) = 0;
-    *(v16 + 16) = 0xE000000000000000;
-    swift_willThrow();
-    v32 = v19;
-    outlined destroy of NodePersonality(&v32);
-    v31 = *(&v19 + 1);
-    outlined destroy of [Input](&v31, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    return outlined destroy of [Input](v33, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-  }
-
-  return result;
-}
-
-uint64_t Input.prependCreateGradient2DNode(in:)@<X0>(void *a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X3>, _OWORD *a4@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F21D90;
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  v9 = *a2;
-  *(inited + 32) = 2019840100;
-  *(inited + 40) = 0xE400000000000000;
-  *(inited + 48) = v9;
-  *(inited + 56) = 2036617316;
-  *(inited + 64) = 0xE400000000000000;
-  *(inited + 72) = v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  v10 = swift_initStackObject();
-  *(v10 + 16) = xmmword_265F1F670;
-  v11 = v4[1];
-  *(v10 + 32) = 7632239;
-  *(v10 + 40) = 0xE300000000000000;
-  *(v10 + 48) = v11;
-  v12 = swift_allocObject();
-  *(v12 + 16) = 0x746E656964617267;
-  *(v12 + 24) = a3;
-  *(v12 + 32) = v11;
-  swift_retain_n();
-  swift_retain_n();
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v10, v12 | 0x2000000000000000, &v19);
-  swift_setDeallocating();
-  v13 = *(inited + 16);
-  swift_arrayDestroy();
-
-  swift_setDeallocating();
-  v14 = *(v10 + 16);
-  swift_arrayDestroy();
-  v33[0] = *&v20[0];
-  specialized ShaderGraphNode.output(labeled:)(&v21, 7632239, 0xE300000000000000, *&v20[0]);
-  if (v22)
-  {
-    v26[0] = v21;
-    v26[1] = v22;
-    v27 = v23;
-    v28 = v24;
-    v29 = v25;
-    UserGraph.connect(_:to:)(v26, v4);
-
-    v30 = v27;
-    result = outlined destroy of String(&v30);
-    v16 = v20[0];
-    *a4 = v19;
-    a4[1] = v16;
-    *(a4 + 25) = *(v20 + 9);
-  }
-
-  else
-  {
-    MEMORY[0x266771550](7632239, 0xE300000000000000);
-    MEMORY[0x266771550](32, 0xE100000000000000);
-    _print_unlocked<A, B>(_:_:)();
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    swift_allocError();
-    *v17 = 14;
-    *(v17 + 8) = 0;
-    *(v17 + 16) = 0xE000000000000000;
-    swift_willThrow();
-    v32 = v19;
-    outlined destroy of NodePersonality(&v32);
-    v31 = *(&v19 + 1);
-    outlined destroy of [Input](&v31, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    return outlined destroy of [Input](v33, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-  }
-
-  return result;
-}
-
-uint64_t Input.prependCreateLODClampNode(in:)@<X0>(_OWORD *a1@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F21D90;
-  if (one-time initialization token for float != -1)
-  {
-    swift_once();
-  }
-
-  v4 = static MetalDataType.float;
-  *(inited + 32) = 0x6E696D5F646F6CLL;
-  *(inited + 40) = 0xE700000000000000;
-  *(inited + 48) = v4;
-  *(inited + 56) = 0x78616D5F646F6CLL;
-  *(inited + 64) = 0xE700000000000000;
-  *(inited + 72) = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  v5 = swift_initStackObject();
-  *(v5 + 16) = xmmword_265F1F670;
-  v6 = v1[1];
-  *(v5 + 32) = 7632239;
-  *(v5 + 40) = 0xE300000000000000;
-  *(v5 + 48) = v6;
-  v7 = swift_allocObject();
-  *(v7 + 16) = 0x6D616C635F646F6CLL;
-  *(v7 + 24) = 0xE900000000000070;
-  *(v7 + 32) = v6;
-  swift_retain_n();
-  swift_retain_n();
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v5, v7 | 0x2000000000000000, &v13);
-  swift_setDeallocating();
-  v8 = *(inited + 16);
-  swift_arrayDestroy();
-
-  swift_setDeallocating();
-  v9 = *(v5 + 16);
-  swift_arrayDestroy();
-  v27[0] = *&v14[0];
-  specialized ShaderGraphNode.output(labeled:)(&v15, 7632239, 0xE300000000000000, *&v14[0]);
-  if (v16)
-  {
-    v20[0] = v15;
-    v20[1] = v16;
-    v21 = v17;
-    v22 = v18;
-    v23 = v19;
-    UserGraph.connect(_:to:)(v20, v1);
-
-    v24 = v21;
-    result = outlined destroy of String(&v24);
-    v11 = v14[0];
-    *a1 = v13;
-    a1[1] = v11;
-    *(a1 + 25) = *(v14 + 9);
-  }
-
-  else
-  {
-    MEMORY[0x266771550](7632239, 0xE300000000000000);
-    MEMORY[0x266771550](32, 0xE100000000000000);
-    _print_unlocked<A, B>(_:_:)();
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    swift_allocError();
-    *v12 = 14;
-    *(v12 + 8) = 0;
-    *(v12 + 16) = 0xE000000000000000;
-    swift_willThrow();
-    v26 = v13;
-    outlined destroy of NodePersonality(&v26);
-    v25 = *(&v13 + 1);
-    outlined destroy of [Input](&v25, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    return outlined destroy of [Input](v27, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-  }
-
-  return result;
-}
-
-double UserGraph.insertConstantValue(type:value:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F1F670;
-  *(inited + 32) = 7632239;
-  *(inited + 40) = 0xE300000000000000;
-  *(inited + 48) = a1;
-  v7 = swift_allocObject();
-  v8 = *(a2 + 48);
-  *(v7 + 48) = *(a2 + 32);
-  *(v7 + 64) = v8;
-  *(v7 + 80) = *(a2 + 64);
-  v9 = *(a2 + 16);
-  *(v7 + 16) = *a2;
-  *(v7 + 32) = v9;
-  *(v7 + 88) = a1;
-  swift_retain_n();
-  outlined init with copy of SGDataTypeStorage(a2, &v13);
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v7, &v13);
-
-  swift_setDeallocating();
-  v10 = *(inited + 16);
-  swift_arrayDestroy();
-  v11 = v14[0];
-  *a3 = v13;
-  a3[1] = v11;
-  result = *(v14 + 9);
-  *(a3 + 25) = *(v14 + 9);
-  return result;
-}
-
-uint64_t closure #1 in UserGraph.transformSamplerNodes()(uint64_t result)
-{
-  v1 = *(result + 16);
-  v2 = (v1 + 56);
-  v3 = -*(v1 + 16);
-  v4 = -1;
-  while (1)
-  {
-    v5 = v3 + v4;
-    if (v3 + v4 == -1)
-    {
-      return v5 != -1;
-    }
-
-    if (++v4 >= *(v1 + 16))
-    {
-      break;
-    }
-
-    v6 = *(v2 - 2);
-    v7 = *v2;
-    v8 = one-time initialization token for sampler;
-
-    if (v8 != -1)
-    {
-      swift_once();
-    }
-
-    v2 += 7;
-    v9 = (*(*v6 + 128))(static MaterialXDataType.sampler);
-
-    if (v9)
-    {
-      return v5 != -1;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #1 in UserGraph.transformGetTextureNodes<A>(_:textureAssignments:customUniformsType:)(void *a1)
-{
-  if (*a1 >> 61 != 5)
-  {
-    return 0;
-  }
-
-  v1 = *((*a1 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*a1 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
-
-  v3._object = 0x8000000265F2D870;
-  v3._countAndFlagsBits = 0xD000000000000013;
-  LOBYTE(v1) = String.hasPrefix(_:)(v3);
-
-  return v1 & 1;
-}
-
-uint64_t closure #2 in UserGraph.transformGetTextureNodes<A>(_:textureAssignments:customUniformsType:)(uint64_t result, _OWORD *a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *(result + 8);
-  if (*(v4 + 16))
-  {
-    v62 = *result;
-    v63 = *(result + 16);
-    v64 = *(result + 24);
-    v9 = *(v4 + 32);
-    v8 = *(v4 + 40);
-    v10 = *(v4 + 48);
-    v11 = *(v4 + 56);
-    v12 = *(v4 + 64);
-    v13 = *(v4 + 72);
-    v14 = *(v4 + 80);
-    v114[0] = v9;
-    v114[1] = v8;
-    v60 = v10;
-    v114[2] = v10;
-    v114[3] = v11;
-    v114[4] = v12;
-    v115 = v13;
-    v116 = v14;
-    v15 = a2[9];
-    v121[8] = a2[8];
-    v122[0] = v15;
-    *(v122 + 9) = *(a2 + 153);
-    v16 = a2[5];
-    v121[4] = a2[4];
-    v121[5] = v16;
-    v17 = a2[6];
-    v121[7] = a2[7];
-    v121[6] = v17;
-    v18 = a2[2];
-    v121[3] = a2[3];
-    v121[2] = v18;
-    v19 = *a2;
-    v121[1] = a2[1];
-    v121[0] = v19;
-
-    outlined init with copy of UserGraph(v121, &v66);
-    UserGraph.node(connectedTo:)(v114, &v68);
-    outlined destroy of UserGraph(v121);
-    v20 = v69;
-    if (v69)
-    {
-      v91 = v68;
-      v92 = v69;
-      v93[0] = v70[0];
-      *(v93 + 9) = *(v70 + 9);
-      v94 = v68;
-      if (!(v68 >> 61) && *(v68 + 80) == 6)
-      {
-        v22 = *(v68 + 16);
-        v21 = *(v68 + 24);
-        v59 = *(v68 + 40);
-        v61 = *(v68 + 32);
-        v57 = *(v68 + 56);
-        v58 = *(v68 + 48);
-        v55 = *(v68 + 72);
-        v56 = *(v68 + 64);
-
-        v23 = v125;
-        UserGraph.insertGetTexture(_:textureAssignments:customUniformsType:)(v22, v21, a3, a4, &v71);
-        if (v23)
-        {
-          outlined destroy of NodePersonality(&v94);
-          v103 = v20;
-          outlined destroy of [Input](&v103, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v104 = *&v93[0];
-          outlined destroy of [Input](&v104, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-          outlined consume of SGDataTypeStorage(v22, v21, v61, v59, v58, v57, v56, v55, 6);
-        }
-
-        v43 = *(&v71 + 1);
-        v42 = v71;
-        v44 = v72;
-        outlined consume of SGDataTypeStorage(v22, v21, v61, v59, v58, v57, v56, v55, 6);
-        goto LABEL_26;
-      }
-
-      v24 = a2[6];
-      v119 = a2[5];
-      v120[0] = v24;
-      *(v120 + 9) = *(a2 + 105);
-      v123 = v119;
-      v124[0] = v24;
-      outlined init with copy of NodePersonality(&v123, &v66);
-      outlined init with copy of [Input](&v123 + 8, &v66, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined init with copy of [Input](v124, &v66, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-      v25 = specialized static ShaderGraphNode.== infix(_:_:)(&v91, &v119);
-      outlined destroy of NodePersonality(&v123);
-      outlined destroy of [Input](&v123 + 8, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined destroy of [Input](v124, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-      if ((v25 & 1) == 0)
-      {
-        lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-        swift_allocError();
-        *v37 = 44;
-        *(v37 + 8) = 0xD00000000000003ALL;
-        *(v37 + 16) = 0x8000000265F30EB0;
-        swift_willThrow();
-        outlined destroy of NodePersonality(&v94);
-        v99 = v92;
-        outlined destroy of [Input](&v99, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        v100 = *&v93[0];
-        outlined destroy of [Input](&v100, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-      }
-
-      v26 = a2[9];
-      v117[8] = a2[8];
-      v118[0] = v26;
-      *(v118 + 9) = *(a2 + 153);
-      v27 = a2[5];
-      v117[4] = a2[4];
-      v117[5] = v27;
-      v28 = a2[6];
-      v117[7] = a2[7];
-      v117[6] = v28;
-      v29 = a2[1];
-      v117[0] = *a2;
-      v117[1] = v29;
-      v30 = a2[3];
-      v117[2] = a2[2];
-      v117[3] = v30;
-      outlined init with copy of UserGraph(v117, &v66);
-      UserGraph.output(connectedTo:)(v114, v73);
-      outlined destroy of UserGraph(v117);
-      result = v74;
-      if (v74)
-      {
-        v31 = v75;
-        v32 = v76;
-
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-        v33 = swift_allocObject();
-        *(v33 + 16) = xmmword_265F1F670;
-        *(v33 + 32) = 7632239;
-        *(v33 + 40) = 0xE300000000000000;
-        *(v33 + 48) = a4;
-        v34 = swift_allocObject();
-        *(v34 + 16) = 12580;
-        *(v34 + 24) = 0xE200000000000000;
-
-        UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v33, v34 | 0x6000000000000000, &v77);
-
-        swift_setDeallocating();
-        v35 = *(v33 + 16);
-        swift_arrayDestroy();
-        swift_deallocClassInstance();
-        v113 = *&v78[0];
-        specialized ShaderGraphNode.output(labeled:)(&v79, 7632239, 0xE300000000000000, *&v78[0]);
-        if (!v80)
-        {
-          MEMORY[0x266771550](7632239, 0xE300000000000000);
-          MEMORY[0x266771550](32, 0xE100000000000000);
-          v66 = v77;
-          v67[0] = v78[0];
-          *(v67 + 9) = *(v78 + 9);
-          _print_unlocked<A, B>(_:_:)();
-          lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-          swift_allocError();
-          *v45 = 14;
-          *(v45 + 8) = 0;
-          *(v45 + 16) = 0xE000000000000000;
-          swift_willThrow();
-          v112 = v77;
-          outlined destroy of NodePersonality(&v112);
-          v111 = *(&v77 + 1);
-          outlined destroy of [Input](&v111, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          outlined destroy of [Input](&v113, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-          outlined destroy of NodePersonality(&v94);
-          v95 = v92;
-          outlined destroy of [Input](&v95, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v96 = *&v93[0];
-          outlined destroy of [Input](&v96, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        }
-
-        v86 = v79;
-        v87 = v80;
-        v88 = v81;
-        v89 = v82;
-        v90 = v83;
-        v110 = v77;
-        outlined destroy of NodePersonality(&v110);
-        v109 = *(&v77 + 1);
-        outlined destroy of [Input](&v109, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        outlined destroy of [Input](&v113, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        v36 = v125;
-        Output.getProperty(_:_:)(a2, v31, v32, &v84);
-        if (v36)
-        {
-
-          v107 = v88;
-          outlined destroy of String(&v107);
-          outlined destroy of NodePersonality(&v94);
-          v105 = v92;
-          outlined destroy of [Input](&v105, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v106 = *&v93[0];
-          outlined destroy of [Input](&v106, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        }
-
-        v43 = *(&v84 + 1);
-        v53 = v84;
-        v44 = v85;
-
-        v108 = v88;
-        outlined destroy of String(&v108);
-        v42 = v53;
-
-LABEL_26:
-        outlined copy of NodePersonality(v42);
-
-        outlined copy of NodePersonality(v62);
-
-        specialized Sequence.forEach(_:)(v43, v4, a2);
-        outlined consume of NodePersonality(v62);
-
-        outlined copy of NodePersonality(v62);
-
-        specialized Sequence.forEach(_:)(v44, v63, a2);
-        v125 = 0;
-        outlined consume of NodePersonality(v62);
-
-        specialized UserGraph.removeEdges(connectedTo:)(v64);
-        v54 = *(a2 + 8);
-        result = swift_isUniquelyReferenced_nonNull_native();
-        *(a2 + 8) = v54;
-        if (result)
-        {
-          if ((v64 & 0x8000000000000000) == 0)
-          {
-            goto LABEL_28;
-          }
-        }
-
-        else
-        {
-          result = specialized _ArrayBuffer._consumeAndCreateNew()(v54);
-          v54 = result;
-          *(a2 + 8) = result;
-          if ((v64 & 0x8000000000000000) == 0)
-          {
-LABEL_28:
-            if (v64 < *(v54 + 16))
-            {
-              ShaderGraphNode.update(id:)(-7);
-              outlined consume of ShaderGraphNode?(v42, v43);
-              outlined consume of NodePersonality(v42);
-
-              outlined destroy of NodePersonality(&v94);
-              v101 = v92;
-              outlined destroy of [Input](&v101, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              v102 = *&v93[0];
-              return outlined destroy of [Input](&v102, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-            }
-
-            goto LABEL_32;
-          }
-        }
-
-        __break(1u);
-LABEL_32:
-        __break(1u);
-        goto LABEL_33;
-      }
-
-      if (v9 == -7)
-      {
-        v38 = 0;
-        v39 = 0;
-        v125 = 0;
-        v40 = 0xED00002165646F6ELL;
-        v41 = 0x20676E697373696DLL;
-      }
-
-      else
-      {
-        if ((v9 & 0x8000000000000000) != 0)
-        {
-LABEL_33:
-          __break(1u);
-          goto LABEL_34;
-        }
-
-        v46 = *(a2 + 8);
-        if (v9 >= *(v46 + 16))
-        {
-LABEL_34:
-          __break(1u);
-          return result;
-        }
-
-        v47 = v46 + 48 * v9;
-        v38 = *(v47 + 32);
-        v39 = *(v47 + 40);
-        v49 = *(v47 + 48);
-        v48 = *(v47 + 56);
-        v125 = *(v47 + 64);
-        v65 = *(v47 + 72);
-        *&v66 = 1701080942;
-        *(&v66 + 1) = 0xE400000000000000;
-        outlined copy of NodePersonality(v38);
-
-        outlined copy of NodePersonality(v38);
-
-        v50 = dispatch thunk of CustomStringConvertible.description.getter();
-        MEMORY[0x266771550](v50);
-
-        outlined consume of NodePersonality(v38);
-
-        v40 = *(&v66 + 1);
-        v41 = v66;
-      }
-
-      *&v66 = 0;
-      *(&v66 + 1) = 0xE000000000000000;
-      _StringGuts.grow(_:)(58);
-      MEMORY[0x266771550](0xD00000000000002BLL, 0x8000000265F30BE0);
-
-      MEMORY[0x266771550](v60, v11);
-
-      MEMORY[0x266771550](0x646F6E206E6F2027, 0xEB00000000203A65);
-      MEMORY[0x266771550](v41, v40);
-
-      v51 = v66;
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v52 = 44;
-      *(v52 + 8) = v51;
-      swift_willThrow();
-      outlined consume of ShaderGraphNode?(v38, v39);
-      outlined destroy of NodePersonality(&v94);
-      v97 = v92;
-      outlined destroy of [Input](&v97, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v98 = *&v93[0];
-      outlined destroy of [Input](&v98, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    }
-
-    else
-    {
-    }
-  }
-
-  return result;
-}
-
-uint64_t UserGraph.insertGetTexture(_:textureAssignments:customUniformsType:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
-{
-  if (!*(a3 + 16) || (v10 = v5, v13 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2), (v14 & 1) == 0))
-  {
-    _StringGuts.grow(_:)(47);
-
-    *&v27 = 0xD00000000000002CLL;
-    *(&v27 + 1) = 0x8000000265F30C70;
-    MEMORY[0x266771550](a1, a2);
-    v22 = 39;
-    v23 = 0xE100000000000000;
-LABEL_9:
-    MEMORY[0x266771550](v22, v23);
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    swift_allocError();
-    *v24 = 47;
-    *(v24 + 8) = v27;
-    return swift_willThrow();
-  }
-
-  v15 = (*(a3 + 56) + 24 * v13);
-  v16 = v15[1];
-  v49 = *v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F1F670;
-  *(inited + 32) = 7632239;
-  *(inited + 40) = 0xE300000000000000;
-  *(inited + 48) = a4;
-  v18 = swift_allocObject();
-  *(v18 + 16) = 12580;
-  *(v18 + 24) = 0xE200000000000000;
-
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v18 | 0x6000000000000000, &v28);
-
-  swift_setDeallocating();
-  v19 = *(inited + 16);
-  swift_arrayDestroy();
-  v48[0] = v29;
-  specialized ShaderGraphNode.output(labeled:)(&v30, 7632239, 0xE300000000000000, v29);
-  if (!v31)
-  {
-    MEMORY[0x266771550](7632239, 0xE300000000000000);
-    MEMORY[0x266771550](32, 0xE100000000000000);
-    _print_unlocked<A, B>(_:_:)();
-
-    v47 = v28;
-    outlined destroy of NodePersonality(&v47);
-    v46 = *(&v28 + 1);
-    outlined destroy of [Input](&v46, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    outlined destroy of [Input](v48, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    v21 = v49;
-    goto LABEL_8;
-  }
-
-  v37 = v30;
-  v38 = v31;
-  v39 = v32;
-  v40 = v33;
-  v41 = v34;
-  v45 = v28;
-  outlined destroy of NodePersonality(&v45);
-  v44 = *(&v28 + 1);
-  outlined destroy of [Input](&v44, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-  outlined destroy of [Input](v48, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-  v20 = v10;
-  v21 = v49;
-  Output.getProperty(_:_:)(v20, v49, v16, &v35);
-  if (v6)
-  {
-
-    v42 = v39;
-    outlined destroy of String(&v42);
-LABEL_8:
-    *&v27 = 0;
-    *(&v27 + 1) = 0xE000000000000000;
-    _StringGuts.grow(_:)(51);
-    MEMORY[0x266771550](0xD00000000000002FLL, 0x8000000265F30CA0);
-    MEMORY[0x266771550](v21, v16);
-
-    v22 = 11815;
-    v23 = 0xE200000000000000;
-    goto LABEL_9;
-  }
-
-  v43 = v39;
-  result = outlined destroy of String(&v43);
-  v26 = v36[0];
-  *a5 = v35;
-  a5[1] = v26;
-  *(a5 + 25) = *(v36 + 9);
-  return result;
-}
-
-double UserGraph.insertGetParams(type:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_265F1F670;
-  *(inited + 32) = 7632239;
-  *(inited + 40) = 0xE300000000000000;
-  *(inited + 48) = a1;
-  v7 = swift_allocObject();
-  *(v7 + 16) = a2;
-  *(v7 + 24) = 0xE200000000000000;
-
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v7 | 0x6000000000000000, &v11);
-
-  swift_setDeallocating();
-  v8 = *(inited + 16);
-  swift_arrayDestroy();
-  v9 = v12[0];
-  *a3 = v11;
-  a3[1] = v9;
-  result = *(v12 + 9);
-  *(a3 + 25) = *(v12 + 9);
-  return result;
-}
-
-uint64_t Output.getProperty(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
-{
-  v5 = v4;
-  v49[4] = a1;
-  v9 = v4[1];
-
-  DataType.subscript.getter(a2, a3, &v27);
-  if (v28)
-  {
-    v22 = a4;
-    v24 = v28;
-    v23 = v27;
-    v10 = v29;
-    v25 = v30;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_265F1F670;
-    *(inited + 32) = 28265;
-    *(inited + 40) = 0xE200000000000000;
-    *(inited + 48) = v9;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-    v12 = swift_initStackObject();
-    *(v12 + 16) = xmmword_265F1F670;
-    *(v12 + 32) = 7632239;
-    *(v12 + 40) = 0xE300000000000000;
-    *(v12 + 48) = v10;
-    v13 = swift_allocObject();
-    *(v13 + 16) = a2;
-    *(v13 + 24) = a3;
-
-    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v12, v13 | 0x8000000000000000, &v31);
-
-    swift_setDeallocating();
-    v14 = *(v12 + 16);
-    swift_arrayDestroy();
-    swift_setDeallocating();
-    v15 = *(inited + 16);
-    swift_arrayDestroy();
-    v49[0] = *(&v31 + 1);
-    specialized ShaderGraphNode.output(labeled:)(&v33, 28265, 0xE200000000000000, *(&v31 + 1));
-    if (v34)
-    {
-      v38[0] = v33;
-      v38[1] = v34;
-      v39 = v35;
-      v40 = v36;
-      v41 = v37;
-      UserGraph.connect(_:to:)(v5, v38);
-
-      v46 = v39;
-      outlined destroy of String(&v46);
-      v42[0] = v23;
-      v42[1] = v24;
-      outlined destroy of String(v42);
-
-      v43 = v25;
-      result = outlined destroy of [Input](&v43, &_sSaySSGMd, &_sSaySSGMR);
-      v17 = v32[0];
-      *v22 = v31;
-      v22[1] = v17;
-      *(v22 + 25) = *(v32 + 9);
-    }
-
-    else
-    {
-      MEMORY[0x266771550](28265, 0xE200000000000000);
-      MEMORY[0x266771550](32, 0xE100000000000000);
-      _print_unlocked<A, B>(_:_:)();
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v21 = 11;
-      *(v21 + 8) = 0;
-      *(v21 + 16) = 0xE000000000000000;
-      swift_willThrow();
-      v48 = v31;
-      outlined destroy of NodePersonality(&v48);
-      outlined destroy of [Input](v49, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v47 = *&v32[0];
-      outlined destroy of [Input](&v47, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-      v44[0] = v23;
-      v44[1] = v24;
-      outlined destroy of String(v44);
-
-      v45 = v25;
-      return outlined destroy of [Input](&v45, &_sSaySSGMd, &_sSaySSGMR);
-    }
-  }
-
-  else
-  {
-
-    *&v26 = 0;
-    *(&v26 + 1) = 0xE000000000000000;
-    _StringGuts.grow(_:)(53);
-    MEMORY[0x266771550](0x79747265706F7250, 0xEA00000000002720);
-    MEMORY[0x266771550](a2, a3);
-    MEMORY[0x266771550](0xD000000000000017, 0x8000000265F30CD0);
-    MEMORY[0x266771550](v4[2], v4[3]);
-    v18 = MEMORY[0x266771550](0x7420687469772027, 0xED00002720657079);
-    v19 = (*(*v9 + 136))(v18);
-    MEMORY[0x266771550](v19);
-
-    MEMORY[0x266771550](39, 0xE100000000000000);
-    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-    swift_allocError();
-    *v20 = 45;
-    *(v20 + 8) = v26;
-    return swift_willThrow();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(void *a1, uint64_t *a2, _BYTE *a3)
-{
-  v5 = *a2;
-  v6 = a2[1];
-  if (*a2 == 0x636170736D6F7266 && v6 == 0xE900000000000065)
-  {
-    goto LABEL_14;
-  }
-
-  v8 = a2[2];
-  v9 = *a2;
-  v10 = a2[1];
-  if (_stringCompareWithSmolCheck(_:_:expecting:)())
-  {
-    goto LABEL_14;
-  }
-
-  v11 = v5 == 0x65636170736F74 && v6 == 0xE700000000000000;
-  if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    goto LABEL_14;
-  }
-
-  if (one-time initialization token for space != -1)
-  {
-    swift_once();
-  }
-
-  if (MaterialXDataType.isStructurallyEqual(to:)(static MaterialXDataType.space))
-  {
-LABEL_14:
-    *a3 = 1;
-    v13 = a1[2];
-    v12 = a1[3];
-    v14 = one-time initialization token for space;
-
-    if (v14 != -1)
-    {
-      swift_once();
-    }
-  }
-
-  else
-  {
-    v13 = a1[2];
-    v16 = a1[3];
-    v17 = a1[1];
-  }
-
-  return v13;
-}
-
-uint64_t closure #3 in closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(__int128 *a1, _OWORD *a2)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = a1[2];
-  v73 = *(a1 + 6);
-  v72[1] = v4;
-  v72[2] = v5;
-  v72[0] = v3;
-  v6 = *(&v3 + 1);
-  if (one-time initialization token for space != -1)
-  {
-    swift_once();
-  }
-
-  result = (*(*v6 + 128))(static MaterialXDataType.space);
-  if (result)
-  {
-    v8 = a2[9];
-    v74[8] = a2[8];
-    v75[0] = v8;
-    *(v75 + 9) = *(a2 + 153);
-    v9 = a2[5];
-    v74[4] = a2[4];
-    v74[5] = v9;
-    v10 = a2[7];
-    v74[6] = a2[6];
-    v74[7] = v10;
-    v11 = a2[1];
-    v74[0] = *a2;
-    v74[1] = v11;
-    v12 = a2[3];
-    v74[2] = a2[2];
-    v74[3] = v12;
-    outlined init with copy of UserGraph(v74, &v39);
-    UserGraph.node(connectedTo:)(v72, &v41);
-    outlined destroy of UserGraph(v74);
-    v13 = v42;
-    if (!v42)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
-      v26 = swift_allocObject();
-      *(v26 + 16) = xmmword_265F1F670;
-      if (one-time initialization token for string != -1)
-      {
-        swift_once();
-      }
-
-      v27 = static MaterialXDataType.string;
-      *(v26 + 32) = 7632239;
-      *(v26 + 40) = 0xE300000000000000;
-      *(v26 + 48) = v27;
-      v28 = swift_allocObject();
-      *(v28 + 16) = 0x646C726F77;
-      *(v28 + 24) = 0xE500000000000000;
-      *(v28 + 80) = 6;
-      *(v28 + 88) = v27;
-      swift_retain_n();
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v26, v28, &v45);
-
-      swift_setDeallocating();
-      v29 = *(v26 + 16);
-      swift_arrayDestroy();
-      swift_deallocClassInstance();
-      v71 = *&v46[0];
-      specialized ShaderGraphNode.output(labeled:)(&v47, 7632239, 0xE300000000000000, *&v46[0]);
-      if (v48)
-      {
-        v54[0] = v47;
-        v54[1] = v48;
-        v55 = v49;
-        v56 = v50;
-        v57 = v51;
-        UserGraph.connect(_:to:)(v54, v72);
-
-        v65 = v55;
-        outlined destroy of String(&v65);
-        v68 = v45;
-        outlined destroy of NodePersonality(&v68);
-        v67 = *(&v45 + 1);
-        outlined destroy of [Input](&v67, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      }
-
-      else
-      {
-        MEMORY[0x266771550](7632239, 0xE300000000000000);
-        MEMORY[0x266771550](32, 0xE100000000000000);
-        v39 = v45;
-        v40[0] = v46[0];
-        *(v40 + 9) = *(v46 + 9);
-        _print_unlocked<A, B>(_:_:)();
-        lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-        swift_allocError();
-        *v30 = 14;
-        *(v30 + 8) = 0;
-        *(v30 + 16) = 0xE000000000000000;
-        swift_willThrow();
-        v70 = v45;
-        outlined destroy of NodePersonality(&v70);
-        v69 = *(&v45 + 1);
-        outlined destroy of [Input](&v69, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      }
-
-      v25 = &v71;
-      return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    }
-
-    v15 = v43;
-    v14 = v44;
-    v58 = v41;
-    if (v41 >> 61 || *(v41 + 80) != 6)
-    {
-      outlined destroy of NodePersonality(&v58);
-      v60 = v13;
-      outlined destroy of [Input](&v60, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v61 = v15;
-      v25 = &v61;
-      return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    }
-
-    if ((*(v41 + 16) || *(v41 + 24) != 0xE000000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-    {
-      outlined destroy of NodePersonality(&v58);
-      v62 = v13;
-      outlined destroy of [Input](&v62, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v63 = v15;
-      v25 = &v63;
-      return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    }
-
-    v38 = v14;
-    v76 = a2;
-    v59 = v15;
-    v16 = *(v15 + 16);
-    v17 = MEMORY[0x277D84F90];
-    v37 = v15;
-    if (v16)
-    {
-      v36 = v13;
-      *&v39 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v16, 0);
-      v17 = v39;
-      v18 = (v15 + 56);
-      do
-      {
-        v20 = *(v18 - 2);
-        v19 = *(v18 - 1);
-        v21 = *v18;
-        *&v39 = v17;
-        v23 = *(v17 + 16);
-        v22 = *(v17 + 24);
-
-        if (v23 >= v22 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1);
-          v17 = v39;
-        }
-
-        *(v17 + 16) = v23 + 1;
-        v24 = (v17 + 24 * v23);
-        v24[4] = v19;
-        v24[5] = v21;
-        v24[6] = v20;
-        v18 += 7;
-        --v16;
-      }
-
-      while (v16);
-      v13 = v36;
-    }
-
-    v31 = swift_allocObject();
-    *(v31 + 16) = 0x646C726F77;
-    *(v31 + 24) = 0xE500000000000000;
-    *(v31 + 80) = 6;
-    if (one-time initialization token for string != -1)
-    {
-      swift_once();
-    }
-
-    *(v31 + 88) = static MaterialXDataType.string;
-
-    v32 = v76;
-    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v17, v31, &v52);
-
-    v33 = *(&v52 + 1);
-    v64 = v13;
-    outlined init with copy of NodePersonality(&v58, &v39);
-    outlined init with copy of [Input](&v64, &v39, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    outlined init with copy of [Input](&v59, &v39, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    specialized Sequence.forEach(_:)(v33, v13, v32);
-    outlined destroy of NodePersonality(&v58);
-    outlined destroy of [Input](&v64, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    outlined destroy of [Input](&v59, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    v34 = v53;
-    outlined init with copy of NodePersonality(&v58, &v39);
-    outlined init with copy of [Input](&v64, &v39, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    outlined init with copy of [Input](&v59, &v39, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    specialized Sequence.forEach(_:)(v34, v37, v32);
-    outlined destroy of NodePersonality(&v58);
-    outlined destroy of [Input](&v64, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    outlined destroy of [Input](&v59, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-    specialized UserGraph.removeEdges(connectedTo:)(v38);
-    v35 = *(v32 + 64);
-    result = swift_isUniquelyReferenced_nonNull_native();
-    *(v32 + 64) = v35;
-    if (result)
-    {
-      if ((v38 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v35);
-      v35 = result;
-      *(v32 + 64) = result;
-      if ((v38 & 0x8000000000000000) == 0)
-      {
-LABEL_27:
-        if (v38 < *(v35 + 16))
-        {
-          ShaderGraphNode.update(id:)(-7);
-          v66 = v52;
-          outlined destroy of NodePersonality(&v66);
-
-          outlined destroy of NodePersonality(&v58);
-          outlined destroy of [Input](&v64, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v25 = &v59;
-          return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        }
-
-LABEL_34:
-        __break(1u);
-        return result;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_34;
-  }
-
-  return result;
-}
-
-void closure #1 in UserGraph.resolvingNodegraphImplementations(nodeDefStore:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v118 = a3;
-  v119 = a4;
-  v9 = type metadata accessor for NodeDef.Implementation(0);
-  v117 = *(v9 - 8);
-  v10 = *(v117 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v110 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for NodeDef.Implementation.Kind(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = (&v110 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = *a1;
-  if (*a1 >> 61 == 5)
-  {
-    if (*(a2 + 16))
-    {
-      v115 = a5;
-      v164 = v5;
-      v18 = a1[1];
-      v113 = a1[2];
-      v114 = v18;
-      v19 = a1[3];
-      v111 = v17;
-      v112 = v19;
-      v20 = *((v17 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-      v21 = *((v17 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
-      v22 = a2;
-
-      v23 = specialized __RawDictionaryStorage.find<A>(_:)(v20, v21);
-      v25 = v24;
-
-      if (v25)
-      {
-        v116 = v22;
-        v26 = *(v22 + 56) + 152 * v23;
-        v27 = *(v26 + 16);
-        v159[0] = *v26;
-        v159[1] = v27;
-        v28 = *(v26 + 80);
-        v30 = *(v26 + 32);
-        v29 = *(v26 + 48);
-        v159[4] = *(v26 + 64);
-        v159[5] = v28;
-        v159[2] = v30;
-        v159[3] = v29;
-        v32 = *(v26 + 112);
-        v31 = *(v26 + 128);
-        v33 = *(v26 + 96);
-        v160 = *(v26 + 144);
-        v159[7] = v32;
-        v159[8] = v31;
-        v159[6] = v33;
-        v34 = v119;
-        if (*(v119 + 16))
-        {
-          v35 = v159[0];
-          outlined init with copy of NodeDef(v159, v150);
-          v36 = specialized __RawDictionaryStorage.find<A>(_:)(v35, *(&v35 + 1));
-          if (v37)
-          {
-            v38 = *(*(v34 + 56) + 8 * v36);
-
-            goto LABEL_10;
-          }
-        }
-
-        else
-        {
-          outlined init with copy of NodeDef(v159, v150);
-        }
-
-        v38 = MEMORY[0x277D84F90];
-LABEL_10:
-        outlined destroy of NodeDef(v159);
-        if (!*(v38 + 16))
-        {
-
-          return;
-        }
-
-        outlined init with copy of NodeDef.Implementation.Kind(v38 + ((*(v117 + 80) + 32) & ~*(v117 + 80)), v12, type metadata accessor for NodeDef.Implementation);
-
-        outlined init with copy of NodeDef.Implementation.Kind(&v12[*(v9 + 20)], v16, type metadata accessor for NodeDef.Implementation.Kind);
-        outlined destroy of NodeDef.Implementation.Kind(v12, type metadata accessor for NodeDef.Implementation);
-        if (swift_getEnumCaseMultiPayload())
-        {
-          outlined destroy of NodeDef.Implementation.Kind(v16, type metadata accessor for NodeDef.Implementation.Kind);
-          return;
-        }
-
-        v39 = v16[7];
-        v40 = v16[9];
-        v157 = v16[8];
-        v158[0] = v40;
-        *(v158 + 9) = *(v16 + 153);
-        v41 = v16[3];
-        v42 = v16[5];
-        v153 = v16[4];
-        v154 = v42;
-        v43 = v16[5];
-        v44 = v16[7];
-        v155 = v16[6];
-        v156 = v44;
-        v45 = v16[1];
-        v150[0] = *v16;
-        v150[1] = v45;
-        v46 = v16[3];
-        v48 = *v16;
-        v47 = v16[1];
-        v151 = v16[2];
-        v152 = v46;
-        v49 = v16[9];
-        v148 = v157;
-        v149[0] = v49;
-        *(v149 + 9) = *(v16 + 153);
-        v144 = v153;
-        v145 = v43;
-        v146 = v155;
-        v147 = v39;
-        v140 = v48;
-        v141 = v47;
-        v50 = v153;
-        v142 = v151;
-        v143 = v41;
-        v51 = *(v153 + 16);
-        outlined init with copy of UserGraph(v150, &v130);
-
-        if (v51)
-        {
-          v52 = 0;
-          while (v52 < v51)
-          {
-            v54 = &v50[48 * v52 + 32];
-            v55 = *(v54 + 24);
-            if (v55 == -7)
-            {
-              v53 = __OFADD__(v52++, 1);
-              if (v53)
-              {
-                goto LABEL_58;
-              }
-
-              if (v52 >= v51)
-              {
-                goto LABEL_23;
-              }
-            }
-
-            else
-            {
-              v53 = __OFADD__(v52++, 1);
-              if (v53)
-              {
-                goto LABEL_59;
-              }
-
-              v13 = *v54;
-              v56 = *(v54 + 8);
-              v57 = *(v54 + 16);
-              v58 = *(v54 + 40);
-              v59 = *(v54 + 32);
-              *&v120 = v13;
-              *(&v120 + 1) = v56;
-              *&v121 = v57;
-              *(&v121 + 1) = v55;
-              *&v122 = v59;
-              BYTE8(v122) = v58;
-              outlined copy of NodePersonality(v13);
-
-              v60 = v164;
-              specialized closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(&v120, v116);
-              v164 = v60;
-              if (v60)
-              {
-                outlined consume of NodePersonality(v13);
-
-                outlined destroy of UserGraph(v150);
-
-                v138 = v148;
-                v139[0] = v149[0];
-                *(v139 + 9) = *(v149 + 9);
-                v134 = v144;
-                v135 = v145;
-                v136 = v146;
-                v137 = v147;
-                v130 = v140;
-                v131 = v141;
-                v132 = v142;
-                v133 = v143;
-                outlined destroy of UserGraph(&v130);
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
-                v107 = swift_allocObject();
-                *(v107 + 16) = xmmword_265F1F670;
-                *&v161 = 0;
-                *(&v161 + 1) = 0xE000000000000000;
-                MEMORY[0x266771550](0x20524F525245, 0xE600000000000000);
-                v108 = v164;
-                v163 = v164;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-                _print_unlocked<A, B>(_:_:)();
-                v109 = v161;
-                *(v107 + 56) = MEMORY[0x277D837D0];
-                *(v107 + 32) = v109;
-                print(_:separator:terminator:)();
-
-                return;
-              }
-
-              outlined consume of NodePersonality(v13);
-
-              if (v52 >= v51)
-              {
-                goto LABEL_23;
-              }
-            }
-          }
-        }
-
-        else
-        {
-LABEL_23:
-
-          v50 = v144;
-          v13 = *(v144 + 16);
-
-          if (!v13)
-          {
-            v51 = v115;
-LABEL_36:
-
-            v71 = v114;
-            v72 = *(v114 + 16);
-            v119 = MEMORY[0x277D84F90];
-            if (v72)
-            {
-              *&v130 = MEMORY[0x277D84F90];
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v72, 0);
-              v119 = v130;
-              v73 = (v71 + 56);
-              do
-              {
-                v74 = *(v73 - 2);
-                v75 = *(v73 - 1);
-                v76 = *v73;
-                *&v130 = v119;
-                v78 = *(v119 + 16);
-                v77 = *(v119 + 24);
-
-                if (v78 >= v77 >> 1)
-                {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v77 > 1), v78 + 1, 1);
-                  v119 = v130;
-                }
-
-                v79 = v119;
-                *(v119 + 16) = v78 + 1;
-                v80 = (v79 + 24 * v78);
-                v80[4] = v75;
-                v80[5] = v76;
-                v80[6] = v74;
-                v73 += 7;
-                --v72;
-              }
-
-              while (v72);
-              v51 = v115;
-            }
-
-            v81 = v113;
-            v82 = *(v113 + 16);
-            v83 = MEMORY[0x277D84F90];
-            if (v82)
-            {
-              *&v130 = MEMORY[0x277D84F90];
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v82, 0);
-              v84 = v130;
-              v85 = (v81 + 56);
-              do
-              {
-                v87 = *(v85 - 2);
-                v86 = *(v85 - 1);
-                v88 = *v85;
-                *&v130 = v84;
-                v90 = *(v84 + 16);
-                v89 = *(v84 + 24);
-
-                if (v90 >= v89 >> 1)
-                {
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v89 > 1), v90 + 1, 1);
-                  v84 = v130;
-                }
-
-                *(v84 + 16) = v90 + 1;
-                v91 = (v84 + 24 * v90);
-                v91[4] = v86;
-                v91[5] = v88;
-                v91[6] = v87;
-                v85 += 7;
-                --v82;
-              }
-
-              while (v82);
-              v83 = v84;
-              v51 = v115;
-              v81 = v113;
-            }
-
-            v92 = swift_allocObject();
-            v93 = v149[0];
-            v138 = v148;
-            v139[0] = v149[0];
-            *(v139 + 9) = *(v149 + 9);
-            v94 = v144;
-            v95 = v145;
-            v134 = v144;
-            v135 = v145;
-            v97 = v146;
-            v96 = v147;
-            v136 = v146;
-            v137 = v147;
-            v98 = v140;
-            v99 = v141;
-            v130 = v140;
-            v131 = v141;
-            v101 = v142;
-            v100 = v143;
-            v132 = v142;
-            v133 = v143;
-            *(v92 + 144) = v148;
-            *(v92 + 160) = v93;
-            *(v92 + 169) = *(v149 + 9);
-            *(v92 + 80) = v94;
-            *(v92 + 96) = v95;
-            *(v92 + 112) = v97;
-            *(v92 + 128) = v96;
-            *(v92 + 16) = v98;
-            *(v92 + 32) = v99;
-            *(v92 + 48) = v101;
-            *(v92 + 64) = v100;
-            outlined init with copy of UserGraph(&v130, &v120);
-            UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v119, v83, v92 | 0xC000000000000000, &v161);
-
-            v102 = *(&v161 + 1);
-            v103 = v111;
-            outlined copy of NodePersonality(v111);
-            v104 = v114;
-
-            specialized Sequence.forEach(_:)(v102, v104, v51);
-            outlined consume of NodePersonality(v103);
-
-            v105 = v162;
-            outlined copy of NodePersonality(v103);
-
-            specialized Sequence.forEach(_:)(v105, v81, v51);
-            outlined consume of NodePersonality(v103);
-
-            v13 = v112;
-            specialized UserGraph.removeEdges(connectedTo:)(v112);
-            v50 = *(v51 + 64);
-            isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            *(v51 + 64) = v50;
-            if (isUniquelyReferenced_nonNull_native)
-            {
-              if ((v13 & 0x8000000000000000) != 0)
-              {
-LABEL_61:
-                __break(1u);
-LABEL_62:
-                __break(1u);
-                return;
-              }
-
-LABEL_50:
-              if (v13 < *(v50 + 2))
-              {
-                ShaderGraphNode.update(id:)(-7);
-                UserGraph.hoist(_:)(&v161);
-                v163 = v161;
-                outlined destroy of NodePersonality(&v163);
-
-                outlined destroy of UserGraph(v150);
-                v128 = v148;
-                v129[0] = v149[0];
-                *(v129 + 9) = *(v149 + 9);
-                v124 = v144;
-                v125 = v145;
-                v126 = v146;
-                v127 = v147;
-                v120 = v140;
-                v121 = v141;
-                v122 = v142;
-                v123 = v143;
-                outlined destroy of UserGraph(&v120);
-                return;
-              }
-
-              goto LABEL_62;
-            }
-
-LABEL_60:
-            v50 = specialized _ArrayBuffer._consumeAndCreateNew()(v50);
-            *(v51 + 64) = v50;
-            if ((v13 & 0x8000000000000000) != 0)
-            {
-              goto LABEL_61;
-            }
-
-            goto LABEL_50;
-          }
-
-          v61 = 0;
-          v51 = v115;
-          while (v61 < v13)
-          {
-            v62 = &v50[48 * v61 + 32];
-            v63 = *(v62 + 24);
-            v53 = __OFADD__(v61++, 1);
-            v64 = v53;
-            if (v63 == -7)
-            {
-              if (v64)
-              {
-                goto LABEL_56;
-              }
-
-              if (v61 >= v13)
-              {
-                goto LABEL_36;
-              }
-            }
-
-            else
-            {
-              if (v64)
-              {
-                goto LABEL_57;
-              }
-
-              v65 = *(v62 + 40);
-              v66 = *(v62 + 32);
-              v68 = *(v62 + 8);
-              v67 = *(v62 + 16);
-              *&v130 = *v62;
-              v69 = v130;
-              *(&v130 + 1) = v68;
-              *&v131 = v67;
-              *(&v131 + 1) = v63;
-              *&v132 = v66;
-              BYTE8(v132) = v65;
-              outlined copy of NodePersonality(v130);
-
-              v70 = v164;
-              closure #1 in UserGraph.resolvingNodegraphImplementations(nodeDefStore:)(&v130, v116, v118, v119, &v140);
-              v164 = v70;
-              outlined consume of NodePersonality(v69);
-              v51 = v115;
-
-              if (v61 >= v13)
-              {
-                goto LABEL_36;
-              }
-            }
-          }
-
-          __break(1u);
-        }
-
-        __break(1u);
-LABEL_56:
-        __break(1u);
-LABEL_57:
-        __break(1u);
-LABEL_58:
-        __break(1u);
-LABEL_59:
-        __break(1u);
-        goto LABEL_60;
-      }
-    }
-  }
-}
-
-__int128 *closure #1 in UserGraph.insertMaterialXDefaultValues(nodeDefStore:)(__int128 *result, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5)
-{
-  v6 = v5;
-  v7 = result[1];
-  v45 = *result;
-  v46[0] = v7;
-  *(v46 + 9) = *(result + 25);
-  v48[0] = v45;
-  if (v45 >> 61 == 5)
-  {
-    v12 = *((v45 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-    v11 = *((v45 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
-    v13 = *(a2 + 16);
-
-    if (v13 && (v14 = specialized __RawDictionaryStorage.find<A>(_:)(v12, v11), (v15 & 1) != 0))
-    {
-      v16 = v14;
-
-      v17 = *(a2 + 56) + 152 * v16;
-      v18 = *v17;
-      v43[1] = *(v17 + 16);
-      v19 = *(v17 + 32);
-      v20 = *(v17 + 48);
-      v21 = *(v17 + 80);
-      v43[4] = *(v17 + 64);
-      v43[5] = v21;
-      v43[2] = v19;
-      v43[3] = v20;
-      v22 = *(v17 + 96);
-      v23 = *(v17 + 112);
-      v24 = *(v17 + 128);
-      v44 = *(v17 + 144);
-      v43[7] = v23;
-      v43[8] = v24;
-      v43[6] = v22;
-      v43[0] = v18;
-      v25 = *(&v45 + 1);
-      v47 = *(&v45 + 1);
-      v49 = *&v46[0];
-      v26 = *(*(&v45 + 1) + 16);
-      outlined init with copy of NodeDef(v43, &v36);
-      outlined init with copy of NodeDef(v43, &v36);
-      outlined init with copy of NodePersonality(v48, &v36);
-      outlined init with copy of [Input](&v47, &v36, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined init with copy of [Input](&v49, &v36, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      if (v26)
-      {
-        v27 = (v25 + 80);
-        while (1)
-        {
-          v28 = *v27;
-          v29 = *(v27 - 8);
-          v31 = *(v27 - 3);
-          v30 = *(v27 - 2);
-          v33 = *(v27 - 5);
-          v32 = *(v27 - 4);
-          *&v36 = *(v27 - 6);
-          *(&v36 + 1) = v33;
-          v37 = v32;
-          v38 = v31;
-          v39 = v30;
-          v40 = v29;
-          v41 = v28;
-
-          specialized closure #1 in closure #1 in UserGraph.insertMaterialXDefaultValues(nodeDefStore:)(&v36, v43, &v45, a5, a2, a3);
-          if (v6)
-          {
-            break;
-          }
-
-          v27 += 7;
-
-          if (!--v26)
-          {
-            goto LABEL_8;
-          }
-        }
-      }
-
-      else
-      {
-LABEL_8:
-      }
-
-      outlined destroy of NodePersonality(v48);
-      outlined destroy of [Input](&v47, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined destroy of [Input](&v49, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-      outlined destroy of NodeDef(v43);
-      return outlined destroy of NodeDef(v43);
-    }
-
-    else
-    {
-      _StringGuts.grow(_:)(49);
-
-      MEMORY[0x266771550](v12, v11);
-
-      MEMORY[0x266771550](0x6F6E20726F662027, 0xEC00000027206564);
-      v42 = *(&v46[0] + 1);
-      v34 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x266771550](v34);
-
-      MEMORY[0x266771550](1701080942, 0xE400000000000000);
-
-      MEMORY[0x266771550](39, 0xE100000000000000);
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v35 = 28;
-      *(v35 + 8) = 0xD000000000000020;
-      *(v35 + 16) = 0x8000000265F315A0;
-      return swift_willThrow();
-    }
-  }
-
-  return result;
-}
-
-uint64_t index #1 (for:) in UserGraph.resolveSwizzleNodes(nodeDefStore:)(uint64_t a1, uint64_t a2)
-{
-  if (a1 == 114 && a2 == 0xE100000000000000)
-  {
-    return 0;
-  }
-
-  v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  result = 0;
-  v7 = a1 == 120 && a2 == 0xE100000000000000;
-  if ((v5 & 1) == 0 && !v7)
-  {
-    if (_stringCompareWithSmolCheck(_:_:expecting:)())
-    {
-      return 0;
-    }
-
-    if (a1 == 103 && a2 == 0xE100000000000000)
-    {
-      return 1;
-    }
-
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    v9 = a1 == 121 && a2 == 0xE100000000000000;
-    v10 = v9;
-    result = 1;
-    if ((v8 & 1) == 0 && !v10)
-    {
-      if (_stringCompareWithSmolCheck(_:_:expecting:)())
-      {
-        return 1;
-      }
-
-      if (a1 == 98 && a2 == 0xE100000000000000)
-      {
-        return 2;
-      }
-
-      v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v12 = a1 == 122 && a2 == 0xE100000000000000;
-      v13 = v12;
-      result = 2;
-      if ((v11 & 1) == 0 && !v13)
-      {
-        if (_stringCompareWithSmolCheck(_:_:expecting:)())
-        {
-          return 2;
-        }
-
-        if (a1 == 97 && a2 == 0xE100000000000000)
-        {
-          return 3;
-        }
-
-        v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v16 = a1 == 119 && a2 == 0xE100000000000000;
-        result = 3;
-        if ((v14 & 1) == 0 && !v16)
-        {
-          if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-          {
-            _StringGuts.grow(_:)(19);
-            MEMORY[0x266771550](0xD000000000000011, 0x8000000265F313C0);
-            Character.write<A>(to:)();
-            lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-            swift_allocError();
-            *v17 = 25;
-            *(v17 + 8) = 0;
-            *(v17 + 16) = 0xE000000000000000;
-            return swift_willThrow();
-          }
-
-          return 3;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
 uint64_t closure #1 in UserGraph.resolveSwizzleNodes(nodeDefStore:)(__int128 *a1, _OWORD *a2, unint64_t a3, uint64_t a4)
 {
-  v239 = a3;
-  v240 = a4;
+  v237 = a3;
+  v238 = a4;
   v6 = type metadata accessor for CharacterSet();
   v7 = *(v6 - 8);
-  v241 = v6;
-  v242 = v7;
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = (&v227 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v227 - v13;
-  MEMORY[0x28223BE20](v12);
-  v16 = &v227 - v15;
-  v17 = a1[1];
-  v419 = *a1;
-  v420[0] = v17;
-  *(v420 + 9) = *(a1 + 25);
-  v18 = a2[8];
-  v19 = a2[9];
-  v20 = a2[6];
-  v423[7] = a2[7];
-  v423[8] = v18;
-  v424[0] = v19;
-  *(v424 + 9) = *(a2 + 153);
-  v21 = a2[5];
-  v423[4] = a2[4];
-  v423[5] = v21;
-  v423[6] = v20;
-  v22 = a2[1];
-  v423[0] = *a2;
-  v423[1] = v22;
-  v23 = a2[3];
-  v423[2] = a2[2];
-  v423[3] = v23;
-  outlined init with copy of UserGraph(v423, &v252);
-  v24 = v426;
-  ShaderGraphNode.subscript.getter(7632239, 0xE300000000000000, v256);
-  if (v24)
+  v239 = v6;
+  v240 = v7;
+  MEMORY[0x28223BE20](v6);
+  v9 = (&v225 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v10);
+  v12 = &v225 - v11;
+  MEMORY[0x28223BE20](v13);
+  v15 = &v225 - v14;
+  v16 = a1[1];
+  v417 = *a1;
+  v418[0] = v16;
+  *(v418 + 9) = *(a1 + 25);
+  v17 = a2[8];
+  v18 = a2[9];
+  v19 = a2[6];
+  v421[7] = a2[7];
+  v421[8] = v17;
+  v422[0] = v18;
+  *(v422 + 9) = *(a2 + 153);
+  v20 = a2[5];
+  v421[4] = a2[4];
+  v421[5] = v20;
+  v421[6] = v19;
+  v21 = a2[1];
+  v421[0] = *a2;
+  v421[1] = v21;
+  v22 = a2[3];
+  v421[2] = a2[2];
+  v421[3] = v22;
+  outlined init with copy of UserGraph(v421, &v250);
+  v23 = v424;
+  ShaderGraphNode.subscript.getter(7632239, 0xE300000000000000, v254);
+  if (v23)
   {
-    return outlined destroy of UserGraph(v423);
+    return outlined destroy of UserGraph(v421);
   }
 
-  v238 = v11;
-  v236 = v14;
-  v426 = 0;
-  v237 = v16;
-  v26 = UserGraph.edges(from:)(v256);
+  v236 = v9;
+  v234 = v12;
+  v424 = 0;
+  v235 = v15;
+  v25 = UserGraph.edges(from:)(v254);
 
-  v410 = v257;
-  outlined destroy of String(&v410);
-  outlined destroy of UserGraph(v423);
-  v27 = *(v26 + 16);
+  v408 = v255;
+  outlined destroy of String(&v408);
+  outlined destroy of UserGraph(v421);
+  v26 = *(v25 + 16);
 
-  if (v27)
+  if (v26)
   {
-    v28 = *(&v419 + 1);
-    specialized ShaderGraphNode.output(labeled:)(&v258, 0x736C656E6E616863, 0xE800000000000000, *(&v419 + 1));
-    if (!v259)
+    v27 = *(&v417 + 1);
+    specialized ShaderGraphNode.output(labeled:)(&v256, 0x736C656E6E616863, 0xE800000000000000, *(&v417 + 1));
+    if (!v257)
     {
-      *&v248 = 0;
-      *(&v248 + 1) = 0xE000000000000000;
+      *&v246 = 0;
+      *(&v246 + 1) = 0xE000000000000000;
       MEMORY[0x266771550](0x736C656E6E616863, 0xE900000000000020);
-      v252 = v419;
-      v253[0] = v420[0];
-      *(v253 + 9) = *(v420 + 9);
+      v250 = v417;
+      v251[0] = v418[0];
+      *(v251 + 9) = *(v418 + 9);
       _print_unlocked<A, B>(_:_:)();
-      v39 = v248;
+      v38 = v246;
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v40 = 11;
-      *(v40 + 8) = v39;
+      *v39 = 11;
+      *(v39 + 8) = v38;
       return swift_willThrow();
     }
 
-    v289[0] = v258;
-    v289[1] = v259;
+    v287[0] = v256;
+    v287[1] = v257;
+    v288 = v258;
+    v289 = v259;
     v290 = v260;
-    v291 = v261;
-    v292 = v262;
-    v29 = a2[9];
-    v30 = &v419;
-    v421[8] = a2[8];
-    v422[0] = v29;
-    *(v422 + 9) = *(a2 + 153);
-    v31 = a2[5];
-    v421[4] = a2[4];
-    v421[5] = v31;
-    v32 = a2[7];
-    v421[6] = a2[6];
-    v421[7] = v32;
-    v33 = a2[1];
-    v421[0] = *a2;
-    v421[1] = v33;
-    v34 = a2[3];
-    v421[2] = a2[2];
-    v421[3] = v34;
-    outlined init with copy of UserGraph(v421, &v252);
-    UserGraph.node(connectedTo:)(v289, &v263);
-    outlined destroy of UserGraph(v421);
-    v35 = v264;
-    if (!v264)
+    v28 = a2[9];
+    v29 = &v417;
+    v419[8] = a2[8];
+    v420[0] = v28;
+    *(v420 + 9) = *(a2 + 153);
+    v30 = a2[5];
+    v419[4] = a2[4];
+    v419[5] = v30;
+    v31 = a2[7];
+    v419[6] = a2[6];
+    v419[7] = v31;
+    v32 = a2[1];
+    v419[0] = *a2;
+    v419[1] = v32;
+    v33 = a2[3];
+    v419[2] = a2[2];
+    v419[3] = v33;
+    outlined init with copy of UserGraph(v419, &v250);
+    UserGraph.node(connectedTo:)(v287, &v261);
+    outlined destroy of UserGraph(v419);
+    v34 = v262;
+    if (!v262)
     {
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v41 = 9;
-      *(v41 + 8) = 0xD000000000000018;
-      *(v41 + 16) = 0x8000000265F31220;
+      *v40 = 9;
+      *(v40 + 8) = 0xD000000000000018;
+      *(v40 + 16) = 0x8000000265F31220;
       swift_willThrow();
 
-      v293 = v290;
+      v291 = v288;
+      return outlined destroy of String(&v291);
+    }
+
+    v35 = v263;
+    v314 = v261;
+    if (v261 >> 61)
+    {
+      *&v246 = 0;
+      *(&v246 + 1) = 0xE000000000000000;
+      v250 = v417;
+      v251[0] = v418[0];
+      *(v251 + 9) = *(v418 + 9);
+      _print_unlocked<A, B>(_:_:)();
+      v41 = v246;
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v42 = 41;
+      *(v42 + 8) = v41;
+      swift_willThrow();
+      outlined destroy of NodePersonality(&v314);
+      v315 = v34;
+      outlined destroy of [Input](&v315, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v316 = v35;
+      outlined destroy of [Input](&v316, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      v292 = v288;
+      return outlined destroy of String(&v292);
+    }
+
+    v36 = *(v261 + 48);
+    v251[0] = *(v261 + 32);
+    v251[1] = v36;
+    v252 = *(v261 + 64);
+    v253 = *(v261 + 80);
+    v250 = *(v261 + 16);
+    outlined init with copy of SGDataTypeStorage(&v250, &v246);
+    v37 = v424;
+    ShaderGraphNode.subscript.getter(7632239, 0xE300000000000000, &v264);
+    v424 = v37;
+    if (v37)
+    {
+      outlined destroy of SGDataTypeStorage(&v250);
+      outlined destroy of NodePersonality(&v314);
+      v317 = v34;
+      outlined destroy of [Input](&v317, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v318 = v35;
+      outlined destroy of [Input](&v318, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      v293 = v288;
       return outlined destroy of String(&v293);
     }
 
-    v36 = v265;
-    v316 = v263;
-    if (v263 >> 61)
+    v233 = v34;
+    v43 = *(&v264 + 1);
+    specialized ShaderGraphNode.output(labeled:)(v268, 28265, 0xE200000000000000, v27);
+    v44 = *(&v268[0] + 1);
+    if (!*(&v268[0] + 1))
     {
-      *&v248 = 0;
-      *(&v248 + 1) = 0xE000000000000000;
-      v252 = v419;
-      v253[0] = v420[0];
-      *(v253 + 9) = *(v420 + 9);
+      v244 = 0;
+      v245 = 0xE000000000000000;
+
+      MEMORY[0x266771550](2125417, 0xE300000000000000);
+      v246 = v417;
+      v247[0] = v418[0];
+      *(v247 + 9) = *(v418 + 9);
       _print_unlocked<A, B>(_:_:)();
-      v42 = v248;
+      v49 = v244;
+      v50 = v245;
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v43 = 41;
-      *(v43 + 8) = v42;
+      *v51 = 11;
+      *(v51 + 8) = v49;
+      *(v51 + 16) = v50;
       swift_willThrow();
-      outlined destroy of NodePersonality(&v316);
-      v317 = v35;
-      outlined destroy of [Input](&v317, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v318 = v36;
-      outlined destroy of [Input](&v318, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-      v294 = v290;
+      v407 = v265;
+      outlined destroy of String(&v407);
+      outlined destroy of SGDataTypeStorage(&v250);
+      outlined destroy of NodePersonality(&v314);
+      v319 = v233;
+      outlined destroy of [Input](&v319, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v320 = v35;
+      outlined destroy of [Input](&v320, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      v294 = v288;
       return outlined destroy of String(&v294);
     }
 
-    v37 = *(v263 + 48);
-    v253[0] = *(v263 + 32);
-    v253[1] = v37;
-    v254 = *(v263 + 64);
-    v255 = *(v263 + 80);
-    v252 = *(v263 + 16);
-    outlined init with copy of SGDataTypeStorage(&v252, &v248);
-    v38 = v426;
-    ShaderGraphNode.subscript.getter(7632239, 0xE300000000000000, &v266);
-    v426 = v38;
-    if (v38)
+    v283 = v268[0];
+    v284 = v268[1];
+    v285 = v268[2];
+    v286 = v269;
+    if (v253 != 6)
     {
-      outlined destroy of SGDataTypeStorage(&v252);
-      outlined destroy of NodePersonality(&v316);
-      v319 = v35;
-      outlined destroy of [Input](&v319, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v320 = v36;
-      outlined destroy of [Input](&v320, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+      v247[1] = v251[1];
+      v248 = v252;
+      v249 = v253;
+      v246 = v250;
+      v247[0] = v251[0];
+      outlined init with copy of SGDataTypeStorage(&v250, &v244);
 
-      v295 = v290;
+      v52 = String.init<A>(describing:)();
+      v54 = v53;
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v55 = 25;
+      *(v55 + 8) = v52;
+      *(v55 + 16) = v54;
+      swift_willThrow();
+
+      v359 = v284;
+      outlined destroy of String(&v359);
+
+      v406 = v265;
+      outlined destroy of String(&v406);
+      outlined destroy of SGDataTypeStorage(&v250);
+      outlined destroy of NodePersonality(&v314);
+      v321 = v233;
+      outlined destroy of [Input](&v321, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v322 = v35;
+      outlined destroy of [Input](&v322, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      v295 = v288;
       return outlined destroy of String(&v295);
     }
 
-    v235 = v35;
-    v44 = *(&v266 + 1);
-    specialized ShaderGraphNode.output(labeled:)(v270, 28265, 0xE200000000000000, v28);
-    v45 = *(&v270[0] + 1);
-    if (!*(&v270[0] + 1))
-    {
-      v246 = 0;
-      v247 = 0xE000000000000000;
-
-      MEMORY[0x266771550](2125417, 0xE300000000000000);
-      v248 = v419;
-      v249[0] = v420[0];
-      *(v249 + 9) = *(v420 + 9);
-      _print_unlocked<A, B>(_:_:)();
-      v50 = v246;
-      v51 = v247;
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v52 = 11;
-      *(v52 + 8) = v50;
-      *(v52 + 16) = v51;
-      swift_willThrow();
-
-      v409 = v267;
-      outlined destroy of String(&v409);
-      outlined destroy of SGDataTypeStorage(&v252);
-      outlined destroy of NodePersonality(&v316);
-      v321 = v235;
-      outlined destroy of [Input](&v321, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v322 = v36;
-      outlined destroy of [Input](&v322, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      v296 = v290;
-      return outlined destroy of String(&v296);
-    }
-
-    v285 = v270[0];
-    v286 = v270[1];
-    v287 = v270[2];
-    v288 = v271;
-    if (v255 != 6)
-    {
-      v249[1] = v253[1];
-      v250 = v254;
-      v251 = v255;
-      v248 = v252;
-      v249[0] = v253[0];
-      outlined init with copy of SGDataTypeStorage(&v252, &v246);
-
-      v53 = String.init<A>(describing:)();
-      v55 = v54;
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v56 = 25;
-      *(v56 + 8) = v53;
-      *(v56 + 16) = v55;
-      swift_willThrow();
-
-      v361 = v286;
-      outlined destroy of String(&v361);
-
-      v408 = v267;
-      outlined destroy of String(&v408);
-      outlined destroy of SGDataTypeStorage(&v252);
-      outlined destroy of NodePersonality(&v316);
-      v323 = v235;
-      outlined destroy of [Input](&v323, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v324 = v36;
-      outlined destroy of [Input](&v324, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      v297 = v290;
-      return outlined destroy of String(&v297);
-    }
-
-    v46 = v252;
-    outlined init with copy of SGDataTypeStorage(&v252, &v248);
+    v45 = v250;
+    outlined init with copy of SGDataTypeStorage(&v250, &v246);
 
     if ((String.count.getter() - 5) <= 0xFFFFFFFFFFFFFFFBLL)
     {
-      v246 = 0;
-      v247 = 0xE000000000000000;
-      MEMORY[0x266771550](v46, *(&v46 + 1));
-      outlined destroy of SGDataTypeStorage(&v252);
+      v244 = 0;
+      v245 = 0xE000000000000000;
+      MEMORY[0x266771550](v45, *(&v45 + 1));
+      outlined destroy of SGDataTypeStorage(&v250);
       MEMORY[0x266771550](32, 0xE100000000000000);
-      v248 = v419;
-      v249[0] = v420[0];
-      *(v249 + 9) = *(v420 + 9);
+      v246 = v417;
+      v247[0] = v418[0];
+      *(v247 + 9) = *(v418 + 9);
       _print_unlocked<A, B>(_:_:)();
-      v47 = v246;
-      v48 = v247;
+      v46 = v244;
+      v47 = v245;
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v49 = 25;
-      *(v49 + 8) = v47;
-      *(v49 + 16) = v48;
+      *v48 = 25;
+      *(v48 + 8) = v46;
+      *(v48 + 16) = v47;
       swift_willThrow();
 
-      v362 = v286;
-      outlined destroy of String(&v362);
+      v360 = v284;
+      outlined destroy of String(&v360);
 
-      v381 = v267;
-      outlined destroy of String(&v381);
-      outlined destroy of SGDataTypeStorage(&v252);
-      outlined destroy of NodePersonality(&v316);
-      v325 = v235;
-      outlined destroy of [Input](&v325, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v326 = v36;
-      outlined destroy of [Input](&v326, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      v298 = v290;
-      return outlined destroy of String(&v298);
-    }
-
-    v232 = v36;
-    v233 = v45;
-    v231 = v44;
-    v57 = v237;
-    *v234 = v46;
-    CharacterSet.init(charactersIn:)();
-    v59 = v241;
-    v58 = v242;
-    v60 = *(v242 + 16);
-    v229 = v242 + 16;
-    v230 = v60;
-    v60();
-    v228 = lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet);
-    v61 = v236;
-    dispatch thunk of SetAlgebra.intersection(_:)();
-    v227 = lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet);
-    LODWORD(v239) = dispatch thunk of static Equatable.== infix(_:_:)();
-    v63 = *(v58 + 8);
-    v62 = v58 + 8;
-    v63(v61, v59);
-    (v230)(v238, v57, v59);
-    dispatch thunk of SetAlgebra.intersection(_:)();
-    v64 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v238 = v63;
-    v63(v61, v59);
-    if ((v239 & 1) == 0 && (v64 & 1) == 0)
-    {
-      v246 = 0;
-      v247 = 0xE000000000000000;
-      MEMORY[0x266771550](*v234, *&v234[8]);
-      outlined destroy of SGDataTypeStorage(&v252);
-      MEMORY[0x266771550](32, 0xE100000000000000);
-      v248 = v419;
-      v249[0] = v420[0];
-      *(v249 + 9) = *(v420 + 9);
-      _print_unlocked<A, B>(_:_:)();
-      v65 = v246;
-      v66 = v247;
-      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-      swift_allocError();
-      *v67 = 25;
-      *(v67 + 8) = v65;
-      *(v67 + 16) = v66;
-      swift_willThrow();
-
-      v315 = v290;
-      outlined destroy of String(&v315);
-
-      v379 = v286;
+      v379 = v265;
       outlined destroy of String(&v379);
+      outlined destroy of SGDataTypeStorage(&v250);
+      outlined destroy of NodePersonality(&v314);
+      v323 = v233;
+      outlined destroy of [Input](&v323, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v324 = v35;
+      outlined destroy of [Input](&v324, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-      v407 = v267;
-      outlined destroy of String(&v407);
-      outlined destroy of NodePersonality(&v316);
-      v359 = v235;
-      outlined destroy of [Input](&v359, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v360 = v232;
-      outlined destroy of [Input](&v360, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      outlined destroy of SGDataTypeStorage(&v252);
-      v68 = v57;
-      return v238(v68, v59);
+      v296 = v288;
+      return outlined destroy of String(&v296);
     }
 
-    v69 = String.count.getter();
-    v242 = v62;
-    if (v69)
+    v230 = v35;
+    v231 = v44;
+    v229 = v43;
+    v56 = v235;
+    *v232 = v45;
+    CharacterSet.init(charactersIn:)();
+    v58 = v239;
+    v57 = v240;
+    v59 = *(v240 + 16);
+    v227 = v240 + 16;
+    v228 = v59;
+    v59();
+    v226 = lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, MEMORY[0x277CC8858]);
+    v60 = v234;
+    dispatch thunk of SetAlgebra.intersection(_:)();
+    v225 = lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, MEMORY[0x277CC8850]);
+    LODWORD(v237) = dispatch thunk of static Equatable.== infix(_:_:)();
+    v62 = *(v57 + 8);
+    v61 = v57 + 8;
+    v62(v60, v58);
+    (v228)(v236, v56, v58);
+    dispatch thunk of SetAlgebra.intersection(_:)();
+    v63 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v236 = v62;
+    v62(v60, v58);
+    if ((v237 & 1) == 0 && (v63 & 1) == 0)
     {
-      *&v248 = MEMORY[0x277D84F90];
-      v70 = v69;
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v69 & ~(v69 >> 63), 0);
-      v239 = v70;
-      if (v70 < 0)
+      v244 = 0;
+      v245 = 0xE000000000000000;
+      MEMORY[0x266771550](*v232, *&v232[8]);
+      outlined destroy of SGDataTypeStorage(&v250);
+      MEMORY[0x266771550](32, 0xE100000000000000);
+      v246 = v417;
+      v247[0] = v418[0];
+      *(v247 + 9) = *(v418 + 9);
+      _print_unlocked<A, B>(_:_:)();
+      v64 = v244;
+      v65 = v245;
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v66 = 25;
+      *(v66 + 8) = v64;
+      *(v66 + 16) = v65;
+      swift_willThrow();
+
+      v313 = v288;
+      outlined destroy of String(&v313);
+
+      v377 = v284;
+      outlined destroy of String(&v377);
+
+      v405 = v265;
+      outlined destroy of String(&v405);
+      outlined destroy of NodePersonality(&v314);
+      v357 = v233;
+      outlined destroy of [Input](&v357, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v358 = v230;
+      outlined destroy of [Input](&v358, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      outlined destroy of SGDataTypeStorage(&v250);
+      v67 = v56;
+      return v236(v67, v58);
+    }
+
+    v68 = String.count.getter();
+    v240 = v61;
+    if (v68)
+    {
+      *&v246 = MEMORY[0x277D84F90];
+      v69 = v68;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v68 & ~(v68 >> 63), 0);
+      v237 = v69;
+      if (v69 < 0)
       {
         __break(1u);
         goto LABEL_50;
       }
 
-      v59 = 0;
-      v240 = v248;
-      v70 = 15;
+      v58 = 0;
+      v238 = v246;
+      v69 = 15;
       while (1)
       {
-        v71 = v59 + 1;
-        if (__OFADD__(v59, 1))
+        v70 = v58 + 1;
+        if (__OFADD__(v58, 1))
         {
           break;
         }
 
-        v72 = String.subscript.getter();
-        v73 = v426;
-        v75 = index #1 (for:) in UserGraph.resolveSwizzleNodes(nodeDefStore:)(v72, v74);
-        v426 = v73;
-        if (v73)
+        v71 = String.subscript.getter();
+        v72 = v424;
+        v74 = index #1 (for:) in UserGraph.resolveSwizzleNodes(nodeDefStore:)(v71, v73);
+        v424 = v72;
+        if (v72)
         {
 
-          v299 = v290;
-          outlined destroy of String(&v299);
-          outlined destroy of SGDataTypeStorage(&v252);
+          v297 = v288;
+          outlined destroy of String(&v297);
+          outlined destroy of SGDataTypeStorage(&v250);
 
-          v363 = v286;
-          outlined destroy of String(&v363);
+          v361 = v284;
+          outlined destroy of String(&v361);
 
-          v406 = v267;
-          outlined destroy of String(&v406);
-          outlined destroy of NodePersonality(&v316);
-          v327 = v235;
-          outlined destroy of [Input](&v327, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v328 = v232;
-          outlined destroy of [Input](&v328, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          v404 = v265;
+          outlined destroy of String(&v404);
+          outlined destroy of NodePersonality(&v314);
+          v325 = v233;
+          outlined destroy of [Input](&v325, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v326 = v230;
+          outlined destroy of [Input](&v326, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-          outlined destroy of SGDataTypeStorage(&v252);
+          outlined destroy of SGDataTypeStorage(&v250);
 
-          v238(v237, v241);
+          v236(v235, v239);
         }
 
-        v76 = v75;
+        v75 = v74;
 
-        v77 = v240;
-        *&v248 = v240;
-        v79 = *(v240 + 16);
-        v78 = *(v240 + 24);
-        if (v79 >= v78 >> 1)
+        v76 = v238;
+        *&v246 = v238;
+        v78 = *(v238 + 16);
+        v77 = *(v238 + 24);
+        if (v78 >= v77 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v79 + 1, 1);
-          v77 = v248;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v77 > 1), v78 + 1, 1);
+          v76 = v246;
         }
 
-        *(v77 + 16) = v79 + 1;
-        v240 = v77;
-        *(v77 + 8 * v79 + 32) = v76;
-        v70 = String.index(after:)();
-        ++v59;
-        v30 = 7632239;
-        if (v71 == v239)
+        *(v76 + 16) = v78 + 1;
+        v238 = v76;
+        *(v76 + 8 * v78 + 32) = v75;
+        v69 = String.index(after:)();
+        ++v58;
+        v29 = 7632239;
+        if (v70 == v237)
         {
-          v59 = v241;
+          v58 = v239;
           goto LABEL_32;
         }
       }
@@ -2694,138 +420,138 @@ uint64_t closure #1 in UserGraph.resolveSwizzleNodes(nodeDefStore:)(__int128 *a1
 
     else
     {
-      v240 = MEMORY[0x277D84F90];
-      v30 = 7632239;
+      v238 = MEMORY[0x277D84F90];
+      v29 = 7632239;
 LABEL_32:
-      v70 = (*(*v233 + 144))();
-      v80 = one-time initialization token for float;
+      v69 = (*(*v231 + 144))();
+      v79 = one-time initialization token for float;
 
-      if (v80 == -1)
+      if (v79 == -1)
       {
 LABEL_33:
-        if (v70)
+        if (v69)
         {
-          v81 = MetalDataType.isEqual(to:)();
+          v80 = MetalDataType.isEqual(to:)(v69);
 
-          if (v81)
+          if (v80)
           {
 
-            v246 = 0xD00000000000001ELL;
-            v247 = 0x8000000265F313A0;
-            v83 = *(v240 + 16);
-            v84 = 32;
-            v85 = v233;
-            while (v83)
+            v244 = 0xD00000000000001ELL;
+            v245 = 0x8000000265F313A0;
+            v82 = *(v238 + 16);
+            v83 = 32;
+            v84 = v231;
+            while (v82)
             {
-              v86 = *(v240 + v84);
-              v84 += 8;
-              --v83;
-              if (v86 >= 1)
+              v85 = *(v238 + v83);
+              v83 += 8;
+              --v82;
+              if (v85 >= 1)
               {
-                outlined destroy of SGDataTypeStorage(&v252);
+                outlined destroy of SGDataTypeStorage(&v250);
 
                 lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                 swift_allocError();
-                *v87 = 44;
-                *(v87 + 8) = 0xD000000000000030;
-                *(v87 + 16) = 0x8000000265F31260;
+                *v86 = 44;
+                *(v86 + 8) = 0xD000000000000030;
+                *(v86 + 16) = 0x8000000265F31260;
                 swift_willThrow();
 
-                v300 = v290;
-                outlined destroy of String(&v300);
+                v298 = v288;
+                outlined destroy of String(&v298);
 
-                v364 = v286;
-                outlined destroy of String(&v364);
+                v362 = v284;
+                outlined destroy of String(&v362);
 
-                v395 = v267;
-                outlined destroy of String(&v395);
-                outlined destroy of NodePersonality(&v316);
-                v329 = v235;
-                outlined destroy of [Input](&v329, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                v330 = v232;
-                v88 = &v330;
+                v393 = v265;
+                outlined destroy of String(&v393);
+                outlined destroy of NodePersonality(&v314);
+                v327 = v233;
+                outlined destroy of [Input](&v327, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                v328 = v230;
+                v87 = &v328;
 LABEL_185:
-                outlined destroy of [Input](v88, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                outlined destroy of [Input](v87, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                outlined destroy of SGDataTypeStorage(&v252);
-                v68 = v237;
-                return v238(v68, v59);
+                outlined destroy of SGDataTypeStorage(&v250);
+                v67 = v235;
+                return v236(v67, v58);
               }
             }
 
-            v239 = 0x8000000265F313A0;
+            v237 = 0x8000000265F313A0;
             goto LABEL_121;
           }
         }
 
-        v89 = one-time initialization token for float2;
+        v88 = one-time initialization token for float2;
 
-        if (v89 == -1)
+        if (v88 == -1)
         {
-          if (!v70)
+          if (!v69)
           {
             goto LABEL_51;
           }
 
 LABEL_41:
-          v90 = MetalDataType.isEqual(to:)();
+          v89 = MetalDataType.isEqual(to:)(v69);
 
-          if (v90)
+          if (v89)
           {
 
-            v91 = 0x8000000265F31380;
-            v246 = 0xD00000000000001FLL;
-            v247 = 0x8000000265F31380;
-            v92 = *(v240 + 16);
-            v93 = 32;
+            v90 = 0x8000000265F31380;
+            v244 = 0xD00000000000001FLL;
+            v245 = 0x8000000265F31380;
+            v91 = *(v238 + 16);
+            v92 = 32;
             do
             {
-              if (!v92)
+              if (!v91)
               {
                 goto LABEL_58;
               }
 
-              v94 = *(v240 + v93);
-              v93 += 8;
-              --v92;
+              v93 = *(v238 + v92);
+              v92 += 8;
+              --v91;
             }
 
-            while (v94 < 2);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v93 < 2);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v95 = 44;
-            *(v95 + 8) = 0xD000000000000030;
-            *(v95 + 16) = 0x8000000265F31260;
+            *v94 = 44;
+            *(v94 + 8) = 0xD000000000000030;
+            *(v94 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v301 = v290;
-            outlined destroy of String(&v301);
+            v299 = v288;
+            outlined destroy of String(&v299);
 
-            v365 = v286;
-            outlined destroy of String(&v365);
+            v363 = v284;
+            outlined destroy of String(&v363);
 
-            v396 = v267;
-            outlined destroy of String(&v396);
-            outlined destroy of NodePersonality(&v316);
-            v331 = v235;
-            outlined destroy of [Input](&v331, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v332 = v232;
-            v96 = &v332;
+            v394 = v265;
+            outlined destroy of String(&v394);
+            outlined destroy of NodePersonality(&v314);
+            v329 = v233;
+            outlined destroy of [Input](&v329, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v330 = v230;
+            v95 = &v330;
 LABEL_67:
-            outlined destroy of [Input](v96, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            outlined destroy of [Input](v95, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-            outlined destroy of SGDataTypeStorage(&v252);
-            return v238(v237, v59);
+            outlined destroy of SGDataTypeStorage(&v250);
+            return v236(v235, v58);
           }
 
 LABEL_51:
-          v97 = one-time initialization token for float3;
+          v96 = one-time initialization token for float3;
 
-          if (v97 == -1)
+          if (v96 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_60;
             }
@@ -2834,67 +560,67 @@ LABEL_51:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_60;
             }
           }
 
-          v98 = MetalDataType.isEqual(to:)();
+          v97 = MetalDataType.isEqual(to:)(v69);
 
-          if (v98)
+          if (v97)
           {
 
-            v91 = 0x8000000265F31360;
-            v246 = 0xD00000000000001FLL;
-            v247 = 0x8000000265F31360;
-            v99 = *(v240 + 16);
-            v100 = 32;
-            while (v99)
+            v90 = 0x8000000265F31360;
+            v244 = 0xD00000000000001FLL;
+            v245 = 0x8000000265F31360;
+            v98 = *(v238 + 16);
+            v99 = 32;
+            while (v98)
             {
-              v101 = *(v240 + v100);
-              v100 += 8;
-              --v99;
-              if (v101 >= 3)
+              v100 = *(v238 + v99);
+              v99 += 8;
+              --v98;
+              if (v100 >= 3)
               {
-                outlined destroy of SGDataTypeStorage(&v252);
+                outlined destroy of SGDataTypeStorage(&v250);
 
                 lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                 swift_allocError();
-                *v102 = 44;
-                *(v102 + 8) = 0xD000000000000030;
-                *(v102 + 16) = 0x8000000265F31260;
+                *v101 = 44;
+                *(v101 + 8) = 0xD000000000000030;
+                *(v101 + 16) = 0x8000000265F31260;
                 swift_willThrow();
 
-                v302 = v290;
-                outlined destroy of String(&v302);
+                v300 = v288;
+                outlined destroy of String(&v300);
 
-                v366 = v286;
-                outlined destroy of String(&v366);
+                v364 = v284;
+                outlined destroy of String(&v364);
 
-                v397 = v267;
-                outlined destroy of String(&v397);
-                outlined destroy of NodePersonality(&v316);
-                v333 = v235;
-                outlined destroy of [Input](&v333, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                v334 = v232;
-                v96 = &v334;
+                v395 = v265;
+                outlined destroy of String(&v395);
+                outlined destroy of NodePersonality(&v314);
+                v331 = v233;
+                outlined destroy of [Input](&v331, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                v332 = v230;
+                v95 = &v332;
                 goto LABEL_67;
               }
             }
 
 LABEL_58:
-            v239 = v91;
-            v85 = v233;
+            v237 = v90;
+            v84 = v231;
             goto LABEL_121;
           }
 
 LABEL_60:
-          v103 = one-time initialization token for float4;
+          v102 = one-time initialization token for float4;
 
-          if (v103 == -1)
+          if (v102 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_70;
             }
@@ -2903,66 +629,66 @@ LABEL_60:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_70;
             }
           }
 
-          v104 = MetalDataType.isEqual(to:)();
+          v103 = MetalDataType.isEqual(to:)(v69);
 
-          if (v104)
+          if (v103)
           {
 
-            v246 = 0xD00000000000001FLL;
-            v247 = 0x8000000265F31340;
-            v239 = 0x8000000265F31340;
-            v105 = *(v240 + 16);
-            v106 = 32;
-            while (v105)
+            v244 = 0xD00000000000001FLL;
+            v245 = 0x8000000265F31340;
+            v237 = 0x8000000265F31340;
+            v104 = *(v238 + 16);
+            v105 = 32;
+            while (v104)
             {
-              v107 = *(v240 + v106);
-              v106 += 8;
-              --v105;
-              if (v107 >= 4)
+              v106 = *(v238 + v105);
+              v105 += 8;
+              --v104;
+              if (v106 >= 4)
               {
-                outlined destroy of SGDataTypeStorage(&v252);
+                outlined destroy of SGDataTypeStorage(&v250);
 
                 lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                 swift_allocError();
-                *v108 = 44;
-                *(v108 + 8) = 0xD000000000000030;
-                *(v108 + 16) = 0x8000000265F31260;
+                *v107 = 44;
+                *(v107 + 8) = 0xD000000000000030;
+                *(v107 + 16) = 0x8000000265F31260;
                 swift_willThrow();
 
-                v303 = v290;
-                outlined destroy of String(&v303);
+                v301 = v288;
+                outlined destroy of String(&v301);
 
-                v367 = v286;
-                outlined destroy of String(&v367);
+                v365 = v284;
+                outlined destroy of String(&v365);
 
-                v398 = v267;
-                outlined destroy of String(&v398);
-                outlined destroy of NodePersonality(&v316);
-                v335 = v235;
-                outlined destroy of [Input](&v335, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                v336 = v232;
-                v96 = &v336;
+                v396 = v265;
+                outlined destroy of String(&v396);
+                outlined destroy of NodePersonality(&v314);
+                v333 = v233;
+                outlined destroy of [Input](&v333, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                v334 = v230;
+                v95 = &v334;
                 goto LABEL_67;
               }
             }
 
-            v85 = v233;
-            v30 = 7632239;
+            v84 = v231;
+            v29 = 7632239;
             goto LABEL_121;
           }
 
 LABEL_70:
-          v109 = one-time initialization token for half;
+          v108 = one-time initialization token for half;
 
-          if (v109 == -1)
+          if (v108 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_78;
             }
@@ -2971,66 +697,66 @@ LABEL_70:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_78;
             }
           }
 
-          v110 = MetalDataType.isEqual(to:)();
+          v109 = MetalDataType.isEqual(to:)(v69);
 
-          if (v110)
+          if (v109)
           {
 
-            v246 = 0xD00000000000001DLL;
-            v247 = 0x8000000265F31320;
-            v239 = 0x8000000265F31320;
-            v111 = *(v240 + 16);
-            v112 = 32;
+            v244 = 0xD00000000000001DLL;
+            v245 = 0x8000000265F31320;
+            v237 = 0x8000000265F31320;
+            v110 = *(v238 + 16);
+            v111 = 32;
             do
             {
-              if (!v111)
+              if (!v110)
               {
                 goto LABEL_120;
               }
 
-              v113 = *(v240 + v112);
-              v112 += 8;
-              --v111;
+              v112 = *(v238 + v111);
+              v111 += 8;
+              --v110;
             }
 
-            while (v113 < 1);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v112 < 1);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v114 = 44;
-            *(v114 + 8) = 0xD000000000000030;
-            *(v114 + 16) = 0x8000000265F31260;
+            *v113 = 44;
+            *(v113 + 8) = 0xD000000000000030;
+            *(v113 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v304 = v290;
-            outlined destroy of String(&v304);
+            v302 = v288;
+            outlined destroy of String(&v302);
 
-            v368 = v286;
-            outlined destroy of String(&v368);
+            v366 = v284;
+            outlined destroy of String(&v366);
 
-            v399 = v267;
-            outlined destroy of String(&v399);
-            outlined destroy of NodePersonality(&v316);
-            v337 = v235;
-            outlined destroy of [Input](&v337, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v338 = v232;
-            v115 = &v338;
+            v397 = v265;
+            outlined destroy of String(&v397);
+            outlined destroy of NodePersonality(&v314);
+            v335 = v233;
+            outlined destroy of [Input](&v335, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v336 = v230;
+            v114 = &v336;
             goto LABEL_85;
           }
 
 LABEL_78:
-          v116 = one-time initialization token for half2;
+          v115 = one-time initialization token for half2;
 
-          if (v116 == -1)
+          if (v115 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_88;
             }
@@ -3039,70 +765,70 @@ LABEL_78:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_88;
             }
           }
 
-          v117 = MetalDataType.isEqual(to:)();
+          v116 = MetalDataType.isEqual(to:)(v69);
 
-          if (v117)
+          if (v116)
           {
 
-            v246 = 0xD00000000000001ELL;
-            v247 = 0x8000000265F31300;
-            v239 = 0x8000000265F31300;
-            v118 = *(v240 + 16);
-            v119 = 32;
+            v244 = 0xD00000000000001ELL;
+            v245 = 0x8000000265F31300;
+            v237 = 0x8000000265F31300;
+            v117 = *(v238 + 16);
+            v118 = 32;
             do
             {
-              if (!v118)
+              if (!v117)
               {
                 goto LABEL_120;
               }
 
-              v120 = *(v240 + v119);
-              v119 += 8;
-              --v118;
+              v119 = *(v238 + v118);
+              v118 += 8;
+              --v117;
             }
 
-            while (v120 < 2);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v119 < 2);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v121 = 44;
-            *(v121 + 8) = 0xD000000000000030;
-            *(v121 + 16) = 0x8000000265F31260;
+            *v120 = 44;
+            *(v120 + 8) = 0xD000000000000030;
+            *(v120 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v305 = v290;
-            outlined destroy of String(&v305);
+            v303 = v288;
+            outlined destroy of String(&v303);
 
-            v369 = v286;
-            outlined destroy of String(&v369);
+            v367 = v284;
+            outlined destroy of String(&v367);
 
-            v400 = v267;
-            outlined destroy of String(&v400);
-            outlined destroy of NodePersonality(&v316);
-            v339 = v235;
-            outlined destroy of [Input](&v339, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v340 = v232;
-            v115 = &v340;
+            v398 = v265;
+            outlined destroy of String(&v398);
+            outlined destroy of NodePersonality(&v314);
+            v337 = v233;
+            outlined destroy of [Input](&v337, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v338 = v230;
+            v114 = &v338;
 LABEL_85:
-            outlined destroy of [Input](v115, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            outlined destroy of [Input](v114, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-            outlined destroy of SGDataTypeStorage(&v252);
-            return v238(v237, v241);
+            outlined destroy of SGDataTypeStorage(&v250);
+            return v236(v235, v239);
           }
 
 LABEL_88:
-          v122 = one-time initialization token for half3;
+          v121 = one-time initialization token for half3;
 
-          if (v122 == -1)
+          if (v121 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_96;
             }
@@ -3111,68 +837,68 @@ LABEL_88:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_96;
             }
           }
 
-          v123 = MetalDataType.isEqual(to:)();
+          v122 = MetalDataType.isEqual(to:)(v69);
 
-          if (v123)
+          if (v122)
           {
 
-            v246 = 0xD00000000000001ELL;
-            v247 = 0x8000000265F312E0;
-            v239 = 0x8000000265F312E0;
-            v124 = *(v240 + 16);
-            v125 = 32;
+            v244 = 0xD00000000000001ELL;
+            v245 = 0x8000000265F312E0;
+            v237 = 0x8000000265F312E0;
+            v123 = *(v238 + 16);
+            v124 = 32;
             do
             {
-              if (!v124)
+              if (!v123)
               {
                 goto LABEL_120;
               }
 
-              v126 = *(v240 + v125);
-              v125 += 8;
-              --v124;
+              v125 = *(v238 + v124);
+              v124 += 8;
+              --v123;
             }
 
-            while (v126 < 3);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v125 < 3);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v127 = 44;
-            *(v127 + 8) = 0xD000000000000030;
-            *(v127 + 16) = 0x8000000265F31260;
+            *v126 = 44;
+            *(v126 + 8) = 0xD000000000000030;
+            *(v126 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v306 = v290;
-            outlined destroy of String(&v306);
+            v304 = v288;
+            outlined destroy of String(&v304);
 
-            v370 = v286;
-            outlined destroy of String(&v370);
+            v368 = v284;
+            outlined destroy of String(&v368);
 
-            v401 = v267;
-            outlined destroy of String(&v401);
-            outlined destroy of NodePersonality(&v316);
-            v341 = v235;
-            outlined destroy of [Input](&v341, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v342 = v232;
-            v128 = &v342;
+            v399 = v265;
+            outlined destroy of String(&v399);
+            outlined destroy of NodePersonality(&v314);
+            v339 = v233;
+            outlined destroy of [Input](&v339, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v340 = v230;
+            v127 = &v340;
 LABEL_209:
-            outlined destroy of [Input](v128, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            outlined destroy of [Input](v127, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
             goto LABEL_210;
           }
 
 LABEL_96:
-          v129 = one-time initialization token for half4;
+          v128 = one-time initialization token for half4;
 
-          if (v129 == -1)
+          if (v128 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_104;
             }
@@ -3181,66 +907,66 @@ LABEL_96:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_104;
             }
           }
 
-          v130 = MetalDataType.isEqual(to:)();
+          v129 = MetalDataType.isEqual(to:)(v69);
 
-          if (v130)
+          if (v129)
           {
 
-            v246 = 0xD00000000000001ELL;
-            v247 = 0x8000000265F312C0;
-            v239 = 0x8000000265F312C0;
-            v131 = *(v240 + 16);
-            v132 = 32;
+            v244 = 0xD00000000000001ELL;
+            v245 = 0x8000000265F312C0;
+            v237 = 0x8000000265F312C0;
+            v130 = *(v238 + 16);
+            v131 = 32;
             do
             {
-              if (!v131)
+              if (!v130)
               {
                 goto LABEL_120;
               }
 
-              v133 = *(v240 + v132);
-              v132 += 8;
-              --v131;
+              v132 = *(v238 + v131);
+              v131 += 8;
+              --v130;
             }
 
-            while (v133 < 4);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v132 < 4);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v134 = 44;
-            *(v134 + 8) = 0xD000000000000030;
-            *(v134 + 16) = 0x8000000265F31260;
+            *v133 = 44;
+            *(v133 + 8) = 0xD000000000000030;
+            *(v133 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v307 = v290;
-            outlined destroy of String(&v307);
+            v305 = v288;
+            outlined destroy of String(&v305);
 
-            v371 = v286;
-            outlined destroy of String(&v371);
+            v369 = v284;
+            outlined destroy of String(&v369);
 
-            v402 = v267;
-            outlined destroy of String(&v402);
-            outlined destroy of NodePersonality(&v316);
-            v343 = v235;
-            outlined destroy of [Input](&v343, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v344 = v232;
-            v128 = &v344;
+            v400 = v265;
+            outlined destroy of String(&v400);
+            outlined destroy of NodePersonality(&v314);
+            v341 = v233;
+            outlined destroy of [Input](&v341, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v342 = v230;
+            v127 = &v342;
             goto LABEL_209;
           }
 
 LABEL_104:
-          v135 = one-time initialization token for color3;
+          v134 = one-time initialization token for color3;
 
-          if (v135 == -1)
+          if (v134 == -1)
           {
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_112;
             }
@@ -3249,57 +975,57 @@ LABEL_104:
           else
           {
             swift_once();
-            if (!v70)
+            if (!v69)
             {
               goto LABEL_112;
             }
           }
 
-          v136 = MetalDataType.isEqual(to:)();
+          v135 = MetalDataType.isEqual(to:)(v69);
 
-          if (v136)
+          if (v135)
           {
 
-            v246 = 0xD00000000000001FLL;
-            v247 = 0x8000000265F312A0;
-            v239 = 0x8000000265F312A0;
-            v137 = *(v240 + 16);
-            v138 = 32;
+            v244 = 0xD00000000000001FLL;
+            v245 = 0x8000000265F312A0;
+            v237 = 0x8000000265F312A0;
+            v136 = *(v238 + 16);
+            v137 = 32;
             do
             {
-              if (!v137)
+              if (!v136)
               {
                 goto LABEL_120;
               }
 
-              v139 = *(v240 + v138);
-              v138 += 8;
-              --v137;
+              v138 = *(v238 + v137);
+              v137 += 8;
+              --v136;
             }
 
-            while (v139 < 3);
-            outlined destroy of SGDataTypeStorage(&v252);
+            while (v138 < 3);
+            outlined destroy of SGDataTypeStorage(&v250);
 
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v140 = 44;
-            *(v140 + 8) = 0xD000000000000030;
-            *(v140 + 16) = 0x8000000265F31260;
+            *v139 = 44;
+            *(v139 + 8) = 0xD000000000000030;
+            *(v139 + 16) = 0x8000000265F31260;
             swift_willThrow();
 
-            v308 = v290;
-            outlined destroy of String(&v308);
+            v306 = v288;
+            outlined destroy of String(&v306);
 
-            v372 = v286;
-            outlined destroy of String(&v372);
+            v370 = v284;
+            outlined destroy of String(&v370);
 
-            v403 = v267;
-            outlined destroy of String(&v403);
-            outlined destroy of NodePersonality(&v316);
-            v345 = v235;
-            outlined destroy of [Input](&v345, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v346 = v232;
-            v128 = &v346;
+            v401 = v265;
+            outlined destroy of String(&v401);
+            outlined destroy of NodePersonality(&v314);
+            v343 = v233;
+            outlined destroy of [Input](&v343, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v344 = v230;
+            v127 = &v344;
             goto LABEL_209;
           }
 
@@ -3309,57 +1035,58 @@ LABEL_112:
             swift_once();
           }
 
-          if (v70)
+          if (v69)
           {
-            v141 = MetalDataType.isEqual(to:)();
+            v140 = MetalDataType.isEqual(to:)(v69);
 
-            if (v141)
+            if (v140)
             {
-              v246 = 0xD00000000000001FLL;
-              v247 = 0x8000000265F31240;
-              v239 = 0x8000000265F31240;
-              v142 = *(v240 + 16);
-              v143 = 32;
-              while (v142)
+              v244 = 0xD00000000000001FLL;
+              v245 = 0x8000000265F31240;
+              v237 = 0x8000000265F31240;
+              v141 = *(v238 + 16);
+              v142 = 32;
+              while (v141)
               {
-                v144 = *(v240 + v143);
-                v143 += 8;
-                --v142;
-                if (v144 >= 4)
+                v143 = *(v238 + v142);
+                v142 += 8;
+                --v141;
+                if (v143 >= 4)
                 {
-                  outlined destroy of SGDataTypeStorage(&v252);
+                  outlined destroy of SGDataTypeStorage(&v250);
 
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v145 = 44;
-                  *(v145 + 8) = 0xD000000000000030;
-                  *(v145 + 16) = 0x8000000265F31260;
+                  *v144 = 44;
+                  *(v144 + 8) = 0xD000000000000030;
+                  *(v144 + 16) = 0x8000000265F31260;
                   swift_willThrow();
 
-                  v309 = v290;
-                  outlined destroy of String(&v309);
+                  v307 = v288;
+                  outlined destroy of String(&v307);
 
-                  v373 = v286;
-                  outlined destroy of String(&v373);
+                  v371 = v284;
+                  outlined destroy of String(&v371);
 
-                  v404 = v267;
-                  outlined destroy of String(&v404);
-                  outlined destroy of NodePersonality(&v316);
-                  v347 = v235;
-                  outlined destroy of [Input](&v347, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                  v348 = v232;
-                  v128 = &v348;
+                  v402 = v265;
+                  outlined destroy of String(&v402);
+                  outlined destroy of NodePersonality(&v314);
+                  v345 = v233;
+                  outlined destroy of [Input](&v345, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                  v346 = v230;
+                  v127 = &v346;
                   goto LABEL_209;
                 }
               }
 
 LABEL_120:
-              v59 = v241;
-              v85 = v233;
-              v30 = 7632239;
+              v58 = v239;
+              v84 = v231;
+              v29 = 7632239;
 LABEL_121:
-              v146 = (*(*v231 + 144))(v82);
-              if (v146 && (MetalDataType.isEqual(to:)() & 1) != 0)
+              v145 = (*(*v229 + 144))(v81);
+              v146 = v145;
+              if (v145 && (MetalDataType.isEqual(to:)(v145) & 1) != 0)
               {
 
                 MEMORY[0x266771550](0x74616F6C66, 0xE500000000000000);
@@ -3386,7 +1113,7 @@ LABEL_121:
                 }
               }
 
-              v149 = MetalDataType.isEqual(to:)();
+              v149 = MetalDataType.isEqual(to:)(v146);
 
               if (v149)
               {
@@ -3416,7 +1143,7 @@ LABEL_132:
                 }
               }
 
-              v154 = MetalDataType.isEqual(to:)();
+              v154 = MetalDataType.isEqual(to:)(v146);
 
               if (v154)
               {
@@ -3446,7 +1173,7 @@ LABEL_137:
                 }
               }
 
-              v156 = MetalDataType.isEqual(to:)();
+              v156 = MetalDataType.isEqual(to:)(v146);
 
               if (v156)
               {
@@ -3456,21 +1183,21 @@ LABEL_137:
                 while (1)
                 {
 LABEL_174:
-                  v172 = *v234;
-                  if (*(v240 + 16) != v147)
+                  v172 = *v232;
+                  if (*(v238 + 16) != v147)
                   {
 
-                    v244 = 0;
-                    v245 = 0xE000000000000000;
-                    MEMORY[0x266771550](v172, *&v234[8]);
-                    outlined destroy of SGDataTypeStorage(&v252);
+                    v242 = 0;
+                    v243 = 0xE000000000000000;
+                    MEMORY[0x266771550](v172, *&v232[8]);
+                    outlined destroy of SGDataTypeStorage(&v250);
                     MEMORY[0x266771550](32, 0xE100000000000000);
-                    v248 = v419;
-                    v249[0] = v420[0];
-                    *(v249 + 9) = *(v420 + 9);
+                    v246 = v417;
+                    v247[0] = v418[0];
+                    *(v247 + 9) = *(v418 + 9);
                     _print_unlocked<A, B>(_:_:)();
-                    v182 = v244;
-                    v183 = v245;
+                    v182 = v242;
+                    v183 = v243;
                     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                     swift_allocError();
                     *v184 = 25;
@@ -3478,25 +1205,25 @@ LABEL_174:
                     *(v184 + 16) = v183;
                     swift_willThrow();
 
-                    v314 = v290;
-                    outlined destroy of String(&v314);
+                    v312 = v288;
+                    outlined destroy of String(&v312);
 
-                    v378 = v286;
-                    outlined destroy of String(&v378);
+                    v376 = v284;
+                    outlined destroy of String(&v376);
 
-                    v393 = v267;
-                    outlined destroy of String(&v393);
-                    outlined destroy of NodePersonality(&v316);
-                    v357 = v235;
-                    outlined destroy of [Input](&v357, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    v358 = v232;
-                    v88 = &v358;
+                    v391 = v265;
+                    outlined destroy of String(&v391);
+                    outlined destroy of NodePersonality(&v314);
+                    v355 = v233;
+                    outlined destroy of [Input](&v355, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    v356 = v230;
+                    v87 = &v356;
                     goto LABEL_185;
                   }
 
-                  outlined destroy of SGDataTypeStorage(&v252);
-                  v173 = v240;
-                  v146 = *(v240 + 16);
+                  outlined destroy of SGDataTypeStorage(&v250);
+                  v173 = v238;
+                  v146 = *(v238 + 16);
                   if (v146)
                   {
                     break;
@@ -3506,250 +1233,248 @@ LABEL_174:
 LABEL_188:
                   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
                   v185 = swift_allocObject();
-                  *&v234[8] = xmmword_265F1F670;
+                  *&v232[8] = xmmword_265F1F670;
                   *(v185 + 16) = xmmword_265F1F670;
                   *(v185 + 32) = 0x726F74636576;
                   *(v185 + 40) = 0xE600000000000000;
-                  *(v185 + 48) = v85;
-                  *&v248 = v185;
-                  v186 = v231;
+                  *(v185 + 48) = v84;
+                  *&v246 = v185;
+                  v186 = v229;
 
                   specialized Array.append<A>(contentsOf:)(v175);
-                  v187 = v248;
-                  *v234 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
+                  v187 = v246;
+                  *v232 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
                   v188 = swift_allocObject();
-                  *(v188 + 16) = *&v234[8];
-                  *(v188 + 32) = v30;
+                  *(v188 + 16) = *&v232[8];
+                  *(v188 + 32) = v29;
                   v146 = v188 + 32;
                   *(v188 + 40) = 0xE300000000000000;
                   *(v188 + 48) = v186;
                   v189 = swift_allocObject();
-                  v190 = v247;
-                  *(v189 + 16) = v246;
+                  v190 = v245;
+                  *(v189 + 16) = v244;
                   *(v189 + 24) = v190;
                   *(v189 + 32) = v186;
                   swift_retain_n();
-                  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v187, v188, v189 | 0x2000000000000000, &v272);
+                  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v187, v188, v189 | 0x2000000000000000, &v270);
 
                   swift_setDeallocating();
-                  v191 = *(v188 + 16);
                   swift_arrayDestroy();
                   swift_deallocClassInstance();
 
-                  v192 = *(&v272 + 1);
-                  v392 = *(&v272 + 1);
-                  v193 = v232;
-                  if (!*(*(&v272 + 1) + 16))
+                  v191 = *(&v270 + 1);
+                  v390 = *(&v270 + 1);
+                  v192 = v230;
+                  if (!*(*(&v270 + 1) + 16))
                   {
                     goto LABEL_213;
                   }
 
-                  v194 = *(*(&v272 + 1) + 40);
-                  v195 = *(*(&v272 + 1) + 48);
-                  v196 = *(*(&v272 + 1) + 56);
-                  v197 = *(*(&v272 + 1) + 64);
-                  v198 = *(*(&v272 + 1) + 72);
-                  v199 = *(*(&v272 + 1) + 80);
-                  v416[0] = *(*(&v272 + 1) + 32);
-                  v416[1] = v194;
-                  v416[2] = v195;
-                  v416[3] = v196;
-                  v416[4] = v197;
-                  v417 = v198;
-                  v418 = v199;
+                  v193 = *(*(&v270 + 1) + 40);
+                  v194 = *(*(&v270 + 1) + 48);
+                  v195 = *(*(&v270 + 1) + 56);
+                  v196 = *(*(&v270 + 1) + 64);
+                  v197 = *(*(&v270 + 1) + 72);
+                  v198 = *(*(&v270 + 1) + 80);
+                  v414[0] = *(*(&v270 + 1) + 32);
+                  v414[1] = v193;
+                  v414[2] = v194;
+                  v414[3] = v195;
+                  v414[4] = v196;
+                  v415 = v197;
+                  v416 = v198;
 
-                  UserGraph.moveEdge(from:to:)(&v285, v416);
+                  UserGraph.moveEdge(from:to:)(&v283, v414);
 
-                  v391 = v273;
-                  if (*(v273 + 16))
+                  v389 = v271;
+                  if (*(v271 + 16))
                   {
-                    v200 = *(v273 + 40);
-                    v201 = *(v273 + 48);
-                    v202 = *(v273 + 56);
-                    v203 = *(v273 + 64);
-                    v204 = *(v273 + 72);
-                    v205 = *(v273 + 80);
-                    v413[0] = *(v273 + 32);
-                    v413[1] = v200;
-                    v413[2] = v201;
-                    v413[3] = v202;
-                    v413[4] = v203;
-                    v414 = v204;
-                    v415 = v205;
+                    v199 = *(v271 + 40);
+                    v200 = *(v271 + 48);
+                    v201 = *(v271 + 56);
+                    v202 = *(v271 + 64);
+                    v203 = *(v271 + 72);
+                    v204 = *(v271 + 80);
+                    v411[0] = *(v271 + 32);
+                    v411[1] = v199;
+                    v411[2] = v200;
+                    v411[3] = v201;
+                    v411[4] = v202;
+                    v412 = v203;
+                    v413 = v204;
 
-                    UserGraph.moveEdges(from:to:)(&v266, v413);
+                    UserGraph.moveEdges(from:to:)(&v264, v411);
 
-                    v206 = *(v192 + 16);
-                    if (!v206)
+                    v205 = *(v191 + 16);
+                    if (!v205)
                     {
                       goto LABEL_215;
                     }
 
-                    v207 = *(v240 + 16);
-                    outlined init with copy of [Input](&v392, &v248, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    v206 = *(v238 + 16);
+                    outlined init with copy of [Input](&v390, &v246, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
 
-                    outlined init with copy of [Input](&v392, &v248, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    v228 = v192;
-                    v229 = v207;
-                    if (!v207)
+                    outlined init with copy of [Input](&v390, &v246, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    v226 = v191;
+                    v227 = v206;
+                    if (!v206)
                     {
-                      v209 = v426;
+                      v208 = v424;
 LABEL_202:
-                      v426 = v209;
+                      v424 = v208;
 
-                      v312 = v290;
-                      outlined destroy of String(&v312);
-                      outlined destroy of SGDataTypeStorage(&v252);
+                      v310 = v288;
+                      outlined destroy of String(&v310);
+                      outlined destroy of SGDataTypeStorage(&v250);
 
-                      outlined destroy of [Input](&v392, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      v383 = v272;
-                      outlined destroy of NodePersonality(&v383);
-                      outlined destroy of [Input](&v392, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v391, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      outlined destroy of [Input](&v390, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      v381 = v270;
+                      outlined destroy of NodePersonality(&v381);
+                      outlined destroy of [Input](&v390, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v389, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                      v376 = v286;
-                      outlined destroy of String(&v376);
+                      v374 = v284;
+                      outlined destroy of String(&v374);
 
-                      v382 = v267;
-                      outlined destroy of String(&v382);
-                      outlined destroy of NodePersonality(&v316);
-                      v353 = v235;
-                      outlined destroy of [Input](&v353, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      v354 = v193;
-                      outlined destroy of [Input](&v354, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v380 = v265;
+                      outlined destroy of String(&v380);
+                      outlined destroy of NodePersonality(&v314);
+                      v351 = v233;
+                      outlined destroy of [Input](&v351, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      v352 = v192;
+                      outlined destroy of [Input](&v352, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                      v238(v237, v241);
+                      v236(v235, v239);
                       swift_unknownObjectRelease();
                     }
 
                     v146 = 0;
-                    v230 = (v206 - 1);
-                    v208 = v192 + 104;
-                    v209 = v426;
-                    while (v146 < *(v240 + 16))
+                    v228 = (v205 - 1);
+                    v207 = v191 + 104;
+                    v208 = v424;
+                    while (v146 < *(v238 + 16))
                     {
-                      if (v230 == v146)
+                      if (v228 == v146)
                       {
                         goto LABEL_202;
                       }
 
-                      v210 = *(v240 + 8 * v146 + 32);
-                      v211 = *v208;
-                      v411[0] = *(v208 - 16);
-                      v411[1] = v211;
-                      v411[2] = *(v208 + 16);
-                      v212 = v208;
-                      v412 = *(v208 + 32);
-                      v213 = *(&v411[0] + 1);
-                      v425[0] = v211;
+                      v209 = *(v238 + 8 * v146 + 32);
+                      v210 = *v207;
+                      v409[0] = *(v207 - 16);
+                      v409[1] = v210;
+                      v409[2] = *(v207 + 16);
+                      v211 = v207;
+                      v410 = *(v207 + 32);
+                      v212 = *(&v409[0] + 1);
+                      v423[0] = v210;
 
-                      outlined init with copy of String(v425, &v248);
-                      v214 = constantFunction(for:)(v210);
-                      v426 = v215;
-                      v239 = v213;
-                      if (v215)
+                      outlined init with copy of String(v423, &v246);
+                      v213 = constantFunction(for:)(v209);
+                      v424 = v214;
+                      v237 = v212;
+                      if (v214)
                       {
                         goto LABEL_205;
                       }
 
-                      v236 = v146;
+                      v234 = v146;
                       if (one-time initialization token for int32 != -1)
                       {
                         swift_once();
                       }
 
-                      v216 = static MetalDataType.int32;
+                      v215 = static MetalDataType.int32;
+                      v216 = swift_allocObject();
+                      *(v216 + 16) = *&v232[8];
+                      *(v216 + 32) = 7632239;
+                      *(v216 + 40) = 0xE300000000000000;
+                      *(v216 + 48) = v215;
                       v217 = swift_allocObject();
-                      *(v217 + 16) = *&v234[8];
-                      *(v217 + 32) = 7632239;
-                      *(v217 + 40) = 0xE300000000000000;
-                      *(v217 + 48) = v216;
-                      v218 = swift_allocObject();
-                      *(v218 + 16) = v214;
-                      *(v218 + 32) = v216;
+                      *(v217 + 16) = v213;
+                      *(v217 + 32) = v215;
                       swift_retain_n();
-                      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v217, v218 | 0x2000000000000000, &v274);
+                      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v216, v217 | 0x2000000000000000, &v272);
 
                       swift_setDeallocating();
-                      v219 = *(v217 + 16);
                       swift_arrayDestroy();
                       swift_deallocClassInstance();
-                      v390 = *&v275[0];
-                      specialized ShaderGraphNode.output(labeled:)(&v276, 7632239, 0xE300000000000000, *&v275[0]);
-                      if (!v277)
+                      v388 = v273[0];
+                      specialized ShaderGraphNode.output(labeled:)(&v274, 7632239, 0xE300000000000000, v273[0]);
+                      if (!v275)
                       {
-                        v244 = 0;
-                        v245 = 0xE000000000000000;
+                        v242 = 0;
+                        v243 = 0xE000000000000000;
                         MEMORY[0x266771550](7632239, 0xE300000000000000);
                         MEMORY[0x266771550](32, 0xE100000000000000);
-                        v248 = v274;
-                        v249[0] = v275[0];
-                        *(v249 + 9) = *(v275 + 9);
+                        v246 = v272;
+                        v247[0] = *v273;
+                        *(v247 + 9) = *(&v273[1] + 1);
                         _print_unlocked<A, B>(_:_:)();
-                        v220 = v244;
-                        v221 = v245;
+                        v218 = v242;
+                        v219 = v243;
                         lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
-                        v222 = swift_allocError();
-                        *v223 = 14;
-                        *(v223 + 8) = v220;
-                        *(v223 + 16) = v221;
-                        v426 = v222;
+                        v220 = swift_allocError();
+                        *v221 = 14;
+                        *(v221 + 8) = v218;
+                        *(v221 + 16) = v219;
+                        v424 = v220;
                         swift_willThrow();
-                        v389 = v274;
-                        outlined destroy of NodePersonality(&v389);
-                        v388 = *(&v274 + 1);
-                        outlined destroy of [Input](&v388, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                        outlined destroy of [Input](&v390, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-LABEL_205:
-
-                        v313 = v290;
-                        outlined destroy of String(&v313);
-
-                        outlined destroy of [Input](&v392, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
                         v387 = v272;
                         outlined destroy of NodePersonality(&v387);
-                        outlined destroy of [Input](&v392, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                        outlined destroy of [Input](&v391, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                        v386 = *(&v272 + 1);
+                        outlined destroy of [Input](&v386, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                        outlined destroy of [Input](&v388, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+LABEL_205:
 
-                        v377 = v286;
-                        outlined destroy of String(&v377);
+                        v311 = v288;
+                        outlined destroy of String(&v311);
 
-                        v386 = v267;
-                        outlined destroy of String(&v386);
-                        outlined destroy of NodePersonality(&v316);
-                        v355 = v235;
-                        outlined destroy of [Input](&v355, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                        v356 = v232;
-                        outlined destroy of [Input](&v356, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                        outlined destroy of [Input](&v390, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                        v385 = v270;
+                        outlined destroy of NodePersonality(&v385);
+                        outlined destroy of [Input](&v390, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                        outlined destroy of [Input](&v389, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                        outlined destroy of SGDataTypeStorage(&v252);
+                        v375 = v284;
+                        outlined destroy of String(&v375);
 
-                        outlined destroy of String(v425);
-                        v238(v237, v241);
+                        v384 = v265;
+                        outlined destroy of String(&v384);
+                        outlined destroy of NodePersonality(&v314);
+                        v353 = v233;
+                        outlined destroy of [Input](&v353, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                        v354 = v230;
+                        outlined destroy of [Input](&v354, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+                        outlined destroy of SGDataTypeStorage(&v250);
+
+                        outlined destroy of String(v423);
+                        v236(v235, v239);
                         swift_unknownObjectRelease();
                       }
 
-                      v146 = (v236 + 1);
-                      v281[0] = v276;
-                      v281[1] = v277;
+                      v146 = (v234 + 1);
+                      v279[0] = v274;
+                      v279[1] = v275;
+                      v280 = v276;
+                      v281 = v277;
                       v282 = v278;
-                      v283 = v279;
-                      v284 = v280;
-                      UserGraph.connect(_:to:)(v281, v411);
+                      UserGraph.connect(_:to:)(v279, v409);
 
-                      v380 = v282;
-                      outlined destroy of String(&v380);
-                      v385 = v274;
-                      outlined destroy of NodePersonality(&v385);
-                      v384 = *(&v274 + 1);
-                      outlined destroy of [Input](&v384, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v390, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v378 = v280;
+                      outlined destroy of String(&v378);
+                      v383 = v272;
+                      outlined destroy of NodePersonality(&v383);
+                      v382 = *(&v272 + 1);
+                      outlined destroy of [Input](&v382, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v388, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                      outlined destroy of String(v425);
-                      v208 = v212 + 56;
-                      v193 = v232;
-                      v209 = v426;
-                      if (v229 == v146)
+                      outlined destroy of String(v423);
+                      v207 = v211 + 56;
+                      v192 = v230;
+                      v208 = v424;
+                      if (v227 == v146)
                       {
                         goto LABEL_202;
                       }
@@ -3768,52 +1493,52 @@ LABEL_169:
                   if (!v146)
                   {
 
-                    outlined destroy of SGDataTypeStorage(&v252);
+                    outlined destroy of SGDataTypeStorage(&v250);
 
 LABEL_208:
 
-                    v244 = 0;
-                    v245 = 0xE000000000000000;
-                    v248 = v266;
-                    v249[0] = v267;
-                    v249[1] = v268;
-                    *&v250 = v269;
+                    v242 = 0;
+                    v243 = 0xE000000000000000;
+                    v246 = v264;
+                    v247[0] = v265;
+                    v247[1] = v266;
+                    *&v248 = v267;
                     _print_unlocked<A, B>(_:_:)();
                     MEMORY[0x266771550](32, 0xE100000000000000);
-                    v248 = v419;
-                    v249[0] = v420[0];
-                    *(v249 + 9) = *(v420 + 9);
+                    v246 = v417;
+                    v247[0] = v418[0];
+                    *(v247 + 9) = *(v418 + 9);
                     _print_unlocked<A, B>(_:_:)();
-                    v224 = v244;
-                    v225 = v245;
+                    v222 = v242;
+                    v223 = v243;
                     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                     swift_allocError();
-                    *v226 = 43;
-                    *(v226 + 8) = v224;
-                    *(v226 + 16) = v225;
+                    *v224 = 43;
+                    *(v224 + 8) = v222;
+                    *(v224 + 16) = v223;
                     swift_willThrow();
 
-                    v311 = v290;
-                    outlined destroy of String(&v311);
+                    v309 = v288;
+                    outlined destroy of String(&v309);
 
-                    v375 = v286;
-                    outlined destroy of String(&v375);
+                    v373 = v284;
+                    outlined destroy of String(&v373);
 
-                    v394 = v267;
-                    outlined destroy of String(&v394);
-                    outlined destroy of NodePersonality(&v316);
-                    v351 = v235;
-                    outlined destroy of [Input](&v351, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    v352 = v232;
-                    v128 = &v352;
+                    v392 = v265;
+                    outlined destroy of String(&v392);
+                    outlined destroy of NodePersonality(&v314);
+                    v349 = v233;
+                    outlined destroy of [Input](&v349, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    v350 = v230;
+                    v127 = &v350;
                     goto LABEL_209;
                   }
 
-                  v171 = MetalDataType.isEqual(to:)();
+                  v171 = MetalDataType.isEqual(to:)(v146);
 
                   if ((v171 & 1) == 0)
                   {
-                    outlined destroy of SGDataTypeStorage(&v252);
+                    outlined destroy of SGDataTypeStorage(&v250);
 
                     goto LABEL_208;
                   }
@@ -3824,41 +1549,41 @@ LABEL_172:
                   MEMORY[0x266771550](v167, v168);
                   v147 = 4;
 LABEL_173:
-                  v59 = v241;
-                  v85 = v233;
-                  v30 = 7632239;
+                  v58 = v239;
+                  v84 = v231;
+                  v29 = 7632239;
                 }
 
-                v244 = MEMORY[0x277D84F90];
+                v242 = MEMORY[0x277D84F90];
 
                 specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v146, 0);
                 v174 = 0;
-                v175 = v244;
-                v239 = *(v173 + 16);
-                v236 = v146;
-                while (v239 != v174)
+                v175 = v242;
+                v237 = *(v173 + 16);
+                v234 = v146;
+                while (v237 != v174)
                 {
-                  *&v248 = 0x5F7865646E69;
-                  *(&v248 + 1) = 0xE600000000000000;
-                  v243 = v174;
+                  *&v246 = 0x5F7865646E69;
+                  *(&v246 + 1) = 0xE600000000000000;
+                  v241 = v174;
                   v176 = dispatch thunk of CustomStringConvertible.description.getter();
                   MEMORY[0x266771550](v176);
 
-                  v177 = v248;
+                  v177 = v246;
                   if (one-time initialization token for int32 != -1)
                   {
                     swift_once();
                   }
 
                   v178 = static MetalDataType.int32;
-                  v244 = v175;
+                  v242 = v175;
                   v180 = *(v175 + 16);
                   v179 = *(v175 + 24);
 
                   if (v180 >= v179 >> 1)
                   {
                     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v179 > 1), v180 + 1, 1);
-                    v175 = v244;
+                    v175 = v242;
                   }
 
                   ++v174;
@@ -3866,12 +1591,12 @@ LABEL_173:
                   v181 = v175 + 24 * v180;
                   *(v181 + 32) = v177;
                   *(v181 + 48) = v178;
-                  v146 = v236;
-                  v30 = 7632239;
-                  if (v236 == v174)
+                  v146 = v234;
+                  v29 = 7632239;
+                  if (v234 == v174)
                   {
 
-                    v85 = v233;
+                    v84 = v231;
                     goto LABEL_188;
                   }
                 }
@@ -3904,7 +1629,7 @@ LABEL_142:
                 }
               }
 
-              v158 = MetalDataType.isEqual(to:)();
+              v158 = MetalDataType.isEqual(to:)(v146);
 
               if (v158)
               {
@@ -3934,7 +1659,7 @@ LABEL_147:
                 }
               }
 
-              v160 = MetalDataType.isEqual(to:)();
+              v160 = MetalDataType.isEqual(to:)(v146);
 
               if (v160)
               {
@@ -3964,7 +1689,7 @@ LABEL_152:
                 }
               }
 
-              v162 = MetalDataType.isEqual(to:)();
+              v162 = MetalDataType.isEqual(to:)(v146);
 
               if (v162)
               {
@@ -3997,7 +1722,7 @@ LABEL_157:
                 }
               }
 
-              v166 = MetalDataType.isEqual(to:)();
+              v166 = MetalDataType.isEqual(to:)(v146);
 
               if (v166)
               {
@@ -4027,7 +1752,7 @@ LABEL_162:
                 }
               }
 
-              v170 = MetalDataType.isEqual(to:)();
+              v170 = MetalDataType.isEqual(to:)(v146);
 
               if (v170)
               {
@@ -4046,29 +1771,29 @@ LABEL_168:
               goto LABEL_169;
             }
 
-            outlined destroy of SGDataTypeStorage(&v252);
+            outlined destroy of SGDataTypeStorage(&v250);
           }
 
           else
           {
 
-            outlined destroy of SGDataTypeStorage(&v252);
+            outlined destroy of SGDataTypeStorage(&v250);
           }
 
-          v244 = 0;
-          v245 = 0xE000000000000000;
-          v248 = v285;
-          v249[0] = v286;
-          v249[1] = v287;
-          *&v250 = v288;
+          v242 = 0;
+          v243 = 0xE000000000000000;
+          v246 = v283;
+          v247[0] = v284;
+          v247[1] = v285;
+          *&v248 = v286;
           _print_unlocked<A, B>(_:_:)();
           MEMORY[0x266771550](32, 0xE100000000000000);
-          v248 = v419;
-          v249[0] = v420[0];
-          *(v249 + 9) = *(v420 + 9);
+          v246 = v417;
+          v247[0] = v418[0];
+          *(v247 + 9) = *(v418 + 9);
           _print_unlocked<A, B>(_:_:)();
-          v150 = v244;
-          v151 = v245;
+          v150 = v242;
+          v151 = v243;
           lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
           swift_allocError();
           *v152 = 42;
@@ -4076,28 +1801,28 @@ LABEL_168:
           *(v152 + 16) = v151;
           swift_willThrow();
 
-          v310 = v290;
-          outlined destroy of String(&v310);
+          v308 = v288;
+          outlined destroy of String(&v308);
 
-          v374 = v286;
-          outlined destroy of String(&v374);
+          v372 = v284;
+          outlined destroy of String(&v372);
 
-          v405 = v267;
-          outlined destroy of String(&v405);
-          outlined destroy of NodePersonality(&v316);
-          v349 = v235;
-          outlined destroy of [Input](&v349, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v350 = v232;
-          outlined destroy of [Input](&v350, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          v403 = v265;
+          outlined destroy of String(&v403);
+          outlined destroy of NodePersonality(&v314);
+          v347 = v233;
+          outlined destroy of [Input](&v347, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v348 = v230;
+          outlined destroy of [Input](&v348, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 LABEL_210:
 
-          outlined destroy of SGDataTypeStorage(&v252);
-          return v238(v237, v241);
+          outlined destroy of SGDataTypeStorage(&v250);
+          return v236(v235, v239);
         }
 
 LABEL_50:
         swift_once();
-        if (!v70)
+        if (!v69)
         {
           goto LABEL_51;
         }
@@ -4134,16 +1859,15 @@ double UserGraph.constantIntegerNode(for:)@<D0>(Swift::Int a1@<X0>, _OWORD *a2@<
     *(v8 + 16) = v4;
     *(v8 + 32) = v6;
     swift_retain_n();
-    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v8 | 0x2000000000000000, &v11);
+    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v8 | 0x2000000000000000, &v10);
 
     swift_setDeallocating();
-    v9 = *(inited + 16);
     swift_arrayDestroy();
-    v10 = v12[0];
-    *a2 = v11;
-    a2[1] = v10;
-    result = *(v12 + 9);
-    *(a2 + 25) = *(v12 + 9);
+    v9 = v11[0];
+    *a2 = v10;
+    a2[1] = v9;
+    result = *(v11 + 9);
+    *(a2 + 25) = *(v11 + 9);
   }
 
   return result;
@@ -4154,7 +1878,7 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
   v3 = *result;
   if (*result >> 61 == 5)
   {
-    v70 = v2;
+    v63 = v2;
     v6 = *(result + 8);
     v5 = *(result + 16);
     v7 = *(result + 24);
@@ -4163,7 +1887,7 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
     v10 = *((v3 & 0x1FFFFFFFFFFFFFFFLL) + 0x10) == 0xD000000000000022 && 0x8000000265F31100 == *((v3 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
     if (v10 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) != 0))
     {
-      v276 = a2;
+      v269 = a2;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
       v11 = swift_allocObject();
       *(v11 + 16) = xmmword_265F24130;
@@ -4172,13 +1896,13 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
         swift_once();
       }
 
-      v71 = v5;
+      v64 = v5;
       v12 = static MetalDataType.re.surface_parameters_private;
       *(v11 + 32) = 0x736D61726170;
       *(v11 + 40) = 0xE600000000000000;
       *(v11 + 48) = v12;
       v13 = one-time initialization token for color3;
-      v65 = v12;
+      v58 = v12;
 
       if (v13 != -1)
       {
@@ -4213,10 +1937,10 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
         swift_once();
       }
 
-      v66 = v8;
-      v67 = v3;
-      v68 = v7;
-      v69 = v6;
+      v59 = v8;
+      v60 = v3;
+      v61 = v7;
+      v62 = v6;
       v18 = static MetalDataType.float3;
       *(v11 + 152) = 0x6C616D726F6ELL;
       *(v11 + 160) = 0xE600000000000000;
@@ -4240,222 +1964,215 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
       *(v22 + 24) = 0x8000000265F31130;
       *(v22 + 32) = v21;
       swift_retain_n();
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v11, v19, v22 | 0x2000000000000000, &v75);
+      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v11, v19, v22 | 0x2000000000000000, &v68);
 
       swift_setDeallocating();
-      v23 = *(v19 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
       swift_setDeallocating();
-      v24 = *(v11 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      v25 = swift_allocObject();
-      *(v25 + 16) = xmmword_265F1F670;
-      *(v25 + 32) = 28265;
-      *(v25 + 40) = 0xE200000000000000;
-      *(v25 + 48) = v21;
-      v26 = swift_allocObject();
-      *(v26 + 16) = xmmword_265F1F670;
+      v23 = swift_allocObject();
+      *(v23 + 16) = xmmword_265F1F670;
+      *(v23 + 32) = 28265;
+      *(v23 + 40) = 0xE200000000000000;
+      *(v23 + 48) = v21;
+      v24 = swift_allocObject();
+      *(v24 + 16) = xmmword_265F1F670;
       if (one-time initialization token for half3 != -1)
       {
-        v64 = v26;
+        v57 = v24;
         swift_once();
-        v26 = v64;
+        v24 = v57;
       }
 
-      v27 = static MetalDataType.half3;
-      *(v26 + 32) = 7632239;
-      *(v26 + 40) = 0xE300000000000000;
-      *(v26 + 48) = v27;
-      v28 = v26;
-      v29 = swift_allocObject();
-      *(v29 + 16) = 0xD000000000000029;
-      *(v29 + 24) = 0x8000000265F31160;
-      *(v29 + 32) = v27;
+      v25 = static MetalDataType.half3;
+      *(v24 + 32) = 7632239;
+      *(v24 + 40) = 0xE300000000000000;
+      *(v24 + 48) = v25;
+      v26 = v24;
+      v27 = swift_allocObject();
+      *(v27 + 16) = 0xD000000000000029;
+      *(v27 + 24) = 0x8000000265F31160;
+      *(v27 + 32) = v25;
       swift_retain_n();
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v25, v28, v29 | 0x2000000000000000, &v77);
+      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v23, v26, v27 | 0x2000000000000000, &v70);
 
       swift_setDeallocating();
-      v30 = *(v28 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
       swift_setDeallocating();
-      v31 = *(v25 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      v32 = swift_allocObject();
-      *(v32 + 16) = xmmword_265F1F670;
-      *(v32 + 32) = 28265;
-      *(v32 + 40) = 0xE200000000000000;
-      *(v32 + 48) = v21;
-      v33 = swift_allocObject();
-      *(v33 + 16) = xmmword_265F1F670;
-      *(v33 + 32) = 7632239;
-      *(v33 + 40) = 0xE300000000000000;
-      *(v33 + 48) = v27;
-      v34 = swift_allocObject();
-      *(v34 + 16) = 0xD00000000000002ALL;
-      *(v34 + 24) = 0x8000000265F31190;
-      *(v34 + 32) = v27;
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v32, v33, v34 | 0x2000000000000000, &v79);
+      v28 = swift_allocObject();
+      *(v28 + 16) = xmmword_265F1F670;
+      *(v28 + 32) = 28265;
+      *(v28 + 40) = 0xE200000000000000;
+      *(v28 + 48) = v21;
+      v29 = swift_allocObject();
+      *(v29 + 16) = xmmword_265F1F670;
+      *(v29 + 32) = 7632239;
+      *(v29 + 40) = 0xE300000000000000;
+      *(v29 + 48) = v25;
+      v30 = swift_allocObject();
+      *(v30 + 16) = 0xD00000000000002ALL;
+      *(v30 + 24) = 0x8000000265F31190;
+      *(v30 + 32) = v25;
+      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v28, v29, v30 | 0x2000000000000000, &v72);
 
       swift_setDeallocating();
-      v35 = *(v33 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
       swift_setDeallocating();
-      v36 = *(v32 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      specialized ShaderGraphNode.output(labeled:)(&v81, 0x5265737566666964, 0xEF65636E61696461, v71);
-      if (v82)
+      specialized ShaderGraphNode.output(labeled:)(&v74, 0x5265737566666964, 0xEF65636E61696461, v64);
+      if (v75)
       {
-        v160[0] = v81;
-        v160[1] = v82;
-        v161 = v83;
-        v162 = v84;
-        v163 = v85;
-        specialized ShaderGraphNode.output(labeled:)(&v86, 0xD000000000000010, 0x8000000265F311E0, v71);
-        if (v87)
+        v153[0] = v74;
+        v153[1] = v75;
+        v154 = v76;
+        v155 = v77;
+        v156 = v78;
+        specialized ShaderGraphNode.output(labeled:)(&v79, 0xD000000000000010, 0x8000000265F311E0, v64);
+        if (v80)
         {
-          v156[0] = v86;
-          v156[1] = v87;
-          v157 = v88;
-          v158 = v89;
-          v159 = v90;
-          v257 = *&v78[0];
-          specialized ShaderGraphNode.output(labeled:)(&v91, 7632239, 0xE300000000000000, *&v78[0]);
-          if (v92)
+          v149[0] = v79;
+          v149[1] = v80;
+          v150 = v81;
+          v151 = v82;
+          v152 = v83;
+          v250 = v71[0];
+          specialized ShaderGraphNode.output(labeled:)(&v84, 7632239, 0xE300000000000000, v71[0]);
+          if (v85)
           {
-            v152[0] = v91;
-            v152[1] = v92;
-            v153 = v93;
-            v154 = v94;
-            v155 = v95;
-            UserGraph.moveEdges(from:to:)(v160, v152);
+            v145[0] = v84;
+            v145[1] = v85;
+            v146 = v86;
+            v147 = v87;
+            v148 = v88;
+            UserGraph.moveEdges(from:to:)(v153, v145);
 
-            v183 = v153;
-            outlined destroy of String(&v183);
-            v248 = *&v80[0];
-            specialized ShaderGraphNode.output(labeled:)(&v96, 7632239, 0xE300000000000000, *&v80[0]);
-            if (v97)
+            v176 = v146;
+            outlined destroy of String(&v176);
+            v241 = v73[0];
+            specialized ShaderGraphNode.output(labeled:)(&v89, 7632239, 0xE300000000000000, v73[0]);
+            if (v90)
             {
-              v148[0] = v96;
-              v148[1] = v97;
-              v149 = v98;
-              v150 = v99;
-              v151 = v100;
-              UserGraph.moveEdges(from:to:)(v156, v148);
+              v141[0] = v89;
+              v141[1] = v90;
+              v142 = v91;
+              v143 = v92;
+              v144 = v93;
+              UserGraph.moveEdges(from:to:)(v149, v141);
 
-              v184 = v149;
-              outlined destroy of String(&v184);
-              v239 = *(&v75 + 1);
-              v240 = v75;
-              v238 = *&v76[0];
-              outlined init with copy of NodePersonality(&v240, &v72);
-              outlined init with copy of [Input](&v239, &v72, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              outlined init with copy of [Input](&v238, &v72, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-              specialized Sequence.forEach(_:)(v69, &v75);
-              if (v70)
+              v177 = v142;
+              outlined destroy of String(&v177);
+              v232 = *(&v68 + 1);
+              v233 = v68;
+              v231 = *&v69[0];
+              outlined init with copy of NodePersonality(&v233, &v65);
+              outlined init with copy of [Input](&v232, &v65, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              outlined init with copy of [Input](&v231, &v65, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+              specialized Sequence.forEach(_:)(v62, &v68);
+              if (v63)
               {
-                outlined destroy of NodePersonality(&v240);
-                outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v238, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                v237 = v79;
-                outlined destroy of NodePersonality(&v237);
-                v236 = *(&v79 + 1);
-                outlined destroy of [Input](&v236, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                v235 = v77;
-                outlined destroy of NodePersonality(&v235);
-                v234 = *(&v77 + 1);
-                outlined destroy of [Input](&v234, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                outlined destroy of NodePersonality(&v233);
+                outlined destroy of [Input](&v232, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v231, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                v230 = v72;
+                outlined destroy of NodePersonality(&v230);
+                v229 = *(&v72 + 1);
+                outlined destroy of [Input](&v229, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                v228 = v70;
+                outlined destroy of NodePersonality(&v228);
+                v227 = *(&v70 + 1);
+                outlined destroy of [Input](&v227, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v250, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                v173 = v161;
-                outlined destroy of String(&v173);
-                outlined destroy of NodePersonality(&v240);
-                outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v238, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                v166 = v154;
+                outlined destroy of String(&v166);
+                outlined destroy of NodePersonality(&v233);
+                outlined destroy of [Input](&v232, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v231, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                v182 = v157;
-                return outlined destroy of String(&v182);
+                v175 = v150;
+                return outlined destroy of String(&v175);
               }
 
-              outlined destroy of NodePersonality(&v240);
-              outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              outlined destroy of [Input](&v238, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-              v46 = swift_allocObject();
-              *(v46 + 16) = xmmword_265F1F670;
-              *(v46 + 32) = 7632239;
-              *(v46 + 40) = 0xE300000000000000;
-              *(v46 + 48) = v65;
-              v47 = swift_allocObject();
-              *(v47 + 16) = 12324;
-              *(v47 + 24) = 0xE200000000000000;
+              outlined destroy of NodePersonality(&v233);
+              outlined destroy of [Input](&v232, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              outlined destroy of [Input](&v231, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+              v40 = swift_allocObject();
+              *(v40 + 16) = xmmword_265F1F670;
+              *(v40 + 32) = 7632239;
+              *(v40 + 40) = 0xE300000000000000;
+              *(v40 + 48) = v58;
+              v41 = swift_allocObject();
+              *(v41 + 16) = 12324;
+              *(v41 + 24) = 0xE200000000000000;
 
-              UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v46, v47 | 0x6000000000000000, &v101);
+              UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v40, v41 | 0x6000000000000000, &v94);
 
               swift_setDeallocating();
-              v48 = *(v46 + 16);
               swift_arrayDestroy();
               swift_deallocClassInstance();
-              v233 = *&v102[0];
-              specialized ShaderGraphNode.output(labeled:)(&v103, 7632239, 0xE300000000000000, *&v102[0]);
-              if (v104)
+              v226 = v95[0];
+              specialized ShaderGraphNode.output(labeled:)(&v96, 7632239, 0xE300000000000000, v95[0]);
+              if (v97)
               {
-                v144[0] = v103;
-                v144[1] = v104;
-                v145 = v105;
-                v146 = v106;
-                v147 = v107;
-                specialized ShaderGraphNode.output(labeled:)(&v108, 0x736D61726170, 0xE600000000000000, v239);
-                if (v109)
+                v137[0] = v96;
+                v137[1] = v97;
+                v138 = v98;
+                v139 = v99;
+                v140 = v100;
+                specialized ShaderGraphNode.output(labeled:)(&v101, 0x736D61726170, 0xE600000000000000, v232);
+                if (v102)
                 {
-                  v140[0] = v108;
-                  v140[1] = v109;
-                  v141 = v110;
-                  v142 = v111;
-                  v143 = v112;
-                  v49 = v238;
-                  v50 = v276;
-                  UserGraph.connect(_:to:)(v144, v140);
-                  specialized ShaderGraphNode.output(labeled:)(&v113, 7632239, 0xE300000000000000, v49);
-                  if (v114)
+                  v133[0] = v101;
+                  v133[1] = v102;
+                  v134 = v103;
+                  v135 = v104;
+                  v136 = v105;
+                  v42 = v231;
+                  v43 = v269;
+                  UserGraph.connect(_:to:)(v137, v133);
+                  specialized ShaderGraphNode.output(labeled:)(&v106, 7632239, 0xE300000000000000, v42);
+                  if (v107)
                   {
-                    v136[0] = v113;
-                    v136[1] = v114;
-                    v137 = v115;
-                    v138 = v116;
-                    v139 = v117;
-                    v214 = *(&v77 + 1);
-                    specialized ShaderGraphNode.output(labeled:)(&v118, 28265, 0xE200000000000000, *(&v77 + 1));
-                    if (v119)
+                    v129[0] = v106;
+                    v129[1] = v107;
+                    v130 = v108;
+                    v131 = v109;
+                    v132 = v110;
+                    v207 = *(&v70 + 1);
+                    specialized ShaderGraphNode.output(labeled:)(&v111, 28265, 0xE200000000000000, *(&v70 + 1));
+                    if (v112)
                     {
-                      v132[0] = v118;
-                      v132[1] = v119;
-                      v133 = v120;
-                      v134 = v121;
-                      v135 = v122;
-                      v208 = *(&v79 + 1);
-                      specialized ShaderGraphNode.output(labeled:)(&v123, 28265, 0xE200000000000000, *(&v79 + 1));
-                      if (v124)
+                      v125[0] = v111;
+                      v125[1] = v112;
+                      v126 = v113;
+                      v127 = v114;
+                      v128 = v115;
+                      v201 = *(&v72 + 1);
+                      specialized ShaderGraphNode.output(labeled:)(&v116, 28265, 0xE200000000000000, *(&v72 + 1));
+                      if (v117)
                       {
-                        v128[0] = v123;
-                        v128[1] = v124;
-                        v129 = v125;
-                        v130 = v126;
-                        v131 = v127;
-                        UserGraph.connect(_:to:)(v136, v132);
-                        UserGraph.connect(_:to:)(v136, v128);
-                        specialized UserGraph.removeEdges(connectedTo:)(v68);
-                        v51 = *(v50 + 64);
+                        v121[0] = v116;
+                        v121[1] = v117;
+                        v122 = v118;
+                        v123 = v119;
+                        v124 = v120;
+                        UserGraph.connect(_:to:)(v129, v125);
+                        UserGraph.connect(_:to:)(v129, v121);
+                        specialized UserGraph.removeEdges(connectedTo:)(v61);
+                        v44 = *(v43 + 64);
                         result = swift_isUniquelyReferenced_nonNull_native();
-                        *(v50 + 64) = v51;
+                        *(v43 + 64) = v44;
                         if (result)
                         {
-                          if ((v68 & 0x8000000000000000) == 0)
+                          if ((v61 & 0x8000000000000000) == 0)
                           {
                             goto LABEL_37;
                           }
@@ -4463,52 +2180,52 @@ uint64_t closure #1 in UserGraph.resolveEnvironmentRadianceNode()(uint64_t resul
 
                         else
                         {
-                          result = specialized _ArrayBuffer._consumeAndCreateNew()(v51);
-                          v51 = result;
-                          *(v50 + 64) = result;
-                          if ((v68 & 0x8000000000000000) == 0)
+                          result = specialized _ArrayBuffer._consumeAndCreateNew()(v44);
+                          v44 = result;
+                          *(v43 + 64) = result;
+                          if ((v61 & 0x8000000000000000) == 0)
                           {
 LABEL_37:
-                            if (v68 < *(v51 + 16))
+                            if (v61 < *(v44 + 16))
                             {
                               ShaderGraphNode.update(id:)(-7);
-                              v203 = v79;
-                              outlined destroy of NodePersonality(&v203);
-                              outlined destroy of [Input](&v208, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                              outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                              v202 = v77;
-                              outlined destroy of NodePersonality(&v202);
-                              outlined destroy of [Input](&v214, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                              outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                              outlined destroy of NodePersonality(&v240);
-                              outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                              outlined destroy of [Input](&v238, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                              v196 = v72;
+                              outlined destroy of NodePersonality(&v196);
+                              outlined destroy of [Input](&v201, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                              outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                              v195 = v70;
+                              outlined destroy of NodePersonality(&v195);
+                              outlined destroy of [Input](&v207, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                              outlined destroy of [Input](&v250, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                              outlined destroy of NodePersonality(&v233);
+                              outlined destroy of [Input](&v232, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                              outlined destroy of [Input](&v231, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                              v172 = v161;
-                              outlined destroy of String(&v172);
+                              v165 = v154;
+                              outlined destroy of String(&v165);
 
-                              v181 = v157;
-                              outlined destroy of String(&v181);
+                              v174 = v150;
+                              outlined destroy of String(&v174);
 
-                              v185 = v145;
-                              outlined destroy of String(&v185);
+                              v178 = v138;
+                              outlined destroy of String(&v178);
 
-                              v193 = v141;
-                              outlined destroy of String(&v193);
+                              v186 = v134;
+                              outlined destroy of String(&v186);
 
-                              v194 = v137;
-                              outlined destroy of String(&v194);
+                              v187 = v130;
+                              outlined destroy of String(&v187);
 
-                              v198 = v133;
-                              outlined destroy of String(&v198);
+                              v191 = v126;
+                              outlined destroy of String(&v191);
 
-                              v199 = v129;
-                              outlined destroy of String(&v199);
-                              v201 = v101;
-                              outlined destroy of NodePersonality(&v201);
-                              v200 = *(&v101 + 1);
-                              outlined destroy of [Input](&v200, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                              return outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                              v192 = v122;
+                              outlined destroy of String(&v192);
+                              v194 = v94;
+                              outlined destroy of NodePersonality(&v194);
+                              v193 = *(&v94 + 1);
+                              outlined destroy of [Input](&v193, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                              return outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
                             }
 
                             goto LABEL_50;
@@ -4521,405 +2238,405 @@ LABEL_50:
                         return result;
                       }
 
-                      *&v74 = 0;
-                      *(&v74 + 1) = 0xE000000000000000;
+                      *&v67 = 0;
+                      *(&v67 + 1) = 0xE000000000000000;
                       MEMORY[0x266771550](2125417, 0xE300000000000000);
-                      v72 = v79;
-                      *v73 = v80[0];
-                      *&v73[9] = *(v80 + 9);
+                      v65 = v72;
+                      *v66 = *v73;
+                      *&v66[9] = *(&v73[1] + 1);
                       _print_unlocked<A, B>(_:_:)();
-                      v62 = v74;
+                      v55 = v67;
                       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                       swift_allocError();
-                      *v63 = 11;
-                      *(v63 + 8) = v62;
+                      *v56 = 11;
+                      *(v56 + 8) = v55;
                       swift_willThrow();
 
-                      v197 = v133;
-                      outlined destroy of String(&v197);
+                      v190 = v126;
+                      outlined destroy of String(&v190);
 
-                      v195 = v137;
-                      outlined destroy of String(&v195);
+                      v188 = v130;
+                      outlined destroy of String(&v188);
 
-                      v192 = v141;
-                      outlined destroy of String(&v192);
+                      v185 = v134;
+                      outlined destroy of String(&v185);
 
-                      v186 = v145;
-                      outlined destroy of String(&v186);
-                      v207 = v101;
-                      outlined destroy of NodePersonality(&v207);
-                      v206 = *(&v101 + 1);
-                      outlined destroy of [Input](&v206, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v179 = v138;
+                      outlined destroy of String(&v179);
+                      v200 = v94;
+                      outlined destroy of NodePersonality(&v200);
+                      v199 = *(&v94 + 1);
+                      outlined destroy of [Input](&v199, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                      v180 = v157;
-                      outlined destroy of String(&v180);
+                      v173 = v150;
+                      outlined destroy of String(&v173);
 
-                      v171 = v161;
-                      outlined destroy of String(&v171);
-                      v205 = v79;
-                      outlined destroy of NodePersonality(&v205);
-                      outlined destroy of [Input](&v208, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                      v204 = v77;
-                      v61 = &v204;
+                      v164 = v154;
+                      outlined destroy of String(&v164);
+                      v198 = v72;
+                      outlined destroy of NodePersonality(&v198);
+                      outlined destroy of [Input](&v201, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v197 = v70;
+                      v54 = &v197;
                     }
 
                     else
                     {
-                      *&v74 = 0;
-                      *(&v74 + 1) = 0xE000000000000000;
+                      *&v67 = 0;
+                      *(&v67 + 1) = 0xE000000000000000;
                       MEMORY[0x266771550](2125417, 0xE300000000000000);
-                      v72 = v77;
-                      *v73 = v78[0];
-                      *&v73[9] = *(v78 + 9);
+                      v65 = v70;
+                      *v66 = *v71;
+                      *&v66[9] = *(&v71[1] + 1);
                       _print_unlocked<A, B>(_:_:)();
-                      v59 = v74;
+                      v52 = v67;
                       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                       swift_allocError();
-                      *v60 = 11;
-                      *(v60 + 8) = v59;
+                      *v53 = 11;
+                      *(v53 + 8) = v52;
                       swift_willThrow();
 
-                      v196 = v137;
-                      outlined destroy of String(&v196);
+                      v189 = v130;
+                      outlined destroy of String(&v189);
 
-                      v191 = v141;
-                      outlined destroy of String(&v191);
+                      v184 = v134;
+                      outlined destroy of String(&v184);
 
-                      v187 = v145;
-                      outlined destroy of String(&v187);
-                      v213 = v101;
-                      outlined destroy of NodePersonality(&v213);
-                      v212 = *(&v101 + 1);
-                      outlined destroy of [Input](&v212, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v180 = v138;
+                      outlined destroy of String(&v180);
+                      v206 = v94;
+                      outlined destroy of NodePersonality(&v206);
+                      v205 = *(&v94 + 1);
+                      outlined destroy of [Input](&v205, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                      v179 = v157;
-                      outlined destroy of String(&v179);
+                      v172 = v150;
+                      outlined destroy of String(&v172);
 
-                      v170 = v161;
-                      outlined destroy of String(&v170);
-                      v211 = v79;
-                      outlined destroy of NodePersonality(&v211);
-                      v210 = *(&v79 + 1);
-                      outlined destroy of [Input](&v210, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                      outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                      v209 = v77;
-                      v61 = &v209;
+                      v163 = v154;
+                      outlined destroy of String(&v163);
+                      v204 = v72;
+                      outlined destroy of NodePersonality(&v204);
+                      v203 = *(&v72 + 1);
+                      outlined destroy of [Input](&v203, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                      outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                      v202 = v70;
+                      v54 = &v202;
                     }
 
-                    outlined destroy of NodePersonality(v61);
-                    v54 = &v214;
+                    outlined destroy of NodePersonality(v54);
+                    v47 = &v207;
                   }
 
                   else
                   {
-                    *&v74 = 0;
-                    *(&v74 + 1) = 0xE000000000000000;
+                    *&v67 = 0;
+                    *(&v67 + 1) = 0xE000000000000000;
                     MEMORY[0x266771550](7632239, 0xE300000000000000);
                     MEMORY[0x266771550](32, 0xE100000000000000);
-                    v72 = v75;
-                    *v73 = v76[0];
-                    *&v73[9] = *(v76 + 9);
+                    v65 = v68;
+                    *v66 = v69[0];
+                    *&v66[9] = *(v69 + 9);
                     _print_unlocked<A, B>(_:_:)();
-                    v57 = v74;
+                    v50 = v67;
                     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                     swift_allocError();
-                    *v58 = 14;
-                    *(v58 + 8) = v57;
+                    *v51 = 14;
+                    *(v51 + 8) = v50;
                     swift_willThrow();
 
-                    v190 = v141;
-                    outlined destroy of String(&v190);
+                    v183 = v134;
+                    outlined destroy of String(&v183);
 
-                    v188 = v145;
-                    outlined destroy of String(&v188);
-                    v220 = v101;
-                    outlined destroy of NodePersonality(&v220);
-                    v219 = *(&v101 + 1);
-                    outlined destroy of [Input](&v219, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                    v181 = v138;
+                    outlined destroy of String(&v181);
+                    v213 = v94;
+                    outlined destroy of NodePersonality(&v213);
+                    v212 = *(&v94 + 1);
+                    outlined destroy of [Input](&v212, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                    v178 = v157;
-                    outlined destroy of String(&v178);
+                    v171 = v150;
+                    outlined destroy of String(&v171);
 
-                    v169 = v161;
-                    outlined destroy of String(&v169);
-                    v218 = v79;
-                    outlined destroy of NodePersonality(&v218);
-                    v217 = *(&v79 + 1);
-                    outlined destroy of [Input](&v217, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                    v216 = v77;
-                    outlined destroy of NodePersonality(&v216);
-                    v215 = *(&v77 + 1);
-                    v54 = &v215;
+                    v162 = v154;
+                    outlined destroy of String(&v162);
+                    v211 = v72;
+                    outlined destroy of NodePersonality(&v211);
+                    v210 = *(&v72 + 1);
+                    outlined destroy of [Input](&v210, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                    v209 = v70;
+                    outlined destroy of NodePersonality(&v209);
+                    v208 = *(&v70 + 1);
+                    v47 = &v208;
                   }
                 }
 
                 else
                 {
-                  *&v74 = 0;
-                  *(&v74 + 1) = 0xE000000000000000;
+                  *&v67 = 0;
+                  *(&v67 + 1) = 0xE000000000000000;
                   MEMORY[0x266771550](0x20736D61726170, 0xE700000000000000);
-                  v72 = v75;
-                  *v73 = v76[0];
-                  *&v73[9] = *(v76 + 9);
+                  v65 = v68;
+                  *v66 = v69[0];
+                  *&v66[9] = *(v69 + 9);
                   _print_unlocked<A, B>(_:_:)();
-                  v55 = v74;
+                  v48 = v67;
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v56 = 11;
-                  *(v56 + 8) = v55;
+                  *v49 = 11;
+                  *(v49 + 8) = v48;
                   swift_willThrow();
 
-                  v189 = v145;
-                  outlined destroy of String(&v189);
-                  v226 = v101;
-                  outlined destroy of NodePersonality(&v226);
-                  v225 = *(&v101 + 1);
-                  outlined destroy of [Input](&v225, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                  outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                  v182 = v138;
+                  outlined destroy of String(&v182);
+                  v219 = v94;
+                  outlined destroy of NodePersonality(&v219);
+                  v218 = *(&v94 + 1);
+                  outlined destroy of [Input](&v218, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                  outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                  v177 = v157;
-                  outlined destroy of String(&v177);
+                  v170 = v150;
+                  outlined destroy of String(&v170);
 
-                  v168 = v161;
-                  outlined destroy of String(&v168);
-                  v224 = v79;
-                  outlined destroy of NodePersonality(&v224);
-                  v223 = *(&v79 + 1);
-                  outlined destroy of [Input](&v223, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                  outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                  v222 = v77;
-                  outlined destroy of NodePersonality(&v222);
-                  v221 = *(&v77 + 1);
-                  v54 = &v221;
+                  v161 = v154;
+                  outlined destroy of String(&v161);
+                  v217 = v72;
+                  outlined destroy of NodePersonality(&v217);
+                  v216 = *(&v72 + 1);
+                  outlined destroy of [Input](&v216, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                  outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                  v215 = v70;
+                  outlined destroy of NodePersonality(&v215);
+                  v214 = *(&v70 + 1);
+                  v47 = &v214;
                 }
               }
 
               else
               {
-                *&v74 = 0;
-                *(&v74 + 1) = 0xE000000000000000;
+                *&v67 = 0;
+                *(&v67 + 1) = 0xE000000000000000;
                 MEMORY[0x266771550](7632239, 0xE300000000000000);
                 MEMORY[0x266771550](32, 0xE100000000000000);
-                v72 = v101;
-                *v73 = v102[0];
-                *&v73[9] = *(v102 + 9);
+                v65 = v94;
+                *v66 = *v95;
+                *&v66[9] = *(&v95[1] + 1);
                 _print_unlocked<A, B>(_:_:)();
 
-                *&v74 = 0;
-                *(&v74 + 1) = 0xE000000000000000;
+                *&v67 = 0;
+                *(&v67 + 1) = 0xE000000000000000;
                 MEMORY[0x266771550](544503151, 0xE400000000000000);
-                v72 = v101;
-                *v73 = v102[0];
-                *&v73[9] = *(v102 + 9);
+                v65 = v94;
+                *v66 = *v95;
+                *&v66[9] = *(&v95[1] + 1);
                 _print_unlocked<A, B>(_:_:)();
-                v52 = v74;
+                v45 = v67;
                 lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                 swift_allocError();
-                *v53 = 14;
-                *(v53 + 8) = v52;
+                *v46 = 14;
+                *(v46 + 8) = v45;
                 swift_willThrow();
-                v232 = v101;
-                outlined destroy of NodePersonality(&v232);
-                v231 = *(&v101 + 1);
-                outlined destroy of [Input](&v231, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v233, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                v225 = v94;
+                outlined destroy of NodePersonality(&v225);
+                v224 = *(&v94 + 1);
+                outlined destroy of [Input](&v224, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v226, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                v176 = v157;
-                outlined destroy of String(&v176);
+                v169 = v150;
+                outlined destroy of String(&v169);
 
-                v167 = v161;
-                outlined destroy of String(&v167);
-                v230 = v79;
-                outlined destroy of NodePersonality(&v230);
-                v229 = *(&v79 + 1);
-                outlined destroy of [Input](&v229, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-                v228 = v77;
-                outlined destroy of NodePersonality(&v228);
-                v227 = *(&v77 + 1);
-                v54 = &v227;
+                v160 = v154;
+                outlined destroy of String(&v160);
+                v223 = v72;
+                outlined destroy of NodePersonality(&v223);
+                v222 = *(&v72 + 1);
+                outlined destroy of [Input](&v222, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                v221 = v70;
+                outlined destroy of NodePersonality(&v221);
+                v220 = *(&v70 + 1);
+                v47 = &v220;
               }
 
-              outlined destroy of [Input](v54, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-              outlined destroy of NodePersonality(&v240);
-              outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              v39 = &v238;
+              outlined destroy of [Input](v47, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              outlined destroy of [Input](&v250, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+              outlined destroy of NodePersonality(&v233);
+              outlined destroy of [Input](&v232, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              v33 = &v231;
             }
 
             else
             {
-              *&v74 = 0;
-              *(&v74 + 1) = 0xE000000000000000;
+              *&v67 = 0;
+              *(&v67 + 1) = 0xE000000000000000;
               MEMORY[0x266771550](7632239, 0xE300000000000000);
               MEMORY[0x266771550](32, 0xE100000000000000);
-              v72 = v79;
-              *v73 = v80[0];
-              *&v73[9] = *(v80 + 9);
+              v65 = v72;
+              *v66 = *v73;
+              *&v66[9] = *(&v73[1] + 1);
               _print_unlocked<A, B>(_:_:)();
-              v44 = v74;
+              v38 = v67;
               lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
               swift_allocError();
-              *v45 = 14;
-              *(v45 + 8) = v44;
+              *v39 = 14;
+              *(v39 + 8) = v38;
               swift_willThrow();
 
-              v175 = v157;
-              outlined destroy of String(&v175);
+              v168 = v150;
+              outlined destroy of String(&v168);
 
-              v166 = v161;
-              outlined destroy of String(&v166);
-              v247 = v79;
-              outlined destroy of NodePersonality(&v247);
-              v246 = *(&v79 + 1);
-              outlined destroy of [Input](&v246, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              outlined destroy of [Input](&v248, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-              v245 = v77;
-              outlined destroy of NodePersonality(&v245);
-              v244 = *(&v77 + 1);
-              outlined destroy of [Input](&v244, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-              v243 = v75;
-              outlined destroy of NodePersonality(&v243);
-              v242 = *(&v75 + 1);
-              outlined destroy of [Input](&v242, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-              v241 = *&v76[0];
-              v39 = &v241;
+              v159 = v154;
+              outlined destroy of String(&v159);
+              v240 = v72;
+              outlined destroy of NodePersonality(&v240);
+              v239 = *(&v72 + 1);
+              outlined destroy of [Input](&v239, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              outlined destroy of [Input](&v241, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+              v238 = v70;
+              outlined destroy of NodePersonality(&v238);
+              v237 = *(&v70 + 1);
+              outlined destroy of [Input](&v237, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              outlined destroy of [Input](&v250, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+              v236 = v68;
+              outlined destroy of NodePersonality(&v236);
+              v235 = *(&v68 + 1);
+              outlined destroy of [Input](&v235, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+              v234 = *&v69[0];
+              v33 = &v234;
             }
           }
 
           else
           {
-            *&v74 = 0;
-            *(&v74 + 1) = 0xE000000000000000;
+            *&v67 = 0;
+            *(&v67 + 1) = 0xE000000000000000;
             MEMORY[0x266771550](7632239, 0xE300000000000000);
             MEMORY[0x266771550](32, 0xE100000000000000);
-            v72 = v77;
-            *v73 = v78[0];
-            *&v73[9] = *(v78 + 9);
+            v65 = v70;
+            *v66 = *v71;
+            *&v66[9] = *(&v71[1] + 1);
             _print_unlocked<A, B>(_:_:)();
-            v42 = v74;
+            v36 = v67;
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v43 = 14;
-            *(v43 + 8) = v42;
+            *v37 = 14;
+            *(v37 + 8) = v36;
             swift_willThrow();
 
-            v174 = v157;
-            outlined destroy of String(&v174);
+            v167 = v150;
+            outlined destroy of String(&v167);
 
-            v165 = v161;
-            outlined destroy of String(&v165);
-            v256 = v79;
-            outlined destroy of NodePersonality(&v256);
-            v255 = *(&v79 + 1);
-            outlined destroy of [Input](&v255, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v254 = *&v80[0];
-            outlined destroy of [Input](&v254, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-            v253 = v77;
-            outlined destroy of NodePersonality(&v253);
-            v252 = *(&v77 + 1);
-            outlined destroy of [Input](&v252, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-            v251 = v75;
-            outlined destroy of NodePersonality(&v251);
-            v250 = *(&v75 + 1);
-            outlined destroy of [Input](&v250, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            v249 = *&v76[0];
-            v39 = &v249;
+            v158 = v154;
+            outlined destroy of String(&v158);
+            v249 = v72;
+            outlined destroy of NodePersonality(&v249);
+            v248 = *(&v72 + 1);
+            outlined destroy of [Input](&v248, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v247 = v73[0];
+            outlined destroy of [Input](&v247, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            v246 = v70;
+            outlined destroy of NodePersonality(&v246);
+            v245 = *(&v70 + 1);
+            outlined destroy of [Input](&v245, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            outlined destroy of [Input](&v250, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            v244 = v68;
+            outlined destroy of NodePersonality(&v244);
+            v243 = *(&v68 + 1);
+            outlined destroy of [Input](&v243, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            v242 = *&v69[0];
+            v33 = &v242;
           }
         }
 
         else
         {
-          *&v72 = 0;
-          *(&v72 + 1) = 0xE000000000000000;
+          *&v65 = 0;
+          *(&v65 + 1) = 0xE000000000000000;
           _StringGuts.grow(_:)(19);
-          v74 = v72;
+          v67 = v65;
           MEMORY[0x266771550](0xD000000000000011, 0x8000000265F31200);
-          *&v72 = v67;
-          *(&v72 + 1) = v69;
-          *v73 = v71;
-          *&v73[8] = v68;
-          *&v73[16] = v66;
-          v73[24] = v9;
+          *&v65 = v60;
+          *(&v65 + 1) = v62;
+          *v66 = v64;
+          *&v66[8] = v61;
+          *&v66[16] = v59;
+          v66[24] = v9;
           _print_unlocked<A, B>(_:_:)();
-          v40 = v74;
+          v34 = v67;
           lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
           swift_allocError();
-          *v41 = 14;
-          *(v41 + 8) = v40;
+          *v35 = 14;
+          *(v35 + 8) = v34;
           swift_willThrow();
 
-          v164 = v161;
-          outlined destroy of String(&v164);
-          v266 = v79;
-          outlined destroy of NodePersonality(&v266);
-          v265 = *(&v79 + 1);
-          outlined destroy of [Input](&v265, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v264 = *&v80[0];
-          outlined destroy of [Input](&v264, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-          v263 = v77;
-          outlined destroy of NodePersonality(&v263);
-          v262 = *(&v77 + 1);
-          outlined destroy of [Input](&v262, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v261 = *&v78[0];
-          outlined destroy of [Input](&v261, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-          v260 = v75;
-          outlined destroy of NodePersonality(&v260);
-          v259 = *(&v75 + 1);
-          outlined destroy of [Input](&v259, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v258 = *&v76[0];
-          v39 = &v258;
+          v157 = v154;
+          outlined destroy of String(&v157);
+          v259 = v72;
+          outlined destroy of NodePersonality(&v259);
+          v258 = *(&v72 + 1);
+          outlined destroy of [Input](&v258, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v257 = v73[0];
+          outlined destroy of [Input](&v257, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          v256 = v70;
+          outlined destroy of NodePersonality(&v256);
+          v255 = *(&v70 + 1);
+          outlined destroy of [Input](&v255, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v254 = v71[0];
+          outlined destroy of [Input](&v254, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          v253 = v68;
+          outlined destroy of NodePersonality(&v253);
+          v252 = *(&v68 + 1);
+          outlined destroy of [Input](&v252, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v251 = *&v69[0];
+          v33 = &v251;
         }
       }
 
       else
       {
-        *&v72 = 0;
-        *(&v72 + 1) = 0xE000000000000000;
+        *&v65 = 0;
+        *(&v65 + 1) = 0xE000000000000000;
         _StringGuts.grow(_:)(18);
-        v74 = v72;
+        v67 = v65;
         MEMORY[0x266771550](0xD000000000000010, 0x8000000265F311C0);
-        *&v72 = v67;
-        *(&v72 + 1) = v69;
-        *v73 = v71;
-        *&v73[8] = v68;
-        *&v73[16] = v66;
-        v73[24] = v9;
+        *&v65 = v60;
+        *(&v65 + 1) = v62;
+        *v66 = v64;
+        *&v66[8] = v61;
+        *&v66[16] = v59;
+        v66[24] = v9;
         _print_unlocked<A, B>(_:_:)();
-        v37 = v74;
+        v31 = v67;
         lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
         swift_allocError();
-        *v38 = 14;
-        *(v38 + 8) = v37;
+        *v32 = 14;
+        *(v32 + 8) = v31;
         swift_willThrow();
-        v275[0] = v79;
-        outlined destroy of NodePersonality(v275);
-        v274 = *(&v79 + 1);
-        outlined destroy of [Input](&v274, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        v273 = *&v80[0];
-        outlined destroy of [Input](&v273, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        v272 = v77;
-        outlined destroy of NodePersonality(&v272);
-        v271 = *(&v77 + 1);
-        outlined destroy of [Input](&v271, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        v270 = *&v78[0];
-        outlined destroy of [Input](&v270, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        v269 = v75;
-        outlined destroy of NodePersonality(&v269);
-        v268 = *(&v75 + 1);
-        outlined destroy of [Input](&v268, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        v267 = *&v76[0];
-        v39 = &v267;
+        v268[0] = v72;
+        outlined destroy of NodePersonality(v268);
+        v267 = *(&v72 + 1);
+        outlined destroy of [Input](&v267, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        v266 = v73[0];
+        outlined destroy of [Input](&v266, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+        v265 = v70;
+        outlined destroy of NodePersonality(&v265);
+        v264 = *(&v70 + 1);
+        outlined destroy of [Input](&v264, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        v263 = v71[0];
+        outlined destroy of [Input](&v263, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+        v262 = v68;
+        outlined destroy of NodePersonality(&v262);
+        v261 = *(&v68 + 1);
+        outlined destroy of [Input](&v261, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        v260 = *&v69[0];
+        v33 = &v260;
       }
 
-      return outlined destroy of [Input](v39, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+      return outlined destroy of [Input](v33, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
     }
   }
 
@@ -4933,7 +2650,7 @@ uint64_t swizzleFunction #1 (for:) in UserGraph.replaceMultiOutputNodes()(uint64
     swift_once();
   }
 
-  if (MetalDataType.isEqual(to:)())
+  if (MetalDataType.isEqual(to:)(a1))
   {
     return 0xD000000000000024;
   }
@@ -4943,7 +2660,7 @@ uint64_t swizzleFunction #1 (for:) in UserGraph.replaceMultiOutputNodes()(uint64
     swift_once();
   }
 
-  if (MetalDataType.isEqual(to:)())
+  if (MetalDataType.isEqual(to:)(a1))
   {
     return 0xD000000000000024;
   }
@@ -4953,7 +2670,7 @@ uint64_t swizzleFunction #1 (for:) in UserGraph.replaceMultiOutputNodes()(uint64
     swift_once();
   }
 
-  if (MetalDataType.isEqual(to:)())
+  if (MetalDataType.isEqual(to:)(a1))
   {
     return 0xD000000000000024;
   }
@@ -5006,66 +2723,66 @@ LABEL_22:
           goto LABEL_42;
         }
 
-        v67 = v15;
+        v65 = v15;
         v18 = v5[5];
         v19 = v5[6];
         v20 = v5[7];
         v21 = v5[8];
         v22 = *(v5 + 72);
         v23 = v5[10];
-        v114[0] = v5[4];
-        v114[1] = v18;
-        v114[2] = v19;
-        v114[3] = v20;
-        v114[4] = v21;
-        v115 = v22;
-        v116 = v23;
+        v112[0] = v5[4];
+        v112[1] = v18;
+        v112[2] = v19;
+        v112[3] = v20;
+        v112[4] = v21;
+        v113 = v22;
+        v114 = v23;
         v24 = *(a2 + 144);
-        v117[8] = *(a2 + 128);
-        v118[0] = v24;
-        *(v118 + 9) = *(a2 + 153);
+        v115[8] = *(a2 + 128);
+        v116[0] = v24;
+        *(v116 + 9) = *(a2 + 153);
         v25 = *(a2 + 80);
-        v117[4] = *(a2 + 64);
-        v117[5] = v25;
+        v115[4] = *(a2 + 64);
+        v115[5] = v25;
         v26 = *(a2 + 96);
-        v117[7] = *(a2 + 112);
-        v117[6] = v26;
+        v115[7] = *(a2 + 112);
+        v115[6] = v26;
         v27 = *(a2 + 32);
-        v117[3] = *(a2 + 48);
-        v117[2] = v27;
+        v115[3] = *(a2 + 48);
+        v115[2] = v27;
         v28 = *a2;
-        v117[1] = *(a2 + 16);
-        v117[0] = v28;
+        v115[1] = *(a2 + 16);
+        v115[0] = v28;
 
-        outlined init with copy of UserGraph(v117, &v69);
-        UserGraph.edge(to:)(v114, v71);
-        outlined destroy of UserGraph(v117);
-        if (!*(&v71[0] + 1))
+        outlined init with copy of UserGraph(v115, &v67);
+        UserGraph.edge(to:)(v112, v69);
+        outlined destroy of UserGraph(v115);
+        if (!*(&v69[0] + 1))
         {
         }
 
-        v68 = v17;
-        v85 = v71[0];
-        v88 = v71[3];
-        v89 = v71[4];
-        v90 = v71[5];
-        v91 = v71[6];
-        v86 = v71[1];
-        v87 = v71[2];
-        UserGraph.remove(_:)(&v85);
-        v66 = *(v6 + 16);
-        if (!v66)
+        v66 = v17;
+        v83 = v69[0];
+        v86 = v69[3];
+        v87 = v69[4];
+        v88 = v69[5];
+        v89 = v69[6];
+        v84 = v69[1];
+        v85 = v69[2];
+        UserGraph.remove(_:)(&v83);
+        v64 = *(v6 + 16);
+        if (!v64)
         {
 LABEL_40:
 
-          outlined destroy of [Input](v71, &_s11ShaderGraph4EdgeVSgMd, &_s11ShaderGraph4EdgeVSgMR);
+          outlined destroy of [Input](v69, &_s11ShaderGraph4EdgeVSgMd, &_s11ShaderGraph4EdgeVSgMR);
 LABEL_42:
         }
 
         v29 = 0;
         v5 = (v6 + 80);
-        v64 = v13;
-        v65 = v6;
+        v62 = v13;
+        v63 = v6;
         while (v29 < *(v6 + 16))
         {
           v30 = *v5;
@@ -5074,47 +2791,47 @@ LABEL_42:
           v32 = *(v5 - 2);
           v35 = *(v5 - 5);
           v34 = *(v5 - 4);
-          v102[0] = *(v5 - 6);
-          v102[1] = v35;
-          v102[2] = v34;
-          v102[3] = v33;
-          v102[4] = v32;
-          v103 = v31;
-          v104 = v30;
+          v100[0] = *(v5 - 6);
+          v100[1] = v35;
+          v100[2] = v34;
+          v100[3] = v33;
+          v100[4] = v32;
+          v101 = v31;
+          v102 = v30;
 
-          UserGraph.constantIntegerNode(for:)(v29, &v72);
-          v119 = *&v73[0];
-          specialized ShaderGraphNode.output(labeled:)(&v74, 7632239, 0xE300000000000000, *&v73[0]);
-          if (!v75)
+          UserGraph.constantIntegerNode(for:)(v29, &v70);
+          v117 = v71[0];
+          specialized ShaderGraphNode.output(labeled:)(&v72, 7632239, 0xE300000000000000, v71[0]);
+          if (!v73)
           {
             MEMORY[0x266771550](7632239, 0xE300000000000000);
             MEMORY[0x266771550](32, 0xE100000000000000);
-            v69 = v72;
-            v70[0] = v73[0];
-            *(v70 + 9) = *(v73 + 9);
+            v67 = v70;
+            v68[0] = *v71;
+            *(v68 + 9) = *(&v71[1] + 1);
             _print_unlocked<A, B>(_:_:)();
             lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
             swift_allocError();
-            *v63 = 14;
-            *(v63 + 8) = 0;
-            *(v63 + 16) = 0xE000000000000000;
+            *v61 = 14;
+            *(v61 + 8) = 0;
+            *(v61 + 16) = 0xE000000000000000;
             swift_willThrow();
-            v101 = v72;
-            outlined destroy of NodePersonality(&v101);
-            v100 = *(&v72 + 1);
-            outlined destroy of [Input](&v100, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-            outlined destroy of [Input](&v119, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+            v99 = v70;
+            outlined destroy of NodePersonality(&v99);
+            v98 = *(&v70 + 1);
+            outlined destroy of [Input](&v98, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+            outlined destroy of [Input](&v117, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-            outlined destroy of [Input](v71, &_s11ShaderGraph4EdgeVSgMd, &_s11ShaderGraph4EdgeVSgMR);
+            outlined destroy of [Input](v69, &_s11ShaderGraph4EdgeVSgMd, &_s11ShaderGraph4EdgeVSgMR);
 
             goto LABEL_42;
           }
 
-          v81[0] = v74;
-          v81[1] = v75;
+          v79[0] = v72;
+          v79[1] = v73;
+          v80 = v74;
+          v81 = v75;
           v82 = v76;
-          v83 = v77;
-          v84 = v78;
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
           v36 = swift_allocObject();
           *(v36 + 16) = xmmword_265F21D90;
@@ -5148,47 +2865,45 @@ LABEL_42:
           *(v40 + 40) = 0xE300000000000000;
           *(v40 + 48) = v42;
           a2 = swift_allocObject();
-          *(a2 + 16) = v67;
-          *(a2 + 24) = v68;
+          *(a2 + 16) = v65;
+          *(a2 + 24) = v66;
           *(a2 + 32) = v42;
           swift_retain_n();
 
-          UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v36, v40, a2 | 0x2000000000000000, &v79);
+          UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v36, v40, a2 | 0x2000000000000000, &v77);
 
           swift_setDeallocating();
-          v43 = *(v40 + 16);
           swift_arrayDestroy();
           swift_deallocClassInstance();
           swift_setDeallocating();
-          v44 = *(v36 + 16);
           swift_arrayDestroy();
           swift_deallocClassInstance();
-          v92[0] = v85;
-          v92[1] = v86;
-          v92[2] = v87;
-          v93 = v88;
-          v6 = *(&v79 + 1);
-          v99 = *(&v79 + 1);
-          if (!*(*(&v79 + 1) + 16))
+          v90[0] = v83;
+          v90[1] = v84;
+          v90[2] = v85;
+          v91 = v86;
+          v6 = *(&v77 + 1);
+          v97 = *(&v77 + 1);
+          if (!*(*(&v77 + 1) + 16))
           {
             goto LABEL_55;
           }
 
-          v45 = *(*(&v79 + 1) + 40);
-          v46 = *(*(&v79 + 1) + 48);
-          v47 = *(*(&v79 + 1) + 56);
-          v48 = *(*(&v79 + 1) + 64);
-          v49 = *(*(&v79 + 1) + 72);
-          v50 = *(*(&v79 + 1) + 80);
-          v111[0] = *(*(&v79 + 1) + 32);
-          v111[1] = v45;
-          v111[2] = v46;
-          v111[3] = v47;
-          v111[4] = v48;
-          v112 = v49;
-          v113 = v50;
+          v43 = *(*(&v77 + 1) + 40);
+          v44 = *(*(&v77 + 1) + 48);
+          v45 = *(*(&v77 + 1) + 56);
+          v46 = *(*(&v77 + 1) + 64);
+          v47 = *(*(&v77 + 1) + 72);
+          v48 = *(*(&v77 + 1) + 80);
+          v109[0] = *(*(&v77 + 1) + 32);
+          v109[1] = v43;
+          v109[2] = v44;
+          v109[3] = v45;
+          v109[4] = v46;
+          v110 = v47;
+          v111 = v48;
 
-          UserGraph.connect(_:to:)(v92, v111);
+          UserGraph.connect(_:to:)(v90, v109);
 
           if (*(v6 + 16) < 2uLL)
           {
@@ -5196,61 +2911,61 @@ LABEL_42:
           }
 
           a2 = v38;
-          v51 = *(v6 + 96);
-          v52 = *(v6 + 104);
-          v53 = *(v6 + 112);
-          v54 = *(v6 + 120);
-          v55 = *(v6 + 128);
-          v56 = *(v6 + 136);
-          v108[0] = *(v6 + 88);
-          v108[1] = v51;
-          v108[2] = v52;
-          v108[3] = v53;
-          v108[4] = v54;
-          v109 = v55;
-          v110 = v56;
+          v49 = *(v6 + 96);
+          v50 = *(v6 + 104);
+          v51 = *(v6 + 112);
+          v52 = *(v6 + 120);
+          v53 = *(v6 + 128);
+          v54 = *(v6 + 136);
+          v106[0] = *(v6 + 88);
+          v106[1] = v49;
+          v106[2] = v50;
+          v106[3] = v51;
+          v106[4] = v52;
+          v107 = v53;
+          v108 = v54;
 
-          UserGraph.connect(_:to:)(v81, v108);
+          UserGraph.connect(_:to:)(v79, v106);
 
-          v98 = v80;
-          if (!*(v80 + 16))
+          v96 = v78;
+          if (!*(v78 + 16))
           {
             goto LABEL_57;
           }
 
-          v57 = *(v80 + 40);
-          v58 = *(v80 + 48);
-          v59 = *(v80 + 56);
-          v60 = *(v80 + 64);
-          v61 = *(v80 + 72);
-          v62 = *(v80 + 80);
-          v105[0] = *(v80 + 32);
-          v105[1] = v57;
-          v105[2] = v58;
-          v105[3] = v59;
-          v105[4] = v60;
-          v106 = v61;
-          v107 = v62;
+          v55 = *(v78 + 40);
+          v56 = *(v78 + 48);
+          v57 = *(v78 + 56);
+          v58 = *(v78 + 64);
+          v59 = *(v78 + 72);
+          v60 = *(v78 + 80);
+          v103[0] = *(v78 + 32);
+          v103[1] = v55;
+          v103[2] = v56;
+          v103[3] = v57;
+          v103[4] = v58;
+          v104 = v59;
+          v105 = v60;
 
-          UserGraph.moveEdges(from:to:)(v102, v105);
+          UserGraph.moveEdges(from:to:)(v100, v103);
 
-          v94 = v82;
-          outlined destroy of String(&v94);
-          v97 = v72;
-          outlined destroy of NodePersonality(&v97);
-          v96 = *(&v72 + 1);
-          outlined destroy of [Input](&v96, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          outlined destroy of [Input](&v119, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-          v95 = v79;
+          v92 = v80;
+          outlined destroy of String(&v92);
+          v95 = v70;
           outlined destroy of NodePersonality(&v95);
-          outlined destroy of [Input](&v99, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v94 = *(&v70 + 1);
+          outlined destroy of [Input](&v94, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          outlined destroy of [Input](&v117, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          v93 = v77;
+          outlined destroy of NodePersonality(&v93);
+          outlined destroy of [Input](&v97, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
           ++v29;
-          outlined destroy of [Input](&v98, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          outlined destroy of [Input](&v96, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
           v5 += 7;
-          v13 = v64;
-          v6 = v65;
-          if (v66 == v29)
+          v13 = v62;
+          v6 = v63;
+          if (v64 == v29)
           {
             goto LABEL_40;
           }
@@ -5356,40 +3071,40 @@ LABEL_13:
 
 unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(unint64_t *result, _OWORD *a2, uint64_t *a3, uint64_t *a4, char **a5, char **a6)
 {
-  v122 = *result;
+  v118 = *result;
   if (*result == 0xE000000000000000)
   {
     return result;
   }
 
-  v172 = v6;
+  v174 = v6;
   v8 = result[1];
   v9 = result[2];
-  v116 = result[3];
+  v112 = result[3];
   v10 = MEMORY[0x277D84F90];
-  v129 = *(v8 + 16);
-  v120 = v9;
-  if (v129)
+  v125 = *(v8 + 16);
+  v116 = v9;
+  if (v125)
   {
-    *&v170[0] = MEMORY[0x277D84F90];
+    *&v172[0] = MEMORY[0x277D84F90];
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v129, 0);
-    v11 = *&v170[0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v125, 0);
+    v11 = *&v172[0];
     v12 = (v8 + 56);
-    v13 = v129;
+    v13 = v125;
     do
     {
       v15 = *(v12 - 2);
       v14 = *(v12 - 1);
       v7 = *v12;
-      *&v170[0] = v11;
+      *&v172[0] = v11;
       v17 = *(v11 + 16);
       v16 = *(v11 + 24);
 
       if (v17 >= v16 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
-        v11 = *&v170[0];
+        v11 = *&v172[0];
       }
 
       *(v11 + 16) = v17 + 1;
@@ -5402,7 +3117,7 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     }
 
     while (v13);
-    v9 = v120;
+    v9 = v116;
     v10 = MEMORY[0x277D84F90];
   }
 
@@ -5412,31 +3127,31 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     v11 = MEMORY[0x277D84F90];
   }
 
-  v121 = v8;
-  v123 = *(v9 + 16);
-  if (v123)
+  v117 = v8;
+  v119 = *(v9 + 16);
+  if (v119)
   {
-    *&v170[0] = v10;
+    *&v172[0] = v10;
 
-    v118 = v11;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v123, 0);
+    v114 = v11;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v119, 0);
     v19 = v10;
     v20 = (v9 + 56);
-    v21 = v123;
+    v21 = v119;
     do
     {
       v7 = *(v20 - 2);
       v22 = *(v20 - 1);
       v23 = *v20;
-      *&v170[0] = v19;
+      *&v172[0] = v19;
       v25 = *(v19 + 16);
       v24 = *(v19 + 24);
 
       if (v25 >= v24 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v25 + 1, 1);
-        v11 = v118;
-        v19 = *&v170[0];
+        v11 = v114;
+        v19 = *&v172[0];
       }
 
       *(v19 + 16) = v25 + 1;
@@ -5449,7 +3164,7 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     }
 
     while (v21);
-    v9 = v120;
+    v9 = v116;
   }
 
   else
@@ -5458,30 +3173,30 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     v19 = MEMORY[0x277D84F90];
   }
 
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v11, v19, v122, &v155);
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v11, v19, v118, &v151);
 
-  specialized Set._Variant.insert(_:)(v170, v157);
+  specialized Set._Variant.insert(_:)(v172, v153);
   v27 = MEMORY[0x277D84F90];
-  if (v129)
+  if (v125)
   {
-    *&v170[0] = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v129, 0);
-    v28 = v129;
-    v27 = *&v170[0];
-    v29 = (v121 + 56);
+    *&v172[0] = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v125, 0);
+    v28 = v125;
+    v27 = *&v172[0];
+    v29 = (v117 + 56);
     do
     {
       v30 = *(v29 - 2);
       v31 = *(v29 - 1);
       v7 = *v29;
-      *&v170[0] = v27;
+      *&v172[0] = v27;
       v33 = *(v27 + 16);
       v32 = *(v27 + 24);
 
       if (v33 >= v32 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
-        v27 = *&v170[0];
+        v27 = *&v172[0];
       }
 
       *(v27 + 16) = v33 + 1;
@@ -5494,30 +3209,30 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     }
 
     while (v28);
-    v9 = v120;
+    v9 = v116;
   }
 
   v35 = MEMORY[0x277D84F90];
-  if (v123)
+  if (v119)
   {
-    *&v170[0] = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v123, 0);
-    v36 = v123;
-    v35 = *&v170[0];
+    *&v172[0] = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v119, 0);
+    v36 = v119;
+    v35 = *&v172[0];
     v37 = (v9 + 56);
     do
     {
       v7 = *(v37 - 2);
       v38 = *(v37 - 1);
       v39 = *v37;
-      *&v170[0] = v35;
+      *&v172[0] = v35;
       v41 = *(v35 + 16);
       v40 = *(v35 + 24);
 
       if (v41 >= v40 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1);
-        v35 = *&v170[0];
+        v35 = *&v172[0];
       }
 
       *(v35 + 16) = v41 + 1;
@@ -5530,20 +3245,20 @@ unint64_t *closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:g
     }
 
     while (v36);
-    v9 = v120;
+    v9 = v116;
   }
 
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v27, v35, v122, &v158);
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v27, v35, v118, &v154);
 
-  specialized Set._Variant.insert(_:)(v170, v160);
-  v43 = v156;
-  v44 = v159;
+  specialized Set._Variant.insert(_:)(v172, v156);
+  v43 = v152;
+  v44 = v155;
   v45 = *(v9 + 16);
   swift_bridgeObjectRetain_n();
   swift_bridgeObjectRetain_n();
 
-  v117 = v45;
-  v119 = v43;
+  v113 = v45;
+  v115 = v43;
   if (v45)
   {
     v46 = 0;
@@ -5588,20 +3303,20 @@ LABEL_59:
       v60 = *&v43[v46 + 64];
       v61 = v43[v46 + 72];
       v62 = *&v43[v46 + 80];
-      v167[0] = v51;
-      v167[1] = v50;
-      v167[2] = v52;
-      v167[3] = v53;
-      v167[4] = v54;
-      v168 = v55;
-      v169 = v56;
-      v161[0] = v57;
-      v161[1] = v58;
-      v161[2] = v59;
-      v161[3] = v35;
-      v161[4] = v60;
-      v162 = v61;
-      v163 = v62;
+      v169[0] = v51;
+      v169[1] = v50;
+      v169[2] = v52;
+      v169[3] = v53;
+      v169[4] = v54;
+      v170 = v55;
+      v171 = v56;
+      *&v157 = v57;
+      *(&v157 + 1) = v58;
+      v158 = v59;
+      v159 = v35;
+      v160 = v60;
+      v161 = v61;
+      v162 = v62;
       if (v47 >= v49)
       {
         goto LABEL_58;
@@ -5609,7 +3324,7 @@ LABEL_59:
 
       ++v47;
       v63 = v44 + v46;
-      v124 = v46;
+      v120 = v46;
       v64 = *(v44 + v46 + 32);
       v65 = *(v44 + v46 + 40);
       v66 = *(v44 + v46 + 48);
@@ -5617,83 +3332,83 @@ LABEL_59:
       v68 = *(v63 + 64);
       v69 = *(v63 + 72);
       v70 = *(v63 + 80);
-      v164[0] = v64;
-      v164[1] = v65;
-      v164[2] = v66;
-      v164[3] = v67;
-      v164[4] = v68;
-      v165 = v69;
-      v166 = v70;
-      v143 = v61;
-      v142 = v69;
-      *&v144 = v51;
-      *(&v144 + 1) = v50;
-      *&v145 = v52;
-      *(&v145 + 1) = v53;
-      *&v146 = v54;
-      BYTE8(v146) = v55;
-      *&v147 = v56;
-      *(&v147 + 1) = v57;
-      *&v148 = v58;
-      *(&v148 + 1) = v59;
-      *&v149 = v35;
-      *(&v149 + 1) = v60;
-      LOBYTE(v150) = v61;
-      *(&v150 + 1) = v62;
-      *&v151 = v64;
-      *(&v151 + 1) = v65;
-      *&v152 = v66;
-      *(&v152 + 1) = v67;
-      *&v153 = v68;
-      BYTE8(v153) = v69;
-      v154 = v70;
+      *&v163 = v64;
+      *(&v163 + 1) = v65;
+      v164 = v66;
+      v165 = v67;
+      v166 = v68;
+      v167 = v69;
+      v168 = v70;
+      v139 = v61;
+      v138 = v69;
+      *&v140 = v51;
+      *(&v140 + 1) = v50;
+      *&v141 = v52;
+      *(&v141 + 1) = v53;
+      *&v142 = v54;
+      BYTE8(v142) = v55;
+      *&v143 = v56;
+      *(&v143 + 1) = v57;
+      *&v144 = v58;
+      *(&v144 + 1) = v59;
+      *&v145 = v35;
+      *(&v145 + 1) = v60;
+      LOBYTE(v146) = v61;
+      *(&v146 + 1) = v62;
+      *&v147 = v64;
+      *(&v147 + 1) = v65;
+      *&v148 = v66;
+      *(&v148 + 1) = v67;
+      *&v149 = v68;
+      BYTE8(v149) = v69;
+      v150 = v70;
       v71 = a2[8];
       v72 = a2[9];
       v73 = a2[6];
-      v170[7] = a2[7];
-      v170[8] = v71;
-      v171[0] = v72;
-      *(v171 + 9) = *(a2 + 153);
+      v172[7] = a2[7];
+      v172[8] = v71;
+      v173[0] = v72;
+      *(v173 + 9) = *(a2 + 153);
       v74 = a2[5];
-      v170[4] = a2[4];
-      v170[5] = v74;
-      v170[6] = v73;
+      v172[4] = a2[4];
+      v172[5] = v74;
+      v172[6] = v73;
       v75 = a2[1];
-      v170[0] = *a2;
-      v170[1] = v75;
+      v172[0] = *a2;
+      v172[1] = v75;
       v76 = a2[3];
-      v170[2] = a2[2];
-      v170[3] = v76;
+      v172[2] = a2[2];
+      v172[3] = v76;
 
-      outlined init with copy of [Input](&v144, &v131, &_s11ShaderGraph6OutputV_AC_ACttMd, &_s11ShaderGraph6OutputV_AC_ACttMR);
-      outlined init with copy of UserGraph(v170, &v131);
-      v7 = UserGraph.edges(from:)(v167);
-      outlined destroy of UserGraph(v170);
+      outlined init with copy of [Input](&v140, &v127, &_s11ShaderGraph6OutputV_AC_ACttMd, &_s11ShaderGraph6OutputV_AC_ACttMR);
+      outlined init with copy of UserGraph(v172, &v127);
+      v7 = UserGraph.edges(from:)(v169);
+      outlined destroy of UserGraph(v172);
 
-      v9 = v120;
-      v77 = v172;
-      specialized Sequence.forEach(_:)(v7, a3, a4, a2, a5, v161, a6, v164);
-      v172 = v77;
-      v43 = v119;
-
-      swift_bridgeObjectRelease_n();
+      v9 = v116;
+      v77 = v174;
+      specialized Sequence.forEach(_:)(v7, a3, a4, a2, a5, &v157, a6, &v163);
+      v174 = v77;
+      v43 = v115;
 
       swift_bridgeObjectRelease_n();
 
-      outlined destroy of [Input](&v144, &_s11ShaderGraph6OutputV_AC_ACttMd, &_s11ShaderGraph6OutputV_AC_ACttMR);
-      v46 = v124 + 56;
+      swift_bridgeObjectRelease_n();
+
+      outlined destroy of [Input](&v140, &_s11ShaderGraph6OutputV_AC_ACttMd, &_s11ShaderGraph6OutputV_AC_ACttMR);
+      v46 = v120 + 56;
     }
 
-    while (v117 != v47);
+    while (v113 != v47);
   }
 
   swift_bridgeObjectRelease_n();
   swift_bridgeObjectRelease_n();
   swift_bridgeObjectRelease_n();
-  v78 = *(&v155 + 1);
-  v79 = *(&v158 + 1);
-  v43 = v121;
-  v80 = *(v121 + 16);
+  v78 = *(&v151 + 1);
+  v79 = *(&v154 + 1);
+  v43 = v117;
+  v80 = *(v117 + 16);
   swift_bridgeObjectRetain_n();
   swift_bridgeObjectRetain_n();
 
@@ -5727,13 +3442,13 @@ LABEL_59:
         goto LABEL_59;
       }
 
-      v86 = *(v121 + v81 + 32);
-      v85 = *(v121 + v81 + 40);
-      v87 = *(v121 + v81 + 48);
-      v88 = *(v121 + v81 + 56);
-      v89 = *(v121 + v81 + 64);
-      v90 = *(v121 + v81 + 72);
-      v91 = *(v121 + v81 + 80);
+      v86 = *(v117 + v81 + 32);
+      v85 = *(v117 + v81 + 40);
+      v87 = *(v117 + v81 + 48);
+      v88 = *(v117 + v81 + 56);
+      v89 = *(v117 + v81 + 64);
+      v90 = *(v117 + v81 + 72);
+      v91 = *(v117 + v81 + 80);
       v92 = *(v78 + v81 + 32);
       v43 = *(v78 + v81 + 40);
       v93 = *(v78 + v81 + 48);
@@ -5747,55 +3462,55 @@ LABEL_59:
       v101 = *(v79 + v81 + 64);
       v102 = *(v79 + v81 + 72);
       v103 = *(v79 + v81 + 80);
-      v142 = *(v78 + v81 + 72);
-      v143 = v90;
-      *&v131 = v86;
-      *(&v131 + 1) = v85;
-      *&v132 = v87;
-      *(&v132 + 1) = v88;
-      *&v133 = v89;
-      BYTE8(v133) = v90;
-      *&v134 = v91;
-      *(&v134 + 1) = v92;
-      *&v135 = v43;
-      *(&v135 + 1) = v93;
-      *&v136 = v94;
-      *(&v136 + 1) = v95;
-      LOBYTE(v137) = v142;
-      *(&v137 + 1) = v96;
-      *&v138 = v97;
-      *(&v138 + 1) = v98;
-      *&v139 = v99;
-      *(&v139 + 1) = v100;
-      *&v140 = v101;
-      BYTE8(v140) = v102;
-      v141 = v103;
+      v138 = *(v78 + v81 + 72);
+      v139 = v90;
+      *&v127 = v86;
+      *(&v127 + 1) = v85;
+      *&v128 = v87;
+      *(&v128 + 1) = v88;
+      *&v129 = v89;
+      BYTE8(v129) = v90;
+      *&v130 = v91;
+      *(&v130 + 1) = v92;
+      *&v131 = v43;
+      *(&v131 + 1) = v93;
+      *&v132 = v94;
+      *(&v132 + 1) = v95;
+      LOBYTE(v133) = v138;
+      *(&v133 + 1) = v96;
+      *&v134 = v97;
+      *(&v134 + 1) = v98;
+      *&v135 = v99;
+      *(&v135 + 1) = v100;
+      *&v136 = v101;
+      BYTE8(v136) = v102;
+      v137 = v103;
 
       v7 = a2;
 
       v82 = a6;
 
-      v104 = v172;
-      closure #2 in closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(&v131, a2, a3, a4, a5, a6);
-      v172 = v104;
+      v104 = v174;
+      closure #2 in closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(&v127, a2, a3, a4, a5, a6);
+      v174 = v104;
       if (v104)
       {
         goto LABEL_63;
       }
 
       ++v35;
-      v152 = v139;
-      v153 = v140;
-      v154 = v141;
       v148 = v135;
       v149 = v136;
       v150 = v137;
-      v151 = v138;
       v144 = v131;
       v145 = v132;
       v146 = v133;
       v147 = v134;
-      outlined destroy of [Input](&v144, &_s11ShaderGraph5InputV_AC_ACttMd, &_s11ShaderGraph5InputV_AC_ACttMR);
+      v140 = v127;
+      v141 = v128;
+      v142 = v129;
+      v143 = v130;
+      outlined destroy of [Input](&v140, &_s11ShaderGraph5InputV_AC_ACttMd, &_s11ShaderGraph5InputV_AC_ACttMR);
       v81 += 56;
     }
 
@@ -5811,48 +3526,43 @@ LABEL_59:
   swift_bridgeObjectRelease_n();
   swift_bridgeObjectRelease_n();
   swift_bridgeObjectRelease_n();
-  v105 = *a5;
+
+  specialized Sequence.forEach(_:)(v105);
 
   specialized Sequence.forEach(_:)(v106);
 
-  v107 = *v82;
-
-  specialized Sequence.forEach(_:)(v108);
-
-  v109 = *a5;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v111 = *a5;
+  v108 = *a5;
   if (isUniquelyReferenced_nonNull_native)
   {
-    specialized Array.replaceSubrange<A>(_:with:)(0, *(v111 + 2));
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v108 + 2));
   }
 
   else
   {
-    *a5 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph4EdgeV_Tt1g5(0, *(v111 + 3) >> 1);
+    *a5 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph4EdgeV_Tt1g5(0, *(v108 + 3) >> 1);
   }
 
-  v35 = v116;
-  v112 = *v82;
-  v113 = swift_isUniquelyReferenced_nonNull_native();
-  v114 = *v82;
-  if (v113)
+  v35 = v112;
+  v109 = swift_isUniquelyReferenced_nonNull_native();
+  v110 = *v82;
+  if (v109)
   {
-    specialized Array.replaceSubrange<A>(_:with:)(0, *(v114 + 16));
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v110 + 2));
   }
 
   else
   {
-    *v82 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph4EdgeV_Tt1g5(0, *(v114 + 24) >> 1);
+    *v82 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11ShaderGraph4EdgeV_Tt1g5(0, *(v110 + 3) >> 1);
   }
 
-  specialized UserGraph.removeEdges(connectedTo:)(v116);
-  v43 = *(v7 + 64);
-  v115 = swift_isUniquelyReferenced_nonNull_native();
-  *(v7 + 64) = v43;
-  if (v115)
+  specialized UserGraph.removeEdges(connectedTo:)(v112);
+  v43 = *(v7 + 8);
+  v111 = swift_isUniquelyReferenced_nonNull_native();
+  *(v7 + 8) = v43;
+  if (v111)
   {
-    if ((v116 & 0x8000000000000000) == 0)
+    if ((v112 & 0x8000000000000000) == 0)
     {
       goto LABEL_53;
     }
@@ -5862,18 +3572,18 @@ LABEL_59:
   {
 LABEL_60:
     v43 = specialized _ArrayBuffer._consumeAndCreateNew()(v43);
-    *(v7 + 64) = v43;
+    *(v7 + 8) = v43;
     if ((v35 & 0x8000000000000000) == 0)
     {
 LABEL_53:
       if (v35 < *(v43 + 2))
       {
         ShaderGraphNode.update(id:)(-7);
-        *&v131 = v158;
-        outlined destroy of NodePersonality(&v131);
+        *&v127 = v154;
+        outlined destroy of NodePersonality(&v127);
 
-        *&v144 = v155;
-        outlined destroy of NodePersonality(&v144);
+        *&v140 = v151;
+        outlined destroy of NodePersonality(&v140);
       }
 
       goto LABEL_62;
@@ -5884,24 +3594,24 @@ LABEL_53:
 LABEL_62:
   __break(1u);
 LABEL_63:
-  v152 = v139;
-  v153 = v140;
-  v154 = v141;
   v148 = v135;
   v149 = v136;
   v150 = v137;
-  v151 = v138;
   v144 = v131;
   v145 = v132;
   v146 = v133;
   v147 = v134;
-  outlined destroy of [Input](&v144, &_s11ShaderGraph5InputV_AC_ACttMd, &_s11ShaderGraph5InputV_AC_ACttMR);
+  v140 = v127;
+  v141 = v128;
+  v142 = v129;
+  v143 = v130;
+  outlined destroy of [Input](&v140, &_s11ShaderGraph5InputV_AC_ACttMd, &_s11ShaderGraph5InputV_AC_ACttMR);
 
   __break(1u);
   return result;
 }
 
-uint64_t closure #2 in closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(__int128 *a1, _OWORD *a2, uint64_t *a3, void *a4, char **a5, char **a6)
+uint64_t closure #2 in closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(__int128 *a1, _OWORD *a2, uint64_t *a3, uint64_t *a4, char **a5, char **a6)
 {
   v7 = a1[9];
   v89 = a1[8];
@@ -5976,9 +3686,9 @@ uint64_t closure #2 in closure #2 in UserGraph.splitSharedNodes(nodeDefStore:sur
   v20 = v56;
   v21 = specialized Set.contains(_:)(v56, v19);
   v22 = specialized Set.contains(_:)(v20, *a4);
-  if ((v21 & 1) == 0)
+  if (!v21)
   {
-    if ((v22 & 1) == 0)
+    if (!v22)
     {
       if (one-time initialization token for logger != -1)
       {
@@ -6009,7 +3719,7 @@ LABEL_23:
     return outlined destroy of [Input](v63, &_s11ShaderGraph4EdgeVSgMd, &_s11ShaderGraph4EdgeVSgMR);
   }
 
-  if ((v22 & 1) == 0)
+  if (!v22)
   {
     UserGraph.connect(_:to:)(&v64, v69);
 
@@ -6101,27 +3811,27 @@ LABEL_23:
   return result;
 }
 
-uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)(void *a1, uint64_t a2)
+uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   v2 = a1[1];
   v4 = a1[2];
-  specialized ShaderGraphNode.output(labeled:)(&v31, *a1, v2, *(a2 + 96));
-  if (!v32)
+  specialized ShaderGraphNode.output(labeled:)(&v26, *a1, v2, *(a2 + 96));
+  if (!v27)
   {
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
-    *v13 = 14;
-    *(v13 + 8) = v3;
-    *(v13 + 16) = v2;
+    *v12 = 14;
+    *(v12 + 8) = v3;
+    *(v12 + 16) = v2;
     swift_willThrow();
   }
 
-  v56[0] = v31;
-  v56[1] = v32;
-  v57 = v33;
-  v58 = v34;
-  v59 = v35;
+  v51[0] = v26;
+  v51[1] = v27;
+  v52 = v28;
+  v53 = v29;
+  v54 = v30;
   if (v4 == 44)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
@@ -6154,11 +3864,10 @@ uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)
     *(v19 + 16) = 0xD000000000000019;
     *(v19 + 24) = 0x8000000265F30E50;
 
-    v11 = v37;
-    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v16, v19 | 0xA000000000000000, v37);
+    v11 = v32;
+    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v16, v19 | 0xA000000000000000, v32);
 
     swift_setDeallocating();
-    v20 = *(v16 + 16);
     swift_arrayDestroy();
   }
 
@@ -6167,22 +3876,22 @@ uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)
     if (v4 != 41)
     {
 
-      v60 = v33;
-      return outlined destroy of String(&v60);
+      v55 = v28;
+      return outlined destroy of String(&v55);
     }
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_265F1F670;
+    v5 = swift_initStackObject();
+    *(v5 + 16) = xmmword_265F1F670;
     if (one-time initialization token for float3 != -1)
     {
       swift_once();
     }
 
     v6 = static MaterialXDataType.float3;
-    *(inited + 32) = 28265;
-    *(inited + 40) = 0xE200000000000000;
-    *(inited + 48) = v6;
+    *(v5 + 32) = 28265;
+    *(v5 + 40) = 0xE200000000000000;
+    *(v5 + 48) = v6;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_265F1F670;
@@ -6201,55 +3910,50 @@ uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)
     *(v10 + 16) = 0xD000000000000019;
     *(v10 + 24) = 0x8000000265F30E70;
 
-    v11 = v36;
-    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v7, v10 | 0xA000000000000000, v36);
+    v11 = v31;
+    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v5, v7, v10 | 0xA000000000000000, v31);
 
     swift_setDeallocating();
-    v12 = *(v7 + 16);
     swift_arrayDestroy();
     swift_deallocClassInstance();
   }
 
   swift_setDeallocating();
-  v21 = *(inited + 16);
   swift_arrayDestroy();
-  v23 = *v11;
-  v22 = *(v11 + 1);
-  v25 = *(v11 + 3);
-  v24 = *(v11 + 4);
-  v26 = *(v11 + 40);
-  v27 = *(v11 + 2);
+  v21 = *v11;
+  v20 = v11[1];
+  v22 = v11[2];
   outlined copy of NodePersonality(*v11);
 
-  specialized ShaderGraphNode.output(labeled:)(&v38, 7632239, 0xE300000000000000, v27);
-  outlined consume of NodePersonality(v23);
+  specialized ShaderGraphNode.output(labeled:)(&v33, 7632239, 0xE300000000000000, v22);
+  outlined consume of NodePersonality(v21);
 
-  if (v39)
+  if (v34)
   {
-    v52[0] = v38;
-    v52[1] = v39;
-    v53 = v40;
-    v54 = v41;
-    v55 = v42;
-    specialized ShaderGraphNode.output(labeled:)(&v43, 28265, 0xE200000000000000, v22);
-    if (v44)
+    v47[0] = v33;
+    v47[1] = v34;
+    v48 = v35;
+    v49 = v36;
+    v50 = v37;
+    specialized ShaderGraphNode.output(labeled:)(&v38, 28265, 0xE200000000000000, v20);
+    if (v39)
     {
-      v48[0] = v43;
-      v48[1] = v44;
-      v49 = v45;
-      v50 = v46;
-      v51 = v47;
-      UserGraph.moveEdges(from:to:)(v56, v52);
-      UserGraph.connect(_:to:)(v56, v48);
+      v43[0] = v38;
+      v43[1] = v39;
+      v44 = v40;
+      v45 = v41;
+      v46 = v42;
+      UserGraph.moveEdges(from:to:)(v51, v47);
+      UserGraph.connect(_:to:)(v51, v43);
 
-      v63 = v57;
-      outlined destroy of String(&v63);
+      v58 = v52;
+      outlined destroy of String(&v58);
 
-      v65 = v53;
-      outlined destroy of String(&v65);
+      v60 = v48;
+      outlined destroy of String(&v60);
 
-      v66 = v49;
-      v28 = &v66;
+      v61 = v44;
+      v23 = &v61;
     }
 
     else
@@ -6258,16 +3962,16 @@ uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)
       _print_unlocked<A, B>(_:_:)();
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v30 = 11;
-      *(v30 + 8) = 0;
-      *(v30 + 16) = 0xE000000000000000;
+      *v25 = 11;
+      *(v25 + 8) = 0;
+      *(v25 + 16) = 0xE000000000000000;
       swift_willThrow();
 
-      v62 = v57;
-      outlined destroy of String(&v62);
+      v57 = v52;
+      outlined destroy of String(&v57);
 
-      v64 = v53;
-      v28 = &v64;
+      v59 = v48;
+      v23 = &v59;
     }
   }
 
@@ -6277,17 +3981,17 @@ uint64_t closure #1 in UserGraph.insertConversionFromFloatColorToHalfColor(for:)
     _print_unlocked<A, B>(_:_:)();
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
-    *v29 = 14;
-    *(v29 + 8) = 0;
-    *(v29 + 16) = 0xE000000000000000;
+    *v24 = 14;
+    *(v24 + 8) = 0;
+    *(v24 + 16) = 0xE000000000000000;
     swift_willThrow();
 
-    v61 = v57;
-    v28 = &v61;
+    v56 = v52;
+    v23 = &v56;
   }
 
-  outlined destroy of String(v28);
-  outlined consume of NodePersonality(v23);
+  outlined destroy of String(v23);
+  outlined consume of NodePersonality(v21);
 }
 
 uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 *a1, _OWORD *a2)
@@ -6295,10 +3999,10 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
   v3 = *a1;
   v4 = a1[1];
   v5 = a1[2];
-  v155 = *(a1 + 6);
-  v153 = v4;
-  v154 = v5;
-  v152 = v3;
+  v153 = *(a1 + 6);
+  v151 = v4;
+  v152 = v5;
+  v150 = v3;
   v6 = *(&v3 + 1);
   type metadata accessor for MaterialXDataType();
   result = swift_dynamicCastClass();
@@ -6309,43 +4013,43 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
     if (v9)
     {
       v10 = a2[9];
-      v164[8] = a2[8];
-      v165[0] = v10;
-      *(v165 + 9) = *(a2 + 153);
+      v162[8] = a2[8];
+      v163[0] = v10;
+      *(v163 + 9) = *(a2 + 153);
       v11 = a2[5];
-      v164[4] = a2[4];
-      v164[5] = v11;
+      v162[4] = a2[4];
+      v162[5] = v11;
       v12 = a2[6];
-      v164[7] = a2[7];
-      v164[6] = v12;
+      v162[7] = a2[7];
+      v162[6] = v12;
       v13 = a2[1];
-      v164[0] = *a2;
-      v164[1] = v13;
+      v162[0] = *a2;
+      v162[1] = v13;
       v14 = a2[2];
-      v164[3] = a2[3];
-      v164[2] = v14;
+      v162[3] = a2[3];
+      v162[2] = v14;
 
-      outlined init with copy of UserGraph(v164, v115);
-      UserGraph.output(connectedTo:)(&v152, &v117);
-      outlined destroy of UserGraph(v164);
-      if (!v118)
+      outlined init with copy of UserGraph(v162, v113);
+      UserGraph.output(connectedTo:)(&v150, &v115);
+      outlined destroy of UserGraph(v162);
+      if (!v116)
       {
         goto LABEL_6;
       }
 
-      v167 = v6;
-      v15 = v117;
+      v165 = v6;
+      v15 = v115;
+      v131 = v117;
+      v132 = v118;
       v133 = v119;
-      v134 = v120;
-      v135 = v121;
-      if (v117 == -7)
+      if (v115 == -7)
       {
 
-        v136 = v119;
-        return outlined destroy of String(&v136);
+        v134 = v117;
+        return outlined destroy of String(&v134);
       }
 
-      if ((v117 & 0x8000000000000000) != 0)
+      if ((v115 & 0x8000000000000000) != 0)
       {
         __break(1u);
       }
@@ -6353,10 +4057,10 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
       else
       {
         v16 = *(a2 + 8);
-        if (v117 < *(v16 + 16))
+        if (v115 < *(v16 + 16))
         {
-          v111 = v118;
-          v17 = v16 + 48 * v117;
+          v109 = v116;
+          v17 = v16 + 48 * v115;
           v18 = *(v17 + 32);
           v19 = *(v17 + 40);
           v20 = *(v17 + 48);
@@ -6367,17 +4071,17 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
 
             outlined consume of NodePersonality(v38);
 
-            v137 = v119;
-            return outlined destroy of String(&v137);
+            v135 = v117;
+            return outlined destroy of String(&v135);
           }
 
           v21 = *(v17 + 64);
-          v106 = *(v17 + 56);
-          v107 = v21;
-          LODWORD(v108) = *(v17 + 72);
+          v104 = *(v17 + 56);
+          v105 = v21;
+          LODWORD(v106) = *(v17 + 72);
           v22 = *(v18 + 88);
-          v109 = v20;
-          v110 = v22;
+          v107 = v20;
+          v108 = v22;
           v23 = v18;
           v24 = swift_dynamicCastClass();
           if (v24)
@@ -6386,103 +4090,101 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
             v25 = *(v23 + 64);
             v27 = *(v23 + 16);
             v28 = *(v23 + 32);
-            v116 = *(v23 + 80);
-            v115[0] = v27;
-            v115[1] = v28;
-            v115[2] = v26;
-            v115[3] = v25;
+            v114 = *(v23 + 80);
+            v113[0] = v27;
+            v113[1] = v28;
+            v113[2] = v26;
+            v113[3] = v25;
             v29 = v23;
-            *(&v105 + 1) = v19;
-            if (v116 == 6)
+            *(&v103 + 1) = v19;
+            if (v114 == 6)
             {
-              v30 = *(&v115[0] + 1);
+              v30 = *(&v113[0] + 1);
               v31 = *(v24 + 24);
-              v104 = *&v115[0];
-              *&v105 = v29;
+              v102 = *&v113[0];
+              *&v103 = v29;
               if (v31)
               {
                 v32 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v9, v31);
                 if ((v32 & 1) == 0)
                 {
 
-                  outlined copy of NodePersonality(v105);
+                  outlined copy of NodePersonality(v103);
 
-                  v54 = MEMORY[0x277D837D0];
-                  v55 = MEMORY[0x2667717B0](v9, MEMORY[0x277D837D0]);
-                  v57 = v56;
+                  v53 = MEMORY[0x277D837D0];
+                  v54 = MEMORY[0x2667717B0](v9, MEMORY[0x277D837D0]);
+                  v56 = v55;
 
-                  *&v112 = v55;
-                  *(&v112 + 1) = v57;
+                  *&v110 = v54;
+                  *(&v110 + 1) = v56;
                   MEMORY[0x266771550](540877088, 0xE400000000000000);
-                  v58 = MEMORY[0x2667717B0](v31, v54);
-                  MEMORY[0x266771550](v58);
+                  v57 = MEMORY[0x2667717B0](v31, v53);
+                  MEMORY[0x266771550](v57);
 
-                  v59 = v55;
-                  v60 = v57;
+                  v58 = v110;
                   if (one-time initialization token for logger != -1)
                   {
                     swift_once();
                   }
 
-                  v61 = type metadata accessor for Logger();
-                  __swift_project_value_buffer(v61, logger);
+                  v59 = type metadata accessor for Logger();
+                  __swift_project_value_buffer(v59, logger);
 
-                  v62 = Logger.logObject.getter();
-                  v63 = static os_log_type_t.error.getter();
+                  v60 = Logger.logObject.getter();
+                  v61 = static os_log_type_t.error.getter();
 
-                  if (os_log_type_enabled(v62, v63))
+                  if (os_log_type_enabled(v60, v61))
                   {
-                    v64 = swift_slowAlloc();
-                    v65 = swift_slowAlloc();
-                    *&v112 = v65;
-                    *v64 = 136315138;
-                    *(v64 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v60, &v112);
-                    _os_log_impl(&dword_265D7D000, v62, v63, "%s", v64, 0xCu);
-                    __swift_destroy_boxed_opaque_existential_1Tm(v65);
-                    MEMORY[0x266773120](v65, -1, -1);
-                    MEMORY[0x266773120](v64, -1, -1);
+                    v62 = swift_slowAlloc();
+                    v63 = swift_slowAlloc();
+                    *&v110 = v63;
+                    *v62 = 136315138;
+                    *(v62 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, *(&v58 + 1), &v110);
+                    _os_log_impl(&dword_265D7D000, v60, v61, "%s", v62, 0xCu);
+                    __swift_destroy_boxed_opaque_existential_1Tm(v63);
+                    MEMORY[0x266773120](v63, -1, -1);
+                    MEMORY[0x266773120](v62, -1, -1);
                   }
 
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v66 = 44;
-                  *(v66 + 8) = v59;
-                  *(v66 + 16) = v60;
+                  *v64 = 44;
+                  *(v64 + 8) = v58;
                   swift_willThrow();
 
-                  outlined consume of NodePersonality(v105);
+                  outlined consume of NodePersonality(v103);
 
-                  v140 = v133;
-                  v37 = &v140;
+                  v138 = v131;
+                  v37 = &v138;
                   goto LABEL_51;
                 }
 
-                v102 = &v101;
-                v114 = __PAIR128__(v30, v104);
+                v100 = &v99;
+                v112 = __PAIR128__(v30, v102);
                 MEMORY[0x28223BE20](v32);
-                v100 = &v114;
-                v103 = v30;
+                v98 = &v112;
+                v101 = v30;
 
-                outlined copy of NodePersonality(v105);
+                outlined copy of NodePersonality(v103);
 
-                outlined init with copy of SGDataTypeStorage(v115, &v112);
-                v33 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v99, v9);
+                outlined init with copy of SGDataTypeStorage(v113, &v110);
+                v33 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v97, v9);
 
                 if ((v33 & 1) == 0)
                 {
-                  *&v114 = 0;
-                  *(&v114 + 1) = 0xE000000000000000;
-                  MEMORY[0x266771550](v104, v103);
-                  outlined destroy of SGDataTypeStorage(v115);
+                  *&v112 = 0;
+                  *(&v112 + 1) = 0xE000000000000000;
+                  MEMORY[0x266771550](v102, v101);
+                  outlined destroy of SGDataTypeStorage(v113);
                   MEMORY[0x266771550](32, 0xE100000000000000);
-                  v34 = v105;
-                  v112 = v105;
-                  *&v113[0] = v109;
-                  *(&v113[0] + 1) = v106;
-                  *&v113[1] = v107;
-                  BYTE8(v113[1]) = v108;
+                  v34 = v103;
+                  v110 = v103;
+                  *&v111[0] = v107;
+                  *(&v111[0] + 1) = v104;
+                  *&v111[1] = v105;
+                  BYTE8(v111[1]) = v106;
                   _print_unlocked<A, B>(_:_:)();
-                  v35 = v114;
+                  v35 = v112;
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
                   *v36 = 25;
@@ -6491,8 +4193,8 @@ uint64_t closure #1 in closure #1 in UserGraph.resolveMaterialXEnums()(__int128 
 
                   outlined consume of NodePersonality(v34);
 
-                  v141 = v133;
-                  v37 = &v141;
+                  v139 = v131;
+                  v37 = &v139;
 LABEL_51:
                   outlined destroy of String(v37);
                 }
@@ -6500,106 +4202,106 @@ LABEL_51:
 
               else
               {
-                v102 = &v101;
-                v103 = *(&v115[0] + 1);
-                v114 = v115[0];
+                v100 = &v99;
+                v101 = *(&v113[0] + 1);
+                v112 = v113[0];
                 MEMORY[0x28223BE20](v24);
-                v100 = &v114;
+                v98 = &v112;
 
                 outlined copy of NodePersonality(v29);
 
-                outlined init with copy of SGDataTypeStorage(v115, &v112);
-                if ((specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v99, v9) & 1) == 0)
+                outlined init with copy of SGDataTypeStorage(v113, &v110);
+                if ((specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v97, v9) & 1) == 0)
                 {
                   if (one-time initialization token for logger != -1)
                   {
                     swift_once();
                   }
 
-                  v67 = type metadata accessor for Logger();
-                  __swift_project_value_buffer(v67, logger);
+                  v65 = type metadata accessor for Logger();
+                  __swift_project_value_buffer(v65, logger);
 
-                  outlined init with copy of SGDataTypeStorage(v115, &v112);
-                  v68 = Logger.logObject.getter();
-                  v69 = static os_log_type_t.error.getter();
-                  outlined destroy of SGDataTypeStorage(v115);
+                  outlined init with copy of SGDataTypeStorage(v113, &v110);
+                  v66 = Logger.logObject.getter();
+                  v67 = static os_log_type_t.error.getter();
+                  outlined destroy of SGDataTypeStorage(v113);
 
-                  if (os_log_type_enabled(v68, v69))
+                  if (os_log_type_enabled(v66, v67))
                   {
-                    v70 = swift_slowAlloc();
-                    v71 = swift_slowAlloc();
-                    *&v112 = v71;
-                    *v70 = 136315394;
-                    v72 = v104;
-                    *(v70 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v104, v103, &v112);
-                    *(v70 + 12) = 2080;
-                    v73 = MEMORY[0x2667717B0](v9, MEMORY[0x277D837D0]);
-                    v75 = v74;
+                    v68 = swift_slowAlloc();
+                    v69 = swift_slowAlloc();
+                    *&v110 = v69;
+                    *v68 = 136315394;
+                    v70 = v102;
+                    *(v68 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v102, v101, &v110);
+                    *(v68 + 12) = 2080;
+                    v71 = MEMORY[0x2667717B0](v9, MEMORY[0x277D837D0]);
+                    v73 = v72;
 
-                    v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v75, &v112);
+                    v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v71, v73, &v110);
 
-                    *(v70 + 14) = v76;
-                    _os_log_impl(&dword_265D7D000, v68, v69, "Enum value %s not a memeber of enum set %s", v70, 0x16u);
+                    *(v68 + 14) = v74;
+                    _os_log_impl(&dword_265D7D000, v66, v67, "Enum value %s not a memeber of enum set %s", v68, 0x16u);
                     swift_arrayDestroy();
-                    MEMORY[0x266773120](v71, -1, -1);
-                    MEMORY[0x266773120](v70, -1, -1);
+                    MEMORY[0x266773120](v69, -1, -1);
+                    MEMORY[0x266773120](v68, -1, -1);
 
-                    v77 = v103;
-                    v78 = v109;
+                    v75 = v101;
+                    v76 = v107;
                   }
 
                   else
                   {
 
-                    v78 = v109;
-                    v77 = v103;
-                    v72 = v104;
+                    v76 = v107;
+                    v75 = v101;
+                    v70 = v102;
                   }
 
-                  *&v114 = 0;
-                  *(&v114 + 1) = 0xE000000000000000;
-                  MEMORY[0x266771550](v72, v77);
-                  outlined destroy of SGDataTypeStorage(v115);
+                  *&v112 = 0;
+                  *(&v112 + 1) = 0xE000000000000000;
+                  MEMORY[0x266771550](v70, v75);
+                  outlined destroy of SGDataTypeStorage(v113);
                   MEMORY[0x266771550](32, 0xE100000000000000);
-                  v87 = v105;
-                  v112 = v105;
-                  *&v113[0] = v78;
-                  *(&v113[0] + 1) = v106;
-                  *&v113[1] = v107;
-                  BYTE8(v113[1]) = v108;
+                  v85 = v103;
+                  v110 = v103;
+                  *&v111[0] = v76;
+                  *(&v111[0] + 1) = v104;
+                  *&v111[1] = v105;
+                  BYTE8(v111[1]) = v106;
                   _print_unlocked<A, B>(_:_:)();
-                  v88 = v114;
+                  v86 = v112;
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v89 = 25;
-                  *(v89 + 8) = v88;
+                  *v87 = 25;
+                  *(v87 + 8) = v86;
                   swift_willThrow();
 
-                  outlined consume of NodePersonality(v87);
+                  outlined consume of NodePersonality(v85);
 
-                  v139 = v133;
-                  v37 = &v139;
+                  v137 = v131;
+                  v37 = &v137;
                   goto LABEL_51;
                 }
               }
 
-              v108 = MaterialXDataType.asMetalDataType.getter();
-              if (v108)
+              v106 = MaterialXDataType.asMetalDataType.getter();
+              if (v106)
               {
-                v46 = v103;
-                v47 = v104;
-                v48._countAndFlagsBits = v104;
-                v48._object = v103;
+                v46 = v101;
+                v47 = v102;
+                v48._countAndFlagsBits = v102;
+                v48._object = v101;
                 v49 = MetalDataType.convertEnumConstant(_:)(v48);
                 if (v49.value._object)
                 {
-                  outlined destroy of SGDataTypeStorage(v115);
+                  outlined destroy of SGDataTypeStorage(v113);
                   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
                   v50 = swift_allocObject();
                   *(v50 + 16) = xmmword_265F1F670;
                   *(v50 + 32) = 7632239;
-                  v107 = v50 + 32;
-                  v51 = v108;
+                  v105 = v50 + 32;
+                  v51 = v106;
                   *(v50 + 40) = 0xE300000000000000;
                   *(v50 + 48) = v51;
                   v52 = swift_allocObject();
@@ -6608,174 +4310,173 @@ LABEL_51:
                   *(v52 + 88) = v51;
                   swift_retain_n();
 
-                  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v50, v52, &v122);
+                  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v50, v52, &v120);
 
                   swift_setDeallocating();
-                  v53 = *(v50 + 16);
                   swift_arrayDestroy();
                   swift_deallocClassInstance();
-                  v142 = v119;
-                  v157 = v119;
-                  v158 = v120;
-                  v166 = v153;
+                  v140 = v117;
+                  v155 = v117;
+                  v156 = v118;
+                  v164 = v151;
+                  v158 = v150;
+                  v159 = v151;
                   v160 = v152;
+                  v157 = v119;
                   v161 = v153;
-                  v162 = v154;
-                  v159 = v121;
-                  v163 = v155;
-                  v156[0] = v15;
-                  v156[1] = v111;
+                  v154[0] = v15;
+                  v154[1] = v109;
 
-                  outlined init with copy of String(&v142, &v112);
-                  outlined init with copy of String(&v166, &v112);
-                  UserGraph.remove(_:)(v156);
-                  outlined destroy of Edge(v156);
-                  v151 = *&v123[0];
-                  specialized ShaderGraphNode.output(labeled:)(&v124, 7632239, 0xE300000000000000, *&v123[0]);
-                  if (v125)
+                  outlined init with copy of String(&v140, &v110);
+                  outlined init with copy of String(&v164, &v110);
+                  UserGraph.remove(_:)(v154);
+                  outlined destroy of Edge(v154);
+                  v149 = v121[0];
+                  specialized ShaderGraphNode.output(labeled:)(&v122, 7632239, 0xE300000000000000, v121[0]);
+                  if (v123)
                   {
-                    v129[0] = v124;
-                    v129[1] = v125;
+                    v127[0] = v122;
+                    v127[1] = v123;
+                    v128 = v124;
+                    v129 = v125;
                     v130 = v126;
-                    v131 = v127;
-                    v132 = v128;
-                    UserGraph.connect(_:to:)(v129, &v152);
+                    UserGraph.connect(_:to:)(v127, &v150);
 
-                    v146 = v130;
-                    outlined destroy of String(&v146);
-                    v148 = v122;
-                    outlined destroy of NodePersonality(&v148);
-                    v147 = *(&v122 + 1);
-                    outlined destroy of [Input](&v147, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                    outlined destroy of [Input](&v151, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                    v144 = v128;
+                    outlined destroy of String(&v144);
+                    v146 = v120;
+                    outlined destroy of NodePersonality(&v146);
+                    v145 = *(&v120 + 1);
+                    outlined destroy of [Input](&v145, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                    outlined destroy of [Input](&v149, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                    outlined consume of NodePersonality(v105);
+                    outlined consume of NodePersonality(v103);
 
-                    return outlined destroy of String(&v142);
+                    return outlined destroy of String(&v140);
                   }
 
-                  *&v114 = 0;
-                  *(&v114 + 1) = 0xE000000000000000;
+                  *&v112 = 0;
+                  *(&v112 + 1) = 0xE000000000000000;
                   MEMORY[0x266771550](7632239, 0xE300000000000000);
                   MEMORY[0x266771550](32, 0xE100000000000000);
-                  v112 = v122;
-                  v113[0] = v123[0];
-                  *(v113 + 9) = *(v123 + 9);
+                  v110 = v120;
+                  v111[0] = *v121;
+                  *(v111 + 9) = *(&v121[1] + 1);
                   _print_unlocked<A, B>(_:_:)();
-                  v97 = v114;
+                  v95 = v112;
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v98 = 14;
-                  *(v98 + 8) = v97;
+                  *v96 = 14;
+                  *(v96 + 8) = v95;
                   swift_willThrow();
-                  v150 = v122;
-                  outlined destroy of NodePersonality(&v150);
-                  v149 = *(&v122 + 1);
-                  outlined destroy of [Input](&v149, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-                  outlined destroy of [Input](&v151, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+                  v148 = v120;
+                  outlined destroy of NodePersonality(&v148);
+                  v147 = *(&v120 + 1);
+                  outlined destroy of [Input](&v147, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+                  outlined destroy of [Input](&v149, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-                  outlined consume of NodePersonality(v105);
+                  outlined consume of NodePersonality(v103);
 
-                  v37 = &v142;
+                  v37 = &v140;
                 }
 
                 else
                 {
-                  *&v112 = 0;
-                  *(&v112 + 1) = 0xE000000000000000;
+                  *&v110 = 0;
+                  *(&v110 + 1) = 0xE000000000000000;
                   _StringGuts.grow(_:)(39);
 
-                  *&v112 = 0xD000000000000012;
-                  *(&v112 + 1) = 0x8000000265F313E0;
+                  *&v110 = 0xD000000000000012;
+                  *(&v110 + 1) = 0x8000000265F313E0;
                   MEMORY[0x266771550](v47, v46);
-                  outlined destroy of SGDataTypeStorage(v115);
+                  outlined destroy of SGDataTypeStorage(v113);
                   MEMORY[0x266771550](0xD000000000000013, 0x8000000265F31420);
-                  v90 = v112;
+                  v88 = v110;
                   if (one-time initialization token for logger != -1)
                   {
                     swift_once();
                   }
 
-                  v91 = type metadata accessor for Logger();
-                  __swift_project_value_buffer(v91, logger);
+                  v89 = type metadata accessor for Logger();
+                  __swift_project_value_buffer(v89, logger);
 
-                  v92 = Logger.logObject.getter();
-                  v93 = static os_log_type_t.error.getter();
+                  v90 = Logger.logObject.getter();
+                  v91 = static os_log_type_t.error.getter();
 
-                  if (os_log_type_enabled(v92, v93))
+                  if (os_log_type_enabled(v90, v91))
                   {
-                    v94 = swift_slowAlloc();
-                    v95 = swift_slowAlloc();
-                    *&v112 = v95;
-                    *v94 = 136315138;
-                    *(v94 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v90, *(&v90 + 1), &v112);
-                    _os_log_impl(&dword_265D7D000, v92, v93, "%s", v94, 0xCu);
-                    __swift_destroy_boxed_opaque_existential_1Tm(v95);
-                    MEMORY[0x266773120](v95, -1, -1);
-                    MEMORY[0x266773120](v94, -1, -1);
+                    v92 = swift_slowAlloc();
+                    v93 = swift_slowAlloc();
+                    *&v110 = v93;
+                    *v92 = 136315138;
+                    *(v92 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, *(&v88 + 1), &v110);
+                    _os_log_impl(&dword_265D7D000, v90, v91, "%s", v92, 0xCu);
+                    __swift_destroy_boxed_opaque_existential_1Tm(v93);
+                    MEMORY[0x266773120](v93, -1, -1);
+                    MEMORY[0x266773120](v92, -1, -1);
                   }
 
                   lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                   swift_allocError();
-                  *v96 = 44;
-                  *(v96 + 8) = v90;
+                  *v94 = 44;
+                  *(v94 + 8) = v88;
                   swift_willThrow();
 
-                  outlined consume of NodePersonality(v105);
+                  outlined consume of NodePersonality(v103);
 
-                  v143 = v133;
-                  v37 = &v143;
+                  v141 = v131;
+                  v37 = &v141;
                 }
               }
 
               else
               {
-                outlined destroy of SGDataTypeStorage(v115);
-                *&v112 = 0;
-                *(&v112 + 1) = 0xE000000000000000;
+                outlined destroy of SGDataTypeStorage(v113);
+                *&v110 = 0;
+                *(&v110 + 1) = 0xE000000000000000;
                 _StringGuts.grow(_:)(39);
 
-                *&v112 = 0xD000000000000012;
-                *(&v112 + 1) = 0x8000000265F313E0;
-                v79 = MaterialXDataType.description.getter();
-                MEMORY[0x266771550](v79);
+                *&v110 = 0xD000000000000012;
+                *(&v110 + 1) = 0x8000000265F313E0;
+                v77 = MaterialXDataType.description.getter();
+                MEMORY[0x266771550](v77);
 
                 MEMORY[0x266771550](0xD000000000000013, 0x8000000265F31400);
-                v80 = v112;
+                v78 = v110;
                 if (one-time initialization token for logger != -1)
                 {
                   swift_once();
                 }
 
-                v81 = type metadata accessor for Logger();
-                __swift_project_value_buffer(v81, logger);
+                v79 = type metadata accessor for Logger();
+                __swift_project_value_buffer(v79, logger);
 
-                v82 = Logger.logObject.getter();
-                v83 = static os_log_type_t.error.getter();
+                v80 = Logger.logObject.getter();
+                v81 = static os_log_type_t.error.getter();
 
-                if (os_log_type_enabled(v82, v83))
+                if (os_log_type_enabled(v80, v81))
                 {
-                  v84 = swift_slowAlloc();
-                  v85 = swift_slowAlloc();
-                  *&v112 = v85;
-                  *v84 = 136315138;
-                  *(v84 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v80, *(&v80 + 1), &v112);
-                  _os_log_impl(&dword_265D7D000, v82, v83, "%s", v84, 0xCu);
-                  __swift_destroy_boxed_opaque_existential_1Tm(v85);
-                  MEMORY[0x266773120](v85, -1, -1);
-                  MEMORY[0x266773120](v84, -1, -1);
+                  v82 = swift_slowAlloc();
+                  v83 = swift_slowAlloc();
+                  *&v110 = v83;
+                  *v82 = 136315138;
+                  *(v82 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, *(&v78 + 1), &v110);
+                  _os_log_impl(&dword_265D7D000, v80, v81, "%s", v82, 0xCu);
+                  __swift_destroy_boxed_opaque_existential_1Tm(v83);
+                  MEMORY[0x266773120](v83, -1, -1);
+                  MEMORY[0x266773120](v82, -1, -1);
                 }
 
                 lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
                 swift_allocError();
-                *v86 = 44;
-                *(v86 + 8) = v80;
+                *v84 = 44;
+                *(v84 + 8) = v78;
                 swift_willThrow();
 
-                outlined consume of NodePersonality(v105);
+                outlined consume of NodePersonality(v103);
 
-                v144 = v133;
-                v37 = &v144;
+                v142 = v131;
+                v37 = &v142;
               }
 
               goto LABEL_51;
@@ -6783,18 +4484,18 @@ LABEL_51:
 
             outlined copy of NodePersonality(v23);
 
-            *&v114 = 0;
-            *(&v114 + 1) = 0xE000000000000000;
+            *&v112 = 0;
+            *(&v112 + 1) = 0xE000000000000000;
             v15 = v23;
-            *&v112 = v23;
-            *(&v112 + 1) = v19;
-            *&v113[0] = v109;
-            *(&v113[0] + 1) = v106;
-            *&v113[1] = v107;
-            BYTE8(v113[1]) = v108;
+            *&v110 = v23;
+            *(&v110 + 1) = v19;
+            *&v111[0] = v107;
+            *(&v111[0] + 1) = v104;
+            *&v111[1] = v105;
+            BYTE8(v111[1]) = v106;
             _print_unlocked<A, B>(_:_:)();
-            v8 = 0;
             v9 = 0xE000000000000000;
+            v8 = 0;
             if (one-time initialization token for logger == -1)
             {
 LABEL_19:
@@ -6808,9 +4509,9 @@ LABEL_19:
               {
                 v42 = swift_slowAlloc();
                 v43 = swift_slowAlloc();
-                *&v112 = v43;
+                *&v110 = v43;
                 *v42 = 136315138;
-                v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v112);
+                v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v110);
 
                 *(v42 + 4) = v44;
                 _os_log_impl(&dword_265D7D000, v40, v41, "enum value isn't a string %s", v42, 0xCu);
@@ -6832,8 +4533,8 @@ LABEL_19:
 
               outlined consume of NodePersonality(v15);
 
-              v145 = v133;
-              v37 = &v145;
+              v143 = v131;
+              v37 = &v143;
               goto LABEL_51;
             }
 
@@ -6842,8 +4543,8 @@ LABEL_55:
             goto LABEL_19;
           }
 
-          v138 = v119;
-          outlined destroy of String(&v138);
+          v136 = v117;
+          outlined destroy of String(&v136);
 LABEL_6:
         }
       }
@@ -6868,11 +4569,11 @@ uint64_t closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(
     return result;
   }
 
-  v68 = v14;
-  v69 = v11;
-  v66 = a6;
-  v67 = v13;
-  v65 = v12;
+  v66 = v14;
+  v67 = v11;
+  v64 = a6;
+  v65 = v13;
+  v63 = v12;
   v16 = v12 & 0x1FFFFFFFFFFFFFFFLL;
   v17 = *(v16 + 16);
   v18 = *(v16 + 24);
@@ -6895,8 +4596,8 @@ uint64_t closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(
 
   MEMORY[0x266771550](a3, a4);
 
-  v63 = v17;
-  v64 = v18;
+  v61 = v17;
+  v62 = v18;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
   inited = swift_initStackObject();
   v23 = inited;
@@ -6904,32 +4605,31 @@ uint64_t closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(
   *(inited + 32) = 12324;
   *(inited + 40) = 0xE200000000000000;
   *(inited + 48) = a5;
-  v24 = *(v69 + 16);
+  v24 = *(v67 + 16);
   v25 = MEMORY[0x277D84F90];
   if (v24)
   {
-    v60 = inited;
-    v61 = v16;
-    v73 = MEMORY[0x277D84F90];
+    v59 = inited;
+    v69 = MEMORY[0x277D84F90];
     swift_retain_n();
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24, 0);
-    v26 = v73;
-    v27 = (v69 + 56);
+    v26 = v69;
+    v27 = (v67 + 56);
     do
     {
       v28 = *(v27 - 2);
       v29 = *(v27 - 1);
       v30 = *v27;
-      v32 = *(v73 + 16);
-      v31 = *(v73 + 24);
+      v32 = *(v69 + 16);
+      v31 = *(v69 + 24);
 
       if (v32 >= v31 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1);
       }
 
-      *(v73 + 16) = v32 + 1;
-      v33 = (v73 + 24 * v32);
+      *(v69 + 16) = v32 + 1;
+      v33 = (v69 + 24 * v32);
       v33[4] = v29;
       v33[5] = v30;
       v33[6] = v28;
@@ -6938,8 +4638,7 @@ uint64_t closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(
     }
 
     while (v24);
-    v23 = v60;
-    v16 = v61;
+    v23 = v59;
     v25 = MEMORY[0x277D84F90];
   }
 
@@ -6951,79 +4650,76 @@ uint64_t closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(
 
   specialized Array.append<A>(contentsOf:)(v26);
   v34 = v23;
-  v35 = v68;
-  if (v68[2] != 1)
+  v35 = v66;
+  if (v66[2] != 1)
   {
 
     _StringGuts.grow(_:)(43);
     MEMORY[0x266771550](0xD000000000000029, 0x8000000265F310B0);
-    v71 = *(v16 + 16);
-    v72 = *(v16 + 24);
     swift_bridgeObjectRetain_n();
-    v58 = String.init<A>(describing:)();
-    MEMORY[0x266771550](v58);
+    v57 = String.init<A>(describing:)();
+    MEMORY[0x266771550](v57);
 
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
-    *v59 = 40;
-    *(v59 + 8) = 0;
-    *(v59 + 16) = 0xE000000000000000;
+    *v58 = 40;
+    *(v58 + 8) = 0;
+    *(v58 + 16) = 0xE000000000000000;
     swift_willThrow();
   }
 
-  v36 = v68[7];
-  v74 = v25;
-  v62 = v68[5];
+  v70 = v25;
+  v60 = v66[5];
   swift_retain_n();
 
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0);
-  v37 = v25;
-  v39 = v68[5];
-  v38 = v68[6];
-  v40 = v68[7];
-  v42 = *(v74 + 16);
-  v41 = *(v74 + 24);
+  v36 = v25;
+  v38 = v66[5];
+  v37 = v66[6];
+  v39 = v66[7];
+  v41 = *(v36 + 16);
+  v40 = *(v36 + 24);
 
-  if (v42 >= v41 >> 1)
+  if (v41 >= v40 >> 1)
   {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1);
-    v37 = v74;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1);
+    v36 = v70;
   }
 
-  *(v37 + 16) = v42 + 1;
-  v43 = (v37 + 24 * v42);
-  v43[4] = v38;
-  v43[5] = v40;
-  v43[6] = v39;
-  v44 = swift_allocObject();
-  v45 = v62;
-  *(v44 + 16) = v63;
-  *(v44 + 24) = v64;
-  *(v44 + 32) = v62;
+  *(v36 + 16) = v41 + 1;
+  v42 = (v36 + 24 * v41);
+  v42[4] = v37;
+  v42[5] = v39;
+  v42[6] = v38;
+  v43 = swift_allocObject();
+  v44 = v60;
+  *(v43 + 16) = v61;
+  *(v43 + 24) = v62;
+  *(v43 + 32) = v60;
 
-  v46 = v66;
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v34, v37, v44 | 0x2000000000000000, &v75);
+  v45 = v64;
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(v34, v36, v43 | 0x2000000000000000, &v71);
 
-  v47 = *(&v75 + 1);
-  outlined copy of NodePersonality(v65);
+  v46 = *(&v71 + 1);
+  outlined copy of NodePersonality(v63);
 
-  specialized Sequence.forEach(_:)(v47, v69, v66);
-  outlined consume of NodePersonality(v65);
+  specialized Sequence.forEach(_:)(v46, v67, v64);
+  outlined consume of NodePersonality(v63);
 
-  v48 = v76;
-  outlined copy of NodePersonality(v65);
+  v47 = v72;
+  outlined copy of NodePersonality(v63);
 
-  specialized Sequence.forEach(_:)(v48, v68, v66);
-  outlined consume of NodePersonality(v65);
+  specialized Sequence.forEach(_:)(v47, v66, v64);
+  outlined consume of NodePersonality(v63);
 
-  v49 = v67;
-  specialized UserGraph.removeEdges(connectedTo:)(v67);
-  v50 = *(v66 + 64);
+  v48 = v65;
+  specialized UserGraph.removeEdges(connectedTo:)(v65);
+  v49 = *(v64 + 64);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v66 + 64) = v50;
+  *(v64 + 64) = v49;
   if (isUniquelyReferenced_nonNull_native)
   {
-    if ((v67 & 0x8000000000000000) == 0)
+    if ((v65 & 0x8000000000000000) == 0)
     {
       goto LABEL_19;
     }
@@ -7033,85 +4729,85 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v50 = specialized _ArrayBuffer._consumeAndCreateNew()(v50);
-  *(v66 + 64) = v50;
-  if ((v67 & 0x8000000000000000) != 0)
+  v49 = specialized _ArrayBuffer._consumeAndCreateNew()(v49);
+  *(v64 + 64) = v49;
+  if ((v65 & 0x8000000000000000) != 0)
   {
     goto LABEL_28;
   }
 
 LABEL_19:
-  if (v67 >= *(v50 + 2))
+  if (v65 >= *(v49 + 2))
   {
 LABEL_29:
     __break(1u);
     goto LABEL_30;
   }
 
-  v46 = &v50[48 * v67 + 32];
+  v45 = &v49[48 * v65 + 32];
   ShaderGraphNode.update(id:)(-7);
-  if (!*(v47 + 16))
+  if (!*(v46 + 16))
   {
 LABEL_30:
     __break(1u);
     goto LABEL_31;
   }
 
-  v48 = *(v47 + 32);
-  v46 = *(v47 + 40);
-  v45 = *(v47 + 48);
-  v49 = *(v47 + 56);
-  v35 = *(v47 + 64);
-  v52 = *(v47 + 72);
-  v67 = *(v47 + 80);
-  v50 = *a7;
+  v47 = *(v46 + 32);
+  v45 = *(v46 + 40);
+  v44 = *(v46 + 48);
+  v48 = *(v46 + 56);
+  v35 = *(v46 + 64);
+  v51 = *(v46 + 72);
+  v65 = *(v46 + 80);
+  v49 = *a7;
 
-  v53 = swift_isUniquelyReferenced_nonNull_native();
-  *a7 = v50;
-  LOBYTE(v68) = v52;
-  if ((v53 & 1) == 0)
+  v52 = swift_isUniquelyReferenced_nonNull_native();
+  *a7 = v49;
+  LOBYTE(v66) = v51;
+  if ((v52 & 1) == 0)
   {
 LABEL_31:
-    v50 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v50 + 2) + 1, 1, v50);
-    *a7 = v50;
+    v49 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v49 + 2) + 1, 1, v49);
+    *a7 = v49;
   }
 
-  v55 = *(v50 + 2);
-  v54 = *(v50 + 3);
-  if (v55 >= v54 >> 1)
+  v54 = *(v49 + 2);
+  v53 = *(v49 + 3);
+  if (v54 >= v53 >> 1)
   {
-    *a7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v54 > 1), v55 + 1, 1, v50);
+    *a7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v53 > 1), v54 + 1, 1, v49);
   }
 
-  v77 = v75;
-  outlined destroy of NodePersonality(&v77);
+  v73 = v71;
+  outlined destroy of NodePersonality(&v73);
 
-  v56 = *a7;
-  *(v56 + 2) = v55 + 1;
-  v57 = &v56[56 * v55];
-  *(v57 + 4) = v48;
-  *(v57 + 5) = v46;
-  *(v57 + 6) = v45;
-  *(v57 + 7) = v49;
-  *(v57 + 8) = v35;
-  v57[72] = v68;
-  *(v57 + 10) = v67;
+  v55 = *a7;
+  *(v55 + 2) = v54 + 1;
+  v56 = &v55[56 * v54];
+  *(v56 + 4) = v47;
+  *(v56 + 5) = v45;
+  *(v56 + 6) = v44;
+  *(v56 + 7) = v48;
+  *(v56 + 8) = v35;
+  v56[72] = v66;
+  *(v56 + 10) = v65;
   return result;
 }
 
 uint64_t UserGraph.materialXImageNodes.getter(uint64_t a1, void *a2)
 {
-  v27._countAndFlagsBits = a1;
-  v27._object = a2;
-  v28 = *(v2 + 64);
-  v3 = *(v28 + 16);
+  v26._countAndFlagsBits = a1;
+  v26._object = a2;
+  v27 = *(v2 + 64);
+  v3 = *(v27 + 16);
 
   if (v3)
   {
     v5 = 0;
     v6 = result + 32;
-    v25 = MEMORY[0x277D84F90];
-    v26 = result + 32;
+    v24 = MEMORY[0x277D84F90];
+    v25 = result + 32;
     while (v5 < v3)
     {
       v8 = v6 + 48 * v5;
@@ -7140,54 +4836,52 @@ uint64_t UserGraph.materialXImageNodes.getter(uint64_t a1, void *a2)
           v11 = *(v8 + 16);
           v13 = *(v8 + 32);
           v14 = *(v8 + 40);
-          v15 = *((v10 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-          v16 = *((v10 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
           outlined copy of NodePersonality(v10);
 
-          LOBYTE(v15) = String.hasPrefix(_:)(v27);
+          v15 = String.hasPrefix(_:)(v26);
 
           if (v15)
           {
-            v24 = v13;
-            v17 = v25;
+            v23 = v13;
+            v16 = v24;
             result = swift_isUniquelyReferenced_nonNull_native();
             if ((result & 1) == 0)
             {
-              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 16) + 1, 1);
-              v17 = v25;
+              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v24 + 16) + 1, 1);
+              v16 = v24;
             }
 
-            v6 = v26;
-            v18 = v24;
-            v19 = v14;
-            v21 = *(v17 + 16);
-            v20 = *(v17 + 24);
-            v22 = v21 + 1;
-            if (v21 >= v20 >> 1)
+            v6 = v25;
+            v17 = v23;
+            v18 = v14;
+            v20 = *(v16 + 16);
+            v19 = *(v16 + 24);
+            v21 = v20 + 1;
+            if (v20 >= v19 >> 1)
             {
-              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1);
-              v19 = v14;
-              v18 = v24;
-              v22 = v21 + 1;
-              v17 = v25;
+              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
+              v18 = v14;
+              v17 = v23;
+              v21 = v20 + 1;
+              v16 = v24;
             }
 
-            *(v17 + 16) = v22;
-            v25 = v17;
-            v23 = v17 + 48 * v21;
-            *(v23 + 32) = v10;
-            *(v23 + 40) = v12;
-            *(v23 + 48) = v11;
-            *(v23 + 56) = v9;
-            *(v23 + 64) = v18;
-            *(v23 + 72) = v19;
+            *(v16 + 16) = v21;
+            v24 = v16;
+            v22 = v16 + 48 * v20;
+            *(v22 + 32) = v10;
+            *(v22 + 40) = v12;
+            *(v22 + 48) = v11;
+            *(v22 + 56) = v9;
+            *(v22 + 64) = v17;
+            *(v22 + 72) = v18;
           }
 
           else
           {
             outlined consume of NodePersonality(v10);
 
-            v6 = v26;
+            v6 = v25;
           }
         }
       }
@@ -7207,49 +4901,46 @@ LABEL_20:
 
   else
   {
-    v25 = MEMORY[0x277D84F90];
+    v24 = MEMORY[0x277D84F90];
 LABEL_17:
-    outlined destroy of [Input](&v28, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
-    return v25;
+    outlined destroy of [Input](&v27, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
+    return v24;
   }
 
   return result;
 }
 
-uint64_t ShaderGraphNode.isMaterialXImageNode.getter(uint64_t a1, void *a2)
+BOOL ShaderGraphNode.isMaterialXImageNode.getter(uint64_t a1, void *a2)
 {
   if (*v2 >> 61 != 5)
   {
     return 0;
   }
 
-  v3 = *((*v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v4 = *((*v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+  v5._countAndFlagsBits = a1;
+  v5._object = a2;
+  v6 = String.hasPrefix(_:)(v5);
 
-  v7._countAndFlagsBits = a1;
-  v7._object = a2;
-  LOBYTE(v3) = String.hasPrefix(_:)(v7);
-
-  return v3 & 1;
+  return v6;
 }
 
 uint64_t UserGraph.materialXCubeimageNodes.getter()
 {
-  v24 = *(v0 + 64);
-  v1 = *(v24 + 16);
+  v23 = *(v0 + 64);
+  v1 = *(v23 + 16);
 
   if (!v1)
   {
-    v22 = MEMORY[0x277D84F90];
+    v21 = MEMORY[0x277D84F90];
 LABEL_18:
-    outlined destroy of [Input](&v24, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
-    return v22;
+    outlined destroy of [Input](&v23, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
+    return v21;
   }
 
   v3 = 0;
   v4 = result + 32;
-  v22 = MEMORY[0x277D84F90];
-  v23 = result + 32;
+  v21 = MEMORY[0x277D84F90];
+  v22 = result + 32;
   while (v3 < v1)
   {
     v6 = v4 + 48 * v3;
@@ -7287,52 +4978,50 @@ LABEL_4:
       v10 = *(v6 + 16);
       v11 = *(v6 + 32);
       v12 = *(v6 + 40);
-      v13 = *((v8 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-      v14 = *((v8 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
       outlined copy of NodePersonality(v8);
 
-      v15._object = 0x8000000265F2D850;
-      v15._countAndFlagsBits = 0xD000000000000017;
-      LOBYTE(v13) = String.hasPrefix(_:)(v15);
+      v13._object = 0x8000000265F2D850;
+      v13._countAndFlagsBits = 0xD000000000000017;
+      v14 = String.hasPrefix(_:)(v13);
 
-      if ((v13 & 1) == 0)
+      if (!v14)
       {
         outlined consume of NodePersonality(v8);
 
-        v4 = v23;
+        v4 = v22;
         goto LABEL_4;
       }
 
-      v16 = v22;
+      v15 = v21;
       result = swift_isUniquelyReferenced_nonNull_native();
       if ((result & 1) == 0)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 16) + 1, 1);
-        v16 = v22;
+        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v21 + 16) + 1, 1);
+        v15 = v21;
       }
 
-      v17 = v11;
-      v19 = *(v16 + 16);
-      v18 = *(v16 + 24);
-      v20 = v19 + 1;
-      if (v19 >= v18 >> 1)
+      v16 = v11;
+      v18 = *(v15 + 16);
+      v17 = *(v15 + 24);
+      v19 = v18 + 1;
+      if (v18 >= v17 >> 1)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1);
-        v17 = v11;
-        v20 = v19 + 1;
-        v16 = v22;
+        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1);
+        v16 = v11;
+        v19 = v18 + 1;
+        v15 = v21;
       }
 
-      *(v16 + 16) = v20;
-      v22 = v16;
-      v21 = v16 + 48 * v19;
-      *(v21 + 32) = v8;
-      *(v21 + 40) = v9;
-      *(v21 + 48) = v10;
-      *(v21 + 56) = v7;
-      *(v21 + 64) = v17;
-      *(v21 + 72) = v12;
-      v4 = v23;
+      *(v15 + 16) = v19;
+      v21 = v15;
+      v20 = v15 + 48 * v18;
+      *(v20 + 32) = v8;
+      *(v20 + 40) = v9;
+      *(v20 + 48) = v10;
+      *(v20 + 56) = v7;
+      *(v20 + 64) = v16;
+      *(v20 + 72) = v12;
+      v4 = v22;
       if (v3 >= v1)
       {
         goto LABEL_18;
@@ -7348,77 +5037,65 @@ LABEL_21:
   return result;
 }
 
-uint64_t ShaderGraphNode.isModernRealityKitTextureNode.getter()
+BOOL ShaderGraphNode.isModernRealityKitTextureNode.getter()
 {
   if (*v0 >> 61 != 5)
   {
     return 0;
   }
 
-  v1 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+  v1._object = 0x8000000265F30DD0;
+  v1._countAndFlagsBits = 0xD000000000000014;
+  v2 = String.hasPrefix(_:)(v1);
 
-  v3._object = 0x8000000265F30DD0;
-  v3._countAndFlagsBits = 0xD000000000000014;
-  LOBYTE(v1) = String.hasPrefix(_:)(v3);
-
-  return v1 & 1;
+  return v2;
 }
 
-uint64_t ShaderGraphNode.isRealityKit2DImageArrayNode.getter()
+BOOL ShaderGraphNode.isRealityKit2DImageArrayNode.getter()
 {
   if (*v0 >> 61 != 5)
   {
     return 0;
   }
 
-  v1 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+  v1._object = 0x8000000265F30DF0;
+  v1._countAndFlagsBits = 0xD00000000000001DLL;
+  v2 = String.hasPrefix(_:)(v1);
 
-  v3._object = 0x8000000265F30DF0;
-  v3._countAndFlagsBits = 0xD00000000000001DLL;
-  LOBYTE(v1) = String.hasPrefix(_:)(v3);
-
-  return v1 & 1;
+  return v2;
 }
 
-uint64_t ShaderGraphNode.isRealityKit3DImageNode.getter()
+BOOL ShaderGraphNode.isRealityKit3DImageNode.getter()
 {
   if (*v0 >> 61 != 5)
   {
     return 0;
   }
 
-  v1 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+  v1._object = 0x8000000265F30E10;
+  v1._countAndFlagsBits = 0xD000000000000018;
+  v2 = String.hasPrefix(_:)(v1);
 
-  v3._object = 0x8000000265F30E10;
-  v3._countAndFlagsBits = 0xD000000000000018;
-  LOBYTE(v1) = String.hasPrefix(_:)(v3);
-
-  return v1 & 1;
+  return v2;
 }
 
-uint64_t ShaderGraphNode.isModernRealityKitTextureCubeNode.getter()
+BOOL ShaderGraphNode.isModernRealityKitTextureCubeNode.getter()
 {
   if (*v0 >> 61 != 5)
   {
     return 0;
   }
 
-  v1 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-  v2 = *((*v0 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+  v1._object = 0x8000000265F30E30;
+  v1._countAndFlagsBits = 0xD000000000000018;
+  v2 = String.hasPrefix(_:)(v1);
 
-  v3._object = 0x8000000265F30E30;
-  v3._countAndFlagsBits = 0xD000000000000018;
-  LOBYTE(v1) = String.hasPrefix(_:)(v3);
-
-  return v1 & 1;
+  return v2;
 }
 
 uint64_t one-time initialization function for realityKitSurfaceParamNodes()
 {
-  result = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  result = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5Tf4g_n();
   static ShaderGraphNode.realityKitSurfaceParamNodes = result;
   return result;
 }
@@ -7433,7 +5110,7 @@ uint64_t *ShaderGraphNode.realityKitSurfaceParamNodes.unsafeMutableAddressor()
   return &static ShaderGraphNode.realityKitSurfaceParamNodes;
 }
 
-uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.getter(void *a1, uint64_t *a2)
+uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.getter(void *a1, void *a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
@@ -7441,10 +5118,9 @@ uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.getter(voi
   }
 
   swift_beginAccess();
-  v3 = *a2;
 }
 
-uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.setter(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.setter(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
 {
   if (*a2 != -1)
   {
@@ -7452,11 +5128,10 @@ uint64_t static MaterialXHardcodedNames.realityKitBackgroundBlurNodes.setter(uin
   }
 
   swift_beginAccess();
-  v5 = *a3;
   *a3 = a1;
 }
 
-uint64_t (*static ShaderGraphNode.realityKitSurfaceParamNodes.modify())()
+uint64_t (*static ShaderGraphNode.realityKitSurfaceParamNodes.modify(uint64_t a1))(uint64_t a1)
 {
   if (one-time initialization token for realityKitSurfaceParamNodes != -1)
   {
@@ -7585,16 +5260,15 @@ double UserGraph.getArgument(name:type:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>
   *(v9 + 16) = a1;
   *(v9 + 24) = a2;
 
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v9 | 0x6000000000000000, &v13);
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v9 | 0x6000000000000000, &v12);
 
   swift_setDeallocating();
-  v10 = *(inited + 16);
   swift_arrayDestroy();
-  v11 = v14[0];
-  *a4 = v13;
-  a4[1] = v11;
-  result = *(v14 + 9);
-  *(a4 + 25) = *(v14 + 9);
+  v10 = v13[0];
+  *a4 = v12;
+  a4[1] = v10;
+  result = *(v13 + 9);
+  *(a4 + 25) = *(v13 + 9);
   return result;
 }
 
@@ -7613,28 +5287,27 @@ uint64_t Input.prependFunction(_:label:arguments:in:)@<X0>(uint64_t a1@<X0>, uin
   *(v10 + 32) = v9;
   swift_retain_n();
 
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(a3, inited, v10 | 0x2000000000000000, &v16);
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(a3, inited, v10 | 0x2000000000000000, &v15);
 
   swift_setDeallocating();
-  v11 = *(inited + 16);
   swift_arrayDestroy();
-  v30[0] = *&v17[0];
-  specialized ShaderGraphNode.output(labeled:)(&v18, 7632239, 0xE300000000000000, *&v17[0]);
-  if (v19)
+  v29[0] = v16[0];
+  specialized ShaderGraphNode.output(labeled:)(&v17, 7632239, 0xE300000000000000, v16[0]);
+  if (v18)
   {
-    v23[0] = v18;
-    v23[1] = v19;
+    v22[0] = v17;
+    v22[1] = v18;
+    v23 = v19;
     v24 = v20;
     v25 = v21;
-    v26 = v22;
-    UserGraph.connect(_:to:)(v23, v4);
+    UserGraph.connect(_:to:)(v22, v4);
 
-    v27 = v24;
-    result = outlined destroy of String(&v27);
-    v13 = v17[0];
-    *a4 = v16;
-    a4[1] = v13;
-    *(a4 + 25) = *(v17 + 9);
+    v26 = v23;
+    result = outlined destroy of String(&v26);
+    v12 = *v16;
+    *a4 = v15;
+    a4[1] = v12;
+    *(a4 + 25) = *(&v16[1] + 1);
   }
 
   else
@@ -7644,15 +5317,15 @@ uint64_t Input.prependFunction(_:label:arguments:in:)@<X0>(uint64_t a1@<X0>, uin
     _print_unlocked<A, B>(_:_:)();
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
-    *v14 = 14;
-    *(v14 + 8) = 0;
-    *(v14 + 16) = 0xE000000000000000;
+    *v13 = 14;
+    *(v13 + 8) = 0;
+    *(v13 + 16) = 0xE000000000000000;
     swift_willThrow();
-    v29 = v16;
-    outlined destroy of NodePersonality(&v29);
-    v28 = *(&v16 + 1);
-    outlined destroy of [Input](&v28, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    return outlined destroy of [Input](v30, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+    v28 = v15;
+    outlined destroy of NodePersonality(&v28);
+    v27 = *(&v15 + 1);
+    outlined destroy of [Input](&v27, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+    return outlined destroy of [Input](v29, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
   }
 
   return result;
@@ -7660,11 +5333,11 @@ uint64_t Input.prependFunction(_:label:arguments:in:)@<X0>(uint64_t a1@<X0>, uin
 
 uint64_t Output.appendUnaryFunction(_:resultType:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
 {
-  v33[4] = a4;
+  v31[4] = a4;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_265F1F670;
-  v9 = *(v5 + 8);
+  v9 = v5[1];
   *(inited + 32) = 28265;
   *(inited + 40) = 0xE200000000000000;
   *(inited + 48) = v9;
@@ -7680,31 +5353,29 @@ uint64_t Output.appendUnaryFunction(_:resultType:in:)@<X0>(uint64_t a1@<X0>, uin
   *(v11 + 32) = a3;
   swift_retain_n();
 
-  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v10, v11 | 0x2000000000000000, &v19);
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v10, v11 | 0x2000000000000000, &v17);
 
   swift_setDeallocating();
-  v12 = *(v10 + 16);
   swift_arrayDestroy();
   swift_setDeallocating();
-  v13 = *(inited + 16);
   swift_arrayDestroy();
-  v33[0] = *(&v19 + 1);
-  specialized ShaderGraphNode.output(labeled:)(&v21, 28265, 0xE200000000000000, *(&v19 + 1));
-  if (v22)
+  v31[0] = *(&v17 + 1);
+  specialized ShaderGraphNode.output(labeled:)(&v19, 28265, 0xE200000000000000, *(&v17 + 1));
+  if (v20)
   {
-    v26[0] = v21;
-    v26[1] = v22;
+    v24[0] = v19;
+    v24[1] = v20;
+    v25 = v21;
+    v26 = v22;
     v27 = v23;
-    v28 = v24;
-    v29 = v25;
-    UserGraph.connect(_:to:)(v5, v26);
+    UserGraph.connect(_:to:)(v5, v24);
 
-    v30 = v27;
-    result = outlined destroy of String(&v30);
-    v15 = v20[0];
-    *a5 = v19;
-    a5[1] = v15;
-    *(a5 + 25) = *(v20 + 9);
+    v28 = v25;
+    result = outlined destroy of String(&v28);
+    v13 = v18[0];
+    *a5 = v17;
+    a5[1] = v13;
+    *(a5 + 25) = *(v18 + 9);
   }
 
   else
@@ -7714,21 +5385,21 @@ uint64_t Output.appendUnaryFunction(_:resultType:in:)@<X0>(uint64_t a1@<X0>, uin
     _print_unlocked<A, B>(_:_:)();
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
-    *v16 = 11;
-    *(v16 + 8) = 0;
-    *(v16 + 16) = 0xE000000000000000;
+    *v14 = 11;
+    *(v14 + 8) = 0;
+    *(v14 + 16) = 0xE000000000000000;
     swift_willThrow();
-    v32 = v19;
-    outlined destroy of NodePersonality(&v32);
-    outlined destroy of [Input](v33, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    v31 = *&v20[0];
-    return outlined destroy of [Input](&v31, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+    v30 = v17;
+    outlined destroy of NodePersonality(&v30);
+    outlined destroy of [Input](v31, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+    v29 = *&v18[0];
+    return outlined destroy of [Input](&v29, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
   }
 
   return result;
 }
 
-int64_t specialized OrderedSet.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void *specialized OrderedSet.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *v2;
   v5 = v2[1];
@@ -7736,57 +5407,55 @@ int64_t specialized OrderedSet.remove(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X
   if (!*v2)
   {
     result = specialized Collection<>.firstIndex(of:)(a1, v5 + 32, *(v5 + 16));
-    v13 = 0;
-    if (v21)
+    v12 = 0;
+    if (v20)
     {
+      v14 = 0;
       v15 = 0;
       v16 = 0;
       v17 = 0;
       v18 = 0;
       v19 = 0;
-      v20 = 0;
       goto LABEL_8;
     }
 
 LABEL_7:
-    result = specialized OrderedSet._removeExistingMember(at:in:)(result, v13, v22);
-    v13 = v22[0];
-    v15 = v22[1];
-    v16 = v22[2];
-    v17 = v22[3];
-    v18 = v22[4];
+    result = specialized OrderedSet._removeExistingMember(at:in:)(result, v12, v21);
+    v12 = v21[0];
+    v14 = v21[1];
+    v15 = v21[2];
+    v16 = v21[3];
+    v17 = v21[4];
+    v18 = v22;
     v19 = v23;
-    v20 = v24;
     goto LABEL_8;
   }
 
-  v8 = *v2;
+  v8 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(a1, v5 + 32, v6, v4 + 16, v4 + 32);
+  v10 = v9;
+  v12 = v11;
 
-  v9 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(a1, v5 + 32, v6, v4 + 16, v4 + 32);
-  v11 = v10;
-  v13 = v12;
-
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    result = v9;
+    result = v8;
     goto LABEL_7;
   }
 
-  v13 = 0;
+  v12 = 0;
+  v14 = 0;
   v15 = 0;
   v16 = 0;
   v17 = 0;
   v18 = 0;
   v19 = 0;
-  v20 = 0;
 LABEL_8:
-  *a2 = v13;
-  a2[1] = v15;
-  a2[2] = v16;
-  a2[3] = v17;
-  a2[4] = v18;
-  a2[5] = v19;
-  a2[6] = v20;
+  *a2 = v12;
+  a2[1] = v14;
+  a2[2] = v15;
+  a2[3] = v16;
+  a2[4] = v17;
+  a2[5] = v18;
+  a2[6] = v19;
   return result;
 }
 
@@ -7803,49 +5472,49 @@ void specialized OrderedSet.remove(_:)(uint64_t a1@<X0>, void *a2@<X8>)
       goto LABEL_14;
     }
 
-    v9 = 0;
+    v8 = 0;
     while (1)
     {
-      outlined init with copy of [Input](v6, v21, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
+      outlined init with copy of [Input](v6, v20, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
       Strong = swift_unknownObjectWeakLoadStrong();
-      v15 = swift_unknownObjectWeakLoadStrong();
-      v16 = v15;
+      v14 = swift_unknownObjectWeakLoadStrong();
+      v15 = v14;
       if (!Strong)
       {
         break;
       }
 
-      if (!v15)
+      if (!v14)
       {
-        outlined destroy of [Input](v21, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
-        v16 = Strong;
+        outlined destroy of [Input](v20, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
+        v15 = Strong;
 LABEL_7:
 
         goto LABEL_8;
       }
 
       type metadata accessor for SGEdge();
-      v17 = static NSObject.== infix(_:_:)();
-      outlined destroy of [Input](v21, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
+      v16 = static NSObject.== infix(_:_:)();
+      outlined destroy of [Input](v20, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
 
-      if (v17)
+      if (v16)
       {
 LABEL_15:
-        v13 = 0;
+        v12 = 0;
         goto LABEL_16;
       }
 
 LABEL_8:
-      ++v9;
+      ++v8;
       v6 += 8;
-      if (v7 == v9)
+      if (v7 == v8)
       {
         goto LABEL_14;
       }
     }
 
-    outlined destroy of [Input](v21, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
-    if (!v16)
+    outlined destroy of [Input](v20, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMd, &_s11ShaderGraph7WeakBoxVyAA6SGEdgeCGMR);
+    if (!v15)
     {
       goto LABEL_15;
     }
@@ -7853,27 +5522,25 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  v8 = *v2;
+  v8 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(a1, v6, v7, (v5 + 16), v5 + 32);
+  v10 = v9;
+  v12 = v11;
 
-  v9 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(a1, v6, v7, (v5 + 16), v5 + 32);
-  v11 = v10;
-  v13 = v12;
-
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
 LABEL_16:
-    v18 = a2;
-    specialized OrderedSet._removeExistingMember(at:in:)(v9, v13, a2);
-    v19 = 0;
+    v17 = a2;
+    specialized OrderedSet._removeExistingMember(at:in:)(v8, v12, a2);
+    v18 = 0;
     goto LABEL_17;
   }
 
 LABEL_14:
-  v18 = a2;
+  v17 = a2;
   *a2 = 0;
-  v19 = 1;
+  v18 = 1;
 LABEL_17:
-  *(v18 + 8) = v19;
+  *(v17 + 8) = v18;
 }
 
 unint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph15MaterialXTargetC_Tt0g5Tf4g_n(unint64_t result)
@@ -7928,7 +5595,7 @@ LABEL_8:
 
 LABEL_9:
   v6 = v3 + 56;
-  v38 = v5;
+  v30 = v5;
   if ((v1 & 0xC000000000000001) != 0)
   {
     v7 = 0;
@@ -7942,45 +5609,41 @@ LABEL_9:
       }
 
       v9 = result;
-      v10 = *(v3 + 40);
       Hasher.init(_seed:)();
-      v11 = *(v9 + 16);
-      v12 = *(v9 + 24);
       String.hash(into:)();
-      specialized Optional<A>.hash(into:)(v39, *(v9 + 32));
+      specialized Optional<A>.hash(into:)(v31, *(v9 + 32));
       result = Hasher._finalize()();
-      v13 = ~(-1 << *(v3 + 32));
-      v14 = result & v13;
-      v15 = (result & v13) >> 6;
-      v16 = *(v6 + 8 * v15);
-      v17 = 1 << (result & v13);
-      if ((v17 & v16) != 0)
+      v10 = ~(-1 << *(v3 + 32));
+      v11 = result & v10;
+      v12 = (result & v10) >> 6;
+      v13 = *(v6 + 8 * v12);
+      v14 = 1 << (result & v10);
+      if ((v14 & v13) != 0)
       {
         while (1)
         {
-          v18 = *(*(v3 + 48) + 8 * v14);
 
-          v20 = specialized static MaterialXTarget.== infix(_:_:)(v19, v9);
+          v16 = specialized static MaterialXTarget.== infix(_:_:)(v15, v9);
 
-          if (v20)
+          if (v16)
           {
             break;
           }
 
-          v14 = (v14 + 1) & v13;
-          v15 = v14 >> 6;
-          v16 = *(v6 + 8 * (v14 >> 6));
-          v17 = 1 << v14;
-          if (((1 << v14) & v16) == 0)
+          v11 = (v11 + 1) & v10;
+          v12 = v11 >> 6;
+          v13 = *(v6 + 8 * (v11 >> 6));
+          v14 = 1 << v11;
+          if (((1 << v11) & v13) == 0)
           {
-            v5 = v38;
+            v5 = v30;
             goto LABEL_17;
           }
         }
 
         swift_unknownObjectRelease();
-        v5 = v38;
-        if (v7 == v38)
+        v5 = v30;
+        if (v7 == v30)
         {
           return v3;
         }
@@ -7989,17 +5652,17 @@ LABEL_9:
       else
       {
 LABEL_17:
-        *(v6 + 8 * v15) = v17 | v16;
-        *(*(v3 + 48) + 8 * v14) = v9;
-        v21 = *(v3 + 16);
-        v8 = __OFADD__(v21, 1);
-        v22 = v21 + 1;
+        *(v6 + 8 * v12) = v14 | v13;
+        *(*(v3 + 48) + 8 * v11) = v9;
+        v17 = *(v3 + 16);
+        v8 = __OFADD__(v17, 1);
+        v18 = v17 + 1;
         if (v8)
         {
           goto LABEL_31;
         }
 
-        *(v3 + 16) = v22;
+        *(v3 + 16) = v18;
         if (v7 == v5)
         {
           return v3;
@@ -8014,53 +5677,48 @@ LABEL_31:
 
   else
   {
-    v23 = 0;
-    v37 = v1 + 32;
-    v24 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    while (v23 != v24)
+    v19 = 0;
+    v29 = v1 + 32;
+    v20 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    while (v19 != v20)
     {
-      v25 = *(v37 + 8 * v23);
-      v26 = *(v3 + 40);
+      v21 = *(v29 + 8 * v19);
       Hasher.init(_seed:)();
-      v27 = *(v25 + 16);
-      v28 = *(v25 + 24);
 
       String.hash(into:)();
-      specialized Optional<A>.hash(into:)(v39, *(v25 + 32));
+      specialized Optional<A>.hash(into:)(v31, *(v21 + 32));
       result = Hasher._finalize()();
-      v29 = ~(-1 << *(v3 + 32));
-      for (i = result & v29; ; i = (i + 1) & v29)
+      v22 = ~(-1 << *(v3 + 32));
+      for (i = result & v22; ; i = (i + 1) & v22)
       {
-        v31 = *(v6 + 8 * (i >> 6));
-        if (((1 << i) & v31) == 0)
+        v24 = *(v6 + 8 * (i >> 6));
+        if (((1 << i) & v24) == 0)
         {
           break;
         }
 
-        v32 = *(*(v3 + 48) + 8 * i);
+        v26 = specialized static MaterialXTarget.== infix(_:_:)(v25, v21);
 
-        v34 = specialized static MaterialXTarget.== infix(_:_:)(v33, v25);
-
-        if (v34)
+        if (v26)
         {
 
           goto LABEL_22;
         }
       }
 
-      *(v6 + 8 * (i >> 6)) = (1 << i) | v31;
-      *(*(v3 + 48) + 8 * i) = v25;
-      v35 = *(v3 + 16);
-      v8 = __OFADD__(v35, 1);
-      v36 = v35 + 1;
+      *(v6 + 8 * (i >> 6)) = (1 << i) | v24;
+      *(*(v3 + 48) + 8 * i) = v21;
+      v27 = *(v3 + 16);
+      v8 = __OFADD__(v27, 1);
+      v28 = v27 + 1;
       if (v8)
       {
         goto LABEL_33;
       }
 
-      *(v3 + 16) = v36;
+      *(v3 + 16) = v28;
 LABEL_22:
-      if (++v23 == v38)
+      if (++v19 == v30)
       {
         return v3;
       }
@@ -8078,112 +5736,111 @@ void *specialized UserGraph.insertGeomPropGetter(_:outputType:nodeDefStore:)@<X0
   result = GeomPropDef.GeomProp.paramGetterNodeDefName(type:)(a2, *(a1 + 24), *(a1 + 32), *(a1 + 40));
   if (!v4)
   {
-    specialized NodeDefStore.createNode(in:nodeDefName:)(result, v9, a3, &v28);
-    v92[4] = 0;
+    specialized NodeDefStore.createNode(in:nodeDefName:)(result, v9, a3, &v26);
+    v90[4] = 0;
 
-    v10 = *(&v28 + 1);
-    v92[0] = *(&v28 + 1);
-    result = specialized ShaderGraphNode.output(labeled:)(&v30, 0x7865646E69, 0xE500000000000000, *(&v28 + 1));
-    v11 = v31;
-    if (!v31)
+    v10 = *(&v26 + 1);
+    v90[0] = *(&v26 + 1);
+    result = specialized ShaderGraphNode.output(labeled:)(&v28, 0x7865646E69, 0xE500000000000000, *(&v26 + 1));
+    v11 = v29;
+    if (!v29)
     {
 LABEL_10:
-      result = specialized ShaderGraphNode.output(labeled:)(&v42, 0x6563617073, 0xE500000000000000, v10);
-      v17 = v43;
-      if (!v43)
+      result = specialized ShaderGraphNode.output(labeled:)(&v40, 0x6563617073, 0xE500000000000000, v10);
+      v16 = v41;
+      if (!v41)
       {
 LABEL_25:
-        v26 = v29[0];
-        *a4 = v28;
-        a4[1] = v26;
-        *(a4 + 25) = *(v29 + 9);
+        v24 = v27[0];
+        *a4 = v26;
+        a4[1] = v24;
+        *(a4 + 25) = *(v27 + 9);
         return result;
       }
 
-      v58[0] = v42;
-      v58[1] = v43;
+      v56[0] = v40;
+      v56[1] = v41;
+      v57 = v42;
+      v58 = v43;
       v59 = v44;
-      v60 = v45;
-      v61 = v46;
       if (*(a1 + 41) > 1u)
       {
         if (*(a1 + 41) != 2)
         {
 
-          v74 = v44;
-          v23 = &v74;
+          v72 = v42;
+          v21 = &v72;
           goto LABEL_24;
         }
 
-        v19 = 0xE500000000000000;
-        v18 = 0x646C726F77;
+        v18 = 0xE500000000000000;
+        v17 = 0x646C726F77;
       }
 
       else
       {
         if (*(a1 + 41))
         {
-          v18 = 0x7463656A626FLL;
+          v17 = 0x7463656A626FLL;
         }
 
         else
         {
-          v18 = 0x6C65646F6DLL;
+          v17 = 0x6C65646F6DLL;
         }
 
         if (*(a1 + 41))
         {
-          v19 = 0xE600000000000000;
+          v18 = 0xE600000000000000;
         }
 
         else
         {
-          v19 = 0xE500000000000000;
+          v18 = 0xE500000000000000;
         }
       }
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
+      v19 = swift_allocObject();
+      *(v19 + 16) = xmmword_265F1F670;
+      *(v19 + 32) = 7632239;
+      *(v19 + 40) = 0xE300000000000000;
+      *(v19 + 48) = v16;
       v20 = swift_allocObject();
-      *(v20 + 16) = xmmword_265F1F670;
-      *(v20 + 32) = 7632239;
-      *(v20 + 40) = 0xE300000000000000;
-      *(v20 + 48) = v17;
-      v21 = swift_allocObject();
-      *(v21 + 16) = v18;
-      *(v21 + 24) = v19;
-      *(v21 + 80) = 6;
-      *(v21 + 88) = v17;
+      *(v20 + 16) = v17;
+      *(v20 + 24) = v18;
+      *(v20 + 80) = 6;
+      *(v20 + 88) = v16;
       swift_retain_n();
 
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v20, v21, &v47);
+      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v19, v20, &v45);
 
       swift_setDeallocating();
-      v22 = *(v20 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      v84 = v48;
-      specialized ShaderGraphNode.output(labeled:)(&v49, 7632239, 0xE300000000000000, v48);
-      if (v50)
+      v82 = v46[0];
+      specialized ShaderGraphNode.output(labeled:)(&v47, 7632239, 0xE300000000000000, v46[0]);
+      if (v48)
       {
-        v54[0] = v49;
-        v54[1] = v50;
+        v52[0] = v47;
+        v52[1] = v48;
+        v53 = v49;
+        v54 = v50;
         v55 = v51;
-        v56 = v52;
-        v57 = v53;
-        UserGraph.connect(_:to:)(v54, v58);
+        UserGraph.connect(_:to:)(v52, v56);
 
-        v77 = v55;
-        outlined destroy of String(&v77);
-        v79 = v47;
-        outlined destroy of NodePersonality(&v79);
-        v78 = *(&v47 + 1);
-        outlined destroy of [Input](&v78, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        outlined destroy of [Input](&v84, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+        v75 = v53;
+        outlined destroy of String(&v75);
+        v77 = v45;
+        outlined destroy of NodePersonality(&v77);
+        v76 = *(&v45 + 1);
+        outlined destroy of [Input](&v76, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        outlined destroy of [Input](&v82, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-        v75 = v59;
-        v23 = &v75;
+        v73 = v57;
+        v21 = &v73;
 LABEL_24:
-        result = outlined destroy of String(v23);
+        result = outlined destroy of String(v21);
         goto LABEL_25;
       }
 
@@ -8192,36 +5849,36 @@ LABEL_24:
       _print_unlocked<A, B>(_:_:)();
       lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
       swift_allocError();
-      *v24 = 14;
-      *(v24 + 8) = 0;
-      *(v24 + 16) = 0xE000000000000000;
+      *v22 = 14;
+      *(v22 + 8) = 0;
+      *(v22 + 16) = 0xE000000000000000;
       swift_willThrow();
-      v83 = v47;
-      outlined destroy of NodePersonality(&v83);
-      v82 = *(&v47 + 1);
-      outlined destroy of [Input](&v82, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined destroy of [Input](&v84, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-      v76 = v59;
-      outlined destroy of String(&v76);
-      v81 = v28;
+      v81 = v45;
       outlined destroy of NodePersonality(&v81);
-      outlined destroy of [Input](v92, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      v80 = *&v29[0];
-      v25 = &v80;
-      return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+      v80 = *(&v45 + 1);
+      outlined destroy of [Input](&v80, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      outlined destroy of [Input](&v82, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      v74 = v57;
+      outlined destroy of String(&v74);
+      v79 = v26;
+      outlined destroy of NodePersonality(&v79);
+      outlined destroy of [Input](v90, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      v78 = *&v27[0];
+      v23 = &v78;
+      return outlined destroy of [Input](v23, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
     }
 
-    v66[0] = v30;
-    v66[1] = v31;
+    v64[0] = v28;
+    v64[1] = v29;
+    v65 = v30;
+    v66 = v31;
     v67 = v32;
-    v68 = v33;
-    v69 = v34;
     if (*(a1 + 56))
     {
 
-      v70 = v32;
-      v12 = &v70;
+      v68 = v30;
+      v12 = &v68;
 LABEL_9:
       outlined destroy of String(v12);
       goto LABEL_10;
@@ -8246,58 +5903,57 @@ LABEL_9:
       *(v15 + 80) = 2;
       *(v15 + 88) = v11;
       swift_retain_n();
-      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v14, v15, &v35);
+      UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], v14, v15, &v33);
 
       swift_setDeallocating();
-      v16 = *(v14 + 16);
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      v91 = v36;
-      specialized ShaderGraphNode.output(labeled:)(&v37, 7632239, 0xE300000000000000, v36);
-      if (!v38)
+      v89 = v34[0];
+      specialized ShaderGraphNode.output(labeled:)(&v35, 7632239, 0xE300000000000000, v34[0]);
+      if (!v36)
       {
         MEMORY[0x266771550](7632239, 0xE300000000000000);
         MEMORY[0x266771550](32, 0xE100000000000000);
         _print_unlocked<A, B>(_:_:)();
         lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
         swift_allocError();
-        *v27 = 14;
-        *(v27 + 8) = 0;
-        *(v27 + 16) = 0xE000000000000000;
+        *v25 = 14;
+        *(v25 + 8) = 0;
+        *(v25 + 16) = 0xE000000000000000;
         swift_willThrow();
-        v90 = v35;
-        outlined destroy of NodePersonality(&v90);
-        v89 = *(&v35 + 1);
-        outlined destroy of [Input](&v89, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        outlined destroy of [Input](&v91, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-
-        v72 = v67;
-        outlined destroy of String(&v72);
-        v88 = v28;
+        v88 = v33;
         outlined destroy of NodePersonality(&v88);
-        outlined destroy of [Input](v92, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        v87 = *&v29[0];
-        v25 = &v87;
-        return outlined destroy of [Input](v25, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+        v87 = *(&v33 + 1);
+        outlined destroy of [Input](&v87, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        outlined destroy of [Input](&v89, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+        v70 = v65;
+        outlined destroy of String(&v70);
+        v86 = v26;
+        outlined destroy of NodePersonality(&v86);
+        outlined destroy of [Input](v90, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        v85 = *&v27[0];
+        v23 = &v85;
+        return outlined destroy of [Input](v23, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
       }
 
-      v62[0] = v37;
-      v62[1] = v38;
+      v60[0] = v35;
+      v60[1] = v36;
+      v61 = v37;
+      v62 = v38;
       v63 = v39;
-      v64 = v40;
-      v65 = v41;
-      UserGraph.connect(_:to:)(v62, v66);
+      UserGraph.connect(_:to:)(v60, v64);
 
-      v73 = v63;
-      outlined destroy of String(&v73);
-      v86 = v35;
-      outlined destroy of NodePersonality(&v86);
-      v85 = *(&v35 + 1);
-      outlined destroy of [Input](&v85, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-      outlined destroy of [Input](&v91, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+      v71 = v61;
+      outlined destroy of String(&v71);
+      v84 = v33;
+      outlined destroy of NodePersonality(&v84);
+      v83 = *(&v33 + 1);
+      outlined destroy of [Input](&v83, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      outlined destroy of [Input](&v89, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
 
-      v71 = v67;
-      v12 = &v71;
+      v69 = v65;
+      v12 = &v69;
       goto LABEL_9;
     }
 
@@ -8313,7 +5969,7 @@ Swift::Int specialized _ArrayProtocol.filter(_:)(Swift::Int result, uint64_t *a2
   if (v2)
   {
     v3 = 0;
-    v19 = result + 32;
+    v18 = result + 32;
     v4 = MEMORY[0x277D84F90];
     while (v3 < v2)
     {
@@ -8326,25 +5982,24 @@ Swift::Int specialized _ArrayProtocol.filter(_:)(Swift::Int result, uint64_t *a2
       v10 = *a2;
       if (*(*a2 + 16))
       {
-        v11 = v19 + 48 * v8;
+        v11 = v18 + 48 * v8;
         v12 = *v11;
         v13 = *(v11 + 8);
         v14 = *(v11 + 16);
-        v22 = *(v11 + 24);
-        v20 = *(v11 + 40);
-        v15 = *(v10 + 40);
+        v21 = *(v11 + 24);
+        v19 = *(v11 + 40);
         Hasher.init(_seed:)();
-        MEMORY[0x266772770](v22);
+        MEMORY[0x266772770](v21);
         result = Hasher._finalize()();
-        v16 = -1 << *(v10 + 32);
-        v17 = result & ~v16;
-        if ((*(v10 + 56 + ((v17 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v17))
+        v15 = -1 << *(v10 + 32);
+        v16 = result & ~v15;
+        if ((*(v10 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16))
         {
-          v18 = ~v16;
-          while (*(*(v10 + 48) + 8 * v17) != v22)
+          v17 = ~v15;
+          while (*(*(v10 + 48) + 8 * v16) != v21)
           {
-            v17 = (v17 + 1) & v18;
-            if (((*(v10 + 56 + ((v17 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v17) & 1) == 0)
+            v16 = (v16 + 1) & v17;
+            if (((*(v10 + 56 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
             {
               goto LABEL_6;
             }
@@ -8370,8 +6025,8 @@ Swift::Int specialized _ArrayProtocol.filter(_:)(Swift::Int result, uint64_t *a2
           *(v7 + 32) = v12;
           *(v7 + 40) = v13;
           *(v7 + 48) = v14;
-          *(v7 + 56) = v22;
-          *(v7 + 72) = v20;
+          *(v7 + 56) = v21;
+          *(v7 + 72) = v19;
         }
       }
 
@@ -8763,49 +6418,48 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph11DebugConfigO
     v3 = static _SetStorage.allocate(capacity:)();
     v4 = 0;
     v5 = v3 + 56;
-    v34 = v1;
-    v35 = a1 + 32;
+    v33 = v1;
+    v34 = a1 + 32;
     while (1)
     {
-      v6 = *(v35 + v4);
-      v36 = v4 + 1;
-      v7 = *(v3 + 40);
+      v6 = *(v34 + v4);
+      v35 = v4 + 1;
       Hasher.init(_seed:)();
       String.hash(into:)();
 
       result = Hasher._finalize()();
-      v9 = ~(-1 << *(v3 + 32));
-      v10 = result & v9;
-      v11 = (result & v9) >> 6;
-      v12 = *(v5 + 8 * v11);
-      v13 = 1 << (result & v9);
-      if ((v13 & v12) != 0)
+      v8 = ~(-1 << *(v3 + 32));
+      v9 = result & v8;
+      v10 = (result & v8) >> 6;
+      v11 = *(v5 + 8 * v10);
+      v12 = 1 << (result & v8);
+      if ((v12 & v11) != 0)
       {
         do
         {
-          v14 = *(*(v3 + 48) + v10);
-          if (v14 > 4)
+          v13 = *(*(v3 + 48) + v9);
+          if (v13 > 4)
           {
-            if (*(*(v3 + 48) + v10) <= 6u)
+            if (*(*(v3 + 48) + v9) <= 6u)
             {
-              if (v14 == 5)
+              if (v13 == 5)
               {
-                v19 = 0x6E69686374697473;
+                v18 = 0x6E69686374697473;
               }
 
               else
               {
-                v19 = 0x446C616D696E696DLL;
+                v18 = 0x446C616D696E696DLL;
               }
 
-              if (v14 == 5)
+              if (v13 == 5)
               {
-                v20 = 0xEE00687061724767;
+                v19 = 0xEE00687061724767;
               }
 
               else
               {
-                v20 = 0xEA0000000000746FLL;
+                v19 = 0xEA0000000000746FLL;
               }
 
               if (v6 > 4)
@@ -8814,20 +6468,20 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph11DebugConfigO
               }
             }
 
-            else if (v14 == 7)
+            else if (v13 == 7)
             {
-              v20 = 0xE800000000000000;
-              v19 = 0x6870617247697061;
+              v19 = 0xE800000000000000;
+              v18 = 0x6870617247697061;
               if (v6 > 4)
               {
                 goto LABEL_56;
               }
             }
 
-            else if (v14 == 8)
+            else if (v13 == 8)
             {
-              v19 = 0xD000000000000011;
-              v20 = 0x8000000265F2BCB0;
+              v18 = 0xD000000000000011;
+              v19 = 0x8000000265F2BCB0;
               if (v6 > 4)
               {
                 goto LABEL_56;
@@ -8836,8 +6490,8 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph11DebugConfigO
 
             else
             {
-              v19 = 0xD00000000000001ALL;
-              v20 = 0x8000000265F2BCD0;
+              v18 = 0xD00000000000001ALL;
+              v19 = 0x8000000265F2BCD0;
               if (v6 > 4)
               {
                 goto LABEL_56;
@@ -8847,37 +6501,47 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph11DebugConfigO
 
           else
           {
-            v15 = 0x62694C6C6174656DLL;
-            if (v14 == 3)
+            v14 = 0x62694C6C6174656DLL;
+            if (v13 == 3)
             {
-              v15 = 7630692;
+              v14 = 7630692;
             }
 
-            v16 = 0xEC00000079726172;
-            if (v14 == 3)
+            v15 = 0xEC00000079726172;
+            if (v13 == 3)
             {
-              v16 = 0xE300000000000000;
+              v15 = 0xE300000000000000;
             }
 
-            if (v14 == 2)
+            if (v13 == 2)
             {
-              v15 = 0x65766968637261;
-              v16 = 0xE700000000000000;
+              v14 = 0x65766968637261;
+              v15 = 0xE700000000000000;
             }
 
-            v17 = 0x7972616D6D7573;
-            if (!*(*(v3 + 48) + v10))
+            v16 = 0x7972616D6D7573;
+            if (!*(*(v3 + 48) + v9))
             {
-              v17 = 1701736302;
+              v16 = 1701736302;
             }
 
-            v18 = 0xE400000000000000;
-            if (*(*(v3 + 48) + v10))
+            v17 = 0xE400000000000000;
+            if (*(*(v3 + 48) + v9))
             {
-              v18 = 0xE700000000000000;
+              v17 = 0xE700000000000000;
             }
 
-            if (*(*(v3 + 48) + v10) <= 1u)
+            if (*(*(v3 + 48) + v9) <= 1u)
+            {
+              v18 = v16;
+            }
+
+            else
+            {
+              v18 = v14;
+            }
+
+            if (*(*(v3 + 48) + v9) <= 1u)
             {
               v19 = v17;
             }
@@ -8887,70 +6551,60 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph11DebugConfigO
               v19 = v15;
             }
 
-            if (*(*(v3 + 48) + v10) <= 1u)
-            {
-              v20 = v18;
-            }
-
-            else
-            {
-              v20 = v16;
-            }
-
             if (v6 > 4)
             {
 LABEL_56:
-              v25 = 0xD00000000000001ALL;
+              v24 = 0xD00000000000001ALL;
               if (v6 == 8)
               {
-                v25 = 0xD000000000000011;
+                v24 = 0xD000000000000011;
               }
 
-              v26 = 0x8000000265F2BCD0;
+              v25 = 0x8000000265F2BCD0;
               if (v6 == 8)
               {
-                v26 = 0x8000000265F2BCB0;
+                v25 = 0x8000000265F2BCB0;
               }
 
               if (v6 == 7)
               {
-                v25 = 0x6870617247697061;
-                v26 = 0xE800000000000000;
+                v24 = 0x6870617247697061;
+                v25 = 0xE800000000000000;
               }
 
-              v27 = 0x6E69686374697473;
+              v26 = 0x6E69686374697473;
               if (v6 != 5)
               {
-                v27 = 0x446C616D696E696DLL;
+                v26 = 0x446C616D696E696DLL;
               }
 
-              v28 = 0xEE00687061724767;
+              v27 = 0xEE00687061724767;
               if (v6 != 5)
               {
-                v28 = 0xEA0000000000746FLL;
+                v27 = 0xEA0000000000746FLL;
               }
 
               if (v6 <= 6)
               {
-                v29 = v27;
+                v28 = v26;
               }
 
               else
               {
-                v29 = v25;
+                v28 = v24;
               }
 
               if (v6 <= 6)
               {
-                v24 = v28;
+                v23 = v27;
               }
 
               else
               {
-                v24 = v26;
+                v23 = v25;
               }
 
-              if (v19 != v29)
+              if (v18 != v28)
               {
                 goto LABEL_74;
               }
@@ -8963,8 +6617,8 @@ LABEL_56:
           {
             if (v6)
             {
-              v24 = 0xE700000000000000;
-              if (v19 != 0x7972616D6D7573)
+              v23 = 0xE700000000000000;
+              if (v18 != 0x7972616D6D7573)
               {
                 goto LABEL_74;
               }
@@ -8972,8 +6626,8 @@ LABEL_56:
 
             else
             {
-              v24 = 0xE400000000000000;
-              if (v19 != 1701736302)
+              v23 = 0xE400000000000000;
+              if (v18 != 1701736302)
               {
                 goto LABEL_74;
               }
@@ -8982,21 +6636,31 @@ LABEL_56:
 
           else
           {
-            v21 = 0x62694C6C6174656DLL;
+            v20 = 0x62694C6C6174656DLL;
             if (v6 == 3)
             {
-              v21 = 7630692;
+              v20 = 7630692;
             }
 
-            v22 = 0xEC00000079726172;
+            v21 = 0xEC00000079726172;
             if (v6 == 3)
             {
-              v22 = 0xE300000000000000;
+              v21 = 0xE300000000000000;
             }
 
             if (v6 == 2)
             {
-              v23 = 0x65766968637261;
+              v22 = 0x65766968637261;
+            }
+
+            else
+            {
+              v22 = v20;
+            }
+
+            if (v6 == 2)
+            {
+              v23 = 0xE700000000000000;
             }
 
             else
@@ -9004,60 +6668,50 @@ LABEL_56:
               v23 = v21;
             }
 
-            if (v6 == 2)
-            {
-              v24 = 0xE700000000000000;
-            }
-
-            else
-            {
-              v24 = v22;
-            }
-
-            if (v19 != v23)
+            if (v18 != v22)
             {
               goto LABEL_74;
             }
           }
 
 LABEL_73:
-          if (v20 == v24)
+          if (v19 == v23)
           {
 
             goto LABEL_4;
           }
 
 LABEL_74:
-          v30 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if (v30)
+          if (v29)
           {
             goto LABEL_4;
           }
 
-          v10 = (v10 + 1) & v9;
-          v11 = v10 >> 6;
-          v12 = *(v5 + 8 * (v10 >> 6));
-          v13 = 1 << v10;
+          v9 = (v9 + 1) & v8;
+          v10 = v9 >> 6;
+          v11 = *(v5 + 8 * (v9 >> 6));
+          v12 = 1 << v9;
         }
 
-        while ((v12 & (1 << v10)) != 0);
+        while ((v11 & (1 << v9)) != 0);
       }
 
-      *(v5 + 8 * v11) = v12 | v13;
-      *(*(v3 + 48) + v10) = v6;
-      v31 = *(v3 + 16);
-      v32 = __OFADD__(v31, 1);
-      v33 = v31 + 1;
-      if (v32)
+      *(v5 + 8 * v10) = v11 | v12;
+      *(*(v3 + 48) + v9) = v6;
+      v30 = *(v3 + 16);
+      v31 = __OFADD__(v30, 1);
+      v32 = v30 + 1;
+      if (v31)
       {
         break;
       }
 
-      *(v3 + 16) = v33;
+      *(v3 + 16) = v32;
 LABEL_4:
-      v4 = v36;
-      if (v36 == v34)
+      v4 = v35;
+      if (v35 == v33)
       {
         return v3;
       }
@@ -9083,75 +6737,74 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11ShaderGraph5InputV_Tt0g5T
     v3 = static _SetStorage.allocate(capacity:)();
     v4 = 0;
     v5 = v3 + 56;
-    v37 = a1 + 32;
-    v39 = v1;
+    v36 = a1 + 32;
+    v38 = v1;
     while (1)
     {
-      v7 = (v37 + 56 * v4);
+      v7 = (v36 + 56 * v4);
       v8 = *v7;
       v9 = v7[1];
       v10 = v7[2];
       v11 = v7[3];
-      v40 = v7[4];
-      v41 = *(v7 + 40);
-      v42 = v7[6];
-      v12 = *(v3 + 40);
+      v39 = v7[4];
+      v40 = *(v7 + 40);
+      v41 = v7[6];
       Hasher.init(_seed:)();
-      v48 = v8;
+      v47 = v8;
       MEMORY[0x266772770](v8);
-      v13 = *(*v9 + 120);
+      v12 = *(*v9 + 120);
 
-      v46 = v9;
-      v13(v49);
-      v43 = v10;
-      v44 = v11;
+      v45 = v9;
+      v12(v48);
+      v42 = v10;
+      v43 = v11;
       String.hash(into:)();
-      if (v41 == 1)
+      if (v40 == 1)
       {
         Hasher._combine(_:)(0);
-        v14 = v40;
+        v13 = v39;
       }
 
       else
       {
         Hasher._combine(_:)(1u);
-        v14 = v40;
-        MEMORY[0x266772770](v40);
+        v13 = v39;
+        MEMORY[0x266772770](v39);
       }
 
-      MEMORY[0x266772770](v42);
+      MEMORY[0x266772770](v41);
       result = Hasher._finalize()();
-      v16 = -1 << *(v3 + 32);
-      v17 = result & ~v16;
-      v18 = v17 >> 6;
-      v19 = *(v5 + 8 * (v17 >> 6));
-      v20 = 1 << v17;
-      v6 = v39;
-      if (((1 << v17) & v19) != 0)
+      v15 = -1 << *(v3 + 32);
+      v16 = result & ~v15;
+      v17 = v16 >> 6;
+      v18 = *(v5 + 8 * (v16 >> 6));
+      v19 = 1 << v16;
+      v6 = v38;
+      if (((1 << v16) & v18) != 0)
       {
         break;
       }
 
 LABEL_34:
-      *(v5 + 8 * v18) = v19 | v20;
-      v33 = *(v3 + 48) + 56 * v17;
-      *v33 = v48;
-      *(v33 + 8) = v46;
-      *(v33 + 16) = v43;
-      *(v33 + 24) = v44;
-      *(v33 + 32) = v14;
-      *(v33 + 40) = v41;
-      *(v33 + 48) = v42;
-      v34 = *(v3 + 16);
-      v35 = __OFADD__(v34, 1);
-      v36 = v34 + 1;
-      if (v35)
+      *(v5 + 8 * v17) = v18 | v19;
+      v32 = *(v3 + 48) + 56 * v16;
+      *v32 = v47;
+      *(v32 + 8) = v45;
+      *(v32 + 16) = v42;
+      *(v32 + 24) = v43;
+      *(v32 + 32) = v13;
+      *(v32 + 40) = v40;
+      *(v32 + 48) = v41;
+      v33 = *(v3 + 16);
+      v34 = __OFADD__(v33, 1);
+      v35 = v33 + 1;
+      if (v34)
       {
         __break(1u);
         return result;
       }
 
-      *(v3 + 16) = v36;
+      *(v3 + 16) = v35;
 LABEL_4:
       if (++v4 == v6)
       {
@@ -9159,42 +6812,42 @@ LABEL_4:
       }
     }
 
-    v38 = v4;
-    v21 = ~v16;
+    v37 = v4;
+    v20 = ~v15;
     while (1)
     {
-      v22 = *(v3 + 48) + 56 * v17;
-      if (*v22 == v48)
+      v21 = *(v3 + 48) + 56 * v16;
+      if (*v21 == v47)
       {
-        v23 = v5;
-        v24 = *(v22 + 16);
-        v25 = *(v22 + 24);
-        v45 = *(v22 + 32);
-        v26 = *(v22 + 40);
-        v47 = *(v22 + 48);
-        v27 = *(**(v22 + 8) + 128);
+        v22 = v5;
+        v23 = *(v21 + 16);
+        v24 = *(v21 + 24);
+        v44 = *(v21 + 32);
+        v25 = *(v21 + 40);
+        v46 = *(v21 + 48);
+        v26 = *(**(v21 + 8) + 128);
 
-        if (v27(v46))
+        if (v26(v45))
         {
-          if (v24 == v43 && v25 == v44)
+          if (v23 == v42 && v24 == v43)
           {
 
-            v5 = v23;
-            if ((v26 & 1) == 0)
+            v5 = v22;
+            if ((v25 & 1) == 0)
             {
 LABEL_25:
-              v31 = v41 ^ 1;
-              if (v45 != v40)
+              v30 = v40 ^ 1;
+              if (v44 != v39)
               {
-                v31 = 0;
+                v30 = 0;
               }
 
-              if (v31 == 1 && v47 == v42)
+              if (v30 == 1 && v46 == v41)
               {
 LABEL_3:
 
-                v4 = v38;
-                v6 = v39;
+                v4 = v37;
+                v6 = v38;
                 goto LABEL_4;
               }
 
@@ -9204,24 +6857,24 @@ LABEL_3:
             goto LABEL_20;
           }
 
-          v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v28 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          v5 = v23;
-          if (v29)
+          v5 = v22;
+          if (v28)
           {
-            if ((v26 & 1) == 0)
+            if ((v25 & 1) == 0)
             {
               goto LABEL_25;
             }
 
 LABEL_20:
-            v30 = v41;
-            if (v47 != v42)
+            v29 = v40;
+            if (v46 != v41)
             {
-              v30 = 0;
+              v29 = 0;
             }
 
-            if (v30)
+            if (v29)
             {
               goto LABEL_3;
             }
@@ -9231,20 +6884,20 @@ LABEL_20:
         else
         {
 
-          v5 = v23;
+          v5 = v22;
         }
       }
 
 LABEL_11:
-      v17 = (v17 + 1) & v21;
-      v18 = v17 >> 6;
-      v19 = *(v5 + 8 * (v17 >> 6));
-      v20 = 1 << v17;
-      if ((v19 & (1 << v17)) == 0)
+      v16 = (v16 + 1) & v20;
+      v17 = v16 >> 6;
+      v18 = *(v5 + 8 * (v16 >> 6));
+      v19 = 1 << v16;
+      if ((v18 & (1 << v16)) == 0)
       {
-        v4 = v38;
-        v6 = v39;
-        v14 = v40;
+        v4 = v37;
+        v6 = v38;
+        v13 = v39;
         goto LABEL_34;
       }
     }
@@ -9253,461 +6906,455 @@ LABEL_11:
   return MEMORY[0x277D84FA0];
 }
 
-uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t *a2, uint64_t *a3, uint64_t a4, char **a5, uint64_t a6, char **a7, uint64_t a8)
+uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t *a2, uint64_t *a3, uint64_t a4, char **a5, __int128 *a6, char **a7, __int128 *a8)
 {
-  v103 = a4;
-  v75 = *(result + 16);
-  if (v75)
+  v99 = a4;
+  v71 = *(result + 16);
+  if (v71)
   {
     v10 = 0;
-    v74 = result + 32;
+    v70 = result + 32;
     do
     {
-      v11 = v74 + 112 * v10;
+      v11 = v70 + 112 * v10;
       v12 = *(v11 + 80);
-      v98 = *(v11 + 64);
-      v99 = v12;
+      v94 = *(v11 + 64);
+      v95 = v12;
       v13 = *(v11 + 96);
       v14 = *(v11 + 16);
-      v97[0] = *v11;
-      v97[1] = v14;
+      v93[0] = *v11;
+      v93[1] = v14;
       v15 = *(v11 + 48);
-      v97[2] = *(v11 + 32);
-      v97[3] = v15;
+      v93[2] = *(v11 + 32);
+      v93[3] = v15;
       v16 = *a2;
       v17 = *(&v15 + 1);
       v18 = *(v11 + 72);
-      v100 = v13;
-      v101 = v18;
+      v96 = v13;
+      v97 = v18;
       v19 = *(v11 + 88);
-      v96 = *(v11 + 104);
-      v93 = __PAIR128__(v98, v17);
-      v94 = *(v11 + 72);
-      v95 = v19;
-      if (*(v16 + 16) && (v20 = *(v16 + 40), Hasher.init(_seed:)(), MEMORY[0x266772770](v17), v21 = Hasher._finalize()(), v22 = v16 + 56, v23 = -1 << *(v16 + 32), v24 = v21 & ~v23, ((*(v16 + 56 + ((v24 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v24) & 1) != 0))
+      v92 = *(v11 + 104);
+      v89 = __PAIR128__(v94, v17);
+      v90 = *(v11 + 72);
+      v91 = v19;
+      if (*(v16 + 16) && (Hasher.init(_seed:)(), MEMORY[0x266772770](v17), v20 = Hasher._finalize()(), v21 = v16 + 56, v22 = -1 << *(v16 + 32), v23 = v20 & ~v22, ((*(v16 + 56 + ((v23 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v23) & 1) != 0))
       {
-        v25 = ~v23;
-        v26 = *(v16 + 48);
+        v24 = ~v22;
+        v25 = *(v16 + 48);
         do
         {
-          v27 = *(v26 + 8 * v24);
-          v28 = v27 == v17;
-          if (v27 == v17)
+          v26 = *(v25 + 8 * v23);
+          v27 = v26 == v17;
+          if (v26 == v17)
           {
             break;
           }
 
-          v24 = (v24 + 1) & v25;
+          v23 = (v23 + 1) & v24;
         }
 
-        while (((*(v22 + ((v24 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v24) & 1) != 0);
+        while (((*(v21 + ((v23 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v23) & 1) != 0);
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
 
-      v29 = *a3;
-      if (*(*a3 + 16) && (v30 = *(v29 + 40), Hasher.init(_seed:)(), MEMORY[0x266772770](v17), v31 = Hasher._finalize()(), v32 = v29 + 56, v33 = -1 << *(v29 + 32), v34 = v31 & ~v33, ((*(v29 + 56 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34) & 1) != 0))
+      v28 = *a3;
+      if (*(*a3 + 16) && (Hasher.init(_seed:)(), MEMORY[0x266772770](v17), v29 = Hasher._finalize()(), v30 = v28 + 56, v31 = -1 << *(v28 + 32), v32 = v29 & ~v31, ((*(v28 + 56 + ((v32 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v32) & 1) != 0))
       {
-        v35 = ~v33;
-        v36 = *(v29 + 48);
+        v33 = ~v31;
+        v34 = *(v28 + 48);
         do
         {
-          v37 = *(v36 + 8 * v34);
-          v38 = v37 == v17;
-          if (v37 == v17)
+          v35 = *(v34 + 8 * v32);
+          v36 = v35 == v17;
+          if (v35 == v17)
           {
             break;
           }
 
-          v34 = (v34 + 1) & v35;
+          v32 = (v32 + 1) & v33;
         }
 
-        while (((*(v32 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34) & 1) != 0);
+        while (((*(v30 + ((v32 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v32) & 1) != 0);
       }
 
       else
       {
-        v38 = 0;
+        v36 = 0;
       }
 
-      v102[0] = v101;
+      v98[0] = v97;
 
-      outlined init with copy of String(v102, &v84);
+      outlined init with copy of String(v98, &v80);
 
-      outlined init with copy of String(v102, &v84);
-      outlined init with copy of Edge(v97, &v84);
-      UserGraph.remove(_:)(v97);
-      if (v28)
+      outlined init with copy of String(v98, &v80);
+      outlined init with copy of Edge(v93, &v80);
+      UserGraph.remove(_:)(v93);
+      if (v27)
       {
-        if (v38)
+        if (v36)
         {
-          v39 = *(a6 + 8);
-          v40 = *a6;
-          v92 = *(a6 + 16);
-          v41 = *(a6 + 16);
-          v42 = *(a6 + 32);
-          v80 = v40;
-          v81 = v41;
-          v82 = v42;
-          *v83 = *(a6 + 48);
-          *&v83[40] = v95;
-          *&v83[24] = v94;
-          *&v83[8] = v93;
-          *&v83[56] = v96;
-          v84 = v40;
-          v85 = v41;
-          v89 = *&v83[32];
-          v90 = *&v83[48];
-          v87 = *v83;
-          v88 = *&v83[16];
-          v86 = v42;
-          v43 = *a5;
+          v37 = *a6;
+          v88 = a6[1];
+          v38 = a6[1];
+          v39 = a6[2];
+          v76 = v37;
+          v77 = v38;
+          v78 = v39;
+          *v79 = *(a6 + 6);
+          *&v79[40] = v91;
+          *&v79[24] = v90;
+          *&v79[8] = v89;
+          *&v79[56] = v92;
+          v80 = v37;
+          v81 = v38;
+          v85 = *&v79[32];
+          v86 = *&v79[48];
+          v83 = *v79;
+          v84 = *&v79[16];
+          v82 = v39;
+          v40 = *a5;
 
-          outlined init with copy of String(&v92, &v80);
+          outlined init with copy of String(&v88, &v76);
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          *a5 = v43;
+          *a5 = v40;
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v43 + 2) + 1, 1, v43);
-            *a5 = v43;
+            v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v40 + 2) + 1, 1, v40);
+            *a5 = v40;
           }
 
-          v46 = *(v43 + 2);
-          v45 = *(v43 + 3);
-          if (v46 >= v45 >> 1)
+          v43 = *(v40 + 2);
+          v42 = *(v40 + 3);
+          if (v43 >= v42 >> 1)
           {
-            v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v45 > 1), v46 + 1, 1, v43);
-            *a5 = v43;
+            v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v40);
+            *a5 = v40;
           }
 
-          *(v43 + 2) = v46 + 1;
-          v47 = &v43[112 * v46];
+          *(v40 + 2) = v43 + 1;
+          v44 = &v40[112 * v43];
+          v45 = v80;
+          v46 = v82;
+          *(v44 + 3) = v81;
+          *(v44 + 4) = v46;
+          *(v44 + 2) = v45;
+          v47 = v83;
           v48 = v84;
           v49 = v86;
-          *(v47 + 3) = v85;
-          *(v47 + 4) = v49;
-          *(v47 + 2) = v48;
-          v50 = v87;
-          v51 = v88;
-          v52 = v90;
-          *(v47 + 7) = v89;
-          *(v47 + 8) = v52;
-          *(v47 + 5) = v50;
-          *(v47 + 6) = v51;
-          v53 = *(a8 + 8);
-          v54 = *a8;
-          v91 = *(a8 + 16);
-          v55 = *(a8 + 16);
-          v56 = *(a8 + 32);
-          v78[0] = v54;
-          v78[1] = v55;
-          v78[2] = v56;
-          *v79 = *(a8 + 48);
-          *&v79[40] = v95;
-          *&v79[24] = v94;
-          *&v79[8] = v93;
-          *&v79[56] = v96;
-          v80 = v54;
-          v81 = v55;
-          *&v83[32] = *&v79[32];
-          *&v83[48] = *&v79[48];
-          *v83 = *v79;
-          *&v83[16] = *&v79[16];
-          v82 = v56;
-          v57 = *a7;
+          *(v44 + 7) = v85;
+          *(v44 + 8) = v49;
+          *(v44 + 5) = v47;
+          *(v44 + 6) = v48;
+          v50 = *a8;
+          v87 = a8[1];
+          v51 = a8[1];
+          v52 = a8[2];
+          v74[0] = v50;
+          v74[1] = v51;
+          v74[2] = v52;
+          *v75 = *(a8 + 6);
+          *&v75[40] = v91;
+          *&v75[24] = v90;
+          *&v75[8] = v89;
+          *&v75[56] = v92;
+          v76 = v50;
+          v77 = v51;
+          *&v79[32] = *&v75[32];
+          *&v79[48] = *&v75[48];
+          *v79 = *v75;
+          *&v79[16] = *&v75[16];
+          v78 = v52;
+          v53 = *a7;
 
-          outlined init with copy of String(&v91, v78);
-          v58 = swift_isUniquelyReferenced_nonNull_native();
-          *a7 = v57;
-          if ((v58 & 1) == 0)
+          outlined init with copy of String(&v87, v74);
+          v54 = swift_isUniquelyReferenced_nonNull_native();
+          *a7 = v53;
+          if ((v54 & 1) == 0)
           {
-            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v57 + 2) + 1, 1, v57);
-            *a7 = v57;
+            v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v53 + 2) + 1, 1, v53);
+            *a7 = v53;
           }
 
-          v60 = *(v57 + 2);
-          v59 = *(v57 + 3);
-          if (v60 >= v59 >> 1)
+          v56 = *(v53 + 2);
+          v55 = *(v53 + 3);
+          if (v56 >= v55 >> 1)
           {
-            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v57);
-            *a7 = v57;
+            v53 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v55 > 1), v56 + 1, 1, v53);
+            *a7 = v53;
           }
 
-          *(v57 + 2) = v60 + 1;
-          v61 = &v57[112 * v60];
-          v62 = v80;
-          v63 = v82;
-          *(v61 + 3) = v81;
-          *(v61 + 4) = v63;
-          *(v61 + 2) = v62;
-          v64 = *v83;
-          v65 = *&v83[16];
-          v66 = *&v83[48];
-          *(v61 + 7) = *&v83[32];
-          *(v61 + 8) = v66;
-          *(v61 + 5) = v64;
-          *(v61 + 6) = v65;
+          *(v53 + 2) = v56 + 1;
+          v57 = &v53[112 * v56];
+          v58 = v76;
+          v59 = v78;
+          *(v57 + 3) = v77;
+          *(v57 + 4) = v59;
+          *(v57 + 2) = v58;
+          v60 = *v79;
+          v61 = *&v79[16];
+          v62 = *&v79[48];
+          *(v57 + 7) = *&v79[32];
+          *(v57 + 8) = v62;
+          *(v57 + 5) = v60;
+          *(v57 + 6) = v61;
           goto LABEL_4;
         }
 
-        outlined destroy of String(v102);
+        outlined destroy of String(v98);
 
-        outlined destroy of String(v102);
-        v67 = a6;
+        outlined destroy of String(v98);
+        v63 = a6;
       }
 
       else
       {
 
-        outlined destroy of String(v102);
+        outlined destroy of String(v98);
 
-        outlined destroy of String(v102);
-        if (!v38)
+        outlined destroy of String(v98);
+        if (!v36)
         {
           if (one-time initialization token for logger != -1)
           {
             swift_once();
           }
 
-          v68 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v68, logger);
-          v69 = Logger.logObject.getter();
-          v70 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v69, v70))
+          v64 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v64, logger);
+          v65 = Logger.logObject.getter();
+          v66 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v65, v66))
           {
-            v71 = swift_slowAlloc();
-            *v71 = 0;
-            _os_log_impl(&dword_265D7D000, v69, v70, "Edge destination node isn't a surface node or geometry modifier node.", v71, 2u);
-            MEMORY[0x266773120](v71, -1, -1);
+            v67 = swift_slowAlloc();
+            *v67 = 0;
+            _os_log_impl(&dword_265D7D000, v65, v66, "Edge destination node isn't a surface node or geometry modifier node.", v67, 2u);
+            MEMORY[0x266773120](v67, -1, -1);
           }
 
           goto LABEL_4;
         }
 
-        v67 = a8;
+        v63 = a8;
       }
 
-      UserGraph.connect(_:to:)(v67, &v93);
+      UserGraph.connect(_:to:)(v63, &v89);
 LABEL_4:
-      result = outlined destroy of Edge(v97);
+      result = outlined destroy of Edge(v93);
       ++v10;
     }
 
-    while (v10 != v75);
+    while (v10 != v71);
   }
 
   return result;
 }
 
-uint64_t specialized UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(uint64_t result, uint64_t a2)
+uint64_t *specialized UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(uint64_t *result, uint64_t a2)
 {
   v3 = v2;
   v4 = *(a2 + 8);
   if (v4)
   {
     v5 = result;
-    v6 = *(a2 + 16);
-    v48 = *a2;
-    v49 = v4;
-    v50[0] = *(a2 + 16);
-    *(v50 + 9) = *(a2 + 25);
-    v7 = v3[8];
-    v8 = v3[9];
-    v9 = v3[6];
-    v54[9] = v3[7];
-    v54[10] = v7;
-    v55[0] = v8;
-    *(v55 + 9) = *(v3 + 153);
-    v10 = v3[5];
-    v54[6] = v3[4];
-    v54[7] = v10;
-    v54[8] = v9;
-    v11 = v3[1];
-    v54[2] = *v3;
-    v54[3] = v11;
-    v12 = v3[3];
-    v54[4] = v3[2];
-    v54[5] = v12;
-    outlined copy of NodePersonality(v48);
-
-    UserGraph.connectedBreathFirstUpstreamSubgraph(rootedAt:)(v5, v53);
-    v13 = *&v53[0];
-
-    v14 = v3[9];
-    v53[8] = v3[8];
-    v54[0] = v14;
+    v47 = *a2;
+    v48 = v4;
+    v49[0] = *(a2 + 16);
+    *(v49 + 9) = *(a2 + 25);
+    v6 = v3[8];
+    v7 = v3[9];
+    v8 = v3[6];
+    v53[9] = v3[7];
+    v53[10] = v6;
+    v54[0] = v7;
     *(v54 + 9) = *(v3 + 153);
-    v15 = v3[5];
-    v53[4] = v3[4];
-    v53[5] = v15;
-    v16 = v3[7];
-    v53[6] = v3[6];
-    v53[7] = v16;
-    v17 = v3[1];
-    v53[0] = *v3;
-    v53[1] = v17;
-    v18 = v3[3];
-    v53[2] = v3[2];
-    v53[3] = v18;
-    UserGraph.connectedBreathFirstUpstreamSubgraph(rootedAt:)(&v48, &v44);
-    v19 = v44;
+    v9 = v3[5];
+    v53[6] = v3[4];
+    v53[7] = v9;
+    v53[8] = v8;
+    v10 = v3[1];
+    v53[2] = *v3;
+    v53[3] = v10;
+    v11 = v3[3];
+    v53[4] = v3[2];
+    v53[5] = v11;
+    outlined copy of NodePersonality(v47);
 
-    v20 = *(v19 + 16);
-    if (v20)
+    UserGraph.connectedBreathFirstUpstreamSubgraph(rootedAt:)(v5, v52);
+    v12 = *&v52[0];
+
+    v13 = v3[9];
+    v52[8] = v3[8];
+    v53[0] = v13;
+    *(v53 + 9) = *(v3 + 153);
+    v14 = v3[5];
+    v52[4] = v3[4];
+    v52[5] = v14;
+    v15 = v3[7];
+    v52[6] = v3[6];
+    v52[7] = v15;
+    v16 = v3[1];
+    v52[0] = *v3;
+    v52[1] = v16;
+    v17 = v3[3];
+    v52[2] = v3[2];
+    v52[3] = v17;
+    UserGraph.connectedBreathFirstUpstreamSubgraph(rootedAt:)(&v47, &v43);
+    v18 = v43;
+
+    v19 = *(v18 + 16);
+    if (v19)
     {
-      v44 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v20, 0);
-      v21 = v44;
-      v22 = *(v44 + 16);
-      v23 = 56;
+      v43 = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
+      v20 = v43;
+      v21 = *(v43 + 16);
+      v22 = 56;
       do
       {
-        v24 = *(v19 + v23);
-        v44 = v21;
-        v25 = *(v21 + 24);
-        if (v22 >= v25 >> 1)
+        v23 = *(v18 + v22);
+        v43 = v20;
+        v24 = *(v20 + 24);
+        if (v21 >= v24 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v22 + 1, 1);
-          v21 = v44;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v21 + 1, 1);
+          v20 = v43;
         }
 
-        *(v21 + 16) = v22 + 1;
-        *(v21 + 8 * v22 + 32) = v24;
-        v23 += 48;
-        ++v22;
-        --v20;
+        *(v20 + 16) = v21 + 1;
+        *(v20 + 8 * v21 + 32) = v23;
+        v22 += 48;
+        ++v21;
+        --v19;
       }
 
-      while (v20);
+      while (v19);
     }
 
     else
     {
 
-      v21 = MEMORY[0x277D84F90];
+      v20 = MEMORY[0x277D84F90];
     }
 
-    v26 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph0bC4NodeV2IDV_SayAHGTt0g5Tf4g_n(v21);
+    v25 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph0bC4NodeV2IDV_SayAHGTt0g5Tf4g_n(v20);
 
-    v43 = v26;
-    v27 = *(v13 + 16);
-    v28 = MEMORY[0x277D84F90];
-    if (v27)
+    v42 = v25;
+    v26 = *(v12 + 16);
+    v27 = MEMORY[0x277D84F90];
+    if (v26)
     {
-      v44 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v27, 0);
-      v29 = v44;
-      v30 = (v13 + 56);
-      v31 = *(v44 + 16);
+      v43 = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v26, 0);
+      v28 = v43;
+      v29 = (v12 + 56);
+      v30 = *(v43 + 16);
       do
       {
-        v33 = *v30;
-        v30 += 6;
-        v32 = v33;
-        v44 = v29;
-        v34 = *(v29 + 24);
-        if (v31 >= v34 >> 1)
+        v32 = *v29;
+        v29 += 6;
+        v31 = v32;
+        v43 = v28;
+        v33 = *(v28 + 24);
+        if (v30 >= v33 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v31 + 1, 1);
-          v29 = v44;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v30 + 1, 1);
+          v28 = v43;
         }
 
-        *(v29 + 16) = v31 + 1;
-        *(v29 + 8 * v31++ + 32) = v32;
-        --v27;
+        *(v28 + 16) = v30 + 1;
+        *(v28 + 8 * v30++ + 32) = v31;
+        --v26;
       }
 
-      while (v27);
+      while (v26);
     }
 
     else
     {
-      v29 = MEMORY[0x277D84F90];
+      v28 = MEMORY[0x277D84F90];
     }
 
-    v35 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph0bC4NodeV2IDV_SayAHGTt0g5Tf4g_n(v29);
+    v34 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph0bC4NodeV2IDV_SayAHGTt0g5Tf4g_n(v28);
 
-    v42 = v35;
-    v36 = specialized _ArrayProtocol.filter(_:)(v13, &v43);
+    v41 = v34;
+    v35 = specialized _ArrayProtocol.filter(_:)(v12, &v42);
 
-    v40 = v28;
-    v41 = v28;
-    v37 = *(v36 + 16);
-    if (v37)
+    v39 = v27;
+    v40 = v27;
+    v36 = *(v35 + 16);
+    if (v36)
     {
-      v38 = v36 + 40;
+      v37 = v35 + 40;
       do
       {
-        v39 = *(v38 + 32);
-        v44 = *(v38 - 8);
-        v45 = *v38;
-        v46 = *(v38 + 16);
-        LOBYTE(v47) = v39;
-        closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(&v44, v3, &v42, &v43, &v41, &v40);
-        v38 += 48;
-        --v37;
+        v38 = *(v37 + 32);
+        v43 = *(v37 - 8);
+        v44 = *v37;
+        v45 = *(v37 + 16);
+        LOBYTE(v46) = v38;
+        closure #2 in UserGraph.splitSharedNodes(nodeDefStore:surfaceShader:geometryModifier:)(&v43, v3, &v41, &v42, &v40, &v39);
+        v37 += 48;
+        --v36;
       }
 
-      while (v37);
+      while (v36);
     }
 
+    v50 = v47;
+    outlined destroy of NodePersonality(&v50);
     v51 = v48;
-    outlined destroy of NodePersonality(&v51);
-    v52 = v49;
-    outlined destroy of [Input](&v52, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-    v44 = *&v50[0];
-    outlined destroy of [Input](&v44, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+    outlined destroy of [Input](&v51, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+    v43 = *&v49[0];
+    outlined destroy of [Input](&v43, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
   }
 
   return result;
 }
 
-uint64_t *specialized closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(uint64_t *result, uint64_t a2)
+unint64_t *specialized closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(unint64_t *result, uint64_t a2)
 {
   v2 = *result;
   if (*result >> 61 == 5)
   {
-    v5 = result[1];
-    v4 = result[2];
-    v6 = result[3];
-    v8 = *((v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
-    v7 = *((v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+    v5 = *((v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
+    v4 = *((v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
 
-    v9._countAndFlagsBits = 0x736E6172745F444ELL;
-    v9._object = 0xEC0000006D726F66;
-    if (String.hasPrefix(_:)(v9) || (v10._object = 0x8000000265F315D0, v10._countAndFlagsBits = 0xD000000000000020, String.hasPrefix(_:)(v10)))
+    v6._countAndFlagsBits = 0x736E6172745F444ELL;
+    v6._object = 0xEC0000006D726F66;
+    if (String.hasPrefix(_:)(v6) || (v7._object = 0x8000000265F315D0, v7._countAndFlagsBits = 0xD000000000000020, String.hasPrefix(_:)(v7)))
     {
-      if (*(a2 + 16) && (v11 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7), (v12 & 1) != 0))
+      if (*(a2 + 16) && (v8 = specialized __RawDictionaryStorage.find<A>(_:)(v5, v4), (v9 & 1) != 0))
       {
-        v13 = v11;
+        v10 = v8;
 
-        v15 = *(*(a2 + 56) + 152 * v13 + 128);
-        MEMORY[0x28223BE20](v14);
+        v12 = *(*(a2 + 56) + 152 * v10 + 128);
+        MEMORY[0x28223BE20](v11);
 
-        _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySay11ShaderGraph5InputVGSayAH7NodeDefV6IOSpecVGG_AH0H4SpecVs5NeverOTg504_s11f6Graph5h4VAA7ij2V6k6VAA0C4l17VIgggo_AC_AGtAIs5M11OIegnrzr_TRAjoSIgggo_Tf1cn_nTf4ng_n(v16, v15, partial apply for closure #1 in closure #1 in UserGraph.mapStringInputs(nodeDefStore:));
+        _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySay11ShaderGraph5InputVGSayAH7NodeDefV6IOSpecVGG_AH0H4SpecVs5NeverOTg504_s11f6Graph5h4VAA7ij2V6k6VAA0C4l17VIgggo_AC_AGtAIs5M11OIegnrzr_TRAjoSIgggo_Tf1cn_nTf4ng_n(v13, v12, partial apply for closure #1 in closure #1 in UserGraph.mapStringInputs(nodeDefStore:));
       }
 
       else
       {
         _StringGuts.grow(_:)(49);
 
-        MEMORY[0x266771550](v8, v7);
+        MEMORY[0x266771550](v5, v4);
 
         MEMORY[0x266771550](0x6F6E20726F662027, 0xEC00000027206564);
-        v17 = dispatch thunk of CustomStringConvertible.description.getter();
-        MEMORY[0x266771550](v17);
+        v14 = dispatch thunk of CustomStringConvertible.description.getter();
+        MEMORY[0x266771550](v14);
 
         MEMORY[0x266771550](1701080942, 0xE400000000000000);
 
         MEMORY[0x266771550](39, 0xE100000000000000);
         lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
         swift_allocError();
-        *v18 = 28;
-        *(v18 + 8) = 0xD000000000000020;
-        *(v18 + 16) = 0x8000000265F315A0;
+        *v15 = 28;
+        *(v15 + 8) = 0xD000000000000020;
+        *(v15 + 16) = 0x8000000265F315A0;
         return swift_willThrow();
       }
     }
@@ -9723,36 +7370,36 @@ uint64_t *specialized closure #1 in UserGraph.mapStringInputs(nodeDefStore:)(uin
 uint64_t specialized closure #1 in closure #1 in UserGraph.insertMaterialXDefaultValues(nodeDefStore:)(__int128 *a1, __int128 *a2, __int128 *a3, _OWORD *a4, uint64_t a5, uint64_t a6)
 {
   v7 = v6;
-  v117 = a5;
+  v115 = a5;
   v13 = *a1;
   v14 = a1[1];
   v15 = a1[2];
-  v112 = *(a1 + 6);
-  v111[1] = v14;
-  v111[2] = v15;
-  v111[0] = v13;
+  v110 = *(a1 + 6);
+  v109[1] = v14;
+  v109[2] = v15;
+  v109[0] = v13;
   v16 = v14;
-  NodeDef.subscript.getter(v14, *(&v14 + 1), v76);
-  if (!v77)
+  NodeDef.subscript.getter(v14, *(&v14 + 1), v74);
+  if (!v75)
   {
-    v74 = 0;
-    v75 = 0xE000000000000000;
+    v72 = 0;
+    v73 = 0xE000000000000000;
     MEMORY[0x266771550](v16, *(&v16 + 1));
     MEMORY[0x266771550](32, 0xE100000000000000);
     v27 = a2[7];
-    v70 = a2[6];
-    v71 = v27;
-    v72 = a2[8];
-    v73 = *(a2 + 18);
+    v68 = a2[6];
+    v69 = v27;
+    v70 = a2[8];
+    v71 = *(a2 + 18);
     v28 = a2[3];
-    *&v66[16] = a2[2];
-    v67 = v28;
+    *&v64[16] = a2[2];
+    v65 = v28;
     v29 = a2[5];
-    v68 = a2[4];
-    v69 = v29;
+    v66 = a2[4];
+    v67 = v29;
     v30 = a2[1];
-    v65 = *a2;
-    *v66 = v30;
+    v63 = *a2;
+    *v64 = v30;
     _print_unlocked<A, B>(_:_:)();
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
@@ -9762,9 +7409,9 @@ uint64_t specialized closure #1 in closure #1 in UserGraph.insertMaterialXDefaul
     return swift_willThrow();
   }
 
-  v98 = v78;
-  v99 = v79;
-  if (!(*(&v78 + 1) | *(&v79 + 1)))
+  v96 = v76;
+  v97 = v77;
+  if (!(*(&v76 + 1) | *(&v77 + 1)))
   {
     goto LABEL_41;
   }
@@ -9773,19 +7420,19 @@ uint64_t specialized closure #1 in closure #1 in UserGraph.insertMaterialXDefaul
   v17 = swift_dynamicCastClass();
   if (!v17)
   {
-    v74 = 0;
-    v75 = 0xE000000000000000;
+    v72 = 0;
+    v73 = 0xE000000000000000;
     v33 = a1[1];
-    v65 = *a1;
-    *v66 = v33;
-    *&v66[16] = a1[2];
-    *&v67 = *(a1 + 6);
+    v63 = *a1;
+    *v64 = v33;
+    *&v64[16] = a1[2];
+    *&v65 = *(a1 + 6);
     _print_unlocked<A, B>(_:_:)();
     MEMORY[0x266771550](32, 0xE100000000000000);
     v34 = a3[1];
-    v65 = *a3;
-    *v66 = v34;
-    *&v66[9] = *(a3 + 25);
+    v63 = *a3;
+    *v64 = v34;
+    *&v64[9] = *(a3 + 25);
     _print_unlocked<A, B>(_:_:)();
     lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
     swift_allocError();
@@ -9794,162 +7441,162 @@ uint64_t specialized closure #1 in closure #1 in UserGraph.insertMaterialXDefaul
     *(v35 + 16) = 0xE000000000000000;
     swift_willThrow();
 LABEL_41:
-    v55 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMd;
-    v56 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMR;
-    v57 = v76;
-    return outlined destroy of [Input](v57, v55, v56);
+    v53 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMd;
+    v54 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMR;
+    v55 = v74;
+    return outlined destroy of [Input](v55, v53, v54);
   }
 
   v18 = v17;
   v19 = a4[9];
-  v115[8] = a4[8];
-  v116[0] = v19;
-  *(v116 + 9) = *(a4 + 153);
+  v113[8] = a4[8];
+  v114[0] = v19;
+  *(v114 + 9) = *(a4 + 153);
   v20 = a4[5];
-  v115[4] = a4[4];
-  v115[5] = v20;
+  v113[4] = a4[4];
+  v113[5] = v20;
   v21 = a4[7];
-  v115[6] = a4[6];
-  v115[7] = v21;
+  v113[6] = a4[6];
+  v113[7] = v21;
   v22 = a4[1];
-  v115[0] = *a4;
-  v115[1] = v22;
+  v113[0] = *a4;
+  v113[1] = v22;
   v23 = a4[3];
-  v115[2] = a4[2];
-  v115[3] = v23;
+  v113[2] = a4[2];
+  v113[3] = v23;
 
-  outlined init with copy of [Input](&v99, &v65, &_sSSSgMd, &_sSSSgMR);
-  outlined init with copy of [Input](&v98, &v65, &_sSSSgMd, &_sSSSgMR);
-  outlined init with copy of UserGraph(v115, &v65);
-  UserGraph.output(connectedTo:)(v111, v80);
-  outlined destroy of UserGraph(v115);
-  if (!v80[1])
+  outlined init with copy of [Input](&v97, &v63, &_sSSSgMd, &_sSSSgMR);
+  outlined init with copy of [Input](&v96, &v63, &_sSSSgMd, &_sSSSgMR);
+  outlined init with copy of UserGraph(v113, &v63);
+  UserGraph.output(connectedTo:)(v109, v78);
+  outlined destroy of UserGraph(v113);
+  if (!v78[1])
   {
     goto LABEL_8;
   }
 
+  v93 = v79;
+  v94 = v80;
   v95 = v81;
-  v96 = v82;
-  v97 = v83;
-  if (v80[0] == -7)
+  if (v78[0] == -7)
   {
 
-    v100 = v81;
-    v24 = &v100;
+    v98 = v79;
+    v24 = &v98;
 LABEL_7:
     outlined destroy of String(v24);
 LABEL_8:
-    v25 = *(&v98 + 1);
-    if (*(&v98 + 1))
+    v25 = *(&v96 + 1);
+    if (*(&v96 + 1))
     {
-      v26 = v98;
+      v26 = v96;
 
-      outlined destroy of [Input](&v99, &_sSSSgMd, &_sSSSgMR);
-      UserGraph.insertMaterialXDefaultValue(_:ofType:toFeedInput:)(v26, v25, v18, v111);
+      outlined destroy of [Input](&v97, &_sSSSgMd, &_sSSSgMR);
+      UserGraph.insertMaterialXDefaultValue(_:ofType:toFeedInput:)(v26, v25, v18, v109);
       if (!v7)
       {
 
-        outlined destroy of [Input](v76, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
-        v55 = &_sSSSgMd;
-        v56 = &_sSSSgMR;
-        v57 = &v98;
-        return outlined destroy of [Input](v57, v55, v56);
+        outlined destroy of [Input](v74, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
+        v53 = &_sSSSgMd;
+        v54 = &_sSSSgMR;
+        v55 = &v96;
+        return outlined destroy of [Input](v55, v53, v54);
       }
 
-      outlined destroy of [Input](&v98, &_sSSSgMd, &_sSSSgMR);
+      outlined destroy of [Input](&v96, &_sSSSgMd, &_sSSSgMR);
       goto LABEL_37;
     }
 
-    v42 = *(&v99 + 1);
-    if (*(&v99 + 1))
+    v40 = *(&v97 + 1);
+    if (*(&v97 + 1))
     {
-      v43 = v99;
-      if (*(a6 + 16) && (v44 = specialized __RawDictionaryStorage.find<A>(_:)(v99, *(&v99 + 1)), (v45 & 1) != 0))
+      v41 = v97;
+      if (*(a6 + 16) && (v42 = specialized __RawDictionaryStorage.find<A>(_:)(v97, *(&v97 + 1)), (v43 & 1) != 0))
       {
-        v46 = v44;
+        v44 = v42;
 
-        outlined destroy of [Input](&v99, &_sSSSgMd, &_sSSSgMR);
-        v47 = (*(a6 + 56) + (v46 << 6));
-        v49 = v47[1];
-        v48 = v47[2];
-        v50 = *v47;
-        *(v114 + 9) = *(v47 + 41);
-        v113[1] = v49;
-        v114[0] = v48;
-        v113[0] = v50;
-        outlined init with copy of GeomPropDef(v113, &v65);
-        specialized UserGraph.insertGeomPropGetter(_:outputType:nodeDefStore:)(v113, v18, v117, &v84);
+        outlined destroy of [Input](&v97, &_sSSSgMd, &_sSSSgMR);
+        v45 = (*(a6 + 56) + (v44 << 6));
+        v47 = v45[1];
+        v46 = v45[2];
+        v48 = *v45;
+        *(v112 + 9) = *(v45 + 41);
+        v111[1] = v47;
+        v112[0] = v46;
+        v111[0] = v48;
+        outlined init with copy of GeomPropDef(v111, &v63);
+        specialized UserGraph.insertGeomPropGetter(_:outputType:nodeDefStore:)(v111, v18, v115, &v82);
         if (v7)
         {
 
-          v51 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMd;
-          v52 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMR;
-          v53 = v76;
+          v49 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMd;
+          v50 = &_s11ShaderGraph7NodeDefV6IOSpecVSgMR;
+          v51 = v74;
 LABEL_32:
-          outlined destroy of [Input](v53, v51, v52);
-          return outlined destroy of GeomPropDef(v113);
+          outlined destroy of [Input](v51, v49, v50);
+          return outlined destroy of GeomPropDef(v111);
         }
 
-        v110 = *&v85[0];
-        specialized ShaderGraphNode.output(labeled:)(&v86, 7632239, 0xE300000000000000, *&v85[0]);
-        if (!v87)
+        v108 = v83[0];
+        specialized ShaderGraphNode.output(labeled:)(&v84, 7632239, 0xE300000000000000, v83[0]);
+        if (!v85)
         {
-          v74 = 0;
-          v75 = 0xE000000000000000;
+          v72 = 0;
+          v73 = 0xE000000000000000;
           MEMORY[0x266771550](7632239, 0xE300000000000000);
           MEMORY[0x266771550](32, 0xE100000000000000);
-          v65 = v84;
-          *v66 = v85[0];
-          *&v66[9] = *(v85 + 9);
+          v63 = v82;
+          *v64 = *v83;
+          *&v64[9] = *(&v83[1] + 1);
           _print_unlocked<A, B>(_:_:)();
-          v60 = v74;
-          v61 = v75;
+          v58 = v72;
+          v59 = v73;
           lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
           swift_allocError();
-          *v62 = 14;
-          *(v62 + 8) = v60;
-          *(v62 + 16) = v61;
+          *v60 = 14;
+          *(v60 + 8) = v58;
+          *(v60 + 16) = v59;
           swift_willThrow();
 
-          outlined destroy of [Input](v76, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
-          v109 = v84;
-          outlined destroy of NodePersonality(&v109);
-          v108 = *(&v84 + 1);
-          outlined destroy of [Input](&v108, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-          v51 = &_sSay11ShaderGraph6OutputVGMd;
-          v52 = &_sSay11ShaderGraph6OutputVGMR;
-          v53 = &v110;
+          outlined destroy of [Input](v74, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
+          v107 = v82;
+          outlined destroy of NodePersonality(&v107);
+          v106 = *(&v82 + 1);
+          outlined destroy of [Input](&v106, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          v49 = &_sSay11ShaderGraph6OutputVGMd;
+          v50 = &_sSay11ShaderGraph6OutputVGMR;
+          v51 = &v108;
           goto LABEL_32;
         }
 
-        v91[0] = v86;
-        v91[1] = v87;
+        v89[0] = v84;
+        v89[1] = v85;
+        v90 = v86;
+        v91 = v87;
         v92 = v88;
-        v93 = v89;
-        v94 = v90;
-        UserGraph.connect(_:to:)(v91, v111);
+        UserGraph.connect(_:to:)(v89, v109);
 
-        v105 = v92;
-        outlined destroy of String(&v105);
-        v107 = v84;
-        outlined destroy of NodePersonality(&v107);
-        v106 = *(&v84 + 1);
-        outlined destroy of [Input](&v106, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
-        outlined destroy of [Input](&v110, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
-        outlined destroy of GeomPropDef(v113);
+        v103 = v90;
+        outlined destroy of String(&v103);
+        v105 = v82;
+        outlined destroy of NodePersonality(&v105);
+        v104 = *(&v82 + 1);
+        outlined destroy of [Input](&v104, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        outlined destroy of [Input](&v108, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+        outlined destroy of GeomPropDef(v111);
       }
 
       else
       {
-        v65 = v16;
+        v63 = v16;
         MEMORY[0x266771550](32, 0xE100000000000000);
-        MEMORY[0x266771550](v43, v42);
-        outlined destroy of [Input](&v99, &_sSSSgMd, &_sSSSgMR);
-        v58 = v65;
+        MEMORY[0x266771550](v41, v40);
+        outlined destroy of [Input](&v97, &_sSSSgMd, &_sSSSgMR);
+        v56 = v63;
         lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
         swift_allocError();
-        *v59 = 17;
-        *(v59 + 8) = v58;
+        *v57 = 17;
+        *(v57 + 8) = v56;
         swift_willThrow();
       }
 
@@ -9963,76 +7610,74 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  if ((v80[0] & 0x8000000000000000) != 0)
+  if ((v78[0] & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_48;
   }
 
   v36 = *(a4 + 8);
-  if (v80[0] >= *(v36 + 16))
+  if (v78[0] >= *(v36 + 16))
   {
 LABEL_48:
     __break(1u);
     goto LABEL_49;
   }
 
-  v37 = (v36 + 48 * v80[0]);
-  v38 = v37[5];
-  v39 = v37[6];
-  v63 = v37[7];
-  v64 = v37[4];
-  outlined copy of NodePersonality(v64);
-  v40 = one-time initialization token for string;
+  v37 = v36 + 48 * v78[0];
+  v61 = *(v37 + 56);
+  v62 = *(v37 + 32);
+  outlined copy of NodePersonality(v62);
+  v38 = one-time initialization token for string;
 
-  if (v40 != -1)
+  if (v38 != -1)
   {
 LABEL_49:
     swift_once();
   }
 
-  if ((MaterialXDataType.isEqual(to:)() & 1) == 0 && !*(v18 + 24))
+  if ((MaterialXDataType.isEqual(to:)(static MaterialXDataType.string) & 1) == 0 && !*(v18 + 24))
   {
 
-    outlined destroy of [Input](&v99, &_sSSSgMd, &_sSSSgMR);
-    outlined destroy of [Input](&v98, &_sSSSgMd, &_sSSSgMR);
+    outlined destroy of [Input](&v97, &_sSSSgMd, &_sSSSgMR);
+    outlined destroy of [Input](&v96, &_sSSSgMd, &_sSSSgMR);
 
-    v104 = v81;
-    outlined destroy of String(&v104);
-    outlined consume of NodePersonality(v64);
+    v102 = v79;
+    outlined destroy of String(&v102);
+    outlined consume of NodePersonality(v62);
 
     goto LABEL_40;
   }
 
-  if (v64 >> 61 || *(v64 + 80) != 6)
+  if (v62 >> 61 || *(v62 + 80) != 6)
   {
-    outlined consume of NodePersonality(v64);
+    outlined consume of NodePersonality(v62);
 
-    v102 = v81;
-    v54 = &v102;
+    v100 = v79;
+    v52 = &v100;
 LABEL_34:
-    outlined destroy of String(v54);
-    outlined destroy of [Input](&v99, &_sSSSgMd, &_sSSSgMR);
-    outlined destroy of [Input](&v98, &_sSSSgMd, &_sSSSgMR);
-    outlined destroy of [Input](v76, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
+    outlined destroy of String(v52);
+    outlined destroy of [Input](&v97, &_sSSSgMd, &_sSSSgMR);
+    outlined destroy of [Input](&v96, &_sSSSgMd, &_sSSSgMR);
+    outlined destroy of [Input](v74, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
   }
 
-  if ((*(v64 + 16) || *(v64 + 24) != 0xE000000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((*(v62 + 16) || *(v62 + 24) != 0xE000000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
-    outlined consume of NodePersonality(v64);
+    outlined consume of NodePersonality(v62);
 
-    v101 = v81;
-    v54 = &v101;
+    v99 = v79;
+    v52 = &v99;
     goto LABEL_34;
   }
 
-  specialized UserGraph.removeEdges(connectedTo:)(v63);
-  v41 = *(a4 + 8);
+  specialized UserGraph.removeEdges(connectedTo:)(v61);
+  v39 = *(a4 + 8);
   result = swift_isUniquelyReferenced_nonNull_native();
-  *(a4 + 8) = v41;
+  *(a4 + 8) = v39;
   if (result)
   {
-    if ((v63 & 0x8000000000000000) == 0)
+    if ((v61 & 0x8000000000000000) == 0)
     {
       goto LABEL_25;
     }
@@ -10042,26 +7687,2157 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(v41);
-  v41 = result;
+  result = specialized _ArrayBuffer._consumeAndCreateNew()(v39);
+  v39 = result;
   *(a4 + 8) = result;
-  if ((v63 & 0x8000000000000000) != 0)
+  if ((v61 & 0x8000000000000000) != 0)
   {
     goto LABEL_51;
   }
 
 LABEL_25:
-  if (v63 < *(v41 + 16))
+  if (v61 < *(v39 + 16))
   {
     ShaderGraphNode.update(id:)(-7);
-    outlined consume of NodePersonality(v64);
+    outlined consume of NodePersonality(v62);
 
-    v103 = v95;
-    v24 = &v103;
+    v101 = v93;
+    v24 = &v101;
     goto LABEL_7;
   }
 
 LABEL_52:
   __break(1u);
   return result;
+}
+
+unint64_t specialized UserGraph.removePassthroughNodes(nodeDefStore:)(unint64_t result)
+{
+  v6 = v2;
+  v7 = v1[8];
+  v8 = *(v7 + 16);
+  if (!v8)
+  {
+    return result;
+  }
+
+  v9 = result;
+
+  v10 = 0;
+  v11 = v7;
+  while (2)
+  {
+    while (2)
+    {
+      for (i = 48 * v10; ; i += 48)
+      {
+        if (v10 >= v8)
+        {
+          __break(1u);
+LABEL_37:
+          __break(1u);
+          goto LABEL_38;
+        }
+
+        v13 = v7 + i;
+        v5 = *(v7 + i + 56);
+        if (v5 != -7)
+        {
+          break;
+        }
+
+        v14 = v10 + 1;
+        if (__OFADD__(v10, 1))
+        {
+          goto LABEL_37;
+        }
+
+        ++v10;
+        if (v14 >= v8)
+        {
+        }
+      }
+
+      if (__OFADD__(v10++, 1))
+      {
+        __break(1u);
+LABEL_41:
+        __break(1u);
+        goto LABEL_42;
+      }
+
+      result = *(v13 + 32);
+      if (result >> 61 != 5)
+      {
+LABEL_27:
+        if (v10 < v8)
+        {
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    v50 = v11;
+    v51 = v6;
+    v56 = v1;
+    v16 = *(v13 + 40);
+    v17 = *(v13 + 48);
+    v48 = *(v13 + 64);
+    v49 = *(v13 + 72);
+    v19 = *((result & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
+    v18 = *((result & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+    v52 = *(v13 + 32);
+    v53 = *(v9 + 16);
+    outlined copy of NodePersonality(result);
+    v105 = v16;
+
+    v55 = v17;
+
+    if (!v53 || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v18), (v21 & 1) == 0))
+    {
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v36 = 28;
+      *(v36 + 8) = v19;
+      *(v36 + 16) = v18;
+      swift_willThrow();
+      outlined consume of NodePersonality(v52);
+
+LABEL_35:
+    }
+
+    v22 = v20;
+
+    v54 = v9;
+    v23 = *(v9 + 56) + 152 * v22;
+    v4 = *(v23 + 16);
+    v3 = *(v23 + 24);
+    v24 = one-time initialization token for passthroughNodeNames;
+
+    if (v24 != -1)
+    {
+      swift_once();
+    }
+
+    rawValue = passthroughNodeNames._rawValue;
+    v6 = v51;
+    if (!*(passthroughNodeNames._rawValue + 2))
+    {
+      outlined consume of NodePersonality(v52);
+
+      goto LABEL_31;
+    }
+
+    v4 = specialized __RawDictionaryStorage.find<A>(_:)(v4, v3);
+    v27 = v26;
+
+    if ((v27 & 1) == 0)
+    {
+      outlined consume of NodePersonality(v52);
+LABEL_31:
+
+      v1 = v56;
+      v9 = v54;
+      v11 = v50;
+      if (v10 < v8)
+      {
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  v28 = (rawValue[7] + 16 * v4);
+  v3 = *v28;
+  v4 = v28[1];
+  v11 = v105;
+  specialized ShaderGraphNode.output(labeled:)(&v65, *v28, v4, v105);
+  if (!v66)
+  {
+LABEL_38:
+    v63 = 0;
+    v64 = 0xE000000000000000;
+
+    MEMORY[0x266771550](v3, v4);
+    MEMORY[0x266771550](32, 0xE100000000000000);
+    v57 = v52;
+    v58 = v11;
+    v59 = v55;
+    v60 = v5;
+    v61 = v48;
+    v62 = v49;
+    _print_unlocked<A, B>(_:_:)();
+
+    v63 = 0;
+    v64 = 0xE000000000000000;
+    MEMORY[0x266771550](v3, v4);
+
+    MEMORY[0x266771550](0x65646F6E206E6920, 0xE900000000000020);
+    v57 = v52;
+    v58 = v105;
+    v59 = v55;
+    v60 = v5;
+    v61 = v48;
+    v62 = v49;
+    _print_unlocked<A, B>(_:_:)();
+    v37 = v63;
+    v38 = v64;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    *v39 = 11;
+    *(v39 + 8) = v37;
+    *(v39 + 16) = v38;
+    swift_willThrow();
+    outlined consume of NodePersonality(v52);
+
+    goto LABEL_35;
+  }
+
+  v92[0] = v65;
+  v92[1] = v66;
+  v93 = v67;
+  v94 = v68;
+  v95 = v69;
+  v1 = v56;
+  specialized OrderedDictionary.subscript.getter(v65, *v56, v56[1], v56[2], &v70);
+  v29 = v71;
+  if (!v71)
+  {
+    goto LABEL_22;
+  }
+
+  v30 = v74;
+  v31 = v75;
+  v32 = v73;
+  v47 = v72;
+  v100 = v70;
+
+  outlined destroy of [Input](&v100, &_s11ShaderGraph10_HashTableV7StorageCSgMd, &_s11ShaderGraph10_HashTableV7StorageCSgMR);
+  v99 = v29;
+  outlined destroy of [Input](&v99, &_ss15ContiguousArrayVy11ShaderGraph6OutputVGMd, &_ss15ContiguousArrayVy11ShaderGraph6OutputVGMR);
+  v98 = v47;
+  outlined destroy of [Input](&v98, &_ss15ContiguousArrayVy11ShaderGraph10OrderedSetVyAC5InputVGGMd, &_ss15ContiguousArrayVy11ShaderGraph10OrderedSetVyAC5InputVGGMR);
+
+  specialized OrderedDictionary.subscript.getter(v92, v32, v30, v31, &v76);
+
+  v1 = v56;
+
+  v33 = v77;
+  if (v77 < 2)
+  {
+    goto LABEL_22;
+  }
+
+  v46 = v82;
+  v45 = v81;
+  v34 = v79;
+  v43 = v78;
+  v44 = v80;
+  v35 = v76;
+
+  outlined destroy of [Input](&v76, &_s11ShaderGraph6OutputVSgSgMd, &_s11ShaderGraph6OutputVSgSgMR);
+  v96 = v93;
+  v102[0] = v35;
+  v102[1] = v33;
+  v102[2] = v43;
+  v102[3] = v34;
+  v102[4] = v44;
+  v103 = v45 & 1;
+  v104 = v46;
+
+  outlined init with copy of String(&v96, &v57);
+
+  specialized ShaderGraphNode.output(labeled:)(&v83, 7632239, 0xE300000000000000, v55);
+  if (!v84)
+  {
+    v63 = 0;
+    v64 = 0xE000000000000000;
+    MEMORY[0x266771550](7632239, 0xE300000000000000);
+    MEMORY[0x266771550](32, 0xE100000000000000);
+    v57 = v52;
+    v58 = v105;
+    v59 = v55;
+    v60 = v5;
+    v61 = v48;
+    v62 = v49;
+    _print_unlocked<A, B>(_:_:)();
+    v40 = v63;
+    v41 = v64;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    *v42 = 14;
+    *(v42 + 8) = v40;
+    *(v42 + 16) = v41;
+    swift_willThrow();
+
+    outlined destroy of String(&v96);
+    outlined consume of NodePersonality(v52);
+    goto LABEL_35;
+  }
+
+  v88[0] = v83;
+  v88[1] = v84;
+  v89 = v85;
+  v90 = v86;
+  v91 = v87;
+  v1 = v56;
+  UserGraph.moveEdges(from:to:)(v88, v102);
+
+  v101 = v89;
+  outlined destroy of String(&v101);
+
+LABEL_22:
+  v4 = v1;
+  specialized UserGraph.removeEdges(connectedTo:)(v5);
+  v11 = v50;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  if ((result & 1) == 0)
+  {
+    result = specialized _ArrayBuffer._consumeAndCreateNew()(v50);
+    v11 = result;
+  }
+
+  v3 = v105;
+  if ((v5 & 0x8000000000000000) != 0)
+  {
+    goto LABEL_41;
+  }
+
+  if (v5 < *(v11 + 16))
+  {
+    ShaderGraphNode.update(id:)(-7);
+    outlined consume of NodePersonality(v52);
+
+    v97 = v93;
+    result = outlined destroy of String(&v97);
+    v1[8] = v11;
+    v9 = v54;
+    goto LABEL_27;
+  }
+
+LABEL_42:
+  __break(1u);
+  return result;
+}
+
+Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
+    v3 = static _SetStorage.allocate(capacity:)();
+    v4 = 0;
+    v5 = v3 + 56;
+    v6 = a1 + 32;
+    while (2)
+    {
+      v7 = (v6 + 16 * v4);
+      v9 = *v7;
+      v8 = v7[1];
+      Hasher.init(_seed:)();
+
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v11 = ~(-1 << *(v3 + 32));
+      for (i = result & v11; ; i = (i + 1) & v11)
+      {
+        v13 = *(v5 + 8 * (i >> 6));
+        if (((1 << i) & v13) == 0)
+        {
+          break;
+        }
+
+        v14 = (*(v3 + 48) + 16 * i);
+        if (*v14 != v9 || v14[1] != v8)
+        {
+          result = _stringCompareWithSmolCheck(_:_:expecting:)();
+          if ((result & 1) == 0)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_4;
+      }
+
+      *(v5 + 8 * (i >> 6)) = (1 << i) | v13;
+      v16 = (*(v3 + 48) + 16 * i);
+      *v16 = v9;
+      v16[1] = v8;
+      v17 = *(v3 + 16);
+      v18 = __OFADD__(v17, 1);
+      v19 = v17 + 1;
+      if (!v18)
+      {
+        *(v3 + 16) = v19;
+LABEL_4:
+        if (++v4 == v1)
+        {
+          return v3;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    return MEMORY[0x277D84FA0];
+  }
+
+  return result;
+}
+
+uint64_t specialized UserGraph.resolveSwizzleNodes(nodeDefStore:)()
+{
+  v1 = type metadata accessor for CharacterSet();
+  v38 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v3 = &v32[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v4);
+  v6 = &v32[-v5];
+  v43 = &outlined read-only object #0 of UserGraph.resolveSwizzleNodes(nodeDefStore:);
+  lazy protocol witness table accessor for type CharacterSet and conformance CharacterSet(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, MEMORY[0x277CC8858]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays7UnicodeO6ScalarVGMd, &_sSays7UnicodeO6ScalarVGMR);
+  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [Unicode.Scalar] and conformance [A], &_sSays7UnicodeO6ScalarVGMd, &_sSays7UnicodeO6ScalarVGMR, MEMORY[0x277D83970]);
+  v37 = v6;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  v43 = &outlined read-only object #1 of UserGraph.resolveSwizzleNodes(nodeDefStore:);
+  v36 = v3;
+  v39 = v1;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  v35 = v0;
+  v7 = *(*(v0 + 64) + 16);
+
+  v34 = result;
+  if (v7)
+  {
+    v9 = 0;
+    v10 = result + 32;
+    v40 = MEMORY[0x277D84F90];
+    v42 = result + 32;
+    while (v9 < v7)
+    {
+      v12 = v10 + 48 * v9;
+      v13 = *(v12 + 24);
+      if (v13 == -7)
+      {
+        v11 = __OFADD__(v9++, 1);
+        if (v11)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      else
+      {
+        v11 = __OFADD__(v9++, 1);
+        if (v11)
+        {
+          goto LABEL_20;
+        }
+
+        v14 = *v12;
+        if (*v12 >> 61 == 5)
+        {
+          v16 = *(v12 + 8);
+          v15 = *(v12 + 16);
+          v41 = *(v12 + 32);
+          v17 = *(v12 + 40);
+          outlined copy of NodePersonality(v14);
+
+          outlined copy of NodePersonality(v14);
+
+          v18._countAndFlagsBits = 0x7A7A6977735F444ELL;
+          v18._object = 0xEA0000000000656CLL;
+          v19 = String.hasPrefix(_:)(v18);
+
+          outlined consume of NodePersonality(v14);
+
+          if (v19)
+          {
+            v33 = v17;
+            v20 = v40;
+            result = swift_isUniquelyReferenced_nonNull_native();
+            v43 = v20;
+            if ((result & 1) == 0)
+            {
+              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 16) + 1, 1);
+              v20 = v43;
+            }
+
+            v21 = v41;
+            v10 = v42;
+            v22 = v33;
+            v24 = *(v20 + 16);
+            v23 = *(v20 + 24);
+            v25 = v24 + 1;
+            if (v24 >= v23 >> 1)
+            {
+              v40 = v24 + 1;
+              result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
+              v25 = v40;
+              v21 = v41;
+              v22 = v33;
+              v20 = v43;
+            }
+
+            *(v20 + 16) = v25;
+            v40 = v20;
+            v26 = v20 + 48 * v24;
+            *(v26 + 32) = v14;
+            *(v26 + 40) = v16;
+            *(v26 + 48) = v15;
+            *(v26 + 56) = v13;
+            *(v26 + 64) = v21;
+            *(v26 + 72) = v22;
+          }
+
+          else
+          {
+            outlined consume of NodePersonality(v14);
+
+            v10 = v42;
+          }
+        }
+      }
+
+      if (v9 >= v7)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+LABEL_19:
+    __break(1u);
+LABEL_20:
+    __break(1u);
+  }
+
+  else
+  {
+    v40 = MEMORY[0x277D84F90];
+LABEL_17:
+
+    MEMORY[0x28223BE20](v27);
+    v29 = v36;
+    v28 = v37;
+    *&v32[-32] = v35;
+    *&v32[-24] = v28;
+    *&v32[-16] = v29;
+    specialized Sequence.forEach(_:)(partial apply for closure #1 in UserGraph.resolveSwizzleNodes(nodeDefStore:), &v32[-48], v40);
+
+    v30 = v39;
+    v31 = *(v38 + 8);
+    v31(v29, v39);
+    return (v31)(v28, v30);
+  }
+
+  return result;
+}
+
+uint64_t sub_265E4CA60()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+uint64_t specialized Sequence.forEach(_:)(uint64_t result, __int128 *a2)
+{
+  v25 = a2;
+  v2 = *(result + 16);
+  if (v2)
+  {
+    v3 = *(v25 + 1);
+    v4 = (result + 80);
+    while (1)
+    {
+      v6 = *(v4 - 4);
+      v5 = *(v4 - 3);
+      v7 = *v4;
+      v8 = *(v4 - 8);
+      v9 = *(v4 - 2);
+      v10 = *(v4 - 5);
+      v22[0] = *(v4 - 6);
+      v22[1] = v10;
+      v22[2] = v6;
+      v22[3] = v5;
+      v22[4] = v9;
+      v23 = v8;
+      v24 = v7;
+      specialized ShaderGraphNode.output(labeled:)(&v12, v6, v5, v3);
+      if (!v13)
+      {
+        break;
+      }
+
+      v4 += 7;
+      v17[0] = v12;
+      v17[1] = v13;
+      v18 = v14;
+      v19 = v15;
+      v20 = v16;
+
+      UserGraph.moveEdge(from:to:)(v22, v17);
+
+      v21 = v18;
+      outlined destroy of String(&v21);
+
+      if (!--v2)
+      {
+        return result;
+      }
+    }
+
+    MEMORY[0x266771550](v6, v5);
+    MEMORY[0x266771550](32, 0xE100000000000000);
+    _print_unlocked<A, B>(_:_:)();
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    *v11 = 11;
+    *(v11 + 8) = 0;
+    *(v11 + 16) = 0xE000000000000000;
+    swift_willThrow();
+  }
+
+  return result;
+}
+
+{
+  v2 = *(result + 16);
+  if (v2)
+  {
+    v4 = (result + 32);
+    do
+    {
+      v5 = v4[5];
+      v15 = v4[4];
+      v16 = v5;
+      v17 = v4[6];
+      v6 = v4[1];
+      v14[0] = *v4;
+      v14[1] = v6;
+      v7 = v4[3];
+      v14[2] = v4[2];
+      v14[3] = v7;
+      v8 = *(&v7 + 1);
+      v9 = *a2;
+      v25 = a2[1];
+      v10 = a2[1];
+      v11 = a2[2];
+      v18[0] = v9;
+      v18[1] = v10;
+      v18[2] = v11;
+      v12 = *(a2 + 6);
+      v13[0] = v17;
+      v19 = v12;
+      v20 = v8;
+      v21 = v15;
+      v22 = v16;
+      v23 = v17;
+      v24 = *(&v17 + 1);
+      v26[0] = v9;
+      v26[1] = v10;
+      v27 = v11;
+      v28 = BYTE8(v11);
+      v29 = v12;
+      v30 = v8;
+      v31 = v15;
+      v32 = v16;
+      v33 = v17;
+      v34 = *(&v17 + 1);
+      outlined init with copy of Edge(v14, v13);
+
+      outlined init with copy of String(&v25, v13);
+      UserGraph.connect(_:to:)(v26, &v30);
+      outlined destroy of Edge(v18);
+      result = outlined destroy of Edge(v14);
+      v4 += 7;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  return result;
+}
+
+uint64_t specialized ShaderGraphNode.metalTextureType.getter(unint64_t a1)
+{
+  if (a1 >> 61 != 5)
+  {
+    goto LABEL_37;
+  }
+
+  swift_bridgeObjectRetain_n();
+  v1._countAndFlagsBits = 0x6567616D695F444ELL;
+  v1._object = 0xE800000000000000;
+  v2 = String.hasPrefix(_:)(v1);
+
+  if (v2 || (, v3._object = 0x8000000265F2D830, v3._countAndFlagsBits = 0xD000000000000014, v4 = String.hasPrefix(_:)(v3), , v4) || (, v5._object = 0x8000000265F30DD0, v5._countAndFlagsBits = 0xD000000000000014, v6 = String.hasPrefix(_:)(v5), , v6))
+  {
+    v7._countAndFlagsBits = 0x33726F6C6F63;
+    v7._object = 0xE600000000000000;
+    if (String.hasSuffix(_:)(v7))
+    {
+
+LABEL_8:
+      if (one-time initialization token for texture2d_half != -1)
+      {
+        swift_once();
+      }
+
+      v10 = &static MetalDataType.texture2d_half;
+      return *v10;
+    }
+
+    v8._countAndFlagsBits = 0x34726F6C6F63;
+    v8._object = 0xE600000000000000;
+    v9 = String.hasSuffix(_:)(v8);
+
+    if (v9)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_37;
+  }
+
+  v11._countAndFlagsBits = 0xD00000000000001DLL;
+  v11._object = 0x8000000265F30DF0;
+  v12 = String.hasPrefix(_:)(v11);
+
+  if (!v12)
+  {
+
+    v14._countAndFlagsBits = 0xD000000000000018;
+    v14._object = 0x8000000265F30E10;
+    v15 = String.hasPrefix(_:)(v14);
+
+    if (v15)
+    {
+      v16._countAndFlagsBits = 0x33726F6C6F63;
+      v16._object = 0xE600000000000000;
+      if (String.hasSuffix(_:)(v16))
+      {
+      }
+
+      else
+      {
+        v24._countAndFlagsBits = 0x34726F6C6F63;
+        v24._object = 0xE600000000000000;
+        v25 = String.hasSuffix(_:)(v24);
+
+        if (!v25)
+        {
+          if (one-time initialization token for texture3d_float != -1)
+          {
+            swift_once();
+          }
+
+          v10 = &static MetalDataType.texture3d_float;
+          return *v10;
+        }
+      }
+
+      if (one-time initialization token for texture3d_half != -1)
+      {
+        swift_once();
+      }
+
+      v10 = &static MetalDataType.texture3d_half;
+      return *v10;
+    }
+
+    v19._countAndFlagsBits = 0xD000000000000017;
+    v19._object = 0x8000000265F2D850;
+    v20 = String.hasPrefix(_:)(v19);
+
+    if (v20 || (, v21._countAndFlagsBits = 0xD000000000000018, v21._object = 0x8000000265F30E30, v22 = String.hasPrefix(_:)(v21), , v22))
+    {
+      v23._countAndFlagsBits = 0x33726F6C6F63;
+      v23._object = 0xE600000000000000;
+      if (String.hasSuffix(_:)(v23))
+      {
+      }
+
+      else
+      {
+        v26._countAndFlagsBits = 0x34726F6C6F63;
+        v26._object = 0xE600000000000000;
+        v27 = String.hasSuffix(_:)(v26);
+
+        if (!v27)
+        {
+          if (one-time initialization token for texturecube_float != -1)
+          {
+            swift_once();
+          }
+
+          v10 = &static MetalDataType.texturecube_float;
+          return *v10;
+        }
+      }
+
+      if (one-time initialization token for texturecube_half != -1)
+      {
+        swift_once();
+      }
+
+      v10 = &static MetalDataType.texturecube_half;
+      return *v10;
+    }
+
+LABEL_37:
+    if (one-time initialization token for texture2d_float != -1)
+    {
+      swift_once();
+    }
+
+    v10 = &static MetalDataType.texture2d_float;
+    return *v10;
+  }
+
+  v13._countAndFlagsBits = 0x33726F6C6F63;
+  v13._object = 0xE600000000000000;
+  if (String.hasSuffix(_:)(v13))
+  {
+
+LABEL_18:
+    if (one-time initialization token for texture2darray_half != -1)
+    {
+      swift_once();
+    }
+
+    v10 = &static MetalDataType.texture2darray_half;
+    return *v10;
+  }
+
+  v17._countAndFlagsBits = 0x34726F6C6F63;
+  v17._object = 0xE600000000000000;
+  v18 = String.hasSuffix(_:)(v17);
+
+  if (v18)
+  {
+    goto LABEL_18;
+  }
+
+  if (one-time initialization token for texture2darray_float != -1)
+  {
+    swift_once();
+  }
+
+  v10 = &static MetalDataType.texture2darray_float;
+  return *v10;
+}
+
+double specialized UserGraph.insertCreateSampler(label:)@<D0>(_OWORD *a1@<X8>)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph9InputSpecVGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_265F24140;
+  if (one-time initialization token for coord != -1)
+  {
+    swift_once();
+  }
+
+  v3 = static MetalDataType.coord;
+  *(inited + 32) = 0x64726F6F63;
+  *(inited + 40) = 0xE500000000000000;
+  *(inited + 48) = v3;
+  v4 = one-time initialization token for address;
+
+  if (v4 != -1)
+  {
+    swift_once();
+  }
+
+  v5 = static MetalDataType.address;
+  *(inited + 56) = 0x73736572646461;
+  *(inited + 64) = 0xE700000000000000;
+  *(inited + 72) = v5;
+  v6 = one-time initialization token for s_address;
+
+  if (v6 != -1)
+  {
+    swift_once();
+  }
+
+  v7 = static MetalDataType.s_address;
+  *(inited + 80) = 0x7365726464615F73;
+  *(inited + 88) = 0xE900000000000073;
+  *(inited + 96) = v7;
+  v8 = one-time initialization token for t_address;
+
+  if (v8 != -1)
+  {
+    swift_once();
+  }
+
+  v9 = static MetalDataType.t_address;
+  *(inited + 104) = 0x7365726464615F74;
+  *(inited + 112) = 0xE900000000000073;
+  *(inited + 120) = v9;
+  v10 = one-time initialization token for r_address;
+
+  if (v10 != -1)
+  {
+    swift_once();
+  }
+
+  v11 = static MetalDataType.r_address;
+  *(inited + 128) = 0x7365726464615F72;
+  *(inited + 136) = 0xE900000000000073;
+  *(inited + 144) = v11;
+  v12 = one-time initialization token for border_color;
+
+  if (v12 != -1)
+  {
+    swift_once();
+  }
+
+  v13 = static MetalDataType.border_color;
+  strcpy((inited + 152), "border_color");
+  *(inited + 165) = 0;
+  *(inited + 166) = -5120;
+  *(inited + 168) = v13;
+  v14 = one-time initialization token for mag_filter;
+
+  if (v14 != -1)
+  {
+    swift_once();
+  }
+
+  v15 = static MetalDataType.mag_filter;
+  *(inited + 176) = 0x746C69665F67616DLL;
+  *(inited + 184) = 0xEA00000000007265;
+  *(inited + 192) = v15;
+  v16 = one-time initialization token for min_filter;
+
+  if (v16 != -1)
+  {
+    swift_once();
+  }
+
+  v17 = static MetalDataType.min_filter;
+  *(inited + 200) = 0x746C69665F6E696DLL;
+  *(inited + 208) = 0xEA00000000007265;
+  *(inited + 216) = v17;
+  v18 = one-time initialization token for mip_filter;
+
+  if (v18 != -1)
+  {
+    swift_once();
+  }
+
+  v19 = static MetalDataType.mip_filter;
+  *(inited + 224) = 0x746C69665F70696DLL;
+  *(inited + 232) = 0xEA00000000007265;
+  *(inited + 240) = v19;
+  v20 = one-time initialization token for max_anisotropy;
+
+  if (v20 != -1)
+  {
+    swift_once();
+  }
+
+  v21 = static MetalDataType.max_anisotropy;
+  strcpy((inited + 248), "max_anisotropy");
+  *(inited + 263) = -18;
+  *(inited + 264) = v21;
+  v22 = one-time initialization token for lod_clamp;
+
+  if (v22 != -1)
+  {
+    swift_once();
+  }
+
+  v23 = static MetalDataType.lod_clamp;
+  *(inited + 272) = 0x6D616C635F646F6CLL;
+  *(inited + 280) = 0xE900000000000070;
+  *(inited + 288) = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
+  v24 = swift_initStackObject();
+  *(v24 + 16) = xmmword_265F1F670;
+  v25 = one-time initialization token for sampler;
+
+  if (v25 != -1)
+  {
+    swift_once();
+  }
+
+  v26 = static MetalDataType.sampler;
+  *(v24 + 32) = 7632239;
+  *(v24 + 40) = 0xE300000000000000;
+  *(v24 + 48) = v26;
+
+  UserGraph.insertNode(inputs:outputs:shaderGraphData:)(inited, v24, 0xE000000000000008, &v29);
+  swift_setDeallocating();
+  swift_arrayDestroy();
+  swift_setDeallocating();
+  swift_arrayDestroy();
+  v27 = v30[0];
+  *a1 = v29;
+  a1[1] = v27;
+  result = *(v30 + 9);
+  *(a1 + 25) = *(v30 + 9);
+  return result;
+}
+
+void specialized closure #1 in UserGraph.transformGeomPropValueNodes(surface:geometryModifier:nodeDefStore:)(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
+{
+  v5 = *a1;
+  if (*a1 >> 61 != 5)
+  {
+    return;
+  }
+
+  v156 = a4;
+  v8 = v4;
+  v9 = *(a1 + 8);
+  v10 = *(a1 + 16);
+  v11 = *(a1 + 24);
+  v97 = *(a1 + 32);
+  v98 = *(a1 + 40);
+  v12 = *((v5 & 0x1FFFFFFFFFFFFFFFLL) + 0x10);
+  v13 = *((v5 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
+
+  v14._object = 0x8000000265F310E0;
+  v14._countAndFlagsBits = 0xD000000000000011;
+  if (!String.hasPrefix(_:)(v14))
+  {
+
+    return;
+  }
+
+  v96 = v11;
+  if (!*(a2 + 16))
+  {
+
+LABEL_16:
+    if (one-time initialization token for logger != -1)
+    {
+      swift_once();
+    }
+
+    v42 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v42, logger);
+    outlined copy of NodePersonality(v5);
+
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.error.getter();
+    outlined consume of NodePersonality(v5);
+
+    if (os_log_type_enabled(v43, v44))
+    {
+      v45 = swift_slowAlloc();
+      v46 = swift_slowAlloc();
+      *&v129 = v46;
+      *v45 = 136315138;
+      *&v144 = 1701080942;
+      *(&v144 + 1) = 0xE400000000000000;
+      *&v125 = v96;
+      v47 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x266771550](v47);
+
+      v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v144, *(&v144 + 1), &v129);
+
+      *(v45 + 4) = v48;
+      _os_log_impl(&dword_265D7D000, v43, v44, "Failed to transform geompropvalue node %s", v45, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v46);
+      MEMORY[0x266773120](v46, -1, -1);
+      MEMORY[0x266773120](v45, -1, -1);
+    }
+
+    return;
+  }
+
+  v15 = specialized __RawDictionaryStorage.find<A>(_:)(v12, v13);
+  v17 = v16;
+
+  if ((v17 & 1) == 0)
+  {
+    goto LABEL_16;
+  }
+
+  v18 = *(a2 + 56) + 152 * v15;
+  v19 = *(v18 + 112);
+  v154[8] = *(v18 + 96);
+  v154[9] = v19;
+  v154[10] = *(v18 + 128);
+  v155 = *(v18 + 144);
+  v20 = *(v18 + 48);
+  v154[4] = *(v18 + 32);
+  v154[5] = v20;
+  v21 = *(v18 + 80);
+  v154[6] = *(v18 + 64);
+  v154[7] = v21;
+  v22 = *(v18 + 16);
+  v154[2] = *v18;
+  v154[3] = v22;
+  NodeDef.subscript.getter(7632239, 0xE300000000000000, v105);
+  if (!v106)
+  {
+    goto LABEL_16;
+  }
+
+  v23 = v107;
+
+  outlined destroy of [Input](v105, &_s11ShaderGraph7NodeDefV6IOSpecVSgMd, &_s11ShaderGraph7NodeDefV6IOSpecVSgMR);
+  v24 = v156[9];
+  v153[8] = v156[8];
+  v154[0] = v24;
+  *(v154 + 9) = *(v156 + 153);
+  v25 = v156[5];
+  v153[4] = v156[4];
+  v153[5] = v25;
+  v26 = v156[6];
+  v153[7] = v156[7];
+  v153[6] = v26;
+  v27 = v156[1];
+  v153[0] = *v156;
+  v153[1] = v27;
+  v28 = v156[2];
+  v153[3] = v156[3];
+  v153[2] = v28;
+  specialized ShaderGraphNode.output(labeled:)(&v108, 0x706F72706D6F6567, 0xE800000000000000, v9);
+  if (!v109)
+  {
+    *&v99 = 0;
+    *(&v99 + 1) = 0xE000000000000000;
+    outlined init with copy of UserGraph(v153, &v144);
+    MEMORY[0x266771550](0x706F72706D6F6567, 0xE800000000000000);
+    MEMORY[0x266771550](32, 0xE100000000000000);
+    *&v144 = v5;
+    *(&v144 + 1) = v9;
+    *&v145 = v10;
+    *(&v145 + 1) = v96;
+    *v146 = v97;
+    v146[8] = v98;
+    _print_unlocked<A, B>(_:_:)();
+    v49 = v99;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    v8 = swift_allocError();
+    *v50 = 11;
+    *(v50 + 8) = v49;
+    swift_willThrow();
+    outlined destroy of UserGraph(v153);
+    goto LABEL_23;
+  }
+
+  v132[0] = v108;
+  v132[1] = v109;
+  v133 = v110;
+  v134 = v111;
+  v135 = v112;
+  outlined init with copy of UserGraph(v153, &v144);
+  UserGraph.node(connectedTo:)(v132, &v113);
+
+  v136 = v133;
+  outlined destroy of String(&v136);
+  outlined destroy of UserGraph(v153);
+  v29 = v114;
+  if (!v114)
+  {
+
+    goto LABEL_16;
+  }
+
+  v30 = v115;
+  v137 = v113;
+  if (v113 >> 61 || (v32 = *(v113 + 48), v31 = *(v113 + 64), v33 = *(v113 + 16), v34 = *(v113 + 32), v104 = *(v113 + 80), v103[0] = v33, v103[1] = v34, v103[2] = v32, v103[3] = v31, v104 != 6))
+  {
+
+    outlined destroy of NodePersonality(&v137);
+    *&v103[0] = v29;
+    outlined destroy of [Input](v103, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+    *&v99 = v30;
+    outlined destroy of [Input](&v99, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+    goto LABEL_16;
+  }
+
+  v94 = *(&v103[0] + 1);
+  v95 = *&v103[0];
+  outlined init with copy of SGDataTypeStorage(v103, &v144);
+  outlined destroy of NodePersonality(&v137);
+  v138 = v29;
+  outlined destroy of [Input](&v138, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+  v139 = v30;
+  outlined destroy of [Input](&v139, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+  if (*(a3 + 16))
+  {
+    v35 = specialized __RawDictionaryStorage.find<A>(_:)(v95, v94);
+    if (v36)
+    {
+      v37 = v35;
+      outlined destroy of SGDataTypeStorage(v103);
+      v38 = (*(a3 + 56) + (v37 << 6));
+      v40 = v38[1];
+      v39 = v38[2];
+      v41 = *v38;
+      *&v146[9] = *(v38 + 41);
+      v145 = v40;
+      *v146 = v39;
+      v144 = v41;
+      outlined init with copy of GeomPropDef(&v144, &v99);
+      specialized UserGraph.insertGeomPropGetter(_:outputType:nodeDefStore:)(&v144, v23, a2, &v118);
+      if (v4)
+      {
+        outlined destroy of GeomPropDef(&v144);
+
+LABEL_24:
+        if (one-time initialization token for logger != -1)
+        {
+          swift_once();
+        }
+
+        v51 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v51, logger);
+        outlined copy of NodePersonality(v5);
+
+        v52 = v8;
+
+        v53 = Logger.logObject.getter();
+        v54 = static os_log_type_t.info.getter();
+
+        outlined consume of NodePersonality(v5);
+
+        if (os_log_type_enabled(v53, v54))
+        {
+          v55 = swift_slowAlloc();
+          v56 = swift_slowAlloc();
+          *&v140 = v56;
+          *v55 = 136315394;
+          *&v103[0] = v8;
+          v57 = v8;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+          v58 = String.init<A>(describing:)();
+          v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v59, &v140);
+
+          *(v55 + 4) = v60;
+          *(v55 + 12) = 2080;
+          *&v103[0] = 1701080942;
+          *(&v103[0] + 1) = 0xE400000000000000;
+          v143 = v96;
+          v61 = dispatch thunk of CustomStringConvertible.description.getter();
+          MEMORY[0x266771550](v61);
+
+          v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*&v103[0], *(&v103[0] + 1), &v140);
+
+          *(v55 + 14) = v62;
+          _os_log_impl(&dword_265D7D000, v53, v54, "Got error '%s' attempting to convert a geompropvalue node ('%s') to an equivalent built-in geom prop node. Skipping conversion.", v55, 0x16u);
+          swift_arrayDestroy();
+          MEMORY[0x266773120](v56, -1, -1);
+          MEMORY[0x266773120](v55, -1, -1);
+        }
+
+        else
+        {
+        }
+
+        return;
+      }
+
+      specialized ShaderGraphNode.output(labeled:)(&v121, 7632239, 0xE300000000000000, v10);
+      if (*(&v121 + 1))
+      {
+        v99 = v121;
+        v100 = v122;
+        v101 = v123;
+        v102 = v124;
+        *&v141 = *v119;
+        specialized ShaderGraphNode.output(labeled:)(&v125, 7632239, 0xE300000000000000, *v119);
+        if (*(&v125 + 1))
+        {
+          v129 = v125;
+          *v130 = v126;
+          *&v130[16] = v127;
+          v131 = v128;
+          UserGraph.moveEdges(from:to:)(&v99, &v129);
+
+          v116[0] = *v130;
+          outlined destroy of String(v116);
+
+          v142 = v100;
+          outlined destroy of String(&v142);
+          *&v140 = v118;
+          outlined destroy of NodePersonality(&v140);
+          v143 = *(&v118 + 1);
+          outlined destroy of [Input](&v143, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+          outlined destroy of [Input](&v141, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+          outlined destroy of GeomPropDef(&v144);
+          return;
+        }
+
+        *&v116[0] = 0;
+        *(&v116[0] + 1) = 0xE000000000000000;
+        MEMORY[0x266771550](7632239, 0xE300000000000000);
+        MEMORY[0x266771550](32, 0xE100000000000000);
+        v129 = v118;
+        *v130 = *v119;
+        *&v130[9] = *&v119[9];
+        _print_unlocked<A, B>(_:_:)();
+        v91 = v116[0];
+        lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+        v8 = swift_allocError();
+        *v92 = 14;
+        *(v92 + 8) = v91;
+        swift_willThrow();
+
+        v129 = v100;
+        outlined destroy of String(&v129);
+        *&v116[0] = v118;
+        outlined destroy of NodePersonality(v116);
+        *&v142 = *(&v118 + 1);
+        outlined destroy of [Input](&v142, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        v90 = &v141;
+      }
+
+      else
+      {
+        *&v129 = 0;
+        *(&v129 + 1) = 0xE000000000000000;
+        MEMORY[0x266771550](7632239, 0xE300000000000000);
+        MEMORY[0x266771550](32, 0xE100000000000000);
+        *&v99 = v5;
+        *(&v99 + 1) = v9;
+        *&v100 = v10;
+        *(&v100 + 1) = v96;
+        *&v101 = v97;
+        BYTE8(v101) = v98;
+        _print_unlocked<A, B>(_:_:)();
+        v88 = v129;
+        lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+        v8 = swift_allocError();
+        *v89 = 14;
+        *(v89 + 8) = v88;
+        swift_willThrow();
+        *&v99 = v118;
+        outlined destroy of NodePersonality(&v99);
+        *&v129 = *(&v118 + 1);
+        outlined destroy of [Input](&v129, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+        *&v125 = *v119;
+        v90 = &v125;
+      }
+
+      outlined destroy of [Input](v90, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+      outlined destroy of GeomPropDef(&v144);
+LABEL_23:
+
+      goto LABEL_24;
+    }
+  }
+
+  specialized ShaderGraphNode.output(labeled:)(v116, 0x746C7561666564, 0xE700000000000000, v9);
+  v63 = v10;
+  if (*(&v116[0] + 1))
+  {
+    v129 = v116[0];
+    *v130 = v116[1];
+    *&v130[16] = v116[2];
+    v131 = v117;
+    v64 = v156[9];
+    v151 = v156[8];
+    v152[0] = v64;
+    *(v152 + 9) = *(v156 + 153);
+    v65 = v156[5];
+    v147 = v156[4];
+    v148 = v65;
+    v66 = v156[6];
+    v150 = v156[7];
+    v149 = v66;
+    v67 = v156[1];
+    v144 = *v156;
+    v145 = v67;
+    v68 = v156[3];
+    *v146 = v156[2];
+    *&v146[16] = v68;
+    outlined init with copy of UserGraph(&v144, &v99);
+    UserGraph.output(connectedTo:)(&v129, &v118);
+    outlined destroy of UserGraph(&v144);
+    if (*(&v118 + 1))
+    {
+      v125 = v118;
+      v126 = *v119;
+      v127 = *&v119[16];
+      v128 = v120;
+      if (one-time initialization token for logger != -1)
+      {
+        swift_once();
+      }
+
+      v69 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v69, logger);
+      outlined init with copy of SGDataTypeStorage(v103, &v99);
+      outlined copy of NodePersonality(v5);
+
+      v70 = Logger.logObject.getter();
+      v71 = static os_log_type_t.error.getter();
+      outlined consume of NodePersonality(v5);
+
+      outlined destroy of SGDataTypeStorage(v103);
+      if (os_log_type_enabled(v70, v71))
+      {
+        v72 = swift_slowAlloc();
+        *&v121 = swift_slowAlloc();
+        v73 = v121;
+        *v72 = 136315394;
+        *&v99 = 1701080942;
+        *(&v99 + 1) = 0xE400000000000000;
+        *&v142 = v96;
+        v93 = v71;
+        v74 = dispatch thunk of CustomStringConvertible.description.getter();
+        MEMORY[0x266771550](v74);
+
+        v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v99, *(&v99 + 1), &v121);
+
+        *(v72 + 4) = v75;
+        *(v72 + 12) = 2080;
+        v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v95, v94, &v121);
+        outlined destroy of SGDataTypeStorage(v103);
+        *(v72 + 14) = v76;
+        _os_log_impl(&dword_265D7D000, v70, v93, "Failed to find valid geompropvalue name for %s, given value: %s, using default value.", v72, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x266773120](v73, -1, -1);
+        v77 = v72;
+        v63 = v10;
+        MEMORY[0x266773120](v77, -1, -1);
+      }
+
+      else
+      {
+
+        outlined destroy of SGDataTypeStorage(v103);
+      }
+
+      specialized ShaderGraphNode.output(labeled:)(&v121, 7632239, 0xE300000000000000, v63);
+      if (*(&v121 + 1))
+      {
+        v99 = v121;
+        v100 = v122;
+        v101 = v123;
+        v102 = v124;
+        UserGraph.moveEdges(from:to:)(&v99, &v125);
+
+        v142 = v100;
+        outlined destroy of String(&v142);
+
+        v141 = v126;
+        outlined destroy of String(&v141);
+
+        v140 = *v130;
+        outlined destroy of String(&v140);
+        return;
+      }
+
+      *&v142 = 0;
+      *(&v142 + 1) = 0xE000000000000000;
+      MEMORY[0x266771550](7632239, 0xE300000000000000);
+      MEMORY[0x266771550](32, 0xE100000000000000);
+      *&v99 = v5;
+      *(&v99 + 1) = v9;
+      *&v100 = v63;
+      *(&v100 + 1) = v96;
+      *&v101 = v97;
+      BYTE8(v101) = v98;
+      _print_unlocked<A, B>(_:_:)();
+      v86 = v142;
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      v8 = swift_allocError();
+      *v87 = 14;
+      *(v87 + 8) = v86;
+      swift_willThrow();
+
+      v99 = v126;
+      outlined destroy of String(&v99);
+
+      v142 = *v130;
+      outlined destroy of String(&v142);
+      goto LABEL_23;
+    }
+
+    v125 = *v130;
+    outlined destroy of String(&v125);
+  }
+
+  if (one-time initialization token for logger != -1)
+  {
+    swift_once();
+  }
+
+  v78 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v78, logger);
+  outlined init with copy of SGDataTypeStorage(v103, &v99);
+  outlined copy of NodePersonality(v5);
+
+  v79 = Logger.logObject.getter();
+  v80 = static os_log_type_t.error.getter();
+  outlined consume of NodePersonality(v5);
+
+  outlined destroy of SGDataTypeStorage(v103);
+  if (os_log_type_enabled(v79, v80))
+  {
+    v81 = swift_slowAlloc();
+    v82 = swift_slowAlloc();
+    *&v121 = v82;
+    *v81 = 136315394;
+    *&v99 = 1701080942;
+    *(&v99 + 1) = 0xE400000000000000;
+    *&v142 = v96;
+    v83 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x266771550](v83);
+
+    v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v99, *(&v99 + 1), &v121);
+
+    *(v81 + 4) = v84;
+    *(v81 + 12) = 2080;
+    v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v95, v94, &v121);
+    outlined destroy of SGDataTypeStorage(v103);
+    *(v81 + 14) = v85;
+    _os_log_impl(&dword_265D7D000, v79, v80, "Failed to find valid geomprop for node %s, given value: %s, and no default was found.", v81, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x266773120](v82, -1, -1);
+    MEMORY[0x266773120](v81, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of SGDataTypeStorage(v103);
+  }
+}
+
+uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t a2, void *a3)
+{
+  v3 = *(result + 16);
+  if (v3)
+  {
+    v5 = (result + 80);
+    do
+    {
+      v6 = *v5;
+      v7 = *(v5 - 8);
+      v9 = *(v5 - 3);
+      v8 = *(v5 - 2);
+      v11 = *(v5 - 5);
+      v10 = *(v5 - 4);
+      v12[0] = *(v5 - 6);
+      v12[1] = v11;
+      v12[2] = v10;
+      v12[3] = v9;
+      v12[4] = v8;
+      v13 = v7;
+      v14 = v6;
+
+      UserGraph.connect(_:to:)(a3, v12);
+
+      v5 += 7;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  return result;
+}
+
+uint64_t specialized UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(uint64_t *a1, int a2)
+{
+  v4 = v2;
+  v6 = v2[9];
+  v68 = v2[8];
+  v69[0] = v6;
+  *(v69 + 9) = *(v2 + 153);
+  v7 = v2[5];
+  v64 = v2[4];
+  v65 = v7;
+  v8 = v2[7];
+  v66 = v2[6];
+  v67 = v8;
+  v9 = v2[1];
+  v60 = *v2;
+  v61 = v9;
+  v10 = v2[3];
+  v62 = v2[2];
+  v63 = v10;
+  UserGraph.connectedUpstreamSubgraph(rootedAt:)(a1, &v41);
+  v11 = v41;
+
+  v12 = *(v11 + 16);
+  v13 = MEMORY[0x277D84F90];
+  v38 = v4;
+  if (v12)
+  {
+    LODWORD(v71) = a2;
+    *&v41 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
+    v14 = v41;
+    v15 = *(v41 + 16);
+    v16 = 56;
+    do
+    {
+      v17 = *(v11 + v16);
+      *&v41 = v14;
+      v18 = *(v14 + 24);
+      if (v15 >= v18 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v15 + 1, 1);
+        v14 = v41;
+      }
+
+      *(v14 + 16) = v15 + 1;
+      *(v14 + 8 * v15 + 32) = v17;
+      v16 += 48;
+      ++v15;
+      --v12;
+    }
+
+    while (v12);
+
+    v13 = MEMORY[0x277D84F90];
+    LOBYTE(a2) = v71;
+  }
+
+  else
+  {
+
+    v14 = MEMORY[0x277D84F90];
+  }
+
+  v71 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph0bC4NodeV2IDV_SayAHGTt0g5Tf4g_n(v14);
+
+  if ((a2 & 1) == 0)
+  {
+    v37 = 0x65636166727573;
+    if (one-time initialization token for surface_parameters_private != -1)
+    {
+      swift_once();
+    }
+
+    v39 = 0xE700000000000000;
+    goto LABEL_14;
+  }
+
+  v37 = 0x797274656D6F6567;
+  if (one-time initialization token for geometry_parameters_private != -1)
+  {
+    goto LABEL_33;
+  }
+
+  while (1)
+  {
+    v39 = 0xE800000000000000;
+LABEL_14:
+
+    v20 = v64;
+    v70[0] = v64;
+    v40 = v13;
+    v21 = *(v64 + 16);
+    v22 = v19;
+
+    outlined init with copy of [Input](v70, &v41, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
+    if (!v21)
+    {
+      break;
+    }
+
+    v13 = 0;
+    while (v13 < v21)
+    {
+      v24 = v20 + 32 + 48 * v13;
+      v25 = *(v24 + 24);
+      if (v25 == -7)
+      {
+        v23 = __OFADD__(v13++, 1);
+        if (v23)
+        {
+          goto LABEL_31;
+        }
+
+        if (v13 >= v21)
+        {
+          goto LABEL_23;
+        }
+      }
+
+      else
+      {
+        v23 = __OFADD__(v13++, 1);
+        if (v23)
+        {
+          goto LABEL_32;
+        }
+
+        v26 = *(v24 + 8);
+        v27 = *(v24 + 16);
+        v28 = *v24;
+        v29 = *(v24 + 40);
+        v30 = *(v24 + 32);
+        *&v41 = v28;
+        *(&v41 + 1) = v26;
+        *v42 = v27;
+        *&v42[8] = v25;
+        *&v42[16] = v30;
+        v42[24] = v29;
+        outlined copy of NodePersonality(v28);
+
+        closure #1 in UserGraph.insertParamsInputs(surface:type:nodeDefStore:)(&v41, v71, v37, v39, v22, v38, &v40);
+        outlined consume of NodePersonality(v28);
+        if (v3)
+        {
+
+          outlined destroy of [Input](v70, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
+        }
+
+        if (v13 >= v21)
+        {
+          goto LABEL_23;
+        }
+      }
+    }
+
+    __break(1u);
+LABEL_31:
+    __break(1u);
+LABEL_32:
+    __break(1u);
+LABEL_33:
+    swift_once();
+  }
+
+LABEL_23:
+  outlined destroy of [Input](v70, &_sSay11ShaderGraph0aB4NodeVGMd, &_sSay11ShaderGraph0aB4NodeVGMR);
+
+  v31 = v22;
+
+  v32 = v40;
+  if (*(v40 + 2))
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMd, &_ss23_ContiguousArrayStorageCy11ShaderGraph10OutputSpecVGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_265F1F670;
+    *(inited + 32) = 7632239;
+    *(inited + 40) = 0xE300000000000000;
+    *(inited + 48) = v31;
+    v34 = swift_allocObject();
+    *(v34 + 16) = 12324;
+    *(v34 + 24) = 0xE200000000000000;
+
+    UserGraph.insertNode(inputs:outputs:shaderGraphData:)(MEMORY[0x277D84F90], inited, v34 | 0x6000000000000000, &v43);
+
+    swift_setDeallocating();
+    swift_arrayDestroy();
+    v59 = v44[0];
+    specialized ShaderGraphNode.output(labeled:)(&v45, 7632239, 0xE300000000000000, v44[0]);
+    if (v46)
+    {
+      v50[0] = v45;
+      v50[1] = v46;
+      v51 = v47;
+      v52 = v48;
+      v53 = v49;
+      v54 = v47;
+
+      outlined init with copy of String(&v54, &v41);
+      specialized Sequence.forEach(_:)(v32, v38, v50);
+
+      outlined destroy of String(&v54);
+      v56 = v43;
+      outlined destroy of NodePersonality(&v56);
+      v55 = *(&v43 + 1);
+      outlined destroy of [Input](&v55, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      outlined destroy of [Input](&v59, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+
+      outlined destroy of String(&v54);
+    }
+
+    else
+    {
+      MEMORY[0x266771550](7632239, 0xE300000000000000);
+      MEMORY[0x266771550](32, 0xE100000000000000);
+      v41 = v43;
+      *v42 = *v44;
+      *&v42[9] = *(&v44[1] + 1);
+      _print_unlocked<A, B>(_:_:)();
+
+      v41 = v43;
+      *v42 = *v44;
+      *&v42[9] = *(&v44[1] + 1);
+      _print_unlocked<A, B>(_:_:)();
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v36 = 14;
+      *(v36 + 8) = 0;
+      *(v36 + 16) = 0xE000000000000000;
+      swift_willThrow();
+      v58 = v43;
+      outlined destroy of NodePersonality(&v58);
+      v57 = *(&v43 + 1);
+      outlined destroy of [Input](&v57, &_sSay11ShaderGraph5InputVGMd, &_sSay11ShaderGraph5InputVGMR);
+      outlined destroy of [Input](&v59, &_sSay11ShaderGraph6OutputVGMd, &_sSay11ShaderGraph6OutputVGMR);
+    }
+  }
+
+  else
+  {
+  }
+}
+
+void specialized closure #1 in UserGraph.resolveMaterialXNodeDefs(connectedTo:nodeDefStore:shaderType:)(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int (*a4)(char *, uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v82 = a7;
+  v83 = a4;
+  v11 = type metadata accessor for NodeDef.Implementation.Kind(0);
+  MEMORY[0x28223BE20](v11);
+  v84 = &v74 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ShaderGraph7NodeDefV14ImplementationVSgMd, &_s11ShaderGraph7NodeDefV14ImplementationVSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v74 - v14;
+  v16 = type metadata accessor for NodeDef.Implementation(0);
+  MEMORY[0x28223BE20](v16);
+  v19 = &v74 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = *a1;
+  if (*a1 >> 61 != 5)
+  {
+    return;
+  }
+
+  if (!*(a2 + 16))
+  {
+LABEL_9:
+    *&v87 = 0;
+    *(&v87 + 1) = 0xE000000000000000;
+    v44 = *(a1 + 1);
+    v85 = *a1;
+    v86[0] = v44;
+    *(v86 + 9) = *(a1 + 25);
+    _print_unlocked<A, B>(_:_:)();
+    v45 = v87;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    *v46 = 27;
+    *(v46 + 8) = v45;
+    swift_willThrow();
+    return;
+  }
+
+  v79 = v17;
+  v80 = a6;
+  v81 = v19;
+  v21 = v20 & 0x1FFFFFFFFFFFFFFFLL;
+  v22 = *(v21 + 16);
+  v23 = *(v21 + 24);
+
+  v78 = v22;
+  v24 = specialized __RawDictionaryStorage.find<A>(_:)(v22, v23);
+  if ((v25 & 1) == 0)
+  {
+
+    goto LABEL_9;
+  }
+
+  v77 = v23;
+  v26 = *(a2 + 56) + 152 * v24;
+  v27 = *(v26 + 16);
+  v88[0] = *v26;
+  v88[1] = v27;
+  v28 = *(v26 + 80);
+  v30 = *(v26 + 32);
+  v29 = *(v26 + 48);
+  v88[4] = *(v26 + 64);
+  v88[5] = v28;
+  v88[2] = v30;
+  v88[3] = v29;
+  v32 = *(v26 + 112);
+  v31 = *(v26 + 128);
+  v33 = *(v26 + 96);
+  v89 = *(v26 + 144);
+  v88[7] = v32;
+  v88[8] = v31;
+  v88[6] = v33;
+  v34 = a1[3];
+  if (!specialized Set.contains(_:)(v34, a5))
+  {
+
+    return;
+  }
+
+  outlined init with copy of NodeDef(v88, &v85);
+  NodeDefStore.implementation(for:target:)(v88, v80, v83, v15);
+  v35 = *(v79 + 48);
+  v36 = v35(v15, 1, v16);
+  v76 = v34;
+  if (v36 == 1)
+  {
+    *&v85 = 1599098185;
+    *(&v85 + 1) = 0xE400000000000000;
+    v37 = v80;
+
+    v83 = v35;
+    MEMORY[0x266771550](v78, v77);
+    v75 = *(&v85 + 1);
+    v79 = v85;
+    v38 = v81;
+    v39 = (v81 + *(v16 + 20));
+    *v39 = specialized static NodeDefStore.inferLibraryFunctionName(forNodeDefName:)(*&v88[0], *(&v88[0] + 1));
+    v39[1] = v40;
+    swift_storeEnumTagMultiPayload();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_265F20CD0;
+    *(inited + 32) = v37;
+    v42 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC11ShaderGraph15MaterialXTargetC_SayAFGTt0g5Tf4g_n(inited);
+
+    outlined destroy of NodeDef(v88);
+    v43 = v75;
+    *v38 = v79;
+    v38[1] = v43;
+    *(v38 + *(v16 + 24)) = v42;
+    if (v83(v15, 1, v16) != 1)
+    {
+      outlined destroy of [Input](v15, &_s11ShaderGraph7NodeDefV14ImplementationVSgMd, &_s11ShaderGraph7NodeDefV14ImplementationVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined destroy of NodeDef(v88);
+    v38 = v81;
+    outlined init with take of NodeDef.Implementation(v15, v81);
+  }
+
+  v47 = v38 + *(v16 + 20);
+  v48 = v84;
+  outlined init with copy of NodeDef.Implementation.Kind(v47, v84, type metadata accessor for NodeDef.Implementation.Kind);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+
+      v55 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg12functionName_10Foundation3URLV4filetMd, &_sSSSg12functionName_10Foundation3URLV4filetMR) + 48);
+      *&v85 = 0;
+      *(&v85 + 1) = 0xE000000000000000;
+      _StringGuts.grow(_:)(69);
+      MEMORY[0x266771550](0xD000000000000042, 0x8000000265F30FD0);
+      MEMORY[0x266771550](v78, v77);
+
+      MEMORY[0x266771550](46, 0xE100000000000000);
+      v56 = v85;
+      lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+      swift_allocError();
+      *v57 = 29;
+      *(v57 + 8) = v56;
+      swift_willThrow();
+      outlined destroy of NodeDef.Implementation.Kind(v81, type metadata accessor for NodeDef.Implementation);
+      v58 = type metadata accessor for URL();
+      (*(*(v58 - 8) + 8))(&v48[v55], v58);
+      return;
+    }
+
+    outlined destroy of NodeDef.Implementation.Kind(v48, type metadata accessor for NodeDef.Implementation.Kind);
+    *&v85 = 0;
+    *(&v85 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(87);
+    MEMORY[0x266771550](0xD00000000000004ALL, 0x8000000265F31020);
+    MEMORY[0x266771550](0xD00000000000003ELL, 0x8000000265F31070);
+    MEMORY[0x266771550](0x6C6C616320736920, 0xEB000000002E6465);
+    v51 = *(&v85 + 1);
+    v50 = v85;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    v53 = 47;
+    goto LABEL_30;
+  }
+
+  if (EnumCaseMultiPayload == 2)
+  {
+
+    outlined destroy of NodeDef.Implementation.Kind(v48, type metadata accessor for NodeDef.Implementation.Kind);
+    *&v85 = 0;
+    *(&v85 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(51);
+    v87 = v85;
+    MEMORY[0x266771550](0xD000000000000031, 0x8000000265F30EF0);
+    v54 = *(a1 + 1);
+    v85 = *a1;
+    v86[0] = v54;
+    *(v86 + 9) = *(a1 + 25);
+    _print_unlocked<A, B>(_:_:)();
+    v51 = *(&v87 + 1);
+    v50 = v87;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    v53 = 29;
+LABEL_30:
+    *v52 = v53;
+    *(v52 + 8) = v50;
+    *(v52 + 16) = v51;
+    swift_willThrow();
+    outlined destroy of NodeDef.Implementation.Kind(v81, type metadata accessor for NodeDef.Implementation);
+    return;
+  }
+
+  v59 = *(v48 + 1);
+  v60 = a1[2];
+  v61 = *(v60 + 16);
+  if (!v61)
+  {
+
+    *&v85 = 0;
+    *(&v85 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(66);
+    v87 = v85;
+    v71 = "t yet supported. ";
+    v72 = 0xD000000000000040;
+LABEL_29:
+    MEMORY[0x266771550](v72, v71 | 0x8000000000000000);
+    v73 = *(a1 + 1);
+    v85 = *a1;
+    v86[0] = v73;
+    *(v86 + 9) = *(a1 + 25);
+    _print_unlocked<A, B>(_:_:)();
+    v51 = *(&v87 + 1);
+    v50 = v87;
+    lazy protocol witness table accessor for type UserGraphError and conformance UserGraphError();
+    swift_allocError();
+    v53 = 40;
+    goto LABEL_30;
+  }
+
+  if (v61 != 1)
+  {
+
+    *&v85 = 0;
+    *(&v85 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(72);
+    v87 = v85;
+    v71 = " function call. ";
+    v72 = 0xD000000000000046;
+    goto LABEL_29;
+  }
+
+  v62 = *v48;
+  v63 = *(v60 + 40);
+  v64 = swift_allocObject();
+  *(v64 + 16) = v62;
+  *(v64 + 24) = v59;
+  *(v64 + 32) = v63;
+  v65 = v82;
+  v66 = *(v82 + 64);
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *(v65 + 64) = v66;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    *(v65 + 64) = specialized _ArrayBuffer._consumeAndCreateNew()(v66);
+  }
+
+  outlined destroy of NodeDef.Implementation.Kind(v81, type metadata accessor for NodeDef.Implementation);
+  if ((v76 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v68 = *(v65 + 64);
+    if (v76 < *(v68 + 16))
+    {
+      v69 = v68 + 48 * v76;
+      v70 = *(v69 + 32);
+      *(v69 + 32) = v64 | 0x2000000000000000;
+      outlined consume of NodePersonality(v70);
+      return;
+    }
+  }
+
+  __break(1u);
+}
+
+uint64_t sub_265E4F9F8()
+{
+  outlined consume of SGDataTypeStorage(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40), *(v0 + 48), *(v0 + 56), *(v0 + 64), *(v0 + 72), *(v0 + 80));
+
+  return MEMORY[0x2821FE8E8](v0, 96, 15);
+}
+
+uint64_t sub_265E4FA54()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
+}
+
+Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo10SGDataTypeV_Tt0g5Tf4g_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo10SGDataTypeVGMd, &_ss11_SetStorageCySo10SGDataTypeVGMR);
+    v3 = static _SetStorage.allocate(capacity:)();
+    v4 = 0;
+    v5 = v3 + 56;
+    v6 = a1 + 32;
+    while (1)
+    {
+      v10 = *(v6 + 8 * v4);
+      Hasher.init(_seed:)();
+      MEMORY[0x266772770](v10);
+      result = Hasher._finalize()();
+      v12 = ~(-1 << *(v3 + 32));
+      v13 = result & v12;
+      v14 = (result & v12) >> 6;
+      v15 = *(v5 + 8 * v14);
+      v16 = 1 << (result & v12);
+      v17 = *(v3 + 48);
+      if ((v16 & v15) != 0)
+      {
+        while (*(v17 + 8 * v13) != v10)
+        {
+          v13 = (v13 + 1) & v12;
+          v14 = v13 >> 6;
+          v15 = *(v5 + 8 * (v13 >> 6));
+          v16 = 1 << v13;
+          if (((1 << v13) & v15) == 0)
+          {
+            goto LABEL_3;
+          }
+        }
+      }
+
+      else
+      {
+LABEL_3:
+        *(v5 + 8 * v14) = v16 | v15;
+        *(v17 + 8 * v13) = v10;
+        v7 = *(v3 + 16);
+        v8 = __OFADD__(v7, 1);
+        v9 = v7 + 1;
+        if (v8)
+        {
+          __break(1u);
+          return result;
+        }
+
+        *(v3 + 16) = v9;
+      }
+
+      if (++v4 == v1)
+      {
+        return v3;
+      }
+    }
+  }
+
+  return MEMORY[0x277D84FA0];
 }

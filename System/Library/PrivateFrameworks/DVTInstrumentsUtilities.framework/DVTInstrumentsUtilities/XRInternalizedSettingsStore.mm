@@ -6,14 +6,14 @@
 
 + (void)initialize
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     v2 = objc_opt_new();
+    v93 = 0u;
     v94 = 0u;
     v95 = 0u;
     v96 = 0u;
-    v97 = 0u;
     v3 = objc_opt_new();
     v8 = objc_msgSend_processInfo(MEMORY[0x277CCAC38], v4, v5, v6, v7);
     v13 = objc_msgSend_environment(v8, v9, v10, v11, v12);
@@ -21,8 +21,8 @@
     v17 = objc_msgSend_objectForKeyedSubscript_(v13, v14, @"XrayInternalSettingsPath", v15, v16);
     if (v17)
     {
-      v90 = v17;
-      v91 = v13;
+      v89 = v17;
+      v90 = v13;
       v21 = objc_msgSend_componentsSeparatedByString_(v17, v18, @":", v19, v20);
       v26 = objc_msgSend_firstObject(v21, v22, v23, v24, v25);
       isEqual = objc_msgSend_isEqual_(v26, v27, @"-", v28, v29);
@@ -44,28 +44,28 @@
         v21 = v46;
       }
 
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
       v99 = 0u;
+      v100 = 0u;
+      v97 = 0u;
+      v98 = 0u;
       obj = v21;
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v47, &v98, v105, 16);
+      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v47, &v97, v104, 16);
       if (v48)
       {
         v53 = v48;
-        v54 = *v99;
-        v92 = *MEMORY[0x277CCA450];
+        v54 = *v98;
+        v91 = *MEMORY[0x277CCA450];
         do
         {
           for (i = 0; i != v53; ++i)
           {
-            if (*v99 != v54)
+            if (*v98 != v54)
             {
               objc_enumerationMutation(obj);
             }
 
             v56 = MEMORY[0x277CBEBC0];
-            v57 = objc_msgSend_stringByStandardizingPath(*(*(&v98 + 1) + 8 * i), v49, v50, v51, v52);
+            v57 = objc_msgSend_stringByStandardizingPath(*(*(&v97 + 1) + 8 * i), v49, v50, v51, v52);
             v60 = objc_msgSend_fileURLWithPath_isDirectory_(v56, v58, v57, 1, v59);
 
             if (v60)
@@ -76,10 +76,10 @@
             else
             {
               v64 = MEMORY[0x277CCA9B8];
-              v103 = v92;
+              v102 = v91;
               v65 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v61, @"Failed to use internal settings override path: %@", v62, v63, 0);
-              v104 = v65;
-              v67 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v66, &v104, &v103, 1);
+              v103 = v65;
+              v67 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v66, &v103, &v102, 1);
               v69 = objc_msgSend_errorWithDomain_code_userInfo_(v64, v68, @"Instruments Frameworks", 0, v67);
 
               v74 = objc_msgSend_defaultResponder(XRStandardIssueResponder, v70, v71, v72, v73);
@@ -87,37 +87,37 @@
             }
           }
 
-          v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v49, &v98, v105, 16);
+          v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v49, &v97, v104, 16);
         }
 
         while (v53);
       }
 
-      v17 = v90;
-      v13 = v91;
+      v17 = v89;
+      v13 = v90;
     }
 
-    v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v76, &v94, v102, 16);
+    v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v76, &v93, v101, 16);
     if (v77)
     {
       v78 = v77;
-      v79 = *v95;
+      v79 = *v94;
       do
       {
         for (j = 0; j != v78; ++j)
         {
-          if (*v95 != v79)
+          if (*v94 != v79)
           {
             objc_enumerationMutation(v3);
           }
 
-          v81 = *(*(&v94 + 1) + 8 * j);
+          v81 = *(*(&v93 + 1) + 8 * j);
           sub_2480A26E8(v2, v81, @"ExternalSettings.plist");
           sub_2480A26E8(v2, v81, @"InternalSettings.plist");
           sub_2480A26E8(v2, v81, @"AppleInternal.plist");
         }
 
-        v78 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v82, &v94, v102, 16);
+        v78 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v82, &v93, v101, 16);
       }
 
       while (v78);
@@ -127,8 +127,6 @@
     v88 = qword_27EE869F0;
     qword_27EE869F0 = v87;
   }
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 @end

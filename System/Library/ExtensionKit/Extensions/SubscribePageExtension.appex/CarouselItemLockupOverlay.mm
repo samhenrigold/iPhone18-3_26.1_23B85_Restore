@@ -43,11 +43,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension25CarouselItemLockupOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->materialBackground[OBJC_IVAR____TtC22SubscribePageExtension25CarouselItemLockupOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10001B5AC(v3);
-    v3(v5);
+    v6 = sub_10001B5AC(v3, v4);
+    v3(v6);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 }
 

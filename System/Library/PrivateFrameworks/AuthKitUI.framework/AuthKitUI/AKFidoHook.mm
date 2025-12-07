@@ -71,9 +71,8 @@
   objc_storeStrong(location, model);
   clientInfo = [location[0] clientInfo];
   v6 = [clientInfo objectForKey:@"action"];
-  MEMORY[0x277D82BD8](clientInfo);
   v5 = 1;
-  if (([v6 isEqualToString:@"fido:register"] & 1) == 0)
+  if (([v6 isEqualToString:{@"fido:register", MEMORY[0x277D82BD8](clientInfo).n128_f64[0]}] & 1) == 0)
   {
     v5 = [v6 isEqualToString:@"fido:verify"];
   }
@@ -89,34 +88,34 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, element);
+  v17 = 0;
+  objc_storeStrong(&v17, attributes);
+  v16 = 0;
+  objc_storeStrong(&v16, model);
   v15 = 0;
-  objc_storeStrong(&v15, attributes);
-  v14 = 0;
-  objc_storeStrong(&v14, model);
-  v13 = 0;
-  objc_storeStrong(&v13, completion);
+  objc_storeStrong(&v15, completion);
   name = [location[0] name];
-  v12 = [name isEqualToString:@"fido:register"];
-  MEMORY[0x277D82BD8](name);
-  if (v12)
+  v14 = [name isEqualToString:@"fido:register"];
+  *&v6 = MEMORY[0x277D82BD8](name).n128_u64[0];
+  if (v14)
   {
-    [(AKFidoHook *)selfCopy _startFidoRegistrationWithAttributes:v15 completion:v13];
+    [(AKFidoHook *)selfCopy _startFidoRegistrationWithAttributes:v17 completion:v15, v6];
   }
 
   else
   {
     name2 = [location[0] name];
-    v7 = [name2 isEqualToString:@"fido:verify"];
-    MEMORY[0x277D82BD8](name2);
-    if (v7)
+    v9 = [name2 isEqualToString:@"fido:verify"];
+    *&v7 = MEMORY[0x277D82BD8](name2).n128_u64[0];
+    if (v9)
     {
-      [(AKFidoHook *)selfCopy _startFidoVerificationWithAttributes:v15 completion:v13];
+      [(AKFidoHook *)selfCopy _startFidoVerificationWithAttributes:v17 completion:v15, v7];
     }
   }
 
-  objc_storeStrong(&v13, 0);
-  objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
+  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -130,8 +129,7 @@
   objc_storeStrong(&v11, completion);
   clientInfo = [location[0] clientInfo];
   v10 = [clientInfo objectForKey:@"action"];
-  MEMORY[0x277D82BD8](clientInfo);
-  if ([v10 isEqualToString:@"fido:register"])
+  if ([v10 isEqualToString:{@"fido:register", MEMORY[0x277D82BD8](clientInfo).n128_f64[0]}])
   {
     v6 = selfCopy;
     clientInfo2 = [location[0] clientInfo];
@@ -188,22 +186,18 @@
   v14 = objc_opt_class();
   v13 = [location[0] objectForKeyedSubscript:@"excludedCredentials"];
   v32 = _AKSafeCast(v14, v13);
-  MEMORY[0x277D82BD8](v13);
-  v31 = [v32 componentsSeparatedByString:{@", "}];
+  v31 = [v32 componentsSeparatedByString:{@", ", MEMORY[0x277D82BD8](v13).n128_f64[0]}];
   v12 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKit"];
   v30 = [v12 localizedStringForKey:@"FIDO_DISPLAY_NAME" value:&stru_28358EF68 table:@"Localizable"];
   MEMORY[0x277D82BD8](v12);
   v29 = [objc_alloc(MEMORY[0x277CF0240]) initWithChallengeString:v36 relyingPartyIdentifier:v34 userIdentifierString:v35 displayName:v30 credentialName:v33 credentials:v31];
   v11 = [location[0] objectForKeyedSubscript:@"promptTitle"];
   [v29 setPromptTitle:?];
-  MEMORY[0x277D82BD8](v11);
-  v10 = [location[0] objectForKeyedSubscript:@"promptHeader"];
+  v10 = [location[0] objectForKeyedSubscript:{@"promptHeader", MEMORY[0x277D82BD8](v11).n128_f64[0]}];
   [v29 setPromptHeader:?];
-  MEMORY[0x277D82BD8](v10);
-  v9 = [location[0] objectForKeyedSubscript:@"promptBody"];
+  v9 = [location[0] objectForKeyedSubscript:{@"promptBody", MEMORY[0x277D82BD8](v10).n128_f64[0]}];
   [v29 setPromptBody:?];
-  MEMORY[0x277D82BD8](v9);
-  [v29 setUseAlternativeKeysIcon:1];
+  [v29 setUseAlternativeKeysIcon:{1, MEMORY[0x277D82BD8](v9).n128_f64[0]}];
   v8 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKit"];
   v7 = [v8 localizedStringForKey:@"FIDO_INCORRECT_KEY_PRESENTED_MESSAGE" value:&stru_28358EF68 table:@"Localizable"];
   [v29 setIncorrectKeyPresentedMessage:?];
@@ -246,24 +240,23 @@
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __62__AKFidoHook__startFidoRegistrationWithAttributes_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v37 = 0;
-  objc_storeStrong(&v37, a3);
-  v36[1] = a1;
-  v36[0] = objc_loadWeakRetained((a1 + 40));
-  if (v36[0])
+  v39 = 0;
+  objc_storeStrong(&v39, a3);
+  v38[1] = a1;
+  v38[0] = objc_loadWeakRetained((a1 + 40));
+  if (v38[0])
   {
-    v26 = objc_alloc_init(MEMORY[0x277D46208]);
-    [v36[0] setServerHookResponse:?];
-    MEMORY[0x277D82BD8](v26);
+    v28 = objc_alloc_init(MEMORY[0x277D46208]);
+    [v38[0] setServerHookResponse:?];
+    MEMORY[0x277D82BD8](v28);
     if (location[0])
     {
       oslog = _AKLogFido();
@@ -271,123 +264,122 @@ void __62__AKFidoHook__startFidoRegistrationWithAttributes_completion___block_in
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
       {
         log = oslog;
-        v25 = type;
-        __os_log_helper_16_0_0(v33);
-        _os_log_debug_impl(&dword_222379000, log, v25, "Fido registration was a success.", v33, 2u);
+        v27 = type;
+        __os_log_helper_16_0_0(v35);
+        _os_log_debug_impl(&dword_222379000, log, v27, "Fido registration was a success.", v35, 2u);
       }
 
       objc_storeStrong(&oslog, 0);
-      v32 = _AKLogFido();
-      v31 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v34 = _AKLogFido();
+      v33 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        v23 = [location[0] credentialID];
-        v22 = [location[0] attestationsData];
-        v21 = [location[0] clientData];
-        __os_log_helper_16_2_3_8_64_8_64_8_64(v46, v23, v22, v21);
-        _os_log_debug_impl(&dword_222379000, v32, v31, "Fido registration succeeded with CredentialID: %@\nAttestationsData: %@\nClientData: %@", v46, 0x20u);
-        MEMORY[0x277D82BD8](v21);
-        MEMORY[0x277D82BD8](v22);
+        v25 = [location[0] credentialID];
+        v24 = [location[0] attestationsData];
+        v23 = [location[0] clientData];
+        __os_log_helper_16_2_3_8_64_8_64_8_64(v48, v25, v24, v23);
+        _os_log_debug_impl(&dword_222379000, v34, v33, "Fido registration succeeded with CredentialID: %@\nAttestationsData: %@\nClientData: %@", v48, 0x20u);
         MEMORY[0x277D82BD8](v23);
+        MEMORY[0x277D82BD8](v24);
+        MEMORY[0x277D82BD8](v25);
       }
 
-      objc_storeStrong(&v32, 0);
-      v44[0] = @"credentialID";
-      v18 = [location[0] credentialID];
-      v45[0] = v18;
-      v44[1] = @"clientData";
-      v17 = [location[0] clientData];
-      v45[1] = v17;
-      v44[2] = @"challenge";
-      v16 = [location[0] challenge];
-      v45[2] = v16;
-      v44[3] = @"rpId";
-      v15 = [location[0] relyingPartyIdentifier];
-      v45[3] = v15;
-      v44[4] = @"userHandle";
-      v14 = [location[0] userIdentifier];
-      v45[4] = v14;
-      v44[5] = @"credentialName";
-      v13 = [location[0] credentialName];
-      v45[5] = v13;
-      v44[6] = @"success";
-      v45[6] = &unk_2835AADB0;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:7];
-      v30 = [v12 mutableCopy];
-      MEMORY[0x277D82BD8](v12);
-      MEMORY[0x277D82BD8](v13);
+      objc_storeStrong(&v34, 0);
+      v46[0] = @"credentialID";
+      v20 = [location[0] credentialID];
+      v47[0] = v20;
+      v46[1] = @"clientData";
+      v19 = [location[0] clientData];
+      v47[1] = v19;
+      v46[2] = @"challenge";
+      v18 = [location[0] challenge];
+      v47[2] = v18;
+      v46[3] = @"rpId";
+      v17 = [location[0] relyingPartyIdentifier];
+      v47[3] = v17;
+      v46[4] = @"userHandle";
+      v16 = [location[0] userIdentifier];
+      v47[4] = v16;
+      v46[5] = @"credentialName";
+      v15 = [location[0] credentialName];
+      v47[5] = v15;
+      v46[6] = @"success";
+      v47[6] = &unk_2835AADB0;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:7];
+      v32 = [v14 mutableCopy];
       MEMORY[0x277D82BD8](v14);
       MEMORY[0x277D82BD8](v15);
       MEMORY[0x277D82BD8](v16);
       MEMORY[0x277D82BD8](v17);
       MEMORY[0x277D82BD8](v18);
-      v19 = [location[0] attestationsData];
-      v20 = [v19 length];
       MEMORY[0x277D82BD8](v19);
-      if (v20)
+      *&v3 = MEMORY[0x277D82BD8](v20).n128_u64[0];
+      v21 = [location[0] attestationsData];
+      v22 = [v21 length];
+      v4 = MEMORY[0x277D82BD8](v21).n128_u64[0];
+      if (v22)
       {
-        v11 = [location[0] attestationsData];
-        [v30 setObject:? forKeyedSubscript:?];
-        MEMORY[0x277D82BD8](v11);
+        v13 = [location[0] attestationsData];
+        [v32 setObject:? forKeyedSubscript:?];
+        v4 = MEMORY[0x277D82BD8](v13).n128_u64[0];
       }
 
-      v10 = [v30 copy];
-      v9 = [v36[0] serverHookResponse];
-      [v9 setAdditionalPayload:v10];
-      MEMORY[0x277D82BD8](v9);
-      MEMORY[0x277D82BD8](v10);
-      objc_storeStrong(&v30, 0);
+      v12 = [v32 copy];
+      v11 = [v38[0] serverHookResponse];
+      [v11 setAdditionalPayload:v12];
+      MEMORY[0x277D82BD8](v11);
+      MEMORY[0x277D82BD8](v12);
+      objc_storeStrong(&v32, 0);
     }
 
     else
     {
-      v29 = _AKLogFido();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = _AKLogFido();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_1_8_64(v43, v37);
-        _os_log_error_impl(&dword_222379000, v29, OS_LOG_TYPE_ERROR, "Fido registration failed: %@", v43, 0xCu);
+        __os_log_helper_16_2_1_8_64(v45, v39);
+        _os_log_error_impl(&dword_222379000, v31, OS_LOG_TYPE_ERROR, "Fido registration failed: %@", v45, 0xCu);
       }
 
-      objc_storeStrong(&v29, 0);
-      if ([v36[0] _isUserCancelError:v37])
+      objc_storeStrong(&v31, 0);
+      if ([v38[0] _isUserCancelError:v39])
       {
-        v41[0] = *MEMORY[0x277D46250];
-        v42[0] = *MEMORY[0x277D46248];
-        v41[1] = @"success";
-        v42[1] = &unk_2835AADC8;
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
-        v7 = [v36[0] serverHookResponse];
-        [v7 setAdditionalPayload:v8];
-        MEMORY[0x277D82BD8](v7);
-        MEMORY[0x277D82BD8](v8);
+        v43[0] = *MEMORY[0x277D46250];
+        v44[0] = *MEMORY[0x277D46248];
+        v43[1] = @"success";
+        v44[1] = &unk_2835AADC8;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+        v9 = [v38[0] serverHookResponse];
+        [v9 setAdditionalPayload:v10];
+        MEMORY[0x277D82BD8](v9);
+        MEMORY[0x277D82BD8](v10);
       }
 
       else
       {
-        v39[0] = @"errorDomain";
-        v6 = [v37 domain];
-        v40[0] = v6;
-        v39[1] = @"errorCode";
-        v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v37, "code")}];
-        v40[1] = v5;
-        v39[2] = @"success";
-        v40[2] = &unk_2835AADC8;
-        v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
-        v3 = [v36[0] serverHookResponse];
-        [v3 setAdditionalPayload:v4];
-        MEMORY[0x277D82BD8](v3);
-        MEMORY[0x277D82BD8](v4);
+        v41[0] = @"errorDomain";
+        v8 = [v39 domain];
+        v42[0] = v8;
+        v41[1] = @"errorCode";
+        v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v39, "code")}];
+        v42[1] = v7;
+        v41[2] = @"success";
+        v42[2] = &unk_2835AADC8;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
+        v5 = [v38[0] serverHookResponse];
+        [v5 setAdditionalPayload:v6];
         MEMORY[0x277D82BD8](v5);
         MEMORY[0x277D82BD8](v6);
+        MEMORY[0x277D82BD8](v7);
+        MEMORY[0x277D82BD8](v8);
       }
     }
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), location[0] != 0, v37);
-  objc_storeStrong(v36, 0);
-  objc_storeStrong(&v37, 0);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), location[0] != 0, v39);
+  objc_storeStrong(v38, 0);
+  objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_startFidoVerificationWithAttributes:(id)attributes completion:(id)completion
@@ -424,19 +416,15 @@ void __62__AKFidoHook__startFidoRegistrationWithAttributes_completion___block_in
   v13 = objc_opt_class();
   v12 = [location[0] objectForKeyedSubscript:@"allowedCredentials"];
   v30 = _AKSafeCast(v13, v12);
-  MEMORY[0x277D82BD8](v12);
-  v29 = [v30 componentsSeparatedByString:{@", "}];
+  v29 = [v30 componentsSeparatedByString:{@", ", MEMORY[0x277D82BD8](v12).n128_f64[0]}];
   v28 = [objc_alloc(MEMORY[0x277CF0240]) initWithChallengeString:v32 relyingPartyIdentifier:v31 userIdentifierString:0 displayName:0 credentialName:0 credentials:v29];
   v11 = [location[0] objectForKeyedSubscript:@"promptTitle"];
   [v28 setPromptTitle:?];
-  MEMORY[0x277D82BD8](v11);
-  v10 = [location[0] objectForKeyedSubscript:@"promptHeader"];
+  v10 = [location[0] objectForKeyedSubscript:{@"promptHeader", MEMORY[0x277D82BD8](v11).n128_f64[0]}];
   [v28 setPromptHeader:?];
-  MEMORY[0x277D82BD8](v10);
-  v9 = [location[0] objectForKeyedSubscript:@"promptBody"];
+  v9 = [location[0] objectForKeyedSubscript:{@"promptBody", MEMORY[0x277D82BD8](v10).n128_f64[0]}];
   [v28 setPromptBody:?];
-  MEMORY[0x277D82BD8](v9);
-  [v28 setUseAlternativeKeysIcon:1];
+  [v28 setUseAlternativeKeysIcon:{1, MEMORY[0x277D82BD8](v9).n128_f64[0]}];
   v8 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKit"];
   v7 = [v8 localizedStringForKey:@"FIDO_INCORRECT_KEY_PRESENTED_MESSAGE" value:&stru_28358EF68 table:@"Localizable"];
   [v28 setIncorrectKeyPresentedMessage:?];
@@ -476,7 +464,6 @@ void __62__AKFidoHook__startFidoRegistrationWithAttributes_completion___block_in
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __62__AKFidoHook__startFidoVerificationWithAttributes_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -592,7 +579,6 @@ void __62__AKFidoHook__startFidoVerificationWithAttributes_completion___block_in
   objc_storeStrong(v27, 0);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isUserCancelError:(id)error

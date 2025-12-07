@@ -8,17 +8,18 @@
 {
   BSDispatchQueueAssertMain();
   v4 = +[UISMutableDeviceContext defaultContext];
+  v6 = v4;
   if (style == 1)
   {
     if (sub_1000227C0() == 2)
     {
-      [v4 setDeviceInfoValue:&off_100318F70 forKey:UISDeviceContextHomeButtonTypeKey];
-      [v4 setDeviceInfoValue:&off_100318F88 forKey:UISDeviceContextDeviceCornerRadiusKey];
+      [v6 setDeviceInfoValue:&off_100318F70 forKey:UISDeviceContextHomeButtonTypeKey];
+      [v6 setDeviceInfoValue:&off_100318F88 forKey:UISDeviceContextDeviceCornerRadiusKey];
       goto LABEL_8;
     }
 
-    v7 = sub_100006370();
-    v6 = sub_1000222D4(v7);
+    v9 = sub_100006370();
+    v8 = sub_1000222D4(v9);
   }
 
   else
@@ -28,16 +29,16 @@
       goto LABEL_8;
     }
 
-    v5 = sub_100015CE4();
-    v6 = sub_1000222D4(v5);
+    v7 = sub_100015CE4(v4, v5);
+    v8 = sub_1000222D4(v7);
   }
 
-  v8 = [NSNumber numberWithDouble:v6];
-  [v4 setDeviceInfoValue:v8 forKey:UISDeviceContextDeviceCornerRadiusKey];
+  v10 = [NSNumber numberWithDouble:v8];
+  [v6 setDeviceInfoValue:v10 forKey:UISDeviceContextDeviceCornerRadiusKey];
 
 LABEL_8:
 
-  return v4;
+  return v6;
 }
 
 @end

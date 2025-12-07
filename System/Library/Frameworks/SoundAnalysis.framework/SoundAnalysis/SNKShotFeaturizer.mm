@@ -56,9 +56,9 @@
 + (id)performSegmentationRequest:(id)request error:(id *)error
 {
   requestCopy = request;
-  v5 = static SNKShotFeaturizer.performSegmentationRequest(_:)(requestCopy);
+  v6 = static SNKShotFeaturizer.performSegmentationRequest(_:)(requestCopy, v5);
 
-  return v5;
+  return v6;
 }
 
 @end

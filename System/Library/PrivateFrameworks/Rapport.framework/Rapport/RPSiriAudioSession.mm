@@ -80,18 +80,20 @@
 - (id)description
 {
   sessionID = self->_sessionID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "RPSiriAudioSession %@", sessionID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (void)setLabel:(id)label
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1EB97B398;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -115,10 +117,7 @@ uint64_t __45__RPSiriAudioSession_activateWithCompletion___block_invoke(uint64_t
   if (!v2[8])
   {
     v3 = NSRandomData();
-    [v3 bytes];
-    [v3 length];
-    [v3 length];
-    v4 = NSPrintF();
+    v4 = NSPrintF("%.3H", [v3 bytes], objc_msgSend(v3, "length"), objc_msgSend(v3, "length"));
     v5 = *(a1 + 32);
     v6 = *(v5 + 64);
     *(v5 + 64) = v4;
@@ -135,7 +134,8 @@ uint64_t __45__RPSiriAudioSession_activateWithCompletion___block_invoke(uint64_t
 {
   reactivateCopy = reactivate;
   completionCopy = completion;
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (reactivateCopy)
   {
     if (var0 <= 30)
@@ -150,7 +150,7 @@ uint64_t __45__RPSiriAudioSession_activateWithCompletion___block_invoke(uint64_t
         ucat = self->_ucat;
       }
 
-      goto LABEL_7;
+      LogPrintF(ucat, "[RPSiriAudioSession _activateWithCompletion:reactivate:]", 30, "Re-activate\n");
     }
   }
 
@@ -163,187 +163,197 @@ uint64_t __45__RPSiriAudioSession_activateWithCompletion___block_invoke(uint64_t
         goto LABEL_11;
       }
 
-      v13 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-LABEL_7:
-    LogPrintF();
+    LogPrintF(ucat, "[RPSiriAudioSession _activateWithCompletion:reactivate:]", 30, "Activate\n");
   }
 
 LABEL_11:
   [(RPSiriAudioSession *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke;
-  v17[3] = &unk_1E7C93500;
-  v19 = reactivateCopy;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke;
+  v16[3] = &unk_1E7C93500;
+  v18 = reactivateCopy;
+  v16[4] = self;
   v10 = completionCopy;
-  v18 = v10;
-  v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v17];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke_2;
-  v14[3] = &unk_1E7C93500;
-  v16 = reactivateCopy;
-  v14[4] = self;
-  v15 = v10;
+  v17 = v10;
+  v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v16];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke_2;
+  v13[3] = &unk_1E7C93500;
+  v15 = reactivateCopy;
+  v13[4] = self;
+  v14 = v10;
   v12 = v10;
-  [v11 xpcSiriAudioSessionActivate:self completion:v14];
+  [v11 xpcSiriAudioSessionActivate:self completion:v13];
 }
 
 void __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = **(*(a1 + 32) + 16);
-  v10 = v3;
-  if (*(a1 + 48) == 1)
+  v4 = *(*(a1 + 32) + 16);
+  v5 = *v4;
+  v9 = v3;
+  if (*(a1 + 48) != 1)
   {
-    if (v4 > 90)
+    if (v5 > 90)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    if (v4 != -1)
+    if (v5 == -1)
     {
-      goto LABEL_7;
+      v7 = _LogCategory_Initialize();
+      v3 = v9;
+      if (!v7)
+      {
+        goto LABEL_12;
+      }
+
+      v4 = *(*(a1 + 32) + 16);
     }
 
-    v5 = _LogCategory_Initialize();
-    v3 = v10;
-    if (v5)
-    {
-      v6 = *(*(a1 + 32) + 16);
-LABEL_7:
-      LogPrintF();
-      v3 = v10;
-    }
+    LogPrintF(v4, "[RPSiriAudioSession _activateWithCompletion:reactivate:]_block_invoke", 90, "### Activate XPC error: %{error}\n", v3);
+    goto LABEL_8;
   }
 
-  else
+  if (v5 > 90)
   {
-    if (v4 > 90)
-    {
-      goto LABEL_11;
-    }
-
-    if (v4 != -1)
-    {
-      goto LABEL_7;
-    }
-
-    v7 = _LogCategory_Initialize();
-    v3 = v10;
-    if (v7)
-    {
-      v9 = *(*(a1 + 32) + 16);
-      goto LABEL_7;
-    }
+    goto LABEL_12;
   }
 
-LABEL_11:
+  if (v5 != -1)
+  {
+    goto LABEL_4;
+  }
+
+  v6 = _LogCategory_Initialize();
+  v3 = v9;
+  if (v6)
+  {
+    v4 = *(*(a1 + 32) + 16);
+LABEL_4:
+    LogPrintF(v4, "[RPSiriAudioSession _activateWithCompletion:reactivate:]_block_invoke", 90, "### Re-activate XPC error: %{error}\n", v3);
+LABEL_8:
+    v3 = v9;
+  }
+
+LABEL_12:
   v8 = *(a1 + 40);
   if (v8)
   {
-    (*(v8 + 16))(v8, v10);
-    v3 = v10;
+    (*(v8 + 16))(v8, v9);
+    v3 = v9;
   }
 }
 
 void __57__RPSiriAudioSession__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 48);
-  v5 = **(*(a1 + 32) + 16);
-  v12 = v3;
-  if (v3)
+  v4 = *(*(a1 + 32) + 16);
+  v5 = *v4;
+  v11 = v3;
+  if (!v3)
   {
     if (*(a1 + 48))
     {
-      if (v5 > 90)
+      if (v5 > 30)
       {
-        goto LABEL_16;
+        goto LABEL_19;
       }
 
-      if (v5 != -1)
+      if (v5 == -1)
       {
-        goto LABEL_15;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_19;
+        }
+
+        v4 = *(*(a1 + 32) + 16);
       }
 
-      if (_LogCategory_Initialize())
-      {
-        v8 = *(*(a1 + 32) + 16);
-LABEL_15:
-        LogPrintF();
-      }
+      v6 = "Re-activated\n";
     }
 
     else
     {
-      if (v5 > 90)
+      if (v5 > 30)
       {
-        goto LABEL_16;
+        goto LABEL_19;
       }
 
-      if (v5 != -1)
+      if (v5 == -1)
       {
-        goto LABEL_15;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_19;
+        }
+
+        v4 = *(*(a1 + 32) + 16);
       }
 
-      if (_LogCategory_Initialize())
+      v6 = "Activated\n";
+    }
+
+    v7 = 30;
+    goto LABEL_18;
+  }
+
+  if (!*(a1 + 48))
+  {
+    if (v5 > 90)
+    {
+      goto LABEL_19;
+    }
+
+    if (v5 == -1)
+    {
+      if (!_LogCategory_Initialize())
       {
-        v9 = *(*(a1 + 32) + 16);
-        goto LABEL_15;
+        goto LABEL_19;
       }
+
+      v4 = *(*(a1 + 32) + 16);
     }
+
+    v10 = v11;
+    v6 = "### Activate failed: %{error}\n";
+    goto LABEL_13;
   }
 
-  else if (*(a1 + 48))
+  if (v5 > 90)
   {
-    if (v5 > 30)
-    {
-      goto LABEL_16;
-    }
-
-    if (v5 != -1)
-    {
-      goto LABEL_15;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v10 = *(*(a1 + 32) + 16);
-      goto LABEL_15;
-    }
+    goto LABEL_19;
   }
 
-  else
+  if (v5 != -1)
   {
-    if (v5 > 30)
-    {
-      goto LABEL_16;
-    }
-
-    if (v5 != -1)
-    {
-      goto LABEL_15;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v11 = *(*(a1 + 32) + 16);
-      goto LABEL_15;
-    }
+    goto LABEL_5;
   }
 
-LABEL_16:
-  v6 = *(a1 + 40);
-  v7 = v12;
-  if (v6)
+  if (_LogCategory_Initialize())
   {
-    (*(v6 + 16))(v6, v12);
-    v7 = v12;
+    v4 = *(*(a1 + 32) + 16);
+LABEL_5:
+    v10 = v11;
+    v6 = "### Re-activate failed: %{error}\n";
+LABEL_13:
+    v7 = 90;
+LABEL_18:
+    LogPrintF(v4, "[RPSiriAudioSession _activateWithCompletion:reactivate:]_block_invoke_2", v7, v6, v10);
+  }
+
+LABEL_19:
+  v8 = *(a1 + 40);
+  v9 = v11;
+  if (v8)
+  {
+    (*(v8 + 16))(v8, v11);
+    v9 = v11;
   }
 }
 
@@ -351,10 +361,10 @@ LABEL_16:
 {
   if (!self->_xpcCnx)
   {
-    v14[5] = v5;
-    v14[6] = v4;
-    v14[11] = v2;
-    v14[12] = v3;
+    v13[5] = v5;
+    v13[6] = v4;
+    v13[11] = v2;
+    v13[12] = v3;
     v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.rapport.siri-audio" options:0];
     xpcCnx = self->_xpcCnx;
     self->_xpcCnx = v7;
@@ -364,29 +374,29 @@ LABEL_16:
     [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v9];
 
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __39__RPSiriAudioSession__ensureXPCStarted__block_invoke;
-    v14[3] = &unk_1E7C92CE8;
-    v14[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v14];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __39__RPSiriAudioSession__ensureXPCStarted__block_invoke_2;
+    v13[2] = __39__RPSiriAudioSession__ensureXPCStarted__block_invoke;
     v13[3] = &unk_1E7C92CE8;
     v13[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v13];
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __39__RPSiriAudioSession__ensureXPCStarted__block_invoke_2;
+    v12[3] = &unk_1E7C92CE8;
+    v12[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v12];
     v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFEEF8];
     [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v10];
 
     [(NSXPCConnection *)self->_xpcCnx resume];
-    var0 = self->_ucat->var0;
-    if (var0 <= 10)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 10)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[RPSiriAudioSession _ensureXPCStarted]", 10, "XPC started\n");
         return;
       }
 
@@ -413,13 +423,13 @@ uint64_t __39__RPSiriAudioSession__ensureXPCStarted__block_invoke_2(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 50)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 50)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPSiriAudioSession _interrupted]", 50, "### Audio Session Interrupted\n");
       goto LABEL_5;
     }
 
@@ -456,40 +466,41 @@ LABEL_5:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __32__RPSiriAudioSession_invalidate__block_invoke(uint64_t result)
+void *__32__RPSiriAudioSession_invalidate__block_invoke(void *result)
 {
-  v5 = *(result + 32);
+  v5 = result[4];
   if (*(v5 + 9))
   {
     return result;
   }
 
+  v11 = v2;
   v12 = v1;
   v6 = result;
   *(v5 + 9) = 1;
-  v7 = *(result + 32);
-  v8 = **(v7 + 16);
-  if (v8 <= 30)
+  v7 = result[4];
+  v8 = *(v7 + 16);
+  if (*v8 <= 30)
   {
-    if (v8 == -1)
+    if (*v8 == -1)
     {
       v9 = _LogCategory_Initialize();
-      v7 = *(v6 + 32);
+      v7 = v6[4];
       if (!v9)
       {
         goto LABEL_6;
       }
 
-      v11 = *(v7 + 16);
+      v8 = *(v7 + 16);
     }
 
-    LogPrintF();
-    v7 = *(v6 + 32);
+    LogPrintF(v8, "[RPSiriAudioSession invalidate]_block_invoke", 30, "Invalidating RPSiriAudioSession\n", v2, v12, v3);
+    v7 = v6[4];
   }
 
 LABEL_6:
   [*(v7 + 24) invalidate];
-  v10 = *(v6 + 32);
+  v10 = v6[4];
 
   return [v10 _invalidated];
 }
@@ -514,10 +525,10 @@ LABEL_6:
     self->_delegate = 0;
 
     self->_invalidateDone = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -527,7 +538,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPSiriAudioSession _invalidated]", 30, "Invalidated\n");
     }
   }
 }
@@ -552,29 +563,29 @@ void __45__RPSiriAudioSession_receivedSiriAudioEvent___block_invoke(uint64_t a1)
   v3 = *(v2 + 24);
   if (v3)
   {
-    v6 = [v3 remoteObjectProxy];
-    [v6 xpcSiriAudioReceived:*(a1 + 40)];
+    v5 = [v3 remoteObjectProxy];
+    [v5 xpcSiriAudioReceived:*(a1 + 40)];
   }
 
   else
   {
-    v4 = **(v2 + 16);
-    if (v4 > 60)
+    v4 = *(v2 + 16);
+    if (*v4 > 60)
     {
       return;
     }
 
-    if (v4 == -1)
+    if (*v4 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         return;
       }
 
-      v5 = *(*(a1 + 32) + 16);
+      v4 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF();
+    LogPrintF(v4, "[RPSiriAudioSession receivedSiriAudioEvent:]_block_invoke", 60, "### Ignoring Siri audio message when not Siri not started\n");
   }
 }
 
@@ -586,10 +597,10 @@ void __45__RPSiriAudioSession_receivedSiriAudioEvent___block_invoke(uint64_t a1)
     goto LABEL_9;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -599,7 +610,7 @@ void __45__RPSiriAudioSession_receivedSiriAudioEvent___block_invoke(uint64_t a1)
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPSiriAudioSession xpcSiriStopClientRecordingWithDeviceId:]", 30, "Received Stop Client Recording from - %@", idCopy);
   }
 
 LABEL_6:

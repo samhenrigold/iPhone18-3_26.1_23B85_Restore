@@ -1,3 +1,131 @@
+void __startNetworkMonitoringOnWiFi_block_invoke_2(id a1, CWFEvent *a2)
+{
+  v2 = a2;
+  v3 = v2;
+  if (v2)
+  {
+    v4 = wifiLinkStatusMonitorQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __startNetworkMonitoringOnWiFi_block_invoke_3;
+    block[3] = &unk_1004C1720;
+    v6 = v2;
+    dispatch_async(v4, block);
+  }
+}
+
+void __startNetworkMonitoringOnWiFi_block_invoke_3(uint64_t a1)
+{
+  v2 = [*(a1 + 32) type];
+  if (v2 <= 0x19)
+  {
+    if (((1 << v2) & 0x200400C) != 0)
+    {
+      v3 = [qword_100523A78 channel];
+      _MergedGlobals_0 = [v3 is2GHz];
+
+      v4 = [qword_100523A78 interfaceName];
+      v5 = qword_100523A88;
+      qword_100523A88 = v4;
+
+      v6 = [qword_100523A78 opMode];
+      isLinkDown = v6 == 0;
+      v7 = [*(a1 + 32) type];
+      v8 = "false";
+      if (_MergedGlobals_0)
+      {
+        v9 = "true";
+      }
+
+      else
+      {
+        v9 = "false";
+      }
+
+      if (isLinkDown)
+      {
+        v8 = "true";
+      }
+
+      NSLog(@"%s: %ld event received: WiFiInterfaceName:%@ Is current WiFi channel in 2GHz band: %s isLinkDown:%s opmode:%d\n", "startNetworkMonitoringOnWiFi_block_invoke_3", v7, qword_100523A88, v9, v8, v6);
+      [qword_100523A88 UTF8String];
+
+      updateWiFiLinkState();
+    }
+
+    else if (v2 == 6)
+    {
+      v10 = [qword_100523A78 channel];
+      _MergedGlobals_0 = [v10 is2GHz];
+
+      v11 = [qword_100523A78 interfaceName];
+      v12 = qword_100523A88;
+      qword_100523A88 = v11;
+
+      v13 = [*(a1 + 32) info];
+      v17 = [v13 objectForKeyedSubscript:CWFEventLinkChangeStatusKey];
+
+      if (v17)
+      {
+        v14 = [v17 isLinkDown];
+        isLinkDown = v14;
+      }
+
+      else
+      {
+        v14 = isLinkDown;
+      }
+
+      v15 = "false";
+      if (_MergedGlobals_0)
+      {
+        v16 = "true";
+      }
+
+      else
+      {
+        v16 = "false";
+      }
+
+      if (v14)
+      {
+        v15 = "true";
+      }
+
+      NSLog(@"%s: CWFEventTypeLinkChanged received: WiFiInterfaceName:%@ Is current WiFi channel in 2GHz band: %s isLinkDown:%s\n", "startNetworkMonitoringOnWiFi_block_invoke_3", qword_100523A88, v16, v15);
+      [qword_100523A88 UTF8String];
+      updateWiFiLinkState();
+    }
+  }
+}
+
+uint64_t isWiFiChannelOn2G()
+{
+  v0 = objc_autoreleasePoolPush();
+  if (qword_100523A78 && ([qword_100523A78 channel], v1 = objc_claimAutoreleasedReturnValue(), v1, v1))
+  {
+    v2 = [qword_100523A78 channel];
+    v3 = [v2 is2GHz];
+
+    objc_autoreleasePoolPop(v0);
+    v4 = "false";
+    if (v3)
+    {
+      v4 = "true";
+    }
+  }
+
+  else
+  {
+    objc_autoreleasePoolPop(v0);
+    v3 = 0;
+    v4 = "false";
+  }
+
+  NSLog(@"%s: is2GHzWiFi enabled:%s", "isWiFiChannelOn2G", v4);
+  return v3 & 1;
+}
+
 id get2GDurationInCurrentTimerDuration()
 {
   result = qword_100523A70;
@@ -156,7 +284,7 @@ __darwin_time_t getDaemonUptimeInSec(void)
   gettimeofday(&v3, &v2);
   if (v3.tv_sec)
   {
-    v0 = daemonUp_time == 0;
+    v0 = daemonUp_time.tv_sec == 0;
   }
 
   else
@@ -171,7 +299,7 @@ __darwin_time_t getDaemonUptimeInSec(void)
 
   else
   {
-    return v3.tv_sec - daemonUp_time;
+    return v3.tv_sec - daemonUp_time.tv_sec;
   }
 }
 

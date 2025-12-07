@@ -35,12 +35,12 @@
 
 - (TUCallProvider)provider
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = 138412290;
+    v36 = 138412290;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Initializing TUCallProvider from %@", &v35, 0xCu);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Initializing TUCallProvider from %@", &v36, 0xCu);
   }
 
   v4 = [TUCallProvider alloc];
@@ -75,15 +75,15 @@
   v14 = [NSBundle bundleWithURL:bundleURL2];
 
   bundleIdentifier = [v14 bundleIdentifier];
-  v16 = sub_100004778();
+  v16 = sub_100004778(bundleIdentifier);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     bundleURL3 = [v6 bundleURL];
-    v35 = 138412546;
+    v36 = 138412546;
     selfCopy = bundleURL3;
-    v37 = 2112;
-    v38 = v14;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Bundle for bundleURL: %@ is %@", &v35, 0x16u);
+    v38 = 2112;
+    v39 = v14;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Bundle for bundleURL: %@ is %@", &v36, 0x16u);
   }
 
   if (!bundleIdentifier)
@@ -96,22 +96,23 @@ LABEL_10:
       bundleIdentifier2 = [(CSDMessagingCallProvider *)self bundleIdentifier];
       v19 = [LSBundleRecord bundleRecordWithBundleIdentifier:bundleIdentifier2 allowPlaceholder:0 error:0];
 
-      bundleIdentifier = [(CSDMessagingCallProvider *)self bundleIdentifier];
+      bundleIdentifier3 = [(CSDMessagingCallProvider *)self bundleIdentifier];
+      bundleIdentifier = bundleIdentifier3;
       if (v19)
       {
-        v20 = [v19 URL];
-        [v6 setBundleURL:v20];
+        v21 = [v19 URL];
+        [v6 setBundleURL:v21];
       }
 
-      v21 = sub_100004778();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100004778(bundleIdentifier3);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        bundleIdentifier3 = [(CSDMessagingCallProvider *)self bundleIdentifier];
-        v35 = 138412546;
-        selfCopy = bundleIdentifier3;
-        v37 = 2112;
-        v38 = v19;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Bundle for provider bundle ID: %@ bundle: %@", &v35, 0x16u);
+        bundleIdentifier4 = [(CSDMessagingCallProvider *)self bundleIdentifier];
+        v36 = 138412546;
+        selfCopy = bundleIdentifier4;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Bundle for provider bundle ID: %@ bundle: %@", &v36, 0x16u);
       }
     }
   }
@@ -124,8 +125,8 @@ LABEL_10:
   if (ringtoneSoundURLString)
   {
     ringtoneSoundURLString2 = [(CSDMessagingCallProvider *)self ringtoneSoundURLString];
-    v26 = [NSURL URLWithString:ringtoneSoundURLString2];
-    [v6 setRingtoneSoundURL:v26];
+    v27 = [NSURL URLWithString:ringtoneSoundURLString2];
+    [v6 setRingtoneSoundURL:v27];
   }
 
   else
@@ -137,8 +138,8 @@ LABEL_10:
   if (originalRingtoneSoundURLString)
   {
     originalRingtoneSoundURLString2 = [(CSDMessagingCallProvider *)self originalRingtoneSoundURLString];
-    v29 = [NSURL URLWithString:originalRingtoneSoundURLString2];
-    [v6 setOriginalRingtoneSoundURL:v29];
+    v30 = [NSURL URLWithString:originalRingtoneSoundURLString2];
+    [v6 setOriginalRingtoneSoundURL:v30];
   }
 
   else
@@ -482,7 +483,7 @@ LABEL_14:
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;
@@ -538,7 +539,7 @@ LABEL_14:
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;
@@ -806,7 +807,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    maximumCallGroups = self->_maximumCallGroups;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -826,7 +826,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  maximumCallsPerCallGroup = self->_maximumCallsPerCallGroup;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -841,7 +840,6 @@ LABEL_10:
   }
 
 LABEL_56:
-  supportsAudioOnly = self->_supportsAudioOnly;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -856,7 +854,6 @@ LABEL_11:
   }
 
 LABEL_57:
-  supportsAudioAndVideo = self->_supportsAudioAndVideo;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -871,12 +868,10 @@ LABEL_12:
   }
 
 LABEL_58:
-  supportsEmergency = self->_supportsEmergency;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_13:
-    supportsVoicemail = self->_supportsVoicemail;
     PBDataWriterWriteBOOLField();
   }
 
@@ -891,139 +886,133 @@ LABEL_14:
     PBDataWriterWriteStringField();
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v7 = self->_handoffIdentifiers;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v51 objects:v58 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v52;
-    do
-    {
-      for (i = 0; i != v9; i = i + 1)
-      {
-        if (*v52 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v51 + 1) + 8 * i);
-        PBDataWriterWriteStringField();
-      }
-
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v51 objects:v58 count:16];
-    }
-
-    while (v9);
-  }
-
-  if (self->_protoSupportedHandleTypes.count)
-  {
-    v13 = 0;
-    do
-    {
-      v14 = self->_protoSupportedHandleTypes.list[v13];
-      PBDataWriterWriteUint32Field();
-      ++v13;
-    }
-
-    while (v13 < self->_protoSupportedHandleTypes.count);
-  }
-
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v15 = self->_emergencyLabeledHandles;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v47 objects:v57 count:16];
-  if (v16)
-  {
-    v17 = v16;
-    v18 = *v48;
-    do
-    {
-      for (j = 0; j != v17; j = j + 1)
-      {
-        if (*v48 != v18)
-        {
-          objc_enumerationMutation(v15);
-        }
-
-        v20 = *(*(&v47 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v47 objects:v57 count:16];
-    }
-
-    while (v17);
-  }
-
-  if ((*&self->_has & 0x20) != 0)
-  {
-    supportsRecents = self->_supportsRecents;
-    PBDataWriterWriteBOOLField();
-  }
-
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v22 = self->_prioritizedSenderIdentities;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v43 objects:v56 count:16];
-  if (v23)
-  {
-    v24 = v23;
-    v25 = *v44;
-    do
-    {
-      for (k = 0; k != v24; k = k + 1)
-      {
-        if (*v44 != v25)
-        {
-          objc_enumerationMutation(v22);
-        }
-
-        v27 = *(*(&v43 + 1) + 8 * k);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v43 objects:v56 count:16];
-    }
-
-    while (v24);
-  }
-
   v41 = 0u;
   v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v28 = self->_emergencyHandles;
-  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v39 objects:v55 count:16];
-  if (v29)
+  v6 = self->_handoffIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  if (v7)
   {
-    v30 = v29;
-    v31 = *v40;
+    v8 = v7;
+    v9 = *v40;
     do
     {
-      for (m = 0; m != v30; m = m + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v31)
+        if (*v40 != v9)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v6);
         }
 
-        v33 = *(*(&v39 + 1) + 8 * m);
+        PBDataWriterWriteStringField();
+      }
+
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v39 objects:v46 count:16];
+    }
+
+    while (v8);
+  }
+
+  if (self->_protoSupportedHandleTypes.count)
+  {
+    v11 = 0;
+    do
+    {
+      PBDataWriterWriteUint32Field();
+      ++v11;
+    }
+
+    while (v11 < self->_protoSupportedHandleTypes.count);
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v12 = self->_emergencyLabeledHandles;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v36;
+    do
+    {
+      for (j = 0; j != v14; ++j)
+      {
+        if (*v36 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
         PBDataWriterWriteSubmessage();
       }
 
-      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
-    while (v30);
+    while (v14);
+  }
+
+  if ((*&self->_has & 0x20) != 0)
+  {
+    PBDataWriterWriteBOOLField();
+  }
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v17 = self->_prioritizedSenderIdentities;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v32;
+    do
+    {
+      for (k = 0; k != v19; ++k)
+      {
+        if (*v32 != v20)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v44 count:16];
+    }
+
+    while (v19);
+  }
+
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v22 = self->_emergencyHandles;
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v43 count:16];
+  if (v23)
+  {
+    v24 = v23;
+    v25 = *v28;
+    do
+    {
+      for (m = 0; m != v24; ++m)
+      {
+        if (*v28 != v25)
+        {
+          objc_enumerationMutation(v22);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v43 count:16];
+    }
+
+    while (v24);
   }
 
   if (self->_bundleIdentifier)
@@ -1494,7 +1483,6 @@ LABEL_8:
     }
   }
 
-  v8 = *(equalCopy + 128);
   if (*&self->_has)
   {
     if ((*(equalCopy + 128) & 1) == 0 || self->_maximumCallGroups != *(equalCopy + 22))
@@ -1528,7 +1516,6 @@ LABEL_8:
       goto LABEL_66;
     }
 
-    v18 = *(equalCopy + 121);
     if (self->_supportsAudioOnly)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -1555,7 +1542,6 @@ LABEL_8:
       goto LABEL_66;
     }
 
-    v19 = *(equalCopy + 120);
     if (self->_supportsAudioAndVideo)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -1582,7 +1568,6 @@ LABEL_8:
       goto LABEL_66;
     }
 
-    v20 = *(equalCopy + 122);
     if (self->_supportsEmergency)
     {
       if ((*(equalCopy + 122) & 1) == 0)
@@ -1609,7 +1594,6 @@ LABEL_8:
       goto LABEL_66;
     }
 
-    v21 = *(equalCopy + 124);
     if (self->_supportsVoicemail)
     {
       if ((*(equalCopy + 124) & 1) == 0)
@@ -1667,7 +1651,6 @@ LABEL_8:
     }
   }
 
-  v13 = *(equalCopy + 128);
   if ((*&self->_has & 0x20) == 0)
   {
     if ((*(equalCopy + 128) & 0x20) == 0)
@@ -1676,7 +1659,7 @@ LABEL_8:
     }
 
 LABEL_66:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_67;
   }
 
@@ -1685,7 +1668,6 @@ LABEL_66:
     goto LABEL_66;
   }
 
-  v23 = *(equalCopy + 123);
   if (self->_supportsRecents)
   {
     if ((*(equalCopy + 123) & 1) == 0)
@@ -1718,17 +1700,17 @@ LABEL_37:
   bundleIdentifier = self->_bundleIdentifier;
   if (bundleIdentifier | *(equalCopy + 4))
   {
-    v17 = [(NSString *)bundleIdentifier isEqual:?];
+    v15 = [(NSString *)bundleIdentifier isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
 LABEL_67:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash

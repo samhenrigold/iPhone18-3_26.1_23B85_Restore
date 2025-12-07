@@ -40,7 +40,7 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if ([inputCopy numberOfItems] == 1)
   {
@@ -50,15 +50,15 @@
       v6 = [(WFMoveFileAction *)self parameterValueForKey:@"WFReplaceExisting" ofClass:objc_opt_class()];
       bOOLValue = [v6 BOOLValue];
 
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __47__WFMoveFileAction_runAsynchronouslyWithInput___block_invoke;
-      v15[3] = &unk_278C1A950;
-      v15[4] = self;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __47__WFMoveFileAction_runAsynchronouslyWithInput___block_invoke;
+      v14[3] = &unk_278C1A950;
+      v14[4] = self;
       v5 = v5;
-      v16 = v5;
-      v17 = bOOLValue;
-      [inputCopy getFileRepresentation:v15 forType:0];
+      v15 = v5;
+      v16 = bOOLValue;
+      [inputCopy getFileRepresentation:v14 forType:0];
     }
 
     else
@@ -74,16 +74,14 @@
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277D7CB30];
     v11 = *MEMORY[0x277CCA450];
-    v18[0] = *MEMORY[0x277CCA470];
-    v18[1] = v11;
-    v19[0] = v5;
-    v19[1] = v8;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = *MEMORY[0x277CCA470];
+    v17[1] = v11;
+    v18[0] = v5;
+    v18[1] = v8;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v13 = [v9 errorWithDomain:v10 code:6 userInfo:v12];
     [(WFMoveFileAction *)self finishRunningWithError:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WFMoveFileAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)

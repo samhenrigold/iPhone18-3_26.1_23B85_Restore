@@ -51,21 +51,21 @@ void __44__IFGraphicSymbolOverrides_overridesFileURL__block_invoke()
     v4 = objc_alloc_init(IFGraphicSymbolOverrides);
     v5 = MEMORY[0x1E695DF20];
     v6 = +[IFGraphicSymbolOverrides overridesFileURL];
-    v14 = 0;
-    v7 = [v5 dictionaryWithContentsOfURL:v6 error:&v14];
-    v8 = v14;
+    v15 = 0;
+    v7 = [v5 dictionaryWithContentsOfURL:v6 error:&v15];
+    v8 = v15;
 
     if (!v7)
     {
-      v9 = IFDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = IFDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[(IFGraphicSymbolOverrides *)v8];
       }
     }
 
-    v10 = [[IFGraphicSymbolOverridesParser alloc] initWithRawOverrides:v7];
-    parse = [(IFGraphicSymbolOverridesParser *)v10 parse];
+    v11 = [[IFGraphicSymbolOverridesParser alloc] initWithRawOverrides:v7];
+    parse = [(IFGraphicSymbolOverridesParser *)v11 parse];
     [(IFGraphicSymbolOverrides *)v4 setItems:parse];
 
     if (v4)
@@ -127,7 +127,7 @@ uint64_t __37__IFGraphicSymbolOverrides_overrides__block_invoke()
         shape2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF.shape == %d", shape];
         v19 = [v10 filteredArrayUsingPredicate:shape2];
         v20 = v19;
-        if (v19 && [v19 count])
+        if (v19 && (v19 = [v19 count]) != 0)
         {
           if ([v20 count] == 1)
           {
@@ -153,7 +153,7 @@ uint64_t __37__IFGraphicSymbolOverrides_overrides__block_invoke()
         else
         {
           v27 = shape2;
-          v21 = IFDefaultLog();
+          v21 = IFDefaultLog(v19);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;

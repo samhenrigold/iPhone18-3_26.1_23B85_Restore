@@ -434,7 +434,7 @@ id __55___UIContextMenuListView__dataSourceForCollectionView___block_invoke_2(ui
   }
 
   v50 = v11;
-  if ([v8 isEqualToString:@"kContextMenuHeader"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v17 = v11;
     v47 = v13;
@@ -514,7 +514,7 @@ LABEL_33:
     goto LABEL_30;
   }
 
-  if ([v8 isEqualToString:@"kContextMenuSubmenuTitleHeader"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v17 = v11;
     [WeakRetained contentMargins];
@@ -563,7 +563,7 @@ LABEL_33:
     [v18 setOptions:v31];
   }
 
-  else if ([v8 isEqualToString:@"kContextMenuSectionSeparator"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v17 = [v51 traitCollection];
     _UIContextMenuGetPlatformMetrics([v17 userInterfaceIdiom]);
@@ -580,7 +580,7 @@ LABEL_33:
 
   else
   {
-    if (![v8 isEqualToString:@"kContextMenuPinnedFooter"])
+    if (!objc_msgSend_isEqualToString_(v8))
     {
       goto LABEL_36;
     }

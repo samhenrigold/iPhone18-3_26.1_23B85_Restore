@@ -187,67 +187,67 @@
     v22 = +[UIColor bc_booksSecondaryLabelColor];
     [(UIImageView *)self->_iconImageView setTintColor:v22];
 
-    v23 = AEBundle();
-    v24 = [v23 localizedStringForKey:@"Toggle page chooser" value:&stru_1E7188 table:0];
-    [(UIImageView *)self->_iconImageView setAccessibilityLabel:v24];
+    v24 = AEBundle(v23);
+    v25 = [v24 localizedStringForKey:@"Toggle page chooser" value:&stru_1E7188 table:0];
+    [(UIImageView *)self->_iconImageView setAccessibilityLabel:v25];
 
-    v25 = self->_iconImageView;
-    accessibilityTraits = [(UIImageView *)v25 accessibilityTraits];
-    [(UIImageView *)v25 setAccessibilityTraits:UIAccessibilityTraitButton | accessibilityTraits];
+    v26 = self->_iconImageView;
+    accessibilityTraits = [(UIImageView *)v26 accessibilityTraits];
+    [(UIImageView *)v26 setAccessibilityTraits:UIAccessibilityTraitButton | accessibilityTraits];
     [(UIImageView *)self->_iconImageView setIsAccessibilityElement:1];
     [(UIImageView *)self->_iconImageView setOpaque:0];
     _compositingFilterToUse = [(BKInfoHUD *)self _compositingFilterToUse];
-    v28 = [CAFilter filterWithType:_compositingFilterToUse];
+    v29 = [CAFilter filterWithType:_compositingFilterToUse];
     layer3 = [(UIImageView *)self->_iconImageView layer];
-    [layer3 setCompositingFilter:v28];
+    [layer3 setCompositingFilter:v29];
 
     [(UIImageView *)self->_iconImageView setContentMode:1];
     [(BKInfoHUD *)self addSubview:self->_iconImageView];
     trailingAnchor = [(UIImageView *)self->_iconImageView trailingAnchor];
     trailingAnchor2 = [(UIVisualEffectView *)self->_backgroundView trailingAnchor];
-    v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-12.0];
-    [v32 setActive:1];
+    v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-12.0];
+    [v33 setActive:1];
 
     centerYAnchor3 = [(UIImageView *)self->_iconImageView centerYAnchor];
     centerYAnchor4 = [(UIVisualEffectView *)self->_backgroundView centerYAnchor];
-    v35 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    [v35 setActive:1];
+    v36 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    [v36 setActive:1];
   }
 
   if (!self->_textLabel)
   {
-    v36 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    v37 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
     textLabel = self->_textLabel;
-    self->_textLabel = v36;
+    self->_textLabel = v37;
 
     [(UILabel *)self->_textLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(BKInfoHUD *)self updateLabelFont];
     if ([(BKInfoHUD *)self isInterfaceRTL])
     {
-      v38 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v38 = 2;
+      v39 = 2;
     }
 
-    [(UILabel *)self->_textLabel setTextAlignment:v38];
-    v39 = +[UIColor bc_booksSecondaryLabelColor];
-    [(UILabel *)self->_textLabel setTextColor:v39];
+    [(UILabel *)self->_textLabel setTextAlignment:v39];
+    v40 = +[UIColor bc_booksSecondaryLabelColor];
+    [(UILabel *)self->_textLabel setTextColor:v40];
 
     [(UILabel *)self->_textLabel setOpaque:0];
     _compositingFilterToUse2 = [(BKInfoHUD *)self _compositingFilterToUse];
-    v41 = [CAFilter filterWithType:_compositingFilterToUse2];
+    v42 = [CAFilter filterWithType:_compositingFilterToUse2];
     layer4 = [(UILabel *)self->_textLabel layer];
-    [layer4 setCompositingFilter:v41];
+    [layer4 setCompositingFilter:v42];
 
-    v43 = +[UIColor clearColor];
-    [(UILabel *)self->_textLabel setBackgroundColor:v43];
+    v44 = +[UIColor clearColor];
+    [(UILabel *)self->_textLabel setBackgroundColor:v44];
 
-    v44 = AEBundle();
-    v45 = [v44 localizedStringForKey:@"Page" value:&stru_1E7188 table:0];
-    [(UILabel *)self->_textLabel setAccessibilityLabel:v45];
+    v46 = AEBundle(v45);
+    v47 = [v46 localizedStringForKey:@"Page" value:&stru_1E7188 table:0];
+    [(UILabel *)self->_textLabel setAccessibilityLabel:v47];
 
     [(UILabel *)self->_textLabel setLineBreakMode:0];
     [(UILabel *)self->_textLabel setNumberOfLines:0];
@@ -255,23 +255,23 @@
     [(BKInfoHUD *)self _updateImageAndTextConstraints];
     topAnchor = [(UILabel *)self->_textLabel topAnchor];
     topAnchor2 = [(UIVisualEffectView *)self->_backgroundView topAnchor];
-    v48 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    [v48 setActive:1];
+    v50 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    [v50 setActive:1];
 
     bottomAnchor = [(UILabel *)self->_textLabel bottomAnchor];
     bottomAnchor2 = [(UIVisualEffectView *)self->_backgroundView bottomAnchor];
-    v51 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    [v51 setActive:1];
+    v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    [v53 setActive:1];
   }
 
-  v52 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"tapGestureHandler:"];
+  v54 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"tapGestureHandler:"];
   tapGestureRecognizer = self->_tapGestureRecognizer;
-  self->_tapGestureRecognizer = v52;
+  self->_tapGestureRecognizer = v54;
 
   [(UITapGestureRecognizer *)self->_tapGestureRecognizer setCancelsTouchesInView:1];
-  v54 = self->_tapGestureRecognizer;
+  v56 = self->_tapGestureRecognizer;
 
-  [(BKInfoHUD *)self addGestureRecognizer:v54];
+  [(BKInfoHUD *)self addGestureRecognizer:v56];
 }
 
 - (void)_updateImageAndTextConstraints
@@ -350,21 +350,22 @@
 - (id)accessibilityHint
 {
   isUserInteractionEnabled = [(BKInfoHUD *)self isUserInteractionEnabled];
-  v3 = AEBundle();
-  v4 = v3;
-  if (isUserInteractionEnabled)
+  v3 = isUserInteractionEnabled;
+  v4 = AEBundle(isUserInteractionEnabled);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"Double tap to toggle page chooser";
+    v6 = @"Double tap to toggle page chooser";
   }
 
   else
   {
-    v5 = @"Double tap to turn page";
+    v6 = @"Double tap to turn page";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1E7188 table:0];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1E7188 table:0];
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)accessibilityActivate

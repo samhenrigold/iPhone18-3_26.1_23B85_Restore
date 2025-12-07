@@ -16,15 +16,13 @@
 
 - (NSExtensionRequestHandling)principalObject
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____EXNSExtensionContextShim_principalObject);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setPrincipalObject:(id)object
 {
-  v3 = *(&self->super.super.isa + OBJC_IVAR____EXNSExtensionContextShim_principalObject);
   *(&self->super.super.isa + OBJC_IVAR____EXNSExtensionContextShim_principalObject) = object;
   swift_unknownObjectRetain();
 
@@ -33,14 +31,13 @@
 
 - (NSArray)inputItems
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____EXNSExtensionContextShim__inputItems);
   selfCopy = self;
 
-  specialized _arrayForceCast<A, B>(_:)(v4);
+  specialized _arrayForceCast<A, B>(_:)(v3);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (_EXNSExtensionContextShim)init
@@ -74,9 +71,8 @@
 - (_EXNSExtensionContextShim)initWithInputItems:(id)items contextUUID:(id)d
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (items)
   {
     items = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -85,25 +81,24 @@
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = type metadata accessor for UUID();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = type metadata accessor for UUID();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  return _EXNSExtensionContextShim.init(inputItems:contextUUID:)(items, v9);
+  return _EXNSExtensionContextShim.init(inputItems:contextUUID:)(items, v8);
 }
 
 - (_EXNSExtensionContextShim)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v16 - v10;
+  v10 = &v15 - v9;
   if (items)
   {
     items = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -112,18 +107,18 @@
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = type metadata accessor for UUID();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = type metadata accessor for UUID();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v13 = type metadata accessor for UUID();
-    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
   endpointCopy = endpoint;
-  return _EXNSExtensionContextShim.init(inputItems:listenerEndpoint:contextUUID:)(items, endpoint, v11);
+  return _EXNSExtensionContextShim.init(inputItems:listenerEndpoint:contextUUID:)(items, endpoint, v10);
 }
 
 - (BOOL)shouldAcceptXPCConnection:(id)connection
@@ -150,18 +145,20 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
-    v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool) -> ();
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool) -> ();
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
   }
 
   selfCopy = self;
-  _EXNSExtensionContextShim.completeRequest(returningItems:completionHandler:)(items, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  _EXNSExtensionContextShim.completeRequest(returningItems:completionHandler:)(items, v8);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v7);
 }
 
 - (void)cancelRequestWithError:(id)error
@@ -172,11 +169,11 @@
     v5 = *(&self->super.__dummyExtension + OBJC_IVAR____EXNSExtensionContextShim_response);
     errorCopy = error;
     selfCopy = self;
-    outlined copy of (@escaping @callee_guaranteed (@guaranteed XPCListener.IncomingSessionRequest) -> (@out XPCListener.IncomingSessionRequest.Decision))?(v3);
+    outlined copy of (@escaping @callee_guaranteed (@guaranteed XPCListener.IncomingSessionRequest) -> (@out XPCListener.IncomingSessionRequest.Decision))?(v3, v5);
     v8 = _convertErrorToNSError(_:)();
     v3(0, v8);
 
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v3);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v3, v5);
   }
 }
 

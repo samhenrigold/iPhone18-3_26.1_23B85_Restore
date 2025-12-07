@@ -124,24 +124,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_value)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_ownerIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    databaseType = self->_databaseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

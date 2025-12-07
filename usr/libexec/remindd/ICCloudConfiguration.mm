@@ -60,7 +60,7 @@
   v4 = v3;
   if (!v3)
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1007655A0();
@@ -71,7 +71,7 @@
 
   if ([v3 unsignedIntegerValue] != 2)
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100765510(v4);
@@ -238,7 +238,7 @@ LABEL_16:
     defaultConfigurationURL = [NSDictionary dictionaryWithContentsOfURL:cachedConfigurationURL];
     if (defaultConfigurationURL)
     {
-      v5 = +[REMLog cloudkit];
+      v5 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -247,7 +247,7 @@ LABEL_16:
 
       if ([objc_opt_class() isConfigurationValid:defaultConfigurationURL])
       {
-        v6 = +[REMLog cloudkit];
+        v6 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *v9 = 0;
@@ -262,14 +262,14 @@ LABEL_16:
 
   else
   {
-    defaultConfigurationURL = +[REMLog cloudkit];
+    defaultConfigurationURL = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(defaultConfigurationURL, OS_LOG_TYPE_ERROR))
     {
       sub_1007655D4();
     }
   }
 
-  v7 = +[REMLog cloudkit];
+  v7 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -284,7 +284,7 @@ LABEL_14:
 - (void)downloadRemoteConfiguration
 {
   v3 = [NSURL URLWithString:@"https://configuration.apple.com/configurations/internetservices/cloudkit/reminders-1.0.plist"];
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -315,7 +315,7 @@ LABEL_14:
 - (void)loadConfigurationFromURL:(id)l
 {
   lCopy = l;
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
@@ -326,7 +326,7 @@ LABEL_14:
   v6 = [NSDictionary dictionaryWithContentsOfURL:lCopy];
   if (!v6)
   {
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10076589C();
@@ -350,7 +350,7 @@ LABEL_14:
 
   else
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100765910();
@@ -427,7 +427,7 @@ LABEL_14:
 
   else
   {
-    v30 = +[REMLog cloudkit];
+    v30 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_100765944();
@@ -446,7 +446,7 @@ LABEL_14:
 
   else
   {
-    v33 = +[REMLog cloudkit];
+    v33 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_100765978();
@@ -465,7 +465,7 @@ LABEL_14:
 
   else
   {
-    v36 = +[REMLog cloudkit];
+    v36 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       sub_1007659AC();
@@ -484,7 +484,7 @@ LABEL_14:
 
   else
   {
-    v39 = +[REMLog cloudkit];
+    v39 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       sub_1007659E0();
@@ -516,7 +516,7 @@ LABEL_14:
 
   else
   {
-    v43 = +[REMLog cloudkit];
+    v43 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_100765A14();

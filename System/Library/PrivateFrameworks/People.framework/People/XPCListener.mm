@@ -9,9 +9,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_10001F0BC(listenerCopy, connectionCopy);
+  v10 = sub_10001F0BC(listenerCopy, connectionCopy, v9);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 @end

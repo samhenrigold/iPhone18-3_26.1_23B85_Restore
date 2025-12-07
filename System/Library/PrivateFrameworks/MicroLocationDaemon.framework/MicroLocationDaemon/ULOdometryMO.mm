@@ -43,7 +43,7 @@
   v6 = deviceIdentifier;
   if (deviceIdentifier)
   {
-    [deviceIdentifier stdString];
+    objc_msgSend_stdString(deviceIdentifier);
   }
 
   else

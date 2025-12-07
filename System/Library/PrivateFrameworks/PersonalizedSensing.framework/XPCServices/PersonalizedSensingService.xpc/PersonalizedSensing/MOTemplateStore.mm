@@ -1046,14 +1046,14 @@ void __49__MOTemplateStore_removeAllTemplatesWithHandler___block_invoke(uint64_t
 
 void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = a2;
+  v48 = a2;
   v2 = _mo_log_facility_get_os_log(&MOLogFacilityTemplateStore);
   v3 = v2;
-  if (v49)
+  if (v48)
   {
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_1(v49, v3, v4, v5, v6, v7, v8, v9);
+      __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_1(v48, v3, v4, v5, v6, v7, v8, v9);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1067,73 +1067,73 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(ui
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "removing old templates to load new templates succeeded", &buf, 2u);
     }
 
-    v52 = objc_alloc_init(MOTemplateLoader);
-    v10 = [(MOTemplateLoader *)v52 getTemplateDirectoryURL];
+    v51 = objc_alloc_init(MOTemplateLoader);
+    v10 = [(MOTemplateLoader *)v51 getTemplateDirectoryURL];
     v11 = [v10 path];
-    v53 = [v11 stringByAppendingPathComponent:@"templates"];
+    v52 = [v11 stringByAppendingPathComponent:@"templates"];
 
-    v47 = +[NSFileManager defaultManager];
-    v68 = 0;
-    v46 = [v47 contentsOfDirectoryAtPath:v53 error:&v68];
-    v45 = v68;
+    v46 = +[NSFileManager defaultManager];
+    v67 = 0;
+    v45 = [v46 contentsOfDirectoryAtPath:v52 error:&v67];
+    v44 = v67;
     v12 = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-    v48 = [v46 filteredArrayUsingPredicate:v12];
+    v47 = [v45 filteredArrayUsingPredicate:v12];
 
     v13 = _mo_log_facility_get_os_log(&MOLogFacilityTemplateStore);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v53;
+      *(&buf + 4) = v52;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "directory for template: %@", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v73 = 0x3032000000;
-    v74 = __Block_byref_object_copy__1;
-    v75 = __Block_byref_object_dispose__1;
-    v76 = 0;
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2020000000;
-    v67 = 0;
-    if (v48 && [v48 count])
+    v72 = 0x3032000000;
+    v73 = __Block_byref_object_copy__1;
+    v74 = __Block_byref_object_dispose__1;
+    v75 = 0;
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x2020000000;
+    v66 = 0;
+    if (v47 && [v47 count])
     {
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
       v61 = 0u;
-      obj = v48;
-      v14 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      obj = v47;
+      v14 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
       if (v14)
       {
-        v51 = *v61;
+        v50 = *v60;
         v15 = 0.0;
         do
         {
           v16 = 0;
-          v54 = v14;
+          v53 = v14;
           do
           {
-            if (*v61 != v51)
+            if (*v60 != v50)
             {
               objc_enumerationMutation(obj);
             }
 
-            v56 = v16;
-            v17 = *(*(&v60 + 1) + 8 * v16);
+            v55 = v16;
+            v17 = *(*(&v59 + 1) + 8 * v16);
             context = objc_autoreleasePoolPush();
-            v57 = [v53 stringByAppendingPathComponent:v17];
+            v56 = [v52 stringByAppendingPathComponent:v17];
             v18 = _mo_log_facility_get_os_log(&MOLogFacilityTemplateStore);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              *v69 = 138412290;
-              v70 = v57;
-              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "file template path: %@", v69, 0xCu);
+              *v68 = 138412290;
+              v69 = v56;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "file template path: %@", v68, 0xCu);
             }
 
             v19 = objc_autoreleasePoolPush();
-            v20 = [(MOTemplateLoader *)v52 loadTemplatesFromFile:v57];
+            v20 = [(MOTemplateLoader *)v51 loadTemplatesFromFile:v56];
             v21 = v20;
             if (v15 == 0.0)
             {
@@ -1145,9 +1145,9 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(ui
               {
                 v25 = [v21 firstObject];
                 v26 = [v25 promptVersion];
-                *v69 = 134217984;
-                v70 = v26;
-                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "prompt version: %lu", v69, 0xCu);
+                *v68 = 134217984;
+                v69 = v26;
+                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "prompt version: %lu", v68, 0xCu);
               }
 
               v15 = v23;
@@ -1171,25 +1171,25 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(ui
 
               v32 = *(a1 + 32);
               v33 = [v21 subarrayWithRange:{i, v31}];
-              v59[0] = _NSConcreteStackBlock;
-              v59[1] = 3221225472;
-              v59[2] = __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_102;
-              v59[3] = &unk_1000B4F40;
-              v59[4] = v17;
-              v59[5] = &buf;
-              v59[6] = &v64;
-              [v32 storeTemplates:v33 handler:v59];
+              v58[0] = _NSConcreteStackBlock;
+              v58[1] = 3221225472;
+              v58[2] = __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_102;
+              v58[3] = &unk_1000B4F40;
+              v58[4] = v17;
+              v58[5] = &buf;
+              v58[6] = &v63;
+              [v32 storeTemplates:v33 handler:v58];
 
               objc_autoreleasePoolPop(v29);
               v27 -= 35;
             }
 
             objc_autoreleasePoolPop(context);
-            v16 = v56 + 1;
+            v16 = v55 + 1;
           }
 
-          while ((v56 + 1) != v54);
-          v14 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
+          while ((v55 + 1) != v53);
+          v14 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
         }
 
         while (v14);
@@ -1209,11 +1209,11 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(ui
       v15 = 0.0;
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_2(v53, v34, v35, v36, v37, v38, v39, v40);
+        __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_2(v52, v34, v35, v36, v37, v38, v39, v40);
       }
     }
 
-    if ((v65[3] & 1) == 0)
+    if ((v64[3] & 1) == 0)
     {
       v41 = [*(a1 + 32) configurationManager];
       v42 = [v41 defaultsManager];
@@ -1221,9 +1221,8 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke(ui
       [v42 setObject:v43 forKey:@"LocalTemplateVersion"];
     }
 
-    v44 = *(*(&buf + 1) + 40);
     (*(*(a1 + 40) + 16))();
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v63, 8);
     _Block_object_dispose(&buf, 8);
   }
 }
@@ -1362,6 +1361,20 @@ void __42__MOTemplateStore_storeTemplates_handler___block_invoke_cold_2(uint64_t
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "saving templates error, %@, templates count, %lu", &v6, 0x16u);
 }
 
+void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a2, a3, "removing old templates to load new templates failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a2, a3, "No file found in directory: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_102_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = *(a1 + 32);
@@ -1370,6 +1383,13 @@ void __55__MOTemplateStore_loadNewTemplatesFromFileWithHandler___block_invoke_10
   v6 = 2112;
   v7 = a2;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "storing new templates from file failed, with file: %@, error: %@", &v4, 0x16u);
+}
+
+void __56__MOTemplateStore_checkTemplateStoreIsEmptyWithHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*a1 + 8) + 40);
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a2, a3, "fetch template hit error when trying to identify if DB is empty, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

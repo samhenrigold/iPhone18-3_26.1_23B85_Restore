@@ -8,7 +8,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_1B1AAC180();
+  sub_1B1AAC180(coderCopy);
 }
 
 @end

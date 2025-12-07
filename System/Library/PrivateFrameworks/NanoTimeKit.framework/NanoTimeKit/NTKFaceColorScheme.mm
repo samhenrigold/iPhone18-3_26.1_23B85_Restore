@@ -51,61 +51,63 @@
   if ([paletteCopy isWhite])
   {
     isMulticolor = [paletteCopy isMulticolor];
+    v15 = isMulticolor;
   }
 
   else
   {
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v16 = [colorCopy isEqual:whiteColor];
+    v17 = [colorCopy isEqual:whiteColor];
 
     isMulticolor = [paletteCopy isMulticolor];
-    if ((v16 & 1) == 0)
+    v15 = isMulticolor;
+    if ((v17 & 1) == 0)
     {
       whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-      v17 = 0;
+      v18 = 0;
       goto LABEL_11;
     }
   }
 
-  v17 = 1;
-  whiteColor2 = NTKSecondaryForegroundGrayColor();
+  v18 = 1;
+  whiteColor2 = NTKSecondaryForegroundGrayColor(isMulticolor);
 LABEL_11:
   aBlock = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __105__NTKFaceColorScheme_colorSchemeForDevice_withFaceColorPalette_foregroundColor_units_alternateHighlight___block_invoke;
-  v32 = &unk_278781980;
+  v31 = 3221225472;
+  v32 = __105__NTKFaceColorScheme_colorSchemeForDevice_withFaceColorPalette_foregroundColor_units_alternateHighlight___block_invoke;
+  v33 = &unk_278781980;
   highlightCopy = highlight;
-  v28 = whiteColor2;
-  v33 = v28;
-  v19 = colorCopy;
-  v34 = v19;
-  v20 = paletteCopy;
+  v29 = whiteColor2;
+  v34 = v29;
+  v20 = colorCopy;
   v35 = v20;
-  v38 = v17;
-  v21 = deviceCopy;
+  v21 = paletteCopy;
   v36 = v21;
-  v39 = isMulticolor;
-  v22 = _Block_copy(&aBlock);
-  v23 = [[NTKFaceColorScheme alloc] initForDevice:v21];
-  v24 = 1;
+  v39 = v18;
+  v22 = deviceCopy;
+  v37 = v22;
+  v40 = v15;
+  v23 = _Block_copy(&aBlock);
+  v24 = [[NTKFaceColorScheme alloc] initForDevice:v22];
+  v25 = 1;
   do
   {
-    if ((v24 & units) != 0)
+    if ((v25 & units) != 0)
     {
-      v25 = v22[2](v22, v24);
-      [v23 _setColor:v25 forUnit:{v24, v28, aBlock, v30, v31, v32, v33, v34, v35}];
+      v26 = v23[2](v23, v25);
+      [v24 _setColor:v26 forUnit:{v25, v29, aBlock, v31, v32, v33, v34, v35, v36}];
     }
 
-    v26 = v24 >= 0x201;
-    v24 *= 2;
+    v27 = v25 >= 0x201;
+    v25 *= 2;
   }
 
-  while (!v26);
-  [v23 setMulticolorAlpha:isMulticolor];
-  [v23 setContainsOverrideFaceColor:{objc_msgSend(v20, "isMulticolor")}];
-  [v23 setFaceColorPalette:v20];
+  while (!v27);
+  [v24 setMulticolorAlpha:v15];
+  [v24 setContainsOverrideFaceColor:{objc_msgSend(v21, "isMulticolor")}];
+  [v24 setFaceColorPalette:v21];
 
-  return v23;
+  return v24;
 }
 
 id __105__NTKFaceColorScheme_colorSchemeForDevice_withFaceColorPalette_foregroundColor_units_alternateHighlight___block_invoke(uint64_t a1, uint64_t a2)
@@ -279,7 +281,7 @@ LABEL_36:
     v27 = v26;
     if (v25 && v26)
     {
-      v28 = NTKInterpolateBetweenColors();
+      v28 = NTKInterpolateBetweenColors(fraction);
       if (!v28)
       {
         goto LABEL_22;

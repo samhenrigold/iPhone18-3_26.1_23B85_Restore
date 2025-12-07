@@ -135,10 +135,9 @@ void *__78__HDHealthStoreProviderServer_remote_fetchAvailableIdentifiersWithComp
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC1B8];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC1B8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

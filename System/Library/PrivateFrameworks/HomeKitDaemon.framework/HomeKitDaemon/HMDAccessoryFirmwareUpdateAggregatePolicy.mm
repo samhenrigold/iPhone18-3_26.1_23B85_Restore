@@ -11,28 +11,28 @@
 
 - (BOOL)evaluate
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   policies = [(HMDAccessoryFirmwareUpdateAggregatePolicy *)self policies];
-  v4 = [policies countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v4 = [policies countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(policies);
         }
 
-        if (([*(*(&v18 + 1) + 8 * v7) status] & 1) == 0)
+        if (([*(*(&v17 + 1) + 8 * v7) status] & 1) == 0)
         {
           v13 = objc_autoreleasePoolPush();
           selfCopy = self;
@@ -41,20 +41,19 @@
           {
             v16 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v23 = v16;
+            v22 = v16;
             _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to NO", buf, 0xCu);
           }
 
           objc_autoreleasePoolPop(v13);
-          result = 0;
-          goto LABEL_15;
+          return 0;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [policies countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v5 = [policies countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v5)
       {
         continue;
@@ -71,15 +70,12 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v23 = v11;
+    v22 = v11;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to YES", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
-  result = 1;
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)handlePolicyStatusChange:(id)change
@@ -98,7 +94,7 @@ LABEL_15:
 
 void __70__HMDAccessoryFirmwareUpdateAggregatePolicy_handlePolicyStatusChange___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   if ([v2 conformsToProtocol:&unk_283EC8C00])
   {
@@ -126,44 +122,42 @@ void __70__HMDAccessoryFirmwareUpdateAggregatePolicy_handlePolicyStatusChange___
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 1024;
-      v17 = v8;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received updated status from sub policy - %d", &v14, 0x12u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 1024;
+      v16 = v8;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received updated status from sub policy - %d", &v13, 0x12u);
     }
 
     objc_autoreleasePoolPop(v9);
     [*(a1 + 40) evaluateAndNotify];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotifications
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   policies = [(HMDAccessoryFirmwareUpdateAggregatePolicy *)self policies];
-  v4 = [policies countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [policies countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(policies);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
         [defaultCenter addObserver:self selector:sel_handlePolicyStatusChange_ name:@"HMDAccessoryFirmwareUpdatePolicyStatusChangedNotification" object:v8];
 
@@ -171,43 +165,41 @@ void __70__HMDAccessoryFirmwareUpdateAggregatePolicy_handlePolicyStatusChange___
       }
 
       while (v5 != v7);
-      v5 = [policies countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [policies countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   policies = [(HMDAccessoryFirmwareUpdateAggregatePolicy *)self policies];
-  v4 = [policies countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [policies countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(policies);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) configure];
+        [*(*(&v8 + 1) + 8 * v7++) configure];
       }
 
       while (v5 != v7);
-      v5 = [policies countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [policies countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -215,7 +207,6 @@ void __70__HMDAccessoryFirmwareUpdateAggregatePolicy_handlePolicyStatusChange___
 
   [(HMDAccessoryFirmwareUpdatePolicy *)self setStatus:[(HMDAccessoryFirmwareUpdateAggregatePolicy *)self evaluate]];
   [(HMDAccessoryFirmwareUpdateAggregatePolicy *)self _registerForNotifications];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessoryFirmwareUpdateAggregatePolicy)initWithPolicies:(id)policies accessory:(id)accessory workQueue:(id)queue
@@ -247,10 +238,9 @@ void __70__HMDAccessoryFirmwareUpdateAggregatePolicy_handlePolicyStatusChange___
 
 void __56__HMDAccessoryFirmwareUpdateAggregatePolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_155593;
-  logCategory__hmf_once_v5_155593 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_155593;
+  logCategory__hmf_once_v5_155593 = v0;
 }
 
 @end

@@ -18,7 +18,7 @@
 {
   handlerCopy = handler;
   date = [MEMORY[0x277CBEAA8] date];
-  v6 = LA_LOG_0();
+  v6 = LA_LOG_0(date);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -83,8 +83,8 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = LA_LOG_0();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = LA_LOG_0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -92,10 +92,9 @@
     _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "%@ deallocated", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = _AuthorizationRemoteViewControllerHost;
-  [(_AuthorizationRemoteViewControllerHost *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = _AuthorizationRemoteViewControllerHost;
+  [(_AuthorizationRemoteViewControllerHost *)&v4 dealloc];
 }
 
 - (void)authenticatorServiceDidFinishWithError:(id)error reply:(id)reply

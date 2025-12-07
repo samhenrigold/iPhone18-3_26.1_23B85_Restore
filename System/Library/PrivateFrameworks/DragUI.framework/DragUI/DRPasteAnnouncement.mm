@@ -60,43 +60,41 @@
     [DRPasteAnnouncement _localizedTextRequiringAuthorization:];
   }
 
-  destination = self->_destination;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     localizedName = [(DRPasteAnnouncementEndpoint *)self->_destination localizedName];
-    source = self->_source;
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    v9 = self->_source;
-    if (isKindOfClass)
+    if (objc_opt_isKindOfClass())
     {
       localizedName2 = [(DRPasteAnnouncementEndpoint *)self->_source localizedName];
       if (authorizationCopy)
       {
-        v11 = @"PASTE_AUTHORIZATION_REQUEST_SOURCE_AND_DESTINATION";
-        v12 = @"%@ would like to paste from %@";
+        v8 = @"PASTE_AUTHORIZATION_REQUEST_SOURCE_AND_DESTINATION";
+        v9 = @"%@ would like to paste from %@";
       }
 
       else
       {
-        v11 = @"PASTE_ANNOUNCEMENT_SOURCE_AND_DESTINATION";
-        v12 = @"%@ pasted from %@";
+        v8 = @"PASTE_ANNOUNCEMENT_SOURCE_AND_DESTINATION";
+        v9 = @"%@ pasted from %@";
       }
 
-      v17 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v11 value:v12 table:@"Localizable"];
-      v26 = 0;
-      v18 = &v26;
-      [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v17 validFormatSpecifiers:@"%@%@" error:&v26, localizedName, localizedName2];
+      v15 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v8 value:v9 table:@"Localizable"];
+      v24 = 0;
+      v16 = &v24;
+      [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v15 validFormatSpecifiers:@"%@%@" error:&v24, localizedName, localizedName2];
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v12 = objc_opt_isKindOfClass();
+      if ((v12 & 1) == 0)
       {
-        v13 = 0;
-        v17 = 0;
+        v10 = 0;
+        v15 = 0;
         goto LABEL_24;
       }
 
@@ -105,46 +103,46 @@
       {
         if (authorizationCopy)
         {
-          v15 = @"PASTE_AUTHORIZATION_REQUEST_FROM_CONTINUITY_DEVICE";
-          v16 = @"%@ would like to paste from %@";
+          v13 = @"PASTE_AUTHORIZATION_REQUEST_FROM_CONTINUITY_DEVICE";
+          v14 = @"%@ would like to paste from %@";
         }
 
         else
         {
-          v15 = @"PASTE_ANNOUNCEMENT_FROM_CONTINUITY_DEVICE";
-          v16 = @"%@ pasted from %@";
+          v13 = @"PASTE_ANNOUNCEMENT_FROM_CONTINUITY_DEVICE";
+          v14 = @"%@ pasted from %@";
         }
 
-        v17 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v15 value:v16 table:@"Localizable"];
-        v25 = 0;
-        v18 = &v25;
-        [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v17 validFormatSpecifiers:@"%@%@" error:&v25, localizedName, localizedName2];
+        v15 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v13 value:v14 table:@"Localizable"];
+        v23 = 0;
+        v16 = &v23;
+        [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v15 validFormatSpecifiers:@"%@%@" error:&v23, localizedName, localizedName2];
       }
 
       else
       {
         if (authorizationCopy)
         {
-          v19 = @"PASTE_AUTHORIZATION_REQUEST_FROM_UNKNOWN_CONTINUITY_DEVICE";
-          v20 = @"%@ would like to paste from another device";
+          v17 = @"PASTE_AUTHORIZATION_REQUEST_FROM_UNKNOWN_CONTINUITY_DEVICE";
+          v18 = @"%@ would like to paste from another device";
         }
 
         else
         {
-          v19 = @"PASTE_ANNOUNCEMENT_FROM_UNKNOWN_CONTINUITY_DEVICE";
-          v20 = @"%@ pasted from another device";
+          v17 = @"PASTE_ANNOUNCEMENT_FROM_UNKNOWN_CONTINUITY_DEVICE";
+          v18 = @"%@ pasted from another device";
         }
 
-        v17 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v19 value:v20 table:@"Localizable"];
-        v24 = 0;
-        v18 = &v24;
-        [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v17 validFormatSpecifiers:@"%@" error:&v24, localizedName, v23];
+        v15 = [_localizedTextRequiringAuthorization__DRBundle localizedStringForKey:v17 value:v18 table:@"Localizable"];
+        v22 = 0;
+        v16 = &v22;
+        [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v15 validFormatSpecifiers:@"%@" error:&v22, localizedName, v21];
       }
     }
-    v14 = ;
-    v13 = *v18;
+    v11 = ;
+    v10 = *v16;
 
-    if (v14)
+    if (v11)
     {
 LABEL_27:
 
@@ -152,26 +150,26 @@ LABEL_27:
     }
 
 LABEL_24:
-    v21 = DRLogTarget();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = DRLogTarget(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(DRPasteAnnouncement *)v13 _localizedTextRequiringAuthorization:v21];
+      [(DRPasteAnnouncement *)v10 _localizedTextRequiringAuthorization:v19];
     }
 
-    v14 = @"PASTE OCCURRED";
+    v11 = @"PASTE OCCURRED";
     goto LABEL_27;
   }
 
-  v13 = DRLogTarget();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v10 = DRLogTarget(isKindOfClass);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
-    [DRPasteAnnouncement _localizedTextRequiringAuthorization:v13];
+    [DRPasteAnnouncement _localizedTextRequiringAuthorization:v10];
   }
 
-  v14 = @"PASTE OCCURRED";
+  v11 = @"PASTE OCCURRED";
 LABEL_28:
 
-  return v14;
+  return v11;
 }
 
 uint64_t __60__DRPasteAnnouncement__localizedTextRequiringAuthorization___block_invoke()
@@ -242,11 +240,10 @@ LABEL_9:
 
 - (void)_localizedTextRequiringAuthorization:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_249D32000, a2, OS_LOG_TYPE_ERROR, "Invalid format string for paste announcement (error: %@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_249D32000, a2, OS_LOG_TYPE_ERROR, "Invalid format string for paste announcement (error: %@)", &v2, 0xCu);
 }
 
 @end

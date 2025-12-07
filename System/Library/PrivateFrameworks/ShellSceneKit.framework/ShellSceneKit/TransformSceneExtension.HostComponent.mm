@@ -1,6 +1,5 @@
 @interface TransformSceneExtension.HostComponent
 - (_TtCC13ShellSceneKit23TransformSceneExtension13HostComponent)init;
-- (void)invalidate;
 - (void)scene:(id)scene didUpdateSettings:(id)settings;
 - (void)setScene:(id)scene;
 @end
@@ -11,15 +10,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_265FE9CD8();
+  sub_265FE9CD8(scene);
   swift_unknownObjectRelease();
-}
-
-- (void)invalidate
-{
-  v2 = *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit23TransformSceneExtension13HostComponent_scene);
-  *(&self->super.isa + OBJC_IVAR____TtCC13ShellSceneKit23TransformSceneExtension13HostComponent_scene) = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (_TtCC13ShellSceneKit23TransformSceneExtension13HostComponent)init

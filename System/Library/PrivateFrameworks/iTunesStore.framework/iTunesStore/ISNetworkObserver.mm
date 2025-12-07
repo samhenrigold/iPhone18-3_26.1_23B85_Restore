@@ -23,10 +23,10 @@
 - (unsigned)_currentNetworkReachabilityFlags;
 - (unsigned)networkReachabilityFlags;
 - (void)_applicationForegroundNotification:(id)notification;
-- (void)_copyConnectionDataStatus:(id)status;
 - (void)_handleTelephonyNotificationWithName:(__CFString *)name userInfo:(__CFDictionary *)info;
 - (void)_postReachabilityFlagsChangedNotificationFromValue:(unsigned int)value toValue:(unsigned int)toValue;
 - (void)_postTypeChangedNotificationFromValue:(int64_t)value toValue:(int64_t)toValue;
+- (void)_postUsageChangedToValue:(BOOL)value;
 - (void)_reloadCellularRestriction;
 - (void)_reloadDataStatusIndicator;
 - (void)_reloadNetworkType;
@@ -79,7 +79,7 @@
   return v3;
 }
 
-uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
+void *__35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _ntsIsUsingNetwork];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -88,23 +88,23 @@ uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
 
 - (BOOL)_ntsIsUsingNetwork
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   isUsingNetwork = self->_networkUsageCount > 0;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   observedDownloadQueues = self->_observedDownloadQueues;
-  v4 = [(NSMutableSet *)observedDownloadQueues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableSet *)observedDownloadQueues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(observedDownloadQueues);
         }
@@ -116,17 +116,16 @@ uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
 
         else
         {
-          isUsingNetwork = [*(*(&v10 + 1) + 8 * i) isUsingNetwork];
+          isUsingNetwork = [*(*(&v9 + 1) + 8 * i) isUsingNetwork];
         }
       }
 
-      v5 = [(NSMutableSet *)observedDownloadQueues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableSet *)observedDownloadQueues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return isUsingNetwork;
 }
 
@@ -151,43 +150,40 @@ uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
 
 - (ISNetworkObserver)init
 {
-  v22 = *MEMORY[0x277D85DE8];
-  __ISRecordSPIClassUsage(self);
-  v20.receiver = self;
-  v20.super_class = ISNetworkObserver;
-  v3 = [(ISNetworkObserver *)&v20 init];
+  v18 = *MEMORY[0x277D85DE8];
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISNetworkObserver.m", 95, a2);
+  v16.receiver = self;
+  v16.super_class = ISNetworkObserver;
+  v3 = [(ISNetworkObserver *)&v16 init];
   if (v3)
   {
     *(v3 + 2) = dispatch_queue_create("com.apple.itunesstore.ISNetworkObserver", 0);
     *(v3 + 8) = dispatch_queue_create("com.apple.itunesstore.ISNetworkObserver.notifications", 0);
     *(v3 + 24) = 1;
     *(v3 + 4) = CFAbsoluteTimeGetCurrent();
-    v16 = 0;
-    v18 = 0u;
-    v19 = 0;
-    v17 = v3;
+    v12 = 0;
+    v14 = 0u;
+    v15 = 0;
+    v13 = v3;
     v4 = _CTServerConnectionCreate();
     *(v3 + 11) = v4;
     if (v4)
     {
-      v5 = *(v3 + 2);
       _CTServerConnectionSetTargetQueue();
-      v6 = *(v3 + 11);
-      v7 = *MEMORY[0x277CC3CB0];
       _CTServerConnectionRegisterForNotification();
     }
 
     address = xmmword_275C64B10;
-    v8 = SCNetworkReachabilityCreateWithAddress(0, &address);
-    *(v3 + 10) = v8;
-    if (v8)
+    v5 = SCNetworkReachabilityCreateWithAddress(0, &address);
+    *(v3 + 10) = v5;
+    if (v5)
     {
       context.version = 0;
       context.info = v3;
       context.retain = 0;
       context.release = 0;
       context.copyDescription = MEMORY[0x277CBE530];
-      SCNetworkReachabilitySetCallback(v8, __ReachabilityCallback, &context);
+      SCNetworkReachabilitySetCallback(v5, __ReachabilityCallback, &context);
       SCNetworkReachabilitySetDispatchQueue(*(v3 + 10), *(v3 + 2));
     }
 
@@ -207,7 +203,6 @@ uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, __NetworkTypeOverrideChangedNotification, *MEMORY[0x277D6A6F8], 0, CFNotificationSuspensionBehaviorCoalesce);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -247,20 +242,18 @@ uint64_t __35__ISNetworkObserver_isUsingNetwork__block_invoke(uint64_t a1)
 
   if (self->_telephonyServer)
   {
-    v9 = *MEMORY[0x277CC3CB0];
     _CTServerConnectionUnregisterForNotification();
     CFRelease(self->_telephonyServer);
     self->_telephonyServer = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = ISNetworkObserver;
-  [(ISNetworkObserver *)&v10 dealloc];
+  v9.receiver = self;
+  v9.super_class = ISNetworkObserver;
+  [(ISNetworkObserver *)&v9 dealloc];
 }
 
 id __35__ISNetworkObserver_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = objc_alloc_init(objc_opt_class());
   sharedInstance_sObserver = result;
   return result;
@@ -295,7 +288,7 @@ id __35__ISNetworkObserver_sharedInstance__block_invoke(uint64_t a1)
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __49__ISNetworkObserver_beginObservingDownloadQueue___block_invoke(uint64_t a1)
+void *__49__ISNetworkObserver_beginObservingDownloadQueue___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!v2[9])
@@ -359,24 +352,24 @@ uint64_t __49__ISNetworkObserver_beginObservingDownloadQueue___block_invoke(uint
 
 - (id)copyValueForCarrierBundleKey:(id)key
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3052000000;
-  v22 = __Block_byref_object_copy__4;
-  v23 = __Block_byref_object_dispose__4;
-  v24 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3052000000;
+  v21 = __Block_byref_object_copy__4;
+  v22 = __Block_byref_object_dispose__4;
+  v23 = 0;
   v4 = dispatch_semaphore_create(0);
   v5 = objc_alloc_init(MEMORY[0x277CC37B0]);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke;
-  v18[3] = &unk_27A670D60;
-  v18[4] = v5;
-  v18[5] = key;
-  v18[6] = v4;
-  v18[7] = &v19;
-  [v5 getSubscriptionInfo:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke;
+  v17[3] = &unk_27A670D60;
+  v17[4] = v5;
+  v17[5] = key;
+  v17[6] = v4;
+  v17[7] = &v18;
+  [v5 getSubscriptionInfo:v17];
   v6 = dispatch_time(0, 3000000000);
   if (dispatch_semaphore_wait(v4, v6))
   {
@@ -386,95 +379,97 @@ uint64_t __49__ISNetworkObserver_beginObservingDownloadQueue___block_invoke(uint
       mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog = [mEMORY[0x277D69B38] shouldLog];
+    LODWORD(v8) = [mEMORY[0x277D69B38] shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    v11 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v8) = v8 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v8 = v8;
     }
 
-    if (shouldLog)
+    else
     {
-      v11 = objc_opt_class();
-      v25 = 138543618;
-      v26 = v11;
-      v27 = 2112;
+      v8 &= 2u;
+    }
+
+    if (v8)
+    {
+      v12 = objc_opt_class();
+      v24 = 138543618;
+      v25 = v12;
+      v26 = 2112;
       keyCopy = key;
-      LODWORD(v17) = 22;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_275BC3000, v11, 16, "%{public}@: copying carrier bundle value timeout: key=%@", &v24, 22);
+      if (v13)
       {
-        v13 = v12;
-        [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v25, v17}];
-        free(v13);
+        v14 = v13;
+        [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
   }
 
   dispatch_release(v4);
-  v14 = [v20[5] copy];
-  _Block_object_dispose(&v19, 8);
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  v15 = [v19[5] copy];
+  _Block_object_dispose(&v18, 8);
+  return v15;
 }
 
 intptr_t __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [a2 subscriptions];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
         if ([v8 slotID] == 1)
         {
           v10 = *(a1 + 32);
           v11 = *(a1 + 40);
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke_2;
-          v14[3] = &unk_27A670D38;
-          v15 = *(a1 + 48);
-          [v10 copyCarrierBundleValue:v8 key:v11 bundleType:v9 completion:v14];
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke_2;
+          v13[3] = &unk_27A670D38;
+          v14 = *(a1 + 48);
+          [v10 copyCarrierBundleValue:v8 key:v11 bundleType:v9 completion:v13];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 48));
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 48));
 }
 
 intptr_t __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -516,7 +511,7 @@ intptr_t __50__ISNetworkObserver_copyValueForCarrierBundleKey___block_invoke_2(u
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __47__ISNetworkObserver_endObservingDownloadQueue___block_invoke(uint64_t a1)
+void *__47__ISNetworkObserver_endObservingDownloadQueue___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _ntsIsUsingNetwork];
   [*(a1 + 40) removeObserver:*(a1 + 32)];
@@ -743,7 +738,7 @@ id __40__ISNetworkObserver_dataStatusIndicator__block_invoke(uint64_t a1)
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __36__ISNetworkObserver_setNetworkType___block_invoke(uint64_t a1)
+void *__36__ISNetworkObserver_setNetworkType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setNetworkType:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -828,13 +823,6 @@ uint64_t __65__ISNetworkObserver__telephonyRegistrationDidChangeNotification___b
   }
 }
 
-- (void)_copyConnectionDataStatus:(id)status
-{
-  telephonyServer = self->_telephonyServer;
-  _CTServerConnectionCopyDataStatus();
-  (*(status + 2))(status, 0, 0);
-}
-
 - (unsigned)_currentNetworkReachabilityFlags
 {
   flags = 0;
@@ -876,45 +864,41 @@ uint64_t __65__ISNetworkObserver__telephonyRegistrationDidChangeNotification___b
 - (int64_t)_networkTypeFromDataIndicator:(id)indicator
 {
   v4 = 0;
-  v7[24] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CC3C50];
-  v7[1] = 1;
-  v7[2] = *MEMORY[0x277CC3C58];
-  v7[3] = 1;
-  v7[4] = *MEMORY[0x277CC3C60];
-  v7[5] = 2;
-  v7[6] = *MEMORY[0x277CC3C68];
-  v7[7] = 2;
-  v7[8] = *MEMORY[0x277CC3C70];
-  v7[9] = 2;
-  v7[10] = *MEMORY[0x277CC3CA8];
-  v7[11] = 3;
-  v7[12] = *MEMORY[0x277CC3C78];
-  v7[13] = 3;
-  v7[14] = *MEMORY[0x277CC3C80];
-  v7[15] = 4;
-  v7[16] = *MEMORY[0x277CC3C88];
-  v7[17] = 5;
-  v7[18] = *MEMORY[0x277CC3C90];
-  v7[19] = 6;
-  v7[20] = *MEMORY[0x277CC3C98];
-  v7[21] = 7;
-  v7[22] = *MEMORY[0x277CC3CA0];
-  v7[23] = 8;
-  while (![indicator isEqualToString:v7[v4]])
+  v6[24] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CC3C50];
+  v6[1] = 1;
+  v6[2] = *MEMORY[0x277CC3C58];
+  v6[3] = 1;
+  v6[4] = *MEMORY[0x277CC3C60];
+  v6[5] = 2;
+  v6[6] = *MEMORY[0x277CC3C68];
+  v6[7] = 2;
+  v6[8] = *MEMORY[0x277CC3C70];
+  v6[9] = 2;
+  v6[10] = *MEMORY[0x277CC3CA8];
+  v6[11] = 3;
+  v6[12] = *MEMORY[0x277CC3C78];
+  v6[13] = 3;
+  v6[14] = *MEMORY[0x277CC3C80];
+  v6[15] = 4;
+  v6[16] = *MEMORY[0x277CC3C88];
+  v6[17] = 5;
+  v6[18] = *MEMORY[0x277CC3C90];
+  v6[19] = 6;
+  v6[20] = *MEMORY[0x277CC3C98];
+  v6[21] = 7;
+  v6[22] = *MEMORY[0x277CC3CA0];
+  v6[23] = 8;
+  while (![indicator isEqualToString:v6[v4]])
   {
     v4 += 2;
     if (v4 == 24)
     {
-      result = 0;
-      goto LABEL_6;
+      return 0;
     }
   }
 
-  result = v7[v4 + 1];
-LABEL_6:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6[v4 + 1];
 }
 
 - (int64_t)_networkTypeForReachabilityFlags:(unsigned int)flags
@@ -964,6 +948,15 @@ LABEL_9:
   v9 = *MEMORY[0x277CCA300];
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:toValue];
   v11 = [v7 initWithObjectsAndKeys:{v8, v9, v10, *MEMORY[0x277CCA2F0], 0}];
+  [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
+}
+
+- (void)_postUsageChangedToValue:(BOOL)value
+{
+  valueCopy = value;
+  v5 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+  v7 = [v5 initWithObjectsAndKeys:{v6, *MEMORY[0x277CCA2F0], 0}];
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
 }
 
@@ -1049,19 +1042,19 @@ void __47__ISNetworkObserver__reloadDataStatusIndicator__block_invoke(uint64_t a
   }
 }
 
-uint64_t __61__ISNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block_invoke(uint64_t result)
+id *__61__ISNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 64) == 1)
   {
-    result = [*(result + 32) _postTypeChangedNotificationFromValue:*(result + 40) toValue:*(result + 48)];
+    result = [result[4] _postTypeChangedNotificationFromValue:result[5] toValue:result[6]];
   }
 
   if (*(v1 + 65) == 1)
   {
-    v2 = *(v1 + 32);
-    v3 = *(v1 + 56);
-    v4 = *(v1 + 60);
+    v2 = v1[4];
+    v3 = *(v1 + 14);
+    v4 = *(v1 + 15);
 
     return [v2 _postReachabilityFlagsChangedNotificationFromValue:v3 toValue:v4];
   }
@@ -1071,7 +1064,7 @@ uint64_t __61__ISNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block
 
 - (int64_t)_setNetworkType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   networkType = self->_networkType;
   if (networkType != type)
   {
@@ -1086,40 +1079,42 @@ uint64_t __61__ISNetworkObserver__reloadNetworkTypeWithReachabilityFlags___block
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v7 &= 2u;
+      v6 = v6;
     }
 
-    if (v7)
+    else
     {
-      v8 = objc_opt_class();
-      v9 = self->_networkType;
-      v15 = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = SSGetStringForNetworkType();
-      LODWORD(v14) = 22;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v6 &= 2u;
+    }
+
+    if (v6)
+    {
+      v11 = 138412546;
+      v12 = objc_opt_class();
+      v13 = 2112;
+      v14 = SSGetStringForNetworkType();
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Set network type %@", &v11, 22);
+      if (v8)
       {
-        v11 = v10;
-        [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, &v15, v14}];
-        free(v11);
+        v9 = v8;
+        [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
+        free(v9);
         SSFileLog();
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return networkType;
 }
 

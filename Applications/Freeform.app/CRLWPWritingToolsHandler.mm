@@ -13,7 +13,7 @@
 - (_TtC8Freeform24CRLWPWritingToolsHandler)initWithInteractiveCanvasController:(id)controller
 {
   controllerCopy = controller;
-  v4 = sub_101008904();
+  v4 = sub_101008904(controllerCopy);
 
   return v4;
 }
@@ -48,7 +48,7 @@
 - (void)writingToolsCoordinator:(id)coordinator selectRanges:(id)ranges inContext:(id)context completion:(id)completion
 {
   v9 = _Block_copy(completion);
-  sub_100006370(0, &qword_101A04270);
+  sub_100006370(0, &qword_101A04270, NSValue_ptr);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   _Block_copy(v9);
   coordinatorCopy = coordinator;
@@ -73,7 +73,7 @@
 - (void)stopWritingTools
 {
   selfCopy = self;
-  sub_1010040D0();
+  sub_1010040D0(selfCopy);
 }
 
 - (_TtC8Freeform24CRLWPWritingToolsHandler)init

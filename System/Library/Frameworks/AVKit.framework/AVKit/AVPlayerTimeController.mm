@@ -61,7 +61,7 @@
       v14 = currentItem;
       if (currentItem)
       {
-        [currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       else
@@ -158,7 +158,7 @@ void __68__AVPlayerTimeController_seekToTime_toleranceBefore_toleranceAfter___bl
       player = [self player];
       currentItem = [player currentItem];
       integratedTimeline = [currentItem integratedTimeline];
-      [self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       v8 = *(self + 20);
       v9 = *(self + 36);
       v6 = *(self + 44);
@@ -169,7 +169,7 @@ void __68__AVPlayerTimeController_seekToTime_toleranceBefore_toleranceAfter___bl
     else
     {
       player = [self player];
-      [self seekToTimeInternal];
+      objc_msgSend_seekToTimeInternal(self);
       v8 = *(self + 20);
       v9 = *(self + 36);
       v6 = *(self + 44);
@@ -246,7 +246,7 @@ void __45__AVPlayerTimeController__actuallySeekToTime__block_invoke_2(uint64_t a
   v3 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -266,7 +266,7 @@ void __45__AVPlayerTimeController__actuallySeekToTime__block_invoke_2(uint64_t a
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(currentItem);
   }
 
   else
@@ -285,7 +285,7 @@ void __45__AVPlayerTimeController__actuallySeekToTime__block_invoke_2(uint64_t a
   v3 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -305,7 +305,7 @@ void __45__AVPlayerTimeController__actuallySeekToTime__block_invoke_2(uint64_t a
   v5 = currentItem;
   if (currentItem)
   {
-    [currentItem reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(currentItem);
   }
 
   else

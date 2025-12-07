@@ -39,7 +39,6 @@
 
 uint64_t __35__FMKeychainManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__sharedInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -107,63 +106,61 @@ uint64_t __35__FMKeychainManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)dataForAccount:(id)account service:(id)service
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   serviceCopy = service;
-  v17 = 0;
-  v8 = [(FMKeychainManager *)self itemForAccount:accountCopy service:serviceCopy error:&v17];
-  v9 = v17;
+  v18 = 0;
+  v8 = [(FMKeychainManager *)self itemForAccount:accountCopy service:serviceCopy error:&v18];
+  v9 = v18;
   rawData = [v8 rawData];
 
   if (v9)
   {
-    v11 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogCategory_Unspecified(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v19 = accountCopy;
-      v20 = 2112;
-      v21 = serviceCopy;
-      v22 = 2112;
-      v23 = v9;
-      _os_log_error_impl(&dword_24A2EE000, v11, OS_LOG_TYPE_ERROR, "dataForAccount a: %@, s: %@ error: %@", buf, 0x20u);
+      v20 = accountCopy;
+      v21 = 2112;
+      v22 = serviceCopy;
+      v23 = 2112;
+      v24 = v9;
+      _os_log_error_impl(&dword_24A2EE000, v12, OS_LOG_TYPE_ERROR, "dataForAccount a: %@, s: %@ error: %@", buf, 0x20u);
     }
 
 LABEL_11:
 
-    v14 = 0;
+    v16 = 0;
     goto LABEL_12;
   }
 
-  v12 = objc_opt_new();
+  v13 = objc_opt_new();
 
-  v13 = LogCategory_Unspecified();
-  v11 = v13;
-  if (!rawData || rawData == v12)
+  v15 = LogCategory_Unspecified(v14);
+  v12 = v15;
+  if (!rawData || rawData == v13)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(FMKeychainManager *)accountCopy dataForAccount:serviceCopy service:v11];
+      [(FMKeychainManager *)accountCopy dataForAccount:serviceCopy service:v12];
     }
 
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = accountCopy;
-    v20 = 2112;
-    v21 = serviceCopy;
-    _os_log_impl(&dword_24A2EE000, v11, OS_LOG_TYPE_DEFAULT, "dataForAccount a: %@, s: %@.", buf, 0x16u);
+    v20 = accountCopy;
+    v21 = 2112;
+    v22 = serviceCopy;
+    _os_log_impl(&dword_24A2EE000, v12, OS_LOG_TYPE_DEFAULT, "dataForAccount a: %@, s: %@.", buf, 0x16u);
   }
 
-  v14 = rawData;
+  v16 = rawData;
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 - (BOOL)setPassword:(id)password forAccount:(id)account service:(id)service
@@ -220,34 +217,34 @@ LABEL_12:
 
 - (id)allServices
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = [(FMKeychainManager *)self _query:dictionary error:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     v9 = *MEMORY[0x277CDC120];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) objectForKeyedSubscript:v9];
+        v11 = [*(*(&v14 + 1) + 8 * i) objectForKeyedSubscript:v9];
         [v3 addObject:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -255,51 +252,47 @@ LABEL_12:
 
   allObjects = [v3 allObjects];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (id)allAccountsForService:(id)service
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:serviceCopy forKeyedSubscript:*MEMORY[0x277CDC120]];
   v7 = [(FMKeychainManager *)self _query:dictionary error:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     v11 = *MEMORY[0x277CDBF20];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) objectForKeyedSubscript:v11];
+        v13 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:v11];
         [v5 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   allObjects = [v5 allObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -327,7 +320,7 @@ LABEL_12:
   v7 = v6;
   if (v6 != -25299 && v6)
   {
-    v8 = LogCategory_Unspecified();
+    v8 = LogCategory_Unspecified(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [FMKeychainManager _add:];
@@ -350,16 +343,17 @@ LABEL_12:
   }
 
   v9 = SecItemUpdate(queryCopy, attributesCopy);
+  v10 = v9;
   if (v9)
   {
-    v10 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = LogCategory_Unspecified(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [FMKeychainManager _updateWithQuery:attributes:];
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (int)_delete:(id)_delete
@@ -379,7 +373,7 @@ LABEL_12:
   {
     if (v6 == -25300)
     {
-      v8 = LogCategory_Unspecified();
+      v8 = LogCategory_Unspecified(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FMKeychainManager _delete:v8];
@@ -388,7 +382,7 @@ LABEL_12:
 
     else
     {
-      v8 = LogCategory_Unspecified();
+      v8 = LogCategory_Unspecified(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FMKeychainManager _delete:];
@@ -401,9 +395,9 @@ LABEL_12:
 
 - (id)_query:(id)_query error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   _queryCopy = _query;
-  v20 = 0;
+  v19 = 0;
   v6 = *MEMORY[0x277CDC228];
   v7 = [_queryCopy objectForKeyedSubscript:*MEMORY[0x277CDC228]];
 
@@ -428,7 +422,7 @@ LABEL_12:
     [_queryCopy setObject:*MEMORY[0x277CBED28] forKeyedSubscript:v10];
   }
 
-  v12 = SecItemCopyMatching(_queryCopy, &v20);
+  v12 = SecItemCopyMatching(_queryCopy, &v19);
   if (v12)
   {
     if (error)
@@ -436,10 +430,10 @@ LABEL_12:
       v13 = MEMORY[0x277CCA9B8];
       v14 = *MEMORY[0x277D07B60];
       v15 = v12 != -25300;
-      v21 = *MEMORY[0x277CCA7E8];
+      v20 = *MEMORY[0x277CCA7E8];
       v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v12 userInfo:0];
-      v22[0] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v21[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v13 errorWithDomain:v14 code:v15 userInfo:v17];
 
       error = 0;
@@ -448,10 +442,8 @@ LABEL_12:
 
   else
   {
-    error = v20;
+    error = v19;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -479,7 +471,7 @@ LABEL_12:
 
 - (void)_migrateToValueDataIfNeeded:(id)needed account:(id)account service:(id)service
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   serviceCopy = service;
   v7 = *MEMORY[0x277CDBFB8];
@@ -513,27 +505,28 @@ LABEL_12:
     }
 
 LABEL_10:
-    v18 = objc_opt_new();
-    [v18 setObject:v9 forKeyedSubscript:v10];
-    v26 = objc_opt_new();
-    [v18 setObject:v26 forKeyedSubscript:v7];
+    v19 = objc_opt_new();
+    [v19 setObject:v9 forKeyedSubscript:v10];
+    v28 = objc_opt_new();
+    [v19 setObject:v28 forKeyedSubscript:v7];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v21 = serviceCopy;
+    v22 = serviceCopy;
     [dictionary setObject:serviceCopy forKeyedSubscript:*MEMORY[0x277CDC120]];
-    v22 = accountCopy;
+    v23 = accountCopy;
     [dictionary setObject:accountCopy forKeyedSubscript:*MEMORY[0x277CDBF20]];
-    v27 = [(FMKeychainManager *)self _updateWithQuery:dictionary attributes:v18];
-    v24 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v29 = [(FMKeychainManager *)self _updateWithQuery:dictionary attributes:v19];
+    v30 = v29;
+    v26 = LogCategory_Unspecified(v29);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v33 = v27;
-      v34 = 2112;
-      v35 = accountCopy;
+      v35 = v30;
       v36 = 2112;
-      *v37 = serviceCopy;
-      v25 = "Migration of keychain item result: %ld, a: %@, s: %@";
+      v37 = accountCopy;
+      v38 = 2112;
+      *v39 = serviceCopy;
+      v27 = "Migration of keychain item result: %ld, a: %@, s: %@";
       goto LABEL_12;
     }
 
@@ -549,29 +542,30 @@ LABEL_13:
 
   if (v15)
   {
-    v18 = objc_opt_new();
-    [v18 setObject:v11 forKeyedSubscript:v10];
     v19 = objc_opt_new();
-    [v18 setObject:v19 forKeyedSubscript:v7];
+    [v19 setObject:v11 forKeyedSubscript:v10];
+    v20 = objc_opt_new();
+    [v19 setObject:v20 forKeyedSubscript:v7];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v21 = serviceCopy;
+    v22 = serviceCopy;
     [dictionary setObject:serviceCopy forKeyedSubscript:*MEMORY[0x277CDC120]];
-    v22 = accountCopy;
+    v23 = accountCopy;
     [dictionary setObject:accountCopy forKeyedSubscript:*MEMORY[0x277CDBF20]];
-    v23 = [(FMKeychainManager *)self _updateWithQuery:dictionary attributes:v18];
-    v24 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v24 = [(FMKeychainManager *)self _updateWithQuery:dictionary attributes:v19];
+    v25 = v24;
+    v26 = LogCategory_Unspecified(v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v33 = v23;
-      v34 = 2112;
-      v35 = accountCopy;
+      v35 = v25;
       v36 = 2112;
-      *v37 = serviceCopy;
-      v25 = "Removing any remaining generic attribute of keychain item result: %ld, a: %@, s: %@";
+      v37 = accountCopy;
+      v38 = 2112;
+      *v39 = serviceCopy;
+      v27 = "Removing any remaining generic attribute of keychain item result: %ld, a: %@, s: %@";
 LABEL_12:
-      _os_log_impl(&dword_24A2EE000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 0x20u);
+      _os_log_impl(&dword_24A2EE000, v26, OS_LOG_TYPE_DEFAULT, v27, buf, 0x20u);
       goto LABEL_13;
     }
 
@@ -579,76 +573,49 @@ LABEL_12:
   }
 
 LABEL_14:
-  v18 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = LogCategory_Unspecified(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 138414338;
-    v21 = serviceCopy;
-    v22 = accountCopy;
-    v33 = accountCopy;
-    v34 = 2112;
-    v35 = serviceCopy;
-    v36 = 1024;
-    *v37 = v9 != 0;
-    *&v37[4] = 1024;
-    *&v37[6] = v13;
+    v22 = serviceCopy;
+    v23 = accountCopy;
+    v35 = accountCopy;
+    v36 = 2112;
+    v37 = serviceCopy;
     v38 = 1024;
-    v39 = *v37;
+    *v39 = v9 != 0;
+    *&v39[4] = 1024;
+    *&v39[6] = v13;
     v40 = 1024;
-    v41 = v14 != 0;
+    v41 = *v39;
     v42 = 1024;
-    v43 = v11 == 0;
+    v43 = v14 != 0;
     v44 = 1024;
-    v45 = v17;
+    v45 = v11 == 0;
     v46 = 1024;
-    v47 = v43;
-    _os_log_impl(&dword_24A2EE000, v18, OS_LOG_TYPE_INFO, "No migration of keychain item required. a: %@, s: %@. notNil: %i, notNewData: %i, notNull: %i, greaterThanZero: %i, dataIsNil: %i, dataIsNewData: %i, dataIsNull: %i.", buf, 0x40u);
+    v47 = v17;
+    v48 = 1024;
+    v49 = v45;
+    _os_log_impl(&dword_24A2EE000, v19, OS_LOG_TYPE_INFO, "No migration of keychain item required. a: %@, s: %@. notNil: %i, notNewData: %i, notNull: %i, greaterThanZero: %i, dataIsNil: %i, dataIsNewData: %i, dataIsNull: %i.", buf, 0x40u);
   }
 
   else
   {
-    v21 = serviceCopy;
-    v22 = accountCopy;
+    v22 = serviceCopy;
+    v23 = accountCopy;
   }
 
 LABEL_17:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataForAccount:(os_log_t)log service:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_24A2EE000, log, OS_LOG_TYPE_ERROR, "dataForAccount is empty a: %@, s: %@!", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_add:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, v0, v1, "SecItemAdd error: %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateWithQuery:attributes:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, v0, v1, "SecItemUpdate error: %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_delete:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, v0, v1, "SecItemDelete error: %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_24A2EE000, log, OS_LOG_TYPE_ERROR, "dataForAccount is empty a: %@, s: %@!", &v3, 0x16u);
 }
 
 @end

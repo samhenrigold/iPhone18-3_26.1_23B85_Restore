@@ -135,12 +135,12 @@
 
 - (FCDateRange)initWithStartDate:(id)date endDate:(id)endDate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
-  v13.receiver = self;
-  v13.super_class = FCDateRange;
-  v9 = [(FCDateRange *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = FCDateRange;
+  v9 = [(FCDateRange *)&v12 init];
   if (v9)
   {
     if (dateCopy && endDateCopy && [dateCopy compare:endDateCopy] == -1)
@@ -149,13 +149,13 @@
       {
         endDateCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Tried to create a date range with a startDate %@ earlier than the endDate %@", dateCopy, endDateCopy];
         *buf = 136315906;
-        v15 = "[FCDateRange initWithStartDate:endDate:]";
-        v16 = 2080;
-        v17 = "FCDateRange.m";
-        v18 = 1024;
-        v19 = 43;
-        v20 = 2114;
-        v21 = endDateCopy;
+        v14 = "[FCDateRange initWithStartDate:endDate:]";
+        v15 = 2080;
+        v16 = "FCDateRange.m";
+        v17 = 1024;
+        v18 = 43;
+        v19 = 2114;
+        v20 = endDateCopy;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -169,7 +169,6 @@
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

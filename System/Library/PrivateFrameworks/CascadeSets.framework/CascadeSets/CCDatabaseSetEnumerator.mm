@@ -1,7 +1,9 @@
 @interface CCDatabaseSetEnumerator
 + (id)defaultEnumeratorWithUseCase:(id)case;
+- (BOOL)enumerateAllSets:(id *)sets withOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors usingBlock:(id)block;
 - (BOOL)enumerateAllSets:(id *)sets withOptions:(unsigned __int16)options setIdentifiers:(id)identifiers descriptors:(id)descriptors startAfterSet:(id)set usingBlock:(id)block;
 - (CCDatabaseSetEnumerator)initWithReadAccess:(id)access;
+- (id)allSetsWithOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors error:(id *)error;
 @end
 
 @implementation CCDatabaseSetEnumerator
@@ -30,6 +32,48 @@
   }
 
   return v7;
+}
+
+- (BOOL)enumerateAllSets:(id *)sets withOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors usingBlock:(id)block
+{
+  typeCopy = type;
+  optionsCopy = options;
+  v23[1] = *MEMORY[0x1E69E9840];
+  descriptorsCopy = descriptors;
+  blockCopy = block;
+  v14 = blockCopy;
+  if (CCTypeIdentifierUnknown == typeCopy)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v16 = CCTypeIdentifierRegistryBridge(blockCopy);
+    v17 = [v16 setIdentifierForItemType:typeCopy];
+
+    if (!v17)
+    {
+      v20 = CCInvalidSetItemTypeIdentifierErrorForIdentifier(typeCopy);
+      CCSetError(sets, v20);
+
+      v18 = 0;
+      goto LABEL_6;
+    }
+
+    v23[0] = v17;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  }
+
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __88__CCDatabaseSetEnumerator_enumerateAllSets_withOptions_itemType_descriptors_usingBlock___block_invoke;
+  v21[3] = &unk_1E7C8B170;
+  v22 = v14;
+  v18 = [(CCDatabaseSetEnumerator *)self enumerateAllSets:sets withOptions:optionsCopy setIdentifiers:v15 descriptors:descriptorsCopy startAfterSet:0 usingBlock:v21];
+
+LABEL_6:
+  return v18;
 }
 
 - (BOOL)enumerateAllSets:(id *)sets withOptions:(unsigned __int16)options setIdentifiers:(id)identifiers descriptors:(id)descriptors startAfterSet:(id)set usingBlock:(id)block
@@ -69,14 +113,39 @@ uint64_t __108__CCDatabaseSetEnumerator_enumerateAllSets_withOptions_setIdentifi
   return result;
 }
 
+- (id)allSetsWithOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors error:(id *)error
+{
+  typeCopy = type;
+  optionsCopy = options;
+  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __73__CCDatabaseSetEnumerator_allSetsWithOptions_itemType_descriptors_error___block_invoke;
+  v14[3] = &unk_1E7C8AE60;
+  v11 = v10;
+  v15 = v11;
+  LODWORD(error) = [(CCDatabaseSetEnumerator *)self enumerateAllSets:error withOptions:optionsCopy itemType:typeCopy usingBlock:v14];
+
+  if (error)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (void)enumerateAllSets:(uint64_t)a1 withOptions:(NSObject *)a2 setIdentifiers:descriptors:startAfterSet:usingBlock:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 24);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "Enumerated %lu total set(s)", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "Enumerated %lu total set(s)", &v3, 0xCu);
 }
 
 @end

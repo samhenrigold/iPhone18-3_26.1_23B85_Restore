@@ -13,16 +13,16 @@
 
 - (MDMBearerTokenAuthenticator)initWithRMAccountID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v13.receiver = self;
-  v13.super_class = MDMBearerTokenAuthenticator;
-  v5 = [(MDMBearerTokenAuthenticator *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = MDMBearerTokenAuthenticator;
+  v5 = [(MDMBearerTokenAuthenticator *)&v12 init];
   if (v5)
   {
-    v12 = 0;
-    v6 = [MDMAccountUtilities bearerTokenForRMAccountID:dCopy error:&v12];
-    v7 = v12;
+    v11 = 0;
+    v6 = [MDMAccountUtilities bearerTokenForRMAccountID:dCopy error:&v11];
+    v7 = v11;
     token = v5->_token;
     v5->_token = v6;
 
@@ -32,13 +32,12 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v15 = v7;
+        v14 = v7;
         _os_log_impl(&dword_22E997000, v9, OS_LOG_TYPE_ERROR, "Could not extract auth token from RM account: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -94,7 +93,7 @@
 
 - (id)webAuthenticationURLForAuthParams:(id)params userIdentifier:(id)identifier
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   identifierCopy = identifier;
   if ([(MDMBearerTokenAuthenticator *)self validAuthParams:paramsCopy])
@@ -109,8 +108,8 @@
       if (identifierCopy)
       {
         v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"user-identifier" value:identifierCopy];
-        v17[0] = v12;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+        v16[0] = v12;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
         [v11 setQueryItems:v13];
       }
 
@@ -128,14 +127,12 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)authTokensWithCallbackURL:(id)l authParams:(id)params completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   v8 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
@@ -150,7 +147,7 @@
       v20 = v19;
       scheme2 = [v8 scheme];
       *buf = 138543362;
-      v35 = scheme2;
+      v34 = scheme2;
       _os_log_impl(&dword_22E997000, v20, OS_LOG_TYPE_ERROR, "Incorrect auth callback scheme: %{public}@", buf, 0xCu);
     }
 
@@ -160,24 +157,24 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v26 = lCopy;
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
+  v25 = lCopy;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   queryItems = [v8 queryItems];
-  v12 = [queryItems countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v12 = [queryItems countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (!v12)
   {
 LABEL_10:
 
 LABEL_15:
     v24 = *DMCLogObjects();
-    lCopy = v26;
+    lCopy = v25;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v35 = v26;
+      v34 = v25;
       _os_log_impl(&dword_22E997000, v24, OS_LOG_TYPE_ERROR, "Invalid auth redirect URL response: %{public}@", buf, 0xCu);
     }
 
@@ -185,17 +182,17 @@ LABEL_15:
   }
 
   v13 = v12;
-  v14 = *v28;
+  v14 = *v27;
 LABEL_4:
   v15 = 0;
   while (1)
   {
-    if (*v28 != v14)
+    if (*v27 != v14)
     {
       objc_enumerationMutation(queryItems);
     }
 
-    v16 = *(*(&v27 + 1) + 8 * v15);
+    v16 = *(*(&v26 + 1) + 8 * v15);
     name = [v16 name];
     v18 = [name isEqualToString:@"access-token"];
 
@@ -206,7 +203,7 @@ LABEL_4:
 
     if (v13 == ++v15)
     {
-      v13 = [queryItems countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [queryItems countByEnumeratingWithState:&v26 objects:v32 count:16];
       if (v13)
       {
         goto LABEL_4;
@@ -223,20 +220,18 @@ LABEL_4:
     goto LABEL_15;
   }
 
-  v31 = @"token";
-  v32 = value;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+  v30 = @"token";
+  v31 = value;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
   (handlerCopy)[2](handlerCopy, v23, 0);
 
-  lCopy = v26;
+  lCopy = v25;
 LABEL_18:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)prepareForReauthenticationWithAuthParams:(id)params accountID:(id)d error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   dCopy = d;
   v9 = [paramsCopy objectForKeyedSubscript:@"url"];
@@ -244,16 +239,16 @@ LABEL_18:
   {
     v11 = v10;
     defaultStore = [MEMORY[0x277CB8F48] defaultStore];
-    v24 = 0;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __88__MDMBearerTokenAuthenticator_prepareForReauthenticationWithAuthParams_accountID_error___block_invoke;
-    v21[3] = &unk_278856D18;
+    v23 = 0;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __88__MDMBearerTokenAuthenticator_prepareForReauthenticationWithAuthParams_accountID_error___block_invoke;
+    v20[3] = &unk_278856D18;
     v13 = v11;
-    v22 = v13;
-    v23 = paramsCopy;
-    v14 = [defaultStore dmc_updateAccountWithIdentifier:dCopy error:&v24 updateBlock:v21];
-    v15 = v24;
+    v21 = v13;
+    v22 = paramsCopy;
+    v14 = [defaultStore dmc_updateAccountWithIdentifier:dCopy error:&v23 updateBlock:v20];
+    v15 = v23;
 
     if (v14)
     {
@@ -266,7 +261,7 @@ LABEL_18:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v26 = v15;
+        v25 = v15;
         _os_log_impl(&dword_22E997000, v17, OS_LOG_TYPE_ERROR, "Unable to update RM account when doing AuthServices re-authentication. Error: %{public}@", buf, 0xCu);
       }
 
@@ -284,8 +279,6 @@ LABEL_18:
   {
     v16 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

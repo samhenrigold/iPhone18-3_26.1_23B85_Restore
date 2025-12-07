@@ -683,7 +683,7 @@ LABEL_18:
         if (autoCalcInterval)
         {
           enterEditTimeInterval2 = [(PUPhotoEditViewController *)self enterEditTimeInterval];
-          [enterEditTimeInterval2 duration];
+          objc_msgSend_duration(enterEditTimeInterval2);
           v24 = v23;
 
           v12 = objc_alloc_init(MEMORY[0x1E696AD60]);
@@ -698,27 +698,27 @@ LABEL_18:
           [v12 appendFormat:@"First Since Launch = %@\n", v26];
 
           resourceLoadingInterval2 = [(PUPhotoEditViewController *)self resourceLoadingInterval];
-          [resourceLoadingInterval2 duration];
+          objc_msgSend_duration(resourceLoadingInterval2);
           [v12 appendFormat:@"  Resource Loading Duration = %.4f\n", v28];
 
           resourceCheckingInterval2 = [(PUPhotoEditViewController *)self resourceCheckingInterval];
-          [resourceCheckingInterval2 duration];
+          objc_msgSend_duration(resourceCheckingInterval2);
           [v12 appendFormat:@"    Checking Duration       = %.4f\n", v30];
 
           resourceDownloadInterval2 = [(PUPhotoEditViewController *)self resourceDownloadInterval];
-          [resourceDownloadInterval2 duration];
+          objc_msgSend_duration(resourceDownloadInterval2);
           [v12 appendFormat:@"    Download Duration       = %.4f\n", v32];
 
           resourceProcessingInterval2 = [(PUPhotoEditViewController *)self resourceProcessingInterval];
-          [resourceProcessingInterval2 duration];
+          objc_msgSend_duration(resourceProcessingInterval2);
           [v12 appendFormat:@"    Processing Duration       = %.4f\n", v34];
 
           modelPrepInterval = [(PUPhotoEditViewController *)self modelPrepInterval];
-          [modelPrepInterval duration];
+          objc_msgSend_duration(modelPrepInterval);
           [v12 appendFormat:@"    Model Prep Duration       = %.4f\n", v36];
 
           autoCalcInterval2 = [(PUPhotoEditViewController *)self autoCalcInterval];
-          [autoCalcInterval2 duration];
+          objc_msgSend_duration(autoCalcInterval2);
           [v12 appendFormat:@"  Auto Calc Duration = %.4f\n", v38];
 
           [v12 appendFormat:@"\n"];
@@ -2120,7 +2120,7 @@ LABEL_11:
         }
 
         v14 = *(*(&v27 + 1) + 8 * i);
-        [v14 duration];
+        objc_msgSend_duration(v14, v27);
         v11 = v11 + v15;
         [v14 prepareDuration];
         v12 = v12 + v16;
@@ -2522,7 +2522,7 @@ void __57__PUPhotoEditViewController_ppt_selectFiltersController___block_invoke(
   }
 }
 
-uint64_t __65__PUPhotoEditViewController__ppt_conditionallyExecuteAfterRender__block_invoke(uint64_t a1)
+void *__65__PUPhotoEditViewController__ppt_conditionallyExecuteAfterRender__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1688) hasRendered];
   if (result)
@@ -2618,29 +2618,29 @@ uint64_t __65__PUPhotoEditViewController__ppt_conditionallyExecuteAfterRender__b
     [sceneHUD update];
 
     enterEditTimeInterval3 = [(PUPhotoEditViewController *)self enterEditTimeInterval];
-    [enterEditTimeInterval3 duration];
+    objc_msgSend_duration(enterEditTimeInterval3);
     v9 = v8;
 
     enterEditEventBuilder = [(PUPhotoEditViewController *)self enterEditEventBuilder];
     [enterEditEventBuilder setEnterEditDuration:v9];
     resourceCheckingInterval = [(PUPhotoEditViewController *)self resourceCheckingInterval];
-    [resourceCheckingInterval duration];
+    objc_msgSend_duration(resourceCheckingInterval);
     [enterEditEventBuilder setResourceCheckingDuration:?];
 
     resourceDownloadInterval = [(PUPhotoEditViewController *)self resourceDownloadInterval];
-    [resourceDownloadInterval duration];
+    objc_msgSend_duration(resourceDownloadInterval);
     [enterEditEventBuilder setResourceDownloadDuration:?];
 
     resourceLoadingInterval = [(PUPhotoEditViewController *)self resourceLoadingInterval];
-    [resourceLoadingInterval duration];
+    objc_msgSend_duration(resourceLoadingInterval);
     [enterEditEventBuilder setResourceLoadingDuration:?];
 
     resourceProcessingInterval = [(PUPhotoEditViewController *)self resourceProcessingInterval];
-    [resourceProcessingInterval duration];
+    objc_msgSend_duration(resourceProcessingInterval);
     [enterEditEventBuilder setResourceProcessingDuration:?];
 
     autoCalcInterval = [(PUPhotoEditViewController *)self autoCalcInterval];
-    [autoCalcInterval duration];
+    objc_msgSend_duration(autoCalcInterval);
     [enterEditEventBuilder setAutoCalcDuration:?];
 
     buildEvent = [enterEditEventBuilder buildEvent];
@@ -3022,7 +3022,7 @@ uint64_t __66__PUPhotoEditViewController_fulfillPendingEditsRequestIfNecessary__
     [exitEditEventBuilder setCompositionController:compositionController];
 
     exitEditTimeInterval3 = [(PUPhotoEditViewController *)self exitEditTimeInterval];
-    [exitEditTimeInterval3 duration];
+    objc_msgSend_duration(exitEditTimeInterval3);
     [exitEditEventBuilder setExitEditDuration:?];
 
     v16 = PUCheckAndNoteIsFirstExitFromEditSinceLaunch_isFirstUseSinceLaunch;
@@ -3103,7 +3103,7 @@ uint64_t __66__PUPhotoEditViewController_fulfillPendingEditsRequestIfNecessary__
     [(PUPhotoEditViewController *)self setEditSessionEventBuilder:v39];
 
     editSessionTimeInterval = [(PUPhotoEditViewController *)self editSessionTimeInterval];
-    [editSessionTimeInterval duration];
+    objc_msgSend_duration(editSessionTimeInterval);
     v42 = v41;
     editSessionEventBuilder = [(PUPhotoEditViewController *)self editSessionEventBuilder];
     [editSessionEventBuilder setEditSessionDuration:v42];
@@ -3242,7 +3242,7 @@ uint64_t __66__PUPhotoEditViewController_fulfillPendingEditsRequestIfNecessary__
   {
     v77 = 0uLL;
     v78 = 0;
-    if (transitionInfo && ([transitionInfo seekTime], (BYTE12(v77) & 1) != 0))
+    if (transitionInfo && (objc_msgSend_seekTime(transitionInfo), (BYTE12(v77) & 1) != 0))
     {
       v75 = v77;
       v11 = v78;
@@ -3532,7 +3532,7 @@ void __89__PUPhotoEditViewController_oneUpAssetTransition_requestTransitionConte
     v22 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -4108,7 +4108,7 @@ uint64_t __96__PUPhotoEditViewController_editPluginSession_commitContentEditingO
     v40 = 0;
     if (photo)
     {
-      [photo photoIrisStillDisplayTime];
+      objc_msgSend_photoIrisStillDisplayTime(photo);
     }
 
     v15 = objc_alloc_init(MEMORY[0x1E6978B18]);
@@ -5313,7 +5313,7 @@ void __62__PUPhotoEditViewController__handleMediaViewReady_statistics___block_in
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(PUPhotoEditViewController *)self initialSeekTime];
+  objc_msgSend_initialSeekTime(self);
   if ((buf.flags & 1) != 0 && [(PUPhotoEditViewController *)self isStandardVideo])
   {
     compositionController = [(PUPhotoEditViewController *)self compositionController];
@@ -5322,7 +5322,7 @@ void __62__PUPhotoEditViewController__handleMediaViewReady_statistics___block_in
     memset(&v11, 0, sizeof(v11));
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       if (v11.flags)
       {
         lhs = buf;
@@ -5476,7 +5476,7 @@ void __62__PUPhotoEditViewController__handleMediaViewReady_statistics___block_in
   }
 }
 
-uint64_t __72__PUPhotoEditViewController_mediaViewDidFinishRendering_withStatistics___block_invoke(uint64_t a1)
+void *__72__PUPhotoEditViewController_mediaViewDidFinishRendering_withStatistics___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isInEditRevertTransitionSnapshotVisible];
   if (result)
@@ -6233,7 +6233,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [player currentTime];
+  objc_msgSend_currentTime(player);
   v7 = v17;
   if (!v17)
   {
@@ -6435,7 +6435,7 @@ void __64__PUPhotoEditViewController__updateVideoScrubberDisplayAnimate___block_
   v8 = player;
   if (player)
   {
-    [player mediaDuration];
+    objc_msgSend_mediaDuration(player);
   }
 
   else
@@ -6450,7 +6450,7 @@ void __64__PUPhotoEditViewController__updateVideoScrubberDisplayAnimate___block_
   v10 = player2;
   if (player2)
   {
-    [player2 currentTime];
+    objc_msgSend_currentTime(player2);
   }
 
   else
@@ -6463,27 +6463,27 @@ void __64__PUPhotoEditViewController__updateVideoScrubberDisplayAnimate___block_
 
   if (trimAdjustmentController)
   {
-    [trimAdjustmentController startTime];
+    objc_msgSend_startTime(trimAdjustmentController);
     if (v31)
     {
-      [trimAdjustmentController endTime];
+      objc_msgSend_endTime(trimAdjustmentController);
       if (v30)
       {
-        [trimAdjustmentController startTime];
+        objc_msgSend_startTime(trimAdjustmentController);
         v33 = time;
-        [trimAdjustmentController endTime];
+        objc_msgSend_endTime(trimAdjustmentController);
         v34 = time;
         currentEditingTool = self->_currentEditingTool;
         if (currentEditingTool)
         {
           lhs = v33;
-          [(PUPhotoEditToolController *)currentEditingTool displayedTimeForOriginalAssetTime:&lhs];
+          objc_msgSend_displayedTimeForOriginalAssetTime_(currentEditingTool);
           v14 = self->_currentEditingTool;
           v33 = time;
           if (v14)
           {
             lhs = v34;
-            [(PUPhotoEditToolController *)v14 displayedTimeForOriginalAssetTime:&lhs];
+            objc_msgSend_displayedTimeForOriginalAssetTime_(v14);
 LABEL_17:
             v34 = time;
             goto LABEL_18;
@@ -7486,7 +7486,7 @@ LABEL_11:
   [(PUPhotoEditViewController *)self switchToEditingTool:v4 animated:1 completionHandler:v5];
 }
 
-uint64_t __56__PUPhotoEditViewController_switchToEditingToolWithTag___block_invoke(uint64_t a1)
+void *__56__PUPhotoEditViewController_switchToEditingToolWithTag___block_invoke(uint64_t a1)
 {
   result = MEMORY[0x1B8C6D660]();
   if (result)
@@ -8129,7 +8129,7 @@ LABEL_7:
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         autoCalcInterval = [(PUPhotoEditViewController *)self autoCalcInterval];
-        [autoCalcInterval duration];
+        objc_msgSend_duration(autoCalcInterval);
         v7 = 134217984;
         v8 = v6;
         _os_log_impl(&dword_1B36F3000, v4, OS_LOG_TYPE_DEFAULT, "PUPhotoEditViewController - PERF - auto calc duration: %f", &v7, 0xCu);
@@ -8262,7 +8262,7 @@ void __74__PUPhotoEditViewController__requestLivePhotoAssetWithFilters_completio
     v6 = [v3 videoComposition];
     memset(buf, 0, sizeof(buf));
     v14 = 0;
-    [v3 photoTime];
+    objc_msgSend_photoTime(v3);
     v7 = objc_alloc(MEMORY[0x1E69788C8]);
     v10 = *buf;
     v11 = v14;
@@ -9612,7 +9612,7 @@ LABEL_30:
 
   if (resultCopy)
   {
-    [resultCopy videoComplementOriginalStillImageTime];
+    objc_msgSend_videoComplementOriginalStillImageTime(resultCopy);
   }
 
   else
@@ -10754,11 +10754,11 @@ void __64__PUPhotoEditViewController__performInEditRevertWithToolButton___block_
   }
 }
 
-uint64_t __49__PUPhotoEditViewController__setPlaybackEnabled___block_invoke(uint64_t result, int a2)
+id *__49__PUPhotoEditViewController__setPlaybackEnabled___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _performRevertAction];
+    return [result[4] _performRevertAction];
   }
 
   return result;
@@ -10788,11 +10788,11 @@ uint64_t __49__PUPhotoEditViewController__setPlaybackEnabled___block_invoke(uint
   }
 }
 
-uint64_t __50__PUPhotoEditViewController_toggleLivePhotoActive__block_invoke(uint64_t result, int a2)
+id *__50__PUPhotoEditViewController_toggleLivePhotoActive__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _performRevertAction];
+    return [result[4] _performRevertAction];
   }
 
   return result;
@@ -14423,10 +14423,10 @@ uint64_t __57__PUPhotoEditViewController_flashTransientBadgeWithText___block_inv
   return [MEMORY[0x1E69DD250] animateWithDuration:0 delay:v4 options:v3 animations:0.4 completion:0.5];
 }
 
-uint64_t __57__PUPhotoEditViewController_flashTransientBadgeWithText___block_invoke_3(uint64_t result)
+void *__57__PUPhotoEditViewController_flashTransientBadgeWithText___block_invoke_3(void *result)
 {
-  v1 = *(result + 32);
-  if (*(result + 40) == *(v1 + 1496))
+  v1 = result[4];
+  if (result[5] == *(v1 + 1496))
   {
     return [*(v1 + 1488) setAlpha:0.0];
   }
@@ -20749,7 +20749,7 @@ void __80__PUPhotoEditViewController_viewWillTransitionToSize_withTransitionCoor
   }
 }
 
-uint64_t __80__PUPhotoEditViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
+void *__80__PUPhotoEditViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _updateSpecDependentUIPieces];
   *(*(a1 + 32) + 1065) = 0;
@@ -22869,7 +22869,7 @@ LABEL_26:
     if ([(PUPhotoEditViewController *)v13 isStandardVideo])
     {
       [(PUPhotoEditAggregateSession *)v13->_aggregateSession setShouldUseVideoKeys:1];
-      [photoCopy duration];
+      objc_msgSend_duration(photoCopy);
       [(PUPhotoEditAggregateSession *)v13->_aggregateSession setOriginalDuration:?];
     }
 
@@ -23101,29 +23101,29 @@ void __67__PUPhotoEditViewController__defaultLivePhotoRenderPipelineFilters__blo
   }
 }
 
-void __60__PUPhotoEditViewController_preheatEditDependenciesIfNeeded__block_invoke()
+void __60__PUPhotoEditViewController_preheatEditDependenciesIfNeeded__block_invoke(uint64_t a1)
 {
   if (PFIsiOSPhotosApp())
   {
-    v0 = [MEMORY[0x1E69C4598] sharedScheduler];
-    [v0 scheduleTaskWithQoS:1 block:&__block_literal_global_248];
+    v1 = [MEMORY[0x1E69C4598] sharedScheduler];
+    [v1 scheduleTaskWithQoS:1 block:&__block_literal_global_248];
   }
 }
 
-void __60__PUPhotoEditViewController_preheatEditDependenciesIfNeeded__block_invoke_2()
+void __60__PUPhotoEditViewController_preheatEditDependenciesIfNeeded__block_invoke_2(uint64_t a1)
 {
-  v0 = PLPhotoEditGetLog();
-  if (os_signpost_enabled(v0))
+  v1 = PLPhotoEditGetLog();
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B36F3000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EditPrewarm", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B36F3000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EditPrewarm", "", buf, 2u);
   }
 
   [MEMORY[0x1E69BDEF0] preheatEditDependencies];
-  if (os_signpost_enabled(v0))
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B36F3000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EditPrewarm", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B36F3000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EditPrewarm", "", v2, 2u);
   }
 }
 

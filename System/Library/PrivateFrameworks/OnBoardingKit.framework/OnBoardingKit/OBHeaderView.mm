@@ -1,7 +1,9 @@
 @interface OBHeaderView
 - (OBAnimationView)animationView;
 - (OBHeaderView)initWithTitle:(id)title detailText:(id)text icon:(id)icon;
+- (OBHeaderView)initWithTitle:(id)title detailText:(id)text symbolName:(id)name animated:(BOOL)animated;
 - (OBHeaderView)initWithTitle:(id)title icon:(id)icon;
+- (OBHeaderView)initWithTitle:(id)title symbolName:(id)name animated:(BOOL)animated;
 - (UIView)customIconContainerView;
 - (double)_setupAssistantIconHeight;
 - (double)detailLabelToAccessoryButtonPadding;
@@ -21,6 +23,7 @@
 - (void)_createHeaderLabelIfNeeded;
 - (void)_insertAndLayoutImageViewIfNeeded;
 - (void)_layoutTopAssetContainer;
+- (void)_setImage:(id)image accessibilityLabel:(id)label withAnimatedSymbol:(BOOL)symbol;
 - (void)_updateConstraintsForDetailLabel;
 - (void)_updateConstraintsForSubtitle;
 - (void)_updateDetailLabel;
@@ -37,10 +40,12 @@
 - (void)setDetailText:(id)text;
 - (void)setDetailTextAccessibilityIdentifier:(id)identifier;
 - (void)setDetailedTextHeader:(id)header detailedTextBody:(id)body;
+- (void)setForceCenterAlignment:(BOOL)alignment;
 - (void)setIcon:(id)icon accessibilityLabel:(id)label;
 - (void)setIconAccessibilityIdentifier:(id)identifier;
 - (void)setLanguage:(id)language;
 - (void)setSubtitleText:(id)text;
+- (void)setSymbol:(id)symbol accessibilityLabel:(id)label animated:(BOOL)animated;
 - (void)setTemplateType:(unint64_t)type;
 - (void)setTitle:(id)title;
 - (void)setTitleAccessibilityIdentifier:(id)identifier;
@@ -53,6 +58,34 @@
 @end
 
 @implementation OBHeaderView
+
+- (OBHeaderView)initWithTitle:(id)title detailText:(id)text symbolName:(id)name animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  titleCopy = title;
+  textCopy = text;
+  nameCopy = name;
+  v19.receiver = self;
+  v19.super_class = OBHeaderView;
+  v13 = [(OBHeaderView *)&v19 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v14 = v13;
+  if (v13)
+  {
+    if (nameCopy)
+    {
+      [(OBHeaderView *)v13 setSymbolName:nameCopy];
+      symbolConfiguration = [(OBHeaderView *)v14 symbolConfiguration];
+      v16 = [(OBHeaderView *)v14 _symbolIconForHeaderStyle:nameCopy configuration:symbolConfiguration];
+
+      v17 = [(OBHeaderView *)v14 _createImageView:v16 withAnimatedSymbol:animatedCopy];
+      [(OBHeaderView *)v14 setImageView:v17];
+    }
+
+    [(OBHeaderView *)v14 extendedInitWithTitle:titleCopy detailText:textCopy];
+  }
+
+  return v14;
+}
 
 - (OBHeaderView)initWithTitle:(id)title detailText:(id)text icon:(id)icon
 {
@@ -75,6 +108,42 @@
   }
 
   return v12;
+}
+
+- (OBHeaderView)initWithTitle:(id)title symbolName:(id)name animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  titleCopy = title;
+  nameCopy = name;
+  v18.receiver = self;
+  v18.super_class = OBHeaderView;
+  v10 = [(OBHeaderView *)&v18 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v11 = v10;
+  if (v10)
+  {
+    if (nameCopy)
+    {
+      [(OBHeaderView *)v10 setSymbolName:nameCopy];
+      symbolConfiguration = [(OBHeaderView *)v11 symbolConfiguration];
+      v13 = [(OBHeaderView *)v11 _symbolIconForHeaderStyle:nameCopy configuration:symbolConfiguration];
+
+      v14 = [(OBHeaderView *)v11 _createImageView:v13 withAnimatedSymbol:animatedCopy];
+      [(OBHeaderView *)v11 setImageView:v14];
+    }
+
+    v15 = &stru_1F2CE9518;
+    if (titleCopy)
+    {
+      v15 = titleCopy;
+    }
+
+    v16 = v15;
+
+    [(OBHeaderView *)v11 extendedInitWithTitle:v16 detailText:0];
+    titleCopy = v16;
+  }
+
+  return v11;
 }
 
 - (OBHeaderView)initWithTitle:(id)title icon:(id)icon
@@ -179,9 +248,23 @@
   }
 }
 
+- (void)setForceCenterAlignment:(BOOL)alignment
+{
+  alignmentCopy = alignment;
+  self->_forceCenterAlignment = alignment;
+  headerLabel = [(OBHeaderView *)self headerLabel];
+  [headerLabel setForceCenterAlignment:alignmentCopy];
+
+  detailLabel = [(OBHeaderView *)self detailLabel];
+  [detailLabel setForceCenterAlignment:alignmentCopy];
+
+  subtitleLabel = [(OBHeaderView *)self subtitleLabel];
+  [subtitleLabel setForceCenterAlignment:alignmentCopy];
+}
+
 - (void)setAppNameForIntroScreen:(id)screen
 {
-  v35[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   screenCopy = screen;
   [(OBHeaderView *)self setUseIntroScreenLayout:1];
   tintColor = [MEMORY[0x1E69DC888] tintColor];
@@ -216,25 +299,25 @@
     appNameLabel7 = [(OBHeaderView *)self appNameLabel];
     [(OBHeaderView *)self addSubview:appNameLabel7];
 
-    v29 = MEMORY[0x1E696ACD8];
+    v28 = MEMORY[0x1E696ACD8];
     appNameLabel8 = [(OBHeaderView *)self appNameLabel];
     leadingAnchor = [appNameLabel8 leadingAnchor];
     leadingAnchor2 = [(OBHeaderView *)self leadingAnchor];
-    v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v35[0] = v31;
+    v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v34[0] = v30;
     appNameLabel9 = [(OBHeaderView *)self appNameLabel];
     trailingAnchor = [appNameLabel9 trailingAnchor];
     trailingAnchor2 = [(OBHeaderView *)self trailingAnchor];
     v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v35[1] = v19;
+    v34[1] = v19;
     appNameLabel10 = [(OBHeaderView *)self appNameLabel];
     topAnchor = [appNameLabel10 topAnchor];
     headerLabel2 = [(OBHeaderView *)self headerLabel];
     bottomAnchor = [headerLabel2 bottomAnchor];
     v24 = [topAnchor constraintEqualToAnchor:bottomAnchor];
-    v35[2] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
-    [v29 activateConstraints:v25];
+    v34[2] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
+    [v28 activateConstraints:v25];
 
     [(OBHeaderView *)self _updateConstraintsForDetailLabel];
     [(OBHeaderView *)self _updateConstraintsForSubtitle];
@@ -243,8 +326,6 @@
 
   appNameLabel11 = [(OBHeaderView *)self appNameLabel];
   [appNameLabel11 setText:screenCopy];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startSymbolAnimation
@@ -259,6 +340,7 @@
 {
   iconCopy = icon;
   labelCopy = label;
+  v8 = labelCopy;
   if (*&self->_animationView == 0)
   {
     [(OBHeaderView *)self _setImage:iconCopy accessibilityLabel:labelCopy withAnimatedSymbol:0];
@@ -266,12 +348,58 @@
 
   else
   {
-    v8 = _OBLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _OBLoggingFacility(labelCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(OBHeaderView *)v8 setIcon:v9 accessibilityLabel:v10, v11, v12, v13, v14, v15];
+      [(OBHeaderView *)v9 setIcon:v10 accessibilityLabel:v11, v12, v13, v14, v15, v16];
     }
   }
+}
+
+- (void)setSymbol:(id)symbol accessibilityLabel:(id)label animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  labelCopy = label;
+  symbolCopy = symbol;
+  [(OBHeaderView *)self setSymbolName:symbolCopy];
+  symbolConfiguration = [(OBHeaderView *)self symbolConfiguration];
+  v11 = [(OBHeaderView *)self _symbolIconForHeaderStyle:symbolCopy configuration:symbolConfiguration];
+
+  [(OBHeaderView *)self _setImage:v11 accessibilityLabel:labelCopy withAnimatedSymbol:animatedCopy];
+}
+
+- (void)_setImage:(id)image accessibilityLabel:(id)label withAnimatedSymbol:(BOOL)symbol
+{
+  symbolCopy = symbol;
+  imageCopy = image;
+  labelCopy = label;
+  imageView = [(OBHeaderView *)self imageView];
+
+  if (imageView)
+  {
+    imageView2 = [(OBHeaderView *)self imageView];
+    [imageView2 setContentMode:1];
+
+    imageView3 = [(OBHeaderView *)self imageView];
+    [imageView3 setImage:imageCopy];
+
+    [(OBHeaderView *)self setOriginalIconImage:imageCopy];
+  }
+
+  else
+  {
+    v12 = [(OBHeaderView *)self _createImageView:imageCopy withAnimatedSymbol:symbolCopy];
+    [(OBHeaderView *)self setImageView:v12];
+
+    [(OBHeaderView *)self _insertAndLayoutImageViewIfNeeded];
+  }
+
+  v13 = [labelCopy length] != 0;
+  imageView4 = [(OBHeaderView *)self imageView];
+  [imageView4 setIsAccessibilityElement:v13];
+
+  imageView5 = [(OBHeaderView *)self imageView];
+  [imageView5 setAccessibilityLabel:labelCopy];
 }
 
 - (id)title
@@ -357,7 +485,7 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
 
 - (void)setBadgeText:(id)text
 {
-  v58[5] = *MEMORY[0x1E69E9840];
+  v57[5] = *MEMORY[0x1E69E9840];
   textCopy = text;
   badgeLabel = [(OBHeaderView *)self badgeLabel];
 
@@ -373,7 +501,7 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
   {
     v7 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v56 = textCopy;
+    v55 = textCopy;
     [v7 setText:textCopy];
     v8 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD00]];
     [v7 setFont:v8];
@@ -393,7 +521,7 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
     grayColor = [MEMORY[0x1E69DC888] grayColor];
     [v11 setColor:grayColor];
 
-    v55 = v11;
+    v54 = v11;
     [v7 _setTextEncapsulation:v11];
     [(OBHeaderView *)self setBadgeLabel:v7];
     [(OBHeaderView *)self addSubview:v7];
@@ -420,35 +548,35 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
         [(OBHeaderView *)self setHeaderLeftEdgeConstraint:0];
       }
 
-      v50 = MEMORY[0x1E696ACD8];
+      v49 = MEMORY[0x1E696ACD8];
       rightAnchor = [v7 rightAnchor];
       headerLabel3 = [(OBHeaderView *)self headerLabel];
       [headerLabel3 leftAnchor];
-      v52 = v54 = rightAnchor;
-      v51 = [rightAnchor constraintEqualToAnchor:-8.0 constant:?];
-      v58[0] = v51;
+      v51 = v53 = rightAnchor;
+      v50 = [rightAnchor constraintEqualToAnchor:-8.0 constant:?];
+      v57[0] = v50;
       centerYAnchor = [v7 centerYAnchor];
       headerLabel4 = [(OBHeaderView *)self headerLabel];
       [headerLabel4 centerYAnchor];
-      v47 = v49 = centerYAnchor;
-      v46 = [centerYAnchor constraintEqualToAnchor:?];
-      v58[1] = v46;
+      v46 = v48 = centerYAnchor;
+      v45 = [centerYAnchor constraintEqualToAnchor:?];
+      v57[1] = v45;
       leftAnchor = [v7 leftAnchor];
       leftAnchor2 = [(OBHeaderView *)self leftAnchor];
-      v45 = leftAnchor;
-      v43 = [leftAnchor constraintGreaterThanOrEqualToAnchor:?];
-      v58[2] = v43;
+      v44 = leftAnchor;
+      v42 = [leftAnchor constraintGreaterThanOrEqualToAnchor:?];
+      v57[2] = v42;
       headerLabel5 = [(OBHeaderView *)self headerLabel];
       rightAnchor2 = [headerLabel5 rightAnchor];
       rightAnchor3 = [(OBHeaderView *)self rightAnchor];
       v28 = [rightAnchor2 constraintEqualToAnchor:rightAnchor3];
-      v58[3] = v28;
+      v57[3] = v28;
       headerLabel6 = [(OBHeaderView *)self headerLabel];
       leftAnchor3 = [headerLabel6 leftAnchor];
       rightAnchor4 = [v7 rightAnchor];
       v32 = [leftAnchor3 constraintGreaterThanOrEqualToAnchor:rightAnchor4 constant:8.0];
-      v58[4] = v32;
-      v33 = v58;
+      v57[4] = v32;
+      v33 = v57;
     }
 
     else
@@ -463,41 +591,41 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
         [(OBHeaderView *)self setHeaderRightEdgeConstraint:0];
       }
 
-      v50 = MEMORY[0x1E696ACD8];
+      v49 = MEMORY[0x1E696ACD8];
       leftAnchor4 = [v7 leftAnchor];
       headerLabel3 = [(OBHeaderView *)self headerLabel];
       [headerLabel3 rightAnchor];
-      v52 = v54 = leftAnchor4;
-      v51 = [leftAnchor4 constraintEqualToAnchor:8.0 constant:?];
-      v57[0] = v51;
+      v51 = v53 = leftAnchor4;
+      v50 = [leftAnchor4 constraintEqualToAnchor:8.0 constant:?];
+      v56[0] = v50;
       centerYAnchor2 = [v7 centerYAnchor];
       headerLabel4 = [(OBHeaderView *)self headerLabel];
       [headerLabel4 centerYAnchor];
-      v47 = v49 = centerYAnchor2;
-      v46 = [centerYAnchor2 constraintEqualToAnchor:?];
-      v57[1] = v46;
+      v46 = v48 = centerYAnchor2;
+      v45 = [centerYAnchor2 constraintEqualToAnchor:?];
+      v56[1] = v45;
       rightAnchor5 = [v7 rightAnchor];
       leftAnchor2 = [(OBHeaderView *)self rightAnchor];
-      v45 = rightAnchor5;
-      v43 = [rightAnchor5 constraintLessThanOrEqualToAnchor:?];
-      v57[2] = v43;
+      v44 = rightAnchor5;
+      v42 = [rightAnchor5 constraintLessThanOrEqualToAnchor:?];
+      v56[2] = v42;
       headerLabel5 = [(OBHeaderView *)self headerLabel];
       rightAnchor2 = [headerLabel5 leftAnchor];
       rightAnchor3 = [(OBHeaderView *)self leftAnchor];
       v28 = [rightAnchor2 constraintEqualToAnchor:rightAnchor3];
-      v57[3] = v28;
+      v56[3] = v28;
       headerLabel6 = [(OBHeaderView *)self headerLabel];
       leftAnchor3 = [headerLabel6 rightAnchor];
       rightAnchor4 = [v7 leftAnchor];
       v32 = [leftAnchor3 constraintLessThanOrEqualToAnchor:rightAnchor4 constant:-8.0];
-      v57[4] = v32;
-      v33 = v57;
+      v56[4] = v32;
+      v33 = v56;
     }
 
     v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:5];
-    [v50 activateConstraints:v41];
+    [v49 activateConstraints:v41];
 
-    textCopy = v56;
+    textCopy = v55;
   }
 
   else
@@ -508,28 +636,24 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
     headerRightEdgeConstraint3 = [(OBHeaderView *)self headerRightEdgeConstraint];
     [headerRightEdgeConstraint3 setActive:1];
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)overrideSpansAllLines:(unint64_t)lines
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = _OBLoggingFacility();
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = _OBLoggingFacility(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     title = [(OBHeaderView *)self title];
-    v9 = 134218242;
+    v8 = 134218242;
     linesCopy = lines;
-    v11 = 2112;
-    v12 = title;
-    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "Overriding spansAllLines: (%li), for label with title:%@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = title;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "Overriding spansAllLines: (%li), for label with title:%@", &v8, 0x16u);
   }
 
   detailLabel = [(OBHeaderView *)self detailLabel];
   [detailLabel overrideSpansAllLines:lines];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLanguage:(id)language
@@ -622,15 +746,15 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
 
 - (void)addAccessoryButton:(id)button
 {
-  v33[3] = *MEMORY[0x1E69E9840];
+  v32[3] = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   detailLabel = [(OBHeaderView *)self detailLabel];
 
   if (!detailLabel)
   {
-    v23 = MEMORY[0x1E695DF30];
-    v24 = *MEMORY[0x1E695D930];
-    v25 = @"Accessory button is not supported with no detail text.";
+    v22 = MEMORY[0x1E695DF30];
+    v23 = *MEMORY[0x1E695D930];
+    v24 = @"Accessory button is not supported with no detail text.";
     goto LABEL_12;
   }
 
@@ -638,12 +762,12 @@ void __40__OBHeaderView_setAttributedDetailText___block_invoke(uint64_t a1, void
 
   if (accessoryButton)
   {
-    v23 = MEMORY[0x1E695DF30];
-    v24 = *MEMORY[0x1E695D930];
-    v25 = @"Only one accessory button is supported.";
+    v22 = MEMORY[0x1E695DF30];
+    v23 = *MEMORY[0x1E695D930];
+    v24 = @"Only one accessory button is supported.";
 LABEL_12:
-    v26 = [v23 exceptionWithName:v24 reason:v25 userInfo:0];
-    objc_exception_throw(v26);
+    v25 = [v22 exceptionWithName:v23 reason:v24 userInfo:0];
+    objc_exception_throw(v25);
   }
 
   if (+[OBFeatureFlags isNaturalUIEnabled](OBFeatureFlags, "isNaturalUIEnabled") && [buttonCopy displayInfoIcon])
@@ -659,54 +783,52 @@ LABEL_12:
   [(OBHeaderView *)self addSubview:buttonCopy];
   [(OBHeaderView *)self _updateConstraintsForDetailLabel];
   LODWORD(underlineLinks) = +[OBFeatureFlags isNaturalUIEnabled];
-  v30 = MEMORY[0x1E696ACD8];
+  v29 = MEMORY[0x1E696ACD8];
   leadingAnchor = [buttonCopy leadingAnchor];
   leadingAnchor2 = [(OBHeaderView *)self leadingAnchor];
   if (underlineLinks)
   {
     v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v33[0] = v11;
+    v32[0] = v11;
     trailingAnchor = [buttonCopy trailingAnchor];
     trailingAnchor2 = [(OBHeaderView *)self trailingAnchor];
-    v29 = [trailingAnchor constraintLessThanOrEqualToAnchor:?];
-    v33[1] = v29;
+    v28 = [trailingAnchor constraintLessThanOrEqualToAnchor:?];
+    v32[1] = v28;
     bottomAnchor = [buttonCopy bottomAnchor];
     bottomAnchor2 = [(OBHeaderView *)self bottomAnchor];
     v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:0.0];
-    v33[2] = v15;
-    bottomAnchor3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
-    [v30 activateConstraints:bottomAnchor3];
+    v32[2] = v15;
+    bottomAnchor3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
+    [v29 activateConstraints:bottomAnchor3];
   }
 
   else
   {
-    v28 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
-    v32[0] = v28;
+    v27 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
+    v31[0] = v27;
     trailingAnchor3 = [buttonCopy trailingAnchor];
     trailingAnchor2 = [(OBHeaderView *)self trailingAnchor];
-    v29 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:?];
-    v32[1] = v29;
+    v28 = [trailingAnchor3 constraintLessThanOrEqualToAnchor:?];
+    v31[1] = v28;
     bottomAnchor = [buttonCopy centerXAnchor];
     bottomAnchor2 = [(OBHeaderView *)self centerXAnchor];
     v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v32[2] = v15;
+    v31[2] = v15;
     bottomAnchor3 = [buttonCopy bottomAnchor];
     bottomAnchor4 = [(OBHeaderView *)self bottomAnchor];
     [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:0.0];
     v19 = v18 = leadingAnchor;
-    v32[3] = v19;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
+    v31[3] = v19;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
     v21 = v20 = leadingAnchor2;
-    [v30 activateConstraints:v21];
+    [v29 activateConstraints:v21];
 
     leadingAnchor2 = v20;
     trailingAnchor = trailingAnchor3;
 
     leadingAnchor = v18;
-    v11 = v28;
+    v11 = v27;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -942,7 +1064,7 @@ LABEL_12:
 
 - (void)_insertAndLayoutImageViewIfNeeded
 {
-  v59[2] = *MEMORY[0x1E69E9840];
+  v58[2] = *MEMORY[0x1E69E9840];
   imageView = [(OBHeaderView *)self imageView];
 
   if (imageView)
@@ -971,14 +1093,14 @@ LABEL_12:
     topAssetContainer2 = [(OBHeaderView *)self topAssetContainer];
     topAnchor2 = [topAssetContainer2 topAnchor];
     v12 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v59[0] = v12;
+    v58[0] = v12;
     imageView4 = [(OBHeaderView *)self imageView];
     bottomAnchor = [imageView4 bottomAnchor];
     topAssetContainer3 = [(OBHeaderView *)self topAssetContainer];
     bottomAnchor2 = [topAssetContainer3 bottomAnchor];
     v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v59[1] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
+    v58[1] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
     v19 = [v18 mutableCopy];
 
     centerXAnchor = [(OBHeaderView *)self centerXAnchor];
@@ -1005,19 +1127,8 @@ LABEL_12:
 
     else
     {
-      if (!+[OBFeatureFlags isNaturalUIEnabled])
+      if (!+[OBFeatureFlags isNaturalUIEnabled](OBFeatureFlags, "isNaturalUIEnabled") || (-[OBHeaderView imageView](self, "imageView"), v35 = objc_claimAutoreleasedReturnValue(), [v35 image], v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "size"), v38 = v37, v36, v35, v38 <= 0.0))
       {
-        goto LABEL_10;
-      }
-
-      imageView8 = [(OBHeaderView *)self imageView];
-      image = [imageView8 image];
-      [image size];
-      v38 = v37;
-
-      if (v38 <= 0.0)
-      {
-LABEL_10:
         [(OBHeaderView *)self iconHeight];
         v48 = v47;
         imageView7 = [(OBHeaderView *)self imageView];
@@ -1027,13 +1138,13 @@ LABEL_10:
         goto LABEL_11;
       }
 
+      imageView8 = [(OBHeaderView *)self imageView];
+      image = [imageView8 image];
+      [image size];
+      v42 = v41;
       imageView9 = [(OBHeaderView *)self imageView];
       image2 = [imageView9 image];
       [image2 size];
-      v42 = v41;
-      imageView10 = [(OBHeaderView *)self imageView];
-      image3 = [imageView10 image];
-      [image3 size];
       v46 = v42 / v45;
 
       imageView7 = [(OBHeaderView *)self imageView];
@@ -1047,8 +1158,8 @@ LABEL_10:
     [v19 addObject:v33];
 
 LABEL_11:
-    imageView11 = [(OBHeaderView *)self imageView];
-    heightAnchor = [imageView11 heightAnchor];
+    imageView10 = [(OBHeaderView *)self imageView];
+    heightAnchor = [imageView10 heightAnchor];
     [(OBHeaderView *)self iconHeight];
     v51 = [heightAnchor constraintEqualToConstant:?];
     [v19 addObject:v51];
@@ -1062,12 +1173,11 @@ LABEL_11:
   }
 
   [(OBHeaderView *)self _layoutTopAssetContainer];
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_layoutTopAssetContainer
 {
-  v39[5] = *MEMORY[0x1E69E9840];
+  v38[5] = *MEMORY[0x1E69E9840];
   v3 = 0x1E696A000uLL;
   v4 = MEMORY[0x1E696ACD8];
   topAssetContainerConstraints = [(OBHeaderView *)self topAssetContainerConstraints];
@@ -1081,34 +1191,34 @@ LABEL_11:
     topAssetContainer2 = [(OBHeaderView *)self topAssetContainer];
     topAnchor2 = [topAssetContainer2 topAnchor];
     [(OBHeaderView *)self topPadding];
-    v31 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-v8];
-    v39[0] = v31;
+    v30 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-v8];
+    v38[0] = v30;
     topAssetContainer3 = [(OBHeaderView *)self topAssetContainer];
     leadingAnchor = [topAssetContainer3 leadingAnchor];
     leadingAnchor2 = [(OBHeaderView *)self leadingAnchor];
-    v34 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v39[1] = v34;
+    v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v38[1] = v33;
     topAssetContainer4 = [(OBHeaderView *)self topAssetContainer];
     trailingAnchor = [topAssetContainer4 trailingAnchor];
     trailingAnchor2 = [(OBHeaderView *)self trailingAnchor];
-    v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v39[2] = v27;
+    v26 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v38[2] = v26;
     topAssetContainer5 = [(OBHeaderView *)self topAssetContainer];
     heightAnchor = [topAssetContainer5 heightAnchor];
     [(OBHeaderView *)self iconHeight];
     v10 = [heightAnchor constraintLessThanOrEqualToConstant:?];
-    v39[3] = v10;
+    v38[3] = v10;
     topAssetContainer6 = [(OBHeaderView *)self topAssetContainer];
     bottomAnchor = [topAssetContainer6 bottomAnchor];
     headerLabel = [(OBHeaderView *)self headerLabel];
     topAnchor3 = [headerLabel topAnchor];
     [(OBHeaderView *)self iconToHeaderLabelPadding];
     v16 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-v15];
-    v39[4] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:5];
+    v38[4] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:5];
     [(OBHeaderView *)self setTopAssetContainerConstraints:v17];
 
-    v18 = v31;
+    v18 = v30;
     v19 = topAssetContainer3;
 
     headerLabel2 = topAssetContainer2;
@@ -1123,16 +1233,14 @@ LABEL_11:
     topAnchor4 = [headerLabel2 topAnchor];
     [(OBHeaderView *)self topPadding];
     v18 = [topAnchor constraintEqualToAnchor:topAnchor4 constant:-v22];
-    v38 = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+    v37 = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
     [(OBHeaderView *)self setTopAssetContainerConstraints:v19];
   }
 
   v23 = *(v3 + 3288);
   topAssetContainerConstraints2 = [(OBHeaderView *)self topAssetContainerConstraints];
   [v23 activateConstraints:topAssetContainerConstraints2];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createDetailLabelIfNeeded
@@ -1176,7 +1284,7 @@ LABEL_11:
 
 - (void)_updateConstraintsForDetailLabel
 {
-  v38[4] = *MEMORY[0x1E69E9840];
+  v37[4] = *MEMORY[0x1E69E9840];
   detailLabelConstraints = [(OBHeaderView *)self detailLabelConstraints];
   [(OBHeaderView *)self removeConstraints:detailLabelConstraints];
 
@@ -1226,20 +1334,20 @@ LABEL_11:
     leftAnchor = [(OBHeaderView *)self leftAnchor];
     detailLabel3 = [(OBHeaderView *)self detailLabel];
     leftAnchor2 = [detailLabel3 leftAnchor];
-    v35 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v38[0] = v35;
+    v34 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+    v37[0] = v34;
     rightAnchor = [(OBHeaderView *)self rightAnchor];
     detailLabel4 = [(OBHeaderView *)self detailLabel];
     rightAnchor2 = [detailLabel4 rightAnchor];
-    v31 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v38[1] = v31;
+    v30 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+    v37[1] = v30;
     bottomAnchor2 = [subtitleLabel bottomAnchor];
     detailLabel5 = [(OBHeaderView *)self detailLabel];
     topAnchor2 = [detailLabel5 topAnchor];
     v26 = [bottomAnchor2 constraintEqualToAnchor:topAnchor2 constant:-v22];
-    v38[2] = v26;
-    v38[3] = v14;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
+    v37[2] = v26;
+    v37[3] = v14;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:4];
     v27 = bottomAnchor3 = v14;
     [(OBHeaderView *)self setDetailLabelConstraints:v27];
   }
@@ -1275,26 +1383,24 @@ LABEL_11:
     subtitleLabel = [(OBHeaderView *)self bottomAnchor];
     [(OBHeaderView *)self bottomPadding];
     leftAnchor = [subtitleLabel constraintEqualToAnchor:bottomAnchor3 constant:?];
-    v37 = leftAnchor;
-    detailLabel3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+    v36 = leftAnchor;
+    detailLabel3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
     [(OBHeaderView *)self setDetailLabelConstraints:detailLabel3];
   }
 
   v28 = MEMORY[0x1E696ACD8];
   detailLabelConstraints2 = [(OBHeaderView *)self detailLabelConstraints];
   [v28 activateConstraints:detailLabelConstraints2];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateConstraintsForSubtitle
 {
-  v37[3] = *MEMORY[0x1E69E9840];
+  v36[3] = *MEMORY[0x1E69E9840];
   subtitleLabel = [(OBHeaderView *)self subtitleLabel];
 
   if (!subtitleLabel)
   {
-    goto LABEL_11;
+    return;
   }
 
   subtitleLabelConstraints = [(OBHeaderView *)self subtitleLabelConstraints];
@@ -1340,15 +1446,15 @@ LABEL_7:
   subtitleLabel3 = [(OBHeaderView *)self subtitleLabel];
   leftAnchor2 = [subtitleLabel3 leftAnchor];
   v19 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v37[0] = v19;
+  v36[0] = v19;
   rightAnchor = [(OBHeaderView *)self rightAnchor];
   subtitleLabel4 = [(OBHeaderView *)self subtitleLabel];
   rightAnchor2 = [subtitleLabel4 rightAnchor];
   v23 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v37[1] = v23;
-  v37[2] = v15;
-  v35 = v15;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:3];
+  v36[1] = v23;
+  v36[2] = v15;
+  v34 = v15;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
   [(OBHeaderView *)self setSubtitleLabelConstraints:v24];
 
   v25 = MEMORY[0x1E696ACD8];
@@ -1371,12 +1477,9 @@ LABEL_7:
   subtitleLabel5 = [(OBHeaderView *)self subtitleLabel];
   topAnchor2 = [subtitleLabel5 topAnchor];
   v32 = [bottomAnchor2 constraintEqualToAnchor:topAnchor2 constant:v8];
-  v36 = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  v35 = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
   [v29 activateConstraints:v33];
-
-LABEL_11:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTemplateType:(unint64_t)type
@@ -1589,7 +1692,7 @@ void __50__OBHeaderView__animateDetailLabelAlpha_duration___block_invoke_2(uint6
   {
 
 LABEL_4:
-    v4 = _OBLoggingFacility();
+    v4 = _OBLoggingFacility(imageView);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(OBHeaderView *)v4 animationView:v5];
@@ -1653,7 +1756,7 @@ LABEL_7:
   {
 
 LABEL_4:
-    v4 = _OBLoggingFacility();
+    v4 = _OBLoggingFacility(imageView);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(OBHeaderView *)v4 customIconContainerView:v5];

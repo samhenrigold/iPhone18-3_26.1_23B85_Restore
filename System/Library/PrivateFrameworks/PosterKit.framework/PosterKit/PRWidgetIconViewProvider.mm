@@ -171,7 +171,7 @@
     [widgetHostViewController setTintParameters:v23];
 
     widget = [(PRComplicationDescriptor *)v18 widget];
-    v26 = PRSharedWidgetExtensionProvider();
+    v26 = PRSharedWidgetExtensionProvider(widget);
     v27 = [v26 widgetDescriptorForWidget:widget];
 
     intentType = [v27 intentType];
@@ -196,7 +196,7 @@
 
         else
         {
-          widgetHostViewController2 = PRLogCommon();
+          widgetHostViewController2 = PRLogCommon(0);
           if (os_log_type_enabled(widgetHostViewController2, OS_LOG_TYPE_ERROR))
           {
             [(PRWidgetIconViewProvider *)widget customImageViewControllerForIconView:widgetHostViewController2];

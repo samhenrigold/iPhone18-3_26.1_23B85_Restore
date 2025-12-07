@@ -45,97 +45,97 @@
 
 - (uint64_t)_sf_shouldOpenURLInQuicklook:()SafariServicesExtras
 {
-  v29[7] = *MEMORY[0x1E69E9840];
+  v33[7] = *MEMORY[0x1E69E9840];
   v3 = a3;
   *buf = *MEMORY[0x1E695DAA0];
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:1];
-  *&v24 = 0;
-  v5 = [v3 promisedItemResourceValuesForKeys:v4 error:&v24];
-  v6 = v24;
+  *&v28 = 0;
+  v5 = [v3 promisedItemResourceValuesForKeys:v4 error:&v28];
+  v6 = v28;
   v7 = [v5 objectForKeyedSubscript:*MEMORY[0x1E695DC68]];
 
   if (v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXDownloads(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(LSApplicationWorkspace(SafariServicesExtras) *)v3 _sf_shouldOpenURLInQuicklook:v8, v6];
+      [(LSApplicationWorkspace(SafariServicesExtras) *)v3 _sf_shouldOpenURLInQuicklook:v10, v6];
     }
   }
 
   else if (v7)
   {
-    v10 = v7;
+    v12 = v7;
     goto LABEL_10;
   }
 
   pathExtension = [v3 pathExtension];
   if ([pathExtension length])
   {
-    v10 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:pathExtension];
+    v12 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:pathExtension];
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
 LABEL_10:
-  if (v10)
+  if (v12)
   {
-    v11 = v10;
-    v12 = *MEMORY[0x1E6982EE8];
-    v29[0] = *MEMORY[0x1E6982E30];
-    v29[1] = v12;
-    v13 = *MEMORY[0x1E6982F10];
-    v29[2] = *MEMORY[0x1E6982CD0];
-    v29[3] = v13;
-    v14 = *MEMORY[0x1E6982D30];
-    v29[4] = *MEMORY[0x1E6982D48];
-    v29[5] = v14;
-    v29[6] = *MEMORY[0x1E6982DA8];
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:7];
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v24 objects:buf count:16];
-    if (v17)
+    v13 = v12;
+    v14 = *MEMORY[0x1E6982EE8];
+    v33[0] = *MEMORY[0x1E6982E30];
+    v33[1] = v14;
+    v15 = *MEMORY[0x1E6982F10];
+    v33[2] = *MEMORY[0x1E6982CD0];
+    v33[3] = v15;
+    v16 = *MEMORY[0x1E6982D30];
+    v33[4] = *MEMORY[0x1E6982D48];
+    v33[5] = v16;
+    v33[6] = *MEMORY[0x1E6982DA8];
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:7];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v18 = v17;
+    v19 = [v18 countByEnumeratingWithState:&v28 objects:buf count:16];
+    if (v19)
     {
-      v18 = v17;
-      v19 = *v25;
+      v20 = v19;
+      v21 = *v29;
       while (2)
       {
-        v20 = 0;
+        v22 = 0;
         do
         {
-          if (*v25 != v19)
+          if (*v29 != v21)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v18);
           }
 
-          if ([v11 conformsToType:*(*(&v24 + 1) + 8 * v20)])
+          if ([v13 conformsToType:*(*(&v28 + 1) + 8 * v22)])
           {
 
-            v22 = WBS_LOG_CHANNEL_PREFIXDownloads();
-            v21 = 1;
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v26 = WBS_LOG_CHANNEL_PREFIXDownloads(v24, v25);
+            v23 = 1;
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 138477827;
-              *&buf[4] = v11;
-              _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_INFO, "Preferring QuickLook for type %{private}@", buf, 0xCu);
+              *&buf[4] = v13;
+              _os_log_impl(&dword_1D4644000, v26, OS_LOG_TYPE_INFO, "Preferring QuickLook for type %{private}@", buf, 0xCu);
             }
 
             goto LABEL_23;
           }
 
-          ++v20;
+          ++v22;
         }
 
-        while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v24 objects:buf count:16];
-        if (v18)
+        while (v20 != v22);
+        v20 = [v18 countByEnumeratingWithState:&v28 objects:buf count:16];
+        if (v20)
         {
           continue;
         }
@@ -145,10 +145,10 @@ LABEL_10:
     }
   }
 
-  v21 = 0;
+  v23 = 0;
 LABEL_23:
 
-  return v21;
+  return v23;
 }
 
 - (void)_sf_tryOpeningURLInDefaultApp:()SafariServicesExtras isContentManaged:completionHandler:

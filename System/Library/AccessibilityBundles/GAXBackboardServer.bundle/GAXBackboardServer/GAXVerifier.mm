@@ -6,6 +6,7 @@
 - (id)displayStringForOutcome:(unint64_t)outcome;
 - (void)_beginProcessingEventsIfNeeded;
 - (void)_didFinishVerifyingCurrentEventWithOutcome:(unint64_t)outcome error:(id)error;
+- (void)_didFinishVerifyingCurrentEventWithOutcomePhase2:(unint64_t)phase2 outcomeIsIndeterminate:(BOOL)indeterminate error:(id)error;
 - (void)_processNextEventInQueue;
 - (void)_shouldAttemptLaunchOfSessionAppWithEvent:(unint64_t)event gaxState:(id *)state completion:(id)completion;
 - (void)_verifyWithEventObject:(id)object completion:(id)completion;
@@ -443,7 +444,7 @@ LABEL_5:
   v24 = delegate9;
   if (delegate9)
   {
-    [delegate9 gaxStateForIntegrityVerifier:self];
+    objc_msgSend_gaxStateForIntegrityVerifier_(delegate9);
   }
 
   else
@@ -677,6 +678,58 @@ LABEL_12:
   }
 
   _Block_object_dispose(&buf, 8);
+}
+
+- (void)_didFinishVerifyingCurrentEventWithOutcomePhase2:(unint64_t)phase2 outcomeIsIndeterminate:(BOOL)indeterminate error:(id)error
+{
+  v8 = [(GAXVerifier *)self delegate:phase2];
+  currentVerificationEvent = [(GAXVerifier *)self currentVerificationEvent];
+  [v8 didVerifyEvent:objc_msgSend(currentVerificationEvent withOutcome:"event") withIntegrityVerifier:{phase2, self}];
+
+  if (!indeterminate)
+  {
+    currentVerificationEvent2 = [(GAXVerifier *)self currentVerificationEvent];
+    completion = [currentVerificationEvent2 completion];
+
+    if (completion)
+    {
+      currentVerificationEvent3 = [(GAXVerifier *)self currentVerificationEvent];
+      completion2 = [currentVerificationEvent3 completion];
+      completion2[2]();
+    }
+
+    [(GAXVerifier *)self _processNextEventInQueue];
+  }
+
+  if ((phase2 | 2) == 0x1B)
+  {
+    v14 = GAXLogIntegrity();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = [(GAXVerifier *)self displayStringForOutcome:phase2];
+      *buf = 138543362;
+      v20 = v15;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Replaying verification for outcome %{public}@", buf, 0xCu);
+    }
+
+    currentVerificationEvent4 = [(GAXVerifier *)self currentVerificationEvent];
+    if (currentVerificationEvent4)
+    {
+      verifyQueue = [(GAXVerifier *)self verifyQueue];
+      [verifyQueue insertObject:currentVerificationEvent4 atIndex:0];
+
+      AXPerformBlockOnMainThreadAfterDelay();
+    }
+
+    else
+    {
+      v18 = GAXLogCommon();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        sub_2A424();
+      }
+    }
+  }
 }
 
 - (BOOL)_appWithIdentifierIsInstalledOnDevice:(id)device

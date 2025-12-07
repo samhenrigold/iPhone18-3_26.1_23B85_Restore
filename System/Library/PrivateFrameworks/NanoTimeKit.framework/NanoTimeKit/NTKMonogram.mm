@@ -55,7 +55,7 @@
 
 + (id)_currentUser
 {
-  if (NTKDeviceIsGreenTea() && ([MEMORY[0x277CBBAE8] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "isPaired"), v2, !v3))
+  if (NTKDeviceIsGreenTea(self, a2) && ([MEMORY[0x277CBBAE8] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "isPaired"), v2, !v3))
   {
     v7 = 0;
   }

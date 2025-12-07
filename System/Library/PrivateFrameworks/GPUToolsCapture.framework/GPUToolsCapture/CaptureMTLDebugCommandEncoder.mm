@@ -8,6 +8,7 @@
 - (void)dumpBuffer:(id)buffer name:(const char *)name;
 - (void)dumpTexture:(id)texture;
 - (void)dumpTexture:(id)texture name:(const char *)name;
+- (void)dumpTexture:(id)texture name:(const char *)name glMode:(BOOL)mode;
 - (void)touch;
 @end
 
@@ -25,6 +26,14 @@
   baseObject = self->_baseObject;
   baseObject = [texture baseObject];
   [(MTLDebugCommandEncoder *)baseObject dumpTexture:baseObject name:name];
+}
+
+- (void)dumpTexture:(id)texture name:(const char *)name glMode:(BOOL)mode
+{
+  modeCopy = mode;
+  baseObject = self->_baseObject;
+  baseObject = [texture baseObject];
+  [(MTLDebugCommandEncoder *)baseObject dumpTexture:baseObject name:name glMode:modeCopy];
 }
 
 - (void)dumpBuffer:(id)buffer

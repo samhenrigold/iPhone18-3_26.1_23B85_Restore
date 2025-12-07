@@ -8,6 +8,7 @@
 - (int)_createClipEntryPointsTable;
 - (int)_createFreshDatabaseSchema;
 - (int)_migrateToCurrentSchemaVersionIfNeeded;
+- (int)_migrateToSchemaVersion:(int)version;
 - (int)_migrateToSchemaVersion_2;
 - (int)_migrateToSchemaVersion_3;
 - (int)_migrateToSchemaVersion_4;
@@ -16,7 +17,7 @@
 - (int)_migrateToSchemaVersion_7;
 - (int)_migrateToSchemeVersion_8;
 - (int)_schemaVersion;
-- (void)_checkDatabaseIntegrity;
+- (int)_setDatabaseSchemaVersion:(int)version;
 - (void)_closeDatabase;
 - (void)_createClipEntryPointsTable;
 - (void)_createFreshDatabaseSchema;
@@ -129,7 +130,7 @@ void __38__CPSClipDataSQLiteStore_defaultStore__block_invoke()
   return v7;
 }
 
-uint64_t __46__CPSClipDataSQLiteStore_initWithDatabaseURL___block_invoke(uint64_t a1)
+void *__46__CPSClipDataSQLiteStore_initWithDatabaseURL___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _openDatabaseAndCheckIntegrity:0];
   result = [*(a1 + 32) _isDatabaseOpen];
@@ -147,8 +148,8 @@ uint64_t __46__CPSClipDataSQLiteStore_initWithDatabaseURL___block_invoke(uint64_
 
   if (!nextObject)
   {
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CPSClipDataSQLiteStore _checkDatabaseIntegrity];
     }
@@ -156,23 +157,24 @@ uint64_t __46__CPSClipDataSQLiteStore_initWithDatabaseURL___block_invoke(uint64_
     goto LABEL_8;
   }
 
-  if (([v4 isEqualToString:@"ok"] & 1) == 0)
+  v8 = [v4 isEqualToString:@"ok"];
+  if ((v8 & 1) == 0)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CPSClipDataSQLiteStore _checkDatabaseIntegrity];
     }
 
 LABEL_8:
-    v6 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v6 = 1;
+  v10 = 1;
 LABEL_9:
 
-  return v6;
+  return v10;
 }
 
 - (void)_openDatabaseAndCheckIntegrity:(BOOL)integrity
@@ -182,7 +184,8 @@ LABEL_9:
   database = self->_database;
   self->_database = v5;
 
-  if (([(WBSSQLiteDatabase *)self->_database openWithAccessType:3 error:0]& 1) != 0)
+  v7 = [(WBSSQLiteDatabase *)self->_database openWithAccessType:3 error:0];
+  if (v7)
   {
     if (integrityCopy && ![(CPSClipDataSQLiteStore *)self _checkDatabaseIntegrity])
     {
@@ -190,12 +193,13 @@ LABEL_9:
       goto LABEL_17;
     }
 
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA journal_mode = WAL") != 100)
+    v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA journal_mode = WAL");
+    if (v9 != 100)
     {
-      v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CPSClipDataSQLiteStore _openDatabaseAndCheckIntegrity:?];
+        [CPSClipDataSQLiteStore _openDatabaseAndCheckIntegrity:];
       }
     }
 
@@ -203,11 +207,11 @@ LABEL_9:
     _migrateToCurrentSchemaVersionIfNeeded = [(CPSClipDataSQLiteStore *)self _migrateToCurrentSchemaVersionIfNeeded];
     if (_migrateToCurrentSchemaVersionIfNeeded != 8)
     {
-      v9 = _migrateToCurrentSchemaVersionIfNeeded;
-      v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = _migrateToCurrentSchemaVersionIfNeeded;
+      v15 = CPS_LOG_CHANNEL_PREFIXClipServices(_migrateToCurrentSchemaVersionIfNeeded, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(CPSClipDataSQLiteStore *)&self->_databaseURL _openDatabaseAndCheckIntegrity:v9, v10];
+        [(CPSClipDataSQLiteStore *)&self->_databaseURL _openDatabaseAndCheckIntegrity:v14, v15];
       }
 
 LABEL_17:
@@ -217,13 +221,13 @@ LABEL_17:
 
   else
   {
-    v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v16 = CPS_LOG_CHANNEL_PREFIXClipServices(v7, v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CPSClipDataSQLiteStore _openDatabaseAndCheckIntegrity:?];
+      [CPSClipDataSQLiteStore _openDatabaseAndCheckIntegrity:];
     }
 
-    v12 = self->_database;
+    v17 = self->_database;
     self->_database = 0;
   }
 }
@@ -245,6 +249,32 @@ LABEL_17:
   [statement invalidate];
 
   return v4;
+}
+
+- (int)_setDatabaseSchemaVersion:(int)version
+{
+  v19 = *MEMORY[0x277D85DE8];
+  database = self->_database;
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %d", *&version];
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
+
+  if (v7 != 101)
+  {
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      *buf = 67109634;
+      versionCopy = version;
+      v15 = 2114;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_2436ED000, v10, OS_LOG_TYPE_ERROR, "Failed to set the database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+    }
+  }
+
+  return v7;
 }
 
 - (int)_migrateToCurrentSchemaVersionIfNeeded
@@ -281,14 +311,14 @@ LABEL_17:
 
 - (int)_createFreshDatabaseSchema
 {
-  v9 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE app_clips (id INTEGER PRIMARY KEY AUTOINCREMENT,bundle_id TEXT NOT NULL UNIQUE,user_notification_consent INTEGER DEFAULT NULL,location_confirmation_consent INTEGER DEFAULT NULL,allows_location_confirmation_after_launch BOOL DEFAULT 0,last_user_notification_request_time REAL DEFAULT NULL,last_version_check_time REAL DEFAULT NULL,last_install_time REAL DEFAULT NULL,parent_app_name TEXT DEFAULT NULL,parent_app_caption TEXT DEFAULT NULL,parent_app_store_url TEXT DEFAULT NULL)");
   if (v3 == 101)
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX app_clips__bundle_id ON app_clips (bundle_id)") != 101)
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE INDEX app_clips__bundle_id ON app_clips (bundle_id)");
+    if (v5 != 101)
     {
-      v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v7 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -296,14 +326,14 @@ LABEL_17:
       }
     }
 
-    _createClipEntryPointsTable = [(CPSClipDataSQLiteStore *)self _createClipEntryPointsTable];
+    return [(CPSClipDataSQLiteStore *)self _createClipEntryPointsTable];
   }
 
   else
   {
-    _createClipEntryPointsTable = v3;
-    v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = v3;
+    v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -311,18 +341,17 @@ LABEL_17:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return _createClipEntryPointsTable;
+  return v8;
 }
 
 - (int)_createClipEntryPointsTable
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE clip_entry_points (id INTEGER PRIMARY KEY AUTOINCREMENT,app_clip_bundle_id TEXT DEFAULT NULL,web_clip_id TEXT NOT NULL UNIQUE,last_abr_fetch_time REAL DEFAULT 0,FOREIGN KEY(app_clip_bundle_id) REFERENCES app_clips(bundle_id) ON DELETE CASCADE ON UPDATE CASCADE)");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -330,16 +359,121 @@ LABEL_17:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
+}
+
+- (int)_migrateToSchemaVersion:(int)version
+{
+  v3 = *&version;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke;
+  v18[3] = &unk_278DCF210;
+  v18[4] = self;
+  v5 = MEMORY[0x245D3D5F0](v18, a2);
+  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"BEGIN TRANSACTION");
+  v8 = v6;
+  if (v6 != 101)
+  {
+    v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [CPSClipDataSQLiteStore _migrateToSchemaVersion:];
+    }
+
+    goto LABEL_28;
+  }
+
+  if (v3 > 4)
+  {
+    if (v3 < 8)
+    {
+      goto LABEL_14;
+    }
+
+    if (v3 == 8)
+    {
+      _migrateToSchemeVersion = [(CPSClipDataSQLiteStore *)self _migrateToSchemeVersion];
+      goto LABEL_15;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (v3 > 2)
+  {
+    goto LABEL_14;
+  }
+
+  if (v3 != 1)
+  {
+    if (v3 == 2)
+    {
+LABEL_14:
+      _migrateToSchemeVersion = [(CPSClipDataSQLiteStore *)self _migrateToSchemaVersion];
+LABEL_15:
+      v8 = _migrateToSchemeVersion;
+      if (_migrateToSchemeVersion == 101)
+      {
+        goto LABEL_16;
+      }
+
+LABEL_25:
+      v16 = CPS_LOG_CHANNEL_PREFIXClipServices(_migrateToSchemeVersion, v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        [CPSClipDataSQLiteStore _migrateToSchemaVersion:];
+      }
+
+      goto LABEL_27;
+    }
+
+LABEL_22:
+    v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    _migrateToSchemeVersion = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    if (_migrateToSchemeVersion)
+    {
+      [CPSClipDataSQLiteStore _migrateToSchemaVersion:];
+    }
+
+    v8 = 1;
+    goto LABEL_25;
+  }
+
+LABEL_16:
+  v8 = [(CPSClipDataSQLiteStore *)self _setDatabaseSchemaVersion:v3];
+  if (v8 != 101)
+  {
+LABEL_27:
+    v5[2](v5);
+    goto LABEL_28;
+  }
+
+  v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"COMMIT TRANSACTION");
+  v8 = v12;
+  if (v12 != 101)
+  {
+    v14 = CPS_LOG_CHANNEL_PREFIXClipServices(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [CPSClipDataSQLiteStore _migrateToSchemaVersion:];
+    }
+
+    goto LABEL_27;
+  }
+
+LABEL_28:
+
+  return v8;
 }
 
 void __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke(uint64_t a1)
 {
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK TRANSACTION") != 101)
+  v1 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(*(*(a1 + 32) + 16), 0, @"ROLLBACK TRANSACTION");
+  if (v1 != 101)
   {
-    v1 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = CPS_LOG_CHANNEL_PREFIXClipServices(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke_cold_1();
     }
@@ -348,13 +482,12 @@ void __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke(uint64_
 
 - (int)_migrateToSchemaVersion_2
 {
-  v8 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN parent_app_name TEXT DEFAULT NULL");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = v3;
+    v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -364,11 +497,12 @@ void __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke(uint64_
     goto LABEL_7;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN parent_app_caption TEXT DEFAULT NULL");
-  if (v4 != 101)
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN parent_app_caption TEXT DEFAULT NULL");
+  v7 = v5;
+  if (v5 != 101)
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -378,18 +512,17 @@ void __50__CPSClipDataSQLiteStore__migrateToSchemaVersion___block_invoke(uint64_
 LABEL_7:
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v7;
 }
 
 - (int)_migrateToSchemaVersion_3
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE clip_entry_points (id INTEGER PRIMARY KEY AUTOINCREMENT,app_clip_bundle_id TEXT DEFAULT NULL REFERENCES app_clips(bundle_id) ON DELETE SET NULL,web_clip_id TEXT NOT NULL UNIQUE,last_abr_fetch_time REAL DEFAULT 0)");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -397,18 +530,17 @@ LABEL_7:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_4
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN location_confirmation_consent BOOL DEFAULT 0");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -416,18 +548,17 @@ LABEL_7:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_5
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN parent_app_store_url TEXT DEFAULT NULL");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -435,18 +566,17 @@ LABEL_7:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_6
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE app_clips ADD COLUMN allows_location_confirmation_after_launch BOOL DEFAULT 0");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -454,18 +584,17 @@ LABEL_7:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemaVersion_7
 {
-  v7 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"UPDATE app_clips SET user_notification_consent = NULL, location_confirmation_consent = NULL");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -473,19 +602,17 @@ LABEL_7:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
 - (int)_migrateToSchemeVersion_8
 {
-  v9 = *MEMORY[0x277D85DE8];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE clip_entry_points RENAME TO clip_entry_points_old");
   if (v3 != 101)
   {
     _createClipEntryPointsTable = v3;
-    v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -498,10 +625,11 @@ LABEL_7:
   _createClipEntryPointsTable = [(CPSClipDataSQLiteStore *)self _createClipEntryPointsTable];
   if (_createClipEntryPointsTable == 101)
   {
-    if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO clip_entry_points (id, app_clip_bundle_id, web_clip_id, last_abr_fetch_time)SELECT clip_entry_points_old.id, clip_entry_points_old.app_clip_bundle_id, clip_entry_points_old.web_clip_id, clip_entry_points_old.last_abr_fetch_time FROM clip_entry_points_old") != 101)
+    v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"INSERT INTO clip_entry_points (id, app_clip_bundle_id, web_clip_id, last_abr_fetch_time)SELECT clip_entry_points_old.id, clip_entry_points_old.app_clip_bundle_id, clip_entry_points_old.web_clip_id, clip_entry_points_old.last_abr_fetch_time FROM clip_entry_points_old");
+    if (v6 != 101)
     {
-      v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -509,11 +637,12 @@ LABEL_7:
       }
     }
 
-    _createClipEntryPointsTable = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE clip_entry_points_old");
-    if (_createClipEntryPointsTable != 101)
+    v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE clip_entry_points_old");
+    _createClipEntryPointsTable = v9;
+    if (v9 != 101)
     {
-      v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -524,7 +653,6 @@ LABEL_12:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return _createClipEntryPointsTable;
 }
 
@@ -543,18 +671,18 @@ LABEL_12:
     block[2] = __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke;
     block[3] = &unk_278DCF238;
     block[4] = self;
-    v13 = recordCopy;
-    v14 = completionCopy;
+    v15 = recordCopy;
+    v16 = completionCopy;
     dispatch_async(databaseQueue, block);
   }
 
   else
   {
-    v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2436ED000, v11, OS_LOG_TYPE_DEFAULT, "Not saving app clip record because bundle ID is nil", buf, 2u);
+      _os_log_impl(&dword_2436ED000, v13, OS_LOG_TYPE_DEFAULT, "Not saving app clip record because bundle ID is nil", buf, 2u);
     }
 
     if (completionCopy)
@@ -566,56 +694,53 @@ LABEL_12:
 
 void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _updateAppClipRecord:*(a1 + 40)];
   v3 = [*(a1 + 40) fullApplicationName];
   v4 = [v3 cps_privacyPreservingDescription];
 
   if (v2)
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v4;
-      _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated existing app clip record with full app named %{public}@", &v11, 0xCu);
+      v13 = 138543362;
+      v14 = v4;
+      _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated existing app clip record with full app named %{public}@", &v13, 0xCu);
     }
 
-    v6 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v6 = [*(a1 + 32) _insertAppClipRecord:*(a1 + 40)];
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = [*(a1 + 32) _insertAppClipRecord:*(a1 + 40)];
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"Failed to insert";
-      if (v6)
+      v11 = @"Failed to insert";
+      if (v8)
       {
-        v8 = @"Successfully inserted";
+        v11 = @"Successfully inserted";
       }
 
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v4;
-      _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "%@ new app clip record with full app named %{public}@", &v11, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v4;
+      _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_DEFAULT, "%@ new app clip record with full app named %{public}@", &v13, 0x16u);
     }
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    (*(v9 + 16))(v9, v6);
+    (*(v12 + 16))(v12, v8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateAppClipRecord:(id)record
 {
-  v20 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
@@ -667,10 +792,11 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
     [v5 bindString:bundleID atParameterIndex:10];
 
     execute = [v5 execute];
+    v18 = execute;
     if (execute != 101)
     {
-      v17 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = CPS_LOG_CHANNEL_PREFIXClipServices(execute, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         objc_claimAutoreleasedReturnValue();
@@ -679,7 +805,7 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
     }
 
     [v5 invalidate];
-    v8 = execute == 101 && [(WBSSQLiteDatabase *)self->_database changedRowCount]!= 0;
+    v8 = v18 == 101 && [(WBSSQLiteDatabase *)self->_database changedRowCount]!= 0;
   }
 
   else
@@ -687,13 +813,11 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
     v8 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_insertAppClipRecord:(id)record
 {
-  v20 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = [objc_alloc(MEMORY[0x277D49B08]) initWithDatabase:self->_database query:{@"INSERT INTO app_clips (bundle_id, user_notification_consent, location_confirmation_consent, allows_location_confirmation_after_launch, last_user_notification_request_time, last_version_check_time, last_install_time, parent_app_name, parent_app_caption, parent_app_store_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"}];
   bundleID = [recordCopy bundleID];
@@ -743,10 +867,11 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
   [v5 bindString:absoluteString atParameterIndex:10];
 
   execute = [v5 execute];
+  v17 = execute;
   if (execute != 101)
   {
-    v16 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = CPS_LOG_CHANNEL_PREFIXClipServices(execute, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -755,10 +880,9 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
   }
 
   [v5 invalidate];
-  v17 = execute == 101 && [(WBSSQLiteDatabase *)self->_database changedRowCount]!= 0;
+  v19 = v17 == 101 && [(WBSSQLiteDatabase *)self->_database changedRowCount]!= 0;
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 - (void)getAppClipRecordWithBundleID:(id)d completion:(id)completion
@@ -780,54 +904,53 @@ void __55__CPSClipDataSQLiteStore_saveAppClipRecord_completion___block_invoke(ui
 
 void __66__CPSClipDataSQLiteStore_getAppClipRecordWithBundleID_completion___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = SafariShared::WBSSQLiteDatabaseFetch<NSString * const {__strong}&>(*(a1[4] + 16), @"SELECT user_notification_consent, location_confirmation_consent, allows_location_confirmation_after_launch, last_user_notification_request_time, last_version_check_time, last_install_time, parent_app_name, parent_app_caption, parent_app_store_url FROM app_clips WHERE bundle_id = ?", a1 + 5);
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = a1[5];
-    v15 = 138739971;
-    v16 = v4;
-    _os_log_impl(&dword_2436ED000, v3, OS_LOG_TYPE_DEFAULT, "Getting app clip record with bundle ID %{sensitive}@", &v15, 0xCu);
+    v5 = a1[5];
+    v17 = 138739971;
+    v18 = v5;
+    _os_log_impl(&dword_2436ED000, v4, OS_LOG_TYPE_DEFAULT, "Getting app clip record with bundle ID %{sensitive}@", &v17, 0xCu);
   }
 
-  v5 = [v2 nextObject];
-  if (v5)
+  v7 = [v2 nextObject];
+  if (v7)
   {
-    v6 = [[CPSAppClipRecord alloc] initWithSQLiteRow:v5 bundleID:a1[5]];
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = [[CPSAppClipRecord alloc] initWithSQLiteRow:v7 bundleID:a1[5]];
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [(CPSAppClipRecord *)v6 fullApplicationName];
-      v9 = [v8 cps_privacyPreservingDescription];
-      v10 = [(CPSAppClipRecord *)v6 fullApplicationCaption];
-      v11 = [v10 cps_privacyPreservingDescription];
-      v15 = 138740483;
-      v16 = v6;
-      v17 = 2114;
-      v18 = v9;
+      v11 = [(CPSAppClipRecord *)v8 fullApplicationName];
+      v12 = [v11 cps_privacyPreservingDescription];
+      v13 = [(CPSAppClipRecord *)v8 fullApplicationCaption];
+      v14 = [v13 cps_privacyPreservingDescription];
+      v17 = 138740483;
+      v18 = v8;
       v19 = 2114;
-      v20 = v11;
-      _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "Retrieved app clip record %{sensitive}@, name is %{public}@, caption is %{public}@", &v15, 0x20u);
+      v20 = v12;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_DEFAULT, "Retrieved app clip record %{sensitive}@, name is %{public}@, caption is %{public}@", &v17, 0x20u);
     }
   }
 
   else
   {
-    v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = CPS_LOG_CHANNEL_PREFIXClipServices(0, v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __66__CPSClipDataSQLiteStore_getAppClipRecordWithBundleID_completion___block_invoke_cold_1();
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
-  v13 = [v2 statement];
-  [v13 invalidate];
+  v16 = [v2 statement];
+  [v16 invalidate];
 
   (*(a1[6] + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveClipEntryPointRecord:(id)record completion:(id)completion
@@ -863,20 +986,21 @@ uint64_t __62__CPSClipDataSQLiteStore_saveClipEntryPointRecord_completion___bloc
 
 - (BOOL)_insertOrReplaceEntryPointRecord:(id)record
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = [objc_alloc(MEMORY[0x277D49B08]) initWithDatabase:self->_database query:{@"INSERT OR REPLACE INTO clip_entry_points (app_clip_bundle_id, web_clip_id, last_abr_fetch_time) VALUES (?, ?, ?)"}];
   appClipBundleID = [recordCopy appClipBundleID];
   webClipIdentifier = [recordCopy webClipIdentifier];
   [recordCopy lastABRFetchTime];
-  v13[0] = v6;
-  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSString * {__strong},double>(v5, &appClipBundleID, &webClipIdentifier, v13);
+  v14[0] = v6;
+  SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSString * {__strong},NSString * {__strong},double>(v5, &appClipBundleID, &webClipIdentifier, v14);
 
   execute = [v5 execute];
+  v9 = execute;
   if (execute != 101)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(execute, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -886,8 +1010,7 @@ uint64_t __62__CPSClipDataSQLiteStore_saveClipEntryPointRecord_completion___bloc
 
   [v5 invalidate];
 
-  v9 = *MEMORY[0x277D85DE8];
-  return execute == 101;
+  return v9 == 101;
 }
 
 - (void)getEntryPointRecordWithWebClipIdentifier:(id)identifier completion:(id)completion
@@ -943,13 +1066,13 @@ void __78__CPSClipDataSQLiteStore_getEntryPointRecordWithWebClipIdentifier_compl
 
 void __51__CPSClipDataSQLiteStore_removeRecordWithBundleID___block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D49B08]) initWithDatabase:*(*(a1 + 32) + 16) query:@"DELETE FROM app_clips WHERE bundle_id = ?"];
   [v2 bindString:*(a1 + 40) atParameterIndex:1];
-  if ([v2 execute] != 101)
+  v3 = [v2 execute];
+  if (v3 != 101)
   {
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [*(*(a1 + 32) + 16) lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -958,48 +1081,19 @@ void __51__CPSClipDataSQLiteStore_removeRecordWithBundleID___block_invoke(uint64
   }
 
   [v2 invalidate];
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_checkDatabaseIntegrity
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_openDatabaseAndCheckIntegrity:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_openDatabaseAndCheckIntegrity:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openDatabaseAndCheckIntegrity:(os_log_t)log .cold.3(uint64_t *a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5[0] = 67109634;
-  v5[1] = a2;
-  v6 = 1024;
-  v7 = 8;
-  v8 = 2114;
-  v9 = v3;
-  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "CPSClip Data SQLite schema version (%d) does not match our supported schema version (%d) in store at %{public}@", v5, 0x18u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109634;
+  v4[1] = a2;
+  v5 = 1024;
+  v6 = 8;
+  v7 = 2114;
+  v8 = v3;
+  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "CPSClip Data SQLite schema version (%d) does not match our supported schema version (%d) in store at %{public}@", v4, 0x18u);
 }
 
 - (void)_createFreshDatabaseSchema
@@ -1018,38 +1112,30 @@ void __51__CPSClipDataSQLiteStore_removeRecordWithBundleID___block_invoke(uint64
 
 - (void)_migrateToSchemaVersion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateToSchemaVersion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateToSchemaVersion:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateToSchemaVersion:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateToSchemaVersion_2

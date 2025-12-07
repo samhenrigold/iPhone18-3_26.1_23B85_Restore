@@ -21,7 +21,7 @@
 
 - (void)cancel
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -39,43 +39,43 @@
       objc_storeStrong(&self->_listener, 0);
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     sessionsBeforeAuth = self->_sessionsBeforeAuth;
   }
 
   else
   {
     sessionsBeforeAuth = 0;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
   }
 
   v6 = sessionsBeforeAuth;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v22 + 1) + 8 * v10++) invalidate];
+        [*(*(&v21 + 1) + 8 * v10++) invalidate];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v8);
@@ -84,10 +84,10 @@
   if (self)
   {
     [(NSMutableSet *)self->_sessionsBeforeAuth removeAllObjects];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     connectionTransports = self->_connectionTransports;
   }
 
@@ -95,33 +95,33 @@
   {
     [0 removeAllObjects];
     connectionTransports = 0;
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
   }
 
   v12 = connectionTransports;
-  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v18 objects:v27 count:16];
+  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(NEIKEv2Transport *)*(*(&v18 + 1) + 8 * v16++) setWildcardDelegate:0 preventsInvalidation:?];
+        [(NEIKEv2Transport *)*(*(&v17 + 1) + 8 * v16++) setWildcardDelegate:0 preventsInvalidation:?];
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v14);
@@ -139,8 +139,6 @@
     [0 removeAllObjects];
     [(NEIKEv2Transport *)0 setWildcardDelegate:0 preventsInvalidation:?];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -153,7 +151,7 @@
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config kernelSASessionName:(id)name packetDelegate:(id)delegate listenerQueue:(id)queue delegate:(id)a7 delegateQueue:(id)delegateQueue
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   configCopy = config;
   nameCopy = name;
   delegateCopy = delegate;
@@ -163,56 +161,56 @@
   v20 = delegateQueueCopy;
   if (!configCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null ikeConfig";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null ikeConfig";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, v25, &v26, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, &v25, 0xCu);
     goto LABEL_16;
   }
 
   if (!delegateCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null packetDelegate";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null packetDelegate";
     goto LABEL_15;
   }
 
   if (!v18)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null delegate";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null delegate";
     goto LABEL_15;
   }
 
   if (!delegateQueueCopy)
   {
-    v24 = ne_log_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      v26 = 136315138;
-      v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-      v25 = "%s called with null delegateQueue";
+      v25 = 136315138;
+      v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+      v24 = "%s called with null delegateQueue";
       goto LABEL_15;
     }
 
@@ -226,7 +224,6 @@ LABEL_16:
   selfCopy = self;
 LABEL_6:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -365,7 +362,7 @@ LABEL_6:
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config kernelSASessionName:(id)name listenerUDPPort:(id)port listenerQueue:(id)queue delegate:(id)delegate delegateQueue:(id)delegateQueue includeP2P:(BOOL)p
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   configCopy = config;
   nameCopy = name;
   portCopy = port;
@@ -375,56 +372,56 @@ LABEL_6:
   v21 = delegateQueueCopy;
   if (!configCopy)
   {
-    v25 = ne_log_obj();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
-    v26 = "%s called with null ikeConfig";
+    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
+    v25 = "%s called with null ikeConfig";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, v26, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, v25, buf, 0xCu);
     goto LABEL_16;
   }
 
   if (!portCopy)
   {
-    v25 = ne_log_obj();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
-    v26 = "%s called with null listenerUDPPort";
+    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
+    v25 = "%s called with null listenerUDPPort";
     goto LABEL_15;
   }
 
   if (!delegateCopy)
   {
-    v25 = ne_log_obj();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
-    v26 = "%s called with null delegate";
+    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
+    v25 = "%s called with null delegate";
     goto LABEL_15;
   }
 
   if (!delegateQueueCopy)
   {
-    v25 = ne_log_obj();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
-      v26 = "%s called with null delegateQueue";
+      v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:includeP2P:]";
+      v25 = "%s called with null delegateQueue";
       goto LABEL_15;
     }
 
@@ -438,13 +435,12 @@ LABEL_16:
   selfCopy = self;
 LABEL_6:
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NSObject)initWithListenerIKEConfig:(void *)config saSession:(void *)session kernelSASessionName:(void *)name listenerUDPPort:(void *)port listenerInterface:(void *)interface listenerQueue:(void *)queue delegate:(void *)delegate delegateQueue:(char)self0 includeP2P:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v17 = a2;
   configCopy = config;
   sessionCopy = session;
@@ -456,16 +452,16 @@ LABEL_6:
   if (!self)
   {
     selfCopy = 0;
-    v49 = delegateCopy;
+    v48 = delegateCopy;
     v25 = sessionCopy;
     goto LABEL_22;
   }
 
   if (([nameCopy longLongValue] - 0x10000) > 0xFFFFFFFFFFFF0000)
   {
-    v56.receiver = self;
-    v56.super_class = NEIKEv2Listener;
-    v26 = [&v56 init];
+    v54.receiver = self;
+    v54.super_class = NEIKEv2Listener;
+    v26 = [&v54 init];
     if (v26)
     {
       v27 = v26;
@@ -498,11 +494,10 @@ LABEL_6:
 
       objc_storeWeak((v27 + 80), queueCopy);
       objc_storeStrong((v27 + 88), delegate);
-      v36 = *MEMORY[0x1E6977EB8];
       legacy_tcp_socket = nw_parameters_create_legacy_tcp_socket();
-      v38 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
-      v39 = MEMORY[0x1BFAFB680]();
-      nw_protocol_stack_set_transport_protocol(v38, v39);
+      v37 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
+      v38 = MEMORY[0x1BFAFB680]();
+      nw_protocol_stack_set_transport_protocol(v37, v38);
 
       nw_parameters_set_data_mode();
       host = nw_endpoint_create_host("::", [nameCopy UTF8String]);
@@ -514,33 +509,33 @@ LABEL_6:
 
       if (portCopy)
       {
-        v41 = configCopy;
+        v40 = configCopy;
         [portCopy UTF8String];
-        v42 = nw_interface_create_with_name();
-        if (v42)
+        v41 = nw_interface_create_with_name();
+        if (v41)
         {
-          nw_parameters_require_interface(legacy_tcp_socket, v42);
+          nw_parameters_require_interface(legacy_tcp_socket, v41);
         }
 
-        configCopy = v41;
+        configCopy = v40;
       }
 
-      if ([v17 forceUDPEncapsulation] && v38)
+      if ([v17 forceUDPEncapsulation] && v37)
       {
-        v52 = nameCopy;
-        v43 = interfaceCopy;
-        v44 = portCopy;
-        v45 = v17;
-        v46 = configCopy;
-        v47 = NEIKEv2TransportCopyNATTFramerDefinition();
-        options = nw_framer_create_options(v47);
-        nw_protocol_stack_prepend_application_protocol(v38, options);
+        v50 = nameCopy;
+        v42 = interfaceCopy;
+        v43 = portCopy;
+        v44 = v17;
+        v45 = configCopy;
+        v46 = NEIKEv2TransportCopyNATTFramerDefinition();
+        options = nw_framer_create_options(v46);
+        nw_protocol_stack_prepend_application_protocol(v37, options);
 
-        configCopy = v46;
-        v17 = v45;
-        portCopy = v44;
-        interfaceCopy = v43;
-        nameCopy = v52;
+        configCopy = v45;
+        v17 = v44;
+        portCopy = v43;
+        interfaceCopy = v42;
+        nameCopy = v50;
       }
 
       [(NEIKEv2Listener *)v27 createListenerWithParameters:0 attempt:?];
@@ -566,7 +561,7 @@ LABEL_6:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v58 = nameCopy;
+      v56 = nameCopy;
       _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "Invalid listenerUDPPort %@", buf, 0xCu);
     }
   }
@@ -574,16 +569,15 @@ LABEL_6:
   selfCopy = 0;
   v25 = sessionCopy;
 LABEL_21:
-  v49 = delegateCopy;
+  v48 = delegateCopy;
 
 LABEL_22:
-  v50 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)createListenerWithParameters:(unsigned int)parameters attempt:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ((*(self + 8) & 1) == 0)
   {
@@ -594,8 +588,8 @@ LABEL_22:
       {
         LODWORD(location) = 67109378;
         HIDWORD(location) = parameters;
-        v31 = 2112;
-        v32 = v5;
+        v30 = 2112;
+        v31 = v5;
         _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "failed to create a listener after %u retries (parameters %@)", &location, 0x12u);
       }
 
@@ -638,22 +632,22 @@ LABEL_14:
     handler[1] = 3221225472;
     handler[2] = __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke;
     handler[3] = &unk_1E7F08620;
-    objc_copyWeak(&v28, &location);
+    objc_copyWeak(&v27, &location);
     v15 = v13;
-    v26 = v15;
+    v25 = v15;
     parametersCopy = parameters;
-    v27 = v5;
+    v26 = v5;
     nw_listener_set_state_changed_handler(v14, handler);
 
     v16 = *(self + 48);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_4;
-    v22[3] = &unk_1E7F08648;
-    objc_copyWeak(&v24, &location);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_4;
+    v21[3] = &unk_1E7F08648;
+    objc_copyWeak(&v23, &location);
     v17 = v15;
-    v23 = v17;
-    nw_listener_set_new_connection_handler(v16, v22);
+    v22 = v17;
+    nw_listener_set_new_connection_handler(v16, v21);
 
     v18 = *(self + 48);
     nw_listener_start(v18);
@@ -661,24 +655,22 @@ LABEL_14:
     v19 = ne_log_large_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "Created IKE listener", v21, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "Created IKE listener", v20, 2u);
     }
 
-    objc_destroyWeak(&v24);
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v27);
 
     objc_destroyWeak(&location);
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = WeakRetained;
@@ -688,18 +680,18 @@ void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke(u
     {
       if (a2 == 3 && nw_error_get_error_code(v5) == 48)
       {
-        v11 = dispatch_time(0x8000000000000000, 200000000 * *(a1 + 56) + 200000000);
-        v12 = [v7 listenerQueue];
+        v10 = dispatch_time(0x8000000000000000, 200000000 * *(a1 + 56) + 200000000);
+        v11 = [v7 listenerQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_2;
         block[3] = &unk_1E7F085F8;
-        objc_copyWeak(&v17, (a1 + 48));
-        v16 = *(a1 + 40);
-        v18 = *(a1 + 56);
-        dispatch_after(v11, v12, block);
+        objc_copyWeak(&v16, (a1 + 48));
+        v15 = *(a1 + 40);
+        v17 = *(a1 + 56);
+        dispatch_after(v10, v11, block);
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v16);
       }
     }
 
@@ -708,12 +700,12 @@ void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke(u
       v8 = ne_log_obj();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = v7[6];
-        v14 = *(a1 + 32);
+        v12 = v7[6];
+        v13 = *(a1 + 32);
         *buf = 134218240;
-        v20 = v13;
-        v21 = 2048;
-        v22 = v14;
+        v19 = v12;
+        v20 = 2048;
+        v21 = v13;
         _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "ignoring update for a stale listener %p != %p", buf, 0x16u);
       }
 
@@ -727,17 +719,15 @@ void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v20) = a2;
+      LODWORD(v19) = a2;
       _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "IKE listener released, ignoring state change to %d", buf, 8u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_4(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -813,167 +803,167 @@ LABEL_10:
 
   if (!v15)
   {
-    v54 = ne_log_obj();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
+    v53 = ne_log_obj();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NEIKEv2Listener handleNewConnection:]";
-      _os_log_fault_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_FAULT, "%s called with null connection", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_FAULT, "%s called with null connection", buf, 0xCu);
     }
 
     v17 = 0;
     goto LABEL_54;
   }
 
-  v19 = nw_connection_copy_endpoint(v15);
-  v20 = v19;
-  if (!v19)
+  v18 = nw_connection_copy_endpoint(v15);
+  v19 = v18;
+  if (!v18)
   {
-    v54 = 0;
-    v55 = ne_log_obj();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+    v53 = 0;
+    v54 = ne_log_obj();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NEIKEv2Listener handleNewConnection:]";
-      _os_log_fault_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_FAULT, "%s called with null remoteEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_FAULT, "%s called with null remoteEndpoint", buf, 0xCu);
     }
 
     goto LABEL_53;
   }
 
-  type = nw_endpoint_get_type(v19);
+  type = nw_endpoint_get_type(v18);
   if (type != nw_endpoint_type_address)
   {
-    v56 = type;
-    v55 = ne_log_obj();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+    v55 = type;
+    v54 = ne_log_obj();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v56;
-      _os_log_fault_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_FAULT, "Unexpected endpoint type %d", buf, 8u);
+      *&buf[4] = v55;
+      _os_log_fault_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_FAULT, "Unexpected endpoint type %d", buf, 8u);
     }
 
     goto LABEL_52;
   }
 
-  v22 = [v5 listenerQueue];
-  v23 = v16;
-  v24 = v22;
+  v21 = [v5 listenerQueue];
+  v22 = v16;
+  v23 = v21;
   objc_opt_self();
-  if (!v24)
+  if (!v23)
   {
-    v25 = ne_log_obj();
-    if (os_log_type_enabled(&v25->super, OS_LOG_TYPE_FAULT))
+    v24 = ne_log_obj();
+    if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "+[NEIKEv2Transport createTransportWithConnection:queue:]";
-      _os_log_fault_impl(&dword_1BA83C000, &v25->super, OS_LOG_TYPE_FAULT, "%s called with null queue", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, &v24->super, OS_LOG_TYPE_FAULT, "%s called with null queue", buf, 0xCu);
     }
 
     goto LABEL_44;
   }
 
-  v25 = objc_alloc_init(NEIKEv2Transport);
-  if (!v25)
+  v24 = objc_alloc_init(NEIKEv2Transport);
+  if (!v24)
   {
 LABEL_44:
-    v53 = 0;
+    v52 = 0;
     goto LABEL_45;
   }
 
-  v26 = nw_connection_copy_parameters(v23);
+  v25 = nw_connection_copy_parameters(v22);
   ip_protocol = nw_parameters_get_ip_protocol();
-  v59 = v20;
+  v58 = v19;
   if (ip_protocol == 6)
   {
     if (nw_parameters_get_tls())
     {
-      v32 = 3;
+      v31 = 3;
     }
 
     else
     {
-      v32 = 2;
+      v31 = 2;
     }
 
-    v25->_transportType = v32;
+    v24->_transportType = v31;
   }
 
   else if (ip_protocol == 17)
   {
-    v28 = nw_parameters_copy_default_protocol_stack(v26);
-    v31 = 0;
-    if (v28)
+    v27 = nw_parameters_copy_default_protocol_stack(v25);
+    v30 = 0;
+    if (v27)
     {
-      v29 = NEIKEv2TransportCopyNATTFramerDefinition();
-      v30 = nw_protocol_stack_includes_protocol();
+      v28 = NEIKEv2TransportCopyNATTFramerDefinition();
+      v29 = nw_protocol_stack_includes_protocol();
 
-      if (v30)
+      if (v29)
       {
-        v31 = 1;
+        v30 = 1;
       }
     }
 
-    v25->_transportType = v31;
+    v24->_transportType = v30;
   }
 
-  v33 = MEMORY[0x1E6977E20];
-  v34 = nw_connection_copy_endpoint(v23);
-  v35 = [v33 endpointWithCEndpoint:v34];
-  objc_setProperty_atomic(v25, v36, v35, 24);
+  v32 = MEMORY[0x1E6977E20];
+  v33 = nw_connection_copy_endpoint(v22);
+  v34 = [v32 endpointWithCEndpoint:v33];
+  objc_setProperty_atomic(v24, v35, v34, 24);
 
-  v37 = MEMORY[0x1E6977E20];
-  v38 = MEMORY[0x1BFAFB2D0](v26);
-  v39 = [v37 endpointWithCEndpoint:v38];
-  objc_setProperty_atomic(v25, v40, v39, 16);
+  v36 = MEMORY[0x1E6977E20];
+  v37 = MEMORY[0x1BFAFB2D0](v25);
+  v38 = [v36 endpointWithCEndpoint:v37];
+  objc_setProperty_atomic(v24, v39, v38, 16);
 
-  objc_setProperty_atomic(v25, v41, v24, 72);
-  objc_setProperty_atomic(v25, v42, v23, 56);
-  Property = objc_getProperty(v25, v43, 56, 1);
-  nw_connection_set_queue(Property, v24);
-  v46 = objc_getProperty(v25, v45, 56, 1);
+  objc_setProperty_atomic(v24, v40, v23, 72);
+  objc_setProperty_atomic(v24, v41, v22, 56);
+  Property = objc_getProperty(v24, v42, 56, 1);
+  nw_connection_set_queue(Property, v23);
+  v45 = objc_getProperty(v24, v44, 56, 1);
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __56__NEIKEv2Transport_createTransportWithConnection_queue___block_invoke;
-  v61 = &unk_1E7F08D88;
-  v47 = v25;
-  v62 = v47;
-  MEMORY[0x1BFAFAEA0](v46, buf);
-  v49 = objc_getProperty(v47, v48, 56, 1);
-  nw_connection_start(v49);
+  v60 = &unk_1E7F08D88;
+  v46 = v24;
+  v61 = v46;
+  MEMORY[0x1BFAFAEA0](v45, buf);
+  v48 = objc_getProperty(v46, v47, 56, 1);
+  nw_connection_start(v48);
   os_unfair_lock_lock(&g_transport_lock);
-  v50 = g_transports;
+  v49 = g_transports;
   if (!g_transports)
   {
-    v51 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v52 = g_transports;
-    g_transports = v51;
+    v50 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v51 = g_transports;
+    g_transports = v50;
 
-    v50 = g_transports;
+    v49 = g_transports;
   }
 
-  [v50 addObject:v47];
+  [v49 addObject:v46];
   os_unfair_lock_unlock(&g_transport_lock);
-  v25 = v47;
+  v24 = v46;
 
-  v53 = v25;
-  v20 = v59;
+  v52 = v24;
+  v19 = v58;
 LABEL_45:
 
-  v57 = ne_log_obj();
-  v58 = v57;
-  if (!v53)
+  v56 = ne_log_obj();
+  v57 = v56;
+  if (!v52)
   {
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NEIKEv2Listener handleNewConnection:]";
-      _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "%s called with null transport", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null transport", buf, 0xCu);
     }
 
-    v55 = 0;
+    v54 = 0;
 LABEL_52:
-    v54 = v20;
+    v53 = v19;
 LABEL_53:
 
     v17 = v16;
@@ -982,20 +972,19 @@ LABEL_54:
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    *&buf[4] = v53;
+    *&buf[4] = v52;
     *&buf[12] = 2112;
-    *&buf[14] = v23;
-    _os_log_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_DEFAULT, "Created %@ with connection %@", buf, 0x16u);
+    *&buf[14] = v22;
+    _os_log_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_DEFAULT, "Created %@ with connection %@", buf, 0x16u);
   }
 
-  [*(v5 + 8) addObject:v53];
-  [(NEIKEv2Transport *)v53 setWildcardDelegate:v5 preventsInvalidation:0];
+  [*(v5 + 8) addObject:v52];
+  [(NEIKEv2Transport *)v52 setWildcardDelegate:v5 preventsInvalidation:0];
 
 LABEL_15:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_2(uint64_t a1)
@@ -1020,7 +1009,7 @@ void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_2
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config kernelSASessionName:(id)name listenerUDPPort:(id)port listenerQueue:(id)queue delegate:(id)delegate delegateQueue:(id)delegateQueue
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   configCopy = config;
   nameCopy = name;
   portCopy = port;
@@ -1030,56 +1019,56 @@ void __56__NEIKEv2Listener_createListenerWithParameters_attempt___block_invoke_2
   v20 = delegateQueueCopy;
   if (!configCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null ikeConfig";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null ikeConfig";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, v25, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, buf, 0xCu);
     goto LABEL_16;
   }
 
   if (!portCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null listenerUDPPort";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null listenerUDPPort";
     goto LABEL_15;
   }
 
   if (!delegateCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null delegate";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null delegate";
     goto LABEL_15;
   }
 
   if (!delegateQueueCopy)
   {
-    v24 = ne_log_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v27 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-      v25 = "%s called with null delegateQueue";
+      v26 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+      v24 = "%s called with null delegateQueue";
       goto LABEL_15;
     }
 
@@ -1093,13 +1082,12 @@ LABEL_16:
   selfCopy = self;
 LABEL_6:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config kernelSASessionName:(id)name listenerUDPPort:(id)port listenerInterface:(id)interface listenerQueue:(id)queue delegate:(id)delegate delegateQueue:(id)delegateQueue
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   configCopy = config;
   nameCopy = name;
   portCopy = port;
@@ -1110,70 +1098,70 @@ LABEL_6:
   v22 = delegateQueueCopy;
   if (!configCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null ikeConfig";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null ikeConfig";
 LABEL_18:
-    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, v26, buf, 0xCu);
     goto LABEL_19;
   }
 
   if (!portCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null listenerUDPPort";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null listenerUDPPort";
     goto LABEL_18;
   }
 
   if (!delegateCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null delegate";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null delegate";
     goto LABEL_18;
   }
 
   if (!delegateQueueCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null delegateQueue";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null delegateQueue";
     goto LABEL_18;
   }
 
   if (!interfaceCopy)
   {
-    v26 = ne_log_obj();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v29 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-      v27 = "%s called with null listenerInterface";
+      v28 = "[NEIKEv2Listener initWithListenerIKEConfig:kernelSASessionName:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+      v26 = "%s called with null listenerInterface";
       goto LABEL_18;
     }
 
@@ -1187,13 +1175,12 @@ LABEL_19:
   selfCopy = self;
 LABEL_7:
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config saSession:(id)session packetDelegate:(id)delegate listenerQueue:(id)queue delegate:(id)a7 delegateQueue:(id)delegateQueue
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   configCopy = config;
   sessionCopy = session;
   delegateCopy = delegate;
@@ -1203,56 +1190,56 @@ LABEL_7:
   v20 = delegateQueueCopy;
   if (!configCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null ikeConfig";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null ikeConfig";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, v25, &v26, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, &v25, 0xCu);
     goto LABEL_16;
   }
 
   if (!delegateCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null packetDelegate";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null packetDelegate";
     goto LABEL_15;
   }
 
   if (!v18)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
-    v26 = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null delegate";
+    v25 = 136315138;
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null delegate";
     goto LABEL_15;
   }
 
   if (!delegateQueueCopy)
   {
-    v24 = ne_log_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      v26 = 136315138;
-      v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
-      v25 = "%s called with null delegateQueue";
+      v25 = 136315138;
+      v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:packetDelegate:listenerQueue:delegate:delegateQueue:]";
+      v24 = "%s called with null delegateQueue";
       goto LABEL_15;
     }
 
@@ -1266,13 +1253,12 @@ LABEL_16:
   selfCopy = self;
 LABEL_6:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config saSession:(id)session listenerUDPPort:(id)port listenerQueue:(id)queue delegate:(id)delegate delegateQueue:(id)delegateQueue
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   configCopy = config;
   sessionCopy = session;
   portCopy = port;
@@ -1282,56 +1268,56 @@ LABEL_6:
   v20 = delegateQueueCopy;
   if (!configCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null ikeConfig";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null ikeConfig";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, v25, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, buf, 0xCu);
     goto LABEL_16;
   }
 
   if (!portCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null listenerUDPPort";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null listenerUDPPort";
     goto LABEL_15;
   }
 
   if (!delegateCopy)
   {
-    v24 = ne_log_obj();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_16;
     }
 
     *buf = 136315138;
-    v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-    v25 = "%s called with null delegate";
+    v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+    v24 = "%s called with null delegate";
     goto LABEL_15;
   }
 
   if (!delegateQueueCopy)
   {
-    v24 = ne_log_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = ne_log_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v27 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
-      v25 = "%s called with null delegateQueue";
+      v26 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerQueue:delegate:delegateQueue:]";
+      v24 = "%s called with null delegateQueue";
       goto LABEL_15;
     }
 
@@ -1345,13 +1331,12 @@ LABEL_16:
   selfCopy = self;
 LABEL_6:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2Listener)initWithListenerIKEConfig:(id)config saSession:(id)session listenerUDPPort:(id)port listenerInterface:(id)interface listenerQueue:(id)queue delegate:(id)delegate delegateQueue:(id)delegateQueue
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   configCopy = config;
   sessionCopy = session;
   portCopy = port;
@@ -1362,70 +1347,70 @@ LABEL_6:
   v22 = delegateQueueCopy;
   if (!configCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null ikeConfig";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null ikeConfig";
 LABEL_18:
-    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, v26, buf, 0xCu);
     goto LABEL_19;
   }
 
   if (!portCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null listenerUDPPort";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null listenerUDPPort";
     goto LABEL_18;
   }
 
   if (!delegateCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null delegate";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null delegate";
     goto LABEL_18;
   }
 
   if (!delegateQueueCopy)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_19;
     }
 
     *buf = 136315138;
-    v29 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-    v27 = "%s called with null delegateQueue";
+    v28 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+    v26 = "%s called with null delegateQueue";
     goto LABEL_18;
   }
 
   if (!interfaceCopy)
   {
-    v26 = ne_log_obj();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v29 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
-      v27 = "%s called with null listenerInterface";
+      v28 = "[NEIKEv2Listener initWithListenerIKEConfig:saSession:listenerUDPPort:listenerInterface:listenerQueue:delegate:delegateQueue:]";
+      v26 = "%s called with null listenerInterface";
       goto LABEL_18;
     }
 
@@ -1439,7 +1424,6 @@ LABEL_19:
   selfCopy = self;
 LABEL_7:
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -1455,7 +1439,7 @@ LABEL_7:
 
 - (void)receivePacket:(id)packet transport:(id)transport
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   packetCopy = packet;
   transportCopy = transport;
   listenerQueue = [(NEIKEv2Listener *)self listenerQueue];
@@ -1463,7 +1447,7 @@ LABEL_7:
 
   if (!self || !self->_cancelled)
   {
-    if ([packetCopy exchangeType] != 34 || !packetCopy || (packetCopy[11] & 1) == 0 || (packetCopy[10] & 1) != 0 || (v10 = objc_getProperty(packetCopy, v9, 40, 1), v11 = objc_msgSend(v10, "value"), v10, v11))
+    if ([packetCopy exchangeType] != 34 || !packetCopy || (*(packetCopy + 11) & 1) == 0 || (*(packetCopy + 10) & 1) != 0 || (v10 = objc_getProperty(packetCopy, v9, 40, 1), v11 = objc_msgSend(v10, "value"), v10, v11))
     {
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -1482,7 +1466,7 @@ LABEL_10:
     if (self)
     {
       WeakRetained = objc_loadWeakRetained(&self->_packetDelegate);
-      v16 = self->_ikeConfig;
+      v15 = self->_ikeConfig;
       if (WeakRetained)
       {
         goto LABEL_18;
@@ -1493,17 +1477,17 @@ LABEL_10:
 
     else
     {
-      v16 = 0;
+      v15 = 0;
       ikeConfig = 0;
     }
 
-    v18 = v16;
-    v19 = ikeConfig;
-    v16 = [(NEIKEv2IKESAConfiguration *)v19 copy];
+    v17 = v15;
+    v18 = ikeConfig;
+    v15 = [(NEIKEv2IKESAConfiguration *)v18 copy];
 
     if (transportCopy)
     {
-      Property = objc_getProperty(transportCopy, v20, 24, 1);
+      Property = objc_getProperty(transportCopy, v19, 24, 1);
     }
 
     else
@@ -1511,40 +1495,40 @@ LABEL_10:
       Property = 0;
     }
 
-    v22 = Property;
-    v23 = [v22 copy];
-    [(NEIKEv2IKESAConfiguration *)v16 setRemoteEndpoint:v23];
+    v21 = Property;
+    v22 = [v21 copy];
+    [(NEIKEv2IKESAConfiguration *)v15 setRemoteEndpoint:v22];
 
     WeakRetained = 0;
     v12 = 0;
-    v24 = 0;
+    v23 = 0;
     if (!self)
     {
 LABEL_19:
-      v25 = v24 == 0;
-      v26 = [NEIKEv2Session alloc];
+      v24 = v23 == 0;
+      v25 = [NEIKEv2Session alloc];
       listenerQueue2 = [(NEIKEv2Listener *)self listenerQueue];
-      if (v25)
+      if (v24)
       {
         if (self)
         {
           kernelSASessionName = self->_kernelSASessionName;
-          p_super = &v26->super;
-          v36 = v16;
+          p_super = &v25->super;
+          v35 = v15;
           selfCopy = self;
-          v38 = listenerQueue2;
+          v37 = listenerQueue2;
         }
 
         else
         {
-          p_super = &v26->super;
-          v36 = v16;
+          p_super = &v25->super;
+          v35 = v15;
           selfCopy = 0;
-          v38 = listenerQueue2;
+          v37 = listenerQueue2;
           kernelSASessionName = 0;
         }
 
-        v33 = [(NEIKEv2Session *)p_super initWithIKEConfig:v36 configurationDelegate:selfCopy queue:v38 kernelSASessionName:kernelSASessionName transport:transportCopy packetDelegate:v12];
+        v32 = [(NEIKEv2Session *)p_super initWithIKEConfig:v35 configurationDelegate:selfCopy queue:v37 kernelSASessionName:kernelSASessionName transport:transportCopy packetDelegate:v12];
       }
 
       else
@@ -1552,27 +1536,27 @@ LABEL_19:
         if (self)
         {
           saSession = self->_saSession;
-          v29 = &v26->super;
-          v30 = v16;
+          v28 = &v25->super;
+          v29 = v15;
           selfCopy2 = self;
-          v32 = listenerQueue2;
+          v31 = listenerQueue2;
         }
 
         else
         {
-          v29 = &v26->super;
-          v30 = v16;
+          v28 = &v25->super;
+          v29 = v15;
           selfCopy2 = 0;
-          v32 = listenerQueue2;
+          v31 = listenerQueue2;
           saSession = 0;
         }
 
-        v33 = [NEIKEv2Session initWithIKEConfig:v29 configurationDelegate:v30 queue:selfCopy2 saSession:v32 shouldCopySASession:saSession transport:transportCopy packetDelegate:v12];
+        v32 = [NEIKEv2Session initWithIKEConfig:v28 configurationDelegate:v29 queue:selfCopy2 saSession:v31 shouldCopySASession:saSession transport:transportCopy packetDelegate:v12];
       }
 
-      v39 = v33;
+      v38 = v32;
 
-      if (v39)
+      if (v38)
       {
         if (self)
         {
@@ -1584,23 +1568,23 @@ LABEL_19:
           sessionsBeforeAuth = 0;
         }
 
-        [(NSMutableSet *)sessionsBeforeAuth addObject:v39];
-        v41 = ne_log_obj();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        [(NSMutableSet *)sessionsBeforeAuth addObject:v38];
+        v40 = ne_log_obj();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           copyShortDescription2 = [(NEIKEv2Packet *)packetCopy copyShortDescription];
           *buf = 138412546;
-          *&buf[4] = v39;
-          v51 = 2112;
-          v52 = copyShortDescription2;
-          _os_log_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEFAULT, "Created new session %@ to handle %@", buf, 0x16u);
+          *&buf[4] = v38;
+          v50 = 2112;
+          v51 = copyShortDescription2;
+          _os_log_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_DEFAULT, "Created new session %@ to handle %@", buf, 0x16u);
         }
 
-        [v39 receivePacket:packetCopy];
+        [v38 receivePacket:packetCopy];
         if (self)
         {
-          v43 = objc_loadWeakRetained(&self->_delegate);
-          objc_initWeak(buf, v43);
+          v42 = objc_loadWeakRetained(&self->_delegate);
+          objc_initWeak(buf, v42);
 
           delegateQueue = self->_delegateQueue;
         }
@@ -1615,24 +1599,24 @@ LABEL_19:
         block[1] = 3221225472;
         block[2] = __43__NEIKEv2Listener_receivePacket_transport___block_invoke;
         block[3] = &unk_1E7F08670;
-        v45 = delegateQueue;
-        objc_copyWeak(&v49, buf);
+        v44 = delegateQueue;
+        objc_copyWeak(&v48, buf);
         block[4] = self;
-        v48 = v39;
-        dispatch_async(v45, block);
+        v47 = v38;
+        dispatch_async(v44, block);
 
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v48);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v46 = ne_log_obj();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        v45 = ne_log_obj();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = "[NEIKEv2Listener receivePacket:transport:]";
-          _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, "%s called with null newSession", buf, 0xCu);
+          _os_log_fault_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_FAULT, "%s called with null newSession", buf, 0xCu);
         }
       }
 
@@ -1640,14 +1624,12 @@ LABEL_19:
     }
 
 LABEL_18:
-    v24 = self->_saSession;
+    v23 = self->_saSession;
     v12 = WeakRetained;
     goto LABEL_19;
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a1)
@@ -1667,7 +1649,7 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
 
 - (void)sessionFailedBeforeRequestingConfiguration:(id)configuration
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v5 = ne_log_obj();
   v6 = v5;
@@ -1675,9 +1657,9 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = configurationCopy;
-      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEFAULT, "Session %@ failed before requesting configuration", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = configurationCopy;
+      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEFAULT, "Session %@ failed before requesting configuration", &v8, 0xCu);
     }
 
     if (self)
@@ -1697,18 +1679,16 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315138;
-      v10 = "[NEIKEv2Listener sessionFailedBeforeRequestingConfiguration:]";
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null session", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[NEIKEv2Listener sessionFailedBeforeRequestingConfiguration:]";
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null session", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestConfigurationForSession:(id)session sessionConfig:(id)config childConfig:(id)childConfig validateAuthBlock:(id)block responseBlock:(id)responseBlock
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   configCopy = config;
   childConfigCopy = childConfig;
@@ -1718,7 +1698,7 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = sessionCopy;
+    v36 = sessionCopy;
     _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, "Session %@ requesting configuration", buf, 0xCu);
   }
 
@@ -1736,13 +1716,13 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
       block[1] = 3221225472;
       block[2] = __108__NEIKEv2Listener_requestConfigurationForSession_sessionConfig_childConfig_validateAuthBlock_responseBlock___block_invoke;
       block[3] = &unk_1E7F085D0;
-      v29 = v19;
+      v28 = v19;
       selfCopy = self;
-      v31 = sessionCopy;
-      v32 = v20;
-      v33 = v21;
-      v34 = blockCopy;
-      v35 = responseBlockCopy;
+      v30 = sessionCopy;
+      v31 = v20;
+      v32 = v21;
+      v33 = blockCopy;
+      v34 = responseBlockCopy;
       v23 = v21;
       v24 = v20;
       v25 = v19;
@@ -1757,17 +1737,15 @@ uint64_t __43__NEIKEv2Listener_receivePacket_transport___block_invoke(uint64_t a
     [0 removeObject:sessionCopy];
   }
 
-  v27 = ne_log_obj();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v26 = ne_log_obj();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "Listener delegate is nil, returning failure", buf, 2u);
+    _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "Listener delegate is nil, returning failure", buf, 2u);
   }
 
   (*(responseBlockCopy + 2))(responseBlockCopy, 0, 0, 0);
 LABEL_6:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __108__NEIKEv2Listener_requestConfigurationForSession_sessionConfig_childConfig_validateAuthBlock_responseBlock___block_invoke(uint64_t a1)

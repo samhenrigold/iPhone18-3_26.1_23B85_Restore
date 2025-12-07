@@ -1020,12 +1020,13 @@ void __43__TVRUIMediaViewController__markAsWatched___block_invoke(uint64_t a1, v
 {
   commandCopy = command;
   errorCopy = error;
+  v8 = errorCopy;
   if (errorCopy)
   {
-    v8 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _TVRUINowPlayingLog(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(TVRUIMediaViewController *)commandCopy _upNextCommand:errorCopy didCompleteWithError:v8];
+      [(TVRUIMediaViewController *)commandCopy _upNextCommand:v8 didCompleteWithError:v9];
     }
 
     [(TVRUIMediaViewController *)self setUpNextOperationInProgress:0];

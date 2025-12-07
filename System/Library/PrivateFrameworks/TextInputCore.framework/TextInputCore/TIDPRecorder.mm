@@ -70,67 +70,65 @@
 
 - (NSArray)characterExplodedRecords
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(TIDPRecorder *)self records];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     word = 0;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       v8 = 0;
       v9 = word;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v8);
+        v10 = *(*(&v21 + 1) + 8 * v8);
         v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
         word = [v10 word];
 
         v12 = [word length];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __40__TIDPRecorder_characterExplodedRecords__block_invoke;
-        v19[3] = &unk_278731540;
-        v20 = v11;
-        v21 = &v26;
-        v19[4] = self;
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __40__TIDPRecorder_characterExplodedRecords__block_invoke;
+        v18[3] = &unk_278731540;
+        v19 = v11;
+        v20 = &v25;
+        v18[4] = self;
         v13 = v11;
-        [word enumerateSubstringsInRange:0 options:v12 usingBlock:{2, v19}];
+        [word enumerateSubstringsInRange:0 options:v12 usingBlock:{2, v18}];
         v14 = [v13 copy];
         [v3 addObject:v14];
 
-        v27[3] = 0;
+        v26[3] = 0;
         ++v8;
         v9 = word;
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v5);
   }
 
   v15 = [v3 copy];
-  _Block_object_dispose(&v26, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 
   return v15;
 }
@@ -151,36 +149,36 @@ void __40__TIDPRecorder_characterExplodedRecords__block_invoke(uint64_t a1, void
 
 - (NSString)recordingKeyLocaleSubstring
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typingSession = [(TIDPRecorder *)self typingSession];
   sessionParams = [typingSession sessionParams];
   activeInputModes = [sessionParams activeInputModes];
 
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(activeInputModes, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = activeInputModes;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        normalizedIdentifier = [*(*(&v15 + 1) + 8 * i) normalizedIdentifier];
+        normalizedIdentifier = [*(*(&v14 + 1) + 8 * i) normalizedIdentifier];
         [v5 addObject:normalizedIdentifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -188,8 +186,6 @@ void __40__TIDPRecorder_characterExplodedRecords__block_invoke(uint64_t a1, void
 
   [v5 sortUsingSelector:sel_compare_];
   v12 = [v5 componentsJoinedByString:@"+"];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

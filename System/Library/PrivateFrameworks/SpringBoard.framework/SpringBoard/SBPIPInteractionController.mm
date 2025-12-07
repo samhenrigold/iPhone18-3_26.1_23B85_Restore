@@ -471,7 +471,7 @@ id __48__SBPIPInteractionController__setupStateCapture__block_invoke(uint64_t a1
   v65 = WeakRetained;
   if (WeakRetained)
   {
-    [(__CFString *)WeakRetained frame];
+    objc_msgSend_frame(WeakRetained);
     v6 = NSStringFromCGRect(v74);
     v7 = WeakRetained;
   }
@@ -1034,7 +1034,7 @@ id __48__SBPIPInteractionController__setupStateCapture__block_invoke(uint64_t a1
   v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
+  objc_msgSend__currentPositionInteractionStateContext(self);
   pipCurrentSize = self->_geometryContext.pipCurrentSize;
   pipLastSteadySize = self->_geometryContext.pipLastSteadySize;
   v19 = pipCurrentSize;
@@ -1081,7 +1081,7 @@ id __48__SBPIPInteractionController__setupStateCapture__block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __62__SBPIPInteractionController__closestToDefaultCornersPosition__block_invoke(uint64_t a1, void *a2)
+void *__62__SBPIPInteractionController__closestToDefaultCornersPosition__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 40);
   v4 = *(*(a1 + 32) + 8);
@@ -1130,7 +1130,7 @@ uint64_t __62__SBPIPInteractionController__closestToDefaultCornersPosition__bloc
   v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
+  objc_msgSend__currentPositionInteractionStateContext(self, a2);
   v6 = *&self->_geometryContext.stashedMinimumPadding.top;
   v24 = *&self->_geometryContext.minimumPadding.bottom;
   v25 = v6;
@@ -1182,7 +1182,7 @@ uint64_t __62__SBPIPInteractionController__closestToDefaultCornersPosition__bloc
   return layoutCorner;
 }
 
-uint64_t __57__SBPIPInteractionController__canonicalPositionForPoint___block_invoke(uint64_t a1, void *a2)
+void *__57__SBPIPInteractionController__canonicalPositionForPoint___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   v4 = *(a1 + 40);
@@ -1861,14 +1861,14 @@ LABEL_4:
     if (self->_enabled)
     {
       _sbWindowScene = [WeakRetained _sbWindowScene];
-      [(SBPIPInteractionController *)self _transformFromDisplayArrangeSpaceToWindowScene:_sbWindowScene];
+      objc_msgSend__transformFromDisplayArrangeSpaceToWindowScene_(self);
       v47 = vaddq_f64(*&t1[32], vmlaq_n_f64(vmulq_n_f64(*&t1[16], v50), *t1, v49));
 
       [WeakRetained setCenter:*&v47];
     }
 
     _sbWindowScene2 = [v10 _sbWindowScene];
-    [(SBPIPInteractionController *)self _transformFromDisplayArrangeSpaceToWindowScene:_sbWindowScene2];
+    objc_msgSend__transformFromDisplayArrangeSpaceToWindowScene_(self);
     v47 = vaddq_f64(*&t1[32], vmlaq_n_f64(vmulq_n_f64(*&t1[16], v50), *t1, v49));
 
     [v10 setCenter:*&v47];
@@ -1889,7 +1889,7 @@ LABEL_4:
   if (traits)
   {
     [(SBPIPInteractionController *)self _noteStashProgress:reason withReason:v23];
-    [(SBPIPInteractionController *)self _stashTabCompensationTransformForStashProgress:reason reason:v24];
+    objc_msgSend__stashTabCompensationTransformForStashProgress_reason_(self, v24);
     v25 = *&t1[16];
     *&self->_stashTabCompensationTransform.a = *t1;
     *&self->_stashTabCompensationTransform.c = v25;
@@ -1936,7 +1936,7 @@ LABEL_4:
   CGAffineTransformConcat(&v52, t1, &t2);
   if (WeakRetained)
   {
-    [WeakRetained transform];
+    objc_msgSend_transform(WeakRetained);
   }
 
   else
@@ -1965,9 +1965,9 @@ LABEL_4:
   {
     shortDescription = self->_shortDescription;
     v36 = SBStringFromPIPLayoutTrait(traits);
-    [WeakRetained frame];
+    objc_msgSend_frame(WeakRetained);
     v38 = v37;
-    [WeakRetained frame];
+    objc_msgSend_frame(WeakRetained);
     v40 = v39;
     x = self->_anchorPoint.x;
     y = self->_anchorPoint.y;
@@ -2029,7 +2029,7 @@ LABEL_4:
   if (spaceCopy)
   {
     _sbWindowScene = [WeakRetained _sbWindowScene];
-    [(SBPIPInteractionController *)self _transformFromDisplayArrangeSpaceToWindowScene:_sbWindowScene];
+    objc_msgSend__transformFromDisplayArrangeSpaceToWindowScene_(self);
     v38.origin.x = x;
     v38.origin.y = y;
     v38.size.width = width;
@@ -2041,7 +2041,7 @@ LABEL_4:
     v21 = v39.size.height;
 
     _sbWindowScene2 = [v16 _sbWindowScene];
-    [(SBPIPInteractionController *)self _transformFromDisplayArrangeSpaceToWindowScene:_sbWindowScene2];
+    objc_msgSend__transformFromDisplayArrangeSpaceToWindowScene_(self);
     v40.origin.x = x;
     v40.origin.y = y;
     v40.size.width = width;
@@ -2168,7 +2168,7 @@ LABEL_4:
     v12 = v11;
     v14 = v13;
     v16 = v15;
-    [WeakRetained frame];
+    objc_msgSend_frame(WeakRetained);
     v60.origin.x = v17;
     v60.origin.y = v18;
     v60.size.width = v19;
@@ -2250,7 +2250,7 @@ LABEL_4:
   v13 = v6;
 
   _sbWindowScene = [WeakRetained _sbWindowScene];
-  [(SBPIPInteractionController *)self _transformToDisplayArrangementSpaceFromWindowScene:_sbWindowScene];
+  objc_msgSend__transformToDisplayArrangementSpaceFromWindowScene_(self);
 
   v11 = vaddq_f64(v16, vmlaq_n_f64(vmulq_n_f64(v15, v12), v14, v13));
   v10 = v11.f64[1];
@@ -2762,7 +2762,7 @@ LABEL_15:
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  result = [(SBPIPInteractionController *)self _transformToDisplayArrangementSpaceFromWindowScene:a4];
+  result = objc_msgSend__transformToDisplayArrangementSpaceFromWindowScene_(self, scene, a4);
   *&retstr->tx = vnegq_f64(*&retstr->tx);
   return result;
 }
@@ -4390,7 +4390,7 @@ void __42__SBPIPInteractionController_reloadInsets__block_invoke(uint64_t a1)
 void __60__SBPIPInteractionController__updatePositionRegionComposers__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([*(a1 + 32) containsObject:?] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(a1 + 32)) & 1) == 0)
   {
     [*(a1 + 40) positionRegionComposerDidInvalidate:v3];
   }
@@ -4399,7 +4399,7 @@ void __60__SBPIPInteractionController__updatePositionRegionComposers__block_invo
 void __60__SBPIPInteractionController__updatePositionRegionComposers__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([*(*(a1 + 32) + 432) containsObject:?] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(*(a1 + 32) + 432)) & 1) == 0)
   {
     [*(a1 + 32) addPositionRegionComposer:v3];
   }
@@ -4466,7 +4466,7 @@ void __60__SBPIPInteractionController__updatePositionRegionComposers__block_invo
   pendingTransition = self->_pendingTransition;
   if (!pendingTransition)
   {
-    [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
+    objc_msgSend__currentPositionInteractionStateContext(self);
     if ((v53 & 1) == 0 && _sbWindowScene)
     {
       targetWindowScene = _sbWindowScene;
@@ -4491,7 +4491,7 @@ void __60__SBPIPInteractionController__updatePositionRegionComposers__block_invo
     v51 = 0u;
     v48 = 0u;
     v49 = 0u;
-    [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
+    objc_msgSend__currentPositionInteractionStateContext(self);
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -4855,7 +4855,7 @@ double __47__SBPIPInteractionController__scaleHyperregion__block_invoke_2(uint64
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
+    objc_msgSend__currentPositionInteractionStateContext(self);
     v6 = *&self->_geometryContext.minimumPadding.bottom;
     v7 = *&self->_geometryContext.stashedMinimumPadding.bottom;
     v8 = *&self->_geometryContext.offscreenCorners;
@@ -5166,7 +5166,7 @@ LABEL_11:
 
 - (void)_updateHyperregionVisualizationIfNecessary
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v3 = +[SBDefaults localDefaults];
   pipDefaults = [v3 pipDefaults];
   visualizePositionRegions = [pipDefaults visualizePositionRegions];
@@ -5190,84 +5190,63 @@ LABEL_11:
     [(SBPIPInteractionControllerVisualizationView *)v11 setRegionUnion:_region];
 
     v13 = self->_positionRegionVisualizationView;
-    p_geometryContext = &self->_geometryContext;
-    v15 = *&self->_geometryContext.minimumPadding.bottom;
-    v16 = *&self->_geometryContext.stashedMinimumPadding.bottom;
-    v17 = *&self->_geometryContext.offscreenCorners;
-    v64 = *&self->_geometryContext.stashedMinimumPadding.top;
-    v65 = v16;
-    v66 = v17;
+    v14 = *&self->_geometryContext.minimumPadding.bottom;
+    v15 = *&self->_geometryContext.stashedMinimumPadding.bottom;
+    v16 = *&self->_geometryContext.offscreenCorners;
+    v55 = *&self->_geometryContext.stashedMinimumPadding.top;
+    v56 = v15;
+    v57 = v16;
     size = self->_geometryContext.containerBounds.size;
-    v19 = *&self->_geometryContext.edgeInsets.bottom;
-    v20 = *&self->_geometryContext.minimumPadding.top;
-    v60 = *&self->_geometryContext.edgeInsets.top;
-    v61 = v19;
-    v62 = v20;
-    v63 = v15;
+    v18 = *&self->_geometryContext.edgeInsets.bottom;
+    v19 = *&self->_geometryContext.minimumPadding.top;
+    v51 = *&self->_geometryContext.edgeInsets.top;
+    v52 = v18;
+    v53 = v19;
+    v54 = v14;
     pipAnchorPointOffset = self->_geometryContext.pipAnchorPointOffset;
     origin = self->_geometryContext.containerBounds.origin;
     pipStashedSize = self->_geometryContext.pipStashedSize;
-    v57 = pipAnchorPointOffset;
+    v48 = pipAnchorPointOffset;
     pipLastSteadySize = self->_geometryContext.pipLastSteadySize;
-    v58 = origin;
-    v59 = size;
+    v49 = origin;
+    v50 = size;
     pipCurrentSize = self->_geometryContext.pipCurrentSize;
-    v55 = pipLastSteadySize;
+    v46 = pipLastSteadySize;
     [(SBPIPInteractionControllerVisualizationView *)v13 setMainGeometryContext:&pipCurrentSize];
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v24 = objc_loadWeakRetained(&self->_dataSource);
-    v25 = [v24 interactionControllerConnectedWindowScenes:self];
+    v41 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v23 = objc_loadWeakRetained(&self->_dataSource);
+    v24 = [v23 interactionControllerConnectedWindowScenes:self];
 
-    v26 = [v25 countByEnumeratingWithState:&v50 objects:v67 count:16];
-    if (v26)
+    v25 = [v24 countByEnumeratingWithState:&v41 objects:v58 count:16];
+    if (v25)
     {
-      v27 = v26;
-      v28 = *v51;
+      v26 = v25;
+      v27 = *v42;
       while (2)
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v51 != v28)
+          if (*v42 != v27)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v24);
           }
 
-          v30 = *(*(&v50 + 1) + 8 * i);
-          if (([v30 isMainDisplayWindowScene] & 1) == 0)
+          if (([*(*(&v41 + 1) + 8 * i) isMainDisplayWindowScene] & 1) == 0)
           {
-            v39 = self->_positionRegionVisualizationView;
+            v37 = self->_positionRegionVisualizationView;
             firstObject = [(NSMutableArray *)self->_positionRegionComposers firstObject];
-            v41 = *&self->_geometryContext.stashedMinimumPadding.bottom;
-            v49[10] = *&self->_geometryContext.stashedMinimumPadding.top;
-            v49[11] = v41;
-            v49[12] = *&self->_geometryContext.offscreenCorners;
-            v42 = *&self->_geometryContext.edgeInsets.bottom;
-            v49[6] = *&self->_geometryContext.edgeInsets.top;
-            v49[7] = v42;
-            v43 = *&self->_geometryContext.minimumPadding.bottom;
-            v49[8] = *&self->_geometryContext.minimumPadding.top;
-            v49[9] = v43;
-            v44 = self->_geometryContext.pipAnchorPointOffset;
-            v49[2] = self->_geometryContext.pipStashedSize;
-            v49[3] = v44;
-            v45 = self->_geometryContext.containerBounds.size;
-            v49[4] = self->_geometryContext.containerBounds.origin;
-            v49[5] = v45;
-            v46 = self->_geometryContext.pipLastSteadySize;
-            v49[0] = p_geometryContext->pipCurrentSize;
-            v49[1] = v46;
-            [(SBPIPInteractionController *)self regionComposer:firstObject transformGeometryContext:v49 toWindowScene:v30];
-            [(SBPIPInteractionControllerVisualizationView *)v39 setExtendedGeometryContext:&pipCurrentSize];
+            objc_msgSend_regionComposer_transformGeometryContext_toWindowScene_(self, *&self->_geometryContext.pipCurrentSize.width, *&self->_geometryContext.pipCurrentSize.height, *&self->_geometryContext.pipLastSteadySize.width, *&self->_geometryContext.pipLastSteadySize.height, *&self->_geometryContext.pipStashedSize.width, *&self->_geometryContext.pipStashedSize.height, *&self->_geometryContext.pipAnchorPointOffset.x, *&self->_geometryContext.pipAnchorPointOffset.y, *&self->_geometryContext.containerBounds.origin.x, *&self->_geometryContext.containerBounds.origin.y, *&self->_geometryContext.containerBounds.size.width, *&self->_geometryContext.containerBounds.size.height, *&self->_geometryContext.edgeInsets.top, *&self->_geometryContext.edgeInsets.left, *&self->_geometryContext.edgeInsets.bottom, *&self->_geometryContext.edgeInsets.right, *&self->_geometryContext.minimumPadding.top, *&self->_geometryContext.minimumPadding.left, *&self->_geometryContext.minimumPadding.bottom, *&self->_geometryContext.minimumPadding.right, *&self->_geometryContext.stashedMinimumPadding.top, *&self->_geometryContext.stashedMinimumPadding.bottom, *&self->_geometryContext.stashedMinimumPadding.right, self->_geometryContext.offscreenCorners, self->_geometryContext.orientation, v41);
+            [(SBPIPInteractionControllerVisualizationView *)v37 setExtendedGeometryContext:&pipCurrentSize];
 
             goto LABEL_18;
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v50 objects:v67 count:16];
-        if (v27)
+        v26 = [v24 countByEnumeratingWithState:&v41 objects:v58 count:16];
+        if (v26)
         {
           continue;
         }
@@ -5276,34 +5255,34 @@ LABEL_11:
       }
     }
 
-    v31 = self->_positionRegionVisualizationView;
-    v32 = *&self->_geometryContext.stashedMinimumPadding.bottom;
-    v64 = *&self->_geometryContext.stashedMinimumPadding.top;
-    v65 = v32;
-    v66 = *&self->_geometryContext.offscreenCorners;
-    v33 = *&self->_geometryContext.edgeInsets.bottom;
-    v60 = *&self->_geometryContext.edgeInsets.top;
-    v61 = v33;
-    v34 = *&self->_geometryContext.minimumPadding.bottom;
-    v62 = *&self->_geometryContext.minimumPadding.top;
-    v63 = v34;
-    v35 = self->_geometryContext.pipAnchorPointOffset;
+    v29 = self->_positionRegionVisualizationView;
+    v30 = *&self->_geometryContext.stashedMinimumPadding.bottom;
+    v55 = *&self->_geometryContext.stashedMinimumPadding.top;
+    v56 = v30;
+    v57 = *&self->_geometryContext.offscreenCorners;
+    v31 = *&self->_geometryContext.edgeInsets.bottom;
+    v51 = *&self->_geometryContext.edgeInsets.top;
+    v52 = v31;
+    v32 = *&self->_geometryContext.minimumPadding.bottom;
+    v53 = *&self->_geometryContext.minimumPadding.top;
+    v54 = v32;
+    v33 = self->_geometryContext.pipAnchorPointOffset;
     pipStashedSize = self->_geometryContext.pipStashedSize;
-    v57 = v35;
-    v36 = self->_geometryContext.containerBounds.size;
-    v58 = self->_geometryContext.containerBounds.origin;
-    v59 = v36;
-    v37 = self->_geometryContext.pipLastSteadySize;
-    pipCurrentSize = p_geometryContext->pipCurrentSize;
-    v55 = v37;
-    [(SBPIPInteractionControllerVisualizationView *)v31 setExtendedGeometryContext:&pipCurrentSize];
+    v48 = v33;
+    v34 = self->_geometryContext.containerBounds.size;
+    v49 = self->_geometryContext.containerBounds.origin;
+    v50 = v34;
+    v35 = self->_geometryContext.pipLastSteadySize;
+    pipCurrentSize = self->_geometryContext.pipCurrentSize;
+    v46 = v35;
+    [(SBPIPInteractionControllerVisualizationView *)v29 setExtendedGeometryContext:&pipCurrentSize];
 LABEL_18:
-    v47 = self->_positionRegionVisualizationView;
-    [(SBPIPInteractionController *)self _currentPositionInteractionStateContext];
-    [(SBPIPInteractionControllerVisualizationView *)v47 setInteractionContext:&pipCurrentSize];
-    v48 = self->_positionRegionVisualizationView;
+    v39 = self->_positionRegionVisualizationView;
+    objc_msgSend__currentPositionInteractionStateContext(self);
+    [(SBPIPInteractionControllerVisualizationView *)v39 setInteractionContext:&pipCurrentSize];
+    v40 = self->_positionRegionVisualizationView;
     [superview bounds];
-    [(SBPIPInteractionControllerVisualizationView *)v48 setFrame:?];
+    [(SBPIPInteractionControllerVisualizationView *)v40 setFrame:?];
     [(SBPIPInteractionControllerVisualizationView *)self->_positionRegionVisualizationView setNeedsLayout];
     [(SBPIPInteractionControllerVisualizationView *)self->_positionRegionVisualizationView layoutIfNeeded];
   }
@@ -5311,7 +5290,7 @@ LABEL_18:
   else if (positionRegionVisualizationView)
   {
     [(SBPIPInteractionControllerVisualizationView *)positionRegionVisualizationView removeFromSuperview];
-    v38 = self->_positionRegionVisualizationView;
+    v36 = self->_positionRegionVisualizationView;
     self->_positionRegionVisualizationView = 0;
   }
 }
@@ -5320,7 +5299,7 @@ LABEL_18:
 {
   oneCopy = one;
   _regions = [(_UIHyperregionUnion *)self->_stashedLeftRegion _regions];
-  v6 = [_regions containsObject:oneCopy];
+  v6 = objc_msgSend_containsObject_(_regions);
 
   if (v6)
   {
@@ -5330,7 +5309,7 @@ LABEL_18:
   else
   {
     _regions2 = [(_UIHyperregionUnion *)self->_stashedRightRegion _regions];
-    v7 = [_regions2 containsObject:oneCopy];
+    v7 = objc_msgSend_containsObject_(_regions2);
   }
 
   return v7;
@@ -5339,23 +5318,21 @@ LABEL_18:
 - (void)addPositionRegionComposer:(id)composer
 {
   composerCopy = composer;
-  v7 = composerCopy;
   if (!composerCopy)
   {
     [SBPIPInteractionController addPositionRegionComposer:];
-    composerCopy = 0;
   }
 
-  if (([(NSMutableArray *)self->_positionRegionComposers containsObject:composerCopy]& 1) != 0)
+  if (objc_msgSend_containsObject_(self->_positionRegionComposers))
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"SBPIPInteractionController.m" lineNumber:2289 description:{@"[%@] already added to this interaction controller [%@]", v7, self->_shortDescription}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SBPIPInteractionController.m" lineNumber:2289 description:{@"[%@] already added to this interaction controller [%@]", composerCopy, self->_shortDescription}];
   }
 
   else
   {
-    [(NSMutableArray *)self->_positionRegionComposers addObject:v7];
-    [v7 setDelegate:self];
+    [(NSMutableArray *)self->_positionRegionComposers addObject:composerCopy];
+    [composerCopy setDelegate:self];
   }
 }
 
@@ -5368,7 +5345,7 @@ LABEL_18:
     [SBPIPInteractionController positionRegionComposerDidInvalidate:];
   }
 
-  if ([(NSMutableArray *)self->_positionRegionComposers containsObject:invalidateCopy])
+  if (objc_msgSend_containsObject_(self->_positionRegionComposers))
   {
     [(NSMutableArray *)self->_positionRegionComposers removeObject:invalidateCopy];
     [invalidateCopy setDelegate:0];
@@ -5404,7 +5381,7 @@ LABEL_18:
     [SBPIPInteractionController positionRegionComposerNeedsUpdate:behavior:];
   }
 
-  if (([(NSMutableArray *)self->_positionRegionComposers containsObject:updateCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_positionRegionComposers) & 1) == 0)
   {
     [SBPIPInteractionController positionRegionComposerNeedsUpdate:behavior:];
   }
@@ -5481,7 +5458,7 @@ LABEL_10:
     v22 = v21;
     v24 = v23;
     v26 = v25;
-    [(SBPIPInteractionController *)self _transformToDisplayArrangementSpaceFromWindowScene:v12];
+    objc_msgSend__transformToDisplayArrangementSpaceFromWindowScene_(self);
     v37.origin.x = v20;
     v37.origin.y = v22;
     v37.size.width = v24;
@@ -5546,7 +5523,7 @@ LABEL_10:
   if ((v22 & 1) == 0)
   {
     v23 = objc_loadWeakRetained(&self->_interactionTargetView);
-    [v23 frame];
+    objc_msgSend_frame(v23);
     v25 = v24;
     v27 = v26;
     v29 = v28;

@@ -31,7 +31,7 @@
 
 + (id)newDateTimeFormatters
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
   [v2 setLocale:v3];
@@ -72,13 +72,12 @@
   [calendar4 setTimeZone:v16];
 
   [v14 setLenient:1];
-  v21[0] = v2;
-  v21[1] = v6;
-  v21[2] = v10;
-  v21[3] = v14;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[0] = v2;
+  v20[1] = v6;
+  v20[2] = v10;
+  v20[3] = v14;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -98,7 +97,7 @@
 
 + (id)newDateFormatters
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
   [v2 setLocale:v3];
@@ -119,11 +118,10 @@
   [calendar2 setTimeZone:v8];
 
   [v6 setLenient:1];
-  v13[0] = v2;
-  v13[1] = v6;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v2;
+  v12[1] = v6;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -149,7 +147,7 @@
 
 + (id)newTimeFormatters
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
   [v2 setLocale:v3];
@@ -190,13 +188,12 @@
   [calendar4 setTimeZone:v16];
 
   [v14 setLenient:1];
-  v21[0] = v2;
-  v21[1] = v6;
-  v21[2] = v10;
-  v21[3] = v14;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[0] = v2;
+  v20[1] = v6;
+  v20[2] = v10;
+  v20[3] = v14;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

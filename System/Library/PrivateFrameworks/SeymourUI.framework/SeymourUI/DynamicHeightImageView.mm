@@ -18,7 +18,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20C0E0734();
+  sub_20C0E0734(selfCopy);
 }
 
 - (_TtC9SeymourUI22DynamicHeightImageView)initWithImage:(id)image

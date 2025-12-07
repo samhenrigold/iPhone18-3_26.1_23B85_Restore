@@ -8,14 +8,15 @@
 
 - (id)_queryString
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCACE0]);
+  v4 = v3;
   if (self->_memberEmail)
   {
-    v4 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"invitedEmail" value:self->_memberEmail];
-    v14[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-    [v3 setQueryItems:v5];
+    v5 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"invitedEmail" value:self->_memberEmail];
+    v15[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    [v4 setQueryItems:v6];
 LABEL_5:
 
     goto LABEL_6;
@@ -23,34 +24,32 @@ LABEL_5:
 
   if (self->_memberDSID)
   {
-    v6 = objc_alloc(MEMORY[0x277CCAD18]);
-    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", -[NSNumber unsignedLongLongValue](self->_memberDSID, "unsignedLongLongValue")];
-    v5 = [v6 initWithName:@"memberId" value:v4];
-    v13 = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-    [v3 setQueryItems:v7];
+    v7 = objc_alloc(MEMORY[0x277CCAD18]);
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", -[NSNumber unsignedLongLongValue](self->_memberDSID, "unsignedLongLongValue")];
+    v6 = [v7 initWithName:@"memberId" value:v5];
+    v14 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    [v4 setQueryItems:v8];
 
     goto LABEL_5;
   }
 
-  v4 = _FALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _FALogSystem(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "Error: no member DSID or email. This will go badly.", buf, 2u);
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Error: no member DSID or email. This will go badly.", buf, 2u);
   }
 
 LABEL_6:
 
-  v8 = _FALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = _FALogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(FAFamilyMemberDetailsUIRequest *)v3 _queryString];
+    [(FAFamilyMemberDetailsUIRequest *)v4 _queryString];
   }
 
-  query = [v3 query];
-
-  v10 = *MEMORY[0x277D85DE8];
+  query = [v4 query];
 
   return query;
 }
@@ -73,33 +72,30 @@ void __59__FAFamilyMemberDetailsUIRequest_URLRequestWithCompletion___block_invok
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v9 = [a2 mutableCopy];
-    [v9 setHTTPMethod:@"POST"];
-    v6 = [MEMORY[0x277CBEB38] dictionary];
-    [MEMORY[0x277D082E8] addMessageEligibilityToPayload:v6];
-    [v9 aa_setBodyWithParameters:v6];
-    v7 = *(a1 + 32);
-    v8 = [v9 copy];
-    (*(v7 + 16))(v7, v8, 0);
+    v8 = [a2 mutableCopy];
+    [v8 setHTTPMethod:@"POST"];
+    v5 = [MEMORY[0x277CBEB38] dictionary];
+    [MEMORY[0x277D082E8] addMessageEligibilityToPayload:v5];
+    [v8 aa_setBodyWithParameters:v5];
+    v6 = *(a1 + 32);
+    v7 = [v8 copy];
+    (*(v6 + 16))(v6, v7, 0);
   }
 }
 
 - (void)_queryString
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   query = [self query];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Query string %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Query string %@", v4, 0xCu);
 }
 
 @end

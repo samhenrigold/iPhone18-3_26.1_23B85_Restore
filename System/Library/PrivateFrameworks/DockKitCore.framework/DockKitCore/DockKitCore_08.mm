@@ -1,3 +1,141 @@
+uint64_t DockCoreManager.setDockAccessoryState(info:docked:)(uint64_t a1, uint64_t a2)
+{
+  v3[11] = a2;
+  v3[12] = v2;
+  v3[10] = a1;
+  return MEMORY[0x2822009F8](sub_2245E549C, 0, 0);
+}
+
+uint64_t sub_2245E549C()
+{
+  v2 = v0[11];
+  v1 = v0[12];
+  v3 = v0[10];
+  v0[2] = v0;
+  v0[3] = sub_22457723C;
+  v4 = swift_continuation_init();
+  sub_2245E554C(v3, v2, v1, v4);
+
+  return MEMORY[0x282200938](v0 + 2);
+}
+
+void sub_2245E554C(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v8 = sub_224627B78();
+  v9 = *(v8 - 1);
+  MEMORY[0x28223BE20](v8);
+  v11 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = swift_allocObject();
+  *(v12 + 16) = a4;
+  v13 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
+  v14 = *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+
+  os_unfair_lock_lock(v14 + 4);
+
+  v15 = *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError);
+  *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError) = 0;
+
+  v16 = *(a3 + v13);
+
+  os_unfair_lock_unlock(v16 + 4);
+
+  v17 = sub_2245E4F94();
+  if (v17)
+  {
+    v18 = v17;
+    v19 = swift_allocObject();
+    swift_unknownObjectWeakInit();
+    v20 = swift_allocObject();
+    v20[2] = v19;
+    v20[3] = sub_22457FDC0;
+    v20[4] = v12;
+    v41 = sub_22460A980;
+    v42 = v20;
+    aBlock = MEMORY[0x277D85DD0];
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1673;
+    v21 = _Block_copy(&aBlock);
+
+    v22 = [v18 synchronousRemoteObjectProxyWithErrorHandler_];
+    _Block_release(v21);
+    sub_224628278();
+    swift_unknownObjectRelease();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
+    if ((swift_dynamicCast() & 1) == 0)
+    {
+
+      return;
+    }
+
+    v8 = v36[2];
+    v9 = swift_allocObject();
+    *(v9 + 16) = sub_22457FDC0;
+    *(v9 + 24) = v12;
+    a3 = swift_allocObject();
+    a3[2] = sub_2245803F4;
+    a3[3] = v9;
+    v41 = sub_22460A920;
+    v42 = a3;
+    aBlock = MEMORY[0x277D85DD0];
+    v38 = 1107296256;
+    v39 = sub_2245D4378;
+    v40 = &block_descriptor_1684;
+    v11 = _Block_copy(&aBlock);
+    a4 = v42;
+
+    swift_unknownObjectRetain();
+
+    [v8 setDockAccessoryStateWithInfo:a1 docked:a2 completion:v11];
+
+    swift_unknownObjectRelease_n();
+    _Block_release(v11);
+    isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+    if ((isEscapingClosureAtFileLocation & 1) == 0)
+    {
+      return;
+    }
+
+    __break(1u);
+  }
+
+  sub_22452ECAC();
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
+  swift_willThrow();
+  (*(v9 + 16))(v11, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v8);
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
+
+  if (os_log_type_enabled(v28, v29))
+  {
+    v30 = swift_slowAlloc();
+    v31 = swift_slowAlloc();
+    v36[1] = a4;
+    v32 = v31;
+    *v30 = 138412290;
+    v33 = v24;
+    v34 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v34;
+    *v32 = v34;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync debug connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v32, &qword_27D0C9660, &qword_22462F2B0);
+    MEMORY[0x22AA526D0](v32, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
+  }
+
+  (*(v9 + 8))(v11, v8);
+  sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
+  swift_allocError();
+  *v35 = v24;
+  swift_continuation_throwingResumeWithError();
+}
+
 uint64_t sub_2245E5CA4(void *a1, uint64_t a2, void *aBlock, void *a4)
 {
   v4[11] = a2;
@@ -23,22 +161,22 @@ uint64_t sub_2245E5D34()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245E5DE4()
+uint64_t sub_2245E5DE4(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 112) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 112) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245E5F84;
+    v3 = sub_2245E5F84;
   }
 
   else
   {
-    v2 = sub_2245E5F00;
+    v3 = sub_2245E5F00;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245E5F00()
@@ -89,7 +227,7 @@ uint64_t sub_2245E60E4()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-void sub_2245E6194(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_2245E6194(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v8 = sub_224627B78();
   v9 = *(v8 - 1);
@@ -131,7 +269,7 @@ void sub_2245E6194(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     _Block_release(v21);
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -143,8 +281,8 @@ void sub_2245E6194(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     *(v9 + 16) = sub_2245803FC;
     *(v9 + 24) = v12;
     a3 = swift_allocObject();
-    *(a3 + 16) = sub_2245803F4;
-    *(a3 + 24) = v9;
+    a3[2] = sub_2245803F4;
+    a3[3] = v9;
     v41 = sub_22460A920;
     v42 = a3;
     aBlock = MEMORY[0x277D85DD0];
@@ -193,14 +331,14 @@ void sub_2245E6194(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     *(v30 + 4) = v34;
     *v32 = v34;
     _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync debug connection, can't send xpc %@", v30, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
+    sub_2245098A0(v32, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v32, -1, -1);
     MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v9 + 8))(v11, v8);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
   *v35 = v24;
   swift_continuation_throwingResumeWithError();
@@ -232,22 +370,22 @@ uint64_t sub_2245E6988()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245E6A38()
+uint64_t sub_2245E6A38(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 112) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 112) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245E6BE4;
+    v3 = sub_2245E6BE4;
   }
 
   else
   {
-    v2 = sub_2245E6B54;
+    v3 = sub_2245E6B54;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245E6B54()
@@ -306,22 +444,22 @@ uint64_t sub_2245E6F4C()
   return MEMORY[0x282200938](v1);
 }
 
-uint64_t sub_2245E703C()
+uint64_t sub_2245E703C(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 104) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 104) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245E7158;
+    v3 = sub_2245E7158;
   }
 
   else
   {
-    v2 = sub_22460A904;
+    v3 = sub_22460A904;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245E7158()
@@ -340,12 +478,12 @@ uint64_t sub_2245E7158()
   return v5();
 }
 
-uint64_t sub_2245E72B4(char *a1, uint64_t a2)
+void sub_2245E72B4(char *a1, uint64_t a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -365,17 +503,17 @@ uint64_t sub_2245E72B4(char *a1, uint64_t a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v35 = a2;
+    v34 = a2;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_2245803FC;
     v15[4] = v8;
-    v40 = sub_22460A980;
-    v41 = v15;
+    v39 = sub_22460A980;
+    v40 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v37 = 1107296256;
-    v38 = sub_2245D42E8;
-    v39 = &block_descriptor_1965;
+    v36 = 1107296256;
+    v37 = sub_2245D42E8;
+    v38 = &block_descriptor_1965;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -384,7 +522,7 @@ uint64_t sub_2245E72B4(char *a1, uint64_t a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -395,14 +533,14 @@ uint64_t sub_2245E72B4(char *a1, uint64_t a2)
       v4 = swift_allocObject();
       *(v4 + 16) = sub_22460AC20;
       *(v4 + 24) = v5;
-      v40 = sub_22460A920;
-      v41 = v4;
+      v39 = sub_22460A920;
+      v40 = v4;
       aBlock = MEMORY[0x277D85DD0];
-      v37 = 1107296256;
-      v38 = sub_2245D4378;
-      v39 = &block_descriptor_1976;
+      v36 = 1107296256;
+      v37 = sub_2245D4378;
+      v38 = &block_descriptor_1976;
       v19 = _Block_copy(&aBlock);
-      v13 = v41;
+      v13 = v40;
 
       swift_unknownObjectRetain();
       v20 = a1;
@@ -415,7 +553,7 @@ uint64_t sub_2245E72B4(char *a1, uint64_t a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -423,40 +561,40 @@ uint64_t sub_2245E72B4(char *a1, uint64_t a2)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, &a1[OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger], v4);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v35 = v5;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync debug connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    v5 = v35;
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v34 = v5;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    v5 = v34;
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -502,32 +640,32 @@ uint64_t sub_2245E7B5C()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245E7C14()
+uint64_t sub_2245E7C14(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(*v0 + 48))
+  v2 = *v1;
+  if (*(*v1 + 48))
   {
     swift_willThrow();
-    v2 = *(v1 + 8);
-    v3 = 0;
+    v3 = *(v2 + 8);
+    v4 = 0;
   }
 
   else
   {
-    v3 = *(*v0 + 104);
-    v2 = *(v1 + 8);
+    v4 = *(*v1 + 104);
+    v3 = *(v2 + 8);
   }
 
-  return v2(v3);
+  return v3(v4);
 }
 
-uint64_t sub_2245E7D30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_2245E7D30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v40 = a2;
+  v39 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -545,68 +683,68 @@ uint64_t sub_2245E7D30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = sub_2245E8814();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v16 && (v39[0] = a1, v39[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v45 = sub_22460A980, v46 = v18, aBlock = MEMORY[0x277D85DD0], v42 = 1107296256, v43 = sub_2245D42E8, v44 = &block_descriptor_1633, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8), swift_dynamicCast()))
+  if (v16 && (v38[0] = a1, v38[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v44 = sub_22460A980, v45 = v18, aBlock = MEMORY[0x277D85DD0], v41 = 1107296256, v42 = sub_2245D42E8, v43 = &block_descriptor_1633, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0), swift_dynamicCast()))
   {
     v22 = aBlock;
     v23 = swift_allocObject();
-    v24 = v40;
+    v24 = v39;
     v23[2] = v17;
     v23[3] = v24;
     v23[4] = sub_22460A958;
     v23[5] = v11;
-    v45 = sub_22460A96C;
-    v46 = v23;
+    v44 = sub_22460A96C;
+    v45 = v23;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245E8ED8;
-    v44 = &block_descriptor_1640;
+    v41 = 1107296256;
+    v42 = sub_2245E8ED8;
+    v43 = &block_descriptor_1640;
     v25 = _Block_copy(&aBlock);
 
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
 
-    [v22 getAccessoryDescriptionWithInfo:v39[0] completion:v25];
+    [v22 getAccessoryDescriptionWithInfo:v38[0] completion:v25];
     _Block_release(v25);
 
-    return swift_unknownObjectRelease_n();
+    swift_unknownObjectRelease_n();
   }
 
   else
   {
     sub_22452ECAC();
-    v27 = swift_allocError();
-    *v28 = xmmword_22462FFB0;
-    *(v28 + 16) = 4;
+    v26 = swift_allocError();
+    *v27 = xmmword_22462FFB0;
+    *(v27 + 16) = 4;
     swift_willThrow();
 
     (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-    v29 = v27;
-    v30 = v27;
-    v31 = sub_224627B58();
-    v32 = sub_224628048();
+    v28 = v26;
+    v29 = v26;
+    v30 = sub_224627B58();
+    v31 = sub_224628048();
 
-    if (os_log_type_enabled(v31, v32))
+    if (os_log_type_enabled(v30, v31))
     {
+      v32 = swift_slowAlloc();
       v33 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      v40 = v11;
-      v35 = v34;
-      *v33 = 138412290;
-      v36 = v27;
-      v37 = _swift_stdlib_bridgeErrorToNSError();
-      *(v33 + 4) = v37;
-      *v35 = v37;
-      _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync debug connection, can't send xpc %@", v33, 0xCu);
-      sub_2245098A0(v35, &qword_27D0C9660);
-      MEMORY[0x22AA526D0](v35, -1, -1);
-      MEMORY[0x22AA526D0](v33, -1, -1);
+      v39 = v11;
+      v34 = v33;
+      *v32 = 138412290;
+      v35 = v26;
+      v36 = _swift_stdlib_bridgeErrorToNSError();
+      *(v32 + 4) = v36;
+      *v34 = v36;
+      _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync debug connection, can't send xpc %@", v32, 0xCu);
+      sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+      MEMORY[0x22AA526D0](v34, -1, -1);
+      MEMORY[0x22AA526D0](v32, -1, -1);
     }
 
     (*(v8 + 8))(v10, v7);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_Certification);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
-    *v38 = v27;
+    *v37 = v26;
     swift_continuation_throwingResumeWithError();
   }
 }
@@ -638,24 +776,24 @@ uint64_t sub_2245E84F0()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245E85A8()
+uint64_t sub_2245E85A8(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 112) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 112) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245E8764;
+    v4 = sub_2245E8764;
   }
 
   else
   {
-    *(v1 + 121) = *(v1 + 120);
-    v3 = sub_2245E86CC;
+    *(v2 + 121) = *(v2 + 120);
+    v4 = sub_2245E86CC;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245E86CC()
@@ -856,7 +994,7 @@ void sub_2245E8F60(uint64_t *a1)
   v3 = v1;
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v5 + 16))(v7, v3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
   v8 = sub_224627B58();
@@ -876,87 +1014,87 @@ void sub_2245E8F60(uint64_t *a1)
   *(v3 + v11) = 0;
 }
 
-void sub_2245E91E8(uint64_t a1, uint64_t *a2, const char *a3)
+void sub_2245E91E8(uint64_t a1, uint64_t *a2, const char *a3, uint64_t *a4)
 {
-  v5 = sub_224627B78();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
-  v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_224627B78();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v10 = *(Strong + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-    v11 = Strong;
+    v11 = *(Strong + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+    v12 = Strong;
 
-    os_unfair_lock_lock(v10 + 4);
+    os_unfair_lock_lock(v11 + 4);
   }
 
-  v12 = swift_unknownObjectWeakLoadStrong();
-  if (v12)
+  v13 = swift_unknownObjectWeakLoadStrong();
+  if (v13)
   {
 
-    v13 = swift_unknownObjectWeakLoadStrong();
-    if (v13)
+    v14 = swift_unknownObjectWeakLoadStrong();
+    if (v14)
     {
-      v14 = v13;
-      v15 = *(v13 + *a2);
+      v15 = v14;
+      v16 = *(v14 + *a2);
 
-      [v15 invalidate];
+      [v16 invalidate];
     }
 
-    v16 = swift_unknownObjectWeakLoadStrong();
-    if (v16)
+    v17 = swift_unknownObjectWeakLoadStrong();
+    if (v17)
     {
-      v17 = *a2;
-      v18 = *&v16[*a2];
-      *&v16[v17] = 0;
+      v18 = *a2;
+      v19 = *&v17[*a2];
+      *&v17[v18] = 0;
     }
   }
 
-  v19 = swift_unknownObjectWeakLoadStrong();
-  if (v19)
+  v20 = swift_unknownObjectWeakLoadStrong();
+  if (v20)
   {
-    v20 = v19;
-    (*(v6 + 16))(v8, v19 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v5);
+    v21 = v20;
+    (*(v7 + 16))(v9, v20 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
 
-    v21 = sub_224627B58();
-    v22 = sub_224628058();
-    if (os_log_type_enabled(v21, v22))
+    v22 = sub_224627B58();
+    v23 = sub_224628058();
+    if (os_log_type_enabled(v22, v23))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_224507000, v21, v22, a3, v23, 2u);
-      MEMORY[0x22AA526D0](v23, -1, -1);
+      v24 = swift_slowAlloc();
+      *v24 = 0;
+      _os_log_impl(&dword_224507000, v22, v23, a3, v24, 2u);
+      MEMORY[0x22AA526D0](v24, -1, -1);
     }
 
-    (*(v6 + 8))(v8, v5);
+    (*(v7 + 8))(v9, v6);
   }
 
-  v24 = swift_unknownObjectWeakLoadStrong();
-  if (v24)
+  v25 = swift_unknownObjectWeakLoadStrong();
+  if (v25)
   {
-    v25 = v24;
+    v26 = v25;
     sub_22452ECAC();
-    v26 = swift_allocError();
-    *v27 = xmmword_22462FF90;
-    *(v27 + 16) = 2;
-    v28 = *&v25[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
-    *&v25[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v26;
+    v27 = swift_allocError();
+    *v28 = xmmword_22462FF90;
+    *(v28 + 16) = 2;
+    v29 = *&v26[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
+    *&v26[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v27;
   }
 
-  v29 = swift_unknownObjectWeakLoadStrong();
-  if (v29)
+  v30 = swift_unknownObjectWeakLoadStrong();
+  if (v30)
   {
-    v30 = *(v29 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-    v31 = v29;
+    v31 = *(v30 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+    v32 = v30;
 
-    os_unfair_lock_unlock(v30 + 4);
+    os_unfair_lock_unlock(v31 + 4);
   }
 
-  v32 = swift_unknownObjectWeakLoadStrong();
-  if (v32)
+  v33 = swift_unknownObjectWeakLoadStrong();
+  if (v33)
   {
-    v33 = v32;
+    v34 = v33;
     swift_unknownObjectWeakAssign();
   }
 }
@@ -1009,10 +1147,10 @@ void sub_2245E9638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v17 = sub_2245E8814();
   v18 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v17 && (v41 = a1, v42 = a5, v19 = swift_allocObject(), v19[2] = v18, v19[3] = sub_2245804EC, v19[4] = v12, v49 = sub_22460A98C, v50 = v19, aBlock = MEMORY[0x277D85DD0], v46 = 1107296256, v47 = sub_2245D42E8, v48 = &block_descriptor_1615, v20 = _Block_copy(&aBlock), v21 = v17, , , , v22 = [v21 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v20), v21, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8), swift_dynamicCast()))
+  if (v17 && (v41 = a1, v42 = a5, v19 = swift_allocObject(), v19[2] = v18, v19[3] = sub_2245804EC, v19[4] = v12, v49 = sub_22460A98C, v50 = v19, aBlock = MEMORY[0x277D85DD0], v46 = 1107296256, v47 = sub_2245D42E8, v48 = &block_descriptor_1615, v20 = _Block_copy(&aBlock), v21 = v17, , , , v22 = [v21 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v20), v21, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0), swift_dynamicCast()))
   {
     v23 = aBlock;
-    sub_22450950C(0, &unk_27D0C89A0);
+    sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
     swift_unknownObjectRetain();
     v24 = sub_224627C48();
     v25 = swift_allocObject();
@@ -1063,27 +1201,27 @@ void sub_2245E9638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       *(v34 + 4) = v38;
       *v36 = v38;
       _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync cert connection, can't send xpc %@", v34, 0xCu);
-      sub_2245098A0(v36, &qword_27D0C9660);
+      sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
       MEMORY[0x22AA526D0](v36, -1, -1);
       MEMORY[0x22AA526D0](v34, -1, -1);
     }
 
     (*(v9 + 8))(v11, v8);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v39 = v28;
     swift_continuation_throwingResumeWithError();
   }
 }
 
-uint64_t sub_2245E9DB4(void *a1, uint64_t a2, int a3, void *aBlock, void *a5)
+uint64_t sub_2245E9DB4(void *a1, uint64_t a2, uint64_t a3, void *aBlock, void *a5)
 {
   v5[11] = a2;
   v5[12] = a5;
   v5[10] = a1;
   v5[13] = _Block_copy(aBlock);
-  sub_22450950C(0, &unk_27D0C89A0);
+  sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
   v5[14] = sub_224627C58();
   v8 = a1;
   swift_unknownObjectRetain();
@@ -1106,22 +1244,22 @@ uint64_t sub_2245E9E8C()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245E9F54()
+uint64_t sub_2245E9F54(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 120) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 120) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245EA100;
+    v3 = sub_2245EA100;
   }
 
   else
   {
-    v2 = sub_2245EA070;
+    v3 = sub_2245EA070;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245EA070()
@@ -1189,7 +1327,7 @@ uint64_t sub_2245EA3EC(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v5 = a3;
     v6 = a3;
@@ -1231,10 +1369,10 @@ void sub_2245EA4B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = sub_2245D53F8();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v16 && (v38[0] = a1, v38[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A238, v18[4] = v11, v44 = sub_22460A99C, v45 = v18, aBlock = MEMORY[0x277D85DD0], v41 = 1107296256, v42 = sub_2245D42E8, v43 = &block_descriptor_1597, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798), swift_dynamicCast()))
+  if (v16 && (v38[0] = a1, v38[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A238, v18[4] = v11, v44 = sub_22460A99C, v45 = v18, aBlock = MEMORY[0x277D85DD0], v41 = 1107296256, v42 = sub_2245D42E8, v43 = &block_descriptor_1597, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200), swift_dynamicCast()))
   {
     v22 = aBlock;
-    sub_22450950C(0, &unk_27D0C89A0);
+    sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
     v23 = sub_224627C48();
     v24 = swift_allocObject();
     *(v24 + 16) = sub_22460A238;
@@ -1280,26 +1418,26 @@ void sub_2245EA4B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       *(v32 + 4) = v36;
       *v34 = v36;
       _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync debug connection, can't send xpc %@", v32, 0xCu);
-      sub_2245098A0(v34, &qword_27D0C9660);
+      sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
       MEMORY[0x22AA526D0](v34, -1, -1);
       MEMORY[0x22AA526D0](v32, -1, -1);
     }
 
     (*(v8 + 8))(v10, v7);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v37 = v26;
     swift_continuation_throwingResumeWithError();
   }
 }
 
-uint64_t sub_2245EAC00(void *a1, int a2, void *aBlock, void *a4)
+uint64_t sub_2245EAC00(void *a1, uint64_t a2, void *aBlock, void *a4)
 {
   v4[12] = a1;
   v4[13] = a4;
   v4[14] = _Block_copy(aBlock);
-  sub_22450950C(0, &unk_27D0C89A0);
+  sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
   v4[15] = sub_224627C58();
   v7 = a1;
   v8 = a4;
@@ -1321,24 +1459,24 @@ uint64_t sub_2245EACC8()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EAD88()
+uint64_t sub_2245EAD88(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 128) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 128) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245EAF58;
+    v4 = sub_2245EAF58;
   }
 
   else
   {
-    *(v1 + 136) = *(v1 + 80);
-    v3 = sub_2245EAEAC;
+    *(v2 + 136) = *(v2 + 80);
+    v4 = sub_2245EAEAC;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245EAEAC()
@@ -1401,7 +1539,7 @@ uint64_t sub_2245EAFFC(void *a1, uint64_t a2, uint64_t (*a3)(void, void, void *)
       *(v14 + 4) = v17;
       *v15 = v17;
       _os_log_impl(&dword_224507000, v12, v13, "getAccessoryDiagnostics: error from remote proxy: %@", v14, 0xCu);
-      sub_2245098A0(v15, &qword_27D0C9660);
+      sub_2245098A0(v15, &qword_27D0C9660, &qword_22462F2B0);
       MEMORY[0x22AA526D0](v15, -1, -1);
       MEMORY[0x22AA526D0](v14, -1, -1);
     }
@@ -1500,7 +1638,7 @@ void sub_2245EB4F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v16 = sub_2245E8814();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v16 && (v40 = a4, v41 = a5, v42 = a7, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_2245804EC, v18[4] = v15, v50 = sub_22460A98C, v51 = v18, aBlock = MEMORY[0x277D85DD0], v47 = 1107296256, v48 = sub_2245D42E8, v49 = &block_descriptor_1579, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8), swift_dynamicCast()))
+  if (v16 && (v40 = a4, v41 = a5, v42 = a7, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_2245804EC, v18[4] = v15, v50 = sub_22460A98C, v51 = v18, aBlock = MEMORY[0x277D85DD0], v47 = 1107296256, v48 = sub_2245D42E8, v49 = &block_descriptor_1579, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0), swift_dynamicCast()))
   {
     v22 = aBlock;
     swift_unknownObjectRetain();
@@ -1554,7 +1692,7 @@ void sub_2245EB4F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       *(v34 + 4) = v38;
       *v36 = v38;
       _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync cert connection, can't send xpc %@", v34, 0xCu);
-      sub_2245098A0(v36, &qword_27D0C9660);
+      sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
       v11 = v45;
       MEMORY[0x22AA526D0](v36, -1, -1);
       MEMORY[0x22AA526D0](v34, -1, -1);
@@ -1562,14 +1700,14 @@ void sub_2245EB4F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     (*(v12 + 8))(v14, v11);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v39 = v28;
     swift_continuation_throwingResumeWithError();
   }
 }
 
-uint64_t sub_2245EBC00(int a1, int a2, uint64_t a3, void *aBlock, void *a5)
+uint64_t sub_2245EBC00(uint64_t a1, uint64_t a2, uint64_t a3, void *aBlock, void *a5)
 {
   v5[10] = a3;
   v5[11] = a5;
@@ -1600,22 +1738,22 @@ uint64_t sub_2245EBCB0()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EBD90()
+uint64_t sub_2245EBD90(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 136) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 136) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245EBF30;
+    v3 = sub_2245EBF30;
   }
 
   else
   {
-    v2 = sub_2245EBEAC;
+    v3 = sub_2245EBEAC;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245EBEAC()
@@ -1647,7 +1785,7 @@ uint64_t sub_2245EBF30()
   return v5();
 }
 
-uint64_t sub_2245EBFD8(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t a6, void *a7, const char *a8, void *a9)
+uint64_t sub_2245EBFD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t a6, void *a7, const char *a8, void *a9)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
@@ -1685,13 +1823,13 @@ uint64_t sub_2245EC1A0()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EC258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_2245EC258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v40 = a2;
+  v39 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -1709,68 +1847,68 @@ uint64_t sub_2245EC258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = sub_2245E8814();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v16 && (v39[0] = a1, v39[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v45 = sub_22460A980, v46 = v18, aBlock = MEMORY[0x277D85DD0], v42 = 1107296256, v43 = sub_2245D42E8, v44 = &block_descriptor_1561, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8), swift_dynamicCast()))
+  if (v16 && (v38[0] = a1, v38[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v44 = sub_22460A980, v45 = v18, aBlock = MEMORY[0x277D85DD0], v41 = 1107296256, v42 = sub_2245D42E8, v43 = &block_descriptor_1561, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0), swift_dynamicCast()))
   {
     v22 = aBlock;
     v23 = swift_allocObject();
-    v24 = v40;
+    v24 = v39;
     v23[2] = v17;
     v23[3] = v24;
     v23[4] = sub_22460A958;
     v23[5] = v11;
-    v45 = sub_22460A968;
-    v46 = v23;
+    v44 = sub_22460A968;
+    v45 = v23;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245E8ED8;
-    v44 = &block_descriptor_1568;
+    v41 = 1107296256;
+    v42 = sub_2245E8ED8;
+    v43 = &block_descriptor_1568;
     v25 = _Block_copy(&aBlock);
 
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
 
-    [v22 haltWithInfo:v39[0] completion:v25];
+    [v22 haltWithInfo:v38[0] completion:v25];
     _Block_release(v25);
 
-    return swift_unknownObjectRelease_n();
+    swift_unknownObjectRelease_n();
   }
 
   else
   {
     sub_22452ECAC();
-    v27 = swift_allocError();
-    *v28 = xmmword_22462FFB0;
-    *(v28 + 16) = 4;
+    v26 = swift_allocError();
+    *v27 = xmmword_22462FFB0;
+    *(v27 + 16) = 4;
     swift_willThrow();
 
     (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-    v29 = v27;
-    v30 = v27;
-    v31 = sub_224627B58();
-    v32 = sub_224628048();
+    v28 = v26;
+    v29 = v26;
+    v30 = sub_224627B58();
+    v31 = sub_224628048();
 
-    if (os_log_type_enabled(v31, v32))
+    if (os_log_type_enabled(v30, v31))
     {
+      v32 = swift_slowAlloc();
       v33 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      v40 = v11;
-      v35 = v34;
-      *v33 = 138412290;
-      v36 = v27;
-      v37 = _swift_stdlib_bridgeErrorToNSError();
-      *(v33 + 4) = v37;
-      *v35 = v37;
-      _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync cert connection, can't send xpc %@", v33, 0xCu);
-      sub_2245098A0(v35, &qword_27D0C9660);
-      MEMORY[0x22AA526D0](v35, -1, -1);
-      MEMORY[0x22AA526D0](v33, -1, -1);
+      v39 = v11;
+      v34 = v33;
+      *v32 = 138412290;
+      v35 = v26;
+      v36 = _swift_stdlib_bridgeErrorToNSError();
+      *(v32 + 4) = v36;
+      *v34 = v36;
+      _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync cert connection, can't send xpc %@", v32, 0xCu);
+      sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+      MEMORY[0x22AA526D0](v34, -1, -1);
+      MEMORY[0x22AA526D0](v32, -1, -1);
     }
 
     (*(v8 + 8))(v10, v7);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
-    *v38 = v27;
+    *v37 = v26;
     swift_continuation_throwingResumeWithError();
   }
 }
@@ -1802,24 +1940,24 @@ uint64_t sub_2245ECA18()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245ECAD0()
+uint64_t sub_2245ECAD0(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 112) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 112) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245ECC90;
+    v4 = sub_2245ECC90;
   }
 
   else
   {
-    *(v1 + 121) = *(v1 + 120);
-    v3 = sub_2245ECBF4;
+    *(v2 + 121) = *(v2 + 120);
+    v4 = sub_2245ECBF4;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245ECBF4()
@@ -1852,195 +1990,195 @@ uint64_t sub_2245ECC90()
   return v5();
 }
 
-void sub_2245ECDB4(uint64_t a1, uint64_t *a2, const char *a3)
+void sub_2245ECDB4(uint64_t a1, uint64_t *a2, const char *a3, uint64_t *a4)
 {
-  v5 = sub_224627B78();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
-  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_224627B78();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-
-    v10 = swift_unknownObjectWeakLoadStrong();
-    if (v10)
-    {
-      v11 = v10;
-      v12 = *(v10 + *a2);
-
-      [v12 invalidate];
-    }
-
-    v13 = swift_unknownObjectWeakLoadStrong();
-    if (v13)
-    {
-      v14 = v13;
-      v15 = *(v13 + *a2);
-      if (v15)
-      {
-        v16 = v15;
-
-        [v16 setExportedObject_];
-        v14 = v16;
-      }
-    }
-
-    v17 = swift_unknownObjectWeakLoadStrong();
-    if (v17)
-    {
-      v18 = *a2;
-      v19 = *&v17[*a2];
-      *&v17[v18] = 0;
-    }
-  }
-
-  v20 = swift_unknownObjectWeakLoadStrong();
-  if (v20)
-  {
-    v21 = v20;
-    sub_22452ECAC();
-    v22 = swift_allocError();
-    *v23 = xmmword_22462FF80;
-    *(v23 + 16) = 1;
-    v24 = *&v21[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
-    *&v21[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v22;
-  }
-
-  v25 = swift_unknownObjectWeakLoadStrong();
-  if (v25)
-  {
-    v26 = v25;
-    (*(v6 + 16))(v8, v25 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v5);
-
-    v27 = sub_224627B58();
-    v28 = sub_224628058();
-    if (os_log_type_enabled(v27, v28))
-    {
-      v29 = swift_slowAlloc();
-      *v29 = 0;
-      _os_log_impl(&dword_224507000, v27, v28, a3, v29, 2u);
-      MEMORY[0x22AA526D0](v29, -1, -1);
-    }
-
-    (*(v6 + 8))(v8, v5);
-  }
-
-  v30 = swift_unknownObjectWeakLoadStrong();
-  if (v30)
-  {
-    v31 = v30;
-    swift_unknownObjectWeakAssign();
-  }
-}
-
-void sub_2245ED064()
-{
-  v0 = sub_224627B78();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v36 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v5 = *(Strong + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-    v6 = Strong;
-
-    os_unfair_lock_lock(v5 + 4);
-  }
-
-  v7 = swift_unknownObjectWeakLoadStrong();
-  if (v7)
-  {
-
-    v8 = swift_unknownObjectWeakLoadStrong();
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *(v8 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-
-      [v10 invalidate];
-    }
 
     v11 = swift_unknownObjectWeakLoadStrong();
     if (v11)
     {
-      v12 = *&v11[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture];
-      *&v11[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture] = 0;
+      v12 = v11;
+      v13 = *(v11 + *a2);
+
+      [v13 invalidate];
     }
-  }
 
-  v13 = swift_unknownObjectWeakLoadStrong();
-  if (v13)
-  {
-    v14 = v13;
-    (*(v1 + 16))(v3, v13 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v0);
-
-    v15 = sub_224627B58();
-    v16 = sub_224628058();
-    if (os_log_type_enabled(v15, v16))
+    v14 = swift_unknownObjectWeakLoadStrong();
+    if (v14)
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_224507000, v15, v16, "dockkit: Manager Camera Connection invalidated", v17, 2u);
-      MEMORY[0x22AA526D0](v17, -1, -1);
+      v15 = v14;
+      v16 = *(v14 + *a2);
+      if (v16)
+      {
+        v17 = v16;
+
+        [v17 setExportedObject_];
+        v15 = v17;
+      }
     }
 
-    (*(v1 + 8))(v3, v0);
+    v18 = swift_unknownObjectWeakLoadStrong();
+    if (v18)
+    {
+      v19 = *a2;
+      v20 = *&v18[*a2];
+      *&v18[v19] = 0;
+    }
   }
 
-  v18 = swift_unknownObjectWeakLoadStrong();
-  if (v18)
+  v21 = swift_unknownObjectWeakLoadStrong();
+  if (v21)
   {
-    v19 = v18;
+    v22 = v21;
     sub_22452ECAC();
-    v20 = swift_allocError();
-    *v21 = xmmword_22462FF90;
-    *(v21 + 16) = 2;
-    v22 = *&v19[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
-    *&v19[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v20;
-  }
-
-  v23 = swift_unknownObjectWeakLoadStrong();
-  if (v23)
-  {
-    v24 = *(v23 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-    v25 = v23;
-
-    os_unfair_lock_unlock(v24 + 4);
+    v23 = swift_allocError();
+    *v24 = xmmword_22462FF80;
+    *(v24 + 16) = 1;
+    v25 = *&v22[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
+    *&v22[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v23;
   }
 
   v26 = swift_unknownObjectWeakLoadStrong();
   if (v26)
   {
     v27 = v26;
+    (*(v7 + 16))(v9, v26 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
+
+    v28 = sub_224627B58();
+    v29 = sub_224628058();
+    if (os_log_type_enabled(v28, v29))
+    {
+      v30 = swift_slowAlloc();
+      *v30 = 0;
+      _os_log_impl(&dword_224507000, v28, v29, a3, v30, 2u);
+      MEMORY[0x22AA526D0](v30, -1, -1);
+    }
+
+    (*(v7 + 8))(v9, v6);
+  }
+
+  v31 = swift_unknownObjectWeakLoadStrong();
+  if (v31)
+  {
+    v32 = v31;
+    swift_unknownObjectWeakAssign();
+  }
+}
+
+void sub_2245ED064(uint64_t a1)
+{
+  v1 = sub_224627B78();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v6 = *(Strong + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+    v7 = Strong;
+
+    os_unfair_lock_lock(v6 + 4);
+  }
+
+  v8 = swift_unknownObjectWeakLoadStrong();
+  if (v8)
+  {
+
+    v9 = swift_unknownObjectWeakLoadStrong();
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *(v9 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
+
+      [v11 invalidate];
+    }
+
+    v12 = swift_unknownObjectWeakLoadStrong();
+    if (v12)
+    {
+      v13 = *&v12[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture];
+      *&v12[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture] = 0;
+    }
+  }
+
+  v14 = swift_unknownObjectWeakLoadStrong();
+  if (v14)
+  {
+    v15 = v14;
+    (*(v2 + 16))(v4, v14 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v1);
+
+    v16 = sub_224627B58();
+    v17 = sub_224628058();
+    if (os_log_type_enabled(v16, v17))
+    {
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&dword_224507000, v16, v17, "dockkit: Manager Camera Connection invalidated", v18, 2u);
+      MEMORY[0x22AA526D0](v18, -1, -1);
+    }
+
+    (*(v2 + 8))(v4, v1);
+  }
+
+  v19 = swift_unknownObjectWeakLoadStrong();
+  if (v19)
+  {
+    v20 = v19;
+    sub_22452ECAC();
+    v21 = swift_allocError();
+    *v22 = xmmword_22462FF90;
+    *(v22 + 16) = 2;
+    v23 = *&v20[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError];
+    *&v20[OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError] = v21;
+  }
+
+  v24 = swift_unknownObjectWeakLoadStrong();
+  if (v24)
+  {
+    v25 = *(v24 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+    v26 = v24;
+
+    os_unfair_lock_unlock(v25 + 4);
+  }
+
+  v27 = swift_unknownObjectWeakLoadStrong();
+  if (v27)
+  {
+    v28 = v27;
     swift_unknownObjectWeakAssign();
   }
 
-  v28 = swift_unknownObjectWeakLoadStrong();
-  if (v28)
+  v29 = swift_unknownObjectWeakLoadStrong();
+  if (v29)
   {
-    v29 = v28;
+    v30 = v29;
     sub_2245D62DC();
   }
 
-  v30 = swift_unknownObjectWeakLoadStrong();
-  if (v30)
+  v31 = swift_unknownObjectWeakLoadStrong();
+  if (v31)
   {
-    v31 = v30;
-    v32 = swift_unknownObjectWeakLoadStrong();
+    v32 = v31;
+    v33 = swift_unknownObjectWeakLoadStrong();
 
-    if (v32)
+    if (v33)
     {
       swift_unknownObjectRelease();
-      v33 = swift_unknownObjectWeakLoadStrong();
-      if (v33)
+      v34 = swift_unknownObjectWeakLoadStrong();
+      if (v34)
       {
-        v34 = v33;
-        v35 = swift_unknownObjectWeakLoadStrong();
+        v35 = v34;
+        v36 = swift_unknownObjectWeakLoadStrong();
 
-        if (v35)
+        if (v36)
         {
-          [v35 xpcDisconnected];
+          [v36 xpcDisconnected];
           swift_unknownObjectRelease();
         }
 
@@ -2075,13 +2213,13 @@ uint64_t sub_2245ED480()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245ED538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_2245ED538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v40 = a2;
+  v39 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -2099,68 +2237,68 @@ uint64_t sub_2245ED538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = sub_2245E8814();
   v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v16 && (v39[0] = a1, v39[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v45 = sub_22460A980, v46 = v18, aBlock = MEMORY[0x277D85DD0], v42 = 1107296256, v43 = sub_2245D42E8, v44 = &block_descriptor_1543, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8), swift_dynamicCast()))
+  if (v16 && (v38[0] = a1, v38[1] = a4, v18 = swift_allocObject(), v18[2] = v17, v18[3] = sub_22460A958, v18[4] = v11, v44 = sub_22460A980, v45 = v18, aBlock = MEMORY[0x277D85DD0], v41 = 1107296256, v42 = sub_2245D42E8, v43 = &block_descriptor_1543, v19 = _Block_copy(&aBlock), v20 = v16, , , , v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v19), v20, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0), swift_dynamicCast()))
   {
     v22 = aBlock;
     v23 = swift_allocObject();
-    v24 = v40;
+    v24 = v39;
     v23[2] = v17;
     v23[3] = v24;
     v23[4] = sub_22460A958;
     v23[5] = v11;
-    v45 = sub_22460A964;
-    v46 = v23;
+    v44 = sub_22460A964;
+    v45 = v23;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245E8ED8;
-    v44 = &block_descriptor_1550;
+    v41 = 1107296256;
+    v42 = sub_2245E8ED8;
+    v43 = &block_descriptor_1550;
     v25 = _Block_copy(&aBlock);
 
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
 
-    [v22 rebootWithInfo:v39[0] completion:v25];
+    [v22 rebootWithInfo:v38[0] completion:v25];
     _Block_release(v25);
 
-    return swift_unknownObjectRelease_n();
+    swift_unknownObjectRelease_n();
   }
 
   else
   {
     sub_22452ECAC();
-    v27 = swift_allocError();
-    *v28 = xmmword_22462FFB0;
-    *(v28 + 16) = 4;
+    v26 = swift_allocError();
+    *v27 = xmmword_22462FFB0;
+    *(v27 + 16) = 4;
     swift_willThrow();
 
     (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-    v29 = v27;
-    v30 = v27;
-    v31 = sub_224627B58();
-    v32 = sub_224628048();
+    v28 = v26;
+    v29 = v26;
+    v30 = sub_224627B58();
+    v31 = sub_224628048();
 
-    if (os_log_type_enabled(v31, v32))
+    if (os_log_type_enabled(v30, v31))
     {
+      v32 = swift_slowAlloc();
       v33 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      v40 = v11;
-      v35 = v34;
-      *v33 = 138412290;
-      v36 = v27;
-      v37 = _swift_stdlib_bridgeErrorToNSError();
-      *(v33 + 4) = v37;
-      *v35 = v37;
-      _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync cert connection, can't send xpc %@", v33, 0xCu);
-      sub_2245098A0(v35, &qword_27D0C9660);
-      MEMORY[0x22AA526D0](v35, -1, -1);
-      MEMORY[0x22AA526D0](v33, -1, -1);
+      v39 = v11;
+      v34 = v33;
+      *v32 = 138412290;
+      v35 = v26;
+      v36 = _swift_stdlib_bridgeErrorToNSError();
+      *(v32 + 4) = v36;
+      *v34 = v36;
+      _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync cert connection, can't send xpc %@", v32, 0xCu);
+      sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+      MEMORY[0x22AA526D0](v34, -1, -1);
+      MEMORY[0x22AA526D0](v32, -1, -1);
     }
 
     (*(v8 + 8))(v10, v7);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
-    *v38 = v27;
+    *v37 = v26;
     swift_continuation_throwingResumeWithError();
   }
 }
@@ -2192,27 +2330,27 @@ uint64_t sub_2245EDCF8()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EDDB0()
+uint64_t sub_2245EDDB0(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 112) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 112) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_22460AC10;
+    v4 = sub_22460AC10;
   }
 
   else
   {
-    *(v1 + 121) = *(v1 + 120);
-    v3 = sub_22460A918;
+    *(v2 + 121) = *(v2 + 120);
+    v4 = sub_22460A918;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
-uint64_t sub_2245EDED4(unsigned int a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, void), uint64_t a7, void *a8, const char *a9, void *a10)
+uint64_t sub_2245EDED4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void, void, __n128), uint64_t a7, void *a8, const char *a9, void *a10)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
@@ -2227,10 +2365,10 @@ uint64_t sub_2245EDED4(unsigned int a1, char a2, uint64_t a3, uint64_t a4, uint6
     os_unfair_lock_unlock(v18 + 5);
   }
 
-  return a6(a2 & 1, a3);
+  return (a6)(a2 & 1, a3);
 }
 
-void sub_2245EDFB8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, const char *a5, void *a6)
+void sub_2245EDFB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, void *a6)
 {
   v10 = sub_224627B78();
   v11 = *(v10 - 8);
@@ -2297,7 +2435,7 @@ uint64_t sub_2245EE298()
   *(v2 + 16) = v1;
   v3 = swift_task_alloc();
   v0[5] = v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0B8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0B8, &qword_224632B70);
   *v3 = v0;
   v3[1] = sub_2245EE3A0;
 
@@ -2330,9 +2468,9 @@ uint64_t sub_2245EE4D8()
   return v1();
 }
 
-uint64_t sub_2245EE53C(uint64_t a1)
+double sub_2245EE53C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8, &unk_224633178);
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v9 - v4;
@@ -2341,6 +2479,8 @@ uint64_t sub_2245EE53C(uint64_t a1)
   v7 = swift_allocObject();
   (*(v3 + 32))(v7 + v6, v5, v2);
   sub_2245EE708(sub_22460A240, v7);
+
+  return result;
 }
 
 uint64_t sub_2245EE684(void *a1, id a2)
@@ -2348,19 +2488,19 @@ uint64_t sub_2245EE684(void *a1, id a2)
   if (a2)
   {
     v2 = a2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8, &unk_224633178);
     return sub_224627F38();
   }
 
   else
   {
     v4 = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E8, &unk_224633178);
     return sub_224627F48();
   }
 }
 
-void sub_2245EE708(void (*a1)(void, void), uint64_t a2)
+void sub_2245EE708(void *a1, uint64_t a2)
 {
   v3 = v2;
   v6 = sub_224627B78();
@@ -2404,7 +2544,7 @@ void sub_2245EE708(void (*a1)(void, void), uint64_t a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -2412,8 +2552,8 @@ void sub_2245EE708(void (*a1)(void, void), uint64_t a2)
       *(v3 + 16) = a1;
       *(v3 + 24) = a2;
       v18 = swift_allocObject();
-      *(v18 + 16) = sub_2245803F8;
-      *(v18 + 24) = v3;
+      v18[2] = sub_2245803F8;
+      v18[3] = v3;
       v41 = sub_22460A92C;
       v42 = v18;
       aBlock = MEMORY[0x277D85DD0];
@@ -2468,7 +2608,7 @@ void sub_2245EE708(void (*a1)(void, void), uint64_t a2)
     *(v28 + 4) = v33;
     *v31 = v33;
     _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
+    sub_2245098A0(v31, &qword_27D0C9660, &qword_22462F2B0);
     v34 = v31;
     a1 = v30;
     v7 = v36;
@@ -2479,7 +2619,7 @@ void sub_2245EE708(void (*a1)(void, void), uint64_t a2)
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
   v35 = v22;
-  a1(0, v22);
+  (a1)(0, v22);
 }
 
 uint64_t sub_2245EEE08(const void *a1, void *a2)
@@ -2499,7 +2639,7 @@ uint64_t sub_2245EEE80()
   *(v2 + 16) = v1;
   v3 = swift_task_alloc();
   v0[6] = v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0B8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0B8, &qword_224632B70);
   *v3 = v0;
   v3[1] = sub_2245EEF88;
 
@@ -2563,12 +2703,12 @@ uint64_t sub_2245EF214()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
+void sub_2245EF2B8(uint64_t a1, uint64_t a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 1);
   MEMORY[0x28223BE20](v4);
-  v7 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -2588,17 +2728,17 @@ uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v33 = a2;
+    v32 = a2;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_22458013C;
     v15[4] = v8;
-    v38 = sub_22460A998;
-    v39 = v15;
+    v37 = sub_22460A998;
+    v38 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v35 = 1107296256;
-    v36 = sub_2245D42E8;
-    v37 = &block_descriptor_1518;
+    v34 = 1107296256;
+    v35 = sub_2245D42E8;
+    v36 = &block_descriptor_1518;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -2607,7 +2747,7 @@ uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v4 = aBlock;
@@ -2617,12 +2757,12 @@ uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_22460A934;
       *(a1 + 24) = v5;
-      v38 = sub_22460A938;
-      v39 = a1;
+      v37 = sub_22460A938;
+      v38 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v35 = 1107296256;
-      v36 = sub_2245EFD04;
-      v37 = &block_descriptor_1529;
+      v34 = 1107296256;
+      v35 = sub_2245EFD04;
+      v36 = &block_descriptor_1529;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -2635,7 +2775,7 @@ uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -2643,40 +2783,40 @@ uint64_t sub_2245EF2B8(uint64_t a1, uint64_t a2)
   }
 
   sub_22452ECAC();
-  v21 = swift_allocError();
-  *v22 = xmmword_22462FFB0;
-  *(v22 + 16) = 4;
+  v20 = swift_allocError();
+  *v21 = xmmword_22462FFB0;
+  *(v21 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v23 = v21;
-  v24 = v21;
-  v25 = sub_224627B58();
-  v26 = sub_224628048();
+  v22 = v20;
+  v23 = v20;
+  v24 = sub_224627B58();
+  v25 = sub_224628048();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v33 = v5;
-    v29 = v28;
-    *v27 = 138412290;
-    v30 = v21;
-    v31 = _swift_stdlib_bridgeErrorToNSError();
-    *(v27 + 4) = v31;
-    *v29 = v31;
-    _os_log_impl(&dword_224507000, v25, v26, "dockkit: failed getting sync debug connection, can't send xpc %@", v27, 0xCu);
-    sub_2245098A0(v29, &qword_27D0C9660);
-    v5 = v33;
-    MEMORY[0x22AA526D0](v29, -1, -1);
-    MEMORY[0x22AA526D0](v27, -1, -1);
+    v32 = v5;
+    v28 = v27;
+    *v26 = 138412290;
+    v29 = v20;
+    v30 = _swift_stdlib_bridgeErrorToNSError();
+    *(v26 + 4) = v30;
+    *v28 = v30;
+    _os_log_impl(&dword_224507000, v24, v25, "dockkit: failed getting sync debug connection, can't send xpc %@", v26, 0xCu);
+    sub_2245098A0(v28, &qword_27D0C9660, &qword_22462F2B0);
+    v5 = v32;
+    MEMORY[0x22AA526D0](v28, -1, -1);
+    MEMORY[0x22AA526D0](v26, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v32 = v21;
+  *v31 = v20;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -2701,24 +2841,24 @@ uint64_t sub_2245EFA80()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245EFB24()
+uint64_t sub_2245EFB24(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 104) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 104) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_22460A978;
+    v4 = sub_22460A978;
   }
 
   else
   {
-    *(v1 + 112) = *(v1 + 80);
-    v3 = sub_2245EFC48;
+    *(v2 + 112) = *(v2 + 80);
+    v4 = sub_2245EFC48;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245EFC48()
@@ -2804,31 +2944,31 @@ uint64_t sub_2245EFE74()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245EFF28()
+uint64_t sub_2245EFF28(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(*v0 + 48))
+  v2 = *v1;
+  if (*(*v1 + 48))
   {
     swift_willThrow();
-    v2 = *(v1 + 8);
-    v3 = 0;
+    v3 = *(v2 + 8);
+    v4 = 0;
   }
 
   else
   {
-    v3 = *(*v0 + 88);
-    v2 = *(v1 + 8);
+    v4 = *(*v1 + 88);
+    v3 = *(v2 + 8);
   }
 
-  return v2(v3);
+  return v3(v4);
 }
 
-uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
+void sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -2848,18 +2988,18 @@ uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v36 = a1;
-    v37 = a3;
+    v35 = a1;
+    v36 = a3;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A958;
-    *(v17 + 4) = v10;
-    v42 = sub_22460A980;
-    v43 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A958;
+    v17[4] = v10;
+    v41 = sub_22460A980;
+    v42 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_1496;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1496;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -2868,7 +3008,7 @@ uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v6 = aBlock;
@@ -2878,18 +3018,18 @@ uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_2245803F4;
       *(a2 + 24) = v7;
-      v42 = sub_22460A920;
-      v43 = a2;
+      v41 = sub_22460A920;
+      v42 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245D4378;
-      v41 = &block_descriptor_1507;
+      v38 = 1107296256;
+      v39 = sub_2245D4378;
+      v40 = &block_descriptor_1507;
       v21 = _Block_copy(&aBlock);
-      v9 = v43;
+      v9 = v42;
 
       swift_unknownObjectRetain();
 
-      [v6 migrateDataWithUpdate:v36 & 1 completion:v21];
+      [v6 migrateDataWithUpdate:v35 & 1 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -2897,7 +3037,7 @@ uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -2905,40 +3045,40 @@ uint64_t sub_2245F0044(int a1, uint64_t a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v37 = v7;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync debug connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    v7 = v37;
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v36 = v7;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    v7 = v36;
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -2965,24 +3105,24 @@ uint64_t sub_2245F0834()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F08E8()
+uint64_t sub_2245F08E8(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 96) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 96) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245F0A90;
+    v4 = sub_2245F0A90;
   }
 
   else
   {
-    *(v1 + 106) = *(v1 + 104);
-    v3 = sub_2245F0A0C;
+    *(v2 + 106) = *(v2 + 104);
+    v4 = sub_2245F0A0C;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F0A0C()
@@ -3033,12 +3173,12 @@ uint64_t sub_2245F0BF4()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
+void sub_2245F0C98(uint64_t a1, uint64_t a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 1);
   MEMORY[0x28223BE20](v4);
-  v7 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -3058,17 +3198,17 @@ uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v33 = a2;
+    v32 = a2;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_22460A238;
     v15[4] = v8;
-    v38 = sub_22460A994;
-    v39 = v15;
+    v37 = sub_22460A994;
+    v38 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v35 = 1107296256;
-    v36 = sub_2245D42E8;
-    v37 = &block_descriptor_1474;
+    v34 = 1107296256;
+    v35 = sub_2245D42E8;
+    v36 = &block_descriptor_1474;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -3077,7 +3217,7 @@ uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v4 = aBlock;
@@ -3087,12 +3227,12 @@ uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_22460AC2C;
       *(a1 + 24) = v5;
-      v38 = sub_22460AC30;
-      v39 = a1;
+      v37 = sub_22460AC30;
+      v38 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v35 = 1107296256;
-      v36 = sub_2245F1974;
-      v37 = &block_descriptor_1485;
+      v34 = 1107296256;
+      v35 = sub_2245F1974;
+      v36 = &block_descriptor_1485;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -3105,7 +3245,7 @@ uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -3113,40 +3253,40 @@ uint64_t sub_2245F0C98(uint64_t a1, uint64_t a2)
   }
 
   sub_22452ECAC();
-  v21 = swift_allocError();
-  *v22 = xmmword_22462FFB0;
-  *(v22 + 16) = 4;
+  v20 = swift_allocError();
+  *v21 = xmmword_22462FFB0;
+  *(v21 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v23 = v21;
-  v24 = v21;
-  v25 = sub_224627B58();
-  v26 = sub_224628048();
+  v22 = v20;
+  v23 = v20;
+  v24 = sub_224627B58();
+  v25 = sub_224628048();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v33 = v5;
-    v29 = v28;
-    *v27 = 138412290;
-    v30 = v21;
-    v31 = _swift_stdlib_bridgeErrorToNSError();
-    *(v27 + 4) = v31;
-    *v29 = v31;
-    _os_log_impl(&dword_224507000, v25, v26, "dockkit: failed getting sync cert connection, can't send xpc %@", v27, 0xCu);
-    sub_2245098A0(v29, &qword_27D0C9660);
-    v5 = v33;
-    MEMORY[0x22AA526D0](v29, -1, -1);
-    MEMORY[0x22AA526D0](v27, -1, -1);
+    v32 = v5;
+    v28 = v27;
+    *v26 = 138412290;
+    v29 = v20;
+    v30 = _swift_stdlib_bridgeErrorToNSError();
+    *(v26 + 4) = v30;
+    *v28 = v30;
+    _os_log_impl(&dword_224507000, v24, v25, "dockkit: failed getting sync cert connection, can't send xpc %@", v26, 0xCu);
+    sub_2245098A0(v28, &qword_27D0C9660, &qword_22462F2B0);
+    v5 = v32;
+    MEMORY[0x22AA526D0](v28, -1, -1);
+    MEMORY[0x22AA526D0](v26, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v32 = v21;
+  *v31 = v20;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -3171,26 +3311,26 @@ uint64_t sub_2245F1460()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F1504()
+uint64_t sub_2245F1504(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 112) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 112) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245F16CC;
+    v4 = sub_2245F16CC;
   }
 
   else
   {
-    v4 = v1[11];
-    v1[15] = v1[10];
-    v1[16] = v4;
-    v3 = sub_2245F1628;
+    v5 = v2[11];
+    v2[15] = v2[10];
+    v2[16] = v5;
+    v4 = sub_2245F1628;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F1628()
@@ -3246,7 +3386,7 @@ uint64_t sub_2245F176C(void *a1, uint64_t a2, uint64_t (*a3)(void, unint64_t, vo
       *(v14 + 4) = v17;
       *v15 = v17;
       _os_log_impl(&dword_224507000, v12, v13, "error from remote proxy: %@", v14, 0xCu);
-      sub_2245098A0(v15, &qword_27D0C9660);
+      sub_2245098A0(v15, &qword_27D0C9660, &qword_22462F2B0);
       MEMORY[0x22AA526D0](v15, -1, -1);
       MEMORY[0x22AA526D0](v14, -1, -1);
     }
@@ -3312,7 +3452,7 @@ uint64_t sub_2245F1B30()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-void sub_2245F1BD8(uint64_t a1, uint64_t a2, void *a3)
+void sub_2245F1BD8(uint64_t a1, void *a2, void *a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
@@ -3354,7 +3494,7 @@ void sub_2245F1BD8(uint64_t a1, uint64_t a2, void *a3)
     _Block_release(v19);
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -3366,8 +3506,8 @@ void sub_2245F1BD8(uint64_t a1, uint64_t a2, void *a3)
     *(v7 + 16) = sub_2245803FC;
     *(v7 + 24) = v10;
     a2 = swift_allocObject();
-    *(a2 + 16) = sub_2245803F4;
-    *(a2 + 24) = v7;
+    a2[2] = sub_2245803F4;
+    a2[3] = v7;
     v39 = sub_22460A920;
     v40 = a2;
     aBlock = MEMORY[0x277D85DD0];
@@ -3416,14 +3556,14 @@ void sub_2245F1BD8(uint64_t a1, uint64_t a2, void *a3)
     *(v29 + 4) = v32;
     *v30 = v32;
     _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync cert connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v30, -1, -1);
     MEMORY[0x22AA526D0](v29, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
   *v33 = v22;
   swift_continuation_throwingResumeWithError();
@@ -3452,22 +3592,22 @@ uint64_t sub_2245F23B0()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F2458()
+uint64_t sub_2245F2458(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 104) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 104) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_22460AC28;
+    v3 = sub_22460AC28;
   }
 
   else
   {
-    v2 = sub_22460A908;
+    v3 = sub_22460A908;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t DockCoreManager.returnToBase(info:)(uint64_t a1)
@@ -3489,7 +3629,7 @@ uint64_t sub_2245F25AC()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-void sub_2245F2654(uint64_t a1, uint64_t a2, void *a3)
+void sub_2245F2654(uint64_t a1, void *a2, void *a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
@@ -3531,7 +3671,7 @@ void sub_2245F2654(uint64_t a1, uint64_t a2, void *a3)
     _Block_release(v19);
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -3543,8 +3683,8 @@ void sub_2245F2654(uint64_t a1, uint64_t a2, void *a3)
     *(v7 + 16) = sub_2245803FC;
     *(v7 + 24) = v10;
     a2 = swift_allocObject();
-    *(a2 + 16) = sub_2245803F4;
-    *(a2 + 24) = v7;
+    a2[2] = sub_2245803F4;
+    a2[3] = v7;
     v39 = sub_22460A920;
     v40 = a2;
     aBlock = MEMORY[0x277D85DD0];
@@ -3593,14 +3733,14 @@ void sub_2245F2654(uint64_t a1, uint64_t a2, void *a3)
     *(v29 + 4) = v32;
     *v30 = v32;
     _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v30, -1, -1);
     MEMORY[0x22AA526D0](v29, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
   *v33 = v22;
   swift_continuation_throwingResumeWithError();
@@ -3629,22 +3769,22 @@ uint64_t sub_2245F2E2C()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F2ED4()
+uint64_t sub_2245F2ED4(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 104) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 104) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245F3074;
+    v3 = sub_2245F3074;
   }
 
   else
   {
-    v2 = sub_2245F2FF0;
+    v3 = sub_2245F2FF0;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245F2FF0()
@@ -3696,15 +3836,15 @@ uint64_t sub_2245F3154()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v42 = sub_224627B78();
-  v7 = *(v42 - 8);
-  MEMORY[0x28223BE20](v42);
-  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = sub_224627B78();
+  v7 = *(v41 - 8);
+  MEMORY[0x28223BE20](v41);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a4;
-  sub_22450950C(0, &unk_27D0C8D40);
+  sub_22450950C(0, &unk_27D0C8D40, 0x277CCACA8);
   v11 = sub_224628208();
   v12 = a2;
   v13 = v11;
@@ -3732,17 +3872,17 @@ uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   swift_unknownObjectWeakInit();
   if (v19)
   {
-    v41 = a4;
+    v40 = a4;
     v21 = swift_allocObject();
     v21[2] = v20;
     v21[3] = sub_22460A954;
     v21[4] = v10;
-    v47 = sub_22460A984;
-    v48 = v21;
+    v46 = sub_22460A984;
+    v47 = v21;
     aBlock = MEMORY[0x277D85DD0];
-    v44 = 1107296256;
-    v45 = sub_2245D42E8;
-    v46 = &block_descriptor_1408;
+    v43 = 1107296256;
+    v44 = sub_2245D42E8;
+    v45 = &block_descriptor_1408;
     v22 = _Block_copy(&aBlock);
     v23 = v19;
 
@@ -3751,7 +3891,7 @@ uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -3761,12 +3901,12 @@ uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       a3 = swift_allocObject();
       *(a3 + 16) = sub_22460A924;
       *(a3 + 24) = v25;
-      v47 = sub_22460A928;
-      v48 = a3;
+      v46 = sub_22460A928;
+      v47 = a3;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = sub_2245F3D90;
-      v46 = &block_descriptor_1419;
+      v43 = 1107296256;
+      v44 = sub_2245F3D90;
+      v45 = &block_descriptor_1419;
       v9 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -3780,7 +3920,7 @@ uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -3788,40 +3928,40 @@ uint64_t sub_2245F320C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   sub_22452ECAC();
-  v28 = swift_allocError();
-  *v29 = xmmword_22462FFB0;
-  *(v29 + 16) = 4;
+  v27 = swift_allocError();
+  *v28 = xmmword_22462FFB0;
+  *(v28 + 16) = 4;
   swift_willThrow();
 
-  (*(v7 + 16))(v9, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v42);
-  v30 = v28;
-  v31 = v28;
-  v32 = sub_224627B58();
-  v33 = sub_224628048();
+  (*(v7 + 16))(v9, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v41);
+  v29 = v27;
+  v30 = v27;
+  v31 = sub_224627B58();
+  v32 = sub_224628048();
 
-  if (os_log_type_enabled(v32, v33))
+  if (os_log_type_enabled(v31, v32))
   {
-    v34 = swift_slowAlloc();
-    v41 = v13;
-    v35 = v34;
-    v36 = swift_slowAlloc();
-    *v35 = 138412290;
-    v37 = v28;
-    v38 = _swift_stdlib_bridgeErrorToNSError();
-    *(v35 + 4) = v38;
-    *v36 = v38;
-    _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v35, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
-    MEMORY[0x22AA526D0](v36, -1, -1);
-    v13 = v41;
+    v33 = swift_slowAlloc();
+    v40 = v13;
+    v34 = v33;
+    v35 = swift_slowAlloc();
+    *v34 = 138412290;
+    v36 = v27;
+    v37 = _swift_stdlib_bridgeErrorToNSError();
+    *(v34 + 4) = v37;
+    *v35 = v37;
+    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v34, 0xCu);
+    sub_2245098A0(v35, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v35, -1, -1);
+    v13 = v40;
+    MEMORY[0x22AA526D0](v34, -1, -1);
   }
 
-  (*(v7 + 8))(v9, v42);
+  (*(v7 + 8))(v9, v41);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v39 = v28;
+  *v38 = v27;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -3861,24 +4001,24 @@ uint64_t sub_2245F3A64()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F3B24()
+uint64_t sub_2245F3B24(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 120) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 120) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245F3CF0;
+    v4 = sub_2245F3CF0;
   }
 
   else
   {
-    *(v1 + 128) = *(v1 + 80);
-    v3 = sub_2245F3C48;
+    *(v2 + 128) = *(v2 + 80);
+    v4 = sub_2245F3C48;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F3C48()
@@ -3955,15 +4095,15 @@ uint64_t sub_2245F3ED8()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v42 = sub_224627B78();
-  v7 = *(v42 - 8);
-  MEMORY[0x28223BE20](v42);
-  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = sub_224627B78();
+  v7 = *(v41 - 8);
+  MEMORY[0x28223BE20](v41);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a4;
-  sub_22450950C(0, &unk_27D0C8D40);
+  sub_22450950C(0, &unk_27D0C8D40, 0x277CCACA8);
   v11 = sub_224628208();
   v12 = a2;
   v13 = v11;
@@ -3991,17 +4131,17 @@ uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   swift_unknownObjectWeakInit();
   if (v19)
   {
-    v41 = a4;
+    v40 = a4;
     v21 = swift_allocObject();
     v21[2] = v20;
     v21[3] = sub_22460A954;
     v21[4] = v10;
-    v47 = sub_22460A984;
-    v48 = v21;
+    v46 = sub_22460A984;
+    v47 = v21;
     aBlock = MEMORY[0x277D85DD0];
-    v44 = 1107296256;
-    v45 = sub_2245D42E8;
-    v46 = &block_descriptor_1386;
+    v43 = 1107296256;
+    v44 = sub_2245D42E8;
+    v45 = &block_descriptor_1386;
     v22 = _Block_copy(&aBlock);
     v23 = v19;
 
@@ -4010,7 +4150,7 @@ uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -4020,12 +4160,12 @@ uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       a3 = swift_allocObject();
       *(a3 + 16) = sub_22460A924;
       *(a3 + 24) = v25;
-      v47 = sub_22460A928;
-      v48 = a3;
+      v46 = sub_22460A928;
+      v47 = a3;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = sub_2245F3D90;
-      v46 = &block_descriptor_1397;
+      v43 = 1107296256;
+      v44 = sub_2245F3D90;
+      v45 = &block_descriptor_1397;
       v9 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -4039,7 +4179,7 @@ uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -4047,40 +4187,40 @@ uint64_t sub_2245F3F90(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   sub_22452ECAC();
-  v28 = swift_allocError();
-  *v29 = xmmword_22462FFB0;
-  *(v29 + 16) = 4;
+  v27 = swift_allocError();
+  *v28 = xmmword_22462FFB0;
+  *(v28 + 16) = 4;
   swift_willThrow();
 
-  (*(v7 + 16))(v9, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v42);
-  v30 = v28;
-  v31 = v28;
-  v32 = sub_224627B58();
-  v33 = sub_224628048();
+  (*(v7 + 16))(v9, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v41);
+  v29 = v27;
+  v30 = v27;
+  v31 = sub_224627B58();
+  v32 = sub_224628048();
 
-  if (os_log_type_enabled(v32, v33))
+  if (os_log_type_enabled(v31, v32))
   {
-    v34 = swift_slowAlloc();
-    v41 = v13;
-    v35 = v34;
-    v36 = swift_slowAlloc();
-    *v35 = 138412290;
-    v37 = v28;
-    v38 = _swift_stdlib_bridgeErrorToNSError();
-    *(v35 + 4) = v38;
-    *v36 = v38;
-    _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v35, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
-    MEMORY[0x22AA526D0](v36, -1, -1);
-    v13 = v41;
+    v33 = swift_slowAlloc();
+    v40 = v13;
+    v34 = v33;
+    v35 = swift_slowAlloc();
+    *v34 = 138412290;
+    v36 = v27;
+    v37 = _swift_stdlib_bridgeErrorToNSError();
+    *(v34 + 4) = v37;
+    *v35 = v37;
+    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v34, 0xCu);
+    sub_2245098A0(v35, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v35, -1, -1);
+    v13 = v40;
+    MEMORY[0x22AA526D0](v34, -1, -1);
   }
 
-  (*(v7 + 8))(v9, v42);
+  (*(v7 + 8))(v9, v41);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v39 = v28;
+  *v38 = v27;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -4120,24 +4260,24 @@ uint64_t sub_2245F47E8()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F48A8()
+uint64_t sub_2245F48A8(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 120) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 120) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_22460A974;
+    v4 = sub_22460A974;
   }
 
   else
   {
-    *(v1 + 128) = *(v1 + 80);
-    v3 = sub_22460A970;
+    *(v2 + 128) = *(v2 + 80);
+    v4 = sub_22460A970;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F49E4(void *a1, int a2, uint64_t a3, void *aBlock, void (*a5)(uint64_t, uint64_t, id, void *))
@@ -4181,12 +4321,12 @@ uint64_t sub_2245F4AB8()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
+void sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -4206,18 +4346,18 @@ uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v36 = a1;
-    v37 = a3;
+    v35 = a1;
+    v36 = a3;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A954;
-    *(v17 + 4) = v10;
-    v42 = sub_22460A984;
-    v43 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A954;
+    v17[4] = v10;
+    v41 = sub_22460A984;
+    v42 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_1364;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1364;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -4226,7 +4366,7 @@ uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v6 = aBlock;
@@ -4236,18 +4376,18 @@ uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_22460A924;
       *(a2 + 24) = v7;
-      v42 = sub_22460A928;
-      v43 = a2;
+      v41 = sub_22460A928;
+      v42 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245F3D90;
-      v41 = &block_descriptor_1375;
+      v38 = 1107296256;
+      v39 = sub_2245F3D90;
+      v40 = &block_descriptor_1375;
       v21 = _Block_copy(&aBlock);
-      v9 = v43;
+      v9 = v42;
 
       swift_unknownObjectRetain();
 
-      [v6 searchWithCalibrate:v36 & 1 completion:v21];
+      [v6 searchWithCalibrate:v35 & 1 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -4255,7 +4395,7 @@ uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -4263,40 +4403,40 @@ uint64_t sub_2245F4B6C(int a1, uint64_t a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v37 = v7;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    v7 = v37;
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v36 = v7;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    v7 = v36;
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -4323,24 +4463,24 @@ uint64_t sub_2245F535C()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F5410()
+uint64_t sub_2245F5410(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 104) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 104) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_22460A978;
+    v4 = sub_22460A978;
   }
 
   else
   {
-    *(v1 + 112) = *(v1 + 80);
-    v3 = sub_22460A97C;
+    *(v2 + 112) = *(v2 + 80);
+    v4 = sub_22460A97C;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t DockCoreManager.stopSearch(calibrate:)(char a1)
@@ -4363,12 +4503,12 @@ uint64_t sub_2245F5570()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
+void sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -4388,18 +4528,18 @@ uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v36 = a1;
-    v37 = a3;
+    v35 = a1;
+    v36 = a3;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A954;
-    *(v17 + 4) = v10;
-    v42 = sub_22460A984;
-    v43 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A954;
+    v17[4] = v10;
+    v41 = sub_22460A984;
+    v42 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_1342;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1342;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -4408,7 +4548,7 @@ uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v6 = aBlock;
@@ -4418,18 +4558,18 @@ uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_22460A924;
       *(a2 + 24) = v7;
-      v42 = sub_22460A928;
-      v43 = a2;
+      v41 = sub_22460A928;
+      v42 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245F3D90;
-      v41 = &block_descriptor_1353;
+      v38 = 1107296256;
+      v39 = sub_2245F3D90;
+      v40 = &block_descriptor_1353;
       v21 = _Block_copy(&aBlock);
-      v9 = v43;
+      v9 = v42;
 
       swift_unknownObjectRetain();
 
-      [v6 stopSearchWithCalibrate:v36 & 1 completion:v21];
+      [v6 stopSearchWithCalibrate:v35 & 1 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -4437,7 +4577,7 @@ uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -4445,40 +4585,40 @@ uint64_t sub_2245F5624(int a1, uint64_t a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v37 = v7;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    v7 = v37;
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v36 = v7;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    v7 = v36;
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -4505,24 +4645,24 @@ uint64_t sub_2245F5E14()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F5EC8()
+uint64_t sub_2245F5EC8(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 104) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 104) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245D7CE0;
+    v4 = sub_2245D7CE0;
   }
 
   else
   {
-    *(v1 + 112) = *(v1 + 80);
-    v3 = sub_2245F5FEC;
+    *(v2 + 112) = *(v2 + 80);
+    v4 = sub_2245F5FEC;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F5FEC()
@@ -4558,30 +4698,30 @@ uint64_t sub_2245F60CC()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F617C()
+uint64_t sub_2245F617C(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(*v0 + 48))
+  v2 = *v1;
+  if (*(*v1 + 48))
   {
     swift_willThrow();
-    v2 = *(v1 + 8);
-    v3 = 0;
+    v3 = *(v2 + 8);
+    v4 = 0;
   }
 
   else
   {
-    v3 = *(*v0 + 96);
-    v2 = *(v1 + 8);
+    v4 = *(*v1 + 96);
+    v3 = *(v2 + 8);
   }
 
-  return v2(v3);
+  return v3(v4);
 }
 
 uint64_t sub_2245F6298(char a1, void *a2, uint64_t a3)
 {
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v4 = a2;
     v5 = a2;
@@ -4597,12 +4737,12 @@ uint64_t sub_2245F6298(char a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -4622,18 +4762,18 @@ uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v36 = a1;
-    v37 = a3;
+    v35 = a1;
+    v36 = a3;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A21C;
-    *(v17 + 4) = v10;
-    v42 = sub_22460A980;
-    v43 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A21C;
+    v17[4] = v10;
+    v41 = sub_22460A980;
+    v42 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_1320;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1320;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -4642,7 +4782,7 @@ uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v6 = aBlock;
@@ -4652,16 +4792,16 @@ uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_2245803F4;
       *(a2 + 24) = v7;
-      v42 = sub_22460A920;
-      v43 = a2;
+      v41 = sub_22460A920;
+      v42 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245D4378;
-      v41 = &block_descriptor_1331;
+      v38 = 1107296256;
+      v39 = sub_2245D4378;
+      v40 = &block_descriptor_1331;
       v21 = _Block_copy(&aBlock);
-      v9 = v43;
+      v9 = v42;
 
-      [v6 setTrackingButtonStateWithState:v36 completion:v21];
+      [v6 setTrackingButtonStateWithState:v35 completion:v21];
       swift_unknownObjectRelease();
 
       _Block_release(v21);
@@ -4669,7 +4809,7 @@ uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -4677,39 +4817,39 @@ uint64_t sub_2245F635C(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v37 = v10;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v36 = v10;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -4736,24 +4876,24 @@ uint64_t sub_2245F6B34()
   return MEMORY[0x282200938](v0 + 2);
 }
 
-uint64_t sub_2245F6BE4()
+uint64_t sub_2245F6BE4(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 104) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 104) = v3;
+  if (v3)
   {
     swift_willThrow();
-    v3 = sub_2245F6D8C;
+    v4 = sub_2245F6D8C;
   }
 
   else
   {
-    *(v1 + 113) = *(v1 + 112);
-    v3 = sub_2245F6D08;
+    *(v2 + 113) = *(v2 + 112);
+    v4 = sub_2245F6D08;
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
 uint64_t sub_2245F6D08()
@@ -4815,7 +4955,7 @@ void *sub_2245F6EF4(uint64_t a1, SEL *a2)
   return result;
 }
 
-void sub_2245F6F88(void *a1, uint64_t a2, void *a3, SEL *a4)
+void sub_2245F6F88(char *a1, uint64_t a2, void *a3, const char **a4)
 {
   if (swift_unknownObjectWeakLoadStrong())
   {
@@ -4859,7 +4999,7 @@ void *sub_2245F7074(char a1, SEL *a2)
   return result;
 }
 
-void sub_2245F7108(void *a1, uint64_t a2, uint64_t a3, SEL *a4)
+void sub_2245F7108(char *a1, uint64_t a2, uint64_t a3, const char **a4)
 {
   if (swift_unknownObjectWeakLoadStrong())
   {
@@ -4879,7 +5019,7 @@ void sub_2245F7108(void *a1, uint64_t a2, uint64_t a3, SEL *a4)
   }
 }
 
-void *sub_2245F71E8(SEL *a1)
+void *sub_2245F71E8(const char **a1)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
@@ -4902,7 +5042,7 @@ void *sub_2245F71E8(SEL *a1)
   return result;
 }
 
-void sub_2245F7274(void *a1, uint64_t a2, SEL *a3)
+void sub_2245F7274(char *a1, uint64_t a2, const char **a3)
 {
   if (swift_unknownObjectWeakLoadStrong())
   {
@@ -4941,12 +5081,12 @@ uint64_t sub_2245F7340()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
+void sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 1);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -4966,18 +5106,18 @@ uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v36 = a1;
-    v37 = a3;
+    v35 = a1;
+    v36 = a3;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_2245803FC;
-    *(v17 + 4) = v10;
-    v42 = sub_22460A980;
-    v43 = v17;
+    v17[2] = v16;
+    v17[3] = sub_2245803FC;
+    v17[4] = v10;
+    v41 = sub_22460A980;
+    v42 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_1298;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_1298;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -4986,7 +5126,7 @@ uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v6 = aBlock;
@@ -4996,16 +5136,16 @@ uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_2245803F4;
       *(a2 + 24) = v7;
-      v42 = sub_22460A920;
-      v43 = a2;
+      v41 = sub_22460A920;
+      v42 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245D4378;
-      v41 = &block_descriptor_1309;
+      v38 = 1107296256;
+      v39 = sub_2245D4378;
+      v40 = &block_descriptor_1309;
       v21 = _Block_copy(&aBlock);
-      v9 = v43;
+      v9 = v42;
 
-      [v6 setTrackingActivityWithEnabled:v36 & 1 completion:v21];
+      [v6 setTrackingActivityWithEnabled:v35 & 1 completion:v21];
       swift_unknownObjectRelease();
 
       _Block_release(v21);
@@ -5013,7 +5153,7 @@ uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -5021,40 +5161,40 @@ uint64_t sub_2245F73EC(int a1, uint64_t a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v37 = v7;
-    v31 = v30;
-    *v29 = 138412290;
-    v32 = v23;
-    v33 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v33;
-    *v31 = v33;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v31, &qword_27D0C9660);
-    v7 = v37;
-    MEMORY[0x22AA526D0](v31, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v36 = v7;
+    v30 = v29;
+    *v28 = 138412290;
+    v31 = v22;
+    v32 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v32;
+    *v30 = v32;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
+    v7 = v36;
+    MEMORY[0x22AA526D0](v30, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v34 = v23;
+  *v33 = v22;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -5080,22 +5220,22 @@ uint64_t sub_2245F7BD0()
   return MEMORY[0x282200938](v0 + 16);
 }
 
-uint64_t sub_2245F7C7C()
+uint64_t sub_2245F7C7C(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  *(*v0 + 96) = v1;
-  if (v1)
+  v2 = *(*v1 + 48);
+  *(*v1 + 96) = v2;
+  if (v2)
   {
     swift_willThrow();
-    v2 = sub_2245F7D98;
+    v3 = sub_2245F7D98;
   }
 
   else
   {
-    v2 = sub_22460AC18;
+    v3 = sub_22460AC18;
   }
 
-  return MEMORY[0x2822009F8](v2, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 uint64_t sub_2245F7D98()
@@ -5112,7 +5252,7 @@ uint64_t sub_2245F7D98()
   return v4();
 }
 
-uint64_t sub_2245F7F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, SEL *a8, void (*a9)(uint64_t))
+double sub_2245F7F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, SEL *a8, uint64_t (*a9)(uint64_t))
 {
   v15 = *(v9 + *a6);
 
@@ -5157,9 +5297,11 @@ LABEL_6:
 
 LABEL_7:
   os_unfair_lock_unlock(v15 + 5);
+
+  return result;
 }
 
-void sub_2245F8084(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, SEL *a9, void (*a10)(uint64_t))
+void sub_2245F8084(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, SEL *a9, uint64_t (*a10)(uint64_t))
 {
   v10 = *(a2 + *a8);
   if (*(v10 + 16))
@@ -5200,7 +5342,7 @@ LABEL_6:
   }
 }
 
-uint64_t sub_2245F81F8(char *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, void *a7, void *a8, SEL *a9, void (*a10)(uint64_t))
+uint64_t sub_2245F81F8(char *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, void *a7, void *a8, SEL *a9, uint64_t (*a10)(uint64_t))
 {
   if (a5)
   {
@@ -5224,7 +5366,7 @@ uint64_t sub_2245F81F8(char *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5
   os_unfair_lock_unlock(v18 + 5);
 }
 
-uint64_t DockCoreManager.fwUpdateFeedback(processID:info:message:complete:err:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
+double DockCoreManager.fwUpdateFeedback(processID:info:message:complete:err:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
 {
   v11 = *(v6 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_fwUpdateFeedbackLock);
 
@@ -5257,6 +5399,8 @@ uint64_t DockCoreManager.fwUpdateFeedback(processID:info:message:complete:err:)(
   }
 
   os_unfair_lock_unlock(v11 + 5);
+
+  return result;
 }
 
 void sub_2245F8444(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8)
@@ -5293,7 +5437,7 @@ void sub_2245F8444(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-uint64_t sub_2245F86C4(uint64_t a1, uint64_t a2, char a3, char a4, uint64_t a5, void *a6, void *a7, SEL *a8)
+double sub_2245F86C4(uint64_t a1, uint64_t a2, char a3, char a4, uint64_t a5, void *a6, void *a7, SEL *a8)
 {
   v15 = *(v8 + *a6);
 
@@ -5329,6 +5473,8 @@ uint64_t sub_2245F86C4(uint64_t a1, uint64_t a2, char a3, char a4, uint64_t a5, 
   }
 
   os_unfair_lock_unlock(v15 + 5);
+
+  return result;
 }
 
 void sub_2245F87F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, char a6, uint64_t a7, void *a8, SEL *a9)
@@ -5390,14 +5536,14 @@ uint64_t sub_2245F8A2C(uint64_t a1)
   return sub_2245E1D80(a1, v4, v5, v6);
 }
 
-uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v42 = a2;
-  v43 = a3;
+  v41 = a2;
+  v42 = a3;
   v8 = sub_224627B78();
   isEscapingClosureAtFileLocation = *(v8 - 1);
   MEMORY[0x28223BE20](v8);
-  v11 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = swift_allocObject();
   *(v12 + 16) = a5;
   v13 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -5417,18 +5563,18 @@ uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   swift_unknownObjectWeakInit();
   if (v17)
   {
-    v40 = a1;
-    v41 = a5;
+    v39 = a1;
+    v40 = a5;
     v19 = swift_allocObject();
     v19[2] = v18;
     v19[3] = sub_2245804EC;
     v19[4] = v12;
-    v48 = sub_22460A98C;
-    v49 = v19;
+    v47 = sub_22460A98C;
+    v48 = v19;
     aBlock = MEMORY[0x277D85DD0];
-    v45 = 1107296256;
-    v46 = sub_2245D42E8;
-    v47 = &block_descriptor_1875;
+    v44 = 1107296256;
+    v45 = sub_2245D42E8;
+    v46 = &block_descriptor_1875;
     v20 = _Block_copy(&aBlock);
     v21 = v17;
 
@@ -5437,14 +5583,14 @@ uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       v23 = aBlock;
       swift_unknownObjectRetain();
       v8 = sub_224627CB8();
       v24 = swift_allocObject();
-      v17 = v40;
+      v17 = v39;
       v24[2] = v18;
       v24[3] = v17;
       v24[4] = sub_2245804EC;
@@ -5452,12 +5598,12 @@ uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
       a4 = swift_allocObject();
       *(a4 + 16) = sub_22460A3A4;
       *(a4 + 24) = v24;
-      v48 = sub_22460A920;
-      v49 = a4;
+      v47 = sub_22460A920;
+      v48 = a4;
       aBlock = MEMORY[0x277D85DD0];
-      v45 = 1107296256;
-      v46 = sub_2245D4378;
-      v47 = &block_descriptor_1885;
+      v44 = 1107296256;
+      v45 = sub_2245D4378;
+      v46 = &block_descriptor_1885;
       v11 = _Block_copy(&aBlock);
 
       v25 = v17;
@@ -5470,7 +5616,7 @@ uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -5478,40 +5624,40 @@ uint64_t sub_2245F8AEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   }
 
   sub_22452ECAC();
-  v27 = swift_allocError();
-  *v28 = xmmword_22462FFB0;
-  *(v28 + 16) = 4;
+  v26 = swift_allocError();
+  *v27 = xmmword_22462FFB0;
+  *(v27 + 16) = 4;
   swift_willThrow();
 
   (*(isEscapingClosureAtFileLocation + 16))(v11, a4 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v8);
-  v29 = v27;
-  v30 = v27;
-  v31 = sub_224627B58();
-  v32 = sub_224628048();
+  v28 = v26;
+  v29 = v26;
+  v30 = sub_224627B58();
+  v31 = sub_224628048();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v30, v31))
   {
+    v32 = swift_slowAlloc();
     v33 = swift_slowAlloc();
-    v34 = swift_slowAlloc();
-    v43 = isEscapingClosureAtFileLocation;
-    v35 = v34;
-    *v33 = 138412290;
-    v36 = v27;
-    v37 = _swift_stdlib_bridgeErrorToNSError();
-    *(v33 + 4) = v37;
-    *v35 = v37;
-    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync connection, can't send xpc %@", v33, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
-    isEscapingClosureAtFileLocation = v43;
-    MEMORY[0x22AA526D0](v35, -1, -1);
-    MEMORY[0x22AA526D0](v33, -1, -1);
+    v42 = isEscapingClosureAtFileLocation;
+    v34 = v33;
+    *v32 = 138412290;
+    v35 = v26;
+    v36 = _swift_stdlib_bridgeErrorToNSError();
+    *(v32 + 4) = v36;
+    *v34 = v36;
+    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync connection, can't send xpc %@", v32, 0xCu);
+    sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+    isEscapingClosureAtFileLocation = v42;
+    MEMORY[0x22AA526D0](v34, -1, -1);
+    MEMORY[0x22AA526D0](v32, -1, -1);
   }
 
   (*(isEscapingClosureAtFileLocation + 8))(v11, v8);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v38 = v27;
+  *v37 = v26;
   swift_continuation_throwingResumeWithError();
 }
 
@@ -5561,7 +5707,7 @@ void sub_2245F90F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       a6 = aBlock;
@@ -5631,7 +5777,7 @@ void sub_2245F90F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint
     *(v34 + 4) = v39;
     *v37 = v39;
     _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync connection, can't send xpc %@", v34, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
+    sub_2245098A0(v37, &qword_27D0C9660, &qword_22462F2B0);
     v40 = v37;
     a4 = v36;
     v11 = v46;
@@ -5645,12 +5791,12 @@ void sub_2245F90F8(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint
   a4(v28);
 }
 
-uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
+void sub_2245F96B8(void *a1, char *a2, uint64_t a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20]();
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -5670,18 +5816,18 @@ uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v39 = a1;
-    v40 = a3;
+    v38 = a1;
+    v39 = a3;
     v17 = swift_allocObject();
     v17[2] = v16;
     v17[3] = sub_2245803FC;
     v17[4] = v10;
-    v45 = sub_22460A980;
-    v46 = v17;
+    v44 = sub_22460A980;
+    v45 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245D42E8;
-    v44 = &block_descriptor_1854;
+    v41 = 1107296256;
+    v42 = sub_2245D42E8;
+    v43 = &block_descriptor_1854;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -5690,12 +5836,12 @@ uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v9 = aBlock;
       v7 = swift_allocObject();
-      v21 = v39;
+      v21 = v38;
       *(v7 + 16) = a2;
       *(v7 + 24) = v21;
       *(v7 + 32) = sub_2245803FC;
@@ -5703,14 +5849,14 @@ uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
       v6 = swift_allocObject();
       *(v6 + 16) = sub_22460A3A0;
       *(v6 + 24) = v7;
-      v45 = sub_22460A920;
-      v46 = v6;
+      v44 = sub_22460A920;
+      v45 = v6;
       aBlock = MEMORY[0x277D85DD0];
-      v42 = 1107296256;
-      v43 = sub_2245D4378;
-      v44 = &block_descriptor_1864;
+      v41 = 1107296256;
+      v42 = sub_2245D4378;
+      v43 = &block_descriptor_1864;
       v22 = _Block_copy(&aBlock);
-      v15 = v46;
+      v15 = v45;
 
       swift_unknownObjectRetain();
       v23 = a2;
@@ -5724,7 +5870,7 @@ uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
 
       if ((v22 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -5732,44 +5878,44 @@ uint64_t sub_2245F96B8(void *a1, char *a2, uint64_t a3)
   }
 
   sub_22452ECAC();
-  v26 = swift_allocError();
-  *v27 = xmmword_22462FFB0;
-  *(v27 + 16) = 4;
+  v25 = swift_allocError();
+  *v26 = xmmword_22462FFB0;
+  *(v26 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, &a2[OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger], v6);
-  v28 = v26;
-  v29 = v26;
-  v30 = sub_224627B58();
-  v31 = sub_224628048();
+  v27 = v25;
+  v28 = v25;
+  v29 = sub_224627B58();
+  v30 = sub_224628048();
 
-  if (os_log_type_enabled(v30, v31))
+  if (os_log_type_enabled(v29, v30))
   {
+    v31 = swift_slowAlloc();
     v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    v40 = v7;
-    v34 = v33;
-    *v32 = 138412290;
-    v35 = v26;
-    v36 = _swift_stdlib_bridgeErrorToNSError();
-    *(v32 + 4) = v36;
-    *v34 = v36;
-    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync debug connection, can't send xpc %@", v32, 0xCu);
-    sub_2245098A0(v34, &qword_27D0C9660);
-    v7 = v40;
-    MEMORY[0x22AA526D0](v34, -1, -1);
-    MEMORY[0x22AA526D0](v32, -1, -1);
+    v39 = v7;
+    v33 = v32;
+    *v31 = 138412290;
+    v34 = v25;
+    v35 = _swift_stdlib_bridgeErrorToNSError();
+    *(v31 + 4) = v35;
+    *v33 = v35;
+    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync debug connection, can't send xpc %@", v31, 0xCu);
+    sub_2245098A0(v33, &qword_27D0C9660, &qword_22462F2B0);
+    v7 = v39;
+    MEMORY[0x22AA526D0](v33, -1, -1);
+    MEMORY[0x22AA526D0](v31, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
   swift_allocError();
-  *v37 = v26;
+  *v36 = v25;
   swift_continuation_throwingResumeWithError();
 }
 
-void sub_2245F9CA8(uint64_t a1, void (*a2)(void, void), uint64_t a3, char *a4)
+void sub_2245F9CA8(uint64_t a1, void *a2, uint64_t a3, char *a4)
 {
   v8 = sub_224627B78();
   v9 = *(v8 - 8);
@@ -5813,7 +5959,7 @@ void sub_2245F9CA8(uint64_t a1, void (*a2)(void, void), uint64_t a3, char *a4)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v11 = aBlock;
@@ -5824,8 +5970,8 @@ void sub_2245F9CA8(uint64_t a1, void (*a2)(void, void), uint64_t a3, char *a4)
       *(v9 + 32) = v19;
       *(v9 + 40) = a3;
       v19 = swift_allocObject();
-      *(v19 + 16) = sub_22460AC24;
-      *(v19 + 24) = v9;
+      v19[2] = sub_22460AC24;
+      v19[3] = v9;
       v48 = sub_22460A920;
       v49 = v19;
       aBlock = MEMORY[0x277D85DD0];
@@ -5882,7 +6028,7 @@ void sub_2245F9CA8(uint64_t a1, void (*a2)(void, void), uint64_t a3, char *a4)
     *(v33 + 4) = v38;
     *v36 = v38;
     _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync debug connection, can't send xpc %@", v33, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
+    sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
     v39 = v36;
     a2 = v35;
     v9 = v43;
@@ -5893,7 +6039,7 @@ void sub_2245F9CA8(uint64_t a1, void (*a2)(void, void), uint64_t a3, char *a4)
   (*(v9 + 8))(v11, v8);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
   v40 = v27;
-  a2(0, v27);
+  (a2)(0, v27);
 }
 
 uint64_t _s11DockKitCore0aC7ManagerC12debugAllowedSbvgZ_0()
@@ -6101,12 +6247,12 @@ void _s11DockKitCore0aC7ManagerC21secureTrackingAllowedSbSgvsZ_0(unsigned __int8
   CFPreferencesAppSynchronize(applicationID);
 }
 
-uint64_t sub_2245FA944(uint64_t a1, void *a2)
+void sub_2245FA944(uint64_t a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -6146,17 +6292,17 @@ uint64_t sub_2245FA944(uint64_t a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v17)
   {
-    v41 = v4;
+    v40 = v4;
     v19 = swift_allocObject();
     v19[2] = v18;
     v19[3] = sub_22460A0F8;
     v19[4] = v8;
-    v46 = sub_22460A128;
-    v47 = v19;
+    v45 = sub_22460A128;
+    v46 = v19;
     aBlock = MEMORY[0x277D85DD0];
-    v43 = 1107296256;
-    v44 = sub_2245D42E8;
-    v45 = &block_descriptor_1264;
+    v42 = 1107296256;
+    v43 = sub_2245D42E8;
+    v44 = &block_descriptor_1264;
     v20 = _Block_copy(&aBlock);
     v21 = v17;
 
@@ -6165,7 +6311,7 @@ uint64_t sub_2245FA944(uint64_t a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0, &qword_224633050);
     if (swift_dynamicCast())
     {
       v5 = aBlock;
@@ -6175,12 +6321,12 @@ uint64_t sub_2245FA944(uint64_t a1, void *a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_224580150;
       *(a1 + 24) = a2;
-      v46 = sub_22460A148;
-      v47 = a1;
+      v45 = sub_22460A148;
+      v46 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v43 = 1107296256;
-      v44 = sub_2245D7D80;
-      v45 = &block_descriptor_1273;
+      v42 = 1107296256;
+      v43 = sub_2245D7D80;
+      v44 = &block_descriptor_1273;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -6193,55 +6339,55 @@ uint64_t sub_2245FA944(uint64_t a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v41;
+    v4 = v40;
   }
 
   sub_22452ECAC();
-  v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
-  *(v26 + 16) = 4;
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v27 = v25;
-  v28 = v25;
-  v29 = sub_224627B58();
-  v30 = sub_224628048();
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v28, v29))
   {
+    v30 = swift_slowAlloc();
     v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v41 = v7;
-    v33 = v4;
-    v34 = v32;
-    *v31 = 138412290;
-    v35 = v25;
-    v36 = _swift_stdlib_bridgeErrorToNSError();
-    *(v31 + 4) = v36;
-    *v34 = v36;
-    _os_log_impl(&dword_224507000, v29, v30, "failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v34, &qword_27D0C9660);
-    v37 = v34;
-    v4 = v33;
-    v7 = v41;
-    MEMORY[0x22AA526D0](v37, -1, -1);
-    MEMORY[0x22AA526D0](v31, -1, -1);
+    v40 = v7;
+    v32 = v4;
+    v33 = v31;
+    *v30 = 138412290;
+    v34 = v24;
+    v35 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v35;
+    *v33 = v35;
+    _os_log_impl(&dword_224507000, v28, v29, "failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v33, &qword_27D0C9660, &qword_22462F2B0);
+    v36 = v33;
+    v4 = v32;
+    v7 = v40;
+    MEMORY[0x22AA526D0](v36, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v38 = v25;
-  type metadata accessor for DockCoreAccessory();
-  v39 = sub_224627EB8();
-  v40 = sub_224626FA8();
-  (a2[2])(a2, v39, v40);
+  v37 = v24;
+  type metadata accessor for DockCoreAccessory(0);
+  v38 = sub_224627EB8();
+  v39 = sub_224626FA8();
+  (a2[2])(a2, v38, v39);
 }
 
 void sub_2245FAFA4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -6274,7 +6420,7 @@ void sub_2245FAFA4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   v19 = sub_2245D53F8();
   v20 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v19 && (v43 = a1, v44 = a4, v21 = swift_allocObject(), v21[2] = v20, v21[3] = sub_22460A2D4, v21[4] = v14, v53 = sub_22460A98C, v54 = v21, aBlock = MEMORY[0x277D85DD0], v50 = 1107296256, v51 = sub_2245D42E8, v52 = &block_descriptor_1771, v22 = _Block_copy(&aBlock), v23 = v19, , , , v24 = [v23 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v22), v23, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798), swift_dynamicCast()))
+  if (v19 && (v43 = a1, v44 = a4, v21 = swift_allocObject(), v21[2] = v20, v21[3] = sub_22460A2D4, v21[4] = v14, v53 = sub_22460A98C, v54 = v21, aBlock = MEMORY[0x277D85DD0], v50 = 1107296256, v51 = sub_2245D42E8, v52 = &block_descriptor_1771, v22 = _Block_copy(&aBlock), v23 = v19, , , , v24 = [v23 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v22), v23, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200), swift_dynamicCast()))
   {
     v25 = aBlock;
     swift_unknownObjectRetain();
@@ -6322,7 +6468,7 @@ void sub_2245FAFA4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
       *(v35 + 4) = v39;
       *v37 = v39;
       _os_log_impl(&dword_224507000, v33, v34, "dockkit: failed getting sync connection, can't send xpc %@", v35, 0xCu);
-      sub_2245098A0(v37, &qword_27D0C9660);
+      sub_2245098A0(v37, &qword_27D0C9660, &qword_22462F2B0);
       v9 = v44;
       MEMORY[0x22AA526D0](v37, -1, -1);
       MEMORY[0x22AA526D0](v35, -1, -1);
@@ -6335,7 +6481,7 @@ void sub_2245FAFA4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
     v41 = v29;
     sub_2245D7EF8(v40, v29);
     (*(v9 + 8))(v40, v8);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
     *v42 = v29;
     swift_continuation_throwingResumeWithError();
@@ -6388,7 +6534,7 @@ void sub_2245FB60C(uint64_t a1, uint64_t a2, void (**a3)(void, void))
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v21 = aBlock;
@@ -6442,7 +6588,7 @@ void sub_2245FB60C(uint64_t a1, uint64_t a2, void (**a3)(void, void))
     *(v31 + 4) = v37;
     *v35 = v37;
     _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
+    sub_2245098A0(v35, &qword_27D0C9660, &qword_22462F2B0);
     v38 = v35;
     v6 = v34;
     v7 = v33;
@@ -6458,23 +6604,23 @@ void sub_2245FB60C(uint64_t a1, uint64_t a2, void (**a3)(void, void))
   (a3)[2](a3, v40);
 }
 
-uint64_t sub_2245FBBA0(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
+void sub_2245FBBA0(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
 {
   v10 = sub_224627A48();
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
-  v50 = &v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49 = &v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_224627B78();
-  v51 = *(v13 - 8);
-  v52 = v13;
+  v50 = *(v13 - 8);
+  v51 = v13;
   MEMORY[0x28223BE20](v13);
-  v15 = &v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = swift_allocObject();
   *(v16 + 16) = a2;
   *(v16 + 24) = a3;
   v17 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
   v18 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-  v49 = a2;
+  v48 = a2;
 
   os_unfair_lock_lock(v18 + 4);
 
@@ -6488,7 +6634,7 @@ uint64_t sub_2245FBBA0(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
   v21 = sub_2245D53F8();
   v22 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  if (v21 && (v48 = a3, v23 = swift_allocObject(), v23[2] = v22, v23[3] = sub_22460A2B0, v23[4] = v16, v57 = sub_22460A98C, v58 = v23, aBlock = MEMORY[0x277D85DD0], v54 = 1107296256, v55 = sub_2245D42E8, v56 = &block_descriptor_1747, v24 = _Block_copy(&aBlock), v25 = v21, , , , v26 = [v25 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v24), v25, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798), swift_dynamicCast()))
+  if (v21 && (v47 = a3, v23 = swift_allocObject(), v23[2] = v22, v23[3] = sub_22460A2B0, v23[4] = v16, v56 = sub_22460A98C, v57 = v23, aBlock = MEMORY[0x277D85DD0], v53 = 1107296256, v54 = sub_2245D42E8, v55 = &block_descriptor_1747, v24 = _Block_copy(&aBlock), v25 = v21, , , , v26 = [v25 synchronousRemoteObjectProxyWithErrorHandler_], _Block_release(v24), v25, sub_224628278(), swift_unknownObjectRelease(), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200), swift_dynamicCast()))
   {
     v27 = aBlock;
     v28 = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithDouble_];
@@ -6496,12 +6642,12 @@ uint64_t sub_2245FBBA0(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
     v30 = swift_allocObject();
     *(v30 + 16) = sub_22460A2B0;
     *(v30 + 24) = v16;
-    v57 = sub_22460A930;
-    v58 = v30;
+    v56 = sub_22460A930;
+    v57 = v30;
     aBlock = MEMORY[0x277D85DD0];
-    v54 = 1107296256;
-    v55 = sub_2245D43DC;
-    v56 = &block_descriptor_1754;
+    v53 = 1107296256;
+    v54 = sub_2245D43DC;
+    v55 = &block_descriptor_1754;
     v31 = _Block_copy(&aBlock);
 
     swift_unknownObjectRetain();
@@ -6509,51 +6655,51 @@ uint64_t sub_2245FBBA0(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
     [v27 selectSubjectAtX:v28 y:v29 completion:v31];
     _Block_release(v31);
 
-    return swift_unknownObjectRelease_n();
+    swift_unknownObjectRelease_n();
   }
 
   else
   {
     sub_22452ECAC();
-    v33 = swift_allocError();
-    *v34 = xmmword_22462FFB0;
-    *(v34 + 16) = 4;
+    v32 = swift_allocError();
+    *v33 = xmmword_22462FFB0;
+    *(v33 + 16) = 4;
     swift_willThrow();
 
-    (*(v51 + 16))(v15, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v52);
-    v35 = v33;
-    v36 = v33;
-    v37 = sub_224627B58();
-    v38 = sub_224628048();
+    (*(v50 + 16))(v15, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v51);
+    v34 = v32;
+    v35 = v32;
+    v36 = sub_224627B58();
+    v37 = sub_224628048();
 
-    if (os_log_type_enabled(v37, v38))
+    if (os_log_type_enabled(v36, v37))
     {
+      v38 = swift_slowAlloc();
       v39 = swift_slowAlloc();
-      v40 = swift_slowAlloc();
-      v48 = v11;
-      v41 = v40;
-      *v39 = 138412290;
-      v42 = v33;
-      v43 = _swift_stdlib_bridgeErrorToNSError();
-      *(v39 + 4) = v43;
-      *v41 = v43;
-      _os_log_impl(&dword_224507000, v37, v38, "dockkit: failed getting sync connection, can't send xpc %@", v39, 0xCu);
-      sub_2245098A0(v41, &qword_27D0C9660);
-      v11 = v48;
-      MEMORY[0x22AA526D0](v41, -1, -1);
-      MEMORY[0x22AA526D0](v39, -1, -1);
+      v47 = v11;
+      v40 = v39;
+      *v38 = 138412290;
+      v41 = v32;
+      v42 = _swift_stdlib_bridgeErrorToNSError();
+      *(v38 + 4) = v42;
+      *v40 = v42;
+      _os_log_impl(&dword_224507000, v36, v37, "dockkit: failed getting sync connection, can't send xpc %@", v38, 0xCu);
+      sub_2245098A0(v40, &qword_27D0C9660, &qword_22462F2B0);
+      v11 = v47;
+      MEMORY[0x22AA526D0](v40, -1, -1);
+      MEMORY[0x22AA526D0](v38, -1, -1);
     }
 
-    (*(v51 + 8))(v15, v52);
+    (*(v50 + 8))(v15, v51);
     sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-    v44 = v50;
-    (*(v11 + 104))(v50, *MEMORY[0x277D214E0], v10);
-    v45 = v33;
-    sub_2245D7EF8(v44, v33);
-    (*(v11 + 8))(v44, v10);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0);
+    v43 = v49;
+    (*(v11 + 104))(v49, *MEMORY[0x277D214E0], v10);
+    v44 = v32;
+    sub_2245D7EF8(v43, v32);
+    (*(v11 + 8))(v43, v10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C8EA0, &qword_22462CB40);
     swift_allocError();
-    *v46 = v33;
+    *v45 = v32;
     swift_continuation_throwingResumeWithError();
   }
 }
@@ -6570,12 +6716,12 @@ unint64_t sub_2245FC254()
   return result;
 }
 
-uint64_t sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a4)
+void sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a4)
 {
   v8 = sub_224627B78();
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
-  v11 = &v45 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v44 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = swift_allocObject();
   *(v12 + 16) = a2;
   v13 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -6596,17 +6742,17 @@ uint64_t sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a
   swift_unknownObjectWeakInit();
   if (v17)
   {
-    v45 = v8;
+    v44 = v8;
     v19 = swift_allocObject();
     v19[2] = v18;
     v19[3] = sub_22460AC50;
     v19[4] = v12;
-    v50 = sub_224609EF0;
-    v51 = v19;
+    v49 = sub_224609EF0;
+    v50 = v19;
     aBlock = MEMORY[0x277D85DD0];
-    v47 = 1107296256;
-    v48 = sub_2245D42E8;
-    v49 = &block_descriptor_1203;
+    v46 = 1107296256;
+    v47 = sub_2245D42E8;
+    v48 = &block_descriptor_1203;
     v20 = _Block_copy(&aBlock);
     v21 = v17;
 
@@ -6615,7 +6761,7 @@ uint64_t sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v23 = aBlock;
@@ -6624,12 +6770,12 @@ uint64_t sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a
       v26 = swift_allocObject();
       *(v26 + 16) = sub_22460AC50;
       *(v26 + 24) = v12;
-      v50 = sub_224609F10;
-      v51 = v26;
+      v49 = sub_224609F10;
+      v50 = v26;
       aBlock = MEMORY[0x277D85DD0];
-      v47 = 1107296256;
-      v48 = sub_2245D43DC;
-      v49 = &block_descriptor_1209;
+      v46 = 1107296256;
+      v47 = sub_2245D43DC;
+      v48 = &block_descriptor_1209;
       v27 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -6637,60 +6783,61 @@ uint64_t sub_2245FC2A8(uint64_t a1, void (**a2)(void, void), double a3, double a
       [v23 selectSubjectAtX:v24 y:v25 completion:v27];
       _Block_release(v27);
 
-      return swift_unknownObjectRelease_n();
+      swift_unknownObjectRelease_n();
+      return;
     }
 
-    v8 = v45;
+    v8 = v44;
   }
 
   sub_22452ECAC();
-  v29 = swift_allocError();
-  *v30 = xmmword_22462FFB0;
-  *(v30 + 16) = 4;
+  v28 = swift_allocError();
+  *v29 = xmmword_22462FFB0;
+  *(v29 + 16) = 4;
   swift_willThrow();
 
   (*(v9 + 16))(v11, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v8);
-  v31 = v29;
-  v32 = v29;
-  v33 = sub_224627B58();
-  v34 = sub_224628048();
+  v30 = v28;
+  v31 = v28;
+  v32 = sub_224627B58();
+  v33 = sub_224628048();
 
-  if (os_log_type_enabled(v33, v34))
+  if (os_log_type_enabled(v32, v33))
   {
+    v34 = swift_slowAlloc();
     v35 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v45 = a2;
-    v37 = v9;
-    v38 = v8;
-    v39 = v36;
-    *v35 = 138412290;
-    v40 = v29;
-    v41 = _swift_stdlib_bridgeErrorToNSError();
-    *(v35 + 4) = v41;
-    *v39 = v41;
-    _os_log_impl(&dword_224507000, v33, v34, "dockkit: failed getting sync connection, can't send xpc %@", v35, 0xCu);
-    sub_2245098A0(v39, &qword_27D0C9660);
-    v42 = v39;
-    v8 = v38;
-    v9 = v37;
-    a2 = v45;
-    MEMORY[0x22AA526D0](v42, -1, -1);
-    MEMORY[0x22AA526D0](v35, -1, -1);
+    v44 = a2;
+    v36 = v9;
+    v37 = v8;
+    v38 = v35;
+    *v34 = 138412290;
+    v39 = v28;
+    v40 = _swift_stdlib_bridgeErrorToNSError();
+    *(v34 + 4) = v40;
+    *v38 = v40;
+    _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync connection, can't send xpc %@", v34, 0xCu);
+    sub_2245098A0(v38, &qword_27D0C9660, &qword_22462F2B0);
+    v41 = v38;
+    v8 = v37;
+    v9 = v36;
+    a2 = v44;
+    MEMORY[0x22AA526D0](v41, -1, -1);
+    MEMORY[0x22AA526D0](v34, -1, -1);
   }
 
   (*(v9 + 8))(v11, v8);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v43 = v29;
-  v44 = sub_224626FA8();
-  (a2)[2](a2, v44);
+  v42 = v28;
+  v43 = sub_224626FA8();
+  (a2)[2](a2, v43);
 }
 
-uint64_t sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
+void sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -6711,18 +6858,18 @@ uint64_t sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v39 = a1;
-    v40 = v6;
+    v38 = a1;
+    v39 = v6;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460AC50;
-    *(v17 + 4) = v10;
-    v45 = sub_22460A98C;
-    v46 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460AC50;
+    v17[4] = v10;
+    v44 = sub_22460A98C;
+    v45 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245D42E8;
-    v44 = &block_descriptor_1168;
+    v41 = 1107296256;
+    v42 = sub_2245D42E8;
+    v43 = &block_descriptor_1168;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -6731,7 +6878,7 @@ uint64_t sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -6741,18 +6888,18 @@ uint64_t sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_22460A930;
       *(a2 + 24) = a3;
-      v45 = sub_22460A920;
-      v46 = a2;
+      v44 = sub_22460A920;
+      v45 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v42 = 1107296256;
-      v43 = sub_2245D4378;
-      v44 = &block_descriptor_1178;
+      v41 = 1107296256;
+      v42 = sub_2245D4378;
+      v43 = &block_descriptor_1178;
       v21 = _Block_copy(&aBlock);
-      v9 = v46;
+      v9 = v45;
 
       swift_unknownObjectRetain();
 
-      [v7 setFramingModeWithMode:v39 completion:v21];
+      [v7 setFramingModeWithMode:v38 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -6760,61 +6907,61 @@ uint64_t sub_2245FC874(uint64_t a1, uint64_t a2, void *a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v6 = v40;
+    v6 = v39;
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v40 = a3;
-    v31 = v6;
-    v32 = v30;
-    *v29 = 138412290;
-    v33 = v23;
-    v34 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v34;
-    *v32 = v34;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
-    v35 = v32;
-    v6 = v31;
-    a3 = v40;
-    MEMORY[0x22AA526D0](v35, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v39 = a3;
+    v30 = v6;
+    v31 = v29;
+    *v28 = 138412290;
+    v32 = v22;
+    v33 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v33;
+    *v31 = v33;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v31, &qword_27D0C9660, &qword_22462F2B0);
+    v34 = v31;
+    v6 = v30;
+    a3 = v39;
+    MEMORY[0x22AA526D0](v34, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v36 = v23;
-  v37 = sub_224626FA8();
-  (a3[2])(a3, v37);
+  v35 = v22;
+  v36 = sub_224626FA8();
+  (a3[2])(a3, v36);
 }
 
-uint64_t sub_2245FCE60(uint64_t a1, void (**a2)(void, void), double a3, double a4, double a5, double a6)
+void sub_2245FCE60(uint64_t a1, void (**a2)(void, void), double a3, double a4, double a5, double a6)
 {
   v12 = sub_224627B78();
   v13 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
-  v15 = &v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = swift_allocObject();
   *(v16 + 16) = a2;
   v17 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -6835,17 +6982,17 @@ uint64_t sub_2245FCE60(uint64_t a1, void (**a2)(void, void), double a3, double a
   swift_unknownObjectWeakInit();
   if (v21)
   {
-    v47 = v12;
+    v46 = v12;
     v23 = swift_allocObject();
     v23[2] = v22;
     v23[3] = sub_22460AC50;
     v23[4] = v16;
-    v52 = sub_22460A98C;
-    v53 = v23;
+    v51 = sub_22460A98C;
+    v52 = v23;
     aBlock = MEMORY[0x277D85DD0];
-    v49 = 1107296256;
-    v50 = sub_2245D42E8;
-    v51 = &block_descriptor_1137;
+    v48 = 1107296256;
+    v49 = sub_2245D42E8;
+    v50 = &block_descriptor_1137;
     v24 = _Block_copy(&aBlock);
     v25 = v21;
 
@@ -6854,19 +7001,19 @@ uint64_t sub_2245FCE60(uint64_t a1, void (**a2)(void, void), double a3, double a
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v27 = aBlock;
       v28 = swift_allocObject();
       *(v28 + 16) = sub_22460AC50;
       *(v28 + 24) = v16;
-      v52 = sub_22460A930;
-      v53 = v28;
+      v51 = sub_22460A930;
+      v52 = v28;
       aBlock = MEMORY[0x277D85DD0];
-      v49 = 1107296256;
-      v50 = sub_2245D43DC;
-      v51 = &block_descriptor_1143;
+      v48 = 1107296256;
+      v49 = sub_2245D43DC;
+      v50 = &block_descriptor_1143;
       v29 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -6874,60 +7021,61 @@ uint64_t sub_2245FCE60(uint64_t a1, void (**a2)(void, void), double a3, double a
       [v27 setRectOfInterestWithRect:v29 completion:{a3, a4, a5, a6}];
       _Block_release(v29);
 
-      return swift_unknownObjectRelease_n();
+      swift_unknownObjectRelease_n();
+      return;
     }
 
-    v12 = v47;
+    v12 = v46;
   }
 
   sub_22452ECAC();
-  v31 = swift_allocError();
-  *v32 = xmmword_22462FFB0;
-  *(v32 + 16) = 4;
+  v30 = swift_allocError();
+  *v31 = xmmword_22462FFB0;
+  *(v31 + 16) = 4;
   swift_willThrow();
 
   (*(v13 + 16))(v15, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v12);
-  v33 = v31;
-  v34 = v31;
-  v35 = sub_224627B58();
-  v36 = sub_224628048();
+  v32 = v30;
+  v33 = v30;
+  v34 = sub_224627B58();
+  v35 = sub_224628048();
 
-  if (os_log_type_enabled(v35, v36))
+  if (os_log_type_enabled(v34, v35))
   {
+    v36 = swift_slowAlloc();
     v37 = swift_slowAlloc();
-    v38 = swift_slowAlloc();
-    v47 = a2;
-    v39 = v13;
-    v40 = v12;
-    v41 = v38;
-    *v37 = 138412290;
-    v42 = v31;
-    v43 = _swift_stdlib_bridgeErrorToNSError();
-    *(v37 + 4) = v43;
-    *v41 = v43;
-    _os_log_impl(&dword_224507000, v35, v36, "dockkit: failed getting sync connection, can't send xpc %@", v37, 0xCu);
-    sub_2245098A0(v41, &qword_27D0C9660);
-    v44 = v41;
-    v12 = v40;
-    v13 = v39;
-    a2 = v47;
-    MEMORY[0x22AA526D0](v44, -1, -1);
-    MEMORY[0x22AA526D0](v37, -1, -1);
+    v46 = a2;
+    v38 = v13;
+    v39 = v12;
+    v40 = v37;
+    *v36 = 138412290;
+    v41 = v30;
+    v42 = _swift_stdlib_bridgeErrorToNSError();
+    *(v36 + 4) = v42;
+    *v40 = v42;
+    _os_log_impl(&dword_224507000, v34, v35, "dockkit: failed getting sync connection, can't send xpc %@", v36, 0xCu);
+    sub_2245098A0(v40, &qword_27D0C9660, &qword_22462F2B0);
+    v43 = v40;
+    v12 = v39;
+    v13 = v38;
+    a2 = v46;
+    MEMORY[0x22AA526D0](v43, -1, -1);
+    MEMORY[0x22AA526D0](v36, -1, -1);
   }
 
   (*(v13 + 8))(v15, v12);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v45 = v31;
-  v46 = sub_224626FA8();
-  (a2)[2](a2, v46);
+  v44 = v30;
+  v45 = sub_224626FA8();
+  (a2)[2](a2, v45);
 }
 
-uint64_t sub_2245FD404(char *a1, void *a2)
+void sub_2245FD404(char *a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v42 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -6967,17 +7115,17 @@ uint64_t sub_2245FD404(char *a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v17)
   {
-    v42 = v4;
+    v41 = v4;
     v19 = swift_allocObject();
     v19[2] = v18;
     v19[3] = sub_22460A950;
     v19[4] = v8;
-    v47 = sub_224609BC0;
-    v48 = v19;
+    v46 = sub_224609BC0;
+    v47 = v19;
     aBlock = MEMORY[0x277D85DD0];
-    v44 = 1107296256;
-    v45 = sub_2245D42E8;
-    v46 = &block_descriptor_1080;
+    v43 = 1107296256;
+    v44 = sub_2245D42E8;
+    v45 = &block_descriptor_1080;
     v20 = _Block_copy(&aBlock);
     v21 = v17;
 
@@ -6986,7 +7134,7 @@ uint64_t sub_2245FD404(char *a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0, &qword_224633050);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -6997,12 +7145,12 @@ uint64_t sub_2245FD404(char *a1, void *a2)
       v5 = swift_allocObject();
       *(v5 + 16) = sub_224609BF0;
       *(v5 + 24) = a2;
-      v47 = sub_22460A92C;
-      v48 = v5;
+      v46 = sub_22460A92C;
+      v47 = v5;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = sub_22460AC1C;
-      v46 = &block_descriptor_1090;
+      v43 = 1107296256;
+      v44 = sub_22460AC1C;
+      v45 = &block_descriptor_1090;
       v17 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -7016,152 +7164,7 @@ uint64_t sub_2245FD404(char *a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
-      }
-
-      __break(1u);
-    }
-
-    v4 = v42;
-  }
-
-  sub_22452ECAC();
-  v26 = swift_allocError();
-  *v27 = 0xD000000000000026;
-  *(v27 + 8) = 0x800000022463AF60;
-  *(v27 + 16) = 4;
-  swift_willThrow();
-
-  (*(v5 + 16))(v7, &a1[OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger], v4);
-  v28 = v26;
-  v29 = v26;
-  v30 = sub_224627B58();
-  v31 = sub_224628048();
-
-  if (os_log_type_enabled(v30, v31))
-  {
-    v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    v42 = v7;
-    v34 = v5;
-    v35 = v4;
-    v36 = v33;
-    *v32 = 138412290;
-    v37 = v26;
-    v38 = _swift_stdlib_bridgeErrorToNSError();
-    *(v32 + 4) = v38;
-    *v36 = v38;
-    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync connection, can't send xpc %@", v32, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
-    v39 = v36;
-    v4 = v35;
-    v5 = v34;
-    v7 = v42;
-    MEMORY[0x22AA526D0](v39, -1, -1);
-    MEMORY[0x22AA526D0](v32, -1, -1);
-  }
-
-  (*(v5 + 8))(v7, v4);
-  sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v40 = v26;
-  v41 = sub_224626FA8();
-  (a2[2])(a2, 0, v41);
-}
-
-uint64_t sub_2245FDA5C(uint64_t a1, void *a2)
-{
-  v4 = sub_224627B78();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = swift_allocObject();
-  *(v8 + 16) = a2;
-  v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
-  v10 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-  _Block_copy(a2);
-
-  os_unfair_lock_lock(v10 + 4);
-
-  v11 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError);
-  *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError) = 0;
-
-  v12 = *(a1 + v9);
-
-  os_unfair_lock_unlock(v12 + 4);
-
-  v13 = *(a1 + v9);
-
-  os_unfair_lock_lock(v13 + 4);
-
-  v14 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  v15 = *(a1 + v9);
-
-  os_unfair_lock_unlock(v15 + 4);
-
-  if (v14)
-  {
-    v16 = sub_2245D6734();
-  }
-
-  else
-  {
-    v16 = sub_2245D53F8();
-  }
-
-  v17 = v16;
-  v18 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  if (v17)
-  {
-    v41 = v4;
-    v19 = swift_allocObject();
-    v19[2] = v18;
-    v19[3] = sub_224609AC8;
-    v19[4] = v8;
-    v46 = sub_224609AE4;
-    v47 = v19;
-    aBlock = MEMORY[0x277D85DD0];
-    v43 = 1107296256;
-    v44 = sub_2245D42E8;
-    v45 = &block_descriptor_1046;
-    v20 = _Block_copy(&aBlock);
-    v21 = v17;
-
-    v22 = [v21 synchronousRemoteObjectProxyWithErrorHandler_];
-    _Block_release(v20);
-
-    sub_224628278();
-    swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0);
-    if (swift_dynamicCast())
-    {
-      v5 = aBlock;
-      a2 = swift_allocObject();
-      a2[2] = sub_224609AC8;
-      a2[3] = v8;
-      a1 = swift_allocObject();
-      *(a1 + 16) = sub_224580280;
-      *(a1 + 24) = a2;
-      v46 = sub_22457FE5C;
-      v47 = a1;
-      aBlock = MEMORY[0x277D85DD0];
-      v43 = 1107296256;
-      v44 = sub_22460AC1C;
-      v45 = &block_descriptor_1055;
-      v7 = _Block_copy(&aBlock);
-      v17 = v47;
-
-      swift_unknownObjectRetain();
-
-      [v5 getDockedWithCompletion_];
-      swift_unknownObjectRelease_n();
-
-      _Block_release(v7);
-      isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
-
-      if ((isEscapingClosureAtFileLocation & 1) == 0)
-      {
-        return result;
+        return;
       }
 
       __break(1u);
@@ -7172,11 +7175,12 @@ uint64_t sub_2245FDA5C(uint64_t a1, void *a2)
 
   sub_22452ECAC();
   v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
+  *v26 = 0xD000000000000026;
+  *(v26 + 8) = 0x800000022463AF60;
   *(v26 + 16) = 4;
   swift_willThrow();
 
-  (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
+  (*(v5 + 16))(v7, &a1[OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger], v4);
   v27 = v25;
   v28 = v25;
   v29 = sub_224627B58();
@@ -7196,7 +7200,7 @@ uint64_t sub_2245FDA5C(uint64_t a1, void *a2)
     *(v31 + 4) = v37;
     *v35 = v37;
     _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
+    sub_2245098A0(v35, &qword_27D0C9660, &qword_22462F2B0);
     v38 = v35;
     v4 = v34;
     v5 = v33;
@@ -7212,12 +7216,12 @@ uint64_t sub_2245FDA5C(uint64_t a1, void *a2)
   (a2[2])(a2, 0, v40);
 }
 
-uint64_t sub_2245FE09C(uint64_t a1, void *a2)
+void sub_2245FDA5C(uint64_t a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7257,17 +7261,17 @@ uint64_t sub_2245FE09C(uint64_t a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v17)
   {
-    v41 = v4;
+    v40 = v4;
     v19 = swift_allocObject();
     v19[2] = v18;
-    v19[3] = sub_224609994;
+    v19[3] = sub_224609AC8;
     v19[4] = v8;
-    v46 = sub_22460999C;
-    v47 = v19;
+    v45 = sub_224609AE4;
+    v46 = v19;
     aBlock = MEMORY[0x277D85DD0];
-    v43 = 1107296256;
-    v44 = sub_2245D42E8;
-    v45 = &block_descriptor_1013;
+    v42 = 1107296256;
+    v43 = sub_2245D42E8;
+    v44 = &block_descriptor_1046;
     v20 = _Block_copy(&aBlock);
     v21 = v17;
 
@@ -7276,7 +7280,151 @@ uint64_t sub_2245FE09C(uint64_t a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0, &qword_224633050);
+    if (swift_dynamicCast())
+    {
+      v5 = aBlock;
+      a2 = swift_allocObject();
+      a2[2] = sub_224609AC8;
+      a2[3] = v8;
+      a1 = swift_allocObject();
+      *(a1 + 16) = sub_224580280;
+      *(a1 + 24) = a2;
+      v45 = sub_22457FE5C;
+      v46 = a1;
+      aBlock = MEMORY[0x277D85DD0];
+      v42 = 1107296256;
+      v43 = sub_22460AC1C;
+      v44 = &block_descriptor_1055;
+      v7 = _Block_copy(&aBlock);
+      v17 = v46;
+
+      swift_unknownObjectRetain();
+
+      [v5 getDockedWithCompletion_];
+      swift_unknownObjectRelease_n();
+
+      _Block_release(v7);
+      isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+      if ((isEscapingClosureAtFileLocation & 1) == 0)
+      {
+        return;
+      }
+
+      __break(1u);
+    }
+
+    v4 = v40;
+  }
+
+  sub_22452ECAC();
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
+  swift_willThrow();
+
+  (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
+
+  if (os_log_type_enabled(v28, v29))
+  {
+    v30 = swift_slowAlloc();
+    v31 = swift_slowAlloc();
+    v40 = v7;
+    v32 = v5;
+    v33 = v4;
+    v34 = v31;
+    *v30 = 138412290;
+    v35 = v24;
+    v36 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v36;
+    *v34 = v36;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+    v37 = v34;
+    v4 = v33;
+    v5 = v32;
+    v7 = v40;
+    MEMORY[0x22AA526D0](v37, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
+  }
+
+  (*(v5 + 8))(v7, v4);
+  sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
+  v38 = v24;
+  v39 = sub_224626FA8();
+  (a2[2])(a2, 0, v39);
+}
+
+void sub_2245FE09C(uint64_t a1, void *a2)
+{
+  v4 = sub_224627B78();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = swift_allocObject();
+  *(v8 + 16) = a2;
+  v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
+  v10 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
+  _Block_copy(a2);
+
+  os_unfair_lock_lock(v10 + 4);
+
+  v11 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError);
+  *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError) = 0;
+
+  v12 = *(a1 + v9);
+
+  os_unfair_lock_unlock(v12 + 4);
+
+  v13 = *(a1 + v9);
+
+  os_unfair_lock_lock(v13 + 4);
+
+  v14 = *(a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
+  v15 = *(a1 + v9);
+
+  os_unfair_lock_unlock(v15 + 4);
+
+  if (v14)
+  {
+    v16 = sub_2245D6734();
+  }
+
+  else
+  {
+    v16 = sub_2245D53F8();
+  }
+
+  v17 = v16;
+  v18 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  if (v17)
+  {
+    v40 = v4;
+    v19 = swift_allocObject();
+    v19[2] = v18;
+    v19[3] = sub_224609994;
+    v19[4] = v8;
+    v45 = sub_22460999C;
+    v46 = v19;
+    aBlock = MEMORY[0x277D85DD0];
+    v42 = 1107296256;
+    v43 = sub_2245D42E8;
+    v44 = &block_descriptor_1013;
+    v20 = _Block_copy(&aBlock);
+    v21 = v17;
+
+    v22 = [v21 synchronousRemoteObjectProxyWithErrorHandler_];
+    _Block_release(v20);
+
+    sub_224628278();
+    swift_unknownObjectRelease();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0E0, &qword_224633050);
     if (swift_dynamicCast())
     {
       v5 = aBlock;
@@ -7286,14 +7434,14 @@ uint64_t sub_2245FE09C(uint64_t a1, void *a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_2246099CC;
       *(a1 + 24) = a2;
-      v46 = sub_2246099F4;
-      v47 = a1;
+      v45 = sub_2246099F4;
+      v46 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v43 = 1107296256;
-      v44 = sub_2245DE634;
-      v45 = &block_descriptor_1022;
+      v42 = 1107296256;
+      v43 = sub_2245DE634;
+      v44 = &block_descriptor_1022;
       v7 = _Block_copy(&aBlock);
-      v17 = v47;
+      v17 = v46;
 
       [v5 getTrackingButtonStateWithCompletion_];
       swift_unknownObjectRelease();
@@ -7303,64 +7451,64 @@ uint64_t sub_2245FE09C(uint64_t a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v41;
+    v4 = v40;
   }
 
   sub_22452ECAC();
-  v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
-  *(v26 + 16) = 4;
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v27 = v25;
-  v28 = v25;
-  v29 = sub_224627B58();
-  v30 = sub_224628048();
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v28, v29))
   {
+    v30 = swift_slowAlloc();
     v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v41 = v7;
-    v33 = v5;
-    v34 = v4;
-    v35 = v32;
-    *v31 = 138412290;
-    v36 = v25;
-    v37 = _swift_stdlib_bridgeErrorToNSError();
-    *(v31 + 4) = v37;
-    *v35 = v37;
-    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
-    v38 = v35;
-    v4 = v34;
-    v5 = v33;
-    v7 = v41;
-    MEMORY[0x22AA526D0](v38, -1, -1);
-    MEMORY[0x22AA526D0](v31, -1, -1);
+    v40 = v7;
+    v32 = v5;
+    v33 = v4;
+    v34 = v31;
+    *v30 = 138412290;
+    v35 = v24;
+    v36 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v36;
+    *v34 = v36;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+    v37 = v34;
+    v4 = v33;
+    v5 = v32;
+    v7 = v40;
+    MEMORY[0x22AA526D0](v37, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v39 = v25;
-  v40 = sub_224626FA8();
-  (a2[2])(a2, 2, v40);
+  v38 = v24;
+  v39 = sub_224626FA8();
+  (a2[2])(a2, 2, v39);
 }
 
-uint64_t sub_2245FE6D0(uint64_t a1, int a2, uint64_t a3, void (**a4)(void, void, void))
+void sub_2245FE6D0(uint64_t a1, int a2, uint64_t a3, void (**a4)(void, void, void))
 {
-  LODWORD(v45) = a2;
+  LODWORD(v44) = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7381,18 +7529,18 @@ uint64_t sub_2245FE6D0(uint64_t a1, int a2, uint64_t a3, void (**a4)(void, void,
   swift_unknownObjectWeakInit();
   if (v16)
   {
-    v43 = a1;
-    v44 = v7;
+    v42 = a1;
+    v43 = v7;
     v18 = swift_allocObject();
     v18[2] = v17;
     v18[3] = sub_224609858;
     v18[4] = v11;
-    v50 = sub_22460A984;
-    v51 = v18;
+    v49 = sub_22460A984;
+    v50 = v18;
     aBlock = MEMORY[0x277D85DD0];
-    v47 = 1107296256;
-    v48 = sub_2245D42E8;
-    v49 = &block_descriptor_966;
+    v46 = 1107296256;
+    v47 = sub_2245D42E8;
+    v48 = &block_descriptor_966;
     v19 = _Block_copy(&aBlock);
     v20 = v16;
 
@@ -7401,80 +7549,81 @@ uint64_t sub_2245FE6D0(uint64_t a1, int a2, uint64_t a3, void (**a4)(void, void,
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
       v23 = swift_allocObject();
       *(v23 + 16) = sub_224609858;
       *(v23 + 24) = v11;
-      v50 = sub_22460A924;
-      v51 = v23;
+      v49 = sub_22460A924;
+      v50 = v23;
       aBlock = MEMORY[0x277D85DD0];
-      v47 = 1107296256;
-      v48 = sub_2245DF5EC;
-      v49 = &block_descriptor_972;
+      v46 = 1107296256;
+      v47 = sub_2245DF5EC;
+      v48 = &block_descriptor_972;
       v24 = _Block_copy(&aBlock);
 
-      [v22 updateCameraSessionWithSession:v43 new:v45 & 1 completion:v24];
+      [v22 updateCameraSessionWithSession:v42 new:v44 & 1 completion:v24];
       _Block_release(v24);
 
-      return swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
+      return;
     }
 
-    v7 = v44;
+    v7 = v43;
   }
 
   sub_22452ECAC();
-  v26 = swift_allocError();
-  *v27 = xmmword_22462FFB0;
-  *(v27 + 16) = 4;
+  v25 = swift_allocError();
+  *v26 = xmmword_22462FFB0;
+  *(v26 + 16) = 4;
   swift_willThrow();
 
   (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v28 = v26;
-  v29 = v26;
-  v30 = sub_224627B58();
-  v31 = sub_224628048();
+  v27 = v25;
+  v28 = v25;
+  v29 = sub_224627B58();
+  v30 = sub_224628048();
 
-  if (os_log_type_enabled(v30, v31))
+  if (os_log_type_enabled(v29, v30))
   {
+    v31 = swift_slowAlloc();
     v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    v45 = a4;
-    v34 = v8;
-    v35 = v7;
-    v36 = v33;
-    *v32 = 138412290;
-    v37 = v26;
-    v38 = _swift_stdlib_bridgeErrorToNSError();
-    *(v32 + 4) = v38;
-    *v36 = v38;
-    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync connection, can't send xpc %@", v32, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
-    v39 = v36;
-    v7 = v35;
-    v8 = v34;
-    a4 = v45;
-    MEMORY[0x22AA526D0](v39, -1, -1);
-    MEMORY[0x22AA526D0](v32, -1, -1);
+    v44 = a4;
+    v33 = v8;
+    v34 = v7;
+    v35 = v32;
+    *v31 = 138412290;
+    v36 = v25;
+    v37 = _swift_stdlib_bridgeErrorToNSError();
+    *(v31 + 4) = v37;
+    *v35 = v37;
+    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
+    sub_2245098A0(v35, &qword_27D0C9660, &qword_22462F2B0);
+    v38 = v35;
+    v7 = v34;
+    v8 = v33;
+    a4 = v44;
+    MEMORY[0x22AA526D0](v38, -1, -1);
+    MEMORY[0x22AA526D0](v31, -1, -1);
   }
 
   (*(v8 + 8))(v10, v7);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  v40 = v26;
+  v39 = v25;
   type metadata accessor for CameraSessionInformation();
-  v41 = sub_224627EB8();
-  v42 = sub_224626FA8();
-  (a4)[2](a4, v41, v42);
+  v40 = sub_224627EB8();
+  v41 = sub_224626FA8();
+  (a4)[2](a4, v40, v41);
 }
 
-uint64_t sub_2245FEC70(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
+void sub_2245FEC70(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7495,18 +7644,18 @@ uint64_t sub_2245FEC70(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v42 = a1;
-    v43 = v6;
+    v41 = a1;
+    v42 = v6;
     v17 = swift_allocObject();
     v17[2] = v16;
     v17[3] = sub_22460A948;
     v17[4] = v10;
-    v48 = sub_22460A980;
-    v49 = v17;
+    v47 = sub_22460A980;
+    v48 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v45 = 1107296256;
-    v46 = sub_2245D42E8;
-    v47 = &block_descriptor_950;
+    v44 = 1107296256;
+    v45 = sub_2245D42E8;
+    v46 = &block_descriptor_950;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -7515,78 +7664,79 @@ uint64_t sub_2245FEC70(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       v21 = aBlock;
       v22 = swift_allocObject();
       *(v22 + 16) = sub_22460A948;
       *(v22 + 24) = v10;
-      v48 = sub_2245803F4;
-      v49 = v22;
+      v47 = sub_2245803F4;
+      v48 = v22;
       aBlock = MEMORY[0x277D85DD0];
-      v45 = 1107296256;
-      v46 = sub_2245D43DC;
-      v47 = &block_descriptor_956;
+      v44 = 1107296256;
+      v45 = sub_2245D43DC;
+      v46 = &block_descriptor_956;
       v23 = _Block_copy(&aBlock);
 
-      [v21 updateTrackingSummaryDebugWithData:v42 completion:v23];
+      [v21 updateTrackingSummaryDebugWithData:v41 completion:v23];
       _Block_release(v23);
 
-      return swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
+      return;
     }
 
-    v6 = v43;
+    v6 = v42;
   }
 
   sub_22452ECAC();
-  v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
-  *(v26 + 16) = 4;
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v27 = v25;
-  v28 = v25;
-  v29 = sub_224627B58();
-  v30 = sub_224628048();
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v28, v29))
   {
+    v30 = swift_slowAlloc();
     v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v43 = a3;
-    v33 = v7;
-    v34 = v6;
-    v35 = v32;
-    *v31 = 138412290;
-    v36 = v25;
-    v37 = _swift_stdlib_bridgeErrorToNSError();
-    *(v31 + 4) = v37;
-    *v35 = v37;
-    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
-    v38 = v35;
-    v6 = v34;
-    v7 = v33;
-    a3 = v43;
-    MEMORY[0x22AA526D0](v38, -1, -1);
-    MEMORY[0x22AA526D0](v31, -1, -1);
+    v42 = a3;
+    v32 = v7;
+    v33 = v6;
+    v34 = v31;
+    *v30 = 138412290;
+    v35 = v24;
+    v36 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v36;
+    *v34 = v36;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+    v37 = v34;
+    v6 = v33;
+    v7 = v32;
+    a3 = v42;
+    MEMORY[0x22AA526D0](v37, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  v39 = v25;
-  v40 = sub_224626FA8();
-  (a3)[2](a3, 0, v40);
+  v38 = v24;
+  v39 = sub_224626FA8();
+  (a3)[2](a3, 0, v39);
 }
 
-uint64_t sub_2245FF1E4(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
+void sub_2245FF1E4(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7607,18 +7757,18 @@ uint64_t sub_2245FF1E4(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v42 = a1;
-    v43 = v6;
+    v41 = a1;
+    v42 = v6;
     v17 = swift_allocObject();
     v17[2] = v16;
     v17[3] = sub_22460A948;
     v17[4] = v10;
-    v48 = sub_22460A980;
-    v49 = v17;
+    v47 = sub_22460A980;
+    v48 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v45 = 1107296256;
-    v46 = sub_2245D42E8;
-    v47 = &block_descriptor_918;
+    v44 = 1107296256;
+    v45 = sub_2245D42E8;
+    v46 = &block_descriptor_918;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -7627,78 +7777,79 @@ uint64_t sub_2245FF1E4(uint64_t a1, uint64_t a2, void (**a3)(void, void, void))
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       v21 = aBlock;
       v22 = swift_allocObject();
       *(v22 + 16) = sub_22460A948;
       *(v22 + 24) = v10;
-      v48 = sub_2245803F4;
-      v49 = v22;
+      v47 = sub_2245803F4;
+      v48 = v22;
       aBlock = MEMORY[0x277D85DD0];
-      v45 = 1107296256;
-      v46 = sub_2245D43DC;
-      v47 = &block_descriptor_924;
+      v44 = 1107296256;
+      v45 = sub_2245D43DC;
+      v46 = &block_descriptor_924;
       v23 = _Block_copy(&aBlock);
 
-      [v21 updateTrackingSummaryWithData:v42 completion:v23];
+      [v21 updateTrackingSummaryWithData:v41 completion:v23];
       _Block_release(v23);
 
-      return swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
+      return;
     }
 
-    v6 = v43;
+    v6 = v42;
   }
 
   sub_22452ECAC();
-  v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
-  *(v26 + 16) = 4;
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v27 = v25;
-  v28 = v25;
-  v29 = sub_224627B58();
-  v30 = sub_224628048();
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v28, v29))
   {
+    v30 = swift_slowAlloc();
     v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v43 = a3;
-    v33 = v7;
-    v34 = v6;
-    v35 = v32;
-    *v31 = 138412290;
-    v36 = v25;
-    v37 = _swift_stdlib_bridgeErrorToNSError();
-    *(v31 + 4) = v37;
-    *v35 = v37;
-    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v35, &qword_27D0C9660);
-    v38 = v35;
-    v6 = v34;
-    v7 = v33;
-    a3 = v43;
-    MEMORY[0x22AA526D0](v38, -1, -1);
-    MEMORY[0x22AA526D0](v31, -1, -1);
+    v42 = a3;
+    v32 = v7;
+    v33 = v6;
+    v34 = v31;
+    *v30 = 138412290;
+    v35 = v24;
+    v36 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v36;
+    *v34 = v36;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v34, &qword_27D0C9660, &qword_22462F2B0);
+    v37 = v34;
+    v6 = v33;
+    v7 = v32;
+    a3 = v42;
+    MEMORY[0x22AA526D0](v37, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  v39 = v25;
-  v40 = sub_224626FA8();
-  (a3)[2](a3, 0, v40);
+  v38 = v24;
+  v39 = sub_224626FA8();
+  (a3)[2](a3, 0, v39);
 }
 
-uint64_t sub_2245FF758(int a1, uint64_t a2, void *a3)
+void sub_2245FF758(int a1, uint64_t a2, void *a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7719,18 +7870,18 @@ uint64_t sub_2245FF758(int a1, uint64_t a2, void *a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v39 = a1;
-    v40 = v6;
+    v38 = a1;
+    v39 = v6;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A948;
-    *(v17 + 4) = v10;
-    v45 = sub_22460A980;
-    v46 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A948;
+    v17[4] = v10;
+    v44 = sub_22460A980;
+    v45 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245D42E8;
-    v44 = &block_descriptor_883;
+    v41 = 1107296256;
+    v42 = sub_2245D42E8;
+    v43 = &block_descriptor_883;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -7739,7 +7890,7 @@ uint64_t sub_2245FF758(int a1, uint64_t a2, void *a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -7749,18 +7900,18 @@ uint64_t sub_2245FF758(int a1, uint64_t a2, void *a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_2245803F4;
       *(a2 + 24) = a3;
-      v45 = sub_22460A920;
-      v46 = a2;
+      v44 = sub_22460A920;
+      v45 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v42 = 1107296256;
-      v43 = sub_2245D4378;
-      v44 = &block_descriptor_893;
+      v41 = 1107296256;
+      v42 = sub_2245D4378;
+      v43 = &block_descriptor_893;
       v21 = _Block_copy(&aBlock);
-      v9 = v46;
+      v9 = v45;
 
       swift_unknownObjectRetain();
 
-      [v7 setSystemTrackingEnabledWithEnabled:v39 & 1 completion:v21];
+      [v7 setSystemTrackingEnabledWithEnabled:v38 & 1 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -7768,62 +7919,62 @@ uint64_t sub_2245FF758(int a1, uint64_t a2, void *a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v6 = v40;
+    v6 = v39;
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v40 = a3;
-    v31 = v6;
-    v32 = v30;
-    *v29 = 138412290;
-    v33 = v23;
-    v34 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v34;
-    *v32 = v34;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
-    v35 = v32;
-    v6 = v31;
-    a3 = v40;
-    MEMORY[0x22AA526D0](v35, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v39 = a3;
+    v30 = v6;
+    v31 = v29;
+    *v28 = 138412290;
+    v32 = v22;
+    v33 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v33;
+    *v31 = v33;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v31, &qword_27D0C9660, &qword_22462F2B0);
+    v34 = v31;
+    v6 = v30;
+    a3 = v39;
+    MEMORY[0x22AA526D0](v34, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v36 = v23;
-  v37 = sub_224626FA8();
-  (a3[2])(a3, 0, v37);
+  v35 = v22;
+  v36 = sub_224626FA8();
+  (a3[2])(a3, 0, v36);
 }
 
-uint64_t sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLocation, void *a4)
+void sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLocation, void *a4)
 {
-  v42 = a1;
+  v41 = a1;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -7844,18 +7995,18 @@ uint64_t sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLo
   swift_unknownObjectWeakInit();
   if (v16)
   {
-    v40 = a2;
-    v41 = v7;
+    v39 = a2;
+    v40 = v7;
     v18 = swift_allocObject();
     v18[2] = v17;
     v18[3] = sub_22460A948;
     v18[4] = v11;
-    v47 = sub_22460A980;
-    v48 = v18;
+    v46 = sub_22460A980;
+    v47 = v18;
     aBlock = MEMORY[0x277D85DD0];
-    v44 = 1107296256;
-    v45 = sub_2245D42E8;
-    v46 = &block_descriptor_848;
+    v43 = 1107296256;
+    v44 = sub_2245D42E8;
+    v45 = &block_descriptor_848;
     v19 = _Block_copy(&aBlock);
     v20 = v16;
 
@@ -7864,7 +8015,7 @@ uint64_t sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLo
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C97A0, &unk_224630210);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
@@ -7876,12 +8027,12 @@ uint64_t sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLo
       a4 = swift_allocObject();
       a4[2] = sub_2245803F4;
       a4[3] = v23;
-      v47 = sub_22460A920;
-      v48 = a4;
+      v46 = sub_22460A920;
+      v47 = a4;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = sub_2245D4378;
-      v46 = &block_descriptor_858;
+      v43 = 1107296256;
+      v44 = sub_2245D4378;
+      v45 = &block_descriptor_858;
       v10 = _Block_copy(&aBlock);
 
       [v22 getSystemTrackingEnabledWithAppID:v8 completion:v10];
@@ -7892,59 +8043,59 @@ uint64_t sub_2245FFD50(void *a1, uint64_t a2, uint64_t isEscapingClosureAtFileLo
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v7 = v41;
+    v7 = v40;
   }
 
   sub_22452ECAC();
-  v25 = swift_allocError();
-  *v26 = xmmword_22462FFB0;
-  *(v26 + 16) = 4;
+  v24 = swift_allocError();
+  *v25 = xmmword_22462FFB0;
+  *(v25 + 16) = 4;
   swift_willThrow();
 
   (*(v8 + 16))(v10, isEscapingClosureAtFileLocation + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v27 = v25;
-  v28 = v25;
-  v29 = sub_224627B58();
-  v30 = sub_224628048();
+  v26 = v24;
+  v27 = v24;
+  v28 = sub_224627B58();
+  v29 = sub_224628048();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v28, v29))
   {
+    v30 = swift_slowAlloc();
     v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v42 = a4;
-    v33 = v7;
-    v34 = v32;
-    *v31 = 138412290;
-    v35 = v25;
-    v36 = _swift_stdlib_bridgeErrorToNSError();
-    *(v31 + 4) = v36;
-    *v34 = v36;
-    _os_log_impl(&dword_224507000, v29, v30, "dockkit: failed getting sync connection, can't send xpc %@", v31, 0xCu);
-    sub_2245098A0(v34, &qword_27D0C9660);
-    v37 = v34;
-    v7 = v33;
-    a4 = v42;
-    MEMORY[0x22AA526D0](v37, -1, -1);
-    MEMORY[0x22AA526D0](v31, -1, -1);
+    v41 = a4;
+    v32 = v7;
+    v33 = v31;
+    *v30 = 138412290;
+    v34 = v24;
+    v35 = _swift_stdlib_bridgeErrorToNSError();
+    *(v30 + 4) = v35;
+    *v33 = v35;
+    _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync connection, can't send xpc %@", v30, 0xCu);
+    sub_2245098A0(v33, &qword_27D0C9660, &qword_22462F2B0);
+    v36 = v33;
+    v7 = v32;
+    a4 = v41;
+    MEMORY[0x22AA526D0](v36, -1, -1);
+    MEMORY[0x22AA526D0](v30, -1, -1);
   }
 
   (*(v8 + 8))(v10, v7);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_CameraCapture);
-  v38 = v25;
-  v39 = sub_224626FA8();
-  (a4[2])(a4, 0, v39);
+  v37 = v24;
+  v38 = sub_224626FA8();
+  (a4[2])(a4, 0, v38);
 }
 
-uint64_t sub_224600358()
+double sub_224600358()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v16 - v3;
   v5 = sub_224627B78();
@@ -7971,6 +8122,8 @@ uint64_t sub_224600358()
   v13[4] = v1;
   v14 = v1;
   sub_224536440(0, 0, v4, &unk_224632FD0, v13);
+
+  return result;
 }
 
 void sub_224600594(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -8016,7 +8169,7 @@ void sub_224600594(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     _Block_release(v21);
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -8079,7 +8232,7 @@ void sub_224600594(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     *(v30 + 4) = v34;
     *v32 = v34;
     _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync debug connection, can't send xpc %@", v30, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
+    sub_2245098A0(v32, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v32, -1, -1);
     MEMORY[0x22AA526D0](v30, -1, -1);
   }
@@ -8134,7 +8287,7 @@ void sub_224600B70(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     _Block_release(v21);
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -8197,7 +8350,7 @@ void sub_224600B70(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     *(v30 + 4) = v34;
     *v32 = v34;
     _os_log_impl(&dword_224507000, v28, v29, "dockkit: failed getting sync debug connection, can't send xpc %@", v30, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
+    sub_2245098A0(v32, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v32, -1, -1);
     MEMORY[0x22AA526D0](v30, -1, -1);
   }
@@ -8209,12 +8362,12 @@ void sub_224600B70(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   (a4[2])(a4, 0, v36);
 }
 
-uint64_t sub_22460114C(char *a1, void *a2)
+void sub_22460114C(char *a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -8235,17 +8388,17 @@ uint64_t sub_22460114C(char *a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v38 = v4;
+    v37 = v4;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_22460A948;
     v15[4] = v8;
-    v43 = sub_22460A980;
-    v44 = v15;
+    v42 = sub_22460A980;
+    v43 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v40 = 1107296256;
-    v41 = sub_2245D42E8;
-    v42 = &block_descriptor_711;
+    v39 = 1107296256;
+    v40 = sub_2245D42E8;
+    v41 = &block_descriptor_711;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -8254,7 +8407,7 @@ uint64_t sub_22460114C(char *a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -8265,14 +8418,14 @@ uint64_t sub_22460114C(char *a1, void *a2)
       v5 = swift_allocObject();
       *(v5 + 16) = sub_224609230;
       *(v5 + 24) = a2;
-      v43 = sub_22460A920;
-      v44 = v5;
+      v42 = sub_22460A920;
+      v43 = v5;
       aBlock = MEMORY[0x277D85DD0];
-      v40 = 1107296256;
-      v41 = sub_2245D4378;
-      v42 = &block_descriptor_721;
+      v39 = 1107296256;
+      v40 = sub_2245D4378;
+      v41 = &block_descriptor_721;
       v19 = _Block_copy(&aBlock);
-      v13 = v44;
+      v13 = v43;
 
       swift_unknownObjectRetain();
       v20 = a1;
@@ -8285,62 +8438,62 @@ uint64_t sub_22460114C(char *a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v38;
+    v4 = v37;
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, &a1[OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger], v4);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v38 = a2;
-    v31 = v4;
-    v32 = v30;
-    *v29 = 138412290;
-    v33 = v23;
-    v34 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v34;
-    *v32 = v34;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync debug connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
-    v35 = v32;
-    v4 = v31;
-    a2 = v38;
-    MEMORY[0x22AA526D0](v35, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v37 = a2;
+    v30 = v4;
+    v31 = v29;
+    *v28 = 138412290;
+    v32 = v22;
+    v33 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v33;
+    *v31 = v33;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v31, &qword_27D0C9660, &qword_22462F2B0);
+    v34 = v31;
+    v4 = v30;
+    a2 = v37;
+    MEMORY[0x22AA526D0](v34, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v36 = v23;
-  v37 = sub_224626FA8();
-  (a2[2])(a2, 0, v37);
+  v35 = v22;
+  v36 = sub_224626FA8();
+  (a2[2])(a2, 0, v36);
 }
 
-uint64_t sub_22460173C(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
+void sub_22460173C(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
 {
-  v45 = a2;
+  v44 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -8361,18 +8514,18 @@ uint64_t sub_22460173C(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
   swift_unknownObjectWeakInit();
   if (v16)
   {
-    v43 = a1;
-    v44 = v7;
+    v42 = a1;
+    v43 = v7;
     v18 = swift_allocObject();
     v18[2] = v17;
     v18[3] = sub_22460A948;
     v18[4] = v11;
-    v50 = sub_22460A980;
-    v51 = v18;
+    v49 = sub_22460A980;
+    v50 = v18;
     aBlock = MEMORY[0x277D85DD0];
-    v47 = 1107296256;
-    v48 = sub_2245D42E8;
-    v49 = &block_descriptor_680;
+    v46 = 1107296256;
+    v47 = sub_2245D42E8;
+    v48 = &block_descriptor_680;
     v19 = _Block_copy(&aBlock);
     v20 = v16;
 
@@ -8381,76 +8534,77 @@ uint64_t sub_22460173C(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
       v23 = swift_allocObject();
-      v24 = v45;
+      v24 = v44;
       v23[2] = v17;
       v23[3] = v24;
       v23[4] = sub_22460A948;
       v23[5] = v11;
-      v50 = sub_224609114;
-      v51 = v23;
+      v49 = sub_224609114;
+      v50 = v23;
       aBlock = MEMORY[0x277D85DD0];
-      v47 = 1107296256;
-      v48 = sub_2245E8ED8;
-      v49 = &block_descriptor_686;
+      v46 = 1107296256;
+      v47 = sub_2245E8ED8;
+      v48 = &block_descriptor_686;
       v25 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
 
-      [v22 getAccessoryDescriptionWithInfo:v43 completion:v25];
+      [v22 getAccessoryDescriptionWithInfo:v42 completion:v25];
       _Block_release(v25);
 
-      return swift_unknownObjectRelease_n();
+      swift_unknownObjectRelease_n();
+      return;
     }
 
-    v7 = v44;
+    v7 = v43;
   }
 
   sub_22452ECAC();
-  v27 = swift_allocError();
-  *v28 = xmmword_22462FFB0;
-  *(v28 + 16) = 4;
+  v26 = swift_allocError();
+  *v27 = xmmword_22462FFB0;
+  *(v27 + 16) = 4;
   swift_willThrow();
 
   (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v29 = v27;
-  v30 = v27;
-  v31 = sub_224627B58();
-  v32 = sub_224628048();
+  v28 = v26;
+  v29 = v26;
+  v30 = sub_224627B58();
+  v31 = sub_224628048();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v30, v31))
   {
+    v32 = swift_slowAlloc();
     v33 = swift_slowAlloc();
-    v34 = swift_slowAlloc();
-    v45 = a4;
-    v35 = v8;
-    v36 = v7;
-    v37 = v34;
-    *v33 = 138412290;
-    v38 = v27;
-    v39 = _swift_stdlib_bridgeErrorToNSError();
-    *(v33 + 4) = v39;
-    *v37 = v39;
-    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync debug connection, can't send xpc %@", v33, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
-    v40 = v37;
-    v7 = v36;
-    v8 = v35;
-    a4 = v45;
-    MEMORY[0x22AA526D0](v40, -1, -1);
-    MEMORY[0x22AA526D0](v33, -1, -1);
+    v44 = a4;
+    v34 = v8;
+    v35 = v7;
+    v36 = v33;
+    *v32 = 138412290;
+    v37 = v26;
+    v38 = _swift_stdlib_bridgeErrorToNSError();
+    *(v32 + 4) = v38;
+    *v36 = v38;
+    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync debug connection, can't send xpc %@", v32, 0xCu);
+    sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
+    v39 = v36;
+    v7 = v35;
+    v8 = v34;
+    a4 = v44;
+    MEMORY[0x22AA526D0](v39, -1, -1);
+    MEMORY[0x22AA526D0](v32, -1, -1);
   }
 
   (*(v8 + 8))(v10, v7);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection_Certification);
-  v41 = v27;
-  v42 = sub_224626FA8();
-  (a4)[2](a4, 0, v42);
+  v40 = v26;
+  v41 = sub_224626FA8();
+  (a4)[2](a4, 0, v41);
 }
 
 void sub_224601CD8(uint64_t a1, void (**a2)(void, void), uint64_t a3, uint64_t a4, void (**a5)(void, void))
@@ -8501,11 +8655,11 @@ void sub_224601CD8(uint64_t a1, void (**a2)(void, void), uint64_t a3, uint64_t a
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v23 = aBlock;
-      sub_22450950C(0, &unk_27D0C89A0);
+      sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
       swift_unknownObjectRetain();
       v24 = sub_224627C48();
       v25 = swift_allocObject();
@@ -8560,7 +8714,7 @@ void sub_224601CD8(uint64_t a1, void (**a2)(void, void), uint64_t a3, uint64_t a
     *(v34 + 4) = v39;
     *v37 = v39;
     _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync cert connection, can't send xpc %@", v34, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
+    sub_2245098A0(v37, &qword_27D0C9660, &qword_22462F2B0);
     v40 = v37;
     v8 = v36;
     a5 = v47;
@@ -8622,11 +8776,11 @@ void sub_2246022B4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9798, &unk_224630200);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
-      sub_22450950C(0, &unk_27D0C89A0);
+      sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
       v23 = sub_224627C48();
       v24 = swift_allocObject();
       *(v24 + 16) = sub_224608F0C;
@@ -8677,7 +8831,7 @@ void sub_2246022B4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void
     *(v32 + 4) = v38;
     *v36 = v38;
     _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync debug connection, can't send xpc %@", v32, 0xCu);
-    sub_2245098A0(v36, &qword_27D0C9660);
+    sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
     v39 = v36;
     v7 = v35;
     v8 = v34;
@@ -8731,7 +8885,7 @@ void sub_22460287C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
@@ -8790,7 +8944,7 @@ void sub_22460287C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     *(v34 + 4) = v39;
     *v37 = v39;
     _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting sync cert connection, can't send xpc %@", v34, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
+    sub_2245098A0(v37, &qword_27D0C9660, &qword_22462F2B0);
     v40 = v37;
     v11 = v36;
     MEMORY[0x22AA526D0](v40, -1, -1);
@@ -8804,13 +8958,13 @@ void sub_22460287C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   (a7)[2](a7, v42);
 }
 
-uint64_t sub_224602DE4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
+void sub_224602DE4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
 {
-  v45 = a2;
+  v44 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -8831,18 +8985,18 @@ uint64_t sub_224602DE4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
   swift_unknownObjectWeakInit();
   if (v16)
   {
-    v43 = a1;
-    v44 = v7;
+    v42 = a1;
+    v43 = v7;
     v18 = swift_allocObject();
     v18[2] = v17;
     v18[3] = sub_22460A948;
     v18[4] = v11;
-    v50 = sub_22460A980;
-    v51 = v18;
+    v49 = sub_22460A980;
+    v50 = v18;
     aBlock = MEMORY[0x277D85DD0];
-    v47 = 1107296256;
-    v48 = sub_2245D42E8;
-    v49 = &block_descriptor_558;
+    v46 = 1107296256;
+    v47 = sub_2245D42E8;
+    v48 = &block_descriptor_558;
     v19 = _Block_copy(&aBlock);
     v20 = v16;
 
@@ -8851,85 +9005,86 @@ uint64_t sub_224602DE4(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
       v23 = swift_allocObject();
-      v24 = v45;
+      v24 = v44;
       v23[2] = v17;
       v23[3] = v24;
       v23[4] = sub_22460A948;
       v23[5] = v11;
-      v50 = sub_224608CF4;
-      v51 = v23;
+      v49 = sub_224608CF4;
+      v50 = v23;
       aBlock = MEMORY[0x277D85DD0];
-      v47 = 1107296256;
-      v48 = sub_2245E8ED8;
-      v49 = &block_descriptor_564_0;
+      v46 = 1107296256;
+      v47 = sub_2245E8ED8;
+      v48 = &block_descriptor_564_0;
       v25 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
 
-      [v22 haltWithInfo:v43 completion:v25];
+      [v22 haltWithInfo:v42 completion:v25];
       _Block_release(v25);
 
-      return swift_unknownObjectRelease_n();
+      swift_unknownObjectRelease_n();
+      return;
     }
 
-    v7 = v44;
+    v7 = v43;
   }
 
   sub_22452ECAC();
-  v27 = swift_allocError();
-  *v28 = xmmword_22462FFB0;
-  *(v28 + 16) = 4;
+  v26 = swift_allocError();
+  *v27 = xmmword_22462FFB0;
+  *(v27 + 16) = 4;
   swift_willThrow();
 
   (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v29 = v27;
-  v30 = v27;
-  v31 = sub_224627B58();
-  v32 = sub_224628048();
+  v28 = v26;
+  v29 = v26;
+  v30 = sub_224627B58();
+  v31 = sub_224628048();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v30, v31))
   {
+    v32 = swift_slowAlloc();
     v33 = swift_slowAlloc();
-    v34 = swift_slowAlloc();
-    v45 = a4;
-    v35 = v8;
-    v36 = v7;
-    v37 = v34;
-    *v33 = 138412290;
-    v38 = v27;
-    v39 = _swift_stdlib_bridgeErrorToNSError();
-    *(v33 + 4) = v39;
-    *v37 = v39;
-    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync cert connection, can't send xpc %@", v33, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
-    v40 = v37;
-    v7 = v36;
-    v8 = v35;
-    a4 = v45;
-    MEMORY[0x22AA526D0](v40, -1, -1);
-    MEMORY[0x22AA526D0](v33, -1, -1);
+    v44 = a4;
+    v34 = v8;
+    v35 = v7;
+    v36 = v33;
+    *v32 = 138412290;
+    v37 = v26;
+    v38 = _swift_stdlib_bridgeErrorToNSError();
+    *(v32 + 4) = v38;
+    *v36 = v38;
+    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync cert connection, can't send xpc %@", v32, 0xCu);
+    sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
+    v39 = v36;
+    v7 = v35;
+    v8 = v34;
+    a4 = v44;
+    MEMORY[0x22AA526D0](v39, -1, -1);
+    MEMORY[0x22AA526D0](v32, -1, -1);
   }
 
   (*(v8 + 8))(v10, v7);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v41 = v27;
-  v42 = sub_224626FA8();
-  (a4)[2](a4, 0, v42);
+  v40 = v26;
+  v41 = sub_224626FA8();
+  (a4)[2](a4, 0, v41);
 }
 
-uint64_t sub_224603380(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
+void sub_224603380(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, void (**a4)(void, void, void))
 {
-  v45 = a2;
+  v44 = a2;
   v7 = sub_224627B78();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   v12 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -8950,18 +9105,18 @@ uint64_t sub_224603380(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
   swift_unknownObjectWeakInit();
   if (v16)
   {
-    v43 = a1;
-    v44 = v7;
+    v42 = a1;
+    v43 = v7;
     v18 = swift_allocObject();
     v18[2] = v17;
     v18[3] = sub_22460A948;
     v18[4] = v11;
-    v50 = sub_22460A980;
-    v51 = v18;
+    v49 = sub_22460A980;
+    v50 = v18;
     aBlock = MEMORY[0x277D85DD0];
-    v47 = 1107296256;
-    v48 = sub_2245D42E8;
-    v49 = &block_descriptor_520;
+    v46 = 1107296256;
+    v47 = sub_2245D42E8;
+    v48 = &block_descriptor_520;
     v19 = _Block_copy(&aBlock);
     v20 = v16;
 
@@ -8970,84 +9125,85 @@ uint64_t sub_224603380(uint64_t a1, void (**a2)(void, void, void), uint64_t a3, 
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v22 = aBlock;
       v23 = swift_allocObject();
-      v24 = v45;
+      v24 = v44;
       v23[2] = v17;
       v23[3] = v24;
       v23[4] = sub_22460A948;
       v23[5] = v11;
-      v50 = sub_224608BB4;
-      v51 = v23;
+      v49 = sub_224608BB4;
+      v50 = v23;
       aBlock = MEMORY[0x277D85DD0];
-      v47 = 1107296256;
-      v48 = sub_2245E8ED8;
-      v49 = &block_descriptor_526;
+      v46 = 1107296256;
+      v47 = sub_2245E8ED8;
+      v48 = &block_descriptor_526;
       v25 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
 
-      [v22 rebootWithInfo:v43 completion:v25];
+      [v22 rebootWithInfo:v42 completion:v25];
       _Block_release(v25);
 
-      return swift_unknownObjectRelease_n();
+      swift_unknownObjectRelease_n();
+      return;
     }
 
-    v7 = v44;
+    v7 = v43;
   }
 
   sub_22452ECAC();
-  v27 = swift_allocError();
-  *v28 = xmmword_22462FFB0;
-  *(v28 + 16) = 4;
+  v26 = swift_allocError();
+  *v27 = xmmword_22462FFB0;
+  *(v27 + 16) = 4;
   swift_willThrow();
 
   (*(v8 + 16))(v10, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v29 = v27;
-  v30 = v27;
-  v31 = sub_224627B58();
-  v32 = sub_224628048();
+  v28 = v26;
+  v29 = v26;
+  v30 = sub_224627B58();
+  v31 = sub_224628048();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v30, v31))
   {
+    v32 = swift_slowAlloc();
     v33 = swift_slowAlloc();
-    v34 = swift_slowAlloc();
-    v45 = a4;
-    v35 = v8;
-    v36 = v7;
-    v37 = v34;
-    *v33 = 138412290;
-    v38 = v27;
-    v39 = _swift_stdlib_bridgeErrorToNSError();
-    *(v33 + 4) = v39;
-    *v37 = v39;
-    _os_log_impl(&dword_224507000, v31, v32, "dockkit: failed getting sync cert connection, can't send xpc %@", v33, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
-    v40 = v37;
-    v7 = v36;
-    v8 = v35;
-    a4 = v45;
-    MEMORY[0x22AA526D0](v40, -1, -1);
-    MEMORY[0x22AA526D0](v33, -1, -1);
+    v44 = a4;
+    v34 = v8;
+    v35 = v7;
+    v36 = v33;
+    *v32 = 138412290;
+    v37 = v26;
+    v38 = _swift_stdlib_bridgeErrorToNSError();
+    *(v32 + 4) = v38;
+    *v36 = v38;
+    _os_log_impl(&dword_224507000, v30, v31, "dockkit: failed getting sync cert connection, can't send xpc %@", v32, 0xCu);
+    sub_2245098A0(v36, &qword_27D0C9660, &qword_22462F2B0);
+    v39 = v36;
+    v7 = v35;
+    v8 = v34;
+    a4 = v44;
+    MEMORY[0x22AA526D0](v39, -1, -1);
+    MEMORY[0x22AA526D0](v32, -1, -1);
   }
 
   (*(v8 + 8))(v10, v7);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v41 = v27;
-  v42 = sub_224626FA8();
-  (a4)[2](a4, 0, v42);
+  v40 = v26;
+  v41 = sub_224626FA8();
+  (a4)[2](a4, 0, v41);
 }
 
-uint64_t sub_22460391C(uint64_t a1, void *a2)
+void sub_22460391C(uint64_t a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -9068,17 +9224,17 @@ uint64_t sub_22460391C(uint64_t a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v36 = v4;
+    v35 = v4;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_22460A950;
     v15[4] = v8;
-    v41 = sub_22460A988;
-    v42 = v15;
+    v40 = sub_22460A988;
+    v41 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v38 = 1107296256;
-    v39 = sub_2245D42E8;
-    v40 = &block_descriptor_465;
+    v37 = 1107296256;
+    v38 = sub_2245D42E8;
+    v39 = &block_descriptor_465;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -9087,7 +9243,7 @@ uint64_t sub_22460391C(uint64_t a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v5 = aBlock;
@@ -9097,12 +9253,12 @@ uint64_t sub_22460391C(uint64_t a1, void *a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_2245803F8;
       *(a1 + 24) = a2;
-      v41 = sub_22460A92C;
-      v42 = a1;
+      v40 = sub_22460A92C;
+      v41 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v38 = 1107296256;
-      v39 = sub_22460AC1C;
-      v40 = &block_descriptor_474;
+      v37 = 1107296256;
+      v38 = sub_22460AC1C;
+      v39 = &block_descriptor_474;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -9115,61 +9271,61 @@ uint64_t sub_22460391C(uint64_t a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v36;
+    v4 = v35;
   }
 
   sub_22452ECAC();
-  v21 = swift_allocError();
-  *v22 = xmmword_22462FFB0;
-  *(v22 + 16) = 4;
+  v20 = swift_allocError();
+  *v21 = xmmword_22462FFB0;
+  *(v21 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v23 = v21;
-  v24 = v21;
-  v25 = sub_224627B58();
-  v26 = sub_224628048();
+  v22 = v20;
+  v23 = v20;
+  v24 = sub_224627B58();
+  v25 = sub_224628048();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v36 = a2;
-    v29 = v4;
-    v30 = v28;
-    *v27 = 138412290;
-    v31 = v21;
-    v32 = _swift_stdlib_bridgeErrorToNSError();
-    *(v27 + 4) = v32;
-    *v30 = v32;
-    _os_log_impl(&dword_224507000, v25, v26, "dockkit: failed getting sync debug connection, can't send xpc %@", v27, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
-    v33 = v30;
-    v4 = v29;
-    a2 = v36;
-    MEMORY[0x22AA526D0](v33, -1, -1);
-    MEMORY[0x22AA526D0](v27, -1, -1);
+    v35 = a2;
+    v28 = v4;
+    v29 = v27;
+    *v26 = 138412290;
+    v30 = v20;
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v26 + 4) = v31;
+    *v29 = v31;
+    _os_log_impl(&dword_224507000, v24, v25, "dockkit: failed getting sync debug connection, can't send xpc %@", v26, 0xCu);
+    sub_2245098A0(v29, &qword_27D0C9660, &qword_22462F2B0);
+    v32 = v29;
+    v4 = v28;
+    a2 = v35;
+    MEMORY[0x22AA526D0](v32, -1, -1);
+    MEMORY[0x22AA526D0](v26, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v34 = v21;
-  v35 = sub_224626FA8();
-  (a2[2])(a2, 0, v35);
+  v33 = v20;
+  v34 = sub_224626FA8();
+  (a2[2])(a2, 0, v34);
 }
 
-uint64_t sub_224603F04(uint64_t a1, void *a2)
+void sub_224603F04(uint64_t a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -9190,17 +9346,17 @@ uint64_t sub_224603F04(uint64_t a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v36 = v4;
+    v35 = v4;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_2246089D4;
     v15[4] = v8;
-    v41 = sub_2246089DC;
-    v42 = v15;
+    v40 = sub_2246089DC;
+    v41 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v38 = 1107296256;
-    v39 = sub_2245D42E8;
-    v40 = &block_descriptor_432;
+    v37 = 1107296256;
+    v38 = sub_2245D42E8;
+    v39 = &block_descriptor_432;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -9209,7 +9365,7 @@ uint64_t sub_224603F04(uint64_t a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v5 = aBlock;
@@ -9219,12 +9375,12 @@ uint64_t sub_224603F04(uint64_t a1, void *a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_224608A0C;
       *(a1 + 24) = a2;
-      v41 = sub_224608A34;
-      v42 = a1;
+      v40 = sub_224608A34;
+      v41 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v38 = 1107296256;
-      v39 = sub_2245EFD04;
-      v40 = &block_descriptor_441;
+      v37 = 1107296256;
+      v38 = sub_2245EFD04;
+      v39 = &block_descriptor_441;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -9237,61 +9393,61 @@ uint64_t sub_224603F04(uint64_t a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v36;
+    v4 = v35;
   }
 
   sub_22452ECAC();
-  v21 = swift_allocError();
-  *v22 = xmmword_22462FFB0;
-  *(v22 + 16) = 4;
+  v20 = swift_allocError();
+  *v21 = xmmword_22462FFB0;
+  *(v21 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v23 = v21;
-  v24 = v21;
-  v25 = sub_224627B58();
-  v26 = sub_224628048();
+  v22 = v20;
+  v23 = v20;
+  v24 = sub_224627B58();
+  v25 = sub_224628048();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v36 = a2;
-    v29 = v4;
-    v30 = v28;
-    *v27 = 138412290;
-    v31 = v21;
-    v32 = _swift_stdlib_bridgeErrorToNSError();
-    *(v27 + 4) = v32;
-    *v30 = v32;
-    _os_log_impl(&dword_224507000, v25, v26, "dockkit: failed getting sync debug connection, can't send xpc %@", v27, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
-    v33 = v30;
-    v4 = v29;
-    a2 = v36;
-    MEMORY[0x22AA526D0](v33, -1, -1);
-    MEMORY[0x22AA526D0](v27, -1, -1);
+    v35 = a2;
+    v28 = v4;
+    v29 = v27;
+    *v26 = 138412290;
+    v30 = v20;
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v26 + 4) = v31;
+    *v29 = v31;
+    _os_log_impl(&dword_224507000, v24, v25, "dockkit: failed getting sync debug connection, can't send xpc %@", v26, 0xCu);
+    sub_2245098A0(v29, &qword_27D0C9660, &qword_22462F2B0);
+    v32 = v29;
+    v4 = v28;
+    a2 = v35;
+    MEMORY[0x22AA526D0](v32, -1, -1);
+    MEMORY[0x22AA526D0](v26, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v34 = v21;
-  v35 = sub_224626FA8();
-  (a2[2])(a2, 0, v35);
+  v33 = v20;
+  v34 = sub_224626FA8();
+  (a2[2])(a2, 0, v34);
 }
 
-uint64_t sub_2246044EC(int a1, uint64_t a2, void *a3)
+void sub_2246044EC(int a1, uint64_t a2, void *a3)
 {
   v6 = sub_224627B78();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = swift_allocObject();
   *(v10 + 16) = a3;
   v11 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -9312,18 +9468,18 @@ uint64_t sub_2246044EC(int a1, uint64_t a2, void *a3)
   swift_unknownObjectWeakInit();
   if (v15)
   {
-    v39 = a1;
-    v40 = v6;
+    v38 = a1;
+    v39 = v6;
     v17 = swift_allocObject();
-    *(v17 + 2) = v16;
-    *(v17 + 3) = sub_22460A948;
-    *(v17 + 4) = v10;
-    v45 = sub_22460A980;
-    v46 = v17;
+    v17[2] = v16;
+    v17[3] = sub_22460A948;
+    v17[4] = v10;
+    v44 = sub_22460A980;
+    v45 = v17;
     aBlock = MEMORY[0x277D85DD0];
-    v42 = 1107296256;
-    v43 = sub_2245D42E8;
-    v44 = &block_descriptor_398;
+    v41 = 1107296256;
+    v42 = sub_2245D42E8;
+    v43 = &block_descriptor_398;
     v18 = _Block_copy(&aBlock);
     v19 = v15;
 
@@ -9332,7 +9488,7 @@ uint64_t sub_2246044EC(int a1, uint64_t a2, void *a3)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0, &qword_224632D20);
     if (swift_dynamicCast())
     {
       v7 = aBlock;
@@ -9342,18 +9498,18 @@ uint64_t sub_2246044EC(int a1, uint64_t a2, void *a3)
       a2 = swift_allocObject();
       *(a2 + 16) = sub_2245803F4;
       *(a2 + 24) = a3;
-      v45 = sub_22460A920;
-      v46 = a2;
+      v44 = sub_22460A920;
+      v45 = a2;
       aBlock = MEMORY[0x277D85DD0];
-      v42 = 1107296256;
-      v43 = sub_2245D4378;
-      v44 = &block_descriptor_408;
+      v41 = 1107296256;
+      v42 = sub_2245D4378;
+      v43 = &block_descriptor_408;
       v21 = _Block_copy(&aBlock);
-      v9 = v46;
+      v9 = v45;
 
       swift_unknownObjectRetain();
 
-      [v7 migrateDataWithUpdate:v39 & 1 completion:v21];
+      [v7 migrateDataWithUpdate:v38 & 1 completion:v21];
       swift_unknownObjectRelease_n();
 
       _Block_release(v21);
@@ -9361,61 +9517,61 @@ uint64_t sub_2246044EC(int a1, uint64_t a2, void *a3)
 
       if ((v21 & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v6 = v40;
+    v6 = v39;
   }
 
   sub_22452ECAC();
-  v23 = swift_allocError();
-  *v24 = xmmword_22462FFB0;
-  *(v24 + 16) = 4;
+  v22 = swift_allocError();
+  *v23 = xmmword_22462FFB0;
+  *(v23 + 16) = 4;
   swift_willThrow();
 
   (*(v7 + 16))(v9, a2 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v6);
-  v25 = v23;
-  v26 = v23;
-  v27 = sub_224627B58();
-  v28 = sub_224628048();
+  v24 = v22;
+  v25 = v22;
+  v26 = sub_224627B58();
+  v27 = sub_224628048();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
+    v28 = swift_slowAlloc();
     v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v40 = a3;
-    v31 = v6;
-    v32 = v30;
-    *v29 = 138412290;
-    v33 = v23;
-    v34 = _swift_stdlib_bridgeErrorToNSError();
-    *(v29 + 4) = v34;
-    *v32 = v34;
-    _os_log_impl(&dword_224507000, v27, v28, "dockkit: failed getting sync debug connection, can't send xpc %@", v29, 0xCu);
-    sub_2245098A0(v32, &qword_27D0C9660);
-    v35 = v32;
-    v6 = v31;
-    a3 = v40;
-    MEMORY[0x22AA526D0](v35, -1, -1);
-    MEMORY[0x22AA526D0](v29, -1, -1);
+    v39 = a3;
+    v30 = v6;
+    v31 = v29;
+    *v28 = 138412290;
+    v32 = v22;
+    v33 = _swift_stdlib_bridgeErrorToNSError();
+    *(v28 + 4) = v33;
+    *v31 = v33;
+    _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
+    sub_2245098A0(v31, &qword_27D0C9660, &qword_22462F2B0);
+    v34 = v31;
+    v6 = v30;
+    a3 = v39;
+    MEMORY[0x22AA526D0](v34, -1, -1);
+    MEMORY[0x22AA526D0](v28, -1, -1);
   }
 
   (*(v7 + 8))(v9, v6);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v36 = v23;
-  v37 = sub_224626FA8();
-  (a3[2])(a3, 0, v37);
+  v35 = v22;
+  v36 = sub_224626FA8();
+  (a3[2])(a3, 0, v36);
 }
 
-uint64_t sub_224604AE4(uint64_t a1, void *a2)
+void sub_224604AE4(uint64_t a1, void *a2)
 {
   v4 = sub_224627B78();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = swift_allocObject();
   *(v8 + 16) = a2;
   v9 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
@@ -9436,17 +9592,17 @@ uint64_t sub_224604AE4(uint64_t a1, void *a2)
   swift_unknownObjectWeakInit();
   if (v13)
   {
-    v37 = v4;
+    v36 = v4;
     v15 = swift_allocObject();
     v15[2] = v14;
     v15[3] = sub_224608810;
     v15[4] = v8;
-    v42 = sub_224608818;
-    v43 = v15;
+    v41 = sub_224608818;
+    v42 = v15;
     aBlock = MEMORY[0x277D85DD0];
-    v39 = 1107296256;
-    v40 = sub_2245D42E8;
-    v41 = &block_descriptor_364;
+    v38 = 1107296256;
+    v39 = sub_2245D42E8;
+    v40 = &block_descriptor_364;
     v16 = _Block_copy(&aBlock);
     v17 = v13;
 
@@ -9455,7 +9611,7 @@ uint64_t sub_224604AE4(uint64_t a1, void *a2)
 
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if (swift_dynamicCast())
     {
       v5 = aBlock;
@@ -9465,12 +9621,12 @@ uint64_t sub_224604AE4(uint64_t a1, void *a2)
       a1 = swift_allocObject();
       *(a1 + 16) = sub_224608824;
       *(a1 + 24) = a2;
-      v42 = sub_22460884C;
-      v43 = a1;
+      v41 = sub_22460884C;
+      v42 = a1;
       aBlock = MEMORY[0x277D85DD0];
-      v39 = 1107296256;
-      v40 = sub_2245F1974;
-      v41 = &block_descriptor_373;
+      v38 = 1107296256;
+      v39 = sub_2245F1974;
+      v40 = &block_descriptor_373;
       v7 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
@@ -9483,54 +9639,54 @@ uint64_t sub_224604AE4(uint64_t a1, void *a2)
 
       if ((isEscapingClosureAtFileLocation & 1) == 0)
       {
-        return result;
+        return;
       }
 
       __break(1u);
     }
 
-    v4 = v37;
+    v4 = v36;
   }
 
   sub_22452ECAC();
-  v21 = swift_allocError();
-  *v22 = xmmword_22462FFB0;
-  *(v22 + 16) = 4;
+  v20 = swift_allocError();
+  *v21 = xmmword_22462FFB0;
+  *(v21 + 16) = 4;
   swift_willThrow();
 
   (*(v5 + 16))(v7, a1 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v4);
-  v23 = v21;
-  v24 = v21;
-  v25 = sub_224627B58();
-  v26 = sub_224628048();
+  v22 = v20;
+  v23 = v20;
+  v24 = sub_224627B58();
+  v25 = sub_224628048();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v37 = a2;
-    v29 = v4;
-    v30 = v28;
-    *v27 = 138412290;
-    v31 = v21;
-    v32 = _swift_stdlib_bridgeErrorToNSError();
-    *(v27 + 4) = v32;
-    *v30 = v32;
-    _os_log_impl(&dword_224507000, v25, v26, "dockkit: failed getting sync cert connection, can't send xpc %@", v27, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
-    v33 = v30;
-    v4 = v29;
-    a2 = v37;
-    MEMORY[0x22AA526D0](v33, -1, -1);
-    MEMORY[0x22AA526D0](v27, -1, -1);
+    v36 = a2;
+    v28 = v4;
+    v29 = v27;
+    *v26 = 138412290;
+    v30 = v20;
+    v31 = _swift_stdlib_bridgeErrorToNSError();
+    *(v26 + 4) = v31;
+    *v29 = v31;
+    _os_log_impl(&dword_224507000, v24, v25, "dockkit: failed getting sync cert connection, can't send xpc %@", v26, 0xCu);
+    sub_2245098A0(v29, &qword_27D0C9660, &qword_22462F2B0);
+    v32 = v29;
+    v4 = v28;
+    a2 = v36;
+    MEMORY[0x22AA526D0](v32, -1, -1);
+    MEMORY[0x22AA526D0](v26, -1, -1);
   }
 
   (*(v5 + 8))(v7, v4);
   sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v34 = v21;
-  v35 = sub_224627CB8();
-  v36 = sub_224626FA8();
-  (a2[2])(a2, v35, v36);
+  v33 = v20;
+  v34 = sub_224627CB8();
+  v35 = sub_224626FA8();
+  (a2[2])(a2, v34, v35);
 }
 
 void sub_2246050E0(uint64_t a1, uint64_t a2, void *a3)
@@ -9577,7 +9733,7 @@ void sub_2246050E0(uint64_t a1, uint64_t a2, void *a3)
     p_aBlock = &aBlock;
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -9638,7 +9794,7 @@ void sub_2246050E0(uint64_t a1, uint64_t a2, void *a3)
     *(v28 + 4) = v32;
     *v30 = v32;
     _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync cert connection, can't send xpc %@", v28, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v30, -1, -1);
     MEMORY[0x22AA526D0](v28, -1, -1);
   }
@@ -9694,7 +9850,7 @@ void sub_2246056B0(uint64_t a1, uint64_t a2, void *a3)
     p_aBlock = &aBlock;
     sub_224628278();
     swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D8, &qword_224632DD0);
     if ((swift_dynamicCast() & 1) == 0)
     {
 
@@ -9755,7 +9911,7 @@ void sub_2246056B0(uint64_t a1, uint64_t a2, void *a3)
     *(v28 + 4) = v32;
     *v30 = v32;
     _os_log_impl(&dword_224507000, v26, v27, "dockkit: failed getting sync debug connection, can't send xpc %@", v28, 0xCu);
-    sub_2245098A0(v30, &qword_27D0C9660);
+    sub_2245098A0(v30, &qword_27D0C9660, &qword_22462F2B0);
     MEMORY[0x22AA526D0](v30, -1, -1);
     MEMORY[0x22AA526D0](v28, -1, -1);
   }
@@ -9765,140 +9921,4 @@ void sub_2246056B0(uint64_t a1, uint64_t a2, void *a3)
   v33 = v22;
   v34 = sub_224626FA8();
   (a3[2])(a3, 0, v34);
-}
-
-uint64_t sub_224605C80(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v7 = sub_224627B78();
-  v46 = *(v7 - 1);
-  MEMORY[0x28223BE20](v7);
-  v9 = &v44 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = swift_allocObject();
-  *(v10 + 16) = a4;
-  sub_22450950C(0, &unk_27D0C8D40);
-  _Block_copy(a4);
-  v11 = sub_224628208();
-  v12 = a2;
-  v13 = v11;
-  if (v12)
-  {
-    v14 = sub_224627CB8();
-
-    v13 = v14;
-  }
-
-  v15 = OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock;
-  v16 = *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionLock);
-
-  os_unfair_lock_lock(v16 + 4);
-
-  v17 = *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError);
-  *(a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnectionError) = 0;
-
-  v18 = *(a3 + v15);
-
-  os_unfair_lock_unlock(v18 + 4);
-
-  v19 = sub_2245E4F94();
-  v20 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  if (v19)
-  {
-    v45 = v13;
-    v21 = swift_allocObject();
-    v21[2] = v20;
-    v21[3] = sub_22460A94C;
-    v21[4] = v10;
-    v51 = sub_22460A984;
-    v52 = v21;
-    aBlock = MEMORY[0x277D85DD0];
-    v48 = 1107296256;
-    v49 = sub_2245D42E8;
-    v50 = &block_descriptor_253;
-    v22 = _Block_copy(&aBlock);
-    v23 = v19;
-
-    v24 = [v23 synchronousRemoteObjectProxyWithErrorHandler_];
-    _Block_release(v22);
-
-    sub_224628278();
-    swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0CA0D0);
-    if (swift_dynamicCast())
-    {
-      v7 = aBlock;
-      a4 = swift_allocObject();
-      a4[2] = sub_22460A94C;
-      a4[3] = v10;
-      a3 = swift_allocObject();
-      *(a3 + 16) = sub_22460A924;
-      *(a3 + 24) = a4;
-      v51 = sub_22460A928;
-      v52 = a3;
-      aBlock = MEMORY[0x277D85DD0];
-      v48 = 1107296256;
-      v49 = sub_2245F3D90;
-      v50 = &block_descriptor_263;
-      v25 = _Block_copy(&aBlock);
-
-      swift_unknownObjectRetain();
-
-      v9 = v45;
-      [v7 dumpTrackerDiagnosticsWithPath:v45 completion:v25];
-      swift_unknownObjectRelease();
-
-      _Block_release(v25);
-      swift_unknownObjectRelease();
-      isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
-
-      if ((isEscapingClosureAtFileLocation & 1) == 0)
-      {
-        return result;
-      }
-
-      __break(1u);
-    }
-
-    v13 = v45;
-  }
-
-  sub_22452ECAC();
-  v28 = swift_allocError();
-  *v29 = xmmword_22462FFB0;
-  *(v29 + 16) = 4;
-  swift_willThrow();
-
-  (*(v46 + 16))(v9, a3 + OBJC_IVAR____TtC11DockKitCore15DockCoreManager_logger, v7);
-  v30 = v28;
-  v31 = v28;
-  v32 = sub_224627B58();
-  v33 = sub_224628048();
-
-  if (os_log_type_enabled(v32, v33))
-  {
-    v34 = swift_slowAlloc();
-    v45 = v7;
-    v35 = v13;
-    v36 = v34;
-    v37 = swift_slowAlloc();
-    *v36 = 138412290;
-    v38 = v28;
-    v39 = _swift_stdlib_bridgeErrorToNSError();
-    *(v36 + 4) = v39;
-    *v37 = v39;
-    _os_log_impl(&dword_224507000, v32, v33, "dockkit: failed getting tracker debug sync connection, can't send xpc %@", v36, 0xCu);
-    sub_2245098A0(v37, &qword_27D0C9660);
-    MEMORY[0x22AA526D0](v37, -1, -1);
-    v40 = v36;
-    v13 = v35;
-    v7 = v45;
-    MEMORY[0x22AA526D0](v40, -1, -1);
-  }
-
-  (*(v46 + 8))(v9, v7);
-  sub_2245E8F60(&OBJC_IVAR____TtC11DockKitCore15DockCoreManager__xpcConnection);
-  v41 = v28;
-  v42 = sub_224627EB8();
-  v43 = sub_224626FA8();
-  (a4[2])(a4, v42, v43);
 }

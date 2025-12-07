@@ -55,7 +55,7 @@
   v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v9 = identifierCopy;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(identifierCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -75,14 +75,12 @@
   v6 = v11 = buf;
   if (v6)
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [LSDefaultApplicationQueryServerDatastore removeEntriesForBundleIdentifier:?];
+      [LSDefaultApplicationQueryServerDatastore removeEntriesForBundleIdentifier:];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (__n128)setEntry:forApplication:category:
@@ -133,20 +131,10 @@
 
 - (void)setEntry:(uint64_t)a1 forApplication:(NSObject *)a2 category:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't save default application query state: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeEntriesForBundleIdentifier:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v2, v3, "Couldn't save default application query state after removing %@: %@");
   v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Couldn't save default application query state: %@", &v2, 0xCu);
 }
 
 @end

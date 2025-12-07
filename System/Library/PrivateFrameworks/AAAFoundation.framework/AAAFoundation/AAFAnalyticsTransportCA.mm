@@ -17,7 +17,7 @@
 
   else
   {
-    v8 = _AAFLogSystem();
+    v8 = _AAFLogSystem(eventCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(AAFAnalyticsTransportCA *)self sendEvent:v8];
@@ -27,15 +27,13 @@
 
 - (void)sendEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 138412546;
-  v7 = objc_opt_class();
-  v8 = 2048;
-  v9 = a1;
-  v4 = v7;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "<%@: %p> CoreAnalytics is not avaiable.", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = objc_opt_class();
+  v7 = 2048;
+  v8 = a1;
+  v4 = v6;
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "<%@: %p> CoreAnalytics is not avaiable.", &v5, 0x16u);
 }
 
 @end

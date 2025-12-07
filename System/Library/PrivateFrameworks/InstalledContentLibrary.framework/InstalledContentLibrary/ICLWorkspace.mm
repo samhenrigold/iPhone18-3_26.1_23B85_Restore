@@ -41,7 +41,7 @@
   return v2;
 }
 
-uint64_t __32__ICLWorkspace_defaultWorkspace__block_invoke()
+uint64_t __32__ICLWorkspace_defaultWorkspace__block_invoke(uint64_t a1)
 {
   defaultWorkspace_defaultInstance = objc_alloc_init(objc_opt_class());
 

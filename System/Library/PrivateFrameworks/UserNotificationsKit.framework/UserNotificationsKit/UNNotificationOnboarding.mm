@@ -64,11 +64,11 @@
 + (id)onboardingControllerForViewModel:(id)model
 {
   swift_getObjCClassMetadata();
-  swift_unknownObjectRetain();
-  v3 = sub_270A81720();
+  v3 = swift_unknownObjectRetain();
+  v4 = sub_270A81720(v3);
   swift_unknownObjectRelease();
 
-  return v3;
+  return v4;
 }
 
 + (id)viewModelForExperience:(unint64_t)experience
@@ -80,11 +80,11 @@
 
 + (id)allowedClassesForExperience:(unint64_t)experience
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28083FE00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28083FE00, &qword_270A8F428);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_270A8EE60;
-  *(v3 + 32) = type metadata accessor for NotificationSummarizationOnboardingViewModel();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28083FE08);
+  *(v3 + 32) = type metadata accessor for NotificationSummarizationOnboardingViewModel(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28083FE08, &qword_270A8F430);
   v4 = sub_270A890B0();
 
   return v4;

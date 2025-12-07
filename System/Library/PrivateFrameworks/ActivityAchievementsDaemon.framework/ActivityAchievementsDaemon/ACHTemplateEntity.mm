@@ -101,52 +101,52 @@
 
 uint64_t __101__ACHTemplateEntity__insertTemplates_provenance_useLegacySyncIdentity_profile_databaseContext_error___block_invoke(uint64_t a1, void *a2, NSObject **a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v42 = [v5 databaseForEntityClass:*(a1 + 48)];
-  v43 = a1;
+  v41 = [v5 databaseForEntityClass:*(a1 + 48)];
+  v42 = a1;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v47;
+    v10 = *v46;
     *&v8 = 138543362;
-    v39 = v8;
-    v41 = v6;
-    v40 = v5;
+    v38 = v8;
+    v40 = v6;
+    v39 = v5;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v47 != v10)
+      if (*v46 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v46 + 1) + 8 * v11);
+      v12 = *(*(&v45 + 1) + 8 * v11);
       if ([v12 minimumEngineVersion] < 0x10)
       {
         if ([v12 _isValid])
         {
-          v19 = *(v43 + 48);
+          v19 = *(v42 + 48);
           v20 = [v12 uniqueName];
-          v13 = [v19 _templateWithUniqueName:v20 profile:*(v43 + 40) transaction:v5 error:a3];
+          v13 = [v19 _templateWithUniqueName:v20 profile:*(v42 + 40) transaction:v5 error:a3];
 
           if (v13)
           {
             v21 = [v13 version];
             if (v21 < [v12 version])
             {
-              v22 = *(v43 + 48);
+              v22 = *(v42 + 48);
               v23 = [v13 key];
-              v45 = 0;
-              LODWORD(v22) = [v22 _removeTemplateWithPersistentID:v23 database:v42 error:&v45];
-              v24 = v45;
+              v44 = 0;
+              LODWORD(v22) = [v22 _removeTemplateWithPersistentID:v23 database:v41 error:&v44];
+              v24 = v44;
               if (!v22)
               {
                 v25 = v24;
@@ -175,14 +175,14 @@ LABEL_3:
             }
           }
 
-          v25 = ACHTemplateSyncIdentityFromTemplate(v12, *(v43 + 64), *(v43 + 40), v5);
-          v27 = *(v43 + 48);
-          v26 = *(v43 + 56);
+          v25 = ACHTemplateSyncIdentityFromTemplate(v12, *(v42 + 64), *(v42 + 40), v5);
+          v27 = *(v42 + 48);
+          v26 = *(v42 + 56);
           v28 = [v25 entity];
           v29 = [v28 persistentID];
-          v44 = 0;
-          LOBYTE(v26) = [v27 _insertTemplate:v12 provenance:v26 syncIdentity:v29 database:v42 error:&v44];
-          v30 = v44;
+          v43 = 0;
+          LOBYTE(v26) = [v27 _insertTemplate:v12 provenance:v26 syncIdentity:v29 database:v41 error:&v43];
+          v30 = v43;
 
           if ((v26 & 1) == 0)
           {
@@ -204,23 +204,23 @@ LABEL_3:
             v35 = ACHLogDatabase();
             if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              v38 = [v12 uniqueName];
+              v37 = [v12 uniqueName];
               *buf = 138543618;
-              v51 = v38;
-              v52 = 2114;
-              v53 = v32;
+              v50 = v37;
+              v51 = 2114;
+              v52 = v32;
               _os_log_error_impl(&dword_221DDC000, v35, OS_LOG_TYPE_ERROR, "Error inserting template '%{public}@': %{public}@", buf, 0x16u);
             }
 
 LABEL_35:
             v31 = 0;
-            v5 = v40;
-            v6 = v41;
+            v5 = v39;
+            v6 = v40;
             goto LABEL_36;
           }
 
-          v5 = v40;
-          v6 = v41;
+          v5 = v39;
+          v6 = v40;
         }
 
         else
@@ -229,8 +229,8 @@ LABEL_35:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v15 = [v12 uniqueName];
-            *buf = v39;
-            v51 = v15;
+            *buf = v38;
+            v50 = v15;
             v16 = v13;
             v17 = "Not inserting invalid template: %{public}@";
             v18 = 12;
@@ -247,9 +247,9 @@ LABEL_35:
           v14 = [v12 minimumEngineVersion];
           v15 = [v12 uniqueName];
           *buf = 134218242;
-          v51 = v14;
-          v52 = 2114;
-          v53 = v15;
+          v50 = v14;
+          v51 = 2114;
+          v52 = v15;
           v16 = v13;
           v17 = "Not inserting template with higher minimum engine version (%ld): %{public}@";
           v18 = 22;
@@ -260,7 +260,7 @@ LABEL_18:
 
       if (v9 == ++v11)
       {
-        v9 = [v6 countByEnumeratingWithState:&v46 objects:v54 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v45 objects:v53 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -274,7 +274,6 @@ LABEL_18:
   v31 = 1;
 LABEL_36:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -420,7 +419,7 @@ void __76__ACHTemplateEntity__insertTemplate_provenance_syncIdentity_database_er
 
 + (BOOL)_removeTemplates:(id)templates profile:(id)profile error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   profileCopy = profile;
   if ([templatesCopy count] == 1)
@@ -436,28 +435,28 @@ void __76__ACHTemplateEntity__insertTemplate_provenance_syncIdentity_database_er
     errorCopy = error;
     v13 = templatesCopy;
     v14 = objc_alloc_init(MEMORY[0x277CBEA60]);
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v41;
+      v18 = *v40;
       do
       {
         v19 = 0;
         v20 = v14;
         do
         {
-          if (*v41 != v18)
+          if (*v40 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          uniqueName2 = [*(*(&v40 + 1) + 8 * v19) uniqueName];
+          uniqueName2 = [*(*(&v39 + 1) + 8 * v19) uniqueName];
           v22 = [MEMORY[0x277D10B18] predicateWithProperty:@"unique_name" equalToValue:uniqueName2];
 
           v14 = [v20 arrayByAddingObject:v22];
@@ -467,7 +466,7 @@ void __76__ACHTemplateEntity__insertTemplate_provenance_syncIdentity_database_er
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v17);
@@ -480,26 +479,25 @@ void __76__ACHTemplateEntity__insertTemplate_provenance_syncIdentity_database_er
   }
 
   database = [profileCopy database];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __52__ACHTemplateEntity__removeTemplates_profile_error___block_invoke;
-  v36[3] = &unk_278490E08;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __52__ACHTemplateEntity__removeTemplates_profile_error___block_invoke;
+  v35[3] = &unk_278490E08;
   selfCopy2 = self;
-  v37 = v12;
-  v38 = profileCopy;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __52__ACHTemplateEntity__removeTemplates_profile_error___block_invoke_2;
-  v32[3] = &unk_2784927E0;
-  v34 = v38;
+  v36 = v12;
+  v37 = profileCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __52__ACHTemplateEntity__removeTemplates_profile_error___block_invoke_2;
+  v31[3] = &unk_2784927E0;
+  v33 = v37;
   selfCopy3 = self;
-  v33 = templatesCopy;
-  v24 = v38;
+  v32 = templatesCopy;
+  v24 = v37;
   v25 = templatesCopy;
   v26 = v12;
-  v27 = [self performWriteTransactionWithHealthDatabase:database error:error block:v36 inaccessibilityHandler:v32];
+  v27 = [self performWriteTransactionWithHealthDatabase:database error:error block:v35 inaccessibilityHandler:v31];
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -778,50 +776,50 @@ LABEL_16:
 {
   var1 = range.var1;
   var0 = range.var0;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   profileCopy = profile;
   handlerCopy = handler;
   v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = -1;
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x2020000000;
-  v40[3] = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = -1;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v39[3] = 0;
   v17 = [sessionCopy maxEncodedBytesPerCodableChangeForSyncEntityClass:self];
   v18 = ACHLogSync();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v46 = sessionCopy;
-    v47 = 2048;
-    v48 = var0;
-    v49 = 2048;
-    v50 = var1;
+    v45 = sessionCopy;
+    v46 = 2048;
+    v47 = var0;
+    v48 = 2048;
+    v49 = var1;
     _os_log_debug_impl(&dword_221DDC000, v18, OS_LOG_TYPE_DEBUG, "Template Entity generating sync objects for session (%@), Anchor Range Start (%lld), Anchor Range End (%lld)", buf, 0x20u);
   }
 
   database = [profileCopy database];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
-  v30[3] = &unk_2784928C8;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke;
+  v29[3] = &unk_2784928C8;
   selfCopy = self;
   v20 = profileCopy;
-  v31 = v20;
+  v30 = v20;
   v21 = sessionCopy;
-  v37 = var0;
-  v38 = var1;
-  v32 = v21;
-  v34 = &v41;
+  v36 = var0;
+  v37 = var1;
+  v31 = v21;
+  v33 = &v40;
   v22 = v16;
-  v33 = v22;
-  v35 = v40;
-  v39 = v17;
-  v23 = [self performReadTransactionWithHealthDatabase:database error:error block:v30];
+  v32 = v22;
+  v34 = v39;
+  v38 = v17;
+  v23 = [self performReadTransactionWithHealthDatabase:database error:error block:v29];
 
   if (v23)
   {
@@ -830,12 +828,12 @@ LABEL_16:
     {
       v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
       *buf = 138543362;
-      v46 = v25;
+      v45 = v25;
       _os_log_impl(&dword_221DDC000, v24, OS_LOG_TYPE_DEFAULT, "Template Entity sync generated (%{public}@} objects for sync.", buf, 0xCu);
     }
 
     allObjects = [v22 allObjects];
-    v27 = [handlerCopy sendCodableChange:allObjects version:0x100000000 resultAnchor:v42[3] sequence:0 done:1 error:error];
+    v27 = [handlerCopy sendCodableChange:allObjects version:0x100000000 resultAnchor:v41[3] sequence:0 done:1 error:error];
   }
 
   else
@@ -843,10 +841,9 @@ LABEL_16:
     v27 = 0;
   }
 
-  _Block_object_dispose(v40, 8);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(&v40, 8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -880,7 +877,7 @@ uint64_t __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_p
   return v17;
 }
 
-BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t *a8)
+BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, uint64_t a8)
 {
   v12 = a2;
   v13 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(v12 row:"persistentID") error:{a4, a8}];
@@ -922,7 +919,7 @@ BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profi
       v27 = ACHLogSync();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2_cold_1(v12, a8);
+        __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2_cold_1();
       }
     }
   }
@@ -937,7 +934,7 @@ BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profi
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
@@ -946,7 +943,7 @@ BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profi
   {
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objectsCopy, "count")}];
     *buf = 138543362;
-    v40 = v15;
+    v39 = v15;
     _os_log_impl(&dword_221DDC000, v14, OS_LOG_TYPE_DEFAULT, "Template Entity received sync objects, count: %{public}@", buf, 0xCu);
   }
 
@@ -964,33 +961,33 @@ BOOL __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profi
 
   selfCopy = self;
   v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v17 = objectsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v35;
+    v20 = *v34;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [objc_alloc(MEMORY[0x277CE8D50]) initWithCodable:*(*(&v34 + 1) + 8 * i)];
+        v22 = [objc_alloc(MEMORY[0x277CE8D50]) initWithCodable:*(*(&v33 + 1) + 8 * i)];
         if (v22)
         {
           [v16 addObject:v22];
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v19);
@@ -1016,7 +1013,7 @@ LABEL_22:
   {
     v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v16, "count")}];
     *buf = 138543362;
-    v40 = v26;
+    v39 = v26;
     _os_log_impl(&dword_221DDC000, v24, OS_LOG_TYPE_DEFAULT, "Decoded %{public}@ templates from sync.", buf, 0xCu);
   }
 
@@ -1028,7 +1025,6 @@ LABEL_22:
   v30 = v29 ^ 1u;
 LABEL_23:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -1128,64 +1124,41 @@ BOOL __72__ACHTemplateEntity_codableTemplateForTemplateInDatabase_profile_error_
 
 void __101__ACHTemplateEntity__insertTemplates_provenance_useLegacySyncIdentity_profile_databaseContext_error___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 uniqueName];
   OUTLINED_FUNCTION_1_3();
-  v8 = a2;
-  _os_log_error_impl(&dword_221DDC000, a3, OS_LOG_TYPE_ERROR, "Error removing existing template '%{public}@': %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_error_impl(&dword_221DDC000, a3, OS_LOG_TYPE_ERROR, "Error removing existing template '%{public}@': %{public}@", v6, 0x16u);
 }
 
 void __71__ACHTemplateEntity__templateWithUniqueName_profile_transaction_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 40);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, a2, a3, "Error instantiating template for unique name %{public}@ during database retrieval: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 40);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_221DDC000, a2, a3, "Error instantiating template for unique name %{public}@ during database retrieval: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __59__ACHTemplateEntity__templatesWithPredicate_profile_error___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error instantiating template during database retrieval: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __59__ACHTemplateEntity__templatesWithPredicate_profile_error___block_invoke_2_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error fetching sync identity for template: %{public}@, %{public}@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error instantiating template during database retrieval: %{public}@", v1, 0xCu);
 }
 
 + (void)nextSyncAnchorWithSession:startSyncAnchor:profile:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Template Entity returning next sync anchor: %lld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __96__ACHTemplateEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v3, v4, "Error creating codable representation of Template (%@): %@");
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221DDC000, v0, OS_LOG_TYPE_DEBUG, "Template Entity returning next sync anchor: %lld", v1, 0xCu);
 }
 
 void __72__ACHTemplateEntity_codableTemplateForTemplateInDatabase_profile_error___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error instantiating codable during database retrieval: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221DDC000, v0, OS_LOG_TYPE_ERROR, "Error instantiating codable during database retrieval: %{public}@", v1, 0xCu);
 }
 
 @end

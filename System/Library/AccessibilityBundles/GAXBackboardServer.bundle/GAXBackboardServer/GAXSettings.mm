@@ -21,6 +21,8 @@
 - (id)mutableUserGlobalProfile;
 - (int)activeAppOrientation;
 - (void)setActiveAppID:(id)d;
+- (void)setActiveAppOrientation:(int)orientation;
+- (void)setActiveAppSelfLocked:(BOOL)locked;
 - (void)setECID:(id)d;
 - (void)setLastActivationDate:(id)date;
 - (void)setLastPasscodeSetDate:(id)date;
@@ -28,6 +30,9 @@
 - (void)setSavedASAMAppIdForLostMode:(id)mode;
 - (void)setSavedAccessibilityFeatures:(id)features;
 - (void)setSavedAccessibilityTripleClickOptions:(id)options;
+- (void)setSelfLockUnmanaged:(BOOL)unmanaged;
+- (void)setSystemDidRestartDueToLowBattery:(BOOL)battery;
+- (void)setTimeRestrictionHasExpired:(BOOL)expired;
 - (void)setUserAppProfile:(id)profile;
 - (void)setUserConfiguredAppIDs:(id)ds;
 - (void)setUserGlobalProfile:(id)profile;
@@ -244,6 +249,13 @@
   return unsignedIntegerValue;
 }
 
+- (void)setActiveAppOrientation:(int)orientation
+{
+  v4 = [NSNumber numberWithInt:*&orientation];
+  v3 = +[AXSettings sharedInstance];
+  [v3 setGaxInternalSettingsActiveAppOrientation:v4];
+}
+
 - (NSString)activeAppID
 {
   fastStorage = [(GAXSettings *)self fastStorage];
@@ -288,12 +300,26 @@
   return gaxInternalSettingsTimeRestrictionHasExpired;
 }
 
+- (void)setTimeRestrictionHasExpired:(BOOL)expired
+{
+  expiredCopy = expired;
+  v4 = +[AXSettings sharedInstance];
+  [v4 setGaxInternalSettingsTimeRestrictionHasExpired:expiredCopy];
+}
+
 - (BOOL)isActiveAppSelfLocked
 {
   fastStorage = [(GAXSettings *)self fastStorage];
   isActiveAppSelfLocked = [fastStorage isActiveAppSelfLocked];
 
   return isActiveAppSelfLocked;
+}
+
+- (void)setActiveAppSelfLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  fastStorage = [(GAXSettings *)self fastStorage];
+  [fastStorage setActiveAppSelfLocked:lockedCopy];
 }
 
 - (BOOL)selfLockUnmanaged
@@ -304,12 +330,26 @@
   return selfLockUnmanaged;
 }
 
+- (void)setSelfLockUnmanaged:(BOOL)unmanaged
+{
+  unmanagedCopy = unmanaged;
+  fastStorage = [(GAXSettings *)self fastStorage];
+  [fastStorage setSelfLockUnmanaged:unmanagedCopy];
+}
+
 - (BOOL)systemDidRestartDueToLowBattery
 {
   v2 = +[AXSettings sharedInstance];
   gaxInternalSettingsSystemDidRestartDueToLowBattery = [v2 gaxInternalSettingsSystemDidRestartDueToLowBattery];
 
   return gaxInternalSettingsSystemDidRestartDueToLowBattery;
+}
+
+- (void)setSystemDidRestartDueToLowBattery:(BOOL)battery
+{
+  batteryCopy = battery;
+  v4 = +[AXSettings sharedInstance];
+  [v4 setGaxInternalSettingsSystemDidRestartDueToLowBattery:batteryCopy];
 }
 
 - (NSNumber)ECID

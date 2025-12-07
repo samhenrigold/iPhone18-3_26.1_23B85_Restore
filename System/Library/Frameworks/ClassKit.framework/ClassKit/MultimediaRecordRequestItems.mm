@@ -24,13 +24,11 @@
 
 - (NSArray)assetFieldNames
 {
-  v3 = OBJC_IVAR____TtC9progressd28MultimediaRecordRequestItems_assetFieldNames;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setAssetFieldNames:(id)names
@@ -38,7 +36,6 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC9progressd28MultimediaRecordRequestItems_assetFieldNames;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

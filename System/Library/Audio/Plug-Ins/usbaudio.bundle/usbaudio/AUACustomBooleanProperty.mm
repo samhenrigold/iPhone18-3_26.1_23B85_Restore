@@ -9,11 +9,10 @@
 - (BOOL)getPropertyWithQualifierSize:(unsigned int)size qualifierData:(void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
 {
   *dataSize = 8;
-  v8 = self->ASDCustomProperty_opaque[OBJC_IVAR____TtC9AUASDCore24AUACustomBooleanProperty_isSet];
   selfCopy = self;
-  v10.super.super.isa = Bool._bridgeToObjectiveC()().super.super.isa;
-  v11 = *andData;
-  *andData = v10;
+  v9.super.super.isa = Bool._bridgeToObjectiveC()().super.super.isa;
+  v10 = *andData;
+  *andData = v9;
 
   return 1;
 }

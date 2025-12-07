@@ -67,14 +67,16 @@
 
 uint64_t __33__AMSUIImageLoader_defaultLoader__block_invoke()
 {
-  defaultLoader_ams_once_object___COUNTER__ = objc_alloc_init(AMSUIImageLoader);
+  v0 = objc_alloc_init(AMSUIImageLoader);
+  v1 = defaultLoader_ams_once_object___COUNTER__;
+  defaultLoader_ams_once_object___COUNTER__ = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)fetchImageWithURL:(id)l searchBundles:(id)bundles
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (bundles)
   {
     lCopy = l;
@@ -86,12 +88,10 @@ uint64_t __33__AMSUIImageLoader_defaultLoader__block_invoke()
     v8 = MEMORY[0x1E696AAE8];
     lCopy2 = l;
     mainBundle = [v8 mainBundle];
-    v14[0] = mainBundle;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = mainBundle;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v7 = [(AMSUIImageLoader *)self _fetchImageWithURL:lCopy2 searchBundles:v11 atPriority:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -124,7 +124,7 @@ uint64_t __33__AMSUIImageLoader_defaultLoader__block_invoke()
 
 void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _fetchImageFromCacheWithURL:*(a1 + 40)];
   if (v2)
   {
@@ -147,15 +147,14 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
       v6 = [v5 OSLogObject];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v7 = *(a1 + 32);
-        v8 = objc_opt_class();
-        v9 = AMSLogKey();
+        v7 = objc_opt_class();
+        v8 = AMSLogKey();
         *buf = 138543874;
+        v23 = v7;
+        v24 = 2114;
         v25 = v8;
         v26 = 2114;
-        v27 = v9;
-        v28 = 2114;
-        v29 = v4;
+        v27 = v4;
         _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Reprioritizing operation key %{public}@", buf, 0x20u);
       }
 
@@ -164,59 +163,57 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
         [v4 setQueuePriority:?];
       }
 
-      v10 = *(a1 + 48);
-      v11 = [v4 operationPromise];
-      [v10 finishWithPromise:v11];
+      v9 = *(a1 + 48);
+      v10 = [v4 operationPromise];
+      [v9 finishWithPromise:v10];
     }
 
     else
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 56);
-      v23 = 0;
-      v15 = [v12 _makeOperationForImageWithURL:v13 searchBundles:v14 error:&v23];
-      v11 = v23;
-      if (v11)
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 40);
+      v13 = *(a1 + 56);
+      v21 = 0;
+      v14 = [v11 _makeOperationForImageWithURL:v12 searchBundles:v13 error:&v21];
+      v10 = v21;
+      if (v10)
       {
-        [*(a1 + 48) finishWithError:v11];
+        [*(a1 + 48) finishWithError:v10];
       }
 
       else
       {
-        [v15 setOperationPromise:*(a1 + 48)];
-        if ([v15 isLowLatency])
+        [v14 setOperationPromise:*(a1 + 48)];
+        if ([v14 isLowLatency])
         {
-          v16 = *(a1 + 48);
-          v17 = [*(a1 + 32) _performLowLatencyOperation:v15];
-          [v16 finishWithPromise:v17];
+          v15 = *(a1 + 48);
+          v16 = [*(a1 + 32) _performLowLatencyOperation:v14];
+          [v15 finishWithPromise:v16];
         }
 
         else
         {
-          [v15 setQueuePriority:*(a1 + 64)];
-          v17 = [*(a1 + 32) fetchQueue];
-          [v17 addOperation:v15 withKey:*(a1 + 40)];
+          [v14 setQueuePriority:*(a1 + 64)];
+          v16 = [*(a1 + 32) fetchQueue];
+          [v16 addOperation:v14 withKey:*(a1 + 40)];
         }
 
         objc_initWeak(buf, *(a1 + 32));
-        v18 = *(a1 + 48);
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_invoke_20;
-        v20[3] = &unk_1E7F24E58;
-        v20[4] = *(a1 + 32);
-        objc_copyWeak(&v22, buf);
-        v21 = *(a1 + 40);
-        [v18 addSuccessBlock:v20];
+        v17 = *(a1 + 48);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_invoke_20;
+        v18[3] = &unk_1E7F24E58;
+        v18[4] = *(a1 + 32);
+        objc_copyWeak(&v20, buf);
+        v19 = *(a1 + 40);
+        [v17 addSuccessBlock:v18];
 
-        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v20);
         objc_destroyWeak(buf);
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_invoke_20(id *a1, void *a2)
@@ -273,7 +270,7 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
 
 - (id)_makeSystemImageFetchOperationForSystemURL:(id)l error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([(AMSUIImageLoader *)self _isURLSystemImage:lCopy])
   {
@@ -286,27 +283,27 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
       v10 = v9;
       if (v9)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         queryItems = [v9 queryItems];
-        v12 = [queryItems countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [queryItems countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v12)
         {
           v13 = v12;
-          v25 = v10;
-          v14 = *v27;
+          v24 = v10;
+          v14 = *v26;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v27 != v14)
+              if (*v26 != v14)
               {
                 objc_enumerationMutation(queryItems);
               }
 
-              v16 = *(*(&v26 + 1) + 8 * i);
+              v16 = *(*(&v25 + 1) + 8 * i);
               name = [v16 name];
               v18 = [name isEqualToString:@"variableValue"];
 
@@ -321,7 +318,7 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
               }
             }
 
-            v13 = [queryItems countByEnumeratingWithState:&v26 objects:v30 count:16];
+            v13 = [queryItems countByEnumeratingWithState:&v25 objects:v29 count:16];
             if (v13)
             {
               continue;
@@ -332,7 +329,7 @@ void __64__AMSUIImageLoader__fetchImageWithURL_searchBundles_atPriority___block_
 
           v19 = 0;
 LABEL_17:
-          v10 = v25;
+          v10 = v24;
         }
 
         else
@@ -365,8 +362,6 @@ LABEL_17:
   {
     v20 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

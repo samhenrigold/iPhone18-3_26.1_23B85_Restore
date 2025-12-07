@@ -149,21 +149,7 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    startTime = self->_startTime;
-    [equal startTime];
-    if (startTime != v6)
-    {
-      goto LABEL_17;
-    }
-
-    duration = self->_duration;
-    [equal duration];
-    if (duration == v8 && (totalScreenWakes = self->_totalScreenWakes, totalScreenWakes == [equal totalScreenWakes]) && (totalScreenWakeDuration = self->_totalScreenWakeDuration, objc_msgSend(equal, "totalScreenWakeDuration"), totalScreenWakeDuration == v11) && (totalUnlocks = self->_totalUnlocks, totalUnlocks == objc_msgSend(equal, "totalUnlocks")))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (startTime = self->_startTime, [equal startTime], startTime == v6) && (duration = self->_duration, objc_msgSend(equal, "duration"), duration == v8) && (totalScreenWakes = self->_totalScreenWakes, totalScreenWakes == objc_msgSend(equal, "totalScreenWakes")) && (totalScreenWakeDuration = self->_totalScreenWakeDuration, objc_msgSend(equal, "totalScreenWakeDuration"), totalScreenWakeDuration == v11) && (totalUnlocks = self->_totalUnlocks, totalUnlocks == objc_msgSend(equal, "totalUnlocks")))
     {
       v13 = -[NSString isEqualToString:](-[SRDeviceUsageReport version](self, "version"), "isEqualToString:", [equal version]);
       if (v13)
@@ -197,7 +183,6 @@
 
     else
     {
-LABEL_17:
       LOBYTE(v13) = 0;
     }
   }
@@ -332,148 +317,142 @@ LABEL_17:
 
 - (id)sr_dictionaryRepresentation
 {
-  v11[12] = *MEMORY[0x1E69E9840];
+  v10[12] = *MEMORY[0x1E69E9840];
   v3 = __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke(self->_mutableApplicationUsageByCategory);
   v4 = __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke(self->_mutableNotificationUsageByCategory);
   v5 = __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke(self->_mutableWebUsageByCategory);
   v6 = __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke_2([(SRDeviceUsageReport *)self _motionActivities]);
   v7 = __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke_2([(SRDeviceUsageReport *)self _activityLevels]);
-  v10[0] = @"totalScreenWakes";
-  v11[0] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalScreenWakes];
-  v10[1] = @"totalScreenWakeDuration";
-  v11[1] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalScreenWakeDuration];
-  v10[2] = @"totalUnlocks";
-  v11[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalUnlocks];
-  v10[3] = @"totalUnlockDuration";
-  v11[3] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalUnlockDuration];
-  v10[4] = @"totalChargingDuration";
-  v11[4] = [MEMORY[0x1E696AD98] numberWithDouble:self->__totalChargingDuration];
-  v10[5] = @"duration";
-  v11[5] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
-  v11[6] = v3;
-  v10[6] = @"applicationUsage";
-  v10[7] = @"notificationsUsage";
-  v11[7] = v4;
-  v11[8] = v5;
-  v10[8] = @"webUsage";
-  v10[9] = @"motionActivities";
-  v11[9] = v6;
-  v11[10] = v7;
-  v10[10] = @"activityLevels";
-  v10[11] = @"version";
-  v11[11] = [(SRDeviceUsageReport *)self version];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:12];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v9[0] = @"totalScreenWakes";
+  v10[0] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalScreenWakes];
+  v9[1] = @"totalScreenWakeDuration";
+  v10[1] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalScreenWakeDuration];
+  v9[2] = @"totalUnlocks";
+  v10[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalUnlocks];
+  v9[3] = @"totalUnlockDuration";
+  v10[3] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalUnlockDuration];
+  v9[4] = @"totalChargingDuration";
+  v10[4] = [MEMORY[0x1E696AD98] numberWithDouble:self->__totalChargingDuration];
+  v9[5] = @"duration";
+  v10[5] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
+  v10[6] = v3;
+  v9[6] = @"applicationUsage";
+  v9[7] = @"notificationsUsage";
+  v10[7] = v4;
+  v10[8] = v5;
+  v9[8] = @"webUsage";
+  v9[9] = @"motionActivities";
+  v10[9] = v6;
+  v10[10] = v7;
+  v9[10] = @"activityLevels";
+  v9[11] = @"version";
+  v10[11] = [(SRDeviceUsageReport *)self version];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:12];
 }
 
 uint64_t __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v15 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(a1, "count")}];
+  v25 = *MEMORY[0x1E69E9840];
+  v14 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(a1, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v2 = [a1 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v2 = [a1 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v21;
+    v4 = *v20;
     do
     {
       v5 = 0;
       do
       {
-        if (*v21 != v4)
+        if (*v20 != v4)
         {
           objc_enumerationMutation(a1);
         }
 
-        v6 = *(*(&v20 + 1) + 8 * v5);
+        v6 = *(*(&v19 + 1) + 8 * v5);
         v7 = [MEMORY[0x1E695DF70] array];
+        v15 = 0u;
         v16 = 0u;
         v17 = 0u;
         v18 = 0u;
-        v19 = 0u;
         v8 = [a1 objectForKeyedSubscript:v6];
-        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v17;
+          v11 = *v16;
           do
           {
             v12 = 0;
             do
             {
-              if (*v17 != v11)
+              if (*v16 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [v7 addObject:{objc_msgSend(*(*(&v16 + 1) + 8 * v12++), "sr_dictionaryRepresentation")}];
+              [v7 addObject:{objc_msgSend(*(*(&v15 + 1) + 8 * v12++), "sr_dictionaryRepresentation")}];
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
           }
 
           while (v10);
         }
 
-        [v15 setObject:v7 forKeyedSubscript:v6];
+        [v14 setObject:v7 forKeyedSubscript:v6];
         ++v5;
       }
 
       while (v5 != v3);
-      v3 = [a1 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v3 = [a1 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v3);
   }
 
-  result = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v15];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DF20] dictionaryWithDictionary:v14];
 }
 
 uint64_t __50__SRDeviceUsageReport_sr_dictionaryRepresentation__block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(a1, "count")}];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(a1);
         }
 
-        [v2 addObject:{objc_msgSend(*(*(&v9 + 1) + 8 * v6++), "sr_dictionaryRepresentation")}];
+        [v2 addObject:{objc_msgSend(*(*(&v8 + 1) + 8 * v6++), "sr_dictionaryRepresentation")}];
       }
 
       while (v4 != v6);
-      v4 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [MEMORY[0x1E695DEC8] arrayWithArray:v2];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DEC8] arrayWithArray:v2];
 }
 
 @end

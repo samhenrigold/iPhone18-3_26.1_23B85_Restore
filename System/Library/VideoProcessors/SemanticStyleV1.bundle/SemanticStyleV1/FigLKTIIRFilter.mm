@@ -727,9 +727,9 @@ LABEL_17:
 - (FigLKTIIRFilter)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v10.receiver = self;
-  v10.super_class = FigLKTIIRFilter;
-  v5 = [(FigLKTIIRFilter *)&v10 init];
+  v13.receiver = self;
+  v13.super_class = FigLKTIIRFilter;
+  v5 = [(FigLKTIIRFilter *)&v13 init];
   if (v5)
   {
     if (contextCopy)
@@ -747,19 +747,21 @@ LABEL_17:
 
     if (v5->_metalContext)
     {
-      if ([(FigLKTIIRFilter *)v5 _compileShaders])
+      _compileShaders = [(FigLKTIIRFilter *)v5 _compileShaders];
+      if (_compileShaders)
       {
+        v11 = _compileShaders;
         fig_log_get_emitter();
         sub_1860();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13.receiver, v13.super_class, v14, v15, v16, v17);
       }
 
       else
       {
         v5->_frameIndex = 0;
         FigGetCFPreferenceDoubleWithDefault();
-        *&v8 = v8;
-        v5->_maxBlendingCoeff = *&v8;
+        *&v9 = v9;
+        v5->_maxBlendingCoeff = *&v9;
       }
     }
 
@@ -767,7 +769,7 @@ LABEL_17:
     {
       fig_log_get_emitter();
       sub_1860();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v12, v13.receiver, v13.super_class, v14, v15, v16, v17);
 
       v5 = 0;
     }

@@ -33,7 +33,7 @@
 
 - (id)_nextPacketWithMaximumLength:(unint64_t)length error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ([(HAPBTLEControlOutputStream *)self isComplete])
   {
     v7 = objc_autoreleasePoolPush();
@@ -42,11 +42,11 @@
     {
       v9 = HMFGetLogIdentifier();
       shortDescription = [(HAPBTLEControlOutputStream *)self shortDescription];
-      v29 = 138543618;
-      v30 = v9;
-      v31 = 2112;
-      v32 = shortDescription;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@[%@] The control output stream is complete", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v9;
+      v30 = 2112;
+      v31 = shortDescription;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@[%@] The control output stream is complete", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -92,11 +92,11 @@
       {
         v25 = HMFGetLogIdentifier();
         shortDescription2 = [(HAPBTLEControlOutputStream *)self shortDescription];
-        v29 = 138543618;
-        v30 = v25;
-        v31 = 2112;
-        v32 = shortDescription2;
-        _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to create control packet", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v25;
+        v30 = 2112;
+        v31 = shortDescription2;
+        _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to create control packet", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -106,8 +106,6 @@
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -128,26 +126,26 @@
 
 void __76__HAPBTLEControlOutputStream__sendNextPayloadFragmentWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v21 = 0;
-  v3 = [v2 _nextPacketWithMaximumLength:objc_msgSend(v2 error:{"mtuLength"), &v21}];
-  v4 = v21;
+  v20 = 0;
+  v3 = [v2 _nextPacketWithMaximumLength:objc_msgSend(v2 error:{"mtuLength"), &v20}];
+  v4 = v20;
   if (v3)
   {
     v5 = [*(a1 + 32) delegate];
     if (v5)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __76__HAPBTLEControlOutputStream__sendNextPayloadFragmentWithCompletionHandler___block_invoke_22;
-      v19[3] = &unk_2786D6790;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __76__HAPBTLEControlOutputStream__sendNextPayloadFragmentWithCompletionHandler___block_invoke_22;
+      v18[3] = &unk_2786D6790;
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v19[4] = *(a1 + 32);
-      v20 = v7;
-      [v5 controlOutputStream:v6 didReceiveRequestToSendControlPacket:v3 completionHandler:v19];
-      v8 = v20;
+      v18[4] = *(a1 + 32);
+      v19 = v7;
+      [v5 controlOutputStream:v6 didReceiveRequestToSendControlPacket:v3 completionHandler:v18];
+      v8 = v19;
     }
 
     else
@@ -159,9 +157,9 @@ void __76__HAPBTLEControlOutputStream__sendNextPayloadFragmentWithCompletionHand
         v16 = HMFGetLogIdentifier();
         v17 = [*(a1 + 32) shortDescription];
         *buf = 138543618;
-        v23 = v16;
-        v24 = 2112;
-        v25 = v17;
+        v22 = v16;
+        v23 = 2112;
+        v24 = v17;
         _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] The stream delegate is missing, closing session", buf, 0x16u);
       }
 
@@ -186,11 +184,11 @@ LABEL_13:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 32) shortDescription];
     *buf = 138543874;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2112;
-    v27 = v4;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v12;
+    v25 = 2112;
+    v26 = v4;
     _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to get the next control packet with error: %@", buf, 0x20u);
   }
 
@@ -202,8 +200,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HAPBTLEControlOutputStream__sendNextPayloadFragmentWithCompletionHandler___block_invoke_22(uint64_t a1, void *a2)
@@ -367,7 +363,7 @@ uint64_t __53__HAPBTLEControlOutputStream_sendNextPayloadFragment__block_invoke_
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __34__HAPBTLEControlOutputStream_open__block_invoke(uint64_t a1)
+void *__34__HAPBTLEControlOutputStream_open__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isOpen];
   if ((result & 1) == 0)
@@ -444,7 +440,7 @@ uint64_t __34__HAPBTLEControlOutputStream_open__block_invoke(uint64_t a1)
 
 - (HAPBTLEControlOutputStream)initWithControlType:(unsigned __int8)type transactionIdentifier:(id)identifier controlPayload:(id)payload mtuLength:(unint64_t)length timeoutInterval:(double)interval
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   payloadCopy = payload;
   v15 = payloadCopy;
@@ -473,9 +469,9 @@ LABEL_9:
     v30 = HMFGetLogIdentifier();
     v31 = +[HAPBTLEControlOutputStream shortDescription];
     *buf = 138543618;
-    v37 = v30;
-    v38 = 2112;
-    v39 = v31;
+    v36 = v30;
+    v37 = 2112;
+    v38 = v31;
     v32 = "%{public}@[%@] Invalid control payload data.";
     goto LABEL_16;
   }
@@ -492,9 +488,9 @@ LABEL_9:
     v30 = HMFGetLogIdentifier();
     v31 = +[HAPBTLEControlOutputStream shortDescription];
     *buf = 138543618;
-    v37 = v30;
-    v38 = 2112;
-    v39 = v31;
+    v36 = v30;
+    v37 = 2112;
+    v38 = v31;
     v32 = "%{public}@[%@] Invalid MTU length.";
 LABEL_16:
     _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, v32, buf, 0x16u);
@@ -511,9 +507,9 @@ LABEL_16:
       v30 = HMFGetLogIdentifier();
       v31 = +[HAPBTLEControlOutputStream shortDescription];
       *buf = 138543618;
-      v37 = v30;
-      v38 = 2112;
-      v39 = v31;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v31;
       v32 = "%{public}@[%@] Invalid timeout for write.";
       goto LABEL_16;
     }
@@ -525,9 +521,9 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v35.receiver = self;
-  v35.super_class = HAPBTLEControlOutputStream;
-  v16 = [(HAPBTLEControlOutputStream *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = HAPBTLEControlOutputStream;
+  v16 = [(HAPBTLEControlOutputStream *)&v34 init];
   v17 = v16;
   if (v16)
   {
@@ -559,7 +555,6 @@ LABEL_17:
   selfCopy = self;
 LABEL_18:
 
-  v33 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

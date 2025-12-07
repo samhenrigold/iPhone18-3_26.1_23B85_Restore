@@ -64,7 +64,9 @@
 - (void)dealloc;
 - (void)selectExternalControlPreference:(id)preference;
 - (void)showPrivacyExplanationSheet:(id)sheet;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BKSettingsController
@@ -166,12 +168,30 @@
 
 - (void)viewDidLoad
 {
+  v6.receiver = self;
+  v6.super_class = BKSettingsController;
+  viewDidLoad = [(BKSettingsController *)&v6 viewDidLoad];
+  v4 = BKSettingsBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"Books" value:&stru_14E68 table:@"Settings"];
+  [(BKSettingsController *)self setTitle:v5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(BKSettingsController *)self _loadSizeLimitsIfNeeded];
+  [(BKSettingsController *)self _reloadCellularDataSection];
   v5.receiver = self;
   v5.super_class = BKSettingsController;
-  [(BKSettingsController *)&v5 viewDidLoad];
-  v3 = BKSettingsBundle();
-  v4 = [v3 localizedStringForKey:@"Books" value:&stru_14E68 table:@"Settings"];
-  [(BKSettingsController *)self setTitle:v4];
+  [(BKSettingsController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BKSettingsController;
+  [(BKSettingsController *)&v4 viewDidAppear:appear];
+  [(BKSettingsController *)self _donateSettingsNavigationEvent];
 }
 
 - (void)_reloadForLowPowerModeChange
@@ -266,19 +286,19 @@
   nameCopy = name;
   targetCopy = target;
   namedCopy = named;
-  v22 = BKSettingsBundle();
+  v22 = BKSettingsBundle(namedCopy);
   v9 = [v22 localizedStringForKey:@"10 seconds" value:&stru_14E68 table:@"Settings"];
   v27[0] = v9;
-  v10 = BKSettingsBundle();
+  v10 = BKSettingsBundle(v9);
   v11 = [v10 localizedStringForKey:@"15 seconds" value:&stru_14E68 table:@"Settings"];
   v27[1] = v11;
-  v12 = BKSettingsBundle();
+  v12 = BKSettingsBundle(v11);
   v13 = [v12 localizedStringForKey:@"30 seconds" value:&stru_14E68 table:@"Settings"];
   v27[2] = v13;
-  v14 = BKSettingsBundle();
+  v14 = BKSettingsBundle(v13);
   v15 = [v14 localizedStringForKey:@"45 seconds" value:&stru_14E68 table:@"Settings"];
   v27[3] = v15;
-  v16 = BKSettingsBundle();
+  v16 = BKSettingsBundle(v15);
   v17 = [v16 localizedStringForKey:@"60 seconds" value:&stru_14E68 table:@"Settings"];
   v27[4] = v17;
   v18 = [NSArray arrayWithObjects:v27 count:5];
@@ -294,16 +314,16 @@
   valueCopy = value;
   nameCopy = name;
   namedCopy = named;
-  v8 = BKSettingsBundle();
+  v8 = BKSettingsBundle(namedCopy);
   v9 = [v8 localizedStringForKey:@"Slide" value:&stru_14E68 table:@"Settings"];
   v23[0] = v9;
-  v10 = BKSettingsBundle();
+  v10 = BKSettingsBundle(v9);
   v11 = [v10 localizedStringForKey:@"Curl" value:&stru_14E68 table:@"Settings"];
   v23[1] = v11;
-  v12 = BKSettingsBundle();
+  v12 = BKSettingsBundle(v11);
   v13 = [v12 localizedStringForKey:@"Fast Fade" value:&stru_14E68 table:@"Settings"];
   v23[2] = v13;
-  v14 = BKSettingsBundle();
+  v14 = BKSettingsBundle(v13);
   v15 = [v14 localizedStringForKey:@"Scroll" value:&stru_14E68 table:@"Settings"];
   v23[3] = v15;
   v16 = [NSArray arrayWithObjects:v23 count:4];
@@ -348,7 +368,7 @@
 - (void)_addSyncingSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(arrayCopy);
   v6 = [v5 localizedStringForKey:@"Syncing" value:&stru_14E68 table:@"Settings"];
   v7 = [PSSpecifier groupSpecifierWithName:v6];
 
@@ -360,7 +380,7 @@
   [arrayCopy addObject:v9];
   v23 = [NSMutableArray arrayWithCapacity:1];
   v10 = [NSMutableArray arrayWithCapacity:1];
-  v11 = BKSettingsBundle();
+  v11 = BKSettingsBundle(v10);
   v12 = [v11 localizedStringForKey:@"Home" value:&stru_14E68 table:@"Settings"];
 
   v13 = [(BKSettingsController *)self _customSwitchSpecifierNamed:v12 keyName:@"BKLibrary.ReadingNow" defaultValue:&__kCFBooleanTrue get:"readSyncSectionForCloudKitPreferenceValue:" set:"_setReadingNowEnabled:specifier:"];
@@ -368,8 +388,7 @@
   self->_syncReadingNowSpecifier = v13;
 
   [(PSSpecifier *)self->_syncReadingNowSpecifier setIdentifier:@"HOME"];
-  [v23 addObject:self->_syncReadingNowSpecifier];
-  v15 = BKSettingsBundle();
+  v15 = BKSettingsBundle([v23 addObject:self->_syncReadingNowSpecifier]);
   v16 = [v15 localizedStringForKey:@"iCloud Drive" value:&stru_14E68 table:@"Settings"];
   v17 = [(BKSettingsController *)self _customSwitchSpecifierNamed:v16 keyName:@"BCSyncICloudDrive" defaultValue:&__kCFBooleanTrue get:"_getICloudDriveEnabled:" set:"_setICloudDriveEnabled:specifier:"];
   syncICloudDriveSpecifier = self->_syncICloudDriveSpecifier;
@@ -400,144 +419,143 @@
 - (void)_addReadingMenuSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
+  v5 = arrayCopy;
   if (!self->_readingMenuPositionSpecifier)
   {
-    v5 = BKSettingsBundle();
-    v6 = [v5 localizedStringForKey:@"Reading Menu Position Options" value:&stru_14E68 table:@"Settings"];
-    v7 = [(BKSettingsController *)self _specifierWithTitle:v6 customCell:objc_opt_class() set:"setPreferenceValue:specifier:" get:"readPreferenceValue:"];
+    v6 = BKSettingsBundle(arrayCopy);
+    v7 = [v6 localizedStringForKey:@"Reading Menu Position Options" value:&stru_14E68 table:@"Settings"];
+    v8 = [(BKSettingsController *)self _specifierWithTitle:v7 customCell:objc_opt_class() set:"setPreferenceValue:specifier:" get:"readPreferenceValue:"];
 
-    [v7 setObject:@"com.apple.iBooks" forKeyedSubscript:PSDefaultsKey];
-    [v7 setObject:@"com.apple.iBooks" forKeyedSubscript:PSContainerBundleIDKey];
+    [v8 setObject:@"com.apple.iBooks" forKeyedSubscript:PSDefaultsKey];
+    [v8 setObject:@"com.apple.iBooks" forKeyedSubscript:PSContainerBundleIDKey];
     readingMenuPositionSpecifier = self->_readingMenuPositionSpecifier;
-    self->_readingMenuPositionSpecifier = v7;
+    self->_readingMenuPositionSpecifier = v8;
   }
 
-  v9 = BKSettingsBundle();
-  v10 = [v9 localizedStringForKey:@"Reading Menu Position" value:&stru_14E68 table:@"Settings"];
-  v11 = [PSSpecifier groupSpecifierWithName:v10];
+  v10 = BKSettingsBundle(arrayCopy);
+  v11 = [v10 localizedStringForKey:@"Reading Menu Position" value:&stru_14E68 table:@"Settings"];
+  v12 = [PSSpecifier groupSpecifierWithName:v11];
 
-  [v11 setIdentifier:@"MENU_ON_LEFT"];
-  v12 = self->_readingMenuPositionSpecifier;
-  v14[0] = v11;
-  v14[1] = v12;
-  v13 = [NSArray arrayWithObjects:v14 count:2];
-  [arrayCopy addObjectsFromArray:v13];
+  [v12 setIdentifier:@"MENU_ON_LEFT"];
+  v13 = self->_readingMenuPositionSpecifier;
+  v15[0] = v12;
+  v15[1] = v13;
+  v14 = [NSArray arrayWithObjects:v15 count:2];
+  [v5 addObjectsFromArray:v14];
 }
 
 - (void)_addReadingInIBooksSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  v4 = BKSettingsBundle();
+  v4 = BKSettingsBundle(arrayCopy);
   v5 = [v4 localizedStringForKey:@"Reading" value:? table:?];
-  v38 = [PSSpecifier groupSpecifierWithName:v5];
+  v42 = [PSSpecifier groupSpecifierWithName:v5];
 
-  v6 = BKSettingsBundle();
-  v7 = [v6 localizedStringForKey:@"Auto-hyphenation" value:&stru_14E68 table:@"Settings"];
-  v8 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v7 keyName:@"BKAutoHyphenation" defaultValue:&__kCFBooleanTrue];
+  v7 = BKSettingsBundle(v6);
+  v8 = [v7 localizedStringForKey:@"Auto-hyphenation" value:&stru_14E68 table:@"Settings"];
+  v9 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v8 keyName:@"BKAutoHyphenation" defaultValue:&__kCFBooleanTrue];
 
-  v9 = v8;
-  v36 = v8;
-  [v8 setIdentifier:@"BKAutoHyphenation"];
-  v10 = BKSettingsBundle();
-  v11 = [v10 localizedStringForKey:@"Both Margins Advance" value:&stru_14E68 table:@"Settings"];
-  v12 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v11 keyName:@"BKLeftTapTurnToNext" defaultValue:&__kCFBooleanFalse];
+  v10 = v9;
+  v40 = v9;
+  v11 = BKSettingsBundle([v9 setIdentifier:@"BKAutoHyphenation"]);
+  v12 = [v11 localizedStringForKey:@"Both Margins Advance" value:&stru_14E68 table:@"Settings"];
+  v13 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v12 keyName:@"BKLeftTapTurnToNext" defaultValue:&__kCFBooleanFalse];
 
-  [v12 setIdentifier:@"BKLeftTapTurnToNext"];
-  v13 = BKSettingsBundle();
-  v14 = [v13 localizedStringForKey:@"Allow tapping either margin to advance the page value:or to move the line guide forward when enabled in the reading menu." table:{&stru_14E68, @"Settings"}];
-  v15 = PSTableCellSubtitleTextKey;
-  [v12 setObject:v14 forKeyedSubscript:PSTableCellSubtitleTextKey];
+  v14 = BKSettingsBundle([v13 setIdentifier:@"BKLeftTapTurnToNext"]);
+  v15 = [v14 localizedStringForKey:@"Allow tapping either margin to advance the page value:or to move the line guide forward when enabled in the reading menu." table:{&stru_14E68, @"Settings"}];
+  v16 = PSTableCellSubtitleTextKey;
+  [v13 setObject:v15 forKeyedSubscript:PSTableCellSubtitleTextKey];
 
-  v16 = BKSettingsBundle();
-  v17 = [v16 localizedStringForKey:@"Automatically Invert Images" value:&stru_14E68 table:@"Settings"];
-  v18 = +[BooksSettings shared];
-  filterBrightImagesKey = [v18 filterBrightImagesKey];
-  v20 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v17 keyName:filterBrightImagesKey defaultValue:&__kCFBooleanTrue];
+  v18 = BKSettingsBundle(v17);
+  v19 = [v18 localizedStringForKey:@"Automatically Invert Images" value:&stru_14E68 table:@"Settings"];
+  v20 = +[BooksSettings shared];
+  filterBrightImagesKey = [v20 filterBrightImagesKey];
+  v22 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v19 keyName:filterBrightImagesKey defaultValue:&__kCFBooleanTrue];
 
-  [v20 setIdentifier:@"IMAGE_FILTER"];
-  [(BKSettingsController *)self _setIsAppGroupSpecifier:v20];
-  v21 = BKSettingsBundle();
-  v22 = [v21 localizedStringForKey:@"In darker themes value:adjust black and white images to improve contrast." table:{&stru_14E68, @"Settings"}];
-  [v20 setObject:v22 forKeyedSubscript:v15];
+  [v22 setIdentifier:@"IMAGE_FILTER"];
+  v23 = BKSettingsBundle([(BKSettingsController *)self _setIsAppGroupSpecifier:v22]);
+  v24 = [v23 localizedStringForKey:@"In darker themes value:adjust black and white images to improve contrast." table:{&stru_14E68, @"Settings"}];
+  [v22 setObject:v24 forKeyedSubscript:v16];
 
-  v39[0] = v38;
-  v39[1] = v9;
-  v39[2] = v12;
-  v39[3] = v20;
-  v23 = [NSArray arrayWithObjects:v39 count:4];
-  [arrayCopy addObjectsFromArray:v23];
+  v43[0] = v42;
+  v43[1] = v10;
+  v43[2] = v13;
+  v43[3] = v22;
+  v25 = [NSArray arrayWithObjects:v43 count:4];
+  [arrayCopy addObjectsFromArray:v25];
 
-  v24 = BKSettingsBundle();
-  v25 = [v24 localizedStringForKey:@"Show Status Bar" value:&stru_14E68 table:@"Settings"];
-  v26 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v25 keyName:@"BKReaderShowStatusBar" defaultValue:&__kCFBooleanFalse];
+  v27 = BKSettingsBundle(v26);
+  v28 = [v27 localizedStringForKey:@"Show Status Bar" value:&stru_14E68 table:@"Settings"];
+  v29 = [(BKSettingsController *)self _subtitleSwitchSpecifierNamed:v28 keyName:@"BKReaderShowStatusBar" defaultValue:&__kCFBooleanFalse];
 
-  v27 = +[UIDevice currentDevice];
-  userInterfaceIdiom = [v27 userInterfaceIdiom];
+  v30 = +[UIDevice currentDevice];
+  userInterfaceIdiom = [v30 userInterfaceIdiom];
 
-  v29 = BKSettingsBundle();
-  v30 = v29;
+  v33 = BKSettingsBundle(v32);
+  v34 = v33;
   if (userInterfaceIdiom)
   {
-    v31 = @"Always display current time, battery level, and other iPad status info while reading.";
+    v35 = @"Always display current time, battery level, and other iPad status info while reading.";
   }
 
   else
   {
-    v31 = @"Always display current time, battery level, and other iPhone status info while reading.";
+    v35 = @"Always display current time, battery level, and other iPhone status info while reading.";
   }
 
-  v32 = [v29 localizedStringForKey:v31 value:&stru_14E68 table:@"Settings"];
-  [v26 setObject:v32 forKeyedSubscript:v15];
+  v36 = [v33 localizedStringForKey:v35 value:&stru_14E68 table:@"Settings"];
+  [v29 setObject:v36 forKeyedSubscript:v16];
 
-  [arrayCopy addObject:v26];
-  v33 = BKSettingsBundle();
-  v34 = [v33 localizedStringForKey:@"Page Navigation" value:&stru_14E68 table:@"Settings"];
-  v35 = [(BKSettingsController *)self _pageTurnStyleOptionNamed:v34 keyName:@"BKPageTurnStyle" defaultValue:@"slide"];
+  v37 = BKSettingsBundle([arrayCopy addObject:v29]);
+  v38 = [v37 localizedStringForKey:@"Page Navigation" value:&stru_14E68 table:@"Settings"];
+  v39 = [(BKSettingsController *)self _pageTurnStyleOptionNamed:v38 keyName:@"BKPageTurnStyle" defaultValue:@"slide"];
 
-  [arrayCopy addObject:v35];
+  [arrayCopy addObject:v39];
 }
 
 - (void)_addReadingGoalsSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(arrayCopy);
   v6 = [v5 localizedStringForKey:@"Reading Goals" value:&stru_14E68 table:@"Settings"];
   v7 = [PSSpecifier groupSpecifierWithName:v6];
 
-  v8 = BKSettingsBundle();
-  v9 = [v8 localizedStringForKey:@"Reading Goals" value:&stru_14E68 table:@"Settings"];
-  v10 = [(BKSettingsController *)self _customSwitchSpecifierNamed:v9 keyName:@"BKReadingGoalsUserDefaultsKey" defaultValue:&__kCFBooleanTrue get:"readPreferenceValue:" set:"_toggleReadingGoals:specifier:" inAppGroup:1];
+  v9 = BKSettingsBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Reading Goals" value:&stru_14E68 table:@"Settings"];
+  v11 = [(BKSettingsController *)self _customSwitchSpecifierNamed:v10 keyName:@"BKReadingGoalsUserDefaultsKey" defaultValue:&__kCFBooleanTrue get:"readPreferenceValue:" set:"_toggleReadingGoals:specifier:" inAppGroup:1];
 
-  v11 = BKSettingsBundle();
-  v12 = [v11 localizedStringForKey:@"Include PDFs" value:&stru_14E68 table:@"Settings"];
-  v13 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v12 keyName:@"BKReadingGoalsIncludePDFsUserDefaultsKey" defaultValue:&__kCFBooleanFalse];
+  v13 = BKSettingsBundle(v12);
+  v14 = [v13 localizedStringForKey:@"Include PDFs" value:&stru_14E68 table:@"Settings"];
+  v15 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v14 keyName:@"BKReadingGoalsIncludePDFsUserDefaultsKey" defaultValue:&__kCFBooleanFalse];
 
-  [v10 setIdentifier:@"READING_GOALS"];
-  target = [v10 target];
-  v15 = [target readPreferenceValue:v10];
+  [v11 setIdentifier:@"READING_GOALS"];
+  target = [v11 target];
+  v17 = [target readPreferenceValue:v11];
 
-  if ([v15 BOOLValue])
+  if ([v17 BOOLValue])
   {
-    v21[0] = v7;
-    v21[1] = v10;
-    v21[2] = v13;
-    v16 = [NSArray arrayWithObjects:v21 count:3];
-    v17 = @"Show time spent reading and other achievements in Apple Books. Include time spent reading PDFs";
+    v24[0] = v7;
+    v24[1] = v11;
+    v24[2] = v15;
+    v18 = [NSArray arrayWithObjects:v24 count:3];
+    v19 = v18;
+    v20 = @"Show time spent reading and other achievements in Apple Books. Include time spent reading PDFs";
   }
 
   else
   {
-    v20[0] = v7;
-    v20[1] = v10;
-    v16 = [NSArray arrayWithObjects:v20 count:2];
-    v17 = @"Show time spent reading and other achievements in Apple Books.";
+    v23[0] = v7;
+    v23[1] = v11;
+    v18 = [NSArray arrayWithObjects:v23 count:2];
+    v19 = v18;
+    v20 = @"Show time spent reading and other achievements in Apple Books.";
   }
 
-  v18 = BKSettingsBundle();
-  v19 = [v18 localizedStringForKey:v17 value:&stru_14E68 table:@"Settings"];
+  v21 = BKSettingsBundle(v18);
+  v22 = [v21 localizedStringForKey:v20 value:&stru_14E68 table:@"Settings"];
 
-  [v7 setObject:v19 forKeyedSubscript:PSFooterTextGroupKey];
-  [arrayCopy addObjectsFromArray:v16];
+  [v7 setObject:v22 forKeyedSubscript:PSFooterTextGroupKey];
+  [arrayCopy addObjectsFromArray:v19];
 }
 
 - (void)_toggleReadingGoals:(id)goals specifier:(id)specifier
@@ -561,70 +579,70 @@
 {
   arrayCopy = array;
   v5 = [PSSpecifier groupSpecifierWithName:&stru_14E68];
-  v6 = BKSettingsBundle();
+  v6 = BKSettingsBundle(v5);
   v7 = [v6 localizedStringForKey:@"Time spent reading and reading streak data will be cleared the next time you open Apple Books." value:&stru_14E68 table:@"Settings"];
   [v5 setObject:v7 forKeyedSubscript:PSFooterTextGroupKey];
 
-  v8 = BKSettingsBundle();
-  v9 = [v8 localizedStringForKey:@"Clear Reading Goals Data" value:&stru_14E68 table:@"Settings"];
+  v9 = BKSettingsBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Clear Reading Goals Data" value:&stru_14E68 table:@"Settings"];
 
-  LOBYTE(v12) = 0;
-  v10 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v9 target:self cell:13 detail:0 keyName:@"BKReadingGoalsShouldClearDataKey" defaultValue:&__kCFBooleanFalse syncToWatch:v12];
-  [v10 setIdentifier:@"BKReadingGoalsShouldClearDataKey"];
-  [v10 setButtonAction:"_clearReadingGoalsData:"];
-  v13[0] = v5;
-  v13[1] = v10;
-  v11 = [NSArray arrayWithObjects:v13 count:2];
-  [arrayCopy addObjectsFromArray:v11];
+  LOBYTE(v13) = 0;
+  v11 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v10 target:self cell:13 detail:0 keyName:@"BKReadingGoalsShouldClearDataKey" defaultValue:&__kCFBooleanFalse syncToWatch:v13];
+  [v11 setIdentifier:@"BKReadingGoalsShouldClearDataKey"];
+  [v11 setButtonAction:"_clearReadingGoalsData:"];
+  v14[0] = v5;
+  v14[1] = v11;
+  v12 = [NSArray arrayWithObjects:v14 count:2];
+  [arrayCopy addObjectsFromArray:v12];
 }
 
 - (void)_addSearchingSection:(id)section
 {
   sectionCopy = section;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(sectionCopy);
   v6 = [v5 localizedStringForKey:@"Searching" value:&stru_14E68 table:@"Settings"];
   v7 = [PSSpecifier groupSpecifierWithName:v6];
 
-  v8 = BKSettingsBundle();
-  v9 = [v8 localizedStringForKey:@"Include Book Store results when searching." value:&stru_14E68 table:@"Settings"];
-  [v7 setObject:v9 forKeyedSubscript:PSFooterTextGroupKey];
+  v9 = BKSettingsBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Include Book Store results when searching." value:&stru_14E68 table:@"Settings"];
+  [v7 setObject:v10 forKeyedSubscript:PSFooterTextGroupKey];
 
-  v10 = BKSettingsBundle();
-  v11 = [v10 localizedStringForKey:@"Book Store" value:&stru_14E68 table:@"Settings"];
-  v12 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v11 keyName:@"BKIncludeBookStoreResultsInSearch" defaultValue:&__kCFBooleanTrue];
+  v12 = BKSettingsBundle(v11);
+  v13 = [v12 localizedStringForKey:@"Book Store" value:&stru_14E68 table:@"Settings"];
+  v14 = [(BKSettingsController *)self _standardSwitchSpecifierNamed:v13 keyName:@"BKIncludeBookStoreResultsInSearch" defaultValue:&__kCFBooleanTrue];
 
-  [v12 setIdentifier:@"BKIncludeBookStoreResultsInSearch"];
-  v14[0] = v7;
-  v14[1] = v12;
-  v13 = [NSArray arrayWithObjects:v14 count:2];
-  [sectionCopy addObjectsFromArray:v13];
+  [v14 setIdentifier:@"BKIncludeBookStoreResultsInSearch"];
+  v16[0] = v7;
+  v16[1] = v14;
+  v15 = [NSArray arrayWithObjects:v16 count:2];
+  [sectionCopy addObjectsFromArray:v15];
 }
 
 - (void)_addAudiobooksSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(arrayCopy);
   v6 = [v5 localizedStringForKey:@"Audiobooks" value:&stru_14E68 table:@"Settings"];
   v7 = [PSSpecifier groupSpecifierWithName:v6];
 
-  v8 = BKSettingsBundle();
-  v9 = [v8 localizedStringForKey:@"Set the number of seconds to skip when you swipe the cover or tap the skip button." value:&stru_14E68 table:@"Settings"];
-  [v7 setObject:v9 forKeyedSubscript:PSFooterTextGroupKey];
+  v9 = BKSettingsBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Set the number of seconds to skip when you swipe the cover or tap the skip button." value:&stru_14E68 table:@"Settings"];
+  [v7 setObject:v10 forKeyedSubscript:PSFooterTextGroupKey];
 
   [v7 setIdentifier:@"AUDIOBOOKS"];
-  v10 = [BKSettingsController specifierForSkipForwardWithTarget:self];
-  v11 = [BKSettingsController specifierForSkipBackwardWithTarget:self];
-  v13[0] = v7;
-  v13[1] = v10;
-  v13[2] = v11;
-  v12 = [NSArray arrayWithObjects:v13 count:3];
-  [arrayCopy addObjectsFromArray:v12];
+  v11 = [BKSettingsController specifierForSkipForwardWithTarget:self];
+  v12 = [BKSettingsController specifierForSkipBackwardWithTarget:self];
+  v14[0] = v7;
+  v14[1] = v11;
+  v14[2] = v12;
+  v13 = [NSArray arrayWithObjects:v14 count:3];
+  [arrayCopy addObjectsFromArray:v13];
 }
 
 + (id)specifierForSkipForwardWithTarget:(id)target
 {
   targetCopy = target;
-  v4 = BKSettingsBundle();
+  v4 = BKSettingsBundle(targetCopy);
   v5 = [v4 localizedStringForKey:@"Skip Forward" value:&stru_14E68 table:@"Settings"];
   v6 = [BKSettingsController _audioBookSkipSettingsDurationNamed:v5 target:targetCopy keyName:@"BKAudioBookSkipForward" defaultValue:&off_15E60];
 
@@ -634,7 +652,7 @@
 + (id)specifierForSkipBackwardWithTarget:(id)target
 {
   targetCopy = target;
-  v4 = BKSettingsBundle();
+  v4 = BKSettingsBundle(targetCopy);
   v5 = [v4 localizedStringForKey:@"Skip Back" value:&stru_14E68 table:@"Settings"];
   v6 = [BKSettingsController _audioBookSkipSettingsDurationNamed:v5 target:targetCopy keyName:@"BKAudioBookSkipBackward" defaultValue:&off_15E60];
 
@@ -659,27 +677,24 @@
 - (void)_addAudiobooksExternalControlsSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  v4 = BKSettingsBundle();
+  v4 = BKSettingsBundle(arrayCopy);
   v5 = [v4 localizedStringForKey:@"External Controls" value:&stru_14E68 table:?];
   v6 = [PSSpecifier groupSpecifierWithID:@"EXTERNAL_CONTROLS" name:v5];
 
   [v6 setObject:@"BKRemoteSkipInsteadOfNextTrackDefaultKey" forKeyedSubscript:PSKeyNameKey];
   [v6 setObject:@"com.apple.iBooks" forKeyedSubscript:PSDefaultsKey];
   [v6 setObject:@"com.apple.iBooks" forKeyedSubscript:PSContainerBundleIDKey];
-  [v6 setObject:&__kCFBooleanTrue forKeyedSubscript:PSIsRadioGroupKey];
-  v7 = BKSettingsBundle();
+  v7 = BKSettingsBundle([v6 setObject:&__kCFBooleanTrue forKeyedSubscript:PSIsRadioGroupKey]);
   v8 = [v7 localizedStringForKey:@"Headphones and car controls can be used to play the next/previous chapter value:or skip forward/back within the audiobook." table:{&stru_14E68, @"Settings"}];
   [v6 setObject:v8 forKeyedSubscript:PSFooterTextGroupKey];
 
-  [(BKSettingsController *)self setExternalControlGroup:v6];
-  v9 = BKSettingsBundle();
+  v9 = BKSettingsBundle([(BKSettingsController *)self setExternalControlGroup:v6]);
   v10 = [v9 localizedStringForKey:@"Next/Previous" value:&stru_14E68 table:@"Settings"];
   v11 = [PSSpecifier preferenceSpecifierNamed:v10 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:3 edit:0];
 
   v12 = PSValueKey;
   [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:PSValueKey];
-  [v11 setButtonAction:"selectExternalControlPreference:"];
-  v13 = BKSettingsBundle();
+  v13 = BKSettingsBundle([v11 setButtonAction:"selectExternalControlPreference:"]);
   v14 = [v13 localizedStringForKey:@"Skip Forward/Back" value:&stru_14E68 table:@"Settings"];
   selfCopy = self;
   v16 = [PSSpecifier preferenceSpecifierNamed:v14 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:3 edit:0];
@@ -797,24 +812,24 @@
 
   if (self->_automaticDownloadsGroupSpecifier)
   {
-    v7 = BKSettingsBundle();
-    v11 = [v7 localizedStringForKey:@"Automatically download new purchases (including free) made on other devices." value:&stru_14E68 table:@"Settings"];
+    v7 = BKSettingsBundle(self);
+    v12 = [v7 localizedStringForKey:@"Automatically download new purchases (including free) made on other devices." value:&stru_14E68 table:@"Settings"];
 
     if (self->_isLowPowerMode)
     {
-      v8 = BKSettingsBundle();
-      v9 = [v8 localizedStringForKey:@"Automatic Downloads are not available while in Low Power Mode." value:&stru_14E68 table:@"Settings"];
+      v9 = BKSettingsBundle(v8);
+      v10 = [v9 localizedStringForKey:@"Automatic Downloads are not available while in Low Power Mode." value:&stru_14E68 table:@"Settings"];
 
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = v11;
+      v11 = v12;
     }
 
-    v12 = v10;
-    [(PSSpecifier *)self->_automaticDownloadsGroupSpecifier setProperty:v10 forKey:PSFooterTextGroupKey];
+    v13 = v11;
+    [(PSSpecifier *)self->_automaticDownloadsGroupSpecifier setProperty:v11 forKey:PSFooterTextGroupKey];
   }
 }
 
@@ -826,25 +841,25 @@
 
   if (isUserSignedInToiTunes)
   {
-    v7 = BKSettingsBundle();
-    v8 = [v7 localizedStringForKey:@"Automatic Downloads" value:&stru_14E68 table:@"Settings"];
-    v9 = [PSSpecifier groupSpecifierWithName:v8];
+    v8 = BKSettingsBundle(v7);
+    v9 = [v8 localizedStringForKey:@"Automatic Downloads" value:&stru_14E68 table:@"Settings"];
+    v10 = [PSSpecifier groupSpecifierWithName:v9];
     automaticDownloadsGroupSpecifier = self->_automaticDownloadsGroupSpecifier;
-    self->_automaticDownloadsGroupSpecifier = v9;
+    self->_automaticDownloadsGroupSpecifier = v10;
 
-    v11 = BKSettingsBundle();
-    v12 = [v11 localizedStringForKey:@"Purchases from Other Devices" value:&stru_14E68 table:@"Settings"];
-    v13 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v12 target:self cell:6 detail:0 keyName:@"AllowAutoDownloadsForPurchasesFromOtherDevices" defaultValue:&__kCFBooleanFalse set:"_setAllowAutomaticDownloadsForPurchasesFromOtherDevices:specifier:" get:"_allowAutomaticDownloadsForPurchasesFromOtherDevices:"];
+    v13 = BKSettingsBundle(v12);
+    v14 = [v13 localizedStringForKey:@"Purchases from Other Devices" value:&stru_14E68 table:@"Settings"];
+    v15 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v14 target:self cell:6 detail:0 keyName:@"AllowAutoDownloadsForPurchasesFromOtherDevices" defaultValue:&__kCFBooleanFalse set:"_setAllowAutomaticDownloadsForPurchasesFromOtherDevices:specifier:" get:"_allowAutomaticDownloadsForPurchasesFromOtherDevices:"];
     automaticDownloadsForPurchasesFromOtherDevicesSpecifier = self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier;
-    self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier = v13;
+    self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier = v15;
 
     [(PSSpecifier *)self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier setObject:&__kCFBooleanTrue forKeyedSubscript:PSAllowMultilineTitleKey];
     [(BKSettingsController *)self _updateAutomaticDownloadsSection];
-    v15 = self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier;
-    v17[0] = self->_automaticDownloadsGroupSpecifier;
-    v17[1] = v15;
-    v16 = [NSArray arrayWithObjects:v17 count:2];
-    [arrayCopy addObjectsFromArray:v16];
+    v17 = self->_automaticDownloadsForPurchasesFromOtherDevicesSpecifier;
+    v19[0] = self->_automaticDownloadsGroupSpecifier;
+    v19[1] = v17;
+    v18 = [NSArray arrayWithObjects:v19 count:2];
+    [arrayCopy addObjectsFromArray:v18];
   }
 }
 
@@ -904,7 +919,7 @@
 - (void)_updateCellularDataGroupSpecifierFooterText:(id)text
 {
   textCopy = text;
-  v4 = BKSettingsBundle();
+  v4 = BKSettingsBundle(textCopy);
   v5 = [v4 localizedStringForKey:@"Choose whether books and audiobooks can automatically download over a cellular network." value:&stru_14E68 table:@"Settings"];
 
   [textCopy setProperty:v5 forKey:PSFooterTextGroupKey];
@@ -933,7 +948,7 @@
   cellularDataPrompt = [_cellularSettings cellularDataPrompt];
   if (!cellularDataPrompt)
   {
-    v7 = BKSettingsBundle();
+    v7 = BKSettingsBundle(0);
     v10 = [v7 localizedStringForKey:@"Ask If Over %@" value:&stru_14E68 table:@"Settings"];
     _formattedNetworkLimitAndReloadIfNeeded = [(BKSettingsController *)self _formattedNetworkLimitAndReloadIfNeeded];
     v9 = [NSString stringWithFormat:v10, _formattedNetworkLimitAndReloadIfNeeded];
@@ -943,7 +958,7 @@
 
   if (cellularDataPrompt == &dword_0 + 1)
   {
-    v6 = BKSettingsBundle();
+    v6 = BKSettingsBundle(1);
     v7 = v6;
     v8 = @"Always Ask";
     goto LABEL_6;
@@ -951,7 +966,7 @@
 
   if (cellularDataPrompt == &dword_0 + 2)
   {
-    v6 = BKSettingsBundle();
+    v6 = BKSettingsBundle(2);
     v7 = v6;
     v8 = @"Always Allow";
 LABEL_6:
@@ -970,30 +985,30 @@ LABEL_10:
 - (void)_addCellularSectionSpecifiersToArray:(id)array
 {
   arrayCopy = array;
-  if ([(BKSettingsController *)self _shouldShowCellularDataSwitch])
+  _shouldShowCellularDataSwitch = [(BKSettingsController *)self _shouldShowCellularDataSwitch];
+  if (_shouldShowCellularDataSwitch)
   {
-    v5 = BKSettingsBundle();
-    v6 = [v5 localizedStringForKey:@"Cellular Data" value:&stru_14E68 table:@"Settings"];
-    v7 = [PSSpecifier groupSpecifierWithName:v6];
+    v6 = BKSettingsBundle(_shouldShowCellularDataSwitch);
+    v7 = [v6 localizedStringForKey:@"Cellular Data" value:&stru_14E68 table:@"Settings"];
+    v8 = [PSSpecifier groupSpecifierWithName:v7];
     cellularDataGroupSpecifier = self->_cellularDataGroupSpecifier;
-    self->_cellularDataGroupSpecifier = v7;
+    self->_cellularDataGroupSpecifier = v8;
 
-    [(BKSettingsController *)self _updateCellularDataGroupSpecifierFooterText:self->_cellularDataGroupSpecifier];
-    v9 = BKSettingsBundle();
-    v10 = [v9 localizedStringForKey:@"Automatic Downloads" value:&stru_14E68 table:@"Settings"];
-    v11 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v10 target:self cell:6 detail:0 keyName:@"AllowAutoDownloadOnCellular" defaultValue:&__kCFBooleanFalse set:"_setCellularAllowAutomaticDownloads:specifier:" get:"_cellularAllowAutomaticDownloads:"];
+    v10 = BKSettingsBundle([(BKSettingsController *)self _updateCellularDataGroupSpecifierFooterText:self->_cellularDataGroupSpecifier]);
+    v11 = [v10 localizedStringForKey:@"Automatic Downloads" value:&stru_14E68 table:@"Settings"];
+    v12 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v11 target:self cell:6 detail:0 keyName:@"AllowAutoDownloadOnCellular" defaultValue:&__kCFBooleanFalse set:"_setCellularAllowAutomaticDownloads:specifier:" get:"_cellularAllowAutomaticDownloads:"];
 
-    v12 = BKSettingsBundle();
-    v13 = [v12 localizedStringForKey:@"Downloads" value:&stru_14E68 table:@"Settings"];
-    v14 = [PSSpecifier preferenceSpecifierNamed:v13 target:self set:0 get:"_cellularDataSettingForSpecifier:" detail:objc_opt_class() cell:2 edit:0];
+    v14 = BKSettingsBundle(v13);
+    v15 = [v14 localizedStringForKey:@"Downloads" value:&stru_14E68 table:@"Settings"];
+    v16 = [PSSpecifier preferenceSpecifierNamed:v15 target:self set:0 get:"_cellularDataSettingForSpecifier:" detail:objc_opt_class() cell:2 edit:0];
     cellularDownloadsSpecifier = self->_cellularDownloadsSpecifier;
-    self->_cellularDownloadsSpecifier = v14;
+    self->_cellularDownloadsSpecifier = v16;
 
-    v17[0] = self->_cellularDataGroupSpecifier;
-    v17[1] = v11;
-    v17[2] = self->_cellularDownloadsSpecifier;
-    v16 = [NSArray arrayWithObjects:v17 count:3];
-    [arrayCopy addObjectsFromArray:v16];
+    v19[0] = self->_cellularDataGroupSpecifier;
+    v19[1] = v12;
+    v19[2] = self->_cellularDownloadsSpecifier;
+    v18 = [NSArray arrayWithObjects:v19 count:3];
+    [arrayCopy addObjectsFromArray:v18];
   }
 }
 
@@ -1001,74 +1016,73 @@ LABEL_10:
 {
   sectionCopy = section;
   v4 = BUOnboardingBooksBundleID();
-  v33 = [OBBundle bundleWithIdentifier:v4];
+  v36 = [OBBundle bundleWithIdentifier:v4];
 
-  v5 = BKSettingsBundle();
-  v6 = [v5 localizedStringForKey:@"Online Content & Privacy" value:&stru_14E68 table:@"Settings"];
-  v7 = [PSSpecifier groupSpecifierWithName:v6];
+  v6 = BKSettingsBundle(v5);
+  v7 = [v6 localizedStringForKey:@"Online Content & Privacy" value:&stru_14E68 table:@"Settings"];
+  v8 = [PSSpecifier groupSpecifierWithName:v7];
 
-  v8 = BKSettingsBundle();
-  v9 = [v8 localizedStringForKey:@"Clear permission for books to access publisher\\U2019s content from the Internet." value:&stru_14E68 table:@"Settings"];
-  v10 = PSFooterTextGroupKey;
-  [v7 setObject:v9 forKeyedSubscript:PSFooterTextGroupKey];
+  v10 = BKSettingsBundle(v9);
+  v11 = [v10 localizedStringForKey:@"Clear permission for books to access publisher\\U2019s content from the Internet." value:&stru_14E68 table:@"Settings"];
+  v12 = PSFooterTextGroupKey;
+  [v8 setObject:v11 forKeyedSubscript:PSFooterTextGroupKey];
 
-  v11 = BKSettingsBundle();
-  v34 = [v11 localizedStringForKey:@"Reset Access to Online Content" value:&stru_14E68 table:@"Settings"];
+  v14 = BKSettingsBundle(v13);
+  v37 = [v14 localizedStringForKey:@"Reset Access to Online Content" value:&stru_14E68 table:@"Settings"];
 
-  LOBYTE(v29) = 0;
-  v12 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v34 target:self cell:13 detail:0 keyName:@"_BCWWebRepExternalLoadApprovalCacheClear" defaultValue:&__kCFBooleanFalse syncToWatch:v29];
-  [v12 setIdentifier:@"ALLOW_ONLINE_CONTENT"];
-  [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:PSAllowMultilineTitleKey];
-  [v12 setButtonAction:"_resetAllowedOnlineContent:"];
-  v36[0] = v7;
-  v36[1] = v12;
-  v13 = [NSArray arrayWithObjects:v36 count:2];
-  [sectionCopy addObjectsFromArray:v13];
+  LOBYTE(v32) = 0;
+  v15 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v37 target:self cell:13 detail:0 keyName:@"_BCWWebRepExternalLoadApprovalCacheClear" defaultValue:&__kCFBooleanFalse syncToWatch:v32];
+  [v15 setIdentifier:@"ALLOW_ONLINE_CONTENT"];
+  [v15 setObject:&__kCFBooleanTrue forKeyedSubscript:PSAllowMultilineTitleKey];
+  [v15 setButtonAction:"_resetAllowedOnlineContent:"];
+  v39[0] = v8;
+  v39[1] = v15;
+  v16 = [NSArray arrayWithObjects:v39 count:2];
+  [sectionCopy addObjectsFromArray:v16];
 
-  v14 = [PSSpecifier groupSpecifierWithName:0];
-  v15 = BKSettingsBundle();
-  v16 = [v15 localizedStringForKey:@"Reset the identifier used to report aggregate app usage statistics to Apple." value:&stru_14E68 table:@"Settings"];
+  v17 = [PSSpecifier groupSpecifierWithName:0];
+  v18 = BKSettingsBundle(v17);
+  v19 = [v18 localizedStringForKey:@"Reset the identifier used to report aggregate app usage statistics to Apple." value:&stru_14E68 table:@"Settings"];
 
-  privacyFlow = [v33 privacyFlow];
+  privacyFlow = [v36 privacyFlow];
   localizedButtonTitle = [privacyFlow localizedButtonTitle];
 
-  v19 = [NSString stringWithFormat:@"%@ %@", v16, localizedButtonTitle];
-  [v14 setObject:v19 forKeyedSubscript:v10];
-  v20 = objc_opt_class();
-  v21 = NSStringFromClass(v20);
-  [v14 setProperty:v21 forKey:PSFooterCellClassGroupKey];
+  v22 = [NSString stringWithFormat:@"%@ %@", v19, localizedButtonTitle];
+  [v17 setObject:v22 forKeyedSubscript:v12];
+  v23 = objc_opt_class();
+  v24 = NSStringFromClass(v23);
+  [v17 setProperty:v24 forKey:PSFooterCellClassGroupKey];
 
-  v22 = [v16 length];
-  v37.length = [localizedButtonTitle length];
-  v37.location = v22 + 1;
-  v23 = NSStringFromRange(v37);
-  [v14 setProperty:v23 forKey:PSFooterHyperlinkViewLinkRangeKey];
+  v25 = [v19 length];
+  v40.length = [localizedButtonTitle length];
+  v40.location = v25 + 1;
+  v26 = NSStringFromRange(v40);
+  [v17 setProperty:v26 forKey:PSFooterHyperlinkViewLinkRangeKey];
 
-  v24 = [NSValue valueWithNonretainedObject:self];
-  [v14 setProperty:v24 forKey:PSFooterHyperlinkViewTargetKey];
+  v27 = [NSValue valueWithNonretainedObject:self];
+  [v17 setProperty:v27 forKey:PSFooterHyperlinkViewTargetKey];
 
-  [v14 setProperty:@"showPrivacyExplanationSheet:" forKey:PSFooterHyperlinkViewActionKey];
-  v25 = BKSettingsBundle();
-  v26 = [v25 localizedStringForKey:@"Reset Identifier" value:&stru_14E68 table:@"Settings"];
+  v28 = BKSettingsBundle([v17 setProperty:@"showPrivacyExplanationSheet:" forKey:PSFooterHyperlinkViewActionKey]);
+  v29 = [v28 localizedStringForKey:@"Reset Identifier" value:&stru_14E68 table:@"Settings"];
 
-  LOBYTE(v30) = 0;
-  v27 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v26 target:self cell:13 detail:0 keyName:@"BAResetAnalyticsUserID" defaultValue:&__kCFBooleanFalse syncToWatch:v30];
-  [v27 setIdentifier:@"BAResetAnalyticsUserID"];
-  [v27 setButtonAction:"_resetAnalyticsUserID:"];
-  v35[0] = v14;
-  v35[1] = v27;
-  v28 = [NSArray arrayWithObjects:v35 count:2];
-  [sectionCopy addObjectsFromArray:v28];
+  LOBYTE(v33) = 0;
+  v30 = [BKSettingsUtilities standardPreferenceSpecifierNamed:v29 target:self cell:13 detail:0 keyName:@"BAResetAnalyticsUserID" defaultValue:&__kCFBooleanFalse syncToWatch:v33];
+  [v30 setIdentifier:@"BAResetAnalyticsUserID"];
+  [v30 setButtonAction:"_resetAnalyticsUserID:"];
+  v38[0] = v17;
+  v38[1] = v30;
+  v31 = [NSArray arrayWithObjects:v38 count:2];
+  [sectionCopy addObjectsFromArray:v31];
 }
 
 - (void)_resetAllowedOnlineContent:(id)content
 {
   contentCopy = content;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(contentCopy);
   v6 = [v5 localizedStringForKey:@"Clear permission for books to access publisher\\U2019s content from the Internet." value:&stru_14E68 table:@"Settings"];
 
   v7 = [UIAlertController alertControllerWithTitle:0 message:v6 preferredStyle:0];
-  v8 = BKSettingsBundle();
+  v8 = BKSettingsBundle(v7);
   v9 = [v8 localizedStringForKey:@"Reset Access to Online Content" value:&stru_14E68 table:@"Settings"];
 
   objc_initWeak(&location, self);
@@ -1081,8 +1095,7 @@ LABEL_10:
   v22 = v10;
   selfCopy = self;
   v11 = [UIAlertAction actionWithTitle:v9 style:2 handler:&v18];
-  [v7 addAction:{v11, v18, v19, v20, v21}];
-  v12 = BKSettingsBundle();
+  v12 = BKSettingsBundle([v7 addAction:{v11, v18, v19, v20, v21}]);
   v13 = [v12 localizedStringForKey:@"Cancel" value:&stru_14E68 table:@"Settings"];
 
   v14 = [UIAlertAction actionWithTitle:v13 style:1 handler:0];
@@ -1107,11 +1120,11 @@ LABEL_10:
 - (void)_resetAnalyticsUserID:(id)d
 {
   dCopy = d;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(dCopy);
   v6 = [v5 localizedStringForKey:@"Reset Identifier" value:&stru_14E68 table:@"Settings"];
 
   v7 = [UIAlertController alertControllerWithTitle:0 message:v6 preferredStyle:0];
-  v8 = BKSettingsBundle();
+  v8 = BKSettingsBundle(v7);
   v9 = [v8 localizedStringForKey:@"Reset Identifier" value:&stru_14E68 table:@"Settings"];
 
   objc_initWeak(&location, self);
@@ -1124,8 +1137,7 @@ LABEL_10:
   v22 = v10;
   selfCopy = self;
   v11 = [UIAlertAction actionWithTitle:v9 style:2 handler:&v18];
-  [v7 addAction:{v11, v18, v19, v20, v21}];
-  v12 = BKSettingsBundle();
+  v12 = BKSettingsBundle([v7 addAction:{v11, v18, v19, v20, v21}]);
   v13 = [v12 localizedStringForKey:@"Cancel" value:&stru_14E68 table:@"Settings"];
 
   v14 = [UIAlertAction actionWithTitle:v13 style:1 handler:0];
@@ -1150,7 +1162,7 @@ LABEL_10:
 - (void)showPrivacyExplanationSheet:(id)sheet
 {
   v4 = BUOnboardingAllBundleIDs();
-  v5 = BKSettingsLog();
+  v5 = BKSettingsLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
@@ -1186,7 +1198,7 @@ LABEL_10:
 
 + (id)acknowledgementsSectionSpecifier
 {
-  v3 = BKSettingsBundle();
+  v3 = BKSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"Acknowledgements" value:&stru_14E68 table:@"Settings"];
   v5 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
@@ -1202,16 +1214,16 @@ LABEL_10:
   v5 = +[BURestrictionsProvider sharedInstance];
   isAccountModificationAllowed = [v5 isAccountModificationAllowed];
 
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v7 = self->_syncingForCloudKitSpecifiers;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
+    v10 = *v34;
     if ((_isSyncSectionForCloudKitEnabled & isAccountModificationAllowed) != 0)
     {
       v11 = &__kCFBooleanTrue;
@@ -1228,17 +1240,17 @@ LABEL_10:
       v13 = 0;
       do
       {
-        if (*v33 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v32 + 1) + 8 * v13) setObject:v11 forKeyedSubscript:v12];
+        [*(*(&v33 + 1) + 8 * v13) setObject:v11 forKeyedSubscript:v12];
         v13 = v13 + 1;
       }
 
       while (v9 != v13);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v9);
@@ -1246,16 +1258,16 @@ LABEL_10:
 
   v14 = _isSyncSectionForCloudKitEnabled | _isSyncSectionForICloudDriveEnabled;
 
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
+  v30 = 0u;
   v15 = self->_syncingForICloudDriveSpecifiers;
-  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v29;
+    v18 = *v30;
     if (_isSyncSectionForICloudDriveEnabled & isAccountModificationAllowed)
     {
       v19 = &__kCFBooleanTrue;
@@ -1272,17 +1284,17 @@ LABEL_10:
       v21 = 0;
       do
       {
-        if (*v29 != v18)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [*(*(&v28 + 1) + 8 * v21) setObject:v19 forKeyedSubscript:{v20, v28}];
+        [*(*(&v29 + 1) + 8 * v21) setObject:v19 forKeyedSubscript:{v20, v29}];
         v21 = v21 + 1;
       }
 
       while (v17 != v21);
-      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v17);
@@ -1290,45 +1302,45 @@ LABEL_10:
 
   if (v14)
   {
-    v22 = [(BKSettingsController *)self readSyncSectionForCloudKitPreferenceValue:self->_syncReadingNowSpecifier];
-    if ([v22 BOOLValue])
+    v23 = [(BKSettingsController *)self readSyncSectionForCloudKitPreferenceValue:self->_syncReadingNowSpecifier];
+    if ([v23 BOOLValue])
     {
 
 LABEL_27:
-      v23 = @"The Continue and Previous lists in Home sync using your iCloud account. Use iCloud Drive to sync PDFs you’ve added to your library.";
+      v24 = @"The Continue and Previous lists in Home sync using your iCloud account. Use iCloud Drive to sync PDFs you’ve added to your library.";
       goto LABEL_28;
     }
 
-    v24 = [(BKSettingsController *)self readSyncSectionForICloudDrivePreferenceValue:self->_syncICloudDriveSpecifier];
-    bOOLValue = [v24 BOOLValue];
+    v25 = [(BKSettingsController *)self readSyncSectionForICloudDrivePreferenceValue:self->_syncICloudDriveSpecifier];
+    bOOLValue = [v25 BOOLValue];
 
     if ((bOOLValue & 1) == 0)
     {
       goto LABEL_27;
     }
 
-    v23 = @"When Home is enabled, your Continue and Previous lists will start syncing to iCloud the next time you open a book.";
+    v24 = @"When Home is enabled, your Continue and Previous lists will start syncing to iCloud the next time you open a book.";
   }
 
   else
   {
-    v23 = @"To enable syncing across devices, sign in to iCloud and turn on iCloud Drive in Settings.";
+    v24 = @"To enable syncing across devices, sign in to iCloud and turn on iCloud Drive in Settings.";
   }
 
 LABEL_28:
-  v26 = BKSettingsBundle();
-  v27 = [v26 localizedStringForKey:v23 value:&stru_14E68 table:@"Settings"];
-  [(PSSpecifier *)self->_syncGroupSpecifier setObject:v27 forKeyedSubscript:PSFooterTextGroupKey];
+  v27 = BKSettingsBundle(v22);
+  v28 = [v27 localizedStringForKey:v24 value:&stru_14E68 table:@"Settings"];
+  [(PSSpecifier *)self->_syncGroupSpecifier setObject:v28 forKeyedSubscript:PSFooterTextGroupKey];
 }
 
 - (void)_clearReadingGoalsData:(id)data
 {
   dataCopy = data;
-  v5 = BKSettingsBundle();
+  v5 = BKSettingsBundle(dataCopy);
   v6 = [v5 localizedStringForKey:@"Do you want to clear reading goals data from all of your devices using this iCloud account?" value:&stru_14E68 table:@"Settings"];
 
   v7 = [UIAlertController alertControllerWithTitle:0 message:v6 preferredStyle:0];
-  v8 = BKSettingsBundle();
+  v8 = BKSettingsBundle(v7);
   v9 = [v8 localizedStringForKey:@"Clear Reading Goals Data" value:&stru_14E68 table:@"Settings"];
 
   objc_initWeak(&location, self);
@@ -1340,8 +1352,7 @@ LABEL_28:
   v10 = dataCopy;
   v19 = v10;
   v11 = [UIAlertAction actionWithTitle:v9 style:2 handler:v18];
-  [v7 addAction:v11];
-  v12 = BKSettingsBundle();
+  v12 = BKSettingsBundle([v7 addAction:v11]);
   v13 = [v12 localizedStringForKey:@"Cancel" value:&stru_14E68 table:@"Settings"];
 
   v14 = [UIAlertAction actionWithTitle:v13 style:1 handler:0];
@@ -1428,7 +1439,7 @@ LABEL_28:
 - (BOOL)_isLiverpoolTCCEnabled
 {
   v3 = [(BKSettingsController *)self _isServiceEnabled:kTCCServiceLiverpool];
-  v4 = BKSettingsLog();
+  v4 = BKSettingsLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = kTCCServiceLiverpool;
@@ -1444,60 +1455,61 @@ LABEL_28:
     }
 
     v7 = v6;
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v7;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "iBooksSettings: %{public}@ is %{public}@", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "iBooksSettings: %{public}@ is %{public}@", &v12, 0x16u);
   }
 
   if (v3 == 2)
   {
-    LOBYTE(_isUbiquityTCCEnabled) = 1;
+    LOBYTE(_isUbiquityTCCEnabled2) = 1;
   }
 
   else
   {
     if (v3 == 1)
     {
-      if (![(BKSettingsController *)self _isUbiquityTCCEnabled])
+      _isUbiquityTCCEnabled = [(BKSettingsController *)self _isUbiquityTCCEnabled];
+      if (!_isUbiquityTCCEnabled)
       {
-        LOBYTE(_isUbiquityTCCEnabled) = 0;
-        return _isUbiquityTCCEnabled;
+        LOBYTE(_isUbiquityTCCEnabled2) = 0;
+        return _isUbiquityTCCEnabled2;
       }
 
-      v8 = BKSettingsLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = BKSettingsLog(_isUbiquityTCCEnabled);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_isLiverpoolTCCEnabled - liverpool OFF, ubiquity ON --> forcing liverpool ON", &v11, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "_isLiverpoolTCCEnabled - liverpool OFF, ubiquity ON --> forcing liverpool ON", &v12, 2u);
       }
 
-      _isUbiquityTCCEnabled = 1;
+      _isUbiquityTCCEnabled2 = 1;
     }
 
     else
     {
-      _isUbiquityTCCEnabled = [(BKSettingsController *)self _isUbiquityTCCEnabled];
-      v8 = BKSettingsLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      _isUbiquityTCCEnabled2 = [(BKSettingsController *)self _isUbiquityTCCEnabled];
+      v9 = BKSettingsLog(_isUbiquityTCCEnabled2);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 67109120;
-        LODWORD(v12) = _isUbiquityTCCEnabled;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_isLiverpoolTCCEnabled - Setting unknown liverpool value to %{BOOL}d", &v11, 8u);
+        v12 = 67109120;
+        LODWORD(v13) = _isUbiquityTCCEnabled2;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "_isLiverpoolTCCEnabled - Setting unknown liverpool value to %{BOOL}d", &v12, 8u);
       }
     }
 
-    [(BKSettingsController *)self _setService:kTCCServiceLiverpool enabled:_isUbiquityTCCEnabled];
+    [(BKSettingsController *)self _setService:kTCCServiceLiverpool enabled:_isUbiquityTCCEnabled2];
   }
 
-  return _isUbiquityTCCEnabled;
+  return _isUbiquityTCCEnabled2;
 }
 
 - (BOOL)_isUbiquityTCCEnabled
 {
   v2 = [(BKSettingsController *)self _isServiceEnabled:kTCCServiceUbiquity];
-  v3 = BKSettingsLog();
+  v3 = BKSettingsLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = kTCCServiceUbiquity;
@@ -1596,7 +1608,7 @@ LABEL_6:
 - (void)_setService:(__CFString *)service enabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v6 = BKSettingsLog();
+  v6 = BKSettingsLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -1605,55 +1617,57 @@ LABEL_6:
       v7 = @"YES";
     }
 
-    v15 = 138412546;
+    v17 = 138412546;
     serviceCopy2 = service;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting %@ to %@.", &v15, 0x16u);
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting %@ to %@.", &v17, 0x16u);
   }
 
   v8 = TCCAccessSetForBundleId();
-  v9 = BKSettingsLog();
-  v10 = v9;
-  if (v8)
+  v9 = v8;
+  v10 = BKSettingsLog(v8);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = @"off";
+      v12 = @"off";
       if (enabledCopy)
       {
-        v11 = @"on";
+        v12 = @"on";
       }
 
-      v15 = 138543618;
+      v17 = 138543618;
       serviceCopy2 = service;
-      v17 = 2114;
-      v18 = v11;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "iBooksSettings: Successfully set %{public}@ to %{public}@", &v15, 0x16u);
+      v19 = 2114;
+      v20 = v12;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "iBooksSettings: Successfully set %{public}@ to %{public}@", &v17, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_C1DC(service, enabledCopy, v10);
+    sub_C1DC(service, enabledCopy, v11);
   }
 
-  v12 = notify_post([@"com.apple.librarian.account-token-changed" UTF8String]);
-  v13 = BKSettingsLog();
+  v13 = notify_post([@"com.apple.librarian.account-token-changed" UTF8String]);
   v14 = v13;
-  if (v12)
+  v15 = BKSettingsLog(v13);
+  v16 = v15;
+  if (v14)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_C27C(v12, v14);
+      sub_C27C(v14, v16);
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
+    v17 = 138543362;
     serviceCopy2 = @"com.apple.librarian.account-token-changed";
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "iBooksSettings: Successfully notify_post(%{public}@)", &v15, 0xCu);
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "iBooksSettings: Successfully notify_post(%{public}@)", &v17, 0xCu);
   }
 }
 

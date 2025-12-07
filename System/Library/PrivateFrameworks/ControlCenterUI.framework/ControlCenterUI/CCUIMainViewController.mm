@@ -564,7 +564,7 @@ void __56__CCUIMainViewController_PPT__runTest_options_delegate___block_invoke_3
   [v4 runTest:v5 subtests:v6 eventStream:a2 completionHandler:v9];
 }
 
-uint64_t __56__CCUIMainViewController_PPT__runTest_options_delegate___block_invoke_4(uint64_t a1)
+void *__56__CCUIMainViewController_PPT__runTest_options_delegate___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) dismissAnimated:0 withCompletionHandler:0];
   if (*(a1 + 40) && *(a1 + 48) != 3)
@@ -2203,7 +2203,7 @@ LABEL_14:
       _os_log_impl(&dword_21E9F5000, v13, OS_LOG_TYPE_DEFAULT, "End presentation: UUID=%{public}@ currentTransitionUUID=%{public}@, currentPresentationState=%{public}@", v15, 0x20u);
     }
 
-    [(CCUIMainViewController *)self setCurrentTransitionUUID:0, *v15, *&v15[16], v16];
+    [(CCUIMainViewController *)self setCurrentTransitionUUID:0, *v15, *&v15[8], v16];
     [(CCUIMainViewController *)self setTransitionState:0];
     [(CCUIMainViewController *)self setPresentationState:2];
     if (presentationState != 2)
@@ -2578,7 +2578,7 @@ void __62__CCUIMainViewController__beginDismissalAnimated_interactive___block_in
       _os_log_impl(&dword_21E9F5000, v14, OS_LOG_TYPE_DEFAULT, "End dismissal: UUID=%{public}@ currentTransitionUUID=%{public}@, currentPresentationState=%{public}@", v19, 0x20u);
     }
 
-    [(CCUIMainViewController *)self setCurrentTransitionUUID:0, *v19, *&v19[16], v20];
+    [(CCUIMainViewController *)self setCurrentTransitionUUID:0, *v19, *&v19[8], v20];
     overlayHeaderView = [(CCUIMainViewController *)self overlayHeaderView];
     [overlayHeaderView setMode:0 orientationHint:0];
 
@@ -3432,17 +3432,17 @@ LABEL_12:
 
 void __63__CCUIMainViewController_pagingViewControllerDidAddModuleView___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v9 = a2;
-  v15 = 0u;
-  v16 = 0u;
-  [*(a1 + 32) _layoutRectForIconCoordinate:a3 gridSize:{a4, a5}];
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 992);
-  v12 = *(v10 + 1144);
-  v14[0] = v15;
-  v14[1] = v16;
-  v13 = [v11 moduleViewAnimationBatchForTransitionState:v12 moduleView:v9 layoutRect:v14 gestureVelocity:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
-  [*(*(a1 + 32) + 1008) additivelyRunAnimationBatch:v13 withCompletionBlock:0];
+  v6 = a2;
+  v12 = 0u;
+  v13 = 0u;
+  objc_msgSend__layoutRectForIconCoordinate_gridSize_(*(a1 + 32));
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 992);
+  v9 = *(v7 + 1144);
+  v11[0] = v12;
+  v11[1] = v13;
+  v10 = [v8 moduleViewAnimationBatchForTransitionState:v9 moduleView:v6 layoutRect:v11 gestureVelocity:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
+  [*(*(a1 + 32) + 1008) additivelyRunAnimationBatch:v10 withCompletionBlock:0];
 }
 
 - (BOOL)isSystemRestoringForPagingViewController:(id)controller
@@ -3643,20 +3643,20 @@ uint64_t __68__CCUIMainViewController_resetToDefaultLayoutWithCompletionHandler_
 
 void __63__CCUIMainViewController_enumerateOverlayModuleViewsWithBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v10 = a2;
-  v15 = 0u;
-  v16 = 0u;
-  v11 = *(a1 + 32);
-  if (v11)
+  v7 = a2;
+  v12 = 0u;
+  v13 = 0u;
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    [v11 _layoutRectForIconCoordinate:a3 gridSize:{a4, a5}];
+    objc_msgSend__layoutRectForIconCoordinate_gridSize_(v8);
   }
 
-  v12 = *(a1 + 40);
-  v13 = *(v12 + 16);
-  v14[0] = v15;
-  v14[1] = v16;
-  v13(v12, v10, v14, v9);
+  v9 = *(a1 + 40);
+  v10 = *(v9 + 16);
+  v11[0] = v12;
+  v11[1] = v13;
+  v10(v9, v7, v11, v6);
 }
 
 - (void)performIfDisplayingModuleView:(id)view subview:(id)subview block:(id)block
@@ -3676,14 +3676,14 @@ void __63__CCUIMainViewController_enumerateOverlayModuleViewsWithBlock___block_i
   [(CCUIPagingViewController *)pagingViewController performIfDisplayingModuleView:v11 subview:subview block:v13];
 }
 
-uint64_t __70__CCUIMainViewController_performIfDisplayingModuleView_subview_block___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __70__CCUIMainViewController_performIfDisplayingModuleView_subview_block___block_invoke(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   v11 = 0u;
   v12 = 0u;
   v5 = a1[4];
   if (v5)
   {
-    [v5 _layoutRectForIconCoordinate:a2 gridSize:{a3, a4}];
+    objc_msgSend__layoutRectForIconCoordinate_gridSize_(v5, a2, a2, a3, a4);
   }
 
   v7 = a1[5];

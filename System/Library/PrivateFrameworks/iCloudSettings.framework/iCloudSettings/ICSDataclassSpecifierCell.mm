@@ -27,7 +27,7 @@
 
 - (void)_setupViews
 {
-  v99[12] = *MEMORY[0x277D85DE8];
+  v98[12] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D755E8]);
   [(ICSDataclassSpecifierCell *)self setHeaderImageView:v3];
 
@@ -113,79 +113,77 @@
   headerSubTitleTextView10 = [(ICSDataclassSpecifierCell *)self headerSubTitleTextView];
   [contentView3 addSubview:headerSubTitleTextView10];
 
-  v76 = MEMORY[0x277CCAAD0];
+  v75 = MEMORY[0x277CCAAD0];
   headerImageView5 = [(ICSDataclassSpecifierCell *)self headerImageView];
   heightAnchor = [headerImageView5 heightAnchor];
-  v96 = [heightAnchor constraintEqualToConstant:56.0];
-  v99[0] = v96;
+  v95 = [heightAnchor constraintEqualToConstant:56.0];
+  v98[0] = v95;
   headerImageView6 = [(ICSDataclassSpecifierCell *)self headerImageView];
   widthAnchor = [headerImageView6 widthAnchor];
-  v93 = [widthAnchor constraintEqualToConstant:56.0];
-  v99[1] = v93;
+  v92 = [widthAnchor constraintEqualToConstant:56.0];
+  v98[1] = v92;
   headerImageView7 = [(ICSDataclassSpecifierCell *)self headerImageView];
   leadingAnchor = [headerImageView7 leadingAnchor];
   contentView4 = [(ICSDataclassSpecifierCell *)self contentView];
   leadingAnchor2 = [contentView4 leadingAnchor];
-  v88 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2 constant:24.0];
-  v99[2] = v88;
+  v87 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2 constant:24.0];
+  v98[2] = v87;
   headerImageView8 = [(ICSDataclassSpecifierCell *)self headerImageView];
   centerXAnchor = [headerImageView8 centerXAnchor];
   contentView5 = [(ICSDataclassSpecifierCell *)self contentView];
   centerXAnchor2 = [contentView5 centerXAnchor];
-  v83 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v99[3] = v83;
+  v82 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v98[3] = v82;
   headerImageView9 = [(ICSDataclassSpecifierCell *)self headerImageView];
   topAnchor = [headerImageView9 topAnchor];
   contentView6 = [(ICSDataclassSpecifierCell *)self contentView];
   topAnchor2 = [contentView6 topAnchor];
-  v78 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:32.0];
-  v99[4] = v78;
+  v77 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:32.0];
+  v98[4] = v77;
   headerImageView10 = [(ICSDataclassSpecifierCell *)self headerImageView];
   bottomAnchor = [headerImageView10 bottomAnchor];
   headerTitleLabel8 = [(ICSDataclassSpecifierCell *)self headerTitleLabel];
   topAnchor3 = [headerTitleLabel8 topAnchor];
-  v72 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-16.0];
-  v99[5] = v72;
+  v71 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-16.0];
+  v98[5] = v71;
   headerTitleLabel9 = [(ICSDataclassSpecifierCell *)self headerTitleLabel];
   leadingAnchor3 = [headerTitleLabel9 leadingAnchor];
   contentView7 = [(ICSDataclassSpecifierCell *)self contentView];
   leadingAnchor4 = [contentView7 leadingAnchor];
-  v67 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:24.0];
-  v99[6] = v67;
+  v66 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:24.0];
+  v98[6] = v66;
   headerTitleLabel10 = [(ICSDataclassSpecifierCell *)self headerTitleLabel];
   centerXAnchor3 = [headerTitleLabel10 centerXAnchor];
   contentView8 = [(ICSDataclassSpecifierCell *)self contentView];
   centerXAnchor4 = [contentView8 centerXAnchor];
-  v62 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v99[7] = v62;
+  v61 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  v98[7] = v61;
   headerTitleLabel11 = [(ICSDataclassSpecifierCell *)self headerTitleLabel];
   bottomAnchor2 = [headerTitleLabel11 bottomAnchor];
   headerSubTitleTextView11 = [(ICSDataclassSpecifierCell *)self headerSubTitleTextView];
   topAnchor4 = [headerSubTitleTextView11 topAnchor];
-  v57 = [bottomAnchor2 constraintEqualToAnchor:topAnchor4 constant:-8.0];
-  v99[8] = v57;
+  v56 = [bottomAnchor2 constraintEqualToAnchor:topAnchor4 constant:-8.0];
+  v98[8] = v56;
   headerSubTitleTextView12 = [(ICSDataclassSpecifierCell *)self headerSubTitleTextView];
   leadingAnchor5 = [headerSubTitleTextView12 leadingAnchor];
   contentView9 = [(ICSDataclassSpecifierCell *)self contentView];
   leadingAnchor6 = [contentView9 leadingAnchor];
-  v52 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:24.0];
-  v99[9] = v52;
+  v51 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:24.0];
+  v98[9] = v51;
   headerSubTitleTextView13 = [(ICSDataclassSpecifierCell *)self headerSubTitleTextView];
   centerXAnchor5 = [headerSubTitleTextView13 centerXAnchor];
   contentView10 = [(ICSDataclassSpecifierCell *)self contentView];
   centerXAnchor6 = [contentView10 centerXAnchor];
   v43 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-  v99[10] = v43;
+  v98[10] = v43;
   headerSubTitleTextView14 = [(ICSDataclassSpecifierCell *)self headerSubTitleTextView];
   bottomAnchor3 = [headerSubTitleTextView14 bottomAnchor];
   contentView11 = [(ICSDataclassSpecifierCell *)self contentView];
   bottomAnchor4 = [contentView11 bottomAnchor];
   v48 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-12.0];
-  v99[11] = v48;
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:12];
-  [v76 activateConstraints:v49];
-
-  v50 = *MEMORY[0x277D85DE8];
+  v98[11] = v48;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:12];
+  [v75 activateConstraints:v49];
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
@@ -230,17 +228,15 @@
 
 + (id)_subTitleAttributes
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D74240]);
   [v3 setAlignment:1];
-  v8[0] = *MEMORY[0x277D740A8];
+  v7[0] = *MEMORY[0x277D740A8];
   _subTitleFont = [self _subTitleFont];
-  v8[1] = *MEMORY[0x277D74118];
-  v9[0] = _subTitleFont;
-  v9[1] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D74118];
+  v8[0] = _subTitleFont;
+  v8[1] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -295,7 +291,7 @@
 
 + (id)_attributedStringFromSpecifier:(id)specifier
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D40160];
   specifierCopy = specifier;
   v6 = [specifierCopy objectForKeyedSubscript:v4];
@@ -322,26 +318,26 @@
     v12 = [v6 componentsSeparatedByString:@"%@"];
     if ([v12 count] == 2)
     {
-      v26 = [v12 objectAtIndexedSubscript:0];
-      v24 = [v12 objectAtIndexedSubscript:1];
-      v29 = *MEMORY[0x277D740C0];
-      v13 = v29;
+      v25 = [v12 objectAtIndexedSubscript:0];
+      v23 = [v12 objectAtIndexedSubscript:1];
+      v28 = *MEMORY[0x277D740C0];
+      v13 = v28;
       labelColor = [MEMORY[0x277D75348] labelColor];
-      v30[0] = labelColor;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v29[0] = labelColor;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
-      v15 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v26 attributes:v25];
-      v27[0] = v13;
+      v15 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v25 attributes:v24];
+      v26[0] = v13;
       systemBlueColor = [MEMORY[0x277D75348] systemBlueColor];
-      v28[0] = systemBlueColor;
-      v27[1] = *MEMORY[0x277D740E8];
+      v27[0] = systemBlueColor;
+      v26[1] = *MEMORY[0x277D740E8];
       v17 = [MEMORY[0x277CBEBC0] URLWithString:v8];
-      v28[1] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v27[1] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
       v19 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v18];
       [v15 appendAttributedString:v19];
-      v20 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v24];
+      v20 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v23];
       [v15 appendAttributedString:v20];
       _subTitleAttributes = [self _subTitleAttributes];
       [v15 addAttributes:_subTitleAttributes range:{0, objc_msgSend(v15, "length")}];
@@ -354,8 +350,6 @@
       v11 = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

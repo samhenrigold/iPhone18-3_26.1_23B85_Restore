@@ -14,7 +14,7 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_1E161E9D4();
+  sub_1E161E9D4(occurredCopy);
 }
 
 - (void)parser:(id)parser didStartElement:(unint64_t)element attributes:(id)attributes

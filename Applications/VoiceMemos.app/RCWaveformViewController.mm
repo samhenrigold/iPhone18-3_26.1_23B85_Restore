@@ -105,7 +105,7 @@
     v10->_visibleTimeRange.beginTime = v15;
     v10->_visibleTimeRange.endTime = v16;
     [(RCWaveformRenderer *)v10->_rendererController setDisplayMode:!overviewCopy];
-    v10->_highlightTimeRange = RCTimeRangeInvalid;
+    v10->_highlightTimeRange = *RCTimeRangeInvalid;
     v10->_currentTimeDisplayOptions = 0;
     v10->_clipTimeMarkersToDuration = 1;
     v17 = objc_opt_new();
@@ -2037,29 +2037,29 @@ LABEL_17:
   {
     if (!self->_scrubbing)
     {
-      [(RCWaveformRenderer *)self->_rendererController horizontalOffsetAtTime:self->_visibleTimeRange.beginTime];
-      v6 = RCRoundCoord(v5);
+      v5 = [(RCWaveformRenderer *)self->_rendererController horizontalOffsetAtTime:self->_visibleTimeRange.beginTime];
+      v8 = RCRoundCoord(v5, v6, v7);
       [(RCWaveformScrollView *)self->_scrollView visibleBounds];
-      v10.origin.x = v6;
-      v10.origin.y = v9.origin.y;
-      v10.size.width = v6;
-      v10.size.height = v9.size.height;
-      v7 = CGRectIntersectsRect(v9, v10);
-      if (duration == 0.0 || !v7)
+      v12.origin.x = v8;
+      v12.origin.y = v11.origin.y;
+      v12.size.width = v8;
+      v12.size.height = v11.size.height;
+      v9 = CGRectIntersectsRect(v11, v12);
+      if (duration == 0.0 || !v9)
       {
-        [(RCWaveformScrollView *)self->_scrollView setContentOffset:0 animated:v6, 0.0];
+        [(RCWaveformScrollView *)self->_scrollView setContentOffset:0 animated:v8, 0.0];
       }
 
       else
       {
-        v8[0] = _NSConcreteStackBlock;
-        v8[1] = 3221225472;
-        v8[2] = sub_1000AFA08;
-        v8[3] = &unk_10028AF68;
-        v8[4] = self;
-        *&v8[5] = v6;
-        v8[6] = 0;
-        [UIView animateWithDuration:131076 delay:v8 options:0 animations:duration completion:0.0];
+        v10[0] = _NSConcreteStackBlock;
+        v10[1] = 3221225472;
+        v10[2] = sub_1000AFA08;
+        v10[3] = &unk_10028AF68;
+        v10[4] = self;
+        *&v10[5] = v8;
+        v10[6] = 0;
+        [UIView animateWithDuration:131076 delay:v10 options:0 animations:duration completion:0.0];
       }
     }
 
@@ -2144,36 +2144,36 @@ LABEL_17:
   rendererController = self->_rendererController;
   viewCopy = view;
   [viewCopy visibleTimeRange];
-  [(RCWaveformRenderer *)rendererController horizontalOffsetAtTime:?];
-  v7 = RCRoundCoord(v6);
-  v8 = self->_rendererController;
+  v6 = [(RCWaveformRenderer *)rendererController horizontalOffsetAtTime:?];
+  v9 = RCRoundCoord(v6, v7, v8);
+  v10 = self->_rendererController;
   [viewCopy visibleTimeRange];
-  v10 = v9;
+  v12 = v11;
 
-  [(RCWaveformRenderer *)v8 horizontalOffsetAtTime:v10];
-  v12 = RCRoundCoord(v11) - v7;
-  if (v12 >= 1.0)
+  v13 = [(RCWaveformRenderer *)v10 horizontalOffsetAtTime:v12];
+  v16 = RCRoundCoord(v13, v14, v15) - v9;
+  if (v16 >= 1.0)
   {
-    v13 = v12;
+    v17 = v16;
   }
 
   else
   {
-    v13 = 1.0;
+    v17 = 1.0;
   }
 
-  v14 = +[RCRecorderStyleProvider sharedStyleProvider];
-  [v14 annotationViewHeight];
-  v16 = v15;
+  v18 = +[RCRecorderStyleProvider sharedStyleProvider];
+  [v18 annotationViewHeight];
+  v20 = v19;
 
-  v17 = 0.0;
-  v18 = v7;
-  v19 = v13;
-  v20 = v16;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v17;
-  result.origin.x = v18;
+  v21 = 0.0;
+  v22 = v9;
+  v23 = v17;
+  v24 = v20;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v21;
+  result.origin.x = v22;
   return result;
 }
 

@@ -322,7 +322,7 @@ id __91__PUWallpaperPosterShuffleGridViewController__fetchResultWithAssetsFetche
 
 - (void)_updateBarItems
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   [(PUWallpaperPosterShuffleGridViewController *)self _createBarButtonItemsIfNeeded];
   gridViewModel = [(PUWallpaperPosterShuffleGridViewController *)self gridViewModel];
   selectionSnapshot = [gridViewModel selectionSnapshot];
@@ -341,52 +341,51 @@ id __91__PUWallpaperPosterShuffleGridViewController__fetchResultWithAssetsFetche
     if (isAnyItemSelected)
     {
       v13 = PULocalizedString(@"REVIEW_COUNT_SELECTED_TITLE_TEXT");
-      v21 = v9;
-      v14 = PULocalizedStringWithValidatedFormat(v13, @"%lu");
+      v20 = PULocalizedStringWithValidatedFormat(v13, @"%lu", v14, v15, v16, v17, v18, v19, v9);
 
-      v15 = &OBJC_IVAR___PUWallpaperPosterShuffleGridViewController__removePhotosBarButtonItem;
+      v21 = &OBJC_IVAR___PUWallpaperPosterShuffleGridViewController__removePhotosBarButtonItem;
     }
 
     else
     {
-      v14 = PXLocalizedString();
-      v15 = &OBJC_IVAR___PUWallpaperPosterShuffleGridViewController__exitSelectModeBarButtonItem;
+      v20 = PXLocalizedString();
+      v21 = &OBJC_IVAR___PUWallpaperPosterShuffleGridViewController__exitSelectModeBarButtonItem;
     }
 
     p_selectAllBarButtonItem = &self->_selectAllBarButtonItem;
-    [(UIBarButtonItem *)self->_selectAllBarButtonItem setEnabled:totalNumberOfItems > 0, v21];
-    v23[0] = *(&self->super.super.super.isa + *v15);
+    [(UIBarButtonItem *)self->_selectAllBarButtonItem setEnabled:totalNumberOfItems > 0];
+    v28[0] = *(&self->super.super.super.isa + *v21);
     flexibleSpaceItem = [MEMORY[0x1E69DC708] flexibleSpaceItem];
-    v23[1] = flexibleSpaceItem;
+    v28[1] = flexibleSpaceItem;
     if (areAllItemsSelected)
     {
       p_selectAllBarButtonItem = &self->_deselectAllBarButtonItem;
     }
 
-    v18 = v23;
+    v24 = v28;
   }
 
   else
   {
-    v14 = PLLocalizedCountDescription();
+    v20 = PLLocalizedCountDescription();
     [(UIBarButtonItem *)self->_addPhotosBarButtonItem setEnabled:[(PUWallpaperPosterShuffleGridViewController *)self _canAddMorePhotos]];
     p_selectAllBarButtonItem = &self->_enterSelectModeBarButtonItem;
     [(UIBarButtonItem *)self->_enterSelectModeBarButtonItem setEnabled:totalNumberOfItems > 0];
     [(UIBarButtonItem *)self->_doneBarButtonItem setEnabled:totalNumberOfItems > 0];
-    v22[0] = self->_addPhotosBarButtonItem;
+    v27[0] = self->_addPhotosBarButtonItem;
     flexibleSpaceItem = [MEMORY[0x1E69DC708] flexibleSpaceItem];
-    v22[1] = flexibleSpaceItem;
-    v18 = v22;
+    v27[1] = flexibleSpaceItem;
+    v24 = v27;
   }
 
-  v18[2] = *p_selectAllBarButtonItem;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+  v24[2] = *p_selectAllBarButtonItem;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
 
   navigationItem = [(PUWallpaperPosterShuffleGridViewController *)self navigationItem];
   [navigationItem setRightBarButtonItem:self->_doneBarButtonItem];
 
-  [(PUWallpaperPosterShuffleGridViewController *)self setToolbarItems:v19 animated:1];
-  [(PUWallpaperPosterShuffleGridViewController *)self setTitle:v14];
+  [(PUWallpaperPosterShuffleGridViewController *)self setToolbarItems:v25 animated:1];
+  [(PUWallpaperPosterShuffleGridViewController *)self setTitle:v20];
 }
 
 - (void)_updateDataSource

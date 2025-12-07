@@ -158,8 +158,8 @@ LABEL_12:
       }
 
 LABEL_18:
-      v33 = +[NSAssertionHandler currentHandler];
-      [v33 handleFailureInMethod:a2 object:self file:@"PhotosURLRedirectRequest.m" lineNumber:128 description:@"Unknown Request Error"];
+      v32 = +[NSAssertionHandler currentHandler];
+      [v32 handleFailureInMethod:a2 object:self file:@"PhotosURLRedirectRequest.m" lineNumber:128 description:@"Unknown Request Error"];
 
       v6 = 0;
       goto LABEL_14;
@@ -207,26 +207,25 @@ LABEL_13:
 
   v23 = PXLocalizedString();
   v24 = PXLocalizedString();
-  invitationToken = self->_invitationToken;
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
-  v26 = PXSharedAlbumURLHandlingParseInvitationToken();
+  v25 = PXSharedAlbumURLHandlingParseInvitationToken();
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
-  if (v26)
+  if (v25)
   {
-    v29 = PXLocalizedString();
+    v28 = PXLocalizedString();
+    v33 = v26;
     v34 = v27;
-    v35 = v28;
-    v30 = PXLocalizedStringWithValidatedFormat();
+    v29 = PXLocalizedStringWithValidatedFormat();
 
-    v24 = v30;
+    v24 = v29;
   }
 
-  v6 = [UIAlertController alertControllerWithTitle:v23 message:v24 preferredStyle:1, v34, v35];
-  v31 = PLLocalizedFrameworkString();
-  v32 = [UIAlertAction actionWithTitle:v31 style:1 handler:0];
-  [v6 addAction:v32];
+  v6 = [UIAlertController alertControllerWithTitle:v23 message:v24 preferredStyle:1, v33, v34];
+  v30 = PLLocalizedFrameworkString();
+  v31 = [UIAlertAction actionWithTitle:v30 style:1 handler:0];
+  [v6 addAction:v31];
 
 LABEL_14:
   v21 = dispatch_time(0, 1000000000);
@@ -234,7 +233,7 @@ LABEL_14:
   block[1] = 3221225472;
   block[2] = sub_10003A2F4;
   block[3] = &unk_10005C140;
-  v37 = v6;
+  v36 = v6;
   v22 = v6;
   dispatch_after(v21, &_dispatch_main_q, block);
 }

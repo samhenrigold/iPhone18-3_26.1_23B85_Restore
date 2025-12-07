@@ -37,20 +37,19 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = v5;
-  channel = self->_channel;
   if (self->_password)
   {
-    v8 = "yes";
+    v7 = "yes";
   }
 
   else
   {
-    v8 = "no";
+    v7 = "no";
   }
 
-  v9 = [v3 stringWithFormat:@"<%@: %p, name: %@, channel: %@, hasPassword: %s>", v5, self, self->_name, self->_channel, v8];
+  v8 = [v3 stringWithFormat:@"<%@: %p, name: %@, channel: %@, hasPassword: %s>", v5, self, self->_name, self->_channel, v7];
 
-  return v9;
+  return v8;
 }
 
 - (SFRemoteHotspotInfo)initWithCoder:(id)coder

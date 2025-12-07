@@ -142,7 +142,7 @@ LABEL_13:
 
 - ($995AEC83619B72959345773A9004CE00)serialize
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   p_serializedMessage = &self->_serializedMessage;
   if (!self->_stringArray)
   {
@@ -187,30 +187,30 @@ LABEL_13:
         [PSSGMessageBase serialize];
       }
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       stringSet1 = [(PSSGMessageBase *)self stringSet1];
-      v8 = [stringSet1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [stringSet1 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v8)
       {
         v9 = v8;
         v10 = 0;
-        v11 = *v27;
+        v11 = *v26;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v27 != v11)
+            if (*v26 != v11)
             {
               objc_enumerationMutation(stringSet1);
             }
 
-            strlcpy(self->_stringArray[v10++], [*(*(&v26 + 1) + 8 * i) UTF8String], 0x100uLL);
+            strlcpy(self->_stringArray[v10++], [*(*(&v25 + 1) + 8 * i) UTF8String], 0x100uLL);
           }
 
-          v9 = [stringSet1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v9 = [stringSet1 countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
         while (v9);
@@ -221,29 +221,29 @@ LABEL_13:
         v10 = 0;
       }
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       stringSet2 = [(PSSGMessageBase *)self stringSet2];
-      v16 = [stringSet2 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [stringSet2 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v23;
+        v18 = *v22;
         do
         {
           for (j = 0; j != v17; ++j)
           {
-            if (*v23 != v18)
+            if (*v22 != v18)
             {
               objc_enumerationMutation(stringSet2);
             }
 
-            strlcpy(self->_stringArray[v10++], [*(*(&v22 + 1) + 8 * j) UTF8String], 0x100uLL);
+            strlcpy(self->_stringArray[v10++], [*(*(&v21 + 1) + 8 * j) UTF8String], 0x100uLL);
           }
 
-          v17 = [stringSet2 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v17 = [stringSet2 countByEnumeratingWithState:&v21 objects:v29 count:16];
         }
 
         while (v17);
@@ -264,7 +264,6 @@ LABEL_13:
     self->_serializedMessage.oolDataLength = dataLength;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return p_serializedMessage;
 }
 

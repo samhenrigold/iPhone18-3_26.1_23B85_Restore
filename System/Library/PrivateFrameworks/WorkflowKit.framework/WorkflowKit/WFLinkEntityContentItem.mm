@@ -50,21 +50,21 @@
 
 - (void)generateStructuredDataRepresentationWithTypeIdentifier:(int64_t)identifier completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69ACE60];
   handlerCopy = handler;
   entityMetadata = [objc_opt_class() entityMetadata];
   v9 = [v6 policyWithEntityMetadata:entityMetadata];
 
-  v17 = 0;
-  v10 = [v9 connectionWithError:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [v9 connectionWithError:&v16];
+  v11 = v16;
   if (v10)
   {
     entity = [(WFLinkEntityContentItem *)self entity];
     identifier = [entity identifier];
-    v18 = identifier;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = identifier;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     [v10 fetchStructuredDataWithTypeIdentifier:identifier forEntityIdentifiers:v14 completionHandler:handlerCopy];
 
     handlerCopy = entity;
@@ -76,21 +76,19 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[WFLinkEntityContentItem generateStructuredDataRepresentationWithTypeIdentifier:completionHandler:]";
-      v21 = 2112;
-      v22 = v11;
+      v19 = "[WFLinkEntityContentItem generateStructuredDataRepresentationWithTypeIdentifier:completionHandler:]";
+      v20 = 2112;
+      v21 = v11;
       _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Unable to create connection for structured data representation fetch: %@", buf, 0x16u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateFileRepresentation:(id)representation options:(id)options forType:(id)type
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   typeCopy = type;
   entityMetadata = [objc_opt_class() entityMetadata];
@@ -148,21 +146,21 @@
   if ((isFinderNodeEntity & 1) != 0 || v18)
   {
     v26 = [MEMORY[0x1E69ACE60] policyWithEntityMetadata:entityMetadata];
-    v45 = 0;
-    v27 = [v26 connectionWithError:&v45];
-    v41 = v45;
+    v44 = 0;
+    v27 = [v26 connectionWithError:&v44];
+    v40 = v44;
     if (v27)
     {
-      v39 = v26;
+      v38 = v26;
       entity = [(WFLinkEntityContentItem *)self entity];
-      v38 = [objc_alloc(MEMORY[0x1E69AC788]) initWithContentType:v23];
-      v29 = [objc_alloc(MEMORY[0x1E69ACF28]) initWithContentType:v38 preferredExtractionType:0];
+      v37 = [objc_alloc(MEMORY[0x1E69AC788]) initWithContentType:v23];
+      v29 = [objc_alloc(MEMORY[0x1E69ACF28]) initWithContentType:v37 preferredExtractionType:0];
       processInfo = [MEMORY[0x1E696AE30] processInfo];
       v31 = processInfo;
-      v40 = v13;
+      v39 = v13;
       if (processInfo)
       {
-        [processInfo if_auditToken];
+        objc_msgSend_if_auditToken(processInfo);
       }
 
       else
@@ -172,36 +170,36 @@
 
       v34 = [v29 configurationWithAuditToken:buf];
 
-      v46 = entity;
-      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___block_invoke_753;
-      v42[3] = &unk_1E837AAA0;
-      v43 = entity;
-      v44 = representationCopy;
+      v45 = entity;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___block_invoke_753;
+      v41[3] = &unk_1E837AAA0;
+      v42 = entity;
+      v43 = representationCopy;
       v36 = entity;
-      [v27 exportEntities:v35 metadata:entityMetadata withConfiguration:v34 completionHandler:v42];
+      [v27 exportEntities:v35 metadata:entityMetadata withConfiguration:v34 completionHandler:v41];
 
-      v26 = v39;
-      v13 = v40;
-      v33 = v41;
+      v26 = v38;
+      v13 = v39;
+      v33 = v40;
     }
 
     else
     {
       v32 = getWFGeneralLogObject();
-      v33 = v41;
+      v33 = v40;
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "[WFLinkEntityContentItem generateFileRepresentation:options:forType:]";
         *&buf[12] = 2112;
-        *&buf[14] = v41;
+        *&buf[14] = v40;
         _os_log_impl(&dword_1CA256000, v32, OS_LOG_TYPE_ERROR, "%s Unable to create connection: %@", buf, 0x16u);
       }
 
-      (*(representationCopy + 2))(representationCopy, 0, v41);
+      (*(representationCopy + 2))(representationCopy, 0, v40);
     }
   }
 
@@ -220,13 +218,11 @@
 
     (*(representationCopy + 2))(representationCopy, 0, 0);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___block_invoke_753(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -246,24 +242,22 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = [*(a1 + 32) identifier];
-      v14 = 136315650;
-      v15 = "[WFLinkEntityContentItem generateFileRepresentation:options:forType:]_block_invoke";
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Unable to fetch coerced value for entity with identifier: %@ - %@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[WFLinkEntityContentItem generateFileRepresentation:options:forType:]_block_invoke";
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Unable to fetch coerced value for entity with identifier: %@ - %@", &v13, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateObjectRepresentation:(id)representation options:(id)options forClass:(Class)class
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   optionsCopy = options;
   entity = [(WFLinkEntityContentItem *)self entity];
@@ -275,19 +269,19 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
 
     if ([exportableTypes count])
     {
-      v71 = entity;
+      v70 = entity;
       v14 = optionsCopy;
       v15 = [MEMORY[0x1E6996ED0] typeWithClass:class];
       entityMetadata2 = [objc_opt_class() entityMetadata];
       transferableContentTypes2 = [entityMetadata2 transferableContentTypes];
       exportableTypes2 = [transferableContentTypes2 exportableTypes];
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke;
-      v84[3] = &unk_1E8373140;
-      v85 = v15;
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke;
+      v83[3] = &unk_1E8373140;
+      v84 = v15;
       v19 = v15;
-      firstObject = [exportableTypes2 if_firstObjectPassingTest:v84];
+      firstObject = [exportableTypes2 if_firstObjectPassingTest:v83];
 
       if (!firstObject)
       {
@@ -308,20 +302,20 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
         _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_DEFAULT, "%s [Finder Entity] Generating a file for file type: %@", buf, 0x16u);
       }
 
-      v79[0] = MEMORY[0x1E69E9820];
-      v79[1] = 3221225472;
-      v79[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_717;
-      v79[3] = &unk_1E8373190;
-      v80 = firstObject;
+      v78[0] = MEMORY[0x1E69E9820];
+      v78[1] = 3221225472;
+      v78[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_717;
+      v78[3] = &unk_1E8373190;
+      v79 = firstObject;
       classCopy = class;
       optionsCopy = v14;
-      v81 = v14;
-      v82 = representationCopy;
+      v80 = v14;
+      v81 = representationCopy;
       v26 = firstObject;
       wf_fileType2 = [v26 wf_fileType];
-      [(WFLinkEntityContentItem *)self generateFileRepresentation:v79 options:v81 forType:wf_fileType2];
+      [(WFLinkEntityContentItem *)self generateFileRepresentation:v78 options:v80 forType:wf_fileType2];
 
-      entity = v71;
+      entity = v70;
     }
 
     else
@@ -357,13 +351,13 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
         entityMetadata5 = [objc_opt_class() entityMetadata];
         v42 = [v40 policyWithEntityMetadata:entityMetadata5];
 
-        v78 = 0;
-        v43 = [v42 connectionWithError:&v78];
-        v44 = v78;
+        v77 = 0;
+        v43 = [v42 connectionWithError:&v77];
+        v44 = v77;
         v45 = v44;
         if (v43)
         {
-          v72 = v44;
+          v71 = v44;
           v46 = entity;
           v47 = optionsCopy;
           v48 = [objc_alloc(MEMORY[0x1E69AC788]) initWithContentType:@"public.url"];
@@ -372,7 +366,7 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
           v51 = processInfo;
           if (processInfo)
           {
-            [processInfo if_auditToken];
+            objc_msgSend_if_auditToken(processInfo);
           }
 
           else
@@ -380,22 +374,22 @@ void __70__WFLinkEntityContentItem_generateFileRepresentation_options_forType___
             memset(buf, 0, 32);
           }
 
-          v65 = [v49 configurationWithAuditToken:{buf, v72}];
+          v65 = [v49 configurationWithAuditToken:{buf, v71}];
 
           v66 = v46;
-          v86 = v46;
-          v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
+          v85 = v46;
+          v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
           entityMetadata6 = [objc_opt_class() entityMetadata];
-          v76[0] = MEMORY[0x1E69E9820];
-          v76[1] = 3221225472;
-          v76[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_730;
-          v76[3] = &unk_1E837B530;
-          v77 = representationCopy;
-          [v43 exportEntities:v67 metadata:entityMetadata6 withConfiguration:v65 completionHandler:v76];
+          v75[0] = MEMORY[0x1E69E9820];
+          v75[1] = 3221225472;
+          v75[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_730;
+          v75[3] = &unk_1E837B530;
+          v76 = representationCopy;
+          [v43 exportEntities:v67 metadata:entityMetadata6 withConfiguration:v65 completionHandler:v75];
 
           optionsCopy = v47;
           entity = v66;
-          v45 = v73;
+          v45 = v72;
         }
 
         else
@@ -498,13 +492,13 @@ LABEL_43:
 
       if (v42)
       {
-        v74[0] = MEMORY[0x1E69E9820];
-        v74[1] = 3221225472;
-        v74[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_2;
-        v74[3] = &unk_1E837E3C0;
-        v75 = representationCopy;
+        v73[0] = MEMORY[0x1E69E9820];
+        v73[1] = 3221225472;
+        v73[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_2;
+        v73[3] = &unk_1E837E3C0;
+        v74 = representationCopy;
         wf_fileType3 = [v42 wf_fileType];
-        [(WFLinkEntityContentItem *)self generateFileRepresentation:v74 options:optionsCopy forType:wf_fileType3];
+        [(WFLinkEntityContentItem *)self generateFileRepresentation:v73 options:optionsCopy forType:wf_fileType3];
       }
 
       else
@@ -519,8 +513,6 @@ LABEL_43:
   }
 
 LABEL_46:
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke(uint64_t a1, void *a2)
@@ -535,7 +527,7 @@ uint64_t __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forC
 
 void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_717(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -545,11 +537,11 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
     {
       v8 = [*(a1 + 32) wf_fileType];
       *buf = 136315650;
-      v20 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
-      v21 = 2112;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v6;
+      v19 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
+      v20 = 2112;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v6;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s [Finder Entity] Unable to generate file for file type: %@, error: %@", buf, 0x20u);
     }
   }
@@ -557,23 +549,21 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
   v9 = [MEMORY[0x1E6996D58] itemWithFile:v5];
   v10 = [MEMORY[0x1E6996ED0] typeWithClass:*(a1 + 56)];
   v11 = *(a1 + 40);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_719;
-  v16[3] = &unk_1E8373168;
-  v17 = v5;
-  v15 = *(a1 + 48);
-  v12 = v15;
-  v18 = v15;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_719;
+  v15[3] = &unk_1E8373168;
+  v16 = v5;
+  v14 = *(a1 + 48);
+  v12 = v14;
+  v17 = v14;
   v13 = v5;
-  [v9 getRepresentationsForType:v10 options:v11 completionHandler:v16];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v9 getRepresentationsForType:v10 options:v11 completionHandler:v15];
 }
 
 void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_730(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -594,9 +584,9 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
       v13 = getWFGeneralLogObject();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = 136315138;
-        v16 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s URLRepresentable entity export did not produce a URL", &v15, 0xCu);
+        v14 = 136315138;
+        v15 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
+        _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s URLRepresentable entity export did not produce a URL", &v14, 0xCu);
       }
 
       v11 = *(*(a1 + 32) + 16);
@@ -610,17 +600,15 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
     v12 = getWFGeneralLogObject();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315394;
-      v16 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Unable to export URLRepresentable entity as URL: %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Unable to export URLRepresentable entity as URL: %@", &v14, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_2(uint64_t a1, void *a2)
@@ -644,7 +632,7 @@ uint64_t __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forC
 
 void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass___block_invoke_719(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -654,15 +642,15 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
     {
       v8 = *(a1 + 32);
       v9 = NSStringFromClass(*(a1 + 48));
-      v14 = 136315906;
-      v15 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s [Finder Entity] Unable to generate representations from file: %@ to target type: %@, error: %@", &v14, 0x2Au);
+      v13 = 136315906;
+      v14 = "[WFLinkEntityContentItem generateObjectRepresentation:options:forClass:]_block_invoke";
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s [Finder Entity] Unable to generate representations from file: %@ to target type: %@, error: %@", &v13, 0x2Au);
     }
   }
 
@@ -670,8 +658,6 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
   v11 = *(a1 + 40);
   v12 = [v10 object];
   (*(v11 + 16))(v11, v12, 0, 0);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getListThumbnail:(id)thumbnail forSize:(CGSize)size
@@ -792,22 +778,21 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
 
 - (id)debugDescription
 {
-  v3 = *MEMORY[0x1E69E1140];
-  v4 = os_variant_allows_internal_security_policies();
-  v5 = MEMORY[0x1E696AEC0];
-  if (v4)
+  v3 = os_variant_allows_internal_security_policies();
+  v4 = MEMORY[0x1E696AEC0];
+  if (v3)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@>", self];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@>", self];
   }
 
   else
   {
     entity = [(WFLinkEntityContentItem *)self entity];
     identifier = [entity identifier];
-    v6 = [v5 stringWithFormat:@"WFLinkEntityContentItem <%@>", identifier];
+    v5 = [v4 stringWithFormat:@"WFLinkEntityContentItem <%@>", identifier];
   }
 
-  return v6;
+  return v5;
 }
 
 - (LNEntity)entity
@@ -919,7 +904,7 @@ void __73__WFLinkEntityContentItem_generateObjectRepresentation_options_forClass
 
 id __56__WFLinkEntityContentItem_appUsageResultCoercionHandler__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([objc_opt_class() isAppUsageResultEntity])
   {
@@ -962,11 +947,11 @@ id __56__WFLinkEntityContentItem_appUsageResultCoercionHandler__block_invoke(uin
       v15 = getWFContentGraphLogObject();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v18 = 136315394;
-        v19 = "+[WFLinkEntityContentItem appUsageResultCoercionHandler]_block_invoke";
-        v20 = 2112;
-        v21 = v13;
-        _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_INFO, "%s %@ is not an app, returning nil!", &v18, 0x16u);
+        v17 = 136315394;
+        v18 = "+[WFLinkEntityContentItem appUsageResultCoercionHandler]_block_invoke";
+        v19 = 2112;
+        v20 = v13;
+        _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_INFO, "%s %@ is not an app, returning nil!", &v17, 0x16u);
       }
 
       v12 = 0;
@@ -978,15 +963,13 @@ id __56__WFLinkEntityContentItem_appUsageResultCoercionHandler__block_invoke(uin
     v6 = getWFContentGraphLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "+[WFLinkEntityContentItem appUsageResultCoercionHandler]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Attempted to coerce a non-Screen Time entity to WFApp", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "+[WFLinkEntityContentItem appUsageResultCoercionHandler]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Attempted to coerce a non-Screen Time entity to WFApp", &v17, 0xCu);
     }
 
     v12 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1035,7 +1018,7 @@ id __50__WFLinkEntityContentItem_workflowCoercionHandler__block_invoke(uint64_t 
 
 id __53__WFLinkEntityContentItem_photosAssetCoercionHandler__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   if ([objc_opt_class() isPhotosAssetEntity])
@@ -1045,9 +1028,9 @@ id __53__WFLinkEntityContentItem_photosAssetCoercionHandler__block_invoke(uint64
     v8 = [v7 instanceIdentifier];
 
     v9 = [MEMORY[0x1E6996F50] sharedLibrary];
-    v21 = 0;
-    v10 = [v9 fetchOptionsWithError:&v21];
-    v11 = v21;
+    v20 = 0;
+    v10 = [v9 fetchOptionsWithError:&v20];
+    v11 = v20;
 
     if (!v10)
     {
@@ -1059,33 +1042,33 @@ id __53__WFLinkEntityContentItem_photosAssetCoercionHandler__block_invoke(uint64
         *&buf[12] = 2048;
         *&buf[14] = 0;
         *&buf[22] = 2112;
-        v28 = v11;
+        v27 = v11;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Unable to get fetch options for library: %li, error: %@", buf, 0x20u);
       }
     }
 
     [v10 setWantsIncrementalChangeDetails:0];
     [v10 setIncludeGuestAssets:1];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v13 = getPHAssetClass_softClass;
-    v25 = getPHAssetClass_softClass;
+    v24 = getPHAssetClass_softClass;
     if (!getPHAssetClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getPHAssetClass_block_invoke;
-      v28 = &unk_1E837FAC0;
-      v29 = &v22;
+      v27 = &unk_1E837FAC0;
+      v28 = &v21;
       __getPHAssetClass_block_invoke(buf);
-      v13 = v23[3];
+      v13 = v22[3];
     }
 
     v14 = v13;
-    _Block_object_dispose(&v22, 8);
-    v26 = v8;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    _Block_object_dispose(&v21, 8);
+    v25 = v8;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
     v16 = [v13 fetchAssetsWithLocalIdentifiers:v15 options:v10];
 
     if ([v16 count])
@@ -1103,7 +1086,7 @@ id __53__WFLinkEntityContentItem_photosAssetCoercionHandler__block_invoke(uint64
         *&buf[12] = 2114;
         *&buf[14] = v8;
         *&buf[22] = 2048;
-        v28 = 0;
+        v27 = 0;
         _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_DEFAULT, "%s No PHAsset found for asset identifier: %{public}@, library: %li", buf, 0x20u);
       }
 
@@ -1116,14 +1099,12 @@ id __53__WFLinkEntityContentItem_photosAssetCoercionHandler__block_invoke(uint64
     v17 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 id __50__WFLinkEntityContentItem_reminderCoercionHandler__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   if ([objc_opt_class() isReminderEntity])
@@ -1136,28 +1117,28 @@ id __50__WFLinkEntityContentItem_reminderCoercionHandler__block_invoke(uint64_t 
     if (v9)
     {
       v10 = WFGetWorkflowReminderStore();
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2050000000;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2050000000;
       v11 = getREMObjectIDClass_softClass;
-      v23 = getREMObjectIDClass_softClass;
+      v22 = getREMObjectIDClass_softClass;
       if (!getREMObjectIDClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getREMObjectIDClass_block_invoke;
-        v25 = &unk_1E837FAC0;
-        v26 = &v20;
+        v24 = &unk_1E837FAC0;
+        v25 = &v19;
         __getREMObjectIDClass_block_invoke(buf);
-        v11 = v21[3];
+        v11 = v20[3];
       }
 
       v12 = v11;
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v19, 8);
       v13 = [v11 objectIDWithURL:v9];
-      v19 = 0;
-      v14 = [v10 fetchReminderWithObjectID:v13 error:&v19];
-      v15 = v19;
+      v18 = 0;
+      v14 = [v10 fetchReminderWithObjectID:v13 error:&v18];
+      v15 = v18;
       if (!v14)
       {
         v16 = getWFContentGraphLogObject();
@@ -1168,7 +1149,7 @@ id __50__WFLinkEntityContentItem_reminderCoercionHandler__block_invoke(uint64_t 
           *&buf[12] = 2112;
           *&buf[14] = v13;
           *&buf[22] = 2112;
-          v25 = v15;
+          v24 = v15;
           _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Failed to load reminder %@ (store returned nil): %@", buf, 0x20u);
         }
       }
@@ -1194,8 +1175,6 @@ id __50__WFLinkEntityContentItem_reminderCoercionHandler__block_invoke(uint64_t 
   {
     v14 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1223,7 +1202,7 @@ id __55__WFLinkEntityContentItem_calendarEventCoercionHandler__block_invoke(uint
 
 id __53__WFLinkEntityContentItem_mailMessageCoercionHandler__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   if (![objc_opt_class() isMailMessageEntity])
@@ -1236,16 +1215,16 @@ id __53__WFLinkEntityContentItem_mailMessageCoercionHandler__block_invoke(uint64
   v7 = [v6 identifier];
   v8 = [v7 instanceIdentifier];
 
-  v73 = v8;
+  v72 = v8;
   if (![(__CFString *)v8 hasPrefix:@"1%"])
   {
     v9 = getWFContentGraphLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v92 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
-      v93 = 2112;
-      v94 = v8;
+      v91 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
+      v92 = 2112;
+      v93 = v8;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Failed to parse instance identifier %@ (unrecognized version)", buf, 0x16u);
     }
 
@@ -1259,11 +1238,11 @@ id __53__WFLinkEntityContentItem_mailMessageCoercionHandler__block_invoke(uint64
     if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v92 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
-      v93 = 2112;
-      v94 = v73;
-      v95 = 2048;
-      v96 = [v9 count];
+      v91 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
+      v92 = 2112;
+      v93 = v72;
+      v94 = 2048;
+      v95 = [v9 count];
       _os_log_impl(&dword_1CA256000, v61, OS_LOG_TYPE_ERROR, "%s Failed to parse instance identifier %@ (expected 5 delimited items, got %tu)", buf, 0x20u);
     }
 
@@ -1272,43 +1251,43 @@ LABEL_50:
     goto LABEL_69;
   }
 
-  v71 = v5;
-  v72 = v4;
+  v70 = v5;
+  v71 = v4;
   v10 = [v9 objectAtIndexedSubscript:3];
 
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
   v88 = 0u;
-  v70 = v6;
+  v89 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v69 = v6;
   obj = [v6 properties];
-  v82 = [obj countByEnumeratingWithState:&v87 objects:v102 count:16];
-  if (!v82)
+  v81 = [obj countByEnumeratingWithState:&v86 objects:v101 count:16];
+  if (!v81)
   {
-    v77 = 0;
+    v76 = 0;
     v11 = 0;
     v12 = 0;
-    v79 = 0;
+    v78 = 0;
     goto LABEL_52;
   }
 
-  v77 = 0;
+  v76 = 0;
   v11 = 0;
   v12 = 0;
-  v79 = 0;
-  v81 = *v88;
-  v74 = v10;
+  v78 = 0;
+  v80 = *v87;
+  v73 = v10;
   do
   {
     v13 = 0;
     do
     {
-      if (*v88 != v81)
+      if (*v87 != v80)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v87 + 1) + 8 * v13);
+      v14 = *(*(&v86 + 1) + 8 * v13);
       v15 = [v14 identifier];
       if ([@"account" isEqual:v15])
       {
@@ -1335,7 +1314,7 @@ LABEL_50:
           v26 = [v25 identifier];
           v27 = [v26 instanceIdentifier];
 
-          v79 = v27;
+          v78 = v27;
           goto LABEL_16;
         }
 
@@ -1402,7 +1381,7 @@ LABEL_18:
         }
 
         v19 = v10;
-        v78 = v15;
+        v77 = v15;
         v40 = [v14 value];
         v41 = [v40 valueType];
         v42 = [v41 objectClass];
@@ -1411,30 +1390,30 @@ LABEL_18:
         if (v42 == v43)
         {
           v44 = objc_opt_new();
+          v82 = 0u;
           v83 = 0u;
           v84 = 0u;
           v85 = 0u;
-          v86 = 0u;
           v45 = [v14 value];
           v25 = [v45 value];
 
-          v46 = [v25 countByEnumeratingWithState:&v83 objects:v101 count:16];
+          v46 = [v25 countByEnumeratingWithState:&v82 objects:v100 count:16];
           if (v46)
           {
             v47 = v46;
-            v75 = v11;
-            v76 = v12;
-            v48 = *v84;
+            v74 = v11;
+            v75 = v12;
+            v48 = *v83;
             do
             {
               for (i = 0; i != v47; ++i)
               {
-                if (*v84 != v48)
+                if (*v83 != v48)
                 {
                   objc_enumerationMutation(v25);
                 }
 
-                v50 = *(*(&v83 + 1) + 8 * i);
+                v50 = *(*(&v82 + 1) + 8 * i);
                 v51 = [v50 valueType];
                 v52 = [v51 objectClass];
                 v53 = objc_opt_class();
@@ -1454,25 +1433,25 @@ LABEL_18:
                 }
               }
 
-              v47 = [v25 countByEnumeratingWithState:&v83 objects:v101 count:16];
+              v47 = [v25 countByEnumeratingWithState:&v82 objects:v100 count:16];
             }
 
             while (v47);
-            v12 = v76;
-            v24 = v77;
-            v77 = v44;
-            v10 = v74;
-            v11 = v75;
+            v12 = v75;
+            v24 = v76;
+            v76 = v44;
+            v10 = v73;
+            v11 = v74;
           }
 
           else
           {
             v10 = v19;
-            v24 = v77;
-            v77 = v44;
+            v24 = v76;
+            v76 = v44;
           }
 
-          v15 = v78;
+          v15 = v77;
           goto LABEL_17;
         }
       }
@@ -1484,34 +1463,34 @@ LABEL_26:
       ++v13;
     }
 
-    while (v13 != v82);
-    v59 = [obj countByEnumeratingWithState:&v87 objects:v102 count:16];
-    v82 = v59;
+    while (v13 != v81);
+    v59 = [obj countByEnumeratingWithState:&v86 objects:v101 count:16];
+    v81 = v59;
   }
 
   while (v59);
 LABEL_52:
 
-  if (v79 && v12 && v11 && v77)
+  if (v78 && v12 && v11 && v76)
   {
-    v60 = [objc_alloc(MEMORY[0x1E6996DF8]) initWithGlobalMessageID:-[NSObject longLongValue](v10 accountIdentifier:"longLongValue") subject:v79 sender:v12 recipients:{v11, v77}];
+    v60 = [objc_alloc(MEMORY[0x1E6996DF8]) initWithGlobalMessageID:-[NSObject longLongValue](v10 accountIdentifier:"longLongValue") subject:v78 sender:v12 recipients:{v11, v76}];
     v62 = v11;
-    v5 = v71;
-    v4 = v72;
+    v5 = v70;
+    v4 = v71;
   }
 
   else
   {
     v62 = v11;
     v63 = getWFContentGraphLogObject();
-    v5 = v71;
-    v4 = v72;
+    v5 = v70;
+    v4 = v71;
     if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
     {
       v64 = &stru_1F4A1C408;
       v65 = @" accountIdentifier";
       v66 = @" subject";
-      if (v79)
+      if (v78)
       {
         v65 = &stru_1F4A1C408;
       }
@@ -1522,39 +1501,38 @@ LABEL_52:
       }
 
       *buf = 136316162;
-      v92 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
+      v91 = "+[WFLinkEntityContentItem mailMessageCoercionHandler]_block_invoke";
       v67 = @" sender";
       if (v62)
       {
         v67 = &stru_1F4A1C408;
       }
 
-      v93 = 2112;
-      v94 = v65;
-      v95 = 2112;
-      v96 = v66;
-      v97 = 2112;
-      v98 = v67;
-      if (!v77)
+      v92 = 2112;
+      v93 = v65;
+      v94 = 2112;
+      v95 = v66;
+      v96 = 2112;
+      v97 = v67;
+      if (!v76)
       {
         v64 = @" recipients";
       }
 
-      v99 = 2112;
-      v100 = v64;
+      v98 = 2112;
+      v99 = v64;
       _os_log_impl(&dword_1CA256000, v63, OS_LOG_TYPE_ERROR, "%s Failed to populate WFEmail (nil fields:%@%@%@%@)", buf, 0x34u);
     }
 
     v60 = 0;
   }
 
-  v6 = v70;
+  v6 = v69;
 
   v9 = v10;
 LABEL_69:
 
 LABEL_70:
-  v68 = *MEMORY[0x1E69E9840];
 
   return v60;
 }
@@ -1633,9 +1611,9 @@ LABEL_70:
 + (BOOL)isRecordingEntity
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  v4 = [appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0F98]];
+  isEqualToString = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     entityMetadata = [self entityMetadata];
     identifier = [entityMetadata identifier];
@@ -1645,78 +1623,78 @@ LABEL_70:
     v10 = v9;
     if (v8 == v9)
     {
-      LOBYTE(v4) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v4) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (v8 && v9)
       {
-        LOBYTE(v4) = [v8 isEqualToString:v9];
+        LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v8);
       }
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (BOOL)isAppUsageResultEntity
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  v4 = [appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0E98]];
+  isEqualToString = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     entityMetadata = [self entityMetadata];
     identifier = [entityMetadata identifier];
     v7 = identifier;
     if (identifier == @"AppUsageResultAppEntity")
     {
-      LOBYTE(v4) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else if (identifier)
     {
-      LOBYTE(v4) = [(__CFString *)identifier isEqualToString:@"AppUsageResultAppEntity"];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      LOBYTE(v4) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (BOOL)isContactEntity
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  v4 = [appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0E58]];
+  isEqualToString = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     entityMetadata = [self entityMetadata];
     identifier = [entityMetadata identifier];
     v7 = identifier;
     if (identifier == @"ContactEntity")
     {
-      LOBYTE(v4) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else if (identifier)
     {
-      LOBYTE(v4) = [(__CFString *)identifier isEqualToString:@"ContactEntity"];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      LOBYTE(v4) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (BOOL)isWorkflowEntity
@@ -1742,7 +1720,7 @@ LABEL_70:
       LOBYTE(v4) = 0;
       if (v8 && v9)
       {
-        LOBYTE(v4) = [v8 isEqualToString:v9];
+        LOBYTE(v4) = objc_msgSend_isEqualToString_(v8);
       }
     }
   }
@@ -1753,30 +1731,30 @@ LABEL_70:
 + (BOOL)isPhotosAssetEntity
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  v4 = [appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0EF0]];
+  isEqualToString = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     entityMetadata = [self entityMetadata];
     identifier = [entityMetadata identifier];
     v7 = identifier;
     if (identifier == @"AssetEntity")
     {
-      LOBYTE(v4) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else if (identifier)
     {
-      LOBYTE(v4) = [(__CFString *)identifier isEqualToString:@"AssetEntity"];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      LOBYTE(v4) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 + (BOOL)isReminderEntity
@@ -1851,7 +1829,7 @@ LABEL_70:
 
 + (id)localizedCountDescriptionWithValue:(int64_t)value
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   entityMetadata = [self entityMetadata];
   displayRepresentation = [entityMetadata displayRepresentation];
   numericFormat = [displayRepresentation numericFormat];
@@ -1859,8 +1837,8 @@ LABEL_70:
   if (numericFormat)
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:value];
-    v17[0] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     v10 = [numericFormat localizedStringWithReplacements:v9 forLocaleIdentifier:0];
   }
 
@@ -1872,8 +1850,6 @@ LABEL_70:
     localizedLowercaseString = [localizedPluralTypeDescription localizedLowercaseString];
     v10 = [v11 stringWithFormat:@"%@ %@", v12, localizedLowercaseString];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1957,7 +1933,7 @@ LABEL_7:
   {
     propertyIdentifier = [metadataCopy propertyIdentifier];
     v15 = propertyIdentifier;
-    if (propertyIdentifier == @"creationDate" || propertyIdentifier && (v16 = -[__CFString isEqualToString:](propertyIdentifier, "isEqualToString:", @"creationDate"), v15, (v16 & 1) != 0) || ([metadataCopy propertyIdentifier], v17 = objc_claimAutoreleasedReturnValue(), v17 == @"modificationDate"))
+    if (propertyIdentifier == @"creationDate" || propertyIdentifier && (v16 = objc_msgSend_isEqualToString_(propertyIdentifier), v15, (v16 & 1) != 0) || ([metadataCopy propertyIdentifier], v17 = objc_claimAutoreleasedReturnValue(), v17 == @"modificationDate"))
     {
     }
 
@@ -1971,9 +1947,9 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v19 = [(__CFString *)v17 isEqualToString:@"modificationDate"];
+      isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-      if ((v19 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_16;
       }
@@ -2008,7 +1984,7 @@ uint64_t __94__WFLinkEntityContentItem_allowedOperatorsWithQueryParameterMetadat
 
 id __40__WFLinkEntityContentItem_allProperties__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 userInfo];
   if (v3)
@@ -2075,18 +2051,16 @@ id __40__WFLinkEntityContentItem_allProperties__block_invoke(uint64_t a1, void *
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v13 = [v2 name];
-      v16 = 136315394;
-      v17 = "+[WFLinkEntityContentItem allProperties]_block_invoke";
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEBUG, "%s Ignoring entity property '%@' because it doesn't have a title.", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "+[WFLinkEntityContentItem allProperties]_block_invoke";
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEBUG, "%s Ignoring entity property '%@' because it doesn't have a title.", &v15, 0x16u);
     }
   }
 
   v11 = 0;
 LABEL_21:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2115,7 +2089,7 @@ LABEL_21:
 
 id __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke(id *a1, void *a2)
 {
-  v182[1] = *MEMORY[0x1E69E9840];
+  v176[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 valueType];
   v5 = [v4 wf_unionValueType];
@@ -2131,75 +2105,73 @@ id __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_
 
   else
   {
-    v182[0] = v7;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v182 count:1];
+    v176[0] = v7;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v176 count:1];
   }
 
-  v154 = v3;
+  v148 = v3;
   [v3 identifier];
-  v153 = v157 = a1;
+  v147 = v151 = a1;
   [a1[4] setObject:? forKey:?];
   v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v10, "count")}];
-  v171 = 0u;
-  v172 = 0u;
-  v173 = 0u;
-  v174 = 0u;
+  v165 = 0u;
+  v166 = 0u;
+  v167 = 0u;
+  v168 = 0u;
   v12 = v10;
-  v155 = v11;
+  v149 = v11;
   obj = v12;
-  v160 = [v12 countByEnumeratingWithState:&v171 objects:v181 count:16];
-  if (!v160)
+  v154 = [v12 countByEnumeratingWithState:&v165 objects:v175 count:16];
+  if (!v154)
   {
     goto LABEL_30;
   }
 
   v13 = 0x1E69E0000uLL;
-  v158 = *v172;
+  v152 = *v166;
   while (2)
   {
     v14 = 0;
     do
     {
-      if (*v172 != v158)
+      if (*v166 != v152)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v171 + 1) + 8 * v14);
+      v15 = *(*(&v165 + 1) + 8 * v14);
       v16 = [v15 wf_objectClass];
       if (v16 == objc_opt_class())
       {
         v24 = [v15 wf_entityValueType];
         v25 = [*(v13 + 2416) sharedProvider];
         v26 = [v24 identifier];
-        v27 = v157[7];
-        v28 = [objc_opt_class() appBundleIdentifier];
-        v29 = [v25 entityWithIdentifier:v26 fromBundleIdentifier:v28];
+        v27 = [objc_opt_class() appBundleIdentifier];
+        v28 = [v25 entityWithIdentifier:v26 fromBundleIdentifier:v27];
 
-        v30 = [v157[7] queryMetadata];
-        v31 = [v157[7] appBundleIdentifier];
-        v32 = [v157[7] displayedAppBundleIdentifier];
-        v16 = [v29 wf_contentItemClassWithQueryMetadata:v30 appBundleIdentifier:v31 displayedAppBundleIdentifier:v32];
+        v29 = [v151[7] queryMetadata];
+        v30 = [v151[7] appBundleIdentifier];
+        v31 = [v151[7] displayedAppBundleIdentifier];
+        v16 = [v28 wf_contentItemClassWithQueryMetadata:v29 appBundleIdentifier:v30 displayedAppBundleIdentifier:v31];
 
-        v11 = v155;
+        v11 = v149;
         goto LABEL_24;
       }
 
       if (v16 == objc_opt_class())
       {
         v24 = [v15 wf_enumValueType];
-        v36 = [*(v13 + 2416) sharedProvider];
-        v37 = [v24 enumerationIdentifier];
-        v38 = v157[7];
-        v39 = [objc_opt_class() appBundleIdentifier];
-        v29 = [v36 enumerationWithIdentifier:v37 fromBundleIdentifier:v39];
+        v35 = [*(v13 + 2416) sharedProvider];
+        v36 = [v24 enumerationIdentifier];
+        v37 = [objc_opt_class() appBundleIdentifier];
+        v28 = [v35 enumerationWithIdentifier:v36 fromBundleIdentifier:v37];
 
-        v40 = [v157[7] appBundleIdentifier];
-        v16 = [v29 wf_contentItemClassWithAppBundleIdentifier:v40];
+        v38 = [v151[7] appBundleIdentifier];
+        v16 = [v28 wf_contentItemClassWithAppBundleIdentifier:v38];
 
-        v41 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v29 requiringSecureCoding:1 error:0];
+        v39 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v28 requiringSecureCoding:1 error:0];
         v13 = 0x1E69E0000;
-        [v157[4] setObject:v41 forKey:@"WFLinkEntityContentPropertyUserInfoEnumMetadata"];
+        [v151[4] setObject:v39 forKey:@"WFLinkEntityContentPropertyUserInfoEnumMetadata"];
 
 LABEL_24:
         if (!v16)
@@ -2227,36 +2199,36 @@ LABEL_24:
 
         v22 = v21;
 
-        v23 = [v157[7] appBundleIdentifier];
+        v23 = [v151[7] appBundleIdentifier];
         v16 = [v22 wf_contentItemClassWithAppBundleIdentifier:v23];
 
         if (!v16)
         {
 LABEL_33:
-          v47 = getWFAppIntentsLogObject();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+          v45 = getWFAppIntentsLogObject();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
           {
-            v43 = v154;
-            v48 = [v154 identifier];
+            v41 = v148;
+            v46 = [v148 identifier];
             *buf = 136315650;
-            v176 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
-            v177 = 2112;
-            v178 = v48;
-            v179 = 2112;
-            v180 = v15;
-            _os_log_impl(&dword_1CA256000, v47, OS_LOG_TYPE_FAULT, "%s Unable to get object class for entity with property metadata: %@, valueType: %@", buf, 0x20u);
+            v170 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
+            v171 = 2112;
+            v172 = v46;
+            v173 = 2112;
+            v174 = v15;
+            _os_log_impl(&dword_1CA256000, v45, OS_LOG_TYPE_FAULT, "%s Unable to get object class for entity with property metadata: %@, valueType: %@", buf, 0x20u);
 
-            v49 = 0;
-            v50 = obj;
-            v51 = obj;
+            v47 = 0;
+            v48 = obj;
+            v49 = obj;
           }
 
           else
           {
-            v49 = 0;
-            v50 = obj;
-            v51 = obj;
-            v43 = v154;
+            v47 = 0;
+            v48 = obj;
+            v49 = obj;
+            v41 = v148;
           }
 
           goto LABEL_85;
@@ -2274,39 +2246,39 @@ LABEL_33:
 
       else
       {
-        v33 = [MEMORY[0x1E6996D68] sharedRegistry];
-        v34 = [MEMORY[0x1E6996ED0] typeWithClass:v16];
-        v35 = [v33 contentItemClassForType:v34];
+        v32 = [MEMORY[0x1E6996D68] sharedRegistry];
+        v33 = [MEMORY[0x1E6996ED0] typeWithClass:v16];
+        v34 = [v32 contentItemClassForType:v33];
 
-        if (!v35)
+        if (!v34)
         {
-          v72 = getWFAppIntentsLogObject();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+          v69 = getWFAppIntentsLogObject();
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
-            v43 = v154;
-            v73 = [v154 identifier];
+            v41 = v148;
+            v70 = [v148 identifier];
             *buf = 136315650;
-            v176 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
-            v177 = 2112;
-            v178 = v73;
-            v179 = 2112;
-            v180 = v16;
-            _os_log_impl(&dword_1CA256000, v72, OS_LOG_TYPE_ERROR, "%s Not making content property (%@) because objectClass (%@) does not have a content item", buf, 0x20u);
+            v170 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
+            v171 = 2112;
+            v172 = v70;
+            v173 = 2112;
+            v174 = v16;
+            _os_log_impl(&dword_1CA256000, v69, OS_LOG_TYPE_ERROR, "%s Not making content property (%@) because objectClass (%@) does not have a content item", buf, 0x20u);
 
-            v49 = 0;
-            v50 = obj;
-            v51 = obj;
+            v47 = 0;
+            v48 = obj;
+            v49 = obj;
           }
 
           else
           {
-            v49 = 0;
-            v50 = obj;
-            v51 = obj;
-            v43 = v154;
+            v47 = 0;
+            v48 = obj;
+            v49 = obj;
+            v41 = v148;
           }
 
-          v47 = v72;
+          v45 = v69;
           goto LABEL_85;
         }
 
@@ -2321,11 +2293,11 @@ LABEL_25:
       ++v14;
     }
 
-    while (v160 != v14);
+    while (v154 != v14);
     v12 = obj;
-    v42 = [obj countByEnumeratingWithState:&v171 objects:v181 count:16];
-    v160 = v42;
-    if (v42)
+    v40 = [obj countByEnumeratingWithState:&v165 objects:v175 count:16];
+    v154 = v40;
+    if (v40)
     {
       continue;
     }
@@ -2335,79 +2307,78 @@ LABEL_25:
 
 LABEL_30:
 
-  v43 = v154;
-  v44 = [v154 valueType];
+  v41 = v148;
+  v42 = [v148 valueType];
   objc_opt_class();
-  v45 = objc_opt_isKindOfClass();
+  v43 = objc_opt_isKindOfClass();
 
-  v46 = [v154 valueType];
-  v147 = v45;
-  if (v46 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v44 = [v148 valueType];
+  v141 = v43;
+  if (v44 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v151 = v46;
-    v47 = [MEMORY[0x1E69E0BE8] unitTypeFromLinkMeasurementUnitType:{objc_msgSend(v46, "unitType")}];
+    v145 = v44;
+    v45 = [MEMORY[0x1E69E0BE8] unitTypeFromLinkMeasurementUnitType:{objc_msgSend(v44, "unitType")}];
   }
 
   else
   {
 
-    v47 = 0;
-    v151 = 0;
+    v45 = 0;
+    v145 = 0;
   }
 
-  v52 = [v157[5] parameters];
-  v53 = [v154 identifier];
-  v159 = [v52 if_firstObjectWithValue:v53 forKey:@"propertyIdentifier"];
+  v50 = [v151[5] parameters];
+  v51 = [v148 identifier];
+  v153 = [v50 if_firstObjectWithValue:v51 forKey:@"propertyIdentifier"];
 
-  v54 = [v157[5] sortingOptions];
-  v55 = [v154 identifier];
-  v161 = [v54 if_firstObjectWithValue:v55 forKey:@"propertyIdentifier"];
+  v52 = [v151[5] sortingOptions];
+  v53 = [v148 identifier];
+  v155 = [v52 if_firstObjectWithValue:v53 forKey:@"propertyIdentifier"];
 
-  v56 = [v157[6] systemProtocolMetadata];
-  v57 = [v56 objectForKeyedSubscript:*MEMORY[0x1E69AC278]];
+  v54 = [v151[6] systemProtocolMetadata];
+  v55 = [v54 objectForKeyedSubscript:*MEMORY[0x1E69AC278]];
 
-  v58 = v157[7];
-  v59 = [objc_opt_class() appBundleIdentifier];
-  v60 = [v157[6] identifier];
-  v61 = WFShortcutsActionIdentifierFromLinkIdentifiers(v59, v60);
+  v56 = [objc_opt_class() appBundleIdentifier];
+  v57 = [v151[6] identifier];
+  v58 = WFShortcutsActionIdentifierFromLinkIdentifiers(v56, v57);
 
-  v62 = WFIndexingKeyForForcedLinkEntityFindAction();
-  v150 = v61;
-  v63 = [v62 objectForKey:v61];
-  v64 = [v154 identifier];
-  v65 = [v63 objectForKey:v64];
-  v66 = v65;
-  if (v65)
+  v59 = WFIndexingKeyForForcedLinkEntityFindAction();
+  v144 = v58;
+  v60 = [v59 objectForKey:v58];
+  v61 = [v148 identifier];
+  v62 = [v60 objectForKey:v61];
+  v63 = v62;
+  if (v62)
   {
-    v67 = v65;
+    v64 = v62;
   }
 
   else
   {
-    v68 = v47;
-    v69 = [v154 spotlightAttributeKey];
-    v70 = v69;
-    if (v69)
+    v65 = v45;
+    v66 = [v148 spotlightAttributeKey];
+    v67 = v66;
+    if (v66)
     {
-      v71 = v69;
+      v68 = v66;
     }
 
     else
     {
-      v71 = [v154 spotlightCustomAttributeKey];
+      v68 = [v148 spotlightCustomAttributeKey];
     }
 
-    v67 = v71;
+    v64 = v68;
 
-    v47 = v68;
+    v45 = v65;
   }
 
-  if (!v57)
+  if (!v55)
   {
-    v77 = 0;
-    v74 = v157;
-    v75 = v159;
-    if (!v159)
+    v74 = 0;
+    v71 = v151;
+    v72 = v153;
+    if (!v153)
     {
       goto LABEL_55;
     }
@@ -2415,12 +2386,12 @@ LABEL_30:
     goto LABEL_53;
   }
 
-  v74 = v157;
-  v75 = v159;
-  if (![v67 length])
+  v71 = v151;
+  v72 = v153;
+  if (![v64 length])
   {
-    v77 = 0;
-    if (!v159)
+    v74 = 0;
+    if (!v153)
     {
       goto LABEL_55;
     }
@@ -2428,239 +2399,235 @@ LABEL_30:
     goto LABEL_53;
   }
 
-  if ([v67 length] && ((objc_msgSend(v67, "isEqualToString:", @"textContent") & 1) != 0 || objc_msgSend(v67, "isEqualToString:", @"kMDItemTextContent")))
+  if ([v64 length] && ((objc_msgSend_isEqualToString_(v64) & 1) != 0 || objc_msgSend_isEqualToString_(v64)))
   {
-    v76 = v157[4];
-    v77 = 1;
-    v78 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v76 setObject:v78 forKey:@"WFLinkEntityContentPropertyUserInfoTextContentSpotlightAttributeKey"];
+    v73 = v151[4];
+    v74 = 1;
+    v75 = [MEMORY[0x1E696AD98] numberWithBool:1];
+    [v73 setObject:v75 forKey:@"WFLinkEntityContentPropertyUserInfoTextContentSpotlightAttributeKey"];
 
-    if (!v159)
+    if (!v153)
     {
       goto LABEL_55;
     }
 
 LABEL_53:
-    v79 = 1;
+    v76 = 1;
   }
 
   else
   {
-    v77 = 1;
-    if (v159)
+    v74 = 1;
+    if (v153)
     {
       goto LABEL_53;
     }
 
 LABEL_55:
-    v79 = v77 | [v74[7] hasInMemoryFindAction];
+    v76 = v74 | [v71[7] hasInMemoryFindAction];
   }
 
-  if (v161)
+  if (v155)
   {
-    v80 = 1;
-  }
-
-  else
-  {
-    v80 = v77 | [v74[7] hasInMemoryFindAction];
-  }
-
-  if ([v74[7] isNotes])
-  {
-    v81 = [v154 title];
-    v82 = [v81 key];
+    v77 = 1;
   }
 
   else
   {
-    v82 = [v154 identifier];
+    v77 = v74 | [v71[7] hasInMemoryFindAction];
   }
 
-  v152 = v82;
-  if (!v82)
+  if ([v71[7] isNotes])
   {
-    v87 = getWFAppIntentsLogObject();
-    if (os_log_type_enabled(v87, OS_LOG_TYPE_FAULT))
+    v78 = [v148 title];
+    v79 = [v78 key];
+  }
+
+  else
+  {
+    v79 = [v148 identifier];
+  }
+
+  v146 = v79;
+  if (!v79)
+  {
+    v84 = getWFAppIntentsLogObject();
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
     {
-      v88 = [v154 identifier];
-      v89 = [v154 valueType];
+      v85 = [v148 identifier];
+      v86 = [v148 valueType];
       *buf = 136315650;
-      v176 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
-      v177 = 2112;
-      v178 = v88;
-      v179 = 2112;
-      v180 = v89;
-      _os_log_impl(&dword_1CA256000, v87, OS_LOG_TYPE_FAULT, "%s Unable to get property name for entity with property metadata: %@, valueType: %@", buf, 0x20u);
+      v170 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke";
+      v171 = 2112;
+      v172 = v85;
+      v173 = 2112;
+      v174 = v86;
+      _os_log_impl(&dword_1CA256000, v84, OS_LOG_TYPE_FAULT, "%s Unable to get property name for entity with property metadata: %@, valueType: %@", buf, 0x20u);
     }
 
-    v49 = 0;
-    v90 = v150;
-    v51 = v151;
+    v47 = 0;
+    v87 = v144;
+    v49 = v145;
     goto LABEL_84;
   }
 
-  v144 = v80;
-  v145 = v79;
-  v83 = [v154 title];
-  v84 = [v83 wf_localizedString];
+  v138 = v77;
+  v139 = v76;
+  v80 = [v148 title];
+  v81 = [v80 wf_localizedString];
 
-  v85 = [v154 valueType];
+  v82 = [v148 valueType];
   objc_opt_class();
-  v146 = v67;
+  v140 = v64;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v149 = v84;
+    v143 = v81;
 LABEL_73:
 
     goto LABEL_74;
   }
 
-  v86 = [v84 length];
+  v83 = [v81 length];
 
-  if (!v86)
+  if (!v83)
   {
-    v91 = [v154 valueType];
-    v85 = [v91 wf_enumValueType];
+    v88 = [v148 valueType];
+    v82 = [v88 wf_enumValueType];
 
-    v92 = [v85 enumerationIdentifier];
-    v93 = [MEMORY[0x1E69E0970] sharedProvider];
-    v94 = v157[7];
-    v95 = [objc_opt_class() appBundleIdentifier];
-    v96 = [v93 enumerationWithIdentifier:v92 fromBundleIdentifier:v95];
+    v89 = [v82 enumerationIdentifier];
+    v90 = [MEMORY[0x1E69E0970] sharedProvider];
+    v91 = [objc_opt_class() appBundleIdentifier];
+    v92 = [v90 enumerationWithIdentifier:v89 fromBundleIdentifier:v91];
 
-    v97 = [v96 displayRepresentation];
-    v98 = [v97 name];
-    [v98 wf_localizedString];
-    v100 = v99 = v47;
+    v93 = [v92 displayRepresentation];
+    v94 = [v93 name];
+    [v94 wf_localizedString];
+    v96 = v95 = v45;
 
-    v75 = v159;
-    v74 = v157;
-    v149 = v100;
-    v47 = v99;
-    v82 = v152;
+    v72 = v153;
+    v71 = v151;
+    v143 = v96;
+    v45 = v95;
+    v79 = v146;
     goto LABEL_73;
   }
 
-  v149 = v84;
+  v143 = v81;
 LABEL_74:
-  v101 = MEMORY[0x1E696AEC0];
-  v102 = WFLocalizedString(@"Not %@");
-  v103 = [v101 stringWithFormat:v102, v149];
+  v97 = MEMORY[0x1E696AEC0];
+  v98 = WFLocalizedString(@"Not %@");
+  v99 = [v97 stringWithFormat:v98, v143];
 
-  v104 = MEMORY[0x1E6996D90];
-  v168[0] = MEMORY[0x1E69E9820];
-  v168[1] = 3221225472;
-  v168[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_510;
-  v168[3] = &unk_1E8372F90;
-  v105 = v154;
-  v106 = v74[7];
-  v169 = v105;
-  v170 = v106;
-  v142 = [v104 block:v168 name:v82 classes:v11];
-  v141 = [v142 multipleValues:v147 & 1];
-  v143 = v47;
-  v140 = [v141 measurementUnitType:v47];
-  v107 = [v140 displayName:v149];
-  v148 = v103;
-  v108 = [v107 negativeName:v103];
-  v109 = v74[7];
-  v110 = [v75 wf_supportedContentOperators];
-  v111 = [v109 allowedOperatorsWithQueryParameterMetadata:v75 objectClasses:v11 operators:v110];
-  v112 = [v108 allowedOperators:v111];
-  v113 = [v112 filterable:v145];
-  [v113 sortable:v144];
-  v115 = v114 = v74;
-  v116 = [v115 withLinkPropertyIdentifier:v153];
-  v49 = [v116 userInfo:v114[4]];
+  v100 = MEMORY[0x1E6996D90];
+  v162[0] = MEMORY[0x1E69E9820];
+  v162[1] = 3221225472;
+  v162[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_510;
+  v162[3] = &unk_1E8372F90;
+  v101 = v148;
+  v102 = v71[7];
+  v163 = v101;
+  v164 = v102;
+  v136 = [v100 block:v162 name:v79 classes:v11];
+  v135 = [v136 multipleValues:v141 & 1];
+  v137 = v45;
+  v134 = [v135 measurementUnitType:v45];
+  v103 = [v134 displayName:v143];
+  v142 = v99;
+  v104 = [v103 negativeName:v99];
+  v105 = v71[7];
+  v106 = [v72 wf_supportedContentOperators];
+  v107 = [v105 allowedOperatorsWithQueryParameterMetadata:v72 objectClasses:v11 operators:v106];
+  v108 = [v104 allowedOperators:v107];
+  v109 = [v108 filterable:v139];
+  [v109 sortable:v138];
+  v111 = v110 = v71;
+  v112 = [v111 withLinkPropertyIdentifier:v147];
+  v47 = [v112 userInfo:v110[4]];
 
-  v75 = v159;
-  v117 = [v105 valueType];
-  v118 = [v117 wf_objectClass];
-  v119 = objc_opt_class();
+  v72 = v153;
+  v113 = [v101 valueType];
+  v114 = [v113 wf_objectClass];
+  v115 = objc_opt_class();
 
-  if (v159 && v118 == v119)
+  if (v153 && v114 == v115)
   {
-    v165[0] = MEMORY[0x1E69E9820];
-    v165[1] = 3221225472;
-    v165[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_3;
-    v165[3] = &unk_1E8373000;
-    v120 = v105;
-    v121 = v157[7];
-    v166 = v120;
-    v167 = v121;
-    v122 = [v49 possibleValuesAsynchronousGetter:v165];
+    v159[0] = MEMORY[0x1E69E9820];
+    v159[1] = 3221225472;
+    v159[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_3;
+    v159[3] = &unk_1E8373000;
+    v116 = v101;
+    v117 = v151[7];
+    v160 = v116;
+    v161 = v117;
+    v118 = [v47 possibleValuesAsynchronousGetter:v159];
 
-    v123 = v166;
-    v49 = v122;
-    v43 = v154;
-    v11 = v155;
+    v119 = v160;
+    v47 = v118;
+    v41 = v148;
+    v11 = v149;
     goto LABEL_79;
   }
 
-  v124 = [v105 valueType];
+  v120 = [v101 valueType];
   objc_opt_class();
-  v125 = objc_opt_isKindOfClass();
+  v121 = objc_opt_isKindOfClass();
 
-  if (v125)
+  if (v121)
   {
-    v126 = [v105 valueType];
-    v127 = [v126 wf_enumValueType];
+    v122 = [v101 valueType];
+    v123 = [v122 wf_enumValueType];
 
-    v123 = [v127 enumerationIdentifier];
-    v128 = [MEMORY[0x1E69E0970] sharedProvider];
-    v129 = v157[7];
-    v130 = [objc_opt_class() appBundleIdentifier];
-    v131 = [v128 enumerationWithIdentifier:v123 fromBundleIdentifier:v130];
+    v119 = [v123 enumerationIdentifier];
+    v124 = [MEMORY[0x1E69E0970] sharedProvider];
+    v125 = [objc_opt_class() appBundleIdentifier];
+    v126 = [v124 enumerationWithIdentifier:v119 fromBundleIdentifier:v125];
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_3_526;
     aBlock[3] = &unk_1E8373050;
-    v163 = v131;
-    v164 = v127;
-    v132 = v127;
-    v133 = v131;
-    v134 = _Block_copy(aBlock);
-    v135 = [v49 possibleValuesGetter:v134];
+    v157 = v126;
+    v158 = v123;
+    v127 = v123;
+    v128 = v126;
+    v129 = _Block_copy(aBlock);
+    v130 = [v47 possibleValuesGetter:v129];
 
-    v43 = v154;
-    v49 = v135;
-    v11 = v155;
+    v41 = v148;
+    v47 = v130;
+    v11 = v149;
 LABEL_79:
-    v47 = v143;
-    v51 = v151;
-    v67 = v146;
-    v87 = v149;
+    v45 = v137;
+    v49 = v145;
+    v64 = v140;
+    v84 = v143;
   }
 
   else
   {
-    v43 = v154;
-    v11 = v155;
-    v47 = v143;
-    v51 = v151;
-    v67 = v146;
-    v87 = v149;
+    v41 = v148;
+    v11 = v149;
+    v45 = v137;
+    v49 = v145;
+    v64 = v140;
+    v84 = v143;
   }
 
   if ([v11 if_firstObjectPassingTest:&__block_literal_global_531])
   {
-    v136 = [v49 comparableUnits:8444];
-    v137 = [v136 timeUnits:8444];
+    v131 = [v47 comparableUnits:8444];
+    v132 = [v131 timeUnits:8444];
 
-    v49 = v137;
+    v47 = v132;
   }
 
-  v90 = v150;
+  v87 = v144;
 
 LABEL_84:
-  v50 = obj;
+  v48 = obj;
 LABEL_85:
 
-  v138 = *MEMORY[0x1E69E9840];
-
-  return v49;
+  return v47;
 }
 
 void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_510(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -2709,49 +2676,46 @@ void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___bloc
 
 void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) valueType];
   v5 = [v4 wf_entityValueType];
 
   v6 = [MEMORY[0x1E69E0970] sharedProvider];
   v7 = [v5 identifier];
-  v8 = *(a1 + 40);
-  v9 = [objc_opt_class() appBundleIdentifier];
-  v10 = [v6 entityWithIdentifier:v7 fromBundleIdentifier:v9];
+  v8 = [objc_opt_class() appBundleIdentifier];
+  v9 = [v6 entityWithIdentifier:v7 fromBundleIdentifier:v8];
 
-  v11 = [MEMORY[0x1E69ACE60] policyWithEntityMetadata:v10];
-  v20 = 0;
-  v12 = [v11 connectionWithError:&v20];
-  v13 = v20;
-  if (v12)
+  v10 = [MEMORY[0x1E69ACE60] policyWithEntityMetadata:v9];
+  v18 = 0;
+  v11 = [v10 connectionWithError:&v18];
+  v12 = v18;
+  if (v11)
   {
-    v14 = [v11 appEntityMangledTypeName];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_521;
-    v17[3] = &unk_1E8372FD8;
-    v19 = *(a1 + 40);
-    v18 = v3;
-    [v12 performSuggestedEntitiesQueryWithEntityMangledTypeName:v14 completionHandler:v17];
+    v13 = [v10 appEntityMangledTypeName];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_521;
+    v15[3] = &unk_1E8372FD8;
+    v17 = *(a1 + 40);
+    v16 = v3;
+    [v11 performSuggestedEntitiesQueryWithEntityMangledTypeName:v13 completionHandler:v15];
   }
 
   else
   {
-    v15 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke_3";
-      v23 = 2112;
-      v24 = v13;
-      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Unable to create connection: %@", buf, 0x16u);
+      v20 = "+[WFLinkEntityContentItem propertyBuildersForFilteringUsingQuery:]_block_invoke_3";
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Unable to create connection: %@", buf, 0x16u);
     }
 
     (*(v3 + 2))(v3, MEMORY[0x1E695E0F0]);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 id __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_3_526(uint64_t a1)
@@ -2790,8 +2754,8 @@ id __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_
 
 void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_521(uint64_t a1, void *a2)
 {
-  v17 = a2;
-  v3 = [v17 value];
+  v16 = a2;
+  v3 = [v16 value];
   v4 = [v3 value];
 
   if (v4)
@@ -2823,37 +2787,23 @@ void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___bloc
 
   v8 = v7;
 
-  v9 = *(a1 + 40);
-  if (![objc_opt_class() isNotes])
+  if ([objc_opt_class() isNotes] && (v9 = *(a1 + 40), objc_msgSend(v16, "value"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "valueType"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "wf_entityValueType"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "identifier"), v13 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = objc_msgSend(v9, "isNoteFolderEntityIdentifier:", v13), v13, v12, v11, v10, v9))
   {
-    goto LABEL_11;
-  }
-
-  v10 = *(a1 + 40);
-  v11 = [v17 value];
-  v12 = [v11 valueType];
-  v13 = [v12 wf_entityValueType];
-  v14 = [v13 identifier];
-  LODWORD(v10) = [v10 isNoteFolderEntityIdentifier:v14];
-
-  if (v10)
-  {
-    v15 = *(a1 + 32);
-    v16 = [v8 if_map:&__block_literal_global];
-    (*(v15 + 16))(v15, v16);
+    v14 = *(a1 + 32);
+    v15 = [v8 if_map:&__block_literal_global];
+    (*(v14 + 16))(v14, v15);
   }
 
   else
   {
-LABEL_11:
     (*(*(a1 + 32) + 16))();
   }
 }
 
 void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = a2;
-  v3 = [v25 valueType];
+  v23 = a2;
+  v3 = [v23 valueType];
   if (v3)
   {
     objc_opt_class();
@@ -2882,7 +2832,7 @@ void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___bloc
 
   if (v5)
   {
-    v7 = [v25 value];
+    v7 = [v23 value];
     if (v7)
     {
       objc_opt_class();
@@ -2902,48 +2852,46 @@ void __66__WFLinkEntityContentItem_propertyBuildersForFilteringUsingQuery___bloc
       v8 = 0;
     }
 
-    v24 = v8;
+    v22 = v8;
 
     v11 = *(a1 + 32);
-    v12 = [v24 valueForKeyPath:@"value"];
+    v12 = [v22 valueForKeyPath:@"value"];
   }
 
   else
   {
-    v9 = [v25 valueType];
+    v9 = [v23 valueType];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if ((isKindOfClass & 1) == 0)
     {
-      v13 = [v25 valueType];
-      v14 = *(a1 + 40);
-      v15 = [objc_opt_class() appBundleIdentifier];
-      v16 = *(a1 + 40);
-      v17 = [objc_opt_class() displayedAppBundleIdentifier];
-      v12 = [v13 wf_contentCollectionFromLinkValue:v25 appBundleIdentifier:v15 displayedBundleIdentifier:v17 disclosureLevel:1];
+      v13 = [v23 valueType];
+      v14 = [objc_opt_class() appBundleIdentifier];
+      v15 = [objc_opt_class() displayedAppBundleIdentifier];
+      v12 = [v13 wf_contentCollectionFromLinkValue:v23 appBundleIdentifier:v14 displayedBundleIdentifier:v15 disclosureLevel:1];
 
-      v18 = *(a1 + 32);
+      v16 = *(a1 + 32);
+      v17 = [v12 items];
+      v18 = [v17 count];
       v19 = [v12 items];
-      v20 = [v19 count];
-      v21 = [v12 items];
-      v22 = v21;
-      if (v20 == 1)
+      v20 = v19;
+      if (v18 == 1)
       {
-        v23 = [v21 firstObject];
-        (*(v18 + 16))(v18, v23);
+        v21 = [v19 firstObject];
+        (*(v16 + 16))(v16, v21);
       }
 
       else
       {
-        (*(v18 + 16))(v18, v21);
+        (*(v16 + 16))(v16, v19);
       }
 
       goto LABEL_20;
     }
 
     v11 = *(a1 + 32);
-    v12 = [v25 value];
+    v12 = [v23 value];
   }
 
   (*(v11 + 16))(v11, v12);
@@ -2973,107 +2921,106 @@ LABEL_20:
 
 id __37__WFLinkEntityContentItem_initialize__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   v6 = [a2 propertyClasses];
-  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
-    v30 = v5;
+    v9 = *v30;
+    v28 = v5;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v32 != v9)
+      if (*v30 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v31 + 1) + 8 * v10);
+      v11 = *(*(&v29 + 1) + 8 * v10);
       if ([v11 isSubclassOfClass:*(a1 + 32)])
       {
-        v12 = *(a1 + 32);
         if (objc_opt_isKindOfClass())
         {
-          v13 = v5;
-          v14 = [v13 entity];
-          v15 = [v11 entityMetadata];
+          v12 = v5;
+          v13 = [v12 entity];
+          v14 = [v11 entityMetadata];
           if ([v11 isNotes])
           {
-            [v15 identifier];
-            v17 = v16 = v6;
-            v18 = [v11 isNoteFolderEntityIdentifier:v17];
+            [v14 identifier];
+            v16 = v15 = v6;
+            v17 = [v11 isNoteFolderEntityIdentifier:v16];
 
-            v6 = v16;
-            if (v18)
+            v6 = v15;
+            if (v17)
             {
-              v22 = objc_alloc(MEMORY[0x1E69ACA90]);
-              v23 = objc_alloc(MEMORY[0x1E69AC818]);
-              v24 = [v15 identifier];
-              v25 = [v23 initWithIdentifier:v24];
-              v26 = [v13 displayRepresentation];
-              v27 = [v22 initWithValue:v14 valueType:v25 displayRepresentation:v26];
+              v21 = objc_alloc(MEMORY[0x1E69ACA90]);
+              v22 = objc_alloc(MEMORY[0x1E69AC818]);
+              v23 = [v14 identifier];
+              v24 = [v22 initWithIdentifier:v23];
+              v25 = [v12 displayRepresentation];
+              v26 = [v21 initWithValue:v13 valueType:v24 displayRepresentation:v25];
 
-              v6 = v16;
-              v20 = WFNotesFolderIntentsValueFromLinkValue(v27);
+              v6 = v15;
+              v19 = WFNotesFolderIntentsValueFromLinkValue(v26);
 
-              v5 = v30;
+              v5 = v28;
 LABEL_27:
 
               goto LABEL_28;
             }
           }
 
-          v5 = v30;
+          v5 = v28;
           goto LABEL_18;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = [v5 value];
-          if (v13)
+          v12 = [v5 value];
+          if (v12)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = v13;
+              v18 = v12;
             }
 
             else
             {
-              v19 = 0;
+              v18 = 0;
             }
           }
 
           else
           {
-            v19 = 0;
+            v18 = 0;
           }
 
-          v14 = v19;
+          v13 = v18;
 LABEL_18:
 
-          if (v14)
+          if (v13)
           {
-            if ([v14 isTransient])
+            if ([v13 isTransient])
             {
-              v21 = v14;
-              v14 = v21;
+              v20 = v13;
+              v13 = v20;
             }
 
             else
             {
-              v21 = [v14 identifier];
+              v20 = [v13 identifier];
             }
 
-            v20 = v21;
+            v19 = v20;
             goto LABEL_27;
           }
         }
@@ -3081,7 +3028,7 @@ LABEL_18:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -3092,12 +3039,10 @@ LABEL_18:
     }
   }
 
-  v20 = v5;
+  v19 = v5;
 LABEL_28:
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v19;
 }
 
 + (BOOL)hasInMemoryFindAction
@@ -3129,20 +3074,20 @@ LABEL_28:
   v4 = identifierCopy;
   if (identifierCopy == @"FolderEntity")
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else if (identifierCopy)
   {
-    v5 = [(__CFString *)identifierCopy isEqualToString:@"FolderEntity"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 + (BOOL)isNoteEntity
@@ -3157,28 +3102,28 @@ LABEL_28:
   v5 = identifier;
   if (identifier == @"NoteEntity")
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else if (identifier)
   {
-    v6 = [(__CFString *)identifier isEqualToString:@"NoteEntity"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 + (BOOL)isNotes
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  v3 = [appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0EE8]];
+  isEqualToString = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)outputsFileContent
@@ -3211,33 +3156,33 @@ uint64_t __53__WFLinkEntityContentItem_Finder__outputsFileContent__block_invoke(
 + (BOOL)isFinderNodeEntity
 {
   appBundleIdentifier = [self appBundleIdentifier];
-  if ([appBundleIdentifier isEqualToString:*MEMORY[0x1E69E0E78]])
+  if (objc_msgSend_isEqualToString_(appBundleIdentifier))
   {
     entityMetadata = [self entityMetadata];
     identifier = [entityMetadata identifier];
     v6 = identifier;
     if (identifier == @"FINodeEntity")
     {
-      v7 = 1;
+      isEqualToString = 1;
     }
 
     else if (identifier)
     {
-      v7 = [(__CFString *)identifier isEqualToString:@"FINodeEntity"];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 @end

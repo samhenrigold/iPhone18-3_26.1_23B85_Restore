@@ -12,12 +12,11 @@ void __55___DPBlacklistManager_createRuntimeBlacklistDirectory___block_invoke(ui
 
 void __60___DPBlacklistManager_scheduleMaintenanceWithName_database___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = os_transaction_create();
-  v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
+  v4 = a2;
+  v2 = os_transaction_create();
+  v3 = objc_autoreleasePoolPush();
   [objc_opt_class() processRuntimeBlacklist];
-  objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v3);
 }
 
 @end

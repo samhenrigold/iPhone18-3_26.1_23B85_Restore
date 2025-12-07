@@ -469,12 +469,13 @@ void __52__WBSCloudHistoryStore__saveRecords_withCompletion___block_invoke(uint6
 void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLivedOperationPersistenceCompletion_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLivedOperationPersistenceCompletion_completion___block_invoke_2_cold_1(v6);
+      __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLivedOperationPersistenceCompletion_completion___block_invoke_2_cold_1(v8);
     }
   }
 
@@ -483,37 +484,37 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
 
 - (id)_recordsWithCloudHistoryVisits:(id)visits
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   selfCopy = self;
   maximumRequestCharacterCount = [(WBSCloudHistoryConfiguration *)self->_configuration maximumRequestCharacterCount];
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v6 = visitsCopy;
-  v31 = [v6 countByEnumeratingWithState:&v42 objects:v49 count:16];
-  if (v31)
+  v35 = [v6 countByEnumeratingWithState:&v46 objects:v53 count:16];
+  if (v35)
   {
     v7 = 0;
-    v28 = *MEMORY[0x1E69C8B58];
-    v29 = *v43;
-    v30 = v6;
+    v32 = *MEMORY[0x1E69C8B58];
+    v33 = *v47;
+    v34 = v6;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v43 != v29)
+        if (*v47 != v33)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v42 + 1) + 8 * v8);
+        v9 = *(*(&v46 + 1) + 8 * v8);
         v10 = [v6 objectForKeyedSubscript:v9];
-        if ([v9 isEqualToString:v28])
+        if ([v9 isEqualToString:v32])
         {
           v11 = 0;
         }
@@ -523,28 +524,28 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
           v11 = v9;
         }
 
-        v35 = v11;
-        v38 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v41 = 0u;
+        v39 = v11;
+        v42 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         obj = v10;
-        v12 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
-        v32 = v8;
+        v12 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v36 = v8;
         if (v12)
         {
           v13 = v12;
-          v14 = *v39;
+          v14 = *v43;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v39 != v14)
+              if (*v43 != v14)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v38 + 1) + 8 * i);
+              v16 = *(*(&v42 + 1) + 8 * i);
               visitIdentifier = [v16 visitIdentifier];
               urlString = [visitIdentifier urlString];
               v19 = [urlString length];
@@ -555,10 +556,10 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
               {
                 if (v21 + v7 > maximumRequestCharacterCount)
                 {
-                  v24 = [(WBSCloudHistoryStore *)selfCopy _recordWithCloudHistoryVisits:array2 profileServerIdentifier:v35];
-                  if (v24)
+                  v28 = [(WBSCloudHistoryStore *)selfCopy _recordWithCloudHistoryVisits:array2 profileServerIdentifier:v39];
+                  if (v28)
                   {
-                    [array addObject:v24];
+                    [array addObject:v28];
                   }
 
                   [array2 removeAllObjects];
@@ -572,51 +573,52 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
 
               else
               {
-                v22 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                v24 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v22, v23);
+                v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+                if (v25)
                 {
                   *buf = 134217984;
-                  v47 = v16;
-                  _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Skipping large WBSCloudHistoryVisit: %p", buf, 0xCu);
+                  v51 = v16;
+                  _os_log_error_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_ERROR, "Skipping large WBSCloudHistoryVisit: %p", buf, 0xCu);
                 }
 
-                v23 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+                v27 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v25, v26);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138477827;
-                  v47 = v16;
-                  _os_log_debug_impl(&dword_1BB6F3000, v23, OS_LOG_TYPE_DEBUG, "Skipping large WBSCloudHistoryVisit: %{private}@", buf, 0xCu);
+                  v51 = v16;
+                  _os_log_debug_impl(&dword_1BB6F3000, v27, OS_LOG_TYPE_DEBUG, "Skipping large WBSCloudHistoryVisit: %{private}@", buf, 0xCu);
                 }
               }
             }
 
-            v13 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+            v13 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
           }
 
           while (v13);
         }
 
-        v6 = v30;
+        v6 = v34;
         if ([array2 count])
         {
-          v25 = [(WBSCloudHistoryStore *)selfCopy _recordWithCloudHistoryVisits:array2 profileServerIdentifier:v35];
-          if (!v25)
+          v29 = [(WBSCloudHistoryStore *)selfCopy _recordWithCloudHistoryVisits:array2 profileServerIdentifier:v39];
+          if (!v29)
           {
 
-            v26 = array;
+            v30 = array;
             goto LABEL_33;
           }
 
-          [array addObject:v25];
+          [array addObject:v29];
           [array2 removeAllObjects];
         }
 
-        v8 = v32 + 1;
+        v8 = v36 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [v30 countByEnumeratingWithState:&v42 objects:v49 count:16];
-      if (v31)
+      while (v36 + 1 != v35);
+      v35 = [v34 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      if (v35)
       {
         continue;
       }
@@ -625,40 +627,40 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
     }
   }
 
-  v26 = array;
-  v25 = array;
+  v30 = array;
+  v29 = array;
 LABEL_33:
 
-  return v25;
+  return v29;
 }
 
 - (id)_recordWithCloudHistoryVisits:(id)visits profileServerIdentifier:(id)identifier
 {
   selfCopy = self;
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   visitsCopy = visits;
   identifierCopy = identifier;
   array = [MEMORY[0x1E695DF70] array];
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v7 = visitsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v33 + 1) + 8 * i);
         dictionaryRepresentation = [v12 dictionaryRepresentation];
         if (dictionaryRepresentation)
         {
@@ -667,117 +669,117 @@ LABEL_33:
 
         else
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138477827;
-            v38 = v12;
-            _os_log_error_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_ERROR, "Skipping invalid WBSCloudHistoryVisit: %{private}@", buf, 0xCu);
+            v40 = v12;
+            _os_log_error_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_ERROR, "Skipping invalid WBSCloudHistoryVisit: %{private}@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v9);
   }
 
-  v35[0] = @"Visits";
-  v35[1] = @"ClientVersion";
-  v36[0] = array;
-  v36[1] = &unk_1F3A9AA90;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+  v37[0] = @"Visits";
+  v37[1] = @"ClientVersion";
+  v38[0] = array;
+  v38[1] = &unk_1F3A9AA90;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
   if (identifierCopy)
   {
-    v16 = 2;
+    v17 = 2;
   }
 
   else
   {
-    v16 = 1;
+    v17 = 1;
   }
 
-  selfCopy = [(WBSCloudHistoryStore *)selfCopy _recordWithType:@"Visits" version:v16 dataDictionary:v15, selfCopy];
-  v18 = selfCopy;
+  selfCopy = [(WBSCloudHistoryStore *)selfCopy _recordWithType:@"Visits" version:v17 dataDictionary:v16, selfCopy];
+  v20 = selfCopy;
   if (identifierCopy)
   {
-    [selfCopy setObject:identifierCopy forKeyedSubscript:@"ProfileUUID"];
+    selfCopy = [selfCopy setObject:identifierCopy forKeyedSubscript:@"ProfileUUID"];
   }
 
-  if (v18)
+  if (v20)
   {
-    v19 = v18;
+    v21 = v20;
   }
 
   else
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXCloudHistory(selfCopy, v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(WBSCloudHistoryStore *)v20 _recordWithCloudHistoryVisits:v21 profileServerIdentifier:v22, v23, v24, v25, v26, v27];
+      [(WBSCloudHistoryStore *)v22 _recordWithCloudHistoryVisits:v23 profileServerIdentifier:v24, v25, v26, v27, v28, v29];
     }
   }
 
-  return v18;
+  return v20;
 }
 
 - (id)_recordWithHistoryTombstones:(id)tombstones version:(unint64_t)version
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   tombstonesCopy = tombstones;
   array = [MEMORY[0x1E695DF70] array];
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
   v8 = tombstonesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v10);
   }
 
-  v31[0] = @"Tombstones";
-  v31[1] = @"ClientVersion";
-  v32[0] = array;
-  v32[1] = &unk_1F3A9AA90;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v32[0] = @"Tombstones";
+  v32[1] = @"ClientVersion";
+  v33[0] = array;
+  v33[1] = &unk_1F3A9AA90;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
   v15 = [(WBSCloudHistoryStore *)self _recordWithType:@"Tombstones" version:version dataDictionary:v14];
-  v16 = v15;
+  v17 = v15;
   if (v15)
   {
-    v17 = v15;
+    v18 = v15;
   }
 
   else
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(WBSCloudHistoryStore *)v18 _recordWithHistoryTombstones:v19 version:v20, v21, v22, v23, v24, v25];
+      [(WBSCloudHistoryStore *)v19 _recordWithHistoryTombstones:v20 version:v21, v22, v23, v24, v25, v26];
     }
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)replayPersistedLongLivedSaveOperationWithID:(id)d completion:(id)completion
@@ -863,42 +865,43 @@ void __79__WBSCloudHistoryStore_replayPersistedLongLivedSaveOperationWithID_comp
 
 void __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(WBSCloudHistoryFetchResult);
   if (*(a1 + 32))
   {
     v3 = objc_alloc(MEMORY[0x1E696ACD0]);
     v4 = *(a1 + 32);
-    v13[0] = 0;
-    v5 = [v3 initForReadingFromData:v4 error:v13];
-    v6 = v13[0];
+    v15[0] = 0;
+    v5 = [v3 initForReadingFromData:v4 error:v15];
+    v6 = v15[0];
+    v8 = v6;
     if (v6)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v8 = [v6 safari_privacyPreservingDescription];
-        __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_cold_1(v8, buf, v7);
+        v10 = [v8 safari_privacyPreservingDescription];
+        __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_cold_1(v10, buf, v9);
       }
     }
 
-    v9 = [v5 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E696A508]];
+    v11 = [v5 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E696A508]];
     [v5 finishDecoding];
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  v10 = *(a1 + 40);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_37;
-  v11[3] = &unk_1E7FB8448;
-  v11[4] = v10;
-  v12 = *(a1 + 48);
-  [v10 _fetchRecordsWithServerChangeToken:v9 numberOfFetchRecordsOperationsPerformedSoFar:1 result:v2 completion:v11];
+  v12 = *(a1 + 40);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_37;
+  v13[3] = &unk_1E7FB8448;
+  v13[4] = v12;
+  v14 = *(a1 + 48);
+  [v12 _fetchRecordsWithServerChangeToken:v11 numberOfFetchRecordsOperationsPerformedSoFar:1 result:v2 completion:v13];
 }
 
 void __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_37(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -979,24 +982,25 @@ void __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetc
       block[4] = v9;
       v11 = v6;
       v12 = *(a1 + 64);
-      v18 = v11;
-      v21 = v12;
-      v19 = *(a1 + 32);
-      v20 = *(a1 + 48);
+      v20 = v11;
+      v23 = v12;
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 48);
       dispatch_async(v10, block);
     }
 
     else
     {
-      v16 = 0;
-      v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v16];
-      v14 = v16;
+      v18 = 0;
+      v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v18];
+      v14 = v18;
+      v16 = v14;
       if (v14)
       {
-        v15 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v14, v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetchRecordsOperationsPerformedSoFar_result_completion___block_invoke_2_cold_1(v15);
+          __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetchRecordsOperationsPerformedSoFar_result_completion___block_invoke_2_cold_1(v17);
         }
       }
 
@@ -1052,9 +1056,10 @@ void __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetc
 {
   if (dictionary)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v8];
-    v4 = v8;
+    v10 = 0;
+    v3 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v10];
+    v4 = v10;
+    v6 = v4;
     if (v3)
     {
       safari_dataByCompressingData = [v3 safari_dataByCompressingData];
@@ -1062,10 +1067,10 @@ void __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetc
 
     else
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v4, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [WBSCloudHistoryStore _recordDataForDictionary:v6];
+        [WBSCloudHistoryStore _recordDataForDictionary:v8];
       }
 
       safari_dataByCompressingData = 0;
@@ -1222,18 +1227,18 @@ void __66__WBSCloudHistoryStore__prepareRecordZoneWithoutCachingWithError___bloc
   dispatch_async(databaseQueue, block);
 }
 
-uint64_t __40__WBSCloudHistoryStore__resetRecordZone__block_invoke(uint64_t a1)
+uint64_t __40__WBSCloudHistoryStore__resetRecordZone__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Resetting Cloud History record zone.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Resetting Cloud History record zone.", v7, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = 0;
 
   return [*(a1 + 32) _prepareRecordZoneWithCompletion:&__block_literal_global_18];
 }
@@ -1241,12 +1246,13 @@ uint64_t __40__WBSCloudHistoryStore__resetRecordZone__block_invoke(uint64_t a1)
 void __40__WBSCloudHistoryStore__resetRecordZone__block_invoke_51(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __40__WBSCloudHistoryStore__resetRecordZone__block_invoke_51_cold_1(v4);
+      __40__WBSCloudHistoryStore__resetRecordZone__block_invoke_51_cold_1(v6);
     }
   }
 }
@@ -1316,15 +1322,16 @@ void __56__WBSCloudHistoryStore_deleteHistoryZoneWithCompletion___block_invoke_2
 void __71__WBSCloudHistoryStore_fetchNumberOfDevicesInSyncCircleWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v13 = 0;
-  v3 = [v2 _prepareRecordZoneWithoutCachingWithError:&v13];
-  v4 = v13;
-  if (![v3 deviceCount])
+  v15 = 0;
+  v3 = [v2 _prepareRecordZoneWithoutCachingWithError:&v15];
+  v4 = v15;
+  v5 = [v3 deviceCount];
+  if (!v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __71__WBSCloudHistoryStore_fetchNumberOfDevicesInSyncCircleWithCompletion___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __71__WBSCloudHistoryStore_fetchNumberOfDevicesInSyncCircleWithCompletion___block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
@@ -1501,7 +1508,7 @@ void __115__WBSCloudHistoryStore__batchSaveRecords_useLongLivedOperation_longLiv
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to save Visits record: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to save Visits record: %{public}@", v6, v7, v8, v9);
 }
 
 void __73__WBSCloudHistoryStore_fetchRecordsWithServerChangeTokenData_completion___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -1523,7 +1530,7 @@ void __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetc
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to archive server change token: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to archive server change token: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_recordDataForDictionary:(void *)a1 .cold.1(void *a1)
@@ -1531,7 +1538,7 @@ void __122__WBSCloudHistoryStore__fetchRecordsWithServerChangeToken_numberOfFetc
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to serialize dictionary: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to serialize dictionary: %{public}@", v6, v7, v8, v9);
 }
 
 void __40__WBSCloudHistoryStore__resetRecordZone__block_invoke_51_cold_1(void *a1)
@@ -1539,7 +1546,7 @@ void __40__WBSCloudHistoryStore__resetRecordZone__block_invoke_51_cold_1(void *a
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Resetting Cloud History record zone failed: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Resetting Cloud History record zone failed: %{public}@", v6, v7, v8, v9);
 }
 
 @end

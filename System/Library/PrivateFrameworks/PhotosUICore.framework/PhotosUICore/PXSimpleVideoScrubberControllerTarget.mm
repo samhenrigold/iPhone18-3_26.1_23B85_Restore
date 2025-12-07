@@ -33,7 +33,7 @@
   result = self->_videoPlayer;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result currentTime];
+    return objc_msgSend_currentTime(result, a3);
   }
 
   retstr->var0 = 0;
@@ -79,7 +79,7 @@ LABEL_15:
       v16 = v15;
       if (v15)
       {
-        [v15 CMTimeValue];
+        objc_msgSend_CMTimeValue(v15);
       }
 
       else

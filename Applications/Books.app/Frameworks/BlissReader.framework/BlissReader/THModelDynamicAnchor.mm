@@ -39,8 +39,8 @@
     return [THModelDynamicAnchor initWithContentNode:"initWithContentNode:startElementId:startPattern:startOccurrence:startRange:endElementId:endPattern:endOccurrence:endRange:" startElementId:node startPattern:0 startOccurrence:0 startRange:0 endElementId:0 endPattern:0 endOccurrence:0 endRange:?];
   }
 
-  [(THModelDynamicAnchor *)self p_anchorPointFromXPointer:pointer];
-  [(THModelDynamicAnchor *)self p_anchorPointFromXPointer:xPointer];
+  objc_msgSend_p_anchorPointFromXPointer_(self, a2, pointer);
+  objc_msgSend_p_anchorPointFromXPointer_(self);
   return [THModelDynamicAnchor initWithContentNode:"initWithContentNode:startElementId:startPattern:startOccurrence:startRange:endElementId:endPattern:endOccurrence:endRange:" startElementId:node startPattern:0 startOccurrence:0 startRange:0 endElementId:0 endPattern:0 endOccurrence:0 endRange:?];
 }
 

@@ -130,7 +130,7 @@
 
 - (HMDDeviceAssociationInfoProto)initWithProtoPayload:(id)payload
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   accessoryUUID = [payloadCopy accessoryUUID];
   if (accessoryUUID)
@@ -172,22 +172,21 @@
     accessoryUUID3 = [payloadCopy accessoryUUID];
     idsIdentifier3 = [payloadCopy idsIdentifier];
     idsDestination3 = [payloadCopy idsDestination];
-    v27 = 138544130;
-    v28 = v21;
-    v29 = 2112;
-    v30 = accessoryUUID3;
-    v31 = 2112;
-    v32 = idsIdentifier3;
-    v33 = 2112;
-    v34 = idsDestination3;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Proto payload is missing some fields, accessoryUUID: %@ idsIdentifier: %@ idsDestination: %@", &v27, 0x2Au);
+    v26 = 138544130;
+    v27 = v21;
+    v28 = 2112;
+    v29 = accessoryUUID3;
+    v30 = 2112;
+    v31 = idsIdentifier3;
+    v32 = 2112;
+    v33 = idsDestination3;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Proto payload is missing some fields, accessoryUUID: %@ idsIdentifier: %@ idsDestination: %@", &v26, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v19);
   v18 = 0;
 LABEL_9:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

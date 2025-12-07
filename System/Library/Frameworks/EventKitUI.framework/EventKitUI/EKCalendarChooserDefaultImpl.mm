@@ -161,7 +161,7 @@
 
 - (EKCalendarChooserDefaultImpl)initWithSelectionStyle:(int64_t)style displayStyle:(int64_t)displayStyle entityType:(unint64_t)type forEvent:(id)event eventStore:(id)store limitedToSource:(id)source showIdentityChooser:(BOOL)chooser showDelegateSetupCell:(BOOL)self0 showAccountStatus:(BOOL)self1
 {
-  v33[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   storeCopy = store;
   sourceCopy = source;
@@ -170,50 +170,51 @@
     [EKCalendarChooserDefaultImpl initWithSelectionStyle:displayStyle:entityType:forEvent:eventStore:limitedToSource:showIdentityChooser:showDelegateSetupCell:showAccountStatus:];
   }
 
-  v32.receiver = self;
-  v32.super_class = EKCalendarChooserDefaultImpl;
-  v20 = [(EKCalendarChooserDefaultImpl *)&v32 initWithNibName:0 bundle:0];
+  v34.receiver = self;
+  v34.super_class = EKCalendarChooserDefaultImpl;
+  v20 = [(EKCalendarChooserDefaultImpl *)&v34 initWithNibName:0 bundle:0];
+  v22 = v20;
   if (v20)
   {
-    EKUILogInitIfNeeded();
-    v20->_style = style;
-    v20->_displayStyle = displayStyle;
-    *&v20->_flags = *&v20->_flags & 0xEF | (16 * (displayStyle == 1));
-    v20->_entityType = type;
-    v20->_chooserMode = 0;
-    objc_storeStrong(&v20->_event, event);
-    objc_storeStrong(&v20->_eventStore, store);
-    objc_storeStrong(&v20->_limitedToSource, source);
-    *&v20->_flags &= ~0x20u;
-    v20->_canShowIdentityChooser = chooser;
-    v20->_canShowDelegateSetupCell = cell;
-    v20->_showAccountStatus = status;
-    v21 = objc_opt_new();
-    selectedCalendars = v20->_selectedCalendars;
-    v20->_selectedCalendars = v21;
+    EKUILogInitIfNeeded(v20, v21);
+    v22->_style = style;
+    v22->_displayStyle = displayStyle;
+    *&v22->_flags = *&v22->_flags & 0xEF | (16 * (displayStyle == 1));
+    v22->_entityType = type;
+    v22->_chooserMode = 0;
+    objc_storeStrong(&v22->_event, event);
+    objc_storeStrong(&v22->_eventStore, store);
+    objc_storeStrong(&v22->_limitedToSource, source);
+    *&v22->_flags &= ~0x20u;
+    v22->_canShowIdentityChooser = chooser;
+    v22->_canShowDelegateSetupCell = cell;
+    v22->_showAccountStatus = status;
+    v23 = objc_opt_new();
+    selectedCalendars = v22->_selectedCalendars;
+    v22->_selectedCalendars = v23;
 
-    *&v20->_flags |= 1u;
-    v23 = [MEMORY[0x1E695DFD8] set];
-    collapsedSectionIdentifiers = v20->_collapsedSectionIdentifiers;
-    v20->_collapsedSectionIdentifiers = v23;
+    *&v22->_flags |= 1u;
+    v25 = [MEMORY[0x1E695DFD8] set];
+    collapsedSectionIdentifiers = v22->_collapsedSectionIdentifiers;
+    v22->_collapsedSectionIdentifiers = v25;
 
-    objc_initWeak(&location, v20);
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v33[2] = objc_opt_class();
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __175__EKCalendarChooserDefaultImpl_initWithSelectionStyle_displayStyle_entityType_forEvent_eventStore_limitedToSource_showIdentityChooser_showDelegateSetupCell_showAccountStatus___block_invoke;
-    v29[3] = &unk_1E843EBE8;
-    objc_copyWeak(&v30, &location);
-    v26 = [(EKCalendarChooserDefaultImpl *)v20 registerForTraitChanges:v25 withHandler:v29];
-    objc_destroyWeak(&v30);
+    objc_initWeak(&location, v22);
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v35[2] = objc_opt_class();
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __175__EKCalendarChooserDefaultImpl_initWithSelectionStyle_displayStyle_entityType_forEvent_eventStore_limitedToSource_showIdentityChooser_showDelegateSetupCell_showAccountStatus___block_invoke;
+    v31[3] = &unk_1E843EBE8;
+    objc_copyWeak(&v32, &location);
+    v28 = [(EKCalendarChooserDefaultImpl *)v22 registerForTraitChanges:v27 withHandler:v31];
+    objc_destroyWeak(&v32);
 
     objc_destroyWeak(&location);
   }
 
-  return v20;
+  return v22;
 }
 
 void __175__EKCalendarChooserDefaultImpl_initWithSelectionStyle_displayStyle_entityType_forEvent_eventStore_limitedToSource_showIdentityChooser_showDelegateSetupCell_showAccountStatus___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1091,47 +1092,47 @@ void __67__EKCalendarChooserDefaultImpl__maxButtonImageWidthWithSizeCapping__blo
     v18 = v19;
   }
 
-  [v11 size];
-  v21 = (v18 - v20) * 0.5;
-  if (CalInterfaceIsLeftToRight())
+  v20 = [v11 size];
+  v22 = (v18 - v21) * 0.5;
+  if (CalInterfaceIsLeftToRight(v20, v23))
   {
-    v22 = v21;
+    v24 = v22;
   }
 
   else
   {
-    v22 = v14 - v18 + v21;
+    v24 = v14 - v18 + v22;
   }
 
-  v40.width = v14;
-  v40.height = v16;
-  UIGraphicsBeginImageContextWithOptions(v40, 0, 0.0);
-  [v11 drawAtPoint:{v22, 0.0}];
-  v23 = UIGraphicsGetImageFromCurrentImageContext();
+  v42.width = v14;
+  v42.height = v16;
+  UIGraphicsBeginImageContextWithOptions(v42, 0, 0.0);
+  [v11 drawAtPoint:{v24, 0.0}];
+  v25 = UIGraphicsGetImageFromCurrentImageContext();
 
   UIGraphicsEndImageContext();
-  v24 = [v23 imageWithRenderingMode:2];
+  v26 = [v25 imageWithRenderingMode:2];
 
-  v25 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v24];
+  v27 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v26];
   [v12 capHeight];
-  v27 = v26;
-  [v24 size];
-  v29 = (v27 - v28) * 0.5;
-  v30 = roundf(v29);
-  [v24 size];
-  v32 = v31;
-  [v24 size];
-  [v25 setBounds:{0.0, v30, v32, v33}];
-  v34 = objc_alloc_init(MEMORY[0x1E696AD40]);
-  v35 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v25];
-  [v34 appendAttributedString:v35];
+  v29 = v28;
+  [v26 size];
+  v31 = (v29 - v30) * 0.5;
+  v32 = roundf(v31);
+  [v26 size];
+  v34 = v33;
+  [v26 size];
+  [v27 setBounds:{0.0, v32, v34, v35}];
+  v36 = objc_alloc_init(MEMORY[0x1E696AD40]);
+  v37 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v27];
+  [v36 appendAttributedString:v37];
 
-  v36 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:titleCopy];
-  [v34 appendAttributedString:v36];
+  v38 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:titleCopy];
+  [v36 appendAttributedString:v38];
 
-  [plainButtonConfiguration setAttributedTitle:v34];
-  v37 = CalendarAppBarButtonItemTintColor();
-  [plainButtonConfiguration setBaseForegroundColor:v37];
+  [plainButtonConfiguration setAttributedTitle:v36];
+  v39 = CalendarAppBarButtonItemTintColor();
+  [plainButtonConfiguration setBaseForegroundColor:v39];
 
   return plainButtonConfiguration;
 }
@@ -1141,8 +1142,8 @@ void __67__EKCalendarChooserDefaultImpl__maxButtonImageWidthWithSizeCapping__blo
   v40[5] = *MEMORY[0x1E69E9840];
   cellCopy = cell;
   [(EKCalendarChooserDefaultImpl *)self _preventDefaultCellSelectionBehavior:cellCopy];
-  contentView = [cellCopy contentView];
-  subviews = [contentView subviews];
+  v7 = objc_msgSend_contentView(cellCopy);
+  subviews = [v7 subviews];
   v9 = [subviews count];
 
   if (!v9)
@@ -1155,34 +1156,34 @@ void __67__EKCalendarChooserDefaultImpl__maxButtonImageWidthWithSizeCapping__blo
     v12 = [MEMORY[0x1E69DC738] buttonWithConfiguration:v39 primaryAction:v38];
     [v12 setContentHorizontalAlignment:4];
     [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView2 = [cellCopy contentView];
-    [contentView2 addSubview:v12];
+    v13 = objc_msgSend_contentView(cellCopy);
+    [v13 addSubview:v12];
 
     v27 = MEMORY[0x1E696ACD8];
-    contentView3 = [cellCopy contentView];
-    layoutMarginsGuide = [contentView3 layoutMarginsGuide];
+    v37 = objc_msgSend_contentView(cellCopy);
+    layoutMarginsGuide = [v37 layoutMarginsGuide];
     leadingAnchor = [layoutMarginsGuide leadingAnchor];
     leadingAnchor2 = [v12 leadingAnchor];
     v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     v40[0] = v33;
-    contentView4 = [cellCopy contentView];
-    layoutMarginsGuide2 = [contentView4 layoutMarginsGuide];
+    v32 = objc_msgSend_contentView(cellCopy);
+    layoutMarginsGuide2 = [v32 layoutMarginsGuide];
     trailingAnchor = [layoutMarginsGuide2 trailingAnchor];
     trailingAnchor2 = [v12 trailingAnchor];
     v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
     v40[1] = v28;
-    contentView5 = [cellCopy contentView];
-    topAnchor = [contentView5 topAnchor];
+    v26 = objc_msgSend_contentView(cellCopy);
+    topAnchor = [v26 topAnchor];
     topAnchor2 = [v12 topAnchor];
     v23 = [topAnchor constraintLessThanOrEqualToAnchor:topAnchor2];
     v40[2] = v23;
-    contentView6 = [cellCopy contentView];
-    bottomAnchor = [contentView6 bottomAnchor];
+    v22 = objc_msgSend_contentView(cellCopy);
+    bottomAnchor = [v22 bottomAnchor];
     bottomAnchor2 = [v12 bottomAnchor];
     v16 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
     v40[3] = v16;
-    contentView7 = [cellCopy contentView];
-    centerYAnchor = [contentView7 centerYAnchor];
+    v17 = objc_msgSend_contentView(cellCopy);
+    centerYAnchor = [v17 centerYAnchor];
     centerYAnchor2 = [v12 centerYAnchor];
     v20 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     v40[4] = v20;
@@ -1203,8 +1204,8 @@ void __76__EKCalendarChooserDefaultImpl__configureDelegateButtonCell_indexPath_i
   v44[5] = *MEMORY[0x1E69E9840];
   cellCopy = cell;
   [(EKCalendarChooserDefaultImpl *)self _preventDefaultCellSelectionBehavior:cellCopy];
-  contentView = [cellCopy contentView];
-  subviews = [contentView subviews];
+  v7 = objc_msgSend_contentView(cellCopy);
+  subviews = [v7 subviews];
   v9 = [subviews count];
 
   if (!v9)
@@ -1231,8 +1232,8 @@ void __76__EKCalendarChooserDefaultImpl__configureDelegateButtonCell_indexPath_i
     [(UIButton *)v13 setContentHorizontalAlignment:4];
     [(UIButton *)v13 setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIButton *)v13 setAccessibilityIdentifier:@"add-calendar-button"];
-    contentView2 = [cellCopy contentView];
-    [contentView2 addSubview:v13];
+    v15 = objc_msgSend_contentView(cellCopy);
+    [v15 addSubview:v13];
 
     LODWORD(v16) = 1144750080;
     [(UIButton *)v13 setContentHuggingPriority:0 forAxis:v16];
@@ -1241,30 +1242,30 @@ void __76__EKCalendarChooserDefaultImpl__configureDelegateButtonCell_indexPath_i
     v18 = v13;
 
     v32 = MEMORY[0x1E696ACD8];
-    contentView3 = [cellCopy contentView];
-    layoutMarginsGuide = [contentView3 layoutMarginsGuide];
+    v42 = objc_msgSend_contentView(cellCopy);
+    layoutMarginsGuide = [v42 layoutMarginsGuide];
     leadingAnchor = [layoutMarginsGuide leadingAnchor];
     leadingAnchor2 = [(UIButton *)v18 leadingAnchor];
     v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     v44[0] = v38;
-    contentView4 = [cellCopy contentView];
-    layoutMarginsGuide2 = [contentView4 layoutMarginsGuide];
+    v37 = objc_msgSend_contentView(cellCopy);
+    layoutMarginsGuide2 = [v37 layoutMarginsGuide];
     trailingAnchor = [layoutMarginsGuide2 trailingAnchor];
     trailingAnchor2 = [(UIButton *)v18 trailingAnchor];
     v33 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
     v44[1] = v33;
-    contentView5 = [cellCopy contentView];
-    topAnchor = [contentView5 topAnchor];
+    v31 = objc_msgSend_contentView(cellCopy);
+    topAnchor = [v31 topAnchor];
     topAnchor2 = [(UIButton *)v18 topAnchor];
     v28 = [topAnchor constraintLessThanOrEqualToAnchor:topAnchor2];
     v44[2] = v28;
-    contentView6 = [cellCopy contentView];
-    bottomAnchor = [contentView6 bottomAnchor];
+    v27 = objc_msgSend_contentView(cellCopy);
+    bottomAnchor = [v27 bottomAnchor];
     bottomAnchor2 = [(UIButton *)v18 bottomAnchor];
     v21 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
     v44[3] = v21;
-    contentView7 = [cellCopy contentView];
-    centerYAnchor = [contentView7 centerYAnchor];
+    v22 = objc_msgSend_contentView(cellCopy);
+    centerYAnchor = [v22 centerYAnchor];
     centerYAnchor2 = [(UIButton *)v18 centerYAnchor];
     v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     v44[4] = v25;
@@ -1652,9 +1653,9 @@ void __70__EKCalendarChooserDefaultImpl__configureCalendarCell_indexPath_item___
   v11 = [v10 localizedStringForKey:@"Verify Account Information" value:&stru_1F4EF6790 table:0];
   [defaultContentConfiguration setText:v11];
 
-  tintColor = [(UICollectionView *)self->_collectionView tintColor];
+  v12 = objc_msgSend_tintColor(self->_collectionView);
   textProperties = [defaultContentConfiguration textProperties];
-  [textProperties setColor:tintColor];
+  [textProperties setColor:v12];
 
   textProperties2 = [defaultContentConfiguration textProperties];
   [textProperties2 setAlignment:1];
@@ -1749,7 +1750,7 @@ void __69__EKCalendarChooserDefaultImpl__preventDefaultCellSelectionBehavior___b
 {
   cellCopy = cell;
   infoCopy = info;
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     calendar = [infoCopy calendar];
     [cellCopy Cal_annotateWithCalendar:calendar];

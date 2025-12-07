@@ -29,7 +29,7 @@
   dispatch_async(v5, block);
 }
 
-uint64_t __37__EMServerConfiguration_refreshAsync__block_invoke(uint64_t a1)
+void *__37__EMServerConfiguration_refreshAsync__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCacheRecent];
   if ((result & 1) == 0)
@@ -128,14 +128,14 @@ void __32__EMServerConfiguration_refresh__block_invoke(uint64_t a1, void *a2, vo
   v10 = v9;
   if (!v7 || v9)
   {
-    v15 = _ef_log_EMServerConfiguration();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _ef_log_EMServerConfiguration(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = [v10 localizedDescription];
-      __32__EMServerConfiguration_refresh__block_invoke_cold_1(v16, buf, v15);
+      v17 = [v10 localizedDescription];
+      __32__EMServerConfiguration_refresh__block_invoke_cold_1(v17, buf, v16);
     }
 
-    v11 = v15;
+    v11 = v16;
     goto LABEL_9;
   }
 
@@ -151,19 +151,18 @@ void __32__EMServerConfiguration_refresh__block_invoke(uint64_t a1, void *a2, vo
     [v12 _savePropertyList:v13 withDate:v14];
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v15 = _ef_log_EMServerConfiguration();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _ef_log_EMServerConfiguration(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v20 = v11;
-      _os_log_impl(&dword_1C6655000, v15, OS_LOG_TYPE_DEFAULT, "downloadPropertyList success: %@", buf, 0xCu);
+      _os_log_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEFAULT, "downloadPropertyList success: %@", buf, 0xCu);
     }
 
 LABEL_9:
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_savePropertyList:(id)list withDate:(id)date
@@ -257,7 +256,7 @@ void __52__EMServerConfiguration__savePropertyList_withDate___block_invoke(uint6
 
 + (void)clearCache
 {
-  v3 = _ef_log_EMServerConfiguration();
+  v3 = _ef_log_EMServerConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -272,7 +271,7 @@ void __52__EMServerConfiguration__savePropertyList_withDate___block_invoke(uint6
 + (void)overrideWithPropertyList:(id)list
 {
   listCopy = list;
-  v5 = _ef_log_EMServerConfiguration();
+  v5 = _ef_log_EMServerConfiguration(listCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;

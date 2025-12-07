@@ -196,13 +196,13 @@ LABEL_8:
 
 - (void)_enumerateTimePeriodsWithBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   workoutEvents = [(HKWorkout *)self workoutEvents];
   v7 = [workoutEvents count] == 0;
 
@@ -232,46 +232,46 @@ LABEL_8:
       [v5 addObject:v16];
     }
 
-    v34[3] = v11;
+    v33[3] = v11;
   }
 
   else
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __74__HKWorkout_HKWorkoutDataSourceUtilities___enumerateTimePeriodsWithBlock___block_invoke;
-    v30[3] = &unk_1E737F578;
-    v31 = v5;
-    v32 = &v33;
-    [(HKWorkout *)self _enumerateActiveTimePeriods:v30];
-    startDate = v31;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __74__HKWorkout_HKWorkoutDataSourceUtilities___enumerateTimePeriodsWithBlock___block_invoke;
+    v29[3] = &unk_1E737F578;
+    v30 = v5;
+    v31 = &v32;
+    [(HKWorkout *)self _enumerateActiveTimePeriods:v29];
+    startDate = v30;
   }
 
   [(HKWorkout *)self duration];
-  if (v17 - v34[3] <= 0.1)
+  if (v17 - v33[3] <= 0.1)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     endDate2 = v5;
-    v22 = [endDate2 countByEnumeratingWithState:&v26 objects:v37 count:16];
+    v22 = [endDate2 countByEnumeratingWithState:&v25 objects:v36 count:16];
     if (v22)
     {
-      v23 = *v27;
+      v23 = *v26;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v27 != v23)
+          if (*v26 != v23)
           {
             objc_enumerationMutation(endDate2);
           }
 
-          blockCopy[2](blockCopy, *(*(&v26 + 1) + 8 * i));
+          blockCopy[2](blockCopy, *(*(&v25 + 1) + 8 * i));
         }
 
-        v22 = [endDate2 countByEnumeratingWithState:&v26 objects:v37 count:16];
+        v22 = [endDate2 countByEnumeratingWithState:&v25 objects:v36 count:16];
       }
 
       while (v22);
@@ -287,8 +287,7 @@ LABEL_8:
     (blockCopy)[2](blockCopy, v21);
   }
 
-  _Block_object_dispose(&v33, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v32, 8);
 }
 
 double __74__HKWorkout_HKWorkoutDataSourceUtilities___enumerateTimePeriodsWithBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -448,7 +447,7 @@ LABEL_6:
 
 void __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_workoutActivities_duration_statistics_goalType_goal_device_metadata___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v3[12] = *(a1 + 88);
   v4 = &OBJC_IVAR___HKFeatureAvailabilityRequirementEvaluationDataSource__userNotificationSettingsDataSource;
@@ -456,27 +455,27 @@ void __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_w
   {
     v5 = [*(a1 + 32) sortedArrayUsingComparator:&__block_literal_global_126];
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v35;
+      v10 = *v34;
       v11 = 2;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v34 + 1) + 8 * i);
+          v13 = *(*(&v33 + 1) + 8 * i);
           v14 = [v13 type];
           if ((v11 - 1) > 1 || v11 != v14)
           {
@@ -485,7 +484,7 @@ void __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_w
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v9);
@@ -510,31 +509,31 @@ void __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_w
   if ([v6 count] && objc_msgSend(*(a1 + 56), "count"))
   {
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 56), "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v17 = *(a1 + 56);
-    v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [*(*(&v30 + 1) + 8 * j) copy];
+          v22 = [*(*(&v29 + 1) + 8 * j) copy];
           [v22 _filterAndSetWorkoutEvents:v6];
           [v16 addObject:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v19);
@@ -560,8 +559,6 @@ void __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_w
 
   v3[15] = *(a1 + 104);
   objc_storeStrong(v3 + 16, *(a1 + 80));
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __138__HKWorkout__workoutWithActivityType_startDate_endDate_workoutEvents_workoutActivities_duration_statistics_goalType_goal_device_metadata___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -782,10 +779,10 @@ LABEL_13:
 {
   var1 = configuration.var1;
   var0 = configuration.var0;
-  v57[1] = *MEMORY[0x1E69E9840];
-  v55.receiver = self;
-  v55.super_class = HKWorkout;
-  var1 = [(HKSample *)&v55 _validateWithConfiguration:?];
+  v53[1] = *MEMORY[0x1E69E9840];
+  v51.receiver = self;
+  v51.super_class = HKWorkout;
+  var1 = [(HKSample *)&v51 _validateWithConfiguration:?];
   if (var1)
   {
     goto LABEL_2;
@@ -797,10 +794,10 @@ LABEL_13:
 
   if ((isKindOfClass & 1) == 0)
   {
-    v15 = MEMORY[0x1E696ABC0];
-    v16 = objc_opt_class();
+    v14 = MEMORY[0x1E696ABC0];
+    v15 = objc_opt_class();
     sampleType2 = [(HKSample *)self sampleType];
-    var12 = [v15 hk_errorForInvalidArgument:@"@" class:v16 selector:a2 format:{@"Invalid workout type %@", sampleType2}];
+    var12 = [v14 hk_errorForInvalidArgument:@"@" class:v15 selector:a2 format:{@"Invalid workout type %@", sampleType2}];
 
     goto LABEL_3;
   }
@@ -815,9 +812,9 @@ LABEL_2:
 
   if (self->_primaryActivity)
   {
-    v57[0] = self->_primaryActivity;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
-    var12 = [(HKWorkout *)self _validateWorkoutActivities:v13 withConfiguration:var0, var1];
+    v53[0] = self->_primaryActivity;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    var12 = [(HKWorkout *)self _validateWorkoutActivities:v12 withConfiguration:var0, var1];
 
     if (var12)
     {
@@ -832,113 +829,113 @@ LABEL_2:
     primaryActivity = 0;
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = [(HKWorkoutActivity *)primaryActivity allStatistics];
-  v18 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-  if (!v18)
+  v17 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+  if (!v17)
   {
     goto LABEL_29;
   }
 
-  v19 = v18;
-  v50 = *v52;
+  v18 = v17;
+  v46 = *v48;
   while (2)
   {
-    for (i = 0; i != v19; ++i)
+    for (i = 0; i != v18; ++i)
     {
-      if (*v52 != v50)
+      if (*v48 != v46)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v51 + 1) + 8 * i);
-      v22 = [(HKWorkoutActivity *)self->_primaryActivity statisticsForType:v21];
-      canonicalUnit = [v21 canonicalUnit];
-      sumQuantity = [v22 sumQuantity];
+      v20 = *(*(&v47 + 1) + 8 * i);
+      v21 = [(HKWorkoutActivity *)self->_primaryActivity statisticsForType:v20];
+      canonicalUnit = [v20 canonicalUnit];
+      sumQuantity = [v21 sumQuantity];
       if (sumQuantity)
       {
-        v25 = sumQuantity;
-        sumQuantity2 = [v22 sumQuantity];
-        v27 = [sumQuantity2 isCompatibleWithUnit:canonicalUnit];
+        v24 = sumQuantity;
+        sumQuantity2 = [v21 sumQuantity];
+        v26 = [sumQuantity2 isCompatibleWithUnit:canonicalUnit];
 
-        if ((v27 & 1) == 0)
+        if ((v26 & 1) == 0)
         {
-          v43 = MEMORY[0x1E696ABC0];
-          v44 = objc_opt_class();
-          identifier = [v21 identifier];
-          sumQuantity3 = [v22 sumQuantity];
-          v47 = sumQuantity3;
-          v48 = @"Incompatible unit for %@ sum quantity, received %@";
+          v39 = MEMORY[0x1E696ABC0];
+          v40 = objc_opt_class();
+          identifier = [v20 identifier];
+          sumQuantity3 = [v21 sumQuantity];
+          v43 = sumQuantity3;
+          v44 = @"Incompatible unit for %@ sum quantity, received %@";
 LABEL_36:
-          var12 = [v43 hk_errorForInvalidArgument:@"@" class:v44 selector:a2 format:{v48, identifier, sumQuantity3}];
+          var12 = [v39 hk_errorForInvalidArgument:@"@" class:v40 selector:a2 format:{v44, identifier, sumQuantity3}];
 
           goto LABEL_3;
         }
       }
 
-      averageQuantity = [v22 averageQuantity];
+      averageQuantity = [v21 averageQuantity];
       if (averageQuantity)
       {
-        v29 = averageQuantity;
-        averageQuantity2 = [v22 averageQuantity];
-        v31 = [averageQuantity2 isCompatibleWithUnit:canonicalUnit];
+        v28 = averageQuantity;
+        averageQuantity2 = [v21 averageQuantity];
+        v30 = [averageQuantity2 isCompatibleWithUnit:canonicalUnit];
 
-        if ((v31 & 1) == 0)
+        if ((v30 & 1) == 0)
         {
-          v43 = MEMORY[0x1E696ABC0];
-          v44 = objc_opt_class();
-          identifier = [v21 identifier];
-          sumQuantity3 = [v22 averageQuantity];
-          v47 = sumQuantity3;
-          v48 = @"Incompatible unit for %@ average quantity, received %@";
+          v39 = MEMORY[0x1E696ABC0];
+          v40 = objc_opt_class();
+          identifier = [v20 identifier];
+          sumQuantity3 = [v21 averageQuantity];
+          v43 = sumQuantity3;
+          v44 = @"Incompatible unit for %@ average quantity, received %@";
           goto LABEL_36;
         }
       }
 
-      minimumQuantity = [v22 minimumQuantity];
+      minimumQuantity = [v21 minimumQuantity];
       if (minimumQuantity)
       {
-        v33 = minimumQuantity;
-        minimumQuantity2 = [v22 minimumQuantity];
-        v35 = [minimumQuantity2 isCompatibleWithUnit:canonicalUnit];
+        v32 = minimumQuantity;
+        minimumQuantity2 = [v21 minimumQuantity];
+        v34 = [minimumQuantity2 isCompatibleWithUnit:canonicalUnit];
 
-        if ((v35 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
-          v43 = MEMORY[0x1E696ABC0];
-          v44 = objc_opt_class();
-          identifier = [v21 identifier];
-          sumQuantity3 = [v22 minimumQuantity];
-          v47 = sumQuantity3;
-          v48 = @"Incompatible unit for %@ minimum quantity, received %@";
+          v39 = MEMORY[0x1E696ABC0];
+          v40 = objc_opt_class();
+          identifier = [v20 identifier];
+          sumQuantity3 = [v21 minimumQuantity];
+          v43 = sumQuantity3;
+          v44 = @"Incompatible unit for %@ minimum quantity, received %@";
           goto LABEL_36;
         }
       }
 
-      maximumQuantity = [v22 maximumQuantity];
+      maximumQuantity = [v21 maximumQuantity];
       if (maximumQuantity)
       {
-        v37 = maximumQuantity;
-        maximumQuantity2 = [v22 maximumQuantity];
-        v39 = [maximumQuantity2 isCompatibleWithUnit:canonicalUnit];
+        v36 = maximumQuantity;
+        maximumQuantity2 = [v21 maximumQuantity];
+        v38 = [maximumQuantity2 isCompatibleWithUnit:canonicalUnit];
 
-        if ((v39 & 1) == 0)
+        if ((v38 & 1) == 0)
         {
-          v43 = MEMORY[0x1E696ABC0];
-          v44 = objc_opt_class();
-          identifier = [v21 identifier];
-          sumQuantity3 = [v22 maximumQuantity];
-          v47 = sumQuantity3;
-          v48 = @"Incompatible unit for %@ maximum quantity, received %@";
+          v39 = MEMORY[0x1E696ABC0];
+          v40 = objc_opt_class();
+          identifier = [v20 identifier];
+          sumQuantity3 = [v21 maximumQuantity];
+          v43 = sumQuantity3;
+          v44 = @"Incompatible unit for %@ maximum quantity, received %@";
           goto LABEL_36;
         }
       }
     }
 
-    v19 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-    if (v19)
+    v18 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+    if (v18)
     {
       continue;
     }
@@ -950,16 +947,12 @@ LABEL_29:
 
   if ((_HKWorkoutGoalTypeAcceptsQuantity(self->_goalType, self->_goal) & 1) == 0)
   {
-    v40 = MEMORY[0x1E696ABC0];
-    v41 = objc_opt_class();
-    goal = self->_goal;
-    var1 = [v40 hk_errorForInvalidArgument:@"@" class:v41 selector:a2 format:{@"Incompatible goal (%@) for goal type %ld", goal, self->_goalType}];
+    var1 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"Incompatible goal (%@) for goal type %ld", self->_goal, self->_goalType}];
     goto LABEL_2;
   }
 
   var12 = 0;
 LABEL_3:
-  v9 = *MEMORY[0x1E69E9840];
 
   return var12;
 }
@@ -1009,65 +1002,62 @@ LABEL_3:
 
 void __54__HKWorkout__validateWorkoutEvents_withConfiguration___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = a2;
+  v28 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v22 = MEMORY[0x1E696ABC0];
-    v23 = *(a1 + 32);
-    v24 = objc_opt_class();
-    v25 = [v22 hk_errorForInvalidArgument:@"@" class:v24 selector:*(a1 + 72) format:{@"Workout events must be of class %@, received (%@)", objc_opt_class(), v31}];
-    v26 = *(*(a1 + 40) + 8);
-    v16 = *(v26 + 40);
-    *(v26 + 40) = v25;
+    v21 = MEMORY[0x1E696ABC0];
+    v22 = objc_opt_class();
+    v23 = [v21 hk_errorForInvalidArgument:@"@" class:v22 selector:*(a1 + 72) format:{@"Workout events must be of class %@, received (%@)", objc_opt_class(), v28}];
+    v24 = *(*(a1 + 40) + 8);
+    v15 = *(v24 + 40);
+    *(v24 + 40) = v23;
     goto LABEL_11;
   }
 
-  v3 = [v31 _validateWithConfiguration:{*(a1 + 56), *(a1 + 64)}];
+  v3 = [v28 _validateWithConfiguration:{*(a1 + 56), *(a1 + 64)}];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  v6 = [v31 type];
+  v6 = [v28 type];
   v7 = v6;
   v8 = *(*(a1 + 48) + 8);
   if ((v6 - 1) <= 1 && v6 == *(v8 + 24))
   {
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:{@"Two pause/resume workout events with the same type occurred in a row: (%ld) and (%ld)", *(*(*(a1 + 48) + 8) + 24), v7}];
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v9 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:{@"Two pause/resume workout events with the same type occurred in a row: (%ld) and (%ld)", *(*(*(a1 + 48) + 8) + 24), v6}];
+    v10 = *(*(a1 + 40) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
     v8 = *(*(a1 + 48) + 8);
   }
 
   *(v8 + 24) = v7;
-  v13 = objc_alloc(MEMORY[0x1E696AB80]);
-  v14 = [*(a1 + 32) startDate];
-  v15 = [*(a1 + 32) endDate];
-  v16 = [v13 initWithStartDate:v14 endDate:v15];
+  v12 = objc_alloc(MEMORY[0x1E696AB80]);
+  v13 = [*(a1 + 32) startDate];
+  v14 = [*(a1 + 32) endDate];
+  v15 = [v12 initWithStartDate:v13 endDate:v14];
 
-  v17 = [v31 dateInterval];
-  v18 = [v17 startDate];
-  if (([v16 containsDate:v18] & 1) == 0)
+  v16 = [v28 dateInterval];
+  v17 = [v16 startDate];
+  if (([v15 containsDate:v17] & 1) == 0)
   {
 
     goto LABEL_10;
   }
 
-  v19 = [v31 dateInterval];
-  v20 = [v19 endDate];
-  v21 = [v16 containsDate:v20];
+  v18 = [v28 dateInterval];
+  v19 = [v18 endDate];
+  v20 = [v15 containsDate:v19];
 
-  if ((v21 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
 LABEL_10:
-    v27 = *(a1 + 32);
-    v28 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:{@"Workout event (%@) did not occur during this workout", v31}];
-    v29 = *(*(a1 + 40) + 8);
-    v30 = *(v29 + 40);
-    *(v29 + 40) = v28;
+    v25 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 72) format:{@"Workout event (%@) did not occur during this workout", v28}];
+    v26 = *(*(a1 + 40) + 8);
+    v27 = *(v26 + 40);
+    *(v26 + 40) = v25;
   }
 
 LABEL_11:
@@ -1102,8 +1092,8 @@ LABEL_11:
 
 void __58__HKWorkout__validateWorkoutActivities_withConfiguration___block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v22 = a2;
-  v6 = [v22 _validateWithConfiguration:{*(a1 + 48), *(a1 + 56)}];
+  v21 = a2;
+  v6 = [v21 _validateWithConfiguration:{*(a1 + 48), *(a1 + 56)}];
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
@@ -1119,24 +1109,23 @@ void __58__HKWorkout__validateWorkoutActivities_withConfiguration___block_invoke
   v12 = [*(a1 + 32) endDate];
   v13 = [v10 initWithStartDate:v11 endDate:v12];
 
-  v14 = [v22 startDate];
+  v14 = [v21 startDate];
   if (([v13 containsDate:v14] & 1) == 0)
   {
 
 LABEL_8:
-    v19 = *(a1 + 32);
-    v20 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 64) format:{@"Workout activity (%@) did not occur during this workout", v22}];
-    v21 = *(*(a1 + 40) + 8);
-    v14 = *(v21 + 40);
-    *(v21 + 40) = v20;
+    v19 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 64) format:{@"Workout activity (%@) did not occur during this workout", v21}];
+    v20 = *(*(a1 + 40) + 8);
+    v14 = *(v20 + 40);
+    *(v20 + 40) = v19;
     goto LABEL_9;
   }
 
-  v15 = [v22 endDate];
+  v15 = [v21 endDate];
   if (v15)
   {
     v16 = v15;
-    v17 = [v22 endDate];
+    v17 = [v21 endDate];
     v18 = [v13 containsDate:v17];
 
     if (v18)
@@ -1186,27 +1175,27 @@ LABEL_11:
 
 - (id)subObjectFromUUID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   _subActivities = [(HKWorkout *)self _subActivities];
-  v6 = [_subActivities countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [_subActivities countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(_subActivities);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         uUID = [v9 UUID];
         uUIDString = [uUID UUIDString];
         uUIDString2 = [dCopy UUIDString];
@@ -1219,7 +1208,7 @@ LABEL_11:
         }
       }
 
-      v6 = [_subActivities countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [_subActivities countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1231,120 +1220,117 @@ LABEL_11:
 
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (BOOL)_validateObjects:(id)objects forClass:(Class)class error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   if (![objectsCopy count])
   {
     [MEMORY[0x1E696ABC0] hk_assignError:error code:3 format:{@"%@: %@ data cannot be nil or empty.", objc_opt_class(), class}];
-    v24 = 0;
+    v23 = 0;
     goto LABEL_26;
   }
 
-  v40 = 0u;
-  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = objectsCopy;
-  v8 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v8)
   {
-    v23 = 1;
+    v22 = 1;
     goto LABEL_25;
   }
 
   v9 = v8;
   errorCopy = error;
-  v10 = *v39;
-  v35 = objectsCopy;
+  v10 = *v37;
+  v33 = objectsCopy;
   v11 = off_1E7375000;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v39 != v10)
+      if (*v37 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v38 + 1) + 8 * i);
+      v13 = *(*(&v36 + 1) + 8 * i);
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v25 = MEMORY[0x1E696ABC0];
-        v26 = objc_opt_class();
-        [v25 hk_assignError:errorCopy code:3 format:{@"%@: Invalid object of type %@. Expecting %@.", v26, objc_opt_class(), class}];
-        v23 = 0;
+        v24 = MEMORY[0x1E696ABC0];
+        v25 = objc_opt_class();
+        [v24 hk_assignError:errorCopy code:3 format:{@"%@: Invalid object of type %@. Expecting %@.", v25, objc_opt_class(), class}];
+        v22 = 0;
         LOBYTE(error) = 0;
         goto LABEL_24;
       }
 
-      v14 = v11[136];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         continue;
       }
 
-      v15 = v10;
+      v14 = v10;
       classCopy = class;
-      v17 = v11;
-      v18 = v13;
-      v19 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierWorkoutEffortScore"];
-      v20 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierEstimatedWorkoutEffortScore"];
-      sampleType = [v18 sampleType];
-      v37 = v19;
-      if ([sampleType isEqual:v19])
+      v16 = v11;
+      v17 = v13;
+      v18 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierWorkoutEffortScore"];
+      v19 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:@"HKQuantityTypeIdentifierEstimatedWorkoutEffortScore"];
+      sampleType = [v17 sampleType];
+      v35 = v18;
+      if ([sampleType isEqual:v18])
       {
 
 LABEL_19:
         error = MEMORY[0x1E696ABC0];
-        v27 = objc_opt_class();
-        sampleType2 = [v18 sampleType];
-        v29 = [error hk_error:3 format:{@"%@: Sample of type %@ must be related to a workout", v27, sampleType2}];
-        v30 = v29;
-        LOBYTE(error) = v29 == 0;
-        if (v29)
+        v26 = objc_opt_class();
+        sampleType2 = [v17 sampleType];
+        v28 = [error hk_error:3 format:{@"%@: Sample of type %@ must be related to a workout", v26, sampleType2}];
+        v29 = v28;
+        LOBYTE(error) = v28 == 0;
+        if (v28)
         {
           if (errorCopy)
           {
-            v31 = v29;
-            *errorCopy = v30;
+            v30 = v28;
+            *errorCopy = v29;
           }
 
           else
           {
-            _HKLogDroppedError(v29);
+            _HKLogDroppedError(v28);
           }
         }
 
-        v23 = 0;
+        v22 = 0;
 LABEL_24:
-        objectsCopy = v35;
+        objectsCopy = v33;
         goto LABEL_25;
       }
 
-      error = [v18 sampleType];
-      v22 = [error isEqual:v20];
+      error = [v17 sampleType];
+      v21 = [error isEqual:v19];
 
-      if (v22)
+      if (v21)
       {
         goto LABEL_19;
       }
 
-      v11 = v17;
+      v11 = v16;
       class = classCopy;
-      v10 = v15;
+      v10 = v14;
     }
 
-    v9 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-    v23 = 1;
-    objectsCopy = v35;
+    v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v22 = 1;
+    objectsCopy = v33;
     if (v9)
     {
       continue;
@@ -1355,11 +1341,10 @@ LABEL_24:
 
 LABEL_25:
 
-  v24 = v23 | error;
+  v23 = v22 | error;
 LABEL_26:
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v24 & 1;
+  return v23 & 1;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1572,34 +1557,34 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
 
 - (double)_totalDistanceIncludingAllTypesForUnit:(id)unit
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   unitCopy = unit;
-  v23[0] = @"HKQuantityTypeIdentifierDistanceCycling";
-  v23[1] = @"HKQuantityTypeIdentifierDistanceWalkingRunning";
-  v23[2] = @"HKQuantityTypeIdentifierDistanceSwimming";
-  v23[3] = @"HKQuantityTypeIdentifierDistanceDownhillSnowSports";
-  v23[4] = @"HKQuantityTypeIdentifierDistanceWheelchair";
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:5];
+  v22[0] = @"HKQuantityTypeIdentifierDistanceCycling";
+  v22[1] = @"HKQuantityTypeIdentifierDistanceWalkingRunning";
+  v22[2] = @"HKQuantityTypeIdentifierDistanceSwimming";
+  v22[3] = @"HKQuantityTypeIdentifierDistanceDownhillSnowSports";
+  v22[4] = @"HKQuantityTypeIdentifierDistanceWheelchair";
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = v20 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:*(*(&v18 + 1) + 8 * i), v18];
+        v11 = [(HKObjectType *)HKQuantityType quantityTypeForIdentifier:*(*(&v17 + 1) + 8 * i), v17];
         v12 = [(HKWorkout *)self statisticsForType:v11];
         sumQuantity = [v12 sumQuantity];
         [sumQuantity doubleValueForUnit:unitCopy];
@@ -1608,7 +1593,7 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
         v9 = v9 + v15;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -1619,7 +1604,6 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
     v9 = 0.0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1673,7 +1657,7 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
 
 - (NSArray)workoutActivities
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_subActivities count])
   {
     v3 = self->_subActivities;
@@ -1681,18 +1665,16 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
 
   else
   {
-    v6[0] = self->_primaryActivity;
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+    v5[0] = self->_primaryActivity;
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_routeSmoothingActivities
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   workoutConfiguration = [(HKWorkoutActivity *)self->_primaryActivity workoutConfiguration];
   activityType = [workoutConfiguration activityType];
 
@@ -1703,11 +1685,9 @@ uint64_t __31__HKWorkout__setWorkoutEvents___block_invoke(uint64_t a1, void *a2,
 
   else
   {
-    v8[0] = self->_primaryActivity;
-    workoutActivities = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = self->_primaryActivity;
+    workoutActivities = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return workoutActivities;
 }

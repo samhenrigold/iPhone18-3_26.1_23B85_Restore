@@ -1,5 +1,5 @@
 @interface SBSceneHandle(SceneViewControlling)
-- (uint64_t)newSceneViewController;
+- (SBSceneViewController)newSceneViewController;
 - (uint64_t)newSceneViewWithReferenceSize:()SceneViewControlling contentOrientation:containerOrientation:hostRequester:;
 @end
 
@@ -14,7 +14,7 @@
   return v14;
 }
 
-- (uint64_t)newSceneViewController
+- (SBSceneViewController)newSceneViewController
 {
   v2 = [SBSceneViewController alloc];
 

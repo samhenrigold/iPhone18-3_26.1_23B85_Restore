@@ -4192,7 +4192,7 @@ uint64_t CMMsl::KappaDirectionOfTravel::KappaDirectionOfTravel(uint64_t a1, uint
   return a1;
 }
 
-CMMsl *CMMsl::KappaDirectionOfTravel::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaDirectionOfTravel::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6081,13 +6081,8 @@ LABEL_42:
 LABEL_43:
   v32 = *(this + 8);
 LABEL_62:
-  v33 = v5 ^ v3 ^ v7 ^ v9 ^ v11 ^ v13 ^ v15 ^ v17 ^ v19 ^ v20 ^ v22 ^ v24 ^ v26 ^ v28 ^ v29 ^ v30 ^ v31 ^ v32;
-  v34 = *(this + 4);
-  v35 = *(this + 5);
-  v36 = v33 ^ PBHashBytes();
-  v37 = *(this + 1);
-  v38 = *(this + 2);
-  return v36 ^ PBHashBytes();
+  v33 = v5 ^ v3 ^ v7 ^ v9 ^ v11 ^ v13 ^ v15 ^ v17 ^ v19 ^ v20 ^ v22 ^ v24 ^ v26 ^ v28 ^ v29 ^ v30 ^ v31 ^ v32 ^ PBHashBytes();
+  return v33 ^ PBHashBytes();
 }
 
 void CMMsl::KappaGpsResult::~KappaGpsResult(CMMsl::KappaGpsResult *this)
@@ -6722,7 +6717,7 @@ float CMMsl::KappaGpsResult::KappaGpsResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaGpsResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaGpsResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9503,7 +9498,7 @@ float CMMsl::KappaGravityAutocorrelationResult::KappaGravityAutocorrelationResul
   return result;
 }
 
-CMMsl *CMMsl::KappaGravityAutocorrelationResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaGravityAutocorrelationResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

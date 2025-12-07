@@ -27,7 +27,7 @@ void __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___bloc
 
 void __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_2_201(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   v8 = [*(a1 + 40) compatibleFileTypeForContentItem:v6 availableTypes:*(a1 + 32)];
@@ -39,26 +39,24 @@ void __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___bloc
       v10 = *(a1 + 32);
       v11 = [v6 supportedTypes];
       *buf = 136315906;
-      v17 = "+[INFile(Workflow) coerceContentItems:toSupportedUTIs:completion:]_block_invoke_2";
-      v18 = 2114;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v10;
-      v22 = 2114;
-      v23 = v11;
+      v16 = "+[INFile(Workflow) coerceContentItems:toSupportedUTIs:completion:]_block_invoke_2";
+      v17 = 2114;
+      v18 = v6;
+      v19 = 2114;
+      v20 = v10;
+      v21 = 2114;
+      v22 = v11;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s Unable to find matching type for content item: %{public}@. Requested types: %{public}@, Supported types: %{public}@", buf, 0x2Au);
     }
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_202;
-  v14[3] = &unk_1E837E3C0;
-  v15 = v7;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_202;
+  v13[3] = &unk_1E837E3C0;
+  v14 = v7;
   v12 = v7;
-  [v6 getFileRepresentation:v14 forType:v8];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [v6 getFileRepresentation:v13 forType:v8];
 }
 
 id __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -75,21 +73,20 @@ void __127__INFile_Workflow__getINFileRepresentationsFromContent_byCoercingToSup
 {
   if (a2)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __127__INFile_Workflow__getINFileRepresentationsFromContent_byCoercingToSupportedUTIs_withParameterState_dynamicOptions_completion___block_invoke_2;
-    v7[3] = &unk_1E837E358;
-    v8 = *(a1 + 32);
-    v4 = [a2 if_compactMap:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __127__INFile_Workflow__getINFileRepresentationsFromContent_byCoercingToSupportedUTIs_withParameterState_dynamicOptions_completion___block_invoke_2;
+    v6[3] = &unk_1E837E358;
+    v7 = *(a1 + 32);
+    v4 = [a2 if_compactMap:v6];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 }
 

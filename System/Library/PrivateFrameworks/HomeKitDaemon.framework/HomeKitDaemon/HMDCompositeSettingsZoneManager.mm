@@ -13,7 +13,7 @@
 
 - (void)remove
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCompositeSettingsZoneManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -24,28 +24,27 @@
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Removing Zone", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   objc_initWeak(buf, selfCopy);
   configurationFuture = [(HMDCompositeSettingsZoneManager *)selfCopy configurationFuture];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __41__HMDCompositeSettingsZoneManager_remove__block_invoke;
-  v11[3] = &unk_278684500;
-  objc_copyWeak(&v12, buf);
-  v9 = [configurationFuture addSuccessBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __41__HMDCompositeSettingsZoneManager_remove__block_invoke;
+  v10[3] = &unk_278684500;
+  objc_copyWeak(&v11, buf);
+  v9 = [configurationFuture addSuccessBlock:v10];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDCompositeSettingsZoneManager_remove__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained localZone];
@@ -53,12 +52,12 @@ void __41__HMDCompositeSettingsZoneManager_remove__block_invoke(uint64_t a1, voi
   {
     v6 = [WeakRetained database];
     v7 = [v6 removeLocalAndCloudDataForLocalZone:v5];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __41__HMDCompositeSettingsZoneManager_remove__block_invoke_18;
-    v14[3] = &unk_278687CC0;
-    v14[4] = WeakRetained;
-    v8 = [v7 addCompletionBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __41__HMDCompositeSettingsZoneManager_remove__block_invoke_18;
+    v13[3] = &unk_278687CC0;
+    v13[4] = WeakRetained;
+    v8 = [v7 addCompletionBlock:v13];
   }
 
   else
@@ -70,19 +69,17 @@ void __41__HMDCompositeSettingsZoneManager_remove__block_invoke(uint64_t a1, voi
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unexpected nil zone during cleanup", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HMDCompositeSettingsZoneManager_remove__block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -95,11 +92,11 @@ void __41__HMDCompositeSettingsZoneManager_remove__block_invoke_18(uint64_t a1, 
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v6;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v5;
+      v22 = 2112;
+      v23 = v6;
       v12 = "%{public}@Zone removal returned result:%@ error:%@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
@@ -113,9 +110,9 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v5;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v5;
     v12 = "%{public}@Removed zone with result:%@";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -131,8 +128,6 @@ LABEL_6:
   block[3] = &unk_27868A728;
   block[4] = *(a1 + 32);
   dispatch_async(v16, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__HMDCompositeSettingsZoneManager_remove__block_invoke_19(uint64_t a1)
@@ -145,7 +140,7 @@ uint64_t __41__HMDCompositeSettingsZoneManager_remove__block_invoke_19(uint64_t 
 
 - (void)database:(id)database didReceiveMessageWithUserInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   infoCopy = info;
   v8 = objc_autoreleasePoolPush();
@@ -154,15 +149,14 @@ uint64_t __41__HMDCompositeSettingsZoneManager_remove__block_invoke_19(uint64_t 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = infoCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@did receive message with  user info %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = infoCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@did receive message with  user info %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database didRemoveZoneWithName:(id)name isPrivate:(BOOL)private
@@ -185,28 +179,26 @@ uint64_t __41__HMDCompositeSettingsZoneManager_remove__block_invoke_19(uint64_t 
 
 uint64_t __76__HMDCompositeSettingsZoneManager_database_didRemoveZoneWithName_isPrivate___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Zone removed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Zone removed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setCloudZone:0];
-  result = [*(a1 + 32) setLocalZone:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setLocalZone:0];
 }
 
 - (id)database:(id)database willRemoveZoneWithName:(id)name isPrivate:(BOOL)private
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   nameCopy = name;
   v9 = objc_autoreleasePoolPush();
@@ -215,22 +207,20 @@ uint64_t __76__HMDCompositeSettingsZoneManager_database_didRemoveZoneWithName_is
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@will remove zone", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@will remove zone", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
 
 - (void)database:(id)database didCreateZoneWithName:(id)name isPrivate:(BOOL)private
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   nameCopy = name;
   v9 = objc_autoreleasePoolPush();
@@ -239,13 +229,12 @@ uint64_t __76__HMDCompositeSettingsZoneManager_database_didRemoveZoneWithName_is
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@did create zone", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@did create zone", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isConfigured
@@ -314,7 +303,7 @@ LABEL_9:
 
 void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_createZoneIfNotExists___block_invoke(uint64_t a1, void *a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -341,15 +330,15 @@ void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_c
         *&buf[12] = 2112;
         *&buf[14] = v13;
         *&buf[22] = 2112;
-        v55 = v14;
+        v54 = v14;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Finding Zone:%@ createIfNotExists:%@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v8);
       v15 = [v9 database];
       v16 = [v9 zoneName];
-      v53 = 0;
-      v17 = [v15 privateZonesWithName:v16 configuration:v6 delegate:0 error:&v53];
+      v52 = 0;
+      v17 = [v15 privateZonesWithName:v16 configuration:v6 delegate:0 error:&v52];
     }
 
     else
@@ -365,19 +354,19 @@ void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_c
         *&buf[12] = 2112;
         *&buf[14] = v19;
         *&buf[22] = 2112;
-        v55 = v20;
+        v54 = v20;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Finding Zone:%@ createIfNotExists:%@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v8);
       v15 = [v9 database];
       v16 = [v9 zoneName];
-      v53 = 0;
-      v17 = [v15 existingPrivateZonesWithName:v16 configuration:v6 delegate:0 error:&v53];
+      v52 = 0;
+      v17 = [v15 existingPrivateZonesWithName:v16 configuration:v6 delegate:0 error:&v52];
     }
 
     v21 = v17;
-    v22 = v53;
+    v22 = v52;
 
     if (v21)
     {
@@ -395,7 +384,7 @@ void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_c
 
       v28 = [v9 cloudZone];
       v29 = [v28 startUp];
-      v47 = v22;
+      v46 = v22;
       v30 = v6;
       v31 = v3;
       v32 = MEMORY[0x277D2C938];
@@ -405,19 +394,19 @@ void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_c
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __45__HMDCompositeSettingsZoneManager__configure__block_invoke;
-      v55 = &unk_27868A250;
-      v56 = v9;
+      v54 = &unk_27868A250;
+      v55 = v9;
       v36 = [v35 addFailureBlock:buf];
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __45__HMDCompositeSettingsZoneManager__configure__block_invoke_13;
-      v52[3] = &unk_27868A200;
-      v52[4] = v9;
-      v4 = [v36 addSuccessBlock:v52];
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __45__HMDCompositeSettingsZoneManager__configure__block_invoke_13;
+      v51[3] = &unk_27868A200;
+      v51[4] = v9;
+      v4 = [v36 addSuccessBlock:v51];
 
       v3 = v31;
       v6 = v30;
-      v22 = v47;
+      v22 = v46;
     }
 
     else
@@ -442,27 +431,25 @@ void __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_c
     }
   }
 
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_createZoneIfNotExists___block_invoke_2;
-  v50[3] = &unk_27868A200;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_createZoneIfNotExists___block_invoke_2;
+  v49[3] = &unk_27868A200;
   v42 = v3;
-  v51 = v42;
-  v43 = [v4 addSuccessBlock:v50];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_createZoneIfNotExists___block_invoke_3;
-  v48[3] = &unk_27868A250;
-  v49 = v42;
+  v50 = v42;
+  v43 = [v4 addSuccessBlock:v49];
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __93__HMDCompositeSettingsZoneManager_initWithDatabase_workQueue_zoneName_createZoneIfNotExists___block_invoke_3;
+  v47[3] = &unk_27868A250;
+  v48 = v42;
   v44 = v42;
-  v45 = [v43 addFailureBlock:v48];
-
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = [v43 addFailureBlock:v47];
 }
 
 void __45__HMDCompositeSettingsZoneManager__configure__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -470,20 +457,19 @@ void __45__HMDCompositeSettingsZoneManager__configure__block_invoke(uint64_t a1,
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@CloudZone Error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@CloudZone Error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDCompositeSettingsZoneManager__configure__block_invoke_13(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -491,13 +477,12 @@ void __45__HMDCompositeSettingsZoneManager__configure__block_invoke_13(uint64_t 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@CloudZone startup success", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@CloudZone startup success", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -514,10 +499,9 @@ void __45__HMDCompositeSettingsZoneManager__configure__block_invoke_13(uint64_t 
 
 void __46__HMDCompositeSettingsZoneManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_244896;
-  logCategory__hmf_once_v6_244896 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_244896;
+  logCategory__hmf_once_v6_244896 = v0;
 }
 
 @end

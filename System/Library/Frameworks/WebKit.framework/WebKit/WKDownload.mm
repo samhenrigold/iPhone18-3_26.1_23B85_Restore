@@ -17,16 +17,16 @@
 - (void)cancel:(void *)completionHandler
 {
   v4 = _Block_copy(completionHandler);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10F4AF0;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::DownloadProxy::cancel(&self->_download, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10F4AF0;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::DownloadProxy::cancel(&self->_download, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -284,22 +284,22 @@ LABEL_10:
 
 - (void)progress
 {
-  v3 = 0;
-  objc_moveWeak(&v3, (self + 32));
-  v1 = WTF::fastMalloc(0x10);
-  *v1 = &unk_1F10F49B0;
-  *(v1 + 8) = 0;
-  objc_moveWeak((v1 + 8), &v3);
-  v4 = v1;
-  WTF::ensureOnMainRunLoop();
-  v2 = v4;
   v4 = 0;
-  if (v2)
+  objc_moveWeak(&v4, (self + 32));
+  v2 = WTF::fastMalloc(v1, 0x10);
+  *v2 = &unk_1F10F49B0;
+  v2[1] = 0;
+  objc_moveWeak(v2 + 1, &v4);
+  v5 = v2;
+  WTF::ensureOnMainRunLoop();
+  v3 = v5;
+  v5 = 0;
+  if (v3)
   {
-    (*(*v2 + 8))(v2);
+    (*(*v3 + 8))(v3);
   }
 
-  objc_destroyWeak(&v3);
+  objc_destroyWeak(&v4);
 }
 
 - (uint64_t)progress

@@ -4,6 +4,7 @@
 - (id)_outrankMetricForNew:(id)new old:(id)old withDelayedItems:(BOOL)items;
 - (id)getState:(BOOL)state;
 - (void)_captureOutrankEntryAdditionalState:(id)state flags:(unint64_t)flags;
+- (void)_logMetricDictionaryForNew:(id)new old:(id)old withDelayedItems:(BOOL)items why:(id)why;
 - (void)_resetDailyTelemetryMetrics;
 - (void)_sendDailyOutrankMetric;
 - (void)_sendOutrankMetricNew:(id)new old:(id)old withDelayedItems:(BOOL)items;
@@ -11,6 +12,7 @@
 - (void)_updateStateDeltas:(id)deltas duration:(double)duration;
 - (void)_updateStateTransitionMetricsForNewState:(unsigned int)state oldState:(unsigned int)oldState;
 - (void)didSampleFlows;
+- (void)noteSTMState:(unsigned int)state flags:(unint64_t)flags wrmStatus:(unint64_t)status;
 - (void)reportABCCase:(id)case;
 - (void)setConfiguration:(id)configuration;
 - (void)updateMetricsForState:(id)state;
@@ -30,7 +32,7 @@
       v12 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
+        v13[0] = 0;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "COSM Metrics didSampleFlows insufficient elapsed time for second sample", v13, 2u);
       }
     }
@@ -78,7 +80,7 @@
 - (id)_outrankMetricForNew:(id)new old:(id)old withDelayedItems:(BOOL)items
 {
   itemsCopy = items;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   newCopy = new;
   oldCopy = old;
   v10 = +[COSMStateSummary primaryReasonFromFlags:state:](COSMStateSummary, "primaryReasonFromFlags:state:", [newCopy reasonFlags], objc_msgSend(newCopy, "cosmState"));
@@ -91,13 +93,13 @@
     {
       v15 = v14;
       *buf = 67109888;
-      *v93 = v10;
-      *&v93[4] = 1024;
-      *&v93[6] = [newCopy cosmState];
-      LOWORD(v94) = 1024;
-      *(&v94 + 2) = v12;
-      HIWORD(v94) = 1024;
-      *v95 = [oldCopy cosmState];
+      *v92 = v10;
+      *&v92[4] = 1024;
+      *&v92[6] = [newCopy cosmState];
+      LOWORD(v93) = 1024;
+      *(&v93 + 2) = v12;
+      HIWORD(v93) = 1024;
+      *v94 = [oldCopy cosmState];
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSM Metrics primary reason error. Former %d state %d current %d state %d", buf, 0x1Au);
     }
 
@@ -107,7 +109,7 @@
       v17 = v16;
       v18 = +[COSMStateSummary summaryFromFlags:](COSMStateSummary, "summaryFromFlags:", [newCopy reasonFlags]);
       *buf = 138412290;
-      *v93 = v18;
+      *v92 = v18;
       _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "COSM Metrics new flags %@", buf, 0xCu);
     }
 
@@ -117,7 +119,7 @@
       v20 = v19;
       v21 = +[COSMStateSummary summaryFromFlags:](COSMStateSummary, "summaryFromFlags:", [oldCopy reasonFlags]);
       *buf = 138412290;
-      *v93 = v21;
+      *v92 = v21;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "COSM Metrics old flags %@", buf, 0xCu);
     }
 
@@ -125,7 +127,7 @@
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *v93 = newCopy;
+      *v92 = newCopy;
       _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "COSM Metrics new items %{public}@", buf, 0xCu);
     }
 
@@ -133,7 +135,7 @@
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *v93 = oldCopy;
+      *v92 = oldCopy;
       _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "COSM Metrics old items %{public}@", buf, 0xCu);
     }
 
@@ -298,12 +300,12 @@
       v75 = [TrackedFlow cellUsageGrandTallyAfterAdding:0];
       v76 = [TrackedFlow wifiNonLocalUsageGrandTallyAfterAdding:0];
       v77 = v75 - self->_sampledCellGrandTally;
-      v90 = v76 - self->_sampledWifiGrandTally;
-      v91 = v76;
+      v89 = v76 - self->_sampledWifiGrandTally;
+      v90 = v76;
       0x3E8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:(8 * (v77 / v74) + 999) / 0x3E8];
       [v24 setObject:0x3E8 forKeyedSubscript:@"delayedCellularThroughput"];
 
-      0x3E82 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:(8 * (v90 / v74) + 999) / 0x3E8];
+      0x3E82 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:(8 * (v89 / v74) + 999) / 0x3E8];
       [v24 setObject:0x3E82 forKeyedSubscript:@"delayedWiFiThroughput"];
 
       v80 = outrankLogHandle;
@@ -313,17 +315,17 @@
         v82 = v80;
         v83 = [v24 objectForKeyedSubscript:@"delayedCellularThroughput"];
         *buf = 134219266;
-        *v93 = v74;
-        *&v93[8] = 2048;
-        v94 = sampledCellGrandTally;
-        *v95 = 2048;
-        *&v95[2] = v75;
-        v96 = 2048;
-        v97 = v77;
-        v98 = 2048;
-        v99 = (v77 / v74);
-        v100 = 2112;
-        v101 = v83;
+        *v92 = v74;
+        *&v92[8] = 2048;
+        v93 = sampledCellGrandTally;
+        *v94 = 2048;
+        *&v94[2] = v75;
+        v95 = 2048;
+        v96 = v77;
+        v97 = 2048;
+        v98 = (v77 / v74);
+        v99 = 2112;
+        v100 = v83;
         _os_log_impl(&dword_23255B000, v82, OS_LOG_TYPE_DEBUG, "COSM Metrics delta interval %.3f cell before %llu after %llu delta %llu bytes/sec %lld reported kbps %@", buf, 0x3Eu);
       }
 
@@ -334,23 +336,21 @@
         v86 = v84;
         v87 = [v24 objectForKeyedSubscript:@"delayedWiFiThroughput"];
         *buf = 134219266;
-        *v93 = v74;
-        *&v93[8] = 2048;
-        v94 = sampledWifiGrandTally;
-        *v95 = 2048;
-        *&v95[2] = v91;
-        v96 = 2048;
-        v97 = v90;
-        v98 = 2048;
-        v99 = (v90 / v74);
-        v100 = 2112;
-        v101 = v87;
+        *v92 = v74;
+        *&v92[8] = 2048;
+        v93 = sampledWifiGrandTally;
+        *v94 = 2048;
+        *&v94[2] = v90;
+        v95 = 2048;
+        v96 = v89;
+        v97 = 2048;
+        v98 = (v89 / v74);
+        v99 = 2112;
+        v100 = v87;
         _os_log_impl(&dword_23255B000, v86, OS_LOG_TYPE_DEBUG, "COSM Metrics delta interval %.3f wifi before %llu after %llu delta %llu bytes/sec %lld reported kbps %@", buf, 0x3Eu);
       }
     }
   }
-
-  v88 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -374,24 +374,22 @@
 
 id __65__CellOutrankMetrics__sendOutrankMetricNew_old_withDelayedItems___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) _outrankMetricForNew:*(a1 + 40) old:*(a1 + 48) withDelayedItems:*(a1 + 56)];
   v2 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v1;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "COSM Metrics return to AnalyticsSendEventLazy is %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v1;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "COSM Metrics return to AnalyticsSendEventLazy is %{public}@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
 
 - (void)_updateStateDeltas:(id)deltas duration:(double)duration
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   deltasCopy = deltas;
   [(CellOutrankController *)self->_cellOutrankController cellOutrankIconSetDuration];
   v8 = v7;
@@ -433,13 +431,13 @@ LABEL_24:
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v17 = v16;
-    v39 = 67109632;
-    *v40 = [deltasCopy outrankPercentIconShown];
-    *&v40[4] = 1024;
-    *&v40[6] = [deltasCopy outrankPercentFGExploited];
-    LOWORD(v41) = 1024;
-    *(&v41 + 2) = [deltasCopy outrankPercentFGNonExploited];
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM Metrics _updateStateDeltas percent icon shown %d fg-exploit %d fg-non-exploit %d", &v39, 0x14u);
+    v38 = 67109632;
+    *v39 = [deltasCopy outrankPercentIconShown];
+    *&v39[4] = 1024;
+    *&v39[6] = [deltasCopy outrankPercentFGExploited];
+    LOWORD(v40) = 1024;
+    *(&v40 + 2) = [deltasCopy outrankPercentFGNonExploited];
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM Metrics _updateStateDeltas percent icon shown %d fg-exploit %d fg-non-exploit %d", &v38, 0x14u);
   }
 
   outrankPercentFGExploited = [deltasCopy outrankPercentFGExploited];
@@ -448,9 +446,9 @@ LABEL_24:
     v19 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v39 = 134217984;
-      *v40 = duration;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "COSM Metrics percentage error, measurement duration %.3f", &v39, 0xCu);
+      v38 = 134217984;
+      *v39 = duration;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "COSM Metrics percentage error, measurement duration %.3f", &v38, 0xCu);
     }
 
     v20 = outrankLogHandle;
@@ -459,15 +457,15 @@ LABEL_24:
       prevCellOutrankIconSetDuration = self->_prevCellOutrankIconSetDuration;
       v22 = v20;
       outrankPercentIconShown = [deltasCopy outrankPercentIconShown];
-      v39 = 134218752;
-      *v40 = prevCellOutrankIconSetDuration;
-      *&v40[8] = 2048;
-      v41 = v8;
-      v42 = 2048;
-      v43 = v13;
-      v44 = 1024;
-      v45 = outrankPercentIconShown;
-      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "COSM Metrics possible icon set prev %.3f new %.3f diff %.3f percent %d", &v39, 0x26u);
+      v38 = 134218752;
+      *v39 = prevCellOutrankIconSetDuration;
+      *&v39[8] = 2048;
+      v40 = v8;
+      v41 = 2048;
+      v42 = v13;
+      v43 = 1024;
+      v44 = outrankPercentIconShown;
+      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "COSM Metrics possible icon set prev %.3f new %.3f diff %.3f percent %d", &v38, 0x26u);
     }
 
     v24 = outrankLogHandle;
@@ -476,15 +474,15 @@ LABEL_24:
       prevCellOutrankFGExploitDuration = self->_prevCellOutrankFGExploitDuration;
       v26 = v24;
       outrankPercentFGExploited2 = [deltasCopy outrankPercentFGExploited];
-      v39 = 134218752;
-      *v40 = prevCellOutrankFGExploitDuration;
-      *&v40[8] = 2048;
-      v41 = v10;
-      v42 = 2048;
-      v43 = v14;
-      v44 = 1024;
-      v45 = outrankPercentFGExploited2;
-      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "COSM Metrics fg exploit duration prev %.3f new %.3f diff %.3f percent %d", &v39, 0x26u);
+      v38 = 134218752;
+      *v39 = prevCellOutrankFGExploitDuration;
+      *&v39[8] = 2048;
+      v40 = v10;
+      v41 = 2048;
+      v42 = v14;
+      v43 = 1024;
+      v44 = outrankPercentFGExploited2;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "COSM Metrics fg exploit duration prev %.3f new %.3f diff %.3f percent %d", &v38, 0x26u);
     }
 
     v28 = outrankLogHandle;
@@ -493,15 +491,15 @@ LABEL_24:
       prevCellOutrankFGNonExploitDuration = self->_prevCellOutrankFGNonExploitDuration;
       v30 = v28;
       outrankPercentFGNonExploited = [deltasCopy outrankPercentFGNonExploited];
-      v39 = 134218752;
-      *v40 = prevCellOutrankFGNonExploitDuration;
-      *&v40[8] = 2048;
-      v41 = v12;
-      v42 = 2048;
-      v43 = v15;
-      v44 = 1024;
-      v45 = outrankPercentFGNonExploited;
-      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "COSM Metrics fg non-exploit duration prev %.3f new %.3f diff %.3f percent %d", &v39, 0x26u);
+      v38 = 134218752;
+      *v39 = prevCellOutrankFGNonExploitDuration;
+      *&v39[8] = 2048;
+      v40 = v12;
+      v41 = 2048;
+      v42 = v15;
+      v43 = 1024;
+      v44 = outrankPercentFGNonExploited;
+      _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "COSM Metrics fg non-exploit duration prev %.3f new %.3f diff %.3f percent %d", &v38, 0x26u);
     }
 
     [(CellOutrankMetrics *)self reportABCCase:@"Metrics percentage error"];
@@ -519,18 +517,16 @@ LABEL_25:
     v34 = v32;
     cellOutrankIconSetEvents = [(CellOutrankController *)cellOutrankController cellOutrankIconSetEvents];
     prevCellOutrankIconSetEvents = self->_prevCellOutrankIconSetEvents;
-    v39 = 67109376;
-    *v40 = cellOutrankIconSetEvents;
-    *&v40[4] = 1024;
-    *&v40[6] = prevCellOutrankIconSetEvents;
-    _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "COSM Metrics _updateStateDeltas current set events %d, prev %d", &v39, 0xEu);
+    v38 = 67109376;
+    *v39 = cellOutrankIconSetEvents;
+    *&v39[4] = 1024;
+    *&v39[6] = prevCellOutrankIconSetEvents;
+    _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "COSM Metrics _updateStateDeltas current set events %d, prev %d", &v38, 0xEu);
   }
 
   cellOutrankIconSetEvents2 = [(CellOutrankController *)self->_cellOutrankController cellOutrankIconSetEvents];
   [deltasCopy setOutrankNumIconOnTransitions:cellOutrankIconSetEvents2 - self->_prevCellOutrankIconSetEvents];
   self->_prevCellOutrankIconSetEvents = cellOutrankIconSetEvents2;
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateOutrankExitMetrics:(id)metrics
@@ -544,7 +540,7 @@ LABEL_25:
 - (void)_captureOutrankEntryAdditionalState:(id)state flags:(unint64_t)flags
 {
   flagsCopy = flags;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ((flagsCopy & 0x200) != 0)
   {
@@ -555,30 +551,30 @@ LABEL_25:
 
       if (largeTransferAssessor)
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         largeTransferAssessor2 = [(WiFiThroughputAdviser *)self->_wifiThroughputAdviser largeTransferAssessor];
         currentActiveTransferApps = [largeTransferAssessor2 currentActiveTransferApps];
 
-        v11 = [currentActiveTransferApps countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [currentActiveTransferApps countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
           totalWiFiRxTransferSize = 0;
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             v15 = 0;
             do
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(currentActiveTransferApps);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * v15);
+              v16 = *(*(&v21 + 1) + 8 * v15);
               wifiLargeTransferInitiatingName = [stateCopy wifiLargeTransferInitiatingName];
               if (!wifiLargeTransferInitiatingName || (v18 = wifiLargeTransferInitiatingName, v19 = [v16 totalWiFiRxTransferSize], v18, v19 > totalWiFiRxTransferSize))
               {
@@ -593,7 +589,7 @@ LABEL_25:
             }
 
             while (v12 != v15);
-            v12 = [currentActiveTransferApps countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v12 = [currentActiveTransferApps countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v12);
@@ -601,8 +597,166 @@ LABEL_25:
       }
     }
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)noteSTMState:(unsigned int)state flags:(unint64_t)flags wrmStatus:(unint64_t)status
+{
+  v7 = *&state;
+  v36 = *MEMORY[0x277D85DE8];
+  v9 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v31[0] = 67109632;
+    v31[1] = v7;
+    v32 = 2048;
+    flagsCopy = flags;
+    v34 = 2048;
+    statusCopy = status;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM Metrics noteSTMState %d flags 0x%llx wrmstatus 0x%llx", v31, 0x1Cu);
+  }
+
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v11 = v10;
+  v12 = objc_alloc_init(CapturedSystemState);
+  [(CapturedSystemState *)v12 setCosmState:v7];
+  [(CapturedSystemState *)v12 setReasonFlags:flags & 0xFFFDFFFFFFFFFFFFLL];
+  [(CapturedSystemState *)v12 setWrmStatus:status];
+  [(CapturedSystemState *)v12 setTimestamp:v11];
+  [(CapturedSystemState *)v12 setCellularRAT:[(NetworkStateRelay *)self->_cellRelay radioTechnology]];
+  [(CapturedSystemState *)v12 setCellularNRFrequencyBand:[(CellularStateRelay *)self->_cellRelay nrFrequencyBand]];
+  [(CapturedSystemState *)v12 setCellularBandwidth:[(CellularStateRelay *)self->_cellRelay cellBandwidth]];
+  [(CapturedSystemState *)v12 setCellularRSRP:[(CellularStateRelay *)self->_cellRelay cellRSRP]];
+  [(CapturedSystemState *)v12 setWifiRAT:[(NetworkStateRelay *)self->_wifiRelay radioTechnology]];
+  [(CapturedSystemState *)v12 setWifiRSSI:[(NetworkStateRelay *)self->_wifiRelay lastReportedRxSignalStrength]];
+  v13 = +[FlowScrutinizer sharedInstance];
+  cellInterfaceSampler = [v13 cellInterfaceSampler];
+  -[CapturedSystemState setOpenedSISFlows:](v12, "setOpenedSISFlows:", [cellInterfaceSampler totalOpenedSISFlows]);
+
+  v15 = +[FlowScrutinizer sharedInstance];
+  cellInterfaceSampler2 = [v15 cellInterfaceSampler];
+  totalOpenedAppleStackFlows = [cellInterfaceSampler2 totalOpenedAppleStackFlows];
+  v18 = +[FlowScrutinizer sharedInstance];
+  wifiInterfaceSampler = [v18 wifiInterfaceSampler];
+  -[CapturedSystemState setOpenedAppleStackFlows:](v12, "setOpenedAppleStackFlows:", [wifiInterfaceSampler totalOpenedAppleStackFlows] + totalOpenedAppleStackFlows - -[CapturedSystemState openedSISFlows](v12, "openedSISFlows"));
+
+  v20 = +[FlowScrutinizer sharedInstance];
+  cellInterfaceSampler3 = [v20 cellInterfaceSampler];
+  totalOpenedNonAppleStackFlows = [cellInterfaceSampler3 totalOpenedNonAppleStackFlows];
+  v23 = +[FlowScrutinizer sharedInstance];
+  wifiInterfaceSampler2 = [v23 wifiInterfaceSampler];
+  -[CapturedSystemState setOpenedNonAppleStackFlows:](v12, "setOpenedNonAppleStackFlows:", [wifiInterfaceSampler2 totalOpenedNonAppleStackFlows] + totalOpenedNonAppleStackFlows);
+
+  largeTransferAssessor = [(WiFiThroughputAdviser *)self->_wifiThroughputAdviser largeTransferAssessor];
+  [largeTransferAssessor accumulatedLowThroughputHysteresisTime];
+  [(CapturedSystemState *)v12 setLargeTransferHysteresisTime:?];
+
+  largeTransferAssessor2 = [(WiFiThroughputAdviser *)self->_wifiThroughputAdviser largeTransferAssessor];
+  -[CapturedSystemState setLargeTransferHysteresisWins:](v12, "setLargeTransferHysteresisWins:", [largeTransferAssessor2 numTransitionsLowThroughputHysteresisToActive]);
+
+  lastObject = [(NSMutableArray *)self->_stateHistory lastObject];
+  [(NSMutableArray *)self->_stateHistory addObject:v12];
+  ++self->_stateHistorySeqno;
+  if ([(NSMutableArray *)self->_stateHistory count]> self->_maxStateHistory)
+  {
+    [(NSMutableArray *)self->_stateHistory removeObjectAtIndex:0];
+  }
+
+  if (lastObject)
+  {
+    [lastObject timestamp];
+    [(CellOutrankMetrics *)self _updateStateDeltas:v12 duration:v11 - v28];
+    -[CellOutrankMetrics _updateStateTransitionMetricsForNewState:oldState:](self, "_updateStateTransitionMetricsForNewState:oldState:", v7, [lastObject cosmState]);
+    if (v7 == 3)
+    {
+      self->_outrankPollingMode = 1;
+      self->_outrankEntryTimestamp = v11;
+      [(CellOutrankMetrics *)self _captureOutrankEntryAdditionalState:v12 flags:flags];
+    }
+
+    else
+    {
+      if ([lastObject cosmState] == 3)
+      {
+        if (self->_outrankPollingMode && [(NSMutableArray *)self->_stateHistory count]>= 3)
+        {
+          v29 = [(NSMutableArray *)self->_stateHistory objectAtIndexedSubscript:[(NSMutableArray *)self->_stateHistory count]- 3];
+          [(CellOutrankMetrics *)self _logMetricDictionaryForNew:lastObject old:v29 withDelayedItems:0 why:@"queuedOutrank"];
+          [(CellOutrankMetrics *)self _sendOutrankMetricNew:lastObject old:v29 withDelayedItems:0];
+        }
+
+        [(CellOutrankMetrics *)self updateOutrankExitMetrics:v12];
+      }
+
+      self->_outrankPollingMode = 0;
+      [(CellOutrankMetrics *)self _logMetricDictionaryForNew:v12 old:lastObject withDelayedItems:0 why:@"noteSTMState"];
+      v30 = outrankLogHandle;
+      if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v31[0]) = 0;
+        _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "COSM Metrics noteSTMState about to send", v31, 2u);
+      }
+
+      [(CellOutrankMetrics *)self _sendOutrankMetricNew:v12 old:lastObject withDelayedItems:0];
+    }
+  }
+}
+
+- (void)_logMetricDictionaryForNew:(id)new old:(id)old withDelayedItems:(BOOL)items why:(id)why
+{
+  itemsCopy = items;
+  v33 = *MEMORY[0x277D85DE8];
+  whyCopy = why;
+  v11 = [(CellOutrankMetrics *)self _outrankMetricForNew:new old:old withDelayedItems:itemsCopy];
+  v12 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v30 = whyCopy;
+    v31 = 2114;
+    v32 = v11;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "COSM Metrics %@ sample dictionary %{public}@", buf, 0x16u);
+  }
+
+  v23 = whyCopy;
+  allKeys = [v11 allKeys];
+  v13 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v25;
+    do
+    {
+      for (i = 0; i != v15; ++i)
+      {
+        if (*v25 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v18 = outrankLogHandle;
+        if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+        {
+          v19 = *(*(&v24 + 1) + 8 * i);
+          v20 = v18;
+          v21 = [v11 objectForKeyedSubscript:v19];
+          *buf = 138412546;
+          v30 = v19;
+          v31 = 2112;
+          v32 = v21;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "COSM Metrics %@ -> %@", buf, 0x16u);
+        }
+      }
+
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v15);
+  }
 }
 
 - (void)reportABCCase:(id)case
@@ -614,30 +768,30 @@ LABEL_25:
 
 - (id)getState:(BOOL)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = self->_stateHistory;
-  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = @"<prev>   ";
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
         v10 = v7;
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         if ([v11 cosmState])
         {
           cosmState = [v11 cosmState];
@@ -667,7 +821,7 @@ LABEL_25:
         [v4 addObject:v19];
       }
 
-      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -677,8 +831,6 @@ LABEL_25:
   {
     v7 = @"<prev>   ";
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -709,22 +861,35 @@ LABEL_25:
 
 - (void)_updateStateTransitionMetricsForNewState:(unsigned int)state oldState:(unsigned int)oldState
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = outrankLogHandle;
-  if (state != oldState)
+  if (state == oldState)
   {
-    if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v24 = 67109376;
-      stateCopy2 = oldState;
-      v26 = 1024;
-      stateCopy = state;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Updating metrics on state transition %d -> %d", &v24, 0xEu);
+      return;
     }
 
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    if (state == 3)
-    {
+    LOWORD(v23) = 0;
+    v5 = "COSM Daily Metrics: Obtained same state after COSM state transition";
+    v6 = v4;
+    v7 = 2;
+    goto LABEL_4;
+  }
+
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = 67109376;
+    stateCopy2 = oldState;
+    v25 = 1024;
+    stateCopy = state;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Updating metrics on state transition %d -> %d", &v23, 0xEu);
+  }
+
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  switch(state)
+  {
+    case 3u:
       self->_lastTransitionToOutrankState = v11;
       if (oldState)
       {
@@ -764,10 +929,9 @@ LABEL_25:
         ++self->_numberOfIdleToOutrankTransitions;
         *&self->_numberOfIdleToArmedTransitions = vadd_s32(*&self->_numberOfIdleToArmedTransitions, 0x100000001);
       }
-    }
 
-    else if (state == 2)
-    {
+      goto LABEL_47;
+    case 2u:
       self->_lastTransitionToArmedState = v11;
       if (oldState)
       {
@@ -805,26 +969,9 @@ LABEL_25:
         self->_durationInIdleState = self->_durationInIdleState + v11 - lastDailyTelemetryTimestamp;
         ++self->_numberOfIdleToArmedTransitions;
       }
-    }
 
-    else
-    {
-      if (state)
-      {
-        v18 = outrankLogHandle;
-        if (!os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_48;
-        }
-
-        v24 = 67109120;
-        stateCopy2 = state;
-        v5 = "COSM Daily Metrics: Got undefined COSM state %d";
-        v6 = v18;
-        v7 = 8;
-        goto LABEL_4;
-      }
-
+      goto LABEL_47;
+    case 0u:
       self->_lastTransitionToIdleState = v11;
       if (oldState == 3)
       {
@@ -868,36 +1015,35 @@ LABEL_25:
 
         self->_durationInArmedState = v20 + self->_durationInArmedState;
       }
-    }
 
-    self->_currentCOSMState = state;
-    goto LABEL_48;
+LABEL_47:
+      self->_currentCOSMState = state;
+      return;
   }
 
+  v18 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v24) = 0;
-    v5 = "COSM Daily Metrics: Obtained same state after COSM state transition";
-    v6 = v4;
-    v7 = 2;
+    v23 = 67109120;
+    stateCopy2 = state;
+    v5 = "COSM Daily Metrics: Got undefined COSM state %d";
+    v6 = v18;
+    v7 = 8;
 LABEL_4:
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, v5, &v24, v7);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, v5, &v23, v7);
   }
-
-LABEL_48:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMetricsForState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138477827;
-    v25 = stateCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Updating metrics for state %{private}@", &v24, 0xCu);
+    v23 = 138477827;
+    v24 = stateCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Updating metrics for state %{private}@", &v23, 0xCu);
   }
 
   numTimesWiFiEligible = self->_numTimesWiFiEligible;
@@ -1038,8 +1184,6 @@ LABEL_48:
 
     self->_prevCellWRMInexpensive = v20;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupDailyTelemetryTimer
@@ -1156,7 +1300,7 @@ id __45__CellOutrankMetrics__sendDailyOutrankMetric__block_invoke(uint64_t a1)
 
 - (id)_dailyOutrankMetricDictionary
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = v3;
   currentCOSMState = self->_currentCOSMState;
@@ -1325,9 +1469,9 @@ LABEL_20:
       v35 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = 138477827;
-        v41 = v14;
-        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Posting metric dictionary %{private}@ to CA", &v40, 0xCu);
+        v39 = 138477827;
+        v40 = v14;
+        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "COSM Daily Metrics: Posting metric dictionary %{private}@ to CA", &v39, 0xCu);
       }
 
       goto LABEL_42;
@@ -1337,28 +1481,27 @@ LABEL_20:
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
   {
     v37 = self->_currentCOSMState;
-    v40 = 67109120;
-    LODWORD(v41) = v37;
-    _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "COSM Daily Metrics: Got unexpected COSM state %d", &v40, 8u);
+    v39 = 67109120;
+    LODWORD(v40) = v37;
+    _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "COSM Daily Metrics: Got unexpected COSM state %d", &v39, 8u);
   }
 
   v14 = 0;
 LABEL_42:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)setConfiguration:(id)configuration
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CellOutrankHandler new configuration parameters %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CellOutrankHandler new configuration parameters %{public}@", &v7, 0xCu);
   }
 
   [configurationCopy extractKey:@"metricsMeasurementDelay" toDouble:&self->_delayedMeasurementInterval defaultTo:5.0];
@@ -1368,8 +1511,6 @@ LABEL_42:
   {
     [(CellOutrankMetrics *)self restoreDefaults];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CellOutrankMetrics)initWithQueue:(id)queue

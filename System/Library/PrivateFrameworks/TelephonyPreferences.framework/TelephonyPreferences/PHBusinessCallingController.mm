@@ -29,7 +29,7 @@
 
 - (id)specifiers
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   activeContextsSupportingBrandedCalling = [(PHBrandedCallingController *)self->_brandedCallingController activeContextsSupportingBrandedCalling];
   v5 = [activeContextsSupportingBrandedCalling count];
@@ -47,9 +47,9 @@
     v12 = [(PHBusinessCallingController *)self groupFooterTextFor:activeContextsSupportingBrandedCalling2];
     [specifiers setProperty:v12 forKey:*MEMORY[0x277D3FF88]];
 
-    v16[0] = specifiers;
-    v16[1] = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[0] = specifiers;
+    v15[1] = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     [v3 addObjectsFromArray:v13];
   }
 
@@ -58,8 +58,6 @@
     specifiers = [(PHBusinessConnectCallingController *)self->_businessConnectCallingController specifiers];
     [v3 addObjectsFromArray:specifiers];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

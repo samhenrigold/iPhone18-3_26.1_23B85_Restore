@@ -125,14 +125,14 @@ void __75__PLPersistentHistoryTransactionIterator_enumerateOneTransactionWithBlo
   return v9;
 }
 
-uint64_t __90__PLPersistentHistoryTransactionIterator_initWithTransactions_managedObjectObjectContext___block_invoke(uint64_t a1)
+void *__90__PLPersistentHistoryTransactionIterator_initWithTransactions_managedObjectObjectContext___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
   *(v3 + 8) = v2;
 
-  result = [*(*(a1 + 32) + 8) count];
+  result = objc_msgSend_count(*(*(a1 + 32) + 8));
   *(*(a1 + 32) + 32) = result;
   return result;
 }
@@ -187,7 +187,7 @@ void __112__PLPersistentHistoryTransactionIterator_iteratorSinceMarker_withFetch
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 40);
-    v4 = [*(a1 + 32) count];
+    v4 = objc_msgSend_count(*(a1 + 32));
     v5 = 138543618;
     v6 = v3;
     v7 = 2050;

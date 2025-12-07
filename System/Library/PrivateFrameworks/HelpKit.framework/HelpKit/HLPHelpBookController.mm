@@ -80,7 +80,7 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
 
 - (void)processData:(id)data formattedData:(id)formattedData
 {
-  v112[1] = *MEMORY[0x277D85DE8];
+  v111[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   formattedDataCopy = formattedData;
   objc_opt_class();
@@ -94,7 +94,7 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
   self->_helpItemMap = v7;
 
   selfCopy = self;
-  v100 = formattedDataCopy;
+  v99 = formattedDataCopy;
   if (self->_serverType != 1)
   {
     self->_hasSectionIcon = 0;
@@ -141,44 +141,44 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
     }
 
     v81 = v80;
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __51__HLPHelpBookController_processData_formattedData___block_invoke;
-    v104[3] = &unk_279706CB0;
-    v104[4] = selfCopy;
-    v105 = v81;
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __51__HLPHelpBookController_processData_formattedData___block_invoke;
+    v103[3] = &unk_279706CB0;
+    v103[4] = selfCopy;
+    v104 = v81;
     v82 = v81;
-    [v77 enumerateKeysAndObjectsUsingBlock:v104];
+    [v77 enumerateKeysAndObjectsUsingBlock:v103];
 
     goto LABEL_45;
   }
 
-  v102 = [formattedDataCopy objectForKeyedSubscript:@"bookResponse"];
-  v96 = [v102 objectForKeyedSubscript:@"meta"];
-  v9 = [v102 objectForKeyedSubscript:@"bookId"];
+  v101 = [formattedDataCopy objectForKeyedSubscript:@"bookResponse"];
+  v95 = [v101 objectForKeyedSubscript:@"meta"];
+  v9 = [v101 objectForKeyedSubscript:@"bookId"];
   bookId = self->_bookId;
   self->_bookId = v9;
 
   self->_contentFormatVersion = 5;
-  v11 = [v96 objectForKeyedSubscript:@"productVersion"];
+  v11 = [v95 objectForKeyedSubscript:@"productVersion"];
   v12 = self->_contentVersion;
   self->_contentVersion = v11;
 
-  v13 = [v102 objectForKeyedSubscript:@"copyrightId"];
+  v13 = [v101 objectForKeyedSubscript:@"copyrightId"];
   uppercaseString = [v13 uppercaseString];
   v15 = self->_copyrightTopicIdentifier;
   self->_copyrightTopicIdentifier = uppercaseString;
 
-  v16 = [v102 objectForKeyedSubscript:@"copyrightText"];
+  v16 = [v101 objectForKeyedSubscript:@"copyrightText"];
   v17 = self->_copyrightText;
   self->_copyrightText = v16;
 
-  v18 = [v102 objectForKeyedSubscript:@"tocId"];
+  v18 = [v101 objectForKeyedSubscript:@"tocId"];
   v19 = self->_welcomeTopicIdentifier;
   self->_welcomeTopicIdentifier = v18;
 
-  v98 = [v102 objectForKeyedSubscript:@"locale"];
-  if (v98)
+  v97 = [v101 objectForKeyedSubscript:@"locale"];
+  if (v97)
   {
     v20 = objc_alloc_init(HLPHelpLocale);
     locale = self->_locale;
@@ -186,16 +186,16 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
 
     v22 = MEMORY[0x277CCA8D8];
     systemLanguages = [(HLPHelpBookController *)self systemLanguages];
-    v112[0] = v98;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:1];
+    v111[0] = v97;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:1];
     v25 = [v22 preferredLocalizationsFromArray:systemLanguages forPreferences:v24];
     [(HLPHelpLocale *)selfCopy->_locale setIsoCodes:v25];
   }
 
-  v97 = [v102 objectForKeyedSubscript:@"miscAttributes"];
-  if (v97)
+  v96 = [v101 objectForKeyedSubscript:@"miscAttributes"];
+  if (v96)
   {
-    v26 = [v97 dataUsingEncoding:4];
+    v26 = [v96 dataUsingEncoding:4];
     v27 = MEMORY[0x277CBEAC0];
     v28 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v26 options:0 error:0];
     v29 = [v27 dictionaryWithDictionary:v28];
@@ -230,31 +230,31 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
     }
   }
 
-  v99 = [v102 objectForKeyedSubscript:@"toc"];
+  v98 = [v101 objectForKeyedSubscript:@"toc"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v99, "count")}];
+    v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v98, "count")}];
     selfCopy->_hasSectionIcon = 0;
+    v105 = 0u;
     v106 = 0u;
     v107 = 0u;
     v108 = 0u;
-    v109 = 0u;
-    v41 = v99;
-    v42 = [v41 countByEnumeratingWithState:&v106 objects:v111 count:16];
+    v41 = v98;
+    v42 = [v41 countByEnumeratingWithState:&v105 objects:v110 count:16];
     if (v42)
     {
-      v43 = *v107;
+      v43 = *v106;
       do
       {
         for (i = 0; i != v42; ++i)
         {
-          if (*v107 != v43)
+          if (*v106 != v43)
           {
             objc_enumerationMutation(v41);
           }
 
-          v45 = *(*(&v106 + 1) + 8 * i);
+          v45 = *(*(&v105 + 1) + 8 * i);
           v46 = [v45 objectForKeyedSubscript:@"tocId"];
           if ([v46 length])
           {
@@ -280,7 +280,7 @@ uint64_t __61__HLPHelpBookController_processFileURLWithCompletionHandler___block
           }
         }
 
-        v42 = [v41 countByEnumeratingWithState:&v106 objects:v111 count:16];
+        v42 = [v41 countByEnumeratingWithState:&v105 objects:v110 count:16];
       }
 
       while (v42);
@@ -355,8 +355,8 @@ LABEL_45:
 
     v85 = MEMORY[0x277CCA8D8];
     systemLanguages2 = [(HLPHelpBookController *)selfCopy systemLanguages];
-    v110 = firstObject;
-    v87 = [MEMORY[0x277CBEA60] arrayWithObjects:&v110 count:1];
+    v109 = firstObject;
+    v87 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
     v88 = [v85 preferredLocalizationsFromArray:systemLanguages2 forPreferences:v87];
 
     firstObject2 = [v88 firstObject];
@@ -382,10 +382,8 @@ LABEL_45:
   [(HLPHelpSectionItem *)selfCopy->_rootSectionItem setOpen:1];
   [(HLPHelpSectionItem *)selfCopy->_rootSectionItem setChildren:v63];
 
-  formattedDataCopy = v100;
+  formattedDataCopy = v99;
 LABEL_51:
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -427,38 +425,38 @@ void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64
 
 - (id)dynamicServerSectionsForIdentifiers:(id)identifiers level:(int64_t)level parent:(id)parent tocMap:(id)map
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   parentCopy = parent;
   mapCopy = map;
   array = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v12 = identifiersCopy;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0x27F4D9000uLL;
-    v16 = *v42;
+    v16 = *v41;
     selfCopy = self;
-    v35 = v12;
-    v38 = *v42;
+    v34 = v12;
+    v37 = *v41;
     do
     {
       v17 = 0;
-      v36 = v14;
+      v35 = v14;
       do
       {
-        if (*v42 != v16)
+        if (*v41 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v41 + 1) + 8 * v17);
-        if (([v18 isEqualToString:{*(&self->super.super.isa + *(v15 + 2296)), v35}] & 1) == 0)
+        v18 = *(*(&v40 + 1) + 8 * v17);
+        if (([v18 isEqualToString:{*(&self->super.super.isa + *(v15 + 2296)), v34}] & 1) == 0)
         {
           v19 = [mapCopy objectForKeyedSubscript:v18];
           v20 = v19;
@@ -492,8 +490,8 @@ void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64
               parentCopy = v30;
               mapCopy = v29;
               selfCopy->_hasSectionIcon = 1;
-              v12 = v35;
-              v14 = v36;
+              v12 = v34;
+              v14 = v35;
             }
 
             [(HLPHelpItem *)v24 setParent:parentCopy];
@@ -505,7 +503,7 @@ void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64
 
             self = selfCopy;
             v15 = 0x27F4D9000;
-            v16 = v38;
+            v16 = v37;
           }
         }
 
@@ -513,7 +511,7 @@ void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64
       }
 
       while (v14 != v17);
-      v14 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v14);
@@ -528,8 +526,6 @@ void __51__HLPHelpBookController_processData_formattedData___block_invoke(uint64
   {
     v32 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -708,23 +704,27 @@ void __91__HLPHelpBookController_sectionsForChildrenIdentifiers_level_parent_sec
 
 uint64_t __46__HLPHelpBookController_helpTopicItemForName___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v12 = a2;
+  v14 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v8 = v14;
+  if (isKindOfClass)
   {
-    v7 = v12;
-    v8 = [v7 name];
-    v9 = [v8 lowercaseString];
-    v10 = [v9 isEqualToString:*(a1 + 32)];
+    v9 = v14;
+    v10 = [v9 name];
+    v11 = [v10 lowercaseString];
+    v12 = [v11 isEqualToString:*(a1 + 32)];
 
-    if (v10)
+    if (v12)
     {
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       *a4 = 1;
     }
+
+    v8 = v14;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](isKindOfClass, v8);
 }
 
 - (void)addAsideTopic:(id)topic

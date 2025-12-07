@@ -72,7 +72,7 @@
 - (void)loadWebViewWithSpinner:(id)spinner
 {
   spinnerCopy = spinner;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(spinnerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -110,13 +110,13 @@
   lCopy = l;
   bodyCopy = body;
   completionCopy = completion;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = lCopy;
-    v26 = 2112;
-    v27 = bodyCopy;
+    v26 = lCopy;
+    v27 = 2112;
+    v28 = bodyCopy;
     _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "LoadURL: %@ body: %@", buf, 0x16u);
   }
 
@@ -155,12 +155,12 @@
   v21 = [NSString stringWithFormat:@"%lu", [(NSData *)v15 length]];
 
   [(NSURL *)v17 setValue:v21 forHTTPHeaderField:@"Content-Length"];
-  v22 = PHDefaultLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = PHDefaultLog(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = v17;
-    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Loading URL request: %@", buf, 0xCu);
+    v26 = v17;
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Loading URL request: %@", buf, 0xCu);
   }
 
   webView = [(PHSettingsWebViewController *)self webView];
@@ -169,7 +169,7 @@
 
 - (void)cancelWebView
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -181,7 +181,7 @@
 
 - (void)_cancelButtonClicked:(id)clicked
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -194,7 +194,7 @@
 - (void)webView:(id)view didFailLoadWithError:(id)error
 {
   errorCopy = error;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_64C4(errorCopy, v6);
@@ -208,7 +208,7 @@
 
 - (void)doProvisioningDone
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -230,7 +230,7 @@
 
 - (void)doProvisioningCanceled
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -252,7 +252,7 @@
 
 - (void)doProvisioningFailed
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_653C(v3);
@@ -273,7 +273,7 @@
 
 - (void)doWebViewTimedOut
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

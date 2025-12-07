@@ -7,47 +7,38 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v7 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v7 = 0;
+      nrUUID = 0;
     }
 
-    v8 = v7;
-    v9 = _NRCopyLogObjectForNRUUID();
-    v14 = 63;
-    selfCopy = self;
-    v12 = "";
-    v13 = "[NRNWActivityReporter dealloc]";
-    _NRLogWithArgs();
+    v7 = nrUUID;
+    v8 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v8, 1, "%s%.30s:%-4d %@: dealloc", ", "[NRNWActivityReporter dealloc]"", 63, self);
   }
 
   if (self)
   {
     self->_started = 0;
-    objc_setProperty_nonatomic_copy(self, v6, 0, 40);
-    v10 = self->_nrUUID;
-    v11 = [(NRNWActivityReporter *)self description];
-    sub_1000059A8(v10, 40003, v11, 0);
+    objc_setProperty_nonatomic_copy(self, v5, 0, 40);
+    v9 = self->_nrUUID;
+    v10 = [(NRNWActivityReporter *)self description];
+    sub_1000059A8(v9, 40003, v10, 0);
   }
 
-  v16.receiver = self;
-  v16.super_class = NRNWActivityReporter;
-  [(NRNWActivityReporter *)&v16 dealloc:v12];
+  v11.receiver = self;
+  v11.super_class = NRNWActivityReporter;
+  [(NRNWActivityReporter *)&v11 dealloc];
 }
 
 - (id)description

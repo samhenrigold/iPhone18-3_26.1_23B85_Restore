@@ -12,7 +12,7 @@
 
 - (id)attributeDescriptions
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
@@ -25,7 +25,7 @@
   }
 
   v6 = [v4 initWithName:@"Device" value:Property options:1 formatter:0];
-  v24[0] = v6;
+  v22[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = MEMORY[0x277CCABB0];
   if (self)
@@ -41,17 +41,12 @@
   v10 = clients;
   v11 = [v8 numberWithUnsignedInteger:{-[NSHashTable count](v10, "count")}];
   v12 = [v7 initWithName:@"NumRegisteredClients" value:v11];
-  v24[1] = v12;
+  v22[1] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
-  if (self)
-  {
-    reachable = self->_reachable;
-  }
-
-  v15 = HMFBooleanToString();
-  v16 = [v13 initWithName:@"Reachable" value:v15];
-  v24[2] = v16;
-  v17 = objc_alloc(MEMORY[0x277D0F778]);
+  v14 = HMFBooleanToString();
+  v15 = [v13 initWithName:@"Reachable" value:v14];
+  v22[2] = v15;
+  v16 = objc_alloc(MEMORY[0x277D0F778]);
   if (self)
   {
     state = self->_state;
@@ -62,14 +57,12 @@
     state = 0;
   }
 
-  v19 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-  v20 = [v17 initWithName:@"State" value:v19];
-  v24[3] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  v18 = [MEMORY[0x277CCABB0] numberWithInteger:state];
+  v19 = [v16 initWithName:@"State" value:v18];
+  v22[3] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (HMDRemoteDeviceInformation)init
@@ -125,45 +118,43 @@
 
 - (void)completeConfirmationsWithError:(uint64_t)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (error)
   {
     dispatch_assert_queue_V2(*(error + 24));
-    v4 = [*(error + 48) copy];
+    v4 = objc_msgSend_copy(*(error + 48));
     [*(error + 48) removeAllObjects];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [(HMDRemoteDeviceConfirmationHandler *)*(*(&v11 + 1) + 8 * v9++) finishWithError:v3];
+          [(HMDRemoteDeviceConfirmationHandler *)*(*(&v10 + 1) + 8 * v9++) finishWithError:v3];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearState:(uint64_t)state

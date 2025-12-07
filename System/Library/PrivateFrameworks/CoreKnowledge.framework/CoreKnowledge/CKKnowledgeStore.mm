@@ -47,7 +47,7 @@
   {
     v9 = __swift_project_boxed_opaque_existential_0(v15, v16);
     v10 = *(v8 - 8);
-    MEMORY[0x1EEE9AC00](v9, v9);
+    MEMORY[0x1EEE9AC00](v9);
     v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v10 + 16))(v12);
     v13 = sub_1C86F947C();
@@ -113,16 +113,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_1C86F8EFC();
+  v10 = sub_1C86F8EFC();
+  v12 = v11;
 
-  CKKnowledgeStore.setValue(_:forKey:)(v10);
+  CKKnowledgeStore.setValue(_:forKey:)(v13, v10, v12);
 
-  sub_1C86885EC(v10);
+  sub_1C86885EC(v13);
 }
 
 - (void)removeValuesForKeys:(id)keys completionHandler:(id)handler
@@ -171,7 +172,7 @@
 {
   matchingCopy = matching;
   selfCopy = self;
-  CKKnowledgeStore.removeValues(matching:)();
+  CKKnowledgeStore.removeValues(matching:)(matchingCopy);
 
   return 1;
 }
@@ -341,7 +342,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C86D0D58();
+  sub_1C86D0D58(delegate);
 }
 
 - (NSString)name
@@ -356,38 +357,38 @@
 
 + (id)directoryURL
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2AD9B8);
-  MEMORY[0x1EEE9AC00](v2 - 8, v3);
-  v5 = &v9 - v4;
-  static CKKnowledgeStore.directory()(&v9 - v4);
-  v6 = sub_1C86F8C1C();
-  v7 = 0;
-  if (__swift_getEnumTagSinglePayload(v5, 1, v6) != 1)
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2AD9B8, &unk_1C86FD080);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v8 - v3;
+  static CKKnowledgeStore.directory()(&v8 - v3);
+  v5 = sub_1C86F8C1C();
+  v6 = 0;
+  if (__swift_getEnumTagSinglePayload(v4, 1, v5) != 1)
   {
-    v7 = sub_1C86F8BCC();
-    (*(*(v6 - 8) + 8))(v5, v6);
+    v6 = sub_1C86F8BCC();
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v7;
+  return v6;
 }
 
 - (NSURL)filePathURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2AD9B8);
-  MEMORY[0x1EEE9AC00](v3 - 8, v4);
-  v6 = &v11 - v5;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC2AD9B8, &unk_1C86FD080);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v10 - v4;
   selfCopy = self;
-  sub_1C86D0F18(v6);
+  sub_1C86D0F18(v5);
 
-  v8 = sub_1C86F8C1C();
-  v9 = 0;
-  if (__swift_getEnumTagSinglePayload(v6, 1, v8) != 1)
+  v7 = sub_1C86F8C1C();
+  v8 = 0;
+  if (__swift_getEnumTagSinglePayload(v5, 1, v7) != 1)
   {
-    v9 = sub_1C86F8BCC();
-    (*(*(v8 - 8) + 8))(v6, v8);
+    v8 = sub_1C86F8BCC();
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)hash
@@ -416,7 +417,7 @@
 
   v6 = sub_1C86D1D58(v8);
 
-  sub_1C869DEA8(v8, &qword_1EC2AD810);
+  sub_1C869DEA8(v8, &qword_1EC2AD810, &qword_1C86FCC90);
   return v6 & 1;
 }
 

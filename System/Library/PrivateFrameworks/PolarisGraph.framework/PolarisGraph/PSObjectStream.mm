@@ -128,23 +128,22 @@
 
 id __48__PSObjectStream_objectStreamWithKey_withClass___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
   if (a3)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_new();
-      [v5 setObject:v8 atIndexedSubscript:v6];
+      v6 = objc_opt_new();
+      [v4 setObject:v6 atIndexedSubscript:v5];
 
-      ++v6;
+      ++v5;
     }
 
-    while (a3 != v6);
+    while (a3 != v5);
   }
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)validate:(id *)validate

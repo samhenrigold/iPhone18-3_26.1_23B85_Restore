@@ -7,7 +7,7 @@
 - (REMFetchResultToken_Codable)initWithPersistentHistoryTokens:(id)tokens
 {
   ObjectType = swift_getObjectType();
-  sub_23004CBA4(0, &qword_280C987F8);
+  sub_23004CBA4(0, &qword_280C987F8, 0x277CBE4C0);
   sub_23030F658();
   v5 = sub_23030F638();
 

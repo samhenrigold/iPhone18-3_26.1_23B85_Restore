@@ -29,7 +29,7 @@
   delegateCopy = delegate;
   queueCopy = queue;
   helperCopy = helper;
-  v11 = hws_get_framework_log();
+  v11 = hws_get_framework_log(helperCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -71,7 +71,7 @@
 {
   if (mode == 1)
   {
-    v8 = hws_get_framework_log();
+    v8 = hws_get_framework_log(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [HRCHeartRateRequestor requestStreamingMode:v8 withError:?];
@@ -101,29 +101,28 @@
 void __56__HRCHeartRateRequestor_requestStreamingMode_withError___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) requestedStreamingMode] != *(a1 + 40))
+  v2 = [*(a1 + 32) requestedStreamingMode];
+  if (v2 != *(a1 + 40))
   {
-    v2 = hws_get_framework_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = hws_get_framework_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 32) requestedStreamingMode];
-      v4 = *(a1 + 40);
+      v4 = [*(a1 + 32) requestedStreamingMode];
+      v5 = *(a1 + 40);
       v9 = 134218240;
-      v10 = v3;
+      v10 = v4;
       v11 = 2048;
-      v12 = v4;
-      _os_log_impl(&dword_2521DF000, v2, OS_LOG_TYPE_DEFAULT, "streaming mode request updated from %ld to %ld", &v9, 0x16u);
+      v12 = v5;
+      _os_log_impl(&dword_2521DF000, v3, OS_LOG_TYPE_DEFAULT, "streaming mode request updated from %ld to %ld", &v9, 0x16u);
     }
 
-    v6 = *(a1 + 40);
-    v5 = (a1 + 40);
-    [*(v5 - 1) setRequestedStreamingMode:v6];
-    [*(v5 - 1) reassessServerConnection];
-    v7 = [*(v5 - 1) connectionHelper];
-    [v7 requestStreamingMode:*v5];
+    v7 = *(a1 + 40);
+    v6 = (a1 + 40);
+    [*(v6 - 1) setRequestedStreamingMode:v7];
+    [*(v6 - 1) reassessServerConnection];
+    v8 = [*(v6 - 1) connectionHelper];
+    [v8 requestStreamingMode:*v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reassessServerConnection
@@ -181,35 +180,34 @@ void __56__HRCHeartRateRequestor_requestStreamingMode_withError___block_invoke(u
 void __64__HRCHeartRateRequestor_setUserWorkoutActivitySession_isIndoor___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) activityType] != *(a1 + 40) || objc_msgSend(*(a1 + 32), "locationType") != *(a1 + 48))
+  v2 = [*(a1 + 32) activityType];
+  if (v2 != *(a1 + 40) || (v2 = [*(a1 + 32) locationType], v2 != *(a1 + 48)))
   {
-    v2 = hws_get_framework_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = hws_get_framework_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 40);
-      v4 = *(a1 + 48);
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 48);
       v7 = 134283777;
-      v8 = v3;
+      v8 = v4;
       v9 = 2049;
-      v10 = v4;
-      _os_log_impl(&dword_2521DF000, v2, OS_LOG_TYPE_DEFAULT, "client updated HKWorkoutActivityType : %{private}lu , HKWorkoutSessionLocationType : %{private}lu", &v7, 0x16u);
+      v10 = v5;
+      _os_log_impl(&dword_2521DF000, v3, OS_LOG_TYPE_DEFAULT, "client updated HKWorkoutActivityType : %{private}lu , HKWorkoutSessionLocationType : %{private}lu", &v7, 0x16u);
     }
 
     [*(a1 + 32) setActivityType:*(a1 + 40)];
     [*(a1 + 32) setLocationType:*(a1 + 48)];
     [*(a1 + 32) reassessServerConnection];
-    v5 = [*(a1 + 32) connectionHelper];
-    [v5 setUserWorkoutActivityType:objc_msgSend(*(a1 + 32) locationType:{"activityType"), objc_msgSend(*(a1 + 32), "locationType")}];
+    v6 = [*(a1 + 32) connectionHelper];
+    [v6 setUserWorkoutActivityType:objc_msgSend(*(a1 + 32) locationType:{"activityType"), objc_msgSend(*(a1 + 32), "locationType")}];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOpportunisticUpdatesEnabled:(BOOL)enabled
 {
   if (enabled)
   {
-    v3 = hws_get_framework_log();
+    v3 = hws_get_framework_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [HRCHeartRateRequestor setOpportunisticUpdatesEnabled:v3];
@@ -231,27 +229,25 @@ void __64__HRCHeartRateRequestor_setUserWorkoutActivitySession_isIndoor___block_
 
 void __56__HRCHeartRateRequestor_setOpportunisticUpdatesEnabled___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 16) != v2)
   {
     *(v1 + 16) = v2;
-    v4 = hws_get_framework_log();
+    v4 = hws_get_framework_log(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v8[0] = 67109120;
-      v8[1] = v5;
-      _os_log_impl(&dword_2521DF000, v4, OS_LOG_TYPE_DEFAULT, "opportunisticUpdatesEnabled : %{BOOL}u", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v5;
+      _os_log_impl(&dword_2521DF000, v4, OS_LOG_TYPE_DEFAULT, "opportunisticUpdatesEnabled : %{BOOL}u", v7, 8u);
     }
 
     [*(a1 + 32) reassessServerConnection];
     v6 = [*(a1 + 32) connectionHelper];
     [v6 requestOpportunisticUpdates:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)opportunisticUpdatesEnabled
@@ -300,7 +296,7 @@ void __62__HRCHeartRateRequestor_refreshRequiredWithCompletionHandler___block_in
 - (void)handleHeartRateData:(id)data
 {
   dataCopy = data;
-  v5 = hws_get_framework_log();
+  v5 = hws_get_framework_log(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -320,7 +316,7 @@ void __62__HRCHeartRateRequestor_refreshRequiredWithCompletionHandler___block_in
 
 void __45__HRCHeartRateRequestor_handleHeartRateData___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hrContext];
   v3 = *(a1 + 40);
   if (v2 == 2)
@@ -332,32 +328,32 @@ void __45__HRCHeartRateRequestor_handleHeartRateData___block_invoke(uint64_t a1)
 
       if (v5 == 3)
       {
-        v6 = hws_get_framework_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v7 = hws_get_framework_log(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v7 = [*(a1 + 32) uuid];
+          v8 = [*(a1 + 32) uuid];
           [*(a1 + 32) heartRate];
-          v9 = v8;
-          v10 = [*(a1 + 32) confidence];
-          [v10 doubleValue];
-          v12 = v11;
-          v13 = [*(a1 + 32) hrContext];
-          v14 = [*(a1 + 32) timestamp];
-          v40 = 138478851;
-          v41 = v7;
-          v42 = 2053;
-          v43 = v9;
-          v44 = 2048;
-          v45 = v12;
+          v10 = v9;
+          v11 = [*(a1 + 32) confidence];
+          [v11 doubleValue];
+          v13 = v12;
+          v14 = [*(a1 + 32) hrContext];
+          v15 = [*(a1 + 32) timestamp];
+          v42 = 138478851;
+          v43 = v8;
+          v44 = 2053;
+          v45 = v10;
           v46 = 2048;
           v47 = v13;
-          v48 = 2113;
+          v48 = 2048;
           v49 = v14;
-          _os_log_impl(&dword_2521DF000, v6, OS_LOG_TYPE_INFO, "sending filtered HR with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v40, 0x34u);
+          v50 = 2113;
+          v51 = v15;
+          _os_log_impl(&dword_2521DF000, v7, OS_LOG_TYPE_INFO, "sending filtered HR with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v42, 0x34u);
         }
 
-        v15 = [*(a1 + 40) delegate];
-        [v15 handleFilteredHeartRate:*(a1 + 32)];
+        v16 = [*(a1 + 40) delegate];
+        [v16 handleFilteredHeartRate:*(a1 + 32)];
       }
     }
 
@@ -365,79 +361,77 @@ void __45__HRCHeartRateRequestor_handleHeartRateData___block_invoke(uint64_t a1)
     {
     }
 
-    v28 = [*(a1 + 40) delegate];
-    v29 = objc_opt_respondsToSelector();
+    v30 = [*(a1 + 40) delegate];
+    v31 = objc_opt_respondsToSelector();
 
-    if (v29)
+    if (v31)
     {
-      v30 = hws_get_framework_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v33 = hws_get_framework_log(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v31 = [*(a1 + 32) uuid];
+        v34 = [*(a1 + 32) uuid];
         [*(a1 + 32) heartRate];
-        v33 = v32;
-        v34 = [*(a1 + 32) confidence];
-        [v34 doubleValue];
         v36 = v35;
-        v37 = [*(a1 + 32) hrContext];
-        v38 = [*(a1 + 32) timestamp];
-        v40 = 138478851;
-        v41 = v31;
-        v42 = 2053;
-        v43 = v33;
-        v44 = 2048;
+        v37 = [*(a1 + 32) confidence];
+        [v37 doubleValue];
+        v39 = v38;
+        v40 = [*(a1 + 32) hrContext];
+        v41 = [*(a1 + 32) timestamp];
+        v42 = 138478851;
+        v43 = v34;
+        v44 = 2053;
         v45 = v36;
         v46 = 2048;
-        v47 = v37;
-        v48 = 2113;
-        v49 = v38;
-        _os_log_impl(&dword_2521DF000, v30, OS_LOG_TYPE_INFO, "sending one second streaming hr with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v40, 0x34u);
+        v47 = v39;
+        v48 = 2048;
+        v49 = v40;
+        v50 = 2113;
+        v51 = v41;
+        _os_log_impl(&dword_2521DF000, v33, OS_LOG_TYPE_INFO, "sending one second streaming hr with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v42, 0x34u);
       }
 
-      v27 = [*(a1 + 40) delegate];
-      [v27 handleOneSecondStreamingHeartRate:*(a1 + 32)];
+      v29 = [*(a1 + 40) delegate];
+      [v29 handleOneSecondStreamingHeartRate:*(a1 + 32)];
 LABEL_18:
     }
   }
 
   else if (([v3 opportunisticUpdatesEnabled] & 1) != 0 || objc_msgSend(*(a1 + 32), "sourceType") == 3)
   {
-    v16 = [*(a1 + 40) delegate];
-    v17 = objc_opt_respondsToSelector();
+    v17 = [*(a1 + 40) delegate];
+    v18 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v18)
     {
-      v18 = hws_get_framework_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = hws_get_framework_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = [*(a1 + 32) uuid];
+        v21 = [*(a1 + 32) uuid];
         [*(a1 + 32) heartRate];
-        v21 = v20;
-        v22 = [*(a1 + 32) confidence];
-        [v22 doubleValue];
-        v24 = v23;
-        v25 = [*(a1 + 32) hrContext];
-        v26 = [*(a1 + 32) timestamp];
-        v40 = 138478851;
-        v41 = v19;
-        v42 = 2053;
+        v23 = v22;
+        v24 = [*(a1 + 32) confidence];
+        [v24 doubleValue];
+        v26 = v25;
+        v27 = [*(a1 + 32) hrContext];
+        v28 = [*(a1 + 32) timestamp];
+        v42 = 138478851;
         v43 = v21;
-        v44 = 2048;
-        v45 = v24;
+        v44 = 2053;
+        v45 = v23;
         v46 = 2048;
-        v47 = v25;
-        v48 = 2113;
-        v49 = v26;
-        _os_log_impl(&dword_2521DF000, v18, OS_LOG_TYPE_INFO, "sending filtered HR with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v40, 0x34u);
+        v47 = v26;
+        v48 = 2048;
+        v49 = v27;
+        v50 = 2113;
+        v51 = v28;
+        _os_log_impl(&dword_2521DF000, v20, OS_LOG_TYPE_INFO, "sending filtered HR with uuid : %{private}@, bpm : %{sensitive}f, confidence : %f, context : %ld, date : %{private}@", &v42, 0x34u);
       }
 
-      v27 = [*(a1 + 40) delegate];
-      [v27 handleFilteredHeartRate:*(a1 + 32)];
+      v29 = [*(a1 + 40) delegate];
+      [v29 handleFilteredHeartRate:*(a1 + 32)];
       goto LABEL_18;
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (HRCHeartRateOutputDelegate)delegate

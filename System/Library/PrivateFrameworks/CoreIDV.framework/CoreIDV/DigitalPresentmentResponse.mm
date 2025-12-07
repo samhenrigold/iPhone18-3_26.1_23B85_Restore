@@ -7,13 +7,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC7CoreIDV26DigitalPresentmentResponse_encryptedData);
-  v5 = *&self->encryptedData[OBJC_IVAR____TtC7CoreIDV26DigitalPresentmentResponse_encryptedData];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_21CD836E4();
-  v8 = sub_21CD83B04();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_21CD836E4();
+  v6 = sub_21CD83B04();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (_TtC7CoreIDV26DigitalPresentmentResponse)init

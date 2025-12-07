@@ -291,7 +291,7 @@ void __134__PLCollectionShareSharedStreamBackend__reconcileNextRelationship_conn
     }
   }
 
-  if (a1[6] && ([a1[4] albumGUID], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(a1[6], "scopeIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, (v9 & 1) != 0))
+  if (a1[6] && ([a1[4] albumGUID], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(a1[6], "scopeIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v7), v8, v7, (isEqualToString & 1) != 0))
   {
     if (!v5)
     {
@@ -514,9 +514,9 @@ void __80__PLCollectionShareSharedStreamBackend_checkServerForChangesForCollecti
 void __80__PLCollectionShareSharedStreamBackend_checkServerForChangesForCollectionShare___block_invoke_2(uint64_t a1)
 {
   v37 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) count];
+  v2 = objc_msgSend_count(*(a1 + 32));
   v3 = [*(a1 + 40) collectionShareAssets];
-  v4 = [v3 count];
+  v4 = objc_msgSend_count(v3);
 
   if (v2 != v4)
   {
@@ -816,57 +816,57 @@ void __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_
   }
 }
 
-void __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_collectionShare_completionHandler___block_invoke_101(uint64_t a1)
+void __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_collectionShare_completionHandler___block_invoke_101(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 80) + 8) + 40))
   {
-    v2 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = objc_opt_class();
-      v4 = *(*(*(a1 + 80) + 8) + 40);
-      v5 = *(a1 + 40);
-      v6 = v3;
-      v7 = [v5 scopeIdentifier];
-      v8 = *(a1 + 48);
+      v4 = objc_opt_class();
+      v5 = *(*(*(a1 + 80) + 8) + 40);
+      v6 = *(a1 + 40);
+      v7 = v4;
+      v8 = [v6 scopeIdentifier];
+      v9 = *(a1 + 48);
       *buf = 138413058;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v4;
-      v22 = 2112;
-      v23 = v7;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
+      v20 = v4;
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v8;
+      v25 = 2112;
+      v26 = v9;
+      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%@: about to call connection addAccessControlEntries: %@ toAlbumWithGUID: %@ forPersonID %@", buf, 0x2Au);
     }
 
-    v9 = [MEMORY[0x1E69B14F8] sharedConnection];
-    v10 = *(*(*(a1 + 80) + 8) + 40);
-    v11 = [*(a1 + 40) scopeIdentifier];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_collectionShare_completionHandler___block_invoke_102;
-    v14[3] = &unk_1E7578038;
-    v12 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    v17 = *(a1 + 72);
-    [v9 addAccessControlEntries:v10 toAlbumWithGUID:v11 personID:v12 completionBlock:v14];
+    v10 = [MEMORY[0x1E69B14F8] sharedConnection];
+    v11 = *(*(*(a1 + 80) + 8) + 40);
+    v12 = [*(a1 + 40) scopeIdentifier];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_collectionShare_completionHandler___block_invoke_102;
+    v15[3] = &unk_1E7578038;
+    v13 = *(a1 + 48);
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 64);
+    v18 = *(a1 + 72);
+    [v10 addAccessControlEntries:v11 toAlbumWithGUID:v12 personID:v13 completionBlock:v15];
   }
 
   else
   {
-    v13 = *(*(a1 + 72) + 16);
+    v14 = *(*(a1 + 72) + 16);
 
-    v13();
+    v14();
   }
 }
 
 void __105__PLCollectionShareSharedStreamBackend_sendInvitationsForParticipants_collectionShare_completionHandler___block_invoke_102(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (v3 && [*(a1 + 32) count] == 1)
+  if (v3 && objc_msgSend_count(*(a1 + 32)) == 1)
   {
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
@@ -1289,7 +1289,7 @@ uint64_t __80__PLCollectionShareSharedStreamBackend_acceptCollectionShare_comple
 
   v7 = [(PLShare *)PLCollectionShare sharesWithPredicate:v5 fetchLimit:0 inManagedObjectContext:managedObjectContext];
 
-  LOBYTE(v4) = [v7 count] >= v4;
+  LOBYTE(v4) = objc_msgSend_count(v7) >= v4;
   return v4;
 }
 
@@ -1594,47 +1594,47 @@ LABEL_10:
 
 - (void)_enqueueCloudSharedAssetsForPublishToServer:(id)server inCollectionShare:(id)share
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   shareCopy = share;
-  v96 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(serverCopy, "count")}];
-  v113 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v116 = 0u;
+  v101 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(serverCopy)];
+  v118 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   obj = serverCopy;
-  v97 = [obj countByEnumeratingWithState:&v113 objects:v119 count:16];
+  v102 = [obj countByEnumeratingWithState:&v118 objects:v124 count:16];
   v6 = 0;
-  if (v97)
+  if (v102)
   {
-    v95 = *v114;
-    v102 = *MEMORY[0x1E695DB50];
-    v100 = *MEMORY[0x1E6998070];
-    v98 = *MEMORY[0x1E6998078];
-    v99 = *MEMORY[0x1E6998080];
-    v94 = *MEMORY[0x1E6998028];
-    v86 = *MEMORY[0x1E6982F80];
+    v100 = *v119;
+    v107 = *MEMORY[0x1E695DB50];
+    v105 = *MEMORY[0x1E6998070];
+    v103 = *MEMORY[0x1E6998078];
+    v104 = *MEMORY[0x1E6998080];
+    v99 = *MEMORY[0x1E6998028];
+    v91 = *MEMORY[0x1E6982F80];
     v7 = *MEMORY[0x1E695F060];
     v8 = *(MEMORY[0x1E695F060] + 8);
-    v81 = *MEMORY[0x1E6998008];
-    v80 = *MEMORY[0x1E6998010];
-    v79 = *MEMORY[0x1E6998018];
-    v90 = *MEMORY[0x1E6997FF8];
+    v86 = *MEMORY[0x1E6998008];
+    v85 = *MEMORY[0x1E6998010];
+    v84 = *MEMORY[0x1E6998018];
+    v95 = *MEMORY[0x1E6997FF8];
     v9 = 0x1E696A000uLL;
-    v89 = *MEMORY[0x1E6997FF0];
-    v88 = *MEMORY[0x1E6998000];
-    v84 = *MEMORY[0x1E6998030];
-    v82 = *MEMORY[0x1E6998020];
+    v94 = *MEMORY[0x1E6997FF0];
+    v93 = *MEMORY[0x1E6998000];
+    v89 = *MEMORY[0x1E6998030];
+    v87 = *MEMORY[0x1E6998020];
     do
     {
-      for (i = 0; i != v97; ++i)
+      for (i = 0; i != v102; ++i)
       {
-        if (*v114 != v95)
+        if (*v119 != v100)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v113 + 1) + 8 * i);
+        v11 = *(*(&v118 + 1) + 8 * i);
         v12 = objc_alloc_init(MEMORY[0x1E6997FA8]);
         cloudAssetGUID = [v11 cloudAssetGUID];
         [v12 setGUID:cloudAssetGUID];
@@ -1654,35 +1654,35 @@ LABEL_10:
         pathForOriginalFile2 = [v11 pathForOriginalFile];
         v18 = [v16 fileURLWithPath:pathForOriginalFile2 isDirectory:0];
 
-        v112 = 0;
-        v106 = v18;
-        [v18 getResourceValue:&v112 forKey:v102 error:0];
-        v105 = v112;
+        v117 = 0;
+        v111 = v18;
+        [v18 getResourceValue:&v117 forKey:v107 error:0];
+        v110 = v117;
         [dictionary setObject:? forKey:?];
         v19 = [*(v9 + 3480) numberWithLongLong:{objc_msgSend(v11, "width")}];
         v20 = [*(v9 + 3480) numberWithLongLong:{objc_msgSend(v11, "height")}];
-        v104 = v19;
-        [dictionary setObject:v19 forKey:v99];
-        v103 = v20;
-        [dictionary setObject:v20 forKey:v98];
+        v109 = v19;
+        [dictionary setObject:v19 forKey:v104];
+        v108 = v20;
+        [dictionary setObject:v20 forKey:v103];
         [v12 setMetadata:dictionary];
         array = [MEMORY[0x1E695DF70] array];
-        v108 = v12;
+        v113 = v12;
         [array addObject:v12];
         v22 = objc_alloc_init(MEMORY[0x1E6997F90]);
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         v24 = [*(v9 + 3480) numberWithUnsignedShort:{objc_msgSend(v11, "playbackVariation")}];
-        [dictionary2 setObject:v24 forKey:v94];
+        [dictionary2 setObject:v24 forKey:v99];
 
         mediaGroupUUID = [v11 mediaGroupUUID];
         if ([v11 isPhotoIris] && mediaGroupUUID)
         {
-          v93 = v6;
+          v98 = v6;
           pathForVideoComplementFile = [v11 pathForVideoComplementFile];
           pathExtension = [pathForVideoComplementFile pathExtension];
-          identifier = [v86 identifier];
-          v91 = pathExtension;
-          v92 = array;
+          identifier = [v91 identifier];
+          v96 = pathExtension;
+          v97 = array;
           if (pathExtension)
           {
             v28 = [PLManagedAsset uniformTypeIdentifierFromPathExtension:pathExtension assetType:1];
@@ -1715,16 +1715,16 @@ LABEL_10:
           dictionary3 = [MEMORY[0x1E695DF90] dictionary];
           if (pathForVideoComplementFile && ([MEMORY[0x1E696AC08] defaultManager], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "fileExistsAtPath:", pathForVideoComplementFile), v36, v37))
           {
-            v83 = identifier;
+            v88 = identifier;
             v38 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathForVideoComplementFile isDirectory:0];
-            v110 = 0;
-            v111 = 0;
-            v39 = [v38 getResourceValue:&v111 forKey:v102 error:&v110];
-            v40 = v111;
-            v85 = v110;
+            v115 = 0;
+            v116 = 0;
+            v39 = [v38 getResourceValue:&v116 forKey:v107 error:&v115];
+            v40 = v116;
+            v90 = v115;
             if (v39)
             {
-              [dictionary3 setObject:v40 forKey:v100];
+              [dictionary3 setObject:v40 forKey:v105];
               [PLManagedAsset dimensionsForVideoAtURL:v38];
               v42 = v41;
               if (v43 == v7 && v41 == v8)
@@ -1744,17 +1744,17 @@ LABEL_10:
               }
 
               v48 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-              [dictionary3 setObject:v48 forKey:v99];
+              [dictionary3 setObject:v48 forKey:v104];
 
               v49 = [MEMORY[0x1E696AD98] numberWithDouble:v42];
-              [dictionary3 setObject:v49 forKey:v98];
+              [dictionary3 setObject:v49 forKey:v103];
 
               [v32 setMetadata:dictionary3];
-              [dictionary2 setObject:mediaGroupUUID forKey:v81];
+              [dictionary2 setObject:mediaGroupUUID forKey:v86];
               v50 = MEMORY[0x1E696AD98];
               if (v11)
               {
-                [v11 photoIrisStillDisplayTime];
+                objc_msgSend_photoIrisStillDisplayTime(v11);
               }
 
               else
@@ -1763,12 +1763,12 @@ LABEL_10:
               }
 
               v51 = [v50 numberWithDouble:CMTimeGetSeconds(&buf)];
-              [dictionary2 setObject:v51 forKey:v80];
+              [dictionary2 setObject:v51 forKey:v85];
 
               v52 = MEMORY[0x1E696AD98];
               if (v11)
               {
-                [v11 photoIrisVideoDuration];
+                objc_msgSend_photoIrisVideoDuration(v11);
               }
 
               else
@@ -1777,10 +1777,10 @@ LABEL_10:
               }
 
               v53 = [v52 numberWithDouble:CMTimeGetSeconds(&buf)];
-              [dictionary2 setObject:v53 forKey:v79];
+              [dictionary2 setObject:v53 forKey:v84];
 
-              array = v92;
-              [v92 addObject:v32];
+              array = v97;
+              [v97 addObject:v32];
             }
 
             else
@@ -1791,7 +1791,7 @@ LABEL_10:
                 LODWORD(buf.value) = 138412546;
                 *(&buf.value + 4) = pathForVideoComplementFile;
                 LOWORD(buf.flags) = 2112;
-                *(&buf.flags + 2) = v85;
+                *(&buf.flags + 2) = v90;
                 v45 = v44;
                 v46 = "ERROR: Unable to get Iris video complement file size for %@: %@";
                 v47 = 22;
@@ -1801,16 +1801,16 @@ LABEL_26:
 
 LABEL_27:
 
-              array = v92;
+              array = v97;
             }
 
-            identifier = v83;
+            identifier = v88;
           }
 
           else
           {
             v38 = PLPhotoSharingGetLog();
-            array = v92;
+            array = v97;
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buf.value) = 138412290;
@@ -1819,7 +1819,7 @@ LABEL_27:
             }
           }
 
-          v6 = v93;
+          v6 = v98;
           v9 = 0x1E696A000uLL;
         }
 
@@ -1838,7 +1838,7 @@ LABEL_27:
         if (cloudBatchID)
         {
           cloudBatchID2 = [v11 cloudBatchID];
-          [dictionary2 setObject:cloudBatchID2 forKey:v90];
+          [dictionary2 setObject:cloudBatchID2 forKey:v95];
         }
 
         cloudBatchPublishDate = [v11 cloudBatchPublishDate];
@@ -1846,13 +1846,13 @@ LABEL_27:
         if (cloudBatchPublishDate)
         {
           cloudBatchPublishDate2 = [v11 cloudBatchPublishDate];
-          [dictionary2 setObject:cloudBatchPublishDate2 forKey:v89];
+          [dictionary2 setObject:cloudBatchPublishDate2 forKey:v94];
         }
 
         dateCreated = [v11 dateCreated];
         if (dateCreated)
         {
-          [dictionary2 setObject:dateCreated forKey:v88];
+          [dictionary2 setObject:dateCreated forKey:v93];
         }
 
         v62 = [*(v9 + 3480) numberWithBool:1];
@@ -1860,12 +1860,12 @@ LABEL_27:
 
         if ([v11 isVideo])
         {
-          [v11 duration];
+          objc_msgSend_duration(v11);
           if (v63 != 0.0)
           {
             [PLSlalomUtilities durationForManagedAsset:v11 applyVideoAdjustments:1];
             v64 = [*(v9 + 3480) numberWithDouble:?];
-            [dictionary2 setObject:v64 forKey:v84];
+            [dictionary2 setObject:v64 forKey:v89];
           }
 
           location = [v11 location];
@@ -1877,7 +1877,7 @@ LABEL_27:
             v69 = iso6709Notation;
             if (iso6709Notation && [iso6709Notation length])
             {
-              [dictionary2 setObject:v69 forKey:v82];
+              [dictionary2 setObject:v69 forKey:v87];
             }
 
             v6 = v67;
@@ -1887,7 +1887,7 @@ LABEL_27:
         }
 
         [v22 setMetadata:dictionary2];
-        [v96 addObject:v22];
+        [v101 addObject:v22];
         locationData = [v11 locationData];
 
         if (locationData)
@@ -1896,13 +1896,13 @@ LABEL_27:
         }
       }
 
-      v97 = [obj countByEnumeratingWithState:&v113 objects:v119 count:16];
+      v102 = [obj countByEnumeratingWithState:&v118 objects:v124 count:16];
     }
 
-    while (v97);
+    while (v102);
   }
 
-  if ([v96 count])
+  if (objc_msgSend_count(v101))
   {
     mEMORY[0x1E69B14F8] = [MEMORY[0x1E69B14F8] sharedConnection];
     v72 = +[PLPhotoSharingHelper sharingPersonID];
@@ -1912,16 +1912,16 @@ LABEL_27:
     {
       scopeIdentifier = [shareCopy scopeIdentifier];
       LODWORD(buf.value) = 138412802;
-      *(&buf.value + 4) = v96;
+      *(&buf.value + 4) = v101;
       LOWORD(buf.flags) = 2112;
       *(&buf.flags + 2) = scopeIdentifier;
       HIWORD(buf.epoch) = 2112;
-      v118 = v72;
+      v123 = v72;
       _os_log_impl(&dword_19BF1F000, v73, OS_LOG_TYPE_DEFAULT, " about to call connection addAssetCollections:%@ toAlbumWithGUID:%@ personID:%@", &buf, 0x20u);
     }
 
     scopeIdentifier2 = [shareCopy scopeIdentifier];
-    [mEMORY[0x1E69B14F8] addAssetCollections:v96 toAlbumWithGUID:scopeIdentifier2 personID:v72];
+    [mEMORY[0x1E69B14F8] addAssetCollections:v101 toAlbumWithGUID:scopeIdentifier2 personID:v72];
   }
 
   else
@@ -1940,7 +1940,7 @@ LABEL_27:
     if (v6 >= 1)
     {
       title = [v74 title];
-      plslogGreenTea();
+      plslogGreenTea(@"com.apple.mobileslideshow", 0, @"Added %li photo(s) with location data to shared album '%@'", v77, v78, v79, v80, v81, v6);
     }
 
     if (PLIsForegroundApplication())
@@ -1968,7 +1968,7 @@ LABEL_27:
 
   else
   {
-    v12 = [assetsCopy count];
+    v12 = objc_msgSend_count(assetsCopy);
 
     if (v12)
     {

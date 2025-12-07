@@ -33,20 +33,20 @@
 
 - (void)viewDidLoad
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = HMHearingAidTimeToAdjustInfoViewController;
-  [(OBBaseWelcomeController *)&v30 viewDidLoad];
+  v30[1] = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = HMHearingAidTimeToAdjustInfoViewController;
+  [(OBBaseWelcomeController *)&v29 viewDidLoad];
   [(HMHearingAidTimeToAdjustInfoViewController *)self updateImage];
   objc_initWeak(&location, self);
-  v31[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __57__HMHearingAidTimeToAdjustInfoViewController_viewDidLoad__block_invoke;
-  v27[3] = &unk_2796F3CA0;
-  objc_copyWeak(&v28, &location);
-  v4 = [(HMHearingAidTimeToAdjustInfoViewController *)self registerForTraitChanges:v3 withHandler:v27];
+  v30[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __57__HMHearingAidTimeToAdjustInfoViewController_viewDidLoad__block_invoke;
+  v26[3] = &unk_2796F3CA0;
+  objc_copyWeak(&v27, &location);
+  v4 = [(HMHearingAidTimeToAdjustInfoViewController *)self registerForTraitChanges:v3 withHandler:v26];
 
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"Your hearing may need to get used to the new sound of your %@. This is normal and can take a few weeks." value:&stru_286444CA0 table:0];
@@ -109,9 +109,8 @@
   [(HMHearingAidTimeToAdjustInfoViewController *)self addBulletedListItemWithTitle:v22 description:&stru_286444CA0 symbolName:@"slider.horizontal.below.waveform" tintColor:systemBlueColor3];
 
   [(HMHearingAidTimeToAdjustInfoViewController *)self updateButtonTray];
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMHearingAidTimeToAdjustInfoViewController_viewDidLoad__block_invoke(uint64_t a1)

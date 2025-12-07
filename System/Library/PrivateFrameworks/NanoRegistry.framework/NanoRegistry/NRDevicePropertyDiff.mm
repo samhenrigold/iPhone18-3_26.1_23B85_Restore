@@ -8,7 +8,6 @@
 - (NRPBDevicePropertyDiff)protobuf;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -105,13 +104,6 @@ LABEL_6:
   [coderCopy encodeObject:data forKey:@"data"];
 }
 
-- (unint64_t)hash
-{
-  value = self->_value;
-  v4 = [objc_opt_class() hash];
-  return [self->_value hash]- v4 + 32 * v4 + 961;
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -146,33 +138,30 @@ LABEL_7:
 
 - (id)description
 {
-  value = self->_value;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_value;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v6 = [NRTextFormattingUtilities dateFormatter:self->_value];
+    v3 = [NRTextFormattingUtilities dateFormatter:self->_value];
   }
 
   else
   {
     objc_opt_class();
-    v7 = objc_opt_isKindOfClass();
-    v8 = self->_value;
-    if (v7)
+    isKindOfClass = objc_opt_isKindOfClass();
+    value = self->_value;
+    if (isKindOfClass)
     {
-      [v8 UUIDString];
+      [value UUIDString];
     }
 
     else
     {
-      [v8 description];
+      [value description];
     }
-    v6 = ;
+    v3 = ;
   }
 
-  return v6;
+  return v3;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -184,7 +173,7 @@ LABEL_7:
 
 + (id)packPropertyValue:(id)value
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v5 = objc_alloc_init(NRPBPropertyValue);
   if (!valueCopy)
@@ -432,48 +421,48 @@ LABEL_66:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = valueCopy;
-    v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [(NRPBPropertyValue *)v5 setArrayValues:v40];
+    v38 = valueCopy;
+    v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [(NRPBPropertyValue *)v5 setArrayValues:v39];
 
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
-    data = v39;
-    v42 = [data countByEnumeratingWithState:&v83 objects:v89 count:16];
-    if (v42)
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    data = v38;
+    v41 = [data countByEnumeratingWithState:&v82 objects:v88 count:16];
+    if (v41)
     {
-      v43 = v42;
-      v44 = *v84;
+      v42 = v41;
+      v43 = *v83;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v42; ++i)
         {
-          if (*v84 != v44)
+          if (*v83 != v43)
           {
             objc_enumerationMutation(data);
           }
 
-          v46 = [self packPropertyValue:*(*(&v83 + 1) + 8 * i)];
-          if (v46)
+          v45 = [self packPropertyValue:*(*(&v82 + 1) + 8 * i)];
+          if (v45)
           {
             arrayValues = [(NRPBPropertyValue *)v5 arrayValues];
-            [arrayValues addObject:v46];
+            [arrayValues addObject:v45];
           }
         }
 
-        v43 = [data countByEnumeratingWithState:&v83 objects:v89 count:16];
+        v42 = [data countByEnumeratingWithState:&v82 objects:v88 count:16];
       }
 
-      while (v43);
+      while (v42);
     }
 
 LABEL_100:
     arrayValues2 = [(NRPBPropertyValue *)v5 arrayValues];
-    v58 = [arrayValues2 count];
+    v57 = [arrayValues2 count];
 
-    if (!v58)
+    if (!v57)
     {
       [(NRPBPropertyValue *)v5 setArrayValues:0];
     }
@@ -484,9 +473,9 @@ LABEL_100:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v48 = valueCopy;
+    v47 = valueCopy;
     [(NRPBPropertyValue *)v5 setIsMiniUUIDSet:1];
-    data = [v48 data];
+    data = [v47 data];
 
     [(NRPBPropertyValue *)v5 setDataValue:data];
 LABEL_102:
@@ -497,41 +486,41 @@ LABEL_102:
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v49 = valueCopy;
-    v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [(NRPBPropertyValue *)v5 setArrayValues:v50];
+    v48 = valueCopy;
+    v49 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [(NRPBPropertyValue *)v5 setArrayValues:v49];
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
-    data = v49;
-    v51 = [data countByEnumeratingWithState:&v79 objects:v88 count:16];
-    if (v51)
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    data = v48;
+    v50 = [data countByEnumeratingWithState:&v78 objects:v87 count:16];
+    if (v50)
     {
-      v52 = v51;
-      v53 = *v80;
+      v51 = v50;
+      v52 = *v79;
       do
       {
-        for (j = 0; j != v52; ++j)
+        for (j = 0; j != v51; ++j)
         {
-          if (*v80 != v53)
+          if (*v79 != v52)
           {
             objc_enumerationMutation(data);
           }
 
-          v55 = [self packPropertyValue:*(*(&v79 + 1) + 8 * j)];
-          if (v55)
+          v54 = [self packPropertyValue:*(*(&v78 + 1) + 8 * j)];
+          if (v54)
           {
             arrayValues3 = [(NRPBPropertyValue *)v5 arrayValues];
-            [arrayValues3 addObject:v55];
+            [arrayValues3 addObject:v54];
           }
         }
 
-        v52 = [data countByEnumeratingWithState:&v79 objects:v88 count:16];
+        v51 = [data countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
     [(NRPBPropertyValue *)v5 setIsSet:1];
@@ -544,71 +533,70 @@ LABEL_102:
     goto LABEL_6;
   }
 
-  v59 = valueCopy;
-  v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  [(NRPBPropertyValue *)v5 setArrayValues:v60];
+  v58 = valueCopy;
+  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  [(NRPBPropertyValue *)v5 setArrayValues:v59];
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
-  obj = [v59 allKeys];
-  v61 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
-  v73 = v59;
-  if (v61)
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  obj = [v58 allKeys];
+  v60 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+  v72 = v58;
+  if (v60)
   {
-    v62 = v61;
-    v63 = *v76;
+    v61 = v60;
+    v62 = *v75;
     do
     {
-      for (k = 0; k != v62; ++k)
+      for (k = 0; k != v61; ++k)
       {
-        if (*v76 != v63)
+        if (*v75 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v65 = *(*(&v75 + 1) + 8 * k);
-        v66 = [v59 objectForKeyedSubscript:{v65, v73}];
-        v67 = [self packPropertyValue:v65];
-        if (v67)
+        v64 = *(*(&v74 + 1) + 8 * k);
+        v65 = [v58 objectForKeyedSubscript:{v64, v72}];
+        v66 = [self packPropertyValue:v64];
+        if (v66)
         {
-          v68 = [self packPropertyValue:v66];
-          v69 = v68;
-          if (v68)
+          v67 = [self packPropertyValue:v65];
+          v68 = v67;
+          if (v67)
           {
-            [v68 setDictionaryKey:v67];
+            [v67 setDictionaryKey:v66];
             arrayValues4 = [(NRPBPropertyValue *)v5 arrayValues];
-            [arrayValues4 addObject:v69];
+            [arrayValues4 addObject:v68];
 
-            v59 = v73;
+            v58 = v72;
           }
         }
       }
 
-      v62 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+      v61 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
   arrayValues5 = [(NRPBPropertyValue *)v5 arrayValues];
-  v72 = [arrayValues5 count];
+  v71 = [arrayValues5 count];
 
-  if (!v72)
+  if (!v71)
   {
     [(NRPBPropertyValue *)v5 setArrayValues:0];
   }
 
 LABEL_68:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)unpackPropertyValue:(id)value
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   numberValue = [valueCopy numberValue];
 
@@ -819,10 +807,10 @@ LABEL_38:
     {
       if ([valueCopy isError])
       {
-        v73 = MEMORY[0x1E696ACD0];
+        v72 = MEMORY[0x1E696ACD0];
         sizeValue2 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
         sizeValue3 = [valueCopy dataValue];
-        v26 = [v73 nr_secureUnarchiveObjectOfClasses:sizeValue2 withData:sizeValue3];
+        v26 = [v72 nr_secureUnarchiveObjectOfClasses:sizeValue2 withData:sizeValue3];
         goto LABEL_9;
       }
 
@@ -838,7 +826,7 @@ LABEL_19:
   }
 
   arrayValues = [valueCopy arrayValues];
-  if (!arrayValues || (v57 = arrayValues, [valueCopy arrayValues], v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_msgSend(v58, "count"), v58, v57, !v59))
+  if (!arrayValues || (v56 = arrayValues, [valueCopy arrayValues], v57 = objc_claimAutoreleasedReturnValue(), v58 = objc_msgSend(v57, "count"), v57, v56, !v58))
   {
     v27 = 0;
     goto LABEL_40;
@@ -853,77 +841,77 @@ LABEL_19:
   {
     if ([valueCopy isSet])
     {
-      v63 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v62 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
       v88 = 0u;
-      v89 = 0u;
       arrayValues3 = [valueCopy arrayValues];
-      v75 = [arrayValues3 countByEnumeratingWithState:&v86 objects:v98 count:16];
-      if (v75)
+      v74 = [arrayValues3 countByEnumeratingWithState:&v85 objects:v97 count:16];
+      if (v74)
       {
-        v76 = v75;
-        v77 = *v87;
+        v75 = v74;
+        v76 = *v86;
         do
         {
-          for (i = 0; i != v76; ++i)
+          for (i = 0; i != v75; ++i)
           {
-            if (*v87 != v77)
+            if (*v86 != v76)
             {
               objc_enumerationMutation(arrayValues3);
             }
 
-            v79 = [self unpackPropertyValue:*(*(&v86 + 1) + 8 * i)];
-            if (v79)
+            v78 = [self unpackPropertyValue:*(*(&v85 + 1) + 8 * i)];
+            if (v78)
             {
-              [v63 addObject:v79];
+              [v62 addObject:v78];
             }
           }
 
-          v76 = [arrayValues3 countByEnumeratingWithState:&v86 objects:v98 count:16];
+          v75 = [arrayValues3 countByEnumeratingWithState:&v85 objects:v97 count:16];
         }
 
-        while (v76);
+        while (v75);
       }
     }
 
     else
     {
-      v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v89 = 0u;
       v90 = 0u;
       v91 = 0u;
       v92 = 0u;
-      v93 = 0u;
       arrayValues3 = [valueCopy arrayValues];
-      v80 = [arrayValues3 countByEnumeratingWithState:&v90 objects:v99 count:16];
-      if (v80)
+      v79 = [arrayValues3 countByEnumeratingWithState:&v89 objects:v98 count:16];
+      if (v79)
       {
-        v81 = v80;
-        v82 = *v91;
+        v80 = v79;
+        v81 = *v90;
         do
         {
-          for (j = 0; j != v81; ++j)
+          for (j = 0; j != v80; ++j)
           {
-            if (*v91 != v82)
+            if (*v90 != v81)
             {
               objc_enumerationMutation(arrayValues3);
             }
 
-            v84 = [self unpackPropertyValue:*(*(&v90 + 1) + 8 * j)];
-            if (v84)
+            v83 = [self unpackPropertyValue:*(*(&v89 + 1) + 8 * j)];
+            if (v83)
             {
-              [v63 addObject:v84];
+              [v62 addObject:v83];
             }
           }
 
-          v81 = [arrayValues3 countByEnumeratingWithState:&v90 objects:v99 count:16];
+          v80 = [arrayValues3 countByEnumeratingWithState:&v89 objects:v98 count:16];
         }
 
-        while (v81);
+        while (v80);
       }
     }
 
-    if (![v63 count])
+    if (![v62 count])
     {
       v27 = 0;
       goto LABEL_92;
@@ -932,66 +920,65 @@ LABEL_19:
     goto LABEL_91;
   }
 
-  v85 = firstObject;
-  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v84 = firstObject;
+  v62 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
   arrayValues4 = [valueCopy arrayValues];
-  v65 = [arrayValues4 countByEnumeratingWithState:&v94 objects:v100 count:16];
-  if (v65)
+  v64 = [arrayValues4 countByEnumeratingWithState:&v93 objects:v99 count:16];
+  if (v64)
   {
-    v66 = v65;
-    v67 = *v95;
+    v65 = v64;
+    v66 = *v94;
     do
     {
-      for (k = 0; k != v66; ++k)
+      for (k = 0; k != v65; ++k)
       {
-        if (*v95 != v67)
+        if (*v94 != v66)
         {
           objc_enumerationMutation(arrayValues4);
         }
 
-        v69 = *(*(&v94 + 1) + 8 * k);
-        dictionaryKey2 = [v69 dictionaryKey];
-        v71 = [self unpackPropertyValue:dictionaryKey2];
+        v68 = *(*(&v93 + 1) + 8 * k);
+        dictionaryKey2 = [v68 dictionaryKey];
+        v70 = [self unpackPropertyValue:dictionaryKey2];
 
-        v72 = [self unpackPropertyValue:v69];
-        if (v71)
+        v71 = [self unpackPropertyValue:v68];
+        if (v70)
         {
-          if (v72)
+          if (v71)
           {
-            [v63 setObject:v72 forKey:v71];
+            [v62 setObject:v71 forKey:v70];
           }
 
           else
           {
-            [v63 removeObjectForKey:v71];
+            [v62 removeObjectForKey:v70];
           }
         }
       }
 
-      v66 = [arrayValues4 countByEnumeratingWithState:&v94 objects:v100 count:16];
+      v65 = [arrayValues4 countByEnumeratingWithState:&v93 objects:v99 count:16];
     }
 
-    while (v66);
+    while (v65);
   }
 
-  if ([v63 count])
+  if ([v62 count])
   {
-    firstObject = v85;
+    firstObject = v84;
 LABEL_91:
-    v27 = [v63 copy];
+    v27 = [v62 copy];
     goto LABEL_92;
   }
 
   v27 = 0;
-  firstObject = v85;
+  firstObject = v84;
 LABEL_92:
 
 LABEL_40:
-  v53 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

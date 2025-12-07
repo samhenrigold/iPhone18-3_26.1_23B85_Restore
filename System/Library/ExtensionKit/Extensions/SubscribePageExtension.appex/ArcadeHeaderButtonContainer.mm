@@ -11,7 +11,7 @@
 - (_TtC22SubscribePageExtension27ArcadeHeaderButtonContainer)initWithCoder:(id)coder
 {
   v3 = OBJC_IVAR____TtC22SubscribePageExtension27ArcadeHeaderButtonContainer_stackView;
-  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_10000C518(&unk_10093EC20)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_10000C518(&unk_10093EC20 qword_1007B6C40))];
   result = sub_100754644();
   __break(1u);
   return result;

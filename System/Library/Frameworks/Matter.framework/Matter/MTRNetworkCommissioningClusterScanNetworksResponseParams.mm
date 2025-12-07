@@ -79,11 +79,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:49 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v15)
   {
     sub_2393C5AAC(v14);
-    sub_2393C5ADC(v8, *(v15 + 1), *(v15 + 3));
+    sub_2393C5ADC(v8, *(v15 + 8), *(v15 + 24));
     v9 = sub_2393C6FD0(v14, 256);
     if (!v9)
     {
@@ -145,17 +145,17 @@ LABEL_6:
 
   if (*(struct + 8) == 1)
   {
-    v6 = sub_238DE36B8(struct + 8);
-    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v6 length:v6[1] encoding:4];
-    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)self setDebugText:v7];
+    v7 = sub_238DE36B8(struct + 8, v6);
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v7 length:v7[1] encoding:4];
+    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)self setDebugText:v8];
 
     debugText = [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)self debugText];
 
     if (!debugText)
     {
-      v9 = 0x15EE00000000;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v11 = 47;
+      v10 = 0x15EE00000000;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v12 = 47;
       goto LABEL_31;
     }
   }
@@ -168,74 +168,74 @@ LABEL_6:
   selfCopy = self;
   if (*(struct + 32) == 1)
   {
-    v12 = objc_opt_new();
-    v13 = sub_238DE36B8(struct + 32);
-    sub_2393C5AAC(v42);
-    v40 = 0;
-    v41 = 0;
-    sub_2393C5BDC(v42, v13);
-    v43[0] = 0;
-    memset(&v43[8], 0, 36);
+    v13 = objc_opt_new();
+    v15 = sub_238DE36B8(struct + 32, v14);
+    sub_2393C5AAC(v45);
+    v43 = 0;
+    v44 = 0;
+    sub_2393C5BDC(v45, v15);
+    v46[0] = 0;
+    memset(&v46[8], 0, 36);
     while (1)
     {
-      v14 = sub_238EA1A80(&v40);
-      LODWORD(v15) = v40;
-      if (v40)
+      v16 = sub_238EA1A80(&v43);
+      LODWORD(v17) = v43;
+      if (v43)
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      if (!v14)
-      {
-        break;
-      }
-
-      memset(v43, 0, 44);
-      v15 = sub_238F21058(v43, v42);
-      v40 = v15;
-      v41 = v16;
-      if (v15)
+      if (!v16)
       {
         break;
       }
 
-      v17 = objc_opt_new();
-      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v43[0]];
-      [v17 setSecurity:v18];
+      memset(v46, 0, 44);
+      v17 = sub_238F21058(v46, v45);
+      v43 = v17;
+      v44 = v18;
+      if (v17)
+      {
+        break;
+      }
 
-      v19 = [MEMORY[0x277CBEA90] dataWithBytes:*&v43[8] length:?];
-      [v17 setSsid:v19];
+      v19 = objc_opt_new();
+      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v46[0]];
+      [v19 setSecurity:v20];
 
-      v20 = [MEMORY[0x277CBEA90] dataWithBytes:*&v43[24] length:?];
-      [v17 setBssid:v20];
+      v21 = [MEMORY[0x277CBEA90] dataWithBytes:*&v46[8] length:?];
+      [v19 setSsid:v21];
 
-      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*&v43[40]];
-      [v17 setChannel:v21];
+      v22 = [MEMORY[0x277CBEA90] dataWithBytes:*&v46[24] length:?];
+      [v19 setBssid:v22];
 
-      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v43[42]];
-      [v17 setWiFiBand:v22];
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*&v46[40]];
+      [v19 setChannel:v23];
 
-      v23 = [MEMORY[0x277CCABB0] numberWithChar:v43[43]];
-      [v17 setRssi:v23];
+      v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v46[42]];
+      [v19 setWiFiBand:v24];
 
-      [v12 addObject:v17];
+      v25 = [MEMORY[0x277CCABB0] numberWithChar:v46[43]];
+      [v19 setRssi:v25];
+
+      [v13 addObject:v19];
     }
 
     self = selfCopy;
-    if (v15 != 33)
+    if (v17 != 33)
     {
-      v11 = v40;
-      if (v40)
+      v12 = v43;
+      if (v43)
       {
-        v9 = v40 & 0xFFFFFFFF00000000;
-        v10 = v41;
+        v10 = v43 & 0xFFFFFFFF00000000;
+        v11 = v44;
 LABEL_30:
 
         goto LABEL_31;
       }
     }
 
-    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)selfCopy setWiFiScanResults:v12];
+    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)selfCopy setWiFiScanResults:v13];
   }
 
   else
@@ -243,74 +243,74 @@ LABEL_30:
     [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)self setWiFiScanResults:0];
   }
 
-  v25 = *(struct + 112);
-  v24 = struct + 112;
-  if (v25 == 1)
+  v27 = *(struct + 112);
+  v26 = struct + 112;
+  if (v27 == 1)
   {
-    v12 = objc_opt_new();
-    v26 = sub_238DE36B8(v24);
-    sub_2393C5AAC(v42);
-    v40 = 0;
-    v41 = 0;
-    sub_2393C5BDC(v42, v26);
-    *v43 = 0;
-    memset(&v43[8], 0, 27);
-    *&v43[40] = 0;
+    v13 = objc_opt_new();
+    v29 = sub_238DE36B8(v26, v28);
+    sub_2393C5AAC(v45);
+    v43 = 0;
     v44 = 0;
-    v45 = 0;
-    while (sub_238EA1A80(&v40) && sub_238EA1EA0(&v40))
+    sub_2393C5BDC(v45, v29);
+    *v46 = 0;
+    memset(&v46[8], 0, 27);
+    *&v46[40] = 0;
+    v47 = 0;
+    v48 = 0;
+    while (sub_238EA1A80(&v43) && sub_238EA1EA0(&v43))
     {
-      v27 = objc_opt_new();
-      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*v43];
-      [v27 setPanId:v28];
+      v30 = objc_opt_new();
+      v31 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*v46];
+      [v30 setPanId:v31];
 
-      v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*&v43[8]];
-      [v27 setExtendedPanId:v29];
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*&v46[8]];
+      [v30 setExtendedPanId:v32];
 
-      v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*&v43[16] length:*&v43[24] encoding:4];
-      [v27 setNetworkName:v30];
+      v33 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*&v46[16] length:*&v46[24] encoding:4];
+      [v30 setNetworkName:v33];
 
-      networkName = [v27 networkName];
+      networkName = [v30 networkName];
 
       if (!networkName)
       {
 
-        v9 = 0x161D00000000;
-        v10 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-        v11 = 47;
+        v10 = 0x161D00000000;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+        v12 = 47;
         goto LABEL_30;
       }
 
-      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*&v43[32]];
-      [v27 setChannel:v32];
+      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*&v46[32]];
+      [v30 setChannel:v35];
 
-      v33 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v43[34]];
-      [v27 setVersion:v33];
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v46[34]];
+      [v30 setVersion:v36];
 
-      v34 = [MEMORY[0x277CBEA90] dataWithBytes:*&v43[40] length:v44];
-      [v27 setExtendedAddress:v34];
+      v37 = [MEMORY[0x277CBEA90] dataWithBytes:*&v46[40] length:v47];
+      [v30 setExtendedAddress:v37];
 
-      v35 = [MEMORY[0x277CCABB0] numberWithChar:v45];
-      [v27 setRssi:v35];
+      v38 = [MEMORY[0x277CCABB0] numberWithChar:v48];
+      [v30 setRssi:v38];
 
-      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:HIBYTE(v45)];
-      [v27 setLqi:v36];
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:HIBYTE(v48)];
+      [v30 setLqi:v39];
 
-      [v12 addObject:v27];
+      [v13 addObject:v30];
     }
 
-    if (v40 != 33)
+    if (v43 != 33)
     {
-      v11 = v40;
-      if (v40)
+      v12 = v43;
+      if (v43)
       {
-        v10 = v41;
-        v9 = v40 & 0xFFFFFFFF00000000;
+        v11 = v44;
+        v10 = v43 & 0xFFFFFFFF00000000;
         goto LABEL_30;
       }
     }
 
-    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)selfCopy setThreadScanResults:v12];
+    [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)selfCopy setThreadScanResults:v13];
   }
 
   else
@@ -318,15 +318,15 @@ LABEL_30:
     [(MTRNetworkCommissioningClusterScanNetworksResponseParams *)self setThreadScanResults:0];
   }
 
-  v10 = 0;
-  v9 = 0;
   v11 = 0;
+  v10 = 0;
+  v12 = 0;
 LABEL_31:
-  v37 = v11 | v9;
-  v38 = v10;
-  result.mFile = v38;
-  result.mError = v37;
-  result.mLine = HIDWORD(v37);
+  v40 = v12 | v10;
+  v41 = v11;
+  result.mFile = v41;
+  result.mError = v40;
+  result.mLine = HIDWORD(v40);
   return result;
 }
 

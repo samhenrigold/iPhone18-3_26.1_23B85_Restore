@@ -1,4 +1,5 @@
 @interface DDCoreRecents
++ (void)addResultToRecents:(id)recents associatedResults:(id)results weight:(id)weight context:(id)context userInitiated:(BOOL)initiated;
 + (void)addResultToRecents:(id)recents eventDate:(id)date subject:(id)subject weight:(id)weight metadata:(id)metadata userInitiated:(BOOL)initiated;
 @end
 
@@ -85,22 +86,40 @@ uint64_t __84__DDCoreRecents_addResultToRecents_eventDate_subject_weight_metadat
   return [*(a1 + 32) invalidate];
 }
 
++ (void)addResultToRecents:(id)recents associatedResults:(id)results weight:(id)weight context:(id)context userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  recentsCopy = recents;
+  resultsCopy = results;
+  weightCopy = weight;
+  contextCopy = context;
+  if ([recentsCopy category] - 4 >= 0xFFFFFFFE)
+  {
+    if (!resultsCopy || (beginDateOfEventResults(resultsCopy, contextCopy, 0, 0, 0), (v15 = objc_claimAutoreleasedReturnValue()) == 0))
+    {
+      v15 = [contextCopy objectForKeyedSubscript:@"ReferenceDate"];
+    }
+
+    v16 = [contextCopy objectForKeyedSubscript:@"EventTitle"];
+    v17 = [contextCopy objectForKeyedSubscript:@"CoreRecents"];
+    [self addResultToRecents:recentsCopy eventDate:v15 subject:v16 weight:weightCopy metadata:v17 userInitiated:initiatedCopy];
+  }
+}
+
 void __84__DDCoreRecents_addResultToRecents_eventDate_subject_weight_metadata_userInitiated___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Got proxy %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Got proxy %@", &v1, 0xCu);
 }
 
 void __84__DDCoreRecents_addResultToRecents_eventDate_subject_weight_metadata_userInitiated___block_invoke_2_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_fault_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Error caught while adding an address to the recents: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_fault_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Error caught while adding an address to the recents: %@", &v1, 0xCu);
 }
 
 @end

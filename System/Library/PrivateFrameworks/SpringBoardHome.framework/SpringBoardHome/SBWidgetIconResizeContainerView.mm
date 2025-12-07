@@ -33,7 +33,7 @@
   if (contentView != viewCopy)
   {
     v10 = viewCopy;
-    if (contentView && [(UIView *)contentView isDescendantOfView:self])
+    if (contentView && [contentView isDescendantOfView:self])
     {
       [(UIView *)self->_contentView removeFromSuperview];
     }
@@ -44,7 +44,7 @@
     {
       [(SBWidgetIconResizeContainerView *)self insertSubview:v10 atIndex:0];
       p_contentSize = &self->_contentSize;
-      contentView = [(UIView *)v10 bounds];
+      contentView = objc_msgSend_bounds(v10);
       viewCopy = v10;
       p_contentSize->width = v8;
       p_contentSize->height = v9;
@@ -56,7 +56,7 @@
 
 - (void)layoutSubviews
 {
-  [(SBWidgetIconResizeContainerView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   x = v21.origin.x;
   y = v21.origin.y;
   width = v21.size.width;

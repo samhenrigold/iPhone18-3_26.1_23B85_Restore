@@ -79,15 +79,16 @@
     v13 = *v19;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
-        v16 = TUILinkEntityObserverLog();
+        v15 = *(*(&v18 + 1) + 8 * v14);
+        v16 = TUILinkEntityObserverLog(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 134218498;
@@ -99,13 +100,16 @@
           _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "visible-content-changed observer[%p]: added=%@ removed=%@", buf, 0x20u);
         }
 
-        [v15 linkEntityController:self visibleEntityReferencesWithAdded:v7 removed:v8];
+        v11 = [v15 linkEntityController:self visibleEntityReferencesWithAdded:v7 removed:v8];
+        v14 = v14 + 1;
       }
 
-      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      while (v12 != v14);
+      v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 }
 
@@ -166,18 +170,18 @@
   v16 = [WeakRetained resolveViewWithPath:resolvePath];
 
   v17 = v16;
-  v18 = TUILinkEntityActionLog();
+  v18 = TUILinkEntityActionLog(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
     *buf = 134218754;
-    v57 = uniqueIdentifier;
-    v58 = 2112;
-    v59 = actionCopy;
-    v60 = 2112;
-    v61 = referenceCopy;
-    v62 = 2112;
-    v63 = parametersCopy;
+    v60 = uniqueIdentifier;
+    v61 = 2112;
+    v62 = actionCopy;
+    v63 = 2112;
+    v64 = referenceCopy;
+    v65 = 2112;
+    v66 = parametersCopy;
     _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "[fid:%lu] performAction:%@ linkEntity:%@ params:%@", buf, 0x2Au);
   }
 
@@ -185,19 +189,19 @@
   {
     layoutAttributes = [v17 layoutAttributes];
     renderModel = [layoutAttributes renderModel];
-    v22 = TUIProtocolCast(&OBJC_PROTOCOL___TUIRenderModelActionContaining, renderModel);
-    actionHandler = [v22 actionHandler];
+    v23 = TUIProtocolCast(&OBJC_PROTOCOL___TUIRenderModelActionContaining, renderModel);
+    actionHandler = [v23 actionHandler];
 
-    model = [referenceCopy model];
-    actionsMap = [model actionsMap];
-    v25 = [actionsMap objectForKeyedSubscript:actionCopy];
+    v24 = objc_msgSend_model(referenceCopy);
+    actionsMap = [v24 actionsMap];
+    v26 = [actionsMap objectForKeyedSubscript:actionCopy];
 
-    if (!v25)
+    if (!v26)
     {
-      v32 = TUILinkEntityActionLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v35 = TUILinkEntityActionLog(v27);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        sub_19AA08(self, actionCopy, v32);
+        sub_19AA08(self, actionCopy, v35);
       }
 
       if (completionCopy)
@@ -205,86 +209,86 @@
         completionCopy[2](completionCopy, 0);
       }
 
-      v29 = v17;
+      v32 = v17;
       goto LABEL_33;
     }
 
-    v52 = model;
-    refId = [v25 refId];
+    v55 = v24;
+    refId = [v26 refId];
 
-    v53 = resolvePath;
-    v54 = actionCopy;
+    v56 = resolvePath;
+    v57 = actionCopy;
     if (refId)
     {
-      refId2 = [v25 refId];
-      v28 = [v17 descendentViewWithRefId:refId2];
+      refId2 = [v26 refId];
+      v30 = [v17 descendentViewWithRefId:refId2];
 
-      v51 = v28 == 0;
-      if (v28)
+      v54 = v30 == 0;
+      if (v30)
       {
-        v29 = v28;
-        v30 = v17;
+        v32 = v30;
+        v33 = v17;
       }
 
       else
       {
-        log = TUILinkEntityActionLog();
+        log = TUILinkEntityActionLog(v31);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v44 = self->_feedId.uniqueIdentifier;
-          refId3 = [v25 refId];
+          v47 = self->_feedId.uniqueIdentifier;
+          refId3 = [v26 refId];
           layoutAttributes2 = [v17 layoutAttributes];
           renderModel2 = [layoutAttributes2 renderModel];
           identifier = [renderModel2 identifier];
           tui_identifierToString = [identifier tui_identifierToString];
           *buf = 134218754;
-          v57 = v44;
-          v58 = 2112;
-          v59 = refId3;
-          v60 = 2112;
-          v61 = v17;
-          v62 = 2112;
-          v63 = tui_identifierToString;
+          v60 = v47;
+          v61 = 2112;
+          v62 = refId3;
+          v63 = 2112;
+          v64 = v17;
+          v65 = 2112;
+          v66 = tui_identifierToString;
           _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "[fid:%lu] failed to lookup refId:%@ descendentOfView:%@ (%@); falling back on view", buf, 0x2Au);
 
-          v30 = log;
-          v29 = v17;
+          v33 = log;
+          v32 = v17;
         }
 
         else
         {
-          v29 = v17;
-          v30 = log;
+          v32 = v17;
+          v33 = log;
         }
       }
     }
 
     else
     {
-      v51 = 1;
-      v29 = v17;
+      v54 = 1;
+      v32 = v17;
     }
 
     if (parametersCopy)
     {
-      v33 = parametersCopy;
+      v36 = parametersCopy;
     }
 
     else
     {
-      v33 = &__NSDictionary0__struct;
+      v36 = &__NSDictionary0__struct;
     }
 
-    v34 = [v33 mutableCopy];
-    v35 = [TUIElementActionTriggerHandler argumentsForView:v29];
-    [v34 addEntriesFromDictionary:v35];
+    v37 = [v36 mutableCopy];
+    v38 = [TUIElementActionTriggerHandler argumentsForView:v32];
+    [v37 addEntriesFromDictionary:v38];
 
-    v36 = [v34 copy];
-    trigger = [v25 trigger];
-    if (trigger && (v38 = trigger, [v25 trigger], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(actionHandler, "hasActionForTrigger:", v39), v39, v38, v40))
+    v39 = [v37 copy];
+    trigger = [v26 trigger];
+    if (trigger && (v41 = trigger, [v26 trigger], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(actionHandler, "hasActionForTrigger:", v42), v42, v41, v43))
     {
-      trigger2 = [v25 trigger];
-      [actionHandler invoke:trigger2 view:v29 allowRefId:v51 arguments:v36];
+      trigger2 = [v26 trigger];
+      [actionHandler invoke:trigger2 view:v32 allowRefId:v54 arguments:v39];
 
       if (completionCopy)
       {
@@ -294,18 +298,18 @@
 
     else
     {
-      v42 = objc_loadWeakRetained(&self->_actionHandler);
+      v45 = objc_loadWeakRetained(&self->_actionHandler);
 
-      if (v42)
+      if (v45)
       {
-        v43 = objc_loadWeakRetained(&self->_actionHandler);
-        [v43 handleAction:v54 forLinkEntity:referenceCopy withParameters:v36 sourceView:v29 completion:completionCopy];
+        v46 = objc_loadWeakRetained(&self->_actionHandler);
+        [v46 handleAction:v57 forLinkEntity:referenceCopy withParameters:v39 sourceView:v32 completion:completionCopy];
 
-        actionCopy = v54;
-        parametersCopy = v36;
+        actionCopy = v57;
+        parametersCopy = v39;
 LABEL_32:
-        model = v52;
-        resolvePath = v53;
+        v24 = v55;
+        resolvePath = v56;
 LABEL_33:
 
         goto LABEL_34;
@@ -314,15 +318,15 @@ LABEL_33:
       completionCopy[2](completionCopy, 0);
     }
 
-    parametersCopy = v36;
-    actionCopy = v54;
+    parametersCopy = v39;
+    actionCopy = v57;
     goto LABEL_32;
   }
 
-  v31 = TUILinkEntityActionLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v34 = TUILinkEntityActionLog(v20);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    sub_19AA94(self, resolvePath, v31);
+    sub_19AA94(self, resolvePath, v34);
   }
 
   if (completionCopy)

@@ -37,9 +37,9 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ca-aggr,Init", buf, 2u);
   }
 
-  v12.receiver = self;
-  v12.super_class = NIServerUsageAnalyticsAggregator;
-  v4 = [(NIServerUsageAnalyticsAggregator *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = NIServerUsageAnalyticsAggregator;
+  v4 = [(NIServerUsageAnalyticsAggregator *)&v11 init];
   if (v4)
   {
     v5 = dispatch_queue_create("com.apple.nearbyd.usageAnalyticsAggregator", 0);
@@ -48,8 +48,7 @@
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 BOOLForKey:@"EnableStateDump"], v7, v8))
     {
-      v9 = v4->_queue;
-      v11 = v4;
+      v10 = v4;
       os_state_add_handler();
     }
   }

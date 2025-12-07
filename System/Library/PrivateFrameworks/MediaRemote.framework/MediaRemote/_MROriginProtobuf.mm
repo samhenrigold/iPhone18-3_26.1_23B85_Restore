@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -43,13 +44,33 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Local";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Custom";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
   v4 = 1;
-  if (([typeCopy isEqualToString:@"Local"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) == 0)
   {
-    if ([typeCopy isEqualToString:@"Custom"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
       v4 = 2;
     }
@@ -147,7 +168,6 @@
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -158,7 +178,6 @@
 
   if (*&self->_has)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteInt32Field();
   }
 
@@ -169,7 +188,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    isLocallyHosted = self->_isLocallyHosted;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -251,7 +269,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 36);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_type != *(equalCopy + 7))
@@ -276,7 +293,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 36);
   if (has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_identifier != *(equalCopy + 6))
@@ -301,7 +317,7 @@
     has = self->_has;
   }
 
-  v10 = (*(equalCopy + 36) & 4) == 0;
+  v8 = (*(equalCopy + 36) & 4) == 0;
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) != 0)
@@ -319,17 +335,17 @@
         goto LABEL_20;
       }
 
-      v10 = 1;
+      v8 = 1;
       goto LABEL_21;
     }
 
 LABEL_20:
-    v10 = 0;
+    v8 = 0;
   }
 
 LABEL_21:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

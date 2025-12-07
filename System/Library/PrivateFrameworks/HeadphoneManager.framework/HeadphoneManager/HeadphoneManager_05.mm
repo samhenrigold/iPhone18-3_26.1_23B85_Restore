@@ -1,4338 +1,109 @@
-void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
-{
-  v2 = *(*(a2 - 8) + 80);
-  if ((v2 & 0x20000) != 0)
-  {
-    return (*result + ((v2 + 16) & ~v2));
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>()
-{
-  v2 = lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>;
-  if (!lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMd, &_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMR);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>;
-  if (!lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMd, &_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMR);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t ReplayData.hashValue.getter()
-{
-  type metadata accessor for ReplayData();
-  lazy protocol witness table accessor for type ReplayData and conformance ReplayData();
-  return _hashValue<A>(for:)();
-}
-
-unint64_t lazy protocol witness table accessor for type ReplayData and conformance ReplayData()
-{
-  v2 = lazy protocol witness table cache variable for type ReplayData and conformance ReplayData;
-  if (!lazy protocol witness table cache variable for type ReplayData and conformance ReplayData)
-  {
-    type metadata accessor for ReplayData();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReplayData and conformance ReplayData);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type ReplayData and conformance ReplayData;
-  if (!lazy protocol witness table cache variable for type ReplayData and conformance ReplayData)
-  {
-    type metadata accessor for ReplayData();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReplayData and conformance ReplayData);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type ReplayData and conformance ReplayData;
-  if (!lazy protocol witness table cache variable for type ReplayData and conformance ReplayData)
-  {
-    type metadata accessor for ReplayData();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReplayData and conformance ReplayData);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type ReplayData and conformance ReplayData;
-  if (!lazy protocol witness table cache variable for type ReplayData and conformance ReplayData)
-  {
-    type metadata accessor for ReplayData();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReplayData and conformance ReplayData);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type ReplayData and conformance ReplayData;
-  if (!lazy protocol witness table cache variable for type ReplayData and conformance ReplayData)
-  {
-    type metadata accessor for ReplayData();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type ReplayData and conformance ReplayData);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t ReplayData.__allocating_init(from:)(uint64_t *a1)
-{
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
-  swift_allocObject();
-  v8 = ReplayData.init(from:)(a1);
-  if (v6)
-  {
-    return v5;
-  }
-
-  else
-  {
-    return v8;
-  }
-}
-
-uint64_t ReplayData.init(from:)(uint64_t *a1)
-{
-  v159 = a1;
-  v190 = 0;
-  v189 = 0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v146 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v2);
-  v147 = v49 - v146;
-  v148 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16HeadphoneManager10ReplayDataC10CodingKeys33_E0CD115AC4CBFD655F45F736CCCB4A57LLOGMd, &_ss22KeyedDecodingContainerVy16HeadphoneManager10ReplayDataC10CodingKeys33_E0CD115AC4CBFD655F45F736CCCB4A57LLOGMR);
-  v149 = *(v148 - 8);
-  v150 = v148 - 8;
-  v151 = (*(v149 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x1EEE9AC00](v159);
-  v160 = v49 - v151;
-  v190 = v3;
-  v189 = v1;
-  v156 = 0;
-  *(v1 + 16) = 0;
-  v152 = 1;
-  *(v1 + 24) = 1;
-  *(v1 + 25) = 2;
-  *(v1 + 26) = 2;
-  *(v1 + 27) = 2;
-  *(v1 + 28) = 2;
-  v153 = 0;
-  *(v1 + 32) = 0;
-  *(v1 + 36) = 1;
-  *(v1 + 40) = 0;
-  *(v1 + 44) = 1;
-  *(v1 + 48) = 0;
-  *(v1 + 52) = 1;
-  *(v1 + 56) = 0;
-  *(v1 + 60) = 1;
-  *(v1 + 64) = 0;
-  *(v1 + 72) = 0;
-  *(v1 + 80) = 0;
-  *(v1 + 84) = 1;
-  v154 = v1 + OBJC_IVAR____TtC16HeadphoneManager10ReplayData_randomHexAddress;
-  UUID.init()();
-  v155 = type metadata accessor for UUID();
-  (*(*(v155 - 8) + 56))(v154, v153, v152);
-  v158 = OBJC_IVAR____TtC16HeadphoneManager10ReplayData__listeners;
-  v157 = type metadata accessor for AnyCancellable();
-  lazy protocol witness table accessor for type AnyCancellable and conformance AnyCancellable();
-  v4 = Set.init()();
-  property wrapper backing initializer of ReplayData.listeners(v4, &v188);
-  v5 = v159;
-  *(v1 + v158) = v188;
-  v162 = v5[3];
-  v163 = v5[4];
-  __swift_project_boxed_opaque_existential_1(v5, v162);
-  lazy protocol witness table accessor for type ReplayData.CodingKeys and conformance ReplayData.CodingKeys();
-  v6 = v161;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v164 = v6;
-  v165 = v6;
-  if (v6)
-  {
-    v62 = v165;
-  }
-
-  else
-  {
-    v187[31] = 0;
-    v7 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v141 = 0;
-    v142 = v7;
-    v143 = v8;
-    v144 = 0;
-    v135 = v8;
-    v134 = v7;
-    v136 = v187;
-    swift_beginAccess();
-    v9 = v135;
-    v10 = v145;
-    *(v145 + 16) = v134;
-    v137 = 1;
-    *(v10 + 24) = v9 & 1;
-    swift_endAccess();
-    v11 = v141;
-    v186[31] = v137;
-    v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v138 = v11;
-    v139 = v12;
-    v140 = v11;
-    if (v11)
-    {
-      v61 = v140;
-      (*(v149 + 8))(v160, v148);
-      v62 = v61;
-    }
-
-    else
-    {
-      v129 = v139;
-      v130 = v186;
-      swift_beginAccess();
-      *(v145 + 25) = v129;
-      swift_endAccess();
-      v13 = v138;
-      v185[31] = 2;
-      v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-      v131 = v13;
-      v132 = v14;
-      v133 = v13;
-      if (v13)
-      {
-        v60 = v133;
-        (*(v149 + 8))(v160, v148);
-        v62 = v60;
-      }
-
-      else
-      {
-        v124 = v132;
-        v125 = v185;
-        swift_beginAccess();
-        *(v145 + 26) = v124;
-        swift_endAccess();
-        v15 = v131;
-        v184[31] = 3;
-        v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-        v126 = v15;
-        v127 = v16;
-        v128 = v15;
-        if (v15)
-        {
-          v59 = v128;
-          (*(v149 + 8))(v160, v148);
-          v62 = v59;
-        }
-
-        else
-        {
-          v119 = v127;
-          v120 = v184;
-          swift_beginAccess();
-          *(v145 + 27) = v119;
-          swift_endAccess();
-          v17 = v126;
-          v183[31] = 4;
-          v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-          v121 = v17;
-          v122 = v18;
-          v123 = v17;
-          if (v17)
-          {
-            v58 = v123;
-            (*(v149 + 8))(v160, v148);
-            v62 = v58;
-          }
-
-          else
-          {
-            v113 = v122;
-            v114 = v183;
-            swift_beginAccess();
-            *(v145 + 28) = v113;
-            swift_endAccess();
-            v19 = v121;
-            v182 = 5;
-            v20 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-            v115 = v19;
-            v181 = v20;
-            v116 = v20;
-            v117 = BYTE4(v20);
-            v118 = v19;
-            if (v19)
-            {
-              v57 = v118;
-              (*(v149 + 8))(v160, v148);
-              v62 = v57;
-            }
-
-            else
-            {
-              v107 = v117;
-              v106 = v116;
-              v108 = &v180;
-              swift_beginAccess();
-              v21 = v107;
-              v22 = v145;
-              *(v145 + 32) = v106;
-              *(v22 + 36) = v21 & 1;
-              swift_endAccess();
-              v23 = v115;
-              v179 = 6;
-              v24 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-              v109 = v23;
-              v178[3] = v24;
-              v110 = v24;
-              v111 = BYTE4(v24);
-              v112 = v23;
-              if (v23)
-              {
-                v56 = v112;
-                (*(v149 + 8))(v160, v148);
-                v62 = v56;
-              }
-
-              else
-              {
-                v100 = v111;
-                v99 = v110;
-                v101 = v178;
-                swift_beginAccess();
-                v25 = v100;
-                v26 = v145;
-                *(v145 + 40) = v99;
-                *(v26 + 44) = v25 & 1;
-                swift_endAccess();
-                v27 = v109;
-                v177 = 7;
-                v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-                v102 = v27;
-                v176[3] = v28;
-                v103 = v28;
-                v104 = BYTE4(v28);
-                v105 = v27;
-                if (v27)
-                {
-                  v55 = v105;
-                  (*(v149 + 8))(v160, v148);
-                  v62 = v55;
-                }
-
-                else
-                {
-                  v93 = v104;
-                  v92 = v103;
-                  v94 = v176;
-                  swift_beginAccess();
-                  v29 = v93;
-                  v30 = v145;
-                  *(v145 + 48) = v92;
-                  *(v30 + 52) = v29 & 1;
-                  swift_endAccess();
-                  v31 = v102;
-                  v175 = 8;
-                  v32 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-                  v95 = v31;
-                  v174[3] = v32;
-                  v96 = v32;
-                  v97 = BYTE4(v32);
-                  v98 = v31;
-                  if (v31)
-                  {
-                    v54 = v98;
-                    (*(v149 + 8))(v160, v148);
-                    v62 = v54;
-                  }
-
-                  else
-                  {
-                    v86 = v97;
-                    v85 = v96;
-                    v87 = v174;
-                    swift_beginAccess();
-                    v33 = v86;
-                    v34 = v145;
-                    *(v145 + 56) = v85;
-                    *(v34 + 60) = v33 & 1;
-                    swift_endAccess();
-                    v35 = v95;
-                    v173[31] = 9;
-                    v36 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-                    v88 = v35;
-                    v89 = v36;
-                    v90 = v37;
-                    v91 = v35;
-                    if (v35)
-                    {
-                      v53 = v91;
-                      (*(v149 + 8))(v160, v148);
-                      v62 = v53;
-                    }
-
-                    else
-                    {
-                      v79 = v90;
-                      v78 = v89;
-                      v80 = v173;
-                      swift_beginAccess();
-                      v38 = v145;
-                      v39 = v79;
-                      v40 = *(v145 + 72);
-                      *(v145 + 64) = v78;
-                      *(v38 + 72) = v39;
-
-                      swift_endAccess();
-                      v41 = v88;
-                      v172 = 10;
-                      v42 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-                      v81 = v41;
-                      v171[3] = v42;
-                      v82 = v42;
-                      v83 = BYTE4(v42);
-                      v84 = v41;
-                      if (v41)
-                      {
-                        v52 = v84;
-                        (*(v149 + 8))(v160, v148);
-                        v62 = v52;
-                      }
-
-                      else
-                      {
-                        v73 = v83;
-                        v72 = v82;
-                        v74 = v171;
-                        swift_beginAccess();
-                        v43 = v73;
-                        v44 = v145;
-                        *(v145 + 80) = v72;
-                        *(v44 + 84) = v43 & 1;
-                        swift_endAccess();
-                        v75 = &v170;
-                        v170 = 11;
-                        lazy protocol witness table accessor for type UUID and conformance UUID();
-                        v45 = v81;
-                        KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-                        v76 = v45;
-                        v77 = v45;
-                        if (v45)
-                        {
-                          v51 = v77;
-                          (*(v149 + 8))(v160, v148);
-                          v62 = v51;
-                        }
-
-                        else
-                        {
-                          v66 = (v145 + OBJC_IVAR____TtC16HeadphoneManager10ReplayData_randomHexAddress);
-                          v67 = &v169;
-                          swift_beginAccess();
-                          outlined assign with take of UUID?(v147, v66);
-                          swift_endAccess();
-                          v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMd, &_s16HeadphoneManager14CodableIgnoredVyShy7Combine14AnyCancellableCGGMR);
-                          v68 = &v167;
-                          v167 = 12;
-                          lazy protocol witness table accessor for type CodableIgnored<Set<AnyCancellable>> and conformance CodableIgnored<A>();
-                          v46 = v76;
-                          KeyedDecodingContainer.decode<A>(_:forKey:)();
-                          v70 = v46;
-                          v71 = v46;
-                          if (!v46)
-                          {
-                            v64 = v168;
-                            v63 = (v145 + OBJC_IVAR____TtC16HeadphoneManager10ReplayData__listeners);
-                            v65 = &v166;
-                            swift_beginAccess();
-                            v47 = *v63;
-                            *v63 = v64;
-
-                            swift_endAccess();
-                            (*(v149 + 8))(v160, v148);
-                            __swift_destroy_boxed_opaque_existential_1(v159);
-                            return v145;
-                          }
-
-                          v50 = v71;
-                          (*(v149 + 8))(v160, v148);
-                          v62 = v50;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v49[1] = v62;
-
-  __swift_destroy_boxed_opaque_existential_1(v159);
-  return v49[2];
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.productId.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 200))();
-  return protocol witness for HeadphoneDeviceDataReplayable.productId.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.productId.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryStateCase.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 224))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryStateCase.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryStateCase.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryStateLeft.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 248))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryStateLeft.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryStateLeft.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryStateRight.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 272))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryStateRight.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryStateRight.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryStateMain.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 296))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryStateMain.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryStateMain.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelCase.getter in conformance ReplayData()
-{
-  v3 = (*(**v0 + 304))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelCase.setter in conformance ReplayData(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(**v1 + 312))(v3);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryLevelCase.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 320))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryLevelCase.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryLevelCase.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelLeft.getter in conformance ReplayData()
-{
-  v3 = (*(**v0 + 328))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelLeft.setter in conformance ReplayData(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(**v1 + 336))(v3);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryLevelLeft.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 344))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryLevelLeft.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryLevelLeft.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelRight.getter in conformance ReplayData()
-{
-  v3 = (*(**v0 + 352))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelRight.setter in conformance ReplayData(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(**v1 + 360))(v3);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryLevelRight.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 368))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryLevelRight.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryLevelRight.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelMain.getter in conformance ReplayData()
-{
-  v3 = (*(**v0 + 376))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.batteryLevelMain.setter in conformance ReplayData(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(**v1 + 384))(v3);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.batteryLevelMain.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 392))();
-  return protocol witness for HeadphoneDeviceDataReplayable.batteryLevelMain.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.batteryLevelMain.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.deviceColor.getter in conformance ReplayData()
-{
-  v3 = (*(**v0 + 424))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t protocol witness for HeadphoneDeviceDataReplayable.deviceColor.setter in conformance ReplayData(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(**v1 + 432))(v3);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.deviceColor.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 440))();
-  return protocol witness for HeadphoneDeviceDataReplayable.deviceColor.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.deviceColor.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-void (*protocol witness for HeadphoneDeviceDataReplayable.randomHexAddress.modify in conformance ReplayData(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 464))();
-  return protocol witness for HeadphoneDeviceDataReplayable.randomHexAddress.modify in conformance ReplayData;
-}
-
-void protocol witness for HeadphoneDeviceDataReplayable.randomHexAddress.modify in conformance ReplayData(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v2[4](v2, 1);
-  }
-
-  else
-  {
-    v2[4](v2, 0);
-  }
-
-  free(v2);
-}
-
-uint64_t protocol witness for Decodable.init(from:) in conformance ReplayData@<X0>(uint64_t *a1@<X8>)
-{
-  result = (*(v1 + 520))();
-  if (!v2)
-  {
-    *a1 = result;
-  }
-
-  return result;
-}
-
-unint64_t instantiation function for generic protocol witness table for ReplayData(void *a1)
-{
-  a1[1] = lazy protocol witness table accessor for type ReplayData and conformance ReplayData();
-  a1[2] = lazy protocol witness table accessor for type ReplayData and conformance ReplayData();
-  a1[3] = lazy protocol witness table accessor for type ReplayData and conformance ReplayData();
-  result = lazy protocol witness table accessor for type ReplayData and conformance ReplayData();
-  a1[4] = result;
-  return result;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelCase.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(a2 + 160))();
-  LODWORD(v3) = v4;
-  BYTE4(v3) = BYTE4(v4) & 1;
-  return v3;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelCase.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  LODWORD(v4) = a1;
-  BYTE4(v4) = BYTE4(a1) & 1;
-  return (*(a3 + 168))(v4);
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelLeft.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(a2 + 184))();
-  LODWORD(v3) = v4;
-  BYTE4(v3) = BYTE4(v4) & 1;
-  return v3;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelLeft.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  LODWORD(v4) = a1;
-  BYTE4(v4) = BYTE4(a1) & 1;
-  return (*(a3 + 192))(v4);
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelRight.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(a2 + 208))();
-  LODWORD(v3) = v4;
-  BYTE4(v3) = BYTE4(v4) & 1;
-  return v3;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelRight.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  LODWORD(v4) = a1;
-  BYTE4(v4) = BYTE4(a1) & 1;
-  return (*(a3 + 216))(v4);
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelMain.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(a2 + 232))();
-  LODWORD(v3) = v4;
-  BYTE4(v3) = BYTE4(v4) & 1;
-  return v3;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.batteryLevelMain.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  LODWORD(v4) = a1;
-  BYTE4(v4) = BYTE4(a1) & 1;
-  return (*(a3 + 240))(v4);
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.deviceColor.getter(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(a2 + 256))();
-  LODWORD(v3) = v4;
-  BYTE4(v3) = BYTE4(v4) & 1;
-  return v3;
-}
-
-uint64_t dispatch thunk of HeadphoneDeviceDataReplayable.deviceColor.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  LODWORD(v4) = a1;
-  BYTE4(v4) = BYTE4(a1) & 1;
-  return (*(a3 + 264))(v4);
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelCase.getter()
-{
-  v3 = (*(*v0 + 304))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelCase.setter(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(*v1 + 312))(v3);
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelLeft.getter()
-{
-  v3 = (*(*v0 + 328))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelLeft.setter(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(*v1 + 336))(v3);
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelRight.getter()
-{
-  v3 = (*(*v0 + 352))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelRight.setter(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(*v1 + 360))(v3);
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelMain.getter()
-{
-  v3 = (*(*v0 + 376))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t dispatch thunk of ReplayData.batteryLevelMain.setter(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(*v1 + 384))(v3);
-}
-
-uint64_t dispatch thunk of ReplayData.deviceColor.getter()
-{
-  v3 = (*(*v0 + 424))();
-  LODWORD(v2) = v3;
-  BYTE4(v2) = BYTE4(v3) & 1;
-  return v2;
-}
-
-uint64_t dispatch thunk of ReplayData.deviceColor.setter(uint64_t a1)
-{
-  LODWORD(v3) = a1;
-  BYTE4(v3) = BYTE4(a1) & 1;
-  return (*(*v1 + 432))(v3);
-}
-
-uint64_t getEnumTagSinglePayload for ReplayData.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 <= 0xF3)
-    {
-      goto LABEL_15;
-    }
-
-    v7 = ((a2 + 12) >> 8) + 1;
-    v8 = 1;
-    if (v7 >= 0x100)
-    {
-      if (v7 >= 0x10000)
-      {
-        v2 = 4;
-      }
-
-      else
-      {
-        v2 = 2;
-      }
-
-      v8 = v2;
-    }
-
-    if (v8 == 1)
-    {
-      v6 = a1[1];
-    }
-
-    else
-    {
-      v6 = v8 == 2 ? *(a1 + 1) : *(a1 + 1);
-    }
-
-    if (v6)
-    {
-      v5 = (*a1 | ((v6 - 1) << 8)) + 243;
-    }
-
-    else
-    {
-LABEL_15:
-      v3 = *a1 - 13;
-      if (v3 < 0)
-      {
-        v3 = -1;
-      }
-
-      v5 = v3;
-    }
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for ReplayData.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  v7 = 0;
-  if (a3 > 0xF3)
-  {
-    v5 = ((a3 + 12) >> 8) + 1;
-    v6 = 1;
-    if (v5 >= 0x100)
-    {
-      if (v5 >= 0x10000)
-      {
-        v3 = 4;
-      }
-
-      else
-      {
-        v3 = 2;
-      }
-
-      v6 = v3;
-    }
-
-    v7 = v6;
-  }
-
-  if (a2 > 0xF3)
-  {
-    v4 = ((a2 - 244) >> 8) + 1;
-    *result = a2 + 12;
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = v4;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = v4;
-      }
-
-      else
-      {
-        *(result + 1) = v4;
-      }
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = 0;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = 0;
-      }
-
-      else
-      {
-        *(result + 1) = 0;
-      }
-    }
-
-    if (a2)
-    {
-      *result = a2 + 12;
-    }
-  }
-
-  return result;
-}
-
-void *outlined init with take of UUID?(const void *a1, void *a2)
-{
-  v6 = type metadata accessor for UUID();
-  v7 = *(v6 - 8);
-  if ((*(v7 + 48))(a1, 1))
-  {
-    v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    memcpy(a2, a1, *(*(v2 - 8) + 64));
-  }
-
-  else
-  {
-    (*(v7 + 32))(a2, a1, v6);
-    (*(v7 + 56))(a2, 0, 1, v6);
-  }
-
-  return a2;
-}
-
-BOOL static HearingRecordPropertyRemoteSendState.== infix(_:_:)(_BYTE *a1, _BYTE *a2)
-{
-  v5 = *a1;
-  v6 = *a2;
-  if (*a1)
-  {
-    if (v5 == 1)
-    {
-      v4 = 1;
-    }
-
-    else if (v5 == 2)
-    {
-      v4 = 2;
-    }
-
-    else
-    {
-      v4 = 3;
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*a2)
-  {
-    if (v6 == 1)
-    {
-      v3 = 1;
-    }
-
-    else if (v6 == 2)
-    {
-      v3 = 2;
-    }
-
-    else
-    {
-      v3 = 3;
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v4 == v3;
-}
-
-uint64_t HearingRecordPropertyRemoteSendState.hash(into:)()
-{
-  if (*v0)
-  {
-    *v0;
-  }
-
-  return Hasher.combine<A>(_:)();
-}
-
-uint64_t HearingRecordPropertyRemoteSendState.hashValue.getter()
-{
-  v2 = *v0;
-  lazy protocol witness table accessor for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState();
-  return _hashValue<A>(for:)();
-}
-
-unint64_t lazy protocol witness table accessor for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState()
-{
-  v2 = lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState;
-  if (!lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-{
-  v2 = lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState;
-  if (!lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t getEnumTagSinglePayload for HearingRecordPropertyRemoteSendState(unsigned __int8 *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 <= 0xFC)
-    {
-      goto LABEL_15;
-    }
-
-    v7 = ((a2 + 3) >> 8) + 1;
-    v8 = 1;
-    if (v7 >= 0x100)
-    {
-      if (v7 >= 0x10000)
-      {
-        v2 = 4;
-      }
-
-      else
-      {
-        v2 = 2;
-      }
-
-      v8 = v2;
-    }
-
-    if (v8 == 1)
-    {
-      v6 = a1[1];
-    }
-
-    else
-    {
-      v6 = v8 == 2 ? *(a1 + 1) : *(a1 + 1);
-    }
-
-    if (v6)
-    {
-      v5 = (*a1 | ((v6 - 1) << 8)) + 252;
-    }
-
-    else
-    {
-LABEL_15:
-      v3 = *a1 - 4;
-      if (v3 < 0)
-      {
-        v3 = -1;
-      }
-
-      v5 = v3;
-    }
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for HearingRecordPropertyRemoteSendState(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  v7 = 0;
-  if (a3 > 0xFC)
-  {
-    v5 = ((a3 + 3) >> 8) + 1;
-    v6 = 1;
-    if (v5 >= 0x100)
-    {
-      if (v5 >= 0x10000)
-      {
-        v3 = 4;
-      }
-
-      else
-      {
-        v3 = 2;
-      }
-
-      v6 = v3;
-    }
-
-    v7 = v6;
-  }
-
-  if (a2 > 0xFC)
-  {
-    v4 = ((a2 - 253) >> 8) + 1;
-    *result = a2 + 3;
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = v4;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = v4;
-      }
-
-      else
-      {
-        *(result + 1) = v4;
-      }
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = 0;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = 0;
-      }
-
-      else
-      {
-        *(result + 1) = 0;
-      }
-    }
-
-    if (a2)
-    {
-      *result = a2 + 3;
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in Headphone_Manager.configHearingModeClient()(uint64_t a1)
-{
-  v46 = a1;
-  v52 = implicit closure #1 in closure #1 in Headphone_Manager.configHearingModeClient();
-  v53 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v57 = implicit closure #2 in closure #1 in Headphone_Manager.configHearingModeClient();
-  v60 = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  v62 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v64 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v66 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v68 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v70 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v73 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v85 = 0;
-  v45 = 0;
-  v51 = type metadata accessor for Logger();
-  v49 = *(v51 - 8);
-  v50 = v51 - 8;
-  v47 = (*(v49 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = &v26 - v47;
-  v48 = &v26 - v47;
-  v85 = MEMORY[0x1EEE9AC00](v46) + 16;
-  v2 = Logger.shared.unsafeMutableAddressor();
-  (*(v49 + 16))(v1, v2, v51);
-  v77 = Logger.logObject.getter();
-  v78 = static os_log_type_t.error.getter();
-  v55 = 17;
-  v59 = 7;
-  v63 = swift_allocObject();
-  *(v63 + 16) = 32;
-  v65 = swift_allocObject();
-  v56 = 8;
-  *(v65 + 16) = 8;
-  v58 = 32;
-  v3 = swift_allocObject();
-  v54 = v3;
-  *(v3 + 16) = v52;
-  *(v3 + 24) = 0;
-  v4 = swift_allocObject();
-  v5 = v54;
-  v67 = v4;
-  *(v4 + 16) = v53;
-  *(v4 + 24) = v5;
-  v69 = swift_allocObject();
-  *(v69 + 16) = 0;
-  v71 = swift_allocObject();
-  *(v71 + 16) = v56;
-  v6 = swift_allocObject();
-  v61 = v6;
-  *(v6 + 16) = v57;
-  *(v6 + 24) = 0;
-  v7 = swift_allocObject();
-  v8 = v61;
-  v74 = v7;
-  *(v7 + 16) = v60;
-  *(v7 + 24) = v8;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v72 = _allocateUninitializedArray<A>(_:)();
-  v75 = v9;
-
-  v10 = v63;
-  v11 = v75;
-  *v75 = v62;
-  v11[1] = v10;
-
-  v12 = v65;
-  v13 = v75;
-  v75[2] = v64;
-  v13[3] = v12;
-
-  v14 = v67;
-  v15 = v75;
-  v75[4] = v66;
-  v15[5] = v14;
-
-  v16 = v69;
-  v17 = v75;
-  v75[6] = v68;
-  v17[7] = v16;
-
-  v18 = v71;
-  v19 = v75;
-  v75[8] = v70;
-  v19[9] = v18;
-
-  v20 = v74;
-  v21 = v75;
-  v75[10] = v73;
-  v21[11] = v20;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v77, v78))
-  {
-    v22 = v45;
-    v37 = static UnsafeMutablePointer.allocate(capacity:)();
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v38 = createStorage<A>(capacity:type:)(0);
-    v39 = createStorage<A>(capacity:type:)(1);
-    v41 = &v83;
-    v83 = v37;
-    v42 = &v82;
-    v82 = v38;
-    v43 = &v81;
-    v81 = v39;
-    v40 = 2;
-    serialize(_:at:)(2, &v83);
-    serialize(_:at:)(v40, v41);
-    v79 = v62;
-    v80 = v63;
-    closure #1 in osLogInternal(_:log:type:)(&v79, v41, v42, v43);
-    v44 = v22;
-    if (v22)
-    {
-
-      __break(1u);
-    }
-
-    else
-    {
-      v79 = v64;
-      v80 = v65;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v35 = 0;
-      v79 = v66;
-      v80 = v67;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v34 = 0;
-      v79 = v68;
-      v80 = v69;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v33 = 0;
-      v79 = v70;
-      v80 = v71;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v32 = 0;
-      v79 = v73;
-      v80 = v74;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      _os_log_impl(&dword_1D93D0000, v77, v78, "HeadphoneManager: %s: %ld hearing client interrupted!", v37, 0x16u);
-      destroyStorage<A>(_:count:)(v38, 0, v36);
-      destroyStorage<A>(_:count:)(v39, 1, MEMORY[0x1E69E7CA0] + 8);
-      MEMORY[0x1DA730D30](v37, MEMORY[0x1E69E7508]);
-    }
-  }
-
-  else
-  {
-  }
-
-  MEMORY[0x1E69E5920](v77);
-  (*(v49 + 8))(v48, v51);
-  v31 = v46 + 16;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    p_Strong = &Strong;
-    v24 = Strong;
-    v30 = Strong;
-    MEMORY[0x1E69E5928](Strong);
-    outlined destroy of Headphone_Manager?(p_Strong);
-    swift_endAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So14HMDeviceRecordCtMd, &_sSS_So14HMDeviceRecordCtMR);
-    v28 = 0;
-    v29 = _allocateUninitializedArray<A>(_:)();
-    type metadata accessor for HMDeviceRecord();
-    v25 = Dictionary.init(dictionaryLiteral:)();
-    (*((*v24 & *MEMORY[0x1E69E7D40]) + 0x1A0))(v25);
-    return MEMORY[0x1E69E5920](v30);
-  }
-
-  else
-  {
-    outlined destroy of Headphone_Manager?(&Strong);
-    return swift_endAccess();
-  }
-}
-
-uint64_t closure #2 in Headphone_Manager.configHearingModeClient()(uint64_t a1)
-{
-  v46 = a1;
-  v52 = implicit closure #1 in closure #2 in Headphone_Manager.configHearingModeClient();
-  v53 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v57 = implicit closure #2 in closure #2 in Headphone_Manager.configHearingModeClient();
-  v60 = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  v62 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v64 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v66 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v68 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v70 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v73 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v85 = 0;
-  v45 = 0;
-  v51 = type metadata accessor for Logger();
-  v49 = *(v51 - 8);
-  v50 = v51 - 8;
-  v47 = (*(v49 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = &v26 - v47;
-  v48 = &v26 - v47;
-  v85 = MEMORY[0x1EEE9AC00](v46) + 16;
-  v2 = Logger.shared.unsafeMutableAddressor();
-  (*(v49 + 16))(v1, v2, v51);
-  v77 = Logger.logObject.getter();
-  v78 = static os_log_type_t.error.getter();
-  v55 = 17;
-  v59 = 7;
-  v63 = swift_allocObject();
-  *(v63 + 16) = 32;
-  v65 = swift_allocObject();
-  v56 = 8;
-  *(v65 + 16) = 8;
-  v58 = 32;
-  v3 = swift_allocObject();
-  v54 = v3;
-  *(v3 + 16) = v52;
-  *(v3 + 24) = 0;
-  v4 = swift_allocObject();
-  v5 = v54;
-  v67 = v4;
-  *(v4 + 16) = v53;
-  *(v4 + 24) = v5;
-  v69 = swift_allocObject();
-  *(v69 + 16) = 0;
-  v71 = swift_allocObject();
-  *(v71 + 16) = v56;
-  v6 = swift_allocObject();
-  v61 = v6;
-  *(v6 + 16) = v57;
-  *(v6 + 24) = 0;
-  v7 = swift_allocObject();
-  v8 = v61;
-  v74 = v7;
-  *(v7 + 16) = v60;
-  *(v7 + 24) = v8;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v72 = _allocateUninitializedArray<A>(_:)();
-  v75 = v9;
-
-  v10 = v63;
-  v11 = v75;
-  *v75 = v62;
-  v11[1] = v10;
-
-  v12 = v65;
-  v13 = v75;
-  v75[2] = v64;
-  v13[3] = v12;
-
-  v14 = v67;
-  v15 = v75;
-  v75[4] = v66;
-  v15[5] = v14;
-
-  v16 = v69;
-  v17 = v75;
-  v75[6] = v68;
-  v17[7] = v16;
-
-  v18 = v71;
-  v19 = v75;
-  v75[8] = v70;
-  v19[9] = v18;
-
-  v20 = v74;
-  v21 = v75;
-  v75[10] = v73;
-  v21[11] = v20;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v77, v78))
-  {
-    v22 = v45;
-    v37 = static UnsafeMutablePointer.allocate(capacity:)();
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v38 = createStorage<A>(capacity:type:)(0);
-    v39 = createStorage<A>(capacity:type:)(1);
-    v41 = &v83;
-    v83 = v37;
-    v42 = &v82;
-    v82 = v38;
-    v43 = &v81;
-    v81 = v39;
-    v40 = 2;
-    serialize(_:at:)(2, &v83);
-    serialize(_:at:)(v40, v41);
-    v79 = v62;
-    v80 = v63;
-    closure #1 in osLogInternal(_:log:type:)(&v79, v41, v42, v43);
-    v44 = v22;
-    if (v22)
-    {
-
-      __break(1u);
-    }
-
-    else
-    {
-      v79 = v64;
-      v80 = v65;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v35 = 0;
-      v79 = v66;
-      v80 = v67;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v34 = 0;
-      v79 = v68;
-      v80 = v69;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v33 = 0;
-      v79 = v70;
-      v80 = v71;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      v32 = 0;
-      v79 = v73;
-      v80 = v74;
-      closure #1 in osLogInternal(_:log:type:)(&v79, &v83, &v82, &v81);
-      _os_log_impl(&dword_1D93D0000, v77, v78, "HeadphoneManager: %s: %ld hearing client invalidated!", v37, 0x16u);
-      destroyStorage<A>(_:count:)(v38, 0, v36);
-      destroyStorage<A>(_:count:)(v39, 1, MEMORY[0x1E69E7CA0] + 8);
-      MEMORY[0x1DA730D30](v37, MEMORY[0x1E69E7508]);
-    }
-  }
-
-  else
-  {
-  }
-
-  MEMORY[0x1E69E5920](v77);
-  (*(v49 + 8))(v48, v51);
-  v31 = v46 + 16;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    p_Strong = &Strong;
-    v24 = Strong;
-    v30 = Strong;
-    MEMORY[0x1E69E5928](Strong);
-    outlined destroy of Headphone_Manager?(p_Strong);
-    swift_endAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So14HMDeviceRecordCtMd, &_sSS_So14HMDeviceRecordCtMR);
-    v28 = 0;
-    v29 = _allocateUninitializedArray<A>(_:)();
-    type metadata accessor for HMDeviceRecord();
-    v25 = Dictionary.init(dictionaryLiteral:)();
-    (*((*v24 & *MEMORY[0x1E69E7D40]) + 0x1A0))(v25);
-    return MEMORY[0x1E69E5920](v30);
-  }
-
-  else
-  {
-    outlined destroy of Headphone_Manager?(&Strong);
-    return swift_endAccess();
-  }
-}
-
-uint64_t block_destroy_helper_3(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-}
-
-{
-  v1 = *(a1 + 40);
-}
-
-uint64_t closure #3 in Headphone_Manager.configHearingModeClient()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v109 = a4;
-  v108 = a3;
-  v119 = a2;
-  v117 = a1;
-  v129 = 0;
-  v174 = 0;
-  v173 = 0;
-  v172 = 0;
-  v171 = 0;
-  v107 = 0;
-  v116 = type metadata accessor for Logger();
-  v110 = v116;
-  v111 = *(v116 - 8);
-  v115 = v111;
-  v112 = v111;
-  v4 = *(v111 + 64);
-  v5 = MEMORY[0x1EEE9AC00](v117);
-  v7 = v64 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v113 = v7;
-  v174 = v5;
-  v173 = v8;
-  v172 = v9;
-  v114 = v10 + 16;
-  v171 = v10 + 16;
-  v11 = Logger.shared.unsafeMutableAddressor();
-  (*(v115 + 16))(v7, v11, v116);
-
-  v118 = 24;
-  v143 = 7;
-  v134 = swift_allocObject();
-  *(v134 + 16) = v117;
-
-  v144 = swift_allocObject();
-  *(v144 + 16) = v119;
-  v163 = Logger.logObject.getter();
-  v120 = v163;
-  v162 = static os_log_type_t.default.getter();
-  v121 = v162;
-  v138 = 17;
-  v147 = swift_allocObject();
-  v122 = v147;
-  v123 = 32;
-  *(v147 + 16) = 32;
-  v12 = swift_allocObject();
-  v13 = v123;
-  v148 = v12;
-  v124 = v12;
-  v140 = 8;
-  *(v12 + 16) = 8;
-  v142 = v13;
-  v14 = swift_allocObject();
-  v15 = v129;
-  v125 = v14;
-  *(v14 + 16) = implicit closure #1 in closure #3 in Headphone_Manager.configHearingModeClient();
-  *(v14 + 24) = v15;
-  v16 = swift_allocObject();
-  v17 = v125;
-  v149 = v16;
-  v126 = v16;
-  *(v16 + 16) = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  *(v16 + 24) = v17;
-  v150 = swift_allocObject();
-  v127 = v150;
-  v137 = 0;
-  *(v150 + 16) = 0;
-  v151 = swift_allocObject();
-  v128 = v151;
-  *(v151 + 16) = v140;
-  v18 = swift_allocObject();
-  v19 = v129;
-  v130 = v18;
-  *(v18 + 16) = implicit closure #2 in closure #3 in Headphone_Manager.configHearingModeClient();
-  *(v18 + 24) = v19;
-  v20 = swift_allocObject();
-  v21 = v130;
-  v152 = v20;
-  v131 = v20;
-  *(v20 + 16) = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  *(v20 + 24) = v21;
-  v153 = swift_allocObject();
-  v132 = v153;
-  *(v153 + 16) = v137;
-  v154 = swift_allocObject();
-  v133 = v154;
-  *(v154 + 16) = v140;
-  v22 = swift_allocObject();
-  v23 = v134;
-  v135 = v22;
-  *(v22 + 16) = partial apply for implicit closure #3 in closure #3 in Headphone_Manager.configHearingModeClient();
-  *(v22 + 24) = v23;
-  v24 = swift_allocObject();
-  v25 = v135;
-  v155 = v24;
-  v136 = v24;
-  *(v24 + 16) = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  *(v24 + 24) = v25;
-  v156 = swift_allocObject();
-  v139 = v156;
-  *(v156 + 16) = v137;
-  v157 = swift_allocObject();
-  v141 = v157;
-  *(v157 + 16) = v140;
-  v26 = swift_allocObject();
-  v27 = v144;
-  v145 = v26;
-  *(v26 + 16) = partial apply for implicit closure #4 in closure #3 in Headphone_Manager.configHearingModeClient();
-  *(v26 + 24) = v27;
-  v28 = swift_allocObject();
-  v29 = v145;
-  v160 = v28;
-  v146 = v28;
-  *(v28 + 16) = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  *(v28 + 24) = v29;
-  v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v158 = _allocateUninitializedArray<A>(_:)();
-  v159 = v30;
-
-  v31 = v147;
-  v32 = v159;
-  *v159 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v32[1] = v31;
-
-  v33 = v148;
-  v34 = v159;
-  v159[2] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v34[3] = v33;
-
-  v35 = v149;
-  v36 = v159;
-  v159[4] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v36[5] = v35;
-
-  v37 = v150;
-  v38 = v159;
-  v159[6] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v38[7] = v37;
-
-  v39 = v151;
-  v40 = v159;
-  v159[8] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v40[9] = v39;
-
-  v41 = v152;
-  v42 = v159;
-  v159[10] = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v42[11] = v41;
-
-  v43 = v153;
-  v44 = v159;
-  v159[12] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v44[13] = v43;
-
-  v45 = v154;
-  v46 = v159;
-  v159[14] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v46[15] = v45;
-
-  v47 = v155;
-  v48 = v159;
-  v159[16] = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v48[17] = v47;
-
-  v49 = v156;
-  v50 = v159;
-  v159[18] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v50[19] = v49;
-
-  v51 = v157;
-  v52 = v159;
-  v159[20] = closure #1 in OSLogArguments.append(_:)partial apply;
-  v52[21] = v51;
-
-  v53 = v159;
-  v54 = v160;
-  v159[22] = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v53[23] = v54;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v163, v162))
-  {
-    v55 = v107;
-    v101 = static UnsafeMutablePointer.allocate(capacity:)();
-    v98 = v101;
-    v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v102 = createStorage<A>(capacity:type:)(0);
-    v100 = v102;
-    v103 = createStorage<A>(capacity:type:)(1);
-    v168 = v101;
-    v167 = v102;
-    v166 = v103;
-    v104 = &v168;
-    serialize(_:at:)(2, &v168);
-    serialize(_:at:)(4, v104);
-    v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-    v165 = v122;
-    closure #1 in osLogInternal(_:log:type:)(&v164, v104, &v167, &v166);
-    v105 = v55;
-    v106 = v55;
-    if (v55)
-    {
-      v96 = 0;
-
-      __break(1u);
-    }
-
-    else
-    {
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v124;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v94 = 0;
-      v95 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v126;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v92 = 0;
-      v93 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v127;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v90 = 0;
-      v91 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v128;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v88 = 0;
-      v89 = 0;
-      v164 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-      v165 = v131;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v86 = 0;
-      v87 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v132;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v84 = 0;
-      v85 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v133;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v82 = 0;
-      v83 = 0;
-      v164 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-      v165 = v136;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v80 = 0;
-      v81 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v139;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v78 = 0;
-      v79 = 0;
-      v164 = closure #1 in OSLogArguments.append(_:)partial apply;
-      v165 = v141;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v76 = 0;
-      v77 = 0;
-      v164 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-      v165 = v146;
-      closure #1 in osLogInternal(_:log:type:)(&v164, &v168, &v167, &v166);
-      v74 = 0;
-      v75 = 0;
-      _os_log_impl(&dword_1D93D0000, v120, v121, "HeadphoneManager: %s: %ld audiogramsAvailableHandler update audiograms! %ld %ld", v98, 0x2Au);
-      destroyStorage<A>(_:count:)(v100, 0, v99);
-      destroyStorage<A>(_:count:)(v103, 1, MEMORY[0x1E69E7CA0] + 8);
-      MEMORY[0x1DA730D30](v98, MEMORY[0x1E69E7508]);
-
-      v97 = v74;
-    }
-  }
-
-  else
-  {
-    v56 = v107;
-
-    v97 = v56;
-  }
-
-  v73 = v97;
-
-  (*(v112 + 8))(v113, v110);
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (!Strong)
-  {
-    v57 = v73;
-    outlined destroy of Headphone_Manager?(&Strong);
-    swift_endAccess();
-    return v57;
-  }
-
-  v58 = v73;
-  v59 = Strong;
-  v66 = Strong;
-  v60 = Strong;
-  outlined destroy of Headphone_Manager?(&Strong);
-  v61 = swift_endAccess();
-  v65 = (*((*v59 & *MEMORY[0x1E69E7D40]) + 0x1E0))(v61);
-  v64[1] = v65;
-  type metadata accessor for HeadphoneDevice();
-  v67 = Dictionary.values.getter();
-
-  v169 = v67;
-
-  v68 = v64;
-  MEMORY[0x1EEE9AC00](v64);
-  v69 = &v64[-4];
-  v64[-2] = v117;
-  v64[-1] = v62;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD6ValuesVySS16HeadphoneManager0B6DeviceC_GMd, &_sSD6ValuesVySS16HeadphoneManager0B6DeviceC_GMR);
-  lazy protocol witness table accessor for type [String : HeadphoneDevice].Values and conformance [A : B].Values();
-  Sequence.forEach(_:)();
-  v71 = v58;
-  if (!v58)
-  {
-
-    outlined destroy of [String : HeadphoneDevice].Values(&v169);
-
-    return v71;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #1 in closure #3 in Headphone_Manager.configHearingModeClient()(void **a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *a1;
-  v9 = MEMORY[0x1E69E7D40];
-  v7 = (*((**a1 & *MEMORY[0x1E69E7D40]) + 0xA50))();
-
-  (*((*v7 & *v9) + 0x5B8))(a2);
-  v3 = MEMORY[0x1E69E5920](v7);
-  v10 = (*((*v6 & *v9) + 0xA50))(v3);
-
-  (*((*v10 & *v9) + 0x5E8))(a3);
-  return MEMORY[0x1E69E5920](v10);
-}
-
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed [HKAudiogramSample], @guaranteed [HKAudiogramSample], @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-
-  MEMORY[0x1E69E5928](a2);
-  type metadata accessor for HKAudiogramSample();
-  v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  MEMORY[0x1E69E5928](a3);
-  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  MEMORY[0x1E69E5928](a4);
-  if (a4)
-  {
-    v5 = a4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6(v9, v11);
-
-  MEMORY[0x1E69E5920](a3);
-
-  MEMORY[0x1E69E5920](a2);
-}
-
-uint64_t closure #4 in Headphone_Manager.configHearingModeClient()(uint64_t a1, uint64_t a2)
-{
-  v303 = a1;
-  v302 = a2;
-  v322 = 0;
-  v256 = implicit closure #6 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v257 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v258 = implicit closure #7 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v259 = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  v260 = partial apply for implicit closure #8 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v261 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)partial apply;
-  v262 = partial apply for implicit closure #9 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v263 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v264 = partial apply for implicit closure #10 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v265 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v266 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v267 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v268 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v269 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v270 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v271 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v272 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v273 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v274 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v275 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v276 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v277 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v278 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v279 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v280 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v281 = implicit closure #2 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v282 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v283 = implicit closure #3 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v284 = thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply;
-  v285 = partial apply for implicit closure #4 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v286 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v287 = partial apply for implicit closure #5 in closure #4 in Headphone_Manager.configHearingModeClient();
-  v288 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v289 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v290 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v291 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v292 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v293 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v294 = closure #1 in OSLogArguments.append<A>(_:)partial apply;
-  v295 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v296 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v297 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v298 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v299 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v300 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v352 = 0;
-  v351 = 0;
-  v346 = 0;
-  v347 = 0;
-  v341 = 0;
-  v301 = 0;
-  v331 = 0;
-  v313 = 0;
-  v304 = type metadata accessor for Logger();
-  v305 = *(v304 - 8);
-  v306 = v304 - 8;
-  v307 = (*(v305 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x1EEE9AC00](v303);
-  v308 = &v125 - v307;
-  v309 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x1EEE9AC00](v2);
-  v310 = &v125 - v309;
-  v352 = v4;
-  v323 = v5 + 16;
-  v351 = v5 + 16;
-  v319 = [v4 bluetoothAddress];
-  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v318 = v350;
-  v350[0] = v6;
-  v350[1] = v7;
-  v311 = 1;
-  v314 = 1;
-  v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(":", 1uLL, 1);
-  v317 = &v349;
-  v349 = v8;
-  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("-", v311, v314 & 1);
-  v316 = &v348;
-  v348 = v9;
-  v312 = lazy protocol witness table accessor for type String and conformance String();
-  v315 = MEMORY[0x1E69E6158];
-  default argument 2 of StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  v320 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  v321 = v10;
-  outlined destroy of String(v316);
-  outlined destroy of String(v317);
-  outlined destroy of String(v318);
-  MEMORY[0x1E69E5920](v319);
-  v346 = v320;
-  v347 = v321;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    p_Strong = &Strong;
-    v11 = Strong;
-    v252 = Strong;
-    MEMORY[0x1E69E5928](Strong);
-    outlined destroy of Headphone_Manager?(p_Strong);
-    swift_endAccess();
-
-    v253 = (*((*v11 & *MEMORY[0x1E69E7D40]) + 0x1E0))(v12);
-    v251 = v324;
-    v324[0] = v320;
-    v324[1] = v321;
-    v13 = type metadata accessor for HeadphoneDevice();
-    MEMORY[0x1DA7308E0](&v325, v251, v253, MEMORY[0x1E69E6158], v13, MEMORY[0x1E69E6168]);
-    outlined destroy of String(v251);
-    v254 = v325;
-    MEMORY[0x1E69E5920](v252);
-
-    v255 = v254;
-  }
-
-  else
-  {
-    outlined destroy of Headphone_Manager?(&Strong);
-    swift_endAccess();
-    v255 = 0;
-  }
-
-  v249 = v255;
-  if (v255)
-  {
-    v248 = v249;
-    v14 = v310;
-    v212 = v249;
-    v331 = v249;
-    v15 = Logger.shared.unsafeMutableAddressor();
-    (*(v305 + 16))(v14, v15, v304);
-    MEMORY[0x1E69E5928](v212);
-    v213 = 24;
-    v224 = 7;
-    v16 = swift_allocObject();
-    v17 = v212;
-    v216 = v16;
-    *(v16 + 16) = v212;
-    MEMORY[0x1E69E5928](v17);
-    v18 = swift_allocObject();
-    v19 = v303;
-    v218 = v18;
-    *(v18 + 16) = v212;
-    MEMORY[0x1E69E5928](v19);
-    v225 = swift_allocObject();
-    *(v225 + 16) = v303;
-    v245 = Logger.logObject.getter();
-    v246 = static os_log_type_t.default.getter();
-    v221 = 17;
-    v227 = swift_allocObject();
-    v220 = 32;
-    *(v227 + 16) = 32;
-    v228 = swift_allocObject();
-    v222 = 8;
-    *(v228 + 16) = 8;
-    v223 = 32;
-    v20 = swift_allocObject();
-    v214 = v20;
-    *(v20 + 16) = v256;
-    *(v20 + 24) = 0;
-    v21 = swift_allocObject();
-    v22 = v214;
-    v229 = v21;
-    *(v21 + 16) = v257;
-    *(v21 + 24) = v22;
-    v230 = swift_allocObject();
-    *(v230 + 16) = 0;
-    v231 = swift_allocObject();
-    *(v231 + 16) = v222;
-    v23 = swift_allocObject();
-    v215 = v23;
-    *(v23 + 16) = v258;
-    *(v23 + 24) = 0;
-    v24 = swift_allocObject();
-    v25 = v215;
-    v232 = v24;
-    *(v24 + 16) = v259;
-    *(v24 + 24) = v25;
-    v233 = swift_allocObject();
-    *(v233 + 16) = 64;
-    v234 = swift_allocObject();
-    *(v234 + 16) = v222;
-    v26 = swift_allocObject();
-    v27 = v216;
-    v217 = v26;
-    *(v26 + 16) = v260;
-    *(v26 + 24) = v27;
-    v28 = swift_allocObject();
-    v29 = v217;
-    v235 = v28;
-    *(v28 + 16) = v261;
-    *(v28 + 24) = v29;
-    v236 = swift_allocObject();
-    *(v236 + 16) = v220;
-    v237 = swift_allocObject();
-    *(v237 + 16) = v222;
-    v30 = swift_allocObject();
-    v31 = v218;
-    v219 = v30;
-    *(v30 + 16) = v262;
-    *(v30 + 24) = v31;
-    v32 = swift_allocObject();
-    v33 = v219;
-    v238 = v32;
-    *(v32 + 16) = v263;
-    *(v32 + 24) = v33;
-    v239 = swift_allocObject();
-    *(v239 + 16) = v220;
-    v240 = swift_allocObject();
-    *(v240 + 16) = v222;
-    v34 = swift_allocObject();
-    v35 = v225;
-    v226 = v34;
-    *(v34 + 16) = v264;
-    *(v34 + 24) = v35;
-    v36 = swift_allocObject();
-    v37 = v226;
-    v242 = v36;
-    *(v36 + 16) = v265;
-    *(v36 + 24) = v37;
-    v244 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v241 = _allocateUninitializedArray<A>(_:)();
-    v243 = v38;
-
-    v39 = v227;
-    v40 = v243;
-    *v243 = v266;
-    v40[1] = v39;
-
-    v41 = v228;
-    v42 = v243;
-    v243[2] = v267;
-    v42[3] = v41;
-
-    v43 = v229;
-    v44 = v243;
-    v243[4] = v268;
-    v44[5] = v43;
-
-    v45 = v230;
-    v46 = v243;
-    v243[6] = v269;
-    v46[7] = v45;
-
-    v47 = v231;
-    v48 = v243;
-    v243[8] = v270;
-    v48[9] = v47;
-
-    v49 = v232;
-    v50 = v243;
-    v243[10] = v271;
-    v50[11] = v49;
-
-    v51 = v233;
-    v52 = v243;
-    v243[12] = v272;
-    v52[13] = v51;
-
-    v53 = v234;
-    v54 = v243;
-    v243[14] = v273;
-    v54[15] = v53;
-
-    v55 = v235;
-    v56 = v243;
-    v243[16] = v274;
-    v56[17] = v55;
-
-    v57 = v236;
-    v58 = v243;
-    v243[18] = v275;
-    v58[19] = v57;
-
-    v59 = v237;
-    v60 = v243;
-    v243[20] = v276;
-    v60[21] = v59;
-
-    v61 = v238;
-    v62 = v243;
-    v243[22] = v277;
-    v62[23] = v61;
-
-    v63 = v239;
-    v64 = v243;
-    v243[24] = v278;
-    v64[25] = v63;
-
-    v65 = v240;
-    v66 = v243;
-    v243[26] = v279;
-    v66[27] = v65;
-
-    v67 = v242;
-    v68 = v243;
-    v243[28] = v280;
-    v68[29] = v67;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v245, v246))
-    {
-      v69 = v301;
-      v205 = static UnsafeMutablePointer.allocate(capacity:)();
-      v204 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v206 = createStorage<A>(capacity:type:)(1);
-      v207 = createStorage<A>(capacity:type:)(3);
-      v208 = &v330;
-      v330 = v205;
-      v209 = &v329;
-      v329 = v206;
-      v210 = &v328;
-      v328 = v207;
-      serialize(_:at:)(2, &v330);
-      serialize(_:at:)(5, v208);
-      v326 = v266;
-      v327 = v227;
-      closure #1 in osLogInternal(_:log:type:)(&v326, v208, v209, v210);
-      v211 = v69;
-      if (v69)
-      {
-
-        __break(1u);
-      }
-
-      else
-      {
-        v326 = v267;
-        v327 = v228;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v203 = 0;
-        v326 = v268;
-        v327 = v229;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v202 = 0;
-        v326 = v269;
-        v327 = v230;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v201 = 0;
-        v326 = v270;
-        v327 = v231;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v200 = 0;
-        v326 = v271;
-        v327 = v232;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v199 = 0;
-        v326 = v272;
-        v327 = v233;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v198 = 0;
-        v326 = v273;
-        v327 = v234;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v197 = 0;
-        v326 = v274;
-        v327 = v235;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v196 = 0;
-        v326 = v275;
-        v327 = v236;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v195 = 0;
-        v326 = v276;
-        v327 = v237;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v194 = 0;
-        v326 = v277;
-        v327 = v238;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v193 = 0;
-        v326 = v278;
-        v327 = v239;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v192 = 0;
-        v326 = v279;
-        v327 = v240;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        v191 = 0;
-        v326 = v280;
-        v327 = v242;
-        closure #1 in osLogInternal(_:log:type:)(&v326, &v330, &v329, &v328);
-        _os_log_impl(&dword_1D93D0000, v245, v246, "HeadphoneManager: %s: %ld device: %@::%s updateWithRecord %s", v205, 0x34u);
-        destroyStorage<A>(_:count:)(v206, 1, v204);
-        destroyStorage<A>(_:count:)(v207, 3, MEMORY[0x1E69E7CA0] + 8);
-        MEMORY[0x1DA730D30](v205, MEMORY[0x1E69E7508]);
-      }
-    }
-
-    else
-    {
-    }
-
-    v70 = v212;
-    MEMORY[0x1E69E5920](v245);
-    v71 = (*(v305 + 8))(v310, v304);
-    v72 = *v70;
-    v189 = MEMORY[0x1E69E7D40];
-    v190 = (*((v72 & *MEMORY[0x1E69E7D40]) + 0xA50))(v71);
-    (*((*v190 & *v189) + 0x768))(v303);
-    MEMORY[0x1E69E5920](v190);
-    MEMORY[0x1E69E5920](v212);
-  }
-
-  else
-  {
-    v247 = v302 + 16;
-    swift_beginAccess();
-    v343 = swift_unknownObjectWeakLoadStrong();
-    if (v343)
-    {
-      v180 = &v343;
-      v74 = v343;
-      v181 = v343;
-      MEMORY[0x1E69E5928](v343);
-      outlined destroy of Headphone_Manager?(v180);
-      v75 = swift_endAccess();
-      v182 = (*((*v74 & *MEMORY[0x1E69E7D40]) + 0x1E0))(v75);
-      MEMORY[0x1E69E5920](v181);
-      v184 = type metadata accessor for HeadphoneDevice();
-      v183 = MEMORY[0x1E69E6158];
-      v185 = MEMORY[0x1E69E6168];
-
-      v187._countAndFlagsBits = Dictionary.Keys.debugDescription.getter();
-      v187._object = v76;
-
-      v188 = v187;
-    }
-
-    else
-    {
-      outlined destroy of Headphone_Manager?(&v343);
-      swift_endAccess();
-      v188._countAndFlagsBits = 0;
-      v188._object = 0;
-    }
-
-    v342 = v188;
-    if (v188._object)
-    {
-      v344 = v342;
-    }
-
-    else
-    {
-      v344 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("none", 4uLL, 1);
-      if (v342._object)
-      {
-        outlined destroy of String?(&v342);
-      }
-    }
-
-    v77 = v308;
-    v151 = v344;
-    v341 = v344;
-    v78 = Logger.shared.unsafeMutableAddressor();
-    (*(v305 + 16))(v77, v78, v304);
-
-    v159 = 32;
-    v160 = 7;
-    v79 = swift_allocObject();
-    v80 = v321;
-    v154 = v79;
-    *(v79 + 16) = v320;
-    *(v79 + 24) = v80;
-
-    v81 = swift_allocObject();
-    object = v151._object;
-    v161 = v81;
-    *(v81 + 16) = v151._countAndFlagsBits;
-    *(v81 + 24) = object;
-    v178 = Logger.logObject.getter();
-    v179 = static os_log_type_t.error.getter();
-    v157 = 17;
-    v163 = swift_allocObject();
-    v156 = 32;
-    *(v163 + 16) = 32;
-    v164 = swift_allocObject();
-    v158 = 8;
-    *(v164 + 16) = 8;
-    v83 = swift_allocObject();
-    v152 = v83;
-    *(v83 + 16) = v281;
-    *(v83 + 24) = 0;
-    v84 = swift_allocObject();
-    v85 = v152;
-    v165 = v84;
-    *(v84 + 16) = v282;
-    *(v84 + 24) = v85;
-    v166 = swift_allocObject();
-    *(v166 + 16) = 0;
-    v167 = swift_allocObject();
-    *(v167 + 16) = v158;
-    v86 = swift_allocObject();
-    v153 = v86;
-    *(v86 + 16) = v283;
-    *(v86 + 24) = 0;
-    v87 = swift_allocObject();
-    v88 = v153;
-    v168 = v87;
-    *(v87 + 16) = v284;
-    *(v87 + 24) = v88;
-    v169 = swift_allocObject();
-    *(v169 + 16) = v156;
-    v170 = swift_allocObject();
-    *(v170 + 16) = v158;
-    v89 = swift_allocObject();
-    v90 = v154;
-    v155 = v89;
-    *(v89 + 16) = v285;
-    *(v89 + 24) = v90;
-    v91 = swift_allocObject();
-    v92 = v155;
-    v171 = v91;
-    *(v91 + 16) = v286;
-    *(v91 + 24) = v92;
-    v172 = swift_allocObject();
-    *(v172 + 16) = v156;
-    v173 = swift_allocObject();
-    *(v173 + 16) = v158;
-    v93 = swift_allocObject();
-    v94 = v161;
-    v162 = v93;
-    *(v93 + 16) = v287;
-    *(v93 + 24) = v94;
-    v95 = swift_allocObject();
-    v96 = v162;
-    v175 = v95;
-    *(v95 + 16) = v288;
-    *(v95 + 24) = v96;
-    v177 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v174 = _allocateUninitializedArray<A>(_:)();
-    v176 = v97;
-
-    v98 = v163;
-    v99 = v176;
-    *v176 = v289;
-    v99[1] = v98;
-
-    v100 = v164;
-    v101 = v176;
-    v176[2] = v290;
-    v101[3] = v100;
-
-    v102 = v165;
-    v103 = v176;
-    v176[4] = v291;
-    v103[5] = v102;
-
-    v104 = v166;
-    v105 = v176;
-    v176[6] = v292;
-    v105[7] = v104;
-
-    v106 = v167;
-    v107 = v176;
-    v176[8] = v293;
-    v107[9] = v106;
-
-    v108 = v168;
-    v109 = v176;
-    v176[10] = v294;
-    v109[11] = v108;
-
-    v110 = v169;
-    v111 = v176;
-    v176[12] = v295;
-    v111[13] = v110;
-
-    v112 = v170;
-    v113 = v176;
-    v176[14] = v296;
-    v113[15] = v112;
-
-    v114 = v171;
-    v115 = v176;
-    v176[16] = v297;
-    v115[17] = v114;
-
-    v116 = v172;
-    v117 = v176;
-    v176[18] = v298;
-    v117[19] = v116;
-
-    v118 = v173;
-    v119 = v176;
-    v176[20] = v299;
-    v119[21] = v118;
-
-    v120 = v175;
-    v121 = v176;
-    v176[22] = v300;
-    v121[23] = v120;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v178, v179))
-    {
-      v122 = v301;
-      v144 = static UnsafeMutablePointer.allocate(capacity:)();
-      v143 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v145 = createStorage<A>(capacity:type:)(0);
-      v146 = createStorage<A>(capacity:type:)(3);
-      v147 = &v336;
-      v336 = v144;
-      v148 = &v335;
-      v335 = v145;
-      v149 = &v334;
-      v334 = v146;
-      serialize(_:at:)(2, &v336);
-      serialize(_:at:)(4, v147);
-      v332 = v289;
-      v333 = v163;
-      closure #1 in osLogInternal(_:log:type:)(&v332, v147, v148, v149);
-      v150 = v122;
-      if (v122)
-      {
-
-        __break(1u);
-      }
-
-      else
-      {
-        v332 = v290;
-        v333 = v164;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v142 = 0;
-        v332 = v291;
-        v333 = v165;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v141 = 0;
-        v332 = v292;
-        v333 = v166;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v140 = 0;
-        v332 = v293;
-        v333 = v167;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v139 = 0;
-        v332 = v294;
-        v333 = v168;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v138 = 0;
-        v332 = v295;
-        v333 = v169;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v137 = 0;
-        v332 = v296;
-        v333 = v170;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v136 = 0;
-        v332 = v297;
-        v333 = v171;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v135 = 0;
-        v332 = v298;
-        v333 = v172;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v134 = 0;
-        v332 = v299;
-        v333 = v173;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        v133 = 0;
-        v332 = v300;
-        v333 = v175;
-        closure #1 in osLogInternal(_:log:type:)(&v332, &v336, &v335, &v334);
-        _os_log_impl(&dword_1D93D0000, v178, v179, "HeadphoneManager: %s: %ld headphoneDevice with bt address not found %s %s", v144, 0x2Au);
-        destroyStorage<A>(_:count:)(v145, 0, v143);
-        destroyStorage<A>(_:count:)(v146, 3, MEMORY[0x1E69E7CA0] + 8);
-        MEMORY[0x1DA730D30](v144, MEMORY[0x1E69E7508]);
-      }
-    }
-
-    else
-    {
-    }
-
-    MEMORY[0x1E69E5920](v178);
-    (*(v305 + 8))(v308, v304);
-    v132 = v302 + 16;
-    swift_beginAccess();
-    v340 = swift_unknownObjectWeakLoadStrong();
-    if (v340)
-    {
-      v126 = &v340;
-      v123 = v340;
-      v131 = v340;
-      MEMORY[0x1E69E5928](v340);
-      outlined destroy of Headphone_Manager?(v126);
-      swift_endAccess();
-
-      MEMORY[0x1E69E5928](v303);
-      v128 = &v339;
-      v339 = v303;
-      v127 = v338;
-      v338[0] = v320;
-      v338[1] = v321;
-      v124 = *((*v123 & *MEMORY[0x1E69E7D40]) + 0x1A8);
-      v129 = &v337;
-      v130 = v124();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSo14HMDeviceRecordCGMd, &_sSDySSSo14HMDeviceRecordCGMR);
-      Dictionary.subscript.setter();
-      v130();
-      MEMORY[0x1E69E5920](v131);
-    }
-
-    else
-    {
-      outlined destroy of Headphone_Manager?(&v340);
-      swift_endAccess();
-    }
-  }
-}
-
-uint64_t implicit closure #9 in closure #4 in Headphone_Manager.configHearingModeClient()(uint64_t a1)
-{
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("%p", 2uLL, 1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7CVarArg_pMd, &_ss7CVarArg_pMR);
-  _allocateUninitializedArray<A>(_:)();
-  v4 = v1;
-  MEMORY[0x1E69E5928](a1);
-  v4[3] = type metadata accessor for HeadphoneDevice();
-  v4[4] = lazy protocol witness table accessor for type HeadphoneDevice and conformance NSObject();
-  *v4 = a1;
-  _finalizeUninitializedArray<A>(_:)();
-  v5 = String.init(format:_:)();
-
-  return v5;
-}
-
-uint64_t implicit closure #10 in closure #4 in Headphone_Manager.configHearingModeClient()(void *a1)
-{
-  MEMORY[0x1E69E5928](a1);
-  v3 = [a1 debugDescription];
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  MEMORY[0x1E69E5920](a1);
-  MEMORY[0x1E69E5920](v3);
-  return v4;
-}
-
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed HMDeviceRecord) -> ()(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 32);
-  v5 = *(a1 + 40);
-
-  MEMORY[0x1E69E5928](a2);
-  v3(a2);
-  MEMORY[0x1E69E5920](a2);
-}
-
-_BYTE *closure #5 in Headphone_Manager.configHearingModeClient()(uint64_t a1)
-{
-  v63 = a1;
-  v52 = implicit closure #1 in closure #5 in Headphone_Manager.configHearingModeClient();
-  v53 = _s2os18OSLogInterpolationV06appendC0_5align7privacyySSyXA_AA0B15StringAlignmentVAA0B7PrivacyVtFSSycfu_TA_4;
-  v54 = implicit closure #2 in closure #5 in Headphone_Manager.configHearingModeClient();
-  v55 = _sSiIegd_SiIegr_TRTA_1;
-  v56 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v57 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v58 = _s2os14OSLogArgumentsV6appendyySSycFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_4;
-  v59 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v60 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v61 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_2;
-  v74 = 0;
-  v62 = 0;
-  v64 = type metadata accessor for Logger();
-  v65 = *(v64 - 8);
-  v66 = v64 - 8;
-  v67 = (*(v65 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  result = MEMORY[0x1EEE9AC00](v63);
-  v68 = v24 - v67;
-  v74 = result;
-  v73[1] = result;
-  v51 = result != 0;
-  if (result)
-  {
-    v2 = v68;
-    v3 = Logger.shared.unsafeMutableAddressor();
-    (*(v65 + 16))(v2, v3, v64);
-    v49 = Logger.logObject.getter();
-    v50 = static os_log_type_t.error.getter();
-    v35 = 17;
-    v38 = 7;
-    v40 = swift_allocObject();
-    *(v40 + 16) = 32;
-    v41 = swift_allocObject();
-    v36 = 8;
-    *(v41 + 16) = 8;
-    v37 = 32;
-    v4 = swift_allocObject();
-    v34 = v4;
-    *(v4 + 16) = v52;
-    *(v4 + 24) = 0;
-    v5 = swift_allocObject();
-    v6 = v34;
-    v42 = v5;
-    *(v5 + 16) = v53;
-    *(v5 + 24) = v6;
-    v43 = swift_allocObject();
-    *(v43 + 16) = 0;
-    v44 = swift_allocObject();
-    *(v44 + 16) = v36;
-    v7 = swift_allocObject();
-    v39 = v7;
-    *(v7 + 16) = v54;
-    *(v7 + 24) = 0;
-    v8 = swift_allocObject();
-    v9 = v39;
-    v46 = v8;
-    *(v8 + 16) = v55;
-    *(v8 + 24) = v9;
-    v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v45 = _allocateUninitializedArray<A>(_:)();
-    v47 = v10;
-
-    v11 = v40;
-    v12 = v47;
-    *v47 = v56;
-    v12[1] = v11;
-
-    v13 = v41;
-    v14 = v47;
-    v47[2] = v57;
-    v14[3] = v13;
-
-    v15 = v42;
-    v16 = v47;
-    v47[4] = v58;
-    v16[5] = v15;
-
-    v17 = v43;
-    v18 = v47;
-    v47[6] = v59;
-    v18[7] = v17;
-
-    v19 = v44;
-    v20 = v47;
-    v47[8] = v60;
-    v20[9] = v19;
-
-    v21 = v46;
-    v22 = v47;
-    v47[10] = v61;
-    v22[11] = v21;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v49, v50))
-    {
-      v23 = v62;
-      v26 = static UnsafeMutablePointer.allocate(capacity:)();
-      v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v27 = createStorage<A>(capacity:type:)(0);
-      v28 = createStorage<A>(capacity:type:)(1);
-      v30 = v73;
-      v73[0] = v26;
-      v31 = &v72;
-      v72 = v27;
-      v32 = &v71;
-      v71 = v28;
-      v29 = 2;
-      serialize(_:at:)(2, v73);
-      serialize(_:at:)(v29, v30);
-      v69 = v56;
-      v70 = v40;
-      closure #1 in osLogInternal(_:log:type:)(&v69, v30, v31, v32);
-      v33 = v23;
-      if (v23)
-      {
-
-        __break(1u);
-      }
-
-      else
-      {
-        v69 = v57;
-        v70 = v41;
-        closure #1 in osLogInternal(_:log:type:)(&v69, v73, &v72, &v71);
-        v24[4] = 0;
-        v69 = v58;
-        v70 = v42;
-        closure #1 in osLogInternal(_:log:type:)(&v69, v73, &v72, &v71);
-        v24[3] = 0;
-        v69 = v59;
-        v70 = v43;
-        closure #1 in osLogInternal(_:log:type:)(&v69, v73, &v72, &v71);
-        v24[2] = 0;
-        v69 = v60;
-        v70 = v44;
-        closure #1 in osLogInternal(_:log:type:)(&v69, v73, &v72, &v71);
-        v24[1] = 0;
-        v69 = v61;
-        v70 = v46;
-        closure #1 in osLogInternal(_:log:type:)(&v69, v73, &v72, &v71);
-        _os_log_impl(&dword_1D93D0000, v49, v50, "HeadphoneManager: %s: %ld failed to acitivate HMServiceClient", v26, 0x16u);
-        destroyStorage<A>(_:count:)(v27, 0, v25);
-        destroyStorage<A>(_:count:)(v28, 1, MEMORY[0x1E69E7CA0] + 8);
-        MEMORY[0x1DA730D30](v26, MEMORY[0x1E69E7508]);
-      }
-    }
-
-    else
-    {
-    }
-
-    MEMORY[0x1E69E5920](v49);
-    return (*(v65 + 8))(v68, v64);
-  }
-
-  return result;
-}
-
-uint64_t ~= infix<A>(_:_:)(void *a1)
-{
-  v4 = a1;
-  v12 = 0;
-  v11 = 0;
-  v8 = *(*a1 + *MEMORY[0x1E69E77B0]);
-  v13 = v8;
-  v5 = *(v8 - 8);
-  v6 = v8 - 8;
-  v3 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](a1);
-  v7 = &v3 - v3;
-  v12 = v4;
-  v11 = v1;
-  (*(v5 + 16))();
-
-  swift_getAtKeyPath();
-  v9 = v10;
-
-  (*(v5 + 8))(v7, v8);
-  return v9 & 1;
-}
-
-id HearingRecord.deviceConfigFor<A>(keyPath:value:)(_BYTE *a1, uint64_t a2, uint64_t a3)
-{
-  v163 = a1;
-  v126 = a2;
-  v125 = a3;
-  v119 = partial apply for implicit closure #14 in HearingRecord.deviceConfigFor<A>(keyPath:value:);
-  v120 = _s2os18OSLogInterpolationV06appendC0_7privacyySo8NSObjectCyXA_AA0B7PrivacyVtFAGSgycfu_TA_1;
-  v121 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_4;
-  v122 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v123 = _s2os14OSLogArgumentsV6appendyySo8NSObjectCSgycFySpys5UInt8VGz_SpyAGGSgzSpyypGSgztcfU_TA_1;
-  v211 = 0;
-  v210 = 0;
-  v209 = 0;
-  v208 = 0;
-  v124 = 0;
-  v212 = a3;
-  v127 = 0;
-  v128 = type metadata accessor for Logger();
-  v129 = *(v128 - 8);
-  v130 = v128 - 8;
-  v131 = (*(v129 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x1EEE9AC00](0);
-  v132 = v42 - v131;
-  v133 = *(v5 - 8);
-  v134 = v5 - 8;
-  v158 = *(v133 + 64);
-  v135 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x1EEE9AC00](v4);
-  v136 = v42 - v135;
-  v137 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v7 = MEMORY[0x1EEE9AC00](v6);
-  v138 = v42 - v137;
-  v139 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  v140 = v42 - v139;
-  v141 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v142 = v42 - v141;
-  v143 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v144 = v42 - v143;
-  v145 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v146 = v42 - v145;
-  v147 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v148 = v42 - v147;
-  v149 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v13 = MEMORY[0x1EEE9AC00](v12);
-  v150 = v42 - v149;
-  v151 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v152 = v42 - v151;
-  v153 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v15 = MEMORY[0x1EEE9AC00](v14);
-  v154 = v42 - v153;
-  v155 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  v156 = v42 - v155;
-  v157 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v17 = MEMORY[0x1EEE9AC00](v16);
-  v159 = v42 - v157;
-  v160 = (v158 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v17);
-  v161 = v42 - v160;
-  v211 = v18;
-  v210 = v19;
-  v209 = v3;
-  type metadata accessor for HMDeviceConfigurations();
-  v162 = HMDeviceConfigurations.__allocating_init()();
-  v208 = v162;
-
-  KeyPath = swift_getKeyPath();
-  v165 = &v207;
-  v207 = KeyPath;
-  v164 = &v206;
-  v206 = v163;
-  v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss14PartialKeyPathCy16HeadphoneManager18HearingRecordModelCGMd, &_ss14PartialKeyPathCy16HeadphoneManager18HearingRecordModelCGMR);
-  v167 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-  if (v167)
-  {
-
-    (*(v133 + 16))(v161, v126, v125);
-    type metadata accessor for NSNumber();
-    if (swift_dynamicCast())
-    {
-      v117 = v168[1];
-    }
-
-    else
-    {
-      v117 = 0;
-    }
-
-    v168[0] = v117;
-    MEMORY[0x1E69E5928](v162);
-    if (v168[0])
-    {
-      v169 = v168[0];
-    }
-
-    else
-    {
-      v169 = [v162 amplification];
-      if (v168[0])
-      {
-        outlined destroy of NSNumber?(v168);
-      }
-    }
-
-    MEMORY[0x1E69E5920](v162);
-    v116 = v169;
-    [v162 setAmplification_];
-    MEMORY[0x1E69E5920](v116);
-  }
-
-  else
-  {
-
-    v205[28] = swift_getKeyPath();
-    v205[27] = v163;
-    v115 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-    if (v115)
-    {
-
-      (*(v133 + 16))(v159, v126, v125);
-      type metadata accessor for NSNumber();
-      if (swift_dynamicCast())
-      {
-        v114 = v170[1];
-      }
-
-      else
-      {
-        v114 = 0;
-      }
-
-      v170[0] = v114;
-      MEMORY[0x1E69E5928](v162);
-      if (v170[0])
-      {
-        v171 = v170[0];
-      }
-
-      else
-      {
-        v171 = [v162 balance];
-        if (v170[0])
-        {
-          outlined destroy of NSNumber?(v170);
-        }
-      }
-
-      MEMORY[0x1E69E5920](v162);
-      v113 = v171;
-      [v162 setBalance_];
-      MEMORY[0x1E69E5920](v113);
-    }
-
-    else
-    {
-
-      v205[26] = swift_getKeyPath();
-      v205[25] = v163;
-      v112 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-      if (v112)
-      {
-
-        (*(v133 + 16))(v156, v126, v125);
-        type metadata accessor for NSNumber();
-        if (swift_dynamicCast())
-        {
-          v111 = v172[1];
-        }
-
-        else
-        {
-          v111 = 0;
-        }
-
-        v172[0] = v111;
-        MEMORY[0x1E69E5928](v162);
-        if (v172[0])
-        {
-          v173 = v172[0];
-        }
-
-        else
-        {
-          v173 = [v162 beamFormer];
-          if (v172[0])
-          {
-            outlined destroy of NSNumber?(v172);
-          }
-        }
-
-        MEMORY[0x1E69E5920](v162);
-        v110 = v173;
-        [v162 setBeamFormer_];
-        MEMORY[0x1E69E5920](v110);
-      }
-
-      else
-      {
-
-        v205[24] = swift_getKeyPath();
-        v205[23] = v163;
-        v109 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-        if (v109)
-        {
-
-          (*(v133 + 16))(v154, v126, v125);
-          type metadata accessor for NSNumber();
-          if (swift_dynamicCast())
-          {
-            v108 = v174[1];
-          }
-
-          else
-          {
-            v108 = 0;
-          }
-
-          v174[0] = v108;
-          MEMORY[0x1E69E5928](v162);
-          if (v174[0])
-          {
-            v175 = v174[0];
-          }
-
-          else
-          {
-            v175 = [v162 noiseSuppression];
-            if (v174[0])
-            {
-              outlined destroy of NSNumber?(v174);
-            }
-          }
-
-          MEMORY[0x1E69E5920](v162);
-          v107 = v175;
-          [v162 setNoiseSuppression_];
-          MEMORY[0x1E69E5920](v107);
-        }
-
-        else
-        {
-
-          v205[22] = swift_getKeyPath();
-          v205[21] = v163;
-          v106 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-          if (v106)
-          {
-
-            (*(v133 + 16))(v152, v126, v125);
-            type metadata accessor for NSNumber();
-            if (swift_dynamicCast())
-            {
-              v105 = v176[1];
-            }
-
-            else
-            {
-              v105 = 0;
-            }
-
-            v176[0] = v105;
-            MEMORY[0x1E69E5928](v162);
-            if (v176[0])
-            {
-              v177 = v176[0];
-            }
-
-            else
-            {
-              v177 = [v162 tone];
-              if (v176[0])
-              {
-                outlined destroy of NSNumber?(v176);
-              }
-            }
-
-            MEMORY[0x1E69E5920](v162);
-            v104 = v177;
-            [v162 setTone_];
-            MEMORY[0x1E69E5920](v104);
-          }
-
-          else
-          {
-
-            v205[20] = swift_getKeyPath();
-            v205[19] = v163;
-            v103 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-            if (v103)
-            {
-
-              (*(v133 + 16))(v150, v126, v125);
-              type metadata accessor for NSNumber();
-              if (swift_dynamicCast())
-              {
-                v102 = v178[1];
-              }
-
-              else
-              {
-                v102 = 0;
-              }
-
-              v178[0] = v102;
-              MEMORY[0x1E69E5928](v162);
-              if (v178[0])
-              {
-                v179 = v178[0];
-              }
-
-              else
-              {
-                v179 = [v162 ownVoiceLevelGain];
-                if (v178[0])
-                {
-                  outlined destroy of NSNumber?(v178);
-                }
-              }
-
-              MEMORY[0x1E69E5920](v162);
-              v101 = v179;
-              [v162 setOwnVoiceLevelGain_];
-              MEMORY[0x1E69E5920](v101);
-            }
-
-            else
-            {
-
-              v205[18] = swift_getKeyPath();
-              v205[17] = v163;
-              v100 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-              if (v100)
-              {
-
-                (*(v133 + 16))(v148, v126, v125);
-                type metadata accessor for HMMultiState();
-                if (swift_dynamicCast())
-                {
-                  v99 = v182;
-                }
-
-                else
-                {
-                  v99 = 0x100000000;
-                }
-
-                v180 = v99;
-                v181 = BYTE4(v99) & 1;
-                MEMORY[0x1E69E5928](v162);
-                if (v181)
-                {
-                  v97 = [v162 enableHearingAssist];
-                  v98 = v97;
-                }
-
-                else
-                {
-                  v98 = v180;
-                }
-
-                v96 = v98;
-                MEMORY[0x1E69E5920](v162);
-                [v162 setEnableHearingAssist_];
-              }
-
-              else
-              {
-
-                v205[16] = swift_getKeyPath();
-                v205[15] = v163;
-                v95 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                if (v95)
-                {
-
-                  (*(v133 + 16))(v146, v126, v125);
-                  type metadata accessor for HMMultiState();
-                  if (swift_dynamicCast())
-                  {
-                    v94 = v185;
-                  }
-
-                  else
-                  {
-                    v94 = 0x100000000;
-                  }
-
-                  v183 = v94;
-                  v184 = BYTE4(v94) & 1;
-                  MEMORY[0x1E69E5928](v162);
-                  if (v184)
-                  {
-                    v92 = [v162 enableMediaAssist];
-                    v93 = v92;
-                  }
-
-                  else
-                  {
-                    v93 = v183;
-                  }
-
-                  v91 = v93;
-                  MEMORY[0x1E69E5920](v162);
-                  [v162 setEnableMediaAssist_];
-                }
-
-                else
-                {
-
-                  v205[14] = swift_getKeyPath();
-                  v205[13] = v163;
-                  v90 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                  if (v90)
-                  {
-
-                    (*(v133 + 16))(v144, v126, v125);
-                    type metadata accessor for HMMultiState();
-                    if (swift_dynamicCast())
-                    {
-                      v89 = v188;
-                    }
-
-                    else
-                    {
-                      v89 = 0x100000000;
-                    }
-
-                    v186 = v89;
-                    v187 = BYTE4(v89) & 1;
-                    MEMORY[0x1E69E5928](v162);
-                    if (v187)
-                    {
-                      v87 = [v162 enableSwipeGain];
-                      v88 = v87;
-                    }
-
-                    else
-                    {
-                      v88 = v186;
-                    }
-
-                    v86 = v88;
-                    MEMORY[0x1E69E5920](v162);
-                    [v162 setEnableSwipeGain_];
-                  }
-
-                  else
-                  {
-
-                    v205[12] = swift_getKeyPath();
-                    v205[11] = v163;
-                    v85 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                    if (v85)
-                    {
-                      v21 = v118;
-
-                      v23 = (*((*v21 & *MEMORY[0x1E69E7D40]) + 0x2F8))(v22);
-                      [v162 setEnableHearingAid_];
-                    }
-
-                    else
-                    {
-
-                      v205[10] = swift_getKeyPath();
-                      v205[9] = v163;
-                      v84 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                      if (v84)
-                      {
-
-                        (*(v133 + 16))(v142, v126, v125);
-                        type metadata accessor for HMMultiState();
-                        if (swift_dynamicCast())
-                        {
-                          v83 = v191;
-                        }
-
-                        else
-                        {
-                          v83 = 0x100000000;
-                        }
-
-                        v189 = v83;
-                        v190 = BYTE4(v83) & 1;
-                        MEMORY[0x1E69E5928](v162);
-                        if (v190)
-                        {
-                          v81 = [v162 enableHearingProtection];
-                          v82 = v81;
-                        }
-
-                        else
-                        {
-                          v82 = v189;
-                        }
-
-                        v80 = v82;
-                        MEMORY[0x1E69E5920](v162);
-                        [v162 setEnableHearingProtection_];
-                      }
-
-                      else
-                      {
-
-                        v205[8] = swift_getKeyPath();
-                        v205[7] = v163;
-                        v79 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                        if (v79)
-                        {
-
-                          (*(v133 + 16))(v140, v126, v125);
-                          type metadata accessor for HMMultiState();
-                          if (swift_dynamicCast())
-                          {
-                            v78 = v194;
-                          }
-
-                          else
-                          {
-                            v78 = 0x100000000;
-                          }
-
-                          v192 = v78;
-                          v193 = BYTE4(v78) & 1;
-                          MEMORY[0x1E69E5928](v162);
-                          if (v193)
-                          {
-                            v76 = [v162 enableHearingProtectionPPE];
-                            v77 = v76;
-                          }
-
-                          else
-                          {
-                            v77 = v192;
-                          }
-
-                          v75 = v77;
-                          MEMORY[0x1E69E5920](v162);
-                          [v162 setEnableHearingProtectionPPE_];
-                        }
-
-                        else
-                        {
-
-                          v205[6] = swift_getKeyPath();
-                          v205[5] = v163;
-                          v74 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                          if (v74)
-                          {
-
-                            (*(v133 + 16))(v138, v126, v125);
-                            type metadata accessor for HMMultiState();
-                            if (swift_dynamicCast())
-                            {
-                              v73 = v197;
-                            }
-
-                            else
-                            {
-                              v73 = 0x100000000;
-                            }
-
-                            v195 = v73;
-                            v196 = BYTE4(v73) & 1;
-                            MEMORY[0x1E69E5928](v162);
-                            if (v196)
-                            {
-                              v71 = [v162 allowListeningModeOff];
-                              v72 = v71;
-                            }
-
-                            else
-                            {
-                              v72 = v195;
-                            }
-
-                            v70 = v72;
-                            MEMORY[0x1E69E5920](v162);
-                            [v162 setAllowListeningModeOff_];
-                          }
-
-                          else
-                          {
-
-                            v205[4] = swift_getKeyPath();
-                            v205[3] = v163;
-                            v69 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                            if (v69)
-                            {
-
-                              (*(v133 + 16))(v136, v126, v125);
-                              type metadata accessor for HMMultiState();
-                              if (swift_dynamicCast())
-                              {
-                                v68 = v200;
-                              }
-
-                              else
-                              {
-                                v68 = 0x100000000;
-                              }
-
-                              v198 = v68;
-                              v199 = BYTE4(v68) & 1;
-                              MEMORY[0x1E69E5928](v162);
-                              if (v199)
-                              {
-                                v66 = [v162 enablePMEVoice];
-                                v67 = v66;
-                              }
-
-                              else
-                              {
-                                v67 = v198;
-                              }
-
-                              v65 = v67;
-                              MEMORY[0x1E69E5920](v162);
-                              [v162 setEnablePMEVoice_];
-                            }
-
-                            else
-                            {
-
-                              v205[2] = swift_getKeyPath();
-                              v205[1] = v163;
-                              v64 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-                              if (v64)
-                              {
-                                v24 = v118;
-
-                                v26 = (*((*v24 & *MEMORY[0x1E69E7D40]) + 0x278))(v25);
-                                [v162 setEnablePMEMedia_];
-                              }
-
-                              else
-                              {
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v27 = v132;
-  v28 = Logger.shared.unsafeMutableAddressor();
-  (*(v129 + 16))(v27, v28, v128);
-  MEMORY[0x1E69E5928](v162);
-  v53 = 7;
-  v54 = swift_allocObject();
-  *(v54 + 16) = v162;
-  v62 = Logger.logObject.getter();
-  v63 = static os_log_type_t.default.getter();
-  v51 = 17;
-  v56 = swift_allocObject();
-  *(v56 + 16) = 64;
-  v57 = swift_allocObject();
-  *(v57 + 16) = 8;
-  v52 = 32;
-  v29 = swift_allocObject();
-  v30 = v54;
-  v55 = v29;
-  *(v29 + 16) = v119;
-  *(v29 + 24) = v30;
-  v31 = swift_allocObject();
-  v32 = v55;
-  v59 = v31;
-  *(v31 + 16) = v120;
-  *(v31 + 24) = v32;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v58 = _allocateUninitializedArray<A>(_:)();
-  v60 = v33;
-
-  v34 = v56;
-  v35 = v60;
-  *v60 = v121;
-  v35[1] = v34;
-
-  v36 = v57;
-  v37 = v60;
-  v60[2] = v122;
-  v37[3] = v36;
-
-  v38 = v59;
-  v39 = v60;
-  v60[4] = v123;
-  v39[5] = v38;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v62, v63))
-  {
-    v40 = v124;
-    v44 = static UnsafeMutablePointer.allocate(capacity:)();
-    v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v45 = createStorage<A>(capacity:type:)(1);
-    v46 = createStorage<A>(capacity:type:)(0);
-    v47 = v205;
-    v205[0] = v44;
-    v48 = &v204;
-    v204 = v45;
-    v49 = &v203;
-    v203 = v46;
-    serialize(_:at:)(2, v205);
-    serialize(_:at:)(1, v47);
-    v201 = v121;
-    v202 = v56;
-    closure #1 in osLogInternal(_:log:type:)(&v201, v47, v48, v49);
-    v50 = v40;
-    if (v40)
-    {
-
-      __break(1u);
-    }
-
-    else
-    {
-      v201 = v122;
-      v202 = v57;
-      closure #1 in osLogInternal(_:log:type:)(&v201, v205, &v204, &v203);
-      v42[1] = 0;
-      v201 = v123;
-      v202 = v59;
-      closure #1 in osLogInternal(_:log:type:)(&v201, v205, &v204, &v203);
-      _os_log_impl(&dword_1D93D0000, v62, v63, "HeadphoneManager: CONFIG created: %@ ", v44, 0xCu);
-      destroyStorage<A>(_:count:)(v45, 1, v43);
-      destroyStorage<A>(_:count:)(v46, 0, MEMORY[0x1E69E7CA0] + 8);
-      MEMORY[0x1DA730D30](v44, MEMORY[0x1E69E7508]);
-    }
-  }
-
-  else
-  {
-  }
-
-  MEMORY[0x1E69E5920](v62);
-  (*(v129 + 8))(v132, v128);
-  return v162;
-}
-
-unint64_t type metadata accessor for HMDeviceConfigurations()
-{
-  v2 = lazy cache variable for type metadata for HMDeviceConfigurations;
-  if (!lazy cache variable for type metadata for HMDeviceConfigurations)
-  {
-    objc_opt_self();
-    ObjCClassMetadata = swift_getObjCClassMetadata();
-    atomic_store(ObjCClassMetadata, &lazy cache variable for type metadata for HMDeviceConfigurations);
-    return ObjCClassMetadata;
-  }
-
-  return v2;
-}
-
-uint64_t key path getter for HearingRecordModel.amplification : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 344))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.amplification : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 352))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.balance : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 368))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.balance : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 376))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.beamFormer : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 392))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.beamFormer : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 400))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.noiseSuppression : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 704))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.noiseSuppression : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 712))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.tone : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 800))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.tone : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 808))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.ownVoiceLevel : HearingRecordModel@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 728))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.ownVoiceLevel : HearingRecordModel(void *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  MEMORY[0x1E69E5928](*a1);
-  v5 = *a2;
-
-  (*(*v5 + 736))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.hearingAssistEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 512))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.hearingAssistEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 520))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.mediaAssistEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 488))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.mediaAssistEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 496))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.swipeGainEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 872))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.swipeGainEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 880))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.hearingAidEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 680))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.hearingAidEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 688))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.hearingProtectionEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 632))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.hearingProtectionEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 640))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.hearingProtectionPPEEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 920))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.hearingProtectionPPEEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 928))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.listeningModeOffAllowed : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 896))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.listeningModeOffAllowed : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 904))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.pmeVoiceEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 752))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.pmeVoiceEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 760))(v3);
-}
-
-uint64_t key path getter for HearingRecordModel.pmeMediaEnabled : HearingRecordModel@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *a1;
-
-  *a2 = (*(*v4 + 776))(v2);
-}
-
-uint64_t key path setter for HearingRecordModel.pmeMediaEnabled : HearingRecordModel(unsigned __int8 *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-
-  (*(*v4 + 784))(v3);
-}
-
-uint64_t _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_2(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v9 = *(v3 + 16);
-  v10 = *(v3 + 24);
-  v4 = lazy protocol witness table accessor for type Int and conformance Int();
-  v5 = MEMORY[0x1E69E6530];
-
-  return closure #1 in OSLogArguments.append<A>(_:)(a1, a2, a3, v9, v10, v5, v4);
-}
-
-uint64_t _s2os9serialize_2atyx_Spys5UInt8VGzts17FixedWidthIntegerRzlFySWXEfU_TA_2()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return closure #1 in serialize<A>(_:at:)();
-}
-
-uint64_t partial apply for implicit closure #4 in closure #4 in Headphone_Manager.configHearingModeClient()()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  implicit closure #4 in closure #4 in Headphone_Manager.configHearingModeClient()();
-  return result;
-}
-
-uint64_t partial apply for implicit closure #5 in closure #4 in Headphone_Manager.configHearingModeClient()()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  implicit closure #5 in closure #4 in Headphone_Manager.configHearingModeClient()();
-  return result;
-}
-
-uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned Int)partial apply@<X0>(uint64_t *a1@<X8>)
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
-{
-  v2 = *(v1 + 24);
-  return thunk for @escaping @callee_guaranteed () -> (@unowned Int)(*(v1 + 16), a1);
-}
-
 uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)partial apply()
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 {
-  v1 = *(v0 + 24);
   return implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:)(*(v0 + 16));
 }
 
 uint64_t closure #1 in OSLogArguments.append(_:)partial apply(uint64_t *a1, uint64_t **a2, uint64_t a3)
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
 {
-  v4 = *(v3 + 24);
   return closure #1 in OSLogArguments.append(_:)(a1, a2, a3, *(v3 + 16));
 }
 
-uint64_t static HearingRecordConfig.subscript.getter@<X0>(void *a1@<X1>, uint64_t a2@<X8>)
+uint64_t static HearingRecordConfig.subscript.getter@<X0>(void *a2@<X1>, uint64_t a4@<X8>)
 {
-  v6 = *(*a1 + *MEMORY[0x1E69E6F98]);
-  v3 = *(*a1 + *MEMORY[0x1E69E6F98] + 8);
+  v5 = *(*a2 + *MEMORY[0x1E69E6F98] + 8);
   swift_unknownObjectRetain();
 
-  v5 = swift_readAtKeyPath();
-  (*(*(v3 - 8) + 16))(a2);
-  v5();
+  v7 = swift_readAtKeyPath();
+  (*(*(v5 - 8) + 16))(a4);
+  v7();
   swift_unknownObjectRelease();
 }
 
@@ -4386,38 +157,40 @@ uint64_t key path setter for static HearingRecordConfig.subscript(_enclosingInst
 
 uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v567 = &v592;
-  v570 = a1;
-  v553 = a2;
-  v531 = a3;
-  v556 = a4;
-  v459 = partial apply for implicit closure #3 in static HearingRecordConfig.subscript.setter;
-  v460 = implicit closure #1 in static HearingRecordConfig.subscript.setter;
-  v461 = _s2os18OSLogInterpolationV06appendC0_5align7privacyySSyXA_AA0B15StringAlignmentVAA0B7PrivacyVtFSSycfu_TA_5;
-  v462 = partial apply for implicit closure #2 in static HearingRecordConfig.subscript.setter;
+  v565 = &v590;
+  v568 = a1;
+  v551 = a2;
+  v529 = a3;
+  v554 = a4;
+  v457 = partial apply for implicit closure #3 in static HearingRecordConfig.subscript.setter;
+  v458 = implicit closure #1 in static HearingRecordConfig.subscript.setter;
+  v459 = _s2os18OSLogInterpolationV06appendC0_5align7privacyySSyXA_AA0B15StringAlignmentVAA0B7PrivacyVtFSSycfu_TA_5;
+  v460 = partial apply for implicit closure #2 in static HearingRecordConfig.subscript.setter;
+  v461 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v462 = _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_0;
   v463 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v464 = _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_0;
-  v465 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v466 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_5;
+  v464 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_5;
+  v465 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v466 = _s2os14OSLogArgumentsV6appendyySSycFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_5;
   v467 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v468 = _s2os14OSLogArgumentsV6appendyySSycFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_5;
+  v468 = closure #1 in OSLogArguments.append(_:)partial apply;
   v469 = closure #1 in OSLogArguments.append(_:)partial apply;
   v470 = closure #1 in OSLogArguments.append(_:)partial apply;
   v471 = closure #1 in OSLogArguments.append(_:)partial apply;
   v472 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v473 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v474 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v475 = partial apply for implicit closure #7 in static HearingRecordConfig.subscript.setter;
-  v476 = implicit closure #5 in static HearingRecordConfig.subscript.setter;
+  v473 = partial apply for implicit closure #7 in static HearingRecordConfig.subscript.setter;
+  v474 = implicit closure #5 in static HearingRecordConfig.subscript.setter;
+  v475 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v476 = partial apply for implicit closure #6 in static HearingRecordConfig.subscript.setter;
   v477 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v478 = partial apply for implicit closure #6 in static HearingRecordConfig.subscript.setter;
+  v478 = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
   v479 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v480 = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
+  v480 = partial apply for implicit closure #8 in static HearingRecordConfig.subscript.setter;
   v481 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v482 = partial apply for implicit closure #8 in static HearingRecordConfig.subscript.setter;
+  v482 = partial apply for implicit closure #9 in static HearingRecordConfig.subscript.setter;
   v483 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v484 = partial apply for implicit closure #9 in static HearingRecordConfig.subscript.setter;
-  v485 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v484 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v485 = closure #1 in OSLogArguments.append(_:)partial apply;
   v486 = closure #1 in OSLogArguments.append(_:)partial apply;
   v487 = closure #1 in OSLogArguments.append(_:)partial apply;
   v488 = closure #1 in OSLogArguments.append(_:)partial apply;
@@ -4431,17 +204,17 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
   v496 = closure #1 in OSLogArguments.append(_:)partial apply;
   v497 = closure #1 in OSLogArguments.append(_:)partial apply;
   v498 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v499 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v500 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v501 = partial apply for implicit closure #12 in static HearingRecordConfig.subscript.setter;
-  v502 = implicit closure #10 in static HearingRecordConfig.subscript.setter;
+  v499 = partial apply for implicit closure #12 in static HearingRecordConfig.subscript.setter;
+  v500 = implicit closure #10 in static HearingRecordConfig.subscript.setter;
+  v501 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v502 = partial apply for implicit closure #11 in static HearingRecordConfig.subscript.setter;
   v503 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v504 = partial apply for implicit closure #11 in static HearingRecordConfig.subscript.setter;
+  v504 = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
   v505 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v506 = implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply;
+  v506 = partial apply for implicit closure #13 in static HearingRecordConfig.subscript.setter;
   v507 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
-  v508 = partial apply for implicit closure #13 in static HearingRecordConfig.subscript.setter;
-  v509 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v508 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v509 = closure #1 in OSLogArguments.append(_:)partial apply;
   v510 = closure #1 in OSLogArguments.append(_:)partial apply;
   v511 = closure #1 in OSLogArguments.append(_:)partial apply;
   v512 = closure #1 in OSLogArguments.append(_:)partial apply;
@@ -4452,275 +225,272 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
   v517 = closure #1 in OSLogArguments.append(_:)partial apply;
   v518 = closure #1 in OSLogArguments.append(_:)partial apply;
   v519 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v520 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v521 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v522 = partial apply for closure #1 in static HearingRecordConfig.subscript.setter;
-  v607 = 0;
-  v606 = 0;
+  v520 = partial apply for closure #1 in static HearingRecordConfig.subscript.setter;
   v605 = 0;
   v604 = 0;
   v603 = 0;
   v602 = 0;
-  v600[1] = 0;
-  v600[2] = 0;
-  v523 = 0;
-  v588 = 0;
-  v587 = 0;
-  v524 = *a3;
+  v601 = 0;
+  v600 = 0;
+  v598[1] = 0;
+  v598[2] = 0;
+  v521 = 0;
+  v586 = 0;
+  v585 = 0;
+  v522 = *a3;
   v4 = *a4;
-  v543 = MEMORY[0x1E69E6F98];
-  v568 = *(v4 + *MEMORY[0x1E69E6F98] + 8);
-  v525 = *(v568 + 4);
-  v526 = *(v525 + 8);
+  v541 = MEMORY[0x1E69E6F98];
+  v566 = *(v4 + *MEMORY[0x1E69E6F98] + 8);
+  v523 = *(v566 + 4);
+  v524 = *(v523 + 8);
   v5 = *MEMORY[0x1E69E6F98];
-  v561 = 0;
-  v544 = v524;
-  v527 = *(v524 + v5);
-  v608 = v527;
+  v559 = 0;
+  v542 = v522;
+  v525 = *(v522 + v5);
+  v606 = v525;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v529 = (*(*(AssociatedTypeWitness - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v527 = (*(*(AssociatedTypeWitness - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](0);
-  v530 = v285 - v529;
-  v532 = type metadata accessor for Logger();
-  v533 = *(v532 - 8);
-  v534 = v532 - 8;
-  v538 = *(v533 + 64);
-  v535 = (v538 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x1EEE9AC00](v568);
-  v536 = v285 - v535;
-  v537 = (v538 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v528 = v283 - v527;
+  v530 = type metadata accessor for Logger();
+  v531 = *(v530 - 8);
+  v532 = v530 - 8;
+  v536 = *(v531 + 64);
+  v533 = (v536 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = MEMORY[0x1EEE9AC00](v566);
+  v534 = v283 - v533;
+  v535 = (v536 + 15) & 0xFFFFFFFFFFFFFFF0;
   v7 = MEMORY[0x1EEE9AC00](v6);
-  v539 = v285 - v537;
-  v540 = (v538 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v537 = v283 - v535;
+  v538 = (v536 + 15) & 0xFFFFFFFFFFFFFFF0;
   v8 = MEMORY[0x1EEE9AC00](v7);
-  v541 = v285 - v540;
-  v542 = (*(*(v8 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v539 = v283 - v538;
+  v540 = (*(*(v8 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v9 = MEMORY[0x1EEE9AC00](v8);
-  v563 = v285 - v542;
-  v10 = *(v544 + *v543 + 8);
-  v571 = v10;
+  v561 = v283 - v540;
+  v10 = *(v542 + *v541 + 8);
+  v569 = v10;
   *(v11 + 216) = v10;
-  v557 = *(v10 - 8);
-  v558 = v10 - 8;
-  v545 = v557;
-  v549 = *(v557 + 64);
-  v546 = (v549 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v555 = *(v10 - 8);
+  v556 = v10 - 8;
+  v543 = v555;
+  v547 = *(v555 + 64);
+  v544 = (v547 + 15) & 0xFFFFFFFFFFFFFFF0;
   v12 = MEMORY[0x1EEE9AC00](v9);
-  v547 = v285 - v546;
-  v548 = (v549 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v545 = v283 - v544;
+  v546 = (v547 + 15) & 0xFFFFFFFFFFFFFFF0;
   v13 = MEMORY[0x1EEE9AC00](v12);
-  v550 = v285 - v548;
-  v551 = (v549 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v548 = v283 - v546;
+  v549 = (v547 + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](v13);
-  v14 = v570;
-  v569 = v285 - v551;
-  v15[26] = v285 - v551;
+  v14 = v568;
+  v567 = v283 - v549;
+  v15[26] = v283 - v549;
   v15[25] = v14;
   v15[24] = v16;
   v15[23] = v17;
   v15[22] = v18;
-  v552 = swift_allocBox();
-  v562 = v19;
-  v567[21] = v19;
+  v550 = swift_allocBox();
+  v560 = v19;
+  v565[21] = v19;
   swift_unknownObjectRetain();
 
-  v567[20] = v553;
-  v555 = &v601;
-  v554 = swift_readAtKeyPath();
-  outlined init with copy of HearingRecordConfig<A, B>(v20, v562, v571, v568);
-  v554();
-  v21 = v567[20];
+  v565[20] = v551;
+  v553 = &v599;
+  v552 = swift_readAtKeyPath();
+  outlined init with copy of HearingRecordConfig<A, B>(v20, v560, v569, v566);
+  v552();
   swift_unknownObjectRelease();
 
-  v559 = *(v557 + 16);
-  v560 = v557 + 16;
-  v559(v569, v562, v571);
+  v557 = *(v555 + 16);
+  v558 = v555 + 16;
+  v557(v567, v560, v569);
   type metadata accessor for HearingRecordModel();
-  outlined init with copy of HearingRecordConfig<A, B>(v562, v563, v571, v568);
-  v564 = *(v563 + v568[17]);
+  outlined init with copy of HearingRecordConfig<A, B>(v560, v561, v569, v566);
+  v562 = *(v561 + v566[17]);
 
-  outlined destroy of HearingRecordConfig<A, B>(v563, v571, v568);
-  v565 = static HearingRecordModel.debugStringForModifyPath(keyPath:)();
-  v566 = v22;
+  outlined destroy of HearingRecordConfig<A, B>(v561, v569, v566);
+  v563 = static HearingRecordModel.debugStringForModifyPath(keyPath:)(v562);
+  v564 = v21;
 
-  v23 = v566;
-  v24 = v567;
-  v25 = v568;
-  v567[14] = v565;
-  v24[15] = v23;
-  v572 = *(v25 + 6);
+  v22 = v564;
+  v23 = v565;
+  v24 = v566;
+  v565[14] = v563;
+  v23[15] = v22;
+  v570 = *(v24 + 6);
   if (dispatch thunk of static Equatable.== infix(_:_:)())
   {
-    v207 = v536;
-    v208 = Logger.shared.unsafeMutableAddressor();
-    (*(v533 + 16))(v207, v208, v532);
+    v205 = v534;
+    v206 = Logger.shared.unsafeMutableAddressor();
+    (*(v531 + 16))(v205, v206, v530);
 
-    v303 = 32;
-    v304 = 7;
-    v209 = swift_allocObject();
-    v210 = v566;
-    v211 = v570;
-    v212 = v559;
-    v213 = v571;
-    v214 = v209;
-    v215 = v550;
-    v298 = v214;
-    *(v214 + 16) = v565;
-    *(v214 + 24) = v210;
-    v212(v215, v211, v213);
-    v294 = (*(v545 + 80) + 56) & ~*(v545 + 80);
-    v216 = swift_allocObject();
-    v217 = v525;
-    v218 = v568;
-    v219 = v572;
-    v220 = v294;
-    v221 = v557;
-    v222 = v550;
-    v223 = v571;
-    v296 = v216;
-    v216[2] = v527;
-    v216[3] = v223;
-    v216[4] = v217;
-    v295 = *(v218 + 5);
-    v216[5] = v295;
-    v216[6] = v219;
-    (*(v221 + 32))(v216 + v220, v222);
+    v301 = 32;
+    v302 = 7;
+    v207 = swift_allocObject();
+    v208 = v564;
+    v209 = v568;
+    v210 = v557;
+    v211 = v569;
+    v212 = v207;
+    v213 = v548;
+    v296 = v212;
+    *(v212 + 16) = v563;
+    *(v212 + 24) = v208;
+    v210(v213, v209, v211);
+    v292 = (*(v543 + 80) + 56) & ~*(v543 + 80);
+    v214 = swift_allocObject();
+    v215 = v523;
+    v216 = v566;
+    v217 = v570;
+    v218 = v292;
+    v219 = v555;
+    v220 = v548;
+    v221 = v569;
+    v294 = v214;
+    v214[2] = v525;
+    v214[3] = v221;
+    v214[4] = v215;
+    v293 = *(v216 + 5);
+    v214[5] = v293;
+    v214[6] = v217;
+    (*(v219 + 32))(v214 + v218, v220);
 
-    v224 = swift_allocObject();
-    v225 = v295;
-    v226 = v459;
-    v227 = v224;
-    v228 = v296;
-    v305 = v227;
-    v227[2] = v571;
-    v227[3] = v225;
-    v227[4] = v226;
-    v227[5] = v228;
+    v222 = swift_allocObject();
+    v223 = v293;
+    v224 = v457;
+    v225 = v222;
+    v226 = v294;
+    v303 = v225;
+    v225[2] = v569;
+    v225[3] = v223;
+    v225[4] = v224;
+    v225[5] = v226;
 
-    v319 = Logger.logObject.getter();
-    v320 = static os_log_type_t.debug.getter();
-    v301 = 17;
-    v307 = swift_allocObject();
-    v300 = 32;
-    *(v307 + 16) = 32;
+    v317 = Logger.logObject.getter();
+    v318 = static os_log_type_t.debug.getter();
+    v299 = 17;
+    v305 = swift_allocObject();
+    v298 = 32;
+    *(v305 + 16) = 32;
+    v306 = swift_allocObject();
+    v300 = 8;
+    *(v306 + 16) = 8;
+    v227 = swift_allocObject();
+    v295 = v227;
+    *(v227 + 16) = v458;
+    *(v227 + 24) = 0;
+    v228 = swift_allocObject();
+    v229 = v295;
+    v307 = v228;
+    *(v228 + 16) = v459;
+    *(v228 + 24) = v229;
     v308 = swift_allocObject();
-    v302 = 8;
-    *(v308 + 16) = 8;
-    v229 = swift_allocObject();
-    v297 = v229;
-    *(v229 + 16) = v460;
-    *(v229 + 24) = 0;
+    *(v308 + 16) = v298;
+    v309 = swift_allocObject();
+    *(v309 + 16) = v300;
     v230 = swift_allocObject();
-    v231 = v297;
-    v309 = v230;
-    *(v230 + 16) = v461;
+    v231 = v296;
+    v297 = v230;
+    *(v230 + 16) = v460;
     *(v230 + 24) = v231;
-    v310 = swift_allocObject();
-    *(v310 + 16) = v300;
-    v311 = swift_allocObject();
-    *(v311 + 16) = v302;
     v232 = swift_allocObject();
-    v233 = v298;
-    v299 = v232;
-    *(v232 + 16) = v462;
+    v233 = v297;
+    v310 = v232;
+    *(v232 + 16) = v461;
     *(v232 + 24) = v233;
+    v311 = swift_allocObject();
+    *(v311 + 16) = v298;
+    v312 = swift_allocObject();
+    *(v312 + 16) = v300;
     v234 = swift_allocObject();
-    v235 = v299;
-    v312 = v234;
-    *(v234 + 16) = v463;
+    v235 = v303;
+    v304 = v234;
+    *(v234 + 16) = v462;
     *(v234 + 24) = v235;
-    v313 = swift_allocObject();
-    *(v313 + 16) = v300;
-    v314 = swift_allocObject();
-    *(v314 + 16) = v302;
     v236 = swift_allocObject();
-    v237 = v305;
-    v306 = v236;
-    *(v236 + 16) = v464;
+    v237 = v304;
+    v314 = v236;
+    *(v236 + 16) = v463;
     *(v236 + 24) = v237;
-    v238 = swift_allocObject();
-    v239 = v306;
-    v316 = v238;
-    *(v238 + 16) = v465;
-    *(v238 + 24) = v239;
-    v318 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v315 = _allocateUninitializedArray<A>(_:)();
-    v317 = v240;
+    v316 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v313 = _allocateUninitializedArray<A>(_:)();
+    v315 = v238;
 
-    v241 = v307;
-    v242 = v317;
-    *v317 = v466;
-    v242[1] = v241;
+    v239 = v305;
+    v240 = v315;
+    *v315 = v464;
+    v240[1] = v239;
 
-    v243 = v308;
-    v244 = v317;
-    v317[2] = v467;
-    v244[3] = v243;
+    v241 = v306;
+    v242 = v315;
+    v315[2] = v465;
+    v242[3] = v241;
 
-    v245 = v309;
-    v246 = v317;
-    v317[4] = v468;
-    v246[5] = v245;
+    v243 = v307;
+    v244 = v315;
+    v315[4] = v466;
+    v244[5] = v243;
 
-    v247 = v310;
-    v248 = v317;
-    v317[6] = v469;
-    v248[7] = v247;
+    v245 = v308;
+    v246 = v315;
+    v315[6] = v467;
+    v246[7] = v245;
 
-    v249 = v311;
-    v250 = v317;
-    v317[8] = v470;
-    v250[9] = v249;
+    v247 = v309;
+    v248 = v315;
+    v315[8] = v468;
+    v248[9] = v247;
 
-    v251 = v312;
-    v252 = v317;
-    v317[10] = v471;
-    v252[11] = v251;
+    v249 = v310;
+    v250 = v315;
+    v315[10] = v469;
+    v250[11] = v249;
 
-    v253 = v313;
-    v254 = v317;
-    v317[12] = v472;
-    v254[13] = v253;
+    v251 = v311;
+    v252 = v315;
+    v315[12] = v470;
+    v252[13] = v251;
+
+    v253 = v312;
+    v254 = v315;
+    v315[14] = v471;
+    v254[15] = v253;
 
     v255 = v314;
-    v256 = v317;
-    v317[14] = v473;
-    v256[15] = v255;
-
-    v257 = v316;
-    v258 = v317;
-    v317[16] = v474;
-    v258[17] = v257;
+    v256 = v315;
+    v315[16] = v472;
+    v256[17] = v255;
     _finalizeUninitializedArray<A>(_:)();
 
-    if (os_log_type_enabled(v319, v320))
+    if (os_log_type_enabled(v317, v318))
     {
-      v259 = v523;
-      v287 = static UnsafeMutablePointer.allocate(capacity:)();
-      v286 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v288 = createStorage<A>(capacity:type:)(0);
-      v260 = createStorage<A>(capacity:type:)(3);
-      v261 = v288;
-      v262 = v567;
-      v289 = v260;
-      v290 = v600;
-      v567[13] = v287;
-      v291 = v599;
-      v262[12] = v261;
-      v292 = v598;
-      v262[11] = v260;
-      serialize(_:at:)(2, v600);
-      serialize(_:at:)(3, v290);
-      v263 = v307;
-      v264 = v567;
+      v257 = v521;
+      v285 = static UnsafeMutablePointer.allocate(capacity:)();
+      v284 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v286 = createStorage<A>(capacity:type:)(0, v284, v284);
+      v258 = createStorage<A>(capacity:type:)(3, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+      v259 = v286;
+      v260 = v565;
+      v287 = v258;
+      v288 = v598;
+      v565[13] = v285;
+      v289 = v597;
+      v260[12] = v259;
+      v290 = v596;
+      v260[11] = v258;
+      serialize(_:at:)(2, v598);
+      serialize(_:at:)(3, v288);
+      v261 = v305;
+      v262 = v565;
+      v263 = v288;
+      v264 = v289;
       v265 = v290;
-      v266 = v291;
-      v267 = v292;
-      v567[9] = v466;
-      v264[10] = v263;
-      closure #1 in osLogInternal(_:log:type:)(v597, v265, v266, v267);
-      v293 = v259;
-      if (v259)
+      v565[9] = v464;
+      v262[10] = v261;
+      closure #1 in osLogInternal(_:log:type:)(v595, v263, v264, v265);
+      v291 = v257;
+      if (v257)
       {
 
         __break(1u);
@@ -4728,57 +498,57 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
 
       else
       {
-        v268 = v567;
-        v269 = v308;
-        v567[9] = v467;
+        v266 = v565;
+        v267 = v306;
+        v565[9] = v465;
+        v266[10] = v267;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[6] = 0;
+        v268 = v565;
+        v269 = v307;
+        v565[9] = v466;
         v268[10] = v269;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[6] = 0;
-        v270 = v567;
-        v271 = v309;
-        v567[9] = v468;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[5] = 0;
+        v270 = v565;
+        v271 = v308;
+        v565[9] = v467;
         v270[10] = v271;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[5] = 0;
-        v272 = v567;
-        v273 = v310;
-        v567[9] = v469;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[4] = 0;
+        v272 = v565;
+        v273 = v309;
+        v565[9] = v468;
         v272[10] = v273;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[4] = 0;
-        v274 = v567;
-        v275 = v311;
-        v567[9] = v470;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[3] = 0;
+        v274 = v565;
+        v275 = v310;
+        v565[9] = v469;
         v274[10] = v275;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[3] = 0;
-        v276 = v567;
-        v277 = v312;
-        v567[9] = v471;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[2] = 0;
+        v276 = v565;
+        v277 = v311;
+        v565[9] = v470;
         v276[10] = v277;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[2] = 0;
-        v278 = v567;
-        v279 = v313;
-        v567[9] = v472;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[1] = 0;
+        v278 = v565;
+        v279 = v312;
+        v565[9] = v471;
         v278[10] = v279;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[1] = 0;
-        v280 = v567;
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        v283[0] = 0;
+        v280 = v565;
         v281 = v314;
-        v567[9] = v473;
+        v565[9] = v472;
         v280[10] = v281;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        v285[0] = 0;
-        v282 = v567;
-        v283 = v316;
-        v567[9] = v474;
-        v282[10] = v283;
-        closure #1 in osLogInternal(_:log:type:)(v597, v600, v599, v598);
-        _os_log_impl(&dword_1D93D0000, v319, v320, "HeadphoneManager: %s: (Set) value same skiping update %s %s", v287, 0x20u);
-        destroyStorage<A>(_:count:)(v288, 0, v286);
-        destroyStorage<A>(_:count:)(v289, 3, MEMORY[0x1E69E7CA0] + 8);
-        MEMORY[0x1DA730D30](v287, MEMORY[0x1E69E7508]);
+        closure #1 in osLogInternal(_:log:type:)(v595, v598, v597, v596);
+        _os_log_impl(&dword_1D93D0000, v317, v318, "HeadphoneManager: %s: (Set) value same skiping update %s %s", v285, 0x20u);
+        destroyStorage<A>(_:count:)(v286, 0, v284);
+        destroyStorage<A>(_:count:)(v287, 3, MEMORY[0x1E69E7CA0] + 8);
+        MEMORY[0x1DA730D30](v285, MEMORY[0x1E69E7508]);
       }
     }
 
@@ -4786,257 +556,256 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
     {
     }
 
-    MEMORY[0x1E69E5920](v319);
-    (*(v533 + 8))(v536, v532);
+    MEMORY[0x1E69E5920](v317);
+    (*(v531 + 8))(v534, v530);
 
-    (*(v557 + 8))(v569, v571);
+    (*(v555 + 8))(v567, v569);
   }
 
   else
   {
-    v26 = v553;
+    v25 = v551;
     swift_unknownObjectRetain();
 
-    v559(v550, v570, v571);
-    v567[8] = v26;
-    v458 = v596 + 4;
-    v457 = swift_modifyAtReferenceWritableKeyPath();
-    (*(v557 + 40))(v27, v550, v571);
-    v457();
-    v28 = v567[8];
+    v557(v548, v568, v569);
+    v565[8] = v25;
+    v456 = v594 + 4;
+    v455 = swift_modifyAtReferenceWritableKeyPath();
+    (*(v555 + 40))(v26, v548, v569);
+    v455();
     swift_unknownObjectRelease();
 
-    (*(v525 + 16))(v596 + 3, v527);
-    BYTE2(v596[0]) = BYTE3(v596[0]);
-    BYTE1(v596[0]) = 0;
-    if (static HearingRecordPropertyRemoteSendState.== infix(_:_:)(v596 + 2, v596 + 1))
+    (*(v523 + 16))(v594 + 3, v525);
+    BYTE2(v594[0]) = BYTE3(v594[0]);
+    BYTE1(v594[0]) = 0;
+    if (static HearingRecordPropertyRemoteSendState.== infix(_:_:)(v594 + 2, v594 + 1))
     {
-      outlined init with copy of HearingRecordConfig<A, B>(v562, v563, v571, v568);
-      v453 = *(v563 + v568[18]);
-      outlined destroy of HearingRecordConfig<A, B>(v563, v571, v568);
-      v455 = &v574;
-      v574 = v453;
-      v454 = &v573;
-      v573 = 1;
+      outlined init with copy of HearingRecordConfig<A, B>(v560, v561, v569, v566);
+      v451 = *(v561 + v566[18]);
+      outlined destroy of HearingRecordConfig<A, B>(v561, v569, v566);
+      v453 = &v572;
+      v572 = v451;
+      v452 = &v571;
+      v571 = 1;
       lazy protocol witness table accessor for type AADevicePropertyRemoteSendState and conformance AADevicePropertyRemoteSendState();
-      v456 = dispatch thunk of static Equatable.== infix(_:_:)() ^ 1;
+      v454 = dispatch thunk of static Equatable.== infix(_:_:)() ^ 1;
     }
 
     else
     {
-      v456 = 0;
+      v454 = 0;
     }
 
-    if (v456)
+    if (v454)
     {
-      v29 = v541;
-      v30 = Logger.shared.unsafeMutableAddressor();
-      (*(v533 + 16))(v29, v30, v532);
+      v27 = v539;
+      v28 = Logger.shared.unsafeMutableAddressor();
+      (*(v531 + 16))(v27, v28, v530);
 
-      v432 = 32;
-      v433 = 7;
-      v31 = swift_allocObject();
-      v32 = v566;
-      v33 = v570;
-      v34 = v559;
-      v35 = v571;
-      v36 = v31;
-      v37 = v550;
-      v425 = v36;
-      *(v36 + 16) = v565;
-      *(v36 + 24) = v32;
-      v34(v37, v33, v35);
-      v418 = *(v545 + 80);
-      v419 = (v418 + 56) & ~v418;
-      v38 = swift_allocObject();
-      v39 = v568;
-      v40 = v419;
-      v41 = v557;
-      v42 = v550;
-      v43 = v571;
-      v44 = v525;
-      v45 = v572;
-      v422 = v38;
-      v38[2] = v527;
-      v38[3] = v43;
-      v38[4] = v44;
-      v423 = *(v39 + 5);
-      v38[5] = v423;
-      v38[6] = v45;
-      v420 = *(v41 + 32);
-      v421 = v41 + 32;
-      v420(v38 + v40, v42);
+      v430 = 32;
+      v431 = 7;
+      v29 = swift_allocObject();
+      v30 = v564;
+      v31 = v568;
+      v32 = v557;
+      v33 = v569;
+      v34 = v29;
+      v35 = v548;
+      v423 = v34;
+      *(v34 + 16) = v563;
+      *(v34 + 24) = v30;
+      v32(v35, v31, v33);
+      v416 = *(v543 + 80);
+      v417 = (v416 + 56) & ~v416;
+      v36 = swift_allocObject();
+      v37 = v566;
+      v38 = v417;
+      v39 = v555;
+      v40 = v548;
+      v41 = v569;
+      v42 = v523;
+      v43 = v570;
+      v420 = v36;
+      v36[2] = v525;
+      v36[3] = v41;
+      v36[4] = v42;
+      v421 = *(v37 + 5);
+      v36[5] = v421;
+      v36[6] = v43;
+      v418 = *(v39 + 32);
+      v419 = v39 + 32;
+      v418(v36 + v38, v40);
 
-      v46 = swift_allocObject();
-      v47 = v501;
-      v48 = v423;
-      v49 = v46;
-      v50 = v422;
-      v427 = v49;
-      v49[2] = v571;
-      v49[3] = v48;
-      v49[4] = v47;
-      v49[5] = v50;
+      v44 = swift_allocObject();
+      v45 = v499;
+      v46 = v421;
+      v47 = v44;
+      v48 = v420;
+      v425 = v47;
+      v47[2] = v569;
+      v47[3] = v46;
+      v47[4] = v45;
+      v47[5] = v48;
 
       swift_unknownObjectRetain();
-      v51 = swift_allocObject();
-      v52 = v571;
-      v53 = v525;
-      v54 = v423;
-      v55 = v572;
-      v56 = v553;
-      v434 = v51;
-      v51[2] = v527;
-      v51[3] = v52;
-      v51[4] = v53;
-      v51[5] = v54;
-      v51[6] = v55;
-      v51[7] = v56;
-      v451 = Logger.logObject.getter();
-      v452 = static os_log_type_t.default.getter();
-      v430 = 17;
-      v436 = swift_allocObject();
-      v429 = 32;
-      *(v436 + 16) = 32;
+      v49 = swift_allocObject();
+      v50 = v569;
+      v51 = v523;
+      v52 = v421;
+      v53 = v570;
+      v54 = v551;
+      v432 = v49;
+      v49[2] = v525;
+      v49[3] = v50;
+      v49[4] = v51;
+      v49[5] = v52;
+      v49[6] = v53;
+      v49[7] = v54;
+      v449 = Logger.logObject.getter();
+      v450 = static os_log_type_t.default.getter();
+      v428 = 17;
+      v434 = swift_allocObject();
+      v427 = 32;
+      *(v434 + 16) = 32;
+      v435 = swift_allocObject();
+      v429 = 8;
+      *(v435 + 16) = 8;
+      v55 = swift_allocObject();
+      v422 = v55;
+      *(v55 + 16) = v500;
+      *(v55 + 24) = 0;
+      v56 = swift_allocObject();
+      v57 = v422;
+      v436 = v56;
+      *(v56 + 16) = v501;
+      *(v56 + 24) = v57;
       v437 = swift_allocObject();
-      v431 = 8;
-      *(v437 + 16) = 8;
-      v57 = swift_allocObject();
-      v424 = v57;
-      *(v57 + 16) = v502;
-      *(v57 + 24) = 0;
+      *(v437 + 16) = v427;
+      v438 = swift_allocObject();
+      *(v438 + 16) = v429;
       v58 = swift_allocObject();
-      v59 = v424;
-      v438 = v58;
-      *(v58 + 16) = v503;
+      v59 = v423;
+      v424 = v58;
+      *(v58 + 16) = v502;
       *(v58 + 24) = v59;
-      v439 = swift_allocObject();
-      *(v439 + 16) = v429;
-      v440 = swift_allocObject();
-      *(v440 + 16) = v431;
       v60 = swift_allocObject();
-      v61 = v425;
-      v426 = v60;
-      *(v60 + 16) = v504;
+      v61 = v424;
+      v439 = v60;
+      *(v60 + 16) = v503;
       *(v60 + 24) = v61;
+      v440 = swift_allocObject();
+      *(v440 + 16) = v427;
+      v441 = swift_allocObject();
+      *(v441 + 16) = v429;
       v62 = swift_allocObject();
-      v63 = v426;
-      v441 = v62;
-      *(v62 + 16) = v505;
+      v63 = v425;
+      v426 = v62;
+      *(v62 + 16) = v504;
       *(v62 + 24) = v63;
-      v442 = swift_allocObject();
-      *(v442 + 16) = v429;
-      v443 = swift_allocObject();
-      *(v443 + 16) = v431;
       v64 = swift_allocObject();
-      v65 = v427;
-      v428 = v64;
-      *(v64 + 16) = v506;
+      v65 = v426;
+      v442 = v64;
+      *(v64 + 16) = v505;
       *(v64 + 24) = v65;
+      v443 = swift_allocObject();
+      *(v443 + 16) = v427;
+      v444 = swift_allocObject();
+      *(v444 + 16) = v429;
       v66 = swift_allocObject();
-      v67 = v428;
-      v444 = v66;
-      *(v66 + 16) = v507;
+      v67 = v432;
+      v433 = v66;
+      *(v66 + 16) = v506;
       *(v66 + 24) = v67;
-      v445 = swift_allocObject();
-      *(v445 + 16) = v429;
-      v446 = swift_allocObject();
-      *(v446 + 16) = v431;
       v68 = swift_allocObject();
-      v69 = v434;
-      v435 = v68;
-      *(v68 + 16) = v508;
+      v69 = v433;
+      v446 = v68;
+      *(v68 + 16) = v507;
       *(v68 + 24) = v69;
-      v70 = swift_allocObject();
-      v71 = v435;
-      v448 = v70;
-      *(v70 + 16) = v509;
-      *(v70 + 24) = v71;
-      v450 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v447 = _allocateUninitializedArray<A>(_:)();
-      v449 = v72;
+      v448 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+      v445 = _allocateUninitializedArray<A>(_:)();
+      v447 = v70;
 
-      v73 = v436;
-      v74 = v449;
-      *v449 = v510;
-      v74[1] = v73;
+      v71 = v434;
+      v72 = v447;
+      *v447 = v508;
+      v72[1] = v71;
 
-      v75 = v437;
-      v76 = v449;
-      v449[2] = v511;
-      v76[3] = v75;
+      v73 = v435;
+      v74 = v447;
+      v447[2] = v509;
+      v74[3] = v73;
 
-      v77 = v438;
-      v78 = v449;
-      v449[4] = v512;
-      v78[5] = v77;
+      v75 = v436;
+      v76 = v447;
+      v447[4] = v510;
+      v76[5] = v75;
 
-      v79 = v439;
-      v80 = v449;
-      v449[6] = v513;
-      v80[7] = v79;
+      v77 = v437;
+      v78 = v447;
+      v447[6] = v511;
+      v78[7] = v77;
 
-      v81 = v440;
-      v82 = v449;
-      v449[8] = v514;
-      v82[9] = v81;
+      v79 = v438;
+      v80 = v447;
+      v447[8] = v512;
+      v80[9] = v79;
 
-      v83 = v441;
-      v84 = v449;
-      v449[10] = v515;
-      v84[11] = v83;
+      v81 = v439;
+      v82 = v447;
+      v447[10] = v513;
+      v82[11] = v81;
 
-      v85 = v442;
-      v86 = v449;
-      v449[12] = v516;
-      v86[13] = v85;
+      v83 = v440;
+      v84 = v447;
+      v447[12] = v514;
+      v84[13] = v83;
 
-      v87 = v443;
-      v88 = v449;
-      v449[14] = v517;
-      v88[15] = v87;
+      v85 = v441;
+      v86 = v447;
+      v447[14] = v515;
+      v86[15] = v85;
 
-      v89 = v444;
-      v90 = v449;
-      v449[16] = v518;
-      v90[17] = v89;
+      v87 = v442;
+      v88 = v447;
+      v447[16] = v516;
+      v88[17] = v87;
 
-      v91 = v445;
-      v92 = v449;
-      v449[18] = v519;
-      v92[19] = v91;
+      v89 = v443;
+      v90 = v447;
+      v447[18] = v517;
+      v90[19] = v89;
+
+      v91 = v444;
+      v92 = v447;
+      v447[20] = v518;
+      v92[21] = v91;
 
       v93 = v446;
-      v94 = v449;
-      v449[20] = v520;
-      v94[21] = v93;
-
-      v95 = v448;
-      v96 = v449;
-      v449[22] = v521;
-      v96[23] = v95;
+      v94 = v447;
+      v447[22] = v519;
+      v94[23] = v93;
       _finalizeUninitializedArray<A>(_:)();
 
-      if (os_log_type_enabled(v451, v452))
+      if (os_log_type_enabled(v449, v450))
       {
-        v97 = v523;
-        v411 = static UnsafeMutablePointer.allocate(capacity:)();
-        v410 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v412 = createStorage<A>(capacity:type:)(0);
-        v413 = createStorage<A>(capacity:type:)(4);
-        v414 = &v579;
-        v579 = v411;
-        v415 = &v578;
-        v578 = v412;
-        v416 = &v577;
-        v577 = v413;
-        serialize(_:at:)(2, &v579);
-        serialize(_:at:)(4, v414);
-        v575 = v510;
-        v576 = v436;
-        closure #1 in osLogInternal(_:log:type:)(&v575, v414, v415, v416);
-        v417 = v97;
-        if (v97)
+        v95 = v521;
+        v409 = static UnsafeMutablePointer.allocate(capacity:)();
+        v408 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v410 = createStorage<A>(capacity:type:)(0, v408, v408);
+        v411 = createStorage<A>(capacity:type:)(4, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+        v412 = &v577;
+        v577 = v409;
+        v413 = &v576;
+        v576 = v410;
+        v414 = &v575;
+        v575 = v411;
+        serialize(_:at:)(2, &v577);
+        serialize(_:at:)(4, v412);
+        v573 = v508;
+        v574 = v434;
+        closure #1 in osLogInternal(_:log:type:)(&v573, v412, v413, v414);
+        v415 = v95;
+        if (v95)
         {
 
           __break(1u);
@@ -5044,53 +813,53 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
 
         else
         {
-          v575 = v511;
-          v576 = v437;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
-          v409 = 0;
-          v575 = v512;
-          v576 = v438;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
-          v408 = 0;
-          v575 = v513;
-          v576 = v439;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v509;
+          v574 = v435;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v407 = 0;
-          v575 = v514;
-          v576 = v440;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v510;
+          v574 = v436;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v406 = 0;
-          v575 = v515;
-          v576 = v441;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v511;
+          v574 = v437;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v405 = 0;
-          v575 = v516;
-          v576 = v442;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v512;
+          v574 = v438;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v404 = 0;
-          v575 = v517;
-          v576 = v443;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v513;
+          v574 = v439;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v403 = 0;
-          v575 = v518;
-          v576 = v444;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v514;
+          v574 = v440;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v402 = 0;
-          v575 = v519;
-          v576 = v445;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v515;
+          v574 = v441;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v401 = 0;
-          v575 = v520;
-          v576 = v446;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
+          v573 = v516;
+          v574 = v442;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
           v400 = 0;
-          v575 = v521;
-          v576 = v448;
-          closure #1 in osLogInternal(_:log:type:)(&v575, &v579, &v578, &v577);
-          _os_log_impl(&dword_1D93D0000, v451, v452, "HeadphoneManager: %s: PropertyWrapper (Set Remote) %s value:%s id: %s", v411, 0x2Au);
-          destroyStorage<A>(_:count:)(v412, 0, v410);
-          destroyStorage<A>(_:count:)(v413, 4, MEMORY[0x1E69E7CA0] + 8);
-          MEMORY[0x1DA730D30](v411, MEMORY[0x1E69E7508]);
+          v573 = v517;
+          v574 = v443;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
+          v399 = 0;
+          v573 = v518;
+          v574 = v444;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
+          v398 = 0;
+          v573 = v519;
+          v574 = v446;
+          closure #1 in osLogInternal(_:log:type:)(&v573, &v577, &v576, &v575);
+          _os_log_impl(&dword_1D93D0000, v449, v450, "HeadphoneManager: %s: PropertyWrapper (Set Remote) %s value:%s id: %s", v409, 0x2Au);
+          destroyStorage<A>(_:count:)(v410, 0, v408);
+          destroyStorage<A>(_:count:)(v411, 4, MEMORY[0x1E69E7CA0] + 8);
+          MEMORY[0x1DA730D30](v409, MEMORY[0x1E69E7508]);
         }
       }
 
@@ -5098,98 +867,98 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
       {
       }
 
-      MEMORY[0x1E69E5920](v451);
-      (*(v533 + 8))(v541, v532);
-      outlined init with copy of HearingRecordConfig<A, B>(v562, v563, v571, v568);
-      v388 = *(v563 + v568[17]);
+      MEMORY[0x1E69E5920](v449);
+      (*(v531 + 8))(v539, v530);
+      outlined init with copy of HearingRecordConfig<A, B>(v560, v561, v569, v566);
+      v386 = *(v561 + v566[17]);
 
-      outlined destroy of HearingRecordConfig<A, B>(v563, v571, v568);
-      v399 = (*(v525 + 32))(v388, v570, v571, v527);
+      outlined destroy of HearingRecordConfig<A, B>(v561, v569, v566);
+      v397 = (*(v523 + 32))(v386, v568, v569, v525);
 
-      v587 = v399;
-      v389 = *Headphone_Manager.shared.unsafeMutableAddressor();
-      v98 = v389;
-      v99 = MEMORY[0x1E69E5928](v389);
-      v398 = (*((*v98 & *MEMORY[0x1E69E7D40]) + 0x150))(v99);
-      MEMORY[0x1E69E5920](v389);
-      v100 = (*(v525 + 24))(v527);
-      v390 = v101;
-      v397 = MEMORY[0x1DA730940](v100);
+      v585 = v397;
+      v387 = *Headphone_Manager.shared.unsafeMutableAddressor();
+      v96 = v387;
+      v97 = MEMORY[0x1E69E5928](v387);
+      v396 = (*((*v96 & *MEMORY[0x1E69E7D40]) + 0x150))(v97);
+      MEMORY[0x1E69E5920](v387);
+      v98 = (*(v523 + 24))(v525);
+      v388 = v99;
+      v395 = MEMORY[0x1DA730940](v98);
 
-      v559(v550, v569, v571);
-      MEMORY[0x1E69E5928](v399);
-      v559(v547, v570, v571);
+      v557(v548, v567, v569);
+      MEMORY[0x1E69E5928](v397);
+      v557(v545, v568, v569);
       swift_unknownObjectRetain();
-      v102 = v418;
-      v391 = (v102 + 64) & ~v102;
-      v392 = (v391 + v549 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v393 = (v392 + 8 + v102) & ~v102;
-      v394 = (v393 + v549 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v103 = swift_allocObject();
-      v104 = v525;
-      v105 = v423;
-      v106 = v572;
-      v107 = v391;
-      v108 = v550;
-      v109 = v420;
-      v110 = v571;
-      v111 = v552;
-      v395 = v103;
-      v103[2] = v527;
-      v103[3] = v110;
-      v103[4] = v104;
-      v103[5] = v105;
-      v103[6] = v106;
-      v103[7] = v111;
-      v109(v103 + v107, v108);
-      v112 = v393;
-      v113 = v547;
-      v114 = v420;
-      v115 = v571;
-      v116 = v395;
-      *(v395 + v392) = v399;
-      v114(&v116[v112], v113, v115);
-      v117 = v522;
-      v118 = v395;
-      *(v395 + v394) = v553;
-      v585 = v117;
-      v586 = v118;
-      v580 = MEMORY[0x1E69E9820];
-      v581 = 1107296256;
-      v582 = 0;
-      v583 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ();
-      v584 = &block_descriptor_3;
-      v396 = _Block_copy(&v580);
+      v100 = v416;
+      v389 = (v100 + 64) & ~v100;
+      v390 = (v389 + v547 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v391 = (v390 + 8 + v100) & ~v100;
+      v392 = (v391 + v547 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v101 = swift_allocObject();
+      v102 = v523;
+      v103 = v421;
+      v104 = v570;
+      v105 = v389;
+      v106 = v548;
+      v107 = v418;
+      v108 = v569;
+      v109 = v550;
+      v393 = v101;
+      v101[2] = v525;
+      v101[3] = v108;
+      v101[4] = v102;
+      v101[5] = v103;
+      v101[6] = v104;
+      v101[7] = v109;
+      v107(v101 + v105, v106);
+      v110 = v391;
+      v111 = v545;
+      v112 = v418;
+      v113 = v569;
+      v114 = v393;
+      *&v393[v390] = v397;
+      v112(&v114[v110], v111, v113);
+      v115 = v520;
+      v116 = v393;
+      *&v393[v392] = v551;
+      v583 = v115;
+      v584 = v116;
+      v578 = MEMORY[0x1E69E9820];
+      v579 = 1107296256;
+      v580 = 0;
+      v581 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ();
+      v582 = &block_descriptor_3;
+      v394 = _Block_copy(&v578);
 
-      [v398 modifyDeviceConfig:v399 identifier:v397 completion:v396];
-      _Block_release(v396);
+      [v396 modifyDeviceConfig:v397 identifier:v395 completion:v394];
+      _Block_release(v394);
+      MEMORY[0x1E69E5920](v395);
+      MEMORY[0x1E69E5920](v396);
       MEMORY[0x1E69E5920](v397);
-      MEMORY[0x1E69E5920](v398);
-      MEMORY[0x1E69E5920](v399);
 
-      (*(v557 + 8))(v569, v571);
+      (*(v555 + 8))(v567, v569);
     }
 
     else
     {
-      (*(v525 + 16))(v596, v527);
-      v387 = &v595;
-      v595 = v596[0];
-      v386 = &v594;
-      v594 = 3;
+      (*(v523 + 16))(v594, v525);
+      v385 = &v593;
+      v593 = v594[0];
+      v384 = &v592;
+      v592 = 3;
       lazy protocol witness table accessor for type HearingRecordPropertyRemoteSendState and conformance HearingRecordPropertyRemoteSendState();
       if (dispatch thunk of static Equatable.== infix(_:_:)())
       {
 
-        (*(v557 + 8))(v569, v571);
+        (*(v555 + 8))(v567, v569);
       }
 
       else
       {
-        v385 = (v562 + v568[15]);
-        if (*v385)
+        v383 = (v560 + v566[15]);
+        if (*v383)
         {
-          v384 = *v385;
+          v382 = *v383;
 
           CurrentValueSubject.send(_:)();
         }
@@ -5198,275 +967,275 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
         type metadata accessor for ObservableObjectPublisher();
         if (swift_dynamicCast())
         {
-          v383 = v567[2];
+          v381 = v565[2];
         }
 
         else
         {
-          v383 = 0;
+          v381 = 0;
         }
 
-        v382 = v383;
-        if (v383)
+        v380 = v381;
+        if (v381)
         {
-          v381 = v382;
-          v380 = v382;
-          v588 = v382;
+          v379 = v380;
+          v378 = v380;
+          v586 = v380;
           ObservableObjectPublisher.send()();
         }
 
-        v119 = v539;
-        v120 = Logger.shared.unsafeMutableAddressor();
-        (*(v533 + 16))(v119, v120, v532);
+        v117 = v537;
+        v118 = Logger.shared.unsafeMutableAddressor();
+        (*(v531 + 16))(v117, v118, v530);
 
-        v356 = 32;
-        v357 = 7;
-        v121 = swift_allocObject();
-        v122 = v566;
-        v123 = v570;
-        v124 = v559;
-        v125 = v571;
-        v126 = v121;
-        v127 = v550;
-        v347 = v126;
-        *(v126 + 16) = v565;
-        *(v126 + 24) = v122;
-        v124(v127, v123, v125);
-        v342 = (*(v545 + 80) + 56) & ~*(v545 + 80);
-        v128 = swift_allocObject();
-        v129 = v568;
-        v130 = v342;
-        v131 = v557;
-        v132 = v550;
-        v133 = v571;
-        v134 = v525;
-        v135 = v572;
-        v343 = v128;
-        v128[2] = v527;
-        v128[3] = v133;
-        v128[4] = v134;
-        v345 = *(v129 + 5);
-        v128[5] = v345;
-        v128[6] = v135;
-        (*(v131 + 32))(v128 + v130, v132);
+        v354 = 32;
+        v355 = 7;
+        v119 = swift_allocObject();
+        v120 = v564;
+        v121 = v568;
+        v122 = v557;
+        v123 = v569;
+        v124 = v119;
+        v125 = v548;
+        v345 = v124;
+        *(v124 + 16) = v563;
+        *(v124 + 24) = v120;
+        v122(v125, v121, v123);
+        v340 = (*(v543 + 80) + 56) & ~*(v543 + 80);
+        v126 = swift_allocObject();
+        v127 = v566;
+        v128 = v340;
+        v129 = v555;
+        v130 = v548;
+        v131 = v569;
+        v132 = v523;
+        v133 = v570;
+        v341 = v126;
+        v126[2] = v525;
+        v126[3] = v131;
+        v126[4] = v132;
+        v343 = *(v127 + 5);
+        v126[5] = v343;
+        v126[6] = v133;
+        (*(v129 + 32))(v126 + v128, v130);
 
-        v136 = swift_allocObject();
-        v137 = v475;
-        v138 = v345;
-        v139 = v136;
-        v140 = v343;
-        v349 = v139;
-        v139[2] = v571;
-        v139[3] = v138;
-        v139[4] = v137;
-        v139[5] = v140;
+        v134 = swift_allocObject();
+        v135 = v473;
+        v136 = v343;
+        v137 = v134;
+        v138 = v341;
+        v347 = v137;
+        v137[2] = v569;
+        v137[3] = v136;
+        v137[4] = v135;
+        v137[5] = v138;
 
         swift_unknownObjectRetain();
-        v344 = 64;
-        v141 = swift_allocObject();
-        v142 = v553;
-        v143 = v571;
-        v144 = v525;
-        v145 = v345;
-        v146 = v572;
-        v351 = v141;
-        v141[2] = v527;
-        v141[3] = v143;
-        v141[4] = v144;
-        v141[5] = v145;
-        v141[6] = v146;
-        v141[7] = v142;
+        v342 = 64;
+        v139 = swift_allocObject();
+        v140 = v551;
+        v141 = v569;
+        v142 = v523;
+        v143 = v343;
+        v144 = v570;
+        v349 = v139;
+        v139[2] = v525;
+        v139[3] = v141;
+        v139[4] = v142;
+        v139[5] = v143;
+        v139[6] = v144;
+        v139[7] = v140;
 
-        v147 = swift_allocObject();
-        v148 = v571;
-        v149 = v525;
-        v150 = v345;
-        v151 = v572;
-        v152 = v552;
-        v358 = v147;
-        v147[2] = v527;
-        v147[3] = v148;
-        v147[4] = v149;
-        v147[5] = v150;
-        v147[6] = v151;
-        v147[7] = v152;
-        v378 = Logger.logObject.getter();
-        v379 = static os_log_type_t.default.getter();
-        v354 = 17;
-        v360 = swift_allocObject();
-        v353 = 32;
-        *(v360 + 16) = 32;
+        v145 = swift_allocObject();
+        v146 = v569;
+        v147 = v523;
+        v148 = v343;
+        v149 = v570;
+        v150 = v550;
+        v356 = v145;
+        v145[2] = v525;
+        v145[3] = v146;
+        v145[4] = v147;
+        v145[5] = v148;
+        v145[6] = v149;
+        v145[7] = v150;
+        v376 = Logger.logObject.getter();
+        v377 = static os_log_type_t.default.getter();
+        v352 = 17;
+        v358 = swift_allocObject();
+        v351 = 32;
+        *(v358 + 16) = 32;
+        v359 = swift_allocObject();
+        v353 = 8;
+        *(v359 + 16) = 8;
+        v151 = swift_allocObject();
+        v344 = v151;
+        *(v151 + 16) = v474;
+        *(v151 + 24) = 0;
+        v152 = swift_allocObject();
+        v153 = v344;
+        v360 = v152;
+        *(v152 + 16) = v475;
+        *(v152 + 24) = v153;
         v361 = swift_allocObject();
-        v355 = 8;
-        *(v361 + 16) = 8;
-        v153 = swift_allocObject();
-        v346 = v153;
-        *(v153 + 16) = v476;
-        *(v153 + 24) = 0;
+        *(v361 + 16) = v351;
+        v362 = swift_allocObject();
+        *(v362 + 16) = v353;
         v154 = swift_allocObject();
-        v155 = v346;
-        v362 = v154;
-        *(v154 + 16) = v477;
+        v155 = v345;
+        v346 = v154;
+        *(v154 + 16) = v476;
         *(v154 + 24) = v155;
-        v363 = swift_allocObject();
-        *(v363 + 16) = v353;
-        v364 = swift_allocObject();
-        *(v364 + 16) = v355;
         v156 = swift_allocObject();
-        v157 = v347;
-        v348 = v156;
-        *(v156 + 16) = v478;
+        v157 = v346;
+        v363 = v156;
+        *(v156 + 16) = v477;
         *(v156 + 24) = v157;
+        v364 = swift_allocObject();
+        *(v364 + 16) = v351;
+        v365 = swift_allocObject();
+        *(v365 + 16) = v353;
         v158 = swift_allocObject();
-        v159 = v348;
-        v365 = v158;
-        *(v158 + 16) = v479;
+        v159 = v347;
+        v348 = v158;
+        *(v158 + 16) = v478;
         *(v158 + 24) = v159;
-        v366 = swift_allocObject();
-        *(v366 + 16) = v353;
-        v367 = swift_allocObject();
-        *(v367 + 16) = v355;
         v160 = swift_allocObject();
-        v161 = v349;
-        v350 = v160;
-        *(v160 + 16) = v480;
+        v161 = v348;
+        v366 = v160;
+        *(v160 + 16) = v479;
         *(v160 + 24) = v161;
+        v367 = swift_allocObject();
+        *(v367 + 16) = v351;
+        v368 = swift_allocObject();
+        *(v368 + 16) = v353;
         v162 = swift_allocObject();
-        v163 = v350;
-        v368 = v162;
-        *(v162 + 16) = v481;
+        v163 = v349;
+        v350 = v162;
+        *(v162 + 16) = v480;
         *(v162 + 24) = v163;
-        v369 = swift_allocObject();
-        *(v369 + 16) = v353;
-        v370 = swift_allocObject();
-        *(v370 + 16) = v355;
         v164 = swift_allocObject();
-        v165 = v351;
-        v352 = v164;
-        *(v164 + 16) = v482;
+        v165 = v350;
+        v369 = v164;
+        *(v164 + 16) = v481;
         *(v164 + 24) = v165;
+        v370 = swift_allocObject();
+        *(v370 + 16) = v351;
+        v371 = swift_allocObject();
+        *(v371 + 16) = v353;
         v166 = swift_allocObject();
-        v167 = v352;
-        v371 = v166;
-        *(v166 + 16) = v483;
+        v167 = v356;
+        v357 = v166;
+        *(v166 + 16) = v482;
         *(v166 + 24) = v167;
-        v372 = swift_allocObject();
-        *(v372 + 16) = v353;
-        v373 = swift_allocObject();
-        *(v373 + 16) = v355;
         v168 = swift_allocObject();
-        v169 = v358;
-        v359 = v168;
-        *(v168 + 16) = v484;
+        v169 = v357;
+        v373 = v168;
+        *(v168 + 16) = v483;
         *(v168 + 24) = v169;
-        v170 = swift_allocObject();
-        v171 = v359;
-        v375 = v170;
-        *(v170 + 16) = v485;
-        *(v170 + 24) = v171;
-        v377 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-        v374 = _allocateUninitializedArray<A>(_:)();
-        v376 = v172;
+        v375 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+        v372 = _allocateUninitializedArray<A>(_:)();
+        v374 = v170;
 
-        v173 = v360;
-        v174 = v376;
-        *v376 = v486;
-        v174[1] = v173;
+        v171 = v358;
+        v172 = v374;
+        *v374 = v484;
+        v172[1] = v171;
 
-        v175 = v361;
-        v176 = v376;
-        v376[2] = v487;
-        v176[3] = v175;
+        v173 = v359;
+        v174 = v374;
+        v374[2] = v485;
+        v174[3] = v173;
 
-        v177 = v362;
-        v178 = v376;
-        v376[4] = v488;
-        v178[5] = v177;
+        v175 = v360;
+        v176 = v374;
+        v374[4] = v486;
+        v176[5] = v175;
 
-        v179 = v363;
-        v180 = v376;
-        v376[6] = v489;
-        v180[7] = v179;
+        v177 = v361;
+        v178 = v374;
+        v374[6] = v487;
+        v178[7] = v177;
 
-        v181 = v364;
-        v182 = v376;
-        v376[8] = v490;
-        v182[9] = v181;
+        v179 = v362;
+        v180 = v374;
+        v374[8] = v488;
+        v180[9] = v179;
 
-        v183 = v365;
-        v184 = v376;
-        v376[10] = v491;
-        v184[11] = v183;
+        v181 = v363;
+        v182 = v374;
+        v374[10] = v489;
+        v182[11] = v181;
 
-        v185 = v366;
-        v186 = v376;
-        v376[12] = v492;
-        v186[13] = v185;
+        v183 = v364;
+        v184 = v374;
+        v374[12] = v490;
+        v184[13] = v183;
 
-        v187 = v367;
-        v188 = v376;
-        v376[14] = v493;
-        v188[15] = v187;
+        v185 = v365;
+        v186 = v374;
+        v374[14] = v491;
+        v186[15] = v185;
 
-        v189 = v368;
-        v190 = v376;
-        v376[16] = v494;
-        v190[17] = v189;
+        v187 = v366;
+        v188 = v374;
+        v374[16] = v492;
+        v188[17] = v187;
 
-        v191 = v369;
-        v192 = v376;
-        v376[18] = v495;
-        v192[19] = v191;
+        v189 = v367;
+        v190 = v374;
+        v374[18] = v493;
+        v190[19] = v189;
 
-        v193 = v370;
-        v194 = v376;
-        v376[20] = v496;
-        v194[21] = v193;
+        v191 = v368;
+        v192 = v374;
+        v374[20] = v494;
+        v192[21] = v191;
 
-        v195 = v371;
-        v196 = v376;
-        v376[22] = v497;
-        v196[23] = v195;
+        v193 = v369;
+        v194 = v374;
+        v374[22] = v495;
+        v194[23] = v193;
 
-        v197 = v372;
-        v198 = v376;
-        v376[24] = v498;
-        v198[25] = v197;
+        v195 = v370;
+        v196 = v374;
+        v374[24] = v496;
+        v196[25] = v195;
+
+        v197 = v371;
+        v198 = v374;
+        v374[26] = v497;
+        v198[27] = v197;
 
         v199 = v373;
-        v200 = v376;
-        v376[26] = v499;
-        v200[27] = v199;
-
-        v201 = v375;
-        v202 = v376;
-        v376[28] = v500;
-        v202[29] = v201;
+        v200 = v374;
+        v374[28] = v498;
+        v200[29] = v199;
         _finalizeUninitializedArray<A>(_:)();
 
-        if (os_log_type_enabled(v378, v379))
+        if (os_log_type_enabled(v376, v377))
         {
-          v203 = v523;
-          v335 = static UnsafeMutablePointer.allocate(capacity:)();
-          v334 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v336 = createStorage<A>(capacity:type:)(0);
-          v204 = createStorage<A>(capacity:type:)(5);
-          v205 = v567;
-          v206 = v336;
-          v337 = v204;
-          v338 = &v593;
-          v567[1] = v335;
-          v339 = &v592;
-          *v205 = v206;
-          v340 = &v591;
-          v591 = v204;
-          serialize(_:at:)(2, &v593);
-          serialize(_:at:)(5, v338);
-          v589 = v486;
-          v590 = v360;
-          closure #1 in osLogInternal(_:log:type:)(&v589, v338, v339, v340);
-          v341 = v203;
-          if (v203)
+          v201 = v521;
+          v333 = static UnsafeMutablePointer.allocate(capacity:)();
+          v332 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          v334 = createStorage<A>(capacity:type:)(0, v332, v332);
+          v202 = createStorage<A>(capacity:type:)(5, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+          v203 = v565;
+          v204 = v334;
+          v335 = v202;
+          v336 = &v591;
+          v565[1] = v333;
+          v337 = &v590;
+          *v203 = v204;
+          v338 = &v589;
+          v589 = v202;
+          serialize(_:at:)(2, &v591);
+          serialize(_:at:)(5, v336);
+          v587 = v484;
+          v588 = v358;
+          closure #1 in osLogInternal(_:log:type:)(&v587, v336, v337, v338);
+          v339 = v201;
+          if (v201)
           {
 
             __break(1u);
@@ -5474,65 +1243,65 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
 
           else
           {
-            v589 = v487;
-            v590 = v361;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
-            v333 = 0;
-            v589 = v488;
-            v590 = v362;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
-            v332 = 0;
-            v589 = v489;
-            v590 = v363;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v485;
+            v588 = v359;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v331 = 0;
-            v589 = v490;
-            v590 = v364;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v486;
+            v588 = v360;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v330 = 0;
-            v589 = v491;
-            v590 = v365;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v487;
+            v588 = v361;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v329 = 0;
-            v589 = v492;
-            v590 = v366;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v488;
+            v588 = v362;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v328 = 0;
-            v589 = v493;
-            v590 = v367;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v489;
+            v588 = v363;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v327 = 0;
-            v589 = v494;
-            v590 = v368;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v490;
+            v588 = v364;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v326 = 0;
-            v589 = v495;
-            v590 = v369;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v491;
+            v588 = v365;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v325 = 0;
-            v589 = v496;
-            v590 = v370;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v492;
+            v588 = v366;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v324 = 0;
-            v589 = v497;
-            v590 = v371;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v493;
+            v588 = v367;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v323 = 0;
-            v589 = v498;
-            v590 = v372;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v494;
+            v588 = v368;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v322 = 0;
-            v589 = v499;
-            v590 = v373;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
+            v587 = v495;
+            v588 = v369;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
             v321 = 0;
-            v589 = v500;
-            v590 = v375;
-            closure #1 in osLogInternal(_:log:type:)(&v589, &v593, &v592, &v591);
-            _os_log_impl(&dword_1D93D0000, v378, v379, "HeadphoneManager: %s: PropertyWrapper (Set) %s value:%s id: %s %s", v335, 0x34u);
-            destroyStorage<A>(_:count:)(v336, 0, v334);
-            destroyStorage<A>(_:count:)(v337, 5, MEMORY[0x1E69E7CA0] + 8);
-            MEMORY[0x1DA730D30](v335, MEMORY[0x1E69E7508]);
+            v587 = v496;
+            v588 = v370;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
+            v320 = 0;
+            v587 = v497;
+            v588 = v371;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
+            v319 = 0;
+            v587 = v498;
+            v588 = v373;
+            closure #1 in osLogInternal(_:log:type:)(&v587, &v591, &v590, &v589);
+            _os_log_impl(&dword_1D93D0000, v376, v377, "HeadphoneManager: %s: PropertyWrapper (Set) %s value:%s id: %s %s", v333, 0x34u);
+            destroyStorage<A>(_:count:)(v334, 0, v332);
+            destroyStorage<A>(_:count:)(v335, 5, MEMORY[0x1E69E7CA0] + 8);
+            MEMORY[0x1DA730D30](v333, MEMORY[0x1E69E7508]);
           }
         }
 
@@ -5540,16 +1309,16 @@ uint64_t static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, v
         {
         }
 
-        MEMORY[0x1E69E5920](v378);
-        (*(v533 + 8))(v539, v532);
+        MEMORY[0x1E69E5920](v376);
+        (*(v531 + 8))(v537, v530);
 
-        (*(v557 + 8))(v569, v571);
+        (*(v555 + 8))(v567, v569);
       }
     }
   }
 
   swift_unknownObjectRelease();
-  return (*(v557 + 8))(v570, v571);
+  return (*(v555 + 8))(v568, v569);
 }
 
 uint64_t outlined init with copy of HearingRecordConfig<A, B>(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
@@ -5572,50 +1341,26 @@ uint64_t outlined init with copy of HearingRecordConfig<A, B>(uint64_t a1, uint6
   return result;
 }
 
-uint64_t outlined destroy of HearingRecordConfig<A, B>(uint64_t a1, uint64_t a2, int *a3)
+void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> outlined destroy of HearingRecordConfig<A, B>(uint64_t a1, uint64_t a2, int *a3)
 {
   (*(*(a2 - 8) + 8))();
-  v3 = *(a1 + a3[15]);
-
-  v4 = *(a1 + a3[16]);
-
-  v5 = *(a1 + a3[17]);
-
-  return a1;
-}
-
-uint64_t partial apply for implicit closure #2 in static HearingRecordConfig.subscript.setter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  implicit closure #2 in static HearingRecordConfig.subscript.setter();
-  return result;
-}
-
-uint64_t partial apply for implicit closure #3 in static HearingRecordConfig.subscript.setter@<X0>(uint64_t a1@<X8>)
-{
-  v6 = v1[2];
-  v2 = v1[4];
-  v3 = v1[5];
-  v4 = v1[6];
-  return implicit closure #3 in static HearingRecordConfig.subscript.setter(v1 + ((*(*(v1[3] - 8) + 80) + 56) & ~*(*(v1[3] - 8) + 80)), v1[3], a1);
 }
 
 uint64_t implicit closure #9 in static HearingRecordConfig.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10[4] = a2;
-  v10[5] = a3;
-  v10[6] = a4;
-  v10[7] = a5;
-  v10[8] = a6;
-  v7 = type metadata accessor for HearingRecordConfig();
+  v11[0] = a2;
+  v11[1] = a3;
+  v11[2] = a4;
+  v11[3] = a5;
+  v11[4] = a6;
+  v7 = type metadata accessor for HearingRecordConfig(0, v11);
   v8 = swift_projectBox();
   swift_beginAccess();
   v9 = *(v8 + *(v7 + 60));
 
   swift_endAccess();
-  v10[0] = v9;
-  outlined destroy of HeadphonePropertyWrapperPublisher<B>?(v10);
+  v10 = v9;
+  outlined destroy of HeadphonePropertyWrapperPublisher<B>?(&v10);
   if (v9)
   {
     return String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("publisher exists", 0x10uLL, 1)._countAndFlagsBits;
@@ -5675,7 +1420,7 @@ uint64_t closure #1 in static HearingRecordConfig.subscript.setter(void *a1, uin
   v223 = closure #1 in OSLogArguments.append(_:)partial apply;
   v224 = closure #1 in OSLogArguments.append(_:)partial apply;
   v225 = closure #1 in OSLogArguments.append(_:)partial apply;
-  v280 = 0;
+  v276 = 0;
   v274 = 0;
   v273 = 0;
   v272 = 0;
@@ -5684,8 +1429,8 @@ uint64_t closure #1 in static HearingRecordConfig.subscript.setter(void *a1, uin
   v268 = 0;
   v226 = 0;
   v262 = 0;
-  v282 = a7;
-  v281 = a8;
+  v278 = a7;
+  v277 = a8;
   v227 = *(a9 + 8);
   v234 = 0;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
@@ -5704,16 +1449,15 @@ uint64_t closure #1 in static HearingRecordConfig.subscript.setter(void *a1, uin
   v242 = v98 - v241;
   v243 = *(v13 - 8);
   v244 = v13 - 8;
-  v14 = (*(v243 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v12);
+  v14 = MEMORY[0x1EEE9AC00](v12);
   v247 = v98 - v15;
-  v280 = v255;
-  v275 = v16;
-  v276 = v17;
-  v277 = v245;
-  v278 = v246;
-  v279 = v18;
-  v249 = type metadata accessor for HearingRecordConfig();
+  v276 = v255;
+  v275[0] = v16;
+  v275[1] = v17;
+  v275[2] = v245;
+  v275[3] = v246;
+  v275[4] = v18;
+  v249 = type metadata accessor for HearingRecordConfig(v14, v275);
   v254 = swift_projectBox();
   v274 = v254;
   v273 = v250;
@@ -5874,8 +1618,8 @@ uint64_t closure #1 in static HearingRecordConfig.subscript.setter(void *a1, uin
       v64 = v226;
       v152 = static UnsafeMutablePointer.allocate(capacity:)();
       v151 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v153 = createStorage<A>(capacity:type:)(0);
-      v154 = createStorage<A>(capacity:type:)(3);
+      v153 = createStorage<A>(capacity:type:)(0, v151, v151);
+      v154 = createStorage<A>(capacity:type:)(3, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
       v155 = &v260;
       v260 = v152;
       v156 = &v259;
@@ -6064,8 +1808,8 @@ uint64_t closure #1 in static HearingRecordConfig.subscript.setter(void *a1, uin
       v96 = v226;
       v111 = static UnsafeMutablePointer.allocate(capacity:)();
       v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v112 = createStorage<A>(capacity:type:)(0);
-      v113 = createStorage<A>(capacity:type:)(2);
+      v112 = createStorage<A>(capacity:type:)(0, v110, v110);
+      v113 = createStorage<A>(capacity:type:)(2, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
       v114 = &v267;
       v267 = v111;
       v115 = &v266;
@@ -6199,29 +1943,26 @@ uint64_t implicit closure #7 in closure #1 in static HearingRecordConfig.subscri
   return v4;
 }
 
-void (*static HearingRecordConfig.subscript.modify(void *a1, uint64_t a2, uint64_t *a3, uint64_t a4))(uint64_t **a1, char a2)
+void (*static HearingRecordConfig.subscript.modify(void *a1, uint64_t a2, void *a3, uint64_t a4))(uint64_t **a1, char a2)
 {
-  v8 = __swift_coroFrameAllocStub(0x38uLL);
+  v8 = __swift_coroFrameAllocStub(0x38uLL, 10432);
   *a1 = v8;
   v8[2] = a4;
   v8[1] = a3;
   *v8 = a2;
-  v9 = MEMORY[0x1E69E6F98];
-  v10 = *a3;
   v4 = *(*a3 + *MEMORY[0x1E69E6F98] + 8);
   v8[3] = v4;
   v6 = *(v4 - 8);
   v8[4] = v6;
   v7 = *(v6 + 64);
-  v8[5] = __swift_coroFrameAllocStub(v7);
-  v15 = __swift_coroFrameAllocStub(v7);
-  v8[6] = v15;
-  v16 = *(v10 + *v9);
+  v8[5] = __swift_coroFrameAllocStub(v7, 10432);
+  v13 = __swift_coroFrameAllocStub(v7, 10432);
+  v8[6] = v13;
   swift_unknownObjectRetain();
 
   swift_unknownObjectRetain();
 
-  static HearingRecordConfig.subscript.getter(a3, v15);
+  static HearingRecordConfig.subscript.getter(a3, v13);
   return static HearingRecordConfig.subscript.modify;
 }
 
@@ -6260,10 +2001,8 @@ void static HearingRecordConfig.subscript.modify(uint64_t **a1, char a2)
   free(v11);
 }
 
-void HearingRecordConfig.wrappedValue.getter(uint64_t a1)
+void HearingRecordConfig.wrappedValue.getter()
 {
-  v2 = *(a1 + 16);
-  v1 = *(a1 + 24);
   implicit closure #1 in default argument 0 of fatalError(_:file:line:)();
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
@@ -6271,69 +2010,66 @@ void HearingRecordConfig.wrappedValue.getter(uint64_t a1)
 
 void key path getter for HearingRecordConfig.wrappedValue : <A, B>HearingRecordConfig<A, B>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v19 = a4;
-  v15 = a1;
+  v17 = a4;
+  v13 = a1;
   v4 = (a2 + a3 - 40);
-  v30 = *v4;
-  v21 = v4[1];
-  v29 = v21;
-  v13 = v4[2];
-  v14 = v4[3];
-  v5 = v4[4];
-  v17 = *(v21 - 8);
-  v18 = v21 - 8;
-  v6 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v22[6] = *v4;
+  v19 = v4[1];
+  v22[5] = v19;
+  v11 = v4[2];
+  v12 = v4[3];
+  v15 = *(v19 - 8);
+  v16 = v19 - 8;
   MEMORY[0x1EEE9AC00](a1);
-  v20 = &v13 - v7;
-  v24 = v8;
-  v25 = v21;
-  v26 = v13;
-  v27 = v14;
-  v28 = v9;
-  v22 = type metadata accessor for HearingRecordConfig();
-  v16 = (*(*(v22 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v10 = MEMORY[0x1EEE9AC00](v15);
-  v23 = &v13 - v16;
-  outlined init with copy of HearingRecordConfig<A, B>(v10, &v13 - v16, v11, v12);
-  HearingRecordConfig.wrappedValue.getter(v22);
+  v18 = &v11 - v5;
+  v22[0] = v6;
+  v22[1] = v19;
+  v22[2] = v11;
+  v22[3] = v12;
+  v22[4] = v7;
+  v20 = type metadata accessor for HearingRecordConfig(0, v22);
+  v14 = (*(*(v20 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = MEMORY[0x1EEE9AC00](v13);
+  v21 = &v11 - v14;
+  outlined init with copy of HearingRecordConfig<A, B>(v8, &v11 - v14, v9, v10);
+  HearingRecordConfig.wrappedValue.getter();
 }
 
 uint64_t sub_1D9499064()
 {
-  v1 = *(v0 - 120);
   (*(*(v0 - 128) + 32))(*(v0 - 112), *(v0 - 104), *(v0 - 96));
-  return outlined destroy of HearingRecordConfig<A, B>(*(v0 - 80), *(v0 - 96), *(v0 - 88));
+  result = *(v0 - 80);
+  outlined destroy of HearingRecordConfig<A, B>(result, *(v0 - 96), *(v0 - 88));
+  return result;
 }
 
 void key path setter for HearingRecordConfig.wrappedValue : <A, B>HearingRecordConfig<A, B>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = a1;
+  v5 = a1;
   v4 = (a3 + a4 - 40);
-  v9 = *v4;
-  v21 = v9;
-  v10 = v4[1];
-  v20 = v10;
-  v11 = v4[2];
-  v12 = v4[3];
-  v13 = v4[4];
-  v8 = *(v10 - 8);
-  v7 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v8 = *v4;
+  v14[6] = v8;
+  v9 = v4[1];
+  v14[5] = v9;
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v7 = *(v9 - 8);
+  v6 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](a1);
-  v14 = &v6 - v7;
-  (*(v8 + 16))(&v6 - v7);
-  v15 = v9;
-  v16 = v10;
-  v17 = v11;
-  v18 = v12;
-  v19 = v13;
-  v5 = type metadata accessor for HearingRecordConfig();
-  HearingRecordConfig.wrappedValue.setter(v14, v5);
+  v13 = &v5 - v6;
+  (*(v7 + 16))(&v5 - v6);
+  v14[0] = v8;
+  v14[1] = v9;
+  v14[2] = v10;
+  v14[3] = v11;
+  v14[4] = v12;
+  type metadata accessor for HearingRecordConfig(0, v14);
+  HearingRecordConfig.wrappedValue.setter();
 }
 
-void HearingRecordConfig.wrappedValue.setter(uint64_t a1, uint64_t a2)
+void HearingRecordConfig.wrappedValue.setter()
 {
-  v3 = *(a2 + 24);
-  v2 = *(a2 + 16);
   implicit closure #1 in default argument 0 of fatalError(_:file:line:)();
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
@@ -6341,7 +2077,7 @@ void HearingRecordConfig.wrappedValue.setter(uint64_t a1, uint64_t a2)
 
 void HearingRecordConfig.wrappedValue.modify(void *a1, uint64_t a2)
 {
-  v6 = __swift_coroFrameAllocStub(0x30uLL);
+  v6 = __swift_coroFrameAllocStub(0x30uLL, 58861);
   *a1 = v6;
   v6[1] = v2;
   *v6 = a2;
@@ -6350,35 +2086,25 @@ void HearingRecordConfig.wrappedValue.modify(void *a1, uint64_t a2)
   v4 = *(v3 - 8);
   v6[3] = v4;
   v5 = *(v4 + 64);
-  v6[4] = __swift_coroFrameAllocStub(v5);
-  v6[5] = __swift_coroFrameAllocStub(v5);
-  v9 = *(a2 + 16);
-  HearingRecordConfig.wrappedValue.getter(a2);
+  v6[4] = __swift_coroFrameAllocStub(v5, 58861);
+  v6[5] = __swift_coroFrameAllocStub(v5, 58861);
+  HearingRecordConfig.wrappedValue.getter();
 }
 
-void HearingRecordConfig.wrappedValue.modify(uint64_t **a1, char a2)
+void HearingRecordConfig.wrappedValue.modify(uint64_t a1, char a2)
 {
-  v10 = *a1;
   if ((a2 & 1) == 0)
   {
-    v8 = v10[5];
-    v9 = v10[4];
-    v2 = v10[1];
-    HearingRecordConfig.wrappedValue.setter(v8, *v10);
+    HearingRecordConfig.wrappedValue.setter();
   }
 
-  v6 = v10[5];
-  v7 = v10[4];
-  v5 = v10[2];
-  v3 = v10[1];
-  v4 = *v10;
-  (*(v10[3] + 16))();
-  HearingRecordConfig.wrappedValue.setter(v7, v4);
+  (*(*(*a1 + 24) + 16))();
+  HearingRecordConfig.wrappedValue.setter();
 }
 
-void sub_1D9499458(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16)
+void sub_1D9499458(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16)
 {
-  (*(a12 + 8))(a13, a14);
+  (*(a12 + 8))(a13, a14, a3, a4, a5, a6, a7, a8);
   free(a15);
   free(a16);
   free(*(v16 - 48));
@@ -6395,7 +2121,7 @@ uint64_t HearingRecordConfig.value.setter(uint64_t a1, uint64_t a2)
   v9 = *(v11 - 8);
   v10 = v11 - 8;
   v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](a1);
   v7 = &v5 - v5;
   v15 = v3;
   v14 = v2;
@@ -6405,28 +2131,15 @@ uint64_t HearingRecordConfig.value.setter(uint64_t a1, uint64_t a2)
   return (*(v9 + 8))(v12, v11);
 }
 
-void *HearingRecordConfig.publisher.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v5 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  return outlined init with copy of HeadphonePropertyWrapperPublisher<B>?((v2 + *(a1 + 60)), a2);
-}
-
 uint64_t HearingRecordConfig.publisher.setter(uint64_t *a1, uint64_t a2)
 {
-  v7 = *a1;
-  v9 = *(a2 + 24);
-  v8 = *(a2 + 16);
+  v5 = *a1;
 
-  v3 = (v2 + *(a2 + 60));
-  v4 = *v3;
-  *v3 = v7;
+  *(v2 + *(a2 + 60)) = v5;
 }
 
 uint64_t HearingRecordConfig.objectWillChange.getter(uint64_t a1)
 {
-  v5 = *(a1 + 16);
-  v4 = *(a1 + 24);
   v3 = *(v1 + *(a1 + 64));
 
   return v3;
@@ -6434,65 +2147,50 @@ uint64_t HearingRecordConfig.objectWillChange.getter(uint64_t a1)
 
 uint64_t HearingRecordConfig.objectWillChange.setter(uint64_t a1, uint64_t a2)
 {
-  v9 = *(a2 + 16);
-  v8 = *(a2 + 24);
 
-  v3 = (v2 + *(a2 + 64));
-  v4 = *v3;
-  *v3 = a1;
-}
-
-void (*HearingRecordConfig.objectWillChange.modify(uint64_t a1, uint64_t a2))()
-{
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  result = HearingRecordConfig.objectWillChange.modify;
-  v4 = v2 + *(a2 + 64);
-  return result;
+  *(v2 + *(a2 + 64)) = a1;
 }
 
 uint64_t HearingRecordConfig.projectedValue.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v12 = a2;
-  v13 = a1;
-  v15 = "Fatal error";
-  v16 = "Unexpectedly found nil while unwrapping an Optional value";
-  v17 = "HeadphoneManager/HearingRecordConfigurationPropertyWrapper.swift";
-  v26 = 0;
+  v10 = a2;
+  v11 = a1;
+  v13 = "Fatal error";
+  v14 = "Unexpectedly found nil while unwrapping an Optional value";
+  v15 = "HeadphoneManager/HearingRecordConfigurationPropertyWrapper.swift";
   v24 = 0;
-  v18 = *(a1 + 24);
-  v27 = v18;
-  v19 = *(v18 - 8);
-  v20 = v18 - 8;
-  v21 = (*(v19 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v22 = 0;
+  v16 = *(a1 + 24);
+  v25 = v16;
+  v17 = *(v16 - 8);
+  v18 = v16 - 8;
+  v19 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v3 = MEMORY[0x1EEE9AC00](a1);
-  v22 = &v7 - v21;
-  v26 = v2;
-  v25[1] = *(v3 + 16);
-  v23 = *(v2 + *(v3 + 60));
+  v20 = &v5 - v19;
+  v24 = v2;
+  v23[1] = *(v3 + 16);
+  v21 = *(v2 + *(v3 + 60));
 
-  if (v23)
+  if (v21)
   {
-    v11 = v23;
-    v10 = v23;
-    v24 = v23;
+    v9 = v21;
+    v8 = v21;
+    v22 = v21;
 
-    *v12 = v10;
+    *v10 = v8;
   }
 
   else
   {
-    (*(v19 + 16))(v22, v14, v18);
-    HeadphonePropertyWrapperPublisher.init(_:)(v22, v18, v25);
-    v5 = (v14 + *(v13 + 60));
-    v6 = *v5;
-    *v5 = v25[0];
+    (*(v17 + 16))(v20, v12, v16);
+    HeadphonePropertyWrapperPublisher.init(_:)(v20, v16, v23);
+    *(v12 + *(v11 + 60)) = v23[0];
 
-    v9 = *(v14 + *(v13 + 60));
+    v7 = *(v12 + *(v11 + 60));
 
-    if (v9)
+    if (v7)
     {
-      v8 = v9;
+      v6 = v7;
     }
 
     else
@@ -6501,7 +2199,7 @@ uint64_t HearingRecordConfig.projectedValue.getter@<X0>(uint64_t a1@<X0>, void *
       __break(1u);
     }
 
-    *v12 = v8;
+    *v10 = v6;
   }
 
   return result;
@@ -6509,22 +2207,12 @@ uint64_t HearingRecordConfig.projectedValue.getter@<X0>(uint64_t a1@<X0>, void *
 
 uint64_t HearingRecordConfig.configKeyPath.getter(uint64_t a1)
 {
-  v5 = *(a1 + 16);
-  v4 = *(a1 + 24);
   v3 = *(v1 + *(a1 + 68));
 
   return v3;
 }
 
-uint64_t HearingRecordConfig.remoteSendState.getter@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
-{
-  v4 = *(result + 16);
-  v3 = *(result + 24);
-  *a2 = *(v2 + *(result + 72));
-  return result;
-}
-
-uint64_t HearingRecordConfig.init(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+char *HearingRecordConfig.init(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v33 = a6;
   v37 = a1;
@@ -6535,20 +2223,20 @@ uint64_t HearingRecordConfig.init(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1
   v43 = 0;
   v42 = 0;
   v41 = 0;
-  v51 = a4;
-  v50 = a5;
+  v45[6] = a4;
+  v45[5] = a5;
   v34 = *(a5 - 8);
   v35 = a5 - 8;
   v27 = (*(v34 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   MEMORY[0x1EEE9AC00](a1);
   v31 = &v26 - v27;
-  v45 = v6;
-  v46 = v7;
-  v47 = v8;
-  v48 = v9;
-  v49 = v10;
+  v45[0] = v6;
+  v45[1] = v7;
+  v45[2] = v8;
+  v45[3] = v9;
+  v45[4] = v10;
   v29 = 0;
-  v40 = type metadata accessor for HearingRecordConfig();
+  v40 = type metadata accessor for HearingRecordConfig(0, v45);
   v30 = (*(*(v40 - 1) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v11 = MEMORY[0x1EEE9AC00](v37);
   v12 = v40;
@@ -6577,24 +2265,9 @@ uint64_t HearingRecordConfig.init(_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1
   outlined init with copy of HearingRecordConfig<A, B>(v24, v21, v22, v23);
   (*(v34 + 8))(v36, v39);
 
-  return outlined destroy of HearingRecordConfig<A, B>(v38, v39, v40);
-}
-
-uint64_t partial apply for implicit closure #6 in static HearingRecordConfig.subscript.setter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  implicit closure #6 in static HearingRecordConfig.subscript.setter();
+  result = v38;
+  outlined destroy of HearingRecordConfig<A, B>(v38, v39, v40);
   return result;
-}
-
-uint64_t partial apply for implicit closure #7 in static HearingRecordConfig.subscript.setter@<X0>(uint64_t a1@<X8>)
-{
-  v6 = v1[2];
-  v2 = v1[4];
-  v3 = v1[5];
-  v4 = v1[6];
-  return implicit closure #7 in static HearingRecordConfig.subscript.setter(v1 + ((*(*(v1[3] - 8) + 80) + 56) & ~*(*(v1[3] - 8) + 80)), v1[3], a1);
 }
 
 uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)partial apply()
@@ -6604,37 +2277,6 @@ uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:alig
 
 {
   return implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)(v0[4], v0[5], v0[2], v0[3]);
-}
-
-uint64_t partial apply for implicit closure #8 in static HearingRecordConfig.subscript.setter()
-{
-  v1 = v0[5];
-  v2 = v0[6];
-  return implicit closure #8 in static HearingRecordConfig.subscript.setter(v0[7], v0[2], v0[3], v0[4]);
-}
-
-uint64_t partial apply for implicit closure #11 in static HearingRecordConfig.subscript.setter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  implicit closure #11 in static HearingRecordConfig.subscript.setter();
-  return result;
-}
-
-uint64_t partial apply for implicit closure #12 in static HearingRecordConfig.subscript.setter@<X0>(uint64_t a1@<X8>)
-{
-  v6 = v1[2];
-  v2 = v1[4];
-  v3 = v1[5];
-  v4 = v1[6];
-  return implicit closure #12 in static HearingRecordConfig.subscript.setter(v1 + ((*(*(v1[3] - 8) + 80) + 56) & ~*(*(v1[3] - 8) + 80)), v1[3], a1);
-}
-
-uint64_t partial apply for implicit closure #13 in static HearingRecordConfig.subscript.setter()
-{
-  v1 = v0[5];
-  v2 = v0[6];
-  return implicit closure #13 in static HearingRecordConfig.subscript.setter(v0[7], v0[2], v0[3], v0[4]);
 }
 
 uint64_t partial apply for closure #1 in static HearingRecordConfig.subscript.setter(void *a1)
@@ -6665,28 +2307,21 @@ void *outlined init with copy of HeadphonePropertyWrapperPublisher<B>?(uint64_t 
   return result;
 }
 
-uint64_t type metadata instantiation function for HearingRecordConfig(uint64_t a1, uint64_t *a2)
+unint64_t type metadata completion function for HearingRecordConfig(uint64_t a1)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  return swift_cvw_allocateGenericValueMetadataWithLayoutString();
-}
-
-uint64_t type metadata completion function for HearingRecordConfig(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  v7 = swift_checkMetadataState();
-  if (v2 <= 0x3F)
+  v8 = swift_checkMetadataState();
+  v9 = v8;
+  if (v3 <= 0x3F)
   {
-    type metadata accessor for HeadphonePropertyWrapperPublisher();
-    v7 = type metadata accessor for Optional();
-    if (v3 <= 0x3F)
+    type metadata accessor for HeadphonePropertyWrapperPublisher(255, v8, v1, v2);
+    v9 = type metadata accessor for Optional();
+    if (v4 <= 0x3F)
     {
-      v7 = type metadata accessor for ObservableObjectPublisher?();
-      if (v4 <= 0x3F)
+      v9 = type metadata accessor for ObservableObjectPublisher?(319);
+      if (v5 <= 0x3F)
       {
-        v7 = type metadata accessor for PartialKeyPath<HearingRecordModel>();
-        if (v5 <= 0x3F)
+        v9 = type metadata accessor for PartialKeyPath<HearingRecordModel>(319);
+        if (v6 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
           return 0;
@@ -6695,26 +2330,26 @@ uint64_t type metadata completion function for HearingRecordConfig(uint64_t a1)
     }
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t type metadata accessor for PartialKeyPath<HearingRecordModel>()
+unint64_t type metadata accessor for PartialKeyPath<HearingRecordModel>(uint64_t a1)
 {
-  v4 = lazy cache variable for type metadata for PartialKeyPath<HearingRecordModel>;
+  v5 = lazy cache variable for type metadata for PartialKeyPath<HearingRecordModel>;
   if (!lazy cache variable for type metadata for PartialKeyPath<HearingRecordModel>)
   {
     type metadata accessor for HearingRecordModel();
-    v3 = type metadata accessor for PartialKeyPath();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for PartialKeyPath();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &lazy cache variable for type metadata for PartialKeyPath<HearingRecordModel>);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &lazy cache variable for type metadata for PartialKeyPath<HearingRecordModel>);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_3(uint64_t *a1, uint64_t a2, uint64_t a3)
@@ -6727,37 +2362,24 @@ uint64_t _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VG
   return closure #1 in OSLogArguments.append<A>(_:)(a1, a2, a3, v9, v10, v5, v4);
 }
 
-uint64_t _s2os9serialize_2atyx_Spys5UInt8VGzts17FixedWidthIntegerRzlFySWXEfU_TA_3()
+void outlined destroy of HeadphonePropertyWrapperPublisher<B>?(void *a1)
 {
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return closure #1 in serialize<A>(_:at:)();
-}
-
-uint64_t *outlined destroy of HeadphonePropertyWrapperPublisher<B>?(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return a1;
 }
 
 {
-  v1 = *a1;
-
-  return a1;
 }
 
 uint64_t HearingRecord.showPPEAlert.getter()
 {
   (*((*v0 & *MEMORY[0x1E69E7D40]) + 0x6A0))();
-  type metadata accessor for HMMultiState();
+  type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   v6 = == infix<A>(_:_:)();
   (MEMORY[0x1E69E5928])();
   if (v6)
   {
     (*((*v5 & *MEMORY[0x1E69E7D40]) + 0x6C0))();
-    type metadata accessor for HMRegionStatus();
+    type metadata accessor for HMRegionStatus(0);
     lazy protocol witness table accessor for type HMRegionStatus and conformance HMRegionStatus();
     v4 = == infix<A>(_:_:)();
   }
@@ -6789,7 +2411,7 @@ unint64_t lazy protocol witness table accessor for type HMMultiState and conform
   v2 = lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState;
   if (!lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState)
   {
-    type metadata accessor for HMMultiState();
+    type metadata accessor for HMMultiState(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState);
     return WitnessTable;
@@ -6802,7 +2424,7 @@ unint64_t lazy protocol witness table accessor for type HMMultiState and conform
   v2 = lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState;
   if (!lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState)
   {
-    type metadata accessor for HMMultiState();
+    type metadata accessor for HMMultiState(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState);
     return WitnessTable;
@@ -6815,7 +2437,7 @@ unint64_t lazy protocol witness table accessor for type HMMultiState and conform
   v2 = lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState;
   if (!lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState)
   {
-    type metadata accessor for HMMultiState();
+    type metadata accessor for HMMultiState(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HMMultiState and conformance HMMultiState);
     return WitnessTable;
@@ -6829,7 +2451,7 @@ unint64_t lazy protocol witness table accessor for type HMRegionStatus and confo
   v2 = lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus;
   if (!lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus)
   {
-    type metadata accessor for HMRegionStatus();
+    type metadata accessor for HMRegionStatus(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus);
     return WitnessTable;
@@ -6842,7 +2464,7 @@ unint64_t lazy protocol witness table accessor for type HMRegionStatus and confo
   v2 = lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus;
   if (!lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus)
   {
-    type metadata accessor for HMRegionStatus();
+    type metadata accessor for HMRegionStatus(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HMRegionStatus and conformance HMRegionStatus);
     return WitnessTable;
@@ -6934,7 +2556,7 @@ uint64_t key path setter for HearingRecord.amplification : HearingRecord(float *
 
 void (*HearingRecord.amplification.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 22146);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -6975,11 +2597,11 @@ void HearingRecord.amplification.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._amplification@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._amplification@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -6992,7 +2614,7 @@ unint64_t lazy protocol witness table accessor for type HearingRecord and confor
   v2 = lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord;
   if (!lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord)
   {
-    type metadata accessor for HearingRecord();
+    type metadata accessor for HearingRecord(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord);
     return WitnessTable;
@@ -7005,7 +2627,7 @@ unint64_t lazy protocol witness table accessor for type HearingRecord and confor
   v2 = lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord;
   if (!lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord)
   {
-    type metadata accessor for HearingRecord();
+    type metadata accessor for HearingRecord(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HearingRecord and conformance HearingRecord);
     return WitnessTable;
@@ -7045,27 +2667,24 @@ float HearingRecord._amplification.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._amplification.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__amplification;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__amplification;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7113,7 +2732,7 @@ uint64_t key path setter for HearingRecord.balance : HearingRecord(float *a1, vo
 
 void (*HearingRecord.balance.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 3411);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -7154,11 +2773,11 @@ void HearingRecord.balance.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._balance@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._balance@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -7197,27 +2816,24 @@ float HearingRecord._balance.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._balance.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__balance;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__balance;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7265,7 +2881,7 @@ uint64_t key path setter for HearingRecord.beamFormer : HearingRecord(float *a1,
 
 void (*HearingRecord.beamFormer.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 34212);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -7306,11 +2922,11 @@ void HearingRecord.beamFormer.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._beamFormer@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._beamFormer@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -7349,27 +2965,24 @@ float HearingRecord._beamFormer.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._beamFormer.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__beamFormer;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__beamFormer;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7417,7 +3030,7 @@ uint64_t key path setter for HearingRecord.noiseSuppression : HearingRecord(floa
 
 void (*HearingRecord.noiseSuppression.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 22783);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -7458,11 +3071,11 @@ void HearingRecord.noiseSuppression.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._noiseSuppression@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._noiseSuppression@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -7501,27 +3114,24 @@ float HearingRecord._noiseSuppression.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._noiseSuppression.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__noiseSuppression;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__noiseSuppression;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7569,7 +3179,7 @@ uint64_t key path setter for HearingRecord.ownVoiceLevel : HearingRecord(float *
 
 void (*HearingRecord.ownVoiceLevel.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 1879);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -7610,11 +3220,11 @@ void HearingRecord.ownVoiceLevel.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._ownVoiceLevel@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._ownVoiceLevel@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -7653,27 +3263,24 @@ float HearingRecord._ownVoiceLevel.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._ownVoiceLevel.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__ownVoiceLevel;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__ownVoiceLevel;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7721,7 +3328,7 @@ uint64_t key path setter for HearingRecord.tone : HearingRecord(float *a1, void 
 
 void (*HearingRecord.tone.modify(void *a1))(void **a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  v3 = __swift_coroFrameAllocStub(0x28uLL, 29029);
   *a1 = v3;
   *v3 = v2;
   (MEMORY[0x1E69E5928])();
@@ -7762,11 +3369,11 @@ void HearingRecord.tone.modify(void **a1, char a2)
   free(v8);
 }
 
-uint64_t variable initialization expression of HearingRecord._tone@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._tone@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
+  v4 = type metadata accessor for HearingRecord(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   v5 = MEMORY[0x1E69E6448];
   default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
@@ -7805,27 +3412,24 @@ float HearingRecord._tone.getter@<S0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._tone.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LODWORD(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__tone;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__tone;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -7871,7 +3475,7 @@ uint64_t key path setter for HearingRecord.pmeVoiceEnabled : HearingRecord(unsig
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.pmeVoiceEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.pmeVoiceEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -7909,12 +3513,12 @@ uint64_t HearingRecord.pmeVoiceEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._pmeVoiceEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._pmeVoiceEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -7953,27 +3557,24 @@ uint64_t HearingRecord._pmeVoiceEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._pmeVoiceEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__pmeVoiceEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__pmeVoiceEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8019,7 +3620,7 @@ uint64_t key path setter for HearingRecord.pmeMediaEnabled : HearingRecord(unsig
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.pmeMediaEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.pmeMediaEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -8057,12 +3658,12 @@ uint64_t HearingRecord.pmeMediaEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._pmeMediaEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._pmeMediaEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8101,27 +3702,24 @@ uint64_t HearingRecord._pmeMediaEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._pmeMediaEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__pmeMediaEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__pmeMediaEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8167,7 +3765,7 @@ uint64_t key path setter for HearingRecord.mediaAssistEnabled : HearingRecord(un
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.mediaAssistEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.mediaAssistEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -8205,12 +3803,12 @@ uint64_t HearingRecord.mediaAssistEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._mediaAssistEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._mediaAssistEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8249,27 +3847,24 @@ uint64_t HearingRecord._mediaAssistEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._mediaAssistEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__mediaAssistEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__mediaAssistEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8315,7 +3910,7 @@ uint64_t key path setter for HearingRecord.hearingAssistEnabled : HearingRecord(
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.hearingAssistEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.hearingAssistEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -8353,12 +3948,12 @@ uint64_t HearingRecord.hearingAssistEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._hearingAssistEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._hearingAssistEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8397,27 +3992,24 @@ uint64_t HearingRecord._hearingAssistEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._hearingAssistEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8463,7 +4055,7 @@ uint64_t key path setter for HearingRecord.swipeGainEnabled : HearingRecord(unsi
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.swipeGainEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.swipeGainEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -8501,12 +4093,12 @@ uint64_t HearingRecord.swipeGainEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._swipeGainEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._swipeGainEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8545,27 +4137,24 @@ uint64_t HearingRecord._swipeGainEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._swipeGainEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__swipeGainEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__swipeGainEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8611,7 +4200,7 @@ uint64_t key path setter for HearingRecord.hearingAidEnabled : HearingRecord(uns
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t (*HearingRecord.hearingAidEnabled.modify(void *a1))(uint64_t a1, char a2)
+uint64_t (*HearingRecord.hearingAidEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   MEMORY[0x1E69E5928](v1);
@@ -8649,12 +4238,12 @@ uint64_t HearingRecord.hearingAidEnabled.modify(uint64_t a1, char a2)
   }
 }
 
-uint64_t variable initialization expression of HearingRecord._hearingAidEnabled@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._hearingAidEnabled@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8693,27 +4282,24 @@ uint64_t HearingRecord._hearingAidEnabled.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._hearingAidEnabled.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidEnabled;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidEnabled;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8759,12 +4345,12 @@ uint64_t key path setter for HearingRecord.listeningModeOffAllowed : HearingReco
   return MEMORY[0x1E69E5920](v3);
 }
 
-uint64_t variable initialization expression of HearingRecord._listeningModeOffAllowed@<X0>(uint64_t a1@<X8>)
+char *variable initialization expression of HearingRecord._listeningModeOffAllowed@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v8 = 0;
-  v4 = type metadata accessor for HearingRecord();
-  v5 = type metadata accessor for HMMultiState();
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
   lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
   lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
@@ -8803,27 +4389,24 @@ uint64_t HearingRecord._listeningModeOffAllowed.getter@<X0>(uint64_t a1@<X8>)
 uint64_t HearingRecord._listeningModeOffAllowed.setter(uint64_t a1)
 {
   memset(__b, 0, 0x21uLL);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v12 = *(a1 + 24);
-  v7 = *(a1 + 32);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
   LOBYTE(__b[0]) = *a1;
-  v5 = __b[0];
-  __b[1] = v10;
-  __b[2] = v11;
-  __b[3] = v12;
-  LOBYTE(__b[4]) = v7;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
 
-  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__listeningModeOffAllowed;
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__listeningModeOffAllowed;
   swift_beginAccess();
-  v2 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = *(v6 + 24);
-  *v6 = v5;
-  *(v6 + 8) = v10;
-  *(v6 + 16) = v11;
-  *(v6 + 24) = v12;
-  *(v6 + 32) = v7;
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
 
   swift_endAccess();
 }
@@ -8849,10 +4432,12 @@ uint64_t key path getter for HearingRecord.bluetoothAddress : HearingRecord@<X0>
 
 uint64_t key path setter for HearingRecord.bluetoothAddress : HearingRecord(void *a1, void *a2)
 {
-  outlined init with copy of String(a1, &v5);
+  outlined init with copy of String(a1, v7);
+  v6 = v7[0];
+  v5 = v7[1];
   v4 = *a2;
   MEMORY[0x1E69E5928](*a2);
-  HearingRecord.bluetoothAddress.setter();
+  HearingRecord.bluetoothAddress.setter(v6, v5);
   return MEMORY[0x1E69E5920](v4);
 }
 
@@ -8867,9 +4452,9 @@ uint64_t HearingRecord.bluetoothAddress.getter()
   return v2;
 }
 
-uint64_t HearingRecord.bluetoothAddress.setter()
+uint64_t HearingRecord.bluetoothAddress.setter(uint64_t a1, uint64_t a2)
 {
-  MEMORY[0x1E69E5928](v0);
+  MEMORY[0x1E69E5928](v2);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -8878,7 +4463,7 @@ uint64_t HearingRecord.bluetoothAddress.setter()
 
 void (*HearingRecord.bluetoothAddress.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 12479);
   *a1 = v3;
   v3[4] = v2;
   (MEMORY[0x1E69E5928])();
@@ -8890,28 +4475,24 @@ void (*HearingRecord.bluetoothAddress.modify(void *a1))(uint64_t *a1, char a2)
 
 void HearingRecord.bluetoothAddress.modify(uint64_t *a1, char a2)
 {
-  v8 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v2 = *(v8 + 48);
-    v3 = *(v8 + 40);
-    v4 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v4);
+    MEMORY[0x1E69E5920](v2);
   }
 
   else
   {
-    v5 = *(v8 + 48);
-    v6 = *(v8 + 40);
-    v7 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v7);
+    MEMORY[0x1E69E5920](v3);
   }
 
-  free(v8);
+  free(v4);
 }
 
 uint64_t key path getter for HearingRecord.$bluetoothAddress : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8980,9 +4561,9 @@ uint64_t HearingRecord.$bluetoothAddress.setter(uint64_t a1)
   return (*(v5 + 8))(v7, v8);
 }
 
-void (*HearingRecord.$bluetoothAddress.modify(void *a1))(uint64_t **a1, char a2)
+uint64_t (*HearingRecord.$bluetoothAddress.modify(void *a1))()
 {
-  v6 = __swift_coroFrameAllocStub(0x28uLL);
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 54398);
   *a1 = v6;
   *v6 = v1;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySS_GMd, &_s7Combine9PublishedV9PublisherVySS_GMR);
@@ -8990,40 +4571,38 @@ void (*HearingRecord.$bluetoothAddress.modify(void *a1))(uint64_t **a1, char a2)
   v4 = *(v2 - 8);
   v6[2] = v4;
   v5 = *(v4 + 64);
-  v6[3] = __swift_coroFrameAllocStub(v5);
-  v6[4] = __swift_coroFrameAllocStub(v5);
+  v6[3] = __swift_coroFrameAllocStub(v5, 54398);
+  v6[4] = __swift_coroFrameAllocStub(v5, 54398);
   HearingRecord.$bluetoothAddress.getter();
   return HearingRecord.$bluetoothAddress.modify;
 }
 
-void HearingRecord.$bluetoothAddress.modify(uint64_t **a1, char a2)
+void HearingRecord.$bluetoothAddress.modify(void **a1, char a2)
 {
-  v10 = *a1;
+  v8 = *a1;
   if (a2)
   {
-    v6 = v10[4];
-    v7 = v10[3];
-    v5 = v10[1];
-    v3 = *v10;
-    v4 = v10[2];
-    (*(v4 + 16))();
-    HearingRecord.$bluetoothAddress.setter(v7);
-    (*(v4 + 8))(v6, v5);
-    free(v6);
-    free(v7);
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$bluetoothAddress.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
   }
 
   else
   {
-    v8 = v10[4];
-    v9 = v10[3];
-    v2 = *v10;
-    HearingRecord.$bluetoothAddress.setter(v8);
-    free(v8);
-    free(v9);
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$bluetoothAddress.setter(v6);
+    free(v6);
+    free(v7);
   }
 
-  free(v10);
+  free(v8);
 }
 
 uint64_t HearingRecord._bluetoothAddress.getter@<X0>(uint64_t a1@<X8>)
@@ -9078,10 +4657,12 @@ uint64_t key path getter for HearingRecord.bluetoothUUID : HearingRecord@<X0>(vo
 
 uint64_t key path setter for HearingRecord.bluetoothUUID : HearingRecord(void *a1, void *a2)
 {
-  outlined init with copy of String(a1, &v5);
+  outlined init with copy of String(a1, v7);
+  v6 = v7[0];
+  v5 = v7[1];
   v4 = *a2;
   MEMORY[0x1E69E5928](*a2);
-  HearingRecord.bluetoothUUID.setter();
+  HearingRecord.bluetoothUUID.setter(v6, v5);
   return MEMORY[0x1E69E5920](v4);
 }
 
@@ -9096,9 +4677,9 @@ uint64_t HearingRecord.bluetoothUUID.getter()
   return v2;
 }
 
-uint64_t HearingRecord.bluetoothUUID.setter()
+uint64_t HearingRecord.bluetoothUUID.setter(uint64_t a1, uint64_t a2)
 {
-  MEMORY[0x1E69E5928](v0);
+  MEMORY[0x1E69E5928](v2);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -9107,7 +4688,7 @@ uint64_t HearingRecord.bluetoothUUID.setter()
 
 void (*HearingRecord.bluetoothUUID.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 33609);
   *a1 = v3;
   v3[4] = v2;
   (MEMORY[0x1E69E5928])();
@@ -9119,28 +4700,24 @@ void (*HearingRecord.bluetoothUUID.modify(void *a1))(uint64_t *a1, char a2)
 
 void HearingRecord.bluetoothUUID.modify(uint64_t *a1, char a2)
 {
-  v8 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v2 = *(v8 + 48);
-    v3 = *(v8 + 40);
-    v4 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v4);
+    MEMORY[0x1E69E5920](v2);
   }
 
   else
   {
-    v5 = *(v8 + 48);
-    v6 = *(v8 + 40);
-    v7 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v7);
+    MEMORY[0x1E69E5920](v3);
   }
 
-  free(v8);
+  free(v4);
 }
 
 uint64_t key path getter for HearingRecord.$bluetoothUUID : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9209,9 +4786,9 @@ uint64_t HearingRecord.$bluetoothUUID.setter(uint64_t a1)
   return (*(v5 + 8))(v7, v8);
 }
 
-void (*HearingRecord.$bluetoothUUID.modify(void *a1))(uint64_t **a1, char a2)
+uint64_t (*HearingRecord.$bluetoothUUID.modify(void *a1))()
 {
-  v6 = __swift_coroFrameAllocStub(0x28uLL);
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 42970);
   *a1 = v6;
   *v6 = v1;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySS_GMd, &_s7Combine9PublishedV9PublisherVySS_GMR);
@@ -9219,40 +4796,38 @@ void (*HearingRecord.$bluetoothUUID.modify(void *a1))(uint64_t **a1, char a2)
   v4 = *(v2 - 8);
   v6[2] = v4;
   v5 = *(v4 + 64);
-  v6[3] = __swift_coroFrameAllocStub(v5);
-  v6[4] = __swift_coroFrameAllocStub(v5);
+  v6[3] = __swift_coroFrameAllocStub(v5, 42970);
+  v6[4] = __swift_coroFrameAllocStub(v5, 42970);
   HearingRecord.$bluetoothUUID.getter();
   return HearingRecord.$bluetoothUUID.modify;
 }
 
-void HearingRecord.$bluetoothUUID.modify(uint64_t **a1, char a2)
+void HearingRecord.$bluetoothUUID.modify(void **a1, char a2)
 {
-  v10 = *a1;
+  v8 = *a1;
   if (a2)
   {
-    v6 = v10[4];
-    v7 = v10[3];
-    v5 = v10[1];
-    v3 = *v10;
-    v4 = v10[2];
-    (*(v4 + 16))();
-    HearingRecord.$bluetoothUUID.setter(v7);
-    (*(v4 + 8))(v6, v5);
-    free(v6);
-    free(v7);
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$bluetoothUUID.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
   }
 
   else
   {
-    v8 = v10[4];
-    v9 = v10[3];
-    v2 = *v10;
-    HearingRecord.$bluetoothUUID.setter(v8);
-    free(v8);
-    free(v9);
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$bluetoothUUID.setter(v6);
+    free(v6);
+    free(v7);
   }
 
-  free(v10);
+  free(v8);
 }
 
 uint64_t HearingRecord._bluetoothUUID.getter@<X0>(uint64_t a1@<X8>)
@@ -9290,7 +4865,7 @@ uint64_t property wrapper backing initializer of HearingRecord.earTipFitTestCapa
 {
   v5[1] = a1;
   v5[0] = a1;
-  v2 = type metadata accessor for HMMultiState();
+  v2 = type metadata accessor for HMMultiState(0);
   return Published.init(wrappedValue:)(v5, v2, a2);
 }
 
@@ -9302,12 +4877,12 @@ uint64_t key path getter for HearingRecord.earTipFitTestCapability : HearingReco
   return MEMORY[0x1E69E5920](v4);
 }
 
-uint64_t key path setter for HearingRecord.earTipFitTestCapability : HearingRecord(unsigned __int8 *a1, void *a2)
+uint64_t key path setter for HearingRecord.earTipFitTestCapability : HearingRecord(char *a1, void *a2)
 {
   v4 = *a1;
   v3 = *a2;
   MEMORY[0x1E69E5928](*a2);
-  HearingRecord.earTipFitTestCapability.setter();
+  HearingRecord.earTipFitTestCapability.setter(v4);
   return MEMORY[0x1E69E5920](v3);
 }
 
@@ -9322,9 +4897,9 @@ uint64_t HearingRecord.earTipFitTestCapability.getter()
   return v2;
 }
 
-uint64_t HearingRecord.earTipFitTestCapability.setter()
+uint64_t HearingRecord.earTipFitTestCapability.setter(char a1)
 {
-  MEMORY[0x1E69E5928](v0);
+  MEMORY[0x1E69E5928](v1);
   swift_getKeyPath();
   swift_getKeyPath();
   return static Published.subscript.setter();
@@ -9332,7 +4907,7 @@ uint64_t HearingRecord.earTipFitTestCapability.setter()
 
 void (*HearingRecord.earTipFitTestCapability.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 345);
   *a1 = v3;
   v3[4] = v2;
   (MEMORY[0x1E69E5928])();
@@ -9344,28 +4919,24 @@ void (*HearingRecord.earTipFitTestCapability.modify(void *a1))(uint64_t *a1, cha
 
 void HearingRecord.earTipFitTestCapability.modify(uint64_t *a1, char a2)
 {
-  v8 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v2 = *(v8 + 48);
-    v3 = *(v8 + 40);
-    v4 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v4);
+    MEMORY[0x1E69E5920](v2);
   }
 
   else
   {
-    v5 = *(v8 + 48);
-    v6 = *(v8 + 40);
-    v7 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v7);
+    MEMORY[0x1E69E5920](v3);
   }
 
-  free(v8);
+  free(v4);
 }
 
 uint64_t key path getter for HearingRecord.$earTipFitTestCapability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9434,9 +5005,9 @@ uint64_t HearingRecord.$earTipFitTestCapability.setter(uint64_t a1)
   return (*(v5 + 8))(v7, v8);
 }
 
-void (*HearingRecord.$earTipFitTestCapability.modify(void *a1))(uint64_t **a1, char a2)
+uint64_t (*HearingRecord.$earTipFitTestCapability.modify(void *a1))()
 {
-  v6 = __swift_coroFrameAllocStub(0x28uLL);
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 4928);
   *a1 = v6;
   *v6 = v1;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
@@ -9444,40 +5015,38 @@ void (*HearingRecord.$earTipFitTestCapability.modify(void *a1))(uint64_t **a1, c
   v4 = *(v2 - 8);
   v6[2] = v4;
   v5 = *(v4 + 64);
-  v6[3] = __swift_coroFrameAllocStub(v5);
-  v6[4] = __swift_coroFrameAllocStub(v5);
+  v6[3] = __swift_coroFrameAllocStub(v5, 4928);
+  v6[4] = __swift_coroFrameAllocStub(v5, 4928);
   HearingRecord.$earTipFitTestCapability.getter();
   return HearingRecord.$earTipFitTestCapability.modify;
 }
 
-void HearingRecord.$earTipFitTestCapability.modify(uint64_t **a1, char a2)
+void HearingRecord.$earTipFitTestCapability.modify(void **a1, char a2)
 {
-  v10 = *a1;
+  v8 = *a1;
   if (a2)
   {
-    v6 = v10[4];
-    v7 = v10[3];
-    v5 = v10[1];
-    v3 = *v10;
-    v4 = v10[2];
-    (*(v4 + 16))();
-    HearingRecord.$earTipFitTestCapability.setter(v7);
-    (*(v4 + 8))(v6, v5);
-    free(v6);
-    free(v7);
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$earTipFitTestCapability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
   }
 
   else
   {
-    v8 = v10[4];
-    v9 = v10[3];
-    v2 = *v10;
-    HearingRecord.$earTipFitTestCapability.setter(v8);
-    free(v8);
-    free(v9);
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$earTipFitTestCapability.setter(v6);
+    free(v6);
+    free(v7);
   }
 
-  free(v10);
+  free(v8);
 }
 
 uint64_t HearingRecord._earTipFitTestCapability.getter@<X0>(uint64_t a1@<X8>)
@@ -9515,7 +5084,7 @@ uint64_t property wrapper backing initializer of HearingRecord.hideOffModeCapabi
 {
   v5[1] = a1;
   v5[0] = a1;
-  v2 = type metadata accessor for HMMultiState();
+  v2 = type metadata accessor for HMMultiState(0);
   return Published.init(wrappedValue:)(v5, v2, a2);
 }
 
@@ -9527,12 +5096,12 @@ uint64_t key path getter for HearingRecord.hideOffModeCapability : HearingRecord
   return MEMORY[0x1E69E5920](v4);
 }
 
-uint64_t key path setter for HearingRecord.hideOffModeCapability : HearingRecord(unsigned __int8 *a1, void *a2)
+uint64_t key path setter for HearingRecord.hideOffModeCapability : HearingRecord(char *a1, void *a2)
 {
   v4 = *a1;
   v3 = *a2;
   MEMORY[0x1E69E5928](*a2);
-  HearingRecord.hideOffModeCapability.setter();
+  HearingRecord.hideOffModeCapability.setter(v4);
   return MEMORY[0x1E69E5920](v3);
 }
 
@@ -9547,9 +5116,9 @@ uint64_t HearingRecord.hideOffModeCapability.getter()
   return v2;
 }
 
-uint64_t HearingRecord.hideOffModeCapability.setter()
+uint64_t HearingRecord.hideOffModeCapability.setter(char a1)
 {
-  MEMORY[0x1E69E5928](v0);
+  MEMORY[0x1E69E5928](v1);
   swift_getKeyPath();
   swift_getKeyPath();
   return static Published.subscript.setter();
@@ -9557,7 +5126,7 @@ uint64_t HearingRecord.hideOffModeCapability.setter()
 
 void (*HearingRecord.hideOffModeCapability.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 33815);
   *a1 = v3;
   v3[4] = v2;
   (MEMORY[0x1E69E5928])();
@@ -9569,28 +5138,24 @@ void (*HearingRecord.hideOffModeCapability.modify(void *a1))(uint64_t *a1, char 
 
 void HearingRecord.hideOffModeCapability.modify(uint64_t *a1, char a2)
 {
-  v8 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v2 = *(v8 + 48);
-    v3 = *(v8 + 40);
-    v4 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v4);
+    MEMORY[0x1E69E5920](v2);
   }
 
   else
   {
-    v5 = *(v8 + 48);
-    v6 = *(v8 + 40);
-    v7 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v7);
+    MEMORY[0x1E69E5920](v3);
   }
 
-  free(v8);
+  free(v4);
 }
 
 uint64_t key path getter for HearingRecord.$hideOffModeCapability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9659,9 +5224,9 @@ uint64_t HearingRecord.$hideOffModeCapability.setter(uint64_t a1)
   return (*(v5 + 8))(v7, v8);
 }
 
-void (*HearingRecord.$hideOffModeCapability.modify(void *a1))(uint64_t **a1, char a2)
+uint64_t (*HearingRecord.$hideOffModeCapability.modify(void *a1))()
 {
-  v6 = __swift_coroFrameAllocStub(0x28uLL);
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 26176);
   *a1 = v6;
   *v6 = v1;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
@@ -9669,40 +5234,38 @@ void (*HearingRecord.$hideOffModeCapability.modify(void *a1))(uint64_t **a1, cha
   v4 = *(v2 - 8);
   v6[2] = v4;
   v5 = *(v4 + 64);
-  v6[3] = __swift_coroFrameAllocStub(v5);
-  v6[4] = __swift_coroFrameAllocStub(v5);
+  v6[3] = __swift_coroFrameAllocStub(v5, 26176);
+  v6[4] = __swift_coroFrameAllocStub(v5, 26176);
   HearingRecord.$hideOffModeCapability.getter();
   return HearingRecord.$hideOffModeCapability.modify;
 }
 
-void HearingRecord.$hideOffModeCapability.modify(uint64_t **a1, char a2)
+void HearingRecord.$hideOffModeCapability.modify(void **a1, char a2)
 {
-  v10 = *a1;
+  v8 = *a1;
   if (a2)
   {
-    v6 = v10[4];
-    v7 = v10[3];
-    v5 = v10[1];
-    v3 = *v10;
-    v4 = v10[2];
-    (*(v4 + 16))();
-    HearingRecord.$hideOffModeCapability.setter(v7);
-    (*(v4 + 8))(v6, v5);
-    free(v6);
-    free(v7);
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hideOffModeCapability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
   }
 
   else
   {
-    v8 = v10[4];
-    v9 = v10[3];
-    v2 = *v10;
-    HearingRecord.$hideOffModeCapability.setter(v8);
-    free(v8);
-    free(v9);
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hideOffModeCapability.setter(v6);
+    free(v6);
+    free(v7);
   }
 
-  free(v10);
+  free(v8);
 }
 
 uint64_t HearingRecord._hideOffModeCapability.getter@<X0>(uint64_t a1@<X8>)
@@ -9740,7 +5303,7 @@ uint64_t property wrapper backing initializer of HearingRecord.hearingAssistCapa
 {
   v5[1] = a1;
   v5[0] = a1;
-  v2 = type metadata accessor for HMMultiState();
+  v2 = type metadata accessor for HMMultiState(0);
   return Published.init(wrappedValue:)(v5, v2, a2);
 }
 
@@ -9752,12 +5315,12 @@ uint64_t key path getter for HearingRecord.hearingAssistCapability : HearingReco
   return MEMORY[0x1E69E5920](v4);
 }
 
-uint64_t key path setter for HearingRecord.hearingAssistCapability : HearingRecord(unsigned __int8 *a1, void *a2)
+uint64_t key path setter for HearingRecord.hearingAssistCapability : HearingRecord(char *a1, void *a2)
 {
   v4 = *a1;
   v3 = *a2;
   MEMORY[0x1E69E5928](*a2);
-  HearingRecord.hearingAssistCapability.setter();
+  HearingRecord.hearingAssistCapability.setter(v4);
   return MEMORY[0x1E69E5920](v3);
 }
 
@@ -9772,9 +5335,9 @@ uint64_t HearingRecord.hearingAssistCapability.getter()
   return v2;
 }
 
-uint64_t HearingRecord.hearingAssistCapability.setter()
+uint64_t HearingRecord.hearingAssistCapability.setter(char a1)
 {
-  MEMORY[0x1E69E5928](v0);
+  MEMORY[0x1E69E5928](v1);
   swift_getKeyPath();
   swift_getKeyPath();
   return static Published.subscript.setter();
@@ -9782,7 +5345,7 @@ uint64_t HearingRecord.hearingAssistCapability.setter()
 
 void (*HearingRecord.hearingAssistCapability.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 61779);
   *a1 = v3;
   v3[4] = v2;
   (MEMORY[0x1E69E5928])();
@@ -9794,28 +5357,24 @@ void (*HearingRecord.hearingAssistCapability.modify(void *a1))(uint64_t *a1, cha
 
 void HearingRecord.hearingAssistCapability.modify(uint64_t *a1, char a2)
 {
-  v8 = *a1;
+  v4 = *a1;
   if (a2)
   {
-    v2 = *(v8 + 48);
-    v3 = *(v8 + 40);
-    v4 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v4);
+    MEMORY[0x1E69E5920](v2);
   }
 
   else
   {
-    v5 = *(v8 + 48);
-    v6 = *(v8 + 40);
-    v7 = *(v8 + 32);
-    (*(v8 + 56))(v8, 0);
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
 
-    MEMORY[0x1E69E5920](v7);
+    MEMORY[0x1E69E5920](v3);
   }
 
-  free(v8);
+  free(v4);
 }
 
 uint64_t key path getter for HearingRecord.$hearingAssistCapability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9834,4 +5393,4841 @@ uint64_t key path getter for HearingRecord.$hearingAssistCapability : HearingRec
   (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x3F8))(v2);
   (*(v7 + 32))(v9, v10, v11);
   return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingAssistCapability : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingAssistCapability.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingAssistCapability.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingAssistCapability.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingAssistCapability.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 61211);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 61211);
+  v6[4] = __swift_coroFrameAllocStub(v5, 61211);
+  HearingRecord.$hearingAssistCapability.getter();
+  return HearingRecord.$hearingAssistCapability.modify;
+}
+
+void HearingRecord.$hearingAssistCapability.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingAssistCapability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingAssistCapability.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingAssistCapability.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistCapability;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingAssistCapability.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistCapability;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingAssistEnrolled@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMMultiState(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingAssistEnrolled : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x410))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingAssistEnrolled : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingAssistEnrolled.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingAssistEnrolled.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingAssistEnrolled.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingAssistEnrolled.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 45514);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingAssistEnrolled.modify;
+}
+
+void HearingRecord.hearingAssistEnrolled.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingAssistEnrolled : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x428))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingAssistEnrolled : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingAssistEnrolled.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingAssistEnrolled.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingAssistEnrolled.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingAssistEnrolled.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 25768);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 25768);
+  v6[4] = __swift_coroFrameAllocStub(v5, 25768);
+  HearingRecord.$hearingAssistEnrolled.getter();
+  return HearingRecord.$hearingAssistEnrolled.modify;
+}
+
+void HearingRecord.$hearingAssistEnrolled.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingAssistEnrolled.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingAssistEnrolled.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingAssistEnrolled.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistEnrolled;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingAssistEnrolled.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistEnrolled;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingAssistRegionStatus@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMRegionStatus(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingAssistRegionStatus : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x440))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingAssistRegionStatus : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingAssistRegionStatus.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingAssistRegionStatus.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingAssistRegionStatus.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingAssistRegionStatus.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 60860);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingAssistRegionStatus.modify;
+}
+
+void HearingRecord.hearingAssistRegionStatus.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingAssistRegionStatus : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x458))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingAssistRegionStatus : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingAssistRegionStatus.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingAssistRegionStatus.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingAssistRegionStatus.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingAssistRegionStatus.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 1877);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 1877);
+  v6[4] = __swift_coroFrameAllocStub(v5, 1877);
+  HearingRecord.$hearingAssistRegionStatus.getter();
+  return HearingRecord.$hearingAssistRegionStatus.modify;
+}
+
+void HearingRecord.$hearingAssistRegionStatus.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingAssistRegionStatus.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingAssistRegionStatus.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingAssistRegionStatus.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistRegionStatus;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingAssistRegionStatus.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAssistRegionStatus;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionRegionStatus@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMRegionStatus(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionRegionStatus : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x470))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionRegionStatus : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionRegionStatus.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionRegionStatus.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionRegionStatus.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingProtectionRegionStatus.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 13671);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionRegionStatus.modify;
+}
+
+void HearingRecord.hearingProtectionRegionStatus.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionRegionStatus : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x488))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionRegionStatus : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionRegionStatus.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionRegionStatus.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionRegionStatus.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionRegionStatus.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 2621);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 2621);
+  v6[4] = __swift_coroFrameAllocStub(v5, 2621);
+  HearingRecord.$hearingProtectionRegionStatus.getter();
+  return HearingRecord.$hearingProtectionRegionStatus.modify;
+}
+
+void HearingRecord.$hearingProtectionRegionStatus.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionRegionStatus.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionRegionStatus.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionRegionStatus.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionRegionStatus;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionRegionStatus.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionRegionStatus;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionCapability@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMMultiState(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionCapability : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x4A0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionCapability : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionCapability.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionCapability.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionCapability.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingProtectionCapability.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 62285);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionCapability.modify;
+}
+
+void HearingRecord.hearingProtectionCapability.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionCapability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x4B8))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionCapability : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionCapability.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionCapability.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionCapability.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionCapability.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 26267);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 26267);
+  v6[4] = __swift_coroFrameAllocStub(v5, 26267);
+  HearingRecord.$hearingProtectionCapability.getter();
+  return HearingRecord.$hearingProtectionCapability.modify;
+}
+
+void HearingRecord.$hearingProtectionCapability.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionCapability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionCapability.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionCapability.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionCapability;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionCapability.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionCapability;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionEnabled : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x4D0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionEnabled : HearingRecord(unsigned __int8 *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v3 & *MEMORY[0x1E69E7D40]) + 0x4D8))(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionEnabled.getter()
+{
+  v5 = v0;
+  MEMORY[0x1E69E5928](v0);
+  KeyPath = swift_getKeyPath();
+  swift_getKeyPath();
+  static HearingRecordConfig.subscript.getter(KeyPath, &v4);
+  v3 = v4;
+
+  MEMORY[0x1E69E5920](v0);
+  return v3;
+}
+
+uint64_t HearingRecord.hearingProtectionEnabled.setter(char a1)
+{
+  v8 = a1;
+  v7 = v1;
+  MEMORY[0x1E69E5928](v1);
+  KeyPath = swift_getKeyPath();
+  v2 = swift_getKeyPath();
+  v6 = a1;
+  return static HearingRecordConfig.subscript.setter(&v6, v1, KeyPath, v2);
+}
+
+uint64_t (*HearingRecord.hearingProtectionEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
+{
+  *a1 = v1;
+  MEMORY[0x1E69E5928](v1);
+  KeyPath = swift_getKeyPath();
+  a1[1] = KeyPath;
+  a1[2] = swift_getKeyPath();
+  MEMORY[0x1E69E5928](v1);
+
+  static HearingRecordConfig.subscript.getter(KeyPath, (a1 + 3));
+  return HearingRecord.hearingProtectionEnabled.modify;
+}
+
+uint64_t HearingRecord.hearingProtectionEnabled.modify(uint64_t a1, char a2)
+{
+  if (a2)
+  {
+    v3 = *(a1 + 16);
+    v4 = *(a1 + 8);
+    v5 = *a1;
+    *(a1 + 25) = *(a1 + 24);
+    static HearingRecordConfig.subscript.setter(a1 + 25, v5, v4, v3);
+
+    return MEMORY[0x1E69E5920](v5);
+  }
+
+  else
+  {
+    v6 = *(a1 + 16);
+    v7 = *(a1 + 8);
+    v8 = *a1;
+    *(a1 + 26) = *(a1 + 24);
+    static HearingRecordConfig.subscript.setter(a1 + 26, v8, v7, v6);
+
+    return MEMORY[0x1E69E5920](v8);
+  }
+}
+
+char *variable initialization expression of HearingRecord._hearingProtectionEnabled@<X0>(uint64_t a1@<X8>)
+{
+  KeyPath = swift_getKeyPath();
+  v8 = 0;
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
+  lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
+  lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
+  lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
+  default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
+  v6 = v7;
+  return HearingRecordConfig.init(_:_:_:)(KeyPath, &v8, &v6, v4, v5, a1);
+}
+
+uint64_t HearingRecord.$hearingProtectionEnabled.getter@<X0>(void *a1@<X8>)
+{
+  swift_beginAccess();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16HeadphoneManager19HearingRecordConfigVyAA0cD0CSo12HMMultiStateVAGs23CustomStringConvertibleAAyHCg0_GMd, &_s16HeadphoneManager19HearingRecordConfigVyAA0cD0CSo12HMMultiStateVAGs23CustomStringConvertibleAAyHCg0_GMR);
+  HearingRecordConfig.projectedValue.getter(v1, a1);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionEnabled.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = (v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionEnabled);
+  swift_beginAccess();
+  v4 = *v3;
+  v5 = *(v3 + 1);
+  v6 = *(v3 + 2);
+  v7 = *(v3 + 3);
+  v9 = v3[32];
+
+  result = swift_endAccess();
+  *a1 = v4;
+  *(a1 + 8) = v5;
+  *(a1 + 16) = v6;
+  *(a1 + 24) = v7;
+  *(a1 + 32) = v9;
+  return result;
+}
+
+uint64_t HearingRecord._hearingProtectionEnabled.setter(uint64_t a1)
+{
+  memset(__b, 0, 0x21uLL);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
+  LOBYTE(__b[0]) = *a1;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
+
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionEnabled;
+  swift_beginAccess();
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
+
+  swift_endAccess();
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingTestRegionStatus@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMRegionStatus(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingTestRegionStatus : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x4F0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingTestRegionStatus : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingTestRegionStatus.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingTestRegionStatus.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingTestRegionStatus.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingTestRegionStatus.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 23204);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingTestRegionStatus.modify;
+}
+
+void HearingRecord.hearingTestRegionStatus.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingTestRegionStatus : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x508))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingTestRegionStatus : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingTestRegionStatus.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingTestRegionStatus.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingTestRegionStatus.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingTestRegionStatus.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 47166);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 47166);
+  v6[4] = __swift_coroFrameAllocStub(v5, 47166);
+  HearingRecord.$hearingTestRegionStatus.getter();
+  return HearingRecord.$hearingTestRegionStatus.modify;
+}
+
+void HearingRecord.$hearingTestRegionStatus.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingTestRegionStatus.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingTestRegionStatus.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingTestRegionStatus.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingTestRegionStatus;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingTestRegionStatus.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingTestRegionStatus;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.earLossArrayLeft@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+
+  v6[0] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, &_sSaySo8NSNumberCGMR);
+  Published.init(wrappedValue:)(v6, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.earLossArrayLeft : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x520))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.earLossArrayLeft : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of [NSNumber](a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.earLossArrayLeft.setter(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.earLossArrayLeft.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.earLossArrayLeft.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  static Published.subscript.setter();
+}
+
+void (*HearingRecord.earLossArrayLeft.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 22990);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.earLossArrayLeft.modify;
+}
+
+void HearingRecord.earLossArrayLeft.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$earLossArrayLeft : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x538))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$earLossArrayLeft : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$earLossArrayLeft.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$earLossArrayLeft.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$earLossArrayLeft.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$earLossArrayLeft.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 5506);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 5506);
+  v6[4] = __swift_coroFrameAllocStub(v5, 5506);
+  HearingRecord.$earLossArrayLeft.getter();
+  return HearingRecord.$earLossArrayLeft.modify;
+}
+
+void HearingRecord.$earLossArrayLeft.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$earLossArrayLeft.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$earLossArrayLeft.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._earLossArrayLeft.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__earLossArrayLeft;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._earLossArrayLeft.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__earLossArrayLeft;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.earLossArrayRight@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+
+  v6[0] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, &_sSaySo8NSNumberCGMR);
+  Published.init(wrappedValue:)(v6, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.earLossArrayRight : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x550))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.earLossArrayRight : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of [NSNumber](a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.earLossArrayRight.setter(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.earLossArrayRight.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.earLossArrayRight.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  static Published.subscript.setter();
+}
+
+void (*HearingRecord.earLossArrayRight.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 18389);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.earLossArrayRight.modify;
+}
+
+void HearingRecord.earLossArrayRight.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$earLossArrayRight : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x568))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$earLossArrayRight : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$earLossArrayRight.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$earLossArrayRight.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$earLossArrayRight.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$earLossArrayRight.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 32138);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo8NSNumberCG_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 32138);
+  v6[4] = __swift_coroFrameAllocStub(v5, 32138);
+  HearingRecord.$earLossArrayRight.getter();
+  return HearingRecord.$earLossArrayRight.modify;
+}
+
+void HearingRecord.$earLossArrayRight.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$earLossArrayRight.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$earLossArrayRight.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._earLossArrayRight.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__earLossArrayRight;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._earLossArrayRight.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo8NSNumberCGGMd, &_s7Combine9PublishedVySaySo8NSNumberCGGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__earLossArrayRight;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionOcclusionResult@<X0>(int a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMOcclusionResult(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionOcclusionResult : HearingRecord@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x580))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionOcclusionResult : HearingRecord(unsigned int *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionOcclusionResult.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionOcclusionResult.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionOcclusionResult.setter(int a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingProtectionOcclusionResult.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 28778);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionOcclusionResult.modify;
+}
+
+void HearingRecord.hearingProtectionOcclusionResult.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionOcclusionResult : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMd, &_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x598))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionOcclusionResult : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMd, &_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionOcclusionResult.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionOcclusionResult.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17HMOcclusionResultVGMd, &_s7Combine9PublishedVySo17HMOcclusionResultVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionOcclusionResult.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMd, &_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17HMOcclusionResultVGMd, &_s7Combine9PublishedVySo17HMOcclusionResultVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionOcclusionResult.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 61509);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMd, &_s7Combine9PublishedV9PublisherVySo17HMOcclusionResultV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 61509);
+  v6[4] = __swift_coroFrameAllocStub(v5, 61509);
+  HearingRecord.$hearingProtectionOcclusionResult.getter();
+  return HearingRecord.$hearingProtectionOcclusionResult.modify;
+}
+
+void HearingRecord.$hearingProtectionOcclusionResult.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionOcclusionResult.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionOcclusionResult.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionOcclusionResult.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionOcclusionResult;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17HMOcclusionResultVGMd, &_s7Combine9PublishedVySo17HMOcclusionResultVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionOcclusionResult.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17HMOcclusionResultVGMd, &_s7Combine9PublishedVySo17HMOcclusionResultVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionOcclusionResult;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.validAudiograms@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+
+  v6[0] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17HKAudiogramSampleCGMd, &_sSaySo17HKAudiogramSampleCGMR);
+  Published.init(wrappedValue:)(v6, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.validAudiograms : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x5B0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.validAudiograms : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of [HKAudiogramSample](a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x5B8))(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.validAudiograms.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.validAudiograms.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  static Published.subscript.setter();
+}
+
+void (*HearingRecord.validAudiograms.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 8942);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.validAudiograms.modify;
+}
+
+void HearingRecord.validAudiograms.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$validAudiograms : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x5C8))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$validAudiograms : HearingRecord(uint64_t a1, void **a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  (*((*v8 & *MEMORY[0x1E69E7D40]) + 0x5D0))(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$validAudiograms.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$validAudiograms.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$validAudiograms.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 51630);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 51630);
+  v6[4] = __swift_coroFrameAllocStub(v5, 51630);
+  HearingRecord.$validAudiograms.getter();
+  return HearingRecord.$validAudiograms.modify;
+}
+
+void HearingRecord.$validAudiograms.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$validAudiograms.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$validAudiograms.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._validAudiograms.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__validAudiograms;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._validAudiograms.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__validAudiograms;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.invalidAudiograms@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+
+  v6[0] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17HKAudiogramSampleCGMd, &_sSaySo17HKAudiogramSampleCGMR);
+  Published.init(wrappedValue:)(v6, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.invalidAudiograms : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x5E0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.invalidAudiograms : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of [HKAudiogramSample](a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x5E8))(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.invalidAudiograms.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.invalidAudiograms.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  static Published.subscript.setter();
+}
+
+void (*HearingRecord.invalidAudiograms.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 30984);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.invalidAudiograms.modify;
+}
+
+void HearingRecord.invalidAudiograms.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$invalidAudiograms : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x5F8))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$invalidAudiograms : HearingRecord(uint64_t a1, void **a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  (*((*v8 & *MEMORY[0x1E69E7D40]) + 0x600))(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$invalidAudiograms.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$invalidAudiograms.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$invalidAudiograms.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 9749);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMd, &_s7Combine9PublishedV9PublisherVySaySo17HKAudiogramSampleCG_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 9749);
+  v6[4] = __swift_coroFrameAllocStub(v5, 9749);
+  HearingRecord.$invalidAudiograms.getter();
+  return HearingRecord.$invalidAudiograms.modify;
+}
+
+void HearingRecord.$invalidAudiograms.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$invalidAudiograms.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$invalidAudiograms.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._invalidAudiograms.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__invalidAudiograms;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._invalidAudiograms.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMd, &_s7Combine9PublishedVySaySo17HKAudiogramSampleCGGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__invalidAudiograms;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.safetyInformation@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+  MEMORY[0x1E69E5928](a1);
+  v6[0] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6HMInfoCSgMd, &_sSo6HMInfoCSgMR);
+  Published.init(wrappedValue:)(v6, v2, a2);
+  return MEMORY[0x1E69E5920](a1);
+}
+
+uint64_t key path getter for HearingRecord.safetyInformation : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x610))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.safetyInformation : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of HMInfo?(a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x618))(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.safetyInformation.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.safetyInformation.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  MEMORY[0x1E69E5928](a1);
+  static Published.subscript.setter();
+  return MEMORY[0x1E69E5920](a1);
+}
+
+void (*HearingRecord.safetyInformation.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 8263);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.safetyInformation.modify;
+}
+
+void HearingRecord.safetyInformation.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$safetyInformation : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x628))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$safetyInformation : HearingRecord(uint64_t a1, void **a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  (*((*v8 & *MEMORY[0x1E69E7D40]) + 0x630))(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$safetyInformation.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo6HMInfoCSgGMd, &_s7Combine9PublishedVySo6HMInfoCSgGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$safetyInformation.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo6HMInfoCSgGMd, &_s7Combine9PublishedVySo6HMInfoCSgGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$safetyInformation.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 44267);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6HMInfoCSg_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 44267);
+  v6[4] = __swift_coroFrameAllocStub(v5, 44267);
+  HearingRecord.$safetyInformation.getter();
+  return HearingRecord.$safetyInformation.modify;
+}
+
+void HearingRecord.$safetyInformation.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$safetyInformation.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$safetyInformation.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._safetyInformation.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__safetyInformation;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo6HMInfoCSgGMd, &_s7Combine9PublishedVySo6HMInfoCSgGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._safetyInformation.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo6HMInfoCSgGMd, &_s7Combine9PublishedVySo6HMInfoCSgGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__safetyInformation;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionPPECapability@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMMultiState(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionPPECapability : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x640))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionPPECapability : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionPPECapability.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionPPECapability.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionPPECapability.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingProtectionPPECapability.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 57146);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionPPECapability.modify;
+}
+
+void HearingRecord.hearingProtectionPPECapability.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionPPECapability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x658))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionPPECapability : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionPPECapability.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionPPECapability.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionPPECapability.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionPPECapability.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 61027);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 61027);
+  v6[4] = __swift_coroFrameAllocStub(v5, 61027);
+  HearingRecord.$hearingProtectionPPECapability.getter();
+  return HearingRecord.$hearingProtectionPPECapability.modify;
+}
+
+void HearingRecord.$hearingProtectionPPECapability.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionPPECapability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionPPECapability.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionPPECapability.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPECapability;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionPPECapability.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPECapability;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionPPECapLevel@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v6[1] = a1;
+  MEMORY[0x1E69E5928](a1);
+  v6[0] = a1;
+  v2 = type metadata accessor for NSNumber();
+  Published.init(wrappedValue:)(v6, v2, a2);
+  return MEMORY[0x1E69E5920](a1);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionPPECapLevel : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x670))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionPPECapLevel : HearingRecord(uint64_t *a1, void *a2)
+{
+  v3 = *a1;
+  MEMORY[0x1E69E5928](*a1);
+  v5 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionPPECapLevel.setter(v3);
+  return MEMORY[0x1E69E5920](v5);
+}
+
+uint64_t HearingRecord.hearingProtectionPPECapLevel.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionPPECapLevel.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  MEMORY[0x1E69E5928](a1);
+  static Published.subscript.setter();
+  return MEMORY[0x1E69E5920](a1);
+}
+
+void (*HearingRecord.hearingProtectionPPECapLevel.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 5440);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionPPECapLevel.modify;
+}
+
+void HearingRecord.hearingProtectionPPECapLevel.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionPPECapLevel : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMd, &_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x688))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionPPECapLevel : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMd, &_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionPPECapLevel.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionPPECapLevel.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo8NSNumberCGMd, &_s7Combine9PublishedVySo8NSNumberCGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionPPECapLevel.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMd, &_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo8NSNumberCGMd, &_s7Combine9PublishedVySo8NSNumberCGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionPPECapLevel.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 47799);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMd, &_s7Combine9PublishedV9PublisherVySo8NSNumberC_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 47799);
+  v6[4] = __swift_coroFrameAllocStub(v5, 47799);
+  HearingRecord.$hearingProtectionPPECapLevel.getter();
+  return HearingRecord.$hearingProtectionPPECapLevel.modify;
+}
+
+void HearingRecord.$hearingProtectionPPECapLevel.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionPPECapLevel.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionPPECapLevel.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionPPECapLevel.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPECapLevel;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo8NSNumberCGMd, &_s7Combine9PublishedVySo8NSNumberCGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionPPECapLevel.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo8NSNumberCGMd, &_s7Combine9PublishedVySo8NSNumberCGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPECapLevel;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionPPEEnabled : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x6A0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionPPEEnabled : HearingRecord(unsigned __int8 *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v3 & *MEMORY[0x1E69E7D40]) + 0x6A8))(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionPPEEnabled.getter()
+{
+  v5 = v0;
+  MEMORY[0x1E69E5928](v0);
+  KeyPath = swift_getKeyPath();
+  swift_getKeyPath();
+  static HearingRecordConfig.subscript.getter(KeyPath, &v4);
+  v3 = v4;
+
+  MEMORY[0x1E69E5920](v0);
+  return v3;
+}
+
+uint64_t HearingRecord.hearingProtectionPPEEnabled.setter(char a1)
+{
+  v8 = a1;
+  v7 = v1;
+  MEMORY[0x1E69E5928](v1);
+  KeyPath = swift_getKeyPath();
+  v2 = swift_getKeyPath();
+  v6 = a1;
+  return static HearingRecordConfig.subscript.setter(&v6, v1, KeyPath, v2);
+}
+
+uint64_t (*HearingRecord.hearingProtectionPPEEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
+{
+  *a1 = v1;
+  MEMORY[0x1E69E5928](v1);
+  KeyPath = swift_getKeyPath();
+  a1[1] = KeyPath;
+  a1[2] = swift_getKeyPath();
+  MEMORY[0x1E69E5928](v1);
+
+  static HearingRecordConfig.subscript.getter(KeyPath, (a1 + 3));
+  return HearingRecord.hearingProtectionPPEEnabled.modify;
+}
+
+uint64_t HearingRecord.hearingProtectionPPEEnabled.modify(uint64_t a1, char a2)
+{
+  if (a2)
+  {
+    v3 = *(a1 + 16);
+    v4 = *(a1 + 8);
+    v5 = *a1;
+    *(a1 + 25) = *(a1 + 24);
+    static HearingRecordConfig.subscript.setter(a1 + 25, v5, v4, v3);
+
+    return MEMORY[0x1E69E5920](v5);
+  }
+
+  else
+  {
+    v6 = *(a1 + 16);
+    v7 = *(a1 + 8);
+    v8 = *a1;
+    *(a1 + 26) = *(a1 + 24);
+    static HearingRecordConfig.subscript.setter(a1 + 26, v8, v7, v6);
+
+    return MEMORY[0x1E69E5920](v8);
+  }
+}
+
+char *variable initialization expression of HearingRecord._hearingProtectionPPEEnabled@<X0>(uint64_t a1@<X8>)
+{
+  KeyPath = swift_getKeyPath();
+  v8 = 0;
+  v4 = type metadata accessor for HearingRecord(0);
+  v5 = type metadata accessor for HMMultiState(0);
+  lazy protocol witness table accessor for type HearingRecord and conformance HearingRecord();
+  lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
+  lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
+  default argument 2 of HearingRecordConfig.init(_:_:_:)(&v7);
+  v6 = v7;
+  return HearingRecordConfig.init(_:_:_:)(KeyPath, &v8, &v6, v4, v5, a1);
+}
+
+uint64_t HearingRecord.$hearingProtectionPPEEnabled.getter@<X0>(void *a1@<X8>)
+{
+  swift_beginAccess();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16HeadphoneManager19HearingRecordConfigVyAA0cD0CSo12HMMultiStateVAGs23CustomStringConvertibleAAyHCg0_GMd, &_s16HeadphoneManager19HearingRecordConfigVyAA0cD0CSo12HMMultiStateVAGs23CustomStringConvertibleAAyHCg0_GMR);
+  HearingRecordConfig.projectedValue.getter(v1, a1);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionPPEEnabled.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = (v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPEEnabled);
+  swift_beginAccess();
+  v4 = *v3;
+  v5 = *(v3 + 1);
+  v6 = *(v3 + 2);
+  v7 = *(v3 + 3);
+  v9 = v3[32];
+
+  result = swift_endAccess();
+  *a1 = v4;
+  *(a1 + 8) = v5;
+  *(a1 + 16) = v6;
+  *(a1 + 24) = v7;
+  *(a1 + 32) = v9;
+  return result;
+}
+
+uint64_t HearingRecord._hearingProtectionPPEEnabled.setter(uint64_t a1)
+{
+  memset(__b, 0, 0x21uLL);
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 32);
+  LOBYTE(__b[0]) = *a1;
+  v4 = __b[0];
+  __b[1] = v7;
+  __b[2] = v8;
+  __b[3] = v9;
+  LOBYTE(__b[4]) = v6;
+
+  v5 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPEEnabled;
+  swift_beginAccess();
+  *v5 = v4;
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(v5 + 24) = v9;
+  *(v5 + 32) = v6;
+
+  swift_endAccess();
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingProtectionPPERegionStatus@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMRegionStatus(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingProtectionPPERegionStatus : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x6C0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingProtectionPPERegionStatus : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingProtectionPPERegionStatus.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingProtectionPPERegionStatus.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingProtectionPPERegionStatus.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingProtectionPPERegionStatus.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 44633);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingProtectionPPERegionStatus.modify;
+}
+
+void HearingRecord.hearingProtectionPPERegionStatus.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingProtectionPPERegionStatus : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x6D8))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingProtectionPPERegionStatus : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingProtectionPPERegionStatus.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingProtectionPPERegionStatus.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingProtectionPPERegionStatus.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingProtectionPPERegionStatus.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 3938);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 3938);
+  v6[4] = __swift_coroFrameAllocStub(v5, 3938);
+  HearingRecord.$hearingProtectionPPERegionStatus.getter();
+  return HearingRecord.$hearingProtectionPPERegionStatus.modify;
+}
+
+void HearingRecord.$hearingProtectionPPERegionStatus.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingProtectionPPERegionStatus.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingProtectionPPERegionStatus.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingProtectionPPERegionStatus.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPERegionStatus;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingProtectionPPERegionStatus.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingProtectionPPERegionStatus;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingAidV2RegionStatus@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMRegionStatus(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingAidV2RegionStatus : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x6F0))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingAidV2RegionStatus : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingAidV2RegionStatus.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingAidV2RegionStatus.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingAidV2RegionStatus.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingAidV2RegionStatus.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 23089);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingAidV2RegionStatus.modify;
+}
+
+void HearingRecord.hearingAidV2RegionStatus.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingAidV2RegionStatus : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x708))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingAidV2RegionStatus : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingAidV2RegionStatus.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingAidV2RegionStatus.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingAidV2RegionStatus.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingAidV2RegionStatus.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 44228);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMd, &_s7Combine9PublishedV9PublisherVySo14HMRegionStatusV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 44228);
+  v6[4] = __swift_coroFrameAllocStub(v5, 44228);
+  HearingRecord.$hearingAidV2RegionStatus.getter();
+  return HearingRecord.$hearingAidV2RegionStatus.modify;
+}
+
+void HearingRecord.$hearingAidV2RegionStatus.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingAidV2RegionStatus.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingAidV2RegionStatus.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingAidV2RegionStatus.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidV2RegionStatus;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingAidV2RegionStatus.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo14HMRegionStatusVGMd, &_s7Combine9PublishedVySo14HMRegionStatusVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidV2RegionStatus;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t property wrapper backing initializer of HearingRecord.hearingAidV2Capability@<X0>(char a1@<W0>, uint64_t a2@<X8>)
+{
+  v5[1] = a1;
+  v5[0] = a1;
+  v2 = type metadata accessor for HMMultiState(0);
+  return Published.init(wrappedValue:)(v5, v2, a2);
+}
+
+uint64_t key path getter for HearingRecord.hearingAidV2Capability : HearingRecord@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x720))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.hearingAidV2Capability : HearingRecord(char *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  HearingRecord.hearingAidV2Capability.setter(v4);
+  return MEMORY[0x1E69E5920](v3);
+}
+
+uint64_t HearingRecord.hearingAidV2Capability.getter()
+{
+  MEMORY[0x1E69E5928](v0);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter();
+
+  MEMORY[0x1E69E5920](v0);
+  return v2;
+}
+
+uint64_t HearingRecord.hearingAidV2Capability.setter(char a1)
+{
+  MEMORY[0x1E69E5928](v1);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  return static Published.subscript.setter();
+}
+
+void (*HearingRecord.hearingAidV2Capability.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL, 19952);
+  *a1 = v3;
+  v3[4] = v2;
+  (MEMORY[0x1E69E5928])();
+  v3[5] = swift_getKeyPath();
+  v3[6] = swift_getKeyPath();
+  v3[7] = static Published.subscript.modify();
+  return HearingRecord.hearingAidV2Capability.modify;
+}
+
+void HearingRecord.hearingAidV2Capability.modify(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  if (a2)
+  {
+    v2 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v2);
+  }
+
+  else
+  {
+    v3 = *(v4 + 32);
+    (*(v4 + 56))(v4, 0);
+
+    MEMORY[0x1E69E5920](v3);
+  }
+
+  free(v4);
+}
+
+uint64_t key path getter for HearingRecord.$hearingAidV2Capability : HearingRecord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v9 = a2;
+  v4 = a1;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v7 = *(v11 - 8);
+  v8 = v11 - 8;
+  v5 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v10 = &v4 - v5;
+  v6 = *MEMORY[0x1EEE9AC00](v4);
+  v2 = MEMORY[0x1E69E5928](v6);
+  v13 = v6;
+  v12 = v6;
+  (*((*v6 & *MEMORY[0x1E69E7D40]) + 0x738))(v2);
+  (*(v7 + 32))(v9, v10, v11);
+  return MEMORY[0x1E69E5920](v12);
+}
+
+uint64_t key path setter for HearingRecord.$hearingAidV2Capability : HearingRecord(uint64_t a1, uint64_t *a2)
+{
+  v4 = a1;
+  v7 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6 = *(v2 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v2);
+  v9 = &v4 - v5;
+  (*(v6 + 16))(&v4 - v5);
+  v8 = *v7;
+  MEMORY[0x1E69E5928](v8);
+  v11 = v8;
+  v10 = v8;
+  HearingRecord.$hearingAidV2Capability.setter(v9);
+  return MEMORY[0x1E69E5920](v10);
+}
+
+uint64_t HearingRecord.$hearingAidV2Capability.getter()
+{
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.getter();
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord.$hearingAidV2Capability.setter(uint64_t a1)
+{
+  v7 = a1;
+  v11 = 0;
+  v10 = 0;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v5 = *(v8 - 8);
+  v6 = v8 - 8;
+  v4[0] = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v8);
+  v4[1] = v4 - v4[0];
+  v11 = v2;
+  v10 = v1;
+  (*(v5 + 16))();
+  v4[2] = &v9;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  Published.projectedValue.setter();
+  swift_endAccess();
+  return (*(v5 + 8))(v7, v8);
+}
+
+uint64_t (*HearingRecord.$hearingAidV2Capability.modify(void *a1))()
+{
+  v6 = __swift_coroFrameAllocStub(0x28uLL, 41282);
+  *a1 = v6;
+  *v6 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMd, &_s7Combine9PublishedV9PublisherVySo12HMMultiStateV_GMR);
+  v6[1] = v2;
+  v4 = *(v2 - 8);
+  v6[2] = v4;
+  v5 = *(v4 + 64);
+  v6[3] = __swift_coroFrameAllocStub(v5, 41282);
+  v6[4] = __swift_coroFrameAllocStub(v5, 41282);
+  HearingRecord.$hearingAidV2Capability.getter();
+  return HearingRecord.$hearingAidV2Capability.modify;
+}
+
+void HearingRecord.$hearingAidV2Capability.modify(void **a1, char a2)
+{
+  v8 = *a1;
+  if (a2)
+  {
+    v4 = v8[4];
+    v5 = v8[3];
+    v3 = v8[1];
+    v2 = v8[2];
+    (*(v2 + 16))();
+    HearingRecord.$hearingAidV2Capability.setter(v5);
+    (*(v2 + 8))(v4, v3);
+    free(v4);
+    free(v5);
+  }
+
+  else
+  {
+    v6 = v8[4];
+    v7 = v8[3];
+    HearingRecord.$hearingAidV2Capability.setter(v6);
+    free(v6);
+    free(v7);
+  }
+
+  free(v8);
+}
+
+uint64_t HearingRecord._hearingAidV2Capability.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidV2Capability;
+  swift_beginAccess();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  (*(*(v2 - 8) + 16))(a1, v4);
+  return swift_endAccess();
+}
+
+uint64_t HearingRecord._hearingAidV2Capability.setter(uint64_t a1)
+{
+  v11 = a1;
+  v15 = 0;
+  v14 = 0;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12HMMultiStateVGMd, &_s7Combine9PublishedVySo12HMMultiStateVGMR);
+  v9 = *(v12 - 8);
+  v10 = v12 - 8;
+  v5 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v12);
+  v7 = &v4 - v5;
+  v15 = v2;
+  v14 = v1;
+  (*(v9 + 16))();
+  v6 = v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord__hearingAidV2Capability;
+  v8 = &v13;
+  swift_beginAccess();
+  (*(v9 + 40))(v6, v7, v12);
+  swift_endAccess();
+  return (*(v9 + 8))(v11, v12);
+}
+
+uint64_t key path getter for HearingRecord.deviceRecord : HearingRecord@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v4 = *a1;
+  v2 = MEMORY[0x1E69E5928](*a1);
+  *a2 = (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x750))(v2);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t key path setter for HearingRecord.deviceRecord : HearingRecord(void *a1, void *a2)
+{
+  outlined init with copy of HMDeviceRecord?(a1, &v6);
+  v5 = v6;
+  v4 = *a2;
+  MEMORY[0x1E69E5928](*a2);
+  (*((*v4 & *MEMORY[0x1E69E7D40]) + 0x758))(v5);
+  return MEMORY[0x1E69E5920](v4);
+}
+
+uint64_t HearingRecord.deviceRecord.getter()
+{
+  v2 = (v0 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord_deviceRecord);
+  swift_beginAccess();
+  v3 = *v2;
+  MEMORY[0x1E69E5928](*v2);
+  swift_endAccess();
+  return v3;
+}
+
+uint64_t HearingRecord.deviceRecord.setter(uint64_t a1)
+{
+  MEMORY[0x1E69E5928](a1);
+  v4 = (v1 + OBJC_IVAR____TtC16HeadphoneManager13HearingRecord_deviceRecord);
+  swift_beginAccess();
+  v2 = *v4;
+  *v4 = a1;
+  MEMORY[0x1E69E5920](v2);
+  swift_endAccess();
+  return MEMORY[0x1E69E5920](a1);
+}
+
+uint64_t HearingRecord.updateWithRecord(_:)(void *a1)
+{
+  v138 = a1;
+  v117 = implicit closure #3 in HearingRecord.updateWithRecord(_:);
+  v118 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v119 = partial apply for implicit closure #4 in HearingRecord.updateWithRecord(_:);
+  v120 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v121 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v122 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v123 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v124 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v125 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v126 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v127 = implicit closure #1 in HearingRecord.updateWithRecord(_:);
+  v128 = _s2os18OSLogInterpolationV06appendC0_5align7privacyySSyXA_AA0B15StringAlignmentVAA0B7PrivacyVtFSSycfu_TA_6;
+  v129 = partial apply for implicit closure #2 in HearingRecord.updateWithRecord(_:);
+  v130 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v131 = _s2os14OSLogArgumentsV6appendyys5UInt8VFySpyAFGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_6;
+  v132 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v133 = _s2os14OSLogArgumentsV6appendyySSycFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_6;
+  v134 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v135 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v136 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v162 = 0;
+  v161 = 0;
+  v137 = 0;
+  v139 = type metadata accessor for Logger();
+  v140 = *(v139 - 8);
+  v141 = v139 - 8;
+  v142 = (*(v140 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2 = MEMORY[0x1EEE9AC00](v138);
+  v143 = v54 - v142;
+  v144 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v145 = v54 - v144;
+  v162 = v4;
+  v161 = v1;
+  v146 = (*((*v1 & *MEMORY[0x1E69E7D40]) + 0x750))();
+  if (v146)
+  {
+    v115 = v146;
+    v5 = v145;
+    MEMORY[0x1E69E5920](v146);
+    v6 = Logger.shared.unsafeMutableAddressor();
+    (*(v140 + 16))(v5, v6, v139);
+    MEMORY[0x1E69E5928](v138);
+    v101 = 7;
+    v102 = swift_allocObject();
+    *(v102 + 16) = v138;
+    v113 = Logger.logObject.getter();
+    v114 = static os_log_type_t.default.getter();
+    v98 = 17;
+    v104 = swift_allocObject();
+    v97 = 32;
+    *(v104 + 16) = 32;
+    v105 = swift_allocObject();
+    v99 = 8;
+    *(v105 + 16) = 8;
+    v100 = 32;
+    v7 = swift_allocObject();
+    v96 = v7;
+    *(v7 + 16) = v117;
+    *(v7 + 24) = 0;
+    v8 = swift_allocObject();
+    v9 = v96;
+    v106 = v8;
+    *(v8 + 16) = v118;
+    *(v8 + 24) = v9;
+    v107 = swift_allocObject();
+    *(v107 + 16) = v97;
+    v108 = swift_allocObject();
+    *(v108 + 16) = v99;
+    v10 = swift_allocObject();
+    v11 = v102;
+    v103 = v10;
+    *(v10 + 16) = v119;
+    *(v10 + 24) = v11;
+    v12 = swift_allocObject();
+    v13 = v103;
+    v110 = v12;
+    *(v12 + 16) = v120;
+    *(v12 + 24) = v13;
+    v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v109 = _allocateUninitializedArray<A>(_:)();
+    v111 = v14;
+
+    v15 = v104;
+    v16 = v111;
+    *v111 = v121;
+    v16[1] = v15;
+
+    v17 = v105;
+    v18 = v111;
+    v111[2] = v122;
+    v18[3] = v17;
+
+    v19 = v106;
+    v20 = v111;
+    v111[4] = v123;
+    v20[5] = v19;
+
+    v21 = v107;
+    v22 = v111;
+    v111[6] = v124;
+    v22[7] = v21;
+
+    v23 = v108;
+    v24 = v111;
+    v111[8] = v125;
+    v24[9] = v23;
+
+    v25 = v110;
+    v26 = v111;
+    v111[10] = v126;
+    v26[11] = v25;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(v113, v114))
+    {
+      v27 = v137;
+      v88 = static UnsafeMutablePointer.allocate(capacity:)();
+      v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v89 = createStorage<A>(capacity:type:)(0, v87, v87);
+      v90 = createStorage<A>(capacity:type:)(2, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+      v92 = &v151;
+      v151 = v88;
+      v93 = &v150;
+      v150 = v89;
+      v94 = &v149;
+      v149 = v90;
+      v91 = 2;
+      serialize(_:at:)(2, &v151);
+      serialize(_:at:)(v91, v92);
+      v147 = v121;
+      v148 = v104;
+      closure #1 in osLogInternal(_:log:type:)(&v147, v92, v93, v94);
+      v95 = v27;
+      if (v27)
+      {
+
+        __break(1u);
+      }
+
+      else
+      {
+        v147 = v122;
+        v148 = v105;
+        closure #1 in osLogInternal(_:log:type:)(&v147, &v151, &v150, &v149);
+        v86 = 0;
+        v147 = v123;
+        v148 = v106;
+        closure #1 in osLogInternal(_:log:type:)(&v147, &v151, &v150, &v149);
+        v85 = 0;
+        v147 = v124;
+        v148 = v107;
+        closure #1 in osLogInternal(_:log:type:)(&v147, &v151, &v150, &v149);
+        v84 = 0;
+        v147 = v125;
+        v148 = v108;
+        closure #1 in osLogInternal(_:log:type:)(&v147, &v151, &v150, &v149);
+        v83 = 0;
+        v147 = v126;
+        v148 = v110;
+        closure #1 in osLogInternal(_:log:type:)(&v147, &v151, &v150, &v149);
+        _os_log_impl(&dword_1D93D0000, v113, v114, "HeadphoneManager: %s: value changed update: %s", v88, 0x16u);
+        destroyStorage<A>(_:count:)(v89, 0, v87);
+        destroyStorage<A>(_:count:)(v90, 2, MEMORY[0x1E69E7CA0] + 8);
+        MEMORY[0x1DA730D30](v88, MEMORY[0x1E69E7508]);
+      }
+    }
+
+    else
+    {
+    }
+
+    v28 = v116;
+    MEMORY[0x1E69E5920](v113);
+    (*(v140 + 8))(v145, v139);
+    MEMORY[0x1E69E5928](v138);
+    (*((*v28 & *MEMORY[0x1E69E7D40]) + 0x758))(v138);
+    default argument 1 of HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(&v153);
+    v152 = v153;
+    return HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(v138, &v152);
+  }
+
+  else
+  {
+    v30 = v116;
+    MEMORY[0x1E69E5928](v138);
+    (*((*v30 & *MEMORY[0x1E69E7D40]) + 0x758))(v138);
+    default argument 1 of HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(&v160);
+    v159 = v160;
+    HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(v138, &v159);
+    v31 = v143;
+    v32 = Logger.shared.unsafeMutableAddressor();
+    (*(v140 + 16))(v31, v32, v139);
+    MEMORY[0x1E69E5928](v138);
+    v69 = 7;
+    v70 = swift_allocObject();
+    *(v70 + 16) = v138;
+    v81 = Logger.logObject.getter();
+    v82 = static os_log_type_t.default.getter();
+    v66 = 17;
+    v72 = swift_allocObject();
+    v65 = 32;
+    *(v72 + 16) = 32;
+    v73 = swift_allocObject();
+    v67 = 8;
+    *(v73 + 16) = 8;
+    v68 = 32;
+    v33 = swift_allocObject();
+    v64 = v33;
+    *(v33 + 16) = v127;
+    *(v33 + 24) = 0;
+    v34 = swift_allocObject();
+    v35 = v64;
+    v74 = v34;
+    *(v34 + 16) = v128;
+    *(v34 + 24) = v35;
+    v75 = swift_allocObject();
+    *(v75 + 16) = v65;
+    v76 = swift_allocObject();
+    *(v76 + 16) = v67;
+    v36 = swift_allocObject();
+    v37 = v70;
+    v71 = v36;
+    *(v36 + 16) = v129;
+    *(v36 + 24) = v37;
+    v38 = swift_allocObject();
+    v39 = v71;
+    v78 = v38;
+    *(v38 + 16) = v130;
+    *(v38 + 24) = v39;
+    v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v77 = _allocateUninitializedArray<A>(_:)();
+    v79 = v40;
+
+    v41 = v72;
+    v42 = v79;
+    *v79 = v131;
+    v42[1] = v41;
+
+    v43 = v73;
+    v44 = v79;
+    v79[2] = v132;
+    v44[3] = v43;
+
+    v45 = v74;
+    v46 = v79;
+    v79[4] = v133;
+    v46[5] = v45;
+
+    v47 = v75;
+    v48 = v79;
+    v79[6] = v134;
+    v48[7] = v47;
+
+    v49 = v76;
+    v50 = v79;
+    v79[8] = v135;
+    v50[9] = v49;
+
+    v51 = v78;
+    v52 = v79;
+    v79[10] = v136;
+    v52[11] = v51;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(v81, v82))
+    {
+      v53 = v137;
+      v56 = static UnsafeMutablePointer.allocate(capacity:)();
+      v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v57 = createStorage<A>(capacity:type:)(0, v55, v55);
+      v58 = createStorage<A>(capacity:type:)(2, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+      v60 = &v158;
+      v158 = v56;
+      v61 = &v157;
+      v157 = v57;
+      v62 = &v156;
+      v156 = v58;
+      v59 = 2;
+      serialize(_:at:)(2, &v158);
+      serialize(_:at:)(v59, v60);
+      v154 = v131;
+      v155 = v72;
+      closure #1 in osLogInternal(_:log:type:)(&v154, v60, v61, v62);
+      v63 = v53;
+      if (v53)
+      {
+
+        __break(1u);
+      }
+
+      else
+      {
+        v154 = v132;
+        v155 = v73;
+        closure #1 in osLogInternal(_:log:type:)(&v154, &v158, &v157, &v156);
+        v54[4] = 0;
+        v154 = v133;
+        v155 = v74;
+        closure #1 in osLogInternal(_:log:type:)(&v154, &v158, &v157, &v156);
+        v54[3] = 0;
+        v154 = v134;
+        v155 = v75;
+        closure #1 in osLogInternal(_:log:type:)(&v154, &v158, &v157, &v156);
+        v54[2] = 0;
+        v154 = v135;
+        v155 = v76;
+        closure #1 in osLogInternal(_:log:type:)(&v154, &v158, &v157, &v156);
+        v54[1] = 0;
+        v154 = v136;
+        v155 = v78;
+        closure #1 in osLogInternal(_:log:type:)(&v154, &v158, &v157, &v156);
+        _os_log_impl(&dword_1D93D0000, v81, v82, "HeadphoneManager: %s: deviceRecord set: %s", v56, 0x16u);
+        destroyStorage<A>(_:count:)(v57, 0, v55);
+        destroyStorage<A>(_:count:)(v58, 2, MEMORY[0x1E69E7CA0] + 8);
+        MEMORY[0x1DA730D30](v56, MEMORY[0x1E69E7508]);
+      }
+    }
+
+    else
+    {
+    }
+
+    MEMORY[0x1E69E5920](v81);
+    return (*(v140 + 8))(v143, v139);
+  }
+}
+
+uint64_t implicit closure #2 in HearingRecord.updateWithRecord(_:)(void *a1)
+{
+  MEMORY[0x1E69E5928](a1);
+  v3 = [a1 debugDescription];
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  MEMORY[0x1E69E5920](a1);
+  MEMORY[0x1E69E5920](v3);
+  return v4;
+}
+
+uint64_t implicit closure #4 in HearingRecord.updateWithRecord(_:)(void *a1)
+{
+  MEMORY[0x1E69E5928](a1);
+  v3 = [a1 debugDescription];
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  MEMORY[0x1E69E5920](a1);
+  MEMORY[0x1E69E5920](v3);
+  return v4;
+}
+
+uint64_t HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(void *a1, uint64_t a2)
+{
+  v296 = a1;
+  v156 = a2;
+  v302 = implicit closure #1 in HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:);
+  v303 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v308 = partial apply for implicit closure #2 in HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:);
+  v312 = implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:)partial apply;
+  v314 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v316 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v318 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v320 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v322 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v325 = closure #1 in OSLogArguments.append(_:)partial apply;
+  v405 = 0;
+  v404 = 0;
+  v403 = 0;
+  v155 = 0;
+  v253 = 0;
+  v300 = type metadata accessor for Logger();
+  v298 = *(v300 - 8);
+  v299 = v300 - 8;
+  v157 = (*(v298 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v287 = v145 - v157;
+  v405 = MEMORY[0x1EEE9AC00](v296);
+  v404 = *v3;
+  v403 = v2;
+  v402 = v404;
+  v4 = *v2;
+  v275 = MEMORY[0x1E69E7D40];
+  (*((v4 & *MEMORY[0x1E69E7D40]) + 0x188))(&v402);
+  v5 = v301;
+  v158 = [v296 tone];
+  v187 = 0x1FA982000uLL;
+  [v158 0x1FA9827C8];
+  v159 = v6;
+  MEMORY[0x1E69E5920](v158);
+  v160 = &v401;
+  v401 = v159;
+  v7 = *((*v5 & *v275) + 0x248);
+  v162 = &v400;
+  v8 = v7();
+  v9 = v301;
+  v161 = v8;
+  v190 = MEMORY[0x1E69E6448];
+  v191 = MEMORY[0x1E69E6470];
+  ==? infix<A>(_:_:)(v10, v160, MEMORY[0x1E69E6448], MEMORY[0x1E69E6470]);
+  v289 = 0;
+  v161();
+  v163 = [v296 amplification];
+  [v163 (v187 + 1992)];
+  v164 = v11;
+  MEMORY[0x1E69E5920](v163);
+  v165 = &v399;
+  v399 = v164;
+  v12 = *((*v9 & *v275) + 0x1A8);
+  v167 = &v398;
+  v13 = v12();
+  v14 = v301;
+  v166 = v13;
+  ==? infix<A>(_:_:)(v15, v165, v190, v191);
+  v166();
+  v168 = [v296 balance];
+  [v168 (v187 + 1992)];
+  v169 = v16;
+  MEMORY[0x1E69E5920](v168);
+  v170 = &v397;
+  v397 = v169;
+  v17 = *((*v14 & *v275) + 0x1C8);
+  v172 = &v396;
+  v18 = v17();
+  v19 = v301;
+  v171 = v18;
+  ==? infix<A>(_:_:)(v20, v170, v190, v191);
+  v171();
+  v173 = [v296 beamFormer];
+  [v173 (v187 + 1992)];
+  v174 = v21;
+  MEMORY[0x1E69E5920](v173);
+  v175 = &v395;
+  v395 = v174;
+  v22 = *((*v19 & *v275) + 0x1E8);
+  v177 = &v394;
+  v176 = v22();
+  ==? infix<A>(_:_:)(v23, v175, v190, v191);
+  v176();
+  v24 = [v296 earTipFitTestCapability];
+  v178 = &v393;
+  v393 = v24;
+  v181 = v392;
+  v25 = HearingRecord.earTipFitTestCapability.modify(v392);
+  v26 = v301;
+  v180 = v25;
+  v179 = v27;
+  v293 = type metadata accessor for HMMultiState(v253);
+  v294 = lazy protocol witness table accessor for type HMMultiState and conformance HMMultiState();
+  ==? infix<A>(_:_:)(v179, v178, v293, v294);
+  v180();
+  v182 = [v296 noiseSuppression];
+  [v182 (v187 + 1992)];
+  v183 = v28;
+  MEMORY[0x1E69E5920](v182);
+  v184 = &v391;
+  v391 = v183;
+  v29 = *((*v26 & *v275) + 0x208);
+  v186 = &v390;
+  v30 = v29();
+  v31 = v301;
+  v185 = v30;
+  ==? infix<A>(_:_:)(v32, v184, v190, v191);
+  v185();
+  v188 = [v296 ownVoiceLevelGain];
+  [v188 (v187 + 1992)];
+  v189 = v33;
+  MEMORY[0x1E69E5920](v188);
+  v192 = &v389;
+  v389 = v189;
+  v34 = *((*v31 & *v275) + 0x228);
+  v194 = &v388;
+  v35 = v34();
+  v36 = v301;
+  v193 = v35;
+  ==? infix<A>(_:_:)(v37, v192, v190, v191);
+  v193();
+  v38 = [v296 pmeVoiceEnabled];
+  v195 = &v387;
+  v387 = v38;
+  v39 = *((*v36 & *v275) + 0x268);
+  v197 = &v386;
+  v40 = v39();
+  v41 = v301;
+  v196 = v40;
+  ==? infix<A>(_:_:)(v42, v195, v293, v294);
+  v196();
+  v43 = [v296 pmeMediaEnabled];
+  v198 = &v385;
+  v385 = v43;
+  v44 = *((*v41 & *v275) + 0x288);
+  v200 = &v384;
+  v45 = v44();
+  v46 = v301;
+  v199 = v45;
+  ==? infix<A>(_:_:)(v47, v198, v293, v294);
+  v199();
+  v48 = [v296 hearingAssistEnabled];
+  v201 = &v383;
+  v383 = v48;
+  v49 = *((*v46 & *v275) + 0x2C8);
+  v203 = &v382;
+  v50 = v49();
+  v51 = v301;
+  v202 = v50;
+  ==? infix<A>(_:_:)(v52, v201, v293, v294);
+  v202();
+  v53 = [v296 mediaAssistEnabled];
+  v204 = &v381;
+  v381 = v53;
+  v54 = *((*v51 & *v275) + 0x2A8);
+  v206 = &v380;
+  v55 = v54();
+  v56 = v301;
+  v205 = v55;
+  ==? infix<A>(_:_:)(v57, v204, v293, v294);
+  v205();
+  v58 = [v296 swipeGainEnabled];
+  v207 = &v379;
+  v379 = v58;
+  v59 = *((*v56 & *v275) + 0x2E8);
+  v209 = &v378;
+  v60 = v59();
+  v61 = v301;
+  v208 = v60;
+  ==? infix<A>(_:_:)(v62, v207, v293, v294);
+  v208();
+  v63 = [v296 hearingAidEnabled];
+  v210 = &v377;
+  v377 = v63;
+  v64 = *((*v61 & *v275) + 0x308);
+  v212 = &v376;
+  v211 = v64();
+  ==? infix<A>(_:_:)(v65, v210, v293, v294);
+  v211();
+  v216 = [v296 bluetoothAddress];
+  v66 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v215 = v375;
+  v375[0] = v66;
+  v375[1] = v67;
+  v214 = v374;
+  v213 = HearingRecord.bluetoothAddress.modify(v374);
+  v217 = MEMORY[0x1E69E6158];
+  v218 = MEMORY[0x1E69E6180];
+  ==? infix<A>(_:_:)(v68, v215, MEMORY[0x1E69E6158], MEMORY[0x1E69E6180]);
+  v213();
+  outlined destroy of String(v215);
+  MEMORY[0x1E69E5920](v216);
+  v222 = [v296 bluetoothUUID];
+  v69 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v221 = v373;
+  v373[0] = v69;
+  v373[1] = v70;
+  v220 = v372;
+  v219 = HearingRecord.bluetoothUUID.modify(v372);
+  ==? infix<A>(_:_:)(v71, v221, v217, v218);
+  v219();
+  outlined destroy of String(v221);
+  MEMORY[0x1E69E5920](v222);
+  v72 = [v296 hearingAssistCapability];
+  v223 = &v371;
+  v371 = v72;
+  v225 = v370;
+  v224 = HearingRecord.hearingAssistCapability.modify(v370);
+  ==? infix<A>(_:_:)(v73, v223, v293, v294);
+  v224();
+  v74 = [v296 hearingAssistEnrolled];
+  v226 = &v369;
+  v369 = v74;
+  v228 = v368;
+  v227 = HearingRecord.hearingAssistEnrolled.modify(v368);
+  ==? infix<A>(_:_:)(v75, v226, v293, v294);
+  v227();
+  v76 = [v296 hearingAssistRegionStatus];
+  v229 = &v367;
+  v367 = v76;
+  v232 = v366;
+  v231 = HearingRecord.hearingAssistRegionStatus.modify(v366);
+  v230 = v77;
+  v282 = type metadata accessor for HMRegionStatus(v253);
+  v283 = lazy protocol witness table accessor for type HMRegionStatus and conformance HMRegionStatus();
+  ==? infix<A>(_:_:)(v230, v229, v282, v283);
+  v231();
+  HearingRecord.hearingProtectionRegionStatus.setter([v296 hearingProtectionRegionStatus]);
+  v78 = [v296 hearingProtectionCapability];
+  v233 = &v365;
+  v365 = v78;
+  v235 = v364;
+  v79 = HearingRecord.hearingProtectionCapability.modify(v364);
+  v80 = v301;
+  v234 = v79;
+  ==? infix<A>(_:_:)(v81, v233, v293, v294);
+  v234();
+  v82 = [v296 hearingProtectionEnabled];
+  v236 = &v363;
+  v363 = v82;
+  v83 = *((*v80 & *v275) + 0x4E0);
+  v238 = &v362;
+  v237 = v83();
+  ==? infix<A>(_:_:)(v84, v236, v293, v294);
+  v237();
+  v85 = [v296 hearingTestRegionStatus];
+  v239 = &v361;
+  v361 = v85;
+  v241 = v360;
+  v240 = HearingRecord.hearingTestRegionStatus.modify(v360);
+  ==? infix<A>(_:_:)(v86, v239, v282, v283);
+  v240();
+  v246 = [v296 earLossArrayLeft];
+  v271 = type metadata accessor for NSNumber();
+  v87 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v245 = &v359;
+  v359 = v87;
+  v244 = v358;
+  v243 = HearingRecord.earLossArrayLeft.modify(v358);
+  v242 = v88;
+  v247 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, &_sSaySo8NSNumberCGMR);
+  v248 = lazy protocol witness table accessor for type [NSNumber] and conformance <A> [A]();
+  ==? infix<A>(_:_:)(v242, v245, v247, v248);
+  v243();
+  outlined destroy of [NSNumber](v245);
+  MEMORY[0x1E69E5920](v246);
+  v252 = [v296 earLossArrayRight];
+  v89 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v251 = &v357;
+  v357 = v89;
+  v250 = v356;
+  v249 = HearingRecord.earLossArrayRight.modify(v356);
+  ==? infix<A>(_:_:)(v90, v251, v247, v248);
+  v249();
+  outlined destroy of [NSNumber](v251);
+  MEMORY[0x1E69E5920](v252);
+  v91 = [v296 hearingProtectionOcclusionResult];
+  v254 = &v355;
+  v355 = v91;
+  v258 = v354;
+  v257 = HearingRecord.hearingProtectionOcclusionResult.modify(v354);
+  v256 = v92;
+  v255 = type metadata accessor for HMOcclusionResult(v253);
+  v93 = lazy protocol witness table accessor for type HMOcclusionResult and conformance HMOcclusionResult();
+  ==? infix<A>(_:_:)(v256, v254, v255, v93);
+  v257();
+  v94 = [v296 hideOffModeCapability];
+  v259 = &v353;
+  v353 = v94;
+  v261 = v352;
+  v95 = HearingRecord.hideOffModeCapability.modify(v352);
+  v96 = v301;
+  v260 = v95;
+  ==? infix<A>(_:_:)(v97, v259, v293, v294);
+  v260();
+  v98 = [v296 safetyInformation];
+  v266 = &v351;
+  v351 = v98;
+  v99 = *((*v96 & *v275) + 0x620);
+  v265 = &v350;
+  v264 = v99();
+  v263 = v100;
+  v262 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6HMInfoCSgMd, &_sSo6HMInfoCSgMR);
+  v101 = lazy protocol witness table accessor for type HMInfo? and conformance <A> A?();
+  ==? infix<A>(_:_:)(v263, v266, v262, v101);
+  v264();
+  outlined destroy of HMInfo?(v266);
+  v102 = [v296 hearingProtectionPPECapability];
+  v267 = &v349;
+  v349 = v102;
+  v269 = v348;
+  v268 = HearingRecord.hearingProtectionPPECapability.modify(v348);
+  ==? infix<A>(_:_:)(v103, v267, v293, v294);
+  v268();
+  v104 = [v296 hearingProtectionPPECapLevel];
+  v270 = &v347;
+  v347 = v104;
+  v274 = v346;
+  v105 = HearingRecord.hearingProtectionPPECapLevel.modify(v346);
+  v106 = v301;
+  v273 = v105;
+  v272 = v107;
+  v108 = lazy protocol witness table accessor for type NSNumber and conformance NSObject();
+  ==? infix<A>(_:_:)(v272, v270, v271, v108);
+  v273();
+  MEMORY[0x1E69E5920](v347);
+  v109 = [v296 hearingProtectionPPEEnabled];
+  v276 = &v345;
+  v345 = v109;
+  v110 = *((*v106 & *v275) + 0x6B0);
+  v278 = &v344;
+  v277 = v110();
+  ==? infix<A>(_:_:)(v111, v276, v293, v294);
+  v277();
+  v112 = [v296 hearingProtectionPPERegionStatus];
+  v279 = &v343;
+  v343 = v112;
+  v281 = v342;
+  v280 = HearingRecord.hearingProtectionPPERegionStatus.modify(v342);
+  ==? infix<A>(_:_:)(v113, v279, v282, v283);
+  v280();
+  v114 = [v296 hearingAidV2RegionStatus];
+  v284 = &v341;
+  v341 = v114;
+  v286 = v340;
+  v285 = HearingRecord.hearingAidV2RegionStatus.modify(v340);
+  ==? infix<A>(_:_:)(v115, v284, v282, v283);
+  v285();
+  v116 = [v296 hearingAidV2Capability];
+  v288 = &v339;
+  v339 = v116;
+  v291 = v338;
+  v117 = HearingRecord.hearingAidV2Capability.modify(v338);
+  v118 = v287;
+  v290 = v117;
+  ==? infix<A>(_:_:)(v119, v288, v293, v294);
+  v290();
+  v295 = 0x1FBF9F000uLL;
+  v120 = [v296 0x1FBF9F3DELL];
+  v292 = &v337;
+  v337 = v120;
+  v336 = [v301 (v295 + 990)];
+  ==? infix<A>(_:_:)(&v336, v292, v293, v294);
+  v297 = 0x1FC276000uLL;
+  [v301 0x1FC276177];
+  v121 = [v296 (v295 + 990)];
+  [v301 (v297 + 375)];
+  v122 = Logger.shared.unsafeMutableAddressor();
+  (*(v298 + 16))(v118, v122, v300);
+  MEMORY[0x1E69E5928](v301);
+  v310 = 7;
+  v311 = swift_allocObject();
+  *(v311 + 16) = v301;
+  v329 = Logger.logObject.getter();
+  v330 = static os_log_type_t.default.getter();
+  v306 = 17;
+  v315 = swift_allocObject();
+  v305 = 32;
+  *(v315 + 16) = 32;
+  v317 = swift_allocObject();
+  v307 = 8;
+  *(v317 + 16) = 8;
+  v309 = 32;
+  v123 = swift_allocObject();
+  v304 = v123;
+  *(v123 + 16) = v302;
+  *(v123 + 24) = 0;
+  v124 = swift_allocObject();
+  v125 = v304;
+  v319 = v124;
+  *(v124 + 16) = v303;
+  *(v124 + 24) = v125;
+  v321 = swift_allocObject();
+  *(v321 + 16) = v305;
+  v323 = swift_allocObject();
+  *(v323 + 16) = v307;
+  v126 = swift_allocObject();
+  v127 = v311;
+  v313 = v126;
+  *(v126 + 16) = v308;
+  *(v126 + 24) = v127;
+  v128 = swift_allocObject();
+  v129 = v313;
+  v326 = v128;
+  *(v128 + 16) = v312;
+  *(v128 + 24) = v129;
+  v328 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v324 = _allocateUninitializedArray<A>(_:)();
+  v327 = v130;
+
+  v131 = v315;
+  v132 = v327;
+  *v327 = v314;
+  v132[1] = v131;
+
+  v133 = v317;
+  v134 = v327;
+  v327[2] = v316;
+  v134[3] = v133;
+
+  v135 = v319;
+  v136 = v327;
+  v327[4] = v318;
+  v136[5] = v135;
+
+  v137 = v321;
+  v138 = v327;
+  v327[6] = v320;
+  v138[7] = v137;
+
+  v139 = v323;
+  v140 = v327;
+  v327[8] = v322;
+  v140[9] = v139;
+
+  v141 = v326;
+  v142 = v327;
+  v327[10] = v325;
+  v142[11] = v141;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v329, v330))
+  {
+    v143 = v155;
+    v147 = static UnsafeMutablePointer.allocate(capacity:)();
+    v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v148 = createStorage<A>(capacity:type:)(0, v146, v146);
+    v149 = createStorage<A>(capacity:type:)(2, MEMORY[0x1E69E7CA0] + 8, MEMORY[0x1E69E7CA0] + 8);
+    v151 = &v335;
+    v335 = v147;
+    v152 = &v334;
+    v334 = v148;
+    v153 = &v333;
+    v333 = v149;
+    v150 = 2;
+    serialize(_:at:)(2, &v335);
+    serialize(_:at:)(v150, v151);
+    v331 = v314;
+    v332 = v315;
+    closure #1 in osLogInternal(_:log:type:)(&v331, v151, v152, v153);
+    v154 = v143;
+    if (v143)
+    {
+
+      __break(1u);
+    }
+
+    else
+    {
+      v331 = v316;
+      v332 = v317;
+      closure #1 in osLogInternal(_:log:type:)(&v331, &v335, &v334, &v333);
+      v145[4] = 0;
+      v331 = v318;
+      v332 = v319;
+      closure #1 in osLogInternal(_:log:type:)(&v331, &v335, &v334, &v333);
+      v145[3] = 0;
+      v331 = v320;
+      v332 = v321;
+      closure #1 in osLogInternal(_:log:type:)(&v331, &v335, &v334, &v333);
+      v145[2] = 0;
+      v331 = v322;
+      v332 = v323;
+      closure #1 in osLogInternal(_:log:type:)(&v331, &v335, &v334, &v333);
+      v145[1] = 0;
+      v331 = v325;
+      v332 = v326;
+      closure #1 in osLogInternal(_:log:type:)(&v331, &v335, &v334, &v333);
+      _os_log_impl(&dword_1D93D0000, v329, v330, "HeadphoneManager: %s: updated VM set: %s", v147, 0x16u);
+      destroyStorage<A>(_:count:)(v148, 0, v146);
+      destroyStorage<A>(_:count:)(v149, 2, MEMORY[0x1E69E7CA0] + 8);
+      MEMORY[0x1DA730D30](v147, MEMORY[0x1E69E7508]);
+    }
+  }
+
+  else
+  {
+  }
+
+  MEMORY[0x1E69E5920](v329);
+  (*(v298 + 8))(v287, v300);
+  return $defer #1 () in HearingRecord.updatePropertiesFor(updateRecord:remoteSendState:)(v301);
 }

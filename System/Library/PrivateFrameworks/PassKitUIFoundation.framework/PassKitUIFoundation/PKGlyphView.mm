@@ -12,15 +12,21 @@
 - (id)_secondaryColorForStyle:(int64_t)style mode:(int64_t)mode;
 - (id)createCustomImageLayer;
 - (void)_animateSecureIndicatorVisibilityForIndex:(unsigned __int16)index;
+- (void)_applyColorMode:(BOOL)mode;
 - (void)_applyEffectiveHighlightColorsToLayersAnimated:(BOOL)animated;
 - (void)_applyEffectivePrimaryColorToLayersAnimated:(BOOL)animated;
 - (void)_dynamicUserInterfaceTraitDidChange;
 - (void)_endPhoneWiggle;
 - (void)_executeAfterMinimumAnimationDurationForStateTransitionWithDelayRatio:(double)ratio handler:(id)handler;
 - (void)_executeTransitionCompletionHandlers:(BOOL)handlers;
+- (void)_finishTransitionForIndex:(unint64_t)index cancelled:(BOOL)cancelled;
 - (void)_layoutContentLayer:(id)layer;
+- (void)_performTransitionWithTransitionIndex:(unint64_t)index animated:(BOOL)animated;
+- (void)_setPrimaryColor:(id)color animated:(BOOL)animated;
 - (void)_setRecognizedIfNecessaryWithTransitionIndex:(unint64_t)index completion:(id)completion;
+- (void)_setSecondaryColor:(id)color animated:(BOOL)animated;
 - (void)_startPhoneWiggle;
+- (void)_updateCheckViewStateAnimated:(BOOL)animated withCompletion:(id)completion;
 - (void)_updateCustomImageLayerOpacityAnimated:(BOOL)animated;
 - (void)_updatePhoneLayoutWithTransitionIndex:(unint64_t)index animated:(BOOL)animated;
 - (void)_updatePhoneWiggleIfNecessary;
@@ -35,8 +41,10 @@
 - (void)didMoveToWindow;
 - (void)layoutSubviews;
 - (void)registerConsumer:(id)consumer;
+- (void)setColorMode:(int64_t)mode animated:(BOOL)animated;
 - (void)setCustomImage:(CGImage *)image withAlignmentEdgeInsets:(UIEdgeInsets)insets;
 - (void)setShowQRCode:(BOOL)code;
+- (void)setState:(int64_t)state animated:(BOOL)animated completionHandler:(id)handler;
 - (void)tintColorDidChange;
 - (void)unregisterConsumer:(id)consumer;
 - (void)updateRasterizationScale:(double)scale;
@@ -553,39 +561,37 @@ LABEL_7:
 
 void __22__PKGlyphView_dealloc__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didMoveToWindow
@@ -686,7 +692,7 @@ void __22__PKGlyphView_dealloc__block_invoke(uint64_t a1)
     [(PKGlyphView *)self _updateUserIntentLayoutAnimated:0];
   }
 
-  v48 = v13;
+  v47 = v13;
   [(PKGlyphView *)self _updatePhoneLayoutWithTransitionIndex:self->_transitionIndex animated:0];
   [(CALayer *)self->_customImageLayer contentsScale];
   v23 = v22;
@@ -701,7 +707,7 @@ void __22__PKGlyphView_dealloc__block_invoke(uint64_t a1)
     v30 = bottom / v23;
     v31 = left / v23;
     v32 = top / v23;
-    v47 = right / v23;
+    v46 = right / v23;
     if (self->_customImage)
     {
       v33 = left / v23;
@@ -711,7 +717,7 @@ void __22__PKGlyphView_dealloc__block_invoke(uint64_t a1)
 
   else
   {
-    v47 = right / v23;
+    v46 = right / v23;
     v30 = bottom / v23;
     v31 = left / v23;
     v32 = top / v23;
@@ -719,17 +725,16 @@ void __22__PKGlyphView_dealloc__block_invoke(uint64_t a1)
 
   v33 = v31;
 LABEL_9:
-  v34 = *MEMORY[0x277D385C0];
   PKSizeAlignedInRectWithScale();
-  v35 = v7;
-  v37 = v36 - v33;
-  v39 = v38 - v32;
-  v41 = v47 + v33 + v40;
-  v43 = v30 + v32 + v42;
+  v34 = v7;
+  v36 = v35 - v33;
+  v38 = v37 - v32;
+  v40 = v46 + v33 + v39;
+  v42 = v30 + v32 + v41;
   [(CALayer *)self->_customImageLayer anchorPoint];
-  [(CALayer *)self->_customImageLayer setPosition:v37 + v44 * v41, v39 + v45 * v43];
-  [(CALayer *)self->_customImageLayer setBounds:*v17, v17[1], v41, v43];
-  [(LAUICheckmarkLayer *)self->_checkLayer defaultSizeForCircleWithDiameter:v48 * self->_checkScale scale:v35];
+  [(CALayer *)self->_customImageLayer setPosition:v36 + v43 * v40, v38 + v44 * v42];
+  [(CALayer *)self->_customImageLayer setBounds:*v17, v17[1], v40, v42];
+  [(LAUICheckmarkLayer *)self->_checkLayer defaultSizeForCircleWithDiameter:v47 * self->_checkScale scale:v34];
   checkLayer = self->_checkLayer;
   PKSizeAlignedInRectWithScale();
 
@@ -864,43 +869,620 @@ void __93__PKGlyphView__executeAfterMinimumAnimationDurationForStateTransitionWi
   }
 }
 
+- (void)setState:(int64_t)state animated:(BOOL)animated completionHandler:(id)handler
+{
+  animatedCopy = animated;
+  handlerCopy = handler;
+  if (self->_state == state)
+  {
+    if (!handlerCopy)
+    {
+      goto LABEL_12;
+    }
+
+    v14 = handlerCopy;
+    if (self->_transitioning)
+    {
+      transitionCompletionHandlers = self->_transitionCompletionHandlers;
+      v10 = [handlerCopy copy];
+      [(NSMutableArray *)transitionCompletionHandlers addObject:v10];
+    }
+
+    else
+    {
+      (*(handlerCopy + 2))(handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    v14 = handlerCopy;
+    if (self->_transitioning)
+    {
+      self->_transitioning = 0;
+      [(PKGlyphView *)self _executeTransitionCompletionHandlers:1];
+      [(PKGlyphView *)self setState:state animated:self->_transitioningAnimated || animatedCopy completionHandler:v14];
+    }
+
+    else
+    {
+      v11 = self->_transitionIndex + 1;
+      self->_transitionIndex = v11;
+      self->_transitioning = 1;
+      self->_transitioningAnimated = animatedCopy;
+      self->_priorState = self->_state;
+      if (handlerCopy)
+      {
+        v12 = self->_transitionCompletionHandlers;
+        v13 = [handlerCopy copy];
+        [(NSMutableArray *)v12 addObject:v13];
+      }
+
+      [(PKGlyphView *)self willChangeValueForKey:@"state"];
+      self->_state = state;
+      [(PKGlyphView *)self didChangeValueForKey:@"state"];
+      [(PKGlyphView *)self _performTransitionWithTransitionIndex:v11 animated:animatedCopy];
+    }
+  }
+
+  handlerCopy = v14;
+LABEL_12:
+}
+
 - (void)_executeTransitionCompletionHandlers:(BOOL)handlers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [(NSMutableArray *)self->_transitionCompletionHandlers copy];
   [(NSMutableArray *)self->_transitionCompletionHandlers removeAllObjects];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_finishTransitionForIndex:(unint64_t)index cancelled:(BOOL)cancelled
+{
+  if (self->_transitioning && self->_transitionIndex == index)
+  {
+    self->_transitioning = 0;
+    [(PKGlyphView *)self _executeTransitionCompletionHandlers:cancelled];
+  }
+}
+
+- (void)_performTransitionWithTransitionIndex:(unint64_t)index animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(PKGlyphView *)self layoutIfNeeded];
+  layoutFlags = self->_layoutFlags;
+  v8 = layoutFlags;
+  if (self->_state != 9)
+  {
+    [(PKPhoneGlyphLayer *)self->_phoneLayer setHighlighted:0 animated:animatedCopy];
+    *&self->_layoutFlags &= 0xFCu;
+    [(PKGlyphView *)self _updatePhoneLayoutWithTransitionIndex:index animated:animatedCopy];
+    [(PKGlyphView *)self _updatePhoneWiggleIfNecessary];
+    if (self->_state == 2)
+    {
+      goto LABEL_5;
+    }
+
+    v8 = self->_layoutFlags;
+  }
+
+  *&self->_layoutFlags = v8 & 0xF3;
+  [(PKGlyphView *)self _updateUserIntentLayoutAnimated:animatedCopy];
+  if (self->_state == 10)
+  {
+LABEL_6:
+    [(PKGlyphView *)self _updateCheckViewStateAnimated:animatedCopy withCompletion:0];
+    goto LABEL_7;
+  }
+
+LABEL_5:
+  [(PKGlyphView *)self _updateCustomImageLayerOpacityAnimated:animatedCopy];
+  if (self->_state != 11)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  objc_initWeak(location, self);
+  v120[0] = MEMORY[0x277D85DD0];
+  v120[1] = 3221225472;
+  v120[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke;
+  v120[3] = &unk_279A00658;
+  objc_copyWeak(v121, location);
+  v121[1] = index;
+  v9 = MEMORY[0x25F8AAFE0](v120);
+  v10 = v9;
+  v11 = 0x27FCDA000uLL;
+  switch(self->_state)
+  {
+    case 0:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      pearlView = self->_pearlView;
+      if (pearlView)
+      {
+        if (self->_secureIndicatorRequired)
+        {
+          v13 = 6;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        v118[0] = MEMORY[0x277D85DD0];
+        v118[1] = 3221225472;
+        v118[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_3;
+        v118[3] = &unk_279A00680;
+        v119 = v10;
+        [(LAUIPearlGlyphView *)pearlView setState:v13 animated:animatedCopy withCompletion:v118];
+        v14 = v119;
+        goto LABEL_71;
+      }
+
+      fingerprintView = self->_fingerprintView;
+      if (!fingerprintView)
+      {
+        goto LABEL_65;
+      }
+
+      v32 = 0;
+      goto LABEL_64;
+    case 1:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      fingerprintView = self->_fingerprintView;
+      if (!fingerprintView)
+      {
+        goto LABEL_65;
+      }
+
+      v32 = 1;
+      goto LABEL_64;
+    case 2:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      v115[0] = MEMORY[0x277D85DD0];
+      v115[1] = 3221225472;
+      v115[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_4;
+      v115[3] = &unk_279A006A8;
+      objc_copyWeak(v116, location);
+      v116[1] = index;
+      v117 = animatedCopy;
+      v22 = MEMORY[0x25F8AAFE0](v115);
+      v112[0] = MEMORY[0x277D85DD0];
+      v112[1] = 3221225472;
+      v112[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_7;
+      v112[3] = &unk_279A006A8;
+      objc_copyWeak(v113, location);
+      v113[1] = index;
+      v114 = animatedCopy;
+      v23 = MEMORY[0x25F8AAFE0](v112);
+      v109[0] = MEMORY[0x277D85DD0];
+      v109[1] = 3221225472;
+      v109[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_8;
+      v109[3] = &unk_279A006A8;
+      objc_copyWeak(v110, location);
+      v110[1] = index;
+      v111 = animatedCopy;
+      v24 = MEMORY[0x25F8AAFE0](v109);
+      v105[0] = MEMORY[0x277D85DD0];
+      v105[1] = 3221225472;
+      v105[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_9;
+      v105[3] = &unk_279A006F8;
+      v25 = v23;
+      v106 = v25;
+      v26 = v24;
+      v107 = v26;
+      v108 = v10;
+      (v22)[2](v22, v105);
+
+      objc_destroyWeak(v110);
+      objc_destroyWeak(v113);
+
+      objc_destroyWeak(v116);
+      v11 = 0x27FCDA000;
+      goto LABEL_72;
+    case 3:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      v27 = self->_pearlView;
+      if (!v27)
+      {
+        goto LABEL_65;
+      }
+
+      if (self->_secureIndicatorRequired)
+      {
+        v103[0] = MEMORY[0x277D85DD0];
+        v103[1] = 3221225472;
+        v103[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_12;
+        v103[3] = &unk_279A00680;
+        v104 = v10;
+        [(LAUIPearlGlyphView *)v27 setState:6 animated:animatedCopy withCompletion:v103];
+        v14 = v104;
+        goto LABEL_71;
+      }
+
+      v19 = v99;
+      v99[0] = MEMORY[0x277D85DD0];
+      v99[1] = 3221225472;
+      v99[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_13;
+      v99[3] = &unk_279A00748;
+      objc_copyWeak(v101, location);
+      v101[1] = index;
+      v102 = animatedCopy;
+      v100 = v10;
+      [(LAUIPearlGlyphView *)v27 setState:4 animated:animatedCopy withCompletion:v99];
+      v43 = v100;
+      goto LABEL_68;
+    case 4:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      v17 = self->_pearlView;
+      if (!v17)
+      {
+        goto LABEL_65;
+      }
+
+      if (self->_secureIndicatorRequired)
+      {
+        v97[0] = MEMORY[0x277D85DD0];
+        v97[1] = 3221225472;
+        v97[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_16;
+        v97[3] = &unk_279A00680;
+        v98 = v10;
+        [(LAUIPearlGlyphView *)v17 setState:6 animated:animatedCopy withCompletion:v97];
+        v14 = v98;
+      }
+
+      else
+      {
+        v95[0] = MEMORY[0x277D85DD0];
+        v95[1] = 3221225472;
+        v95[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_17;
+        v95[3] = &unk_279A00680;
+        v96 = v10;
+        [(LAUIPearlGlyphView *)v17 setState:1 animated:animatedCopy withCompletion:v95];
+        v14 = v96;
+      }
+
+      goto LABEL_71;
+    case 5:
+      [(PKGlyphView *)self setColorMode:0 animated:animatedCopy];
+      v33 = self->_pearlView;
+      if (!v33)
+      {
+        goto LABEL_65;
+      }
+
+      if (self->_secureIndicatorRequired)
+      {
+        v93[0] = MEMORY[0x277D85DD0];
+        v93[1] = 3221225472;
+        v93[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_18;
+        v93[3] = &unk_279A00680;
+        v94 = v10;
+        [(LAUIPearlGlyphView *)v33 setState:6 animated:animatedCopy withCompletion:v93];
+        v14 = v94;
+      }
+
+      else
+      {
+        v91[0] = MEMORY[0x277D85DD0];
+        v91[1] = 3221225472;
+        v91[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_19;
+        v91[3] = &unk_279A00680;
+        v92 = v10;
+        [(LAUIPearlGlyphView *)v33 setState:2 animated:animatedCopy withCompletion:v91];
+        v14 = v92;
+      }
+
+      goto LABEL_71;
+    case 6:
+      v34 = self->_pearlView;
+      if (v34)
+      {
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_20;
+        v89[3] = &unk_279A00680;
+        v90 = v9;
+        [(LAUIPearlGlyphView *)v34 setState:7 animated:animatedCopy withCompletion:v89];
+        v14 = v90;
+        goto LABEL_71;
+      }
+
+      fingerprintView = self->_fingerprintView;
+      if (!fingerprintView)
+      {
+        goto LABEL_65;
+      }
+
+      v32 = 2;
+LABEL_64:
+      [(PKFingerprintGlyphView *)fingerprintView setState:v32 animated:animatedCopy completionHandler:v10];
+      goto LABEL_72;
+    case 7:
+      v19 = v84;
+      v84[0] = MEMORY[0x277D85DD0];
+      v84[1] = 3221225472;
+      v84[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_21;
+      v84[3] = &unk_279A00720;
+      objc_copyWeak(v86, location);
+      v87 = animatedCopy;
+      v28 = v10;
+      v88 = layoutFlags & 1;
+      v85 = v28;
+      v86[1] = index;
+      v29 = MEMORY[0x25F8AAFE0](v84);
+      v30 = v29;
+      if (animatedCopy)
+      {
+        v81[0] = MEMORY[0x277D85DD0];
+        v81[1] = 3221225472;
+        v81[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_25;
+        v81[3] = &unk_279A007C0;
+        objc_copyWeak(v83, location);
+        v83[1] = index;
+        v82 = v30;
+        [(PKGlyphView *)self _setRecognizedIfNecessaryWithTransitionIndex:index completion:v81];
+
+        objc_destroyWeak(v83);
+      }
+
+      else
+      {
+        (*(v29 + 16))(v29);
+      }
+
+      v43 = v85;
+      goto LABEL_68;
+    case 8:
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_26;
+      v77[3] = &unk_279A00770;
+      objc_copyWeak(&v79, location);
+      v80 = animatedCopy;
+      v40 = v10;
+      v78 = v40;
+      v41 = MEMORY[0x25F8AAFE0](v77);
+      v42 = v41;
+      if (animatedCopy)
+      {
+        v73[0] = MEMORY[0x277D85DD0];
+        v73[1] = 3221225472;
+        v73[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_28;
+        v73[3] = &unk_279A007E8;
+        objc_copyWeak(v76, location);
+        v76[1] = index;
+        v74 = v42;
+        v75 = v40;
+        [(PKGlyphView *)self _setRecognizedIfNecessaryWithTransitionIndex:index completion:v73];
+
+        objc_destroyWeak(v76);
+      }
+
+      else
+      {
+        (*(v41 + 16))(v41);
+      }
+
+      v44 = &v79;
+      goto LABEL_69;
+    case 9:
+      v19 = v65;
+      v65[0] = MEMORY[0x277D85DD0];
+      v65[1] = 3221225472;
+      v65[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_31;
+      v65[3] = &unk_279A00810;
+      objc_copyWeak(v67, location);
+      v67[1] = index;
+      v68 = animatedCopy;
+      v66 = v10;
+      v20 = MEMORY[0x25F8AAFE0](v65);
+      v21 = v20;
+      if (animatedCopy)
+      {
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_37;
+        v62[3] = &unk_279A007C0;
+        objc_copyWeak(v64, location);
+        v64[1] = index;
+        v63 = v21;
+        [(PKGlyphView *)self _setRecognizedIfNecessaryWithTransitionIndex:index completion:v62];
+
+        objc_destroyWeak(v64);
+      }
+
+      else
+      {
+        (*(v20 + 16))(v20);
+      }
+
+      v43 = v66;
+      goto LABEL_68;
+    case 0xALL:
+      v19 = v58;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_38;
+      v58[3] = &unk_279A00810;
+      objc_copyWeak(v60, location);
+      v60[1] = index;
+      v61 = animatedCopy;
+      v59 = v10;
+      v35 = MEMORY[0x25F8AAFE0](v58);
+      v36 = v35;
+      v37 = self->_pearlView;
+      if (v37)
+      {
+        v38 = v56;
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_40;
+        v56[3] = &unk_279A007C0;
+        v39 = v57;
+        objc_copyWeak(v57, location);
+        v57[1] = index;
+        v56[4] = v36;
+        [(LAUIPearlGlyphView *)v37 setState:6 animated:animatedCopy withCompletion:v56];
+LABEL_52:
+
+        objc_destroyWeak(v39);
+        v11 = 0x27FCDA000;
+        v19 = v58;
+        goto LABEL_53;
+      }
+
+      v45 = self->_fingerprintView;
+      if (v45)
+      {
+        v38 = v54;
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_41;
+        v54[3] = &unk_279A007C0;
+        v39 = v55;
+        objc_copyWeak(v55, location);
+        v55[1] = index;
+        v54[4] = v36;
+        [(PKFingerprintGlyphView *)v45 setState:5 animated:animatedCopy completionHandler:v54];
+        goto LABEL_52;
+      }
+
+      (*(v35 + 16))(v35);
+LABEL_53:
+
+      v43 = v59;
+LABEL_68:
+
+      v44 = (v19 + 5);
+LABEL_69:
+      objc_destroyWeak(v44);
+LABEL_72:
+      WeakRetained = objc_loadWeakRetained((&self->super.super.super.isa + *(v11 + 3480)));
+      if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
+      {
+        [WeakRetained glyphView:self transitioningToState:self->_state];
+      }
+
+      objc_destroyWeak(v121);
+      objc_destroyWeak(location);
+      return;
+    case 0xBLL:
+      [(PKGlyphView *)self setColorMode:2 animated:animatedCopy];
+      v15 = self->_pearlView;
+      if (v15)
+      {
+        if (self->_style == 7)
+        {
+          v16 = 8;
+        }
+
+        else
+        {
+          v16 = 6;
+        }
+
+        [(LAUIPearlGlyphView *)v15 setState:v16 animated:animatedCopy];
+      }
+
+      else
+      {
+        v46 = self->_fingerprintView;
+        if (v46)
+        {
+          [(PKFingerprintGlyphView *)v46 setState:5 animated:animatedCopy completionHandler:0];
+        }
+      }
+
+      v47 = objc_loadWeakRetained(&self->_delegate);
+      if (v47 && (objc_opt_respondsToSelector() & 1) != 0)
+      {
+        [v47 glyphView:self revealingCheckmark:animatedCopy];
+      }
+
+      self->_lastAnimationWillFinish = 0.0;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_42;
+      v51[3] = &unk_279A007C0;
+      objc_copyWeak(v53, location);
+      v53[1] = index;
+      v52 = v10;
+      [(PKGlyphView *)self _updateCheckViewStateAnimated:animatedCopy withCompletion:v51];
+
+      objc_destroyWeak(v53);
+      goto LABEL_72;
+    case 0xCLL:
+      [(PKGlyphView *)self setColorMode:1 animated:animatedCopy];
+      v18 = self->_pearlView;
+      if (v18)
+      {
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_29;
+        v71[3] = &unk_279A00680;
+        v72 = v10;
+        [(LAUIPearlGlyphView *)v18 setState:6 animated:animatedCopy withCompletion:v71];
+        v14 = v72;
+      }
+
+      else
+      {
+        v48 = self->_fingerprintView;
+        if (!v48)
+        {
+LABEL_65:
+          v10[2](v10, 0);
+          goto LABEL_72;
+        }
+
+        [(PKFingerprintGlyphView *)v48 setFadeOnRecognized:0];
+        v49 = self->_fingerprintView;
+        v69[0] = MEMORY[0x277D85DD0];
+        v69[1] = 3221225472;
+        v69[2] = __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke_30;
+        v69[3] = &unk_279A00680;
+        v70 = v10;
+        [(PKFingerprintGlyphView *)v49 setState:4 animated:animatedCopy completionHandler:v69];
+        v14 = v70;
+      }
+
+LABEL_71:
+
+      goto LABEL_72;
+    default:
+      goto LABEL_72;
+  }
 }
 
 void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_invoke(uint64_t a1, char a2)
@@ -1521,7 +2103,7 @@ void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_in
     phoneLayer = self->_phoneLayer;
     if (phoneLayer)
     {
-      [(PKPhoneGlyphLayer *)phoneLayer transform];
+      objc_msgSend_transform(phoneLayer);
     }
 
     v34 = v24 * 0.75 / 0.675;
@@ -1657,7 +2239,7 @@ void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_in
     memset(v86, 0, 128);
     if ((*&self->_layoutFlags & 2) != 0)
     {
-      [(PKGlyphView *)self _phoneTransformDeltaWhileShownFromRotationPercentage:0.0 toPercentage:1.0];
+      objc_msgSend__phoneTransformDeltaWhileShownFromRotationPercentage_toPercentage_(self, 0.0, 1.0);
     }
 
     else
@@ -1711,20 +2293,19 @@ void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_in
 
 - (void)_updatePhoneWiggleIfNecessary
 {
-  phoneWiggling = self->_phoneWiggling;
-  v3 = self->_state == 9;
+  v2 = self->_state == 9;
   if (self->_state == 9)
   {
     if (!self->_phoneWiggling)
     {
-      self->_phoneWiggling = v3;
+      self->_phoneWiggling = v2;
       [(PKGlyphView *)self _startPhoneWiggle];
     }
   }
 
   else if (self->_phoneWiggling)
   {
-    self->_phoneWiggling = v3;
+    self->_phoneWiggling = v2;
     [(PKGlyphView *)self _endPhoneWiggle];
   }
 }
@@ -1753,7 +2334,7 @@ void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_in
     v21[3] = v9;
     v10 = [MEMORY[0x277CCAE60] valueWithCATransform3D:v21];
     v11 = MEMORY[0x277CCAE60];
-    [(PKGlyphView *)self _phoneTransformDeltaWhileShownFromRotationPercentage:1.0 toPercentage:0.35];
+    objc_msgSend__phoneTransformDeltaWhileShownFromRotationPercentage_toPercentage_(self, 1.0, 0.35);
     v12 = [v11 valueWithCATransform3D:v21];
     v13 = __32__PKGlyphView__startPhoneWiggle__block_invoke(v12, @"transform", v10, v12);
 
@@ -1783,17 +2364,17 @@ void __62__PKGlyphView__performTransitionWithTransitionIndex_animated___block_in
 
 id __32__PKGlyphView__startPhoneWiggle__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CD9EC8];
   v7 = a4;
   v8 = a3;
   v9 = [v6 animationWithKeyPath:a2];
   [v9 setAdditive:1];
   [v9 setKeyTimes:&unk_286FD1388];
-  v23[0] = v8;
-  v23[1] = v7;
-  v23[2] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[0] = v8;
+  v22[1] = v7;
+  v22[2] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
   [v9 setValues:v10];
 
   LODWORD(v11) = 0.75;
@@ -1804,12 +2385,11 @@ id __32__PKGlyphView__startPhoneWiggle__block_invoke(uint64_t a1, uint64_t a2, v
   LODWORD(v16) = 1.0;
   LODWORD(v17) = *"ff&?";
   v18 = [MEMORY[0x277CD9EF8] functionWithControlPoints:v15 :0.0 :v17 :{v16, v14}];
-  v22[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
 
   [v9 setTimingFunctions:v19];
   [v9 setDuration:2.6];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2149,6 +2729,33 @@ LABEL_7:
   }
 }
 
+- (void)_updateCheckViewStateAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v7 = completionCopy;
+  if (self->_checkLayer)
+  {
+    v8 = self->_lastAnimationGroup;
+    dispatch_group_enter(v8);
+    checkLayer = self->_checkLayer;
+    v10 = self->_state == 11;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __60__PKGlyphView__updateCheckViewStateAnimated_withCompletion___block_invoke;
+    v12[3] = &unk_2799FFF30;
+    v13 = v8;
+    v14 = v7;
+    v11 = v8;
+    [(LAUICheckmarkLayer *)checkLayer setRevealed:v10 animated:animatedCopy withCompletion:v12];
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 1);
+  }
+}
+
 void __60__PKGlyphView__updateCheckViewStateAnimated_withCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
@@ -2312,72 +2919,85 @@ void __62__PKGlyphView__applyEffectiveHighlightColorsToLayersAnimated___block_in
   }
 }
 
-void __62__PKGlyphView__applyEffectiveHighlightColorsToLayersAnimated___block_invoke_2(uint64_t a1, void *a2, void *a3, char a4)
+void __62__PKGlyphView__applyEffectiveHighlightColorsToLayersAnimated___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) objectForKeyedSubscript:v8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       v13 = 0;
       do
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        LayerApplyColor(*(*(&v24 + 1) + 8 * v13++), v7, a4, *(a1 + 48));
+        LayerApplyColor(*(*(&v23 + 1) + 8 * v13++), v7, a4, *(a1 + 48));
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v11);
   }
 
   v14 = [*(a1 + 40) objectForKeyedSubscript:v8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        ShapeLayerApplyColor(*(*(&v20 + 1) + 8 * v18++), v7, a4, *(a1 + 48));
+        ShapeLayerApplyColor(*(*(&v19 + 1) + 8 * v18++), v7, a4, *(a1 + 48));
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v16);
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)_setPrimaryColor:(id)color animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  colorCopy = color;
+  if ((PKEqualObjects() & 1) == 0)
+  {
+    v6 = [colorCopy copy];
+    primaryColor = self->_primaryColor;
+    self->_primaryColor = v6;
+
+    [(PKFingerprintGlyphView *)self->_fingerprintView setPrimaryColor:self->_primaryColor animated:animatedCopy];
+    [(PKGlyphView *)self _applyEffectivePrimaryColorToLayersAnimated:animatedCopy];
+  }
 }
 
 - (void)_applyEffectivePrimaryColorToLayersAnimated:(BOOL)animated
@@ -2439,72 +3059,84 @@ void __59__PKGlyphView__applyEffectivePrimaryColorToLayersAnimated___block_invok
   }
 }
 
-void __59__PKGlyphView__applyEffectivePrimaryColorToLayersAnimated___block_invoke_3(uint64_t a1, void *a2, void *a3, char a4)
+void __59__PKGlyphView__applyEffectivePrimaryColorToLayersAnimated___block_invoke_3(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) objectForKeyedSubscript:v8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       v13 = 0;
       do
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        LayerApplyColor(*(*(&v24 + 1) + 8 * v13++), v7, a4, *(a1 + 48));
+        LayerApplyColor(*(*(&v23 + 1) + 8 * v13++), v7, a4, *(a1 + 48));
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v11);
   }
 
   v14 = [*(a1 + 40) objectForKeyedSubscript:v8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        ShapeLayerApplyColor(*(*(&v20 + 1) + 8 * v18++), v7, a4, *(a1 + 48));
+        ShapeLayerApplyColor(*(*(&v19 + 1) + 8 * v18++), v7, a4, *(a1 + 48));
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v16);
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)_setSecondaryColor:(id)color animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  colorCopy = color;
+  if ((PKEqualObjects() & 1) == 0)
+  {
+    v6 = [colorCopy copy];
+    secondaryColor = self->_secondaryColor;
+    self->_secondaryColor = v6;
+
+    [(PKFingerprintGlyphView *)self->_fingerprintView setSecondaryColor:self->_secondaryColor animated:animatedCopy];
+  }
 }
 
 - (id)_primaryColorForStyle:(int64_t)style mode:(int64_t)mode
@@ -2788,6 +3420,25 @@ LABEL_15:
 LABEL_16:
 
   return v4;
+}
+
+- (void)_applyColorMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v5 = [(PKGlyphView *)self _primaryColorForStyle:self->_style mode:self->_colorMode];
+  [(PKGlyphView *)self _setPrimaryColor:v5 animated:modeCopy];
+
+  v6 = [(PKGlyphView *)self _secondaryColorForStyle:self->_style mode:self->_colorMode];
+  [(PKGlyphView *)self _setSecondaryColor:v6 animated:modeCopy];
+}
+
+- (void)setColorMode:(int64_t)mode animated:(BOOL)animated
+{
+  if (self->_colorMode != mode)
+  {
+    self->_colorMode = mode;
+    [(PKGlyphView *)self _applyColorMode:animated];
+  }
 }
 
 - (void)setCustomImage:(CGImage *)image withAlignmentEdgeInsets:(UIEdgeInsets)insets
@@ -3273,72 +3924,89 @@ LABEL_11:
 
 - (void)_updateSecureFaceIDVisibility
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_secureIndicatorConsumers count]!= 0;
-  if (self->_secureIndicatorVisible == v3)
+  if (self->_secureIndicatorVisible != v3)
   {
-LABEL_23:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  self->_secureIndicatorVisible = v3;
-  v4 = self->_secureIndicatorAnimationIndex + 1;
-  self->_secureIndicatorAnimationIndex = v4;
-  self->_secureIndicatorVisibilityAnimating = 1;
-  self->_secureIndicatorVisibilityAnimationDeferred = 0;
-  if (self->_secureIndicatorVisible)
-  {
-    self->_secureIndicatorBecameVisibleAt = CFAbsoluteTimeGetCurrent();
-    self->_outstandingMatch = 0;
-    self->_outstandingFailure = 0;
-    if (!self->_secureIndicatorVisibleTracker)
+    self->_secureIndicatorVisible = v3;
+    v4 = self->_secureIndicatorAnimationIndex + 1;
+    self->_secureIndicatorAnimationIndex = v4;
+    self->_secureIndicatorVisibilityAnimating = 1;
+    self->_secureIndicatorVisibilityAnimationDeferred = 0;
+    if (self->_secureIndicatorVisible)
     {
-      v5 = +[PKAuthenticator trackSecureIndicatorVisibility];
-      secureIndicatorVisibleTracker = self->_secureIndicatorVisibleTracker;
-      self->_secureIndicatorVisibleTracker = v5;
-    }
-  }
-
-  if (!self->_secureIndicatorVisible)
-  {
-    v11 = self->_secureIndicatorVisibilityCompletions;
-    secureIndicatorVisibilityCompletions = self->_secureIndicatorVisibilityCompletions;
-    self->_secureIndicatorVisibilityCompletions = 0;
-
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v13 = v11;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v14)
-    {
-      v15 = *v23;
-      do
+      self->_secureIndicatorBecameVisibleAt = CFAbsoluteTimeGetCurrent();
+      self->_outstandingMatch = 0;
+      self->_outstandingFailure = 0;
+      if (!self->_secureIndicatorVisibleTracker)
       {
-        for (i = 0; i != v14; ++i)
-        {
-          if (*v23 != v15)
-          {
-            objc_enumerationMutation(v13);
-          }
+        v5 = +[PKAuthenticator trackSecureIndicatorVisibility];
+        secureIndicatorVisibleTracker = self->_secureIndicatorVisibleTracker;
+        self->_secureIndicatorVisibleTracker = v5;
+      }
+    }
 
-          (*(*(*(&v22 + 1) + 8 * i) + 16))();
+    if (self->_secureIndicatorVisible)
+    {
+      if (!self->_secureFaceIDView)
+      {
+        createSystemApertureConfiguration = [MEMORY[0x277D24218] createSystemApertureConfiguration];
+        [createSystemApertureConfiguration setSecureVariantEnabled:1];
+        [createSystemApertureConfiguration setSecureVariantType:1];
+        [createSystemApertureConfiguration setInitialStyle:0];
+        v8 = [objc_alloc(MEMORY[0x277D24220]) initWithConfiguration:createSystemApertureConfiguration];
+        secureFaceIDView = self->_secureFaceIDView;
+        self->_secureFaceIDView = v8;
+
+        v10 = self->_secureFaceIDView;
+        if (!v10)
+        {
+          __break(1u);
+          return;
         }
 
-        v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        [(LAUIPearlGlyphView *)v10 setFaceVisibility:7 animated:0];
+        [(LAUIPearlGlyphView *)self->_secureFaceIDView setShakeEnabled:0];
+        [(LAUIPearlGlyphView *)self->_secureFaceIDView setInApplicationContext:1];
+        [(LAUIPearlGlyphView *)self->_secureFaceIDView setState:7 animated:0];
+        [(PKGlyphView *)self insertSubview:self->_secureFaceIDView aboveSubview:self->_pearlView];
       }
-
-      while (v14);
     }
 
-    goto LABEL_17;
-  }
+    else
+    {
+      v11 = self->_secureIndicatorVisibilityCompletions;
+      secureIndicatorVisibilityCompletions = self->_secureIndicatorVisibilityCompletions;
+      self->_secureIndicatorVisibilityCompletions = 0;
 
-  if (self->_secureFaceIDView)
-  {
-LABEL_17:
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v13 = v11;
+      v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v14)
+      {
+        v15 = *v22;
+        do
+        {
+          for (i = 0; i != v14; ++i)
+          {
+            if (*v22 != v15)
+            {
+              objc_enumerationMutation(v13);
+            }
+
+            (*(*(*(&v21 + 1) + 8 * i) + 16))();
+          }
+
+          v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        }
+
+        while (v14);
+      }
+    }
+
     if (self->_secureIndicatorAnimationIndex == v4)
     {
       if (self->_secureIndicatorVisible)
@@ -3357,42 +4025,18 @@ LABEL_17:
         }
 
         objc_initWeak(&location, self);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __87__PKGlyphView_PKGlyphViewSecureIndicator_implementation___updateSecureFaceIDVisibility__block_invoke;
-        v18[3] = &unk_279A00978;
-        objc_copyWeak(&v19, &location);
-        v20 = v4;
-        [(PKGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v18];
-        objc_destroyWeak(&v19);
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __87__PKGlyphView_PKGlyphViewSecureIndicator_implementation___updateSecureFaceIDVisibility__block_invoke;
+        v17[3] = &unk_279A00978;
+        objc_copyWeak(&v18, &location);
+        v19 = v4;
+        [(PKGlyphView *)self _executeAfterMinimumAnimationDurationForStateTransition:v17];
+        objc_destroyWeak(&v18);
         objc_destroyWeak(&location);
       }
     }
-
-    goto LABEL_23;
   }
-
-  createSystemApertureConfiguration = [MEMORY[0x277D24218] createSystemApertureConfiguration];
-  [createSystemApertureConfiguration setSecureVariantEnabled:1];
-  [createSystemApertureConfiguration setSecureVariantType:1];
-  [createSystemApertureConfiguration setInitialStyle:0];
-  v8 = [objc_alloc(MEMORY[0x277D24220]) initWithConfiguration:createSystemApertureConfiguration];
-  secureFaceIDView = self->_secureFaceIDView;
-  self->_secureFaceIDView = v8;
-
-  v10 = self->_secureFaceIDView;
-  if (v10)
-  {
-    [(LAUIPearlGlyphView *)v10 setFaceVisibility:7 animated:0];
-    [(LAUIPearlGlyphView *)self->_secureFaceIDView setShakeEnabled:0];
-    [(LAUIPearlGlyphView *)self->_secureFaceIDView setInApplicationContext:1];
-    [(LAUIPearlGlyphView *)self->_secureFaceIDView setState:7 animated:0];
-    [(PKGlyphView *)self insertSubview:self->_secureFaceIDView aboveSubview:self->_pearlView];
-
-    goto LABEL_17;
-  }
-
-  __break(1u);
 }
 
 void __87__PKGlyphView_PKGlyphViewSecureIndicator_implementation___updateSecureFaceIDVisibility__block_invoke(uint64_t a1)
@@ -3457,7 +4101,7 @@ void __87__PKGlyphView_PKGlyphViewSecureIndicator_implementation___updateSecureF
 
 void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecureIndicatorVisibilityForIndex___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 228) == *(a1 + 48))
@@ -3474,50 +4118,47 @@ void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecur
 
     else
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecureIndicatorVisibilityForIndex___block_invoke_3;
-      v16[3] = &unk_279A009C8;
-      objc_copyWeak(&v17, (a1 + 40));
-      v18 = *(a1 + 48);
-      v16[4] = *(a1 + 32);
-      [v3 _executeAfterMinimumAnimationDurationForStateTransition:v16];
-      objc_destroyWeak(&v17);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecureIndicatorVisibilityForIndex___block_invoke_3;
+      v14[3] = &unk_279A009C8;
+      objc_copyWeak(&v15, (a1 + 40));
+      v16 = *(a1 + 48);
+      v14[4] = *(a1 + 32);
+      [v3 _executeAfterMinimumAnimationDurationForStateTransition:v14];
+      objc_destroyWeak(&v15);
     }
 
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v10 objects:v17 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(v3 + 442);
-          (*(*(*(&v12 + 1) + 8 * v9) + 16))(*(*(&v12 + 1) + 8 * v9));
+          (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v17 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecureIndicatorVisibilityForIndex___block_invoke_3(uint64_t a1)
@@ -3548,32 +4189,32 @@ void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecur
 
 - (void)_updateSecureFaceIDState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!self->_secureFaceIDView)
   {
-    goto LABEL_36;
+    return;
   }
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_secureIndicatorConsumers;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMapTable *)self->_secureIndicatorConsumerStates objectForKey:*(*(&v16 + 1) + 8 * i), v16];
+        v8 = [(NSMapTable *)self->_secureIndicatorConsumerStates objectForKey:*(*(&v14 + 1) + 8 * i), v14];
         if (v8)
         {
           v9 = v8;
@@ -3581,7 +4222,7 @@ void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecur
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -3594,16 +4235,45 @@ void __100__PKGlyphView_PKGlyphViewSecureIndicator_implementation___animateSecur
   v9 = 0;
 LABEL_12:
 
-  if (self->_secureIndicatorVisible)
+  if (!self->_secureIndicatorVisible)
   {
-    outstandingMatch = self->_outstandingMatch;
-    if (self->_secureIndicatorVisibilityAnimating)
+    if (!self->_secureIndicatorVisibilityAnimationDeferred)
     {
-      if (self->_outstandingMatch || self->_outstandingFailure)
+      v10 = 0;
+      outstandingFailure = 0;
+      v12 = 7;
+      goto LABEL_32;
+    }
+
+    if (!self->_outstandingMatch)
+    {
+      v10 = 0;
+      outstandingFailure = self->_outstandingFailure;
+      if (self->_outstandingFailure)
       {
-        v11 = 0;
-        outstandingFailure = 0;
-        v13 = 2;
+        v12 = 4;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      goto LABEL_32;
+    }
+
+    goto LABEL_23;
+  }
+
+  if (!self->_secureIndicatorVisibilityAnimating)
+  {
+    if (!self->_outstandingMatch)
+    {
+      if (self->_outstandingFailure)
+      {
+        v10 = 0;
+        outstandingFailure = 1;
+        v12 = 4;
         goto LABEL_32;
       }
 
@@ -3611,89 +4281,53 @@ LABEL_27:
       if (v9)
       {
         glyphState = [v9 glyphState];
-        v11 = 0;
+        v10 = 0;
         outstandingFailure = 0;
         if (glyphState == 2)
         {
-          v13 = 2;
+          v12 = 2;
         }
 
         else
         {
-          v13 = glyphState == 1;
+          v12 = glyphState == 1;
         }
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
         outstandingFailure = 0;
-        v13 = 0;
+        v12 = 0;
       }
 
       goto LABEL_32;
     }
-
-    if (self->_outstandingMatch)
-    {
-      goto LABEL_23;
-    }
-
-    if (!self->_outstandingFailure)
-    {
-      goto LABEL_27;
-    }
-
-    v11 = 0;
-    outstandingFailure = 1;
-    v13 = 4;
-  }
-
-  else
-  {
-    if (self->_secureIndicatorVisibilityAnimationDeferred)
-    {
-      if (!self->_outstandingMatch)
-      {
-        v11 = 0;
-        outstandingFailure = self->_outstandingFailure;
-        if (self->_outstandingFailure)
-        {
-          v13 = 4;
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        goto LABEL_32;
-      }
 
 LABEL_23:
-      outstandingFailure = 0;
-      v11 = 1;
-      v13 = 3;
-      goto LABEL_32;
-    }
-
-    v11 = 0;
     outstandingFailure = 0;
-    v13 = 7;
+    v10 = 1;
+    v12 = 3;
+    goto LABEL_32;
   }
 
-LABEL_32:
-  if ([(LAUIPearlGlyphView *)self->_secureFaceIDView state]!= v13)
+  if (!self->_outstandingMatch && !self->_outstandingFailure)
   {
-    [(LAUIPearlGlyphView *)self->_secureFaceIDView setState:v13 animated:1];
-    if ((v11 | outstandingFailure) == 1)
+    goto LABEL_27;
+  }
+
+  v10 = 0;
+  outstandingFailure = 0;
+  v12 = 2;
+LABEL_32:
+  if ([(LAUIPearlGlyphView *)self->_secureFaceIDView state]!= v12)
+  {
+    [(LAUIPearlGlyphView *)self->_secureFaceIDView setState:v12 animated:1];
+    if ((v10 | outstandingFailure) == 1)
     {
       [(PKGlyphView *)self _updateLastAnimationTimeWithAnimationOfDuration:0.25];
     }
   }
-
-LABEL_36:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -353,7 +353,7 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
 
 - (void)cleanupDiagnostics
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v2 = MEMORY[0x277CBEBC0];
   v3 = +[HDSFileTransferService productionCacheDirectory];
@@ -366,37 +366,37 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
       [HDSFileTransferService cleanupDiagnostics];
     }
 
-    v25 = 0;
-    v5 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v25];
-    v6 = v25;
+    v24 = 0;
+    v5 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v24];
+    v6 = v24;
     if (v5)
     {
       if ([v5 count])
       {
-        v16 = v6;
-        v17 = v5;
-        v18 = v4;
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
+        v15 = v6;
+        v16 = v5;
+        v17 = v4;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v7 = v5;
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v22;
+          v10 = *v21;
           do
           {
             v11 = 0;
             do
             {
-              if (*v22 != v10)
+              if (*v21 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              path = [*(*(&v21 + 1) + 8 * v11) path];
+              path = [*(*(&v20 + 1) + 8 * v11) path];
               if ([path containsString:@"HomePod"] && objc_msgSend(path, "containsString:", @"sysdiagnose") && objc_msgSend(path, "containsString:", @".tar.gz"))
               {
                 if (gLogCategory_HDSFileTransfer <= 30 && (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize()))
@@ -404,9 +404,9 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
                   [HDSFileTransferService cleanupDiagnostics];
                 }
 
-                v20 = 0;
-                [defaultManager removeItemAtPath:path error:&v20];
-                v13 = v20;
+                v19 = 0;
+                [defaultManager removeItemAtPath:path error:&v19];
+                v13 = v19;
                 if (v13 && gLogCategory_HDSFileTransfer <= 30 && (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize()))
                 {
                   [HDSFileTransferService cleanupDiagnostics];
@@ -417,16 +417,16 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
             }
 
             while (v9 != v11);
-            v14 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+            v14 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
             v9 = v14;
           }
 
           while (v14);
         }
 
-        v5 = v17;
-        v4 = v18;
-        v6 = v16;
+        v5 = v16;
+        v4 = v17;
+        v6 = v15;
       }
     }
 
@@ -440,8 +440,6 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
   {
     [HDSFileTransferService cleanupDiagnostics];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeFileToCache:(id)cache
@@ -553,13 +551,13 @@ LABEL_35:
   {
     if (gLogCategory_HDSFileTransfer <= 90 && (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize()))
     {
-      [(HDSFileTransferService *)deletableCopy markCacheDeletable:?];
+      [HDSFileTransferService markCacheDeletable:deletableCopy];
     }
   }
 
   else if (gLogCategory_HDSFileTransfer <= 30 && (gLogCategory_HDSFileTransfer != -1 || _LogCategory_Initialize()))
   {
-    [(HDSFileTransferService *)deletableCopy markCacheDeletable:?];
+    [HDSFileTransferService markCacheDeletable:deletableCopy];
   }
 
   close(v4);
@@ -629,21 +627,19 @@ void __80__HDSFileTransferService_handleSysDropStartFileTransferRequest_response
   LogPrintF();
 }
 
-- (uint64_t)markCacheDeletable:(void *)a1 .cold.1(void *a1, uint64_t *a2)
+- (uint64_t)markCacheDeletable:(void *)a1 .cold.1(void *a1)
 {
   [a1 UTF8String];
-  v3 = __error();
-  strerror(*v3);
-  v5 = *a2;
+  v1 = __error();
+  strerror(*v1);
   return LogPrintF();
 }
 
-- (uint64_t)markCacheDeletable:(void *)a1 .cold.2(void *a1, uint64_t *a2)
+- (uint64_t)markCacheDeletable:(void *)a1 .cold.2(void *a1)
 {
   [a1 UTF8String];
-  v3 = *a2;
-  v4 = __error();
-  strerror(*v4);
+  v1 = __error();
+  strerror(*v1);
   return LogPrintF();
 }
 

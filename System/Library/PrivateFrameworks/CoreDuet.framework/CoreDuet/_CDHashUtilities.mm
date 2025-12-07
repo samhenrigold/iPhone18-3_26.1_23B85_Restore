@@ -32,7 +32,7 @@
 
 + (id)sha1ForData:(id)data
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -46,14 +46,12 @@
     [v4 appendFormat:@"%02x", md[i]];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)md5ForData:(id)data
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = dataCopy;
   if (dataCopy)
@@ -70,8 +68,6 @@
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -140,7 +136,7 @@
 + (id)sha256Hash:(id)hash withSalt:(id)salt
 {
   v4 = 0;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (hash && salt)
   {
     saltCopy = salt;
@@ -153,8 +149,6 @@
     v10 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
     v4 = [self hexStringFromData:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

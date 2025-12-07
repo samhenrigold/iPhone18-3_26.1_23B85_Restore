@@ -64,10 +64,10 @@ void __65__BRObservableFile__registerForApplicationLifecycleNotifications__block
 
 void __49__BRObservableFile__applicationWillResignActive___block_invoke(uint64_t a1, char a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = cdui_default_log();
+    v2 = cdui_default_log(a1);
     v3 = v2;
     if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
@@ -78,112 +78,124 @@ void __49__BRObservableFile__applicationWillResignActive___block_invoke(uint64_t
 
   else
   {
-    v15 = _BRObservableFileInstances;
-    objc_sync_enter(v15);
-    v17 = 0u;
+    v16 = _BRObservableFileInstances;
+    objc_sync_enter(v16);
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
     obj = _BRObservableFileInstances;
-    v4 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+    v4 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+    v5 = v4;
     if (v4)
     {
-      v5 = *v18;
+      v6 = *v19;
       do
       {
-        for (i = 0; i != v4; ++i)
+        v7 = 0;
+        do
         {
-          if (*v18 != v5)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v17 + 1) + 8 * i);
-          v8 = cdui_default_log();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+          v8 = *(*(&v18 + 1) + 8 * v7);
+          v9 = cdui_default_log(v4);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            v9 = objc_opt_class();
-            v10 = [v7 presenter];
-            v11 = [v10 presentedItemURL];
-            v12 = [v11 path];
+            v10 = objc_opt_class();
+            v11 = [v8 presenter];
+            v12 = [v11 presentedItemURL];
+            v13 = [v12 path];
             *buf = 138412802;
-            v22 = v9;
-            v23 = 2048;
-            v24 = v7;
-            v25 = 2112;
-            v26 = v12;
-            _os_log_impl(&dword_243823000, v8, OS_LOG_TYPE_INFO, "[INFO] Removing (<%@: %p>, %@) as file presenter due to application deactivation", buf, 0x20u);
+            v23 = v10;
+            v24 = 2048;
+            v25 = v8;
+            v26 = 2112;
+            v27 = v13;
+            _os_log_impl(&dword_243823000, v9, OS_LOG_TYPE_INFO, "[INFO] Removing (<%@: %p>, %@) as file presenter due to application deactivation", buf, 0x20u);
           }
 
-          v13 = MEMORY[0x277CCA9E8];
-          v14 = [v7 presenter];
-          [v13 removeFilePresenter:v14];
+          v14 = MEMORY[0x277CCA9E8];
+          v15 = [v8 presenter];
+          [v14 removeFilePresenter:v15];
+
+          ++v7;
         }
 
-        v4 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+        while (v5 != v7);
+        v4 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+        v5 = v4;
       }
 
       while (v4);
     }
 
-    v3 = v15;
-    objc_sync_exit(v15);
+    v3 = v16;
+    objc_sync_exit(v16);
   }
 }
 
 + (void)_applicationDidBecomeActive:(id)active
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   activeCopy = active;
-  v15 = _BRObservableFileInstances;
-  objc_sync_enter(v15);
-  v17 = 0u;
+  v16 = _BRObservableFileInstances;
+  objc_sync_enter(v16);
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
   obj = _BRObservableFileInstances;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v4 = v3;
   if (v3)
   {
-    v4 = *v18;
+    v5 = *v19;
     do
     {
-      for (i = 0; i != v3; ++i)
+      v6 = 0;
+      do
       {
-        if (*v18 != v4)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * i);
-        v7 = cdui_default_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v7 = *(*(&v18 + 1) + 8 * v6);
+        v8 = cdui_default_log(v3);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v8 = objc_opt_class();
-          presenter = [v6 presenter];
+          v9 = objc_opt_class();
+          presenter = [v7 presenter];
           presentedItemURL = [presenter presentedItemURL];
           path = [presentedItemURL path];
           *buf = 138412802;
-          v22 = v8;
-          v23 = 2048;
-          v24 = v6;
-          v25 = 2112;
-          v26 = path;
-          _os_log_impl(&dword_243823000, v7, OS_LOG_TYPE_INFO, "[INFO] Re-adding (<%@: %p>, %@) as file presenter due to application activation", buf, 0x20u);
+          v23 = v9;
+          v24 = 2048;
+          v25 = v7;
+          v26 = 2112;
+          v27 = path;
+          _os_log_impl(&dword_243823000, v8, OS_LOG_TYPE_INFO, "[INFO] Re-adding (<%@: %p>, %@) as file presenter due to application activation", buf, 0x20u);
         }
 
-        v12 = MEMORY[0x277CCA9E8];
-        presenter2 = [v6 presenter];
-        [v12 addFilePresenter:presenter2];
+        v13 = MEMORY[0x277CCA9E8];
+        presenter2 = [v7 presenter];
+        [v13 addFilePresenter:presenter2];
+
+        ++v6;
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+      while (v4 != v6);
+      v3 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v4 = v3;
     }
 
     while (v3);
   }
 
-  objc_sync_exit(v15);
+  objc_sync_exit(v16);
 }
 
 + (id)observerForKey:(id)key onFileURL:(id)l
@@ -197,12 +209,12 @@ void __49__BRObservableFile__applicationWillResignActive___block_invoke(uint64_t
 
 - (BRObservableFile)initWithKey:(id)key fileURL:(id)l
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   lCopy = l;
-  v23.receiver = self;
-  v23.super_class = BRObservableFile;
-  v8 = [(BRObservableFile *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = BRObservableFile;
+  v8 = [(BRObservableFile *)&v24 init];
   if (v8)
   {
     [objc_opt_class() _registerForApplicationLifecycleNotifications];
@@ -225,21 +237,21 @@ void __49__BRObservableFile__applicationWillResignActive___block_invoke(uint64_t
     presenter4 = [(BRObservableFile *)v8 presenter];
     [v14 addFilePresenter:presenter4];
 
-    v16 = cdui_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = cdui_default_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v17 = objc_opt_class();
-      v18 = v17;
+      v18 = objc_opt_class();
+      v19 = v18;
       presenter5 = [(BRObservableFile *)v8 presenter];
       presentedItemURL = [presenter5 presentedItemURL];
       path = [presentedItemURL path];
       *buf = 138412802;
-      v25 = v17;
-      v26 = 2048;
-      v27 = v8;
-      v28 = 2112;
-      v29 = path;
-      _os_log_impl(&dword_243823000, v16, OS_LOG_TYPE_INFO, "[INFO] Adding (<%@: %p>, %@) as file presenter", buf, 0x20u);
+      v26 = v18;
+      v27 = 2048;
+      v28 = v8;
+      v29 = 2112;
+      v30 = path;
+      _os_log_impl(&dword_243823000, v17, OS_LOG_TYPE_INFO, "[INFO] Adding (<%@: %p>, %@) as file presenter", buf, 0x20u);
     }
 
     [(BRObservableFile *)v8 _presenterDidChange];
@@ -260,32 +272,32 @@ void __49__BRObservableFile__applicationWillResignActive___block_invoke(uint64_t
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
-  [objc_opt_class() _deregisterInstance:self];
-  v3 = cdui_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = [objc_opt_class() _deregisterInstance:self];
+  v4 = cdui_default_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = objc_opt_class();
-    v5 = v4;
+    v5 = objc_opt_class();
+    v6 = v5;
     presenter = [(BRObservableFile *)self presenter];
     presentedItemURL = [presenter presentedItemURL];
     path = [presentedItemURL path];
     *buf = 138412802;
-    v13 = v4;
-    v14 = 2048;
+    v14 = v5;
+    v15 = 2048;
     selfCopy = self;
-    v16 = 2112;
-    v17 = path;
-    _os_log_impl(&dword_243823000, v3, OS_LOG_TYPE_INFO, "[INFO] Removing (<%@: %p>, %@) as file presenter due to dealloc", buf, 0x20u);
+    v17 = 2112;
+    v18 = path;
+    _os_log_impl(&dword_243823000, v4, OS_LOG_TYPE_INFO, "[INFO] Removing (<%@: %p>, %@) as file presenter due to dealloc", buf, 0x20u);
   }
 
-  v9 = MEMORY[0x277CCA9E8];
+  v10 = MEMORY[0x277CCA9E8];
   presenter2 = [(BRObservableFile *)self presenter];
-  [v9 removeFilePresenter:presenter2];
+  [v10 removeFilePresenter:presenter2];
 
-  v11.receiver = self;
-  v11.super_class = BRObservableFile;
-  [(BRObservableFile *)&v11 dealloc];
+  v12.receiver = self;
+  v12.super_class = BRObservableFile;
+  [(BRObservableFile *)&v12 dealloc];
 }
 
 - (void)_presenterDidChange

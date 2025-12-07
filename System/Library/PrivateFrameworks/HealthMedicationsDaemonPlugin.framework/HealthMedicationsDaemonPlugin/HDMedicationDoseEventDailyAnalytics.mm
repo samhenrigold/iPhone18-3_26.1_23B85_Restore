@@ -10,7 +10,6 @@
 - (id)_weeksSinceFirstLoggedMedPayload;
 - (id)makeIHAGatedEventPayloadWithDataSource:(id)source error:(id *)error;
 - (id)makeUnrestrictedEventPayloadWithDataSource:(id)source error:(id *)error;
-- (void)_weeksSinceFirstLoggedMedPayload;
 @end
 
 @implementation HDMedicationDoseEventDailyAnalytics
@@ -134,7 +133,7 @@ uint64_t __84__HDMedicationDoseEventDailyAnalytics_makeIHAGatedEventPayloadWithD
 
 - (id)_hasLoggedMedsInPastPayloadWithTransaction:(id)transaction
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(NSCalendar *)self->_calendar hk_dateByAddingDays:-1 toDate:self->_currentDate];
@@ -185,8 +184,8 @@ LABEL_28:
       [v5 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"hasLoggedMedsInPastMonth"];
     }
 
-    v54 = [(NSCalendar *)self->_calendar hk_dateByAddingDays:-180 toDate:self->_currentDate];
-    v21 = [objc_opt_class() _doseEventCountLoggedSinceDate:v54 transaction:transactionCopy];
+    v53 = [(NSCalendar *)self->_calendar hk_dateByAddingDays:-180 toDate:self->_currentDate];
+    v21 = [objc_opt_class() _doseEventCountLoggedSinceDate:v53 transaction:transactionCopy];
     v22 = v21;
     if (v21)
     {
@@ -206,11 +205,11 @@ LABEL_27:
       [v5 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"hasLoggedMedsInPast6Months"];
     }
 
-    v51 = v18;
-    v52 = [(NSCalendar *)self->_calendar hk_dateByAddingDays:-365 toDate:self->_currentDate];
-    v26 = [objc_opt_class() _doseEventCountLoggedSinceDate:v52 transaction:transactionCopy];
-    v53 = v22;
-    v50 = v26;
+    v50 = v18;
+    v51 = [(NSCalendar *)self->_calendar hk_dateByAddingDays:-365 toDate:self->_currentDate];
+    v26 = [objc_opt_class() _doseEventCountLoggedSinceDate:v51 transaction:transactionCopy];
+    v52 = v22;
+    v49 = v26;
     if (v26)
     {
       if ([v26 integerValue] >= 1)
@@ -221,61 +220,61 @@ LABEL_27:
         v28 = v5;
 LABEL_26:
 
-        v23 = v53;
+        v23 = v52;
         goto LABEL_27;
       }
 
       [v5 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"hasLoggedMedsInPastYear"];
     }
 
-    v45 = v16;
+    v44 = v16;
     medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
-    v57[0] = medicationDoseEventType;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
+    v56[0] = medicationDoseEventType;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
     v31 = HDSampleEntityPredicateForDataTypes();
 
     v32 = HDMedicationDoseEventEntityPredicateForStatuses();
     v33 = MEMORY[0x277D10B20];
-    v48 = v32;
-    v49 = v31;
-    v56[0] = v31;
-    v56[1] = v32;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v47 = v32;
+    v48 = v31;
+    v55[0] = v31;
+    v55[1] = v32;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
     v35 = [v33 predicateMatchingAllPredicates:v34];
 
     v36 = objc_opt_class();
     protectedDatabase = [transactionCopy protectedDatabase];
-    v55 = 0;
-    v47 = v35;
-    v38 = [v36 anyInDatabase:protectedDatabase predicate:v35 error:&v55];
-    v44 = v55;
+    v54 = 0;
+    v46 = v35;
+    v38 = [v36 anyInDatabase:protectedDatabase predicate:v35 error:&v54];
+    v43 = v54;
 
-    v46 = v38;
+    v45 = v38;
     if (v38)
     {
       v39 = [MEMORY[0x277CCABB0] numberWithInt:1];
       [v5 setObject:v39 forKeyedSubscript:@"hasMedsHistory"];
-      v40 = v44;
-      v16 = v45;
-      v18 = v51;
+      v40 = v43;
+      v16 = v44;
+      v18 = v50;
     }
 
     else
     {
       _HKInitializeLogging();
       v39 = HKLogMedication();
-      v18 = v51;
+      v18 = v50;
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v40 = v44;
+        v40 = v43;
         [HDMedicationDoseEventDailyAnalytics _hasLoggedMedsInPastPayloadWithTransaction:];
-        v16 = v45;
+        v16 = v44;
       }
 
       else
       {
-        v40 = v44;
-        v16 = v45;
+        v40 = v43;
+        v16 = v44;
       }
     }
 
@@ -299,7 +298,6 @@ LABEL_26:
 LABEL_29:
 
 LABEL_30:
-  v42 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -312,9 +310,9 @@ LABEL_30:
   medicationDoseEventType = [MEMORY[0x277CCD658] medicationDoseEventType];
   v7 = objc_opt_class();
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v17 = 0;
-  v9 = [v7 oldestSampleWithType:medicationDoseEventType profile:WeakRetained encodingOptions:0 predicate:v5 error:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [v7 oldestSampleWithType:medicationDoseEventType profile:WeakRetained encodingOptions:0 predicate:v5 error:&v16];
+  v10 = v16;
 
   if (v9)
   {
@@ -322,11 +320,10 @@ LABEL_30:
     _creationDate = [v9 _creationDate];
     v13 = [(NSCalendar *)calendar startOfDayForDate:_creationDate];
 
-    v14 = self->_calendar;
-    v15 = HKMedicationAnalyticsWeeksBetweenDates();
-    if (v15)
+    v14 = HKMedicationAnalyticsWeeksBetweenDates();
+    if (v14)
     {
-      [v3 setObject:v15 forKeyedSubscript:@"weeksSinceFirstLoggedMed"];
+      [v3 setObject:v14 forKeyedSubscript:@"weeksSinceFirstLoggedMed"];
     }
   }
 
@@ -345,7 +342,7 @@ LABEL_30:
 
 - (id)_hasLoggedAllScheduledMedsInPreviousDayPayloadWithTransaction:(id)transaction
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(NSCalendar *)self->_calendar dateByAddingUnit:16 value:-1 toDate:self->_currentDate options:0];
@@ -354,25 +351,25 @@ LABEL_30:
   v8 = [(NSCalendar *)self->_calendar dateByAddingUnit:16 value:1 toDate:v7 options:0];
   v9 = [(NSCalendar *)self->_calendar startOfDayForDate:v8];
 
-  v35 = v9;
-  v36 = v7;
+  v34 = v9;
+  v35 = v7;
   v10 = [objc_opt_class() _predicateForDoseEventsBetweenDate:v7 andDate:v9];
   v11 = HDMedicationDoseEventEntityPredicateForLogOrigin();
   v12 = MEMORY[0x277D10B20];
-  v37 = v11;
-  v38 = v10;
-  v44[0] = v10;
-  v44[1] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v36 = v11;
+  v37 = v10;
+  v43[0] = v10;
+  v43[1] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
   v14 = [v12 predicateMatchingAllPredicates:v13];
 
   v15 = objc_opt_class();
   v16 = *MEMORY[0x277D10420];
   v17 = [transactionCopy databaseForEntityClass:v15];
-  v40 = 0;
-  v34 = v14;
-  v18 = [v15 countValueForProperty:v16 predicate:v14 database:v17 error:&v40];
-  v19 = v40;
+  v39 = 0;
+  v33 = v14;
+  v18 = [v15 countValueForProperty:v16 predicate:v14 database:v17 error:&v39];
+  v19 = v39;
 
   if (v18)
   {
@@ -390,36 +387,36 @@ LABEL_30:
 
     else
     {
-      v33 = v5;
+      v32 = v5;
       v20 = HDMedicationDoseEventEntityPredicateForStatuses();
       v21 = transactionCopy;
       v22 = MEMORY[0x277D10B20];
-      v41[0] = v38;
-      v41[1] = v37;
-      v41[2] = v20;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+      v40[0] = v37;
+      v40[1] = v36;
+      v40[2] = v20;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
       v24 = v22;
       transactionCopy = v21;
       v25 = [v24 predicateMatchingAllPredicates:v23];
 
       v26 = [v21 databaseForEntityClass:v15];
-      v39 = 0;
-      v27 = [v15 countValueForProperty:v16 predicate:v25 database:v26 error:&v39];
-      v19 = v39;
+      v38 = 0;
+      v27 = [v15 countValueForProperty:v16 predicate:v25 database:v26 error:&v38];
+      v19 = v38;
 
       if (v27)
       {
         v28 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v18, "integerValue") == objc_msgSend(v27, "integerValue")}];
-        v5 = v33;
-        [v33 setObject:v28 forKeyedSubscript:@"hasLoggedAllScheduledMedsInPreviousDay"];
+        v5 = v32;
+        [v32 setObject:v28 forKeyedSubscript:@"hasLoggedAllScheduledMedsInPreviousDay"];
 
-        v29 = v33;
+        v29 = v32;
         goto LABEL_13;
       }
 
       _HKInitializeLogging();
       v30 = HKLogMedication();
-      v5 = v33;
+      v5 = v32;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [HDMedicationDoseEventDailyAnalytics _hasLoggedAllScheduledMedsInPreviousDayPayloadWithTransaction:];
@@ -440,21 +437,19 @@ LABEL_30:
   v29 = 0;
 LABEL_13:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 + (id)_doseEventCountLoggedSinceDate:(id)date transaction:(id)transaction
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   transactionCopy = transaction;
   v8 = [objc_opt_class() _predicateForDoseEventsLoggedSinceDate:dateCopy];
-  v15 = 0;
-  v9 = [objc_opt_class() _countOfDoseEventsWithPredicate:v8 transaction:transactionCopy error:&v15];
+  v14 = 0;
+  v9 = [objc_opt_class() _countOfDoseEventsWithPredicate:v8 transaction:transactionCopy error:&v14];
 
-  v10 = v15;
+  v10 = v14;
   if (v9)
   {
     v11 = v9;
@@ -468,15 +463,13 @@ LABEL_13:
     {
       *buf = 138543874;
       selfCopy = self;
-      v18 = 2114;
-      v19 = dateCopy;
-      v20 = 2114;
-      v21 = v10;
+      v17 = 2114;
+      v18 = dateCopy;
+      v19 = 2114;
+      v20 = v10;
       _os_log_error_impl(&dword_25181C000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] Error when determining if logged medications since date: %{public}@, continuing daily analytics submission: %{public}@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -496,38 +489,36 @@ LABEL_13:
 
 + (id)_predicateForDoseEventsLoggedSinceDate:(id)date
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCD658];
   dateCopy = date;
   medicationDoseEventType = [v3 medicationDoseEventType];
-  v16[0] = medicationDoseEventType;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = medicationDoseEventType;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v7 = HDSampleEntityPredicateForDataTypes();
 
   v8 = HDDataEntityPredicateForCreationDate();
 
   v9 = HDMedicationDoseEventEntityPredicateForStatuses();
   v10 = MEMORY[0x277D10B20];
-  v15[0] = v7;
-  v15[1] = v8;
-  v15[2] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = v7;
+  v14[1] = v8;
+  v14[2] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v12 = [v10 predicateMatchingAllPredicates:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)_predicateForDoseEventsBetweenDate:(id)date andDate:(id)andDate
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCD658];
   andDateCopy = andDate;
   dateCopy = date;
   medicationDoseEventType = [v5 medicationDoseEventType];
-  v19[0] = medicationDoseEventType;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = medicationDoseEventType;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v10 = HDSampleEntityPredicateForDataTypes();
 
   v11 = HDSampleEntityPredicateForStartDate();
@@ -535,39 +526,13 @@ LABEL_13:
   v12 = HDSampleEntityPredicateForStartDate();
 
   v13 = MEMORY[0x277D10B20];
-  v18[0] = v10;
-  v18[1] = v11;
-  v18[2] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[0] = v10;
+  v17[1] = v11;
+  v17[2] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v15 = [v13 predicateMatchingAllPredicates:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
-}
-
-- (void)_hasLoggedMedsInPastPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error when determining if user has any dose events in the database, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_weeksSinceFirstLoggedMedPayload
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error loading oldest logged dose event, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_hasLoggedAllScheduledMedsInPreviousDayPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error loading scheduled logged dose event count for yesterday, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

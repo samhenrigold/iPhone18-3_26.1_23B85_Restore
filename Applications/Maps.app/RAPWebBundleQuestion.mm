@@ -993,12 +993,12 @@ LABEL_65:
         v86 = [GEORPUserSearchInput alloc];
         startWaypoint2 = [(RAPDirectionsRecording *)v50 startWaypoint];
         v88 = [v86 initWithRAPUserSearchInput:startWaypoint2];
-        [v51 setStartWaypoint:v88];
+        objc_msgSend_setStartWaypoint_(v51);
       }
 
       else
       {
-        [v51 setStartWaypoint:0];
+        objc_msgSend_setStartWaypoint_(v51);
       }
 
       endWaypoint = [(RAPDirectionsRecording *)v50 endWaypoint];

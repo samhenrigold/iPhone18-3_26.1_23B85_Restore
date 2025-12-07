@@ -11,7 +11,7 @@
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCoreDataLoadErrorLogEvent reason](self, "reason")}];
   [dictionary setObject:v4 forKeyedSubscript:@"action"];
 
-  v5 = [dictionary copy];
+  v5 = objc_msgSend_copy(dictionary);
 
   return v5;
 }

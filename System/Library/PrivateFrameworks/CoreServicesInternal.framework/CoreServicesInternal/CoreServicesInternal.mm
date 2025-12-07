@@ -35,22 +35,8 @@ uint64_t _FSURLCopyResourcePropertyForKeyInternal(const __CFURL *a1, const __CFS
   _FileCacheDecrementInProvider(v11);
   if (a6 && !v17)
   {
-    if (_FileCacheLockTransitionToPreparer(v11))
+    if (_FileCacheLockTransitionToPreparer(v11) || (_FileCacheLock(v11), v24 = *(v13 + 140), v25 = *(v24 + 8), v26 = *(v24 + 16), _FileCacheIncrementInProvider(v11), v17 = v26(a1, v11, &v31, &value, &v29, 1, v25), _FileCacheDecrementInProvider(v11), _FileCacheUnlock(v11), !v17))
     {
-      goto LABEL_28;
-    }
-
-    _FileCacheLock(v11);
-    v24 = *(v13 + 140);
-    v25 = *(v24 + 8);
-    v26 = *(v24 + 16);
-    _FileCacheIncrementInProvider(v11);
-    v17 = v26(a1, v11, &v31, &value, &v29, 1, v25);
-    _FileCacheDecrementInProvider(v11);
-    _FileCacheUnlock(v11);
-    if (!v17)
-    {
-LABEL_28:
       memset(v28, 0, 60);
       addPropertyAndDependenciesToBitmap(v13, v28);
       v17 = prepareValuesForBitmap(a1, v11, v28, a5);
@@ -100,20 +86,20 @@ CFTypeRef _FileCacheGetForURL(const __CFURL *a1, CFTypeRef cf)
     return cf;
   }
 
-  CFGetAllocator(a1);
-  initGlobalsOnce();
+  v4 = CFGetAllocator(a1);
+  initGlobalsOnce(v4, v5);
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
-    v5 = Instance;
+    v7 = Instance;
     __CFURLSetResourceInfoPtr();
-    CFRelease(v5);
+    CFRelease(v7);
   }
 
   return __CFURLResourceInfoPtr();
 }
 
-void initGlobalsOnce(void)
+void initGlobalsOnce(uint64_t result, uint64_t a2)
 {
   if (initGlobalsOnce(void)::onceToken != -1)
   {
@@ -251,10 +237,10 @@ uint64_t _FileCacheLockTransitionToPreparer(uint64_t a1)
 
 uint64_t prepareValuesForBitmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v32 = a4;
-  v33 = a3;
-  v31 = a1;
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = a4;
+  v40 = a3;
+  v38 = a1;
+  v45 = *MEMORY[0x1E69E9840];
   if (qword_1ED445788 < 1)
   {
     LOBYTE(v6) = 1;
@@ -266,79 +252,80 @@ uint64_t prepareValuesForBitmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     LOBYTE(v6) = 1;
     do
     {
-      v7 = (v33 + 12 * v5);
+      v7 = v40 + 12 * v5;
       v8 = *v7;
-      v35 = 0;
-      v36 = v8;
-      v37 = *(v7 + 2);
-      v34 = 0;
-      if (PropertyMaskIsNotZero(&v36, &v35, &v34))
+      v42 = 0;
+      v43 = v8;
+      v44 = *(v7 + 8);
+      v41 = 0;
+      IsNotZero = PropertyMaskIsNotZero(&v43, &v42, &v41);
+      if (IsNotZero)
       {
-        v9 = &sFileProviderGlobals[7 * v5];
-        v10 = 8 * *(v9 + 5);
-        MEMORY[0x1EEE9AC00]();
-        v11 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
-        v12 = &v31 - v11;
-        v13 = v10 >= 0x200 ? 512 : v10;
-        bzero(&v31 - v11, v13);
-        MEMORY[0x1EEE9AC00]();
-        v14 = &v31 - v11;
-        bzero(&v31 - v11, v13);
-        if (v35 <= v34)
+        v13 = &sFileProviderGlobals[7 * v5];
+        v14 = 8 * *(v13 + 5);
+        MEMORY[0x1EEE9AC00](IsNotZero, v10, v11, v12);
+        v15 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
+        v16 = &v38 - v15;
+        v17 = v14 >= 0x200 ? 512 : v14;
+        bzero(&v38 - v15, v17);
+        MEMORY[0x1EEE9AC00](v18, v19, v20, v21);
+        v22 = &v38 - v15;
+        bzero(&v38 - v15, v17);
+        if (v42 <= v41)
         {
-          v15 = 0;
-          v16 = v36;
-          v17 = v37;
-          v18 = v34 - v35 + 1;
-          v19 = sFileProviderGlobals[7 * v5 + 8] + 148 * v35;
+          v23 = 0;
+          v24 = v43;
+          v25 = v44;
+          v26 = v41 - v42 + 1;
+          v27 = sFileProviderGlobals[7 * v5 + 8] + 148 * v42;
           do
           {
-            v20 = *(v19 + 136);
-            v21 = 1 << v20;
-            v22 = v20 < 64;
-            if (v20 >= 64)
+            v28 = *(v27 + 136);
+            v29 = 1 << v28;
+            v30 = v28 < 64;
+            if (v28 >= 64)
             {
-              v23 = 0;
+              v31 = 0;
             }
 
             else
             {
-              v23 = 1 << v20;
+              v31 = 1 << v28;
             }
 
-            if (v22)
+            if (v30)
             {
-              v24 = 0;
+              v32 = 0;
             }
 
             else
             {
-              v24 = v21;
+              v32 = v29;
             }
 
-            v25 = v17 & v24;
-            if ((v23 & v16) != 0 || v25 != 0)
+            v33 = v25 & v32;
+            if ((v31 & v24) != 0 || v33 != 0)
             {
-              *&v12[8 * v15] = *(v19 + 8);
-              *&v14[8 * v15++] = *v19;
+              *&v16[8 * v23] = *(v27 + 8);
+              *&v22[8 * v23++] = *v27;
             }
 
-            v19 += 148;
-            --v18;
+            v27 += 148;
+            --v26;
           }
 
-          while (v18);
+          while (v26);
         }
 
         else
         {
-          v15 = 0;
+          v23 = 0;
         }
 
-        v27 = v9[5];
-        v28 = v9[3];
+        v35 = v13[5];
+        v36 = v13[3];
         _FileCacheIncrementInProvider(a2);
-        v6 = v27(v31, a2, v12, v14, v15, v28, v32);
+        v6 = v35(v38, a2, v16, v22, v23, v36, v39);
         _FileCacheDecrementInProvider(a2);
         if (!v6)
         {
@@ -352,7 +339,6 @@ uint64_t prepareValuesForBitmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     while (v5 < qword_1ED445788);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -441,11 +427,11 @@ uint64_t PropertyMaskIsNotZero(uint64_t a1, unint64_t *a2, void *a3)
 
 uint64_t corePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, CFErrorRef *a7)
 {
-  v61 = *MEMORY[0x1E69E9840];
-  *&v58.bitmapcount = xmmword_19605E6E0;
-  *&v58.fileattr = 0;
+  v66 = *MEMORY[0x1E69E9840];
+  *&v63.bitmapcount = xmmword_19605E6E0;
+  *&v63.fileattr = 0;
   _FileCacheLock(a2);
-  v60 = 0;
+  v65 = 0;
   if (a5 < 1)
   {
     goto LABEL_6;
@@ -454,233 +440,232 @@ uint64_t corePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, ui
   do
   {
     v12 = *a4++;
-    *(&v59 + *(v12 + 16)) = 1;
+    *(&v64 + *(v12 + 16)) = 1;
     --a5;
   }
 
   while (a5);
-  if (!HIBYTE(v60) || (*(_FileCacheGetAttributes(a2) + 1) & 4) != 0)
+  if (!HIBYTE(v65) || (*(_FileCacheGetAttributes(a2) + 1) & 4) != 0)
   {
 LABEL_6:
     v15 = 0;
     v16 = 0;
-    v56 = 0u;
-    v57 = 0u;
+    v61 = 0u;
+    v62 = 0u;
   }
 
   else
   {
     *&v13 = qword_1ED44574C;
     *&v14 = unk_1ED445754;
-    v56 = v14;
-    v57 = v13;
+    v61 = v14;
+    v62 = v13;
     *(&v13 + 1) = unk_1ED445754;
-    *&v58.commonattr = v13;
+    *&v63.commonattr = v13;
     v15 = dword_1ED44575C;
-    v58.forkattr = dword_1ED44575C;
+    v63.forkattr = dword_1ED44575C;
     v16 = 1;
   }
 
-  if (BYTE4(v60) && (*_FileCacheGetAttributes(a2) & 4) == 0)
+  if (BYTE4(v65) && (*_FileCacheGetAttributes(a2) & 4) == 0)
   {
-    *(&v18 + 1) = *(&v56 + 1);
-    *(&v17 + 1) = *(&v57 + 1);
-    *&v17 = vorr_s8(*&v57, qword_1ED445704);
-    *&v18 = vorr_s8(*&v56, *algn_1ED44570C);
-    v56 = v18;
-    v57 = v17;
+    *(&v18 + 1) = *(&v61 + 1);
+    *(&v17 + 1) = *(&v62 + 1);
+    *&v17 = vorr_s8(*&v62, qword_1ED445704);
+    *&v18 = vorr_s8(*&v61, *algn_1ED44570C);
+    v61 = v18;
+    v62 = v17;
     *&v19 = v17;
     *(&v19 + 1) = v18;
-    *&v58.commonattr = v19;
+    *&v63.commonattr = v19;
     v15 |= dword_1ED445714;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (BYTE6(v60) && (*(_FileCacheGetAttributes(a2) + 1) & 1) == 0)
+  if (BYTE6(v65) && (*(_FileCacheGetAttributes(a2) + 1) & 1) == 0)
   {
-    *(&v21 + 1) = *(&v56 + 1);
-    *(&v20 + 1) = *(&v57 + 1);
-    *&v20 = vorr_s8(*&v57, qword_1ED445734);
-    *&v21 = vorr_s8(*&v56, *algn_1ED44573C);
-    v56 = v21;
-    v57 = v20;
+    *(&v21 + 1) = *(&v61 + 1);
+    *(&v20 + 1) = *(&v62 + 1);
+    *&v20 = vorr_s8(*&v62, qword_1ED445734);
+    *&v21 = vorr_s8(*&v61, *algn_1ED44573C);
+    v61 = v21;
+    v62 = v20;
     *&v22 = v20;
     *(&v22 + 1) = v21;
-    *&v58.commonattr = v22;
+    *&v63.commonattr = v22;
     v15 |= dword_1ED445744;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (BYTE5(v60) && (*_FileCacheGetAttributes(a2) & 0x40) == 0)
+  if (BYTE5(v65) && (*_FileCacheGetAttributes(a2) & 0x40) == 0)
   {
-    *(&v24 + 1) = *(&v56 + 1);
-    *(&v23 + 1) = *(&v57 + 1);
-    *&v23 = vorr_s8(*&v57, qword_1ED44571C);
-    *&v24 = vorr_s8(*&v56, *algn_1ED445724);
-    v56 = v24;
-    v57 = v23;
+    *(&v24 + 1) = *(&v61 + 1);
+    *(&v23 + 1) = *(&v62 + 1);
+    *&v23 = vorr_s8(*&v62, qword_1ED44571C);
+    *&v24 = vorr_s8(*&v61, *algn_1ED445724);
+    v61 = v24;
+    v62 = v23;
     *&v25 = v23;
     *(&v25 + 1) = v24;
-    *&v58.commonattr = v25;
+    *&v63.commonattr = v25;
     v15 |= dword_1ED44572C;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (BYTE3(v60) && (*_FileCacheGetAttributes(a2) & 0x80) == 0)
+  if (BYTE3(v65) && (*_FileCacheGetAttributes(a2) & 0x80) == 0)
   {
-    *(&v27 + 1) = *(&v56 + 1);
-    *(&v26 + 1) = *(&v57 + 1);
-    *&v26 = vorr_s8(*&v57, qword_1ED4456EC);
-    *&v27 = vorr_s8(*&v56, *algn_1ED4456F4);
-    v56 = v27;
-    v57 = v26;
+    *(&v27 + 1) = *(&v61 + 1);
+    *(&v26 + 1) = *(&v62 + 1);
+    *&v26 = vorr_s8(*&v62, qword_1ED4456EC);
+    *&v27 = vorr_s8(*&v61, *algn_1ED4456F4);
+    v61 = v27;
+    v62 = v26;
     *&v28 = v26;
     *(&v28 + 1) = v27;
-    *&v58.commonattr = v28;
+    *&v63.commonattr = v28;
     v15 |= dword_1ED4456FC;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (BYTE2(v60) && (*(_FileCacheGetAttributes(a2) + 16) & 0xF000) != 0x4000 && (*_FileCacheGetAttributes(a2) & 0x20) == 0)
+  if (BYTE2(v65) && (*(_FileCacheGetAttributes(a2) + 16) & 0xF000) != 0x4000 && (*_FileCacheGetAttributes(a2) & 0x20) == 0)
   {
-    *(&v30 + 1) = *(&v56 + 1);
-    *(&v29 + 1) = *(&v57 + 1);
-    *&v29 = vorr_s8(*&v57, qword_1ED4456D4);
-    *&v30 = vorr_s8(*&v56, *algn_1ED4456DC);
-    v56 = v30;
-    v57 = v29;
+    *(&v30 + 1) = *(&v61 + 1);
+    *(&v29 + 1) = *(&v62 + 1);
+    *&v29 = vorr_s8(*&v62, qword_1ED4456D4);
+    *&v30 = vorr_s8(*&v61, *algn_1ED4456DC);
+    v61 = v30;
+    v62 = v29;
     *&v31 = v29;
     *(&v31 + 1) = v30;
-    *&v58.commonattr = v31;
+    *&v63.commonattr = v31;
     v15 |= dword_1ED4456E4;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (BYTE1(v60) && (*_FileCacheGetAttributes(a2) & 0x10) == 0)
+  if (BYTE1(v65) && (*_FileCacheGetAttributes(a2) & 0x10) == 0)
   {
-    *(&v33 + 1) = *(&v56 + 1);
-    *(&v32 + 1) = *(&v57 + 1);
-    *&v32 = vorr_s8(*&v57, qword_1ED4456BC);
-    *&v33 = vorr_s8(*&v56, *algn_1ED4456C4);
-    v56 = v33;
-    v57 = v32;
+    *(&v33 + 1) = *(&v61 + 1);
+    *(&v32 + 1) = *(&v62 + 1);
+    *&v32 = vorr_s8(*&v62, qword_1ED4456BC);
+    *&v33 = vorr_s8(*&v61, *algn_1ED4456C4);
+    v61 = v33;
+    v62 = v32;
     *&v34 = v32;
     *(&v34 + 1) = v33;
-    *&v58.commonattr = v34;
+    *&v63.commonattr = v34;
     v15 |= dword_1ED4456CC;
-    v58.forkattr = v15;
+    v63.forkattr = v15;
     v16 = 1;
   }
 
-  if (!v60 || (*_FileCacheGetAttributes(a2) & 8) != 0)
+  if (!v65 || (*_FileCacheGetAttributes(a2) & 8) != 0)
   {
-    if (!v16 && (!v59 || (*_FileCacheGetAttributes(a2) & 1) != 0))
+    if (!v16 && (!v64 || (*_FileCacheGetAttributes(a2) & 1) != 0))
     {
-      v45 = 1;
+      v52 = 1;
       goto LABEL_50;
     }
   }
 
   else
   {
-    *(&v35 + 1) = *(&v57 + 1);
-    *&v35 = vorr_s8(*&v57, qword_1ED4456A4);
-    *(&v36 + 1) = *(&v56 + 1);
-    *&v36 = vorr_s8(*&v56, *algn_1ED4456AC);
-    v56 = v36;
-    v57 = v35;
+    *(&v35 + 1) = *(&v62 + 1);
+    *&v35 = vorr_s8(*&v62, qword_1ED4456A4);
+    *(&v36 + 1) = *(&v61 + 1);
+    *&v36 = vorr_s8(*&v61, *algn_1ED4456AC);
+    v61 = v36;
+    v62 = v35;
     v15 |= dword_1ED4456B4;
   }
 
-  *&v58.commonattr = vorr_s8(*&v57, qword_1ED44568C);
-  *&v58.dirattr = vorr_s8(*&v56, unk_1ED445694);
-  v58.forkattr = v15 | dword_1ED44569C;
+  *&v63.commonattr = vorr_s8(*&v62, *&corePropertyAttrListTable[4]);
+  *&v63.dirattr = vorr_s8(*&v61, *&corePropertyAttrListTable[12]);
+  v63.forkattr = v15 | *&corePropertyAttrListTable[20];
   _FileCacheUnlock(a2);
-  if (!CFURLGetFileSystemRepresentation(a1, 1u, &v59, 1024))
+  if (!CFURLGetFileSystemRepresentation(a1, 1u, &v64, 1024))
   {
     if (a7)
     {
-      v46 = CFGetAllocator(a1);
-      *a7 = _FSURLCreateStandardError(v46, *MEMORY[0x1E695E628], 258, 0, a1, 0);
+      v53 = CFGetAllocator(a1);
+      *a7 = _FSURLCreateStandardError(v53, *MEMORY[0x1E695E628], 258, 0, a1, 0);
     }
 
     _FileCacheLock(a2);
     goto LABEL_39;
   }
 
-  v58.commonattr |= 0x80000000;
-  v37 = calculateAttributeBufferSize(&v58, 0);
-  MEMORY[0x1EEE9AC00]();
-  v39 = &v56 - v38;
-  bzero(&v56 - v38, v37);
-  if (filtered_getattrlist(&v59, &v58, v39, v37, 0x25u))
+  v63.commonattr |= 0x80000000;
+  v37 = calculateAttributeBufferSize(&v63, 0);
+  MEMORY[0x1EEE9AC00](v37, v38, v39, v40);
+  v42 = &v61 - v41;
+  bzero(&v61 - v41, v37);
+  v43 = filtered_getattrlist(&v64, &v63, v42, v37, 0x25u);
+  if (v43)
   {
     _FileCacheLock(a2);
     goto LABEL_33;
   }
 
-  v47 = *v39;
-  if (v37 >= v47)
+  v54 = *v42;
+  if (v37 >= v54)
   {
     _FileCacheLock(a2);
     goto LABEL_47;
   }
 
-  v48 = *v39;
-  MEMORY[0x1EEE9AC00]();
-  v39 = &v56 - ((v47 + 15) & 0x1FFFFFFF0);
-  bzero(v39, v47);
-  v49 = filtered_getattrlist(&v59, &v58, v39, v47, 0x21u);
+  MEMORY[0x1EEE9AC00](v43, v44, v45, v46);
+  v42 = &v61 - ((v54 + 15) & 0x1FFFFFFF0);
+  bzero(v42, v54);
+  v55 = filtered_getattrlist(&v64, &v63, v42, v54, 0x21u);
   _FileCacheLock(a2);
-  if (!v49)
+  if (!v55)
   {
 LABEL_47:
-    v50 = CFGetAllocator(a1);
+    v56 = CFGetAllocator(a1);
     Attributes = _FileCacheGetAttributes(a2);
-    v45 = 1;
-    v52 = parseAttributeBuffer(v50, &v59, &v58, v39, 0, Attributes, 1);
-    if (!v52)
+    v52 = 1;
+    v58 = parseAttributeBuffer(v56, &v64, &v63, v42, 0, Attributes, 1);
+    if (!v58)
     {
       goto LABEL_50;
     }
 
     if (a7)
     {
-      v53 = v52;
-      v42 = CFGetAllocator(a1);
-      v43 = *MEMORY[0x1E695E638];
-      v44 = v53;
+      v59 = v58;
+      v49 = CFGetAllocator(a1);
+      v50 = *MEMORY[0x1E695E638];
+      v51 = v59;
       goto LABEL_35;
     }
 
 LABEL_39:
-    v45 = 0;
+    v52 = 0;
     goto LABEL_50;
   }
 
 LABEL_33:
-  v40 = __error();
+  v47 = __error();
   if (!a7)
   {
     goto LABEL_39;
   }
 
-  v41 = *v40;
-  v42 = CFGetAllocator(a1);
-  v43 = *MEMORY[0x1E695E640];
-  v44 = v41;
+  v48 = *v47;
+  v49 = CFGetAllocator(a1);
+  v50 = *MEMORY[0x1E695E640];
+  v51 = v48;
 LABEL_35:
-  v45 = 0;
-  *a7 = _FSURLCreateStandardError(v42, v43, v44, 0, a1, 0);
+  v52 = 0;
+  *a7 = _FSURLCreateStandardError(v49, v50, v51, 0, a1, 0);
 LABEL_50:
   _FileCacheUnlock(a2);
-  v54 = *MEMORY[0x1E69E9840];
-  return v45;
+  return v52;
 }
 
 void _FileCacheUnlock(uint64_t a1)
@@ -793,10 +778,11 @@ uint64_t filtered_getattrlist(char *a1, _DWORD *a2, void *a3, size_t a4, unsigne
   return getattrlist(a1, a2, a3, a4, a5);
 }
 
-CFErrorRef _FSURLCreateStandardError(const __CFAllocator *a1, const __CFString *a2, uint64_t a3, int a4, const __CFString *cf, void *a6)
+CFErrorRef _FSURLCreateStandardError(const __CFAllocator *a1, const __CFString *a2, CFIndex a3, uint64_t a4, const __CFString *cf, void *a6)
 {
   v7 = cf;
-  v33 = *MEMORY[0x1E69E9840];
+  v8 = a4;
+  v32 = *MEMORY[0x1E69E9840];
   if (!cf)
   {
 LABEL_8:
@@ -835,14 +821,14 @@ LABEL_8:
   }
 
 LABEL_9:
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v28 = 0u;
   *userInfoKeys = 0u;
   *userInfoValues = 0u;
-  v28 = 0u;
+  v27 = 0u;
   code = 0;
-  _FSURLTranslateDomainAndCodeToCocoaError(a2, a3, a4, &code);
+  _FSURLTranslateDomainAndCodeToCocoaError(a2, a3, v8, &code);
   v18 = *MEMORY[0x1E695E628];
   if (*MEMORY[0x1E695E628] == a2)
   {
@@ -920,10 +906,9 @@ LABEL_13:
       _FSURLCreateStandardError_cold_1();
     }
 
-    v23 = CFErrorCreate(*MEMORY[0x1E695E480], v18, 256, 0);
+    return CFErrorCreate(*MEMORY[0x1E695E480], v18, 256, 0);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -1449,36 +1434,36 @@ uint64_t createIsVolumeValue(uint64_t a1, _DWORD *a2, void *a3)
   return 1;
 }
 
-uint64_t parseAttributeBuffer(CFAllocatorRef alloc, _BYTE *a2, _DWORD *a3, _DWORD *a4, uint64_t a5, uint64_t a6, int a7)
+uint64_t parseAttributeBuffer(CFAllocatorRef alloc, _BYTE *a2, _DWORD *a3, _DWORD *a4, uint64_t a5, int *a6, int a7)
 {
   v7 = a7;
-  v137 = a2;
+  v140 = a2;
   v9 = alloc;
-  v151 = *MEMORY[0x1E69E9840];
-  v144 = a5;
-  v150 = 0uLL;
-  v149 = 0uLL;
+  v154 = *MEMORY[0x1E69E9840];
+  v147 = a5;
+  v153 = 0uLL;
+  v152 = 0uLL;
   v10 = a3[1];
   v11 = a3[3];
   v12 = a3[4];
   v13 = a3[5];
-  v140 = a5;
-  v141 = v11;
+  v143 = a5;
+  v144 = v11;
   if ((v10 & 0x80000000) != 0)
   {
     v16 = a4[1];
     v15 = a4[4];
-    v138 = a4[3];
+    v141 = a4[3];
     v14 = 6;
-    v143 = a4[5];
+    v146 = a4[5];
   }
 
   else
   {
     v14 = 1;
-    v143 = v13;
+    v146 = v13;
     v15 = v12;
-    v138 = v11;
+    v141 = v11;
     v16 = v10;
   }
 
@@ -1517,15 +1502,14 @@ uint64_t parseAttributeBuffer(CFAllocatorRef alloc, _BYTE *a2, _DWORD *a3, _DWOR
       if (!v23)
       {
         parseAttributeBuffer();
-        result = 22;
-        goto LABEL_245;
+        return 22;
       }
 
-      v135 = v13;
+      v138 = v13;
       SetNameAndHiddenFlagsFromCString(alloc, &v22[*v22], (v23 - 1), a6);
       v22 += 8;
       v7 = a7;
-      v13 = v135;
+      v13 = v138;
     }
 
     else
@@ -1541,7 +1525,7 @@ uint64_t parseAttributeBuffer(CFAllocatorRef alloc, _BYTE *a2, _DWORD *a3, _DWOR
     {
       v27 = *v25;
       v25 += 8;
-      *(a6 + 104) = v27;
+      *(a6 + 13) = v27;
       if ((v16 & 8) == 0)
       {
         goto LABEL_20;
@@ -1550,7 +1534,7 @@ uint64_t parseAttributeBuffer(CFAllocatorRef alloc, _BYTE *a2, _DWORD *a3, _DWOR
       goto LABEL_22;
     }
 
-    *(a6 + 104) = 0;
+    *(a6 + 13) = 0;
   }
 
   if ((v16 & 8) == 0)
@@ -1581,7 +1565,7 @@ LABEL_23:
       v30 = -1.0 - *MEMORY[0x1E695E460];
     }
 
-    *(a6 + 80) = v30;
+    *(a6 + 10) = v30;
     if ((v10 & 0x400) == 0)
     {
 LABEL_25:
@@ -1612,7 +1596,7 @@ LABEL_25:
     v33 = -*MEMORY[0x1E695E468];
   }
 
-  *(a6 + 64) = v33;
+  *(a6 + 8) = v33;
   if ((v10 & 0x800) == 0)
   {
 LABEL_26:
@@ -1638,7 +1622,7 @@ LABEL_36:
     v36 = -*MEMORY[0x1E695E468];
   }
 
-  *(a6 + 72) = v36;
+  *(a6 + 9) = v36;
   if ((v10 & 0x1000) != 0)
   {
 LABEL_40:
@@ -1655,7 +1639,7 @@ LABEL_40:
       v39 = -*MEMORY[0x1E695E468];
     }
 
-    *(a6 + 56) = v39;
+    *(a6 + 7) = v39;
   }
 
 LABEL_44:
@@ -1682,38 +1666,38 @@ LABEL_44:
       v46 = *v42;
       v47 = *(v42 + 1);
       v42 += 8;
-      *(a6 + 160) = v46;
-      *(a6 + 176) = v47;
+      *(a6 + 10) = v46;
+      *(a6 + 11) = v47;
       if (v44 != 32)
       {
         if (v26 == 2)
         {
-          v48 = vrev16_s8(*(a6 + 160));
+          v48 = vrev16_s8(*(a6 + 40));
         }
 
         else
         {
-          v48 = vrev32_s8(*(a6 + 160));
+          v48 = vrev32_s8(*(a6 + 40));
         }
 
-        v49 = vrev16_s8(*(a6 + 168));
-        *(a6 + 160) = v48;
-        *(a6 + 168) = v49;
+        v49 = vrev16_s8(*(a6 + 42));
+        *(a6 + 20) = v48;
+        *(a6 + 21) = v49;
         if (v26 == 2)
         {
-          *(a6 + 178) = bswap32(*(a6 + 178)) >> 16;
-          *(a6 + 176) = bswap32(*(a6 + 176)) >> 16;
-          *(a6 + 180) = bswap32(*(a6 + 180));
+          *(a6 + 89) = bswap32(*(a6 + 89)) >> 16;
+          *(a6 + 88) = bswap32(*(a6 + 88)) >> 16;
+          a6[45] = bswap32(a6[45]);
         }
 
         else
         {
-          *(a6 + 176) = vrev16_s8(*(a6 + 176));
+          *(a6 + 22) = vrev16_s8(*(a6 + 44));
         }
 
-        *(a6 + 184) = bswap32(*(a6 + 184)) >> 16;
-        *(a6 + 186) = bswap32(*(a6 + 186)) >> 16;
-        *(a6 + 188) = bswap32(*(a6 + 188));
+        *(a6 + 92) = bswap32(*(a6 + 92)) >> 16;
+        *(a6 + 93) = bswap32(*(a6 + 93)) >> 16;
+        a6[47] = bswap32(a6[47]);
       }
     }
 
@@ -1730,8 +1714,8 @@ LABEL_44:
       }
 
       *a6 = v43 | *a6 & 0xFBFFFFEF;
-      *(a6 + 160) = 0u;
-      *(a6 + 176) = 0u;
+      *(a6 + 10) = 0u;
+      *(a6 + 11) = 0u;
     }
   }
 
@@ -1740,7 +1724,7 @@ LABEL_44:
     if ((v16 & 0x8000) != 0)
     {
       v52 = *v42++;
-      *(a6 + 40) = v52;
+      a6[10] = v52;
       if ((v10 & 0x10000) != 0)
       {
         goto LABEL_73;
@@ -1749,7 +1733,7 @@ LABEL_44:
 
     else
     {
-      *(a6 + 40) = 0;
+      a6[10] = 0;
       if ((v10 & 0x10000) != 0)
       {
         goto LABEL_73;
@@ -1774,7 +1758,7 @@ LABEL_73:
   if ((v16 & 0x10000) != 0)
   {
     v53 = *v42++;
-    *(a6 + 44) = v53;
+    a6[11] = v53;
     if ((v10 & 0x20000) == 0)
     {
       goto LABEL_77;
@@ -1783,7 +1767,7 @@ LABEL_73:
 
   else
   {
-    *(a6 + 44) = 0;
+    a6[11] = 0;
     if ((v10 & 0x20000) == 0)
     {
       goto LABEL_77;
@@ -1802,10 +1786,10 @@ LABEL_64:
     v50 = 0;
   }
 
-  *(a6 + 16) = v50;
+  a6[4] = v50;
   if ((v26 - 1) <= 6)
   {
-    *(a6 + 16) = v50 | dword_19605E740[v26 - 1];
+    a6[4] = v50 | dword_19605E740[v26 - 1];
   }
 
 LABEL_77:
@@ -1820,7 +1804,7 @@ LABEL_98:
     if ((v16 & 0x80000) != 0)
     {
       v65 = *v42++;
-      *(a6 + 32) = v65;
+      a6[8] = v65;
       if ((v10 & 0x100000) != 0)
       {
         goto LABEL_102;
@@ -1829,7 +1813,7 @@ LABEL_98:
 
     else
     {
-      *(a6 + 32) = 0;
+      a6[8] = 0;
       if ((v10 & 0x100000) != 0)
       {
         goto LABEL_102;
@@ -1848,7 +1832,7 @@ LABEL_80:
   if ((v16 & 0x40000) != 0)
   {
     v64 = *v42++;
-    *(a6 + 20) = v64;
+    a6[5] = v64;
     if ((v10 & 0x80000) != 0)
     {
       goto LABEL_98;
@@ -1857,7 +1841,7 @@ LABEL_80:
 
   else
   {
-    *(a6 + 20) = 0;
+    a6[5] = 0;
     if ((v10 & 0x80000) != 0)
     {
       goto LABEL_98;
@@ -1874,7 +1858,7 @@ LABEL_102:
   if ((v16 & 0x100000) != 0)
   {
     v66 = *v42++;
-    *(a6 + 36) = v66;
+    a6[9] = v66;
     if ((v10 & 0x200000) == 0)
     {
       goto LABEL_88;
@@ -1883,7 +1867,7 @@ LABEL_102:
 
   else
   {
-    *(a6 + 36) = 0;
+    a6[9] = 0;
     if ((v10 & 0x200000) == 0)
     {
       goto LABEL_88;
@@ -1906,7 +1890,7 @@ LABEL_81:
 
   *a6 = v55 | v54 & 0xFC7FFFFF;
 LABEL_88:
-  v142 = 0;
+  v145 = 0;
   if ((v10 & 0x400000) == 0 || (v16 & 0x400000) == 0)
   {
     v57 = v42;
@@ -1921,14 +1905,14 @@ LABEL_88:
   v57 = v42 + 2;
   if (!v42[1])
   {
-    v142 = 0;
+    v145 = 0;
     if ((v16 & 0x800000) != 0)
     {
       goto LABEL_108;
     }
 
 LABEL_94:
-    v139 = 0;
+    v142 = 0;
     if ((v16 & 0x1000000) == 0)
     {
       goto LABEL_109;
@@ -1946,7 +1930,7 @@ LABEL_94:
   v9 = v60;
   v21 = v59;
   v15 = v58;
-  v142 = v62;
+  v145 = v62;
   if ((v16 & 0x800000) == 0)
   {
     goto LABEL_94;
@@ -1955,12 +1939,12 @@ LABEL_94:
 LABEL_108:
   v67 = *v57;
   v57 += 4;
-  v150 = v67;
-  v139 = &v150;
+  v153 = v67;
+  v142 = &v153;
   if ((v16 & 0x1000000) == 0)
   {
 LABEL_109:
-    v136 = 0;
+    v139 = 0;
     if ((v10 & 0x2000000) == 0)
     {
       goto LABEL_112;
@@ -1972,8 +1956,8 @@ LABEL_109:
 LABEL_95:
   v63 = *v57;
   v57 += 4;
-  v149 = v63;
-  v136 = &v149;
+  v152 = v63;
+  v139 = &v152;
   if ((v10 & 0x2000000) == 0)
   {
 LABEL_112:
@@ -1987,7 +1971,7 @@ LABEL_118:
     {
       v69 = *v57;
       v57 += 2;
-      *(a6 + 136) = v69;
+      *(a6 + 17) = v69;
       if ((v10 & 0x8000000) != 0)
       {
         goto LABEL_122;
@@ -1996,7 +1980,7 @@ LABEL_118:
 
     else
     {
-      *(a6 + 136) = 0;
+      *(a6 + 17) = 0;
       if ((v10 & 0x8000000) != 0)
       {
         goto LABEL_122;
@@ -2015,13 +1999,13 @@ LABEL_114:
 LABEL_110:
   if ((v16 & 0x2000000) == 0)
   {
-    *(a6 + 120) = 0;
+    *(a6 + 15) = 0;
     goto LABEL_112;
   }
 
   v68 = *v57;
   v57 += 2;
-  *(a6 + 120) = v68;
+  *(a6 + 15) = v68;
   if ((v10 & 0x4000000) != 0)
   {
     goto LABEL_118;
@@ -2036,14 +2020,14 @@ LABEL_113:
 LABEL_122:
   if ((v16 & 0x8000000) != 0)
   {
-    HIDWORD(v133) = v15;
-    v134 = v12;
-    v135 = v13;
+    HIDWORD(v136) = v15;
+    v137 = v12;
+    v138 = v13;
     v75 = v21;
     v76 = v9;
     v77 = *v57;
     v78 = (v57[1] - 1);
-    v79 = *(a6 + 232);
+    v79 = *(a6 + 29);
     if (v79)
     {
       v80 = v26;
@@ -2067,18 +2051,18 @@ LABEL_122:
       v82 = v76;
     }
 
-    *(a6 + 232) = v85;
+    *(a6 + 29) = v85;
     v57 += 2;
     v21 = v75;
     v9 = v82;
-    v12 = v134;
-    LOWORD(v13) = v135;
-    v15 = HIDWORD(v133);
+    v12 = v137;
+    LOWORD(v13) = v138;
+    v15 = HIDWORD(v136);
   }
 
   else
   {
-    v70 = *(a6 + 232);
+    v70 = *(a6 + 29);
     if (v70)
     {
       v71 = v15;
@@ -2090,7 +2074,7 @@ LABEL_122:
       v9 = v73;
       v21 = v72;
       v15 = v71;
-      *(a6 + 232) = 0;
+      *(a6 + 29) = 0;
     }
   }
 
@@ -2120,24 +2104,24 @@ LABEL_132:
     v86 = -1.0 - *MEMORY[0x1E695E460];
   }
 
-  *(a6 + 88) = v86;
+  *(a6 + 11) = v86;
   if ((v10 & 0x40000000) != 0)
   {
 LABEL_136:
     if ((v16 & 0x40000000) != 0)
     {
       v89 = *v57++;
-      *(a6 + 48) = v89;
+      a6[12] = v89;
     }
 
     else
     {
-      *(a6 + 48) = 0;
+      a6[12] = 0;
     }
   }
 
 LABEL_139:
-  v90 = v141;
+  v90 = v144;
   if (v26 != 2)
   {
     v91 = *a6 & 0xFFFFDFFF;
@@ -2160,7 +2144,7 @@ LABEL_139:
         v93 = 1;
       }
 
-      *(a6 + 24) = v93;
+      a6[6] = v93;
     }
 
     v57 = (v57 + ((4 * v15) & 8) + ((2 * v15) & 8) + ((v15 >> 1) & 4) + ((v15 >> 3) & 4));
@@ -2176,7 +2160,7 @@ LABEL_169:
       {
         v102 = *v57;
         v57 += 2;
-        *(a6 + 216) = v102;
+        *(a6 + 27) = v102;
         if ((v12 & 0x1000) != 0)
         {
           goto LABEL_178;
@@ -2185,7 +2169,7 @@ LABEL_169:
 
       else
       {
-        *(a6 + 216) = 0;
+        *(a6 + 27) = 0;
         if ((v12 & 0x1000) != 0)
         {
           goto LABEL_178;
@@ -2205,7 +2189,7 @@ LABEL_155:
     {
       v99 = *v57;
       v57 += 2;
-      *(a6 + 208) = v99;
+      *(a6 + 26) = v99;
       if ((v12 & 0x400) != 0)
       {
         goto LABEL_169;
@@ -2214,7 +2198,7 @@ LABEL_155:
 
     else
     {
-      *(a6 + 208) = 0;
+      *(a6 + 26) = 0;
       if ((v12 & 0x400) != 0)
       {
         goto LABEL_169;
@@ -2234,7 +2218,7 @@ LABEL_178:
     {
       v103 = *v57;
       v57 += 2;
-      *(a6 + 192) = v103;
+      *(a6 + 24) = v103;
       if ((v12 & 0x2000) == 0)
       {
         goto LABEL_182;
@@ -2243,7 +2227,7 @@ LABEL_178:
 
     else
     {
-      *(a6 + 192) = 0;
+      *(a6 + 24) = 0;
       if ((v12 & 0x2000) == 0)
       {
         goto LABEL_182;
@@ -2255,19 +2239,19 @@ LABEL_156:
     {
       v98 = *v57;
       v57 += 2;
-      *(a6 + 200) = v98;
+      *(a6 + 25) = v98;
     }
 
     else
     {
-      *(a6 + 200) = 0;
+      *(a6 + 25) = 0;
     }
 
     goto LABEL_182;
   }
 
-  *(a6 + 192) = 0u;
-  *(a6 + 208) = 0u;
+  *(a6 + 12) = 0u;
+  *(a6 + 13) = 0u;
   v91 = *a6 & 0xFFFFFFDF;
   *a6 = v91;
   if (!v90)
@@ -2277,22 +2261,22 @@ LABEL_156:
 
   if ((v90 & 1) == 0)
   {
-    v92 = v138;
-    if ((v138 & 2) == 0)
+    v92 = v141;
+    if ((v141 & 2) == 0)
     {
       goto LABEL_164;
     }
 
 LABEL_163:
     v97 = *v57++;
-    *(a6 + 28) = v97;
+    a6[7] = v97;
     v91 |= 0x400u;
     *a6 = v91;
     goto LABEL_164;
   }
 
-  v92 = v138;
-  if (v138)
+  v92 = v141;
+  if (v141)
   {
     v96 = *v57++;
     v94 = v96;
@@ -2303,7 +2287,7 @@ LABEL_163:
     v94 = 1;
   }
 
-  *(a6 + 24) = v94;
+  a6[6] = v94;
   if ((v92 & 2) != 0)
   {
     goto LABEL_163;
@@ -2320,8 +2304,8 @@ LABEL_164:
       v101 = (v100 & 3) == 0 || v21;
       if ((v101 & 1) == 0)
       {
-        *(a6 + 120) = vdupq_n_s64(2uLL);
-        *(a6 + 136) = 1;
+        *(a6 + 30) = vdupq_n_s64(2uLL);
+        *(a6 + 17) = 1;
       }
     }
 
@@ -2334,46 +2318,46 @@ LABEL_164:
 
 LABEL_182:
   v104 = 0;
-  if ((v13 & 0x10) != 0 && (v143 & 0x10) != 0)
+  if ((v13 & 0x10) != 0 && (v146 & 0x10) != 0)
   {
     v105 = *v57;
     v57 += 2;
     v104 = v105;
   }
 
-  v106 = (v57 + ((v143 >> 2) & 8));
-  if ((v13 & 0x40) != 0 && (v143 & 0x40) != 0)
+  v106 = (v57 + ((v146 >> 2) & 8));
+  if ((v13 & 0x40) != 0 && (v146 & 0x40) != 0)
   {
     v107 = *v106++;
-    *(a6 + 100) = v107;
+    a6[25] = v107;
   }
 
-  if ((v13 & 0x100) != 0 && (v143 & 0x100) != 0)
+  if ((v13 & 0x100) != 0 && (v146 & 0x100) != 0)
   {
     v108 = *v106;
     v106 += 2;
-    *(a6 + 144) = v108;
+    *(a6 + 18) = v108;
   }
 
-  if ((v13 & 0x200) != 0 && (v143 & 0x200) != 0)
+  if ((v13 & 0x200) != 0 && (v146 & 0x200) != 0)
   {
     v91 |= 0x200u;
     *a6 = v91;
-    *(a6 + 152) = *v106;
+    *(a6 + 19) = *v106;
   }
 
   v109 = (qword_1ED4456EC & ~v10) == 0;
   if ((v91 & 0x4000) != 0)
   {
     *a6 = v91 & 0xFF817FFF | 0x400000;
-    *(a6 + 112) = 0;
+    a6[28] = 0;
     if (!v21)
     {
-      *(a6 + 120) = vdupq_n_s64(2uLL);
-      *(a6 + 136) = xmmword_19605E610;
+      *(a6 + 30) = vdupq_n_s64(2uLL);
+      *(a6 + 34) = xmmword_19605E610;
     }
 
-    v117 = v142;
+    v121 = v145;
     if (!v109)
     {
       goto LABEL_242;
@@ -2383,74 +2367,74 @@ LABEL_182:
   }
 
   v110 = v9;
-  MountInfoStorageSize();
-  v111 = &v133 - ((MEMORY[0x1EEE9AC00]() + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v140)
+  v111 = MountInfoStorageSize();
+  v115 = &v136 - ((MEMORY[0x1EEE9AC00](v111, v112, v113, v114) + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v143)
   {
-    v112 = v140;
-    FSID = MountInfoGetFSID(v140);
-    v114 = *(a6 + 104);
-    if (v114 == FSID)
+    v116 = v143;
+    FSID = MountInfoGetFSID(v143);
+    v118 = a6[26];
+    if (v118 == FSID)
     {
-      v115 = 1;
-      v116 = v112;
+      v119 = 1;
+      v120 = v116;
       goto LABEL_205;
     }
   }
 
   else
   {
-    v114 = *(a6 + 104);
+    v118 = a6[26];
   }
 
-  v144 = 0;
-  if (!MountInfoPrepare(&v144, 0, v114, v111, 0, 0, 0))
+  v147 = 0;
+  if (!MountInfoPrepare(&v147, 0, v118, v115, 0, 0, 0))
   {
-    *(a6 + 128) = *(a6 + 120);
-    v117 = v142;
+    *(a6 + 16) = *(a6 + 15);
+    v121 = v145;
     goto LABEL_223;
   }
 
-  v115 = 0;
-  v116 = v144;
+  v119 = 0;
+  v120 = v147;
 LABEL_205:
-  Capabilities = MountInfoGetCapabilities(v116);
-  *(a6 + 112) = MountInfoGetMountID(v144);
+  Capabilities = MountInfoGetCapabilities(v120);
+  a6[28] = MountInfoGetMountID(v147);
   *a6 = (Capabilities >> 44) & 0x10000 | (Capabilities >> 36) & 0x8000 | (Capabilities >> 30) & 0x20000 | (Capabilities >> 40) & 0x80000 | (Capabilities >> 29) & 0x100000 | (Capabilities >> 37) & 0x200000 | *a6 & 0xFFC47FFF;
-  *a6 = *a6 & 0xFFBFFFFF | (((MountInfoGetVolumeFlags(v144) >> 1) & 1) << 22);
-  *(a6 + 96) = MountInfoGetIOBlockSize(v144);
+  *a6 = *a6 & 0xFFBFFFFF | (((MountInfoGetVolumeFlags(v147) >> 1) & 1) << 22);
+  a6[24] = MountInfoGetIOBlockSize(v147);
   if ((Capabilities & 0x800000000000) == 0 && (qword_1ED4456EC & ~v10 & 0xFE3FFFFF) == 0)
   {
     v109 = 1;
   }
 
-  v119 = *a6;
-  v120 = (*a6 & 0x8000) == 0 || v21;
-  v117 = v142;
-  if ((v120 & 1) == 0)
+  v123 = *a6;
+  v124 = (*a6 & 0x8000) == 0 || v21;
+  v121 = v145;
+  if ((v124 & 1) == 0)
   {
-    if ((v143 & 0x10) == 0)
+    if ((v146 & 0x10) == 0)
     {
-      v104 = *(a6 + 120);
+      v104 = *(a6 + 15);
     }
 
-    *(a6 + 128) = v104;
+    *(a6 + 16) = v104;
   }
 
-  if ((v119 & 0x2000) != 0 && *v137 == 47 && !v137[1])
+  if ((v123 & 0x2000) != 0 && *v140 == 47 && !v140[1])
   {
-    VolumeName = MountInfoGetVolumeName(v144);
+    VolumeName = MountInfoGetVolumeName(v147);
     if (VolumeName)
     {
-      v122 = VolumeName;
-      v123 = strlen(VolumeName);
-      SetNameAndHiddenFlagsFromCString(v110, v122, v123, a6);
+      v126 = VolumeName;
+      v127 = strlen(VolumeName);
+      SetNameAndHiddenFlagsFromCString(v110, v126, v127, a6);
     }
   }
 
-  if ((v115 & 1) == 0)
+  if ((v119 & 1) == 0)
   {
-    MountInfoDestroy(v144);
+    MountInfoDestroy();
   }
 
 LABEL_223:
@@ -2458,48 +2442,48 @@ LABEL_223:
   {
 LABEL_224:
     *a6 |= 0x80u;
-    v124 = *(a6 + 224);
-    if (v124)
+    v128 = *(a6 + 28);
+    if (v128)
     {
-      CFRelease(v124);
-      *(a6 + 224) = 0;
+      CFRelease(v128);
+      *(a6 + 28) = 0;
     }
 
-    v125 = *(a6 + 40);
-    v126 = *(a6 + 44);
-    v127 = *(a6 + 16);
-    v148 = v117;
-    v146 = v126;
-    v147 = v125;
-    v145 = v127;
-    v128 = filesec_init();
-    if (!v128)
+    v129 = a6[10];
+    v130 = a6[11];
+    v131 = a6[4];
+    v151 = v121;
+    v149 = v130;
+    v150 = v129;
+    v148 = v131;
+    v132 = filesec_init();
+    if (!v132)
     {
       goto LABEL_242;
     }
 
-    v129 = v128;
-    if (!v117)
+    v133 = v132;
+    if (!v121)
     {
-      goto LABEL_251;
+      goto LABEL_250;
     }
 
-    if (filesec_set_property(v128, FILESEC_ACL, &v148))
+    if (filesec_set_property(v132, FILESEC_ACL, &v151))
     {
       goto LABEL_241;
     }
 
-    if (!v148)
+    if (!v151)
     {
-LABEL_251:
-      if (!v139 || uuid_is_null(v139))
+LABEL_250:
+      if (!v142 || uuid_is_null(v142))
       {
 LABEL_233:
-        if ((!v148 && (!v136 || uuid_is_null(v136)) || !filesec_set_property(v129, FILESEC_GRPUUID, v136)) && !filesec_set_property(v129, FILESEC_OWNER, &v147) && !filesec_set_property(v129, FILESEC_GROUP, &v146) && !filesec_set_property(v129, FILESEC_MODE, &v145))
+        if ((!v151 && (!v139 || uuid_is_null(v139)) || !filesec_set_property(v133, FILESEC_GRPUUID, v139)) && !filesec_set_property(v133, FILESEC_OWNER, &v150) && !filesec_set_property(v133, FILESEC_GROUP, &v149) && !filesec_set_property(v133, FILESEC_MODE, &v148))
         {
-          v132 = _CFFileSecurityCreateFromFilesec();
-          *(a6 + 224) = v132;
-          if (v132)
+          v135 = _CFFileSecurityCreateFromFilesec();
+          *(a6 + 28) = v135;
+          if (v135)
           {
             goto LABEL_242;
           }
@@ -2509,25 +2493,22 @@ LABEL_233:
       }
     }
 
-    if (!filesec_set_property(v129, FILESEC_UUID, v139))
+    if (!filesec_set_property(v133, FILESEC_UUID, v142))
     {
       goto LABEL_233;
     }
 
 LABEL_241:
-    filesec_free(v129);
+    filesec_free(v133);
   }
 
 LABEL_242:
-  if (v117)
+  if (v121)
   {
-    acl_free(v117);
+    acl_free(v121);
   }
 
-  result = 0;
-LABEL_245:
-  v131 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void SetNameAndHiddenFlagsFromCString(CFAllocatorRef alloc, UInt8 *bytes, CFIndex numBytes, uint64_t a4)
@@ -2774,7 +2755,7 @@ uint64_t _FileCacheGetPropertyValueForKey(uint64_t a1, const void *a2, void **a3
   return v7;
 }
 
-uint64_t _FileCacheInitClass(void)
+uint64_t _FileCacheInitClass(uint64_t a1, uint64_t a2)
 {
   if (_FileCacheInitClass(void)::once != -1)
   {
@@ -2784,39 +2765,38 @@ uint64_t _FileCacheInitClass(void)
   return sFileCacheTypeID;
 }
 
-void registerCoreProperties(void)
+void registerCoreProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[69] = *MEMORY[0x1E69E9840];
+  v9[69] = *MEMORY[0x1E69E9840];
   if ((byte_1ED44592C & 1) == 0)
   {
     registerCoreProperties();
   }
 
-  MEMORY[0x1EEE9AC00]();
-  v0 = 0;
-  v1 = &unk_1EAEF8688;
-  memset(v6, 0, 512);
+  MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
+  v4 = 0;
+  v5 = &unk_1EAEF8688;
+  memset(v9, 0, 512);
   do
   {
-    *&v2 = *(v1 - 4);
-    *(&v2 + 1) = *v1;
-    *&v6[v0] = v2;
-    v1 += 8;
-    v0 += 2;
+    *&v6 = *(v5 - 4);
+    *(&v6 + 1) = *v5;
+    *&v9[v4] = v6;
+    v5 += 8;
+    v4 += 2;
   }
 
-  while (v0 != 68);
-  v3 = 0;
-  qword_1ED4458A8 = _RegisterFilePropertyProvider(off_1F0A85840, 0, v6, 0x44uLL);
-  v4 = &qword_1EAEF8668;
+  while (v4 != 68);
+  v7 = 0;
+  qword_1ED4458A8 = _RegisterFilePropertyProvider(off_1F0A85840, 0, v9, 0x44uLL);
+  v8 = &qword_1EAEF8668;
   do
   {
-    _RegisterFilePropertyWithOptions(v6[v3++], v4[1], 0, 0, v4);
-    v4 += 4;
+    _RegisterFilePropertyWithOptions(v9[v7++], v8[1], 0, 0, v8);
+    v8 += 4;
   }
 
-  while (v3 != 68);
-  v5 = *MEMORY[0x1E69E9840];
+  while (v7 != 68);
 }
 
 double registerCoreProperties()
@@ -3073,12 +3053,10 @@ void observerCall(__CFRunLoopObserver *a1, unint64_t a2, void *a3)
 
 uint64_t MountInfoPrepare(void *a1, int a2, int a3, char *a4, uint64_t a5, const __CFString *a6, CFErrorRef *a7)
 {
-  v107 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   if (*a1)
   {
-LABEL_17:
-    result = 1;
-    goto LABEL_18;
+    return 1;
   }
 
   if (a2)
@@ -3123,197 +3101,197 @@ LABEL_17:
 LABEL_16:
       os_unfair_lock_unlock(&sMountEntrysSpinLock);
       *a1 = a4;
-      goto LABEL_17;
+      return 1;
     }
   }
 
-  v97 = 0;
-  v18 = getmntinfo_r_np(&v97, 2);
-  if (v18)
+  v96 = 0;
+  v17 = getmntinfo_r_np(&v96, 2);
+  if (v17)
   {
-    v19 = v97;
-    if (v18 < 1)
+    v18 = v96;
+    if (v17 < 1)
     {
 LABEL_24:
-      v22 = 2;
+      v21 = 2;
     }
 
     else
     {
-      v20 = v18;
-      v21 = v97;
-      while (v21->f_fsid.val[0] != a3)
+      v19 = v17;
+      v20 = v96;
+      while (v20->f_fsid.val[0] != a3)
       {
-        ++v21;
-        if (!--v20)
+        ++v20;
+        if (!--v19)
         {
           goto LABEL_24;
         }
       }
 
-      memcpy(a4, v21, 0x878uLL);
-      v22 = 0;
+      memcpy(a4, v20, 0x878uLL);
+      v21 = 0;
     }
 
-    free(v19);
-    if (!v22)
+    free(v18);
+    if (!v21)
     {
 LABEL_29:
-      v94 = xmmword_19605E990;
-      v95 = 0;
-      bzero(&v97, 0x388uLL);
-      v22 = filtered_getattrlist(a4 + 88, &v94, &v97, 0x388uLL, 9u);
-      if (!v22)
+      v93 = xmmword_19605E990;
+      v94 = 0;
+      bzero(&v96, 0x388uLL);
+      v21 = filtered_getattrlist(a4 + 88, &v93, &v96, 0x388uLL, 9u);
+      if (!v21)
       {
-        v25 = v98;
-        if ((v98 & 0x20000) != 0)
+        v24 = v97;
+        if ((v97 & 0x20000) != 0)
         {
+          *v22.i8 = v100;
           *v23.i8 = v101;
-          *v24.i8 = v102;
+          v27 = vdupq_lane_s32(v100, 0);
           v28 = vdupq_lane_s32(v101, 0);
-          v29 = vdupq_lane_s32(v102, 0);
-          v30 = vdupq_lane_s32(v101, 1);
-          v31 = vandq_s8(v30, xmmword_19605E840);
-          v32 = vceqzq_s32(vandq_s8(v30, xmmword_19605E850));
-          v33.i64[0] = v32.i32[2];
-          v33.i64[1] = v32.i32[3];
-          v34 = v33;
-          v35 = vceqzq_s32(v31);
-          v33.i64[0] = v35.i32[2];
-          v33.i64[1] = v35.i32[3];
-          v36 = v33;
-          v33.i64[0] = v32.i32[0];
-          v33.i64[1] = v32.i32[1];
-          v37 = v33;
-          v38 = vdupq_lane_s32(v102, 1);
-          v33.i64[0] = v35.i32[0];
-          v33.i64[1] = v35.i32[1];
-          v39 = v33;
-          v40 = vandq_s8(v38, xmmword_19605E850);
-          v41 = vandq_s8(v38, xmmword_19605E840);
-          v33.i64[0] = v41.u32[0];
-          v33.i64[1] = v41.u32[1];
-          v42 = v33;
-          v33.i64[0] = v40.u32[0];
-          v33.i64[1] = v40.u32[1];
-          v43 = v33;
-          v33.i64[0] = v41.u32[2];
-          v33.i64[1] = v41.u32[3];
-          v44 = v33;
-          v33.i64[0] = v40.u32[2];
-          v33.i64[1] = v40.u32[3];
-          v45 = vshlq_n_s64(v44, 0x2CuLL);
-          v46 = vbicq_s8(vshlq_u64(v42, xmmword_19605E880), v39);
-          v47 = vbicq_s8(vshlq_u64(v43, xmmword_19605E870), v37);
-          v48 = vbicq_s8(v45, v36);
-          v49 = vbicq_s8(vshlq_u64(v33, xmmword_19605E860), v34);
-          v50 = vandq_s8(v28, xmmword_19605E890);
-          v51 = vandq_s8(v28, xmmword_19605E8A0);
-          v52 = vceqzq_s32(vandq_s8(v28, xmmword_19605E8C0));
-          v33.i64[0] = v52.i32[2];
-          v33.i64[1] = v52.i32[3];
-          v53 = v33;
-          v54 = vceqzq_s32(vandq_s8(vzip1q_s32(v23, v23), xmmword_19605E8B0));
-          v33.i64[0] = v54.i32[2];
-          v33.i64[1] = v54.i32[3];
-          v55 = v33;
-          v56 = vceqzq_s32(v51);
-          v33.i64[0] = v56.i32[2];
-          v33.i64[1] = v56.i32[3];
-          v57 = v33;
-          v58 = vceqzq_s32(v50);
-          v33.i64[0] = v58.i32[2];
-          v33.i64[1] = v58.i32[3];
-          v59 = v33;
-          v33.i64[0] = v52.i32[0];
-          v33.i64[1] = v52.i32[1];
-          v60 = v33;
-          v33.i64[0] = v54.i32[0];
-          v33.i64[1] = v54.i32[1];
-          v61 = v33;
-          v33.i64[0] = v56.i32[0];
-          v33.i64[1] = v56.i32[1];
-          v62 = v33;
-          v33.i64[0] = v58.i32[0];
-          v33.i64[1] = v58.i32[1];
-          v63 = v33;
-          v64 = vandq_s8(v29, xmmword_19605E8C0);
-          v65 = vandq_s8(vzip1q_s32(v24, v24), xmmword_19605E8B0);
-          v66 = vandq_s8(v29, xmmword_19605E8A0);
-          v67 = vandq_s8(v29, xmmword_19605E890);
-          v33.i64[0] = v67.u32[0];
-          v33.i64[1] = v67.u32[1];
-          v68 = v33;
-          v33.i64[0] = v66.u32[0];
-          v33.i64[1] = v66.u32[1];
-          v69 = v33;
-          v33.i64[0] = v65.u32[0];
-          v33.i64[1] = v65.u32[1];
-          v70 = v33;
-          v33.i64[0] = v64.u32[0];
-          v33.i64[1] = v64.u32[1];
-          v71 = v33;
-          v33.i64[0] = v67.u32[2];
-          v33.i64[1] = v67.u32[3];
-          v72 = v33;
-          v33.i64[0] = v66.u32[2];
-          v33.i64[1] = v66.u32[3];
-          v73 = v33;
-          v33.i64[0] = v65.u32[2];
-          v33.i64[1] = v65.u32[3];
-          v74 = v33;
-          v33.i64[0] = v64.u32[2];
-          v33.i64[1] = v64.u32[3];
-          v75 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(vbicq_s8(vshlq_u64(v69, xmmword_19605E920), v62), vbicq_s8(vshlq_u64(v68, xmmword_19605E930), v63)), vorrq_s8(vbicq_s8(vshlq_u64(v71, xmmword_19605E910), v60), vbicq_s8(vshlq_n_s64(v70, 0x30uLL), v61))), vorrq_s8(vorrq_s8(vbicq_s8(vshlq_u64(v73, xmmword_19605E8F0), v57), vbicq_s8(vshlq_u64(v72, xmmword_19605E900), v59)), vorrq_s8(vbicq_s8(vshlq_u64(v33, xmmword_19605E8D0), v53), vbicq_s8(vshlq_u64(v74, xmmword_19605E8E0), v55)))), vorrq_s8(vorrq_s8(v47, v46), vorrq_s8(v49, v48)));
-          v76 = vorr_s8(*v75.i8, *&vextq_s8(v75, v75, 8uLL));
-          v77 = v76;
-          if ((v102.i16[0] & 0x8000) == 0 || (v101.i16[0] & 0x8000) == 0)
+          v29 = vdupq_lane_s32(v100, 1);
+          v30 = vandq_s8(v29, xmmword_19605E840);
+          v31 = vceqzq_s32(vandq_s8(v29, xmmword_19605E850));
+          v32.i64[0] = v31.i32[2];
+          v32.i64[1] = v31.i32[3];
+          v33 = v32;
+          v34 = vceqzq_s32(v30);
+          v32.i64[0] = v34.i32[2];
+          v32.i64[1] = v34.i32[3];
+          v35 = v32;
+          v32.i64[0] = v31.i32[0];
+          v32.i64[1] = v31.i32[1];
+          v36 = v32;
+          v37 = vdupq_lane_s32(v101, 1);
+          v32.i64[0] = v34.i32[0];
+          v32.i64[1] = v34.i32[1];
+          v38 = v32;
+          v39 = vandq_s8(v37, xmmword_19605E850);
+          v40 = vandq_s8(v37, xmmword_19605E840);
+          v32.i64[0] = v40.u32[0];
+          v32.i64[1] = v40.u32[1];
+          v41 = v32;
+          v32.i64[0] = v39.u32[0];
+          v32.i64[1] = v39.u32[1];
+          v42 = v32;
+          v32.i64[0] = v40.u32[2];
+          v32.i64[1] = v40.u32[3];
+          v43 = v32;
+          v32.i64[0] = v39.u32[2];
+          v32.i64[1] = v39.u32[3];
+          v44 = vshlq_n_s64(v43, 0x2CuLL);
+          v45 = vbicq_s8(vshlq_u64(v41, xmmword_19605E880), v38);
+          v46 = vbicq_s8(vshlq_u64(v42, xmmword_19605E870), v36);
+          v47 = vbicq_s8(v44, v35);
+          v48 = vbicq_s8(vshlq_u64(v32, xmmword_19605E860), v33);
+          v49 = vandq_s8(v27, xmmword_19605E890);
+          v50 = vandq_s8(v27, xmmword_19605E8A0);
+          v51 = vceqzq_s32(vandq_s8(v27, xmmword_19605E8C0));
+          v32.i64[0] = v51.i32[2];
+          v32.i64[1] = v51.i32[3];
+          v52 = v32;
+          v53 = vceqzq_s32(vandq_s8(vzip1q_s32(v22, v22), xmmword_19605E8B0));
+          v32.i64[0] = v53.i32[2];
+          v32.i64[1] = v53.i32[3];
+          v54 = v32;
+          v55 = vceqzq_s32(v50);
+          v32.i64[0] = v55.i32[2];
+          v32.i64[1] = v55.i32[3];
+          v56 = v32;
+          v57 = vceqzq_s32(v49);
+          v32.i64[0] = v57.i32[2];
+          v32.i64[1] = v57.i32[3];
+          v58 = v32;
+          v32.i64[0] = v51.i32[0];
+          v32.i64[1] = v51.i32[1];
+          v59 = v32;
+          v32.i64[0] = v53.i32[0];
+          v32.i64[1] = v53.i32[1];
+          v60 = v32;
+          v32.i64[0] = v55.i32[0];
+          v32.i64[1] = v55.i32[1];
+          v61 = v32;
+          v32.i64[0] = v57.i32[0];
+          v32.i64[1] = v57.i32[1];
+          v62 = v32;
+          v63 = vandq_s8(v28, xmmword_19605E8C0);
+          v64 = vandq_s8(vzip1q_s32(v23, v23), xmmword_19605E8B0);
+          v65 = vandq_s8(v28, xmmword_19605E8A0);
+          v66 = vandq_s8(v28, xmmword_19605E890);
+          v32.i64[0] = v66.u32[0];
+          v32.i64[1] = v66.u32[1];
+          v67 = v32;
+          v32.i64[0] = v65.u32[0];
+          v32.i64[1] = v65.u32[1];
+          v68 = v32;
+          v32.i64[0] = v64.u32[0];
+          v32.i64[1] = v64.u32[1];
+          v69 = v32;
+          v32.i64[0] = v63.u32[0];
+          v32.i64[1] = v63.u32[1];
+          v70 = v32;
+          v32.i64[0] = v66.u32[2];
+          v32.i64[1] = v66.u32[3];
+          v71 = v32;
+          v32.i64[0] = v65.u32[2];
+          v32.i64[1] = v65.u32[3];
+          v72 = v32;
+          v32.i64[0] = v64.u32[2];
+          v32.i64[1] = v64.u32[3];
+          v73 = v32;
+          v32.i64[0] = v63.u32[2];
+          v32.i64[1] = v63.u32[3];
+          v74 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(vbicq_s8(vshlq_u64(v68, xmmword_19605E920), v61), vbicq_s8(vshlq_u64(v67, xmmword_19605E930), v62)), vorrq_s8(vbicq_s8(vshlq_u64(v70, xmmword_19605E910), v59), vbicq_s8(vshlq_n_s64(v69, 0x30uLL), v60))), vorrq_s8(vorrq_s8(vbicq_s8(vshlq_u64(v72, xmmword_19605E8F0), v56), vbicq_s8(vshlq_u64(v71, xmmword_19605E900), v58)), vorrq_s8(vbicq_s8(vshlq_u64(v32, xmmword_19605E8D0), v52), vbicq_s8(vshlq_u64(v73, xmmword_19605E8E0), v54)))), vorrq_s8(vorrq_s8(v46, v45), vorrq_s8(v48, v47)));
+          v75 = vorr_s8(*v74.i8, *&vextq_s8(v74, v74, 8uLL));
+          v76 = v75;
+          if ((v101.i16[0] & 0x8000) == 0 || (v100.i16[0] & 0x8000) == 0)
           {
-            v77 = *&v76 | 0x100000000000000;
+            v76 = *&v75 | 0x100000000000000;
           }
 
-          if (v101.i16[2] < 0)
+          if (v100.i16[2] < 0)
           {
-            v79 = (v102.i16[2] & 0x8000) << 42;
+            v78 = (v101.i16[2] & 0x8000) << 42;
           }
 
           else
+          {
+            v78 = 0;
+          }
+
+          v79 = (v101.i16[0] & 0x2000) << 45;
+          if ((v100.i16[0] & 0x2000) == 0)
           {
             v79 = 0;
           }
 
-          v80 = (v102.i16[0] & 0x2000) << 45;
-          if ((v101.i16[0] & 0x2000) == 0)
+          v80 = (v101.i32[0] & 0x10000) << 43;
+          if ((v100.i32[0] & 0x10000) == 0)
           {
             v80 = 0;
           }
 
-          v81 = (v102.i32[0] & 0x10000) << 43;
-          if ((v101.i32[0] & 0x10000) == 0)
+          if ((v100.i32[0] & 0x20000) != 0)
           {
-            v81 = 0;
-          }
-
-          if ((v101.i32[0] & 0x20000) != 0)
-          {
-            v82 = (v102.i32[0] & 0x20000) << 43;
+            v81 = (v101.i32[0] & 0x20000) << 43;
           }
 
           else
           {
-            v82 = 0;
+            v81 = 0;
           }
 
-          *(a4 + 369) = v81 | v80 | v82 | v79 | v46.i64[1] | v48.i64[0] | v48.i64[1] | v77;
-          if ((BYTE5(v97) & 2) != 0)
+          *(a4 + 369) = v80 | v79 | v81 | v78 | v45.i64[1] | v47.i64[0] | v47.i64[1] | v76;
+          if ((BYTE5(v96) & 2) != 0)
           {
-            *(a4 + 2168) = v99;
+            *(a4 + 2168) = v98;
           }
 
-          if ((v25 & 0x2000) != 0)
+          if ((v24 & 0x2000) != 0)
           {
-            v87 = a4 + 2184;
-            v88 = v100 + v100[0];
+            v86 = a4 + 2184;
+            v87 = v99 + v99[0];
           }
 
           else
@@ -3323,110 +3301,110 @@ LABEL_29:
               goto LABEL_58;
             }
 
-            v83 = a4 + 1112;
-            v84 = strlen(a4 + 1112);
-            if (v84)
+            v82 = a4 + 1112;
+            v83 = strlen(a4 + 1112);
+            if (v83)
             {
-              v85 = v84 - 1;
-              if (v83[v84 - 1] == 47)
+              v84 = v83 - 1;
+              if (v82[v83 - 1] == 47)
               {
-                strncpy(__dst, a4 + 1112, v85);
-                __dst[v85] = 0;
-                v83 = __dst;
+                strncpy(__dst, a4 + 1112, v84);
+                __dst[v84] = 0;
+                v82 = __dst;
               }
 
-              v84 = strrchr(v83, 47);
-              if (!v84)
+              v83 = strrchr(v82, 47);
+              if (!v83)
               {
 LABEL_58:
-                v84 = strrchr(a4 + 88, 47);
+                v83 = strrchr(a4 + 88, 47);
               }
             }
 
-            if (v84)
+            if (v83)
             {
-              v86 = v84;
+              v85 = v83;
             }
 
             else
             {
-              v86 = a4 + 88;
+              v85 = a4 + 88;
             }
 
-            if (strlen(v86) != 1 && *v86 == 47)
+            if (strlen(v85) != 1 && *v85 == 47)
             {
-              ++v86;
+              ++v85;
             }
 
-            v87 = a4 + 2184;
-            v88 = v86;
+            v86 = a4 + 2184;
+            v87 = v85;
           }
 
-          strlcpy(v87, v88, 0x2FEuLL);
-          v89 = v98;
-          if ((v98 & 0x40000) != 0)
+          strlcpy(v86, v87, 0x2FEuLL);
+          v88 = v97;
+          if ((v97 & 0x40000) != 0)
           {
-            uuid_copy(a4 + 3000, v103);
-            v89 = v98;
+            uuid_copy(a4 + 3000, v102);
+            v88 = v97;
           }
 
-          if ((v89 & 0x40000000) != 0)
+          if ((v88 & 0x40000000) != 0)
           {
-            v90 = v105;
-            *(a4 + 185) = v104;
-            *(a4 + 186) = v90;
-            *(a4 + 374) = v106;
+            v89 = v104;
+            *(a4 + 185) = v103;
+            *(a4 + 186) = v89;
+            *(a4 + 374) = v105;
           }
 
-          v91 = pathconf(a4 + 88, 18);
-          if (v91 == -1)
+          v90 = pathconf(a4 + 88, 18);
+          if (v90 == -1)
           {
             if (a4[2958])
             {
-              v92 = 0x20000000000;
+              v91 = 0x20000000000;
             }
 
             else
             {
-              v92 = -1;
+              v91 = -1;
             }
           }
 
-          else if (v91 < 65)
+          else if (v90 < 65)
           {
-            if (v91 > 31)
+            if (v90 > 31)
             {
-              v92 = 0xFFFFFFFFFFFFFFFFLL >> (65 - v91);
+              v91 = 0xFFFFFFFFFFFFFFFFLL >> (65 - v90);
             }
 
             else
             {
-              v92 = 0x7FFFFFFFLL;
+              v91 = 0x7FFFFFFFLL;
             }
           }
 
           else
           {
-            v92 = 0x7FFFFFFFFFFFFFFFLL;
+            v91 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
-          *(a4 + 377) = v92;
-          v93 = malloc_type_malloc(0xBD8uLL, 0x1020040C75464EAuLL);
-          memcpy(v93 + 1, a4, 0xBD0uLL);
-          *v93 = sMountEntrys;
-          sMountEntrys = v93;
+          *(a4 + 377) = v91;
+          v92 = malloc_type_malloc(0xBD8uLL, 0x1020040C75464EAuLL);
+          memcpy(v92 + 1, a4, 0xBD0uLL);
+          *v92 = sMountEntrys;
+          sMountEntrys = v92;
           goto LABEL_16;
         }
 
-        v22 = 2;
+        v21 = 2;
       }
     }
   }
 
   else
   {
-    v22 = *__error();
-    if (!v22)
+    v21 = *__error();
+    if (!v21)
     {
       goto LABEL_29;
     }
@@ -3434,69 +3412,70 @@ LABEL_58:
 
   os_unfair_lock_unlock(&sMountEntrysSpinLock);
   result = 0;
-  if (a6 && a7)
+  if (a6)
   {
-    v26 = CFGetAllocator(a6);
-    v27 = _FSURLCreateStandardError(v26, *MEMORY[0x1E695E640], v22, 0, a6, 0);
-    result = 0;
-    *a7 = v27;
+    if (a7)
+    {
+      v25 = CFGetAllocator(a6);
+      v26 = _FSURLCreateStandardError(v25, *MEMORY[0x1E695E640], v21, 0, a6, 0);
+      result = 0;
+      *a7 = v26;
+    }
   }
 
-LABEL_18:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ___Z15initGlobalsOncev_block_invoke()
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   init_logging();
-  v15 = 16;
-  if (sysctlbyname("kern.osproductversion", buf, &v15, 0, 0) || ((v1 = bswap64(*buf | (v17 << 32)), v2 = v1 > 0x31302E3135000000, v3 = v1 < 0x31302E3135000000, !v2) ? (v4 = 0) : (v4 = 1), v3 == v4))
+  v28 = 16;
+  v0 = sysctlbyname("kern.osproductversion", buf, &v28, 0, 0);
+  if (v0 || ((v3 = bswap64(*buf | (v30 << 32)), v4 = v3 > 0x31302E3135000000, v5 = v3 < 0x31302E3135000000, !v4) ? (v6 = 0) : (v6 = 1), v5 == v6))
   {
-    v0 = 252;
+    v2 = 252;
   }
 
   else
   {
-    v0 = 8188;
+    v2 = 8188;
   }
 
-  v5.i64[0] = 0x3FF0FFFFFFLL;
-  v5.i32[2] = 14335;
-  v5.i32[3] = v0;
-  v6 = 8u;
+  v7.i64[0] = 0x3FF0FFFFFFLL;
+  v7.i32[2] = 14335;
+  v7.i32[3] = v2;
+  v8 = 8u;
   do
   {
-    *(&corePropertyAttrListTable + v6) = vandq_s8(*(&corePropertyAttrListTable + v6), v5);
-    v6 += 24;
+    *&corePropertyAttrListTable[v8] = vandq_s8(*&corePropertyAttrListTable[v8], v7);
+    v8 += 24;
   }
 
-  while (v6 != 224);
-  sFileProviderGlobals[0] = _FileCacheInitClass();
-  v7 = *MEMORY[0x1E695E480];
+  while (v8 != 224);
+  sFileProviderGlobals[0] = _FileCacheInitClass(v0, v1);
+  v9 = *MEMORY[0x1E695E480];
   qword_1ED4458B8 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], 0);
-  qword_1ED4458C8 = CFArrayCreateMutable(v7, 0, MEMORY[0x1E695E9C0]);
-  v8 = defaultLog;
+  qword_1ED4458C8 = CFArrayCreateMutable(v9, 0, MEMORY[0x1E695E9C0]);
+  v10 = defaultLog;
+  v11 = os_signpost_enabled(defaultLog);
+  if (v11)
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_19602C000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Register Property Providers", &unk_19605FDB3, buf, 2u);
+  }
+
+  registerCoreProperties(v11, v12, v13, v14);
+  registerPathURLProperties(v15, v16, v17, v18);
+  registerVolumeProperties(v19, v20, v21, v22);
+  v23 = _LSRegisterFilePropertyProvider();
+  registerExternalProviderProperties(v23, v24, v25, v26);
+  v27 = defaultLog;
   if (os_signpost_enabled(defaultLog))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19602C000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Register Property Providers", &unk_19605FDB3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19602C000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Register Property Providers", &unk_19605FDB3, buf, 2u);
   }
-
-  registerCoreProperties();
-  registerPathURLProperties();
-  registerVolumeProperties();
-  v9 = _LSRegisterFilePropertyProvider();
-  registerExternalProviderProperties(v9, v10, v11, v12);
-  v13 = defaultLog;
-  if (os_signpost_enabled(defaultLog))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19602C000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Register Property Providers", &unk_19605FDB3, buf, 2u);
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___Z19_FileCacheInitClassv_block_invoke()
@@ -3694,9 +3673,9 @@ void registerPathURLProperties()
   byte_1ED44592E = 1;
 }
 
-void registerPathURLProperties(void)
+void registerPathURLProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[7] = *MEMORY[0x1E69E9840];
+  v9[7] = *MEMORY[0x1E69E9840];
   if ((byte_1ED44592D & 1) == 0)
   {
     registerPathURLProperties();
@@ -3707,77 +3686,75 @@ void registerPathURLProperties(void)
     registerPathURLProperties();
   }
 
-  MEMORY[0x1EEE9AC00]();
-  v0 = 0;
-  memset(v6, 0, 48);
-  v1 = &unk_1ED445980;
+  MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
+  v4 = 0;
+  memset(v9, 0, 48);
+  v5 = &unk_1ED445980;
   do
   {
-    *&v2 = *(v1 - 4);
-    *(&v2 + 1) = *v1;
-    *&v6[v0] = v2;
-    v1 += 8;
-    v0 += 2;
+    *&v6 = *(v5 - 4);
+    *(&v6 + 1) = *v5;
+    *&v9[v4] = v6;
+    v5 += 8;
+    v4 += 2;
   }
 
-  while (v0 != 6);
-  _RegisterFilePropertyProvider(off_1F0A85880, 0, v6, 6uLL);
-  v3 = 0;
-  v4 = &unk_1ED445960;
+  while (v4 != 6);
+  _RegisterFilePropertyProvider(off_1F0A85880, 0, v9, 6uLL);
+  v7 = 0;
+  v8 = &unk_1ED445960;
   do
   {
-    _RegisterFilePropertyWithOptions(v6[v3++], *(v4 + 1), *(v4 + 2), *(v4 + 3), v4);
-    v4 += 32;
+    _RegisterFilePropertyWithOptions(v9[v7++], *(v8 + 1), *(v8 + 2), *(v8 + 3), v8);
+    v8 += 32;
   }
 
-  while (v3 != 6);
-  v5 = *MEMORY[0x1E69E9840];
+  while (v7 != 6);
 }
 
-void registerVolumeProperties(void)
+void registerVolumeProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10[59] = *MEMORY[0x1E69E9840];
+  v13[59] = *MEMORY[0x1E69E9840];
   if ((byte_1ED44592F & 1) == 0)
   {
     registerVolumeProperties();
   }
 
-  MEMORY[0x1EEE9AC00]();
-  v0 = 0;
-  v1 = &qword_1EAEF7F48;
-  memset(v10, 0, 464);
+  MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
+  v4 = 0;
+  v5 = &qword_1EAEF7F48;
+  memset(v13, 0, 464);
   do
   {
-    *&v2 = *(v1 - 4);
-    *(&v2 + 1) = *v1;
-    *&v10[v0] = v2;
-    v1 += 8;
-    v0 += 2;
+    *&v6 = *(v5 - 4);
+    *(&v6 + 1) = *v5;
+    *&v13[v4] = v6;
+    v5 += 8;
+    v4 += 2;
   }
 
-  while (v0 != 58);
-  v3 = 0;
-  qword_1ED4458B0 = _RegisterFilePropertyProvider(off_1F0A858A0, 0, v10, 0x3AuLL);
-  v4 = &qword_1EAEF7F30;
-  v5 = &qword_1EAEF7F30;
+  while (v4 != 58);
+  v7 = 0;
+  qword_1ED4458B0 = _RegisterFilePropertyProvider(off_1F0A858A0, 0, v13, 0x3AuLL);
+  v8 = &qword_1EAEF7F30;
+  v9 = &qword_1EAEF7F30;
   do
   {
-    v6 = v10[v3];
-    v7 = *v5;
-    v5 += 4;
-    v8 = CFEqual(v7, @"__kCFURLNoDependsVolumeInformationKey") == 0;
-    _RegisterFilePropertyWithOptions(v6, 0, v4, v8, (v4 - 1));
-    ++v3;
-    v4 = v5;
+    v10 = v13[v7];
+    v11 = *v9;
+    v9 += 4;
+    v12 = CFEqual(v11, @"__kCFURLNoDependsVolumeInformationKey") == 0;
+    _RegisterFilePropertyWithOptions(v10, 0, v8, v12, (v8 - 1));
+    ++v7;
+    v8 = v9;
   }
 
-  while (v3 != 58);
-  v9 = *MEMORY[0x1E69E9840];
+  while (v7 != 58);
 }
 
 void registerExternalProviderProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((_MergedGlobals_1 & 1) == 0)
   {
     registerExternalProviderProperties_cold_1();
@@ -3793,24 +3770,24 @@ void registerExternalProviderProperties(uint64_t a1, uint64_t a2, uint64_t a3, u
     registerExternalProviderProperties_cold_3();
   }
 
-  v11[0] = xmmword_1F0A859C0;
-  v11[1] = *&off_1F0A859D0;
+  v10[0] = xmmword_1F0A859C0;
+  v10[1] = *&off_1F0A859D0;
   MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
   v4 = 0;
-  memset(v10, 0, sizeof(v10));
+  memset(v9, 0, sizeof(v9));
   v5 = &unk_1ED446248;
   do
   {
     *&v6 = *(v5 - 6);
     *(&v6 + 1) = *v5;
-    *&v10[v4] = v6;
+    *&v9[v4] = v6;
     v5 += 12;
     v4 += 2;
   }
 
   while (v4 != 32);
   v7 = 32;
-  _RegisterFilePropertyProvider(v11, 0, v10, 0x20uLL);
+  _RegisterFilePropertyProvider(v10, 0, v9, 0x20uLL);
   v8 = &unk_1ED446240;
   do
   {
@@ -3820,14 +3797,13 @@ void registerExternalProviderProperties(uint64_t a1, uint64_t a2, uint64_t a3, u
   }
 
   while (v7);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 CFDictionaryRef _FSURLCopyResourcePropertiesForKeysInternal(const __CFURL *a1, const __CFArray *a2, CFTypeRef cf, __CFError **a4, int a5)
 {
-  v139 = *MEMORY[0x1E69E9840];
-  v129 = a1;
-  v130 = _FileCacheGetForURL(a1, cf);
+  v138 = *MEMORY[0x1E69E9840];
+  v128 = a1;
+  v129 = _FileCacheGetForURL(a1, cf);
   if (a2)
   {
     v8 = a2;
@@ -3838,19 +3814,19 @@ CFDictionaryRef _FSURLCopyResourcePropertiesForKeysInternal(const __CFURL *a1, c
     v8 = qword_1ED4458C8;
   }
 
-  v135 = v8;
+  v134 = v8;
   Count = CFArrayGetCount(v8);
   v10 = qword_1ED445788;
   v14 = MEMORY[0x1EEE9AC00](Count, v11, v12, v13);
-  v16 = &v119[-256 * v15];
+  v16 = &v118[-256 * v15];
   v20 = MEMORY[0x1EEE9AC00](v14, v17, v18, v19);
-  v22 = &v119[-256 * v21];
+  v22 = &v118[-256 * v21];
   v26 = MEMORY[0x1EEE9AC00](v20, v23, v24, v25);
-  v28 = &v119[-256 * v27];
+  v28 = &v118[-256 * v27];
   v31 = MEMORY[0x1EEE9AC00](v26, 8 * v10, v29, v30);
-  v33 = &v119[-((v32 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v33 = &v118[-((v32 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v36 = MEMORY[0x1EEE9AC00](v31, v32, v34, v35);
-  v41 = &v119[-((v40 + 15) & 0xFF0)];
+  v41 = &v118[-((v40 + 15) & 0xFF0)];
   if (((8 * v36) & 0x600) != 0)
   {
     v42 = 512;
@@ -3862,7 +3838,7 @@ CFDictionaryRef _FSURLCopyResourcePropertiesForKeysInternal(const __CFURL *a1, c
   }
 
   MEMORY[0x1EEE9AC00](v36, v37, v38, v39);
-  v45 = &v119[-v44];
+  v45 = &v118[-v44];
   if (v10 >= 1)
   {
     bzero(v33, v43);
@@ -3870,37 +3846,37 @@ CFDictionaryRef _FSURLCopyResourcePropertiesForKeysInternal(const __CFURL *a1, c
 
   bzero(v41, v42);
   bzero(v45, v42);
-  LOBYTE(v134) = CFArrayGetCount(v135);
-  v134 = v134;
-  if (!v134)
+  LOBYTE(v133) = CFArrayGetCount(v134);
+  v133 = v133;
+  if (!v133)
   {
     v47 = 0;
     goto LABEL_84;
   }
 
-  v123 = a5;
-  v132 = v28;
-  v133 = v33;
-  v131 = v22;
-  v126 = v10;
+  v122 = a5;
+  v131 = v28;
+  v132 = v33;
+  v130 = v22;
+  v125 = v10;
   v46 = 0;
   v47 = 0;
   v48 = 0;
-  v49 = v130;
+  v49 = v129;
   do
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v135, v46);
+    ValueAtIndex = CFArrayGetValueAtIndex(v134, v46);
     v51 = CFDictionaryGetValue(qword_1ED4458B8, ValueAtIndex);
     if (v51)
     {
       v52 = **(v51 + 140);
-      v53 = v133;
-      v54 = *&v133[8 * v52];
+      v53 = v132;
+      v54 = *&v132[8 * v52];
       if (v54 <= 95)
       {
         *&v16[768 * v52 + 8 * v54] = *(v51 + 1);
-        v55 = v132;
-        *&v131[768 * v52 + 8 * v54] = 0;
+        v55 = v131;
+        *&v130[768 * v52 + 8 * v54] = 0;
         *&v55[768 * v52 + 8 * v54] = *v51;
         *&v53[8 * v52] = v54 + 1;
       }
@@ -3947,13 +3923,13 @@ CFDictionaryRef _FSURLCopyResourcePropertiesForKeysInternal(const __CFURL *a1, c
     ++v46;
   }
 
-  while (v134 != v46);
+  while (v133 != v46);
   if (!v48)
   {
-    v10 = v126;
+    v10 = v125;
 LABEL_83:
-    v22 = v131;
-    v33 = v133;
+    v22 = v130;
+    v33 = v132;
 LABEL_84:
     if (v10 >= 1)
     {
@@ -3990,37 +3966,37 @@ LABEL_84:
   }
 
   _FileCacheLock(v49);
-  if (v126 < 1)
+  if (v125 < 1)
   {
     _FileCacheUnlock(v49);
 LABEL_91:
-    v114 = CFGetAllocator(v129);
+    v114 = CFGetAllocator(v128);
     v115 = CFDictionaryCreate(v114, v41, v45, v47, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     goto LABEL_92;
   }
 
-  v122 = a4;
-  v121 = -768;
-  v60 = 768 * v126 - 768;
-  v61 = &v131[v60];
-  v62 = &v132[v60];
-  v124 = v126 - 1;
-  v125 = v16;
+  v121 = a4;
+  v120 = -768;
+  v60 = 768 * v125 - 768;
+  v61 = &v130[v60];
+  v62 = &v131[v60];
+  v123 = v125 - 1;
+  v124 = v16;
   v63 = &v16[v60];
-  v64 = &sFileProviderGlobals[7 * v126 - 4];
+  v64 = &sFileProviderGlobals[7 * v125 - 4];
   v65 = 1;
-  v66 = v126 - 1;
+  v66 = v125 - 1;
   while (1)
   {
-    v67 = *&v133[8 * v66];
+    v67 = *&v132[8 * v66];
     if (v67 >= 1)
     {
       v68 = v64[1];
-      v127 = *v64;
-      v128 = v68;
-      v69 = v130;
-      _FileCacheIncrementInProvider(v130);
-      v70 = v128(v129, v69, v63, v61, v62, v67, v127);
+      v126 = *v64;
+      v127 = v68;
+      v69 = v129;
+      _FileCacheIncrementInProvider(v129);
+      v70 = v127(v128, v69, v63, v61, v62, v67, v126);
       _FileCacheDecrementInProvider(v69);
       v65 = v70;
       if (!v70)
@@ -4039,10 +4015,10 @@ LABEL_91:
     }
   }
 
-  v72 = v126;
-  if (v66 < v126)
+  v72 = v125;
+  if (v66 < v125)
   {
-    v73 = v133;
+    v73 = v132;
     do
     {
       v74 = *&v73[8 * v66];
@@ -4073,8 +4049,8 @@ LABEL_91:
 
   v65 = 0;
 LABEL_44:
-  v76 = v123;
-  if (v123)
+  v76 = v122;
+  if (v122)
   {
     v77 = v65 == 0;
   }
@@ -4085,8 +4061,8 @@ LABEL_44:
   }
 
   v78 = v77;
-  a4 = v122;
-  v10 = v126;
+  a4 = v121;
+  v10 = v125;
   if (!v77)
   {
 LABEL_54:
@@ -4098,60 +4074,60 @@ LABEL_54:
     goto LABEL_55;
   }
 
-  v79 = v130;
-  if (_FileCacheLockTransitionToPreparer(v130))
+  v79 = v129;
+  if (_FileCacheLockTransitionToPreparer(v129))
   {
     v65 = 0;
     goto LABEL_54;
   }
 
-  v120 = v78;
+  v119 = v78;
   _FileCacheLock(v79);
-  v93 = v124;
+  v93 = v123;
   if (v10 >= 1)
   {
     v65 = 0;
-    v94 = v121 + 768 * v10;
-    v95 = &v131[v94];
-    v96 = &v132[v94];
-    v97 = &v125[v94];
+    v94 = v120 + 768 * v10;
+    v95 = &v130[v94];
+    v96 = &v131[v94];
+    v97 = &v124[v94];
     v98 = &sFileProviderGlobals[7 * v10 - 4];
-    v99 = v130;
+    v99 = v129;
     while (1)
     {
-      v124 = v93;
-      v100 = *&v133[8 * v93];
+      v123 = v93;
+      v100 = *&v132[8 * v93];
       if (v100 >= 1)
       {
         v101 = *v98;
         v102 = v98[1];
-        _FileCacheIncrementInProvider(v130);
-        v103 = v102(v129, v130, v97, v95, v96, v100, v101);
-        v99 = v130;
+        _FileCacheIncrementInProvider(v129);
+        v103 = v102(v128, v129, v97, v95, v96, v100, v101);
+        v99 = v129;
         v65 = v103;
-        _FileCacheDecrementInProvider(v130);
+        _FileCacheDecrementInProvider(v129);
         if (!v65)
         {
           break;
         }
       }
 
-      v93 = v124 - 1;
+      v93 = v123 - 1;
       v95 -= 96;
       v96 -= 768;
       v97 -= 768;
       v98 -= 7;
-      if (v124 <= 0)
+      if (v123 <= 0)
       {
         goto LABEL_79;
       }
     }
 
-    v104 = v126;
-    v105 = v124;
-    if (v124 < v126)
+    v104 = v125;
+    v105 = v123;
+    if (v123 < v125)
     {
-      v106 = v133;
+      v106 = v132;
       do
       {
         v107 = *&v106[8 * v105];
@@ -4182,17 +4158,17 @@ LABEL_54:
   }
 
   v65 = 0;
-  v99 = v130;
+  v99 = v129;
 LABEL_79:
   _FileCacheUnlock(v99);
-  a4 = v122;
-  v10 = v126;
-  v78 = v120;
-  if (!v123)
+  a4 = v121;
+  v10 = v125;
+  v78 = v119;
+  if (!v122)
   {
 LABEL_80:
-    LODWORD(v127) = v65;
-    v16 = v125;
+    LODWORD(v126) = v65;
+    v16 = v124;
     if (!v78)
     {
       goto LABEL_82;
@@ -4207,47 +4183,47 @@ LABEL_55:
     goto LABEL_80;
   }
 
-  v137 = 0u;
-  memset(v138, 0, sizeof(v138));
+  v136 = 0u;
+  memset(v137, 0, sizeof(v137));
   *value = 0u;
-  getPropertyBitmapForKeys(v135, v134, value);
-  v80 = v130;
-  v81 = prepareValuesForBitmap(v129, v130, value, a4);
-  v16 = v125;
-  LODWORD(v127) = v81;
+  getPropertyBitmapForKeys(v134, v133, value);
+  v80 = v129;
+  v81 = prepareValuesForBitmap(v128, v129, value, a4);
+  v16 = v124;
+  LODWORD(v126) = v81;
   if (v81)
   {
-    v120 = v78;
+    v119 = v78;
     _FileCacheLock(v80);
     if (v10 >= 1)
     {
-      v82 = v133;
+      v82 = v132;
       v83 = v16;
-      v84 = v131;
-      v85 = v126;
+      v84 = v130;
+      v85 = v125;
       v86 = &qword_1ED4457B0;
       do
       {
         v88 = *v82;
         v82 = (v82 + 8);
         v87 = v88;
-        v89 = v132;
+        v89 = v131;
         if (v88 >= 1)
         {
-          v134 = *v86;
-          v135 = v82;
-          v128 = *(v86 - 3);
-          v90 = v130;
+          v133 = *v86;
+          v134 = v82;
+          v127 = *(v86 - 3);
+          v90 = v129;
           v91 = v87;
-          _FileCacheIncrementInProvider(v130);
+          _FileCacheIncrementInProvider(v129);
           v92 = v91;
-          v16 = v125;
-          (v134)(v129, v90, v83, v84, v89, v92, v128);
+          v16 = v124;
+          (v133)(v128, v90, v83, v84, v89, v92, v127);
           _FileCacheDecrementInProvider(v90);
-          v82 = v135;
+          v82 = v134;
         }
 
-        v132 = v89 + 768;
+        v131 = v89 + 768;
         v84 += 768;
         v83 += 768;
         v86 += 7;
@@ -4257,21 +4233,21 @@ LABEL_55:
       while (v85);
     }
 
-    _FileCacheUnlock(v130);
-    a4 = v122;
-    v10 = v126;
-    LOBYTE(v78) = v120;
+    _FileCacheUnlock(v129);
+    a4 = v121;
+    v10 = v125;
+    LOBYTE(v78) = v119;
   }
 
   if (v78)
   {
 LABEL_81:
-    _FileCacheLockTransitionFromPreparer(v130);
+    _FileCacheLockTransitionFromPreparer(v129);
   }
 
 LABEL_82:
-  _FileCacheUnlock(v130);
-  if (v127)
+  _FileCacheUnlock(v129);
+  if (v126)
   {
     goto LABEL_83;
   }
@@ -4300,7 +4276,6 @@ LABEL_92:
     *a4 = CFErrorCreate(*MEMORY[0x1E695E480], *MEMORY[0x1E695E628], 256, 0);
   }
 
-  v117 = *MEMORY[0x1E69E9840];
   return v115;
 }
 
@@ -5015,30 +4990,30 @@ LABEL_17:
   return 1;
 }
 
-BOOL volumePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, uint64_t a3, CFTypeRef **a4, uint64_t a5, uint64_t a6, CFErrorRef *a7)
+BOOL volumePropertyProviderPrepareValues(const __CFString *a1, const __CFString *a2, uint64_t a3, CFTypeRef **a4, uint64_t a5, uint64_t a6, CFErrorRef *a7)
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
+  v117 = 0;
   v118 = 0;
-  v119 = 0;
   v12 = MountInfoStorageSize();
-  v16 = &v94 - ((MEMORY[0x1EEE9AC00](v12, v13, v14, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = &v93 - ((MEMORY[0x1EEE9AC00](v12, v13, v14, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
   _FileCacheLock(a2);
   Attributes = _FileCacheGetAttributes(a2);
   if ((Attributes->val[0] & 2) == 0)
   {
     _FileCacheUnlock(a2);
-    if (CFURLGetFileSystemRepresentation(a1, 1u, &v122, 1024))
+    if (CFURLGetFileSystemRepresentation(a1, 1u, &v121, 1024))
     {
-      v120 = xmmword_19605E710;
-      v121 = 0;
-      v18 = filtered_getattrlist(&v122, &v120, &v116, 0xCuLL, 0x21u);
+      v119 = xmmword_19605E710;
+      v120 = 0;
+      v18 = filtered_getattrlist(&v121, &v119, &v115, 0xCuLL, 0x21u);
       _FileCacheLock(a2);
       if (v18)
       {
         if (a7)
         {
           v19 = CFGetAllocator(a1);
-          v96 = a2;
+          v95 = a2;
           v20 = Attributes;
           v21 = a1;
           v22 = v16;
@@ -5050,19 +5025,19 @@ BOOL volumePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, uint
           v16 = v22;
           a1 = v21;
           Attributes = v20;
-          a2 = v96;
+          a2 = v95;
           *a7 = _FSURLCreateStandardError(v19, v26, *v25, 0, a1, 0);
         }
       }
 
       else
       {
-        v28 = v117.val[0];
-        Attributes[13] = v117;
-        MountID = MountInfoPrepare(&v118, 0, v28, v16, 0, a1, 0);
+        v28 = v116.val[0];
+        Attributes[13] = v116;
+        MountID = MountInfoPrepare(&v117, 0, v28, v16, 0, a1, 0);
         if (MountID)
         {
-          MountID = MountInfoGetMountID(v118);
+          MountID = MountInfoGetMountID(v117);
         }
 
         Attributes[14].val[0] = MountID;
@@ -5088,35 +5063,35 @@ BOOL volumePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, uint
     }
   }
 
-  v112 = &v94;
+  v111 = &v93;
   if (a5 < 1)
   {
-    v113 = 1;
+    v112 = 1;
     goto LABEL_139;
   }
 
-  v111 = a7;
-  v114 = Attributes[14].val[0];
-  v115 = 0;
-  v110 = Attributes[13].val[0];
+  v110 = a7;
+  v113 = Attributes[14].val[0];
+  v114 = 0;
+  v109 = Attributes[13].val[0];
   v31 = *MEMORY[0x1E695ED78];
-  v109 = *MEMORY[0x1E695ED58];
+  v108 = *MEMORY[0x1E695ED58];
   v32 = *MEMORY[0x1E695E440];
-  f_mntonname = v122.f_mntonname;
-  v107 = *MEMORY[0x1E695EDE0];
-  v100 = *MEMORY[0x1E695E4C0];
-  v99 = *MEMORY[0x1E695E4D0];
-  v106 = *MEMORY[0x1E695ED90];
+  f_mntonname = v121.f_mntonname;
+  v106 = *MEMORY[0x1E695EDE0];
+  v99 = *MEMORY[0x1E695E4C0];
+  v98 = *MEMORY[0x1E695E4D0];
+  v105 = *MEMORY[0x1E695ED90];
   v33 = *MEMORY[0x1E695ECE8];
-  v101 = *MEMORY[0x1E695E480];
+  v100 = *MEMORY[0x1E695E480];
   v34 = *MEMORY[0x1E695ECE0];
-  v113 = 1;
-  v102 = *MEMORY[0x1E695EE38];
-  v98 = *MEMORY[0x1E695ED88];
-  v97 = *MEMORY[0x1E695ED70];
-  v108 = v32;
-  v103 = v34;
-  v104 = v33;
+  v112 = 1;
+  v101 = *MEMORY[0x1E695EE38];
+  v97 = *MEMORY[0x1E695ED88];
+  v96 = *MEMORY[0x1E695ED70];
+  v107 = v32;
+  v102 = v34;
+  v103 = v33;
   while (1)
   {
     v35 = *a4;
@@ -5128,18 +5103,18 @@ BOOL volumePropertyProviderPrepareValues(const __CFString *a1, uint64_t a2, uint
     v36 = v31;
     if (CFEqual(*v35, @"__kCFURLCheapVolumeInformationKey"))
     {
-      if (!v115 && !_FileCacheGetVolumeInfo(a2))
+      if (!v114 && !_FileCacheGetVolumeInfo(a2))
       {
-        if (v114 && !MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+        if (v113 && !MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
         {
           goto LABEL_141;
         }
 
-        prepareCheapVolumeInformation(a1, a2, v118);
+        prepareCheapVolumeInformation(a1, a2, v117);
       }
 
 LABEL_38:
-      v115 = 1;
+      v114 = 1;
       goto LABEL_39;
     }
 
@@ -5148,16 +5123,16 @@ LABEL_38:
       break;
     }
 
-    if (!v115 && !_FileCacheGetVolumeInfo(a2))
+    if (!v114 && !_FileCacheGetVolumeInfo(a2))
     {
-      if (v114 && !MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (v113 && !MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
 LABEL_141:
-        v113 = 0;
+        v112 = 0;
         goto LABEL_139;
       }
 
-      prepareCheapVolumeInformation(a1, a2, v118);
+      prepareCheapVolumeInformation(a1, a2, v117);
     }
 
     VolumeInfo = _FileCacheGetVolumeInfo(a2);
@@ -5171,14 +5146,14 @@ LABEL_141:
     v31 = v36;
     if (*MutableBytePtr == -1)
     {
-      if (v114)
+      if (v113)
       {
-        if (!MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+        if (!MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
         {
           goto LABEL_141;
         }
 
-        MountInfoGetMutableVolumeInfo(v118, v39, v39 + 1, v39 + 2, v39 + 3);
+        MountInfoGetMutableVolumeInfo(v117, v39, v39 + 1, v39 + 2, v39 + 3);
         goto LABEL_38;
       }
 
@@ -5186,7 +5161,7 @@ LABEL_141:
       *(MutableBytePtr + 1) = 0u;
     }
 
-    v115 = 1;
+    v114 = 1;
 LABEL_40:
     ++a4;
     if (!--a5)
@@ -5200,7 +5175,7 @@ LABEL_40:
   v42 = v16;
   if (CFEqual(*v35, v36))
   {
-    if (_FileCacheGetPropertyValueForKey(a2, v36, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v36, &v118))
     {
       v31 = v36;
 LABEL_46:
@@ -5211,14 +5186,14 @@ LABEL_46:
 
     a1 = v41;
     Attributes = v40;
-    if (v114)
+    if (v113)
     {
-      if (!MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (!MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
         goto LABEL_141;
       }
 
-      VolumeName = MountInfoGetVolumeName(v118);
+      VolumeName = MountInfoGetVolumeName(v117);
       if (VolumeName)
       {
         v47 = VolumeName;
@@ -5248,10 +5223,10 @@ LABEL_56:
     goto LABEL_39;
   }
 
-  v43 = v109;
-  if (CFEqual(*v35, v109))
+  v43 = v108;
+  if (CFEqual(*v35, v108))
   {
-    PropertyValueForKey = _FileCacheGetPropertyValueForKey(a2, v43, &v119);
+    PropertyValueForKey = _FileCacheGetPropertyValueForKey(a2, v43, &v118);
     v45 = v43;
     v16 = v42;
     if (!PropertyValueForKey)
@@ -5263,58 +5238,58 @@ LABEL_56:
     goto LABEL_46;
   }
 
-  v55 = v108;
-  v56 = CFEqual(*v35, v108);
-  v95 = v42;
+  v55 = v107;
+  v56 = CFEqual(*v35, v107);
+  v94 = v42;
   if (v56)
   {
     a1 = v41;
-    if (_FileCacheGetPropertyValueForKey(a2, v55, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v55, &v118))
     {
       v31 = v36;
       Attributes = v40;
-      v16 = v95;
+      v16 = v94;
       goto LABEL_40;
     }
 
     Attributes = v40;
     v60 = v40[13];
-    StatfsByFSID = GetStatfsByFSID(v60, &v122);
-    v16 = v95;
+    StatfsByFSID = GetStatfsByFSID(v60, &v121);
+    v16 = v94;
     if (!StatfsByFSID)
     {
       v64 = CFGetAllocator(a1);
       v49 = CFStringCreateWithCString(v64, f_mntonname, 0x8000100u);
       v50 = a2;
-      v51 = v108;
+      v51 = v107;
       goto LABEL_51;
     }
 
     v52 = a2;
-    v53 = v108;
+    v53 = v107;
     goto LABEL_55;
   }
 
-  v57 = v107;
+  v57 = v106;
   a1 = v41;
-  if (CFEqual(*v35, v107))
+  if (CFEqual(*v35, v106))
   {
-    v58 = _FileCacheGetPropertyValueForKey(a2, v57, &v119);
+    v58 = _FileCacheGetPropertyValueForKey(a2, v57, &v118);
     Attributes = v40;
-    v16 = v95;
+    v16 = v94;
     if (v58)
     {
       goto LABEL_39;
     }
 
-    if (v114)
+    if (v113)
     {
-      if (!MountInfoPrepare(&v118, v114, v110, v95, 0, a1, v111))
+      if (!MountInfoPrepare(&v117, v113, v109, v94, 0, a1, v110))
       {
         goto LABEL_141;
       }
 
-      MountPoint = MountInfoGetMountPoint(v118);
+      MountPoint = MountInfoGetMountPoint(v117);
       if (!MountPoint)
       {
 LABEL_84:
@@ -5326,7 +5301,7 @@ LABEL_84:
     else
     {
       v66 = v40[13];
-      v67 = GetStatfsByFSID(v66, &v122);
+      v67 = GetStatfsByFSID(v66, &v121);
       MountPoint = f_mntonname;
       if (v67)
       {
@@ -5334,47 +5309,47 @@ LABEL_84:
       }
     }
 
-    v120 = xmmword_19605E728;
-    v121 = 0;
-    if (filtered_getattrlist(MountPoint, &v120, &v122, 0x24uLL, 0x21u) || (v122.f_bfree & 0x20000000000000) == 0)
+    v119 = xmmword_19605E728;
+    v120 = 0;
+    if (filtered_getattrlist(MountPoint, &v119, &v121, 0x24uLL, 0x21u) || (v121.f_bfree & 0x20000000000000) == 0)
     {
       goto LABEL_84;
     }
 
-    if ((v122.f_iosize & 0x200000) != 0)
-    {
-      v54 = v100;
-    }
-
-    else
+    if ((v121.f_iosize & 0x200000) != 0)
     {
       v54 = v99;
     }
 
+    else
+    {
+      v54 = v98;
+    }
+
 LABEL_85:
     v52 = a2;
-    v53 = v107;
+    v53 = v106;
     goto LABEL_56;
   }
 
-  v62 = CFEqual(*v35, v106);
+  v62 = CFEqual(*v35, v105);
   Attributes = v40;
-  v16 = v95;
+  v16 = v94;
   if (v62)
   {
-    if (_FileCacheGetPropertyValueForKey(a2, v106, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v105, &v118))
     {
       goto LABEL_39;
     }
 
-    if (v114)
+    if (v113)
     {
-      if (!MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (!MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
         goto LABEL_141;
       }
 
-      v63 = MountInfoGetMountPoint(v118);
+      v63 = MountInfoGetMountPoint(v117);
       if (!v63)
       {
 LABEL_95:
@@ -5386,7 +5361,7 @@ LABEL_95:
     else
     {
       v69 = v40[13];
-      v70 = GetStatfsByFSID(v69, &v122);
+      v70 = GetStatfsByFSID(v69, &v121);
       v63 = f_mntonname;
       if (v70)
       {
@@ -5394,60 +5369,60 @@ LABEL_95:
       }
     }
 
-    v120 = xmmword_19605E728;
-    v121 = 0;
-    if (filtered_getattrlist(v63, &v120, &v122, 0x24uLL, 0x21u) || (v122.f_bfree & 0x40000000000000) == 0)
+    v119 = xmmword_19605E728;
+    v120 = 0;
+    if (filtered_getattrlist(v63, &v119, &v121, 0x24uLL, 0x21u) || (v121.f_bfree & 0x40000000000000) == 0)
     {
       goto LABEL_95;
     }
 
-    if ((v122.f_iosize & 0x400000) != 0)
-    {
-      v54 = v100;
-    }
-
-    else
+    if ((v121.f_iosize & 0x400000) != 0)
     {
       v54 = v99;
     }
 
+    else
+    {
+      v54 = v98;
+    }
+
 LABEL_96:
-    v53 = v106;
+    v53 = v105;
     v52 = a2;
     goto LABEL_56;
   }
 
-  if (CFEqual(*v35, v104))
+  if (CFEqual(*v35, v103))
   {
-    if (_FileCacheGetPropertyValueForKey(a2, v104, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v103, &v118))
     {
       goto LABEL_39;
     }
 
-    if (v114)
+    if (v113)
     {
-      if (!MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (!MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
         goto LABEL_141;
       }
 
-      v65 = MountInfoGetMountPoint(v118);
+      v65 = MountInfoGetMountPoint(v117);
       if (!v65)
       {
         goto LABEL_110;
       }
 
 LABEL_108:
-      v75 = CFStringCreateWithFileSystemRepresentation(v101, v65);
+      v75 = CFStringCreateWithFileSystemRepresentation(v100, v65);
       if (v75)
       {
         v77 = v75;
-        v96 = Call_CacheDeleteCopyAvailableSpaceForVolume(v76);
+        v95 = Call_CacheDeleteCopyAvailableSpaceForVolume(v75, 1u, v76);
         CFRelease(v77);
         v50 = a2;
-        v51 = v104;
+        v51 = v103;
 LABEL_125:
-        v49 = v96;
+        v49 = v95;
         goto LABEL_51;
       }
     }
@@ -5455,7 +5430,7 @@ LABEL_125:
     else
     {
       v73 = v40[13];
-      v74 = GetStatfsByFSID(v73, &v122);
+      v74 = GetStatfsByFSID(v73, &v121);
       v65 = f_mntonname;
       if (!v74)
       {
@@ -5465,39 +5440,39 @@ LABEL_125:
 
 LABEL_110:
     v52 = a2;
-    v53 = v104;
+    v53 = v103;
     goto LABEL_55;
   }
 
-  if (CFEqual(*v35, v103))
+  if (CFEqual(*v35, v102))
   {
-    if (_FileCacheGetPropertyValueForKey(a2, v103, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v102, &v118))
     {
       goto LABEL_39;
     }
 
-    if (v114)
+    if (v113)
     {
-      if (!MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (!MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
         goto LABEL_141;
       }
 
-      v68 = MountInfoGetMountPoint(v118);
+      v68 = MountInfoGetMountPoint(v117);
       if (!v68)
       {
         goto LABEL_117;
       }
 
 LABEL_115:
-      v80 = CFStringCreateWithFileSystemRepresentation(v101, v68);
+      v80 = CFStringCreateWithFileSystemRepresentation(v100, v68);
       if (v80)
       {
         v82 = v80;
-        v96 = Call_CacheDeleteCopyAvailableSpaceForVolume(v81);
+        v95 = Call_CacheDeleteCopyAvailableSpaceForVolume(v80, 3u, v81);
         CFRelease(v82);
         v50 = a2;
-        v51 = v103;
+        v51 = v102;
         goto LABEL_125;
       }
     }
@@ -5505,7 +5480,7 @@ LABEL_115:
     else
     {
       v78 = v40[13];
-      v79 = GetStatfsByFSID(v78, &v122);
+      v79 = GetStatfsByFSID(v78, &v121);
       v68 = f_mntonname;
       if (!v79)
       {
@@ -5515,25 +5490,25 @@ LABEL_115:
 
 LABEL_117:
     v52 = a2;
-    v53 = v103;
+    v53 = v102;
     goto LABEL_55;
   }
 
-  if (CFEqual(*v35, v102) || CFEqual(*v35, v98))
+  if (CFEqual(*v35, v101) || CFEqual(*v35, v97))
   {
-    if (_FileCacheGetPropertyValueForKey(a2, v102, &v119) && _FileCacheGetPropertyValueForKey(a2, v98, &v119))
+    if (_FileCacheGetPropertyValueForKey(a2, v101, &v118) && _FileCacheGetPropertyValueForKey(a2, v97, &v118))
     {
       goto LABEL_39;
     }
 
-    v120 = 0uLL;
-    v116 = 0;
-    if (v114)
+    v119 = 0uLL;
+    v115 = 0;
+    if (v113)
     {
-      if (MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+      if (MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
       {
-        v71 = MountInfoGetMountPoint(v118);
-        v72 = _FSGetTypeInfoForPath(v71, &v120, 0x10uLL, &v116);
+        v71 = MountInfoGetMountPoint(v117);
+        v72 = _FSGetTypeInfoForPath(v71, &v119, 0x10uLL, &v115);
         goto LABEL_120;
       }
     }
@@ -5541,78 +5516,78 @@ LABEL_117:
     else
     {
       v83 = v40[13];
-      if (!GetStatfsByFSID(v83, &v122))
+      if (!GetStatfsByFSID(v83, &v121))
       {
-        v72 = _FSGetTypeInfoFromStatfs(&v122, &v120, 0x10uLL, &v116);
+        v72 = _FSGetTypeInfoFromStatfs(&v121, &v119, 0x10uLL, &v115);
 LABEL_120:
-        v113 = v72 == 0;
+        v112 = v72 == 0;
       }
     }
 
-    if (!v113)
+    if (!v112)
     {
       goto LABEL_141;
     }
 
-    *&v122.f_bsize = v116;
-    v84 = strlen(&v120);
-    v85 = v101;
-    v94 = CFStringCreateWithBytes(v101, &v120, v84, 0x8000100u, 0);
-    v96 = CFNumberCreate(v85, kCFNumberSInt64Type, &v122);
-    v86 = v94;
-    _FileCacheSetPropertyValueForKey(a2, v102, v94);
+    *&v121.f_bsize = v115;
+    v84 = strlen(&v119);
+    v85 = v100;
+    v93 = CFStringCreateWithBytes(v100, &v119, v84, 0x8000100u, 0);
+    v95 = CFNumberCreate(v85, kCFNumberSInt64Type, &v121);
+    v86 = v93;
+    _FileCacheSetPropertyValueForKey(a2, v101, v93);
     if (v86)
     {
       CFRelease(v86);
     }
 
     v50 = a2;
-    v51 = v98;
+    v51 = v97;
     goto LABEL_125;
   }
 
-  if (!CFEqual(*v35, v97))
+  if (!CFEqual(*v35, v96))
   {
     goto LABEL_39;
   }
 
-  v94 = v40;
-  v96 = a2;
-  if (_FileCacheGetPropertyValueForKey(a2, v97, &v119))
+  v93 = v40;
+  v95 = a2;
+  if (_FileCacheGetPropertyValueForKey(a2, v96, &v118))
   {
 LABEL_137:
-    Attributes = v94;
-    a2 = v96;
+    Attributes = v93;
+    a2 = v95;
     goto LABEL_39;
   }
 
-  bzero(&v120, 0x400uLL);
-  if (v114)
+  bzero(&v119, 0x400uLL);
+  if (v113)
   {
-    if (MountInfoPrepare(&v118, v114, v110, v16, 0, a1, v111))
+    if (MountInfoPrepare(&v117, v113, v109, v16, 0, a1, v110))
     {
-      v87 = MountInfoGetMountPoint(v118);
-      v88 = _FSGetLocationForPath(v87, &v120, 0x400uLL);
+      v87 = MountInfoGetMountPoint(v117);
+      v88 = _FSGetLocationForPath(v87, &v119, 0x400uLL);
       goto LABEL_133;
     }
   }
 
   else
   {
-    v89 = v94[13];
-    if (!GetStatfsByFSID(v89, &v122))
+    v89 = v93[13];
+    if (!GetStatfsByFSID(v89, &v121))
     {
-      v88 = _FSGetLocationFromStatfs(&v122, &v120, 0x400uLL);
+      v88 = _FSGetLocationFromStatfs(&v121, &v119, 0x400uLL);
 LABEL_133:
-      v113 = v88 == 0;
+      v112 = v88 == 0;
     }
   }
 
-  if (v113)
+  if (v112)
   {
-    v90 = strlen(&v120);
-    v91 = CFStringCreateWithBytes(v101, &v120, v90, 0x8000100u, 0);
-    _FileCacheSetPropertyValueForKey(v96, v97, v91);
+    v90 = strlen(&v119);
+    v91 = CFStringCreateWithBytes(v100, &v119, v90, 0x8000100u, 0);
+    _FileCacheSetPropertyValueForKey(v95, v96, v91);
     if (v91)
     {
       CFRelease(v91);
@@ -5621,44 +5596,43 @@ LABEL_133:
     goto LABEL_137;
   }
 
-  v113 = 0;
-  a2 = v96;
+  v112 = 0;
+  a2 = v95;
 LABEL_139:
-  MountInfoDestroy(v118);
-  v30 = v113;
+  MountInfoDestroy();
+  v30 = v112;
 LABEL_140:
   _FileCacheUnlock(a2);
-  v92 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 void prepareCheapVolumeInformation(const void *a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v24 = 0u;
+  v24 = *MEMORY[0x1E69E9840];
   v23 = 0u;
   v22 = 0u;
   v21 = 0u;
+  v20 = 0u;
   *bytes = -1;
   if (!a3)
   {
     v11 = *(_FileCacheGetAttributes(a2) + 104);
-    if (GetStatfsByFSID(v11, &v19))
+    if (GetStatfsByFSID(v11, &v18))
     {
 LABEL_21:
-      *&v23 = -1.0 - *MEMORY[0x1E695E460];
-      *(&v23 + 1) = -1;
+      *&v22 = -1.0 - *MEMORY[0x1E695E460];
+      *(&v22 + 1) = -1;
       v14 = 56;
       goto LABEL_27;
     }
 
-    if ((v19.f_flags & 0x1000) != 0)
+    if ((v18.f_flags & 0x1000) != 0)
     {
-      *(&v22 + 1) |= 1uLL;
-      if ((v19.f_flags & 0x400000) == 0)
+      *(&v21 + 1) |= 1uLL;
+      if ((v18.f_flags & 0x400000) == 0)
       {
 LABEL_9:
-        if ((v19.f_flags & 0x100000) == 0)
+        if ((v18.f_flags & 0x100000) == 0)
         {
           goto LABEL_10;
         }
@@ -5667,16 +5641,16 @@ LABEL_9:
       }
     }
 
-    else if ((v19.f_flags & 0x400000) == 0)
+    else if ((v18.f_flags & 0x400000) == 0)
     {
       goto LABEL_9;
     }
 
-    *(&v22 + 1) |= 2uLL;
-    if ((v19.f_flags & 0x100000) == 0)
+    *(&v21 + 1) |= 2uLL;
+    if ((v18.f_flags & 0x100000) == 0)
     {
 LABEL_10:
-      if ((v19.f_flags & 1) == 0)
+      if ((v18.f_flags & 1) == 0)
       {
         goto LABEL_11;
       }
@@ -5685,11 +5659,11 @@ LABEL_10:
     }
 
 LABEL_32:
-    *(&v22 + 1) |= 4uLL;
-    if ((v19.f_flags & 1) == 0)
+    *(&v21 + 1) |= 4uLL;
+    if ((v18.f_flags & 1) == 0)
     {
 LABEL_11:
-      if ((v19.f_flags & 0x400) == 0)
+      if ((v18.f_flags & 0x400) == 0)
       {
         goto LABEL_12;
       }
@@ -5698,11 +5672,11 @@ LABEL_11:
     }
 
 LABEL_33:
-    *(&v22 + 1) |= 8uLL;
-    if ((v19.f_flags & 0x400) == 0)
+    *(&v21 + 1) |= 8uLL;
+    if ((v18.f_flags & 0x400) == 0)
     {
 LABEL_12:
-      if ((v19.f_flags & 0x4000) == 0)
+      if ((v18.f_flags & 0x4000) == 0)
       {
         goto LABEL_13;
       }
@@ -5711,11 +5685,11 @@ LABEL_12:
     }
 
 LABEL_34:
-    *(&v22 + 1) |= 0x10uLL;
-    if ((v19.f_flags & 0x4000) == 0)
+    *(&v21 + 1) |= 0x10uLL;
+    if ((v18.f_flags & 0x4000) == 0)
     {
 LABEL_13:
-      if ((v19.f_flags & 0x80) == 0)
+      if ((v18.f_flags & 0x80) == 0)
       {
         goto LABEL_15;
       }
@@ -5724,22 +5698,22 @@ LABEL_13:
     }
 
 LABEL_35:
-    *(&v22 + 1) |= 0x4000000uLL;
-    if ((v19.f_flags & 0x80) == 0)
+    *(&v21 + 1) |= 0x4000000uLL;
+    if ((v18.f_flags & 0x80) == 0)
     {
 LABEL_15:
-      v12 = *(&v22 + 1) & 0xFEFFFFFFFFFFFFFFLL | (v19.f_flags << 8) & 0x20000000;
-      *(&v22 + 1) = v12;
-      if (*v19.f_fstypename == 1719035236 && *&v19.f_fstypename[4] == 115)
+      v12 = *(&v21 + 1) & 0xFEFFFFFFFFFFFFFFLL | (v18.f_flags << 8) & 0x20000000;
+      *(&v21 + 1) = v12;
+      if (*v18.f_fstypename == 1719035236 && *&v18.f_fstypename[4] == 115)
       {
-        *(&v22 + 1) = v12 | 0x10000;
+        *(&v21 + 1) = v12 | 0x10000;
       }
 
       goto LABEL_21;
     }
 
 LABEL_14:
-    *(&v22 + 1) |= 0x8000000uLL;
+    *(&v21 + 1) |= 0x8000000uLL;
     goto LABEL_15;
   }
 
@@ -5748,10 +5722,10 @@ LABEL_14:
   if ((VolumeFlags & 0x80) != 0)
   {
     v7 |= 0x80uLL;
-    *(&v22 + 1) = v7;
+    *(&v21 + 1) = v7;
   }
 
-  *(&v22 + 1) = v7 & 0xFFFFFFFFC3FFEFFFLL | VolumeFlags & 0x700 | (((VolumeFlags >> 11) & 1) << 12) & 0xFFFFFFFFC3FFFFFFLL | (((VolumeFlags >> 23) & 0xF) << 26) | MountInfoGetCapabilities(a3);
+  *(&v21 + 1) = v7 & 0xFFFFFFFFC3FFEFFFLL | VolumeFlags & 0x700 | (((VolumeFlags >> 11) & 1) << 12) & 0xFFFFFFFFC3FFFFFFLL | (((VolumeFlags >> 23) & 0xF) << 26) | MountInfoGetCapabilities(a3);
   VolumeCreationDate = MountInfoGetVolumeCreationDate(a3);
   if (VolumeCreationDate | v9)
   {
@@ -5763,8 +5737,8 @@ LABEL_14:
     v10 = -1.0 - *MEMORY[0x1E695E460];
   }
 
-  *&v23 = v10;
-  if (MountInfoGetVolumeUUID(a3, &v24))
+  *&v22 = v10;
+  if (MountInfoGetVolumeUUID(a3, &v23))
   {
     v14 = 72;
   }
@@ -5774,7 +5748,7 @@ LABEL_14:
     v14 = 56;
   }
 
-  *(&v23 + 1) = MountInfoGetMaxFileSize(a3);
+  *(&v22 + 1) = MountInfoGetMaxFileSize(a3);
 LABEL_27:
   v15 = CFGetAllocator(a1);
   Mutable = CFDataCreateMutable(v15, v14);
@@ -5787,8 +5761,6 @@ LABEL_27:
     _FileCacheUnlock(a2);
     CFRelease(v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MountInfoGetVolumeUUID(uint64_t a1, unsigned __int8 *a2)
@@ -5901,7 +5873,7 @@ LABEL_17:
 
 uint64_t createVolumeIdentifierValue(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CFDataRef *a7)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   Attributes = _FileCacheGetAttributes(a2);
   v10 = Attributes[28];
   if (v10)
@@ -5915,11 +5887,10 @@ uint64_t createVolumeIdentifierValue(const void *a1, uint64_t a2, uint64_t a3, u
     v11 = Attributes[27];
   }
 
-  v15[0] = v10;
-  v15[1] = v11;
+  v14[0] = v10;
+  v14[1] = v11;
   v12 = CFGetAllocator(a1);
-  *a7 = CFDataCreate(v12, v15, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  *a7 = CFDataCreate(v12, v14, 8);
   return 1;
 }
 
@@ -6402,7 +6373,7 @@ CFHashCode _SetHashCode(void *a1)
 CFErrorRef _InitalizeDirectoryEnumerator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   *(v4 + 152) = _CFGetEUID();
   v5 = MEMORY[0x19A8C6D00](*(v4 + 16), 320, 0x6004044C4A2DFLL, 0);
   *(v4 + 72) = v5;
@@ -6447,9 +6418,9 @@ LABEL_17:
   }
 
   parse_path_prefix(buffer, (v4 + 552));
-  *v47 = xmmword_19605E78C;
-  v48 = 0;
-  if (filtered_getattrlist(buffer, v47, __str, 0x43CuLL, 0x29u))
+  *v46 = xmmword_19605E78C;
+  v47 = 0;
+  if (filtered_getattrlist(buffer, v46, __str, 0x43CuLL, 0x29u))
   {
     __dst[0] = 0;
     v6 = *__error();
@@ -6470,7 +6441,7 @@ LABEL_16:
 
   else
   {
-    if ((v50 & 8) == 0)
+    if ((v49 & 8) == 0)
     {
       __dst[0] = 0;
 LABEL_15:
@@ -6478,10 +6449,10 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v9 = v51;
-    v7 = v52 == 5;
-    v8 = v52 == 2;
-    strlcpy(__dst, v53 + v53[0], 0x414uLL);
+    v9 = v50;
+    v7 = v51 == 5;
+    v8 = v51 == 2;
+    strlcpy(__dst, v52 + v52[0], 0x414uLL);
   }
 
   v14 = *(v4 + 552);
@@ -6491,11 +6462,11 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  *v47 = 0;
-  parse_path_prefix(__dst, v47);
-  if (*v47 | v14)
+  *v46 = 0;
+  parse_path_prefix(__dst, v46);
+  if (*v46 | v14)
   {
-    if ((*v47 | v14) == 1)
+    if ((*v46 | v14) == 1)
     {
       v15 = snprintf(__str, 0x414uLL, "/.nofollow%s");
     }
@@ -6521,10 +6492,10 @@ LABEL_24:
     goto LABEL_58;
   }
 
-  v18 = *(v4 + 16);
-  v19 = *(v4 + 48);
-  v20 = CFURLCreateWithFileSystemPath(v18, @"/private/", kCFURLPOSIXPathStyle, 1u);
-  if (!v20)
+  v17 = *(v4 + 16);
+  v18 = *(v4 + 48);
+  v19 = CFURLCreateWithFileSystemPath(v17, @"/private/", kCFURLPOSIXPathStyle, 1u);
+  if (!v19)
   {
 LABEL_62:
     v10 = *(v4 + 16);
@@ -6534,45 +6505,45 @@ LABEL_62:
     goto LABEL_17;
   }
 
-  v21 = v20;
+  v20 = v19;
   propertyValueTypeRefPtr = 0;
-  v22 = *MEMORY[0x1E695EAB8];
-  if (!CFURLCopyResourcePropertyForKey(v20, *MEMORY[0x1E695EAB8], &propertyValueTypeRefPtr, 0) || !propertyValueTypeRefPtr)
+  v21 = *MEMORY[0x1E695EAB8];
+  if (!CFURLCopyResourcePropertyForKey(v19, *MEMORY[0x1E695EAB8], &propertyValueTypeRefPtr, 0) || !propertyValueTypeRefPtr)
   {
-    v30 = v21;
+    v29 = v20;
 LABEL_55:
-    CFRelease(v30);
+    CFRelease(v29);
     goto LABEL_62;
   }
 
-  if (CFURLGetFileSystemRepresentation(v19, 1u, __str, 1044) && (v23 = strlen(__str), (v24 = CFURLCreateFromFileSystemRepresentation(v18, __str, v23, 0)) != 0))
+  if (CFURLGetFileSystemRepresentation(v18, 1u, __str, 1044) && (v22 = strlen(__str), (v23 = CFURLCreateFromFileSystemRepresentation(v17, __str, v22, 0)) != 0))
   {
-    v25 = v24;
-    v26 = readlink(__str, v47, 0x414uLL);
-    if (v26 < 0 || (v27 = MEMORY[0x19A8C75B0](v18, v47, v26, 0, v25)) == 0)
+    v24 = v23;
+    v25 = readlink(__str, v46, 0x414uLL);
+    if (v25 < 0 || (v26 = MEMORY[0x19A8C75B0](v17, v46, v25, 0, v24)) == 0)
     {
-      v29 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v28 = v27;
+      v27 = v26;
       url = 0;
-      v29 = 0;
-      if (CFURLCopyResourcePropertyForKey(v27, *MEMORY[0x1E695EBF0], &url, 0) && url)
+      v28 = 0;
+      if (CFURLCopyResourcePropertyForKey(v26, *MEMORY[0x1E695EBF0], &url, 0) && url)
       {
         cf1 = 0;
-        v29 = 0;
-        if (CFURLCopyResourcePropertyForKey(url, v22, &cf1, 0) && cf1)
+        v28 = 0;
+        if (CFURLCopyResourcePropertyForKey(url, v21, &cf1, 0) && cf1)
         {
           if (CFEqual(cf1, propertyValueTypeRefPtr))
           {
-            v29 = CFURLCopyAbsoluteURL(v28);
+            v28 = CFURLCopyAbsoluteURL(v27);
           }
 
           else
           {
-            v29 = 0;
+            v28 = 0;
           }
 
           CFRelease(cf1);
@@ -6581,38 +6552,38 @@ LABEL_55:
         CFRelease(url);
       }
 
-      CFRelease(v28);
+      CFRelease(v27);
     }
 
-    CFRelease(v25);
+    CFRelease(v24);
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
   CFRelease(propertyValueTypeRefPtr);
-  CFRelease(v21);
-  if (!v29)
+  CFRelease(v20);
+  if (!v28)
   {
     goto LABEL_62;
   }
 
-  if (!CFURLGetFileSystemRepresentation(v29, 1u, buffer, 1044))
+  if (!CFURLGetFileSystemRepresentation(v28, 1u, buffer, 1044))
   {
     goto LABEL_54;
   }
 
-  *v47 = xmmword_19605E78C;
-  v48 = 0;
-  if (!filtered_getattrlist(buffer, v47, __str, 0x43CuLL, 0x29u))
+  *v46 = xmmword_19605E78C;
+  v47 = 0;
+  if (!filtered_getattrlist(buffer, v46, __str, 0x43CuLL, 0x29u))
   {
-    if ((v50 & 8) != 0)
+    if ((v49 & 8) != 0)
     {
-      v9 = v51;
-      v8 = v52 == 2;
-      strlcpy(__dst, v53 + v53[0], 0x414uLL);
+      v9 = v50;
+      v8 = v51 == 2;
+      strlcpy(__dst, v52 + v52[0], 0x414uLL);
       goto LABEL_57;
     }
 
@@ -6624,7 +6595,7 @@ LABEL_55:
   if (*__error())
   {
 LABEL_54:
-    v30 = v29;
+    v29 = v28;
     goto LABEL_55;
   }
 
@@ -6632,7 +6603,7 @@ LABEL_54:
   v9 = 0;
 LABEL_57:
   CFRelease(*(v4 + 48));
-  *(v4 + 48) = v29;
+  *(v4 + 48) = v28;
 LABEL_58:
   if (!v8)
   {
@@ -6653,92 +6624,90 @@ LABEL_58:
   *(v4 + 130) = 0;
   *(v4 + 144) = 0;
   *(v4 + 121) = _FSURLGetAttrListForPropertyKeys(0, *(v4 + 40), v4 + 128, (v4 + 64), (v4 + 122));
-  v31 = *(v4 + 132);
-  *(v4 + 132) = v31 & 0xF7FFFFFF;
-  v32 = *(v4 + 64);
-  if (v32)
+  v30 = *(v4 + 132);
+  *(v4 + 132) = v30 & 0xF7FFFFFF;
+  v31 = *(v4 + 64);
+  if (v31)
   {
-    v55.length = CFArrayGetCount(*(v4 + 64));
-    v55.location = 0;
-    v33 = CFArrayContainsValue(v32, v55, *MEMORY[0x1E695EBF8]) != 0;
+    v54.length = CFArrayGetCount(*(v4 + 64));
+    v54.location = 0;
+    v32 = CFArrayContainsValue(v31, v54, *MEMORY[0x1E695EBF8]) != 0;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  *(v4 + 123) = v33;
-  if ((v31 & 0x8000000) != 0)
+  *(v4 + 123) = v32;
+  if ((v30 & 0x8000000) != 0)
   {
-    v35 = 1;
+    v34 = 1;
   }
 
   else
   {
-    v34 = *(v4 + 40);
-    if (v34)
+    v33 = *(v4 + 40);
+    if (v33)
     {
-      v56.length = CFArrayGetCount(*(v4 + 40));
-      v56.location = 0;
-      v35 = CFArrayContainsValue(v34, v56, *MEMORY[0x1E695EA38]) != 0;
+      v55.length = CFArrayGetCount(*(v4 + 40));
+      v55.location = 0;
+      v34 = CFArrayContainsValue(v33, v55, *MEMORY[0x1E695EA38]) != 0;
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
   }
 
-  *(v4 + 124) = v35;
+  *(v4 + 124) = v34;
   if ((*(v4 + 32) & 0x40) != 0)
   {
-    v36 = strlen(__dst);
-    *(v4 + 544) = v36;
-    *(v4 + 536) = CFURLCreateFromFileSystemRepresentation(*(v4 + 16), __dst, v36, 1u);
-    v37 = *(v4 + 544);
-    if (__dst[v37 - 1] != 47)
+    v35 = strlen(__dst);
+    *(v4 + 544) = v35;
+    *(v4 + 536) = CFURLCreateFromFileSystemRepresentation(*(v4 + 16), __dst, v35, 1u);
+    v36 = *(v4 + 544);
+    if (__dst[v36 - 1] != 47)
     {
-      *(v4 + 544) = v37 + 1;
+      *(v4 + 544) = v36 + 1;
     }
   }
 
   if (*(v4 + 121))
   {
-    v38 = (v4 + 128);
+    v37 = (v4 + 128);
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  v39 = DirEnumOpen(__dst, v38);
-  *(v4 + 160) = v39;
-  if (v39)
+  v38 = DirEnumOpen(__dst, v37);
+  *(v4 + 160) = v38;
+  if (!v38)
   {
-    result = *(v4 + 112);
+    v39 = *(v4 + 16);
+    v40 = __error();
+    result = _CFErrorWithPOSIXPathAndErrno(v39, *v40, __dst);
+LABEL_18:
+    *(v4 + 112) = result;
     if (!result)
     {
-      goto LABEL_20;
+      return result;
     }
 
     goto LABEL_19;
   }
 
-  v40 = *(v4 + 16);
-  v41 = __error();
-  result = _CFErrorWithPOSIXPathAndErrno(v40, *v41, __dst);
-LABEL_18:
-  *(v4 + 112) = result;
+  result = *(v4 + 112);
   if (result)
   {
 LABEL_19:
     *(v4 + 120) = 1;
   }
 
-LABEL_20:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6903,16 +6872,15 @@ LABEL_2:
 
 uint64_t __filtered_getattrlist_block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = 16;
-  result = sysctlbyname("kern.osproductversion", &v5, &v4, 0, 0);
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = 16;
+  result = sysctlbyname("kern.osproductversion", &v4, &v3, 0, 0);
   if (!result)
   {
-    v2 = v5 == 825110577 && v6 == 53;
+    v2 = v4 == 825110577 && v5 == 53;
     filtered_getattrlist::isJazz = v2;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7170,7 +7138,7 @@ LABEL_41:
   return v5;
 }
 
-uint64_t ParseAttributes(_DWORD *a1, _DWORD *a2, void *a3, void *a4, _DWORD *a5, _DWORD *a6, _BYTE *a7, _BYTE *a8, _BYTE *a9)
+unint64_t ParseAttributes(_DWORD *a1, _DWORD *a2, void *a3, void *a4, _DWORD *a5, _DWORD *a6, _BYTE *a7, _BYTE *a8, _BYTE *a9)
 {
   *a5 = 0;
   *a6 = 0;
@@ -7263,15 +7231,14 @@ uint64_t ParseAttributes(_DWORD *a1, _DWORD *a2, void *a3, void *a4, _DWORD *a5,
 
 uint64_t _GetDirectoryURLs(uint64_t a1)
 {
-  v43[1] = *MEMORY[0x1E69E9840];
-  v43[0] = 0;
+  v42[1] = *MEMORY[0x1E69E9840];
+  v42[0] = 0;
   v2 = MountInfoStorageSize();
-  v6 = &v37 - ((MEMORY[0x1EEE9AC00](v2, v3, v4, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v36 - ((MEMORY[0x1EEE9AC00](v2, v3, v4, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(a1 + 72);
   if (!v7)
   {
-    v13 = 0;
-    goto LABEL_87;
+    return 0;
   }
 
   v8 = (a1 + 80);
@@ -7298,14 +7265,14 @@ uint64_t _GetDirectoryURLs(uint64_t a1)
     v10 = *(*(a1 + 160) + 1792);
     if (v10)
     {
-      if (!MountInfoPrepare(v43, 0, v10, v6, a1 + 152, 0, 0))
+      if (!MountInfoPrepare(v42, 0, v10, v6, a1 + 152, 0, 0))
       {
         *(a1 + 121) = 0;
       }
     }
   }
 
-  v42 = 0;
+  v41 = 0;
   v11 = DirEnumRead(*(a1 + 160));
   if (!v11)
   {
@@ -7316,10 +7283,10 @@ uint64_t _GetDirectoryURLs(uint64_t a1)
   v12 = v11;
   v13 = 0;
   v14 = *MEMORY[0x1E695EB40];
-  v38 = *MEMORY[0x1E695EB50];
+  v37 = *MEMORY[0x1E695EB50];
   while (1)
   {
-    v15 = *(v12 + 48);
+    v15 = *(v12 + 12);
     if (v15 > 6)
     {
       goto LABEL_77;
@@ -7328,7 +7295,7 @@ uint64_t _GetDirectoryURLs(uint64_t a1)
     v16 = 1 << v15;
     if (((1 << v15) & 6) != 0)
     {
-      if (!*(v12 + 44))
+      if (!*(v12 + 11))
       {
         goto LABEL_77;
       }
@@ -7344,7 +7311,7 @@ uint64_t _GetDirectoryURLs(uint64_t a1)
       }
 
       DirEnumSkipDescendents(*(a1 + 160));
-      v15 = *(v12 + 48);
+      v15 = *(v12 + 12);
       if (v15 == 2)
       {
 LABEL_53:
@@ -7380,14 +7347,14 @@ LABEL_22:
       }
 
       v17 = *(a1 + 16);
-      v18 = *(v12 + 40);
-      v19 = *(v12 + 8);
+      v18 = *(v12 + 10);
+      v19 = v12[1];
       goto LABEL_56;
     }
 
     if (v15 == 3 && (*(a1 + 35) & 0x80) == 0)
     {
-      v22 = *(v12 + 24);
+      v22 = v12[3];
       if (*v22 == 46 && v22[1] == 95)
       {
         goto LABEL_77;
@@ -7397,16 +7364,16 @@ LABEL_22:
     v21 = 0;
     v20 = 0;
 LABEL_29:
-    if (*(a1 + 121) && *(v12 + 56))
+    if (*(a1 + 121) && v12[7])
     {
       break;
     }
 
-    v28 = MEMORY[0x19A8C75B0](*(a1 + 16), *(v12 + 8) + *(a1 + 544), *(v12 + 16) - *(a1 + 544), v21 | v20, *(a1 + 536));
+    v28 = MEMORY[0x19A8C75B0](*(a1 + 16), v12[1] + *(a1 + 544), v12[2] - *(a1 + 544), v21 | v20, *(a1 + 536));
     if (!v28)
     {
       v17 = *(a1 + 16);
-      v19 = *(v12 + 8);
+      v19 = v12[1];
       v18 = 63;
 LABEL_56:
       v32 = _CFErrorWithPOSIXPathAndErrno(v17, v18, v19);
@@ -7428,8 +7395,8 @@ LABEL_56:
 LABEL_47:
     v30 = *(a1 + 80);
     *(*(a1 + 72) + 8 * v30) = v25;
-    *(a1 + 168 + 8 * v30) = *(v12 + 44);
-    if (*(v12 + 48) == 2)
+    *(a1 + 168 + 8 * v30) = *(v12 + 11);
+    if (*(v12 + 12) == 2)
     {
       *(a1 + 488 + *v8) = 1;
     }
@@ -7442,13 +7409,13 @@ LABEL_47:
     }
 
     v13 = 1;
-    if (*(v12 + 48) - 1) <= 1 && (*(a1 + 32))
+    if (*(v12 + 12) - 1) <= 1 && (*(a1 + 32))
     {
       goto LABEL_86;
     }
 
 LABEL_80:
-    v42 = 0;
+    v41 = 0;
     v12 = DirEnumRead(*(a1 + 160));
     if (!v12)
     {
@@ -7457,7 +7424,7 @@ LABEL_80:
   }
 
   HasExtendedAttributes = DirEnumHasExtendedAttributes(*(a1 + 160));
-  v24 = _FSURLCreateWithPathAndExtendedAttributes(*(a1 + 16), *(v12 + 8), *(v12 + 16), *(a1 + 544), *(a1 + 536), *(a1 + 160) + 1796, *(v12 + 56), HasExtendedAttributes, (*(a1 + 32) & 4) != 0, *(a1 + 123), HIBYTE(*(a1 + 123)), -1, *(a1 + 552), v43[0], &v42);
+  v24 = _FSURLCreateWithPathAndExtendedAttributes(*(a1 + 16), v12[1], v12[2], *(a1 + 544), *(a1 + 536), *(a1 + 160) + 1796, v12[7], HasExtendedAttributes, (*(a1 + 32) & 4) != 0, *(a1 + 123), HIBYTE(*(a1 + 123)), -1, *(a1 + 552), v42[0], &v41);
   if (!v24)
   {
     goto LABEL_77;
@@ -7470,16 +7437,16 @@ LABEL_80:
   }
 
   v33 = __CFURLResourceInfoPtr();
+  v39 = 0;
   v40 = 0;
-  v41 = 0;
-  if (!v33 || !_FileCacheGetFlags(v33, &v41, &v40, 0, 0) || (v40 & 0x80) == 0)
+  if (!v33 || !_FileCacheGetFlags(v33, &v40, &v39, 0, 0) || (v39 & 0x80) == 0)
   {
     propertyValueTypeRefPtr = 0;
     if (CFURLCopyResourcePropertyForKey(v25, v14, &propertyValueTypeRefPtr, 0) && propertyValueTypeRefPtr)
     {
       if (CFBooleanGetValue(propertyValueTypeRefPtr))
       {
-        if (*(v12 + 48) == 1)
+        if (*(v12 + 12) == 1)
         {
           DirEnumSkipDescendents(*(a1 + 160));
         }
@@ -7495,12 +7462,12 @@ LABEL_80:
     goto LABEL_33;
   }
 
-  if ((v41 & 0x80) == 0)
+  if ((v40 & 0x80) == 0)
   {
 LABEL_33:
     if (*(a1 + 122))
     {
-      _FSURLCacheCheapVolumeInformation(v25, *(*(a1 + 160) + 1792), v43[0]);
+      _FSURLCacheCheapVolumeInformation(v25, *(*(a1 + 160) + 1792), v42[0]);
     }
 
     if (*(a1 + 64))
@@ -7509,33 +7476,33 @@ LABEL_33:
       OUTLINED_FUNCTION_1_1(v26);
     }
 
-    if ((*(a1 + 32) & 8) != 0 && *(v12 + 48) == 1)
+    if ((*(a1 + 32) & 8) != 0 && *(v12 + 12) == 1)
     {
       v27 = __CFURLResourceInfoPtr();
-      v41 = 0;
-      if (v27 && _FileCacheGetPropertyValueForKey(v27, v38, &v41) && v41)
+      v40 = 0;
+      if (v27 && _FileCacheGetPropertyValueForKey(v27, v37, &v40) && v40)
       {
-        if (CFBooleanGetValue(v41))
+        if (CFBooleanGetValue(v40))
         {
           DirEnumSkipDescendents(*(a1 + 160));
         }
       }
 
-      else if (CFURLCopyResourcePropertyForKey(v25, v38, &v41, 0) && v41)
+      else if (CFURLCopyResourcePropertyForKey(v25, v37, &v40, 0) && v40)
       {
-        if (CFBooleanGetValue(v41))
+        if (CFBooleanGetValue(v40))
         {
           DirEnumSkipDescendents(*(a1 + 160));
         }
 
-        CFRelease(v41);
+        CFRelease(v40);
       }
     }
 
     goto LABEL_47;
   }
 
-  if (*(v12 + 48) == 1)
+  if (*(v12 + 12) == 1)
   {
     DirEnumSkipDescendents(*(a1 + 160));
   }
@@ -7544,11 +7511,11 @@ LABEL_33:
 LABEL_76:
   CFRelease(v34);
 LABEL_77:
-  v32 = v42;
-  if (!v42)
+  v32 = v41;
+  if (!v41)
   {
 LABEL_78:
-    if (*(v12 + 48) - 1) <= 1 && (*(a1 + 32))
+    if (*(v12 + 12) - 1) <= 1 && (*(a1 + 32))
     {
       goto LABEL_85;
     }
@@ -7558,17 +7525,15 @@ LABEL_78:
 
 LABEL_84:
   *(a1 + 96) = v32;
-  *(a1 + 528) = *(v12 + 44);
+  *(a1 + 528) = *(v12 + 11);
 LABEL_85:
   v13 = 1;
 LABEL_86:
-  MountInfoDestroy(v43[0]);
-LABEL_87:
-  v35 = *MEMORY[0x1E69E9840];
+  MountInfoDestroy();
   return v13;
 }
 
-uint64_t DirEnumRead(uint64_t a1)
+uint64_t *DirEnumRead(uint64_t a1)
 {
   for (i = *(a1 + 1840); ; i = 0)
   {
@@ -8021,7 +7986,7 @@ LABEL_5:
 
 uint64_t _FSURLGetAttrListForPropertyKeys(int a1, CFArrayRef theArray, uint64_t a3, __CFArray **a4, Boolean *a5)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (initGlobalsOnce(void)::onceToken == -1)
   {
     if (theArray)
@@ -8029,15 +7994,13 @@ uint64_t _FSURLGetAttrListForPropertyKeys(int a1, CFArrayRef theArray, uint64_t 
       goto LABEL_3;
     }
 
-LABEL_58:
-    v41 = 0;
-    goto LABEL_59;
+    return 0;
   }
 
   initGlobalsOnce();
   if (!theArray)
   {
-    goto LABEL_58;
+    return 0;
   }
 
 LABEL_3:
@@ -8049,12 +8012,12 @@ LABEL_3:
   Count = CFArrayGetCount(theArray);
   if (!Count)
   {
-    goto LABEL_58;
+    return 0;
   }
 
   v9 = Count;
-  memset(v48, 0, 60);
   memset(v47, 0, 60);
+  memset(v46, 0, 60);
   if (Count >= 1)
   {
     for (i = 0; i != v9; ++i)
@@ -8064,10 +8027,10 @@ LABEL_3:
       if (Value)
       {
         v13 = Value;
-        addPropertyAndDependenciesToBitmap(Value, v48);
+        addPropertyAndDependenciesToBitmap(Value, v47);
         if (a4 && qword_1ED4458A8 != **(v13 + 140))
         {
-          addPropertyAndDependenciesToBitmap(v13, v47);
+          addPropertyAndDependenciesToBitmap(v13, v46);
         }
 
         if (a5 && !*a5 && qword_1ED4458B0 == **(v13 + 140))
@@ -8081,7 +8044,7 @@ LABEL_3:
   v14 = qword_1ED4458A8;
   if (a4)
   {
-    v15 = v47 + 12 * qword_1ED4458A8;
+    v15 = v46 + 12 * qword_1ED4458A8;
     *(v15 + 2) = 0;
     *v15 = 0;
     if (qword_1ED445788 < 1)
@@ -8095,18 +8058,18 @@ LABEL_3:
       v17 = 0;
       do
       {
-        v18 = v47 + 12 * v17;
+        v18 = v46 + 12 * v17;
         v19 = *v18;
-        v50 = 0;
-        v51 = v19;
-        v52 = *(v18 + 2);
         v49 = 0;
-        if (PropertyMaskIsNotZero(&v51, &v50, &v49) && v50 <= v49)
+        v50 = v19;
+        v51 = *(v18 + 2);
+        v48 = 0;
+        if (PropertyMaskIsNotZero(&v50, &v49, &v48) && v49 <= v48)
         {
-          v20 = v51;
-          v21 = v52;
-          v22 = v49 - v50 + 1;
-          v23 = 148 * v50;
+          v20 = v50;
+          v21 = v51;
+          v22 = v48 - v49 + 1;
+          v23 = 148 * v49;
           do
           {
             v24 = sFileProviderGlobals[7 * v17 + 8];
@@ -8159,12 +8122,12 @@ LABEL_3:
     *a4 = Mutable;
   }
 
-  LOBYTE(v52) = 0;
-  v51 = 0;
+  LOBYTE(v51) = 0;
+  v50 = 0;
   v33 = SHIDWORD(sFileProviderGlobals[7 * v14 + 2]);
   if (v33 >= 1)
   {
-    v34 = v48 + 12 * v14;
+    v34 = v47 + 12 * v14;
     v35 = *v34;
     v36 = *(v34 + 2);
     v37 = sFileProviderGlobals[7 * v14 + 8];
@@ -8179,8 +8142,8 @@ LABEL_3:
 
       if ((v39 & v35) != 0 || (v38 >= 64 ? (v40 = 1 << v38) : (v40 = 0), (v40 & v36) != 0))
       {
-        *(&v51 + *(*v37 + 16)) = 1;
-        LOBYTE(v51) = 1;
+        *(&v50 + *(*v37 + 16)) = 1;
+        LOBYTE(v50) = 1;
       }
 
       v37 += 37;
@@ -8192,10 +8155,10 @@ LABEL_3:
 
   v41 = 0;
   v42 = 0;
-  v43 = &dword_1ED44569C;
+  v43 = &corePropertyAttrListTable[20];
   do
   {
-    if (*(&v51 + v42))
+    if (*(&v50 + v42))
     {
       *(a3 + 4) = vorrq_s8(*(a3 + 4), *(v43 - 1));
       *(a3 + 20) |= *v43;
@@ -8203,12 +8166,10 @@ LABEL_3:
     }
 
     ++v42;
-    v43 += 6;
+    v43 += 24;
   }
 
   while (v42 != 9);
-LABEL_59:
-  v44 = *MEMORY[0x1E69E9840];
   return v41;
 }
 
@@ -8367,7 +8328,7 @@ BOOL _FSURLStartAccessingSecurityScopedResource(const __CFURL *a1)
       {
         if (cf != *MEMORY[0x1E695E738])
         {
-          _FSURLStartAccessingSecurityScopedResource();
+          _FSURLStartAccessingSecurityScopedResource(cf);
           v9 = cf;
         }
 
@@ -8381,7 +8342,7 @@ BOOL _FSURLStartAccessingSecurityScopedResource(const __CFURL *a1)
 
 uint64_t SandboxExtensionCache::_consume(CFDictionaryRef *this, const __CFString *a2, const __CFData *a3, const __CFData **a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
     SandboxExtensionCache::_consume();
@@ -8405,20 +8366,20 @@ uint64_t SandboxExtensionCache::_consume(CFDictionaryRef *this, const __CFString
       v12 = securityScopedLog;
       if (os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_DEBUG))
       {
-        v18 = v9[1];
-        v19 = 134218498;
-        v20 = v18;
-        v21 = 2048;
-        v22 = v11;
-        v23 = 2112;
-        v24 = a2;
-        _os_log_debug_impl(&dword_19602C000, v12, OS_LOG_TYPE_DEBUG, "handle %lld: incrementing ref count to %lld for path %@", &v19, 0x20u);
+        v17 = v9[1];
+        v18 = 134218498;
+        v19 = v17;
+        v20 = 2048;
+        v21 = v11;
+        v22 = 2112;
+        v23 = a2;
+        _os_log_debug_impl(&dword_19602C000, v12, OS_LOG_TYPE_DEBUG, "handle %lld: incrementing ref count to %lld for path %@", &v18, 0x20u);
       }
 
       result = 0;
 LABEL_17:
       *a4 = v9[2];
-      goto LABEL_18;
+      return result;
     }
 
     CFDataGetBytePtr(v9[2]);
@@ -8437,21 +8398,21 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v17 = os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_ERROR);
+    v16 = os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_ERROR);
     if (v14 == -1)
     {
-      if (v17)
+      if (v16)
       {
         SandboxExtensionCache::_consume();
       }
     }
 
-    else if (v17)
+    else if (v16)
     {
       SandboxExtensionCache::_consume();
     }
 
-    result = 4;
+    return 4;
   }
 
   else
@@ -8459,18 +8420,14 @@ LABEL_17:
     getpid();
     if (sandbox_check())
     {
-      result = 3;
+      return 3;
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
-
-LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 CFMutableDictionaryRef _FileCacheGetPermanentPropertyDictionary(void *cf, int a2)
@@ -8507,7 +8464,7 @@ CFMutableDictionaryRef _FileCacheGetTemporaryPropertyDictionary(void *cf, int a2
 
 uint64_t pathURLPropertyProviderPrepareValues(const __CFURL *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CFErrorRef *a7)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   _FileCacheLock(a2);
   if (a5 < 1)
   {
@@ -8517,19 +8474,19 @@ uint64_t pathURLPropertyProviderPrepareValues(const __CFURL *a1, uint64_t a2, ui
 
   v12 = 0;
   v13 = 0;
-  v77 = 0;
-  v74 = 0;
+  v76 = 0;
+  v73 = 0;
   v14 = *MEMORY[0x1E695EE48];
   v15 = *MEMORY[0x1E695EBF0];
-  v67 = *MEMORY[0x1E695E640];
-  v70 = *MEMORY[0x1E695E628];
+  v66 = *MEMORY[0x1E695E640];
+  v69 = *MEMORY[0x1E695E628];
   cf2 = *MEMORY[0x1E695EBF8];
-  v75 = *MEMORY[0x1E695EB30];
-  v72 = *MEMORY[0x1E695E4D0];
-  v69 = *MEMORY[0x1E695E4C0];
-  v71 = *MEMORY[0x1E695E300];
-  v68 = *MEMORY[0x1E695E308];
-  v73 = a7;
+  v74 = *MEMORY[0x1E695EB30];
+  v71 = *MEMORY[0x1E695E4D0];
+  v68 = *MEMORY[0x1E695E4C0];
+  v70 = *MEMORY[0x1E695E300];
+  v67 = *MEMORY[0x1E695E308];
+  v72 = a7;
   while (1)
   {
     v16 = *(a3 + 8 * v12);
@@ -8538,7 +8495,7 @@ uint64_t pathURLPropertyProviderPrepareValues(const __CFURL *a1, uint64_t a2, ui
       Attributes = _FileCacheGetAttributes(a2);
       if (!v13)
       {
-        v77 = CFURLIsFileReferenceURL(a1);
+        v76 = CFURLIsFileReferenceURL(a1);
       }
 
       if ((*(Attributes + 1) & 0x20) == 0 || !CFURLHasDirectoryPath(a1) || (v18 = CFURLGetString(a1), _FileURLStringHasNoFollowPrefix(v18)))
@@ -8548,7 +8505,7 @@ LABEL_9:
         if (!_FileCacheGetPropertyValueForKey(a2, v14, &cf))
         {
           v19 = CFGetAllocator(a1);
-          if (!createVolumeURL(v19, v77, Attributes, &cf))
+          if (!createVolumeURL(v19, v76, Attributes, &cf))
           {
             goto LABEL_118;
           }
@@ -8563,7 +8520,7 @@ LABEL_9:
         goto LABEL_13;
       }
 
-      if (v77)
+      if (v76)
       {
         v28 = CFURLGetString(a1);
         if (CFStringFind(v28, @"/?", 0).length == 2)
@@ -8574,7 +8531,7 @@ LABEL_9:
 
       else
       {
-        v77 = 0;
+        v76 = 0;
       }
 
 LABEL_13:
@@ -8584,29 +8541,29 @@ LABEL_13:
 
     if (CFEqual(v16, v15))
     {
-      v81 = 0;
-      if (_FileCacheGetPropertyValueForKey(a2, v15, &v81))
+      v80 = 0;
+      if (_FileCacheGetPropertyValueForKey(a2, v15, &v80))
       {
         goto LABEL_14;
       }
 
       v21 = _FileCacheGetAttributes(a2);
-      v80 = 0;
+      v79 = 0;
       if (!v13)
       {
-        v77 = CFURLIsFileReferenceURL(a1);
+        v76 = CFURLIsFileReferenceURL(a1);
       }
 
       if ((*v21 & 0x2000) != 0)
       {
         v31 = CFGetAllocator(a1);
-        if (!createVolumeParentURL(v31, v77, v21, &v80))
+        if (!createVolumeParentURL(v31, v76, v21, &v79))
         {
           goto LABEL_118;
         }
 
-        v32 = v80;
-        _FileCacheSetPropertyValueForKey(a2, v15, v80);
+        v32 = v79;
+        _FileCacheSetPropertyValueForKey(a2, v15, v79);
         if (!v32)
         {
           goto LABEL_62;
@@ -8616,7 +8573,7 @@ LABEL_13:
       }
 
       v22 = *(v21 + 112);
-      if (v77)
+      if (v76)
       {
         if (!v22)
         {
@@ -8654,16 +8611,16 @@ LABEL_13:
 
         v36 = CFGetAllocator(a1);
         v37 = strlen(__s);
+        v87 = 0;
         v88 = 0;
-        v89 = 0;
         cf = __s;
-        v83 = v37;
+        v82 = v37;
+        v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
+        v85 = 1;
         v86 = 1;
-        v87 = 1;
         v38 = __FSURLCreateWithPathAndAttributes(v36, &cf, 0);
-        v80 = v38;
+        v79 = v38;
         if (!v38)
         {
           goto LABEL_118;
@@ -8683,11 +8640,11 @@ LABEL_116:
 LABEL_63:
       if (!CFURLGetFileSystemRepresentation(a1, 1u, __s, 1024))
       {
-        if (v73)
+        if (v72)
         {
           v45 = CFGetAllocator(a1);
           v20 = 0;
-          *v73 = _FSURLCreateStandardError(v45, v70, 4, 0, a1, 0);
+          *v72 = _FSURLCreateStandardError(v45, v69, 4, 0, a1, 0);
         }
 
         else
@@ -8698,18 +8655,18 @@ LABEL_63:
         goto LABEL_116;
       }
 
-      v79 = 0;
-      v78 = xmmword_19605E6F8;
+      v78 = 0;
+      v77 = xmmword_19605E6F8;
       _FileCacheUnlock(a2);
-      v39 = v73;
-      if (filtered_getattrlist(__s, &v78, &cf, 0x40CuLL, 0x21u))
+      v39 = v72;
+      if (filtered_getattrlist(__s, &v77, &cf, 0x40CuLL, 0x21u))
       {
-        if (v73)
+        if (v72)
         {
           v40 = CFGetAllocator(a1);
           v41 = *__error();
           v42 = v40;
-          v43 = v67;
+          v43 = v66;
 LABEL_113:
           v20 = 0;
           *v39 = _FSURLCreateStandardError(v42, v43, v41, 0, a1, 0);
@@ -8721,7 +8678,7 @@ LABEL_113:
 
       v46 = &cf + SHIDWORD(cf) + 4;
       v47 = *v46;
-      if (v83 < 3)
+      if (v82 < 3)
       {
         if (v47 == 47)
         {
@@ -8733,7 +8690,7 @@ LABEL_113:
           v56 = 47 - v47;
         }
 
-        v39 = v73;
+        v39 = v72;
         if (!v56)
         {
           _FileCacheSetPropertyValueForKey(a2, v15, 0);
@@ -8824,8 +8781,8 @@ LABEL_105:
         v59 = CFGetAllocator(a1);
         v60 = strlen(__s);
         v61 = CFURLCreateFromFileSystemRepresentation(v59, __s, v60, 1u);
-        v80 = v61;
-        v39 = v73;
+        v79 = v61;
+        v39 = v72;
         if (v61)
         {
           v62 = v61;
@@ -8838,7 +8795,7 @@ LABEL_105:
       if (v39)
       {
         v42 = CFGetAllocator(a1);
-        v43 = v70;
+        v43 = v69;
         v41 = 4;
         goto LABEL_113;
       }
@@ -8877,10 +8834,10 @@ LABEL_114:
         if (!v44)
         {
 LABEL_118:
-          if (v73)
+          if (v72)
           {
             v63 = CFGetAllocator(a1);
-            *v73 = _FSURLCreateStandardError(v63, v70, 4, 0, a1, 0);
+            *v72 = _FSURLCreateStandardError(v63, v69, 4, 0, a1, 0);
           }
 
           v20 = 0;
@@ -8894,61 +8851,61 @@ LABEL_118:
       goto LABEL_14;
     }
 
-    if (CFEqual(v16, v75))
+    if (CFEqual(v16, v74))
     {
       cf = 0;
-      if (!_FileCacheGetPropertyValueForKey(a2, v75, &cf))
+      if (!_FileCacheGetPropertyValueForKey(a2, v74, &cf))
       {
-        if (!v74 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
+        if (!v73 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
         {
           goto LABEL_118;
         }
 
         v29 = getxattr(buffer, "com.apple.metadata:com_apple_backup_excludeItem", 0, 0, 0, 1);
-        v30 = v72;
+        v30 = v71;
         if (v29 <= 0)
         {
           if (getxattr(buffer, "com.apple.MobileBackup", 0, 0, 0, 1) >= 1)
           {
-            v30 = v72;
+            v30 = v71;
           }
 
           else
           {
-            v30 = v69;
+            v30 = v68;
           }
         }
 
-        _FileCacheSetPropertyValueForKey(a2, v75, v30);
-        v74 = 1;
+        _FileCacheSetPropertyValueForKey(a2, v74, v30);
+        v73 = 1;
       }
 
       goto LABEL_14;
     }
 
-    if (CFEqual(v16, v71))
+    if (CFEqual(v16, v70))
     {
       cf = 0;
-      if (!_FileCacheGetPropertyValueForKey(a2, v71, &cf))
+      if (!_FileCacheGetPropertyValueForKey(a2, v70, &cf))
       {
-        if (!v74 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
+        if (!v73 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
         {
           goto LABEL_118;
         }
 
-        v74 = 1;
+        v73 = 1;
         if (getxattr(buffer, "com.apple.metadata:com_apple_cloudBackup_excludeItem", 0, 0, 0, 1) >= 1)
         {
-          v33 = v72;
+          v33 = v71;
         }
 
         else
         {
-          v33 = v69;
+          v33 = v68;
         }
 
         v34 = a2;
-        v35 = v71;
+        v35 = v70;
 LABEL_80:
         _FileCacheSetPropertyValueForKey(v34, v35, v33);
         goto LABEL_14;
@@ -8957,32 +8914,32 @@ LABEL_80:
       goto LABEL_14;
     }
 
-    if (!CFEqual(v16, v68))
+    if (!CFEqual(v16, v67))
     {
       break;
     }
 
     cf = 0;
-    if (!_FileCacheGetPropertyValueForKey(a2, v68, &cf))
+    if (!_FileCacheGetPropertyValueForKey(a2, v67, &cf))
     {
-      if (!v74 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
+      if (!v73 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
       {
         goto LABEL_118;
       }
 
-      v74 = 1;
+      v73 = 1;
       if (getxattr(buffer, "com.apple.metadata:com_apple_unencryptedBackup_excludeItem", 0, 0, 0, 1) >= 1)
       {
-        v33 = v72;
+        v33 = v71;
       }
 
       else
       {
-        v33 = v69;
+        v33 = v68;
       }
 
       v34 = a2;
-      v35 = v68;
+      v35 = v67;
       goto LABEL_80;
     }
 
@@ -8995,17 +8952,16 @@ LABEL_15:
     }
   }
 
-  v20 = v73;
-  if (v73)
+  v20 = v72;
+  if (v72)
   {
-    v66 = CFGetAllocator(a1);
+    v65 = CFGetAllocator(a1);
     v20 = 0;
-    *v73 = _FSURLCreateStandardError(v66, v70, 256, 1, a1, 0);
+    *v72 = _FSURLCreateStandardError(v65, v69, 256, 1, a1, 0);
   }
 
 LABEL_121:
   _FileCacheUnlock(a2);
-  v64 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -9164,12 +9120,10 @@ void FileCachePropertyValueReleaseCallBack(const __CFAllocator *a1, CFTypeRef cf
 
 uint64_t pathURLPropertyProviderSetValues(const __CFURL *a1, uint64_t a2, CFTypeRef *a3, const __CFBoolean **a4, uint64_t a5, uint64_t a6, uint64_t a7, CFErrorRef *a8)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (a6 < 1)
   {
-LABEL_57:
-    result = 1;
-    goto LABEL_58;
+    return 1;
   }
 
   v8 = a6;
@@ -9191,7 +9145,7 @@ LABEL_50:
     ++a3;
     if (!--v8)
     {
-      goto LABEL_57;
+      return 1;
     }
   }
 
@@ -9200,7 +9154,7 @@ LABEL_50:
   {
     if (!v12 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
     {
-      goto LABEL_61;
+      goto LABEL_60;
     }
 
     if (v16 != v14 && valueOfBoolean(v16))
@@ -9211,7 +9165,7 @@ LABEL_50:
         if (os_log_type_enabled(defaultLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136380675;
-          v41 = buffer;
+          v40 = buffer;
           v19 = v18;
           v20 = "kExcludedFromBackupXattrName set on path: %{private}s";
 LABEL_56:
@@ -9261,7 +9215,7 @@ LABEL_56:
       if (v27)
       {
         *buf = 136380675;
-        v41 = buffer;
+        v40 = buffer;
         _os_log_impl(&dword_19602C000, v26, OS_LOG_TYPE_DEFAULT, "kExcludedFromBackupXattrName removed from path: %{private}s", buf, 0xCu);
         v24 = 0;
       }
@@ -9285,20 +9239,20 @@ LABEL_56:
 LABEL_48:
     if (v22)
     {
-      v33 = a8;
+      v32 = a8;
       if (a8)
       {
-        v34 = CFGetAllocator(a1);
-        v35 = *MEMORY[0x1E695E640];
-        v36 = v22;
-LABEL_65:
-        v37 = _FSURLCreateStandardError(v34, v35, v36, 1, a1, 0);
+        v33 = CFGetAllocator(a1);
+        v34 = *MEMORY[0x1E695E640];
+        v35 = v22;
+LABEL_64:
+        v36 = _FSURLCreateStandardError(v33, v34, v35, 1, a1, 0);
         result = 0;
-        *v33 = v37;
-        goto LABEL_58;
+        *v32 = v36;
+        return result;
       }
 
-      goto LABEL_66;
+      return 0;
     }
 
     goto LABEL_49;
@@ -9308,7 +9262,7 @@ LABEL_65:
   {
     if (!v12 && !CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
     {
-      goto LABEL_61;
+      goto LABEL_60;
     }
 
     if (v16 != v14 && valueOfBoolean(v16))
@@ -9319,7 +9273,7 @@ LABEL_65:
         if (os_log_type_enabled(defaultLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136380675;
-          v41 = buffer;
+          v40 = buffer;
           v19 = v23;
           v20 = "kExcludedFromCloudBackupName set on path: %{private}s";
           goto LABEL_56;
@@ -9339,7 +9293,7 @@ LABEL_49:
       if (os_log_type_enabled(defaultLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136380675;
-        v41 = buffer;
+        v40 = buffer;
         v19 = v25;
         v20 = "kExcludedFromCloudBackupName removed from path: %{private}s";
         goto LABEL_56;
@@ -9360,16 +9314,16 @@ LABEL_47:
 
   if (!CFEqual(v17, cf2))
   {
-    v33 = a8;
+    v32 = a8;
     if (a8)
     {
-      v34 = CFGetAllocator(a1);
-      v35 = *MEMORY[0x1E695E628];
-      v36 = 512;
-      goto LABEL_65;
+      v33 = CFGetAllocator(a1);
+      v34 = *MEMORY[0x1E695E628];
+      v35 = 512;
+      goto LABEL_64;
     }
 
-    goto LABEL_66;
+    return 0;
   }
 
   if (v12 || CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
@@ -9382,7 +9336,7 @@ LABEL_47:
         if (os_log_type_enabled(defaultLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136380675;
-          v41 = buffer;
+          v40 = buffer;
           v19 = v30;
           v20 = "kExcludedFromUnencryptedBackupName set on path: %{private}s";
           goto LABEL_56;
@@ -9402,7 +9356,7 @@ LABEL_45:
       if (os_log_type_enabled(defaultLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136380675;
-        v41 = buffer;
+        v40 = buffer;
         v19 = v29;
         v20 = "kExcludedFromUnencryptedBackupName removed from path: %{private}s";
         goto LABEL_56;
@@ -9414,21 +9368,17 @@ LABEL_45:
     goto LABEL_47;
   }
 
-LABEL_61:
-  v33 = a8;
+LABEL_60:
+  v32 = a8;
   if (a8)
   {
-    v34 = CFGetAllocator(a1);
-    v35 = *MEMORY[0x1E695E628];
-    v36 = 4;
-    goto LABEL_65;
+    v33 = CFGetAllocator(a1);
+    v34 = *MEMORY[0x1E695E628];
+    v35 = 4;
+    goto LABEL_64;
   }
 
-LABEL_66:
-  result = 0;
-LABEL_58:
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 uint64_t valueOfBoolean(const __CFBoolean *a1)
@@ -9468,7 +9418,7 @@ void clearPropertyValue(uint64_t a1, uint64_t a2, uint64_t *a3)
     v11 = v8;
     v9 = *(v5 + 8);
     _FileCacheIncrementInProvider(a2);
-    v6(a1, a2, (a3 + 1), &v10, &v11, 1, v9, 0);
+    v6(a1, a2, a3 + 1, &v10, &v11, 1, v9, 0);
     _FileCacheDecrementInProvider(a2);
   }
 
@@ -9636,7 +9586,7 @@ BOOL SandboxExtensionCache::insert(os_unfair_lock_s *this, CFURLRef url, const _
   return v6;
 }
 
-CFTypeRef *SandboxExtensionCache::_insert(CFDictionaryRef *this, const __CFString *a2, const __CFData *a3)
+CFTypeRef *SandboxExtensionCache::_insert(CFMutableDictionaryRef *this, const __CFString *a2, const __CFData *a3)
 {
   if (!a2)
   {
@@ -9832,4 +9782,25 @@ void _URLAttachSecurityScopeToFileURL(const __CFURL *a1, CFDataRef Copy)
       _URLAttachSecurityScopeToFileURL_cold_4(a1, v11);
     }
   }
+}
+
+uint64_t createIsReadableValue(uint64_t a1, _DWORD *a2, void *a3)
+{
+  if ((*a2 & 8) == 0)
+  {
+    return 0;
+  }
+
+  if ((*a2 & 0x2000000) != 0)
+  {
+    v4 = MEMORY[0x1E695E4D0];
+  }
+
+  else
+  {
+    v4 = MEMORY[0x1E695E4C0];
+  }
+
+  *a3 = *v4;
+  return 1;
 }

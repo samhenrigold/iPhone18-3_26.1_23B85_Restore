@@ -7,6 +7,7 @@
 - (void)_liveListenDidUpdate_BOOLValue:(id)value;
 - (void)_liveListenDidUpdate_enumValue:(id)value;
 - (void)_registerConnectionStateBlock:(id)block listenerHash:(id)hash;
+- (void)_registerListener:(id)listener forAvailableDeviceHandler:(id)handler beginSearching:(BOOL)searching;
 - (void)_registerListener:(id)listener forLiveHeadphoneLevelHandler:(id)handler messageIdentifier:(unint64_t)identifier;
 - (void)_registerUpdateBlock:(id)block forIdentifier:(unint64_t)identifier listenerHash:(id)hash;
 - (void)_unregisterUpdateListenerHash:(id)hash;
@@ -62,6 +63,7 @@
 - (void)unregisterPropertyUpdateListener:(id)listener;
 - (void)unregisterUpdateListener:(id)listener;
 - (void)unregisterUpdateListenerHash:(id)hash;
+- (void)updateListenersWithConnectionStatus:(BOOL)status;
 - (void)updateProperty:(unint64_t)property forDeviceID:(id)d;
 - (void)writeValue:(id)value forProperty:(unint64_t)property andDeviceID:(id)d;
 @end
@@ -82,17 +84,19 @@
 
 uint64_t __28__AXHAServer_sharedInstance__block_invoke()
 {
-  sharedInstance_Server = objc_alloc_init(AXHAServer);
+  v0 = objc_alloc_init(AXHAServer);
+  v1 = sharedInstance_Server;
+  sharedInstance_Server = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AXHAServer)init
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = AXHAServer;
-  v2 = [(HCServer *)&v15 init];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = AXHAServer;
+  v2 = [(HCServer *)&v14 init];
   if (v2)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -112,9 +116,9 @@ uint64_t __28__AXHAServer_sharedInstance__block_invoke()
     if (pairedHearingAids)
     {
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:2048];
-      v16 = v10;
-      v17[0] = MEMORY[0x1E695E118];
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = v10;
+      v16[0] = MEMORY[0x1E695E118];
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       [(HCServer *)v2 sendMessageWithPayload:v11 andIdentifier:2048];
     }
 
@@ -122,7 +126,6 @@ uint64_t __28__AXHAServer_sharedInstance__block_invoke()
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, shouldHandleServerStarting, @"com.apple.accessibility.hearing.server.ready", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -177,11 +180,11 @@ void __29__AXHAServer_resetConnection__block_invoke(uint64_t a1, void *a2, void 
 
 - (void)handleMessageWithPayload:(id)payload forIdentifier:(unint64_t)identifier
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v30.receiver = self;
-  v30.super_class = AXHAServer;
-  [(HCServer *)&v30 handleMessageWithPayload:payloadCopy forIdentifier:identifier];
+  v29.receiver = self;
+  v29.super_class = AXHAServer;
+  [(HCServer *)&v29 handleMessageWithPayload:payloadCopy forIdentifier:identifier];
   if (identifier == 0x40000)
   {
     [(AXHAServer *)self environmentalDosimetryDidUpdate:payloadCopy];
@@ -193,9 +196,9 @@ void __29__AXHAServer_resetConnection__block_invoke(uint64_t a1, void *a2, void 
   {
     v8 = messageIdentifierDescription();
     *buf = 138412546;
-    v33 = v8;
-    v34 = 2112;
-    v35 = payloadCopy;
+    v32 = v8;
+    v33 = 2112;
+    v34 = payloadCopy;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "AXHAServer: Handle incoming message ID: %@ %@", buf, 0x16u);
   }
 
@@ -327,7 +330,7 @@ LABEL_49:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = payloadCopy;
+      v32 = payloadCopy;
       _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "AXHAServer: Hearing Device reachability state %@", buf, 0xCu);
     }
 
@@ -372,8 +375,8 @@ LABEL_49:
     [(AXHAServer *)self setHearingAidConnectedOrReachable:bOOLValue];
     if (v22)
     {
-      v31 = v22;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+      v30 = v22;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
       [(AXHAServer *)self setAvailableControllers:v23];
     }
 
@@ -384,14 +387,12 @@ LABEL_49:
   }
 
 LABEL_52:
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __53__AXHAServer_handleMessageWithPayload_forIdentifier___block_invoke;
-  v29[3] = &unk_1E85CA6C0;
-  v29[4] = self;
-  [payloadCopy enumerateKeysAndObjectsUsingBlock:v29];
-
-  v28 = *MEMORY[0x1E69E9840];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __53__AXHAServer_handleMessageWithPayload_forIdentifier___block_invoke;
+  v28[3] = &unk_1E85CA6C0;
+  v28[4] = self;
+  [payloadCopy enumerateKeysAndObjectsUsingBlock:v28];
 }
 
 void __53__AXHAServer_handleMessageWithPayload_forIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -485,6 +486,27 @@ void __38__AXHAServer_deviceDidUpdateProperty___block_invoke_3(uint64_t a1, void
     *a4 = 1;
     v8 = v12;
   }
+}
+
+- (void)updateListenersWithConnectionStatus:(BOOL)status
+{
+  statusCopy = status;
+  delegate = [(HCServer *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(HCServer *)self delegate];
+    [delegate2 hearingAidConnectionDidChange:statusCopy];
+  }
+
+  connectionStateBlocks = [(AXHAServer *)self connectionStateBlocks];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__AXHAServer_updateListenersWithConnectionStatus___block_invoke;
+  v9[3] = &__block_descriptor_33_e32_v32__0__NSNumber_8___v__B_16_B24l;
+  v10 = statusCopy;
+  [connectionStateBlocks enumerateKeysAndObjectsUsingBlock:v9];
 }
 
 - (void)availableDevicesDidUpdate:(id)update
@@ -683,41 +705,39 @@ void __45__AXHAServer__liveListenDidUpdate_BOOLValue___block_invoke_2(uint64_t a
 
 void __45__AXHAServer__liveListenDidUpdate_enumValue___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v9 + 1) + 8 * v6) lastObject];
+        v7 = [*(*(&v8 + 1) + 8 * v6) lastObject];
         v7[2](v7, *(a1 + 56), *(a1 + 64), *(a1 + 40), *(a1 + 48));
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterUpdateListener:(id)listener
@@ -751,14 +771,14 @@ void __45__AXHAServer__liveListenDidUpdate_enumValue___block_invoke(uint64_t a1)
 
 - (void)_unregisterUpdateListenerHash:(id)hash
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = hashCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from updates listenerHash: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = hashCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from updates listenerHash: %@", &v6, 0xCu);
   }
 
   [(AXHAServer *)self registerUpdateBlock:0 forIdentifier:2 withListener:0 listenerHash:hashCopy];
@@ -771,8 +791,6 @@ void __45__AXHAServer__liveListenDidUpdate_enumValue___block_invoke(uint64_t a1)
   [(AXHAServer *)self registerUpdateBlock:0 forIdentifier:0x400000 withListener:0 listenerHash:hashCopy];
   [(AXHAServer *)self registerUpdateBlock:0 forIdentifier:0x1000000 withListener:0 listenerHash:hashCopy];
   [(AXHAServer *)self registerListener:0 forConnectionStateHandler:0 listenerHash:hashCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerUpdateBlock:(id)block forIdentifier:(unint64_t)identifier withListener:(id)listener
@@ -828,7 +846,7 @@ void __74__AXHAServer_registerUpdateBlock_forIdentifier_withListener_listenerHas
 
 - (void)_registerUpdateBlock:(id)block forIdentifier:(unint64_t)identifier listenerHash:(id)hash
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   hashCopy = hash;
   updates = [(AXHAServer *)self updates];
@@ -838,10 +856,10 @@ void __74__AXHAServer_registerUpdateBlock_forIdentifier_withListener_listenerHas
   if (blockCopy)
   {
     v13 = [blockCopy copy];
-    v25[0] = hashCopy;
+    v24[0] = hashCopy;
     v14 = _Block_copy(v13);
-    v25[1] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[1] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
 
     if (!array)
     {
@@ -856,12 +874,12 @@ void __74__AXHAServer_registerUpdateBlock_forIdentifier_withListener_listenerHas
 
   else
   {
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __62__AXHAServer__registerUpdateBlock_forIdentifier_listenerHash___block_invoke;
-    v23 = &unk_1E85CA868;
-    v24 = hashCopy;
-    v18 = [array indexesOfObjectsPassingTest:&v20];
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __62__AXHAServer__registerUpdateBlock_forIdentifier_listenerHash___block_invoke;
+    v22 = &unk_1E85CA868;
+    v23 = hashCopy;
+    v18 = [array indexesOfObjectsPassingTest:&v19];
     if ([v18 count])
     {
       [array removeObjectsAtIndexes:v18];
@@ -872,10 +890,8 @@ void __74__AXHAServer_registerUpdateBlock_forIdentifier_withListener_listenerHas
       [(HCServer *)self sendMessageWithPayload:&unk_1F5624528 andIdentifier:identifier];
     }
 
-    v13 = v24;
+    v13 = v23;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__AXHAServer__registerUpdateBlock_forIdentifier_listenerHash___block_invoke(uint64_t a1, void *a2)
@@ -909,38 +925,68 @@ uint64_t __62__AXHAServer__registerUpdateBlock_forIdentifier_listenerHash___bloc
 
 - (void)unregisterAvailableDevicesListener:(id)listener
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = listenerCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from available devices listener: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = listenerCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from available devices listener: %@", &v7, 0xCu);
   }
 
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:listenerCopy];
   [(AXHAServer *)self registerUpdateBlock:0 forIdentifier:2 withListener:0 listenerHash:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterPropertyUpdateListener:(id)listener
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   v5 = HCLogHearingAids();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = listenerCopy;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from property update listener: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = listenerCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "AXHAServer: Unregister from property update listener: %@", &v7, 0xCu);
   }
 
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:listenerCopy];
   [(AXHAServer *)self registerUpdateBlock:0 forIdentifier:4 withListener:0 listenerHash:v6];
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)_registerListener:(id)listener forAvailableDeviceHandler:(id)handler beginSearching:(BOOL)searching
+{
+  searchingCopy = searching;
+  v20[2] = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  v19[0] = @"ax_hearing_should_register_client_key";
+  v19[1] = @"ax_hearing_should_begin_searching_key";
+  v20[0] = MEMORY[0x1E695E118];
+  v9 = MEMORY[0x1E696AD98];
+  listenerCopy = listener;
+  v11 = [v9 numberWithBool:searchingCopy];
+  v20[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  [(HCServer *)self sendMessageWithPayload:v12 andIdentifier:2];
+
+  v13 = _Block_copy(handlerCopy);
+  [(AXHAServer *)self registerUpdateBlock:v13 forIdentifier:2 withListener:listenerCopy];
+
+  availableHearingAids = [(AXHAServer *)self availableHearingAids];
+  v15 = [availableHearingAids count];
+
+  if (handlerCopy && v15)
+  {
+    connectionQueue = [(HCServer *)self connectionQueue];
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __73__AXHAServer__registerListener_forAvailableDeviceHandler_beginSearching___block_invoke;
+    block[3] = &unk_1E85CA508;
+    block[4] = self;
+    v18 = handlerCopy;
+    dispatch_async(connectionQueue, block);
+  }
 }
 
 void __73__AXHAServer__registerListener_forAvailableDeviceHandler_beginSearching___block_invoke(uint64_t a1)
@@ -973,7 +1019,7 @@ void __73__AXHAServer__registerListener_forAvailableDeviceHandler_beginSearching
 
 - (void)writeValue:(id)value forProperty:(unint64_t)property andDeviceID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E695DF20];
   v9 = MEMORY[0x1E696AD98];
   dCopy = d;
@@ -985,62 +1031,55 @@ void __73__AXHAServer__registerListener_forAvailableDeviceHandler_beginSearching
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v13;
+    v16 = v13;
     _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "AXHAServer: writeValue, XPC sending payload %@", buf, 0xCu);
   }
 
   [(HCServer *)self sendMessageWithPayload:v13 andIdentifier:8];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessagesPriorityHigh
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "AXHAServer: XPC sending messagesPriority: Urgent", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "AXHAServer: XPC sending messagesPriority: Urgent", v6, 2u);
   }
 
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0x20000];
-  v8 = v4;
-  v9[0] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = v4;
+  v8[0] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(HCServer *)self sendMessageWithPayload:v5 andIdentifier:0x20000];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessagesPriorityDefault
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "AXHAServer: XPC sending messagesPriority: Default", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "AXHAServer: XPC sending messagesPriority: Default", v6, 2u);
   }
 
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0x20000];
-  v8 = v4;
-  v9[0] = MEMORY[0x1E695E110];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = v4;
+  v8[0] = MEMORY[0x1E695E110];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(HCServer *)self sendMessageWithPayload:v5 andIdentifier:0x20000];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestHearingAidReachabilityStatus
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:2048];
-  v6 = v3;
-  v7[0] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = v3;
+  v6[0] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [(HCServer *)self sendMessageWithPayload:v4 andIdentifier:2048];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)availableHearingAids
@@ -1325,7 +1364,7 @@ void __70__AXHAServer_registerListener_forConnectionStateHandler_listenerHash___
 
 - (void)requestNoiseBuffersForTimeInterval:(double)interval withHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -1336,28 +1375,26 @@ void __70__AXHAServer_registerListener_forConnectionStateHandler_listenerHash___
       block[1] = 3221225472;
       block[2] = __61__AXHAServer_requestNoiseBuffersForTimeInterval_withHandler___block_invoke_3;
       block[3] = &unk_1E85CA930;
-      v9 = &v12;
-      v12 = handlerCopy;
+      v9 = &v11;
+      v11 = handlerCopy;
       dispatch_async(connectionQueue, block);
     }
 
     else
     {
-      v15 = @"HUEDSampleIntervalKey";
+      v14 = @"HUEDSampleIntervalKey";
       connectionQueue = [MEMORY[0x1E696AD98] numberWithDouble:interval];
-      v16[0] = connectionQueue;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __61__AXHAServer_requestNoiseBuffersForTimeInterval_withHandler___block_invoke;
-      v13[3] = &unk_1E85CA908;
-      v9 = &v14;
-      v14 = handlerCopy;
-      [(HCServer *)self sendMessageWithPayload:v8 identifier:0x40000 andResponseBlock:v13];
+      v15[0] = connectionQueue;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __61__AXHAServer_requestNoiseBuffersForTimeInterval_withHandler___block_invoke;
+      v12[3] = &unk_1E85CA908;
+      v9 = &v13;
+      v13 = handlerCopy;
+      [(HCServer *)self sendMessageWithPayload:v8 identifier:0x40000 andResponseBlock:v12];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AXHAServer_requestNoiseBuffersForTimeInterval_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -1660,7 +1697,7 @@ void __43__AXHAServer_comfortSoundsAssetsDidUpdate___block_invoke_139(uint64_t a
 
 - (void)reregisterForComfortSoundsAssetsUpdatesIfNeeded
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   updates = [(AXHAServer *)self updates];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0x1000000];
   v5 = [updates objectForKey:v4];
@@ -1668,22 +1705,20 @@ void __43__AXHAServer_comfortSoundsAssetsDidUpdate___block_invoke_139(uint64_t a
   v6 = HCLogComfortSounds();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Reregistering for updates %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Reregistering for updates %@", &v7, 0xCu);
   }
 
   if ([v5 count])
   {
     [(HCServer *)self sendMessageWithPayload:&unk_1F56247A8 andIdentifier:0x1000000];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadComfortSoundAsset:(id)asset
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   assetId = [assetCopy assetId];
   v6 = [assetId length];
@@ -1691,19 +1726,17 @@ void __43__AXHAServer_comfortSoundsAssetsDidUpdate___block_invoke_139(uint64_t a
   if (v6)
   {
     [(AXHAServer *)self reregisterForComfortSoundsAssetsUpdatesIfNeeded];
-    v10 = @"HUComfortSoundsDownloadAssetKey";
+    v9 = @"HUComfortSoundsDownloadAssetKey";
     assetId2 = [assetCopy assetId];
-    v11[0] = assetId2;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = assetId2;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [(HCServer *)self sendMessageWithPayload:v8 andIdentifier:0x1000000];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeComfortSoundAsset:(id)asset
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   assetId = [assetCopy assetId];
   v6 = [assetId length];
@@ -1711,36 +1744,30 @@ void __43__AXHAServer_comfortSoundsAssetsDidUpdate___block_invoke_139(uint64_t a
   if (v6)
   {
     [(AXHAServer *)self reregisterForComfortSoundsAssetsUpdatesIfNeeded];
-    v10 = @"HUComfortSoundsRemoveAssetKey";
+    v9 = @"HUComfortSoundsRemoveAssetKey";
     assetId2 = [assetCopy assetId];
-    v11[0] = assetId2;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = assetId2;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [(HCServer *)self sendMessageWithPayload:v8 andIdentifier:0x1000000];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startComfortSoundsPreview
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"HUComfortSoundsPreviewKey";
-  v6[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"HUComfortSoundsPreviewKey";
+  v5[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(HCServer *)self sendMessageWithPayload:v3 andIdentifier:0x10000000];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopComfortSoundsPreview
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"HUComfortSoundsPreviewKey";
-  v6[0] = MEMORY[0x1E695E110];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"HUComfortSoundsPreviewKey";
+  v5[0] = MEMORY[0x1E695E110];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(HCServer *)self sendMessageWithPayload:v3 andIdentifier:0x10000000];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)backgroundSoundsPlaying
@@ -1794,13 +1821,11 @@ LABEL_8:
 
 - (void)handleMessageWithPayload:(uint64_t)a1 forIdentifier:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = messageIdentifierDescription();
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "AXHAServer: Unexpected message ID: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "AXHAServer: Unexpected message ID: %@", &v4, 0xCu);
 }
 
 @end

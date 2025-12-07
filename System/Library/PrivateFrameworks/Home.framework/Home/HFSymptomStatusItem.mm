@@ -6,58 +6,58 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
-  home = [(HFStatusItem *)self home];
-  mediaSystems = [home mediaSystems];
+  v5 = objc_msgSend_home(self, a2, options);
+  mediaSystems = [v5 mediaSystems];
   v7 = [v4 setWithArray:mediaSystems];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke;
-  v59[3] = &unk_277DF7250;
-  v59[4] = self;
-  v8 = [v7 na_filter:v59];
-
-  v9 = MEMORY[0x277CBEB98];
-  home2 = [(HFStatusItem *)self home];
-  accessories = [home2 accessories];
-  v12 = [v9 setWithArray:accessories];
   v58[0] = MEMORY[0x277D85DD0];
   v58[1] = 3221225472;
-  v58[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_1;
-  v58[3] = &unk_277DF3888;
+  v58[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke;
+  v58[3] = &unk_277DF7250;
   v58[4] = self;
-  v13 = [v12 na_filter:v58];
+  v8 = [v7 na_filter:v58];
+
+  v9 = MEMORY[0x277CBEB98];
+  v10 = objc_msgSend_home(self);
+  accessories = [v10 accessories];
+  v12 = [v9 setWithArray:accessories];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_1;
+  v57[3] = &unk_277DF3888;
+  v57[4] = self;
+  v13 = [v12 na_filter:v57];
 
   strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v56[3] = &unk_277DF5200;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v55[3] = &unk_277DF5200;
   v15 = strongToStrongObjectsMapTable;
-  v57 = v15;
-  v47 = v13;
-  [v13 na_each:v56];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_3;
-  v54[3] = &unk_277DFC728;
+  v56 = v15;
+  v46 = v13;
+  [v13 na_each:v55];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_3;
+  v53[3] = &unk_277DFC728;
   v16 = v15;
-  v55 = v16;
-  v48 = v8;
-  [v8 na_each:v54];
+  v54 = v16;
+  v47 = v8;
+  [v8 na_each:v53];
   hf_symptomArraySortComparator = [MEMORY[0x277CD1E88] hf_symptomArraySortComparator];
   keyEnumerator = [v16 keyEnumerator];
   allObjects = [keyEnumerator allObjects];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_4;
-  v52[3] = &unk_277DFC750;
-  v46 = hf_symptomArraySortComparator;
-  v53 = v46;
-  v20 = [allObjects sortedArrayUsingComparator:v52];
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_4;
+  v51[3] = &unk_277DFC750;
+  v45 = hf_symptomArraySortComparator;
+  v52 = v45;
+  v20 = [allObjects sortedArrayUsingComparator:v51];
 
-  v45 = v20;
+  v44 = v20;
   firstObject = [v20 firstObject];
   hf_symptomsSortedByPriority = [firstObject hf_symptomsSortedByPriority];
   firstObject2 = [hf_symptomsSortedByPriority firstObject];
@@ -76,7 +76,7 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v61 = hf_symptomsSortedByPriority;
+      v60 = hf_symptomsSortedByPriority;
       _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "Handler has symptom other than internet outage: %@", buf, 0xCu);
     }
 
@@ -112,30 +112,30 @@ LABEL_17:
 
   v32 = hf_shortDescription;
   v33 = [MEMORY[0x277CBEB58] set];
-  [v33 unionSet:v47];
+  [v33 unionSet:v46];
   [v33 unionSet:v8];
   v34 = [MEMORY[0x277CBEB98] set];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_13;
-  v51[3] = &unk_277DF7C90;
-  v51[4] = self;
-  v35 = [v33 na_filter:v51];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_13;
+  v50[3] = &unk_277DF7C90;
+  v50[4] = self;
+  v35 = [v33 na_filter:v50];
 
   [(HFMutableItemUpdateOutcome *)v24 setObject:v35 forKeyedSubscript:@"representedHomeKitObjects"];
-  v44 = v35;
+  v43 = v35;
   if ([v35 count])
   {
     [(HFMutableItemUpdateOutcome *)v24 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"hidden"];
   }
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_4_20;
-  v49[3] = &unk_277DF7C90;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke_4_20;
+  v48[3] = &unk_277DF7C90;
   v36 = firstObject2;
-  v50 = v36;
-  v37 = [v33 na_filter:v49];
+  v49 = v36;
+  v37 = [v33 na_filter:v48];
   [(HFMutableItemUpdateOutcome *)v24 setObject:v37 forKeyedSubscript:@"statusRepresentedHomeKitObjects"];
 
   v38 = [MEMORY[0x277D755D0] configurationWithPointSize:24.0];
@@ -153,14 +153,12 @@ LABEL_17:
 LABEL_18:
   v41 = [MEMORY[0x277D2C900] futureWithResult:v24];
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 uint64_t __51__HFSymptomStatusItem__subclass_updateWithOptions___block_invoke(id *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a1[4] room];
   if (v5)
@@ -199,16 +197,15 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [v4 symptoms];
-      v17 = 138412290;
-      v18 = v13;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Media system has symptoms: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v13;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Media system has symptoms: %@", &v16, 0xCu);
     }
   }
 
   v14 = 1;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

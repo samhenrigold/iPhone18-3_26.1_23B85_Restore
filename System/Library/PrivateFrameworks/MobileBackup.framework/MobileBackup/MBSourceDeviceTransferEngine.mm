@@ -46,9 +46,9 @@
 
   v7 = fileTransferSession;
   v8 = +[MBDriveSettingsContext defaultSettingsContext];
-  v45.receiver = self;
-  v45.super_class = MBSourceDeviceTransferEngine;
-  v9 = [(MBEngine *)&v45 initWithSettingsContext:v8 debugContext:0 domainManager:0];
+  v44.receiver = self;
+  v44.super_class = MBSourceDeviceTransferEngine;
+  v9 = [(MBEngine *)&v44 initWithSettingsContext:v8 debugContext:0 domainManager:0];
   v10 = v9;
   if (v9)
   {
@@ -111,11 +111,11 @@
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v47 = v29;
-        v48 = 2048;
-        v49 = v26;
+        v46 = v29;
+        v47 = 2048;
+        v48 = v26;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "MBDriveBackupEngineUploadBatchSize:%lu, MBDriveBackupEngineUploadBatchCount:%lu", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"Df", "MBDriveBackupEngineUploadBatchSize:%lu, MBDriveBackupEngineUploadBatchCount:%lu", v29, v26);
       }
 
       if (v26)
@@ -153,27 +153,25 @@
       v34 = v10->_uploadBatchSize;
       concurrentUploadBatchCount = v10->_concurrentUploadBatchCount;
       *buf = 138544130;
-      v47 = v33;
-      v48 = 2048;
-      v49 = v34;
-      v50 = 2048;
-      v51 = concurrentUploadBatchCount;
-      v52 = 2048;
-      v53 = 2;
+      v46 = v33;
+      v47 = 2048;
+      v48 = v34;
+      v49 = 2048;
+      v50 = concurrentUploadBatchCount;
+      v51 = 2048;
+      v52 = 2;
       _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu, concurrentOpenBatchCount:%lu", buf, 0x2Au);
-      objc_opt_class();
-      v43 = v10->_concurrentUploadBatchCount;
-      v42 = v10->_uploadBatchSize;
-      _MBLog();
+      v36 = objc_opt_class();
+      _MBLog(@"Df", "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu, concurrentOpenBatchCount:%lu", v36, v10->_uploadBatchSize, v10->_concurrentUploadBatchCount, 2);
     }
 
-    v36 = [@"/var/mobile/Library/Caches/Backup/DT" stringByAppendingString:@"/"];
-    stringByStandardizingPath = [v36 stringByStandardizingPath];
+    v37 = [@"/var/mobile/Library/Caches/Backup/DT" stringByAppendingString:@"/"];
+    stringByStandardizingPath = [v37 stringByStandardizingPath];
 
-    v38 = [NSURL fileURLWithPath:stringByStandardizingPath isDirectory:1];
-    v39 = [[MBPeerTransferDrive alloc] initWithRootURL:v38 fileTransferSession:v7 uploadBatchSize:v10->_uploadBatchSize concurrentUploadBatchCount:v10->_concurrentUploadBatchCount concurrentOpenBatchCount:2];
+    v39 = [NSURL fileURLWithPath:stringByStandardizingPath isDirectory:1];
+    v40 = [[MBPeerTransferDrive alloc] initWithRootURL:v39 fileTransferSession:v7 uploadBatchSize:v10->_uploadBatchSize concurrentUploadBatchCount:v10->_concurrentUploadBatchCount concurrentOpenBatchCount:2];
     transferDrive = v10->_transferDrive;
-    v10->_transferDrive = v39;
+    v10->_transferDrive = v40;
   }
 
   return v10;
@@ -213,8 +211,7 @@
       LODWORD(rlim_cur) = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "getrlmit(NOFILE) failed: %{errno}d", buf, 8u);
       v13 = *__error();
-LABEL_5:
-      _MBLog();
+      _MBLog(@"E ", "getrlmit(NOFILE) failed: %{errno}d", v13);
     }
   }
 
@@ -225,7 +222,7 @@ LABEL_5:
       *buf = 134217984;
       rlim_cur = v15.rlim_cur;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "getrlimit(NOFILE): %llu", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "getrlimit(NOFILE): %llu", v15.rlim_cur);
     }
 
     if (v15.rlim_cur >= limit)
@@ -244,11 +241,11 @@ LABEL_5:
         *buf = 134217984;
         rlim_cur = v15.rlim_cur;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "setrlimit(NOFILE): %llu", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "setrlimit(NOFILE): %llu", v15.rlim_cur);
       }
 
       v8 = 1;
-      goto LABEL_7;
+      goto LABEL_6;
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -260,12 +257,12 @@ LABEL_5:
       v19 = v12;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "setrlimit(NOFILE) failed, openFdsLimit:%lu: %{errno}d", buf, 0x12u);
       v14 = *__error();
-      goto LABEL_5;
+      _MBLog(@"E ", "setrlimit(NOFILE) failed, openFdsLimit:%lu: %{errno}d", limit, v14);
     }
   }
 
   v8 = 0;
-LABEL_7:
+LABEL_6:
 
   return v8;
 }
@@ -281,8 +278,8 @@ LABEL_7:
       *buf = 138412290;
       v41 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finishing %@", buf, 0xCu);
-      v29 = objc_opt_class();
-      _MBLog();
+      v7 = objc_opt_class();
+      _MBLog(@"Df", "Finishing %@", v7);
     }
 
     transaction = [(MBSourceDeviceTransferEngine *)self transaction];
@@ -294,20 +291,20 @@ LABEL_7:
     powerAssertion = [(MBSourceDeviceTransferEngine *)self powerAssertion];
     [(MBSourceDeviceTransferEngine *)self setPowerAssertion:0];
     [(MBSourceDeviceTransferEngine *)self startTime];
-    v10 = 0.0;
-    if (v11 > 0.0)
+    v11 = 0.0;
+    if (v12 > 0.0)
     {
       +[NSDate timeIntervalSinceReferenceDate];
-      v13 = v12;
+      v14 = v13;
       [(MBSourceDeviceTransferEngine *)self startTime];
-      v10 = v13 - v14;
+      v11 = v14 - v15;
     }
 
     isCanceled = [(MBEngine *)self isCanceled];
-    v16 = isCanceled;
-    if (!isCanceled || ([MBError errorWithCode:202 format:@"Canceled"], (v17 = objc_claimAutoreleasedReturnValue()) == 0))
+    v17 = isCanceled;
+    if (!isCanceled || ([MBError errorWithCode:202 format:@"Canceled"], (v18 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v17 = errorCopy;
+      v18 = errorCopy;
     }
 
     [(MBSourceDeviceTransferEngine *)self _stopTrackingPeerConnectionStatus];
@@ -331,19 +328,19 @@ LABEL_7:
     }
 
     peerTaskGroup = [(MBSourceDeviceTransferEngine *)self peerTaskGroup];
-    v21 = dispatch_get_global_queue(17, 0);
+    v22 = dispatch_get_global_queue(17, 0);
     v36[0] = _NSConcreteStackBlock;
     v36[1] = 3221225472;
     v36[2] = sub_10016BF7C;
     v36[3] = &unk_1003BCFC8;
-    v38 = v16;
+    v38 = v17;
     v36[4] = self;
-    v22 = v17;
-    v37 = v22;
-    dispatch_group_async(peerTaskGroup, v21, v36);
+    v23 = v18;
+    v37 = v23;
+    dispatch_group_async(peerTaskGroup, v22, v36);
 
-    v23 = +[MBDaemon sharedDaemon];
-    [v23 holdWorkAssertion:a2];
+    v24 = +[MBDaemon sharedDaemon];
+    [v24 holdWorkAssertion:a2];
 
     peerTaskGroup2 = [(MBSourceDeviceTransferEngine *)self peerTaskGroup];
     queue2 = [(MBSourceDeviceTransferEngine *)self queue];
@@ -352,14 +349,14 @@ LABEL_7:
     v30[2] = sub_10016C0B0;
     v30[3] = &unk_1003C0048;
     v30[4] = self;
-    v31 = v22;
-    v34 = v10;
+    v31 = v23;
+    v34 = v11;
     v32 = powerAssertion;
     v33 = transaction;
     v35 = a2;
-    v26 = transaction;
-    v27 = powerAssertion;
-    v28 = v22;
+    v27 = transaction;
+    v28 = powerAssertion;
+    v29 = v23;
     dispatch_group_notify(peerTaskGroup2, queue2, v30);
   }
 }
@@ -397,29 +394,29 @@ LABEL_7:
   v7 = atomic_load(&self->_peerConnectedOnce);
   if ((v7 & 1) != 0 && (v8 = atomic_load(&self->_receivedDoneMessage), (v8 & 1) == 0))
   {
-    v10 = [[MBPeerDoneRequest alloc] initWithError:errorCopy];
-    v11 = dispatch_semaphore_create(0);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10016C6B4;
-    v16[3] = &unk_1003C0070;
-    v9 = v10;
-    v17 = v9;
-    v12 = v11;
-    v18 = v12;
-    [MBPeerMessenger sendRequest:v9 session:v6 responseHandler:v16];
-    v13 = dispatch_time(0, 30000000000);
-    if (dispatch_semaphore_wait(v12, v13))
+    v11 = [[MBPeerDoneRequest alloc] initWithError:errorCopy];
+    v12 = dispatch_semaphore_create(0);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10016C6B4;
+    v18[3] = &unk_1003C0070;
+    v9 = v11;
+    v19 = v9;
+    v13 = v12;
+    v20 = v13;
+    [MBPeerMessenger sendRequest:v9 session:v6 responseHandler:v18];
+    v14 = dispatch_time(0, 30000000000);
+    if (dispatch_semaphore_wait(v13, v14))
     {
-      v14 = MBGetDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = MBGetDefaultLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = objc_opt_class();
+        v16 = objc_opt_class();
         *buf = 138412290;
-        v20 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Timed out waiting for %@", buf, 0xCu);
-        objc_opt_class();
-        _MBLog();
+        v22 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Timed out waiting for %@", buf, 0xCu);
+        v17 = objc_opt_class();
+        _MBLog(@"E ", "Timed out waiting for %@", v17);
       }
     }
   }
@@ -430,10 +427,10 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = objc_opt_class();
+      v22 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not sending %@", buf, 0xCu);
-      objc_opt_class();
-      _MBLog();
+      v10 = objc_opt_class();
+      _MBLog(@"Df", "Not sending %@", v10);
     }
   }
 }
@@ -444,10 +441,10 @@ LABEL_7:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "========== %@ starting", buf, 0xCu);
-    objc_opt_class();
-    _MBLog();
+    v4 = objc_opt_class();
+    _MBLog(@"Df", "========== %@ starting", v4);
   }
 
   MBLogDeviceProperties();
@@ -456,18 +453,18 @@ LABEL_7:
   powerAssertion = [(MBSourceDeviceTransferEngine *)self powerAssertion];
   [powerAssertion hold];
 
-  v8 = 0;
-  v5 = [(MBSourceDeviceTransferEngine *)self _setUpWithError:&v8];
-  v6 = v8;
-  v7 = v6;
-  if ((v5 & 1) == 0)
+  v9 = 0;
+  v6 = [(MBSourceDeviceTransferEngine *)self _setUpWithError:&v9];
+  v7 = v9;
+  v8 = v7;
+  if ((v6 & 1) == 0)
   {
-    if (!v6)
+    if (!v7)
     {
       __assert_rtn("[MBSourceDeviceTransferEngine start]", "MBSourceDeviceTransferEngine.m", 281, "error");
     }
 
-    [(MBSourceDeviceTransferEngine *)self _finishWithError:v6];
+    [(MBSourceDeviceTransferEngine *)self _finishWithError:v7];
   }
 }
 
@@ -527,7 +524,7 @@ LABEL_7:
       *buf = 134217984;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Started the disconnect timer (%llus)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Started the disconnect timer (%llus)", v7);
     }
 
     objc_destroyWeak(&v12);
@@ -550,7 +547,7 @@ LABEL_7:
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceled the disconnect timer", v6, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Canceled the disconnect timer");
     }
   }
 }
@@ -580,15 +577,14 @@ LABEL_7:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = d2dTransferDisconnectTimeout;
+    v13 = d2dTransferDisconnectTimeout;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Waiting for up to %llus to allow a control connection to show up", buf, 0xCu);
-    v12 = d2dTransferDisconnectTimeout;
-    _MBLog();
+    _MBLog(@"Df", "Waiting for up to %llus to allow a control connection to show up", d2dTransferDisconnectTimeout);
   }
 
   v9 = dispatch_time(0, 1000000000 * d2dTransferDisconnectTimeout);
   v10 = dispatch_semaphore_wait(v5, v9) == 0;
-  [(MBSourceDeviceTransferEngine *)self setConnectSemaphore:0, v12];
+  [(MBSourceDeviceTransferEngine *)self setConnectSemaphore:0];
 
   return v10;
 }
@@ -605,10 +601,10 @@ LABEL_7:
       p_peerConnected = &self->_peerConnected;
       v6 = atomic_load(p_peerConnected);
       *buf = 67109120;
-      v8 = v6 & 1;
+      v9 = v6 & 1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Started tracking the peer connection status (%d)", buf, 8u);
-      atomic_load(p_peerConnected);
-      _MBLog();
+      v7 = atomic_load(p_peerConnected);
+      _MBLog(@"Df", "Started tracking the peer connection status (%d)", v7 & 1);
     }
   }
 }
@@ -625,10 +621,10 @@ LABEL_7:
       p_peerConnected = &self->_peerConnected;
       v6 = atomic_load(p_peerConnected);
       *buf = 67109120;
-      v8 = v6 & 1;
+      v9 = v6 & 1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopped tracking the peer connection status (%d)", buf, 8u);
-      atomic_load(p_peerConnected);
-      _MBLog();
+      v7 = atomic_load(p_peerConnected);
+      _MBLog(@"Df", "Stopped tracking the peer connection status (%d)", v7 & 1);
     }
   }
 }
@@ -676,7 +672,7 @@ LABEL_19:
     [v7 setConnectionType:{-[MBSourceDeviceTransferEngine connectionType](self, "connectionType")}];
     if ([(MBSourceDeviceTransferEngine *)self connectionType]== 1)
     {
-      v8 = MBSetChargeLimit();
+      v8 = MBSetChargeLimit(25);
       v9 = MBGetDefaultLog();
       v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       if (v8)
@@ -684,10 +680,9 @@ LABEL_19:
         if (v10)
         {
           *buf = 67109120;
-          v18 = 25;
+          v17 = 25;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Set charge limit to %d", buf, 8u);
-          v16 = 25;
-          _MBLog();
+          _MBLog(@"Df", "Set charge limit to %d", 25);
         }
 
         [(MBSourceDeviceTransferEngine *)self setChargeToken:v8];
@@ -698,10 +693,9 @@ LABEL_19:
         if (v10)
         {
           *buf = 67109120;
-          v18 = 25;
+          v17 = 25;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to set charge limit to %d", buf, 8u);
-          v16 = 25;
-          _MBLog();
+          _MBLog(@"Df", "Failed to set charge limit to %d", 25);
         }
       }
     }
@@ -780,7 +774,7 @@ LABEL_21:
     *buf = 138412290;
     v21 = fileTransferSession;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting up the FT session: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Setting up the FT session: %@", fileTransferSession);
   }
 
   objc_initWeak(buf, self);
@@ -829,7 +823,7 @@ LABEL_21:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not disabling infra WiFi in USB-only mode", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Not disabling infra WiFi in USB-only mode");
     }
   }
 
@@ -849,8 +843,7 @@ LABEL_21:
       *buf = 67109120;
       flags = [v5 flags];
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Disabled infra WiFi, flags:0x%x", buf, 8u);
-      [v5 flags];
-      _MBLog();
+      _MBLog(@"Df", "Disabled infra WiFi, flags:0x%x", [v5 flags]);
     }
   }
 }
@@ -867,7 +860,7 @@ LABEL_21:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not enabling infra WiFi in USB-only mode", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Not enabling infra WiFi in USB-only mode");
     }
   }
 
@@ -887,8 +880,7 @@ LABEL_21:
       *buf = 67109120;
       flags = [v5 flags];
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Enabled infra WiFi, flags:0x%x", buf, 8u);
-      [v5 flags];
-      _MBLog();
+      _MBLog(@"Df", "Enabled infra WiFi, flags:0x%x", [v5 flags]);
     }
   }
 }
@@ -908,8 +900,8 @@ LABEL_21:
       v11 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to get purgeable space from Cache Delete: %@", buf, 0xCu);
 
-      v9 = [v2 objectForKeyedSubscript:@"CACHE_DELETE_ERROR"];
-      _MBLog();
+      v6 = [v2 objectForKeyedSubscript:@"CACHE_DELETE_ERROR"];
+      _MBLog(@"E ", "Failed to get purgeable space from Cache Delete: %@", v6);
     }
 
     unsignedLongLongValue = 0;
@@ -917,8 +909,8 @@ LABEL_21:
 
   else
   {
-    v7 = [v2 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
-    unsignedLongLongValue = [v7 unsignedLongLongValue];
+    v8 = [v2 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+    unsignedLongLongValue = [v8 unsignedLongLongValue];
   }
 
   return unsignedLongLongValue;
@@ -1052,7 +1044,7 @@ LABEL_6:
       *buf = 138412290;
       v10 = driveBackupEngine;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Cleaning up backup engine: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Cleaning up backup engine: %@", driveBackupEngine);
     }
 
     cleanup = [driveBackupEngine cleanup];

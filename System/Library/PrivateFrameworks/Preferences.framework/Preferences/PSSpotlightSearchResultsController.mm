@@ -327,11 +327,11 @@ uint64_t __49__PSSpotlightSearchResultsController_setResults___block_invoke(uint
   return *&iconWidth_iconWidth_0;
 }
 
-void __47__PSSpotlightSearchResultsController_iconWidth__block_invoke()
+void __47__PSSpotlightSearchResultsController_iconWidth__block_invoke(uint64_t a1)
 {
-  v1 = PSBlankIconImage();
-  [v1 size];
-  *&iconWidth_iconWidth_0 = v0 + 15.0;
+  v2 = PSBlankIconImage(a1);
+  [v2 size];
+  *&iconWidth_iconWidth_0 = v1 + 15.0;
 }
 
 - (void)viewDidLayoutSubviews

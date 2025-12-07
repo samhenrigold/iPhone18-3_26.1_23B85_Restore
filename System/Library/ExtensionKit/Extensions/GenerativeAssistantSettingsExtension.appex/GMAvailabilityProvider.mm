@@ -8,7 +8,7 @@
 {
   _s36GenerativeAssistantSettingsExtension22GMAvailabilityProviderC22__observationRegistrar33_D20E3484FEFEB4F266CB8395E395E46ALL11Observation0pH0Vvpfi_0();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for GMAvailabilityProvider();
+  v4.super_class = type metadata accessor for GMAvailabilityProvider(0);
   return [(GMAvailabilityProvider *)&v4 init];
 }
 

@@ -23,9 +23,11 @@
 
 uint64_t __30__HMFNetManager_sharedManager__block_invoke()
 {
-  qword_280AFC4F0 = objc_alloc_init(HMFNetManager);
+  v0 = objc_alloc_init(HMFNetManager);
+  v1 = qword_280AFC4F0;
+  qword_280AFC4F0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFNetManager)initWithWiFiManager:(id)manager

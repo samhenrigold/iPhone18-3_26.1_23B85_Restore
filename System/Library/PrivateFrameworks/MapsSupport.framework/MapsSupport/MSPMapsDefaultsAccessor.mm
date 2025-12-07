@@ -83,10 +83,8 @@ uint64_t __41__MSPMapsDefaultsAccessor_sharedInstance__block_invoke(uint64_t a1)
 {
   if (self->_protectedDataAvailable)
   {
-    v3 = *MEMORY[0x277CBF040];
-    v4 = *MEMORY[0x277CBF010];
-    v6 = +[MSPMapsPaths mapsApplicationContainerPaths];
-    groupDirectory = [v6 groupDirectory];
+    v4 = +[MSPMapsPaths mapsApplicationContainerPaths];
+    groupDirectory = [v4 groupDirectory];
     _CFPreferencesSynchronizeWithContainer();
   }
 }

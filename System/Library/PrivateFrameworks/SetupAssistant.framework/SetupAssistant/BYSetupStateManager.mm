@@ -78,13 +78,14 @@ uint64_t __36__BYSetupStateManager_sharedManager__block_invoke()
 
 - (void)clearRestoreType
 {
-  if ([(BYSetupStateManager *)self restoreType])
+  restoreType = [(BYSetupStateManager *)self restoreType];
+  if (restoreType)
   {
-    v2 = _BYLoggingFacility();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _BYLoggingFacility(restoreType);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Clearing RestoreState...", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Clearing RestoreState...", v4, 2u);
     }
 
     CFPreferencesSetAppValue(@"RestoreState", 0, @"com.apple.purplebuddy");

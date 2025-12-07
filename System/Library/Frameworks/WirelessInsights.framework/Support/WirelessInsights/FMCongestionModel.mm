@@ -5,6 +5,7 @@
 - (unique_ptr<awd::metrics::InsightTypeCongestion_CongestionCell,)insightCellFromFMCongestionCell:(id)cell;
 - (void)_handleCellMonitorUpdate:(id)update info:(id)info;
 - (void)_handleIncomingMetric:(id)metric withPayload:(id)payload;
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update;
 - (void)_handleRegulatoryDomainEstimateUpdate:(id)update;
 - (void)_initializeStateForContext:(id)context atTime:(id)time;
 - (void)_updateStateForContext:(id)context atTime:(id)time withExistingState:(id)state;
@@ -547,6 +548,20 @@ LABEL_18:
   }
 
   [(FMCongestionModel *)self setIsCongestionPredictionEnabledInCurrentCountry:v8 != 0x7FFFFFFFFFFFFFFFLL];
+}
+
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v5 = *(qword_1002DBE98 + 136);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6[0] = 67109120;
+    v6[1] = updateCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "FederatedMobility[FMCongestionModel]:#I _handleLocationAuthorizationUpdate isLocationAuthorized: %{BOOL}d", v6, 8u);
+  }
+
+  [(FMCongestionModel *)self setIsLocationAuthorized:updateCopy];
 }
 
 - (unique_ptr<awd::metrics::InsightTypeCongestion_CongestionCell,)insightCellFromFMCongestionCell:(id)cell

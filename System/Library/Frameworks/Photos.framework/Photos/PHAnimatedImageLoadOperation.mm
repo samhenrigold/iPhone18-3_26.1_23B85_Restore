@@ -13,9 +13,11 @@ void __55___PHAnimatedImageLoadOperation__requestIsolationQueue__block_invoke()
 
 uint64_t __68___PHAnimatedImageLoadOperation__inq_animatedImageLoadingOperations__block_invoke()
 {
-  _inq_animatedImageLoadingOperations__loadingOperations = [MEMORY[0x1E695DF90] dictionary];
+  v0 = [MEMORY[0x1E695DF90] dictionary];
+  v1 = _inq_animatedImageLoadingOperations__loadingOperations;
+  _inq_animatedImageLoadingOperations__loadingOperations = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __65___PHAnimatedImageLoadOperation__animatedImageSharedLoadingQueue__block_invoke()

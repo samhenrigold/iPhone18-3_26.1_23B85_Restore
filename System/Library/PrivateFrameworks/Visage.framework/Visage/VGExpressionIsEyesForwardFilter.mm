@@ -52,8 +52,8 @@
       [v20 floatValue];
       v22 = v21;
 
-      v23 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = __VGLogSharedInstance(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         v29 = 134218752;
         v30 = v16;
@@ -63,13 +63,13 @@
         v34 = v22;
         v35 = 2048;
         v36 = v19;
-        _os_log_impl(&dword_270F06000, v23, OS_LOG_TYPE_DEBUG, " Left eye (yaw/pitch): %f %f, Right eye (yaw/pitch): %f %f ", &v29, 0x2Au);
+        _os_log_impl(&dword_270F06000, v24, OS_LOG_TYPE_DEBUG, " Left eye (yaw/pitch): %f %f, Right eye (yaw/pitch): %f %f ", &v29, 0x2Au);
       }
 
-      v24 = fabsf(v13);
+      v25 = fabsf(v13);
       eyesForwardPitchSensitivityInRadians = self->_eyesForwardPitchSensitivityInRadians;
       v6 = 0.0;
-      if (v24 < eyesForwardPitchSensitivityInRadians)
+      if (v25 < eyesForwardPitchSensitivityInRadians)
       {
         eyesForwardYawSensitivityInRadians = self->_eyesForwardYawSensitivityInRadians;
         if (fabsf(v16) < eyesForwardYawSensitivityInRadians && fabsf(v19) < eyesForwardPitchSensitivityInRadians)
@@ -88,7 +88,6 @@
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

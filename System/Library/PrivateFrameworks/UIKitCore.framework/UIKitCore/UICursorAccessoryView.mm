@@ -69,11 +69,11 @@ void __59___UICursorAccessoryView_setAccessoryIdentifiers_animated___block_invok
   [v3 setBackgroundColor:v11];
 }
 
-uint64_t __59___UICursorAccessoryView_setAccessoryIdentifiers_animated___block_invoke_3(uint64_t result, int a2)
+id *__59___UICursorAccessoryView_setAccessoryIdentifiers_animated___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _scheduleRemovedItemViewCleanup];
+    return [result[4] _scheduleRemovedItemViewCleanup];
   }
 
   return result;

@@ -12,6 +12,7 @@
 - (void)performEdit;
 - (void)presentEditor:(id)editor forCreating:(BOOL)creating;
 - (void)setButtonsDisabled:(BOOL)disabled;
+- (void)updateForChangedContentCategorySize;
 - (void)updateWithActionsModel:(id)model;
 @end
 
@@ -169,6 +170,13 @@
       while (v6);
     }
   }
+}
+
+- (void)updateForChangedContentCategorySize
+{
+  inlineActionButtons = self->_inlineActionButtons;
+  self->_inlineActionButtons = 0;
+  MEMORY[0x1EEE66BB8](self, inlineActionButtons);
 }
 
 - (void)performCreateForActionsModel:(id)model
@@ -377,45 +385,46 @@ void __65__AVTAvatarInlineActionsController_performDeleteForActionsModel___block
 {
   senderCopy = sender;
   blockCopy = block;
-  if (AVTUIDisableDeleteConfirmation_once())
+  v9 = AVTUIDisableDeleteConfirmation_once();
+  if (v9)
   {
     blockCopy[2](blockCopy, 1);
   }
 
   else
   {
-    v9 = AVTAvatarUIBundle();
-    v10 = [v9 localizedStringForKey:@"DELETE_MEMOJI_ALERT_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
-    v11 = [AVTAlertController alertControllerWithTitle:0 message:v10 preferredStyle:1];
+    v10 = AVTAvatarUIBundle(v9);
+    v11 = [v10 localizedStringForKey:@"DELETE_MEMOJI_ALERT_MESSAGE" value:&stru_1F39618F0 table:@"Localized"];
+    v12 = [AVTAlertController alertControllerWithTitle:0 message:v11 preferredStyle:1];
 
-    v12 = MEMORY[0x1E69DC648];
-    v13 = AVTAvatarUIBundle();
-    v14 = [v13 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __81__AVTAvatarInlineActionsController_confirmShouldDeleteRecord_sender_resultBlock___block_invoke;
-    v28[3] = &unk_1E7F3AE00;
-    v15 = blockCopy;
-    v29 = v15;
-    v16 = [v12 actionWithTitle:v14 style:2 handler:v28];
-    [v11 addAction:v16];
+    v13 = MEMORY[0x1E69DC648];
+    v15 = AVTAvatarUIBundle(v14);
+    v16 = [v15 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __81__AVTAvatarInlineActionsController_confirmShouldDeleteRecord_sender_resultBlock___block_invoke;
+    v31[3] = &unk_1E7F3AE00;
+    v17 = blockCopy;
+    v32 = v17;
+    v18 = [v13 actionWithTitle:v16 style:2 handler:v31];
+    [v12 addAction:v18];
 
-    v17 = MEMORY[0x1E69DC648];
-    v18 = AVTAvatarUIBundle();
-    v19 = [v18 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __81__AVTAvatarInlineActionsController_confirmShouldDeleteRecord_sender_resultBlock___block_invoke_2;
-    v26 = &unk_1E7F3AE00;
-    v27 = v15;
-    v20 = [v17 actionWithTitle:v19 style:1 handler:&v23];
-    [v11 addAction:{v20, v23, v24, v25, v26}];
+    v19 = MEMORY[0x1E69DC648];
+    v21 = AVTAvatarUIBundle(v20);
+    v22 = [v21 localizedStringForKey:@"DELETE_MEMOJI_ALERT_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __81__AVTAvatarInlineActionsController_confirmShouldDeleteRecord_sender_resultBlock___block_invoke_2;
+    v29 = &unk_1E7F3AE00;
+    v30 = v17;
+    v23 = [v19 actionWithTitle:v22 style:1 handler:&v26];
+    [v12 addAction:{v23, v26, v27, v28, v29}];
 
-    popoverPresentationController = [v11 popoverPresentationController];
+    popoverPresentationController = [v12 popoverPresentationController];
     [popoverPresentationController setSourceView:senderCopy];
 
     delegate = [(AVTAvatarInlineActionsController *)self delegate];
-    [delegate actionsController:self presentAlertController:v11];
+    [delegate actionsController:self presentAlertController:v12];
   }
 }
 

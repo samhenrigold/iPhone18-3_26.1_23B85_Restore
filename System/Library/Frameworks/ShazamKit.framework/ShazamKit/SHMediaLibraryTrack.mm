@@ -48,27 +48,27 @@
 
   if (!shazamID)
   {
-    v8 = sh_log_object();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sh_log_object(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v8, OS_LOG_TYPE_ERROR, "A media item must have a shazamID when creating a library track", buf, 2u);
+      _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_ERROR, "A media item must have a shazamID when creating a library track", buf, 2u);
     }
 
     goto LABEL_13;
   }
 
-  v6 = [SHShazamKey alloc];
+  v7 = [SHShazamKey alloc];
   shazamID2 = [itemCopy shazamID];
-  v8 = [(SHShazamKey *)v6 initWithKey:shazamID2];
+  v9 = [(SHShazamKey *)v7 initWithKey:shazamID2];
 
-  if (!v8)
+  if (!v9)
   {
-    v19 = sh_log_object();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sh_log_object(v10);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_230F52000, v19, OS_LOG_TYPE_ERROR, "A media item must have a valid (numeric only) format when creating a library track", v21, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_230F52000, v21, OS_LOG_TYPE_ERROR, "A media item must have a valid (numeric only) format when creating a library track", v23, 2u);
     }
 
 LABEL_13:
@@ -80,7 +80,7 @@ LABEL_13:
   uUIDString = [identifier UUIDString];
   self = [(SHMediaLibraryTrack *)self _initWithIdentifier:uUIDString metadata:0 labels:MEMORY[0x277CBEBF8]];
 
-  [(SHMediaLibraryTrack *)self setShazamKey:v8];
+  [(SHMediaLibraryTrack *)self setShazamKey:v9];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString2 = [uUID UUIDString];
   [(SHMediaLibraryTrack *)self setRecognitionIdentifier:uUIDString2];
@@ -118,7 +118,7 @@ LABEL_14:
 {
   longitude = coordinate.longitude;
   latitude = coordinate.latitude;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   releaseDateCopy = releaseDate;
@@ -141,7 +141,7 @@ LABEL_14:
   isrcCopy = isrc;
   genresCopy = genres;
   responseCopy = response;
-  v58 = metadataCopy;
+  v57 = metadataCopy;
   if (metadataCopy)
   {
     v38 = [[SHMediaLibraryItemMetadata alloc] initWithEncodedSystemData:metadataCopy];
@@ -153,30 +153,30 @@ LABEL_14:
   }
 
   v39 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(labelsCopy, "count")}];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   v40 = labelsCopy;
-  v41 = [v40 countByEnumeratingWithState:&v71 objects:v75 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v70 objects:v74 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v72;
+    v43 = *v71;
     do
     {
       for (i = 0; i != v42; ++i)
       {
-        if (*v72 != v43)
+        if (*v71 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = [[SHMediaLibraryLabel alloc] initWithName:*(*(&v71 + 1) + 8 * i)];
+        v45 = [[SHMediaLibraryLabel alloc] initWithName:*(*(&v70 + 1) + 8 * i)];
         [v39 addObject:v45];
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v71 objects:v75 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v70 objects:v74 count:16];
     }
 
     while (v42);
@@ -213,7 +213,6 @@ LABEL_14:
   [(SHMediaLibraryTrack *)v47 setVideoURL:videoURLCopy];
   [(SHMediaLibraryTrack *)v47 setLastUpdatedDate:updatedDateCopy];
 
-  v49 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -751,34 +750,34 @@ LABEL_14:
 
 - (void)addPlatformLabel
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   labels = [(SHMediaLibraryTrack *)self labels];
-  v4 = [labels countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [labels countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(labels);
       }
 
-      if (![*(*(&v9 + 1) + 8 * v7) type])
+      if (![*(*(&v8 + 1) + 8 * v7) type])
       {
         break;
       }
 
       if (v5 == ++v7)
       {
-        v5 = [labels countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [labels countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -796,8 +795,6 @@ LABEL_9:
     labels = [(SHMediaLibraryTrack *)self platformLabel];
     [(SHMediaLibraryTrack *)self addLabel:labels];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLabel:(id)label

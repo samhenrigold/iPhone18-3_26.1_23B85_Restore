@@ -142,7 +142,7 @@
   fetchBundles = [(_GCConfigurationBundleLocator *)self->_configurationBundleLocator fetchBundles];
   if ([fetchBundles waitUntilFinished] == 1)
   {
-    result = _gc_log_devicedb();
+    result = _gc_log_devicedb(1);
     if (os_log_type_enabled(result, OS_LOG_TYPE_ERROR))
     {
       [(_GCGenericDeviceDB *)fetchBundles _onqueue_updateConfigurationBundles];
@@ -160,7 +160,7 @@
     if ((v8 & 1) == 0)
     {
       v9 = [[_GCDeviceOnDiskDB alloc] initWithBundles:result];
-      v10 = _gc_log_devicedb();
+      v10 = _gc_log_devicedb(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [(_GCGenericDeviceDB *)v9 _onqueue_updateConfigurationBundles];
@@ -193,30 +193,30 @@
 
 - (id)preparedModelForDevice:(id)device error:(id *)error
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   v7 = [(_GCGenericDeviceDB *)self modelForDevice:deviceCopy];
   if (v7)
   {
     elements = [deviceCopy elements];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__18;
-    v25 = __Block_byref_object_dispose__18;
-    v26 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__18;
+    v24 = __Block_byref_object_dispose__18;
+    v25 = 0;
     driver = [v7 driver];
     elements2 = [driver elements];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __51___GCGenericDeviceDB_preparedModelForDevice_error___block_invoke;
-    v18[3] = &unk_1E84155A0;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __51___GCGenericDeviceDB_preparedModelForDevice_error___block_invoke;
+    v17[3] = &unk_1E84155A0;
     v11 = elements;
-    v19 = v11;
-    v20 = &v21;
-    [elements2 enumerateObjectsUsingBlock:v18];
+    v18 = v11;
+    v19 = &v20;
+    [elements2 enumerateObjectsUsingBlock:v17];
 
-    v12 = v22[5];
+    v12 = v21[5];
     if (v12)
     {
       v13 = 0;
@@ -231,7 +231,7 @@
       v13 = v7;
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     goto LABEL_9;
   }
 
@@ -239,11 +239,11 @@
   {
     v14 = MEMORY[0x1E696ABC0];
     v15 = *MEMORY[0x1E696A588];
-    v27[0] = *MEMORY[0x1E696A578];
-    v27[1] = v15;
-    v28[0] = @"Error retrieving model for device.";
-    v28[1] = @"No compatible model found.";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[0] = *MEMORY[0x1E696A578];
+    v26[1] = v15;
+    v27[0] = @"Error retrieving model for device.";
+    v27[1] = @"No compatible model found.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     [(NSError *)v14 gc_deviceDBError:v11 userInfo:?];
     *error = v13 = 0;
 LABEL_9:
@@ -253,8 +253,6 @@ LABEL_9:
 
   v13 = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -307,13 +305,11 @@ LABEL_10:
 
 - (void)_onqueue_updateConfigurationBundles
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   error = [self error];
-  v5 = 138543362;
-  v6 = error;
-  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "[Config] Error fetching configuration bundles: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = error;
+  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "[Config] Error fetching configuration bundles: %{public}@", &v4, 0xCu);
 }
 
 @end

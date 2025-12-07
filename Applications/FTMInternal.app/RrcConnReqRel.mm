@@ -1,8 +1,11 @@
 @interface RrcConnReqRel
 - (BOOL)isEqual:(id)equal;
+- (id)connStageAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)establishCauseAsString:(int)string;
+- (id)releaseCauseAsString:(int)string;
 - (int)StringAsConnStage:(id)stage;
 - (int)StringAsEstablishCause:(id)cause;
 - (int)StringAsReleaseCause:(id)cause;
@@ -46,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)establishCauseAsString:(int)string
+{
+  if (string >= 0x17)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318AE8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishCause:(id)cause
@@ -187,6 +205,21 @@
   }
 }
 
+- (id)connStageAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318BA0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsConnStage:(id)stage
 {
   stageCopy = stage;
@@ -239,6 +272,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)releaseCauseAsString:(int)string
+{
+  if (string >= 0x18)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318BB8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsReleaseCause:(id)cause
@@ -494,7 +542,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    establishCause = self->_establishCause;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -514,7 +561,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  connStage = self->_connStage;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -529,12 +575,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  releaseCause = self->_releaseCause;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    counter = self->_counter;
     PBDataWriterWriteUint32Field();
   }
 

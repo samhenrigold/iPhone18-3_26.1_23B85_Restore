@@ -38,7 +38,7 @@
   static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100116A98(v7);
   (*(v5 + 8))(v7, v4);
-  sub_10009FAD4(0, &qword_10059D850);
+  sub_10009FAD4(0, &qword_10059D850, off_1005063D0);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -75,7 +75,7 @@
   sub_100113074(keyCopy, v11, onlyCopy);
 
   (*(v9 + 8))(v11, v8);
-  sub_10009FAD4(0, &qword_10059D850);
+  sub_10009FAD4(0, &qword_10059D850, off_1005063D0);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;

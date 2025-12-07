@@ -175,37 +175,34 @@ LABEL_6:
   }
 }
 
-void __81__WFFileStorageServiceResult_getResultWithFileURL_consumingBundleID_resultBlock___block_invoke(void *a1, void *a2)
+void __81__WFFileStorageServiceResult_getResultWithFileURL_consumingBundleID_resultBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = getWFActionsLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v5 = a1[4];
-      v9 = 136315651;
-      v10 = "+[WFFileStorageServiceResult getResultWithFileURL:consumingBundleID:resultBlock:]_block_invoke";
-      v11 = 2113;
-      v12 = v5;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_ERROR, "%s Couldn't modify filecoordinationd ACL for sandbox extending %{private}@: %{public}@", &v9, 0x20u);
+      v5 = *(a1 + 32);
+      v7 = 136315651;
+      v8 = "+[WFFileStorageServiceResult getResultWithFileURL:consumingBundleID:resultBlock:]_block_invoke";
+      v9 = 2113;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_impl(&dword_23DE30000, v4, OS_LOG_TYPE_ERROR, "%s Couldn't modify filecoordinationd ACL for sandbox extending %{private}@: %{public}@", &v7, 0x20u);
     }
 
-    v6 = *(a1[6] + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
   else
   {
-    v7 = a1[5];
-    v6 = *(a1[6] + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
   v6();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

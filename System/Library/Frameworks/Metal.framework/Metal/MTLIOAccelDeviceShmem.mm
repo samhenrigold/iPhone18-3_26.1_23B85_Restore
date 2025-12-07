@@ -30,15 +30,14 @@
   if (self->_shmemID)
   {
     [(MTLIOAccelDevice *)self->_device sharedRef];
-    shmemID = self->_shmemID;
     IOAccelSharedDestroyDeviceShmem();
     self->_shmemID = 0;
   }
 
   self->_device = 0;
-  v4.receiver = self;
-  v4.super_class = MTLIOAccelDeviceShmem;
-  [(MTLIOAccelDeviceShmem *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MTLIOAccelDeviceShmem;
+  [(MTLIOAccelDeviceShmem *)&v3 dealloc];
 }
 
 @end

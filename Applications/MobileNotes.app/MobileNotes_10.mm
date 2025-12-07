@@ -1,6 +1,147 @@
+void *sub_1001ECFF0(void *result, uint64_t a2)
+{
+  if (a2 < 5)
+  {
+    v2 = result[3] & 0xFFFFFFFFFFFFFF8;
+    v3 = result[4] & 0xFFFFFFFFFFFFFF8 | (a2 << 61);
+    result[1] &= 0xFFFFFFFFFFFFFF8uLL;
+    result[3] = v2;
+    result[4] = v3;
+  }
+
+  else
+  {
+    *result = (a2 - 5);
+    result[1] = 0;
+    result[2] = 0;
+    result[3] = 0;
+    result[4] = 0xA000000000000000;
+  }
+
+  return result;
+}
+
+uint64_t sub_1001ED04C()
+{
+  v0 = type metadata accessor for Logger();
+  sub_100025918(v0, qword_1006BFC38);
+  sub_10002597C(v0, qword_1006BFC38);
+  return static Logger.realtimeCollaboration.getter();
+}
+
+uint64_t sub_1001ED098()
+{
+  v1 = v0[1];
+  v2 = v0[4] >> 61;
+  if (v2 <= 2)
+  {
+    if (v2)
+    {
+      if (v2 == 1)
+      {
+        v3 = 0x28746E6573657270;
+      }
+
+      else
+      {
+        v3 = 0x28676E697661656CLL;
+      }
+    }
+
+    else
+    {
+      v3 = 0x676E697472617473;
+    }
+
+    v20 = v3;
+    ObjectType = swift_getObjectType();
+    v18._countAndFlagsBits = sub_1001ED31C(ObjectType, v1);
+    String.append(_:)(v18);
+
+    goto LABEL_12;
+  }
+
+  if (v2 == 3)
+  {
+    v8 = v0[3];
+    v20 = 0;
+    _StringGuts.grow(_:)(63);
+    v9._object = 0x8000000100564180;
+    v9._countAndFlagsBits = 0xD00000000000002ALL;
+    String.append(_:)(v9);
+    v10 = swift_getObjectType();
+    v11._countAndFlagsBits = sub_1001ED31C(v10, v1);
+    String.append(_:)(v11);
+
+    v12._countAndFlagsBits = 0x7473202020200A3BLL;
+    v12._object = 0xEF20676E69747261;
+    String.append(_:)(v12);
+    v13 = swift_getObjectType();
+    v14._countAndFlagsBits = sub_1001ED31C(v13, v8);
+    String.append(_:)(v14);
+
+    v15 = 10506;
+    v16 = 0xE200000000000000;
+LABEL_13:
+    String.append(_:)(*&v15);
+    return v20;
+  }
+
+  if (v2 == 4)
+  {
+    v20 = 0;
+    _StringGuts.grow(_:)(27);
+    v4._countAndFlagsBits = 0x46676E696E696F6ALL;
+    v4._object = 0xEE002864656C6961;
+    String.append(_:)(v4);
+    v5 = swift_getObjectType();
+    v6._countAndFlagsBits = sub_1001ED31C(v5, v1);
+    String.append(_:)(v6);
+
+    v7._countAndFlagsBits = 0x3D726F727265202CLL;
+    v7._object = 0xE800000000000000;
+    String.append(_:)(v7);
+    sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
+    _print_unlocked<A, B>(_:_:)();
+LABEL_12:
+    v15 = 41;
+    v16 = 0xE100000000000000;
+    goto LABEL_13;
+  }
+
+  return 1701602409;
+}
+
+uint64_t sub_1001ED31C(uint64_t a1, uint64_t a2)
+{
+  v3 = type metadata accessor for EditNoteActivity();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = 0;
+  v17 = 0xE000000000000000;
+  v7._countAndFlagsBits = 0x3D65746F6ELL;
+  v7._object = 0xE500000000000000;
+  String.append(_:)(v7);
+  dispatch thunk of GroupSessionProvider.activity.getter();
+  v8 = EditNoteActivity.noteID.getter();
+  v10 = v9;
+  (*(v4 + 8))(v6, v3);
+  v11._countAndFlagsBits = v8;
+  v11._object = v10;
+  String.append(_:)(v11);
+
+  v12._countAndFlagsBits = 0x3D6469202CLL;
+  v12._object = 0xE500000000000000;
+  String.append(_:)(v12);
+  v15 = v2;
+  _print_unlocked<A, B>(_:_:)();
+  return v16;
+}
+
 void sub_1001ED494(uint64_t a1)
 {
-  v3 = type metadata accessor for FastSyncStateMachine();
+  v3 = type metadata accessor for FastSyncStateMachine(0);
   v4 = *(v1 + *(v3 + 28));
   v5 = EditNoteActivity.noteID.getter();
   v7 = v6;
@@ -58,10 +199,10 @@ void sub_1001ED494(uint64_t a1)
 
 uint64_t sub_1001ED6E4(uint64_t a1, uint64_t a2)
 {
-  v7 = sub_10015DA04(&qword_1006C2170);
+  v7 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v7 - 8);
   v9 = &v44 - v8;
-  v10 = type metadata accessor for FastSyncStateMachine();
+  v10 = type metadata accessor for FastSyncStateMachine(0);
   v11 = v2 + v10[8];
   v12 = *(v11 + 16);
   v50 = *v11;
@@ -87,7 +228,7 @@ uint64_t sub_1001ED6E4(uint64_t a1, uint64_t a2)
     v4 = *(v2 + v10[6]);
     swift_unknownObjectRetain();
 
-    v26 = sub_1001EDBF8(v2, v2 + v25, v4);
+    v26 = sub_1001EDBF8(v2, (v2 + v25), v4);
     if (v3)
     {
 
@@ -136,7 +277,7 @@ LABEL_16:
     swift_unknownObjectRetain();
 
     swift_unknownObjectRelease();
-    v23 = sub_1001EDBF8(v2, v2 + *(v4 + 20), *(v2 + *(v4 + 24)));
+    v23 = sub_1001EDBF8(v2, (v2 + *(v4 + 20)), *(v2 + *(v4 + 24)));
     if (v3)
     {
       swift_unknownObjectRelease();
@@ -146,8 +287,8 @@ LABEL_16:
 
     v45 = v23;
     v46 = v24;
-    sub_10015DA04(&qword_1006BFD18);
-    sub_10015DA04(&unk_1006C9B40);
+    sub_10015DA04(&qword_1006BFD18, &qword_100539810);
+    sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
     v28 = v48;
     Task.cancel()();
     v29 = type metadata accessor for TaskPriority();
@@ -191,7 +332,7 @@ LABEL_16:
     v10 = v4;
   }
 
-  v16 = sub_1001EDBF8(v2, v2 + v10[5], *(v2 + v10[6]));
+  v16 = sub_1001EDBF8(v2, (v2 + v10[5]), *(v2 + v10[6]));
   if (!v3)
   {
     v18 = v16;
@@ -221,41 +362,41 @@ LABEL_16:
   return v4 & 1;
 }
 
-char *sub_1001EDBF8(uint64_t a1, uint64_t a2, uint64_t a3)
+char *sub_1001EDBF8(uint64_t a1, void *a2, uint64_t a3)
 {
-  v67 = a3;
-  v69 = a2;
+  v69 = a3;
+  v71 = a2;
   v4 = type metadata accessor for EditNoteActivity();
-  v68 = *(v4 - 8);
+  v70 = *(v4 - 8);
   v5 = __chkstk_darwin(v4);
-  v7 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v62 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
-  v9 = &v60 - v8;
-  v10 = sub_10015DA04(&qword_1006BFC50);
+  v9 = &v62 - v8;
+  v10 = sub_10015DA04(&qword_1006BFC50, &unk_100539650);
   __chkstk_darwin(v10 - 8);
-  v12 = &v60 - v11;
-  v13 = sub_10015DA04(&qword_1006BFCC8);
+  v12 = &v62 - v11;
+  v13 = sub_10015DA04(&qword_1006BFCC8, &unk_100543B10);
   v14 = *(v13 - 8);
   __chkstk_darwin(v13);
-  v16 = &v60 - v15;
+  v16 = &v62 - v15;
   EditNoteActivity.validate()();
   if (v17)
   {
     return v12;
   }
 
-  v63 = v9;
-  v64 = v16;
-  v18 = v68;
-  v65 = 0;
-  v66 = a1;
-  sub_100006038(v69, v12, &qword_1006BFC50);
+  v65 = v9;
+  v66 = v16;
+  v18 = v70;
+  v67 = 0;
+  v68 = a1;
+  sub_100006038(v71, v12, &qword_1006BFC50, &unk_100539650);
   if ((*(v14 + 48))(v12, 1, v13) == 1)
   {
-    sub_1000073B4(v12, &qword_1006BFC50);
+    sub_1000073B4(v12, &qword_1006BFC50, &unk_100539650);
     v19 = v7;
 LABEL_11:
-    v44 = v66;
+    v44 = v68;
     v45 = v4;
     v46 = v18;
     if (qword_1006BC5F0 != -1)
@@ -272,12 +413,12 @@ LABEL_11:
     {
       v50 = swift_slowAlloc();
       v51 = swift_slowAlloc();
-      v70 = v51;
+      v72 = v51;
       *v50 = 136315138;
       v52 = EditNoteActivity.noteID.getter();
       v54 = v53;
       (*(v46 + 8))(v19, v45);
-      v55 = sub_100009D88(v52, v54, &v70);
+      v55 = sub_100009D88(v52, v54, &v72);
 
       *(v50 + 4) = v55;
       _os_log_impl(&_mh_execute_header, v48, v49, "Making personal group session provider for activity %s", v50, 0xCu);
@@ -290,17 +431,19 @@ LABEL_11:
       (*(v46 + 8))(v19, v4);
     }
 
-    sub_10015DA04(&qword_1006BFD28);
+    sub_10015DA04(&qword_1006BFD28, &qword_1005398B0);
     v12 = static GroupSessionProvider<>.personalGroupSessionProvider(for:)();
     v56 = &unk_1006BFD30;
-    v57 = &qword_1006BFD28;
+    v57 = &protocol conformance descriptor for PersonalGroupSessionProvider<A>;
+    v58 = &qword_1006BFD28;
+    v59 = &qword_1005398B0;
     goto LABEL_17;
   }
 
   v20 = v14;
-  v21 = v64;
-  (*(v14 + 32))(v64, v12, v13);
-  sub_1000054A4(0, &qword_1006BFD38);
+  v21 = v66;
+  (*(v14 + 32))(v66, v12, v13);
+  sub_1000054A4(0, &qword_1006BFD38, CKShare_ptr);
   v22 = static NSObject<>.record(from:)();
   if (!v22)
   {
@@ -319,9 +462,9 @@ LABEL_11:
   sub_10002597C(v24, qword_1006BFC38);
   v25 = v18;
   v26 = *(v18 + 16);
-  v27 = v63;
+  v27 = v65;
   v28 = v4;
-  v26(v63, v66, v4);
+  v26(v65, v68, v4);
   v29 = v23;
   v30 = Logger.logObject.getter();
   v31 = static os_log_type_t.debug.getter();
@@ -329,16 +472,16 @@ LABEL_11:
   if (os_log_type_enabled(v30, v31))
   {
     v32 = swift_slowAlloc();
-    v69 = swift_slowAlloc();
-    v70 = v69;
+    v71 = swift_slowAlloc();
+    v72 = v71;
     *v32 = 136315394;
-    v62 = v31;
+    v64 = v31;
     v33 = EditNoteActivity.noteID.getter();
-    v61 = v30;
+    v63 = v30;
     v34 = v33;
     v36 = v35;
     (*(v25 + 8))(v27, v28);
-    v37 = sub_100009D88(v34, v36, &v70);
+    v37 = sub_100009D88(v34, v36, &v72);
 
     *(v32 + 4) = v37;
     *(v32 + 12) = 2080;
@@ -346,14 +489,14 @@ LABEL_11:
     v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v41 = v40;
 
-    v42 = sub_100009D88(v39, v41, &v70);
+    v42 = sub_100009D88(v39, v41, &v72);
 
     *(v32 + 14) = v42;
-    v43 = v61;
-    _os_log_impl(&_mh_execute_header, v61, v62, "Making shared group session provider for activity %s with share %s", v32, 0x16u);
+    v43 = v63;
+    _os_log_impl(&_mh_execute_header, v63, v64, "Making shared group session provider for activity %s with share %s", v32, 0x16u);
     swift_arrayDestroy();
 
-    v21 = v64;
+    v21 = v66;
   }
 
   else
@@ -362,18 +505,20 @@ LABEL_11:
     (*(v25 + 8))(v27, v28);
   }
 
-  sub_10015DA04(&qword_1006BFD40);
-  v59 = v65;
+  sub_10015DA04(&qword_1006BFD40, &qword_1005398B8);
+  v61 = v67;
   v12 = static GroupSessionProvider<>.sharedGroupSessionProvider(for:share:container:)();
   (*(v20 + 8))(v21, v13);
 
-  if (!v59)
+  if (!v61)
   {
-    v65 = 0;
+    v67 = 0;
     v56 = &unk_1006BFD48;
-    v57 = &qword_1006BFD40;
+    v58 = &qword_1006BFD40;
+    v59 = &qword_1005398B8;
+    v57 = &protocol conformance descriptor for CKShareGroupSessionProvider<A>;
 LABEL_17:
-    sub_1000060B4(v56, v57);
+    sub_1000060B4(v56, v58, v59, v57);
   }
 
   return v12;
@@ -388,12 +533,12 @@ uint64_t sub_1001EE310(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v8[2] = a1;
   v8[7] = type metadata accessor for FastSync.PresenceAction(0);
   v8[8] = swift_task_alloc();
-  v9 = swift_task_alloc();
-  v8[9] = v9;
-  *v9 = v8;
-  v9[1] = sub_1001EE3F0;
+  v10 = swift_task_alloc();
+  v8[9] = v10;
+  *v10 = v8;
+  v10[1] = sub_1001EE3F0;
 
-  return Task<>.value.getter();
+  return Task<>.value.getter(v10, a4, &type metadata for () + 1);
 }
 
 uint64_t sub_1001EE3F0()
@@ -458,8 +603,8 @@ uint64_t sub_1001EE800(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v8[17] = swift_task_alloc();
   v11 = swift_task_alloc();
   v8[18] = v11;
-  v12 = sub_10015DA04(&qword_1006BFD18);
-  v13 = sub_10015DA04(&unk_1006C9B40);
+  v12 = sub_10015DA04(&qword_1006BFD18, &qword_100539810);
+  v13 = sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
   *v11 = v8;
   v11[1] = sub_1001EE994;
 
@@ -599,7 +744,7 @@ void sub_1001EF3F0(uint64_t a1, uint64_t a2, uint64_t a3)
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = (v3 + *(type metadata accessor for FastSyncStateMachine() + 32));
+  v10 = (v3 + *(type metadata accessor for FastSyncStateMachine(0) + 32));
   v11 = v10[1];
   v31 = *v10;
   v32 = v11;
@@ -699,38 +844,38 @@ LABEL_11:
   }
 }
 
-void sub_1001EF794(uint64_t a1, uint64_t a2)
+void sub_1001EF794(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = type metadata accessor for EditNoteActivity();
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = (v2 + *(type metadata accessor for FastSyncStateMachine() + 32));
-  v26 = *(v9 + 4);
-  v10 = v9[1];
-  v24 = *v9;
-  v25 = v10;
-  v11 = v24;
-  v12 = 1 << (v26 >> 61);
-  if ((v12 & 0x26) != 0)
+  v6 = type metadata accessor for EditNoteActivity();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = (v3 + *(type metadata accessor for FastSyncStateMachine(0) + 32));
+  v27 = *(v10 + 4);
+  v11 = v10[1];
+  v25 = *v10;
+  v26 = v11;
+  v12 = v25;
+  v13 = 1 << (v27 >> 61);
+  if ((v13 & 0x26) != 0)
   {
     goto LABEL_5;
   }
 
-  if ((v12 & 0x11) == 0)
+  if ((v13 & 0x11) == 0)
   {
-    v11 = v25;
+    v12 = v26;
   }
 
-  if (v11 == a2)
+  if (v12 == a2)
   {
-    *v9 = v11;
-    *(v9 + 2) = a1;
-    *(v9 + 24) = xmmword_100539610;
+    *v10 = v12;
+    *(v10 + 2) = a1;
+    *(v10 + 24) = xmmword_100539610;
     swift_unknownObjectRetain();
 
-    sub_1001ED494(&v24);
-    sub_1001F2554(&v24);
+    sub_1001ED494(&v25);
+    sub_1001F2554(&v25);
   }
 
   else
@@ -741,44 +886,44 @@ LABEL_5:
       swift_once();
     }
 
-    v13 = type metadata accessor for Logger();
-    sub_10002597C(v13, qword_1006BFC38);
+    v14 = type metadata accessor for Logger();
+    sub_10002597C(v14, qword_1006BFC38);
     swift_unknownObjectRetain();
-    v22 = Logger.logObject.getter();
-    v14 = static os_log_type_t.error.getter();
+    v23 = Logger.logObject.getter();
+    v15 = static os_log_type_t.error.getter();
     swift_unknownObjectRelease();
-    if (os_log_type_enabled(v22, v14))
+    if (os_log_type_enabled(v23, v15))
     {
-      v15 = swift_slowAlloc();
       v16 = swift_slowAlloc();
-      v23 = v16;
-      *v15 = 136315138;
+      v17 = swift_slowAlloc();
+      v24 = v17;
+      *v16 = 136315138;
       swift_getObjectType();
       dispatch thunk of GroupSessionProvider.activity.getter();
       sub_1001F24FC();
-      v17 = dispatch thunk of CustomStringConvertible.description.getter();
-      v19 = v18;
-      (*(v6 + 8))(v8, v5);
-      v20 = sub_100009D88(v17, v19, &v23);
+      v18 = dispatch thunk of CustomStringConvertible.description.getter();
+      v20 = v19;
+      (*(v7 + 8))(v9, v6);
+      v21 = sub_100009D88(v18, v20, &v24);
 
-      *(v15 + 4) = v20;
-      _os_log_impl(&_mh_execute_header, v22, v14, "Ignoring didStartActivity() for a group session provider we've stopped tracking (%s)", v15, 0xCu);
-      sub_100009F60(v16);
+      *(v16 + 4) = v21;
+      _os_log_impl(&_mh_execute_header, v23, v15, "Ignoring didStartActivity() for a group session provider we've stopped tracking (%s)", v16, 0xCu);
+      sub_100009F60(v17);
     }
 
     else
     {
-      v21 = v22;
+      v22 = v23;
     }
   }
 }
 
 uint64_t sub_1001EFA84(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = sub_10015DA04(&qword_1006C2170);
+  v7 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v7 - 8);
   v9 = &v22 - v8;
-  v10 = (v3 + *(type metadata accessor for FastSyncStateMachine() + 32));
+  v10 = (v3 + *(type metadata accessor for FastSyncStateMachine(0) + 32));
   v11 = v10[1];
   v24 = *v10;
   v25 = v11;
@@ -815,10 +960,10 @@ uint64_t sub_1001EFA84(uint64_t a1, uint64_t a2, uint64_t a3)
     v12 = v13;
     v13 = v22;
 LABEL_11:
-    sub_10015DA04(&qword_1006BFD18);
-    sub_10015DA04(&unk_1006C9B40);
+    sub_10015DA04(&qword_1006BFD18, &qword_100539810);
+    sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
     Task.cancel()();
-    sub_100006038(a1, v9, &qword_1006C2170);
+    sub_100006038(a1, v9, &qword_1006C2170, &unk_100538AA0);
     v20 = swift_allocObject();
     v20[2] = 0;
     v20[3] = 0;
@@ -852,7 +997,7 @@ LABEL_12:
     swift_unknownObjectRetain();
 
     Task.cancel()();
-    sub_100006038(a1, v9, &qword_1006C2170);
+    sub_100006038(a1, v9, &qword_1006C2170, &unk_100538AA0);
     v16 = swift_allocObject();
     v16[2] = 0;
     v16[3] = 0;
@@ -1050,8 +1195,8 @@ uint64_t sub_1001F0738(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v8[10] = swift_task_alloc();
   v10 = swift_task_alloc();
   v8[11] = v10;
-  v11 = sub_10015DA04(&qword_1006BFD18);
-  v12 = sub_10015DA04(&unk_1006C9B40);
+  v11 = sub_10015DA04(&qword_1006BFD18, &qword_100539810);
+  v12 = sub_10015DA04(&unk_1006C9B40, &unk_1005397F0);
   *v10 = v8;
   v10[1] = sub_1001F0854;
 
@@ -1112,7 +1257,7 @@ uint64_t sub_1001F0BB0()
 
 void sub_1001F0C3C()
 {
-  v1 = (v0 + *(type metadata accessor for FastSyncStateMachine() + 32));
+  v1 = (v0 + *(type metadata accessor for FastSyncStateMachine(0) + 32));
   v2 = *(v1 + 4);
   v18 = v2;
   v3 = v1[1];
@@ -1121,7 +1266,7 @@ void sub_1001F0C3C()
   if (v2 >> 62 == 1)
   {
     v4 = swift_unknownObjectRetain();
-    if (FastSync.LeaveActivityAction.isRelatedTo(_:)(v4))
+    if (FastSync.LeaveActivityAction.isRelatedTo(_:)(v4, *(&v16 + 1)))
     {
       if ((~v2 & 0x6000000000000000) != 0)
       {
@@ -1191,10 +1336,10 @@ void sub_1001F0C3C()
 
 uint64_t sub_1001F0EB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = sub_10015DA04(&qword_1006C2170);
+  v9 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v9 - 8);
   v11 = &v25 - v10;
-  v12 = type metadata accessor for FastSyncStateMachine();
+  v12 = type metadata accessor for FastSyncStateMachine(0);
   v13 = (v4 + *(v12 + 32));
   v14 = v13[2].u64[0];
   v15 = v14 >> 61;
@@ -1221,7 +1366,7 @@ uint64_t sub_1001F0EB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
       sub_1001EFA84(v11, &unk_100539878, v24);
 
-      sub_1000073B4(v11, &qword_1006C2170);
+      sub_1000073B4(v11, &qword_1006C2170, &unk_100538AA0);
     }
 
 LABEL_6:
@@ -1253,7 +1398,7 @@ LABEL_6:
 
 uint64_t sub_1001F1114(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DA04(&qword_1006BFC50);
+  v4 = sub_10015DA04(&qword_1006BFC50, &unk_100539650);
   v5 = __chkstk_darwin(v4 - 8);
   v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -1276,13 +1421,13 @@ LABEL_17:
     }
   }
 
-  sub_100006038(a2, v9, &qword_1006BFC50);
-  v15 = sub_10015DA04(&qword_1006BFCC8);
+  sub_100006038(a2, v9, &qword_1006BFC50, &unk_100539650);
+  v15 = sub_10015DA04(&qword_1006BFCC8, &unk_100543B10);
   v16 = *(v15 - 8);
   v17 = *(v16 + 48);
   if (v17(v9, 1, v15) == 1)
   {
-    sub_1000073B4(v9, &qword_1006BFC50);
+    sub_1000073B4(v9, &qword_1006BFC50, &unk_100539650);
     v18 = 0;
   }
 
@@ -1292,11 +1437,11 @@ LABEL_17:
     (*(v16 + 8))(v9, v15);
   }
 
-  v19 = type metadata accessor for FastSyncStateMachine();
-  sub_100006038(v2 + *(v19 + 20), v7, &qword_1006BFC50);
+  v19 = type metadata accessor for FastSyncStateMachine(0);
+  sub_100006038(v2 + *(v19 + 20), v7, &qword_1006BFC50, &unk_100539650);
   if (v17(v7, 1, v15) == 1)
   {
-    sub_1000073B4(v7, &qword_1006BFC50);
+    sub_1000073B4(v7, &qword_1006BFC50, &unk_100539650);
     if (!v18)
     {
       goto LABEL_18;
@@ -1326,7 +1471,7 @@ LABEL_18:
     goto LABEL_14;
   }
 
-  sub_1000054A4(0, &qword_1006C8870);
+  sub_1000054A4(0, &qword_1006C8870, CKRecordID_ptr);
   v21 = static NSObject.== infix(_:_:)();
 
   v22 = v21 ^ 1;
@@ -1458,7 +1603,7 @@ uint64_t sub_1001F1B38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v5[3] = a2;
   v5[4] = a3;
   v5[2] = a1;
-  sub_10015DA04(&qword_1006C2170);
+  sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   v5[7] = swift_task_alloc();
 
   return _swift_task_switch(sub_1001F1BDC, 0, 0);
@@ -1479,7 +1624,7 @@ uint64_t sub_1001F1BDC()
   v7[4] = v3;
 
   sub_10033AA00(v1, &unk_100539840, v7);
-  sub_1000073B4(v1, &qword_1006C2170);
+  sub_1000073B4(v1, &qword_1006C2170, &unk_100538AA0);
   v6(v1, 1, 1, v5);
   v8 = swift_allocObject();
   v8[2] = 0;
@@ -1487,10 +1632,10 @@ uint64_t sub_1001F1BDC()
   v8[4] = v4;
   v8[5] = v2;
   sub_10033AA00(v1, &unk_100539850, v8);
-  sub_1000073B4(v1, &qword_1006C2170);
+  sub_1000073B4(v1, &qword_1006C2170, &unk_100538AA0);
   v9 = swift_task_alloc();
   v0[8] = v9;
-  v10 = sub_10015DA04(&qword_1006BFD20);
+  v10 = sub_10015DA04(&qword_1006BFD20, &qword_100539858);
   *v9 = v0;
   v9[1] = sub_1001F1DD8;
 
@@ -1524,15 +1669,15 @@ uint64_t sub_1001F1ED4()
   return result;
 }
 
-uint64_t sub_1001F1F68(uint64_t a1)
+uint64_t sub_1001F1F68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  *(v1 + 16) = a1;
-  v2 = swift_task_alloc();
-  *(v1 + 24) = v2;
-  *v2 = v1;
-  v2[1] = sub_1001F2010;
+  *(v4 + 16) = a1;
+  v6 = swift_task_alloc();
+  *(v4 + 24) = v6;
+  *v6 = v4;
+  v6[1] = sub_1001F2010;
 
-  return Task<>.value.getter();
+  return Task<>.value.getter(v6, a4, &type metadata for () + 1);
 }
 
 uint64_t sub_1001F2010()
@@ -1694,12 +1839,15 @@ uint64_t sub_1001F278C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1001F2858(uint64_t a1)
 {
-  v3 = swift_task_alloc();
-  *(v1 + 16) = v3;
-  *v3 = v1;
-  v3[1] = sub_10000A1FC;
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = sub_10000A1FC;
 
-  return sub_1001F1F68(a1);
+  return sub_1001F1F68(a1, v4, v5, v6);
 }
 
 uint64_t sub_1001F290C(uint64_t a1)
@@ -1718,7 +1866,7 @@ uint64_t sub_1001F290C(uint64_t a1)
 
 uint64_t sub_1001F29CC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015DA04(&qword_1006BFC50);
+  v4 = sub_10015DA04(&qword_1006BFC50, &unk_100539650);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -1828,32 +1976,32 @@ uint64_t sub_1001F2ED8(uint64_t a1)
 
 void sub_1001F303C(void *a1, void *a2, char a3, int a4, int a5, void *a6, void *a7, char *a8)
 {
-  v143 = a2;
-  v141 = a4;
-  v14 = sub_10015DA04(&qword_1006BEF28);
+  v144 = a2;
+  v142 = a4;
+  v14 = sub_10015DA04(&qword_1006BEF28, &unk_100537260);
   __chkstk_darwin(v14 - 8);
-  v16 = &v125 - v15;
-  v17 = sub_10015DA04(&unk_1006BFEA0);
+  v16 = &v126 - v15;
+  v17 = sub_10015DA04(&unk_1006BFEA0, &unk_100539BC0);
   v18 = __chkstk_darwin(v17 - 8);
-  v20 = &v125 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v126 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v18);
-  v22 = &v125 - v21;
+  v22 = &v126 - v21;
   if (a1 && a7 && a8)
   {
-    LODWORD(v137) = a5;
-    v139 = a8;
+    LODWORD(v138) = a5;
+    v140 = a8;
     v23 = a8;
     v24 = a7;
-    v140 = a1;
-    [v140 setCurrentNoteContainerViewMode:v143];
-    v25 = [v140 selectionState];
+    v141 = a1;
+    [v141 setCurrentNoteContainerViewMode:v144];
+    v25 = [v141 selectionState];
     if (v25)
     {
-      v138 = v24;
-      v132 = a6;
-      v134 = v22;
-      v135 = v16;
-      v136 = v20;
+      v139 = v24;
+      v133 = a6;
+      v135 = v22;
+      v136 = v16;
+      v137 = v20;
       v26 = v25;
       v27 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
       v29 = v28;
@@ -1863,108 +2011,109 @@ void sub_1001F303C(void *a1, void *a2, char a3, int a4, int a5, void *a6, void *
       JSONDecoder.init()();
       v30 = v29;
       v31 = v27;
-      v32 = sub_10015DA04(&qword_1006C42D0);
-      sub_1000060B4(&unk_1006BFF00, &qword_1006C42D0);
+      v32 = sub_10015DA04(&qword_1006C42D0, &qword_1005433B0);
+      sub_1000060B4(&unk_1006BFF00, &qword_1006C42D0, &qword_1005433B0, &protocol conformance descriptor for ICNavigableQueue<A>);
       v33 = 0;
       dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-      v131 = v31;
-      v125 = v32;
-      v128 = v30;
+      v132 = v31;
+      v126 = v32;
+      v129 = v30;
 
-      *&v158[32] = v154;
-      *&v158[48] = v155;
-      *&v158[64] = v156;
-      *&v158[80] = v157;
-      *v158 = v152;
-      *&v158[16] = v153;
+      *&v159[32] = v155;
+      *&v159[48] = v156;
+      *&v159[64] = v157;
+      *&v159[80] = v158;
+      *v159 = v153;
+      *&v159[16] = v154;
       v35 = swift_allocObject();
       *(v35 + 16) = a3 & 1;
       v36 = swift_allocObject();
-      *(v36 + 16) = v137 & 1;
-      v137 = sub_1001F7644;
-      *&v162 = sub_1001F7644;
-      *(&v162 + 1) = v35;
-      v133 = sub_1001F2850;
-      *&v163 = sub_1001F2850;
-      *(&v163 + 1) = v36;
-      *&v164 = a7;
-      *(&v164 + 1) = v139;
-      v165 = 0u;
+      *(v36 + 16) = v138 & 1;
+      v138 = sub_1001F7644;
+      *&v163 = sub_1001F7644;
+      *(&v163 + 1) = v35;
+      v134 = sub_1001F2850;
+      *&v164 = sub_1001F2850;
+      *(&v164 + 1) = v36;
+      *&v165 = a7;
+      *(&v165 + 1) = v140;
       v166 = 0u;
+      v167 = 0u;
       v37 = swift_allocObject();
-      *(v37 + 16) = v142;
-      v38 = v162;
-      *(v37 + 40) = v163;
-      v39 = v165;
-      *(v37 + 56) = v164;
+      *(v37 + 16) = v143;
+      v38 = v163;
+      *(v37 + 40) = v164;
+      v39 = v166;
+      *(v37 + 56) = v165;
       *(v37 + 72) = v39;
-      *(v37 + 88) = v166;
+      *(v37 + 88) = v167;
       *(v37 + 24) = v38;
       v40 = swift_allocObject();
       *(v40 + 16) = sub_1001F7580;
       *(v40 + 24) = v37;
-      v41 = *&v158[24];
-      v130 = *&v158[32];
-      *&v158[24] = sub_100010890;
-      *&v158[32] = v40;
+      v41 = *&v159[24];
+      v131 = *&v159[32];
+      *&v159[24] = sub_100010890;
+      *&v159[32] = v40;
       v42 = v23;
-      v43 = v138;
-      v138 = v42;
+      v43 = v139;
+      v139 = v42;
       v44 = v43;
 
-      sub_10000C840(v41);
-      v45 = *&v158[40];
-      *&v158[40] = sub_1001F44C0;
-      *&v158[48] = 0;
-      v46 = sub_10000C840(v45);
-      v126 = &v158[8];
-      *&v151[24] = *&v158[24];
-      *&v151[40] = *&v158[40];
-      *&v151[56] = *&v158[56];
-      *&v151[72] = *&v158[72];
-      *&v151[8] = *&v158[8];
-      *v151 = *v158;
-      __chkstk_darwin(v46);
-      *(&v125 - 2) = v151;
-      v47 = type metadata accessor for ICSelectionStateModel(0);
+      sub_10000C840(v41, v131);
+      v45 = *&v159[40];
+      v46 = *&v159[48];
+      *&v159[40] = sub_1001F44C0;
+      *&v159[48] = 0;
+      v47 = sub_10000C840(v45, v46);
+      v127 = &v159[8];
+      *&v152[24] = *&v159[24];
+      *&v152[40] = *&v159[40];
+      *&v152[56] = *&v159[56];
+      *&v152[72] = *&v159[72];
+      *&v152[8] = *&v159[8];
+      *v152 = *v159;
+      __chkstk_darwin(v47);
+      *(&v126 - 2) = v152;
+      v48 = type metadata accessor for ICSelectionStateModel(0);
       OS_dispatch_queue.sync<A>(execute:)();
-      v48 = *v150;
-      v159[0] = v137;
-      v159[1] = v35;
-      v159[2] = v133;
-      v159[3] = v36;
-      v159[4] = a7;
-      v159[5] = v139;
-      v160 = 0u;
+      v49 = *v151;
+      v160[0] = v138;
+      v160[1] = v35;
+      v160[2] = v134;
+      v160[3] = v36;
+      v160[4] = a7;
+      v160[5] = v140;
       v161 = 0u;
-      v137 = v138;
-      v138 = v44;
+      v162 = 0u;
+      v138 = v139;
+      v139 = v44;
 
-      v133 = v36;
+      v134 = v36;
 
-      sub_1000108C4(v48, 0, v159);
-      v127 = v47;
-      v49 = [objc_allocWithZone(v47) init];
-      v50 = v49;
-      v129 = v35;
-      v130 = v48;
-      v139 = v49;
-      if (v143)
+      sub_1000108C4(v49, 0, v160);
+      v128 = v48;
+      v50 = [objc_allocWithZone(v48) init];
+      v51 = v50;
+      v130 = v35;
+      v131 = v49;
+      v140 = v50;
+      if (v144)
       {
-        if (v143 == 1)
+        if (v144 == 1)
         {
 
-          if (v48[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_selectionReason] == 1)
+          if (v49[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_selectionReason] == 1)
           {
-            v51 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
+            v52 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
             swift_beginAccess();
-            v52 = v134;
-            sub_100006038(&v48[v51], v134, &unk_1006BFEA0);
-            v53 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
+            v53 = v135;
+            sub_100006038(&v49[v52], v135, &unk_1006BFEA0, &unk_100539BC0);
+            v54 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
             swift_beginAccess();
-            v54 = &v139[v53];
-            v50 = v139;
-            sub_10000A49C(v52, v54, &unk_1006BFEA0);
+            v55 = &v140[v54];
+            v51 = v140;
+            sub_10000A49C(v53, v55, &unk_1006BFEA0, &unk_100539BC0);
             swift_endAccess();
           }
         }
@@ -1977,8 +2126,8 @@ LABEL_50:
         if (sub_1000167F8())
         {
           objc_opt_self();
-          v90 = swift_dynamicCastObjCClass();
-          if (v90)
+          v91 = swift_dynamicCastObjCClass();
+          if (v91)
           {
             goto LABEL_57;
           }
@@ -1989,8 +2138,8 @@ LABEL_50:
         if (sub_1000167F8())
         {
           objc_opt_self();
-          v90 = swift_dynamicCastObjCClass();
-          if (v90)
+          v91 = swift_dynamicCastObjCClass();
+          if (v91)
           {
             goto LABEL_57;
           }
@@ -1998,107 +2147,107 @@ LABEL_50:
           swift_unknownObjectRelease();
         }
 
-        v90 = sub_100016590();
+        v91 = sub_100016590();
 LABEL_57:
-        v91 = v90;
-        sub_10000FE7C(v90, 0);
+        v92 = v91;
+        sub_10000FE7C(v91, 0);
 
-        v92 = *&v48[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID];
-        v93 = *&v50[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID];
-        *&v50[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID] = v92;
-        v94 = v92;
+        v93 = *&v49[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID];
+        v94 = *&v51[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID];
+        *&v51[OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_focusedNoteObjectID] = v93;
+        v95 = v93;
 
-        v95 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
+        v96 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
         swift_beginAccess();
-        v96 = v136;
-        sub_100006038(&v139[v95], v136, &unk_1006BFEA0);
-        v97 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
-        LODWORD(v95) = (*(*(v97 - 8) + 48))(v96, 1, v97);
-        v98 = sub_1000073B4(v96, &unk_1006BFEA0);
-        v99 = v95 == 1;
-        v100 = v139;
-        if (v99)
+        v97 = v137;
+        sub_100006038(&v140[v96], v137, &unk_1006BFEA0, &unk_100539BC0);
+        v98 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
+        LODWORD(v96) = (*(*(v98 - 8) + 48))(v97, 1, v98);
+        v99 = sub_1000073B4(v97, &unk_1006BFEA0, &unk_100539BC0);
+        v100 = v96 == 1;
+        v101 = v140;
+        if (v100)
         {
-          v101 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_containerSelection;
+          v102 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_containerSelection;
           swift_beginAccess();
-          v102 = v135;
-          sub_100006038(v100 + v101, v135, &qword_1006BEF28);
-          v103 = type metadata accessor for ICSelectionStateModel.ContainerSelection(0);
-          if ((*(*(v103 - 8) + 48))(v102, 1, v103) == 1)
+          v103 = v136;
+          sub_100006038(v101 + v102, v136, &qword_1006BEF28, &unk_100537260);
+          v104 = type metadata accessor for ICSelectionStateModel.ContainerSelection(0);
+          if ((*(*(v104 - 8) + 48))(v103, 1, v104) == 1)
           {
 
-            v104 = v137;
             v105 = v138;
+            v106 = v139;
 
-            sub_10019671C(v131, v128);
+            sub_10019671C(v132, v129);
 
-            sub_1000073B4(v102, &qword_1006BEF28);
-            *&v151[32] = *&v158[32];
-            *&v151[48] = *&v158[48];
-            *&v151[64] = *&v158[64];
-            *&v151[80] = *&v158[80];
-            *v151 = *v158;
-            *&v151[16] = *&v158[16];
-            v106 = v151;
+            sub_1000073B4(v103, &qword_1006BEF28, &unk_100537260);
+            *&v152[32] = *&v159[32];
+            *&v152[48] = *&v159[48];
+            *&v152[64] = *&v159[64];
+            *&v152[80] = *&v159[80];
+            *v152 = *v159;
+            *&v152[16] = *&v159[16];
+            v107 = v152;
 LABEL_68:
-            sub_1000073B4(v106, &qword_1006C42D0);
+            sub_1000073B4(v107, &qword_1006C42D0, &qword_1005433B0);
             return;
           }
 
-          v98 = sub_1000073B4(v102, &qword_1006BEF28);
+          v99 = sub_1000073B4(v103, &qword_1006BEF28, &unk_100537260);
         }
 
-        v107 = *v126;
-        *&v151[24] = v126[1];
-        v108 = v126[3];
-        *&v151[40] = v126[2];
-        *&v151[56] = v108;
-        *&v151[72] = v126[4];
-        *&v151[8] = v107;
-        *v151 = *v158;
-        __chkstk_darwin(v98);
-        *(&v125 - 2) = v151;
+        v108 = *v127;
+        *&v152[24] = v127[1];
+        v109 = v127[3];
+        *&v152[40] = v127[2];
+        *&v152[56] = v109;
+        *&v152[72] = v127[4];
+        *&v152[8] = v108;
+        *v152 = *v159;
+        __chkstk_darwin(v99);
+        *(&v126 - 2) = v152;
         OS_dispatch_queue.sync<A>(execute:)();
-        v109 = *v150;
-        sub_1000108C4(*v150, 0, v159);
-        sub_1000108C4(v100, 0, v159);
+        v110 = *v151;
+        sub_1000108C4(*v151, 0, v160);
+        sub_1000108C4(v101, 0, v160);
 
-        v110 = static NSObject.== infix(_:_:)();
-        v111 = v131;
-        if ((v110 & 1) == 0)
+        v111 = static NSObject.== infix(_:_:)();
+        v112 = v132;
+        if ((v111 & 1) == 0)
         {
-          v143 = v109;
-          v112 = *v158;
-          v113 = swift_allocObject();
-          *(v113 + 16) = 0;
-          v142 = 0;
-          v114 = v139;
-          *(v113 + 24) = v158;
-          *(v113 + 32) = v114;
-          *(v113 + 40) = 1;
-          v115 = swift_allocObject();
-          *(v115 + 16) = sub_100010864;
-          *(v115 + 24) = v113;
-          *&v151[32] = sub_10000EFBC;
-          *&v151[40] = v115;
-          *v151 = _NSConcreteStackBlock;
-          *&v151[8] = 1107296256;
-          *&v151[16] = sub_10000EAF8;
-          *&v151[24] = &unk_100650DC8;
-          v116 = _Block_copy(v151);
-          v117 = v112;
-          v118 = v114;
+          v144 = v110;
+          v113 = *v159;
+          v114 = swift_allocObject();
+          *(v114 + 16) = 0;
+          v143 = 0;
+          v115 = v140;
+          *(v114 + 24) = v159;
+          *(v114 + 32) = v115;
+          *(v114 + 40) = 1;
+          v116 = swift_allocObject();
+          *(v116 + 16) = sub_100010864;
+          *(v116 + 24) = v114;
+          *&v152[32] = sub_10000EFBC;
+          *&v152[40] = v116;
+          *v152 = _NSConcreteStackBlock;
+          *&v152[8] = 1107296256;
+          *&v152[16] = sub_10000EAF8;
+          *&v152[24] = &unk_100650DC8;
+          v117 = _Block_copy(v152);
+          v118 = v113;
+          v119 = v115;
 
-          v33 = v142;
+          v33 = v143;
 
-          dispatch_sync(v117, v116);
+          dispatch_sync(v118, v117);
 
-          v109 = v143;
-          v111 = v131;
-          _Block_release(v116);
-          LOBYTE(v116) = swift_isEscapingClosureAtFileLocation();
+          v110 = v144;
+          v112 = v132;
+          _Block_release(v117);
+          LOBYTE(v117) = swift_isEscapingClosureAtFileLocation();
 
-          if (v116)
+          if (v117)
           {
             __break(1u);
             return;
@@ -2108,133 +2257,133 @@ LABEL_68:
         type metadata accessor for JSONEncoder();
         swift_allocObject();
         JSONEncoder.init()();
-        *&v151[32] = *&v158[32];
-        *&v151[48] = *&v158[48];
-        *&v151[64] = *&v158[64];
-        *&v151[80] = *&v158[80];
-        *v151 = *v158;
-        *&v151[16] = *&v158[16];
-        *&v150[48] = *&v158[48];
-        *&v150[64] = *&v158[64];
-        *&v150[80] = *&v158[80];
-        *v150 = *v158;
-        *&v150[16] = *&v158[16];
-        *&v150[32] = *&v158[32];
-        sub_100006038(v151, &v144, &qword_1006C42D0);
-        sub_1000060B4(&unk_1006C43B0, &qword_1006C42D0);
-        v119 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+        *&v152[32] = *&v159[32];
+        *&v152[48] = *&v159[48];
+        *&v152[64] = *&v159[64];
+        *&v152[80] = *&v159[80];
+        *v152 = *v159;
+        *&v152[16] = *&v159[16];
+        *&v151[48] = *&v159[48];
+        *&v151[64] = *&v159[64];
+        *&v151[80] = *&v159[80];
+        *v151 = *v159;
+        *&v151[16] = *&v159[16];
+        *&v151[32] = *&v159[32];
+        sub_100006038(v152, &v145, &qword_1006C42D0, &qword_1005433B0);
+        sub_1000060B4(&unk_1006C43B0, &qword_1006C42D0, &qword_1005433B0, &protocol conformance descriptor for ICNavigableQueue<A>);
+        v120 = dispatch thunk of JSONEncoder.encode<A>(_:)();
         if (v33)
         {
 
-          v146 = *&v150[32];
-          v147 = *&v150[48];
-          v148 = *&v150[64];
-          v149 = *&v150[80];
-          v144 = *v150;
-          v145 = *&v150[16];
-          sub_1000073B4(&v144, &qword_1006C42D0);
+          v147 = *&v151[32];
+          v148 = *&v151[48];
+          v149 = *&v151[64];
+          v150 = *&v151[80];
+          v145 = *v151;
+          v146 = *&v151[16];
+          sub_1000073B4(&v145, &qword_1006C42D0, &qword_1005433B0);
           isa = 0;
         }
 
         else
         {
-          v146 = *&v150[32];
-          v147 = *&v150[48];
-          v148 = *&v150[64];
-          v149 = *&v150[80];
-          v144 = *v150;
-          v145 = *&v150[16];
-          v122 = v119;
+          v147 = *&v151[32];
+          v148 = *&v151[48];
+          v149 = *&v151[64];
+          v150 = *&v151[80];
+          v145 = *v151;
+          v146 = *&v151[16];
           v123 = v120;
-          sub_1000073B4(&v144, &qword_1006C42D0);
+          v124 = v121;
+          sub_1000073B4(&v145, &qword_1006C42D0, &qword_1005433B0);
 
           isa = Data._bridgeToObjectiveC()().super.isa;
-          sub_10019671C(v122, v123);
+          sub_10019671C(v123, v124);
         }
 
-        v124 = v130;
-        [v140 setSelectionState:isa];
+        v125 = v131;
+        [v141 setSelectionState:isa];
 
-        sub_10019671C(v111, v128);
+        sub_10019671C(v112, v129);
 
-        *&v150[48] = *&v158[48];
-        *&v150[64] = *&v158[64];
-        *&v150[80] = *&v158[80];
-        *v150 = *v158;
-        *&v150[16] = *&v158[16];
-        *&v150[32] = *&v158[32];
-        v106 = v150;
+        *&v151[48] = *&v159[48];
+        *&v151[64] = *&v159[64];
+        *&v151[80] = *&v159[80];
+        *v151 = *v159;
+        *&v151[16] = *&v159[16];
+        *&v151[32] = *&v159[32];
+        v107 = v151;
         goto LABEL_68;
       }
 
-      if ((v141 & 1) == 0)
+      if ((v142 & 1) == 0)
       {
 
 LABEL_49:
-        [v140 setIsSupplementaryContentVisible:1];
+        [v141 setIsSupplementaryContentVisible:1];
         goto LABEL_50;
       }
 
-      *&v151[32] = *&v158[32];
-      *&v151[48] = *&v158[48];
-      *&v151[64] = *&v158[64];
-      *&v151[80] = *&v158[80];
-      *v151 = *v158;
-      *&v151[16] = *&v158[16];
-      v55 = __chkstk_darwin(v49);
-      v56 = *&v151[32];
-      *&v150[48] = *&v151[48];
-      *&v150[64] = *&v151[64];
-      v57 = *&v151[16];
-      *v150 = *v151;
-      *(&v125 - 2) = v142;
-      *(&v125 - 1) = &v162;
-      *&v150[80] = *&v151[80];
-      *&v150[16] = v57;
-      *&v150[32] = v56;
-      __chkstk_darwin(v55);
-      *(&v125 - 4) = v150;
-      *(&v125 - 3) = sub_1001F758C;
-      *(&v125 - 2) = v58;
-      sub_100006038(v151, &v144, &qword_1006C42D0);
-      sub_10015DA04(&qword_1006BFF10);
+      *&v152[32] = *&v159[32];
+      *&v152[48] = *&v159[48];
+      *&v152[64] = *&v159[64];
+      *&v152[80] = *&v159[80];
+      *v152 = *v159;
+      *&v152[16] = *&v159[16];
+      v56 = __chkstk_darwin(v50);
+      v57 = *&v152[32];
+      *&v151[48] = *&v152[48];
+      *&v151[64] = *&v152[64];
+      v58 = *&v152[16];
+      *v151 = *v152;
+      *(&v126 - 2) = v143;
+      *(&v126 - 1) = &v163;
+      *&v151[80] = *&v152[80];
+      *&v151[16] = v58;
+      *&v151[32] = v57;
+      __chkstk_darwin(v56);
+      *(&v126 - 4) = v151;
+      *(&v126 - 3) = sub_1001F758C;
+      *(&v126 - 2) = v59;
+      sub_100006038(v152, &v145, &qword_1006C42D0, &qword_1005433B0);
+      sub_10015DA04(&qword_1006BFF10, &qword_100539C10);
       OS_dispatch_queue.sync<A>(execute:)();
-      sub_1000073B4(v151, &qword_1006C42D0);
-      v59 = v144;
-      if (v144)
+      sub_1000073B4(v152, &qword_1006C42D0, &qword_1005433B0);
+      v60 = v145;
+      if (v145)
       {
-        v60 = sub_100013FA4();
-        v48 = v130;
-        if (!v60)
+        v61 = sub_100013FA4();
+        v49 = v131;
+        if (!v61)
         {
-          v60 = sub_1001B9EA4();
+          v61 = sub_1001B9EA4();
         }
       }
 
       else
       {
-        v60 = 0;
-        v48 = v130;
+        v61 = 0;
+        v49 = v131;
       }
 
-      v61 = sub_100013FA4();
-      if (v61 || (v61 = sub_1001B9EA4()) != 0)
+      v62 = sub_100013FA4();
+      if (v62 || (v62 = sub_1001B9EA4()) != 0)
       {
-        v62 = v61;
+        v63 = v62;
       }
 
       else
       {
-        v89 = v60;
-        v62 = v60;
+        v90 = v61;
+        v63 = v61;
       }
 
-      v63 = v62;
+      v64 = v63;
       if (sub_1000167F8())
       {
         objc_opt_self();
-        v64 = swift_dynamicCastObjCClass();
-        if (v64)
+        v65 = swift_dynamicCastObjCClass();
+        if (v65)
         {
           goto LABEL_31;
         }
@@ -2245,8 +2394,8 @@ LABEL_49:
       if (sub_1000167F8())
       {
         objc_opt_self();
-        v64 = swift_dynamicCastObjCClass();
-        if (v64)
+        v65 = swift_dynamicCastObjCClass();
+        if (v65)
         {
           goto LABEL_31;
         }
@@ -2254,79 +2403,79 @@ LABEL_49:
         swift_unknownObjectRelease();
       }
 
-      v64 = sub_100016590();
-      if (!v64)
+      v65 = sub_100016590();
+      if (!v65)
       {
-        v67 = 0;
-        if (v62)
+        v68 = 0;
+        if (v63)
         {
 LABEL_32:
-          v143 = v60;
-          v68 = objc_allocWithZone(type metadata accessor for FolderListSelectionValidator());
-          v69 = objc_opt_self();
-          v70 = [v69 hidesSystemPaperNotesInCustomFolders];
-          v71 = [v69 hidesMathNotesInCustomFolders];
-          v72 = [v69 hidesCallNotesInCustomFolders];
-          v73 = v68;
-          v75 = v137;
-          v74 = v138;
-          v76 = [v73 initWithModernContext:v138 htmlContext:v137 hidesSystemPaperNotesInCustomFolders:v70 hidesMathNotesInCustomFolders:v71 hidesCallNotesInCustomFolders:v72];
+          v144 = v61;
+          v69 = objc_allocWithZone(type metadata accessor for FolderListSelectionValidator());
+          v70 = objc_opt_self();
+          v71 = [v70 hidesSystemPaperNotesInCustomFolders];
+          v72 = [v70 hidesMathNotesInCustomFolders];
+          v73 = [v70 hidesCallNotesInCustomFolders];
+          v74 = v69;
+          v76 = v138;
+          v75 = v139;
+          v77 = [v74 initWithModernContext:v139 htmlContext:v138 hidesSystemPaperNotesInCustomFolders:v71 hidesMathNotesInCustomFolders:v72 hidesCallNotesInCustomFolders:v73];
 
-          v77 = *v126;
-          *&v150[24] = v126[1];
-          v78 = v126[3];
-          *&v150[40] = v126[2];
-          *&v150[56] = v78;
-          *&v150[72] = v126[4];
-          *&v150[8] = v77;
-          *v150 = *v158;
-          __chkstk_darwin(v79);
-          *(&v125 - 2) = v150;
+          v78 = *v127;
+          *&v151[24] = v127[1];
+          v79 = v127[3];
+          *&v151[40] = v127[2];
+          *&v151[56] = v79;
+          *&v151[72] = v127[4];
+          *&v151[8] = v78;
+          *v151 = *v159;
+          __chkstk_darwin(v80);
+          *(&v126 - 2) = v151;
           OS_dispatch_queue.sync<A>(execute:)();
-          v80 = v144;
-          v81 = sub_100016590();
+          v81 = v145;
+          v82 = sub_100016590();
 
-          v82 = sub_100014954(v63);
-          if (v82)
+          v83 = sub_100014954(v64);
+          if (v83)
           {
-            v83 = v82;
-            v84 = sub_100014A9C(v82, v67, v81);
+            v84 = v83;
+            v85 = sub_100014A9C(v83, v68, v82);
 
-            if ((v84 & 1) == 0)
+            if ((v85 & 1) == 0)
             {
 
-              v62 = v132;
-              v63 = v132;
-              [v140 setIsSupplementaryContentVisible:1];
-              v48 = v130;
-              v50 = v139;
-              if (!v62)
+              v63 = v133;
+              v64 = v133;
+              [v141 setIsSupplementaryContentVisible:1];
+              v49 = v131;
+              v51 = v140;
+              if (!v63)
               {
                 goto LABEL_50;
               }
 
 LABEL_38:
-              if ([v63 ic_isNoteType])
+              if ([v64 ic_isNoteType])
               {
-                if ([v63 ic_isNoteType])
+                if ([v64 ic_isNoteType])
                 {
 LABEL_43:
-                  v86 = v134;
-                  *v134 = v62;
-                  v86[1] = 0;
-                  v87 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
+                  v87 = v135;
+                  *v135 = v63;
+                  v87[1] = 0;
+                  v88 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
                   swift_storeEnumTagMultiPayload();
-                  (*(*(v87 - 8) + 56))(v86, 0, 1, v87);
-                  v88 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
+                  (*(*(v88 - 8) + 56))(v87, 0, 1, v88);
+                  v89 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
                   swift_beginAccess();
-                  sub_10000A49C(v86, &v50[v88], &unk_1006BFEA0);
+                  sub_10000A49C(v87, &v51[v89], &unk_1006BFEA0, &unk_100539BC0);
                   swift_endAccess();
                   v33 = 0;
                   goto LABEL_50;
                 }
               }
 
-              else if ([v63 ic_isInvitationType] && objc_msgSend(v63, "ic_isInvitationType"))
+              else if ([v64 ic_isInvitationType] && objc_msgSend(v64, "ic_isInvitationType"))
               {
                 goto LABEL_43;
               }
@@ -2334,18 +2483,18 @@ LABEL_43:
               goto LABEL_50;
             }
 
-            v85 = v140;
+            v86 = v141;
           }
 
           else
           {
 
-            v85 = v140;
+            v86 = v141;
           }
 
-          v48 = v130;
-          v50 = v139;
-          [v85 setIsSupplementaryContentVisible:1];
+          v49 = v131;
+          v51 = v140;
+          [v86 setIsSupplementaryContentVisible:1];
           goto LABEL_38;
         }
 
@@ -2353,28 +2502,28 @@ LABEL_43:
       }
 
 LABEL_31:
-      v65 = v64;
-      sub_10015DA04(&unk_1006BD390);
-      v66 = swift_allocObject();
-      *(v66 + 16) = xmmword_100534670;
-      *(v66 + 32) = v65;
-      v67 = sub_1000143C4(v66);
+      v66 = v65;
+      sub_10015DA04(&unk_1006BD390, &unk_100532CB0);
+      v67 = swift_allocObject();
+      *(v67 + 16) = xmmword_100534670;
+      *(v67 + 32) = v66;
+      v68 = sub_1000143C4(v67);
       swift_setDeallocating();
       swift_arrayDestroy();
       swift_deallocClassInstance();
-      v48 = v130;
-      if (v62)
+      v49 = v131;
+      if (v63)
       {
         goto LABEL_32;
       }
 
 LABEL_48:
 
-      v50 = v139;
+      v51 = v140;
       goto LABEL_49;
     }
 
-    v34 = v140;
+    v34 = v141;
   }
 }
 
@@ -2384,28 +2533,30 @@ void sub_1001F437C(void *a1, uint64_t a2, uint64_t a3)
   {
     v4 = *(a3 + 32);
     v5 = *(a3 + 48);
-    v11 = *(a3 + 40);
-    v12 = v4;
+    v13 = *(a3 + 40);
+    v14 = v4;
+    v7 = *(a3 + 56);
     v6 = *(a3 + 64);
-    v7 = *(a3 + 16);
-    v8 = *(a3 + 48);
-    v13[2] = *(a3 + 32);
-    v13[3] = v8;
-    v13[4] = *(a3 + 64);
-    v13[0] = *a3;
-    v13[1] = v7;
+    v8 = *(a3 + 72);
+    v9 = *(a3 + 16);
+    v10 = *(a3 + 48);
+    v15[2] = *(a3 + 32);
+    v15[3] = v10;
+    v15[4] = *(a3 + 64);
+    v15[0] = *a3;
+    v15[1] = v9;
 
-    sub_100006038(&v12, v10, &qword_1006BFF18);
-    sub_100006038(&v11, v10, &qword_1006BFF18);
-    sub_100010854(v5);
-    sub_100010854(v6);
-    v9 = a1;
-    sub_1000108C4(v9, 0, v13);
+    sub_100006038(&v14, v12, &qword_1006BFF18, &qword_100539C18);
+    sub_100006038(&v13, v12, &qword_1006BFF18, &qword_100539C18);
+    sub_100010854(v5, v7);
+    sub_100010854(v6, v8);
+    v11 = a1;
+    sub_1000108C4(v11, 0, v15);
 
-    sub_1000073B4(&v12, &qword_1006BFF18);
-    sub_1000073B4(&v11, &qword_1006BFF18);
-    sub_10000C840(v5);
-    sub_10000C840(v6);
+    sub_1000073B4(&v14, &qword_1006BFF18, &qword_100539C18);
+    sub_1000073B4(&v13, &qword_1006BFF18, &qword_100539C18);
+    sub_10000C840(v5, v7);
+    sub_10000C840(v6, v8);
   }
 }
 
@@ -2429,81 +2580,82 @@ uint64_t sub_1001F44CC(char **a1, uint64_t a2, _OWORD *a3)
   return result;
 }
 
-uint64_t sub_1001F45FC(void *a1, void *a2)
+uint64_t sub_1001F45FC(char *a1, void *a2)
 {
   v4 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v43 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_10015DA04(&unk_1006BFEF0);
+  v44 = &v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_10015DA04(&unk_1006BFEF0, &unk_100537370);
   __chkstk_darwin(v7);
-  v44 = &v38 - v8;
-  v9 = sub_10015DA04(&qword_1006BEF28);
+  v45 = &v39 - v8;
+  v9 = sub_10015DA04(&qword_1006BEF28, &unk_100537260);
   __chkstk_darwin(v9 - 8);
-  v11 = &v38 - v10;
-  v12 = sub_10015DA04(&unk_1006BFEA0);
+  v11 = &v39 - v10;
+  v12 = sub_10015DA04(&unk_1006BFEA0, &unk_100539BC0);
   v13 = __chkstk_darwin(v12 - 8);
-  v15 = &v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = __chkstk_darwin(v13);
   v17 = __chkstk_darwin(v16);
-  v19 = &v38 - v18;
+  v19 = &v39 - v18;
   __chkstk_darwin(v17);
-  v22 = &v38 - v21;
+  v22 = &v39 - v21;
   if (!a2 || !a1)
   {
     goto LABEL_8;
   }
 
-  v41 = v20;
+  v42 = v20;
   v23 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
   swift_beginAccess();
-  v40 = v23;
-  sub_100006038(a1 + v23, v22, &unk_1006BFEA0);
-  v42 = *(v5 + 48);
-  if (v42(v22, 1, v4) != 1)
+  v41 = v23;
+  sub_100006038(&a1[v23], v22, &unk_1006BFEA0, &unk_100539BC0);
+  v43 = *(v5 + 48);
+  if (v43(v22, 1, v4) != 1)
   {
-    v39 = v15;
-    v26 = a2;
-    v27 = a1;
-    sub_1000073B4(v22, &unk_1006BFEA0);
-    v28 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_containerSelection;
+    v40 = v15;
+    v27 = a2;
+    v28 = a1;
+    sub_1000073B4(v22, &unk_1006BFEA0, &unk_100539BC0);
+    v29 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_containerSelection;
     swift_beginAccess();
-    sub_100006038(v26 + v28, v11, &qword_1006BEF28);
-    v29 = type metadata accessor for ICSelectionStateModel.ContainerSelection(0);
-    if ((*(*(v29 - 8) + 48))(v11, 1, v29) == 1)
+    sub_100006038(v27 + v29, v11, &qword_1006BEF28, &unk_100537260);
+    v30 = type metadata accessor for ICSelectionStateModel.ContainerSelection(0);
+    if ((*(*(v30 - 8) + 48))(v11, 1, v30) == 1)
     {
 
       v24 = &qword_1006BEF28;
-      v25 = v11;
+      v25 = &unk_100537260;
+      v26 = v11;
       goto LABEL_7;
     }
 
-    sub_1000073B4(v11, &qword_1006BEF28);
-    v32 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
+    sub_1000073B4(v11, &qword_1006BEF28, &unk_100537260);
+    v33 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
     swift_beginAccess();
-    sub_100006038(v26 + v32, v19, &unk_1006BFEA0);
-    if (v42(v19, 1, v4) == 1)
+    sub_100006038(v27 + v33, v19, &unk_1006BFEA0, &unk_100539BC0);
+    if (v43(v19, 1, v4) == 1)
     {
 
 LABEL_12:
-      sub_1000073B4(v19, &unk_1006BFEA0);
-      v30 = 1;
-      return v30 & 1;
+      sub_1000073B4(v19, &unk_1006BFEA0, &unk_100539BC0);
+      v31 = 1;
+      return v31 & 1;
     }
 
-    sub_1000073B4(v19, &unk_1006BFEA0);
-    v33 = v41;
-    sub_100006038(v26 + v32, v41, &unk_1006BFEA0);
-    v34 = *(v7 + 48);
-    v19 = v44;
-    sub_100006038(v33, v44, &unk_1006BFEA0);
-    v35 = v42;
-    sub_100006038(a1 + v40, &v19[v34], &unk_1006BFEA0);
-    if (v35(v19, 1, v4) == 1)
+    sub_1000073B4(v19, &unk_1006BFEA0, &unk_100539BC0);
+    v34 = v42;
+    sub_100006038(v27 + v33, v42, &unk_1006BFEA0, &unk_100539BC0);
+    v35 = *(v7 + 48);
+    v19 = v45;
+    sub_100006038(v34, v45, &unk_1006BFEA0, &unk_100539BC0);
+    v36 = v43;
+    sub_100006038(&a1[v41], &v19[v35], &unk_1006BFEA0, &unk_100539BC0);
+    if (v36(v19, 1, v4) == 1)
     {
 
-      sub_1000073B4(v33, &unk_1006BFEA0);
-      if (v35(&v19[v34], 1, v4) == 1)
+      sub_1000073B4(v34, &unk_1006BFEA0, &unk_100539BC0);
+      if (v36(&v19[v35], 1, v4) == 1)
       {
         goto LABEL_12;
       }
@@ -2511,49 +2663,51 @@ LABEL_12:
 
     else
     {
-      v36 = v39;
-      sub_100006038(v19, v39, &unk_1006BFEA0);
-      if (v35(&v19[v34], 1, v4) != 1)
+      v37 = v40;
+      sub_100006038(v19, v40, &unk_1006BFEA0, &unk_100539BC0);
+      if (v36(&v19[v35], 1, v4) != 1)
       {
-        v37 = v43;
-        sub_100011D7C(&v19[v34], v43, type metadata accessor for ICSelectionStateModel.ObjectSelection);
-        v30 = sub_1001C3458(v36, v37);
+        v38 = v44;
+        sub_100011D7C(&v19[v35], v44, type metadata accessor for ICSelectionStateModel.ObjectSelection);
+        v31 = sub_1001C3458(v37, v38);
 
+        sub_100013E2C(v38);
+        sub_1000073B4(v42, &unk_1006BFEA0, &unk_100539BC0);
         sub_100013E2C(v37);
-        sub_1000073B4(v41, &unk_1006BFEA0);
-        sub_100013E2C(v36);
-        sub_1000073B4(v19, &unk_1006BFEA0);
-        return v30 & 1;
+        sub_1000073B4(v19, &unk_1006BFEA0, &unk_100539BC0);
+        return v31 & 1;
       }
 
-      sub_1000073B4(v41, &unk_1006BFEA0);
-      sub_100013E2C(v36);
+      sub_1000073B4(v42, &unk_1006BFEA0, &unk_100539BC0);
+      sub_100013E2C(v37);
     }
 
     v24 = &unk_1006BFEF0;
-    v25 = v19;
+    v25 = &unk_100537370;
+    v26 = v19;
     goto LABEL_7;
   }
 
   v24 = &unk_1006BFEA0;
-  v25 = v22;
+  v25 = &unk_100539BC0;
+  v26 = v22;
 LABEL_7:
-  sub_1000073B4(v25, v24);
+  sub_1000073B4(v26, v24, v25);
 LABEL_8:
-  v30 = 0;
-  return v30 & 1;
+  v31 = 0;
+  return v31 & 1;
 }
 
-void sub_1001F4BF8(void *a1@<X0>, void *a2@<X1>, SEL *a3@<X3>, void *a4@<X8>)
+void sub_1001F4BF8(void *a1@<X0>, void *a2@<X1>, SEL *a4@<X3>, void *a5@<X8>)
 {
-  v7 = [a1 ic_existingObjectWithID:a2];
-  if (!v7 || ((v8 = v7, objc_opt_self(), (v9 = swift_dynamicCastObjCClass()) == 0) ? (v10 = 0) : (v10 = [v9 *a3]), (v11 = objc_msgSend(v8, "isDeleted"), v8, v12 = 0, (v10 & 1) == 0) && (v11 & 1) == 0))
+  v8 = [a1 ic_existingObjectWithID:a2];
+  if (!v8 || ((v9 = v8, objc_opt_self(), (v10 = swift_dynamicCastObjCClass()) == 0) ? (v11 = 0) : (v11 = [v10 *a4]), (v12 = objc_msgSend(v9, "isDeleted"), v9, v13 = 0, (v11 & 1) == 0) && (v12 & 1) == 0))
   {
+    v14 = a2;
     v13 = a2;
-    v12 = a2;
   }
 
-  *a4 = v12;
+  *a5 = v13;
 }
 
 void sub_1001F4CB8(uint64_t a1@<X0>, void *a2@<X8>)
@@ -2709,16 +2863,16 @@ void sub_1001F5074(void *a1, uint64_t a2, void **a3)
 
 BOOL sub_1001F51A8()
 {
-  v1 = sub_10015DA04(&unk_1006BFEA0);
+  v1 = sub_10015DA04(&unk_1006BFEA0, &unk_100539BC0);
   __chkstk_darwin(v1 - 8);
   v3 = &v9 - v2;
   v4 = *v0;
   v5 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
   swift_beginAccess();
-  sub_100006038(v4 + v5, v3, &unk_1006BFEA0);
+  sub_100006038(v4 + v5, v3, &unk_1006BFEA0, &unk_100539BC0);
   v6 = type metadata accessor for ICSelectionStateModel.ObjectSelection(0);
   v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
-  sub_1000073B4(v3, &unk_1006BFEA0);
+  sub_1000073B4(v3, &unk_1006BFEA0, &unk_100539BC0);
   return v7;
 }
 
@@ -2851,15 +3005,16 @@ LABEL_22:
 
 uint64_t ICNavigableQueue.resolution.getter(uint64_t a1)
 {
-  v2 = *(v1 + *(a1 + 68));
-  sub_100010854(v2);
-  return v2;
+  v2 = (v1 + *(a1 + 68));
+  v3 = *v2;
+  sub_100010854(*v2, v2[1]);
+  return v3;
 }
 
 uint64_t ICNavigableQueue.resolution.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (v3 + *(a3 + 68));
-  result = sub_10000C840(*v6);
+  result = sub_10000C840(*v6, v6[1]);
   *v6 = a1;
   v6[1] = a2;
   return result;
@@ -2867,15 +3022,16 @@ uint64_t ICNavigableQueue.resolution.setter(uint64_t a1, uint64_t a2, uint64_t a
 
 uint64_t ICNavigableQueue.duplicateCheck.getter(uint64_t a1)
 {
-  v2 = *(v1 + *(a1 + 72));
-  sub_100010854(v2);
-  return v2;
+  v2 = (v1 + *(a1 + 72));
+  v3 = *v2;
+  sub_100010854(*v2, v2[1]);
+  return v3;
 }
 
 uint64_t ICNavigableQueue.duplicateCheck.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (v3 + *(a3 + 72));
-  result = sub_10000C840(*v6);
+  result = sub_10000C840(*v6, v6[1]);
   *v6 = a1;
   v6[1] = a2;
   return result;
@@ -2945,17 +3101,17 @@ uint64_t sub_1001F57E0@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_1001F582C@<X0>(Swift::String a1@<X1:X0>, _BYTE *a2@<X8>)
+unint64_t sub_1001F582C@<X0>(Swift::String a1@<X1:X0>, _BYTE *a2@<X8>)
 {
   result = sub_1001F55DC(a1);
   *a2 = result;
   return result;
 }
 
-uint64_t sub_1001F5864@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1001F5864@<X0>(_BYTE *a2@<X8>)
 {
   result = sub_1001F7438();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -2981,7 +3137,7 @@ uint64_t ICNavigableQueue.encode(to:)(void *a1, uint64_t a2)
   v18 = v4;
   v14 = *(a2 + 40);
   v19 = v14;
-  type metadata accessor for ICNavigableQueue.CodingKeys();
+  type metadata accessor for ICNavigableQueue.CodingKeys(255, &v17);
   swift_getWitnessTable();
   v5 = type metadata accessor for KeyedEncodingContainer();
   v6 = *(v5 - 8);
@@ -3009,7 +3165,7 @@ uint64_t ICNavigableQueue.encode(to:)(void *a1, uint64_t a2)
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t ICNavigableQueue.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t ICNavigableQueue.init(from:)@<X0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v58 = a1;
   v43 = a7;
@@ -3018,7 +3174,7 @@ uint64_t ICNavigableQueue.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint
   v62 = a4;
   v63 = a5;
   v64 = a6;
-  v52 = type metadata accessor for ICNavigableQueue.CodingKeys();
+  v52 = type metadata accessor for ICNavigableQueue.CodingKeys(255, &v60);
   WitnessTable = swift_getWitnessTable();
   v12 = type metadata accessor for KeyedDecodingContainer();
   v45 = *(v12 - 8);
@@ -3040,18 +3196,18 @@ uint64_t ICNavigableQueue.init(from:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint
   v62 = a4;
   v63 = a5;
   v64 = a6;
-  v18 = type metadata accessor for ICNavigableQueue();
+  v18 = type metadata accessor for ICNavigableQueue(0, &v60);
   v55 = *(v18 - 1);
   __chkstk_darwin(v18);
   v20 = (&v42 - v19);
-  v21 = sub_1000054A4(0, &qword_1006BE9E0);
+  v21 = sub_1000054A4(0, &qword_1006BE9E0, OS_dispatch_queue_ptr);
   v47 = " will be appended to the note";
   v48 = v21;
   static DispatchQoS.unspecified.getter();
   v60 = _swiftEmptyArrayStorage;
   sub_1001F621C();
-  sub_10015DA04(&unk_1006BFD50);
-  sub_1000060B4(&qword_1006BCB90, &unk_1006BFD50);
+  sub_10015DA04(&unk_1006BFD50, &qword_1005398C0);
+  sub_1000060B4(&qword_1006BCB90, &unk_1006BFD50, &qword_1005398C0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (v51[13])(v50, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v56);
   v22 = v58;
@@ -3147,7 +3303,7 @@ __n128 sub_1001F62B4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1001F62F4(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t sub_1001F62F4(unint64_t *a1, unsigned int a2, uint64_t a3)
 {
   v4 = *(*(a3 + 16) - 8);
   v5 = *(v4 + 84);
@@ -3516,7 +3672,7 @@ Swift::Int sub_1001F6768(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    sub_10015DA04(&qword_1006BDC88);
+    sub_10015DA04(&qword_1006BDC88, &unk_100539BE0);
     v2 = static _DictionaryStorage.convert(_:capacity:)();
     v19 = v2;
     __CocoaDictionary.makeIterator()();
@@ -3524,7 +3680,7 @@ Swift::Int sub_1001F6768(uint64_t a1, uint64_t a2)
     if (v3)
     {
       v4 = v3;
-      sub_1000054A4(0, &qword_1006BFEC0);
+      sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
       v5 = v4;
       do
       {
@@ -3594,26 +3750,26 @@ Swift::Int sub_1001F6768(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t sub_1001F6994()
+uint64_t sub_1001F6994(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 id sub_1001F6A24(void *a1, void *a2, void *a3)
 {
-  v6 = sub_10015DA04(&qword_1006BCC20);
+  v6 = sub_10015DA04(&qword_1006BCC20, &qword_100531F40);
   __chkstk_darwin(v6);
   v8 = &v21 - v7;
   if (!a1)
@@ -3634,8 +3790,8 @@ id sub_1001F6A24(void *a1, void *a2, void *a3)
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  sub_10015DA04(&qword_1006C42D0);
-  sub_1000060B4(&unk_1006BFF00, &qword_1006C42D0);
+  sub_10015DA04(&qword_1006C42D0, &qword_1005433B0);
+  sub_1000060B4(&unk_1006BFF00, &qword_1006C42D0, &qword_1005433B0, &protocol conformance descriptor for ICNavigableQueue<A>);
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
   v28[2] = v32;
@@ -3652,13 +3808,13 @@ id sub_1001F6A24(void *a1, void *a2, void *a3)
   v22 = v31;
   __chkstk_darwin(v14);
   *(&v21 - 2) = &v21;
-  sub_10015DA04(&qword_1006BFF10);
+  sub_10015DA04(&qword_1006BFF10, &qword_100539C10);
   OS_dispatch_queue.sync<A>(execute:)();
   v15 = v27;
   if (!v27)
   {
     sub_10019671C(v11, v13);
-    sub_1000073B4(v28, &qword_1006C42D0);
+    sub_1000073B4(v28, &qword_1006C42D0, &qword_1005433B0);
     return 0;
   }
 
@@ -3669,7 +3825,7 @@ id sub_1001F6A24(void *a1, void *a2, void *a3)
   {
     v19 = v18;
     sub_10019671C(v11, v13);
-    sub_1000073B4(v28, &qword_1006C42D0);
+    sub_1000073B4(v28, &qword_1006C42D0, &qword_1005433B0);
 
     return v19;
   }
@@ -3687,9 +3843,9 @@ id sub_1001F6A24(void *a1, void *a2, void *a3)
     v25 = 0u;
     v20 = sub_10000F54C(v8, &v21);
     sub_10019671C(v11, v13);
-    sub_1000073B4(v28, &qword_1006C42D0);
+    sub_1000073B4(v28, &qword_1006C42D0, &qword_1005433B0);
 
-    sub_1000073B4(v8, &qword_1006BCC20);
+    sub_1000073B4(v8, &qword_1006BCC20, &qword_100531F40);
     return v20;
   }
 }
@@ -3753,7 +3909,7 @@ LABEL_31:
     if (v13 && v7)
     {
       __chkstk_darwin(v13);
-      sub_10015DA04(&unk_1006BFEE0);
+      sub_10015DA04(&unk_1006BFEE0, &unk_100539C00);
       NSManagedObjectContext.performAndWait<A>(_:)();
 
       return;
@@ -3765,7 +3921,7 @@ LABEL_31:
       if (v10)
       {
         __chkstk_darwin(v14);
-        sub_10015DA04(&unk_1006BFEE0);
+        sub_10015DA04(&unk_1006BFEE0, &unk_100539C00);
         NSManagedObjectContext.performAndWait<A>(_:)();
 
         return;
@@ -3792,7 +3948,7 @@ LABEL_11:
   {
     __chkstk_darwin(v9);
     v11 = v7;
-    sub_10015DA04(&unk_1006BFEE0);
+    sub_10015DA04(&unk_1006BFEE0, &unk_100539C00);
     NSManagedObjectContext.performAndWait<A>(_:)();
 
     if (v19)
@@ -3929,7 +4085,7 @@ void *sub_1001F70FC(void *a1, void *a2)
         }
 
         __chkstk_darwin(v17);
-        sub_10015DA04(&unk_1006BFED0);
+        sub_10015DA04(&unk_1006BFED0, &qword_100536F30);
         NSManagedObjectContext.performAndWait<A>(_:)();
 
         if (aBlock[0])
@@ -3958,10 +4114,10 @@ LABEL_19:
   return 0;
 }
 
-uint64_t sub_1001F7498(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_1001F7498(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_10015DA04(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = sub_10015DA04(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
@@ -3987,12 +4143,12 @@ unint64_t sub_1001F75B4@<X0>(unint64_t *a1@<X8>)
 
 uint64_t sub_1001F764C(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C0468);
+  v2 = sub_10015DA04(&qword_1006C0468, &qword_10053AB50);
   v42 = *(v2 - 8);
   v43 = v2;
   __chkstk_darwin(v2);
   v4 = &v32 - v3;
-  v5 = sub_10015DA04(&qword_1006C0470);
+  v5 = sub_10015DA04(&qword_1006C0470, &qword_10053AB58);
   __chkstk_darwin(v5);
   sub_10021B230();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -4009,7 +4165,7 @@ uint64_t sub_1001F764C(uint64_t a1)
   v7._object = 0xE700000000000000;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
   swift_getKeyPath();
-  v41 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  v41 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -4121,7 +4277,7 @@ uint64_t sub_1001F764C(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v26 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v22(v18, v43);
-  sub_10015DA04(&unk_1006C0478);
+  sub_10015DA04(&unk_1006C0478, &qword_10053AB60);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_100539C20;
   v28 = v35;
@@ -4138,15 +4294,15 @@ uint64_t sub_1001F764C(uint64_t a1)
 
 uint64_t sub_1001F7E4C(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006BCE98);
+  v2 = sub_10015DA04(&qword_1006BCE98, &unk_10054C4B0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v7 = &v9 - v6;
-  sub_100006038(a1, &v9 - v6, &qword_1006BCE98);
-  sub_100006038(v7, v5, &qword_1006BCE98);
+  sub_100006038(a1, &v9 - v6, &qword_1006BCE98, &unk_10054C4B0);
+  sub_100006038(v7, v5, &qword_1006BCE98, &unk_10054C4B0);
   IntentParameter.wrappedValue.setter();
-  return sub_1000073B4(v7, &qword_1006BCE98);
+  return sub_1000073B4(v7, &qword_1006BCE98, &unk_10054C4B0);
 }
 
 uint64_t sub_1001F7F40()
@@ -4156,7 +4312,7 @@ uint64_t sub_1001F7F40()
   __chkstk_darwin(v0);
   v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   sub_10021B230();
@@ -4171,7 +4327,7 @@ uint64_t sub_1001F7F40()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -4187,7 +4343,7 @@ uint64_t sub_1001F8160()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -4205,7 +4361,7 @@ uint64_t sub_1001F8264()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -4220,11 +4376,11 @@ uint64_t sub_1001F8264()
 uint64_t sub_1001F8364(uint64_t a1)
 {
   v35 = a1;
-  v34 = sub_10015DA04(&qword_1006C0440);
+  v34 = sub_10015DA04(&qword_1006C0440, &qword_10053AAE0);
   v1 = *(v34 - 8);
   __chkstk_darwin(v34);
   v3 = &v26 - v2;
-  v4 = sub_10015DA04(&qword_1006C0448);
+  v4 = sub_10015DA04(&qword_1006C0448, &qword_10053AAE8);
   __chkstk_darwin(v4);
   sub_10002062C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -4310,7 +4466,7 @@ uint64_t sub_1001F8364(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v17(v3, v16);
-  sub_10015DA04(&qword_1006C0450);
+  sub_10015DA04(&qword_1006C0450, &qword_10053AAF0);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C20;
   v22 = v29;
@@ -4327,15 +4483,15 @@ uint64_t sub_1001F8364(uint64_t a1)
 
 uint64_t sub_1001F8950(uint64_t a1)
 {
-  v2 = sub_10015DA04(&unk_1006BCAC0);
+  v2 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v7 = &v9 - v6;
-  sub_100006038(a1, &v9 - v6, &unk_1006BCAC0);
-  sub_100006038(v7, v5, &unk_1006BCAC0);
+  sub_100006038(a1, &v9 - v6, &unk_1006BCAC0, &unk_1005395D0);
+  sub_100006038(v7, v5, &unk_1006BCAC0, &unk_1005395D0);
   IntentParameter.wrappedValue.setter();
-  return sub_1000073B4(v7, &unk_1006BCAC0);
+  return sub_1000073B4(v7, &unk_1006BCAC0, &unk_1005395D0);
 }
 
 uint64_t sub_1001F8A44()
@@ -4360,7 +4516,7 @@ uint64_t sub_1001F8A44()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -4377,7 +4533,7 @@ uint64_t sub_1001F8C34()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4392,11 +4548,11 @@ uint64_t sub_1001F8C34()
 
 uint64_t sub_1001F8D58(uint64_t a1)
 {
-  v28 = sub_10015DA04(&qword_1006C0440);
+  v28 = sub_10015DA04(&qword_1006C0440, &qword_10053AAE0);
   v30 = *(v28 - 8);
   __chkstk_darwin(v28);
   v3 = &v23 - v2;
-  v4 = sub_10015DA04(&qword_1006C0448);
+  v4 = sub_10015DA04(&qword_1006C0448, &qword_10053AAE8);
   __chkstk_darwin(v4);
   sub_10002062C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -4468,7 +4624,7 @@ uint64_t sub_1001F8D58(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v18 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v27(v3, v15);
-  sub_10015DA04(&qword_1006C0450);
+  sub_10015DA04(&qword_1006C0450, &qword_10053AAF0);
   v19 = swift_allocObject();
   *(v19 + 16) = xmmword_100539C30;
   v20 = v25;
@@ -4503,7 +4659,7 @@ uint64_t sub_1001F9280()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -4520,7 +4676,7 @@ uint64_t sub_1001F9470()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4535,13 +4691,13 @@ uint64_t sub_1001F9470()
 
 uint64_t sub_1001F95A8(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C0428);
+  v2 = sub_10015DA04(&qword_1006C0428, &qword_10053AA78);
   v3 = *(v2 - 8);
   v42 = v2;
   v43 = v3;
   __chkstk_darwin(v2);
   v5 = &v32 - v4;
-  v6 = sub_10015DA04(&qword_1006C0430);
+  v6 = sub_10015DA04(&qword_1006C0430, &qword_10053AA80);
   __chkstk_darwin(v6);
   sub_1001D110C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -4669,7 +4825,7 @@ uint64_t sub_1001F95A8(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v26 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v41(v18, v22);
-  sub_10015DA04(&qword_1006C0438);
+  sub_10015DA04(&qword_1006C0438, &qword_10053AA88);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_100539C20;
   v28 = v36;
@@ -4706,7 +4862,7 @@ uint64_t sub_1001F9DA0()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -4723,7 +4879,7 @@ uint64_t sub_1001F9F90()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4743,7 +4899,7 @@ uint64_t sub_1001FA0A4()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4758,11 +4914,11 @@ uint64_t sub_1001FA0A4()
 
 uint64_t sub_1001FA1CC(uint64_t a1)
 {
-  v40 = sub_10015DA04(&qword_1006C0410);
+  v40 = sub_10015DA04(&qword_1006C0410, &qword_10053AA10);
   v42 = *(v40 - 8);
   __chkstk_darwin(v40);
   v3 = v32 - v2;
-  v4 = sub_10015DA04(&qword_1006C0418);
+  v4 = sub_10015DA04(&qword_1006C0418, &qword_10053AA18);
   __chkstk_darwin(v4);
   v5 = sub_1001A6C8C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -4770,7 +4926,7 @@ uint64_t sub_1001FA1CC(uint64_t a1)
   v6._object = 0xE400000000000000;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v6);
   swift_getKeyPath();
-  v39 = sub_10001DB74(&qword_1006C5410, &type metadata accessor for AttributedString);
+  v39 = sub_10001DB74(&qword_1006C5410, &type metadata accessor for AttributedString, &protocol conformance descriptor for AttributedString);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -4779,7 +4935,7 @@ uint64_t sub_1001FA1CC(uint64_t a1)
   v7._countAndFlagsBits = 0xD000000000000012;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
   swift_getKeyPath();
-  v38 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  v38 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -4892,7 +5048,7 @@ uint64_t sub_1001FA1CC(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v26 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v41(v21, v22);
-  sub_10015DA04(&qword_1006C0420);
+  sub_10015DA04(&qword_1006C0420, &qword_10053AA20);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_100539C20;
   v28 = v35;
@@ -4929,7 +5085,7 @@ uint64_t sub_1001FAB44()
   __chkstk_darwin(v0);
   v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C5410, &type metadata accessor for AttributedString);
+  sub_10001DB74(&qword_1006C5410, &type metadata accessor for AttributedString, &protocol conformance descriptor for AttributedString);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   sub_1001A6C8C();
@@ -4938,13 +5094,13 @@ uint64_t sub_1001FAB44()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -4961,7 +5117,7 @@ uint64_t sub_1001FAD94()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4981,7 +5137,7 @@ uint64_t sub_1001FAEA4()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -4996,7 +5152,7 @@ uint64_t sub_1001FAEA4()
 
 uint64_t sub_1001FAFCC()
 {
-  v0 = sub_10015DA04(&qword_1006C0400);
+  v0 = sub_10015DA04(&qword_1006C0400, &qword_10053A938);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -5014,7 +5170,7 @@ uint64_t sub_1001FAFCC()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0408);
+  sub_10015DA04(&qword_1006C0408, &qword_10053A940);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -5028,7 +5184,7 @@ uint64_t sub_1001FAFCC()
 
 uint64_t sub_1001FB25C()
 {
-  v0 = sub_10015DA04(&qword_1006C0400);
+  v0 = sub_10015DA04(&qword_1006C0400, &qword_10053A938);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -5046,7 +5202,7 @@ uint64_t sub_1001FB25C()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0408);
+  sub_10015DA04(&qword_1006C0408, &qword_10053A940);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -5060,7 +5216,7 @@ uint64_t sub_1001FB25C()
 
 uint64_t sub_1001FB4F0()
 {
-  v0 = sub_10015DA04(&qword_1006C0400);
+  v0 = sub_10015DA04(&qword_1006C0400, &qword_10053A938);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -5078,7 +5234,7 @@ uint64_t sub_1001FB4F0()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0408);
+  sub_10015DA04(&qword_1006C0408, &qword_10053A940);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -5092,7 +5248,7 @@ uint64_t sub_1001FB4F0()
 
 uint64_t sub_1001FB780()
 {
-  v0 = sub_10015DA04(&qword_1006C0400);
+  v0 = sub_10015DA04(&qword_1006C0400, &qword_10053A938);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -5110,7 +5266,7 @@ uint64_t sub_1001FB780()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0408);
+  sub_10015DA04(&qword_1006C0408, &qword_10053A940);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -5122,32 +5278,32 @@ uint64_t sub_1001FB780()
   return v10;
 }
 
-uint64_t sub_1001FBA10()
+uint64_t sub_1001FBA10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for _AssistantIntent.Value();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for _AssistantIntent.Value();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  sub_10021BC88(&qword_1006C03E8, &qword_1006C03F0, &unk_10053A930, sub_10021BE98);
+  sub_10021BC88(&qword_1006C03E8, &qword_1006C03F0, &qword_10053A930, sub_10021BE98);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   sub_10002074C();
   _AssistantIntent.Value.init<A>(for:builder:)();
-  v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_100531E30;
-  *(v5 + 32) = v4;
-  v6 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
+  v7 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
+  (*(v4 + 8))(v6, v3);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_100531E30;
+  *(v8 + 32) = v7;
+  v9 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  return v6;
+  return v9;
 }
 
 uint64_t sub_1001FBBAC()
 {
-  v0 = sub_10015DA04(&qword_1006C03D8);
+  v0 = sub_10015DA04(&qword_1006C03D8, &qword_10053A8F8);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v11 - v2;
@@ -5162,7 +5318,7 @@ uint64_t sub_1001FBBAC()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03E0);
+  sub_10015DA04(&qword_1006C03E0, &qword_10053A900);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_100539C40;
   *(v8 + 32) = v4;
@@ -5189,13 +5345,13 @@ uint64_t sub_1001FBDC4()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -5222,7 +5378,7 @@ uint64_t sub_1001FBFE4(uint64_t a1)
 
 uint64_t sub_1001FC118()
 {
-  v0 = sub_10015DA04(&qword_1006C03D8);
+  v0 = sub_10015DA04(&qword_1006C03D8, &qword_10053A8F8);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v8 - v2;
@@ -5230,7 +5386,7 @@ uint64_t sub_1001FC118()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v4 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C03E0);
+  sub_10015DA04(&qword_1006C03E0, &qword_10053A900);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100531E30;
   *(v5 + 32) = v4;
@@ -5255,13 +5411,13 @@ uint64_t sub_1001FC27C()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -5273,7 +5429,7 @@ uint64_t sub_1001FC27C()
 
 uint64_t sub_1001FC4B0()
 {
-  v0 = sub_10015DA04(&qword_1006C03D8);
+  v0 = sub_10015DA04(&qword_1006C03D8, &qword_10053A8F8);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v10 - v2;
@@ -5285,7 +5441,7 @@ uint64_t sub_1001FC4B0()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v6 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03E0);
+  sub_10015DA04(&qword_1006C03E0, &qword_10053A900);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -5311,13 +5467,13 @@ uint64_t sub_1001FC670()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -5329,7 +5485,7 @@ uint64_t sub_1001FC670()
 
 uint64_t sub_1001FC8A8(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C03C0);
+  v2 = sub_10015DA04(&qword_1006C03C0, &qword_10053A890);
   v3 = *(v2 - 8);
   v67 = v2;
   v68 = v3;
@@ -5339,7 +5495,7 @@ uint64_t sub_1001FC8A8(uint64_t a1)
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_10015DA04(&qword_1006C03C8);
+  v9 = sub_10015DA04(&qword_1006C03C8, &qword_10053A898);
   __chkstk_darwin(v9);
   v10 = sub_1000215EC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -5489,7 +5645,7 @@ uint64_t sub_1001FC8A8(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v45 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v35(v40, v42);
-  sub_10015DA04(&qword_1006C03D0);
+  sub_10015DA04(&qword_1006C03D0, &qword_10053A8A0);
   v46 = swift_allocObject();
   *(v46 + 16) = xmmword_100539C50;
   v47 = v61;
@@ -5528,7 +5684,7 @@ uint64_t sub_1001FD1DC()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -5540,13 +5696,13 @@ uint64_t sub_1001FD1DC()
 
 uint64_t sub_1001FD3D0(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C03C0);
+  v2 = sub_10015DA04(&qword_1006C03C0, &qword_10053A890);
   v3 = *(v2 - 8);
   v22 = v2;
   v23 = v3;
   __chkstk_darwin(v2);
   v5 = v19 - v4;
-  v6 = sub_10015DA04(&qword_1006C03C8);
+  v6 = sub_10015DA04(&qword_1006C03C8, &qword_10053A898);
   __chkstk_darwin(v6);
   sub_1000215EC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -5601,7 +5757,7 @@ uint64_t sub_1001FD3D0(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v15 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v20(v5, v22);
-  sub_10015DA04(&qword_1006C03D0);
+  sub_10015DA04(&qword_1006C03D0, &qword_10053A8A0);
   v16 = swift_allocObject();
   *(v16 + 16) = xmmword_100535E30;
   *(v16 + 32) = v21;
@@ -5613,13 +5769,13 @@ uint64_t sub_1001FD3D0(uint64_t a1)
 
 uint64_t sub_1001FD814()
 {
-  v0 = sub_10015DA04(&qword_1006C03C0);
+  v0 = sub_10015DA04(&qword_1006C03C0, &qword_10053A890);
   v1 = *(v0 - 8);
   v20 = v0;
   v21 = v1;
   __chkstk_darwin(v0);
   v3 = &v18 - v2;
-  v4 = sub_10015DA04(&qword_1006C03C8);
+  v4 = sub_10015DA04(&qword_1006C03C8, &qword_10053A898);
   __chkstk_darwin(v4);
   sub_1000215EC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -5674,7 +5830,7 @@ uint64_t sub_1001FD814()
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v14 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v18(v3, v9);
-  sub_10015DA04(&qword_1006C03D0);
+  sub_10015DA04(&qword_1006C03D0, &qword_10053A8A0);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_100535E30;
   *(v15 + 32) = v19;
@@ -5713,7 +5869,7 @@ uint64_t sub_1001FDC58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   _AssistantIntent.Value.init<A>(for:builder:)();
   v11 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v9(v7, v4);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_100539C40;
   *(v12 + 32) = v8;
@@ -5729,7 +5885,7 @@ uint64_t sub_1001FDEA4()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -5744,7 +5900,7 @@ uint64_t sub_1001FDF58()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100535E30;
   *(v2 + 32) = v0;
@@ -5761,13 +5917,13 @@ uint64_t sub_1001FE008(uint64_t a1)
   v49 = v2;
   __chkstk_darwin(v2);
   v47 = &v45 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_10015DA04(&qword_1006C03C0);
+  v4 = sub_10015DA04(&qword_1006C03C0, &qword_10053A890);
   v5 = *(v4 - 8);
   v55 = v4;
   v56 = v5;
   __chkstk_darwin(v4);
   v7 = &v45 - v6;
-  v8 = sub_10015DA04(&qword_1006C03C8);
+  v8 = sub_10015DA04(&qword_1006C03C8, &qword_10053A898);
   __chkstk_darwin(v8);
   v9 = sub_1000215EC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -5913,7 +6069,7 @@ uint64_t sub_1001FE008(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v38 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v31(v7, v55);
-  sub_10015DA04(&qword_1006C03D0);
+  sub_10015DA04(&qword_1006C03D0, &qword_10053A8A0);
   v39 = swift_allocObject();
   *(v39 + 16) = xmmword_100539C50;
   v40 = v50;
@@ -5936,7 +6092,7 @@ uint64_t sub_1001FE9B8()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -5951,7 +6107,7 @@ uint64_t sub_1001FEA94()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100535E30;
   *(v2 + 32) = v0;
@@ -5968,13 +6124,13 @@ uint64_t sub_1001FEB44(uint64_t a1)
   v48 = v2;
   __chkstk_darwin(v2);
   v46 = &v44 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_10015DA04(&qword_1006C03C0);
+  v4 = sub_10015DA04(&qword_1006C03C0, &qword_10053A890);
   v5 = *(v4 - 8);
   v54 = v4;
   v55 = v5;
   __chkstk_darwin(v4);
   v7 = &v44 - v6;
-  v8 = sub_10015DA04(&qword_1006C03C8);
+  v8 = sub_10015DA04(&qword_1006C03C8, &qword_10053A898);
   __chkstk_darwin(v8);
   v9 = sub_1000215EC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -6119,7 +6275,7 @@ uint64_t sub_1001FEB44(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v37 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v30(v7, v54);
-  sub_10015DA04(&qword_1006C03D0);
+  sub_10015DA04(&qword_1006C03D0, &qword_10053A8A0);
   v38 = swift_allocObject();
   *(v38 + 16) = xmmword_100539C50;
   v39 = v49;
@@ -6142,7 +6298,7 @@ uint64_t sub_1001FF504()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -6157,7 +6313,7 @@ uint64_t sub_1001FF5DC()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100535E30;
   *(v2 + 32) = v0;
@@ -6169,7 +6325,7 @@ uint64_t sub_1001FF5DC()
 
 uint64_t sub_1001FF68C()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6187,7 +6343,7 @@ uint64_t sub_1001FF68C()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -6215,13 +6371,13 @@ uint64_t sub_1001FF8F4()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6233,7 +6389,7 @@ uint64_t sub_1001FF8F4()
 
 uint64_t sub_1001FFB14()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6251,7 +6407,7 @@ uint64_t sub_1001FFB14()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -6279,13 +6435,13 @@ uint64_t sub_1001FFD78()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6298,7 +6454,7 @@ uint64_t sub_1001FFD78()
 uint64_t sub_1001FFF98()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100531E30;
   *(v1 + 32) = v0;
@@ -6309,7 +6465,7 @@ uint64_t sub_1001FFF98()
 
 uint64_t sub_10020001C()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6327,7 +6483,7 @@ uint64_t sub_10020001C()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -6355,13 +6511,13 @@ uint64_t sub_100200284()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6373,7 +6529,7 @@ uint64_t sub_100200284()
 
 uint64_t sub_1002004A4()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6391,7 +6547,7 @@ uint64_t sub_1002004A4()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C30;
   *(v9 + 32) = v4;
@@ -6419,13 +6575,13 @@ uint64_t sub_100200708()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6438,7 +6594,7 @@ uint64_t sub_100200708()
 uint64_t sub_100200928()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100531E30;
   *(v1 + 32) = v0;
@@ -6449,7 +6605,7 @@ uint64_t sub_100200928()
 
 uint64_t sub_1002009AC()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v11 - v2;
@@ -6464,7 +6620,7 @@ uint64_t sub_1002009AC()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_100539C40;
   *(v8 + 32) = v4;
@@ -6491,13 +6647,13 @@ uint64_t sub_100200BC4()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6509,7 +6665,7 @@ uint64_t sub_100200BC4()
 
 uint64_t sub_100200DE4()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6530,7 +6686,7 @@ uint64_t sub_100200DE4()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v4(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C20;
   *(v9 + 32) = v13;
@@ -6559,13 +6715,13 @@ uint64_t sub_1002010A0()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6577,7 +6733,7 @@ uint64_t sub_1002010A0()
 
 uint64_t sub_1002012C0()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6598,7 +6754,7 @@ uint64_t sub_1002012C0()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v4(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C20;
   *(v9 + 32) = v13;
@@ -6627,13 +6783,13 @@ uint64_t sub_100201588()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6646,7 +6802,7 @@ uint64_t sub_100201588()
 uint64_t sub_1002017A8()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100531E30;
   *(v1 + 32) = v0;
@@ -6657,7 +6813,7 @@ uint64_t sub_1002017A8()
 
 uint64_t sub_10020182C()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6678,7 +6834,7 @@ uint64_t sub_10020182C()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v4(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C20;
   *(v9 + 32) = v13;
@@ -6707,13 +6863,13 @@ uint64_t sub_100201AF4()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6726,7 +6882,7 @@ uint64_t sub_100201AF4()
 uint64_t sub_100201D14()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100531E30;
   *(v1 + 32) = v0;
@@ -6737,7 +6893,7 @@ uint64_t sub_100201D14()
 
 uint64_t sub_100201D98()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6758,7 +6914,7 @@ uint64_t sub_100201D98()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v4(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C20;
   *(v9 + 32) = v13;
@@ -6787,13 +6943,13 @@ uint64_t sub_100202058()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6805,7 +6961,7 @@ uint64_t sub_100202058()
 
 uint64_t sub_100202278()
 {
-  v0 = sub_10015DA04(&qword_1006C03A8);
+  v0 = sub_10015DA04(&qword_1006C03A8, &qword_10053A808);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v12 - v2;
@@ -6826,7 +6982,7 @@ uint64_t sub_100202278()
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v4(v3, v0);
-  sub_10015DA04(&qword_1006C03B0);
+  sub_10015DA04(&qword_1006C03B0, &qword_10053A810);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_100539C20;
   *(v9 + 32) = v13;
@@ -6855,13 +7011,13 @@ uint64_t sub_100202538()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation);
+  sub_10001DB74(&qword_1006C03A0, &type metadata accessor for ChangeOperation, &protocol conformance descriptor for ChangeOperation);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -6874,7 +7030,7 @@ uint64_t sub_100202538()
 uint64_t sub_100202758()
 {
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100531E30;
   *(v1 + 32) = v0;
@@ -6886,11 +7042,11 @@ uint64_t sub_100202758()
 uint64_t sub_1002027DC(uint64_t a1)
 {
   v34 = a1;
-  v35 = sub_10015DA04(&qword_1006C0380);
+  v35 = sub_10015DA04(&qword_1006C0380, &qword_10053A7A0);
   v33 = *(v35 - 8);
   __chkstk_darwin(v35);
   v2 = &v26 - v1;
-  v3 = sub_10015DA04(&qword_1006C0388);
+  v3 = sub_10015DA04(&qword_1006C0388, &qword_10053A7A8);
   __chkstk_darwin(v3);
   sub_10021B08C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -6991,7 +7147,7 @@ uint64_t sub_1002027DC(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v10(v2, v17);
-  sub_10015DA04(&qword_1006C0390);
+  sub_10015DA04(&qword_1006C0390, &qword_10053A7B0);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100538200;
   v22 = v30;
@@ -7029,7 +7185,7 @@ uint64_t sub_100202EE8()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -7044,7 +7200,7 @@ uint64_t sub_100203104()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -7060,7 +7216,7 @@ uint64_t sub_1002031D4()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -7074,14 +7230,14 @@ uint64_t sub_1002031D4()
 uint64_t sub_1002032A0(uint64_t a1)
 {
   v47 = a1;
-  v1 = sub_10015DA04(&qword_1006C0368);
+  v1 = sub_10015DA04(&qword_1006C0368, &qword_10053A738);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = v39 - v3;
-  v5 = sub_10015DA04(&qword_1006C0370);
+  v5 = sub_10015DA04(&qword_1006C0370, &qword_10053A740);
   __chkstk_darwin(v5);
-  FolderIntent = type metadata accessor for CreateFolderIntent();
-  v7 = sub_10001DB74(&qword_1006C4580, type metadata accessor for CreateFolderIntent);
+  FolderIntent = type metadata accessor for CreateFolderIntent(0);
+  v7 = sub_10001DB74(&qword_1006C4580, type metadata accessor for CreateFolderIntent, &protocol conformance descriptor for CreateFolderIntent);
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
   v8._countAndFlagsBits = 0xD00000000000001BLL;
   v8._object = 0x8000000100566180;
@@ -7226,7 +7382,7 @@ uint64_t sub_1002032A0(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v32 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v51(v24, v49);
-  sub_10015DA04(&qword_1006C0378);
+  sub_10015DA04(&qword_1006C0378, &qword_10053A748);
   v33 = swift_allocObject();
   *(v33 + 16) = xmmword_100539C50;
   v34 = v44;
@@ -7254,7 +7410,7 @@ uint64_t sub_100203C04()
   sub_10021BC88(&qword_1006C4630, &qword_1006C0318, &unk_10054A7C0, sub_10001CAF8);
   _AssistantIntent.IntentProjection.subscript.getter();
 
-  sub_10001DB74(&qword_1006C4580, type metadata accessor for CreateFolderIntent);
+  sub_10001DB74(&qword_1006C4580, type metadata accessor for CreateFolderIntent, &protocol conformance descriptor for CreateFolderIntent);
   _AssistantIntent.Value.init<A>(for:builder:)();
   v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5 = *(v1 + 8);
@@ -7266,7 +7422,7 @@ uint64_t sub_100203C04()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -7283,7 +7439,7 @@ uint64_t sub_100203E50()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -7302,7 +7458,7 @@ uint64_t sub_100203F88()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -7316,11 +7472,11 @@ uint64_t sub_100203F88()
 
 uint64_t sub_100204080(uint64_t a1)
 {
-  v50 = sub_10015DA04(&qword_1006C0350);
+  v50 = sub_10015DA04(&qword_1006C0350, &qword_10053A6D8);
   v2 = *(v50 - 8);
   __chkstk_darwin(v50);
   v4 = &v38 - v3;
-  v5 = sub_10015DA04(&qword_1006C0358);
+  v5 = sub_10015DA04(&qword_1006C0358, &qword_10053A6E0);
   __chkstk_darwin(v5);
   sub_100023DE8();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -7478,7 +7634,7 @@ uint64_t sub_100204080(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v31 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v27(v4, v50);
-  sub_10015DA04(&qword_1006C0360);
+  sub_10015DA04(&qword_1006C0360, &qword_10053A6E8);
   v32 = swift_allocObject();
   *(v32 + 16) = xmmword_100539C60;
   v33 = v44;
@@ -7499,15 +7655,15 @@ uint64_t sub_100204080(uint64_t a1)
 
 uint64_t sub_100204A78(uint64_t a1)
 {
-  v2 = sub_10015DA04(&unk_1006BF9D0);
+  v2 = sub_10015DA04(&unk_1006BF9D0, &unk_100531EE0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v7 = &v9 - v6;
-  sub_100006038(a1, &v9 - v6, &unk_1006BF9D0);
-  sub_100006038(v7, v5, &unk_1006BF9D0);
+  sub_100006038(a1, &v9 - v6, &unk_1006BF9D0, &unk_100531EE0);
+  sub_100006038(v7, v5, &unk_1006BF9D0, &unk_100531EE0);
   IntentParameter.wrappedValue.setter();
-  return sub_1000073B4(v7, &unk_1006BF9D0);
+  return sub_1000073B4(v7, &unk_1006BF9D0, &unk_100531EE0);
 }
 
 uint64_t sub_100204B6C()
@@ -7532,7 +7688,7 @@ uint64_t sub_100204B6C()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -7549,7 +7705,7 @@ uint64_t sub_100204D88()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -7568,7 +7724,7 @@ uint64_t sub_100204EB8()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -7582,12 +7738,12 @@ uint64_t sub_100204EB8()
 
 uint64_t sub_100204F94(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C0338);
+  v2 = sub_10015DA04(&qword_1006C0338, &qword_10053A668);
   v47 = *(v2 - 8);
   v48 = v2;
   __chkstk_darwin(v2);
   v4 = &v35 - v3;
-  v5 = sub_10015DA04(&qword_1006C0340);
+  v5 = sub_10015DA04(&qword_1006C0340, &qword_10053A670);
   __chkstk_darwin(v5);
   sub_10021B0E0();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -7595,7 +7751,7 @@ uint64_t sub_100204F94(uint64_t a1)
   v6._object = 0x8000000100565F20;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v6);
   swift_getKeyPath();
-  v46 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  v46 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -7730,7 +7886,7 @@ uint64_t sub_100204F94(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v28 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v24(v4, v23);
-  sub_10015DA04(&qword_1006C0348);
+  sub_10015DA04(&qword_1006C0348, &qword_10053A678);
   v29 = swift_allocObject();
   *(v29 + 16) = xmmword_100539C50;
   v30 = v41;
@@ -7768,7 +7924,7 @@ uint64_t sub_1002059A8()
   __chkstk_darwin(v0);
   v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   sub_10021B0E0();
@@ -7783,7 +7939,7 @@ uint64_t sub_1002059A8()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -7798,7 +7954,7 @@ uint64_t sub_100205BF4()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -7814,7 +7970,7 @@ uint64_t sub_100205CD8()
   v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100539C40;
   *(v3 + 32) = v0;
@@ -7828,11 +7984,11 @@ uint64_t sub_100205CD8()
 uint64_t sub_100205DAC(uint64_t a1)
 {
   v34 = a1;
-  v1 = sub_10015DA04(&qword_1006C0320);
+  v1 = sub_10015DA04(&qword_1006C0320, &qword_10053A600);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v25 - v3;
-  v5 = sub_10015DA04(&qword_1006C0328);
+  v5 = sub_10015DA04(&qword_1006C0328, &qword_10053A608);
   __chkstk_darwin(v5);
   sub_10021B134();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -7917,7 +8073,7 @@ uint64_t sub_100205DAC(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v19 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v16(v4, v15);
-  sub_10015DA04(&qword_1006C0330);
+  sub_10015DA04(&qword_1006C0330, &qword_10053A610);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_100539C20;
   v21 = v28;
@@ -7946,7 +8102,7 @@ uint64_t sub_1002063A4()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100531E30;
   *(v5 + 32) = v4;
@@ -7961,7 +8117,7 @@ uint64_t sub_100206540()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -7976,11 +8132,11 @@ uint64_t sub_100206540()
 uint64_t sub_100206628(uint64_t a1)
 {
   v32 = a1;
-  v34 = sub_10015DA04(&qword_1006C0300);
+  v34 = sub_10015DA04(&qword_1006C0300, &qword_10053A5B8);
   v1 = *(v34 - 8);
   __chkstk_darwin(v34);
   v3 = &v26 - v2;
-  v4 = sub_10015DA04(&qword_1006C0308);
+  v4 = sub_10015DA04(&qword_1006C0308, &qword_10053A5C0);
   __chkstk_darwin(v4);
   sub_10021B2D8();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8066,7 +8222,7 @@ uint64_t sub_100206628(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v17(v3, v16);
-  sub_10015DA04(&qword_1006C0310);
+  sub_10015DA04(&qword_1006C0310, &qword_10053A5C8);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C20;
   v22 = v29;
@@ -8088,7 +8244,7 @@ uint64_t sub_100206C7C()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -8104,11 +8260,11 @@ uint64_t sub_100206C7C()
 uint64_t sub_100206D94(uint64_t a1)
 {
   v35 = a1;
-  v34 = sub_10015DA04(&qword_1006C02E0);
+  v34 = sub_10015DA04(&qword_1006C02E0, &qword_10053A570);
   v1 = *(v34 - 8);
   __chkstk_darwin(v34);
   v3 = &v26 - v2;
-  v4 = sub_10015DA04(&qword_1006C02E8);
+  v4 = sub_10015DA04(&qword_1006C02E8, &qword_10053A578);
   __chkstk_darwin(v4);
   sub_10019F8A4();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8194,7 +8350,7 @@ uint64_t sub_100206D94(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v17(v3, v16);
-  sub_10015DA04(&qword_1006C02F0);
+  sub_10015DA04(&qword_1006C02F0, &qword_10053A580);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C20;
   v22 = v29;
@@ -8215,11 +8371,11 @@ uint64_t sub_1002073E8()
   v42 = *(v40 - 8);
   __chkstk_darwin(v40);
   v39 = &v29 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v1 = sub_10015DA04(&qword_1006C02C8);
+  v1 = sub_10015DA04(&qword_1006C02C8, &qword_10053A530);
   v41 = *(v1 - 8);
   __chkstk_darwin(v1);
   v3 = &v29 - v2;
-  v4 = sub_10015DA04(&qword_1006C02D0);
+  v4 = sub_10015DA04(&qword_1006C02D0, &qword_10053A538);
   __chkstk_darwin(v4);
   sub_10021B32C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8312,7 +8468,7 @@ uint64_t sub_1002073E8()
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v24 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v16(v3, v37);
-  sub_10015DA04(&qword_1006C02D8);
+  sub_10015DA04(&qword_1006C02D8, &qword_10053A540);
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_100539C30;
   v26 = v35;
@@ -8331,7 +8487,7 @@ uint64_t sub_100207AB8()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -8345,13 +8501,13 @@ uint64_t sub_100207AB8()
 
 uint64_t sub_100207BAC(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C02A8);
+  v2 = sub_10015DA04(&qword_1006C02A8, &qword_10053A4E8);
   v3 = *(v2 - 8);
   v29 = v2;
   v30 = v3;
   __chkstk_darwin(v2);
   v5 = &v23 - v4;
-  v6 = sub_10015DA04(&qword_1006C02B0);
+  v6 = sub_10015DA04(&qword_1006C02B0, &qword_10053A4F0);
   __chkstk_darwin(v6);
   sub_10021B380();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8421,7 +8577,7 @@ uint64_t sub_100207BAC(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v18 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v28(v5, v15);
-  sub_10015DA04(&qword_1006C02B8);
+  sub_10015DA04(&qword_1006C02B8, &qword_10053A4F8);
   v19 = swift_allocObject();
   *(v19 + 16) = xmmword_100539C30;
   v20 = v25;
@@ -8440,7 +8596,7 @@ uint64_t sub_10020811C()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -8455,11 +8611,11 @@ uint64_t sub_10020811C()
 uint64_t sub_100208214(uint64_t a1)
 {
   v35 = a1;
-  v34 = sub_10015DA04(&qword_1006C0290);
+  v34 = sub_10015DA04(&qword_1006C0290, &qword_10053A4A8);
   v1 = *(v34 - 8);
   __chkstk_darwin(v34);
   v3 = &v26 - v2;
-  v4 = sub_10015DA04(&qword_1006C0298);
+  v4 = sub_10015DA04(&qword_1006C0298, &qword_10053A4B0);
   __chkstk_darwin(v4);
   sub_10021B3D4();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8545,7 +8701,7 @@ uint64_t sub_100208214(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v17(v3, v16);
-  sub_10015DA04(&qword_1006C02A0);
+  sub_10015DA04(&qword_1006C02A0, &qword_10053A4B8);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C20;
   v22 = v29;
@@ -8563,11 +8719,11 @@ uint64_t sub_100208214(uint64_t a1)
 uint64_t sub_10020885C(uint64_t a1)
 {
   v36 = a1;
-  v35 = sub_10015DA04(&qword_1006C0268);
+  v35 = sub_10015DA04(&qword_1006C0268, &qword_10053A460);
   v1 = *(v35 - 8);
   __chkstk_darwin(v35);
   v3 = v28 - v2;
-  v4 = sub_10015DA04(&qword_1006C0270);
+  v4 = sub_10015DA04(&qword_1006C0270, &qword_10053A468);
   __chkstk_darwin(v4);
   sub_10002098C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8655,7 +8811,7 @@ uint64_t sub_10020885C(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v22 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v19(v3, v18);
-  sub_10015DA04(&qword_1006C0278);
+  sub_10015DA04(&qword_1006C0278, &qword_10053A470);
   v23 = swift_allocObject();
   *(v23 + 16) = xmmword_100539C20;
   v24 = v31;
@@ -8677,7 +8833,7 @@ uint64_t sub_100208EB8()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -8692,13 +8848,13 @@ uint64_t sub_100208EB8()
 
 uint64_t sub_100208FC0(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C0250);
+  v2 = sub_10015DA04(&qword_1006C0250, &qword_10053A420);
   v3 = *(v2 - 8);
   v31 = v2;
   v32 = v3;
   __chkstk_darwin(v2);
   v5 = &v25 - v4;
-  v6 = sub_10015DA04(&qword_1006C0258);
+  v6 = sub_10015DA04(&qword_1006C0258, &qword_10053A428);
   __chkstk_darwin(v6);
   sub_10021B428();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8706,7 +8862,7 @@ uint64_t sub_100208FC0(uint64_t a1)
   v7._countAndFlagsBits = 0xD00000000000002ALL;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
   swift_getKeyPath();
-  v30 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  v30 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   v25 = a1;
   _AssistantIntent.IntentProjection.subscript.getter();
 
@@ -8770,7 +8926,7 @@ uint64_t sub_100208FC0(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v29(v5, v17);
-  sub_10015DA04(&qword_1006C0260);
+  sub_10015DA04(&qword_1006C0260, &qword_10053A430);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C30;
   v22 = v27;
@@ -8790,14 +8946,14 @@ uint64_t sub_100209508()
   __chkstk_darwin(v0);
   v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   sub_10021B428();
   _AssistantIntent.Value.init<A>(for:builder:)();
   v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100531E30;
   *(v5 + 32) = v4;
@@ -8812,7 +8968,7 @@ uint64_t sub_1002096A8()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -8827,11 +8983,11 @@ uint64_t sub_1002096A8()
 uint64_t sub_10020978C(uint64_t a1)
 {
   v35 = a1;
-  v36 = sub_10015DA04(&qword_1006C0238);
+  v36 = sub_10015DA04(&qword_1006C0238, &qword_10053A3E0);
   v1 = *(v36 - 8);
   __chkstk_darwin(v36);
   v3 = &v29 - v2;
-  v4 = sub_10015DA04(&qword_1006C0240);
+  v4 = sub_10015DA04(&qword_1006C0240, &qword_10053A3E8);
   __chkstk_darwin(v4);
   sub_10021B47C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -8916,7 +9072,7 @@ uint64_t sub_10020978C(uint64_t a1)
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v23 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v19(v3, v18);
-  sub_10015DA04(&qword_1006C0248);
+  sub_10015DA04(&qword_1006C0248, &qword_10053A3F0);
   v24 = swift_allocObject();
   *(v24 + 16) = xmmword_100539C60;
   v25 = v31;
@@ -8936,24 +9092,24 @@ uint64_t sub_10020978C(uint64_t a1)
 
 uint64_t sub_100209E0C(uint64_t a1)
 {
-  v2 = sub_10015DA04(&unk_1006BCAC0);
+  v2 = sub_10015DA04(&unk_1006BCAC0, &unk_1005395D0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v7 = &v9 - v6;
-  sub_100006038(a1, &v9 - v6, &unk_1006BCAC0);
-  sub_100006038(v7, v5, &unk_1006BCAC0);
+  sub_100006038(a1, &v9 - v6, &unk_1006BCAC0, &unk_1005395D0);
+  sub_100006038(v7, v5, &unk_1006BCAC0, &unk_1005395D0);
   IntentParameter.wrappedValue.setter();
-  return sub_1000073B4(v7, &unk_1006BCAC0);
+  return sub_1000073B4(v7, &unk_1006BCAC0, &unk_1005395D0);
 }
 
 uint64_t sub_100209F48(uint64_t a1)
 {
-  v33 = sub_10015DA04(&qword_1006C0220);
+  v33 = sub_10015DA04(&qword_1006C0220, &qword_10053A3A0);
   v31 = *(v33 - 8);
   __chkstk_darwin(v33);
   v3 = v25 - v2;
-  v4 = sub_10015DA04(&qword_1006C0228);
+  v4 = sub_10015DA04(&qword_1006C0228, &qword_10053A3A8);
   __chkstk_darwin(v4);
   v5 = sub_10021B188();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9056,7 +9212,7 @@ uint64_t sub_100209F48(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v32(v3, v33);
-  sub_10015DA04(&qword_1006C0230);
+  sub_10015DA04(&qword_1006C0230, &qword_10053A3B0);
   v21 = swift_allocObject();
   *(v21 + 16) = xmmword_100539C30;
   v22 = v27;
@@ -9091,7 +9247,7 @@ uint64_t sub_10020A5E8()
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -9108,7 +9264,7 @@ uint64_t sub_10020A7D8()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -9127,7 +9283,7 @@ uint64_t sub_10020A8D0()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -9141,13 +9297,13 @@ uint64_t sub_10020A8D0()
 
 uint64_t sub_10020A9CC(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C0208);
+  v2 = sub_10015DA04(&qword_1006C0208, &qword_10053A338);
   v3 = *(v2 - 8);
   v58 = v2;
   v59 = v3;
   __chkstk_darwin(v2);
   v5 = &v46 - v4;
-  v6 = sub_10015DA04(&qword_1006C0210);
+  v6 = sub_10015DA04(&qword_1006C0210, &qword_10053A340);
   __chkstk_darwin(v6);
   sub_100024048();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9156,7 +9312,7 @@ uint64_t sub_10020A9CC(uint64_t a1)
   v7._countAndFlagsBits = 0xD000000000000011;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
   swift_getKeyPath();
-  v57 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  v57 = sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -9341,7 +9497,7 @@ uint64_t sub_10020A9CC(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v38 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v35(v5, v34);
-  sub_10015DA04(&qword_1006C0218);
+  sub_10015DA04(&qword_1006C0218, &qword_10053A348);
   v39 = swift_allocObject();
   *(v39 + 16) = xmmword_100539C70;
   v40 = v52;
@@ -9391,13 +9547,13 @@ uint64_t sub_10020B660()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity);
+  sub_10001DB74(&qword_1006BE480, type metadata accessor for NoteEntity, &protocol conformance descriptor for NoteEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -9413,7 +9569,7 @@ uint64_t sub_10020B880()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -9432,7 +9588,7 @@ uint64_t sub_10020B988()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -9447,7 +9603,7 @@ uint64_t sub_10020B988()
 
 uint64_t sub_10020BAB0(uint64_t a1)
 {
-  v2 = sub_10015DA04(&qword_1006C01F0);
+  v2 = sub_10015DA04(&qword_1006C01F0, &qword_10053A2C8);
   v3 = *(v2 - 8);
   v49 = v2;
   v50 = v3;
@@ -9457,7 +9613,7 @@ uint64_t sub_10020BAB0(uint64_t a1)
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_10015DA04(&qword_1006C01F8);
+  v9 = sub_10015DA04(&qword_1006C01F8, &qword_10053A2D0);
   __chkstk_darwin(v9);
   v10 = sub_100020AAC();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9475,7 +9631,7 @@ uint64_t sub_10020BAB0(uint64_t a1)
   v12._object = 0xED00002065687420;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v12);
   swift_getKeyPath();
-  v46 = sub_10001DB74(&qword_1006C5420, type metadata accessor for FolderEntity);
+  v46 = sub_10001DB74(&qword_1006C5420, type metadata accessor for FolderEntity, &protocol conformance descriptor for FolderEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
@@ -9594,7 +9750,7 @@ uint64_t sub_10020BAB0(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v34 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v30(v21, v49);
-  sub_10015DA04(&qword_1006C0200);
+  sub_10015DA04(&qword_1006C0200, &qword_10053A2D8);
   v35 = swift_allocObject();
   *(v35 + 16) = xmmword_100539C20;
   v36 = v43;
@@ -9611,7 +9767,7 @@ uint64_t sub_10020BAB0(uint64_t a1)
 
 uint64_t sub_10020C400(uint64_t a1)
 {
-  v2 = type metadata accessor for FolderEntity();
+  v2 = type metadata accessor for FolderEntity(0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
@@ -9638,13 +9794,13 @@ uint64_t sub_10020C4E8()
   v5 = *(v1 + 8);
   v5(v3, v0);
   swift_getKeyPath();
-  sub_10001DB74(&qword_1006C5420, type metadata accessor for FolderEntity);
+  sub_10001DB74(&qword_1006C5420, type metadata accessor for FolderEntity, &protocol conformance descriptor for FolderEntity);
   _AssistantIntent.IntentProjection.subscript.getter();
 
   _AssistantIntent.Value.init<A>(for:builder:)();
   v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
   v5(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
+  sub_10015DA04(&qword_1006C0008, &qword_100539D70);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_100535E30;
   *(v7 + 32) = v4;
@@ -9660,7 +9816,7 @@ uint64_t sub_10020C708()
   v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100539C30;
   *(v4 + 32) = v0;
@@ -9679,7 +9835,7 @@ uint64_t sub_10020C808()
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
+  sub_10015DA04(&qword_1006BFF58, &qword_100539CF8);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100539C20;
   *(v5 + 32) = v0;
@@ -9694,11 +9850,11 @@ uint64_t sub_10020C808()
 
 uint64_t sub_10020C918(uint64_t a1)
 {
-  v25 = sub_10015DA04(&qword_1006C01D8);
+  v25 = sub_10015DA04(&qword_1006C01D8, &qword_10053A260);
   v27 = *(v25 - 8);
   __chkstk_darwin(v25);
   v3 = &v21 - v2;
-  v4 = sub_10015DA04(&qword_1006C01E0);
+  v4 = sub_10015DA04(&qword_1006C01E0, &qword_10053A268);
   __chkstk_darwin(v4);
   sub_100020E0C();
   _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9706,7 +9862,7 @@ uint64_t sub_10020C918(uint64_t a1)
   v5._object = 0xE800000000000000;
   _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v5);
   swift_getKeyPath();
-  v28 = sub_10001DB74(&qword_1006C40F0, type metadata accessor for AccountEntity);
+  v28 = sub_10001DB74(&qword_1006C40F0, type metadata accessor for AccountEntity, &protocol conformance descriptor for AccountEntity);
   v26 = a1;
   _AssistantIntent.IntentProjection.subscript.getter();
 
@@ -9768,7 +9924,7 @@ uint64_t sub_10020C918(uint64_t a1)
   _AssistantIntent.Phrase.init(stringInterpolation:)();
   v16 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
   v21(v3, v13);
-  sub_10015DA04(&qword_1006C01E8);
+  sub_10015DA04(&qword_1006C01E8, &qword_10053A270);
   v17 = swift_allocObject();
   *(v17 + 16) = xmmword_100539C30;
   v18 = v23;
@@ -9779,154 +9935,4 @@ uint64_t sub_10020C918(uint64_t a1)
   v19 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
   return v19;
-}
-
-uint64_t sub_10020CE68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void))
-{
-  v8 = a5(0);
-  v9 = __chkstk_darwin(v8 - 8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v15 - v12;
-  sub_10021B878(a1, &v15 - v12, a6);
-  sub_10021B878(v13, v11, a6);
-  IntentParameter.wrappedValue.setter();
-  return sub_10021B8E0(v13, a6);
-}
-
-uint64_t sub_10020CF44()
-{
-  v0 = type metadata accessor for _AssistantIntent.Value();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getKeyPath();
-  sub_10001DB74(&qword_1006C40F0, type metadata accessor for AccountEntity);
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  sub_100020E0C();
-  _AssistantIntent.Value.init<A>(for:builder:)();
-  v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_100531E30;
-  *(v5 + 32) = v4;
-  v6 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
-
-  return v6;
-}
-
-uint64_t sub_10020D0E4()
-{
-  v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  sub_10015DA04(&qword_1006BFF58);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_100539C30;
-  *(v4 + 32) = v0;
-  *(v4 + 40) = v1;
-  *(v4 + 48) = v2;
-  *(v4 + 56) = v3;
-  v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
-
-  return v5;
-}
-
-uint64_t sub_10020D1C8()
-{
-  v0 = sub_10015DA04(&qword_1006C01C0);
-  v1 = *(v0 - 8);
-  v22 = v0;
-  v23 = v1;
-  __chkstk_darwin(v0);
-  v3 = &v18 - v2;
-  v4 = sub_10015DA04(&qword_1006C01C8);
-  __chkstk_darwin(v4);
-  sub_100020F2C();
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v5._countAndFlagsBits = 0x2079616C70736944;
-  v5._object = 0xEC00000020656874;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v5);
-  swift_getKeyPath();
-  sub_10001DB74(&unk_1006C0540, type metadata accessor for AttachmentEntity);
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v6._countAndFlagsBits = 0x6D68636174746120;
-  v6._object = 0xEC0000002E746E65;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v6);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v21 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v7 = v22;
-  v19 = *(v23 + 8);
-  v23 += 8;
-  v19(v3, v22);
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v8._countAndFlagsBits = 0x656874206E65704FLL;
-  v8._object = 0xE900000000000020;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v8);
-  swift_getKeyPath();
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v9._countAndFlagsBits = 0x6D68636174746120;
-  v9._object = 0xEC0000002E746E65;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v9);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v20 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v10 = v19;
-  v19(v3, v7);
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v11._countAndFlagsBits = 0x65687420776F6853;
-  v11._object = 0xE900000000000020;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v11);
-  swift_getKeyPath();
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v12._countAndFlagsBits = 0x6D68636174746120;
-  v12._object = 0xEC0000002E746E65;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v12);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v13 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v10(v3, v22);
-  sub_10015DA04(&qword_1006C01D0);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_100539C40;
-  v15 = v20;
-  *(v14 + 32) = v21;
-  *(v14 + 40) = v15;
-  *(v14 + 48) = v13;
-  v16 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
-
-  return v16;
-}
-
-uint64_t sub_10020D648()
-{
-  v0 = type metadata accessor for _AssistantIntent.Value();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getKeyPath();
-  sub_10001DB74(&unk_1006C0540, type metadata accessor for AttachmentEntity);
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  sub_100020F2C();
-  _AssistantIntent.Value.init<A>(for:builder:)();
-  v4 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v3, v0);
-  sub_10015DA04(&qword_1006C0008);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_100531E30;
-  *(v5 + 32) = v4;
-  v6 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
-
-  return v6;
 }

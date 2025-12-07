@@ -27,20 +27,24 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v11.receiver = self;
-  v11.super_class = ObjectType;
+  v21.receiver = self;
+  v21.super_class = ObjectType;
   selfCopy = self;
-  [(AppPromotionMediaContainerView *)&v11 frame];
-  v10.receiver = selfCopy;
-  v10.super_class = ObjectType;
-  [(AppPromotionMediaContainerView *)&v10 setFrame:x, y, width, height];
-  sub_1000CE0B8();
+  [(AppPromotionMediaContainerView *)&v21 frame];
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v20.receiver = selfCopy;
+  v20.super_class = ObjectType;
+  height = [(AppPromotionMediaContainerView *)&v20 setFrame:x, y, width, height];
+  sub_1000CE0B8(v11, v13, v15, v17, height, v19);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000CE388();
+  sub_1000CE388(selfCopy, v2);
 }
 
 - (void)videoTapGestureRecognized

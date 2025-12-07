@@ -85,56 +85,53 @@
 
 - (void)_setHasVendedData:(BOOL)data
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = _PRGetLogSystem();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = _PRGetLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PRPersonaStore _setHasVendedData:]";
-    v9 = 1024;
-    v10 = 104;
-    _os_log_impl(&dword_25E428000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[PRPersonaStore _setHasVendedData:]";
+    v8 = 1024;
+    v9 = 104;
+    _os_log_impl(&dword_25E428000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v6, 0x12u);
   }
 
   [(NSLock *)self->_dataVendingFlagLock lock];
   self->_hasVendedData = data;
   [(NSLock *)self->_dataVendingFlagLock unlock];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:(unint64_t)freshness completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]";
-    v14 = 1024;
-    v15 = 119;
+    v12 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]";
+    v13 = 1024;
+    v14 = 119;
     _os_log_impl(&dword_25E428000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up current likeness for primary iCloud account...", buf, 0x12u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFreshness_completion___block_invoke;
-  v10[3] = &unk_279A1B748;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFreshness_completion___block_invoke;
+  v9[3] = &unk_279A1B748;
+  v9[4] = self;
+  v10 = completionCopy;
   v7 = completionCopy;
-  v8 = MEMORY[0x25F8B2920](v10);
+  v8 = MEMORY[0x25F8B2920](v9);
   v8[2](v8, 0, 0);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFreshness_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -144,11 +141,11 @@ void __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFresh
     }
 
     *buf = 136315650;
-    v18 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]_block_invoke";
-    v19 = 1024;
-    v20 = 123;
-    v21 = 2112;
-    v22 = v6;
+    v17 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]_block_invoke";
+    v18 = 1024;
+    v19 = 123;
+    v20 = 2112;
+    v21 = v6;
     v9 = "%s (%d) Likeness lookup for primary iCloud account came back with an error: %@";
   }
 
@@ -160,11 +157,11 @@ void __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFresh
     }
 
     *buf = 136315650;
-    v18 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]_block_invoke";
-    v19 = 1024;
-    v20 = 125;
-    v21 = 2112;
-    v22 = v5;
+    v17 = "[PRPersonaStore currentLikenessForPrimaryiCloudAccountWithDesiredFreshness:completion:]_block_invoke";
+    v18 = 1024;
+    v19 = 125;
+    v20 = 2112;
+    v21 = v5;
     v9 = "%s (%d) Likeness lookup for primary iCloud account succeeded: %@";
   }
 
@@ -180,48 +177,44 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __88__PRPersonaStore_currentLikenessForPrimaryiCloudAccountWithDesiredFreshness_completion___block_invoke_13;
     block[3] = &unk_279A1B720;
-    v16 = v10;
-    v14 = v5;
-    v15 = v6;
+    v15 = v10;
+    v13 = v5;
+    v14 = v6;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allLikenessesForPrimaryiCloudAccountWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = _PRGetLogSystem();
+  v5 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]";
-    v13 = 1024;
-    v14 = 151;
+    v11 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]";
+    v12 = 1024;
+    v13 = 151;
     _os_log_impl(&dword_25E428000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up all likenesses for primary iCloud account...", buf, 0x12u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___block_invoke;
-  v9[3] = &unk_279A1B770;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___block_invoke;
+  v8[3] = &unk_279A1B770;
+  v8[4] = self;
+  v9 = completionCopy;
   v6 = completionCopy;
-  v7 = MEMORY[0x25F8B2920](v9);
+  v7 = MEMORY[0x25F8B2920](v8);
   v7[2](v7, 0, 0);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -231,11 +224,11 @@ void __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___b
     }
 
     *buf = 136315650;
-    v18 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v19 = 1024;
-    v20 = 155;
-    v21 = 2112;
-    v22 = v6;
+    v17 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v18 = 1024;
+    v19 = 155;
+    v20 = 2112;
+    v21 = v6;
     v9 = "%s (%d) Likenesses lookup for primary iCloud account came back with an error: %@";
   }
 
@@ -247,11 +240,11 @@ void __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___b
     }
 
     *buf = 136315650;
-    v18 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v19 = 1024;
-    v20 = 157;
-    v21 = 2112;
-    v22 = v5;
+    v17 = "[PRPersonaStore allLikenessesForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v18 = 1024;
+    v19 = 157;
+    v20 = 2112;
+    v21 = v5;
     v9 = "%s (%d) Likenesses lookup for primary iCloud account succeeded: %@";
   }
 
@@ -267,53 +260,49 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __69__PRPersonaStore_allLikenessesForPrimaryiCloudAccountWithCompletion___block_invoke_16;
     block[3] = &unk_279A1B720;
-    v16 = v10;
-    v14 = v5;
-    v15 = v6;
+    v15 = v10;
+    v13 = v5;
+    v14 = v6;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)likenessForPhoneNumber:(id)number desiredFreshness:(unint64_t)freshness completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   completionCopy = completion;
-  v9 = _PRGetLogSystem();
+  v9 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]";
-    v20 = 1024;
-    v21 = 189;
-    v22 = 2112;
-    v23 = numberCopy;
+    v18 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]";
+    v19 = 1024;
+    v20 = 189;
+    v21 = 2112;
+    v22 = numberCopy;
     _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up likeness for phone number %@...", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___block_invoke;
-  v14[3] = &unk_279A1B798;
-  v15 = numberCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___block_invoke;
+  v13[3] = &unk_279A1B798;
+  v14 = numberCopy;
   selfCopy = self;
-  v17 = completionCopy;
+  v16 = completionCopy;
   v10 = completionCopy;
   v11 = numberCopy;
-  v12 = MEMORY[0x25F8B2920](v14);
+  v12 = MEMORY[0x25F8B2920](v13);
   v12[2](v12, 0, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -324,13 +313,13 @@ void __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___b
 
     v9 = *(a1 + 32);
     *buf = 136315906;
-    v20 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]_block_invoke";
-    v21 = 1024;
-    v22 = 193;
-    v23 = 2112;
-    v24 = v9;
-    v25 = 2112;
-    v26 = v6;
+    v19 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]_block_invoke";
+    v20 = 1024;
+    v21 = 193;
+    v22 = 2112;
+    v23 = v9;
+    v24 = 2112;
+    v25 = v6;
     v10 = "%s (%d) Likeness lookup for phone number %@ came back with an error: %@";
   }
 
@@ -343,13 +332,13 @@ void __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___b
 
     v11 = *(a1 + 32);
     *buf = 136315906;
-    v20 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]_block_invoke";
-    v21 = 1024;
-    v22 = 195;
-    v23 = 2112;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v5;
+    v19 = "[PRPersonaStore likenessForPhoneNumber:desiredFreshness:completion:]_block_invoke";
+    v20 = 1024;
+    v21 = 195;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v5;
     v10 = "%s (%d) Likeness lookup for phone number %@ succeeded: %@";
   }
 
@@ -365,53 +354,49 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __69__PRPersonaStore_likenessForPhoneNumber_desiredFreshness_completion___block_invoke_18;
     block[3] = &unk_279A1B720;
-    v18 = v12;
-    v16 = v5;
-    v17 = v6;
+    v17 = v12;
+    v15 = v5;
+    v16 = v6;
     dispatch_async(v13, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)likenessForEmailAddress:(id)address desiredFreshness:(unint64_t)freshness completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
-  v9 = _PRGetLogSystem();
+  v9 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]";
-    v20 = 1024;
-    v21 = 227;
-    v22 = 2112;
-    v23 = addressCopy;
+    v18 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]";
+    v19 = 1024;
+    v20 = 227;
+    v21 = 2112;
+    v22 = addressCopy;
     _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up likeness for email %@...", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___block_invoke;
-  v14[3] = &unk_279A1B798;
-  v15 = addressCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___block_invoke;
+  v13[3] = &unk_279A1B798;
+  v14 = addressCopy;
   selfCopy = self;
-  v17 = completionCopy;
+  v16 = completionCopy;
   v10 = completionCopy;
   v11 = addressCopy;
-  v12 = MEMORY[0x25F8B2920](v14);
+  v12 = MEMORY[0x25F8B2920](v13);
   v12[2](v12, 0, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -422,13 +407,13 @@ void __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___
 
     v9 = *(a1 + 32);
     *buf = 136315906;
-    v20 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]_block_invoke";
-    v21 = 1024;
-    v22 = 231;
-    v23 = 2112;
-    v24 = v9;
-    v25 = 2112;
-    v26 = v6;
+    v19 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]_block_invoke";
+    v20 = 1024;
+    v21 = 231;
+    v22 = 2112;
+    v23 = v9;
+    v24 = 2112;
+    v25 = v6;
     v10 = "%s (%d) Likeness lookup for emailAddress %@ came back with an error: %@";
   }
 
@@ -441,13 +426,13 @@ void __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___
 
     v11 = *(a1 + 32);
     *buf = 136315906;
-    v20 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]_block_invoke";
-    v21 = 1024;
-    v22 = 233;
-    v23 = 2112;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v5;
+    v19 = "[PRPersonaStore likenessForEmailAddress:desiredFreshness:completion:]_block_invoke";
+    v20 = 1024;
+    v21 = 233;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v5;
     v10 = "%s (%d) Likeness lookup for emailAddress %@ succeeded: %@";
   }
 
@@ -463,47 +448,43 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __70__PRPersonaStore_likenessForEmailAddress_desiredFreshness_completion___block_invoke_19;
     block[3] = &unk_279A1B720;
-    v18 = v12;
-    v16 = v5;
-    v17 = v6;
+    v17 = v12;
+    v15 = v5;
+    v16 = v6;
     dispatch_async(v13, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveLikeness:(id)likeness forPrimayiCloudAccountWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]";
-    v14 = 1024;
-    v15 = 265;
+    v12 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]";
+    v13 = 1024;
+    v14 = 265;
     _os_log_impl(&dword_25E428000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) Saving likeness for primary iCloud account...", buf, 0x12u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___block_invoke;
-  v10[3] = &unk_279A1B7E8;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___block_invoke;
+  v9[3] = &unk_279A1B7E8;
+  v9[4] = self;
+  v10 = completionCopy;
   v7 = completionCopy;
-  v8 = MEMORY[0x25F8B2920](v10);
+  v8 = MEMORY[0x25F8B2920](v9);
   v8[2](v8, 1, 0);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -513,11 +494,11 @@ void __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___bl
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 269;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 269;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Likeness write came back with an error: %@";
     v9 = v6;
     v10 = 28;
@@ -531,9 +512,9 @@ void __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___bl
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 271;
+    v18 = "[PRPersonaStore saveLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 271;
     v8 = "%s (%d) Likeness write succeeded.";
     v9 = v6;
     v10 = 18;
@@ -550,50 +531,46 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __68__PRPersonaStore_saveLikeness_forPrimayiCloudAccountWithCompletion___block_invoke_20;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changeCurrentSelfLikenessToLikenessWithUniqueID:(id)d completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v15 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]";
-    v16 = 1024;
-    v17 = 295;
-    v18 = 2112;
-    v19 = dCopy;
+    v14 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]";
+    v15 = 1024;
+    v16 = 295;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Changing current self likeness to the one with ID: %@...", buf, 0x1Cu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_completion___block_invoke;
-  v12[3] = &unk_279A1B7E8;
-  v12[4] = self;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_completion___block_invoke;
+  v11[3] = &unk_279A1B7E8;
+  v11[4] = self;
+  v12 = completionCopy;
   v9 = completionCopy;
-  v10 = MEMORY[0x25F8B2920](v12);
+  v10 = MEMORY[0x25F8B2920](v11);
   v10[2](v10, 1, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -603,11 +580,11 @@ void __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_comple
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]_block_invoke";
-    v20 = 1024;
-    v21 = 299;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]_block_invoke";
+    v19 = 1024;
+    v20 = 299;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Error: %@";
     v9 = v6;
     v10 = 28;
@@ -621,9 +598,9 @@ void __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_comple
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]_block_invoke";
-    v20 = 1024;
-    v21 = 301;
+    v18 = "[PRPersonaStore changeCurrentSelfLikenessToLikenessWithUniqueID:completion:]_block_invoke";
+    v19 = 1024;
+    v20 = 301;
     v8 = "%s (%d) Success.";
     v9 = v6;
     v10 = 18;
@@ -640,50 +617,46 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __77__PRPersonaStore_changeCurrentSelfLikenessToLikenessWithUniqueID_completion___block_invoke_22;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeLikeness:(id)likeness forPrimayiCloudAccountWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   likenessCopy = likeness;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v15 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]";
-    v16 = 1024;
-    v17 = 325;
-    v18 = 2112;
-    v19 = likenessCopy;
+    v14 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]";
+    v15 = 1024;
+    v16 = 325;
+    v17 = 2112;
+    v18 = likenessCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Removing likeness self likeness %@...", buf, 0x1Cu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___block_invoke;
-  v12[3] = &unk_279A1B7E8;
-  v12[4] = self;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___block_invoke;
+  v11[3] = &unk_279A1B7E8;
+  v11[4] = self;
+  v12 = completionCopy;
   v9 = completionCopy;
-  v10 = MEMORY[0x25F8B2920](v12);
+  v10 = MEMORY[0x25F8B2920](v11);
   v10[2](v10, 1, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -693,11 +666,11 @@ void __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 329;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 329;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Likeness removal came back with an error: %@";
     v9 = v6;
     v10 = 28;
@@ -711,9 +684,9 @@ void __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 331;
+    v18 = "[PRPersonaStore removeLikeness:forPrimayiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 331;
     v8 = "%s (%d) Likeness removal succeeded.";
     v9 = v6;
     v10 = 18;
@@ -730,47 +703,43 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __70__PRPersonaStore_removeLikeness_forPrimayiCloudAccountWithCompletion___block_invoke_23;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllLikenessForPrimaryiCloudAccountWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = _PRGetLogSystem();
+  v5 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]";
-    v13 = 1024;
-    v14 = 355;
+    v11 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]";
+    v12 = 1024;
+    v13 = 355;
     _os_log_impl(&dword_25E428000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) Removing all likenesses for primary iCloud account...", buf, 0x12u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion___block_invoke;
-  v9[3] = &unk_279A1B7E8;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion___block_invoke;
+  v8[3] = &unk_279A1B7E8;
+  v8[4] = self;
+  v9 = completionCopy;
   v6 = completionCopy;
-  v7 = MEMORY[0x25F8B2920](v9);
+  v7 = MEMORY[0x25F8B2920](v8);
   v7[2](v7, 1, 0);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -780,11 +749,11 @@ void __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 359;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 359;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Removing likenesses came back with an error: %@";
     v9 = v6;
     v10 = 28;
@@ -798,9 +767,9 @@ void __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 361;
+    v18 = "[PRPersonaStore removeAllLikenessForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 361;
     v8 = "%s (%d) Removing likenesses succeeded.";
     v9 = v6;
     v10 = 18;
@@ -817,13 +786,11 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __73__PRPersonaStore_removeAllLikenessForPrimaryiCloudAccountWithCompletion___block_invoke_24;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)likenessDataForPropagationToRecipient:(id)recipient lastContactDate:(id)date
@@ -835,42 +802,40 @@ LABEL_7:
 
 - (void)handleAppleIDEvent:(unint64_t)event account:(id)account completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   completionCopy = completion;
-  v10 = _PRGetLogSystem();
+  v10 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:event];
     *buf = 136315906;
-    v18 = "[PRPersonaStore handleAppleIDEvent:account:completion:]";
-    v19 = 1024;
-    v20 = 523;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = accountCopy;
+    v17 = "[PRPersonaStore handleAppleIDEvent:account:completion:]";
+    v18 = 1024;
+    v19 = 523;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = accountCopy;
     _os_log_impl(&dword_25E428000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) Handling event %@ for account: %@", buf, 0x26u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke;
-  v15[3] = &unk_279A1B7E8;
-  v15[4] = self;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke;
+  v14[3] = &unk_279A1B7E8;
+  v14[4] = self;
+  v15 = completionCopy;
   v12 = completionCopy;
-  v13 = MEMORY[0x25F8B2920](v15);
+  v13 = MEMORY[0x25F8B2920](v14);
   v13[2](v13, 1, 0);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -880,11 +845,11 @@ void __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke(u
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore handleAppleIDEvent:account:completion:]_block_invoke";
-    v20 = 1024;
-    v21 = 527;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore handleAppleIDEvent:account:completion:]_block_invoke";
+    v19 = 1024;
+    v20 = 527;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Error: %@";
     v9 = v6;
     v10 = 28;
@@ -898,9 +863,9 @@ void __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke(u
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore handleAppleIDEvent:account:completion:]_block_invoke";
-    v20 = 1024;
-    v21 = 529;
+    v18 = "[PRPersonaStore handleAppleIDEvent:account:completion:]_block_invoke";
+    v19 = 1024;
+    v20 = 529;
     v8 = "%s (%d) Success.";
     v9 = v6;
     v10 = 18;
@@ -917,52 +882,48 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __56__PRPersonaStore_handleAppleIDEvent_account_completion___block_invoke_26;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateLikeness:(id)likeness forEmailAddress:(id)address completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
-  v9 = _PRGetLogSystem();
+  v9 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]";
-    v20 = 1024;
-    v21 = 553;
-    v22 = 2112;
-    v23 = addressCopy;
+    v18 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]";
+    v19 = 1024;
+    v20 = 553;
+    v21 = 2112;
+    v22 = addressCopy;
     _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Donation for email %@...", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invoke;
-  v14[3] = &unk_279A1B810;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invoke;
+  v13[3] = &unk_279A1B810;
   selfCopy = self;
-  v17 = completionCopy;
-  v15 = addressCopy;
+  v16 = completionCopy;
+  v14 = addressCopy;
   v10 = completionCopy;
   v11 = addressCopy;
-  v12 = MEMORY[0x25F8B2920](v14);
+  v12 = MEMORY[0x25F8B2920](v13);
   v12[2](v12, 1, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invoke(void *a1, char a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -973,13 +934,13 @@ void __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invo
 
     v8 = a1[4];
     *buf = 136315906;
-    v21 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 557;
-    v24 = 2112;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v5;
+    v20 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 557;
+    v23 = 2112;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v5;
     v9 = "%s (%d) Donation failed for email %@. Error: %@";
     v10 = v6;
     v11 = 38;
@@ -994,11 +955,11 @@ void __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invo
 
     v12 = a1[4];
     *buf = 136315650;
-    v21 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 559;
-    v24 = 2112;
-    v25 = v12;
+    v20 = "[PRPersonaStore donateLikeness:forEmailAddress:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 559;
+    v23 = 2112;
+    v24 = v12;
     v9 = "%s (%d) Donation succeeded for email %@.";
     v10 = v6;
     v11 = 28;
@@ -1015,52 +976,48 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __60__PRPersonaStore_donateLikeness_forEmailAddress_completion___block_invoke_27;
     block[3] = &unk_279A1B7C0;
-    v18 = v13;
-    v19 = a2;
-    v17 = v5;
+    v17 = v13;
+    v18 = a2;
+    v16 = v5;
     dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateLikeness:(id)likeness forPhoneNumber:(id)number completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   completionCopy = completion;
-  v9 = _PRGetLogSystem();
+  v9 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]";
-    v20 = 1024;
-    v21 = 583;
-    v22 = 2112;
-    v23 = numberCopy;
+    v18 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]";
+    v19 = 1024;
+    v20 = 583;
+    v21 = 2112;
+    v22 = numberCopy;
     _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Donation for phone number %@...", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invoke;
-  v14[3] = &unk_279A1B810;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invoke;
+  v13[3] = &unk_279A1B810;
   selfCopy = self;
-  v17 = completionCopy;
-  v15 = numberCopy;
+  v16 = completionCopy;
+  v14 = numberCopy;
   v10 = completionCopy;
   v11 = numberCopy;
-  v12 = MEMORY[0x25F8B2920](v14);
+  v12 = MEMORY[0x25F8B2920](v13);
   v12[2](v12, 1, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invoke(void *a1, char a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -1071,13 +1028,13 @@ void __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invok
 
     v8 = a1[4];
     *buf = 136315906;
-    v21 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 587;
-    v24 = 2112;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v5;
+    v20 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 587;
+    v23 = 2112;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v5;
     v9 = "%s (%d) Donation failed for phone number %@. Error: %@";
     v10 = v6;
     v11 = 38;
@@ -1092,11 +1049,11 @@ void __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invok
 
     v12 = a1[4];
     *buf = 136315650;
-    v21 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 589;
-    v24 = 2112;
-    v25 = v12;
+    v20 = "[PRPersonaStore donateLikeness:forPhoneNumber:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 589;
+    v23 = 2112;
+    v24 = v12;
     v9 = "%s (%d) Donation succeeded for phone number %@.";
     v10 = v6;
     v11 = 28;
@@ -1113,53 +1070,49 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __59__PRPersonaStore_donateLikeness_forPhoneNumber_completion___block_invoke_28;
     block[3] = &unk_279A1B7C0;
-    v18 = v13;
-    v19 = a2;
-    v17 = v5;
+    v17 = v13;
+    v18 = a2;
+    v16 = v5;
     dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)likenessesWithExternalIdentifier:(id)identifier completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v18 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]";
-    v19 = 1024;
-    v20 = 613;
-    v21 = 2112;
-    v22 = identifierCopy;
+    v17 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]";
+    v18 = 1024;
+    v19 = 613;
+    v20 = 2112;
+    v21 = identifierCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up for external ID: %@", buf, 0x1Cu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_invoke;
-  v13[3] = &unk_279A1B838;
-  v14 = identifierCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_invoke;
+  v12[3] = &unk_279A1B838;
+  v13 = identifierCopy;
   selfCopy = self;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v9 = completionCopy;
   v10 = identifierCopy;
-  v11 = MEMORY[0x25F8B2920](v13);
+  v11 = MEMORY[0x25F8B2920](v12);
   v11[2](v11, 0, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1170,13 +1123,13 @@ void __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_in
 
     v9 = *(a1 + 32);
     *buf = 136315906;
-    v22 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 617;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = v6;
+    v21 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 617;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v6;
     v10 = "%s (%d) Lookup for external ID %@ failed. Error: %@";
     v11 = v7;
     v12 = 38;
@@ -1191,11 +1144,11 @@ void __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_in
 
     v13 = *(a1 + 32);
     *buf = 136315650;
-    v22 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 619;
-    v25 = 2112;
-    v26 = v13;
+    v21 = "[PRPersonaStore likenessesWithExternalIdentifier:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 619;
+    v24 = 2112;
+    v25 = v13;
     v10 = "%s (%d) Lookup for external ID %@ succeeded.";
     v11 = v7;
     v12 = 28;
@@ -1213,54 +1166,50 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __62__PRPersonaStore_likenessesWithExternalIdentifier_completion___block_invoke_29;
     block[3] = &unk_279A1B720;
-    v20 = v14;
-    v18 = v5;
-    v19 = v6;
+    v19 = v14;
+    v17 = v5;
+    v18 = v6;
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)screenNameForEmailAddress:(id)address completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore screenNameForEmailAddress:completion:]";
-    v20 = 1024;
-    v21 = 667;
-    v22 = 2112;
-    v23 = addressCopy;
+    v18 = "[PRPersonaStore screenNameForEmailAddress:completion:]";
+    v19 = 1024;
+    v20 = 667;
+    v21 = 2112;
+    v22 = addressCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up with email: %@", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke;
-  v14[3] = &unk_279A1B860;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke;
+  v13[3] = &unk_279A1B860;
   selfCopy = self;
-  v17 = completionCopy;
-  v15 = addressCopy;
+  v16 = completionCopy;
+  v14 = addressCopy;
   v9 = completionCopy;
   v10 = addressCopy;
-  v11 = MEMORY[0x25F8B2920](v14);
+  v11 = MEMORY[0x25F8B2920](v13);
   v12 = [MEMORY[0x277CCA9B8] pr_errorWithCode:-9019];
   (v11)[2](v11, 0, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1271,13 +1220,13 @@ void __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke(vo
 
     v9 = a1[4];
     *buf = 136315906;
-    v22 = "[PRPersonaStore screenNameForEmailAddress:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 671;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = v6;
+    v21 = "[PRPersonaStore screenNameForEmailAddress:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 671;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v6;
     v10 = "%s (%d) Lookup for %@ failed. Error: %@";
     v11 = v7;
     v12 = 38;
@@ -1292,11 +1241,11 @@ void __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke(vo
 
     v13 = a1[4];
     *buf = 136315650;
-    v22 = "[PRPersonaStore screenNameForEmailAddress:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 673;
-    v25 = 2112;
-    v26 = v13;
+    v21 = "[PRPersonaStore screenNameForEmailAddress:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 673;
+    v24 = 2112;
+    v25 = v13;
     v10 = "%s (%d) Lookup for %@ succeeded.";
     v11 = v7;
     v12 = 28;
@@ -1313,54 +1262,50 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __55__PRPersonaStore_screenNameForEmailAddress_completion___block_invoke_30;
     block[3] = &unk_279A1B720;
-    v20 = v14;
-    v18 = v5;
-    v19 = v6;
+    v19 = v14;
+    v17 = v5;
+    v18 = v6;
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)screenNameForPhoneNumber:(id)number completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore screenNameForPhoneNumber:completion:]";
-    v20 = 1024;
-    v21 = 698;
-    v22 = 2112;
-    v23 = numberCopy;
+    v18 = "[PRPersonaStore screenNameForPhoneNumber:completion:]";
+    v19 = 1024;
+    v20 = 698;
+    v21 = 2112;
+    v22 = numberCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up with phone number: %@", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke;
-  v14[3] = &unk_279A1B860;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke;
+  v13[3] = &unk_279A1B860;
   selfCopy = self;
-  v17 = completionCopy;
-  v15 = numberCopy;
+  v16 = completionCopy;
+  v14 = numberCopy;
   v9 = completionCopy;
   v10 = numberCopy;
-  v11 = MEMORY[0x25F8B2920](v14);
+  v11 = MEMORY[0x25F8B2920](v13);
   v12 = [MEMORY[0x277CCA9B8] pr_errorWithCode:-9019];
   (v11)[2](v11, 0, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1371,13 +1316,13 @@ void __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke(voi
 
     v9 = a1[4];
     *buf = 136315906;
-    v22 = "[PRPersonaStore screenNameForPhoneNumber:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 702;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = v6;
+    v21 = "[PRPersonaStore screenNameForPhoneNumber:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 702;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v6;
     v10 = "%s (%d) Lookup for %@ failed. Error: %@";
     v11 = v7;
     v12 = 38;
@@ -1392,11 +1337,11 @@ void __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke(voi
 
     v13 = a1[4];
     *buf = 136315650;
-    v22 = "[PRPersonaStore screenNameForPhoneNumber:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 704;
-    v25 = 2112;
-    v26 = v13;
+    v21 = "[PRPersonaStore screenNameForPhoneNumber:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 704;
+    v24 = 2112;
+    v25 = v13;
     v10 = "%s (%d) Lookup for %@ succeeded.";
     v11 = v7;
     v12 = 28;
@@ -1413,49 +1358,45 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __54__PRPersonaStore_screenNameForPhoneNumber_completion___block_invoke_33;
     block[3] = &unk_279A1B720;
-    v20 = v14;
-    v18 = v5;
-    v19 = v6;
+    v19 = v14;
+    v17 = v5;
+    v18 = v6;
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)screenNameForPrimaryiCloudAccountWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = _PRGetLogSystem();
+  v5 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]";
-    v18 = 1024;
-    v19 = 729;
+    v16 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]";
+    v17 = 1024;
+    v18 = 729;
     _os_log_impl(&dword_25E428000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) called", buf, 0x12u);
   }
 
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___block_invoke;
-  v13 = &unk_279A1B888;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___block_invoke;
+  v12 = &unk_279A1B888;
   selfCopy = self;
-  v15 = completionCopy;
+  v14 = completionCopy;
   v6 = completionCopy;
-  v7 = MEMORY[0x25F8B2920](&v10);
-  v8 = [MEMORY[0x277CCA9B8] pr_errorWithCode:{-9019, v10, v11, v12, v13, selfCopy}];
+  v7 = MEMORY[0x25F8B2920](&v9);
+  v8 = [MEMORY[0x277CCA9B8] pr_errorWithCode:{-9019, v9, v10, v11, v12, selfCopy}];
   (v7)[2](v7, 0, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1465,11 +1406,11 @@ void __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___bloc
     }
 
     *buf = 136315650;
-    v20 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v21 = 1024;
-    v22 = 733;
-    v23 = 2112;
-    v24 = v6;
+    v19 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v20 = 1024;
+    v21 = 733;
+    v22 = 2112;
+    v23 = v6;
     v9 = "%s (%d) Lookup failed. Error: %@";
     v10 = v7;
     v11 = 28;
@@ -1483,9 +1424,9 @@ void __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___bloc
     }
 
     *buf = 136315394;
-    v20 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v21 = 1024;
-    v22 = 735;
+    v19 = "[PRPersonaStore screenNameForPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v20 = 1024;
+    v21 = 735;
     v9 = "%s (%d) Lookup succeeded.";
     v10 = v7;
     v11 = 18;
@@ -1502,54 +1443,50 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __66__PRPersonaStore_screenNameForPrimaryiCloudAccountWithCompletion___block_invoke_34;
     block[3] = &unk_279A1B720;
-    v18 = v12;
-    v16 = v5;
-    v17 = v6;
+    v17 = v12;
+    v15 = v5;
+    v16 = v6;
     dispatch_async(v13, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)screenNameForAppleIDWithAltDSID:(id)d completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v8 = _PRGetLogSystem();
+  v8 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]";
-    v20 = 1024;
-    v21 = 760;
-    v22 = 2112;
-    v23 = dCopy;
+    v18 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]";
+    v19 = 1024;
+    v20 = 760;
+    v21 = 2112;
+    v22 = dCopy;
     _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Looking up with altDSID: %@", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_invoke;
-  v14[3] = &unk_279A1B860;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_invoke;
+  v13[3] = &unk_279A1B860;
   selfCopy = self;
-  v17 = completionCopy;
-  v15 = dCopy;
+  v16 = completionCopy;
+  v14 = dCopy;
   v9 = completionCopy;
   v10 = dCopy;
-  v11 = MEMORY[0x25F8B2920](v14);
+  v11 = MEMORY[0x25F8B2920](v13);
   v12 = [MEMORY[0x277CCA9B8] pr_errorWithCode:-9019];
   (v11)[2](v11, 0, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _PRGetLogSystem();
+  v7 = _PRGetLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1560,13 +1497,13 @@ void __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_inv
 
     v9 = a1[4];
     *buf = 136315906;
-    v22 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 764;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = v6;
+    v21 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 764;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v6;
     v10 = "%s (%d) Lookup for %@ failed. Error: %@";
     v11 = v7;
     v12 = 38;
@@ -1581,11 +1518,11 @@ void __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_inv
 
     v13 = a1[4];
     *buf = 136315650;
-    v22 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]_block_invoke";
-    v23 = 1024;
-    v24 = 766;
-    v25 = 2112;
-    v26 = v13;
+    v21 = "[PRPersonaStore screenNameForAppleIDWithAltDSID:completion:]_block_invoke";
+    v22 = 1024;
+    v23 = 766;
+    v24 = 2112;
+    v25 = v13;
     v10 = "%s (%d) Lookup for %@ succeeded.";
     v11 = v7;
     v12 = 28;
@@ -1602,48 +1539,44 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __61__PRPersonaStore_screenNameForAppleIDWithAltDSID_completion___block_invoke_35;
     block[3] = &unk_279A1B720;
-    v20 = v14;
-    v18 = v5;
-    v19 = v6;
+    v19 = v14;
+    v17 = v5;
+    v18 = v6;
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setScreenName:(id)name forPrimaryiCloudAccountWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]";
-    v19 = 1024;
-    v20 = 791;
+    v17 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]";
+    v18 = 1024;
+    v19 = 791;
     _os_log_impl(&dword_25E428000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) called", buf, 0x12u);
   }
 
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___block_invoke;
-  v14 = &unk_279A1B7E8;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___block_invoke;
+  v13 = &unk_279A1B7E8;
   selfCopy = self;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v7 = completionCopy;
-  v8 = MEMORY[0x25F8B2920](&v11);
-  v9 = [MEMORY[0x277CCA9B8] pr_errorWithCode:{-9019, v11, v12, v13, v14, selfCopy}];
+  v8 = MEMORY[0x25F8B2920](&v10);
+  v9 = [MEMORY[0x277CCA9B8] pr_errorWithCode:{-9019, v10, v11, v12, v13, selfCopy}];
   (v8)[2](v8, 0, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -1653,11 +1586,11 @@ void __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___
     }
 
     *buf = 136315650;
-    v19 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 795;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 795;
+    v21 = 2112;
+    v22 = v5;
     v8 = "%s (%d) Update failed. Error: %@";
     v9 = v6;
     v10 = 28;
@@ -1671,9 +1604,9 @@ void __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___
     }
 
     *buf = 136315394;
-    v19 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]_block_invoke";
-    v20 = 1024;
-    v21 = 797;
+    v18 = "[PRPersonaStore setScreenName:forPrimaryiCloudAccountWithCompletion:]_block_invoke";
+    v19 = 1024;
+    v20 = 797;
     v8 = "%s (%d) Update succeeded.";
     v9 = v6;
     v10 = 18;
@@ -1690,53 +1623,49 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __70__PRPersonaStore_setScreenName_forPrimaryiCloudAccountWithCompletion___block_invoke_36;
     block[3] = &unk_279A1B7C0;
-    v16 = v11;
-    v17 = a2;
-    v15 = v5;
+    v15 = v11;
+    v16 = a2;
+    v14 = v5;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setScreenName:(id)name forAppleIDWithAltDSID:(id)d completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v9 = _PRGetLogSystem();
+  v9 = _PRGetLogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]";
-    v21 = 1024;
-    v22 = 823;
-    v23 = 2112;
-    v24 = dCopy;
+    v19 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]";
+    v20 = 1024;
+    v21 = 823;
+    v22 = 2112;
+    v23 = dCopy;
     _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Setting for altDSID: %@", buf, 0x1Cu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block_invoke;
-  v15[3] = &unk_279A1B810;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block_invoke;
+  v14[3] = &unk_279A1B810;
   selfCopy = self;
-  v18 = completionCopy;
-  v16 = dCopy;
+  v17 = completionCopy;
+  v15 = dCopy;
   v10 = completionCopy;
   v11 = dCopy;
-  v12 = MEMORY[0x25F8B2920](v15);
+  v12 = MEMORY[0x25F8B2920](v14);
   v13 = [MEMORY[0x277CCA9B8] pr_errorWithCode:-9019];
   (v12)[2](v12, 0, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block_invoke(void *a1, char a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PRGetLogSystem();
+  v6 = _PRGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
@@ -1747,13 +1676,13 @@ void __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block
 
     v8 = a1[4];
     *buf = 136315906;
-    v21 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 827;
-    v24 = 2112;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v5;
+    v20 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 827;
+    v23 = 2112;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v5;
     v9 = "%s (%d) Setting for %@ failed. Error: %@";
     v10 = v6;
     v11 = 38;
@@ -1768,11 +1697,11 @@ void __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block
 
     v12 = a1[4];
     *buf = 136315650;
-    v21 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]_block_invoke";
-    v22 = 1024;
-    v23 = 829;
-    v24 = 2112;
-    v25 = v12;
+    v20 = "[PRPersonaStore setScreenName:forAppleIDWithAltDSID:completion:]_block_invoke";
+    v21 = 1024;
+    v22 = 829;
+    v23 = 2112;
+    v24 = v12;
     v9 = "%s (%d) Setting for %@ succeeded.";
     v10 = v6;
     v11 = 28;
@@ -1789,53 +1718,49 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __65__PRPersonaStore_setScreenName_forAppleIDWithAltDSID_completion___block_invoke_37;
     block[3] = &unk_279A1B7C0;
-    v18 = v13;
-    v19 = a2;
-    v17 = v5;
+    v17 = v13;
+    v18 = a2;
+    v16 = v5;
     dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startListeningForCacheChangeNotifications
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _PRGetLogSystem();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _PRGetLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PRPersonaStore _startListeningForCacheChangeNotifications]";
-    v9 = 1024;
-    v10 = 854;
-    _os_log_impl(&dword_25E428000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[PRPersonaStore _startListeningForCacheChangeNotifications]";
+    v8 = 1024;
+    v9 = 854;
+    _os_log_impl(&dword_25E428000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v6, 0x12u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _PRHandleSelfCacheDidChange, @"PRCachedSelfValuesDidChangeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   v5 = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(v5, self, _PRHandleOtherCacheDidChange, @"PRCachedOtherValuesDidChangeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopListeningForCacheChangeNotifications
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _PRGetLogSystem();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _PRGetLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PRPersonaStore _stopListeningForCacheChangeNotifications]";
-    v9 = 1024;
-    v10 = 862;
-    _os_log_impl(&dword_25E428000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[PRPersonaStore _stopListeningForCacheChangeNotifications]";
+    v8 = 1024;
+    v9 = 862;
+    _os_log_impl(&dword_25E428000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", &v6, 0x12u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"PRCachedSelfValuesDidChangeNotification", 0);
   v5 = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(v5, self, @"PRCachedOtherValuesDidChangeNotification", 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

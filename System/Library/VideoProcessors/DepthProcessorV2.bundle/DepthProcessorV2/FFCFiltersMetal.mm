@@ -166,7 +166,7 @@ LABEL_8:
       objc_msgSend_maxTotalThreadsPerThreadgroup(v13, v42, v43, v44, v45, v46);
       objc_msgSend_width(toCopy, v47, v48, v49, v50, v51);
       v57 = objc_msgSend_height(toCopy, v52, v53, v54, v55, v56);
-      sub_29571B1C8(v57, v58, v59, v60, v61, v62, v63, v64, v101, v102, v103, v104, v105, v106, v107, v108);
+      sub_29571B1C8(v57, v58, v59, v60, v61, v62, v63, v64, v102, v103, v104, v105, v106, v107, v108, v109);
       objc_msgSend_endEncoding(v27, v65, v66, v67, v68, v69);
       if (*MEMORY[0x29EDB9270])
       {
@@ -194,10 +194,10 @@ LABEL_8:
   {
     sub_29571B1F4();
     sub_29571B1A8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v102, v103, v104, v105, v106, v107, v108, v109);
     sub_29571B1F4();
     sub_29571B1BC();
-    v99 = FigSignalErrorAtGM();
+    v99 = FigSignalErrorAtGM(v101);
   }
 
   return v99;
@@ -221,7 +221,7 @@ LABEL_8:
       objc_msgSend_maxTotalThreadsPerThreadgroup(v13, v42, v43, v44, v45, v46);
       objc_msgSend_width(toCopy, v47, v48, v49, v50, v51);
       v57 = objc_msgSend_height(toCopy, v52, v53, v54, v55, v56);
-      sub_29571B1C8(v57, v58, v59, v60, v61, v62, v63, v64, v101, v102, v103, v104, v105, v106, v107, v108);
+      sub_29571B1C8(v57, v58, v59, v60, v61, v62, v63, v64, v102, v103, v104, v105, v106, v107, v108, v109);
       objc_msgSend_endEncoding(v27, v65, v66, v67, v68, v69);
       if (*MEMORY[0x29EDB9270])
       {
@@ -249,10 +249,10 @@ LABEL_8:
   {
     sub_29571B1F4();
     sub_29571B1A8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v102, v103, v104, v105, v106, v107, v108, v109);
     sub_29571B1F4();
     sub_29571B1BC();
-    v99 = FigSignalErrorAtGM();
+    v99 = FigSignalErrorAtGM(v101);
   }
 
   return v99;

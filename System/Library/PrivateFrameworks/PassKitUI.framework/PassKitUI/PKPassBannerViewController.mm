@@ -588,438 +588,529 @@ void __38__PKPassBannerViewController_loadView__block_invoke(void *a1)
   v12 = *(self + 1008);
   if (v12 == 1)
   {
-    v31 = *(self + 1112);
+    v47 = *(self + 1112);
     _shouldReverseLayoutDirection = [*(self + 1032) _shouldReverseLayoutDirection];
     if (_shouldReverseLayoutDirection)
     {
-      v33 = 2;
+      v51 = 2;
     }
 
     else
     {
-      v33 = 0x200000000;
+      v51 = 0x200000000;
     }
 
-    PKFloatRoundToPixel();
-    rect_24 = v34;
+    v49.n128_u64[0] = 0x402F555555555555;
+    PKFloatRoundToPixel(v49, v50);
+    rect_24a = v52;
     sBUISA_systemApertureObstructedAreaLayoutGuide = [*(self + 1032) SBUISA_systemApertureObstructedAreaLayoutGuide];
     [sBUISA_systemApertureObstructedAreaLayoutGuide layoutFrame];
-    v153 = v36;
-    v158 = v37;
-    v162 = v38;
-    v40 = v39;
+    v243 = v54;
+    v251 = v55;
+    v255 = v56;
+    v58 = v57;
 
     [*(self + 1032) SBUISA_standardInteritemPadding];
-    amount = v41;
-    if (v31 == 4)
+    amount = v59;
+    if (v47 == 4)
     {
-      v42 = 1.0;
+      v60 = 1.0;
     }
 
     else
     {
-      v42 = 0.5;
+      v60 = 0.5;
     }
 
     __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke(*(self + 1040));
-    v44 = v43;
-    v46 = v45;
+    v62 = v61;
+    v64 = v63;
     __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke(*(self + 1048));
-    r2 = v44;
-    v156 = v47;
-    rect = v46;
-    rect_8 = v48;
-    v49 = v46 > 0.0 && v44 > 0.0;
-    v50 = *(self + 1048);
+    r2 = v62;
+    v249 = v65.n128_f64[0];
+    rect = v64;
+    rect_8 = v66.n128_f64[0];
+    v67 = v64 > 0.0 && v62 > 0.0;
+    v68 = *(self + 1048);
     commitCopy = commit;
-    v174 = a5;
-    v152 = v42;
+    v268 = a5;
+    v242 = v60;
     rect_16a = a6;
     boundsCopy = bounds;
-    if (v50)
+    if (v68)
     {
-      LODWORD(v50) = *(v50 + 424) != 0;
+      LODWORD(v68) = *(v68 + 424) != 0;
     }
 
-    v160 = v158 + v40;
-    if (v47 > 0.0)
+    v240 = *&v58;
+    v253 = v251 + v58;
+    if (v65.n128_f64[0] > 0.0)
     {
-      v51 = v50;
+      v69 = v68;
     }
 
     else
     {
-      v51 = 0;
+      v69 = 0;
     }
 
-    v52 = v48 > 0.0;
-    v53 = v44;
-    v54 = 0.0;
-    if (!v49)
+    v70 = v66.n128_f64[0];
+    v71 = v66.n128_f64[0] > 0.0;
+    v72 = *MEMORY[0x1E695F060];
+    v73 = *(MEMORY[0x1E695F060] + 8);
+    v66.n128_f64[0] = v62;
+    if (v67)
     {
-      v53 = 0.0;
+      v74 = v62;
     }
 
-    v154 = v53;
-    PKFloatRoundToPixel();
-    v56 = v55;
-    PKFloatRoundToPixel();
-    v57 = v51 & v52;
-    v58 = fmax(v56, 15.0);
-    if (v57)
+    else
     {
-      v54 = v156;
+      v74 = *MEMORY[0x1E695F060];
     }
 
-    PKFloatRoundToPixel();
-    v60 = v59;
-    PKFloatRoundToPixel();
-    v61 = fmax(v60, 15.0);
-    v62 = v154 + v58;
-    v63 = v54 + v61;
-    _maximumSystemApertureWidth = v174;
-    if (v31 != 4)
+    if (v67)
+    {
+      v75 = v64;
+    }
+
+    else
+    {
+      v75 = *(MEMORY[0x1E695F060] + 8);
+    }
+
+    v65.n128_f64[0] = v74 * -0.5 + 30.0;
+    v76 = 0.0;
+    if (!v67)
+    {
+      v66.n128_f64[0] = 0.0;
+    }
+
+    v244 = v66.n128_f64[0];
+    PKFloatRoundToPixel(v65, v66);
+    v78 = v77;
+    v79.n128_f64[0] = v75 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v79, v80);
+    v82 = v69 & v71;
+    v83.n128_f64[0] = rect_24a;
+    v84 = fmax(v78, 15.0);
+    if (v82)
+    {
+      v76 = v249;
+    }
+
+    v245 = v73;
+    v246 = v72;
+    if (v82)
+    {
+      v85 = v249;
+    }
+
+    else
+    {
+      v85 = v72;
+    }
+
+    v81.n128_f64[0] = v85 * -0.5 + 30.0;
+    if (!v82)
+    {
+      v70 = v73;
+    }
+
+    PKFloatRoundToPixel(v81, v83);
+    v87 = v86;
+    v88.n128_f64[0] = v70 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v88, v89);
+    v90 = fmax(v87, 15.0);
+    v91 = v244 + v84;
+    v92 = v76 + v90;
+    _maximumSystemApertureWidth = v268;
+    if (v47 != 4)
     {
       _maximumSystemApertureWidth = [(PKPassBannerViewController *)self _maximumSystemApertureWidth];
     }
 
-    v65 = _maximumSystemApertureWidth - v62;
-    v66 = amount;
-    if (v49)
+    v94 = _maximumSystemApertureWidth - v91;
+    v95 = amount;
+    if (v67)
     {
-      v65 = v65 - amount;
+      v94 = v94 - amount;
     }
 
-    v67 = v65 - v63;
-    if (v57)
+    v96 = v94 - v92;
+    if (v82)
     {
-      v67 = v67 - amount;
+      v96 = v96 - amount;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_2;
     aBlock[3] = &__block_descriptor_40_e34_____CGSize_dd_BdB_16__0__UILabel_8l;
-    *&aBlock[4] = v67;
-    v68 = _Block_copy(aBlock);
-    v195 = 0;
-    memset(v194, 0, sizeof(v194));
-    (v68)[2](v194);
-    v69 = v195;
-    v70 = *v194;
-    if (v195 == 1)
+    *&aBlock[4] = v96;
+    v97 = _Block_copy(aBlock);
+    v290 = 0;
+    v288 = 0u;
+    v289 = 0u;
+    (v97)[2](&v288);
+    v100 = v290;
+    v101 = *&v288;
+    if (v290 == 1)
     {
-      PKFloatRoundToPixel();
-      v71 = rect_24;
+      v99.n128_u64[0] = *(&v288 + 1);
+      v98.n128_f64[0] = *(&v289 + 1) + *(&v288 + 1);
+      PKFloatRoundToPixel(v98, v99);
+      v102 = rect_24a;
       if (!a2)
       {
-        goto LABEL_105;
+        goto LABEL_130;
       }
     }
 
     else
     {
-      v71 = rect_24;
+      v102 = rect_24a;
       if (!a2)
       {
-LABEL_105:
+LABEL_130:
 
-        v141 = v66 + v62;
-        if (!v49)
+        v229 = v95 + v91;
+        if (!v67)
         {
-          v141 = v62;
+          v229 = v91;
         }
 
-        v142 = v141 + v70;
-        if (!v69)
+        v230 = v229 + v101;
+        if (!v100)
         {
-          v142 = v141;
+          v230 = v229;
         }
 
-        v143 = v66 + v142;
-        if ((v57 & 1) == 0)
+        v231 = v95 + v230;
+        if ((v82 & 1) == 0)
         {
-          v143 = v142;
+          v231 = v230;
         }
 
-        return fmax(v63 + v143, v162 + fmax(v62, v63) * 2.0);
+        return fmax(v92 + v231, v255 + fmax(v91, v92) * 2.0);
       }
     }
 
-    v150 = v62;
-    if (v31 == 4)
+    v239 = v91;
+    if (v47 == 4)
     {
       [*(self + 1056) setAlpha:0.0];
       [*(self + 1040) setAlpha:1.0];
       [*(self + 1048) setAlpha:1.0];
     }
 
-    v149 = v63;
-    [*(self + 1080) setAlpha:(v31 == 4)];
-    v91 = fmax(v153, bounds);
-    v92 = v91 - bounds;
-    v93 = fmax(v153 + v162, v91);
-    v94 = fmax(bounds + v174, v93) - v93;
+    v238 = v92;
+    [*(self + 1080) setAlpha:(v47 == 4)];
+    v146 = fmax(v243, boundsCopy);
+    v147 = v146 - boundsCopy;
+    v148 = fmax(v243 + v255, v146);
+    v149 = fmax(boundsCopy + v268, v148) - v148;
     if (_shouldReverseLayoutDirection)
     {
-      boundsCopy2 = v93;
+      v150 = v148;
     }
 
     else
     {
-      boundsCopy2 = bounds;
+      v150 = boundsCopy;
     }
 
     if (_shouldReverseLayoutDirection)
     {
-      v96 = v94;
+      v151 = v149;
     }
 
     else
     {
-      v96 = v92;
+      v151 = v147;
     }
 
     if (_shouldReverseLayoutDirection)
     {
-      boundsCopy3 = bounds;
+      v152 = boundsCopy;
     }
 
     else
     {
-      boundsCopy3 = v93;
+      v152 = v148;
     }
 
     if (_shouldReverseLayoutDirection)
     {
-      v98 = v92;
+      v153 = v147;
     }
 
     else
     {
-      v98 = v94;
+      v153 = v149;
     }
 
-    v147 = boundsCopy3;
-    v148 = v98;
-    v189 = MEMORY[0x1E69E9820];
-    v190 = 3221225472;
-    v191 = __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_3;
-    v192 = &__block_descriptor_64_e62__CGSize_dd_56__0_CGSize_dd_8_CGRect__CGPoint_dd__CGSize_dd__24l;
-    v193.origin.x = bounds + 15.0;
-    v193.origin.y = commitCopy + v71;
-    v193.size.width = v174 + -30.0;
-    v193.size.height = a6 - (v71 + v71);
-    v99 = _Block_copy(&v189);
-    v100 = v99;
-    memset(&v187, 0, sizeof(v187));
-    v188.origin.x = boundsCopy2;
-    v188.origin.y = commitCopy;
-    v188.size.width = v96;
-    v188.size.height = a6;
-    v151 = v70;
-    if (v49)
+    v236 = v152;
+    v237 = v153;
+    v283 = MEMORY[0x1E69E9820];
+    v284 = 3221225472;
+    v285 = __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_3;
+    v286 = &__block_descriptor_64_e62__CGSize_dd_56__0_CGSize_dd_8_CGRect__CGPoint_dd__CGSize_dd__24l;
+    v287.origin.x = boundsCopy + 15.0;
+    v287.origin.y = commitCopy + v102;
+    v287.size.width = v268 + -30.0;
+    v287.size.height = rect_16a - (v102 + v102);
+    v154 = _Block_copy(&v283);
+    v156 = v154;
+    v157.n128_u64[1] = 0;
+    memset(&v281, 0, sizeof(v281));
+    v282.origin.x = v150;
+    v282.origin.y = commitCopy;
+    v282.size.width = v151;
+    v282.size.height = rect_16a;
+    v241 = v101;
+    v234 = v151;
+    if (v67)
     {
-      (v99[2])(v99, r2, rect, boundsCopy2, commitCopy, v96, a6);
+      v158 = (v154[2])(v154, r2, rect, v150, commitCopy, v151, rect_16a);
+      v159 = v155.n128_f64[0];
     }
 
-    PKFloatRoundToPixel();
-    v102 = v101;
-    PKFloatRoundToPixel();
-    v198.origin.x = boundsCopy2;
-    v198.origin.y = commitCopy;
-    v198.size.width = v96;
-    v198.size.height = a6;
-    CGRectDivide(v198, &v187, &v188, fmax(v102, 15.0), v33);
-    PKSizeAlignedInRect();
-    v107 = v103;
-    v108 = v104;
-    v109 = v105;
-    v110 = v106;
-    if (v31 == 4)
+    else
     {
-      [*(self + 1040) setFrame:{v103, v104, v105, v106}];
+      v159 = v73;
+      v158 = v246;
     }
 
-    v145 = v110;
-    v146 = v109;
-    recta = v107;
-    v188.origin.x = v147;
-    v188.origin.y = commitCopy;
-    v188.size.width = v148;
-    v188.size.height = a6;
-    if (v57)
+    v157.n128_f64[0] = v158 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v157, v155);
+    v161 = v160;
+    v162.n128_f64[0] = v159 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v162, v163);
+    v293.origin.x = v150;
+    v293.origin.y = commitCopy;
+    v293.size.width = v234;
+    v293.size.height = rect_16a;
+    CGRectDivide(v293, &v281, &v282, fmax(v161, 15.0), v51);
+    v164.n128_u64[0] = *&v282.origin.x;
+    v165.n128_u64[0] = *&v282.origin.y;
+    v166.n128_u64[0] = *&v282.size.width;
+    v167.n128_u64[0] = *&v282.size.height;
+    v168.n128_f64[0] = v158;
+    v169.n128_f64[0] = v159;
+    PKSizeAlignedInRect(v51 & 2 | 0x100000000, v168, v169, v164, v165, v166, v167, v170);
+    v175 = v171.n128_f64[0];
+    v176 = v172.n128_f64[0];
+    v177 = v173;
+    v178 = v174;
+    if (v47 == 4)
     {
-      v100[2](v100, v156, rect_8);
+      [*(self + 1040) setFrame:{v171.n128_f64[0], v172.n128_f64[0], v173, v174}];
     }
 
-    PKFloatRoundToPixel();
-    v112 = v111;
-    PKFloatRoundToPixel();
-    CGRectDivide(v188, &v187, &v188, fmax(v112, 15.0), HIDWORD(v33));
-    PKSizeAlignedInRect();
-    if (v31 == 4)
+    v233 = v178;
+    v235 = v177;
+    r2a = v176;
+    recta = v175;
+    v282.origin.x = v236;
+    v282.origin.y = commitCopy;
+    v180 = v245;
+    v179 = v246;
+    v282.size.width = v237;
+    v282.size.height = rect_16a;
+    if (v82)
     {
-      v121 = v114;
-      v157 = v116;
-      v159 = v113;
-      v122 = v115;
+      v179 = v156[2](v156, v249, rect_8);
+      v180 = v172.n128_f64[0];
+    }
+
+    v171.n128_f64[0] = v179 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v171, v172);
+    v182 = v181;
+    v183.n128_f64[0] = v180 * -0.5 + 30.0;
+    PKFloatRoundToPixel(v183, v184);
+    CGRectDivide(v282, &v281, &v282, fmax(v182, 15.0), HIDWORD(v51));
+    v185.n128_u64[0] = *&v282.origin.x;
+    v186.n128_u64[0] = *&v282.origin.y;
+    v187.n128_u64[0] = *&v282.size.width;
+    v188.n128_u64[0] = *&v282.size.height;
+    v189.n128_f64[0] = v179;
+    v190.n128_f64[0] = v180;
+    PKSizeAlignedInRect(HIDWORD(v51) | 0x100000000, v189, v190, v185, v186, v187, v188, v191);
+    if (v47 == 4)
+    {
+      v209 = v193;
+      v250 = v195;
+      v252 = v192;
+      v210 = v194;
       [*(self + 1048) setFrame:?];
-      v199.origin.x = boundsCopy;
-      v199.origin.y = commitCopy;
-      v188.origin.x = boundsCopy;
-      v188.origin.y = commitCopy;
-      v199.size.width = v174;
-      v188.size.width = v174;
-      v188.size.height = rect_16a;
-      v199.size.height = rect_16a;
-      v200 = CGRectStandardize(v199);
-      x = v200.origin.x;
-      y = v200.origin.y;
-      width = v200.size.width;
-      height = v200.size.height;
-      v208.origin.x = recta;
-      v208.origin.y = v108;
-      v208.size.height = v145;
-      v208.size.width = v146;
-      v201 = CGRectIntersection(v200, v208);
-      v127 = v201.origin.x;
-      v128 = v201.size.width;
-      if (!CGRectIsNull(v201))
+      v294.origin.x = boundsCopy;
+      v294.origin.y = commitCopy;
+      v282.origin.x = boundsCopy;
+      v282.origin.y = commitCopy;
+      v294.size.width = v268;
+      v282.size.width = v268;
+      v282.size.height = rect_16a;
+      v294.size.height = rect_16a;
+      v295 = CGRectStandardize(v294);
+      x = v295.origin.x;
+      y = v295.origin.y;
+      width = v295.size.width;
+      height = v295.size.height;
+      v303.origin.x = recta;
+      v303.origin.y = r2a;
+      v303.size.height = v233;
+      v303.size.width = v235;
+      v296 = CGRectIntersection(v295, v303);
+      v215 = v296.origin.x;
+      v216 = v296.size.width;
+      if (!CGRectIsNull(v296))
       {
-        if (v33)
+        if (v51)
         {
-          width = fmax(v127 - x, 0.0);
+          width = fmax(v215 - x, 0.0);
         }
 
         else
         {
-          v129 = x + width;
-          x = fmin(v127 + v128, x + width);
-          width = v129 - x;
+          v217 = x + width;
+          x = fmin(v215 + v216, x + width);
+          width = v217 - x;
         }
       }
 
-      v188.origin.x = x;
-      v188.origin.y = y;
-      v188.size.width = width;
-      v188.size.height = height;
-      if (v49)
+      v282.origin.x = x;
+      v282.origin.y = y;
+      v282.size.width = width;
+      v282.size.height = height;
+      if (v67)
       {
-        v202.origin.x = x;
-        v202.origin.y = y;
-        v202.size.width = width;
-        v202.size.height = height;
-        CGRectDivide(v202, &v187, &v188, amount, v33);
-        x = v188.origin.x;
-        y = v188.origin.y;
-        width = v188.size.width;
-        height = v188.size.height;
+        v297.origin.x = x;
+        v297.origin.y = y;
+        v297.size.width = width;
+        v297.size.height = height;
+        CGRectDivide(v297, &v281, &v282, amount, v51);
+        x = v282.origin.x;
+        y = v282.origin.y;
+        width = v282.size.width;
+        height = v282.size.height;
       }
 
-      v203.origin.x = x;
-      v203.origin.y = y;
-      v203.size.width = width;
-      v203.size.height = height;
-      v204 = CGRectStandardize(v203);
-      v130 = v204.origin.x;
-      v131 = v204.origin.y;
-      v132 = v204.size.width;
-      v133 = v204.size.height;
-      v209.origin.x = v159;
-      v209.origin.y = v121;
-      v209.size.width = v122;
-      v209.size.height = v157;
-      v205 = CGRectIntersection(v204, v209);
-      v134 = v205.origin.x;
-      v135 = v205.size.width;
-      if (CGRectIsNull(v205))
+      v298.origin.x = x;
+      v298.origin.y = y;
+      v298.size.width = width;
+      v298.size.height = height;
+      v299 = CGRectStandardize(v298);
+      v218 = v299.origin.x;
+      v219 = v299.origin.y;
+      v220 = v299.size.width;
+      v221 = v299.size.height;
+      v304.origin.x = v252;
+      v304.origin.y = v209;
+      v304.size.width = v210;
+      v304.size.height = v250;
+      v300 = CGRectIntersection(v299, v304);
+      v222 = v300.origin.x;
+      v223 = v300.size.width;
+      if (CGRectIsNull(v300))
       {
-        v66 = amount;
+        v95 = amount;
       }
 
       else
       {
-        v66 = amount;
+        v95 = amount;
         if (_shouldReverseLayoutDirection)
         {
-          v136 = v130 + v132;
-          v130 = fmin(v134 + v135, v130 + v132);
-          v132 = v136 - v130;
+          v224 = v218 + v220;
+          v218 = fmin(v222 + v223, v218 + v220);
+          v220 = v224 - v218;
         }
 
         else
         {
-          v132 = fmax(v134 - v130, 0.0);
+          v220 = fmax(v222 - v218, 0.0);
         }
       }
 
-      v188.origin.x = v130;
-      v188.origin.y = v131;
-      v188.size.width = v132;
-      v188.size.height = v133;
-      v63 = v149;
-      if (v57)
+      v282.origin.x = v218;
+      v282.origin.y = v219;
+      v282.size.width = v220;
+      v282.size.height = v221;
+      v92 = v238;
+      if (v82)
       {
-        v206.origin.x = v130;
-        v206.origin.y = v131;
-        v206.size.width = v132;
-        v206.size.height = v133;
-        CGRectDivide(v206, &v187, &v188, v66, HIDWORD(v33));
-        v130 = v188.origin.x;
-        v131 = v188.origin.y;
-        v132 = v188.size.width;
-        v133 = v188.size.height;
+        v301.origin.x = v218;
+        v301.origin.y = v219;
+        v301.size.width = v220;
+        v301.size.height = v221;
+        CGRectDivide(v301, &v281, &v282, v95, HIDWORD(v51));
+        v218 = v282.origin.x;
+        v219 = v282.origin.y;
+        v220 = v282.size.width;
+        v221 = v282.size.height;
       }
 
-      v207.origin.x = v130;
-      v207.origin.y = v131;
-      v207.size.width = v132;
-      v207.size.height = v133;
-      CGRectDivide(v207, &v187, &v188, v160, CGRectMinYEdge);
-      v70 = v151;
+      v302.origin.x = v218;
+      v302.origin.y = v219;
+      v302.size.width = v220;
+      v302.size.height = v221;
+      CGRectDivide(v302, &v281, &v282, v253, CGRectMinYEdge);
+      v101 = v241;
     }
 
     else
     {
-      PKSizeRoundToPixel();
-      PKSizeAlignedInRect();
-      v188.origin.x = v117;
-      v188.origin.y = v118;
-      v188.size.width = v119;
-      v188.size.height = v120;
-      v66 = amount;
-      v63 = v149;
+      v196 = v246 + *&v288;
+      v197 = fmax(*(&v288 + 1), v245);
+      if (!v290)
+      {
+        v196 = v246;
+        v197 = v245;
+      }
+
+      PKSizeRoundToPixel(v196 * 0.5, v197 * 0.5);
+      v198.n128_f64[0] = v243;
+      v199.n128_f64[0] = v251;
+      v200.n128_f64[0] = v255;
+      v201.n128_u64[0] = v240;
+      PKSizeAlignedInRect(0x200000001, v202, v203, v198, v199, v200, v201, v204);
+      v282.origin.x = v205;
+      v282.origin.y = v206;
+      v282.size.width = v207;
+      v282.size.height = v208;
+      v95 = amount;
+      v92 = v238;
     }
 
     *&remainder.origin.x = MEMORY[0x1E69E9820];
     *&remainder.origin.y = 3221225472;
     *&remainder.size.width = __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_4;
     *&remainder.size.height = &unk_1E8020BF8;
-    v184 = v68;
-    v185 = v152;
-    v186 = v31 != 4;
-    v137 = _Block_copy(&remainder);
+    v278 = v97;
+    v279 = v242;
+    v280 = v47 != 4;
+    v225 = _Block_copy(&remainder);
     *&slice.origin.x = MEMORY[0x1E69E9820];
     *&slice.origin.y = 3221225472;
     *&slice.size.width = __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_5;
     *&slice.size.height = &__block_descriptor_48_e71_v88__0__UILabel_8____CGSize_dd_BdB_16_CGRect__CGPoint_dd__CGSize_dd__56l;
-    v182 = v33;
-    v181 = v152;
-    v138 = _Block_copy(&slice);
-    v179 = 0;
-    v177 = 0u;
-    v178 = 0u;
-    v137[2](&v177, v137, *(self + 1080), v188.size.width);
-    v139 = *(self + 1080);
-    v140 = v138[2];
-    v175[0] = v177;
-    v175[1] = v178;
-    v176 = v179;
-    v140(v138, v139, v175, v188.origin.x, v188.origin.y, v188.size.width, v188.size.height);
+    v276 = v51;
+    v275 = v242;
+    v226 = _Block_copy(&slice);
+    v273 = 0;
+    v271 = 0u;
+    v272 = 0u;
+    v225[2](&v271, v225, *(self + 1080), v282.size.width);
+    v227 = *(self + 1080);
+    v228 = v226[2];
+    v269[0] = v271;
+    v269[1] = v272;
+    v270 = v273;
+    v228(v226, v227, v269, v282.origin.x, v282.origin.y, v282.size.width, v282.size.height);
 
-    v62 = v150;
-    goto LABEL_105;
+    v91 = v239;
+    goto LABEL_130;
   }
 
   if (!v12)
@@ -1037,183 +1128,265 @@ LABEL_105:
     v15 = *MEMORY[0x1E695F060];
     v14 = *(MEMORY[0x1E695F060] + 8);
     [*(self + 1040) sizeThatFits:{*MEMORY[0x1E695F060], v14}];
-    v17 = v16;
-    v19 = v16 > 0.0 && v18 > 0.0;
-    PKFloatRoundToPixel();
-    v21 = v20;
-    PKFloatRoundToPixel();
-    v22 = fmax(v21, 20.0);
-    [*(self + 1048) sizeThatFits:{v15, v14}];
-    v25 = *(self + 1048);
-    if (v25)
+    v18 = v16.n128_f64[0];
+    v19 = v17.n128_u64[0];
+    v20 = v16.n128_f64[0] > 0.0;
+    v21 = v17.n128_f64[0] > 0.0;
+    v22 = v20 && v21;
+    if (v20 && v21)
     {
-      LOBYTE(v25) = *(v25 + 424) != 0;
-    }
-
-    if (v23 <= 0.0)
-    {
-      LOBYTE(v25) = 0;
-    }
-
-    v26 = v25 & (v24 > 0.0);
-    v27 = v23;
-    PKFloatRoundToPixel();
-    v29 = v28;
-    PKFloatRoundToPixel();
-    memset(&slice, 0, sizeof(slice));
-    v197.origin.x = bounds;
-    v197.origin.y = commit;
-    remainder.origin.x = bounds;
-    remainder.origin.y = commit;
-    v197.size.width = a5;
-    v197.size.height = a6;
-    remainder.size.width = a5;
-    remainder.size.height = a6;
-    CGRectDivide(v197, &slice, &remainder, v22, v13);
-    if (v19)
-    {
-      v30 = 20.0;
-      CGRectDivide(remainder, &slice, &remainder, v17, v13);
+      v23 = v17.n128_f64[0];
     }
 
     else
     {
+      v16.n128_f64[0] = v15;
+      v23 = v14;
+    }
+
+    v16.n128_f64[0] = v16.n128_f64[0] * -0.5 + 42.0;
+    PKFloatRoundToPixel(v16, v17);
+    v25 = v24;
+    v26.n128_f64[0] = v23 * -0.5 + 42.0;
+    PKFloatRoundToPixel(v26, v27);
+    v28 = fmax(v25, 20.0);
+    [*(self + 1048) sizeThatFits:{v15, v14}];
+    v31 = *(self + 1048);
+    if (v31)
+    {
+      LODWORD(v31) = *(v31 + 424) != 0;
+    }
+
+    if (v29.n128_f64[0] <= 0.0)
+    {
+      LODWORD(v31) = 0;
+    }
+
+    v32 = v30.n128_f64[0] > 0.0;
+    v33 = v31 & v32;
+    v34 = v29.n128_f64[0];
+    if ((v31 & v32) == 0)
+    {
+      v29.n128_f64[0] = v15;
+    }
+
+    rect_24 = v30.n128_u64[0];
+    if ((v31 & v32) != 0)
+    {
+      v14 = v30.n128_f64[0];
+    }
+
+    v29.n128_f64[0] = v29.n128_f64[0] * -0.5 + 42.0;
+    PKFloatRoundToPixel(v29, v30);
+    v36 = v35;
+    v37.n128_f64[0] = v14 * -0.5 + 42.0;
+    PKFloatRoundToPixel(v37, v38);
+    memset(&slice, 0, sizeof(slice));
+    v292.origin.x = bounds;
+    v292.origin.y = commit;
+    remainder.origin.x = bounds;
+    remainder.origin.y = commit;
+    v292.size.width = a5;
+    v292.size.height = a6;
+    remainder.size.width = a5;
+    remainder.size.height = a6;
+    CGRectDivide(v292, &slice, &remainder, v28, v13);
+    if (v22)
+    {
+      v45 = 20.0;
+      CGRectDivide(remainder, &slice, &remainder, v18, v13);
+    }
+
+    else
+    {
+      v46.n128_u64[1] = *&remainder.origin.y;
       slice.origin = remainder.origin;
       slice.size.width = 0.0;
       slice.size.height = remainder.size.height;
-      v30 = 20.0;
+      v45 = 20.0;
     }
 
-    v73 = fmax(v29, v30);
+    v104 = fmax(v36, v45);
+    v105 = MEMORY[0x1E69BB7F8];
     if (a2)
     {
-      v74 = *(self + 1040);
-      PKSizeAlignedInRect();
-      [v74 setFrame:?];
+      v106 = *(self + 1040);
+      v40.n128_u64[0] = *&slice.origin.x;
+      v41.n128_u64[0] = *&slice.origin.y;
+      v42.n128_u64[0] = *&slice.size.width;
+      v43.n128_u64[0] = *&slice.size.height;
+      v46.n128_f64[0] = v18;
+      v39.n128_u64[0] = v19;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v46, v39, v40, v41, v42, v43, v44);
+      [v106 setFrame:?];
     }
 
-    CGRectDivide(remainder, &slice, &remainder, v73, HIDWORD(v13));
-    v72 = a5;
-    if (v26)
+    CGRectDivide(remainder, &slice, &remainder, v104, HIDWORD(v13));
+    v103 = a5;
+    if (v33)
     {
-      CGRectDivide(remainder, &slice, &remainder, v27, HIDWORD(v13));
+      CGRectDivide(remainder, &slice, &remainder, v34, HIDWORD(v13));
       if (!a2)
       {
-LABEL_49:
-        if (v19)
+LABEL_67:
+        if (v22)
         {
           CGRectDivide(remainder, &slice, &remainder, 16.0, v13);
-          if ((v26 & 1) == 0)
+          if ((v33 & 1) == 0)
           {
-LABEL_52:
-            v189 = MEMORY[0x1E69E9820];
-            v190 = 3221225472;
-            v191 = __72__PKPassBannerViewController__layoutLegacyContentViewWithBounds_commit___block_invoke;
-            v192 = &__block_descriptor_64_e27__CGSize_dd_16__0__UILabel_8l;
-            v193 = remainder;
-            v76 = _Block_copy(&v189);
-            v77 = v76[2](v76, *(self + 1088));
-            v79 = v78;
-            v80 = v76[2](v76, *(self + 1096));
-            v82 = v81;
-            v83 = v80 > 0.0 && v81 > 0.0;
-            PKSizeAlignedInRect();
-            remainder.origin.x = v84;
-            remainder.origin.y = v85;
-            remainder.size.width = v86;
-            remainder.size.height = v87;
-            if (v83)
+LABEL_70:
+            v283 = MEMORY[0x1E69E9820];
+            v284 = 3221225472;
+            v285 = __72__PKPassBannerViewController__layoutLegacyContentViewWithBounds_commit___block_invoke;
+            v286 = &__block_descriptor_64_e27__CGSize_dd_16__0__UILabel_8l;
+            v287 = remainder;
+            v115 = _Block_copy(&v283);
+            v116 = v115[2](v115, *(self + 1088));
+            v118 = v117;
+            v124 = v115[2](v115, *(self + 1096));
+            v125 = v130.n128_f64[0];
+            v126 = v116 > 0.0;
+            v127 = v118 > 0.0;
+            v128 = v130.n128_f64[0] > 0.0;
+            v129.n128_u64[0] = 0;
+            v130.n128_f64[0] = v130.n128_f64[0] + 0.0;
+            v131 = v124 > 0.0 && v128;
+            if (v124 <= 0.0 || !v128)
             {
-              CGRectDivide(*&v84, &slice, &remainder, v82, CGRectMinYEdge);
+              v130.n128_f64[0] = 0.0;
+            }
+
+            v132 = v126 && v127;
+            if (v126 && v127)
+            {
+              v129.n128_f64[0] = v118;
+            }
+
+            v133 = v129.n128_f64[0] + v130.n128_f64[0];
+            v119.n128_u64[0] = *&remainder.origin.x;
+            v120.n128_u64[0] = *&remainder.origin.y;
+            v129.n128_u64[0] = *&remainder.size.width;
+            v122.n128_u64[0] = *&remainder.size.height;
+            v130.n128_f64[0] = v133;
+            v121.n128_u64[0] = *&remainder.size.width;
+            PKSizeAlignedInRect(*v105, v129, v130, v119, v120, v121, v122, v123);
+            remainder.origin.x = v134;
+            *&remainder.origin.y = v135.n128_u64[0];
+            *&remainder.size.width = v136.n128_u64[0];
+            *&remainder.size.height = v137.n128_u64[0];
+            if (v131 == 1)
+            {
+              CGRectDivide(*&v134, &slice, &remainder, v125, CGRectMinYEdge);
             }
 
             else
             {
+              v141.n128_u64[1] = *&remainder.origin.y;
               slice.origin = remainder.origin;
-              slice.size.width = v86;
+              *&slice.size.width = v136.n128_u64[0];
               slice.size.height = 0.0;
             }
 
-            v88 = v77 > 0.0 && v79 > 0.0 && v83;
+            v142 = v132 & v131;
             if (a2)
             {
-              v89 = *(self + 1096);
-              PKSizeAlignedInRect();
-              [v89 setFrame:?];
-              if (!v88)
+              v144 = *(self + 1096);
+              v136.n128_u64[0] = *&slice.origin.x;
+              v137.n128_u64[0] = *&slice.origin.y;
+              v138.n128_u64[0] = *&slice.size.width;
+              v139.n128_u64[0] = *&slice.size.height;
+              v141.n128_f64[0] = v124;
+              v135.n128_f64[0] = v125;
+              PKSizeAlignedInRect(v13 & 2 | 0x100000000, v141, v135, v136, v137, v138, v139, v140);
+              [v144 setFrame:?];
+              if ((v142 & 1) == 0)
               {
-LABEL_59:
-                if (v77 > 0.0 && v79 > 0.0)
+LABEL_81:
+                if (v132)
                 {
-                  goto LABEL_60;
+                  goto LABEL_82;
                 }
 
-                goto LABEL_64;
+                goto LABEL_86;
               }
             }
 
-            else if (v77 <= 0.0 || v79 <= 0.0 || !v83)
+            else if ((v132 & v131 & 1) == 0)
             {
-              goto LABEL_59;
+              goto LABEL_81;
             }
 
             CGRectDivide(remainder, &slice, &remainder, 0.0, CGRectMinYEdge);
-            if (v77 > 0.0 && v79 > 0.0)
+            if (v132)
             {
-LABEL_60:
-              CGRectDivide(remainder, &slice, &remainder, v79, CGRectMinYEdge);
+LABEL_82:
+              CGRectDivide(remainder, &slice, &remainder, v118, CGRectMinYEdge);
               if (!a2)
               {
-                goto LABEL_66;
+                goto LABEL_88;
               }
 
-              goto LABEL_65;
+              goto LABEL_87;
             }
 
-LABEL_64:
+LABEL_86:
+            v143.n128_u64[1] = *&remainder.origin.y;
             slice.origin = remainder.origin;
             slice.size.width = remainder.size.width;
             slice.size.height = 0.0;
             if (!a2)
             {
-LABEL_66:
+LABEL_88:
 
-              return v72;
+              return v103;
             }
 
-LABEL_65:
-            v90 = *(self + 1088);
-            PKSizeAlignedInRect();
-            [v90 setFrame:?];
-            goto LABEL_66;
+LABEL_87:
+            v145 = *(self + 1088);
+            v136.n128_u64[0] = *&slice.origin.x;
+            v137.n128_u64[0] = *&slice.origin.y;
+            v138.n128_u64[0] = *&slice.size.width;
+            v139.n128_u64[0] = *&slice.size.height;
+            v143.n128_f64[0] = v116;
+            v135.n128_f64[0] = v118;
+            PKSizeAlignedInRect(v13 & 2 | 0x100000000, v143, v135, v136, v137, v138, v139, v140);
+            [v145 setFrame:?];
+            goto LABEL_88;
           }
         }
 
-        else if ((v26 & 1) == 0)
+        else if ((v33 & 1) == 0)
         {
-          goto LABEL_52;
+          goto LABEL_70;
         }
 
         CGRectDivide(remainder, &slice, &remainder, 8.0, HIDWORD(v13));
-        goto LABEL_52;
+        goto LABEL_70;
       }
     }
 
     else
     {
+      v113.n128_u64[1] = *&remainder.origin.y;
       slice.origin = remainder.origin;
       slice.size.width = 0.0;
       slice.size.height = remainder.size.height;
       if (!a2)
       {
-        goto LABEL_49;
+        goto LABEL_67;
       }
     }
 
-    v75 = *(self + 1048);
-    PKSizeAlignedInRect();
-    [v75 setFrame:?];
-    goto LABEL_49;
+    v114 = *(self + 1048);
+    v108.n128_u64[0] = *&slice.origin.x;
+    v109.n128_u64[0] = *&slice.origin.y;
+    v110.n128_u64[0] = *&slice.size.width;
+    v111.n128_u64[0] = *&slice.size.height;
+    v113.n128_f64[0] = v34;
+    v107.n128_u64[0] = rect_24;
+    PKSizeAlignedInRect(*v105, v113, v107, v108, v109, v110, v111, v112);
+    [v114 setFrame:?];
+    goto LABEL_67;
   }
 
   return *MEMORY[0x1E695F060];
@@ -1224,7 +1397,7 @@ void *__72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit
   if (result)
   {
     [result sizeThatFits:{*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)}];
-    return PKSizeRoundToPixel();
+    return PKSizeRoundToPixel(v1 + v1, v2 + v2);
   }
 
   return result;
@@ -1310,7 +1483,7 @@ void __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit_
   *(a3 + 32) = v22;
 }
 
-uint64_t __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_3(CGRect *a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+double __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_3(CGRect *a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
   v9.origin.x = a4;
   v9.origin.y = a5;
@@ -1319,46 +1492,51 @@ uint64_t __72__PKPassBannerViewController__layoutModernContentViewWithBounds_com
   v10 = CGRectIntersection(v9, a1[1]);
   CGRectIsNull(v10);
 
-  return PKSizeAspectFit();
+  PKSizeAspectFit();
+  return result;
 }
 
-void *__72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, float64_t a4@<D0>)
+void *__72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit___block_invoke_4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>)
 {
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  result = (*(*(a1 + 32) + 16))(&v15);
-  if (a2 && (v17 & 1) != 0)
+  v20 = 0;
+  v18 = 0u;
+  v19 = 0u;
+  result = (*(*(a1 + 32) + 16))(&v18);
+  if (a2 && (v20 & 1) != 0)
   {
     v9 = *(a1 + 40);
-    v15 = vmulq_n_f64(v15, v9);
-    *(&v16 + 1) = v9 * *(&v16 + 1);
-    if (v15.f64[0] > a4)
+    v10 = vmulq_n_f64(v18, v9);
+    v18 = v10;
+    *(&v19 + 1) = v9 * *(&v19 + 1);
+    v11 = v10.f64[0];
+    if (v10.f64[0] > a4)
     {
-      v15.f64[0] = a4;
-      LOBYTE(v16) = 1;
+      v18.f64[0] = a4;
+      LOBYTE(v19) = 1;
+      v11 = a4;
     }
 
-    PKSizeRoundToPixel();
-    v15.f64[0] = v10;
-    v15.f64[1] = v11;
-    result = PKFloatRoundToPixel();
-    *(&v16 + 1) = v12;
-    if (v16 == 1)
+    PKSizeRoundToPixel(v11, v10.f64[1]);
+    v18.f64[0] = v12;
+    *&v18.f64[1] = v13.n128_u64[0];
+    v14.n128_u64[0] = *(&v19 + 1);
+    result = PKFloatRoundToPixel(v14, v13);
+    *(&v19 + 1) = v15;
+    if (v19 == 1)
     {
-      v13 = *(a1 + 48) ^ 1;
+      v16 = *(a1 + 48) ^ 1;
     }
 
     else
     {
-      v13 = 0;
+      v16 = 0;
     }
 
-    LOBYTE(v16) = v13 & 1;
-    *(a3 + 32) = v17;
-    v14 = v16;
-    *a3 = v15;
-    *(a3 + 16) = v14;
+    LOBYTE(v19) = v16 & 1;
+    *(a3 + 32) = v20;
+    v17 = v19;
+    *a3 = v18;
+    *(a3 + 16) = v17;
   }
 
   else
@@ -1380,26 +1558,32 @@ void __72__PKPassBannerViewController__layoutModernContentViewWithBounds_commit_
   remainder.size.height = a7;
   v13 = a2;
   memset(&slice, 0, sizeof(slice));
-  v29.origin.x = a4;
-  v29.origin.y = a5;
-  v29.size.width = a6;
-  v29.size.height = a7;
-  CGRectDivide(v29, &slice, &remainder, *a3, *(a1 + 40));
+  v36.origin.x = a4;
+  v36.origin.y = a5;
+  v36.size.width = a6;
+  v36.size.height = a7;
+  CGRectDivide(v36, &slice, &remainder, *a3, *(a1 + 40));
   v14 = slice.size.height - (a3[3] + 0.0);
   v15.f64[0] = 0.0;
   v15.f64[1] = a3[3];
   slice.origin = vaddq_f64(slice.origin, v15);
   slice.size.height = v14;
-  CATransform3DMakeScale(&v26, *(a1 + 32), *(a1 + 32), 1.0);
-  [v13 setTransform3D:&v26];
+  CATransform3DMakeScale(&v33, *(a1 + 32), *(a1 + 32), 1.0);
+  [v13 setTransform3D:&v33];
   [v13 setBounds:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), *a3, a3[1]}];
-  PKSizeAlignedInRect();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
+  v16.n128_f64[0] = *a3;
+  v17.n128_f64[0] = a3[1];
+  v18.n128_u64[0] = *&slice.origin.x;
+  v19.n128_u64[0] = *&slice.origin.y;
+  v20.n128_u64[0] = *&slice.size.width;
+  v21.n128_u64[0] = *&slice.size.height;
+  PKSizeAlignedInRect(1, v16, v17, v18, v19, v20, v21, v22);
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
   [v13 anchorPoint];
-  [v13 setCenter:{v17 + v24 * v21, v19 + v25 * v23}];
+  [v13 setCenter:{v24 + v31 * v28, v26 + v32 * v30}];
   if ([v13 marqueeRunning] != *(a3 + 16))
   {
     [v13 setMarqueeRunning:?];

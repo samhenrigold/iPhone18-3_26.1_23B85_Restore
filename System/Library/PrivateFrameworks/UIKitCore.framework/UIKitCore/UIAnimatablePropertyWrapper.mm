@@ -16,11 +16,11 @@
 
 + (id)makeSwiftFloatAnimatablePropertyWithView:(id)view
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940D60);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940D60, &qword_18A650C38);
   swift_allocObject();
   viewCopy = view;
-  v5 = sub_188A6DB3C(view, signpost_c2_entryLock_start, 0, &qword_1EA940D70, 0.0, &unk_18A676BA8, &qword_1EA940D78, &unk_18A676BB0);
-  v6 = sub_188A5EB48(&qword_1ED48FC50, &unk_1EA940D60);
+  v5 = sub_188A6DB3C(view, signpost_c2_entryLock_start, 0, &qword_1EA940D70, &qword_18A676BA8, &qword_1EA940D78, &qword_18A676BB0, 0.0);
+  v6 = sub_188A5EB48(&qword_1ED48FC50, &unk_1EA940D60, &qword_18A650C38);
   v7 = type metadata accessor for BridgedProperty();
   v8 = objc_allocWithZone(v7);
   v9 = &v8[OBJC_IVAR____TtC5UIKit15BridgedProperty_property];
@@ -51,11 +51,11 @@
 
 + (id)makeSwiftVectorAnimatablePropertyWithView:(id)view
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940D80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA940D80, &qword_18A650C68);
   swift_allocObject();
   viewCopy = view;
   v5 = sub_188C84FFC(MEMORY[0x1E69E7CC0], view, signpost_c2_entryLock_start, 0);
-  v6 = sub_188A5EB48(&qword_1EA930FF8, &unk_1EA940D80);
+  v6 = sub_188A5EB48(&qword_1EA930FF8, &unk_1EA940D80, &qword_18A650C68);
   v7 = type metadata accessor for BridgedProperty();
   v8 = objc_allocWithZone(v7);
   v9 = &v8[OBJC_IVAR____TtC5UIKit15BridgedProperty_property];

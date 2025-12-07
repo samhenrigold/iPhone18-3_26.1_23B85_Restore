@@ -1,7 +1,9 @@
 @interface PFCShuffleGenerator
 - (PFCShuffleGenerator)init;
 - (PFCShuffleGenerator)initWithPhotoLibrary:(id)library targetShuffleSize:(int64_t)size;
+- (id)baseSuggestionFetchOptionsWithSubtype:(unsigned __int16)subtype personLocalIdentifiers:(id)identifiers;
 - (id)shuffleForNonPersonSubtypes:(id)subtypes requireMinimumShuffleCount:(BOOL)count;
+- (id)shuffleForSubtype:(unsigned __int16)subtype persons:(id)persons requireMinimumShuffleCount:(BOOL)count;
 - (id)shuffles;
 - (void)generateShuffles;
 - (void)generateShufflesV2;
@@ -70,8 +72,7 @@
     v7 = [(PFCShuffleGenerator *)self shuffleForSubtype:804 persons:v6 requireMinimumShuffleCount:1];
     if (v7)
     {
-      [(NSMutableArray *)self->_shuffles addObject:v7];
-      v8 = pfc_shuffle_log();
+      v8 = pfc_shuffle_log([(NSMutableArray *)self->_shuffles addObject:v7]);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
@@ -238,211 +239,215 @@ LABEL_33:
   v4 = v45;
   if (v27 >= 2)
   {
-    v34 = [v45 count];
+    v35 = [v45 count];
     v25 = [MEMORY[0x1E695DFD8] set];
     if ([v45 count])
     {
-      if (v34 >= 5)
+      if (v35 >= 5)
       {
-        v35 = 5;
+        v36 = 5;
       }
 
       else
       {
-        v35 = v34;
+        v36 = v35;
       }
 
-      v36 = MEMORY[0x1E695DFD8];
-      v37 = [v45 subarrayWithRange:{0, v35}];
-      v38 = [v36 setWithArray:v37];
+      v37 = MEMORY[0x1E695DFD8];
+      v38 = [v45 subarrayWithRange:{0, v36}];
+      v39 = [v37 setWithArray:v38];
 
-      v25 = v38;
+      v25 = v39;
     }
 
-    v39 = [[PFCShuffle alloc] initWithPeople:v25 pets:pets & 1 nature:nature & 1 cityscape:cityscape & 1];
-    [(NSMutableArray *)self->_shuffles insertObject:v39 atIndex:0];
-    v40 = pfc_shuffle_log();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+    v40 = [[PFCShuffle alloc] initWithPeople:v25 pets:pets & 1 nature:nature & 1 cityscape:cityscape & 1];
+    v41 = pfc_shuffle_log([(NSMutableArray *)self->_shuffles insertObject:v40 atIndex:0]);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v51 = v39;
-      _os_log_impl(&dword_1DF9B6000, v40, OS_LOG_TYPE_INFO, "[PFCShuffleGenerator]: Generated everything shuffle: %@", buf, 0xCu);
+      v51 = v40;
+      _os_log_impl(&dword_1DF9B6000, v41, OS_LOG_TYPE_INFO, "[PFCShuffleGenerator]: Generated everything shuffle: %@", buf, 0xCu);
     }
 
 LABEL_50:
   }
 
-  v41 = pfc_shuffle_log();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v42 = pfc_shuffle_log(v34);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = [(NSMutableArray *)self->_shuffles count];
+    v43 = [(NSMutableArray *)self->_shuffles count];
     shuffles = self->_shuffles;
     *buf = 134218242;
-    v51 = v42;
+    v51 = v43;
     v52 = 2112;
     v53 = shuffles;
-    _os_log_impl(&dword_1DF9B6000, v41, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator]: Generated %ld shuffles\n%@", buf, 0x16u);
+    _os_log_impl(&dword_1DF9B6000, v42, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator]: Generated %ld shuffles\n%@", buf, 0x16u);
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateShuffles
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   topAmbientPeople = [(PFCShuffleDataSource *)self->_dataSource topAmbientPeople];
   v4 = [topAmbientPeople count];
 
   if (v4 < 2)
   {
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v5 = pfc_shuffle_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = pfc_shuffle_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       topAmbientPeople2 = [(PFCShuffleDataSource *)self->_dataSource topAmbientPeople];
       *buf = 134217984;
-      v42 = [topAmbientPeople2 count];
-      _os_log_impl(&dword_1DF9B6000, v5, OS_LOG_TYPE_INFO, "Processing shuffle for %lu top people", buf, 0xCu);
+      v47 = [topAmbientPeople2 count];
+      _os_log_impl(&dword_1DF9B6000, v6, OS_LOG_TYPE_INFO, "Processing shuffle for %lu top people", buf, 0xCu);
     }
 
     topAmbientPeople3 = [(PFCShuffleDataSource *)self->_dataSource topAmbientPeople];
-    v8 = [(PFCShuffleGenerator *)self shuffleForSubtype:804 persons:topAmbientPeople3 requireMinimumShuffleCount:0];
+    v9 = [(PFCShuffleGenerator *)self shuffleForSubtype:804 persons:topAmbientPeople3 requireMinimumShuffleCount:0];
 
-    v9 = v8 != 0;
-    if (v8)
+    v11 = v9 != 0;
+    if (v9)
     {
-      v10 = pfc_shuffle_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = pfc_shuffle_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v42 = v8;
-        _os_log_impl(&dword_1DF9B6000, v10, OS_LOG_TYPE_INFO, "Did generate top people shuffle: %@", buf, 0xCu);
+        v47 = v9;
+        _os_log_impl(&dword_1DF9B6000, v12, OS_LOG_TYPE_INFO, "Did generate top people shuffle: %@", buf, 0xCu);
       }
 
-      [(NSMutableArray *)self->_shuffles addObject:v8];
+      [(NSMutableArray *)self->_shuffles addObject:v9];
     }
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   topAmbientPeople4 = [(PFCShuffleDataSource *)self->_dataSource topAmbientPeople];
-  v12 = [topAmbientPeople4 countByEnumeratingWithState:&v37 objects:v45 count:16];
-  if (v12)
+  v14 = [topAmbientPeople4 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (v14)
   {
-    v14 = v12;
-    v15 = *v38;
-    *&v13 = 138412290;
-    v36 = v13;
+    v16 = v14;
+    v17 = *v43;
+    *&v15 = 138412290;
+    v41 = v15;
     do
     {
-      for (i = 0; i != v14; ++i)
+      v18 = 0;
+      do
       {
-        if (*v38 != v15)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(topAmbientPeople4);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * i);
-        v18 = pfc_shuffle_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v19 = *(*(&v42 + 1) + 8 * v18);
+        v20 = pfc_shuffle_log(v14);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          *buf = v36;
-          v42 = v17;
-          _os_log_impl(&dword_1DF9B6000, v18, OS_LOG_TYPE_INFO, "Processing shuffle for person id: %@", buf, 0xCu);
+          *buf = v41;
+          v47 = v19;
+          _os_log_impl(&dword_1DF9B6000, v20, OS_LOG_TYPE_INFO, "Processing shuffle for person id: %@", buf, 0xCu);
         }
 
-        v19 = [MEMORY[0x1E695DFD8] setWithObject:v17];
-        v20 = [(PFCShuffleGenerator *)self shuffleForSubtype:804 persons:v19 requireMinimumShuffleCount:1];
-        if (v20)
+        v21 = [MEMORY[0x1E695DFD8] setWithObject:v19];
+        v22 = [(PFCShuffleGenerator *)self shuffleForSubtype:804 persons:v21 requireMinimumShuffleCount:1];
+        v23 = v22;
+        if (v22)
         {
-          v21 = pfc_shuffle_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v24 = pfc_shuffle_log(v22);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            *buf = v36;
-            v42 = v17;
-            _os_log_impl(&dword_1DF9B6000, v21, OS_LOG_TYPE_INFO, "Did generate shuffle for person: %@", buf, 0xCu);
+            *buf = v41;
+            v47 = v19;
+            _os_log_impl(&dword_1DF9B6000, v24, OS_LOG_TYPE_INFO, "Did generate shuffle for person: %@", buf, 0xCu);
           }
 
-          [(NSMutableArray *)self->_shuffles addObject:v20];
-          v9 = 1;
+          [(NSMutableArray *)self->_shuffles addObject:v23];
+          v11 = 1;
         }
+
+        ++v18;
       }
 
-      v14 = [topAmbientPeople4 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      while (v16 != v18);
+      v14 = [topAmbientPeople4 countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v16 = v14;
     }
 
     while (v14);
   }
 
-  v22 = [(PFCShuffleGenerator *)self shuffleForSubtype:803 persons:0 requireMinimumShuffleCount:1];
-  v23 = v9;
-  if (v22)
+  v25 = [(PFCShuffleGenerator *)self shuffleForSubtype:803 persons:0 requireMinimumShuffleCount:1];
+  v26 = v25;
+  v27 = v11;
+  if (v25)
   {
-    v24 = pfc_shuffle_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v28 = pfc_shuffle_log(v25);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF9B6000, v24, OS_LOG_TYPE_INFO, "Did generate shuffle for pets", buf, 2u);
+      _os_log_impl(&dword_1DF9B6000, v28, OS_LOG_TYPE_INFO, "Did generate shuffle for pets", buf, 2u);
     }
 
-    [(NSMutableArray *)self->_shuffles addObject:v22];
-    if (v9)
+    [(NSMutableArray *)self->_shuffles addObject:v26];
+    if (v11)
     {
-      v23 = 2;
+      v27 = 2;
     }
 
     else
     {
-      v23 = 1;
+      v27 = 1;
     }
   }
 
-  v25 = [(PFCShuffleGenerator *)self shuffleForSubtype:801 persons:0 requireMinimumShuffleCount:1, v36];
+  v29 = [(PFCShuffleGenerator *)self shuffleForSubtype:801 persons:0 requireMinimumShuffleCount:1, v41];
 
-  if (v25)
+  if (v29)
   {
-    v26 = pfc_shuffle_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v31 = pfc_shuffle_log(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF9B6000, v26, OS_LOG_TYPE_INFO, "Did generate shuffle for nature", buf, 2u);
+      _os_log_impl(&dword_1DF9B6000, v31, OS_LOG_TYPE_INFO, "Did generate shuffle for nature", buf, 2u);
     }
 
-    [(NSMutableArray *)self->_shuffles addObject:v25];
-    ++v23;
+    [(NSMutableArray *)self->_shuffles addObject:v29];
+    ++v27;
   }
 
-  v27 = [(PFCShuffleGenerator *)self shuffleForSubtype:802 persons:0 requireMinimumShuffleCount:1];
+  v32 = [(PFCShuffleGenerator *)self shuffleForSubtype:802 persons:0 requireMinimumShuffleCount:1];
 
-  if (v27)
+  if (v32)
   {
-    v28 = pfc_shuffle_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v34 = pfc_shuffle_log(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF9B6000, v28, OS_LOG_TYPE_INFO, "Did generate shuffle for cities", buf, 2u);
+      _os_log_impl(&dword_1DF9B6000, v34, OS_LOG_TYPE_INFO, "Did generate shuffle for cities", buf, 2u);
     }
 
-    [(NSMutableArray *)self->_shuffles addObject:v27];
-    ++v23;
+    v33 = [(NSMutableArray *)self->_shuffles addObject:v32];
+    ++v27;
   }
 
-  if (v23 >= 2)
+  if (v27 >= 2)
   {
-    v29 = pfc_shuffle_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v35 = pfc_shuffle_log(v33);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF9B6000, v29, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] producing consolidated shuffle as well", buf, 2u);
+      _os_log_impl(&dword_1DF9B6000, v35, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] producing consolidated shuffle as well", buf, 2u);
     }
 
-    if (v9)
+    if (v11)
     {
       [(PFCShuffleDataSource *)self->_dataSource topAmbientPeople];
     }
@@ -451,24 +456,22 @@ LABEL_50:
     {
       [MEMORY[0x1E695DFD8] set];
     }
-    v30 = ;
-    v31 = [[PFCShuffle alloc] initWithPeople:v30 pets:v22 != 0 nature:v25 != 0 cityscape:v27 != 0];
-    [(NSMutableArray *)self->_shuffles insertObject:v31 atIndex:0];
+    v36 = ;
+    v37 = [[PFCShuffle alloc] initWithPeople:v36 pets:v26 != 0 nature:v29 != 0 cityscape:v32 != 0];
+    [(NSMutableArray *)self->_shuffles insertObject:v37 atIndex:0];
   }
 
-  v32 = pfc_shuffle_log();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v38 = pfc_shuffle_log(v33);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = [(NSMutableArray *)self->_shuffles count];
+    v39 = [(NSMutableArray *)self->_shuffles count];
     shuffles = self->_shuffles;
     *buf = 134218242;
-    v42 = v33;
-    v43 = 2112;
-    v44 = shuffles;
-    _os_log_impl(&dword_1DF9B6000, v32, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator]: Generated %ld shuffles\n%@", buf, 0x16u);
+    v47 = v39;
+    v48 = 2112;
+    v49 = shuffles;
+    _os_log_impl(&dword_1DF9B6000, v38, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator]: Generated %ld shuffles\n%@", buf, 0x16u);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)shuffleForNonPersonSubtypes:(id)subtypes requireMinimumShuffleCount:(BOOL)count
@@ -518,18 +521,18 @@ LABEL_50:
       unsignedIntegerValue = [*(*(&v29 + 1) + 8 * i) unsignedIntegerValue];
       v16 = [(PFCShuffleDataSource *)self->_dataSource numberOfSuggestionsForShuffleSubtype:unsignedIntegerValue persons:0];
       v17 = PHSuggestionStringWithSubtype();
-      [array addObject:v17];
+      v18 = [array addObject:v17];
       if (v16 < v7)
       {
-        v19 = pfc_shuffle_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = pfc_shuffle_log(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [PFCShuffleGenerator shuffleForNonPersonSubtypes:v17 requireMinimumShuffleCount:v19];
+          [PFCShuffleGenerator shuffleForNonPersonSubtypes:v17 requireMinimumShuffleCount:v20];
         }
 
 LABEL_27:
-        v20 = 0;
-        v21 = v9;
+        v21 = 0;
+        v22 = v9;
         goto LABEL_33;
       }
 
@@ -562,12 +565,12 @@ LABEL_27:
         }
       }
 
-      v18 = pfc_shuffle_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = pfc_shuffle_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = v26;
         v34 = v17;
-        _os_log_error_impl(&dword_1DF9B6000, v18, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] bad shuffle subtype: %@", buf, 0xCu);
+        _os_log_error_impl(&dword_1DF9B6000, v19, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] bad shuffle subtype: %@", buf, 0xCu);
       }
 
 LABEL_21:
@@ -584,49 +587,186 @@ LABEL_21:
 
 LABEL_29:
 
-  v21 = [array componentsJoinedByString:{@", "}];
-  v22 = pfc_shuffle_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v22 = [array componentsJoinedByString:{@", "}];
+  v23 = pfc_shuffle_log(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v21;
-    _os_log_impl(&dword_1DF9B6000, v22, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] Generated shuffle for subtypes (%@)", buf, 0xCu);
+    v34 = v22;
+    _os_log_impl(&dword_1DF9B6000, v23, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] Generated shuffle for subtypes (%@)", buf, 0xCu);
   }
 
   if ((v27 | v28 | HIDWORD(v28)))
   {
-    v23 = [PFCShuffle alloc];
+    v24 = [PFCShuffle alloc];
     v17 = [MEMORY[0x1E695DFD8] set];
-    v20 = [(PFCShuffle *)v23 initWithPeople:v17 pets:v27 & 1 nature:v28 & 1 cityscape:BYTE4(v28) & 1];
+    v21 = [(PFCShuffle *)v24 initWithPeople:v17 pets:v27 & 1 nature:v28 & 1 cityscape:BYTE4(v28) & 1];
 LABEL_33:
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
+  return v21;
+}
 
-  return v20;
+- (id)shuffleForSubtype:(unsigned __int16)subtype persons:(id)persons requireMinimumShuffleCount:(BOOL)count
+{
+  countCopy = count;
+  subtypeCopy = subtype;
+  v29 = *MEMORY[0x1E69E9840];
+  personsCopy = persons;
+  v9 = PHSuggestionStringWithSubtype();
+  v10 = pfc_shuffle_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v25 = 138412546;
+    v26 = v9;
+    v27 = 2112;
+    v28 = personsCopy;
+    _os_log_impl(&dword_1DF9B6000, v10, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] Fetching suggestion with subtype (%@), personLocalIdentifiers %@", &v25, 0x16u);
+  }
+
+  if (countCopy)
+  {
+    v11 = 16;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  v12 = [(PFCShuffleDataSource *)self->_dataSource hasSuggestionsForShuffleSubtype:subtypeCopy persons:personsCopy minimumCount:v11];
+  if ((v12 & 1) == 0)
+  {
+    v20 = pfc_shuffle_log(v12);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = 138412546;
+      v26 = v9;
+      v27 = 2112;
+      v28 = personsCopy;
+      _os_log_impl(&dword_1DF9B6000, v20, OS_LOG_TYPE_DEFAULT, "[PFCShuffleGenerator] No suggestions for subtype (%@), personLocalIdentifiers %@", &v25, 0x16u);
+    }
+
+    goto LABEL_18;
+  }
+
+  if (subtypeCopy > 802)
+  {
+    if (subtypeCopy != 803)
+    {
+      if (subtypeCopy == 804)
+      {
+        v21 = [[PFCShuffle alloc] initWithPeople:personsCopy pets:0 nature:0 cityscape:0];
+        goto LABEL_23;
+      }
+
+      goto LABEL_16;
+    }
+
+    v23 = [PFCShuffle alloc];
+    v14 = [MEMORY[0x1E695DFD8] set];
+    v15 = v23;
+    v16 = v14;
+    v17 = 1;
+    v18 = 0;
+LABEL_21:
+    v19 = 0;
+    goto LABEL_22;
+  }
+
+  if (subtypeCopy == 801)
+  {
+    v22 = [PFCShuffle alloc];
+    v14 = [MEMORY[0x1E695DFD8] set];
+    v15 = v22;
+    v16 = v14;
+    v17 = 0;
+    v18 = 1;
+    goto LABEL_21;
+  }
+
+  if (subtypeCopy != 802)
+  {
+LABEL_16:
+    v20 = pfc_shuffle_log(v12);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      [PFCShuffleGenerator shuffleForSubtype:v9 persons:v20 requireMinimumShuffleCount:?];
+    }
+
+LABEL_18:
+
+    v21 = 0;
+    goto LABEL_23;
+  }
+
+  v13 = [PFCShuffle alloc];
+  v14 = [MEMORY[0x1E695DFD8] set];
+  v15 = v13;
+  v16 = v14;
+  v17 = 0;
+  v18 = 0;
+  v19 = 1;
+LABEL_22:
+  v21 = [(PFCShuffle *)v15 initWithPeople:v16 pets:v17 nature:v18 cityscape:v19];
+
+LABEL_23:
+
+  return v21;
+}
+
+- (id)baseSuggestionFetchOptionsWithSubtype:(unsigned __int16)subtype personLocalIdentifiers:(id)identifiers
+{
+  subtypeCopy = subtype;
+  v20[2] = *MEMORY[0x1E69E9840];
+  identifiersCopy = identifiers;
+  librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
+  v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"creationDate" ascending:0];
+  v20[0] = v8;
+  v9 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"uuid" ascending:0];
+  v20[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  [librarySpecificFetchOptions setSortDescriptors:v10];
+
+  v11 = objc_alloc(MEMORY[0x1E695DF70]);
+  v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != %d", @"state", 4];
+  v19[0] = v12;
+  subtypeCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %d", @"subtype", subtypeCopy];
+  v19[1] = subtypeCopy;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v15 = [v11 initWithArray:v14];
+
+  if (identifiersCopy)
+  {
+    identifiersCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"context", identifiersCopy];
+    [v15 addObject:identifiersCopy];
+  }
+
+  v17 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v15];
+  [librarySpecificFetchOptions setPredicate:v17];
+
+  return librarySpecificFetchOptions;
 }
 
 - (void)shuffleForNonPersonSubtypes:(uint64_t)a1 requireMinimumShuffleCount:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF9B6000, a2, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] Not enough suggestions for subtype (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF9B6000, a2, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] Not enough suggestions for subtype (%@)", &v2, 0xCu);
 }
 
 - (void)shuffleForSubtype:(uint64_t)a1 persons:(NSObject *)a2 requireMinimumShuffleCount:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF9B6000, a2, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] bad shuffle subtype: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF9B6000, a2, OS_LOG_TYPE_ERROR, "[PFCShuffleGenerator] bad shuffle subtype: %@", &v2, 0xCu);
 }
 
 @end

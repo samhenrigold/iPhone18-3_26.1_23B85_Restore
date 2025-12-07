@@ -82,7 +82,7 @@ uint64_t __67___TVMLCollectionViewController_updateWithViewElement_cellMetrics__
   return v12;
 }
 
-void __67___TVMLCollectionViewController_updateWithViewElement_cellMetrics___block_invoke_30(uint64_t a1, void *a2, uint64_t a3)
+void __67___TVMLCollectionViewController_updateWithViewElement_cellMetrics___block_invoke_30(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = *(a1 + 32);
@@ -351,7 +351,7 @@ void __67___TVMLCollectionViewController_updateWithViewElement_cellMetrics___blo
   [*(a1 + 32) moveItemAtIndexPath:v10 toIndexPath:v9];
 }
 
-uint64_t __67___TVMLCollectionViewController_updateWithViewElement_cellMetrics___block_invoke_9(uint64_t a1)
+void *__67___TVMLCollectionViewController_updateWithViewElement_cellMetrics___block_invoke_9(uint64_t a1)
 {
   [*(a1 + 32) _doUpdateViewLayoutAnimated:0 relayout:*(*(*(a1 + 40) + 8) + 24)];
   [*(a1 + 32) _updateHeaderView];

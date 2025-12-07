@@ -28,7 +28,7 @@
 
 - (PXConcatenatingAssetsDataSourceManager)initWithDataSourceManagers:(id)managers mode:(int64_t)mode
 {
-  sub_1A3C52C70(0, &qword_1EB120760);
+  sub_1A3C52C70(0, &qword_1EB120760, &off_1E77214B0);
   v5 = sub_1A524CA34();
   ConcatenatingAssetsDataSourceManager.init(dataSourceManagers:mode:)(v5, mode);
 }
@@ -279,7 +279,7 @@ LABEL_9:
 
   if (v3)
   {
-    sub_1A3C52C70(0, &qword_1EB126B60);
+    sub_1A3C52C70(0, &qword_1EB126B60, 0x1E696AEB0);
     v4 = sub_1A524CA14();
   }
 
@@ -295,7 +295,7 @@ LABEL_9:
 {
   if (descriptors)
   {
-    sub_1A3C52C70(0, &qword_1EB126B60);
+    sub_1A3C52C70(0, &qword_1EB126B60, 0x1E696AEB0);
     v4 = sub_1A524CA34();
   }
 
@@ -418,13 +418,13 @@ LABEL_9:
 - (void)setAllowedUUIDs:(id)ds manualOrderUUIDs:(id)iDs forAssetCollections:(id)collections
 {
   sub_1A4892848();
-  sub_1A524C3E4();
+  v6 = sub_1A524C3E4();
   sub_1A3FC306C(0, &qword_1EB126ED0, MEMORY[0x1E69E6158], MEMORY[0x1E69E62F8]);
-  sub_1A524C3E4();
-  sub_1A3C5D0E8(0, &qword_1EB120790);
-  sub_1A524CA34();
+  v7 = sub_1A524C3E4();
+  sub_1A3C5D0E8(0, &qword_1EB120790, &protocolRef_PXDisplayAssetCollection);
+  v8 = sub_1A524CA34();
   selfCopy = self;
-  sub_1A49A562C();
+  sub_1A49A562C(v6, v7, v8);
 }
 
 - (void)setAllowedUUIDs:(id)ds provideIncrementalChangeDetailsForAssetCollections:(id)collections

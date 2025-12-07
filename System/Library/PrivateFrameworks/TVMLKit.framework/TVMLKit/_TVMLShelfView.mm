@@ -124,7 +124,7 @@
         v31[1] = v15;
         v32 = v15;
         v33 = v15;
-        *v34 = v15;
+        v34[0] = v15;
         v19 = [MEMORY[0x277CCAE60] tv_valueWithRowMetrics:v31];
         [v16 addObject:v19];
 
@@ -132,7 +132,7 @@
       }
 
       v33 = v15;
-      *v34 = v15;
+      v34[0] = v15;
       v31[1] = v15;
       v32 = v15;
       v31[0] = v15;
@@ -140,13 +140,13 @@
       v21 = v20;
       if (v20)
       {
-        [v20 tv_rowMetricsValue];
+        objc_msgSend_tv_rowMetricsValue(v20);
       }
 
       else
       {
         v33 = 0u;
-        *v34 = 0u;
+        v34[0] = 0u;
         v32 = 0u;
         memset(v31, 0, sizeof(v31));
       }
@@ -154,19 +154,19 @@
       if (!v17)
       {
         *(v31 + 8) = vaddq_f64(v28, *(v31 + 8));
-        v34[0] = fmax(v34[0] - top, 0.0);
+        *&v34[0] = fmax(*v34 - top, 0.0);
       }
 
       if (v18 == 1)
       {
         *(v31 + 1) = bottom + *(v31 + 1);
         *(&v31[1] + 1) = bottom + *(&v31[1] + 1);
-        v34[1] = fmax(v34[1] - bottom, 0.0);
+        *(&v34[0] + 1) = fmax(*(v34 + 1) - bottom, 0.0);
       }
 
       v30[2] = v32;
       v30[3] = v33;
-      v30[4] = *v34;
+      v30[4] = v34[0];
       v30[0] = v31[0];
       v30[1] = v31[1];
       v22 = [MEMORY[0x277CCAE60] tv_valueWithRowMetrics:v30];

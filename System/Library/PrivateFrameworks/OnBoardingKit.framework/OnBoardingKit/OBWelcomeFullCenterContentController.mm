@@ -47,7 +47,7 @@
 
 - (void)insertCenterContentView
 {
-  v47[4] = *MEMORY[0x1E69E9840];
+  v46[4] = *MEMORY[0x1E69E9840];
   centerContentView = [(OBWelcomeFullCenterContentController *)self centerContentView];
   superview = [centerContentView superview];
   contentView = [(OBWelcomeController *)self contentView];
@@ -65,27 +65,27 @@
     centerXAnchor = [centerContentView4 centerXAnchor];
     contentView3 = [(OBWelcomeController *)self contentView];
     centerXAnchor2 = [contentView3 centerXAnchor];
-    v42 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v47[0] = v42;
+    v41 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v46[0] = v41;
     centerContentView5 = [(OBWelcomeFullCenterContentController *)self centerContentView];
     centerYAnchor = [centerContentView5 centerYAnchor];
     contentView4 = [(OBWelcomeController *)self contentView];
     centerYAnchor2 = [contentView4 centerYAnchor];
-    v37 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v47[1] = v37;
+    v36 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v46[1] = v36;
     contentView5 = [(OBWelcomeController *)self contentView];
     bottomAnchor = [contentView5 bottomAnchor];
     centerContentView6 = [(OBWelcomeFullCenterContentController *)self centerContentView];
     bottomAnchor2 = [centerContentView6 bottomAnchor];
     v11 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
-    v47[2] = v11;
+    v46[2] = v11;
     contentView6 = [(OBWelcomeController *)self contentView];
     topAnchor = [contentView6 topAnchor];
     centerContentView7 = [(OBWelcomeFullCenterContentController *)self centerContentView];
     topAnchor2 = [centerContentView7 topAnchor];
     v16 = [topAnchor constraintLessThanOrEqualToAnchor:topAnchor2];
-    v47[3] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:4];
+    v46[3] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
     [(OBWelcomeFullCenterContentController *)self setFloatingConstraintGroup:v17];
 
     contentView7 = [(OBWelcomeController *)self contentView];
@@ -117,8 +117,6 @@
     v33 = [centerContentView9 ob_pinToEdgesConstraints:contentView9];
     [(OBWelcomeFullCenterContentController *)self setPinnedConstraintGroup:v33];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLayoutSubviews

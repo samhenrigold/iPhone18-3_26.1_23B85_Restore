@@ -31,12 +31,12 @@
 
 - (SSSuggestionResultBuilder)initWithResult:(id)result queryContext:(id)context
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   contextCopy = context;
-  v23.receiver = self;
-  v23.super_class = SSSuggestionResultBuilder;
-  v8 = [(SSSuggestionResultBuilder *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SSSuggestionResultBuilder;
+  v8 = [(SSSuggestionResultBuilder *)&v22 init];
   v9 = v8;
   if (v8)
   {
@@ -60,13 +60,12 @@
       [(SSSuggestionResultBuilder *)v9 setSuggestionString:completion2];
 
       suggestionString = [(SSSuggestionResultBuilder *)v9 suggestionString];
-      v24[0] = suggestionString;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v23[0] = suggestionString;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       [(SSResultBuilder *)v9 setMatchedStrings:v20];
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -84,12 +83,12 @@
 
 - (SSSuggestionResultBuilder)initWithSuggestion:(id)suggestion queryContext:(id)context
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   contextCopy = context;
-  v24.receiver = self;
-  v24.super_class = SSSuggestionResultBuilder;
-  v8 = [(SSSuggestionResultBuilder *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SSSuggestionResultBuilder;
+  v8 = [(SSSuggestionResultBuilder *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -126,12 +125,11 @@
 
     [(SSSuggestionResultBuilder *)v9 setSuggestion:suggestionCopy];
     suggestionString = [(SSSuggestionResultBuilder *)v9 suggestionString];
-    v25[0] = suggestionString;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v24[0] = suggestionString;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
     [(SSResultBuilder *)v9 setMatchedStrings:v21];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -160,85 +158,84 @@
   contextCopy = context;
   if (dataCopy)
   {
-    if (isMacOS())
+    v7 = isMacOS();
+    if (v7)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = SSBundlesDonatingPhotos();
+      v8 = SSBundlesDonatingPhotos(v7);
     }
 
-    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     emptySuggestion = [MEMORY[0x1E6964EA8] emptySuggestion];
-    v10 = MEMORY[0x1E6964EA8];
+    v11 = MEMORY[0x1E6964EA8];
     searchString = [contextCopy searchString];
-    v12 = [v10 updatedSuggestionWithCurrentSuggestion:emptySuggestion userString:searchString tokens:MEMORY[0x1E695E0F0]];
+    v13 = [v11 updatedSuggestionWithCurrentSuggestion:emptySuggestion userString:searchString tokens:MEMORY[0x1E695E0F0]];
 
-    v13 = MEMORY[0x1E6964EA8];
+    v14 = MEMORY[0x1E6964EA8];
     searchString2 = [contextCopy searchString];
     v34 = @"photosBundleIDs";
-    v35[0] = v7;
-    v28 = v7;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-    v27 = v12;
-    v16 = [v13 suggestionsWithCurrentSuggestion:v12 userQueryString:searchString2 completionData:dataCopy options:v15];
+    v35[0] = v8;
+    v28 = v8;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v27 = v13;
+    v17 = [v14 suggestionsWithCurrentSuggestion:v13 userQueryString:searchString2 completionData:dataCopy options:v16];
 
     v31 = 0u;
     v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v17 = v16;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v18)
+    v18 = v17;
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v30;
+      v20 = v19;
+      v21 = *v30;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v30 != v20)
+          if (*v30 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v29 + 1) + 8 * i);
-          if ([v22 suggestionKind] == 2)
+          v23 = *(*(&v29 + 1) + 8 * i);
+          if ([v23 suggestionKind] == 2)
           {
-            v23 = [[SSSuggestionResultBuilder alloc] initWithSpotlightSuggestion:v22 queryContext:contextCopy];
-            buildResult = [(SSSuggestionResultBuilder *)v23 buildResult];
+            v24 = [[SSSuggestionResultBuilder alloc] initWithSpotlightSuggestion:v23 queryContext:contextCopy];
+            buildResult = [(SSSuggestionResultBuilder *)v24 buildResult];
             if (buildResult)
             {
-              [v8 addObject:buildResult];
+              [v9 addObject:buildResult];
             }
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
   }
 
   else
   {
-    v8 = MEMORY[0x1E695E0F0];
+    v9 = MEMORY[0x1E695E0F0];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 + (id)buildResultsWithSuggestionsData:(id)data queryContext:(id)context
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   contextCopy = context;
-  if ([dataCopy count])
+  if (objc_msgSend_count(dataCopy))
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v8 = MEMORY[0x1E6964EA8];
@@ -248,29 +245,29 @@
 
     v12 = MEMORY[0x1E6964EA8];
     searchString2 = [contextCopy searchString];
-    v25 = v11;
+    v24 = v11;
     v14 = [v12 suggestionsWithCurrentSuggestion:v11 userQueryString:searchString2 suggestionData:dataCopy options:MEMORY[0x1E695E0F8]];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v27;
+      v18 = *v26;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v27 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v26 + 1) + 8 * i);
+          v20 = *(*(&v25 + 1) + 8 * i);
           if ([v20 suggestionKind] == 2)
           {
             v21 = [[SSSuggestionResultBuilder alloc] initWithSpotlightSuggestion:v20 queryContext:contextCopy];
@@ -282,7 +279,7 @@
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v17);
@@ -294,19 +291,17 @@
     v7 = MEMORY[0x1E695E0F0];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (SSSuggestionResultBuilder)initWithSpotlightSuggestion:(id)suggestion queryContext:(id)context
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   contextCopy = context;
-  v21.receiver = self;
-  v21.super_class = SSSuggestionResultBuilder;
-  v8 = [(SSSuggestionResultBuilder *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SSSuggestionResultBuilder;
+  v8 = [(SSSuggestionResultBuilder *)&v20 init];
   v9 = v8;
   if (v8)
   {
@@ -326,12 +321,11 @@
     [(SSSuggestionResultBuilder *)v9 setSpotlightSuggestion:suggestionCopy];
     result2 = [(SSResultBuilder *)v9 result];
     completion = [result2 completion];
-    v22[0] = completion;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = completion;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     [(SSResultBuilder *)v9 setMatchedStrings:v18];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -431,7 +425,7 @@ LABEL_17:
 
 - (id)buildInlineCardSections
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   result = [(SSResultBuilder *)self result];
   if ([result type] == 32)
   {
@@ -500,8 +494,8 @@ LABEL_17:
       v29 = [v27 textWithString:detailText];
       [(SSContactResultBuilder *)inlineCard2 setDetailText:v29];
 
-      v66 = result8;
-      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+      v65 = result8;
+      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
       [(SSContactResultBuilder *)inlineCard2 setPunchoutOptions:v30];
 
       buildSymbolImage = [(SSSuggestionResultBuilder *)self buildSymbolImage];
@@ -510,8 +504,8 @@ LABEL_17:
       buildCommand = [(SSSuggestionResultBuilder *)self buildCommand];
       [(SSContactResultBuilder *)inlineCard2 setCommand:buildCommand];
 
-      v65 = inlineCard2;
-      cardSections2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+      v64 = inlineCard2;
+      cardSections2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
       goto LABEL_18;
     }
 
@@ -541,8 +535,8 @@ LABEL_17:
       inlineCard2 = [(SSContactResultBuilder *)v57 initWithResult:result4 contactEntity:suggestion2 contact:contact];
 
       buildCompactCardSection = [(SSResultBuilder *)inlineCard2 buildCompactCardSection];
-      v64 = buildCompactCardSection;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+      v63 = buildCompactCardSection;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
 LABEL_31:
 
       goto LABEL_32;
@@ -605,8 +599,8 @@ LABEL_31:
 
         [v53 setQuerySource:1];
         [buildCompactCardSection setCommand:v53];
-        v63 = buildCompactCardSection;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+        v62 = buildCompactCardSection;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
 
         goto LABEL_31;
       }
@@ -645,11 +639,9 @@ LABEL_32:
   buildCommand3 = [(SSSuggestionResultBuilder *)self buildCommand];
   [suggestion2 setCommand:buildCommand3];
 
-  v67[0] = suggestion2;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:1];
+  v66[0] = suggestion2;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
 LABEL_33:
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -862,13 +854,13 @@ LABEL_25:
 
 - (id)buildHighlightedTextForSuggestion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   matchedStrings = [(SSResultBuilder *)self matchedStrings];
   firstObject = [matchedStrings firstObject];
 
   queryContext = [(SSResultBuilder *)self queryContext];
   searchEntities = [queryContext searchEntities];
-  v7 = [searchEntities count];
+  v7 = objc_msgSend_count(searchEntities);
   queryContext2 = [(SSResultBuilder *)self queryContext];
   v9 = queryContext2;
   if (v7)
@@ -886,8 +878,8 @@ LABEL_25:
   v13 = objc_opt_new();
   [v13 setText:firstObject];
   [v13 setIsEmphasized:1];
-  v33[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+  v32[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   v15 = objc_opt_new();
   [v15 setFormattedTextPieces:v14];
   if (([firstObject isEqual:displayString] & 1) == 0)
@@ -958,8 +950,6 @@ LABEL_25:
 
 LABEL_18:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
@@ -980,7 +970,7 @@ LABEL_18:
   v35 = v7;
   v9 = [v7 componentsSeparatedByString:@"<query>"];
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v11 = 0;
     do
@@ -994,7 +984,7 @@ LABEL_18:
         [v10 addObject:v14];
       }
 
-      if (v11 < [v9 count] - 1)
+      if (v11 < objc_msgSend_count(v9) - 1)
       {
         [v10 addObjectsFromArray:formattedTextPieces];
       }
@@ -1002,11 +992,11 @@ LABEL_18:
       ++v11;
     }
 
-    while (v11 < [v9 count]);
+    while (v11 < objc_msgSend_count(v9));
   }
 
   v37 = suggestionCopy;
-  if ([v10 count])
+  if (objc_msgSend_count(v10))
   {
     v15 = 0;
     while (1)
@@ -1030,7 +1020,7 @@ LABEL_18:
       {
         v19 = [v21 componentsSeparatedByString:@"<photo-icon>"];
 
-        if ([v19 count])
+        if (objc_msgSend_count(v19))
         {
           v26 = 0;
           do
@@ -1046,7 +1036,7 @@ LABEL_18:
               [v8 addObject:v31];
             }
 
-            if (v26 < [v19 count] - 1)
+            if (v26 < objc_msgSend_count(v19) - 1)
             {
               [v8 addObject:v5];
             }
@@ -1054,7 +1044,7 @@ LABEL_18:
             ++v26;
           }
 
-          while (v26 < [v19 count]);
+          while (v26 < objc_msgSend_count(v19));
         }
 
         goto LABEL_22;
@@ -1072,7 +1062,7 @@ LABEL_18:
 LABEL_22:
       }
 
-      if (++v15 >= [v10 count])
+      if (++v15 >= objc_msgSend_count(v10))
       {
         goto LABEL_24;
       }
@@ -1083,7 +1073,7 @@ LABEL_22:
   }
 
 LABEL_24:
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v32 = objc_opt_new();
     [v32 setFormattedTextPieces:v8];

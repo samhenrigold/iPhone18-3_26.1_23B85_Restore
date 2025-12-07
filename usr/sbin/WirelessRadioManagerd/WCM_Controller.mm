@@ -1,4 +1,6 @@
 @interface WCM_Controller
++ (id)newControllerForProcessId:(int)id;
++ (id)newTestControllerForProcessId:(int)id;
 - (WCM_Controller)init;
 - (WCM_Controller)initWithConnection:(id)connection processId:(int)id;
 - (void)dealloc;
@@ -247,6 +249,119 @@
 
   xpc_release(values[0]);
   xpc_release(v10);
+}
+
++ (id)newControllerForProcessId:(int)id
+{
+  v4 = id - 1;
+  switch(id)
+  {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 29:
+    case 30:
+    case 33:
+    case 34:
+    case 35:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+      goto LABEL_3;
+    case 6:
+      [WCM_Logging logLevel:3 message:@"WCM_Controller created for test"];
+LABEL_3:
+      v5 = objc_opt_new();
+      if (v5)
+      {
+        if (v4 < 0x29 && ((0x1F777FFFFFFuLL >> v4) & 1) != 0)
+        {
+          v6 = (&off_1002418A8)[v4];
+        }
+
+        else
+        {
+          v6 = "INVALID_PROC_ID!!!";
+          if (id == 42)
+          {
+            v6 = "WRMSOS";
+          }
+        }
+
+        [WCM_Logging logLevel:2 message:@"%@ was created for %s", v5, v6];
+      }
+
+      break;
+    default:
+      [WCM_Logging logLevel:0 message:@"WCM_Controller was not created for processId(%d)", *&id];
+      v5 = 0;
+      break;
+  }
+
+  return v5;
+}
+
++ (id)newTestControllerForProcessId:(int)id
+{
+  if (id > 3)
+  {
+    switch(id)
+    {
+      case 4:
+
+        return objc_opt_new();
+      case 7:
+
+        return objc_opt_new();
+      case 29:
+
+        return objc_opt_new();
+    }
+  }
+
+  else
+  {
+    switch(id)
+    {
+      case 1:
+
+        return objc_opt_new();
+      case 2:
+
+        return objc_opt_new();
+      case 3:
+
+        return objc_opt_new();
+    }
+  }
+
+  [WCM_Logging logLevel:0 message:@"Invalid ProcessId: %d", *&id];
+  return 0;
 }
 
 @end

@@ -103,7 +103,7 @@
   v81 = 0u;
   v78 = 0u;
   v79 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   selectedFillStyle = [(HKBarSeries *)self selectedFillStyle];
   if (selectedFillStyle)
   {

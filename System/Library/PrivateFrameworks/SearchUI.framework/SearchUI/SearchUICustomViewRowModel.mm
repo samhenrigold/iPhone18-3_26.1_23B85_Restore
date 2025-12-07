@@ -70,7 +70,7 @@
   resultsCopy = results;
   if (results)
   {
-    sub_1DA173718(0, &unk_1ECBA0980);
+    sub_1DA173718(0, &unk_1ECBA0980, 0x1E69CA3E8);
     resultsCopy = sub_1DA25F324();
   }
 

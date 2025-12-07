@@ -53,7 +53,7 @@
 
 void __69__HMDAccessorySetupManager_remoteAlertHandle_didInvalidateWithError___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) alertHandle];
 
@@ -68,13 +68,13 @@ void __69__HMDAccessorySetupManager_remoteAlertHandle_didInvalidateWithError___b
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 32);
       v13 = *(a1 + 48);
-      v18 = 138543874;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
-      v22 = 2112;
-      v23 = v13;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Alert handle %@ did invalidate: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Alert handle %@ did invalidate: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -97,19 +97,17 @@ void __69__HMDAccessorySetupManager_remoteAlertHandle_didInvalidateWithError___b
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 32);
       v10 = *(a1 + 48);
-      v18 = 138543874;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Received alert handle did invalidate for unexpected handle %@: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Received alert handle did invalidate for unexpected handle %@: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
@@ -128,7 +126,7 @@ void __69__HMDAccessorySetupManager_remoteAlertHandle_didInvalidateWithError___b
 
 void __59__HMDAccessorySetupManager_remoteAlertHandleDidDeactivate___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) alertHandle];
 
@@ -142,11 +140,11 @@ void __59__HMDAccessorySetupManager_remoteAlertHandleDidDeactivate___block_invok
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Alert handle %@ did deactivate. This can happen when screen is turned off by user", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Alert handle %@ did deactivate. This can happen when screen is turned off by user", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -171,17 +169,15 @@ void __59__HMDAccessorySetupManager_remoteAlertHandleDidDeactivate___block_invok
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received alert handle did deactivate for unexpected handle %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received alert handle did deactivate for unexpected handle %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidActivate:(id)activate
@@ -200,7 +196,7 @@ void __59__HMDAccessorySetupManager_remoteAlertHandleDidDeactivate___block_invok
 
 void __57__HMDAccessorySetupManager_remoteAlertHandleDidActivate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) alertHandle];
 
@@ -214,10 +210,10 @@ void __57__HMDAccessorySetupManager_remoteAlertHandleDidActivate___block_invoke(
     {
       v8 = HMFGetLogIdentifier();
       v13 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v13;
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v13;
       v10 = "%{public}@Alert handle %@ did activate";
       v11 = v7;
       v12 = OS_LOG_TYPE_INFO;
@@ -229,24 +225,23 @@ void __57__HMDAccessorySetupManager_remoteAlertHandleDidActivate___block_invoke(
   {
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 32);
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
     v10 = "%{public}@Received alert handle did activate for unexpected handle %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-    _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, 0x16u);
+    _os_log_impl(&dword_2531F8000, v11, v12, v10, &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNFCProxSetupNotification:(id)notification
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -255,9 +250,9 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = notificationCopy;
+    v26 = v8;
+    v27 = 2112;
+    v28 = notificationCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling %@", buf, 0x16u);
   }
 
@@ -284,13 +279,13 @@ LABEL_6:
     if (v13)
     {
       workQueue = [(HMDAccessorySetupManager *)selfCopy workQueue];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __59__HMDAccessorySetupManager_handleNFCProxSetupNotification___block_invoke;
-      v24[3] = &unk_2797359B0;
-      v24[4] = selfCopy;
-      v25 = v13;
-      dispatch_async(workQueue, v24);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __59__HMDAccessorySetupManager_handleNFCProxSetupNotification___block_invoke;
+      v23[3] = &unk_2797359B0;
+      v23[4] = selfCopy;
+      v24 = v13;
+      dispatch_async(workQueue, v23);
     }
 
     else
@@ -302,9 +297,9 @@ LABEL_6:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v12;
+        v26 = v22;
+        v27 = 2112;
+        v28 = v12;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert URL string to URL: %@", buf, 0x16u);
       }
 
@@ -321,19 +316,17 @@ LABEL_6:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v18;
+      v26 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Prox setup notification did not have expected URL string", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFailAccessorySetupMessage:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -348,11 +341,11 @@ LABEL_6:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failing accessory setup with setupError: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failing accessory setup with setupError: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -366,31 +359,29 @@ LABEL_6:
     {
       v12 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = messagePayload;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find setup error in message payload: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = messagePayload;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find setup error in message payload: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFinishAccessorySetupMessage:(id)message
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v6 = *MEMORY[0x277CCEEB0];
-  v18[0] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v8 = [messageCopy unarchivedObjectForKey:v6 ofClasses:v7];
 
   v9 = objc_autoreleasePoolPush();
@@ -399,23 +390,21 @@ LABEL_6:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Finishing accessory setup with accessorySetupCompletedInfo: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Finishing accessory setup with accessorySetupCompletedInfo: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDAccessorySetupManager *)selfCopy _finishAccessorySetupWithSetupCompletedInfo:v8 setupError:0];
   [messageCopy respondWithSuccess];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResumeAccessorySetupMessage:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -423,13 +412,13 @@ LABEL_6:
   v6 = [messageCopy dictionaryForKey:*MEMORY[0x277CCEED0]];
   if (v6)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___block_invoke;
-    v14[3] = &unk_279721A10;
-    v15 = messageCopy;
-    [(HMDAccessorySetupManager *)self _launchHUISWithSetupAccessoryDescription:0 deviceSetupRequest:0 resumeSetupUserInfo:v6 completionHandler:v14];
-    v7 = v15;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___block_invoke;
+    v13[3] = &unk_279721A10;
+    v14 = messageCopy;
+    [(HMDAccessorySetupManager *)self _launchHUISWithSetupAccessoryDescription:0 deviceSetupRequest:0 resumeSetupUserInfo:v6 completionHandler:v13];
+    v7 = v14;
   }
 
   else
@@ -442,9 +431,9 @@ LABEL_6:
       v11 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
       *buf = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = messagePayload;
+      v16 = v11;
+      v17 = 2112;
+      v18 = messagePayload;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find resume accessory setup user info in message payload: %@", buf, 0x16u);
     }
 
@@ -452,8 +441,6 @@ LABEL_6:
     v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v7];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___block_invoke(uint64_t a1, uint64_t a2)
@@ -472,7 +459,7 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
 
 - (void)_handlePerformAccessorySetupMessage:(id)message
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -484,14 +471,14 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v9;
+    v28 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Performing accessory setup", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = *MEMORY[0x277CCEEC0];
-  v32[0] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   v12 = [messageCopy unarchivedObjectForKey:v10 ofClasses:v11];
 
   if (v12)
@@ -500,13 +487,13 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
     if (proxyConnection)
     {
       v14 = proxyConnection;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __64__HMDAccessorySetupManager__handlePerformAccessorySetupMessage___block_invoke;
-      v26[3] = &unk_2797219E8;
-      v26[4] = selfCopy;
-      v27 = messageCopy;
-      [(HMDAccessorySetupManager *)selfCopy _launchHUISWithRequest:v12 connection:v14 completionHandler:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __64__HMDAccessorySetupManager__handlePerformAccessorySetupMessage___block_invoke;
+      v25[3] = &unk_2797219E8;
+      v25[4] = selfCopy;
+      v26 = messageCopy;
+      [(HMDAccessorySetupManager *)selfCopy _launchHUISWithRequest:v12 connection:v14 completionHandler:v25];
     }
 
     else
@@ -518,9 +505,9 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v29 = v23;
-        v30 = 2112;
-        v31 = messageCopy;
+        v28 = v23;
+        v29 = 2112;
+        v30 = messageCopy;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not find proxy connection for message: %@", buf, 0x16u);
       }
 
@@ -542,9 +529,9 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
       v18 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
       *buf = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = messagePayload;
+      v28 = v18;
+      v29 = 2112;
+      v30 = messagePayload;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find request in message payload: %@", buf, 0x16u);
     }
 
@@ -552,23 +539,21 @@ uint64_t __63__HMDAccessorySetupManager__handleResumeAccessorySetupMessage___blo
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v14];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDAccessorySetupManager__handlePerformAccessorySetupMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v14 = *MEMORY[0x277CCEEC8];
+    v13 = *MEMORY[0x277CCEEC8];
     v7 = encodeRootObject();
-    v15 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v14 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
 
-    [*(a1 + 40) respondWithPayload:{v8, v14}];
+    [*(a1 + 40) respondWithPayload:{v8, v13}];
   }
 
   else
@@ -580,17 +565,15 @@ void __64__HMDAccessorySetupManager__handlePerformAccessorySetupMessage___block_
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v6;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v6;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     [*(a1 + 40) respondWithError:v6];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_accessorySetupResultFromCompletedInfo:(id)info clientIdentifierSalt:(id)salt
@@ -631,7 +614,7 @@ id __88__HMDAccessorySetupManager__accessorySetupResultFromCompletedInfo_clientI
 
 - (void)_finishAccessorySetupWithSetupCompletedInfo:(id)info setupError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   errorCopy = error;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
@@ -648,11 +631,11 @@ id __88__HMDAccessorySetupManager__accessorySetupResultFromCompletedInfo_clientI
     {
       v13 = HMFGetLogIdentifier();
       alertHandle = [(HMDAccessorySetupManager *)selfCopy alertHandle];
-      v22 = 138543618;
-      v23 = v13;
-      v24 = 2112;
-      v25 = alertHandle;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Invalidating remote alert: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v13;
+      v23 = 2112;
+      v24 = alertHandle;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Invalidating remote alert: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -674,20 +657,18 @@ id __88__HMDAccessorySetupManager__accessorySetupResultFromCompletedInfo_clientI
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v20;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot finish accessory setup because no pending completion handler exists", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v20;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot finish accessory setup because no pending completion handler exists", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_launchHUISWithSetupAccessoryDescription:(id)description deviceSetupRequest:(id)request resumeSetupUserInfo:(id)info completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   requestCopy = request;
   infoCopy = info;
@@ -706,15 +687,15 @@ id __88__HMDAccessorySetupManager__accessorySetupResultFromCompletedInfo_clientI
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v61 = 138544130;
-    v62 = v18;
-    v63 = 2112;
-    v64 = descriptionCopy;
-    v65 = 2112;
-    v66 = *&requestCopy;
-    v67 = 2112;
-    v68 = infoCopy;
-    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with setupAccessoryDescription: %@ deviceSetupRequest: %@ resumeSetupUserInfo: %@", &v61, 0x2Au);
+    v60 = 138544130;
+    v61 = v18;
+    v62 = 2112;
+    v63 = descriptionCopy;
+    v64 = 2112;
+    v65 = *&requestCopy;
+    v66 = 2112;
+    v67 = infoCopy;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with setupAccessoryDescription: %@ deviceSetupRequest: %@ resumeSetupUserInfo: %@", &v60, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -733,9 +714,9 @@ id __88__HMDAccessorySetupManager__accessorySetupResultFromCompletedInfo_clientI
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       v26 = HMFGetLogIdentifier();
-      v61 = 138543362;
-      v62 = v26;
-      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Cannot launch HomeUIService because it is already active", &v61, 0xCu);
+      v60 = 138543362;
+      v61 = v26;
+      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Cannot launch HomeUIService because it is already active", &v60, 0xCu);
     }
 
     v27 = v23;
@@ -763,15 +744,15 @@ LABEL_10:
       {
         v37 = HMFGetLogIdentifier();
         [(HMDAccessorySetupManager *)v34 activationStartTime];
-        v61 = 138544130;
-        v62 = v37;
-        v63 = 2048;
-        v64 = 0x4000000000000000;
-        v65 = 2048;
-        v66 = v30;
-        v67 = 2048;
-        v68 = v38;
-        _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Not launching HomeUIService because a valid launch was attempted within the last %f seconds. Current time: %f, activationStartTime: %f", &v61, 0x2Au);
+        v60 = 138544130;
+        v61 = v37;
+        v62 = 2048;
+        v63 = 0x4000000000000000;
+        v64 = 2048;
+        v65 = v30;
+        v66 = 2048;
+        v67 = v38;
+        _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Not launching HomeUIService because a valid launch was attempted within the last %f seconds. Current time: %f, activationStartTime: %f", &v60, 0x2Au);
       }
 
       v27 = v33;
@@ -784,17 +765,17 @@ LABEL_10:
       [(HMDAccessorySetupManager *)v34 activationStartTime];
       v41 = v40;
       alertHandle3 = [(HMDAccessorySetupManager *)v34 alertHandle];
-      v61 = 138544386;
-      v62 = v39;
-      v63 = 2048;
-      v64 = 0x4000000000000000;
-      v65 = 2048;
-      v66 = v30;
-      v67 = 2048;
-      v68 = v41;
-      v69 = 2112;
-      v70 = alertHandle3;
-      _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@Alert is valid but not active and it has been more than %f seconds. Current time: %f, activationStartTime: %f. Invalidating remote alert: %@", &v61, 0x34u);
+      v60 = 138544386;
+      v61 = v39;
+      v62 = 2048;
+      v63 = 0x4000000000000000;
+      v64 = 2048;
+      v65 = v30;
+      v66 = 2048;
+      v67 = v41;
+      v68 = 2112;
+      v69 = alertHandle3;
+      _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@Alert is valid but not active and it has been more than %f seconds. Current time: %f, activationStartTime: %f. Invalidating remote alert: %@", &v60, 0x34u);
     }
 
     objc_autoreleasePoolPop(v33);
@@ -839,11 +820,11 @@ LABEL_10:
   {
     v53 = HMFGetLogIdentifier();
     alertHandle7 = [(HMDAccessorySetupManager *)v51 alertHandle];
-    v61 = 138543618;
-    v62 = v53;
-    v63 = 2112;
-    v64 = alertHandle7;
-    _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_INFO, "%{public}@Activating remote alert: %@", &v61, 0x16u);
+    v60 = 138543618;
+    v61 = v53;
+    v62 = 2112;
+    v63 = alertHandle7;
+    _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_INFO, "%{public}@Activating remote alert: %@", &v60, 0x16u);
   }
 
   objc_autoreleasePoolPop(v50);
@@ -860,11 +841,11 @@ LABEL_10:
     if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
       v59 = HMFGetLogIdentifier();
-      v61 = 138543618;
-      v62 = v59;
-      v63 = 2112;
-      v64 = descriptionCopy;
-      _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Updating pending setup accessory description to %@", &v61, 0x16u);
+      v60 = 138543618;
+      v61 = v59;
+      v62 = 2112;
+      v63 = descriptionCopy;
+      _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Updating pending setup accessory description to %@", &v60, 0x16u);
     }
 
     objc_autoreleasePoolPop(v56);
@@ -872,8 +853,6 @@ LABEL_10:
   }
 
 LABEL_31:
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAccessoryDescription:(id)description usingConnection:(id)connection
@@ -896,7 +875,7 @@ LABEL_31:
 
 - (id)_setupRequestBlockingPairedAccessoriesForHome:(id)home
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
@@ -906,54 +885,54 @@ LABEL_31:
     [array2 addObject:name];
   }
 
-  v35 = homeCopy;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v34 = homeCopy;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   matterAccessories = [homeCopy matterAccessories];
-  v9 = [matterAccessories copy];
+  v9 = objc_msgSend_copy(matterAccessories);
 
   obj = v9;
-  v38 = [v9 countByEnumeratingWithState:&v47 objects:v56 count:16];
-  if (v38)
+  v37 = [v9 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  if (v37)
   {
-    v37 = *v48;
+    v36 = *v47;
     v10 = 0x277CD5000uLL;
     do
     {
       v11 = 0;
       do
       {
-        if (*v48 != v37)
+        if (*v47 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = v11;
-        chipStorage = [*(*(&v47 + 1) + 8 * v11) chipStorage];
+        v38 = v11;
+        chipStorage = [*(*(&v46 + 1) + 8 * v11) chipStorage];
         pairings = [chipStorage pairings];
 
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
-        v41 = pairings;
-        v42 = [v41 countByEnumeratingWithState:&v43 objects:v55 count:16];
-        if (v42)
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        v40 = pairings;
+        v41 = [v40 countByEnumeratingWithState:&v42 objects:v54 count:16];
+        if (v41)
         {
-          v14 = *v44;
-          v40 = *v44;
+          v14 = *v43;
+          v39 = *v43;
           do
           {
-            for (i = 0; i != v42; ++i)
+            for (i = 0; i != v41; ++i)
             {
-              if (*v44 != v14)
+              if (*v43 != v14)
               {
-                objc_enumerationMutation(v41);
+                objc_enumerationMutation(v40);
               }
 
-              v16 = *(*(&v43 + 1) + 8 * i);
+              v16 = *(*(&v42 + 1) + 8 * i);
               v17 = objc_autoreleasePoolPush();
               selfCopy = self;
               v19 = HMFGetOSLogHandle();
@@ -965,15 +944,15 @@ LABEL_31:
                 selfCopy2 = self;
                 v24 = v23 = array;
                 *buf = 138543618;
-                v52 = v20;
-                v53 = 2112;
-                v54 = v24;
+                v51 = v20;
+                v52 = 2112;
+                v53 = v24;
                 _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Adding Matter operational identity to device setup request blocking paired accessories: %@", buf, 0x16u);
 
                 array = v23;
                 self = selfCopy2;
                 v10 = v21;
-                v14 = v40;
+                v14 = v39;
               }
 
               objc_autoreleasePoolPop(v17);
@@ -986,31 +965,30 @@ LABEL_31:
               [array addObject:v30];
             }
 
-            v42 = [v41 countByEnumeratingWithState:&v43 objects:v55 count:16];
+            v41 = [v40 countByEnumeratingWithState:&v42 objects:v54 count:16];
           }
 
-          while (v42);
+          while (v41);
         }
 
-        v11 = v39 + 1;
+        v11 = v38 + 1;
       }
 
-      while (v39 + 1 != v38);
-      v38 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+      while (v38 + 1 != v37);
+      v37 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
-  v31 = [objc_alloc(MEMORY[0x277CD5598]) initWithEcosystemName:&stru_286509E58 homeNames:v34 blockedDevicePairings:array];
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [objc_alloc(MEMORY[0x277CD5598]) initWithEcosystemName:&stru_286509E58 homeNames:v33 blockedDevicePairings:array];
 
   return v31;
 }
 
 - (void)_launchHUISWithRequest:(id)request connection:(id)connection completionHandler:(id)handler
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   connectionCopy = connection;
   handlerCopy = handler;
@@ -1019,9 +997,9 @@ LABEL_31:
 
   clientIdentifier = [connectionCopy clientIdentifier];
   processInfo = [connectionCopy processInfo];
-  v93 = 0;
-  v13 = [processInfo clientIdentifierSalt:&v93];
-  v14 = v93;
+  v92 = 0;
+  v13 = [processInfo clientIdentifierSalt:&v92];
+  v14 = v92;
 
   if (v13)
   {
@@ -1029,10 +1007,10 @@ LABEL_31:
     if (homeManager)
     {
       [requestCopy homeUniqueIdentifier];
-      v86 = v85 = v14;
-      if (v86)
+      v85 = v84 = v14;
+      if (v85)
       {
-        v16 = [homeManager _homeWithUniqueIdentifier:v86 forClientIdentifierSalt:v13];
+        v16 = [homeManager _homeWithUniqueIdentifier:v85 forClientIdentifierSalt:v13];
         if (!v16)
         {
           v17 = objc_autoreleasePoolPush();
@@ -1042,18 +1020,18 @@ LABEL_31:
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v95 = v20;
-            v96 = 2112;
-            v97 = v86;
-            v98 = 2112;
-            v99 = v13;
+            v94 = v20;
+            v95 = 2112;
+            v96 = v85;
+            v97 = 2112;
+            v98 = v13;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not find home with unique identifier %@ for client identifier salt: %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v17);
           v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
           handlerCopy[2](handlerCopy, 0, v16);
-          v14 = v85;
+          v14 = v84;
           goto LABEL_53;
         }
       }
@@ -1065,18 +1043,18 @@ LABEL_31:
 
       matterPayload = [requestCopy matterPayload];
 
-      v84 = v16;
+      v83 = v16;
       if (matterPayload)
       {
         if ([connectionCopy isEntitledForSPIAccess] & 1) != 0 || (objc_msgSend(connectionCopy, "isEntitledToProvideMatterSetupPayload"))
         {
           accessorySetupCoordinator = [(HMDAccessorySetupManager *)self accessorySetupCoordinator];
           matterPayload2 = [requestCopy matterPayload];
-          v92 = 0;
-          v33 = [accessorySetupCoordinator createSetupAccessoryPayloadWithCHIPSetupPayload:matterPayload2 error:&v92];
-          v34 = v92;
+          v91 = 0;
+          v33 = [accessorySetupCoordinator createSetupAccessoryPayloadWithCHIPSetupPayload:matterPayload2 error:&v91];
+          v34 = v91;
 
-          v81 = v33;
+          v80 = v33;
           if (!v33 || v34)
           {
             v46 = objc_autoreleasePoolPush();
@@ -1086,9 +1064,9 @@ LABEL_31:
             {
               v49 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v95 = v49;
-              v96 = 2112;
-              v97 = v34;
+              v94 = v49;
+              v95 = 2112;
+              v96 = v34;
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Failed to create Setup Payload from input matter payload with error %@", buf, 0x16u);
             }
 
@@ -1096,21 +1074,21 @@ LABEL_31:
             v50 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
             handlerCopy[2](handlerCopy, 0, v50);
 
-            v16 = v84;
-            v14 = v85;
-            v51 = v81;
+            v16 = v83;
+            v14 = v84;
+            v51 = v80;
             goto LABEL_52;
           }
 
-          v80 = v13;
+          v79 = v13;
           v35 = objc_alloc(MEMORY[0x277CD1DE8]);
-          v36 = v84;
-          uuid = [v84 uuid];
+          v36 = v83;
+          uuid = [v83 uuid];
           v38 = v35;
           uuid2 = v33;
           v40 = [v38 initWithSetupAccessoryPayload:v33 appID:clientIdentifier homeUUID:uuid ownershipToken:0];
 
-          v82 = v40;
+          v81 = v40;
           goto LABEL_25;
         }
 
@@ -1121,11 +1099,11 @@ LABEL_31:
         {
           v55 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v95 = v55;
+          v94 = v55;
           _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@Client provided a matter setup payload but is not entitled to do so", buf, 0xCu);
 
 LABEL_50:
-          v16 = v84;
+          v16 = v83;
         }
       }
 
@@ -1135,39 +1113,39 @@ LABEL_50:
 
         if (!payload)
         {
-          v80 = v13;
+          v79 = v13;
           v36 = v16;
           v56 = objc_alloc(MEMORY[0x277CD1DE8]);
           uuid2 = [v36 uuid];
-          v82 = [v56 initWithAppIdentifier:clientIdentifier homeUUID:uuid2];
+          v81 = [v56 initWithAppIdentifier:clientIdentifier homeUUID:uuid2];
           goto LABEL_32;
         }
 
         if ([connectionCopy isEntitledForSPIAccess] & 1) != 0 || (objc_msgSend(connectionCopy, "isEntitledToProvideAccessorySetupPayload"))
         {
-          v80 = v13;
-          v83 = objc_alloc(MEMORY[0x277CD1DE8]);
+          v79 = v13;
+          v82 = objc_alloc(MEMORY[0x277CD1DE8]);
           uuid2 = [requestCopy payload];
           [uuid2 internalSetupPayload];
-          v42 = v77 = homeManager;
+          v42 = v76 = homeManager;
           [v16 uuid];
           v43 = v36 = v16;
           payload2 = [requestCopy payload];
           ownershipToken = [payload2 ownershipToken];
-          v82 = [v83 initWithSetupAccessoryPayload:v42 appID:clientIdentifier homeUUID:v43 ownershipToken:ownershipToken];
+          v81 = [v82 initWithSetupAccessoryPayload:v42 appID:clientIdentifier homeUUID:v43 ownershipToken:ownershipToken];
 
-          homeManager = v77;
+          homeManager = v76;
 LABEL_25:
-          v14 = v85;
+          v14 = v84;
 LABEL_32:
 
           suggestedRoomUniqueIdentifier = [requestCopy suggestedRoomUniqueIdentifier];
           v58 = suggestedRoomUniqueIdentifier;
           v16 = v36;
-          v13 = v80;
+          v13 = v79;
           if (v16 && suggestedRoomUniqueIdentifier)
           {
-            v59 = [v16 roomWithUniqueIdentifier:suggestedRoomUniqueIdentifier forClientIdentifierSalt:v80];
+            v59 = [v16 roomWithUniqueIdentifier:suggestedRoomUniqueIdentifier forClientIdentifierSalt:v79];
             if (!v59)
             {
               context = objc_autoreleasePoolPush();
@@ -1177,14 +1155,14 @@ LABEL_32:
               {
                 v74 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v95 = v74;
-                v96 = 2112;
-                v97 = v58;
-                v98 = 2112;
-                v99 = v80;
+                v94 = v74;
+                v95 = 2112;
+                v96 = v58;
+                v97 = 2112;
+                v98 = v79;
                 _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_ERROR, "%{public}@Could not find room with unique identifier %@ for client identifier salt: %@", buf, 0x20u);
 
-                v16 = v84;
+                v16 = v83;
               }
 
               objc_autoreleasePoolPop(context);
@@ -1195,9 +1173,9 @@ LABEL_32:
 
             v60 = v59;
             uuid3 = [v59 uuid];
-            [v82 setSuggestedRoomUUID:uuid3];
+            [v81 setSuggestedRoomUUID:uuid3];
 
-            v16 = v84;
+            v16 = v83;
           }
 
           suggestedAccessoryName = [requestCopy suggestedAccessoryName];
@@ -1215,7 +1193,7 @@ LABEL_32:
                 HMFGetLogIdentifier();
                 v68 = contexta = v65;
                 *buf = 138543362;
-                v95 = v68;
+                v94 = v68;
                 _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_ERROR, "%{public}@Suggested accessory name is longer than the maximum allowed length", buf, 0xCu);
 
                 v65 = contexta;
@@ -1225,31 +1203,31 @@ LABEL_32:
               v69 = [MEMORY[0x277CCA9B8] hmErrorWithCode:46];
               handlerCopy[2](handlerCopy, 0, v69);
 
-              v16 = v84;
-              v14 = v85;
+              v16 = v83;
+              v14 = v84;
 LABEL_46:
-              v51 = v82;
+              v51 = v81;
               goto LABEL_47;
             }
 
-            [v82 setSuggestedAccessoryName:v63];
-            v16 = v84;
+            [v81 setSuggestedAccessoryName:v63];
+            v16 = v83;
           }
 
-          [(HMDAccessorySetupManager *)self _updateAccessoryDescription:v82 usingConnection:connectionCopy];
+          [(HMDAccessorySetupManager *)self _updateAccessoryDescription:v81 usingConnection:connectionCopy];
           v70 = [(HMDAccessorySetupManager *)self _setupRequestBlockingPairedAccessoriesForHome:v16];
-          v89[0] = MEMORY[0x277D85DD0];
-          v89[1] = 3221225472;
-          v89[2] = __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completionHandler___block_invoke;
-          v89[3] = &unk_279721998;
-          v89[4] = self;
-          v91 = handlerCopy;
-          v90 = v80;
+          v88[0] = MEMORY[0x277D85DD0];
+          v88[1] = 3221225472;
+          v88[2] = __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completionHandler___block_invoke;
+          v88[3] = &unk_279721998;
+          v88[4] = self;
+          v90 = handlerCopy;
+          v89 = v79;
           selfCopy6 = self;
-          v51 = v82;
-          [(HMDAccessorySetupManager *)selfCopy6 _launchHUISWithSetupAccessoryDescription:v82 deviceSetupRequest:v70 resumeSetupUserInfo:0 completionHandler:v89];
+          v51 = v81;
+          [(HMDAccessorySetupManager *)selfCopy6 _launchHUISWithSetupAccessoryDescription:v81 deviceSetupRequest:v70 resumeSetupUserInfo:0 completionHandler:v88];
 
-          v16 = v84;
+          v16 = v83;
 LABEL_47:
 
 LABEL_52:
@@ -1265,7 +1243,7 @@ LABEL_53:
         {
           v75 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v95 = v75;
+          v94 = v75;
           _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@Client provided an accessory setup payload but is not entitled to do so", buf, 0xCu);
 
           goto LABEL_50;
@@ -1275,7 +1253,7 @@ LABEL_53:
       objc_autoreleasePoolPop(v52);
       v51 = [MEMORY[0x277CCA9B8] hmErrorWithCode:17];
       handlerCopy[2](handlerCopy, 0, v51);
-      v14 = v85;
+      v14 = v84;
       goto LABEL_52;
     }
 
@@ -1287,14 +1265,14 @@ LABEL_53:
       HMFGetLogIdentifier();
       v29 = v28 = v14;
       *buf = 138543362;
-      v95 = v29;
+      v94 = v29;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@home manager is no longer available", buf, 0xCu);
 
       v14 = v28;
     }
 
     objc_autoreleasePoolPop(v25);
-    v87 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+    v86 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (handlerCopy[2])(handlerCopy, 0);
   }
 
@@ -1307,9 +1285,9 @@ LABEL_53:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v95 = v24;
-      v96 = 2112;
-      v97 = v14;
+      v94 = v24;
+      v95 = 2112;
+      v96 = v14;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot determine client identifier salt for accessory setup client: %@", buf, 0x16u);
     }
 
@@ -1319,13 +1297,11 @@ LABEL_53:
   }
 
 LABEL_55:
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1342,23 +1318,21 @@ void __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completion
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_launchHUISWithNFCProxSetupURL:(id)l
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
   workQueue = [(HMDAccessorySetupManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1370,16 +1344,16 @@ void __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completion
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v9;
-    v30 = 2112;
-    v31 = lCopy;
+    v28 = v9;
+    v29 = 2112;
+    v30 = lCopy;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with NFC prox setup URL: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v27 = 0;
-  v10 = [(HMDAccessorySetupManager *)selfCopy _createSetupAccessoryPayloadWithSetupPayloadURL:lCopy error:&v27];
-  v11 = v27;
+  v26 = 0;
+  v10 = [(HMDAccessorySetupManager *)selfCopy _createSetupAccessoryPayloadWithSetupPayloadURL:lCopy error:&v26];
+  v11 = v26;
   if (v10)
   {
     v12 = objc_alloc(MEMORY[0x277CD1DE8]);
@@ -1395,20 +1369,20 @@ void __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completion
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v15;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v15;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with NFC prox setup accessory description: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invoke;
-    v25[3] = &unk_279721970;
-    v25[4] = v17;
-    v26 = v11;
-    [(HMDAccessorySetupManager *)v17 _launchHUISWithSetupAccessoryDescription:v15 deviceSetupRequest:0 resumeSetupUserInfo:0 completionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invoke;
+    v24[3] = &unk_279721970;
+    v24[4] = v17;
+    v25 = v11;
+    [(HMDAccessorySetupManager *)v17 _launchHUISWithSetupAccessoryDescription:v15 deviceSetupRequest:0 resumeSetupUserInfo:0 completionHandler:v24];
   }
 
   else
@@ -1420,23 +1394,21 @@ void __80__HMDAccessorySetupManager__launchHUISWithRequest_connection_completion
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = lCopy;
-      v32 = 2112;
-      v33 = v11;
+      v28 = v23;
+      v29 = 2112;
+      v30 = lCopy;
+      v31 = 2112;
+      v32 = v11;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate HMSetupAccessoryPayload with url %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1448,11 +1420,11 @@ void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set up accessories with NFC prox setup completed info: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set up accessories with NFC prox setup completed info: %@", &v14, 0x16u);
     }
   }
 
@@ -1460,20 +1432,19 @@ void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invok
   {
     v12 = HMFGetLogIdentifier();
     v13 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to set up accessories with NFC prox: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to set up accessories with NFC prox: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSetupAccessoryPayloadWithSetupPayloadURL:(id)l error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([MEMORY[0x277CD17C8] isHAPSetupPayloadURL:lCopy])
   {
@@ -1495,13 +1466,13 @@ void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invok
     {
       v12 = HMFGetLogIdentifier();
       scheme = [lCopy scheme];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2112;
-      v19 = scheme;
-      v20 = 2112;
-      v21 = lCopy;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unsupported URL scheme %@ in setupPayloadURL: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2112;
+      v18 = scheme;
+      v19 = 2112;
+      v20 = lCopy;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unsupported URL scheme %@ in setupPayloadURL: %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1516,8 +1487,6 @@ void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invok
       v7 = 0;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1544,7 +1513,7 @@ void __59__HMDAccessorySetupManager__launchHUISWithNFCProxSetupURL___block_invok
 
 void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDeviceSetupWithRequest_clientProxy_completionHandler___block_invoke(id *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] connection];
   v3 = [v2 processInfo];
   v4 = [v3 signingIdentifier];
@@ -1569,9 +1538,9 @@ void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDevi
   {
     v8 = [a1[5] accessorySetupCoordinator];
     v9 = [a1[6] setupPayload];
-    v32 = 0;
-    v10 = [v8 createSetupAccessoryPayloadWithCHIPSetupPayload:v9 error:&v32];
-    v11 = v32;
+    v31 = 0;
+    v10 = [v8 createSetupAccessoryPayloadWithCHIPSetupPayload:v9 error:&v31];
+    v11 = v31;
 
     if (v10)
     {
@@ -1590,13 +1559,13 @@ LABEL_9:
       [v11 setDoNetworkScan:{objc_msgSend(a1[6], "shouldScanNetworks")}];
       v16 = a1[5];
       v17 = a1[6];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDeviceSetupWithRequest_clientProxy_completionHandler___block_invoke_50;
-      v30[3] = &unk_279721948;
-      v30[4] = v16;
-      v31 = a1[7];
-      [v16 _launchHUISWithSetupAccessoryDescription:v11 deviceSetupRequest:v17 resumeSetupUserInfo:0 completionHandler:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDeviceSetupWithRequest_clientProxy_completionHandler___block_invoke_50;
+      v29[3] = &unk_279721948;
+      v29[4] = v16;
+      v30 = a1[7];
+      [v16 _launchHUISWithSetupAccessoryDescription:v11 deviceSetupRequest:v17 resumeSetupUserInfo:0 completionHandler:v29];
 
       goto LABEL_16;
     }
@@ -1608,9 +1577,9 @@ LABEL_9:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v21;
-      v35 = 2112;
-      v36 = v11;
+      v33 = v21;
+      v34 = 2112;
+      v35 = v11;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create setup accessory payload from input  %@", buf, 0x16u);
     }
 
@@ -1629,7 +1598,7 @@ LABEL_9:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v27;
+      v33 = v27;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Client provided a Matter setup payload but is not entitled to do so", buf, 0xCu);
     }
 
@@ -1640,13 +1609,11 @@ LABEL_9:
   }
 
 LABEL_16:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDeviceSetupWithRequest_clientProxy_completionHandler___block_invoke_50(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) accessorySetupCoordinator];
@@ -1665,11 +1632,11 @@ void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDevi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1677,8 +1644,6 @@ void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDevi
   }
 
   v8();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launchAccessorySetupHostToRequestSetupCodeForAccessoryWithUUID:(id)d accessoryName:(id)name homeUUID:(id)iD clientConnection:(id)connection completionHandler:(id)handler
@@ -1709,7 +1674,7 @@ void __120__HMDAccessorySetupManager_launchAccessorySetupHostToPerformMatterDevi
 
 void __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeForAccessoryWithUUID_accessoryName_homeUUID_clientConnection_completionHandler___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1721,15 +1686,15 @@ void __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeF
     v8 = *(a1 + 56);
     v9 = *(a1 + 64);
     *buf = 138544386;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v9;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v9;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService to request setup code for accessoryUUID: %@ accessoryName: %@ homeUUID: %@ clientConnection: %@", buf, 0x34u);
   }
 
@@ -1742,45 +1707,43 @@ void __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeF
 
   [*(a1 + 32) _updateAccessoryDescription:v14 usingConnection:*(a1 + 64)];
   v15 = *(a1 + 32);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeForAccessoryWithUUID_accessoryName_homeUUID_clientConnection_completionHandler___block_invoke_46;
-  v17[3] = &unk_279721920;
-  v18 = *(a1 + 72);
-  [v15 _launchHUISWithSetupAccessoryDescription:v14 deviceSetupRequest:0 resumeSetupUserInfo:0 completionHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeForAccessoryWithUUID_accessoryName_homeUUID_clientConnection_completionHandler___block_invoke_46;
+  v16[3] = &unk_279721920;
+  v17 = *(a1 + 72);
+  [v15 _launchHUISWithSetupAccessoryDescription:v14 deviceSetupRequest:0 resumeSetupUserInfo:0 completionHandler:v16];
 }
 
 - (void)configure
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   messageDispatcher = [(HMDAccessorySetupManager *)self messageDispatcher];
   v4 = *MEMORY[0x277CCEED8];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v26[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   [messageDispatcher registerForMessage:v4 receiver:self policies:v6 selector:sel__handlePerformAccessorySetupMessage_];
 
   messageDispatcher2 = [(HMDAccessorySetupManager *)self messageDispatcher];
   v8 = *MEMORY[0x277CCEEE0];
   v9 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v25 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v24 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   [messageDispatcher2 registerForMessage:v8 receiver:self policies:v10 selector:sel__handleResumeAccessorySetupMessage_];
 
   messageDispatcher3 = [(HMDAccessorySetupManager *)self messageDispatcher];
   v12 = *MEMORY[0x277CCEEA8];
   v13 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v24 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   [messageDispatcher3 registerForMessage:v12 receiver:self policies:v14 selector:sel__handleFinishAccessorySetupMessage_];
 
   messageDispatcher4 = [(HMDAccessorySetupManager *)self messageDispatcher];
   v16 = *MEMORY[0x277CCEEA0];
   v17 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v23 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   [messageDispatcher4 registerForMessage:v16 receiver:self policies:v18 selector:sel__handleFailAccessorySetupMessage_];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1789,8 +1752,6 @@ void __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeF
 
   nfcEventListener2 = [(HMDAccessorySetupManager *)self nfcEventListener];
   [nfcEventListener2 start];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDXPCClientConnection)accessorySetupHostClientConnection
@@ -1809,12 +1770,11 @@ void __149__HMDAccessorySetupManager_launchAccessorySetupHostToRequestSetupCodeF
 
 uint64_t __62__HMDAccessorySetupManager_accessorySetupHostClientConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 clientIdentifier];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() accessorySetupHostBundleIdentifier];
-  v6 = [v3 isEqualToString:v5];
+  v2 = [a2 clientIdentifier];
+  v3 = [objc_opt_class() accessorySetupHostBundleIdentifier];
+  v4 = [v2 isEqualToString:v3];
 
-  return v6;
+  return v4;
 }
 
 - (HMDAccessorySetupManager)initWithWorkQueue:(id)queue homeManager:(id)manager xpcMessageTransport:(id)transport messageDispatcher:(id)dispatcher alertHandleProvider:(id)provider nfcEventListener:(id)listener
@@ -1915,10 +1875,11 @@ LABEL_15:
 
 uint64_t __39__HMDAccessorySetupManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v48 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v48;
+  logCategory__hmf_once_v48 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

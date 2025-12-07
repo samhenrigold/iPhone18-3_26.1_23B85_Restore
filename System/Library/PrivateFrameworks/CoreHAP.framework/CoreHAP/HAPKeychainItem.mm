@@ -12,22 +12,18 @@
 
 - (BOOL)matchesPublicKeyData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  if ([data bytes])
+  if (![data bytes])
   {
-    DataToHexCStringEx();
-    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:64];
-    valueData = [(HAPKeychainItem *)self valueData];
-    v8 = [v6 isEqual:valueData];
+    return 0;
   }
 
-  else
-  {
-    v8 = 0;
-  }
+  DataToHexCStringEx();
+  v6 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:64];
+  valueData = [(HAPKeychainItem *)self valueData];
+  v8 = [v6 isEqual:valueData];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -213,9 +209,9 @@ LABEL_17:
 - (HAPKeychainItem)initWithQueryResult:(__CFDictionary *)result shouldIncludeData:(BOOL)data
 {
   dataCopy = data;
-  v39.receiver = self;
-  v39.super_class = HAPKeychainItem;
-  v6 = [(HAPKeychainItem *)&v39 init];
+  v37.receiver = self;
+  v37.super_class = HAPKeychainItem;
+  v6 = [(HAPKeychainItem *)&v37 init];
   if (v6)
   {
     Value = CFDictionaryGetValue(result, *MEMORY[0x277CDBEC8]);
@@ -267,30 +263,28 @@ LABEL_17:
       v6->_valueData = v26;
     }
 
-    v28 = *MEMORY[0x277CDBFB8];
     CFDataGetTypeID();
     TypedValue = CFDictionaryGetTypedValue();
     if (TypedValue)
     {
-      v30 = CFDataCreateCopy(0, TypedValue);
+      v29 = CFDataCreateCopy(0, TypedValue);
       genericData = v6->_genericData;
-      v6->_genericData = v30;
+      v6->_genericData = v29;
     }
 
-    v32 = CFDictionaryGetValue(result, *MEMORY[0x277CDC138]);
-    if (v32)
+    v31 = CFDictionaryGetValue(result, *MEMORY[0x277CDC138]);
+    if (v31)
     {
-      v33 = CFStringCreateCopy(0, v32);
+      v32 = CFStringCreateCopy(0, v31);
       viewHint = v6->_viewHint;
-      v6->_viewHint = &v33->isa;
+      v6->_viewHint = &v32->isa;
     }
 
-    v35 = *MEMORY[0x277CDBF90];
     CFDateGetTypeID();
-    v36 = CFDictionaryGetTypedValue();
-    if (v36)
+    v34 = CFDictionaryGetTypedValue();
+    if (v34)
     {
-      objc_storeStrong(&v6->_creationDate, v36);
+      objc_storeStrong(&v6->_creationDate, v34);
     }
   }
 

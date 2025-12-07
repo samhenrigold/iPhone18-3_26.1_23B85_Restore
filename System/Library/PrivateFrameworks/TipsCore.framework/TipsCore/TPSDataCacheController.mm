@@ -175,12 +175,12 @@ void __48__TPSDataCacheController_removeDataCacheAtPath___block_invoke(uint64_t 
 
 - (TPSDataCacheController)initWithIdentifier:(id)identifier directoryName:(id)name maxCacheSize:(unint64_t)size URLSessionDataType:(int64_t)type
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
-  v30.receiver = self;
-  v30.super_class = TPSDataCacheController;
-  v13 = [(TPSDataCacheController *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = TPSDataCacheController;
+  v13 = [(TPSDataCacheController *)&v29 init];
   v14 = v13;
   if (v13)
   {
@@ -228,9 +228,9 @@ void __48__TPSDataCacheController_removeDataCacheAtPath___block_invoke(uint64_t 
     {
       v26 = v14->_cacheDirectory;
       *buf = 138412546;
-      v32 = identifierCopy;
-      v33 = 2112;
-      v34 = v26;
+      v31 = identifierCopy;
+      v32 = 2112;
+      v33 = v26;
       _os_log_impl(&dword_1C00A7000, v25, OS_LOG_TYPE_INFO, "Cache directory for %@: %@.", buf, 0x16u);
     }
 
@@ -241,7 +241,6 @@ void __48__TPSDataCacheController_removeDataCacheAtPath___block_invoke(uint64_t 
   v27 = v14;
 LABEL_14:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -319,7 +318,7 @@ void __49__TPSDataCacheController_dataCacheForIdentifier___block_invoke(uint64_t
 
 void __46__TPSDataCacheController_createCacheDirectory__block_invoke(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v4 = [a2 path];
   v5 = *(a1[6] + 8);
@@ -334,12 +333,10 @@ void __46__TPSDataCacheController_createCacheDirectory__block_invoke(void *a1, v
     {
       v7 = a1[5];
       *buf = 138412290;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&dword_1C00A7000, v6, OS_LOG_TYPE_DEFAULT, "Unable to create path %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDataCacheValid:(id)valid
@@ -449,27 +446,27 @@ void __46__TPSDataCacheController_createCacheDirectory__block_invoke(void *a1, v
 
 void __42__TPSDataCacheController_setLanguageCode___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) dataCacheArray];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v10 + 1) + 8 * i) languageCode];
+        v7 = [*(*(&v9 + 1) + 8 * i) languageCode];
         v8 = [v7 isEqualToString:*(a1 + 40)];
 
         if ((v8 & 1) == 0)
@@ -479,7 +476,7 @@ void __42__TPSDataCacheController_setLanguageCode___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -490,20 +487,17 @@ void __42__TPSDataCacheController_setLanguageCode___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reloadDataCache
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C00A7000, log, OS_LOG_TYPE_ERROR, "Unable to unarchive %@, error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C00A7000, log, OS_LOG_TYPE_ERROR, "Unable to unarchive %@, error: %@", &v4, 0x16u);
 }
 
 void __41__TPSDataCacheController_reloadDataCache__block_invoke(uint64_t a1)
@@ -686,44 +680,44 @@ void __39__TPSDataCacheController_addDataCache___block_invoke(uint64_t a1)
 
 - (void)cancelAllOriginSessionItems
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_originFetchItems count])
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__2;
-    v20 = __Block_byref_object_dispose__2;
-    v21 = 0;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__2;
+    v19 = __Block_byref_object_dispose__2;
+    v20 = 0;
     dataCacheSerialQueue = [(TPSDataCacheController *)self dataCacheSerialQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __53__TPSDataCacheController_cancelAllOriginSessionItems__block_invoke;
     block[3] = &unk_1E8101368;
     block[4] = self;
-    block[5] = &v16;
+    block[5] = &v15;
     dispatch_sync(dataCacheSerialQueue, block);
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v4 = v17[5];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v22 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v4 = v16[5];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v21 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * v7);
+          v8 = *(*(&v10 + 1) + 8 * v7);
           v9 = +[TPSURLSessionManager defaultManager];
           [v9 cancelSessionItem:v8];
 
@@ -731,16 +725,14 @@ void __39__TPSDataCacheController_addDataCache___block_invoke(uint64_t a1)
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v11 objects:v22 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v10 objects:v21 count:16];
       }
 
       while (v5);
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v15, 8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__TPSDataCacheController_cancelAllOriginSessionItems__block_invoke(uint64_t a1)
@@ -905,7 +897,7 @@ void __54__TPSDataCacheController_removeDataCache_updateCache___block_invoke_3(u
   if (lCopy && identifierCopy)
   {
     sizeCopy = size;
-    v40 = cacheCopy;
+    v39 = cacheCopy;
     newDataCache = cacheCopy;
     lastModified = [newDataCache lastModified];
     v19 = [lastModified isEqualToString:modifiedCopy];
@@ -913,7 +905,7 @@ void __54__TPSDataCacheController_removeDataCache_updateCache___block_invoke_3(u
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v16 = [(TPSDataCacheController *)self cacheFileURLForIdentifier:identifierCopy];
     path = [v16 path];
-    v41 = defaultManager;
+    v40 = defaultManager;
     if (path)
     {
       v22 = path;
@@ -929,7 +921,7 @@ void __54__TPSDataCacheController_removeDataCache_updateCache___block_invoke_3(u
         [(TPSDataCacheController *)self updateCache];
 LABEL_19:
 
-        cacheCopy = v40;
+        cacheCopy = v39;
         goto LABEL_20;
       }
     }
@@ -941,50 +933,49 @@ LABEL_19:
 
     v27 = v16;
     [(TPSDataCacheController *)self createCacheDirectory];
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2020000000;
-    v59 = 0;
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__2;
-    v54 = __Block_byref_object_dispose__2;
     v55 = 0;
+    v56 = &v55;
+    v57 = 0x2020000000;
+    v58 = 0;
+    v49 = 0;
+    v50 = &v49;
+    v51 = 0x3032000000;
+    v52 = __Block_byref_object_copy__2;
+    v53 = __Block_byref_object_dispose__2;
+    v54 = 0;
     v28 = objc_alloc_init(MEMORY[0x1E696ABF8]);
     if (!v27)
     {
 LABEL_18:
 
-      _Block_object_dispose(&v50, 8);
-      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v49, 8);
+      _Block_object_dispose(&v55, 8);
       goto LABEL_19;
     }
 
-    v29 = (v51 + 5);
-    obj = v51[5];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __81__TPSDataCacheController_saveFileURL_identifier_fileSize_lastModified_dataCache___block_invoke;
-    v42[3] = &unk_1E81024D0;
-    v48 = v24;
-    v43 = v41;
-    v46 = &v50;
+    v29 = (v50 + 5);
+    obj = v50[5];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __81__TPSDataCacheController_saveFileURL_identifier_fileSize_lastModified_dataCache___block_invoke;
+    v41[3] = &unk_1E81024D0;
+    v47 = v24;
+    v42 = v40;
+    v45 = &v49;
     v30 = v27;
     v31 = v28;
     v32 = v30;
-    v44 = v30;
-    v45 = lCopy;
-    v47 = &v56;
+    v43 = v30;
+    v44 = lCopy;
+    v46 = &v55;
     v33 = v32;
     v34 = v32;
     v28 = v31;
-    [v31 coordinateWritingItemAtURL:v33 options:1 writingItemAtURL:v34 options:2 error:&obj byAccessor:v42];
+    [v31 coordinateWritingItemAtURL:v33 options:1 writingItemAtURL:v34 options:2 error:&obj byAccessor:v41];
     objc_storeStrong(v29, obj);
-    v35 = *(v57 + 24);
     if (newDataCache)
     {
-      if (*(v57 + 24))
+      if (*(v56 + 24))
       {
         -[TPSDataCacheController setCacheSize:](self, "setCacheSize:", -[TPSDataCacheController cacheSize](self, "cacheSize") - [newDataCache fileSize]);
         [(TPSDataCacheController *)self setCacheSize:[(TPSDataCacheController *)self cacheSize]+ sizeCopy];
@@ -1005,7 +996,7 @@ LABEL_15:
       [(TPSDataCacheController *)self removeDataCache:newDataCache];
     }
 
-    else if (*(v57 + 24))
+    else if (*(v56 + 24))
     {
       newDataCache = [(TPSDataCacheController *)self newDataCache];
       languageCode = [(TPSDataCacheController *)self languageCode];
@@ -1026,7 +1017,7 @@ LABEL_20:
 
 void __81__TPSDataCacheController_saveFileURL_identifier_fileSize_lastModified_dataCache___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 72) == 1)
@@ -1048,36 +1039,21 @@ void __81__TPSDataCacheController_saveFileURL_identifier_fileSize_lastModified_d
         v10 = *(a1 + 40);
         v11 = *(*(*(a1 + 56) + 8) + 40);
         *buf = 138412546;
-        v28 = v10;
-        v29 = 2112;
-        v30 = v11;
+        v27 = v10;
+        v28 = 2112;
+        v29 = v11;
         _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "Unable to delete %@. Error: %@", buf, 0x16u);
       }
     }
   }
 
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v12 = [v6 path];
-  v13 = [v12 stringByDeletingLastPathComponent];
-
-  v14 = *(a1 + 32);
-  v15 = *(*(a1 + 56) + 8);
-  v25 = *(v15 + 40);
-  [v14 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v25];
-  objc_storeStrong((v15 + 40), v25);
-
-  v16 = *(a1 + 48);
-  if (v16)
+  if (v6 && ([v6 path], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "stringByDeletingLastPathComponent"), v13 = objc_claimAutoreleasedReturnValue(), v12, v14 = *(a1 + 32), v15 = *(*(a1 + 56) + 8), v24 = *(v15 + 40), objc_msgSend(v14, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v13, 1, 0, &v24), objc_storeStrong((v15 + 40), v24), v13, (v16 = *(a1 + 48)) != 0))
   {
     v17 = *(a1 + 32);
     v18 = *(*(a1 + 56) + 8);
-    v24 = *(v18 + 40);
-    [v17 moveItemAtURL:v16 toURL:v6 error:&v24];
-    objc_storeStrong((v18 + 40), v24);
+    v23 = *(v18 + 40);
+    [v17 moveItemAtURL:v16 toURL:v6 error:&v23];
+    objc_storeStrong((v18 + 40), v23);
     if (!*(*(*(a1 + 56) + 8) + 40))
     {
       *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -1089,7 +1065,7 @@ void __81__TPSDataCacheController_saveFileURL_identifier_fileSize_lastModified_d
     {
       v20 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138412290;
-      v28 = v20;
+      v27 = v20;
       v21 = "Unable to move cache data %@";
 LABEL_15:
       _os_log_impl(&dword_1C00A7000, v19, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
@@ -1098,20 +1074,18 @@ LABEL_15:
 
   else
   {
-LABEL_13:
     v19 = +[TPSLogger default];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v22 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138412290;
-      v28 = v22;
+      v27 = v22;
       v21 = "Unable to save cache data %@ due to missing URL";
       goto LABEL_15;
     }
   }
 
 LABEL_17:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)formattedDataForRequest:(id)request identifier:(id)identifier attributionIdentifier:(id)attributionIdentifier requestType:(id)type priority:(float)priority completionHandler:(id)handler
@@ -1167,16 +1141,7 @@ LABEL_17:
       v45 = [(TPSDataCacheController *)self dataCacheForIdentifier:lastPathComponent];
       v46 = [(TPSDataCacheController *)self cacheFileURLForDataCache:v45];
       path2 = [v46 path];
-      if (!path2)
-      {
-        goto LABEL_15;
-      }
-
-      defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      path3 = [v46 path];
-      v29 = [defaultManager fileExistsAtPath:path3];
-
-      if (v29)
+      if (path2 && ([MEMORY[0x1E696AC08] defaultManager], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "path"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v27, "fileExistsAtPath:", v28), v28, v27, path2, v29))
       {
         identifier = [v45 identifier];
         v31 = [(TPSDataCacheController *)self cacheFileURLForIdentifier:identifier];
@@ -1205,7 +1170,6 @@ LABEL_17:
 
       else
       {
-LABEL_15:
         if (v45)
         {
           [(TPSDataCacheController *)self removeDataCache:?];
@@ -1380,7 +1344,7 @@ void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributio
 
 void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributionIdentifier_requestType_priority_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1393,9 +1357,9 @@ void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributio
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 40);
-      v16 = 138412290;
-      v17 = v10;
-      _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "Data cache exists for %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v10;
+      _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "Data cache exists for %@", &v15, 0xCu);
     }
 
     if ([*(a1 + 32) expired])
@@ -1425,8 +1389,6 @@ void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributio
     v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"Invalid data cache" code:-1 userInfo:0];
     (*(v12 + 16))(v12, 0, 0, 0, 0, v13);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributionIdentifier_requestType_priority_completionHandler___block_invoke_3_44(uint64_t a1)
@@ -1495,53 +1457,47 @@ void __107__TPSDataCacheController_formattedDataForPath_identifier_attributionId
 
 - (void)excludeURLFromBackup:(id)backup
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   backupCopy = backup;
   v4 = *MEMORY[0x1E695DB80];
-  v9 = 0;
-  v5 = [backupCopy setResourceValue:MEMORY[0x1E695E118] forKey:v4 error:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [backupCopy setResourceValue:MEMORY[0x1E695E118] forKey:v4 error:&v8];
+  v6 = v8;
   if ((v5 & 1) == 0)
   {
     v7 = +[TPSLogger data];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v11 = backupCopy;
-      v12 = 2112;
-      v13 = v6;
+      v10 = backupCopy;
+      v11 = 2112;
+      v12 = v6;
       _os_log_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEFAULT, "Unable to exclude %@ from backup due to error %@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __42__TPSDataCacheController_updateCacheDelay__block_invoke_2_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 dataCacheArray];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_ERROR, "Unable to archive %@, error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_ERROR, "Unable to archive %@, error: %@", &v6, 0x16u);
 }
 
 void __122__TPSDataCacheController_formattedDataForRequest_identifier_attributionIdentifier_requestType_priority_completionHandler___block_invoke_4_cold_1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = [*a2 updatedDate];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_DEBUG, "Data cache expired for %@.  Last update on %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1C00A7000, a3, OS_LOG_TYPE_DEBUG, "Data cache expired for %@.  Last update on %@", &v6, 0x16u);
 }
 
 @end

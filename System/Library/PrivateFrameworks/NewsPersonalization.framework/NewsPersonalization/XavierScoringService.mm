@@ -22,12 +22,11 @@
 {
   v8 = sub_1C6D79170();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
+  MEMORY[0x1EEE9AC00](v8, v10);
   v12 = &v22[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1C6B0F7A8(0, &qword_1EDCEA8E0, &protocolRef_FCFeedPersonalizingItem);
   v13 = sub_1C6D79780();
-  sub_1C6D1B320();
+  sub_1C6D1B320(0);
   v15 = *(v14 + 48);
   FCFeedPersonalizationConfigurationSet.headlineContext.getter(set, v12);
   v16 = sub_1C6D791A0();

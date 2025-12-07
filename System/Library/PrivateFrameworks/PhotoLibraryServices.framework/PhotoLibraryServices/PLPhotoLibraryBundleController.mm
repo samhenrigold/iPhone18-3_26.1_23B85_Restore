@@ -520,7 +520,7 @@ void __52__PLPhotoLibraryBundleController_libraryBundlePaths__block_invoke(uint6
 
   path = [lCopy path];
   pathComponents = [path pathComponents];
-  v10 = [pathComponents count];
+  v10 = objc_msgSend_count(pathComponents);
   v11 = path;
   v12 = v11;
   if (v10)
@@ -565,7 +565,7 @@ void __52__PLPhotoLibraryBundleController_libraryBundlePaths__block_invoke(uint6
   {
     stringByDeletingLastPathComponent = v11;
 LABEL_11:
-    if (v10 >= [pathComponents count])
+    if (v10 >= objc_msgSend_count(pathComponents))
     {
       v17 = stringByDeletingLastPathComponent;
     }
@@ -581,7 +581,7 @@ LABEL_11:
         stringByDeletingLastPathComponent = v17;
       }
 
-      while (v10 < [pathComponents count]);
+      while (v10 < objc_msgSend_count(pathComponents));
     }
 
     if ((PLObjectIsEqual() & 1) == 0 && (PLIsSuppressingLogsForUnitTesting() & 1) == 0)

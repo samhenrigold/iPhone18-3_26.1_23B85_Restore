@@ -58,7 +58,7 @@
 
 - (void)showSuggestionPickerFromKeyboardShortcut
 {
-  v3 = sub_1000F24EC(&qword_100AD1420);
+  v3 = sub_1000F24EC(&qword_100AD1420, &unk_10093C080);
   __chkstk_darwin(v3 - 8);
   v5 = &v8 - v4;
   v6 = type metadata accessor for UUID();
@@ -66,7 +66,7 @@
   selfCopy = self;
   sub_1003B7110(v5);
 
-  sub_100004F84(v5, &qword_100AD1420);
+  sub_100004F84(v5, &qword_100AD1420, &unk_10093C080);
 }
 
 - (void)showPhotoPicker
@@ -94,12 +94,12 @@
 
   [(CanvasViewController *)self showPhotoPicker:v6];
 
-  sub_100004F84(&v6, &qword_100AD13D0);
+  sub_100004F84(&v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)showCameraPicker
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -113,12 +113,12 @@
   v9[4] = selfCopy;
   sub_1003BF1BC(0, 0, v5, 0, 0, &unk_1009531F0, v9);
 
-  sub_100004F84(v5, &qword_100AD5170);
+  sub_100004F84(v5, &qword_100AD5170, &unk_100943680);
 }
 
 - (void)showAudioPickerFromKeyboardShortcut
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -133,7 +133,7 @@
   *(v9 + 40) = 0;
   sub_1003BF1BC(0, 0, v5, 0, 0, &unk_1009531E0, v9);
 
-  sub_100004F84(v5, &qword_100AD5170);
+  sub_100004F84(v5, &qword_100AD5170, &unk_100943680);
 }
 
 - (void)showLocationPickerFromKeyboardShortcut
@@ -170,7 +170,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_100042028(&qword_100AD1B00, type metadata accessor for InfoKey);
+  sub_100042028(&qword_100AD1B00, type metadata accessor for InfoKey, &unk_10093F5F4);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -289,7 +289,7 @@
 {
   stateCopy = state;
   selfCopy = self;
-  sub_100660134();
+  sub_100660134(stateCopy);
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -322,7 +322,7 @@
 
   sub_100663748();
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)findInEntry:(id)entry
@@ -343,7 +343,7 @@
 
   sub_1006639B0(v6);
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)videoStartedNotification:(id)notification
@@ -377,7 +377,7 @@
 
   v8 = sub_100664B7C(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
@@ -397,7 +397,7 @@
 
 - (void)undoManagerNotificationWithNotification:(id)notification
 {
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v4 - 8);
   v6 = &v20 - v5;
   v7 = type metadata accessor for Notification();
@@ -443,7 +443,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  LOBYTE(self) = sub_10066DD6C();
+  LOBYTE(self) = sub_10066DD6C(editingCopy);
 
   return self & 1;
 }
@@ -452,14 +452,14 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_10066DE98();
+  sub_10066DE98(editingCopy);
 }
 
 - (void)textViewDidEndEditing:(id)editing
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_10066E0A0();
+  sub_10066E0A0(editingCopy);
 }
 
 - (BOOL)textView:(id)view shouldChangeTextInRange:(_NSRange)range replacementText:(id)text
@@ -491,7 +491,7 @@
 
 - (void)textView:(id)view didEndFormattingWithViewController:(id)controller
 {
-  sub_1000065A8(0, &unk_100AD43A0);
+  sub_1000065A8(0, &unk_100AD43A0, NSObject_ptr);
   viewCopy = view;
   selfCopy = self;
   v7 = sub_100658B00();
@@ -514,7 +514,7 @@
 - (id)textView:(id)view editMenuForTextInRange:(_NSRange)range suggestedActions:(id)actions
 {
   length = range.length;
-  sub_1000065A8(0, &unk_100ADC630);
+  sub_1000065A8(0, &unk_100ADC630, UIMenuElement_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
@@ -535,7 +535,7 @@
 
 - (void)chooseCustomDate:(id)date
 {
-  v5 = type metadata accessor for CanvasContentInputType();
+  v5 = type metadata accessor for CanvasContentInputType(0);
   __chkstk_darwin(v5);
   v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (date)
@@ -556,7 +556,7 @@
   sub_1003B5E4C(v7, v10);
 
   sub_1006730B4(v7, type metadata accessor for CanvasContentInputType);
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)toggleBookmark

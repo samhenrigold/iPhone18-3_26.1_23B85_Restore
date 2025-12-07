@@ -11,11 +11,10 @@
 
 - (void)schedulePurge
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_purgeScheduled)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -24,70 +23,69 @@
   {
     self->_purgeScheduled = 1;
     os_unfair_lock_unlock(&self->_lock);
-    v4 = CADLogHandle;
+    v3 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v10 = 0x4044000000000000;
-      _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_DEBUG, "Scheduling a purge for %f seconds", buf, 0xCu);
+      v8 = 0x4044000000000000;
+      _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Scheduling a purge for %f seconds", buf, 0xCu);
     }
 
-    v5 = dispatch_time(0, 40000000000);
+    v4 = dispatch_time(0, 40000000000);
     purgeQueue = self->_purgeQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__CADDatabaseConnectionPoolManager_schedulePurge__block_invoke;
     block[3] = &unk_27851AAD8;
     block[4] = self;
-    dispatch_after(v5, purgeQueue, block);
-    v7 = *MEMORY[0x277D85DE8];
+    dispatch_after(v4, purgeQueue, block);
   }
 }
 
 - (void)_purgeAndReschedule
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = CalApproximateContinuousTime();
   v4 = CalNSTimeIntervalToContinuousInterval();
-  v27 = xmmword_22438FE90;
+  v26 = xmmword_22438FE90;
   os_unfair_lock_lock(&self->_lock);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = self->_pools;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v23 objects:v34 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v22 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = v3 - v4;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v10)];
-        [v11 purgeConnectionsLastUsedPriorTo:v8 stats:&v27];
+        v11 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:*(*(&v22 + 1) + 8 * v10)];
+        [v11 purgeConnectionsLastUsedPriorTo:v8 stats:&v26];
 
         ++v10;
       }
 
       while (v7 != v10);
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v23 objects:v34 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v22 objects:v33 count:16];
     }
 
     while (v7);
   }
 
   v12 = CalApproximateContinuousTime();
-  v13 = *(&v27 + 1);
-  self->_purgeScheduled = *(&v27 + 1) < v12;
+  v13 = *(&v26 + 1);
+  self->_purgeScheduled = *(&v26 + 1) < v12;
   os_unfair_lock_unlock(&self->_lock);
   if (v13 >= v12)
   {
@@ -95,9 +93,9 @@
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      v29 = v27;
-      v30 = 1024;
-      v31 = DWORD1(v27);
+      v28 = v26;
+      v29 = 1024;
+      v30 = DWORD1(v26);
       _os_log_impl(&dword_22430B000, v20, OS_LOG_TYPE_INFO, "Purged %i unused connections (%i remain.) Not scheduling another purge because no old pools remain", buf, 0xEu);
     }
   }
@@ -120,11 +118,11 @@
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 67109632;
-      v29 = v27;
-      v30 = 1024;
-      v31 = DWORD1(v27);
-      v32 = 2048;
-      v33 = v16;
+      v28 = v26;
+      v29 = 1024;
+      v30 = DWORD1(v26);
+      v31 = 2048;
+      v32 = v16;
       _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Purged %i unused connections (%i remain.) Scheduling another check in %f seconds", buf, 0x18u);
     }
 
@@ -137,8 +135,6 @@
     block[4] = self;
     dispatch_after(v18, purgeQueue, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (CADDatabaseConnectionPoolManager)init
@@ -167,7 +163,7 @@
 
 - (id)poolForClient:(id)client options:(id)options
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   optionsCopy = options;
   if (([(CADDatabasePoolKey *)optionsCopy databaseInitOptions]& 0x20) != 0)
@@ -187,9 +183,9 @@
       v10 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412290;
-        v16 = v8;
-        _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_DEBUG, "Creating a new pool for %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v8;
+        _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_DEBUG, "Creating a new pool for %@", &v14, 0xCu);
       }
 
       v11 = [CADDatabaseConnectionPool alloc];
@@ -203,14 +199,12 @@
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)databaseChangedExternally:(id)externally
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   userInfo = [externally userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"path"];
   v6 = [userInfo objectForKeyedSubscript:@"auxDBID"];
@@ -226,42 +220,40 @@
   os_unfair_lock_lock(&self->_lock);
   allValues = [(NSMutableDictionary *)self->_pools allValues];
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = allValues;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) databaseChangedExternally:v5 auxDatabaseID:{intValue, v16}];
+        [*(*(&v15 + 1) + 8 * v14++) databaseChangedExternally:v5 auxDatabaseID:{intValue, v15}];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)returnPool:(id)pool forClient:(id)client
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   poolCopy = pool;
   clientCopy = client;
   objc_opt_class();
@@ -272,28 +264,28 @@
     os_unfair_lock_lock(&self->_lock);
     if (![v8 numberOfClients])
     {
-      v18 = v8;
+      v17 = v8;
       v9 = objc_opt_new();
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v10 = self->_pools;
-      v11 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v19 + 1) + 8 * i);
+            v15 = *(*(&v18 + 1) + 8 * i);
             v16 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:v15];
             if (![v16 numberOfClients])
             {
@@ -301,20 +293,18 @@
             }
           }
 
-          v12 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v12);
       }
 
       [(NSMutableDictionary *)self->_pools removeObjectsForKeys:v9];
-      v8 = v18;
+      v8 = v17;
     }
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

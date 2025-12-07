@@ -41,12 +41,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  controllerType = self->_controllerType;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
-    intendedFireDate = self->_intendedFireDate;
     PBDataWriterWriteDoubleField();
   }
 }

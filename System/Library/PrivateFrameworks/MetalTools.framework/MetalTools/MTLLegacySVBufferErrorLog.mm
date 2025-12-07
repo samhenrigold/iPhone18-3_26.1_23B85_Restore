@@ -76,7 +76,7 @@
           v8 = @"Read Write";
           break;
         case 128:
-          v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, length:%llu", label, -[MTLBuffer length](v6, "length"), v22];
+          v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, length:%llu", label, -[MTLBuffer length](v6, "length"), v21];
 LABEL_23:
           label = v9;
           goto LABEL_24;
@@ -90,14 +90,23 @@ LABEL_23:
 LABEL_24:
   v11 = MEMORY[0x277CCACA8];
   addressSpace = self->_addressSpace;
-  operation = self->_operation;
-  v14 = MTLGPUOperationString();
+  v13 = MTLGPUOperationString();
   offset = self->_offset;
   locationDescription = [(MTLLegacySVGPULog *)self locationDescription];
-  v17 = [(MTLArgument *)self->_argument formattedDescription:4];
+  v16 = [(MTLArgument *)self->_argument formattedDescription:4];
   if (label)
   {
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer: %@", label];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer: %@", label];
+  }
+
+  else
+  {
+    v17 = &stru_2841C04D0;
+  }
+
+  if (v16)
+  {
+    v18 = v16;
   }
 
   else
@@ -105,23 +114,13 @@ LABEL_24:
     v18 = &stru_2841C04D0;
   }
 
-  if (v17)
-  {
-    v19 = v17;
-  }
-
-  else
-  {
-    v19 = &stru_2841C04D0;
-  }
-
-  v20 = @"threadgroup";
+  v19 = @"threadgroup";
   if (addressSpace == 1)
   {
-    v20 = @"device";
+    v19 = @"device";
   }
 
-  return [v11 stringWithFormat:@"Invalid %@ %@ at offset %llu, executing %@ %@\n%@\n", v20, v14, offset, locationDescription, v19, v18];
+  return [v11 stringWithFormat:@"Invalid %@ %@ at offset %llu, executing %@ %@\n%@\n", v19, v13, offset, locationDescription, v18, v17];
 }
 
 - (void)dealloc

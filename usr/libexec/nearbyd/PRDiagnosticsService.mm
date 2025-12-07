@@ -241,7 +241,7 @@ LABEL_21:
 {
   replyCopy = reply;
   v6 = sub_10035D02C();
-  sub_10035FE70(v6, timeout, v9);
+  sub_10035FE70(v6, v9, timeout);
   if (v10)
   {
     v7 = [PRGetPowerStatsResponse alloc];
@@ -517,18 +517,18 @@ LABEL_8:
 - (void)getChipType:(id)type
 {
   typeCopy = type;
-  v3 = sub_10045ED24();
-  if (v3)
+  v4 = sub_10045ED24(typeCopy, v3);
+  if (v4)
   {
-    v4 = 2 * (v3 == 1);
+    v5 = 2 * (v4 == 1);
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  typeCopy[2](typeCopy, v4);
+  typeCopy[2](typeCopy, v5);
 }
 
 - (void)getChipPublicKey:(id)key

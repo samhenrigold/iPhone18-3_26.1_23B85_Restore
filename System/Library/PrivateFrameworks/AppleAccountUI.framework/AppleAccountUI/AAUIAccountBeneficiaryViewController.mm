@@ -76,25 +76,26 @@
   managerCopy = manager;
   identifierCopy = identifier;
   v9 = [(AAUIAccountBeneficiaryViewController *)self init];
+  v10 = v9;
   if (v9)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [AAUIAccountBeneficiaryViewController initWithAccountManager:identifierCopy highlightRowIdentifier:v10];
+      [AAUIAccountBeneficiaryViewController initWithAccountManager:identifierCopy highlightRowIdentifier:v11];
     }
 
-    objc_storeStrong((&v9->super.super.super.super.super.isa + *MEMORY[0x1E69C57A8]), identifier);
-    objc_storeStrong(&v9->_accountManager, manager);
+    objc_storeStrong((&v10->super.super.super.super.super.isa + *MEMORY[0x1E69C57A8]), identifier);
+    objc_storeStrong(&v10->_accountManager, manager);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_self();
@@ -146,25 +147,26 @@
 
 - (id)specifiers
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E69C57B8];
   if (!*(&self->super.super.super.super.super.isa + v3))
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Loading Account Beneficiary specifiers.", &v20, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Loading Account Beneficiary specifiers.", &v23, 2u);
     }
 
     v5 = objc_opt_new();
-    if ([(AAUIAccountBeneficiaryViewController *)self _canHaveBeneficiary])
+    _canHaveBeneficiary = [(AAUIAccountBeneficiaryViewController *)self _canHaveBeneficiary];
+    if (_canHaveBeneficiary)
     {
-      v6 = _AAUILogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _AAUILogSystem(_canHaveBeneficiary);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Account can have beneficiary, adding beneficiary specifiers to UI...", &v20, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account can have beneficiary, adding beneficiary specifiers to UI...", &v23, 2u);
       }
 
       _myBeneficiariesGroupSpecifier = [(AAUIAccountBeneficiaryViewController *)self _myBeneficiariesGroupSpecifier];
@@ -177,13 +179,14 @@
       [v5 addObject:_addBeneficiarySpecifier];
     }
 
-    if ([(AAUIAccountBeneficiaryViewController *)self _canBeBeneficiary])
+    _canBeBeneficiary = [(AAUIAccountBeneficiaryViewController *)self _canBeBeneficiary];
+    if (_canBeBeneficiary)
     {
-      v10 = _AAUILogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = _AAUILogSystem(_canBeBeneficiary);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Account can have benefactors, adding benefactor specifiers to UI...", &v20, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Account can have benefactors, adding benefactor specifiers to UI...", &v23, 2u);
       }
 
       if ([(NSArray *)self->_myBenefactors count])
@@ -196,35 +199,39 @@
       }
     }
 
-    if (![(NSArray *)self->_myBenefactors count]&& ![(AAUIAccountBeneficiaryViewController *)self _canHaveBeneficiary])
+    if (![(NSArray *)self->_myBenefactors count])
     {
-      v13 = _AAUILogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      _canHaveBeneficiary2 = [(AAUIAccountBeneficiaryViewController *)self _canHaveBeneficiary];
+      if ((_canHaveBeneficiary2 & 1) == 0)
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Account can't have beneficiary and does not have any benefactors, adding no benefactor specifier to UI...", &v20, 2u);
-      }
+        v16 = _AAUILogSystem(_canHaveBeneficiary2);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Account can't have beneficiary and does not have any benefactors, adding no benefactor specifier to UI...", &v23, 2u);
+        }
 
-      _noBenefactorSpecifier = [(AAUIAccountBeneficiaryViewController *)self _noBenefactorSpecifier];
-      [v5 addObject:_noBenefactorSpecifier];
+        _noBenefactorSpecifier = [(AAUIAccountBeneficiaryViewController *)self _noBenefactorSpecifier];
+        [v5 addObject:_noBenefactorSpecifier];
+      }
     }
 
-    v15 = *(&self->super.super.super.super.super.isa + v3);
+    v18 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v5;
   }
 
-  v16 = _AAUILogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = _AAUILogSystem(self);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(&self->super.super.super.super.super.isa + v3);
-    v20 = 138412290;
-    v21 = v17;
-    _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "AAUIAccountBeneficiaryViewController specifiers: returning %@", &v20, 0xCu);
+    v20 = *(&self->super.super.super.super.super.isa + v3);
+    v23 = 138412290;
+    v24 = v20;
+    _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "AAUIAccountBeneficiaryViewController specifiers: returning %@", &v23, 0xCu);
   }
 
-  v18 = *(&self->super.super.super.super.super.isa + v3);
+  v21 = *(&self->super.super.super.super.super.isa + v3);
 
-  return v18;
+  return v21;
 }
 
 - (void)_syncTrustedContactsFromCloudKit
@@ -237,7 +244,7 @@ void __72__AAUIAccountBeneficiaryViewController__syncTrustedContactsFromCloudKit
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -440,7 +447,7 @@ void __68__AAUIAccountBeneficiaryViewController__fetchAllBeneficiaryContacts__bl
 - (void)_learnMoreWasTapped
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     learnMoreURL = [(AAAccountBeneficiaryManagementViewModel *)self->_viewModel learnMoreURL];
@@ -467,7 +474,7 @@ void __68__AAUIAccountBeneficiaryViewController__fetchAllBeneficiaryContacts__bl
 
 - (void)_showAddBeneficiary
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;

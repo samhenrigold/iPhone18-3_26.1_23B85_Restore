@@ -30,7 +30,7 @@
 
   else
   {
-    v10 = BDSCloudKitLog();
+    v10 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1E4704DB4();
@@ -69,7 +69,7 @@
 
     else
     {
-      p_super = BDSCloudKitLog();
+      p_super = BDSCloudKitLog(0);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         sub_1E4704C38();
@@ -88,7 +88,7 @@
   recordCopy = record;
   if (!recordCopy)
   {
-    p_super = BDSCloudKitLog();
+    p_super = BDSCloudKitLog(0);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       sub_1E4704E1C();
@@ -97,32 +97,33 @@
     goto LABEL_9;
   }
 
-  v15.receiver = self;
-  v15.super_class = BDSMutableSecureEngagementData;
-  v5 = [(BCMutableCloudData *)&v15 initWithRecord:recordCopy];
+  v16.receiver = self;
+  v16.super_class = BDSMutableSecureEngagementData;
+  v5 = [(BCMutableCloudData *)&v16 initWithRecord:recordCopy];
   if (v5)
   {
     self = [recordCopy objectForKey:@"value"];
-    if (![BDSSecureEngagementDataHelper isEngagementTimeSliceDataEmpty:self])
+    v6 = [BDSSecureEngagementDataHelper isEngagementTimeSliceDataEmpty:self];
+    if ((v6 & 1) == 0)
     {
       p_super = [BCCloudData localIdentifierFromRecord:recordCopy];
-      v8 = [p_super copy];
+      v9 = [p_super copy];
       startTimestampString = v5->_startTimestampString;
-      v5->_startTimestampString = v8;
+      v5->_startTimestampString = v9;
 
-      v10 = [recordCopy objectForKey:@"durationInterval"];
-      [v10 doubleValue];
-      v5->_durationInterval = v11;
+      v11 = [recordCopy objectForKey:@"durationInterval"];
+      [v11 doubleValue];
+      v5->_durationInterval = v12;
 
-      v12 = [(BDSMutableSecureEngagementData *)self copy];
+      v13 = [(BDSMutableSecureEngagementData *)self copy];
       value = v5->_value;
-      v5->_value = v12;
+      v5->_value = v13;
 
       goto LABEL_11;
     }
 
-    v6 = BDSCloudKitLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BDSCloudKitLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4704DE8();
     }

@@ -13,7 +13,7 @@ void sub_10000105C(uint64_t a1)
 
 void sub_100001360(uint64_t a1)
 {
-  v2 = sub_1000014D4();
+  v2 = sub_1000014D4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -32,16 +32,16 @@ uint64_t start(int a1, char **a2)
   return v5;
 }
 
-id sub_1000014D4()
+id sub_1000014D4(uint64_t a1)
 {
   if (qword_100008280 != -1)
   {
     sub_10000155C();
   }
 
-  v1 = qword_100008278;
+  v2 = qword_100008278;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001518(id a1)

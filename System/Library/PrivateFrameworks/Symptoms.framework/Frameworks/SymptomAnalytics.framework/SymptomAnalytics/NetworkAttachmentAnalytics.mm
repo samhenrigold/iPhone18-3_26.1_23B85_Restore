@@ -1,5 +1,6 @@
 @interface NetworkAttachmentAnalytics
 - (NetworkAttachmentAnalytics)init;
+- (NetworkAttachmentAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache;
 - (id)networkAttachmentsWithId:(id)id;
 - (id)networkAttachmentsWithIdInSet:(id)set;
 - (id)networkAttachmentsWithMajorID:(id)d;
@@ -16,6 +17,18 @@
   v5 = [(ObjectAnalytics *)&v7 initWithWorkspace:v3 entityName:v4 withCache:1];
 
   return v5;
+}
+
+- (NetworkAttachmentAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  workspaceCopy = workspace;
+  v7 = +[SFNetworkAttachment entityName];
+  v10.receiver = self;
+  v10.super_class = NetworkAttachmentAnalytics;
+  v8 = [(ObjectAnalytics *)&v10 initWithWorkspace:workspaceCopy entityName:v7 withCache:cacheCopy];
+
+  return v8;
 }
 
 - (id)networkAttachmentsWithId:(id)id

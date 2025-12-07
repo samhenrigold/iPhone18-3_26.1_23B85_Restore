@@ -23,17 +23,18 @@
 
 - (void)interiorAmbientLightsService:(id)service didUpdatePrimaryColor:(id)color
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFInteriorAmbientLightsObservable.interiorAmbientLightsService(_:didUpdatePrimaryColor:)();
+  CAFInteriorAmbientLightsObservable.interiorAmbientLightsService(_:didUpdatePrimaryColor:)(selfCopy, v6, v8);
 }
 
 - (void)interiorAmbientLightsService:(id)service didUpdateBrightness:(unsigned int)brightness
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFInteriorAmbientLightsObservable.interiorAmbientLightsService(_:didUpdateBrightness:)();
+  CAFInteriorAmbientLightsObservable.interiorAmbientLightsService(_:didUpdateBrightness:)(selfCopy, brightness);
 }
 
 - (void)interiorAmbientLightsService:(id)service didUpdateSupportedColors:(id)colors

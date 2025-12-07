@@ -8,39 +8,37 @@
 
 + (id)requiredDAGServices
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13 = v4;
+  v12 = v4;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v14 = v6;
+  v13 = v6;
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v15 = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v10 = [v2 setWithArray:{v9, v13, v14}];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v14 = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v10 = [v2 setWithArray:{v9, v12, v13}];
 
   return v10;
 }
 
 + (id)getUsageForAssetSetName:(int64_t)name withLocale:(id)locale
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (name)
   {
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithInteger:name];
-      v10 = 136315394;
-      v11 = "+[CDMSsuInferenceServiceGraph getUsageForAssetSetName:withLocale:]";
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v10, 0x16u);
+      v8 = [MEMORY[0x1E696AD98] numberWithInteger:name];
+      v9 = 136315394;
+      v10 = "+[CDMSsuInferenceServiceGraph getUsageForAssetSetName:withLocale:]";
+      v11 = 2112;
+      v12 = v8;
+      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v9, 0x16u);
     }
 
     v6 = 0;
@@ -50,8 +48,6 @@
   {
     v6 = [CDMAssetsUtils getSsuUsages:locale];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -149,13 +145,13 @@
 
 void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315138;
-    v9 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v7, 0xCu);
   }
 
   v3 = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(*(a1 + 48) + 8) + 40) locale:*(a1 + 32)];
@@ -163,19 +159,17 @@ void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke(uint64_t a1)
   v5 = *(*(a1 + 56) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke_585(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315138;
-    v14 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSiriVocabularySpanMatchService", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMSpanMatchRequestCommand for use in CDMSiriVocabularySpanMatchService", &v12, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D1198]);
@@ -191,26 +185,24 @@ void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke_585(uint64_t a1)
   v10 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(*(*(a1 + 48) + 8) + 40);
-    v13 = 136315394;
-    v14 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s SiriVocabularySpanMatchResponse: %@", &v13, 0x16u);
+    v11 = *(*(*(a1 + 48) + 8) + 40);
+    v12 = 136315394;
+    v13 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s SiriVocabularySpanMatchResponse: %@", &v12, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke_589(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 136315138;
-    v28 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Building SSU request for use in CDMSSUService", &v27, 0xCu);
+    v26 = 136315138;
+    v27 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Building SSU request for use in CDMSSUService", &v26, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D13A8]);
@@ -255,17 +247,15 @@ void __41__CDMSsuInferenceServiceGraph_buildGraph__block_invoke_589(uint64_t a1)
   v24 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 136315394;
-    v28 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
-    v29 = 2112;
-    v30 = v18;
-    _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s CDMSsuInferenceGraphResponse: ssuResponse=%@", &v27, 0x16u);
+    v26 = 136315394;
+    v27 = "[CDMSsuInferenceServiceGraph buildGraph]_block_invoke";
+    v28 = 2112;
+    v29 = v18;
+    _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s CDMSsuInferenceGraphResponse: ssuResponse=%@", &v26, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   [WeakRetained setGraphOutput:v23];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

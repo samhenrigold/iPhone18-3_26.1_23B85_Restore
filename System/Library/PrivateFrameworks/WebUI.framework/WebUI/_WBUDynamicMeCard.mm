@@ -108,15 +108,15 @@
 
 - (void)_fetchContactKeysWithHandler:(id)handler
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   descriptorForRequiredKeys = [MEMORY[0x277CBDAC8] descriptorForRequiredKeys];
-  v18[0] = descriptorForRequiredKeys;
+  v17[0] = descriptorForRequiredKeys;
   v5 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v18[1] = v5;
+  v17[1] = v5;
   v6 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:1];
-  v18[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   v8 = objc_alloc_init(MEMORY[0x277CBDAB8]);
   v9 = dispatch_get_global_queue(25, 0);
@@ -124,48 +124,46 @@
   block[1] = 3221225472;
   block[2] = __50___WBUDynamicMeCard__fetchContactKeysWithHandler___block_invoke;
   block[3] = &unk_279EB17B8;
-  v15 = v8;
-  v16 = v7;
-  v17 = handlerCopy;
+  v14 = v8;
+  v15 = v7;
+  v16 = handlerCopy;
   v10 = handlerCopy;
   v11 = v7;
   v12 = v8;
   dispatch_async(v9, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_contactObjectComponentForString:(id)string
 {
-  v18[8] = *MEMORY[0x277D85DE8];
+  v17[8] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = _contactObjectComponentForString__map;
   if (!_contactObjectComponentForString__map)
   {
     v5 = *MEMORY[0x277CBD980];
-    v17[0] = @"Street";
-    v17[1] = @"City";
+    v16[0] = @"Street";
+    v16[1] = @"City";
     v6 = *MEMORY[0x277CBD948];
-    v18[0] = v5;
-    v18[1] = v6;
+    v17[0] = v5;
+    v17[1] = v6;
     v7 = *MEMORY[0x277CBD978];
-    v17[2] = @"State";
-    v17[3] = @"ZIP";
+    v16[2] = @"State";
+    v16[3] = @"ZIP";
     v8 = *MEMORY[0x277CBD968];
-    v18[2] = v7;
-    v18[3] = v8;
+    v17[2] = v7;
+    v17[3] = v8;
     v9 = *MEMORY[0x277CBD950];
-    v17[4] = @"Country";
-    v17[5] = @"ISOCountry";
+    v16[4] = @"Country";
+    v16[5] = @"ISOCountry";
     v10 = *MEMORY[0x277CBD958];
-    v18[4] = v9;
-    v18[5] = v10;
-    v17[6] = @"Username";
-    v17[7] = @"Service";
+    v17[4] = v9;
+    v17[5] = v10;
+    v16[6] = @"Username";
+    v16[7] = @"Service";
     v11 = *MEMORY[0x277CBD1E8];
-    v18[6] = *MEMORY[0x277CBD1F0];
-    v18[7] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
+    v17[6] = *MEMORY[0x277CBD1F0];
+    v17[7] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:8];
     v13 = _contactObjectComponentForString__map;
     _contactObjectComponentForString__map = v12;
 
@@ -173,8 +171,6 @@
   }
 
   v14 = [v4 objectForKey:stringCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -3,11 +3,11 @@
 - (PBSessionRequester)initWithURL:(id)l delegate:(id)delegate queue:(id)queue;
 - (PBSessionRequesterDelegate)delegate;
 - (id)_cancelNoNotify;
+- (id)_cleanup;
 - (id)requestPreamble;
 - (id)responseForInternalRequest:(id)request;
 - (id)responseForRequest:(id)request;
 - (id)tryReadResponseData:(id)data forRequest:(id)request forResponseClass:(Class)class;
-- (uint64_t)_cleanup;
 - (uint64_t)_newSessionWithDelegate:(void *)delegate delegateQueue:(void *)queue connectionProperties:;
 - (uint64_t)_tryParseData;
 - (unint64_t)requestResponseTime;
@@ -66,59 +66,58 @@
 
 void __28__PBSessionRequester__start__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (a3)
   {
-    v4 = *MEMORY[0x1E69E9840];
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [(PBSessionRequester *)v5 _failWithError:a3];
+    [(PBSessionRequester *)v4 _failWithError:a3];
     return;
   }
 
-  v7 = a2;
+  v6 = a2;
   if (!v3)
   {
     goto LABEL_41;
   }
 
-  v8 = *(v3 + 40);
-  if (v8)
+  v7 = *(v3 + 40);
+  if (v7)
   {
-    [v8 cancel];
-    v9 = *(v3 + 40);
+    [v7 cancel];
+    v8 = *(v3 + 40);
     *(v3 + 40) = 0;
   }
 
-  v10 = *(v3 + 32);
-  if (v10)
+  v9 = *(v3 + 32);
+  if (v9)
   {
-    [v10 invalidateAndCancel];
-    v11 = *(v3 + 32);
+    [v9 invalidateAndCancel];
+    v10 = *(v3 + 32);
     *(v3 + 32) = 0;
   }
 
-  v12 = *(v3 + 56);
-  if (v12)
+  v11 = *(v3 + 56);
+  if (v11)
   {
     *(v3 + 56) = 0;
   }
 
-  v13 = *(v3 + 128);
-  if (v13 && (*(v3 + 248) & 0x400) == 0)
+  v12 = *(v3 + 128);
+  if (v12 && (*(v3 + 248) & 0x400) == 0)
   {
     *(v3 + 128) = 0;
   }
 
-  v14 = *(v3 + 144);
-  if (v14)
+  v13 = *(v3 + 144);
+  if (v13)
   {
     *(v3 + 144) = 0;
   }
 
-  v15 = *(v3 + 64);
-  if (v15)
+  v14 = *(v3 + 64);
+  if (v14)
   {
     *(v3 + 64) = 0;
   }
@@ -126,79 +125,79 @@ void __28__PBSessionRequester__start__block_invoke(uint64_t a1, void *a2, void *
   *(v3 + 72) = 0;
   *(v3 + 80) = 0;
   *(v3 + 248) &= ~0x10u;
-  v16 = objc_autoreleasePoolPush();
-  *(v3 + 80) = [v7 length];
+  v15 = objc_autoreleasePoolPush();
+  *(v3 + 80) = [v6 length];
   *(v3 + 248) |= 2u;
   *(v3 + 96) = mach_absolute_time();
   if (!*(v3 + 8))
   {
     v3 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PBRequesterErrorDomain" code:6004 userInfo:0];
-    v39 = v3;
-    objc_autoreleasePoolPop(v16);
+    v38 = v3;
+    objc_autoreleasePoolPop(v15);
 LABEL_41:
-    v40 = 0;
+    v39 = 0;
     goto LABEL_47;
   }
 
-  v46 = v16;
-  v47 = v7;
-  v17 = [v3 newMutableURLRequestWithURL:?];
+  v44 = v15;
+  v45 = v6;
+  v16 = [v3 newMutableURLRequestWithURL:?];
   if ([*(v3 + 200) count])
   {
-    [v17 setCachePolicy:1];
+    [v16 setCachePolicy:1];
   }
 
-  v18 = *(v3 + 168);
-  if (v18 == -1.0)
+  v17 = *(v3 + 168);
+  if (v17 == -1.0)
   {
-    v18 = 60.0;
+    v17 = 60.0;
   }
 
-  [v17 setTimeoutInterval:v18];
-  [v17 setHTTPMethod:@"POST"];
-  [v17 setHTTPShouldHandleCookies:*(v3 + 216)];
-  v50 = 0u;
-  v51 = 0u;
+  [v16 setTimeoutInterval:v17];
+  [v16 setHTTPMethod:@"POST"];
+  [v16 setHTTPShouldHandleCookies:*(v3 + 216)];
   v48 = 0u;
   v49 = 0u;
-  v19 = [v3 httpRequestHeaders];
-  v20 = [v19 allKeys];
+  v46 = 0u;
+  v47 = 0u;
+  v18 = [v3 httpRequestHeaders];
+  v19 = [v18 allKeys];
 
-  v21 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
-  if (v21)
+  v20 = [v19 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v20)
   {
-    v22 = v21;
-    v23 = *v49;
+    v21 = v20;
+    v22 = *v47;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v49 != v23)
+        if (*v47 != v22)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v19);
         }
 
-        v25 = *(*(&v48 + 1) + 8 * i);
-        v26 = [v3 httpRequestHeaders];
-        v27 = [v26 objectForKeyedSubscript:v25];
-        [v17 setValue:v27 forHTTPHeaderField:v25];
+        v24 = *(*(&v46 + 1) + 8 * i);
+        v25 = [v3 httpRequestHeaders];
+        v26 = [v25 objectForKeyedSubscript:v24];
+        [v16 setValue:v26 forHTTPHeaderField:v24];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
-  v7 = v47;
-  [v17 setHTTPBody:v47];
-  v28 = [v3 newSessionWithDelegate:v3 delegateQueue:*(v3 + 48) connectionProperties:*(v3 + 208)];
-  v29 = *(v3 + 32);
-  *(v3 + 32) = v28;
+  v6 = v45;
+  [v16 setHTTPBody:v45];
+  v27 = [v3 newSessionWithDelegate:v3 delegateQueue:*(v3 + 48) connectionProperties:*(v3 + 208)];
+  v28 = *(v3 + 32);
+  *(v3 + 32) = v27;
 
-  v30 = [v3 newSessionTaskOnSession:*(v3 + 32) withURLRequest:v17];
-  v31 = *(v3 + 40);
-  *(v3 + 40) = v30;
+  v29 = [v3 newSessionTaskOnSession:*(v3 + 32) withURLRequest:v16];
+  v30 = *(v3 + 40);
+  *(v3 + 40) = v29;
 
   if (*(v3 + 224))
   {
@@ -217,42 +216,42 @@ LABEL_41:
     goto LABEL_46;
   }
 
-  v32 = nw_activity_create();
-  v33 = *(v3 + 40);
-  if (v32)
+  v31 = nw_activity_create();
+  v32 = *(v3 + 40);
+  if (v31)
   {
-    [v33 set_nw_activity:v32];
+    [v32 set_nw_activity:v31];
     nw_activity_activate();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v34 = *(v3 + 232);
-      v35 = *(v3 + 240);
+      v33 = *(v3 + 232);
+      v34 = *(v3 + 240);
       *buf = 67109376;
+      v51 = v33;
+      v52 = 1024;
       v53 = v34;
-      v54 = 1024;
-      v55 = v35;
-      v36 = MEMORY[0x1E69E9C10];
-      v37 = "pbSessionRequester, activity, activate, %d, %d";
-      v38 = OS_LOG_TYPE_INFO;
+      v35 = MEMORY[0x1E69E9C10];
+      v36 = "pbSessionRequester, activity, activate, %d, %d";
+      v37 = OS_LOG_TYPE_INFO;
 LABEL_44:
-      _os_log_impl(&dword_1C9414000, v36, v38, v37, buf, 0xEu);
+      _os_log_impl(&dword_1C9414000, v35, v37, v36, buf, 0xEu);
     }
   }
 
   else
   {
-    [v33 set_nw_activity:0];
+    [v32 set_nw_activity:0];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v41 = *(v3 + 232);
-      v42 = *(v3 + 240);
+      v40 = *(v3 + 232);
+      v41 = *(v3 + 240);
       *buf = 67109376;
+      v51 = v40;
+      v52 = 1024;
       v53 = v41;
-      v54 = 1024;
-      v55 = v42;
-      v36 = MEMORY[0x1E69E9C10];
-      v37 = "pbSessionRequester, activity, createnil, %d, %d";
-      v38 = OS_LOG_TYPE_DEFAULT;
+      v35 = MEMORY[0x1E69E9C10];
+      v36 = "pbSessionRequester, activity, createnil, %d, %d";
+      v37 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_44;
     }
   }
@@ -260,24 +259,22 @@ LABEL_44:
 LABEL_46:
   [*(v3 + 40) resume];
 
-  objc_autoreleasePoolPop(v46);
+  objc_autoreleasePoolPop(v44);
   v3 = 0;
-  v40 = 1;
+  v39 = 1;
 LABEL_47:
 
-  v43 = v3;
-  v44 = v43;
-  if ((v40 & 1) == 0 && v43)
+  v42 = v3;
+  v43 = v42;
+  if ((v39 & 1) == 0 && v42)
   {
-    [(PBSessionRequester *)*(a1 + 32) _failWithError:v43];
+    [(PBSessionRequester *)*(a1 + 32) _failWithError:v42];
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_serializePayload:(uint64_t)payload
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (payload)
   {
@@ -288,31 +285,31 @@ LABEL_47:
       [(PBDataWriter *)v4 writeData:requestPreamble];
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v6 = *(payload + 136);
-    v7 = [v6 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v43;
+      v9 = *v42;
       do
       {
         v10 = 0;
         do
         {
-          if (*v43 != v9)
+          if (*v42 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [payload writeRequest:*(*(&v42 + 1) + 8 * v10++) into:v4];
+          [payload writeRequest:*(*(&v41 + 1) + 8 * v10++) into:v4];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v8);
@@ -327,31 +324,31 @@ LABEL_47:
       v11 = v13;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v14 = v11;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v39;
+      v17 = *v38;
       do
       {
         v18 = 0;
         do
         {
-          if (*v39 != v17)
+          if (*v38 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [payload writeRequest:*(*(&v38 + 1) + 8 * v18++) into:v4];
+          [payload writeRequest:*(*(&v37 + 1) + 8 * v18++) into:v4];
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v16);
@@ -376,7 +373,7 @@ LABEL_47:
         v27 = MEMORY[0x1E696AEC0];
         v28 = [payload URL];
         formattedText = [v24 formattedText];
-        v30 = [v27 stringWithFormat:@"URL: %@\n\n%@", v28, formattedText, v38];
+        v30 = [v27 stringWithFormat:@"URL: %@\n\n%@", v28, formattedText, v37];
 
         [v30 writeToFile:v26 atomically:0 encoding:4 error:0];
       }
@@ -414,13 +411,11 @@ LABEL_47:
       v3[2](v3, immutableData2, 0);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failWithError:(uint64_t)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (error && (*(error + 192) & 1) == 0)
@@ -433,21 +428,21 @@ LABEL_47:
       currentTask = [error currentTask];
       v8 = [currentTask description];
       *buf = 134349314;
-      v19 = code;
-      v20 = 2114;
-      v21 = v8;
+      v18 = code;
+      v19 = 2114;
+      v20 = v8;
       _os_log_impl(&dword_1C9414000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "pbSessionRequester, didFailWithError, %{public}ld, %{public}@", buf, 0x16u);
     }
 
     if ((*(error + 248) & 0x100) != 0)
     {
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = __37__PBSessionRequester__failWithError___block_invoke;
-      v15 = &unk_1E833D608;
+      v11 = MEMORY[0x1E69E9820];
+      v12 = 3221225472;
+      v13 = __37__PBSessionRequester__failWithError___block_invoke;
+      v14 = &unk_1E833D608;
       errorCopy = error;
-      v17 = v5;
-      [*(error + 24) addOperationWithBlock:&v12];
+      v16 = v5;
+      [*(error + 24) addOperationWithBlock:&v11];
     }
 
     _nw_activity = [*(error + 40) _nw_activity];
@@ -464,8 +459,6 @@ LABEL_47:
       nw_activity_complete_with_reason();
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __37__PBSessionRequester__failWithError___block_invoke(uint64_t a1)
@@ -476,67 +469,63 @@ void __37__PBSessionRequester__failWithError___block_invoke(uint64_t a1)
 
 - (uint64_t)_newSessionWithDelegate:(void *)delegate delegateQueue:(void *)queue connectionProperties:
 {
-  v29 = *MEMORY[0x1E69E9840];
-  if (self)
+  v28 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v6 = MEMORY[0x1E696AF80];
-    queueCopy = queue;
-    delegateCopy = delegate;
-    v9 = a2;
-    ephemeralSessionConfiguration = [v6 ephemeralSessionConfiguration];
-    if (ephemeralSessionConfiguration)
-    {
-      v11 = [queueCopy objectForKeyedSubscript:*MEMORY[0x1E695AEB0]];
-      if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-      {
-        v23 = delegateCopy;
-        v12 = v11;
-        v24 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v13)
-        {
-          v14 = v13;
-          v15 = *v25;
-          v16 = *MEMORY[0x1E695AE88];
-          do
-          {
-            for (i = 0; i != v14; ++i)
-            {
-              if (*v25 != v15)
-              {
-                objc_enumerationMutation(v12);
-              }
+    return 0;
+  }
 
-              v18 = *(*(&v24 + 1) + 8 * i);
-              if ([v18 isEqualToString:v16])
-              {
-                v19 = [v12 objectForKeyedSubscript:v18];
-                [ephemeralSessionConfiguration set_sourceApplicationAuditTokenData:v19];
-              }
+  v6 = MEMORY[0x1E696AF80];
+  queueCopy = queue;
+  delegateCopy = delegate;
+  v9 = a2;
+  ephemeralSessionConfiguration = [v6 ephemeralSessionConfiguration];
+  if (ephemeralSessionConfiguration)
+  {
+    v11 = [queueCopy objectForKeyedSubscript:*MEMORY[0x1E695AEB0]];
+    if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    {
+      v22 = delegateCopy;
+      v12 = v11;
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v24;
+        v16 = *MEMORY[0x1E695AE88];
+        do
+        {
+          for (i = 0; i != v14; ++i)
+          {
+            if (*v24 != v15)
+            {
+              objc_enumerationMutation(v12);
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v18 = *(*(&v23 + 1) + 8 * i);
+            if ([v18 isEqualToString:v16])
+            {
+              v19 = [v12 objectForKeyedSubscript:v18];
+              [ephemeralSessionConfiguration set_sourceApplicationAuditTokenData:v19];
+            }
           }
 
-          while (v14);
+          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
-        delegateCopy = v23;
+        while (v14);
       }
+
+      delegateCopy = v22;
     }
-
-    v20 = [MEMORY[0x1E696AF78] sessionWithConfiguration:ephemeralSessionConfiguration delegate:v9 delegateQueue:delegateCopy];
   }
 
-  else
-  {
-    v20 = 0;
-  }
+  v20 = [MEMORY[0x1E696AF78] sessionWithConfiguration:ephemeralSessionConfiguration delegate:v9 delegateQueue:delegateCopy];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -650,26 +639,24 @@ void __97__PBSessionRequester_URLSession_task__willSendRequestForEstablishedConn
   v2 = *(a1 + 32);
   if (!*(v2 + 40) || (*(v2 + 248) & 4) != 0)
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
 
-    v8();
+    v6();
   }
 
   else
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __97__PBSessionRequester_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke_3;
-    v9[3] = &unk_1E833D658;
-    v9[4] = v2;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __97__PBSessionRequester_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke_3;
+    v7[3] = &unk_1E833D658;
+    v7[4] = v2;
     v3 = *(a1 + 40);
     v4 = *(a1 + 56);
-    v10 = v3;
-    v11 = v4;
-    v5 = MEMORY[0x1CCA88BB0](v9);
+    v8 = v3;
+    v9 = v4;
+    v5 = MEMORY[0x1CCA88BB0](v7);
     [(PBSessionRequester *)*(a1 + 32) _serializePayload:v5];
-    v6 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -709,7 +696,7 @@ void __97__PBSessionRequester_URLSession_task__willSendRequestForEstablishedConn
     {
       [(PBSessionRequester *)self _failWithError:errorCopy];
 LABEL_28:
-      [(PBSessionRequester *)self _cleanup];
+      [(PBSessionRequester *)&self->super.isa _cleanup];
       goto LABEL_9;
     }
 
@@ -836,7 +823,7 @@ LABEL_22:
         [(PBSessionRequester *)self cancelWithErrorCode:@"Decryption failed." description:?];
       }
 
-      [(PBSessionRequester *)self _cleanup];
+      [(PBSessionRequester *)&self->super.isa _cleanup];
 
       objc_autoreleasePoolPop(v12);
       goto LABEL_9;
@@ -857,26 +844,26 @@ LABEL_22:
 LABEL_9:
 }
 
-- (uint64_t)_cleanup
+- (id)_cleanup
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 40);
-    *(result + 40) = 0;
+    v2 = result[5];
+    result[5] = 0;
 
-    [*(v1 + 32) invalidateAndCancel];
-    v3 = *(v1 + 32);
-    *(v1 + 32) = 0;
+    [v1[4] invalidateAndCancel];
+    v3 = v1[4];
+    v1[4] = 0;
 
-    v4 = *(v1 + 56);
-    *(v1 + 56) = 0;
+    v4 = v1[7];
+    v1[7] = 0;
 
-    v5 = *(v1 + 64);
-    *(v1 + 64) = 0;
+    v5 = v1[8];
+    v1[8] = 0;
 
     result = [v1 setHttpResponseHeaders:0];
-    *(v1 + 248) &= 0xF9F1u;
+    *(v1 + 124) &= 0xF9F1u;
   }
 
   return result;
@@ -1043,12 +1030,12 @@ void __35__PBSessionRequester__tryParseData__block_invoke(uint64_t a1)
     v1 = result;
     [result[5] cancel];
     [(PBSessionRequester *)v1 _cleanup];
-    if ([*(v1 + 128) count])
+    if ([v1[16] count])
     {
-      [*(v1 + 128) removeAllObjects];
+      [v1[16] removeAllObjects];
     }
 
-    result = *(v1 + 144);
+    result = v1[18];
     if (result)
     {
 
@@ -1461,9 +1448,7 @@ void __37__PBSessionRequester_requestPreamble__block_invoke(uint64_t a1)
 {
   if (self->_httpRequestHeaders != headers)
   {
-    v5 = [headers mutableCopy];
-    httpRequestHeaders = self->_httpRequestHeaders;
-    self->_httpRequestHeaders = v5;
+    self->_httpRequestHeaders = [headers mutableCopy];
 
     MEMORY[0x1EEE66BB8]();
   }

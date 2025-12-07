@@ -3,7 +3,7 @@
 - (HDDemoDataPathologySampleGenerator)initWithCoder:(id)coder;
 - (id)spirometryForDemoPerson:(uint64_t)person atTime:(double)time type:;
 - (uint64_t)_isAsthmaAttackAllowedForDemoPerson:(double)person atTime:;
-- (void)_computeSpirometryForDemoPerson:(uint64_t)person atTime:(double)time type:computeLowerLimitOfNormality:height:;
+- (void)_computeSpirometryForDemoPerson:(double)person atTime:type:computeLowerLimitOfNormality:height:;
 - (void)encodeWithCoder:(id)coder;
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection;
 - (void)setupWithDemoDataGenerator:(id)generator;
@@ -32,17 +32,17 @@
 
 - (HDDemoDataPathologySampleGenerator)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = HDDemoDataPathologySampleGenerator;
-  v5 = [(HDDemoDataBaseSampleGenerator *)&v16 initWithCoder:coderCopy];
+  v15.receiver = self;
+  v15.super_class = HDDemoDataPathologySampleGenerator;
+  v5 = [(HDDemoDataBaseSampleGenerator *)&v15 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HDDemoDataPathologySampleHelperNextSpirometrySampleTimesKey"];
     v10 = [v9 mutableCopy];
@@ -56,7 +56,6 @@
     v5->_forcePEFR = [coderCopy decodeBoolForKey:@"HDDemoDataPathologySampleHelperForcePEFRKey"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -74,20 +73,20 @@
 
 - (void)setupWithDemoDataGenerator:(id)generator
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   generatorCopy = generator;
-  v15.receiver = self;
-  v15.super_class = HDDemoDataPathologySampleGenerator;
-  [(HDDemoDataBaseSampleGenerator *)&v15 setupWithDemoDataGenerator:generatorCopy];
+  v14.receiver = self;
+  v14.super_class = HDDemoDataPathologySampleGenerator;
+  [(HDDemoDataBaseSampleGenerator *)&v14 setupWithDemoDataGenerator:generatorCopy];
   if (![(HDDemoDataBaseSampleGenerator *)self createdFromNSKeyedUnarchiver])
   {
-    v16[0] = &unk_283CB3FF0;
-    v16[1] = &unk_283CB4020;
-    v17[0] = &unk_283CB4008;
-    v17[1] = &unk_283CB4008;
-    v16[2] = &unk_283CB4038;
-    v17[2] = &unk_283CB4008;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v15[0] = &unk_283CB3FF0;
+    v15[1] = &unk_283CB4020;
+    v16[0] = &unk_283CB4008;
+    v16[1] = &unk_283CB4008;
+    v15[2] = &unk_283CB4038;
+    v16[2] = &unk_283CB4008;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
     v6 = [v5 mutableCopy];
     nextSpirometrySampleTimes = self->_nextSpirometrySampleTimes;
     self->_nextSpirometrySampleTimes = v6;
@@ -104,8 +103,6 @@
 
     self->_forcePEFR = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
@@ -330,13 +327,13 @@ uint64_t __112__HDDemoDataPathologySampleGenerator_generateObjectsForDemoPerson_
     demoDataGenerator2 = [self demoDataGenerator];
     bodySampleGenerator = [demoDataGenerator2 bodySampleGenerator];
     [bodySampleGenerator lastHeightInCm];
-    [HDDemoDataPathologySampleGenerator _computeSpirometryForDemoPerson:self atTime:v7 type:person computeLowerLimitOfNormality:time height:?];
+    [HDDemoDataPathologySampleGenerator _computeSpirometryForDemoPerson:self atTime:v7 type:time computeLowerLimitOfNormality:? height:?];
     v26 = v25;
 
     demoDataGenerator3 = [self demoDataGenerator];
     bodySampleGenerator2 = [demoDataGenerator3 bodySampleGenerator];
     [bodySampleGenerator2 lastHeightInCm];
-    [HDDemoDataPathologySampleGenerator _computeSpirometryForDemoPerson:self atTime:v7 type:person computeLowerLimitOfNormality:time height:?];
+    [HDDemoDataPathologySampleGenerator _computeSpirometryForDemoPerson:self atTime:v7 type:time computeLowerLimitOfNormality:? height:?];
     v30 = v29;
 
     v31 = (v26 - v30) / 2.3;
@@ -375,83 +372,16 @@ LABEL_17:
   return self;
 }
 
-- (void)_computeSpirometryForDemoPerson:(uint64_t)person atTime:(double)time type:computeLowerLimitOfNormality:height:
+- (void)_computeSpirometryForDemoPerson:(double)person atTime:type:computeLowerLimitOfNormality:height:
 {
-  v7 = a2;
+  v5 = a2;
   demoDataGenerator = [self demoDataGenerator];
-  v9 = [demoDataGenerator currentDateFromCurrentTime:time];
+  v7 = [demoDataGenerator currentDateFromCurrentTime:person];
 
-  birthDateComponents = [v7 birthDateComponents];
-  v11 = HDDemoData_ageBetweenNSDateComponentsAndDate(birthDateComponents, v9);
+  birthDateComponents = [v5 birthDateComponents];
+  HDDemoData_ageBetweenNSDateComponentsAndDate(birthDateComponents, v7);
 
-  biologicalSex = [v7 biologicalSex];
-  v13 = &unk_2291818B8;
-  if (v11 < 18)
-  {
-    v13 = &unk_229181858;
-  }
-
-  v14 = &unk_2291818D0;
-  if (v11 >= 18)
-  {
-    v15 = &unk_2291818E8;
-  }
-
-  else
-  {
-    v14 = &unk_229181870;
-    v15 = &unk_229181888;
-  }
-
-  v16 = &unk_229181900;
-  if (v11 < 18)
-  {
-    v16 = &unk_2291818A0;
-  }
-
-  v17 = &unk_2291817E0;
-  if (v11 < 20)
-  {
-    v17 = &unk_229181780;
-  }
-
-  v18 = &unk_2291817F8;
-  if (v11 < 20)
-  {
-    v18 = &unk_229181798;
-  }
-
-  v19 = &unk_229181810;
-  if (v11 < 20)
-  {
-    v19 = &unk_2291817B0;
-  }
-
-  v20 = &unk_2291817C8;
-  if (v11 >= 20)
-  {
-    v20 = &unk_229181828;
-  }
-
-  if (biologicalSex == 2)
-  {
-    v13 = v17;
-    v14 = v18;
-    v15 = v19;
-  }
-
-  v21 = &unk_229181918;
-  if (biologicalSex == 2)
-  {
-    v16 = v20;
-    v21 = &unk_229181840;
-  }
-
-  v22 = v13[person];
-  v23 = v14[person];
-  v24 = v15[person];
-  v25 = v16[person];
-  v26 = v21[person];
+  [v5 biologicalSex];
 }
 
 - (uint64_t)_isAsthmaAttackAllowedForDemoPerson:(double)person atTime:

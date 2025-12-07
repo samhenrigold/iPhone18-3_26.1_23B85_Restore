@@ -10,26 +10,25 @@
 {
   lCopy = l;
   generatorCopy = generator;
-  v32.receiver = self;
-  v32.super_class = LPEmailCompatibleHTMLLinkComponent;
-  v8 = [(LPHTMLComponent *)&v32 initWithTagName:@"a" themePath:&stru_1F2447CF0 generator:generatorCopy];
-  v10 = v8;
+  v30.receiver = self;
+  v30.super_class = LPEmailCompatibleHTMLLinkComponent;
+  v8 = [(LPHTMLComponent *)&v30 initWithTagName:@"a" themePath:&stru_1F2447CF0 generator:generatorCopy];
   if (v8)
   {
-    LPWebLock(v8, v9);
+    LPWebLock();
     if ([generatorCopy applyCornerRadiusToLink])
     {
-      v11 = @"10px";
+      v9 = @"10px";
     }
 
     else
     {
-      v11 = @"0";
+      v9 = @"0";
     }
 
     cssResolver = [generatorCopy cssResolver];
     localVariables = [cssResolver localVariables];
-    [localVariables setObject:v11 forKeyedSubscript:@"local-link-cornerRadius"];
+    [localVariables setObject:v9 forKeyedSubscript:@"local-link-cornerRadius"];
 
     rootWidth = [generatorCopy rootWidth];
     _lp_CSSText = [rootWidth _lp_CSSText];
@@ -37,36 +36,36 @@
     localVariables2 = [cssResolver2 localVariables];
     [localVariables2 setObject:_lp_CSSText forKeyedSubscript:@"local-link-width"];
 
-    generator = [(LPHTMLComponent *)v10 generator];
+    generator = [(LPHTMLComponent *)v8 generator];
     cssResolver3 = [generator cssResolver];
-    element = [(LPHTMLComponent *)v10 element];
-    [cssResolver3 addStyle:@"lp-rich-link" toElement:element inComponent:v10];
+    element = [(LPHTMLComponent *)v8 element];
+    [cssResolver3 addStyle:@"lp-rich-link" toElement:element inComponent:v8];
 
-    element2 = [(LPHTMLComponent *)v10 element];
+    element2 = [(LPHTMLComponent *)v8 element];
     [element2 setAttribute:@"rel" value:@"nofollow"];
 
-    element3 = [(LPHTMLComponent *)v10 element];
+    element3 = [(LPHTMLComponent *)v8 element];
     absoluteString = [lCopy absoluteString];
     [element3 setAttribute:@"href" value:absoluteString];
 
-    element4 = [(LPHTMLComponent *)v10 element];
+    element4 = [(LPHTMLComponent *)v8 element];
     [element4 setAttribute:@"dir" value:@"ltr"];
 
-    element5 = [(LPHTMLComponent *)v10 element];
+    element5 = [(LPHTMLComponent *)v8 element];
     [element5 setAttribute:@"role" value:@"button"];
 
-    element6 = [(LPHTMLComponent *)v10 element];
+    element6 = [(LPHTMLComponent *)v8 element];
     [element6 setAttribute:@"draggable" value:@"false"];
 
-    element7 = [(LPHTMLComponent *)v10 element];
+    element7 = [(LPHTMLComponent *)v8 element];
     rootWidth2 = [generatorCopy rootWidth];
     _lp_HTMLAttributeText = [rootWidth2 _lp_HTMLAttributeText];
     [element7 setAttribute:@"width" value:_lp_HTMLAttributeText];
 
-    v30 = v10;
+    v28 = v8;
   }
 
-  return v10;
+  return v8;
 }
 
 + (id)baseRules

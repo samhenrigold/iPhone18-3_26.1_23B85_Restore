@@ -17,7 +17,7 @@
 
 - (OrgApacheLuceneStoreFilterDirectory)initWithOrgApacheLuceneStoreDirectory:(id)directory
 {
-  OrgApacheLuceneStoreDirectory_init(self, a2);
+  OrgApacheLuceneStoreDirectory_init();
   JreStrongAssign(&self->in_, directory);
   return self;
 }

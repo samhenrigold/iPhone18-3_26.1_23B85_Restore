@@ -60,7 +60,7 @@ uint64_t __61__WFRemoteExtensionProxy_confirmIntentWithCompletionHandler___block
 
 - (void)handleIntentRemotelyWithRemoteOperation:(id)operation completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   completionCopy = completion;
   connection = [(WFRemoteExtensionProxy *)self connection];
@@ -77,24 +77,22 @@ uint64_t __61__WFRemoteExtensionProxy_confirmIntentWithCompletionHandler___block
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     *buf = 136315394;
-    v21 = "[WFRemoteExtensionProxy handleIntentRemotelyWithRemoteOperation:completion:]";
-    v22 = 2114;
-    v23 = v12;
+    v20 = "[WFRemoteExtensionProxy handleIntentRemotelyWithRemoteOperation:completion:]";
+    v21 = 2114;
+    v22 = v12;
     _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s WFRemoteExtensionProxy is handling remote intent operation (%{public}@)", buf, 0x16u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __77__WFRemoteExtensionProxy_handleIntentRemotelyWithRemoteOperation_completion___block_invoke_2;
-  v16[3] = &unk_1E837BCA8;
-  v17 = operationCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __77__WFRemoteExtensionProxy_handleIntentRemotelyWithRemoteOperation_completion___block_invoke_2;
+  v15[3] = &unk_1E837BCA8;
+  v16 = operationCopy;
   selfCopy = self;
-  v19 = completionCopy;
+  v18 = completionCopy;
   v13 = completionCopy;
   v14 = operationCopy;
-  [intent _injectProxiesForImages:&__block_literal_global_54465 completion:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [intent _injectProxiesForImages:&__block_literal_global_54465 completion:v15];
 }
 
 void __77__WFRemoteExtensionProxy_handleIntentRemotelyWithRemoteOperation_completion___block_invoke_2(id *a1, void *a2)
@@ -147,40 +145,37 @@ void __77__WFRemoteExtensionProxy_handleIntentRemotelyWithRemoteOperation_comple
 
 void __77__WFRemoteExtensionProxy_handleIntentRemotelyWithRemoteOperation_completion___block_invoke_2_173(void *a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *MEMORY[0x1E69AA8C0];
   v7 = [*(*(a1[6] + 8) + 40) ins_aceIntentResponse];
   v8 = getWFIntentExecutionLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = a1[4];
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v14 = 136315906;
-    v15 = "[WFRemoteExtensionProxy handleIntentRemotelyWithRemoteOperation:completion:]_block_invoke_2";
-    v16 = 2114;
-    v17 = v11;
-    v18 = 1024;
-    v19 = a2;
-    v20 = 2114;
-    v21 = v5;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s WFRemoteExtensionProxy finished handling remote intent operation (%{public}@), success %d error %{public}@", &v14, 0x26u);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v12 = 136315906;
+    v13 = "[WFRemoteExtensionProxy handleIntentRemotelyWithRemoteOperation:completion:]_block_invoke_2";
+    v14 = 2114;
+    v15 = v10;
+    v16 = 1024;
+    v17 = a2;
+    v18 = 2114;
+    v19 = v5;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s WFRemoteExtensionProxy finished handling remote intent operation (%{public}@), success %d error %{public}@", &v12, 0x26u);
   }
 
   if (v7)
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v12 = [objc_alloc(MEMORY[0x1E69AA880]) initWithErrorCode:1316 underlyingError:v5];
+    v11 = [objc_alloc(MEMORY[0x1E69AA880]) initWithErrorCode:1316 underlyingError:v5];
   }
 
   (*(a1[5] + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExtensionProxy)initWithConnection:(id)connection andDevice:(id)device

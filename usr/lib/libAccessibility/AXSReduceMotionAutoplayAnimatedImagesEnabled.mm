@@ -3,7 +3,7 @@
 
 @implementation AXSReduceMotionAutoplayAnimatedImagesEnabled
 
-uint64_t ___AXSReduceMotionAutoplayAnimatedImagesEnabled_block_invoke()
+void *___AXSReduceMotionAutoplayAnimatedImagesEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

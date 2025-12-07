@@ -1,23 +1,23 @@
-unsigned int *anonymous namespace::OldDemangler::demangleType(swift::Demangle::__runtime::NodeFactory **this, uint64_t a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleType(swift::Demangle::__runtime::NodeFactory **this, uint64_t a2, unsigned int a3)
 {
-  if (!v3)
+  if (!v4)
   {
     return 0;
   }
 
-  v4 = v3;
+  v5 = v4;
   Node = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
-  swift::Demangle::__runtime::Node::addChild(Node, v4, this[5], v6, v7);
+  swift::Demangle::__runtime::Node::addChild(Node, v5, this[5], v7, v8);
   return Node;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleProtocolConformance(swift::Demangle::__runtime::NodeFactory **this, int a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleProtocolConformance(swift::Demangle::__runtime::NodeFactory **this, int a2, unsigned int a3)
 {
   if (result)
   {
-    v5 = result;
+    v6 = result;
     Node = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
-    swift::Demangle::__runtime::Node::addChild(Node, v5, this[5], v7, v8);
+    swift::Demangle::__runtime::Node::addChild(Node, v6, this[5], v8, v9);
     if (!Node)
     {
       return 0;
@@ -28,19 +28,19 @@ unsigned int *anonymous namespace::OldDemangler::demangleProtocolConformance(swi
       return result;
     }
 
-    v9 = result;
-    v10 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
-    swift::Demangle::__runtime::Node::addChild(v10, v9, this[5], v11, v12);
-    if (v10)
+    v10 = result;
+    v11 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
+    swift::Demangle::__runtime::Node::addChild(v11, v10, this[5], v12, v13);
+    if (v11)
     {
       if (result)
       {
-        v13 = result;
-        v14 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 192);
-        swift::Demangle::__runtime::Node::addChild(v14, Node, this[5], v15, v16);
-        swift::Demangle::__runtime::Node::addChild(v14, v10, this[5], v17, v18);
-        swift::Demangle::__runtime::Node::addChild(v14, v13, this[5], v19, v20);
-        return v14;
+        v14 = result;
+        v15 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 192);
+        swift::Demangle::__runtime::Node::addChild(v15, Node, this[5], v16, v17);
+        swift::Demangle::__runtime::Node::addChild(v15, v11, this[5], v18, v19);
+        swift::Demangle::__runtime::Node::addChild(v15, v14, this[5], v20, v21);
+        return v15;
       }
     }
 
@@ -53,197 +53,197 @@ unsigned int *anonymous namespace::OldDemangler::demangleProtocolConformance(swi
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleTypeImpl(_anonymous_namespace_::OldDemangler *this, uint64_t a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleTypeImpl(_anonymous_namespace_::OldDemangler *this, uint64_t a2, unsigned int a3)
 {
   if (a2 > 0x400)
   {
     return 0;
   }
 
-  v2 = *(this + 4);
-  if (!v2)
+  v3 = *(this + 4);
+  if (!v3)
   {
     return 0;
   }
 
   Node = 0;
-  v4 = *(this + 3);
-  v6 = *v4;
-  v5 = v4 + 1;
-  *(this + 3) = v4 + 1;
-  *(this + 4) = v2 - 1;
-  v7 = 25;
-  switch(v6)
+  v5 = *(this + 3);
+  v7 = *v5;
+  v6 = v5 + 1;
+  *(this + 3) = v5 + 1;
+  *(this + 4) = v3 - 1;
+  v8 = 25;
+  switch(v7)
   {
     case 'B':
       Node = 0;
-      if (v2 == 1)
+      if (v3 == 1)
       {
         return Node;
       }
 
-      v8 = v4[1];
-      *(this + 3) = v4 + 2;
-      *(this + 4) = v2 - 2;
-      if (v8 > 110)
+      v9 = v5[1];
+      *(this + 3) = v5 + 2;
+      *(this + 4) = v3 - 2;
+      if (v9 > 110)
       {
-        if (v8 <= 115)
+        if (v9 <= 115)
         {
-          if (v8 == 111)
+          if (v9 == 111)
           {
-            v73 = *(this + 5);
-            v74 = "Builtin.NativeObject";
+            v75 = *(this + 5);
+            v76 = "Builtin.NativeObject";
           }
 
           else
           {
-            if (v8 != 112)
+            if (v9 != 112)
             {
               return Node;
             }
 
-            v73 = *(this + 5);
-            v74 = "Builtin.RawPointer";
+            v75 = *(this + 5);
+            v76 = "Builtin.RawPointer";
           }
         }
 
         else
         {
-          switch(v8)
+          switch(v9)
           {
             case 't':
-              v73 = *(this + 5);
-              v74 = "Builtin.SILToken";
+              v75 = *(this + 5);
+              v76 = "Builtin.SILToken";
               break;
             case 'v':
-              v145 = 0;
-              v101 = this;
+              v148 = 0;
+              v103 = this;
               {
                 return 0;
               }
 
-              v102 = *(v101 + 4);
-              if (!v102)
+              v104 = *(v103 + 4);
+              if (!v104)
               {
                 return 0;
               }
 
-              v103 = *(v101 + 3);
-              if (*v103 != 66)
+              v105 = *(v103 + 3);
+              if (*v105 != 66)
               {
                 return 0;
               }
 
-              *(v101 + 3) = v103 + 1;
-              *(v101 + 4) = v102 - 1;
-              if (v102 == 1)
+              *(v103 + 3) = v105 + 1;
+              *(v103 + 4) = v104 - 1;
+              if (v104 == 1)
               {
                 return 0;
               }
 
-              v104 = v103[1];
-              switch(v104)
+              v106 = v105[1];
+              switch(v106)
               {
                 case 'f':
-                  *(v101 + 3) = v103 + 2;
-                  *(v101 + 4) = v102 - 2;
-                  v143 = 0;
+                  *(v103 + 3) = v105 + 2;
+                  *(v103 + 4) = v104 - 2;
+                  v146 = 0;
                   Node = 0;
                   {
                     return Node;
                   }
 
-                  v10 = *(v101 + 5);
-                  memset(&v144, 0, sizeof(v144));
-                  std::string::append(&v144, "Builtin.Vec", 0xBuLL);
-                  v105 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v144, v145);
-                  v106 = v105;
-                  v107 = "xFPIEEE";
-                  v108 = 7;
+                  v11 = *(v103 + 5);
+                  memset(&v147, 0, sizeof(v147));
+                  std::string::append(&v147, "Builtin.Vec", 0xBuLL);
+                  v107 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v147, v148);
+                  v108 = v107;
+                  v109 = "xFPIEEE";
+                  v110 = 7;
                   break;
                 case 'p':
-                  *(v101 + 3) = v103 + 2;
-                  *(v101 + 4) = v102 - 2;
-                  v10 = *(v101 + 5);
-                  memset(&v144, 0, sizeof(v144));
-                  std::string::append(&v144, "Builtin.Vec", 0xBuLL);
-                  v135 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v144, v145);
-                  std::string::append(v135, "xRawPointer", 0xBuLL);
-                  v99 = SHIBYTE(v135->__r_.__value_.__r.__words[2]);
-                  size = v135->__r_.__value_.__l.__size_;
-                  if (v99 >= 0)
+                  *(v103 + 3) = v105 + 2;
+                  *(v103 + 4) = v104 - 2;
+                  v11 = *(v103 + 5);
+                  memset(&v147, 0, sizeof(v147));
+                  std::string::append(&v147, "Builtin.Vec", 0xBuLL);
+                  v138 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v147, v148);
+                  std::string::append(v138, "xRawPointer", 0xBuLL);
+                  v101 = SHIBYTE(v138->__r_.__value_.__r.__words[2]);
+                  size = v138->__r_.__value_.__l.__size_;
+                  if (v101 >= 0)
                   {
-                    v59 = v135;
+                    v61 = v138;
                   }
 
                   else
                   {
-                    v59 = v135->__r_.__value_.__r.__words[0];
+                    v61 = v138->__r_.__value_.__r.__words[0];
                   }
 
                   goto LABEL_150;
                 case 'i':
-                  *(v101 + 3) = v103 + 2;
-                  *(v101 + 4) = v102 - 2;
-                  v143 = 0;
+                  *(v103 + 3) = v105 + 2;
+                  *(v103 + 4) = v104 - 2;
+                  v146 = 0;
                   Node = 0;
                   {
                     return Node;
                   }
 
-                  v10 = *(v101 + 5);
-                  memset(&v144, 0, sizeof(v144));
-                  std::string::append(&v144, "Builtin.Vec", 0xBuLL);
-                  v105 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v144, v145);
-                  v106 = v105;
-                  v107 = "xInt";
-                  v108 = 4;
+                  v11 = *(v103 + 5);
+                  memset(&v147, 0, sizeof(v147));
+                  std::string::append(&v147, "Builtin.Vec", 0xBuLL);
+                  v107 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(&v147, v148);
+                  v108 = v107;
+                  v109 = "xInt";
+                  v110 = 4;
                   break;
                 default:
                   return 0;
               }
 
-              std::string::append(v105, v107, v108);
-              v96 = v143;
-              v97 = v106;
+              std::string::append(v107, v109, v110);
+              v98 = v146;
+              v99 = v108;
 LABEL_147:
-              v98 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(v97, v96);
-              v99 = SHIBYTE(v98->__r_.__value_.__r.__words[2]);
-              size = v98->__r_.__value_.__l.__size_;
-              if (v99 >= 0)
+              v100 = swift::Demangle::__runtime::DemanglerPrinter::operator<<(v99, v98);
+              v101 = SHIBYTE(v100->__r_.__value_.__r.__words[2]);
+              size = v100->__r_.__value_.__l.__size_;
+              if (v101 >= 0)
               {
-                v59 = v98;
+                v61 = v100;
               }
 
               else
               {
-                v59 = v98->__r_.__value_.__r.__words[0];
+                v61 = v100->__r_.__value_.__r.__words[0];
               }
 
 LABEL_150:
-              if (v99 >= 0)
+              if (v101 >= 0)
               {
-                v61 = v99;
+                v63 = v101;
               }
 
               else
               {
-                v61 = size;
+                v63 = size;
               }
 
-              v58 = v10;
-              v60 = 20;
+              v60 = v11;
+              v62 = 20;
 LABEL_154:
-              Node = swift::Demangle::__runtime::NodeFactory::createNode(v58, v60, v59, v61);
-              if (SHIBYTE(v144.__r_.__value_.__r.__words[2]) < 0)
+              Node = swift::Demangle::__runtime::NodeFactory::createNode(v60, v62, v61, v63);
+              if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v144.__r_.__value_.__l.__data_);
+                operator delete(v147.__r_.__value_.__l.__data_);
               }
 
               return Node;
             case 'w':
-              v73 = *(this + 5);
-              v74 = "Builtin.Word";
+              v75 = *(this + 5);
+              v76 = "Builtin.Word";
               break;
             default:
               return Node;
@@ -251,313 +251,313 @@ LABEL_154:
         }
       }
 
-      else if (v8 <= 97)
+      else if (v9 <= 97)
       {
-        if (v8 == 66)
+        if (v9 == 66)
         {
-          v73 = *(this + 5);
-          v74 = "Builtin.UnsafeValueBuffer";
+          v75 = *(this + 5);
+          v76 = "Builtin.UnsafeValueBuffer";
         }
 
         else
         {
-          if (v8 != 79)
+          if (v9 != 79)
           {
             return Node;
           }
 
-          v73 = *(this + 5);
-          v74 = "Builtin.UnknownObject";
+          v75 = *(this + 5);
+          v76 = "Builtin.UnknownObject";
         }
       }
 
       else
       {
-        if (v8 != 98)
+        if (v9 != 98)
         {
-          if (v8 == 102)
+          if (v9 == 102)
           {
-            v145 = 0;
-            v95 = this;
+            v148 = 0;
+            v97 = this;
             {
               return 0;
             }
 
-            v10 = *(v95 + 5);
-            memset(&v144, 0, sizeof(v144));
-            v11 = "Builtin.FPIEEE";
-            v12 = 14;
+            v11 = *(v97 + 5);
+            memset(&v147, 0, sizeof(v147));
+            v12 = "Builtin.FPIEEE";
+            v13 = 14;
             goto LABEL_146;
           }
 
-          if (v8 != 105)
+          if (v9 != 105)
           {
             return Node;
           }
 
-          v145 = 0;
-          v9 = this;
+          v148 = 0;
+          v10 = this;
           {
-            v10 = *(v9 + 5);
-            memset(&v144, 0, sizeof(v144));
-            v11 = "Builtin.Int";
-            v12 = 11;
+            v11 = *(v10 + 5);
+            memset(&v147, 0, sizeof(v147));
+            v12 = "Builtin.Int";
+            v13 = 11;
 LABEL_146:
-            std::string::append(&v144, v11, v12);
-            v96 = v145;
-            v97 = &v144;
+            std::string::append(&v147, v12, v13);
+            v98 = v148;
+            v99 = &v147;
             goto LABEL_147;
           }
 
           return 0;
         }
 
-        v73 = *(this + 5);
-        v74 = "Builtin.BridgeObject";
+        v75 = *(this + 5);
+        v76 = "Builtin.BridgeObject";
       }
 
-      return swift::Demangle::__runtime::NodeFactory::createNode(v73, 20, v74);
+      return swift::Demangle::__runtime::NodeFactory::createNode(v75, 20, v76);
     case 'C':
       goto LABEL_69;
     case 'D':
-      v26 = this;
-      if (!v27)
+      v27 = this;
+      if (!v28)
       {
         return 0;
       }
 
-      v28 = v27;
-      v29 = swift::Demangle::__runtime::NodeFactory::createNode(*(v26 + 5), 243);
-      swift::Demangle::__runtime::Node::addChild(v29, v28, *(v26 + 5), v30, v31);
-      if (!v29)
+      v29 = v28;
+      v30 = swift::Demangle::__runtime::NodeFactory::createNode(*(v27 + 5), 243);
+      swift::Demangle::__runtime::Node::addChild(v30, v29, *(v27 + 5), v31, v32);
+      if (!v30)
       {
         return 0;
       }
 
-      v32 = *(v26 + 5);
-      v33 = 59;
+      v33 = *(v27 + 5);
+      v34 = 59;
       goto LABEL_67;
     case 'E':
-      if (v2 == 1)
+      if (v3 == 1)
       {
         return 0;
       }
 
-      if (*v5 != 82)
+      if (*v6 != 82)
       {
         return 0;
       }
 
-      *(this + 3) = v4 + 2;
-      *(this + 4) = v2 - 2;
-      if (v2 == 2 || v4[2] != 82)
+      *(this + 3) = v5 + 2;
+      *(this + 4) = v3 - 2;
+      if (v3 == 2 || v5[2] != 82)
       {
         return 0;
       }
 
-      *(this + 3) = v4 + 3;
-      *(this + 4) = v2 - 3;
-      v58 = *(this + 5);
-      memset(&v144, 0, sizeof(v144));
-      v59 = &v144;
-      v60 = 65;
-      v61 = 0;
+      *(this + 3) = v5 + 3;
+      *(this + 4) = v3 - 3;
+      v60 = *(this + 5);
+      memset(&v147, 0, sizeof(v147));
+      v61 = &v147;
+      v62 = 65;
+      v63 = 0;
       goto LABEL_154;
     case 'F':
-      v13 = a2 + 1;
-      v14 = 84;
+      v14 = a2 + 1;
+      v15 = 84;
       goto LABEL_83;
     case 'G':
-      v34 = a2;
-      v35 = this;
-      if (!v36)
+      v35 = a2;
+      v36 = this;
+      if (!v37)
       {
         return 0;
       }
 
     case 'K':
-      v13 = a2 + 1;
-      v14 = 11;
+      v14 = a2 + 1;
+      v15 = 11;
       goto LABEL_83;
     case 'M':
-      v55 = this;
-      if (!v56)
+      v57 = this;
+      if (!v58)
       {
         return 0;
       }
 
-      v29 = v56;
-      v26 = v55;
-      v32 = *(v55 + 5);
-      v33 = 154;
+      v30 = v58;
+      v27 = v57;
+      v33 = *(v57 + 5);
+      v34 = 154;
       goto LABEL_67;
     case 'O':
-      v7 = 63;
+      v8 = 63;
       goto LABEL_69;
     case 'P':
-      if (v2 == 1 || *v5 != 77)
+      if (v3 == 1 || *v6 != 77)
       {
         goto LABEL_112;
       }
 
-      *(this + 3) = v4 + 2;
-      *(this + 4) = v2 - 2;
-      v62 = this;
-      if (!v63)
+      *(this + 3) = v5 + 2;
+      *(this + 4) = v3 - 2;
+      v64 = this;
+      if (!v65)
       {
         return 0;
       }
 
-      v29 = v63;
-      v26 = v62;
-      v32 = *(v62 + 5);
-      v33 = 71;
+      v30 = v65;
+      v27 = v64;
+      v33 = *(v64 + 5);
+      v34 = 71;
       goto LABEL_67;
     case 'Q':
-      if (v2 == 1)
+      if (v3 == 1)
       {
         goto LABEL_89;
       }
 
-      v23 = *v5;
-      if (v23 != 85)
+      v24 = *v6;
+      if (v24 != 85)
       {
-        if (v23 == 117)
+        if (v24 == 117)
         {
-          *(this + 3) = v4 + 2;
-          *(this + 4) = v2 - 2;
-          v24 = *(this + 5);
+          *(this + 3) = v5 + 2;
+          *(this + 4) = v3 - 2;
+          v25 = *(this + 5);
 
-          return swift::Demangle::__runtime::NodeFactory::createNode(v24, 322);
+          return swift::Demangle::__runtime::NodeFactory::createNode(v25, 322);
         }
 
         else
         {
 LABEL_89:
-          v72 = a2 + 1;
+          v74 = a2 + 1;
         }
       }
 
-      *(this + 3) = v4 + 2;
-      *(this + 4) = v2 - 2;
-      v144.__r_.__value_.__r.__words[0] = 0;
-      v76 = this;
+      *(this + 3) = v5 + 2;
+      *(this + 4) = v3 - 2;
+      v147.__r_.__value_.__r.__words[0] = 0;
+      v78 = this;
       Node = 0;
       {
         return Node;
       }
 
-      Node = swift::Demangle::__runtime::NodeFactory::createNode(*(v76 + 5), 322);
-      v41 = swift::Demangle::__runtime::NodeFactory::createNode(*(v76 + 5), 355, v144.__r_.__value_.__l.__data_);
-      v42 = *(v76 + 5);
-      v43 = Node;
+      Node = swift::Demangle::__runtime::NodeFactory::createNode(*(v78 + 5), 322);
+      v43 = swift::Demangle::__runtime::NodeFactory::createNode(*(v78 + 5), 355, v147.__r_.__value_.__l.__data_);
+      v44 = *(v78 + 5);
+      v45 = Node;
       goto LABEL_49;
     case 'R':
-      v15 = this;
-      v16 = *(this + 5);
-      v17 = a2;
-      v18 = 128;
+      v16 = this;
+      v17 = *(this + 5);
+      v18 = a2;
+      v19 = 128;
       goto LABEL_43;
     case 'S':
 
     case 'T':
-      v19 = a2 + 1;
-      v20 = 0;
+      v20 = a2 + 1;
+      v21 = 0;
       goto LABEL_19;
     case 'V':
-      v7 = 230;
+      v8 = 230;
 LABEL_69:
-      v67 = a2 + 1;
-      v68 = v7;
+      v69 = a2 + 1;
+      v70 = v8;
       goto LABEL_71;
     case 'W':
-      v57 = a2 + 1;
+      v59 = a2 + 1;
 
     case 'X':
       Node = 0;
-      if (v2 == 1)
+      if (v3 == 1)
       {
         return Node;
       }
 
-      v69 = *v5;
-      if (v69 > 0x61)
+      v71 = *v6;
+      if (v71 > 0x61)
       {
-        if (*v5 <= 0x6Eu)
+        if (*v6 <= 0x6Eu)
         {
-          if (v69 != 98)
+          if (v71 != 98)
           {
-            if (v69 != 102)
+            if (v71 != 102)
             {
               return Node;
             }
 
-            *(this + 3) = v4 + 2;
-            *(this + 4) = v2 - 2;
-            v13 = a2 + 1;
-            v14 = 233;
+            *(this + 3) = v5 + 2;
+            *(this + 4) = v3 - 2;
+            v14 = a2 + 1;
+            v15 = 233;
 LABEL_83:
           }
 
-          *(this + 3) = v4 + 2;
-          *(this + 4) = v2 - 2;
-          v91 = this;
-          if (!v92)
+          *(this + 3) = v5 + 2;
+          *(this + 4) = v3 - 2;
+          v93 = this;
+          if (!v94)
           {
             return 0;
           }
 
-          v29 = v92;
-          v26 = v91;
-          v32 = *(v91 + 5);
-          v33 = 221;
+          v30 = v94;
+          v27 = v93;
+          v33 = *(v93 + 5);
+          v34 = 221;
         }
 
         else
         {
-          switch(v69)
+          switch(v71)
           {
             case 'o':
-              *(this + 3) = v4 + 2;
-              *(this + 4) = v2 - 2;
-              v89 = this;
-              if (!v90)
+              *(this + 3) = v5 + 2;
+              *(this + 4) = v3 - 2;
+              v91 = this;
+              if (!v92)
               {
                 return 0;
               }
 
-              v29 = v90;
-              v26 = v89;
-              v32 = *(v89 + 5);
-              v33 = 260;
+              v30 = v92;
+              v27 = v91;
+              v33 = *(v91 + 5);
+              v34 = 260;
               break;
             case 'u':
-              *(this + 3) = v4 + 2;
-              *(this + 4) = v2 - 2;
-              v93 = this;
-              if (!v94)
+              *(this + 3) = v5 + 2;
+              *(this + 4) = v3 - 2;
+              v95 = this;
+              if (!v96)
               {
                 return 0;
               }
 
-              v29 = v94;
-              v26 = v93;
-              v32 = *(v93 + 5);
-              v33 = 261;
+              v30 = v96;
+              v27 = v95;
+              v33 = *(v95 + 5);
+              v34 = 261;
               break;
             case 'w':
-              *(this + 3) = v4 + 2;
-              *(this + 4) = v2 - 2;
-              v70 = this;
-              if (!v71)
+              *(this + 3) = v5 + 2;
+              *(this + 4) = v3 - 2;
+              v72 = this;
+              if (!v73)
               {
                 return 0;
               }
 
-              v29 = v71;
-              v26 = v70;
-              v32 = *(v70 + 5);
-              v33 = 259;
+              v30 = v73;
+              v27 = v72;
+              v33 = *(v72 + 5);
+              v34 = 259;
               break;
             default:
               return Node;
@@ -565,191 +565,191 @@ LABEL_83:
         }
 
 LABEL_67:
-        v64 = swift::Demangle::__runtime::NodeFactory::createNode(v32, v33);
-        swift::Demangle::__runtime::Node::addChild(v64, v29, *(v26 + 5), v65, v66);
-        return v64;
+        v66 = swift::Demangle::__runtime::NodeFactory::createNode(v33, v34);
+        swift::Demangle::__runtime::Node::addChild(v66, v30, *(v27 + 5), v67, v68);
+        return v66;
       }
 
-      if (*v5 > 0x4Cu)
+      if (*v6 > 0x4Cu)
       {
-        if (v69 == 77)
+        if (v71 == 77)
         {
-          v85 = a2;
-          *(this + 3) = v4 + 2;
-          *(this + 4) = v2 - 2;
-          v86 = this;
-          if (!v87)
+          v87 = a2;
+          *(this + 3) = v5 + 2;
+          *(this + 4) = v3 - 2;
+          v88 = this;
+          if (!v89)
           {
             return 0;
           }
 
-          v47 = v87;
-          if (!v88)
+          v49 = v89;
+          if (!v90)
           {
             return 0;
           }
 
-          v49 = v88;
-          v50 = v86;
-          v51 = *(v86 + 5);
-          v52 = 154;
+          v51 = v90;
+          v52 = v88;
+          v53 = *(v88 + 5);
+          v54 = 154;
         }
 
         else
         {
-          if (v69 != 80)
+          if (v71 != 80)
           {
             return Node;
           }
 
-          *(this + 3) = v4 + 2;
-          *(this + 4) = v2 - 2;
-          if (v2 == 2 || v4[2] != 77)
+          *(this + 3) = v5 + 2;
+          *(this + 4) = v3 - 2;
+          if (v3 == 2 || v5[2] != 77)
           {
 LABEL_112:
-            v81 = a2 + 1;
+            v83 = a2 + 1;
           }
 
-          v77 = a2;
-          *(this + 3) = v4 + 3;
-          *(this + 4) = v2 - 3;
-          v78 = this;
-          if (!v79)
+          v79 = a2;
+          *(this + 3) = v5 + 3;
+          *(this + 4) = v3 - 3;
+          v80 = this;
+          if (!v81)
           {
             return 0;
           }
 
-          v47 = v79;
-          if (!v80)
+          v49 = v81;
+          if (!v82)
           {
             return 0;
           }
 
-          v49 = v80;
-          v50 = v78;
-          v51 = *(v78 + 5);
-          v52 = 71;
+          v51 = v82;
+          v52 = v80;
+          v53 = *(v80 + 5);
+          v54 = 71;
         }
 
 LABEL_48:
-        Node = swift::Demangle::__runtime::NodeFactory::createNode(v51, v52);
-        swift::Demangle::__runtime::Node::addChild(Node, v47, *(v50 + 5), v53, v54);
-        v42 = *(v50 + 5);
-        v43 = Node;
-        v41 = v49;
+        Node = swift::Demangle::__runtime::NodeFactory::createNode(v53, v54);
+        swift::Demangle::__runtime::Node::addChild(Node, v49, *(v52 + 5), v55, v56);
+        v44 = *(v52 + 5);
+        v45 = Node;
+        v43 = v51;
 LABEL_49:
-        swift::Demangle::__runtime::Node::addChild(v43, v41, v42, v39, v40);
+        swift::Demangle::__runtime::Node::addChild(v45, v43, v44, v41, v42);
         return Node;
       }
 
-      if (v69 != 66)
+      if (v71 != 66)
       {
-        if (v69 != 70)
+        if (v71 != 70)
         {
           return Node;
         }
 
-        *(this + 3) = v4 + 2;
-        *(this + 4) = v2 - 2;
-        v75 = a2 + 1;
+        *(this + 3) = v5 + 2;
+        *(this + 4) = v3 - 2;
+        v77 = a2 + 1;
       }
 
-      *(this + 3) = v4 + 2;
-      *(this + 4) = v2 - 2;
-      if (v2 == 2 || v4[2] != 71)
+      *(this + 3) = v5 + 2;
+      *(this + 4) = v3 - 2;
+      if (v3 == 2 || v5[2] != 71)
       {
-        v83 = a2;
-        v84 = 0;
+        v85 = a2;
+        v86 = 0;
       }
 
       else
       {
-        *(this + 3) = v4 + 3;
-        *(this + 4) = v2 - 3;
-        v82 = this;
-        v83 = a2;
-        this = v82;
-        if (!v84)
+        *(this + 3) = v5 + 3;
+        *(this + 4) = v3 - 3;
+        v84 = this;
+        v85 = a2;
+        this = v84;
+        if (!v86)
         {
           return 0;
         }
       }
 
-      v109 = this;
-      v110 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 223);
-      v111 = *(v109 + 4);
-      if (!v111)
+      v111 = this;
+      v112 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 223);
+      v114 = *(v111 + 4);
+      if (!v114)
       {
         return 0;
       }
 
-      v112 = v110;
-      v113 = v109;
-      v114 = v83;
+      v115 = v112;
+      v116 = v111;
+      v117 = v85;
       break;
     case 'a':
-      v67 = a2 + 1;
-      v68 = 245;
+      v69 = a2 + 1;
+      v70 = 245;
 LABEL_71:
 
     case 'b':
-      v13 = a2 + 1;
-      v14 = 175;
+      v14 = a2 + 1;
+      v15 = 175;
       goto LABEL_83;
     case 'c':
-      v13 = a2 + 1;
-      v14 = 23;
+      v14 = a2 + 1;
+      v15 = 23;
       goto LABEL_83;
     case 'f':
-      v13 = a2 + 1;
-      v14 = 257;
+      v14 = a2 + 1;
+      v15 = 257;
       goto LABEL_83;
     case 'k':
-      v15 = this;
-      v16 = *(this + 5);
-      v17 = a2;
-      v18 = 340;
+      v16 = this;
+      v17 = *(this + 5);
+      v18 = a2;
+      v19 = 340;
 LABEL_43:
-      v37 = swift::Demangle::__runtime::NodeFactory::createNode(v16, v18);
-      if (!v38)
+      v38 = swift::Demangle::__runtime::NodeFactory::createNode(v17, v19);
+      if (!v40)
       {
         return 0;
       }
 
-      v41 = v38;
-      v42 = *(v15 + 5);
-      Node = v37;
-      v43 = v37;
+      v43 = v40;
+      v44 = *(v16 + 5);
+      Node = v38;
+      v45 = v38;
       goto LABEL_49;
     case 'q':
-      v25 = a2 + 1;
+      v26 = a2 + 1;
 
     case 't':
-      v19 = a2 + 1;
-      v20 = 1;
+      v20 = a2 + 1;
+      v21 = 1;
 LABEL_19:
 
     case 'u':
-      v44 = a2;
-      v45 = this;
-      if (!v46)
-      {
-        return 0;
-      }
-
-      v47 = v46;
+      v46 = a2;
+      v47 = this;
       if (!v48)
       {
         return 0;
       }
 
       v49 = v48;
-      v50 = v45;
-      v51 = *(v45 + 5);
-      v52 = 45;
+      if (!v50)
+      {
+        return 0;
+      }
+
+      v51 = v50;
+      v52 = v47;
+      v53 = *(v47 + 5);
+      v54 = 45;
       goto LABEL_48;
     case 'w':
-      v21 = a2 + 1;
+      v22 = a2 + 1;
 
     case 'x':
 
@@ -759,79 +759,79 @@ LABEL_19:
 
   while (1)
   {
-    v115 = *(v113 + 3);
-    v116 = *v115;
-    if (v116 == 105)
+    v118 = *(v116 + 3);
+    v119 = *v118;
+    if (v119 == 105)
     {
-      v117 = 225;
+      v120 = 225;
       goto LABEL_172;
     }
 
-    if (v116 != 109)
+    if (v119 != 109)
     {
       break;
     }
 
-    v117 = 224;
+    v120 = 224;
 LABEL_172:
-    *(v113 + 3) = v115 + 1;
-    *(v113 + 4) = v111 - 1;
-    v118 = v114;
-    if (!v119)
+    *(v116 + 3) = v118 + 1;
+    *(v116 + 4) = v114 - 1;
+    v121 = v117;
+    if (!v122)
     {
       return 0;
     }
 
-    v120 = v119;
-    v121 = swift::Demangle::__runtime::NodeFactory::createNode(*(v109 + 5), 243);
-    swift::Demangle::__runtime::Node::addChild(v121, v120, *(v109 + 5), v122, v123);
-    if (!v121)
+    v123 = v122;
+    v124 = swift::Demangle::__runtime::NodeFactory::createNode(*(v111 + 5), 243);
+    swift::Demangle::__runtime::Node::addChild(v124, v123, *(v111 + 5), v125, v126);
+    if (!v124)
     {
       return 0;
     }
 
-    v124 = swift::Demangle::__runtime::NodeFactory::createNode(*(v109 + 5), v117);
-    swift::Demangle::__runtime::Node::addChild(v124, v121, *(v109 + 5), v125, v126);
-    swift::Demangle::__runtime::Node::addChild(v112, v124, *(v109 + 5), v127, v128);
-    v113 = v109;
+    v127 = swift::Demangle::__runtime::NodeFactory::createNode(*(v111 + 5), v120);
+    swift::Demangle::__runtime::Node::addChild(v127, v124, *(v111 + 5), v128, v129);
+    swift::Demangle::__runtime::Node::addChild(v115, v127, *(v111 + 5), v130, v131);
+    v116 = v111;
     Node = 0;
-    v111 = *(v109 + 4);
-    v114 = v118;
-    if (!v111)
+    v114 = *(v111 + 4);
+    v117 = v121;
+    if (!v114)
     {
       return Node;
     }
   }
 
-  if (v116 != 95)
+  if (v119 != 95)
   {
     return 0;
   }
 
-  *(v113 + 3) = v115 + 1;
-  *(v113 + 4) = v111 - 1;
-  if (v84)
+  *(v116 + 3) = v118 + 1;
+  *(v116 + 4) = v114 - 1;
+  if (v86)
   {
-    for (i = swift::Demangle::__runtime::NodeFactory::createNode(*(v109 + 5), 246); ; swift::Demangle::__runtime::Node::addChild(i, v132, *(v109 + 5), v133, v134))
+    for (i = swift::Demangle::__runtime::NodeFactory::createNode(*(v111 + 5), 246); ; swift::Demangle::__runtime::Node::addChild(i, v135, *(v111 + 5), v136, v137))
     {
-      v130 = *(v109 + 4);
-      if (v130)
+      v133 = *(v111 + 4);
+      if (v133)
       {
-        v131 = *(v109 + 3);
-        if (*v131 == 95)
+        v134 = *(v111 + 3);
+        if (*v134 == 95)
         {
           break;
         }
       }
 
-      if (!v132)
+      if (!v135)
       {
         return 0;
       }
     }
 
-    *(v109 + 3) = v131 + 1;
-    *(v109 + 4) = v130 - 1;
+    *(v111 + 3) = v134 + 1;
+    *(v111 + 4) = v133 - 1;
   }
 
   else
@@ -839,15 +839,15 @@ LABEL_172:
     i = 0;
   }
 
-  v136 = swift::Demangle::__runtime::NodeFactory::createNode(*(v109 + 5), 222);
-  swift::Demangle::__runtime::Node::addChild(v136, v112, *(v109 + 5), v137, v138);
-  if (v84)
+  v139 = swift::Demangle::__runtime::NodeFactory::createNode(*(v111 + 5), 222);
+  swift::Demangle::__runtime::Node::addChild(v139, v115, *(v111 + 5), v140, v141);
+  if (v86)
   {
-    swift::Demangle::__runtime::Node::addChild(v136, v84, *(v109 + 5), v139, v140);
-    swift::Demangle::__runtime::Node::addChild(v136, i, *(v109 + 5), v141, v142);
+    swift::Demangle::__runtime::Node::addChild(v139, v86, *(v111 + 5), v142, v143);
+    swift::Demangle::__runtime::Node::addChild(v139, i, *(v111 + 5), v144, v145);
   }
 
-  return v136;
+  return v139;
 }
 
 uint64_t anonymous namespace::OldDemangler::demangleBuiltinSize(_anonymous_namespace_::OldDemangler *this, unint64_t *a2)
@@ -956,7 +956,7 @@ uint64_t anonymous namespace::OldDemangler::demangleNatural(_anonymous_namespace
   return 1;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleDeclarationName(swift::Demangle::__runtime::NodeFactory **a1, __int16 a2, int a3)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleDeclarationName(swift::Demangle::__runtime::NodeFactory **a1, __int16 a2, int a3)
 {
   if (result)
   {
@@ -975,7 +975,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleDeclarationName(swift::
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleFunctionType(_anonymous_namespace_::OldDemangler *this, __int16 a2, int a3)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleFunctionType(_anonymous_namespace_::OldDemangler *this, __int16 a2, unsigned int a3)
 {
   v6 = *(this + 4);
   if (!v6)
@@ -1126,24 +1126,24 @@ LABEL_28:
     return 0;
   }
 
-  if (!v25)
+  if (!v26)
   {
     return 0;
   }
 
-  v26 = v25;
-  v27 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-  swift::Demangle::__runtime::Node::addChild(v27, v26, *(this + 5), v28, v29);
-  if (!v27)
+  v27 = v26;
+  v28 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
+  swift::Demangle::__runtime::Node::addChild(v28, v27, *(this + 5), v29, v30);
+  if (!v28)
   {
     return 0;
   }
 
-  v30 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), a2);
+  v31 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), a2);
   if (v9)
   {
-    v31 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 285);
-    swift::Demangle::__runtime::Node::addChild(v30, v31, *(this + 5), v32, v33);
+    v32 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 285);
+    swift::Demangle::__runtime::Node::addChild(v31, v32, *(this + 5), v33, v34);
     if (!v12)
     {
       goto LABEL_34;
@@ -1161,13 +1161,13 @@ LABEL_34:
     goto LABEL_41;
   }
 
-  v38 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 284);
-  swift::Demangle::__runtime::Node::addChild(v30, v38, *(this + 5), v39, v40);
+  v39 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 284);
+  swift::Demangle::__runtime::Node::addChild(v31, v39, *(this + 5), v40, v41);
   if (v10)
   {
 LABEL_35:
-    v34 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 68);
-    swift::Demangle::__runtime::Node::addChild(v30, v34, *(this + 5), v35, v36);
+    v35 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 68);
+    swift::Demangle::__runtime::Node::addChild(v31, v35, *(this + 5), v36, v37);
     if (!v13)
     {
       goto LABEL_43;
@@ -1180,28 +1180,28 @@ LABEL_41:
   if (v13)
   {
 LABEL_42:
-    v41 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 70, v13);
-    swift::Demangle::__runtime::Node::addChild(v30, v41, *(this + 5), v42, v43);
+    v42 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 70, v13);
+    swift::Demangle::__runtime::Node::addChild(v31, v42, *(this + 5), v43, v44);
   }
 
 LABEL_43:
   if (Node)
   {
-    v44 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 69);
-    swift::Demangle::__runtime::Node::addChild(v44, Node, *(this + 5), v45, v46);
-    swift::Demangle::__runtime::Node::addChild(v30, v44, *(this + 5), v47, v48);
+    v45 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 69);
+    swift::Demangle::__runtime::Node::addChild(v45, Node, *(this + 5), v46, v47);
+    swift::Demangle::__runtime::Node::addChild(v31, v45, *(this + 5), v48, v49);
   }
 
-  v49 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 3);
-  swift::Demangle::__runtime::Node::addChild(v30, v49, *(this + 5), v50, v51);
-  swift::Demangle::__runtime::Node::addChild(v49, v22, *(this + 5), v52, v53);
-  v54 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 218);
-  swift::Demangle::__runtime::Node::addChild(v54, v27, *(this + 5), v55, v56);
-  swift::Demangle::__runtime::Node::addChild(v30, v54, *(this + 5), v57, v58);
-  return v30;
+  v50 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 3);
+  swift::Demangle::__runtime::Node::addChild(v31, v50, *(this + 5), v51, v52);
+  swift::Demangle::__runtime::Node::addChild(v50, v22, *(this + 5), v53, v54);
+  v55 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 218);
+  swift::Demangle::__runtime::Node::addChild(v55, v28, *(this + 5), v56, v57);
+  swift::Demangle::__runtime::Node::addChild(v31, v55, *(this + 5), v58, v59);
+  return v31;
 }
 
-unsigned __int16 *anonymous namespace::OldDemangler::demangleGenericSignature(_anonymous_namespace_::OldDemangler *this, int a2, int a3)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleGenericSignature(_anonymous_namespace_::OldDemangler *this, int a2, int a3)
 {
   v5 = *(this + 5);
   if (a3)
@@ -1332,40 +1332,40 @@ LABEL_39:
               return 0;
             }
 
-            v46 = *(this + 4);
-            if (!v46)
+            v47 = *(this + 4);
+            if (!v47)
             {
               return 0;
             }
 
-            v47 = *(this + 3);
-            v48 = *v47;
-            if (v48 <= 0x6B)
+            v48 = *(this + 3);
+            v49 = *v48;
+            if (v49 <= 0x6B)
             {
               break;
             }
 
-            if (v48 != 108)
+            if (v49 != 108)
             {
-              if (v48 == 122)
+              if (v49 == 122)
               {
-                *(this + 3) = v47 + 1;
-                *(this + 4) = v46 - 1;
+                *(this + 3) = v48 + 1;
+                *(this + 4) = v47 - 1;
                 if (!result)
                 {
                   return result;
                 }
 
-                v54 = result;
-                v51 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-                swift::Demangle::__runtime::Node::addChild(v51, v54, *(this + 5), v55, v56);
-                if (!v51)
+                v55 = result;
+                v52 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
+                swift::Demangle::__runtime::Node::addChild(v52, v55, *(this + 5), v56, v57);
+                if (!v52)
                 {
                   return 0;
                 }
 
-                v57 = *(this + 5);
-                v58 = 40;
+                v58 = *(this + 5);
+                v59 = 40;
                 goto LABEL_61;
               }
 
@@ -1376,10 +1376,10 @@ LABEL_56:
               }
 
 LABEL_59:
-              v59 = result;
-              v51 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-              swift::Demangle::__runtime::Node::addChild(v51, v59, *(this + 5), v60, v61);
-              if (!v51)
+              v60 = result;
+              v52 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
+              swift::Demangle::__runtime::Node::addChild(v52, v60, *(this + 5), v61, v62);
+              if (!v52)
               {
                 return 0;
               }
@@ -1387,25 +1387,25 @@ LABEL_59:
               goto LABEL_60;
             }
 
-            v95 = -1;
             v96 = -1;
-            *(this + 3) = v47 + 1;
-            *(this + 4) = v46 - 1;
-            v62 = 0;
-            if (v46 != 1)
+            v97 = -1;
+            *(this + 3) = v48 + 1;
+            *(this + 4) = v47 - 1;
+            v63 = 0;
+            if (v47 != 1)
             {
-              v67 = v47[1];
-              if (v67 > 0x52)
+              v68 = v48[1];
+              if (v68 > 0x52)
               {
-                if (v47[1] <= 0x54u)
+                if (v48[1] <= 0x54u)
                 {
-                  if (v67 == 83)
+                  if (v68 == 83)
                   {
-                    v68 = v29;
-                    v69 = v28;
-                    v70 = v27;
-                    *(this + 3) = v47 + 2;
-                    *(this + 4) = v46 - 2;
+                    v69 = v29;
+                    v70 = v28;
+                    v71 = v27;
+                    *(this + 3) = v48 + 2;
+                    *(this + 4) = v47 - 2;
                     v27 = "S";
                     {
                       goto LABEL_100;
@@ -1414,11 +1414,11 @@ LABEL_59:
                     goto LABEL_110;
                   }
 
-                  if (v67 == 84)
+                  if (v68 == 84)
                   {
-                    v68 = v29;
-                    v69 = v28;
-                    v70 = v27;
+                    v69 = v29;
+                    v70 = v28;
+                    v71 = v27;
                     v27 = "T";
                     goto LABEL_99;
                   }
@@ -1426,19 +1426,19 @@ LABEL_59:
 
                 else
                 {
-                  switch(v67)
+                  switch(v68)
                   {
                     case 'U':
-                      v68 = v29;
-                      v69 = v28;
-                      v70 = v27;
+                      v69 = v29;
+                      v70 = v28;
+                      v71 = v27;
                       goto LABEL_99;
                     case 'e':
-                      v68 = v29;
-                      v69 = v28;
-                      v70 = v27;
-                      *(this + 3) = v47 + 2;
-                      *(this + 4) = v46 - 2;
+                      v69 = v29;
+                      v70 = v28;
+                      v71 = v27;
+                      *(this + 3) = v48 + 2;
+                      *(this + 4) = v47 - 2;
                       v27 = "e";
                       {
                         goto LABEL_110;
@@ -1446,11 +1446,11 @@ LABEL_59:
 
                       goto LABEL_100;
                     case 'm':
-                      v68 = v29;
-                      v69 = v28;
-                      v70 = v27;
-                      *(this + 3) = v47 + 2;
-                      *(this + 4) = v46 - 2;
+                      v69 = v29;
+                      v70 = v28;
+                      v71 = v27;
+                      *(this + 3) = v48 + 2;
+                      *(this + 4) = v47 - 2;
                       v27 = "m";
                       {
                         goto LABEL_110;
@@ -1461,95 +1461,95 @@ LABEL_59:
                 }
               }
 
-              else if (v47[1] <= 0x4Cu)
+              else if (v48[1] <= 0x4Cu)
               {
-                if (v67 == 66)
+                if (v68 == 66)
                 {
-                  v68 = v29;
-                  v74 = v28;
-                  v70 = v27;
-                  v69 = v74;
-                  v27 = v74;
+                  v69 = v29;
+                  v75 = v28;
+                  v71 = v27;
+                  v70 = v75;
+                  v27 = v75;
                   goto LABEL_99;
                 }
 
-                if (v67 == 69)
+                if (v68 == 69)
                 {
-                  *(this + 3) = v47 + 2;
-                  *(this + 4) = v46 - 2;
+                  *(this + 3) = v48 + 2;
+                  *(this + 4) = v47 - 2;
                   {
-                    v71 = *(this + 4);
-                    if (v71)
+                    v72 = *(this + 4);
+                    if (v72)
                     {
-                      v72 = *(this + 3);
-                      if (*v72 == 95)
+                      v73 = *(this + 3);
+                      if (*v73 == 95)
                       {
-                        v73 = v29;
-                        v69 = v28;
-                        v70 = v27;
-                        *(this + 3) = v72 + 1;
-                        *(this + 4) = v71 - 1;
-                        v68 = v73;
-                        v27 = v73;
+                        v74 = v29;
+                        v70 = v28;
+                        v71 = v27;
+                        *(this + 3) = v73 + 1;
+                        *(this + 4) = v72 - 1;
+                        v69 = v74;
+                        v27 = v74;
                         {
                           goto LABEL_110;
                         }
 
 LABEL_100:
-                        v77 = *(this + 5);
-                        v78 = v77[1];
-                        if (!v78 || (v79 = v78 + 1, (v78 + 1) > v77[2]))
+                        v78 = *(this + 5);
+                        v79 = v78[1];
+                        if (!v79 || (v80 = v79 + 1, (v79 + 1) > v78[2]))
                         {
-                          v80 = 2 * v77[4];
-                          if (v80 <= 2)
+                          v81 = 2 * v78[4];
+                          if (v81 <= 2)
                           {
-                            v80 = 2;
+                            v81 = 2;
                           }
 
-                          v77[4] = v80;
-                          v81 = v80 + 8;
-                          v82 = malloc_type_malloc(v80 + 8, 0x2004093837F09uLL);
-                          v78 = (v82 + 1);
-                          *v82 = v77[3];
-                          v79 = v82 + 9;
-                          v77[2] = v82 + v81;
-                          v77[3] = v82;
+                          v78[4] = v81;
+                          v82 = v81 + 8;
+                          v83 = malloc_type_malloc(v81 + 8, 0x2004093837F09uLL);
+                          v79 = (v83 + 1);
+                          *v83 = v78[3];
+                          v80 = v83 + 9;
+                          v78[2] = v83 + v82;
+                          v78[3] = v83;
                         }
 
-                        v77[1] = v79;
-                        *v78 = *v27;
-                        NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v77, 103, v78, 1);
+                        v78[1] = v80;
+                        *v79 = *v27;
+                        NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v78, 103, v79, 1);
                         if (NodeWithAllocatedText)
                         {
-                          v84 = NodeWithAllocatedText;
-                          v62 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 42);
-                          swift::Demangle::__runtime::Node::addChild(v62, v41, *(this + 5), v85, v86);
-                          swift::Demangle::__runtime::Node::addChild(v62, v84, *(this + 5), v87, v88);
-                          v27 = v70;
-                          if (v96 != -1)
+                          v85 = NodeWithAllocatedText;
+                          v63 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 42);
+                          swift::Demangle::__runtime::Node::addChild(v63, v41, *(this + 5), v86, v87);
+                          swift::Demangle::__runtime::Node::addChild(v63, v85, *(this + 5), v88, v89);
+                          v27 = v71;
+                          if (v97 != -1)
                           {
-                            v89 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 171, v96);
-                            swift::Demangle::__runtime::Node::addChild(v62, v89, *(this + 5), v90, v91);
-                            v28 = v69;
-                            if (v95 != -1)
+                            v90 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 171, v97);
+                            swift::Demangle::__runtime::Node::addChild(v63, v90, *(this + 5), v91, v92);
+                            v28 = v70;
+                            if (v96 != -1)
                             {
-                              v92 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 171, v95);
-                              swift::Demangle::__runtime::Node::addChild(v62, v92, *(this + 5), v93, v94);
+                              v93 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 171, v96);
+                              swift::Demangle::__runtime::Node::addChild(v63, v93, *(this + 5), v94, v95);
                             }
 
                             goto LABEL_112;
                           }
 
 LABEL_111:
-                          v28 = v69;
+                          v28 = v70;
 LABEL_112:
-                          v29 = v68;
+                          v29 = v69;
                           goto LABEL_62;
                         }
 
 LABEL_110:
-                        v62 = 0;
-                        v27 = v70;
+                        v63 = 0;
+                        v27 = v71;
                         goto LABEL_111;
                       }
                     }
@@ -1561,23 +1561,23 @@ LABEL_110:
 
               else
               {
-                switch(v67)
+                switch(v68)
                 {
                   case 'M':
-                    *(this + 3) = v47 + 2;
-                    *(this + 4) = v46 - 2;
+                    *(this + 3) = v48 + 2;
+                    *(this + 4) = v47 - 2;
                     {
-                      v75 = *(this + 4);
-                      if (v75)
+                      v76 = *(this + 4);
+                      if (v76)
                       {
-                        v76 = *(this + 3);
-                        if (*v76 == 95)
+                        v77 = *(this + 3);
+                        if (*v77 == 95)
                         {
-                          v68 = v29;
-                          v69 = v28;
-                          v70 = v27;
-                          *(this + 3) = v76 + 1;
-                          *(this + 4) = v75 - 1;
+                          v69 = v29;
+                          v70 = v28;
+                          v71 = v27;
+                          *(this + 3) = v77 + 1;
+                          *(this + 4) = v76 - 1;
                           v27 = "M";
                           {
                             goto LABEL_100;
@@ -1589,34 +1589,34 @@ LABEL_110:
                     }
 
 LABEL_96:
-                    v62 = 0;
+                    v63 = 0;
                     break;
                   case 'N':
-                    v68 = v29;
-                    v69 = v28;
-                    v70 = v27;
+                    v69 = v29;
+                    v70 = v28;
+                    v71 = v27;
                     v27 = "N";
                     goto LABEL_99;
                   case 'R':
-                    v68 = v29;
-                    v69 = v28;
-                    v70 = v27;
+                    v69 = v29;
+                    v70 = v28;
+                    v71 = v27;
                     v27 = "R";
 LABEL_99:
-                    *(this + 3) = v47 + 2;
-                    *(this + 4) = v46 - 2;
+                    *(this + 3) = v48 + 2;
+                    *(this + 4) = v47 - 2;
                     goto LABEL_100;
                 }
               }
             }
 
 LABEL_62:
-            if (!v62)
+            if (!v63)
             {
               return 0;
             }
 
-            swift::Demangle::__runtime::Node::addChild(v9, v62, *(this + 5), v44, v45);
+            swift::Demangle::__runtime::Node::addChild(v9, v63, *(this + 5), v45, v46);
             v8 = *(this + 4);
             if (!v8)
             {
@@ -1685,7 +1685,7 @@ LABEL_26:
             }
           }
 
-          if (v48 == 67)
+          if (v49 == 67)
           {
             if (!result)
             {
@@ -1695,43 +1695,43 @@ LABEL_26:
             goto LABEL_59;
           }
 
-          if (v48 != 83)
+          if (v49 != 83)
           {
             goto LABEL_56;
           }
 
-          *(this + 3) = v47 + 1;
-          *(this + 4) = v46 - 1;
+          *(this + 3) = v48 + 1;
+          *(this + 4) = v47 - 1;
           if (!result)
           {
             return result;
           }
 
-          v49 = result;
-          v50 = result[8];
-          if (v50 != 25 && v50 != 190)
+          v50 = result;
+          v51 = *(result + 8);
+          if (v51 != 25 && v51 != 190)
           {
-            if (v50 != 163)
+            if (v51 != 163)
             {
               return 0;
             }
 
-            v49 = result;
+            v50 = result;
             if (!result)
             {
               return result;
             }
           }
 
-          v51 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-          swift::Demangle::__runtime::Node::addChild(v51, v49, *(this + 5), v52, v53);
+          v52 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
+          swift::Demangle::__runtime::Node::addChild(v52, v50, *(this + 5), v53, v54);
 LABEL_60:
-          v57 = *(this + 5);
-          v58 = 37;
+          v58 = *(this + 5);
+          v59 = 37;
 LABEL_61:
-          v62 = swift::Demangle::__runtime::NodeFactory::createNode(v57, v58);
-          swift::Demangle::__runtime::Node::addChild(v62, v41, *(this + 5), v63, v64);
-          swift::Demangle::__runtime::Node::addChild(v62, v51, *(this + 5), v65, v66);
+          v63 = swift::Demangle::__runtime::NodeFactory::createNode(v58, v59);
+          swift::Demangle::__runtime::Node::addChild(v63, v41, *(this + 5), v64, v65);
+          swift::Demangle::__runtime::Node::addChild(v63, v52, *(this + 5), v66, v67);
           goto LABEL_62;
         }
       }
@@ -1775,7 +1775,7 @@ LABEL_9:
   return swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 155, v4);
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleProtocolList(_anonymous_namespace_::OldDemangler *this, int a2)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleProtocolList(_anonymous_namespace_::OldDemangler *this, int a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 200);
   v7 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 246);
@@ -1877,7 +1877,7 @@ LABEL_4:
   return 0;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleArchetypeType(_anonymous_namespace_::OldDemangler *this, int a2)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleArchetypeType(_anonymous_namespace_::OldDemangler *this, unsigned int a2)
 {
   v2 = *(this + 4);
   if (!v2)
@@ -1966,33 +1966,33 @@ LABEL_19:
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleDependentType(_anonymous_namespace_::OldDemangler *this, int a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleDependentType(_anonymous_namespace_::OldDemangler *this, unsigned int a2, unsigned int a3)
 {
   if (!*(this + 4))
   {
     return 0;
   }
 
-  v2 = **(this + 3);
-  if (v2 == 95 || v2 == 100 || (v2 - 48) < 0xA)
+  v3 = **(this + 3);
+  if (v3 == 95 || v3 == 100 || (v3 - 48) < 0xA)
   {
   }
 
-  if (!v6)
+  if (!v7)
   {
     return 0;
   }
 
-  v7 = v6;
+  v8 = v7;
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-  swift::Demangle::__runtime::Node::addChild(Node, v7, *(this + 5), v9, v10);
+  swift::Demangle::__runtime::Node::addChild(Node, v8, *(this + 5), v10, v11);
   if (!Node)
   {
     return 0;
   }
 }
 
-unsigned int *anonymous namespace::OldDemangler::getDependentGenericParamType(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime *a2, unsigned int a3)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::getDependentGenericParamType(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime *a2, unsigned int a3)
 {
   memset(&v17, 0, sizeof(v17));
   v4 = a2;
@@ -2037,7 +2037,7 @@ unsigned int *anonymous namespace::OldDemangler::getDependentGenericParamType(_a
   return Node;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleAssociatedTypeSimple(swift::Demangle::__runtime::NodeFactory **this, int a2)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleAssociatedTypeSimple(swift::Demangle::__runtime::NodeFactory **this, unsigned int a2)
 {
   if (result)
   {
@@ -2049,7 +2049,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleAssociatedTypeSimple(sw
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleAssociatedTypeCompound(swift::Demangle::__runtime::NodeFactory **this, int a2)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleAssociatedTypeCompound(swift::Demangle::__runtime::NodeFactory **this, unsigned int a2)
 {
   {
     v8 = result;
@@ -2077,7 +2077,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleAssociatedTypeCompound(
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleSubstitutionIndex(_anonymous_namespace_::OldDemangler *this)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleSubstitutionIndex(_anonymous_namespace_::OldDemangler *this)
 {
   v1 = *(this + 4);
   if (!v1)
@@ -2292,7 +2292,7 @@ LABEL_49:
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleTuple(uint64_t a1, int a2, int a3)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleTuple(uint64_t a1, int a2, int a3)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), 234);
   v8 = *(a1 + 32);
@@ -2313,36 +2313,36 @@ unsigned int *anonymous namespace::OldDemangler::demangleTuple(uint64_t a1, int 
         break;
       }
 
-      v15 = **(a1 + 24);
-      if (v15 != 111)
+      v16 = **(a1 + 24);
+      if (v16 != 111)
       {
         goto LABEL_11;
       }
 
 LABEL_12:
       v3 = v3 & 0xFFFFFFFF00000000 | 0x100EC;
-      if (!v16)
+      if (!v17)
       {
         return 0;
       }
 
-      swift::Demangle::__runtime::Node::addChild(v11, v16, *(a1 + 40), v17, v18);
+      swift::Demangle::__runtime::Node::addChild(v11, v17, *(a1 + 40), v18, v19);
 LABEL_14:
-      if (!v19)
+      if (!v20)
       {
         return 0;
       }
 
-      v20 = v19;
-      v21 = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), 243);
-      swift::Demangle::__runtime::Node::addChild(v21, v20, *(a1 + 40), v22, v23);
-      if (!v21)
+      v21 = v20;
+      v22 = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), 243);
+      swift::Demangle::__runtime::Node::addChild(v22, v21, *(a1 + 40), v23, v24);
+      if (!v22)
       {
         return 0;
       }
 
-      swift::Demangle::__runtime::Node::addChild(v11, v21, *(a1 + 40), v24, v25);
-      swift::Demangle::__runtime::Node::addChild(v9, v11, *(a1 + 40), v26, v27);
+      swift::Demangle::__runtime::Node::addChild(v11, v22, *(a1 + 40), v25, v26);
+      swift::Demangle::__runtime::Node::addChild(v9, v11, *(a1 + 40), v27, v28);
       v8 = *(a1 + 32);
       if (!v8)
       {
@@ -2356,9 +2356,9 @@ LABEL_14:
       }
     }
 
-    v15 = 46;
+    v16 = 46;
 LABEL_11:
-    if ((v15 - 48) > 9)
+    if ((v16 - 48) > 9)
     {
       goto LABEL_14;
     }
@@ -2711,7 +2711,7 @@ LABEL_57:
   return result;
 }
 
-_anonymous_namespace_::OldDemangler *anonymous namespace::OldDemangler::demangleContext(_anonymous_namespace_::OldDemangler *this, int a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleContext(_anonymous_namespace_::OldDemangler *this, int a2)
 {
   v2 = *(this + 4);
   if (!v2)
@@ -2895,7 +2895,7 @@ LABEL_18:
   return result;
 }
 
-unint64_t anonymous namespace::OldDemangler::demangleDeclName(_anonymous_namespace_::OldDemangler *this)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleDeclName(_anonymous_namespace_::OldDemangler *this)
 {
   v1 = *(this + 4);
   if (v1)
@@ -3138,7 +3138,7 @@ LABEL_15:
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleEntity(_anonymous_namespace_::OldDemangler *this, unsigned int a2)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleEntity(_anonymous_namespace_::OldDemangler *this, unsigned int a2)
 {
   if (a2 > 0x400)
   {
@@ -3155,7 +3155,6 @@ unsigned int *anonymous namespace::OldDemangler::demangleEntity(_anonymous_names
   v5 = *v4;
   if (v5 != 90)
   {
-    v9 = *v4;
     if (v5 != 70)
     {
       goto LABEL_8;
@@ -3199,6 +3198,7 @@ LABEL_8:
       break;
     default:
 LABEL_12:
+      v9 = a2 + 1;
   }
 
 LABEL_17:
@@ -3233,7 +3233,7 @@ LABEL_56:
       swift::Demangle::__runtime::Node::addChild(Node, v12, *v24, v26, v27);
       if (v19)
       {
-        swift::Demangle::__runtime::Node::addChild(Node, v19, *v24, v28, v29);
+        swift::Demangle::__runtime::Node::addChild(Node, v19, *v24, v29, v30);
       }
 
       if (!v17)
@@ -3246,25 +3246,25 @@ LABEL_56:
         return result;
       }
 
-      v30 = result;
-      v31 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 243);
-      swift::Demangle::__runtime::Node::addChild(v31, v30, *v24, v32, v33);
-      if (v31)
+      v31 = result;
+      v32 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 243);
+      swift::Demangle::__runtime::Node::addChild(v32, v31, *v24, v33, v34);
+      if (v32)
       {
-        v36 = *v24;
-        v37 = Node;
-        v38 = v31;
+        v37 = *v24;
+        v38 = Node;
+        v39 = v32;
 LABEL_115:
-        swift::Demangle::__runtime::Node::addChild(v37, v38, v36, v34, v35);
+        swift::Demangle::__runtime::Node::addChild(v38, v39, v37, v35, v36);
 LABEL_116:
         if (v5 != 90)
         {
           return Node;
         }
 
-        v63 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 229);
-        swift::Demangle::__runtime::Node::addChild(v63, Node, *v24, v64, v65);
-        return v63;
+        v65 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 229);
+        swift::Demangle::__runtime::Node::addChild(v65, Node, *v24, v66, v67);
+        return v65;
       }
     }
 
@@ -3343,17 +3343,17 @@ LABEL_116:
         return result;
       }
 
-      v39 = v15[1];
-      if (v39 > 0x6F)
+      v40 = v15[1];
+      if (v40 > 0x6F)
       {
-        if (v39 == 112)
+        if (v40 == 112)
         {
           v23 = 167;
         }
 
         else
         {
-          if (v39 != 117)
+          if (v40 != 117)
           {
             return result;
           }
@@ -3362,14 +3362,14 @@ LABEL_116:
         }
       }
 
-      else if (v39 == 79)
+      else if (v40 == 79)
       {
         v23 = 179;
       }
 
       else
       {
-        if (v39 != 111)
+        if (v40 != 111)
         {
           return result;
         }
@@ -3457,63 +3457,63 @@ LABEL_87:
       v21 = v23;
 LABEL_89:
       v24 = (this + 40);
-      v40 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), v21);
-      v41 = *(v20 + 16);
-      if (v41 == 186)
+      v41 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), v21);
+      v42 = *(v20 + 8);
+      if (v42 == 186)
       {
-        v43 = *(v20 + 18);
-        v44 = v20;
-        if (v43 != 2)
+        v44 = *(v20 + 18);
+        v45 = v20;
+        if (v44 != 2)
         {
-          if (v43 != 5 || *(v20 + 8) < 2u)
+          if (v44 != 5 || v20[2] < 2)
           {
 LABEL_107:
-            Node = v40;
-            v50 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 266);
-            swift::Demangle::__runtime::Node::addChild(v50, v12, *v24, v51, v52);
-            swift::Demangle::__runtime::Node::addChild(v50, v20, *v24, v53, v54);
-            v55 = 0;
+            Node = v41;
+            v51 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 266);
+            swift::Demangle::__runtime::Node::addChild(v51, v12, *v24, v52, v53);
+            swift::Demangle::__runtime::Node::addChild(v51, v20, *v24, v54, v55);
+            v57 = 0;
             goto LABEL_108;
           }
 
-          v44 = *v20;
+          v45 = *v20;
         }
 
-        v45 = *(v44 + 8);
-        if (v45[1] != (&dword_8 + 1))
+        v46 = *(v45 + 1);
+        if (v46[1] != (&dword_8 + 1))
         {
           goto LABEL_107;
         }
 
-        v46 = *v45;
         v47 = *v46;
-        v48 = *(v46 + 8);
-        if (v47 != 0x7069726373627573 || v48 != 116)
+        v48 = *v47;
+        v49 = *(v47 + 8);
+        if (v48 != 0x7069726373627573 || v49 != 116)
         {
           goto LABEL_107;
         }
 
-        if (v43 != 2)
+        if (v44 != 2)
         {
-          if (!*(v20 + 8))
+          if (!v20[2])
           {
-            Node = v40;
-            v66 = 0;
+            Node = v41;
+            v68 = 0;
             goto LABEL_124;
           }
 
           v20 = *v20;
         }
 
-        Node = v40;
-        v66 = *v20;
+        Node = v41;
+        v68 = *v20;
 LABEL_124:
         v20 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 186);
-        swift::Demangle::__runtime::Node::addChild(v20, v66, *v24, v67, v68);
+        swift::Demangle::__runtime::Node::addChild(v20, v68, *v24, v69, v70);
         goto LABEL_125;
       }
 
-      if (v41 != 103 || *(v20 + 8) != 9)
+      if (v42 != 103 || *(v20 + 1) != 9)
       {
         goto LABEL_107;
       }
@@ -3523,35 +3523,35 @@ LABEL_124:
         goto LABEL_107;
       }
 
-      Node = v40;
+      Node = v41;
       v20 = 0;
 LABEL_125:
-      v50 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 231);
-      swift::Demangle::__runtime::Node::addChild(v50, v12, *v24, v69, v70);
-      v55 = 1;
+      v51 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 231);
+      swift::Demangle::__runtime::Node::addChild(v51, v12, *v24, v71, v72);
+      v57 = 1;
 LABEL_108:
       if (result)
       {
-        v56 = result;
-        v57 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 243);
-        swift::Demangle::__runtime::Node::addChild(v57, v56, *v24, v58, v59);
-        if (v57)
+        v58 = result;
+        v59 = swift::Demangle::__runtime::NodeFactory::createNode(*v24, 243);
+        swift::Demangle::__runtime::Node::addChild(v59, v58, *v24, v60, v61);
+        if (v59)
         {
-          swift::Demangle::__runtime::Node::addChild(v50, v57, *v24, v60, v61);
-          v62 = v55 ^ 1;
+          swift::Demangle::__runtime::Node::addChild(v51, v59, *v24, v62, v63);
+          v64 = v57 ^ 1;
           if (!v20)
           {
-            v62 = 1;
+            v64 = 1;
           }
 
-          if ((v62 & 1) == 0)
+          if ((v64 & 1) == 0)
           {
-            swift::Demangle::__runtime::Node::addChild(v50, v20, *v24, v34, v35);
+            swift::Demangle::__runtime::Node::addChild(v51, v20, *v24, v35, v36);
           }
 
-          v36 = *v24;
-          v37 = Node;
-          v38 = v50;
+          v37 = *v24;
+          v38 = Node;
+          v39 = v51;
           goto LABEL_115;
         }
 
@@ -3928,43 +3928,51 @@ LABEL_29:
   return size;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleNominalType(_anonymous_namespace_::OldDemangler *this)
+unsigned int *anonymous namespace::OldDemangler::demangleNominalType(_anonymous_namespace_::OldDemangler *this, int a2)
 {
-  v1 = *(this + 4);
-  if (v1)
+  v2 = *(this + 4);
+  if (v2)
   {
-    v2 = *(this + 3);
-    v3 = *v2;
-    if (v3 > 0x4F)
+    v3 = *(this + 3);
+    v4 = *v3;
+    if (v4 > 0x4F)
     {
-      switch(v3)
+      switch(v4)
       {
         case 'P':
-          *(this + 3) = v2 + 1;
-          *(this + 4) = v1 - 1;
+          *(this + 3) = v3 + 1;
+          *(this + 4) = v2 - 1;
+          v6 = a2 + 1;
+          v7 = 190;
           break;
         case 'V':
-          *(this + 3) = v2 + 1;
-          *(this + 4) = v1 - 1;
+          *(this + 3) = v3 + 1;
+          *(this + 4) = v2 - 1;
+          v6 = a2 + 1;
+          v7 = 230;
           break;
         case 'S':
-          *(this + 3) = v2 + 1;
-          *(this + 4) = v1 - 1;
+          *(this + 3) = v3 + 1;
+          *(this + 4) = v2 - 1;
         default:
           return 0;
       }
     }
 
-    if (v3 == 67)
+    if (v4 == 67)
     {
-      *(this + 3) = v2 + 1;
-      *(this + 4) = v1 - 1;
+      *(this + 3) = v3 + 1;
+      *(this + 4) = v2 - 1;
+      v6 = a2 + 1;
+      v7 = 25;
     }
 
-    if (v3 == 79)
+    if (v4 == 79)
     {
-      *(this + 3) = v2 + 1;
-      *(this + 4) = v1 - 1;
+      *(this + 3) = v3 + 1;
+      *(this + 4) = v2 - 1;
+      v6 = a2 + 1;
+      v7 = 63;
     }
   }
 
@@ -4123,29 +4131,29 @@ LABEL_11:
 LABEL_29:
   v4 = Node;
 LABEL_30:
-  v22 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 246);
-  v23 = this[4];
+  v23 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 246);
+  v24 = this[4];
   while (1)
   {
-    if (v23)
+    if (v24)
     {
-      v24 = this[3];
-      if (*v24 == 95)
+      v25 = this[3];
+      if (*v25 == 95)
       {
         break;
       }
     }
 
-    if (v25)
+    if (v26)
     {
-      v26 = v25;
-      v27 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
-      swift::Demangle::__runtime::Node::addChild(v27, v26, this[5], v28, v29);
-      if (v27)
+      v27 = v26;
+      v28 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
+      swift::Demangle::__runtime::Node::addChild(v28, v27, this[5], v29, v30);
+      if (v28)
       {
-        swift::Demangle::__runtime::Node::addChild(v22, v27, this[5], v30, v31);
-        v23 = this[4];
-        if (v23)
+        swift::Demangle::__runtime::Node::addChild(v23, v28, this[5], v31, v32);
+        v24 = this[4];
+        if (v24)
         {
           continue;
         }
@@ -4155,38 +4163,38 @@ LABEL_30:
     return 0;
   }
 
-  this[3] = (v24 + 1);
-  this[4] = (v23 - 1);
-  v33 = *(v22 + 18);
-  if ((v33 - 1) < 2 || v33 == 5 && *(v22 + 8))
+  this[3] = (v25 + 1);
+  this[4] = (v24 - 1);
+  v34 = *(v23 + 18);
+  if ((v34 - 1) < 2 || v34 == 5 && *(v23 + 8))
   {
-    v34 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
-    swift::Demangle::__runtime::Node::addChild(v34, v4, this[5], v35, v36);
-    v37 = *(v4 + 8);
-    switch(v37)
+    v35 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], 243);
+    swift::Demangle::__runtime::Node::addChild(v35, v4, this[5], v36, v37);
+    v38 = *(v4 + 8);
+    switch(v38)
     {
       case 25:
-        v38 = 13;
+        v39 = 13;
         break;
       case 63:
-        v38 = 14;
+        v39 = 14;
         break;
       case 230:
-        v38 = 15;
+        v39 = 15;
         break;
       default:
         return 0;
     }
 
-    v4 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], v38);
-    swift::Demangle::__runtime::Node::addChild(v4, v34, this[5], v39, v40);
-    swift::Demangle::__runtime::Node::addChild(v4, v22, this[5], v41, v42);
+    v4 = swift::Demangle::__runtime::NodeFactory::createNode(this[5], v39);
+    swift::Demangle::__runtime::Node::addChild(v4, v35, this[5], v40, v41);
+    swift::Demangle::__runtime::Node::addChild(v4, v23, this[5], v42, v43);
   }
 
   return v4;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleProtocolNameGivenContext(swift::Demangle::__runtime::NodeFactory **this, swift::Demangle::__runtime::Node *a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleProtocolNameGivenContext(swift::Demangle::__runtime::NodeFactory **this, swift::Demangle::__runtime::Node *a2)
 {
   if (result)
   {
@@ -4201,7 +4209,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleProtocolNameGivenContex
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleProtocolName(swift::Demangle::__runtime::NodeFactory **this, unsigned int a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleProtocolName(swift::Demangle::__runtime::NodeFactory **this, unsigned int a2)
 {
   if (!v3)
   {
@@ -4214,7 +4222,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleProtocolName(swift::Dem
   return Node;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleGenericParamIndex(_anonymous_namespace_::OldDemangler *this)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleGenericParamIndex(_anonymous_namespace_::OldDemangler *this)
 {
   v1 = *(this + 4);
   if (!v1)
@@ -4385,7 +4393,7 @@ unsigned int *anonymous namespace::OldDemangler::demangleGenericParamIndex(_anon
   return 0;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleProtocolNameImpl(_anonymous_namespace_::OldDemangler *this, unsigned int a2)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::demangleProtocolNameImpl(_anonymous_namespace_::OldDemangler *this, unsigned int a2)
 {
   if (a2 > 0x400)
   {
@@ -4492,7 +4500,7 @@ LABEL_12:
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::demangleDependentMemberTypeName(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime::Node *a2, int a3)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleDependentMemberTypeName(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime::Node *a2, int a3)
 {
   v5 = *(this + 4);
   if (!v5)
@@ -4569,7 +4577,7 @@ LABEL_8:
   return result;
 }
 
-unsigned int *anonymous namespace::OldDemangler::createSwiftType(uint64_t a1, __int16 a2, const void *a3, size_t a4)
+swift::Demangle::__runtime *anonymous namespace::OldDemangler::createSwiftType(uint64_t a1, __int16 a2, const void *a3, size_t a4)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), a2);
   v8 = *(a1 + 40);
@@ -4612,7 +4620,7 @@ unsigned int *anonymous namespace::OldDemangler::createSwiftType(uint64_t a1, __
   if (a4)
   {
     v19 = v18[1];
-    v20 = &v19[a4];
+    v20 = v19 + a4;
     if (v19)
     {
       v21 = v20 > v18[2];
@@ -4636,7 +4644,7 @@ unsigned int *anonymous namespace::OldDemangler::createSwiftType(uint64_t a1, __
       v24 = malloc_type_malloc(v22 + 8, 0x2004093837F09uLL);
       v25 = v24 + v23;
       *v24 = v18[3];
-      v19 = (v24 + 1);
+      v19 = v24 + 1;
       v18[2] = v25;
       v18[3] = v24;
       v20 = v24 + a4 + 8;
@@ -4656,7 +4664,7 @@ unsigned int *anonymous namespace::OldDemangler::createSwiftType(uint64_t a1, __
   return Node;
 }
 
-const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a1, signed int a2)
+const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -4664,45 +4672,42 @@ const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a
     return 0;
   }
 
-  v4 = *(a1 + 24);
-  v5 = *v4;
-  if (v5 > 0x66)
+  v3 = *(a1 + 24);
+  v4 = *v3;
+  if (v4 > 0x66)
   {
-    if (*v4 <= 0x6Bu)
+    if (*v3 <= 0x6Bu)
     {
-      if (v5 == 103)
+      if (v4 == 103)
       {
-        *(a1 + 24) = v4 + 1;
+        *(a1 + 24) = v3 + 1;
         *(a1 + 32) = v2 - 1;
-        v9 = qword_DAA30[a2];
         return off_DCDC8[a2];
       }
 
-      if (v5 == 105)
+      if (v4 == 105)
       {
-        *(a1 + 24) = v4 + 1;
+        *(a1 + 24) = v3 + 1;
         *(a1 + 32) = v2 - 1;
-        v7 = qword_DAA48[a2];
         return qword_DCDE0[a2];
       }
 
       return 0;
     }
 
-    if (v5 != 108)
+    if (v4 != 108)
     {
-      if (v5 == 111)
+      if (v4 == 111)
       {
-        *(a1 + 24) = v4 + 1;
+        *(a1 + 24) = v3 + 1;
         *(a1 + 32) = v2 - 1;
-        v8 = qword_DAA60[a2];
         return off_DCDF8[a2];
       }
 
       return 0;
     }
 
-    *(a1 + 24) = v4 + 1;
+    *(a1 + 24) = v3 + 1;
     *(a1 + 32) = v2 - 1;
     if (a2 == 1)
     {
@@ -4715,22 +4720,21 @@ const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a
     }
   }
 
-  else if (*v4 > 0x63u)
+  else if (*v3 > 0x63u)
   {
-    if (v5 == 100)
+    if (v4 == 100)
     {
-      *(a1 + 24) = v4 + 1;
+      *(a1 + 24) = v3 + 1;
       *(a1 + 32) = v2 - 1;
-      v10 = qword_DAA18[a2];
       return off_DCDB0[a2];
     }
 
-    if (v5 != 101)
+    if (v4 != 101)
     {
       return 0;
     }
 
-    *(a1 + 24) = v4 + 1;
+    *(a1 + 24) = v3 + 1;
     *(a1 + 32) = v2 - 1;
     if (a2 == 1)
     {
@@ -4745,11 +4749,11 @@ const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a
 
   else
   {
-    if (v5 != 68)
+    if (v4 != 68)
     {
-      if (v5 == 97)
+      if (v4 == 97)
       {
-        *(a1 + 24) = v4 + 1;
+        *(a1 + 24) = v3 + 1;
         *(a1 + 32) = v2 - 1;
         if (a2 >= 2)
         {
@@ -4765,7 +4769,7 @@ const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a
       return 0;
     }
 
-    *(a1 + 24) = v4 + 1;
+    *(a1 + 24) = v3 + 1;
     *(a1 + 32) = v2 - 1;
     if (a2 >= 2)
     {
@@ -4779,7 +4783,7 @@ const char *anonymous namespace::OldDemangler::demangleImplConvention(uint64_t a
   }
 }
 
-uint64_t anonymous namespace::OldDemangler::demangleImplParameterOrResult(uint64_t a1, int a2, int a3)
+unsigned int *anonymous namespace::OldDemangler::demangleImplParameterOrResult(uint64_t a1, int a2, int a3)
 {
   v5 = *(a1 + 32);
   if (!v5 || (v6 = *(a1 + 24), *v6 != 122))
@@ -4816,49 +4820,49 @@ LABEL_9:
     return 0;
   }
 
-  v11 = v9;
-  v12 = v10;
+  v12 = v9;
+  v13 = v10;
   if (!result)
   {
     return result;
   }
 
-  v14 = result;
+  v15 = result;
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), 243);
-  swift::Demangle::__runtime::Node::addChild(Node, v14, *(a1 + 40), v16, v17);
+  swift::Demangle::__runtime::Node::addChild(Node, v15, *(a1 + 40), v17, v18);
   if (!Node)
   {
     return 0;
   }
 
-  v18 = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), v8);
-  v19 = *(a1 + 40);
-  v20 = v19[1];
-  if (!v20 || (v21 = &v20[v12], &v20[v12] > v19[2]))
+  v19 = swift::Demangle::__runtime::NodeFactory::createNode(*(a1 + 40), v8);
+  v20 = *(a1 + 40);
+  v21 = v20[1];
+  if (!v21 || (v22 = &v21[v13], &v21[v13] > v20[2]))
   {
-    v22 = 2 * v19[4];
-    if (v22 <= v12 + 1)
+    v23 = 2 * v20[4];
+    if (v23 <= v13 + 1)
     {
-      v22 = v12 + 1;
+      v23 = v13 + 1;
     }
 
-    v19[4] = v22;
-    v23 = v22 + 8;
-    v24 = malloc_type_malloc(v22 + 8, 0x2004093837F09uLL);
-    v25 = v24 + v23;
-    *v24 = v19[3];
-    v20 = (v24 + 1);
-    v19[2] = v25;
-    v19[3] = v24;
-    v21 = v24 + v12 + 8;
+    v20[4] = v23;
+    v24 = v23 + 8;
+    v25 = malloc_type_malloc(v23 + 8, 0x2004093837F09uLL);
+    v26 = v25 + v24;
+    *v25 = v20[3];
+    v21 = (v25 + 1);
+    v20[2] = v26;
+    v20[3] = v25;
+    v22 = v25 + v13 + 8;
   }
 
-  v19[1] = v21;
-  memmove(v20, v11, v12);
-  NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v19, 108, v20, v12);
-  swift::Demangle::__runtime::Node::addChild(v18, NodeWithAllocatedText, *(a1 + 40), v27, v28);
-  swift::Demangle::__runtime::Node::addChild(v18, Node, *(a1 + 40), v29, v30);
-  return v18;
+  v20[1] = v22;
+  memmove(v21, v12, v13);
+  NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v20, 108, v21, v13);
+  swift::Demangle::__runtime::Node::addChild(v19, NodeWithAllocatedText, *(a1 + 40), v28, v29);
+  swift::Demangle::__runtime::Node::addChild(v19, Node, *(a1 + 40), v30, v31);
+  return v19;
 }
 
 unint64_t anonymous namespace::OldDemangler::demangleValueWitnessKind(_anonymous_namespace_::OldDemangler *this)
@@ -4994,7 +4998,7 @@ unint64_t anonymous namespace::OldDemangler::demangleValueWitnessKind(_anonymous
   return v5 | v4;
 }
 
-swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleReabstractSignature(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime::Node *a2, int a3)
+swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleReabstractSignature(_anonymous_namespace_::OldDemangler *this, swift::Demangle::__runtime::Node *a2, unsigned int a3)
 {
   v6 = *(this + 4);
   if (v6)
@@ -5029,12 +5033,12 @@ swift::Demangle::__runtime::Node *anonymous namespace::OldDemangler::demangleRea
       return result;
     }
 
-    v17 = result;
-    v18 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
-    swift::Demangle::__runtime::Node::addChild(v18, v17, *(this + 5), v19, v20);
-    if (v18)
+    v18 = result;
+    v19 = swift::Demangle::__runtime::NodeFactory::createNode(*(this + 5), 243);
+    swift::Demangle::__runtime::Node::addChild(v19, v18, *(this + 5), v20, v21);
+    if (v19)
     {
-      swift::Demangle::__runtime::Node::addChild(a2, v18, *(this + 5), v21, v22);
+      swift::Demangle::__runtime::Node::addChild(a2, v19, *(this + 5), v22, v23);
       return (&dword_0 + 1);
     }
 
@@ -5063,7 +5067,7 @@ void *swift::reflection::MetadataSource::dump(const swift::reflection::MetadataC
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\n", 1);
 }
 
-PrintMetadataSource *swift::reflection::MetadataSourceVisitor<PrintMetadataSource,void>::visit(PrintMetadataSource *this, const swift::reflection::MetadataCaptureMetadataSource *a2)
+PrintMetadataSource *swift::reflection::MetadataSourceVisitor<PrintMetadataSource,void>::visit(PrintMetadataSource *result, const swift::reflection::MetadataCaptureMetadataSource *a2)
 {
   v2 = *(a2 + 2);
   if (v2 > 2)
@@ -5071,11 +5075,11 @@ PrintMetadataSource *swift::reflection::MetadataSourceVisitor<PrintMetadataSourc
     switch(v2)
     {
       case 3:
-        return PrintMetadataSource::visitGenericArgumentMetadataSource(this, a2);
+        return PrintMetadataSource::visitGenericArgumentMetadataSource(result, a2);
       case 4:
-        return PrintMetadataSource::visitSelfMetadataSource(this, a2);
+        return PrintMetadataSource::visitSelfMetadataSource(result, a2);
       case 5:
-        return PrintMetadataSource::visitSelfWitnessTableMetadataSource(this);
+        return PrintMetadataSource::visitSelfWitnessTableMetadataSource(result);
     }
   }
 
@@ -5083,21 +5087,21 @@ PrintMetadataSource *swift::reflection::MetadataSourceVisitor<PrintMetadataSourc
   {
     if (v2 == 1)
     {
-      return PrintMetadataSource::visitReferenceCaptureMetadataSource(this, a2);
+      return PrintMetadataSource::visitReferenceCaptureMetadataSource(result, a2);
     }
 
     else if (v2 == 2)
     {
-      return PrintMetadataSource::visitMetadataCaptureMetadataSource(this, a2);
+      return PrintMetadataSource::visitMetadataCaptureMetadataSource(result, a2);
     }
   }
 
   else
   {
-    return PrintMetadataSource::visitClosureBindingMetadataSource(this, a2);
+    return PrintMetadataSource::visitClosureBindingMetadataSource(result, a2);
   }
 
-  return this;
+  return result;
 }
 
 void *PrintMetadataSource::visitClosureBindingMetadataSource(PrintMetadataSource *this, const swift::reflection::ClosureBindingMetadataSource *a2)
@@ -5308,12 +5312,12 @@ void *PrintMetadataSource::visitSelfWitnessTableMetadataSource(void **a1)
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*a1, ")", 1);
 }
 
-uint64_t PrintMetadataSource::printField(void **a1, uint64_t a2, uint64_t a3)
+uint64_t PrintMetadataSource::printField(void **a1, uint64_t **a2, uint64_t **a3)
 {
   v6 = *(a2 + 23);
   if (v6 < 0)
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v7 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*a1, " ", 1);
@@ -5337,7 +5341,7 @@ uint64_t PrintMetadataSource::printField(void **a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v10 = *(a2 + 8);
+      v10 = a2[1];
     }
 
     v11 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, v9, v10);
@@ -5362,7 +5366,7 @@ uint64_t PrintMetadataSource::printField(void **a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v14 = *(a3 + 8);
+    v14 = a3[1];
   }
 
   std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, v13, v14);
@@ -5942,24 +5946,24 @@ LABEL_144:
 void *swift::reflection::ReferenceTypeInfo::getSpareBits@<X0>(swift::reflection::ReferenceTypeInfo *this@<X0>, swift::reflection::TypeRefBuilder **a2@<X1>, uint64_t a3@<X8>)
 {
   MultiPayloadEnumPointerMask = swift::reflection::TypeRefBuilder::getMultiPayloadEnumPointerMask(*a2);
-  v7 = *(this + 3);
+  v6 = *(this + 3);
   __src = MultiPayloadEnumPointerMask;
-  *a3 = v7;
-  result = malloc_type_calloc(1uLL, v7, 0x100004077774924uLL);
+  *a3 = v6;
+  result = malloc_type_calloc(1uLL, v6, 0x100004077774924uLL);
   *(a3 + 8) = result;
   if (result)
   {
-    if (v7 >= 8)
+    if (v6 >= 8)
     {
-      v9 = 8;
+      v8 = 8;
     }
 
     else
     {
-      v9 = v7;
+      v8 = v6;
     }
 
-    return memcpy(result, &__src, v9);
+    return memcpy(result, &__src, v8);
   }
 
   else
@@ -5976,18 +5980,18 @@ uint64_t swift::reflection::TypeRefBuilder::getMultiPayloadEnumPointerMask(swift
   if (!v2)
   {
     v3 = *(this + 81);
-    v7 = 2;
+    v6 = 2;
     strcpy(__p, "Bp");
     v2 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v3, __p);
     *(this + 94) = v2;
-    if (v7 < 0)
+    if (v6 < 0)
     {
       operator delete(__p[0]);
       v2 = *(this + 94);
     }
   }
 
-  v4 = *(swift::reflection::TypeConverter::getTypeInfo(this + 648, v2, 0) + 3);
+  swift::reflection::TypeConverter::getTypeInfo(this + 648, v2, 0);
   if ((*(this + 2464) & 1) == 0)
   {
     operator new();
@@ -6003,7 +6007,7 @@ uint64_t swift::reflection::BuiltinTypeInfo::BuiltinTypeInfo(uint64_t a1, uint64
   *(a1 + 12) = *(a3 + 8);
   *(a1 + 28) = v4;
   *a1 = &off_E1450;
-  v5 = (*(*a3 + 16))(a3);
+  v5 = (*(*a3 + 16))(a3, a2);
   if (v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:nn200100]();
@@ -6032,7 +6036,7 @@ uint64_t swift::reflection::BuiltinTypeInfo::BuiltinTypeInfo(uint64_t a1, uint64
   *(a1 + 12) = *(a3 + 8);
   *(a1 + 28) = v4;
   *a1 = &off_E1450;
-  v5 = (*(*a3 + 16))(a3);
+  v5 = (*(*a3 + 16))(a3, a2);
   if (v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:nn200100]();
@@ -6270,9 +6274,9 @@ uint64_t swift::remote::MemoryReader::readHeapObjectExtraInhabitantIndex(uint64_
   return result;
 }
 
-void swift::reflection::BuiltinTypeInfo::getSpareBits(swift::reflection::BuiltinTypeInfo *this@<X0>, swift::reflection::TypeRefBuilder **a2@<X1>, uint64_t a3@<X8>)
+void swift::reflection::BuiltinTypeInfo::getSpareBits(swift::reflection::BuiltinTypeInfo *this@<X0>, swift::reflection::TypeRefBuilder **a2@<X1>, swift::reflection::BitMask *a3@<X8>)
 {
-  v7 = (this + 32);
+  v6 = (this + 32);
   if (*(this + 55) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(this + 4), *(this + 5));
@@ -6280,7 +6284,7 @@ void swift::reflection::BuiltinTypeInfo::getSpareBits(swift::reflection::Builtin
 
   else
   {
-    *&__p.__r_.__value_.__l.__data_ = *v7;
+    *&__p.__r_.__value_.__l.__data_ = *v6;
     __p.__r_.__value_.__r.__words[2] = *(this + 6);
   }
 
@@ -6302,17 +6306,17 @@ void swift::reflection::BuiltinTypeInfo::getSpareBits(swift::reflection::Builtin
 
   if (size >= 2 && LOWORD(p_p->__r_.__value_.__l.__data_) == 26946 && p_p->__r_.__value_.__s.__data_[size - 1] == 95)
   {
-    v10 = &__p;
+    v9 = &__p;
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v10 = __p.__r_.__value_.__r.__words[0];
+      v9 = __p.__r_.__value_.__r.__words[0];
     }
 
-    v11 = size - 2 >= size - 3 ? size - 3 : size - 2;
+    v10 = size - 2 >= size - 3 ? size - 3 : size - 2;
     __src = 0;
-    if ((__swift::__runtime::llvm::getAsUnsignedInteger(v10->__r_.__value_.__r.__words + 2, v11, (&dword_8 + 2), &__src) & 1) == 0)
+    if ((__swift::__runtime::llvm::getAsUnsignedInteger(v9->__r_.__value_.__r.__words + 2, v10, (&dword_8 + 2), &__src) & 1) == 0)
     {
-      v12 = __src;
+      v11 = __src;
       if (__src <= 0xFF)
       {
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6322,7 +6326,7 @@ void swift::reflection::BuiltinTypeInfo::getSpareBits(swift::reflection::Builtin
 
 LABEL_24:
         operator delete(__p.__r_.__value_.__l.__data_);
-        if (v12)
+        if (v11)
         {
           goto LABEL_21;
         }
@@ -6332,25 +6336,25 @@ LABEL_24:
     }
   }
 
-  v12 = 0;
+  v11 = 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_24;
   }
 
 LABEL_20:
-  if (v12)
+  if (v11)
   {
 LABEL_21:
-    v13 = *(this + 3);
-    *a3 = v13;
-    if ((v13 - 134217729) >> 27 == 31)
+    v12 = *(this + 3);
+    *a3 = v12;
+    if ((v12 - 134217729) >> 27 == 31)
     {
-      v15 = malloc_type_malloc(v13, 0x100004077774924uLL);
-      *(a3 + 8) = v15;
-      if (v15)
+      v14 = malloc_type_malloc(v12, 0x100004077774924uLL);
+      *(a3 + 1) = v14;
+      if (v14)
       {
-        memset(v15, 255, v13);
+        memset(v14, 255, v12);
       }
 
       else
@@ -6362,84 +6366,84 @@ LABEL_21:
     else
     {
       *a3 = 0;
-      *(a3 + 8) = 0;
+      *(a3 + 1) = 0;
     }
 
-    swift::reflection::BitMask::keepOnlyMostSignificantBits(a3, 8 * *(this + 3) - v12);
+    swift::reflection::BitMask::keepOnlyMostSignificantBits(a3, 8 * *(this + 3) - v11);
     return;
   }
 
 LABEL_25:
-  v14 = *(this + 55);
-  if (v14 < 0)
+  v13 = *(this + 55);
+  if (v13 < 0)
   {
     if (*(this + 5) != 4)
     {
 LABEL_33:
-      v16 = *(this + 3);
-      *a3 = v16;
-      if ((v16 - 134217729) >> 27 == 31)
+      v15 = *(this + 3);
+      *a3 = v15;
+      if ((v15 - 134217729) >> 27 == 31)
       {
-        v17 = malloc_type_malloc(v16, 0x100004077774924uLL);
-        *(a3 + 8) = v17;
-        if (v17)
+        v16 = malloc_type_malloc(v15, 0x100004077774924uLL);
+        *(a3 + 1) = v16;
+        if (v16)
         {
-          v18 = v17;
-          memset(v17, 255, v16);
-          v17 = v18;
+          v17 = v16;
+          memset(v16, 255, v15);
+          v16 = v17;
         }
 
         else
         {
-          v16 = 0;
+          v15 = 0;
           *a3 = 0;
         }
       }
 
       else
       {
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
         *a3 = 0;
-        *(a3 + 8) = 0;
+        *(a3 + 1) = 0;
       }
 
-      bzero(v17, v16);
+      bzero(v16, v15);
       return;
     }
 
-    v7 = *v7;
+    v6 = *v6;
   }
 
-  else if (v14 != 4)
+  else if (v13 != 4)
   {
     goto LABEL_33;
   }
 
-  if (*v7 != 1884844153)
+  if (*v6 != 1884844153)
   {
     goto LABEL_33;
   }
 
   MultiPayloadEnumPointerMask = swift::reflection::TypeRefBuilder::getMultiPayloadEnumPointerMask(*a2);
-  v20 = *(this + 3);
+  v19 = *(this + 3);
   __src = MultiPayloadEnumPointerMask;
-  *a3 = v20;
-  v21 = malloc_type_calloc(1uLL, v20, 0x100004077774924uLL);
-  *(a3 + 8) = v21;
-  if (v21)
+  *a3 = v19;
+  v20 = malloc_type_calloc(1uLL, v19, 0x100004077774924uLL);
+  *(a3 + 1) = v20;
+  if (v20)
   {
-    if (v20 >= 8)
+    if (v19 >= 8)
     {
-      v22 = 8;
+      v21 = 8;
     }
 
     else
     {
-      v22 = v20;
+      v21 = v19;
     }
 
-    memcpy(v21, &__src, v22);
+    memcpy(v20, &__src, v21);
   }
 
   else
@@ -6574,9 +6578,9 @@ uint64_t swift::reflection::RecordTypeInfo::readExtraInhabitantIndex(uint64_t a1
       }
 
 LABEL_22:
-      v16 = a1 + 40;
+      v15 = a1 + 40;
       v9 = *(a1 + 40);
-      if (*(v16 + 8) != v9)
+      if (*(v15 + 8) != v9)
       {
         goto LABEL_23;
       }
@@ -6591,28 +6595,28 @@ LABEL_22:
 LABEL_23:
       if (*(v9 + 23) < 0)
       {
-        v19 = a2;
-        v20 = a3;
-        v21 = a5;
-        v22 = a4;
-        std::string::__init_copy_ctor_external(&v40, *v9, *(v9 + 1));
-        a3 = v20;
-        LOBYTE(a4) = v22;
-        a2 = v19;
-        a5 = v21;
+        v18 = a2;
+        v19 = a3;
+        v20 = a5;
+        v21 = a4;
+        std::string::__init_copy_ctor_external(&v39, *v9, *(v9 + 1));
+        a3 = v19;
+        LOBYTE(a4) = v21;
+        a2 = v18;
+        a5 = v20;
       }
 
       else
       {
-        v17 = *v9;
-        v40.__r_.__value_.__r.__words[2] = *(v9 + 2);
-        *&v40.__r_.__value_.__l.__data_ = v17;
+        v16 = *v9;
+        v39.__r_.__value_.__r.__words[2] = *(v9 + 2);
+        *&v39.__r_.__value_.__l.__data_ = v16;
       }
 
-      v23 = *(v9 + 5);
-      v41 = *(v9 + 24);
-      v42 = v23;
-      result = (**v23)(v23, a2, a3 + v41, a4, a5);
+      v22 = *(v9 + 5);
+      v40 = *(v9 + 24);
+      v41 = v22;
+      result = (**v22)(v22, a2, a3 + v40, a4, a5);
       goto LABEL_30;
     }
 
@@ -6631,58 +6635,58 @@ LABEL_23:
       goto LABEL_22;
     }
 
-    v18 = *(a1 + 40);
-    if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - v18) >> 4) < 2)
+    v17 = *(a1 + 40);
+    if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - v17) >> 4) < 2)
     {
       return 0;
     }
 
-    if (*(v18 + 23) < 0)
+    if (*(v17 + 23) < 0)
     {
-      v27 = a2;
-      v28 = a3;
-      v29 = a5;
-      v30 = a4;
-      std::string::__init_copy_ctor_external(&v40, *v18, *(v18 + 1));
-      a3 = v28;
-      a4 = v30;
-      a2 = v27;
-      a5 = v29;
-      v26 = *(a1 + 40);
+      v26 = a2;
+      v27 = a3;
+      v28 = a5;
+      v29 = a4;
+      std::string::__init_copy_ctor_external(&v39, *v17, *(v17 + 1));
+      a3 = v27;
+      a4 = v29;
+      a2 = v26;
+      a5 = v28;
+      v25 = *(a1 + 40);
     }
 
     else
     {
-      v25 = *v18;
-      v40.__r_.__value_.__r.__words[2] = *(v18 + 2);
-      *&v40.__r_.__value_.__l.__data_ = v25;
-      v26 = v18;
+      v24 = *v17;
+      v39.__r_.__value_.__r.__words[2] = *(v17 + 2);
+      *&v39.__r_.__value_.__l.__data_ = v24;
+      v25 = v17;
     }
 
-    v31 = *(v18 + 24);
-    v42 = *(v18 + 5);
-    v41 = v31;
-    if (*(v26 + 71) < 0)
+    v30 = *(v17 + 24);
+    v41 = *(v17 + 5);
+    v40 = v30;
+    if (*(v25 + 71) < 0)
     {
-      v32 = a2;
-      v33 = a3;
-      v34 = a5;
-      v35 = a4;
-      std::string::__init_copy_ctor_external(&__p, *(v26 + 6), *(v26 + 7));
-      a3 = v33;
-      a4 = v35;
-      a2 = v32;
-      a5 = v34;
+      v31 = a2;
+      v32 = a3;
+      v33 = a5;
+      v34 = a4;
+      std::string::__init_copy_ctor_external(&__p, *(v25 + 6), *(v25 + 7));
+      a3 = v32;
+      a4 = v34;
+      a2 = v31;
+      a5 = v33;
     }
 
     else
     {
-      __p = *(v26 + 2);
+      __p = *(v25 + 2);
     }
 
-    v38 = *(v26 + 72);
-    v39 = *(v26 + 11);
-    if (v41)
+    v37 = *(v25 + 72);
+    v38 = *(v25 + 11);
+    if (v40)
     {
       result = 0;
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6693,22 +6697,22 @@ LABEL_23:
 
     else
     {
-      result = (**v42)(v42, a2, a3, a4, a5);
+      result = (**v41)(v41, a2, a3, a4, a5);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_30;
       }
     }
 
-    v36 = result;
+    v35 = result;
     operator delete(__p.__r_.__value_.__l.__data_);
-    result = v36;
+    result = v35;
 LABEL_30:
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      v24 = result;
-      operator delete(v40.__r_.__value_.__l.__data_);
-      return v24;
+      v23 = result;
+      operator delete(v39.__r_.__value_.__l.__data_);
+      return v23;
     }
 
     return result;
@@ -6730,7 +6734,6 @@ LABEL_30:
   }
 
   v14 = ***(v11 + 40);
-  v15 = a3 + *(v11 + 24);
 
   return v14();
 }
@@ -7535,7 +7538,7 @@ uint64_t *swift::reflection::TypeConverter::getTypeInfo(uint64_t a1, swift::refl
     }
   }
 
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>(a1 + 56, &v28, &v25);
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>((a1 + 56), &v28, &v25);
   if (v27 != 1)
   {
     return 0;
@@ -7628,20 +7631,18 @@ uint64_t swift::reflection::RecordTypeInfoBuilder::build(swift::reflection::Reco
 {
   if ((*(this + 57) & 1) == 0)
   {
-    *(this + 2);
-    v1 = *this;
     operator new();
   }
 
   return 0;
 }
 
-uint64_t swift::reflection::TypeConverter::getReferenceTypeInfo(uint64_t a1, unsigned int a2, uint64_t a3)
+char *swift::reflection::TypeConverter::getReferenceTypeInfo(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   v3 = a3;
-  v12 = a2 | (a3 << 32);
+  v11 = a2 | (a3 << 32);
   __p[0] = 0;
-  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>((a1 + 80), &v12, __p) && __p[0] != (*(a1 + 80) + 16 * *(a1 + 96)))
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>((a1 + 80), &v11, __p) && __p[0] != (*(a1 + 80) + 16 * *(a1 + 96)))
   {
     return *(__p[0] + 1);
   }
@@ -7652,11 +7653,11 @@ uint64_t swift::reflection::TypeConverter::getReferenceTypeInfo(uint64_t a1, uns
     if (!v6)
     {
       v8 = *a1;
-      v14 = 2;
+      v13 = 2;
       strcpy(__p, "BO");
       v6 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v8, __p);
       *(a1 + 120) = v6;
-      if (v14 < 0)
+      if (v13 < 0)
       {
         operator delete(__p[0]);
         v6 = *(a1 + 120);
@@ -7675,11 +7676,11 @@ uint64_t swift::reflection::TypeConverter::getReferenceTypeInfo(uint64_t a1, uns
     if (!v6)
     {
       v7 = *a1;
-      v14 = 2;
+      v13 = 2;
       strcpy(__p, "Bo");
       v6 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v7, __p);
       *(a1 + 112) = v6;
-      if (v14 < 0)
+      if (v13 < 0)
       {
         operator delete(__p[0]);
         v6 = *(a1 + 112);
@@ -7687,17 +7688,16 @@ uint64_t swift::reflection::TypeConverter::getReferenceTypeInfo(uint64_t a1, uns
     }
   }
 
-  swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(*a1, v6, &v11);
-  if (v11)
+  swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(&v10, *a1, v6);
+  if (v10)
   {
-    v9 = *(v11 + 20);
     operator new();
   }
 
   return 0;
 }
 
-uint64_t swift::reflection::TypeConverter::getNativeObjectTypeRef(swift::reflection::TypeConverter *this)
+void *swift::reflection::TypeConverter::getNativeObjectTypeRef(swift::reflection::TypeConverter *this)
 {
   result = *(this + 14);
   if (!result)
@@ -7717,7 +7717,7 @@ uint64_t swift::reflection::TypeConverter::getNativeObjectTypeRef(swift::reflect
   return result;
 }
 
-uint64_t swift::reflection::TypeConverter::getUnknownObjectTypeRef(swift::reflection::TypeConverter *this)
+void *swift::reflection::TypeConverter::getUnknownObjectTypeRef(swift::reflection::TypeConverter *this)
 {
   result = *(this + 15);
   if (!result)
@@ -7801,22 +7801,21 @@ uint64_t swift::reflection::TypeConverter::getThinFunctionTypeInfo(swift::reflec
     v4 = *(this + 16);
     if (!v4)
     {
-      v7 = 4;
+      v6 = 4;
       strcpy(__p, "yyXf");
       v4 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v3, __p);
       *(this + 16) = v4;
-      if (v7 < 0)
+      if (v6 < 0)
       {
         operator delete(__p[0]);
         v4 = *(this + 16);
       }
     }
 
-    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(v3, v4, __p);
+    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(__p, v3, v4);
     if (__p[0])
     {
-      v5 = *this;
-      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>();
+      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>(this, *this, __p[0]);
     }
 
     return 0;
@@ -7825,7 +7824,7 @@ uint64_t swift::reflection::TypeConverter::getThinFunctionTypeInfo(swift::reflec
   return result;
 }
 
-uint64_t swift::reflection::TypeConverter::getThinFunctionTypeRef(swift::reflection::TypeConverter *this)
+void *swift::reflection::TypeConverter::getThinFunctionTypeRef(swift::reflection::TypeConverter *this)
 {
   result = *(this + 16);
   if (!result)
@@ -7942,22 +7941,21 @@ uint64_t swift::reflection::TypeConverter::getAnyMetatypeTypeInfo(swift::reflect
     v4 = *(this + 17);
     if (!v4)
     {
-      v7 = 4;
+      v6 = 4;
       strcpy(__p, "ypXp");
       v4 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v3, __p);
       *(this + 17) = v4;
-      if (v7 < 0)
+      if (v6 < 0)
       {
         operator delete(__p[0]);
         v4 = *(this + 17);
       }
     }
 
-    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(v3, v4, __p);
+    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(__p, v3, v4);
     if (__p[0])
     {
-      v5 = *this;
-      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>();
+      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>(this, *this, __p[0]);
     }
 
     return 0;
@@ -7966,7 +7964,7 @@ uint64_t swift::reflection::TypeConverter::getAnyMetatypeTypeInfo(swift::reflect
   return result;
 }
 
-uint64_t swift::reflection::TypeConverter::getAnyMetatypeTypeRef(swift::reflection::TypeConverter *this)
+void *swift::reflection::TypeConverter::getAnyMetatypeTypeRef(swift::reflection::TypeConverter *this)
 {
   result = *(this + 17);
   if (!result)
@@ -7986,7 +7984,7 @@ uint64_t swift::reflection::TypeConverter::getAnyMetatypeTypeRef(swift::reflecti
   return result;
 }
 
-uint64_t swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(swift::reflection::TypeConverter *this)
+char *swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(swift::reflection::TypeConverter *this)
 {
   result = *(this + 21);
   if (!result)
@@ -7995,21 +7993,20 @@ uint64_t swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(swift:
     v4 = *(this + 13);
     if (!v4)
     {
-      v8 = 2;
+      v7 = 2;
       strcpy(__p, "Bp");
       v4 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v3, __p);
       *(this + 13) = v4;
-      if (v8 < 0)
+      if (v7 < 0)
       {
         operator delete(__p[0]);
         v4 = *(this + 13);
       }
     }
 
-    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(v3, v4, &v6);
-    if (v6)
+    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(&v5, v3, v4);
+    if (v5)
     {
-      v5 = vmul_s32(v6[1], 0x20000000CLL);
       operator new();
     }
 
@@ -8019,7 +8016,7 @@ uint64_t swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(swift:
   return result;
 }
 
-uint64_t swift::reflection::TypeConverter::getRawPointerTypeRef(swift::reflection::TypeConverter *this)
+void *swift::reflection::TypeConverter::getRawPointerTypeRef(swift::reflection::TypeConverter *this)
 {
   result = *(this + 13);
   if (!result)
@@ -8220,26 +8217,26 @@ void swift::reflection::TypeRefVisitor<swift::reflection::LowerType,swift::refle
       case 6:
         a2 = *(a2 + 16);
 LABEL_20:
-        v22 = *a1;
+        v18 = *a1;
         *__p = 0u;
-        v24 = 0u;
-        v25 = 0x100000000;
-        v26 = 0;
-        v27 = 0;
-        v28 = 0;
-        swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(&v22, a2);
-        swift::reflection::ExistentialTypeInfoBuilder::build(&v22, a1[1]);
+        v20 = 0u;
+        v21 = 0x100000000;
+        v22 = 0;
+        v23 = 0;
+        v24 = 0;
+        swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(&v18, a2);
+        swift::reflection::ExistentialTypeInfoBuilder::build(&v18, a1[1]);
         goto LABEL_21;
       case 7:
-        v11 = swift::reflection::TypeRefVisitor<swift::reflection::HasSingletonMetatype,swift::reflection::MetatypeRepresentation>::visit(&v22, a2);
+        v11 = swift::reflection::TypeRefVisitor<swift::reflection::HasSingletonMetatype,swift::reflection::MetatypeRepresentation>::visit(&v18, a2);
         if (v11 != 2)
         {
           if (v11 == 1)
           {
-            v19 = a1;
-            v20 = *a1;
-            AnyMetatypeTypeRef = swift::reflection::TypeConverter::getAnyMetatypeTypeRef(v20);
-            swift::reflection::TypeConverter::getTypeInfo(v20, AnyMetatypeTypeRef, v19[1]);
+            v15 = a1;
+            v16 = *a1;
+            AnyMetatypeTypeRef = swift::reflection::TypeConverter::getAnyMetatypeTypeRef(v16);
+            swift::reflection::TypeConverter::getTypeInfo(v16, AnyMetatypeTypeRef, v15[1]);
           }
 
           else
@@ -8256,21 +8253,21 @@ LABEL_20:
 
         return;
       case 8:
-        v22 = *a1;
+        v18 = *a1;
         *__p = 0u;
-        v24 = 0u;
-        v25 = 0x100000000;
-        v26 = 0;
-        v27 = 0;
-        v28 = 0;
-        v17 = *(a2 + 16);
-        if (!v17 || *(v17 + 2) != 5)
+        v20 = 0u;
+        v21 = 0x100000000;
+        v22 = 0;
+        v23 = 0;
+        v24 = 0;
+        v13 = *(a2 + 16);
+        if (!v13 || *(v13 + 2) != 5)
         {
           return;
         }
 
-        swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(&v22, v17);
-        swift::reflection::ExistentialTypeInfoBuilder::buildMetatype(&v22, a1[1]);
+        swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(&v18, v13);
+        swift::reflection::ExistentialTypeInfoBuilder::buildMetatype(&v18, a1[1]);
 LABEL_21:
         if (__p[0])
         {
@@ -8312,10 +8309,7 @@ LABEL_5:
         swift::reflection::TypeConverter::getReferenceTypeInfo(v2, 0, v3);
         break;
       case 0x16:
-        v14 = a2;
         swift::reflection::TypeRefVisitor<swift::reflection::LowerType,swift::reflection::TypeInfo const*>::visit(a1, *(a2 + 24));
-        v15 = *(*(v14 + 16) + 16);
-        v16 = *a1;
         operator new();
       default:
         return;
@@ -8325,7 +8319,7 @@ LABEL_5:
 
 void swift::reflection::TypeConverter::getClassInstanceTypeInfo(swift::reflection::TypeRefBuilder **a1, const swift::reflection::TypeRef *a2, int a3, uint64_t a4)
 {
-  swift::reflection::TypeRefBuilder::getFieldDescriptor(*a1, a2, &v36);
+  swift::reflection::TypeRefBuilder::getFieldDescriptor(&v36, *a1, a2);
   v8 = v36;
   if (v36)
   {
@@ -8548,7 +8542,7 @@ uint64_t swift::reflection::ReferenceTypeInfo::readExtraInhabitantIndex(uint64_t
   return 1;
 }
 
-void *swift::reflection::anonymous namespace::PrintTypeInfo::printHeader(void **a1, uint64_t a2)
+void *swift::reflection::anonymous namespace::PrintTypeInfo::printHeader(void **a1, uint64_t **a2)
 {
   for (i = *(a1 + 2); i; --i)
   {
@@ -8574,7 +8568,7 @@ void *swift::reflection::anonymous namespace::PrintTypeInfo::printHeader(void **
 
   else
   {
-    v8 = *(a2 + 8);
+    v8 = a2[1];
   }
 
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, v7, v8);
@@ -8692,7 +8686,7 @@ LABEL_24:
   }
 }
 
-void *swift::reflection::anonymous namespace::PrintTypeInfo::printField(void **a1, uint64_t a2, uint64_t a3)
+void *swift::reflection::anonymous namespace::PrintTypeInfo::printField(void **a1, uint64_t **a2, uint64_t **a3)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -8701,7 +8695,7 @@ void *swift::reflection::anonymous namespace::PrintTypeInfo::printField(void **a
 
   else
   {
-    v5 = *(a2 + 8);
+    v5 = a2[1];
   }
 
   v6 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*a1, " ", 1);
@@ -8723,7 +8717,7 @@ void *swift::reflection::anonymous namespace::PrintTypeInfo::printField(void **a
 
   else
   {
-    v9 = *(a2 + 8);
+    v9 = a2[1];
   }
 
   result = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, v8, v9);
@@ -8748,7 +8742,7 @@ void *swift::reflection::anonymous namespace::PrintTypeInfo::printField(void **a
 
     else
     {
-      v14 = *(a3 + 8);
+      v14 = a3[1];
     }
 
     return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, v13, v14);
@@ -8863,21 +8857,21 @@ LABEL_4:
   }
 }
 
-uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo>(__int128 **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
   v3 = v2 + 1;
   if (v2 + 1 > 0x555555555555555)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
+  if (0x5555555555555556 * (a1[2] - *a1) > v3)
   {
-    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
+    v3 = 0x5555555555555556 * (a1[2] - *a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x2AAAAAAAAAAAAAALL)
   {
     v5 = 0x555555555555555;
   }
@@ -8897,7 +8891,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = 16 * ((a1[1] - *a1) >> 4);
+  v6 = 16 * (a1[1] - *a1);
   *v6 = *a2;
   *(v6 + 16) = *(a2 + 16);
   *(a2 + 8) = 0;
@@ -8908,11 +8902,11 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
   v7 = 48 * v2 + 48;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = &(*a1)[v6 / 0x10] - v9;
   if (*a1 != v9)
   {
     v11 = *a1;
-    v12 = v6 + *a1 - v9;
+    v12 = &(*a1)[v6 / 0x10] - v9;
     do
     {
       v13 = *v11;
@@ -8936,7 +8930,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
         operator delete(*v8);
       }
 
-      v8 += 48;
+      v8 += 3;
     }
 
     while (v8 != v9);
@@ -8954,7 +8948,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
   return v7;
 }
 
-uint64_t swift::reflection::LowerType::visitBuiltinTypeRef(swift::reflection::TypeRefBuilder ***this, const swift::reflection::BuiltinTypeRef *a2)
+char *swift::reflection::LowerType::visitBuiltinTypeRef(swift::reflection::TypeRefBuilder ***this, const swift::reflection::BuiltinTypeRef *a2)
 {
   v3 = (a2 + 16);
   v4 = *(a2 + 39);
@@ -8963,11 +8957,10 @@ uint64_t swift::reflection::LowerType::visitBuiltinTypeRef(swift::reflection::Ty
     if (v4 != 2)
     {
 LABEL_16:
-      swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(**this, a2, &v10);
-      if (v10)
+      swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(&v9, **this, a2);
+      if (v9)
       {
-        v5 = **this;
-        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>();
+        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>(*this, **this, v9);
       }
 
       return 0;
@@ -8998,9 +8991,9 @@ LABEL_16:
       if (*(a2 + 3) == 2 && **v3 == 17474)
       {
 LABEL_24:
-        v9 = *this;
+        v8 = *this;
 
-        return swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(v9);
+        return swift::reflection::TypeConverter::getDefaultActorStorageTypeInfo(v8);
       }
 
       if (*(a2 + 3) != 2)
@@ -9019,17 +9012,17 @@ LABEL_15:
     }
 
 LABEL_20:
-    v6 = *this;
-    v7 = 1;
+    v5 = *this;
+    v6 = 1;
     goto LABEL_21;
   }
 
 LABEL_18:
-  v6 = *this;
-  v7 = 0;
+  v5 = *this;
+  v6 = 0;
 LABEL_21:
 
-  return swift::reflection::TypeConverter::getReferenceTypeInfo(v6, 0, v7);
+  return swift::reflection::TypeConverter::getReferenceTypeInfo(v5, 0, v6);
 }
 
 uint64_t swift::reflection::LowerType::visitTupleTypeRef(swift::reflection::LowerType *this, const swift::reflection::TupleTypeRef *a2)
@@ -9084,7 +9077,7 @@ uint64_t swift::reflection::LowerType::visitTupleTypeRef(swift::reflection::Lowe
   return result;
 }
 
-uint64_t **swift::reflection::LowerType::visitFunctionTypeRef(uint64_t **this, const swift::reflection::FunctionTypeRef *a2)
+char *swift::reflection::LowerType::visitFunctionTypeRef(char *this, const swift::reflection::FunctionTypeRef *a2)
 {
   v4 = *(a2 + 50);
   if ((v4 - 2) < 2)
@@ -9092,7 +9085,7 @@ uint64_t **swift::reflection::LowerType::visitFunctionTypeRef(uint64_t **this, c
     v13 = v2;
     v14 = v3;
     v6 = *this;
-    v7 = (*this)[16];
+    v7 = *(*this + 128);
     if (!v7)
     {
       v8 = *v6;
@@ -9110,7 +9103,7 @@ uint64_t **swift::reflection::LowerType::visitFunctionTypeRef(uint64_t **this, c
       }
     }
 
-    return swift::reflection::TypeConverter::getTypeInfo(v6, v7, this[1]);
+    return swift::reflection::TypeConverter::getTypeInfo(v6, v7, *(this + 1));
   }
 
   else if (v4 == 1)
@@ -9135,61 +9128,62 @@ uint64_t **swift::reflection::LowerType::visitFunctionTypeRef(uint64_t **this, c
   return this;
 }
 
-void swift::reflection::LowerType::visitAnyNominalTypeRef(uint64_t **this, const swift::reflection::TypeRef *a2)
+void swift::reflection::LowerType::visitAnyNominalTypeRef(swift::reflection::LowerType *this, const swift::reflection::TypeRef *a2)
 {
-  swift::reflection::TypeRefBuilder::getFieldDescriptor(**this, a2, &v53);
-  v4 = v53;
-  if (!v53 || (v5 = v53[4], !v53[4]))
+  swift::reflection::TypeRefBuilder::getFieldDescriptor(&v52, **this, a2);
+  v4 = v52;
+  if (!v52 || (v5 = v52[4], !v52[4]))
   {
-    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(**this, a2, &__p);
+    swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(&__p, **this, a2);
+    v6 = __p.__r_.__value_.__r.__words[0];
     if (!__p.__r_.__value_.__r.__words[0])
     {
-      v4 = v53;
-      if (!v53)
+      v4 = v52;
+      if (!v52)
       {
-        if (!this[1])
+        if (!*(this + 1))
         {
           goto LABEL_76;
         }
 
-        v20 = 0;
+        v19 = 0;
         size = 0;
-        memset(&v47, 0, sizeof(v47));
+        memset(&v46, 0, sizeof(v46));
         if (a2 && (*(a2 + 2) - 3) >= 0xFFFFFFFE)
         {
-          std::string::operator=(&v47, (a2 + 16));
-          v20 = HIBYTE(v47.__r_.__value_.__r.__words[2]);
-          size = v47.__r_.__value_.__l.__size_;
+          std::string::operator=(&v46, (a2 + 16));
+          v19 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+          size = v46.__r_.__value_.__l.__size_;
         }
 
-        if ((v20 & 0x80u) == 0)
+        if ((v19 & 0x80u) == 0)
         {
-          v22 = v20;
-        }
-
-        else
-        {
-          v22 = size;
-        }
-
-        if (v22 && ((v20 & 0x80u) == 0 ? (v23 = &v47) : (v23 = v47.__r_.__value_.__r.__words[0]), (v24 = (*(*this[1] + 16))(this[1], v23)) != 0))
-        {
-          v25 = v24;
-          v26 = 0;
+          v21 = v19;
         }
 
         else
         {
+          v21 = size;
+        }
+
+        if (v21 && ((v19 & 0x80u) == 0 ? (v22 = &v46) : (v22 = v46.__r_.__value_.__r.__words[0]), (v23 = (*(**(this + 1) + 16))(*(this + 1), v22)) != 0))
+        {
+          v24 = v23;
           v25 = 0;
-          v26 = 1;
         }
 
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        else
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          v24 = 0;
+          v25 = 1;
         }
 
-        if (((v25 != 0) & ~v26) == 0)
+        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v46.__r_.__value_.__l.__data_);
+        }
+
+        if (((v24 != 0) & ~v25) == 0)
         {
 LABEL_76:
           swift::reflection::LowerType::CFRefTypeInfo(this, a2);
@@ -9198,7 +9192,7 @@ LABEL_76:
         goto LABEL_77;
       }
 
-      v5 = v53[4];
+      v5 = v52[4];
       if (v5 <= 3)
       {
         goto LABEL_4;
@@ -9207,62 +9201,61 @@ LABEL_76:
       goto LABEL_25;
     }
 
-    if (!this[1])
+    if (!*(this + 1))
     {
 LABEL_30:
-      v14 = **this;
-      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>();
+      swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::BuiltinTypeInfo,swift::reflection::TypeRefBuilder &,swift::reflection::BuiltinTypeDescriptorBase &>(*this, **this, v6);
     }
 
-    v6 = 0;
     v7 = 0;
-    memset(&v47, 0, sizeof(v47));
+    v8 = 0;
+    memset(&v46, 0, sizeof(v46));
     if (a2 && (*(a2 + 2) - 3) >= 0xFFFFFFFE)
     {
-      std::string::operator=(&v47, (a2 + 16));
-      v6 = HIBYTE(v47.__r_.__value_.__r.__words[2]);
-      v7 = v47.__r_.__value_.__l.__size_;
+      std::string::operator=(&v46, (a2 + 16));
+      v7 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+      v8 = v46.__r_.__value_.__l.__size_;
     }
 
-    if ((v6 & 0x80u) == 0)
+    if ((v7 & 0x80u) == 0)
     {
-      v8 = v6;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7;
+      v9 = v8;
     }
 
-    if (v8 && ((v6 & 0x80u) == 0 ? (v9 = &v47) : (v9 = v47.__r_.__value_.__r.__words[0]), (v10 = (*(*this[1] + 16))(this[1], v9)) != 0))
+    if (v9 && ((v7 & 0x80u) == 0 ? (v10 = &v46) : (v10 = v46.__r_.__value_.__r.__words[0]), (v11 = (*(**(this + 1) + 16))(*(this + 1), v10)) != 0))
     {
-      v11 = v10;
+      v12 = v11;
+      v13 = 0;
+      if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
       v12 = 0;
-      if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      v13 = 1;
+      if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_29;
       }
     }
 
-    else
-    {
-      v11 = 0;
-      v12 = 1;
-      if ((SHIBYTE(v47.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
 LABEL_29:
-    v13 = __p.__r_.__value_.__r.__words[0];
-    if (((v11 != 0) & ~v12) != 0)
+    v6 = __p.__r_.__value_.__r.__words[0];
+    if (((v12 != 0) & ~v13) != 0)
     {
       __p.__r_.__value_.__r.__words[0] = 0;
-      if (v13)
+      if (v6)
       {
-        (*(*v13 + 8))(v13);
+        (*(*v6 + 8))(v6);
       }
 
       goto LABEL_77;
@@ -9271,44 +9264,44 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (v53[4] <= 3u)
+  if (v52[4] <= 3u)
   {
 LABEL_4:
     if (v5 - 2 < 2)
     {
-      v15 = this[1];
-      v47.__r_.__value_.__r.__words[0] = *this;
-      v47.__r_.__value_.__l.__size_ = 0x100000000;
-      LODWORD(v47.__r_.__value_.__r.__words[2]) = 0;
-      v47.__r_.__value_.__s.__data_[20] = 1;
-      v49 = 0;
-      v50 = 0;
+      v14 = *(this + 1);
+      v46.__r_.__value_.__r.__words[0] = *this;
+      v46.__r_.__value_.__l.__size_ = 0x100000000;
+      LODWORD(v46.__r_.__value_.__r.__words[2]) = 0;
+      v46.__r_.__value_.__s.__data_[20] = 1;
       v48 = 0;
-      LOBYTE(v51) = 0;
-      swift::reflection::EnumTypeInfoBuilder::build(&v47, a2, v4, v15);
-      v16 = v48;
-      if (v48)
+      v49 = 0;
+      v47 = 0;
+      LOBYTE(v50) = 0;
+      swift::reflection::EnumTypeInfoBuilder::build(&v46, a2, v4, v14);
+      v15 = v47;
+      if (v47)
       {
-        v17 = v49;
-        v18 = v48;
-        if (v49 != v48)
+        v16 = v48;
+        v17 = v47;
+        if (v48 != v47)
         {
           do
           {
-            v19 = *(v17 - 25);
-            v17 -= 6;
-            if (v19 < 0)
+            v18 = *(v16 - 25);
+            v16 -= 6;
+            if (v18 < 0)
             {
-              operator delete(*v17);
+              operator delete(*v16);
             }
           }
 
-          while (v17 != v16);
-          v18 = v48;
+          while (v16 != v15);
+          v17 = v47;
         }
 
-        v49 = v16;
-        operator delete(v18);
+        v48 = v15;
+        operator delete(v17);
       }
     }
 
@@ -9327,112 +9320,112 @@ LABEL_90:
         return;
       }
 
-      v28 = *this;
-      v27 = this[1];
-      v46 = 0;
-      v47.__r_.__value_.__r.__words[0] = v28;
-      v47.__r_.__value_.__l.__size_ = 0x100000000;
-      LODWORD(v47.__r_.__value_.__r.__words[2]) = 0;
-      LODWORD(v48) = 2;
-      v47.__r_.__value_.__s.__data_[20] = 1;
-      v50 = 0;
-      v51 = 0;
-      v49 = 0;
-      v52 = 1;
-      v44 = 0;
+      v27 = *this;
+      v26 = *(this + 1);
       v45 = 0;
-      if (swift::reflection::TypeRefBuilder::getFieldTypeRefs(*v28, a2, v4, v27, &v44))
+      v46.__r_.__value_.__r.__words[0] = v27;
+      v46.__r_.__value_.__l.__size_ = 0x100000000;
+      LODWORD(v46.__r_.__value_.__r.__words[2]) = 0;
+      LODWORD(v47) = 2;
+      v46.__r_.__value_.__s.__data_[20] = 1;
+      v49 = 0;
+      v50 = 0;
+      v48 = 0;
+      v51 = 1;
+      v43 = 0;
+      v44 = 0;
+      if (swift::reflection::TypeRefBuilder::getFieldTypeRefs(*v27, a2, v4, v26, &v43))
       {
+        v28 = v43;
         v29 = v44;
-        v30 = v45;
-        if (v44 != v45)
+        if (v43 != v44)
         {
           do
           {
-            if (*(v29 + 23) < 0)
+            if (*(v28 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&__p, *v29, v29[1]);
+              std::string::__init_copy_ctor_external(&__p, *v28, v28[1]);
             }
 
             else
             {
-              v31 = *v29;
-              __p.__r_.__value_.__r.__words[2] = v29[2];
-              *&__p.__r_.__value_.__l.__data_ = v31;
+              v30 = *v28;
+              __p.__r_.__value_.__r.__words[2] = v28[2];
+              *&__p.__r_.__value_.__l.__data_ = v30;
             }
 
-            v32 = *(v29 + 3);
-            v43 = *(v29 + 20);
-            v42 = v32;
-            swift::reflection::RecordTypeInfoBuilder::addField(&v47, &__p, *(&v32 + 1), this[1]);
+            v31 = *(v28 + 3);
+            v42 = *(v28 + 20);
+            v41 = v31;
+            swift::reflection::RecordTypeInfoBuilder::addField(&v46, &__p, *(&v31 + 1), *(this + 1));
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            v29 += 6;
+            v28 += 6;
           }
 
-          while (v29 != v30);
+          while (v28 != v29);
         }
 
-        swift::reflection::RecordTypeInfoBuilder::build(&v47);
+        swift::reflection::RecordTypeInfoBuilder::build(&v46);
       }
 
-      v33 = v44;
-      if (v44)
+      v32 = v43;
+      if (v43)
       {
-        v34 = v45;
-        v35 = v44;
-        if (v45 != v44)
+        v33 = v44;
+        v34 = v43;
+        if (v44 != v43)
         {
           do
           {
-            v36 = *(v34 - 25);
-            v34 -= 6;
-            if (v36 < 0)
+            v35 = *(v33 - 25);
+            v33 -= 6;
+            if (v35 < 0)
             {
-              operator delete(*v34);
+              operator delete(*v33);
             }
           }
 
-          while (v34 != v33);
-          v35 = v44;
+          while (v33 != v32);
+          v34 = v43;
         }
 
-        v45 = v33;
-        operator delete(v35);
+        v44 = v32;
+        operator delete(v34);
       }
 
-      v37 = v49;
-      if (v49)
+      v36 = v48;
+      if (v48)
       {
-        v38 = v50;
-        v39 = v49;
-        if (v50 != v49)
+        v37 = v49;
+        v38 = v48;
+        if (v49 != v48)
         {
           do
           {
-            v40 = *(v38 - 25);
-            v38 -= 6;
-            if (v40 < 0)
+            v39 = *(v37 - 25);
+            v37 -= 6;
+            if (v39 < 0)
             {
-              operator delete(*v38);
+              operator delete(*v37);
             }
           }
 
-          while (v38 != v37);
-          v39 = v49;
+          while (v37 != v36);
+          v38 = v48;
         }
 
-        v50 = v37;
-        operator delete(v39);
+        v49 = v36;
+        operator delete(v38);
       }
     }
 
 LABEL_77:
-    v4 = v53;
-    v53 = 0;
+    v4 = v52;
+    v52 = 0;
     if (!v4)
     {
       return;
@@ -9453,12 +9446,12 @@ LABEL_25:
     goto LABEL_77;
   }
 
-  v53 = 0;
+  v52 = 0;
 LABEL_78:
   (*(*v4 + 8))(v4);
 }
 
-uint64_t swift::reflection::LowerType::CFRefTypeInfo(swift::reflection::LowerType *this, const swift::reflection::TypeRef *a2)
+char *swift::reflection::LowerType::CFRefTypeInfo(swift::reflection::LowerType *this, const swift::reflection::TypeRef *a2)
 {
   if (!a2 || *(a2 + 2) != 1)
   {
@@ -9515,7 +9508,7 @@ uint64_t swift::reflection::LowerType::CFRefTypeInfo(swift::reflection::LowerTyp
   v5 = *(Demangling + 18);
   if (v5 != 1)
   {
-    if (v5 != 5 || Demangling[2] != 1)
+    if (v5 != 5 || *(Demangling + 2) != 1)
     {
       goto LABEL_24;
     }
@@ -9535,7 +9528,7 @@ uint64_t swift::reflection::LowerType::CFRefTypeInfo(swift::reflection::LowerTyp
     goto LABEL_13;
   }
 
-  if (v7 != 5 || v6[2] != 2)
+  if (v7 != 5 || *(v6 + 2) != 2)
   {
 LABEL_24:
     v15 = 1;
@@ -9622,77 +9615,77 @@ LABEL_25:
 
 uint64_t swift::reflection::EnumTypeInfoBuilder::build(void *a1, swift::reflection::TypeRef *a2, _WORD *a3, uint64_t a4)
 {
-  v104 = 0;
-  v105 = 0;
-  v106 = 0;
-  if ((swift::reflection::TypeRefBuilder::getFieldTypeRefs(**a1, a2, a3, a4, &v104) & 1) == 0)
+  v98 = 0;
+  v99 = 0;
+  v100 = 0;
+  if ((swift::reflection::TypeRefBuilder::getFieldTypeRefs(**a1, a2, a3, a4, &v98) & 1) == 0)
   {
     v19 = 0;
     *(a1 + 48) = 1;
     v20 = *a1;
-    v20[23] = "cannot not get field types";
-    v20[24] = a2;
+    *(v20 + 184) = "cannot not get field types";
+    *(v20 + 192) = a2;
     goto LABEL_47;
   }
 
-  v86 = a2;
-  v8 = v104;
-  v7 = v105;
-  if (v104 != v105)
+  v77 = a2;
+  v8 = v98;
+  v7 = v99;
+  if (v98 != v99)
   {
     v9 = 0;
-    v87 = 0;
+    v79 = 0;
     v10 = 0;
-    v88 = 0;
-    v89 = 0;
+    v81 = 0;
+    v83 = 0;
     while (1)
     {
       if (*(v8 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v101, *v8, *(v8 + 8));
+        std::string::__init_copy_ctor_external(&v95, *v8, v8[1]);
       }
 
       else
       {
         v11 = *v8;
-        v101.__r_.__value_.__r.__words[2] = *(v8 + 16);
-        *&v101.__r_.__value_.__l.__data_ = v11;
+        v95.__r_.__value_.__r.__words[2] = v8[2];
+        *&v95.__r_.__value_.__l.__data_ = v11;
       }
 
-      v12 = *(v8 + 24);
-      LOWORD(v103) = *(v8 + 40);
-      v102 = v12;
+      v12 = *(v8 + 3);
+      LOWORD(v97) = *(v8 + 20);
+      v96 = v12;
       if (!*(&v12 + 1))
       {
         break;
       }
 
-      if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v98, v101.__r_.__value_.__l.__data_, v101.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v92, v95.__r_.__value_.__l.__data_, v95.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v98 = v101;
+        v92 = v95;
       }
 
-      v100 = v103;
-      v99 = v102;
-      if (v103 == 1)
+      v94 = v97;
+      v93 = v96;
+      if (v97 == 1)
       {
         v13 = *a1;
         v14 = *(*a1 + 112);
         if (!v14)
         {
           v15 = *v13;
-          v109 = 2;
-          strcpy(&v107, "Bo");
-          v14 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v15, &v107);
+          v103 = 2;
+          strcpy(&v101, "Bo");
+          v14 = swift::reflection::BuiltinTypeRef::create<swift::reflection::TypeRefBuilder>(v15, &v101);
           v13[14] = v14;
-          if (v109 < 0)
+          if (v103 < 0)
           {
-            operator delete(v107);
+            operator delete(v101);
             v14 = v13[14];
           }
         }
@@ -9700,25 +9693,25 @@ uint64_t swift::reflection::EnumTypeInfoBuilder::build(void *a1, swift::reflecti
 
       else
       {
-        v14 = *(&v99 + 1);
+        v14 = *(&v93 + 1);
       }
 
-      if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v98.__r_.__value_.__l.__data_);
+        operator delete(v92.__r_.__value_.__l.__data_);
       }
 
       TypeInfo = swift::reflection::TypeConverter::getTypeInfo(*a1, v14, a4);
       if (TypeInfo)
       {
-        if (v103 == 1)
+        if (v97 == 1)
         {
           goto LABEL_26;
         }
 
-        if (BYTE1(v103) == 1)
+        if (BYTE1(v97) == 1)
         {
-          ++v88;
+          ++v81;
           goto LABEL_27;
         }
 
@@ -9727,18 +9720,18 @@ uint64_t swift::reflection::EnumTypeInfoBuilder::build(void *a1, swift::reflecti
 LABEL_26:
           ++v10;
 LABEL_27:
-          v89 = v14;
+          v83 = v14;
         }
 
         else
         {
-          ++v87;
+          ++v79;
         }
 
-        swift::reflection::EnumTypeInfoBuilder::addCase(a1, &v101, v14, TypeInfo);
+        swift::reflection::EnumTypeInfoBuilder::addCase(a1, &v95, v14, TypeInfo);
 LABEL_29:
         v17 = 1;
-        if ((SHIBYTE(v101.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v95.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_31;
         }
@@ -9749,15 +9742,15 @@ LABEL_29:
       v17 = 0;
       *(a1 + 48) = 1;
       v18 = *a1;
-      v18[23] = "no type info for single enum case";
-      v18[24] = v14;
-      if ((SHIBYTE(v101.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      *(v18 + 184) = "no type info for single enum case";
+      *(v18 + 192) = v14;
+      if ((SHIBYTE(v95.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_31;
       }
 
 LABEL_30:
-      operator delete(v101.__r_.__value_.__l.__data_);
+      operator delete(v95.__r_.__value_.__l.__data_);
 LABEL_31:
       if ((v17 & 1) == 0)
       {
@@ -9765,7 +9758,7 @@ LABEL_31:
         goto LABEL_47;
       }
 
-      v8 += 48;
+      v8 += 6;
       if (v8 == v7)
       {
         goto LABEL_37;
@@ -9773,311 +9766,306 @@ LABEL_31:
     }
 
     ++v9;
-    swift::reflection::EnumTypeInfoBuilder::addCase(a1, &v101);
+    swift::reflection::EnumTypeInfoBuilder::addCase(a1, &v95);
     goto LABEL_29;
   }
 
-  v89 = 0;
-  v88 = 0;
+  v83 = 0;
+  v81 = 0;
   v10 = 0;
-  v87 = 0;
+  v79 = 0;
   v9 = 0;
 LABEL_37:
-  v21 = v10 + v88;
-  v97 = v10 + v88;
+  v21 = v10 + v81;
+  v91 = v10 + v81;
   v22 = a1[3];
   v23 = a1[4];
   if (v22 == v23)
   {
-    v25 = *a1;
     operator new();
   }
 
-  v24 = v21 + v87;
-  if (v21 + v87 != 1)
+  v24 = v21 + v79;
+  if (v21 + v79 != 1)
   {
     if (!v24)
     {
-      v96 = 0;
+      v90 = 0;
       goto LABEL_45;
     }
 
     v24 = 2;
   }
 
-  v96 = v24;
+  v90 = v24;
 LABEL_45:
-  v26 = (a1 + 1);
+  v25 = (a1 + 1);
   if (*(a1 + 2) > 0x100000u)
   {
-    v27 = *(a1 + 3);
-    v28 = *a1;
     operator new();
   }
 
   if (v23 - v22 != 48)
   {
-    v34 = v9 + v87;
+    v32 = v9 + v79;
     if (v21 != 1)
     {
       if (!v21)
       {
-        if (v34 > 0xFF)
+        if (v32 > 0xFF)
         {
-          v35 = HIWORD(v34);
-          if (HIWORD(v34))
+          v33 = HIWORD(v32);
+          if (HIWORD(v32))
           {
-            LODWORD(v101.__r_.__value_.__l.__data_) = 4;
-            LODWORD(v107) = -v34;
-            v35 = v34 > 0;
+            LODWORD(v95.__r_.__value_.__l.__data_) = 4;
+            LODWORD(v101) = -v32;
+            v33 = v32 > 0;
 LABEL_86:
-            if (v87)
+            if (v79)
             {
-              LODWORD(v107) = 0;
+              LODWORD(v101) = 0;
             }
 
-            else if (v35)
+            else if (v33)
             {
-              LODWORD(v107) = 0x7FFFFFFF;
+              LODWORD(v101) = 0x7FFFFFFF;
             }
 
-            v52 = *a1;
-            swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::NoPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>();
+            swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::NoPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>(*a1, &v95, &v95, &v95, &v101, &v90, (a1 + 3));
           }
 
-          LODWORD(v101.__r_.__value_.__l.__data_) = 2;
-          v36 = 0x10000;
+          LODWORD(v95.__r_.__value_.__l.__data_) = 2;
+          v34 = 0x10000;
         }
 
         else
         {
-          v35 = 0;
-          LODWORD(v101.__r_.__value_.__l.__data_) = 1;
-          v36 = 256;
+          v33 = 0;
+          LODWORD(v95.__r_.__value_.__l.__data_) = 1;
+          v34 = 256;
         }
 
-        LODWORD(v107) = v36 - v34;
+        LODWORD(v101) = v34 - v32;
         goto LABEL_86;
       }
 
-      swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(**a1, v86, &v95);
-      v42 = v95;
-      if (!v95 || v88)
+      swift::reflection::TypeRefBuilder::getBuiltinTypeDescriptor(&v89, **a1, v77);
+      v40 = v89;
+      if (!v89 || v81)
       {
-        EnumTagCounts = swift::getEnumTagCounts(*v26, v34, v97);
-        v48 = *v26 + HIDWORD(EnumTagCounts);
-        v49 = (1 << (8 * BYTE4(EnumTagCounts))) - EnumTagCounts;
-        if (v49 >= 0x7FFFFFFF)
+        EnumTagCounts = swift::getEnumTagCounts(*v25, v32, v91);
+        v46 = *v25 + HIDWORD(EnumTagCounts);
+        v47 = (1 << (8 * BYTE4(EnumTagCounts))) - EnumTagCounts;
+        if (v47 >= 0x7FFFFFFF)
         {
-          v49 = 0x7FFFFFFF;
+          v47 = 0x7FFFFFFF;
         }
 
         if (EnumTagCounts >> 34)
         {
-          v49 = 0x7FFFFFFF;
+          v47 = 0x7FFFFFFF;
         }
 
-        *(a1 + 4) = v49;
-        *v26 = v48;
-        v50 = (v48 + *(a1 + 3) - 1) & -*(a1 + 3);
-        if (v50 <= 1)
+        *(a1 + 4) = v47;
+        *v25 = v46;
+        v48 = (v46 + *(a1 + 3) - 1) & -*(a1 + 3);
+        if (v48 <= 1)
         {
-          v50 = 1;
+          v48 = 1;
         }
 
-        LODWORD(v101.__r_.__value_.__l.__data_) = v50;
-        v51 = *a1;
-        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TaggedMultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,unsigned int &>();
+        LODWORD(v95.__r_.__value_.__l.__data_) = v48;
+        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TaggedMultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,unsigned int &>(*a1, a1 + 2, a1 + 3, &v95, a1 + 4, a1 + 20, (a1 + 3), &v91);
       }
 
-      v43 = 0x100004077774924;
-      v45 = *(v95 + 8);
-      v44 = *(v95 + 12);
-      *(a1 + 3) = v44;
-      *(a1 + 2) = v45;
-      *(a1 + 4) = *(v42 + 20);
-      *(a1 + 20) = *(v42 + 24);
-      v46 = (v45 + v44 - 1) & -v44;
-      if (v46 <= 1)
+      v41 = 0x100004077774924;
+      v43 = *(v89 + 8);
+      v42 = *(v89 + 12);
+      *(a1 + 3) = v42;
+      *(a1 + 2) = v43;
+      *(a1 + 4) = *(v40 + 20);
+      *(a1 + 20) = *(v40 + 24);
+      v44 = (v43 + v42 - 1) & -v42;
+      if (v44 <= 1)
       {
-        v46 = 1;
+        v44 = 1;
       }
 
-      v94 = v46;
-      LODWORD(v107) = v45;
-      if ((v45 - 134217729) >> 27 == 31)
+      v88 = v44;
+      LODWORD(v101) = v43;
+      v80 = (a1 + 2);
+      v82 = a1 + 3;
+      v78 = a1 + 20;
+      if ((v43 - 134217729) >> 27 == 31)
       {
-        v54 = malloc_type_malloc(v45, 0x100004077774924uLL);
-        v108 = v54;
-        if (v54)
+        v50 = malloc_type_malloc(v43, 0x100004077774924uLL);
+        v102 = v50;
+        if (v50)
         {
-          v90 = v54;
-          memset(v54, 255, v45);
+          v84 = v50;
+          memset(v50, 255, v43);
         }
 
         else
         {
-          v90 = 0;
-          LODWORD(v45) = 0;
-          LODWORD(v107) = 0;
+          v84 = 0;
+          LODWORD(v43) = 0;
+          LODWORD(v101) = 0;
         }
       }
 
       else
       {
-        v90 = 0;
-        LODWORD(v45) = 0;
-        LODWORD(v107) = 0;
-        v108 = 0;
+        v84 = 0;
+        LODWORD(v43) = 0;
+        LODWORD(v101) = 0;
+        v102 = 0;
       }
 
-      v93 = 0;
-      v57 = a1[3];
-      v56 = a1[4];
-      if (v57 == v56)
+      v87 = 0;
+      v53 = a1[3];
+      v52 = a1[4];
+      if (v53 == v52)
       {
 LABEL_131:
-        if (!v45)
+        if (!v43)
         {
           goto LABEL_138;
         }
 
-        if (!v90->i8[0])
+        if (!v84->i8[0])
         {
-          v80 = 1;
+          v75 = 1;
           do
           {
-            v81 = v80;
-            if (v45 == v80)
+            v76 = v75;
+            if (v43 == v75)
             {
               break;
             }
 
-            v82 = v90->u8[v80++];
+            ++v75;
           }
 
-          while (!v90->i8[v81]);
-          if (v81 >= v45)
+          while (!v84->i8[v76]);
+          if (v76 >= v43)
           {
             goto LABEL_138;
           }
         }
 
-        if (v93 == 1)
+        if (v87 == 1)
         {
 LABEL_138:
-          v83 = *a1;
-          swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TaggedMultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,unsigned int &>();
+          swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TaggedMultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,unsigned int &>(*a1, a1 + 2, v82, &v88, v80, v78, (a1 + 3), &v91);
         }
 
-        v84 = *a1;
-        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::MultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,swift::reflection::BitMask &,unsigned int &>();
+        swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::MultiPayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,std::vector<swift::reflection::FieldInfo> &,swift::reflection::BitMask &,unsigned int &>(*a1, a1 + 2, v82, &v88, v80, v78, (a1 + 3), &v101, &v91);
       }
 
       while (1)
       {
-        if (*(v57 + 23) < 0)
+        if (*(v53 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v101, *v57, *(v57 + 1));
+          std::string::__init_copy_ctor_external(&v95, *v53, *(v53 + 1));
         }
 
         else
         {
-          v58 = *v57;
-          v101.__r_.__value_.__r.__words[2] = *(v57 + 2);
-          *&v101.__r_.__value_.__l.__data_ = v58;
+          v54 = *v53;
+          v95.__r_.__value_.__r.__words[2] = *(v53 + 2);
+          *&v95.__r_.__value_.__l.__data_ = v54;
         }
 
-        v59 = *(v57 + 24);
-        v103 = *(v57 + 5);
-        v102 = v59;
-        if (!*(&v59 + 1))
+        v55 = *(v53 + 24);
+        v97 = *(v53 + 5);
+        v96 = v55;
+        if (!*(&v55 + 1))
         {
           goto LABEL_121;
         }
 
-        v60 = *a1;
-        (*(*v103 + 8))(&size);
-        v61 = size;
-        v62 = v43;
-        v63 = malloc_type_malloc(size, v43);
-        memcpy(v63, __src, v61);
-        if (v61)
+        (*(*v97 + 8))(&size);
+        v56 = size;
+        v57 = v41;
+        v58 = malloc_type_malloc(size, v41);
+        memcpy(v58, __src, v56);
+        if (v56)
         {
-          if (v45)
+          if (v43)
           {
             break;
           }
         }
 
 LABEL_120:
-        free(v63);
+        free(v58);
         free(__src);
-        v43 = v62;
+        v41 = v57;
 LABEL_121:
-        if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v101.__r_.__value_.__l.__data_);
+          operator delete(v95.__r_.__value_.__l.__data_);
         }
 
-        v57 += 3;
-        if (v57 == v56)
+        v53 += 3;
+        if (v53 == v52)
         {
           goto LABEL_131;
         }
       }
 
-      if (v45 >= v61)
+      if (v43 >= v56)
       {
-        v64 = v61;
+        v59 = v56;
       }
 
       else
       {
-        v64 = v45;
+        v59 = v43;
       }
 
-      if (v64 < 8 || (v90 < &v63->i8[v64] ? (v65 = v63 >= &v90->i8[v64]) : (v65 = 1), !v65))
+      if (v59 < 8 || (v84 < &v58->i8[v59] ? (v60 = v58 >= &v84->i8[v59]) : (v60 = 1), !v60))
       {
-        v66 = 0;
+        v61 = 0;
 LABEL_118:
-        v67 = &v90->i8[v66];
-        v68 = v64 - v66;
-        v69 = &v63->i8[v66];
+        v62 = &v84->i8[v61];
+        v63 = v59 - v61;
+        v64 = &v58->i8[v61];
         do
         {
-          v70 = *v69++;
-          *v67++ &= v70;
-          --v68;
+          v65 = *v64++;
+          *v62++ &= v65;
+          --v63;
         }
 
-        while (v68);
+        while (v63);
         goto LABEL_120;
       }
 
-      if (v64 >= 0x20)
+      if (v59 >= 0x20)
       {
-        v66 = v64 & 0xFFFFFE0;
-        v71 = v63 + 1;
-        v72 = v66;
-        v73 = v90 + 1;
+        v61 = v59 & 0xFFFFFE0;
+        v66 = v58 + 1;
+        v67 = v61;
+        v68 = v84 + 1;
         do
         {
-          v74 = vandq_s8(*v73, *v71);
-          v73[-1] = vandq_s8(v73[-1], v71[-1]);
-          *v73 = v74;
-          v71 += 2;
-          v73 += 2;
-          v72 -= 32;
+          v69 = vandq_s8(*v68, *v66);
+          v68[-1] = vandq_s8(v68[-1], v66[-1]);
+          *v68 = v69;
+          v66 += 2;
+          v68 += 2;
+          v67 -= 32;
         }
 
-        while (v72);
-        if (v66 == v64)
+        while (v67);
+        if (v61 == v59)
         {
           goto LABEL_120;
         }
 
-        if ((v64 & 0x18) == 0)
+        if ((v59 & 0x18) == 0)
         {
           goto LABEL_118;
         }
@@ -10085,24 +10073,24 @@ LABEL_118:
 
       else
       {
-        v66 = 0;
+        v61 = 0;
       }
 
-      v75 = v66;
-      v66 = v64 & 0xFFFFFF8;
-      v76 = &v63->i8[v75];
-      v77 = &v90->i8[v75];
-      v78 = v75 - v66;
+      v70 = v61;
+      v61 = v59 & 0xFFFFFF8;
+      v71 = &v58->i8[v70];
+      v72 = &v84->i8[v70];
+      v73 = v70 - v61;
       do
       {
-        v79 = *v76++;
-        *v77 = vand_s8(*v77, v79);
-        ++v77;
-        v78 += 8;
+        v74 = *v71++;
+        *v72 = vand_s8(*v72, v74);
+        ++v72;
+        v73 += 8;
       }
 
-      while (v78);
-      if (v66 == v64)
+      while (v73);
+      if (v61 == v59)
       {
         goto LABEL_120;
       }
@@ -10110,97 +10098,97 @@ LABEL_118:
       goto LABEL_118;
     }
 
-    v37 = swift::reflection::TypeConverter::getTypeInfo(*a1, v89, a4);
+    v35 = swift::reflection::TypeConverter::getTypeInfo(*a1, v83, a4);
     v19 = 0;
-    if (!v89 || !v37)
+    if (!v83 || !v35)
     {
       goto LABEL_47;
     }
 
-    v38 = *(v37 + 24);
-    v65 = v38 >= v34;
-    v39 = v38 - v34;
-    if (v65)
+    v36 = *(v35 + 24);
+    v60 = v36 >= v32;
+    v37 = v36 - v32;
+    if (v60)
     {
-      *(a1 + 4) = v39;
-      v53 = *(a1 + 2);
-      v41 = *(a1 + 3);
+      *(a1 + 4) = v37;
+      v49 = *(a1 + 2);
+      v39 = *(a1 + 3);
       goto LABEL_147;
     }
 
     *(a1 + 4) = 0;
-    v40 = *(a1 + 2);
-    if (v40 <= 3)
+    v38 = *(a1 + 2);
+    if (v38 <= 3)
     {
-      v55 = ((v34 + ~(-1 << (8 * v40))) >> (8 * v40)) + 1;
-      if (v55 < 2)
+      v51 = ((v32 + ~(-1 << (8 * v38))) >> (8 * v38)) + 1;
+      if (v51 < 2)
       {
-        v41 = 0;
+        v39 = 0;
         goto LABEL_144;
       }
 
-      if (v55 >= 0x100)
+      if (v51 >= 0x100)
       {
-        if (v55 >= 0x10000)
+        if (v51 >= 0x10000)
         {
-          v41 = 4;
+          v39 = 4;
         }
 
         else
         {
-          v41 = 2;
+          v39 = 2;
         }
 
         goto LABEL_144;
       }
     }
 
-    v41 = 1;
+    v39 = 1;
 LABEL_144:
-    v53 = v41 + v40;
-    if (*(a1 + 3) > v41)
+    v49 = v39 + v38;
+    if (*(a1 + 3) > v39)
     {
-      v41 = *(a1 + 3);
+      v39 = *(a1 + 3);
     }
 
-    *(a1 + 2) = v53;
-    *(a1 + 3) = v41;
+    *(a1 + 2) = v49;
+    *(a1 + 3) = v39;
 LABEL_147:
-    LODWORD(v101.__r_.__value_.__l.__data_) = (v53 + v41 - 1) & -v41;
-    v85 = *a1;
-    swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::SinglePayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>();
+    LODWORD(v95.__r_.__value_.__l.__data_) = (v49 + v39 - 1) & -v39;
+    swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::SinglePayloadEnumTypeInfo,unsigned int &,unsigned int &,unsigned int &,unsigned int &,BOOL &,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>(*a1, a1 + 2, a1 + 3, &v95, a1 + 4, a1 + 20, &v90, (a1 + 3));
   }
 
+  v31 = *a1;
   if (!v21)
   {
-    swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TrivialEnumTypeInfo,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>();
+    swift::reflection::TypeConverter::makeTypeInfo<swift::reflection::TrivialEnumTypeInfo,swift::reflection::EnumKind &,std::vector<swift::reflection::FieldInfo> &>(v31, &v90, (a1 + 3));
   }
 
-  v19 = swift::reflection::TypeConverter::getTypeInfo(*a1, v89, a4);
+  v19 = swift::reflection::TypeConverter::getTypeInfo(v31, v83, a4);
 LABEL_47:
-  v29 = v104;
-  if (v104)
+  v26 = v98;
+  if (v98)
   {
-    v30 = v105;
-    v31 = v104;
-    if (v105 != v104)
+    v27 = v99;
+    v28 = v98;
+    if (v99 != v98)
     {
       do
       {
-        v32 = *(v30 - 25);
-        v30 -= 6;
-        if (v32 < 0)
+        v29 = *(v27 - 25);
+        v27 -= 6;
+        if (v29 < 0)
         {
-          operator delete(*v30);
+          operator delete(*v27);
         }
       }
 
-      while (v30 != v29);
-      v31 = v104;
+      while (v27 != v26);
+      v28 = v98;
     }
 
-    v105 = v29;
-    operator delete(v31);
+    v99 = v26;
+    operator delete(v28);
   }
 
   return v19;

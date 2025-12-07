@@ -55,7 +55,7 @@
     v5 = mediaAnalysisProperties;
     if (mediaAnalysisProperties)
     {
-      [mediaAnalysisProperties bestVideoTimeRange];
+      objc_msgSend_bestVideoTimeRange(mediaAnalysisProperties);
       v6 = HIDWORD(v12);
       v7 = *(&v13 + 1);
       v8 = v13;

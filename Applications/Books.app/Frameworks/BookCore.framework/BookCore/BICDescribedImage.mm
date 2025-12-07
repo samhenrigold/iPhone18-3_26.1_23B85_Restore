@@ -106,23 +106,24 @@
   optionsCopy = options;
   sizeCopy = size;
   identifierCopy = identifier;
-  v12 = 0;
-  v7 = ClampImageSize(&sizeCopy, 1, &v12);
-  v8 = v12;
+  v13 = 0;
+  v7 = ClampImageSize(&sizeCopy, 1, &v13);
+  v8 = v13;
+  v9 = v8;
   if (v7)
   {
-    v9 = BCImageCacheLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BCImageCacheLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1ED0A0(identifierCopy, v8, v9);
+      sub_1ED0A0(identifierCopy, v9, v10);
     }
   }
 
-  v10 = [[BICDescribedImage alloc] initWithIdentifier:identifierCopy];
-  [(BICDescribedImage *)v10 setImageSize:sizeCopy.width, sizeCopy.height];
-  [(BICDescribedImage *)v10 setProcessingOptions:optionsCopy];
+  v11 = [[BICDescribedImage alloc] initWithIdentifier:identifierCopy];
+  [(BICDescribedImage *)v11 setImageSize:sizeCopy.width, sizeCopy.height];
+  [(BICDescribedImage *)v11 setProcessingOptions:optionsCopy];
 
-  return v10;
+  return v11;
 }
 
 + (id)describedImagesToDictionaryOfSets:(id)sets

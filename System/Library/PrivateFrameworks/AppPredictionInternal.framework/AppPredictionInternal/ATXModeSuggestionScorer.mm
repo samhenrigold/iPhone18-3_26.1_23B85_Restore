@@ -201,13 +201,13 @@
   [v25 doubleValue];
   v27 = v24 + v18 * v26;
 
-  v28 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = __atxlog_handle_modes(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     modeUUID = self->_modeUUID;
     modeType = self->_modeType;
     feedbackScore = self->_feedbackScore;
-    v32 = self->_confidenceScore;
+    v33 = self->_confidenceScore;
     secondsSinceSuggested = self->_secondsSinceSuggested;
     v36 = 138545154;
     v37 = modeUUID;
@@ -216,7 +216,7 @@
     v40 = 2048;
     v41 = v27;
     v42 = 2048;
-    v43 = v32;
+    v43 = v33;
     v44 = 2112;
     v45 = feedbackScore;
     v46 = 2048;
@@ -225,10 +225,9 @@
     isModeConfigured = [(ATXModeSuggestionScorer *)self isModeConfigured];
     v50 = 1024;
     isUserCurrentlyInMode = [(ATXModeSuggestionScorer *)self isUserCurrentlyInMode];
-    _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Calculating combined score for modeUUID: %{public}@, modeType: %lu combinedScore: %f, confidenceScore: %f, feedbackScore: %@, secondsSinceSuggested: %f, isActivityConfigured: %d, isUserCurrentlyInActivity: %d", &v36, 0x4Au);
+    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Calculating combined score for modeUUID: %{public}@, modeType: %lu combinedScore: %f, confidenceScore: %f, feedbackScore: %@, secondsSinceSuggested: %f, isActivityConfigured: %d, isUserCurrentlyInActivity: %d", &v36, 0x4Au);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -251,17 +250,18 @@
 
 - (BOOL)_shouldSuggestOnLockScreenWithDefaults:(id)defaults
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   if (![MEMORY[0x277D42590] isInternalBuild] || (objc_msgSend(defaultsCopy, "BOOLForKey:", *MEMORY[0x277D41CE8]) & 1) == 0)
   {
-    if (![(ATXModeSuggestionScorer *)self isModeConfigured]&& self->_modeType != 6)
+    isModeConfigured = [(ATXModeSuggestionScorer *)self isModeConfigured];
+    if ((isModeConfigured & 1) == 0 && self->_modeType != 6)
     {
-      _lockScreenSuggestionThresholds = __atxlog_handle_modes();
+      _lockScreenSuggestionThresholds = __atxlog_handle_modes(isModeConfigured);
       if (os_log_type_enabled(_lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v7 = "ATXModeSuggestionScorer: Mode is not configured and type is not driving, should suppress mode set-up suggestion from lockscreen";
+        v9 = "ATXModeSuggestionScorer: Mode is not configured and type is not driving, should suppress mode set-up suggestion from lockscreen";
         goto LABEL_37;
       }
 
@@ -272,83 +272,91 @@ LABEL_66:
       goto LABEL_67;
     }
 
-    if (![(ATXModeSuggestionScorer *)self isModeConfigured]&& [(ATXModeSuggestionScorer *)self _hasUserSetUpModeBefore])
+    if (![(ATXModeSuggestionScorer *)self isModeConfigured])
     {
-      _lockScreenSuggestionThresholds = __atxlog_handle_modes();
-      if (os_log_type_enabled(_lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT))
+      _hasUserSetUpModeBefore = [(ATXModeSuggestionScorer *)self _hasUserSetUpModeBefore];
+      if (_hasUserSetUpModeBefore)
       {
-        *buf = 0;
-        v7 = "ATXModeSuggestionScorer: User has configured mode before, should suppress mode set-up suggestion from lockscreen";
+        _lockScreenSuggestionThresholds = __atxlog_handle_modes(_hasUserSetUpModeBefore);
+        if (os_log_type_enabled(_lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          v9 = "ATXModeSuggestionScorer: User has configured mode before, should suppress mode set-up suggestion from lockscreen";
 LABEL_37:
-        _os_log_impl(&dword_2263AA000, _lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+          _os_log_impl(&dword_2263AA000, _lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+          goto LABEL_65;
+        }
+
         goto LABEL_65;
       }
-
-      goto LABEL_65;
     }
 
-    if (![(ATXModeSuggestionScorer *)self isModeConfigured]&& self->_modeType == 6 && ![(ATXModeSuggestionScorer *)self _inValidLocaleForDrivingSuggestions])
+    if (![(ATXModeSuggestionScorer *)self isModeConfigured]&& self->_modeType == 6)
     {
-      _lockScreenSuggestionThresholds = __atxlog_handle_modes();
-      if (os_log_type_enabled(_lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT))
+      _inValidLocaleForDrivingSuggestions = [(ATXModeSuggestionScorer *)self _inValidLocaleForDrivingSuggestions];
+      if ((_inValidLocaleForDrivingSuggestions & 1) == 0)
       {
-        *buf = 0;
-        v7 = "ATXModeSuggestionScorer: Mode is not configured and type is driving, should suppress mode set-up suggestion from lockscreen because user is not in valid locale";
-        goto LABEL_37;
-      }
+        _lockScreenSuggestionThresholds = __atxlog_handle_modes(_inValidLocaleForDrivingSuggestions);
+        if (os_log_type_enabled(_lockScreenSuggestionThresholds, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          v9 = "ATXModeSuggestionScorer: Mode is not configured and type is driving, should suppress mode set-up suggestion from lockscreen because user is not in valid locale";
+          goto LABEL_37;
+        }
 
-      goto LABEL_65;
+        goto LABEL_65;
+      }
     }
 
     _lockScreenSuggestionThresholds = [(ATXModeSuggestionScorer *)self _lockScreenSuggestionThresholds];
     [(ATXModeSuggestionScorer *)self _populateFeedbackScoresIfNeeded];
-    v8 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"confidenceScoreThreshold"];
-    [v8 doubleValue];
-    v10 = v9;
-
-    v11 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsInPastWeekThreshold"];
+    v11 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"confidenceScoreThreshold"];
     [v11 doubleValue];
     v13 = v12;
 
-    v14 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"totalRejectionsThreshold"];
+    v14 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsInPastWeekThreshold"];
     [v14 doubleValue];
     v16 = v15;
 
-    v17 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"totalIgnoresAndRejectionsThreshold"];
+    v17 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"totalRejectionsThreshold"];
     [v17 doubleValue];
     v19 = v18;
 
-    v20 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownInLastDayThreshold"];
+    v20 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"totalIgnoresAndRejectionsThreshold"];
     [v20 doubleValue];
-    v103 = v21;
+    v22 = v21;
 
-    v22 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsAcrossAllModesInPastDayThreshold"];
-    [v22 doubleValue];
-    v24 = v23;
+    v23 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownInLastDayThreshold"];
+    [v23 doubleValue];
+    v120 = v24;
 
-    v25 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownAcrossAllModesInPastDayThreshold"];
+    v25 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsAcrossAllModesInPastDayThreshold"];
     [v25 doubleValue];
     v27 = v26;
 
-    v28 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownAcrossAllModesInPastWeekThreshold"];
+    v28 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownAcrossAllModesInPastDayThreshold"];
     [v28 doubleValue];
     v30 = v29;
 
-    v31 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsAcrossAllModesInPastWeekThreshold"];
+    v31 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"timesShownAcrossAllModesInPastWeekThreshold"];
     [v31 doubleValue];
     v33 = v32;
 
-    v34 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"shouldSuppressIfUserIsInADifferentMode"];
-    bOOLValue = [v34 BOOLValue];
+    v34 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"rejectionsAcrossAllModesInPastWeekThreshold"];
+    [v34 doubleValue];
+    v36 = v35;
 
-    v36 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = [_lockScreenSuggestionThresholds objectForKeyedSubscript:@"shouldSuppressIfUserIsInADifferentMode"];
+    bOOLValue = [v37 BOOLValue];
+
+    v40 = __atxlog_handle_modes(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       modeUUID = self->_modeUUID;
-      *&v38 = self->_modeType;
+      *&v42 = self->_modeType;
       BMUserFocusInferredModeTypeToActivity();
       ATXActivityTypeToString();
-      v39 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v43 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       confidenceScore = self->_confidenceScore;
       feedbackScore = self->_feedbackScore;
       rejectionsInPastWeek = self->_rejectionsInPastWeek;
@@ -361,160 +369,173 @@ LABEL_37:
       timesShownAcrossAllModesInPastWeek = self->_timesShownAcrossAllModesInPastWeek;
       rejectionsAcrossAllModesInPastWeek = self->_rejectionsAcrossAllModesInPastWeek;
       *buf = 138546690;
-      v105 = modeUUID;
-      v106 = 2048;
-      v107 = v38;
-      v108 = 2114;
-      v109 = v39;
-      v110 = 2048;
-      v111 = confidenceScore;
-      v112 = 2112;
-      v113 = feedbackScore;
-      v114 = 2112;
-      v115 = rejectionsInPastWeek;
-      v116 = 2112;
-      v117 = totalRejections;
-      v118 = 2112;
-      v119 = totalIgnores;
-      v120 = 2112;
-      v121 = timesShownInLastDay;
-      v122 = 2114;
-      v123 = timesShown;
-      v124 = 2112;
-      v125 = rejectionsAcrossAllModesInPastDay;
-      v126 = 2112;
-      v127 = timesShownAcrossAllModesInPastDay;
-      v128 = 2112;
-      v129 = timesShownAcrossAllModesInPastWeek;
-      v130 = 2112;
-      v131 = rejectionsAcrossAllModesInPastWeek;
-      _os_log_impl(&dword_2263AA000, v36, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Determining if mode should be suggestion on lock screen. uuid: %{public}@, modeType: %lu, modeString: %{public}@, confidenceScore: %f, feedbackScore: %@, rejectionsInPastWeek: %@, totalRejections: %@, totalIgnores: %@, timesShownInLastDay: %@, timesShown: %{public}@, rejectionsAcrossAllModesInPastDay: %@, timesShownAcrossAllModesInPastDay: %@, timesShownAcrossAllModesInPastWeek: %@, rejectionsAcrossAllModesInPastWeek: %@", buf, 0x8Eu);
+      v122 = modeUUID;
+      v123 = 2048;
+      v124 = v42;
+      v125 = 2114;
+      v126 = v43;
+      v127 = 2048;
+      v128 = confidenceScore;
+      v129 = 2112;
+      v130 = feedbackScore;
+      v131 = 2112;
+      v132 = rejectionsInPastWeek;
+      v133 = 2112;
+      v134 = totalRejections;
+      v135 = 2112;
+      v136 = totalIgnores;
+      v137 = 2112;
+      v138 = timesShownInLastDay;
+      v139 = 2114;
+      v140 = timesShown;
+      v141 = 2112;
+      v142 = rejectionsAcrossAllModesInPastDay;
+      v143 = 2112;
+      v144 = timesShownAcrossAllModesInPastDay;
+      v145 = 2112;
+      v146 = timesShownAcrossAllModesInPastWeek;
+      v147 = 2112;
+      v148 = rejectionsAcrossAllModesInPastWeek;
+      _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Determining if mode should be suggestion on lock screen. uuid: %{public}@, modeType: %lu, modeString: %{public}@, confidenceScore: %f, feedbackScore: %@, rejectionsInPastWeek: %@, totalRejections: %@, totalIgnores: %@, timesShownInLastDay: %@, timesShown: %{public}@, rejectionsAcrossAllModesInPastDay: %@, timesShownAcrossAllModesInPastDay: %@, timesShownAcrossAllModesInPastWeek: %@, rejectionsAcrossAllModesInPastWeek: %@", buf, 0x8Eu);
     }
 
-    if ([(ATXModeSuggestionScorer *)self isModeConfigured]|| self->_modeType != 6)
+    isModeConfigured2 = [(ATXModeSuggestionScorer *)self isModeConfigured];
+    if ((isModeConfigured2 & 1) != 0 || self->_modeType != 6)
     {
 LABEL_24:
-      if (self->_confidenceScore >= v10)
+      if (self->_confidenceScore >= v13)
       {
-        [(NSNumber *)self->_rejectionsInPastWeek doubleValue];
-        if (v63 <= v13)
+        doubleValue = [(NSNumber *)self->_rejectionsInPastWeek doubleValue];
+        if (v71 <= v16)
         {
-          [(NSNumber *)self->_totalRejections doubleValue];
-          if (v66 <= v16)
+          doubleValue2 = [(NSNumber *)self->_totalRejections doubleValue];
+          if (v75 <= v19)
           {
             [(NSNumber *)self->_totalIgnores doubleValue];
-            v70 = v69;
-            [(NSNumber *)self->_totalRejections doubleValue];
-            v72 = v70 + v71;
-            if (v72 <= v19)
+            v79 = v78;
+            doubleValue3 = [(NSNumber *)self->_totalRejections doubleValue];
+            v82 = v79 + v81;
+            if (v82 <= v22)
             {
-              [(NSNumber *)self->_timesShownInLastDay doubleValue];
-              if (v74 <= v103)
+              doubleValue4 = [(NSNumber *)self->_timesShownInLastDay doubleValue];
+              if (v85 <= v120)
               {
-                [(NSNumber *)self->_rejectionsAcrossAllModesInPastDay doubleValue];
-                if (v77 <= v24)
+                doubleValue5 = [(NSNumber *)self->_rejectionsAcrossAllModesInPastDay doubleValue];
+                if (v89 <= v27)
                 {
-                  [(NSNumber *)self->_timesShownAcrossAllModesInPastDay doubleValue];
-                  if (v80 <= v27)
+                  doubleValue6 = [(NSNumber *)self->_timesShownAcrossAllModesInPastDay doubleValue];
+                  if (v93 <= v30)
                   {
-                    [(NSNumber *)self->_timesShownAcrossAllModesInPastWeek doubleValue];
-                    if (v83 <= v30)
+                    doubleValue7 = [(NSNumber *)self->_timesShownAcrossAllModesInPastWeek doubleValue];
+                    if (v97 <= v33)
                     {
-                      [(NSNumber *)self->_rejectionsAcrossAllModesInPastWeek doubleValue];
-                      if (v86 <= v33)
+                      doubleValue8 = [(NSNumber *)self->_rejectionsAcrossAllModesInPastWeek doubleValue];
+                      if (v101 <= v36)
                       {
-                        if (bOOLValue && [(ATXModeSuggestionScorer *)self isUserCurrentlyInADifferentMode])
+                        if (bOOLValue)
                         {
-                          v59 = __atxlog_handle_modes();
-                          if (!os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                          isUserCurrentlyInADifferentMode = [(ATXModeSuggestionScorer *)self isUserCurrentlyInADifferentMode];
+                          if (isUserCurrentlyInADifferentMode)
                           {
-                            goto LABEL_64;
-                          }
+                            v66 = __atxlog_handle_modes(isUserCurrentlyInADifferentMode);
+                            if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+                            {
+                              goto LABEL_64;
+                            }
 
-                          v93 = self->_modeUUID;
-                          *buf = 138543362;
-                          v105 = v93;
-                          v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because user is currently in another mode";
-                          v89 = v59;
-                          v90 = 12;
-                          goto LABEL_63;
-                        }
-
-                        if ([MEMORY[0x277D42590] isInternalBuild] && (v94 = *MEMORY[0x277D41CE0], buf[0] = 0, CFPreferencesGetAppBooleanValue(v94, *MEMORY[0x277CEBD00], buf)))
-                        {
-                          v95 = __atxlog_handle_modes();
-                          if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
-                          {
-                            v96 = self->_modeUUID;
+                            v108 = self->_modeUUID;
                             *buf = 138543362;
-                            v105 = v96;
-                            _os_log_impl(&dword_2263AA000, v95, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ skipping check to see if app has been launched on two separate days", buf, 0xCu);
+                            v122 = v108;
+                            v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because user is currently in another mode";
+                            v104 = v66;
+                            v105 = 12;
+                            goto LABEL_63;
                           }
                         }
 
-                        else if ([(NSString *)self->_originBundleId length]&& ![(ATXModeSuggestionScorer *)self _hasLaunchedAppOnAtLeastTwoSeparateDays])
+                        if ([MEMORY[0x277D42590] isInternalBuild] && (v109 = *MEMORY[0x277D41CE0], buf[0] = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(v109, *MEMORY[0x277CEBD00], buf), AppBooleanValue))
                         {
-                          v59 = __atxlog_handle_modes();
-                          if (!os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                          v111 = __atxlog_handle_modes(AppBooleanValue);
+                          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
                           {
-                            goto LABEL_64;
+                            v112 = self->_modeUUID;
+                            *buf = 138543362;
+                            v122 = v112;
+                            _os_log_impl(&dword_2263AA000, v111, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ skipping check to see if app has been launched on two separate days", buf, 0xCu);
                           }
-
-                          v99 = self->_modeUUID;
-                          originBundleId = self->_originBundleId;
-                          *buf = 138543618;
-                          v105 = v99;
-                          v106 = 2112;
-                          v107 = *&originBundleId;
-                          v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because user has not launched bundleId: %@ on two seperate days";
-                          v89 = v59;
-                          v90 = 22;
-                          goto LABEL_63;
                         }
 
-                        v97 = __atxlog_handle_modes();
-                        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+                        else
                         {
-                          v98 = self->_modeUUID;
+                          _hasLaunchedAppOnAtLeastTwoSeparateDays = [(NSString *)self->_originBundleId length];
+                          if (_hasLaunchedAppOnAtLeastTwoSeparateDays)
+                          {
+                            _hasLaunchedAppOnAtLeastTwoSeparateDays = [(ATXModeSuggestionScorer *)self _hasLaunchedAppOnAtLeastTwoSeparateDays];
+                            if ((_hasLaunchedAppOnAtLeastTwoSeparateDays & 1) == 0)
+                            {
+                              v66 = __atxlog_handle_modes(_hasLaunchedAppOnAtLeastTwoSeparateDays);
+                              if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+                              {
+                                goto LABEL_64;
+                              }
+
+                              v116 = self->_modeUUID;
+                              originBundleId = self->_originBundleId;
+                              *buf = 138543618;
+                              v122 = v116;
+                              v123 = 2112;
+                              v124 = *&originBundleId;
+                              v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because user has not launched bundleId: %@ on two seperate days";
+                              v104 = v66;
+                              v105 = 22;
+                              goto LABEL_63;
+                            }
+                          }
+                        }
+
+                        v114 = __atxlog_handle_modes(_hasLaunchedAppOnAtLeastTwoSeparateDays);
+                        if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+                        {
+                          v115 = self->_modeUUID;
                           *buf = 138543362;
-                          v105 = v98;
-                          _os_log_impl(&dword_2263AA000, v97, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ should be suggested on lock screen", buf, 0xCu);
+                          v122 = v115;
+                          _os_log_impl(&dword_2263AA000, v114, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ should be suggested on lock screen", buf, 0xCu);
                         }
 
                         v5 = 1;
                         goto LABEL_66;
                       }
 
-                      v59 = __atxlog_handle_modes();
-                      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                      v66 = __atxlog_handle_modes(doubleValue8);
+                      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                       {
-                        v87 = self->_modeUUID;
-                        v88 = self->_rejectionsAcrossAllModesInPastWeek;
+                        v102 = self->_modeUUID;
+                        v103 = self->_rejectionsAcrossAllModesInPastWeek;
                         *buf = 138543874;
-                        v105 = v87;
-                        v106 = 2112;
-                        v107 = *&v88;
-                        v108 = 2048;
-                        v109 = v33;
-                        v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsAcrossAllModesInPastWeek: %@ does not pass threshold: %f";
+                        v122 = v102;
+                        v123 = 2112;
+                        v124 = *&v103;
+                        v125 = 2048;
+                        v126 = v36;
+                        v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsAcrossAllModesInPastWeek: %@ does not pass threshold: %f";
                         goto LABEL_62;
                       }
                     }
 
                     else
                     {
-                      v59 = __atxlog_handle_modes();
-                      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                      v66 = __atxlog_handle_modes(doubleValue7);
+                      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                       {
-                        v84 = self->_modeUUID;
-                        v85 = self->_timesShownAcrossAllModesInPastWeek;
+                        v98 = self->_modeUUID;
+                        v99 = self->_timesShownAcrossAllModesInPastWeek;
                         *buf = 138543874;
-                        v105 = v84;
-                        v106 = 2112;
-                        v107 = *&v85;
-                        v108 = 2048;
-                        v109 = v30;
-                        v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownAcrossAllModesInPastWeek: %@ does not pass threshold: %f";
+                        v122 = v98;
+                        v123 = 2112;
+                        v124 = *&v99;
+                        v125 = 2048;
+                        v126 = v33;
+                        v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownAcrossAllModesInPastWeek: %@ does not pass threshold: %f";
                         goto LABEL_62;
                       }
                     }
@@ -522,18 +543,18 @@ LABEL_24:
 
                   else
                   {
-                    v59 = __atxlog_handle_modes();
-                    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                    v66 = __atxlog_handle_modes(doubleValue6);
+                    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                     {
-                      v81 = self->_modeUUID;
-                      v82 = self->_timesShownAcrossAllModesInPastDay;
+                      v94 = self->_modeUUID;
+                      v95 = self->_timesShownAcrossAllModesInPastDay;
                       *buf = 138543874;
-                      v105 = v81;
-                      v106 = 2112;
-                      v107 = *&v82;
-                      v108 = 2048;
-                      v109 = v27;
-                      v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownAcrossAllModesInPastDay: %@ does not pass threshold: %f";
+                      v122 = v94;
+                      v123 = 2112;
+                      v124 = *&v95;
+                      v125 = 2048;
+                      v126 = v30;
+                      v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownAcrossAllModesInPastDay: %@ does not pass threshold: %f";
                       goto LABEL_62;
                     }
                   }
@@ -541,18 +562,18 @@ LABEL_24:
 
                 else
                 {
-                  v59 = __atxlog_handle_modes();
-                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                  v66 = __atxlog_handle_modes(doubleValue5);
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                   {
-                    v78 = self->_modeUUID;
-                    v79 = self->_rejectionsAcrossAllModesInPastDay;
+                    v90 = self->_modeUUID;
+                    v91 = self->_rejectionsAcrossAllModesInPastDay;
                     *buf = 138543874;
-                    v105 = v78;
-                    v106 = 2112;
-                    v107 = *&v79;
-                    v108 = 2048;
-                    v109 = v24;
-                    v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsAcrossAllModesInPastDay: %@ does not pass threshold: %f";
+                    v122 = v90;
+                    v123 = 2112;
+                    v124 = *&v91;
+                    v125 = 2048;
+                    v126 = v27;
+                    v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsAcrossAllModesInPastDay: %@ does not pass threshold: %f";
                     goto LABEL_62;
                   }
                 }
@@ -560,18 +581,18 @@ LABEL_24:
 
               else
               {
-                v59 = __atxlog_handle_modes();
-                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+                v66 = __atxlog_handle_modes(doubleValue4);
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
                 {
-                  v75 = self->_modeUUID;
-                  v76 = self->_timesShownInLastDay;
+                  v86 = self->_modeUUID;
+                  v87 = self->_timesShownInLastDay;
                   *buf = 138543874;
-                  v105 = v75;
-                  v106 = 2112;
-                  v107 = *&v76;
-                  v108 = 2048;
-                  v109 = v103;
-                  v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownInLastDay: %@ does not pass threshold: %f";
+                  v122 = v86;
+                  v123 = 2112;
+                  v124 = *&v87;
+                  v125 = 2048;
+                  v126 = v120;
+                  v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because timesShownInLastDay: %@ does not pass threshold: %f";
                   goto LABEL_62;
                 }
               }
@@ -579,17 +600,17 @@ LABEL_24:
 
             else
             {
-              v59 = __atxlog_handle_modes();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+              v66 = __atxlog_handle_modes(doubleValue3);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                v73 = self->_modeUUID;
+                v83 = self->_modeUUID;
                 *buf = 138543874;
-                v105 = v73;
-                v106 = 2048;
-                v107 = v72;
-                v108 = 2048;
-                v109 = v19;
-                v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because totalIgnoresAndRejections: %f does not pass threshold: %f";
+                v122 = v83;
+                v123 = 2048;
+                v124 = v82;
+                v125 = 2048;
+                v126 = v22;
+                v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because totalIgnoresAndRejections: %f does not pass threshold: %f";
                 goto LABEL_62;
               }
             }
@@ -597,18 +618,18 @@ LABEL_24:
 
           else
           {
-            v59 = __atxlog_handle_modes();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+            v66 = __atxlog_handle_modes(doubleValue2);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
             {
-              v67 = self->_modeUUID;
-              v68 = self->_totalRejections;
+              v76 = self->_modeUUID;
+              v77 = self->_totalRejections;
               *buf = 138543874;
-              v105 = v67;
-              v106 = 2112;
-              v107 = *&v68;
-              v108 = 2048;
-              v109 = v16;
-              v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because totalRejections: %@ does not pass threshold: %f";
+              v122 = v76;
+              v123 = 2112;
+              v124 = *&v77;
+              v125 = 2048;
+              v126 = v19;
+              v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because totalRejections: %@ does not pass threshold: %f";
               goto LABEL_62;
             }
           }
@@ -616,18 +637,18 @@ LABEL_24:
 
         else
         {
-          v59 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v66 = __atxlog_handle_modes(doubleValue);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
           {
-            v64 = self->_modeUUID;
-            v65 = self->_rejectionsInPastWeek;
+            v72 = self->_modeUUID;
+            v73 = self->_rejectionsInPastWeek;
             *buf = 138543874;
-            v105 = v64;
-            v106 = 2112;
-            v107 = *&v65;
-            v108 = 2048;
-            v109 = v13;
-            v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsInPastWeek: %@ does not pass threshold: %f";
+            v122 = v72;
+            v123 = 2112;
+            v124 = *&v73;
+            v125 = 2048;
+            v126 = v16;
+            v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because rejectionsInPastWeek: %@ does not pass threshold: %f";
             goto LABEL_62;
           }
         }
@@ -635,23 +656,23 @@ LABEL_24:
 
       else
       {
-        v59 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v66 = __atxlog_handle_modes(isModeConfigured2);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = self->_modeUUID;
-          v61 = self->_confidenceScore;
+          v67 = self->_modeUUID;
+          v68 = self->_confidenceScore;
           *buf = 138543874;
-          v105 = v60;
-          v106 = 2048;
-          v107 = v61;
-          v108 = 2048;
-          v109 = v10;
-          v62 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because confidenceScore: %f does not pass threshold: %f";
+          v122 = v67;
+          v123 = 2048;
+          v124 = v68;
+          v125 = 2048;
+          v126 = v13;
+          v69 = "ATXModeSuggestionScorer: mode: %{public}@ should NOT be suggested on lock screen because confidenceScore: %f does not pass threshold: %f";
 LABEL_62:
-          v89 = v59;
-          v90 = 32;
+          v104 = v66;
+          v105 = 32;
 LABEL_63:
-          _os_log_impl(&dword_2263AA000, v89, OS_LOG_TYPE_DEFAULT, v62, buf, v90);
+          _os_log_impl(&dword_2263AA000, v104, OS_LOG_TYPE_DEFAULT, v69, buf, v105);
         }
       }
 
@@ -660,54 +681,55 @@ LABEL_64:
       goto LABEL_65;
     }
 
-    v51 = [defaultsCopy objectForKey:@"dateDrivingSetupSuggestionLastShown"];
-    if (v51)
+    v56 = [defaultsCopy objectForKey:@"dateDrivingSetupSuggestionLastShown"];
+    if (v56)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v101 = v27;
-        v102 = v24;
+        v118 = v30;
+        v119 = v27;
         [defaultsCopy doubleForKey:*MEMORY[0x277CEBD40]];
-        v53 = v52;
-        *&v54 = COERCE_DOUBLE([objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:v52]);
-        [v51 timeIntervalSinceReferenceDate];
-        v56 = v55;
-        v57 = __atxlog_handle_modes();
-        v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
-        if (v56 <= v53)
+        v59 = v58;
+        *&v60 = COERCE_DOUBLE([objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:v58]);
+        timeIntervalSinceReferenceDate = [v56 timeIntervalSinceReferenceDate];
+        v63 = v62;
+        v64 = __atxlog_handle_modes(timeIntervalSinceReferenceDate);
+        v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT);
+        if (v63 <= v59)
         {
-          v27 = v101;
-          v24 = v102;
-          if (v58)
+          v30 = v118;
+          v27 = v119;
+          if (v65)
           {
             *buf = 138543618;
-            v105 = v51;
-            v106 = 2114;
-            v107 = *&v54;
-            _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Driving setup suggestion was shown on %{public}@ and the last major OS upgrade was on approximately %{public}@", buf, 0x16u);
+            v122 = v56;
+            v123 = 2114;
+            v124 = *&v60;
+            _os_log_impl(&dword_2263AA000, v64, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Driving setup suggestion was shown on %{public}@ and the last major OS upgrade was on approximately %{public}@", buf, 0x16u);
           }
 
           goto LABEL_23;
         }
 
-        if (v58)
+        if (v65)
         {
           *buf = 138543618;
-          v105 = v51;
-          v106 = 2114;
-          v107 = *&v54;
-          _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Not showing Driving setup suggestion because suggestion was already shown once (%{public}@) since last major os upgrade (%{public}@)", buf, 0x16u);
+          v122 = v56;
+          v123 = 2114;
+          v124 = *&v60;
+          _os_log_impl(&dword_2263AA000, v64, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: Not showing Driving setup suggestion because suggestion was already shown once (%{public}@) since last major os upgrade (%{public}@)", buf, 0x16u);
         }
       }
 
       else
       {
-        __atxlog_handle_modes();
-        *&v54 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
+        __atxlog_handle_modes(isKindOfClass);
+        *&v60 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
         {
-          [ATXModeSuggestionScorer _shouldSuggestOnLockScreenWithDefaults:v54];
+          [ATXModeSuggestionScorer _shouldSuggestOnLockScreenWithDefaults:v60];
         }
       }
 
@@ -722,110 +744,97 @@ LABEL_23:
   v5 = 1;
 LABEL_67:
 
-  v91 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_hasUserSetUpModeBefore
 {
-  modeType = self->_modeType;
   BMUserFocusInferredModeTypeToActivity();
-  v3 = ATXActivityTypeToModeSemanticType();
-  v4 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v5 = [v4 initWithSuiteName:*MEMORY[0x277CEBD00]];
-  v6 = [v5 objectForKey:*MEMORY[0x277CEBD28]];
-  if (v6)
+  v2 = ATXActivityTypeToModeSemanticType();
+  v3 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v4 = [v3 initWithSuiteName:*MEMORY[0x277CEBD00]];
+  v5 = [v4 objectForKey:*MEMORY[0x277CEBD28]];
+  if (v5)
   {
-    v7 = [MEMORY[0x277CBEB98] setWithArray:v6];
-    v8 = [v7 containsObject:v3];
+    v6 = [MEMORY[0x277CBEB98] setWithArray:v5];
+    v7 = [v6 containsObject:v2];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)_hasUserSetUpSmartActivationForThisModeBefore
 {
-  modeType = self->_modeType;
   BMUserFocusInferredModeTypeToActivity();
-  v3 = ATXActivityTypeToModeSemanticType();
-  v4 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v5 = [v4 initWithSuiteName:*MEMORY[0x277CEBD00]];
-  v6 = [v5 objectForKey:*MEMORY[0x277CEBD30]];
-  if (v6)
+  v2 = ATXActivityTypeToModeSemanticType();
+  v3 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v4 = [v3 initWithSuiteName:*MEMORY[0x277CEBD00]];
+  v5 = [v4 objectForKey:*MEMORY[0x277CEBD30]];
+  if (v5)
   {
-    v7 = [MEMORY[0x277CBEB98] setWithArray:v6];
-    v8 = [v7 containsObject:v3];
+    v6 = [MEMORY[0x277CBEB98] setWithArray:v5];
+    v7 = [v6 containsObject:v2];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)shouldSuggestTriggers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   shouldSuggestOnLockScreen = [(ATXModeSuggestionScorer *)self shouldSuggestOnLockScreen];
   if (shouldSuggestOnLockScreen)
   {
-    if ([(ATXModeSuggestionScorer *)self _hasUserSetUpSmartActivationForThisModeBefore])
+    _hasUserSetUpSmartActivationForThisModeBefore = [(ATXModeSuggestionScorer *)self _hasUserSetUpSmartActivationForThisModeBefore];
+    if (_hasUserSetUpSmartActivationForThisModeBefore)
     {
-      v4 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = __atxlog_handle_modes(_hasUserSetUpSmartActivationForThisModeBefore);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         modeUUID = self->_modeUUID;
-        v15 = 138543362;
-        v16 = modeUUID;
-        _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ trigger should not be suggested because smart activation was previously ON for this mode", &v15, 0xCu);
+        v16 = 138543362;
+        v17 = modeUUID;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ trigger should not be suggested because smart activation was previously ON for this mode", &v16, 0xCu);
       }
     }
 
     else
     {
-      if (![(ATXModeSuggestionScorer *)self isModeConfigured])
+      if (!-[ATXModeSuggestionScorer isModeConfigured](self, "isModeConfigured") || (-[DNDModeConfiguration triggers](self->_cachedDNDMode, "triggers"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, !v8) || (v9 = objc_opt_class(), -[DNDModeConfiguration triggers](self->_cachedDNDMode, "triggers"), v10 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = objc_msgSend(v9, "_areConfiguredTriggers:conflictingWithSuggestedTriggers:", v10, self->_triggers), v10, !v9))
       {
-        goto LABEL_11;
-      }
-
-      triggers = [(DNDModeConfiguration *)self->_cachedDNDMode triggers];
-      v7 = [triggers count];
-
-      if (!v7 || (v8 = objc_opt_class(), -[DNDModeConfiguration triggers](self->_cachedDNDMode, "triggers"), v9 = objc_claimAutoreleasedReturnValue(), LODWORD(v8) = [v8 _areConfiguredTriggers:v9 conflictingWithSuggestedTriggers:self->_triggers], v9, !v8))
-      {
-LABEL_11:
         LOBYTE(shouldSuggestOnLockScreen) = 1;
-        goto LABEL_12;
+        return shouldSuggestOnLockScreen;
       }
 
-      v4 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = __atxlog_handle_modes(v11);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = self->_modeUUID;
-        triggers2 = [(DNDModeConfiguration *)self->_cachedDNDMode triggers];
+        v12 = self->_modeUUID;
+        triggers = [(DNDModeConfiguration *)self->_cachedDNDMode triggers];
         triggers = self->_triggers;
-        v15 = 138543874;
-        v16 = v10;
-        v17 = 2114;
-        v18 = triggers2;
-        v19 = 2114;
-        v20 = triggers;
-        _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ trigger should not be suggested because existing triggers %{public}@ conflict with predicted triggers: %{public}@", &v15, 0x20u);
+        v16 = 138543874;
+        v17 = v12;
+        v18 = 2114;
+        v19 = triggers;
+        v20 = 2114;
+        v21 = triggers;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ trigger should not be suggested because existing triggers %{public}@ conflict with predicted triggers: %{public}@", &v16, 0x20u);
       }
     }
 
     LOBYTE(shouldSuggestOnLockScreen) = 0;
   }
 
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
   return shouldSuggestOnLockScreen;
 }
 
@@ -834,37 +843,38 @@ LABEL_12:
   v10 = *MEMORY[0x277D85DE8];
   if (!self->_modeUUID)
   {
-LABEL_8:
-    LOBYTE(isModeConfigured) = 0;
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   isModeConfigured = [(ATXModeSuggestionScorer *)self isModeConfigured];
-  if (isModeConfigured)
+  if (!isModeConfigured)
   {
-    if ([(DNDModeConfiguration *)self->_cachedDNDMode allowSmartEntry]== 2)
-    {
-      if (![(ATXModeSuggestionScorer *)self _hasHadEarlyExitTodayForModeWithUUID:self->_modeUUID])
-      {
-        LOBYTE(isModeConfigured) = 1;
-        goto LABEL_9;
-      }
+    return isModeConfigured;
+  }
 
-      v4 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        modeUUID = self->_modeUUID;
-        v8 = 138543362;
-        v9 = modeUUID;
-        _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ not allowing smart entry because we already had an early exit today", &v8, 0xCu);
-      }
+  if ([(DNDModeConfiguration *)self->_cachedDNDMode allowSmartEntry]!= 2)
+  {
+LABEL_8:
+    LOBYTE(isModeConfigured) = 0;
+    return isModeConfigured;
+  }
+
+  v4 = [(ATXModeSuggestionScorer *)self _hasHadEarlyExitTodayForModeWithUUID:self->_modeUUID];
+  if (v4)
+  {
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      modeUUID = self->_modeUUID;
+      v8 = 138543362;
+      v9 = modeUUID;
+      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ not allowing smart entry because we already had an early exit today", &v8, 0xCu);
     }
 
     goto LABEL_8;
   }
 
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
+  LOBYTE(isModeConfigured) = 1;
   return isModeConfigured;
 }
 
@@ -917,25 +927,27 @@ void __64__ATXModeSuggestionScorer__hasHadEarlyExitTodayForModeWithUUID___block_
     v6 = [v4 activity];
     v7 = [v6 modeUUID];
 
-    if (v7 && [v7 isEqualToString:*(a1 + 32)])
+    if (v7)
     {
-      v8 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = [v7 isEqualToString:*(a1 + 32)];
+      if (v8)
       {
-        v9 = *(a1 + 32);
-        [v3 timestamp];
-        v12 = 138543618;
-        v13 = v9;
-        v14 = 2048;
-        v15 = v10;
-        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ has an early exit detected at %f", &v12, 0x16u);
-      }
+        v9 = __atxlog_handle_modes(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = *(a1 + 32);
+          [v3 timestamp];
+          v12 = 138543618;
+          v13 = v10;
+          v14 = 2048;
+          v15 = v11;
+          _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: mode: %{public}@ has an early exit detected at %f", &v12, 0x16u);
+        }
 
-      *(*(*(a1 + 40) + 8) + 24) = 1;
+        *(*(*(a1 + 40) + 8) + 24) = 1;
+      }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_inValidLocaleForDrivingSuggestions
@@ -947,26 +959,25 @@ void __64__ATXModeSuggestionScorer__hasHadEarlyExitTodayForModeWithUUID___block_
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v5 = [currentLocale objectForKey:*MEMORY[0x277CBE690]];
 
-  if (v5 && ([v3 containsObject:v5] & 1) != 0)
+  if (v5 && (v6 = [v3 containsObject:v5], (v6 & 1) != 0))
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_modes(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v11 = v5;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: user is in locale: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeSuggestionScorer: user is in locale: %@", buf, 0xCu);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 + (BOOL)_areConfiguredTriggers:(id)triggers conflictingWithSuggestedTriggers:(id)suggestedTriggers
@@ -1035,7 +1046,6 @@ BOOL __83__ATXModeSuggestionScorer__areConfiguredTriggers_conflictingWithSuggest
   }
 
   origin = [sourceCopy origin];
-  origin = self->_origin;
   if (origin != BMUserFocusInferredModeOriginToLegacy())
   {
     goto LABEL_15;
@@ -1053,7 +1063,7 @@ BOOL __83__ATXModeSuggestionScorer__areConfiguredTriggers_conflictingWithSuggest
       }
 
 LABEL_15:
-      v16 = 0;
+      v15 = 0;
       goto LABEL_16;
     }
 
@@ -1063,18 +1073,18 @@ LABEL_6:
   }
 
   originAnchorType2 = [sourceCopy originAnchorType];
-  v15 = [originAnchorType2 isEqualToString:self->_originAnchorType];
+  v14 = [originAnchorType2 isEqualToString:self->_originAnchorType];
 
-  if ((v15 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_12:
-  v16 = 1;
+  v15 = 1;
 LABEL_16:
 
-  return v16;
+  return v15;
 }
 
 - (void)_populateFeedbackScoresIfNeeded

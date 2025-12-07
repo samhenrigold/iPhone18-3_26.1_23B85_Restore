@@ -11,7 +11,7 @@
 
 - (id)translateItem:(id)item fromBundleId:(id)id error:(id *)error
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   idCopy = id;
   attributeSet = [itemCopy attributeSet];
@@ -35,7 +35,7 @@
       goto LABEL_106;
     }
 
-    v82 = [(LNSpotlightCascadeTranslator *)self lookupAssistantSchemasForTypeIdentifier:v13 fromBundleId:idCopy];
+    v81 = [(LNSpotlightCascadeTranslator *)self lookupAssistantSchemasForTypeIdentifier:v13 fromBundleId:idCopy];
     attributeSet3 = [itemCopy attributeSet];
     v15 = [attributeSet3 attributeForKey:@"kMDItemAppEntityTitle"];
 
@@ -53,35 +53,35 @@
     }
 
     attributeSet4 = [itemCopy attributeSet];
-    v81 = [attributeSet4 attributeForKey:@"kMDItemAppEntitySubtitle"];
+    v80 = [attributeSet4 attributeForKey:@"kMDItemAppEntitySubtitle"];
 
     attributeSet5 = [itemCopy attributeSet];
-    v80 = [attributeSet5 attributeForKey:@"kMDItemAppEntityDisplayRepresentationSynonyms"];
+    v79 = [attributeSet5 attributeForKey:@"kMDItemAppEntityDisplayRepresentationSynonyms"];
 
-    v88 = 0;
-    v89 = &v88;
-    v90 = 0x2050000000;
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x2050000000;
     v18 = getCCAppEntityDisplayRepresentationClass_softClass;
-    v91 = getCCAppEntityDisplayRepresentationClass_softClass;
+    v90 = getCCAppEntityDisplayRepresentationClass_softClass;
     if (!getCCAppEntityDisplayRepresentationClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v103 = __getCCAppEntityDisplayRepresentationClass_block_invoke;
-      v104 = &unk_1E74B26D0;
-      v105 = &v88;
+      v102 = __getCCAppEntityDisplayRepresentationClass_block_invoke;
+      v103 = &unk_1E74B26D0;
+      v104 = &v87;
       __getCCAppEntityDisplayRepresentationClass_block_invoke(&buf);
-      v18 = v89[3];
+      v18 = v88[3];
     }
 
     v19 = v18;
-    _Block_object_dispose(&v88, 8);
+    _Block_object_dispose(&v87, 8);
     if (!v18)
     {
       v31 = MEMORY[0x1E696ABC0];
-      v100 = *MEMORY[0x1E696A278];
-      v101 = @"Cannot load class CCAppEntityDisplayRepresentation";
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+      v99 = *MEMORY[0x1E696A278];
+      v100 = @"Cannot load class CCAppEntityDisplayRepresentation";
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
       v26 = [v31 errorWithDomain:@"LNSpotlightCascadeTranslator" code:4 userInfo:v32];
 
       v33 = getLNLogCategoryVocabulary();
@@ -103,10 +103,10 @@
       goto LABEL_104;
     }
 
-    v87 = 0;
-    v79 = [[v18 alloc] initWithTitle:v15 subtitle:v81 synonyms:v80 error:&v87];
-    v20 = v87;
-    if (!v79)
+    v86 = 0;
+    v78 = [[v18 alloc] initWithTitle:v15 subtitle:v80 synonyms:v79 error:&v86];
+    v20 = v86;
+    if (!v78)
     {
       v35 = getLNLogCategoryVocabulary();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -128,30 +128,30 @@
       goto LABEL_103;
     }
 
-    v88 = 0;
-    v89 = &v88;
-    v90 = 0x2050000000;
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x2050000000;
     v21 = getCCAppEntityTypeDisplayRepresentationClass_softClass;
-    v91 = getCCAppEntityTypeDisplayRepresentationClass_softClass;
+    v90 = getCCAppEntityTypeDisplayRepresentationClass_softClass;
     if (!getCCAppEntityTypeDisplayRepresentationClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v103 = __getCCAppEntityTypeDisplayRepresentationClass_block_invoke;
-      v104 = &unk_1E74B26D0;
-      v105 = &v88;
+      v102 = __getCCAppEntityTypeDisplayRepresentationClass_block_invoke;
+      v103 = &unk_1E74B26D0;
+      v104 = &v87;
       __getCCAppEntityTypeDisplayRepresentationClass_block_invoke(&buf);
-      v21 = v89[3];
+      v21 = v88[3];
     }
 
     v22 = v21;
-    _Block_object_dispose(&v88, 8);
+    _Block_object_dispose(&v87, 8);
     if (!v21)
     {
       v37 = MEMORY[0x1E696ABC0];
-      v98 = *MEMORY[0x1E696A278];
-      v99 = @"Cannot load class CCAppEntityTypeDisplayRepresentation";
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v97 = *MEMORY[0x1E696A278];
+      v98 = @"Cannot load class CCAppEntityTypeDisplayRepresentation";
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
       v26 = [v37 errorWithDomain:@"LNSpotlightCascadeTranslator" code:4 userInfo:v38];
 
       v39 = getLNLogCategoryVocabulary();
@@ -174,18 +174,18 @@
     }
 
     attributeSet6 = [itemCopy attributeSet];
-    v78 = [attributeSet6 attributeForKey:@"_kMDItemAppEntityTypeDisplayRepresentationName"];
+    v77 = [attributeSet6 attributeForKey:@"_kMDItemAppEntityTypeDisplayRepresentationName"];
 
-    if (v78)
+    if (v77)
     {
       attributeSet7 = [itemCopy attributeSet];
       v25 = [attributeSet7 attributeForKey:@"_kMDItemAppEntityTypeDisplayRepresentationSynonyms"];
 
-      v86 = v20;
-      v77 = [[v21 alloc] initWithName:v78 synonyms:v25 error:&v86];
-      v26 = v86;
+      v85 = v20;
+      v76 = [[v21 alloc] initWithName:v77 synonyms:v25 error:&v85];
+      v26 = v85;
 
-      if (!v77)
+      if (!v76)
       {
         v50 = getLNLogCategoryVocabulary();
         if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
@@ -210,33 +210,33 @@
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
-    v88 = 0;
-    v89 = &v88;
-    v90 = 0x2050000000;
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x2050000000;
     v41 = getCCAppIntentsIndexedEntityContentClass_softClass;
-    v91 = getCCAppIntentsIndexedEntityContentClass_softClass;
+    v90 = getCCAppIntentsIndexedEntityContentClass_softClass;
     if (!getCCAppIntentsIndexedEntityContentClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v103 = __getCCAppIntentsIndexedEntityContentClass_block_invoke;
-      v104 = &unk_1E74B26D0;
-      v105 = &v88;
+      v102 = __getCCAppIntentsIndexedEntityContentClass_block_invoke;
+      v103 = &unk_1E74B26D0;
+      v104 = &v87;
       __getCCAppIntentsIndexedEntityContentClass_block_invoke(&buf);
-      v41 = v89[3];
+      v41 = v88[3];
     }
 
     v42 = v41;
-    _Block_object_dispose(&v88, 8);
+    _Block_object_dispose(&v87, 8);
     if (!v41)
     {
       v46 = MEMORY[0x1E696ABC0];
-      v96 = *MEMORY[0x1E696A278];
-      v97 = @"Cannot load class CCAppIntentsIndexedEntityContent";
-      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+      v95 = *MEMORY[0x1E696A278];
+      v96 = @"Cannot load class CCAppIntentsIndexedEntityContent";
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
       v26 = [v46 errorWithDomain:@"LNSpotlightCascadeTranslator" code:4 userInfo:v47];
 
       v48 = getLNLogCategoryVocabulary();
@@ -258,63 +258,63 @@
       goto LABEL_101;
     }
 
-    v85 = v20;
-    v76 = [[v41 alloc] initWithTypeIdentifier:v13 displayRepresentation:v79 typeDisplayRepresentation:v77 assistantDefinedSchemas:v82 error:&v85];
-    v75 = v85;
+    v84 = v20;
+    v75 = [[v41 alloc] initWithTypeIdentifier:v13 displayRepresentation:v78 typeDisplayRepresentation:v76 assistantDefinedSchemas:v81 error:&v84];
+    v74 = v84;
 
-    if (v76)
+    if (v75)
     {
-      v88 = 0;
-      v89 = &v88;
-      v90 = 0x2050000000;
+      v87 = 0;
+      v88 = &v87;
+      v89 = 0x2050000000;
       v43 = getCCAppIntentsIndexedEntityMetaContentClass_softClass;
-      v91 = getCCAppIntentsIndexedEntityMetaContentClass_softClass;
+      v90 = getCCAppIntentsIndexedEntityMetaContentClass_softClass;
       if (!getCCAppIntentsIndexedEntityMetaContentClass_softClass)
       {
         *&buf = MEMORY[0x1E69E9820];
         *(&buf + 1) = 3221225472;
-        v103 = __getCCAppIntentsIndexedEntityMetaContentClass_block_invoke;
-        v104 = &unk_1E74B26D0;
-        v105 = &v88;
+        v102 = __getCCAppIntentsIndexedEntityMetaContentClass_block_invoke;
+        v103 = &unk_1E74B26D0;
+        v104 = &v87;
         __getCCAppIntentsIndexedEntityMetaContentClass_block_invoke(&buf);
-        v43 = v89[3];
+        v43 = v88[3];
       }
 
       v44 = v43;
-      _Block_object_dispose(&v88, 8);
+      _Block_object_dispose(&v87, 8);
       if (v43)
       {
         attributeSet8 = [itemCopy attributeSet];
-        v74 = [attributeSet8 attributeForKey:@"_kMDItemAppEntityPriority"];
+        v73 = [attributeSet8 attributeForKey:@"_kMDItemAppEntityPriority"];
 
-        if (v74)
+        if (v73)
         {
-          if ([v74 isEqual:&unk_1F0BD71C8])
+          if ([v73 isEqual:&unk_1F0BD71C8])
           {
 
-            v74 = &unk_1F0BD7240;
+            v73 = &unk_1F0BD7240;
           }
         }
 
         else
         {
-          v74 = 0;
+          v73 = 0;
         }
 
         v58 = [v43 alloc];
         uniqueIdentifier = [itemCopy uniqueIdentifier];
-        v84 = v75;
-        v60 = [v58 initWithSourceItemIdentifier:uniqueIdentifier saliency:v74 error:&v84];
-        v61 = v84;
+        v83 = v74;
+        v60 = [v58 initWithSourceItemIdentifier:uniqueIdentifier saliency:v73 error:&v83];
+        v61 = v83;
 
         if (v60)
         {
           CCItemInstanceClass = getCCItemInstanceClass();
           if (CCItemInstanceClass)
           {
-            v83 = v61;
-            v28 = [[CCItemInstanceClass alloc] initWithContent:v76 metaContent:v60 error:&v83];
-            v26 = v83;
+            v82 = v61;
+            v28 = [[CCItemInstanceClass alloc] initWithContent:v75 metaContent:v60 error:&v82];
+            v26 = v82;
 
             if (v28)
             {
@@ -342,9 +342,9 @@
           else
           {
             v66 = MEMORY[0x1E696ABC0];
-            v92 = *MEMORY[0x1E696A278];
-            v93 = @"Cannot load class CCItemInstance";
-            v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+            v91 = *MEMORY[0x1E696A278];
+            v92 = @"Cannot load class CCItemInstance";
+            v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
             v26 = [v66 errorWithDomain:@"LNSpotlightCascadeTranslator" code:4 userInfo:v67];
 
             v68 = getLNLogCategoryVocabulary();
@@ -390,9 +390,9 @@
       }
 
       v54 = MEMORY[0x1E696ABC0];
-      v94 = *MEMORY[0x1E696A278];
-      v95 = @"Cannot load class CCAppIntentsIndexedEntityMetaContent";
-      v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+      v93 = *MEMORY[0x1E696A278];
+      v94 = @"Cannot load class CCAppIntentsIndexedEntityMetaContent";
+      v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
       v26 = [v54 errorWithDomain:@"LNSpotlightCascadeTranslator" code:4 userInfo:v55];
 
       v56 = getLNLogCategoryVocabulary();
@@ -419,26 +419,26 @@
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v75;
+        *(&buf + 4) = v74;
         _os_log_impl(&dword_19763D000, v52, OS_LOG_TYPE_ERROR, "Cannot create CCAppIntentsIndexedEntityContent. Error: %@", &buf, 0xCu);
       }
 
       v28 = 0;
       if (!error)
       {
-        v26 = v75;
+        v26 = v74;
         goto LABEL_100;
       }
 
-      if (!v75)
+      if (!v74)
       {
         v26 = 0;
         goto LABEL_100;
       }
 
-      v53 = v75;
+      v53 = v74;
       v28 = 0;
-      v26 = v75;
+      v26 = v74;
     }
 
     *error = v26;
@@ -466,53 +466,51 @@ LABEL_106:
   v28 = 0;
 LABEL_107:
 
-  v72 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (id)lookupAssistantSchemasForTypeIdentifier:(id)identifier fromBundleId:(id)id
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   idCopy = id;
   os_unfair_lock_lock(&self->_lock);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2050000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
   v8 = getCCAssistantSchemaClass_softClass;
-  v33 = getCCAssistantSchemaClass_softClass;
+  v32 = getCCAssistantSchemaClass_softClass;
   if (!getCCAssistantSchemaClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getCCAssistantSchemaClass_block_invoke;
-    v35 = &unk_1E74B26D0;
-    v36 = &v30;
+    v34 = &unk_1E74B26D0;
+    v35 = &v29;
     __getCCAssistantSchemaClass_block_invoke(buf);
-    v8 = v31[3];
+    v8 = v30[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v30, 8);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2050000000;
+  _Block_object_dispose(&v29, 8);
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
   v10 = getCCAssistantSchemaVersionClass_softClass;
-  v33 = getCCAssistantSchemaVersionClass_softClass;
+  v32 = getCCAssistantSchemaVersionClass_softClass;
   if (!getCCAssistantSchemaVersionClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getCCAssistantSchemaVersionClass_block_invoke;
-    v35 = &unk_1E74B26D0;
-    v36 = &v30;
+    v34 = &unk_1E74B26D0;
+    v35 = &v29;
     __getCCAssistantSchemaVersionClass_block_invoke(buf);
-    v10 = v31[3];
+    v10 = v30[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v29, 8);
   if (v8 && v10)
   {
     v12 = [(NSMutableDictionary *)self->_typeIdentifierToAssistantSchemasCache objectForKeyedSubscript:identifierCopy];
@@ -526,20 +524,20 @@ LABEL_107:
     {
       v15 = objc_opt_new();
       metadataProvider = self->_metadataProvider;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_fromBundleId___block_invoke;
-      v24[3] = &unk_1E74B1638;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_fromBundleId___block_invoke;
+      v23[3] = &unk_1E74B1638;
       v17 = identifierCopy;
-      v25 = v17;
+      v24 = v17;
       selfCopy = self;
-      v28 = v10;
-      v29 = v8;
+      v27 = v10;
+      v28 = v8;
       v18 = v15;
-      v27 = v18;
-      v23 = 0;
-      [(LNMetadataProvider *)metadataProvider enumerateEntitiesForBundleIdentifier:idCopy usingBlock:v24 error:&v23];
-      v19 = v23;
+      v26 = v18;
+      v22 = 0;
+      [(LNMetadataProvider *)metadataProvider enumerateEntitiesForBundleIdentifier:idCopy usingBlock:v23 error:&v22];
+      v19 = v22;
       if (v19)
       {
         v20 = getLNLogCategoryVocabulary();
@@ -578,56 +576,55 @@ LABEL_107:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v21 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 void __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_fromBundleId___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v40 = a2;
-  v5 = [v40 identifier];
+  v55 = *MEMORY[0x1E69E9840];
+  v39 = a2;
+  v5 = [v39 identifier];
   v6 = [v5 isEqual:*(a1 + 32)];
 
   if (v6)
   {
-    v39 = a3;
+    v38 = a3;
     v7 = getLNLogCategoryVocabulary();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [v40 assistantDefinedSchemas];
+      v8 = [v39 assistantDefinedSchemas];
       v9 = *(a1 + 32);
       *buf = 138412546;
-      v53 = v8;
-      v54 = 2112;
-      v55 = v9;
+      v52 = v8;
+      v53 = 2112;
+      v54 = v9;
       _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_DEBUG, "Found conforming assistant schemas %@ for type identifier %@", buf, 0x16u);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    obj = [v40 assistantDefinedSchemas];
-    v43 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-    if (v43)
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    obj = [v39 assistantDefinedSchemas];
+    v42 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    if (v42)
     {
-      v10 = *v48;
-      v41 = *v48;
+      v10 = *v47;
+      v40 = *v47;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v42; ++i)
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v47 + 1) + 8 * i);
+          v12 = *(*(&v46 + 1) + 8 * i);
           v13 = [v12 version];
           v14 = [v13 componentsSeparatedByString:@"."];
-          v44 = v13;
+          v43 = v13;
           if ([v14 count] == 3)
           {
             v15 = MEMORY[0x1E696AD98];
@@ -645,25 +642,25 @@ void __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_
 
             a1 = v22;
             v25 = objc_alloc(*(v22 + 56));
-            v46 = 0;
-            v26 = [v25 initWithMajor:v17 minor:v20 patch:v24 error:&v46];
-            v27 = v46;
+            v45 = 0;
+            v26 = [v25 initWithMajor:v17 minor:v20 patch:v24 error:&v45];
+            v27 = v45;
             if (v27)
             {
               v28 = getLNLogCategoryVocabulary();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v53 = v44;
-                v54 = 2112;
-                v55 = v27;
+                v52 = v43;
+                v53 = 2112;
+                v54 = v27;
                 _os_log_impl(&dword_19763D000, v28, OS_LOG_TYPE_ERROR, "Failed to build CCAssistantSchemaVersion from version %@ with error %@", buf, 0x16u);
               }
 
               a1 = v22;
             }
 
-            v10 = v41;
+            v10 = v40;
           }
 
           else
@@ -672,7 +669,7 @@ void __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v53 = v13;
+              v52 = v13;
               _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_ERROR, "Failed to parse version components from version string %@", buf, 0xCu);
             }
 
@@ -684,9 +681,9 @@ void __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_
           v31 = [v29 assistantSchemaTypeFromIdentifier:v30];
 
           v32 = objc_alloc(*(a1 + 64));
-          v45 = 0;
-          v33 = [v32 initWithType:v31 version:v26 error:&v45];
-          v34 = v45;
+          v44 = 0;
+          v33 = [v32 initWithType:v31 version:v26 error:&v44];
+          v34 = v44;
           v35 = v34;
           if (v33)
           {
@@ -709,22 +706,20 @@ void __85__LNSpotlightCascadeTranslator_lookupAssistantSchemasForTypeIdentifier_
             if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v53 = v35;
+              v52 = v35;
               _os_log_impl(&dword_19763D000, v37, OS_LOG_TYPE_ERROR, "Failed to build CCAssistantSchema with error %@", buf, 0xCu);
             }
           }
         }
 
-        v43 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v42 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
-      while (v43);
+      while (v42);
     }
 
-    *v39 = 1;
+    *v38 = 1;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)assistantSchemaTypeFromIdentifier:(id)identifier

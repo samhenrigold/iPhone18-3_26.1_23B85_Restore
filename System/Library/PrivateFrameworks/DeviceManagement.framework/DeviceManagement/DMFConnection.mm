@@ -1,6 +1,7 @@
 @interface DMFConnection
 + (DMFConnection)currentUserConnection;
 + (id)connectionForAppleID:(id)d;
++ (id)connectionForUID:(unsigned int)d;
 - (DMFConnection)initWithTransportProvider:(id)provider userInfo:(id)info;
 - (DMFTransportProvider)transportProvider;
 - (id)batchOperationToPerformOperations:(id)operations;
@@ -26,6 +27,41 @@
   return [self connectionForUID:v3];
 }
 
++ (id)connectionForUID:(unsigned int)d
+{
+  v3 = *&d;
+  v15[1] = *MEMORY[0x1E69E9840];
+  if (connectionForUID__onceToken != -1)
+  {
+    +[DMFConnection connectionForUID:];
+  }
+
+  v5 = connectionForUID__connectionByUID;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  v7 = [v5 objectForKey:v6];
+
+  if (!v7)
+  {
+    v8 = [self alloc];
+    v14 = @"DMFConnectionTargetUIDKey";
+    v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    v15[0] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v7 = [v8 initWithUserInfo:v10];
+
+    if (!v3)
+    {
+      [v7 setIsSystemConnection:1];
+    }
+
+    v11 = connectionForUID__connectionByUID;
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    [v11 setObject:v7 forKey:v12];
+  }
+
+  return v7;
+}
+
 uint64_t __34__DMFConnection_connectionForUID___block_invoke()
 {
   connectionForUID__connectionByUID = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:0 valueOptions:0];
@@ -35,7 +71,7 @@ uint64_t __34__DMFConnection_connectionForUID___block_invoke()
 
 + (id)connectionForAppleID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy)
   {
@@ -43,12 +79,10 @@ uint64_t __34__DMFConnection_connectionForUID___block_invoke()
   }
 
   v5 = [self alloc];
-  v10 = @"DMFConnectionAppleIDKey";
-  v11[0] = dCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"DMFConnectionAppleIDKey";
+  v10[0] = dCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 initWithUserInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -211,44 +245,41 @@ uint64_t __43__DMFConnection_performRequest_completion___block_invoke(uint64_t a
 
 - (void)clientDidConnect:(id)connect
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     connectCopy = connect;
-    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did connect: %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did connect: %{public}@", &v5, 0xCu);
   }
 
   [(DMFConnection *)self setConnectionState:2];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientDidDisconnect:(id)disconnect
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     disconnectCopy = disconnect;
-    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did disconnect: %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did disconnect: %{public}@", &v5, 0xCu);
   }
 
   [(DMFConnection *)self setConnectionState:0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientDidInvalidate:(id)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     invalidateCopy = invalidate;
-    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did invalidate: %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Client did invalidate: %{public}@", &v5, 0xCu);
   }
 
   [(DMFConnection *)self setConnectionState:0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client:(id)client didInterruptWithError:(id)error
@@ -339,13 +370,12 @@ uint64_t __43__DMFConnection_performRequest_completion___block_invoke(uint64_t a
 
 - (void)client:(uint64_t)a1 didInterruptWithError:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 2114;
-  v6 = a2;
-  _os_log_error_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Client did interrupt: %{public}@, error: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 2114;
+  v5 = a2;
+  _os_log_error_impl(&dword_1DBFFF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Client did interrupt: %{public}@, error: %{public}@", &v2, 0x16u);
 }
 
 @end

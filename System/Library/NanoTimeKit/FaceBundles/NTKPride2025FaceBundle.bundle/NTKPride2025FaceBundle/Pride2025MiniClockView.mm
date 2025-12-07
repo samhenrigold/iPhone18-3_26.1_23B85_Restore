@@ -48,85 +48,83 @@
 - (NSDate)overrideDate
 {
   v3 = sub_3EA8(&qword_1E5C0, qword_146F0);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = __chkstk_darwin(v3 - 8);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v21 - v8;
-  v10 = type metadata accessor for Pride2025MiniClockView();
-  v21.receiver = self;
-  v21.super_class = v10;
+  v4 = __chkstk_darwin(v3 - 8);
+  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v20 - v7;
+  v9 = type metadata accessor for Pride2025MiniClockView();
+  v20.receiver = self;
+  v20.super_class = v9;
   selfCopy = self;
-  overrideDate = [(Pride2025MiniClockView *)&v21 overrideDate];
+  overrideDate = [(Pride2025MiniClockView *)&v20 overrideDate];
   if (overrideDate)
   {
-    v13 = overrideDate;
+    v12 = overrideDate;
     sub_12684();
 
-    v14 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  v15 = sub_126A4();
-  v16 = *(v15 - 8);
-  (*(v16 + 56))(v7, v14, 1, v15);
-  sub_87F8(v7, v9);
-  v17 = (*(v16 + 48))(v9, 1, v15);
-  v18 = 0;
-  if (v17 != 1)
+  v14 = sub_126A4();
+  v15 = *(v14 - 8);
+  (*(v15 + 56))(v6, v13, 1, v14);
+  sub_87F8(v6, v8);
+  v16 = (*(v15 + 48))(v8, 1, v14);
+  v17 = 0;
+  if (v16 != 1)
   {
     isa = sub_12674().super.isa;
-    (*(v16 + 8))(v9, v15);
-    v18 = isa;
+    (*(v15 + 8))(v8, v14);
+    v17 = isa;
   }
 
-  return v18;
+  return v17;
 }
 
 - (void)setOverrideDate:(id)date
 {
   v5 = sub_3EA8(&qword_1E5C0, qword_146F0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = __chkstk_darwin(v5 - 8);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v18 - v10;
+  v6 = __chkstk_darwin(v5 - 8);
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v17 - v9;
   if (date)
   {
     sub_12684();
-    v12 = sub_126A4();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = sub_126A4();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v12 = sub_126A4();
-    (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+    v11 = sub_126A4();
+    (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
   }
 
-  sub_6554(v11, v9);
+  sub_6554(v10, v8);
   sub_126A4();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v9, 1, v12);
+  v12 = *(v11 - 8);
+  v13 = (*(v12 + 48))(v8, 1, v11);
   selfCopy = self;
   isa = 0;
-  if (v14 != 1)
+  if (v13 != 1)
   {
     isa = sub_12674().super.isa;
-    (*(v13 + 8))(v9, v12);
+    (*(v12 + 8))(v8, v11);
   }
 
-  v17 = type metadata accessor for Pride2025MiniClockView();
-  v18.receiver = selfCopy;
-  v18.super_class = v17;
-  [(Pride2025MiniClockView *)&v18 setOverrideDate:isa];
+  v16 = type metadata accessor for Pride2025MiniClockView();
+  v17.receiver = selfCopy;
+  v17.super_class = v16;
+  [(Pride2025MiniClockView *)&v17 setOverrideDate:isa];
 
   sub_833C();
-  sub_8790(v11);
+  sub_8790(v10);
 }
 
 - (CLKUITimeViewConfiguration)configuration
@@ -142,7 +140,7 @@
 {
   configurationCopy = configuration;
   selfCopy = self;
-  sub_8614(configuration);
+  sub_8614(configuration, selfCopy);
 }
 
 @end

@@ -83,13 +83,13 @@
 - (float)systemVolumeOverride;
 - (uint64_t)_BOOLValueForKey:(uint64_t)key usingDefaultValue:;
 - (uint64_t)_integerValueForKey:(uint64_t)key usingDefaultValue:;
-- (uint64_t)groupSessionBoopAdvertisementEnabled;
 - (unint64_t)checkXPCConnectionStatusDefaultInterval;
 - (unint64_t)maxStreamCapacity;
 - (unsigned)systemVolumeCapabilitiesOverride;
 - (void)_loadNearbyDeviceIdentifiers;
 - (void)_loadRoutePickerAirPlayAllowList;
 - (void)_loadRoutePickerAirPlayDenyList;
+- (void)groupSessionBoopAdvertisementEnabled;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 @end
 
@@ -159,7 +159,7 @@ uint64_t __44__MRUserSettings_verboseOriginClientLogging__block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __38__MRUserSettings_sonicPodcastsEnabled__block_invoke(uint64_t a1)
+void *__38__MRUserSettings_sonicPodcastsEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) BOOLForKey:@"SonicPodcastsEnabled"];
   sonicPodcastsEnabled___value = result;
@@ -319,7 +319,7 @@ uint64_t __35__MRUserSettings_disableAWDLRoutes__block_invoke(uint64_t a1)
   return *&persistentDiscoveryABCDuration_duration;
 }
 
-uint64_t __35__MRUserSettings_sonicMusicEnabled__block_invoke(uint64_t a1)
+void *__35__MRUserSettings_sonicMusicEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) BOOLForKey:@"SonicMusicEnabled"];
   sonicMusicEnabled___value = result;
@@ -530,7 +530,7 @@ uint64_t __43__MRUserSettings_calculateDiscoveryUpdates__block_invoke(uint64_t a
 
 - (BOOL)shouldLogArtwork
 {
-  if (MRProcessIsMediaRemoteDaemon())
+  if (MRProcessIsMediaRemoteDaemon(self, a2))
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1390,7 +1390,7 @@ LABEL_14:
   return key;
 }
 
-uint64_t __34__MRUserSettings_shouldLogArtwork__block_invoke(uint64_t a1)
+void *__34__MRUserSettings_shouldLogArtwork__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   shouldLogArtwork_shouldLogArtwork = result;
@@ -1404,56 +1404,56 @@ uint64_t __34__MRUserSettings_shouldLogArtwork__block_invoke(uint64_t a1)
   return [(MRUserSettings *)self _BOOLValueForKey:v3 usingDefaultValue:?];
 }
 
-uint64_t __49__MRUserSettings_verboseConnectionMonitorLogging__block_invoke(uint64_t a1)
+void *__49__MRUserSettings_verboseConnectionMonitorLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseConnectionMonitorLogging___should = result;
   return result;
 }
 
-uint64_t __52__MRUserSettings_verboseNowPlayingControllerLogging__block_invoke(uint64_t a1)
+void *__52__MRUserSettings_verboseNowPlayingControllerLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   verboseNowPlayingControllerLogging___should = result;
   return result;
 }
 
-uint64_t __47__MRUserSettings_verboseOriginForwarderLogging__block_invoke(uint64_t a1)
+void *__47__MRUserSettings_verboseOriginForwarderLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   verboseOriginForwarderLogging___should = result;
   return result;
 }
 
-uint64_t __48__MRUserSettings_verboseNowPlayingStateObserver__block_invoke(uint64_t a1)
+void *__48__MRUserSettings_verboseNowPlayingStateObserver__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseNowPlayingStateObserver___should = result;
   return result;
 }
 
-uint64_t __54__MRUserSettings_verboseRemoteControlDiscoveryLogging__block_invoke(uint64_t a1)
+void *__54__MRUserSettings_verboseRemoteControlDiscoveryLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseRemoteControlDiscoveryLogging___should = result;
   return result;
 }
 
-uint64_t __41__MRUserSettings_verboseDiscoveryLogging__block_invoke(uint64_t a1)
+void *__41__MRUserSettings_verboseDiscoveryLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseDiscoveryLogging___should = result;
   return result;
 }
 
-uint64_t __44__MRUserSettings_verboseImageLoadingLogging__block_invoke(uint64_t a1)
+void *__44__MRUserSettings_verboseImageLoadingLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseImageLoadingLogging___should = result;
   return result;
 }
 
-uint64_t __44__MRUserSettings_verboseMediaControlLogging__block_invoke(uint64_t a1)
+void *__44__MRUserSettings_verboseMediaControlLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verboseMediaControlLogging___should = result;
@@ -1467,7 +1467,7 @@ void __45__MRUserSettings_verboseOutputContextLogging__block_invoke(uint64_t a1)
   verboseOutputContextLogging___should = -[MRUserSettings _BOOLValueForKey:usingDefaultValue:](v1, @"verboseOutputContextLogging", [v2 supportOutputContextSync]);
 }
 
-uint64_t __52__MRUserSettings_verbosePlaybackQueueRequestLogging__block_invoke(uint64_t a1)
+void *__52__MRUserSettings_verbosePlaybackQueueRequestLogging__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   verbosePlaybackQueueRequestLogging___should = result;
@@ -1517,14 +1517,14 @@ uint64_t __52__MRUserSettings_verbosePlaybackQueueRequestLogging__block_invoke(u
   return key;
 }
 
-uint64_t __80__MRUserSettings_nowPlayingAppStackShouldAutomaticallyForwardFailedPlayCommands__block_invoke(uint64_t a1)
+void *__80__MRUserSettings_nowPlayingAppStackShouldAutomaticallyForwardFailedPlayCommands__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   nowPlayingAppStackShouldAutomaticallyForwardFailedPlayCommands_value = result;
   return result;
 }
 
-uint64_t __56__MRUserSettings_notifyDevicesInHomeThatPlaybackStarted__block_invoke(uint64_t a1)
+void *__56__MRUserSettings_notifyDevicesInHomeThatPlaybackStarted__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   notifyDevicesInHomeThatPlaybackStarted___value = result;
@@ -1533,7 +1533,6 @@ uint64_t __56__MRUserSettings_notifyDevicesInHomeThatPlaybackStarted__block_invo
 
 - (void)_loadRoutePickerAirPlayAllowList
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [*(self + 8) valueForKey:@"routepicker-airplay-allowlist"];
@@ -1550,7 +1549,7 @@ uint64_t __56__MRUserSettings_notifyDevicesInHomeThatPlaybackStarted__block_invo
         *(self + 16) = v5;
 
 LABEL_7:
-        goto LABEL_8;
+        return;
       }
 
       v4 = 0;
@@ -1559,14 +1558,10 @@ LABEL_7:
     objc_storeStrong((self + 16), v4);
     goto LABEL_7;
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadRoutePickerAirPlayDenyList
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [*(self + 8) valueForKey:@"routepicker-airplay-denylist"];
@@ -1583,7 +1578,7 @@ LABEL_8:
         *(self + 24) = v5;
 
 LABEL_7:
-        goto LABEL_8;
+        return;
       }
 
       v4 = 0;
@@ -1592,14 +1587,10 @@ LABEL_7:
     objc_storeStrong((self + 24), v4);
     goto LABEL_7;
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadNearbyDeviceIdentifiers
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [*(self + 8) valueForKey:@"NearbyDeviceIdentifiers"];
@@ -1616,7 +1607,7 @@ LABEL_8:
         *(self + 32) = v5;
 
 LABEL_7:
-        goto LABEL_8;
+        return;
       }
 
       v4 = 0;
@@ -1625,9 +1616,6 @@ LABEL_7:
     objc_storeStrong((self + 32), v4);
     goto LABEL_7;
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 double __42__MRUserSettings_supportLastPlayingDevice__block_invoke(uint64_t a1)
@@ -1684,7 +1672,7 @@ void __35__MRUserSettings_maxStreamCapacity__block_invoke(uint64_t a1)
   maxStreamCapacity_max = [(MRUserSettings *)v2 _integerValueForKey:v3 usingDefaultValue:?];
 }
 
-uint64_t __42__MRUserSettings_forceDeviceInfoDiscovery__block_invoke(uint64_t a1)
+void *__42__MRUserSettings_forceDeviceInfoDiscovery__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   forceDeviceInfoDiscovery___value = result;
@@ -1698,16 +1686,16 @@ float __46__MRUserSettings_proximitySortingNearbyRadius__block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __46__MRUserSettings_shouldConnectToLocalEndpoint__block_invoke(uint64_t a1)
+void *__46__MRUserSettings_shouldConnectToLocalEndpoint__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   IsAudioAccessory = MSVDeviceIsAudioAccessory();
-  result = [(MRUserSettings *)v1 _BOOLValueForKey:IsAudioAccessory usingDefaultValue:?];
+  result = [(MRUserSettings *)v2 _BOOLValueForKey:IsAudioAccessory usingDefaultValue:?];
   shouldConnectToLocalEndpoint___value = result;
   return result;
 }
 
-uint64_t __43__MRUserSettings_startNowPlayingSessionABC__block_invoke(uint64_t a1)
+void *__43__MRUserSettings_startNowPlayingSessionABC__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   startNowPlayingSessionABC_support = result;
@@ -1726,21 +1714,21 @@ void __51__MRUserSettings_excessiveNowPlayingControllersABC__block_invoke(uint64
   }
 }
 
-uint64_t __47__MRUserSettings_forceNowPlayingSessionFailure__block_invoke(uint64_t a1)
+void *__47__MRUserSettings_forceNowPlayingSessionFailure__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   forceNowPlayingSessionFailure_support = result;
   return result;
 }
 
-uint64_t __44__MRUserSettings_excessiveTaskAssertionsABC__block_invoke(uint64_t a1)
+void *__44__MRUserSettings_excessiveTaskAssertionsABC__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   excessiveTaskAssertionsABC_support = result;
   return result;
 }
 
-uint64_t __51__MRUserSettings_inconsistentPlaybackQueueCacheABC__block_invoke(uint64_t a1)
+void *__51__MRUserSettings_inconsistentPlaybackQueueCacheABC__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   inconsistentPlaybackQueueCacheABC_support = result;
@@ -1754,28 +1742,28 @@ uint64_t __51__MRUserSettings_inconsistentPlaybackQueueCacheABC__block_invoke(ui
   return [(MRUserSettings *)self _BOOLValueForKey:IsAudioAccessory usingDefaultValue:?];
 }
 
-uint64_t __28__MRUserSettings_internalUI__block_invoke(uint64_t a1)
+void *__28__MRUserSettings_internalUI__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   internalUI___internal = result;
   return result;
 }
 
-uint64_t __32__MRUserSettings_staticWaveform__block_invoke(uint64_t a1)
+void *__32__MRUserSettings_staticWaveform__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:0 usingDefaultValue:?];
   staticWaveform___static = result;
   return result;
 }
 
-uint64_t __39__MRUserSettings_carPlayBannersEnabled__block_invoke(uint64_t a1)
+void *__39__MRUserSettings_carPlayBannersEnabled__block_invoke(uint64_t a1)
 {
   result = [(MRUserSettings *)*(a1 + 32) _BOOLValueForKey:1 usingDefaultValue:?];
   carPlayBannersEnabled___value = result;
   return result;
 }
 
-- (uint64_t)groupSessionBoopAdvertisementEnabled
+- (void)groupSessionBoopAdvertisementEnabled
 {
   *block = MEMORY[0x1E69E9820];
   block[1] = 3221225472;

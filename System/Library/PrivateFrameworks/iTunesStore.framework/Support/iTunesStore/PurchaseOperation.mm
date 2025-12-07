@@ -533,15 +533,15 @@
   shim = self->_shim;
   if (shim)
   {
-    v128 = 0;
-    v4 = [(AMSPurchaseShim *)shim runPurchase:&v128];
-    v5 = v128;
+    v130 = 0;
+    v4 = [(AMSPurchaseShim *)shim runPurchase:&v130];
+    v5 = v130;
     v6 = v5;
     if (!v5)
     {
 LABEL_63:
-      [(PurchaseOperation *)self setSuccess:v6 == 0, v119];
-      goto LABEL_180;
+      [(PurchaseOperation *)self setSuccess:v6 == 0, v121];
+      goto LABEL_188;
     }
 
     v7 = v5;
@@ -578,16 +578,14 @@ LABEL_63:
       v13 = objc_opt_class();
       v14 = v13;
       v15 = AMSLogKey();
-      v129 = 138543874;
-      v130 = v13;
-      v131 = 2114;
-      v132 = v15;
+      v131 = 138543874;
+      v132 = v13;
       v133 = 2114;
+      v134 = v15;
+      v135 = 2114;
       v6 = v7;
-      v134 = v7;
-      LODWORD(v121) = 32;
-      v119 = &v129;
-      v16 = _os_log_send_and_compose_impl();
+      v136 = v7;
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: [%{public}@] Error encountered with shimmed purchase: %{public}@", &v131, 32);
 
       if (!v16)
       {
@@ -597,9 +595,9 @@ LABEL_62:
         goto LABEL_63;
       }
 
-      oSLogObject = [NSString stringWithCString:v16 encoding:4, &v129, v121];
+      oSLogObject = [NSString stringWithCString:v16 encoding:4];
       free(v16);
-      v119 = oSLogObject;
+      v121 = oSLogObject;
       SSFileLog();
     }
 
@@ -614,8 +612,8 @@ LABEL_62:
   buyParameters = [(PurchaseOperation *)self buyParameters];
   v18 = [NSURL copyDictionaryForQueryString:buyParameters unescapedValues:1];
 
-  v124 = v18;
-  v125 = [v18 objectForKey:@"salableAdamId"];
+  v126 = v18;
+  v127 = [v18 objectForKey:@"salableAdamId"];
   v19 = &CFDictionaryGetValue_ptr;
   v20 = +[SSLogConfig sharedDaemonConfig];
   if (!v20)
@@ -650,15 +648,13 @@ LABEL_62:
     v25 = objc_opt_class();
     v26 = v25;
     logKey = [(PurchaseOperation *)self logKey];
-    v129 = 138543874;
-    v130 = v25;
-    v131 = 2114;
-    v132 = logKey;
-    v133 = 2112;
-    v134 = v125;
-    LODWORD(v121) = 32;
-    v119 = &v129;
-    v28 = _os_log_send_and_compose_impl();
+    v131 = 138543874;
+    v132 = v25;
+    v133 = 2114;
+    v134 = logKey;
+    v135 = 2112;
+    v136 = v127;
+    v28 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: [%{public}@] Starting purchase for adamID: %@", &v131, 32);
 
     v19 = &CFDictionaryGetValue_ptr;
     if (!v28)
@@ -666,9 +662,9 @@ LABEL_62:
       goto LABEL_26;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v28 encoding:4, &v129, v121];
+    oSLogObject2 = [NSString stringWithCString:v28 encoding:4];
     free(v28);
-    v119 = oSLogObject2;
+    v121 = oSLogObject2;
     SSFileLog();
   }
 
@@ -677,10 +673,10 @@ LABEL_26:
   clientAuditTokenData = [(PurchaseOperation *)self clientAuditTokenData];
   [_URLBagContext setClientAuditTokenData:clientAuditTokenData];
 
-  v127 = 0;
-  v123 = _URLBagContext;
-  v31 = [(PurchaseOperation *)self loadURLBagWithContext:_URLBagContext returningError:&v127];
-  v32 = v127;
+  v129 = 0;
+  v125 = _URLBagContext;
+  v31 = [(PurchaseOperation *)self loadURLBagWithContext:_URLBagContext returningError:&v129];
+  v32 = v129;
   if (v31)
   {
     goto LABEL_40;
@@ -720,20 +716,19 @@ LABEL_26:
   }
 
   v38 = objc_opt_class();
-  v129 = 138412546;
-  v130 = v38;
-  v131 = 2112;
-  v132 = v32;
+  v131 = 138412546;
+  v132 = v38;
+  v133 = 2112;
+  v134 = v32;
   v39 = v38;
-  LODWORD(v121) = 22;
-  v119 = &v129;
-  v40 = _os_log_send_and_compose_impl();
+  LODWORD(v123) = 22;
+  v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not load URL bag: %@", &v131, v123);
 
   if (v40)
   {
-    oSLogObject3 = [NSString stringWithCString:v40 encoding:4, &v129, v121];
+    oSLogObject3 = [NSString stringWithCString:v40 encoding:4];
     free(v40);
-    v119 = oSLogObject3;
+    v121 = oSLogObject3;
     SSFileLog();
 LABEL_38:
   }
@@ -745,7 +740,7 @@ LABEL_40:
   responseInfo = self->_responseInfo;
   self->_responseInfo = v41;
 
-  v122 = v32;
+  v124 = v32;
   if (+[ISBiometricStore shouldUseApplePayClassic])
   {
     [(PurchaseOperation *)self _performApplePayClassicCheck];
@@ -794,22 +789,21 @@ LABEL_40:
   {
     logKey2 = [(PurchaseOperation *)self logKey];
     v50 = [NSNumber numberWithInteger:_purchaseType];
-    v129 = 138543618;
-    v130 = logKey2;
-    v131 = 2114;
-    v132 = v50;
-    LODWORD(v121) = 22;
-    v120 = &v129;
-    v51 = _os_log_send_and_compose_impl();
+    v131 = 138543618;
+    v132 = logKey2;
+    v133 = 2114;
+    v134 = v50;
+    LODWORD(v123) = 22;
+    v51 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "PurchaseOperation: [%{public}@] Evaluating AFDS for purchase type: %{public}@", &v131, v123, v124);
 
     if (!v51)
     {
       goto LABEL_57;
     }
 
-    oSLogObject4 = [NSString stringWithCString:v51 encoding:4, &v129, v121, v122];
+    oSLogObject4 = [NSString stringWithCString:v51 encoding:4];
     free(v51);
-    v120 = oSLogObject4;
+    v122 = oSLogObject4;
     SSFileLog();
   }
 
@@ -838,18 +832,18 @@ LABEL_57:
 LABEL_70:
   if (!v31)
   {
-    goto LABEL_157;
+    goto LABEL_163;
   }
 
-  HIDWORD(v121) = 0;
+  HIDWORD(v123) = 0;
   while (1)
   {
-    v53 = [(PurchaseResponseInfo *)self->_responseInfo dialog:v120];
+    dialog = [(PurchaseResponseInfo *)self->_responseInfo dialog];
     [(PurchaseResponseInfo *)self->_responseInfo reset];
     [(PurchaseOperation *)self setError:0];
-    if (v53)
+    if (dialog)
     {
-      [(PurchaseOperation *)self _runDialogOperationForDialog:v53];
+      [(PurchaseOperation *)self _runDialogOperationForDialog:dialog];
     }
 
     else
@@ -863,9 +857,9 @@ LABEL_70:
       break;
     }
 
-    dialog = [(PurchaseResponseInfo *)self->_responseInfo dialog];
+    dialog2 = [(PurchaseResponseInfo *)self->_responseInfo dialog];
 
-    if (dialog)
+    if (dialog2)
     {
       sharedDaemonConfig = [v19[412] sharedDaemonConfig];
       if (!sharedDaemonConfig)
@@ -873,24 +867,35 @@ LABEL_70:
         sharedDaemonConfig = [v19[412] sharedConfig];
       }
 
-      shouldLog5 = [sharedDaemonConfig shouldLog];
+      LODWORD(v57) = [sharedDaemonConfig shouldLog];
       if ([sharedDaemonConfig shouldLogToDisk])
       {
-        shouldLog5 |= 2u;
+        LODWORD(v57) = v57 | 2;
       }
 
       oSLogObject5 = [sharedDaemonConfig OSLogObject];
-      if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
       {
-        shouldLog5 &= 2u;
+        v57 = v57;
       }
 
-      if (shouldLog5)
+      else
       {
-        goto LABEL_85;
+        v57 &= 2u;
       }
 
-      goto LABEL_87;
+      if (v57)
+      {
+        v59 = objc_opt_class();
+        v131 = 138412290;
+        v132 = v59;
+        v60 = v59;
+        LODWORD(v123) = 12;
+        v61 = _os_log_send_and_compose_impl(v57, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Retry purchase operation after dialog", &v131, v123);
+        goto LABEL_87;
+      }
+
+      goto LABEL_89;
     }
 
     if ([(PurchaseResponseInfo *)self->_responseInfo shouldRetryForDelayedGoto])
@@ -901,48 +906,52 @@ LABEL_70:
         break;
       }
 
-      v63 = delayedGotoRetryCount;
+      v64 = delayedGotoRetryCount;
       sharedDaemonConfig2 = [v19[412] sharedDaemonConfig];
       if (!sharedDaemonConfig2)
       {
         sharedDaemonConfig2 = [v19[412] sharedConfig];
       }
 
-      shouldLog6 = [sharedDaemonConfig2 shouldLog];
+      LODWORD(v66) = [sharedDaemonConfig2 shouldLog];
       if ([sharedDaemonConfig2 shouldLogToDisk])
       {
-        shouldLog6 |= 2u;
+        LODWORD(v66) = v66 | 2;
       }
 
       oSLogObject6 = [sharedDaemonConfig2 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_INFO))
       {
-        shouldLog6 &= 2u;
+        v66 = v66;
       }
 
-      if (shouldLog6)
+      else
       {
-        v67 = objc_opt_class();
-        v129 = 138412290;
-        v130 = v67;
-        v68 = v67;
-        LODWORD(v121) = 12;
-        v120 = &v129;
-        v69 = _os_log_send_and_compose_impl();
+        v66 &= 2u;
+      }
 
-        if (v69)
+      if (v66)
+      {
+        v68 = objc_opt_class();
+        v131 = 138412290;
+        v132 = v68;
+        v69 = v68;
+        LODWORD(v123) = 12;
+        v70 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Retry after delayed goto", &v131, v123);
+
+        if (v70)
         {
-          oSLogObject6 = [NSString stringWithCString:v69 encoding:4, &v129, v121];
-          free(v69);
-          v120 = oSLogObject6;
+          oSLogObject6 = [NSString stringWithCString:v70 encoding:4];
+          free(v70);
+          v122 = oSLogObject6;
           SSFileLog();
-          goto LABEL_100;
+          goto LABEL_103;
         }
       }
 
       else
       {
-LABEL_100:
+LABEL_103:
       }
 
       if (changedBuyParameters)
@@ -950,9 +959,9 @@ LABEL_100:
         [(PurchaseOperation *)self setBuyParameters:changedBuyParameters];
       }
 
-      [(PurchaseResponseInfo *)self->_responseInfo setDelayedGotoRetryCount:v63 + 1, v120];
+      [(PurchaseResponseInfo *)self->_responseInfo setDelayedGotoRetryCount:v64 + 1, v122];
       v19 = &CFDictionaryGetValue_ptr;
-      goto LABEL_116;
+      goto LABEL_120;
     }
 
     if (changedBuyParameters)
@@ -963,46 +972,50 @@ LABEL_100:
         sharedDaemonConfig3 = [v19[412] sharedConfig];
       }
 
-      shouldLog7 = [sharedDaemonConfig3 shouldLog];
+      LODWORD(v72) = [sharedDaemonConfig3 shouldLog];
       if ([sharedDaemonConfig3 shouldLogToDisk])
       {
-        shouldLog7 |= 2u;
+        LODWORD(v72) = v72 | 2;
       }
 
       oSLogObject7 = [sharedDaemonConfig3 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_INFO))
       {
-        shouldLog7 &= 2u;
+        v72 = v72;
       }
 
-      if (shouldLog7)
+      else
       {
-        v73 = objc_opt_class();
-        v129 = 138412290;
-        v130 = v73;
-        v74 = v73;
-        LODWORD(v121) = 12;
-        v120 = &v129;
-        v75 = _os_log_send_and_compose_impl();
+        v72 &= 2u;
+      }
+
+      if (v72)
+      {
+        v74 = objc_opt_class();
+        v131 = 138412290;
+        v132 = v74;
+        v75 = v74;
+        LODWORD(v123) = 12;
+        v76 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Retry purchase operation after changed buy parameters", &v131, v123);
 
         v19 = &CFDictionaryGetValue_ptr;
-        if (v75)
+        if (v76)
         {
-          oSLogObject7 = [NSString stringWithCString:v75 encoding:4, &v129, v121];
-          free(v75);
-          v120 = oSLogObject7;
+          oSLogObject7 = [NSString stringWithCString:v76 encoding:4];
+          free(v76);
+          v122 = oSLogObject7;
           SSFileLog();
-          goto LABEL_114;
+          goto LABEL_118;
         }
       }
 
       else
       {
-LABEL_114:
+LABEL_118:
       }
 
       [(PurchaseOperation *)self setBuyParameters:changedBuyParameters];
-      goto LABEL_116;
+      goto LABEL_120;
     }
 
     machineDataSyncState = [(PurchaseResponseInfo *)self->_responseInfo machineDataSyncState];
@@ -1015,122 +1028,131 @@ LABEL_114:
         sharedDaemonConfig = [v19[412] sharedConfig];
       }
 
-      shouldLog8 = [sharedDaemonConfig shouldLog];
+      LODWORD(v78) = [sharedDaemonConfig shouldLog];
       if ([sharedDaemonConfig shouldLogToDisk])
       {
-        shouldLog8 |= 2u;
+        LODWORD(v78) = v78 | 2;
       }
 
       oSLogObject5 = [sharedDaemonConfig OSLogObject];
-      if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
       {
-        shouldLog8 &= 2u;
+        v78 = v78;
       }
 
-      if (shouldLog8)
+      else
       {
-LABEL_85:
-        v59 = objc_opt_class();
-        v129 = 138412290;
-        v130 = v59;
-        v60 = v59;
-        LODWORD(v121) = 12;
-        v120 = &v129;
-        v61 = _os_log_send_and_compose_impl();
+        v78 &= 2u;
+      }
+
+      if (v78)
+      {
+        v79 = objc_opt_class();
+        v131 = 138412290;
+        v132 = v79;
+        v60 = v79;
+        LODWORD(v123) = 12;
+        v61 = _os_log_send_and_compose_impl(v78, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Retry purchase with MD sync state", &v131, v123);
+LABEL_87:
+        v62 = v61;
 
         v19 = &CFDictionaryGetValue_ptr;
-        if (v61)
+        if (v62)
         {
-          oSLogObject5 = [NSString stringWithCString:v61 encoding:4];
-          free(v61);
-          v120 = oSLogObject5;
+          oSLogObject5 = [NSString stringWithCString:v62 encoding:4];
+          free(v62);
+          v122 = oSLogObject5;
           SSFileLog();
-          goto LABEL_87;
+          goto LABEL_89;
         }
 
-LABEL_88:
+LABEL_90:
 
-        goto LABEL_116;
+        goto LABEL_120;
       }
 
-LABEL_87:
+LABEL_89:
 
-      goto LABEL_88;
+      goto LABEL_90;
     }
 
     shouldRetryForMachineData = [(PurchaseResponseInfo *)self->_responseInfo shouldRetryForMachineData];
-    v79 = self->_responseInfo;
+    v81 = self->_responseInfo;
     if (shouldRetryForMachineData)
     {
-      machineDataRetryCount = [(PurchaseResponseInfo *)v79 machineDataRetryCount];
+      machineDataRetryCount = [(PurchaseResponseInfo *)v81 machineDataRetryCount];
       if (machineDataRetryCount > 0)
       {
         break;
       }
 
-      v81 = machineDataRetryCount;
+      v83 = machineDataRetryCount;
       sharedDaemonConfig4 = [v19[412] sharedDaemonConfig];
       if (!sharedDaemonConfig4)
       {
         sharedDaemonConfig4 = [v19[412] sharedConfig];
       }
 
-      shouldLog9 = [sharedDaemonConfig4 shouldLog];
+      LODWORD(v85) = [sharedDaemonConfig4 shouldLog];
       if ([sharedDaemonConfig4 shouldLogToDisk])
       {
-        shouldLog9 |= 2u;
+        LODWORD(v85) = v85 | 2;
       }
 
       oSLogObject8 = [sharedDaemonConfig4 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
       {
-        shouldLog9 &= 2u;
+        v85 = v85;
       }
 
-      if (shouldLog9)
+      else
       {
-        v85 = objc_opt_class();
-        v129 = 138412290;
-        v130 = v85;
-        v86 = v85;
-        LODWORD(v121) = 12;
-        v120 = &v129;
-        v87 = _os_log_send_and_compose_impl();
+        v85 &= 2u;
+      }
+
+      if (v85)
+      {
+        v87 = objc_opt_class();
+        v131 = 138412290;
+        v132 = v87;
+        v88 = v87;
+        LODWORD(v123) = 12;
+        v89 = _os_log_send_and_compose_impl(v85, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Retry purchase operation after machine data action", &v131, v123);
 
         v19 = &CFDictionaryGetValue_ptr;
-        if (v87)
+        if (v89)
         {
-          oSLogObject8 = [NSString stringWithCString:v87 encoding:4, &v129, v121];
-          free(v87);
-          v120 = oSLogObject8;
+          oSLogObject8 = [NSString stringWithCString:v89 encoding:4];
+          free(v89);
+          v122 = oSLogObject8;
           SSFileLog();
-          goto LABEL_138;
+          goto LABEL_144;
         }
       }
 
       else
       {
-LABEL_138:
+LABEL_144:
       }
 
-      [(PurchaseResponseInfo *)self->_responseInfo setMachineDataRetryCount:v81 + 1];
-      goto LABEL_116;
+      [(PurchaseResponseInfo *)self->_responseInfo setMachineDataRetryCount:v83 + 1];
+      goto LABEL_120;
     }
 
-    if (![(PurchaseResponseInfo *)v79 shouldRetryWithOriginalProductOwnerAccount]|| (self->_originalProductOwnerAccountDSID == 0) | BYTE4(v121) & 1)
+    if (![(PurchaseResponseInfo *)v81 shouldRetryWithOriginalProductOwnerAccount]|| (self->_originalProductOwnerAccountDSID == 0) | BYTE4(v123) & 1)
     {
       break;
     }
 
-    v88 = [[SSMutableAuthenticationContext alloc] initWithAccountIdentifier:self->_originalProductOwnerAccountDSID];
+    v90 = [[SSMutableAuthenticationContext alloc] initWithAccountIdentifier:self->_originalProductOwnerAccountDSID];
     logKey3 = [(PurchaseOperation *)self logKey];
-    [v88 setLogUUID:logKey3];
+    [v90 setLogUUID:logKey3];
 
     authenticationContext = self->_authenticationContext;
-    self->_authenticationContext = v88;
+    self->_authenticationContext = v90;
 
-    HIDWORD(v121) = 1;
-LABEL_116:
+    HIDWORD(v123) = 1;
+LABEL_120:
     if (self->_silentAuthCount >= 3)
     {
       sharedDaemonConfig5 = [v19[412] sharedDaemonConfig];
@@ -1139,51 +1161,50 @@ LABEL_116:
         sharedDaemonConfig5 = [v19[412] sharedConfig];
       }
 
-      shouldLog10 = [sharedDaemonConfig5 shouldLog];
+      shouldLog5 = [sharedDaemonConfig5 shouldLog];
       if ([sharedDaemonConfig5 shouldLogToDisk])
       {
-        v93 = shouldLog10 | 2;
+        v95 = shouldLog5 | 2;
       }
 
       else
       {
-        v93 = shouldLog10;
+        v95 = shouldLog5;
       }
 
       oSLogObject9 = [sharedDaemonConfig5 OSLogObject];
       if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
       {
-        v95 = v93;
+        v97 = v95;
       }
 
       else
       {
-        v95 = v93 & 2;
+        v97 = v95 & 2;
       }
 
-      if (v95)
+      if (v97)
       {
-        v96 = objc_opt_class();
-        v129 = 138543362;
-        v130 = v96;
-        v97 = v96;
-        LODWORD(v121) = 12;
-        v120 = &v129;
-        v98 = _os_log_send_and_compose_impl();
+        v98 = objc_opt_class();
+        v131 = 138543362;
+        v132 = v98;
+        v99 = v98;
+        LODWORD(v123) = 12;
+        v100 = _os_log_send_and_compose_impl(v97, 0, 0, 0, &_mh_execute_header, oSLogObject9, 16, "%{public}@: We've attempted silent auth multiple times and the purchase continues to fail. Refusing to retry again.", &v131, v123);
 
-        if (v98)
+        if (v100)
         {
-          oSLogObject9 = [NSString stringWithCString:v98 encoding:4, &v129, v121];
-          free(v98);
-          v120 = oSLogObject9;
+          oSLogObject9 = [NSString stringWithCString:v100 encoding:4];
+          free(v100);
+          v122 = oSLogObject9;
           SSFileLog();
-          goto LABEL_154;
+          goto LABEL_160;
         }
       }
 
       else
       {
-LABEL_154:
+LABEL_160:
       }
 
       v19 = &CFDictionaryGetValue_ptr;
@@ -1191,17 +1212,17 @@ LABEL_154:
     }
   }
 
-LABEL_157:
+LABEL_163:
   rawOutput = [(PurchaseOperation *)self rawOutput];
   error = [(PurchaseOperation *)self error];
-  v101 = [(PurchaseOperation *)self _recordEngagementEventWithResult:rawOutput error:error];
+  v103 = [(PurchaseOperation *)self _recordEngagementEventWithResult:rawOutput error:error];
 
-  v126[0] = _NSConcreteStackBlock;
-  v126[1] = 3221225472;
-  v126[2] = sub_1000A2E10;
-  v126[3] = &unk_100327110;
-  v126[4] = self;
-  [v101 addSuccessBlock:v126];
+  v128[0] = _NSConcreteStackBlock;
+  v128[1] = 3221225472;
+  v128[2] = sub_1000A2E10;
+  v128[3] = &unk_100327110;
+  v128[4] = self;
+  [v103 addSuccessBlock:v128];
   error2 = [(PurchaseOperation *)self error];
 
   sharedDaemonConfig6 = [v19[412] sharedDaemonConfig];
@@ -1213,37 +1234,42 @@ LABEL_157:
       sharedConfig = [v19[412] sharedConfig];
     }
 
-    shouldLog11 = [sharedConfig shouldLog];
+    LODWORD(v107) = [sharedConfig shouldLog];
     if ([sharedConfig shouldLogToDisk])
     {
-      shouldLog11 |= 2u;
+      LODWORD(v107) = v107 | 2;
     }
 
     oSLogObject10 = [sharedConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_ERROR))
     {
-      shouldLog11 &= 2u;
+      v107 = v107;
     }
 
-    if (shouldLog11)
+    else
     {
-      v107 = objc_opt_class();
-      v108 = v107;
+      v107 &= 2u;
+    }
+
+    if (v107)
+    {
+      v109 = objc_opt_class();
+      v110 = v109;
       logKey4 = [(PurchaseOperation *)self logKey];
       error3 = [(PurchaseOperation *)self error];
-      v129 = 138543874;
-      v130 = v107;
-      v131 = 2114;
-      v132 = logKey4;
+      v131 = 138543874;
+      v132 = v109;
       v133 = 2114;
-      v134 = error3;
-      LODWORD(v121) = 32;
-      v111 = _os_log_send_and_compose_impl();
+      v134 = logKey4;
+      v135 = 2114;
+      v136 = error3;
+      LODWORD(v123) = 32;
+      v113 = _os_log_send_and_compose_impl(v107, 0, 0, 0, &_mh_execute_header, oSLogObject10, 16, "%{public}@: [%{public}@] Purchase finished with error: %{public}@", &v131, v123);
 
-      goto LABEL_174;
+      goto LABEL_182;
     }
 
-LABEL_176:
+LABEL_184:
   }
 
   else
@@ -1253,40 +1279,45 @@ LABEL_176:
       sharedConfig = [v19[412] sharedConfig];
     }
 
-    shouldLog12 = [sharedConfig shouldLog];
+    LODWORD(v114) = [sharedConfig shouldLog];
     if ([sharedConfig shouldLogToDisk])
     {
-      shouldLog12 |= 2u;
+      LODWORD(v114) = v114 | 2;
     }
 
     oSLogObject10 = [sharedConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog12 &= 2u;
+      v114 = v114;
     }
 
-    if (!shouldLog12)
+    else
     {
-      goto LABEL_176;
+      v114 &= 2u;
     }
 
-    v113 = objc_opt_class();
-    v114 = v113;
+    if (!v114)
+    {
+      goto LABEL_184;
+    }
+
+    v115 = objc_opt_class();
+    v116 = v115;
     logKey5 = [(PurchaseOperation *)self logKey];
-    v129 = 138543618;
-    v130 = v113;
-    v131 = 2114;
-    v132 = logKey5;
-    LODWORD(v121) = 22;
-    v111 = _os_log_send_and_compose_impl();
+    v131 = 138543618;
+    v132 = v115;
+    v133 = 2114;
+    v134 = logKey5;
+    LODWORD(v123) = 22;
+    v113 = _os_log_send_and_compose_impl(v114, 0, 0, 0, &_mh_execute_header, oSLogObject10, 0, "%{public}@: [%{public}@] Purchase completed", &v131, v123);
 
-LABEL_174:
-    if (v111)
+LABEL_182:
+    if (v113)
     {
-      oSLogObject10 = [NSString stringWithCString:v111 encoding:4, &v129, v121];
-      free(v111);
+      oSLogObject10 = [NSString stringWithCString:v113 encoding:4];
+      free(v113);
       SSFileLog();
-      goto LABEL_176;
+      goto LABEL_184;
     }
   }
 
@@ -1298,11 +1329,11 @@ LABEL_174:
     [(DeviceScorer *)self->_deviceScorer didConsumeDeviceScore:[(PurchaseOperation *)self didConsumeScore]];
   }
 
-  v118 = self->_responseInfo;
+  v120 = self->_responseInfo;
   self->_responseInfo = 0;
 
-  v6 = v124;
-LABEL_180:
+  v6 = v126;
+LABEL_188:
 }
 
 - (void)operation:(id)operation didAuthenticateWithDSID:(id)d
@@ -1438,44 +1469,47 @@ LABEL_3:
         shouldLog = [v11 shouldLog];
         if ([v11 shouldLogToDisk])
         {
-          v13 = shouldLog | 2;
+          LODWORD(v13) = shouldLog | 2;
         }
 
         else
         {
-          v13 = shouldLog;
+          LODWORD(v13) = shouldLog;
         }
 
         oSLogObject = [v11 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = v13;
+        }
+
+        else
         {
           v13 &= 2u;
         }
 
         if (v13)
         {
-          LODWORD(v19) = 138543362;
-          *(&v19 + 4) = objc_opt_class();
-          v15 = *(&v19 + 4);
-          LODWORD(v18) = 12;
-          v17 = &v19;
-          v16 = _os_log_send_and_compose_impl();
+          v18 = 138543362;
+          v19 = objc_opt_class();
+          v15 = v19;
+          v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Using default machine account request for ADI header", &v18, 12);
 
           if (!v16)
           {
-LABEL_18:
+LABEL_19:
 
             _accountIdentifier = &off_10034BC88;
             goto LABEL_3;
           }
 
-          oSLogObject = [NSString stringWithCString:v16 encoding:4, &v19, v18, v19];
+          oSLogObject = [NSString stringWithCString:v16 encoding:4];
           free(v16);
           v17 = oSLogObject;
           SSFileLog();
         }
 
-        goto LABEL_18;
+        goto LABEL_19;
       }
     }
   }
@@ -1602,10 +1636,10 @@ LABEL_8:
   v9 = [NSNumber numberWithUnsignedLongLong:identifier];
   MachineDataAddHeadersToRequestProperties();
 
-  v30 = 0;
-  v31 = 0;
   v29 = 0;
-  sub_1002442DC(-1, &v31, &v29 + 4, &v30, &v29);
+  v30 = 0;
+  v28 = 0;
+  sub_1002442DC(-1, &v30, &v28 + 4, &v29, &v28);
   if (v10)
   {
     v11 = v10;
@@ -1639,17 +1673,16 @@ LABEL_8:
 
     if (v16)
     {
-      v32 = 134217984;
-      v33 = v11;
-      LODWORD(v26) = 12;
-      v17 = _os_log_send_and_compose_impl();
+      v31 = 134217984;
+      v32 = v11;
+      v17 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[MD]: Skipping OTP request after return code: %ld", &v31);
 
       if (!v17)
       {
         goto LABEL_35;
       }
 
-      oSLogObject = [NSString stringWithCString:v17 encoding:4, &v32, v26];
+      oSLogObject = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog();
     }
@@ -1657,10 +1690,10 @@ LABEL_8:
     goto LABEL_34;
   }
 
-  if (HIDWORD(v29))
+  if (HIDWORD(v28))
   {
     v18 = [NSData alloc];
-    v12 = [v18 initWithBytesNoCopy:v31 length:HIDWORD(v29) freeWhenDone:0];
+    v12 = [v18 initWithBytesNoCopy:v30 length:HIDWORD(v28) freeWhenDone:0];
   }
 
   else
@@ -1671,11 +1704,11 @@ LABEL_8:
   if ([(PurchaseOperation *)self _shouldSendSBSyncData])
   {
     _fairPlaySubscriptionController = [(PurchaseOperation *)self _fairPlaySubscriptionController];
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
-    [_fairPlaySubscriptionController generateSubscriptionBagRequestWithAccountUniqueIdentifier:identifier transactionType:312 machineIDData:v12 returningSubscriptionBagData:&v28 error:&v27];
-    v20 = v28;
-    v21 = v27;
+    [_fairPlaySubscriptionController generateSubscriptionBagRequestWithAccountUniqueIdentifier:identifier transactionType:312 machineIDData:v12 returningSubscriptionBagData:&v27 error:&v26];
+    v20 = v27;
+    v21 = v26;
     if (!v21)
     {
       v22 = [v20 base64EncodedStringWithOptions:0];
@@ -1695,10 +1728,10 @@ LABEL_8:
     }
   }
 
-  if (v30)
+  if (v29)
   {
     v24 = [NSData alloc];
-    oSLogObject = [v24 initWithBytesNoCopy:v30 length:v29 freeWhenDone:0];
+    oSLogObject = [v24 initWithBytesNoCopy:v29 length:v28 freeWhenDone:0];
     v25 = [oSLogObject base64EncodedStringWithOptions:0];
     if (v25)
     {
@@ -1710,14 +1743,14 @@ LABEL_34:
 
 LABEL_35:
 
-  if (v31)
-  {
-    sub_100255DC4(v31);
-  }
-
   if (v30)
   {
     sub_100255DC4(v30);
+  }
+
+  if (v29)
+  {
+    sub_100255DC4(v29);
   }
 }
 
@@ -1744,44 +1777,48 @@ LABEL_35:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v14) = 138543362;
-      *(&v14 + 4) = objc_opt_class();
-      v10 = *(&v14 + 4);
-      LODWORD(v13) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v13 = 138543362;
+      v14 = objc_opt_class();
+      v10 = v14;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Unable to find productType in buyParams", &v13, 12);
 
       if (!v11)
       {
-LABEL_16:
+LABEL_17:
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v14, v13, v14];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_17:
+LABEL_18:
 
   return v5;
 }
@@ -1903,41 +1940,45 @@ LABEL_17:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      *v22 = 138543362;
-      *&v22[4] = objc_opt_class();
-      v18 = *&v22[4];
-      LODWORD(v21) = 12;
-      v19 = _os_log_send_and_compose_impl();
+      v21 = 138543362;
+      v22 = objc_opt_class();
+      v18 = v22;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Auto-enrollment failed for no bag", &v21, 12);
 
       if (!v19)
       {
-LABEL_24:
+LABEL_26:
         uppercaseString = 0;
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, v22, v21, *v22, *&v22[8]];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v7 = [uRLBag valueForKey:@"countryCode"];
@@ -1952,41 +1993,45 @@ LABEL_24:
   shouldLog2 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject2 = [v9 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (v11)
   {
-    *v22 = 138543618;
-    *&v22[4] = objc_opt_class();
-    *&v22[12] = 2114;
-    *&v22[14] = uppercaseString;
-    v13 = *&v22[4];
-    LODWORD(v21) = 22;
-    v14 = _os_log_send_and_compose_impl();
+    v21 = 138543618;
+    v22 = objc_opt_class();
+    v23 = 2114;
+    v24 = uppercaseString;
+    v13 = v22;
+    v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Auto-enrollment found countryCode: %{public}@", &v21, 22);
 
     if (!v14)
     {
-      goto LABEL_25;
+      goto LABEL_27;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v14 encoding:4, v22, v21, *v22, *&v22[16]];
+    oSLogObject2 = [NSString stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog();
   }
 
-LABEL_25:
+LABEL_27:
 
   return uppercaseString;
 }
@@ -2035,7 +2080,7 @@ LABEL_25:
   operationCopy = operation;
   dataProvider = [operationCopy dataProvider];
   output = [dataProvider output];
-  v96 = dataProvider;
+  v95 = dataProvider;
   redirectActionParameters = [dataProvider redirectActionParameters];
   v8 = [output objectForKey:kISDialogKey];
   v9 = [output objectForKey:kISFailureTypeKey];
@@ -2059,7 +2104,7 @@ LABEL_25:
         v52 = +[SSLogConfig sharedConfig];
       }
 
-      v95 = v9;
+      v94 = v9;
       shouldLog = [v52 shouldLog];
       if ([v52 shouldLogToDisk])
       {
@@ -2087,25 +2132,23 @@ LABEL_25:
         v57 = v8;
         v58 = redirectActionParameters;
         v59 = objc_opt_class();
-        v90 = output;
+        v89 = output;
         v60 = v59;
         logKey = [(PurchaseOperation *)self logKey];
-        v102 = 138543874;
-        v103 = v59;
+        v101 = 138543874;
+        v102 = v59;
         redirectActionParameters = v58;
         v8 = v57;
-        v104 = 2114;
-        v105 = logKey;
-        v106 = 2112;
-        v107 = redirectActionParameters;
-        LODWORD(v82) = 32;
-        v81 = &v102;
-        v62 = _os_log_send_and_compose_impl();
+        v103 = 2114;
+        v104 = logKey;
+        v105 = 2112;
+        v106 = redirectActionParameters;
+        v62 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: [%{public}@] Changing buy parameters after auth dialog: %@", &v101, 32);
 
-        output = v90;
+        output = v89;
         if (v62)
         {
-          v63 = [NSString stringWithCString:v62 encoding:4, &v102, v82];
+          v63 = [NSString stringWithCString:v62 encoding:4];
           free(v62);
           v81 = v63;
           SSFileLog();
@@ -2116,8 +2159,8 @@ LABEL_25:
       {
       }
 
-      [(PurchaseOperation *)self _setChangedBuyParameters:redirectActionParameters fromDataProvider:v96];
-      v9 = v95;
+      [(PurchaseOperation *)self _setChangedBuyParameters:redirectActionParameters fromDataProvider:v95];
+      v9 = v94;
       goto LABEL_89;
     }
   }
@@ -2144,34 +2187,34 @@ LABEL_89:
       goto LABEL_90;
     }
 
-    v85 = v15;
-    v87 = operationCopy;
-    v91 = redirectActionParameters;
+    v84 = v15;
+    v86 = operationCopy;
+    v90 = redirectActionParameters;
     buttons = [v13 buttons];
+    v96 = 0u;
     v97 = 0u;
     v98 = 0u;
     v99 = 0u;
-    v100 = 0u;
-    v19 = [buttons countByEnumeratingWithState:&v97 objects:v101 count:16];
-    v84 = v16;
-    v89 = output;
-    v93 = v9;
+    v19 = [buttons countByEnumeratingWithState:&v96 objects:v100 count:16];
+    v83 = v16;
+    v88 = output;
+    v92 = v9;
     if (v19)
     {
       v20 = v19;
       v21 = 0;
       v22 = 0;
-      v23 = *v98;
+      v23 = *v97;
       do
       {
         for (i = 0; i != v20; i = i + 1)
         {
-          if (*v98 != v23)
+          if (*v97 != v23)
           {
             objc_enumerationMutation(buttons);
           }
 
-          actionType = [*(*(&v97 + 1) + 8 * i) actionType];
+          actionType = [*(*(&v96 + 1) + 8 * i) actionType];
           if (actionType == 1)
           {
             v21 = 1;
@@ -2183,11 +2226,11 @@ LABEL_89:
           }
         }
 
-        v20 = [buttons countByEnumeratingWithState:&v97 objects:v101 count:16];
+        v20 = [buttons countByEnumeratingWithState:&v96 objects:v100 count:16];
       }
 
       while (v20);
-      v9 = v93;
+      v9 = v92;
       if (v22)
       {
         v27 = +[SSLogConfig sharedDaemonConfig];
@@ -2218,16 +2261,14 @@ LABEL_89:
           v31 = objc_opt_class();
           v32 = v31;
           buyParameters2 = [(PurchaseOperation *)self buyParameters];
-          v102 = 138412546;
-          v103 = v31;
-          v104 = 2112;
-          v105 = buyParameters2;
-          LODWORD(v82) = 22;
-          v81 = &v102;
-          v34 = _os_log_send_and_compose_impl();
+          v101 = 138412546;
+          v102 = v31;
+          v103 = 2112;
+          v104 = buyParameters2;
+          v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Purchase failed with retry dialog: %@", &v101, 22);
 
-          operationCopy = v87;
-          v9 = v93;
+          operationCopy = v86;
+          v9 = v92;
           if (!v34)
           {
 LABEL_72:
@@ -2235,14 +2276,14 @@ LABEL_72:
             [(PurchaseResponseInfo *)self->_responseInfo setDialog:v13];
 LABEL_87:
 
-            output = v89;
-            redirectActionParameters = v91;
-            v16 = v84;
-            v15 = v85;
+            output = v88;
+            redirectActionParameters = v90;
+            v16 = v83;
+            v15 = v84;
             goto LABEL_88;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v34 encoding:4, &v102, v82];
+          oSLogObject2 = [NSString stringWithCString:v34 encoding:4];
           free(v34);
           v81 = oSLogObject2;
           SSFileLog();
@@ -2250,8 +2291,8 @@ LABEL_87:
 
         else
         {
-          operationCopy = v87;
-          v9 = v93;
+          operationCopy = v86;
+          v9 = v92;
         }
 
         goto LABEL_72;
@@ -2319,20 +2360,18 @@ LABEL_87:
     if (v70)
     {
       v71 = objc_opt_class();
-      v83 = v71;
+      v82 = v71;
       buyParameters3 = [(PurchaseOperation *)self buyParameters];
       error2 = [(PurchaseOperation *)self error];
-      v102 = 138412802;
-      v103 = v71;
-      v104 = 2112;
-      v105 = buyParameters3;
-      v106 = 2112;
-      v107 = error2;
-      LODWORD(v82) = 32;
-      v81 = &v102;
-      v74 = _os_log_send_and_compose_impl();
+      v101 = 138412802;
+      v102 = v71;
+      v103 = 2112;
+      v104 = buyParameters3;
+      v105 = 2112;
+      v106 = error2;
+      v74 = _os_log_send_and_compose_impl(v70, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Purchase: %@ failed with dialog and error: %@", &v101, 32);
 
-      v9 = v93;
+      v9 = v92;
       if (!v74)
       {
 LABEL_86:
@@ -2350,11 +2389,11 @@ LABEL_86:
         v79 = +[ISOperationQueue mainQueue];
         [v79 addOperation:v78];
 
-        operationCopy = v87;
+        operationCopy = v86;
         goto LABEL_87;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v74 encoding:4, &v102, v82];
+      oSLogObject3 = [NSString stringWithCString:v74 encoding:4];
       free(v74);
       v81 = oSLogObject3;
       SSFileLog();
@@ -2365,8 +2404,8 @@ LABEL_86:
 
   v35 = [output objectForKey:@"customerMessage"];
   objc_opt_class();
-  v92 = redirectActionParameters;
-  v94 = v9;
+  v91 = redirectActionParameters;
+  v93 = v9;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v36 = [NSBundle bundleForClass:objc_opt_class()];
@@ -2375,7 +2414,7 @@ LABEL_86:
     v35 = v37;
   }
 
-  v88 = v35;
+  v87 = v35;
   v38 = ISError();
   [(PurchaseOperation *)self setError:v38];
 
@@ -2410,24 +2449,22 @@ LABEL_86:
   if (v43)
   {
     v44 = objc_opt_class();
-    v86 = v44;
+    v85 = v44;
     logKey2 = [(PurchaseOperation *)self logKey];
     [(PurchaseOperation *)self buyParameters];
     v46 = output;
     v47 = v8;
     v49 = v48 = operationCopy;
-    v102 = 138544130;
-    v103 = v44;
-    v104 = 2114;
-    v105 = logKey2;
-    v106 = 2112;
-    v9 = v94;
-    v107 = v94;
-    v108 = 2112;
-    v109 = v49;
-    LODWORD(v82) = 42;
-    v81 = &v102;
-    v50 = _os_log_send_and_compose_impl();
+    v101 = 138544130;
+    v102 = v44;
+    v103 = 2114;
+    v104 = logKey2;
+    v105 = 2112;
+    v9 = v93;
+    v106 = v93;
+    v107 = 2112;
+    v108 = v49;
+    v50 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: [%{public}@] Purchase failed with code %@: %@", &v101, 42);
 
     operationCopy = v48;
     v8 = v47;
@@ -2436,7 +2473,7 @@ LABEL_86:
 
     if (v50)
     {
-      v51 = [NSString stringWithCString:v50 encoding:4, &v102, v82];
+      v51 = [NSString stringWithCString:v50 encoding:4];
       free(v50);
       v81 = v51;
       SSFileLog();
@@ -2446,10 +2483,10 @@ LABEL_86:
   else
   {
 
-    v9 = v94;
+    v9 = v93;
   }
 
-  redirectActionParameters = v92;
+  redirectActionParameters = v91;
 LABEL_90:
   [*&self->ISOperation_opaque[*(v10 + 261)] setMachineDataSyncState:{0, v81}];
   response = [operationCopy response];
@@ -2527,9 +2564,7 @@ LABEL_90:
       v18 = objc_opt_class();
       v136 = 138543362;
       v137 = v18;
-      LODWORD(v124) = 12;
-      v120 = &v136;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Purchase operation is Move to iOS, ignoring account conversion.", &v136, 12);
 
       if (!v19)
       {
@@ -2539,7 +2574,7 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v136, v124];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       v120 = oSLogObject;
       SSFileLog();
@@ -2615,8 +2650,7 @@ LABEL_19:
       v136 = 138543362;
       v137 = v30;
       LODWORD(v124) = 12;
-      v122 = &v136;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Attaching auto-enrollment payment token", &v136, v124);
 
       if (!v31)
       {
@@ -2679,8 +2713,7 @@ LABEL_52:
           v136 = 138543362;
           v137 = v41;
           LODWORD(v124) = 12;
-          v121 = &v136;
-          v42 = _os_log_send_and_compose_impl();
+          v42 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Attaching FPAN ID", &v136, v124);
 
           if (!v42)
           {
@@ -2699,7 +2732,7 @@ LABEL_51:
             goto LABEL_52;
           }
 
-          oSLogObject3 = [NSString stringWithCString:v42 encoding:4, &v136, v124];
+          oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
           free(v42);
           v121 = oSLogObject3;
           SSFileLog();
@@ -2708,7 +2741,7 @@ LABEL_51:
         goto LABEL_51;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v31 encoding:4, &v136, v124];
+      oSLogObject2 = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       v122 = oSLogObject2;
       SSFileLog();
@@ -2794,8 +2827,7 @@ LABEL_65:
       v136 = 138412290;
       v137 = v115;
       LODWORD(v124) = 12;
-      v123 = &v136;
-      v116 = _os_log_send_and_compose_impl();
+      v116 = _os_log_send_and_compose_impl(v114, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Forcing authentication for restriction", &v136, v124);
 
       if (!v116)
       {
@@ -2806,7 +2838,7 @@ LABEL_134:
         goto LABEL_65;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v116 encoding:4, &v136, v124];
+      oSLogObject4 = [NSString stringWithCString:v116 encoding:4];
       free(v116);
       v123 = oSLogObject4;
       SSFileLog();
@@ -3161,7 +3193,7 @@ LABEL_76:
 
   if (deviceScore)
   {
-    v43 = creditsString;
+    v42 = creditsString;
     context = [(DeviceScorer *)self->_deviceScorer context];
     serverEndpoint = [context serverEndpoint];
 
@@ -3207,32 +3239,30 @@ LABEL_76:
     if (v26)
     {
       v27 = objc_opt_class();
-      v40 = v27;
+      v39 = v27;
       v28 = SSHashIfNeeded();
       [NSNumber numberWithInteger:serverEndpoint];
-      v29 = v41 = v20;
+      v29 = v40 = v20;
       [(PurchaseOperation *)self deviceScore];
-      v30 = v42 = _account;
+      v30 = v41 = _account;
       v31 = SSHashIfNeeded();
-      v46 = 138544130;
-      v47 = v27;
-      v48 = 2114;
-      v49 = v28;
+      v45 = 138544130;
+      v46 = v27;
+      v47 = 2114;
+      v48 = v28;
       v32 = v28;
-      v50 = 2114;
-      v51 = v29;
-      v52 = 2114;
-      v53 = v31;
-      LODWORD(v39) = 42;
-      v38 = &v46;
-      v33 = _os_log_send_and_compose_impl();
+      v49 = 2114;
+      v50 = v29;
+      v51 = 2114;
+      v52 = v31;
+      v33 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attached fraud score to buyParams. buyParam = %{public}@, fraudAction = %{public}@, fraudScore = %{public}@", &v45, 42);
 
-      _account = v42;
-      v20 = v41;
+      _account = v41;
+      v20 = v40;
 
       if (v33)
       {
-        v34 = [NSString stringWithCString:v33 encoding:4, &v46, v39];
+        v34 = [NSString stringWithCString:v33 encoding:4];
         free(v33);
         v38 = v34;
         SSFileLog();
@@ -3243,17 +3273,17 @@ LABEL_76:
     {
     }
 
-    creditsString = v43;
+    creditsString = v42;
   }
 
   requestParameters = [(SSURLRequestProperties *)self->_requestProperties requestParameters];
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_1000A68B4;
-  v44[3] = &unk_100327658;
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_1000A68B4;
+  v43[3] = &unk_100327658;
   v36 = v4;
-  v45 = v36;
-  [requestParameters enumerateKeysAndObjectsUsingBlock:v44];
+  v44 = v36;
+  [requestParameters enumerateKeysAndObjectsUsingBlock:v43];
 
   return v36;
 }
@@ -3332,26 +3362,24 @@ LABEL_76:
     v15 = v13 & 2;
   }
 
-  v25 = authenticatedAccountDSID;
+  v24 = authenticatedAccountDSID;
   if (!v15)
   {
     goto LABEL_13;
   }
 
-  v26 = 138412802;
-  v27 = objc_opt_class();
-  v28 = 2112;
-  v29 = actionName;
-  v30 = 2112;
-  v31 = authenticatedAccountDSID;
-  v16 = v27;
-  LODWORD(v24) = 32;
-  v23 = &v26;
-  v17 = _os_log_send_and_compose_impl();
+  v25 = 138412802;
+  v26 = objc_opt_class();
+  v27 = 2112;
+  v28 = actionName;
+  v29 = 2112;
+  v30 = authenticatedAccountDSID;
+  v16 = v26;
+  v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Performing machine-data action: %@ with accountID: %@", &v25, 32);
 
   if (v17)
   {
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v26, v24];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v23 = oSLogObject;
     SSFileLog();
@@ -3450,14 +3478,12 @@ LABEL_23:
           v4 = &CFDictionaryGetValue_ptr;
           v76 = 2114;
           v77 = v23;
-          LODWORD(v70) = 22;
-          v68 = &v74;
-          v24 = _os_log_send_and_compose_impl();
+          v24 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: apple-pay-classic: ACL evaluation completed with result: %{public}@", &v74, 22);
 
           v13 = &CFDictionaryGetValue_ptr;
           if (v24)
           {
-            v25 = [NSString stringWithCString:v24 encoding:4, &v74, v70];
+            v25 = [NSString stringWithCString:v24 encoding:4];
             free(v24);
             v68 = v25;
             SSFileLog();
@@ -3509,8 +3535,7 @@ LABEL_23:
             v76 = 2114;
             v77 = v50;
             LODWORD(v70) = 22;
-            v69 = &v74;
-            v51 = _os_log_send_and_compose_impl();
+            v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: apple-pay-classic: Availability completed with result: %{public}@", &v74, v70);
 
             _countryCode = v73;
             if (!v51)
@@ -3518,7 +3543,7 @@ LABEL_23:
               goto LABEL_78;
             }
 
-            oSLogObject2 = [NSString stringWithCString:v51 encoding:4, &v74, v70];
+            oSLogObject2 = [NSString stringWithCString:v51 encoding:4];
             free(v51);
             v69 = oSLogObject2;
             SSFileLog();
@@ -3565,7 +3590,7 @@ LABEL_78:
             v75 = v65;
             v66 = v65;
             LODWORD(v70) = 12;
-            v67 = _os_log_send_and_compose_impl();
+            v67 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: apple-pay-classic: Skipping Apple Pay Classic", &v74, v70);
 
             if (!v67)
             {
@@ -3574,7 +3599,7 @@ LABEL_95:
               goto LABEL_96;
             }
 
-            oSLogObject3 = [NSString stringWithCString:v67 encoding:4, &v74, v70];
+            oSLogObject3 = [NSString stringWithCString:v67 encoding:4];
             free(v67);
             SSFileLog();
           }
@@ -3620,7 +3645,7 @@ LABEL_95:
           v77 = sharedDaemonConfig2;
           v59 = v58;
           LODWORD(v70) = 22;
-          v60 = _os_log_send_and_compose_impl();
+          v60 = _os_log_send_and_compose_impl(v57, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: apple-pay-classic: Skipping Apple Pay Classic for ACL version: %{public}@", &v74, v70);
 
           v6 = v72;
           if (!v60)
@@ -3636,7 +3661,7 @@ LABEL_92:
             goto LABEL_95;
           }
 
-          oSLogObject4 = [NSString stringWithCString:v60 encoding:4, &v74, v70];
+          oSLogObject4 = [NSString stringWithCString:v60 encoding:4];
           free(v60);
           SSFileLog();
         }
@@ -3685,12 +3710,11 @@ LABEL_92:
       v74 = 138543362;
       v75 = objc_opt_class();
       v42 = v75;
-      LODWORD(v70) = 12;
-      v43 = _os_log_send_and_compose_impl();
+      v43 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject5, 16, "%{public}@: apple-pay-classic: Failed for no biometrics", &v74, 12);
 
       if (v43)
       {
-        oSLogObject5 = [NSString stringWithCString:v43 encoding:4, &v74, v70];
+        oSLogObject5 = [NSString stringWithCString:v43 encoding:4];
         free(v43);
         SSFileLog();
 LABEL_49:
@@ -3732,8 +3756,7 @@ LABEL_49:
         v74 = 138543362;
         v75 = objc_opt_class();
         v36 = v75;
-        LODWORD(v70) = 12;
-        v37 = _os_log_send_and_compose_impl();
+        v37 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject6, 16, "%{public}@: apple-pay-classic: Failed for no payment networks", &v74, 12);
 
         if (!v37)
         {
@@ -3742,7 +3765,7 @@ LABEL_96:
           goto LABEL_97;
         }
 
-        oSLogObject6 = [NSString stringWithCString:v37 encoding:4, &v74, v70];
+        oSLogObject6 = [NSString stringWithCString:v37 encoding:4];
         free(v37);
         SSFileLog();
       }
@@ -3787,12 +3810,11 @@ LABEL_96:
   v74 = 138543362;
   v75 = objc_opt_class();
   v30 = v75;
-  LODWORD(v70) = 12;
-  v31 = _os_log_send_and_compose_impl();
+  v31 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject7, 16, "%{public}@: apple-pay-classic: Failed to no country code", &v74, 12);
 
   if (v31)
   {
-    oSLogObject7 = [NSString stringWithCString:v31 encoding:4, &v74, v70];
+    oSLogObject7 = [NSString stringWithCString:v31 encoding:4];
     free(v31);
     SSFileLog();
 LABEL_26:
@@ -3845,13 +3867,12 @@ LABEL_97:
         goto LABEL_36;
       }
 
-      v47 = 138543618;
-      v48 = objc_opt_class();
-      v49 = 2114;
-      v50 = _countryCode;
-      v12 = v48;
-      LODWORD(v46) = 22;
-      v44 = &v47;
+      v48 = 138543618;
+      v49 = objc_opt_class();
+      v50 = 2114;
+      v51 = _countryCode;
+      v12 = v49;
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attempting auto-enrollment check with countryCode: %{public}@", &v48, 22);
     }
 
     else
@@ -3864,44 +3885,43 @@ LABEL_97:
       shouldLog2 = [oSLogObject2 shouldLog];
       if ([oSLogObject2 shouldLogToDisk])
       {
-        v19 = shouldLog2 | 2;
+        v20 = shouldLog2 | 2;
       }
 
       else
       {
-        v19 = shouldLog2;
+        v20 = shouldLog2;
       }
 
       oSLogObject = [oSLogObject2 OSLogObject];
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = v19;
+        v21 = v20;
       }
 
       else
       {
-        v20 = v19 & 2;
+        v21 = v20 & 2;
       }
 
-      if (!v20)
+      if (!v21)
       {
         goto LABEL_36;
       }
 
-      v47 = 138543362;
-      v48 = objc_opt_class();
-      v12 = v48;
-      LODWORD(v46) = 12;
-      v44 = &v47;
+      v48 = 138543362;
+      v49 = objc_opt_class();
+      v12 = v49;
+      v13 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attempting auto-enrollment check without countryCode", &v48, 12);
     }
 
-    v21 = _os_log_send_and_compose_impl();
+    v22 = v13;
 
-    if (v21)
+    if (v22)
     {
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v47, v46];
-      free(v21);
-      v44 = oSLogObject;
+      oSLogObject = [NSString stringWithCString:v22 encoding:4];
+      free(v22);
+      v45 = oSLogObject;
       SSFileLog();
 LABEL_36:
     }
@@ -3918,158 +3938,160 @@ LABEL_36:
     shouldLog3 = [_countryCode shouldLog];
     if ([_countryCode shouldLogToDisk])
     {
-      v14 = shouldLog3 | 2;
+      v15 = shouldLog3 | 2;
     }
 
     else
     {
-      v14 = shouldLog3;
+      v15 = shouldLog3;
     }
 
     oSLogObject2 = [_countryCode OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v14;
+      v16 = v15;
     }
 
     else
     {
-      v15 = v14 & 2;
+      v16 = v15 & 2;
     }
 
-    if (v15)
+    if (v16)
     {
-      v47 = 138543362;
-      v48 = objc_opt_class();
-      v16 = v48;
-      LODWORD(v46) = 12;
-      v44 = &v47;
-      v17 = _os_log_send_and_compose_impl();
+      v48 = 138543362;
+      v49 = objc_opt_class();
+      v17 = v49;
+      v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Skipping auto-enrollment due to disabled biometrics", &v48, 12);
 
-      if (!v17)
+      if (!v18)
       {
         goto LABEL_38;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v47, v46];
-      free(v17);
-      v44 = oSLogObject2;
+      oSLogObject2 = [NSString stringWithCString:v18 encoding:4];
+      free(v18);
+      v45 = oSLogObject2;
       SSFileLog();
     }
   }
 
 LABEL_38:
-  v22 = objc_alloc_init(SSBiometricAuthenticationContext);
+  v23 = objc_alloc_init(SSBiometricAuthenticationContext);
   authenticatedAccountDSID = [(PurchaseOperation *)self authenticatedAccountDSID];
-  [v22 setAccountIdentifier:authenticatedAccountDSID];
+  [v23 setAccountIdentifier:authenticatedAccountDSID];
 
-  [v22 setIsPayment:1];
-  v24 = +[DaemonBiometricKeychain sharedInstance];
-  v25 = [v24 copyAccessControlListForPrivateKeyWithBiometricAuthenticationContext:v22 error:0];
+  [v23 setIsPayment:1];
+  v25 = +[DaemonBiometricKeychain sharedInstance];
+  v26 = [v25 copyAccessControlListForPrivateKeyWithBiometricAuthenticationContext:v23 error:0];
 
-  v26 = [AMSBiometrics isActionSupported:3 withAccessControl:v25];
-  v27 = +[SSLogConfig sharedDaemonConfig];
-  if (!v27)
+  v27 = [AMSBiometrics isActionSupported:3 withAccessControl:v26];
+  v28 = +[SSLogConfig sharedDaemonConfig];
+  if (!v28)
   {
-    v27 = +[SSLogConfig sharedConfig];
+    v28 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v27 shouldLog];
-  if ([v27 shouldLogToDisk])
+  shouldLog4 = [v28 shouldLog];
+  if ([v28 shouldLogToDisk])
   {
-    v29 = shouldLog4 | 2;
+    LODWORD(v30) = shouldLog4 | 2;
   }
 
   else
   {
-    v29 = shouldLog4;
+    LODWORD(v30) = shouldLog4;
   }
 
-  oSLogObject3 = [v27 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  oSLogObject3 = [v28 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
   {
-    v29 &= 2u;
+    v30 = v30;
   }
 
-  if (v29)
+  else
   {
-    v31 = objc_opt_class();
-    v32 = v31;
-    v33 = [NSNumber numberWithBool:v26];
-    v47 = 138543618;
-    v48 = v31;
-    v49 = 2114;
-    v50 = v33;
-    LODWORD(v46) = 22;
-    v45 = &v47;
-    v34 = _os_log_send_and_compose_impl();
+    v30 &= 2u;
+  }
 
-    if (!v34)
+  if (v30)
+  {
+    v32 = objc_opt_class();
+    v33 = v32;
+    v34 = [NSNumber numberWithBool:v27];
+    v48 = 138543618;
+    v49 = v32;
+    v50 = 2114;
+    v51 = v34;
+    LODWORD(v47) = 22;
+    v35 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: ACL support evaluation completed with result: %{public}@", &v48, v47);
+
+    if (!v35)
     {
-      goto LABEL_49;
+      goto LABEL_50;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v34 encoding:4, &v47, v46];
-    free(v34);
-    v45 = oSLogObject3;
+    oSLogObject3 = [NSString stringWithCString:v35 encoding:4];
+    free(v35);
+    v46 = oSLogObject3;
     SSFileLog();
   }
 
-LABEL_49:
-  v35 = [AMSBiometrics ACLVersionForAccessControl:v25];
-  v36 = +[SSLogConfig sharedDaemonConfig];
-  if (!v36)
+LABEL_50:
+  v36 = [AMSBiometrics ACLVersionForAccessControl:v26];
+  v37 = +[SSLogConfig sharedDaemonConfig];
+  if (!v37)
   {
-    v36 = +[SSLogConfig sharedConfig];
+    v37 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog5 = [v36 shouldLog];
-  if ([v36 shouldLogToDisk])
+  shouldLog5 = [v37 shouldLog];
+  if ([v37 shouldLogToDisk])
   {
-    v38 = shouldLog5 | 2;
+    v39 = shouldLog5 | 2;
   }
 
   else
   {
-    v38 = shouldLog5;
+    v39 = shouldLog5;
   }
 
-  oSLogObject4 = [v36 OSLogObject];
+  oSLogObject4 = [v37 OSLogObject];
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = v38;
+    v41 = v39;
   }
 
   else
   {
-    v40 = v38 & 2;
+    v41 = v39 & 2;
   }
 
-  if (v40)
+  if (v41)
   {
-    v41 = objc_opt_class();
-    v47 = 138543618;
-    v48 = v41;
-    v49 = 2114;
-    v50 = v35;
-    v42 = v41;
-    LODWORD(v46) = 22;
-    v43 = _os_log_send_and_compose_impl();
+    v42 = objc_opt_class();
+    v48 = 138543618;
+    v49 = v42;
+    v50 = 2114;
+    v51 = v36;
+    v43 = v42;
+    LODWORD(v47) = 22;
+    v44 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Skipping auto-enrollment with ACL version: %{public}@", &v48, v47);
 
-    if (!v43)
+    if (!v44)
     {
-      goto LABEL_61;
+      goto LABEL_62;
     }
 
-    oSLogObject4 = [NSString stringWithCString:v43 encoding:4, &v47, v46];
-    free(v43);
+    oSLogObject4 = [NSString stringWithCString:v44 encoding:4];
+    free(v44);
     SSFileLog();
   }
 
-LABEL_61:
-  if (v25)
+LABEL_62:
+  if (v26)
   {
-    CFRelease(v25);
+    CFRelease(v26);
   }
 }
 
@@ -4323,12 +4345,11 @@ LABEL_61:
           *&v145[12] = 2112;
           *&v145[14] = parameter;
           LODWORD(v115) = 22;
-          v112 = v145;
-          v16 = _os_log_send_and_compose_impl();
+          v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Skipping confirmation dialog with buy parameters: %@", v145, v115);
 
           if (v16)
           {
-            oSLogObject = [NSString stringWithCString:v16 encoding:4, v145, v115];
+            oSLogObject = [NSString stringWithCString:v16 encoding:4];
             free(v16);
             v112 = oSLogObject;
             SSFileLog();
@@ -4357,7 +4378,7 @@ LABEL_18:
 
   if ((v6 & 1) == 0)
   {
-    goto LABEL_134;
+    goto LABEL_136;
   }
 
 LABEL_25:
@@ -4367,41 +4388,45 @@ LABEL_25:
     v19 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v19 shouldLog];
+  LODWORD(v20) = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    shouldLog2 |= 2u;
+    LODWORD(v20) = v20 | 2;
   }
 
   oSLogObject2 = [v19 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    shouldLog2 &= 2u;
+    v20 = v20;
   }
 
-  if (shouldLog2)
+  else
+  {
+    v20 &= 2u;
+  }
+
+  if (v20)
   {
     v22 = objc_opt_class();
     *v145 = 138412290;
     *&v145[4] = v22;
     v23 = v22;
     LODWORD(v115) = 12;
-    v113 = v145;
-    v24 = _os_log_send_and_compose_impl();
+    v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Prompting user with buy confirmation", v145, v115);
 
     if (v24)
     {
-      oSLogObject2 = [NSString stringWithCString:v24 encoding:4, v145, v115];
+      oSLogObject2 = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       v113 = oSLogObject2;
       SSFileLog();
-      goto LABEL_34;
+      goto LABEL_35;
     }
   }
 
   else
   {
-LABEL_34:
+LABEL_35:
   }
 
   paymentSheet = [dialogCopy paymentSheet];
@@ -4430,10 +4455,10 @@ LABEL_34:
     if ((v52 & 1) == 0)
     {
       [(PurchaseOperation *)selfCopy setError:v53];
-LABEL_132:
+LABEL_134:
 
       _Block_object_dispose(v145, 8);
-      goto LABEL_133;
+      goto LABEL_135;
     }
 
     v54 = *(*&v145[8] + 40);
@@ -4447,23 +4472,23 @@ LABEL_132:
           v55 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v55 shouldLog];
+        shouldLog2 = [v55 shouldLog];
         shouldLogToDisk = [v55 shouldLogToDisk];
         oSLogObject3 = [v55 OSLogObject];
-        v115 = oSLogObject3;
+        v59 = oSLogObject3;
         if (shouldLogToDisk)
         {
-          shouldLog3 |= 2u;
+          shouldLog2 |= 2u;
         }
 
         if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
         {
-          v60 = shouldLog3;
+          v60 = shouldLog2;
         }
 
         else
         {
-          v60 = shouldLog3 & 2;
+          v60 = shouldLog2 & 2;
         }
 
         if (v60)
@@ -4475,26 +4500,26 @@ LABEL_132:
           *&v141[12] = 2112;
           *&v141[14] = buyParameters;
           LODWORD(v115) = 22;
-          v63 = _os_log_send_and_compose_impl();
+          v63 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &_mh_execute_header, v59, 1, "%@: User confirmed buy confirmation: %@", v141, v115);
 
           if (!v63)
           {
-LABEL_75:
+LABEL_76:
 
             v64 = selfCopy->_responseInfo;
             parameter3 = [*(*&v145[8] + 40) parameter];
             [(PurchaseResponseInfo *)v64 setChangedBuyParameters:parameter3];
-LABEL_131:
+LABEL_133:
 
-            goto LABEL_132;
+            goto LABEL_134;
           }
 
-          v115 = [NSString stringWithCString:v63 encoding:4, v141, v115];
+          v59 = [NSString stringWithCString:v63 encoding:4];
           free(v63);
           SSFileLog();
         }
 
-        goto LABEL_75;
+        goto LABEL_76;
       }
 
       v54 = *(*&v145[8] + 40);
@@ -4517,21 +4542,26 @@ LABEL_131:
         v68 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog4 = [v68 shouldLog];
+      LODWORD(v69) = [v68 shouldLog];
       shouldLogToDisk2 = [v68 shouldLogToDisk];
       oSLogObject4 = [v68 OSLogObject];
-      v1153 = oSLogObject4;
+      v72 = oSLogObject4;
       if (shouldLogToDisk2)
       {
-        shouldLog4 |= 2u;
+        LODWORD(v69) = v69 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
       {
-        shouldLog4 &= 2u;
+        v69 = v69;
       }
 
-      if (shouldLog4)
+      else
+      {
+        v69 &= 2u;
+      }
+
+      if (v69)
       {
         v73 = objc_opt_class();
         *v141 = 138412546;
@@ -4540,12 +4570,11 @@ LABEL_131:
         *&v141[14] = parameter4;
         v74 = v73;
         LODWORD(v115) = 22;
-        v114 = v141;
-        v75 = _os_log_send_and_compose_impl();
+        v75 = _os_log_send_and_compose_impl(v69, 0, 0, 0, &_mh_execute_header, v72, 1, "%@: User attempted Ask to Buy: %@", v141, v115);
 
         if (!v75)
         {
-LABEL_91:
+LABEL_93:
 
           v76 = [AskPermissionActionOperation alloc];
           _account = [(PurchaseOperation *)selfCopy _account];
@@ -4561,13 +4590,13 @@ LABEL_91:
           [(PurchaseOperation *)selfCopy setSuccess:0];
           obja = v79;
           v97 = selfCopy;
-LABEL_117:
+LABEL_119:
           authenticationContext = [(PurchaseOperation *)v97 authenticationContext];
           v99 = [authenticationContext tokenType] == 1;
 
           if (!v99)
           {
-            goto LABEL_132;
+            goto LABEL_134;
           }
 
           [(PurchaseOperation *)selfCopy lock];
@@ -4575,7 +4604,7 @@ LABEL_117:
           [(PurchaseOperation *)selfCopy unlock];
           if (!didAuthenticate)
           {
-            goto LABEL_132;
+            goto LABEL_134;
           }
 
           parameter3 = [(PurchaseOperation *)selfCopy _account];
@@ -4586,23 +4615,23 @@ LABEL_117:
             v101 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog5 = [v101 shouldLog];
+          shouldLog3 = [v101 shouldLog];
           shouldLogToDisk3 = [v101 shouldLogToDisk];
           oSLogObject5 = [v101 OSLogObject];
-          v1152 = oSLogObject5;
+          v105 = oSLogObject5;
           if (shouldLogToDisk3)
           {
-            shouldLog5 |= 2u;
+            shouldLog3 |= 2u;
           }
 
           if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
           {
-            v106 = shouldLog5;
+            v106 = shouldLog3;
           }
 
           else
           {
-            v106 = shouldLog5 & 2;
+            v106 = shouldLog3 & 2;
           }
 
           if (v106)
@@ -4615,33 +4644,33 @@ LABEL_117:
             *&v141[12] = 2114;
             *&v141[14] = v109;
             LODWORD(v115) = 22;
-            v110 = _os_log_send_and_compose_impl();
+            v110 = _os_log_send_and_compose_impl(v106, 0, 0, 0, &_mh_execute_header, v105, 0, "%{public}@: Clearing credentials after buy confirm cancel. Saving %{public}@.", v141, v115);
 
             if (!v110)
             {
-LABEL_130:
+LABEL_132:
 
               v111 = +[SSAccountStore defaultStore];
               [v111 saveAccount:parameter3 completion:0];
 
-              goto LABEL_131;
+              goto LABEL_133;
             }
 
-            v1152 = [NSString stringWithCString:v110 encoding:4, v141, v115];
+            v105 = [NSString stringWithCString:v110 encoding:4];
             free(v110);
             SSFileLog();
           }
 
-          goto LABEL_130;
+          goto LABEL_132;
         }
 
-        v1153 = [NSString stringWithCString:v75 encoding:4, v141, v115];
+        v72 = [NSString stringWithCString:v75 encoding:4];
         free(v75);
-        v114 = v1153;
+        v114 = v72;
         SSFileLog();
       }
 
-      goto LABEL_91;
+      goto LABEL_93;
     }
 
     v81 = +[SSLogConfig sharedDaemonConfig];
@@ -4650,23 +4679,23 @@ LABEL_130:
       v81 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog6 = [v81 shouldLog];
+    shouldLog4 = [v81 shouldLog];
     shouldLogToDisk4 = [v81 shouldLogToDisk];
     oSLogObject6 = [v81 OSLogObject];
-    v1154 = oSLogObject6;
+    v85 = oSLogObject6;
     if (shouldLogToDisk4)
     {
-      shouldLog6 |= 2u;
+      shouldLog4 |= 2u;
     }
 
     if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
     {
-      v86 = shouldLog6;
+      v86 = shouldLog4;
     }
 
     else
     {
-      v86 = shouldLog6 & 2;
+      v86 = shouldLog4 & 2;
     }
 
     if (v86)
@@ -4678,12 +4707,11 @@ LABEL_130:
       *&v141[12] = 2112;
       *&v141[14] = buyParameters2;
       LODWORD(v115) = 22;
-      v114 = v141;
-      v89 = _os_log_send_and_compose_impl();
+      v89 = _os_log_send_and_compose_impl(v86, 0, 0, 0, &_mh_execute_header, v85, 0, "%@: User declined buy confirmation: %@", v141, v115);
 
       if (!v89)
       {
-LABEL_103:
+LABEL_105:
 
         [*(*&v145[8] + 40) performDefaultActionForDialog:v51];
         v90 = SSError();
@@ -4691,16 +4719,16 @@ LABEL_103:
 
         v97 = selfCopy;
         [(PurchaseOperation *)selfCopy setSuccess:0];
-        goto LABEL_117;
+        goto LABEL_119;
       }
 
-      v1154 = [NSString stringWithCString:v89 encoding:4, v141, v115];
+      v85 = [NSString stringWithCString:v89 encoding:4];
       free(v89);
-      v114 = v1154;
+      v114 = v85;
       SSFileLog();
     }
 
-    goto LABEL_103;
+    goto LABEL_105;
   }
 
   v131 = 0;
@@ -4739,23 +4767,23 @@ LABEL_103:
     [(PurchaseOperation *)selfCopy setError:v32];
     [(PurchaseOperation *)selfCopy setSuccess:0];
     v43 = +[SSLogConfig sharedConfig];
-    shouldLog7 = [v43 shouldLog];
+    shouldLog5 = [v43 shouldLog];
     shouldLogToDisk5 = [v43 shouldLogToDisk];
     oSLogObject7 = [v43 OSLogObject];
-    v1155 = oSLogObject7;
+    v47 = oSLogObject7;
     if (shouldLogToDisk5)
     {
-      shouldLog7 |= 2u;
+      shouldLog5 |= 2u;
     }
 
     if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_ERROR))
     {
-      v48 = shouldLog7;
+      v48 = shouldLog5;
     }
 
     else
     {
-      v48 = shouldLog7 & 2;
+      v48 = shouldLog5 & 2;
     }
 
     if (v48)
@@ -4765,21 +4793,21 @@ LABEL_103:
       *&v141[12] = 2114;
       *&v141[14] = v32;
       LODWORD(v115) = 22;
-      v49 = _os_log_send_and_compose_impl();
+      v49 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &_mh_execute_header, v47, 16, "%{public}@: Payment sheel container operation failed with error: %{public}@", v141, v115);
 
       if (!v49)
       {
-LABEL_60:
+LABEL_61:
 
-        goto LABEL_116;
+        goto LABEL_118;
       }
 
-      v1155 = [NSString stringWithCString:v49 encoding:4, v141, v115];
+      v47 = [NSString stringWithCString:v49 encoding:4];
       free(v49);
       SSFileLog();
     }
 
-    goto LABEL_60;
+    goto LABEL_61;
   }
 
   *v141 = 0;
@@ -4804,23 +4832,23 @@ LABEL_60:
       v34 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog8 = [v34 shouldLog];
+    shouldLog6 = [v34 shouldLog];
     shouldLogToDisk6 = [v34 shouldLogToDisk];
     oSLogObject8 = [v34 OSLogObject];
-    v1156 = oSLogObject8;
+    v38 = oSLogObject8;
     if (shouldLogToDisk6)
     {
-      shouldLog8 |= 2u;
+      shouldLog6 |= 2u;
     }
 
     if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = shouldLog8;
+      v39 = shouldLog6;
     }
 
     else
     {
-      v39 = shouldLog8 & 2;
+      v39 = shouldLog6 & 2;
     }
 
     if (v39)
@@ -4828,20 +4856,20 @@ LABEL_60:
       v139 = 138543362;
       v140 = v30;
       LODWORD(v115) = 12;
-      v40 = _os_log_send_and_compose_impl();
+      v40 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, v38, 0, "%{public}@: User confirmed buy using payment sheet", &v139, v115);
 
       if (v40)
       {
-        v1156 = [NSString stringWithCString:v40 encoding:4, &v139, v115];
+        v38 = [NSString stringWithCString:v40 encoding:4];
         free(v40);
         SSFileLog();
-        goto LABEL_49;
+        goto LABEL_50;
       }
     }
 
     else
     {
-LABEL_49:
+LABEL_50:
     }
 
     v41 = selfCopy->_responseInfo;
@@ -4857,23 +4885,23 @@ LABEL_49:
       parameter5 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog9 = [parameter5 shouldLog];
+    shouldLog7 = [parameter5 shouldLog];
     shouldLogToDisk7 = [parameter5 shouldLogToDisk];
     oSLogObject9 = [parameter5 OSLogObject];
-    v1157 = oSLogObject9;
+    v94 = oSLogObject9;
     if (shouldLogToDisk7)
     {
-      shouldLog9 |= 2u;
+      shouldLog7 |= 2u;
     }
 
     if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_ERROR))
     {
-      v95 = shouldLog9;
+      v95 = shouldLog7;
     }
 
     else
     {
-      v95 = shouldLog9 & 2;
+      v95 = shouldLog7 & 2;
     }
 
     if (v95)
@@ -4881,29 +4909,29 @@ LABEL_49:
       v139 = 138412290;
       v140 = v30;
       LODWORD(v115) = 12;
-      v96 = _os_log_send_and_compose_impl();
+      v96 = _os_log_send_and_compose_impl(v95, 0, 0, 0, &_mh_execute_header, v94, 16, "%{poublic}@: Authorized payment, but failed to find buy button", &v139, v115);
 
       if (!v96)
       {
-        goto LABEL_115;
+        goto LABEL_117;
       }
 
-      v1157 = [NSString stringWithCString:v96 encoding:4, &v139, v115];
+      v94 = [NSString stringWithCString:v96 encoding:4];
       free(v96);
       SSFileLog();
     }
   }
 
-LABEL_115:
+LABEL_117:
 
   _Block_object_dispose(v141, 8);
-LABEL_116:
+LABEL_118:
 
   _Block_object_dispose(v145, 8);
   _Block_object_dispose(&v131, 8);
-LABEL_133:
+LABEL_135:
 
-LABEL_134:
+LABEL_136:
 }
 
 - (void)_runPurchaseRequest
@@ -4914,7 +4942,7 @@ LABEL_134:
   if (!storeFrontIdentifier || (-[PurchaseOperation originatingStorefront](self, "originatingStorefront"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [storeFrontIdentifier isEqualToString:v5], v5, (v6 & 1) != 0))
   {
 LABEL_19:
-    v131 = storeFrontIdentifier;
+    v133 = storeFrontIdentifier;
     _newPurchaseRequestOperation = [(PurchaseOperation *)self _newPurchaseRequestOperation];
     dataProvider = [_newPurchaseRequestOperation dataProvider];
     v25 = +[SSLogConfig sharedDaemonConfig];
@@ -4951,39 +4979,38 @@ LABEL_19:
       v31 = v30;
       logKey = [(PurchaseOperation *)self logKey];
       buyParameters = [(PurchaseOperation *)self buyParameters];
-      v134 = 138543874;
-      v135 = v30;
-      v136 = 2114;
-      v137 = logKey;
-      v138 = 2112;
-      v139 = buyParameters;
+      v136 = 138543874;
+      v137 = v30;
+      v138 = 2114;
+      v139 = logKey;
+      v140 = 2112;
+      v141 = buyParameters;
       LODWORD(v121) = 32;
-      v118 = &v134;
-      v34 = _os_log_send_and_compose_impl();
+      v34 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: [%{public}@] Issuing purchase request: %@", &v136, v121);
 
       if (!v34)
       {
         goto LABEL_31;
       }
 
-      oSLogObject = [NSString stringWithCString:v34 encoding:4, &v134, v121];
+      oSLogObject = [NSString stringWithCString:v34 encoding:4];
       free(v34);
       v118 = oSLogObject;
       SSFileLog();
     }
 
 LABEL_31:
-    v133 = 0;
-    v35 = [(PurchaseOperation *)self runSubOperation:_newPurchaseRequestOperation returningError:&v133];
-    v36 = v133;
+    v135 = 0;
+    v35 = [(PurchaseOperation *)self runSubOperation:_newPurchaseRequestOperation returningError:&v135];
+    v36 = v135;
     output = [dataProvider output];
     v38 = output;
-    v132 = output;
+    v134 = output;
     if ((v35 & 1) == 0)
     {
       [(PurchaseOperation *)self _handleFailureForOperation:_newPurchaseRequestOperation];
       [(PurchaseOperation *)self setError:v36];
-      goto LABEL_126;
+      goto LABEL_128;
     }
 
     v39 = [output objectForKey:kISFailureTypeKey];
@@ -5033,9 +5060,9 @@ LABEL_31:
       [objc_opt_class() reportAnonymousPings:v45];
     }
 
-    v126 = v45;
-    v127 = v43;
-    v128 = v42;
+    v127 = v45;
+    v128 = v43;
+    v129 = v42;
     v46 = [v38 objectForKeyedSubscript:@"newsEntitlements"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -5044,7 +5071,7 @@ LABEL_31:
       [AppStoreUtility sendNewsSubscriptionEntitlementsWithDictionary:v46 forAccountID:authenticatedAccountDSID];
     }
 
-    v125 = v46;
+    v126 = v46;
     v48 = [v38 objectForKeyedSubscript:@"appStoreEntitlements"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -5063,7 +5090,7 @@ LABEL_31:
 
     if (!+[ISBiometricStore shouldUseAutoEnrollment]|| ([(PurchaseOperation *)self success]& 1) == 0 && ![(PurchaseOperation *)self isCancelled])
     {
-LABEL_120:
+LABEL_122:
       [(PurchaseOperation *)self lock];
       authenticatedAccountDSID4 = [_newPurchaseRequestOperation authenticatedAccountDSID];
       accountID = self->_accountID;
@@ -5081,11 +5108,11 @@ LABEL_120:
 
         if (!self->_didAuthenticate)
         {
-LABEL_125:
+LABEL_127:
           [(PurchaseOperation *)self unlock];
 
-          v38 = v132;
-LABEL_126:
+          v38 = v134;
+LABEL_128:
           [(PurchaseOperation *)self setRawOutput:v38, v118];
           if (v38)
           {
@@ -5113,7 +5140,7 @@ LABEL_126:
 
           if (![v108 length])
           {
-            goto LABEL_142;
+            goto LABEL_144;
           }
 
           objc_storeStrong(&self->_storeCorrelationID, v108);
@@ -5144,35 +5171,34 @@ LABEL_126:
           {
             v113 = objc_opt_class();
             storeCorrelationID = self->_storeCorrelationID;
-            v134 = 138412546;
-            v135 = v113;
-            v136 = 2114;
-            v137 = storeCorrelationID;
+            v136 = 138412546;
+            v137 = v113;
+            v138 = 2114;
+            v139 = storeCorrelationID;
             v115 = v113;
             LODWORD(v121) = 22;
-            v120 = &v134;
-            v116 = _os_log_send_and_compose_impl();
+            v116 = _os_log_send_and_compose_impl(v112, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: storeCorrelationID: %{public}@", &v136, v121);
 
             if (!v116)
             {
-LABEL_141:
+LABEL_143:
 
-              v38 = v132;
-LABEL_142:
+              v38 = v134;
+LABEL_144:
               [(PurchaseOperation *)self unlock];
               [_newPurchaseRequestOperation setDelegate:0];
 
-              storeFrontIdentifier = v131;
-              goto LABEL_143;
+              storeFrontIdentifier = v133;
+              goto LABEL_145;
             }
 
-            oSLogObject2 = [NSString stringWithCString:v116 encoding:4, &v134, v121];
+            oSLogObject2 = [NSString stringWithCString:v116 encoding:4];
             free(v116);
             v120 = oSLogObject2;
             SSFileLog();
           }
 
-          goto LABEL_141;
+          goto LABEL_143;
         }
       }
 
@@ -5181,7 +5207,7 @@ LABEL_142:
         ++self->_silentAuthCount;
       }
 
-      goto LABEL_125;
+      goto LABEL_127;
     }
 
     buyParameters2 = [(PurchaseOperation *)self buyParameters];
@@ -5189,7 +5215,7 @@ LABEL_142:
 
     v54 = [v53 objectForKeyedSubscript:@"applePayPaymentServiceURL"];
 
-    v124 = v53;
+    v125 = v53;
     v55 = [v53 objectForKeyedSubscript:@"pkPayment"];
 
     if (v54 && !v55)
@@ -5217,30 +5243,30 @@ LABEL_142:
         v59 = shouldLog3 & 2;
       }
 
-      if (v59)
+      if (!v59)
       {
-        v60 = objc_opt_class();
-        v134 = 138543362;
-        v135 = v60;
-        v61 = v60;
-        LODWORD(v121) = 12;
-        v119 = &v134;
-        v62 = _os_log_send_and_compose_impl();
+        goto LABEL_66;
+      }
 
-        if (!v62)
-        {
-LABEL_119:
+      v60 = objc_opt_class();
+      v136 = 138543362;
+      v137 = v60;
+      v61 = v60;
+      LODWORD(v121) = 12;
+      v62 = _os_log_send_and_compose_impl(v59, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Did not finish auto-enrollment, leaving DPAN cache unchanged.", &v136, v121);
 
-          goto LABEL_120;
-        }
-
-        oSLogObject3 = [NSString stringWithCString:v62 encoding:4, &v134, v121];
+      if (v62)
+      {
+        oSLogObject3 = [NSString stringWithCString:v62 encoding:4];
         free(v62);
         v119 = oSLogObject3;
         SSFileLog();
+LABEL_66:
       }
 
-      goto LABEL_119;
+LABEL_121:
+
+      goto LABEL_122;
     }
 
     v63 = +[SSLogConfig sharedDaemonConfig];
@@ -5259,48 +5285,54 @@ LABEL_119:
       }
 
       oSLogObject4 = [v56 OSLogObject];
-      v73 = os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT);
-      v74 = shouldLog4 & 2;
-      if (v73)
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = shouldLog4;
-      }
-
-      if (v74)
-      {
-        HIDWORD(v121) = v55 != 0;
-        v75 = objc_opt_class();
-        v122 = v75;
-        v76 = [NSNumber numberWithBool:v54 != 0];
-        v77 = [NSNumber numberWithBool:HIDWORD(v121)];
-        v134 = 138543874;
-        v135 = v75;
-        v136 = 2114;
-        v137 = v76;
-        v78 = v76;
-        v138 = 2114;
-        v139 = v77;
-        LODWORD(v121) = 32;
-        v119 = &v134;
-        v79 = _os_log_send_and_compose_impl();
-
-        if (!v79)
-        {
-          goto LABEL_119;
-        }
-
-        v121 = [NSString stringWithCString:v79 encoding:4, &v134, v121];
-        free(v79);
-        v119 = v121;
-        SSFileLog();
+        v73 = shouldLog4;
       }
 
       else
       {
-        v121 = oSLogObject4;
+        v73 = shouldLog4 & 2;
       }
 
-      goto LABEL_119;
+      if (v73)
+      {
+        v130 = v36;
+        HIDWORD(v122) = v55 != 0;
+        v74 = v73;
+        v75 = objc_opt_class();
+        v123 = v75;
+        v76 = [NSNumber numberWithBool:v54 != 0];
+        v77 = [NSNumber numberWithBool:HIDWORD(v122)];
+        v136 = 138543874;
+        v137 = v75;
+        v138 = 2114;
+        v139 = v76;
+        v78 = v76;
+        v140 = 2114;
+        v141 = v77;
+        LODWORD(v122) = 32;
+        v79 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Skipping DPAN update check for auto-enrollment with buyParams: %{public}@ %{public}@", &v136, v122);
+
+        if (!v79)
+        {
+          v36 = v130;
+          goto LABEL_121;
+        }
+
+        v80 = [NSString stringWithCString:v79 encoding:4];
+        free(v79);
+        v119 = v80;
+        SSFileLog();
+        v36 = v130;
+      }
+
+      else
+      {
+        v80 = oSLogObject4;
+      }
+
+      goto LABEL_121;
     }
 
     if (!v63)
@@ -5328,19 +5360,18 @@ LABEL_119:
     if (v66)
     {
       v67 = objc_opt_class();
-      v134 = 138543362;
-      v135 = v67;
+      v136 = 138543362;
+      v137 = v67;
       v68 = v67;
       LODWORD(v121) = 12;
-      v119 = &v134;
-      v69 = _os_log_send_and_compose_impl();
+      v69 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Finished auto-enrollment, performing DPAN update check", &v136, v121);
 
       v70 = &CFDictionaryGetValue_ptr;
       if (!v69)
       {
-LABEL_93:
+LABEL_94:
 
-        v56 = [v132 objectForKeyedSubscript:@"need-apple-pay-auto-enroll-retry"];
+        v56 = [v134 objectForKeyedSubscript:@"need-apple-pay-auto-enroll-retry"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -5362,7 +5393,7 @@ LABEL_93:
               shouldLog6 |= 2u;
             }
 
-            v129 = v83;
+            v131 = v83;
             oSLogObject6 = [v83 OSLogObject];
             if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
             {
@@ -5377,28 +5408,27 @@ LABEL_93:
             if (v86)
             {
               v87 = objc_opt_class();
-              v134 = 138543362;
-              v135 = v87;
+              v136 = 138543362;
+              v137 = v87;
               v88 = v87;
               LODWORD(v121) = 12;
-              v119 = &v134;
-              v89 = _os_log_send_and_compose_impl();
+              v89 = _os_log_send_and_compose_impl(v86, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Clearing DPAN cache for auto-enrollment, server-driven instruction", &v136, v121);
 
               if (!v89)
               {
-LABEL_106:
+LABEL_107:
 
                 +[AMSCardEnrollment clearAutoEnrollmentIdentifier];
-                goto LABEL_119;
+                goto LABEL_121;
               }
 
-              oSLogObject6 = [NSString stringWithCString:v89 encoding:4, &v134, v121];
+              oSLogObject6 = [NSString stringWithCString:v89 encoding:4];
               free(v89);
               v119 = oSLogObject6;
               SSFileLog();
             }
 
-            goto LABEL_106;
+            goto LABEL_107;
           }
         }
 
@@ -5414,7 +5444,7 @@ LABEL_106:
           shouldLog7 |= 2u;
         }
 
-        v130 = sharedDaemonConfig;
+        v132 = sharedDaemonConfig;
         oSLogObject7 = [sharedDaemonConfig OSLogObject];
         if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
         {
@@ -5429,31 +5459,30 @@ LABEL_106:
         if (v93)
         {
           v94 = objc_opt_class();
-          v134 = 138543362;
-          v135 = v94;
+          v136 = 138543362;
+          v137 = v94;
           v95 = v94;
           LODWORD(v121) = 12;
-          v119 = &v134;
-          v96 = _os_log_send_and_compose_impl();
+          v96 = _os_log_send_and_compose_impl(v93, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%{public}@: Updating cached DPAN identifier for auto-enrollment", &v136, v121);
 
           if (!v96)
           {
-LABEL_118:
+LABEL_119:
 
             +[AMSCardEnrollment updateAutoEnrollmentIdentifier];
-            goto LABEL_119;
+            goto LABEL_121;
           }
 
-          oSLogObject7 = [NSString stringWithCString:v96 encoding:4, &v134, v121];
+          oSLogObject7 = [NSString stringWithCString:v96 encoding:4];
           free(v96);
           v119 = oSLogObject7;
           SSFileLog();
         }
 
-        goto LABEL_118;
+        goto LABEL_119;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v69 encoding:4, &v134, v121];
+      oSLogObject5 = [NSString stringWithCString:v69 encoding:4];
       free(v69);
       v119 = oSLogObject5;
       SSFileLog();
@@ -5464,7 +5493,7 @@ LABEL_118:
       v70 = &CFDictionaryGetValue_ptr;
     }
 
-    goto LABEL_93;
+    goto LABEL_94;
   }
 
   delegate = [(PurchaseOperation *)self delegate];
@@ -5509,21 +5538,19 @@ LABEL_18:
     v17 = objc_opt_class();
     v18 = v17;
     v19 = SSHashIfNeeded();
-    v134 = 138543618;
-    v135 = v17;
+    v136 = 138543618;
+    v137 = v17;
     storeFrontIdentifier = v16;
-    v136 = 2114;
-    v137 = v19;
-    LODWORD(v121) = 22;
-    v117 = &v134;
-    v20 = _os_log_send_and_compose_impl();
+    v138 = 2114;
+    v139 = v19;
+    v20 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject8, 0, "%{public}@: Storefront changed: %{public}@. Checking with delegate if purchase should continue.", &v136, 22);
 
     if (!v20)
     {
       goto LABEL_17;
     }
 
-    oSLogObject8 = [NSString stringWithCString:v20 encoding:4, &v134, v121];
+    oSLogObject8 = [NSString stringWithCString:v20 encoding:4];
     free(v20);
     v117 = oSLogObject8;
     SSFileLog();
@@ -5544,7 +5571,7 @@ LABEL_17:
   [(PurchaseOperation *)self setError:v71];
 
   [(PurchaseOperation *)self setSuccess:0];
-LABEL_143:
+LABEL_145:
 }
 
 - (void)_scoreDevice
@@ -5582,7 +5609,8 @@ LABEL_143:
   shouldLog = [v7 shouldLog];
   v9 = [v7 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
   oSLogObject = [v7 OSLogObject];
-  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT) ? v9 : v9 & 2)
+  v11 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT) ? v9 : v9 & 2u;
+  if (v11)
   {
     v12 = objc_opt_class();
     v13 = v12;
@@ -5591,13 +5619,11 @@ LABEL_143:
     *&location[4] = v12;
     v32 = 2114;
     v33 = v14;
-    LODWORD(v28) = 22;
-    v27 = location;
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Initialize device scorer with server endpoint: %{public}@", location, 22);
 
     if (v15)
     {
-      v16 = [NSString stringWithCString:v15 encoding:4, location, v28];
+      v16 = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       v27 = v16;
       SSFileLog();
@@ -5638,23 +5664,28 @@ LABEL_20:
   shouldLog2 = [v20 shouldLog];
   if ([v20 shouldLogToDisk])
   {
-    v22 = shouldLog2 | 2;
+    LODWORD(v22) = shouldLog2 | 2;
   }
 
   else
   {
-    v22 = shouldLog2;
+    LODWORD(v22) = shouldLog2;
   }
 
   oSLogObject2 = [v20 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = v22;
+  }
+
+  else
   {
     v22 &= 2u;
   }
 
   if (!v22)
   {
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   v24 = objc_opt_class();
@@ -5662,14 +5693,14 @@ LABEL_20:
   *&location[4] = v24;
   v25 = v24;
   LODWORD(v28) = 12;
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Failed to create device scorer", location, v28);
 
   if (v26)
   {
-    oSLogObject2 = [NSString stringWithCString:v26 encoding:4, location, v28];
+    oSLogObject2 = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     SSFileLog();
-LABEL_31:
+LABEL_32:
   }
 }
 
@@ -5683,13 +5714,13 @@ LABEL_31:
   {
     objc_initWeak(location, self);
     v5 = self->_deviceScorer;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_1000ABE94;
-    v14[3] = &unk_100327798;
-    objc_copyWeak(&v15, location);
-    [(DeviceScorer *)v5 deviceScoreWithNonce:0 completion:v14];
-    objc_destroyWeak(&v15);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000ABE94;
+    v13[3] = &unk_100327798;
+    objc_copyWeak(&v14, location);
+    [(DeviceScorer *)v5 deviceScoreWithNonce:0 completion:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(location);
   }
 
@@ -5704,16 +5735,21 @@ LABEL_31:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -5723,12 +5759,11 @@ LABEL_31:
       LODWORD(location[0]) = 138543362;
       *(location + 4) = objc_opt_class();
       v10 = *(location + 4);
-      LODWORD(v13) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Failed to create device scorer on retry", location, 12);
 
       if (v11)
       {
-        v12 = [NSString stringWithCString:v11 encoding:4, location, v13];
+        v12 = [NSString stringWithCString:v11 encoding:4];
         free(v11);
         SSFileLog();
       }
@@ -5974,7 +6009,7 @@ LABEL_10:
   urlBagKey = [(PurchaseOperation *)self urlBagKey];
   if (!urlBagKey)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   _URLBagContext = [(PurchaseOperation *)self _URLBagContext];
@@ -5991,7 +6026,7 @@ LABEL_10:
 
       if ((v9 & 1) == 0)
       {
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
 LABEL_8:
@@ -6004,37 +6039,41 @@ LABEL_8:
       shouldLog = [v11 shouldLog];
       if ([v11 shouldLogToDisk])
       {
-        v13 = shouldLog | 2;
+        LODWORD(v13) = shouldLog | 2;
       }
 
       else
       {
-        v13 = shouldLog;
+        LODWORD(v13) = shouldLog;
       }
 
       oSLogObject = [v11 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
 
       if (v13)
       {
-        *v25 = 138412546;
-        *&v25[4] = objc_opt_class();
-        *&v25[12] = 2112;
-        *&v25[14] = urlBagKey;
-        v15 = *&v25[4];
-        LODWORD(v24) = 22;
+        v24 = 138412546;
+        v25 = objc_opt_class();
+        v26 = 2112;
+        v27 = urlBagKey;
+        v15 = v25;
         LOBYTE(v16) = 1;
-        v17 = _os_log_send_and_compose_impl();
+        v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Using client auth for purchase bag key: %@", &v24, 22);
 
         if (!v17)
         {
-          goto LABEL_30;
+          goto LABEL_32;
         }
 
-        v18 = [NSString stringWithCString:v17 encoding:4, v25, v24, *v25, *&v25[16]];
+        v18 = [NSString stringWithCString:v17 encoding:4];
         free(v17);
         SSFileLog();
       }
@@ -6044,19 +6083,19 @@ LABEL_8:
       }
 
       LOBYTE(v16) = 1;
-      goto LABEL_30;
+      goto LABEL_32;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v6 = CFPreferencesCopyAppValue(@"p2-client-authentication", kSSUserDefaultsIdentifier);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-LABEL_18:
+LABEL_19:
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v10 = [v6 containsObject:urlBagKey];
@@ -6066,7 +6105,7 @@ LABEL_18:
     goto LABEL_8;
   }
 
-LABEL_19:
+LABEL_20:
   v11 = +[SSLogConfig sharedDaemonConfig];
   if (!v11)
   {
@@ -6076,44 +6115,48 @@ LABEL_19:
   shouldLog2 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v20 = shouldLog2 | 2;
+    LODWORD(v20) = shouldLog2 | 2;
   }
 
   else
   {
-    v20 = shouldLog2;
+    LODWORD(v20) = shouldLog2;
   }
 
   oSLogObject2 = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v20 = v20;
+  }
+
+  else
   {
     v20 &= 2u;
   }
 
   if (!v20)
   {
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
-  *v25 = 138412546;
-  *&v25[4] = objc_opt_class();
-  *&v25[12] = 2112;
-  *&v25[14] = urlBagKey;
-  v22 = *&v25[4];
-  LODWORD(v24) = 22;
-  v16 = _os_log_send_and_compose_impl();
+  v24 = 138412546;
+  v25 = objc_opt_class();
+  v26 = 2112;
+  v27 = urlBagKey;
+  v22 = v25;
+  v16 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "%@: Using server auth for purchase bag key: %@", &v24, 22);
 
   if (v16)
   {
-    oSLogObject2 = [NSString stringWithCString:v16 encoding:4, v25, v24, *v25, *&v25[8]];
+    oSLogObject2 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_29:
+LABEL_31:
 
     LOBYTE(v16) = 0;
   }
 
-LABEL_30:
+LABEL_32:
 
   return v16;
 }

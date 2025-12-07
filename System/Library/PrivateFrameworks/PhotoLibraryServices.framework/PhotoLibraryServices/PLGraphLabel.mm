@@ -749,9 +749,9 @@ LABEL_13:
   managedObjectClassName = [v6 managedObjectClassName];
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  v10 = [managedObjectClassName isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(managedObjectClassName);
 
-  if ((v10 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if (!contextCopy)
     {

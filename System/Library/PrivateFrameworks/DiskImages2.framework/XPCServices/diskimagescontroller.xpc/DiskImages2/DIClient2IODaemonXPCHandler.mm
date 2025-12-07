@@ -24,41 +24,53 @@
 - (void)createConnection
 {
   v3 = *__error();
-  if (sub_1000E044C())
+  v4 = sub_1000E044C();
+  if (v4)
   {
-    v4 = sub_1000E03D8();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v15 = 47;
-    v16 = 2080;
-    v17 = "[DIClient2IODaemonXPCHandler createConnection]";
-    v5 = _os_log_send_and_compose_impl();
-
-    if (v5)
+    v18 = 0;
+    v6 = sub_1000E03D8(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v5);
-      free(v5);
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    *buf = 68157954;
+    v20 = 47;
+    v21 = 2080;
+    v22 = "[DIClient2IODaemonXPCHandler createConnection]";
+    LODWORD(v17) = 18;
+    v8 = _os_log_send_and_compose_impl(v7, &v18, 0, 0, &_mh_execute_header, v6, 0, "%.*s: Creating connection to IO daemon clients listener", buf, v17);
+
+    if (v8)
+    {
+      fprintf(__stderrp, "%s\n", v8);
+      free(v8);
     }
   }
 
   else
   {
-    v6 = sub_1000E03D8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000E03D8(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v15 = 47;
-      v16 = 2080;
-      v17 = "[DIClient2IODaemonXPCHandler createConnection]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection to IO daemon clients listener", buf, 0x12u);
+      v20 = 47;
+      v21 = 2080;
+      v22 = "[DIClient2IODaemonXPCHandler createConnection]";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection to IO daemon clients listener", buf, 0x12u);
     }
   }
 
   *__error() = v3;
-  v7 = [NSXPCConnection alloc];
+  v10 = [NSXPCConnection alloc];
   xpcListenerEndpoint = [(DIClient2IODaemonXPCHandler *)self xpcListenerEndpoint];
-  v9 = [v7 initWithListenerEndpoint:xpcListenerEndpoint];
-  [(DIBaseXPCHandler *)self setConnection:v9];
+  v12 = [v10 initWithListenerEndpoint:xpcListenerEndpoint];
+  [(DIBaseXPCHandler *)self setConnection:v12];
 
   remoteObjectInterface = [(DIClient2IODaemonXPCHandler *)self remoteObjectInterface];
   connection = [(DIBaseXPCHandler *)self connection];

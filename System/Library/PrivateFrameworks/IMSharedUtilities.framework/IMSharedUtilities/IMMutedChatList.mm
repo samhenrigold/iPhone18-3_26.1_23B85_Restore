@@ -237,82 +237,81 @@ LABEL_11:
 - (void)unmuteChatWithMuteIdentifiers:(id)identifiers syncToPairedDevice:(BOOL)device
 {
   deviceCopy = device;
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v21 = deviceCopy;
+    v22 = deviceCopy;
     selfCopy = self;
     mutedChatList = [(IMMutedChatList *)self mutedChatList];
     v7 = [mutedChatList mutableCopy];
-    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v22 = identifiersCopy;
+    v27 = 0u;
+    v23 = identifiersCopy;
     v8 = identifiersCopy;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (!v9)
     {
       goto LABEL_15;
     }
 
     v10 = v9;
-    v11 = *v24;
+    v11 = *v25;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         v14 = [v7 objectForKey:v13];
 
         if (v14)
         {
-          [v7 removeObjectForKey:v13];
-          v15 = IMMutedChatListLogHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = IMMutedChatListLogHandle([v7 removeObjectForKey:v13]);
+          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_13;
           }
 
           *buf = 138412290;
-          v28 = v13;
-          v16 = v15;
-          v17 = "Unmuting chat with identifier: %@";
+          v29 = v13;
+          v17 = v16;
+          v18 = "Unmuting chat with identifier: %@";
         }
 
         else
         {
-          v15 = IMMutedChatListLogHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = IMMutedChatListLogHandle(v15);
+          if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_13;
           }
 
           *buf = 138412290;
-          v28 = v13;
-          v16 = v15;
-          v17 = "Can't unmute chat with identifier: %@, that wasn't muted to begin with...";
+          v29 = v13;
+          v17 = v16;
+          v18 = "Can't unmute chat with identifier: %@, that wasn't muted to begin with...";
         }
 
-        _os_log_impl(&dword_1A85E5000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
+        _os_log_impl(&dword_1A85E5000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
 LABEL_13:
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
       if (!v10)
       {
 LABEL_15:
 
-        v18 = [v7 copy];
-        [(IMMutedChatList *)selfCopy _synchronizeMutedChatList:v18 syncToPairedDevice:v21];
+        v19 = [v7 copy];
+        [(IMMutedChatList *)selfCopy _synchronizeMutedChatList:v19 syncToPairedDevice:v22];
 
-        identifiersCopy = v22;
+        identifiersCopy = v23;
         break;
       }
     }
@@ -322,7 +321,7 @@ LABEL_15:
 - (void)muteChatWithMuteIdentifiers:(id)identifiers untilDate:(id)date syncToPairedDevice:(BOOL)device
 {
   deviceCopy = device;
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   dateCopy = date;
   if ([identifiersCopy count])
@@ -333,101 +332,99 @@ LABEL_15:
       goto LABEL_22;
     }
 
-    v28 = deviceCopy;
+    v29 = deviceCopy;
     selfCopy = self;
     mutedChatList = [(IMMutedChatList *)self mutedChatList];
     v11 = [mutedChatList mutableCopy];
-    v30 = dateCopy;
+    v31 = dateCopy;
     [dateCopy timeIntervalSince1970];
     v13 = v12;
     v14 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v29 = identifiersCopy;
+    v35 = 0u;
+    v30 = identifiersCopy;
     v15 = identifiersCopy;
-    v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (!v16)
     {
       goto LABEL_20;
     }
 
     v17 = v16;
-    v18 = *v32;
+    v18 = *v33;
     while (1)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v32 != v18)
+        if (*v33 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v31 + 1) + 8 * i);
+        v20 = *(*(&v32 + 1) + 8 * i);
         v21 = [mutedChatList objectForKey:v20];
-        if (v21 && [v14 isEqualToNumber:v21])
+        if (v21 && (v22 = [v14 isEqualToNumber:v21], v22))
         {
-          v22 = IMMutedChatListLogHandle();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v23 = IMMutedChatListLogHandle(v22);
+          if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_18;
           }
 
           *buf = 0;
-          v23 = v22;
-          v24 = "Same unmute time, not updating";
-          v25 = 2;
+          v24 = v23;
+          v25 = "Same unmute time, not updating";
+          v26 = 2;
         }
 
         else if (v13 <= 0.0)
         {
-          [v11 removeObjectForKey:v20];
-          v22 = IMMutedChatListLogHandle();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v23 = IMMutedChatListLogHandle([v11 removeObjectForKey:v20]);
+          if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_18;
           }
 
           *buf = 138412546;
-          v36 = v30;
-          v37 = 2112;
-          v38 = v20;
-          v23 = v22;
-          v24 = "Updating unmute time to %@ for chat with identifier: %@";
-          v25 = 22;
+          v37 = v31;
+          v38 = 2112;
+          v39 = v20;
+          v24 = v23;
+          v25 = "Updating unmute time to %@ for chat with identifier: %@";
+          v26 = 22;
         }
 
         else
         {
-          [v11 setObject:v14 forKey:v20];
-          v22 = IMMutedChatListLogHandle();
-          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v23 = IMMutedChatListLogHandle([v11 setObject:v14 forKey:v20]);
+          if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_18;
           }
 
           *buf = 138412290;
-          v36 = v20;
-          v23 = v22;
-          v24 = "Muting chat with identifier: %@";
-          v25 = 12;
+          v37 = v20;
+          v24 = v23;
+          v25 = "Muting chat with identifier: %@";
+          v26 = 12;
         }
 
-        _os_log_impl(&dword_1A85E5000, v23, OS_LOG_TYPE_DEFAULT, v24, buf, v25);
+        _os_log_impl(&dword_1A85E5000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v26);
 LABEL_18:
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (!v17)
       {
 LABEL_20:
 
-        v26 = [v11 copy];
-        [(IMMutedChatList *)selfCopy _synchronizeMutedChatList:v26 syncToPairedDevice:v28];
+        v27 = [v11 copy];
+        [(IMMutedChatList *)selfCopy _synchronizeMutedChatList:v27 syncToPairedDevice:v29];
 
-        identifiersCopy = v29;
-        dateCopy = v30;
+        identifiersCopy = v30;
+        dateCopy = v31;
         break;
       }
     }
@@ -440,12 +437,12 @@ LABEL_22:
 {
   deviceCopy = device;
   CFPreferencesSetAppValue(@"CKDNDListKey", list, @"com.apple.MobileSMS.CKDNDList");
-  CFPreferencesAppSynchronize(@"com.apple.MobileSMS.CKDNDList");
-  v6 = IMMutedChatListLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = CFPreferencesAppSynchronize(@"com.apple.MobileSMS.CKDNDList");
+  v7 = IMMutedChatListLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1A85E5000, v6, OS_LOG_TYPE_DEFAULT, "Synchronized Do Not Disturb list", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1A85E5000, v7, OS_LOG_TYPE_DEFAULT, "Synchronized Do Not Disturb list", v9, 2u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -489,8 +486,7 @@ LABEL_22:
     [v6 addObject:@"CKDNDMigrationKey"];
   }
 
-  [syncManager synchronizeUserDefaultsDomain:@"com.apple.MobileSMS.CKDNDList" keys:v7];
-  v8 = IMMutedChatListLogHandle();
+  v8 = IMMutedChatListLogHandle([syncManager synchronizeUserDefaultsDomain:@"com.apple.MobileSMS.CKDNDList" keys:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -500,73 +496,74 @@ LABEL_22:
 
 - (void)groupID:(id)d didChangeTo:(id)to previousDomainIdentifiers:(id)identifiers newDomainIdentifiers:(id)domainIdentifiers forChatIdentifier:(id)identifier
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   toCopy = to;
   identifiersCopy = identifiers;
   domainIdentifiersCopy = domainIdentifiers;
   identifierCopy = identifier;
+  v17 = identifierCopy;
   if (identifierCopy)
   {
     if (dCopy)
     {
       if (toCopy)
       {
-        v17 = [(IMMutedChatList *)self unmuteDateForMuteIdentifier:dCopy];
-        if (v17)
+        v18 = [(IMMutedChatList *)self unmuteDateForMuteIdentifier:dCopy];
+        if (v18)
         {
-          v18 = [(IMMutedChatList *)self unmuteDateForMuteIdentifier:toCopy];
+          v19 = [(IMMutedChatList *)self unmuteDateForMuteIdentifier:toCopy];
 
-          if (!v18)
+          if (!v19)
           {
-            v19 = IMMutedChatListLogHandle();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v21 = IMMutedChatListLogHandle(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
               *&buf[4] = dCopy;
               *&buf[12] = 2112;
               *&buf[14] = toCopy;
               *&buf[22] = 2112;
-              v53 = identifierCopy;
-              _os_log_impl(&dword_1A85E5000, v19, OS_LOG_TYPE_DEFAULT, "Chat with previousGroupID (%@) was muted, but that group ID changed. Updating muted chat to new group ID (%@) for chatIdentifier: %@", buf, 0x20u);
+              v55 = v17;
+              _os_log_impl(&dword_1A85E5000, v21, OS_LOG_TYPE_DEFAULT, "Chat with previousGroupID (%@) was muted, but that group ID changed. Updating muted chat to new group ID (%@) for chatIdentifier: %@", buf, 0x20u);
             }
 
-            v56[0] = toCopy;
-            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
-            [(IMMutedChatList *)self muteChatWithMuteIdentifiers:v20 untilDate:v17 syncToPairedDevice:1];
+            v58[0] = toCopy;
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
+            [(IMMutedChatList *)self muteChatWithMuteIdentifiers:v22 untilDate:v18 syncToPairedDevice:1];
           }
 
-          v43 = [domainIdentifiersCopy __im_setDifferenceBetweenSelfAndObject:identifiersCopy];
-          v21 = [identifiersCopy __im_setDifferenceBetweenSelfAndObject:domainIdentifiersCopy];
+          v45 = [domainIdentifiersCopy __im_setDifferenceBetweenSelfAndObject:identifiersCopy];
+          v23 = [identifiersCopy __im_setDifferenceBetweenSelfAndObject:domainIdentifiersCopy];
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v53 = sub_1A8601F74;
-          v54 = sub_1A86021A8;
-          v55 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v46 = 0;
-          v47 = &v46;
-          v48 = 0x3032000000;
-          v49 = sub_1A8601F74;
-          v50 = sub_1A86021A8;
-          v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = sub_1A86ABF74;
-          v45[3] = &unk_1E7829610;
-          v45[4] = self;
-          v45[5] = buf;
-          [v43 enumerateKeysAndObjectsUsingBlock:v45];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = sub_1A86AC060;
-          v44[3] = &unk_1E7829610;
-          v44[4] = self;
-          v44[5] = &v46;
-          [v21 enumerateKeysAndObjectsUsingBlock:v44];
-          [(IMMutedChatList *)self muteChatWithMuteIdentifiers:*(*&buf[8] + 40) untilDate:v17 syncToPairedDevice:1];
-          [(IMMutedChatList *)self unmuteChatWithMuteIdentifiers:v47[5] syncToPairedDevice:1];
-          _Block_object_dispose(&v46, 8);
+          v55 = sub_1A8601F74;
+          v56 = sub_1A86021A8;
+          v57 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v48 = 0;
+          v49 = &v48;
+          v50 = 0x3032000000;
+          v51 = sub_1A8601F74;
+          v52 = sub_1A86021A8;
+          v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = sub_1A86ABF74;
+          v47[3] = &unk_1E7829610;
+          v47[4] = self;
+          v47[5] = buf;
+          [v45 enumerateKeysAndObjectsUsingBlock:v47];
+          v46[0] = MEMORY[0x1E69E9820];
+          v46[1] = 3221225472;
+          v46[2] = sub_1A86AC060;
+          v46[3] = &unk_1E7829610;
+          v46[4] = self;
+          v46[5] = &v48;
+          [v23 enumerateKeysAndObjectsUsingBlock:v46];
+          [(IMMutedChatList *)self muteChatWithMuteIdentifiers:*(*&buf[8] + 40) untilDate:v18 syncToPairedDevice:1];
+          [(IMMutedChatList *)self unmuteChatWithMuteIdentifiers:v49[5] syncToPairedDevice:1];
+          _Block_object_dispose(&v48, 8);
 
           _Block_object_dispose(buf, 8);
         }
@@ -574,30 +571,30 @@ LABEL_22:
 
       else
       {
-        v17 = IMMutedChatListLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = IMMutedChatListLogHandle(identifierCopy);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_1A88C38F0(v17, v36, v37, v38, v39, v40, v41, v42);
+          sub_1A88C38F0(v18, v38, v39, v40, v41, v42, v43, v44);
         }
       }
     }
 
     else
     {
-      v17 = IMMutedChatListLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = IMMutedChatListLogHandle(identifierCopy);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1A88C3928(v17, v29, v30, v31, v32, v33, v34, v35);
+        sub_1A88C3928(v18, v31, v32, v33, v34, v35, v36, v37);
       }
     }
   }
 
   else
   {
-    v17 = IMMutedChatListLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = IMMutedChatListLogHandle(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1A88C3960(v17, v22, v23, v24, v25, v26, v27, v28);
+      sub_1A88C3960(v18, v24, v25, v26, v27, v28, v29, v30);
     }
   }
 }

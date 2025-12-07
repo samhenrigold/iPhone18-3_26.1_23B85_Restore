@@ -97,40 +97,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_syncId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_calendarIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    nekChangeType = self->_nekChangeType;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    nekStoreType = self->_nekStoreType;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -223,7 +220,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 36);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0 || self->_type != *(equalCopy + 8))
@@ -243,7 +239,7 @@
     if (![(NSString *)calendarIdentifier isEqual:?])
     {
 LABEL_21:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_22;
     }
 
@@ -263,7 +259,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v9 = (*(equalCopy + 36) & 2) == 0;
+  v8 = (*(equalCopy + 36) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_nekStoreType != *(equalCopy + 5))
@@ -271,12 +267,12 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_22:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

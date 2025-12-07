@@ -3,7 +3,7 @@
 
 @implementation AXSUIFocusRingEnabled
 
-uint64_t ___AXSUIFocusRingEnabled_block_invoke()
+void *___AXSUIFocusRingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

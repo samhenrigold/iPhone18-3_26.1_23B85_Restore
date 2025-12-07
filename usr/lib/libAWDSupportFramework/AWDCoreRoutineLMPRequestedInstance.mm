@@ -155,7 +155,6 @@ LABEL_9:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -167,7 +166,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    suggested = self->_suggested;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -179,7 +177,6 @@ LABEL_7:
       }
 
 LABEL_12:
-      occurrences = self->_occurrences;
       PBDataWriterWriteInt32Field();
       if ((*&self->_has & 8) == 0)
       {
@@ -195,7 +192,6 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  confidence = self->_confidence;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -210,7 +206,6 @@ LABEL_8:
   }
 
 LABEL_13:
-  reason = self->_reason;
 
   PBDataWriterWriteInt32Field();
 }
@@ -348,7 +343,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v7 = *(equal + 44);
   if (has)
   {
     if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -378,7 +372,6 @@ LABEL_7:
   {
     if ((*(equal + 44) & 0x10) != 0)
     {
-      v9 = *(equal + 40);
       if (self->_suggested)
       {
         if ((*(equal + 40) & 1) == 0)

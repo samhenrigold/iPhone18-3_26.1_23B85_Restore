@@ -73,7 +73,7 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   name = self->_name;
-  v6 = HDDiagnosticStringFromDate(self->_fireDate);
+  v6 = HDDiagnosticStringFromDate();
   v7 = [v3 stringWithFormat:@"<%@:%p name:%@ fireDate:%@ isUserVisible:%d>", v4, self, name, v6, self->_isUserVisible];
 
   return v7;

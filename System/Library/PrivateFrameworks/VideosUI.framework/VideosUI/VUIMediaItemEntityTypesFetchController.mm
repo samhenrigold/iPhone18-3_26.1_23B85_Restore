@@ -66,6 +66,7 @@
 {
   resultCopy = result;
   errorCopy = error;
+  v8 = errorCopy;
   if (resultCopy)
   {
     [(VUIMediaItemEntityTypesFetchController *)self _updateResponseWithResult:resultCopy replaceContentsOnNilChanges:1];
@@ -74,21 +75,22 @@
 
   else
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VUIDefaultLogObject(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [VUIMediaItemEntityTypesFetchController _handleInitialFetchControllerOperationDidCompleteWithResult:errorCopy error:v8];
+      [VUIMediaItemEntityTypesFetchController _handleInitialFetchControllerOperationDidCompleteWithResult:v8 error:v9];
     }
 
-    [(VUIMediaItemEntityTypesFetchController *)self _notifyFetchDidFailWithError:errorCopy];
+    [(VUIMediaItemEntityTypesFetchController *)self _notifyFetchDidFailWithError:v8];
   }
 }
 
 - (void)_handleContentsChangeFetchControllerOperationDidCompleteWithResult:(id)result error:(id)error
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
+  v8 = errorCopy;
   if (resultCopy)
   {
     if ([(VUIMediaItemEntityTypesFetchController *)self _updateResponseWithResult:resultCopy replaceContentsOnNilChanges:0])
@@ -99,15 +101,15 @@
 
   else
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = errorCopy;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "Contents change media category types fetch failed with error (%@)", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "Contents change media category types fetch failed with error (%@)", &v10, 0xCu);
     }
 
-    [(VUIMediaItemEntityTypesFetchController *)self _notifyFetchDidFailWithError:errorCopy];
+    [(VUIMediaItemEntityTypesFetchController *)self _notifyFetchDidFailWithError:v8];
   }
 }
 

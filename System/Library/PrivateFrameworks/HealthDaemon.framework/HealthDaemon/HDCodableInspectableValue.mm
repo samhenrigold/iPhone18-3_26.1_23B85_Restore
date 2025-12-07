@@ -126,75 +126,73 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_ratioValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_dateComponentsValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_codedQuantityValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_medicalCodingValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_codedValueCollection)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_medicalDateValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_medicalDateIntervalValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_dataAbsentReasonCodingsValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    inspectableIntegerValue = self->_inspectableIntegerValue;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    BOOLeanValue = self->_BOOLeanValue;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -682,7 +680,7 @@ LABEL_45:
       goto LABEL_51;
     }
 
-    [(HDCodableMedicalCodingList *)dataAbsentReasonCodingsValue mergeFrom:?];
+    dataAbsentReasonCodingsValue = [(HDCodableMedicalCodingList *)dataAbsentReasonCodingsValue mergeFrom:?];
   }
 
   else
@@ -692,7 +690,7 @@ LABEL_45:
       goto LABEL_51;
     }
 
-    [(HDCodableInspectableValue *)self setDataAbsentReasonCodingsValue:?];
+    dataAbsentReasonCodingsValue = [(HDCodableInspectableValue *)self setDataAbsentReasonCodingsValue:?];
   }
 
   fromCopy = v22;
@@ -711,7 +709,7 @@ LABEL_51:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](dataAbsentReasonCodingsValue, fromCopy);
 }
 
 @end

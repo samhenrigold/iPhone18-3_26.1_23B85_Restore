@@ -90,7 +90,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_24E000070();
+  sub_24E000070(scrollCopy);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss

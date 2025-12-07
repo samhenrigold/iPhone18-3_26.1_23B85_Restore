@@ -583,25 +583,26 @@ LABEL_23:
       if (weight == 7)
       {
 LABEL_41:
-        v20 = 0;
-        v21 = &v20;
-        v22 = 0x2020000000;
+        v21 = 0;
+        v22 = &v21;
+        v23 = 0x2020000000;
         v10 = getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr;
-        v23 = getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr;
+        v24 = getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr;
         if (!getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr)
         {
           v18 = CoreTextLibrary_0();
-          v21[3] = dlsym(v18, "kCTFontDescriptorTextStyleUltraLight");
-          getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr = v21[3];
-          v10 = v21[3];
+          v22[3] = dlsym(v18, "kCTFontDescriptorTextStyleUltraLight");
+          getkCTFontDescriptorTextStyleUltraLightSymbolLoc_ptr = v22[3];
+          v10 = v22[3];
         }
 
-        _Block_object_dispose(&v20, 8);
+        _Block_object_dispose(&v21, 8);
         if (!v10)
         {
-          v19 = [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
-          _Block_object_dispose(&v20, 8);
-          _Unwind_Resume(v19);
+          [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
+          v20 = v19;
+          _Block_object_dispose(&v21, 8);
+          _Unwind_Resume(v20);
         }
 
         goto LABEL_44;
@@ -612,20 +613,20 @@ LABEL_41:
         goto LABEL_45;
       }
 
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
       v10 = getkCTFontDescriptorTextStyleThinSymbolLoc_ptr;
-      v23 = getkCTFontDescriptorTextStyleThinSymbolLoc_ptr;
+      v24 = getkCTFontDescriptorTextStyleThinSymbolLoc_ptr;
       if (!getkCTFontDescriptorTextStyleThinSymbolLoc_ptr)
       {
         v14 = CoreTextLibrary_0();
-        v21[3] = dlsym(v14, "kCTFontDescriptorTextStyleThin");
-        getkCTFontDescriptorTextStyleThinSymbolLoc_ptr = v21[3];
-        v10 = v21[3];
+        v22[3] = dlsym(v14, "kCTFontDescriptorTextStyleThin");
+        getkCTFontDescriptorTextStyleThinSymbolLoc_ptr = v22[3];
+        v10 = v22[3];
       }
 
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v21, 8);
       if (v10)
       {
 LABEL_44:
@@ -647,20 +648,20 @@ LABEL_45:
     if (weight == 5)
     {
 LABEL_33:
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
       v10 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0;
-      v23 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0;
+      v24 = getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0;
       if (!getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0)
       {
         v16 = CoreTextLibrary_0();
-        v21[3] = dlsym(v16, "kCTFontDescriptorTextStyleRegular");
-        getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0 = v21[3];
-        v10 = v21[3];
+        v22[3] = dlsym(v16, "kCTFontDescriptorTextStyleRegular");
+        getkCTFontDescriptorTextStyleRegularSymbolLoc_ptr_0 = v22[3];
+        v10 = v22[3];
       }
 
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v21, 8);
       if (v10)
       {
         goto LABEL_44;
@@ -675,44 +676,44 @@ LABEL_33:
       goto LABEL_45;
     }
 
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v10 = getkCTFontDescriptorTextStyleLightSymbolLoc_ptr;
-    v23 = getkCTFontDescriptorTextStyleLightSymbolLoc_ptr;
+    v24 = getkCTFontDescriptorTextStyleLightSymbolLoc_ptr;
     if (!getkCTFontDescriptorTextStyleLightSymbolLoc_ptr)
     {
       v12 = CoreTextLibrary_0();
-      v21[3] = dlsym(v12, "kCTFontDescriptorTextStyleLight");
-      getkCTFontDescriptorTextStyleLightSymbolLoc_ptr = v21[3];
-      v10 = v21[3];
+      v22[3] = dlsym(v12, "kCTFontDescriptorTextStyleLight");
+      getkCTFontDescriptorTextStyleLightSymbolLoc_ptr = v22[3];
+      v10 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (v10)
     {
       goto LABEL_44;
     }
 
-    v8 = [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
+    [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
 LABEL_17:
     if (weight == 3)
     {
 LABEL_37:
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
       v10 = getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr;
-      v23 = getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr;
+      v24 = getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr;
       if (!getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr)
       {
         v17 = CoreTextLibrary_0();
-        v21[3] = dlsym(v17, "kCTFontDescriptorTextStyleSemibold");
-        getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr = v21[3];
-        v10 = v21[3];
+        v22[3] = dlsym(v17, "kCTFontDescriptorTextStyleSemibold");
+        getkCTFontDescriptorTextStyleSemiboldSymbolLoc_ptr = v22[3];
+        v10 = v22[3];
       }
 
-      _Block_object_dispose(&v20, 8);
+      _Block_object_dispose(&v21, 8);
       if (v10)
       {
         goto LABEL_44;
@@ -727,26 +728,26 @@ LABEL_37:
       goto LABEL_45;
     }
 
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v10 = getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr;
-    v23 = getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr;
+    v24 = getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr;
     if (!getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr)
     {
       v13 = CoreTextLibrary_0();
-      v21[3] = dlsym(v13, "kCTFontDescriptorTextStyleMedium");
-      getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr = v21[3];
-      v10 = v21[3];
+      v22[3] = dlsym(v13, "kCTFontDescriptorTextStyleMedium");
+      getkCTFontDescriptorTextStyleMediumSymbolLoc_ptr = v22[3];
+      v10 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (v10)
     {
       goto LABEL_44;
     }
 
-    v8 = [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
+    [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
     goto LABEL_23;
   }
 
@@ -758,20 +759,20 @@ LABEL_37:
   if (weight == 1)
   {
 LABEL_29:
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v10 = getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr;
-    v23 = getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr;
+    v24 = getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr;
     if (!getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr)
     {
       v15 = CoreTextLibrary_0();
-      v21[3] = dlsym(v15, "kCTFontDescriptorTextStyleHeavy");
-      getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr = v21[3];
-      v10 = v21[3];
+      v22[3] = dlsym(v15, "kCTFontDescriptorTextStyleHeavy");
+      getkCTFontDescriptorTextStyleHeavySymbolLoc_ptr = v22[3];
+      v10 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (v10)
     {
       goto LABEL_44;
@@ -788,26 +789,26 @@ LABEL_29:
 
   if (style == 19)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v10 = getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr;
-    v23 = getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr;
+    v24 = getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr;
     if (!getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr)
     {
       v11 = CoreTextLibrary_0();
-      v21[3] = dlsym(v11, "kCTFontDescriptorTextStyleBold");
-      getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr = v21[3];
-      v10 = v21[3];
+      v22[3] = dlsym(v11, "kCTFontDescriptorTextStyleBold");
+      getkCTFontDescriptorTextStyleBoldSymbolLoc_ptr = v22[3];
+      v10 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (v10)
     {
       goto LABEL_44;
     }
 
-    v8 = [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
+    [UIFont(MTMPUDynamicType) MTMPU_scaledValueForValue:];
     goto LABEL_10;
   }
 

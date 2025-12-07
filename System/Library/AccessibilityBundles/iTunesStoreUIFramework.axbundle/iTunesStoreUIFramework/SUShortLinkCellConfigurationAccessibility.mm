@@ -10,12 +10,11 @@
   v3 = [(SUShortLinkCellConfigurationAccessibility *)self safeValueForKey:@"_accessibilityStringsArrayPointer"];
   bytes = [v3 bytes];
   v5 = *(bytes + 16);
-  v6 = *(bytes + 8);
-  v7 = *(bytes + 24);
-  v8 = v5;
-  v9 = __UIAXStringForVariables();
+  v6 = *(bytes + 24);
+  v7 = v5;
+  v8 = __UIAXStringForVariables();
 
-  return v9;
+  return v8;
 }
 
 @end

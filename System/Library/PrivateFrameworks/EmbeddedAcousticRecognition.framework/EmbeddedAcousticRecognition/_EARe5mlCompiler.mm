@@ -41,7 +41,7 @@
   completionCopy = completion;
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
   else
@@ -107,7 +107,7 @@ LABEL_6:
             v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, "compilation platform not specified correctly: ", 46);
             if (v13)
             {
-              [v13 ear_toString];
+              objc_msgSend_ear_toString(v13);
               v55 = HIBYTE(v63);
               v54 = __p[0];
               v53 = __p[1];
@@ -154,7 +154,7 @@ LABEL_6:
 
           if (v13)
           {
-            [v13 ear_toString];
+            objc_msgSend_ear_toString(v13);
           }
 
           else
@@ -235,7 +235,7 @@ LABEL_6:
 
     if (v58)
     {
-      [v58 ear_toString];
+      objc_msgSend_ear_toString(v58);
     }
 
     else
@@ -262,7 +262,7 @@ LABEL_6:
         v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, "Compiling for model: ", 21);
         if (v58)
         {
-          [v58 ear_toString];
+          objc_msgSend_ear_toString(v58);
           v35 = HIBYTE(v63);
           v37 = __p[0];
           v36 = __p[1];
@@ -319,7 +319,7 @@ LABEL_6:
         v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v64, "Compiling for model: ", 21);
         if (v58)
         {
-          [v58 ear_toString];
+          objc_msgSend_ear_toString(v58);
           v39 = HIBYTE(v63);
           v41 = __p[0];
           v40 = __p[1];
@@ -394,20 +394,20 @@ LABEL_70:
 
 + (void)compileWithModelConfig:(id)config completion:(id)completion
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   configCopy = config;
   completionCopy = completion;
   v16 = configCopy;
-  std::string::basic_string[abi:ne200100]<0>(&v19, "");
-  memset(v18, 0, sizeof(v18));
-  v8 = [self getMilPathWithModelConfig:configCopy files:v18];
+  std::string::basic_string[abi:ne200100]<0>(&v24, "");
+  memset(v23, 0, sizeof(v23));
+  v8 = [self getMilPathWithModelConfig:configCopy files:v23];
   if (v8 == 1)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
+    v26 = *MEMORY[0x1E696A578];
     configCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"mil file not found in: %@", configCopy];
-    v22 = configCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v27 = configCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.siri.quasar.espressoV2compilation" code:2 userInfo:v14];
     completionCopy[2](completionCopy, v15);
   }
@@ -420,26 +420,35 @@ LABEL_70:
       objc_claimAutoreleasedReturnValue();
       if (configCopy)
       {
-        [configCopy ear_toString];
+        objc_msgSend_ear_toString(configCopy);
       }
 
-      quasar::SystemConfig::SystemConfig(v17);
+      else
+      {
+        memset(__p, 0, 24);
+      }
+
+      memset(&v21, 0, sizeof(v21));
+      *v17 = 0u;
+      v18 = 0u;
+      LODWORD(v19) = 1065353216;
+      quasar::SystemConfig::SystemConfig(v22, __p, &v21, v17);
     }
 
     v9 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
+    v28 = *MEMORY[0x1E696A578];
     configCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"config file invalid: %@", configCopy];
-    v24[0] = configCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v29[0] = configCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v12 = [v9 errorWithDomain:@"com.apple.siri.quasar.espressoV2compilation" code:1 userInfo:v11];
     completionCopy[2](completionCopy, v12);
   }
 
-  v17[0] = v18;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v17);
-  if (v20 < 0)
+  v22[0] = v23;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v22);
+  if (v25 < 0)
   {
-    operator delete(v19);
+    operator delete(v24);
   }
 }
 
@@ -449,40 +458,40 @@ LABEL_70:
   configCopy = config;
   if (configCopy)
   {
-    [configCopy ear_toString];
+    objc_msgSend_ear_toString(configCopy);
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v9);
-      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Getting model config for compilation :", 38);
-      if ((v11 & 0x80u) == 0)
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v10);
+      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Getting model config for compilation :", 38);
+      if ((v12 & 0x80u) == 0)
       {
-        v6 = v10;
+        v6 = v11;
       }
 
       else
       {
-        v6 = v10[0];
+        v6 = v11[0];
       }
 
-      if ((v11 & 0x80u) == 0)
+      if ((v12 & 0x80u) == 0)
       {
-        v7 = v11;
+        v7 = v12;
       }
 
       else
       {
-        v7 = v10[1];
+        v7 = v11[1];
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v6, v7);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(v9);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(v10);
     }
 
-    memset(&v9[195], 0, 24);
-    v12 = 0u;
-    v13 = 0u;
+    memset(&v10[195], 0, 24);
+    memset(__p, 0, sizeof(__p));
+    memset(v13, 0, sizeof(v13));
     v14 = 1065353216;
-    quasar::SystemConfig::SystemConfig(v9);
+    quasar::SystemConfig::SystemConfig(v10, v11, __p, v13);
   }
 
   return 0;

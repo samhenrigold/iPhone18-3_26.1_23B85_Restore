@@ -14,55 +14,54 @@
   v8 = [v7 decodeTopLevelObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308] error:0];
   [v7 finishDecoding];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
     if (error)
     {
-      v10 = *MEMORY[0x277CCA450];
+      v11 = *MEMORY[0x277CCA450];
       v31[0] = @"Message decoding failed.";
-      v11 = *MEMORY[0x277CCA470];
-      v30[0] = v10;
-      v30[1] = v11;
-      v12 = MEMORY[0x277CCACA8];
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = [v12 stringWithFormat:@"Decoded class is not a subclass of %@: %@.", v14, v16];
-      v31[1] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v12 = *MEMORY[0x277CCA470];
+      v30[0] = v11;
+      v30[1] = v12;
+      v13 = MEMORY[0x277CCACA8];
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = [v13 stringWithFormat:@"Decoded class is not a subclass of %@: %@.", v15, v17];
+      v31[1] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
-      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9200 userInfo:v18];
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9200 userInfo:v19];
     }
 
     else if (_TRLogEnabled == 1)
     {
-      v19 = TRLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = TRLogHandle(isKindOfClass);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 136315650;
         v25 = "+[TRMessageDecoder decodeMessage:error:]";
         v26 = 2112;
-        v27 = v21;
+        v27 = v22;
         v28 = 2112;
         v29 = v8;
-        _os_log_impl(&dword_26F2A2000, v19, OS_LOG_TYPE_DEFAULT, "%s Decoded something other than a subclass of %@: %@", buf, 0x20u);
+        _os_log_impl(&dword_26F2A2000, v20, OS_LOG_TYPE_DEFAULT, "%s Decoded something other than a subclass of %@: %@", buf, 0x20u);
       }
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 @end

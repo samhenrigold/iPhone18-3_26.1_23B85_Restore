@@ -262,7 +262,7 @@ LABEL_40:
   v29 = v28;
   [v28 addSubview:*&v1[v4]];
 
-  v168 = sub_100005C30(&qword_1000160B0);
+  v168 = sub_100005C30(&qword_1000160B0, &qword_1000089E0);
   v30 = swift_allocObject();
   v165 = xmmword_1000086B0;
   *(v30 + 16) = xmmword_1000086B0;
@@ -299,7 +299,7 @@ LABEL_43:
   v42 = [v36 constraintEqualToAnchor:v41];
 
   *(v30 + 40) = v42;
-  v166 = sub_100005DFC(0, &qword_1000160B8);
+  v166 = sub_100005DFC(0, &qword_1000160B8, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v167 = v39;
@@ -528,9 +528,9 @@ LABEL_24:
 
   [v113 setTitle:v117];
 
-  sub_100005DFC(0, &qword_1000160C0);
+  sub_100005DFC(0, &qword_1000160C0, SBUISystemApertureButton_ptr);
   static UIButton.Configuration._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100005DFC(0, &qword_1000160C8);
+  sub_100005DFC(0, &qword_1000160C8, UIAction_ptr);
   *(swift_allocObject() + 16) = v77;
   v118 = v77;
   UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
@@ -670,7 +670,7 @@ uint64_t sub_100003B48(uint64_t a1, void *a2)
   v8 = *(v17 - 8);
   __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100005DFC(0, &qword_1000160D0);
+  sub_100005DFC(0, &qword_1000160D0, OS_dispatch_queue_ptr);
   v11 = static OS_dispatch_queue.main.getter();
   v12 = swift_allocObject();
   *(v12 + 16) = a2;
@@ -686,8 +686,8 @@ uint64_t sub_100003B48(uint64_t a1, void *a2)
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = &_swiftEmptyArrayStorage;
-  sub_1000058B8(&qword_1000160D8, &type metadata accessor for DispatchWorkItemFlags);
-  sub_100005C30(&qword_1000160E0);
+  sub_1000058B8(&qword_1000160D8, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_100005C30(&qword_1000160E0, &unk_1000089E8);
   sub_100005EAC();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -704,12 +704,12 @@ uint64_t sub_100003E18(uint64_t a1)
   v1(v2);
 }
 
-uint64_t sub_100003E5C(uint64_t a1)
+uint64_t sub_100003E5C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = *(a1 + 32);
+  v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v1(v2);
+  v2(v3);
 }
 
 void sub_100003EE0()
@@ -735,7 +735,7 @@ void sub_100003F48(uint64_t a1)
   {
     sub_100005B6C(*(a1 + 56) + 32 * v4, &v37);
     sub_100005B18(v36);
-    sub_100005DFC(0, &qword_1000160A0);
+    sub_100005DFC(0, &qword_1000160A0, NSDictionary_ptr);
     if (swift_dynamicCast())
     {
       *&v37 = 0x6D614E6574756F52;
@@ -801,7 +801,7 @@ void sub_100003F48(uint64_t a1)
             v24 = v23;
             [v23 addSubview:*&v2[v7]];
 
-            sub_100005C30(&qword_1000160B0);
+            sub_100005C30(&qword_1000160B0, &qword_1000089E0);
             v25 = swift_allocObject();
             *(v25 + 16) = xmmword_1000086B0;
             v26 = [*&v2[v7] leadingAnchor];
@@ -820,7 +820,7 @@ void sub_100003F48(uint64_t a1)
               v34 = [v32 constraintEqualToAnchor:v33 constant:2.0];
 
               *(v25 + 40) = v34;
-              sub_100005DFC(0, &qword_1000160B8);
+              sub_100005DFC(0, &qword_1000160B8, NSLayoutConstraint_ptr);
               isa = Array._bridgeToObjectiveC()().super.isa;
 
               [v29 activateConstraints:isa];
@@ -972,12 +972,12 @@ LABEL_27:
   [v4 setHidden:v9];
 }
 
-uint64_t sub_10000484C(uint64_t a1)
+uint64_t sub_10000484C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  v2 = swift_unknownObjectRetain();
-  v1(v2);
+  v3 = swift_unknownObjectRetain();
+  v2(v3);
 
   return swift_unknownObjectRelease();
 }
@@ -1089,45 +1089,46 @@ id sub_100004BF8(void *a1)
 void sub_100004F70(char a1)
 {
   v3 = &v1[OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_compressedElementSize];
-  *v3 = nullsub_1(14.3, 19.0);
-  *(v3 + 1) = v4;
-  v5 = &v1[OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_customElementSize];
-  v6 = nullsub_1(28.0, 37.7);
-  *v5 = v6;
-  v5[1] = v7;
+  nullsub_1();
+  *v3 = v4;
+  *(v3 + 1) = v5;
+  v6 = &v1[OBJC_IVAR____TtC10HearingApp21LiveListenLeadingView_customElementSize];
+  nullsub_1();
+  *v6 = v7;
+  v6[1] = v8;
   if (a1)
   {
-    v8 = *v3;
-    v9 = v3[1];
+    v9 = *v3;
+    v10 = v3[1];
   }
 
   else
   {
-    v8 = v6;
     v9 = v7;
+    v10 = v8;
   }
 
-  v20.receiver = v1;
-  v20.super_class = type metadata accessor for LiveListenLeadingView();
-  v10 = objc_msgSendSuper2(&v20, "initWithFrame:", 0.0, 0.0, v8, v9);
+  v21.receiver = v1;
+  v21.super_class = type metadata accessor for LiveListenLeadingView();
+  v11 = objc_msgSendSuper2(&v21, "initWithFrame:", 0.0, 0.0, v9, v10);
   type metadata accessor for LiveListenSystemApertureViewController();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v12 = objc_opt_self();
-  v13 = v10;
-  v14 = [v12 bundleForClass:ObjCClassFromMetadata];
-  v15 = String._bridgeToObjectiveC()();
-  v16 = [objc_opt_self() imageNamed:v15 inBundle:v14];
+  v13 = objc_opt_self();
+  v14 = v11;
+  v15 = [v13 bundleForClass:ObjCClassFromMetadata];
+  v16 = String._bridgeToObjectiveC()();
+  v17 = [objc_opt_self() imageNamed:v16 inBundle:v15];
 
-  if (v16)
+  if (v17)
   {
-    v17 = [v16 imageWithRenderingMode:2];
+    v18 = [v17 imageWithRenderingMode:2];
 
-    v18 = [objc_allocWithZone(UIImageView) initWithImage:v17];
-    [v18 setFrame:{0.0, 0.0, v8, v9}];
-    v19 = [objc_opt_self() systemOrangeColor];
-    [v18 setTintColor:v19];
+    v19 = [objc_allocWithZone(UIImageView) initWithImage:v18];
+    [v19 setFrame:{0.0, 0.0, v9, v10}];
+    v20 = [objc_opt_self() systemOrangeColor];
+    [v19 setTintColor:v20];
 
-    [v13 addSubview:v18];
+    [v14 addSubview:v19];
   }
 
   else
@@ -1191,12 +1192,12 @@ uint64_t sub_1000054C0(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_10000554C(uint64_t a1, unint64_t *a2)
+void sub_10000554C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -1217,12 +1218,12 @@ uint64_t sub_100005618(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_100005698@<X0>(void *a1@<X8>)
+uint64_t sub_100005698@<X0>(void *a3@<X8>)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String._bridgeToObjectiveC()();
+  v4 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a3 = v4;
   return result;
 }
 
@@ -1233,31 +1234,31 @@ void *sub_1000056DC@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_1000056F8@<X0>(void *a1@<X8>)
+uint64_t sub_1000056F8@<X0>(void *a2@<X8>)
 {
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_100005740@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_100005740@<X0>(uint64_t *a2@<X8>)
 {
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *a1 = result;
-  a1[1] = v3;
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
 uint64_t sub_10000576C(uint64_t a1)
 {
-  v2 = sub_1000058B8(&qword_100016090, type metadata accessor for SBUISystemApertureElementIdentifier);
-  v3 = sub_1000058B8(&qword_100016098, type metadata accessor for SBUISystemApertureElementIdentifier);
+  v2 = sub_1000058B8(&qword_100016090, type metadata accessor for SBUISystemApertureElementIdentifier, &unk_100008950);
+  v3 = sub_1000058B8(&qword_100016098, type metadata accessor for SBUISystemApertureElementIdentifier, &unk_1000088F8);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_1000058B8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000058B8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1270,45 +1271,45 @@ uint64_t sub_1000058B8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_100005900()
+uint64_t sub_100005900(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v0 = String.hashValue.getter();
+  v2 = String.hashValue.getter();
 
-  return v0;
+  return v2;
 }
 
-uint64_t sub_10000593C()
+uint64_t sub_10000593C(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_100005990()
+Swift::Int sub_100005990(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return v0;
+  return v2;
 }
 
-uint64_t sub_100005A04()
+uint64_t sub_100005A04(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t sub_100005AD4(uint64_t a1)
@@ -1329,12 +1330,12 @@ uint64_t sub_100005B6C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100005BC8(uint64_t a1)
 {
-  v2 = sub_100005C30(&qword_1000160A8);
+  v2 = sub_100005C30(&qword_1000160A8, &qword_1000089D8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_100005C30(uint64_t *a1)
+uint64_t sub_100005C30(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1385,7 +1386,7 @@ uint64_t sub_100005DDC(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100005DFC(uint64_t a1, unint64_t *a2)
+uint64_t sub_100005DFC(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -1409,7 +1410,7 @@ unint64_t sub_100005EAC()
   result = qword_1000160E8;
   if (!qword_1000160E8)
   {
-    sub_100005F10(&qword_1000160E0);
+    sub_100005F10(&qword_1000160E0, &unk_1000089E8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1000160E8);
   }
@@ -1417,7 +1418,7 @@ unint64_t sub_100005EAC()
   return result;
 }
 
-uint64_t sub_100005F10(uint64_t *a1)
+uint64_t sub_100005F10(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1564,11 +1565,11 @@ LABEL_14:
 id sub_100006730()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for HearingSessionSceneDelegate();
+  v2.super_class = type metadata accessor for HearingSessionSceneDelegate(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for HearingSessionSceneDelegate()
+uint64_t type metadata accessor for HearingSessionSceneDelegate(uint64_t a1)
 {
   result = qword_1000161E0;
   if (!qword_1000161E0)
@@ -1579,10 +1580,10 @@ uint64_t type metadata accessor for HearingSessionSceneDelegate()
   return result;
 }
 
-uint64_t sub_100006838()
+uint64_t sub_100006838(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -1880,7 +1881,7 @@ void *sub_100006D18(uint64_t a1, uint64_t a2)
     return &_swiftEmptyArrayStorage;
   }
 
-  sub_100005C30(&unk_1000161F0);
+  sub_100005C30(&unk_1000161F0, &unk_100008A20);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -1930,7 +1931,7 @@ char *sub_100006D8C(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_100005C30(&unk_1000161F0);
+    sub_100005C30(&unk_1000161F0, &unk_100008A20);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2037,9 +2038,9 @@ void sub_100007144(const char *a1)
   }
 }
 
-uint64_t sub_1000071F8(uint64_t a1)
+uint64_t sub_1000071F8(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }

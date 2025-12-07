@@ -64,9 +64,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = StandardActivityPickerItem.hash.getter();
+  v4 = StandardActivityPickerItem.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

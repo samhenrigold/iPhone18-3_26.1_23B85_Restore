@@ -11,7 +11,7 @@
 
 + (id)em_itemNotFoundErrorWithItemID:()EMNSErrorAdditions
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (_registerEMErrorDomainUserInfoValueProvider_onceToken != -1)
   {
@@ -20,22 +20,20 @@
 
   if (v4)
   {
-    v12 = @"itemID";
-    v13[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"itemID";
+    v12[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   }
 
   else
   {
-    v10 = @"itemID";
+    v9 = @"itemID";
     null = [MEMORY[0x1E695DFB0] null];
-    v11 = null;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v10 = null;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   }
 
   v7 = [self errorWithDomain:@"EMErrorDomain" code:1024 userInfo:v5];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -59,7 +57,7 @@
 
 + (id)em_internalErrorWithReason:()EMNSErrorAdditions userInfo:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (_registerEMErrorDomainUserInfoValueProvider_onceToken != -1)
@@ -92,15 +90,13 @@
 
   else
   {
-    v18 = @"reason";
-    v19[0] = v6;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = @"reason";
+    v18[0] = v6;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     [v9 setObject:v14 forKeyedSubscript:v10];
   }
 
   v15 = [self errorWithDomain:@"EMErrorDomain" code:1 userInfo:v9];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

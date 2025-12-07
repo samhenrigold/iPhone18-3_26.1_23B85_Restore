@@ -36,9 +36,12 @@
 
 uint64_t __33__NUMLModelRegistry_modelForKey___block_invoke(void *a1)
 {
-  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
+  v2 = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)unregisterModelForKey:(id)key

@@ -85,7 +85,7 @@
 
 void __60__HFItemManagerBatchedDelegateAdapter_beginBatchWithReason___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && ([*(a1 + 32) isFinished] & 1) == 0)
   {
@@ -94,49 +94,47 @@ void __60__HFItemManagerBatchedDelegateAdapter_beginBatchWithReason___block_invo
     {
       v4 = [WeakRetained uncommittedBatchingReasons];
       *buf = 138412290;
-      v19 = v4;
+      v18 = v4;
       _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_INFO, "Waited 15s to start executing a batch delegate operation, but it never committed. Will recover by forcibly committing batch. Remaining uncommittedBatchingReasons: %@", buf, 0xCu);
     }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = [WeakRetained uncommittedBatchingReasons];
     v6 = [v5 copy];
 
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [WeakRetained commitBatchWithReason:*(*(&v13 + 1) + 8 * v10++) senderSelector:*(a1 + 48)];
+          v11 = [WeakRetained commitBatchWithReason:*(*(&v12 + 1) + 8 * v10++) senderSelector:*(a1 + 48)];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)commitBatchWithReason:(id)reason senderSelector:(SEL)selector
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   uncommittedBatchingReasons = [(HFItemManagerBatchedDelegateAdapter *)self uncommittedBatchingReasons];
   v8 = [uncommittedBatchingReasons containsObject:reasonCopy];
@@ -146,9 +144,9 @@ void __60__HFItemManagerBatchedDelegateAdapter_beginBatchWithReason___block_invo
     v9 = HFLogForCategory(0x27uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = reasonCopy;
-      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Requested to commit a HFItemManagerBatchedDelegateAdapter batch with a reason that wasn't in flight: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = reasonCopy;
+      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Requested to commit a HFItemManagerBatchedDelegateAdapter batch with a reason that wasn't in flight: %@", &v15, 0xCu);
     }
   }
 
@@ -165,8 +163,6 @@ void __60__HFItemManagerBatchedDelegateAdapter_beginBatchWithReason___block_invo
     [(HFItemManagerBatchedDelegateAdapter *)self _executeBatch];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return finishExecutingBatchFuture;
 }
 
@@ -180,7 +176,7 @@ void __60__HFItemManagerBatchedDelegateAdapter_beginBatchWithReason___block_invo
 
 - (id)requestUpdateForItems:(id)items itemProviderInvalidationReasons:(id)reasons modifiedHome:(id)home senderSelector:(SEL)selector
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   reasonsCopy = reasons;
   homeCopy = home;
@@ -192,17 +188,17 @@ LABEL_16:
   }
 
   itemManager = [(HFItemManagerBatchedDelegateAdapter *)self itemManager];
-  home = [itemManager home];
+  v14 = objc_msgSend_home(itemManager);
 
-  if (!home)
+  if (!v14)
   {
     v28 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v31 = NSStringFromSelector(selector);
-      v37 = 138412290;
-      selfCopy = v31;
-      _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "Request to update for %@, but no home set", &v37, 0xCu);
+      v30 = NSStringFromSelector(selector);
+      v36 = 138412290;
+      selfCopy = v30;
+      _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "Request to update for %@, but no home set", &v36, 0xCu);
     }
 
     goto LABEL_16;
@@ -211,29 +207,29 @@ LABEL_16:
   if (homeCopy)
   {
     itemManager2 = [(HFItemManagerBatchedDelegateAdapter *)self itemManager];
-    home2 = [itemManager2 home];
+    v16 = objc_msgSend_home(itemManager2);
 
-    if (home2 != homeCopy)
+    if (v16 != homeCopy)
     {
       v17 = HFLogForCategory(0x2CuLL);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v32 = NSStringFromSelector(selector);
+        v31 = NSStringFromSelector(selector);
         hf_prettyDescription = [homeCopy hf_prettyDescription];
         itemManager3 = [(HFItemManagerBatchedDelegateAdapter *)self itemManager];
-        home3 = [itemManager3 home];
-        hf_prettyDescription2 = [home3 hf_prettyDescription];
-        v37 = 138413314;
+        v34 = objc_msgSend_home(itemManager3);
+        hf_prettyDescription2 = [v34 hf_prettyDescription];
+        v36 = 138413314;
         selfCopy = self;
-        v39 = 2112;
-        v40 = v32;
-        v41 = 2112;
-        v42 = hf_prettyDescription;
-        v43 = 2112;
-        v44 = hf_prettyDescription2;
-        v45 = 2112;
-        v46 = itemsCopy;
-        _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "Request %@ to update for %@, but home does not match. modifiedHome: %@ itemManager.home: %@. itemsToUpdate: %@", &v37, 0x34u);
+        v38 = 2112;
+        v39 = v31;
+        v40 = 2112;
+        v41 = hf_prettyDescription;
+        v42 = 2112;
+        v43 = hf_prettyDescription2;
+        v44 = 2112;
+        v45 = itemsCopy;
+        _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "Request %@ to update for %@, but home does not match. modifiedHome: %@ itemManager.home: %@. itemsToUpdate: %@", &v36, 0x34u);
       }
 
       goto LABEL_16;
@@ -260,11 +256,11 @@ LABEL_16:
       uncommittedBatchingReasons2 = [(HFItemManagerBatchedDelegateAdapter *)self uncommittedBatchingReasons];
       allObjects = [uncommittedBatchingReasons2 allObjects];
       v27 = [allObjects componentsJoinedByString:{@", "}];
-      v37 = 138412546;
+      v36 = 138412546;
       selfCopy = v24;
-      v39 = 2112;
-      v40 = v27;
-      _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Deferring update for: %@ because there are uncommitted delegate batching reasons: %@", &v37, 0x16u);
+      v38 = 2112;
+      v39 = v27;
+      _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Deferring update for: %@ because there are uncommitted delegate batching reasons: %@", &v36, 0x16u);
     }
   }
 
@@ -274,8 +270,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -306,7 +300,7 @@ uint64_t __84__HFItemManagerBatchedDelegateAdapter__itemProvidersToReloadForInva
 
 - (void)_executeBatch
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   startExecutingBatchFuture = [(HFItemManagerBatchedDelegateAdapter *)self startExecutingBatchFuture];
   v4 = NAEmptyResult();
   [startExecutingBatchFuture finishWithResult:v4];
@@ -341,11 +335,11 @@ uint64_t __84__HFItemManagerBatchedDelegateAdapter__itemProvidersToReloadForInva
     readPolicy2 = [(HFItemManagerBatchedDelegateAdapter *)self readPolicy];
     [itemManager setReadPolicy:readPolicy2];
 
-    v21[0] = HFItemUpdateOptionFullUpdateIndicated;
-    v21[1] = HFItemUpdateOptionDelegateDispatched;
-    v22[0] = MEMORY[0x277CBEC38];
-    v22[1] = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[0] = HFItemUpdateOptionFullUpdateIndicated;
+    v20[1] = HFItemUpdateOptionDelegateDispatched;
+    v21[0] = MEMORY[0x277CBEC38];
+    v21[1] = MEMORY[0x277CBEC38];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
     [itemManager setUpdateOptions:v16];
 
     readPolicy = [(HFItemManagerBatchedDelegateAdapter *)self itemManager];
@@ -357,7 +351,6 @@ uint64_t __84__HFItemManagerBatchedDelegateAdapter__itemProvidersToReloadForInva
   v19 = [v17 addCompletionBlock:completionHandlerAdapter];
 
 LABEL_6:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reset

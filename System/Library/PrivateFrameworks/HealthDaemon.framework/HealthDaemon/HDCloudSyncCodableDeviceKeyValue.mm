@@ -88,45 +88,43 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_domain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_value)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    protectionCategory = self->_protectionCategory;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -349,7 +347,7 @@ LABEL_20:
       goto LABEL_7;
     }
 
-    [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
   else
@@ -359,26 +357,26 @@ LABEL_20:
       goto LABEL_7;
     }
 
-    [(HDCloudSyncCodableDeviceKeyValue *)self setSyncIdentity:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceKeyValue *)self setSyncIdentity:?];
   }
 
   fromCopy = v8;
 LABEL_7:
   if (*(fromCopy + 3))
   {
-    [(HDCloudSyncCodableDeviceKeyValue *)self setDomain:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceKeyValue *)self setDomain:?];
     fromCopy = v8;
   }
 
   if (*(fromCopy + 4))
   {
-    [(HDCloudSyncCodableDeviceKeyValue *)self setKey:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceKeyValue *)self setKey:?];
     fromCopy = v8;
   }
 
   if (*(fromCopy + 6))
   {
-    [(HDCloudSyncCodableDeviceKeyValue *)self setValue:?];
+    syncIdentity = [(HDCloudSyncCodableDeviceKeyValue *)self setValue:?];
     fromCopy = v8;
   }
 
@@ -396,7 +394,7 @@ LABEL_7:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 @end

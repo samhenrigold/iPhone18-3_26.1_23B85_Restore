@@ -63,13 +63,12 @@ void __28__MXUtilities_containerPath__block_invoke()
 
 void __35__MXUtilities_getServicesAllowlist__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v2 pathForResource:@"services-privacy-allowdeny" ofType:@"plist"];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v1 pathForResource:@"services-privacy-allowdeny" ofType:@"plist"];
 
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v5];
-  v4 = getServicesAllowlist_d;
-  getServicesAllowlist_d = v3;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v4];
+  v3 = getServicesAllowlist_d;
+  getServicesAllowlist_d = v2;
 }
 
 + (BOOL)isAppAnalyticsEnabled

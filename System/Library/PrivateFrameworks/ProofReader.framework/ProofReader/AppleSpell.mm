@@ -28,6 +28,7 @@
 - (BOOL)inputStringIsPinyin:(id)pinyin allowPartialLastSyllable:(BOOL)syllable;
 - (BOOL)noSuggestForCompletion:(id)completion languageObject:(id)object appIdentifier:(id)identifier alreadyCapitalized:(BOOL)capitalized;
 - (BOOL)shouldBlockWord:(id)word languageObject:(id)object;
+- (BOOL)spellServer:(id)server canChangeCaseOfFirstLetterInString:(id)string toUpperCase:(BOOL)case language:(id)language;
 - (BOOL)spellServer:(id)server shouldBlockWord:(id)word language:(id)language offensiveOnly:(BOOL)only;
 - (BOOL)supportSentenceCorrectionForLanguageObject:(id)object appIdentifier:(id)identifier;
 - (BOOL)testTurkishSuffixationPattern:(id)pattern;
@@ -68,6 +69,7 @@
 - (id)_lexiconPathForLocalization:(id)localization type:(id)type;
 - (id)_lexiconsForLanguage:(id)language loadType:(int64_t)type;
 - (id)_lexiconsForLanguageObject:(id)object;
+- (id)_loadLexiconsForLanguage:(id)language localization:(id)localization cachedOnly:(BOOL)only onQueue:(id)queue;
 - (id)_loadNERTaggerOnQueue:(id)queue;
 - (id)_loadNLPLanguageModelWithType:(int64_t)type forLanguageObject:(id)object onQueue:(id)queue;
 - (id)_loadPhraseLexiconsForLanguage:(id)language localization:(id)localization onQueue:(id)queue;
@@ -151,12 +153,15 @@
 - (id)stringByRemovingArabicDiacriticsFromString:(id)string;
 - (id)stringByRemovingHebrewDiacriticsFromString:(id)string;
 - (id)taggerForLanguageObject:(id)object string:(id)string range:(_NSRange)range;
+- (id)transformerOrSiriLanguageModelForLanguageObject:(id)object appIdentifier:(id)identifier waitForResult:(BOOL)result;
 - (id)transformerParameterBundleForLanguageObject:(id)object;
 - (id)vietnameseModificationForWord:(id)word;
 - (id)wordLanguageModelForLanguage:(id)language appIdentifier:(id)identifier waitForResult:(BOOL)result;
+- (id)wordLanguageModelForLanguageObject:(id)object appIdentifier:(id)identifier waitForResult:(BOOL)result;
 - (unint64_t)_contextLengthForRange:(_NSRange)range languageObject:(id)object tagger:(id)tagger languageModel:(id)model maxContextLength:(unint64_t)length context:(unsigned int *)context cleanOffset:(unint64_t *)offset cleanContextRange:(_NSRange *)self0 lastTokenRange:(_NSRange *)self1 lastTokenID:(unsigned int *)self2;
 - (unint64_t)_getSplitIndexes:(unint64_t *)indexes maxCount:(unint64_t)count forPinyinInputString:(id)string;
 - (unint64_t)_resetLanguageModels;
+- (unint64_t)acceptabilityOfWordBuffer:(char *)buffer length:(unint64_t)length languageObject:(id)object forPrediction:(BOOL)prediction alreadyCapitalized:(BOOL)capitalized depth:(unint64_t)depth;
 - (unint64_t)loadedLexiconsCountForLanguageObject:(id)object;
 - (unint64_t)numberOfTurkishSuffixPointsInBuffer:(char *)buffer length:(unint64_t)length maxSuffixPoints:(unint64_t)points suffixPoints:(id *)suffixPoints;
 - (unsigned)_tokenIDForString:(id)string languageModel:(id)model languageObject:(id)object createIfAbsent:(BOOL)absent terminatorTokenID:(unsigned int)d;
@@ -174,6 +179,7 @@
 - (void)_readLanguageModelParametersFromDefaults;
 - (void)_readLanguageModelParametersFromDictionary:(id)dictionary;
 - (void)_releaseLanguageModels;
+- (void)addGuessesForKoreanWord:(id)word includeAdditionalGuesses:(BOOL)guesses toGuesses:(id)toGuesses;
 - (void)addLexiconGuessesForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object minCorrectionLength:(unint64_t)correctionLength minExtendedCorrectionLength:(unint64_t)extendedCorrectionLength isCapitalized:(BOOL)capitalized stopAfterFreeInsertions:(BOOL)self0 toGuesses:(id)self1;
 - (void)addModifiedPartialPinyinToArray:(id)array connection:(_PR_DB_IO *)connection fromIndex:(unint64_t)index prevIndex:(unint64_t)prevIndex prevPrevIndex:(unint64_t)prevPrevIndex prePrevPrevIndex:(unint64_t)prePrevPrevIndex startingModificationsAt:(unint64_t)at inBuffer:(char *)self0 length:(unint64_t)self1 initialSyllableCount:(unint64_t)self2 initialScore:(unint64_t)self3 prevScore:(unint64_t)self4 prevPrevScore:(unint64_t)self5 lastSyllableScore:(unint64_t)self6;
 - (void)addModifiedPinyinToArray:(id)array connection:(_PR_DB_IO *)connection fromIndex:(unint64_t)index prevIndex:(unint64_t)prevIndex prevPrevIndex:(unint64_t)prevPrevIndex startingModificationsAt:(unint64_t)at inBuffer:(char *)buffer length:(unint64_t)self0 initialSyllableCount:(unint64_t)self1 initialScore:(unint64_t)self2 prevScore:(unint64_t)self3 prevPrevScore:(unint64_t)self4 lastSyllableScore:(unint64_t)self5 couldBeAbbreviatedPinyin:(BOOL)self6;
@@ -279,7 +285,7 @@
 
 - (id)dataBundlesForLanguageObject:(id)object
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (object)
   {
     identifier = [object identifier];
@@ -290,12 +296,12 @@
     identifier = 0;
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3052000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3052000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
   if (identifier)
   {
     assetDataBundleSerialQueue = self->_assetDataBundleSerialQueue;
@@ -304,71 +310,71 @@
     block[2] = __43__AppleSpell_dataBundlesForLanguageObject___block_invoke;
     block[3] = &unk_1E84050D8;
     block[5] = identifier;
-    block[6] = &v31;
+    block[6] = &v30;
     block[4] = self;
     dispatch_sync(assetDataBundleSerialQueue, block);
   }
 
   v7 = [MEMORY[0x1E695DF70] arrayWithObject:{-[AppleSpell dataBundle](self, "dataBundle")}];
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v26 = 0u;
+  v25 = 0u;
   altBundleURLs = self->_altBundleURLs;
-  v9 = [(NSMutableArray *)altBundleURLs countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v9 = [(NSMutableArray *)altBundleURLs countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v9)
   {
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(altBundleURLs);
         }
 
-        v12 = [MEMORY[0x1E696AAE8] bundleWithURL:*(*(&v26 + 1) + 8 * i)];
+        v12 = [MEMORY[0x1E696AAE8] bundleWithURL:*(*(&v25 + 1) + 8 * i)];
         if (v12)
         {
           [v7 addObject:v12];
         }
       }
 
-      v9 = [(NSMutableArray *)altBundleURLs countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v9 = [(NSMutableArray *)altBundleURLs countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v9);
   }
 
-  v13 = v32[5];
+  v13 = v31[5];
   if (v13)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v37 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v36 count:16];
     if (v14)
     {
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = [MEMORY[0x1E696AAE8] bundleWithURL:*(*(&v22 + 1) + 8 * j)];
+          v17 = [MEMORY[0x1E696AAE8] bundleWithURL:*(*(&v21 + 1) + 8 * j)];
           if (v17)
           {
             [v7 addObject:v17];
           }
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v22 objects:v37 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v21 objects:v36 count:16];
       }
 
       while (v14);
@@ -377,19 +383,18 @@
 
   else if (identifier)
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __43__AppleSpell_dataBundlesForLanguageObject___block_invoke_2;
-    v21[3] = &unk_1E8405100;
-    v21[4] = self;
-    v21[5] = object;
-    v21[6] = identifier;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __43__AppleSpell_dataBundlesForLanguageObject___block_invoke_2;
+    v20[3] = &unk_1E8405100;
+    v20[4] = self;
+    v20[5] = object;
+    v20[6] = identifier;
     global_queue = dispatch_get_global_queue(25, 0);
-    dispatch_async(global_queue, v21);
+    dispatch_async(global_queue, v20);
   }
 
-  _Block_object_dispose(&v31, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
   return v7;
 }
 
@@ -430,7 +435,7 @@ void __43__AppleSpell_dataBundlesForLanguageObject___block_invoke_2(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __43__AppleSpell_dataBundlesForLanguageObject___block_invoke_3(void *a1)
+void *__43__AppleSpell_dataBundlesForLanguageObject___block_invoke_3(void *a1)
 {
   [*(a1[4] + 400) setObject:a1[5] forKey:a1[6]];
   result = [*(a1[4] + 408) addObject:a1[6]];
@@ -470,27 +475,27 @@ uint64_t __43__AppleSpell_dataBundlesForLanguageObject___block_invoke_3(void *a1
 
 - (id)databasePathForLanguageObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [(AppleSpell *)self dataBundlesForLanguageObject:0];
-  result = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v6 = result;
-    v7 = *v12;
+    v7 = *v11;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v11 + 1) + 8 * v8);
+      v9 = *(*(&v10 + 1) + 8 * v8);
       result = [v9 pathForResource:@"Dictionary.dat" ofType:0 inDirectory:0 forLocalization:{objc_msgSend(object, "localization")}];
       if (result)
       {
@@ -505,19 +510,18 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
         result = 0;
         if (v6)
         {
           goto LABEL_3;
         }
 
-        break;
+        return result;
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -908,45 +912,43 @@ LABEL_136:
 
 - (void)enumerateLexiconEntriesForWord:(id)word language:(id)language usingBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = [(AppleSpell *)self lexiconsForLanguageObject:[PRLanguage languageObjectWithIdentifier:language]];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __65__AppleSpell_enumerateLexiconEntriesForWord_language_usingBlock___block_invoke;
-        v14[3] = &unk_1E8405178;
-        v14[4] = block;
-        [v12 enumerateEntriesForString:word usingBlock:v14];
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __65__AppleSpell_enumerateLexiconEntriesForWord_language_usingBlock___block_invoke;
+        v13[3] = &unk_1E8405178;
+        v13[4] = block;
+        [v12 enumerateEntriesForString:word usingBlock:v13];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkGrammarInString:(id)string range:(_NSRange)range language:(id)language connection:(_PR_DB_IO *)connection sender:(id)sender bufIO:(_PR_BUF_IO *)o errorRange:(_NSRange *)errorRange details:(id *)self0
@@ -1168,17 +1170,17 @@ LABEL_66:
 - (_NSRange)spellServer:(id)server checkGrammarInString:(id)string range:(_NSRange)range language:(id)language orthography:(id)orthography mutableResults:(id)results offset:(unint64_t)offset details:(id *)self0
 {
   detailsCopy = details;
-  v47 = *MEMORY[0x1E69E9840];
-  memset(v44, 0, sizeof(v44));
+  v46 = *MEMORY[0x1E69E9840];
+  memset(v43, 0, sizeof(v43));
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v40 = 0;
   v39 = 0;
-  location = range.location;
   v38 = 0;
-  v36 = 0;
-  v45 = xmmword_1D2BF76A0;
+  location = range.location;
+  v37 = 0;
+  v35 = 0;
+  v44 = xmmword_1D2BF76A0;
   if (!language || (length = range.length, v14 = range.location, ([language isEqualToString:@"und"] & 1) != 0) || (objc_msgSend(language, "isEqualToString:", @"Multilingual") & 1) != 0 || (v17 = -[AppleSpell databaseConnectionForLanguageObject:](self, "databaseConnectionForLanguageObject:", +[PRLanguage languageObjectWithIdentifier:](PRLanguage, "languageObjectWithIdentifier:", language))) == 0 || v17[24] != 16)
   {
     v29 = 1;
@@ -1191,41 +1193,41 @@ LABEL_66:
   }
 
   LOBYTE(v18) = 0;
-  v34 = v17;
-  memset(&v44[1] + 8, 0, 56);
-  *(v44 + 8) = 0u;
-  v43 = 0;
-  v41 = 0;
+  v33 = v17;
+  memset(&v43[1] + 8, 0, 56);
+  *(v43 + 8) = 0u;
   v42 = 0;
-  v39 = 0;
   v40 = 0;
-  *&v44[0] = &v46;
-  WORD4(v44[0]) = *v17;
-  HIWORD(v41) = 256;
+  v41 = 0;
+  v38 = 0;
+  v39 = 0;
+  *&v43[0] = &v45;
+  WORD4(v43[0]) = *v17;
+  HIWORD(v40) = 256;
   v19 = v14 + length;
-  *(&v44[1] + 1) = &v41;
-  *&v44[2] = &v39;
-  BYTE13(v44[3]) = 0;
+  *(&v43[1] + 1) = &v40;
+  *&v43[2] = &v38;
+  BYTE13(v43[3]) = 0;
   while (location < v19)
   {
-    [string getParagraphStart:&v38 end:&location contentsEnd:&v36 forRange:?];
-    if (v38 < v19 && v36 > v38 && v36 > v14)
+    [string getParagraphStart:&v37 end:&location contentsEnd:&v35 forRange:?];
+    if (v37 < v19 && v35 > v37 && v35 > v14)
     {
-      v33 = detailsCopy;
-      v35 = 0;
-      v22 = v36 - v38;
-      if (v38 >= v14)
+      v32 = detailsCopy;
+      v34 = 0;
+      v22 = v35 - v37;
+      if (v37 >= v14)
       {
-        v23 = v38;
+        v23 = v37;
       }
 
       else
       {
-        v22 = v36 - v14;
+        v22 = v35 - v14;
         v23 = v14;
       }
 
-      if (v36 <= v19)
+      if (v35 <= v19)
       {
         v24 = v22;
       }
@@ -1239,24 +1241,24 @@ LABEL_66:
       {
         while (1)
         {
-          v45 = xmmword_1D2BF76A0;
-          v18 = [(AppleSpell *)self _checkGrammarInString:string range:v23 language:v24 connection:language sender:v34 bufIO:server errorRange:v44 details:&v45, &v35];
+          v44 = xmmword_1D2BF76A0;
+          v18 = [(AppleSpell *)self _checkGrammarInString:string range:v23 language:v24 connection:language sender:v33 bufIO:server errorRange:v43 details:&v44, &v34];
           if (!v18)
           {
             break;
           }
 
-          if (v45 == 0x7FFFFFFFFFFFFFFFLL || *(&v45 + 1) == 0)
+          if (v44 == 0x7FFFFFFFFFFFFFFFLL || *(&v44 + 1) == 0)
           {
             break;
           }
 
           if (!results)
           {
-            detailsCopy = v33;
-            if (v33)
+            detailsCopy = v32;
+            if (v32)
             {
-              *v33 = v35;
+              *v32 = v34;
             }
 
             v29 = 0;
@@ -1264,13 +1266,13 @@ LABEL_66:
           }
 
           v26 = objc_alloc(MEMORY[0x1E696AC50]);
-          v27 = [v26 initWithRange:v45 + offset details:{*(&v45 + 1), v35}];
+          v27 = [v26 initWithRange:v44 + offset details:{*(&v44 + 1), v34}];
           [results addObject:v27];
 
           v28 = v23 + v24;
-          v23 = *(&v45 + 1) + v45;
-          v24 = v28 - (*(&v45 + 1) + v45);
-          if (v28 <= *(&v45 + 1) + v45)
+          v23 = *(&v44 + 1) + v44;
+          v24 = v28 - (*(&v44 + 1) + v44);
+          if (v28 <= *(&v44 + 1) + v44)
           {
             LOBYTE(v18) = 1;
             break;
@@ -1278,13 +1280,13 @@ LABEL_66:
         }
       }
 
-      detailsCopy = v33;
+      detailsCopy = v32;
     }
   }
 
   v29 = !v18;
 LABEL_37:
-  PRbuf(v44, 0x11u, 0);
+  PRbuf(v43, 0x11u, 0);
   if (detailsCopy)
   {
 LABEL_33:
@@ -1296,9 +1298,8 @@ LABEL_33:
 
 LABEL_35:
   [(AppleSpell *)self resetTimer:server];
-  v31 = *(&v45 + 1);
-  v30 = v45;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *(&v44 + 1);
+  v30 = v44;
   result.length = v31;
   result.location = v30;
   return result;
@@ -1439,13 +1440,13 @@ LABEL_9:
 - (id)spellServer:(id)server checkString:(id)string offset:(unint64_t)offset types:(unint64_t)types options:(id)options orthography:(id)orthography wordCount:(int64_t *)count
 {
   obj = types;
-  v197 = *MEMORY[0x1E69E9840];
+  v196 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v139 = [string length];
-  v186 = -1;
+  v138 = [string length];
+  v185 = -1;
   v12 = [options objectForKey:@"KeyEventArray"];
-  v131 = _appIdentifierFromOptions(options);
-  v136 = [options objectForKey:@"RecheckOrthography"];
+  v130 = _appIdentifierFromOptions(options);
+  v135 = [options objectForKey:@"RecheckOrthography"];
   v13 = [options objectForKey:@"InsertionPoint"];
   v14 = [options objectForKey:@"SelectedRangeLocation"];
   v15 = [options objectForKey:@"SelectedRangeLength"];
@@ -1454,10 +1455,10 @@ LABEL_9:
   v18 = [options objectForKey:@"SelectedRange"];
   orthographyCopy = orthography;
   dominantScript = [orthography dominantScript];
-  v138 = v12;
+  v137 = v12;
   lastObject = [v12 lastObject];
-  v130 = [options objectForKey:@"ParameterBundles"];
-  v132 = v18;
+  v129 = [options objectForKey:@"ParameterBundles"];
+  v131 = v18;
   if (!v18)
   {
     if (v14 && v15)
@@ -1471,7 +1472,7 @@ LABEL_9:
     {
       if (!v13)
       {
-        v132 = 0;
+        v131 = 0;
         if (v16)
         {
           goto LABEL_9;
@@ -1485,7 +1486,7 @@ LABEL_9:
       unsignedIntegerValue2 = 0;
     }
 
-    v132 = [v21 valueWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
+    v131 = [v21 valueWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
   }
 
   if (v16)
@@ -1499,7 +1500,7 @@ LABEL_11:
   bOOLValue = 0;
 LABEL_12:
   v24 = orthographyCopy;
-  v25 = v138;
+  v25 = v137;
   if (v17)
   {
     bOOLValue2 = [v17 BOOLValue];
@@ -1556,7 +1557,7 @@ LABEL_25:
       v31 = [MEMORY[0x1E695DFA0] orderedSetWithObject:@"ru"];
       [v31 addObjectsFromArray:self->_userPreferredLanguages];
       array2 = [v31 array];
-      v127 = 0;
+      v126 = 0;
       userTopLanguages = 0;
       userPrefersUncheckedCyrillicLanguage = self->_userPrefersUncheckedCyrillicLanguage;
 LABEL_27:
@@ -1605,21 +1606,21 @@ LABEL_64:
       {
         if ([(NSArray *)self->_userPreferredLatinLanguages count])
         {
-          v109 = [MEMORY[0x1E695DEC8] arrayWithArray:self->_userPreferredLatinLanguages];
+          v108 = [MEMORY[0x1E695DEC8] arrayWithArray:self->_userPreferredLatinLanguages];
         }
 
         else
         {
-          v109 = [MEMORY[0x1E695DEC8] arrayWithObject:@"en"];
+          v108 = [MEMORY[0x1E695DEC8] arrayWithObject:@"en"];
         }
 
-        array2 = v109;
+        array2 = v108;
         if (lastObject)
         {
-          if ([v109 containsObject:@"tr"])
+          if ([v108 containsObject:@"tr"])
           {
             [objc_msgSend(lastObject "keyboardLayoutIdentifier")];
-            if (v111)
+            if (v110)
             {
               array2 = [MEMORY[0x1E695DF70] arrayWithArray:array2];
               [array2 removeObject:@"tr"];
@@ -1635,7 +1636,7 @@ LABEL_64:
           }
         }
 
-        v127 = 0;
+        v126 = 0;
         userTopLanguages = 0;
         userPrefersUncheckedCyrillicLanguage = self->_userPrefersUncheckedLatinLanguage;
         goto LABEL_27;
@@ -1648,7 +1649,7 @@ LABEL_64:
     v47 = [v36 orderedSetWithObject:v37];
     [v47 addObjectsFromArray:self->_userPreferredLanguages];
     array2 = [v47 array];
-    v127 = 0;
+    v126 = 0;
     userTopLanguages = 0;
     goto LABEL_64;
   }
@@ -1658,33 +1659,33 @@ LABEL_64:
     v38 = v29;
     v39 = v28;
     array2 = [MEMORY[0x1E695DF70] array];
+    v181 = 0u;
     v182 = 0u;
     v183 = 0u;
     v184 = 0u;
-    v185 = 0u;
     userPreferredLanguages = self->_userPreferredLanguages;
-    v41 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v182 objects:v196 count:16];
+    v41 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v181 objects:v195 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v183;
+      v43 = *v182;
       do
       {
         for (i = 0; i != v42; ++i)
         {
-          if (*v183 != v43)
+          if (*v182 != v43)
           {
             objc_enumerationMutation(userPreferredLanguages);
           }
 
-          v45 = *(*(&v182 + 1) + 8 * i);
+          v45 = *(*(&v181 + 1) + 8 * i);
           if ([v45 hasPrefix:dominantLanguage])
           {
             [array2 addObject:v45];
           }
         }
 
-        v42 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v182 objects:v196 count:16];
+        v42 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v181 objects:v195 count:16];
       }
 
       while (v42);
@@ -1697,7 +1698,7 @@ LABEL_64:
     }
 
     v24 = orthographyCopy;
-    v25 = v138;
+    v25 = v137;
     LOBYTE(v29) = v38;
   }
 
@@ -1707,7 +1708,7 @@ LABEL_64:
     {
       array2 = [MEMORY[0x1E695DEC8] arrayWithObject:dominantLanguage];
 LABEL_58:
-      v127 = 0;
+      v126 = 0;
       v46 = 0;
       userTopLanguages = 0;
       goto LABEL_65;
@@ -1716,49 +1717,49 @@ LABEL_58:
     array2 = [MEMORY[0x1E695DEC8] arrayWithObject:dominantLanguage];
   }
 
-  if (!v136 || ![v136 BOOLValue])
+  if (!v135 || ![v135 BOOLValue])
   {
     goto LABEL_58;
   }
 
   v46 = 0;
   userTopLanguages = selfCopy->_userTopLanguages;
-  v127 = 1;
+  v126 = 1;
 LABEL_65:
-  v137 = v28;
+  v136 = v28;
   if ([@"Arab" isEqualToString:dominantScript])
   {
     if (([array2 containsObject:@"ur"] & 1) == 0)
     {
-      v180 = 0u;
-      v181 = 0u;
-      v178 = 0u;
       v179 = 0u;
-      v48 = [v25 countByEnumeratingWithState:&v178 objects:v195 count:16];
+      v180 = 0u;
+      v177 = 0u;
+      v178 = 0u;
+      v48 = [v25 countByEnumeratingWithState:&v177 objects:v194 count:16];
       if (v48)
       {
         v49 = v48;
-        v123 = v46;
+        v122 = v46;
         v50 = userTopLanguages;
         v51 = v29;
-        v52 = *v179;
+        v52 = *v178;
         while (2)
         {
           for (j = 0; j != v49; ++j)
           {
-            if (*v179 != v52)
+            if (*v178 != v52)
             {
               objc_enumerationMutation(v25);
             }
 
-            if ([objc_msgSend(*(*(&v178 + 1) + 8 * j) "primaryLanguage")])
+            if ([objc_msgSend(*(*(&v177 + 1) + 8 * j) "primaryLanguage")])
             {
               array2 = [array2 arrayByAddingObject:@"ur"];
               goto LABEL_77;
             }
           }
 
-          v49 = [v25 countByEnumeratingWithState:&v178 objects:v195 count:16];
+          v49 = [v25 countByEnumeratingWithState:&v177 objects:v194 count:16];
           if (v49)
           {
             continue;
@@ -1769,45 +1770,45 @@ LABEL_65:
 
 LABEL_77:
         v24 = orthographyCopy;
-        LOBYTE(v28) = v137;
+        LOBYTE(v28) = v136;
         LOBYTE(v29) = v51;
         userTopLanguages = v50;
-        v46 = v123;
+        v46 = v122;
       }
     }
   }
 
   if ([@"Cyrl" isEqualToString:dominantScript] && (objc_msgSend(array2, "containsObject:", @"bg") & 1) == 0)
   {
-    v176 = 0u;
-    v177 = 0u;
-    v174 = 0u;
     v175 = 0u;
-    v54 = [v25 countByEnumeratingWithState:&v174 objects:v194 count:16];
+    v176 = 0u;
+    v173 = 0u;
+    v174 = 0u;
+    v54 = [v25 countByEnumeratingWithState:&v173 objects:v193 count:16];
     if (v54)
     {
       v55 = v54;
-      v124 = v46;
+      v123 = v46;
       v56 = userTopLanguages;
       v57 = v29;
-      v58 = *v175;
+      v58 = *v174;
       while (2)
       {
         for (k = 0; k != v55; ++k)
         {
-          if (*v175 != v58)
+          if (*v174 != v58)
           {
             objc_enumerationMutation(v25);
           }
 
-          if ([objc_msgSend(*(*(&v174 + 1) + 8 * k) "primaryLanguage")])
+          if ([objc_msgSend(*(*(&v173 + 1) + 8 * k) "primaryLanguage")])
           {
             array2 = [array2 arrayByAddingObject:@"bg"];
             goto LABEL_90;
           }
         }
 
-        v55 = [v25 countByEnumeratingWithState:&v174 objects:v194 count:16];
+        v55 = [v25 countByEnumeratingWithState:&v173 objects:v193 count:16];
         if (v55)
         {
           continue;
@@ -1818,49 +1819,49 @@ LABEL_77:
 
 LABEL_90:
       v24 = orthographyCopy;
-      LOBYTE(v28) = v137;
+      LOBYTE(v28) = v136;
       LOBYTE(v29) = v57;
       userTopLanguages = v56;
-      v46 = v124;
+      v46 = v123;
     }
 
     else
     {
-      LOBYTE(v28) = v137;
+      LOBYTE(v28) = v136;
     }
   }
 
   if ([@"Cyrl" isEqualToString:dominantScript] && (objc_msgSend(array2, "containsObject:", @"uk") & 1) == 0)
   {
-    v172 = 0u;
-    v173 = 0u;
-    v170 = 0u;
     v171 = 0u;
-    v60 = [v25 countByEnumeratingWithState:&v170 objects:v193 count:16];
+    v172 = 0u;
+    v169 = 0u;
+    v170 = 0u;
+    v60 = [v25 countByEnumeratingWithState:&v169 objects:v192 count:16];
     if (v60)
     {
       v61 = v60;
-      v125 = v46;
+      v124 = v46;
       v62 = userTopLanguages;
       v63 = v29;
-      v64 = *v171;
+      v64 = *v170;
       while (2)
       {
         for (m = 0; m != v61; ++m)
         {
-          if (*v171 != v64)
+          if (*v170 != v64)
           {
             objc_enumerationMutation(v25);
           }
 
-          if ([objc_msgSend(*(*(&v170 + 1) + 8 * m) "primaryLanguage")])
+          if ([objc_msgSend(*(*(&v169 + 1) + 8 * m) "primaryLanguage")])
           {
             array2 = [array2 arrayByAddingObject:@"uk"];
             goto LABEL_104;
           }
         }
 
-        v61 = [v25 countByEnumeratingWithState:&v170 objects:v193 count:16];
+        v61 = [v25 countByEnumeratingWithState:&v169 objects:v192 count:16];
         if (v61)
         {
           continue;
@@ -1871,46 +1872,46 @@ LABEL_90:
 
 LABEL_104:
       v24 = orthographyCopy;
-      LOBYTE(v28) = v137;
+      LOBYTE(v28) = v136;
       LOBYTE(v29) = v63;
       userTopLanguages = v62;
-      v46 = v125;
+      v46 = v124;
     }
 
     else
     {
-      LOBYTE(v28) = v137;
+      LOBYTE(v28) = v136;
     }
   }
 
   if ([@"Deva" isEqualToString:dominantScript] && (objc_msgSend(array2, "containsObject:", @"mr") & 1) == 0)
   {
-    v168 = 0u;
-    v169 = 0u;
-    v166 = 0u;
     v167 = 0u;
-    v66 = [v25 countByEnumeratingWithState:&v166 objects:v192 count:16];
+    v168 = 0u;
+    v165 = 0u;
+    v166 = 0u;
+    v66 = [v25 countByEnumeratingWithState:&v165 objects:v191 count:16];
     if (v66)
     {
       v67 = v66;
-      v68 = *v167;
+      v68 = *v166;
       while (2)
       {
         for (n = 0; n != v67; ++n)
         {
-          if (*v167 != v68)
+          if (*v166 != v68)
           {
             objc_enumerationMutation(v25);
           }
 
-          if ([objc_msgSend(*(*(&v166 + 1) + 8 * n) "primaryLanguage")])
+          if ([objc_msgSend(*(*(&v165 + 1) + 8 * n) "primaryLanguage")])
           {
             array2 = [array2 arrayByAddingObject:@"mr"];
             goto LABEL_118;
           }
         }
 
-        v67 = [v25 countByEnumeratingWithState:&v166 objects:v192 count:16];
+        v67 = [v25 countByEnumeratingWithState:&v165 objects:v191 count:16];
         if (v67)
         {
           continue;
@@ -1921,7 +1922,7 @@ LABEL_104:
 
 LABEL_118:
       v24 = orthographyCopy;
-      LOBYTE(v28) = v137;
+      LOBYTE(v28) = v136;
     }
 
     else
@@ -1939,11 +1940,11 @@ LABEL_118:
 LABEL_122:
       if (count)
       {
-        LOWORD(v117) = 1;
-        LODWORD(v114) = 0;
-        LOBYTE(v112) = 0;
+        LOWORD(v116) = 1;
+        LODWORD(v113) = 0;
+        LOBYTE(v111) = 0;
         stringCopy5 = string;
-        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v139 checkOrthography:array2 mutableResults:0 offset:v24 autocorrect:v112 onlyAtInsertionPoint:0 initialCapitalize:0 autocapitalize:v114 keyEventArray:0 appIdentifier:0 selectedRangeValue:0 parameterBundles:0 wordCount:&v186 countOnly:v117 appendCorrectionLanguage:0 correction:?];
+        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v138 checkOrthography:array2 mutableResults:0 offset:v24 autocorrect:v111 onlyAtInsertionPoint:0 initialCapitalize:0 autocapitalize:v113 keyEventArray:0 appIdentifier:0 selectedRangeValue:0 parameterBundles:0 wordCount:&v185 countOnly:v116 appendCorrectionLanguage:0 correction:?];
       }
 
       else
@@ -1965,46 +1966,46 @@ LABEL_122:
     }
   }
 
-  v121 = obj & 0x80000202;
-  v122 = obj & 0x40000202;
-  v126 = obj & 0x202;
-  BYTE1(v117) = bOOLValue2;
-  LOBYTE(v117) = 0;
-  v116 = v25;
-  BYTE1(v114) = bOOLValue;
+  v120 = obj & 0x80000202;
+  v121 = obj & 0x40000202;
+  v125 = obj & 0x202;
+  BYTE1(v116) = bOOLValue2;
+  LOBYTE(v116) = 0;
+  v115 = v25;
+  BYTE1(v113) = bOOLValue;
   stringCopy5 = string;
   v73 = array;
-  LOBYTE(v112) = v46;
-  BYTE3(v114) = v121 == 2147484162;
-  BYTE2(v114) = v122 == 1073742338;
-  LOBYTE(v114) = v126 == 514;
-  [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v139 checkOrthography:array2 mutableResults:userTopLanguages offset:v24 autocorrect:v112 onlyAtInsertionPoint:array initialCapitalize:offset autocapitalize:v114 keyEventArray:v116 appIdentifier:v131 selectedRangeValue:v132 parameterBundles:v130 wordCount:&v186 countOnly:v117 appendCorrectionLanguage:0 correction:?];
+  LOBYTE(v111) = v46;
+  BYTE3(v113) = v120 == 2147484162;
+  BYTE2(v113) = v121 == 1073742338;
+  LOBYTE(v113) = v125 == 514;
+  [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v138 checkOrthography:array2 mutableResults:userTopLanguages offset:v24 autocorrect:v111 onlyAtInsertionPoint:array initialCapitalize:offset autocapitalize:v113 keyEventArray:v115 appIdentifier:v130 selectedRangeValue:v131 parameterBundles:v129 wordCount:&v185 countOnly:v116 appendCorrectionLanguage:0 correction:?];
+  v161 = 0u;
   v162 = 0u;
   v163 = 0u;
   v164 = 0u;
-  v165 = 0u;
-  v74 = [array countByEnumeratingWithState:&v162 objects:v191 count:16];
+  v74 = [array countByEnumeratingWithState:&v161 objects:v190 count:16];
   if (v74)
   {
     v75 = v74;
     v76 = 0;
-    v77 = *v163;
+    v77 = *v162;
     do
     {
       for (ii = 0; ii != v75; ++ii)
       {
-        if (*v163 != v77)
+        if (*v162 != v77)
         {
           objc_enumerationMutation(array);
         }
 
-        if ([*(*(&v162 + 1) + 8 * ii) resultType] == 2)
+        if ([*(*(&v161 + 1) + 8 * ii) resultType] == 2)
         {
           ++v76;
         }
       }
 
-      v75 = [array countByEnumeratingWithState:&v162 objects:v191 count:16];
+      v75 = [array countByEnumeratingWithState:&v161 objects:v190 count:16];
     }
 
     while (v75);
@@ -2015,8 +2016,8 @@ LABEL_122:
     v76 = 0;
   }
 
-  v79 = v127;
-  if (v186 <= 0)
+  v79 = v126;
+  if (v185 <= 0)
   {
     v79 = 0;
   }
@@ -2026,73 +2027,73 @@ LABEL_122:
     goto LABEL_215;
   }
 
-  if (v186 >= 6)
+  if (v185 >= 6)
   {
-    v80 = v186 >= 2 * v76 || v71 == 0;
+    v80 = v185 >= 2 * v76 || v71 == 0;
     if (!v80 && ([v71 isGreek] & 1) == 0 && (objc_msgSend(v71, "isKorean") & 1) == 0 && (objc_msgSend(v71, "isPunjabi") & 1) == 0 && (objc_msgSend(v71, "isTelugu") & 1) == 0)
     {
       if ([(NSArray *)selfCopy->_userPreferredLatinLanguages count])
       {
-        v110 = [MEMORY[0x1E695DEC8] arrayWithArray:selfCopy->_userPreferredLatinLanguages];
+        v109 = [MEMORY[0x1E695DEC8] arrayWithArray:selfCopy->_userPreferredLatinLanguages];
       }
 
       else
       {
-        v110 = [MEMORY[0x1E695DEC8] arrayWithObject:@"en"];
+        v109 = [MEMORY[0x1E695DEC8] arrayWithObject:@"en"];
       }
 
-      objb = v110;
+      objb = v109;
       v24 = [MEMORY[0x1E696ADE0] orthographyWithDominantScript:@"Latn" languageMap:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObject:", @"und", @"Latn"}];
       [array removeAllObjects];
-      BYTE1(v118) = bOOLValue2;
-      LOBYTE(v118) = 0;
-      BYTE3(v115) = v121 == 2147484162;
-      BYTE2(v115) = v122 == 1073742338;
-      BYTE1(v115) = bOOLValue;
-      LOBYTE(v115) = v126 == 514;
-      LOBYTE(v113) = 1;
-      [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v139 checkOrthography:objb mutableResults:0 offset:v24 autocorrect:v113 onlyAtInsertionPoint:array initialCapitalize:offset autocapitalize:v115 keyEventArray:v138 appIdentifier:v131 selectedRangeValue:v132 parameterBundles:v130 wordCount:&v186 countOnly:v118 appendCorrectionLanguage:0 correction:?];
-      LOBYTE(v28) = v137;
+      BYTE1(v117) = bOOLValue2;
+      LOBYTE(v117) = 0;
+      BYTE3(v114) = v120 == 2147484162;
+      BYTE2(v114) = v121 == 1073742338;
+      BYTE1(v114) = bOOLValue;
+      LOBYTE(v114) = v125 == 514;
+      LOBYTE(v112) = 1;
+      [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v138 checkOrthography:objb mutableResults:0 offset:v24 autocorrect:v112 onlyAtInsertionPoint:array initialCapitalize:offset autocapitalize:v114 keyEventArray:v137 appIdentifier:v130 selectedRangeValue:v131 parameterBundles:v129 wordCount:&v185 countOnly:v117 appendCorrectionLanguage:0 correction:?];
+      LOBYTE(v28) = v136;
       goto LABEL_215;
     }
   }
 
-  v81 = v186;
-  if (v186 <= 5 && v76 >= 1 && v71 != 0)
+  v81 = v185;
+  if (v185 <= 5 && v76 >= 1 && v71 != 0)
   {
     if ([v71 isItalian] & 1) != 0 || (objc_msgSend(v71, "isSpanish") & 1) != 0 || (objc_msgSend(v71, "isPortuguese"))
     {
-      v119 = v71;
+      v118 = v71;
       countCopy4 = count;
       array3 = [MEMORY[0x1E695DF70] array];
       obja = [MEMORY[0x1E695DF70] array];
+      v157 = 0u;
       v158 = 0u;
       v159 = 0u;
       v160 = 0u;
-      v161 = 0u;
       userPreferredLatinLanguages = selfCopy->_userPreferredLatinLanguages;
-      v85 = [(NSArray *)userPreferredLatinLanguages countByEnumeratingWithState:&v158 objects:v190 count:16];
+      v85 = [(NSArray *)userPreferredLatinLanguages countByEnumeratingWithState:&v157 objects:v189 count:16];
       if (v85)
       {
         v86 = v85;
-        v87 = *v159;
+        v87 = *v158;
         do
         {
           for (jj = 0; jj != v86; ++jj)
           {
-            if (*v159 != v87)
+            if (*v158 != v87)
             {
               objc_enumerationMutation(userPreferredLatinLanguages);
             }
 
-            v89 = *(*(&v158 + 1) + 8 * jj);
+            v89 = *(*(&v157 + 1) + 8 * jj);
             if (([v89 hasPrefix:@"it"] & 1) != 0 || (objc_msgSend(v89, "hasPrefix:", @"es") & 1) != 0 || objc_msgSend(v89, "hasPrefix:", @"pt"))
             {
               [array3 addObject:v89];
             }
           }
 
-          v86 = [(NSArray *)userPreferredLatinLanguages countByEnumeratingWithState:&v158 objects:v190 count:16];
+          v86 = [(NSArray *)userPreferredLatinLanguages countByEnumeratingWithState:&v157 objects:v189 count:16];
         }
 
         while (v86);
@@ -2101,48 +2102,48 @@ LABEL_122:
       stringCopy5 = string;
       v73 = array;
       v24 = orthographyCopy;
-      LOBYTE(v28) = v137;
-      v71 = v119;
+      LOBYTE(v28) = v136;
+      v71 = v118;
       countCopy5 = count;
       if ([array3 count])
       {
         v24 = [MEMORY[0x1E696ADE0] orthographyWithDominantScript:@"Latn" languageMap:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObject:", @"und", @"Latn"}];
-        BYTE1(v118) = bOOLValue2;
-        LOBYTE(v118) = 0;
-        BYTE3(v115) = v121 == 2147484162;
-        BYTE2(v115) = v122 == 1073742338;
-        BYTE1(v115) = bOOLValue;
-        LOBYTE(v115) = v126 == 514;
-        LOBYTE(v113) = 1;
-        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v139 checkOrthography:array3 mutableResults:0 offset:v24 autocorrect:v113 onlyAtInsertionPoint:obja initialCapitalize:offset autocapitalize:v115 keyEventArray:v138 appIdentifier:v131 selectedRangeValue:v132 parameterBundles:v130 wordCount:&v186 countOnly:v118 appendCorrectionLanguage:0 correction:?];
+        BYTE1(v117) = bOOLValue2;
+        LOBYTE(v117) = 0;
+        BYTE3(v114) = v120 == 2147484162;
+        BYTE2(v114) = v121 == 1073742338;
+        BYTE1(v114) = bOOLValue;
+        LOBYTE(v114) = v125 == 514;
+        LOBYTE(v112) = 1;
+        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v138 checkOrthography:array3 mutableResults:0 offset:v24 autocorrect:v112 onlyAtInsertionPoint:obja initialCapitalize:offset autocapitalize:v114 keyEventArray:v137 appIdentifier:v130 selectedRangeValue:v131 parameterBundles:v129 wordCount:&v185 countOnly:v117 appendCorrectionLanguage:0 correction:?];
+        v153 = 0u;
         v154 = 0u;
         v155 = 0u;
         v156 = 0u;
-        v157 = 0u;
-        v90 = [obja countByEnumeratingWithState:&v154 objects:v189 count:16];
+        v90 = [obja countByEnumeratingWithState:&v153 objects:v188 count:16];
         if (v90)
         {
           v91 = v90;
           v92 = 0;
-          v93 = *v155;
-          LOBYTE(v28) = v137;
-          v71 = v119;
+          v93 = *v154;
+          LOBYTE(v28) = v136;
+          v71 = v118;
           do
           {
             for (kk = 0; kk != v91; ++kk)
             {
-              if (*v155 != v93)
+              if (*v154 != v93)
               {
                 objc_enumerationMutation(obja);
               }
 
-              if ([*(*(&v154 + 1) + 8 * kk) resultType] == 2)
+              if ([*(*(&v153 + 1) + 8 * kk) resultType] == 2)
               {
                 ++v92;
               }
             }
 
-            v91 = [obja countByEnumeratingWithState:&v154 objects:v189 count:16];
+            v91 = [obja countByEnumeratingWithState:&v153 objects:v188 count:16];
           }
 
           while (v91);
@@ -2151,8 +2152,8 @@ LABEL_122:
 
 LABEL_211:
         v92 = 0;
-        LOBYTE(v28) = v137;
-        v71 = v119;
+        LOBYTE(v28) = v136;
+        v71 = v118;
 LABEL_212:
         if (v92 < v76)
         {
@@ -2166,7 +2167,7 @@ LABEL_212:
       goto LABEL_215;
     }
 
-    v81 = v186;
+    v81 = v185;
   }
 
   if (v81 <= 20)
@@ -2174,37 +2175,37 @@ LABEL_212:
     v95 = v76 < 1 || v71 == 0;
     if (!v95 && (([v71 isDanish] & 1) != 0 || (objc_msgSend(v71, "isNorwegian") & 1) != 0 || objc_msgSend(v71, "isSwedish")))
     {
-      v119 = v71;
+      v118 = v71;
       countCopy4 = count;
       array4 = [MEMORY[0x1E695DF70] array];
       obja = [MEMORY[0x1E695DF70] array];
+      v149 = 0u;
       v150 = 0u;
       v151 = 0u;
       v152 = 0u;
-      v153 = 0u;
       v97 = selfCopy->_userPreferredLatinLanguages;
-      v98 = [(NSArray *)v97 countByEnumeratingWithState:&v150 objects:v188 count:16];
+      v98 = [(NSArray *)v97 countByEnumeratingWithState:&v149 objects:v187 count:16];
       if (v98)
       {
         v99 = v98;
-        v100 = *v151;
+        v100 = *v150;
         do
         {
           for (mm = 0; mm != v99; ++mm)
           {
-            if (*v151 != v100)
+            if (*v150 != v100)
             {
               objc_enumerationMutation(v97);
             }
 
-            v102 = *(*(&v150 + 1) + 8 * mm);
+            v102 = *(*(&v149 + 1) + 8 * mm);
             if (([v102 hasPrefix:@"da"] & 1) != 0 || (objc_msgSend(v102, "hasPrefix:", @"nb") & 1) != 0 || objc_msgSend(v102, "hasPrefix:", @"sv"))
             {
               [array4 addObject:v102];
             }
           }
 
-          v99 = [(NSArray *)v97 countByEnumeratingWithState:&v150 objects:v188 count:16];
+          v99 = [(NSArray *)v97 countByEnumeratingWithState:&v149 objects:v187 count:16];
         }
 
         while (v99);
@@ -2213,48 +2214,48 @@ LABEL_212:
       stringCopy5 = string;
       v73 = array;
       v24 = orthographyCopy;
-      LOBYTE(v28) = v137;
-      v71 = v119;
+      LOBYTE(v28) = v136;
+      v71 = v118;
       countCopy5 = count;
       if ([array4 count])
       {
         v24 = [MEMORY[0x1E696ADE0] orthographyWithDominantScript:@"Latn" languageMap:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObject:", @"und", @"Latn"}];
-        BYTE1(v118) = bOOLValue2;
-        LOBYTE(v118) = 0;
-        BYTE3(v115) = v121 == 2147484162;
-        BYTE2(v115) = v122 == 1073742338;
-        BYTE1(v115) = bOOLValue;
-        LOBYTE(v115) = v126 == 514;
-        LOBYTE(v113) = 1;
-        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v139 checkOrthography:array4 mutableResults:0 offset:v24 autocorrect:v113 onlyAtInsertionPoint:obja initialCapitalize:offset autocapitalize:v115 keyEventArray:v138 appIdentifier:v131 selectedRangeValue:v132 parameterBundles:v130 wordCount:&v186 countOnly:v118 appendCorrectionLanguage:0 correction:?];
+        BYTE1(v117) = bOOLValue2;
+        LOBYTE(v117) = 0;
+        BYTE3(v114) = v120 == 2147484162;
+        BYTE2(v114) = v121 == 1073742338;
+        BYTE1(v114) = bOOLValue;
+        LOBYTE(v114) = v125 == 514;
+        LOBYTE(v112) = 1;
+        [AppleSpell spellServer:selfCopy findMisspelledWordInString:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" range:server languages:string topLanguages:0 orthography:v138 checkOrthography:array4 mutableResults:0 offset:v24 autocorrect:v112 onlyAtInsertionPoint:obja initialCapitalize:offset autocapitalize:v114 keyEventArray:v137 appIdentifier:v130 selectedRangeValue:v131 parameterBundles:v129 wordCount:&v185 countOnly:v117 appendCorrectionLanguage:0 correction:?];
+        v145 = 0u;
         v146 = 0u;
         v147 = 0u;
         v148 = 0u;
-        v149 = 0u;
-        v103 = [obja countByEnumeratingWithState:&v146 objects:v187 count:16];
+        v103 = [obja countByEnumeratingWithState:&v145 objects:v186 count:16];
         if (v103)
         {
           v104 = v103;
           v92 = 0;
-          v105 = *v147;
-          LOBYTE(v28) = v137;
-          v71 = v119;
+          v105 = *v146;
+          LOBYTE(v28) = v136;
+          v71 = v118;
           do
           {
             for (nn = 0; nn != v104; ++nn)
             {
-              if (*v147 != v105)
+              if (*v146 != v105)
               {
                 objc_enumerationMutation(obja);
               }
 
-              if ([*(*(&v146 + 1) + 8 * nn) resultType] == 2)
+              if ([*(*(&v145 + 1) + 8 * nn) resultType] == 2)
               {
                 ++v92;
               }
             }
 
-            v104 = [obja countByEnumeratingWithState:&v146 objects:v187 count:16];
+            v104 = [obja countByEnumeratingWithState:&v145 objects:v186 count:16];
           }
 
           while (v104);
@@ -2269,15 +2270,14 @@ LABEL_212:
 LABEL_215:
   if ((v28 & (v71 != 0)) == 1)
   {
-    -[AppleSpell spellServer:checkGrammarInString:range:language:orthography:mutableResults:offset:details:](selfCopy, "spellServer:checkGrammarInString:range:language:orthography:mutableResults:offset:details:", server, stringCopy5, 0, v139, [v71 identifier], v24, v73, offset, 0);
+    -[AppleSpell spellServer:checkGrammarInString:range:language:orthography:mutableResults:offset:details:](selfCopy, "spellServer:checkGrammarInString:range:language:orthography:mutableResults:offset:details:", server, stringCopy5, 0, v138, [v71 identifier], v24, v73, offset, 0);
   }
 
   if (countCopy5)
   {
-    *countCopy5 = v186;
+    *countCopy5 = v185;
   }
 
-  v107 = *MEMORY[0x1E69E9840];
   return v73;
 }
 
@@ -2290,7 +2290,7 @@ LABEL_215:
 
 - (id)spellServer:(id)server stringForInputString:(id)string language:(id)language
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!language || ([language isEqualToString:@"und"] & 1) != 0 || objc_msgSend(language, "isEqualToString:", @"Multilingual"))
   {
     v9 = [(NSArray *)self->_userPreferredLatinLanguages count];
@@ -2316,42 +2316,49 @@ LABEL_9:
   v14 = [+[PRLanguage languageObjectWithIdentifier:](PRLanguage languageObjectWithIdentifier:{language), "encoding"}];
   v15 = [string length];
   theString = 0;
-  LOWORD(v25) = 0;
-  LODWORD(v24) = 1;
-  LOBYTE(v23) = 0;
-  [AppleSpell spellServer:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" findMisspelledWordInString:server range:string languages:0 topLanguages:v15 orthography:v13 checkOrthography:0 mutableResults:0 offset:v23 autocorrect:0 onlyAtInsertionPoint:0 initialCapitalize:v24 autocapitalize:0 keyEventArray:0 appIdentifier:0 selectedRangeValue:0 parameterBundles:0 wordCount:v25 countOnly:&theString appendCorrectionLanguage:? correction:?];
+  LOWORD(v24) = 0;
+  LODWORD(v23) = 1;
+  LOBYTE(v22) = 0;
+  [AppleSpell spellServer:"spellServer:findMisspelledWordInString:range:languages:topLanguages:orthography:checkOrthography:mutableResults:offset:autocorrect:onlyAtInsertionPoint:initialCapitalize:autocapitalize:keyEventArray:appIdentifier:selectedRangeValue:parameterBundles:wordCount:countOnly:appendCorrectionLanguage:correction:" findMisspelledWordInString:server range:string languages:0 topLanguages:v15 orthography:v13 checkOrthography:0 mutableResults:0 offset:v22 autocorrect:0 onlyAtInsertionPoint:0 initialCapitalize:v23 autocapitalize:0 keyEventArray:0 appIdentifier:0 selectedRangeValue:0 parameterBundles:0 wordCount:v24 countOnly:&theString appendCorrectionLanguage:? correction:?];
   if (v16)
   {
-    v26 = 0;
+    v25 = 0;
     usedBufLen = 0;
     v17 = [(__CFString *)theString length];
     v18 = 0;
     if (v15 >= 5 && theString)
     {
       v19 = v17;
-      v32.location = 0;
-      v32.length = v15;
-      if (v15 == CFStringGetBytes(string, v32, v14, 0x5Fu, 0, buffer, 24, &usedBufLen) && (v33.location = 0, v33.length = v19, v19 == CFStringGetBytes(theString, v33, v14, 0x5Fu, 0, v29, 24, &v26)))
+      v31.location = 0;
+      v31.length = v15;
+      if (v15 == CFStringGetBytes(string, v31, v14, 0x5Fu, 0, buffer, 24, &usedBufLen) && (v32.location = 0, v32.length = v19, v19 == CFStringGetBytes(theString, v32, v14, 0x5Fu, 0, v28, 24, &v25)))
       {
-        v20 = effectiveEditDistance(buffer, usedBufLen, v29, v26);
+        v20 = effectiveEditDistance(buffer, usedBufLen, v28, v25);
         v18 = theString;
         if (v20 != 1)
         {
-          v18 = 0;
+          return 0;
         }
       }
 
       else
       {
-        v18 = 0;
+        return 0;
       }
     }
 
-    string = v18;
+    return v18;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return string;
+}
+
+- (BOOL)spellServer:(id)server canChangeCaseOfFirstLetterInString:(id)string toUpperCase:(BOOL)case language:(id)language
+{
+  caseCopy = case;
+  v10 = [PRLanguage languageObjectWithIdentifier:language];
+
+  return [(AppleSpell *)self _spellServer:server canChangeCaseOfFirstLetterInString:string toUpperCase:caseCopy languageObject:v10];
 }
 
 - (id)sentenceTerminatorCharacterSet
@@ -2475,164 +2482,160 @@ id __112__AppleSpell_LanguageModeling___tokenIDForString_languageModel_languageO
 
 - (id)_stringForTokenIDs:(const unsigned int *)ds tokenCount:(unint64_t)count entryString:(id)string languageModel:(id)model languageObject:(id)object connection:(_PR_DB_IO *)connection sender:(id)sender prefix:(id)self0 capitalized:(BOOL)self1
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   encoding = [object encoding];
-  if (model)
+  if (!model)
   {
-    if (count)
+    return 0;
+  }
+
+  if (count)
+  {
+    v17 = 0;
+    v28 = 0;
+    do
     {
-      v17 = 0;
-      v29 = 0;
-      do
+      if (ds[v17] < 0x1F4)
       {
-        if (ds[v17] < 0x1F4)
-        {
-          stringCopy2 = 0;
-        }
-
-        else
-        {
-          stringCopy2 = [model stringForTokenID:?];
-        }
-
-        isArabic = [object isArabic];
-        if (!string || v17)
-        {
-          if (!stringCopy2)
-          {
-            goto LABEL_42;
-          }
-        }
-
-        else if (stringCopy2)
-        {
-          if (isArabic && ![(__CFString *)stringCopy2 isEqualToString:string])
-          {
-            stringCopy2 = string;
-          }
-        }
-
-        else
-        {
-          stringCopy2 = string;
-          if (*ds)
-          {
-            goto LABEL_42;
-          }
-        }
-
-        if (([(__CFString *)stringCopy2 isEqualToString:@"NUMBER"]& 1) != 0 || ([(__CFString *)stringCopy2 isEqualToString:@"LINK"]& 1) != 0)
-        {
-          goto LABEL_42;
-        }
-
-        if (!prefix || v17)
-        {
-          -[__CFString rangeOfCharacterFromSet:](stringCopy2, "rangeOfCharacterFromSet:", [MEMORY[0x1E696AB08] alphanumericCharacterSet]);
-          if (!v20)
-          {
-            goto LABEL_42;
-          }
-        }
-
-        else if ((acceptAsCompletion(stringCopy2, prefix, object) & 1) == 0)
-        {
-          goto LABEL_42;
-        }
-
-        v21 = [(__CFString *)stringCopy2 length];
-        v33 = 0;
-        if (v21)
-        {
-          v36.location = 0;
-          v36.length = v21;
-          if (v21 == CFStringGetBytes(stringCopy2, v36, encoding, 0x5Fu, 0, buffer, 254, &v33))
-          {
-            BYTE6(usedBufLen) = 1;
-            WORD2(usedBufLen) = 257;
-            LODWORD(usedBufLen) = 16842753;
-            if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v33 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLen checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)self checkWordBuffer:buffer length:v33 languageObject:object index:1]|| [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:v33 languageObject:object forPrediction:1 alreadyCapitalized:capitalized]< 2)
-            {
-LABEL_42:
-              [array removeAllObjects];
-              break;
-            }
-          }
-        }
-
-        isKorean = [object isKorean];
-        isTurkish = [object isTurkish];
-        if (isKorean)
-        {
-          v24 = [(AppleSpell *)self externalStringForKoreanInternalString:stringCopy2];
-        }
-
-        else
-        {
-          if (v17)
-          {
-            goto LABEL_32;
-          }
-
-          if (!capitalized)
-          {
-            goto LABEL_32;
-          }
-
-          v25 = isTurkish;
-          if (![(__CFString *)stringCopy2 isEqualToString:[(__CFString *)stringCopy2 lowercaseString]])
-          {
-            goto LABEL_32;
-          }
-
-          if (v25)
-          {
-            v29 = _stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale;
-            if (!_stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale)
-            {
-              v29 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:@"tr"];
-              _stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale = v29;
-            }
-          }
-
-          v24 = initialCapitalizedString(stringCopy2, v29);
-        }
-
-        stringCopy2 = v24;
-LABEL_32:
-        [array addObject:stringCopy2];
-        ++v17;
+        stringCopy2 = 0;
       }
 
-      while (count != v17);
+      else
+      {
+        stringCopy2 = [model stringForTokenID:?];
+      }
+
+      isArabic = [object isArabic];
+      if (!string || v17)
+      {
+        if (!stringCopy2)
+        {
+          goto LABEL_42;
+        }
+      }
+
+      else if (stringCopy2)
+      {
+        if (isArabic && ![(__CFString *)stringCopy2 isEqualToString:string])
+        {
+          stringCopy2 = string;
+        }
+      }
+
+      else
+      {
+        stringCopy2 = string;
+        if (*ds)
+        {
+          goto LABEL_42;
+        }
+      }
+
+      if (([(__CFString *)stringCopy2 isEqualToString:@"NUMBER"]& 1) != 0 || ([(__CFString *)stringCopy2 isEqualToString:@"LINK"]& 1) != 0)
+      {
+        goto LABEL_42;
+      }
+
+      if (!prefix || v17)
+      {
+        -[__CFString rangeOfCharacterFromSet:](stringCopy2, "rangeOfCharacterFromSet:", [MEMORY[0x1E696AB08] alphanumericCharacterSet]);
+        if (!v20)
+        {
+          goto LABEL_42;
+        }
+      }
+
+      else if (!acceptAsCompletion(stringCopy2, prefix, object))
+      {
+        goto LABEL_42;
+      }
+
+      v21 = [(__CFString *)stringCopy2 length];
+      v32 = 0;
+      if (v21)
+      {
+        v35.location = 0;
+        v35.length = v21;
+        if (v21 == CFStringGetBytes(stringCopy2, v35, encoding, 0x5Fu, 0, buffer, 254, &v32))
+        {
+          BYTE6(usedBufLen) = 1;
+          WORD2(usedBufLen) = 257;
+          LODWORD(usedBufLen) = 16842753;
+          if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v32 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLen checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)self checkWordBuffer:buffer length:v32 languageObject:object index:1]|| [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:v32 languageObject:object forPrediction:1 alreadyCapitalized:capitalized]< 2)
+          {
+LABEL_42:
+            [array removeAllObjects];
+            break;
+          }
+        }
+      }
+
+      isKorean = [object isKorean];
+      isTurkish = [object isTurkish];
+      if (isKorean)
+      {
+        v24 = [(AppleSpell *)self externalStringForKoreanInternalString:stringCopy2];
+      }
+
+      else
+      {
+        if (v17)
+        {
+          goto LABEL_32;
+        }
+
+        if (!capitalized)
+        {
+          goto LABEL_32;
+        }
+
+        v25 = isTurkish;
+        if (![(__CFString *)stringCopy2 isEqualToString:[(__CFString *)stringCopy2 lowercaseString]])
+        {
+          goto LABEL_32;
+        }
+
+        if (v25)
+        {
+          v28 = _stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale;
+          if (!_stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale)
+          {
+            v28 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:@"tr"];
+            _stringForTokenIDs_tokenCount_entryString_languageModel_languageObject_connection_sender_prefix_capitalized__turkishLocale = v28;
+          }
+        }
+
+        v24 = initialCapitalizedString(stringCopy2, v28);
+      }
+
+      stringCopy2 = v24;
+LABEL_32:
+      [array addObject:stringCopy2];
+      ++v17;
     }
 
-    result = [array count];
-    if (result)
-    {
-      result = [array componentsJoinedByString:@" "];
-    }
+    while (count != v17);
   }
 
-  else
+  result = [array count];
+  if (result)
   {
-    result = 0;
+    return [array componentsJoinedByString:@" "];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)_stringForCompletion:(id)completion languageModel:(id)model languageObject:(id)object connection:(_PR_DB_IO *)connection sender:(id)sender prefix:(id)prefix capitalized:(BOOL)capitalized
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   if (prefix)
   {
-    if ((acceptAsCompletion(completion, prefix, object) & 1) == 0)
+    if (!acceptAsCompletion(completion, prefix, object))
     {
-      goto LABEL_12;
+      return 0;
     }
   }
 
@@ -2641,37 +2644,35 @@ LABEL_32:
     [completion rangeOfCharacterFromSet:{objc_msgSend(MEMORY[0x1E696AB08], "alphanumericCharacterSet")}];
     if (!v17)
     {
-LABEL_12:
-      completion = 0;
-      goto LABEL_20;
+      return 0;
     }
   }
 
   v18 = [completion length];
-  v26 = 0;
+  v25 = 0;
   if (v18)
   {
-    v29.location = 0;
-    v29.length = v18;
-    if (v18 == CFStringGetBytes(completion, v29, encoding, 0x5Fu, 0, buffer, 254, &v26))
+    v28.location = 0;
+    v28.length = v18;
+    if (v18 == CFStringGetBytes(completion, v28, encoding, 0x5Fu, 0, buffer, 254, &v25))
     {
       BYTE6(usedBufLen) = 1;
       WORD2(usedBufLen) = 257;
       LODWORD(usedBufLen) = 16842753;
-      if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v26 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLen checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+      if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v25 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLen checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
       {
-        goto LABEL_12;
+        return 0;
       }
 
-      if ([(AppleSpell *)self checkWordBuffer:buffer length:v26 languageObject:object index:1])
+      if ([(AppleSpell *)self checkWordBuffer:buffer length:v25 languageObject:object index:1])
       {
-        goto LABEL_12;
+        return 0;
       }
 
-      v19 = [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:v26 languageObject:object forPrediction:1 alreadyCapitalized:capitalized];
+      v19 = [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:v25 languageObject:object forPrediction:1 alreadyCapitalized:capitalized];
       if (!v19 || model && v19 == 1)
       {
-        goto LABEL_12;
+        return 0;
       }
     }
   }
@@ -2697,18 +2698,16 @@ LABEL_12:
         v22 = 0;
       }
 
-      completion = initialCapitalizedString(completion, v22);
+      return initialCapitalizedString(completion, v22);
     }
   }
 
-LABEL_20:
-  v23 = *MEMORY[0x1E69E9840];
   return completion;
 }
 
 - (BOOL)shouldBlockWord:(id)word languageObject:(id)object
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   v8 = [(AppleSpell *)self _standardizedLanguageModelStringForString:word];
   if ([object isKorean])
@@ -2720,12 +2719,11 @@ LABEL_20:
   if (v9)
   {
     usedBufLen = 0;
-    v15.location = 0;
-    v15.length = v9;
-    LOBYTE(v9) = v9 == CFStringGetBytes(v8, v15, encoding, 0, 0, buffer, 254, &usedBufLen) && [(AppleSpell *)self checkNegativeWordBuffer:buffer length:usedBufLen languageObject:object];
+    v14.location = 0;
+    v14.length = v9;
+    LOBYTE(v9) = v9 == CFStringGetBytes(v8, v14, encoding, 0, 0, buffer, 254, &usedBufLen) && [(AppleSpell *)self checkNegativeWordBuffer:buffer length:usedBufLen languageObject:object];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2751,17 +2749,17 @@ dispatch_queue_t __58__AppleSpell_LanguageModeling__backgroundMaintenanceQueue__
 {
   length = range.length;
   location = range.location;
-  v63 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   string = [tagger string];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 0;
-  v19 = (MEMORY[0x1EEE9AC00])();
-  v21 = &v40[-2 * v20];
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
+  v19 = MEMORY[0x1EEE9AC00](string);
+  v21 = &v38[-2 * v20];
   MEMORY[0x1EEE9AC00](v19);
-  v44 = (v40 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v41 = [objc_msgSend(object "identifier")];
+  v42 = (v38 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = [objc_msgSend(object "identifier")];
   if (!model)
   {
     v25 = 0;
@@ -2789,97 +2787,96 @@ dispatch_queue_t __58__AppleSpell_LanguageModeling__backgroundMaintenanceQueue__
 LABEL_8:
   if (length)
   {
-    if ((v41 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
-      v60[3] = 1;
+      v58[3] = 1;
       *v21 = xmmword_1D2BF76A0;
-      *v44 = *MEMORY[0x1E6977970];
+      *v42 = *MEMORY[0x1E6977970];
     }
 
     if (v24 && v26 + v24 >= location)
     {
-      v27 = *MEMORY[0x1E69779F0];
-      v48 = MEMORY[0x1E69E9820];
-      v49 = 3221225472;
-      v50 = __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObject_tagger_languageModel_maxContextLength_context_cleanOffset_cleanContextRange_lastTokenRange_lastTokenID___block_invoke;
-      v51 = &unk_1E84051C0;
-      v54 = location;
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObject_tagger_languageModel_maxContextLength_context_cleanOffset_cleanContextRange_lastTokenRange_lastTokenID___block_invoke;
+      v49 = &unk_1E84051C0;
+      v52 = location;
       lengthCopy = length;
       taggerCopy = tagger;
-      v53 = &v59;
-      v56 = v21;
-      v57 = v44;
+      v51 = &v57;
+      v54 = v21;
+      v55 = v42;
       lengthCopy2 = length;
       [tagger enumerateTagsInRange:? unit:? scheme:? options:? usingBlock:?];
     }
   }
 
-  v40[1] = v40;
-  if (v60[3])
+  v38[1] = v38;
+  if (v58[3])
   {
+    v27 = 0;
     v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v42.length = 0;
-    v46 = xmmword_1D2BF76A0;
-    v43 = *MEMORY[0x1E69779B8];
-    v42.location = 0x7FFFFFFFFFFFFFFFLL;
-    v45 = 1;
+    v40.length = 0;
+    v44 = xmmword_1D2BF76A0;
+    v41 = *MEMORY[0x1E69779B8];
+    v40.location = 0x7FFFFFFFFFFFFFFFLL;
+    v43 = 1;
     while (1)
     {
       if (v21->length)
       {
-        v31 = [string substringWithRange:v21->location];
-        v32 = [(AppleSpell *)self _tokenIDForString:v31 languageModel:model languageObject:object terminatorTokenID:1];
-        if (v32 || v44[v28] != v43)
+        v30 = [string substringWithRange:v21->location];
+        v31 = [(AppleSpell *)self _tokenIDForString:v30 languageModel:model languageObject:object terminatorTokenID:1];
+        if (v31 || v42[v27] != v41)
         {
-          v33 = [(AppleSpell *)self shouldBlockWord:v31 languageObject:object];
-          context[v30] = v32;
-          if (v32 != 1)
+          v32 = [(AppleSpell *)self shouldBlockWord:v30 languageObject:object];
+          context[v29] = v31;
+          if (v31 != 1)
           {
-            v46 = *v21;
-            v45 = v32;
+            v44 = *v21;
+            v43 = v31;
           }
 
-          v25 = v30 + 1;
-          if (v33 || ([model tokenSequenceIsBlocklisted:context length:v30 + 1] & 1) != 0)
+          v25 = v29 + 1;
+          if (v32 || ([model tokenSequenceIsBlocklisted:context length:v29 + 1] & 1) != 0)
           {
-            v29 = v30 + 1;
+            v28 = v29 + 1;
           }
 
-          else if (v32 == 1)
+          else if (v31 == 1)
           {
-            v34 = v41;
-            if (v30 == -1)
+            v33 = v39;
+            if (v29 == -1)
             {
-              v34 = 1;
+              v33 = 1;
             }
 
-            if (v34)
+            if (v33)
             {
-              v29 = v30 + 1;
+              v28 = v29 + 1;
             }
 
             else
             {
-              v29 = v30;
+              v28 = v29;
             }
           }
 
           else
           {
-            v35.length = v42.length;
-            if (v42.length)
+            v34.length = v40.length;
+            if (v40.length)
             {
-              v35.location = v42.location;
-              v42 = NSUnionRange(v35, *v21);
+              v34.location = v40.location;
+              v40 = NSUnionRange(v34, *v21);
             }
 
             else
             {
-              v36 = v21->length;
-              v42.location = v21->location;
-              v42.length = v36;
+              v35 = v21->length;
+              v40.location = v21->location;
+              v40.length = v35;
             }
           }
 
@@ -2887,62 +2884,61 @@ LABEL_8:
         }
       }
 
-      else if (!v28)
+      else if (!v27)
       {
-        v25 = v30 + 1;
-        context[v30] = 1;
+        v25 = v29 + 1;
+        context[v29] = 1;
         goto LABEL_36;
       }
 
-      v25 = v30;
+      v25 = v29;
 LABEL_36:
-      ++v28;
+      ++v27;
       ++v21;
-      v30 = v25;
-      if (v28 >= v60[3])
+      v29 = v25;
+      if (v27 >= v58[3])
       {
         goto LABEL_39;
       }
     }
   }
 
-  v42 = 0x7FFFFFFFFFFFFFFFuLL;
+  v40 = 0x7FFFFFFFFFFFFFFFuLL;
   v25 = 0;
-  v29 = 0;
-  v46 = xmmword_1D2BF76A0;
-  v45 = 1;
+  v28 = 0;
+  v44 = xmmword_1D2BF76A0;
+  v43 = 1;
 LABEL_39:
   if (offset)
   {
-    *offset = v29;
+    *offset = v28;
   }
 
-  v37 = v42.length;
+  v36 = v40.length;
   if (contextRange)
   {
-    contextRange->location = v42.location;
-    contextRange->length = v37;
+    contextRange->location = v40.location;
+    contextRange->length = v36;
   }
 
   if (tokenRange)
   {
-    *tokenRange = v46;
+    *tokenRange = v44;
   }
 
   if (d)
   {
-    *d = v45;
+    *d = v43;
   }
 
 LABEL_47:
-  _Block_object_dispose(&v59, 8);
-  v38 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v57, 8);
   return v25;
 }
 
-uint64_t __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObject_tagger_languageModel_maxContextLength_context_cleanOffset_cleanContextRange_lastTokenRange_lastTokenID___block_invoke(uint64_t result, uint64_t a2, unint64_t a3, unint64_t a4, _BYTE *a5)
+id *__173__AppleSpell_LanguageModeling___contextLengthForRange_languageObject_tagger_languageModel_maxContextLength_context_cleanOffset_cleanContextRange_lastTokenRange_lastTokenID___block_invoke(id *result, uint64_t a2, unint64_t a3, unint64_t a4, _BYTE *a5)
 {
-  if (a3 >= *(result + 48))
+  if (a3 >= result[6])
   {
     *a5 = 1;
   }
@@ -2950,11 +2946,11 @@ uint64_t __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObje
   else
   {
     v8 = result;
-    result = [*(result + 32) orthoIndex];
-    v9 = *(*(v8[5] + 8) + 24);
-    if (result != 239 && v9 && ((v10 = v8[8], v11 = v10 + 16 * v9, v13 = *(v11 - 16), v12 = *(v11 - 8), v12 + v13 == a3) ? (v14 = *MEMORY[0x1E6977A18] == a2) : (v14 = 0), v14 && *(v8[9] + 8 * (v9 - 1)) == a2))
+    result = [result[4] orthoIndex];
+    v9 = *(*(v8[5] + 1) + 24);
+    if (result != 239 && v9 && ((v10 = v8[8], v11 = &v10[2 * v9], v13 = *(v11 - 2), v12 = *(v11 - 1), v12 + v13 == a3) ? (v14 = *MEMORY[0x1E6977A18] == a2) : (v14 = 0), v14 && *(v8[9] + v9 - 1) == a2))
     {
-      *(v10 + 16 * (v9 - 1) + 8) = v12 + a4;
+      v10[2 * v9 - 1] = v12 + a4;
     }
 
     else
@@ -2969,7 +2965,7 @@ uint64_t __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObje
           do
           {
             *(v8[8] + v18) = *(v8[8] + v18 + 16);
-            *(v8[9] + 8 * v19) = *(v8[9] + 8 * v19 + 8);
+            *(v8[9] + v19) = *(v8[9] + v19 + 1);
             v15 = v8[10];
             v20 = v19 + 2;
             ++v19;
@@ -2983,16 +2979,16 @@ uint64_t __173__AppleSpell_LanguageModeling___contextLengthForRange_languageObje
         v22 = v8[8] + 16 * v15;
         *(v22 - 16) = a3;
         *(v22 - 8) = a4;
-        *(v21 + 8 * v8[10] - 8) = a2;
+        v21[v8[10] - 1] = a2;
       }
 
       else
       {
         v16 = v8[9];
-        v17 = (v8[8] + 16 * v9);
+        v17 = v8[8] + 16 * v9;
         *v17 = a3;
         v17[1] = a4;
-        *(v16 + 8 * (*(*(v8[5] + 8) + 24))++) = a2;
+        v16[(*(*(v8[5] + 1) + 24))++] = a2;
       }
     }
   }
@@ -3329,15 +3325,15 @@ uint64_t __50__AppleSpell_LanguageModeling__modelCreationQueue__block_invoke(uin
 - (id)wordLanguageModelForLanguage:(id)language appIdentifier:(id)identifier waitForResult:(BOOL)result
 {
   resultCopy = result;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3052000000;
-  v20 = __Block_byref_object_copy__0;
-  v21 = __Block_byref_object_dispose__0;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3052000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
   v9 = [(AppleSpell *)self languageModelLocalizationForLanguage:?];
   modelCreationQueue = [(AppleSpell *)self modelCreationQueue];
-  if (!_allowModelUsage())
+  if (!_allowModelUsage(modelCreationQueue, v11))
   {
     goto LABEL_6;
   }
@@ -3350,17 +3346,17 @@ uint64_t __50__AppleSpell_LanguageModeling__modelCreationQueue__block_invoke(uin
   block[4] = self;
   block[5] = v9;
   block[6] = identifier;
-  block[7] = &v17;
+  block[7] = &v18;
   dispatch_sync(languageModelSerialQueue, block);
-  if ([v18[5] isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
+  if ([v19[5] isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
   {
-    v12 = 0;
-    v18[5] = 0;
+    v13 = 0;
+    v19[5] = 0;
     goto LABEL_7;
   }
 
-  v12 = v18[5];
-  if (v12)
+  v13 = v19[5];
+  if (v13)
   {
     goto LABEL_7;
   }
@@ -3368,35 +3364,35 @@ uint64_t __50__AppleSpell_LanguageModeling__modelCreationQueue__block_invoke(uin
   if (_kSuppressLanguageModels)
   {
 LABEL_6:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_7;
   }
 
   if (resultCopy)
   {
-    v12 = [(AppleSpell *)self _loadWordLanguageModelForLanguage:language localization:v9 appIdentifier:identifier onQueue:modelCreationQueue];
-    v18[5] = v12;
+    v13 = [(AppleSpell *)self _loadWordLanguageModelForLanguage:language localization:v9 appIdentifier:identifier onQueue:modelCreationQueue];
+    v19[5] = v13;
   }
 
   else
   {
     backgroundLoadingQueue = [(AppleSpell *)self backgroundLoadingQueue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifier_waitForResult___block_invoke_2;
-    v15[3] = &unk_1E8405238;
-    v15[4] = self;
-    v15[5] = language;
-    v15[6] = v9;
-    v15[7] = identifier;
-    v15[8] = modelCreationQueue;
-    dispatch_async(backgroundLoadingQueue, v15);
-    v12 = v18[5];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifier_waitForResult___block_invoke_2;
+    v16[3] = &unk_1E8405238;
+    v16[4] = self;
+    v16[5] = language;
+    v16[6] = v9;
+    v16[7] = identifier;
+    v16[8] = modelCreationQueue;
+    dispatch_async(backgroundLoadingQueue, v16);
+    v13 = v19[5];
   }
 
 LABEL_7:
-  _Block_object_dispose(&v17, 8);
-  return v12;
+  _Block_object_dispose(&v18, 8);
+  return v13;
 }
 
 id __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifier_waitForResult___block_invoke(void *a1)
@@ -3438,9 +3434,17 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
   objc_autoreleasePoolPop(v2);
 }
 
+- (id)wordLanguageModelForLanguageObject:(id)object appIdentifier:(id)identifier waitForResult:(BOOL)result
+{
+  resultCopy = result;
+  identifier = [object identifier];
+
+  return [(AppleSpell *)self wordLanguageModelForLanguage:identifier appIdentifier:identifier waitForResult:resultCopy];
+}
+
 - (BOOL)useWordLanguageModelForLanguageObject:(id)object tagger:(id)tagger appIdentifier:(id)identifier
 {
-  v9 = _allowModelUsage();
+  v9 = _allowModelUsage(self, a2);
   LOBYTE(orthoIndex) = 0;
   if (tagger)
   {
@@ -3459,7 +3463,7 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
 
 - (BOOL)useCharacterLanguageModelForLanguageObject:(id)object tagger:(id)tagger appIdentifier:(id)identifier
 {
-  v8 = _allowModelUsage();
+  v8 = _allowModelUsage(self, a2);
   LOBYTE(orthoIndex) = 0;
   if (tagger)
   {
@@ -3478,7 +3482,7 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
 
 - (BOOL)useTransformerLanguageModelForLanguageObject:(id)object tagger:(id)tagger appIdentifier:(id)identifier
 {
-  LODWORD(orthoIndex) = _allowModelUsage();
+  LODWORD(orthoIndex) = _allowModelUsage(self, a2);
   if (orthoIndex)
   {
     isEnglish = [object isEnglish];
@@ -3501,7 +3505,7 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
 
 - (BOOL)useSentencePieceLanguageModelForLanguageObject:(id)object tagger:(id)tagger appIdentifier:(id)identifier
 {
-  LODWORD(orthoIndex) = _allowModelUsage();
+  LODWORD(orthoIndex) = _allowModelUsage(self, a2);
   if (orthoIndex)
   {
     usesSentencePieceModel = [object usesSentencePieceModel];
@@ -3524,7 +3528,7 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
 
 - (BOOL)useUnigramProbabilityForLanguageObject:(id)object
 {
-  v4 = _allowModelUsage();
+  v4 = _allowModelUsage(self, a2);
   if (v4)
   {
 
@@ -3590,7 +3594,7 @@ void __89__AppleSpell_LanguageModeling__wordLanguageModelForLanguage_appIdentifi
   return v14;
 }
 
-uint64_t __88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLanguageObject_onQueue___block_invoke(uint64_t a1)
+void *__88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLanguageObject_onQueue___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) objectForKey:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -3621,12 +3625,12 @@ uint64_t __88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLan
 - (id)_NLPLanguageModelWithType:(int64_t)type forLanguageObject:(id)object waitForResult:(BOOL)result
 {
   resultCopy = result;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3052000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3052000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
   if ((type - 1) > 3)
   {
     v9 = &OBJC_IVAR___AppleSpell__sentencePieceLanguageModelDictionary;
@@ -3640,7 +3644,7 @@ uint64_t __88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLan
   v10 = *(&self->super.isa + *v9);
   languageModelLocalization = [object languageModelLocalization];
   modelCreationQueue = [(AppleSpell *)self modelCreationQueue];
-  if (!_allowModelUsage())
+  if (!_allowModelUsage(modelCreationQueue, v13))
   {
     goto LABEL_9;
   }
@@ -3651,18 +3655,18 @@ uint64_t __88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLan
   block[2] = __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObject_waitForResult___block_invoke;
   block[3] = &unk_1E84050D8;
   block[5] = languageModelLocalization;
-  block[6] = &v19;
+  block[6] = &v20;
   block[4] = v10;
   dispatch_sync(languageModelSerialQueue, block);
-  if ([v20[5] isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
+  if ([v21[5] isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
   {
-    v14 = 0;
-    v20[5] = 0;
+    v15 = 0;
+    v21[5] = 0;
     goto LABEL_10;
   }
 
-  v14 = v20[5];
-  if (v14)
+  v15 = v21[5];
+  if (v15)
   {
     goto LABEL_10;
   }
@@ -3670,34 +3674,34 @@ uint64_t __88__AppleSpell_LanguageModeling___loadNLPLanguageModelWithType_forLan
   if (_kSuppressLanguageModels)
   {
 LABEL_9:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_10;
   }
 
   if (resultCopy)
   {
-    v14 = [(AppleSpell *)self _loadNLPLanguageModelWithType:type forLanguageObject:object onQueue:modelCreationQueue];
-    v20[5] = v14;
+    v15 = [(AppleSpell *)self _loadNLPLanguageModelWithType:type forLanguageObject:object onQueue:modelCreationQueue];
+    v21[5] = v15;
   }
 
   else
   {
     backgroundLoadingQueue = [(AppleSpell *)self backgroundLoadingQueue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObject_waitForResult___block_invoke_2;
-    v17[3] = &unk_1E84052B0;
-    v17[4] = self;
-    v17[5] = object;
-    v17[6] = modelCreationQueue;
-    v17[7] = type;
-    dispatch_async(backgroundLoadingQueue, v17);
-    v14 = v20[5];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObject_waitForResult___block_invoke_2;
+    v18[3] = &unk_1E84052B0;
+    v18[4] = self;
+    v18[5] = object;
+    v18[6] = modelCreationQueue;
+    v18[7] = type;
+    dispatch_async(backgroundLoadingQueue, v18);
+    v15 = v21[5];
   }
 
 LABEL_10:
-  _Block_object_dispose(&v19, 8);
-  return v14;
+  _Block_object_dispose(&v20, 8);
+  return v15;
 }
 
 id __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObject_waitForResult___block_invoke(uint64_t a1)
@@ -3724,6 +3728,30 @@ void __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObj
   objc_autoreleasePoolPop(v2);
 }
 
+- (id)transformerOrSiriLanguageModelForLanguageObject:(id)object appIdentifier:(id)identifier waitForResult:(BOOL)result
+{
+  resultCopy = result;
+  if (identifier)
+  {
+    if ([identifier isEqual:@"com.apple.SiriNCService"])
+    {
+      v8 = 4;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  return [(AppleSpell *)self _NLPLanguageModelWithType:v8 forLanguageObject:object waitForResult:resultCopy];
+}
+
 - (unint64_t)_resetLanguageModels
 {
   v6 = 0;
@@ -3743,50 +3771,50 @@ void __90__AppleSpell_LanguageModeling___NLPLanguageModelWithType_forLanguageObj
   return v3;
 }
 
-uint64_t __52__AppleSpell_LanguageModeling___resetLanguageModels__block_invoke(uint64_t a1)
+void *__52__AppleSpell_LanguageModeling___resetLanguageModels__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [objc_msgSend(MEMORY[0x1E695DF00] "distantFuture")];
   *(*(a1 + 32) + 128) = v2;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = *(*(a1 + 32) + 56);
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(a1 + 32) + 56) objectForKey:*(*(&v21 + 1) + 8 * i)];
+        v7 = [*(*(a1 + 32) + 56) objectForKey:*(*(&v20 + 1) + 8 * i)];
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
-        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v18;
+          v10 = *v17;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v18 != v10)
+              if (*v17 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = [v7 objectForKey:*(*(&v17 + 1) + 8 * j)];
+              v12 = [v7 objectForKey:*(*(&v16 + 1) + 8 * j)];
               if (([v12 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}] & 1) == 0)
               {
                 [v12 reset];
@@ -3794,14 +3822,14 @@ uint64_t __52__AppleSpell_LanguageModeling___resetLanguageModels__block_invoke(u
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v9);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
@@ -3809,7 +3837,6 @@ uint64_t __52__AppleSpell_LanguageModeling___resetLanguageModels__block_invoke(u
 
   result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   *(*(a1 + 32) + 128) = v14;
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3824,7 +3851,7 @@ uint64_t __52__AppleSpell_LanguageModeling___resetLanguageModels__block_invoke(u
   dispatch_sync(languageModelSerialQueue, block);
 }
 
-uint64_t __54__AppleSpell_LanguageModeling___releaseLanguageModels__block_invoke(uint64_t a1)
+void *__54__AppleSpell_LanguageModeling___releaseLanguageModels__block_invoke(uint64_t a1)
 {
   [objc_msgSend(MEMORY[0x1E695DF00] "distantFuture")];
   *(*(a1 + 32) + 136) = v2;
@@ -3885,28 +3912,27 @@ uint64_t __54__AppleSpell_LanguageModeling___releaseLanguageModels__block_invoke
   _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPrefix_languageModel_languageObject_connection_sender_capitalized_candidates___block_invoke(uint64_t result, uint64_t a2, int a3, _BYTE *a4)
+id *__140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPrefix_languageModel_languageObject_connection_sender_capitalized_candidates___block_invoke(id *result, uint64_t a2, int a3, _BYTE *a4)
 {
   v5 = result;
-  v9 = a3;
-  if (*(*(*(result + 80) + 8) + 24) < _kMaxCompletionsToExamine && *(*(*(result + 88) + 8) + 24) < _kMaxCompletionsToAdd)
+  v8 = a3;
+  if (*(*(result[10] + 1) + 24) < _kMaxCompletionsToExamine && *(*(result[11] + 1) + 24) < _kMaxCompletionsToAdd)
   {
-    v6 = *(result + 56);
-    LOBYTE(v8) = *(result + 104);
-    result = [*(result + 32) _stringForTokenIDs:&v9 tokenCount:1 entryString:a2 languageModel:*(result + 40) languageObject:*(result + 48) connection:*(result + 96) sender:v6 prefix:*(result + 64) capitalized:v8];
+    LOBYTE(v7) = *(result + 104);
+    result = [result[4] _stringForTokenIDs:&v8 tokenCount:1 entryString:a2 languageModel:result[5] languageObject:result[6] connection:result[12] sender:result[7] prefix:result[8] capitalized:v7];
     if (result)
     {
-      v7 = result;
-      result = [*(v5 + 72) containsObject:result];
+      v6 = result;
+      result = [v5[9] containsObject:result];
       if ((result & 1) == 0)
       {
-        result = [*(v5 + 72) addObject:v7];
-        ++*(*(*(v5 + 88) + 8) + 24);
+        result = [v5[9] addObject:v6];
+        ++*(*(v5[11] + 1) + 24);
       }
     }
   }
 
-  if (++*(*(*(v5 + 80) + 8) + 24) >= _kMaxCompletionsToExamine || *(*(*(v5 + 88) + 8) + 24) >= _kMaxCompletionsToAdd)
+  if (++*(*(v5[10] + 1) + 24) >= _kMaxCompletionsToExamine || *(*(v5[11] + 1) + 24) >= _kMaxCompletionsToAdd)
   {
     *a4 = 1;
   }
@@ -3914,28 +3940,27 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
   return result;
 }
 
-uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPrefix_languageModel_languageObject_connection_sender_capitalized_candidates___block_invoke_2(uint64_t result, uint64_t a2, int a3, _BYTE *a4)
+id *__140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPrefix_languageModel_languageObject_connection_sender_capitalized_candidates___block_invoke_2(id *result, uint64_t a2, int a3, _BYTE *a4)
 {
   v5 = result;
-  v9 = a3;
-  if (*(*(*(result + 80) + 8) + 24) < _kMaxCompletionsToExamine && *(*(*(result + 88) + 8) + 24) < _kMaxCompletionsToAdd)
+  v8 = a3;
+  if (*(*(result[10] + 1) + 24) < _kMaxCompletionsToExamine && *(*(result[11] + 1) + 24) < _kMaxCompletionsToAdd)
   {
-    v6 = *(result + 56);
-    LOBYTE(v8) = *(result + 104);
-    result = [*(result + 32) _stringForTokenIDs:&v9 tokenCount:1 entryString:a2 languageModel:*(result + 40) languageObject:*(result + 48) connection:*(result + 96) sender:v6 prefix:*(result + 64) capitalized:v8];
+    LOBYTE(v7) = *(result + 104);
+    result = [result[4] _stringForTokenIDs:&v8 tokenCount:1 entryString:a2 languageModel:result[5] languageObject:result[6] connection:result[12] sender:result[7] prefix:result[8] capitalized:v7];
     if (result)
     {
-      v7 = result;
-      result = [*(v5 + 72) containsObject:result];
+      v6 = result;
+      result = [v5[9] containsObject:result];
       if ((result & 1) == 0)
       {
-        result = [*(v5 + 72) addObject:v7];
-        ++*(*(*(v5 + 88) + 8) + 24);
+        result = [v5[9] addObject:v6];
+        ++*(*(v5[11] + 1) + 24);
       }
     }
   }
 
-  if (++*(*(*(v5 + 80) + 8) + 24) >= _kMaxCompletionsToExamine || *(*(*(v5 + 88) + 8) + 24) >= _kMaxCompletionsToAdd)
+  if (++*(*(v5[10] + 1) + 24) >= _kMaxCompletionsToExamine || *(*(v5[11] + 1) + 24) >= _kMaxCompletionsToAdd)
   {
     *a4 = 1;
   }
@@ -3975,36 +4000,36 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
   senderCopy = sender;
   length = range.length;
   location = range.location;
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   string = [tagger string];
-  v51 = string;
+  v50 = string;
   if (length)
   {
-    v56 = -[AppleSpell _standardizedLanguageModelStringForString:](self, "_standardizedLanguageModelStringForString:", [string substringWithRange:{location, length}]);
+    v55 = -[AppleSpell _standardizedLanguageModelStringForString:](self, "_standardizedLanguageModelStringForString:", [string substringWithRange:{location, length}]);
   }
 
   else
   {
-    v56 = 0;
+    v55 = 0;
   }
 
-  v57 = [(AppleSpell *)self wordLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:model];
-  MEMORY[0x1EEE9AC00](v57);
-  v20 = &v46 - ((v19 + 19) & 0xFFFFFFFFFFFFFFF0);
-  v73 = 1;
-  v72 = 0;
+  v56 = [(AppleSpell *)self wordLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:model];
+  MEMORY[0x1EEE9AC00](v56);
+  v20 = &v45 - ((v19 + 19) & 0xFFFFFFFFFFFFFFF0);
+  v72 = 1;
+  v71 = 0;
+  v69 = xmmword_1D2BF76A0;
   v70 = xmmword_1D2BF76A0;
-  v71 = xmmword_1D2BF76A0;
   isArabic = [object isArabic];
-  v53 = [(AppleSpell *)self useSentencePieceLanguageModelForLanguageObject:object tagger:tagger appIdentifier:identifier];
-  v69[0] = 0;
-  v69[1] = v69;
-  v69[2] = 0x2020000000;
-  v69[3] = 0;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x2020000000;
-  v68 = 0;
+  v52 = [(AppleSpell *)self useSentencePieceLanguageModelForLanguageObject:object tagger:tagger appIdentifier:identifier];
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x2020000000;
+  v68[3] = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x2020000000;
+  v67 = 0;
   if (_addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration__onceToken != -1)
   {
     [AppleSpell(LanguageModeling) _addLanguageModelCompletionsForPartialWordRange:languageObject:connection:sender:tagger:appIdentifier:waitForLanguageModel:allowTransformer:candidates:scoreDictionary:tryTransliteration:];
@@ -4015,49 +4040,49 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
     *transliteration = 0;
   }
 
-  if (v57)
+  if (v56)
   {
-    v48 = isArabic;
+    v47 = isArabic;
     v22 = location;
-    v49 = [(AppleSpell *)self _contextLengthForRange:location languageObject:length tagger:object languageModel:tagger maxContextLength:v57 context:_kMaxContextLength cleanOffset:v20 cleanContextRange:&v72 lastTokenRange:&v70 lastTokenID:&v71, &v73];
+    v48 = [(AppleSpell *)self _contextLengthForRange:location languageObject:length tagger:object languageModel:tagger maxContextLength:v56 context:_kMaxContextLength cleanOffset:v20 cleanContextRange:&v71 lastTokenRange:&v69 lastTokenID:&v70, &v72];
     v24 = connectionCopy;
     v23 = senderCopy;
-    if (*(&v70 + 1))
+    if (*(&v69 + 1))
     {
       string2 = [tagger string];
-      v47 = [string2 substringWithRange:{v70, *(&v70 + 1)}];
+      v46 = [string2 substringWithRange:{v69, *(&v69 + 1)}];
     }
 
     else
     {
-      v47 = &stru_1F4E0A7A0;
+      v46 = &stru_1F4E0A7A0;
     }
 
-    if (v56)
+    if (v55)
     {
       if ([object isKorean])
       {
-        v56 = [(AppleSpell *)self internalStringForKoreanExternalString:v56];
-        v52 = 0;
+        v55 = [(AppleSpell *)self internalStringForKoreanExternalString:v55];
+        v51 = 0;
       }
 
       else
       {
-        capitalizedString = [v56 capitalizedString];
-        v52 = [v56 isEqualToString:capitalizedString];
+        capitalizedString = [v55 capitalizedString];
+        v51 = [v55 isEqualToString:capitalizedString];
       }
     }
 
-    else if (v49)
+    else if (v48)
     {
-      v56 = 0;
-      v52 = *&v20[4 * v49 - 4] == 1;
+      v55 = 0;
+      v51 = *&v20[4 * v48 - 4] == 1;
     }
 
     else
     {
-      v52 = 0;
-      v56 = 0;
+      v51 = 0;
+      v55 = 0;
     }
 
     dictionaryCopy = dictionary;
@@ -4072,76 +4097,76 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
             v27 = [(AppleSpell *)self transformerOrSiriLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:0];
             if (v27)
             {
-              v28 = [v27 stateWithContext:v47];
+              v28 = [v27 stateWithContext:v46];
               if (v28)
               {
-                v63[0] = MEMORY[0x1E69E9820];
-                v63[1] = 3221225472;
-                v63[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_2;
-                v63[3] = &unk_1E8405328;
-                v63[4] = self;
-                v63[5] = v57;
-                v63[12] = &v65;
-                v63[13] = v24;
-                v63[6] = object;
-                v63[7] = v23;
-                v64 = v52;
-                v63[8] = v56;
-                v63[9] = candidates;
-                v63[11] = v69;
-                v63[10] = dictionaryCopy;
-                [v28 enumeratePredictions:_kMaxPredictionSampleCount maxTokensPerPrediction:1 withBlock:v63];
+                v62[0] = MEMORY[0x1E69E9820];
+                v62[1] = 3221225472;
+                v62[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_2;
+                v62[3] = &unk_1E8405328;
+                v62[4] = self;
+                v62[5] = v56;
+                v62[12] = &v64;
+                v62[13] = v24;
+                v62[6] = object;
+                v62[7] = v23;
+                v63 = v51;
+                v62[8] = v55;
+                v62[9] = candidates;
+                v62[11] = v68;
+                v62[10] = dictionaryCopy;
+                [v28 enumeratePredictions:_kMaxPredictionSampleCount maxTokensPerPrediction:1 withBlock:v62];
               }
             }
           }
         }
       }
 
-      if (v53)
+      if (v52)
       {
         v29 = [(AppleSpell *)self sentencePieceLanguageModelForLanguageObject:object waitForResult:0];
         if (v29)
         {
-          v30 = [v29 stateWithContext:v47];
+          v30 = [v29 stateWithContext:v46];
           if (v30)
           {
-            v61[0] = MEMORY[0x1E69E9820];
-            v61[1] = 3221225472;
-            v61[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_3;
-            v61[3] = &unk_1E8405328;
-            v61[4] = self;
-            v61[5] = v57;
-            v61[12] = &v65;
-            v61[13] = v24;
-            v61[6] = object;
-            v61[7] = v23;
-            v62 = v52;
-            v61[8] = v56;
-            v61[9] = candidates;
-            v61[11] = v69;
-            v61[10] = dictionaryCopy;
-            [v30 enumeratePredictions:_kMaxPredictionsToExamine maxTokensPerPrediction:_kMaxTokensPerPrediction withBlock:v61];
+            v60[0] = MEMORY[0x1E69E9820];
+            v60[1] = 3221225472;
+            v60[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_3;
+            v60[3] = &unk_1E8405328;
+            v60[4] = self;
+            v60[5] = v56;
+            v60[12] = &v64;
+            v60[13] = v24;
+            v60[6] = object;
+            v60[7] = v23;
+            v61 = v51;
+            v60[8] = v55;
+            v60[9] = candidates;
+            v60[11] = v68;
+            v60[10] = dictionaryCopy;
+            [v30 enumeratePredictions:_kMaxPredictionsToExamine maxTokensPerPrediction:_kMaxTokensPerPrediction withBlock:v60];
           }
         }
       }
 
-      v31 = v66[3];
+      v31 = v65[3];
       if (!v31 || v31 < _kMaxPredictionSampleCount)
       {
-        v58[0] = MEMORY[0x1E69E9820];
-        if (v49 <= v72)
+        v57[0] = MEMORY[0x1E69E9820];
+        if (v48 <= v71)
         {
           v32 = 0;
         }
 
         else
         {
-          v32 = &v20[4 * v72];
+          v32 = &v20[4 * v71];
         }
 
-        if (v49 >= v72)
+        if (v48 >= v71)
         {
-          v33 = v49 - v72;
+          v33 = v48 - v71;
         }
 
         else
@@ -4149,35 +4174,35 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
           v33 = 0;
         }
 
-        v58[1] = 3221225472;
-        v58[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_4;
-        v58[3] = &unk_1E8405378;
-        v58[4] = self;
-        v58[5] = v57;
-        v58[12] = &v65;
-        v58[13] = v24;
-        v58[6] = object;
-        v58[7] = v23;
-        v59 = v52;
-        v58[8] = v56;
-        v58[9] = candidates;
-        v58[11] = v69;
-        v58[10] = dictionaryCopy;
-        v60 = v48;
-        [v57 enumeratePredictionsForContext:v32 length:v33 maxPredictions:_kMaxPredictionsToExamine maxTokensPerPrediction:_kMaxTokensPerPrediction withBlock:v58];
+        v57[1] = 3221225472;
+        v57[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_4;
+        v57[3] = &unk_1E8405378;
+        v57[4] = self;
+        v57[5] = v56;
+        v57[12] = &v64;
+        v57[13] = v24;
+        v57[6] = object;
+        v57[7] = v23;
+        v58 = v51;
+        v57[8] = v55;
+        v57[9] = candidates;
+        v57[11] = v68;
+        v57[10] = dictionaryCopy;
+        v59 = v47;
+        [v56 enumeratePredictionsForContext:v32 length:v33 maxPredictions:_kMaxPredictionsToExamine maxTokensPerPrediction:_kMaxTokensPerPrediction withBlock:v57];
       }
     }
 
-    if (v56)
+    if (v55)
     {
-      [(AppleSpell *)self _addLanguageModelCompletionsForPrefix:v56 languageModel:v57 languageObject:object connection:v24 sender:v23 capitalized:v52 candidates:candidates];
+      [(AppleSpell *)self _addLanguageModelCompletionsForPrefix:v55 languageModel:v56 languageObject:object connection:v24 sender:v23 capitalized:v51 candidates:candidates];
     }
 
-    if (*(&v71 + 1))
+    if (*(&v70 + 1))
     {
-      if (v71 + *(&v71 + 1) <= v22)
+      if (v70 + *(&v70 + 1) <= v22)
       {
-        v34 = [v51 substringWithRange:{v71, v22 - v71}];
+        v34 = [v50 substringWithRange:{v70, v22 - v70}];
         v35 = [v34 length];
         v36 = [candidates count];
         if (v36)
@@ -4214,41 +4239,40 @@ uint64_t __140__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPref
     }
   }
 
-  v43 = v57 != 0;
-  _Block_object_dispose(&v65, 8);
-  _Block_object_dispose(v69, 8);
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = v56 != 0;
+  _Block_object_dispose(&v64, 8);
+  _Block_object_dispose(v68, 8);
   return v43;
 }
 
-uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke()
+void *__218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:&unk_1F4E16760];
   _addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration__transliterationExceptionSet = result;
   return result;
 }
 
-uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_2(uint64_t result, uint64_t a2, _BYTE *a3, double a4)
+id *__218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_2(id *result, uint64_t a2, _BYTE *a3, double a4)
 {
   v5 = result;
-  if (*(*(*(result + 88) + 8) + 24) < _kMaxPredictionsToExamine && *(*(*(result + 96) + 8) + 24) < _kMaxPredictionsToAdd)
+  if (*(*(result[11] + 1) + 24) < _kMaxPredictionsToExamine && *(*(result[12] + 1) + 24) < _kMaxPredictionsToAdd)
   {
     LOBYTE(v8) = *(result + 112);
-    result = [*(result + 32) _stringForCompletion:a2 languageModel:*(result + 40) languageObject:*(result + 48) connection:*(result + 104) sender:*(result + 56) prefix:*(result + 64) capitalized:v8];
+    result = [result[4] _stringForCompletion:a2 languageModel:result[5] languageObject:result[6] connection:result[13] sender:result[7] prefix:result[8] capitalized:v8];
     if (result)
     {
       v7 = result;
-      result = [*(v5 + 72) containsObject:result];
+      result = [v5[9] containsObject:result];
       if ((result & 1) == 0)
       {
-        [*(v5 + 72) addObject:v7];
-        result = [*(v5 + 80) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a4), v7}];
-        ++*(*(*(v5 + 96) + 8) + 24);
+        [v5[9] addObject:v7];
+        result = [v5[10] setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a4), v7}];
+        ++*(*(v5[12] + 1) + 24);
       }
     }
   }
 
-  if (++*(*(*(v5 + 88) + 8) + 24) >= _kMaxPredictionsToExamine || *(*(*(v5 + 96) + 8) + 24) >= _kMaxPredictionsToAdd)
+  if (++*(*(v5[11] + 1) + 24) >= _kMaxPredictionsToExamine || *(*(v5[12] + 1) + 24) >= _kMaxPredictionsToAdd)
   {
     *a3 = 1;
   }
@@ -4256,27 +4280,27 @@ uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPart
   return result;
 }
 
-uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_3(uint64_t result, uint64_t a2, _BYTE *a3, double a4)
+id *__218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_3(id *result, uint64_t a2, _BYTE *a3, double a4)
 {
   v5 = result;
-  if (*(*(*(result + 88) + 8) + 24) < _kMaxPredictionsToExamine && *(*(*(result + 96) + 8) + 24) < _kMaxPredictionsToAdd)
+  if (*(*(result[11] + 1) + 24) < _kMaxPredictionsToExamine && *(*(result[12] + 1) + 24) < _kMaxPredictionsToAdd)
   {
     LOBYTE(v8) = *(result + 112);
-    result = [*(result + 32) _stringForCompletion:a2 languageModel:*(result + 40) languageObject:*(result + 48) connection:*(result + 104) sender:*(result + 56) prefix:*(result + 64) capitalized:v8];
+    result = [result[4] _stringForCompletion:a2 languageModel:result[5] languageObject:result[6] connection:result[13] sender:result[7] prefix:result[8] capitalized:v8];
     if (result)
     {
       v7 = result;
-      result = [*(v5 + 72) containsObject:result];
+      result = [v5[9] containsObject:result];
       if ((result & 1) == 0)
       {
-        [*(v5 + 72) addObject:v7];
-        result = [*(v5 + 80) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a4), v7}];
-        ++*(*(*(v5 + 96) + 8) + 24);
+        [v5[9] addObject:v7];
+        result = [v5[10] setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a4), v7}];
+        ++*(*(v5[12] + 1) + 24);
       }
     }
   }
 
-  if (++*(*(*(v5 + 88) + 8) + 24) >= _kMaxPredictionsToExamine || *(*(*(v5 + 96) + 8) + 24) >= _kMaxPredictionsToAdd)
+  if (++*(*(v5[11] + 1) + 24) >= _kMaxPredictionsToExamine || *(*(v5[12] + 1) + 24) >= _kMaxPredictionsToAdd)
   {
     *a3 = 1;
   }
@@ -4288,18 +4312,17 @@ void __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialW
 {
   if (*(*(*(a1 + 88) + 8) + 24) >= _kMaxPredictionsToExamine || *(*(*(a1 + 96) + 8) + 24) >= _kMaxPredictionsToAdd)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = *(a1 + 56);
-    LOBYTE(v16) = *(a1 + 112);
-    v11 = [*(a1 + 32) _stringForTokenIDs:a2 tokenCount:a3 entryString:0 languageModel:*(a1 + 40) languageObject:*(a1 + 48) connection:*(a1 + 104) sender:v10 prefix:*(a1 + 64) capitalized:v16];
-    if (v11 && ([*(a1 + 72) containsObject:v11] & 1) == 0)
+    LOBYTE(v15) = *(a1 + 112);
+    v10 = [*(a1 + 32) _stringForTokenIDs:a2 tokenCount:a3 entryString:0 languageModel:*(a1 + 40) languageObject:*(a1 + 48) connection:*(a1 + 104) sender:*(a1 + 56) prefix:*(a1 + 64) capitalized:v15];
+    if (v10 && ([*(a1 + 72) containsObject:v10] & 1) == 0)
     {
-      [*(a1 + 72) addObject:v11];
-      [*(a1 + 80) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a5), v11}];
+      [*(a1 + 72) addObject:v10];
+      [*(a1 + 80) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", a5), v10}];
       ++*(*(*(a1 + 96) + 8) + 24);
     }
   }
@@ -4309,37 +4332,37 @@ void __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialW
     *a4 = 1;
   }
 
-  else if (a3 == 1 && v11 && (*(a1 + 113) & 1) != 0)
+  else if (a3 == 1 && v10 && (*(a1 + 113) & 1) != 0)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3052000000;
-    v28 = __Block_byref_object_copy__0;
-    v29 = __Block_byref_object_dispose__0;
-    v30 = 0;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_5;
-    v17[3] = &unk_1E8405350;
-    v20 = &v25;
-    v21 = a2;
-    v12 = *(a1 + 32);
-    v17[4] = v11;
-    v17[5] = v12;
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 104);
-    v22 = 1;
-    v23 = v14;
-    v15 = *(a1 + 56);
-    v18 = v13;
-    v19 = v15;
-    v24 = *(a1 + 112);
-    [v13 enumerateEntriesForString:v11 withBlock:v17];
-    if (v26[5])
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3052000000;
+    v27 = __Block_byref_object_copy__0;
+    v28 = __Block_byref_object_dispose__0;
+    v29 = 0;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_5;
+    v16[3] = &unk_1E8405350;
+    v19 = &v24;
+    v20 = a2;
+    v11 = *(a1 + 32);
+    v16[4] = v10;
+    v16[5] = v11;
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 104);
+    v21 = 1;
+    v22 = v13;
+    v14 = *(a1 + 56);
+    v17 = v12;
+    v18 = v14;
+    v23 = *(a1 + 112);
+    [v12 enumerateEntriesForString:v10 withBlock:v16];
+    if (v25[5])
     {
       if (([*(a1 + 72) containsObject:?] & 1) == 0)
       {
-        [*(a1 + 72) addObject:v26[5]];
+        [*(a1 + 72) addObject:v25[5]];
         ++*(*(*(a1 + 96) + 8) + 24);
         if (++*(*(*(a1 + 88) + 8) + 24) >= _kMaxPredictionsToExamine || *(*(*(a1 + 96) + 8) + 24) >= _kMaxPredictionsToAdd)
         {
@@ -4348,24 +4371,23 @@ void __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialW
       }
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
   }
 }
 
-uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_5(uint64_t result, void *a2, int a3, _BYTE *a4)
+void *__218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPartialWordRange_languageObject_connection_sender_tagger_appIdentifier_waitForLanguageModel_allowTransformer_candidates_scoreDictionary_tryTransliteration___block_invoke_5(void *result, void *a2, int a3, _BYTE *a4)
 {
   if (a2)
   {
     v4 = result;
-    if (**(result + 88) == a3)
+    if (*result[11] == a3)
     {
-      result = [a2 isEqualToString:*(result + 32)];
+      result = [a2 isEqualToString:result[4]];
       if ((result & 1) == 0)
       {
-        v7 = *(v4 + 64);
-        LOBYTE(v8) = *(v4 + 112);
-        result = [*(v4 + 40) _stringForTokenIDs:*(v4 + 88) tokenCount:*(v4 + 96) entryString:a2 languageModel:*(v4 + 48) languageObject:*(v4 + 56) connection:*(v4 + 104) sender:v7 prefix:*(v4 + 72) capitalized:v8];
-        *(*(*(v4 + 80) + 8) + 40) = result;
+        LOBYTE(v7) = *(v4 + 112);
+        result = [v4[5] _stringForTokenIDs:v4[11] tokenCount:v4[12] entryString:a2 languageModel:v4[6] languageObject:v4[7] connection:v4[13] sender:v4[8] prefix:v4[9] capitalized:v7];
+        *(*(v4[10] + 8) + 40) = result;
         *a4 = 1;
       }
     }
@@ -4409,35 +4431,35 @@ uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPart
   length = range.length;
   location = range.location;
   transformerCopy = transformer;
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v15 = [(AppleSpell *)self wordLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:0];
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v66 - ((v16 + 23) & 0xFFFFFFFFFFFFFFF0);
-  v93 = xmmword_1D2BF76A0;
+  v17 = &v65 - ((v16 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v92 = xmmword_1D2BF76A0;
   candidatesCopy = candidates;
   v18 = [candidates count];
-  v92 = 0;
-  v74 = v17;
-  v65 = v17;
+  v91 = 0;
+  v73 = v17;
+  v64 = v17;
   v19 = v15;
   selfCopy = self;
   objectCopy = object;
-  v73 = [(AppleSpell *)self _contextLengthForRange:location languageObject:length tagger:object languageModel:tagger maxContextLength:v15 context:_kMaxContextLength cleanOffset:v65 cleanContextRange:&v92 lastTokenRange:&v93 lastTokenID:0, 0];
-  if (*(&v93 + 1))
+  v72 = [(AppleSpell *)self _contextLengthForRange:location languageObject:length tagger:object languageModel:tagger maxContextLength:v15 context:_kMaxContextLength cleanOffset:v64 cleanContextRange:&v91 lastTokenRange:&v92 lastTokenID:0, 0];
+  if (*(&v92 + 1))
   {
     string = [tagger string];
-    v69 = [string substringWithRange:{v93, *(&v93 + 1)}];
+    v68 = [string substringWithRange:v92];
   }
 
   else
   {
-    v69 = &stru_1F4E0A7A0;
+    v68 = &stru_1F4E0A7A0;
   }
 
   dictionaryCopy = dictionary;
   v22 = objectCopy;
-  v75 = [(AppleSpell *)selfCopy useUnigramProbabilityForLanguageObject:objectCopy];
+  v74 = [(AppleSpell *)selfCopy useUnigramProbabilityForLanguageObject:objectCopy];
   isArabic = [v22 isArabic];
   v23 = identifierCopy;
   if (transformerCopy)
@@ -4455,11 +4477,11 @@ uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPart
     v25 = 0;
   }
 
-  HIDWORD(v66) = v25;
+  HIDWORD(v65) = v25;
   if ([(AppleSpell *)selfCopy useSentencePieceLanguageModelForLanguageObject:objectCopy tagger:tagger appIdentifier:v23]&& (v26 = [(AppleSpell *)selfCopy sentencePieceLanguageModelForLanguageObject:objectCopy waitForResult:0]) != 0)
   {
-    v68 = v26;
-    v27 = [v26 stateWithContext:v69];
+    v67 = v26;
+    v27 = [v26 stateWithContext:v68];
     v28 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
     if (v27)
     {
@@ -4470,46 +4492,46 @@ uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPart
   else
   {
     v28 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
-    v68 = 0;
+    v67 = 0;
     v27 = 0;
   }
 
   [dictionary removeAllObjects];
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
-  v79 = [candidatesCopy countByEnumeratingWithState:&v88 objects:v95 count:16];
-  if (v79)
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v78 = [candidatesCopy countByEnumeratingWithState:&v87 objects:v94 count:16];
+  if (v78)
   {
     v29 = 0;
-    v77 = *v89;
-    transformerCopy = v19 == 0 || v75;
+    v76 = *v88;
+    transformerCopy = v19 == 0 || v74;
     v30 = v18;
-    v70 = v27;
-    v71 = v28;
+    v69 = v27;
+    v70 = v28;
     do
     {
-      for (i = 0; i != v79; ++i)
+      for (i = 0; i != v78; ++i)
       {
-        if (*v89 != v77)
+        if (*v88 != v76)
         {
           objc_enumerationMutation(candidatesCopy);
         }
 
-        v32 = *(*(&v88 + 1) + 8 * i);
+        v32 = *(*(&v87 + 1) + 8 * i);
         v33 = [(AppleSpell *)selfCopy _tokenIDForString:v32 languageModel:v19 languageObject:objectCopy terminatorTokenID:0];
         v34 = [v28 objectForKey:v32];
         if (v27)
         {
           v35 = [v27 objectForKey:v32];
-          v87 = 0.0;
+          v86 = 0.0;
           if (!(transformerCopy & 1 | (v35 == 0)))
           {
             [v35 doubleValue];
-            v87 = v36;
-            v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@", v69, v32];
-            if ([v68 stringIsBlocklisted:v37])
+            v86 = v36;
+            v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@", v68, v32];
+            if ([v67 stringIsBlocklisted:v37])
             {
               goto LABEL_46;
             }
@@ -4520,14 +4542,14 @@ uint64_t __218__AppleSpell_LanguageModeling___addLanguageModelCompletionsForPart
 
         else
         {
-          v87 = 0.0;
+          v86 = 0.0;
         }
 
         if (transformerCopy & 1 | (v33 == 0))
         {
-          if (v75)
+          if (v74)
           {
-            [(AppleSpell *)selfCopy _getUnigramProbabilityForString:v32 languageModel:v19 probability:&v87];
+            [(AppleSpell *)selfCopy _getUnigramProbabilityForString:v32 languageModel:v19 probability:&v86];
           }
 
 LABEL_36:
@@ -4535,22 +4557,22 @@ LABEL_36:
           {
             [v34 doubleValue];
             v46 = v45;
-            v47 = v87;
-            if (v46 < 0.0 && v46 > v87)
+            v47 = v86;
+            if (v46 < 0.0 && v46 > v86)
             {
-              v87 = v46;
+              v86 = v46;
               v47 = v46;
             }
           }
 
           else
           {
-            v47 = v87;
+            v47 = v86;
           }
 
           if (v47 >= 0.0)
           {
-            v87 = -30.0 - v29 / v30;
+            v86 = -30.0 - v29 / v30;
           }
 
           [dictionaryCopy setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:"), v32}];
@@ -4559,21 +4581,21 @@ LABEL_36:
 
         v38 = dictionaryCopy;
         v39 = v19;
-        v41 = v73;
-        v40 = v74;
-        if (v73 <= v92)
+        v41 = v72;
+        v40 = v73;
+        if (v72 <= v91)
         {
           v42 = 0;
         }
 
         else
         {
-          v42 = &v74[4 * v92];
+          v42 = &v73[4 * v91];
         }
 
-        if (v73 >= v92)
+        if (v72 >= v91)
         {
-          v43 = v73 - v92;
+          v43 = v72 - v91;
         }
 
         else
@@ -4581,20 +4603,20 @@ LABEL_36:
           v43 = 0;
         }
 
-        [v39 getConditionalProbabilityForTokenID:v33 context:v42 length:v43 probability:&v87];
+        [v39 getConditionalProbabilityForTokenID:v33 context:v42 length:v43 probability:&v86];
         *&v40[4 * v41] = v33;
         v44 = [v39 tokenSequenceIsBlocklisted:v40 length:v41 + 1];
         if (isArabic)
         {
-          v86 = 0.0;
-          [(AppleSpell *)selfCopy _getUnigramProbabilityForString:v32 languageModel:v39 probability:&v86];
-          v87 = v87 + v86 * 0.000001;
+          v85 = 0.0;
+          [(AppleSpell *)selfCopy _getUnigramProbabilityForString:v32 languageModel:v39 probability:&v85];
+          v86 = v86 + v85 * 0.000001;
         }
 
         v19 = v39;
         dictionaryCopy = v38;
-        v27 = v70;
-        v28 = v71;
+        v27 = v69;
+        v28 = v70;
         if ((v44 & 1) == 0)
         {
           goto LABEL_36;
@@ -4604,22 +4626,22 @@ LABEL_46:
         ++v29;
       }
 
-      v79 = [candidatesCopy countByEnumeratingWithState:&v88 objects:v95 count:16];
+      v78 = [candidatesCopy countByEnumeratingWithState:&v87 objects:v94 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
   v49 = [dictionaryCopy keysSortedByValueUsingComparator:&__block_literal_global_373];
   v50 = v49;
-  if (HIDWORD(v66))
+  if (HIDWORD(v65))
   {
     if ([v49 count] >= 2)
     {
       v51 = [(AppleSpell *)selfCopy transformerOrSiriLanguageModelForLanguageObject:objectCopy appIdentifier:identifierCopy waitForResult:0];
       if (v51)
       {
-        v52 = [v51 stateWithContext:v69];
+        v52 = [v51 stateWithContext:v68];
         if (v52)
         {
           v53 = v52;
@@ -4632,44 +4654,43 @@ LABEL_46:
 
           v56 = [v53 conditionalProbabilityDictionaryForStrings:v55];
           v57 = [MEMORY[0x1E695DF70] arrayWithArray:{objc_msgSend(v56, "keysSortedByValueUsingComparator:", &__block_literal_global_373)}];
+          v81 = 0u;
           v82 = 0u;
           v83 = 0u;
           v84 = 0u;
-          v85 = 0u;
-          v58 = [v50 countByEnumeratingWithState:&v82 objects:v94 count:16];
+          v58 = [v50 countByEnumeratingWithState:&v81 objects:v93 count:16];
           if (v58)
           {
             v59 = v58;
-            v60 = *v83;
+            v60 = *v82;
             do
             {
               for (j = 0; j != v59; ++j)
               {
-                if (*v83 != v60)
+                if (*v82 != v60)
                 {
                   objc_enumerationMutation(v50);
                 }
 
-                v62 = *(*(&v82 + 1) + 8 * j);
+                v62 = *(*(&v81 + 1) + 8 * j);
                 if (([v57 containsObject:v62] & 1) == 0)
                 {
                   [v57 addObject:v62];
                 }
               }
 
-              v59 = [v50 countByEnumeratingWithState:&v82 objects:v94 count:16];
+              v59 = [v50 countByEnumeratingWithState:&v81 objects:v93 count:16];
             }
 
             while (v59);
           }
 
-          v50 = v57;
+          return v57;
         }
       }
     }
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
@@ -4716,132 +4737,128 @@ LABEL_15:
   languageCopy = language;
   modelCopy = model;
   selfCopy = self;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   defaultReplacementRange = [list defaultReplacementRange];
   stateCopy = state;
-  if (state)
+  if (!state)
   {
-    v12 = defaultReplacementRange;
-    v13 = v11;
-    array = [MEMORY[0x1E695DF70] array];
-    dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    candidates = [list candidates];
-    v15 = [candidates countByEnumeratingWithState:&v42 objects:v46 count:16];
-    if (v15)
-    {
-      v16 = v15;
-      v17 = *v43;
-      v33 = xmmword_1D2BF76A0;
-      taggerCopy = tagger;
-      do
-      {
-        for (i = 0; i != v16; ++i)
-        {
-          if (*v43 != v17)
-          {
-            objc_enumerationMutation(candidates);
-          }
+    return 0;
+  }
 
-          v19 = *(*(&v42 + 1) + 8 * i);
-          replacementRange = [v19 replacementRange];
-          v41 = 0.0;
-          if (v12 == replacementRange && v13 == v21)
+  v12 = defaultReplacementRange;
+  v13 = v11;
+  array = [MEMORY[0x1E695DF70] array];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  candidates = [list candidates];
+  v15 = [candidates countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v42;
+    v32 = xmmword_1D2BF76A0;
+    taggerCopy = tagger;
+    do
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v42 != v17)
+        {
+          objc_enumerationMutation(candidates);
+        }
+
+        v19 = *(*(&v41 + 1) + 8 * i);
+        replacementRange = [v19 replacementRange];
+        v40 = 0.0;
+        if (v12 == replacementRange && v13 == v21)
+        {
+          [array addObject:{objc_msgSend(v19, "string")}];
+        }
+
+        else
+        {
+          v39 = v32;
+          MEMORY[0x1EEE9AC00](replacementRange);
+          [AppleSpell _contextLengthForRange:selfCopy languageObject:"_contextLengthForRange:languageObject:tagger:languageModel:maxContextLength:context:cleanOffset:cleanContextRange:lastTokenRange:lastTokenID:" tagger:&v30 - ((v23 + 19) & 0xFFFFFFFFFFFFFFF0) languageModel:0 maxContextLength:&v39 context:0 cleanOffset:0 cleanContextRange:? lastTokenRange:? lastTokenID:?];
+          if (*(&v39 + 1))
           {
-            [array addObject:{objc_msgSend(v19, "string")}];
+            string = [tagger string];
+            v25 = [string substringWithRange:v39];
           }
 
           else
           {
-            v40 = v33;
-            MEMORY[0x1EEE9AC00](replacementRange);
-            [AppleSpell _contextLengthForRange:selfCopy languageObject:"_contextLengthForRange:languageObject:tagger:languageModel:maxContextLength:context:cleanOffset:cleanContextRange:lastTokenRange:lastTokenID:" tagger:&v31 - ((v23 + 19) & 0xFFFFFFFFFFFFFFF0) languageModel:0 maxContextLength:&v40 context:0 cleanOffset:0 cleanContextRange:? lastTokenRange:? lastTokenID:?];
-            if (*(&v40 + 1))
-            {
-              string = [tagger string];
-              v25 = [string substringWithRange:{v40, *(&v40 + 1)}];
-            }
-
-            else
-            {
-              v25 = &stru_1F4E0A7A0;
-            }
-
-            if ([objc_msgSend(stateCopy "languageModel")])
-            {
-              v26 = [MEMORY[0x1E696AD98] numberWithDouble:v41];
-              string2 = [v19 string];
-              [dictionary setObject:v26 forKey:string2];
-            }
-
-            tagger = taggerCopy;
+            v25 = &stru_1F4E0A7A0;
           }
-        }
 
-        v16 = [candidates countByEnumeratingWithState:&v42 objects:v46 count:16];
+          if ([objc_msgSend(stateCopy "languageModel")])
+          {
+            v26 = [MEMORY[0x1E696AD98] numberWithDouble:v40];
+            string2 = [v19 string];
+            [dictionary setObject:v26 forKey:string2];
+          }
+
+          tagger = taggerCopy;
+        }
       }
 
-      while (v16);
+      v16 = [candidates countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
-    if ([array count])
-    {
-      v28 = [stateCopy conditionalProbabilityDictionaryForStrings:array];
-      [dictionary addEntriesFromDictionary:v28];
-    }
+    while (v16);
   }
 
-  else
+  if ([array count])
   {
-    dictionary = 0;
+    v28 = [stateCopy conditionalProbabilityDictionaryForStrings:array];
+    [dictionary addEntriesFromDictionary:v28];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 
 - (id)_rankedCandidatesForCandidateList:(id)list languageObject:(id)object tagger:(id)tagger appIdentifier:(id)identifier parameterBundles:(id)bundles
 {
   bundlesCopy = bundles;
-  v235 = *MEMORY[0x1E69E9840];
+  v234 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   defaultReplacementRange = [list defaultReplacementRange];
   v14 = v13;
-  v160 = xmmword_1D2BF76A0;
-  v227 = xmmword_1D2BF76A0;
+  v159 = xmmword_1D2BF76A0;
+  v226 = xmmword_1D2BF76A0;
   identifierCopy = identifier;
   v15 = [(AppleSpell *)self wordLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:0];
-  v155 = v153;
+  v154 = v152;
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v153[-((v16 + 19) & 0xFFFFFFFFFFFFFFF0)];
+  v17 = &v152[-((v16 + 19) & 0xFFFFFFFFFFFFFFF0)];
   listCopy = list;
-  v187 = [list count];
-  v226 = 0;
-  v162 = v17;
+  v186 = [list count];
+  v225 = 0;
+  v161 = v17;
   selfCopy = self;
   selfCopy2 = self;
-  v171 = v14;
-  v172 = defaultReplacementRange;
+  v170 = v14;
+  v171 = defaultReplacementRange;
   objectCopy = object;
   v20 = v15;
-  v161 = [(AppleSpell *)selfCopy2 _contextLengthForRange:defaultReplacementRange languageObject:v14 tagger:object languageModel:tagger maxContextLength:v15 context:_kMaxContextLength cleanOffset:v17 cleanContextRange:&v226 lastTokenRange:&v227 lastTokenID:0, 0];
-  if (*(&v227 + 1))
+  v160 = [(AppleSpell *)selfCopy2 _contextLengthForRange:defaultReplacementRange languageObject:v14 tagger:object languageModel:tagger maxContextLength:v15 context:_kMaxContextLength cleanOffset:v17 cleanContextRange:&v225 lastTokenRange:&v226 lastTokenID:0, 0];
+  if (*(&v226 + 1))
   {
     string = [tagger string];
-    v165 = [string substringWithRange:v227];
+    v164 = [string substringWithRange:v226];
   }
 
   else
   {
-    v165 = &stru_1F4E0A7A0;
+    v164 = &stru_1F4E0A7A0;
   }
 
   v22 = [listCopy count];
   v23 = selfCopy;
-  v166 = v22 < 2 || [(AppleSpell *)selfCopy useUnigramProbabilityForLanguageObject:objectCopy];
+  v165 = v22 < 2 || [(AppleSpell *)selfCopy useUnigramProbabilityForLanguageObject:objectCopy];
   v24 = [listCopy count];
   v25 = 0;
   if (v24 >= 2 && _kMaxCorrectionRescoreCount)
@@ -4849,167 +4866,167 @@ LABEL_15:
     v25 = [(AppleSpell *)v23 useTransformerLanguageModelForLanguageObject:objectCopy tagger:tagger appIdentifier:identifierCopy];
   }
 
-  v154 = v25;
+  v153 = v25;
   v26 = [listCopy count] >= 2 && _kUseCharacterLanguageModels == 1 && -[AppleSpell useCharacterLanguageModelForLanguageObject:tagger:appIdentifier:](v23, "useCharacterLanguageModelForLanguageObject:tagger:appIdentifier:", objectCopy, tagger, identifierCopy);
   taggerCopy = tagger;
   v27 = [(AppleSpell *)v23 useSentencePieceLanguageModelForLanguageObject:objectCopy tagger:tagger appIdentifier:identifierCopy];
   v28 = v23;
   v29 = v27;
-  v225 = 0.0;
   v224 = 0.0;
   v223 = 0.0;
   v222 = 0.0;
   v221 = 0.0;
+  v220 = 0.0;
   if (v27 && (v30 = [(AppleSpell *)v28 sentencePieceLanguageModelForLanguageObject:objectCopy waitForResult:0]) != 0)
   {
     v31 = v30;
-    v32 = [v30 stateWithContext:v165];
-    v164 = v31;
+    v32 = [v30 stateWithContext:v164];
+    v163 = v31;
     if (v32)
     {
-      v168 = [(AppleSpell *)selfCopy _languageModelStateScoresForCandidateList:listCopy languageModel:v15 state:v32 language:objectCopy tagger:taggerCopy];
+      v167 = [(AppleSpell *)selfCopy _languageModelStateScoresForCandidateList:listCopy languageModel:v15 state:v32 language:objectCopy tagger:taggerCopy];
       goto LABEL_20;
     }
   }
 
   else
   {
-    v164 = 0;
+    v163 = 0;
   }
 
-  v168 = 0;
+  v167 = 0;
 LABEL_20:
   v33 = bundlesCopy;
   v34 = selfCopy;
   v35 = taggerCopy;
   v36 = identifierCopy;
-  [(AppleSpell *)selfCopy getParameterValue:&v225 forName:*MEMORY[0x1E6977920] languageObject:objectCopy tagger:taggerCopy appIdentifier:identifierCopy parameterBundles:bundlesCopy defaultValue:1.0];
-  [(AppleSpell *)v34 getParameterValue:&v224 forName:*MEMORY[0x1E6977910] languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:0.0];
-  [(AppleSpell *)v34 getParameterValue:&v223 forName:*MEMORY[0x1E6977918] languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:0.0];
-  [(AppleSpell *)v34 getParameterValue:&v222 forName:@"StandaloneLexiconWeight" languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:1.0];
-  [(AppleSpell *)v34 getParameterValue:&v221 forName:@"TransformerLanguageModelWeight" languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:1.0];
-  if (v224 > 0.0 && v26)
+  [(AppleSpell *)selfCopy getParameterValue:&v224 forName:*MEMORY[0x1E6977920] languageObject:objectCopy tagger:taggerCopy appIdentifier:identifierCopy parameterBundles:bundlesCopy defaultValue:1.0];
+  [(AppleSpell *)v34 getParameterValue:&v223 forName:*MEMORY[0x1E6977910] languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:0.0];
+  [(AppleSpell *)v34 getParameterValue:&v222 forName:*MEMORY[0x1E6977918] languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:0.0];
+  [(AppleSpell *)v34 getParameterValue:&v221 forName:@"StandaloneLexiconWeight" languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:1.0];
+  [(AppleSpell *)v34 getParameterValue:&v220 forName:@"TransformerLanguageModelWeight" languageObject:objectCopy tagger:v35 appIdentifier:v36 parameterBundles:v33 defaultValue:1.0];
+  if (v223 > 0.0 && v26)
   {
-    v224 = [(AppleSpell *)v34 characterLanguageModelForLanguageObject:objectCopy waitForResult:0, v224];
+    v223 = [(AppleSpell *)v34 characterLanguageModelForLanguageObject:objectCopy waitForResult:0, v223];
     v39 = objectCopy;
-    if (v224 && (v40 = [v224 stateWithContext:v165]) != 0)
+    if (v223 && (v40 = [v223 stateWithContext:v164]) != 0)
     {
-      v176 = [(AppleSpell *)selfCopy _languageModelStateScoresForCandidateList:listCopy languageModel:v20 state:v40 language:objectCopy tagger:taggerCopy];
+      v175 = [(AppleSpell *)selfCopy _languageModelStateScoresForCandidateList:listCopy languageModel:v20 state:v40 language:objectCopy tagger:taggerCopy];
     }
 
     else
     {
-      v176 = 0;
+      v175 = 0;
     }
   }
 
   else
   {
-    v176 = 0;
+    v175 = 0;
     v39 = objectCopy;
   }
 
-  v219 = 0u;
-  v220 = 0u;
-  v217 = 0u;
   v218 = 0u;
+  v219 = 0u;
+  v216 = 0u;
+  v217 = 0u;
   candidates = [listCopy candidates];
-  v177 = [candidates countByEnumeratingWithState:&v217 objects:v234 count:16];
-  if (v177)
+  v176 = [candidates countByEnumeratingWithState:&v216 objects:v233 count:16];
+  if (v176)
   {
     v41 = 0;
-    v175 = *v218;
-    v163 = (v20 == 0) | v166;
-    v170 = v163 | !v29;
-    v42 = v187;
+    v174 = *v217;
+    v162 = (v20 == 0) | v165;
+    v169 = v162 | !v29;
+    v42 = v186;
     do
     {
       v43 = 0;
-      v44 = v168;
+      v44 = v167;
       do
       {
-        v182 = v41;
-        if (*v218 != v175)
+        v181 = v41;
+        if (*v217 != v174)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v181 = v43;
-        v45 = *(*(&v217 + 1) + 8 * v43);
+        v180 = v43;
+        v45 = *(*(&v216 + 1) + 8 * v43);
         numberOfWords = [v45 numberOfWords];
         replacementRange = [v45 replacementRange];
         v49 = v48;
-        v50 = v176;
-        v184 = v45;
-        if (v176)
+        v50 = v175;
+        v183 = v45;
+        if (v175)
         {
-          v50 = [v176 objectForKey:{objc_msgSend(v45, "string")}];
+          v50 = [v175 objectForKey:{objc_msgSend(v45, "string")}];
         }
 
         if (v44)
         {
-          v180 = [v44 objectForKey:{objc_msgSend(v184, "string")}];
+          v179 = [v44 objectForKey:{objc_msgSend(v183, "string")}];
         }
 
         else
         {
-          v180 = 0;
+          v179 = 0;
         }
 
-        *&v194 = 0;
-        v216 = 0.0;
+        *&v193 = 0;
+        v215 = 0.0;
         v52 = numberOfWords == 1;
         v51 = numberOfWords > 1;
         if (!v52)
         {
-          v178 = v50;
-          v183 = 0;
+          v177 = v50;
+          v182 = 0;
           v56 = 0;
           goto LABEL_46;
         }
 
-        v52 = v172 == replacementRange && v171 == v49;
+        v52 = v171 == replacementRange && v170 == v49;
         if (!v52)
         {
           LOBYTE(v53) = 0;
-          v183 = 0;
-          v55 = v181;
-          v54 = v182;
+          v182 = 0;
+          v55 = v180;
+          v54 = v181;
           goto LABEL_99;
         }
 
-        string2 = [v184 string];
+        string2 = [v183 string];
         v65 = [(AppleSpell *)selfCopy _tokenIDForString:string2 languageModel:v20 languageObject:v39 terminatorTokenID:0];
-        v178 = v50;
-        if (v170)
+        v177 = v50;
+        if (v169)
         {
           v66 = v65;
-          if (v163 & 1 | (v65 == 0))
+          if (v162 & 1 | (v65 == 0))
           {
-            v67 = v184;
-            [objc_msgSend(v184 "string")];
-            v183 = 0;
-            v179 = 0;
+            v67 = v183;
+            [objc_msgSend(v183 "string")];
+            v182 = 0;
+            v178 = 0;
             v51 = v68 != 0;
           }
 
           else
           {
-            v95 = v161;
-            v96 = v162;
-            if (v161 <= v226)
+            v95 = v160;
+            v96 = v161;
+            if (v160 <= v225)
             {
               v97 = 0;
             }
 
             else
             {
-              v97 = &v162[4 * v226];
+              v97 = &v161[4 * v225];
             }
 
-            if (v161 >= v226)
+            if (v160 >= v225)
             {
-              v98 = v161 - v226;
+              v98 = v160 - v225;
             }
 
             else
@@ -5017,37 +5034,37 @@ LABEL_20:
               v98 = 0;
             }
 
-            v179 = [v20 getConditionalProbabilityForTokenID:v65 context:v97 length:v98 probability:&v194];
+            v178 = [v20 getConditionalProbabilityForTokenID:v65 context:v97 length:v98 probability:&v193];
             *&v96[4 * v95] = v66;
             v99 = v95 + 1;
-            v44 = v168;
-            v183 = [v20 tokenSequenceIsBlocklisted:v96 length:v99];
+            v44 = v167;
+            v182 = [v20 tokenSequenceIsBlocklisted:v96 length:v99];
             v51 = 0;
-            v67 = v184;
+            v67 = v183;
           }
         }
 
         else
         {
-          v179 = v180 != 0;
-          if (v180)
+          v178 = v179 != 0;
+          if (v179)
           {
-            [v180 doubleValue];
-            *&v194 = v88;
+            [v179 doubleValue];
+            *&v193 = v88;
           }
 
           v89 = MEMORY[0x1E696AEC0];
-          v67 = v184;
-          string3 = [v184 string];
-          v91 = [v89 stringWithFormat:@"%@ %@", v165, string3];
-          v183 = [v164 stringIsBlocklisted:v91];
+          v67 = v183;
+          string3 = [v183 string];
+          v91 = [v89 stringWithFormat:@"%@ %@", v164, string3];
+          v182 = [v163 stringIsBlocklisted:v91];
           v51 = 0;
         }
 
         string4 = [v67 string];
-        if (![(AppleSpell *)selfCopy _getUnigramProbabilityForString:string4 languageModel:v20 probability:&v216])
+        if (![(AppleSpell *)selfCopy _getUnigramProbabilityForString:string4 languageModel:v20 probability:&v215])
         {
-          v56 = v179;
+          v56 = v178;
 LABEL_46:
           v57 = 0;
           if (!v51)
@@ -5058,12 +5075,12 @@ LABEL_46:
           goto LABEL_47;
         }
 
-        v57 = ((*&v216 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL || ((*&v216 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF) && v216 < 0.0;
-        v56 = v179;
+        v57 = ((*&v215 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL || ((*&v215 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF) && v215 < 0.0;
+        v56 = v178;
         if (!v51)
         {
 LABEL_118:
-          v55 = v181;
+          v55 = v180;
           if (!v56)
           {
             goto LABEL_83;
@@ -5073,63 +5090,63 @@ LABEL_118:
         }
 
 LABEL_47:
-        v179 = v56;
-        v174 = v57;
-        candidateWords = [v184 candidateWords];
+        v178 = v56;
+        v173 = v57;
+        candidateWords = [v183 candidateWords];
+        v211 = 0u;
         v212 = 0u;
         v213 = 0u;
         v214 = 0u;
-        v215 = 0u;
-        v187 = candidateWords;
-        v59 = [candidateWords countByEnumeratingWithState:&v212 objects:v233 count:16];
+        v186 = candidateWords;
+        v59 = [candidateWords countByEnumeratingWithState:&v211 objects:v232 count:16];
         if (v59)
         {
           v60 = v59;
           v61 = 0;
-          v62 = *v213;
+          v62 = *v212;
           do
           {
             for (i = 0; i != v60; ++i)
             {
-              if (*v213 != v62)
+              if (*v212 != v62)
               {
-                objc_enumerationMutation(v187);
+                objc_enumerationMutation(v186);
               }
 
-              v61 += [objc_msgSend(*(*(&v212 + 1) + 8 * i) componentsSeparatedByString:{@"-", "count"}];
+              v61 += [objc_msgSend(*(*(&v211 + 1) + 8 * i) componentsSeparatedByString:{@"-", "count"}];
             }
 
-            v60 = [v187 countByEnumeratingWithState:&v212 objects:v233 count:16];
+            v60 = [v186 countByEnumeratingWithState:&v211 objects:v232 count:16];
           }
 
           while (v60);
           v39 = objectCopy;
         }
 
-        v173 = v153;
+        v172 = v152;
         MEMORY[0x1EEE9AC00](0);
-        v70 = &v153[-v69];
-        v211 = 0;
-        v71 = [(AppleSpell *)selfCopy _contextLengthForRange:replacementRange languageObject:v49 tagger:v39 languageModel:taggerCopy maxContextLength:v20 context:&v153[-v69] cleanOffset:&v211 cleanContextRange:0 lastTokenRange:0 lastTokenID:0];
+        v70 = &v152[-v69];
+        v210 = 0;
+        v71 = [(AppleSpell *)selfCopy _contextLengthForRange:replacementRange languageObject:v49 tagger:v39 languageModel:taggerCopy maxContextLength:v20 context:&v152[-v69] cleanOffset:&v210 cleanContextRange:0 lastTokenRange:0 lastTokenID:0];
+        v206 = 0u;
         v207 = 0u;
         v208 = 0u;
         v209 = 0u;
-        v210 = 0u;
-        v186 = [v187 countByEnumeratingWithState:&v207 objects:v232 count:16];
-        if (v186)
+        v185 = [v186 countByEnumeratingWithState:&v206 objects:v231 count:16];
+        if (v185)
         {
-          v185 = *v208;
+          v184 = *v207;
           do
           {
             v72 = 0;
             do
             {
-              if (*v208 != v185)
+              if (*v207 != v184)
               {
-                objc_enumerationMutation(v187);
+                objc_enumerationMutation(v186);
               }
 
-              v73 = *(*(&v207 + 1) + 8 * v72);
+              v73 = *(*(&v206 + 1) + 8 * v72);
               v74 = [(AppleSpell *)selfCopy _tokenIDForString:v73 languageModel:v20 languageObject:v39 terminatorTokenID:0];
               bundlesCopy = v72;
               if (v74)
@@ -5140,32 +5157,32 @@ LABEL_47:
               else
               {
                 v75 = [v73 componentsSeparatedByString:@"-"];
+                v202 = 0u;
                 v203 = 0u;
                 v204 = 0u;
                 v205 = 0u;
-                v206 = 0u;
-                v76 = [v75 countByEnumeratingWithState:&v203 objects:v231 count:16];
+                v76 = [v75 countByEnumeratingWithState:&v202 objects:v230 count:16];
                 if (v76)
                 {
                   v77 = v76;
-                  v78 = *v204;
+                  v78 = *v203;
                   do
                   {
                     for (j = 0; j != v77; ++j)
                     {
-                      if (*v204 != v78)
+                      if (*v203 != v78)
                       {
                         objc_enumerationMutation(v75);
                       }
 
-                      v80 = *(*(&v203 + 1) + 8 * j);
+                      v80 = *(*(&v202 + 1) + 8 * j);
                       if ([v80 length])
                       {
                         *&v70[4 * v71++] = [(AppleSpell *)selfCopy _tokenIDForString:v80 languageModel:v20 languageObject:objectCopy terminatorTokenID:0];
                       }
                     }
 
-                    v77 = [v75 countByEnumeratingWithState:&v203 objects:v231 count:16];
+                    v77 = [v75 countByEnumeratingWithState:&v202 objects:v230 count:16];
                   }
 
                   while (v77);
@@ -5176,31 +5193,31 @@ LABEL_47:
               v39 = objectCopy;
             }
 
-            while (bundlesCopy + 1 != v186);
-            v186 = [v187 countByEnumeratingWithState:&v207 objects:v232 count:16];
+            while (bundlesCopy + 1 != v185);
+            v185 = [v186 countByEnumeratingWithState:&v206 objects:v231 count:16];
           }
 
-          while (v186);
+          while (v185);
         }
 
-        if ((v170 & 1) == 0)
+        if ((v169 & 1) == 0)
         {
-          if (v180)
+          if (v179)
           {
-            [v180 doubleValue];
-            *&v194 = v83;
-            v179 = 1;
+            [v179 doubleValue];
+            *&v193 = v83;
+            v178 = 1;
           }
 
           v84 = MEMORY[0x1E696AEC0];
-          string5 = [v184 string];
-          v86 = [v84 stringWithFormat:@"%@ %@", v165, string5];
-          v183 = [v164 stringIsBlocklisted:v86];
+          string5 = [v183 string];
+          v86 = [v84 stringWithFormat:@"%@ %@", v164, string5];
+          v182 = [v163 stringIsBlocklisted:v86];
 LABEL_82:
-          v44 = v168;
-          v55 = v181;
-          v57 = v174;
-          if ((v179 & 1) == 0)
+          v44 = v167;
+          v55 = v180;
+          v57 = v173;
+          if ((v178 & 1) == 0)
           {
             goto LABEL_83;
           }
@@ -5210,25 +5227,25 @@ LABEL_82:
 
         v81 = v71 - 1;
         v82 = *&v70[4 * v71 - 4];
-        if (v163 & 1 | (v82 == 0))
+        if (v162 & 1 | (v82 == 0))
         {
           v39 = objectCopy;
           goto LABEL_82;
         }
 
-        if (v81 <= v226)
+        if (v81 <= v225)
         {
           v92 = 0;
         }
 
         else
         {
-          v92 = &v70[4 * v226];
+          v92 = &v70[4 * v225];
         }
 
-        if (v81 >= v226)
+        if (v81 >= v225)
         {
-          v93 = v81 - v226;
+          v93 = v81 - v225;
         }
 
         else
@@ -5236,36 +5253,36 @@ LABEL_82:
           v93 = 0;
         }
 
-        v94 = [v20 getConditionalProbabilityForTokenID:*&v70[4 * v71 - 4] context:v92 length:v93 probability:&v194];
+        v94 = [v20 getConditionalProbabilityForTokenID:*&v70[4 * v71 - 4] context:v92 length:v93 probability:&v193];
         *&v70[4 * v81] = v82;
-        v183 = [v20 tokenSequenceIsBlocklisted:v70 length:v71];
+        v182 = [v20 tokenSequenceIsBlocklisted:v70 length:v71];
         v39 = objectCopy;
-        v44 = v168;
-        v55 = v181;
-        v57 = v174;
+        v44 = v167;
+        v55 = v180;
+        v57 = v173;
         if ((v94 & 1) == 0)
         {
 LABEL_83:
-          v54 = v182;
-          if (v166 & v57)
+          v54 = v181;
+          if (v165 & v57)
           {
-            if (v222 * v216 < 0.0)
+            if (v221 * v215 < 0.0)
             {
-              v87 = v184;
-              [v184 setLinguisticScore:v222 * v216];
+              v87 = v183;
+              [v183 setLinguisticScore:v221 * v215];
 LABEL_128:
-              [v87 setLexiconScore:v216];
+              [v87 setLexiconScore:v215];
               goto LABEL_129;
             }
 
             LOBYTE(v53) = 1;
 LABEL_99:
-            v87 = v184;
+            v87 = v183;
           }
 
           else
           {
-            v87 = v184;
+            v87 = v183;
             LOBYTE(v53) = v57;
           }
 
@@ -5283,42 +5300,42 @@ LABEL_119:
         v53 = v57;
         if (v57)
         {
-          v103 = v225 * *&v194 + v223 * v216;
+          v103 = v224 * *&v193 + v222 * v215;
         }
 
         else
         {
-          v103 = v225 * *&v194;
+          v103 = v224 * *&v193;
         }
 
-        v54 = v182;
-        if (v178)
+        v54 = v181;
+        if (v177)
         {
-          [v178 doubleValue];
-          v103 = v103 + v224 * v104;
+          [v177 doubleValue];
+          v103 = v103 + v223 * v104;
         }
 
-        v87 = v184;
+        v87 = v183;
         if (v103 >= 0.0)
         {
           goto LABEL_127;
         }
 
-        [v184 setLinguisticScore:v103];
+        [v183 setLinguisticScore:v103];
         if (v53)
         {
           goto LABEL_128;
         }
 
 LABEL_129:
-        [v87 setBlocklisted:v183];
+        [v87 setBlocklisted:v182];
         v41 = v54 + 1;
         v43 = v55 + 1;
       }
 
-      while (v43 != v177);
-      v105 = [candidates countByEnumeratingWithState:&v217 objects:v234 count:16];
-      v177 = v105;
+      while (v43 != v176);
+      v105 = [candidates countByEnumeratingWithState:&v216 objects:v233 count:16];
+      v176 = v105;
     }
 
     while (v105);
@@ -5326,59 +5343,59 @@ LABEL_129:
 
   v106 = [objc_msgSend(listCopy "candidates")];
   v107 = v106;
-  v108 = v221 > 0.0 && v154;
+  v108 = v220 > 0.0 && v153;
   if (v108 && [v106 count] >= 2)
   {
     v109 = [(AppleSpell *)selfCopy transformerOrSiriLanguageModelForLanguageObject:v39 appIdentifier:identifierCopy waitForResult:0];
     if (v109)
     {
       v110 = v109;
-      v111 = [v109 stateWithContext:v165];
+      v111 = [v109 stateWithContext:v164];
       if (v111)
       {
         v112 = v111;
         v113 = [v107 count];
-        v184 = v110;
+        v183 = v110;
         if (v113 > _kMaxCorrectionRescoreCount)
         {
           v107 = [v107 subarrayWithRange:0];
         }
 
         array2 = [MEMORY[0x1E695DF70] array];
+        v198 = 0u;
         v199 = 0u;
         v200 = 0u;
         v201 = 0u;
-        v202 = 0u;
-        v115 = [v107 countByEnumeratingWithState:&v199 objects:v230 count:16];
+        v115 = [v107 countByEnumeratingWithState:&v198 objects:v229 count:16];
         if (v115)
         {
           v116 = v115;
-          v117 = *v200;
+          v117 = *v199;
           do
           {
             for (k = 0; k != v116; ++k)
             {
-              if (*v200 != v117)
+              if (*v199 != v117)
               {
                 objc_enumerationMutation(v107);
               }
 
-              v119 = *(*(&v199 + 1) + 8 * k);
+              v119 = *(*(&v198 + 1) + 8 * k);
               replacementRange2 = [v119 replacementRange];
-              if (v172 == replacementRange2 && v171 == v121)
+              if (v171 == replacementRange2 && v170 == v121)
               {
                 [array2 addObject:{objc_msgSend(v119, "string")}];
               }
             }
 
-            v116 = [v107 countByEnumeratingWithState:&v199 objects:v230 count:16];
+            v116 = [v107 countByEnumeratingWithState:&v198 objects:v229 count:16];
           }
 
           while (v116);
         }
 
         v123 = [array2 count];
-        v159 = objectCopy;
+        v158 = objectCopy;
         if (v123)
         {
           v124 = [v112 conditionalProbabilityDictionaryForStrings:array2];
@@ -5389,27 +5406,27 @@ LABEL_129:
           v124 = 0;
         }
 
-        v125 = v176;
-        v197 = 0u;
-        v198 = 0u;
-        v195 = 0u;
+        v125 = v175;
         v196 = 0u;
-        bundlesCopy = [v107 countByEnumeratingWithState:&v195 objects:v229 count:16];
+        v197 = 0u;
+        v194 = 0u;
+        v195 = 0u;
+        bundlesCopy = [v107 countByEnumeratingWithState:&v194 objects:v228 count:16];
         if (bundlesCopy)
         {
-          v186 = *v196;
-          v187 = v124;
+          v185 = *v195;
+          v186 = v124;
           do
           {
             for (m = 0; m != bundlesCopy; m = m + 1)
             {
-              if (*v196 != v186)
+              if (*v195 != v185)
               {
                 objc_enumerationMutation(v107);
               }
 
-              v127 = *(*(&v195 + 1) + 8 * m);
-              v216 = 0.0;
+              v127 = *(*(&v194 + 1) + 8 * m);
+              v215 = 0.0;
               if (v124)
               {
                 v124 = [v124 objectForKey:{objc_msgSend(v127, "string")}];
@@ -5433,25 +5450,25 @@ LABEL_129:
               if (v124)
               {
                 [v124 doubleValue];
-                v216 = v136;
+                v215 = v136;
               }
 
               else
               {
-                if (v172 == replacementRange3 && v171 == v132)
+                if (v171 == replacementRange3 && v170 == v132)
                 {
                   goto LABEL_185;
                 }
 
-                v185 = v153;
-                v194 = v160;
+                v184 = v152;
+                v193 = v159;
                 MEMORY[0x1EEE9AC00](lexiconScore);
                 v142 = taggerCopy;
-                [(AppleSpell *)selfCopy _contextLengthForRange:replacementRange3 languageObject:v132 tagger:v159 languageModel:taggerCopy maxContextLength:v20 context:&v153[-((v141 + 19) & 0xFFFFFFFFFFFFFFF0)] cleanOffset:0 cleanContextRange:&v194 lastTokenRange:0 lastTokenID:0];
-                if (*(&v194 + 1))
+                [(AppleSpell *)selfCopy _contextLengthForRange:replacementRange3 languageObject:v132 tagger:v158 languageModel:taggerCopy maxContextLength:v20 context:&v152[-((v141 + 19) & 0xFFFFFFFFFFFFFFF0)] cleanOffset:0 cleanContextRange:&v193 lastTokenRange:0 lastTokenID:0];
+                if (*(&v193 + 1))
                 {
                   string6 = [v142 string];
-                  v144 = [string6 substringWithRange:{v194, *(&v194 + 1)}];
+                  v144 = [string6 substringWithRange:v193];
                 }
 
                 else
@@ -5460,15 +5477,15 @@ LABEL_129:
                 }
 
                 string7 = [v127 string];
-                if (![v184 getConditionalProbabilityForString:string7 context:v144 probability:&v216])
+                if (![v183 getConditionalProbabilityForString:string7 context:v144 probability:&v215])
                 {
                   goto LABEL_185;
                 }
 
-                v136 = v216;
+                v136 = v215;
               }
 
-              v137 = v221 * v136;
+              v137 = v220 * v136;
               if (v135 >= 0.0)
               {
                 v138 = v137;
@@ -5476,22 +5493,22 @@ LABEL_129:
 
               else
               {
-                v138 = v137 + v223 * v135;
+                v138 = v137 + v222 * v135;
               }
 
               if (v129)
               {
                 [v129 doubleValue];
-                v138 = v138 + v224 * v139;
+                v138 = v138 + v223 * v139;
               }
 
               [v127 setLinguisticScore:v138];
 LABEL_185:
-              v124 = v187;
+              v124 = v186;
               v107 = v128;
             }
 
-            bundlesCopy = [v128 countByEnumeratingWithState:&v195 objects:v229 count:16];
+            bundlesCopy = [v128 countByEnumeratingWithState:&v194 objects:v228 count:16];
           }
 
           while (bundlesCopy);
@@ -5502,35 +5519,34 @@ LABEL_185:
     }
   }
 
-  v192 = 0u;
-  v193 = 0u;
-  v190 = 0u;
   v191 = 0u;
-  v146 = [v107 countByEnumeratingWithState:&v190 objects:v228 count:16];
+  v192 = 0u;
+  v189 = 0u;
+  v190 = 0u;
+  v146 = [v107 countByEnumeratingWithState:&v189 objects:v227 count:16];
   v147 = array;
   if (v146)
   {
     v148 = v146;
-    v149 = *v191;
+    v149 = *v190;
     do
     {
       for (n = 0; n != v148; ++n)
       {
-        if (*v191 != v149)
+        if (*v190 != v149)
         {
           objc_enumerationMutation(v107);
         }
 
-        [v147 addObject:*(*(&v190 + 1) + 8 * n)];
+        [v147 addObject:*(*(&v189 + 1) + 8 * n)];
       }
 
-      v148 = [v107 countByEnumeratingWithState:&v190 objects:v228 count:16];
+      v148 = [v107 countByEnumeratingWithState:&v189 objects:v227 count:16];
     }
 
     while (v148);
   }
 
-  v151 = *MEMORY[0x1E69E9840];
   return v147;
 }
 
@@ -5539,18 +5555,18 @@ LABEL_185:
   taggerCopy = tagger;
   length = range.length;
   location = range.location;
-  v42[1] = *MEMORY[0x1E69E9840];
-  v37 = [string length];
+  v41[1] = *MEMORY[0x1E69E9840];
+  v36 = [string length];
   v15 = [(AppleSpell *)self wordLanguageModelForLanguageObject:object appIdentifier:identifier waitForResult:0];
   v16 = [(AppleSpell *)self wordLanguageModelForLanguageObject:languageObject appIdentifier:identifier waitForResult:0];
   v17 = MEMORY[0x1EEE9AC00](v16);
-  v39 = &v33 - ((v18 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v38 = &v32 - ((v18 + 23) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
-  v38 = &v33 - v19;
-  v41 = 0;
-  v42[0] = 0;
-  v34 = [v15 getFirstDynamicTokenID:v42 + 4 lastDynamicTokenID:v42];
-  v35 = [v16 getFirstDynamicTokenID:&v41 + 4 lastDynamicTokenID:&v41];
+  v37 = &v32 - v19;
+  v40 = 0;
+  v41[0] = 0;
+  v33 = [v15 getFirstDynamicTokenID:v41 + 4 lastDynamicTokenID:v41];
+  v34 = [v16 getFirstDynamicTokenID:&v40 + 4 lastDynamicTokenID:&v40];
   v20 = [(AppleSpell *)self useUnigramProbabilityForLanguageObject:object];
   v21 = [(AppleSpell *)self useUnigramProbabilityForLanguageObject:languageObject];
   result = 0;
@@ -5566,37 +5582,35 @@ LABEL_185:
         {
           if (v16)
           {
-            if (!v20 && !v21 && v37 >= location + length)
+            if (!v20 && !v21 && v36 >= location + length)
             {
               v24 = location - [string paragraphRangeForRange:{location, length}];
-              v25 = [(AppleSpell *)self _contextLengthForRange:v24 languageObject:length tagger:object languageModel:v23 maxContextLength:v15 context:_kMaxContextLength cleanOffset:v39 cleanContextRange:0 lastTokenRange:0 lastTokenID:0, 0];
-              v26 = [(AppleSpell *)self _contextLengthForRange:v24 languageObject:length tagger:languageObject languageModel:alternateTaggerCopy maxContextLength:v16 context:_kMaxContextLength cleanOffset:v38 cleanContextRange:0 lastTokenRange:0 lastTokenID:0, 0];
+              v25 = [(AppleSpell *)self _contextLengthForRange:v24 languageObject:length tagger:object languageModel:v23 maxContextLength:v15 context:_kMaxContextLength cleanOffset:v38 cleanContextRange:0 lastTokenRange:0 lastTokenID:0, 0];
+              v26 = [(AppleSpell *)self _contextLengthForRange:v24 languageObject:length tagger:languageObject languageModel:alternateTaggerCopy maxContextLength:v16 context:_kMaxContextLength cleanOffset:v37 cleanContextRange:0 lastTokenRange:0 lastTokenID:0, 0];
               result = 0;
               if (v25)
               {
                 if (v26)
                 {
-                  v27 = *&v39[4 * v25 - 4];
+                  v27 = *&v38[4 * v25 - 4];
                   v28 = v27 != 0;
-                  v29 = *&v38[4 * v26 - 4];
-                  v30 = HIDWORD(v42[0]) > v27;
-                  v31 = v27 > LODWORD(v42[0]);
-                  if (((v29 != 0) & v35) == 1)
+                  v29 = *&v37[4 * v26 - 4];
+                  v30 = HIDWORD(v41[0]) > v27;
+                  v31 = v27 > LODWORD(v41[0]);
+                  if (((v29 != 0) & v34) == 1)
                   {
-                    if (HIDWORD(v41) <= v29 && v29 <= v41)
+                    if (HIDWORD(v40) <= v29 && v29 <= v40)
                     {
-                      goto LABEL_14;
+                      return 0;
                     }
                   }
 
                   else if (!v29)
                   {
-LABEL_14:
-                    result = 0;
-                    goto LABEL_17;
+                    return 0;
                   }
 
-                  result = (v30 | ~(v28 & v34) | v31) & v28 ^ 1;
+                  return (v30 | ~(v28 & v33) | v31) & v28 ^ 1;
                 }
               }
             }
@@ -5606,8 +5620,6 @@ LABEL_14:
     }
   }
 
-LABEL_17:
-  v32 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5672,7 +5684,7 @@ LABEL_17:
   }
 }
 
-uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = [@"Spelling" isEqualToString:a4];
   if (result)
@@ -5687,12 +5699,12 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
 
 - (BOOL)getConditionalProbabilityForWord:(id)word context:(id)context language:(id)language probability:(double *)probability
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v10 = [PRLanguage languageObjectWithIdentifier:language];
   v11 = -[AppleSpell taggerForLanguageObject:string:range:](self, "taggerForLanguageObject:string:range:", v10, context, 0, [context length]);
   v12 = [(AppleSpell *)self wordLanguageModelForLanguageObject:v10 appIdentifier:0 waitForResult:1];
   MEMORY[0x1EEE9AC00](v12);
-  v14 = v22 - ((v13 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v14 = v21 - ((v13 + 23) & 0xFFFFFFFFFFFFFFF0);
   v15 = [context length];
   v16 = [(AppleSpell *)self _contextLengthForRange:v15 languageObject:0 tagger:v10 languageModel:v11 maxContextLength:v12 context:_kMaxContextLength cleanOffset:v14 cleanContextRange:0 lastTokenRange:0 lastTokenID:0, 0];
   v17 = [(AppleSpell *)self _tokenIDForString:word languageModel:v12 languageObject:v10 terminatorTokenID:0];
@@ -5704,7 +5716,6 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
   }
 
   [(AppleSpell *)self invalidateTagger:v11];
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -5734,30 +5745,30 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
 
 - (id)globalDictionaryArray
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self->_globalDictionaryArray)
   {
     self->_globalDictionaryArray = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v3 = [(AppleSpell *)self dataBundlesForLanguageObject:0, 0];
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [*(*(&v13 + 1) + 8 * i) URLForResource:@"gbindict.dat" withExtension:0 subdirectory:0 localization:0];
+          v8 = [*(*(&v12 + 1) + 8 * i) URLForResource:@"gbindict.dat" withExtension:0 subdirectory:0 localization:0];
           if (v8)
           {
             v9 = [[PRDictionary alloc] initWithURL:v8 fallbackURL:0];
@@ -5769,28 +5780,26 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
     }
   }
 
-  result = self->_globalDictionaryArray;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_globalDictionaryArray;
 }
 
 - (id)localDictionaryArrayForLanguageObject:(id)object
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (object)
   {
     identifier = [object identifier];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = 0;
     if (identifier)
     {
       if (self->_hasUpdatedDataBundleLanguages)
@@ -5802,9 +5811,9 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
         block[3] = &unk_1E8405458;
         block[4] = self;
         block[5] = identifier;
-        block[6] = &v29;
+        block[6] = &v28;
         dispatch_sync(assetDataBundleSerialQueue, block);
-        if (*(v30 + 24) == 1)
+        if (*(v29 + 24) == 1)
         {
           [(NSMutableDictionary *)self->_localDictionaryArrays removeObjectForKey:identifier];
           [(AppleSpell *)self updateLexiconsForLanguageIfNecessary:identifier];
@@ -5816,40 +5825,40 @@ uint64_t __69__AppleSpell_LanguageModeling__assetDataBundleURLsForLanguageObject
   else
   {
     identifier = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = 0;
   }
 
   v7 = [(NSMutableDictionary *)self->_localDictionaryArrays objectForKey:identifier];
   if (!v7)
   {
-    v21 = identifier;
+    v20 = identifier;
     selfCopy = self;
     array = [MEMORY[0x1E695DF70] array];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v8 = [(AppleSpell *)self dataBundlesForLanguageObject:object];
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (!v9)
     {
       goto LABEL_24;
     }
 
-    v10 = *v25;
+    v10 = *v24;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         localization = [object localization];
         fallbackLocalization = [object fallbackLocalization];
         v15 = [v12 URLForResource:@"bindict.dat" withExtension:0 subdirectory:0 localization:localization];
@@ -5889,23 +5898,22 @@ LABEL_20:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v23 objects:v32 count:16];
       if (!v9)
       {
 LABEL_24:
         v7 = array;
-        [(NSMutableDictionary *)selfCopy->_localDictionaryArrays setObject:array forKey:v21];
+        [(NSMutableDictionary *)selfCopy->_localDictionaryArrays setObject:array forKey:v20];
         break;
       }
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
   return v7;
 }
 
-uint64_t __64__AppleSpell_Dictionary__localDictionaryArrayForLanguageObject___block_invoke(void *a1)
+void *__64__AppleSpell_Dictionary__localDictionaryArrayForLanguageObject___block_invoke(void *a1)
 {
   result = [*(a1[4] + 408) containsObject:a1[5]];
   if (result)
@@ -5960,13 +5968,13 @@ uint64_t __64__AppleSpell_Dictionary__localDictionaryArrayForLanguageObject___bl
 
 - (BOOL)checkNameWordBuffer:(char *)buffer length:(unint64_t)length languageObject:(id)object globalOnly:(BOOL)only
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   globalDictionaryArray = [(AppleSpell *)self globalDictionaryArray];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v12 = [globalDictionaryArray countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v12 = [globalDictionaryArray countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (!v12)
   {
     v14 = 0;
@@ -5974,21 +5982,21 @@ LABEL_14:
     if (!only)
     {
       v17 = [(AppleSpell *)self localDictionaryArrayForLanguageObject:object];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v18)
       {
         v19 = v18;
         v14 = 0;
-        v20 = *v25;
+        v20 = *v24;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v25 != v20)
+            if (*v24 != v20)
             {
               objc_enumerationMutation(v17);
             }
@@ -6000,11 +6008,11 @@ LABEL_14:
 
             else
             {
-              v14 = [*(*(&v24 + 1) + 8 * i) checkWordBuffer:buffer length:length encoding:objc_msgSend(object index:"encoding") caseInsensitive:{7, 0}];
+              v14 = [*(*(&v23 + 1) + 8 * i) checkWordBuffer:buffer length:length encoding:objc_msgSend(object index:"encoding") caseInsensitive:{7, 0}];
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
         }
 
         while (v19);
@@ -6012,21 +6020,21 @@ LABEL_14:
 
       else
       {
-        v14 = 0;
+        return 0;
       }
     }
 
-    goto LABEL_27;
+    return v14;
   }
 
   v13 = v12;
   v14 = 0;
-  v15 = *v29;
+  v15 = *v28;
   do
   {
     for (j = 0; j != v13; ++j)
     {
-      if (*v29 != v15)
+      if (*v28 != v15)
       {
         objc_enumerationMutation(globalDictionaryArray);
       }
@@ -6038,11 +6046,11 @@ LABEL_14:
 
       else
       {
-        v14 = [*(*(&v28 + 1) + 8 * j) checkWordBuffer:buffer length:length encoding:objc_msgSend(object index:"encoding") caseInsensitive:{7, 0}];
+        v14 = [*(*(&v27 + 1) + 8 * j) checkWordBuffer:buffer length:length encoding:objc_msgSend(object index:"encoding") caseInsensitive:{7, 0}];
       }
     }
 
-    v13 = [globalDictionaryArray countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v13 = [globalDictionaryArray countByEnumeratingWithState:&v27 objects:v32 count:16];
   }
 
   while (v13);
@@ -6051,20 +6059,62 @@ LABEL_14:
     goto LABEL_14;
   }
 
-LABEL_27:
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)dictionaryForLanguageObject:(id)object index:(unint64_t)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = [(AppleSpell *)self localDictionaryArrayForLanguageObject:object];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = *v13;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        if (!v8)
+        {
+          v8 = [*(*(&v12 + 1) + 8 * i) dictionaryAtIndex:index];
+        }
+      }
+
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (id)capitalizationDictionaryArrayForLanguageObject:(id)object
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v4 = [(AppleSpell *)self dictionaryForLanguageObject:object index:2];
+  globalDictionaryArray = [(AppleSpell *)self globalDictionaryArray];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [globalDictionaryArray countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
@@ -6076,62 +6126,16 @@ LABEL_27:
       {
         if (*v14 != v9)
         {
-          objc_enumerationMutation(v5);
-        }
-
-        if (!v8)
-        {
-          v8 = [*(*(&v13 + 1) + 8 * i) dictionaryAtIndex:index];
-        }
-      }
-
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v7);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  result = v8;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (id)capitalizationDictionaryArrayForLanguageObject:(id)object
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v4 = [(AppleSpell *)self dictionaryForLanguageObject:object index:2];
-  globalDictionaryArray = [(AppleSpell *)self globalDictionaryArray];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v6 = [globalDictionaryArray countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v15;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v15 != v9)
-        {
           objc_enumerationMutation(globalDictionaryArray);
         }
 
         if (!v8)
         {
-          v8 = [*(*(&v14 + 1) + 8 * i) dictionaryAtIndex:2];
+          v8 = [*(*(&v13 + 1) + 8 * i) dictionaryAtIndex:2];
         }
       }
 
-      v7 = [globalDictionaryArray countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [globalDictionaryArray countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -6144,41 +6148,38 @@ LABEL_27:
 
   if (v4)
   {
-    result = [MEMORY[0x1E695DEC8] arrayWithObjects:{v4, v8, 0}];
+    return [MEMORY[0x1E695DEC8] arrayWithObjects:{v4, v8, 0}];
   }
 
   else
   {
-    result = [MEMORY[0x1E695DEC8] arrayWithObjects:{v8, 0, v13}];
+    return [MEMORY[0x1E695DEC8] arrayWithObjects:{v8, 0, v12}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)parameterBundleForLanguageObject:(id)object
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = [(AppleSpell *)self localDictionaryArrayForLanguageObject:object];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  parameterBundle = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  parameterBundle = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (parameterBundle)
   {
     v5 = parameterBundle;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      parameterBundle = [*(*(&v10 + 1) + 8 * v7) parameterBundle];
+      parameterBundle = [*(*(&v9 + 1) + 8 * v7) parameterBundle];
       if (parameterBundle)
       {
         break;
@@ -6186,46 +6187,44 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        parameterBundle = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        parameterBundle = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         v5 = parameterBundle;
         if (parameterBundle)
         {
           goto LABEL_3;
         }
 
-        break;
+        return parameterBundle;
       }
     }
   }
 
-  result = parameterBundle;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return parameterBundle;
 }
 
 - (id)transformerParameterBundleForLanguageObject:(id)object
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = [(AppleSpell *)self localDictionaryArrayForLanguageObject:?];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      transformerParameterBundle = [*(*(&v13 + 1) + 8 * v9) transformerParameterBundle];
+      transformerParameterBundle = [*(*(&v12 + 1) + 8 * v9) transformerParameterBundle];
       if (transformerParameterBundle)
       {
         break;
@@ -6233,7 +6232,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -6250,9 +6249,7 @@ LABEL_9:
     transformerParameterBundle = [(AppleSpell *)self parameterBundleForLanguageObject:object];
   }
 
-  result = transformerParameterBundle;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return transformerParameterBundle;
 }
 
 - (void)clearCaches
@@ -6293,7 +6290,7 @@ LABEL_9:
   return v7;
 }
 
-uint64_t __43__AppleSpell_Tagger___taggerForOrthoIndex___block_invoke(void *a1)
+void *__43__AppleSpell_Tagger___taggerForOrthoIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 88) count];
   if (result)
@@ -6505,7 +6502,7 @@ objc_class *__64__AppleSpell_GenerativeExperiences__generativeExperiencesRunner_
 {
   length = range.length;
   location = range.location;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v15 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if (!lastLanguage || ([lastLanguage isEqualToString:@"und"] & 1) != 0 || objc_msgSend(lastLanguage, "isEqualToString:", @"Multilingual"))
@@ -6526,25 +6523,25 @@ objc_class *__64__AppleSpell_GenerativeExperiences__generativeExperiencesRunner_
   }
 
   options = [(AppleSpell *)self spellServer:server suggestCompletionDictionariesForPartialWordRange:location inString:length inLanguage:string options:lastLanguage, options];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v17 = [options countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v17 = [options countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v26;
+    v19 = *v25;
 LABEL_10:
     v20 = 0;
     while (1)
     {
-      if (*v26 != v19)
+      if (*v25 != v19)
       {
         objc_enumerationMutation(options);
       }
 
-      v21 = [*(*(&v25 + 1) + 8 * v20) objectForKey:@"Completion"];
+      v21 = [*(*(&v24 + 1) + 8 * v20) objectForKey:@"Completion"];
       if (v21)
       {
         v22 = v21;
@@ -6561,7 +6558,7 @@ LABEL_10:
 
       if (v18 == ++v20)
       {
-        v18 = [options countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [options countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v18)
         {
           goto LABEL_10;
@@ -6574,7 +6571,6 @@ LABEL_10:
 
   [(AppleSpell *)self resetTimer];
 
-  v23 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -6582,12 +6578,12 @@ LABEL_10:
 {
   length = range.length;
   location = range.location;
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v50 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v49 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   array2 = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v53 = location;
+  v52 = location;
   if (length)
   {
     v15 = [string substringWithRange:{location, length}];
@@ -6598,9 +6594,9 @@ LABEL_10:
     v15 = 0;
   }
 
-  v52 = _appIdentifierFromOptions(options);
+  v51 = _appIdentifierFromOptions(options);
   v16 = [options objectForKey:@"AsynchronousLanguageModelCreation"];
-  v56 = array2;
+  v55 = array2;
   if (v16)
   {
     v17 = [v16 BOOLValue] ^ 1;
@@ -6611,10 +6607,10 @@ LABEL_10:
     LOBYTE(v17) = 1;
   }
 
-  v51 = v17;
-  v71 = 0;
-  v18 = [(__CFString *)v15 length];
+  v50 = v17;
   v70 = 0;
+  v18 = [(__CFString *)v15 length];
+  v69 = 0;
   if (!lastLanguage || ([lastLanguage isEqualToString:@"und"] & 1) != 0 || objc_msgSend(lastLanguage, "isEqualToString:", @"Multilingual"))
   {
     lastLanguage = self->_lastLanguage;
@@ -6638,23 +6634,23 @@ LABEL_10:
   v22 = -[AppleSpell taggerForLanguageObject:string:range:](self, "taggerForLanguageObject:string:range:", v19, string, 0, [string length]);
   if (v22)
   {
-    BYTE1(v49) = v51;
-    LOBYTE(v49) = v51;
-    [(AppleSpell *)self _addLanguageModelCompletionsForPartialWordRange:v53 languageObject:length connection:v19 sender:v20 tagger:server appIdentifier:v22 waitForLanguageModel:v52 allowTransformer:v49 candidates:v56 scoreDictionary:dictionary tryTransliteration:&v71];
+    BYTE1(v48) = v50;
+    LOBYTE(v48) = v50;
+    [(AppleSpell *)self _addLanguageModelCompletionsForPartialWordRange:v52 languageObject:length connection:v19 sender:v20 tagger:server appIdentifier:v22 waitForLanguageModel:v51 allowTransformer:v48 candidates:v55 scoreDictionary:dictionary tryTransliteration:&v70];
   }
 
   if (v15)
   {
     if (v20 && v18 != 0)
     {
-      v77.location = 0;
-      v77.length = v18;
-      CFStringGetBytes(v15, v77, encoding, 0x5Fu, 0, buffer, 253, &v70);
+      v76.location = 0;
+      v76.length = v18;
+      CFStringGetBytes(v15, v76, encoding, 0x5Fu, 0, buffer, 253, &v69);
     }
   }
 
-  v24 = [v56 count];
-  v55 = v22;
+  v24 = [v55 count];
+  v54 = v22;
   if (v22)
   {
     v25 = v24 == 0;
@@ -6667,29 +6663,29 @@ LABEL_10:
 
   if (!v25)
   {
-    LOBYTE(usedBufLen) = v51;
-    v26 = [(AppleSpell *)self _rankedCandidatesForRange:v53 candidates:length languageObject:v56 tagger:v19 appIdentifier:v22 allowTransformer:v52 scoreDictionary:usedBufLen, dictionary];
+    LOBYTE(usedBufLen) = v50;
+    v26 = [(AppleSpell *)self _rankedCandidatesForRange:v52 candidates:length languageObject:v55 tagger:v19 appIdentifier:v22 allowTransformer:v51 scoreDictionary:usedBufLen, dictionary];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v27 = [v26 countByEnumeratingWithState:&v66 objects:v74 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v65 objects:v73 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v67;
+      v29 = *v66;
       v30 = 0.0;
       v31 = 0.0;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v67 != v29)
+          if (*v66 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          [objc_msgSend(dictionary objectForKey:{*(*(&v66 + 1) + 8 * i)), "doubleValue"}];
+          [objc_msgSend(dictionary objectForKey:{*(*(&v65 + 1) + 8 * i)), "doubleValue"}];
           if (v33 < v31)
           {
             v31 = v33;
@@ -6698,7 +6694,7 @@ LABEL_10:
           v30 = v30 + v33;
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v66 objects:v74 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v65 objects:v73 count:16];
       }
 
       while (v28);
@@ -6706,25 +6702,25 @@ LABEL_10:
       {
         if (v30 > 0.0)
         {
-          v60 = 0u;
-          v61 = 0u;
-          v58 = 0u;
           v59 = 0u;
-          v40 = [v26 countByEnumeratingWithState:&v58 objects:v72 count:16];
+          v60 = 0u;
+          v57 = 0u;
+          v58 = 0u;
+          v40 = [v26 countByEnumeratingWithState:&v57 objects:v71 count:16];
           if (v40)
           {
             v41 = v40;
-            v42 = *v59;
+            v42 = *v58;
 LABEL_48:
             v43 = 0;
             while (1)
             {
-              if (*v59 != v42)
+              if (*v58 != v42)
               {
                 objc_enumerationMutation(v26);
               }
 
-              v44 = *(*(&v58 + 1) + 8 * v43);
+              v44 = *(*(&v57 + 1) + 8 * v43);
               [objc_msgSend(dictionary objectForKey:{v44), "doubleValue"}];
               [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", v44, @"Completion", objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", v45 / v30), @"Score", 0)}];
               if ([array count] > 0x13)
@@ -6734,7 +6730,7 @@ LABEL_48:
 
               if (v41 == ++v43)
               {
-                v41 = [v26 countByEnumeratingWithState:&v58 objects:v72 count:16];
+                v41 = [v26 countByEnumeratingWithState:&v57 objects:v71 count:16];
                 if (v41)
                 {
                   goto LABEL_48;
@@ -6749,25 +6745,25 @@ LABEL_48:
 
       else
       {
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
-        v34 = [v26 countByEnumeratingWithState:&v62 objects:v73 count:16];
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v34 = [v26 countByEnumeratingWithState:&v61 objects:v72 count:16];
         if (v34)
         {
           v35 = v34;
-          v36 = *v63;
+          v36 = *v62;
 LABEL_38:
           v37 = 0;
           while (1)
           {
-            if (*v63 != v36)
+            if (*v62 != v36)
             {
               objc_enumerationMutation(v26);
             }
 
-            v38 = *(*(&v62 + 1) + 8 * v37);
+            v38 = *(*(&v61 + 1) + 8 * v37);
             [objc_msgSend(dictionary objectForKey:{v38), "doubleValue"}];
             [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", v38, @"Completion", objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", v39 - v31), @"Score", 0)}];
             if ([array count] > 0x13)
@@ -6777,7 +6773,7 @@ LABEL_38:
 
             if (v35 == ++v37)
             {
-              v35 = [v26 countByEnumeratingWithState:&v62 objects:v73 count:16];
+              v35 = [v26 countByEnumeratingWithState:&v61 objects:v72 count:16];
               if (v35)
               {
                 goto LABEL_38;
@@ -6792,9 +6788,8 @@ LABEL_38:
   }
 
   [(AppleSpell *)self resetTimer];
-  [(AppleSpell *)self invalidateTagger:v55];
+  [(AppleSpell *)self invalidateTagger:v54];
 
-  v46 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -6802,14 +6797,14 @@ LABEL_38:
 {
   length = range.length;
   location = range.location;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v14 = [string substringWithRange:{range.location, range.length}];
   array = [MEMORY[0x1E695DF70] array];
-  v36 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v35 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v15 = [v14 length];
   v16 = 0;
-  v45 = 0;
-  memset(v44, 0, sizeof(v44));
+  v44 = 0;
+  memset(v43, 0, sizeof(v43));
   v17 = spellServer_suggestNextLetterDictionariesForPartialWordRange_inString_inLanguage_options__total_frequency;
   do
   {
@@ -6823,32 +6818,32 @@ LABEL_38:
   do
   {
     v20 = *&spellServer_suggestNextLetterDictionariesForPartialWordRange_inString_inLanguage_options__letter_unigram_frequencies[v18] * 0.1 / v19;
-    *(v44 + v18 * 4) = v20;
+    *(v43 + v18 * 4) = v20;
     ++v18;
   }
 
   while (v18 != 26);
   selfCopy = self;
   options = [(AppleSpell *)self spellServer:server suggestCompletionDictionariesForPartialWordRange:location inString:length inLanguage:string options:language, options];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v22 = [options countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v22 = [options countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v40;
+    v24 = *v39;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v40 != v24)
+        if (*v39 != v24)
         {
           objc_enumerationMutation(options);
         }
 
-        v26 = *(*(&v39 + 1) + 8 * i);
+        v26 = *(*(&v38 + 1) + 8 * i);
         v27 = [v26 objectForKey:@"Completion"];
         if ([v27 length] > v15)
         {
@@ -6859,13 +6854,13 @@ LABEL_38:
             if ((v28 - 97) <= 0x19)
             {
               v30 = v29 * 0.9;
-              *(v44 + (v28 - 97)) = *(v44 + (v28 - 97)) + v30;
+              *(v43 + (v28 - 97)) = *(v43 + (v28 - 97)) + v30;
             }
           }
         }
       }
 
-      v23 = [options countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v23 = [options countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v23);
@@ -6874,14 +6869,13 @@ LABEL_38:
   for (j = 0; j != 26; ++j)
   {
     v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%C", j + 97];
-    LODWORD(v33) = *(v44 + j);
+    LODWORD(v33) = *(v43 + j);
     [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", v32, @"Letter", objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v33), @"Score", 0)}];
   }
 
   [array sortUsingComparator:&__block_literal_global_296];
   [(AppleSpell *)selfCopy resetTimer];
 
-  v34 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -6905,8 +6899,8 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
 
 - (id)spellServer:(id)server suggestWordWithMinimumLength:(unint64_t)length maximumLength:(unint64_t)maximumLength language:(id)lastLanguage
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v40 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v62 = *MEMORY[0x1E69E9840];
+  v39 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if (!lastLanguage || ([lastLanguage isEqualToString:@"und"] & 1) != 0 || objc_msgSend(lastLanguage, "isEqualToString:", @"Multilingual"))
   {
     lastLanguage = self->_lastLanguage;
@@ -6924,7 +6918,8 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
     }
   }
 
-  memset(v62, 0, sizeof(v62));
+  memset(v61, 0, sizeof(v61));
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
@@ -6940,8 +6935,7 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v61 = 0;
+  v60 = 0;
   v10 = [PRLanguage languageObjectWithIdentifier:lastLanguage];
   isGerman = [v10 isGerman];
   selfCopy = self;
@@ -6950,9 +6944,10 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
   if (v11)
   {
     encoding = encoding;
-    v39 = v10;
+    v38 = v10;
     Current = CFAbsoluteTimeGetCurrent();
-    memset(v62 + 8, 0, 136);
+    memset(v61 + 8, 0, 136);
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
@@ -6968,13 +6963,12 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    HIDWORD(v60) = 0;
-    v61 = 0;
-    *&v62[0] = v43;
-    *(&v62[6] + 1) = &v45;
-    HIBYTE(v62[7]) = 1;
-    *(&v62[8] + 1) = *v11;
+    HIDWORD(v59) = 0;
+    v60 = 0;
+    *&v61[0] = v42;
+    *(&v61[6] + 1) = &v44;
+    HIBYTE(v61[7]) = 1;
+    *(&v61[8] + 1) = *v11;
     srandom(((Current - floor(Current)) * 100000.0));
     v14 = 0;
     do
@@ -6985,14 +6979,14 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
         break;
       }
 
-      v43[0] = aAaaaabbbccddee[random() % 0x39uLL];
-      HIDWORD(v16) = v43[0] - 65;
+      v42[0] = aAaaaabbbccddee[random() % 0x39uLL];
+      HIDWORD(v16) = v42[0] - 65;
       LODWORD(v16) = HIDWORD(v16);
       v15 = v16 >> 1;
       v29 = v15 > 0x1C;
       v17 = (1 << v15) & 0x14951495;
       v18 = v29 || v17 == 0;
-      if (!v18 || (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v43[0]), xmmword_1D2BF7970)))) & 1) != 0 || v43[0] - 248 < 6 || (v43[0] & 0xD8) == 0xC8)
+      if (!v18 || (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v42[0]), xmmword_1D2BF7970)))) & 1) != 0 || v42[0] - 248 < 6 || (v42[0] & 0xD8) == 0xC8)
       {
         v19 = &aAaaaabbbccddee[random() % 0x39uLL];
       }
@@ -7002,14 +6996,14 @@ uint64_t __115__AppleSpell_Completion__spellServer_suggestNextLetterDictionaries
         v19 = &aAeiou[random() % 5uLL];
       }
 
-      v43[1] = *v19;
-      v44 = 42;
-      PRword(v62, 5, 0);
-      v20 = *(&v62[0] + 1);
-      if (*(&v62[0] + 1) && *(*(&v62[0] + 1) + 8) && **(&v62[0] + 1))
+      v42[1] = *v19;
+      v43 = 42;
+      PRword(v61, 5, 0);
+      v20 = *(&v61[0] + 1);
+      if (*(&v61[0] + 1) && *(*(&v61[0] + 1) + 8) && **(&v61[0] + 1))
       {
-        v21 = *(*(&v62[0] + 1) + 18);
-        if (*(*(&v62[0] + 1) + 18))
+        v21 = *(*(&v61[0] + 1) + 18);
+        if (*(*(&v61[0] + 1) + 18))
         {
           v22 = 0;
           v23 = 0;
@@ -7083,7 +7077,7 @@ LABEL_38:
             v11 = strlen((v35 + v24));
             if (v11)
             {
-              if ([(AppleSpell *)selfCopy checkWordBuffer:v35 + v24 length:v11 languageObject:v39 index:1]|| [(AppleSpell *)selfCopy checkNegativeWordBuffer:v35 + v24 length:v11 languageObject:v39])
+              if ([(AppleSpell *)selfCopy checkWordBuffer:v35 + v24 length:v11 languageObject:v38 index:1]|| [(AppleSpell *)selfCopy checkNegativeWordBuffer:v35 + v24 length:v11 languageObject:v38])
               {
 LABEL_55:
                 v11 = 0;
@@ -7108,7 +7102,7 @@ LABEL_55:
 
 LABEL_44:
       ++v14;
-      PRword(v62, 17, 0);
+      PRword(v61, 17, 0);
     }
 
     while (!v11);
@@ -7116,9 +7110,7 @@ LABEL_44:
 
   [(AppleSpell *)selfCopy resetTimer];
 
-  result = v11;
-  v37 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11;
 }
 
 - (void)personalizeEmojiArray:(id)array
@@ -7142,13 +7134,18 @@ LABEL_44:
           {
             v11 = v10;
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && ([v9 isEqual:v11] & 1) == 0 && _loadEmojiKit())
+            if (objc_opt_isKindOfClass())
             {
-              if (_CEMStringIsSingleEmoji(v11))
+              v12 = [v9 isEqual:v11];
+              if ((v12 & 1) == 0 && _loadEmojiKit(v12, v13))
               {
-                if (![v9 hasPrefix:@"✊"] || !_loadEmojiKit() || !_CEMStringIsSingleEmoji(v9) || (v12 = _CEMEmojiTokenCreateWithString(v9, 0)) == 0 || (v13 = v12, SkinTone = _CEMEmojiTokenGetSkinTone(), CFRelease(v13), !SkinTone))
+                if (_CEMStringIsSingleEmoji(v11))
                 {
-                  [array replaceObjectAtIndex:i withObject:v11];
+                  v14 = [v9 hasPrefix:@"✊"];
+                  if (!v14 || !_loadEmojiKit(v14, v15) || !_CEMStringIsSingleEmoji(v9) || (v16 = _CEMEmojiTokenCreateWithString(v9, 0)) == 0 || (v17 = v16, SkinTone = _CEMEmojiTokenGetSkinTone(), CFRelease(v17), !SkinTone))
+                  {
+                    [array replaceObjectAtIndex:i withObject:v11];
+                  }
                 }
               }
             }
@@ -7195,17 +7192,17 @@ LABEL_44:
   typesCopy = types;
   location = range.location;
   length = range.length;
-  v255 = *MEMORY[0x1E69E9840];
+  v250 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
   obj = [MEMORY[0x1E695DF70] array];
-  v171 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:options];
+  v166 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:options];
   dominantScript = [orthography dominantScript];
   v12 = _appIdentifierFromOptions(options);
   theString = string;
-  v165 = [string length];
-  v166 = v12;
+  v160 = [string length];
+  v161 = v12;
   v13 = [v12 isEqualToString:@"com.apple.DiskUtility"];
   [options objectForKey:@"AppIdentifier"];
   v14 = [options objectForKey:@"KeyEventArray"];
@@ -7224,7 +7221,7 @@ LABEL_44:
     [AppleSpell(Completion) spellServer:candidatesForSelectedRange:inString:offset:types:options:orthography:];
   }
 
-  v161 = v13;
+  v156 = v13;
   if (lastObject)
   {
     objc_opt_class();
@@ -7249,46 +7246,46 @@ LABEL_44:
     bOOLValue = 0;
   }
 
+  v239 = 0;
+  v240 = &v239;
+  v241 = 0x3010000000;
+  v242 = "";
+  v243 = location;
   v244 = 0;
-  v245 = &v244;
-  v246 = 0x3010000000;
-  v247 = "";
-  v248 = location;
-  v249 = 0;
+  v233 = 0;
+  v234 = &v233;
+  v235 = 0x3010000000;
+  v236 = "";
+  v237 = location;
   v238 = 0;
-  v239 = &v238;
-  v240 = 0x3010000000;
-  v241 = "";
-  v242 = location;
-  v243 = 0;
+  v227 = 0;
+  v228 = &v227;
+  v229 = 0x3010000000;
+  v230 = "";
+  v231 = location;
   v232 = 0;
-  v233 = &v232;
-  v234 = 0x3010000000;
-  v235 = "";
-  v236 = location;
-  v237 = 0;
+  v221 = 0;
+  v222 = &v221;
+  v223 = 0x3010000000;
+  v224 = "";
+  v225 = location;
   v226 = 0;
-  v227 = &v226;
-  v228 = 0x3010000000;
-  v229 = "";
-  v230 = location;
-  v231 = 0;
+  v215 = 0;
+  v216 = &v215;
+  v217 = 0x3010000000;
   v220 = 0;
-  v221 = &v220;
-  v222 = 0x3010000000;
-  v225 = 0;
-  v223 = "";
-  v224 = 0;
-  v214 = 0;
-  v215 = &v214;
-  v216 = 0x3010000000;
-  v217 = "";
-  v218 = location;
+  v218 = "";
   v219 = 0;
-  v213[0] = 0;
-  v213[1] = v213;
-  v213[2] = 0x2020000000;
-  v213[3] = 0;
+  v209 = 0;
+  v210 = &v209;
+  v211 = 0x3010000000;
+  v212 = "";
+  v213 = location;
+  v214 = 0;
+  v208[0] = 0;
+  v208[1] = v208;
+  v208[2] = 0x2020000000;
+  v208[3] = 0;
   usedBufLen = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -7300,9 +7297,9 @@ LABEL_44:
     dispatch_once(&spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__onceToken, block);
   }
 
-  [v171 setObject:objc_msgSend(MEMORY[0x1E696B098] forKey:{"valueWithRange:", location, length), @"SelectedRange"}];
-  [v171 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", 1), @"SuppressAdaptation"}];
-  [v171 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", 1), @"OnlyAtInsertionPoint"}];
+  [v166 setObject:objc_msgSend(MEMORY[0x1E696B098] forKey:{"valueWithRange:", location, length), @"SelectedRange"}];
+  [v166 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", 1), @"SuppressAdaptation"}];
+  [v166 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", 1), @"OnlyAtInsertionPoint"}];
   if ((([@"Latn" isEqualToString:dominantScript] & 1) != 0 || (objc_msgSend(@"Cyrl", "isEqualToString:", dominantScript) & 1) != 0 || (objc_msgSend(@"Kore", "isEqualToString:", dominantScript) & 1) != 0 || (firstObject = objc_msgSend(orthography, "dominantLanguageForScript:", @"Latn")) == 0) && (firstObject = objc_msgSend(orthography, "dominantLanguage")) == 0 || (-[__CFString isEqualToString:](firstObject, "isEqualToString:", @"und") & 1) != 0 || -[__CFString isEqualToString:](firstObject, "isEqualToString:", @"Multilingual"))
   {
     if ([@"Cyrl" isEqualToString:dominantScript])
@@ -7328,26 +7325,26 @@ LABEL_44:
 
   else if (([(__CFString *)firstObject isEqualToString:@"en"]& 1) != 0 || [(__CFString *)firstObject isEqualToString:@"pt"])
   {
-    v209 = 0u;
-    v210 = 0u;
-    v207 = 0u;
-    v208 = 0u;
+    v204 = 0u;
+    v205 = 0u;
+    v202 = 0u;
+    v203 = 0u;
     userPreferredLanguages = self->_userPreferredLanguages;
-    v22 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v207 objects:v253 count:16];
+    v22 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v202 objects:v248 count:16];
     if (v22)
     {
       v23 = array3;
-      v24 = *v208;
+      v24 = *v203;
       while (2)
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v208 != v24)
+          if (*v203 != v24)
           {
             objc_enumerationMutation(userPreferredLanguages);
           }
 
-          v26 = *(*(&v207 + 1) + 8 * i);
+          v26 = *(*(&v202 + 1) + 8 * i);
           if (([(__CFString *)v26 hasPrefix:firstObject]& 1) != 0)
           {
             firstObject = v26;
@@ -7355,7 +7352,7 @@ LABEL_44:
           }
         }
 
-        v22 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v207 objects:v253 count:16];
+        v22 = [(NSArray *)userPreferredLanguages countByEnumeratingWithState:&v202 objects:v248 count:16];
         if (v22)
         {
           continue;
@@ -7380,7 +7377,7 @@ LABEL_43:
   }
 
   v28 = [PRLanguage languageObjectWithIdentifier:v27];
-  v163 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:{objc_msgSend(v28, "identifier")}];
+  v158 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:{objc_msgSend(v28, "identifier")}];
   encoding = [v28 encoding];
   v30 = [(AppleSpell *)self autocorrectionDictionaryForLanguageObject:v28];
   oneLetterWords = [v28 oneLetterWords];
@@ -7400,87 +7397,87 @@ LABEL_43:
     goto LABEL_247;
   }
 
-  v159 = [(AppleSpell *)self taggerForLanguageObject:v28 string:theString range:0, [(__CFString *)theString length]];
-  if (![(AppleSpell *)self useWordLanguageModelForLanguageObject:v28 tagger:v159 appIdentifier:v166])
+  v154 = [(AppleSpell *)self taggerForLanguageObject:v28 string:theString range:0, [(__CFString *)theString length]];
+  if (![(AppleSpell *)self useWordLanguageModelForLanguageObject:v28 tagger:v154 appIdentifier:v161])
   {
     goto LABEL_246;
   }
 
-  v158 = 0;
+  v153 = 0;
   self->_lastCandidateLanguage = [objc_msgSend(v28 "identifier")];
-  v154 = 0;
+  v149 = 0;
   if (!theString)
   {
-    v155 = location;
+    v150 = location;
     v34 = 0;
-    v157 = 0;
+    v152 = 0;
     goto LABEL_196;
   }
 
-  v155 = location;
+  v150 = location;
   v34 = 0;
-  v157 = 0;
-  if (v165 < location)
+  v152 = 0;
+  if (v160 < location)
   {
     goto LABEL_196;
   }
 
-  v156 = [(__CFString *)theString paragraphRangeForRange:location, 0];
-  if (location > v156)
+  v151 = [(__CFString *)theString paragraphRangeForRange:location, 0];
+  if (location > v151)
   {
-    v206[0] = MEMORY[0x1E69E9820];
-    v206[1] = 3221225472;
-    v206[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_2;
-    v206[3] = &unk_1E84054F8;
-    v206[6] = location;
-    v206[4] = theString;
-    v206[5] = &v244;
-    [(__CFString *)theString enumerateSubstringsInRange:v156 options:location - v156 usingBlock:771, v206];
-    *(v239 + 2) = *(v245 + 2);
+    v201[0] = MEMORY[0x1E69E9820];
+    v201[1] = 3221225472;
+    v201[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_2;
+    v201[3] = &unk_1E84054F8;
+    v201[6] = location;
+    v201[4] = theString;
+    v201[5] = &v239;
+    [(__CFString *)theString enumerateSubstringsInRange:v151 options:location - v151 usingBlock:771, v201];
+    *(v234 + 2) = *(v240 + 2);
   }
 
-  if (v165 > v239[5] + v239[4])
+  if (v160 > v234[5] + v234[4])
   {
-    v205[10] = MEMORY[0x1E69E9820];
-    v205[11] = 3221225472;
-    v205[12] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_3;
-    v205[13] = &unk_1E8405520;
-    v205[14] = theString;
-    v205[15] = &v238;
-    v205[16] = location;
-    v205[17] = length;
+    v200[10] = MEMORY[0x1E69E9820];
+    v200[11] = 3221225472;
+    v200[12] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_3;
+    v200[13] = &unk_1E8405520;
+    v200[14] = theString;
+    v200[15] = &v233;
+    v200[16] = location;
+    v200[17] = length;
     [__CFString enumerateSubstringsInRange:"enumerateSubstringsInRange:options:usingBlock:" options:? usingBlock:?];
   }
 
-  v35 = v245;
-  *(v233 + 2) = *(v245 + 2);
-  v36 = v35[4] - v156;
-  v37 = v221;
-  v221[4] = v156;
+  v35 = v240;
+  *(v228 + 2) = *(v240 + 2);
+  v36 = v35[4] - v151;
+  v37 = v216;
+  v216[4] = v151;
   v37[5] = v36;
-  v205[0] = MEMORY[0x1E69E9820];
-  v205[1] = 3221225472;
-  v205[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_4;
-  v205[3] = &unk_1E8405548;
-  v205[4] = theString;
-  v205[5] = &v232;
-  v205[6] = &v226;
-  v205[7] = &v220;
-  v205[8] = &v244;
-  v205[9] = v213;
-  [(__CFString *)theString enumerateSubstringsInRange:v37[4] options:v37[5] usingBlock:771, v205];
-  v40 = v233;
-  v41 = v233[4];
-  v42 = v41 - v156;
-  if (v41 > v156)
+  v200[0] = MEMORY[0x1E69E9820];
+  v200[1] = 3221225472;
+  v200[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_4;
+  v200[3] = &unk_1E8405548;
+  v200[4] = theString;
+  v200[5] = &v227;
+  v200[6] = &v221;
+  v200[7] = &v215;
+  v200[8] = &v239;
+  v200[9] = v208;
+  [(__CFString *)theString enumerateSubstringsInRange:v37[4] options:v37[5] usingBlock:771, v200];
+  v40 = v228;
+  v41 = v228[4];
+  v42 = v41 - v151;
+  if (v41 > v151)
   {
-    v43 = v245;
-    if (v41 == v245[4])
+    v43 = v240;
+    if (v41 == v240[4])
     {
-      v44 = v233[5];
-      if (v44 == v245[5])
+      v44 = v228[5];
+      if (v44 == v240[5])
       {
-        v233[4] = v156;
+        v228[4] = v151;
         v40[5] = v42 + v44;
         v45 = v43[5];
         if (v42 + v44 > (v45 + 256))
@@ -7497,77 +7494,77 @@ LABEL_43:
     goto LABEL_65;
   }
 
-  v46 = v227[5];
+  v46 = v222[5];
   if (v46)
   {
-    if (v227[4] + v46 < v165 && [(__CFString *)theString characterAtIndex:?]== 46)
+    if (v222[4] + v46 < v160 && [(__CFString *)theString characterAtIndex:?]== 46)
     {
-      v256.location = v227[4];
-      v47 = v227[5] + 1;
-      v256.length = v47;
-      if (v47 == CFStringGetBytes(theString, v256, encoding, 0x5Fu, 0, buffer, 72, &usedBufLen) && [(AppleSpell *)self checkNoCapAbbreviationWordBuffer:buffer length:usedBufLen languageObject:v28])
+      v251.location = v222[4];
+      v47 = v222[5] + 1;
+      v251.length = v47;
+      if (v47 == CFStringGetBytes(theString, v251, encoding, 0x5Fu, 0, buffer, 72, &usedBufLen) && [(AppleSpell *)self checkNoCapAbbreviationWordBuffer:buffer length:usedBufLen languageObject:v28])
       {
         goto LABEL_65;
       }
     }
   }
 
-  v48 = v221[4];
-  if (v48 == v156)
+  v48 = v216[4];
+  if (v48 == v151)
   {
-    v158 = treatWordAsSentenceInitial(theString, v156, v245[4], v245[5], v28);
+    v153 = treatWordAsSentenceInitial(theString, v151, v240[4], v240[5], v28);
     goto LABEL_74;
   }
 
-  v62 = [(__CFString *)theString rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__terminatorCharacterSet options:0 range:v48, v221[5]];
+  v62 = [(__CFString *)theString rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__terminatorCharacterSet options:0 range:v48, v216[5]];
   v64 = v62;
-  v158 = 0;
+  v153 = 0;
   if (v62 != 0x7FFFFFFFFFFFFFFFLL && v63)
   {
     v65 = v62 + v63;
-    v66 = v221;
-    if (v62 + v63 >= (v221[5] + v221[4]))
+    v66 = v216;
+    if (v62 + v63 >= (v216[5] + v216[4]))
     {
       goto LABEL_65;
     }
 
-    v67 = v245[4] - v65;
-    v221[4] = v65;
+    v67 = v240[4] - v65;
+    v216[4] = v65;
     v66[5] = v67;
     v38 = [(__CFString *)theString rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__nonPunctuationCharacterSet options:0 range:?];
-    v158 = 0;
+    v153 = 0;
     if (v38 != 0x7FFFFFFFFFFFFFFFLL && v68)
     {
       if ([spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__whitespaceCharacterSet characterIsMember:{-[__CFString characterAtIndex:](theString, "characterAtIndex:", v38)}])
       {
-        v158 = treatWordAsSentenceInitial(theString, v64, v245[4], v245[5], v28);
+        v153 = treatWordAsSentenceInitial(theString, v64, v240[4], v240[5], v28);
         goto LABEL_74;
       }
 
 LABEL_65:
-      v158 = 0;
+      v153 = 0;
     }
   }
 
 LABEL_74:
   if (bOOLValue)
   {
-    v153 = 0;
+    v148 = 0;
   }
 
   else
   {
-    v49 = -[AppleSpell spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:](self, "spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:", server, v239[4], v239[5], theString, [v28 identifier], v171);
+    v49 = -[AppleSpell spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:](self, "spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:", server, v234[4], v234[5], theString, [v28 identifier], v166);
     v50 = [v49 count];
-    if (v239[5] && (v51 = [(__CFString *)theString rangeOfComposedCharacterSequenceAtIndex:v239[4]], v52))
+    if (v234[5] && (v51 = [(__CFString *)theString rangeOfComposedCharacterSequenceAtIndex:v234[4]], v52))
     {
       v53 = [(__CFString *)theString substringWithRange:v51, v52];
-      v153 = [v53 isEqualToString:{objc_msgSend(v53, "capitalizedString")}];
+      v148 = [v53 isEqualToString:{objc_msgSend(v53, "capitalizedString")}];
     }
 
     else
     {
-      v153 = 0;
+      v148 = 0;
     }
 
     if (v50)
@@ -7593,11 +7590,11 @@ LABEL_74:
           }
         }
 
-        if (![(AppleSpell *)self noSuggestForCompletion:v55 languageObject:v28 appIdentifier:v166 alreadyCapitalized:(v153 | v158) & 1])
+        if (![(AppleSpell *)self noSuggestForCompletion:v55 languageObject:v28 appIdentifier:v161 alreadyCapitalized:(v148 | v153) & 1])
         {
-          if (v158)
+          if (v153)
           {
-            v55 = initialCapitalizedString(v55, v163);
+            v55 = initialCapitalizedString(v55, v158);
           }
 
           if (([array2 containsObject:v55] & 1) == 0)
@@ -7619,14 +7616,14 @@ LABEL_74:
     goto LABEL_115;
   }
 
-  v39 = v239[5];
+  v39 = v234[5];
   if (!v39)
   {
     goto LABEL_115;
   }
 
-  v57 = [(__CFString *)theString substringWithRange:v239[4]];
-  v34 = -[NSMutableDictionary objectForKey:](self->_foundShortcutsDictionary, "objectForKey:", [v57 lowercaseStringWithLocale:v163]);
+  v57 = [(__CFString *)theString substringWithRange:v234[4]];
+  v34 = -[NSMutableDictionary objectForKey:](self->_foundShortcutsDictionary, "objectForKey:", [v57 lowercaseStringWithLocale:v158]);
   if (!v34)
   {
     goto LABEL_115;
@@ -7657,17 +7654,17 @@ LABEL_74:
   [v57 rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__lowercaseLetterCharacterSet];
   if (v60)
   {
-    if ((v158 & 1) == 0 && ![v57 isEqualToString:{initialCapitalizedString(v57, v163)}])
+    if (!v153 && ![v57 isEqualToString:{initialCapitalizedString(v57, v158)}])
     {
       goto LABEL_115;
     }
 
-    v61 = initialCapitalizedString(v34, v163);
+    v61 = initialCapitalizedString(v34, v158);
   }
 
   else
   {
-    v61 = uppercasedString(v34, v163);
+    v61 = uppercasedString(v34, v158);
   }
 
   v34 = v61;
@@ -7677,99 +7674,99 @@ LABEL_115:
     goto LABEL_126;
   }
 
-  v69 = v239[5] + v239[4];
-  v70 = v233[4];
+  v69 = v234[5] + v234[4];
+  v70 = v228[4];
   v39 = v69 - v70;
   if (v69 <= v70)
   {
     goto LABEL_126;
   }
 
-  v71 = [(__CFString *)theString substringWithRange:v233[4], v39];
-  [v171 setObject:objc_msgSend(MEMORY[0x1E696B098] forKey:{"valueWithRange:", location - v70, length), @"SelectedRange"}];
-  v72 = [(AppleSpell *)self spellServer:server checkString:v71 offset:v70 types:typesCopy & 0xC0000000 | 0x202 options:v171 orthography:orthography wordCount:0];
-  v203 = 0u;
-  v204 = 0u;
-  v201 = 0u;
-  v202 = 0u;
-  v73 = [v72 countByEnumeratingWithState:&v201 objects:v252 count:16];
+  v71 = [(__CFString *)theString substringWithRange:v228[4], v39];
+  [v166 setObject:objc_msgSend(MEMORY[0x1E696B098] forKey:{"valueWithRange:", location - v70, length), @"SelectedRange"}];
+  v72 = [(AppleSpell *)self spellServer:server checkString:v71 offset:v70 types:typesCopy & 0xC0000000 | 0x202 options:v166 orthography:orthography wordCount:0];
+  v198 = 0u;
+  v199 = 0u;
+  v196 = 0u;
+  v197 = 0u;
+  v73 = [v72 countByEnumeratingWithState:&v196 objects:v247 count:16];
   if (!v73)
   {
     goto LABEL_126;
   }
 
-  v74 = *v202;
+  v74 = *v197;
   while (2)
   {
     for (j = 0; j != v73; ++j)
     {
-      if (*v202 != v74)
+      if (*v197 != v74)
       {
         objc_enumerationMutation(v72);
       }
 
-      v76 = *(*(&v201 + 1) + 8 * j);
+      v76 = *(*(&v196 + 1) + 8 * j);
       if ([v76 resultType] == 512)
       {
         range = [v76 range];
-        if (range + v78 == v239[5] + v239[4])
+        if (range + v78 == v234[5] + v234[4])
         {
           replacementString = [v76 replacementString];
           range2 = [v76 range];
-          v154 = v96;
-          v155 = range2;
-          if (v158)
+          v149 = v94;
+          v150 = range2;
+          if (v153)
           {
             range3 = [v76 range];
-            if (range3 == v239[4] && v98 == v239[5] && ([replacementString isEqualToString:{initialCapitalizedString(-[__CFString substringWithRange:](theString, "substringWithRange:"), v163)}] & 1) != 0)
+            if (range3 == v234[4] && v96 == v234[5] && ([replacementString isEqualToString:{initialCapitalizedString(-[__CFString substringWithRange:](theString, "substringWithRange:"), v158)}] & 1) != 0)
             {
               goto LABEL_176;
             }
 
-            replacementString = initialCapitalizedString(replacementString, v163);
+            replacementString = initialCapitalizedString(replacementString, v158);
           }
 
           if (replacementString)
           {
-            v99 = bOOLValue;
+            v97 = bOOLValue;
           }
 
           else
           {
-            v99 = 1;
+            v97 = 1;
           }
 
-          if (v99)
+          if (v97)
           {
             goto LABEL_127;
           }
 
-          if (![array2 count] && v155 == v239[4] && v154 == v239[5])
+          if (![array2 count] && v150 == v234[4] && v149 == v234[5])
           {
-            v148 = [MEMORY[0x1E696AD60] stringWithString:theString];
-            [v148 replaceCharactersInRange:v239[4] withString:{v239[5], replacementString}];
-            v149 = -[AppleSpell spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:](self, "spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:", server, v239[4], [replacementString length], v148, objc_msgSend(v28, "identifier"), v171);
-            v150 = [v149 count];
-            if (v150)
+            v143 = [MEMORY[0x1E696AD60] stringWithString:theString];
+            [v143 replaceCharactersInRange:v234[4] withString:{v234[5], replacementString}];
+            v144 = -[AppleSpell spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:](self, "spellServer:suggestCompletionsForPartialWordRange:inString:inLanguage:options:", server, v234[4], [replacementString length], v143, objc_msgSend(v28, "identifier"), v166);
+            v145 = [v144 count];
+            if (v145)
             {
-              for (k = 0; k != v150; ++k)
+              for (k = 0; k != v145; ++k)
               {
                 if ([array2 count] > 0x63)
                 {
                   break;
                 }
 
-                v152 = [v149 objectAtIndex:k];
-                if (![(AppleSpell *)self noSuggestForCompletion:v152 languageObject:v28 appIdentifier:v166 alreadyCapitalized:(v153 | v158) & 1])
+                v147 = [v144 objectAtIndex:k];
+                if (![(AppleSpell *)self noSuggestForCompletion:v147 languageObject:v28 appIdentifier:v161 alreadyCapitalized:(v148 | v153) & 1])
                 {
-                  if (v158)
+                  if (v153)
                   {
-                    v152 = initialCapitalizedString(v152, v163);
+                    v147 = initialCapitalizedString(v147, v158);
                   }
 
-                  if (([array2 containsObject:v152] & 1) == 0)
+                  if (([array2 containsObject:v147] & 1) == 0)
                   {
-                    [array2 addObject:v152];
+                    [array2 addObject:v147];
                   }
                 }
               }
@@ -7781,7 +7778,7 @@ LABEL_115:
             goto LABEL_127;
           }
 
-          if (([array2 containsObject:replacementString] & 1) == 0 && v155 == v239[4] && v154 == v239[5])
+          if (([array2 containsObject:replacementString] & 1) == 0 && v150 == v234[4] && v149 == v234[5])
           {
             [array2 insertObject:replacementString atIndex:0];
           }
@@ -7793,7 +7790,7 @@ LABEL_176:
       }
     }
 
-    v73 = [v72 countByEnumeratingWithState:&v201 objects:v252 count:16];
+    v73 = [v72 countByEnumeratingWithState:&v196 objects:v247 count:16];
     if (v73)
     {
       continue;
@@ -7804,8 +7801,8 @@ LABEL_176:
 
 LABEL_126:
   replacementString = 0;
-  v154 = 0;
-  v155 = location;
+  v149 = 0;
+  v150 = location;
 LABEL_127:
   v80 = bOOLValue;
   if (v34)
@@ -7813,7 +7810,7 @@ LABEL_127:
     v80 = 1;
   }
 
-  v157 = replacementString;
+  v152 = replacementString;
   if (replacementString)
   {
     v81 = 1;
@@ -7824,11 +7821,11 @@ LABEL_127:
     v81 = v80;
   }
 
-  if (((v81 | v161) & 1) == 0)
+  if (((v81 | v156) & 1) == 0)
   {
-    *(v215 + 2) = *(v239 + 2);
+    *(v210 + 2) = *(v234 + 2);
     v82 = v28;
-    if (v233[5])
+    if (v228[5])
     {
       userTransliterationLocalizations = self->_userTransliterationLocalizations;
       v82 = v28;
@@ -7841,8 +7838,8 @@ LABEL_127:
           v82 = v28;
           if (([objc_msgSend(v28 "identifier")] & 1) == 0)
           {
-            v85 = v239;
-            if (v239[5] || (v85 = v227, v39 = v227[5], v82 = v28, v39))
+            v85 = v234;
+            if (v234[5] || (v85 = v222, v39 = v222[5], v82 = v28, v39))
             {
               v86 = [(__CFString *)theString substringWithRange:v85[4]];
               v87 = v86;
@@ -7865,135 +7862,131 @@ LABEL_127:
       }
     }
 
-    if (v239[5] && v233[5])
+    if (v234[5] && v228[5])
     {
-      v88 = v233[4];
-      v89 = v239[4];
-      v191 = MEMORY[0x1E69E9820];
-      v192 = 3221225472;
-      v193 = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_5;
-      v194 = &unk_1E8405570;
-      v195 = theString;
-      v196 = v82;
-      v198 = &v238;
-      v197 = array3;
-      v199 = &v232;
-      v200 = &v214;
+      v186 = MEMORY[0x1E69E9820];
+      v187 = 3221225472;
+      v188 = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_5;
+      v189 = &unk_1E8405570;
+      v190 = theString;
+      v191 = v82;
+      v193 = &v233;
+      v192 = array3;
+      v194 = &v227;
+      v195 = &v209;
       [__CFString enumerateSubstringsInRange:"enumerateSubstringsInRange:options:usingBlock:" options:? usingBlock:?];
     }
 
-    if (![array3 count] && !v239[5] && v227[5] && v233[5])
+    if (![array3 count] && !v234[5] && v222[5] && v228[5])
     {
-      v187 = 0;
-      v188 = &v187;
-      v189 = 0x2020000000;
-      v190 = 0;
+      v182 = 0;
+      v183 = &v182;
+      v184 = 0x2020000000;
+      v185 = 0;
       if (![array3 count])
       {
-        v101 = v227[5];
-        v102 = v227[4] - v233[4];
-        v186[14] = MEMORY[0x1E69E9820];
-        v186[15] = 3221225472;
-        v186[16] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_6;
-        v186[17] = &unk_1E8405598;
-        v186[22] = &v232;
-        v186[18] = theString;
-        v186[19] = v82;
-        v186[20] = array3;
-        v186[21] = &v226;
+        v181[14] = MEMORY[0x1E69E9820];
+        v181[15] = 3221225472;
+        v181[16] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_6;
+        v181[17] = &unk_1E8405598;
+        v181[22] = &v227;
+        v181[18] = theString;
+        v181[19] = v82;
+        v181[20] = array3;
+        v181[21] = &v221;
         [__CFString enumerateSubstringsInRange:"enumerateSubstringsInRange:options:usingBlock:" options:? usingBlock:?];
-        if (v239[4] > (v227[5] + v227[4]))
+        if (v234[4] > (v222[5] + v222[4]))
         {
-          v186[7] = MEMORY[0x1E69E9820];
-          v186[8] = 3221225472;
-          v186[9] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_7;
-          v186[10] = &unk_1E84055C0;
-          v186[11] = v82;
-          v186[12] = array3;
-          v186[13] = &v187;
+          v181[7] = MEMORY[0x1E69E9820];
+          v181[8] = 3221225472;
+          v181[9] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_7;
+          v181[10] = &unk_1E84055C0;
+          v181[11] = v82;
+          v181[12] = array3;
+          v181[13] = &v182;
           [__CFString enumerateSubstringsInRange:"enumerateSubstringsInRange:options:usingBlock:" options:? usingBlock:?];
         }
       }
 
-      v103 = [array3 count];
-      if (v103)
+      v99 = [array3 count];
+      if (v99)
       {
-        v104 = v103 - 1;
+        v100 = v99 - 1;
         do
         {
-          v105 = [array3 objectAtIndex:v104];
-          [(__CFString *)theString rangeOfString:v105 options:4 range:v227[4], location - v227[4]];
-          if (v106)
+          v101 = [array3 objectAtIndex:v100];
+          [(__CFString *)theString rangeOfString:v101 options:4 range:v222[4], location - v222[4]];
+          if (v102)
           {
-            [array3 removeObjectAtIndex:v104];
+            [array3 removeObjectAtIndex:v100];
           }
 
-          --v104;
+          --v100;
         }
 
-        while (v104 != -1);
+        while (v100 != -1);
       }
 
       goto LABEL_187;
     }
 
-    if (![array3 count] && !v239[5])
+    if (![array3 count] && !v234[5])
     {
-      v91 = v239[4];
-      v90 = v91 - v156;
-      if (v91 > v156)
+      v89 = v234[4];
+      v88 = v89 - v151;
+      if (v89 > v151)
       {
-        v187 = 0;
-        v188 = &v187;
-        v189 = 0x2020000000;
-        v190 = 0;
-        v186[0] = MEMORY[0x1E69E9820];
-        v186[1] = 3221225472;
-        v186[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_8;
-        v186[3] = &unk_1E84055C0;
-        v186[4] = v82;
-        v186[5] = array3;
-        v186[6] = &v187;
-        [(__CFString *)theString enumerateSubstringsInRange:v156 options:v90 usingBlock:258, v186];
-        v92 = [array3 count];
-        if (v92)
+        v182 = 0;
+        v183 = &v182;
+        v184 = 0x2020000000;
+        v185 = 0;
+        v181[0] = MEMORY[0x1E69E9820];
+        v181[1] = 3221225472;
+        v181[2] = __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_8;
+        v181[3] = &unk_1E84055C0;
+        v181[4] = v82;
+        v181[5] = array3;
+        v181[6] = &v182;
+        [(__CFString *)theString enumerateSubstringsInRange:v151 options:v88 usingBlock:258, v181];
+        v90 = [array3 count];
+        if (v90)
         {
-          v93 = v92 - 1;
+          v91 = v90 - 1;
           do
           {
-            -[__CFString rangeOfString:options:range:](theString, "rangeOfString:options:range:", [array3 objectAtIndex:v93], 4, v156, location - v156);
-            if (v94)
+            -[__CFString rangeOfString:options:range:](theString, "rangeOfString:options:range:", [array3 objectAtIndex:v91], 4, v151, location - v151);
+            if (v92)
             {
-              [array3 removeObjectAtIndex:v93];
+              [array3 removeObjectAtIndex:v91];
             }
 
-            --v93;
+            --v91;
           }
 
-          while (v93 != -1);
+          while (v91 != -1);
         }
 
 LABEL_187:
-        _Block_object_dispose(&v187, 8);
+        _Block_object_dispose(&v182, 8);
       }
     }
 
-    [(AppleSpell *)self personalizeEmojiArray:array3, v90];
-    v107 = [array3 count];
-    if (v107)
+    [(AppleSpell *)self personalizeEmojiArray:array3, v88];
+    v103 = [array3 count];
+    if (v103)
     {
-      v108 = v107 - 1;
+      v104 = v103 - 1;
       do
       {
-        if ([array3 indexOfObject:{objc_msgSend(array3, "objectAtIndex:", v108)}] < v108)
+        if ([array3 indexOfObject:{objc_msgSend(array3, "objectAtIndex:", v104)}] < v104)
         {
-          [array3 removeObjectAtIndex:v108];
+          [array3 removeObjectAtIndex:v104];
         }
 
-        --v108;
+        --v104;
       }
 
-      while (v108 != -1);
+      while (v104 != -1);
     }
   }
 
@@ -8001,28 +7994,28 @@ LABEL_187:
   {
     if (![array2 count])
     {
-      v171 = [(AppleSpell *)self _spellServer:server suggestGuessesForWordRange:v239[4] - v233[4] inString:v239[5] languageObject:[(__CFString *)theString substringWithRange:?] options:v28, v171];
-      v125 = [v171 count];
-      if (v125)
+      v166 = [(AppleSpell *)self _spellServer:server suggestGuessesForWordRange:v234[4] - v228[4] inString:v234[5] languageObject:[(__CFString *)theString substringWithRange:?] options:v28, v166];
+      v121 = [v166 count];
+      if (v121)
       {
-        for (m = 0; m != v125; ++m)
+        for (m = 0; m != v121; ++m)
         {
           if ([array2 count] > 0x63)
           {
             break;
           }
 
-          v127 = [v171 objectAtIndex:m];
-          if (![(AppleSpell *)self noSuggestForCompletion:v127 languageObject:v28 appIdentifier:v166 alreadyCapitalized:(v153 | v158) & 1])
+          v123 = [v166 objectAtIndex:m];
+          if (![(AppleSpell *)self noSuggestForCompletion:v123 languageObject:v28 appIdentifier:v161 alreadyCapitalized:(v148 | v153) & 1])
           {
-            if (v158)
+            if (v153)
             {
-              v127 = initialCapitalizedString(v127, v163);
+              v123 = initialCapitalizedString(v123, v158);
             }
 
-            if (([array2 containsObject:v127] & 1) == 0)
+            if (([array2 containsObject:v123] & 1) == 0)
             {
-              [array2 addObject:v127];
+              [array2 addObject:v123];
             }
           }
         }
@@ -8030,161 +8023,161 @@ LABEL_187:
     }
 
     v34 = 0;
-    v157 = 0;
+    v152 = 0;
   }
 
 LABEL_196:
-  if (v245[4] - 1 >= v165)
+  if (v240[4] - 1 >= v160)
   {
-    v109 = &stru_1F4E0A7A0;
+    v105 = &stru_1F4E0A7A0;
   }
 
   else
   {
-    v109 = &stru_1F4E0A7A0;
-    if (!v245[5])
+    v105 = &stru_1F4E0A7A0;
+    if (!v240[5])
     {
       [(__CFString *)theString rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__followingSpaceCharacterSet options:12 range:0];
-      if (v110)
+      if (v106)
       {
-        v109 = @" ";
+        v105 = @" ";
       }
     }
   }
 
-  v112 = v239[4];
-  v111 = v239[5];
-  v169 = array3;
+  v108 = v234[4];
+  v107 = v234[5];
+  v164 = array3;
   if ([obj count])
   {
-    v184 = 0u;
-    v185 = 0u;
-    v182 = 0u;
-    v183 = 0u;
-    v113 = [obj countByEnumeratingWithState:&v182 objects:v251 count:16];
-    if (v113)
+    v179 = 0u;
+    v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v109 = [obj countByEnumeratingWithState:&v177 objects:v246 count:16];
+    if (v109)
     {
-      v114 = *v183;
+      v110 = *v178;
       do
       {
-        for (n = 0; n != v113; ++n)
+        for (n = 0; n != v109; ++n)
         {
-          if (*v183 != v114)
+          if (*v178 != v110)
           {
             objc_enumerationMutation(obj);
           }
 
-          v116 = *(*(&v182 + 1) + 8 * n);
-          v117 = objc_alloc(MEMORY[0x1E696AB20]);
-          v118 = [v117 initWithRange:location + offset replacementString:{0, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, v116, @" "}];
-          [array addObject:v118];
+          v112 = *(*(&v177 + 1) + 8 * n);
+          v113 = objc_alloc(MEMORY[0x1E696AB20]);
+          v114 = [v113 initWithRange:location + offset replacementString:{0, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, v112, @" "}];
+          [array addObject:v114];
         }
 
-        v113 = [obj countByEnumeratingWithState:&v182 objects:v251 count:16];
+        v109 = [obj countByEnumeratingWithState:&v177 objects:v246 count:16];
       }
 
-      while (v113);
+      while (v109);
     }
 
-    v111 = 0;
-    v119 = 0;
-    v112 = location;
+    v107 = 0;
+    v115 = 0;
+    v108 = location;
   }
 
   else
   {
     if (v34)
     {
-      v120 = objc_alloc(MEMORY[0x1E696AE80]);
-      v121 = [v120 initWithRange:v239[4] + offset replacementString:{v239[5], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, v34, @" "}];
-      [array addObject:v121];
+      v116 = objc_alloc(MEMORY[0x1E696AE80]);
+      v117 = [v116 initWithRange:v234[4] + offset replacementString:{v234[5], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, v34, @" "}];
+      [array addObject:v117];
     }
 
-    else if (v157)
+    else if (v152)
     {
-      v122 = objc_alloc(MEMORY[0x1E696AB48]);
-      v123 = [v122 initWithRange:v155 + offset replacementString:{v154, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, v157, @" "}];
-      [array addObject:v123];
+      v118 = objc_alloc(MEMORY[0x1E696AB48]);
+      v119 = [v118 initWithRange:v150 + offset replacementString:{v149, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, v152, @" "}];
+      [array addObject:v119];
 
-      v111 = v154;
-      v112 = v155;
+      v107 = v149;
+      v108 = v150;
     }
 
     else if ([array3 count])
     {
-      v112 = v215[4];
-      v111 = v215[5];
+      v108 = v210[4];
+      v107 = v210[5];
     }
 
-    if (v111)
+    if (v107)
     {
-      v111 = [(__CFString *)theString substringWithRange:v112, v111];
-      v119 = v111;
-      if (v158)
+      v107 = [(__CFString *)theString substringWithRange:v108, v107];
+      v115 = v107;
+      if (v153)
       {
-        v119 = initialCapitalizedString(v111, v163);
+        v115 = initialCapitalizedString(v107, v158);
       }
 
-      v129 = objc_alloc(MEMORY[0x1E696AB20]);
-      v130 = [v129 initWithRange:v112 + offset replacementString:{v111, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, v119, @" "}];
-      [array insertObject:v130 atIndex:0];
+      v125 = objc_alloc(MEMORY[0x1E696AB20]);
+      v126 = [v125 initWithRange:v108 + offset replacementString:{v107, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, v115, @" "}];
+      [array insertObject:v126 atIndex:0];
     }
 
     else
     {
-      v119 = 0;
+      v115 = 0;
     }
   }
 
-  v172 = v111;
+  v167 = v107;
   if (![obj count] && objc_msgSend(array2, "count"))
   {
-    v134 = v245[4];
-    if (v134 <= v112)
+    v130 = v240[4];
+    if (v130 <= v108)
     {
-      v136 = &stru_1F4E0A7A0;
+      v132 = &stru_1F4E0A7A0;
 LABEL_249:
-      v180 = 0u;
-      v181 = 0u;
-      v178 = 0u;
-      v179 = 0u;
-      v141 = [array2 countByEnumeratingWithState:&v178 objects:v250 count:16];
-      if (v141)
+      v175 = 0u;
+      v176 = 0u;
+      v173 = 0u;
+      v174 = 0u;
+      v136 = [array2 countByEnumeratingWithState:&v173 objects:v245 count:16];
+      if (v136)
       {
-        v142 = *v179;
+        v137 = *v174;
         do
         {
-          for (ii = 0; ii != v141; ++ii)
+          for (ii = 0; ii != v136; ++ii)
           {
-            if (*v179 != v142)
+            if (*v174 != v137)
             {
               objc_enumerationMutation(array2);
             }
 
-            v144 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v136, *(*(&v178 + 1) + 8 * ii)];
-            v145 = v144;
-            if (!v119 || ([v144 isEqualToString:v119] & 1) == 0)
+            v139 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v132, *(*(&v173 + 1) + 8 * ii)];
+            v140 = v139;
+            if (!v115 || ([v139 isEqualToString:v115] & 1) == 0)
             {
-              v146 = objc_alloc(MEMORY[0x1E696AB20]);
-              v147 = [v146 initWithRange:v112 + offset replacementString:{v172, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, v145, @" "}];
-              [array addObject:v147];
+              v141 = objc_alloc(MEMORY[0x1E696AB20]);
+              v142 = [v141 initWithRange:v108 + offset replacementString:{v167, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, v140, @" "}];
+              [array addObject:v142];
             }
           }
 
-          v141 = [array2 countByEnumeratingWithState:&v178 objects:v250 count:16];
+          v136 = [array2 countByEnumeratingWithState:&v173 objects:v245 count:16];
         }
 
-        while (v141);
+        while (v136);
       }
     }
 
     else
     {
-      v112 = [(__CFString *)theString substringWithRange:v112, v134 - v112];
-      if (!v157)
+      v108 = [(__CFString *)theString substringWithRange:v108, v130 - v108];
+      if (!v152)
       {
-        v136 = v112;
-        if (![v169 count])
+        v132 = v108;
+        if (![v164 count])
         {
           goto LABEL_249;
         }
@@ -8192,31 +8185,30 @@ LABEL_249:
     }
   }
 
-  if (![obj count] && !v34 && !v157 && objc_msgSend(v169, "count"))
+  if (![obj count] && !v34 && !v152 && objc_msgSend(v164, "count"))
   {
     array4 = [MEMORY[0x1E695DF70] array];
-    firstObject3 = [v169 firstObject];
-    for (jj = 1; jj < [v169 count]; ++jj)
+    firstObject3 = [v164 firstObject];
+    for (jj = 1; jj < [v164 count]; ++jj)
     {
-      [array4 addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, objc_msgSend(v169, "objectAtIndex:", jj), @" "}];
+      [array4 addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, objc_msgSend(v164, "objectAtIndex:", jj), @" "}];
     }
 
-    v137 = objc_alloc(MEMORY[0x1E696ABB8]);
-    v138 = [v137 initWithRange:v215[4] + offset replacementString:v215[5] alternativeStrings:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v109, firstObject3, @" ", array4}];
-    [array addObject:v138];
+    v133 = objc_alloc(MEMORY[0x1E696ABB8]);
+    v134 = [v133 initWithRange:v210[4] + offset replacementString:v210[5] alternativeStrings:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@%@%@", v105, firstObject3, @" ", array4}];
+    [array addObject:v134];
   }
 
 LABEL_246:
-  [(AppleSpell *)self invalidateTagger:v159];
+  [(AppleSpell *)self invalidateTagger:v154];
 LABEL_247:
-  _Block_object_dispose(v213, 8);
-  _Block_object_dispose(&v214, 8);
-  _Block_object_dispose(&v220, 8);
-  _Block_object_dispose(&v226, 8);
-  _Block_object_dispose(&v232, 8);
-  _Block_object_dispose(&v238, 8);
-  _Block_object_dispose(&v244, 8);
-  v139 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v208, 8);
+  _Block_object_dispose(&v209, 8);
+  _Block_object_dispose(&v215, 8);
+  _Block_object_dispose(&v221, 8);
+  _Block_object_dispose(&v227, 8);
+  _Block_object_dispose(&v233, 8);
+  _Block_object_dispose(&v239, 8);
   return array;
 }
 
@@ -8234,9 +8226,9 @@ id __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString
   return result;
 }
 
-uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:?];
+  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:{a3, a4, a5, a6}];
   v11 = v10;
   result = [*(a1 + 32) rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__nonPunctuationWhitespaceAndNewlineCharacterSet options:0 range:{v9, v10}];
   if (v13)
@@ -8268,9 +8260,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:?];
+  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:{a3, a4, a5, a6}];
   v11 = v10;
   result = [*(a1 + 32) rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__nonPunctuationWhitespaceAndNewlineCharacterSet options:0 range:{v9, v10}];
   if (v13)
@@ -8297,9 +8289,9 @@ uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_in
   return result;
 }
 
-uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:?];
+  v9 = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:{a3, a4, a5, a6}];
   v11 = v10;
   result = [*(a1 + 32) rangeOfCharacterFromSet:spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography__nonPunctuationWhitespaceAndNewlineCharacterSet options:0 range:{v9, v10}];
   if (v13)
@@ -8344,35 +8336,29 @@ uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_in
   return result;
 }
 
-uint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_5(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_5(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v10 = *(*(a1 + 56) + 8);
-  v12 = *(v10 + 32);
-  v11 = *(v10 + 40);
-  v13 = [*(a1 + 32) substringWithRange:?];
-  v14 = a3 > *(*(*(a1 + 64) + 8) + 32) && [*(a1 + 32) characterAtIndex:a3 - 1] == 45;
-  _addEmojiForStringToArray(v13, *(a1 + 40), *(a1 + 48), 0, v14);
+  v10 = [*(a1 + 32) substringWithRange:?];
+  v11 = a3 > *(*(*(a1 + 64) + 8) + 32) && [*(a1 + 32) characterAtIndex:a3 - 1] == 45;
+  _addEmojiForStringToArray(v10, *(a1 + 40), *(a1 + 48), 0, v11);
   result = [*(a1 + 48) count];
   if (result)
   {
-    v16 = *(*(*(a1 + 56) + 8) + 32) - a3 + *(*(*(a1 + 56) + 8) + 40);
-    v17 = *(*(a1 + 72) + 8);
-    *(v17 + 32) = a3;
-    *(v17 + 40) = v16;
+    v13 = *(*(*(a1 + 56) + 8) + 32) - a3 + *(*(*(a1 + 56) + 8) + 40);
+    v14 = *(*(a1 + 72) + 8);
+    *(v14 + 32) = a3;
+    *(v14 + 40) = v13;
     *a7 = 1;
   }
 
   return result;
 }
 
-unint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_6(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_6(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v10 = *(*(a1 + 56) + 8);
-  v12 = *(v10 + 32);
-  v11 = *(v10 + 40);
-  v13 = [*(a1 + 32) substringWithRange:?];
-  v14 = a3 > *(*(*(a1 + 64) + 8) + 32) && [*(a1 + 32) characterAtIndex:a3 - 1] == 45;
-  _addEmojiForStringToArray(v13, *(a1 + 40), *(a1 + 48), 0, v14);
+  v10 = [*(a1 + 32) substringWithRange:?];
+  v11 = a3 > *(*(*(a1 + 64) + 8) + 32) && [*(a1 + 32) characterAtIndex:a3 - 1] == 45;
+  _addEmojiForStringToArray(v10, *(a1 + 40), *(a1 + 48), 0, v11);
   result = [*(a1 + 48) count];
   if (result >= 5)
   {
@@ -8382,7 +8368,7 @@ unint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_i
   return result;
 }
 
-unint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   _addEmojiForStringToArray(a2, *(a1 + 32), *(a1 + 40), 1, 0);
   result = [*(a1 + 40) count];
@@ -8394,7 +8380,7 @@ unint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_i
   return result;
 }
 
-unint64_t __107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__107__AppleSpell_Completion__spellServer_candidatesForSelectedRange_inString_offset_types_options_orthography___block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   _addEmojiForStringToArray(a2, *(a1 + 32), *(a1 + 40), 1, 0);
   result = [*(a1 + 40) count];
@@ -8595,7 +8581,7 @@ id __56__AppleSpell_Correction__vietnameseModificationForWord___block_invoke()
 
 - (void)_addGuessesForWordBuffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection sender:(id)sender minAutocorrectionLength:(unint64_t)autocorrectionLength previousLetter:(unsigned __int16)letter nextLetter:(unsigned __int16)self0 basicOnly:(BOOL)self1 toGuesses:(id)self2
 {
-  v228 = *MEMORY[0x1E69E9840];
+  v227 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   accents = [object accents];
   isEnglish = [object isEnglish];
@@ -8606,7 +8592,7 @@ id __56__AppleSpell_Correction__vietnameseModificationForWord___block_invoke()
 
   else if ([object isVietnamese])
   {
-    v17 = &v225;
+    v17 = &v224;
   }
 
   else
@@ -8617,7 +8603,7 @@ id __56__AppleSpell_Correction__vietnameseModificationForWord___block_invoke()
   v18 = *buffer;
   v19 = v18 - 65;
   v20 = (v18 - 65) < 0x1A;
-  v223 = encoding;
+  v222 = encoding;
   if (encoding > 1279)
   {
     if (encoding == 1284 || encoding == 1280)
@@ -8661,7 +8647,7 @@ id __56__AppleSpell_Correction__vietnameseModificationForWord___block_invoke()
       {
 LABEL_29:
         v23 = length > 1;
-        v214 = 1;
+        v213 = 1;
         goto LABEL_35;
       }
     }
@@ -8675,7 +8661,7 @@ LABEL_30:
     goto LABEL_72;
   }
 
-  v214 = v20;
+  v213 = v20;
 LABEL_35:
   v24 = buffer + 1;
   v25 = 1;
@@ -8760,18 +8746,18 @@ LABEL_35:
   }
 
   while (v34);
-  v20 = v214;
+  v20 = v213;
 LABEL_72:
-  v197 = v23;
-  v198 = (v23 ^ 1) & v20;
-  v199 = (v17 == 0) & (v25 ^ 1);
+  v196 = v23;
+  v197 = (v23 ^ 1) & v20;
+  v198 = (v17 == 0) & (v25 ^ 1);
   if (length >= autocorrectionLength && accents && (v23 & 1) == 0 && length <= 0x1B && ((v17 == 0) & (v25 ^ 1)) == 0 && ([guesses isFull] & 1) == 0)
   {
     v35 = *buffer;
     if (*buffer)
     {
       v36 = buffer + 1;
-      v37 = &v226;
+      v37 = &v225;
       do
       {
         *v37++ = v35;
@@ -8784,14 +8770,14 @@ LABEL_72:
 
     else
     {
-      v37 = &v226;
+      v37 = &v225;
     }
 
     *v37 = 0;
-    v209 = v226;
-    if (v226)
+    v208 = v225;
+    if (v225)
     {
-      if (v198)
+      if (v197)
       {
         v39 = 3;
       }
@@ -8801,29 +8787,29 @@ LABEL_72:
         v39 = 1;
       }
 
-      v200 = &v226;
+      v199 = &v225;
       do
       {
         v40 = *accents;
         if (*accents)
         {
-          v204 = v200 + 1;
+          v203 = v199 + 1;
           v41 = accents;
           do
           {
-            if (v40 == v209)
+            if (v40 == v208)
             {
-              *v200 = v41[1];
-              v42 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+              *v199 = v41[1];
+              v42 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
               if (v42)
               {
-                [guesses addCandidateWithBuffer:v42 encoding:v223 transform:v39 errorType:1];
+                [guesses addCandidateWithBuffer:v42 encoding:v222 transform:v39 errorType:1];
               }
 
-              v43 = *v204;
-              if (*v204)
+              v43 = *v203;
+              if (*v203)
               {
-                v44 = v200 + 1;
+                v44 = v199 + 1;
                 do
                 {
                   v45 = *accents;
@@ -8835,10 +8821,10 @@ LABEL_72:
                       if (v45 == v43)
                       {
                         *v44 = *(v46 - 1);
-                        v47 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+                        v47 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
                         if (v47)
                         {
-                          [guesses addCandidateWithBuffer:v47 encoding:v223 transform:v39 errorType:1];
+                          [guesses addCandidateWithBuffer:v47 encoding:v222 transform:v39 errorType:1];
                         }
                       }
 
@@ -8867,22 +8853,22 @@ LABEL_72:
           while (v50);
         }
 
-        *v200 = v209;
-        v51 = *++v200;
-        v209 = v51;
+        *v199 = v208;
+        v51 = *++v199;
+        v208 = v51;
       }
 
       while (v51);
     }
   }
 
-  if (length > autocorrectionLength && v223 == 1280 && ([guesses isFull] & 1) == 0)
+  if (length > autocorrectionLength && v222 == 1280 && ([guesses isFull] & 1) == 0)
   {
     v52 = *buffer;
     if (*buffer)
     {
       v53 = buffer + 1;
-      v54 = &v226;
+      v54 = &v225;
       do
       {
         *v54++ = v52;
@@ -8895,14 +8881,14 @@ LABEL_72:
 
     else
     {
-      v54 = &v226;
+      v54 = &v225;
     }
 
     *v54 = 0;
-    v56 = v226;
-    if (v226)
+    v56 = v225;
+    if (v225)
     {
-      v57 = &v226;
+      v57 = &v225;
       while (v56 - 65 >= 0x1A && v56 - 192 >= 0x17)
       {
         if (v56 - 216 < 7 || v56 - 138 <= 0x15 && ((1 << (v56 + 118)) & 0x200015) != 0)
@@ -8978,9 +8964,9 @@ LABEL_128:
         v59 = v56 - 16;
 LABEL_131:
         *v57 = v59;
-        if ([(AppleSpell *)self checkNameWordBuffer:&v226 length:length languageObject:object globalOnly:0])
+        if ([(AppleSpell *)self checkNameWordBuffer:&v225 length:length languageObject:object globalOnly:0])
         {
-          [guesses addCandidateWithBuffer:&v226 encoding:1280 errorType:2];
+          [guesses addCandidateWithBuffer:&v225 encoding:1280 errorType:2];
         }
 
         *v57 = v56;
@@ -9004,7 +8990,7 @@ LABEL_125:
   }
 
 LABEL_148:
-  v61 = isEnglish & v198 ^ 1;
+  v61 = isEnglish & v197 ^ 1;
   if (length <= autocorrectionLength)
   {
     v61 = 1;
@@ -9019,7 +9005,7 @@ LABEL_148:
       if (*buffer)
       {
         v64 = buffer + 1;
-        v65 = &v226;
+        v65 = &v225;
         do
         {
           *v65++ = v63;
@@ -9030,24 +9016,24 @@ LABEL_148:
         while (v66);
       }
 
-      *(&v226 + v62) = 0;
-      if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:&v226 languageObject:length - 1 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:0x100000101000001 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?])
+      *(&v225 + v62) = 0;
+      if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:&v225 languageObject:length - 1 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:0x100000101000001 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?])
       {
-        *(&v226 + v62) = 39;
-        *(&v226 + length) = 115;
-        [guesses addCandidateWithBuffer:&v226 encoding:v223 errorType:3];
+        *(&v225 + v62) = 39;
+        *(&v225 + length) = 115;
+        [guesses addCandidateWithBuffer:&v225 encoding:v222 errorType:3];
       }
     }
   }
 
   v68 = length < autocorrectionLength || length > 0x1B;
-  if (((v68 | v199) & 1) == 0 && ([guesses isFull] & 1) == 0)
+  if (((v68 | v198) & 1) == 0 && ([guesses isFull] & 1) == 0)
   {
     v69 = *buffer;
     if (*buffer)
     {
       v70 = buffer + 1;
-      v71 = &v226;
+      v71 = &v225;
       do
       {
         *v71++ = v69;
@@ -9060,67 +9046,67 @@ LABEL_148:
 
     else
     {
-      v71 = &v226;
+      v71 = &v225;
     }
 
     *v71 = 0;
     if (length)
     {
       v73 = 26;
-      if (v223 == 517)
+      if (v222 == 517)
       {
         v73 = 32;
       }
 
-      v201 = v73;
+      v200 = v73;
       v74 = 97;
-      if (v223 == 517)
+      if (v222 == 517)
       {
         v74 = -48;
       }
 
-      v190 = v74;
+      v189 = v74;
       v75 = 3;
-      if ((v198 & 1) == 0)
+      if ((v197 & 1) == 0)
       {
         v75 = 1;
       }
 
-      if (v197)
+      if (v196)
       {
         v75 = 2;
       }
 
-      v210 = v75;
+      v209 = v75;
       lengthCopy = length;
       do
       {
         v77 = lengthCopy - 1;
-        if (lengthCopy == 1 && !isAnyAlphaX(v227, v223))
+        if (lengthCopy == 1 && !isAnyAlphaX(v226, v222))
         {
           break;
         }
 
-        v78 = &v226 + v77;
-        if (lengthCopy != length || isAnyAlphaX(*(v78 - 1), v223))
+        v78 = &v225 + v77;
+        if (lengthCopy != length || isAnyAlphaX(*(v78 - 1), v222))
         {
-          v215 = lengthCopy == 1;
-          v205 = lengthCopy - 1;
-          v79 = *(&v226 + v77);
-          v80 = toLowerX(v79, v223);
-          v216 = v197 | v198 & v215;
-          v81 = v190;
-          v82 = v201;
+          v214 = lengthCopy == 1;
+          v204 = lengthCopy - 1;
+          v79 = *(&v225 + v77);
+          v80 = toLowerX(v79, v222);
+          v215 = v196 | v197 & v214;
+          v81 = v189;
+          v82 = v200;
           do
           {
-            if (v80 != v81 && adjacentMatch(v80, v81, v223))
+            if (v80 != v81 && adjacentMatch(v80, v81, v222))
             {
-              v83 = (v216 & 1) != 0 ? toUpperX(v81, v223) : v81;
+              v83 = (v215 & 1) != 0 ? toUpperX(v81, v222) : v81;
               *v78 = v83;
-              v84 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+              v84 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
               if (v84)
               {
-                [guesses addReplacementCandidateWithBuffer:v84 encoding:v223 transform:v210 intendedCharacter:*v78 actualCharacter:v79];
+                [guesses addReplacementCandidateWithBuffer:v84 encoding:v222 transform:v209 intendedCharacter:*v78 actualCharacter:v79];
               }
             }
 
@@ -9130,7 +9116,7 @@ LABEL_148:
 
           while (v82);
           *v78 = v79;
-          v77 = v205;
+          v77 = v204;
         }
 
         lengthCopy = v77;
@@ -9140,8 +9126,8 @@ LABEL_148:
     }
   }
 
-  v85 = v223;
-  if (!((length < autocorrectionLength) | (only | v199) & 1))
+  v85 = v222;
+  if (!((length < autocorrectionLength) | (only | v198) & 1))
   {
     bufferCopy3 = buffer;
     if (([guesses isFull] & 1) == 0)
@@ -9150,7 +9136,7 @@ LABEL_148:
       if (*buffer)
       {
         v93 = buffer + 1;
-        v94 = &v226;
+        v94 = &v225;
         do
         {
           *v94++ = v92;
@@ -9163,26 +9149,26 @@ LABEL_148:
 
       else
       {
-        v94 = &v226;
+        v94 = &v225;
       }
 
       *v94 = 0;
-      v96 = v226;
-      if (v226)
+      v96 = v225;
+      if (v225)
       {
         v97 = 3;
-        if ((v198 & 1) == 0)
+        if ((v197 & 1) == 0)
         {
           v97 = 1;
         }
 
-        if (v197)
+        if (v196)
         {
           v97 = 2;
         }
 
-        v217 = v97;
-        v98 = &v227;
+        v216 = v97;
+        v98 = &v226;
         do
         {
           v99 = *v98;
@@ -9191,14 +9177,14 @@ LABEL_148:
             break;
           }
 
-          if (isAnyAlphaX(v96, v223) && isAnyAlphaX(v99, v223))
+          if (isAnyAlphaX(v96, v222) && isAnyAlphaX(v99, v222))
           {
             *(v98 - 1) = v99;
             *v98 = v96;
-            v100 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+            v100 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
             if (v100)
             {
-              [guesses addTranspositionCandidateWithBuffer:v100 encoding:v223 transform:v217 intendedFirstCharacter:*(v98 - 1) intendedSecondCharacter:*v98];
+              [guesses addTranspositionCandidateWithBuffer:v100 encoding:v222 transform:v216 intendedFirstCharacter:*(v98 - 1) intendedSecondCharacter:*v98];
             }
 
             v99 = *(v98 - 1);
@@ -9216,7 +9202,7 @@ LABEL_148:
 
     if (length > 0x1B)
     {
-      v191 = 0;
+      v190 = 0;
       goto LABEL_230;
     }
 
@@ -9226,7 +9212,7 @@ LABEL_148:
       if (*buffer)
       {
         v102 = buffer + 1;
-        v103 = &v226;
+        v103 = &v225;
         do
         {
           *v103++ = v101;
@@ -9239,86 +9225,86 @@ LABEL_148:
 
       else
       {
-        v103 = &v226;
+        v103 = &v225;
       }
 
       *v103 = 0;
       if (length)
       {
-        if (v223 == 517)
+        if (v222 == 517)
         {
-          v175 = 32;
+          v174 = 32;
         }
 
         else
         {
-          v175 = 26;
+          v174 = 26;
         }
 
-        v176 = 97;
-        if (v223 == 517)
+        v175 = 97;
+        if (v222 == 517)
         {
-          v176 = -48;
+          v175 = -48;
         }
 
-        v187 = v176;
-        v189 = v175;
-        v177 = 3;
-        if ((v198 & 1) == 0)
+        v186 = v175;
+        v188 = v174;
+        v176 = 3;
+        if ((v197 & 1) == 0)
         {
-          v177 = 1;
+          v176 = 1;
         }
 
-        if (v197)
+        if (v196)
         {
-          v177 = 2;
+          v176 = 2;
         }
 
-        v208 = v177;
+        v207 = v176;
         lengthCopy2 = length;
         do
         {
-          v179 = lengthCopy2 - 1;
-          if (lengthCopy2 == 1 && !isAnyAlphaX(v227, v223))
+          v178 = lengthCopy2 - 1;
+          if (lengthCopy2 == 1 && !isAnyAlphaX(v226, v222))
           {
             break;
           }
 
-          if (lengthCopy2 != length || isAnyAlphaX(*(&v226 + v179 - 1), v223))
+          if (lengthCopy2 != length || isAnyAlphaX(*(&v225 + v178 - 1), v222))
           {
-            v180 = &v226 + v179;
-            v203 = v179;
-            v213 = *(&v226 + v179);
-            v181 = toLowerX(*(&v226 + v179), v223);
-            v221 = v197 | v198 & (v179 == 0);
-            v183 = v187;
-            v182 = v189;
+            v179 = &v225 + v178;
+            v202 = v178;
+            v212 = *(&v225 + v178);
+            v180 = toLowerX(*(&v225 + v178), v222);
+            v220 = v196 | v197 & (v178 == 0);
+            v182 = v186;
+            v181 = v188;
             do
             {
-              if (v181 != v183 && !adjacentMatch(v181, v183, v223))
+              if (v180 != v182 && !adjacentMatch(v180, v182, v222))
               {
-                v184 = (v221 & 1) != 0 ? toUpperX(v183, v223) : v183;
-                *v180 = v184;
-                v185 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
-                if (v185)
+                v183 = (v220 & 1) != 0 ? toUpperX(v182, v222) : v182;
+                *v179 = v183;
+                v184 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+                if (v184)
                 {
-                  [guesses addReplacementCandidateWithBuffer:v185 encoding:v223 transform:v208 intendedCharacter:*v180 actualCharacter:v213];
+                  [guesses addReplacementCandidateWithBuffer:v184 encoding:v222 transform:v207 intendedCharacter:*v179 actualCharacter:v212];
                 }
               }
 
-              ++v183;
-              --v182;
+              ++v182;
+              --v181;
             }
 
-            while (v182);
-            *v180 = v213;
-            v179 = v203;
+            while (v181);
+            *v179 = v212;
+            v178 = v202;
           }
 
-          lengthCopy2 = v179;
+          lengthCopy2 = v178;
         }
 
-        while (v179);
+        while (v178);
       }
     }
   }
@@ -9329,17 +9315,17 @@ LABEL_148:
     onlyCopy = 1;
   }
 
-  v191 = ((length < autocorrectionLength) | only | v199) ^ 1;
+  v190 = ((length < autocorrectionLength) | only | v198) ^ 1;
   if (length > 0x1B || length < autocorrectionLength)
   {
-    v188 = 1;
+    v187 = 1;
 LABEL_259:
     bufferCopy3 = buffer;
     goto LABEL_261;
   }
 
   bufferCopy3 = buffer;
-  if (((onlyCopy | v199) & 1) == 0)
+  if (((onlyCopy | v198) & 1) == 0)
   {
     if ([guesses isFull])
     {
@@ -9350,7 +9336,7 @@ LABEL_259:
     if (*buffer)
     {
       v89 = buffer + 1;
-      v90 = &v226;
+      v90 = &v225;
       do
       {
         *v90++ = v88;
@@ -9363,24 +9349,24 @@ LABEL_259:
 
     else
     {
-      v90 = &v226;
+      v90 = &v225;
     }
 
     *v90 = 0;
     if (!length)
     {
 LABEL_260:
-      v188 = 0;
+      v187 = 0;
       goto LABEL_261;
     }
 
     v105 = 3;
-    if ((v198 & 1) == 0)
+    if ((v197 & 1) == 0)
     {
       v105 = 1;
     }
 
-    if (v197)
+    if (v196)
     {
       v106 = 2;
     }
@@ -9390,39 +9376,39 @@ LABEL_260:
       v106 = v105;
     }
 
-    v206 = v106;
+    v205 = v106;
     lengthCopy3 = length;
     do
     {
       v108 = lengthCopy3 - 1;
-      if (lengthCopy3 == 1 && !isAnyAlphaX(v227, v85))
+      if (lengthCopy3 == 1 && !isAnyAlphaX(v226, v85))
       {
         break;
       }
 
-      v109 = &v226 + v108;
+      v109 = &v225 + v108;
       if (lengthCopy3 != length || isAnyAlphaX(*(v109 - 1), v85))
       {
-        v218 = *v109;
+        v217 = *v109;
         if (*accents)
         {
-          v110 = toLowerX(*v109, v223);
+          v110 = toLowerX(*v109, v222);
           v111 = accents + 2;
           do
           {
             v112 = *(v111 - 1);
             if (v110 != v112)
             {
-              if (v197 & 1 | v198 & (lengthCopy3 == 1))
+              if (v196 & 1 | v197 & (lengthCopy3 == 1))
               {
-                LOBYTE(v112) = toUpperX(v112, v223);
+                LOBYTE(v112) = toUpperX(v112, v222);
               }
 
               *v109 = v112;
-              v113 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+              v113 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
               if (v113)
               {
-                [guesses addReplacementCandidateWithBuffer:v113 encoding:v223 transform:v206 intendedCharacter:*v109 actualCharacter:v218];
+                [guesses addReplacementCandidateWithBuffer:v113 encoding:v222 transform:v205 intendedCharacter:*v109 actualCharacter:v217];
               }
             }
 
@@ -9433,8 +9419,8 @@ LABEL_260:
           while (v114);
         }
 
-        *v109 = v218;
-        v85 = v223;
+        *v109 = v217;
+        v85 = v222;
         v108 = lengthCopy3 - 1;
       }
 
@@ -9442,21 +9428,21 @@ LABEL_260:
     }
 
     while (v108);
-    v188 = 0;
+    v187 = 0;
     goto LABEL_259;
   }
 
 LABEL_230:
-  v188 = 1;
+  v187 = 1;
 LABEL_261:
   if (length >= autocorrectionLength && !only && ([guesses isFull] & 1) == 0 && *bufferCopy3)
   {
     v115 = 0;
-    v219 = &bufferCopy3[length - 1];
+    v218 = &bufferCopy3[length - 1];
     v116 = bufferCopy3;
     while (1)
     {
-      if (v116 == bufferCopy3 && !isAnyAlphaX(bufferCopy3[1], v85) || v116 == v219 && !isAnyAlphaX(bufferCopy3[length - 2], v85))
+      if (v116 == bufferCopy3 && !isAnyAlphaX(bufferCopy3[1], v85) || v116 == v218 && !isAnyAlphaX(bufferCopy3[length - 2], v85))
       {
         goto LABEL_299;
       }
@@ -9464,7 +9450,7 @@ LABEL_261:
       v117 = *bufferCopy3;
       if (*bufferCopy3)
       {
-        v118 = &v226;
+        v118 = &v225;
         v119 = (bufferCopy3 + 1);
         v120 = v115;
         do
@@ -9484,11 +9470,11 @@ LABEL_261:
 
       else
       {
-        v118 = &v226;
+        v118 = &v225;
       }
 
       *v118 = 0;
-      v122 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length - 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+      v122 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length - 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
       if (!v122)
       {
         goto LABEL_299;
@@ -9501,7 +9487,7 @@ LABEL_261:
 
       v124 = *bufferCopy3;
       v125 = v124 == letter;
-      if (v116 == v219 && v124 != letter)
+      if (v116 == v218 && v124 != letter)
       {
         goto LABEL_284;
       }
@@ -9509,7 +9495,7 @@ LABEL_261:
 LABEL_285:
       if (length != autocorrectionLength || v125)
       {
-        if ((v198 & (v116 == bufferCopy3)) != 0)
+        if ((v197 & (v116 == bufferCopy3)) != 0)
         {
           v123 = 3;
         }
@@ -9536,7 +9522,7 @@ LABEL_299:
       }
     }
 
-    if (v116 != v219)
+    if (v116 != v218)
     {
       if (length != autocorrectionLength)
       {
@@ -9552,7 +9538,7 @@ LABEL_292:
           v126 = *(v116 - 1);
         }
 
-        if (v116 >= v219)
+        if (v116 >= v218)
         {
           v127 = 0;
         }
@@ -9575,13 +9561,13 @@ LABEL_284:
   }
 
 LABEL_300:
-  if ((v191 & 1) != 0 && ([guesses isFull] & 1) == 0)
+  if ((v190 & 1) != 0 && ([guesses isFull] & 1) == 0)
   {
     v129 = *buffer;
     if (*buffer)
     {
       v130 = buffer + 1;
-      v131 = &v226;
+      v131 = &v225;
       do
       {
         *v131++ = v129;
@@ -9594,24 +9580,24 @@ LABEL_300:
 
     else
     {
-      v131 = &v226;
+      v131 = &v225;
     }
 
     *v131 = 0;
-    v186 = &v226 + length;
+    v185 = &v225 + length;
     if ((length & 0x8000000000000000) == 0)
     {
-      v133 = &v226 + length;
+      v133 = &v225 + length;
       do
       {
         v133[1] = *v133;
         --v133;
       }
 
-      while (&v226 <= v133);
+      while (&v225 <= v133);
     }
 
-    if (v226)
+    if (v225)
     {
       if (v85 == 517)
       {
@@ -9629,25 +9615,25 @@ LABEL_300:
         v135 = -48;
       }
 
-      v192 = v135;
-      v194 = v134;
+      v191 = v135;
+      v193 = v134;
       v136 = 3;
-      if ((v198 & 1) == 0)
+      if ((v197 & 1) == 0)
       {
         v136 = 1;
       }
 
-      if (v197)
+      if (v196)
       {
         v136 = 2;
       }
 
-      v207 = v136;
+      v206 = v136;
       v137 = 0;
       while (1)
       {
-        v138 = &v226 + v137;
-        v220 = v137;
+        v138 = &v225 + v137;
+        v219 = v137;
         if (!v137)
         {
           break;
@@ -9659,7 +9645,7 @@ LABEL_300:
         }
 
         v139 = isAnyAlphaX(v138[1], v85);
-        v137 = v220;
+        v137 = v219;
         if (v139)
         {
           goto LABEL_326;
@@ -9667,7 +9653,7 @@ LABEL_300:
 
 LABEL_355:
         ++v137;
-        if (!*(&v226 + v137))
+        if (!*(&v225 + v137))
         {
           goto LABEL_356;
         }
@@ -9681,10 +9667,10 @@ LABEL_355:
       }
 
 LABEL_326:
-      if (v138 == v186 - 1)
+      if (v138 == v185 - 1)
       {
-        v141 = isAnyAlphaX(*(v186 - 2), v85);
-        v137 = v220;
+        v141 = isAnyAlphaX(*(v185 - 2), v85);
+        v137 = v219;
         if (!v141)
         {
           goto LABEL_355;
@@ -9694,7 +9680,7 @@ LABEL_326:
       if (v137 == length)
       {
         v142 = isAnyAlphaX(*(v138 - 2), v85);
-        v137 = v220;
+        v137 = v219;
         if (!v142)
         {
           goto LABEL_355;
@@ -9702,29 +9688,29 @@ LABEL_326:
       }
 
       v143 = v138;
-      v211 = v197 | v198 & (v137 == 0);
-      v145 = v192;
-      v144 = v194;
+      v210 = v196 | v197 & (v137 == 0);
+      v145 = v191;
+      v144 = v193;
       while (1)
       {
         v146 = v145;
-        if (v211)
+        if (v210)
         {
           v146 = toUpperX(v145, v85);
         }
 
         *v143 = v146;
-        v147 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+        v147 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
         if (!v147)
         {
           break;
         }
 
         v148 = v147;
-        v149 = *(&v226 + v220);
-        if (v220)
+        v149 = *(&v225 + v219);
+        if (v219)
         {
-          if (v220 != length || v149 != nextLetter)
+          if (v219 != length || v149 != nextLetter)
           {
             v150 = *(v143 - 1);
             goto LABEL_348;
@@ -9743,7 +9729,7 @@ LABEL_326:
           {
             v150 = 0;
 LABEL_348:
-            if (v220 >= length)
+            if (v219 >= length)
             {
               v154 = 0;
             }
@@ -9755,25 +9741,25 @@ LABEL_348:
 
             guessesCopy2 = guesses;
             v156 = v85;
-            v157 = v207;
+            v157 = v206;
 LABEL_352:
             [guessesCopy2 addOmissionCandidateWithBuffer:v148 encoding:v156 transform:v157 intendedPrecedingCharacter:v150 omittedCharacter:v149 intendedFollowingCharacter:v154];
             goto LABEL_353;
           }
         }
 
-        [guesses addCandidateWithBuffer:v147 encoding:v85 transform:v207 errorType:5];
+        [guesses addCandidateWithBuffer:v147 encoding:v85 transform:v206 errorType:5];
 LABEL_353:
         ++v145;
         if (!--v144)
         {
           *v143 = v143[1];
-          v137 = v220;
+          v137 = v219;
           goto LABEL_355;
         }
       }
 
-      if (v220)
+      if (v219)
       {
         goto LABEL_353;
       }
@@ -9786,7 +9772,7 @@ LABEL_353:
       }
 
       *v143 = v152;
-      v153 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+      v153 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
       if (!v153)
       {
         goto LABEL_353;
@@ -9804,13 +9790,13 @@ LABEL_353:
   }
 
 LABEL_356:
-  if ((v188 & 1) == 0 && ([guesses isFull] & 1) == 0)
+  if ((v187 & 1) == 0 && ([guesses isFull] & 1) == 0)
   {
     v159 = *buffer;
     if (*buffer)
     {
       v160 = buffer + 1;
-      v161 = &v226;
+      v161 = &v225;
       do
       {
         *v161++ = v159;
@@ -9823,12 +9809,12 @@ LABEL_356:
 
     else
     {
-      v161 = &v226;
+      v161 = &v225;
     }
 
     *v161 = 0;
-    v202 = &v226 + length;
-    v163 = &v226;
+    v201 = &v225 + length;
+    v163 = &v225;
     do
     {
       v164 = &v163[length];
@@ -9836,31 +9822,31 @@ LABEL_356:
       --v163;
     }
 
-    while (&v226 <= v164 - 1);
-    if (v226)
+    while (&v225 <= v164 - 1);
+    if (v225)
     {
       v165 = 0;
       v166 = 3;
-      if ((v198 & 1) == 0)
+      if ((v197 & 1) == 0)
       {
         v166 = 1;
       }
 
-      if (v197)
+      if (v196)
       {
         v166 = 2;
       }
 
-      v212 = v166;
+      v211 = v166;
       do
       {
-        v167 = &v226 + v165;
+        v167 = &v225 + v165;
         if (v165)
         {
           if (v165 != 1 || isAnyAlphaX(v167[1], v85))
           {
 LABEL_376:
-            if ((v167 != v202 - 1 || isAnyAlphaX(*(v202 - 2), v85)) && (v165 != length || isAnyAlphaX(*(v167 - 2), v85)))
+            if ((v167 != v201 - 1 || isAnyAlphaX(*(v201 - 2), v85)) && (v165 != length || isAnyAlphaX(*(v167 - 2), v85)))
             {
               if (*accents)
               {
@@ -9868,13 +9854,13 @@ LABEL_376:
                 do
                 {
                   v169 = *(v168 - 1);
-                  if (v197 & 1 | v198 & (v165 == 0))
+                  if (v196 & 1 | v197 & (v165 == 0))
                   {
                     LOBYTE(v169) = toUpperX(v169, v85);
                   }
 
                   *v167 = v169;
-                  v170 = [(AppleSpell *)self _validatedGuessWordBuffer:&v226 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
+                  v170 = [(AppleSpell *)self _validatedGuessWordBuffer:&v225 length:length + 1 languageObject:object connection:connection sender:sender checkUser:0 additionalBuffer:v17];
                   if (v170)
                   {
                     if (v165)
@@ -9897,7 +9883,7 @@ LABEL_376:
                       v172 = v167[1];
                     }
 
-                    [guesses addOmissionCandidateWithBuffer:v170 encoding:v85 transform:v212 intendedPrecedingCharacter:v171 omittedCharacter:*(&v226 + v165) intendedFollowingCharacter:v172];
+                    [guesses addOmissionCandidateWithBuffer:v170 encoding:v85 transform:v211 intendedPrecedingCharacter:v171 omittedCharacter:*(&v225 + v165) intendedFollowingCharacter:v172];
                   }
 
                   v173 = *v168;
@@ -9920,11 +9906,9 @@ LABEL_376:
         ++v165;
       }
 
-      while (*(&v226 + v165));
+      while (*(&v225 + v165));
     }
   }
-
-  v174 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_findMatchingRangesForRange:(_NSRange)range inString:(id)string keyEventArray:(id)array endingAtIndex:(unint64_t)index matchingStringRange:(_NSRange *)stringRange correctableStringRange:(_NSRange *)correctableStringRange matchingKeyEventRange:(_NSRange *)eventRange firstMisspelledKeyEventIndex:(unint64_t *)self0 lastMisspelledKeyEventIndex:(unint64_t *)self1 previousBackspaceCount:(unint64_t *)self2
@@ -10407,7 +10391,7 @@ id __236__AppleSpell_Correction___findMatchingRangesForRange_inString_keyEventAr
   return v18;
 }
 
-uint64_t __171__AppleSpell_Correction___phraseCapitalizationResultForString_range_currentWordRange_inString_offset_languageObject_onlyAtInsertionPoint_keyEventArray_selectedRangeValue___block_invoke(uint64_t result, void *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+id *__171__AppleSpell_Correction___phraseCapitalizationResultForString_range_currentWordRange_inString_offset_languageObject_onlyAtInsertionPoint_keyEventArray_selectedRangeValue___block_invoke(id *result, void *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   if (a2)
   {
@@ -10417,9 +10401,9 @@ uint64_t __171__AppleSpell_Correction___phraseCapitalizationResultForString_rang
       result = [a2 isEqualToString:{objc_msgSend(a2, "uppercaseString")}];
       if (result)
       {
-        if (a3 + a4 <= [*(v11 + 32) length])
+        if (a3 + a4 <= [v11[4] length])
         {
-          v12 = [*(v11 + 32) substringWithRange:{a3, a4}];
+          v12 = [v11[4] substringWithRange:{a3, a4}];
         }
 
         else
@@ -10430,7 +10414,7 @@ uint64_t __171__AppleSpell_Correction___phraseCapitalizationResultForString_rang
         result = [a2 isEqualToString:v12];
         if ((result & 1) == 0)
         {
-          *(*(*(v11 + 40) + 8) + 24) = 1;
+          *(*(v11[5] + 1) + 24) = 1;
           *a7 = 1;
         }
       }
@@ -10637,7 +10621,7 @@ void *__161__AppleSpell_Correction___accentCorrectionResultForString_range_inStr
   return result;
 }
 
-uint64_t __161__AppleSpell_Correction___accentCorrectionResultForString_range_inString_offset_languageObject_onlyAtInsertionPoint_capitalize_keyEventArray_selectedRangeValue___block_invoke_2(uint64_t a1, void *a2, double a3, uint64_t a4, _BYTE *a5)
+void *__161__AppleSpell_Correction___accentCorrectionResultForString_range_inString_offset_languageObject_onlyAtInsertionPoint_capitalize_keyEventArray_selectedRangeValue___block_invoke_2(uint64_t a1, void *a2, double a3, uint64_t a4, _BYTE *a5)
 {
   [a2 rangeOfString:@"-"];
   v10 = v9;
@@ -10768,7 +10752,7 @@ id __86__AppleSpell_Correction___acceptWithoutAccentForString_range_inString_lan
   return result;
 }
 
-uint64_t __86__AppleSpell_Correction___acceptWithoutAccentForString_range_inString_languageObject___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__86__AppleSpell_Correction___acceptWithoutAccentForString_range_inString_languageObject___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqualToString:{uppercasedString(a2, 0)}];
   if (result)
@@ -10782,7 +10766,7 @@ uint64_t __86__AppleSpell_Correction___acceptWithoutAccentForString_range_inStri
 
 - (id)_initialCorrectionForString:(id)string lowercaseString:(id)lowercaseString isFirstSecondCapitalized:(BOOL)capitalized dictionary:(id)dictionary languageObject:(id)object connection:(_PR_DB_IO *)connection
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   result = [dictionary objectForKey:string];
   if (!result && !capitalized)
@@ -10805,24 +10789,24 @@ uint64_t __86__AppleSpell_Correction___acceptWithoutAccentForString_range_inStri
             {
               v21 = [result stringByAppendingString:v20];
               v22 = [(__CFString *)v21 length];
-              if (v21 && (v25 = 0, v28.location = 0, v28.length = v22, v22 == CFStringGetBytes(v21, v28, encoding, 0, 0, buffer, 254, &v25)))
+              if (v21 && (v24 = 0, v27.location = 0, v27.length = v22, v22 == CFStringGetBytes(v21, v27, encoding, 0, 0, buffer, 254, &v24)))
               {
                 BYTE4(usedBufLen) = 0;
                 LODWORD(usedBufLen) = 65793;
-                if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v25 connection:object sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+                if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v24 connection:object sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
                 {
-                  result = v21;
+                  return v21;
                 }
 
                 else
                 {
-                  result = 0;
+                  return 0;
                 }
               }
 
               else
               {
-                result = 0;
+                return 0;
               }
             }
           }
@@ -10831,7 +10815,6 @@ uint64_t __86__AppleSpell_Correction___acceptWithoutAccentForString_range_inStri
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -10945,7 +10928,7 @@ LABEL_19:
 - (id)_umlautCorrectionForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection typologyCorrection:(id)correction
 {
   bufferCopy = buffer;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   isGerman = [object isGerman];
   isDanish = [object isDanish];
@@ -11036,9 +11019,9 @@ LABEL_23:
     goto LABEL_56;
   }
 
-  BYTE4(v50) = 0;
-  LODWORD(v50) = 257;
-  if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v50 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+  BYTE4(v49) = 0;
+  LODWORD(v49) = 257;
+  if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v49 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
   {
 LABEL_55:
     v17 = CFStringCreateWithCString(0, __s, 0x500u);
@@ -11069,9 +11052,9 @@ LABEL_55:
     }
 
 LABEL_54:
-    BYTE4(v50) = 0;
-    LODWORD(v50) = 257;
-    if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v50 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+    BYTE4(v49) = 0;
+    LODWORD(v49) = 257;
+    if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v49 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
     {
       goto LABEL_55;
     }
@@ -11113,9 +11096,9 @@ LABEL_40:
 
 LABEL_41:
   __s[0] = v33;
-  BYTE4(v50) = 0;
-  LODWORD(v50) = 257;
-  if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v50 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+  BYTE4(v49) = 0;
+  LODWORD(v49) = 257;
+  if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v49 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
   {
     goto LABEL_55;
   }
@@ -11143,14 +11126,14 @@ LABEL_57:
   {
     if (encoding != 1280)
     {
-      goto LABEL_76;
+      return v17;
     }
 
 LABEL_64:
     v41 = *bufferCopy;
     if (!*bufferCopy)
     {
-      goto LABEL_76;
+      return v17;
     }
 
     v42 = 0;
@@ -11185,15 +11168,15 @@ LABEL_71:
         *v43 = 0;
         if (v42)
         {
-          BYTE4(v50) = 0;
-          LODWORD(v50) = 257;
-          if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v50 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+          BYTE4(v49) = 0;
+          LODWORD(v49) = 257;
+          if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:__s languageObject:strlen(__s) connection:object sender:connection checkBase:0 checkDict:1 checkNames:v49 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
           {
-            v17 = CFStringCreateWithCString(0, __s, 0x500u);
+            return CFStringCreateWithCString(0, __s, 0x500u);
           }
         }
 
-        goto LABEL_76;
+        return v17;
       }
 
       continue;
@@ -11215,25 +11198,22 @@ LABEL_71:
     goto LABEL_64;
   }
 
-LABEL_76:
-  v48 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)_connectionCorrectionForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection flags:(unint64_t)flags isCapitalized:(BOOL)capitalized accentCorrectionOnly:(BOOL)self0 isAbbreviation:(BOOL *)self1 trySpaceInsertion:(BOOL *)self2 hasAccentCorrections:(BOOL *)self3 candidateList:(id)self4 typologyCorrection:(id)self5
 {
-  v191 = *MEMORY[0x1E69E9840];
+  v190 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   isGerman = [object isGerman];
   v22 = 0;
   if (length - 2 > 0x3D || !connection)
   {
-    goto LABEL_55;
+    return v22;
   }
 
   v23 = isGerman;
-  v190 = 0;
-  v189 = 0u;
+  v189 = 0;
   v188 = 0u;
   v187 = 0u;
   v186 = 0u;
@@ -11241,28 +11221,29 @@ LABEL_76:
   v184 = 0u;
   v183 = 0u;
   v182 = 0u;
-  memset(v178, 0, sizeof(v178));
-  v179 = 0u;
-  HIDWORD(v179) = 0;
-  v180 = 0;
+  v181 = 0u;
+  memset(v177, 0, sizeof(v177));
+  v178 = 0u;
+  HIDWORD(v178) = 0;
+  v179 = 0;
   bufferCopy = buffer;
-  *&v188 = v178;
-  BYTE7(v189) = 1;
-  *(&v189 + 9) = *&connection->var0;
+  *&v187 = v177;
+  BYTE7(v188) = 1;
+  *(&v188 + 9) = *&connection->var0;
   PRword(&bufferCopy, 8, 0);
-  v24 = v182;
-  if (!v182 || !*(v182 + 8) || (v25 = *v182) == 0)
+  v24 = v181;
+  if (!v181 || !*(v181 + 8) || (v25 = *v181) == 0)
   {
     v22 = 0;
     goto LABEL_54;
   }
 
-  v174 = *(v182 + 8);
+  v173 = *(v181 + 8);
   abbreviationCopy5 = abbreviation;
-  v27 = *(v182 + 18);
-  v175 = v182;
-  v177 = v27;
-  if (!*(v182 + 18))
+  v27 = *(v181 + 18);
+  v174 = v181;
+  v176 = v27;
+  if (!*(v181 + 18))
   {
     v22 = 0;
     onlyCopy4 = only;
@@ -11276,11 +11257,11 @@ LABEL_76:
 
   abbreviationCopy2 = abbreviation;
   flagsCopy = flags;
-  v28 = *(v182 + 18);
+  v28 = *(v181 + 18);
   v29 = 0;
-  v173 = v23;
+  v172 = v23;
   v30 = v23 | capitalized;
-  v31 = *(v182 + 8);
+  v31 = *(v181 + 8);
   while (1)
   {
     v32 = *v31++;
@@ -11320,9 +11301,9 @@ LABEL_13:
         }
 
         v39 = v35 - 138;
-        v78 = v39 > 0x15;
+        v77 = v39 > 0x15;
         v40 = (1 << v39) & 0x200015;
-        v41 = v78 || v40 == 0;
+        v41 = v77 || v40 == 0;
         if (!v41)
         {
           goto LABEL_14;
@@ -11342,9 +11323,9 @@ LABEL_13:
         }
 
         v43 = v35 - 161;
-        v78 = v43 > 0x3D;
+        v77 = v43 > 0x3D;
         v44 = (1 << v43) & 0x3F80000000006F35;
-        if (!v78 && v44 != 0)
+        if (!v77 && v44 != 0)
         {
           goto LABEL_14;
         }
@@ -11378,47 +11359,47 @@ LABEL_13:
 LABEL_59:
   if (only)
   {
+    v48 = 0;
     v49 = 0;
-    v50 = 0;
-    v176 = 0x7FFFFFFFFFFFFFFFLL;
-    v51 = v174;
+    v175 = 0x7FFFFFFFFFFFFFFFLL;
+    v50 = v173;
     while (1)
     {
-      v52 = (v25 + *(v51 + 2 * v49));
-      v53 = v177;
-      if ((flagsCopy >> 1) & 1 | v173 & 1 | capitalized)
+      v51 = (v25 + *(v50 + 2 * v48));
+      v52 = v176;
+      if ((flagsCopy >> 1) & 1 | v172 & 1 | capitalized)
       {
 LABEL_62:
-        if (strlen(v52) == length)
+        if (strlen(v51) == length)
         {
           if (!length)
           {
             goto LABEL_72;
           }
 
-          v54 = 0;
+          v53 = 0;
           do
           {
-            v55 = removeDiacriticsX(buffer[v54], encoding);
-            v56 = removeDiacriticsX(v52[v54++], encoding);
+            v54 = removeDiacriticsX(buffer[v53], encoding);
+            v55 = removeDiacriticsX(v51[v53++], encoding);
           }
 
-          while (v55 == v56 && v54 < length);
-          v41 = v55 == v56;
-          v53 = v177;
-          v51 = v174;
+          while (v54 == v55 && v53 < length);
+          v41 = v54 == v55;
+          v52 = v176;
+          v50 = v173;
           if (v41)
           {
 LABEL_72:
-            v41 = v50++ == 0;
+            v41 = v49++ == 0;
             *corrections = 1;
-            v58 = 0x7FFFFFFFFFFFFFFFLL;
+            v57 = 0x7FFFFFFFFFFFFFFFLL;
             if (v41)
             {
-              v58 = v49;
+              v57 = v48;
             }
 
-            v176 = v58;
+            v175 = v57;
             *insertion = 0;
           }
         }
@@ -11426,14 +11407,14 @@ LABEL_72:
         goto LABEL_110;
       }
 
-      v59 = *v52;
-      v60 = v59 - 65;
+      v58 = *v51;
+      v59 = v58 - 65;
       if (encoding > 1279)
       {
         if (encoding != 1284 && encoding != 1280)
         {
 LABEL_99:
-          if (v60 >= 0x1A)
+          if (v59 >= 0x1A)
           {
             goto LABEL_62;
           }
@@ -11441,13 +11422,13 @@ LABEL_99:
           goto LABEL_110;
         }
 
-        v62 = v60 >= 0x1A && (v59 - 192) >= 0x17;
-        if (v62 && (v59 - 216) >= 7)
+        v61 = v59 >= 0x1A && (v58 - 192) >= 0x17;
+        if (v61 && (v58 - 216) >= 7)
         {
-          v63 = v59 - 138;
-          v78 = v63 > 0x15;
-          v64 = (1 << v63) & 0x200015;
-          if (v78 || v64 == 0)
+          v62 = v58 - 138;
+          v77 = v62 > 0x15;
+          v63 = (1 << v62) & 0x200015;
+          if (v77 || v63 == 0)
           {
             goto LABEL_62;
           }
@@ -11456,12 +11437,12 @@ LABEL_99:
 
       else if (encoding == 514)
       {
-        if (v60 >= 0x1A && (v59 - 192) >= 0x17)
+        if (v59 >= 0x1A && (v58 - 192) >= 0x17)
         {
-          v67 = v59 - 161;
-          v78 = v67 > 0x3D;
-          v68 = (1 << v67) & 0x3F80000000006F35;
-          if (v78 || v68 == 0)
+          v66 = v58 - 161;
+          v77 = v66 > 0x3D;
+          v67 = (1 << v66) & 0x3F80000000006F35;
+          if (v77 || v67 == 0)
           {
             goto LABEL_62;
           }
@@ -11475,15 +11456,15 @@ LABEL_99:
           goto LABEL_99;
         }
 
-        v61 = v60 >= 0x1A && (v59 - 161) >= 0xC;
-        if (v61 && (v59 - 174) >= 0x22)
+        v60 = v59 >= 0x1A && (v58 - 161) >= 0xC;
+        if (v60 && (v58 - 174) >= 0x22)
         {
           goto LABEL_62;
         }
       }
 
 LABEL_110:
-      if (++v49 >= v53 || v50 >= 2)
+      if (++v48 >= v52 || v49 >= 2)
       {
         goto LABEL_271;
       }
@@ -11494,56 +11475,56 @@ LABEL_110:
   if (!v29)
   {
     v22 = 0;
-    v24 = v175;
+    v24 = v174;
     onlyCopy4 = only;
-    v23 = v173;
-    v27 = v177;
+    v23 = v172;
+    v27 = v176;
     abbreviationCopy5 = abbreviation;
     goto LABEL_297;
   }
 
   if (v29 == 1)
   {
-    v70 = 0;
-    v176 = 0x7FFFFFFFFFFFFFFFLL;
+    v69 = 0;
+    v175 = 0x7FFFFFFFFFFFFFFFLL;
     while (1)
     {
-      v71 = *v175;
-      v72 = *(v175[1] + 2 * v70);
-      if (((flagsCopy & 2) != 0) | v173 & 1 | capitalized)
+      v70 = *v174;
+      v71 = *(v174[1] + 2 * v69);
+      if (((flagsCopy & 2) != 0) | v172 & 1 | capitalized)
       {
 LABEL_117:
-        v73 = strlen((v71 + v72));
-        v74 = effectiveEditDistance(buffer, length, v71 + v72, v73);
-        if (v74 >= 2)
+        v72 = strlen((v70 + v71));
+        v73 = effectiveEditDistance(buffer, length, v70 + v71, v72);
+        if (v73 >= 2)
         {
-          v78 = v74 == 2 && length > 6;
-          v79 = v176;
-          if (v78)
+          v77 = v73 == 2 && length > 6;
+          v78 = v175;
+          if (v77)
           {
-            v79 = v70;
+            v78 = v69;
           }
 
-          v176 = v79;
+          v175 = v78;
         }
 
         else
         {
           *insertion = 0;
-          v176 = v70;
+          v175 = v69;
         }
 
         goto LABEL_160;
       }
 
-      v75 = *(v71 + v72);
-      v76 = v75 - 65;
+      v74 = *(v70 + v71);
+      v75 = v74 - 65;
       if (encoding > 1279)
       {
         if (encoding != 1284 && encoding != 1280)
         {
 LABEL_149:
-          if (v76 >= 0x1A)
+          if (v75 >= 0x1A)
           {
             goto LABEL_117;
           }
@@ -11551,13 +11532,13 @@ LABEL_149:
           goto LABEL_160;
         }
 
-        v80 = v76 >= 0x1A && (v75 - 192) >= 0x17;
-        if (v80 && (v75 - 216) >= 7)
+        v79 = v75 >= 0x1A && (v74 - 192) >= 0x17;
+        if (v79 && (v74 - 216) >= 7)
         {
-          v81 = v75 - 138;
-          v78 = v81 > 0x15;
-          v82 = (1 << v81) & 0x200015;
-          if (v78 || v82 == 0)
+          v80 = v74 - 138;
+          v77 = v80 > 0x15;
+          v81 = (1 << v80) & 0x200015;
+          if (v77 || v81 == 0)
           {
             goto LABEL_117;
           }
@@ -11566,12 +11547,12 @@ LABEL_149:
 
       else if (encoding == 514)
       {
-        if (v76 >= 0x1A && (v75 - 192) >= 0x17)
+        if (v75 >= 0x1A && (v74 - 192) >= 0x17)
         {
-          v85 = v75 - 161;
-          v78 = v85 > 0x3D;
-          v86 = (1 << v85) & 0x3F80000000006F35;
-          if (v78 || v86 == 0)
+          v84 = v74 - 161;
+          v77 = v84 > 0x3D;
+          v85 = (1 << v84) & 0x3F80000000006F35;
+          if (v77 || v85 == 0)
           {
             goto LABEL_117;
           }
@@ -11585,48 +11566,48 @@ LABEL_149:
           goto LABEL_149;
         }
 
-        v77 = v76 >= 0x1A && (v75 - 161) >= 0xC;
-        if (v77 && (v75 - 174) >= 0x22)
+        v76 = v75 >= 0x1A && (v74 - 161) >= 0xC;
+        if (v76 && (v74 - 174) >= 0x22)
         {
           goto LABEL_117;
         }
       }
 
 LABEL_160:
-      if (v177 == ++v70)
+      if (v176 == ++v69)
       {
         goto LABEL_271;
       }
     }
   }
 
+  v87 = 0;
   v88 = 0;
-  v89 = 0;
-  v90 = (flagsCopy >> 1) & 1 | v173 | capitalized;
-  v176 = 0x7FFFFFFFFFFFFFFFLL;
-  v91 = v177;
-  v92 = v174;
+  v89 = (flagsCopy >> 1) & 1 | v172 | capitalized;
+  v175 = 0x7FFFFFFFFFFFFFFFLL;
+  v90 = v176;
+  v91 = v173;
   do
   {
-    v93 = (v25 + *(v92 + 2 * v88));
-    if (!((flagsCopy >> 1) & 1 | v173 & 1 | capitalized))
+    v92 = (v25 + *(v91 + 2 * v87));
+    if (!((flagsCopy >> 1) & 1 | v172 & 1 | capitalized))
     {
-      v101 = *v93;
-      v102 = v101 - 65;
+      v100 = *v92;
+      v101 = v100 - 65;
       if (encoding > 1279)
       {
         if (encoding == 1284 || encoding == 1280)
         {
-          v104 = v102 >= 0x1A && (v101 - 192) >= 0x17;
-          if (!v104 || (v101 - 216) < 7)
+          v103 = v101 >= 0x1A && (v100 - 192) >= 0x17;
+          if (!v103 || (v100 - 216) < 7)
           {
             goto LABEL_213;
           }
 
-          v105 = v101 - 138;
-          v78 = v105 > 0x15;
-          v106 = (1 << v105) & 0x200015;
-          if (!v78 && v106 != 0)
+          v104 = v100 - 138;
+          v77 = v104 > 0x15;
+          v105 = (1 << v104) & 0x200015;
+          if (!v77 && v105 != 0)
           {
             goto LABEL_213;
           }
@@ -11639,15 +11620,15 @@ LABEL_160:
       {
         if (encoding == 514)
         {
-          if (v102 < 0x1A || (v101 - 192) < 0x17)
+          if (v101 < 0x1A || (v100 - 192) < 0x17)
           {
             goto LABEL_213;
           }
 
-          v109 = v101 - 161;
-          v78 = v109 > 0x3D;
-          v110 = (1 << v109) & 0x3F80000000006F35;
-          if (!v78 && v110 != 0)
+          v108 = v100 - 161;
+          v77 = v108 > 0x3D;
+          v109 = (1 << v108) & 0x3F80000000006F35;
+          if (!v77 && v109 != 0)
           {
             goto LABEL_213;
           }
@@ -11657,8 +11638,8 @@ LABEL_160:
 
         if (encoding == 517)
         {
-          v103 = v102 >= 0x1A && (v101 - 161) >= 0xC;
-          if (!v103 || (v101 - 174) < 0x22)
+          v102 = v101 >= 0x1A && (v100 - 161) >= 0xC;
+          if (!v102 || (v100 - 174) < 0x22)
           {
             goto LABEL_213;
           }
@@ -11667,107 +11648,107 @@ LABEL_160:
         }
       }
 
-      if (v102 < 0x1A)
+      if (v101 < 0x1A)
       {
         goto LABEL_213;
       }
     }
 
 LABEL_165:
-    if (strlen(v93) == length)
+    if (strlen(v92) == length)
     {
       if (!length)
       {
         goto LABEL_175;
       }
 
-      v94 = 0;
+      v93 = 0;
       do
       {
-        v95 = removeDiacriticsX(buffer[v94], encoding);
-        v96 = toLowerX(v95, encoding);
-        v97 = removeDiacriticsX(v93[v94], encoding);
-        v98 = toLowerX(v97, encoding);
-        ++v94;
+        v94 = removeDiacriticsX(buffer[v93], encoding);
+        v95 = toLowerX(v94, encoding);
+        v96 = removeDiacriticsX(v92[v93], encoding);
+        v97 = toLowerX(v96, encoding);
+        ++v93;
       }
 
-      while (v96 == v98 && v94 < length);
-      v41 = v96 == v98;
-      v91 = v177;
-      v92 = v174;
+      while (v95 == v97 && v93 < length);
+      v41 = v95 == v97;
+      v90 = v176;
+      v91 = v173;
       if (v41)
       {
 LABEL_175:
-        v41 = v89++ == 0;
+        v41 = v88++ == 0;
         *corrections = 1;
-        v100 = 0x7FFFFFFFFFFFFFFFLL;
+        v99 = 0x7FFFFFFFFFFFFFFFLL;
         if (v41)
         {
-          v100 = v88;
+          v99 = v87;
         }
 
-        v176 = v100;
+        v175 = v99;
         *insertion = 0;
       }
     }
 
 LABEL_213:
-    ++v88;
+    ++v87;
   }
 
-  while (v88 < v91 && v89 < 2);
-  if (v176 == 0x7FFFFFFFFFFFFFFFLL)
+  while (v87 < v90 && v88 < 2);
+  if (v175 == 0x7FFFFFFFFFFFFFFFLL)
   {
+    v111 = 0;
     v112 = 0;
-    v113 = 0;
-    v176 = 0x7FFFFFFFFFFFFFFFLL;
+    v175 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
-      v114 = (*v175 + *(v175[1] + 2 * v112));
-      if (v90)
+      v113 = (*v174 + *(v174[1] + 2 * v111));
+      if (v89)
       {
 LABEL_218:
-        if (strlen(v114) == length)
+        if (strlen(v113) == length)
         {
           if (!length)
           {
             goto LABEL_230;
           }
 
-          v115 = v90;
+          v114 = v89;
+          v115 = 0;
           v116 = 0;
-          v117 = 0;
           do
           {
-            v118 = buffer[v117];
-            v119 = v114[v117];
-            v120 = v118 == v119;
-            if (v118 != v119 && !v116)
+            v117 = buffer[v116];
+            v118 = v113[v116];
+            v119 = v117 == v118;
+            if (v117 != v118 && !v115)
             {
-              v120 = adjacentMatch(buffer[v117], v119, encoding);
-              v116 = v120;
+              v119 = adjacentMatch(buffer[v116], v118, encoding);
+              v115 = v119;
             }
 
-            ++v117;
+            ++v116;
           }
 
-          while (v120 && v117 < length);
-          v90 = v115;
-          if (v120)
+          while (v119 && v116 < length);
+          v89 = v114;
+          if (v119)
           {
 LABEL_230:
-            v41 = v113++ == 0;
+            v41 = v112++ == 0;
             if (v41)
             {
-              v122 = v112;
+              v121 = v111;
             }
 
             else
             {
-              v122 = 0x7FFFFFFFFFFFFFFFLL;
+              v121 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
-            v176 = v122;
+            v175 = v121;
             *insertion = 0;
           }
         }
@@ -11775,14 +11756,14 @@ LABEL_230:
         goto LABEL_269;
       }
 
-      v123 = *v114;
-      v124 = v123 - 65;
+      v122 = *v113;
+      v123 = v122 - 65;
       if (encoding > 1279)
       {
         if (encoding != 1284 && encoding != 1280)
         {
 LABEL_258:
-          if (v124 >= 0x1A)
+          if (v123 >= 0x1A)
           {
             goto LABEL_218;
           }
@@ -11790,13 +11771,13 @@ LABEL_258:
           goto LABEL_269;
         }
 
-        v126 = v124 >= 0x1A && (v123 - 192) >= 0x17;
-        if (v126 && (v123 - 216) >= 7)
+        v125 = v123 >= 0x1A && (v122 - 192) >= 0x17;
+        if (v125 && (v122 - 216) >= 7)
         {
-          v127 = v123 - 138;
-          v78 = v127 > 0x15;
-          v128 = (1 << v127) & 0x200015;
-          if (v78 || v128 == 0)
+          v126 = v122 - 138;
+          v77 = v126 > 0x15;
+          v127 = (1 << v126) & 0x200015;
+          if (v77 || v127 == 0)
           {
             goto LABEL_218;
           }
@@ -11805,12 +11786,12 @@ LABEL_258:
 
       else if (encoding == 514)
       {
-        if (v124 >= 0x1A && (v123 - 192) >= 0x17)
+        if (v123 >= 0x1A && (v122 - 192) >= 0x17)
         {
-          v131 = v123 - 161;
-          v78 = v131 > 0x3D;
-          v132 = (1 << v131) & 0x3F80000000006F35;
-          if (v78 || v132 == 0)
+          v130 = v122 - 161;
+          v77 = v130 > 0x3D;
+          v131 = (1 << v130) & 0x3F80000000006F35;
+          if (v77 || v131 == 0)
           {
             goto LABEL_218;
           }
@@ -11824,28 +11805,28 @@ LABEL_258:
           goto LABEL_258;
         }
 
-        v125 = v124 >= 0x1A && (v123 - 161) >= 0xC;
-        if (v125 && (v123 - 174) >= 0x22)
+        v124 = v123 >= 0x1A && (v122 - 161) >= 0xC;
+        if (v124 && (v122 - 174) >= 0x22)
         {
           goto LABEL_218;
         }
       }
 
 LABEL_269:
-      ++v112;
+      ++v111;
     }
 
-    while (v112 < v177 && v113 < 2);
+    while (v111 < v176 && v112 < 2);
   }
 
 LABEL_271:
-  v27 = v177;
-  if (v176 >= v177)
+  v27 = v176;
+  if (v175 >= v176)
   {
     v22 = 0;
-    v24 = v175;
+    v24 = v174;
     onlyCopy4 = only;
-    v23 = v173;
+    v23 = v172;
     abbreviationCopy5 = abbreviation;
     flags = flagsCopy;
     if (only)
@@ -11856,56 +11837,56 @@ LABEL_271:
     goto LABEL_297;
   }
 
-  v24 = v175;
-  v134 = (*v175 + *(v175[1] + 2 * v176));
-  v135 = strlen(v134);
-  v23 = v173;
+  v24 = v174;
+  v133 = (*v174 + *(v174[1] + 2 * v175));
+  v134 = strlen(v133);
+  v23 = v172;
   if (length)
   {
-    v136 = 1;
+    v135 = 1;
     bufferCopy2 = buffer;
     do
     {
-      v139 = *bufferCopy2++;
-      v138 = v139;
-      v140 = removeDiacriticsX(v139, encoding);
+      v138 = *bufferCopy2++;
+      v137 = v138;
+      v139 = removeDiacriticsX(v138, encoding);
     }
 
-    while (v140 == v139 && v136++ < length);
-    v142 = v140 == v138;
+    while (v139 == v138 && v135++ < length);
+    v141 = v139 == v137;
   }
 
   else
+  {
+    v141 = 1;
+  }
+
+  if (v134)
   {
     v142 = 1;
-  }
-
-  if (v135)
-  {
-    v143 = 1;
-    v144 = v134;
+    v143 = v133;
     do
     {
-      v145 = *v144++;
-      v146 = removeDiacriticsX(v145, encoding);
-      v147 = v146 != v145;
+      v144 = *v143++;
+      v145 = removeDiacriticsX(v144, encoding);
+      v146 = v145 != v144;
     }
 
-    while (v146 == v145 && v143++ < v135);
-    v23 = v173;
+    while (v145 == v144 && v142++ < v134);
+    v23 = v172;
   }
 
   else
   {
-    v147 = 0;
+    v146 = 0;
   }
 
   onlyCopy4 = only;
-  v27 = v177;
+  v27 = v176;
   abbreviationCopy5 = abbreviation;
-  if (v147 || v142)
+  if (v146 || v141)
   {
-    v22 = CFStringCreateWithCString(0, v134, encoding);
+    v22 = CFStringCreateWithCString(0, v133, encoding);
   }
 
   else
@@ -11933,32 +11914,32 @@ LABEL_297:
       goto LABEL_54;
     }
 
-    v149 = 0;
-    v150 = (flags >> 1) & 1 | v23 | capitalized;
+    v148 = 0;
+    v149 = (flags >> 1) & 1 | v23 | capitalized;
     while (1)
     {
-      v151 = (*v24 + *(v24[1] + 2 * v149));
-      if (v150)
+      v150 = (*v24 + *(v24[1] + 2 * v148));
+      if (v149)
       {
         goto LABEL_302;
       }
 
-      v160 = *v151;
-      v161 = v160 - 65;
+      v159 = *v150;
+      v160 = v159 - 65;
       if (encoding > 1279)
       {
         if (encoding == 1284 || encoding == 1280)
         {
-          v163 = v161 >= 0x1A && (v160 - 192) >= 0x17;
-          if (!v163 || (v160 - 216) < 7)
+          v162 = v160 >= 0x1A && (v159 - 192) >= 0x17;
+          if (!v162 || (v159 - 216) < 7)
           {
             goto LABEL_353;
           }
 
-          v164 = v160 - 138;
-          v78 = v164 > 0x15;
-          v165 = (1 << v164) & 0x200015;
-          if (!v78 && v165 != 0)
+          v163 = v159 - 138;
+          v77 = v163 > 0x15;
+          v164 = (1 << v163) & 0x200015;
+          if (!v77 && v164 != 0)
           {
             goto LABEL_353;
           }
@@ -11971,15 +11952,15 @@ LABEL_297:
       {
         if (encoding == 514)
         {
-          if (v161 < 0x1A || (v160 - 192) < 0x17)
+          if (v160 < 0x1A || (v159 - 192) < 0x17)
           {
             goto LABEL_353;
           }
 
-          v168 = v160 - 161;
-          v78 = v168 > 0x3D;
-          v169 = (1 << v168) & 0x3F80000000006F35;
-          if (!v78 && v169 != 0)
+          v167 = v159 - 161;
+          v77 = v167 > 0x3D;
+          v168 = (1 << v167) & 0x3F80000000006F35;
+          if (!v77 && v168 != 0)
           {
             goto LABEL_353;
           }
@@ -11989,8 +11970,8 @@ LABEL_297:
 
         if (encoding == 517)
         {
-          v162 = v161 >= 0x1A && (v160 - 161) >= 0xC;
-          if (!v162 || (v160 - 174) < 0x22)
+          v161 = v160 >= 0x1A && (v159 - 161) >= 0xC;
+          if (!v161 || (v159 - 174) < 0x22)
           {
             goto LABEL_353;
           }
@@ -11999,58 +11980,58 @@ LABEL_297:
         }
       }
 
-      if (v161 < 0x1A)
+      if (v160 < 0x1A)
       {
         goto LABEL_353;
       }
 
 LABEL_302:
-      v152 = strlen(v151);
-      if (v152)
+      v151 = strlen(v150);
+      if (v151)
       {
-        v153 = effectiveEditDistance(buffer, length, v151, v152);
+        v152 = effectiveEditDistance(buffer, length, v150, v151);
         if (onlyCopy4)
         {
-          if (strlen(v151) != length)
+          if (strlen(v150) != length)
           {
             goto LABEL_353;
           }
 
           if (length)
           {
-            v154 = onlyCopy4;
-            v155 = 0;
+            v153 = onlyCopy4;
+            v154 = 0;
             do
             {
-              v156 = removeDiacriticsX(buffer[v155], encoding);
-              v157 = removeDiacriticsX(v151[v155++], encoding);
+              v155 = removeDiacriticsX(buffer[v154], encoding);
+              v156 = removeDiacriticsX(v150[v154++], encoding);
             }
 
-            while (v156 == v157 && v155 < length);
-            v41 = v156 == v157;
-            v24 = v175;
-            onlyCopy4 = v154;
-            v27 = v177;
+            while (v155 == v156 && v154 < length);
+            v41 = v155 == v156;
+            v24 = v174;
+            onlyCopy4 = v153;
+            v27 = v176;
             if (!v41)
             {
               goto LABEL_353;
             }
           }
 
-          v159 = 1;
+          v158 = 1;
           goto LABEL_341;
         }
 
-        if (v153 < 3)
+        if (v152 < 3)
         {
-          v159 = 8;
+          v158 = 8;
 LABEL_341:
-          [list addCandidateWithBuffer:v151 encoding:encoding errorType:{v159, abbreviationCopy2}];
+          [list addCandidateWithBuffer:v150 encoding:encoding errorType:{v158, abbreviationCopy2}];
         }
       }
 
 LABEL_353:
-      if (++v149 == v27)
+      if (++v148 == v27)
       {
         goto LABEL_54;
       }
@@ -12065,15 +12046,13 @@ LABEL_296:
 
 LABEL_54:
   PRword(&bufferCopy, 17, 0);
-LABEL_55:
-  v46 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (id)_spaceInsertionCorrectionForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection flags:(unint64_t)flags isCapitalized:(BOOL)capitalized typologyCorrection:(id)self0
 {
   flagsCopy = flags;
-  v93 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   oneLetterWords = [object oneLetterWords];
   objectCopy = object;
@@ -12081,7 +12060,7 @@ LABEL_55:
   lengthCopy = length;
   if (length - 3 > 0x14)
   {
-    goto LABEL_128;
+    return 0;
   }
 
   v18 = twoLetterWords;
@@ -12089,7 +12068,7 @@ LABEL_55:
   v20 = *buffer;
   selfCopy = self;
   encoding = encoding;
-  v83 = oneLetterWords;
+  v82 = oneLetterWords;
   bufferCopy = buffer;
   if (*buffer)
   {
@@ -12108,26 +12087,26 @@ LABEL_55:
     v25 = &cStr[lengthCopy - 1];
     if (lengthCopy < 3)
     {
-      v85 = 0x7FFFFFFFFFFFFFFFLL;
+      v84 = 0x7FFFFFFFFFFFFFFFLL;
       goto LABEL_27;
     }
 
-    v81 = &cStr[lengthCopy];
+    v80 = &cStr[lengthCopy];
   }
 
   else
   {
     cStr[0] = 0;
-    v81 = &cStr[lengthCopy];
+    v80 = &cStr[lengthCopy];
     v25 = &cStr[lengthCopy - 1];
   }
 
   v26 = 0;
   v27 = 0;
-  v78 = flagsCopy;
-  v84 = flagsCopy | capitalized;
+  v77 = flagsCopy;
+  v83 = flagsCopy | capitalized;
   v28 = &v25[~cStr];
-  v85 = 0x7FFFFFFFFFFFFFFFLL;
+  v84 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
     v29 = &cStr[v26];
@@ -12135,11 +12114,11 @@ LABEL_55:
     if (v30 == 59 || v30 == 44)
     {
       v29[1] = 45;
-      BYTE4(v77) = 0;
-      LODWORD(v77) = 65793;
-      if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:cStr languageObject:lengthCopy connection:objectCopy sender:connection checkBase:0 checkDict:1 checkNames:v77 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?]&& ![(AppleSpell *)self checkNegativeWordBuffer:cStr length:v26 + 1 languageObject:objectCopy alreadyCapitalized:v84 & 1])
+      BYTE4(v76) = 0;
+      LODWORD(v76) = 65793;
+      if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:cStr languageObject:lengthCopy connection:objectCopy sender:connection checkBase:0 checkDict:1 checkNames:v76 checkHyphens:0 checkIntercaps:? checkOptions:? depth:?]&& ![(AppleSpell *)self checkNegativeWordBuffer:cStr length:v26 + 1 languageObject:objectCopy alreadyCapitalized:v83 & 1])
       {
-        v31 = [(AppleSpell *)self checkNegativeWordBuffer:&v92[v26] length:v28 languageObject:objectCopy];
+        v31 = [(AppleSpell *)self checkNegativeWordBuffer:&cStr[v26 + 2] length:v28 languageObject:objectCopy];
         v32 = v26 + 2;
         if (v27)
         {
@@ -12151,19 +12130,19 @@ LABEL_55:
           ++v27;
         }
 
-        v33 = v85;
+        v33 = v84;
         if (!v31)
         {
           v33 = v32;
         }
 
-        v85 = v33;
+        v84 = v33;
       }
 
       v29[1] = v30;
     }
 
-    if (&v92[v26] >= v25)
+    if (&cStr[v26 + 2] >= v25)
     {
       break;
     }
@@ -12175,8 +12154,8 @@ LABEL_55:
   while (v27 < 2);
   if (!v27)
   {
-    v24 = v81;
-    flagsCopy = v78;
+    v24 = v80;
+    flagsCopy = v77;
     capitalizedCopy2 = capitalized;
 LABEL_27:
     v36 = v24;
@@ -12187,14 +12166,14 @@ LABEL_27:
     }
 
     while (cStr <= v36);
-    v37 = &v91;
-    if (&v91 > v25)
+    v37 = &cStr[1];
+    if (&cStr[1] > v25)
     {
-      goto LABEL_128;
+      return 0;
     }
 
     v38 = 0;
-    v82 = flagsCopy | capitalizedCopy2;
+    v81 = flagsCopy | capitalizedCopy2;
     v39 = lengthCopy - 1;
     v40 = 1;
     while (1)
@@ -12271,9 +12250,9 @@ LABEL_33:
         }
       }
 
-      BYTE4(v77) = 0;
-      LODWORD(v77) = 1;
-      if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:cStr connection:lengthCopy + 1 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v77 checkIntercaps:0 checkOptions:? depth:?]&& ![(AppleSpell *)selfCopy checkNegativeWordBuffer:cStr length:v40 languageObject:objectCopy alreadyCapitalized:v82 & 1]&& ![(AppleSpell *)selfCopy checkNegativeWordBuffer:v37 + 1 length:lengthCopy - v40 languageObject:objectCopy]|| v40 == 1 && (BYTE4(v77) = 0, LODWORD(v77) = 1, [AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:v92 connection:v39 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v77 checkIntercaps:0 checkOptions:? depth:?]) && ![(AppleSpell *)selfCopy checkNegativeWordBuffer:v92 length:v39 languageObject:objectCopy alreadyCapitalized:v82 & 1])
+      BYTE4(v76) = 0;
+      LODWORD(v76) = 1;
+      if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:cStr connection:lengthCopy + 1 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v76 checkIntercaps:0 checkOptions:? depth:?]&& ![(AppleSpell *)selfCopy checkNegativeWordBuffer:cStr length:v40 languageObject:objectCopy alreadyCapitalized:v81 & 1]&& ![(AppleSpell *)selfCopy checkNegativeWordBuffer:v37 + 1 length:lengthCopy - v40 languageObject:objectCopy]|| v40 == 1 && (BYTE4(v76) = 0, LODWORD(v76) = 1, [AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&cStr[2] connection:v39 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v76 checkIntercaps:0 checkOptions:? depth:?]) && ![(AppleSpell *)selfCopy checkNegativeWordBuffer:&cStr[2] length:v39 languageObject:objectCopy alreadyCapitalized:v81 & 1])
       {
 LABEL_44:
         v44 = v38++ == 0;
@@ -12283,17 +12262,17 @@ LABEL_44:
           v41 = v40;
         }
 
-        v85 = v41;
+        v84 = v41;
         goto LABEL_114;
       }
 
       if (v37 == v25)
       {
-        BYTE4(v77) = 0;
-        LODWORD(v77) = 1;
-        if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:cStr connection:v39 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v77 checkIntercaps:0 checkOptions:? depth:?])
+        BYTE4(v76) = 0;
+        LODWORD(v76) = 1;
+        if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:cStr connection:v39 sender:objectCopy checkBase:connection checkDict:0 checkNames:1 checkHyphens:v76 checkIntercaps:0 checkOptions:? depth:?])
         {
-          oneLetterWords = v83;
+          oneLetterWords = v82;
           if (![(AppleSpell *)selfCopy checkNegativeWordBuffer:cStr length:v39 languageObject:objectCopy])
           {
             goto LABEL_44;
@@ -12302,7 +12281,7 @@ LABEL_44:
 
         else
         {
-          oneLetterWords = v83;
+          oneLetterWords = v82;
         }
       }
 
@@ -12387,41 +12366,39 @@ LABEL_101:
 
   v34 = 0;
   v35 = encoding;
-  v24 = v81;
+  v24 = v80;
 LABEL_124:
   result = 0;
-  if (!v34 && v85 != 0x7FFFFFFFFFFFFFFFLL)
+  if (!v34 && v84 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (lengthCopy == 4 && v85 == 2)
+    if (lengthCopy == 4 && v84 == 2)
     {
-LABEL_128:
-      result = 0;
-      goto LABEL_129;
+      return 0;
     }
 
-    v71 = *bufferCopy;
+    v70 = *bufferCopy;
     if (*bufferCopy)
     {
-      v72 = (bufferCopy + 1);
-      v73 = cStr;
+      v71 = (bufferCopy + 1);
+      v72 = cStr;
       do
       {
-        *v73++ = v71;
-        v74 = *v72++;
-        v71 = v74;
+        *v72++ = v70;
+        v73 = *v71++;
+        v70 = v73;
       }
 
-      while (v74);
+      while (v73);
     }
 
     else
     {
-      v73 = cStr;
+      v72 = cStr;
     }
 
-    *v73 = 0;
-    v75 = &cStr[v85];
-    if (v85 <= lengthCopy)
+    *v72 = 0;
+    v74 = &cStr[v84];
+    if (v84 <= lengthCopy)
     {
       do
       {
@@ -12429,20 +12406,18 @@ LABEL_128:
         --v24;
       }
 
-      while (v75 <= v24);
+      while (v74 <= v24);
     }
 
-    cStr[v85] = 32;
-    if (v85 == 1 && cStr[0] == 108 && (oneLetterWords == frenchOneLetterWords || oneLetterWords == italianOneLetterWords))
+    cStr[v84] = 32;
+    if (v84 == 1 && cStr[0] == 108 && (oneLetterWords == frenchOneLetterWords || oneLetterWords == italianOneLetterWords))
     {
-      *v75 = 39;
+      *v74 = 39;
     }
 
-    result = CFStringCreateWithCString(0, cStr, v35);
+    return CFStringCreateWithCString(0, cStr, v35);
   }
 
-LABEL_129:
-  v70 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12460,7 +12435,7 @@ LABEL_129:
 - (BOOL)_permitCorrection:(id)correction languageObject:(id)object flags:(unint64_t)flags isCapitalized:(BOOL)capitalized typologyCorrection:(id)typologyCorrection
 {
   flagsCopy = flags;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v12 = [correction length];
   encoding = [object encoding];
   isSwedish = [object isSwedish];
@@ -12471,28 +12446,21 @@ LABEL_129:
   if (correction && v12)
   {
     usedBufLen = 0;
-    v23.location = 0;
-    v23.length = v12;
-    if (v12 == CFStringGetBytes(correction, v23, encoding, 0, 0, buffer, 254, &usedBufLen))
+    v22.location = 0;
+    v22.length = v12;
+    if (v12 != CFStringGetBytes(correction, v22, encoding, 0, 0, buffer, 254, &usedBufLen))
     {
-      if ([(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:object index:1]|| [(AppleSpell *)self checkNegativeWordBuffer:buffer length:usedBufLen languageObject:object alreadyCapitalized:(flagsCopy | capitalized) & 1])
-      {
-        result = 0;
-        goto LABEL_11;
-      }
-
-      if (((isSwedish | isDanish | isNorwegian | isTurkish) & 1) != 0 && ![(AppleSpell *)self checkNameWordBuffer:buffer length:usedBufLen languageObject:object globalOnly:0]&& ![(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:object index:0])
-      {
-        result = [(AppleSpell *)self validateWord:correction inLexiconForLanguageObject:object];
-        goto LABEL_11;
-      }
+      return 1;
     }
 
-    result = 1;
+    if ([(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:object index:1]|| [(AppleSpell *)self checkNegativeWordBuffer:buffer length:usedBufLen languageObject:object alreadyCapitalized:(flagsCopy | capitalized) & 1])
+    {
+      return 0;
+    }
+
+    return ((isSwedish | isDanish | isNorwegian | isTurkish) & 1) == 0 || [(AppleSpell *)self checkNameWordBuffer:buffer length:usedBufLen languageObject:object globalOnly:0]|| [(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:object index:0]|| [(AppleSpell *)self validateWord:correction inLexiconForLanguageObject:object];
   }
 
-LABEL_11:
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12890,15 +12858,15 @@ LABEL_128:
 
 - (id)_correctionResultForString:(id)string range:(_NSRange)range inString:(id)inString offset:(unint64_t)offset tagger:(id)tagger appIdentifier:(id)identifier dictionary:(id)dictionary languages:(id)self0 connection:(_PR_DB_IO *)self1 flags:(unint64_t)self2 keyEventArray:(id)self3 selectedRangeValue:(id)self4 parameterBundles:(id)self5 previousLetter:(unsigned __int16)self6 nextLetter:(unsigned __int16)self7 extraMisspellingCount:(unint64_t)self8 extraCorrectionCount:(unint64_t *)self9
 {
-  v151 = *MEMORY[0x1E69E9840];
-  v147 = 8217;
-  v146 = 0;
-  lowercaseString = [string lowercaseString];
-  v117 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v147 length:1];
-  v115 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v146 length:1];
-  v22 = [string length];
-  v144 = 0;
+  v150 = *MEMORY[0x1E69E9840];
+  v146 = 8217;
   v145 = 0;
+  lowercaseString = [string lowercaseString];
+  v116 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v146 length:1];
+  v114 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v145 length:1];
+  v22 = [string length];
+  v143 = 0;
+  v144 = 0;
   v23 = +[PRLanguage languageObjectWithIdentifier:](PRLanguage, "languageObjectWithIdentifier:", [languages firstObject]);
   encoding = [v23 encoding];
   obj = [(AppleSpell *)self capitalizationDictionaryArrayForLanguageObject:v23];
@@ -13041,7 +13009,7 @@ LABEL_196:
 
 LABEL_20:
   LOBYTE(v30) = 0;
-  v132 = v27;
+  v131 = v27;
   if (!v27)
   {
     offsetCopy2 = offset;
@@ -13113,10 +13081,10 @@ LABEL_184:
   }
 
 LABEL_38:
-  v127 = v28;
-  v143 = range > 3;
-  v142 = 0;
+  v126 = v28;
+  v142 = range > 3;
   v141 = 0;
+  v140 = 0;
   isEnglish = [v23 isEnglish];
   [v23 isFrench];
   isGerman = [v23 isGerman];
@@ -13128,20 +13096,20 @@ LABEL_38:
   isNynorsk = [v23 isNynorsk];
   isTurkish = [v23 isTurkish];
   isKorean = [v23 isKorean];
-  v106 = [objc_msgSend(v23 "identifier")];
+  v105 = [objc_msgSend(v23 "identifier")];
   isArabic = [v23 isArabic];
   isHindi = [v23 isHindi];
   isTelugu = [v23 isTelugu];
   isPunjabi = [v23 isPunjabi];
-  v108 = [[PRCandidateList alloc] initWithMaxCount:32 defaultReplacementRange:range.location customErrorModel:range.length capitalizationDictionaryArray:0, obj];
-  v139 = 0;
-  v140 = 0.0;
-  [(AppleSpell *)self getParameterValue:&v140 forName:@"CapitalizedWordThreshold" languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles defaultValue:-7.0];
+  v107 = [[PRCandidateList alloc] initWithMaxCount:32 defaultReplacementRange:range.location customErrorModel:range.length capitalizationDictionaryArray:0, obj];
+  v138 = 0;
+  v139 = 0.0;
+  [(AppleSpell *)self getParameterValue:&v139 forName:@"CapitalizedWordThreshold" languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles defaultValue:-7.0];
   selfCopy = self;
-  [(AppleSpell *)self getParameterValue:&v139 forName:@"CapitalizedWordSingleThreshold" languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles defaultValue:v140 + -2.0];
+  [(AppleSpell *)self getParameterValue:&v138 forName:@"CapitalizedWordSingleThreshold" languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles defaultValue:v139 + -2.0];
   encoding = encoding;
   v37 = offsetCopy2;
-  v38 = v132;
+  v38 = v131;
   if ((_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__readMinAutocorrectionLengthDefault & 1) == 0)
   {
     if ([objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")])
@@ -13156,7 +13124,7 @@ LABEL_38:
   {
     v39 = _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__turkishLocale;
     stringCopy2 = string;
-    v41 = v115;
+    v41 = v114;
     if (!_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__turkishLocale)
     {
       v39 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:@"tr"];
@@ -13168,28 +13136,28 @@ LABEL_38:
   {
     v39 = 0;
     stringCopy2 = string;
-    v41 = v115;
+    v41 = v114;
   }
 
   if ((isArabic | isHindi | isTelugu | isPunjabi))
   {
     LOBYTE(v30) = 0;
-    v127 = 0;
+    v126 = 0;
     v38 = 0;
   }
 
   [(__CFString *)stringCopy2 rangeOfString:v41];
-  v118 = v37;
+  v117 = v37;
   if (v42)
   {
     stringCopy2 = [(__CFString *)stringCopy2 stringByReplacingOccurrencesOfString:v41 withString:@"_"];
   }
 
-  [(__CFString *)stringCopy2 rangeOfString:v117];
+  [(__CFString *)stringCopy2 rangeOfString:v116];
   v44 = v43;
   if (v43)
   {
-    stringCopy2 = [(__CFString *)stringCopy2 stringByReplacingOccurrencesOfString:v117 withString:@"'"];
+    stringCopy2 = [(__CFString *)stringCopy2 stringByReplacingOccurrencesOfString:v116 withString:@"'"];
   }
 
   v45 = [(AppleSpell *)self _initialCorrectionForString:stringCopy2 lowercaseString:lowercaseString isFirstSecondCapitalized:v30 & 1 dictionary:dictionary languageObject:v23 connection:connection];
@@ -13292,16 +13260,16 @@ LABEL_110:
     goto LABEL_57;
   }
 
-  v153.location = 0;
-  v153.length = v56;
-  if (v56 != CFStringGetBytes(v55, v153, encoding, 0, 0, buffer, 254, &v145))
+  v152.location = 0;
+  v152.length = v56;
+  if (v56 != CFStringGetBytes(v55, v152, encoding, 0, 0, buffer, 254, &v144))
   {
     goto LABEL_57;
   }
 
   BYTE4(usedBufLen) = 0;
   LODWORD(usedBufLen) = 65793;
-  v57 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v145 connection:v23 sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?];
+  v57 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v144 connection:v23 sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?];
   v48 = !v57;
   if (v57)
   {
@@ -13316,11 +13284,10 @@ LABEL_110:
 LABEL_60:
   if (isKorean)
   {
-    array = [(AppleSpell *)self _correctionResultForKoreanString:stringCopy2 range:range.location inString:range.length offset:inString tagger:v118 appIdentifier:tagger dictionary:identifier keyEventArray:dictionary, array];
-    goto LABEL_183;
+    return [(AppleSpell *)self _correctionResultForKoreanString:stringCopy2 range:range.location inString:range.length offset:inString tagger:v117 appIdentifier:tagger dictionary:identifier keyEventArray:dictionary, array];
   }
 
-  v116 = v39;
+  v115 = v39;
   if ((v47 != 0 || !v38) | isGerman & 1)
   {
     v48 = (v47 == 0) & v48;
@@ -13333,23 +13300,23 @@ LABEL_60:
       [tagger sentenceRangeForRange:{range.location, range.length}];
     }
 
-    v143 = 0;
+    v142 = 0;
   }
 
-  v133 = v38;
-  if (!v48 || (rangeCopy = range, range < _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength) || (v152.location = 0, v152.length = range, range != CFStringGetBytes(stringCopy2, v152, encoding, 0, 0, buffer, 254, &v145)) || (v53 = v145, buffer[v145] = 0, !v53) || (((isGerman | isDanish | isNorwegian | isNynorsk) & 1) == 0 ? (v54 = 1) : (v47 = [AppleSpell _umlautCorrectionForWord:"_umlautCorrectionForWord:buffer:length:languageObject:connection:typologyCorrection:" buffer:stringCopy2 length:buffer languageObject:? connection:? typologyCorrection:?], v54 = v47 == 0), !dictionary || !v54))
+  v132 = v38;
+  if (!v48 || (rangeCopy = range, range < _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength) || (v151.location = 0, v151.length = range, range != CFStringGetBytes(stringCopy2, v151, encoding, 0, 0, buffer, 254, &v144)) || (v53 = v144, buffer[v144] = 0, !v53) || (((isGerman | isDanish | isNorwegian | isNynorsk) & 1) == 0 ? (v54 = 1) : (v47 = [AppleSpell _umlautCorrectionForWord:"_umlautCorrectionForWord:buffer:length:languageObject:connection:typologyCorrection:" buffer:stringCopy2 length:buffer languageObject:? connection:? typologyCorrection:?], v54 = v47 == 0), !dictionary || !v54))
   {
     flagsCopy5 = flags;
     goto LABEL_178;
   }
 
   flagsCopy5 = flags;
-  if ([v23 isSupportedAssetLexiconLanguage] && !-[AppleSpell loadedLexiconsCountForLanguageObject:](self, "loadedLexiconsCountForLanguageObject:", v23) || -[AppleSpell checkWordBuffer:length:languageObject:index:](self, "checkWordBuffer:length:languageObject:index:", buffer, v145, v23, 4))
+  if ([v23 isSupportedAssetLexiconLanguage] && !-[AppleSpell loadedLexiconsCountForLanguageObject:](self, "loadedLexiconsCountForLanguageObject:", v23) || -[AppleSpell checkWordBuffer:length:languageObject:index:](self, "checkWordBuffer:length:languageObject:index:", buffer, v144, v23, 4))
   {
     goto LABEL_178;
   }
 
-  if (v145)
+  if (v144)
   {
     v59 = 0;
     v60 = 0;
@@ -13466,13 +13433,13 @@ LABEL_153:
       v61 += ((v65 ^ 1 | (isArabic | isHindi | isTelugu | isPunjabi)) & 1) == 0;
       if (v69)
       {
-        if ((v62 + 1) > 1 || v59 < _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength || _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength + v59 >= v145)
+        if ((v62 + 1) > 1 || v59 < _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength || _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength + v59 >= v144)
         {
           goto LABEL_178;
         }
       }
 
-      if (v61 > 2 || v145 - 1 == v59 && v60 > 1)
+      if (v61 > 2 || v144 - 1 == v59 && v60 > 1)
       {
         goto LABEL_178;
       }
@@ -13481,73 +13448,73 @@ LABEL_153:
       v62 = v70;
     }
 
-    while (v59 < v145);
+    while (v59 < v144);
   }
 
-  v126 = 0;
+  v125 = 0;
   if ((isEnglish & 1) == 0 && encoding == 1280 && range >= 4)
   {
-    if ([(AppleSpell *)self checkWordBuffer:buffer length:v145 languageObject:[PRLanguage index:"languageObjectWithIdentifier:" languageObjectWithIdentifier:?], 0])
+    if ([(AppleSpell *)self checkWordBuffer:buffer length:v144 languageObject:[PRLanguage index:"languageObjectWithIdentifier:" languageObjectWithIdentifier:?], 0])
     {
-      v143 = 0;
-      v126 = 1;
+      v142 = 0;
+      v125 = 1;
     }
 
     else
     {
-      v126 = 0;
+      v125 = 0;
     }
   }
 
-  if (!v38 && !v127)
+  if (!v38 && !v126)
   {
-    v76 = buffer[0];
+    v75 = buffer[0];
     buffer[0] = toUpperX(buffer[0], encoding);
     BYTE4(usedBufLen) = 0;
     LODWORD(usedBufLen) = 65793;
-    if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v145 connection:v23 sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+    if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v144 connection:v23 sender:connection checkBase:0 checkDict:1 checkNames:usedBufLen checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
     {
       if ((isGerman | (flags >> 1)))
       {
-        v124 = CFStringCreateWithCString(0, buffer, encoding);
+        v123 = CFStringCreateWithCString(0, buffer, encoding);
       }
 
       else
       {
-        v124 = 0;
+        v123 = 0;
       }
 
-      v137 = 0u;
-      v138 = 0u;
-      v135 = 0u;
       v136 = 0u;
-      v77 = [obj countByEnumeratingWithState:&v135 objects:v148 count:16];
-      if (v77)
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v76 = [obj countByEnumeratingWithState:&v134 objects:v147 count:16];
+      if (v76)
       {
-        v78 = v77;
-        v79 = 0;
-        v80 = *v136;
+        v77 = v76;
+        v78 = 0;
+        v79 = *v135;
         do
         {
-          for (i = 0; i != v78; ++i)
+          for (i = 0; i != v77; ++i)
           {
-            if (*v136 != v80)
+            if (*v135 != v79)
             {
               objc_enumerationMutation(obj);
             }
 
-            v79 |= [*(*(&v135 + 1) + 8 * i) objectForKey:stringCopy2] != 0;
+            v78 |= [*(*(&v134 + 1) + 8 * i) objectForKey:stringCopy2] != 0;
           }
 
-          v78 = [obj countByEnumeratingWithState:&v135 objects:v148 count:16];
+          v77 = [obj countByEnumeratingWithState:&v134 objects:v147 count:16];
         }
 
-        while (v78);
+        while (v77);
         rangeCopy = range;
-        v82 = v79 | (range > 3);
+        v81 = v78 | (range > 3);
         self = selfCopy;
         flagsCopy5 = flags;
-        if ((v82 & 1) == 0)
+        if ((v81 & 1) == 0)
         {
           goto LABEL_214;
         }
@@ -13558,44 +13525,44 @@ LABEL_153:
         goto LABEL_214;
       }
 
-      v143 = 0;
-      v126 = 1;
+      v142 = 0;
+      v125 = 1;
     }
 
     else
     {
-      v124 = 0;
+      v123 = 0;
     }
 
 LABEL_214:
-    buffer[0] = v76;
-    v75 = v133;
+    buffer[0] = v75;
+    v74 = v132;
     goto LABEL_215;
   }
 
-  v124 = 0;
-  v75 = v38;
+  v123 = 0;
+  v74 = v38;
 LABEL_215:
-  v83 = v75;
-  v84 = 1;
-  if (!v75 || !array || v127)
+  v82 = v74;
+  v83 = 1;
+  if (!v74 || !array || v126)
   {
-    v85 = v126;
+    v84 = v125;
     goto LABEL_225;
   }
 
   v66 = rangeCopy >= 4;
-  v85 = v126;
+  v84 = v125;
   if (v66)
   {
-    v86 = [(AppleSpell *)self nerTaggerWaitForResult:0];
-    v87 = v86;
+    v85 = [(AppleSpell *)self nerTaggerWaitForResult:0];
+    v86 = v85;
     if (_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__onceToken == -1)
     {
-      if (!v86)
+      if (!v85)
       {
 LABEL_223:
-        v83 = v133;
+        v82 = v132;
         goto LABEL_225;
       }
     }
@@ -13603,83 +13570,83 @@ LABEL_223:
     else
     {
       [AppleSpell(Correction) _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:];
-      if (!v87)
+      if (!v86)
       {
         goto LABEL_223;
       }
     }
 
-    [v87 setString:stringCopy2];
-    [v87 setLanguage:objc_msgSend(v23 range:{"localization"), 0, -[__CFString length](stringCopy2, "length")}];
-    v88 = [v87 tagAtIndex:0 unit:0 scheme:*MEMORY[0x1E69779D0] tokenRange:0];
-    v84 = [_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__nerTags containsObject:v88] ^ 1;
-    [v87 setString:&stru_1F4E0A7A0];
+    [v86 setString:stringCopy2];
+    [v86 setLanguage:objc_msgSend(v23 range:{"localization"), 0, -[__CFString length](stringCopy2, "length")}];
+    v87 = [v86 tagAtIndex:0 unit:0 scheme:*MEMORY[0x1E69779D0] tokenRange:0];
+    v83 = [_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__nerTags containsObject:v87] ^ 1;
+    [v86 setString:&stru_1F4E0A7A0];
     goto LABEL_223;
   }
 
 LABEL_225:
-  if (connection && v84 && (v145 - 2) <= 0x3D)
+  if (connection && v83 && (v144 - 2) <= 0x3D)
   {
-    v89 = v108;
+    v88 = v107;
     if ([(AppleSpell *)self useWordLanguageModelForLanguageObject:v23 tagger:tagger appIdentifier:identifier])
     {
-      v90 = v108;
+      v89 = v107;
     }
 
     else
+    {
+      v89 = 0;
+    }
+
+    BYTE1(usedBufLen) = v84;
+    LOBYTE(usedBufLen) = v82;
+    v47 = [(AppleSpell *)self _connectionCorrectionForWord:stringCopy2 buffer:buffer length:v144 languageObject:v23 connection:connection flags:flagsCopy5 isCapitalized:usedBufLen accentCorrectionOnly:&v141 isAbbreviation:&v142 trySpaceInsertion:&v140 hasAccentCorrections:v89 candidateList:0 typologyCorrection:?];
+LABEL_233:
+    if (v47)
     {
       v90 = 0;
     }
 
-    BYTE1(usedBufLen) = v85;
-    LOBYTE(usedBufLen) = v83;
-    v47 = [(AppleSpell *)self _connectionCorrectionForWord:stringCopy2 buffer:buffer length:v145 languageObject:v23 connection:connection flags:flagsCopy5 isCapitalized:usedBufLen accentCorrectionOnly:&v142 isAbbreviation:&v143 trySpaceInsertion:&v141 hasAccentCorrections:v90 candidateList:0 typologyCorrection:?];
-LABEL_233:
-    if (v47)
-    {
-      v91 = 0;
-    }
-
     else
     {
-      v91 = (v124 != 0) & ~v141;
-      if (v141)
+      v90 = (v123 != 0) & ~v140;
+      if (v140)
       {
         v47 = 0;
       }
 
       else
       {
-        v47 = v124;
+        v47 = v123;
       }
     }
 
-    if (((v85 | v91) & 1) == 0 && (v142 & 1) == 0 && [(AppleSpell *)self useWordLanguageModelForLanguageObject:v23 tagger:tagger appIdentifier:identifier])
+    if (((v84 | v90) & 1) == 0 && (v141 & 1) == 0 && [(AppleSpell *)self useWordLanguageModelForLanguageObject:v23 tagger:tagger appIdentifier:identifier])
     {
-      [(PRCandidateList *)v108 addCandidateWithString:v47 errorType:6];
+      [(PRCandidateList *)v107 addCandidateWithString:v47 errorType:6];
       BYTE4(usedBufLen) = 1;
-      v89 = v108;
+      v88 = v107;
       LODWORD(usedBufLen) = __PAIR32__(nextLetter, letter);
-      [AppleSpell _addGuessesForWordBuffer:"_addGuessesForWordBuffer:length:languageObject:connection:sender:minAutocorrectionLength:previousLetter:nextLetter:basicOnly:toGuesses:" length:buffer languageObject:v145 connection:v23 sender:connection minAutocorrectionLength:0 previousLetter:_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength nextLetter:usedBufLen basicOnly:v108 toGuesses:?];
+      [AppleSpell _addGuessesForWordBuffer:"_addGuessesForWordBuffer:length:languageObject:connection:sender:minAutocorrectionLength:previousLetter:nextLetter:basicOnly:toGuesses:" length:buffer languageObject:v144 connection:v23 sender:connection minAutocorrectionLength:0 previousLetter:_correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__minAutocorrectionLength nextLetter:usedBufLen basicOnly:v107 toGuesses:?];
     }
 
-    if (!v89)
+    if (!v88)
     {
       goto LABEL_281;
     }
 
-    if ([(PRCandidateList *)v89 count]&& [(AppleSpell *)self useWordLanguageModelForLanguageObject:v23 tagger:tagger appIdentifier:identifier])
+    if ([(PRCandidateList *)v88 count]&& [(AppleSpell *)self useWordLanguageModelForLanguageObject:v23 tagger:tagger appIdentifier:identifier])
     {
-      v92 = [(AppleSpell *)self _rankedCandidatesForCandidateList:v89 languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles];
-      v93 = [v92 count];
-      v94 = v93;
-      v95 = 0;
-      if (v92 && v93)
+      v91 = [(AppleSpell *)self _rankedCandidatesForCandidateList:v88 languageObject:v23 tagger:tagger appIdentifier:identifier parameterBundles:bundles];
+      v92 = [v91 count];
+      v93 = v92;
+      v94 = 0;
+      if (v91 && v92)
       {
-        v95 = [v92 objectAtIndex:0];
+        v94 = [v91 objectAtIndex:0];
       }
 
-      v96 = v94 < 2;
+      v95 = v93 < 2;
     }
 
     else
@@ -13689,25 +13656,25 @@ LABEL_233:
         goto LABEL_281;
       }
 
-      if ([(PRCandidateList *)v89 count]!= 1)
+      if ([(PRCandidateList *)v88 count]!= 1)
       {
         v47 = 0;
         goto LABEL_281;
       }
 
-      v95 = [-[PRCandidateList candidates](v89 "candidates")];
-      v96 = 1;
+      v94 = [-[PRCandidateList candidates](v88 "candidates")];
+      v95 = 1;
     }
 
-    if (!v95)
+    if (!v94)
     {
       goto LABEL_281;
     }
 
-    string = [v95 string];
-    range.location = [v95 replacementRange];
-    range.length = v98;
-    if ([v95 isBlocklisted])
+    string = [v94 string];
+    range.location = [v94 replacementRange];
+    range.length = v97;
+    if ([v94 isBlocklisted])
     {
       v47 = 0;
     }
@@ -13717,43 +13684,43 @@ LABEL_233:
       v47 = string;
     }
 
-    v99 = !v133;
+    v98 = !v132;
     if (!v47)
     {
-      v99 = 1;
+      v98 = 1;
     }
 
-    if (v99)
+    if (v98)
     {
 LABEL_280:
-      v143 = 0;
+      v142 = 0;
 LABEL_281:
-      if (v143)
+      if (v142)
       {
-        LOBYTE(usedBufLen) = v133;
-        v47 = [(AppleSpell *)self _spaceInsertionCorrectionForWord:stringCopy2 buffer:buffer length:v145 languageObject:v23 connection:connection flags:flagsCopy5 isCapitalized:usedBufLen typologyCorrection:0];
+        LOBYTE(usedBufLen) = v132;
+        v47 = [(AppleSpell *)self _spaceInsertionCorrectionForWord:stringCopy2 buffer:buffer length:v144 languageObject:v23 connection:connection flags:flagsCopy5 isCapitalized:usedBufLen typologyCorrection:0];
       }
 
       goto LABEL_178;
     }
 
-    v100 = &v140;
-    if (v96)
+    v99 = &v139;
+    if (v95)
     {
-      v100 = &v139;
+      v99 = &v138;
     }
 
-    v101 = *v100;
-    if ((isGerman | v106))
+    v100 = *v99;
+    if ((isGerman | v105))
     {
-      v102 = [(__CFString *)v47 length];
-      if (v102)
+      v101 = [(__CFString *)v47 length];
+      if (v101)
       {
-        v154.location = 0;
-        v154.length = v102;
-        if (v102 == CFStringGetBytes(v47, v154, encoding, 0, 0, v149, 254, &v144))
+        v153.location = 0;
+        v153.length = v101;
+        if (v101 == CFStringGetBytes(v47, v153, encoding, 0, 0, v148, 254, &v143))
         {
-          if (![(AppleSpell *)self checkNameWordBuffer:v149 length:v144 languageObject:v23 globalOnly:0])
+          if (![(AppleSpell *)self checkNameWordBuffer:v148 length:v143 languageObject:v23 globalOnly:0])
           {
             goto LABEL_265;
           }
@@ -13767,16 +13734,16 @@ LABEL_281:
     {
       if ([(__CFString *)v47 hasSuffix:@"'s"])
       {
-        v103 = [(__CFString *)v47 length];
-        if (v103 != 2)
+        v102 = [(__CFString *)v47 length];
+        if (v102 != 2)
         {
-          v155.location = 0;
-          v155.length = v103 - 2;
-          if (v103 - 2 == CFStringGetBytes(v47, v155, encoding, 0, 0, v149, 254, &v144))
+          v154.location = 0;
+          v154.length = v102 - 2;
+          if (v102 - 2 == CFStringGetBytes(v47, v154, encoding, 0, 0, v148, 254, &v143))
           {
             self = selfCopy;
             flagsCopy5 = flags;
-            if (![(AppleSpell *)selfCopy checkNameWordBuffer:v149 length:v144 languageObject:v23 globalOnly:0])
+            if (![(AppleSpell *)selfCopy checkNameWordBuffer:v148 length:v143 languageObject:v23 globalOnly:0])
             {
 LABEL_265:
               if (![(AppleSpell *)self validateWord:v47 inLexiconForLanguageObject:v23])
@@ -13786,7 +13753,7 @@ LABEL_265:
             }
 
 LABEL_266:
-            v101 = -99.0;
+            v100 = -99.0;
             goto LABEL_278;
           }
         }
@@ -13797,8 +13764,8 @@ LABEL_266:
     }
 
 LABEL_278:
-    [v95 score];
-    if (v104 < v101)
+    [v94 score];
+    if (v103 < v100)
     {
       v47 = 0;
     }
@@ -13806,14 +13773,14 @@ LABEL_278:
     goto LABEL_280;
   }
 
-  v89 = v108;
-  if (v84)
+  v88 = v107;
+  if (v83)
   {
     goto LABEL_233;
   }
 
 LABEL_178:
-  if ([(AppleSpell *)self _permitCorrection:v47 languageObject:v23 flags:flagsCopy5 isCapitalized:v133 typologyCorrection:0])
+  if ([(AppleSpell *)self _permitCorrection:v47 languageObject:v23 flags:flagsCopy5 isCapitalized:v132 typologyCorrection:0])
   {
     v71 = v47;
   }
@@ -13826,31 +13793,28 @@ LABEL_178:
   [(__CFString *)v71 length];
   BYTE4(usedBufLen) = (flagsCopy5 & 0x10) != 0;
   BYTE3(usedBufLen) = v44 != 0;
-  BYTE2(usedBufLen) = v127;
-  BYTE1(usedBufLen) = v133;
+  BYTE2(usedBufLen) = v126;
+  BYTE1(usedBufLen) = v132;
   LOBYTE(usedBufLen) = flagsCopy5 & 1;
-  v72 = [AppleSpell _correctionResultForWord:"_correctionResultForWord:replacementRange:inString:offset:languageObject:capitalize:isCapitalized:isSecondCapitalized:hasCurlyApostrophe:appendCorrectionLanguage:capitalizationLocale:proposedCorrection:" replacementRange:stringCopy2 inString:range.location offset:range.length languageObject:inString capitalize:v118 isCapitalized:v23 isSecondCapitalized:usedBufLen hasCurlyApostrophe:v116 appendCorrectionLanguage:v71 capitalizationLocale:? proposedCorrection:?];
-  array = v72;
+  v72 = [AppleSpell _correctionResultForWord:"_correctionResultForWord:replacementRange:inString:offset:languageObject:capitalize:isCapitalized:isSecondCapitalized:hasCurlyApostrophe:appendCorrectionLanguage:capitalizationLocale:proposedCorrection:" replacementRange:stringCopy2 inString:range.location offset:range.length languageObject:inString capitalize:v117 isCapitalized:v23 isSecondCapitalized:usedBufLen hasCurlyApostrophe:v115 appendCorrectionLanguage:v71 capitalizationLocale:? proposedCorrection:?];
+  v49 = v72;
   if (v72)
   {
     [v72 replacementString];
   }
 
-LABEL_183:
-  v73 = *MEMORY[0x1E69E9840];
-  return array;
+  return v49;
 }
 
 id __253__AppleSpell_Correction___correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount___block_invoke()
 {
-  v3[3] = *MEMORY[0x1E69E9840];
+  v2[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6977998];
-  v3[0] = *MEMORY[0x1E6977988];
-  v3[1] = v0;
-  v3[2] = *MEMORY[0x1E6977960];
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
+  v2[0] = *MEMORY[0x1E6977988];
+  v2[1] = v0;
+  v2[2] = *MEMORY[0x1E6977960];
+  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:3];
   _correctionResultForString_range_inString_offset_tagger_appIdentifier_dictionary_languages_connection_flags_keyEventArray_selectedRangeValue_parameterBundles_previousLetter_nextLetter_extraMisspellingCount_extraCorrectionCount__nerTags = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -13881,7 +13845,7 @@ id __253__AppleSpell_Correction___correctionResultForString_range_inString_offse
   return v9;
 }
 
-uint64_t __56__AppleSpell_Lexicon___lexiconPathForLocalization_type___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__56__AppleSpell_Lexicon___lexiconPathForLocalization_type___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   if (([@"Lexicon" isEqualToString:a4] & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "hasPrefix:", @"Siri-"), result) && ((objc_msgSend(@"SiriLexicon", "isEqualToString:", a4) & 1) != 0 || (result = objc_msgSend(@"SiriLexiconDelta", "isEqualToString:", a4), result)))
   {
@@ -13949,6 +13913,61 @@ dispatch_queue_t __45__AppleSpell_Lexicon__backgroundLoadingQueue__block_invoke(
   return result;
 }
 
+- (id)_loadLexiconsForLanguage:(id)language localization:(id)localization cachedOnly:(BOOL)only onQueue:(id)queue
+{
+  onlyCopy = only;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3052000000;
+  v28 = __Block_byref_object_copy__3;
+  v29 = __Block_byref_object_dispose__3;
+  v30 = 0;
+  v11 = [PRLanguage languageObjectWithIdentifier:?];
+  lexiconSerialQueue = self->_lexiconSerialQueue;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke;
+  block[3] = &unk_1E84050D8;
+  block[5] = localization;
+  block[6] = &v25;
+  block[4] = self;
+  dispatch_sync(lexiconSerialQueue, block);
+  v13 = v26[5];
+  if (!v13 || ([v13 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}] & 1) != 0 || !onlyCopy && objc_msgSend(v26[5], "cachedOnly"))
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v15 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke_2;
+    v22[3] = &unk_1E84056D8;
+    v23 = onlyCopy;
+    v22[4] = localization;
+    v22[5] = v11;
+    v22[6] = array;
+    v22[7] = self;
+    v22[8] = language;
+    dispatch_sync(queue, v22);
+    v16 = [[PRLexiconGroup alloc] initWithLocalization:localization lexicons:array cachedOnly:onlyCopy];
+    v26[5] = v16;
+    v17 = self->_lexiconSerialQueue;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke_3;
+    v21[3] = &unk_1E8405288;
+    v21[5] = localization;
+    v21[6] = &v25;
+    v21[4] = self;
+    dispatch_sync(v17, v21);
+
+    v18 = v26[5];
+  }
+
+  v19 = v26[5];
+  _Block_object_dispose(&v25, 8);
+  return v19;
+}
+
 id __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke(void *a1)
 {
   result = [*(a1[4] + 64) objectForKey:a1[5]];
@@ -13956,38 +13975,38 @@ id __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_on
   return result;
 }
 
-uint64_t __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke_2(uint64_t a1)
+PRLexicon *__80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedOnly_onQueue___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [PRLexicon lexiconWithLocalization:*(a1 + 32) unigramsPath:0 cachedOnly:*(a1 + 72)];
   v3 = [*(a1 + 40) transliterationLocalization];
-  v17 = [*(a1 + 40) spellingFallbackLocalization];
-  v15 = [MEMORY[0x1E695DF70] array];
+  v16 = [*(a1 + 40) spellingFallbackLocalization];
+  v14 = [MEMORY[0x1E695DF70] array];
   if (v2)
   {
     [*(a1 + 48) addObject:v2];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v4 = [*(a1 + 56) dataBundlesForLanguageObject:{*(a1 + 40), v15}];
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v4 = [*(a1 + 56) dataBundlesForLanguageObject:{*(a1 + 40), v14}];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v9 pathForResource:@"Unigrams" ofType:@"dat" inDirectory:0 forLocalization:{objc_msgSend(*(a1 + 40), "localization")}];
         if (!v10)
         {
@@ -14005,7 +14024,7 @@ uint64_t __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedO
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -14016,7 +14035,7 @@ uint64_t __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedO
   {
     if (result)
     {
-      result = [result isEqualToString:@"com.apple.siri"];
+      result = [(PRLexicon *)result isEqualToString:@"com.apple.siri"];
       if (result)
       {
         v13 = [*(a1 + 56) _siriLexiconPathForLanguage:*(a1 + 64)];
@@ -14035,7 +14054,7 @@ uint64_t __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedO
 
   if (v3)
   {
-    result = [v16 containsObject:v3];
+    result = [v15 containsObject:v3];
     if ((result & 1) == 0)
     {
       result = [PRLexicon lexiconWithLocalization:v3 unigramsPath:0 cachedOnly:*(a1 + 72)];
@@ -14046,20 +14065,19 @@ uint64_t __80__AppleSpell_Lexicon___loadLexiconsForLanguage_localization_cachedO
     }
   }
 
-  if (v17)
+  if (v16)
   {
-    result = [v16 containsObject:v17];
+    result = [v15 containsObject:v16];
     if ((result & 1) == 0)
     {
-      result = [PRLexicon lexiconWithLocalization:v17 unigramsPath:0 cachedOnly:*(a1 + 72)];
+      result = [PRLexicon lexiconWithLocalization:v16 unigramsPath:0 cachedOnly:*(a1 + 72)];
       if (result)
       {
-        result = [*(a1 + 48) addObject:result];
+        return [*(a1 + 48) addObject:result];
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -14380,7 +14398,7 @@ void __64__AppleSpell_Lexicon___phraseLexiconsForLanguage_waitForResult___block_
   dispatch_sync(lexiconSerialQueue, v6);
 }
 
-uint64_t __49__AppleSpell_Lexicon__updateLexiconsForLanguage___block_invoke(uint64_t a1)
+void *__49__AppleSpell_Lexicon__updateLexiconsForLanguage___block_invoke(uint64_t a1)
 {
   if ([*(*(a1 + 32) + 64) objectForKey:*(a1 + 40)])
   {
@@ -14525,37 +14543,37 @@ uint64_t __49__AppleSpell_Lexicon__updateLexiconsForLanguage___block_invoke(uint
   return v15 & 1;
 }
 
-uint64_t __142__AppleSpell_Lexicon__validateWord_inLexicons_forLanguage_requiredMetaFlags_alternativeRequiredMetaFlags_prohibitedMetaFlags_caseInsensitive___block_invoke(uint64_t result, void *a2, uint64_t a3, int a4, _BYTE *a5)
+id *__142__AppleSpell_Lexicon__validateWord_inLexicons_forLanguage_requiredMetaFlags_alternativeRequiredMetaFlags_prohibitedMetaFlags_caseInsensitive___block_invoke(id *result, void *a2, uint64_t a3, int a4, _BYTE *a5)
 {
   v7 = result;
-  if (((*(result + 80) & ~a4) == 0 || (*(result + 84) & ~a4) == 0) && (*(result + 88) & a4) == 0)
+  if (((result[10] & ~a4) == 0 || (*(result + 21) & ~a4) == 0) && (result[11] & a4) == 0)
   {
-    if (*(result + 92) & 1) != 0 || ([a2 isEqualToString:{objc_msgSend(a2, "lowercaseString")}])
+    if (*(result + 92) & 1) != 0 || ([a2 isEqualToString:{objc_msgSend(a2, "lowercaseString", a3)}])
     {
       v8 = 1;
     }
 
     else
     {
-      if ((*(*(*(v7 + 48) + 8) + 24) & 1) == 0)
+      if ((*(*(v7[6] + 1) + 24) & 1) == 0)
       {
         if (!validateWord_inLexicons_forLanguage_requiredMetaFlags_alternativeRequiredMetaFlags_prohibitedMetaFlags_caseInsensitive__lowercaseSet)
         {
           validateWord_inLexicons_forLanguage_requiredMetaFlags_alternativeRequiredMetaFlags_prohibitedMetaFlags_caseInsensitive__lowercaseSet = [MEMORY[0x1E696AB08] lowercaseLetterCharacterSet];
         }
 
-        [*(v7 + 32) rangeOfCharacterFromSet:?];
-        *(*(*(v7 + 56) + 8) + 24) = v9 != 0;
-        *(*(*(v7 + 48) + 8) + 24) = 1;
+        [v7[4] rangeOfCharacterFromSet:?];
+        *(*(v7[7] + 1) + 24) = v9 != 0;
+        *(*(v7[6] + 1) + 24) = 1;
       }
 
-      v8 = *(*(*(v7 + 56) + 8) + 24) ^ 1;
+      v8 = *(*(v7[7] + 1) + 24) ^ 1;
     }
 
-    result = [*(v7 + 32) compare:a2 options:v8 range:0 locale:{*(v7 + 72), *(v7 + 40)}];
+    result = [v7[4] compare:a2 options:v8 range:0 locale:{v7[9], v7[5]}];
     if (!result)
     {
-      *(*(*(v7 + 64) + 8) + 24) = 1;
+      *(*(v7[8] + 1) + 24) = 1;
       *a5 = 1;
     }
   }
@@ -14645,31 +14663,31 @@ uint64_t __142__AppleSpell_Lexicon__validateWord_inLexicons_forLanguage_required
   return v10 & 1;
 }
 
-uint64_t __83__AppleSpell_Lexicon__validateDiacriticInsensitiveWord_inLexiconForLanguageObject___block_invoke(uint64_t result, void *a2, uint64_t a3, int a4, _BYTE *a5)
+id *__83__AppleSpell_Lexicon__validateDiacriticInsensitiveWord_inLexiconForLanguageObject___block_invoke(id *result, void *a2, uint64_t a3, int a4, _BYTE *a5)
 {
-  if ((*(result + 80) & a4) == 0)
+  if ((result[10] & a4) == 0)
   {
     v7 = result;
-    if ([a2 isEqualToString:{objc_msgSend(a2, "lowercaseString")}])
+    if ([a2 isEqualToString:{objc_msgSend(a2, "lowercaseString", a3)}])
     {
       v8 = 129;
     }
 
     else
     {
-      if ((*(*(*(v7 + 48) + 8) + 24) & 1) == 0)
+      if ((*(*(v7[6] + 1) + 24) & 1) == 0)
       {
         if (!validateDiacriticInsensitiveWord_inLexiconForLanguageObject__lowercaseSet)
         {
           validateDiacriticInsensitiveWord_inLexiconForLanguageObject__lowercaseSet = [MEMORY[0x1E696AB08] lowercaseLetterCharacterSet];
         }
 
-        [*(v7 + 32) rangeOfCharacterFromSet:?];
-        *(*(*(v7 + 56) + 8) + 24) = v9 != 0;
-        *(*(*(v7 + 48) + 8) + 24) = 1;
+        [v7[4] rangeOfCharacterFromSet:?];
+        *(*(v7[7] + 1) + 24) = v9 != 0;
+        *(*(v7[6] + 1) + 24) = 1;
       }
 
-      if (*(*(*(v7 + 56) + 8) + 24))
+      if (*(*(v7[7] + 1) + 24))
       {
         v8 = 128;
       }
@@ -14680,10 +14698,10 @@ uint64_t __83__AppleSpell_Lexicon__validateDiacriticInsensitiveWord_inLexiconFor
       }
     }
 
-    result = [*(v7 + 32) compare:a2 options:v8 range:0 locale:{*(v7 + 72), *(v7 + 40)}];
+    result = [v7[4] compare:a2 options:v8 range:0 locale:{v7[9], v7[5]}];
     if (!result)
     {
-      *(*(*(v7 + 64) + 8) + 24) = 1;
+      *(*(v7[8] + 1) + 24) = 1;
       *a5 = 1;
     }
   }
@@ -14833,9 +14851,9 @@ id __89__AppleSpell_Lexicon__getMetaFlagsForWord_inLexiconForLanguage_metaFlags_
   return result;
 }
 
-uint64_t __89__AppleSpell_Lexicon__getMetaFlagsForWord_inLexiconForLanguage_metaFlags_otherMetaFlags___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, int a4)
+void *__89__AppleSpell_Lexicon__getMetaFlagsForWord_inLexiconForLanguage_metaFlags_otherMetaFlags___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, int a4)
 {
-  v7 = [a2 isEqualToString:{objc_msgSend(a2, "lowercaseString")}];
+  v7 = [a2 isEqualToString:{objc_msgSend(a2, "lowercaseString", a3)}];
   result = [*(a1 + 32) isEqualToString:a2];
   if (!result)
   {
@@ -14968,45 +14986,43 @@ void *__59__AppleSpell_Lexicon__phraseMatching_inLexiconForLanguage___block_invo
 
 - (void)enumerateEntriesForWord:(id)word inLexiconForLanguage:(id)language withBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = [(AppleSpell *)self _lexiconsForLanguage:language];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __78__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguage_withBlock___block_invoke;
-        v14[3] = &unk_1E8405178;
-        v14[4] = block;
-        [v12 enumerateEntriesForString:word usingBlock:v14];
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __78__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguage_withBlock___block_invoke;
+        v13[3] = &unk_1E8405178;
+        v13[4] = block;
+        [v12 enumerateEntriesForString:word usingBlock:v13];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguage_withBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, char a4)
@@ -15021,45 +15037,43 @@ uint64_t __78__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguage_
 
 - (void)enumerateCorrectionEntriesForWord:(id)word maxCorrections:(unint64_t)corrections inLexiconForLanguage:(id)language withBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v9 = [(AppleSpell *)self _lexiconsForLanguage:language];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __103__AppleSpell_Lexicon__enumerateCorrectionEntriesForWord_maxCorrections_inLexiconForLanguage_withBlock___block_invoke;
-        v16[3] = &unk_1E84057C8;
-        v16[4] = block;
-        [v14 enumerateCorrectionEntriesForWord:word maxCorrections:corrections withBlock:v16];
+        v14 = *(*(&v16 + 1) + 8 * v13);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __103__AppleSpell_Lexicon__enumerateCorrectionEntriesForWord_maxCorrections_inLexiconForLanguage_withBlock___block_invoke;
+        v15[3] = &unk_1E84057C8;
+        v15[4] = block;
+        [v14 enumerateCorrectionEntriesForWord:word maxCorrections:corrections withBlock:v15];
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getMetaFlagsForWord:(id)word inLexiconForLanguageObject:(id)object metaFlags:(unsigned int *)flags otherMetaFlags:(unsigned int *)metaFlags
@@ -15078,45 +15092,43 @@ uint64_t __78__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguage_
 
 - (void)enumerateEntriesForWord:(id)word inLexiconForLanguageObject:(id)object withBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = [(AppleSpell *)self _lexiconsForLanguageObject:object];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __84__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguageObject_withBlock___block_invoke;
-        v14[3] = &unk_1E8405178;
-        v14[4] = block;
-        [v12 enumerateEntriesForString:word usingBlock:v14];
+        v12 = *(*(&v14 + 1) + 8 * v11);
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __84__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguageObject_withBlock___block_invoke;
+        v13[3] = &unk_1E8405178;
+        v13[4] = block;
+        [v12 enumerateEntriesForString:word usingBlock:v13];
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguageObject_withBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, char a4)
@@ -15131,45 +15143,43 @@ uint64_t __84__AppleSpell_Lexicon__enumerateEntriesForWord_inLexiconForLanguageO
 
 - (void)enumerateCorrectionEntriesForWord:(id)word maxCorrections:(unint64_t)corrections inLexiconForLanguageObject:(id)object withBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v9 = [(AppleSpell *)self _lexiconsForLanguageObject:object];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __109__AppleSpell_Lexicon__enumerateCorrectionEntriesForWord_maxCorrections_inLexiconForLanguageObject_withBlock___block_invoke;
-        v16[3] = &unk_1E84057C8;
-        v16[4] = block;
-        [v14 enumerateCorrectionEntriesForWord:word maxCorrections:corrections withBlock:v16];
+        v14 = *(*(&v16 + 1) + 8 * v13);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __109__AppleSpell_Lexicon__enumerateCorrectionEntriesForWord_maxCorrections_inLexiconForLanguageObject_withBlock___block_invoke;
+        v15[3] = &unk_1E84057C8;
+        v15[4] = block;
+        [v14 enumerateCorrectionEntriesForWord:word maxCorrections:corrections withBlock:v15];
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadNERTaggerOnQueue:(id)queue
@@ -15237,12 +15247,12 @@ void *__45__AppleSpell_Lexicon___loadNERTaggerOnQueue___block_invoke_2(uint64_t 
   return result;
 }
 
-uint64_t __45__AppleSpell_Lexicon___loadNERTaggerOnQueue___block_invoke_3(uint64_t result)
+void *__45__AppleSpell_Lexicon___loadNERTaggerOnQueue___block_invoke_3(void *result)
 {
-  v1 = *(*(*(result + 40) + 8) + 40);
+  v1 = *(*(result[5] + 8) + 40);
   if (v1)
   {
-    return [*(*(result + 32) + 80) setObject:v1 forKey:@"NER"];
+    return [*(result[4] + 80) setObject:v1 forKey:@"NER"];
   }
 
   return result;
@@ -15337,7 +15347,7 @@ void __46__AppleSpell_Lexicon__nerTaggerWaitForResult___block_invoke_3(uint64_t 
 
 - (void)_checkEnglishArticlesInSentence:(id)sentence buffer:(char *)buffer length:(unint64_t)length mutableCorrections:(id)corrections
 {
-  v89[1] = *MEMORY[0x1E69E9840];
+  v88[1] = *MEMORY[0x1E69E9840];
   v10 = [PRLanguage languageObjectWithIdentifier:@"en"];
   v11 = [(AppleSpell *)self databaseConnectionForLanguageObject:v10];
   encoding = [v10 encoding];
@@ -15345,31 +15355,31 @@ void __46__AppleSpell_Lexicon__nerTaggerWaitForResult___block_invoke_3(uint64_t 
   {
     if (v11[24] == 16)
     {
-      v88 = 0u;
       v87 = 0u;
       v86 = 0u;
       v85 = 0u;
-      v79 = 0;
-      v78[0] = 0;
-      v78[1] = 0;
+      v84 = 0u;
+      v78 = 0;
+      v77[0] = 0;
+      v77[1] = 0;
+      v75 = 0;
       v76 = 0;
-      v77 = 0;
       bufferCopy = buffer;
-      v81 = *v11;
-      HIWORD(v78[0]) = 256;
-      *(&v85 + 1) = v78;
-      *&v86 = &v76;
-      BYTE13(v87) = 0;
-      v82 = 32;
-      v84 = 0;
+      v80 = *v11;
+      HIWORD(v77[0]) = 256;
+      *(&v84 + 1) = v77;
+      *&v85 = &v75;
+      BYTE13(v86) = 0;
+      v81 = 32;
+      v83 = 0;
       lengthCopy = length;
       if (length)
       {
         v13 = encoding;
         correctionsCopy = corrections;
         PRbuf(&bufferCopy, 0xEu, 0);
-        v14 = *(&v86 + 1);
-        if (!*(&v86 + 1))
+        v14 = *(&v85 + 1);
+        if (!*(&v85 + 1))
         {
           goto LABEL_138;
         }
@@ -15395,8 +15405,8 @@ void __46__AppleSpell_Lexicon__nerTaggerWaitForResult___block_invoke_3(uint64_t 
 
           v17 = CFStringCreateWithBytes(0, &buffer[v16], v15, v13, 0);
           lowercaseString = [(__CFString *)v17 lowercaseString];
-          v68 = v17;
-          v74 = [(__CFString *)v17 isEqualToString:lowercaseString];
+          v67 = v17;
+          v73 = [(__CFString *)v17 isEqualToString:lowercaseString];
           v19 = *v14;
           v20 = v14[1];
           v21 = &buffer[v19 + v20];
@@ -15481,16 +15491,16 @@ LABEL_36:
 
           v24 = isLowerCaseX(v21[3], v13) ^ 1;
 LABEL_39:
-          v71 = v24;
+          v70 = v24;
           v30 = v21[1];
           v29 = v21 + 1;
-          v70 = toLowerX_0(v30, v13);
-          v69 = v19 + v20 + 5 < length && strncasecmp_l(v29, "for-", 4uLL, 0) == 0;
+          v69 = toLowerX_0(v30, v13);
+          v68 = v19 + v20 + 5 < length && strncasecmp_l(v29, "for-", 4uLL, 0) == 0;
           v31 = @"a";
-          v73 = [lowercaseString isEqualToString:@"a"];
-          v72 = [lowercaseString isEqualToString:@"an"];
+          v72 = [lowercaseString isEqualToString:@"a"];
+          v71 = [lowercaseString isEqualToString:@"an"];
           v32 = 0;
-          if (v74)
+          if (v73)
           {
             v33 = @"an";
           }
@@ -15500,7 +15510,7 @@ LABEL_39:
             v33 = @"An";
           }
 
-          if (!v74)
+          if (!v73)
           {
             v31 = @"A";
           }
@@ -15528,7 +15538,7 @@ LABEL_39:
           }
 
           while (!v51);
-          if (v73)
+          if (v72)
           {
             v38 = v33;
           }
@@ -15538,7 +15548,7 @@ LABEL_39:
             v38 = 0;
           }
 
-          if (v72)
+          if (v71)
           {
             v39 = v31;
           }
@@ -15556,7 +15566,7 @@ LABEL_39:
             goto LABEL_137;
           }
 
-          v75 = v39;
+          v74 = v39;
           while (1)
           {
             v43 = buffer[v42];
@@ -15664,7 +15674,7 @@ LABEL_109:
 LABEL_131:
           v48 = 0;
 LABEL_132:
-          if (!(v37 | (v75 == 0) | v71 & 1 | (v70 == 104 || v69) | ((v48 & 1) == 0)))
+          if (!(v37 | (v74 == 0) | v70 & 1 | (v69 == 104 || v68) | ((v48 & 1) == 0)))
           {
             if (v40)
             {
@@ -15677,8 +15687,8 @@ LABEL_132:
             }
 
             v64 = [PRSentenceCorrection alloc];
-            v89[0] = v75;
-            v65 = -[PRSentenceCorrection initWithCategory:range:word:corrections:](v64, "initWithCategory:range:word:corrections:", 4, v63, v41, v68, [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:1]);
+            v88[0] = v74;
+            v65 = -[PRSentenceCorrection initWithCategory:range:word:corrections:](v64, "initWithCategory:range:word:corrections:", 4, v63, v41, v67, [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:1]);
             [correctionsCopy addObject:v65];
           }
 
@@ -15688,14 +15698,12 @@ LABEL_137:
           {
 LABEL_138:
             PRbuf(&bufferCopy, 0x11u, 0);
-            break;
+            return;
           }
         }
       }
     }
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (const)englishPhraseRoot
@@ -15715,110 +15723,96 @@ LABEL_138:
 
 unsigned __int8 **__51__AppleSpell_SentenceCorrection__englishPhraseRoot__block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = [PRLanguage languageObjectWithIdentifier:@"en"];
   v3 = [v2 encoding];
   v4 = [*(a1 + 32) phraseCorrectionsDictionaryForLanguageObject:v2];
   obj = [MEMORY[0x1E695DF70] array];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v46 count:16];
   v6 = off_1EC72B000;
   if (v5)
   {
     v7 = v5;
-    v35 = 0;
-    v8 = *v43;
+    v34 = 0;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v41 + 1) + 8 * i);
         v11 = [v4 objectForKey:v10];
         v12 = [(__CFString *)v10 length];
         v13 = [(__CFString *)v11 length];
-        v40 = 0;
+        v39 = 0;
         usedBufLen = 0;
+        v48.location = 0;
+        v48.length = v12;
+        Bytes = CFStringGetBytes(v10, v48, v3, 0x5Fu, 0, 0, 0, &usedBufLen);
         v49.location = 0;
-        v49.length = v12;
-        Bytes = CFStringGetBytes(v10, v49, v3, 0x5Fu, 0, 0, 0, &usedBufLen);
-        v50.location = 0;
-        v50.length = v13;
-        v15 = CFStringGetBytes(v11, v50, v3, 0x5Fu, 0, 0, 0, &v40);
+        v49.length = v13;
+        v15 = CFStringGetBytes(v11, v49, v3, 0x5Fu, 0, 0, 0, &v39);
         if (Bytes == v12 && v15 == v13)
         {
-          v35 += usedBufLen + v40 + 2;
+          v34 += usedBufLen + v39 + 2;
           [obj addObject:v10];
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v7);
     v6 = off_1EC72B000;
-    if (v35)
+    if (v34)
     {
-      v17 = malloc_type_malloc(v35 + 2, 0xDC0D6921uLL);
+      v17 = malloc_type_malloc(v34 + 2, 0xDC0D6921uLL);
       englishPhraseRoot_strings = v17;
-      *&v17[v35] = 0;
+      *&v17[v34] = 0;
       [obj sortUsingSelector:sel_compare_];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
-      v18 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v18 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       if (v18)
       {
         v19 = v18;
-        v33 = *v37;
+        v32 = *v36;
         while (2)
         {
           v20 = 0;
-          v21 = v35;
+          v21 = v34;
           do
           {
-            if (*v37 != v33)
+            if (*v36 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v36 + 1) + 8 * v20);
+            v22 = *(*(&v35 + 1) + 8 * v20);
             v23 = [v4 objectForKey:v22];
             v24 = [(__CFString *)v22 length];
             v25 = [(__CFString *)v23 length];
-            v40 = 0;
+            v39 = 0;
             usedBufLen = 0;
-            v51.location = 0;
-            v51.length = v24;
-            CFStringGetBytes(v22, v51, v3, 0x5Fu, 0, v17, v21, &usedBufLen);
+            v50.location = 0;
+            v50.length = v24;
+            CFStringGetBytes(v22, v50, v3, 0x5Fu, 0, v17, v21, &usedBufLen);
             v26 = &v17[usedBufLen];
             v17[usedBufLen] = 0;
             v27 = v21 > usedBufLen + 1;
             v28 = v21 - (usedBufLen + 1);
-            if (!v27)
+            if (!v27 || (v29 = v26 + 1, v51.location = 0, v51.length = v25, CFStringGetBytes(v23, v51, v3, 0x5Fu, 0, v26 + 1, v28, &v39), v30 = &v29[v39], v29[v39] = 0, v27 = v28 > v39 + 1, v21 = v28 - (v39 + 1), !v27))
             {
-              goto LABEL_27;
-            }
-
-            v29 = v26 + 1;
-            v52.location = 0;
-            v52.length = v25;
-            CFStringGetBytes(v23, v52, v3, 0x5Fu, 0, v26 + 1, v28, &v40);
-            v30 = &v29[v40];
-            v29[v40] = 0;
-            v27 = v28 > v40 + 1;
-            v21 = v28 - (v40 + 1);
-            if (!v27)
-            {
-LABEL_27:
               v6 = off_1EC72B000;
               goto LABEL_28;
             }
@@ -15828,8 +15822,8 @@ LABEL_27:
           }
 
           while (v19 != v20);
-          v35 = v21;
-          v19 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+          v34 = v21;
+          v19 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
           v6 = off_1EC72B000;
           if (v19)
           {
@@ -15850,7 +15844,6 @@ LABEL_28:
     englishPhraseRoot_phrase_root = result;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -15924,7 +15917,7 @@ LABEL_28:
   }
 }
 
-unint64_t __98__AppleSpell_SentenceCorrection___checkEnglishPhrasesInSentence_buffer_length_mutableCorrections___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__98__AppleSpell_SentenceCorrection___checkEnglishPhrasesInSentence_buffer_length_mutableCorrections___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v9 = a3 + a4;
   result = [*(a1 + 32) length];
@@ -15939,41 +15932,41 @@ unint64_t __98__AppleSpell_SentenceCorrection___checkEnglishPhrasesInSentence_bu
 
 void __98__AppleSpell_SentenceCorrection___checkEnglishPhrasesInSentence_buffer_length_mutableCorrections___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v11 = [*(a1 + 32) potentialSentenceCorrectionsForWord:a2 languageObject:*(a1 + 40)];
+  v27 = *MEMORY[0x1E69E9840];
+  v11 = [*(a1 + 32) potentialSentenceCorrectionsForWord:a2 languageObject:{*(a1 + 40), a5, a6}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         if ([*(a1 + 48) isEqualToString:{objc_msgSend(*(a1 + 56), "stringByReplacingCharactersInRange:withString:", a3, a4, v16)}])
         {
           v17 = [*(a1 + 64) length];
           v18 = [PRSentenceCorrection alloc];
-          v26 = v16;
-          v19 = -[PRSentenceCorrection initWithCategory:range:word:corrections:](v18, "initWithCategory:range:word:corrections:", 5, v17 + a3, a4, a2, [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1]);
+          v25 = v16;
+          v19 = -[PRSentenceCorrection initWithCategory:range:word:corrections:](v18, "initWithCategory:range:word:corrections:", 5, v17 + a3, a4, a2, [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1]);
           [*(a1 + 72) addObject:v19];
 
           *a7 = 1;
-          goto LABEL_11;
+          return;
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v13)
       {
         continue;
@@ -15982,28 +15975,25 @@ void __98__AppleSpell_SentenceCorrection___checkEnglishPhrasesInSentence_buffer_
       break;
     }
   }
-
-LABEL_11:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_checkSentence:(id)sentence languageObject:(id)object
 {
-  v21[128] = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   encoding = [object encoding];
   v9 = [sentence length];
   usedBufLen = 0;
   if ([object isEnglish])
   {
-    v22.location = 0;
-    v22.length = v9;
-    if (v9 == CFStringGetBytes(sentence, v22, encoding, 0x5Fu, 0, buffer, 1024, &usedBufLen))
+    v21.location = 0;
+    v21.length = v9;
+    if (v9 == CFStringGetBytes(sentence, v21, encoding, 0x5Fu, 0, buffer, 1024, &usedBufLen))
     {
       v10 = usedBufLen;
       if (usedBufLen)
       {
-        v11 = v21;
+        v11 = &buffer[1];
         v12 = 2;
         v13 = usedBufLen;
         while (1)
@@ -16111,7 +16101,6 @@ LABEL_35:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -16162,11 +16151,11 @@ id __83__AppleSpell_SentenceCorrection___checkSentence_languageObject_mutableCor
 {
   length = paragraph.length;
   location = paragraph.location;
-  v143 = *MEMORY[0x1E69E9840];
-  v125 = 8217;
-  v124 = 0;
-  v71 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v125 length:1];
-  v72 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v124 length:1];
+  v142 = *MEMORY[0x1E69E9840];
+  v124 = 8217;
+  v123 = 0;
+  v70 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v124 length:1];
+  v71 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v123 length:1];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke;
@@ -16177,182 +16166,182 @@ id __83__AppleSpell_SentenceCorrection___checkSentence_languageObject_mutableCor
     dispatch_once(&spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__onceToken, block);
   }
 
-  v75 = location + length;
+  v74 = location + length;
   if (location < location + length)
   {
     v20 = 0x1E695D000uLL;
     taggerCopy2 = tagger;
-    v76 = *MEMORY[0x1E69779F0];
+    v75 = *MEMORY[0x1E69779F0];
     serverCopy = server;
     objectCopy = object;
     do
     {
-      v119 = 0;
-      v120 = &v119;
-      v121 = 0x2020000000;
-      v122 = 0;
-      v113 = 0;
-      v114 = &v113;
-      v115 = 0x3010000000;
-      v116 = "";
-      v117 = 0;
       v118 = 0;
-      v109 = 0;
-      v110 = &v109;
-      v111 = 0x2020000000;
+      v119 = &v118;
+      v120 = 0x2020000000;
+      v121 = 0;
       v112 = 0;
+      v113 = &v112;
+      v114 = 0x3010000000;
+      v115 = "";
+      v116 = 0;
+      v117 = 0;
+      v108 = 0;
+      v109 = &v108;
+      v110 = 0x2020000000;
+      v111 = 0;
       v22 = [taggerCopy2 sentenceRangeForRange:{location, 0}];
-      v23 = v114;
-      v114[4] = v22;
+      v23 = v113;
+      v113[4] = v22;
       v23[5] = 0;
-      v101 = MEMORY[0x1E69E9820];
-      v102 = 3221225472;
-      v103 = __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_2;
-      v104 = &unk_1E84059A8;
+      v100 = MEMORY[0x1E69E9820];
+      v101 = 3221225472;
+      v102 = __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_2;
+      v103 = &unk_1E84059A8;
       stringCopy = string;
-      v106 = &v119;
-      v107 = &v113;
-      v108 = &v109;
-      v78 = v24;
-      v79 = v22;
+      v105 = &v118;
+      v106 = &v112;
+      v107 = &v108;
+      v77 = v24;
+      v78 = v22;
       [taggerCopy2 enumerateTagsInRange:? unit:? scheme:? options:? usingBlock:?];
-      if (((v120[3] & 1) != 0 || termination) && v110[3] <= 0x50 && (v114[5] - 1) <= 0xFF)
+      if (((v119[3] & 1) != 0 || termination) && v109[3] <= 0x50 && (v113[5] - 1) <= 0xFF)
       {
         obj = [*(v20 + 3952) array];
         array = [*(v20 + 3952) array];
+        v98 = xmmword_1D2BF76A0;
         v99 = xmmword_1D2BF76A0;
-        v100 = xmmword_1D2BF76A0;
-        v88 = [string substringWithRange:{v114[4], v114[5]}];
-        [v88 rangeOfString:v72];
+        v87 = [string substringWithRange:{v113[4], v113[5]}];
+        [v87 rangeOfString:v71];
         if (v25)
         {
-          v88 = [v88 stringByReplacingOccurrencesOfString:v72 withString:@"_"];
+          v87 = [v87 stringByReplacingOccurrencesOfString:v71 withString:@"_"];
         }
 
-        [v88 rangeOfString:v71];
+        [v87 rangeOfString:v70];
         if (v26)
         {
-          v88 = [v88 stringByReplacingOccurrencesOfString:v71 withString:@"'"];
+          v87 = [v87 stringByReplacingOccurrencesOfString:v70 withString:@"'"];
         }
 
-        [(AppleSpell *)self _checkSentence:v88 languageObject:object mutableCorrections:obj];
+        [(AppleSpell *)self _checkSentence:v87 languageObject:object mutableCorrections:obj];
         [obj count];
         if (autocorrect)
         {
-          v139 = 0;
-          v140 = &v139;
-          v141 = 0x2020000000;
-          v142 = 6;
-          v98[0] = MEMORY[0x1E69E9820];
-          v98[1] = 3221225472;
-          v98[2] = __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_3;
-          v98[3] = &unk_1E84059D0;
-          v98[4] = &v113;
-          v98[5] = &v139;
-          [tagger enumerateTagsInRange:v79 unit:v78 scheme:0 options:v76 usingBlock:{6, v98}];
-          v27 = v140[3];
+          v138 = 0;
+          v139 = &v138;
+          v140 = 0x2020000000;
+          v141 = 6;
+          v97[0] = MEMORY[0x1E69E9820];
+          v97[1] = 3221225472;
+          v97[2] = __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_3;
+          v97[3] = &unk_1E84059D0;
+          v97[4] = &v112;
+          v97[5] = &v138;
+          [tagger enumerateTagsInRange:v78 unit:v77 scheme:0 options:v75 usingBlock:{6, v97}];
+          v27 = v139[3];
           if (v27 >= 0xD)
           {
-            v140[3] = 12;
+            v139[3] = 12;
             v27 = 12;
           }
 
-          if (v114[5] + v114[4] > v27 && [AppleSpell findMatchingRangesForRange:"findMatchingRangesForRange:inString:keyEventArray:selectedRangeValue:matchingStringRange:correctableStringRange:matchingKeyEventRange:firstMisspelledKeyEventIndex:lastMisspelledKeyEventIndex:previousBackspaceCount:" inString:&v99 keyEventArray:0 selectedRangeValue:0 matchingStringRange:0 correctableStringRange:0 matchingKeyEventRange:? firstMisspelledKeyEventIndex:? lastMisspelledKeyEventIndex:? previousBackspaceCount:?])
+          if (v113[5] + v113[4] > v27 && [AppleSpell findMatchingRangesForRange:"findMatchingRangesForRange:inString:keyEventArray:selectedRangeValue:matchingStringRange:correctableStringRange:matchingKeyEventRange:firstMisspelledKeyEventIndex:lastMisspelledKeyEventIndex:previousBackspaceCount:" inString:&v98 keyEventArray:0 selectedRangeValue:0 matchingStringRange:0 correctableStringRange:0 matchingKeyEventRange:? firstMisspelledKeyEventIndex:? lastMisspelledKeyEventIndex:? previousBackspaceCount:?])
           {
-            *&v100 = v100 + offset;
             *&v99 = v99 + offset;
+            *&v98 = v98 + offset;
           }
 
-          _Block_object_dispose(&v139, 8);
+          _Block_object_dispose(&v138, 8);
         }
 
-        v96 = 0u;
-        v97 = 0u;
-        v94 = 0u;
         v95 = 0u;
-        v90 = [obj countByEnumeratingWithState:&v94 objects:v134 count:16];
-        if (v90)
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v89 = [obj countByEnumeratingWithState:&v93 objects:v133 count:16];
+        if (v89)
         {
-          v89 = *v95;
+          v88 = *v94;
           do
           {
-            for (i = 0; i != v90; ++i)
+            for (i = 0; i != v89; ++i)
             {
-              if (*v95 != v89)
+              if (*v94 != v88)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v92 = *(*(&v94 + 1) + 8 * i);
-              range = [v92 range];
+              v91 = *(*(&v93 + 1) + 8 * i);
+              range = [v91 range];
               v29 = v28;
               if (v28)
               {
-                v85 = v114[4];
-                if (range + v28 <= [v88 length])
+                v84 = v113[4];
+                if (range + v28 <= [v87 length])
                 {
-                  v82 = v29;
-                  v30 = [v88 substringWithRange:{range, v29}];
-                  corrections = [v92 corrections];
+                  v81 = v29;
+                  v30 = [v87 substringWithRange:{range, v29}];
+                  corrections = [v91 corrections];
                   v32 = [(AppleSpell *)self potentialSentenceCorrectionsForWord:v30 languageObject:object];
-                  v86 = v30;
-                  if ([v92 presentAsSpellingError])
+                  v85 = v30;
+                  if ([v91 presentAsSpellingError])
                   {
                     v33 = [MEMORY[0x1E695DFA8] set];
-                    v132 = 0u;
-                    v133 = 0u;
-                    v130 = 0u;
                     v131 = 0u;
-                    v34 = [corrections countByEnumeratingWithState:&v130 objects:&v139 count:16];
+                    v132 = 0u;
+                    v129 = 0u;
+                    v130 = 0u;
+                    v34 = [corrections countByEnumeratingWithState:&v129 objects:&v138 count:16];
                     if (v34)
                     {
-                      v35 = *v131;
+                      v35 = *v130;
                       do
                       {
                         for (j = 0; j != v34; ++j)
                         {
-                          if (*v131 != v35)
+                          if (*v130 != v35)
                           {
                             objc_enumerationMutation(corrections);
                           }
 
-                          [v33 addObject:{objc_msgSend(*(*(&v130 + 1) + 8 * j), "lowercaseString")}];
+                          [v33 addObject:{objc_msgSend(*(*(&v129 + 1) + 8 * j), "lowercaseString")}];
                         }
 
-                        v34 = [corrections countByEnumeratingWithState:&v130 objects:&v139 count:16];
+                        v34 = [corrections countByEnumeratingWithState:&v129 objects:&v138 count:16];
                       }
 
                       while (v34);
                     }
 
-                    v128 = 0u;
-                    v129 = 0u;
-                    v126 = 0u;
                     v127 = 0u;
-                    v30 = v86;
-                    v37 = [v32 countByEnumeratingWithState:&v126 objects:&v135 count:16];
+                    v128 = 0u;
+                    v125 = 0u;
+                    v126 = 0u;
+                    v30 = v85;
+                    v37 = [v32 countByEnumeratingWithState:&v125 objects:&v134 count:16];
                     if (v37)
                     {
-                      v38 = *v127;
+                      v38 = *v126;
                       while (2)
                       {
                         for (k = 0; k != v37; ++k)
                         {
-                          if (*v127 != v38)
+                          if (*v126 != v38)
                           {
                             objc_enumerationMutation(v32);
                           }
 
-                          if ([v33 containsObject:{objc_msgSend(*(*(&v126 + 1) + 8 * k), "lowercaseString")}])
+                          if ([v33 containsObject:{objc_msgSend(*(*(&v125 + 1) + 8 * k), "lowercaseString")}])
                           {
-                            v30 = v86;
-                            v87 = [server isWordInUserDictionaries:v86 caseSensitive:0] == 0;
+                            v30 = v85;
+                            v86 = [server isWordInUserDictionaries:v85 caseSensitive:0] == 0;
                             goto LABEL_45;
                           }
                         }
 
-                        v37 = [v32 countByEnumeratingWithState:&v126 objects:&v135 count:16];
-                        v30 = v86;
+                        v37 = [v32 countByEnumeratingWithState:&v125 objects:&v134 count:16];
+                        v30 = v85;
                         if (v37)
                         {
                           continue;
@@ -16363,34 +16352,34 @@ id __83__AppleSpell_SentenceCorrection___checkSentence_languageObject_mutableCor
                     }
                   }
 
-                  v87 = 0;
+                  v86 = 0;
 LABEL_45:
                   if (autocorrect)
                   {
-                    presentAsAutocorrection = [v92 presentAsAutocorrection];
+                    presentAsAutocorrection = [v91 presentAsAutocorrection];
                     if (!v30)
                     {
 LABEL_69:
                       v57 = range + offset;
-                      if (v87 && (spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__disableSpellingErrors & 1) == 0)
+                      if (v86 && (spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__disableSpellingErrors & 1) == 0)
                       {
-                        v58 = [objc_alloc(MEMORY[0x1E696AEB8]) initWithRange:{v57 + v85, v82}];
+                        v58 = [objc_alloc(MEMORY[0x1E696AEB8]) initWithRange:{v57 + v84, v81}];
                         [results addObject:v58];
                       }
 
                       v20 = 0x1E695D000;
                       if (presentAsAutocorrection && (spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__disableAutocorrections & 1) == 0)
                       {
-                        v59 = [objc_alloc(MEMORY[0x1E696AB48]) initWithRange:v57 + v85 replacementString:{v82, objc_msgSend(corrections, "firstObject")}];
+                        v59 = [objc_alloc(MEMORY[0x1E696AB48]) initWithRange:v57 + v84 replacementString:{v81, objc_msgSend(corrections, "firstObject")}];
                         [results addObject:v59];
                       }
 
-                      if (v87 || grammar && [v92 presentAsGrammarError])
+                      if (v86 || grammar && [v91 presentAsGrammarError])
                       {
                         v60 = MEMORY[0x1E696B098];
-                        range2 = [v92 range];
+                        range2 = [v91 range];
                         v63 = [v60 valueWithRange:{range2, v62}];
-                        category = [v92 category];
+                        category = [v91 category];
                         if (category > 5)
                         {
                           v65 = 0;
@@ -16401,9 +16390,9 @@ LABEL_69:
                           v65 = qword_1D2BFAB30[category];
                         }
 
-                        if ([v92 category] == 3)
+                        if ([v91 category] == 3)
                         {
-                          v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Consider adding an article before the word ‘%@’.", v86];
+                          v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Consider adding an article before the word ‘%@’.", v85];
                           corrections = 0;
                         }
 
@@ -16421,7 +16410,7 @@ LABEL_69:
 
                           else
                           {
-                            v67 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The word ‘%@’ may not agree with the rest of the sentence.", v86];
+                            v67 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The word ‘%@’ may not agree with the rest of the sentence.", v85];
                           }
 
                           v66 = v67;
@@ -16457,24 +16446,24 @@ LABEL_69:
                         if ([v45 isEqualToString:{objc_msgSend(v45, "capitalizedStringWithLocale:", locale)}])
                         {
                           array2 = [MEMORY[0x1E695DF70] array];
-                          v138 = 0u;
-                          v136 = 0u;
                           v137 = 0u;
                           v135 = 0u;
-                          v47 = [corrections countByEnumeratingWithState:&v135 objects:&v139 count:16];
+                          v136 = 0u;
+                          v134 = 0u;
+                          v47 = [corrections countByEnumeratingWithState:&v134 objects:&v138 count:16];
                           if (v47)
                           {
-                            v48 = *v136;
+                            v48 = *v135;
                             do
                             {
                               for (m = 0; m != v47; ++m)
                               {
-                                if (*v136 != v48)
+                                if (*v135 != v48)
                                 {
                                   objc_enumerationMutation(corrections);
                                 }
 
-                                v50 = *(*(&v135 + 1) + 8 * m);
+                                v50 = *(*(&v134 + 1) + 8 * m);
                                 if ([v50 length] && objc_msgSend(v50, "isEqualToString:", objc_msgSend(v50, "lowercaseStringWithLocale:", locale)))
                                 {
                                   v51 = [v50 rangeOfComposedCharacterSequenceAtIndex:0];
@@ -16495,7 +16484,7 @@ LABEL_69:
                                 [array2 addObject:v50];
                               }
 
-                              v47 = [corrections countByEnumeratingWithState:&v135 objects:&v139 count:16];
+                              v47 = [corrections countByEnumeratingWithState:&v134 objects:&v138 count:16];
                             }
 
                             while (v47);
@@ -16518,31 +16507,29 @@ LABEL_69:
               }
             }
 
-            v90 = [obj countByEnumeratingWithState:&v94 objects:v134 count:16];
+            v89 = [obj countByEnumeratingWithState:&v93 objects:v133 count:16];
           }
 
-          while (v90);
+          while (v89);
         }
 
         if ([array count])
         {
           v68 = objc_alloc(MEMORY[0x1E696AC50]);
-          v69 = [v68 initWithRange:v114[4] + offset details:{v114[5], array}];
+          v69 = [v68 initWithRange:v113[4] + offset details:{v113[5], array}];
           [results addObject:v69];
         }
       }
 
-      _Block_object_dispose(&v109, 8);
-      _Block_object_dispose(&v113, 8);
-      _Block_object_dispose(&v119, 8);
-      location = v79 + v78;
+      _Block_object_dispose(&v108, 8);
+      _Block_object_dispose(&v112, 8);
+      _Block_object_dispose(&v118, 8);
+      location = v78 + v77;
       taggerCopy2 = tagger;
     }
 
-    while (v79 + v78 < v75);
+    while (v78 + v77 < v74);
   }
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 id __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke(uint64_t a1)
@@ -16565,39 +16552,39 @@ id __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInSt
   return result;
 }
 
-uint64_t __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults___block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = result;
   if (*MEMORY[0x1E69779B8] == a2 && a4 != 0)
   {
-    result = [*(result + 32) rangeOfCharacterFromSet:spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__sentenceTerminatorCharacterSet options:0 range:{a3, a4}];
+    result = [result[4] rangeOfCharacterFromSet:spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__sentenceTerminatorCharacterSet options:0 range:{a3, a4}];
     if (v8)
     {
-      result = [*(v6 + 32) rangeOfCharacterFromSet:spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__nonSentenceTerminatorCharacterSet options:0 range:{a3, a4}];
+      result = [v6[4] rangeOfCharacterFromSet:spellServer_checkSentenceCorrectionInString_rangeInParagraph_languageObject_locale_tagger_offset_keyEventArray_selectedRangeValue_autocorrect_checkGrammar_ignoreTermination_mutableResults__nonSentenceTerminatorCharacterSet options:0 range:{a3, a4}];
       if (!v9)
       {
-        v10 = [*(v6 + 32) substringWithRange:{a3, a4}];
+        v10 = [v6[4] substringWithRange:{a3, a4}];
         result = [v10 isEqualToString:@".."];
         if ((result & 1) == 0)
         {
           result = [v10 isEqualToString:@"..."];
           if ((result & 1) == 0)
           {
-            *(*(*(v6 + 40) + 8) + 24) = 1;
+            *(*(v6[5] + 1) + 24) = 1;
           }
         }
       }
     }
   }
 
-  v11 = *(*(v6 + 48) + 8);
+  v11 = *(v6[6] + 1);
   v12 = *(v11 + 32);
   if (a3 + a4 > (*(v11 + 40) + v12))
   {
     *(v11 + 40) = a3 + a4 - v12;
   }
 
-  ++*(*(*(v6 + 56) + 8) + 24);
+  ++*(*(v6[7] + 1) + 24);
   return result;
 }
 
@@ -16632,7 +16619,7 @@ uint64_t __222__AppleSpell_SentenceCorrection__spellServer_checkSentenceCorrecti
   return [object isSpanish];
 }
 
-uint64_t __91__AppleSpell_SentenceCorrection__supportSentenceCorrectionForLanguageObject_appIdentifier___block_invoke()
+void *__91__AppleSpell_SentenceCorrection__supportSentenceCorrectionForLanguageObject_appIdentifier___block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (result)
@@ -16874,10 +16861,10 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
   __base[36] = *MEMORY[0x1E69E9840];
   v4 = [pattern stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F4E0A7A0];
   v5 = [MEMORY[0x1E696AD60] stringWithString:v4];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v6 = [pattern length];
   if (v6)
   {
@@ -16897,7 +16884,7 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
         break;
       }
 
-      v28[v9++] = v10 + v7;
+      v27[v9++] = v10 + v7;
       v8 = v10 + v11;
       --v7;
     }
@@ -16910,18 +16897,18 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
     v9 = 0;
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __53__AppleSpell_Turkish__testTurkishSuffixationPattern___block_invoke;
-  v23[3] = &unk_1E8405EE8;
-  v23[4] = &v24;
-  v23[5] = __base;
-  [PRTurkishSuffix enumerateSuffixMatchesForWord:v4 options:2 usingBlock:v23];
-  v12 = v25[3];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __53__AppleSpell_Turkish__testTurkishSuffixationPattern___block_invoke;
+  v22[3] = &unk_1E8405EE8;
+  v22[4] = &v23;
+  v22[5] = __base;
+  [PRTurkishSuffix enumerateSuffixMatchesForWord:v4 options:2 usingBlock:v22];
+  v12 = v24[3];
   if (v12)
   {
     qsort_b(__base, v12, 8uLL, &__block_literal_global_1670);
-    v13 = v25[3];
+    v13 = v24[3];
     if (v13)
     {
       v14 = 0;
@@ -16930,7 +16917,7 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
       {
         [v5 replaceCharactersInRange:__base[v13 + v15] withString:{0, @"-"}];
         ++v14;
-        v13 = v25[3];
+        v13 = v24[3];
         --v15;
       }
 
@@ -16969,7 +16956,7 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
       --v18;
     }
 
-    while (v19 != v28[v16]);
+    while (v19 != v27[v16]);
     if (++v16 < v9)
     {
       continue;
@@ -16981,8 +16968,7 @@ uint64_t __95__AppleSpell_Turkish__numberOfTurkishSuffixPointsInBuffer_length_ma
 LABEL_20:
   v20 = 1;
 LABEL_22:
-  _Block_object_dispose(&v24, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
   return v20;
 }
 
@@ -17023,6 +17009,289 @@ uint64_t __53__AppleSpell_Turkish__testTurkishSuffixationPattern___block_invoke_
   else
   {
     return *a2 > *a3;
+  }
+}
+
+- (unint64_t)acceptabilityOfWordBuffer:(char *)buffer length:(unint64_t)length languageObject:(id)object forPrediction:(BOOL)prediction alreadyCapitalized:(BOOL)capitalized depth:(unint64_t)depth
+{
+  capitalizedCopy = capitalized;
+  predictionCopy = prediction;
+  v49 = 0;
+  v48 = 0;
+  encoding = [object encoding];
+  v16 = length - 2;
+  if (length < 2)
+  {
+    return 2;
+  }
+
+  v18 = encoding;
+  if ([(AppleSpell *)self checkWordBuffer:buffer length:length languageObject:object index:8])
+  {
+    if (length == 4)
+    {
+      v19 = "sean";
+      bufferCopy2 = buffer;
+      v21 = 4;
+    }
+
+    else
+    {
+      if (length != 2)
+      {
+        return 0;
+      }
+
+      if (!strncasecmp_l(buffer, "sa", 2uLL, 0))
+      {
+        goto LABEL_16;
+      }
+
+      v19 = "se";
+      bufferCopy2 = buffer;
+      v21 = 2;
+    }
+
+    if (strncasecmp_l(bufferCopy2, v19, v21, 0))
+    {
+      return 0;
+    }
+
+LABEL_16:
+    if (([object isIrishGaelic] & 1) == 0)
+    {
+      return 0;
+    }
+
+LABEL_17:
+    if (length < 4)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (length < 6 || v18 != 517)
+  {
+    goto LABEL_17;
+  }
+
+  v22 = &buffer[length];
+  if (buffer[length - 1] == 235 && *(v22 - 2) == 230 && *(v22 - 3) == 236)
+  {
+    return 0;
+  }
+
+LABEL_18:
+  v23 = predictionCopy;
+  v24 = capitalizedCopy;
+  depthCopy = depth;
+  v26 = 5;
+  do
+  {
+    v27 = strncasecmp_l(&buffer[v26 - 5], "porn", 4uLL, 0);
+    v28 = v27 == 0;
+    if (!v27)
+    {
+      break;
+    }
+
+    v29 = v26++ > length;
+  }
+
+  while (!v29);
+  if (v27 && length >= 6)
+  {
+    v30 = 7;
+    do
+    {
+      v31 = strncasecmp_l(&buffer[v30 - 7], "hitler", 6uLL, 0);
+      v28 = v31 == 0;
+      if (!v31)
+      {
+        break;
+      }
+
+      v29 = v30++ > length;
+    }
+
+    while (!v29);
+  }
+
+  depth = depthCopy;
+  capitalizedCopy = v24;
+  predictionCopy = v23;
+  v16 = length - 2;
+  if (v28)
+  {
+    return 0;
+  }
+
+LABEL_29:
+  v32 = CFStringCreateWithBytes(0, buffer, length, v18, 0);
+  if (v32 && [(AppleSpell *)self getMetaFlagsForWord:v32 inLexiconForLanguageObject:object metaFlags:&v49 + 4 otherMetaFlags:&v49])
+  {
+    v33 = HIDWORD(v49);
+    if (capitalizedCopy)
+    {
+      if ((v49 & 0x200000000) == 0)
+      {
+        v34 = 0;
+LABEL_37:
+        v47 = 1;
+        goto LABEL_38;
+      }
+
+      v33 = v49;
+    }
+
+    v34 = (v33 >> 1) & 1;
+    goto LABEL_37;
+  }
+
+  v47 = 0;
+  v34 = 0;
+LABEL_38:
+  if ([object isEnglish] && -[__CFString length](v32, "length") >= 4 && -[__CFString hasSuffix:](v32, "hasSuffix:", @"'s") && -[AppleSpell getMetaFlagsForWord:inLexiconForLanguageObject:metaFlags:otherMetaFlags:](self, "getMetaFlagsForWord:inLexiconForLanguageObject:metaFlags:otherMetaFlags:", -[__CFString substringToIndex:](v32, "substringToIndex:", -[__CFString length](v32, "length") - 2), object, &v48, 0))
+  {
+    v34 &= (v48 & 2) >> 1;
+  }
+
+  if ([object isEnglish] && -[__CFString length](v32, "length") == 2)
+  {
+    if ((([(__CFString *)v32 isEqual:@"ve"]^ 1) & v34 & 1) == 0)
+    {
+      goto LABEL_46;
+    }
+
+    return 0;
+  }
+
+  if (v34)
+  {
+    return 0;
+  }
+
+LABEL_46:
+  if (!predictionCopy)
+  {
+    goto LABEL_64;
+  }
+
+  if (v47)
+  {
+    if (capitalizedCopy)
+    {
+      if ((v49 & 0x8000000000) == 0)
+      {
+        if ((((v49 & HIDWORD(v49)) >> 2) & 1) == 0)
+        {
+          goto LABEL_64;
+        }
+
+        goto LABEL_59;
+      }
+
+      if (((v49 & HIDWORD(v49)) >> 2) & 1 | ((v49 & 0x80) >> 7) & 1)
+      {
+LABEL_59:
+        LODWORD(v36) = 1;
+        if (!v32)
+        {
+          goto LABEL_65;
+        }
+
+LABEL_60:
+        if (v36)
+        {
+          v36 = [(__CFString *)v32 compare:@"covid" options:1];
+          if (v36)
+          {
+            v17 = 1;
+            v36 = [(__CFString *)v32 compare:@"covid-19" options:1];
+            if (v36)
+            {
+              return v17;
+            }
+          }
+        }
+
+        goto LABEL_65;
+      }
+
+LABEL_64:
+      LOBYTE(v36) = 0;
+      goto LABEL_65;
+    }
+
+    if ((v49 & 0x8400000000) != 0)
+    {
+      goto LABEL_59;
+    }
+  }
+
+  LODWORD(v36) = [(AppleSpell *)self checkNameWordBuffer:buffer length:length languageObject:object globalOnly:0];
+  if (v32)
+  {
+    goto LABEL_60;
+  }
+
+LABEL_65:
+  if ((v36 & 1) != 0 || ((v47 ^ 1) & 1) != 0 || (v49 & 0x8000000000) == 0)
+  {
+    if (v36)
+    {
+      return 1;
+    }
+  }
+
+  else if ([object isKorean])
+  {
+    return 1;
+  }
+
+  if (depth > 3)
+  {
+    return 2;
+  }
+
+  v37 = 0;
+  v17 = 2;
+  while (1)
+  {
+    v38 = buffer[v37];
+    if ((v38 - 32) <= 0x3F && ((1 << (v38 - 32)) & 0x800000000400E001) != 0)
+    {
+      break;
+    }
+
+    v40 = v37 <= 1 || length - 1 == v37;
+    v41 = v40 || v16 == v37;
+    if (v41 && v38 == 39)
+    {
+      break;
+    }
+
+    if (++v37 >= length)
+    {
+      return v17;
+    }
+  }
+
+  v42 = capitalizedCopy;
+  depthCopy2 = depth;
+  v44 = &buffer[v37];
+  v45 = [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:v37 languageObject:object forPrediction:predictionCopy alreadyCapitalized:v42 depth:depthCopy2 + 1];
+  v46 = [(AppleSpell *)self acceptabilityOfWordBuffer:v44 + 1 length:~v37 + length languageObject:object forPrediction:predictionCopy alreadyCapitalized:v42 depth:depthCopy2 + 1];
+  if (v45 >= v46)
+  {
+    return v46;
+  }
+
+  else
+  {
+    return v45;
   }
 }
 
@@ -17089,11 +17358,12 @@ LABEL_19:
 - (BOOL)validateWordBuffer:(char *)buffer length:(unint64_t)length connection:(_PR_DB_IO *)connection
 {
   v5 = 0;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (connection && length - 1 <= 0x3E)
   {
     v8 = buffer[length];
     buffer[length] = 0;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
@@ -17101,35 +17371,34 @@ LABEL_19:
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0;
-    memset(v11, 0, sizeof(v11));
-    v12 = 0u;
-    HIDWORD(v12) = 0;
-    v13 = 0;
+    v22 = 0;
+    memset(v10, 0, sizeof(v10));
+    v11 = 0u;
+    HIDWORD(v11) = 0;
+    v12 = 0;
     bufferCopy = buffer;
-    *&v21 = v11;
-    BYTE7(v22) = 1;
-    *(&v22 + 9) = *&connection->var0;
+    *&v20 = v10;
+    BYTE7(v21) = 1;
+    *(&v21 + 9) = *&connection->var0;
     v5 = PRword(&bufferCopy, 3, 0) == 0;
     PRword(&bufferCopy, 17, 0);
     buffer[length] = v8;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)validateWordPrefixBuffer:(char *)buffer length:(unint64_t)length connection:(_PR_DB_IO *)connection
 {
   v5 = 0;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (connection && length - 1 <= 0x16)
   {
     v6 = &buffer[length];
     v7 = buffer[length];
     v8 = buffer[length + 1];
     *&buffer[length] = 42;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
@@ -17137,23 +17406,21 @@ LABEL_19:
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0;
-    memset(v11, 0, sizeof(v11));
-    v12 = 0u;
-    HIDWORD(v12) = 0;
-    v13 = 0;
+    v22 = 0;
+    memset(v10, 0, sizeof(v10));
+    v11 = 0u;
+    HIDWORD(v11) = 0;
+    v12 = 0;
     bufferCopy = buffer;
-    *&v21 = v11;
-    BYTE7(v22) = 1;
-    *(&v22 + 9) = *&connection->var0;
-    v5 = !PRword(&bufferCopy, 5, 0) && v15 && *(v15 + 8) && *v15 && *(v15 + 18) != 0;
+    *&v20 = v10;
+    BYTE7(v21) = 1;
+    *(&v21 + 9) = *&connection->var0;
+    v5 = !PRword(&bufferCopy, 5, 0) && v14 && *(v14 + 8) && *v14 && *(v14 + 18) != 0;
     PRword(&bufferCopy, 17, 0);
     *v6 = v7;
     v6[1] = v8;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -17455,12 +17722,10 @@ LABEL_159:
 
 - (BOOL)checkSpecialPrefixesForWordBuffer:(char *)buffer length:(unint64_t)length
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (length - 1 > 0x47)
   {
-LABEL_68:
-    result = 0;
-    goto LABEL_69;
+    return 0;
   }
 
   v5 = 0;
@@ -17501,39 +17766,45 @@ LABEL_19:
     }
 
 LABEL_22:
-    *(&v19 + v5++) = v6;
+    *(&v18 + v5++) = v6;
   }
 
   while (length != v5);
-  if ((length < 4 || v19 != 106 || v20 != 252 || v21 != 100) && (length < 5 || v19 != 106 || v20 != 117 || v21 != 100 || v22 != 101))
+  if (length >= 4 && v18 == 106 && v19 == 252 && v20 == 100)
   {
-    v4.i32[0] = v23;
-    v10 = vmovl_u8(v4);
-    v11.i8[0] = v19;
-    v11.i8[1] = v21;
-    v11.i16[1] = v22;
-    v11.i8[4] = v10.i8[0];
-    v11.i8[5] = v10.i8[2];
-    v11.i8[6] = v10.i8[4];
-    v11.i8[7] = v10.i8[6];
-    v12 = vceq_s8(v11, 0x7265646EE46C7361);
-    if ((length < 0xA || vaddv_s8(vand_s8(v12, 0x8040201008040201)) != -1 || v20 != 117) && (length < 0xA || v19 != 101 || v20 != 110 || v21 != 100 || (v12.i8[2] & 1) == 0 || HIBYTE(v22) != 246 || v10.u8[0] != 115 || v10.u8[2] != 117 || v10.u8[4] != 110 || v10.u8[6] != 103))
-    {
-      v13 = v19 == 104 && v20 == 105;
-      v14 = v13 && length > 6;
-      v15 = v14 && v21 == 116;
-      v16 = v15;
-      if (((v16 & v12.i8[2]) != 1 || HIBYTE(v22) != 101 || v10.u8[0] != 114) && (length < 7 || v19 != 103 || v20 != 246 || v21 != 114 || v22 != 105 || HIBYTE(v22) != 110 || v10.u8[0] != 103))
-      {
-        goto LABEL_68;
-      }
-    }
+    return 1;
   }
 
-  result = 1;
-LABEL_69:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  if (length >= 5 && v18 == 106 && v19 == 117 && v20 == 100 && v21 == 101)
+  {
+    return 1;
+  }
+
+  v4.i32[0] = v22;
+  v10 = vmovl_u8(v4);
+  v11.i8[0] = v18;
+  v11.i8[1] = v20;
+  v11.i16[1] = v21;
+  v11.i8[4] = v10.i8[0];
+  v11.i8[5] = v10.i8[2];
+  v11.i8[6] = v10.i8[4];
+  v11.i8[7] = v10.i8[6];
+  v12 = vceq_s8(v11, 0x7265646EE46C7361);
+  if (length >= 0xA && vaddv_s8(vand_s8(v12, 0x8040201008040201)) == -1 && v19 == 117)
+  {
+    return 1;
+  }
+
+  if (length >= 0xA && v18 == 101 && v19 == 110 && v20 == 100 && (v12.i8[2] & 1) != 0 && HIBYTE(v21) == 246 && v10.u8[0] == 115 && v10.u8[2] == 117 && v10.u8[4] == 110 && v10.u8[6] == 103)
+  {
+    return 1;
+  }
+
+  v13 = v18 == 104 && v19 == 105;
+  v14 = v13 && length > 6;
+  v15 = v14 && v20 == 116;
+  v16 = v15;
+  return (v16 & v12.i8[2]) == 1 && HIBYTE(v21) == 101 && v10.u8[0] == 114 || length >= 7 && v18 == 103 && v19 == 246 && v20 == 114 && v21 == 105 && HIBYTE(v21) == 110 && v10.u8[0] == 103;
 }
 
 - (id)stringByRemovingArabicDiacriticsFromString:(id)string
@@ -17646,7 +17917,7 @@ id __67__AppleSpell_Spelling__stringByRemovingHebrewDiacriticsFromString___block
 - (BOOL)validateWordBuffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection sender:(id)sender checkBase:(BOOL)base checkDict:(BOOL)dict checkTemp:(BOOL)self0 checkUser:(BOOL)self1 checkNames:(BOOL)self2 checkHyphens:(BOOL)self3 checkIntercaps:(BOOL)self4 checkOptions:(BOOL)self5 forCorrection:(BOOL)self6 depth:(unint64_t)self7
 {
   baseCopy = base;
-  v294[10] = *MEMORY[0x1E69E9840];
+  v293[10] = *MEMORY[0x1E69E9840];
   isEnglish = [object isEnglish];
   isFrench = [object isFrench];
   isGerman = [object isGerman];
@@ -17664,10 +17935,10 @@ id __67__AppleSpell_Spelling__stringByRemovingHebrewDiacriticsFromString___block
   isPunjabi = [object isPunjabi];
   isTelugu = [object isTelugu];
   v24 = [objc_msgSend(object "identifier")];
-  v286 = [objc_msgSend(object "identifier")];
+  v285 = [objc_msgSend(object "identifier")];
   isHebrew = [object isHebrew];
   encoding = [object encoding];
-  v273 = isTurkish;
+  v272 = isTurkish;
   if (validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__onceToken != -1)
   {
     [AppleSpell(Spelling) validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:];
@@ -17679,7 +17950,7 @@ id __67__AppleSpell_Spelling__stringByRemovingHebrewDiacriticsFromString___block
   {
 LABEL_6:
     length = 0;
-    v287 = 0;
+    v286 = 0;
     v28 = !baseCopy;
     v29 = sender != 0;
     LOBYTE(v30) = 1;
@@ -17696,30 +17967,30 @@ LABEL_6:
 
   if (!options)
   {
-    v287 = 0;
+    v286 = 0;
     LODWORD(v31) = 0;
     v34 = encoding == 134217984;
 LABEL_15:
-    v267 = v34;
+    v266 = v34;
     goto LABEL_16;
   }
 
   LODWORD(v31) = [(AppleSpell *)self validateAbbreviationOrNumberWordBuffer:buffer length:length languageObject:object connection:connection sender:sender];
-  v287 = 0;
-  v267 = encoding == 134217984;
+  v286 = 0;
+  v266 = encoding == 134217984;
   if (!v31 && encoding == 134217984)
   {
     v32 = CFStringCreateWithBytes(0, buffer, length, 0x8000100u, 0);
     if (v32)
     {
-      v287 = v32;
+      v286 = v32;
       [(__CFString *)v32 rangeOfCharacterFromSet:validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__nonDigitOrPunctuationCharacterSet];
       LODWORD(v31) = v33 == 0;
     }
 
     else
     {
-      v287 = 0;
+      v286 = 0;
       LODWORD(v31) = 0;
     }
 
@@ -17796,13 +18067,13 @@ LABEL_109:
   }
 
   v48 = !baseCopy;
-  v269 = !baseCopy;
+  v268 = !baseCopy;
   if (!connection)
   {
     v48 = 1;
   }
 
-  v268 = v48;
+  v267 = v48;
   if (v31)
   {
     selfCopy6 = self;
@@ -17837,13 +18108,13 @@ LABEL_109:
     correctionCopy = 0;
   }
 
-  if ((correctionCopy | v286 | isKorean | isArabic))
+  if ((correctionCopy | v285 | isKorean | isArabic))
   {
     goto LABEL_65;
   }
 
-  v31 = v287;
-  if (!v287)
+  v31 = v286;
+  if (!v286)
   {
     v31 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
     if (!v31)
@@ -17853,12 +18124,12 @@ LABEL_109:
         [object isUrdu];
       }
 
-      v287 = 0;
+      v286 = 0;
       goto LABEL_65;
     }
   }
 
-  v287 = v31;
+  v286 = v31;
   if (![(AppleSpell *)selfCopy6 validateWord:v31 inLexiconForLanguageObject:object])
   {
     if (([object isMarathi] & 1) != 0 || objc_msgSend(object, "isUrdu"))
@@ -17919,7 +18190,7 @@ LABEL_79:
     if (length <= 3 && buffer[2] == 115)
     {
 LABEL_108:
-      v28 = v269;
+      v28 = v268;
       goto LABEL_109;
     }
 
@@ -17932,14 +18203,14 @@ LABEL_66:
     if ([object isUkrainian])
     {
       v51 = encoding;
-      v52 = v287;
-      if (!v287)
+      v52 = v286;
+      if (!v286)
       {
         v52 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
       }
 
       [(__CFString *)v52 rangeOfString:@"ʼ", v51];
-      v287 = v52;
+      v286 = v52;
       if (v53)
       {
         v54 = @"ʼ";
@@ -17974,8 +18245,8 @@ LABEL_115:
   if (((v31 | v35) & 1) == 0 && ((isArabic ^ 1) & 1) == 0)
   {
     v69 = encoding;
-    v70 = v287;
-    if (!v287)
+    v70 = v286;
+    if (!v286)
     {
       v70 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
       if (!v70)
@@ -17990,7 +18261,7 @@ LABEL_115:
     }
 
     v71 = [(AppleSpell *)selfCopy6 stringByRemovingArabicDiacriticsFromString:v70];
-    v287 = v70;
+    v286 = v70;
     if (!v71)
     {
       goto LABEL_127;
@@ -18055,8 +18326,8 @@ LABEL_129:
   }
 
   v69 = encoding;
-  v75 = v287;
-  if (!v287)
+  v75 = v286;
+  if (!v286)
   {
 LABEL_132:
     v75 = CFStringCreateWithBytes(0, buffer, length, v69, 0);
@@ -18066,13 +18337,13 @@ LABEL_132:
     }
 
 LABEL_139:
-    v287 = 0;
+    v286 = 0;
     goto LABEL_140;
   }
 
 LABEL_133:
   v76 = [(AppleSpell *)selfCopy6 stringByRemovingHebrewDiacriticsFromString:v75];
-  v287 = v75;
+  v286 = v75;
   if (!v76)
   {
 LABEL_140:
@@ -18105,9 +18376,9 @@ LABEL_147:
         goto LABEL_162;
       }
 
-      v294[0] = 0;
-      v31 = v287;
-      if (v287)
+      v293[0] = 0;
+      v31 = v286;
+      if (v286)
       {
         goto LABEL_151;
       }
@@ -18118,10 +18389,10 @@ LABEL_147:
     goto LABEL_161;
   }
 
-  v78 = v287;
-  if (v287 || (v78 = CFStringCreateWithBytes(0, buffer, length, encoding, 0)) != 0)
+  v78 = v286;
+  if (v286 || (v78 = CFStringCreateWithBytes(0, buffer, length, encoding, 0)) != 0)
   {
-    v287 = v78;
+    v286 = v78;
     LODWORD(v31) = [sender isWordInUserDictionaries:v78 caseSensitive:0];
     goto LABEL_147;
   }
@@ -18129,13 +18400,13 @@ LABEL_147:
   v79 = isKorean ^ 1;
   if (((v35 | isKorean ^ 1) & 1) == 0)
   {
-    v294[0] = 0;
+    v293[0] = 0;
     connectionCopy3 = connection;
 LABEL_150:
     v31 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
     if (!v31)
     {
-      v287 = 0;
+      v286 = 0;
 LABEL_158:
       v79 = 0;
       goto LABEL_162;
@@ -18143,12 +18414,12 @@ LABEL_158:
 
 LABEL_151:
     [(__CFString *)v31 rangeOfCharacterFromSet:validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__nonPunctuationCharacterSet];
-    v287 = v31;
-    LODWORD(v31) = !v81 || (v31 = [(AppleSpell *)selfCopy6 internalStringForKoreanExternalString:v31], v82 = [(__CFString *)v31 length], v295.location = 0, v295.length = v82, v82 == CFStringGetBytes(v31, v295, encoding, 0x5Fu, 0, buffer, 72, v294)) && (!v294[0] || [(AppleSpell *)selfCopy6 checkWordBuffer:buffer length:v294[0] languageObject:object index:5]) || [(AppleSpell *)selfCopy6 validateWord:v31 inLexiconForLanguageObject:object];
+    v286 = v31;
+    LODWORD(v31) = !v81 || (v31 = [(AppleSpell *)selfCopy6 internalStringForKoreanExternalString:v31], v82 = [(__CFString *)v31 length], v294.location = 0, v294.length = v82, v82 == CFStringGetBytes(v31, v294, encoding, 0x5Fu, 0, buffer, 72, v293)) && (!v293[0] || [(AppleSpell *)selfCopy6 checkWordBuffer:buffer length:v293[0] languageObject:object index:5]) || [(AppleSpell *)selfCopy6 validateWord:v31 inLexiconForLanguageObject:object];
     goto LABEL_158;
   }
 
-  v287 = 0;
+  v286 = 0;
   LODWORD(v31) = 0;
 LABEL_161:
   connectionCopy3 = connection;
@@ -18410,7 +18681,7 @@ LABEL_252:
   }
 
 LABEL_254:
-  if (((v31 | v268) & 1) == 0 && ((v286 ^ 1) & 1) == 0)
+  if (((v31 | v267) & 1) == 0 && ((v285 ^ 1) & 1) == 0)
   {
     connectionCopy3->var7 = 64;
     if (PRdb(&connectionCopy3->var0, 4, 128))
@@ -18462,22 +18733,8 @@ LABEL_281:
       }
     }
 
-    if (!v107)
+    if (!v107 || (HIBYTE(usedBufLena) = correction, BYTE6(usedBufLena) = options, BYTE5(usedBufLena) = intercaps, BYTE4(usedBufLena) = 1, BYTE3(usedBufLena) = names, BYTE2(usedBufLena) = user, BYTE1(usedBufLena) = temp, LOBYTE(usedBufLena) = dict, [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v107 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLena checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?]))
     {
-      goto LABEL_745;
-    }
-
-    HIBYTE(usedBufLena) = correction;
-    BYTE6(usedBufLena) = options;
-    BYTE5(usedBufLena) = intercaps;
-    BYTE4(usedBufLena) = 1;
-    BYTE3(usedBufLena) = names;
-    BYTE2(usedBufLena) = user;
-    BYTE1(usedBufLena) = temp;
-    LOBYTE(usedBufLena) = dict;
-    if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v107 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLena checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?])
-    {
-LABEL_745:
       LOBYTE(v30) = 1;
       if (v107 + 1 >= length)
       {
@@ -18506,7 +18763,7 @@ LABEL_745:
   }
 
   intercapsCopy14 = intercaps;
-  if (!v106 || !v267)
+  if (!v106 || !v266)
   {
     goto LABEL_305;
   }
@@ -18539,29 +18796,12 @@ LABEL_745:
   }
 
   while (v115 < length);
-  if (!v114)
+  if (!v114 || v112 && (HIBYTE(usedBufLenc) = correction, BYTE6(usedBufLenc) = options, BYTE5(usedBufLenc) = intercaps, BYTE4(usedBufLenc) = 1, BYTE3(usedBufLenc) = names, BYTE2(usedBufLenc) = user, BYTE1(usedBufLenc) = temp, LOBYTE(usedBufLenc) = dict, ![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v112 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLenc checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?]))
   {
-    goto LABEL_303;
-  }
-
-  if (v112)
-  {
-    HIBYTE(usedBufLenc) = correction;
-    BYTE6(usedBufLenc) = options;
-    BYTE5(usedBufLenc) = intercaps;
-    BYTE4(usedBufLenc) = 1;
-    BYTE3(usedBufLenc) = names;
-    BYTE2(usedBufLenc) = user;
-    BYTE1(usedBufLenc) = temp;
-    LOBYTE(usedBufLenc) = dict;
-    if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v112 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLenc checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?])
-    {
-LABEL_303:
-      LODWORD(v30) = 0;
+    LODWORD(v30) = 0;
 LABEL_304:
-      intercapsCopy14 = intercaps;
-      goto LABEL_305;
-    }
+    intercapsCopy14 = intercaps;
+    goto LABEL_305;
   }
 
   LOBYTE(v30) = 1;
@@ -18654,7 +18894,7 @@ LABEL_328:
   if ((v124 & isItalian) == 1)
   {
     senderCopy2 = sender;
-    v28 = v269;
+    v28 = v268;
     if (length < 4)
     {
       goto LABEL_598;
@@ -18811,7 +19051,7 @@ LABEL_372:
     goto LABEL_598;
   }
 
-  v28 = v269;
+  v28 = v268;
   if (((v124 ^ 1 | v94) & 1) == 0)
   {
     if (length < 4)
@@ -18898,13 +19138,13 @@ LABEL_371:
     {
       if (v136 - 138 > 0x15)
       {
-        v28 = v269;
+        v28 = v268;
         intercapsCopy14 = intercaps;
       }
 
       else
       {
-        v28 = v269;
+        v28 = v268;
         intercapsCopy14 = intercaps;
         if (((1 << (v136 + 118)) & 0x200015) != 0)
         {
@@ -19119,7 +19359,7 @@ LABEL_534:
           encoding = encoding;
           selfCopy11 = self;
           tempCopy5 = temp;
-          v28 = v269;
+          v28 = v268;
           if (!v150)
           {
             goto LABEL_527;
@@ -19154,7 +19394,7 @@ LABEL_534:
       goto LABEL_372;
     }
 
-    if ((v124 & v273) == 1)
+    if ((v124 & v272) == 1)
     {
       v152 = [(AppleSpell *)self numberOfTurkishSuffixPointsInBuffer:buffer length:length maxSuffixPoints:36 suffixPoints:buffer];
       if (v152)
@@ -19263,17 +19503,17 @@ LABEL_450:
           goto LABEL_450;
         }
 
-        v283 = v155;
+        v282 = v155;
         v163 = &buffer[v30];
         if (!isVowelTurkish(buffer[v30]))
         {
           LOBYTE(v30) = 0;
 LABEL_462:
-          v155 = v283;
+          v155 = v282;
           goto LABEL_451;
         }
 
-        v285 = v29;
+        v284 = v29;
         v164 = *(v163 - 1);
         if ((v164 & 0xFFFFFFDF) == 0x43)
         {
@@ -19302,8 +19542,8 @@ LABEL_462:
         if (v164 == v165)
         {
           LOBYTE(v30) = 0;
-          v28 = v269;
-          v29 = v285;
+          v28 = v268;
+          v29 = v284;
           goto LABEL_462;
         }
 
@@ -19316,11 +19556,11 @@ LABEL_463:
         BYTE2(usedBufLenl) = user;
         BYTE1(usedBufLenl) = temp;
         LOBYTE(usedBufLenl) = dict;
-        LOBYTE(v30) = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v30 connection:object sender:connection checkBase:sender checkDict:0 checkTemp:usedBufLenl checkUser:v283 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?];
+        LOBYTE(v30) = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:buffer languageObject:v30 connection:object sender:connection checkBase:sender checkDict:0 checkTemp:usedBufLenl checkUser:v282 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?];
         *(v163 - 1) = v164;
-        v155 = v283;
-        v28 = v269;
-        v29 = v285;
+        v155 = v282;
+        v28 = v268;
+        v29 = v284;
 LABEL_451:
         if ((v30 & 1) == 0)
         {
@@ -19343,32 +19583,32 @@ LABEL_451:
       if (!validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer)
       {
         v188 = CFLocaleCreate(0, @"ko");
-        v297.location = 0;
-        v297.length = 0;
-        validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer = CFStringTokenizerCreate(0, &stru_1F4E0A7A0, v297, 0, v188);
+        v296.location = 0;
+        v296.length = 0;
+        validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer = CFStringTokenizerCreate(0, &stru_1F4E0A7A0, v296, 0, v188);
         v189 = v188;
         encoding = encoding;
         CFRelease(v189);
       }
 
-      v190 = v287;
-      if (!v287)
+      v190 = v286;
+      if (!v286)
       {
         v190 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
       }
 
       v191 = validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer;
-      v298.length = [(__CFString *)v190 length];
-      v298.location = 0;
-      CFStringTokenizerSetString(v191, v190, v298);
-      v287 = v190;
+      v297.length = [(__CFString *)v190 length];
+      v297.location = 0;
+      CFStringTokenizerSetString(v191, v190, v297);
+      v286 = v190;
       if (v190 && (v192 = CFStringTokenizerAdvanceToNextToken(validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer)) != 0)
       {
         v193 = v192;
         while (1)
         {
           CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__koreanTokenizer);
-          v292 = 0;
+          v291 = 0;
           if ((v193 & 6) == 0)
           {
             break;
@@ -19398,7 +19638,7 @@ LABEL_583:
           {
             LOBYTE(v30) = 1;
             encoding = encoding;
-            v28 = v269;
+            v28 = v268;
             intercapsCopy14 = intercaps;
             goto LABEL_737;
           }
@@ -19419,12 +19659,12 @@ LABEL_558:
 
           v200 = *(v197 - 1);
           v201 = v199 + v200;
-          if (v199 + v200 > [(__CFString *)v287 length])
+          if (v199 + v200 > [(__CFString *)v286 length])
           {
             goto LABEL_578;
           }
 
-          v199 = [(__CFString *)v287 rangeOfCharacterFromSet:validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__nonDigitCharacterSet options:0 range:v200, v199];
+          v199 = [(__CFString *)v286 rangeOfCharacterFromSet:validateWordBuffer_length_languageObject_connection_sender_checkBase_checkDict_checkTemp_checkUser_checkNames_checkHyphens_checkIntercaps_checkOptions_forCorrection_depth__nonDigitCharacterSet options:0 range:v200, v199];
           if (v203)
           {
             v204 = v199 > v200;
@@ -19441,18 +19681,18 @@ LABEL_558:
             v199 = v201 - v199;
           }
 
-          if (!v200 && ![(__CFString *)v287 length])
+          if (!v200 && ![(__CFString *)v286 length])
           {
             LOBYTE(v30) = 0;
             encoding = encoding;
-            v28 = v269;
+            v28 = v268;
             intercapsCopy14 = intercaps;
             v29 = sender != 0;
             v187 = &_acceptWithoutAccentForString_range_inString_languageObject__onceToken;
             goto LABEL_738;
           }
 
-          if (v199 >= 1 && v200 + v199 <= [(__CFString *)v287 length]&& (v296.location = v200, v296.length = v199, v199 == CFStringGetBytes(v287, v296, encoding, 0x5Fu, 0, v294, 72, &v292)))
+          if (v199 >= 1 && v200 + v199 <= [(__CFString *)v286 length]&& (v295.location = v200, v295.length = v199, v199 == CFStringGetBytes(v286, v295, encoding, 0x5Fu, 0, v293, 72, &v291)))
           {
             HIBYTE(usedBufLenp) = correction;
             BYTE6(usedBufLenp) = options;
@@ -19462,7 +19702,7 @@ LABEL_558:
             BYTE2(usedBufLenp) = user;
             BYTE1(usedBufLenp) = temp;
             LOBYTE(usedBufLenp) = dict;
-            v207 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:v294 languageObject:v292 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLenp checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?];
+            v207 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:v293 languageObject:v291 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLenp checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?];
           }
 
           else
@@ -19490,7 +19730,7 @@ LABEL_578:
 
         LOBYTE(v30) = 0;
         encoding = encoding;
-        v28 = v269;
+        v28 = v268;
 LABEL_737:
         v29 = sender != 0;
       }
@@ -19503,9 +19743,9 @@ LABEL_737:
       }
 
 LABEL_738:
-      v299.location = 0;
-      v299.length = 0;
-      CFStringTokenizerSetString(v187[45], &stru_1F4E0A7A0, v299);
+      v298.location = 0;
+      v298.length = 0;
+      CFStringTokenizerSetString(v187[45], &stru_1F4E0A7A0, v298);
       goto LABEL_603;
     }
 
@@ -19586,13 +19826,13 @@ LABEL_489:
           LOBYTE(usedBufLenm) = dict;
           LOBYTE(v30) = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:forCorrection:depth:" length:&buffer[v171] languageObject:length - v171 - v177 connection:object sender:connection checkBase:sender checkDict:1 checkTemp:usedBufLenm checkUser:depth + 1 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? forCorrection:? depth:?];
           encoding = encoding;
-          v28 = v269;
+          v28 = v268;
           goto LABEL_603;
         }
 
 LABEL_601:
         encoding = encoding;
-        v28 = v269;
+        v28 = v268;
         goto LABEL_602;
       }
     }
@@ -19921,13 +20161,12 @@ LABEL_699:
             goto LABEL_683;
           }
 
-LABEL_733:
-          v232 = 0;
+          return 0;
         }
       }
     }
 
-    goto LABEL_734;
+    return v232;
   }
 
 LABEL_681:
@@ -19938,7 +20177,7 @@ LABEL_681:
 
   v232 = 1;
 LABEL_683:
-  if (!(v286 & 1 | ((v232 & 1) == 0)))
+  if (!(v285 & 1 | ((v232 & 1) == 0)))
   {
     v233 = [(AppleSpell *)self checkWordBuffer:buffer length:length languageObject:object index:1];
     v232 = !v233;
@@ -19949,22 +20188,20 @@ LABEL_683:
 
     if (((v28 | !v29) & 1) == 0 && (v232 & 1) == 0)
     {
-      v234 = v287;
-      if (!v287)
+      v234 = v286;
+      if (!v286)
       {
         v234 = CFStringCreateWithBytes(0, buffer, length, encoding, 0);
         if (!v234)
         {
-          goto LABEL_733;
+          return 0;
         }
       }
 
-      v232 = [sender isWordInUserDictionaries:v234 caseSensitive:0];
+      return [sender isWordInUserDictionaries:v234 caseSensitive:0];
     }
   }
 
-LABEL_734:
-  v244 = *MEMORY[0x1E69E9840];
   return v232;
 }
 
@@ -19992,7 +20229,7 @@ id __195__AppleSpell_Spelling__validateWordBuffer_length_languageObject_connecti
 
 - (id)normalizedStringInString:(id)string range:(_NSRange)range
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = [string substringWithRange:{range.location, range.length}];
   if (normalizedStringInString_range__onceToken != -1)
   {
@@ -20003,26 +20240,26 @@ id __195__AppleSpell_Spelling__validateWordBuffer_length_languageObject_connecti
   if (v5)
   {
     v4 = [MEMORY[0x1E696AD60] stringWithString:v4];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v6 = normalizedStringInString_range__sets;
-    v7 = [normalizedStringInString_range__sets countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [normalizedStringInString_range__sets countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           v12 = [normalizedStringInString_range__sets objectForKey:v11];
           if ([v4 length])
           {
@@ -20044,53 +20281,51 @@ id __195__AppleSpell_Spelling__validateWordBuffer_length_languageObject_connecti
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 id __55__AppleSpell_Spelling__normalizedStringInString_range___block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"            ";
-  v5[1] = @"‘’‚‛′";
-  v5[2] = @"“”„‟″";
-  v5[3] = @"·․‧";
-  v5[4] = @"‐‑‒–—";
-  v0 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:{5), "componentsJoinedByString:", &stru_1F4E0A7A0}];
-  v4[0] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@"            ", @" "}];
-  v3[1] = @"'";
-  v4[1] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"‘’‚‛′"];
-  v3[2] = @"";
-  v4[2] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"“”„‟″"];
-  v3[3] = @".";
-  v4[3] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"·․‧"];
-  v3[4] = @"-";
-  v4[4] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"‐‑‒–—"];
-  normalizedStringInString_range__sets = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"            ";
+  v4[1] = @"‘’‚‛′";
+  v4[2] = @"“”„‟″";
+  v4[3] = @"·․‧";
+  v4[4] = @"‐‑‒–—";
+  v0 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:{5), "componentsJoinedByString:", &stru_1F4E0A7A0}];
+  v3[0] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@"            ", @" "}];
+  v2[1] = @"'";
+  v3[1] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"‘’‚‛′"];
+  v2[2] = @"";
+  v3[2] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"“”„‟″"];
+  v2[3] = @".";
+  v3[3] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"·․‧"];
+  v2[4] = @"-";
+  v3[4] = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"‐‑‒–—"];
+  normalizedStringInString_range__sets = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   result = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:v0];
   normalizedStringInString_range__allSet = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (_NSRange)spellServer:(id)server findMisspelledWordInString:(id)string range:(_NSRange)range languages:(id)languages topLanguages:(id)topLanguages orthography:(id)orthography checkOrthography:(BOOL)checkOrthography mutableResults:(id)self0 offset:(unint64_t)self1 autocorrect:(BOOL)self2 onlyAtInsertionPoint:(BOOL)self3 initialCapitalize:(BOOL)self4 autocapitalize:(BOOL)self5 keyEventArray:(id)self6 appIdentifier:(id)self7 selectedRangeValue:(id)self8 parameterBundles:(id)self9 wordCount:(int64_t *)count countOnly:(BOOL)only appendCorrectionLanguage:(BOOL)language correction:(id *)correction
 {
   length = range.length;
-  v313[0] = range.location;
-  v345[9] = *MEMORY[0x1E69E9840];
-  v275 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v310 = [string length];
+  v312[0] = range.location;
+  v344 = *MEMORY[0x1E69E9840];
+  v274 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v309 = [string length];
   v28 = [languages count];
-  v271 = [topLanguages count];
-  v336 = 0;
-  v309 = v28;
+  v270 = [topLanguages count];
+  v335 = 0;
+  v308 = v28;
   if (v28)
   {
     v29 = [languages objectAtIndex:0];
@@ -20104,30 +20339,30 @@ id __55__AppleSpell_Spelling__normalizedStringInString_range___block_invoke()
   v30 = [PRLanguage languageObjectWithIdentifier:v29];
   encoding = [v30 encoding];
   numBytes = 0;
-  v334 = 0;
-  v332 = 0u;
-  v333 = 0u;
-  v330 = 0u;
+  v333 = 0;
   v331 = 0u;
-  v328 = 0u;
+  v332 = 0u;
   v329 = 0u;
-  v326 = 0u;
+  v330 = 0u;
   v327 = 0u;
-  v324 = 0u;
+  v328 = 0u;
   v325 = 0u;
-  *v323 = 0u;
-  memset(&v339[22], 0, 40);
-  memset(&v339[16], 0, 40);
+  v326 = 0u;
+  v323 = 0u;
+  v324 = 0u;
+  *v322 = 0u;
+  memset(&v338[22], 0, 40);
+  memset(&v338[16], 0, 40);
   range1 = length;
-  v266 = v29;
+  v265 = v29;
   if ([identifier isEqualToString:@"com.apple.mail"] & 1) != 0 || (objc_msgSend(identifier, "isEqualToString:", @"com.apple.Pages") & 1) != 0 || (objc_msgSend(identifier, "isEqualToString:", @"com.apple.Numbers") & 1) != 0 || (objc_msgSend(identifier, "isEqualToString:", @"com.apple.Keynote"))
   {
-    LOBYTE(v265) = 0;
+    LOBYTE(v264) = 0;
   }
 
   else
   {
-    v265 = [identifier hasPrefix:@"com.apple.iWork"] ^ 1;
+    v264 = [identifier hasPrefix:@"com.apple.iWork"] ^ 1;
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -20140,13 +20375,13 @@ id __55__AppleSpell_Spelling__normalizedStringInString_range___block_invoke()
     dispatch_once(&spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__onceToken, block);
   }
 
-  v305 = 0;
-  v350.val[0] = vdupq_n_s64(v313[0]);
-  v350.val[1] = 0uLL;
-  v31 = &v340;
-  vst2q_f64(v31, v350);
+  v304 = 0;
+  v349.val[0] = vdupq_n_s64(v312[0]);
+  v349.val[1] = 0uLL;
+  v31 = &v339;
+  vst2q_f64(v31, v349);
   v31 += 4;
-  vst2q_f64(v31, v350);
+  vst2q_f64(v31, v349);
   v32 = 24;
   if (encoding == 134217984)
   {
@@ -20154,115 +20389,115 @@ id __55__AppleSpell_Spelling__normalizedStringInString_range___block_invoke()
   }
 
   maxBufLen = v32;
-  v308 = results != 0;
-  if (v309 >= 2 && checkOrthography && results)
+  v307 = results != 0;
+  if (v308 >= 2 && checkOrthography && results)
   {
-    v305 = [objc_msgSend(MEMORY[0x1E695DF88] dataWithLength:{8 * v309 + 8), "mutableBytes"}];
+    v304 = [objc_msgSend(MEMORY[0x1E695DF88] dataWithLength:{8 * v308 + 8), "mutableBytes"}];
   }
 
-  v294 = v30;
+  v293 = v30;
   if (only)
   {
-    v295 = 0;
-    v272 = 0;
-    v270 = 0;
+    v294 = 0;
+    v271 = 0;
+    v269 = 0;
     v33 = 0;
     v34 = 0;
   }
 
   else
   {
-    v295 = [(AppleSpell *)self databaseConnectionForLanguageObject:v30];
+    v294 = [(AppleSpell *)self databaseConnectionForLanguageObject:v30];
     v35 = [-[AppleSpell localDictionaryArrayForLanguageObject:](self localDictionaryArrayForLanguageObject:{v30), "count"}];
     v36 = v30;
     v33 = v35 != 0;
-    v37 = [(AppleSpell *)self taggerForLanguageObject:v36 string:string range:v313[0], length];
+    v37 = [(AppleSpell *)self taggerForLanguageObject:v36 string:string range:v312[0], length];
     v34 = v37;
     if (autocorrect && v37)
     {
       v38 = v37;
-      [(AppleSpell *)self useWordLanguageModelForLanguageObject:v294 tagger:v37 appIdentifier:identifier];
+      [(AppleSpell *)self useWordLanguageModelForLanguageObject:v293 tagger:v37 appIdentifier:identifier];
       v34 = v38;
     }
 
     if (results)
     {
-      v280 = 0;
-      if (v309 > 1)
+      v279 = 0;
+      if (v308 > 1)
       {
-        v270 = 0;
-        v272 = 0;
+        v269 = 0;
+        v271 = 0;
       }
 
       else
       {
-        v270 = 0;
-        v272 = 0;
+        v269 = 0;
+        v271 = 0;
         if (autocorrect)
         {
-          v281 = v34;
-          if ([topLanguages count] && (v272 = objc_msgSend(topLanguages, "firstObject"), v39 = +[PRLanguage languageObjectWithIdentifier:](PRLanguage, "languageObjectWithIdentifier:"), (objc_msgSend(v39, "isEqual:", v294) & 1) == 0) && (v40 = -[AppleSpell taggerForLanguageObject:string:range:](self, "taggerForLanguageObject:string:range:", v39, string, v313[0], length)) != 0)
+          v280 = v34;
+          if ([topLanguages count] && (v271 = objc_msgSend(topLanguages, "firstObject"), v39 = +[PRLanguage languageObjectWithIdentifier:](PRLanguage, "languageObjectWithIdentifier:"), (objc_msgSend(v39, "isEqual:", v293) & 1) == 0) && (v40 = -[AppleSpell taggerForLanguageObject:string:range:](self, "taggerForLanguageObject:string:range:", v39, string, v312[0], length)) != 0)
           {
-            v270 = v39;
-            v280 = v40;
+            v269 = v39;
+            v279 = v40;
             [AppleSpell useWordLanguageModelForLanguageObject:"useWordLanguageModelForLanguageObject:tagger:appIdentifier:" tagger:v39 appIdentifier:?];
           }
 
           else
           {
-            v280 = 0;
-            v270 = 0;
-            v272 = 0;
+            v279 = 0;
+            v269 = 0;
+            v271 = 0;
           }
 
-          v34 = v281;
+          v34 = v280;
         }
       }
 
-      v279 = 0;
-      v308 = 1;
+      v278 = 0;
+      v307 = 1;
       if (value && !point)
       {
         BYTE2(usedBufLen) = autocapitalize;
         BYTE1(usedBufLen) = capitalize;
         LOBYTE(usedBufLen) = autocorrect;
-        v253 = v34;
-        v254 = [PRTypologyRecord openTypologyRecordWithString:string range:v313[0] languageObject:length languages:v294 topLanguages:languages autocorrect:topLanguages initialCapitalize:usedBufLen autocapitalize:array keyEventArray:identifier appIdentifier:value selectedRangeValue:?];
-        v34 = v253;
-        v279 = v254;
-        v308 = 1;
+        v252 = v34;
+        v253 = [PRTypologyRecord openTypologyRecordWithString:string range:v312[0] languageObject:length languages:v293 topLanguages:languages autocorrect:topLanguages initialCapitalize:usedBufLen autocapitalize:array keyEventArray:identifier appIdentifier:value selectedRangeValue:?];
+        v34 = v252;
+        v278 = v253;
+        v307 = 1;
       }
 
       goto LABEL_31;
     }
 
-    v272 = 0;
-    v270 = 0;
+    v271 = 0;
+    v269 = 0;
   }
 
+  v278 = 0;
   v279 = 0;
-  v280 = 0;
 LABEL_31:
   replacementString = 0;
-  v282 = v34;
+  v281 = v34;
   v41.location = 0x7FFFFFFFFFFFFFFFLL;
   v42 = -1;
   selfCopy = self;
   languagesCopy = languages;
-  if (!string || !v310 || !length)
+  if (!string || !v309 || !length)
   {
     range2 = 0;
-    v300 = 0;
-    v276 = 0x7FFFFFFFFFFFFFFFLL;
+    v299 = 0;
+    v275 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_552;
   }
 
-  *&v331 = string;
-  *(&v332 + 1) = v313[0];
-  *&v333 = length;
-  *(&v331 + 1) = CFStringGetCharactersPtr(string);
+  *&v330 = string;
+  *(&v331 + 1) = v312[0];
+  *&v332 = length;
+  *(&v330 + 1) = CFStringGetCharactersPtr(string);
   topLanguagesCopy = topLanguages;
-  if (*(&v331 + 1))
+  if (*(&v330 + 1))
   {
     CStringPtr = 0;
   }
@@ -20272,36 +20507,36 @@ LABEL_31:
     CStringPtr = CFStringGetCStringPtr(string, 0x600u);
   }
 
-  v300 = 0;
+  v299 = 0;
   v44 = 0;
   replacementString = 0;
   range2 = 0;
   v42 = 0;
-  v263 = 0;
-  v273 = 0;
+  v262 = 0;
+  v272 = 0;
   v45 = 0;
-  v299 = 0;
+  v298 = 0;
   v46 = encoding != -1 && v33;
-  v274 = v46;
+  v273 = v46;
   v47 = 1;
-  if (v309 + 1 > 1)
+  if (v308 + 1 > 1)
   {
-    v47 = v309 + 1;
+    v47 = v308 + 1;
   }
 
-  v267 = 8 * v47;
-  v334 = 0;
-  *&v332 = CStringPtr;
-  *(&v333 + 1) = 0;
-  v276 = 0x7FFFFFFFFFFFFFFFLL;
-  v48 = v313[0];
-  v49 = v313[0];
+  v266 = 8 * v47;
+  v333 = 0;
+  *&v331 = CStringPtr;
+  *(&v332 + 1) = 0;
+  v275 = 0x7FFFFFFFFFFFFFFFLL;
+  v48 = v312[0];
+  v49 = v312[0];
   v41.location = 0x7FFFFFFFFFFFFFFFLL;
   theString = string;
   do
   {
     location = v41.location;
-    v51 = simpleTokenRangeAfterIndex(v323, v313[0], range1, v48 + v45);
+    v51 = simpleTokenRangeAfterIndex(v322, v312[0], range1, v48 + v45);
     if (v52 < 1)
     {
       v41.location = location;
@@ -20328,19 +20563,19 @@ LABEL_31:
       }
     }
 
-    v306 = v42;
+    v305 = v42;
     do
     {
       v45 = v53;
       v58 = v53 + v48;
-      if (v58 >= v310 || ((v59 = [(__CFString *)theString characterAtIndex:v58], v60 = v59, v61 = v59 - 39, (v59 - 39) > 0x39) || ((1 << v61) & 0x3000000021800E1) == 0) && ((v59 - 8208) > 9 || ((1 << (v59 - 16)) & 0x203) == 0) && v59 != 180)
+      if (v58 >= v309 || ((v59 = [(__CFString *)theString characterAtIndex:v58], v60 = v59, v61 = v59 - 39, (v59 - 39) > 0x39) || ((1 << v61) & 0x3000000021800E1) == 0) && ((v59 - 8208) > 9 || ((1 << (v59 - 16)) & 0x203) == 0) && v59 != 180)
       {
         v64 = 0;
         v41.location = location;
         goto LABEL_71;
       }
 
-      v62 = simpleTokenRangeAfterIndex(v323, v313[0], range1, v58);
+      v62 = simpleTokenRangeAfterIndex(v322, v312[0], range1, v58);
       if (v63 < 1)
       {
         break;
@@ -20368,13 +20603,13 @@ LABEL_71:
       v65 = v44;
       v66 = v49;
       string = theString;
-      v67 = v306;
+      v67 = v305;
       goto LABEL_125;
     }
 
     v68 = v57 & (v45 > 1);
     v69 = v45 - v68;
-    v290 = v57 & (v45 > 1);
+    v289 = v57 & (v45 > 1);
     v70 = v48 + v68;
     if (v45 - v68 > 1)
     {
@@ -20396,26 +20631,26 @@ LABEL_71:
       v72 = v69;
     }
 
-    v304 = v72;
-    v288 = v64;
-    if (v308)
+    v303 = v72;
+    v287 = v64;
+    if (v307)
     {
       string = theString;
       if (v48 < v41.location || v48 - v41.location >= range2)
       {
-        if (v305)
+        if (v304)
         {
-          v346.location = v313[0];
-          v346.length = range1;
+          v345.location = v312[0];
+          v345.length = range1;
           v41.length = range2;
-          v73 = NSIntersectionRange(v346, v41);
-          if (v73.length && v305[v309] && v309)
+          v73 = NSIntersectionRange(v345, v41);
+          if (v73.length && v304[v308] && v308)
           {
-            v284 = v69;
-            for (i = 0; i < v309; ++i)
+            v283 = v69;
+            for (i = 0; i < v308; ++i)
             {
-              v75 = v305[i];
-              if (v75 >= 2 && v305[v309] <= 2 * v75)
+              v75 = v304[i];
+              if (v75 >= 2 && v304[v308] <= 2 * v75)
               {
                 v76 = [languagesCopy objectAtIndex:i];
                 if (v76)
@@ -20430,18 +20665,18 @@ LABEL_71:
               }
             }
 
-            v69 = v284;
+            v69 = v283;
             if (v76)
             {
               v77 = [(AppleSpell *)selfCopy _orthographyByModifyingOrthography:orthography withLatinLanguage:?];
               v78 = [objc_alloc(MEMORY[0x1E696ADE8]) initWithRange:v73.location + offset orthography:{v73.length, v77}];
               [results addObject:v78];
 
-              v69 = v284;
+              v69 = v283;
             }
           }
 
-          bzero(v305, v267);
+          bzero(v304, v266);
           string = theString;
         }
 
@@ -20453,7 +20688,7 @@ LABEL_71:
           v44 = 0;
         }
 
-        v81 = &v340;
+        v81 = &v339;
         v82 = 4;
         do
         {
@@ -20480,13 +20715,13 @@ LABEL_71:
       string = theString;
     }
 
-    if (v305)
+    if (v304)
     {
-      ++v305[v309];
+      ++v304[v308];
     }
 
-    v298 = v41.location;
-    if (!v308 || !capitalize || v299 || (v83 = v49 + v44, v70 < v49 + v44))
+    v297 = v41.location;
+    if (!v307 || !capitalize || v298 || (v83 = v49 + v44, v70 < v49 + v44))
     {
 LABEL_109:
       v84 = 0;
@@ -20497,8 +20732,8 @@ LABEL_109:
     if (v83 == v41.location)
     {
 LABEL_121:
-      v84 = treatWordAsSentenceInitial(string, v91, v70, v304, v294);
-      v41.location = v298;
+      v84 = treatWordAsSentenceInitial(string, v91, v70, v303, v293);
+      v41.location = v297;
       goto LABEL_110;
     }
 
@@ -20514,7 +20749,7 @@ LABEL_121:
       goto LABEL_342;
     }
 
-    v41.location = v298;
+    v41.location = v297;
     if (!v112)
     {
       goto LABEL_110;
@@ -20530,21 +20765,21 @@ LABEL_121:
     if (v114 == 0x7FFFFFFFFFFFFFFFLL)
     {
 LABEL_342:
-      v41.location = v298;
+      v41.location = v297;
     }
 
     else
     {
-      v41.location = v298;
+      v41.location = v297;
       if (v113)
       {
-        v286 = v69;
+        v285 = v69;
         v115 = spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__whitespaceCharacterSet;
         v116 = [string characterAtIndex:v114];
         v117 = v115;
-        v69 = v286;
+        v69 = v285;
         v84 = [v117 characterIsMember:v116];
-        v41.location = v298;
+        v41.location = v297;
         if (v84)
         {
           goto LABEL_121;
@@ -20553,22 +20788,22 @@ LABEL_342:
     }
 
 LABEL_110:
-    v302 = v70;
-    v85 = v342;
-    v86 = v341;
-    v341 = v340;
-    v342 = v86;
-    v343 = v85;
-    *&v340 = v49;
-    *(&v340 + 1) = v44;
-    if (v295)
+    v301 = v70;
+    v85 = v341;
+    v86 = v340;
+    v340 = v339;
+    v341 = v86;
+    v342 = v85;
+    *&v339 = v49;
+    *(&v339 + 1) = v44;
+    if (v294)
     {
       v87 = encoding;
       if (encoding == -1)
       {
-        v299 = 0;
+        v298 = 0;
 LABEL_123:
-        v67 = v306;
+        v67 = v305;
         goto LABEL_124;
       }
     }
@@ -20576,32 +20811,32 @@ LABEL_123:
     else
     {
       v87 = encoding;
-      if (!v274)
+      if (!v273)
       {
-        v299 = 0;
-        v295 = 0;
+        v298 = 0;
+        v294 = 0;
         goto LABEL_123;
       }
     }
 
-    v287 = v84;
-    v285 = v69;
+    v286 = v84;
+    v284 = v69;
     v88 = [(AppleSpell *)selfCopy normalizedStringInString:string range:v48, v45];
     v89 = [(__CFString *)v88 length];
-    v348.length = [(__CFString *)v88 length];
-    v348.location = 0;
-    if (v89 != CFStringGetBytes(v88, v348, v87, 0x5Fu, 0, buffer, maxBufLen, &numBytes))
+    v347.length = [(__CFString *)v88 length];
+    v347.location = 0;
+    if (v89 != CFStringGetBytes(v88, v347, v87, 0x5Fu, 0, buffer, maxBufLen, &numBytes))
     {
-      v299 = 0;
-      v67 = v306;
-      v41.location = v298;
+      v298 = 0;
+      v67 = v305;
+      v41.location = v297;
 LABEL_124:
-      v66 = v302;
-      v65 = v304;
+      v66 = v301;
+      v65 = v303;
       goto LABEL_125;
     }
 
-    v65 = v304;
+    v65 = v303;
     if (v87 > 1279)
     {
       if (v87 != 1280 && v87 != 1284)
@@ -20620,7 +20855,7 @@ LABEL_131:
       v94 = 0;
       v95 = 0;
       v90 = -1;
-      v96 = v345;
+      v96 = &buffer[1];
       while (1)
       {
         v97 = v94;
@@ -20735,7 +20970,7 @@ LABEL_176:
         }
 
         --v90;
-        v96 = (v96 + 1);
+        ++v96;
         if (v94 >= v93)
         {
           goto LABEL_220;
@@ -20816,35 +21051,35 @@ LABEL_220:
 LABEL_234:
     v120 = 1;
 LABEL_235:
-    v268 = v95;
+    v267 = v95;
     buffer[v93] = 0;
-    if (!v308)
+    if (!v307)
     {
-      v299 = 0;
+      v298 = 0;
       v126 = 0;
       v127 = !autocorrect;
-      v128 = v127 || !v308;
+      v128 = v127 || !v307;
       goto LABEL_255;
     }
 
-    v122 = *&v339[24];
-    *&v339[23] = *&v339[22];
-    *&v339[25] = v122;
-    v123 = *&v339[18];
-    *&v339[17] = *&v339[16];
-    *&v339[19] = v123;
-    v339[16] = 0;
-    v339[22] = 0;
-    v124 = v339[23];
-    v125 = v294;
-    v299 = v308 && capitalize && [AppleSpell checkNoCapAbbreviationWordBuffer:selfCopy length:"checkNoCapAbbreviationWordBuffer:length:languageObject:" languageObject:buffer];
-    v41.location = v298;
-    v273 += v124;
+    v122 = *&v338[24];
+    *&v338[23] = *&v338[22];
+    *&v338[25] = v122;
+    v123 = *&v338[18];
+    *&v338[17] = *&v338[16];
+    *&v338[19] = v123;
+    v338[16] = 0;
+    v338[22] = 0;
+    v124 = v338[23];
+    v125 = v293;
+    v298 = v307 && capitalize && [AppleSpell checkNoCapAbbreviationWordBuffer:selfCopy length:"checkNoCapAbbreviationWordBuffer:length:languageObject:" languageObject:buffer];
+    v41.location = v297;
+    v272 += v124;
     if (!autocorrect)
     {
       v126 = 0;
       v127 = 1;
-      v128 = !v308 | 1;
+      v128 = !v307 | 1;
       goto LABEL_255;
     }
 
@@ -20855,7 +21090,7 @@ LABEL_235:
       v130 = v45 + v48;
       v131 = 4;
 LABEL_243:
-      v132 = &v339[2 * v131 + 25];
+      v132 = &v338[2 * v131 + 25];
       v133 = 1 - v131;
       if (v129)
       {
@@ -20864,14 +21099,14 @@ LABEL_243:
 
       while (v133 != 1)
       {
-        v134 = v340;
+        v134 = v339;
         if (!v133 || (v134 = *v132, *v132 != *(v132 - 2)))
         {
           if (v134 < v48)
           {
             if (v130 - v134 > 1)
             {
-              v135 = v288;
+              v135 = v287;
             }
 
             else
@@ -20879,9 +21114,9 @@ LABEL_243:
               v135 = 0;
             }
 
-            LOBYTE(v259) = point;
-            v136 = -[AppleSpell _phraseCapitalizationResultForString:range:currentWordRange:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:](selfCopy, "_phraseCapitalizationResultForString:range:currentWordRange:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:", [string substringWithRange:{v134, v130 - v134 - v135}], v134, v90 - v135, v302, v304, string, offset, v294, v259, array, value);
-            v41.location = v298;
+            LOBYTE(v258) = point;
+            v136 = -[AppleSpell _phraseCapitalizationResultForString:range:currentWordRange:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:](selfCopy, "_phraseCapitalizationResultForString:range:currentWordRange:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:", [string substringWithRange:{v134, v130 - v134 - v135}], v134, v90 - v135, v301, v303, string, offset, v293, v258, array, value);
+            v41.location = v297;
             v126 = 0;
             v129 = v136 != 0;
             v131 = -v133;
@@ -20889,7 +21124,7 @@ LABEL_243:
             {
               v137 = v136;
               [results addObject:v136];
-              v41.location = v298;
+              v41.location = v297;
               v126 = v137;
             }
 
@@ -20901,8 +21136,8 @@ LABEL_243:
         ++v133;
       }
 
-      v125 = v294;
-      v65 = v304;
+      v125 = v293;
+      v65 = v303;
     }
 
     else
@@ -20910,9 +21145,9 @@ LABEL_243:
       v126 = 0;
     }
 
-    if (!autocorrect || !v308)
+    if (!autocorrect || !v307)
     {
-      LODWORD(v146) = !v308;
+      LODWORD(v146) = !v307;
       v127 = !autocorrect;
       goto LABEL_284;
     }
@@ -20924,42 +21159,42 @@ LABEL_243:
 LABEL_255:
       if (((v128 | !autocapitalize) & 1) == 0)
       {
-        v138 = [(AppleSpell *)selfCopy capitalizationDictionaryArrayForLanguageObject:v294];
+        v138 = [(AppleSpell *)selfCopy capitalizationDictionaryArrayForLanguageObject:v293];
         if (!v138)
         {
-          LODWORD(v146) = !v308;
+          LODWORD(v146) = !v307;
 LABEL_275:
-          v65 = v304;
+          v65 = v303;
           goto LABEL_284;
         }
 
         v139 = v138;
-        v140 = [string substringWithRange:{v302, v304}];
+        v140 = [string substringWithRange:{v301, v303}];
         [v140 rangeOfString:@"’"];
         if (v141)
         {
           v140 = [v140 stringByReplacingOccurrencesOfString:@"’" withString:@"'"];
         }
 
-        v320 = 0u;
-        v321 = 0u;
-        v318 = 0u;
         v319 = 0u;
-        v142 = [v139 countByEnumeratingWithState:&v318 objects:v339 count:16];
+        v320 = 0u;
+        v317 = 0u;
+        v318 = 0u;
+        v142 = [v139 countByEnumeratingWithState:&v317 objects:v338 count:16];
         v143 = replacementString;
         if (v142)
         {
-          v144 = *v319;
+          v144 = *v318;
 LABEL_261:
           v145 = 0;
           while (1)
           {
-            if (*v319 != v144)
+            if (*v318 != v144)
             {
               objc_enumerationMutation(v139);
             }
 
-            v143 = [*(*(&v318 + 1) + 8 * v145) objectForKey:v140];
+            v143 = [*(*(&v317 + 1) + 8 * v145) objectForKey:v140];
             if (v143)
             {
               break;
@@ -20967,24 +21202,24 @@ LABEL_261:
 
             if (v142 == ++v145)
             {
-              v142 = [v139 countByEnumeratingWithState:&v318 objects:v339 count:16];
+              v142 = [v139 countByEnumeratingWithState:&v317 objects:v338 count:16];
               if (v142)
               {
                 goto LABEL_261;
               }
 
               replacementString = 0;
-              LODWORD(v146) = !v308;
+              LODWORD(v146) = !v307;
               string = theString;
               goto LABEL_275;
             }
           }
         }
 
-        v65 = v304;
+        v65 = v303;
         if (v143)
         {
-          v147 = v304 == 1;
+          v147 = v303 == 1;
         }
 
         else
@@ -20995,15 +21230,15 @@ LABEL_261:
         replacementString = v143;
         if (v147)
         {
-          v148 = v302 + 1;
+          v148 = v301 + 1;
           string = theString;
-          if (v302 + 1 < v310 && ([(__CFString *)theString characterAtIndex:v302 + 1]== 46 || [(__CFString *)theString characterAtIndex:v148]== 41) || v302 && v148 == v310 && [(__CFString *)theString characterAtIndex:v302 - 1]== 40)
+          if (v301 + 1 < v309 && ([(__CFString *)theString characterAtIndex:v301 + 1]== 46 || [(__CFString *)theString characterAtIndex:v148]== 41) || v301 && v148 == v309 && [(__CFString *)theString characterAtIndex:v301 - 1]== 40)
           {
             goto LABEL_282;
           }
 
 LABEL_273:
-          v126 = [objc_alloc(MEMORY[0x1E696AB48]) initWithRange:v302 + offset replacementString:{v304, replacementString}];
+          v126 = [objc_alloc(MEMORY[0x1E696AB48]) initWithRange:v301 + offset replacementString:{v303, replacementString}];
           [results addObject:v126];
         }
 
@@ -21020,7 +21255,7 @@ LABEL_282:
         }
       }
 
-      LODWORD(v146) = !v308;
+      LODWORD(v146) = !v307;
       goto LABEL_284;
     }
 
@@ -21059,18 +21294,18 @@ LABEL_376:
       goto LABEL_255;
     }
 
-    v203 = [string substringWithRange:{v302, v65}];
-    LODWORD(v261) = 0;
+    v203 = [string substringWithRange:{v301, v65}];
+    LODWORD(v260) = 0;
     string = theString;
-    v258 = [(AppleSpell *)selfCopy autocorrectionDictionaryForLanguageObject:v294];
-    v65 = v304;
-    v204 = -[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy, "_correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:", v203, v302, v304, theString, offset, v282, 0, v258, [MEMORY[0x1E695DEC8] arrayWithObject:{objc_msgSend(v294, "identifier")}], 0, correctionFlags(v287, 0, point, 0, language), 0, 0, bundles, v261, v263, &v336);
+    v257 = [(AppleSpell *)selfCopy autocorrectionDictionaryForLanguageObject:v293];
+    v65 = v303;
+    v204 = -[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy, "_correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:", v203, v301, v303, theString, offset, v281, 0, v257, [MEMORY[0x1E695DEC8] arrayWithObject:{objc_msgSend(v293, "identifier")}], 0, correctionFlags(v286, 0, point, 0, language), 0, 0, bundles, v260, v262, &v335);
     v146 = v204;
     if (v204)
     {
       replacementString = [v204 replacementString];
       [results addObject:v146];
-      v289 = 0;
+      v288 = 0;
       goto LABEL_303;
     }
 
@@ -21084,18 +21319,18 @@ LABEL_284:
 
     else
     {
-      v149 = !v308;
+      v149 = !v307;
     }
 
-    v289 = v146;
+    v288 = v146;
     if (!v127 && (v149 & 1) == 0)
     {
-      if (([v294 isIrishGaelic] & 1) != 0 || (objc_msgSend(v294, "isNynorsk") & 1) != 0 || objc_msgSend(v294, "isRomanian"))
+      if (([v293 isIrishGaelic] & 1) != 0 || (objc_msgSend(v293, "isNynorsk") & 1) != 0 || objc_msgSend(v293, "isRomanian"))
       {
-        v150 = [string substringWithRange:{v302, v65}];
-        v151 = [(AppleSpell *)selfCopy autocorrectionDictionaryForLanguageObject:v294];
+        v150 = [string substringWithRange:{v301, v65}];
+        v151 = [(AppleSpell *)selfCopy autocorrectionDictionaryForLanguageObject:v293];
         stringCopy = string;
-        if ([v294 isNynorsk])
+        if ([v293 isNynorsk])
         {
           v153 = &unk_1F4E16A58;
         }
@@ -21107,15 +21342,15 @@ LABEL_284:
 
         if ([v153 objectForKey:{objc_msgSend(v150, "lowercaseString")}])
         {
-          LODWORD(v261) = 0;
-          v154 = -[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy, "_correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:", v150, v302, v304, stringCopy, offset, v282, 0, v153, [MEMORY[0x1E695DEC8] arrayWithObject:{objc_msgSend(v294, "identifier")}], 0, correctionFlags(v287, 0, point, 0, language), 0, 0, bundles, v261, v263, &v336);
+          LODWORD(v260) = 0;
+          v154 = -[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy, "_correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:", v150, v301, v303, stringCopy, offset, v281, 0, v153, [MEMORY[0x1E695DEC8] arrayWithObject:{objc_msgSend(v293, "identifier")}], 0, correctionFlags(v286, 0, point, 0, language), 0, 0, bundles, v260, v262, &v335);
           string = stringCopy;
           if (v154)
           {
             v155 = v154;
-            v67 = v306;
-            v66 = v302;
-            v65 = v304;
+            v67 = v305;
+            v66 = v301;
+            v65 = v303;
             goto LABEL_349;
           }
 
@@ -21128,7 +21363,7 @@ LABEL_284:
           string = stringCopy;
         }
 
-        v65 = v304;
+        v65 = v303;
       }
 
       else
@@ -21140,24 +21375,24 @@ LABEL_284:
     if ((v127 | v149))
     {
 LABEL_303:
-      v156 = v294;
-      v67 = v306;
+      v156 = v293;
+      v67 = v305;
     }
 
     else
     {
-      v156 = v294;
-      v67 = v306;
-      if (([v294 isGreek] & 1) != 0 || (objc_msgSend(v294, "isHindi") & 1) != 0 || (objc_msgSend(v294, "isIrishGaelic") & 1) != 0 || (objc_msgSend(v294, "isPunjabi") & 1) != 0 || (objc_msgSend(v294, "isPolish") & 1) != 0 || (objc_msgSend(v294, "isRomanian") & 1) != 0 || (objc_msgSend(v294, "isTelugu") & 1) != 0 || objc_msgSend(v294, "isVietnamese"))
+      v156 = v293;
+      v67 = v305;
+      if (([v293 isGreek] & 1) != 0 || (objc_msgSend(v293, "isHindi") & 1) != 0 || (objc_msgSend(v293, "isIrishGaelic") & 1) != 0 || (objc_msgSend(v293, "isPunjabi") & 1) != 0 || (objc_msgSend(v293, "isPolish") & 1) != 0 || (objc_msgSend(v293, "isRomanian") & 1) != 0 || (objc_msgSend(v293, "isTelugu") & 1) != 0 || objc_msgSend(v293, "isVietnamese"))
       {
-        BYTE1(usedBufLena) = v287;
+        BYTE1(usedBufLena) = v286;
         LOBYTE(usedBufLena) = point;
-        v65 = v304;
-        v157 = -[AppleSpell _accentCorrectionResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:capitalize:keyEventArray:selectedRangeValue:](selfCopy, "_accentCorrectionResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:capitalize:keyEventArray:selectedRangeValue:", [string substringWithRange:{v302, v304}], v302, v304, string, offset, v294, usedBufLena, array, value);
+        v65 = v303;
+        v157 = -[AppleSpell _accentCorrectionResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:capitalize:keyEventArray:selectedRangeValue:](selfCopy, "_accentCorrectionResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:capitalize:keyEventArray:selectedRangeValue:", [string substringWithRange:{v301, v303}], v301, v303, string, offset, v293, usedBufLena, array, value);
         if (v157)
         {
           v155 = v157;
-          v66 = v302;
+          v66 = v301;
           goto LABEL_349;
         }
       }
@@ -21165,53 +21400,53 @@ LABEL_303:
 
     if ([v156 isGreek])
     {
-      v65 = v304;
-      if (-[AppleSpell _acceptWithoutAccentForString:range:inString:languageObject:](selfCopy, "_acceptWithoutAccentForString:range:inString:languageObject:", [string substringWithRange:{v302, v304}], v302, v304, string, v156))
+      v65 = v303;
+      if (-[AppleSpell _acceptWithoutAccentForString:range:inString:languageObject:](selfCopy, "_acceptWithoutAccentForString:range:inString:languageObject:", [string substringWithRange:{v301, v303}], v301, v303, string, v156))
       {
-        v41.location = v298;
-        v66 = v302;
+        v41.location = v297;
+        v66 = v301;
         goto LABEL_125;
       }
     }
 
     WORD2(usedBufLena) = 257;
     LODWORD(usedBufLena) = 16843009;
-    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:numBytes sender:v156 checkBase:v295 checkDict:server checkTemp:1 checkNames:usedBufLena checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:numBytes sender:v156 checkBase:v294 checkDict:server checkTemp:1 checkNames:usedBufLena checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
     {
-      if (v305 && (v268 & (numBytes > 1)) == 1 && ![AppleSpell validateAbbreviationOrNumberWordBuffer:selfCopy length:"validateAbbreviationOrNumberWordBuffer:length:languageObject:connection:sender:" languageObject:buffer connection:? sender:?]&& ![(AppleSpell *)selfCopy checkNameWordBuffer:buffer length:numBytes languageObject:v156 globalOnly:1])
+      if (v304 && (v267 & (numBytes > 1)) == 1 && ![AppleSpell validateAbbreviationOrNumberWordBuffer:selfCopy length:"validateAbbreviationOrNumberWordBuffer:length:languageObject:connection:sender:" languageObject:buffer connection:? sender:?]&& ![(AppleSpell *)selfCopy checkNameWordBuffer:buffer length:numBytes languageObject:v156 globalOnly:1])
       {
-        v158 = [languagesCopy indexOfObject:v266];
-        ++v305[v158];
+        v158 = [languagesCopy indexOfObject:v265];
+        ++v304[v158];
       }
 
-      v159 = v285;
-      if (v272)
+      v159 = v284;
+      if (v271)
       {
-        if (encoding == [v270 encoding])
+        if (encoding == [v269 encoding])
         {
-          v160 = [(AppleSpell *)selfCopy databaseConnectionForLanguageObject:v270];
+          v160 = [(AppleSpell *)selfCopy databaseConnectionForLanguageObject:v269];
           WORD2(usedBufLenb) = 257;
           LODWORD(usedBufLenb) = 16777473;
-          if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:numBytes sender:v270 checkBase:v160 checkDict:server checkTemp:1 checkNames:usedBufLenb checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
+          if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:numBytes sender:v269 checkBase:v160 checkDict:server checkTemp:1 checkNames:usedBufLenb checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
           {
-            v339[16] = 1;
+            v338[16] = 1;
           }
 
-          v41.location = v298;
-          v66 = v302;
-          v65 = v304;
+          v41.location = v297;
+          v66 = v301;
+          v65 = v303;
           goto LABEL_340;
         }
 
-        v41.location = v298;
-        v66 = v302;
-        v65 = v304;
+        v41.location = v297;
+        v66 = v301;
+        v65 = v303;
       }
 
       else
       {
-        v41.location = v298;
-        v66 = v302;
+        v41.location = v297;
+        v66 = v301;
       }
 
       goto LABEL_344;
@@ -21221,7 +21456,7 @@ LABEL_303:
     v162 = v161;
     if (v45 == v65)
     {
-      v163 = v290;
+      v163 = v289;
     }
 
     else
@@ -21231,7 +21466,7 @@ LABEL_303:
 
     if (v163 == 1)
     {
-      v307 = [string substringWithRange:{v302, v65}];
+      v306 = [string substringWithRange:{v301, v65}];
       if (!v162)
       {
         goto LABEL_339;
@@ -21240,17 +21475,17 @@ LABEL_303:
 
     else
     {
-      v307 = 0;
+      v306 = 0;
       if (!v161)
       {
 LABEL_339:
-        v41.location = v298;
-        v66 = v302;
+        v41.location = v297;
+        v66 = v301;
         goto LABEL_340;
       }
     }
 
-    if ([server isWordInUserDictionaries:v162 caseSensitive:0] & 1) != 0 || v307 && ((objc_msgSend(v162, "hasPrefix:", @"@") & 1) != 0 || (objc_msgSend(server, "isWordInUserDictionaries:caseSensitive:", v307, 0)))
+    if ([server isWordInUserDictionaries:v162 caseSensitive:0] & 1) != 0 || v306 && ((objc_msgSend(v162, "hasPrefix:", @"@") & 1) != 0 || (objc_msgSend(server, "isWordInUserDictionaries:caseSensitive:", v306, 0)))
     {
       goto LABEL_339;
     }
@@ -21311,17 +21546,17 @@ LABEL_378:
       if (v173)
       {
         v176 = v156;
-        v66 = v302;
+        v66 = v301;
         goto LABEL_499;
       }
     }
 
 LABEL_387:
-    if (v309 < 2)
+    if (v308 < 2)
     {
       v177 = 0;
 LABEL_389:
-      if (!v177 && v271)
+      if (!v177 && v270)
       {
         v178 = 0;
         while (1)
@@ -21344,17 +21579,17 @@ LABEL_389:
             }
           }
 
-          if (++v178 >= v271)
+          if (++v178 >= v270)
           {
             goto LABEL_441;
           }
         }
 
         string = theString;
-        v66 = v302;
+        v66 = v301;
         if (!v178)
         {
-          v339[16] = 1;
+          v338[16] = 1;
         }
 
         v176 = v156;
@@ -21378,9 +21613,9 @@ LABEL_441:
         spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__readDefault = 1;
       }
 
-      if ((v309 < 2) | spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__autocorrectMultilingual & 1)
+      if ((v308 < 2) | spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__autocorrectMultilingual & 1)
       {
-        v199 = v295;
+        v199 = v294;
       }
 
       else
@@ -21393,22 +21628,22 @@ LABEL_441:
         v200 = [(AppleSpell *)selfCopy autocorrectionDictionaryForLanguageObject:v156];
         v201 = 0;
         v202 = 1;
-        v277 = v302 != 0x7FFFFFFFFFFFFFFFLL;
+        v276 = v301 != 0x7FFFFFFFFFFFFFFFLL;
         string = theString;
-        v159 = v285;
-        if (v302 == 0x7FFFFFFFFFFFFFFFLL)
+        v159 = v284;
+        if (v301 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v41.location = v298;
+          v41.location = v297;
         }
 
         else
         {
-          v41.location = v298;
-          if (v304 >= 3)
+          v41.location = v297;
+          if (v303 >= 3)
           {
             v202 = 0;
             v201 = (v200 | v199) != 0;
-            v277 = 1;
+            v276 = 1;
           }
         }
       }
@@ -21417,11 +21652,11 @@ LABEL_441:
       {
         v200 = 0;
         v201 = 0;
-        v277 = v302 != 0x7FFFFFFFFFFFFFFFLL;
+        v276 = v301 != 0x7FFFFFFFFFFFFFFFLL;
         v202 = 1;
         string = theString;
-        v41.location = v298;
-        v159 = v285;
+        v41.location = v297;
+        v159 = v284;
       }
 
       if (correction)
@@ -21429,7 +21664,7 @@ LABEL_441:
         *correction = 0;
       }
 
-      if (v308)
+      if (v307)
       {
         if (v200)
         {
@@ -21438,13 +21673,13 @@ LABEL_441:
 
         if ((v202 & 1) == 0 && !v199)
         {
-          v339[22] = 1;
+          v338[22] = 1;
         }
       }
 
-      v269 = v200;
-      v291 = v162;
-      if (v302)
+      v268 = v200;
+      v290 = v162;
+      if (v301)
       {
         v205 = v201;
       }
@@ -21463,14 +21698,14 @@ LABEL_441:
 
         [string rangeOfCharacterFromSet:? options:? range:?];
         v201 = v206 == 0;
-        v41.location = v298;
+        v41.location = v297;
       }
 
-      v262 = v199;
-      if (encoding == 1280 && v201 && v302 >= 4)
+      v261 = v199;
+      if (encoding == 1280 && v201 && v301 >= 4)
       {
-        v207 = isUpperCase([string characterAtIndex:v302]);
-        v41.location = v298;
+        v207 = isUpperCase([string characterAtIndex:v301]);
+        v41.location = v297;
         if (v207)
         {
           v208 = spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__titlesArray;
@@ -21480,45 +21715,45 @@ LABEL_441:
             spellServer_findMisspelledWordInString_range_languages_topLanguages_orthography_checkOrthography_mutableResults_offset_autocorrect_onlyAtInsertionPoint_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue_parameterBundles_wordCount_countOnly_appendCorrectionLanguage_correction__titlesArray = v208;
           }
 
-          v315 = 0u;
-          v316 = 0u;
-          *&v313[1] = 0u;
           v314 = 0u;
+          v315 = 0u;
+          *&v312[1] = 0u;
+          v313 = 0u;
           v209 = v208;
-          v210 = [v208 countByEnumeratingWithState:&v313[1] objects:v337 count:16];
-          v41.location = v298;
+          v210 = [v208 countByEnumeratingWithState:&v312[1] objects:v336 count:16];
+          v41.location = v297;
           if (v210)
           {
             v211 = v210;
-            v212 = *v314;
-            v301 = v302 - 2;
+            v212 = *v313;
+            v300 = v301 - 2;
             while (2)
             {
               for (k = 0; k != v211; ++k)
               {
-                if (*v314 != v212)
+                if (*v313 != v212)
                 {
                   objc_enumerationMutation(v209);
                 }
 
-                v214 = *(v313[2] + 8 * k);
+                v214 = *(v312[2] + 8 * k);
                 v215 = [v214 length];
-                if (v302 >= v215 + 2 && [(__CFString *)theString characterAtIndex:v301]== 46 && ![(__CFString *)theString compare:v214 options:0 range:v301 - v215, v215]|| v302 >= v215 + 1 && ![(__CFString *)theString compare:v214 options:0 range:v302 + ~v215, v215])
+                if (v301 >= v215 + 2 && [(__CFString *)theString characterAtIndex:v300]== 46 && ![(__CFString *)theString compare:v214 options:0 range:v300 - v215, v215]|| v301 >= v215 + 1 && ![(__CFString *)theString compare:v214 options:0 range:v301 + ~v215, v215])
                 {
                   v218 = 0;
-                  v156 = v294;
+                  v156 = v293;
                   string = theString;
-                  v41.location = v298;
-                  v159 = v285;
+                  v41.location = v297;
+                  v159 = v284;
                   goto LABEL_508;
                 }
               }
 
-              v211 = [v209 countByEnumeratingWithState:&v313[1] objects:v337 count:16];
-              v156 = v294;
+              v211 = [v209 countByEnumeratingWithState:&v312[1] objects:v336 count:16];
+              v156 = v293;
               string = theString;
-              v41.location = v298;
-              v159 = v285;
+              v41.location = v297;
+              v159 = v284;
               if (v211)
               {
                 continue;
@@ -21532,12 +21767,12 @@ LABEL_441:
 
       if (v201)
       {
-        v164 = v287;
-        v216 = v291;
-        if (v310 <= v304 + v302)
+        v164 = v286;
+        v216 = v290;
+        if (v309 <= v303 + v301)
         {
           v218 = 1;
-          v159 = v285;
+          v159 = v284;
         }
 
         else
@@ -21551,22 +21786,22 @@ LABEL_441:
           v218 = v217 == 0;
           if (v217)
           {
-            v41.location = v298;
-            v159 = v285;
-            v164 = v287;
+            v41.location = v297;
+            v159 = v284;
+            v164 = v286;
           }
 
           else
           {
-            v41.location = v298;
-            v159 = v285;
-            v164 = v287;
-            if (v304 <= 3)
+            v41.location = v297;
+            v159 = v284;
+            v164 = v286;
+            if (v303 <= 3)
             {
-              v302 = [string characterAtIndex:v304 + v302];
-              v41.location = v298;
-              v164 = v287;
-              v218 = v302 != 46;
+              v301 = [string characterAtIndex:v303 + v301];
+              v41.location = v297;
+              v164 = v286;
+              v218 = v301 != 46;
             }
           }
         }
@@ -21576,53 +21811,53 @@ LABEL_441:
       {
         v218 = 0;
 LABEL_508:
-        v164 = v287;
-        v216 = v291;
+        v164 = v286;
+        v216 = v290;
       }
 
-      if (v308 && (v339[23] ? (v221 = v218) : (v221 = 0), v221 && (4 * vaddvq_s64(vaddq_s64(*&v339[25], *&v339[23]))) > 0xB))
+      if (v307 && (v338[23] ? (v221 = v218) : (v221 = 0), v221 && (4 * vaddvq_s64(vaddq_s64(*&v338[25], *&v338[23]))) > 0xB))
       {
-        v339[22] = 1;
-        v65 = v304;
-        if (((v289 ^ 1) & v277) == 1 && v304)
+        v338[22] = 1;
+        v65 = v303;
+        if (((v288 ^ 1) & v276) == 1 && v303)
         {
           v218 = 0;
 LABEL_523:
-          v223 = v302;
-          v224 = v304;
-          v225 = [objc_alloc(MEMORY[0x1E696AEB8]) initWithRange:{v302 + offset, v304}];
+          v223 = v301;
+          v224 = v303;
+          v225 = [objc_alloc(MEMORY[0x1E696AEB8]) initWithRange:{v301 + offset, v303}];
           [results addObject:v225];
 
           if (v218)
           {
             v226 = [MEMORY[0x1E695DF70] arrayWithObject:{objc_msgSend(v156, "identifier")}];
-            if (v270)
+            if (v269)
             {
-              if (*&v339[17] == 0 || ![(AppleSpell *)selfCopy _useAlternateLanguageForRange:v302 ofString:v304 languageObject:string tagger:v156 alternateLanguageObject:v282 alternateTagger:v270 appIdentifier:v280, identifier])
+              if (*&v338[17] == 0 || ![(AppleSpell *)selfCopy _useAlternateLanguageForRange:v301 ofString:v303 languageObject:string tagger:v156 alternateLanguageObject:v281 alternateTagger:v269 appIdentifier:v279, identifier])
               {
-                [v226 addObject:{objc_msgSend(v270, "identifier")}];
+                [v226 addObject:{objc_msgSend(v269, "identifier")}];
               }
 
               else
               {
-                [v226 insertObject:objc_msgSend(v270 atIndex:{"identifier"), 0}];
+                [v226 insertObject:objc_msgSend(v269 atIndex:{"identifier"), 0}];
               }
             }
 
-            if (v302 < 2)
+            if (v301 < 2)
             {
               v232 = 0;
             }
 
             else
             {
-              v232 = [string characterAtIndex:v302 - 2];
+              v232 = [string characterAtIndex:v301 - 2];
             }
 
             stringCopy2 = string;
-            if (v304 + v302 + 2 <= v310)
+            if (v303 + v301 + 2 <= v309)
             {
-              v234 = [string characterAtIndex:v304 + v302 + 1];
+              v234 = [string characterAtIndex:v303 + v301 + 1];
             }
 
             else
@@ -21630,23 +21865,23 @@ LABEL_523:
               v234 = 0;
             }
 
-            if (v307)
+            if (v306)
             {
-              v235 = v307;
+              v235 = v306;
             }
 
             else
             {
-              v235 = v291;
+              v235 = v290;
             }
 
-            v236 = correctionFlags(v287, autocapitalize, point, 0, language);
-            WORD1(v261) = v234;
-            LOWORD(v261) = v232;
+            v236 = correctionFlags(v286, autocapitalize, point, 0, language);
+            WORD1(v260) = v234;
+            LOWORD(v260) = v232;
             v237 = v235;
-            v223 = v302;
-            v224 = v304;
-            v238 = [(AppleSpell *)selfCopy _correctionResultForString:v237 range:v302 inString:v304 offset:stringCopy2 tagger:offset appIdentifier:v282 dictionary:identifier languages:v269 connection:v226 flags:v262 keyEventArray:v236 selectedRangeValue:array parameterBundles:value previousLetter:bundles nextLetter:v261 extraMisspellingCount:v263 extraCorrectionCount:&v336];
+            v223 = v301;
+            v224 = v303;
+            v238 = [(AppleSpell *)selfCopy _correctionResultForString:v237 range:v301 inString:v303 offset:stringCopy2 tagger:offset appIdentifier:v281 dictionary:identifier languages:v268 connection:v226 flags:v261 keyEventArray:v236 selectedRangeValue:array parameterBundles:value previousLetter:bundles nextLetter:v260 extraMisspellingCount:v262 extraCorrectionCount:&v335];
             string = stringCopy2;
             if (v238)
             {
@@ -21657,38 +21892,38 @@ LABEL_523:
 
             else
             {
-              v339[22] = 1;
+              v338[22] = 1;
             }
           }
 
-          v300 = v224;
-          v276 = v223;
-          v41.location = v298;
+          v299 = v224;
+          v275 = v223;
+          v41.location = v297;
           v66 = v223;
           v65 = v224;
           goto LABEL_340;
         }
 
 LABEL_533:
-        v300 = v65;
-        v66 = v302;
+        v299 = v65;
+        v66 = v301;
       }
 
       else
       {
-        v65 = v304;
-        if (v289 & 1 | !v218 | v265 & 1)
+        v65 = v303;
+        if (v288 & 1 | !v218 | v264 & 1)
         {
-          v222 = (v289 ^ 1) & v277;
+          v222 = (v288 ^ 1) & v276;
         }
 
         else
         {
-          v263 = vaddvq_s64(vaddq_s64(vshlq_n_s64(vaddq_s64(*&v339[23], *&v339[25]), 2uLL), v273));
-          v222 = v277;
+          v262 = vaddvq_s64(vaddq_s64(vshlq_n_s64(vaddq_s64(*&v338[23], *&v338[25]), 2uLL), v272));
+          v222 = v276;
         }
 
-        if (v222 && v304)
+        if (v222 && v303)
         {
           goto LABEL_523;
         }
@@ -21698,9 +21933,9 @@ LABEL_533:
           goto LABEL_533;
         }
 
-        if (v307)
+        if (v306)
         {
-          v227 = v307;
+          v227 = v306;
         }
 
         else
@@ -21709,21 +21944,21 @@ LABEL_533:
         }
 
         v228 = [MEMORY[0x1E695DEC8] arrayWithObject:{objc_msgSend(v156, "identifier", v41.location)}];
-        v229 = correctionFlags(v287, autocapitalize, point, 0, language);
-        LODWORD(v261) = 0;
-        v260 = v228;
-        v65 = v304;
+        v229 = correctionFlags(v286, autocapitalize, point, 0, language);
+        LODWORD(v260) = 0;
+        v259 = v228;
+        v65 = v303;
         v230 = v227;
-        v159 = v285;
-        v66 = v302;
-        v231 = [-[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy _correctionResultForString:v230 range:v302 inString:v304 offset:string tagger:offset appIdentifier:v282 dictionary:identifier languages:v269 connection:v260 flags:v262 keyEventArray:v229 selectedRangeValue:array parameterBundles:value previousLetter:bundles nextLetter:v261 extraMisspellingCount:v263 extraCorrectionCount:{&v336), "replacementString"}];
-        v41.location = v298;
+        v159 = v284;
+        v66 = v301;
+        v231 = [-[AppleSpell _correctionResultForString:range:inString:offset:tagger:appIdentifier:dictionary:languages:connection:flags:keyEventArray:selectedRangeValue:parameterBundles:previousLetter:nextLetter:extraMisspellingCount:extraCorrectionCount:](selfCopy _correctionResultForString:v230 range:v301 inString:v303 offset:string tagger:offset appIdentifier:v281 dictionary:identifier languages:v268 connection:v259 flags:v261 keyEventArray:v229 selectedRangeValue:array parameterBundles:value previousLetter:bundles nextLetter:v260 extraMisspellingCount:v262 extraCorrectionCount:{&v335), "replacementString"}];
+        v41.location = v297;
         replacementString = v231;
-        v164 = v287;
-        v300 = v304;
+        v164 = v286;
+        v299 = v303;
       }
 
-      v276 = v66;
+      v275 = v66;
       goto LABEL_345;
     }
 
@@ -21749,18 +21984,18 @@ LABEL_533:
       {
         if ((([v156 isEqual:v176] | v120) & 1) == 0 && (encoding == 1280 && encoding2 == 514 || (encoding == 1280 ? (v195 = encoding2 == 134217984) : (v195 = 0), !v195 ? (v196 = 0) : (v196 = 1), encoding2 == 1280 ? (v197 = encoding == 514) : (v197 = 0), encoding2 == 1280 ? (v198 = encoding == 134217984) : (v198 = 0), v197 || (v196 & 1) != 0 || v198)))
         {
-          v317 = 0;
+          v316 = 0;
           [(AppleSpell *)selfCopy databaseConnectionForLanguageObject:v176];
-          v349.location = v48;
-          v349.length = v45;
-          Bytes = CFStringGetBytes(theString, v349, encoding2, 0x5Fu, 0, v338, maxBufLen, &v317);
+          v348.location = v48;
+          v348.length = v45;
+          Bytes = CFStringGetBytes(theString, v348, encoding2, 0x5Fu, 0, v337, maxBufLen, &v316);
           v177 = 0;
           if (v45 == Bytes)
           {
-            v338[v317] = 0;
+            v337[v316] = 0;
             WORD2(usedBufLenb) = 257;
             LODWORD(usedBufLenb) = 16777473;
-            v177 = [AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:v338 connection:usedBufLenb sender:0 checkBase:? checkDict:? checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?];
+            v177 = [AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:v337 connection:usedBufLenb sender:0 checkBase:? checkDict:? checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?];
           }
         }
 
@@ -21775,7 +22010,7 @@ LABEL_416:
           goto LABEL_389;
         }
 
-        if (++v185 >= v309)
+        if (++v185 >= v308)
         {
           goto LABEL_389;
         }
@@ -21793,33 +22028,33 @@ LABEL_416:
     if (![AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:numBytes sender:v176 checkBase:v192 checkDict:server checkTemp:1 checkNames:usedBufLenb checkHyphens:0 checkIntercaps:? checkOptions:? depth:?])
     {
       v177 = 0;
-      v156 = v294;
+      v156 = v293;
       goto LABEL_416;
     }
 
-    v266 = v191;
-    v295 = v192;
+    v265 = v191;
+    v294 = v192;
 LABEL_497:
     string = theString;
-    v66 = v302;
+    v66 = v301;
 LABEL_498:
-    v65 = v304;
+    v65 = v303;
 LABEL_499:
-    if (v305)
+    if (v304)
     {
       v220 = [languagesCopy indexOfObject:{objc_msgSend(v176, "identifier")}];
-      ++v305[v220];
+      ++v304[v220];
     }
 
     v156 = v176;
-    v41.location = v298;
+    v41.location = v297;
 LABEL_340:
-    v159 = v285;
+    v159 = v284;
 LABEL_344:
-    v164 = v287;
+    v164 = v286;
 LABEL_345:
-    v294 = v156;
-    if ((v308 & v164) == 1 && !replacementString)
+    v293 = v156;
+    if ((v307 & v164) == 1 && !replacementString)
     {
       LOBYTE(usedBufLenb) = point;
       v165 = -[AppleSpell _capitalizationResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:](selfCopy, "_capitalizationResultForString:range:inString:offset:languageObject:onlyAtInsertionPoint:keyEventArray:selectedRangeValue:", [string substringWithRange:{v66, v159}], v66, v159, string, offset, v156, usedBufLenb, array, value);
@@ -21831,13 +22066,13 @@ LABEL_349:
         [results addObject:v155];
       }
 
-      v41.location = v298;
+      v41.location = v297;
     }
 
 LABEL_125:
     v42 = v67 + 1;
-    v92 = v308;
-    if (!v300)
+    v92 = v307;
+    if (!v299)
     {
       v92 = 1;
     }
@@ -21854,23 +22089,23 @@ LABEL_552:
   }
 
   v240.length = range1;
-  if (v309 >= 2)
+  if (v308 >= 2)
   {
-    v240.location = v313[0];
+    v240.location = v312[0];
     v41.length = range2;
     v241 = NSIntersectionRange(v240, v41);
-    v242 = v308;
-    if (!v305)
+    v242 = v307;
+    if (!v304)
     {
       v242 = 0;
     }
 
-    if (v242 && v241.length && v305[v309])
+    if (v242 && v241.length && v304[v308])
     {
-      for (m = 0; m < v309; ++m)
+      for (m = 0; m < v308; ++m)
       {
-        v244 = v305[m];
-        if (v244 >= 2 && v305[v309] <= 2 * v244)
+        v244 = v304[m];
+        if (v244 >= 2 && v304[v308] <= 2 * v244)
         {
           v245 = [languagesCopy objectAtIndex:m];
           if (v245)
@@ -21894,31 +22129,30 @@ LABEL_552:
     }
 
     v248 = selfCopy->_lastLanguage;
-    selfCopy->_lastLanguage = [objc_msgSend(v294 "identifier")];
+    selfCopy->_lastLanguage = [objc_msgSend(v293 "identifier")];
   }
 
-  [v279 closeTypologyRecordWithResults:results];
+  [v278 closeTypologyRecordWithResults:results];
   [(AppleSpell *)selfCopy resetTimer];
   if (correction && replacementString)
   {
     v249 = replacementString;
-    [(AppleSpell *)selfCopy invalidateTagger:v282];
-    [(AppleSpell *)selfCopy invalidateTagger:v280];
+    [(AppleSpell *)selfCopy invalidateTagger:v281];
+    [(AppleSpell *)selfCopy invalidateTagger:v279];
 
     *correction = replacementString;
   }
 
   else
   {
-    [(AppleSpell *)selfCopy invalidateTagger:v282];
-    [(AppleSpell *)selfCopy invalidateTagger:v280];
+    [(AppleSpell *)selfCopy invalidateTagger:v281];
+    [(AppleSpell *)selfCopy invalidateTagger:v279];
   }
 
-  v250 = *MEMORY[0x1E69E9840];
-  v251 = v276;
-  v252 = v300;
-  result.length = v252;
-  result.location = v251;
+  v250 = v275;
+  v251 = v299;
+  result.length = v251;
+  result.location = v250;
   return result;
 }
 
@@ -21934,42 +22168,42 @@ id __329__AppleSpell_Spelling__spellServer_findMisspelledWordInString_range_lang
 - (BOOL)_spellServer:(id)server canChangeCaseOfFirstLetterInString:(id)string toUpperCase:(BOOL)case languageObject:(id)object
 {
   caseCopy = case;
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v11 = [string length];
   v12 = [(AppleSpell *)self databaseConnectionForLanguageObject:object];
   encoding = [object encoding];
   LOBYTE(v14) = 0;
   if (!string || !v11)
   {
-    goto LABEL_32;
+    return v14;
   }
 
   encoding = encoding;
   serverCopy = server;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  *v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  *v31 = 0u;
+  v32 = 0u;
   stringCopy = string;
-  v43 = 0;
-  v44 = v11;
+  v42 = 0;
+  v43 = v11;
   CharactersPtr = CFStringGetCharactersPtr(string);
   CStringPtr = 0;
-  v41 = CharactersPtr;
+  v40 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(string, 0x600u);
   }
 
-  v47 = 0;
-  v45 = 0;
   v46 = 0;
-  v42 = CStringPtr;
-  v18 = simpleTokenRangeAfterIndex(v32, 0, v11, 0);
+  v44 = 0;
+  v45 = 0;
+  v41 = CStringPtr;
+  v18 = simpleTokenRangeAfterIndex(v31, 0, v11, 0);
   while (1)
   {
     v19 = v17;
@@ -21985,7 +22219,7 @@ id __329__AppleSpell_Spelling__spellServer_findMisspelledWordInString_range_lang
       break;
     }
 
-    v22 = simpleTokenRangeAfterIndex(v32, 0, v11, v20);
+    v22 = simpleTokenRangeAfterIndex(v31, 0, v11, v20);
     if (v23 >= 1 && v22 == v20 + 1)
     {
       v24 = v22 + v23;
@@ -22005,9 +22239,9 @@ id __329__AppleSpell_Spelling__spellServer_findMisspelledWordInString_range_lang
     goto LABEL_31;
   }
 
-  v50.location = v18;
-  v50.length = v19;
-  if (v19 != CFStringGetBytes(string, v50, encoding, 0x5Fu, 0, buffer, 72, &v47))
+  v49.location = v18;
+  v49.length = v19;
+  if (v19 != CFStringGetBytes(string, v49, encoding, 0x5Fu, 0, buffer, 72, &v46))
   {
     goto LABEL_31;
   }
@@ -22020,11 +22254,11 @@ id __329__AppleSpell_Spelling__spellServer_findMisspelledWordInString_range_lang
       LOBYTE(v14) = 1;
       if (buffer[0] - 154 > 4 || ((1 << (buffer[0] + 102)) & 0x15) == 0)
       {
-        goto LABEL_32;
+        return v14;
       }
     }
 
-    if (![(AppleSpell *)self checkNameWordBuffer:buffer length:v47 languageObject:object globalOnly:0])
+    if (![(AppleSpell *)self checkNameWordBuffer:buffer length:v46 languageObject:object globalOnly:0])
     {
       v26 = toUpper(buffer[0]);
       goto LABEL_34;
@@ -22032,7 +22266,7 @@ id __329__AppleSpell_Spelling__spellServer_findMisspelledWordInString_range_lang
 
 LABEL_31:
     LOBYTE(v14) = 0;
-    goto LABEL_32;
+    return v14;
   }
 
   v25 = serverCopy;
@@ -22041,11 +22275,11 @@ LABEL_31:
     LOBYTE(v14) = 1;
     if (buffer[0] - 138 > 0x15 || ((1 << (buffer[0] + 118)) & 0x200015) == 0)
     {
-      goto LABEL_32;
+      return v14;
     }
   }
 
-  if ([(AppleSpell *)self checkNameWordBuffer:buffer length:v47 languageObject:object globalOnly:0])
+  if ([(AppleSpell *)self checkNameWordBuffer:buffer length:v46 languageObject:object globalOnly:0])
   {
     goto LABEL_31;
   }
@@ -22055,14 +22289,12 @@ LABEL_34:
   buffer[0] = v26;
   WORD2(usedBufLen) = 257;
   LODWORD(usedBufLen) = 16843009;
-  v14 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v47 connection:object sender:v12 checkBase:v25 checkDict:1 checkTemp:usedBufLen checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?];
+  v14 = [AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:buffer languageObject:v46 connection:object sender:v12 checkBase:v25 checkDict:1 checkTemp:usedBufLen checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?];
   if (v14)
   {
-    LOBYTE(v14) = ![(AppleSpell *)self validateAbbreviationOrNumberWordBuffer:buffer length:v47 languageObject:object connection:v12 sender:v25];
+    LOBYTE(v14) = ![(AppleSpell *)self validateAbbreviationOrNumberWordBuffer:buffer length:v46 languageObject:object connection:v12 sender:v25];
   }
 
-LABEL_32:
-  v27 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -22151,21 +22383,21 @@ LABEL_32:
   return result;
 }
 
-uint64_t __106__AppleSpell_EnglishGrammar___modifiedGrammarRangeForDoubledWordRange_sentenceRange_inString_corrections___block_invoke(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__106__AppleSpell_EnglishGrammar___modifiedGrammarRangeForDoubledWordRange_sentenceRange_inString_corrections___block_invoke(void *result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v8 = *(result + 56);
+  v8 = *(result + 7);
   if (a3 >= v8)
   {
     v11 = result;
-    result = [*(result + 32) compare:a2 options:1 range:{*(v11 + 72) + v8, *(v11 + 80)}];
+    result = [*(result + 4) compare:a2 options:1 range:{*(v11 + 9) + v8, *(v11 + 10)}];
     if (!result)
     {
-      v12 = a3 - *(v11 + 56);
-      v13 = *(v11 + 72) - v12 + *(v11 + 80);
-      v14 = *(*(v11 + 48) + 8);
+      v12 = a3 - *(v11 + 7);
+      v13 = *(v11 + 9) - v12 + *(v11 + 10);
+      v14 = *(*(v11 + 6) + 8);
       *(v14 + 32) = v12;
       *(v14 + 40) = v13;
-      result = [*(v11 + 40) addObject:a2];
+      result = [*(v11 + 5) addObject:a2];
     }
   }
 
@@ -22288,14 +22520,14 @@ LABEL_28:
 {
   v13 = MEMORY[0x1EEE9AC00](self);
   v15 = v14;
-  v238 = v16;
-  v244 = v17;
-  v252 = v18;
+  v237 = v16;
+  v243 = v17;
+  v251 = v18;
   v20 = v19;
   v21 = v13;
   oCopy3 = o;
   retvalCopy2 = retval;
-  v266 = *MEMORY[0x1E69E9840];
+  v265 = *MEMORY[0x1E69E9840];
   var0 = o->var0;
   array = [MEMORY[0x1E695DF70] array];
   v24 = CFLocaleCreate(0, @"en");
@@ -22310,22 +22542,22 @@ LABEL_28:
     }
   }
 
-  v242 = v21;
+  v241 = v21;
   v28 = PRbuf(o, 0xEu, 0);
   *retval = v28;
   var9 = o->var9;
-  v256 = v20;
+  v255 = v20;
   if (var9)
   {
-    v249 = v25;
-    v265 = 0;
-    v253 = v252 - v244;
-    v263 = 0u;
-    v264 = 0u;
-    v261 = 0u;
+    v248 = v25;
+    v264 = 0;
+    v252 = v251 - v243;
     v262 = 0u;
-    v259 = 0u;
+    v263 = 0u;
     v260 = 0u;
+    v261 = 0u;
+    v258 = 0u;
+    v259 = 0u;
     while (1)
     {
       v30 = *(var9 + 12);
@@ -22348,7 +22580,7 @@ LABEL_28:
       v32 = 1 << (v31 - 101);
       if ((v32 & 0x11) != 0)
       {
-        v47 = [(__CFString *)v256 paragraphRangeForRange:v253 + o->var5 + *var9];
+        v47 = [(__CFString *)v255 paragraphRangeForRange:v252 + o->var5 + *var9];
         if (v47 >= v47 + v48)
         {
           goto LABEL_100;
@@ -22360,7 +22592,7 @@ LABEL_28:
         v52 = 0;
         do
         {
-          v53 = [(__CFString *)v256 characterAtIndex:v49];
+          v53 = [(__CFString *)v255 characterAtIndex:v49];
           if (v53 == 40)
           {
             v54 = v51 + 1;
@@ -22396,7 +22628,7 @@ LABEL_28:
 
       if ((v32 & 0x44) != 0)
       {
-        v42 = [(__CFString *)v256 paragraphRangeForRange:v253 + o->var5 + *var9];
+        v42 = [(__CFString *)v255 paragraphRangeForRange:v252 + o->var5 + *var9];
         if (v42 < v42 + v43)
         {
           v44 = v42;
@@ -22404,7 +22636,7 @@ LABEL_28:
           v39 = 0;
           do
           {
-            v46 = [(__CFString *)v256 characterAtIndex:v44];
+            v46 = [(__CFString *)v255 characterAtIndex:v44];
             if ((v46 - 8220) < 4 || v46 == 34)
             {
               ++v39;
@@ -22432,7 +22664,7 @@ LABEL_35:
           goto LABEL_47;
         }
 
-        v33 = [(__CFString *)v256 paragraphRangeForRange:v253 + o->var5 + *var9];
+        v33 = [(__CFString *)v255 paragraphRangeForRange:v252 + o->var5 + *var9];
         v35 = v34;
         alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
         v37 = v33 + v35;
@@ -22443,8 +22675,8 @@ LABEL_35:
           v40 = v33;
           do
           {
-            v41 = [(__CFString *)v256 characterAtIndex:v40];
-            if (((v41 - 8216) < 4 || v41 == 96 || v41 == 39) && (v40 <= v33 || v40 + 1 >= v37 || ![v38 characterIsMember:{-[__CFString characterAtIndex:](v256, "characterAtIndex:", v40 - 1)}] || (objc_msgSend(v38, "characterIsMember:", -[__CFString characterAtIndex:](v256, "characterAtIndex:", v40 + 1)) & 1) == 0))
+            v41 = [(__CFString *)v255 characterAtIndex:v40];
+            if (((v41 - 8216) < 4 || v41 == 96 || v41 == 39) && (v40 <= v33 || v40 + 1 >= v37 || ![v38 characterIsMember:{-[__CFString characterAtIndex:](v255, "characterAtIndex:", v40 - 1)}] || (objc_msgSend(v38, "characterIsMember:", -[__CFString characterAtIndex:](v255, "characterAtIndex:", v40 + 1)) & 1) == 0))
             {
               ++v39;
             }
@@ -22461,29 +22693,29 @@ LABEL_33:
           }
 
 LABEL_47:
+          v258 = 0u;
           v259 = 0u;
-          v260 = 0u;
-          v265 = 0;
-          v263 = 0u;
-          v264 = 0u;
-          v261 = 0u;
+          v264 = 0;
           v262 = 0u;
-          LOWORD(v259) = *&connection->var0;
-          *(&v259 + 1) = var9;
-          LOBYTE(v260) = 16;
-          LOBYTE(v264) = connection->var6;
-          LOWORD(v265) = connection->var7;
-          if (PRerr(&v259, 16, 1))
+          v263 = 0u;
+          v260 = 0u;
+          v261 = 0u;
+          LOWORD(v258) = *&connection->var0;
+          *(&v258 + 1) = var9;
+          LOBYTE(v259) = 16;
+          LOBYTE(v263) = connection->var6;
+          LOWORD(v264) = connection->var7;
+          if (PRerr(&v258, 16, 1))
           {
             goto LABEL_99;
           }
 
-          if (!*(&v260 + 1))
+          if (!*(&v259 + 1))
           {
             goto LABEL_99;
           }
 
-          v55 = CFStringCreateWithCString(0, *(&v260 + 1), 0x500u);
+          v55 = CFStringCreateWithCString(0, *(&v259 + 1), 0x500u);
           if (!v55)
           {
             goto LABEL_99;
@@ -22551,7 +22783,7 @@ LABEL_47:
               }
 
 LABEL_99:
-              PRerr(&v259, 17, 0);
+              PRerr(&v258, 17, 0);
               goto LABEL_100;
             }
 
@@ -22584,7 +22816,7 @@ LABEL_82:
           v64 = *(var9 + 3);
           if (v64)
           {
-            v65 = v256;
+            v65 = v255;
             if (*(v64 + 8) && *v64)
             {
               v66 = *(v64 + 18);
@@ -22608,7 +22840,7 @@ LABEL_82:
               }
 
 LABEL_93:
-              v65 = v256;
+              v65 = v255;
             }
 
             else
@@ -22618,24 +22850,24 @@ LABEL_93:
 
             var5 = o->var5;
             var6 = o->var6;
-            v258[0] = 0;
-            if ([v242 _acceptErrorWithRuleType:*(var9 + 12) ruleNumber:*(var9 + 13) grammarRange:v58 sentenceRange:v59 inString:v253 + var5 corrections:var6 issueType:{v65, array2, v258}])
+            v257[0] = 0;
+            if ([v241 _acceptErrorWithRuleType:*(var9 + 12) ruleNumber:*(var9 + 13) grammarRange:v58 sentenceRange:v59 inString:v252 + var5 corrections:var6 issueType:{v65, array2, v257}])
             {
               if (*(var9 + 12) == 4)
               {
                 array2 = [MEMORY[0x1E695DF70] array];
-                v73 = v253 + var5;
-                v74 = v242;
-                v58 = [v242 _modifiedGrammarRangeForDoubledWordRange:v58 sentenceRange:v59 inString:v73 corrections:{var6, v65, array2}];
+                v73 = v252 + var5;
+                v74 = v241;
+                v58 = [v241 _modifiedGrammarRangeForDoubledWordRange:v58 sentenceRange:v59 inString:v73 corrections:{var6, v65, array2}];
                 v59 = v75;
               }
 
               else
               {
-                v74 = v242;
+                v74 = v241;
               }
 
-              [array addObject:{objc_msgSend(v74, "_detailWithRange:description:corrections:issueType:", v58, v59, v57, array2, v258[0])}];
+              [array addObject:{objc_msgSend(v74, "_detailWithRange:description:corrections:issueType:", v58, v59, v57, array2, v257[0])}];
             }
 
             goto LABEL_99;
@@ -22653,8 +22885,8 @@ LABEL_100:
         retvalCopy2 = retval;
         v76 = *retval;
         oCopy3 = o;
-        v20 = v256;
-        v25 = v249;
+        v20 = v255;
+        v25 = v248;
         v26 = &_acceptWithoutAccentForString_range_inString_languageObject__onceToken;
         goto LABEL_103;
       }
@@ -22665,15 +22897,15 @@ LABEL_100:
 LABEL_103:
   v77 = v26[64];
   v78 = v76 == 200 || v77 == 0;
-  if (v78 || v252 + oCopy3->var5 >= v25 + v244)
+  if (v78 || v251 + oCopy3->var5 >= v25 + v243)
   {
     goto LABEL_313;
   }
 
-  v240 = retvalCopy2;
+  v239 = retvalCopy2;
   bytes = [v77 bytes];
   v80 = [v26[64] length];
-  v81.location = v252 - v244 + oCopy3->var5;
+  v81.location = v251 - v243 + oCopy3->var5;
   if (v81.location + oCopy3->var6 <= v25)
   {
     v81.length = oCopy3->var6;
@@ -22687,7 +22919,7 @@ LABEL_103:
   v82 = CFStringTokenizerCreate(0, v20, v81, 0, v24);
   v83 = v82;
   v84 = 0;
-  v241 = v24;
+  v240 = v24;
   if (!bytes)
   {
     goto LABEL_257;
@@ -22698,7 +22930,7 @@ LABEL_103:
     goto LABEL_257;
   }
 
-  v85 = v252;
+  v85 = v251;
   if (!v82)
   {
     goto LABEL_257;
@@ -22713,11 +22945,11 @@ LABEL_258:
   }
 
   v86 = (v80 >> 3);
-  v254 = &var0[v244];
+  v253 = &var0[v243];
   v87 = (v80 >> 3) - 1;
   do
   {
-    v250 = v84;
+    v249 = v84;
     CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v83);
     if ((CurrentTokenRange.length - 1) > 0x47)
     {
@@ -22726,14 +22958,14 @@ LABEL_258:
 
     location = CurrentTokenRange.location;
     length = CurrentTokenRange.length;
-    if (v250 && (v91 = &v259 + v250, v92 = *(v91 - 2), CurrentTokenRange.location == v92 + *(v91 - 1) + 1) && (v93 = CurrentTokenRange.location + CurrentTokenRange.length, CurrentTokenRange.location + CurrentTokenRange.length <= (v92 + 72)))
+    if (v249 && (v91 = &v258 + v249, v92 = *(v91 - 2), CurrentTokenRange.location == v92 + *(v91 - 1) + 1) && (v93 = CurrentTokenRange.location + CurrentTokenRange.length, CurrentTokenRange.location + CurrentTokenRange.length <= (v92 + 72)))
     {
-      v151 = var0[v244 - 1 + CurrentTokenRange.location - v85];
+      v151 = var0[v243 - 1 + CurrentTokenRange.location - v85];
       if (v151 == 39 || v151 == 46)
       {
         v94 = 0;
         length = v93 - v92;
-        v247 = -1;
+        v246 = -1;
         location = v92;
       }
 
@@ -22741,7 +22973,7 @@ LABEL_258:
       {
         v152 = v93 - v92;
         v94 = v151 == 45;
-        v247 = 0;
+        v246 = 0;
         if (v151 == 45)
         {
           location = v92;
@@ -22753,7 +22985,7 @@ LABEL_258:
     else
     {
       v94 = 0;
-      v247 = 0;
+      v246 = 0;
     }
 
     while (2)
@@ -22765,7 +22997,7 @@ LABEL_258:
 
       for (i = 0; i != length; ++i)
       {
-        v96 = v254[location - v85 + i];
+        v96 = v253[location - v85 + i];
         v97 = (v96 - 65) >= 0x1A && (v96 - 192) >= 0x17;
         if (!v97)
         {
@@ -22801,16 +23033,16 @@ LABEL_139:
         }
 
 LABEL_142:
-        v257[i] = v96;
+        v256[i] = v96;
       }
 
       if (length <= 0x47)
       {
 LABEL_144:
-        memset(&v257[length], length, 72 - length);
+        memset(&v256[length], length, 72 - length);
       }
 
-      v100 = v257;
+      v100 = v256;
       if (length < 0xC)
       {
         v104 = -1640531527;
@@ -22978,7 +23210,7 @@ LABEL_188:
     {
       v129 = bswap32(v127);
 LABEL_195:
-      v130 = v247;
+      v130 = v246;
       goto LABEL_196;
     }
 
@@ -22990,12 +23222,12 @@ LABEL_195:
     v129 = bswap32(v127);
     v130 = -1;
 LABEL_196:
-    v131 = v250 + v130;
-    v132 = (&v259 + v250 + v130);
+    v131 = v249 + v130;
+    v132 = (&v258 + v249 + v130);
     *v132 = location;
     v132[1] = length;
-    *(v258 + v250 + v130) = v129;
-    v133 = &v254[location - v85];
+    *(v257 + v249 + v130) = v129;
+    v133 = &v253[location - v85];
     v134 = *v133;
     v135 = 1;
     if ((v134 - 65) >= 0x1A && (v134 - 192) >= 0x17 && (v134 - 216) >= 7)
@@ -23007,7 +23239,7 @@ LABEL_196:
       }
     }
 
-    v138 = length >= 2 && v257[length - 1] == 115 && v257[length - 2] != 39;
+    v138 = length >= 2 && v256[length - 1] == 115 && v256[length - 2] != 39;
     v139 = v129;
     if (v129 || (v139 = 0, length < 1))
     {
@@ -23036,7 +23268,7 @@ LABEL_226:
         }
 
         v139 = v139 & 0xFFF87FFF | v146;
-        *(v258 + v131) = v139;
+        *(v257 + v131) = v139;
       }
 
       if (v139)
@@ -23055,7 +23287,7 @@ LABEL_226:
       }
 
 LABEL_246:
-      *(v258 + v131) = v147;
+      *(v257 + v131) = v147;
       goto LABEL_247;
     }
 
@@ -23089,7 +23321,7 @@ LABEL_222:
     if (v142)
     {
       v139 = 0x2000;
-      *(v258 + v131) = 0x2000;
+      *(v257 + v131) = 0x2000;
       goto LABEL_225;
     }
 
@@ -23103,7 +23335,7 @@ LABEL_238:
     v148 = v139 & 0xFFFFFFF5;
     if (!v129 || v148)
     {
-      *(v258 + v131) = v148;
+      *(v257 + v131) = v148;
       if (v148)
       {
         goto LABEL_247;
@@ -23125,7 +23357,7 @@ LABEL_243:
 
     v149 = location;
     v150 = v138;
-    [-[__CFString substringWithRange:](v256 substringWithRange:{v149, length), "capitalizedString"}];
+    [-[__CFString substringWithRange:](v255 substringWithRange:{v149, length), "capitalizedString"}];
     v138 = v150;
     if (!v139)
     {
@@ -23134,7 +23366,7 @@ LABEL_243:
 
 LABEL_247:
     v84 = v131 + 1;
-    v85 = v252;
+    v85 = v251;
   }
 
   while (CFStringTokenizerAdvanceToNextToken(v83) && v84 < 0x100);
@@ -23145,7 +23377,7 @@ LABEL_257:
   }
 
 LABEL_259:
-  v251 = v84;
+  v250 = v84;
   if (!v84)
   {
     goto LABEL_312;
@@ -23153,7 +23385,7 @@ LABEL_259:
 
   v153 = 0;
   LOBYTE(v154) = 0;
-  v155 = &v259;
+  v155 = &v258;
   while (2)
   {
     if ((v154 & 1) != 0 && v153)
@@ -23169,7 +23401,7 @@ LABEL_259:
       goto LABEL_278;
     }
 
-    v156 = *(v258 + v153);
+    v156 = *(v257 + v153);
     if (v156)
     {
       v157 = (v156 & 0xFFF82BFF) == 0;
@@ -23183,18 +23415,18 @@ LABEL_259:
     if (v157)
     {
       v160 = *(v155 + 1);
-      v161 = *v155 + v244 - (v252 + o->var5);
-      v162 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The word '%@' may not agree with the rest of the sentence.", -[__CFString substringWithRange:](v256, "substringWithRange:")];
+      v161 = *v155 + v243 - (v251 + o->var5);
+      v162 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The word '%@' may not agree with the rest of the sentence.", -[__CFString substringWithRange:](v255, "substringWithRange:")];
       v163 = v160;
-      v84 = v251;
-      [array addObject:{objc_msgSend(v242, "_detailWithRange:description:corrections:", v161, v163, v162, 0)}];
+      v84 = v250;
+      [array addObject:{objc_msgSend(v241, "_detailWithRange:description:corrections:", v161, v163, v162, 0)}];
     }
 
     else
     {
       if ((v156 & 5) != 0)
       {
-        v158 = *(v258 + v153);
+        v158 = *(v257 + v153);
       }
 
       else
@@ -23212,11 +23444,11 @@ LABEL_259:
         v159 = v158;
       }
 
-      *(v258 + v153) = v159 & 0x18207F;
+      *(v257 + v153) = v159 & 0x18207F;
     }
 
 LABEL_278:
-    v154 = (*(v258 + v153++) >> 10) & 1;
+    v154 = (*(v257 + v153++) >> 10) & 1;
     ++v155;
     if (v84 != v153)
     {
@@ -23226,7 +23458,7 @@ LABEL_278:
     break;
   }
 
-  v164 = v244 - v252 + *(&v259 + 2 * v84 - 2) + *(&v259 + 2 * v84 - 1);
+  v164 = v243 - v251 + *(&v258 + 2 * v84 - 2) + *(&v258 + 2 * v84 - 1);
   v165 = o->var6 + o->var5;
   if (v164 >= v165)
   {
@@ -23293,10 +23525,10 @@ LABEL_278:
     goto LABEL_312;
   }
 
-  v174 = v172 | ((v258[0] & 0x40000000) == 0);
+  v174 = v172 | ((v257[0] & 0x40000000) == 0);
 LABEL_296:
   v175 = 0;
-  v176 = v258;
+  v176 = v257;
   v177 = v84;
   do
   {
@@ -23314,7 +23546,7 @@ LABEL_296:
   {
     if (v174)
     {
-      v178 = v258;
+      v178 = v257;
       v179 = v84;
       do
       {
@@ -23333,75 +23565,75 @@ LABEL_296:
 
     else
     {
-      [array addObject:{objc_msgSend(v242, "_detailWithRange:description:corrections:", 0, o->var6, @"This may be a sentence fragment.", 0)}];
+      [array addObject:{objc_msgSend(v241, "_detailWithRange:description:corrections:", 0, o->var6, @"This may be a sentence fragment.", 0)}];
     }
 
 LABEL_328:
+    v184 = 0;
     v185 = 0;
+    v236 = 0;
     v186 = 0;
-    v237 = 0;
-    v187 = 0;
-    LOBYTE(v188) = 0;
+    LOBYTE(v187) = 0;
+    v188 = 0;
+    v254 = 0;
+    v238 = 0;
+    v247 = 0;
+    v245 = 0;
     v189 = 0;
-    v255 = 0;
-    v239 = 0;
-    v248 = 0;
-    v246 = 0;
     v190 = 0;
     v191 = 0;
-    v192 = 0;
-    v193 = &var0[v244];
-    v194 = &v259 + 1;
-    v195 = 1;
+    v192 = &var0[v243];
+    v193 = &v258 + 1;
+    v194 = 1;
     while (1)
     {
-      if (v185)
+      if (v184)
       {
-        v196 = v187;
-        v197 = v189;
-        v198 = [objc_msgSend(MEMORY[0x1E696AB08] "whitespaceAndNewlineCharacterSet")];
-        v199 = *(v194 - 2) + *(v194 - 3);
-        [(__CFString *)v256 rangeOfCharacterFromSet:v198 options:0 range:v199, *(v194 - 1) - v199];
-        v201 = v200 == 0;
-        if ((v188 & v201) != 0)
+        v195 = v186;
+        v196 = v188;
+        v197 = [objc_msgSend(MEMORY[0x1E696AB08] "whitespaceAndNewlineCharacterSet")];
+        v198 = *(v193 - 2) + *(v193 - 3);
+        [(__CFString *)v255 rangeOfCharacterFromSet:v197 options:0 range:v198, *(v193 - 1) - v198];
+        v200 = v199 == 0;
+        if ((v187 & v200) != 0)
         {
-          v193 = &var0[v244];
-          v189 = v197;
-          v187 = v196;
+          v192 = &var0[v243];
+          v188 = v196;
+          v186 = v195;
 LABEL_341:
-          v202 = *(v258 + v185);
-          if ((v202 & 0x20000) != 0 && *v194 == 2 && (v205 = &v193[*(v194 - 1) - v252], *v205 == 105) && v205[1] == 115)
+          v201 = *(v257 + v184);
+          if ((v201 & 0x20000) != 0 && *v193 == 2 && (v204 = &v192[*(v193 - 1) - v251], *v204 == 105) && v204[1] == 115)
           {
-            if ((v186 | v187 | v189) & 1) != 0 || (v190 & ~v192 & 1) != 0 && ((v239 ^ 1 | v195))
+            if ((v185 | v186 | v188) & 1) != 0 || (v189 & ~v191 & 1) != 0 && ((v238 ^ 1 | v194))
             {
-              v206 = (v190 & 1) == 0;
-              v207 = &unk_1F4E16A18;
+              v205 = (v189 & 1) == 0;
+              v206 = &unk_1F4E16A18;
 LABEL_420:
-              if (v206)
+              if (v205)
               {
-                v211 = 0;
+                v210 = 0;
               }
 
               else
               {
-                v211 = v207;
+                v210 = v206;
               }
 
               goto LABEL_394;
             }
           }
 
-          else if ((v202 & 0x8000) != 0 && *v194 == 3 && (v208 = &v193[*(v194 - 1) - v252], *v208 == 97) && v208[1] == 114 && v208[2] == 101)
+          else if ((v201 & 0x8000) != 0 && *v193 == 3 && (v207 = &v192[*(v193 - 1) - v251], *v207 == 97) && v207[1] == 114 && v207[2] == 101)
           {
-            if (((v186 | v187 | v189) & 1) != 0 || !(v191 & 1 | (((v192 | v246) & 1) == 0)))
+            if (((v185 | v186 | v188) & 1) != 0 || !(v190 & 1 | (((v191 | v245) & 1) == 0)))
             {
               goto LABEL_393;
             }
           }
 
-          else if ((v202 & 0x40000) != 0 && *v194 == 3 && (v209 = &v193[*(v194 - 1) - v252], *v209 == 119) && v209[1] == 97 && v209[2] == 115)
+          else if ((v201 & 0x40000) != 0 && *v193 == 3 && (v208 = &v192[*(v193 - 1) - v251], *v208 == 119) && v208[1] == 97 && v208[2] == 115)
           {
-            if (((v186 | v187 | v189) & 1) != 0 || ((v246 | v192) & 1) == 0 && ((v191 ^ 1) & 1) == 0)
+            if (((v185 | v186 | v188) & 1) != 0 || ((v245 | v191) & 1) == 0 && ((v190 ^ 1) & 1) == 0)
             {
               goto LABEL_393;
             }
@@ -23409,59 +23641,59 @@ LABEL_420:
 
           else
           {
-            if ((v202 & 0x100000) != 0 && *v194 == 4)
+            if ((v201 & 0x100000) != 0 && *v193 == 4)
             {
-              v210 = &v193[*(v194 - 1) - v252];
-              if (*v210 == 98 && v210[1] == 101 && v210[2] == 101 && v210[3] == 110)
+              v209 = &v192[*(v193 - 1) - v251];
+              if (*v209 == 98 && v209[1] == 101 && v209[2] == 101 && v209[3] == 110)
               {
-                if (v237)
+                if (v236)
                 {
                   goto LABEL_395;
                 }
 
 LABEL_393:
-                v211 = 0;
+                v210 = 0;
 LABEL_394:
-                [array addObject:{objc_msgSend(v242, "_detailWithRange:description:corrections:", *(v194 - 1) + v244 - (v252 + o->var5), *v194, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"The word '%@' may not agree with the rest of the sentence.", -[__CFString substringWithRange:](v256, "substringWithRange:")), v211)}];
-                v193 = &var0[v244];
+                [array addObject:{objc_msgSend(v241, "_detailWithRange:description:corrections:", *(v193 - 1) + v243 - (v251 + o->var5), *v193, objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"The word '%@' may not agree with the rest of the sentence.", -[__CFString substringWithRange:](v255, "substringWithRange:")), v210)}];
+                v192 = &var0[v243];
                 goto LABEL_395;
               }
             }
 
-            switch(v202)
+            switch(v201)
             {
               case 0x40000u:
-                if (((v186 | v187 | v189) & 1) == 0)
+                if (((v185 | v186 | v188) & 1) == 0)
                 {
                   goto LABEL_395;
                 }
 
                 goto LABEL_393;
               case 0x20000u:
-                if ((v186 | v187 | v189))
+                if ((v185 | v186 | v188))
                 {
-                  v211 = 0;
-                  v202 = 0x20000;
+                  v210 = 0;
+                  v201 = 0x20000;
                   goto LABEL_394;
                 }
 
-                v202 = 0x20000;
-                if (v190 & ~v192 & 1) != 0 && ((v239 ^ 1 | v195))
+                v201 = 0x20000;
+                if (v189 & ~v191 & 1) != 0 && ((v238 ^ 1 | v194))
                 {
                   goto LABEL_393;
                 }
 
                 break;
               case 0x8000u:
-                if (v190 & 1 | ((v195 & v192 & 1) == 0) | (v248 | v239) & 1)
+                if (v189 & 1 | ((v194 & v191 & 1) == 0) | (v247 | v238) & 1)
                 {
                   goto LABEL_395;
                 }
 
                 goto LABEL_393;
               default:
-                v213 = (v202 & 0xFEBFFFFF) == 0 && v202 != 0;
-                if (!(v255 & 1 | ((v213 & v195 & 1) == 0)))
+                v212 = (v201 & 0xFEBFFFFF) == 0 && v201 != 0;
+                if (!(v254 & 1 | ((v212 & v194 & 1) == 0)))
                 {
                   goto LABEL_393;
                 }
@@ -23473,101 +23705,101 @@ LABEL_394:
           goto LABEL_395;
         }
 
-        v186 &= v201;
-        v187 = v196 & v201;
-        v189 = v197 & v201;
-        v193 = &var0[v244];
+        v185 &= v200;
+        v186 = v195 & v200;
+        v188 = v196 & v200;
+        v192 = &var0[v243];
       }
 
-      else if (v188)
+      else if (v187)
       {
         goto LABEL_341;
       }
 
-      v202 = *(v258 + v185);
-      if ((v202 & 0x8000) == 0)
+      v201 = *(v257 + v184);
+      if ((v201 & 0x8000) == 0)
       {
         goto LABEL_341;
       }
 
-      if (*v194 != 2)
+      if (*v193 != 2)
       {
         goto LABEL_341;
       }
 
-      v203 = &v193[*(v194 - 1) - v252];
-      if (*v203 != 97 || v203[1] != 109)
+      v202 = &v192[*(v193 - 1) - v251];
+      if (*v202 != 97 || v202[1] != 109)
       {
         goto LABEL_341;
       }
 
-      if ((v186 | v187 | v189))
+      if ((v185 | v186 | v188))
       {
-        v204 = v192 | v191;
+        v203 = v191 | v190;
 LABEL_419:
-        v206 = (v204 & 1) == 0;
-        v207 = &unk_1F4E16A00;
+        v205 = (v203 & 1) == 0;
+        v206 = &unk_1F4E16A00;
         goto LABEL_420;
       }
 
-      if ((v246 & 1) == 0)
+      if ((v245 & 1) == 0)
       {
-        v204 = v192 | v191;
-        if ((v192 | v191))
+        v203 = v191 | v190;
+        if ((v191 | v190))
         {
           goto LABEL_419;
         }
       }
 
 LABEL_395:
-      v189 = v202 == 0x10000;
-      if ((v202 & 0x800) == 0 || *v194 != 2)
+      v188 = v201 == 0x10000;
+      if ((v201 & 0x800) == 0 || *v193 != 2)
       {
         goto LABEL_425;
       }
 
-      v214 = &v193[*(v194 - 1) - v252];
-      v215 = *v214;
+      v213 = &v192[*(v193 - 1) - v251];
+      v214 = *v213;
+      if ((v214 - 65) < 0x1A || (v214 - 192) < 0x17)
+      {
+        if ((v214 - 138) <= 0x15 && ((1 << (v214 + 118)) & 0x200015) != 0)
+        {
+          goto LABEL_425;
+        }
+
+LABEL_400:
+        v214 += 32;
+        goto LABEL_401;
+      }
+
+      if ((v214 - 216) < 7)
+      {
+        goto LABEL_400;
+      }
+
+      if ((v214 - 138) <= 0x15 && ((1 << (v214 + 118)) & 0x200015) != 0)
+      {
+        goto LABEL_425;
+      }
+
+LABEL_401:
+      if (v214 != 116)
+      {
+        goto LABEL_425;
+      }
+
+      v215 = v213[1];
       if ((v215 - 65) < 0x1A || (v215 - 192) < 0x17)
       {
         if ((v215 - 138) <= 0x15 && ((1 << (v215 + 118)) & 0x200015) != 0)
         {
           goto LABEL_425;
         }
-
-LABEL_400:
-        v215 += 32;
-        goto LABEL_401;
       }
 
-      if ((v215 - 216) < 7)
+      else if ((v215 - 216) >= 7)
       {
-        goto LABEL_400;
-      }
-
-      if ((v215 - 138) <= 0x15 && ((1 << (v215 + 118)) & 0x200015) != 0)
-      {
-        goto LABEL_425;
-      }
-
-LABEL_401:
-      if (v215 != 116)
-      {
-        goto LABEL_425;
-      }
-
-      v216 = v214[1];
-      if ((v216 - 65) < 0x1A || (v216 - 192) < 0x17)
-      {
-        if ((v216 - 138) <= 0x15 && ((1 << (v216 + 118)) & 0x200015) != 0)
-        {
-          goto LABEL_425;
-        }
-      }
-
-      else if ((v216 - 216) >= 7)
-      {
-        if ((v216 - 138) <= 0x15 && ((1 << (v216 + 118)) & 0x200015) != 0)
+        if ((v215 - 138) <= 0x15 && ((1 << (v215 + 118)) & 0x200015) != 0)
         {
           goto LABEL_425;
         }
@@ -23575,25 +23807,54 @@ LABEL_401:
         goto LABEL_406;
       }
 
-      v216 += 32;
+      v215 += 32;
 LABEL_406:
-      if (v216 == 111)
+      if (v215 == 111)
       {
-        v239 = 1;
-        v187 = 1;
+        v238 = 1;
+        v186 = 1;
         goto LABEL_426;
       }
 
 LABEL_425:
-      v187 = 0;
+      v186 = 0;
 LABEL_426:
-      if ((v202 & 0x68000) == 0)
+      if ((v201 & 0x68000) == 0)
       {
         goto LABEL_462;
       }
 
-      v217 = &v193[*(v194 - 1) - v252];
-      v218 = *v217;
+      v216 = &v192[*(v193 - 1) - v251];
+      v217 = *v216;
+      if ((v217 - 65) < 0x1A || (v217 - 192) < 0x17)
+      {
+        if ((v217 - 138) <= 0x15 && ((1 << (v217 + 118)) & 0x200015) != 0)
+        {
+          goto LABEL_462;
+        }
+
+LABEL_430:
+        v217 += 32;
+        goto LABEL_431;
+      }
+
+      if ((v217 - 216) < 7)
+      {
+        goto LABEL_430;
+      }
+
+      if ((v217 - 138) <= 0x15 && ((1 << (v217 + 118)) & 0x200015) != 0)
+      {
+        goto LABEL_462;
+      }
+
+LABEL_431:
+      if (v217 != 104)
+      {
+        goto LABEL_462;
+      }
+
+      v218 = v216[1];
       if ((v218 - 65) < 0x1A || (v218 - 192) < 0x17)
       {
         if ((v218 - 138) <= 0x15 && ((1 << (v218 + 118)) & 0x200015) != 0)
@@ -23601,14 +23862,14 @@ LABEL_426:
           goto LABEL_462;
         }
 
-LABEL_430:
+LABEL_435:
         v218 += 32;
-        goto LABEL_431;
+        goto LABEL_436;
       }
 
       if ((v218 - 216) < 7)
       {
-        goto LABEL_430;
+        goto LABEL_435;
       }
 
       if ((v218 - 138) <= 0x15 && ((1 << (v218 + 118)) & 0x200015) != 0)
@@ -23616,52 +23877,53 @@ LABEL_430:
         goto LABEL_462;
       }
 
-LABEL_431:
-      if (v218 != 104)
-      {
-        goto LABEL_462;
-      }
-
-      v219 = v217[1];
-      if ((v219 - 65) < 0x1A || (v219 - 192) < 0x17)
-      {
-        if ((v219 - 138) <= 0x15 && ((1 << (v219 + 118)) & 0x200015) != 0)
-        {
-          goto LABEL_462;
-        }
-
-LABEL_435:
-        v219 += 32;
-        goto LABEL_436;
-      }
-
-      if ((v219 - 216) < 7)
-      {
-        goto LABEL_435;
-      }
-
-      if ((v219 - 138) <= 0x15 && ((1 << (v219 + 118)) & 0x200015) != 0)
-      {
-        goto LABEL_462;
-      }
-
 LABEL_436:
-      if (v219 != 97)
+      if (v218 != 97)
       {
         goto LABEL_462;
       }
 
-      v220 = *v194;
-      if (*v194 > 5)
+      v219 = *v193;
+      if (*v193 > 5)
       {
-        if (v220 != 6)
+        if (v219 != 6)
         {
-          if (v220 != 7)
+          if (v219 != 7)
           {
             goto LABEL_462;
           }
 
-          v228 = v217[2];
+          v227 = v216[2];
+          if ((v227 - 65) < 0x1A || (v227 - 192) < 0x17)
+          {
+            if ((v227 - 138) <= 0x15 && ((1 << (v227 + 118)) & 0x200015) != 0)
+            {
+              goto LABEL_462;
+            }
+
+LABEL_501:
+            v227 += 32;
+          }
+
+          else
+          {
+            if ((v227 - 216) < 7)
+            {
+              goto LABEL_501;
+            }
+
+            if ((v227 - 138) <= 0x15 && ((1 << (v227 + 118)) & 0x200015) != 0)
+            {
+              goto LABEL_462;
+            }
+          }
+
+          if (v227 != 118)
+          {
+            goto LABEL_462;
+          }
+
+          v228 = v216[3];
           if ((v228 - 65) < 0x1A || (v228 - 192) < 0x17)
           {
             if ((v228 - 138) <= 0x15 && ((1 << (v228 + 118)) & 0x200015) != 0)
@@ -23669,7 +23931,7 @@ LABEL_436:
               goto LABEL_462;
             }
 
-LABEL_501:
+LABEL_506:
             v228 += 32;
           }
 
@@ -23677,7 +23939,7 @@ LABEL_501:
           {
             if ((v228 - 216) < 7)
             {
-              goto LABEL_501;
+              goto LABEL_506;
             }
 
             if ((v228 - 138) <= 0x15 && ((1 << (v228 + 118)) & 0x200015) != 0)
@@ -23686,12 +23948,12 @@ LABEL_501:
             }
           }
 
-          if (v228 != 118)
+          if (v228 != 101)
           {
             goto LABEL_462;
           }
 
-          v229 = v217[3];
+          v229 = v216[4];
           if ((v229 - 65) < 0x1A || (v229 - 192) < 0x17)
           {
             if ((v229 - 138) <= 0x15 && ((1 << (v229 + 118)) & 0x200015) != 0)
@@ -23699,7 +23961,7 @@ LABEL_501:
               goto LABEL_462;
             }
 
-LABEL_506:
+LABEL_511:
             v229 += 32;
           }
 
@@ -23707,7 +23969,7 @@ LABEL_506:
           {
             if ((v229 - 216) < 7)
             {
-              goto LABEL_506;
+              goto LABEL_511;
             }
 
             if ((v229 - 138) <= 0x15 && ((1 << (v229 + 118)) & 0x200015) != 0)
@@ -23716,44 +23978,14 @@ LABEL_506:
             }
           }
 
-          if (v229 != 101)
+          if (v229 == 110 && v216[5] == 39)
           {
-            goto LABEL_462;
-          }
-
-          v230 = v217[4];
-          if ((v230 - 65) < 0x1A || (v230 - 192) < 0x17)
-          {
-            if ((v230 - 138) <= 0x15 && ((1 << (v230 + 118)) & 0x200015) != 0)
-            {
-              goto LABEL_462;
-            }
-
-LABEL_511:
-            v230 += 32;
-          }
-
-          else
-          {
-            if ((v230 - 216) < 7)
-            {
-              goto LABEL_511;
-            }
-
-            if ((v230 - 138) <= 0x15 && ((1 << (v230 + 118)) & 0x200015) != 0)
-            {
-              goto LABEL_462;
-            }
-          }
-
-          if (v230 == 110 && v217[5] == 39)
-          {
-            v236 = v187;
-            v231 = toLower(v217[6]);
-            v187 = v236;
-            v189 = v202 == 0x10000;
-            v193 = &var0[v244];
-            if (v231 == 116)
+            v235 = v186;
+            v230 = toLower(v216[6]);
+            v186 = v235;
+            v188 = v201 == 0x10000;
+            v192 = &var0[v243];
+            if (v230 == 116)
             {
               goto LABEL_476;
             }
@@ -23762,114 +23994,7 @@ LABEL_511:
           goto LABEL_462;
         }
 
-        v233 = v217[2];
-        if ((v233 - 65) < 0x1A || (v233 - 192) < 0x17)
-        {
-          if ((v233 - 138) <= 0x15 && ((1 << (v233 + 118)) & 0x200015) != 0)
-          {
-            goto LABEL_462;
-          }
-
-          if (v233 == 83)
-          {
-            goto LABEL_555;
-          }
-        }
-
-        else if ((v233 - 216) >= 7)
-        {
-          if ((v233 - 115) > 0x2C)
-          {
-            goto LABEL_554;
-          }
-
-          if (((1 << (v233 - 115)) & 0x10000A800000) != 0)
-          {
-            goto LABEL_462;
-          }
-
-          if (v233 != 115)
-          {
-            goto LABEL_554;
-          }
-
-          goto LABEL_555;
-        }
-
-        v233 += 32;
-LABEL_554:
-        if (v233 != 100)
-        {
-          goto LABEL_462;
-        }
-
-LABEL_555:
-        v234 = v217[3];
-        if ((v234 - 65) < 0x1A || (v234 - 192) < 0x17)
-        {
-          if ((v234 - 138) <= 0x15 && ((1 << (v234 + 118)) & 0x200015) != 0)
-          {
-            goto LABEL_462;
-          }
-
-LABEL_558:
-          v234 += 32;
-        }
-
-        else
-        {
-          if ((v234 - 216) < 7)
-          {
-            goto LABEL_558;
-          }
-
-          if ((v234 - 138) <= 0x15 && ((1 << (v234 + 118)) & 0x200015) != 0)
-          {
-            goto LABEL_462;
-          }
-        }
-
-        if (v234 != 110 || v217[4] != 39)
-        {
-          goto LABEL_462;
-        }
-
-        v235 = v217[5];
-        if ((v235 - 65) < 0x1A || (v235 - 192) < 0x17)
-        {
-          if ((v235 - 138) <= 0x15 && ((1 << (v235 + 118)) & 0x200015) != 0)
-          {
-            goto LABEL_462;
-          }
-
-LABEL_564:
-          v235 += 32;
-        }
-
-        else
-        {
-          if ((v235 - 216) < 7)
-          {
-            goto LABEL_564;
-          }
-
-          if ((v235 - 138) <= 0x15 && ((1 << (v235 + 118)) & 0x200015) != 0)
-          {
-            goto LABEL_462;
-          }
-        }
-
-        if (v235 == 116)
-        {
-          goto LABEL_476;
-        }
-
-        goto LABEL_462;
-      }
-
-      if (v220 == 3)
-      {
-        v232 = v217[2];
+        v232 = v216[2];
         if ((v232 - 65) < 0x1A || (v232 - 192) < 0x17)
         {
           if ((v232 - 138) <= 0x15 && ((1 << (v232 + 118)) & 0x200015) != 0)
@@ -23879,20 +24004,127 @@ LABEL_564:
 
           if (v232 == 83)
           {
-            goto LABEL_476;
+            goto LABEL_555;
           }
         }
 
         else if ((v232 - 216) >= 7)
         {
-          if ((v232 - 115) <= 0x2C)
+          if ((v232 - 115) > 0x2C)
           {
-            if (((1 << (v232 - 115)) & 0x10000A800000) != 0)
+            goto LABEL_554;
+          }
+
+          if (((1 << (v232 - 115)) & 0x10000A800000) != 0)
+          {
+            goto LABEL_462;
+          }
+
+          if (v232 != 115)
+          {
+            goto LABEL_554;
+          }
+
+          goto LABEL_555;
+        }
+
+        v232 += 32;
+LABEL_554:
+        if (v232 != 100)
+        {
+          goto LABEL_462;
+        }
+
+LABEL_555:
+        v233 = v216[3];
+        if ((v233 - 65) < 0x1A || (v233 - 192) < 0x17)
+        {
+          if ((v233 - 138) <= 0x15 && ((1 << (v233 + 118)) & 0x200015) != 0)
+          {
+            goto LABEL_462;
+          }
+
+LABEL_558:
+          v233 += 32;
+        }
+
+        else
+        {
+          if ((v233 - 216) < 7)
+          {
+            goto LABEL_558;
+          }
+
+          if ((v233 - 138) <= 0x15 && ((1 << (v233 + 118)) & 0x200015) != 0)
+          {
+            goto LABEL_462;
+          }
+        }
+
+        if (v233 != 110 || v216[4] != 39)
+        {
+          goto LABEL_462;
+        }
+
+        v234 = v216[5];
+        if ((v234 - 65) < 0x1A || (v234 - 192) < 0x17)
+        {
+          if ((v234 - 138) <= 0x15 && ((1 << (v234 + 118)) & 0x200015) != 0)
+          {
+            goto LABEL_462;
+          }
+
+LABEL_564:
+          v234 += 32;
+        }
+
+        else
+        {
+          if ((v234 - 216) < 7)
+          {
+            goto LABEL_564;
+          }
+
+          if ((v234 - 138) <= 0x15 && ((1 << (v234 + 118)) & 0x200015) != 0)
+          {
+            goto LABEL_462;
+          }
+        }
+
+        if (v234 == 116)
+        {
+          goto LABEL_476;
+        }
+
+        goto LABEL_462;
+      }
+
+      if (v219 == 3)
+      {
+        v231 = v216[2];
+        if ((v231 - 65) < 0x1A || (v231 - 192) < 0x17)
+        {
+          if ((v231 - 138) <= 0x15 && ((1 << (v231 + 118)) & 0x200015) != 0)
+          {
+            goto LABEL_462;
+          }
+
+          if (v231 == 83)
+          {
+            goto LABEL_476;
+          }
+        }
+
+        else if ((v231 - 216) >= 7)
+        {
+          if ((v231 - 115) <= 0x2C)
+          {
+            if (((1 << (v231 - 115)) & 0x10000A800000) != 0)
             {
               goto LABEL_462;
             }
 
-            if (v232 == 115)
+            if (v231 == 115)
             {
               goto LABEL_476;
             }
@@ -23901,9 +24133,9 @@ LABEL_564:
           goto LABEL_548;
         }
 
-        v232 += 32;
+        v231 += 32;
 LABEL_548:
-        if (v232 == 100)
+        if (v231 == 100)
         {
           goto LABEL_476;
         }
@@ -23911,52 +24143,52 @@ LABEL_548:
         goto LABEL_462;
       }
 
-      if (v220 != 4)
+      if (v219 != 4)
       {
         goto LABEL_462;
       }
 
-      v221 = v217[2];
+      v220 = v216[2];
+      if ((v220 - 65) < 0x1A || (v220 - 192) < 0x17)
+      {
+        if ((v220 - 138) <= 0x15 && ((1 << (v220 + 118)) & 0x200015) != 0)
+        {
+          goto LABEL_462;
+        }
+
+LABEL_443:
+        v220 += 32;
+        goto LABEL_444;
+      }
+
+      if ((v220 - 216) < 7)
+      {
+        goto LABEL_443;
+      }
+
+      if ((v220 - 138) <= 0x15 && ((1 << (v220 + 118)) & 0x200015) != 0)
+      {
+        goto LABEL_462;
+      }
+
+LABEL_444:
+      if (v220 != 118)
+      {
+        goto LABEL_462;
+      }
+
+      v221 = v216[3];
       if ((v221 - 65) < 0x1A || (v221 - 192) < 0x17)
       {
         if ((v221 - 138) <= 0x15 && ((1 << (v221 + 118)) & 0x200015) != 0)
         {
           goto LABEL_462;
         }
-
-LABEL_443:
-        v221 += 32;
-        goto LABEL_444;
       }
 
-      if ((v221 - 216) < 7)
+      else if ((v221 - 216) >= 7)
       {
-        goto LABEL_443;
-      }
-
-      if ((v221 - 138) <= 0x15 && ((1 << (v221 + 118)) & 0x200015) != 0)
-      {
-        goto LABEL_462;
-      }
-
-LABEL_444:
-      if (v221 != 118)
-      {
-        goto LABEL_462;
-      }
-
-      v222 = v217[3];
-      if ((v222 - 65) < 0x1A || (v222 - 192) < 0x17)
-      {
-        if ((v222 - 138) <= 0x15 && ((1 << (v222 + 118)) & 0x200015) != 0)
-        {
-          goto LABEL_462;
-        }
-      }
-
-      else if ((v222 - 216) >= 7)
-      {
-        if ((v222 - 138) <= 0x15 && ((1 << (v222 + 118)) & 0x200015) != 0)
+        if ((v221 - 138) <= 0x15 && ((1 << (v221 + 118)) & 0x200015) != 0)
         {
           goto LABEL_462;
         }
@@ -23964,51 +24196,51 @@ LABEL_444:
         goto LABEL_449;
       }
 
-      v222 += 32;
+      v221 += 32;
 LABEL_449:
-      if (v222 == 101)
+      if (v221 == 101)
       {
         goto LABEL_476;
       }
 
 LABEL_462:
-      v223 = *v194;
-      if (*v194 < 3uLL)
+      v222 = *v193;
+      if (*v193 < 3uLL)
       {
         goto LABEL_535;
       }
 
-      v224 = &v193[v223 + *(v194 - 1) - v252];
-      v225 = *(v224 - 2);
-      if (v225 != 39)
+      v223 = &v192[v222 + *(v193 - 1) - v251];
+      v224 = *(v223 - 2);
+      if (v224 != 39)
       {
         goto LABEL_477;
       }
 
-      v226 = *(v224 - 1);
-      if ((v226 - 65) < 0x1A || (v226 - 192) < 0x17)
+      v225 = *(v223 - 1);
+      if ((v225 - 65) < 0x1A || (v225 - 192) < 0x17)
       {
-        if ((v226 - 138) <= 0x15 && ((1 << (v226 + 118)) & 0x200015) != 0)
+        if ((v225 - 138) <= 0x15 && ((1 << (v225 + 118)) & 0x200015) != 0)
         {
           goto LABEL_477;
         }
 
-        if (v226 == 83)
+        if (v225 == 83)
         {
           goto LABEL_476;
         }
       }
 
-      else if ((v226 - 216) >= 7)
+      else if ((v225 - 216) >= 7)
       {
-        if ((v226 - 115) <= 0x2C)
+        if ((v225 - 115) <= 0x2C)
         {
-          if (((1 << (v226 - 115)) & 0x10000A800000) != 0)
+          if (((1 << (v225 - 115)) & 0x10000A800000) != 0)
           {
             goto LABEL_477;
           }
 
-          if (v226 == 115)
+          if (v225 == 115)
           {
             goto LABEL_476;
           }
@@ -24017,61 +24249,61 @@ LABEL_462:
         goto LABEL_475;
       }
 
-      v226 += 32;
+      v225 += 32;
 LABEL_475:
-      if (v226 == 100)
+      if (v225 == 100)
       {
         goto LABEL_476;
       }
 
 LABEL_477:
-      if (v223 == 3 || *(v224 - 3) != 39)
+      if (v222 == 3 || *(v223 - 3) != 39)
       {
 LABEL_535:
-        v186 = 0;
+        v185 = 0;
         goto LABEL_536;
       }
 
-      if ((v225 - 65) < 0x1A || (v225 - 192) < 0x17)
+      if ((v224 - 65) < 0x1A || (v224 - 192) < 0x17)
       {
-        if ((v225 - 138) <= 0x15 && ((1 << (v225 + 118)) & 0x200015) != 0)
+        if ((v224 - 138) <= 0x15 && ((1 << (v224 + 118)) & 0x200015) != 0)
         {
           goto LABEL_535;
         }
 
 LABEL_482:
-        v225 += 32;
+        v224 += 32;
         goto LABEL_483;
       }
 
-      if ((v225 - 216) < 7)
+      if ((v224 - 216) < 7)
       {
         goto LABEL_482;
       }
 
-      if ((v225 - 138) <= 0x15 && ((1 << (v225 + 118)) & 0x200015) != 0)
+      if ((v224 - 138) <= 0x15 && ((1 << (v224 + 118)) & 0x200015) != 0)
       {
         goto LABEL_535;
       }
 
 LABEL_483:
-      if (v225 != 118)
+      if (v224 != 118)
       {
         goto LABEL_535;
       }
 
-      v227 = *(v224 - 1);
-      if ((v227 - 65) < 0x1A || (v227 - 192) < 0x17)
+      v226 = *(v223 - 1);
+      if ((v226 - 65) < 0x1A || (v226 - 192) < 0x17)
       {
-        if ((v227 - 138) <= 0x15 && ((1 << (v227 + 118)) & 0x200015) != 0)
+        if ((v226 - 138) <= 0x15 && ((1 << (v226 + 118)) & 0x200015) != 0)
         {
           goto LABEL_535;
         }
       }
 
-      else if ((v227 - 216) >= 7)
+      else if ((v226 - 216) >= 7)
       {
-        if ((v227 - 138) <= 0x15 && ((1 << (v227 + 118)) & 0x200015) != 0)
+        if ((v226 - 138) <= 0x15 && ((1 << (v226 + 118)) & 0x200015) != 0)
         {
           goto LABEL_535;
         }
@@ -24079,28 +24311,28 @@ LABEL_483:
         goto LABEL_488;
       }
 
-      v227 += 32;
+      v226 += 32;
 LABEL_488:
-      if (v227 != 101)
+      if (v226 != 101)
       {
         goto LABEL_535;
       }
 
 LABEL_476:
-      v237 = 1;
-      v186 = 1;
+      v236 = 1;
+      v185 = 1;
 LABEL_536:
-      v192 |= (v202 & 0x44083003) != 0;
-      v246 |= (v202 & 0x200000) >> 21;
-      v191 |= (v202 & 0x7280300C) != 0;
-      v190 |= (v202 & 0x72A0300C) != 0;
-      v248 |= (v202 & 0x10000) >> 16;
-      v188 = (v202 >> 13) & 1;
-      v255 |= (v202 & 0x800) >> 11;
-      v195 = ((v202 & 0x7C000) == 0) & v195;
-      ++v185;
-      v194 += 2;
-      if (v251 == v185)
+      v191 |= (v201 & 0x44083003) != 0;
+      v245 |= (v201 & 0x200000) >> 21;
+      v190 |= (v201 & 0x7280300C) != 0;
+      v189 |= (v201 & 0x72A0300C) != 0;
+      v247 |= (v201 & 0x10000) >> 16;
+      v187 = (v201 >> 13) & 1;
+      v254 |= (v201 & 0x800) >> 11;
+      v194 = ((v201 & 0x7C000) == 0) & v194;
+      ++v184;
+      v193 += 2;
+      if (v250 == v184)
       {
         goto LABEL_312;
       }
@@ -24113,16 +24345,16 @@ LABEL_536:
   }
 
 LABEL_311:
-  [array addObject:{objc_msgSend(v242, "_detailWithRange:description:corrections:", 0, o->var6, @"This may be a sentence fragment.", 0)}];
-  if (v251)
+  [array addObject:{objc_msgSend(v241, "_detailWithRange:description:corrections:", 0, o->var6, @"This may be a sentence fragment.", 0)}];
+  if (v250)
   {
     goto LABEL_328;
   }
 
 LABEL_312:
   oCopy3 = o;
-  retvalCopy2 = v240;
-  v24 = v241;
+  retvalCopy2 = v239;
+  v24 = v240;
 LABEL_313:
   v181 = [array count];
   if (!v181)
@@ -24131,10 +24363,10 @@ LABEL_313:
     {
       if (!oCopy3->var6)
       {
-        oCopy3->var5 = v238;
+        oCopy3->var5 = v237;
         if (!v24)
         {
-          goto LABEL_324;
+          return v181 != 0;
         }
 
         goto LABEL_323;
@@ -24159,65 +24391,62 @@ LABEL_322:
       goto LABEL_323;
     }
 
-    goto LABEL_324;
+    return v181 != 0;
   }
 
   v182 = oCopy3->var6;
-  errorRange->location = v252 - v244 + oCopy3->var5;
+  errorRange->location = v251 - v243 + oCopy3->var5;
   errorRange->length = v182;
   if (!v24)
   {
-    goto LABEL_324;
+    return v181 != 0;
   }
 
 LABEL_323:
   CFRelease(v24);
-LABEL_324:
-  result = v181 != 0;
-  v184 = *MEMORY[0x1E69E9840];
-  return result;
+  return v181 != 0;
 }
 
 - (void)_addContextAlternativesForZhuyinInputString:(id)string modifications:(id)modifications afterIndex:(unint64_t)index delta:(int64_t)delta toArray:(id)array
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v9 = [modifications countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v9 = [modifications countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v50;
-    v35 = *v50;
+    v11 = *v49;
+    v34 = *v49;
     deltaCopy = delta;
     do
     {
       v12 = 0;
-      v37 = v10;
+      v36 = v10;
       do
       {
-        if (*v50 != v11)
+        if (*v49 != v11)
         {
           objc_enumerationMutation(modifications);
         }
 
-        v13 = *(*(&v49 + 1) + 8 * v12);
+        v13 = *(*(&v48 + 1) + 8 * v12);
         range = [v13 range];
-        v42 = v15;
+        v41 = v15;
         syllableRange = [v13 syllableRange];
-        v43 = v17;
-        v41 = range;
+        v42 = v17;
+        v40 = range;
         if (range >= index && syllableRange >= index)
         {
           v19 = syllableRange;
-          v40 = v12;
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
+          v39 = v12;
           v46 = 0u;
-          v20 = [modifications countByEnumeratingWithState:&v45 objects:v53 count:16];
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          v20 = [modifications countByEnumeratingWithState:&v44 objects:v52 count:16];
           if (!v20)
           {
             v23 = 1;
@@ -24225,7 +24454,7 @@ LABEL_27:
             v30 = [string mutableCopy];
             replacementString = [v13 replacementString];
             v32 = [replacementString length];
-            [v30 replaceCharactersInRange:v41 + delta withString:{v42, replacementString}];
+            [v30 replaceCharactersInRange:v40 + delta withString:{v41, replacementString}];
             if (v23)
             {
               if (([array containsObject:v30] & 1) == 0)
@@ -24236,43 +24465,43 @@ LABEL_27:
 
             else
             {
-              [(AppleSpell *)self _addContextAlternativesForZhuyinInputString:v30 modifications:modifications afterIndex:v19 + v43 delta:delta - v42 + v32 toArray:array];
+              [(AppleSpell *)self _addContextAlternativesForZhuyinInputString:v30 modifications:modifications afterIndex:v19 + v42 delta:delta - v41 + v32 toArray:array];
             }
 
-            v12 = v40;
+            v12 = v39;
             goto LABEL_32;
           }
 
           v21 = v20;
-          v22 = *v46;
+          v22 = *v45;
           v23 = 1;
           v24 = 1;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v46 != v22)
+              if (*v45 != v22)
               {
                 objc_enumerationMutation(modifications);
               }
 
-              v26 = *(*(&v45 + 1) + 8 * i);
+              v26 = *(*(&v44 + 1) + 8 * i);
               syllableRange2 = [v26 syllableRange];
               if (v26 != v13 && syllableRange2 >= index)
               {
                 v24 &= syllableRange2 + v28 > v19;
-                v23 &= v19 + v43 > syllableRange2;
+                v23 &= v19 + v42 > syllableRange2;
               }
             }
 
-            v21 = [modifications countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v21 = [modifications countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
           while (v21);
-          v11 = v35;
+          v11 = v34;
           delta = deltaCopy;
-          v10 = v37;
-          v12 = v40;
+          v10 = v36;
+          v12 = v39;
           if (v24)
           {
             goto LABEL_27;
@@ -24284,13 +24513,11 @@ LABEL_32:
       }
 
       while (v12 != v10);
-      v10 = [modifications countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v10 = [modifications countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v10);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)contextAlternativeAnnotatedStringsForZhuyinInputString:(id)string
@@ -24313,7 +24540,7 @@ LABEL_32:
 
 - (void)_addTwoLetterWordGuessesForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object isCapitalized:(BOOL)capitalized isAllCaps:(BOOL)caps twoLetterWords:(const char *)words candidateList:(id)self0
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (length == 2)
   {
     if (words)
@@ -24338,9 +24565,9 @@ LABEL_32:
           }
         }
 
-        v29 = v15;
-        v30 = v14;
-        v31 = 0;
+        v28 = v15;
+        v29 = v14;
+        v30 = 0;
         v20 = 3;
         if (!capitalizedCopy)
         {
@@ -24357,7 +24584,7 @@ LABEL_32:
           v21 = v20;
         }
 
-        [list addTranspositionCandidateWithBuffer:&v29 encoding:encoding transform:v21 intendedFirstCharacter:v15 intendedSecondCharacter:v14];
+        [list addTranspositionCandidateWithBuffer:&v28 encoding:encoding transform:v21 intendedFirstCharacter:v15 intendedSecondCharacter:v14];
 LABEL_15:
         v22 = 0;
         v23 = 3;
@@ -24383,10 +24610,10 @@ LABEL_15:
             v25 = words[v22 + 1];
             if (adjacentMatch(v15, words[v22 + 1], encoding))
             {
-              v29 = v14;
-              v30 = v25;
-              v31 = 0;
-              [list addReplacementCandidateWithBuffer:&v29 encoding:encoding transform:v24 intendedCharacter:v25 actualCharacter:v15];
+              v28 = v14;
+              v29 = v25;
+              v30 = 0;
+              [list addReplacementCandidateWithBuffer:&v28 encoding:encoding transform:v24 intendedCharacter:v25 actualCharacter:v15];
             }
           }
 
@@ -24401,26 +24628,25 @@ LABEL_15:
             v27 = words[i];
             if (adjacentMatch(v14, words[i], encoding))
             {
-              v29 = v27;
-              v30 = v19;
-              v31 = 0;
-              [list addReplacementCandidateWithBuffer:&v29 encoding:encoding transform:v24 intendedCharacter:v27 actualCharacter:v14];
+              v28 = v27;
+              v29 = v19;
+              v30 = 0;
+              [list addReplacementCandidateWithBuffer:&v28 encoding:encoding transform:v24 intendedCharacter:v27 actualCharacter:v14];
             }
           }
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addConnectionGuessesForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection candidateList:(id)list
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (length - 2 <= 0x3D && connection != 0)
   {
     encoding = [object encoding];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
@@ -24428,26 +24654,25 @@ LABEL_15:
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v46 = 0;
-    memset(v34, 0, sizeof(v34));
-    v35 = 0u;
-    HIDWORD(v35) = 0;
-    v36 = 0;
+    v45 = 0;
+    memset(v33, 0, sizeof(v33));
+    v34 = 0u;
+    HIDWORD(v34) = 0;
+    v35 = 0;
     bufferCopy = buffer;
-    *&v44 = v34;
-    BYTE7(v45) = 1;
-    *(&v45 + 9) = *&connection->var0;
+    *&v43 = v33;
+    BYTE7(v44) = 1;
+    *(&v44 + 9) = *&connection->var0;
     PRword(&bufferCopy, 8, 0);
-    v14 = v38;
-    if (v38)
+    v14 = v37;
+    if (v37)
     {
-      if (*(v38 + 8))
+      if (*(v37 + 8))
       {
-        if (*v38)
+        if (*v37)
         {
-          v15 = *(v38 + 18);
-          if (*(v38 + 18))
+          v15 = *(v37 + 18);
+          if (*(v37 + 18))
           {
             v16 = 0;
             do
@@ -24529,14 +24754,12 @@ LABEL_34:
 
     PRword(&bufferCopy, 17, 0);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addAdditionalGuessesForWord:(id)word sender:(id)sender buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection accents:(const char *)accents isCapitalized:(BOOL)self0 isAllCaps:(BOOL)self1 isAllAlpha:(BOOL)self2 hasLigature:(BOOL)self3 suggestPossessive:(BOOL)self4 checkUser:(BOOL)self5 checkHyphens:(BOOL)self6 candidateList:(id)self7
 {
   selfCopy = self;
-  v384 = *MEMORY[0x1E69E9840];
+  v383 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   if ((length & 0x7FFFFFFFFFFFFF80) != 0 || length < 2 || !ligature)
   {
@@ -24592,12 +24815,12 @@ LABEL_17:
   }
 
   *p_s = 0;
-  *(&v353 + 5) = 0;
-  BYTE4(v353) = hyphens;
-  BYTE3(v353) = 0;
-  BYTE2(v353) = user;
-  LOWORD(v353) = 1;
-  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:strlen(&__s) sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+  *(&v352 + 5) = 0;
+  BYTE4(v352) = hyphens;
+  BYTE3(v352) = 0;
+  BYTE2(v352) = user;
+  LOWORD(v352) = 1;
+  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:strlen(&__s) sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
   {
     [list addCandidateWithBuffer:&__s encoding:encoding errorType:4];
   }
@@ -24664,12 +24887,12 @@ LABEL_49:
   }
 
   *v27 = 0;
-  *(&v353 + 5) = 0;
-  BYTE4(v353) = hyphens;
-  BYTE3(v353) = 0;
-  BYTE2(v353) = user;
-  LOWORD(v353) = 1;
-  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:strlen(&__s) sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+  *(&v352 + 5) = 0;
+  BYTE4(v352) = hyphens;
+  BYTE3(v352) = 0;
+  BYTE2(v352) = user;
+  LOWORD(v352) = 1;
+  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:strlen(&__s) sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
   {
     [list addCandidateWithBuffer:&__s encoding:encoding errorType:4];
   }
@@ -24699,7 +24922,7 @@ LABEL_52:
     }
 
     *v35 = 0;
-    v369 = __s;
+    v368 = __s;
     if (__s)
     {
       if (capitalized)
@@ -24712,33 +24935,33 @@ LABEL_52:
         v37 = 1;
       }
 
-      v359 = &__s;
+      v358 = &__s;
       do
       {
         v38 = *accents;
         if (*accents)
         {
-          v363 = v359 + 1;
+          v362 = v358 + 1;
           accentsCopy = accents;
           do
           {
-            if (v38 == v369)
+            if (v38 == v368)
             {
-              *v359 = accentsCopy[1];
-              *(&v353 + 5) = 0;
-              BYTE4(v353) = hyphens;
-              BYTE3(v353) = 1;
-              BYTE2(v353) = user;
-              LOWORD(v353) = 1;
-              if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+              *v358 = accentsCopy[1];
+              *(&v352 + 5) = 0;
+              BYTE4(v352) = hyphens;
+              BYTE3(v352) = 1;
+              BYTE2(v352) = user;
+              LOWORD(v352) = 1;
+              if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
               {
                 [list addCandidateWithBuffer:&__s encoding:encoding transform:v37 errorType:1];
               }
 
-              v40 = *v363;
-              if (*v363)
+              v40 = *v362;
+              if (*v362)
               {
-                v41 = v359 + 1;
+                v41 = v358 + 1;
                 do
                 {
                   v42 = *accents;
@@ -24750,10 +24973,10 @@ LABEL_52:
                       if (v42 == v40)
                       {
                         *v41 = *(v43 - 1);
-                        *(&v353 + 3) = 257;
-                        BYTE2(v353) = user;
-                        LOWORD(v353) = 1;
-                        if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                        *(&v352 + 3) = 257;
+                        BYTE2(v352) = user;
+                        LOWORD(v352) = 1;
+                        if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                         {
                           [list addCandidateWithBuffer:&__s encoding:encoding transform:v37 errorType:1];
                         }
@@ -24784,9 +25007,9 @@ LABEL_52:
           while (v46);
         }
 
-        *v359 = v369;
-        v47 = *++v359;
-        v369 = v47;
+        *v358 = v368;
+        v47 = *++v358;
+        v368 = v47;
       }
 
       while (v47);
@@ -24941,9 +25164,9 @@ LABEL_141:
       while (v67);
     }
 
-    v382 = v381;
-    v381 = 38;
-    v383 = 0;
+    v381 = v380;
+    v380 = 38;
+    v382 = 0;
     if ([(AppleSpell *)selfCopy checkNameWordBuffer:&__s length:4 languageObject:object globalOnly:0])
     {
       [list addCandidateWithBuffer:&__s encoding:1280 errorType:2];
@@ -24976,12 +25199,12 @@ LABEL_144:
     }
 
     *(&__s + v68) = 0;
-    *(&v353 + 5) = 0;
-    BYTE4(v353) = hyphens;
-    BYTE3(v353) = 1;
-    BYTE2(v353) = user;
-    LOWORD(v353) = 1;
-    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length - 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+    *(&v352 + 5) = 0;
+    BYTE4(v352) = hyphens;
+    BYTE3(v352) = 1;
+    BYTE2(v352) = user;
+    LOWORD(v352) = 1;
+    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length - 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
     {
       *(&__s + v68) = 39;
       *(&__s + length) = 115;
@@ -24992,7 +25215,7 @@ LABEL_154:
     v48 = encoding;
     if (length < 3)
     {
-      goto LABEL_1079;
+      return;
     }
   }
 
@@ -25039,7 +25262,7 @@ LABEL_155:
         v79 = v78;
       }
 
-      v80 = &v380;
+      v80 = &v379;
       do
       {
         v81 = *v80;
@@ -25135,12 +25358,12 @@ LABEL_220:
 LABEL_221:
             *(v80 - 1) = v81;
             *v80 = v77;
-            *(&v353 + 5) = 0;
-            BYTE4(v353) = hyphens;
-            BYTE3(v353) = 1;
-            BYTE2(v353) = user;
-            LOWORD(v353) = 1;
-            if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+            *(&v352 + 5) = 0;
+            BYTE4(v352) = hyphens;
+            BYTE3(v352) = 1;
+            BYTE2(v352) = user;
+            LOWORD(v352) = 1;
+            if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
             {
               [list addTranspositionCandidateWithBuffer:&__s encoding:v48 transform:v79 intendedFirstCharacter:*(v80 - 1) intendedSecondCharacter:*v80];
             }
@@ -25195,14 +25418,14 @@ LABEL_225:
       v89 = 32;
     }
 
-    v355 = v89;
+    v354 = v89;
     v90 = 97;
     if (v48 == 517)
     {
       v90 = -48;
     }
 
-    v360 = v90;
+    v359 = v90;
     v91 = 3;
     if (!capitalized)
     {
@@ -25214,7 +25437,7 @@ LABEL_225:
       v91 = 2;
     }
 
-    v370 = v91;
+    v369 = v91;
     lengthCopy = length;
     while (1)
     {
@@ -25283,7 +25506,7 @@ LABEL_242:
 LABEL_304:
             v111 = *(&__s + lengthCopy);
             v112 = toLowerX_1(v111, v48);
-            v364 = lengthCopy;
+            v363 = lengthCopy;
             if (lengthCopy)
             {
               v113 = 0;
@@ -25295,22 +25518,22 @@ LABEL_304:
             }
 
             v114 = v113 || caps;
-            v115 = v360;
-            v116 = v355;
+            v115 = v359;
+            v116 = v354;
             do
             {
               if (v112 != v115 && adjacentMatch(v112, v115, v48))
               {
                 v117 = v114 ? toUpperX_0(v115, v48) : v115;
                 *v94 = v117;
-                *(&v353 + 5) = 0;
-                BYTE4(v353) = hyphens;
-                BYTE3(v353) = 1;
-                BYTE2(v353) = user;
-                LOWORD(v353) = 1;
-                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                *(&v352 + 5) = 0;
+                BYTE4(v352) = hyphens;
+                BYTE3(v352) = 1;
+                BYTE2(v352) = user;
+                LOWORD(v352) = 1;
+                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                 {
-                  [list addReplacementCandidateWithBuffer:&__s encoding:v48 transform:v370 intendedCharacter:*v94 actualCharacter:v111];
+                  [list addReplacementCandidateWithBuffer:&__s encoding:v48 transform:v369 intendedCharacter:*v94 actualCharacter:v111];
                 }
               }
 
@@ -25322,7 +25545,7 @@ LABEL_304:
             *v94 = v111;
             capitalizedCopy3 = capitalized;
             v53 = bufferCopy2;
-            lengthCopy = v364;
+            lengthCopy = v363;
             goto LABEL_317;
           }
         }
@@ -25466,14 +25689,14 @@ LABEL_328:
       v123 = 32;
     }
 
-    v356 = v123;
+    v355 = v123;
     v124 = 97;
     if (v48 == 517)
     {
       v124 = -48;
     }
 
-    v361 = v124;
+    v360 = v124;
     v125 = 3;
     if (!capitalizedCopy3)
     {
@@ -25485,7 +25708,7 @@ LABEL_328:
       v125 = 2;
     }
 
-    v371 = v125;
+    v370 = v125;
     lengthCopy2 = length;
     while (1)
     {
@@ -25554,7 +25777,7 @@ LABEL_344:
 LABEL_406:
             v145 = *(&__s + lengthCopy2);
             v146 = toLowerX_1(v145, v48);
-            v365 = lengthCopy2;
+            v364 = lengthCopy2;
             if (lengthCopy2)
             {
               v147 = 0;
@@ -25566,22 +25789,22 @@ LABEL_406:
             }
 
             v148 = v147 || caps;
-            v149 = v361;
-            v150 = v356;
+            v149 = v360;
+            v150 = v355;
             do
             {
               if (v146 != v149 && !adjacentMatch(v146, v149, v48))
               {
                 v151 = v148 ? toUpperX_0(v149, v48) : v149;
                 *v128 = v151;
-                *(&v353 + 5) = 0;
-                BYTE4(v353) = hyphens;
-                BYTE3(v353) = 1;
-                BYTE2(v353) = user;
-                LOWORD(v353) = 1;
-                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                *(&v352 + 5) = 0;
+                BYTE4(v352) = hyphens;
+                BYTE3(v352) = 1;
+                BYTE2(v352) = user;
+                LOWORD(v352) = 1;
+                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                 {
-                  [list addReplacementCandidateWithBuffer:&__s encoding:v48 transform:v371 intendedCharacter:*v128 actualCharacter:v145];
+                  [list addReplacementCandidateWithBuffer:&__s encoding:v48 transform:v370 intendedCharacter:*v128 actualCharacter:v145];
                 }
               }
 
@@ -25593,7 +25816,7 @@ LABEL_406:
             *v128 = v145;
             capitalizedCopy3 = capitalized;
             v53 = bufferCopy2;
-            lengthCopy2 = v365;
+            lengthCopy2 = v364;
             goto LABEL_419;
           }
         }
@@ -25749,7 +25972,7 @@ LABEL_430:
         v159 = v158;
       }
 
-      v366 = v159;
+      v365 = v159;
       lengthCopy3 = length;
       while (1)
       {
@@ -25759,7 +25982,7 @@ LABEL_430:
           goto LABEL_445;
         }
 
-        v166 = (v380 & 0xDF) - 65;
+        v166 = (v379 & 0xDF) - 65;
         if (v48 > 1279)
         {
           break;
@@ -25767,18 +25990,18 @@ LABEL_430:
 
         if (v48 == 514)
         {
-          if (v166 < 0x1A || v380 > 0xF7u || v380 - 192 < 0x17 || v380 - 216 < 0x1F)
+          if (v166 < 0x1A || v379 > 0xF7u || v379 - 192 < 0x17 || v379 - 216 < 0x1F)
           {
             goto LABEL_445;
           }
 
           v157 = 1;
-          if (v380 - 161 > 0x1E)
+          if (v379 - 161 > 0x1E)
           {
             goto LABEL_532;
           }
 
-          v167 = 1 << (v380 + 95);
+          v167 = 1 << (v379 + 95);
           v168 = 1865772853;
 LABEL_529:
           if ((v167 & v168) == 0)
@@ -25794,7 +26017,7 @@ LABEL_529:
           goto LABEL_521;
         }
 
-        if (v380 - 161 >= 0xC && v380 - 174 >= 0x42 && v166 >= 0x1A && v380 - 241 >= 0xC && (v380 & 0xFE) != 0xFE)
+        if (v379 - 161 >= 0xC && v379 - 174 >= 0x42 && v166 >= 0x1A && v379 - 241 >= 0xC && (v379 & 0xFE) != 0xFE)
         {
           goto LABEL_531;
         }
@@ -25816,7 +26039,7 @@ LABEL_445:
             {
 LABEL_507:
               v177 = v161;
-              v372 = *v162;
+              v371 = *v162;
               if (*accents)
               {
                 v178 = toLowerX_1(*v162, encoding);
@@ -25843,14 +26066,14 @@ LABEL_507:
                     }
 
                     *v162 = v182;
-                    *(&v353 + 5) = 0;
-                    BYTE4(v353) = hyphens;
-                    BYTE3(v353) = 1;
-                    BYTE2(v353) = user;
-                    LOWORD(v353) = 1;
-                    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                    *(&v352 + 5) = 0;
+                    BYTE4(v352) = hyphens;
+                    BYTE3(v352) = 1;
+                    BYTE2(v352) = user;
+                    LOWORD(v352) = 1;
+                    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                     {
-                      [list addReplacementCandidateWithBuffer:&__s encoding:encoding transform:v366 intendedCharacter:*v162 actualCharacter:v372];
+                      [list addReplacementCandidateWithBuffer:&__s encoding:encoding transform:v365 intendedCharacter:*v162 actualCharacter:v371];
                     }
                   }
 
@@ -25861,7 +26084,7 @@ LABEL_507:
                 while (v183);
               }
 
-              *v162 = v372;
+              *v162 = v371;
               v48 = encoding;
               v161 = v177;
               v53 = bufferCopy2;
@@ -25963,18 +26186,18 @@ LABEL_521:
         goto LABEL_445;
       }
 
-      if (v166 < 0x1A || v380 > 0xF7u || v380 - 192 < 0x17 || v380 - 216 < 0x1F)
+      if (v166 < 0x1A || v379 > 0xF7u || v379 - 192 < 0x17 || v379 - 216 < 0x1F)
       {
         goto LABEL_445;
       }
 
       v157 = 1;
-      if (v380 - 138 > 0x15)
+      if (v379 - 138 > 0x15)
       {
         goto LABEL_532;
       }
 
-      v167 = 1 << (v380 + 118);
+      v167 = 1 << (v379 + 118);
       v168 = 3473429;
       goto LABEL_529;
     }
@@ -25990,7 +26213,7 @@ LABEL_436:
   }
 
 LABEL_532:
-  v354 = v157;
+  v353 = v157;
   if (([list isFull] & 1) == 0)
   {
     v184 = *v53;
@@ -26193,12 +26416,12 @@ LABEL_648:
                   v214 = v191;
                   *v191 = v196;
                   v195[2] = v188;
-                  *(&v353 + 5) = 0;
-                  BYTE4(v353) = hyphens;
-                  BYTE3(v353) = 1;
-                  BYTE2(v353) = user;
-                  LOWORD(v353) = 1;
-                  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                  *(&v352 + 5) = 0;
+                  BYTE4(v352) = hyphens;
+                  BYTE3(v352) = 1;
+                  BYTE2(v352) = user;
+                  LOWORD(v352) = 1;
+                  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                   {
                     [list addCandidateWithBuffer:&__s encoding:v48 transform:v190 errorType:13];
                   }
@@ -26356,12 +26579,12 @@ LABEL_659:
           }
 
           *v221 = 0;
-          *(&v353 + 5) = 0;
-          BYTE4(v353) = hyphens;
-          BYTE3(v353) = 1;
-          BYTE2(v353) = user;
-          LOWORD(v353) = 1;
-          if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length - 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+          *(&v352 + 5) = 0;
+          BYTE4(v352) = hyphens;
+          BYTE3(v352) = 1;
+          BYTE2(v352) = user;
+          LOWORD(v352) = 1;
+          if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length - 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
           {
             if (v219 == v53 && capitalized)
             {
@@ -26475,7 +26698,7 @@ LABEL_742:
       }
 
       *v243 = 0;
-      v357 = &__s + length;
+      v356 = &__s + length;
       v245 = &__s;
       do
       {
@@ -26494,14 +26717,14 @@ LABEL_742:
           v248 = 32;
         }
 
-        v367 = v248;
+        v366 = v248;
         v249 = 97;
         if (v48 == 517)
         {
           v249 = -48;
         }
 
-        v362 = v249;
+        v361 = v249;
         v250 = 3;
         if (!capitalized)
         {
@@ -26513,7 +26736,7 @@ LABEL_742:
           v250 = 2;
         }
 
-        v374 = v250;
+        v373 = v250;
         do
         {
           v251 = &__s + v247;
@@ -26693,9 +26916,9 @@ LABEL_761:
           }
 
 LABEL_832:
-          if (v251 == v357 - 1)
+          if (v251 == v356 - 1)
           {
-            v276 = *(v357 - 2);
+            v276 = *(v356 - 2);
             v277 = (v276 & 0xFFFFFFDF) - 65;
             if (v48 > 1279)
             {
@@ -26801,9 +27024,9 @@ LABEL_877:
               }
 
               v288 = v287 || caps;
-              v289 = v362;
-              v290 = v367;
-              v291 = v374;
+              v289 = v361;
+              v290 = v366;
+              v291 = v373;
               while (2)
               {
                 v292 = v289;
@@ -26813,12 +27036,12 @@ LABEL_877:
                 }
 
                 *v286 = v292;
-                *(&v353 + 5) = 0;
-                BYTE4(v353) = v285;
-                BYTE3(v353) = 1;
-                BYTE2(v353) = user;
-                LOWORD(v353) = 1;
-                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                *(&v352 + 5) = 0;
+                BYTE4(v352) = v285;
+                BYTE3(v352) = 1;
+                BYTE2(v352) = user;
+                LOWORD(v352) = 1;
+                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                 {
                   if (v247)
                   {
@@ -26856,16 +27079,16 @@ LABEL_895:
                   v296 = toUpperX_0(*v286, v48);
                   v23 = v296 == v295;
                   v247 = 0;
-                  v291 = v374;
+                  v291 = v373;
                   if (!v23)
                   {
                     *v286 = v296;
-                    *(&v353 + 5) = 0;
-                    BYTE4(v353) = v285;
-                    BYTE3(v353) = 1;
-                    BYTE2(v353) = user;
-                    LOWORD(v353) = 1;
-                    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                    *(&v352 + 5) = 0;
+                    BYTE4(v352) = v285;
+                    BYTE3(v352) = 1;
+                    BYTE2(v352) = user;
+                    LOWORD(v352) = 1;
+                    if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                     {
                       v297 = *v286;
                       v298 = v286[1];
@@ -26938,7 +27161,7 @@ LABEL_898:
     }
   }
 
-  if (v354 && ([list isFull] & 1) == 0)
+  if (v353 && ([list isFull] & 1) == 0)
   {
     v303 = *v53;
     if (*v53)
@@ -26961,7 +27184,7 @@ LABEL_898:
     }
 
     *v305 = 0;
-    v368 = &__s + length;
+    v367 = &__s + length;
     if ((length & 0x8000000000000000) == 0)
     {
       v307 = &__s + length;
@@ -26988,7 +27211,7 @@ LABEL_898:
         v309 = 2;
       }
 
-      v375 = v309;
+      v374 = v309;
       do
       {
         v310 = &__s + v308;
@@ -27167,12 +27390,12 @@ LABEL_1005:
         }
 
 LABEL_1006:
-        if (v310 != v368 - 1)
+        if (v310 != v367 - 1)
         {
           goto LABEL_1007;
         }
 
-        v335 = *(v368 - 2);
+        v335 = *(v367 - 2);
         v336 = (v335 & 0xFFFFFFDF) - 65;
         if (v48 > 1279)
         {
@@ -27280,12 +27503,12 @@ LABEL_1051:
                 }
 
                 *v310 = v347;
-                *(&v353 + 5) = 0;
-                BYTE4(v353) = hyphensCopy;
-                BYTE3(v353) = 1;
-                BYTE2(v353) = user;
-                LOWORD(v353) = 1;
-                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v353 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
+                *(&v352 + 5) = 0;
+                BYTE4(v352) = hyphensCopy;
+                BYTE3(v352) = 1;
+                BYTE2(v352) = user;
+                LOWORD(v352) = 1;
+                if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:&__s connection:length + 1 sender:object checkBase:connection checkDict:sender checkTemp:1 checkUser:v352 checkNames:0 checkHyphens:? checkIntercaps:? checkOptions:? depth:?])
                 {
                   if (v308)
                   {
@@ -27307,7 +27530,7 @@ LABEL_1051:
                     v349 = v310[1];
                   }
 
-                  [list addOmissionCandidateWithBuffer:&__s encoding:v48 transform:v375 intendedPrecedingCharacter:v348 omittedCharacter:*(&__s + v308) intendedFollowingCharacter:v349];
+                  [list addOmissionCandidateWithBuffer:&__s encoding:v48 transform:v374 intendedPrecedingCharacter:v348 omittedCharacter:*(&__s + v308) intendedFollowingCharacter:v349];
                 }
 
                 v350 = *v346;
@@ -27370,15 +27593,12 @@ LABEL_1067:
       while (*(&__s + v308));
     }
   }
-
-LABEL_1079:
-  v352 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addSpaceInsertionGuessesForWord:(id)word sender:(id)sender buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object connection:(_PR_DB_IO *)connection isCapitalized:(BOOL)capitalized checkUser:(BOOL)self0 oneLetterWords:(const char *)self1 twoLetterWords:(const char *)self2 candidateList:(id)self3
 {
   connectionCopy = connection;
-  *&v63[255] = *MEMORY[0x1E69E9840];
+  *&v62[255] = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
   if (length - 3 <= 0x14 && ([list isFull] & 1) == 0)
   {
@@ -27386,7 +27606,7 @@ LABEL_1079:
     if (*buffer)
     {
       v18 = buffer + 1;
-      v19 = &v62;
+      v19 = &v61;
       do
       {
         *v19++ = v17;
@@ -27399,12 +27619,12 @@ LABEL_1079:
 
     else
     {
-      v19 = &v62;
+      v19 = &v61;
     }
 
     *v19 = 0;
-    v21 = &v63[length - 1];
-    v22 = &v62;
+    v21 = &v62[length - 1];
+    v22 = &v61;
     do
     {
       v23 = &v22[length];
@@ -27412,44 +27632,44 @@ LABEL_1079:
       --v22;
     }
 
-    while (&v62 <= v23 - 1);
+    while (&v61 <= v23 - 1);
     if (length >= 2)
     {
-      v25 = v21 - 1;
-      v26 = v63;
-      v58 = length - 1;
-      v59 = v21 - 2;
-      v27 = 1;
+      v24 = v21 - 1;
+      v25 = v62;
+      v57 = length - 1;
+      v58 = v21 - 2;
+      v26 = 1;
       do
       {
-        *v26 = 45;
-        if (v27 != 1 && v26 != v25)
+        *v25 = 45;
+        if (v26 != 1 && v25 != v24)
         {
           goto LABEL_15;
         }
 
-        v29 = v26 - 1;
-        if (v27 != 1)
+        v28 = v25 - 1;
+        if (v26 != 1)
         {
-          v29 = v26 + 1;
+          v28 = v25 + 1;
         }
 
-        v30 = *v29;
-        if ((v30 - 48) >= 0xA && (!words || !strchr(words, v30)))
+        v29 = *v28;
+        if ((v29 - 48) >= 0xA && (!words || !strchr(words, v29)))
         {
           goto LABEL_100;
         }
 
-        if (v27 == 1 && v30 == 97 && englishOneLetterWords[0] == words)
+        if (v26 == 1 && v29 == 97 && englishOneLetterWords[0] == words)
         {
-          v32 = v26[1];
-          HIDWORD(v34) = v32 - 65;
-          LODWORD(v34) = v32 - 65;
-          v33 = v34 >> 1;
-          v35 = v33 > 0x1C;
-          v36 = (1 << v33) & 0x14951495;
-          v37 = v35 || v36 == 0;
-          if (!v37 || vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v32), xmmword_1D2BF7970)))) & 1 | (v32 - 248 < 6) | ((v32 & 0xD8) == 200 || v32 == 255))
+          v31 = v25[1];
+          HIDWORD(v33) = v31 - 65;
+          LODWORD(v33) = v31 - 65;
+          v32 = v33 >> 1;
+          v34 = v32 > 0x1C;
+          v35 = (1 << v32) & 0x14951495;
+          v36 = v34 || v35 == 0;
+          if (!v36 || vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v31), xmmword_1D2BF7970)))) & 1 | (v31 - 248 < 6) | ((v31 & 0xD8) == 200 || v31 == 255))
           {
             goto LABEL_100;
           }
@@ -27457,46 +27677,46 @@ LABEL_1079:
 
         if (frenchOneLetterWords == words)
         {
-          if (v27 != 1 || v30 != 108)
+          if (v26 != 1 || v29 != 108)
           {
             goto LABEL_85;
           }
         }
 
-        else if (v27 != 1 || v30 != 108 || italianOneLetterWords != words)
+        else if (v26 != 1 || v29 != 108 || italianOneLetterWords != words)
         {
           goto LABEL_85;
         }
 
-        v50 = v26[1];
-        HIDWORD(v52) = v50 - 65;
-        LODWORD(v52) = v50 - 65;
-        v51 = v52 >> 1;
-        if ((v51 > 0x1C || ((1 << v51) & 0x14951495) == 0) && (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v50), xmmword_1D2BF7970)))) & 1) == 0 && v50 - 248 >= 6 && v50 != 255 && v50 != 104 && (v50 & 0xD8) != 0xC8)
+        v49 = v25[1];
+        HIDWORD(v51) = v49 - 65;
+        LODWORD(v51) = v49 - 65;
+        v50 = v51 >> 1;
+        if ((v50 > 0x1C || ((1 << v50) & 0x14951495) == 0) && (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v49), xmmword_1D2BF7970)))) & 1) == 0 && v49 - 248 >= 6 && v49 != 255 && v49 != 104 && (v49 & 0xD8) != 0xC8)
         {
           goto LABEL_100;
         }
 
 LABEL_85:
-        v54 = frenchOneLetterWords == words || italianOneLetterWords == words;
-        if (v30 == 108 && v54 && v26 == v25)
+        v53 = frenchOneLetterWords == words || italianOneLetterWords == words;
+        if (v29 == 108 && v53 && v25 == v24)
         {
           goto LABEL_100;
         }
 
 LABEL_15:
-        if (v27 == 2 || v26 == v59)
+        if (v26 == 2 || v25 == v58)
         {
-          v38 = -2;
-          if (v27 != 2)
+          v37 = -2;
+          if (v26 != 2)
           {
-            v38 = 1;
+            v37 = 1;
           }
 
-          v39 = 2;
-          if (v27 == 2)
+          v38 = 2;
+          if (v26 == 2)
           {
-            v39 = -1;
+            v38 = -1;
           }
 
           if (!letterWords)
@@ -27504,20 +27724,20 @@ LABEL_15:
             goto LABEL_100;
           }
 
-          v40 = v26[v38];
-          v41 = v26[v39];
-          v42 = strlen(letterWords);
-          if (!v42)
+          v39 = v25[v37];
+          v40 = v25[v38];
+          v41 = strlen(letterWords);
+          if (!v41)
           {
             goto LABEL_100;
           }
 
-          for (i = 0; i < v42; i += 2)
+          for (i = 0; i < v41; i += 2)
           {
-            if (letterWords[i] == v40)
+            if (letterWords[i] == v39)
             {
-              v44 = letterWords[i + 1] == v41;
-              if (letterWords[i + 1] == v41)
+              v43 = letterWords[i + 1] == v40;
+              if (letterWords[i + 1] == v40)
               {
                 break;
               }
@@ -27525,64 +27745,64 @@ LABEL_15:
 
             else
             {
-              v44 = 0;
+              v43 = 0;
             }
           }
 
-          if (!v44)
+          if (!v43)
           {
             goto LABEL_100;
           }
 
-          if (v27 == 2 && englishTwoLetterWords[0] == letterWords && v40 == 97 && v41 == 110)
+          if (v26 == 2 && englishTwoLetterWords[0] == letterWords && v39 == 97 && v40 == 110)
           {
-            v45 = v26[1];
-            HIDWORD(v47) = v45 - 65;
-            LODWORD(v47) = v45 - 65;
-            v46 = v47 >> 1;
-            v35 = v46 > 0x1C;
-            v48 = (1 << v46) & 0x14951495;
-            v49 = v35 || v48 == 0;
-            if (v49 && (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v45), xmmword_1D2BF7970)))) & 1) == 0 && v45 - 248 >= 6 && v45 != 255 && v45 != 104 && (v45 & 0xD8) != 0xC8)
+            v44 = v25[1];
+            HIDWORD(v46) = v44 - 65;
+            LODWORD(v46) = v44 - 65;
+            v45 = v46 >> 1;
+            v34 = v45 > 0x1C;
+            v47 = (1 << v45) & 0x14951495;
+            v48 = v34 || v47 == 0;
+            if (v48 && (vmaxv_u16(vmovn_s32(vcgtq_u32(xmmword_1D2BF7980, vaddq_s32(vdupq_n_s32(v44), xmmword_1D2BF7970)))) & 1) == 0 && v44 - 248 >= 6 && v44 != 255 && v44 != 104 && (v44 & 0xD8) != 0xC8)
             {
               goto LABEL_100;
             }
           }
         }
 
-        *(&v56 + 3) = 0;
-        BYTE2(v56) = user;
-        LOWORD(v56) = 1;
-        if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v62 languageObject:length + 1 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v56 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]&& ![(AppleSpell *)self checkNegativeWordBuffer:&v62 length:v27 languageObject:object alreadyCapitalized:capitalized]&& ![(AppleSpell *)self checkNegativeWordBuffer:v26 + 1 length:length - v27 languageObject:object])
+        *(&v55 + 3) = 0;
+        BYTE2(v55) = user;
+        LOWORD(v55) = 1;
+        if ([AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v61 languageObject:length + 1 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v55 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]&& ![(AppleSpell *)self checkNegativeWordBuffer:&v61 length:v26 languageObject:object alreadyCapitalized:capitalized]&& ![(AppleSpell *)self checkNegativeWordBuffer:v25 + 1 length:length - v26 languageObject:object])
         {
-          *v26 = 32;
-          [list addCandidateWithBuffer:&v62 encoding:encoding errorType:10];
-          v28 = 45;
+          *v25 = 32;
+          [list addCandidateWithBuffer:&v61 encoding:encoding errorType:10];
+          v27 = 45;
 LABEL_98:
-          *v26 = v28;
+          *v25 = v27;
           goto LABEL_99;
         }
 
-        if (v27 != 1 || (*(&v56 + 3) = 0, BYTE2(v56) = user, LOWORD(v56) = 1, ![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v63[1] languageObject:v58 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v56 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]) || [(AppleSpell *)self checkNegativeWordBuffer:&v63[1] length:v58 languageObject:object])
+        if (v26 != 1 || (*(&v55 + 3) = 0, BYTE2(v55) = user, LOWORD(v55) = 1, ![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v62[1] languageObject:v57 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v55 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]) || [(AppleSpell *)self checkNegativeWordBuffer:&v62[1] length:v57 languageObject:object])
         {
-          if (v26 != v25)
+          if (v25 != v24)
           {
             goto LABEL_100;
           }
 
-          *(&v56 + 3) = 0;
-          BYTE2(v56) = user;
-          LOWORD(v56) = 1;
-          if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v62 languageObject:v58 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v56 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)self checkNegativeWordBuffer:&v62 length:v58 languageObject:object])
+          *(&v55 + 3) = 0;
+          BYTE2(v55) = user;
+          LOWORD(v55) = 1;
+          if (![AppleSpell validateWordBuffer:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkUser:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" length:&v61 languageObject:v57 connection:object sender:connectionCopy checkBase:sender checkDict:1 checkTemp:v55 checkUser:0 checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)self checkNegativeWordBuffer:&v61 length:v57 languageObject:object])
           {
             goto LABEL_100;
           }
         }
 
-        *v26 = 32;
-        if (v27 == 1 && v62 == 108)
+        *v25 = 32;
+        if (v26 == 1 && v61 == 108)
         {
-          v28 = 39;
+          v27 = 39;
           if (frenchOneLetterWords == words || italianOneLetterWords == words)
           {
             goto LABEL_98;
@@ -27590,27 +27810,25 @@ LABEL_98:
         }
 
 LABEL_99:
-        [list addCandidateWithBuffer:&v62 encoding:encoding errorType:10];
+        [list addCandidateWithBuffer:&v61 encoding:encoding errorType:10];
 LABEL_100:
-        *v26 = v63[v27++];
-        v26 = &v63[v27 - 1];
+        *v25 = v62[v26++];
+        v25 = &v62[v26 - 1];
       }
 
-      while (&v63[v27 - 1] <= v25);
+      while (&v62[v26 - 1] <= v24);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addLexiconGuessesForWord:(id)word buffer:(char *)buffer length:(unint64_t)length languageObject:(id)object minCorrectionLength:(unint64_t)correctionLength minExtendedCorrectionLength:(unint64_t)extendedCorrectionLength isCapitalized:(BOOL)capitalized stopAfterFreeInsertions:(BOOL)self0 toGuesses:(id)self1
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   encoding = [object encoding];
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x2020000000;
-  v34 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x2020000000;
+  v33 = 0;
   v19 = [word length];
   if (length >= correctionLength)
   {
@@ -27646,9 +27864,9 @@ LABEL_100:
 
       if (v24 == 1)
       {
-        v38.location = 0;
-        v38.length = v20;
-        Bytes = CFStringGetBytes(word, v38, 0x100u, 0, 0, buffer, 126, 0);
+        v37.location = 0;
+        v37.length = v20;
+        Bytes = CFStringGetBytes(word, v37, 0x100u, 0, 0, buffer, 126, 0);
         v21 = 0;
         v22 = v20 == Bytes;
         if (v22)
@@ -27670,36 +27888,35 @@ LABEL_100:
 
     v26 = 20;
 LABEL_15:
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __174__AppleSpell_Guessing__addLexiconGuessesForWord_buffer_length_languageObject_minCorrectionLength_minExtendedCorrectionLength_isCapitalized_stopAfterFreeInsertions_toGuesses___block_invoke;
-    v28[3] = &unk_1E840F290;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __174__AppleSpell_Guessing__addLexiconGuessesForWord_buffer_length_languageObject_minCorrectionLength_minExtendedCorrectionLength_isCapitalized_stopAfterFreeInsertions_toGuesses___block_invoke;
+    v27[3] = &unk_1E840F290;
     capitalizedCopy = capitalized;
-    v28[4] = v21;
-    v28[5] = guesses;
+    v27[4] = v21;
+    v27[5] = guesses;
     insertionsCopy = insertions;
-    v32 = v22;
-    v28[8] = correctionLength;
-    v28[9] = &v35;
-    v28[10] = buffer;
-    v28[11] = v20;
-    v29 = encoding;
-    v28[12] = buffer;
-    v28[13] = length;
-    v28[14] = extendedCorrectionLength;
-    v28[6] = object;
-    v28[7] = v33;
-    [(AppleSpell *)self enumerateCorrectionEntriesForWord:word maxCorrections:v26 inLexiconForLanguageObject:object withBlock:v28];
+    v31 = v22;
+    v27[8] = correctionLength;
+    v27[9] = &v34;
+    v27[10] = buffer;
+    v27[11] = v20;
+    v28 = encoding;
+    v27[12] = buffer;
+    v27[13] = length;
+    v27[14] = extendedCorrectionLength;
+    v27[6] = object;
+    v27[7] = v32;
+    [(AppleSpell *)self enumerateCorrectionEntriesForWord:word maxCorrections:v26 inLexiconForLanguageObject:object withBlock:v27];
   }
 
-  _Block_object_dispose(v33, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v32, 8);
 }
 
 unint64_t __174__AppleSpell_Guessing__addLexiconGuessesForWord_buffer_length_languageObject_minCorrectionLength_minExtendedCorrectionLength_isCapitalized_stopAfterFreeInsertions_toGuesses___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3, char a4, unint64_t a5, _BYTE *a6)
 {
   v8 = a2;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a4 & 0x20) == 0 && (*(a1 + 124))
   {
     v8 = initialCapitalizedString(a2, *(a1 + 32));
@@ -27717,9 +27934,9 @@ unint64_t __174__AppleSpell_Guessing__addLexiconGuessesForWord_buffer_length_lan
   {
     if (v10 <= 0x3F && v10 >= *(a1 + 64))
     {
-      v18.location = 0;
-      v18.length = v10;
-      result = CFStringGetBytes(v8, v18, 0x100u, 0, 0, *(a1 + 72), 126, 0);
+      v17.location = 0;
+      v17.length = v10;
+      result = CFStringGetBytes(v8, v17, 0x100u, 0, 0, *(a1 + 72), 126, 0);
       if (v10 == result)
       {
         result = effectiveUTF16EditDistance(*(a1 + 80), *(a1 + 88), *(a1 + 72), v10);
@@ -27727,52 +27944,54 @@ unint64_t __174__AppleSpell_Guessing__addLexiconGuessesForWord_buffer_length_lan
         {
 LABEL_21:
           result = [*(a1 + 40) addCandidateWithString:v8 errorType:a5];
+          goto LABEL_6;
         }
       }
     }
+
+    goto LABEL_6;
   }
 
-  else
+  usedBufLen = 0;
+  v18.location = 0;
+  v18.length = v10;
+  result = CFStringGetBytes(v8, v18, *(a1 + 120), 0, 0, buffer, 254, &usedBufLen);
+  if (v10 != result || usedBufLen < *(a1 + 64))
   {
-    usedBufLen = 0;
-    v19.location = 0;
-    v19.length = v10;
-    result = CFStringGetBytes(v8, v19, *(a1 + 120), 0, 0, buffer, 254, &usedBufLen);
-    if (v10 == result && usedBufLen >= *(a1 + 64))
-    {
-      v13 = effectiveEditDistance(*(a1 + 96), *(a1 + 104), buffer, usedBufLen);
-      if (v13 < 2)
-      {
-        goto LABEL_21;
-      }
-
-      v14 = v13;
-      if (v13 == 2 && *(a1 + 104) >= *(a1 + 112))
-      {
-        goto LABEL_21;
-      }
-
-      result = [*(a1 + 48) isIrishGaelic];
-      if (a5 <= 4 && result)
-      {
-        if (v14 == 3 && *(a1 + 104) >= *(a1 + 112))
-        {
-          result = [*(a1 + 40) addCandidateWithString:v8 errorType:a5];
-        }
-
-        goto LABEL_7;
-      }
-    }
+    goto LABEL_6;
   }
 
+  v12 = effectiveEditDistance(*(a1 + 96), *(a1 + 104), buffer, usedBufLen);
+  if (v12 < 2)
+  {
+    goto LABEL_21;
+  }
+
+  v13 = v12;
+  if (v12 == 2 && *(a1 + 104) >= *(a1 + 112))
+  {
+    goto LABEL_21;
+  }
+
+  result = [*(a1 + 48) isIrishGaelic];
+  if (a5 > 4 || !result)
+  {
 LABEL_6:
-  if (a5 <= 4)
-  {
-LABEL_7:
-    *(*(*(a1 + 56) + 8) + 24) = 1;
+    if (a5 > 4)
+    {
+      return result;
+    }
+
+    goto LABEL_7;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  if (v13 == 3 && *(a1 + 104) >= *(a1 + 112))
+  {
+    result = [*(a1 + 40) addCandidateWithString:v8 errorType:a5];
+  }
+
+LABEL_7:
+  *(*(*(a1 + 56) + 8) + 24) = 1;
   return result;
 }
 
@@ -27780,7 +27999,7 @@ LABEL_7:
 {
   length = range.length;
   location = range.location;
-  v202 = *MEMORY[0x1E69E9840];
+  v201 = *MEMORY[0x1E69E9840];
   v14 = [string substringWithRange:{range.location, range.length}];
   array = [MEMORY[0x1E695DF70] array];
   v16 = objc_alloc_init(MEMORY[0x1E696AAC8]);
@@ -27795,10 +28014,9 @@ LABEL_7:
     LOBYTE(v18) = 1;
   }
 
-  v148 = v18;
-  memset(v201, 0, sizeof(v201));
-  v200 = 0;
-  v199 = 0u;
+  v147 = v18;
+  memset(v200, 0, sizeof(v200));
+  v199 = 0;
   v198 = 0u;
   v197 = 0u;
   v196 = 0u;
@@ -27814,23 +28032,23 @@ LABEL_7:
   v186 = 0u;
   v185 = 0u;
   v184 = 0u;
-  v177 = 0;
-  v176 = 8217;
-  v175 = 0;
-  v19 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v176 length:1];
-  v20 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v175 length:1];
-  v147 = _appIdentifierFromOptions(options);
-  v146 = [options objectForKey:@"ParameterBundles"];
+  v183 = 0u;
+  v176 = 0;
+  v175 = 8217;
+  v174 = 0;
+  v19 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v175 length:1];
+  v20 = [MEMORY[0x1E696AEC0] stringWithCharacters:&v174 length:1];
+  v146 = _appIdentifierFromOptions(options);
+  v145 = [options objectForKey:@"ParameterBundles"];
   if ([object isKorean])
   {
 
-    array = [(AppleSpell *)self spellServer:server suggestGuessesForKoreanWordRange:location inString:length options:string, options];
-    goto LABEL_250;
+    return [(AppleSpell *)self spellServer:server suggestGuessesForKoreanWordRange:location inString:length options:string, options];
   }
 
-  v144 = v16;
+  v143 = v16;
   obj = [(AppleSpell *)self capitalizationDictionaryArrayForLanguageObject:object];
-  v158 = [[PRCandidateList alloc] initWithMaxCount:32 defaultReplacementRange:location customErrorModel:length capitalizationDictionaryArray:model, obj];
+  v157 = [[PRCandidateList alloc] initWithMaxCount:32 defaultReplacementRange:location customErrorModel:length capitalizationDictionaryArray:model, obj];
   oneLetterWords = [object oneLetterWords];
   twoLetterWords = [object twoLetterWords];
   accents = [object accents];
@@ -27842,31 +28060,31 @@ LABEL_7:
 
   if ([object isGerman])
   {
+    v134 = 0;
     v135 = 0;
-    v136 = 0;
-    v140 = 1;
+    v139 = 1;
     v22 = 6;
 LABEL_14:
-    v145 = v22;
+    v144 = v22;
     goto LABEL_15;
   }
 
   if ([object isDutch] & 1) != 0 || (objc_msgSend(object, "isSwedish"))
   {
+    v134 = 0;
     v135 = 0;
-    v136 = 0;
-    v140 = 1;
+    v139 = 1;
     v22 = 4;
     goto LABEL_14;
   }
 
   if ([object isDanish] & 1) != 0 || (objc_msgSend(object, "isNorwegian") & 1) != 0 || (objc_msgSend(object, "isNynorsk") & 1) != 0 || (objc_msgSend(object, "isIrishGaelic"))
   {
-    v137 = 0;
-    v140 = 1;
-    v145 = 6;
-    v135 = 2;
     v136 = 0;
+    v139 = 1;
+    v144 = 6;
+    v134 = 2;
+    v135 = 0;
     goto LABEL_16;
   }
 
@@ -27874,13 +28092,13 @@ LABEL_14:
   {
     if (_spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__turkishLocale)
     {
-      v136 = _spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__turkishLocale;
+      v135 = _spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__turkishLocale;
     }
 
     else
     {
-      v136 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:@"tr"];
-      _spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__turkishLocale = v136;
+      v135 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:@"tr"];
+      _spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__turkishLocale = v135;
     }
 
     goto LABEL_8;
@@ -27888,22 +28106,22 @@ LABEL_14:
 
   if ([object isFinnish])
   {
+    v134 = 0;
     v135 = 0;
-    v136 = 0;
-    v140 = 0;
-    v137 = 1;
-    v145 = 2;
+    v139 = 0;
+    v136 = 1;
+    v144 = 2;
     goto LABEL_16;
   }
 
 LABEL_7:
-  v136 = 0;
+  v135 = 0;
 LABEL_8:
-  v140 = 1;
-  v145 = 6;
-  v135 = 2;
+  v139 = 1;
+  v144 = 6;
+  v134 = 2;
 LABEL_15:
-  v137 = 1;
+  v136 = 1;
 LABEL_16:
   [v14 rangeOfString:v20];
   if (v23)
@@ -27913,7 +28131,7 @@ LABEL_16:
 
   v24 = [v14 stringByTrimmingCharactersInSet:{objc_msgSend(objc_msgSend(MEMORY[0x1E696AB08], "alphanumericCharacterSet"), "invertedSet")}];
   [(__CFString *)v24 rangeOfString:v19];
-  v142 = v25;
+  v141 = v25;
   v26 = oneLetterWords;
   if (v25)
   {
@@ -27921,7 +28139,7 @@ LABEL_16:
   }
 
   v27 = [(__CFString *)v24 length];
-  v141 = [(AppleSpell *)self databaseConnectionForLanguageObject:object];
+  v140 = [(AppleSpell *)self databaseConnectionForLanguageObject:object];
   encoding = [object encoding];
   v28 = [(AppleSpell *)self autocorrectionDictionaryForLanguageObject:object];
   if (!_spellServer_suggestGuessesForWordRange_inString_languageObject_options_tagger_errorModel_guessesDictionaries__disallowedInternalPunctuationCharacterSet)
@@ -27934,8 +28152,8 @@ LABEL_16:
 
   v30 = 0;
   v31 = 0;
-  v152 = v24;
-  v143 = v19;
+  v151 = v24;
+  v142 = v19;
   while (1)
   {
     v32 = v30 + v31;
@@ -27967,22 +28185,22 @@ LABEL_16:
   }
 
 LABEL_33:
-  v203.location = 0;
-  v203.length = v27;
-  if (v27 != CFStringGetBytes(v24, v203, encoding, 0, 0, &buffer, 254, &v177))
+  v202.location = 0;
+  v202.length = v27;
+  if (v27 != CFStringGetBytes(v24, v202, encoding, 0, 0, &buffer, 254, &v176))
   {
 LABEL_40:
+    v155 = 0;
     v156 = 0;
-    v157 = 0;
     goto LABEL_165;
   }
 
-  v35 = v177;
-  v183[v177 - 1] = 0;
+  v35 = v176;
+  v182[v176 - 1] = 0;
   v36 = buffer;
   v37 = buffer - 65;
   v38 = v37 < 0x1A;
-  v133 = v26;
+  v132 = v26;
   if (encoding > 1279)
   {
     v39 = v28;
@@ -28016,7 +28234,7 @@ LABEL_53:
     v38 = 1;
 LABEL_58:
     v41 = 0;
-    v42 = v183;
+    v42 = v182;
     v43 = 1;
     v44 = 1;
     while (1)
@@ -28151,7 +28369,7 @@ LABEL_122:
       if (!v58)
       {
         selfCopy2 = self;
-        v132 = v43;
+        v131 = v43;
         goto LABEL_125;
       }
     }
@@ -28199,21 +28417,21 @@ LABEL_54:
   selfCopy2 = self;
   LOBYTE(v41) = 0;
   v44 = 1;
-  v132 = 1;
+  v131 = 1;
 LABEL_125:
   v60 = v38;
   v61 = (v40 ^ 1) & v38;
-  v62 = [v39 objectForKey:v152];
+  v62 = [v39 objectForKey:v151];
   if (!v62)
   {
-    v62 = [v39 objectForKey:{-[__CFString lowercaseString](v152, "lowercaseString")}];
+    v62 = [v39 objectForKey:{-[__CFString lowercaseString](v151, "lowercaseString")}];
   }
 
-  v157 = v62;
-  v134 = isEnglish & v61;
+  v156 = v62;
+  v133 = isEnglish & v61;
   v63 = [v62 length];
-  v64 = v157;
-  if (v157)
+  v64 = v156;
+  if (v156)
   {
     v65 = v60;
     if (v63)
@@ -28227,7 +28445,7 @@ LABEL_125:
           goto LABEL_143;
         }
 
-        v67 = uppercasedString(v157, v136);
+        v67 = uppercasedString(v156, v135);
       }
 
       else
@@ -28235,12 +28453,12 @@ LABEL_125:
         if (!v65)
         {
 LABEL_143:
-          v157 = v64;
-          [(PRCandidateList *)v158 addCandidateWithString:v64 errorType:6];
+          v156 = v64;
+          [(PRCandidateList *)v157 addCandidateWithString:v64 errorType:6];
           goto LABEL_144;
         }
 
-        v67 = initialCapitalizedString(v157, v136);
+        v67 = initialCapitalizedString(v156, v135);
       }
 
       v64 = v67;
@@ -28257,35 +28475,35 @@ LABEL_143:
 LABEL_144:
   if ((v40 | v65))
   {
-    v156 = 0;
+    v155 = 0;
     v68 = v61;
     v69 = v61 ^ 1 | v40;
-    v71 = v152;
+    v71 = v151;
     objectCopy4 = object;
   }
 
   else
   {
-    v173 = 0u;
-    v174 = 0u;
-    v171 = 0u;
     v172 = 0u;
-    v72 = [obj countByEnumeratingWithState:&v171 objects:v181 count:16];
+    v173 = 0u;
+    v170 = 0u;
+    v171 = 0u;
+    v72 = [obj countByEnumeratingWithState:&v170 objects:v180 count:16];
     objectCopy4 = object;
     if (v72)
     {
       v73 = v72;
-      v74 = *v172;
+      v74 = *v171;
 LABEL_148:
       v75 = 0;
       while (1)
       {
-        if (*v172 != v74)
+        if (*v171 != v74)
         {
           objc_enumerationMutation(obj);
         }
 
-        v76 = [*(*(&v171 + 1) + 8 * v75) objectForKey:{-[__CFString lowercaseString](v152, "lowercaseString")}];
+        v76 = [*(*(&v170 + 1) + 8 * v75) objectForKey:{-[__CFString lowercaseString](v151, "lowercaseString")}];
         if (v76)
         {
           break;
@@ -28295,20 +28513,20 @@ LABEL_148:
         objectCopy4 = object;
         if (v73 == v75)
         {
-          v73 = [obj countByEnumeratingWithState:&v171 objects:v181 count:16];
+          v73 = [obj countByEnumeratingWithState:&v170 objects:v180 count:16];
           if (v73)
           {
             goto LABEL_148;
           }
 
-          v156 = 0;
+          v155 = 0;
           goto LABEL_160;
         }
       }
 
       v77 = v76;
       objectCopy4 = object;
-      v156 = v76;
+      v155 = v76;
       if (![v76 length])
       {
 LABEL_160:
@@ -28317,11 +28535,11 @@ LABEL_160:
         goto LABEL_161;
       }
 
-      v71 = v152;
+      v71 = v151;
       selfCopy4 = self;
-      if (([v77 isEqualToString:v152] & 1) == 0)
+      if (([v77 isEqualToString:v151] & 1) == 0)
       {
-        [(PRCandidateList *)v158 addCandidateWithString:v77 errorType:2];
+        [(PRCandidateList *)v157 addCandidateWithString:v77 errorType:2];
       }
 
       v69 = 0;
@@ -28329,11 +28547,11 @@ LABEL_160:
 
     else
     {
-      v156 = 0;
-      v134 = 0;
+      v155 = 0;
+      v133 = 0;
       v69 = 0;
 LABEL_161:
-      v71 = v152;
+      v71 = v151;
     }
 
     v68 = v61;
@@ -28343,54 +28561,54 @@ LABEL_161:
   {
     v78 = v68 & 1;
     v79 = v69 & 1;
-    [(AppleSpell *)selfCopy4 _addTwoLetterWordGuessesForWord:v71 buffer:&buffer length:v177 languageObject:objectCopy4 isCapitalized:v68 & 1 isAllCaps:v69 & 1 twoLetterWords:twoLetterWords candidateList:v158];
-    [(AppleSpell *)selfCopy4 _addConnectionGuessesForWord:v71 buffer:&buffer length:v177 languageObject:objectCopy4 connection:v141 candidateList:v158];
-    BYTE6(v131) = v137;
-    WORD2(v131) = v134;
-    BYTE3(v131) = v41 & 1;
-    BYTE2(v131) = v132 & 1;
-    BYTE1(v131) = v79;
-    LOBYTE(v131) = v78;
-    [AppleSpell _addAdditionalGuessesForWord:selfCopy4 sender:"_addAdditionalGuessesForWord:sender:buffer:length:languageObject:connection:accents:isCapitalized:isAllCaps:isAllAlpha:hasLigature:suggestPossessive:checkUser:checkHyphens:candidateList:" buffer:v71 length:server languageObject:&buffer connection:v177 accents:objectCopy4 isCapitalized:v141 isAllCaps:accents isAllAlpha:v131 hasLigature:v158 suggestPossessive:? checkUser:? checkHyphens:? candidateList:?];
+    [(AppleSpell *)selfCopy4 _addTwoLetterWordGuessesForWord:v71 buffer:&buffer length:v176 languageObject:objectCopy4 isCapitalized:v68 & 1 isAllCaps:v69 & 1 twoLetterWords:twoLetterWords candidateList:v157];
+    [(AppleSpell *)selfCopy4 _addConnectionGuessesForWord:v71 buffer:&buffer length:v176 languageObject:objectCopy4 connection:v140 candidateList:v157];
+    BYTE6(v130) = v136;
+    WORD2(v130) = v133;
+    BYTE3(v130) = v41 & 1;
+    BYTE2(v130) = v131 & 1;
+    BYTE1(v130) = v79;
+    LOBYTE(v130) = v78;
+    [AppleSpell _addAdditionalGuessesForWord:selfCopy4 sender:"_addAdditionalGuessesForWord:sender:buffer:length:languageObject:connection:accents:isCapitalized:isAllCaps:isAllAlpha:hasLigature:suggestPossessive:checkUser:checkHyphens:candidateList:" buffer:v71 length:server languageObject:&buffer connection:v176 accents:objectCopy4 isCapitalized:v140 isAllCaps:accents isAllAlpha:v130 hasLigature:v157 suggestPossessive:? checkUser:? checkHyphens:? candidateList:?];
     LOWORD(usedBufLen) = v78;
-    [(AppleSpell *)selfCopy4 _addSpaceInsertionGuessesForWord:v71 sender:server buffer:&buffer length:v177 languageObject:objectCopy4 connection:v141 isCapitalized:usedBufLen checkUser:v133 oneLetterWords:twoLetterWords twoLetterWords:v158 candidateList:?];
+    [(AppleSpell *)selfCopy4 _addSpaceInsertionGuessesForWord:v71 sender:server buffer:&buffer length:v176 languageObject:objectCopy4 connection:v140 isCapitalized:usedBufLen checkUser:v132 oneLetterWords:twoLetterWords twoLetterWords:v157 candidateList:?];
     LOWORD(usedBufLena) = v78;
-    [(AppleSpell *)selfCopy4 addLexiconGuessesForWord:v71 buffer:&buffer length:v177 languageObject:objectCopy4 minCorrectionLength:3 minExtendedCorrectionLength:5 isCapitalized:usedBufLena stopAfterFreeInsertions:v158 toGuesses:?];
+    [(AppleSpell *)selfCopy4 addLexiconGuessesForWord:v71 buffer:&buffer length:v176 languageObject:objectCopy4 minCorrectionLength:3 minExtendedCorrectionLength:5 isCapitalized:usedBufLena stopAfterFreeInsertions:v157 toGuesses:?];
   }
 
 LABEL_165:
   if (tagger)
   {
-    v80 = [(AppleSpell *)self _rankedCandidatesForCandidateList:v158 languageObject:object tagger:tagger appIdentifier:v147 parameterBundles:v146];
+    v80 = [(AppleSpell *)self _rankedCandidatesForCandidateList:v157 languageObject:object tagger:tagger appIdentifier:v146 parameterBundles:v145];
     if (v80)
     {
       v81 = v80;
-      v169 = 0u;
-      v170 = 0u;
-      v167 = 0u;
       v168 = 0u;
-      v82 = [v80 countByEnumeratingWithState:&v167 objects:v180 count:16];
+      v169 = 0u;
+      v166 = 0u;
+      v167 = 0u;
+      v82 = [v80 countByEnumeratingWithState:&v166 objects:v179 count:16];
       if (v82)
       {
         v83 = v82;
-        v84 = *v168;
+        v84 = *v167;
         do
         {
           for (i = 0; i != v83; ++i)
           {
-            if (*v168 != v84)
+            if (*v167 != v84)
             {
               objc_enumerationMutation(v81);
             }
 
-            v86 = *(*(&v167 + 1) + 8 * i);
+            v86 = *(*(&v166 + 1) + 8 * i);
             if (([v86 isBlocklisted] & 1) == 0)
             {
               string = [v86 string];
               if (([array containsObject:string] & 1) == 0)
               {
                 [array addObject:string];
-                if (!((dictionaries == 0) | v148 & 1))
+                if (!((dictionaries == 0) | v147 & 1))
                 {
                   v88 = MEMORY[0x1E695DF20];
                   v89 = MEMORY[0x1E696AD98];
@@ -28401,7 +28619,7 @@ LABEL_165:
             }
           }
 
-          v83 = [v81 countByEnumeratingWithState:&v167 objects:v180 count:16];
+          v83 = [v81 countByEnumeratingWithState:&v166 objects:v179 count:16];
         }
 
         while (v83);
@@ -28409,33 +28627,33 @@ LABEL_165:
     }
   }
 
-  v165 = 0u;
-  v166 = 0u;
-  v163 = 0u;
   v164 = 0u;
-  candidates = [(PRCandidateList *)v158 candidates];
-  v91 = [candidates countByEnumeratingWithState:&v163 objects:v179 count:16];
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  candidates = [(PRCandidateList *)v157 candidates];
+  v91 = [candidates countByEnumeratingWithState:&v162 objects:v178 count:16];
   if (v91)
   {
     v92 = v91;
-    v93 = *v164;
+    v93 = *v163;
     do
     {
       for (j = 0; j != v92; ++j)
       {
-        if (*v164 != v93)
+        if (*v163 != v93)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v95 = *(*(&v163 + 1) + 8 * j);
+        v95 = *(*(&v162 + 1) + 8 * j);
         if (([v95 isBlocklisted] & 1) == 0)
         {
           string2 = [v95 string];
           if (([array containsObject:string2] & 1) == 0)
           {
             [array addObject:string2];
-            if (!((dictionaries == 0) | v148 & 1))
+            if (!((dictionaries == 0) | v147 & 1))
             {
               v97 = MEMORY[0x1E695DF20];
               v98 = MEMORY[0x1E696AD98];
@@ -28446,63 +28664,63 @@ LABEL_165:
         }
       }
 
-      v92 = [candidates countByEnumeratingWithState:&v163 objects:v179 count:16];
+      v92 = [candidates countByEnumeratingWithState:&v162 objects:v178 count:16];
     }
 
     while (v92);
   }
 
-  [array removeObject:v152];
+  [array removeObject:v151];
   v99 = [array count];
   selfCopy7 = self;
   objectCopy7 = object;
   if (v99)
   {
     v102 = v99;
-    if (v141)
+    if (v140)
     {
       v103 = 0;
     }
 
     else
     {
-      v103 = v140;
+      v103 = v139;
     }
 
     do
     {
       v104 = [array objectAtIndex:--v102];
       v105 = [(__CFString *)v104 length];
-      if (v157 && ([(__CFString *)v104 isEqualToString:v157]& 1) != 0)
-      {
-        continue;
-      }
-
       if (v156 && ([(__CFString *)v104 isEqualToString:v156]& 1) != 0)
       {
         continue;
       }
 
-      v204.location = 0;
-      v204.length = v105;
-      if (v105 != CFStringGetBytes(v104, v204, encoding, 0, 0, &buffer, 254, &v177))
+      if (v155 && ([(__CFString *)v104 isEqualToString:v155]& 1) != 0)
       {
         continue;
       }
 
-      if (![(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v177 languageObject:objectCopy7 index:1]&& ![(AppleSpell *)selfCopy7 checkNegativeWordBuffer:&buffer length:v177 languageObject:objectCopy7])
+      v203.location = 0;
+      v203.length = v105;
+      if (v105 != CFStringGetBytes(v104, v203, encoding, 0, 0, &buffer, 254, &v176))
+      {
+        continue;
+      }
+
+      if (![(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v176 languageObject:objectCopy7 index:1]&& ![(AppleSpell *)selfCopy7 checkNegativeWordBuffer:&buffer length:v176 languageObject:objectCopy7])
       {
         if (v103)
         {
           continue;
         }
 
-        if (v105 < v145)
+        if (v105 < v144)
         {
           continue;
         }
 
-        if (v177 < v145)
+        if (v176 < v144)
         {
           continue;
         }
@@ -28528,26 +28746,27 @@ LABEL_165:
           }
         }
 
-        if ([array count] <= v135 || (objc_msgSend(server, "isWordInUserDictionaries:caseSensitive:", v104, 0) & 1) != 0)
+        if ([array count] <= v134 || (objc_msgSend(server, "isWordInUserDictionaries:caseSensitive:", v104, 0) & 1) != 0)
         {
           continue;
         }
 
-        if (v140)
+        if (v139)
         {
-          if ([(AppleSpell *)selfCopy7 checkNameWordBuffer:&buffer length:v177 languageObject:objectCopy7 globalOnly:0])
+          if ([(AppleSpell *)selfCopy7 checkNameWordBuffer:&buffer length:v176 languageObject:objectCopy7 globalOnly:0])
           {
             continue;
           }
 
-          v109 = [(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v177 languageObject:objectCopy7 index:0];
-          if (!v141 || v109)
+          v109 = [(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v176 languageObject:objectCopy7 index:0];
+          if (!v140 || v109)
           {
             continue;
           }
 
-          *&v183[v177 - 2] = 42;
-          memset(v201 + 8, 0, 136);
+          *&v182[v176 - 2] = 42;
+          memset(v200 + 8, 0, 136);
+          v183 = 0u;
           v184 = 0u;
           v185 = 0u;
           v186 = 0u;
@@ -28563,16 +28782,15 @@ LABEL_165:
           v196 = 0u;
           v197 = 0u;
           v198 = 0u;
-          v199 = 0u;
-          v200 = 0;
-          HIDWORD(v199) = 0;
-          *&v201[0] = &buffer;
-          *(&v201[6] + 1) = &v184;
-          HIBYTE(v201[7]) = 1;
-          *(&v201[8] + 1) = *v141;
-          PRword(v201, 5, 0);
-          v110 = *(&v201[0] + 1);
-          if (*(&v201[0] + 1) && *(*(&v201[0] + 1) + 8) && **(&v201[0] + 1) && (v111 = *(*(&v201[0] + 1) + 18), *(*(&v201[0] + 1) + 18)))
+          v199 = 0;
+          HIDWORD(v198) = 0;
+          *&v200[0] = &buffer;
+          *(&v200[6] + 1) = &v183;
+          HIBYTE(v200[7]) = 1;
+          *(&v200[8] + 1) = *v140;
+          PRword(v200, 5, 0);
+          v110 = *(&v200[0] + 1);
+          if (*(&v200[0] + 1) && *(*(&v200[0] + 1) + 8) && **(&v200[0] + 1) && (v111 = *(*(&v200[0] + 1) + 18), *(*(&v200[0] + 1) + 18)))
           {
             v112 = 0;
             do
@@ -28597,7 +28815,7 @@ LABEL_165:
             }
 
             while (v112 < v111);
-            PRword(v201, 17, 0);
+            PRword(v200, 17, 0);
             selfCopy7 = self;
             objectCopy7 = object;
             if (v114)
@@ -28608,12 +28826,12 @@ LABEL_165:
 
           else
           {
-            PRword(v201, 17, 0);
+            PRword(v200, 17, 0);
             objectCopy7 = object;
           }
         }
 
-        else if (![(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v177 languageObject:objectCopy7 index:0])
+        else if (![(AppleSpell *)selfCopy7 checkWordBuffer:&buffer length:v176 languageObject:objectCopy7 index:0])
         {
           continue;
         }
@@ -28627,26 +28845,26 @@ LABEL_165:
 
   if (dictionaries)
   {
-    v161 = 0u;
-    v162 = 0u;
-    v159 = 0u;
     v160 = 0u;
-    v115 = [array countByEnumeratingWithState:&v159 objects:v178 count:16];
+    v161 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    v115 = [array countByEnumeratingWithState:&v158 objects:v177 count:16];
     if (v115)
     {
       v116 = v115;
-      v117 = *v160;
+      v117 = *v159;
       do
       {
         for (k = 0; k != v116; ++k)
         {
-          if (*v160 != v117)
+          if (*v159 != v117)
           {
             objc_enumerationMutation(array);
           }
 
-          v119 = *(*(&v159 + 1) + 8 * k);
-          v120 = [(PRCandidateList *)v158 candidateWithString:v119];
+          v119 = *(*(&v158 + 1) + 8 * k);
+          v120 = [(PRCandidateList *)v157 candidateWithString:v119];
           if (v120)
           {
             v121 = v120;
@@ -28658,7 +28876,7 @@ LABEL_165:
           }
         }
 
-        v116 = [array countByEnumeratingWithState:&v159 objects:v178 count:16];
+        v116 = [array countByEnumeratingWithState:&v158 objects:v177 count:16];
       }
 
       while (v116);
@@ -28669,7 +28887,7 @@ LABEL_165:
   }
 
   v122 = [array count];
-  if (v142)
+  if (v141)
   {
     v123 = v122;
     if (v122)
@@ -28681,7 +28899,7 @@ LABEL_165:
         [v125 rangeOfString:@"'"];
         if (v126)
         {
-          [array replaceObjectAtIndex:v124 withObject:{objc_msgSend(v125, "stringByReplacingOccurrencesOfString:withString:", @"'", v143)}];
+          [array replaceObjectAtIndex:v124 withObject:{objc_msgSend(v125, "stringByReplacingOccurrencesOfString:withString:", @"'", v142)}];
         }
 
         ++v124;
@@ -28693,8 +28911,6 @@ LABEL_165:
 
   [(AppleSpell *)selfCopy7 resetTimer];
 
-LABEL_250:
-  v127 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -28812,7 +29028,7 @@ uint64_t __134__AppleSpell_Guessing___spellServer_suggestGuessesForWordRange_inS
 
 - (id)englishStringsFromWordBuffer:(char *)buffer length:(unint64_t)length connection:(_PR_DB_IO *)connection
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:length encoding:12];
   v9 = [PRLanguage languageObjectWithIdentifier:@"en_CN"];
   if (length)
@@ -28900,8 +29116,8 @@ LABEL_33:
     }
 
     v37 = 0;
-    v66 = v29;
-    v67 = v20;
+    v65 = v29;
+    v66 = v20;
     while (1)
     {
       v38 = buffer[v37];
@@ -28933,8 +29149,8 @@ LABEL_33:
   {
     v44 = 0;
     v32 = 1;
-    v66 = 0;
-    v67 = 1;
+    v65 = 0;
+    v66 = 1;
     v13 = 1;
   }
 
@@ -28958,7 +29174,7 @@ LABEL_65:
     }
   }
 
-  v72 = 0;
+  v71 = 0;
   if ([&stru_1F4E0A7A0 isEqualToString:uppercaseString])
   {
     goto LABEL_71;
@@ -28976,7 +29192,7 @@ LABEL_75:
   v53 = v51 - 192;
   if ((v51 - 65) >= 0x1A && v53 >= 0x17 && (v51 - 216) >= 7 && ((v51 - 138) > 0x15 || ((1 << (v51 + 118)) & 0x200015) == 0))
   {
-    if (next_pinyin(buffer, length, 0, 1, &v72, 0) && v72 == &buffer[length])
+    if (next_pinyin(buffer, length, 0, 1, &v71, 0) && v71 == &buffer[length])
     {
       goto LABEL_140;
     }
@@ -28986,17 +29202,17 @@ LABEL_75:
     v53 = v51 - 192;
   }
 
-  if (v52 >= 0x1A && v53 >= 0x17 && (v51 - 216) >= 7 && ((v51 - 138) > 0x15 || ((1 << (v51 + 118)) & 0x200015) == 0) && ((v13 | v67 | v66) & 1) != 0 || length <= 3 && (isUpperCase(v51) & 1) == 0)
+  if (v52 >= 0x1A && v53 >= 0x17 && (v51 - 216) >= 7 && ((v51 - 138) > 0x15 || ((1 << (v51 + 118)) & 0x200015) == 0) && ((v13 | v66 | v65) & 1) != 0 || length <= 3 && (isUpperCase(v51) & 1) == 0)
   {
     goto LABEL_140;
   }
 
-  WORD2(v64) = 0;
-  LODWORD(v64) = 65793;
-  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:length sender:v9 checkBase:v64 checkDict:0 checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]&& ((isUpperCase(*buffer) & 1) != 0 || ![(AppleSpell *)selfCopy checkWordBuffer:buffer length:length languageObject:v9 index:1]) && ![(AppleSpell *)selfCopy checkNegativeWordBuffer:buffer length:length languageObject:v9])
+  WORD2(v63) = 0;
+  LODWORD(v63) = 65793;
+  if ([AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:buffer connection:length sender:v9 checkBase:v63 checkDict:0 checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]&& ((isUpperCase(*buffer) & 1) != 0 || ![(AppleSpell *)selfCopy checkWordBuffer:buffer length:length languageObject:v9 index:1]) && ![(AppleSpell *)selfCopy checkNegativeWordBuffer:buffer length:length languageObject:v9])
   {
     v56 = isUpperCase(*buffer);
-    if (length < 2 || !v56 || !next_pinyin(buffer + 1, length - 1, 0, 1, &v72, 0) || v72 != &buffer[length] || ![(AppleSpell *)selfCopy checkWordBuffer:buffer length:length languageObject:v9 index:1])
+    if (length < 2 || !v56 || !next_pinyin(buffer + 1, length - 1, 0, 1, &v71, 0) || v71 != &buffer[length] || ![(AppleSpell *)selfCopy checkWordBuffer:buffer length:length languageObject:v9 index:1])
     {
       v57 = englishStringsFromWordBuffer_length_connection__capitalizationDictionaryArray;
       if (!englishStringsFromWordBuffer_length_connection__capitalizationDictionaryArray)
@@ -29005,25 +29221,25 @@ LABEL_75:
         englishStringsFromWordBuffer_length_connection__capitalizationDictionaryArray = v57;
       }
 
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
       v69 = 0u;
-      v58 = [v57 countByEnumeratingWithState:&v68 objects:v73 count:16];
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v58 = [v57 countByEnumeratingWithState:&v67 objects:v72 count:16];
       if (v58)
       {
         v59 = v58;
-        v60 = *v69;
+        v60 = *v68;
         while (2)
         {
           for (i = 0; i != v59; ++i)
           {
-            if (*v69 != v60)
+            if (*v68 != v60)
             {
               objc_enumerationMutation(v57);
             }
 
-            v62 = [*(*(&v68 + 1) + 8 * i) objectForKey:v8];
+            v62 = [*(*(&v67 + 1) + 8 * i) objectForKey:v8];
             if (v62)
             {
               uppercaseString = v62;
@@ -29031,7 +29247,7 @@ LABEL_75:
             }
           }
 
-          v59 = [v57 countByEnumeratingWithState:&v68 objects:v73 count:16];
+          v59 = [v57 countByEnumeratingWithState:&v67 objects:v72 count:16];
           if (v59)
           {
             continue;
@@ -29048,9 +29264,7 @@ LABEL_71:
 
 LABEL_140:
 
-LABEL_141:
-    result = 0;
-    goto LABEL_142;
+    return 0;
   }
 
   if (length < 4)
@@ -29107,9 +29321,9 @@ LABEL_136:
 
 LABEL_137:
   __dst[0] = v54;
-  WORD2(v65) = 0;
-  LODWORD(v65) = 65793;
-  if (![AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:__dst connection:length sender:v9 checkBase:v65 checkDict:0 checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)selfCopy checkWordBuffer:__dst length:length languageObject:v9 index:1]|| [(AppleSpell *)selfCopy checkNegativeWordBuffer:__dst length:length languageObject:v9])
+  WORD2(v64) = 0;
+  LODWORD(v64) = 65793;
+  if (![AppleSpell validateWordBuffer:selfCopy length:"validateWordBuffer:length:languageObject:connection:sender:checkBase:checkDict:checkTemp:checkNames:checkHyphens:checkIntercaps:checkOptions:depth:" languageObject:__dst connection:length sender:v9 checkBase:v64 checkDict:0 checkTemp:? checkNames:? checkHyphens:? checkIntercaps:? checkOptions:? depth:?]|| [(AppleSpell *)selfCopy checkWordBuffer:__dst length:length languageObject:v9 index:1]|| [(AppleSpell *)selfCopy checkNegativeWordBuffer:__dst length:length languageObject:v9])
   {
     goto LABEL_140;
   }
@@ -29120,23 +29334,19 @@ LABEL_72:
 
   if (!uppercaseString)
   {
-    goto LABEL_141;
+    return 0;
   }
 
 LABEL_76:
   if ([uppercaseString isEqualToString:@"apple"])
   {
-    result = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Apple", @"apple", 0}];
+    return [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Apple", @"apple", 0}];
   }
 
   else
   {
-    result = [MEMORY[0x1E695DEC8] arrayWithObject:uppercaseString];
+    return [MEMORY[0x1E695DEC8] arrayWithObject:uppercaseString];
   }
-
-LABEL_142:
-  v63 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)englishStringFromWordBuffer:(char *)buffer length:(unint64_t)length connection:(_PR_DB_IO *)connection
@@ -29158,17 +29368,17 @@ LABEL_142:
 
 - (void)addSpecialModifiedPinyinToArray:(id)array inBuffer:(char *)buffer length:(unint64_t)length atEnd:(BOOL)end
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v30 = 0;
+  v34 = *MEMORY[0x1E69E9840];
   v31 = 0;
-  v28 = 0;
   v29 = 0;
-  v26 = 0;
+  v30 = 0;
   v27 = 0;
+  v28 = 0;
+  v25 = 0;
+  v26 = 0;
   if (length < 4)
   {
-    goto LABEL_68;
+    return;
   }
 
   v9 = 0;
@@ -29269,16 +29479,16 @@ LABEL_27:
   }
 
   while (!v15);
-  if (v15 && (!v10 || findPinyin(buffer, v10, 0, 1, 0, 0, 0, 0, &v31, 0, &v30, &v32 + 1, &v29, 0, 0, 0, 0, 0) && (v32 & 0x100) == 0 && v31 == v10))
+  if (v15 && (!v10 || findPinyin(buffer, v10, 0, 1, 0, 0, 0, 0, &v30, 0, &v29, &v31 + 1, &v28, 0, 0, 0, 0, 0) && (v31 & 0x100) == 0 && v30 == v10))
   {
     v16 = v10 + v15;
     v17 = &buffer[v10 + v15];
     v18 = length - (v10 + v15);
     if (length > v10 + v15 && *(v17 - 1) == 115)
     {
-      if (findPinyin(v17 - 1, v18 + 1, 0, 1, 0, 0, 0, 0, &v28, 0, &v27, &v32, &v26, 0, 0, 0, 0, 0))
+      if (findPinyin(v17 - 1, v18 + 1, 0, 1, 0, 0, 0, 0, &v27, 0, &v26, &v31, &v25, 0, 0, 0, 0, 0))
       {
-        v18 = v16 + v28 - 1;
+        v18 = v16 + v27 - 1;
         if (v18 == length)
         {
           v11 = v15 - 1;
@@ -29287,13 +29497,13 @@ LABEL_27:
       }
     }
 
-    if (length == v16 || findPinyin(&buffer[v10 + v15], length - v16, 0, 1, 0, 0, 0, 0, &v28, 0, &v27, &v32, &v26, 0, 0, 0, 0, 0) && (LOBYTE(v18) = v28 + v16, v28 + v16 == length))
+    if (length == v16 || findPinyin(&buffer[v10 + v15], length - v16, 0, 1, 0, 0, 0, 0, &v27, 0, &v26, &v31, &v25, 0, 0, 0, 0, 0) && (LOBYTE(v18) = v27 + v16, v27 + v16 == length))
     {
 LABEL_45:
       if (v11)
       {
         memcpy(&__dst, &buffer[v10], v11);
-        LOBYTE(v18) = v34;
+        LOBYTE(v18) = v33;
       }
 
       if (v18 > 0xF7u || v18 - 97 < 0x1A || v18 - 223 < 0x18)
@@ -29320,7 +29530,7 @@ LABEL_45:
       else if (v18 - 154 > 4 || ((1 << (v18 + 102)) & 0x15) == 0)
       {
 LABEL_59:
-        v34 = v18;
+        v33 = v18;
         v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&__dst length:v11 encoding:12];
         if (v10)
         {
@@ -29345,46 +29555,43 @@ LABEL_59:
         [v19 length];
         v22 = [PRPinyinString alloc];
         v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v20, v19, v21];
-        v24 = [(PRPinyinString *)v22 initWithString:v23 syllableCount:v30 + v27 + 1 lastSyllableIsPartial:v32 score:v29 + v26 + 128 originalLength:length modificationType:5 originalModificationRange:v10 finalModificationRange:v11 originalSyllableRange:v10, v11, v10, v11];
+        v24 = [(PRPinyinString *)v22 initWithString:v23 syllableCount:v29 + v26 + 1 lastSyllableIsPartial:v31 score:v28 + v25 + 128 originalLength:length modificationType:5 originalModificationRange:v10 finalModificationRange:v11 originalSyllableRange:v10, v11, v10, v11];
         if (([array containsObject:v24] & 1) == 0)
         {
           [array addObject:v24];
         }
 
-        goto LABEL_68;
+        return;
       }
 
       LOBYTE(v18) = v18 - 16;
       goto LABEL_59;
     }
   }
-
-LABEL_68:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addModifiedPinyinToArray:(id)array connection:(_PR_DB_IO *)connection fromIndex:(unint64_t)index prevIndex:(unint64_t)prevIndex prevPrevIndex:(unint64_t)prevPrevIndex startingModificationsAt:(unint64_t)at inBuffer:(char *)buffer length:(unint64_t)self0 initialSyllableCount:(unint64_t)self1 initialScore:(unint64_t)self2 prevScore:(unint64_t)self3 prevPrevScore:(unint64_t)self4 lastSyllableScore:(unint64_t)self5 couldBeAbbreviatedPinyin:(BOOL)self6
 {
   bufferCopy2 = buffer;
   lengthCopy8 = length;
-  v334 = *MEMORY[0x1E69E9840];
-  v331 = 0;
-  v332 = 0;
-  v329 = 0;
+  v333 = *MEMORY[0x1E69E9840];
   v330 = 0;
+  v331 = 0;
   v328 = 0;
-  v289 = [PRLanguage languageObjectWithIdentifier:@"en_CN"];
-  v22 = 0;
+  v329 = 0;
   v327 = 0;
-  indexCopy = index;
+  v288 = [PRLanguage languageObjectWithIdentifier:@"en_CN"];
+  v22 = 0;
   v326 = 0;
+  indexCopy = index;
+  v325 = 0;
   selfCopy = self;
   prevIndexCopy = prevIndex;
   if (prevPrevIndex < index && prevPrevIndex < prevIndex)
   {
     v22 = 0;
-    v316 = &buffer[prevPrevIndex];
-    v309 = length - prevPrevIndex;
+    v315 = &buffer[prevPrevIndex];
+    v308 = length - prevPrevIndex;
     v23 = length - prevPrevIndex - 14;
     v24 = 14;
     prevPrevIndexCopy = prevPrevIndex;
@@ -29392,14 +29599,14 @@ LABEL_68:
     {
       if (prevPrevIndex + v24 <= lengthCopy8)
       {
+        v328 = 0;
         v329 = 0;
         v330 = 0;
-        v331 = 0;
-        v25 = [(AppleSpell *)self englishStringFromWordBuffer:v316 length:v24 connection:connection];
+        v25 = [(AppleSpell *)self englishStringFromWordBuffer:v315 length:v24 connection:connection];
         if (v25)
         {
           v26 = v25;
-          if (v309 == v24 || findPinyin(&v316[v24], v23, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v309 - v331 == v24)
+          if (v308 == v24 || findPinyin(&v315[v24], v23, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v308 - v330 == v24)
           {
             if (prevPrevIndex)
             {
@@ -29415,7 +29622,7 @@ LABEL_68:
 
             if (prevPrevIndex + v24 < length)
             {
-              v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v316[v24] length:v23 encoding:12];
+              v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v315[v24] length:v23 encoding:12];
             }
 
             v29 = [v26 length];
@@ -29424,7 +29631,7 @@ LABEL_68:
             v32 = [PRPinyinString alloc];
             v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v27, v26, v28];
             lengthCopy8 = length;
-            v34 = [(PRPinyinString *)v32 initWithString:v33 syllableCount:count - 1 + v330 lastSyllableIsPartial:v328 score:prevPrevScore + 128 + v329 originalLength:length modificationType:5 originalModificationRange:v30 finalModificationRange:v24 originalSyllableRange:v31, v29, v30, v24];
+            v34 = [(PRPinyinString *)v32 initWithString:v33 syllableCount:count - 1 + v329 lastSyllableIsPartial:v327 score:prevPrevScore + 128 + v328 originalLength:length modificationType:5 originalModificationRange:v30 finalModificationRange:v24 originalSyllableRange:v31, v29, v30, v24];
             if (([array containsObject:v34] & 1) == 0)
             {
               [array addObject:v34];
@@ -29447,31 +29654,31 @@ LABEL_68:
   }
 
   v35 = prevIndexCopy;
-  if (prevPrevIndex + 2 < prevIndexCopy && next_pinyin(&buffer[prevPrevIndex], prevIndexCopy - 1 - prevPrevIndex, 0, 0, &v326, &v327) && &buffer[prevIndexCopy - 1] == v326)
+  if (prevPrevIndex + 2 < prevIndexCopy && next_pinyin(&buffer[prevPrevIndex], prevIndexCopy - 1 - prevPrevIndex, 0, 0, &v325, &v326) && &buffer[prevIndexCopy - 1] == v325)
   {
     v36 = prevIndexCopy - 1;
-    v310 = &buffer[prevIndexCopy];
+    v309 = &buffer[prevIndexCopy];
     v37 = lengthCopy8 - prevIndexCopy - 13;
-    v317 = prevIndexCopy - lengthCopy8 + 13;
+    v316 = prevIndexCopy - lengthCopy8 + 13;
     for (i = 14; i > 2; --i)
     {
       v39 = v35 + i - 1;
       if (v39 <= lengthCopy8)
       {
+        v328 = 0;
         v329 = 0;
         v330 = 0;
-        v331 = 0;
         v40 = [(AppleSpell *)self englishStringFromWordBuffer:&buffer[v36] length:i connection:connection];
         if (v40)
         {
           v41 = v40;
-          if (v317 + i == 14 || findPinyin(&v310[i - 1], v37, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v317 + i + v331 == 14)
+          if (v316 + i == 14 || findPinyin(&v309[i - 1], v37, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v316 + i + v330 == 14)
           {
             v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:v36 encoding:12];
             v43 = &stru_1F4E0A7A0;
             if (v39 < lengthCopy8)
             {
-              v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v310[i - 1] length:v37 encoding:12];
+              v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v309[i - 1] length:v37 encoding:12];
             }
 
             v44 = [v41 length];
@@ -29479,9 +29686,9 @@ LABEL_68:
             v46 = [v42 length];
             v47 = [PRPinyinString alloc];
             v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v42, v41, v43];
-            v283 = v46;
+            v282 = v46;
             lengthCopy8 = length;
-            v49 = [(PRPinyinString *)v47 initWithString:v48 syllableCount:v330 + count lastSyllableIsPartial:v328 score:prevPrevScore + 128 + v327 + v329 originalLength:length modificationType:5 originalModificationRange:v45 finalModificationRange:i originalSyllableRange:v283, v44, v45, i];
+            v49 = [(PRPinyinString *)v47 initWithString:v48 syllableCount:v329 + count lastSyllableIsPartial:v327 score:prevPrevScore + 128 + v326 + v328 originalLength:length modificationType:5 originalModificationRange:v45 finalModificationRange:i originalSyllableRange:v282, v44, v45, i];
             if (([array containsObject:v49] & 1) == 0)
             {
               [array addObject:v49];
@@ -29506,20 +29713,20 @@ LABEL_68:
     v51 = lengthCopy8 - v35;
     v52 = lengthCopy8 - v35 - 14;
     v53 = 14;
-    v318 = &buffer[v35];
-    v300 = lengthCopy8 - v35;
+    v317 = &buffer[v35];
+    v299 = lengthCopy8 - v35;
     do
     {
       if (v35 + v53 <= lengthCopy8)
       {
+        v328 = 0;
         v329 = 0;
         v330 = 0;
-        v331 = 0;
         v54 = [(AppleSpell *)selfCopy englishStringFromWordBuffer:v50 length:v53 connection:connection];
         if (v54)
         {
           v55 = v54;
-          if (v51 == v53 || findPinyin(&v50[v53], v52, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v51 - v331 == v53)
+          if (v51 == v53 || findPinyin(&v50[v53], v52, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v51 - v330 == v53)
           {
             if (v35)
             {
@@ -29544,7 +29751,7 @@ LABEL_68:
             v61 = [PRPinyinString alloc];
             v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v56, v55, v57];
             lengthCopy8 = length;
-            v63 = [(PRPinyinString *)v61 initWithString:v62 syllableCount:v330 + count lastSyllableIsPartial:v328 score:prevScore + 128 + v329 originalLength:length modificationType:5 originalModificationRange:v59 finalModificationRange:v53 originalSyllableRange:v60, v58, v59, v53];
+            v63 = [(PRPinyinString *)v61 initWithString:v62 syllableCount:v329 + count lastSyllableIsPartial:v327 score:prevScore + 128 + v328 originalLength:length modificationType:5 originalModificationRange:v59 finalModificationRange:v53 originalSyllableRange:v60, v58, v59, v53];
             if (([array containsObject:v63] & 1) == 0)
             {
               [array addObject:v63];
@@ -29552,9 +29759,9 @@ LABEL_68:
 
             v22 = 1;
             index = indexCopy;
-            v51 = v300;
+            v51 = v299;
             v35 = prevIndexCopy;
-            v50 = v318;
+            v50 = v317;
           }
         }
       }
@@ -29578,32 +29785,32 @@ LABEL_68:
     v66 = index - 1 - v35;
     v67 = v35;
     bufferCopy5 = buffer;
-    if (next_pinyin(&buffer[v67], v66, 0, 0, &v326, &v327) && &buffer[v65] == v326)
+    if (next_pinyin(&buffer[v67], v66, 0, 0, &v325, &v326) && &buffer[v65] == v325)
     {
-      v311 = &buffer[index];
+      v310 = &buffer[index];
       v69 = lengthCopy8 - index - 13;
-      v319 = index - lengthCopy8 + 13;
+      v318 = index - lengthCopy8 + 13;
       v70 = 14;
-      v301 = index - 1;
+      v300 = index - 1;
       do
       {
         v71 = index + v70 - 1;
         if (v71 <= lengthCopy8)
         {
+          v328 = 0;
           v329 = 0;
           v330 = 0;
-          v331 = 0;
           v72 = [(AppleSpell *)v64 englishStringFromWordBuffer:&bufferCopy5[v65] length:v70 connection:connection];
           if (v72)
           {
             v73 = v72;
-            if (v319 + v70 == 14 || findPinyin(&v311[v70 - 1], v69, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v319 + v70 + v331 == 14)
+            if (v318 + v70 == 14 || findPinyin(&v310[v70 - 1], v69, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v318 + v70 + v330 == 14)
             {
               v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:bufferCopy5 length:v65 encoding:12];
               v75 = &stru_1F4E0A7A0;
               if (v71 < lengthCopy8)
               {
-                v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v311[v70 - 1] length:v69 encoding:12];
+                v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v310[v70 - 1] length:v69 encoding:12];
               }
 
               v76 = [v73 length];
@@ -29611,9 +29818,9 @@ LABEL_68:
               v78 = [v74 length];
               v79 = [PRPinyinString alloc];
               v80 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v74, v73, v75];
-              v284 = v78;
+              v283 = v78;
               lengthCopy8 = length;
-              v81 = [(PRPinyinString *)v79 initWithString:v80 syllableCount:count + 1 + v330 lastSyllableIsPartial:v328 score:prevScore + 128 + v327 + v329 originalLength:length modificationType:5 originalModificationRange:v77 finalModificationRange:v70 originalSyllableRange:v284, v76, v77, v70];
+              v81 = [(PRPinyinString *)v79 initWithString:v80 syllableCount:count + 1 + v329 lastSyllableIsPartial:v327 score:prevScore + 128 + v326 + v328 originalLength:length modificationType:5 originalModificationRange:v77 finalModificationRange:v70 originalSyllableRange:v283, v76, v77, v70];
               if (([array containsObject:v81] & 1) == 0)
               {
                 [array addObject:v81];
@@ -29623,7 +29830,7 @@ LABEL_68:
               index = indexCopy;
               v64 = selfCopy;
               bufferCopy5 = buffer;
-              v65 = v301;
+              v65 = v300;
             }
           }
         }
@@ -29637,25 +29844,25 @@ LABEL_68:
   }
 
   v82 = &bufferCopy5[index];
-  v295 = count + 1;
-  v297 = score + 128;
-  v320 = lengthCopy8 - index;
+  v294 = count + 1;
+  v296 = score + 128;
+  v319 = lengthCopy8 - index;
   v83 = lengthCopy8 - index - 14;
   v84 = 14;
   atCopy4 = at;
-  v302 = v82;
+  v301 = v82;
   do
   {
     if (index + v84 <= lengthCopy8)
     {
+      v328 = 0;
       v329 = 0;
       v330 = 0;
-      v331 = 0;
       v86 = [(AppleSpell *)v64 englishStringFromWordBuffer:v82 length:v84 connection:connection];
       if (v86)
       {
         v87 = v86;
-        if (v320 == v84 || findPinyin(&v82[v84], v83, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v320 - v331 == v84)
+        if (v319 == v84 || findPinyin(&v82[v84], v83, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v319 - v330 == v84)
         {
           if (index)
           {
@@ -29680,7 +29887,7 @@ LABEL_68:
           v93 = [PRPinyinString alloc];
           v94 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v88, v87, v89];
           lengthCopy8 = length;
-          v95 = [(PRPinyinString *)v93 initWithString:v94 syllableCount:v295 + v330 lastSyllableIsPartial:v328 score:v297 + v329 originalLength:length modificationType:5 originalModificationRange:v91 finalModificationRange:v84 originalSyllableRange:v92, v90, v91, v84];
+          v95 = [(PRPinyinString *)v93 initWithString:v94 syllableCount:v294 + v329 lastSyllableIsPartial:v327 score:v296 + v328 originalLength:length modificationType:5 originalModificationRange:v91 finalModificationRange:v84 originalSyllableRange:v92, v90, v91, v84];
           if (([array containsObject:v95] & 1) == 0)
           {
             [array addObject:v95];
@@ -29690,7 +29897,7 @@ LABEL_68:
           index = indexCopy;
           atCopy4 = at;
           v64 = selfCopy;
-          v82 = v302;
+          v82 = v301;
         }
       }
     }
@@ -29708,21 +29915,21 @@ LABEL_68:
   else
   {
     bufferCopy12 = buffer;
-    v312 = &buffer[atCopy4];
-    v293 = lengthCopy8 - atCopy4;
+    v311 = &buffer[atCopy4];
+    v292 = lengthCopy8 - atCopy4;
     v97 = lengthCopy8 - atCopy4 - 14;
     for (j = 14; j > 2; --j)
     {
       if (atCopy4 + j <= lengthCopy8)
       {
+        v328 = 0;
         v329 = 0;
         v330 = 0;
-        v331 = 0;
-        v99 = [(AppleSpell *)v64 englishStringFromWordBuffer:v312 length:j connection:connection];
+        v99 = [(AppleSpell *)v64 englishStringFromWordBuffer:v311 length:j connection:connection];
         if (v99)
         {
           v100 = v99;
-          if (v293 == j || findPinyin(&v312[j], v97, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v293 - v331 == j)
+          if (v292 == j || findPinyin(&v311[j], v97, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v292 - v330 == j)
           {
             if (atCopy4)
             {
@@ -29738,7 +29945,7 @@ LABEL_68:
 
             if (atCopy4 + j < length)
             {
-              v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v312[j] length:v97 encoding:12];
+              v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&v311[j] length:v97 encoding:12];
             }
 
             v103 = [v100 length];
@@ -29747,7 +29954,7 @@ LABEL_68:
             v106 = [PRPinyinString alloc];
             v102 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v101, v100, v102];
             lengthCopy8 = length;
-            v108 = [(PRPinyinString *)v106 initWithString:v102 syllableCount:count + 2 + v330 lastSyllableIsPartial:v328 score:v297 + syllableScore + v329 originalLength:length modificationType:5 originalModificationRange:v104 finalModificationRange:j originalSyllableRange:v105, v103, v104, j];
+            v108 = [(PRPinyinString *)v106 initWithString:v102 syllableCount:count + 2 + v329 lastSyllableIsPartial:v327 score:v296 + syllableScore + v328 originalLength:length modificationType:5 originalModificationRange:v104 finalModificationRange:j originalSyllableRange:v105, v103, v104, j];
             if (([array containsObject:v108] & 1) == 0)
             {
               [array addObject:v108];
@@ -29771,14 +29978,14 @@ LABEL_68:
     v109 = index + 2;
     if (index + 2 <= lengthCopy8)
     {
+      v328 = 0;
       v329 = 0;
       v330 = 0;
-      v331 = 0;
-      v110 = [(AppleSpell *)v64 englishStringFromWordBuffer:v302 length:2 connection:connection];
+      v110 = [(AppleSpell *)v64 englishStringFromWordBuffer:v301 length:2 connection:connection];
       if (v110)
       {
         v111 = v110;
-        if (v109 == lengthCopy8 || findPinyin(v302 + 2, v320 - 2, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v331 + v109 == lengthCopy8)
+        if (v109 == lengthCopy8 || findPinyin(v301 + 2, v319 - 2, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v330 + v109 == lengthCopy8)
         {
           if (index)
           {
@@ -29797,7 +30004,7 @@ LABEL_68:
 
           else
           {
-            v118 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v302 + 2 length:v320 - 2 encoding:12];
+            v118 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v301 + 2 length:v319 - 2 encoding:12];
           }
 
           v119 = [v111 length];
@@ -29805,20 +30012,20 @@ LABEL_68:
           v121 = [(__CFString *)v112 length];
           v122 = [PRPinyinString alloc];
           v118 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v112, v111, v118];
-          v124 = v328;
-          v287 = v120;
-          v288 = 2;
-          v285 = v121;
-          v286 = v119;
-          v125 = v295 + v330;
-          v126 = v297 + syllableScore + v329;
-          v281 = v120;
-          v282 = 2;
+          v124 = v327;
+          v286 = v120;
+          v287 = 2;
+          v284 = v121;
+          v285 = v119;
+          v125 = v294 + v329;
+          v126 = v296 + syllableScore + v328;
+          v280 = v120;
+          v281 = 2;
           v127 = v122;
 LABEL_156:
           lengthCopy8 = length;
-          v288 = [(PRPinyinString *)v127 initWithString:v118 syllableCount:v125 lastSyllableIsPartial:v124 score:v126 originalLength:length modificationType:5 originalModificationRange:v281 finalModificationRange:v282 originalSyllableRange:v285, v286, v287, v288];
-          if ([array containsObject:v288])
+          v287 = [(PRPinyinString *)v127 initWithString:v118 syllableCount:v125 lastSyllableIsPartial:v124 score:v126 originalLength:length modificationType:5 originalModificationRange:v280 finalModificationRange:v281 originalSyllableRange:v284, v285, v286, v287];
+          if ([array containsObject:v287])
           {
 LABEL_158:
 
@@ -29828,7 +30035,7 @@ LABEL_158:
           }
 
 LABEL_157:
-          [array addObject:v288];
+          [array addObject:v287];
           goto LABEL_158;
         }
       }
@@ -29839,15 +30046,15 @@ LABEL_157:
       v113 = atCopy4 + 2;
       if (atCopy4 + 2 <= lengthCopy8)
       {
+        v328 = 0;
         v329 = 0;
-        v330 = 0;
         v114 = &bufferCopy12[atCopy4];
-        v331 = 0;
+        v330 = 0;
         v115 = [(AppleSpell *)v64 englishStringFromWordBuffer:&bufferCopy12[atCopy4] length:2 connection:connection];
         if (v115)
         {
           v116 = v115;
-          if (v113 == lengthCopy8 || findPinyin(v114 + 2, lengthCopy8 - atCopy4 - 2, 0, 1, 0, 0, 0, 0, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, 0) && v331 + v113 == lengthCopy8)
+          if (v113 == lengthCopy8 || findPinyin(v114 + 2, lengthCopy8 - atCopy4 - 2, 0, 1, 0, 0, 0, 0, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, 0) && v330 + v113 == lengthCopy8)
           {
             if (atCopy4)
             {
@@ -29875,9 +30082,9 @@ LABEL_157:
             v144 = [(__CFString *)v117 length];
             v145 = [PRPinyinString alloc];
             v140 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v117, v116, v140];
-            v288 = [(PRPinyinString *)v145 initWithString:v140 syllableCount:v295 + v330 lastSyllableIsPartial:v328 score:v297 + syllableScore + v329 originalLength:v141 modificationType:5 originalModificationRange:v143 finalModificationRange:2 originalSyllableRange:v144, v142, v143, 2];
+            v287 = [(PRPinyinString *)v145 initWithString:v140 syllableCount:v294 + v329 lastSyllableIsPartial:v327 score:v296 + syllableScore + v328 originalLength:v141 modificationType:5 originalModificationRange:v143 finalModificationRange:2 originalSyllableRange:v144, v142, v143, 2];
             lengthCopy8 = v141;
-            if ([array containsObject:v288])
+            if ([array containsObject:v287])
             {
               goto LABEL_158;
             }
@@ -29888,11 +30095,11 @@ LABEL_157:
       }
     }
 
-    if (index + 4 < lengthCopy8 && index + 14 >= lengthCopy8 && [(AppleSpell *)v64 validateWordPrefixBuffer:v302 length:v320 connection:connection])
+    if (index + 4 < lengthCopy8 && index + 14 >= lengthCopy8 && [(AppleSpell *)v64 validateWordPrefixBuffer:v301 length:v319 connection:connection])
     {
-      if ((v128 = *v302, (v128 - 65) < 0x1A) || (v128 - 192) < 0x17 || (v128 - 216) < 7 || (v129 = v128 - 138, v129 <= 0x15) && ((1 << v129) & 0x200015) != 0 || ![(AppleSpell *)v64 checkWordBuffer:v302 length:v320 languageObject:v289 index:1])
+      if ((v128 = *v301, (v128 - 65) < 0x1A) || (v128 - 192) < 0x17 || (v128 - 216) < 7 || (v129 = v128 - 138, v129 <= 0x15) && ((1 << v129) & 0x200015) != 0 || ![(AppleSpell *)v64 checkWordBuffer:v301 length:v319 languageObject:v288 index:1])
       {
-        if (![(AppleSpell *)v64 checkNegativeWordBuffer:v302 length:v320 languageObject:v289])
+        if (![(AppleSpell *)v64 checkNegativeWordBuffer:v301 length:v319 languageObject:v288])
         {
           if (index)
           {
@@ -29904,20 +30111,20 @@ LABEL_157:
             v134 = &stru_1F4E0A7A0;
           }
 
-          v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v302 length:v320 encoding:12];
+          v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v301 length:v319 encoding:12];
           v136 = [v135 length];
           v137 = [(__CFString *)v134 length];
           v138 = [(__CFString *)v134 length];
           v139 = [PRPinyinString alloc];
           v118 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v134, v135, &stru_1F4E0A7A0];
-          v287 = v137;
-          v288 = v320;
-          v285 = v138;
-          v286 = v136;
+          v286 = v137;
+          v287 = v319;
+          v284 = v138;
+          v285 = v136;
           v125 = count + 2;
-          v126 = v297 + syllableScore;
-          v281 = v137;
-          v282 = v320;
+          v126 = v296 + syllableScore;
+          v280 = v137;
+          v281 = v319;
           v127 = v139;
           goto LABEL_155;
         }
@@ -29929,9 +30136,9 @@ LABEL_157:
       v130 = lengthCopy8 - atCopy4;
       if ([(AppleSpell *)v64 validateWordPrefixBuffer:&bufferCopy12[atCopy4] length:lengthCopy8 - atCopy4 connection:connection])
       {
-        if ((v131 = bufferCopy12[atCopy4], (v131 - 65) < 0x1A) || (v131 - 192) < 0x17 || (v131 - 216) < 7 || (v132 = v131 - 138, v132 <= 0x15) && ((1 << v132) & 0x200015) != 0 || ![(AppleSpell *)v64 checkWordBuffer:&bufferCopy12[atCopy4] length:lengthCopy8 - atCopy4 languageObject:v289 index:1])
+        if ((v131 = bufferCopy12[atCopy4], (v131 - 65) < 0x1A) || (v131 - 192) < 0x17 || (v131 - 216) < 7 || (v132 = v131 - 138, v132 <= 0x15) && ((1 << v132) & 0x200015) != 0 || ![(AppleSpell *)v64 checkWordBuffer:&bufferCopy12[atCopy4] length:lengthCopy8 - atCopy4 languageObject:v288 index:1])
         {
-          if (![(AppleSpell *)v64 checkNegativeWordBuffer:&bufferCopy12[atCopy4] length:lengthCopy8 - atCopy4 languageObject:v289])
+          if (![(AppleSpell *)v64 checkNegativeWordBuffer:&bufferCopy12[atCopy4] length:lengthCopy8 - atCopy4 languageObject:v288])
           {
             if (atCopy4)
             {
@@ -29949,14 +30156,14 @@ LABEL_157:
             v151 = [(__CFString *)v133 length];
             v152 = [PRPinyinString alloc];
             v118 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v133, v148, &stru_1F4E0A7A0];
-            v287 = v150;
-            v288 = v130;
-            v285 = v151;
-            v286 = v149;
+            v286 = v150;
+            v287 = v130;
+            v284 = v151;
+            v285 = v149;
             v125 = count + 2;
-            v126 = v297 + syllableScore;
-            v281 = v150;
-            v282 = v130;
+            v126 = v296 + syllableScore;
+            v280 = v150;
+            v281 = v130;
             v127 = v152;
 LABEL_155:
             v124 = 1;
@@ -29969,7 +30176,7 @@ LABEL_155:
 
 LABEL_159:
   [(AppleSpell *)v64 addSpecialModifiedPinyinToArray:array inBuffer:bufferCopy12 length:lengthCopy8 atEnd:0];
-  v324 = lengthCopy8 + 1;
+  v323 = lengthCopy8 + 1;
   if (lengthCopy8 + 1 > 1)
   {
     v153 = lengthCopy8 + 1;
@@ -29997,15 +30204,15 @@ LABEL_159:
     }
 
     v158 = atCopy4 + 5;
-    v296 = v157;
-    v298 = ((__PAIR128__(atCopy4, indexCopy) - atCopy4) >> 64) + 1;
-    v303 = (__PAIR128__(atCopy4, indexCopy) - atCopy4) >> 64;
-    v315 = v154;
-    v291 = atCopy4 + 5;
-    if (v303 < atCopy4 + 5 && v298 < length)
+    v295 = v157;
+    v297 = ((__PAIR128__(atCopy4, indexCopy) - atCopy4) >> 64) + 1;
+    v302 = (__PAIR128__(atCopy4, indexCopy) - atCopy4) >> 64;
+    v314 = v154;
+    v290 = atCopy4 + 5;
+    if (v302 < atCopy4 + 5 && v297 < length)
     {
       v159 = (__PAIR128__(atCopy4, indexCopy) - atCopy4) >> 64;
-      v294 = v154 + 1;
+      v293 = v154 + 1;
       v160 = v159 + 1;
       while (1)
       {
@@ -30039,15 +30246,15 @@ LABEL_218:
 
       __dst[v159] = v163;
       __dst[v160] = v162;
-      if (findPinyin(&__dst[indexCopy], v320, 0, 0, 0, 0, 0, &v332, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, v155) && v331 + indexCopy == lengthCopy11 && (v328 != 1 || v161 < v332 + indexCopy))
+      if (findPinyin(&__dst[indexCopy], v319, 0, 0, 0, 0, 0, &v331, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, v155) && v330 + indexCopy == lengthCopy11 && (v327 != 1 || v161 < v331 + indexCopy))
       {
-        if (v330)
+        if (v329)
         {
           v166 = 0;
           v167 = 0;
           v168 = 0x7FFFFFFFFFFFFFFFLL;
           v169 = 1;
-          v170 = v294;
+          v170 = v293;
           v171 = indexCopy;
           while (1)
           {
@@ -30082,7 +30289,7 @@ LABEL_190:
             {
               ++v170;
               v171 += v172;
-              v164 = v169++ >= v330;
+              v164 = v169++ >= v329;
               if (!v164)
               {
                 continue;
@@ -30105,11 +30312,11 @@ LABEL_211:
         lengthCopy11 = length;
         v185 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:length encoding:12];
         v186 = [PRPinyinString alloc];
-        v167 = [(PRPinyinString *)v186 initWithString:v185 syllableCount:v330 + count lastSyllableIsPartial:v328 score:v329 + score originalLength:length modificationType:2 originalModificationRange:v159 finalModificationRange:2 originalSyllableRange:v159 originalAdditionalSyllableRange:2, v174, v166, v184, v167];
+        v167 = [(PRPinyinString *)v186 initWithString:v185 syllableCount:v329 + count lastSyllableIsPartial:v327 score:v328 + score originalLength:length modificationType:2 originalModificationRange:v159 finalModificationRange:2 originalSyllableRange:v159 originalAdditionalSyllableRange:2, v174, v166, v184, v167];
         goto LABEL_214;
       }
 
-      if (!findPinyin(&__dst[prevIndexCopy], length - prevIndexCopy, 0, 0, 0, 0, 0, &v332, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, v155) || v331 + prevIndexCopy != lengthCopy11 || v328 == 1 && v161 >= v332 + prevIndexCopy)
+      if (!findPinyin(&__dst[prevIndexCopy], length - prevIndexCopy, 0, 0, 0, 0, 0, &v331, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, v155) || v330 + prevIndexCopy != lengthCopy11 || v327 == 1 && v161 >= v331 + prevIndexCopy)
       {
 LABEL_217:
         __dst[v159] = v162;
@@ -30117,18 +30324,18 @@ LABEL_217:
         goto LABEL_218;
       }
 
-      if (!v330)
+      if (!v329)
       {
         v176 = 0;
         v175 = 0;
         v183 = 0x7FFFFFFFFFFFFFFFLL;
         v177 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_213:
-        v292 = v177;
+        v291 = v177;
         lengthCopy11 = length;
         v185 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:length encoding:12];
         v188 = [PRPinyinString alloc];
-        v167 = [(PRPinyinString *)v188 initWithString:v185 syllableCount:count - 1 + v330 lastSyllableIsPartial:v328 score:v329 + prevScore originalLength:length modificationType:2 originalModificationRange:v159 finalModificationRange:2 originalSyllableRange:v159 originalAdditionalSyllableRange:2, v183, v176, v292, v175];
+        v167 = [(PRPinyinString *)v188 initWithString:v185 syllableCount:count - 1 + v329 lastSyllableIsPartial:v327 score:v328 + prevScore originalLength:length modificationType:2 originalModificationRange:v159 finalModificationRange:2 originalSyllableRange:v159 originalAdditionalSyllableRange:2, v183, v176, v291, v175];
 LABEL_214:
         v189 = v167;
         if (([array containsObject:v167] & 1) == 0)
@@ -30136,9 +30343,9 @@ LABEL_214:
           [array addObject:v189];
         }
 
-        v155 = v315;
+        v155 = v314;
         bufferCopy12 = buffer;
-        v158 = v291;
+        v158 = v290;
         goto LABEL_217;
       }
 
@@ -30146,7 +30353,7 @@ LABEL_214:
       v176 = 0;
       v177 = 0x7FFFFFFFFFFFFFFFLL;
       v178 = 1;
-      v179 = v294;
+      v179 = v293;
       v180 = prevIndexCopy;
       while (1)
       {
@@ -30181,7 +30388,7 @@ LABEL_206:
         {
           ++v179;
           v180 += v181;
-          v164 = v178++ >= v330;
+          v164 = v178++ >= v329;
           if (!v164)
           {
             continue;
@@ -30209,10 +30416,10 @@ LABEL_220:
         lengthCopy13 = v158;
       }
 
-      v192 = v303;
-      if (v303 < lengthCopy13)
+      v192 = v302;
+      if (v302 < lengthCopy13)
       {
-        v306 = lengthCopy13;
+        v305 = lengthCopy13;
         do
         {
           v193 = bufferCopy12[v192];
@@ -30231,15 +30438,15 @@ LABEL_220:
               if (v196)
               {
                 __dst[v192] = v196;
-                if (findPinyin(&__dst[indexCopy], v320, 0, 0, 0, 0, 0, &v332, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, v155))
+                if (findPinyin(&__dst[indexCopy], v319, 0, 0, 0, 0, 0, &v331, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, v155))
                 {
-                  if (v331 + indexCopy == length && (v328 != 1 || v192 < v332 + indexCopy))
+                  if (v330 + indexCopy == length && (v327 != 1 || v192 < v331 + indexCopy))
                   {
-                    if (v330)
+                    if (v329)
                     {
                       v197 = 0;
                       v198 = 1;
-                      v199 = v315;
+                      v199 = v314;
                       v200 = indexCopy;
                       do
                       {
@@ -30277,7 +30484,7 @@ LABEL_220:
                           v197 = v201;
                         }
 
-                        v207 = v206 != 0x7FFFFFFFFFFFFFFFLL || v198++ >= v330;
+                        v207 = v206 != 0x7FFFFFFFFFFFFFFFLL || v198++ >= v329;
                         v200 = v203;
                       }
 
@@ -30292,13 +30499,13 @@ LABEL_220:
 
                     v208 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:length encoding:12];
                     v209 = [PRPinyinString alloc];
-                    v197 = [(PRPinyinString *)v209 initWithString:v208 syllableCount:v330 + count lastSyllableIsPartial:v328 score:score + 12 + v329 originalLength:length modificationType:1 originalModificationRange:v192 finalModificationRange:1 originalSyllableRange:v192, 1, v206, v197];
+                    v197 = [(PRPinyinString *)v209 initWithString:v208 syllableCount:v329 + count lastSyllableIsPartial:v327 score:score + 12 + v328 originalLength:length modificationType:1 originalModificationRange:v192 finalModificationRange:1 originalSyllableRange:v192, 1, v206, v197];
                     if (([array containsObject:v197] & 1) == 0)
                     {
                       [array addObject:v197];
                     }
 
-                    v155 = v315;
+                    v155 = v314;
                   }
                 }
               }
@@ -30310,7 +30517,7 @@ LABEL_220:
             bufferCopy12 = buffer;
             LOBYTE(v193) = buffer[v192];
             lengthCopy15 = length;
-            lengthCopy13 = v306;
+            lengthCopy13 = v305;
           }
 
           __dst[v192++] = v193;
@@ -30319,14 +30526,14 @@ LABEL_220:
         while (v192 < lengthCopy13);
         v211 = 0;
         v212 = indexCopy;
-        v213 = v303;
-        v214 = v303 + 2;
-        v290 = v303 + 2;
+        v213 = v302;
+        v214 = v302 + 2;
+        v289 = v302 + 2;
         do
         {
-          if (v214 + v211 <= v324)
+          if (v214 + v211 <= v323)
           {
-            v215 = v324;
+            v215 = v323;
           }
 
           else
@@ -30347,16 +30554,16 @@ LABEL_220:
 
           else
           {
-            v313 = v215;
-            v217 = &__dst[v324];
-            for (k = v324; k > v213; --v217)
+            v312 = v215;
+            v217 = &__dst[v323];
+            for (k = v323; k > v213; --v217)
             {
               --k;
               *v217 = *(v217 - 1);
             }
 
             v219 = 0;
-            v304 = v213;
+            v303 = v213;
             v220 = v213 + 1;
             v221 = &insertionFollowers + 24 * (v216 - 97);
             do
@@ -30365,15 +30572,15 @@ LABEL_220:
               if (v222)
               {
                 __dst[v220] = v222;
-                if (findPinyin(&__dst[v212], v324 - indexCopy, 0, 0, 0, 0, 0, &v332, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, v155))
+                if (findPinyin(&__dst[v212], v323 - indexCopy, 0, 0, 0, 0, 0, &v331, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, v155))
                 {
-                  if (v331 + v212 == v324 && (v328 != 1 || v220 < v332 + v212))
+                  if (v330 + v212 == v323 && (v327 != 1 || v220 < v331 + v212))
                   {
-                    if (v330)
+                    if (v329)
                     {
                       v223 = 0;
                       v224 = 1;
-                      v225 = v315;
+                      v225 = v314;
                       v226 = v212;
                       do
                       {
@@ -30411,7 +30618,7 @@ LABEL_220:
                           v223 = v229;
                         }
 
-                        v233 = v232 != 0x7FFFFFFFFFFFFFFFLL || v224++ >= v330;
+                        v233 = v232 != 0x7FFFFFFFFFFFFFFFLL || v224++ >= v329;
                         v226 = v228;
                       }
 
@@ -30424,16 +30631,16 @@ LABEL_220:
                       v232 = 0x7FFFFFFFFFFFFFFFLL;
                     }
 
-                    v234 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:v324 encoding:12];
+                    v234 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:v323 encoding:12];
                     v235 = [PRPinyinString alloc];
-                    v223 = [(PRPinyinString *)v235 initWithString:v234 syllableCount:v330 + count lastSyllableIsPartial:v328 score:score + 32 + v329 originalLength:length modificationType:3 originalModificationRange:v220 finalModificationRange:0 originalSyllableRange:v220, 1, v232, v223];
+                    v223 = [(PRPinyinString *)v235 initWithString:v234 syllableCount:v329 + count lastSyllableIsPartial:v327 score:score + 32 + v328 originalLength:length modificationType:3 originalModificationRange:v220 finalModificationRange:0 originalSyllableRange:v220, 1, v232, v223];
                     if (([array containsObject:v223] & 1) == 0)
                     {
                       [array addObject:v223];
                     }
 
                     v212 = indexCopy;
-                    v155 = v315;
+                    v155 = v314;
                   }
                 }
               }
@@ -30443,13 +30650,13 @@ LABEL_220:
 
             while (v219 != 6);
             bufferCopy12 = buffer;
-            if (v304 < length)
+            if (v303 < length)
             {
-              memcpy(&__dst[v298 + v211], &buffer[v298 + v211], v313 + ~at - (v211 + v296));
+              memcpy(&__dst[v297 + v211], &buffer[v297 + v211], v312 + ~at - (v211 + v295));
             }
 
-            lengthCopy13 = v306;
-            v214 = v290;
+            lengthCopy13 = v305;
+            v214 = v289;
           }
 
           ++v211;
@@ -30461,7 +30668,7 @@ LABEL_220:
       }
 
       atCopy5 = at;
-      v238 = v291;
+      v238 = v290;
       if (lengthCopy15 >= 5)
       {
         if (at <= 1)
@@ -30469,23 +30676,23 @@ LABEL_220:
           atCopy5 = 1;
         }
 
-        v321 = atCopy5;
-        if (atCopy5 < v291)
+        v320 = atCopy5;
+        if (atCopy5 < v290)
         {
           v239 = atCopy5 + 1;
-          if (v321 + 1 < length)
+          if (v320 + 1 < length)
           {
             v240 = 0;
-            v308 = length - 1;
+            v307 = length - 1;
             v241 = &__dst[v239];
-            v242 = v321;
+            v242 = v320;
             do
             {
               v243 = v239;
               v244 = &bufferCopy12[v242];
-              if (v239 <= v324)
+              if (v239 <= v323)
               {
-                v245 = v324;
+                v245 = v323;
               }
 
               else
@@ -30513,57 +30720,8 @@ LABEL_220:
 
               if ((v246 - 97) <= 0x19)
               {
-                if (v246 == v247)
+                if (v246 == v247 || !pinyin || (v249 = (&adjacentMatchesChinese + 24 * (v246 - 97)), v250 = *v249, *v249 == v247) || (v251 = v249[1], v251 == v247) || (v252 = v249[2], v252 == v247) || (v253 = v249[3], v253 == v247) || (v254 = v249[4], v254 == v247) || ((v255 = v249[5], v255 != v247) ? (v256 = v246 == v248) : (v256 = 1), !v256 ? (v257 = v250 == v248) : (v257 = 1), !v257 ? (v258 = v251 == v248) : (v258 = 1), !v258 ? (v259 = v252 == v248) : (v259 = 1), !v259 ? (v260 = v253 == v248) : (v260 = 1), !v260 ? (v261 = v254 == v248) : (v261 = 1), !v261 ? (v262 = v255 == v248) : (v262 = 1), v262))
                 {
-                  goto LABEL_346;
-                }
-
-                if (!pinyin)
-                {
-                  goto LABEL_346;
-                }
-
-                v249 = (&adjacentMatchesChinese + 24 * (v246 - 97));
-                v250 = *v249;
-                if (*v249 == v247)
-                {
-                  goto LABEL_346;
-                }
-
-                v251 = v249[1];
-                if (v251 == v247)
-                {
-                  goto LABEL_346;
-                }
-
-                v252 = v249[2];
-                if (v252 == v247)
-                {
-                  goto LABEL_346;
-                }
-
-                v253 = v249[3];
-                if (v253 == v247)
-                {
-                  goto LABEL_346;
-                }
-
-                v254 = v249[4];
-                if (v254 == v247)
-                {
-                  goto LABEL_346;
-                }
-
-                v255 = v249[5];
-                v256 = v255 == v247 || v246 == v248;
-                v257 = v256 || v250 == v248;
-                v258 = v257 || v251 == v248;
-                v259 = v258 || v252 == v248;
-                v260 = v259 || v253 == v248;
-                v261 = v260 || v254 == v248;
-                if (v261 || v255 == v248)
-                {
-LABEL_346:
                   if (v242 < length)
                   {
                     v263 = v241;
@@ -30578,13 +30736,13 @@ LABEL_346:
                     while (v264 < length);
                   }
 
-                  if (findPinyin(&__dst[indexCopy], length - 1 - indexCopy, 0, 0, 0, 0, 0, &v332, &v331, 0, &v330, &v328, &v329, 0, 0, 0, 0, v155) && v331 + indexCopy == v308 && (v328 != 1 || v242 <= v332 + indexCopy))
+                  if (findPinyin(&__dst[indexCopy], length - 1 - indexCopy, 0, 0, 0, 0, 0, &v331, &v330, 0, &v329, &v327, &v328, 0, 0, 0, 0, v155) && v330 + indexCopy == v307 && (v327 != 1 || v242 <= v331 + indexCopy))
                   {
-                    if (v330)
+                    if (v329)
                     {
                       v265 = 0;
                       v266 = 1;
-                      v267 = v315;
+                      v267 = v314;
                       v268 = indexCopy;
                       do
                       {
@@ -30627,7 +30785,7 @@ LABEL_346:
                           v265 = v274;
                         }
 
-                        v276 = v275 != 0x7FFFFFFFFFFFFFFFLL || v266++ >= v330;
+                        v276 = v275 != 0x7FFFFFFFFFFFFFFFLL || v266++ >= v329;
                         v268 = v271;
                       }
 
@@ -30640,22 +30798,22 @@ LABEL_346:
                       v275 = 0x7FFFFFFFFFFFFFFFLL;
                     }
 
-                    v277 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:v308 encoding:12];
+                    v277 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__dst length:v307 encoding:12];
                     v278 = [PRPinyinString alloc];
-                    v265 = [(PRPinyinString *)v278 initWithString:v277 syllableCount:v330 + count lastSyllableIsPartial:v328 score:score + 42 + v329 originalLength:length modificationType:4 originalModificationRange:v242 finalModificationRange:1 originalSyllableRange:v242, 0, v275, v265];
+                    v265 = [(PRPinyinString *)v278 initWithString:v277 syllableCount:v329 + count lastSyllableIsPartial:v327 score:score + 42 + v328 originalLength:length modificationType:4 originalModificationRange:v242 finalModificationRange:1 originalSyllableRange:v242, 0, v275, v265];
                     if (([array containsObject:v265] & 1) == 0)
                     {
                       [array addObject:v265];
                     }
 
-                    v155 = v315;
+                    v155 = v314;
                     bufferCopy12 = buffer;
-                    v238 = v291;
+                    v238 = v290;
                   }
 
                   if (v242 <= length)
                   {
-                    memcpy(&__dst[v242], v244, v245 - (v321 + v240));
+                    memcpy(&__dst[v242], v244, v245 - (v320 + v240));
                   }
                 }
               }
@@ -30682,8 +30840,6 @@ LABEL_346:
   {
     free(v155);
   }
-
-  v280 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addModifiedPartialPinyinToArray:(id)array connection:(_PR_DB_IO *)connection fromIndex:(unint64_t)index prevIndex:(unint64_t)prevIndex prevPrevIndex:(unint64_t)prevPrevIndex prePrevPrevIndex:(unint64_t)prePrevPrevIndex startingModificationsAt:(unint64_t)at inBuffer:(char *)self0 length:(unint64_t)self1 initialSyllableCount:(unint64_t)self2 initialScore:(unint64_t)self3 prevScore:(unint64_t)self4 prevPrevScore:(unint64_t)self5 lastSyllableScore:(unint64_t)self6
@@ -30886,54 +31042,54 @@ LABEL_346:
 
 - (id)_primitiveRetainedAlternativesForPinyinInputString:(id)string
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   array = [MEMORY[0x1E695DF70] array];
-  v41 = 0;
-  usedBufLen = 0;
-  v39 = 0;
   v40 = 0;
-  v37 = 0;
+  usedBufLen = 0;
   v38 = 0;
-  v35 = 0;
+  v39 = 0;
   v36 = 0;
-  v33 = 0;
+  v37 = 0;
   v34 = 0;
-  v31 = 0;
+  v35 = 0;
   v32 = 0;
-  v29 = 0;
+  v33 = 0;
   v30 = 0;
+  v31 = 0;
   v28 = 0;
+  v29 = 0;
+  v27 = 0;
   v7 = [string length];
   v8 = [(AppleSpell *)self databaseConnectionForLanguageObject:[PRLanguage languageObjectWithIdentifier:@"en_CN"]];
-  if (v7 && (v9 = v8, v46.location = 0, v46.length = v7, v7 == CFStringGetBytes(string, v46, 0x500u, 0, 0, buffer, 254, &usedBufLen)))
+  if (v7 && (v9 = v8, v45.location = 0, v45.length = v7, v7 == CFStringGetBytes(string, v45, 0x500u, 0, 0, buffer, 254, &usedBufLen)))
   {
     v10 = usedBufLen;
     buffer[usedBufLen] = 0;
-    v11 = isFullOrAbbreviatedPinyin(buffer, v10, 0, &v34);
-    if (findPinyin(buffer, usedBufLen, 0, 1, &v41, &v40, &v39, &v38, &v37, &v36, &v35, &v28, &v30, &v29, &v33, &v32, &v31, 0))
+    v11 = isFullOrAbbreviatedPinyin(buffer, v10, 0, &v33);
+    if (findPinyin(buffer, usedBufLen, 0, 1, &v40, &v39, &v38, &v37, &v36, &v35, &v34, &v27, &v29, &v28, &v32, &v31, &v30, 0))
     {
-      if (v37 && v37 < usedBufLen)
+      if (v36 && v36 < usedBufLen)
       {
-        LOBYTE(v22) = v11;
-        [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:v38 prevIndex:v39 prevPrevIndex:v40 startingModificationsAt:buffer inBuffer:usedBufLen length:v35 - 1 initialSyllableCount:v33 initialScore:v32 prevScore:v31 prevPrevScore:v30 - v33 lastSyllableScore:v22 couldBeAbbreviatedPinyin:?];
-        if (v36 && v36 < usedBufLen)
+        LOBYTE(v21) = v11;
+        [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:v37 prevIndex:v38 prevPrevIndex:v39 startingModificationsAt:buffer inBuffer:usedBufLen length:v34 - 1 initialSyllableCount:v32 initialScore:v31 prevScore:v30 prevPrevScore:v29 - v32 lastSyllableScore:v21 couldBeAbbreviatedPinyin:?];
+        if (v35 && v35 < usedBufLen)
         {
-          LOBYTE(v23) = v11;
-          [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:v38 prevIndex:v39 prevPrevIndex:v40 startingModificationsAt:buffer inBuffer:usedBufLen length:v35 - 1 initialSyllableCount:v33 initialScore:v32 prevScore:v31 prevPrevScore:v29 - v33 lastSyllableScore:v23 couldBeAbbreviatedPinyin:?];
+          LOBYTE(v22) = v11;
+          [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:v37 prevIndex:v38 prevPrevIndex:v39 startingModificationsAt:buffer inBuffer:usedBufLen length:v34 - 1 initialSyllableCount:v32 initialScore:v31 prevScore:v30 prevPrevScore:v28 - v32 lastSyllableScore:v22 couldBeAbbreviatedPinyin:?];
         }
       }
 
-      else if (v28 == 1)
+      else if (v27 == 1)
       {
-        [(AppleSpell *)self addModifiedPartialPinyinToArray:array connection:v9 fromIndex:v38 prevIndex:v39 prevPrevIndex:v40 prePrevPrevIndex:v41 startingModificationsAt:v37 inBuffer:buffer length:usedBufLen initialSyllableCount:v35 - 1 initialScore:v33 prevScore:v32 prevPrevScore:v31 lastSyllableScore:v30 - v33];
+        [(AppleSpell *)self addModifiedPartialPinyinToArray:array connection:v9 fromIndex:v37 prevIndex:v38 prevPrevIndex:v39 prePrevPrevIndex:v40 startingModificationsAt:v36 inBuffer:buffer length:usedBufLen initialSyllableCount:v34 - 1 initialScore:v32 prevScore:v31 prevPrevScore:v30 lastSyllableScore:v29 - v32];
       }
     }
 
     else
     {
-      LOBYTE(v22) = v11;
-      [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:0 prevIndex:0 prevPrevIndex:0 startingModificationsAt:buffer inBuffer:usedBufLen length:0 initialSyllableCount:0 initialScore:0 prevScore:0 prevPrevScore:0 lastSyllableScore:v22 couldBeAbbreviatedPinyin:?];
+      LOBYTE(v21) = v11;
+      [(AppleSpell *)self addModifiedPinyinToArray:array connection:v9 fromIndex:0 prevIndex:0 prevPrevIndex:0 startingModificationsAt:buffer inBuffer:usedBufLen length:0 initialSyllableCount:0 initialScore:0 prevScore:0 prevPrevScore:0 lastSyllableScore:v21 couldBeAbbreviatedPinyin:?];
     }
   }
 
@@ -30945,38 +31101,38 @@ LABEL_346:
   [array sortWithOptions:16 usingComparator:&__block_literal_global_10];
   if ([array count])
   {
-    v35 = [objc_msgSend(array objectAtIndex:{0), "syllableCount"}];
+    v34 = [objc_msgSend(array objectAtIndex:{0), "syllableCount"}];
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v13 = [array countByEnumeratingWithState:&v24 objects:v43 count:16];
+    v13 = [array countByEnumeratingWithState:&v23 objects:v42 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(array);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           syllableCount = [v17 syllableCount];
-          if (syllableCount <= v35 || [v17 numberOfNonPinyinRanges])
+          if (syllableCount <= v34 || [v17 numberOfNonPinyinRanges])
           {
-            if (!v11 || (v19 = [v17 syllableCount], v19 < v34) || objc_msgSend(v17, "numberOfNonPinyinRanges"))
+            if (!v11 || (v19 = [v17 syllableCount], v19 < v33) || objc_msgSend(v17, "numberOfNonPinyinRanges"))
             {
               [v12 addObject:v17];
             }
           }
         }
 
-        v14 = [array countByEnumeratingWithState:&v24 objects:v43 count:16];
+        v14 = [array countByEnumeratingWithState:&v23 objects:v42 count:16];
       }
 
       while (v14);
@@ -30988,7 +31144,6 @@ LABEL_346:
     v12 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -31032,31 +31187,31 @@ uint64_t __74__AppleSpell_Chinese___primitiveRetainedAlternativesForPinyinInputS
 
 - (unint64_t)_getSplitIndexes:(unint64_t *)indexes maxCount:(unint64_t)count forPinyinInputString:(id)string
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = [string length];
-  v26 = 0;
+  v25 = 0;
   if (v8)
   {
     usedBufLen = 0;
-    v28 = 0;
-    v31.location = 0;
-    v31.length = v8;
-    if (v8 == CFStringGetBytes(string, v31, 0x500u, 0, 0, buffer, 254, &usedBufLen))
+    v27 = 0;
+    v30.location = 0;
+    v30.length = v8;
+    if (v8 == CFStringGetBytes(string, v30, 0x500u, 0, 0, buffer, 254, &usedBufLen))
     {
-      findPinyin(buffer, usedBufLen, 0, 1, 0, 0, 0, 0, &v26, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-      v10 = v26;
+      findPinyin(buffer, usedBufLen, 0, 1, 0, 0, 0, 0, &v25, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+      v10 = v25;
       v9 = usedBufLen;
-      if (v26 < usedBufLen)
+      if (v25 < usedBufLen)
       {
         v8 = 0;
         while (1)
         {
           v11 = &buffer[v10];
-          v12 = next_pinyin(&buffer[v10], v9 - v10, 0, 0, &v28, 0);
+          v12 = next_pinyin(&buffer[v10], v9 - v10, 0, 0, &v27, 0);
           v9 = usedBufLen;
           if (v12)
           {
-            if (v28 > v11 + 1 && v28 < &buffer[usedBufLen])
+            if (v27 > v11 + 1 && v27 < &buffer[usedBufLen])
             {
               break;
             }
@@ -31091,27 +31246,25 @@ uint64_t __74__AppleSpell_Chinese___primitiveRetainedAlternativesForPinyinInputS
 LABEL_33:
           if (v10 >= v9)
           {
-            goto LABEL_36;
+            return v8;
           }
         }
 
-        v10 = v28 - buffer;
+        v10 = v27 - buffer;
 LABEL_32:
         indexes[v8++] = v10;
         if (v8 >= count)
         {
-          goto LABEL_36;
+          return v8;
         }
 
         goto LABEL_33;
       }
     }
 
-    v8 = 0;
+    return 0;
   }
 
-LABEL_36:
-  v24 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -31312,49 +31465,49 @@ LABEL_36:
 - (id)_retainedAlternativesByCombiningAlternatives:(id)alternatives withAlternatives:(id)withAlternatives andAddingAlternatives:(id)addingAlternatives
 {
   addingAlternativesCopy = addingAlternatives;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = alternatives;
-  v9 = [alternatives countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v9 = [alternatives countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       v12 = 0;
       do
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * v12);
+        v13 = *(*(&v40 + 1) + 8 * v12);
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
-        v14 = [withAlternatives countByEnumeratingWithState:&v37 objects:v46 count:{16, addingAlternativesCopy}];
+        v14 = [withAlternatives countByEnumeratingWithState:&v36 objects:v45 count:{16, addingAlternativesCopy}];
         if (v14)
         {
           v15 = v14;
-          v16 = *v38;
+          v16 = *v37;
           do
           {
             v17 = 0;
             do
             {
-              if (*v38 != v16)
+              if (*v37 != v16)
               {
                 objc_enumerationMutation(withAlternatives);
               }
 
-              v18 = [(AppleSpell *)self _pinyinStringByCombiningPinyinString:v13 withPinyinString:*(*(&v37 + 1) + 8 * v17)];
+              v18 = [(AppleSpell *)self _pinyinStringByCombiningPinyinString:v13 withPinyinString:*(*(&v36 + 1) + 8 * v17)];
               if (v18)
               {
                 [v8 addObject:v18];
@@ -31364,7 +31517,7 @@ LABEL_36:
             }
 
             while (v15 != v17);
-            v15 = [withAlternatives countByEnumeratingWithState:&v37 objects:v46 count:16];
+            v15 = [withAlternatives countByEnumeratingWithState:&v36 objects:v45 count:16];
           }
 
           while (v15);
@@ -31374,37 +31527,37 @@ LABEL_36:
       }
 
       while (v12 != v10);
-      v10 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v10 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v10);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v19 = addingAlternativesCopy;
-  v20 = [addingAlternativesCopy countByEnumeratingWithState:&v33 objects:v45 count:{16, addingAlternativesCopy}];
+  v20 = [addingAlternativesCopy countByEnumeratingWithState:&v32 objects:v44 count:{16, addingAlternativesCopy}];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     do
     {
       v23 = 0;
       do
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [v8 addObject:*(*(&v33 + 1) + 8 * v23++)];
+        [v8 addObject:*(*(&v32 + 1) + 8 * v23++)];
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v32 objects:v44 count:16];
     }
 
     while (v21);
@@ -31427,7 +31580,7 @@ LABEL_36:
 
       if (!v27)
       {
-        break;
+        return v8;
       }
 
       if ([v28 isEqual:{objc_msgSend(v8, "objectAtIndex:", v27 - 1)}])
@@ -31442,7 +31595,6 @@ LABEL_29:
     while (v27 != -1);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -31487,22 +31639,20 @@ uint64_t __107__AppleSpell_Chinese___retainedAlternativesByCombiningAlternatives
 - (id)_recursiveRetainedAlternativesForPinyinInputString:(id)string depth:(unint64_t)depth
 {
   selfCopy = self;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = [(AppleSpell *)self _primitiveRetainedAlternativesForPinyinInputString:?];
   v8 = [string length];
   if ([v7 count] || depth + 1 > 2)
   {
-LABEL_44:
-    v28 = v7;
-    goto LABEL_45;
+    return v7;
   }
 
-  v32 = depth + 1;
-  v9 = [(AppleSpell *)selfCopy _getSplitIndexes:v41 maxCount:3 forPinyinInputString:string];
+  v31 = depth + 1;
+  v9 = [(AppleSpell *)selfCopy _getSplitIndexes:v40 maxCount:3 forPinyinInputString:string];
   v10 = 0;
-  v33 = 0;
+  v32 = 0;
 LABEL_4:
-  v35 = v10;
+  v34 = v10;
   if (depth)
   {
     v11 = 1;
@@ -31535,7 +31685,7 @@ LABEL_4:
 
 LABEL_18:
     v9 = v13 - 1;
-    v15 = *&v40[8 * v13 + 120];
+    v15 = *&v39[8 * v13 + 120];
     if (v15)
     {
       v16 = v8 > v15;
@@ -31549,35 +31699,35 @@ LABEL_18:
     --v13;
     if (v16)
     {
-      v34 = selfCopy;
+      v33 = selfCopy;
       v17 = -[AppleSpell _primitiveRetainedAlternativesForPinyinInputString:](selfCopy, "_primitiveRetainedAlternativesForPinyinInputString:", [string substringToIndex:v15]);
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v18)
       {
         v19 = v18;
         depthCopy = depth;
-        v20 = *v37;
+        v20 = *v36;
 LABEL_25:
         v21 = 0;
         while (1)
         {
-          if (*v37 != v20)
+          if (*v36 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          if (![*(*(&v36 + 1) + 8 * v21) lastSyllableIsPartial])
+          if (![*(*(&v35 + 1) + 8 * v21) lastSyllableIsPartial])
           {
             break;
           }
 
           if (v19 == ++v21)
           {
-            v19 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
             if (v19)
             {
               goto LABEL_25;
@@ -31594,100 +31744,98 @@ LABEL_38:
           goto LABEL_39;
         }
 
-        v22 = -[AppleSpell _recursiveRetainedAlternativesForPinyinInputString:depth:](v34, "_recursiveRetainedAlternativesForPinyinInputString:depth:", [string substringFromIndex:v15], v32);
+        v22 = -[AppleSpell _recursiveRetainedAlternativesForPinyinInputString:depth:](v33, "_recursiveRetainedAlternativesForPinyinInputString:depth:", [string substringFromIndex:v15], v31);
         depth = depthCopy;
         if ([v22 count])
         {
-          v23 = [(AppleSpell *)v34 _retainedAlternativesByCombiningAlternatives:v17 withAlternatives:v22 andAddingAlternatives:v7];
+          v23 = [(AppleSpell *)v33 _retainedAlternativesByCombiningAlternatives:v17 withAlternatives:v22 andAddingAlternatives:v7];
 
           v7 = v23;
         }
 
-        v24 = v35;
-        if (![v7 count] && !objc_msgSend(v33, "count"))
+        v24 = v34;
+        if (![v7 count] && !objc_msgSend(v32, "count"))
         {
           v25 = -[PRPinyinString initWithUncheckedString:score:originalLength:]([PRPinyinString alloc], "initWithUncheckedString:score:originalLength:", [string substringFromIndex:v15], 255, v8 - v15);
           v26 = [MEMORY[0x1E695DEC8] arrayWithObject:v25];
 
           v27 = v26;
           depth = depthCopy;
-          v33 = [(AppleSpell *)v34 _retainedAlternativesByCombiningAlternatives:v17 withAlternatives:v27 andAddingAlternatives:0];
+          v32 = [(AppleSpell *)v33 _retainedAlternativesByCombiningAlternatives:v17 withAlternatives:v27 andAddingAlternatives:0];
         }
       }
 
       else
       {
 LABEL_39:
-        v24 = v35;
+        v24 = v34;
       }
 
       v10 = v24 + 1;
-      selfCopy = v34;
+      selfCopy = v33;
       goto LABEL_4;
     }
   }
 
-  v28 = v33;
-  if (!v33)
+  v28 = v32;
+  if (!v32)
   {
-    goto LABEL_44;
+    return v7;
   }
 
   if ([v7 count])
   {
 
-    goto LABEL_44;
+    return v7;
   }
 
-LABEL_45:
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 - (id)spellServer:(id)server _retainedAlternativesForPinyinInputString:(id)string extended:(BOOL)extended
 {
   extendedCopy = extended;
-  v48 = *MEMORY[0x1E69E9840];
-  v34 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v47 = *MEMORY[0x1E69E9840];
+  v33 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v8 = [(AppleSpell *)self _recursiveRetainedAlternativesForPinyinInputString:string depth:0];
   v9 = v8;
   if (extendedCopy && [v8 count])
   {
-    v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = v9;
-    v38 = [v9 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v38)
+    v37 = [v9 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v37)
     {
-      v36 = *v44;
+      v35 = *v43;
       do
       {
         v10 = 0;
         do
         {
-          if (*v44 != v36)
+          if (*v43 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v42 = v10;
-          v11 = *(*(&v43 + 1) + 8 * v10);
+          v41 = v10;
+          v11 = *(*(&v42 + 1) + 8 * v10);
           numberOfNonPinyinRanges = [v11 numberOfNonPinyinRanges];
           if (numberOfNonPinyinRanges)
           {
             v13 = numberOfNonPinyinRanges;
-            v40 = MEMORY[0x1E695DF70];
-            v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfReplacements")}];
+            v39 = MEMORY[0x1E695DF70];
+            v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfReplacements")}];
             v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfTranspositions")}];
             v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfInsertions")}];
             v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfDeletions")}];
             v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "syllableCount")}];
             v18 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v11, "lastSyllableIsPartial")}];
             v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "score")}];
-            v20 = [v40 arrayWithObjects:{v11, v39, v14, v15, v16, v17, v18, v19, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(v11, "indexOfFirstModification")), 0}];
+            v20 = [v39 arrayWithObjects:{v11, v38, v14, v15, v16, v17, v18, v19, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(v11, "indexOfFirstModification")), 0}];
             for (i = 0; i != v13; ++i)
             {
               v22 = [v11 nonPinyinRangeAtIndex:i];
@@ -31699,7 +31847,7 @@ LABEL_45:
 
           else
           {
-            v41 = MEMORY[0x1E695DEC8];
+            v40 = MEMORY[0x1E695DEC8];
             v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfReplacements")}];
             v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfTranspositions")}];
             v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "numberOfInsertions")}];
@@ -31707,28 +31855,27 @@ LABEL_45:
             v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "syllableCount")}];
             v30 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v11, "lastSyllableIsPartial")}];
             v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "score")}];
-            v20 = [v41 arrayWithObjects:{v11, v25, v26, v27, v28, v29, v30, v31, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(v11, "indexOfFirstModification")), 0}];
+            v20 = [v40 arrayWithObjects:{v11, v25, v26, v27, v28, v29, v30, v31, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(v11, "indexOfFirstModification")), 0}];
           }
 
-          [v37 addObject:v20];
-          v10 = v42 + 1;
+          [v36 addObject:v20];
+          v10 = v41 + 1;
         }
 
-        while (v42 + 1 != v38);
-        v38 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        while (v41 + 1 != v37);
+        v37 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
-      while (v38);
+      while (v37);
     }
   }
 
   else
   {
-    v37 = v9;
+    v36 = v9;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v37;
+  return v36;
 }
 
 - (id)spellServer:(id)server alternativesForPinyinInputString:(id)string
@@ -31747,8 +31894,8 @@ LABEL_45:
 
 - (id)spellServer:(id)server _retainedPrefixesForPinyinInputString:(id)string
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v27 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v33 = *MEMORY[0x1E69E9840];
+  v26 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (spellServer__retainedPrefixesForPinyinInputString___cachedStringWithoutPrefixes && [string hasPrefix:?])
   {
@@ -31760,16 +31907,16 @@ LABEL_45:
     v7 = 1;
   }
 
-  v28 = 0;
+  v27 = 0;
   usedBufLen = 0;
   v8 = [string length];
   v9 = [(AppleSpell *)self databaseConnectionForLanguageObject:[PRLanguage languageObjectWithIdentifier:@"en_CN"]];
   if (v8)
   {
     v10 = v9;
-    v35.location = 0;
-    v35.length = v8;
-    if (v8 == CFStringGetBytes(string, v35, 0x500u, 0, 0, &buffer, 254, &usedBufLen))
+    v34.location = 0;
+    v34.length = v8;
+    if (v8 == CFStringGetBytes(string, v34, 0x500u, 0, 0, &buffer, 254, &usedBufLen))
     {
       v11 = usedBufLen;
       *(&buffer + usedBufLen) = 0;
@@ -31788,7 +31935,7 @@ LABEL_45:
         if (v13)
         {
           v14 = v13;
-          if (![v6 count] || usedBufLen == v12 || findPinyin(&buffer + v12, usedBufLen - v12, 0, 1, 0, 0, 0, 0, &v28, 0, 0, 0, 0, 0, 0, 0, 0, 0) && usedBufLen - v28 == v12)
+          if (![v6 count] || usedBufLen == v12 || findPinyin(&buffer + v12, usedBufLen - v12, 0, 1, 0, 0, 0, 0, &v27, 0, 0, 0, 0, 0, 0, 0, 0, 0) && usedBufLen - v27 == v12)
           {
             v15 = -[PRPinyinString initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:]([PRPinyinString alloc], "initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:", v14, 0, 0, 128, v12, 5, 0, v12, 0, [v14 length], 0, v12);
             if (([v6 containsObject:v15] & 1) == 0)
@@ -31823,7 +31970,7 @@ LABEL_23:
         v16 = 0;
         do
         {
-          if (additionalTwoLetterWords[v16] == buffer && additionalTwoLetterWords[v16 + 1] == v31 && (usedBufLen == 2 || findPinyin(&v32, usedBufLen - 2, 0, 1, 0, 0, 0, 0, &v28, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v28 + 2 == usedBufLen))
+          if (additionalTwoLetterWords[v16] == buffer && additionalTwoLetterWords[v16 + 1] == v30 && (usedBufLen == 2 || findPinyin(&v31, usedBufLen - 2, 0, 1, 0, 0, 0, 0, &v27, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v27 + 2 == usedBufLen))
           {
             v17 = -[PRPinyinString initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:]([PRPinyinString alloc], "initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:", [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&buffer length:2 encoding:12], 0, 0, 128, 2, 5, 0, 2, 0, 2, 0, 2);
             if (([v6 containsObject:v17] & 1) == 0)
@@ -31842,7 +31989,7 @@ LABEL_23:
           v19 = 0;
           do
           {
-            if (additionalTwoLetterAcronyms[v19] == buffer && additionalTwoLetterAcronyms[v19 + 1] == v31 && (usedBufLen == 2 || findPinyin(&v32, usedBufLen - 2, 0, 1, 0, 0, 0, 0, &v28, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v28 + 2 == usedBufLen))
+            if (additionalTwoLetterAcronyms[v19] == buffer && additionalTwoLetterAcronyms[v19 + 1] == v30 && (usedBufLen == 2 || findPinyin(&v31, usedBufLen - 2, 0, 1, 0, 0, 0, 0, &v27, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v27 + 2 == usedBufLen))
             {
               v20 = -[PRPinyinString initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:]([PRPinyinString alloc], "initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:", [objc_msgSend(objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&buffer length:2 encoding:{12), "uppercaseString"}], 0, 0, 128, 2, 5, 0, 2, 0, 2, 0, 2);
               if (([v6 containsObject:v20] & 1) == 0)
@@ -31861,7 +32008,7 @@ LABEL_23:
             v21 = 0;
             do
             {
-              if (additionalThreeLetterWords[v21] == buffer && additionalThreeLetterWords[v21 + 1] == v31 && additionalThreeLetterWords[v21 + 2] == v32 && (usedBufLen == 3 || findPinyin(v33, usedBufLen - 3, 0, 1, 0, 0, 0, 0, &v28, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v28 + 3 == usedBufLen))
+              if (additionalThreeLetterWords[v21] == buffer && additionalThreeLetterWords[v21 + 1] == v30 && additionalThreeLetterWords[v21 + 2] == v31 && (usedBufLen == 3 || findPinyin(v32, usedBufLen - 3, 0, 1, 0, 0, 0, 0, &v27, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v27 + 3 == usedBufLen))
               {
                 v22 = -[PRPinyinString initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:]([PRPinyinString alloc], "initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:", [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&buffer length:3 encoding:12], 0, 0, 128, 3, 5, 0, 3, 0, 3, 0, 3);
                 if (([v6 containsObject:v22] & 1) == 0)
@@ -31880,7 +32027,7 @@ LABEL_23:
               v23 = 0;
               do
               {
-                if (additionalThreeLetterAcronyms[v23] == buffer && additionalThreeLetterAcronyms[v23 + 1] == v31 && additionalThreeLetterAcronyms[v23 + 2] == v32 && (usedBufLen == 3 || findPinyin(v33, usedBufLen - 3, 0, 1, 0, 0, 0, 0, &v28, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v28 + 3 == usedBufLen))
+                if (additionalThreeLetterAcronyms[v23] == buffer && additionalThreeLetterAcronyms[v23 + 1] == v30 && additionalThreeLetterAcronyms[v23 + 2] == v31 && (usedBufLen == 3 || findPinyin(v32, usedBufLen - 3, 0, 1, 0, 0, 0, 0, &v27, 0, 0, 0, 0, 0, 0, 0, 0, 0) && v27 + 3 == usedBufLen))
                 {
                   v24 = -[PRPinyinString initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:]([PRPinyinString alloc], "initWithString:syllableCount:lastSyllableIsPartial:score:originalLength:modificationType:originalModificationRange:finalModificationRange:originalSyllableRange:", [objc_msgSend(objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:&buffer length:3 encoding:{12), "uppercaseString"}], 0, 0, 128, 3, 5, 0, 3, 0, 3, 0, 3);
                   if (([v6 containsObject:v24] & 1) == 0)
@@ -31901,7 +32048,6 @@ LABEL_23:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -31914,21 +32060,21 @@ LABEL_23:
 
 - (id)spellServer:(id)server _retainedCorrectionsForPinyinInputString:(id)string
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v19 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v25 = 0;
-  usedBufLen = 0;
-  v23 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v18 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v24 = 0;
+  usedBufLen = 0;
   v22 = 0;
+  v23 = 0;
   v21 = 0;
+  v20 = 0;
   v5 = [string length];
   if (v5)
   {
-    v30.location = 0;
-    v30.length = v5;
-    if (v5 == CFStringGetBytes(string, v30, 0x500u, 0, 0, buffer, 254, &usedBufLen))
+    v29.location = 0;
+    v29.length = v5;
+    if (v5 == CFStringGetBytes(string, v29, 0x500u, 0, 0, buffer, 254, &usedBufLen))
     {
       v6 = usedBufLen;
       buffer[usedBufLen] = 0;
@@ -31954,17 +32100,17 @@ LABEL_23:
               if (v12)
               {
                 __dst[i] = v12;
-                if (findPinyin(__dst, usedBufLen, 0, 0, 0, 0, 0, &v24, &v25, 0, &v23, &v21, &v22, 0, 0, 0, 0, 0))
+                if (findPinyin(__dst, usedBufLen, 0, 0, 0, 0, 0, &v23, &v24, 0, &v22, &v20, &v21, 0, 0, 0, 0, 0))
                 {
-                  if (v25 == usedBufLen && (v21 != 1 || i < v24))
+                  if (v24 == usedBufLen && (v20 != 1 || i < v23))
                   {
                     v13 = objc_alloc(MEMORY[0x1E696AEC0]);
                     v14 = [v13 initWithBytes:__dst length:usedBufLen encoding:12];
                     v15 = [PRPinyinString alloc];
-                    v16 = [(PRPinyinString *)v15 initWithString:v14 syllableCount:v23 lastSyllableIsPartial:v21 score:v22 originalLength:usedBufLen modificationType:1 originalModificationRange:i finalModificationRange:1, i, 1];
-                    if (([v20 containsObject:v16] & 1) == 0)
+                    v16 = [(PRPinyinString *)v15 initWithString:v14 syllableCount:v22 lastSyllableIsPartial:v20 score:v21 originalLength:usedBufLen modificationType:1 originalModificationRange:i finalModificationRange:1, i, 1];
+                    if (([v19 containsObject:v16] & 1) == 0)
                     {
-                      [v20 addObject:v16];
+                      [v19 addObject:v16];
                     }
                   }
                 }
@@ -31984,8 +32130,7 @@ LABEL_23:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v19;
 }
 
 - (id)spellServer:(id)server correctionsForPinyinInputString:(id)string
@@ -31997,90 +32142,89 @@ LABEL_23:
 
 - (id)spellServer:(id)server _retainedModificationsForPinyinInputString:(id)string geometryModelData:(id)data
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v23 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v36 = *MEMORY[0x1E69E9840];
+  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = [(AppleSpell *)self _recursiveRetainedAlternativesForPinyinInputString:string depth:0];
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v25)
   {
-    v25 = *v33;
+    v24 = *v32;
     do
     {
       v7 = 0;
       do
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v7;
-        v8 = *(*(&v32 + 1) + 8 * v7);
+        v26 = v7;
+        v8 = *(*(&v31 + 1) + 8 * v7);
         numberOfModifications = [v8 numberOfModifications];
         if (numberOfModifications)
         {
           for (i = 0; i != numberOfModifications; ++i)
           {
-            v31 = [v8 typeOfModificationAtIndex:i];
-            v30 = [v8 originalRangeForModificationAtIndex:i];
+            v30 = [v8 typeOfModificationAtIndex:i];
+            v29 = [v8 originalRangeForModificationAtIndex:i];
             v11 = v10;
             v12 = [v8 finalRangeForModificationAtIndex:i];
             v14 = v13;
             v15 = [v8 originalSyllableRangeForModificationAtIndex:i];
             v17 = v16;
             v18 = [v8 originalAdditionalSyllableRangeForModificationAtIndex:i];
-            v20 = -[PRPinyinModification initWithRange:replacementString:modificationType:syllableRange:additionalSyllableRange:modificationScore:]([PRPinyinModification alloc], "initWithRange:replacementString:modificationType:syllableRange:additionalSyllableRange:modificationScore:", v30, v11, [v8 substringWithRange:{v12, v14}], v31, v15, v17, 0.0, v18, v19);
-            if (([v29 containsObject:v20] & 1) == 0)
+            v20 = -[PRPinyinModification initWithRange:replacementString:modificationType:syllableRange:additionalSyllableRange:modificationScore:]([PRPinyinModification alloc], "initWithRange:replacementString:modificationType:syllableRange:additionalSyllableRange:modificationScore:", v29, v11, [v8 substringWithRange:{v12, v14}], v30, v15, v17, 0.0, v18, v19);
+            if (([v28 containsObject:v20] & 1) == 0)
             {
-              [v29 addObject:v20];
+              [v28 addObject:v20];
             }
           }
         }
 
-        v7 = v27 + 1;
+        v7 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v28;
 }
 
 - (id)spellServer:(id)server _retainedFinalModificationsForPinyinInputString:(id)string geometryModelData:(id)data
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v9 = [string length];
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v11 = [(AppleSpell *)self spellServer:server _retainedModificationsForPinyinInputString:string geometryModelData:data];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         syllableRange = [v16 syllableRange];
         if (syllableRange + v18 == v9)
         {
@@ -32088,13 +32232,12 @@ LABEL_23:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -32121,52 +32264,49 @@ LABEL_23:
 
 - (BOOL)inputStringIsPinyin:(id)pinyin allowPartialLastSyllable:(BOOL)syllable
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0;
+  v13 = *MEMORY[0x1E69E9840];
   v10 = 0;
+  v9 = 0;
   v6 = [pinyin length];
   if (v6)
   {
     usedBufLen = 0;
-    v15.location = 0;
-    v15.length = v6;
-    if (v6 != CFStringGetBytes(pinyin, v15, 0x500u, 0, 0, buffer, 254, &usedBufLen))
+    v14.location = 0;
+    v14.length = v6;
+    if (v6 != CFStringGetBytes(pinyin, v14, 0x500u, 0, 0, buffer, 254, &usedBufLen))
     {
 LABEL_7:
       LOBYTE(v6) = 0;
-      goto LABEL_8;
+      return v6;
     }
 
     v7 = usedBufLen;
     buffer[usedBufLen] = 0;
-    LODWORD(v6) = findPinyin(buffer, v7, 0, 1, 0, 0, 0, 0, &v11, 0, 0, &v10, 0, 0, 0, 0, 0, 0);
+    LODWORD(v6) = findPinyin(buffer, v7, 0, 1, 0, 0, 0, 0, &v10, 0, 0, &v9, 0, 0, 0, 0, 0, 0);
     if (v6)
     {
-      if (v11 == usedBufLen && (syllable || (v10 & 1) == 0))
+      if (v10 != usedBufLen || !syllable && (v9 & 1) != 0)
       {
-        LOBYTE(v6) = 1;
-        goto LABEL_8;
+        goto LABEL_7;
       }
 
-      goto LABEL_7;
+      LOBYTE(v6) = 1;
     }
   }
 
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)inputStringIsFullOrAbbreviatedPinyin:(id)pinyin
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [pinyin length];
   if (v4)
   {
     usedBufLen = 0;
-    v11.location = 0;
-    v11.length = v4;
-    if (v4 == CFStringGetBytes(pinyin, v11, 0x500u, 0, 0, buffer, 254, &usedBufLen))
+    v10.location = 0;
+    v10.length = v4;
+    if (v4 == CFStringGetBytes(pinyin, v10, 0x500u, 0, 0, buffer, 254, &usedBufLen))
     {
       v5 = usedBufLen;
       buffer[usedBufLen] = 0;
@@ -32179,45 +32319,44 @@ LABEL_8:
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)_addContextAlternativesForPinyinInputString:(id)string modifications:(id)modifications afterIndex:(unint64_t)index delta:(int64_t)delta toArray:(id)array
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v44 = [modifications countByEnumeratingWithState:&v52 objects:v57 count:16];
-  if (v44)
+  v43 = [modifications countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v43)
   {
-    v43 = *v53;
+    v42 = *v52;
     deltaCopy = delta;
     do
     {
-      for (i = 0; i != v44; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v53 != v43)
+        if (*v52 != v42)
         {
           objc_enumerationMutation(modifications);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         range = [v10 range];
         v13 = v12;
         syllableRange = [v10 syllableRange];
-        v46 = v15;
+        v45 = v15;
         if (range >= index && syllableRange >= index)
         {
           v17 = syllableRange;
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
-          v18 = [modifications countByEnumeratingWithState:&v48 objects:v56 count:16];
-          v45 = i;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v18 = [modifications countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v44 = i;
           if (!v18)
           {
             v21 = 1;
@@ -32241,7 +32380,7 @@ LABEL_27:
             [v30 replaceCharactersInRange:v28 + deltaCopy2 withString:{v31, v33}];
             if (v21)
             {
-              i = v45;
+              i = v44;
               delta = deltaCopy2;
               if (([array containsObject:v30] & 1) == 0)
               {
@@ -32251,8 +32390,8 @@ LABEL_27:
 
             else
             {
-              [(AppleSpell *)self _addContextAlternativesForPinyinInputString:v30 modifications:modifications afterIndex:v17 + v46 delta:deltaCopy2 - v31 + v34 toArray:array];
-              i = v45;
+              [(AppleSpell *)self _addContextAlternativesForPinyinInputString:v30 modifications:modifications afterIndex:v17 + v45 delta:deltaCopy2 - v31 + v34 toArray:array];
+              i = v44;
               delta = deltaCopy2;
             }
 
@@ -32269,7 +32408,7 @@ LABEL_27:
 
               else
               {
-                [(AppleSpell *)self _addContextAlternativesForPinyinInputString:string modifications:modifications afterIndex:v17 + v46 delta:delta toArray:array];
+                [(AppleSpell *)self _addContextAlternativesForPinyinInputString:string modifications:modifications afterIndex:v17 + v45 delta:delta toArray:array];
               }
             }
 
@@ -32277,37 +32416,37 @@ LABEL_27:
           }
 
           v19 = v18;
-          v40 = range;
-          v41 = v13;
-          v20 = *v49;
+          v39 = range;
+          v40 = v13;
+          v20 = *v48;
           v21 = 1;
           v22 = 1;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v49 != v20)
+              if (*v48 != v20)
               {
                 objc_enumerationMutation(modifications);
               }
 
-              v24 = *(*(&v48 + 1) + 8 * j);
+              v24 = *(*(&v47 + 1) + 8 * j);
               syllableRange2 = [v24 syllableRange];
               if (v24 != v10 && syllableRange2 >= index)
               {
                 v22 &= syllableRange2 + v26 > v17;
-                v21 &= v17 + v46 > syllableRange2;
+                v21 &= v17 + v45 > syllableRange2;
               }
             }
 
-            v19 = [modifications countByEnumeratingWithState:&v48 objects:v56 count:16];
+            v19 = [modifications countByEnumeratingWithState:&v47 objects:v55 count:16];
           }
 
           while (v19);
           delta = deltaCopy;
-          i = v45;
-          range = v40;
-          v13 = v41;
+          i = v44;
+          range = v39;
+          v13 = v40;
           if (v22)
           {
             goto LABEL_27;
@@ -32315,13 +32454,11 @@ LABEL_27:
         }
       }
 
-      v44 = [modifications countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v43 = [modifications countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (id)contextAlternativeAnnotatedStringsForPinyinInputString:(id)string
@@ -32420,13 +32557,114 @@ LABEL_27:
   return result;
 }
 
+- (void)addGuessesForKoreanWord:(id)word includeAdditionalGuesses:(BOOL)guesses toGuesses:(id)toGuesses
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  usedBufLen = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  guesses = [PRLanguage languageObjectWithIdentifier:@"ko", guesses];
+  MutableCopy = CFStringCreateMutableCopy(0, 0, word);
+  CFStringNormalize(MutableCopy, kCFStringNormalizationFormD);
+  Length = CFStringGetLength(MutableCopy);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __81__AppleSpell_Korean__addGuessesForKoreanWord_includeAdditionalGuesses_toGuesses___block_invoke;
+  v22[3] = &unk_1E840F2F8;
+  v22[4] = &v23;
+  [(__CFString *)MutableCopy enumerateSubstringsInRange:0 options:Length usingBlock:2, v22];
+  [ConvertStringToHangulCompatibilityJamo(MutableCopy) length];
+  if ((v24[3] - 2) <= 0x11 && Length >= 3)
+  {
+    for (i = 0; i != Length; ++i)
+    {
+      CharacterAtIndex = CFStringGetCharacterAtIndex(MutableCopy, i);
+      if (CharacterAtIndex >> 8 == 17)
+      {
+        if (CharacterAtIndex == 4527)
+        {
+          v12 = 13;
+          v13 = &LJongMatches;
+          goto LABEL_20;
+        }
+
+        if (CharacterAtIndex >> 3 < 0x235)
+        {
+          if (CharacterAtIndex < 0x1161)
+          {
+            v14 = CharacterAtIndex - 4352;
+            if (CharacterAtIndex - 4352 <= 0x12)
+            {
+              v15 = &ChoMatches;
+LABEL_18:
+              v13 = &v15[12 * v14];
+LABEL_19:
+              v12 = 6;
+              do
+              {
+LABEL_20:
+                if (*v13)
+                {
+                  v16 = CFStringCreateWithCharacters(0, v13, 1);
+                  v17 = CFStringCreateMutableCopy(0, 0, MutableCopy);
+                  v30.location = i;
+                  v30.length = 1;
+                  CFStringReplace(v17, v30, v16);
+                  v18 = ConvertStringToHangulCompatibilityJamo(v17);
+                  v19 = [(__CFString *)v18 length];
+                  v31.location = 0;
+                  v31.length = v19;
+                  if (v19 == CFStringGetBytes(v18, v31, 0x8000100u, 0x5Fu, 0, buffer, 72, &usedBufLen) && ([(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:guesses index:5]|| [(AppleSpell *)self validateWord:v18 inLexiconForLanguageObject:guesses]))
+                  {
+                    CFStringNormalize(v17, kCFStringNormalizationFormC);
+                    [toGuesses addCandidateWithString:v17 errorType:8];
+                  }
+
+                  CFRelease(v17);
+                  CFRelease(v16);
+                }
+
+                ++v13;
+                --v12;
+              }
+
+              while (v12);
+            }
+          }
+
+          else
+          {
+            v14 = CharacterAtIndex - 4449;
+            if (CharacterAtIndex - 4449 <= 0x14)
+            {
+              v15 = &JungMatches;
+              goto LABEL_18;
+            }
+          }
+        }
+
+        else if (CharacterAtIndex - 4520 <= 0x1A)
+        {
+          v13 = (&JongMatches + 12 * CharacterAtIndex - 54240);
+          goto LABEL_19;
+        }
+      }
+    }
+  }
+
+  CFRelease(MutableCopy);
+  _Block_object_dispose(&v23, 8);
+}
+
 - (id)spellServer:(id)server suggestGuessesForKoreanWordRange:(_NSRange)range inString:(id)string options:(id)options
 {
   length = range.length;
   location = range.location;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v43 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v42 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v12 = [string substringWithRange:{location, length}];
   v13 = _appIdentifierFromOptions(options);
   v14 = [PRLanguage languageObjectWithIdentifier:@"ko"];
@@ -32435,34 +32673,34 @@ LABEL_27:
   v17 = [-[AppleSpell autocorrectionDictionaryForLanguageObject:](self autocorrectionDictionaryForLanguageObject:{v14), "objectForKey:", v12}];
   usedBufLen = 0;
   v18 = [options objectForKey:@"ParameterBundles"];
-  v42 = v12;
+  v41 = v12;
   [(AppleSpell *)self addGuessesForKoreanWord:v12 includeAdditionalGuesses:1 toGuesses:v16];
-  v44 = v15;
+  v43 = v15;
   if (v15)
   {
     v19 = [(AppleSpell *)self _rankedCandidatesForCandidateList:v16 languageObject:v14 tagger:v15 appIdentifier:v13 parameterBundles:v18];
     if (v19)
     {
       v20 = v19;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v21 = [v19 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v21 = [v19 countByEnumeratingWithState:&v48 objects:v54 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v50;
+        v23 = *v49;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v50 != v23)
+            if (*v49 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v49 + 1) + 8 * i);
+            v25 = *(*(&v48 + 1) + 8 * i);
             if (([v25 isBlocklisted] & 1) == 0)
             {
               string = [v25 string];
@@ -32473,7 +32711,7 @@ LABEL_27:
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v49 objects:v55 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v48 objects:v54 count:16];
         }
 
         while (v22);
@@ -32481,26 +32719,26 @@ LABEL_27:
     }
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   candidates = [(PRCandidateList *)v16 candidates];
-  v28 = [candidates countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v28 = [candidates countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v46;
+    v30 = *v45;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v46 != v30)
+        if (*v45 != v30)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v32 = *(*(&v45 + 1) + 8 * j);
+        v32 = *(*(&v44 + 1) + 8 * j);
         if (([v32 isBlocklisted] & 1) == 0)
         {
           string2 = [v32 string];
@@ -32511,13 +32749,13 @@ LABEL_27:
         }
       }
 
-      v29 = [candidates countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v29 = [candidates countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v29);
   }
 
-  [array removeObject:v42];
+  [array removeObject:v41];
   v34 = [array count];
   if (v34)
   {
@@ -32530,9 +32768,9 @@ LABEL_27:
       {
         v38 = [(AppleSpell *)self internalStringForKoreanExternalString:v37];
         v39 = [(__CFString *)v38 length];
-        v58.location = 0;
-        v58.length = v39;
-        if (v39 == CFStringGetBytes(v38, v58, 0x8000100u, 0, 0, buffer, 254, &usedBufLen) && ![(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:v14 index:1]&& [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:usedBufLen languageObject:v14 forPrediction:0 alreadyCapitalized:0]!= 2)
+        v57.location = 0;
+        v57.length = v39;
+        if (v39 == CFStringGetBytes(v38, v57, 0x8000100u, 0, 0, buffer, 254, &usedBufLen) && ![(AppleSpell *)self checkWordBuffer:buffer length:usedBufLen languageObject:v14 index:1]&& [(AppleSpell *)self acceptabilityOfWordBuffer:buffer length:usedBufLen languageObject:v14 forPrediction:0 alreadyCapitalized:0]!= 2)
         {
           [array removeObjectAtIndex:v35];
         }
@@ -32545,9 +32783,8 @@ LABEL_27:
   }
 
   [(AppleSpell *)self resetTimer];
-  [(AppleSpell *)self invalidateTagger:v44];
+  [(AppleSpell *)self invalidateTagger:v43];
 
-  v40 = *MEMORY[0x1E69E9840];
   return array;
 }
 

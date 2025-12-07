@@ -28,7 +28,7 @@
 
 - (BOOL)_persistStateToURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
   [(TITypologyProfileState *)self encodeWithCoder:v5];
@@ -36,16 +36,16 @@
   v7 = encodedData;
   if (encodedData)
   {
-    v13 = 0;
-    v8 = [encodedData writeToURL:lCopy options:1073741825 error:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [encodedData writeToURL:lCopy options:1073741825 error:&v12];
+    v9 = v12;
     if ((v8 & 1) == 0)
     {
       v10 = TITypologyProfileStateLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v9;
+        v14 = v9;
         _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "Unable to persist state: %@", buf, 0xCu);
       }
     }
@@ -56,7 +56,6 @@
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -184,7 +183,7 @@ LABEL_9:
   }
 
   v16 = [(TITypologyProfileState *)self _hashTokenForProfileInstallationDate:dateCopy userNotificationDate:notificationDateCopy userResponse:responseCopy];
-  if (![v16 length] || (objc_msgSend(v16, "isEqualToString:", v14) & 1) == 0)
+  if (![v16 length] || (objc_msgSend_isEqualToString_(v16) & 1) == 0)
   {
     goto LABEL_9;
   }
@@ -227,7 +226,7 @@ LABEL_13:
 
 - (NSData)salt
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   salt = self->_salt;
   if (!salt)
   {
@@ -238,12 +237,12 @@ LABEL_13:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBED8], *MEMORY[0x277CDBF10]);
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBF28], @"typologyProfileStateSalt");
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBEC8], @"com.apple.TextInput");
-    v12 = 0;
-    SecItemCopyMatching(Mutable, &v12);
-    if (v12)
+    v11 = 0;
+    SecItemCopyMatching(Mutable, &v11);
+    if (v11)
     {
       v6 = self->_salt;
-      self->_salt = v12;
+      self->_salt = v11;
     }
 
     if (!self->_salt)
@@ -265,14 +264,12 @@ LABEL_13:
     salt = self->_salt;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return salt;
 }
 
 - (id)hashForString:(id)string
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   salt = [(TITypologyProfileState *)self salt];
   if (salt)
@@ -297,9 +294,9 @@ LABEL_13:
         do
         {
           usedBufLen = 0;
-          v25.location = v12;
-          v25.length = v11;
-          Bytes = CFStringGetBytes(stringCopy, v25, 0x8000100u, 0, 0, buffer, 512, &usedBufLen);
+          v24.location = v12;
+          v24.length = v11;
+          Bytes = CFStringGetBytes(stringCopy, v24, 0x8000100u, 0, 0, buffer, 512, &usedBufLen);
           CC_SHA256_Update(&c, buffer, usedBufLen);
           v12 += Bytes;
           v14 = v11 <= Bytes;
@@ -326,8 +323,6 @@ LABEL_13:
     Mutable = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return Mutable;
 }
 
@@ -348,20 +343,20 @@ LABEL_13:
 
 + (BOOL)_removePersistedStateAtURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   lCopy = l;
   defaultManager = [v3 defaultManager];
-  v13 = 0;
-  v6 = [defaultManager removeItemAtURL:lCopy error:&v13];
+  v12 = 0;
+  v6 = [defaultManager removeItemAtURL:lCopy error:&v12];
 
-  v7 = v13;
+  v7 = v12;
   if ((v6 & 1) == 0)
   {
     if (v7)
     {
       domain = [v7 domain];
-      if ([domain isEqualToString:*MEMORY[0x277CCA050]])
+      if (objc_msgSend_isEqualToString_(domain))
       {
         code = [v7 code];
 
@@ -389,7 +384,7 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "Failed to remove persisted state: %@", buf, 0xCu);
     }
 
@@ -398,7 +393,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -412,17 +406,17 @@ LABEL_11:
 
 + (id)_typologyProfileStateFromURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v16];
-  v5 = v16;
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (!v4)
   {
     if (v5)
     {
       domain = [v5 domain];
-      if ([domain isEqualToString:*MEMORY[0x277CCA050]])
+      if (objc_msgSend_isEqualToString_(domain))
       {
         code = [v6 code];
 
@@ -451,16 +445,16 @@ LABEL_15:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v6;
+      v17 = v6;
       _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "Unable to read persisted state: %@", buf, 0xCu);
     }
 
     goto LABEL_15;
   }
 
-  v15 = v5;
-  v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v4 error:&v15];
-  v8 = v15;
+  v14 = v5;
+  v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v4 error:&v14];
+  v8 = v14;
 
   if (v7)
   {
@@ -473,7 +467,7 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_22CA55000, v12, OS_LOG_TYPE_ERROR, "Failed to initialize keyed unarchiver with persisted data: %@", buf, 0xCu);
     }
 
@@ -482,8 +476,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

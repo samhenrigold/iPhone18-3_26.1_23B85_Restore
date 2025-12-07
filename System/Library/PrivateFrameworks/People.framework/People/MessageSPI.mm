@@ -55,8 +55,8 @@
 
 + (void)canSendIMessage:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   JUMPOUT(0x22F0CFD2CLL);
 }
 

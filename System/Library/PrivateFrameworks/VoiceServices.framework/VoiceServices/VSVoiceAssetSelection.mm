@@ -244,7 +244,7 @@ LABEL_11:
 
 - (VSVoiceAssetSelection)initWithTrialVoice:(id)voice
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   v6 = [(VSVoiceAssetSelection *)self init];
   v7 = v6;
@@ -260,8 +260,8 @@ LABEL_11:
     if (language)
     {
       language2 = [voiceCopy language];
-      v22[0] = language2;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+      v21[0] = language2;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
       [(VSVoiceAsset *)v7->_voiceData setLanguages:v12];
     }
 
@@ -325,7 +325,6 @@ LABEL_11:
     [(VSVoiceAsset *)v7->_voiceData setIsVoiceReadyToUse:v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

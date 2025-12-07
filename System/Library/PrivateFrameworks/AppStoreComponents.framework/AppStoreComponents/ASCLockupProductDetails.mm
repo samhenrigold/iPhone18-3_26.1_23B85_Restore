@@ -195,7 +195,7 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
 - (void)presentFromViewController:(id)controller animated:(BOOL)animated completion:(id)completion
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   v10 = +[ASCWorkspace sharedWorkspace];
@@ -203,12 +203,12 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
   if (isExtension)
   {
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __73__ASCLockupProductDetails_presentFromViewController_animated_completion___block_invoke;
-    v66[3] = &unk_2781CC528;
-    v67 = completionCopy;
-    [(ASCLockupProductDetails *)self present:v66];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __73__ASCLockupProductDetails_presentFromViewController_animated_completion___block_invoke;
+    v65[3] = &unk_2781CC528;
+    v66 = completionCopy;
+    [(ASCLockupProductDetails *)self present:v65];
 
     goto LABEL_46;
   }
@@ -230,25 +230,25 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       _os_log_impl(&dword_21571A000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Presenting product details for lockup %{public}@", &buf, 0xCu);
     }
 
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x2050000000;
+    v67 = 0;
+    v68 = &v67;
+    v69 = 0x2050000000;
     v21 = getSKStoreProductViewControllerClass_softClass;
-    v71 = getSKStoreProductViewControllerClass_softClass;
+    v70 = getSKStoreProductViewControllerClass_softClass;
     if (!getSKStoreProductViewControllerClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v73 = __getSKStoreProductViewControllerClass_block_invoke;
-      v74 = &unk_2781CC5A0;
-      v75 = &v68;
+      v72 = __getSKStoreProductViewControllerClass_block_invoke;
+      v73 = &unk_2781CC5A0;
+      v74 = &v67;
       __getSKStoreProductViewControllerClass_block_invoke(&buf);
-      v21 = v69[3];
+      v21 = v68[3];
     }
 
     v22 = v21;
-    _Block_object_dispose(&v68, 8);
-    v60 = objc_alloc_init(v21);
+    _Block_object_dispose(&v67, 8);
+    v59 = objc_alloc_init(v21);
     parameters = [(ASCLockupProductDetails *)self parameters];
     if (parameters)
     {
@@ -264,32 +264,32 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
     lockup3 = [(ASCLockupProductDetails *)self lockup];
     v27 = [lockup3 id];
     numberValue = [v27 numberValue];
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x2020000000;
+    v67 = 0;
+    v68 = &v67;
+    v69 = 0x2020000000;
     v29 = getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr;
-    v71 = getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr;
+    v70 = getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr;
     if (!getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v73 = __getSKStoreProductParameterITunesItemIdentifierSymbolLoc_block_invoke;
-      v74 = &unk_2781CC5A0;
-      v75 = &v68;
+      v72 = __getSKStoreProductParameterITunesItemIdentifierSymbolLoc_block_invoke;
+      v73 = &unk_2781CC5A0;
+      v74 = &v67;
       v30 = StoreKitLibrary();
       v31 = dlsym(v30, "SKStoreProductParameterITunesItemIdentifier");
-      *(v75[1] + 24) = v31;
-      getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr = *(v75[1] + 24);
-      v29 = v69[3];
+      *(v74[1] + 24) = v31;
+      getSKStoreProductParameterITunesItemIdentifierSymbolLoc_ptr = *(v74[1] + 24);
+      v29 = v68[3];
     }
 
-    _Block_object_dispose(&v68, 8);
+    _Block_object_dispose(&v67, 8);
     if (v29)
     {
       [dictionary setObject:numberValue forKeyedSubscript:*v29];
 
-      [v60 setDelegate:self];
-      if (StoreKitLibraryCore())
+      [v59 setDelegate:self];
+      if (StoreKitLibraryCore(0))
       {
         if (getSKStoreProductParameterCustomProductPageIdentifierSymbolLoc())
         {
@@ -318,7 +318,7 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       if (!v39)
       {
         storeSheetHostBundleID2 = [(ASCLockupProductDetails *)self storeSheetHostBundleID];
-        [v60 setHostBundleIdentifier:storeSheetHostBundleID2];
+        [v59 setHostBundleIdentifier:storeSheetHostBundleID2];
       }
 
       storeSheetUsageContext = [(ASCLockupProductDetails *)self storeSheetUsageContext];
@@ -327,7 +327,7 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       if (!v42)
       {
         storeSheetUsageContext2 = [(ASCLockupProductDetails *)self storeSheetUsageContext];
-        [v60 setUsageContext:storeSheetUsageContext2];
+        [v59 setUsageContext:storeSheetUsageContext2];
       }
 
       lockup6 = [(ASCLockupProductDetails *)self lockup];
@@ -336,26 +336,26 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
       if (!v46)
       {
-        v68 = 0;
-        v69 = &v68;
-        v70 = 0x2020000000;
+        v67 = 0;
+        v68 = &v67;
+        v69 = 0x2020000000;
         v47 = getSKStoreProductParameterIsViewOnlySymbolLoc_ptr;
-        v71 = getSKStoreProductParameterIsViewOnlySymbolLoc_ptr;
+        v70 = getSKStoreProductParameterIsViewOnlySymbolLoc_ptr;
         if (!getSKStoreProductParameterIsViewOnlySymbolLoc_ptr)
         {
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v73 = __getSKStoreProductParameterIsViewOnlySymbolLoc_block_invoke;
-          v74 = &unk_2781CC5A0;
-          v75 = &v68;
+          v72 = __getSKStoreProductParameterIsViewOnlySymbolLoc_block_invoke;
+          v73 = &unk_2781CC5A0;
+          v74 = &v67;
           v48 = StoreKitLibrary();
           v49 = dlsym(v48, "SKStoreProductParameterIsViewOnly");
-          *(v75[1] + 24) = v49;
-          getSKStoreProductParameterIsViewOnlySymbolLoc_ptr = *(v75[1] + 24);
-          v47 = v69[3];
+          *(v74[1] + 24) = v49;
+          getSKStoreProductParameterIsViewOnlySymbolLoc_ptr = *(v74[1] + 24);
+          v47 = v68[3];
         }
 
-        _Block_object_dispose(&v68, 8);
+        _Block_object_dispose(&v67, 8);
         if (!v47)
         {
           goto LABEL_47;
@@ -366,26 +366,26 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
       if ([(ASCLockupProductDetails *)self isOpenAppCallbackEnabled])
       {
-        v68 = 0;
-        v69 = &v68;
-        v70 = 0x2020000000;
+        v67 = 0;
+        v68 = &v67;
+        v69 = 0x2020000000;
         v50 = getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr;
-        v71 = getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr;
+        v70 = getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr;
         if (!getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr)
         {
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v73 = __getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_block_invoke;
-          v74 = &unk_2781CC5A0;
-          v75 = &v68;
+          v72 = __getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_block_invoke;
+          v73 = &unk_2781CC5A0;
+          v74 = &v67;
           v51 = StoreKitLibrary();
           v52 = dlsym(v51, "SKStoreProductParameterEnableOpenAppCallback");
-          *(v75[1] + 24) = v52;
-          getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr = *(v75[1] + 24);
-          v50 = v69[3];
+          *(v74[1] + 24) = v52;
+          getSKStoreProductParameterEnableOpenAppCallbackSymbolLoc_ptr = *(v74[1] + 24);
+          v50 = v68[3];
         }
 
-        _Block_object_dispose(&v68, 8);
+        _Block_object_dispose(&v67, 8);
         if (!v50)
         {
           goto LABEL_47;
@@ -397,57 +397,57 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       if (![(ASCLockupProductDetails *)self isWebBrowser])
       {
 LABEL_42:
-        [v60 loadProductWithParameters:dictionary completionBlock:0];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __73__ASCLockupProductDetails_presentFromViewController_animated_completion___block_invoke_53;
-        v61[3] = &unk_2781CC550;
-        v62 = controllerCopy;
-        v58 = v60;
-        v63 = v58;
+        [v59 loadProductWithParameters:dictionary completionBlock:0];
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __73__ASCLockupProductDetails_presentFromViewController_animated_completion___block_invoke_53;
+        v60[3] = &unk_2781CC550;
+        v61 = controllerCopy;
+        v57 = v59;
+        v62 = v57;
         animatedCopy = animated;
-        v64 = completionCopy;
-        v59 = MEMORY[0x216070C30](v61);
+        v63 = completionCopy;
+        v58 = MEMORY[0x216070C30](v60);
         if ([MEMORY[0x277CCACC8] isMainThread])
         {
-          v59[2](v59);
+          v58[2](v58);
         }
 
         else
         {
-          dispatch_async(MEMORY[0x277D85CD0], v59);
+          dispatch_async(MEMORY[0x277D85CD0], v58);
         }
 
         goto LABEL_46;
       }
 
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x2020000000;
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x2020000000;
       v53 = getSKStoreProductParameterWebBrowserSymbolLoc_ptr;
-      v71 = getSKStoreProductParameterWebBrowserSymbolLoc_ptr;
+      v70 = getSKStoreProductParameterWebBrowserSymbolLoc_ptr;
       if (!getSKStoreProductParameterWebBrowserSymbolLoc_ptr)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v73 = __getSKStoreProductParameterWebBrowserSymbolLoc_block_invoke;
-        v74 = &unk_2781CC5A0;
-        v75 = &v68;
+        v72 = __getSKStoreProductParameterWebBrowserSymbolLoc_block_invoke;
+        v73 = &unk_2781CC5A0;
+        v74 = &v67;
         v54 = StoreKitLibrary();
         v55 = dlsym(v54, "SKStoreProductParameterWebBrowser");
-        *(v75[1] + 24) = v55;
-        getSKStoreProductParameterWebBrowserSymbolLoc_ptr = *(v75[1] + 24);
-        v53 = v69[3];
+        *(v74[1] + 24) = v55;
+        getSKStoreProductParameterWebBrowserSymbolLoc_ptr = *(v74[1] + 24);
+        v53 = v68[3];
       }
 
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v67, 8);
       if (v53)
       {
         [dictionary setValue:MEMORY[0x277CBEC38] forKey:*v53];
-        v57 = ASCLocalizedString(@"WEB_BROWSER_PRODUCT_DETAILS_CANCEL_BUTTON_TITLE", v56);
-        [v60 setCancelButtonTitle:v57];
+        v56 = ASCLocalizedString(@"WEB_BROWSER_PRODUCT_DETAILS_CANCEL_BUTTON_TITLE");
+        [v59 setCancelButtonTitle:v56];
 
-        [v60 setShowsStoreButton:0];
+        [v59 setShowsStoreButton:0];
         goto LABEL_42;
       }
     }
@@ -702,8 +702,8 @@ uint64_t __73__ASCLockupProductDetails_presentFromViewController_animated_comple
 
 - (uint64_t)presentFromViewController:animated:completion:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getSKStoreProductViewControllerClass_block_invoke_cold_1();
 }
 

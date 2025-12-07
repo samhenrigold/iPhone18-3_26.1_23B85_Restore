@@ -56,15 +56,13 @@
 
 - (id)commandLineOptions
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-fs [sample_rate]" description:@"Set the sample rate to use for IO (44100 and 48000 only)"];
   v3 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-ps [payload_size]" description:@"Set the number of bytes in the payload (inferred from payload on encode/play)", v2];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-nc [channels]" description:@"Set the number of channels to use for IO"];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }

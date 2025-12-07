@@ -14,6 +14,8 @@
 - (void)navigationServiceProxy:(id)proxy didActivateAudioSession:(BOOL)session;
 - (void)navigationServiceProxy:(id)proxy didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationServiceProxy:(id)proxy didChangeFromState:(unint64_t)state toState:(unint64_t)toState;
+- (void)navigationServiceProxy:(id)proxy didChangeNavigationState:(int)state;
+- (void)navigationServiceProxy:(id)proxy didEnableGuidancePrompts:(BOOL)prompts;
 - (void)navigationServiceProxy:(id)proxy didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationServiceProxy:(id)proxy didFailRerouteWithError:(id)error;
 - (void)navigationServiceProxy:(id)proxy didFailWithError:(id)error;
@@ -62,118 +64,117 @@
 
 - (id)captureStatePlistWithHints:(os_state_hints_s *)hints
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__895;
-  v58 = __Block_byref_object_dispose__896;
-  v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__895;
-  v52 = __Block_byref_object_dispose__896;
-  v53 = 0;
-  peersIsolater = self->_peersIsolater;
-  v41 = MEMORY[0x1E69E9820];
-  v42 = 3221225472;
-  v43 = __49__MNNavigationServer_captureStatePlistWithHints___block_invoke;
-  v44 = &unk_1E842A548;
+  v66 = *MEMORY[0x1E69E9840];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__895;
+  v56 = __Block_byref_object_dispose__896;
+  v57 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__895;
+  v50 = __Block_byref_object_dispose__896;
+  v51 = 0;
+  v39 = MEMORY[0x1E69E9820];
+  v40 = 3221225472;
+  v41 = __49__MNNavigationServer_captureStatePlistWithHints___block_invoke;
+  v42 = &unk_1E842A548;
   selfCopy = self;
-  v46 = &v54;
-  v47 = &v48;
+  v44 = &v52;
+  v45 = &v46;
   geo_isolate_sync_data();
   array = [MEMORY[0x1E695DF70] array];
-  v39 = 0u;
-  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v4 = v55[5];
-  v5 = [v4 countByEnumeratingWithState:&v37 objects:v67 count:16];
-  if (v5)
+  v35 = 0u;
+  v36 = 0u;
+  v3 = v53[5];
+  v4 = [v3 countByEnumeratingWithState:&v35 objects:v65 count:16];
+  if (v4)
   {
-    v6 = *v38;
+    v5 = *v36;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v38 != v6)
+        if (*v36 != v5)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * i);
-        v65[0] = @"name";
-        peerIdentifier = [v8 peerIdentifier];
-        v10 = peerIdentifier;
-        v11 = &stru_1F4EB6B70;
+        v7 = *(*(&v35 + 1) + 8 * i);
+        v63[0] = @"name";
+        peerIdentifier = [v7 peerIdentifier];
+        v9 = peerIdentifier;
+        v10 = &stru_1F4EB6B70;
         if (peerIdentifier)
         {
-          v11 = peerIdentifier;
+          v10 = peerIdentifier;
         }
 
-        v65[1] = @"processID";
-        v66[0] = v11;
-        v12 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v8, "processIdentifier")}];
-        v66[1] = v12;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
-        [array addObject:v13];
+        v63[1] = @"processID";
+        v64[0] = v10;
+        v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v7, "processIdentifier")}];
+        v64[1] = v11;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+        [array addObject:v12];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v37 objects:v67 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v35 objects:v65 count:16];
     }
 
-    while (v5);
+    while (v4);
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v35 = 0u;
-  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v15 = v49[5];
-  v16 = [v15 countByEnumeratingWithState:&v33 objects:v64 count:16];
-  if (v16)
+  v31 = 0u;
+  v32 = 0u;
+  v14 = v47[5];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:v62 count:16];
+  if (v15)
   {
-    v17 = *v34;
+    v16 = *v32;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v15; ++j)
       {
-        if (*v34 != v17)
+        if (*v32 != v16)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v33 + 1) + 8 * j);
-        v62[0] = @"name";
-        peerIdentifier2 = [v19 peerIdentifier];
-        v21 = peerIdentifier2;
-        v22 = &stru_1F4EB6B70;
+        v18 = *(*(&v31 + 1) + 8 * j);
+        v60[0] = @"name";
+        peerIdentifier2 = [v18 peerIdentifier];
+        v20 = peerIdentifier2;
+        v21 = &stru_1F4EB6B70;
         if (peerIdentifier2)
         {
-          v22 = peerIdentifier2;
+          v21 = peerIdentifier2;
         }
 
-        v62[1] = @"processID";
-        v63[0] = v22;
-        v23 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v19, "processIdentifier")}];
-        v63[1] = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:2];
-        [array2 addObject:v24];
+        v60[1] = @"processID";
+        v61[0] = v21;
+        v22 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v18, "processIdentifier")}];
+        v61[1] = v22;
+        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
+        [array2 addObject:v23];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v33 objects:v64 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v31 objects:v62 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
 
   mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
-  v26 = objc_opt_respondsToSelector();
+  v25 = objc_opt_respondsToSelector();
 
-  if (v26)
+  if (v25)
   {
     mainQueue2 = [MEMORY[0x1E696ADC8] mainQueue];
     __graphDescription = [mainQueue2 __graphDescription];
@@ -190,20 +191,18 @@
     __graphDescription = @"<null>";
   }
 
-  v60[0] = @"peers";
-  v60[1] = @"unEntitledPeers";
-  v61[0] = array;
-  v61[1] = array2;
-  v60[2] = @"mainOperationQueue";
-  v61[2] = __graphDescription;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:3];
+  v58[0] = @"peers";
+  v58[1] = @"unEntitledPeers";
+  v59[0] = array;
+  v59[1] = array2;
+  v58[2] = @"mainOperationQueue";
+  v59[2] = __graphDescription;
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:3];
 
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v52, 8);
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 void __49__MNNavigationServer_captureStatePlistWithHints___block_invoke(void *a1)
@@ -548,6 +547,17 @@ LABEL_16:
   [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v7];
 }
 
+- (void)navigationServiceProxy:(id)proxy didEnableGuidancePrompts:(BOOL)prompts
+{
+  [(MNNavigationDetails *)self->_details setGuidancePromptsEnabled:prompts];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __70__MNNavigationServer_navigationServiceProxy_didEnableGuidancePrompts___block_invoke;
+  v6[3] = &__block_descriptor_33_e46_v16__0___MNNavigationServiceClientInterface__8l;
+  promptsCopy = prompts;
+  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v6];
+}
+
 - (void)navigationServiceProxy:(id)proxy hideJunctionViewForId:(id)id
 {
   idCopy = id;
@@ -800,6 +810,17 @@ LABEL_16:
   [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v8];
 }
 
+- (void)navigationServiceProxy:(id)proxy didChangeNavigationState:(int)state
+{
+  [(MNNavigationDetails *)self->_details setNavigationState:*&state];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __70__MNNavigationServer_navigationServiceProxy_didChangeNavigationState___block_invoke;
+  v6[3] = &__block_descriptor_36_e46_v16__0___MNNavigationServiceClientInterface__8l;
+  stateCopy = state;
+  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v6];
+}
+
 - (void)navigationServiceProxy:(id)proxy didFailWithError:(id)error
 {
   errorCopy = error;
@@ -814,25 +835,23 @@ LABEL_16:
 
 - (void)navigationServiceProxy:(id)proxy didUpdateNavigationDetails:(id)details
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315650;
-    v7 = "[MNNavigationServer navigationServiceProxy:didUpdateNavigationDetails:]";
-    v8 = 2080;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
-    v10 = 1024;
-    v11 = 310;
-    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[MNNavigationServer navigationServiceProxy:didUpdateNavigationDetails:]";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
+    v9 = 1024;
+    v10 = 310;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v5, 0x1Cu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy didChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   [(MNNavigationDetails *)self->_details setState:toState];
   v8 = MNGetMNNavigationXPCLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -863,34 +882,32 @@ LABEL_16:
     _peerDescriptions = [(MNNavigationServer *)self _peerDescriptions];
     v15 = [_peerDescriptions componentsJoinedByString:@"\n\t"];
     *buf = 138413058;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 1024;
-    v23 = _peersCount;
-    v24 = 2112;
-    v25 = v15;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 1024;
+    v22 = _peersCount;
+    v23 = 2112;
+    v24 = v15;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "MNNavigationServer sending didChangeFromState: '%@' toState: '%@' to %d peers:\n\t%@", buf, 0x26u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __72__MNNavigationServer_navigationServiceProxy_didChangeFromState_toState___block_invoke;
-  v17[3] = &__block_descriptor_48_e46_v16__0___MNNavigationServiceClientInterface__8l;
-  v17[4] = state;
-  v17[5] = toState;
-  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __72__MNNavigationServer_navigationServiceProxy_didChangeFromState_toState___block_invoke;
+  v16[3] = &__block_descriptor_48_e46_v16__0___MNNavigationServiceClientInterface__8l;
+  v16[4] = state;
+  v16[5] = toState;
+  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v16];
   if (!toState)
   {
     [(MNNavigationServer *)self _resetDetails];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy willChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = MNGetMNNavigationXPCLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -917,27 +934,26 @@ LABEL_16:
 
     v12 = v11;
     *buf = 138412802;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v12;
-    v19 = 1024;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v12;
+    v18 = 1024;
     _peersCount = [(MNNavigationServer *)self _peersCount];
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "MNNavigationServer sending willChangeFromState: '%@' toState: '%@' to %d peers.", buf, 0x1Cu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __73__MNNavigationServer_navigationServiceProxy_willChangeFromState_toState___block_invoke;
-  v14[3] = &__block_descriptor_48_e46_v16__0___MNNavigationServiceClientInterface__8l;
-  v14[4] = state;
-  v14[5] = toState;
-  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v14];
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __73__MNNavigationServer_navigationServiceProxy_willChangeFromState_toState___block_invoke;
+  v13[3] = &__block_descriptor_48_e46_v16__0___MNNavigationServiceClientInterface__8l;
+  v13[4] = state;
+  v13[5] = toState;
+  [(MNNavigationServer *)self _enumerateRemoteObjectsWithHandler:v13];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v7 = [[MNNavigationServicePeer alloc] initWithConnection:connectionCopy];
@@ -961,9 +977,9 @@ LABEL_16:
       }
 
       *buf = 138412546;
-      v48 = v7;
-      v49 = 2112;
-      v50 = v13;
+      v45 = v7;
+      v46 = 2112;
+      v47 = v13;
       _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEFAULT, "Peer %@ connected to navd. Current navigation service state: %@", buf, 0x16u);
     }
   }
@@ -971,7 +987,7 @@ LABEL_16:
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v48 = v7;
+    v45 = v7;
     _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Peer %@ connected to navd, but doesn't have the proper entitlement.", buf, 0xCu);
   }
 
@@ -982,9 +998,9 @@ LABEL_16:
   [v14 setClasses:v17 forSelector:sel_setRoutesForPreview_selectedRouteIndex_ argumentIndex:0 ofReply:0];
   v18 = MEMORY[0x1E695DFD8];
   v19 = objc_opt_class();
-  v38 = [v18 setWithObjects:{v19, objc_opt_class(), 0}];
+  v35 = [v18 setWithObjects:{v19, objc_opt_class(), 0}];
 
-  [v14 setClasses:v38 forSelector:sel_rerouteWithWaypoints_ argumentIndex:0 ofReply:0];
+  [v14 setClasses:v35 forSelector:sel_rerouteWithWaypoints_ argumentIndex:0 ofReply:0];
   [connectionCopy setExportedInterface:v14];
   v20 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4EEA548];
   [connectionCopy setRemoteObjectInterface:v20];
@@ -1001,102 +1017,95 @@ LABEL_16:
   }
 
   objc_initWeak(buf, self);
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke;
-  v44[3] = &unk_1E8430100;
-  v22 = v7;
-  v45 = v22;
-  objc_copyWeak(&v46, buf);
-  [connectionCopy setInvalidationHandler:v44];
   v41[0] = MEMORY[0x1E69E9820];
   v41[1] = 3221225472;
-  v41[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_268;
+  v41[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke;
   v41[3] = &unk_1E8430100;
-  v23 = v22;
-  v42 = v23;
+  v22 = v7;
+  v42 = v22;
   objc_copyWeak(&v43, buf);
-  [connectionCopy setInterruptionHandler:v41];
+  [connectionCopy setInvalidationHandler:v41];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_268;
+  v38[3] = &unk_1E8430100;
+  v23 = v22;
+  v39 = v23;
+  objc_copyWeak(&v40, buf);
+  [connectionCopy setInterruptionHandler:v38];
   [connectionCopy resume];
-  isEntitled = [(MNNavigationServicePeer *)v23 isEntitled];
-  peersIsolater = self->_peersIsolater;
-  if (isEntitled)
+  if ([(MNNavigationServicePeer *)v23 isEntitled])
   {
-    v26 = v40;
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_269;
-    v40[3] = &unk_1E8430D50;
-    v40[4] = self;
-    v27 = v23;
-    v40[5] = v27;
+    v24 = v37;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_269;
+    v37[3] = &unk_1E8430D50;
+    v37[4] = self;
+    v25 = v23;
+    v37[5] = v25;
     geo_isolate_sync_data();
-    [(MNNavigationServer *)self _sendNavigationDetailsToPeer:v27];
+    [(MNNavigationServer *)self _sendNavigationDetailsToPeer:v25];
   }
 
   else
   {
-    v26 = v39;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_2;
-    v39[3] = &unk_1E8430D50;
-    v39[4] = self;
-    v28 = v23;
-    v39[5] = v28;
+    v24 = v36;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_2;
+    v36[3] = &unk_1E8430D50;
+    v36[4] = self;
+    v26 = v23;
+    v36[5] = v26;
     geo_isolate_sync_data();
-    v29 = MEMORY[0x1E696AEC0];
-    peerIdentifier = [(MNNavigationServicePeer *)v28 peerIdentifier];
-    v31 = [v29 stringWithFormat:@"%@ is missing the navigation service entitlement.", peerIdentifier];
+    v27 = MEMORY[0x1E696AEC0];
+    peerIdentifier = [(MNNavigationServicePeer *)v26 peerIdentifier];
+    v29 = [v27 stringWithFormat:@"%@ is missing the navigation service entitlement.", peerIdentifier];
 
-    v32 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:1 debugDescription:v31 underlyingError:0];
-    connection = [(GEONavdPeer *)v28 connection];
+    v30 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:1 debugDescription:v29 underlyingError:0];
+    connection = [(GEONavdPeer *)v26 connection];
     remoteObjectProxy = [connection remoteObjectProxy];
-    [remoteObjectProxy navigationServiceProxy:0 didFailWithError:v32];
+    [remoteObjectProxy navigationServiceProxy:0 didFailWithError:v30];
   }
 
+  objc_destroyWeak(&v40);
   objc_destroyWeak(&v43);
-  objc_destroyWeak(&v46);
 
   objc_destroyWeak(buf);
-  v35 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 void __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEFAULT, "Peer disconnected: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEFAULT, "Peer disconnected: %@", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _peerDidDisconnect:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_268(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "Peer interrupted: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "Peer interrupted: %@", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _peerDidDisconnect:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_invoke_269(uint64_t a1)
@@ -1138,40 +1147,38 @@ uint64_t __57__MNNavigationServer_listener_shouldAcceptNewConnection___block_inv
 - (void)_peerDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  peersIsolater = self->_peersIsolater;
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __41__MNNavigationServer__peerDidDisconnect___block_invoke;
-  v17 = &unk_1E842FD80;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __41__MNNavigationServer__peerDidDisconnect___block_invoke;
+  v15 = &unk_1E842FD80;
   selfCopy = self;
-  v19 = disconnectCopy;
-  v20 = &v21;
+  v17 = disconnectCopy;
+  v18 = &v19;
   geo_isolate_sync_data();
-  [v19 clearConnection];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
-  sendNavigationDetailsIsolater = self->_sendNavigationDetailsIsolater;
-  v8 = MEMORY[0x1E69E9820];
-  v7 = v19;
-  v9 = v7;
+  [v17 clearConnection];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v6 = MEMORY[0x1E69E9820];
+  v5 = v17;
+  v7 = v5;
   geo_isolate_sync_data();
-  if ((v11[3] & 1) != 0 || !v22[3])
+  if ((v9[3] & 1) != 0 || !v20[3])
   {
-    [(MNNavigationServiceLocalProxy *)self->_localProxy reset:v8];
+    [(MNNavigationServiceLocalProxy *)self->_localProxy reset:v6];
     [(MNNavigationServer *)self _resetDetails];
   }
 
-  _Block_object_dispose(&v10, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __41__MNNavigationServer__peerDidDisconnect___block_invoke(void *a1)
+void *__41__MNNavigationServer__peerDidDisconnect___block_invoke(void *a1)
 {
   [*(a1[4] + 16) removeObject:a1[5]];
   [*(a1[4] + 24) removeObject:a1[5]];
@@ -1198,35 +1205,35 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
 
 - (id)_peerDescriptions
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15 = self->_peersIsolater;
+  v16 = *MEMORY[0x1E69E9840];
+  v14 = self->_peersIsolater;
   _geo_isolate_lock_data();
   if ([(NSMutableSet *)self->_peers count])
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableSet count](self->_peers, "count")}];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = self->_peers;
-    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [*(*(&v11 + 1) + 8 * i) description];
+          v8 = [*(*(&v10 + 1) + 8 * i) description];
           [v3 addObject:v8];
         }
 
-        v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
       }
 
       while (v5);
@@ -1239,8 +1246,6 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
   }
 
   _geo_isolate_unlock();
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1257,34 +1262,34 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
 
 - (void)_enumerateRemoteObjectsWithHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
-    v21 = self->_peersIsolater;
+    v20 = self->_peersIsolater;
     _geo_isolate_lock_data();
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = self->_peers;
-    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v32 count:16];
+    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v31 count:16];
     if (v6)
     {
-      v8 = *v18;
+      v8 = *v17;
       *&v7 = 136316162;
-      v16 = v7;
+      v15 = v7;
       do
       {
         v9 = 0;
         do
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          connection = [*(*(&v17 + 1) + 8 * v9) connection];
+          connection = [*(*(&v16 + 1) + 8 * v9) connection];
           remoteObjectProxy = [connection remoteObjectProxy];
 
           if (!remoteObjectProxy)
@@ -1293,16 +1298,16 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
             v13 = GEOFindOrCreateLog();
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
-              *buf = v16;
-              v23 = "[MNNavigationServer _enumerateRemoteObjectsWithHandler:]";
-              v24 = 2080;
-              v25 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
-              v26 = 1024;
-              v27 = 162;
-              v28 = 2080;
-              v29 = "remoteObject != nil";
-              v30 = 2112;
-              v31 = v12;
+              *buf = v15;
+              v22 = "[MNNavigationServer _enumerateRemoteObjectsWithHandler:]";
+              v23 = 2080;
+              v24 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
+              v25 = 1024;
+              v26 = 162;
+              v27 = 2080;
+              v28 = "remoteObject != nil";
+              v29 = 2112;
+              v30 = v12;
               _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
             }
           }
@@ -1313,7 +1318,7 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
         }
 
         while (v6 != v9);
-        v14 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v32 count:16];
+        v14 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v31 count:16];
         v6 = v14;
       }
 
@@ -1322,8 +1327,6 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
 
     _geo_isolate_unlock();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_defaultsDidChange
@@ -1340,42 +1343,40 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
 
 - (void)_sendNavigationDetailsToPeer:(id)peer
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   connection = [peerCopy connection];
   remoteObjectProxy = [connection remoteObjectProxy];
 
   if (!remoteObjectProxy)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No remote object found on connection"];
-    v9 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No remote object found on connection"];
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v10 = 136316162;
-      *&v10[4] = "[MNNavigationServer _sendNavigationDetailsToPeer:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
-      v13 = 1024;
-      v14 = 139;
-      v15 = 2080;
-      v16 = "remoteObject != nil";
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v10, 0x30u);
+      *v9 = 136316162;
+      *&v9[4] = "[MNNavigationServer _sendNavigationDetailsToPeer:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServer.m";
+      v12 = 1024;
+      v13 = 139;
+      v14 = 2080;
+      v15 = "remoteObject != nil";
+      v16 = 2112;
+      v17 = v7;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v9, 0x30u);
     }
   }
 
-  *v10 = self->_sendNavigationDetailsIsolater;
+  *v9 = self->_sendNavigationDetailsIsolater;
   _geo_isolate_lock_data();
   [remoteObjectProxy navigationServiceProxy:0 didUpdateNavigationDetails:self->_details];
   _geo_isolate_unlock();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetDetails
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -1383,46 +1384,44 @@ void __41__MNNavigationServer__peerDidDisconnect___block_invoke_2(uint64_t a1)
     _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_INFO, "Resetting navigation details.", buf, 2u);
   }
 
-  sendNavigationDetailsIsolater = self->_sendNavigationDetailsIsolater;
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __35__MNNavigationServer__resetDetails__block_invoke;
-  v18 = &unk_1E8430ED8;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __35__MNNavigationServer__resetDetails__block_invoke;
+  v16 = &unk_1E8430ED8;
   selfCopy = self;
   geo_isolate_sync_data();
   *buf = self->_peersIsolater;
   _geo_isolate_lock_data();
-  v12 = 0u;
-  v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v5 = self->_peers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v20 count:16];
-  if (v6)
+  v8 = 0u;
+  v9 = 0u;
+  v4 = self->_peers;
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v8 objects:v18 count:16];
+  if (v5)
   {
-    v7 = *v11;
+    v6 = *v9;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        [(MNNavigationServer *)self _sendNavigationDetailsToPeer:*(*(&v10 + 1) + 8 * v8++), v10];
+        [(MNNavigationServer *)self _sendNavigationDetailsToPeer:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
-      while (v6 != v8);
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v20 count:16];
+      while (v5 != v7);
+      v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v8 objects:v18 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
   _geo_isolate_unlock();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __35__MNNavigationServer__resetDetails__block_invoke(uint64_t a1)

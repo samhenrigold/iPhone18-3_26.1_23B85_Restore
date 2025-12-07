@@ -33,27 +33,27 @@
 
 - (void)_setPropertiesFromParsedResponses:(id)responses
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = responses;
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v16 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v16)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        successfulPropertiesToValues = [*(*(&v18 + 1) + 8 * i) successfulPropertiesToValues];
+        successfulPropertiesToValues = [*(*(&v17 + 1) + 8 * i) successfulPropertiesToValues];
         v8 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"urn:ietf:params:xml:ns:carddav" andName:@"addressbook-home-set"];
         hrefsAsFullURLs = [v8 hrefsAsFullURLs];
         if ([hrefsAsFullURLs count])
@@ -82,17 +82,15 @@
         objc_storeStrong(&self->_directoryGatewayURLs, v13);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
-  v17.receiver = self;
-  v17.super_class = CardDAVGetAccountPropertiesTaskGroup;
-  [(CoreDAVGetAccountPropertiesTaskGroup *)&v17 _setPropertiesFromParsedResponses:obj];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = CardDAVGetAccountPropertiesTaskGroup;
+  [(CoreDAVGetAccountPropertiesTaskGroup *)&v16 _setPropertiesFromParsedResponses:obj];
 }
 
 @end

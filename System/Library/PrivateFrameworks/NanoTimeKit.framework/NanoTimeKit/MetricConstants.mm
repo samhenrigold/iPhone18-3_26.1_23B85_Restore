@@ -50,7 +50,7 @@ void ___MetricConstants_block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
   [objc_msgSend(objc_alloc(MEMORY[0x277CBBAF8]) initWithDevice:v2 identitySizeClass:{2), "scaledValue:", 20.0}];
-  _MetricConstants_constants = *&v3;
+  *_MetricConstants_constants = v3;
   unk_27DA2DBD0 = *&v3;
   *&qword_27DA2DBD8 = v3 * 0.5;
   qword_27DA2DBE0 = 0x3FF0000000000000;

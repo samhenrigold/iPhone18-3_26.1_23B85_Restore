@@ -6,7 +6,7 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (isiPad())
+  if (isiPad(self, a2))
   {
     return 30;
   }

@@ -2,6 +2,7 @@
 - (BOOL)isFormatChangeMapEmpty;
 - (BTAudioSmartRouteDevice)init;
 - (BTAudioSmartRouteDevice)initWithBluetoothInfo:(unsigned int)info deviceAddr:(id)addr;
+- (unsigned)updateFormatChangeMap:(unsigned int)map newformat:(unsigned int)newformat processID:(int)d;
 - (void)clearFormatChangeMap;
 - (void)dealloc;
 - (void)setOwnership:(int)ownership;
@@ -86,6 +87,101 @@
   }
 
   return [(NSMutableDictionary *)self->_mFormatDict count]== 0;
+}
+
+- (unsigned)updateFormatChangeMap:(unsigned int)map newformat:(unsigned int)newformat processID:(int)d
+{
+  if (self->_mFormatDict)
+  {
+    v5 = *&newformat;
+    if (map != 1 && newformat == 1)
+    {
+      v7 = [[NSString alloc] initWithFormat:@"%u", *&d];
+      v8 = [NSNumber numberWithUnsignedInt:1];
+      if (v7)
+      {
+        v9 = v8 == 0;
+      }
+
+      else
+      {
+        v9 = 1;
+      }
+
+      if (!v9)
+      {
+        [(NSMutableDictionary *)self->_mFormatDict setObject:v8 forKeyedSubscript:v7];
+
+        v10 = qword_D8520;
+        if (os_log_type_enabled(qword_D8520, OS_LOG_TYPE_DEFAULT))
+        {
+          mFormatDict = self->_mFormatDict;
+          LODWORD(buf) = 138412290;
+          *(&buf + 4) = mFormatDict;
+          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "kBluetoothAudioDevicePropertyFormat dict add %@", &buf, 0xCu);
+        }
+      }
+
+      return 2;
+    }
+
+    if (map == 1 && (newformat & 0xFFFFFFFD) == 0)
+    {
+      v20 = [[NSString alloc] initWithFormat:@"%u", *&d];
+      v21 = [NSNumber numberWithUnsignedInt:v5];
+      if (v20)
+      {
+        if (v21)
+        {
+          [(NSMutableDictionary *)self->_mFormatDict setObject:v21 forKeyedSubscript:v20];
+
+          v22 = qword_D8520;
+          if (os_log_type_enabled(qword_D8520, OS_LOG_TYPE_DEFAULT))
+          {
+            v23 = self->_mFormatDict;
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = v23;
+            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "kBluetoothAudioDevicePropertyFormat dict remove %@", &buf, 0xCu);
+          }
+        }
+      }
+
+      *&buf = 0;
+      *(&buf + 1) = &buf;
+      v30 = 0x2020000000;
+      v31 = 1;
+      v24 = self->_mFormatDict;
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_38360;
+      v28[3] = &unk_AFA88;
+      v28[4] = &buf;
+      [(NSMutableDictionary *)v24 enumerateKeysAndObjectsUsingBlock:v28];
+      v25 = *(*(&buf + 1) + 24);
+      _Block_object_dispose(&buf, 8);
+      return v25;
+    }
+  }
+
+  else
+  {
+    v12 = qword_D8520;
+    if (os_log_type_enabled(qword_D8520, OS_LOG_TYPE_ERROR))
+    {
+      sub_7C174(v12, v13, v14, v15, v16, v17, v18, v19);
+    }
+  }
+
+  v26 = qword_D8520;
+  if (!os_log_type_enabled(qword_D8520, OS_LOG_TYPE_DEFAULT))
+  {
+    return 2;
+  }
+
+  LOWORD(buf) = 0;
+  v25 = 2;
+  _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "kBluetoothAudioDevicePropertyFormat per process check ignore", &buf, 2u);
+  return v25;
 }
 
 - (void)setOwnership:(int)ownership

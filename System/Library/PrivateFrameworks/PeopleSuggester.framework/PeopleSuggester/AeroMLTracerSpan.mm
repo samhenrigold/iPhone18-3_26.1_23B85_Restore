@@ -25,7 +25,7 @@
 
 - (void)emitPETEvent
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69C5B48] = [MEMORY[0x1E69C5B48] sharedInstance];
   spanEvent = [(AeroMLTracerSpan *)self spanEvent];
   traceSession = [(AeroMLTracerSpan *)self traceSession];
@@ -37,7 +37,7 @@
   {
     spanEvent2 = [(AeroMLTracerSpan *)self spanEvent];
     *buf = 138412290;
-    v19 = spanEvent2;
+    v18 = spanEvent2;
     _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "emitted PET message with spanEvent: %@", buf, 0xCu);
   }
 
@@ -57,21 +57,18 @@
   block[1] = 3221225472;
   block[2] = __32__AeroMLTracerSpan_emitPETEvent__block_invoke_2;
   block[3] = &unk_1E7C24268;
-  v17 = v13;
+  v16 = v13;
   v14 = v13;
   dispatch_async(v10, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)end
 {
-  v10 = *MEMORY[0x1E69E9840];
   spanEvent = [self spanEvent];
   spanId = [spanEvent spanId];
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v3, v4, "Try to end the span which is already ended: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = spanId;
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v3, v4, "Try to end the span which is already ended: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (unsigned)getMonotonicTimeInMilliseconds
@@ -94,7 +91,7 @@
 
 - (void)start
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [(AeroMLTracerSpan *)self logSchedulingInformation];
   traceSession = [(AeroMLTracerSpan *)self traceSession];
   traceSignpost = [traceSession traceSignpost];
@@ -121,13 +118,13 @@
       traceId = [spanEvent3 traceId];
       spanEvent4 = [(AeroMLTracerSpan *)self spanEvent];
       name = [spanEvent4 name];
-      v25 = 138543618;
-      v26 = traceId;
-      v27 = 2114;
-      v28 = name;
+      v24 = 138543618;
+      v25 = traceId;
+      v26 = 2114;
+      v27 = name;
       v18 = "RootSpanEvent";
 LABEL_8:
-      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost2, OS_SIGNPOST_INTERVAL_BEGIN, v13, v18, " TraceId=%{signpost.telemetry:string1,public}@  SpanName=%{signpost.telemetry:string2,public}@ ", &v25, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost2, OS_SIGNPOST_INTERVAL_BEGIN, v13, v18, " TraceId=%{signpost.telemetry:string1,public}@  SpanName=%{signpost.telemetry:string2,public}@ ", &v24, 0x16u);
     }
   }
 
@@ -137,10 +134,10 @@ LABEL_8:
     traceId = [spanEvent3 traceId];
     spanEvent4 = [(AeroMLTracerSpan *)self spanEvent];
     name = [spanEvent4 name];
-    v25 = 138543618;
-    v26 = traceId;
-    v27 = 2114;
-    v28 = name;
+    v24 = 138543618;
+    v25 = traceId;
+    v26 = 2114;
+    v27 = name;
     v18 = "SubSpanEvent";
     goto LABEL_8;
   }
@@ -155,12 +152,10 @@ LABEL_8:
   {
     spanEvent6 = [(AeroMLTracerSpan *)self spanEvent];
     name2 = [spanEvent6 name];
-    v25 = 138412290;
-    v26 = name2;
-    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "start span with spanEvent: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = name2;
+    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "start span with spanEvent: %@", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logSchedulingInformation
@@ -262,7 +257,7 @@ LABEL_8:
 
 - (void)logInfoEventWithName:(id)name details:(id)details attributes:(id)attributes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   detailsCopy = details;
   v10 = [(AeroMLTracerSpan *)self createSubEventWithName:nameCopy details:detailsCopy attributes:attributes];
@@ -276,15 +271,15 @@ LABEL_8:
     traceId = [spanEvent traceId];
     attributes = [v10 attributes];
     v16 = [(AeroMLTracerSpan *)self serializeAttributes:attributes];
-    v21 = 138544130;
-    v22 = traceId;
-    v23 = 2114;
-    v24 = nameCopy;
-    v25 = 2114;
-    v26 = detailsCopy;
-    v27 = 2114;
-    v28 = v16;
-    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InfoEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = traceId;
+    v22 = 2114;
+    v23 = nameCopy;
+    v24 = 2114;
+    v25 = detailsCopy;
+    v26 = 2114;
+    v27 = v16;
+    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InfoEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v20, 0x2Au);
   }
 
   spanEvent2 = [(AeroMLTracerSpan *)self spanEvent];
@@ -294,17 +289,15 @@ LABEL_8:
   if (os_log_type_enabled(traceChannel, OS_LOG_TYPE_INFO))
   {
     spanEvent3 = [(AeroMLTracerSpan *)self spanEvent];
-    v21 = 138412290;
-    v22 = spanEvent3;
-    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log info event with spanEvent: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = spanEvent3;
+    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log info event with spanEvent: %@", &v20, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logErrorEventWithName:(id)name details:(id)details attributes:(id)attributes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   detailsCopy = details;
   v10 = [(AeroMLTracerSpan *)self createSubEventWithName:nameCopy details:detailsCopy attributes:attributes];
@@ -318,15 +311,15 @@ LABEL_8:
     traceId = [spanEvent traceId];
     attributes = [v10 attributes];
     v16 = [(AeroMLTracerSpan *)self serializeAttributes:attributes];
-    v21 = 138544130;
-    v22 = traceId;
-    v23 = 2114;
-    v24 = nameCopy;
-    v25 = 2114;
-    v26 = detailsCopy;
-    v27 = 2114;
-    v28 = v16;
-    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ErrorEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = traceId;
+    v22 = 2114;
+    v23 = nameCopy;
+    v24 = 2114;
+    v25 = detailsCopy;
+    v26 = 2114;
+    v27 = v16;
+    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ErrorEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v20, 0x2Au);
   }
 
   spanEvent2 = [(AeroMLTracerSpan *)self spanEvent];
@@ -336,17 +329,15 @@ LABEL_8:
   if (os_log_type_enabled(traceChannel, OS_LOG_TYPE_INFO))
   {
     spanEvent3 = [(AeroMLTracerSpan *)self spanEvent];
-    v21 = 138412290;
-    v22 = spanEvent3;
-    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log error event with spanEvent: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = spanEvent3;
+    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log error event with spanEvent: %@", &v20, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logDebugEventWithName:(id)name details:(id)details attributes:(id)attributes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   detailsCopy = details;
   v10 = [(AeroMLTracerSpan *)self createSubEventWithName:nameCopy details:detailsCopy attributes:attributes];
@@ -360,15 +351,15 @@ LABEL_8:
     traceId = [spanEvent traceId];
     attributes = [v10 attributes];
     v16 = [(AeroMLTracerSpan *)self serializeAttributes:attributes];
-    v21 = 138544130;
-    v22 = traceId;
-    v23 = 2114;
-    v24 = nameCopy;
-    v25 = 2114;
-    v26 = detailsCopy;
-    v27 = 2114;
-    v28 = v16;
-    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DebugEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = traceId;
+    v22 = 2114;
+    v23 = nameCopy;
+    v24 = 2114;
+    v25 = detailsCopy;
+    v26 = 2114;
+    v27 = v16;
+    _os_signpost_emit_with_name_impl(&dword_1B5ED1000, traceSignpost, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DebugEvent", " TraceId=%{signpost.telemetry:string1,public}@  EventName=%{signpost.telemetry:string2,public}@  EventDetails=%{public, signpost.description:attribute}@  Attributes=%{public}@ ", &v20, 0x2Au);
   }
 
   spanEvent2 = [(AeroMLTracerSpan *)self spanEvent];
@@ -378,12 +369,10 @@ LABEL_8:
   if (os_log_type_enabled(traceChannel, OS_LOG_TYPE_INFO))
   {
     spanEvent3 = [(AeroMLTracerSpan *)self spanEvent];
-    v21 = 138412290;
-    v22 = spanEvent3;
-    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log debug event with spanEvent: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = spanEvent3;
+    _os_log_impl(&dword_1B5ED1000, traceChannel, OS_LOG_TYPE_INFO, "log debug event with spanEvent: %@", &v20, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTrialDeploymentId:(id)id trialExperimentId:(id)experimentId trialTreatmentId:(id)treatmentId
@@ -416,28 +405,28 @@ LABEL_8:
 
 - (void)addAttributes:(id)attributes
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [attributesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [attributesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         v10 = objc_opt_new();
         [v10 setName:v9];
         v11 = [attributesCopy objectForKeyedSubscript:v9];
@@ -450,13 +439,11 @@ LABEL_8:
       }
 
       while (v6 != v8);
-      v6 = [attributesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [attributesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logInfoMessageWithCA:(id)a
@@ -468,29 +455,27 @@ LABEL_8:
 
 id __41__AeroMLTracerSpan_logInfoMessageWithCA___block_invoke(uint64_t a1)
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14[0] = @"TraceId";
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13[0] = @"TraceId";
   v2 = [*(a1 + 32) spanEvent];
   v3 = [v2 traceId];
-  v15[0] = v3;
-  v14[1] = @"SpanId";
+  v14[0] = v3;
+  v13[1] = @"SpanId";
   v4 = [*(a1 + 32) spanEvent];
   v5 = [v4 spanId];
-  v15[1] = v5;
-  v14[2] = @"projectName";
+  v14[1] = v5;
+  v13[2] = @"projectName";
   v6 = [*(a1 + 32) spanEvent];
   v7 = [v6 projectName];
-  v15[2] = v7;
-  v14[3] = @"processName";
+  v14[2] = v7;
+  v13[3] = @"processName";
   v8 = [*(a1 + 32) spanEvent];
   v9 = [v8 processName];
-  v14[4] = @"infoMessage";
+  v13[4] = @"infoMessage";
   v10 = *(a1 + 40);
-  v15[3] = v9;
-  v15[4] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[3] = v9;
+  v14[4] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   return v11;
 }
@@ -504,29 +489,27 @@ id __41__AeroMLTracerSpan_logInfoMessageWithCA___block_invoke(uint64_t a1)
 
 id __42__AeroMLTracerSpan_logErrorMessageWithCA___block_invoke(uint64_t a1)
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14[0] = @"TraceId";
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13[0] = @"TraceId";
   v2 = [*(a1 + 32) spanEvent];
   v3 = [v2 traceId];
-  v15[0] = v3;
-  v14[1] = @"SpanId";
+  v14[0] = v3;
+  v13[1] = @"SpanId";
   v4 = [*(a1 + 32) spanEvent];
   v5 = [v4 spanId];
-  v15[1] = v5;
-  v14[2] = @"projectName";
+  v14[1] = v5;
+  v13[2] = @"projectName";
   v6 = [*(a1 + 32) spanEvent];
   v7 = [v6 projectName];
-  v15[2] = v7;
-  v14[3] = @"processName";
+  v14[2] = v7;
+  v13[3] = @"processName";
   v8 = [*(a1 + 32) spanEvent];
   v9 = [v8 processName];
-  v14[4] = @"errorMessage";
+  v13[4] = @"errorMessage";
   v10 = *(a1 + 40);
-  v15[3] = v9;
-  v15[4] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[3] = v9;
+  v14[4] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   return v11;
 }
@@ -574,77 +557,75 @@ void __32__AeroMLTracerSpan_emitPETEvent__block_invoke_3()
 
 - (id)createSubEventWithName:(id)name details:(id)details attributes:(id)attributes
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   detailsCopy = details;
   attributesCopy = attributes;
   v10 = objc_opt_new();
   [v10 setName:nameCopy];
   [v10 setDetails:detailsCopy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = attributesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         v17 = objc_opt_new();
-        [v17 setName:{v16, v21}];
+        [v17 setName:{v16, v20}];
         v18 = [v11 objectForKeyedSubscript:v16];
         [v17 setStringValue:v18];
 
         [v10 addAttributes:v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)serializeAttributes:(id)attributes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   string = [MEMORY[0x1E696AD60] string];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = attributesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         name = [v10 name];
         if (name)
         {
@@ -655,18 +636,16 @@ void __32__AeroMLTracerSpan_emitPETEvent__block_invoke_3()
           {
             name2 = [v10 name];
             stringValue2 = [v10 stringValue];
-            [string appendFormat:@" %@:%@, ", name2, stringValue2, v18];
+            [string appendFormat:@" %@:%@, ", name2, stringValue2, v17];
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -689,11 +668,10 @@ void __32__AeroMLTracerSpan_emitPETEvent__block_invoke_3()
 
 - (void)addDeviceIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "log device identifer: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "log device identifer: %@", &v2, 0xCu);
 }
 
 @end

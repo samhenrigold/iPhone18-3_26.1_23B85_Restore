@@ -1014,7 +1014,7 @@ void __30__JFXCompositionPlayer_pause___block_invoke(uint64_t a1, void *a2)
   v6 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -1100,7 +1100,7 @@ void __70__JFXCompositionPlayer_seek_cancelQueuedRequest_tolerance_completion___
     v9 = v8;
     if (v8)
     {
-      [v8 duration];
+      objc_msgSend_duration(v8);
     }
 
     else
@@ -1117,7 +1117,7 @@ void __70__JFXCompositionPlayer_seek_cancelQueuedRequest_tolerance_completion___
       v12 = v11;
       if (v11)
       {
-        [v11 duration];
+        objc_msgSend_duration(v11);
       }
 
       else
@@ -1374,7 +1374,7 @@ LABEL_6:
       v14 = player2;
       if (player2)
       {
-        [player2 currentTime];
+        objc_msgSend_currentTime(player2);
       }
 
       else
@@ -1404,7 +1404,7 @@ LABEL_6:
       }
     }
 
-    [(JFXCompositionPlayer *)self wasCurrentTime];
+    objc_msgSend_wasCurrentTime(self);
     buf = location[1];
     [(JFXCompositionPlayer *)self setCachedCurrentTimeForCompositionUpdate:&buf];
     playerView = [(JFXCompositionPlayer *)self playerView];
@@ -1465,7 +1465,7 @@ LABEL_6:
     v53 = composition7;
     if (composition7)
     {
-      [composition7 duration];
+      objc_msgSend_duration(composition7);
     }
 
     else
@@ -1622,7 +1622,7 @@ void __43__JFXCompositionPlayer_doUpdateComposition__block_invoke_2(uint64_t a1)
       v18 = composition;
       if (composition)
       {
-        [composition duration];
+        objc_msgSend_duration(composition);
       }
 
       else
@@ -1630,7 +1630,7 @@ void __43__JFXCompositionPlayer_doUpdateComposition__block_invoke_2(uint64_t a1)
         memset(&v36, 0, sizeof(v36));
       }
 
-      [(JFXCompositionPlayer *)self wasCurrentTime];
+      objc_msgSend_wasCurrentTime(self);
       time2 = v36;
       CMTimeMinimum(&buf, &time1, &time2);
       clipsDataSource = [(JFXCompositionPlayer *)self clipsDataSource];
@@ -1693,7 +1693,7 @@ void __76__JFXCompositionPlayer_handleUpdateCompositionCompleted_wasCancelled_er
     v6 = v5;
     if (v5)
     {
-      [v5 currentTime];
+      objc_msgSend_currentTime(v5);
     }
 
     else
@@ -1729,7 +1729,7 @@ void __76__JFXCompositionPlayer_handleUpdateCompositionCompleted_wasCancelled_er
     v6 = v5;
     if (v5)
     {
-      [v5 currentTime];
+      objc_msgSend_currentTime(v5);
     }
 
     else
@@ -1837,7 +1837,7 @@ void __60__JFXCompositionPlayer_updateCompositionForClip_completion___block_invo
   v12 = player2;
   if (player2)
   {
-    [player2 currentTime];
+    objc_msgSend_currentTime(player2);
   }
 
   else
@@ -2120,7 +2120,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
   v6 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -2130,7 +2130,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
     retstr->var3 = 0;
   }
 
-  [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+  objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
   v14 = **&MEMORY[0x277CC08F0];
   result = CMTimeCompare(&time1, &v14);
   if (result)
@@ -2147,7 +2147,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         displayName = [(JFXCompositionPlayer *)self displayName];
-        [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+        objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
         v13 = FrameTimeFromCMTime(&time1, timeScale);
         LODWORD(time1.value) = 138412802;
         *(&time1.value + 4) = displayName;
@@ -2158,7 +2158,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
         _os_log_debug_impl(&dword_242A3B000, v11, OS_LOG_TYPE_DEBUG, "player %@ using cached current time at %d and player time is %d", &time1, 0x18u);
       }
 
-      result = [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+      result = objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
       *retstr = time1;
     }
   }
@@ -2174,7 +2174,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
   v4 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -2187,7 +2187,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
 
   time1 = v13;
   v7 = FrameTimeFromCMTime(&time1, timeScale);
-  [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+  objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
   v12 = **&MEMORY[0x277CC08F0];
   if (CMTimeCompare(&time1, &v12) && v7 <= 1)
   {
@@ -2195,7 +2195,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       displayName = [(JFXCompositionPlayer *)self displayName];
-      [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+      objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
       v11 = FrameTimeFromCMTime(&time1, timeScale);
       LODWORD(time1.value) = 138412802;
       *(&time1.value + 4) = displayName;
@@ -2206,7 +2206,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
       _os_log_debug_impl(&dword_242A3B000, v8, OS_LOG_TYPE_DEBUG, "player %@ using cached current time at %d and player time is %d", &time1, 0x18u);
     }
 
-    [(JFXCompositionPlayer *)self cachedCurrentTimeForCompositionUpdate];
+    objc_msgSend_cachedCurrentTimeForCompositionUpdate(self);
     return FrameTimeFromCMTime(&time1, timeScale);
   }
 
@@ -2219,7 +2219,7 @@ void __58__JFXCompositionPlayer_configureCompositorCompletionBlock__block_invoke
   v4 = composition;
   if (composition)
   {
-    [composition duration];
+    objc_msgSend_duration(composition);
   }
 
   else
@@ -2563,7 +2563,7 @@ void __36__JFXCompositionPlayer_createPlayer__block_invoke(uint64_t a1, __int128
     frameRate = [clipsDataSource frameRate];
 
     player = self->_player;
-    [(JFXCompositionPlayer *)self playbackTimeChangedObserverInterval];
+    objc_msgSend_playbackTimeChangedObserverInterval(self);
     v11 = MEMORY[0x277D85CD0];
     v12 = MEMORY[0x277D85CD0];
     v14 = MEMORY[0x277D85DD0];
@@ -2620,7 +2620,7 @@ LABEL_2:
   v4 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else

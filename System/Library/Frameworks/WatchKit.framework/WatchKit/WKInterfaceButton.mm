@@ -3,6 +3,7 @@
 - (void)setBackgroundColor:(id)color;
 - (void)setBackgroundImageData:(id)data;
 - (void)setBackgroundImageNamed:(id)named;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setTitle:(id)title;
 @end
 
@@ -36,6 +37,12 @@
 {
   v4 = [named copy];
   [(WKInterfaceObject *)self _setImageNamed:v4 forProperty:@"image"];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(WKInterfaceObject *)self _sendValueChanged:v4 forProperty:@"enabled"];
 }
 
 @end

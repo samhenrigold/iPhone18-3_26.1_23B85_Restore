@@ -198,33 +198,33 @@ uint64_t __59__NTItemAggregationResult_sectionOverheadSlotCostWithInfo___block_i
 
 - (unint64_t)itemCount
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   aggregatedItemsBySectionDescriptor = [(NTItemAggregationResult *)self aggregatedItemsBySectionDescriptor];
   allValues = [aggregatedItemsBySectionDescriptor allValues];
 
-  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) count];
+        v6 += [*(*(&v10 + 1) + 8 * i) count];
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -235,32 +235,25 @@ uint64_t __59__NTItemAggregationResult_sectionOverheadSlotCostWithInfo___block_i
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)initWithAggregatedItemsBySectionDescriptor:unusedSectionDescriptors:debugInspectionsBySectionDescriptor:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "aggregatedItemsBySectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "aggregatedItemsBySectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithAggregatedItemsBySectionDescriptor:unusedSectionDescriptors:debugInspectionsBySectionDescriptor:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "unusedSectionDescriptors"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "unusedSectionDescriptors", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

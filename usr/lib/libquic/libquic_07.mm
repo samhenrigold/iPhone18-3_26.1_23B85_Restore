@@ -7,7 +7,7 @@ BOOL __quic_recovery_find_lost_packets_block_invoke(uint64_t a1, uint64_t a2)
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v6 = _os_log_pack_size();
-      v7 = v19 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = v19 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v8 = _os_log_pack_fill();
       *v8 = 136446210;
@@ -32,7 +32,7 @@ BOOL __quic_recovery_find_lost_packets_block_invoke(uint64_t a1, uint64_t a2)
     if (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || (v11 = *(v2 + 24), v12 = os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG), v4 = v11, v13 = v12, a1 = v10, v13))
     {
       v14 = _os_log_pack_size();
-      v15 = v19 - ((MEMORY[0x1EEE9AC00](v14, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = v19 - ((MEMORY[0x1EEE9AC00](v14) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v16 = _os_log_pack_fill();
       if (*(v10 + 56) - 1 > 2)
@@ -126,7 +126,7 @@ LABEL_22:
       v64 = v13;
       v42 = _os_log_pack_size();
       v57[1] = v57;
-      v43 = v57 - ((MEMORY[0x1EEE9AC00](v42, v42) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v43 = v57 - ((MEMORY[0x1EEE9AC00](v42) + 15) & 0xFFFFFFFFFFFFFFF0);
       v44 = _os_log_pack_fill();
       v45 = "???";
       if (v60 <= 2)
@@ -193,7 +193,7 @@ LABEL_22:
         v64 = v23;
         v37 = a4;
         v38 = v13;
-        v39 = v57 - ((MEMORY[0x1EEE9AC00](v36, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v39 = v57 - ((MEMORY[0x1EEE9AC00](v36) + 15) & 0xFFFFFFFFFFFFFFF0);
         v40 = _os_log_pack_fill();
         *v40 = v62.n128_u32[0];
         *(v40 + 4) = "quic_recovery_find_lost_packet_inner";
@@ -239,7 +239,7 @@ LABEL_22:
     if ((qlog_debug_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v51 = _os_log_pack_size();
-      v52 = v57 - ((MEMORY[0x1EEE9AC00](v51, v51) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v52 = v57 - ((MEMORY[0x1EEE9AC00](v51) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v53 = _os_log_pack_fill();
       *v53 = 136446210;
@@ -267,7 +267,7 @@ LABEL_22:
       if (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG))
       {
         v25 = _os_log_pack_size();
-        v26 = v57 - ((MEMORY[0x1EEE9AC00](v25, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v26 = v57 - ((MEMORY[0x1EEE9AC00](v25) + 15) & 0xFFFFFFFFFFFFFFF0);
         v27 = _os_log_pack_fill();
         v28 = *(a2 + 64);
         *v27 = v58.n128_u32[0];
@@ -293,7 +293,7 @@ LABEL_45:
   if (((v14[41] & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v54 = _os_log_pack_size();
-    v55 = v57 - ((MEMORY[0x1EEE9AC00](v54, v54) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v55 = v57 - ((MEMORY[0x1EEE9AC00](v54) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v56 = _os_log_pack_fill();
     *v56 = v58.n128_u32[0];
@@ -340,7 +340,7 @@ BOOL __quic_recovery_find_lost_packet_inner_block_invoke(uint64_t a1, uint64_t a
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v11 = _os_log_pack_size();
-    v12 = v14 - ((MEMORY[0x1EEE9AC00](v11, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = v14 - ((MEMORY[0x1EEE9AC00](v11) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v13 = _os_log_pack_fill();
     *v13 = 136446210;
@@ -362,7 +362,7 @@ void quic_recovery_declare_packets_lost(uint64_t a1, void *a2, uint64_t *a3, __n
     }
 
     v39 = _os_log_pack_size();
-    v40 = v47 - ((MEMORY[0x1EEE9AC00](v39, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v40 = v47 - ((MEMORY[0x1EEE9AC00](v39) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v41 = _os_log_pack_fill();
     *v41 = 136446210;
@@ -383,7 +383,7 @@ LABEL_59:
     }
 
     v44 = _os_log_pack_size();
-    v45 = v47 - ((MEMORY[0x1EEE9AC00](v44, v44) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v45 = v47 - ((MEMORY[0x1EEE9AC00](v44) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v46 = _os_log_pack_fill();
     *v46 = 136446210;
@@ -438,7 +438,7 @@ LABEL_15:
       {
         v22 = _os_log_pack_size();
         v47[1] = v47;
-        v23 = v47 - ((MEMORY[0x1EEE9AC00](v22, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v23 = v47 - ((MEMORY[0x1EEE9AC00](v22) + 15) & 0xFFFFFFFFFFFFFFF0);
         v24 = _os_log_pack_fill();
         v25 = *(v14 + 144);
         *v24 = v50.n128_u32[0];
@@ -601,7 +601,7 @@ void quic_recovery_notify_loss_to_path(void *a1, uint64_t *a2, uint64_t a3, uint
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v20 = _os_log_pack_size();
-    v21 = v36 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = v36 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v22 = _os_log_pack_fill();
     v23 = a1[4];
@@ -628,7 +628,7 @@ void quic_recovery_notify_loss_to_path(void *a1, uint64_t *a2, uint64_t a3, uint
     if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
     {
       v25 = _os_log_pack_size();
-      v26 = v36 - ((MEMORY[0x1EEE9AC00](v25, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = v36 - ((MEMORY[0x1EEE9AC00](v25) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v27 = _os_log_pack_fill();
       v28 = *(a4 + 112);
@@ -663,7 +663,7 @@ void quic_recovery_notify_loss_to_path(void *a1, uint64_t *a2, uint64_t a3, uint
       if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
       {
         v29 = _os_log_pack_size();
-        v30 = v36 - ((MEMORY[0x1EEE9AC00](v29, v29) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v30 = v36 - ((MEMORY[0x1EEE9AC00](v29) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v31 = _os_log_pack_fill();
         *v31 = 136446466;
@@ -677,7 +677,7 @@ void quic_recovery_notify_loss_to_path(void *a1, uint64_t *a2, uint64_t a3, uint
       if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
       {
         v32 = _os_log_pack_size();
-        v33 = v36 - ((MEMORY[0x1EEE9AC00](v32, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v33 = v36 - ((MEMORY[0x1EEE9AC00](v32) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v34 = _os_log_pack_fill();
         cwnd = quic_cc_get_cwnd(a2[33]);
@@ -726,7 +726,7 @@ void quic_recovery_path_state_reset(uint64_t a1, uint64_t a2)
     }
 
     v10 = _os_log_pack_size();
-    v11 = v21 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = v21 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v12 = _os_log_pack_fill();
     *v12 = 136446210;
@@ -747,7 +747,7 @@ LABEL_24:
     }
 
     v15 = _os_log_pack_size();
-    v16 = v21 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = v21 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v17 = _os_log_pack_fill();
     *v17 = 136446210;
@@ -766,7 +766,7 @@ LABEL_24:
     }
 
     v18 = _os_log_pack_size();
-    v19 = v21 - ((MEMORY[0x1EEE9AC00](v18, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = v21 - ((MEMORY[0x1EEE9AC00](v18) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v20 = _os_log_pack_fill();
     *v20 = 136446210;
@@ -779,7 +779,7 @@ LABEL_24:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG))
   {
     v6 = _os_log_pack_size();
-    v7 = v21 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v21 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v8 = _os_log_pack_fill();
     *v8 = 136446466;
@@ -810,7 +810,7 @@ uint64_t quic_recovery_get_largest_acked_sent_time(uint64_t a1, char a2, uint64_
     }
 
     v5 = _os_log_pack_size();
-    v6 = v16 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v16 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v7 = _os_log_pack_fill();
     *v7 = 136446210;
@@ -828,7 +828,7 @@ uint64_t quic_recovery_get_largest_acked_sent_time(uint64_t a1, char a2, uint64_
     }
 
     v10 = _os_log_pack_size();
-    v11 = v16 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = v16 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v12 = _os_log_pack_fill();
     *v12 = 136446210;
@@ -847,7 +847,7 @@ uint64_t quic_recovery_get_largest_acked_sent_time(uint64_t a1, char a2, uint64_
     }
 
     v13 = _os_log_pack_size();
-    v14 = v16 - ((MEMORY[0x1EEE9AC00](v13, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = v16 - ((MEMORY[0x1EEE9AC00](v13) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v15 = _os_log_pack_fill();
     *v15 = 136446210;
@@ -873,7 +873,7 @@ uint64_t quic_recovery_get_ack_eliciting_in_flight(uint64_t a1)
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -895,7 +895,7 @@ uint64_t quic_recovery_get_pto_period(uint64_t a1, uint64_t a2)
     }
 
     v4 = _os_log_pack_size();
-    v5 = v15 - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v5 = v15 - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v6 = _os_log_pack_fill();
     *v6 = 136446210;
@@ -913,7 +913,7 @@ uint64_t quic_recovery_get_pto_period(uint64_t a1, uint64_t a2)
     }
 
     v9 = _os_log_pack_size();
-    v10 = v15 - ((MEMORY[0x1EEE9AC00](v9, v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = v15 - ((MEMORY[0x1EEE9AC00](v9) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v11 = _os_log_pack_fill();
     *v11 = 136446210;
@@ -932,7 +932,7 @@ uint64_t quic_recovery_get_pto_period(uint64_t a1, uint64_t a2)
     }
 
     v12 = _os_log_pack_size();
-    v13 = v15 - ((MEMORY[0x1EEE9AC00](v12, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = v15 - ((MEMORY[0x1EEE9AC00](v12) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v14 = _os_log_pack_fill();
     *v14 = 136446210;
@@ -955,7 +955,7 @@ void quic_spurious_loss(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, un
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v20 = _os_log_pack_size();
-      v21 = v33 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = v33 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v22 = _os_log_pack_fill();
       *v22 = 136446210;
@@ -995,7 +995,7 @@ LABEL_35:
             {
               v16 = _os_log_pack_size();
               v33[1] = v33;
-              v17 = v33 - ((MEMORY[0x1EEE9AC00](v16, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+              v17 = v33 - ((MEMORY[0x1EEE9AC00](v16) + 15) & 0xFFFFFFFFFFFFFFF0);
               v18 = _os_log_pack_fill();
               v8 = v34;
               v19 = *(v34 + 97);
@@ -1052,7 +1052,7 @@ LABEL_35:
           {
             v28 = a1;
             v29 = _os_log_pack_size();
-            v30 = v33 - ((MEMORY[0x1EEE9AC00](v29, v29) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v30 = v33 - ((MEMORY[0x1EEE9AC00](v29) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v31 = _os_log_pack_fill();
             v32 = *(v28 + 96);
@@ -1154,10 +1154,10 @@ uint64_t __quic_migration_evaluate_server_block_invoke_39(uint64_t a1, uint64_t 
   return 1;
 }
 
-void quic_migration_migrate(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
+void quic_migration_migrate(uint64_t *a1, void *a2, uint64_t a3, int a4)
 {
   v93 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 1112);
+  v4 = a2[139];
   if (v4 != a3)
   {
     if (qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled)
@@ -1169,16 +1169,16 @@ LABEL_34:
         if ((*(a1 + 49) & 0x200) != 0)
         {
           *(a3 + 386) |= 2u;
-          if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && *(a2 + 1112))
+          if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && a2[139])
           {
             LODWORD(v86) = a4;
             v87 = a1;
             v31 = _os_log_pack_size();
             v85 = &v83;
-            v32 = &v83 - ((MEMORY[0x1EEE9AC00](v31, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v32 = &v83 - ((MEMORY[0x1EEE9AC00](v31) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v33 = _os_log_pack_fill();
-            v34 = *(a2 + 1112);
+            v34 = a2[139];
             if (quic_cid_describe_state % 3 == 2)
             {
               v35 = &quic_cid_describe_cid_buf2;
@@ -1203,7 +1203,7 @@ LABEL_34:
             v38 = *(v34 + 38);
             v39 = 0uLL;
             *(v36 + 25) = 0u;
-            v84 = a2 + 976;
+            v84 = a2 + 122;
             *v36 = 0u;
             v36[1] = 0u;
             if (v38)
@@ -1231,7 +1231,7 @@ LABEL_34:
               v39 = 0uLL;
             }
 
-            v43 = *(a2 + 1112);
+            v43 = a2[139];
             v44 = v37 % 3;
             if (v37 % 3 == 2)
             {
@@ -1307,7 +1307,7 @@ LABEL_34:
           if (a2)
           {
             *(a2 + 602) = 0;
-            v51 = *(a2 + 1360);
+            v51 = a2[170];
             while (v51)
             {
               v76 = *(v51 + 216);
@@ -1319,7 +1319,7 @@ LABEL_34:
               v51 = v76;
               if (*(a2 + 602) == 1)
               {
-                v51 = *(a2 + 1360);
+                v51 = a2[170];
                 *(a2 + 602) = 0;
               }
             }
@@ -1328,7 +1328,7 @@ LABEL_34:
           else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
           {
             v80 = _os_log_pack_size();
-            v81 = &v83 - ((MEMORY[0x1EEE9AC00](v80, v80) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v81 = &v83 - ((MEMORY[0x1EEE9AC00](v80) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v82 = _os_log_pack_fill();
             *v82 = 136446210;
@@ -1370,14 +1370,14 @@ LABEL_34:
         if ((v55 & 0x200) != 0 && (*(a1 + 49) & 0x400) != 0)
         {
           *(a1 + 49) &= ~0x400u;
-          if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO)) && *(a2 + 1112))
+          if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO)) && a2[139])
           {
             v56 = _os_log_pack_size();
             v87 = &v83;
-            v57 = &v83 - ((MEMORY[0x1EEE9AC00](v56, v56) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v57 = &v83 - ((MEMORY[0x1EEE9AC00](v56) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v58 = _os_log_pack_fill();
-            v59 = *(a2 + 1112);
+            v59 = a2[139];
             if (quic_cid_describe_state % 3 == 2)
             {
               v60 = &quic_cid_describe_cid_buf2;
@@ -1402,7 +1402,7 @@ LABEL_34:
             v63 = *(v59 + 38);
             v64 = 0uLL;
             *(v61 + 25) = 0u;
-            v86 = a2 + 976;
+            v86 = a2 + 122;
             *v61 = 0u;
             v61[1] = 0u;
             if (v63)
@@ -1430,7 +1430,7 @@ LABEL_34:
               v64 = 0uLL;
             }
 
-            v68 = *(a2 + 1112);
+            v68 = a2[139];
             v69 = v62 % 3;
             if (v62 % 3 == 2)
             {
@@ -1511,10 +1511,10 @@ LABEL_34:
     v87 = a1;
     v10 = _os_log_pack_size();
     v85 = &v83;
-    v11 = &v83 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = &v83 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v12 = _os_log_pack_fill();
-    v13 = *(a2 + 1112);
+    v13 = a2[139];
     if (quic_cid_describe_state % 3 == 2)
     {
       v14 = &quic_cid_describe_cid_buf2;
@@ -1539,7 +1539,7 @@ LABEL_34:
     v17 = *(v13 + 38);
     v18 = 0uLL;
     *(v15 + 25) = 0u;
-    v84 = a2 + 976;
+    v84 = a2 + 122;
     *v15 = 0u;
     v15[1] = 0u;
     if (v17)
@@ -1567,7 +1567,7 @@ LABEL_34:
       v18 = 0uLL;
     }
 
-    v22 = *(a2 + 1112);
+    v22 = a2[139];
     v23 = v16 % 3;
     if (v16 % 3 == 2)
     {
@@ -1636,7 +1636,7 @@ LABEL_34:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v77 = _os_log_pack_size();
-    v78 = &v83 - ((MEMORY[0x1EEE9AC00](v77, v77) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v78 = &v83 - ((MEMORY[0x1EEE9AC00](v77) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v79 = _os_log_pack_fill();
     *v79 = 136446210;
@@ -1680,7 +1680,7 @@ void quic_migration_establish_paths_with_priority(uint64_t a1, uint64_t a2, char
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v8 = _os_log_pack_size();
-    v9 = v11 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = v11 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v10 = _os_log_pack_fill();
     *v10 = 136446210;
@@ -1737,7 +1737,7 @@ void quic_migration_tear_down_path(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     v26 = _os_log_pack_size();
-    v27 = &v37 - ((MEMORY[0x1EEE9AC00](v26, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = &v37 - ((MEMORY[0x1EEE9AC00](v26) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v28 = _os_log_pack_fill();
     *v28 = 136446210;
@@ -1757,7 +1757,7 @@ LABEL_49:
     }
 
     v31 = _os_log_pack_size();
-    v32 = &v37 - ((MEMORY[0x1EEE9AC00](v31, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v32 = &v37 - ((MEMORY[0x1EEE9AC00](v31) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v33 = _os_log_pack_fill();
     *v33 = 136446210;
@@ -1780,7 +1780,7 @@ LABEL_49:
     }
 
     v34 = _os_log_pack_size();
-    v35 = &v37 - ((MEMORY[0x1EEE9AC00](v34, v34) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v35 = &v37 - ((MEMORY[0x1EEE9AC00](v34) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v36 = _os_log_pack_fill();
     *v36 = 136446210;
@@ -1794,7 +1794,7 @@ LABEL_49:
   {
     v5 = _os_log_pack_size();
     v39 = &v37;
-    v6 = &v37 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = &v37 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v7 = _os_log_pack_fill();
     v8 = *(a1 + 32);
@@ -1917,7 +1917,7 @@ LABEL_49:
   nw_protocol_instance_tear_down_path();
 }
 
-void quic_migration_add_preferred_address(uint64_t a1, int a2, uint64_t a3, nw_endpoint_t endpoint)
+void quic_migration_add_preferred_address(uint64_t a1, uint64_t a2, uint64_t a3, nw_endpoint_t endpoint)
 {
   address_4[3] = *MEMORY[0x1E69E9840];
   if (!a1)
@@ -1925,7 +1925,7 @@ void quic_migration_add_preferred_address(uint64_t a1, int a2, uint64_t a3, nw_e
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v33 = _os_log_pack_size();
-      v34 = &v39 - ((MEMORY[0x1EEE9AC00](v33, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34 = &v39 - ((MEMORY[0x1EEE9AC00](v33) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v35 = _os_log_pack_fill();
       *v35 = 136446210;
@@ -1944,7 +1944,7 @@ void quic_migration_add_preferred_address(uint64_t a1, int a2, uint64_t a3, nw_e
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v36 = _os_log_pack_size();
-      v37 = &v39 - ((MEMORY[0x1EEE9AC00](v36, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v37 = &v39 - ((MEMORY[0x1EEE9AC00](v36) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v38 = _os_log_pack_fill();
       *v38 = 136446210;
@@ -1974,7 +1974,7 @@ void quic_migration_add_preferred_address(uint64_t a1, int a2, uint64_t a3, nw_e
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO))
       {
         v10 = _os_log_pack_size();
-        v11 = &v39 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v11 = &v39 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v12 = _os_log_pack_fill();
         logging_description = nw_endpoint_get_logging_description();
@@ -2009,7 +2009,7 @@ void quic_migration_add_preferred_address(uint64_t a1, int a2, uint64_t a3, nw_e
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v14 = _os_log_pack_size();
-          v15 = &v39 - ((MEMORY[0x1EEE9AC00](v14, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v15 = &v39 - ((MEMORY[0x1EEE9AC00](v14) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v16 = _os_log_pack_fill();
           *v16 = 136446210;
@@ -2034,7 +2034,7 @@ LABEL_18:
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO))
     {
       v19 = _os_log_pack_size();
-      v20 = &v39 - ((MEMORY[0x1EEE9AC00](v19, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v20 = &v39 - ((MEMORY[0x1EEE9AC00](v19) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v21 = _os_log_pack_fill();
       v22 = nw_endpoint_get_logging_description();
@@ -2064,7 +2064,7 @@ LABEL_18:
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v24 = _os_log_pack_size();
-        v25 = &v39 - ((MEMORY[0x1EEE9AC00](v24, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v25 = &v39 - ((MEMORY[0x1EEE9AC00](v24) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v26 = _os_log_pack_fill();
         *v26 = 136446210;
@@ -2084,7 +2084,7 @@ LABEL_34:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
   {
     v30 = _os_log_pack_size();
-    v31 = &v39 - ((MEMORY[0x1EEE9AC00](v30, v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v31 = &v39 - ((MEMORY[0x1EEE9AC00](v30) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v32 = _os_log_pack_fill();
     *v32 = 136446210;
@@ -2104,7 +2104,7 @@ uint64_t quic_migration_has_alternate_path(uint64_t a1, uint64_t a2)
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v4 = _os_log_pack_size();
-      v5 = &v9[-1] - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = &v9[-1] - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v6 = _os_log_pack_fill();
       *v6 = 136446210;
@@ -2167,7 +2167,7 @@ void quic_migration_disconnected(uint64_t a1)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v1 = _os_log_pack_size();
-    v2 = v4 - ((MEMORY[0x1EEE9AC00](v1, v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v2 = v4 - ((MEMORY[0x1EEE9AC00](v1) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v3 = _os_log_pack_fill();
     *v3 = 136446210;
@@ -2176,7 +2176,7 @@ void quic_migration_disconnected(uint64_t a1)
   }
 }
 
-void quic_migration_keepalive_loss_event(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void quic_migration_keepalive_loss_event(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4)
 {
   v69 = *MEMORY[0x1E69E9840];
   if (!a1)
@@ -2187,7 +2187,7 @@ void quic_migration_keepalive_loss_event(uint64_t a1, uint64_t a2, uint64_t a3, 
     }
 
     v58 = _os_log_pack_size();
-    v59 = &v66 - ((MEMORY[0x1EEE9AC00](v58, v58) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v59 = &v66 - ((MEMORY[0x1EEE9AC00](v58) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v60 = _os_log_pack_fill();
     *v60 = 136446210;
@@ -2207,7 +2207,7 @@ LABEL_97:
     }
 
     v63 = _os_log_pack_size();
-    v64 = &v66 - ((MEMORY[0x1EEE9AC00](v63, v63) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v64 = &v66 - ((MEMORY[0x1EEE9AC00](v63) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v65 = _os_log_pack_fill();
     *v65 = 136446210;
@@ -2250,18 +2250,18 @@ LABEL_12:
   {
     if ((*(v8 + 386) & 0x800) != 0 && quic_migration_keepalive_threshold <= a4 && (v10 & 0x180000) == 0)
     {
-      if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && *(a2 + 1112))
+      if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && a2[139])
       {
         v33 = _os_log_pack_size();
-        v34 = &v66 - ((MEMORY[0x1EEE9AC00](v33, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v34 = &v66 - ((MEMORY[0x1EEE9AC00](v33) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v35 = _os_log_pack_fill();
-        v36 = quic_cid_describe((*(a2 + 1112) + 38));
-        v37 = quic_cid_describe((*(a2 + 1112) + 17));
+        v36 = quic_cid_describe((a2[139] + 38));
+        v37 = quic_cid_describe((a2[139] + 17));
         *v35 = 136446978;
         *(v35 + 4) = "quic_migration_keepalive_loss_event";
         *(v35 + 12) = 2082;
-        *(v35 + 14) = a2 + 976;
+        *(v35 + 14) = a2 + 122;
         *(v35 + 22) = 2082;
         *(v35 + 24) = v36;
         *(v35 + 32) = 2082;
@@ -2276,14 +2276,14 @@ LABEL_12:
 
     if (!a4)
     {
-      if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && *(a2 + 1112))
+      if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && a2[139])
       {
         v38 = _os_log_pack_size();
         v68 = &v66;
-        v39 = &v66 - ((MEMORY[0x1EEE9AC00](v38, v38) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v39 = &v66 - ((MEMORY[0x1EEE9AC00](v38) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v40 = _os_log_pack_fill();
-        v41 = *(a2 + 1112);
+        v41 = a2[139];
         if (quic_cid_describe_state % 3 == 2)
         {
           v42 = &quic_cid_describe_cid_buf2;
@@ -2308,7 +2308,7 @@ LABEL_12:
         v45 = *(v41 + 38);
         v46 = 0uLL;
         *(v43 + 25) = 0u;
-        v67 = (a2 + 976);
+        v67 = a2 + 122;
         *v43 = 0u;
         v43[1] = 0u;
         if (v45)
@@ -2336,7 +2336,7 @@ LABEL_12:
           v46 = 0uLL;
         }
 
-        v50 = *(a2 + 1112);
+        v50 = a2[139];
         v51 = v44 % 3;
         if (v44 % 3 == 2)
         {
@@ -2406,15 +2406,15 @@ LABEL_12:
     v11 = v8;
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (v12 = os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT), v11 = v8, v12))
     {
-      if (*(a2 + 1112))
+      if (a2[139])
       {
         v68 = v11;
         v13 = _os_log_pack_size();
         v67 = &v66;
-        v14 = &v66 - ((MEMORY[0x1EEE9AC00](v13, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v14 = &v66 - ((MEMORY[0x1EEE9AC00](v13) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v15 = _os_log_pack_fill();
-        v16 = *(a2 + 1112);
+        v16 = a2[139];
         if (quic_cid_describe_state % 3 == 2)
         {
           v17 = &quic_cid_describe_cid_buf2;
@@ -2439,7 +2439,7 @@ LABEL_12:
         v20 = *(v16 + 38);
         v21 = 0uLL;
         *(v18 + 25) = 0u;
-        v66 = a2 + 976;
+        v66 = a2 + 122;
         *v18 = 0u;
         v18[1] = 0u;
         if (v20)
@@ -2467,7 +2467,7 @@ LABEL_12:
           v21 = 0uLL;
         }
 
-        v25 = *(a2 + 1112);
+        v25 = a2[139];
         v26 = v19 % 3;
         if (v19 % 3 == 2)
         {
@@ -2576,7 +2576,7 @@ void quic_migration_retire_dcid(uint64_t a1, uint64_t a2)
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v8 = _os_log_pack_size();
-      v9 = v11 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = v11 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v10 = _os_log_pack_fill();
       *v10 = 136446210;
@@ -2588,7 +2588,7 @@ void quic_migration_retire_dcid(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v5 = _os_log_pack_size();
-    v6 = v11 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v11 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v7 = _os_log_pack_fill();
     *v7 = 136446210;
@@ -2601,7 +2601,7 @@ uint64_t __quic_migration_retire_dcid_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 16) >= 6u && quic_cid_equal(*(a1 + 32), (a2 + 17)))
   {
-    quic_path_fsm_change(a2, 5u);
+    quic_path_fsm_change(a2, 5);
     if (quic_migration_assign_path_cid(*(a1 + 40), *(a1 + 48), a2))
     {
       quic_migration_probe_path(*(a1 + 40), *(a1 + 48), a2, 1);
@@ -2647,7 +2647,7 @@ void quic_migration_retire_scid(uint64_t a1, uint64_t a2)
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v8 = _os_log_pack_size();
-      v9 = &v12[-1] - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = &v12[-1] - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v10 = _os_log_pack_fill();
       *v10 = 136446210;
@@ -2659,7 +2659,7 @@ void quic_migration_retire_scid(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v5 = _os_log_pack_size();
-    v6 = &v12[-1] - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = &v12[-1] - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v7 = _os_log_pack_fill();
     *v7 = 136446210;
@@ -2672,7 +2672,7 @@ uint64_t __quic_migration_retire_scid_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 16) == 3 && quic_cid_equal(*(a1 + 32), (a2 + 38)))
   {
-    quic_path_fsm_change(a2, 2u);
+    quic_path_fsm_change(a2, 2);
     quic_conn_destroy_path(*(a1 + 40), a2);
   }
 
@@ -2714,7 +2714,7 @@ void quic_migration_begin_validation(uint64_t *a1, uint64_t a2, uint64_t a3)
     }
 
     v31 = _os_log_pack_size();
-    v32 = v42 - ((MEMORY[0x1EEE9AC00](v31, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v32 = v42 - ((MEMORY[0x1EEE9AC00](v31) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v33 = _os_log_pack_fill();
     *v33 = 136446210;
@@ -2734,7 +2734,7 @@ LABEL_56:
     }
 
     v36 = _os_log_pack_size();
-    v37 = v42 - ((MEMORY[0x1EEE9AC00](v36, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v37 = v42 - ((MEMORY[0x1EEE9AC00](v36) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v38 = _os_log_pack_fill();
     *v38 = 136446210;
@@ -2752,7 +2752,7 @@ LABEL_56:
     }
 
     v39 = _os_log_pack_size();
-    v40 = v42 - ((MEMORY[0x1EEE9AC00](v39, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v40 = v42 - ((MEMORY[0x1EEE9AC00](v39) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v41 = _os_log_pack_fill();
     *v41 = 136446210;
@@ -2782,7 +2782,7 @@ LABEL_56:
   {
     v7 = _os_log_pack_size();
     v42[0] = v42;
-    v8 = v42 - ((MEMORY[0x1EEE9AC00](v7, v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = v42 - ((MEMORY[0x1EEE9AC00](v7) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v9 = _os_log_pack_fill();
     v10 = *(a2 + 1112);
@@ -2927,7 +2927,7 @@ void quic_migration_path_unavailable(uint64_t a1, uint64_t a2, NSObject *a3)
     }
 
     v38 = _os_log_pack_size();
-    v39 = &v49 - ((MEMORY[0x1EEE9AC00](v38, v38) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v39 = &v49 - ((MEMORY[0x1EEE9AC00](v38) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v40 = _os_log_pack_fill();
     *v40 = 136446210;
@@ -2947,7 +2947,7 @@ LABEL_74:
     }
 
     v43 = _os_log_pack_size();
-    v44 = &v49 - ((MEMORY[0x1EEE9AC00](v43, v43) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v44 = &v49 - ((MEMORY[0x1EEE9AC00](v43) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v45 = _os_log_pack_fill();
     *v45 = 136446210;
@@ -2966,7 +2966,7 @@ LABEL_74:
     }
 
     v46 = _os_log_pack_size();
-    v47 = &v49 - ((MEMORY[0x1EEE9AC00](v46, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v47 = &v49 - ((MEMORY[0x1EEE9AC00](v46) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v48 = _os_log_pack_fill();
     *v48 = 136446210;
@@ -2998,7 +2998,7 @@ LABEL_12:
     {
       v6 = _os_log_pack_size();
       v51 = &v49;
-      v7 = &v49 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = &v49 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v8 = _os_log_pack_fill();
       v9 = v4[139];
@@ -3139,7 +3139,7 @@ LABEL_43:
   v28 = *(v5 + 16);
   if (v28 != 2)
   {
-    quic_path_fsm_change(v5, 2u);
+    quic_path_fsm_change(v5, 2);
     v29 = *(a1 + 98);
     if (v28 >= 6 && (v29 & 8) != 0)
     {
@@ -3202,7 +3202,7 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
       v41 = v7;
       v8 = _os_log_pack_size();
       v40 = &v40;
-      v9 = &v40 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = &v40 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v10 = _os_log_pack_fill();
       v11 = *(a2 + 1112);
@@ -3343,7 +3343,7 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
     switch(v33)
     {
       case 3:
-        is_preferred_address_path = quic_migration_is_preferred_address_path(v7, *(a1 + 48));
+        is_preferred_address_path = quic_migration_is_preferred_address_path(v7, *(a1 + 48), *(a1 + 32));
         quic_migration_path_established(v7, *(a1 + 32), *(a1 + 40), *(a1 + 60), is_preferred_address_path);
         break;
       case 2:
@@ -3351,7 +3351,7 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
         break;
       case 1:
         v42[1] = *(a1 + 60);
-        v42[2] = quic_migration_is_preferred_address_path(v7, *(a1 + 48));
+        v42[2] = quic_migration_is_preferred_address_path(v7, *(a1 + 48), *(a1 + 32));
         v42[0] = nw_protocol_instance_get_priority_for_path();
         v42[3] = nw_protocol_instance_path_has_migration_info();
         v42[4] = nw_protocol_instance_is_path_injected();
@@ -3361,7 +3361,7 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
         {
           v35 = _os_log_pack_size();
-          v36 = &v40 - ((MEMORY[0x1EEE9AC00](v35, v35) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v36 = &v40 - ((MEMORY[0x1EEE9AC00](v35) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v37 = _os_log_pack_fill();
           v38 = *(a1 + 56);
@@ -3379,7 +3379,7 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG))
   {
     v2 = _os_log_pack_size();
-    v3 = &v40 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = &v40 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -3390,9 +3390,9 @@ uint64_t __quic_migration_path_event_block_invoke_27(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t __quic_migration_path_event_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __quic_migration_path_event_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a2 + 1112);
+  v3 = a2[139];
   stats_region = nw_protocol_instance_get_stats_region();
   v5 = &g_quic_stats;
   if (stats_region)
@@ -3400,19 +3400,19 @@ uint64_t __quic_migration_path_event_block_invoke(uint64_t a1, uint64_t a2)
     v5 = stats_region;
   }
 
-  *(a2 + 1312) = v5;
+  a2[164] = v5;
   stats = nw_protocol_instance_get_stats();
   if (stats)
   {
-    v7 = (a2 + 1304);
-    *(a2 + 1304) = stats;
+    v7 = a2 + 163;
+    a2[163] = stats;
   }
 
   else
   {
     stats = nw_protocol_instance_get_stats();
-    v7 = (a2 + 1304);
-    *(a2 + 1304) = stats;
+    v7 = a2 + 163;
+    a2[163] = stats;
     if (!stats)
     {
       v8 = 0;
@@ -3425,20 +3425,20 @@ uint64_t __quic_migration_path_event_block_invoke(uint64_t a1, uint64_t a2)
     }
   }
 
-  *(stats + 60) = *(a2 + 1232);
-  v8 = *(a2 + 1304);
+  *(stats + 60) = *(a2 + 308);
+  v8 = a2[163];
   if (v8)
   {
     *(v8 + 60) = *(a2 + 477) == 9;
-    v8 = *(a2 + 1304);
+    v8 = a2[163];
     if (v8)
     {
       *(v8 + 124) = *(a2 + 477);
-      v8 = *(a2 + 1304);
+      v8 = a2[163];
       if (v8)
       {
-        *(v8 + 132) = *(a2 + 1288);
-        v8 = *(a2 + 1304);
+        *(v8 + 132) = *(a2 + 161);
+        v8 = a2[163];
       }
     }
   }
@@ -3521,8 +3521,8 @@ LABEL_25:
   *(v8 + 116) = v10;
   if (*v7)
   {
-    v11 = (a2 + 1380);
-    *(*v7 + 148) = *(*v7 + 148) & 0xFE | ((*(a2 + 1380) & 0x400000) != 0);
+    v11 = a2 + 345;
+    *(*v7 + 148) = *(*v7 + 148) & 0xFE | ((*(a2 + 345) & 0x400000) != 0);
     if (*v7)
     {
       *(*v7 + 148) = (*v11 >> 23) & 2 | *(*v7 + 148) & 0xFD;
@@ -3562,7 +3562,7 @@ void quic_migration_high_path_rtt(uint64_t a1)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v3 = _os_log_pack_size();
-    v4 = v6 - ((MEMORY[0x1EEE9AC00](v3, v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = v6 - ((MEMORY[0x1EEE9AC00](v3) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v5 = _os_log_pack_fill();
     *v5 = 136446210;
@@ -3593,7 +3593,7 @@ void quic_migration_enter_fallback(uint64_t a1, uint64_t a2)
     {
       v5 = _os_log_pack_size();
       v31 = &v29;
-      v6 = MEMORY[0x1EEE9AC00](v5, v5);
+      v6 = MEMORY[0x1EEE9AC00](v5);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v30 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
       v7 = _os_log_pack_fill();
@@ -3729,7 +3729,7 @@ void quic_migration_enter_fallback(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v26 = _os_log_pack_size();
-    v27 = &v29 - ((MEMORY[0x1EEE9AC00](v26, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = &v29 - ((MEMORY[0x1EEE9AC00](v26) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v28 = _os_log_pack_fill();
     *v28 = 136446210;
@@ -3749,7 +3749,7 @@ void quic_migration_handle_error(uint64_t a1, uint64_t a2)
       {
         v4 = _os_log_pack_size();
         v30 = &v28;
-        v5 = &v28 - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v5 = &v28 - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v6 = _os_log_pack_fill();
         v7 = *(a1 + 32);
@@ -3879,7 +3879,7 @@ void quic_migration_handle_error(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v25 = _os_log_pack_size();
-    v26 = &v28 - ((MEMORY[0x1EEE9AC00](v25, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v26 = &v28 - ((MEMORY[0x1EEE9AC00](v25) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v27 = _os_log_pack_fill();
     *v27 = 136446210;
@@ -3927,7 +3927,7 @@ void *quic_protector_swap_framers(uint64_t a1)
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG))
   {
     v2 = _os_log_pack_size();
-    v3 = &v6[-((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v3 = &v6[-((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0)];
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -3987,7 +3987,7 @@ void quic_protector_destroy_mp_space(uint64_t a1, uint64_t a2)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v7 = _os_log_pack_size();
-    v8 = v10 - ((MEMORY[0x1EEE9AC00](v7, v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = v10 - ((MEMORY[0x1EEE9AC00](v7) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v9 = _os_log_pack_fill();
     *v9 = 136446210;
@@ -4007,7 +4007,7 @@ void quic_protector_qpod_key_update(uint64_t a1, NSObject *a2, int a3)
     }
 
     v22 = _os_log_pack_size();
-    v23 = applier - ((MEMORY[0x1EEE9AC00](v22, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = applier - ((MEMORY[0x1EEE9AC00](v22) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v24 = _os_log_pack_fill();
     *v24 = 136446210;
@@ -4025,7 +4025,7 @@ void quic_protector_qpod_key_update(uint64_t a1, NSObject *a2, int a3)
     }
 
     v25 = _os_log_pack_size();
-    v26 = applier - ((MEMORY[0x1EEE9AC00](v25, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v26 = applier - ((MEMORY[0x1EEE9AC00](v25) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v27 = _os_log_pack_fill();
     *v27 = 136446210;
@@ -4126,7 +4126,7 @@ void quic_protector_qpod_key_update(uint64_t a1, NSObject *a2, int a3)
     }
 
     v17 = _os_log_pack_size();
-    v18 = applier - ((MEMORY[0x1EEE9AC00](v17, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = applier - ((MEMORY[0x1EEE9AC00](v17) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v19 = _os_log_pack_fill();
     *v19 = 136446210;
@@ -4141,7 +4141,7 @@ LABEL_23:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v28 = _os_log_pack_size();
-    v29 = applier - ((MEMORY[0x1EEE9AC00](v28, v28) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v29 = applier - ((MEMORY[0x1EEE9AC00](v28) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v30 = _os_log_pack_fill();
     *v30 = 136446722;
@@ -4165,7 +4165,7 @@ void sec_framer_set_qpod_key(unsigned __int8 *__dst, void *__src, size_t a3)
     }
 
     v9 = _os_log_pack_size();
-    v10 = v30 - ((MEMORY[0x1EEE9AC00](v9, v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = v30 - ((MEMORY[0x1EEE9AC00](v9) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v11 = _os_log_pack_fill();
     *v11 = 136446210;
@@ -4184,7 +4184,7 @@ void sec_framer_set_qpod_key(unsigned __int8 *__dst, void *__src, size_t a3)
     }
 
     v15 = _os_log_pack_size();
-    v16 = v30 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = v30 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v17 = _os_log_pack_fill();
     *v17 = 136446210;
@@ -4227,7 +4227,7 @@ void sec_framer_set_qpod_key(unsigned __int8 *__dst, void *__src, size_t a3)
         }
 
         v24 = _os_log_pack_size();
-        v25 = v30 - ((MEMORY[0x1EEE9AC00](v24, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v25 = v30 - ((MEMORY[0x1EEE9AC00](v24) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v26 = _os_log_pack_fill();
         *v26 = 136446210;
@@ -4267,7 +4267,7 @@ void sec_framer_set_qpod_key(unsigned __int8 *__dst, void *__src, size_t a3)
         }
 
         v27 = _os_log_pack_size();
-        v28 = v30 - ((MEMORY[0x1EEE9AC00](v27, v27) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v28 = v30 - ((MEMORY[0x1EEE9AC00](v27) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v29 = _os_log_pack_fill();
         *v29 = 136446210;
@@ -4286,7 +4286,7 @@ void sec_framer_set_qpod_key(unsigned __int8 *__dst, void *__src, size_t a3)
       }
 
       v21 = _os_log_pack_size();
-      v22 = v30 - ((MEMORY[0x1EEE9AC00](v21, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v22 = v30 - ((MEMORY[0x1EEE9AC00](v21) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v23 = _os_log_pack_fill();
       *v23 = 136446210;
@@ -4304,7 +4304,7 @@ LABEL_48:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v18 = _os_log_pack_size();
-    v19 = v30 - ((MEMORY[0x1EEE9AC00](v18, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = v30 - ((MEMORY[0x1EEE9AC00](v18) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v20 = _os_log_pack_fill();
     *v20 = 136446466;
@@ -4326,7 +4326,7 @@ void sec_framer_set_qpod_hmac_key(_BYTE *a1, const void *a2, size_t a3)
     }
 
     v6 = _os_log_pack_size();
-    v7 = v18 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v18 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v8 = _os_log_pack_fill();
     *v8 = 136446210;
@@ -4346,7 +4346,7 @@ LABEL_25:
     }
 
     v11 = _os_log_pack_size();
-    v12 = v18 - ((MEMORY[0x1EEE9AC00](v11, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = v18 - ((MEMORY[0x1EEE9AC00](v11) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v13 = _os_log_pack_fill();
     *v13 = 136446210;
@@ -4362,7 +4362,7 @@ LABEL_25:
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
     {
       v15 = _os_log_pack_size();
-      v16 = v18 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = v18 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v17 = _os_log_pack_fill();
       *v17 = 136446466;
@@ -4411,7 +4411,7 @@ void quic_protector_advance_pn(uint64_t a1, unint64_t a2)
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO))
     {
       v4 = _os_log_pack_size();
-      v5 = v7 - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = v7 - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v6 = _os_log_pack_fill();
       *v6 = 136446722;
@@ -4438,7 +4438,7 @@ void quic_protector_prepare_qpod_nonce(uint64_t a1, uint64_t a2, int8x16_t *a3, 
     }
 
     v5 = _os_log_pack_size();
-    v6 = v23 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v23 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v7 = _os_log_pack_fill();
     *v7 = 136446210;
@@ -4458,7 +4458,7 @@ LABEL_25:
     }
 
     v10 = _os_log_pack_size();
-    v11 = v23 - ((MEMORY[0x1EEE9AC00](v10, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = v23 - ((MEMORY[0x1EEE9AC00](v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v12 = _os_log_pack_fill();
     *v12 = 136446210;
@@ -4476,7 +4476,7 @@ LABEL_25:
     }
 
     v13 = _os_log_pack_size();
-    v14 = v23 - ((MEMORY[0x1EEE9AC00](v13, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = v23 - ((MEMORY[0x1EEE9AC00](v13) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v15 = _os_log_pack_fill();
     *v15 = 136446210;
@@ -4494,7 +4494,7 @@ LABEL_25:
     }
 
     v16 = _os_log_pack_size();
-    v17 = v23 - ((MEMORY[0x1EEE9AC00](v16, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v23 - ((MEMORY[0x1EEE9AC00](v16) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v18 = _os_log_pack_fill();
     *v18 = 136446210;
@@ -4514,7 +4514,7 @@ LABEL_25:
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v20 = _os_log_pack_size();
-    v21 = v23 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = v23 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v22 = _os_log_pack_fill();
     *v22 = 136446466;
@@ -4525,7 +4525,7 @@ LABEL_25:
   }
 }
 
-BOOL sec_framer_seal_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL sec_framer_seal_chacha20poly1305(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 {
   v40 = *MEMORY[0x1E69E9840];
   if (a1)
@@ -4539,7 +4539,7 @@ BOOL sec_framer_seal_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
         {
           v20 = _os_log_pack_size();
-          v21 = &v38 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v21 = &v38 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v22 = _os_log_pack_fill();
           v23 = *(a3 + 86);
@@ -4557,7 +4557,7 @@ BOOL sec_framer_seal_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
         if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
         {
           v24 = _os_log_pack_size();
-          v25 = &v38 - ((MEMORY[0x1EEE9AC00](v24, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v25 = &v38 - ((MEMORY[0x1EEE9AC00](v24) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v26 = _os_log_pack_fill();
           v27 = *(a3 + 84);
@@ -4582,7 +4582,7 @@ BOOL sec_framer_seal_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
           {
             v5 = _os_log_pack_size();
-            v6 = &v38 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v6 = &v38 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v7 = _os_log_pack_fill();
             *v7 = 136446210;
@@ -4601,7 +4601,7 @@ LABEL_18:
           if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
           {
             v31 = _os_log_pack_size();
-            v32 = &v38 - ((MEMORY[0x1EEE9AC00](v31, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v32 = &v38 - ((MEMORY[0x1EEE9AC00](v31) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v33 = _os_log_pack_fill();
             v34 = *(a3 + 32) - *a3;
@@ -4630,7 +4630,7 @@ LABEL_18:
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
           {
             v11 = _os_log_pack_size();
-            v12 = &v38 - ((MEMORY[0x1EEE9AC00](v11, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v12 = &v38 - ((MEMORY[0x1EEE9AC00](v11) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v13 = _os_log_pack_fill();
             *v13 = 136446210;
@@ -4647,7 +4647,7 @@ LABEL_18:
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v17 = _os_log_pack_size();
-      v18 = &v38 - ((MEMORY[0x1EEE9AC00](v17, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = &v38 - ((MEMORY[0x1EEE9AC00](v17) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v19 = _os_log_pack_fill();
       *v19 = 136446210;
@@ -4662,7 +4662,7 @@ LABEL_18:
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
   {
     v14 = _os_log_pack_size();
-    v15 = &v38 - ((MEMORY[0x1EEE9AC00](v14, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = &v38 - ((MEMORY[0x1EEE9AC00](v14) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v16 = _os_log_pack_fill();
     *v16 = 136446210;
@@ -4692,7 +4692,7 @@ BOOL sec_framer_seal_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
             v28 = a2;
             v29 = a3;
             v30 = _os_log_pack_size();
-            v31 = &v37 - ((MEMORY[0x1EEE9AC00](v30, v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v31 = &v37 - ((MEMORY[0x1EEE9AC00](v30) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v32 = _os_log_pack_fill();
             v33 = *(a4 + 84);
@@ -4732,7 +4732,7 @@ BOOL sec_framer_seal_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
           {
             v8 = _os_log_pack_size();
-            v9 = &v37 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v9 = &v37 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v10 = _os_log_pack_fill();
             *v10 = 136446210;
@@ -4767,7 +4767,7 @@ LABEL_11:
       else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
       {
         v22 = _os_log_pack_size();
-        v23 = &v37 - ((MEMORY[0x1EEE9AC00](v22, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v23 = &v37 - ((MEMORY[0x1EEE9AC00](v22) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v24 = _os_log_pack_fill();
         *v24 = 136446210;
@@ -4782,7 +4782,7 @@ LABEL_11:
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v19 = _os_log_pack_size();
-      v20 = &v37 - ((MEMORY[0x1EEE9AC00](v19, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v20 = &v37 - ((MEMORY[0x1EEE9AC00](v19) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v21 = _os_log_pack_fill();
       *v21 = 136446210;
@@ -4797,7 +4797,7 @@ LABEL_11:
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
   {
     v16 = _os_log_pack_size();
-    v17 = &v37 - ((MEMORY[0x1EEE9AC00](v16, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = &v37 - ((MEMORY[0x1EEE9AC00](v16) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v18 = _os_log_pack_fill();
     *v18 = 136446210;
@@ -4846,7 +4846,7 @@ BOOL sec_framer_open_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v9 = _os_log_pack_size();
-    v10 = v18 - ((MEMORY[0x1EEE9AC00](v9, v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = v18 - ((MEMORY[0x1EEE9AC00](v9) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v11 = _os_log_pack_fill();
     v12 = *(a3 + 84);
@@ -4878,7 +4878,7 @@ BOOL sec_framer_open_chacha20poly1305(uint64_t a1, uint64_t a2, uint64_t a3)
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v5 = _os_log_pack_size();
-      v6 = v18 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v6 = v18 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v7 = _os_log_pack_fill();
       *v7 = 136446466;
@@ -4904,7 +4904,7 @@ BOOL sec_framer_open_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
       v23 = a2;
       v24 = a3;
       v25 = _os_log_pack_size();
-      v26 = &v29 - ((MEMORY[0x1EEE9AC00](v25, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = &v29 - ((MEMORY[0x1EEE9AC00](v25) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v27 = _os_log_pack_fill();
       if (*(a1 + 220) == 16)
@@ -4937,7 +4937,7 @@ BOOL sec_framer_open_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
       {
         v8 = _os_log_pack_size();
-        v9 = &v29 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v9 = &v29 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v10 = _os_log_pack_fill();
         *v10 = 136446210;
@@ -4958,7 +4958,7 @@ BOOL sec_framer_open_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v17 = _os_log_pack_size();
-          v18 = &v29 - ((MEMORY[0x1EEE9AC00](v17, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v18 = &v29 - ((MEMORY[0x1EEE9AC00](v17) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v19 = _os_log_pack_fill();
           *v19 = 136446466;
@@ -4977,7 +4977,7 @@ BOOL sec_framer_open_qpod(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
   {
     v11 = _os_log_pack_size();
-    v12 = &v29 - ((MEMORY[0x1EEE9AC00](v11, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = &v29 - ((MEMORY[0x1EEE9AC00](v11) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v13 = _os_log_pack_fill();
     v14 = *(a4 + 87);
@@ -5050,7 +5050,7 @@ BOOL sec_framer_open_header_chacha20poly1305(uint64_t a1, uint64_t a2, unsigned 
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v11 = _os_log_pack_size();
-      v12 = &v24 - ((MEMORY[0x1EEE9AC00](v11, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = &v24 - ((MEMORY[0x1EEE9AC00](v11) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v13 = _os_log_pack_fill();
       *v13 = 136446210;
@@ -5071,7 +5071,7 @@ BOOL sec_framer_open_header_chacha20poly1305(uint64_t a1, uint64_t a2, unsigned 
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
       {
         v14 = _os_log_pack_size();
-        v15 = &v24 - ((MEMORY[0x1EEE9AC00](v14, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v15 = &v24 - ((MEMORY[0x1EEE9AC00](v14) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v16 = _os_log_pack_fill();
         v17 = *(a2 + 86);
@@ -5092,7 +5092,7 @@ BOOL sec_framer_open_header_chacha20poly1305(uint64_t a1, uint64_t a2, unsigned 
         {
           v20 = a3;
           v21 = _os_log_pack_size();
-          v22 = &v24 - ((MEMORY[0x1EEE9AC00](v21, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v22 = &v24 - ((MEMORY[0x1EEE9AC00](v21) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v23 = _os_log_pack_fill();
           *v23 = 136446466;
@@ -5108,7 +5108,7 @@ BOOL sec_framer_open_header_chacha20poly1305(uint64_t a1, uint64_t a2, unsigned 
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
         {
           v5 = _os_log_pack_size();
-          v6 = &v24 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v6 = &v24 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v7 = _os_log_pack_fill();
           *v7 = 136446210;
@@ -5133,11 +5133,12 @@ LABEL_10:
   return result;
 }
 
-void quic_protector_traffic_update(uint64_t a1, unsigned int a2)
+void quic_protector_traffic_update(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   quic_protector_traffic_update_internal(a1, a2, 0);
 
-  quic_protector_traffic_update_internal(a1, a2, 1);
+  quic_protector_traffic_update_internal(a1, v2, 1);
 }
 
 void quic_protector_traffic_update_internal(uint64_t a1, unsigned int a2, int a3)
@@ -5151,7 +5152,7 @@ void quic_protector_traffic_update_internal(uint64_t a1, unsigned int a2, int a3
     }
 
     v16 = _os_log_pack_size();
-    v17 = v24 - ((MEMORY[0x1EEE9AC00](v16, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v24 - ((MEMORY[0x1EEE9AC00](v16) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v18 = _os_log_pack_fill();
     *v18 = 136446210;
@@ -5171,7 +5172,7 @@ LABEL_32:
     }
 
     v21 = _os_log_pack_size();
-    v22 = v24 - ((MEMORY[0x1EEE9AC00](v21, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22 = v24 - ((MEMORY[0x1EEE9AC00](v21) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v23 = _os_log_pack_fill();
     *v23 = 136446210;
@@ -5274,7 +5275,7 @@ BOOL quic_protector_seal_retry(uint64_t a1, uint64_t a2, uint64_t a3)
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
           {
             v6 = _os_log_pack_size();
-            v7 = v21 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v7 = v21 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v8 = _os_log_pack_fill();
             *v8 = 136446466;
@@ -5299,7 +5300,7 @@ LABEL_9:
       else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
       {
         v18 = _os_log_pack_size();
-        v19 = v21 - ((MEMORY[0x1EEE9AC00](v18, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v19 = v21 - ((MEMORY[0x1EEE9AC00](v18) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v20 = _os_log_pack_fill();
         *v20 = 136446210;
@@ -5314,7 +5315,7 @@ LABEL_9:
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v15 = _os_log_pack_size();
-      v16 = v21 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = v21 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v17 = _os_log_pack_fill();
       *v17 = 136446210;
@@ -5329,7 +5330,7 @@ LABEL_9:
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
   {
     v12 = _os_log_pack_size();
-    v13 = v21 - ((MEMORY[0x1EEE9AC00](v12, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = v21 - ((MEMORY[0x1EEE9AC00](v12) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v14 = _os_log_pack_fill();
     *v14 = 136446210;
@@ -5359,7 +5360,7 @@ BOOL quic_protector_open_retry(uint64_t a1, uint64_t a2, uint64_t a3)
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
           {
             v6 = _os_log_pack_size();
-            v7 = v21 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v7 = v21 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v8 = _os_log_pack_fill();
             *v8 = 136446466;
@@ -5384,7 +5385,7 @@ LABEL_9:
       else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
       {
         v18 = _os_log_pack_size();
-        v19 = v21 - ((MEMORY[0x1EEE9AC00](v18, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v19 = v21 - ((MEMORY[0x1EEE9AC00](v18) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v20 = _os_log_pack_fill();
         *v20 = 136446210;
@@ -5399,7 +5400,7 @@ LABEL_9:
     else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
     {
       v15 = _os_log_pack_size();
-      v16 = v21 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = v21 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v17 = _os_log_pack_fill();
       *v17 = 136446210;
@@ -5414,7 +5415,7 @@ LABEL_9:
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT)))
   {
     v12 = _os_log_pack_size();
-    v13 = v21 - ((MEMORY[0x1EEE9AC00](v12, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = v21 - ((MEMORY[0x1EEE9AC00](v12) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v14 = _os_log_pack_fill();
     *v14 = 136446210;
@@ -5439,7 +5440,7 @@ uint64_t quic_cc_get_name(void *a1)
     }
 
     v2 = _os_log_pack_size();
-    v3 = v10 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v10 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5457,7 +5458,7 @@ uint64_t quic_cc_get_name(void *a1)
     }
 
     v7 = _os_log_pack_size();
-    v8 = v10 - ((MEMORY[0x1EEE9AC00](v7, v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = v10 - ((MEMORY[0x1EEE9AC00](v7) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v9 = _os_log_pack_fill();
     *v9 = 136446210;
@@ -5484,7 +5485,7 @@ void quic_cc_reset(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5529,7 +5530,7 @@ void quic_cc_packets_lost(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5574,7 +5575,7 @@ void quic_cc_process_ecn(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5619,7 +5620,7 @@ void quic_cc_link_flow_controlled(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5664,7 +5665,7 @@ void quic_cc_process_link_congestion_info(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5709,7 +5710,7 @@ void quic_cc_spurious_rxmt(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5754,7 +5755,7 @@ void quic_cc_persistent_congestion(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -5799,7 +5800,7 @@ void quic_cc_idle_timeout(uint64_t a1)
 
 LABEL_18:
     v2 = _os_log_pack_size();
-    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2, v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = v5 - ((MEMORY[0x1EEE9AC00](v2) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v4 = _os_log_pack_fill();
     *v4 = 136446210;
@@ -6118,7 +6119,7 @@ LABEL_16:
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v24 = _os_log_pack_size();
-    v25 = v27 - ((MEMORY[0x1EEE9AC00](v24, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v25 = v27 - ((MEMORY[0x1EEE9AC00](v24) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v26 = _os_log_pack_fill();
     *v26 = 136446210;
@@ -6165,7 +6166,7 @@ LABEL_26:
       }
 
       v23 = _os_log_pack_size();
-      v24 = v26 - ((MEMORY[0x1EEE9AC00](v23, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v24 = v26 - ((MEMORY[0x1EEE9AC00](v23) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v25 = _os_log_pack_fill();
       *v25 = 136446210;
@@ -6182,7 +6183,7 @@ LABEL_26:
       }
 
       v20 = _os_log_pack_size();
-      v21 = v26 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = v26 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v22 = _os_log_pack_fill();
       *v22 = 136446210;
@@ -6205,7 +6206,7 @@ LABEL_25:
     }
 
     v15 = _os_log_pack_size();
-    v16 = v26 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = v26 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v17 = _os_log_pack_fill();
     *v17 = 136446210;
@@ -6286,7 +6287,7 @@ void quic_frame_free(unint64_t *a1)
   else if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_FAULT))
   {
     v6 = _os_log_pack_size();
-    v7 = v9 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v9 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v8 = _os_log_pack_fill();
     *v8 = 136446210;
@@ -6295,7 +6296,7 @@ void quic_frame_free(unint64_t *a1)
   }
 }
 
-uint64_t quic_frame_write_ACK_FREQUENCY(uint64_t a1, int a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_ACK_FREQUENCY(unint64_t *a1, int a2, int a3, char **a4, _WORD *a5)
 {
   __src[1] = *MEMORY[0x1E69E9840];
   v8 = *a1;
@@ -6332,7 +6333,7 @@ uint64_t quic_frame_write_ACK_FREQUENCY(uint64_t a1, int a2, int a3, char **a4, 
   }
 
   __src[0] = v8;
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   if (v8)
   {
     if (v8 >> 62)
@@ -6366,7 +6367,7 @@ uint64_t quic_frame_write_ACK_FREQUENCY(uint64_t a1, int a2, int a3, char **a4, 
   }
 
   v31 = v8;
-  v8 = *(a1 + 24);
+  v8 = a1[3];
   if (v8)
   {
     if (v8 >> 62)
@@ -6400,7 +6401,7 @@ uint64_t quic_frame_write_ACK_FREQUENCY(uint64_t a1, int a2, int a3, char **a4, 
   }
 
   v30 = v8;
-  v8 = *(a1 + 32);
+  v8 = a1[4];
   if (!v8)
   {
     v12 = 1;
@@ -6434,8 +6435,8 @@ LABEL_42:
 
 LABEL_37:
   v29 = v8;
-  v13 = *(a1 + 8);
-  if (!*(a1 + 8))
+  v13 = *(a1 + 4);
+  if (!*(a1 + 4))
   {
     qlog_abort_internal("%s frame len can't be zero", "quic_frame_write_ACK_FREQUENCY");
   }
@@ -6454,19 +6455,19 @@ LABEL_37:
   *a4 = v17;
   v18 = quic_safe_append(v17, a5, &v29, v12);
   *a4 = v18;
-  HIBYTE(v28) = *(a1 + 40) & 1;
+  HIBYTE(v28) = a1[5] & 1;
   *a4 = quic_safe_append(v18, a5, &v28 + 7, 1uLL);
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v20 = _os_log_pack_size();
-    v21 = &v28 - ((MEMORY[0x1EEE9AC00](v20, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = &v28 - ((MEMORY[0x1EEE9AC00](v20) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v22 = _os_log_pack_fill();
     v23 = quic_frame_type_describe(*a1);
-    v24 = *(a1 + 16);
-    v25 = *(a1 + 24);
-    v26 = *(a1 + 32);
-    v27 = *(a1 + 40) & 1;
+    v24 = a1[2];
+    v25 = a1[3];
+    v26 = a1[4];
+    v27 = a1[5] & 1;
     *v22 = 136447490;
     *(v22 + 4) = "quic_frame_write_ACK_FREQUENCY";
     *(v22 + 12) = 2082;
@@ -6485,10 +6486,10 @@ LABEL_37:
   return 1;
 }
 
-BOOL quic_frame_process_ACK_FREQUENCY(uint64_t a1, uint64_t a2, void *a3)
+BOOL quic_frame_process_ACK_FREQUENCY(void *a1, uint64_t a2, void *a3)
 {
   v30[1] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   if (v3 <= 0x3E7)
   {
     a3[134] = 10;
@@ -6511,7 +6512,7 @@ BOOL quic_frame_process_ACK_FREQUENCY(uint64_t a1, uint64_t a2, void *a3)
 
     v12 = a3;
     v13 = _os_log_pack_size();
-    v14 = v30 - ((MEMORY[0x1EEE9AC00](v13, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = v30 - ((MEMORY[0x1EEE9AC00](v13) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v15 = _os_log_pack_fill();
     v16 = quic_cid_describe((v12[139] + 38));
@@ -6554,7 +6555,7 @@ BOOL quic_frame_process_ACK_FREQUENCY(uint64_t a1, uint64_t a2, void *a3)
 
     v23 = a3;
     v24 = _os_log_pack_size();
-    v25 = v30 - ((MEMORY[0x1EEE9AC00](v24, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v25 = v30 - ((MEMORY[0x1EEE9AC00](v24) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v26 = _os_log_pack_fill();
     v27 = quic_cid_describe((v23[139] + 38));
@@ -6578,9 +6579,9 @@ LABEL_16:
   }
 
   v5 = a3[120];
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 24);
-  v8 = *(a1 + 40) & 1;
+  v6 = a1[2];
+  v7 = a1[3];
+  v8 = a1[5] & 1;
 
   return quic_ack_process_frequency(v5, v6, v7, v3, v8);
 }
@@ -6605,7 +6606,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
       v16 = quic_vle_decode(v14, v15, a1 + 4);
       if (v16)
       {
-        v17 = *a5 + v16;
+        v17 = (*a5 + v16);
         *a5 = v17;
         v18 = *a6;
         v19 = v18 - v16;
@@ -6615,7 +6616,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
           if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
           {
             v52 = _os_log_pack_size();
-            v53 = &v63 - ((MEMORY[0x1EEE9AC00](v52, v52) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v53 = &v63 - ((MEMORY[0x1EEE9AC00](v52) + 15) & 0xFFFFFFFFFFFFFFF0);
             _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
             v54 = _os_log_pack_fill();
             *v54 = 136446210;
@@ -6632,14 +6633,14 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
         {
           v20 = *v17;
           *a6 = v19 - 1;
-          *a5 = v17 + 1;
+          *a5 = (v17 + 1);
           if (v20 < 2)
           {
             a1[5] = a1[5] & 0xFFFFFFFFFFFFFFFELL | v20;
             if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
             {
               v55 = _os_log_pack_size();
-              v56 = &v63 - ((MEMORY[0x1EEE9AC00](v55, v55) + 15) & 0xFFFFFFFFFFFFFFF0);
+              v56 = &v63 - ((MEMORY[0x1EEE9AC00](v55) + 15) & 0xFFFFFFFFFFFFFFF0);
               _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
               v57 = _os_log_pack_fill();
               v58 = quic_frame_type_describe(*a1);
@@ -6679,7 +6680,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
               {
                 v22 = _os_log_pack_size();
                 v65 = &v63;
-                v23 = &v63 - ((MEMORY[0x1EEE9AC00](v22, v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+                v23 = &v63 - ((MEMORY[0x1EEE9AC00](v22) + 15) & 0xFFFFFFFFFFFFFFF0);
                 _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
                 v24 = _os_log_pack_fill();
                 v25 = a2[139];
@@ -6810,7 +6811,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v49 = _os_log_pack_size();
-          v50 = &v63 - ((MEMORY[0x1EEE9AC00](v49, v49) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v50 = &v63 - ((MEMORY[0x1EEE9AC00](v49) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v51 = _os_log_pack_fill();
           *v51 = 136446210;
@@ -6829,7 +6830,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v46 = _os_log_pack_size();
-        v47 = &v63 - ((MEMORY[0x1EEE9AC00](v46, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v47 = &v63 - ((MEMORY[0x1EEE9AC00](v46) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v48 = _os_log_pack_fill();
         *v48 = 136446210;
@@ -6848,7 +6849,7 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v43 = _os_log_pack_size();
-      v44 = &v63 - ((MEMORY[0x1EEE9AC00](v43, v43) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v44 = &v63 - ((MEMORY[0x1EEE9AC00](v43) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v45 = _os_log_pack_fill();
       *v45 = 136446210;
@@ -6864,11 +6865,11 @@ BOOL quic_frame_parse_ACK_FREQUENCY(uint64_t *a1, void *a2, uint64_t a3, uint64_
   return result;
 }
 
-uint64_t quic_frame_write_IMMEDIATE_ACK(uint64_t a1, int a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_IMMEDIATE_ACK(void *a1, int a2, int a3, char **a4, _WORD *a5)
 {
   __src[1] = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 8);
-  if (!*(a1 + 8))
+  v5 = *(a1 + 4);
+  if (!*(a1 + 4))
   {
     qlog_abort_internal("%s frame len can't be zero", "quic_frame_write_IMMEDIATE_ACK");
   }
@@ -6917,7 +6918,7 @@ uint64_t quic_frame_write_IMMEDIATE_ACK(uint64_t a1, int a2, int a3, char **a4, 
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v12 = _os_log_pack_size();
-    v13 = __src - ((MEMORY[0x1EEE9AC00](v12, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = __src - ((MEMORY[0x1EEE9AC00](v12) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v14 = _os_log_pack_fill();
     v15 = quic_frame_type_describe(*a1);
@@ -6940,7 +6941,7 @@ uint64_t quic_frame_parse_IMMEDIATE_ACK(uint64_t *a1)
     {
       v4 = a1;
       v5 = _os_log_pack_size();
-      v6 = v9 - ((MEMORY[0x1EEE9AC00](v5, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v6 = v9 - ((MEMORY[0x1EEE9AC00](v5) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v7 = _os_log_pack_fill();
       v8 = quic_frame_type_describe(*v4);
@@ -6971,7 +6972,7 @@ uint64_t quic_frame_free_DATAGRAM(uint64_t a1)
   return MEMORY[0x1EEDD3498](v3, 1, 0);
 }
 
-uint64_t quic_frame_write_DATAGRAM(char *a1, uint64_t a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_DATAGRAM(char *a1, uint64_t a2, int a3, char **a4, _WORD *a5)
 {
   v31 = *MEMORY[0x1E69E9840];
   memset(v30, 0, sizeof(v30));
@@ -7158,7 +7159,7 @@ LABEL_42:
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v19 = _os_log_pack_size();
-    v20 = v23 - ((MEMORY[0x1EEE9AC00](v19, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = v23 - ((MEMORY[0x1EEE9AC00](v19) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v21 = _os_log_pack_fill();
     v22 = quic_frame_type_describe(*a1);
@@ -7175,7 +7176,7 @@ LABEL_42:
   return 1;
 }
 
-BOOL quic_frame_process_DATAGRAM(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL quic_frame_process_DATAGRAM(uint64_t a1, uint64_t a2, void *a3)
 {
   v58 = *MEMORY[0x1E69E9840];
   v5 = (a1 + 24);
@@ -7200,15 +7201,15 @@ LABEL_38:
     return 1;
   }
 
-  if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO)) && *(a3 + 1112))
+  if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO)) && a3[139])
   {
     v8 = _os_log_pack_size();
     v43 = &v40;
-    v9 = MEMORY[0x1EEE9AC00](v8, v8);
+    v9 = MEMORY[0x1EEE9AC00](v8);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v42 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
     v10 = _os_log_pack_fill();
-    v11 = *(a3 + 1112);
+    v11 = a3[139];
     if (quic_cid_describe_state % 3 == 2)
     {
       v12 = &quic_cid_describe_cid_buf2;
@@ -7233,7 +7234,7 @@ LABEL_38:
     v15 = *(v11 + 38);
     v16 = 0uLL;
     *(v13 + 25) = 0u;
-    v41 = a3 + 976;
+    v41 = a3 + 122;
     *v13 = 0u;
     v13[1] = 0u;
     if (v15)
@@ -7262,7 +7263,7 @@ LABEL_38:
     }
 
     v40 = &v40;
-    v20 = *(a3 + 1112);
+    v20 = a3[139];
     v21 = v14 % 3;
     if (v14 % 3 == 2)
     {
@@ -7358,19 +7359,19 @@ LABEL_38:
 
   if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || (result = os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR)))
   {
-    if (*(a3 + 1112))
+    if (a3[139])
     {
       v34 = _os_log_pack_size();
-      v35 = &v40 - ((MEMORY[0x1EEE9AC00](v34, v34) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = &v40 - ((MEMORY[0x1EEE9AC00](v34) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v36 = _os_log_pack_fill();
-      v37 = quic_cid_describe((*(a3 + 1112) + 38));
-      v38 = quic_cid_describe((*(a3 + 1112) + 17));
+      v37 = quic_cid_describe((a3[139] + 38));
+      v38 = quic_cid_describe((a3[139] + 17));
       v39 = *v5 & 0x7FFFFFFFFFFFFFFFLL;
       *v36 = 136447234;
       *(v36 + 4) = "quic_frame_process_DATAGRAM";
       *(v36 + 12) = 2082;
-      *(v36 + 14) = a3 + 976;
+      *(v36 + 14) = a3 + 122;
       *(v36 + 22) = 2082;
       *(v36 + 24) = v37;
       *(v36 + 32) = 2082;
@@ -7386,7 +7387,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t quic_frame_parse_DATAGRAM(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5, __int16 *a6)
+uint64_t quic_frame_parse_DATAGRAM(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5, unsigned __int16 *a6)
 {
   v85 = *MEMORY[0x1E69E9840];
   v83 = 0u;
@@ -7407,7 +7408,7 @@ uint64_t quic_frame_parse_DATAGRAM(uint64_t *a1, uint64_t a2, uint64_t a3, uint6
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v18 = _os_log_pack_size();
-        v19 = &v75 - ((MEMORY[0x1EEE9AC00](v18, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v19 = &v75 - ((MEMORY[0x1EEE9AC00](v18) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v20 = _os_log_pack_fill();
         *v20 = 136446210;
@@ -7453,7 +7454,7 @@ uint64_t quic_frame_parse_DATAGRAM(uint64_t *a1, uint64_t a2, uint64_t a3, uint6
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v23 = _os_log_pack_size();
-      v24 = &v75 - ((MEMORY[0x1EEE9AC00](v23, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v24 = &v75 - ((MEMORY[0x1EEE9AC00](v23) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v25 = _os_log_pack_fill();
       *v25 = 136446210;
@@ -7498,7 +7499,7 @@ uint64_t quic_frame_parse_DATAGRAM(uint64_t *a1, uint64_t a2, uint64_t a3, uint6
     {
       v26 = _os_log_pack_size();
       v76 = &v75;
-      v27 = &v75 - ((MEMORY[0x1EEE9AC00](v26, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v27 = &v75 - ((MEMORY[0x1EEE9AC00](v26) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v28 = _os_log_pack_fill();
       v29 = *v11;
@@ -7558,7 +7559,7 @@ LABEL_33:
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v34 = _os_log_pack_size();
-      v35 = &v75 - ((MEMORY[0x1EEE9AC00](v34, v34) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = &v75 - ((MEMORY[0x1EEE9AC00](v34) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v36 = _os_log_pack_fill();
       *v36 = 136446210;
@@ -7605,7 +7606,7 @@ LABEL_33:
     }
 
     v37 = _os_log_pack_size();
-    v38 = &v75 - ((MEMORY[0x1EEE9AC00](v37, v37) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v38 = &v75 - ((MEMORY[0x1EEE9AC00](v37) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v39 = _os_log_pack_fill();
     v40 = *v11;
@@ -7658,7 +7659,7 @@ LABEL_55:
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v68 = _os_log_pack_size();
-      v69 = &v75 - ((MEMORY[0x1EEE9AC00](v68, v68) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v69 = &v75 - ((MEMORY[0x1EEE9AC00](v68) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v70 = _os_log_pack_fill();
       *v70 = 136446210;
@@ -7690,7 +7691,7 @@ LABEL_92:
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v71 = _os_log_pack_size();
-    v72 = &v75 - ((MEMORY[0x1EEE9AC00](v71, v71) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v72 = &v75 - ((MEMORY[0x1EEE9AC00](v71) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v73 = _os_log_pack_fill();
     v74 = quic_frame_type_describe(*a1);
@@ -7711,7 +7712,7 @@ LABEL_92:
     {
       v46 = _os_log_pack_size();
       v76 = &v75;
-      v47 = &v75 - ((MEMORY[0x1EEE9AC00](v46, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v47 = &v75 - ((MEMORY[0x1EEE9AC00](v46) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v48 = _os_log_pack_fill();
       v49 = *(a2 + 1112);
@@ -7847,7 +7848,7 @@ LABEL_92:
   return 1;
 }
 
-uint64_t quic_frame_write_PATH_STATUS(uint64_t a1, int a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_PATH_STATUS(unint64_t *a1, int a2, int a3, char **a4, _WORD *a5)
 {
   __src[1] = *MEMORY[0x1E69E9840];
   v36 = 0;
@@ -7885,7 +7886,7 @@ uint64_t quic_frame_write_PATH_STATUS(uint64_t a1, int a2, int a3, char **a4, un
   }
 
   __src[0] = v8;
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   if (!v8)
   {
     v37 = 0;
@@ -7926,7 +7927,7 @@ uint64_t quic_frame_write_PATH_STATUS(uint64_t a1, int a2, int a3, char **a4, un
 
   if (v10 == 1)
   {
-    v11 = *(a1 + 16);
+    v11 = a1[2];
     v16 = 1;
   }
 
@@ -7939,7 +7940,7 @@ uint64_t quic_frame_write_PATH_STATUS(uint64_t a1, int a2, int a3, char **a4, un
   if (v8 != 2)
   {
 LABEL_25:
-    v8 = *(a1 + 24);
+    v8 = a1[3];
     if (v8)
     {
       if (v8 >> 62)
@@ -7973,7 +7974,7 @@ LABEL_25:
     }
 
     v36 = v8;
-    v8 = *(a1 + 32);
+    v8 = a1[4];
     if (!v8)
     {
       goto LABEL_23;
@@ -7983,7 +7984,7 @@ LABEL_25:
   }
 
   v17 = 0;
-  v8 = *(a1 + 32);
+  v8 = a1[4];
   if (!v8)
   {
 LABEL_23:
@@ -8018,7 +8019,7 @@ LABEL_35:
 
 LABEL_42:
   v35 = v8;
-  v8 = *(a1 + 40);
+  v8 = a1[5];
   if (!v8)
   {
     v19 = 1;
@@ -8052,8 +8053,8 @@ LABEL_58:
 
 LABEL_51:
   v34 = v8;
-  v20 = *(a1 + 8);
-  if (!*(a1 + 8))
+  v20 = *(a1 + 4);
+  if (!*(a1 + 4))
   {
     qlog_abort_internal("%s frame len can't be zero", "quic_frame_write_PATH_STATUS");
   }
@@ -8068,7 +8069,7 @@ LABEL_51:
   *a4 = v22;
   v23 = quic_safe_append(v22, a5, &v37, v16);
   *a4 = v23;
-  if (*(a1 + 16) != 2)
+  if (a1[2] != 2)
   {
     v23 = quic_safe_append(v23, a5, &v36, v17);
     *a4 = v23;
@@ -8080,14 +8081,14 @@ LABEL_51:
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v26 = _os_log_pack_size();
-    v27 = &v34 - ((MEMORY[0x1EEE9AC00](v26, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = &v34 - ((MEMORY[0x1EEE9AC00](v26) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v28 = _os_log_pack_fill();
     v29 = quic_frame_type_describe(*a1);
-    v30 = *(a1 + 16);
-    v31 = *(a1 + 24);
-    v32 = *(a1 + 32);
-    v33 = *(a1 + 40);
+    v30 = a1[2];
+    v31 = a1[3];
+    v32 = a1[4];
+    v33 = a1[5];
     *v28 = 136447490;
     *(v28 + 4) = "quic_frame_write_PATH_STATUS";
     *(v28 + 12) = 2082;
@@ -8116,7 +8117,7 @@ uint64_t quic_frame_process_PATH_STATUS(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       v6 = _os_log_pack_size();
       v33 = &v31;
-      v7 = &v31 - ((MEMORY[0x1EEE9AC00](v6, v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = &v31 - ((MEMORY[0x1EEE9AC00](v6) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v8 = _os_log_pack_fill();
       v9 = *(a3 + 1112);
@@ -8289,7 +8290,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v36 = _os_log_pack_size();
-      v37 = &v63 - ((MEMORY[0x1EEE9AC00](v36, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v37 = &v63 - ((MEMORY[0x1EEE9AC00](v36) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v38 = _os_log_pack_fill();
       *v38 = 136446210;
@@ -8304,7 +8305,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
   }
 
   v11 = v10;
-  v12 = (*a5 + v10);
+  v12 = *a5 + v10;
   *a5 = v12;
   v13 = *a6 - v11;
   *a6 = v13;
@@ -8318,7 +8319,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v52 = _os_log_pack_size();
-          v53 = &v63 - ((MEMORY[0x1EEE9AC00](v52, v52) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v53 = &v63 - ((MEMORY[0x1EEE9AC00](v52) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v54 = _os_log_pack_fill();
           *v54 = 136446210;
@@ -8333,7 +8334,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
       }
 
       v41 = v40;
-      v12 = (*a5 + v40);
+      v12 = *a5 + v40;
       *a5 = v12;
       v13 = *a6 - v41;
       *a6 = v13;
@@ -8357,7 +8358,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
         }
 
         v55 = _os_log_pack_size();
-        v56 = &v63 - ((MEMORY[0x1EEE9AC00](v55, v55) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v56 = &v63 - ((MEMORY[0x1EEE9AC00](v55) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v57 = _os_log_pack_fill();
         v58 = quic_frame_type_describe(*a1);
@@ -8384,7 +8385,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v49 = _os_log_pack_size();
-        v50 = &v63 - ((MEMORY[0x1EEE9AC00](v49, v49) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v50 = &v63 - ((MEMORY[0x1EEE9AC00](v49) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v51 = _os_log_pack_fill();
         *v51 = 136446210;
@@ -8402,7 +8403,7 @@ BOOL quic_frame_parse_PATH_STATUS(uint64_t *a1, void *a2, uint64_t a3, uint64_t 
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v46 = _os_log_pack_size();
-        v47 = &v63 - ((MEMORY[0x1EEE9AC00](v46, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v47 = &v63 - ((MEMORY[0x1EEE9AC00](v46) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v48 = _os_log_pack_fill();
         *v48 = 136446210;
@@ -8426,7 +8427,7 @@ LABEL_62:
     {
       v15 = _os_log_pack_size();
       v65 = &v63;
-      v16 = &v63 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = &v63 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v17 = _os_log_pack_fill();
       v18 = a2[139];
@@ -8556,9 +8557,9 @@ LABEL_62:
   return result;
 }
 
-void quic_frame_acknowledged_PATH_ABANDON(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void quic_frame_acknowledged_PATH_ABANDON(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = *(a1 + 16);
+  v6 = *(result + 16);
   if (v6 != 2)
   {
     if (v6 == 1)
@@ -8587,7 +8588,7 @@ void quic_frame_acknowledged_PATH_ABANDON(uint64_t a1, uint64_t a2, uint64_t a3,
       v8 = &v13;
     }
 
-    *v8 = a1;
+    *v8 = result;
     a5 = quic_conn_foreach_path(a2, v7);
   }
 
@@ -8599,7 +8600,7 @@ void quic_frame_acknowledged_PATH_ABANDON(uint64_t a1, uint64_t a2, uint64_t a3,
   }
 }
 
-uint64_t quic_frame_write_PATH_ABANDON(uint64_t a1, int a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_PATH_ABANDON(unint64_t *a1, int a2, int a3, char **a4, _WORD *a5)
 {
   __src[1] = *MEMORY[0x1E69E9840];
   v38 = 0;
@@ -8637,7 +8638,7 @@ uint64_t quic_frame_write_PATH_ABANDON(uint64_t a1, int a2, int a3, char **a4, u
   }
 
   __src[0] = v8;
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   if (!v8)
   {
     v39 = 0;
@@ -8678,7 +8679,7 @@ uint64_t quic_frame_write_PATH_ABANDON(uint64_t a1, int a2, int a3, char **a4, u
 
   if (v10 == 1)
   {
-    v11 = *(a1 + 16);
+    v11 = a1[2];
     v16 = 1;
   }
 
@@ -8691,7 +8692,7 @@ uint64_t quic_frame_write_PATH_ABANDON(uint64_t a1, int a2, int a3, char **a4, u
   if (v8 != 2)
   {
 LABEL_25:
-    v8 = *(a1 + 24);
+    v8 = a1[3];
     if (v8)
     {
       if (v8 >> 62)
@@ -8725,7 +8726,7 @@ LABEL_25:
     }
 
     v38 = v8;
-    v8 = *(a1 + 32);
+    v8 = a1[4];
     if (!v8)
     {
       goto LABEL_23;
@@ -8735,7 +8736,7 @@ LABEL_25:
   }
 
   v17 = 0;
-  v8 = *(a1 + 32);
+  v8 = a1[4];
   if (!v8)
   {
 LABEL_23:
@@ -8770,7 +8771,7 @@ LABEL_35:
 
 LABEL_42:
   v37 = v8;
-  v8 = *(a1 + 40);
+  v8 = a1[5];
   if (!v8)
   {
     v19 = 1;
@@ -8804,8 +8805,8 @@ LABEL_60:
 
 LABEL_51:
   v36 = v8;
-  v20 = *(a1 + 8);
-  if (!*(a1 + 8))
+  v20 = *(a1 + 4);
+  if (!*(a1 + 4))
   {
     qlog_abort_internal("%s frame len can't be zero", "quic_frame_write_PATH_ABANDON");
   }
@@ -8820,7 +8821,7 @@ LABEL_51:
   *a4 = v22;
   v23 = quic_safe_append(v22, a5, &v39, v16);
   *a4 = v23;
-  if (*(a1 + 16) != 2)
+  if (a1[2] != 2)
   {
     v23 = quic_safe_append(v23, a5, &v38, v17);
     *a4 = v23;
@@ -8830,23 +8831,23 @@ LABEL_51:
   *a4 = v24;
   v25 = quic_safe_append(v24, a5, &v36, v19);
   *a4 = v25;
-  if (*(a1 + 40))
+  if (a1[5])
   {
-    *a4 = quic_safe_append(v25, a5, *(a1 + 48), *(a1 + 40));
+    *a4 = quic_safe_append(v25, a5, a1[6], a1[5]);
   }
 
   if (((qlog_datapath_enabled & 1) != 0 || qlog_nwlog_enabled) && (((qlog_debug_enabled | qlog_nwlog_enabled) & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEBUG)))
   {
     v27 = _os_log_pack_size();
-    v28 = &v36 - ((MEMORY[0x1EEE9AC00](v27, v27) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = &v36 - ((MEMORY[0x1EEE9AC00](v27) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v29 = _os_log_pack_fill();
     v30 = quic_frame_type_describe(*a1);
-    v31 = *(a1 + 16);
-    v32 = *(a1 + 24);
-    v33 = *(a1 + 32);
-    v34 = *(a1 + 40);
-    v35 = *(a1 + 48);
+    v31 = a1[2];
+    v32 = a1[3];
+    v33 = a1[4];
+    v34 = a1[5];
+    v35 = a1[6];
     *v29 = 136447746;
     *(v29 + 4) = "quic_frame_write_PATH_ABANDON";
     *(v29 + 12) = 2082;
@@ -8880,7 +8881,7 @@ uint64_t quic_frame_process_PATH_ABANDON(uint64_t a1, uint64_t a2, uint64_t a3, 
 
     v14 = _os_log_pack_size();
     v63 = &v61;
-    v15 = &v61 - ((MEMORY[0x1EEE9AC00](v14, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = &v61 - ((MEMORY[0x1EEE9AC00](v14) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v16 = _os_log_pack_fill();
     v17 = *(a3 + 1112);
@@ -9014,7 +9015,7 @@ LABEL_67:
 
     v37 = _os_log_pack_size();
     v63 = &v61;
-    v38 = &v61 - ((MEMORY[0x1EEE9AC00](v37, v37) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v38 = &v61 - ((MEMORY[0x1EEE9AC00](v37) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v39 = _os_log_pack_fill();
     v40 = *(a3 + 1112);
@@ -9142,7 +9143,7 @@ LABEL_67:
   if (*(path_from_path_identifiers + 16) - 6 <= 2)
   {
     v8 = path_from_path_identifiers;
-    quic_path_fsm_change(path_from_path_identifiers, 3u);
+    quic_path_fsm_change(path_from_path_identifiers, 3);
     quic_frame_alloc_PATH_ABANDON(*(a3 + 560), a3, v8, "received PATH ABANDON", 0x15uLL);
     quic_conn_retire_dcid_by_seq(a3, *(v8 + 232));
     v9 = *(a3 + 560);
@@ -9235,7 +9236,7 @@ BOOL quic_frame_parse_PATH_ABANDON(uint64_t *a1, void *a2, uint64_t a3, uint64_t
   if (v10)
   {
     v11 = v10;
-    v12 = (*a5 + v10);
+    v12 = *a5 + v10;
     *a5 = v12;
     v13 = *a6 - v11;
     *a6 = v13;
@@ -9247,7 +9248,7 @@ BOOL quic_frame_parse_PATH_ABANDON(uint64_t *a1, void *a2, uint64_t a3, uint64_t
         {
           v15 = _os_log_pack_size();
           v75[1] = v75;
-          v16 = v75 - ((MEMORY[0x1EEE9AC00](v15, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v16 = v75 - ((MEMORY[0x1EEE9AC00](v15) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v17 = _os_log_pack_fill();
           v18 = a2[139];
@@ -9385,7 +9386,7 @@ BOOL quic_frame_parse_PATH_ABANDON(uint64_t *a1, void *a2, uint64_t a3, uint64_t
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v62 = _os_log_pack_size();
-          v63 = v75 - ((MEMORY[0x1EEE9AC00](v62, v62) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v63 = v75 - ((MEMORY[0x1EEE9AC00](v62) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v64 = _os_log_pack_fill();
           *v64 = 136446210;
@@ -9400,7 +9401,7 @@ BOOL quic_frame_parse_PATH_ABANDON(uint64_t *a1, void *a2, uint64_t a3, uint64_t
       }
 
       v40 = v39;
-      v12 = (*a5 + v39);
+      v12 = *a5 + v39;
       *a5 = v12;
       v13 = *a6 - v40;
       *a6 = v13;
@@ -9431,7 +9432,7 @@ LABEL_75:
           }
 
           v65 = _os_log_pack_size();
-          v66 = v75 - ((MEMORY[0x1EEE9AC00](v65, v65) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v66 = v75 - ((MEMORY[0x1EEE9AC00](v65) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v67 = _os_log_pack_fill();
           v68 = quic_frame_type_describe(*a1);
@@ -9515,7 +9516,7 @@ LABEL_75:
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v72 = _os_log_pack_size();
-          v73 = v75 - ((MEMORY[0x1EEE9AC00](v72, v72) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v73 = v75 - ((MEMORY[0x1EEE9AC00](v72) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v74 = _os_log_pack_fill();
           *v74 = 136446210;
@@ -9533,7 +9534,7 @@ LABEL_75:
         if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
         {
           v59 = _os_log_pack_size();
-          v60 = v75 - ((MEMORY[0x1EEE9AC00](v59, v59) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v60 = v75 - ((MEMORY[0x1EEE9AC00](v59) + 15) & 0xFFFFFFFFFFFFFFF0);
           _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
           v61 = _os_log_pack_fill();
           *v61 = 136446210;
@@ -9552,7 +9553,7 @@ LABEL_75:
       if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
       {
         v56 = _os_log_pack_size();
-        v57 = v75 - ((MEMORY[0x1EEE9AC00](v56, v56) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v57 = v75 - ((MEMORY[0x1EEE9AC00](v56) + 15) & 0xFFFFFFFFFFFFFFF0);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v58 = _os_log_pack_fill();
         *v58 = 136446210;
@@ -9571,7 +9572,7 @@ LABEL_75:
     if ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_ERROR))
     {
       v36 = _os_log_pack_size();
-      v37 = v75 - ((MEMORY[0x1EEE9AC00](v36, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v37 = v75 - ((MEMORY[0x1EEE9AC00](v36) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v38 = _os_log_pack_fill();
       *v38 = 136446210;
@@ -9612,7 +9613,7 @@ void quic_frame_acknowledged_ACK_MP_ECN(uint64_t *a1, uint64_t a2, char a3)
   quic_ack_process_blocks(a1, v3);
 }
 
-uint64_t quic_frame_write_ACK_MP(uint64_t a1, uint64_t a2, int a3, char **a4, unsigned __int16 *a5)
+uint64_t quic_frame_write_ACK_MP(uint64_t a1, uint64_t a2, int a3, char **a4, _WORD *a5)
 {
   v7 = 12237312;
   if (*(a1 + 64) || *(a1 + 48) || *(a1 + 56))
@@ -9744,7 +9745,7 @@ LABEL_11:
 
   v8 = _os_log_pack_size();
   v32 = &v30;
-  v9 = &v30 - ((MEMORY[0x1EEE9AC00](v8, v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v30 - ((MEMORY[0x1EEE9AC00](v8) + 15) & 0xFFFFFFFFFFFFFFF0);
   _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
   v10 = _os_log_pack_fill();
   v11 = a3[139];

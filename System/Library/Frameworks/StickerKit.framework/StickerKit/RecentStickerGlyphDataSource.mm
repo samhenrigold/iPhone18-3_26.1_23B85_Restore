@@ -7,7 +7,7 @@
 
 - (void)moveItemFromIndex:(int64_t)index toIndex:(int64_t)toIndex completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v17 - v10;
   v12 = _Block_copy(handler);
@@ -34,7 +34,7 @@
 
 - (void)moveItemFromIndexPath:(NSIndexPath *)path toIndexPath:(NSIndexPath *)indexPath completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);

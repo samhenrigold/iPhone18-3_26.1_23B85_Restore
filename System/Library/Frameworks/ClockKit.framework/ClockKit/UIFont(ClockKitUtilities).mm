@@ -13,26 +13,26 @@
 
 - (id)CLKFontWithLocalizedSmallCaps
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  if (CLKSmallCapsAllowed())
+  v14[2] = *MEMORY[0x277D85DE8];
+  if (CLKSmallCapsAllowed(self, a2))
   {
-    v3 = *MEMORY[0x277D74388];
-    v12[0] = *MEMORY[0x277D74398];
-    v2 = v12[0];
-    v12[1] = v3;
-    v13[0] = &unk_284A34B60;
-    v13[1] = &unk_284A34B78;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-    v10[0] = v2;
-    v10[1] = v3;
-    v11[0] = &unk_284A34B90;
-    v11[1] = &unk_284A34B78;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-    v9[0] = v4;
-    v9[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+    v4 = *MEMORY[0x277D74388];
+    v13[0] = *MEMORY[0x277D74398];
+    v3 = v13[0];
+    v13[1] = v4;
+    v14[0] = &unk_284A34B60;
+    v14[1] = &unk_284A34B78;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v11[0] = v3;
+    v11[1] = v4;
+    v12[0] = &unk_284A34B90;
+    v12[1] = &unk_284A34B78;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v10[0] = v5;
+    v10[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
-    selfCopy = [self CLKFontByApplyingFeatureSettings:v6];
+    selfCopy = [self CLKFontByApplyingFeatureSettings:v7];
   }
 
   else
@@ -45,19 +45,19 @@
 
 - (id)CLKFontWithLocalizedLowerCaseSmallCaps
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  if (CLKSmallCapsAllowed())
+  v10[2] = *MEMORY[0x277D85DE8];
+  if (CLKSmallCapsAllowed(self, a2))
   {
-    v2 = *MEMORY[0x277D74388];
-    v8[0] = *MEMORY[0x277D74398];
-    v8[1] = v2;
-    v9[0] = &unk_284A34B90;
-    v9[1] = &unk_284A34B78;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    v7 = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
+    v3 = *MEMORY[0x277D74388];
+    v9[0] = *MEMORY[0x277D74398];
+    v9[1] = v3;
+    v10[0] = &unk_284A34B90;
+    v10[1] = &unk_284A34B78;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8 = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
 
-    selfCopy = [self CLKFontByApplyingFeatureSettings:v4];
+    selfCopy = [self CLKFontByApplyingFeatureSettings:v5];
   }
 
   else

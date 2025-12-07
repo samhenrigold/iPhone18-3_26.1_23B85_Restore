@@ -86,7 +86,7 @@ LABEL_8:
 
 void __63__ATXAlarmsDataSource_alarmsFromDate_toDate_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -100,91 +100,90 @@ void __63__ATXAlarmsDataSource_alarmsFromDate_toDate_completionHandler___block_i
 
   else
   {
-    v23 = 0;
-    v24 = a1;
-    v25 = v5;
+    v22 = 0;
+    v23 = a1;
+    v24 = v5;
     v8 = v5;
-    v28 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+    v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = v8;
-    v29 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
-    if (v29)
+    v28 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+    if (v28)
     {
-      v27 = *v36;
+      v26 = *v35;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v36 != v27)
+          if (*v35 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v35 + 1) + 8 * i);
-          v40[0] = v10;
-          v39[0] = @"MTAlarm";
-          v39[1] = @"alarmID";
-          v34 = [v10 alarmID];
-          v33 = [v34 UUIDString];
-          v40[1] = v33;
-          v39[2] = @"displayTitle";
-          v32 = [v10 displayTitle];
-          v40[2] = v32;
-          v39[3] = @"lastModifiedTS";
+          v10 = *(*(&v34 + 1) + 8 * i);
+          v39[0] = v10;
+          v38[0] = @"MTAlarm";
+          v38[1] = @"alarmID";
+          v33 = [v10 alarmID];
+          v32 = [v33 UUIDString];
+          v39[1] = v32;
+          v38[2] = @"displayTitle";
+          v31 = [v10 displayTitle];
+          v39[2] = v31;
+          v38[3] = @"lastModifiedTS";
           v11 = MEMORY[0x277CCABB0];
-          v31 = [v10 lastModifiedDate];
-          [v31 timeIntervalSinceReferenceDate];
-          v30 = [v11 numberWithDouble:?];
-          v40[3] = v30;
-          v39[4] = @"hour";
+          v30 = [v10 lastModifiedDate];
+          [v30 timeIntervalSinceReferenceDate];
+          v29 = [v11 numberWithDouble:?];
+          v39[3] = v29;
+          v38[4] = @"hour";
           v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "hour")}];
-          v40[4] = v12;
-          v39[5] = @"minute";
+          v39[4] = v12;
+          v38[5] = @"minute";
           v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "minute")}];
-          v40[5] = v13;
-          v39[6] = @"isEnabled";
+          v39[5] = v13;
+          v38[6] = @"isEnabled";
           v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v10, "isEnabled")}];
-          v40[6] = v14;
-          v39[7] = @"isRepeating";
+          v39[6] = v14;
+          v38[7] = @"isRepeating";
           v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v10, "repeats")}];
-          v40[7] = v15;
-          v40[8] = MEMORY[0x277CBEC38];
-          v39[8] = @"playsOnThisDevice";
-          v39[9] = @"isSleepAlarm";
+          v39[7] = v15;
+          v39[8] = MEMORY[0x277CBEC38];
+          v38[8] = @"playsOnThisDevice";
+          v38[9] = @"isSleepAlarm";
           v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v10, "isSleepAlarm")}];
-          v40[9] = v16;
-          v39[10] = @"bedtimeHour";
+          v39[9] = v16;
+          v38[10] = @"bedtimeHour";
           v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "bedtimeHour")}];
-          v40[10] = v17;
-          v39[11] = @"bedtimeMinute";
+          v39[10] = v17;
+          v38[11] = @"bedtimeMinute";
           v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "bedtimeMinute")}];
-          v40[11] = v18;
-          v39[12] = @"bedtimeReminderMinutes";
+          v39[11] = v18;
+          v38[12] = @"bedtimeReminderMinutes";
           v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "bedtimeReminderMinutes")}];
-          v40[12] = v19;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:13];
-          [v28 addObject:v20];
+          v39[12] = v19;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:13];
+          [v27 addObject:v20];
         }
 
-        v29 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v28 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
-    a1 = v24;
-    v5 = v25;
-    v21 = *(*(v24 + 40) + 8);
+    a1 = v23;
+    v5 = v24;
+    v21 = *(*(v23 + 40) + 8);
     v7 = *(v21 + 40);
-    *(v21 + 40) = v28;
-    v6 = v23;
+    *(v21 + 40) = v27;
+    v6 = v22;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ATXAlarmsDataSource_alarmsFromDate_toDate_completionHandler___block_invoke_2(uint64_t a1)
@@ -202,11 +201,10 @@ void __63__ATXAlarmsDataSource_alarmsFromDate_toDate_completionHandler___block_i
 
 void __63__ATXAlarmsDataSource_alarmsFromDate_toDate_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Fetching alarms failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Fetching alarms failed: %@", &v2, 0xCu);
 }
 
 @end

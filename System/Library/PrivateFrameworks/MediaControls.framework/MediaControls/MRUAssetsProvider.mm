@@ -246,7 +246,7 @@ uint64_t __41__MRUAssetsProvider_sharedAssetsProvider__block_invoke()
 {
   height = size.height;
   width = size.width;
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v13 = completionCopy;
@@ -292,42 +292,42 @@ LABEL_10:
   v19 = [(NSCache *)self->_applicationCache objectForKey:identifierCopy];
   if (!v19)
   {
-    v30 = 0;
-    v20 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v30];
-    v21 = v30;
+    v31 = 0;
+    v20 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v31];
+    v21 = v31;
     v19 = [MEMORY[0x1E696AD98] numberWithInt:v20 != 0];
-    [(NSCache *)self->_applicationCache setObject:v19 forKey:identifierCopy];
+    v22 = [(NSCache *)self->_applicationCache setObject:v19 forKey:identifierCopy];
     if (v21)
     {
-      v22 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = MCLogCategoryDefault(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
         selfCopy = self;
-        v33 = 2114;
-        v34 = identifierCopy;
-        v35 = 2114;
-        v36 = v21;
-        _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_ERROR, "%{public}@ coudln't find application with bundle: %{public}@ | error: %{public}@ ", buf, 0x20u);
+        v34 = 2114;
+        v35 = identifierCopy;
+        v36 = 2114;
+        v37 = v21;
+        _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_ERROR, "%{public}@ coudln't find application with bundle: %{public}@ | error: %{public}@ ", buf, 0x20u);
       }
     }
   }
 
   if ([v19 BOOLValue])
   {
-    v23 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithBundleIdentifier:identifierCopy];
+    v24 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithBundleIdentifier:identifierCopy];
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
     [mainScreen scale];
-    v26 = v25;
+    v27 = v26;
 
-    v27 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:width scale:{height, v26}];
-    [v27 setAppearance:appearance];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __83__MRUAssetsProvider_applicationIconForBundleIdentifier_size_appearance_completion___block_invoke;
-    v28[3] = &unk_1E7666290;
-    v29 = v13;
-    [v23 getCGImageForImageDescriptor:v27 completion:v28];
+    v28 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:width scale:{height, v27}];
+    [v28 setAppearance:appearance];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __83__MRUAssetsProvider_applicationIconForBundleIdentifier_size_appearance_completion___block_invoke;
+    v29[3] = &unk_1E7666290;
+    v30 = v13;
+    [v24 getCGImageForImageDescriptor:v28 completion:v29];
   }
 
   else

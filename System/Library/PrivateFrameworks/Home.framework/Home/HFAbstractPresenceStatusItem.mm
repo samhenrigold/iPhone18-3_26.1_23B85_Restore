@@ -9,40 +9,38 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   serviceTypes = [objc_opt_class() serviceTypes];
   anyObject = [serviceTypes anyObject];
 
   v7 = [objc_opt_class() characteristicTypesForServiceType:anyObject includingAssociatedTypes:1];
-  v21[0] = anyObject;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = anyObject;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   allObjects = [v7 allObjects];
   v10 = [(HFStatusItem *)self filteredServicesOfTypes:v8 containingCharacteristicTypes:allObjects];
 
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v12 = [valueSource readValuesForCharacteristicTypes:v7 inServices:v10];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __60__HFAbstractPresenceStatusItem__subclass_updateWithOptions___block_invoke;
-  v17[3] = &unk_277DF61A0;
-  objc_copyWeak(&v19, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __60__HFAbstractPresenceStatusItem__subclass_updateWithOptions___block_invoke;
+  v16[3] = &unk_277DF61A0;
+  objc_copyWeak(&v18, &location);
   v13 = anyObject;
-  v18 = v13;
-  v14 = [v12 flatMap:v17];
+  v17 = v13;
+  v14 = [v12 flatMap:v16];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id __60__HFAbstractPresenceStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -90,14 +88,12 @@ id __60__HFAbstractPresenceStatusItem__subclass_updateWithOptions___block_invoke
   else
   {
     v13 = MEMORY[0x277D2C900];
-    v25 = @"hidden";
-    v26[0] = MEMORY[0x277CBEC38];
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"hidden";
+    v25[0] = MEMORY[0x277CBEC38];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v15 = [HFItemUpdateOutcome outcomeWithResults:v14];
     v12 = [v13 futureWithResult:v15];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

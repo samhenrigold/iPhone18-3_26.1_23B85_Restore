@@ -15,36 +15,36 @@
 
 + (BOOL)isValidCentralEpsilon:(double)epsilon plistParameter:(id)parameter
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   if (epsilon >= 0.0 && epsilon <= 16.0)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v36[0] = @"MaxCentralDelta";
-    v36[1] = @"PINEFractionalBitCount";
-    v36[2] = @"MaxDimension";
-    v36[3] = @"PINEWraparoundCheckCount";
-    v36[4] = @"VDAFType";
-    v36[5] = @"VDAFNumOfProofs";
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:6];
-    v15 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v35[0] = @"MaxCentralDelta";
+    v35[1] = @"PINEFractionalBitCount";
+    v35[2] = @"MaxDimension";
+    v35[3] = @"PINEWraparoundCheckCount";
+    v35[4] = @"VDAFType";
+    v35[5] = @"VDAFNumOfProofs";
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:6];
+    v15 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v33;
+      v17 = *v32;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v33 != v17)
+          if (*v32 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [parameterCopy objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
+          v19 = [parameterCopy objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -58,7 +58,7 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v16)
         {
           continue;
@@ -93,8 +93,8 @@
 
         if (v24 > 0.0)
         {
-          v30 = [parameterCopy objectForKeyedSubscript:@"MaxDimension"];
-          unsignedLongLongValue = [v30 unsignedLongLongValue];
+          v29 = [parameterCopy objectForKeyedSubscript:@"MaxDimension"];
+          unsignedLongLongValue = [v29 unsignedLongLongValue];
 
           if ([_DPPrioPlusPlusNoiseGenerator isValidDimension:unsignedLongLongValue])
           {
@@ -148,14 +148,13 @@ LABEL_37:
   v14 = +[_DPLog framework];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [(_DPPrio3SumVectorRandomizer *)v14 initWithEpsilon:v7 parameters:v8, v9, v10, v11, v12, v13];
+    [(_DPPrio3SumVectorRandomizer *)v14 initWithEpsilon:v7 parameters:v8, v9, v10, v11, v12, v13, epsilon];
   }
 
 LABEL_25:
   v27 = 0;
 LABEL_26:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -239,7 +238,7 @@ LABEL_26:
     v19 = +[_DPLog framework];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(_DPPINERandomizer *)v19 addNoiseToData:v22 metadata:v23, v24, v25, v26, v27, v28];
+      [(_DPPINERandomizer *)v19 addNoiseToData:v22 metadata:v23, v24, v25, v26, v27, v28, v14];
     }
 
 LABEL_10:
@@ -267,7 +266,7 @@ LABEL_15:
 
 - (id)pineParameterWithMetadata:(id)metadata
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   plistParameter = [(_DPPINERandomizer *)self plistParameter];
   v6 = [plistParameter objectForKeyedSubscript:@"PINEFractionalBitCount"];
@@ -301,13 +300,13 @@ LABEL_15:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138413058;
-          v32 = @"DediscoTaskConfig";
-          v33 = 2112;
-          v34 = @"VDAFConfig";
-          v35 = 2112;
-          v36 = @"FractionalBitCount";
-          v37 = 2112;
-          v38 = v18;
+          v31 = @"DediscoTaskConfig";
+          v32 = 2112;
+          v33 = @"VDAFConfig";
+          v34 = 2112;
+          v35 = @"FractionalBitCount";
+          v36 = 2112;
+          v37 = v18;
           _os_log_error_impl(&dword_22622D000, v19, OS_LOG_TYPE_ERROR, "Invalid %@.%@.%@=%@", buf, 0x2Au);
         }
 
@@ -360,8 +359,6 @@ LABEL_17:
 
   v20 = 0;
 LABEL_18:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -477,7 +474,7 @@ LABEL_18:
 
 - (id)recordWithShardResult:(id)result noisedVector:(id)vector metadata:(id)metadata key:(id)key
 {
-  v36[6] = *MEMORY[0x277D85DE8];
+  v35[6] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   vectorCopy = vector;
   keyCopy = key;
@@ -488,25 +485,25 @@ LABEL_18:
   v15 = v14;
 
   v16 = [metadataCopy mutableCopy];
-  v35[0] = @"PINEChunkLength";
+  v34[0] = @"PINEChunkLength";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(resultCopy, "chunkLength")}];
-  v36[0] = v17;
-  v35[1] = @"PINEChunkLengthNormEquality";
+  v35[0] = v17;
+  v34[1] = @"PINEChunkLengthNormEquality";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(resultCopy, "chunkLengthNormEquality")}];
-  v36[1] = v18;
-  v35[2] = @"PINEFractionalBitCount";
+  v35[1] = v18;
+  v34[2] = @"PINEFractionalBitCount";
   v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(resultCopy, "fractionalBitCount")}];
-  v36[2] = v19;
-  v35[3] = @"PINEL2NormBoundInt";
+  v35[2] = v19;
+  v34[3] = @"PINEL2NormBoundInt";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(resultCopy, "l2NormBoundInt")}];
-  v36[3] = v20;
-  v35[4] = @"Nonce";
+  v35[3] = v20;
+  v34[4] = @"Nonce";
   nonce = [resultCopy nonce];
-  v36[4] = nonce;
-  v35[5] = @"PublicShare";
+  v35[4] = nonce;
+  v34[5] = @"PublicShare";
   publicShare = [resultCopy publicShare];
-  v36[5] = publicShare;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
+  v35[5] = publicShare;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:6];
   [v16 setObject:v23 forKeyedSubscript:@"VDAF"];
 
   v24 = [_DPKeyNames keyPropertiesForKey:keyCopy];
@@ -524,30 +521,28 @@ LABEL_18:
   v30 = [inputShares2 objectAtIndexedSubscript:1];
   v31 = -[_DPPrioRecord initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:](v26, "initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:", keyCopy, v28, v30, [resultCopy dimension], v16, 0, v15, 0);
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
 - (id)randomizeFloatVectors:(id)vectors metadata:(id)metadata forKey:(id)key
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
-  v33 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v32 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v10 = vectorsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v11)
   {
     v13 = v11;
-    v36 = *v40;
+    v35 = *v39;
     *&v12 = 138412290;
-    v32 = v12;
+    v31 = v12;
     obj = v10;
     while (2)
     {
@@ -555,12 +550,12 @@ LABEL_18:
       do
       {
         v15 = metadataCopy;
-        if (*v40 != v36)
+        if (*v39 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v39 + 1) + 8 * v14);
+        v16 = *(*(&v38 + 1) + 8 * v14);
         v17 = +[_DPLog daemon];
         v18 = +[_DPLog daemon];
         v19 = os_signpost_id_make_with_pointer(v18, v16);
@@ -578,7 +573,7 @@ LABEL_18:
           v20 = +[_DPLog framework];
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            [_DPPINERandomizer randomizeFloatVectors:v38 metadata:v20 forKey:?];
+            [_DPPINERandomizer randomizeFloatVectors:v37 metadata:v20 forKey:?];
           }
 
           v21 = v16;
@@ -597,7 +592,7 @@ LABEL_18:
 
             v10 = obj;
             v28 = 0;
-            v27 = v33;
+            v27 = v32;
             goto LABEL_28;
           }
         }
@@ -618,7 +613,7 @@ LABEL_18:
           v26 = [(_DPPINERandomizer *)self recordWithShardResult:v22 noisedVector:v21 metadata:metadataCopy key:keyCopy];
           if (v26)
           {
-            [v33 addObject:v26];
+            [v32 addObject:v26];
           }
         }
 
@@ -627,8 +622,8 @@ LABEL_18:
           v26 = +[_DPLog framework];
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            *buf = v32;
-            v44 = keyCopy;
+            *buf = v31;
+            v43 = keyCopy;
             _os_log_error_impl(&dword_22622D000, v26, OS_LOG_TYPE_ERROR, "Fail to privatize vector with key=%@, continuing...", buf, 0xCu);
           }
         }
@@ -638,7 +633,7 @@ LABEL_18:
 
       while (v13 != v14);
       v10 = obj;
-      v13 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v13 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v13)
       {
         continue;
@@ -648,125 +643,49 @@ LABEL_18:
     }
   }
 
-  v27 = v33;
-  v28 = v33;
+  v27 = v32;
+  v28 = v32;
 LABEL_28:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
-+ (void)isValidCentralEpsilon:plistParameter:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Invalid parameter in plist: key=%@, value= (%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)isValidCentralEpsilon:plistParameter:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Invalid parameter in plist: kDPVDAFType=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)isValidCentralEpsilon:plistParameter:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Invalid parameter in plist: kDPVDAFNumOfProofs=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)isValidCentralEpsilon:(void *)a1 plistParameter:(uint64_t)a2 .cold.5(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isValidCentralEpsilon:(void *)a1 plistParameter:(uint64_t)a2 .cold.6(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-- (void)addNoiseToData:(uint64_t)a3 metadata:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (void)addNoiseToData:(uint64_t)a3 metadata:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "Invalid sigma=%f", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addNoiseToData:metadata:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Invalid value for %@=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addNoiseToData:metadata:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Missing key=%@.%@ in metadata");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pineParameterWithMetadata:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Invalid VDAFConfig.kDPMetadataVDAFConfigL2NormBoundWithNoise=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)randomizeFloatVector:metadata:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Fail to shard with error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "Invalid sigma=%f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 - (void)randomizeFloatVector:(void *)a1 metadata:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 l2NormBound];
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)randomizeFloatVector:metadata:.cold.3()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  WORD2(v4) = 2048;
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Float vector dimension=%lu exceeds limit=%lu", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)randomizeFloatVectors:metadata:forKey:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Fail to add noise to vector with key=%@, continuing...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  WORD2(v3) = 2048;
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Float vector dimension=%lu exceeds limit=%lu", v2, v3);
 }
 
 - (void)randomizeFloatVectors:(uint8_t *)buf metadata:(_BYTE *)a2 forKey:(os_log_t)log .cold.2(uint8_t *buf, _BYTE *a2, os_log_t log)

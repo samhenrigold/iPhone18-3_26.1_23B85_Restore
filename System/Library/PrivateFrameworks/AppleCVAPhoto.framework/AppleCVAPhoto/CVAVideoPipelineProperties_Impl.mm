@@ -78,31 +78,15 @@
     return 0;
   }
 
-  if (sub_1DED2E328(self->_videoPipelineDevice) == 2)
-  {
-    return 1;
-  }
-
-  depthPixelBufferXPadding = self->_depthPixelBufferXPadding;
-  v33 = (depthPixelBufferXPadding & 0x80000000) != 0 || (self->_inputDisparityPixelBufferWidth <= depthPixelBufferXPadding);
-  v34 = MEMORY[0x1E696AEC0];
-  v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"depthPixelBufferXPadding not in [0, inputDisparityPixelBufferWidth"]);
-  v36 = [v34 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[CVAVideoPipelineProperties_Impl validateWithError:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/src/CVAVideoPipelineProperties.mm", 1643, v35];
-  sub_1DED25D64(v33, error, 4294944393, v36);
-
-  if (v33)
+  if (sub_1DED2E328(self->_videoPipelineDevice) != 2 && ((depthPixelBufferXPadding = self->_depthPixelBufferXPadding, (depthPixelBufferXPadding & 0x80000000) != 0) ? (v33 = 1) : (v33 = self->_inputDisparityPixelBufferWidth <= depthPixelBufferXPadding), (v34 = MEMORY[0x1E696AEC0], [MEMORY[0x1E696AEC0] stringWithFormat:@"depthPixelBufferXPadding not in [0, inputDisparityPixelBufferWidth"]), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "stringWithFormat:", @"Assertion failure in %s at %s:%d -- %@", "-[CVAVideoPipelineProperties_Impl validateWithError:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/src/CVAVideoPipelineProperties.mm", 1643, v35), v36 = objc_claimAutoreleasedReturnValue(), sub_1DED25D64(v33, error, 4294944393, v36), v36, v35, v33) || ((depthPixelBufferYPadding = self->_depthPixelBufferYPadding, (depthPixelBufferYPadding & 0x80000000) != 0) ? (v38 = 1) : (v38 = self->_inputDisparityPixelBufferHeight <= depthPixelBufferYPadding), v39 = MEMORY[0x1E696AEC0], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"depthPixelBufferYPadding not in [0, inputDisparityPixelBufferHeight")), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "stringWithFormat:", @"Assertion failure in %s at %s:%d -- %@", "-[CVAVideoPipelineProperties_Impl validateWithError:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/src/CVAVideoPipelineProperties.mm", 1654, v40), v41 = objc_claimAutoreleasedReturnValue(), sub_1DED25D64(v38, error, 4294944393, v41), v41, v40, v38)))
   {
     return 0;
   }
 
-  depthPixelBufferYPadding = self->_depthPixelBufferYPadding;
-  v38 = (depthPixelBufferYPadding & 0x80000000) != 0 || (self->_inputDisparityPixelBufferHeight <= depthPixelBufferYPadding);
-  v39 = MEMORY[0x1E696AEC0];
-  v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"depthPixelBufferYPadding not in [0, inputDisparityPixelBufferHeight"]);
-  v41 = [v39 stringWithFormat:@"Assertion failure in %s at %s:%d -- %@", "-[CVAVideoPipelineProperties_Impl validateWithError:]", "/Library/Caches/com.apple.xbs/Sources/AppleCVAPhoto/src/CVAVideoPipelineProperties.mm", 1654, v40];
-  sub_1DED25D64(v38, error, 4294944393, v41);
-
-  return !v38;
+  else
+  {
+    return 1;
+  }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -224,7 +208,7 @@
 - (id)initForVideoPipelineDevice:(unint64_t)device
 {
   MEMORY[0x1EEE9AC00](self, a2, device);
-  v7 = *MEMORY[0x1E69E9840];
+  v6[2064] = *MEMORY[0x1E69E9840];
   v6[2] = v3;
   v6[1] = 0;
   v6[0] = 0;

@@ -9,18 +9,16 @@
 {
   if (*(self + OBJC_IVAR___AAProcessEvent_groupName + 8))
   {
-    v2 = *(self + OBJC_IVAR___AAProcessEvent_groupName);
-    v3 = *(self + OBJC_IVAR___AAProcessEvent_groupName + 8);
 
-    v4 = sub_1B6AB92B0();
+    v2 = sub_1B6AB92B0();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (AAProcessEvent)init

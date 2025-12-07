@@ -987,7 +987,7 @@ void __73__VCMediaRecorderManager_notifyClientsWithStreamToken_service_arguments
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to serialize sandboxedURL=%@", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to serialize sandboxedURL=%@", v5, v6, v7, v8);
     }
   }
 
@@ -1004,7 +1004,7 @@ void __73__VCMediaRecorderManager_notifyClientsWithStreamToken_service_arguments
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_16();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to issue read write sandboxedURL for url=%@", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to issue read write sandboxedURL for url=%@", v5, v6, v7, v8);
     }
   }
 

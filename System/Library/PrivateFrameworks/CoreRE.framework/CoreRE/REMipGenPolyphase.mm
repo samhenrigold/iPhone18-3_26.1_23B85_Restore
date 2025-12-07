@@ -139,7 +139,7 @@
   v11 = 0u;
   encoderCopy = encoder;
   textureCopy = texture;
-  +[REMipGenPolyphase defaultOptions];
+  objc_msgSend_defaultOptions(REMipGenPolyphase);
   v8[0] = v10;
   v8[1] = v11;
   v9 = v12;
@@ -182,7 +182,7 @@
   encoderCopy = encoder;
   toTextureCopy = toTexture;
   textureCopy = texture;
-  +[REMipGenPolyphase defaultOptions];
+  objc_msgSend_defaultOptions(REMipGenPolyphase);
   v11[0] = v13;
   v11[1] = v14;
   v12 = v15;

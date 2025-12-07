@@ -1,3 +1,974 @@
+_DWORD *xmlSchematronAddTest(uint64_t a1, int a2, uint64_t a3, uint64_t a4, xmlChar *str, uint64_t a6)
+{
+  v12 = xmlXPathCtxtCompile(*(a1 + 64), str);
+  if (!v12)
+  {
+    xmlSchematronPErr(a1, a4, 1759, "Failed to compile test expression %s", str);
+    return 0;
+  }
+
+  v13 = v12;
+  result = malloc_type_malloc(0x30uLL, 0x10300400BFA76D7uLL);
+  if (!result)
+  {
+    ++*(a1 + 56);
+    __xmlSimpleError(0x10u, 2, a4, 0, "allocating schema test");
+    return 0;
+  }
+
+  result[2] = a2;
+  result[3] = 0;
+  *(result + 2) = a4;
+  *(result + 3) = str;
+  *(result + 4) = v13;
+  *(result + 5) = a6;
+  *result = 0;
+  v15 = *(a3 + 32);
+  if (v15)
+  {
+    do
+    {
+      v16 = v15;
+      v15 = *v15;
+    }
+
+    while (v15);
+    *v16 = result;
+  }
+
+  else
+  {
+    *(a3 + 32) = result;
+  }
+
+  return result;
+}
+
+void xmlFreeMutex(xmlMutexPtr tok)
+{
+  if (tok)
+  {
+    pthread_mutex_destroy(tok);
+
+    free(tok);
+  }
+}
+
+void xmlFreeRMutex(xmlRMutexPtr tok)
+{
+  if (tok)
+  {
+    pthread_mutex_destroy(tok);
+    pthread_cond_destroy((tok + 80));
+
+    free(tok);
+  }
+}
+
+xmlChar *__cdecl xmlBuildQName(const xmlChar *ncname, const xmlChar *prefix, xmlChar *memory, int len)
+{
+  result = 0;
+  if (ncname && (len & 0x80000000) == 0)
+  {
+    if (prefix)
+    {
+      v9 = strlen(ncname);
+      v10 = strlen(prefix);
+      if (v9 < -2 - v10)
+      {
+        v11 = v10;
+        v12 = v10 + v9;
+        v13 = v10 + v9 + 2;
+        if (memory && v13 <= len || (memory = malloc_type_malloc(v13, 0x100004077774924uLL)) != 0)
+        {
+          memcpy(memory, prefix, v11);
+          memory[v11] = 58;
+          memcpy(&memory[v11 + 1], ncname, v9);
+          memory[v12 + 1] = 0;
+          return memory;
+        }
+
+        __xmlSimpleError(2u, 2, 0, 0, "building QName");
+      }
+
+      return 0;
+    }
+
+    else
+    {
+      return ncname;
+    }
+  }
+
+  return result;
+}
+
+const xmlChar *__cdecl xmlSplitQName3(const xmlChar *name, int *len)
+{
+  result = 0;
+  if (name && len)
+  {
+    v4 = *name;
+    if (v4 == 58)
+    {
+      return 0;
+    }
+
+    v5 = 0;
+    result = name + 1;
+    if (!*name)
+    {
+      return 0;
+    }
+
+    else
+    {
+      while (v4 != 58)
+      {
+        v6 = *result++;
+        v4 = v6;
+        ++v5;
+        if (!v6)
+        {
+          return 0;
+        }
+      }
+
+      *len = v5;
+    }
+  }
+
+  return result;
+}
+
+int xmlValidateNCName(const xmlChar *value, int space)
+{
+  if (!value)
+  {
+    return -1;
+  }
+
+  v3 = value;
+  if (space)
+  {
+    for (i = value; ; ++i)
+    {
+      v5 = *i;
+      if (v5 > 0x20 || ((1 << v5) & 0x100002600) == 0)
+      {
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = *value;
+    i = value;
+  }
+
+  len = 0;
+  if (v5 - 97 < 0x1A || v5 == 95 || v5 - 65 <= 0x19)
+  {
+    do
+    {
+      v8 = i;
+      v10 = *++i;
+      v9 = v10;
+      v11 = (v10 & 0xFFFFFFDF) - 65;
+    }
+
+    while (v10 - 48 < 0xA || v11 < 0x1A || v9 - 45 <= 0x32 && ((1 << (v9 - 45)) & 0x4000000000003) != 0);
+    if (space)
+    {
+      v14 = 2;
+      while (v9 <= 0x20 && ((1 << v9) & 0x100002600) != 0)
+      {
+        v9 = v8[v14++];
+      }
+    }
+
+    if (!v9)
+    {
+      return 0;
+    }
+  }
+
+  v15 = xmlStringCurrentChar(0, value, &len);
+  v16 = v15;
+  if (!space)
+  {
+    if (v15 < 256)
+    {
+      goto LABEL_38;
+    }
+
+LABEL_44:
+    if (xmlCharInRange(v16, &xmlIsBaseCharGroup) || v16 == 12295 || (v16 - 40870) > 0xFFFFAE59 || (v16 - 12330) >= 0xFFFFFFF7)
+    {
+      goto LABEL_45;
+    }
+
+    return 1;
+  }
+
+  if (v15 > 255)
+  {
+    goto LABEL_44;
+  }
+
+  while (v16 <= 0x20 && ((1 << v16) & 0x100002600) != 0)
+  {
+    v3 += len;
+    v16 = xmlStringCurrentChar(0, v3, &len);
+    if (v16 >= 256)
+    {
+      goto LABEL_44;
+    }
+  }
+
+LABEL_38:
+  if ((v16 - 192) >= 0x17 && (v16 & 0xFFFFFFDF) - 65 >= 0x1A && v16 != 95 && v16 <= 247 && (v16 - 216) >= 0x1F)
+  {
+    return 1;
+  }
+
+  do
+  {
+    while (1)
+    {
+      do
+      {
+        do
+        {
+LABEL_45:
+          while (1)
+          {
+            v3 += len;
+            v17 = xmlStringCurrentChar(0, v3, &len);
+            v18 = v17;
+            if (v17 > 255)
+            {
+              break;
+            }
+
+            v19 = (v17 - 192) >= 0x17 && (v17 & 0xFFFFFFDF) - 65 >= 0x1A;
+            if (v19 && (v17 - 48) >= 0xA && v17 <= 247 && (v17 - 216) >= 0x1F)
+            {
+              goto LABEL_69;
+            }
+          }
+
+          if (xmlCharInRange(v17, &xmlIsBaseCharGroup))
+          {
+            v21 = 1;
+          }
+
+          else
+          {
+            v21 = v18 == 12295;
+          }
+
+          v23 = !v21 && (v18 - 19968) >= 0x51A6 && (v18 - 12321) >= 9;
+        }
+
+        while (!v23 || xmlCharInRange(v18, &xmlIsDigitGroup));
+LABEL_69:
+        ;
+      }
+
+      while ((v18 - 45) <= 0x32 && ((1 << (v18 - 45)) & 0x4000000000003) != 0);
+      if (v18 >= 256)
+      {
+        break;
+      }
+
+      if (v18 != 183)
+      {
+        goto LABEL_79;
+      }
+    }
+  }
+
+  while (xmlCharInRange(v18, &xmlIsCombiningGroup) || xmlCharInRange(v18, &xmlIsExtenderGroup));
+LABEL_79:
+  if (space && v18 <= 255)
+  {
+    do
+    {
+      if (v18 > 0x20)
+      {
+        break;
+      }
+
+      if (((1 << v18) & 0x100002600) == 0)
+      {
+        break;
+      }
+
+      v3 += len;
+      v18 = xmlStringCurrentChar(0, v3, &len);
+    }
+
+    while (v18 < 256);
+  }
+
+  return v18 != 0;
+}
+
+int xmlValidateQName(const xmlChar *value, int space)
+{
+  if (!value)
+  {
+    return -1;
+  }
+
+  v3 = value;
+  if (space)
+  {
+    for (i = value; ; ++i)
+    {
+      v5 = *i;
+      if (v5 > 0x20 || ((1 << v5) & 0x100002600) == 0)
+      {
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = *value;
+    i = value;
+  }
+
+  len = 0;
+  if (v5 - 97 < 0x1A || v5 == 95 || v5 - 65 <= 0x19)
+  {
+    do
+    {
+      v9 = *++i;
+      v8 = v9;
+      v10 = (v9 & 0xFFFFFFDF) - 65;
+      v11 = v9 - 48 >= 0xA && v10 >= 0x1A;
+    }
+
+    while (!v11 || v8 - 45 < 2 || v8 == 95);
+    if (v8 == 58)
+    {
+      v12 = i[1];
+      if ((v12 - 97) >= 0x1A && v12 != 95 && (v12 - 65) > 0x19)
+      {
+        goto LABEL_44;
+      }
+
+      for (i += 2; ; ++i)
+      {
+        v8 = *i;
+        if (v8 - 48 >= 0xA && (v8 & 0xFFFFFFDF) - 65 >= 0x1A && (v8 - 45 > 0x32 || ((1 << (v8 - 45)) & 0x4000000000003) == 0))
+        {
+          break;
+        }
+      }
+    }
+
+    if (space)
+    {
+      v15 = (i + 1);
+      while (v8 <= 0x20 && ((1 << v8) & 0x100002600) != 0)
+      {
+        v16 = *v15++;
+        v8 = v16;
+      }
+    }
+
+    if (!v8)
+    {
+      return 0;
+    }
+  }
+
+LABEL_44:
+  v17 = xmlStringCurrentChar(0, value, &len);
+  v18 = v17;
+  if (space)
+  {
+    if (v17 <= 255)
+    {
+      while (v18 <= 0x20 && ((1 << v18) & 0x100002600) != 0)
+      {
+        v3 += len;
+        v18 = xmlStringCurrentChar(0, v3, &len);
+        if (v18 >= 256)
+        {
+          goto LABEL_57;
+        }
+      }
+
+      goto LABEL_51;
+    }
+
+LABEL_57:
+    if (xmlCharInRange(v18, &xmlIsBaseCharGroup) || v18 == 12295 || (v18 - 40870) > 0xFFFFAE59 || (v18 - 12330) >= 0xFFFFFFF7)
+    {
+      goto LABEL_58;
+    }
+
+    return 1;
+  }
+
+  if (v17 >= 256)
+  {
+    goto LABEL_57;
+  }
+
+LABEL_51:
+  if ((v18 - 192) >= 0x17 && (v18 & 0xFFFFFFDF) - 65 >= 0x1A && v18 != 95 && v18 <= 247 && (v18 - 216) >= 0x1F)
+  {
+    return 1;
+  }
+
+  do
+  {
+    while (1)
+    {
+      do
+      {
+        do
+        {
+LABEL_58:
+          while (1)
+          {
+            v3 += len;
+            v19 = xmlStringCurrentChar(0, v3, &len);
+            v20 = v19;
+            if (v19 > 255)
+            {
+              break;
+            }
+
+            v21 = (v19 - 192) >= 0x17 && (v19 & 0xFFFFFFDF) - 65 >= 0x1A;
+            if (v21 && (v19 - 48) >= 0xA && v19 <= 247 && (v19 - 216) >= 0x1F)
+            {
+              goto LABEL_82;
+            }
+          }
+
+          if (xmlCharInRange(v19, &xmlIsBaseCharGroup))
+          {
+            v23 = 1;
+          }
+
+          else
+          {
+            v23 = v20 == 12295;
+          }
+
+          v25 = !v23 && (v20 - 19968) >= 0x51A6 && (v20 - 12321) >= 9;
+        }
+
+        while (!v25 || xmlCharInRange(v20, &xmlIsDigitGroup));
+LABEL_82:
+        ;
+      }
+
+      while ((v20 - 45) <= 0x32 && ((1 << (v20 - 45)) & 0x4000000000003) != 0);
+      if (v20 >= 256)
+      {
+        break;
+      }
+
+      if (v20 != 183)
+      {
+        goto LABEL_92;
+      }
+    }
+  }
+
+  while (xmlCharInRange(v20, &xmlIsCombiningGroup) || xmlCharInRange(v20, &xmlIsExtenderGroup));
+LABEL_92:
+  if (v20 == 58)
+  {
+    v3 += len;
+    v27 = xmlStringCurrentChar(0, v3, &len);
+    v28 = v27;
+    if (v27 <= 255)
+    {
+      if ((v27 - 192) < 0x17 || (v27 & 0xFFFFFFDF) - 65 < 0x1A || v27 == 95 || v27 > 247 || (v27 - 216) < 0x1F)
+      {
+        goto LABEL_105;
+      }
+
+      return 1;
+    }
+
+    if (!xmlCharInRange(v27, &xmlIsBaseCharGroup) && v28 != 12295 && (v28 - 40870) <= 0xFFFFAE59 && (v28 - 12330) < 0xFFFFFFF7)
+    {
+      return 1;
+    }
+
+    while (1)
+    {
+LABEL_105:
+      v3 += len;
+      v29 = xmlStringCurrentChar(0, v3, &len);
+      v20 = v29;
+      if (v29 > 255)
+      {
+        if (xmlCharInRange(v29, &xmlIsBaseCharGroup))
+        {
+          v32 = 1;
+        }
+
+        else
+        {
+          v32 = v20 == 12295;
+        }
+
+        v34 = !v32 && (v20 - 19968) >= 0x51A6 && (v20 - 12321) >= 9;
+        if (!v34 || xmlCharInRange(v20, &xmlIsDigitGroup))
+        {
+          continue;
+        }
+      }
+
+      else
+      {
+        v30 = (v29 - 192) >= 0x17 && (v29 & 0xFFFFFFDF) - 65 >= 0x1A;
+        if (!v30 || (v29 - 48) < 0xA)
+        {
+          continue;
+        }
+
+        if (v29 > 247 || (v29 - 216) < 0x1F)
+        {
+          continue;
+        }
+      }
+
+      if ((v20 - 45) > 0x32 || ((1 << (v20 - 45)) & 0x4000000000003) == 0)
+      {
+        if (v20 >= 256)
+        {
+          if (!xmlCharInRange(v20, &xmlIsCombiningGroup) && !xmlCharInRange(v20, &xmlIsExtenderGroup))
+          {
+            break;
+          }
+        }
+
+        else if (v20 != 183)
+        {
+          break;
+        }
+      }
+    }
+  }
+
+  if (space && v20 <= 255)
+  {
+    do
+    {
+      if (v20 > 0x20)
+      {
+        break;
+      }
+
+      if (((1 << v20) & 0x100002600) == 0)
+      {
+        break;
+      }
+
+      v3 += len;
+      v20 = xmlStringCurrentChar(0, v3, &len);
+    }
+
+    while (v20 < 256);
+  }
+
+  return v20 != 0;
+}
+
+int xmlValidateName(const xmlChar *value, int space)
+{
+  if (!value)
+  {
+    return -1;
+  }
+
+  v3 = value;
+  if (space)
+  {
+    for (i = value; ; ++i)
+    {
+      v5 = *i;
+      if (v5 > 0x20 || ((1 << v5) & 0x100002600) == 0)
+      {
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = *value;
+    i = value;
+  }
+
+  len = 0;
+  if ((v5 & 0xFFFFFFDF) - 65 < 0x1A || v5 == 95 || v5 == 58)
+  {
+    do
+    {
+      v8 = i;
+      v10 = *++i;
+      v9 = v10;
+      v11 = (v10 & 0xFFFFFFDF) - 65;
+    }
+
+    while (v10 - 48 < 0xA || v11 < 0x1A || v9 - 45 <= 0x32 && ((1 << (v9 - 45)) & 0x4000000002003) != 0);
+    if (space)
+    {
+      v14 = 2;
+      while (v9 <= 0x20 && ((1 << v9) & 0x100002600) != 0)
+      {
+        v9 = v8[v14++];
+      }
+    }
+
+    if (!v9)
+    {
+      return 0;
+    }
+  }
+
+  v15 = xmlStringCurrentChar(0, value, &len);
+  v16 = v15;
+  if (space)
+  {
+    if (v15 <= 255)
+    {
+      while (v16 <= 0x20 && ((1 << v16) & 0x100002600) != 0)
+      {
+        v3 += len;
+        v16 = xmlStringCurrentChar(0, v3, &len);
+        if (v16 >= 256)
+        {
+          goto LABEL_45;
+        }
+      }
+
+      goto LABEL_38;
+    }
+  }
+
+  else if (v15 < 256)
+  {
+LABEL_38:
+    if ((v16 - 192) < 0x17 || (v16 & 0xFFFFFFDF) - 65 < 0x1A || v16 > 247 || (v16 - 216) < 0x1F || v16 == 95 || v16 == 58)
+    {
+      goto LABEL_55;
+    }
+
+    return 1;
+  }
+
+LABEL_45:
+  if (xmlCharInRange(v16, &xmlIsBaseCharGroup))
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = (v16 - 12321) >= 9;
+  }
+
+  if (v17 && v16 != 12295 && (v16 - 19968) >= 0x51A6)
+  {
+    return 1;
+  }
+
+  do
+  {
+    while (1)
+    {
+      do
+      {
+        do
+        {
+LABEL_55:
+          while (1)
+          {
+            v3 += len;
+            v20 = xmlStringCurrentChar(0, v3, &len);
+            v21 = v20;
+            if (v20 > 255)
+            {
+              break;
+            }
+
+            v22 = (v20 - 192) >= 0x17 && (v20 & 0xFFFFFFDF) - 65 >= 0x1A;
+            if (v22 && (v20 - 48) >= 0xA && v20 <= 247 && (v20 - 216) >= 0x1F)
+            {
+              goto LABEL_79;
+            }
+          }
+
+          if (xmlCharInRange(v20, &xmlIsBaseCharGroup))
+          {
+            v24 = 1;
+          }
+
+          else
+          {
+            v24 = v21 == 12295;
+          }
+
+          v26 = !v24 && (v21 - 19968) >= 0x51A6 && (v21 - 12321) >= 9;
+        }
+
+        while (!v26 || xmlCharInRange(v21, &xmlIsDigitGroup));
+LABEL_79:
+        ;
+      }
+
+      while ((v21 - 45) <= 0x32 && ((1 << (v21 - 45)) & 0x4000000002003) != 0);
+      if (v21 >= 256)
+      {
+        break;
+      }
+
+      if (v21 != 183)
+      {
+        goto LABEL_89;
+      }
+    }
+  }
+
+  while (xmlCharInRange(v21, &xmlIsCombiningGroup) || xmlCharInRange(v21, &xmlIsExtenderGroup));
+LABEL_89:
+  if (space && v21 <= 255)
+  {
+    do
+    {
+      if (v21 > 0x20)
+      {
+        break;
+      }
+
+      if (((1 << v21) & 0x100002600) == 0)
+      {
+        break;
+      }
+
+      v3 += len;
+      v21 = xmlStringCurrentChar(0, v3, &len);
+    }
+
+    while (v21 < 256);
+  }
+
+  return v21 != 0;
+}
+
+int xmlValidateNMToken(const xmlChar *value, int space)
+{
+  if (!value)
+  {
+    return -1;
+  }
+
+  v3 = value;
+  if (space)
+  {
+    for (i = value; ; ++i)
+    {
+      v5 = *i;
+      if (v5 > 0x20 || ((1 << v5) & 0x100002600) == 0)
+      {
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = *value;
+    i = value;
+  }
+
+  len = 0;
+  v8 = v5 - 48 >= 0xA && (v5 & 0xFFFFFFDF) - 65 >= 0x1A;
+  if (!v8 || ((v9 = v5 - 45, v10 = v9 > 0x32, v11 = (1 << v9) & 0x4000000002003, !v10) ? (v12 = v11 == 0) : (v12 = 1), !v12))
+  {
+    do
+    {
+      v13 = i;
+      v15 = *++i;
+      v14 = v15;
+      v16 = (v15 & 0xFFFFFFDF) - 65;
+    }
+
+    while (v15 - 48 < 0xA || v16 < 0x1A || v14 - 45 <= 0x32 && ((1 << (v14 - 45)) & 0x4000000002003) != 0);
+    if (space)
+    {
+      v19 = 2;
+      while (v14 <= 0x20 && ((1 << v14) & 0x100002600) != 0)
+      {
+        v14 = v13[v19++];
+      }
+    }
+
+    if (!v14)
+    {
+      return 0;
+    }
+  }
+
+  v20 = xmlStringCurrentChar(0, value, &len);
+  v21 = v20;
+  if (space)
+  {
+    if (v20 <= 255)
+    {
+      while (v21 <= 0x20 && ((1 << v21) & 0x100002600) != 0)
+      {
+        v3 += len;
+        v21 = xmlStringCurrentChar(0, v3, &len);
+        if (v21 >= 256)
+        {
+          goto LABEL_50;
+        }
+      }
+
+      goto LABEL_44;
+    }
+  }
+
+  else if (v20 < 256)
+  {
+LABEL_44:
+    if ((v21 - 192) < 0x17 || (v21 & 0xFFFFFFDF) - 65 < 0x1A || (v21 - 48) < 0xA || v21 > 247 || (v21 - 216) < 0x1F)
+    {
+      goto LABEL_60;
+    }
+
+    v22 = 1;
+    goto LABEL_102;
+  }
+
+LABEL_50:
+  if (xmlCharInRange(v21, &xmlIsBaseCharGroup))
+  {
+    v23 = 1;
+  }
+
+  else
+  {
+    v23 = v21 == 12295;
+  }
+
+  v25 = !v23 && (v21 - 19968) >= 0x51A6 && (v21 - 12321) >= 9;
+  if (!v25 || xmlCharInRange(v21, &xmlIsDigitGroup))
+  {
+    while (1)
+    {
+LABEL_60:
+      while (1)
+      {
+        v3 += len;
+        v26 = xmlStringCurrentChar(0, v3, &len);
+        v27 = v26;
+        if (v26 <= 255)
+        {
+          break;
+        }
+
+        if (xmlCharInRange(v26, &xmlIsBaseCharGroup))
+        {
+          v30 = 1;
+        }
+
+        else
+        {
+          v30 = v27 == 12295;
+        }
+
+        v32 = !v30 && (v27 - 19968) >= 0x51A6 && (v27 - 12321) >= 9;
+        if (v32 && !xmlCharInRange(v27, &xmlIsDigitGroup))
+        {
+          goto LABEL_84;
+        }
+      }
+
+      v28 = (v26 - 192) >= 0x17 && (v26 & 0xFFFFFFDF) - 65 >= 0x1A;
+      if (v28 && (v26 - 48) >= 0xA && v26 <= 247 && (v26 - 216) >= 0x1F)
+      {
+LABEL_84:
+        if ((v27 - 45) > 0x32 || ((1 << (v27 - 45)) & 0x4000000002003) == 0)
+        {
+          if (v27 >= 256)
+          {
+            if (!xmlCharInRange(v27, &xmlIsCombiningGroup) && !xmlCharInRange(v27, &xmlIsExtenderGroup))
+            {
+LABEL_94:
+              if (space && v27 <= 255)
+              {
+                do
+                {
+                  if (v27 > 0x20)
+                  {
+                    break;
+                  }
+
+                  if (((1 << v27) & 0x100002600) == 0)
+                  {
+                    break;
+                  }
+
+                  v3 += len;
+                  v27 = xmlStringCurrentChar(0, v3, &len);
+                }
+
+                while (v27 < 256);
+              }
+
+              return v27 != 0;
+            }
+          }
+
+          else if (v27 != 183)
+          {
+            goto LABEL_94;
+          }
+        }
+      }
+    }
+  }
+
+  v22 = 0;
+LABEL_102:
+  if ((v21 - 45) <= 0x32 && ((1 << (v21 - 45)) & 0x4000000002003) != 0)
+  {
+    goto LABEL_60;
+  }
+
+  if (v22)
+  {
+    if (v21 == 183)
+    {
+      goto LABEL_60;
+    }
+  }
+
+  else if (xmlCharInRange(v21, &xmlIsCombiningGroup) || xmlCharInRange(v21, &xmlIsExtenderGroup))
+  {
+    goto LABEL_60;
+  }
+
+  return 1;
+}
+
 void xmlSetBufferAllocationScheme(xmlBufferAllocationScheme scheme)
 {
   if (scheme <= XML_BUFFER_ALLOC_HYBRID && ((1 << scheme) & 0x13) != 0)
@@ -271,39 +1242,38 @@ xmlChar *xmlNodeListGetStringInternal(xmlDoc *a1, uint64_t a2, int a3, int a4)
   v4 = 0;
   if (a2 && a4 <= 40)
   {
-    v6 = a2;
-    v8 = *(a2 + 40);
-    v9 = !v8 || *(v8 + 8) != 2;
+    v7 = a2;
+    v9 = *(a2 + 40);
+    v10 = !v9 || *(v9 + 8) != 2;
     v4 = 0;
     while (1)
     {
-      v10 = *(v6 + 8);
-      if ((v10 - 3) < 2)
+      v11 = *(v7 + 8);
+      if ((v11 - 3) < 2)
       {
         break;
       }
 
-      if (v10 == 5)
+      if (v11 == 5)
       {
         if (!a3)
         {
           strcpy(add, "&");
           v18 = xmlStrncat(v4, add, 1);
-          v19 = xmlStrcat(v18, *(v6 + 16));
+          v19 = xmlStrcat(v18, *(v7 + 16));
           strcpy(add, ";");
-          v12 = xmlStrncat(v19, add, 1);
+          v13 = xmlStrncat(v19, add, 1);
           goto LABEL_19;
         }
 
-        DocEntity = xmlGetDocEntity(a1, *(v6 + 16));
+        DocEntity = xmlGetDocEntity(a1, *(v7 + 16));
         if (!DocEntity)
         {
-          v11 = *(v6 + 80);
+          v12 = *(v7 + 80);
           goto LABEL_10;
         }
 
-        children = DocEntity->children;
-        StringInternal = xmlNodeListGetStringInternal(a1);
+        StringInternal = xmlNodeListGetStringInternal(a1, DocEntity->children, 1, a4 + 1);
         if (StringInternal)
         {
           v16 = StringInternal;
@@ -314,24 +1284,24 @@ LABEL_22:
       }
 
 LABEL_23:
-      v6 = *(v6 + 48);
-      if (!v6)
+      v7 = *(v7 + 48);
+      if (!v7)
       {
         return v4;
       }
     }
 
-    v11 = *(v6 + 80);
+    v12 = *(v7 + 80);
     if (!a3)
     {
-      if (v9)
+      if (v10)
       {
-        v17 = xmlEncodeEntitiesReentrant(a1, v11);
+        v17 = xmlEncodeEntitiesReentrant(a1, v12);
       }
 
       else
       {
-        v17 = xmlEncodeAttributeEntities(a1, v11);
+        v17 = xmlEncodeAttributeEntities(a1, v12);
       }
 
       v16 = v17;
@@ -344,9 +1314,9 @@ LABEL_23:
     }
 
 LABEL_10:
-    v12 = xmlStrcat(v4, v11);
+    v13 = xmlStrcat(v4, v12);
 LABEL_19:
-    v4 = v12;
+    v4 = v13;
     goto LABEL_23;
   }
 
@@ -1878,12 +2848,16 @@ LABEL_13:
 
 xmlChar *__cdecl xmlGetNodePath(const xmlNode *node)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  if (!node || (v1 = node, node->type == XML_NAMESPACE_DECL))
+  v46 = *MEMORY[0x1E69E9840];
+  if (!node)
   {
-LABEL_117:
-    v2 = 0;
-    goto LABEL_118;
+    return 0;
+  }
+
+  v1 = node;
+  if (node->type == XML_NAMESPACE_DECL)
+  {
+    return 0;
   }
 
   v2 = malloc_type_malloc(0x1F4uLL, 0x100004077774924uLL);
@@ -1893,14 +2867,14 @@ LABEL_117:
     if (v3)
     {
       v4 = v3;
-      v49 = 0;
+      v45 = 0;
       v5 = 500;
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      *__str = 0u;
+      v43 = 0u;
       v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      *__str = 0u;
+      v40 = 0u;
       *v2 = 0;
       while (1)
       {
@@ -1920,13 +2894,13 @@ LABEL_117:
             }
 
             v1 = 0;
-            v12 = 0;
+            v10 = 0;
           }
 
           else if (type == 7)
           {
             snprintf(__str, 0x63uLL, "processing-instruction('%s')", v1->name);
-            HIBYTE(v49) = 0;
+            HIBYTE(v45) = 0;
             parent = v1->parent;
             prev = v1->prev;
             if (!prev)
@@ -1934,21 +2908,21 @@ LABEL_117:
               goto LABEL_53;
             }
 
-            v22 = 0;
+            v20 = 0;
             do
             {
               if (prev->type == XML_PI_NODE && xmlStrEqual(v1->name, prev->name))
               {
-                ++v22;
+                ++v20;
               }
 
               prev = prev->prev;
             }
 
             while (prev);
-            if (v22)
+            if (v20)
             {
-              v12 = v22 + 1;
+              v10 = v20 + 1;
               v1 = parent;
             }
 
@@ -1960,8 +2934,8 @@ LABEL_53:
               {
                 do
                 {
-                  v12 = next->type == XML_PI_NODE && xmlStrEqual(v1->name, next->name) != 0;
-                  if (v12)
+                  v10 = next->type == XML_PI_NODE && xmlStrEqual(v1->name, next->name) != 0;
+                  if (v10)
                   {
                     break;
                   }
@@ -1974,7 +2948,7 @@ LABEL_53:
 
               else
               {
-                v12 = 0;
+                v10 = 0;
               }
 
               v1 = parent;
@@ -1983,58 +2957,57 @@ LABEL_53:
 
           else
           {
-            v9 = v1->parent;
-            v10 = v1->prev;
-            if (!v10)
+            v8 = v1->prev;
+            if (!v8)
             {
               goto LABEL_60;
             }
 
-            v11 = 0;
+            v9 = 0;
             do
             {
-              if (v10->type == XML_COMMENT_NODE)
+              if (v8->type == XML_COMMENT_NODE)
               {
-                ++v11;
+                ++v9;
               }
 
-              v10 = v10->prev;
+              v8 = v8->prev;
             }
 
-            while (v10);
-            if (v11)
+            while (v8);
+            if (v9)
             {
-              v12 = v11 + 1;
+              v10 = v9 + 1;
             }
 
             else
             {
 LABEL_60:
-              v24 = v1->next;
-              if (v24)
+              v22 = v1->next;
+              if (v22)
               {
                 do
                 {
-                  v25 = v24->type;
-                  v24 = v24->next;
-                  if (v24)
+                  v23 = v22->type;
+                  v22 = v22->next;
+                  if (v22)
                   {
-                    v26 = v25 == XML_COMMENT_NODE;
+                    v24 = v23 == XML_COMMENT_NODE;
                   }
 
                   else
                   {
-                    v26 = 1;
+                    v24 = 1;
                   }
                 }
 
-                while (!v26);
-                v12 = v25 == XML_COMMENT_NODE;
+                while (!v24);
+                v10 = v23 == XML_COMMENT_NODE;
               }
 
               else
               {
-                v12 = 0;
+                v10 = 0;
               }
             }
 
@@ -2044,28 +3017,28 @@ LABEL_60:
 
         else if ((type - 3) < 2)
         {
-          v14 = v1->parent;
-          v15 = v1->prev;
-          if (!v15)
+          v12 = v1->parent;
+          v13 = v1->prev;
+          if (!v13)
           {
             goto LABEL_122;
           }
 
-          v16 = 0;
+          v14 = 0;
           do
           {
-            if (v15->type - 3 < 2)
+            if (v13->type - 3 < 2)
             {
-              ++v16;
+              ++v14;
             }
 
-            v15 = v15->prev;
+            v13 = v13->prev;
           }
 
-          while (v15);
-          if (v16)
+          while (v13);
+          if (v14)
           {
-            v12 = v16 + 1;
+            v10 = v14 + 1;
           }
 
           else
@@ -2081,16 +3054,16 @@ LABEL_122:
 
               if (v1->type - 3 < 2)
               {
-                v12 = 1;
+                v10 = 1;
                 goto LABEL_52;
               }
             }
 
-            v12 = 0;
+            v10 = 0;
           }
 
 LABEL_52:
-          v1 = v14;
+          v1 = v12;
         }
 
         else
@@ -2107,87 +3080,87 @@ LABEL_52:
             if (prefix)
             {
               snprintf(__str, 0x63uLL, "%s:%s", prefix, v1->name);
-              HIBYTE(v49) = 0;
+              HIBYTE(v45) = 0;
 LABEL_42:
-              v19 = 1;
+              v17 = 1;
             }
 
             else
             {
-              v19 = 0;
+              v17 = 0;
             }
 
-            v27 = v1->parent;
-            v28 = v1->prev;
-            if (!v28)
+            v25 = v1->parent;
+            v26 = v1->prev;
+            if (!v26)
             {
               goto LABEL_81;
             }
 
-            v29 = 0;
+            v27 = 0;
             do
             {
-              if (v28->type == XML_ELEMENT_NODE)
+              if (v26->type == XML_ELEMENT_NODE)
               {
-                if (!v19 || xmlStrEqual(v1->name, v28->name) && ((v30 = v28->ns, v31 = v1->ns, v30 == v31) || v30 && v31 && xmlStrEqual(v31->prefix, v30->prefix)))
+                if (!v17 || xmlStrEqual(v1->name, v26->name) && ((v28 = v26->ns, v29 = v1->ns, v28 == v29) || v28 && v29 && xmlStrEqual(v29->prefix, v28->prefix)))
                 {
-                  ++v29;
+                  ++v27;
                 }
               }
 
-              v28 = v28->prev;
+              v26 = v26->prev;
             }
 
-            while (v28);
-            if (v29)
+            while (v26);
+            if (v27)
             {
-              v12 = v29 + 1;
+              v10 = v27 + 1;
             }
 
             else
             {
 LABEL_81:
-              v32 = v1->next;
-              if (v32)
+              v30 = v1->next;
+              if (v30)
               {
                 while (1)
                 {
-                  if (v32->type == XML_ELEMENT_NODE)
+                  if (v30->type == XML_ELEMENT_NODE)
                   {
-                    if (!v19)
+                    if (!v17)
                     {
                       break;
                     }
 
-                    if (xmlStrEqual(v1->name, v32->name))
+                    if (xmlStrEqual(v1->name, v30->name))
                     {
-                      v33 = v32->ns;
-                      v34 = v1->ns;
-                      if (v33 == v34 || v33 && v34 && xmlStrEqual(v34->prefix, v33->prefix))
+                      v31 = v30->ns;
+                      v32 = v1->ns;
+                      if (v31 == v32 || v31 && v32 && xmlStrEqual(v32->prefix, v31->prefix))
                       {
                         break;
                       }
                     }
                   }
 
-                  v32 = v32->next;
-                  if (!v32)
+                  v30 = v30->next;
+                  if (!v30)
                   {
                     goto LABEL_90;
                   }
                 }
 
-                v12 = 1;
+                v10 = 1;
               }
 
               else
               {
 LABEL_90:
-                v12 = 0;
+                v10 = 0;
               }
             }
 
-            v1 = v27;
+            v1 = v25;
             goto LABEL_100;
           }
 
@@ -2196,40 +3169,38 @@ LABEL_90:
             goto LABEL_114;
           }
 
-          name = v1->name;
-          v8 = v1->ns;
-          if (v8)
+          v7 = v1->ns;
+          if (v7)
           {
-            if (v8->prefix)
+            if (v7->prefix)
             {
               snprintf(__str, 0x63uLL, "%s:%s");
             }
 
             else
             {
-              v42 = v1->name;
               snprintf(__str, 0x63uLL, "%s");
             }
 
-            HIBYTE(v49) = 0;
+            HIBYTE(v45) = 0;
           }
 
-          v12 = 0;
+          v10 = 0;
           v1 = v1->parent;
         }
 
 LABEL_100:
-        v35 = strlen(v2);
-        if (v5 - v35 <= 0x77)
+        v33 = strlen(v2);
+        if (v5 - v33 <= 0x77)
         {
-          if ((v5 & 0x8000000000000000) != 0 || 2 * v5 > -121 - v35)
+          if ((v5 & 0x8000000000000000) != 0 || 2 * v5 > -121 - v33)
           {
             goto LABEL_114;
           }
 
-          v5 = v35 + 2 * v5 + 120;
-          v36 = malloc_type_realloc(v2, v5, 0xC8C18DA0uLL);
-          if (!v36)
+          v5 = v33 + 2 * v5 + 120;
+          v34 = malloc_type_realloc(v2, v5, 0xC8C18DA0uLL);
+          if (!v34)
           {
             __xmlSimpleError(2u, 2, 0, 0, "getting node path");
 LABEL_114:
@@ -2237,21 +3208,21 @@ LABEL_114:
             goto LABEL_115;
           }
 
-          v37 = v36;
-          v38 = malloc_type_realloc(v4, v5, 0x1B289ED4uLL);
-          if (!v38)
+          v35 = v34;
+          v36 = malloc_type_realloc(v4, v5, 0x1B289ED4uLL);
+          if (!v36)
           {
             __xmlSimpleError(2u, 2, 0, 0, "getting node path");
             free(v4);
-            v39 = v37;
+            v37 = v35;
             goto LABEL_116;
           }
 
-          v2 = v37;
-          v4 = v38;
+          v2 = v35;
+          v4 = v36;
         }
 
-        if (v12)
+        if (v10)
         {
           snprintf(v4, v5, "%s%s[%d]%s");
         }
@@ -2266,22 +3237,20 @@ LABEL_114:
         {
 LABEL_110:
           free(v4);
-          goto LABEL_118;
+          return v2;
         }
       }
     }
 
     __xmlSimpleError(2u, 2, 0, 0, "getting node path");
 LABEL_115:
-    v39 = v2;
+    v37 = v2;
 LABEL_116:
-    free(v39);
-    goto LABEL_117;
+    free(v37);
+    return 0;
   }
 
   __xmlSimpleError(2u, 2, 0, 0, "getting node path");
-LABEL_118:
-  v40 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3445,22 +4414,20 @@ LABEL_33:
 xmlNsPtr xmlNewReconciledNs(xmlDocPtr doc, xmlNodePtr node, uint64_t a3)
 {
   result = 0;
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a3 && node->type == XML_ELEMENT_NODE)
   {
-    if (*(a3 + 8) != 18)
+    if (*(a3 + 8) == 18)
     {
-LABEL_16:
-      result = 0;
-      goto LABEL_17;
-    }
+      result = xmlSearchNsByHref(doc, node, *(a3 + 16));
+      if (result)
+      {
+        return result;
+      }
 
-    result = xmlSearchNsByHref(doc, node, *(a3 + 16));
-    if (!result)
-    {
-      v13 = 0;
-      v11 = 0u;
-      v12 = 0u;
+      v11 = 0;
+      v9 = 0u;
+      v10 = 0u;
       *__str = 0u;
       if (*(a3 + 24))
       {
@@ -3472,39 +4439,33 @@ LABEL_16:
         strcpy(__str, "default");
       }
 
-      if (xmlSearchNs(doc, node, __str))
+      if (!xmlSearchNs(doc, node, __str))
       {
-        v7 = 1;
-        while (v7 != 1001)
-        {
-          if (*(a3 + 24))
-          {
-            v9 = *(a3 + 24);
-            snprintf(__str, 0x32uLL, "%.20s%d");
-          }
-
-          else
-          {
-            snprintf(__str, 0x32uLL, "default%d");
-          }
-
-          ++v7;
-          if (!xmlSearchNs(doc, node, __str))
-          {
-            goto LABEL_15;
-          }
-        }
-
-        goto LABEL_16;
+        return xmlNewNs(node, *(a3 + 16), __str);
       }
 
-LABEL_15:
-      result = xmlNewNs(node, *(a3 + 16), __str);
+      for (i = 1; i != 1001; ++i)
+      {
+        if (*(a3 + 24))
+        {
+          snprintf(__str, 0x32uLL, "%.20s%d");
+        }
+
+        else
+        {
+          snprintf(__str, 0x32uLL, "default%d");
+        }
+
+        if (!xmlSearchNs(doc, node, __str))
+        {
+          return xmlNewNs(node, *(a3 + 16), __str);
+        }
+      }
     }
+
+    return 0;
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4829,7 +5790,7 @@ LABEL_11:
   return 0xFFFFFFFFLL;
 }
 
-xmlNsPtr xmlDOMWrapStoreNs(uint64_t a1, const xmlChar *a2, const xmlChar *a3)
+const xmlChar **xmlDOMWrapStoreNs(uint64_t a1, const xmlChar *a2, const xmlChar *a3)
 {
   v5 = xmlTreeEnsureXMLDecl(a1);
   if (v5)
@@ -5584,18 +6545,18 @@ int xmlDOMWrapCloneNode(xmlDOMWrapCtxtPtr ctxt, xmlDocPtr sourceDoc, xmlNodePtr 
               goto LABEL_171;
             }
 
-            v74 = 0;
+            v72 = 0;
             dict = v18;
-            v78 = 0;
+            v76 = 0;
             v20 = 0;
             v21 = 0;
-            v80 = 0;
+            v78 = 0;
             v22 = -1;
             v23 = node;
-            v77 = v16;
+            v75 = v16;
             while (1)
             {
-              v81 = v21;
+              v79 = v21;
               type = v23->type;
               if (type - 3 >= 6 && type != XML_DOCUMENT_FRAG_NODE)
               {
@@ -5604,7 +6565,7 @@ int xmlDOMWrapCloneNode(xmlDOMWrapCtxtPtr ctxt, xmlDocPtr sourceDoc, xmlNodePtr 
                   v28 = malloc_type_malloc(0x60uLL, 0x10F00407C650413uLL);
                   if (!v28)
                   {
-                    v73 = "xmlDOMWrapCloneNode(): allocating an attr-node";
+                    v71 = "xmlDOMWrapCloneNode(): allocating an attr-node";
                     goto LABEL_181;
                   }
 
@@ -5615,19 +6576,19 @@ int xmlDOMWrapCloneNode(xmlDOMWrapCtxtPtr ctxt, xmlDocPtr sourceDoc, xmlNodePtr 
                   *&v28->next = 0u;
                   *&v28->_private = 0u;
                   *&v28->name = 0u;
-                  if (!v78)
+                  if (!v76)
                   {
 LABEL_39:
-                    v78 = v21;
-                    v27 = v81;
+                    v76 = v21;
+                    v27 = v79;
                     goto LABEL_40;
                   }
 
-                  v27 = v81;
-                  v28->parent = v81;
+                  v27 = v79;
+                  v28->parent = v79;
                   if (!v20)
                   {
-                    v81->properties = v28;
+                    v79->properties = v28;
                     goto LABEL_40;
                   }
 
@@ -5643,13 +6604,13 @@ LABEL_39:
               v26 = malloc_type_malloc(0x78uLL, 0x10F00409DCD5C4DuLL);
               if (!v26)
               {
-                v73 = "xmlDOMWrapCloneNode(): allocating a node";
+                v71 = "xmlDOMWrapCloneNode(): allocating a node";
 LABEL_181:
-                __xmlSimpleError(2u, 2, 0, 0, v73);
+                __xmlSimpleError(2u, 2, 0, 0, v71);
 LABEL_182:
                 v8 = -1;
 LABEL_170:
-                v19 = v78;
+                v19 = v76;
                 v13 = ctxt;
                 goto LABEL_171;
               }
@@ -5663,16 +6624,16 @@ LABEL_170:
               *&v26->name = 0u;
               *&v26->last = 0u;
               *&v26->_private = 0u;
-              if (!v78)
+              if (!v76)
               {
                 goto LABEL_39;
               }
 
-              v27 = v81;
-              v26->parent = v81;
+              v27 = v79;
+              v26->parent = v79;
               if (!v20)
               {
-                v81->children = v26;
+                v79->children = v26;
                 goto LABEL_40;
               }
 
@@ -5715,7 +6676,7 @@ LABEL_81:
                       v32 = v33;
                     }
 
-                    v27 = v81;
+                    v27 = v79;
                     goto LABEL_48;
                   }
                 }
@@ -5736,7 +6697,7 @@ LABEL_49:
                     goto LABEL_136;
                   }
 
-                  if (v77 != destDoc)
+                  if (v75 != destDoc)
                   {
                     if (!destDoc->intSubset && !destDoc->extSubset)
                     {
@@ -5746,7 +6707,7 @@ LABEL_49:
                     DocEntity = xmlGetDocEntity(destDoc, v23->name);
                     if (!DocEntity)
                     {
-                      v27 = v81;
+                      v27 = v79;
                       goto LABEL_136;
                     }
 
@@ -5767,7 +6728,7 @@ LABEL_49:
                 {
                   if (v34 != 7 && v34 != 8)
                   {
-                    v19 = v78;
+                    v19 = v76;
                     v13 = ctxt;
                     if ((v34 - 19) < 2)
                     {
@@ -5775,7 +6736,7 @@ LABEL_49:
                     }
 
 LABEL_171:
-                    v70 = namespaceMap;
+                    v68 = namespaceMap;
                     if (namespaceMap)
                     {
                       if (v13)
@@ -5816,7 +6777,7 @@ LABEL_76:
 
                   v40 = 80;
 LABEL_78:
-                  v27 = v81;
+                  v27 = v79;
                 }
 
                 *(&v21->_private + v40) = last;
@@ -5833,9 +6794,9 @@ LABEL_78:
                 ++v22;
                 if (v23->nsDef)
                 {
-                  if (!destParent || v80 || ctxt)
+                  if (!destParent || v78 || ctxt)
                   {
-                    v80 = 1;
+                    v78 = 1;
                     nsDef = v23->nsDef;
 LABEL_85:
                     p_nsDef = &v21->nsDef;
@@ -5918,7 +6879,7 @@ LABEL_85:
                   }
 
                   nsDef = v23->nsDef;
-                  v80 = 1;
+                  v78 = 1;
                   if (nsDef)
                   {
                     goto LABEL_85;
@@ -5926,7 +6887,7 @@ LABEL_85:
                 }
 
 LABEL_103:
-                v74 = v23;
+                v72 = v23;
               }
 
               else if (v34 != 2)
@@ -5937,7 +6898,7 @@ LABEL_103:
               if (v23->ns)
               {
                 v50 = 1;
-                if (destParent && !v80 && !ctxt)
+                if (destParent && !v78 && !ctxt)
                 {
                   if (xmlDOMWrapNSNormGatherInScopeNs(&namespaceMap, destParent) == -1)
                   {
@@ -5972,14 +6933,12 @@ LABEL_115:
                     ns = v23->ns;
                     if (getNsForNodeFunc)
                     {
-                      v56 = *(ns + 16);
-                      v55 = *(ns + 24);
                       nsDef = getNsForNodeFunc();
                       if (!xmlDOMWrapNsMapAddItem(&namespaceMap, -1, v23->ns, nsDef, -4))
                       {
-                        v70 = namespaceMap;
+                        v68 = namespaceMap;
                         v8 = -1;
-                        v19 = v78;
+                        v19 = v76;
                         v13 = ctxt;
                         if (!namespaceMap)
                         {
@@ -5987,28 +6946,28 @@ LABEL_115:
                         }
 
 LABEL_173:
-                        if (v13->namespaceMap == v70)
+                        if (v13->namespaceMap == v68)
                         {
-                          v71 = *v70;
-                          if (*v70)
+                          v69 = *v68;
+                          if (*v68)
                           {
-                            v72 = v70[2];
-                            if (v72)
+                            v70 = v68[2];
+                            if (v70)
                             {
-                              *v70[1] = v72;
-                              v70 = namespaceMap;
-                              v71 = *namespaceMap;
+                              *v68[1] = v70;
+                              v68 = namespaceMap;
+                              v69 = *namespaceMap;
                             }
 
-                            v70[2] = v71;
-                            *v70 = 0;
+                            v68[2] = v69;
+                            *v68 = 0;
                           }
 
                           goto LABEL_175;
                         }
 
 LABEL_174:
-                        xmlDOMWrapNsMapFree(v70);
+                        xmlDOMWrapNsMapFree(v68);
 LABEL_175:
                         *clonedNode = v19;
                         return v8;
@@ -6026,16 +6985,16 @@ LABEL_175:
 
                   if (destParent)
                   {
-                    v57 = v74;
+                    v55 = v72;
                   }
 
                   else
                   {
-                    v57 = 0;
+                    v55 = 0;
                   }
 
                   v52 = &nsDef;
-                  if (xmlDOMWrapNSNormAcquireNormalizedNs(destDoc, v57, ns, &nsDef, &namespaceMap, v22, v23->type == XML_ATTRIBUTE_NODE) == -1)
+                  if (xmlDOMWrapNSNormAcquireNormalizedNs(destDoc, v55, ns, &nsDef, &namespaceMap, v22, v23->type == XML_ATTRIBUTE_NODE) == -1)
                   {
                     goto LABEL_182;
                   }
@@ -6046,7 +7005,7 @@ LABEL_125:
                 goto LABEL_126;
               }
 
-              v50 = v80;
+              v50 = v78;
 LABEL_126:
               if (v21->type == XML_ATTRIBUTE_NODE)
               {
@@ -6058,10 +7017,10 @@ LABEL_126:
                     StringInternal = xmlNodeListGetStringInternal(*p_doc, v23->children, 1, 0);
                     if (StringInternal)
                     {
-                      v60 = StringInternal;
-                      v61 = xmlAddID(0, destDoc, StringInternal, v23);
-                      free(v60);
-                      if (!v61)
+                      v58 = StringInternal;
+                      v59 = xmlAddID(0, destDoc, StringInternal, v23);
+                      free(v58);
+                      if (!v59)
                       {
                         goto LABEL_182;
                       }
@@ -6072,7 +7031,7 @@ LABEL_126:
 
               if (v23->type != XML_ELEMENT_NODE)
               {
-                v27 = v81;
+                v27 = v79;
                 while (1)
                 {
 LABEL_162:
@@ -6082,7 +7041,7 @@ LABEL_162:
                     goto LABEL_165;
                   }
 
-                  v80 = v50;
+                  v78 = v50;
 LABEL_136:
                   if (v23 == node)
                   {
@@ -6090,63 +7049,63 @@ LABEL_136:
                   }
 
                   v20 = v21;
-                  v50 = v80;
+                  v50 = v78;
                   while (1)
                   {
-                    v63 = v23->type;
-                    if (v63 <= 0x14 && ((1 << v63) & 0x180002) != 0)
+                    v61 = v23->type;
+                    if (v61 <= 0x14 && ((1 << v61) & 0x180002) != 0)
                     {
-                      v65 = namespaceMap;
+                      v63 = namespaceMap;
                       if (namespaceMap)
                       {
-                        v66 = *namespaceMap;
+                        v64 = *namespaceMap;
                         if (*namespaceMap)
                         {
-                          v68 = namespaceMap + 8;
-                          v67 = *(namespaceMap + 1);
-                          if (!v67)
+                          v66 = namespaceMap + 8;
+                          v65 = *(namespaceMap + 1);
+                          if (!v65)
                           {
                             goto LABEL_191;
                           }
 
                           do
                           {
-                            if (*(v67 + 36) < v22)
+                            if (*(v65 + 36) < v22)
                             {
                               break;
                             }
 
-                            v69 = *(v67 + 8);
-                            *v68 = v69;
-                            if (v69)
+                            v67 = *(v65 + 8);
+                            *v66 = v67;
+                            if (v67)
                             {
-                              v65 = v69;
+                              v63 = v67;
                             }
 
-                            *v65 = 0;
-                            *v67 = *(namespaceMap + 2);
-                            v65 = namespaceMap;
-                            *(namespaceMap + 2) = v67;
-                            v68 = v65 + 1;
-                            v67 = v65[1];
+                            *v63 = 0;
+                            *v65 = *(namespaceMap + 2);
+                            v63 = namespaceMap;
+                            *(namespaceMap + 2) = v65;
+                            v66 = v63 + 1;
+                            v65 = v63[1];
                           }
 
-                          while (v67);
-                          v66 = *v65;
-                          if (*v65)
+                          while (v65);
+                          v64 = *v63;
+                          if (*v63)
                           {
 LABEL_191:
                             do
                             {
-                              if (*(v66 + 8) >= v22)
+                              if (*(v64 + 8) >= v22)
                               {
-                                *(v66 + 8) = -1;
+                                *(v64 + 8) = -1;
                               }
 
-                              v66 = *v66;
+                              v64 = *v64;
                             }
 
-                            while (v66);
+                            while (v64);
                           }
                         }
                       }
@@ -6162,7 +7121,7 @@ LABEL_191:
                     }
 
                     v21 = v20->parent;
-                    if (v63 == 2)
+                    if (v61 == 2)
                     {
                       break;
                     }
@@ -6191,7 +7150,7 @@ LABEL_169:
               }
 
               children = v23->properties;
-              v27 = v81;
+              v27 = v79;
               if (!children)
               {
                 goto LABEL_162;
@@ -6201,9 +7160,9 @@ LABEL_165:
               v20 = 0;
 LABEL_166:
               p_doc = &children->doc;
-              v80 = v50;
+              v78 = v50;
               v23 = children;
-              if (children->doc != v77)
+              if (children->doc != v75)
               {
                 goto LABEL_182;
               }
@@ -7422,18 +8381,16 @@ LABEL_53:
 
 xmlNsPtr xmlDOMWrapNSNormDeclareNsForced(uint64_t a1, xmlChar *href, xmlChar *prefix, int a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) != 1)
   {
-LABEL_35:
-    result = 0;
-    goto LABEL_40;
+    return 0;
   }
 
   v8 = 0;
-  v24 = 0;
+  v23 = 0;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   *__str = 0u;
   v9 = (a1 + 96);
   v10 = prefix;
@@ -7498,7 +8455,7 @@ LABEL_3:
 LABEL_31:
               if (v8 == 1000)
               {
-                goto LABEL_35;
+                return 0;
               }
 
               ++v8;
@@ -7549,8 +8506,6 @@ LABEL_27:
     *v9 = result;
   }
 
-LABEL_40:
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7580,7 +8535,7 @@ xmlURIPtr xmlParseURIRaw(const char *str, int raw)
   return v5;
 }
 
-_DWORD *xmlURIErrMemory(const xmlChar *a1)
+xmlError *xmlURIErrMemory(const xmlChar *a1)
 {
   if (a1)
   {
@@ -8762,915 +9717,4 @@ LABEL_39:
   }
 
   return xmlStrdup(str);
-}
-
-xmlChar *__cdecl xmlURIEscape(const xmlChar *str)
-{
-  v1 = str;
-  v40 = *MEMORY[0x1E69E9840];
-  if (str)
-  {
-    URI = xmlCreateURI();
-    if (!URI)
-    {
-LABEL_39:
-      v1 = 0;
-      goto LABEL_40;
-    }
-
-    v3 = URI;
-    URI->cleanup = 1;
-    if (xmlParse3986URIReference(URI, v1))
-    {
-LABEL_4:
-      xmlFreeURI(v3);
-      goto LABEL_39;
-    }
-
-    if (v3->scheme)
-    {
-      v4 = xmlURIEscapeStr(v3->scheme, "+-.");
-      if (!v4)
-      {
-        xmlURIErrMemory("escaping URI value\n");
-        goto LABEL_4;
-      }
-
-      v5 = v4;
-      v6 = xmlStrcat(0, v4);
-      v1 = xmlStrcat(v6, ":");
-      free(v5);
-    }
-
-    else
-    {
-      v1 = 0;
-    }
-
-    authority = v3->authority;
-    if (authority)
-    {
-      v8 = xmlURIEscapeStr(authority, "/?;:@");
-      if (!v8)
-      {
-        goto LABEL_38;
-      }
-
-      v9 = v8;
-      v10 = xmlStrcat(v1, "//");
-      v1 = xmlStrcat(v10, v9);
-      free(v9);
-    }
-
-    user = v3->user;
-    if (user)
-    {
-      v12 = xmlURIEscapeStr(user, ";:&=+$,");
-      if (!v12)
-      {
-        goto LABEL_38;
-      }
-
-      v13 = v12;
-      v14 = xmlStrcat(v1, "//");
-      v15 = xmlStrcat(v14, v13);
-      v1 = xmlStrcat(v15, "@");
-      free(v13);
-    }
-
-    server = v3->server;
-    if (server)
-    {
-      v17 = xmlURIEscapeStr(server, "/?;:@");
-      if (!v17)
-      {
-        goto LABEL_38;
-      }
-
-      v18 = v17;
-      if (!v3->user)
-      {
-        v1 = xmlStrcat(v1, "//");
-      }
-
-      v1 = xmlStrcat(v1, v18);
-      free(v18);
-    }
-
-    port = v3->port;
-    if (port)
-    {
-      v39 = 0;
-      *__str = 0;
-      snprintf(__str, 0xAuLL, "%d", port);
-      v20 = xmlStrcat(v1, ":");
-      v1 = xmlStrcat(v20, __str);
-    }
-
-    path = v3->path;
-    if (path)
-    {
-      v22 = xmlURIEscapeStr(path, ":@&=+$,/?;");
-      if (!v22)
-      {
-        goto LABEL_38;
-      }
-
-      v23 = v22;
-      v1 = xmlStrcat(v1, v22);
-      free(v23);
-    }
-
-    if (v3->query_raw)
-    {
-      v24 = xmlStrcat(v1, "?");
-      v1 = xmlStrcat(v24, v3->query_raw);
-    }
-
-    else
-    {
-      query = v3->query;
-      if (query)
-      {
-        v33 = xmlURIEscapeStr(query, ";/?:@&=+,$");
-        if (!v33)
-        {
-          goto LABEL_38;
-        }
-
-        v34 = v33;
-        v35 = xmlStrcat(v1, "?");
-        v1 = xmlStrcat(v35, v34);
-        free(v34);
-      }
-    }
-
-    opaque = v3->opaque;
-    if (opaque)
-    {
-      v26 = xmlURIEscapeStr(opaque, "");
-      if (!v26)
-      {
-        goto LABEL_38;
-      }
-
-      v27 = v26;
-      v1 = xmlStrcat(v1, v26);
-      free(v27);
-    }
-
-    fragment = v3->fragment;
-    if (!fragment)
-    {
-LABEL_33:
-      xmlFreeURI(v3);
-      goto LABEL_40;
-    }
-
-    v29 = xmlURIEscapeStr(fragment, "#");
-    if (v29)
-    {
-      v30 = v29;
-      v31 = xmlStrcat(v1, "#");
-      v1 = xmlStrcat(v31, v30);
-      free(v30);
-      goto LABEL_33;
-    }
-
-LABEL_38:
-    xmlURIErrMemory("escaping URI value\n");
-    xmlFreeURI(v3);
-    free(v1);
-    goto LABEL_39;
-  }
-
-LABEL_40:
-  v36 = *MEMORY[0x1E69E9840];
-  return v1;
-}
-
-xmlChar *__cdecl xmlBuildURI(const xmlChar *URI, const xmlChar *base)
-{
-  if (!URI)
-  {
-    return 0;
-  }
-
-  v4 = *URI;
-  if (!*URI)
-  {
-    v6 = 0;
-    goto LABEL_9;
-  }
-
-  v5 = xmlCreateURI();
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = v5;
-  if (xmlParse3986URIReference(v5, URI))
-  {
-    v7 = 0;
-    v8 = 0;
-LABEL_6:
-    v9 = 0;
-LABEL_23:
-    xmlFreeURI(v6);
-LABEL_24:
-    if (!v8)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (v6->scheme)
-  {
-    v9 = xmlStrdup(URI);
-    v7 = 0;
-    v8 = 0;
-    goto LABEL_23;
-  }
-
-LABEL_9:
-  if (base)
-  {
-    v10 = xmlCreateURI();
-    v8 = v10;
-    if (!v10)
-    {
-LABEL_21:
-      v9 = 0;
-LABEL_22:
-      v7 = 0;
-      if (!v6)
-      {
-        goto LABEL_24;
-      }
-
-      goto LABEL_23;
-    }
-
-    if (!xmlParse3986URIReference(v10, base))
-    {
-      if (v4)
-      {
-        v11 = xmlCreateURI();
-        if (v11)
-        {
-          v7 = v11;
-          if (v6->scheme)
-          {
-            v12 = v6;
-LABEL_55:
-            v9 = xmlSaveUri(v12);
-            goto LABEL_23;
-          }
-
-          path = v6->path;
-          if (path || v6->authority || v6->server)
-          {
-            if (v8->scheme)
-            {
-              v11->scheme = strdup(v8->scheme);
-            }
-
-            query_raw = v6->query_raw;
-            if (query_raw)
-            {
-              v17 = 80;
-            }
-
-            else
-            {
-              query_raw = v6->query;
-              if (!query_raw)
-              {
-                goto LABEL_44;
-              }
-
-              v17 = 56;
-            }
-
-            *(&v7->scheme + v17) = strdup(query_raw);
-LABEL_44:
-            fragment = v6->fragment;
-            if (fragment)
-            {
-              v7->fragment = strdup(fragment);
-            }
-
-            authority = v6->authority;
-            if (authority)
-            {
-              v7->authority = strdup(authority);
-              goto LABEL_52;
-            }
-
-            server = v6->server;
-            if (server)
-            {
-              v7->server = strdup(server);
-              user = v6->user;
-              if (user)
-              {
-                v7->user = strdup(user);
-              }
-
-              v7->port = v6->port;
-LABEL_52:
-              if (!path)
-              {
-LABEL_54:
-                v12 = v7;
-                goto LABEL_55;
-              }
-
-LABEL_53:
-              v7->path = strdup(path);
-              goto LABEL_54;
-            }
-
-            v22 = v8->authority;
-            if (v22)
-            {
-              v7->authority = strdup(v22);
-              goto LABEL_73;
-            }
-
-            v24 = v8->server;
-            if (v24)
-            {
-              v7->server = strdup(v24);
-            }
-
-            else if (v8->port != -1)
-            {
-              goto LABEL_73;
-            }
-
-            v25 = v8->user;
-            if (v25)
-            {
-              v7->user = strdup(v25);
-            }
-
-            v7->port = v8->port;
-LABEL_73:
-            if (path)
-            {
-              if (*path == 47)
-              {
-                goto LABEL_53;
-              }
-
-              v28 = strlen(path) + 2;
-            }
-
-            else
-            {
-              v28 = 2;
-            }
-
-            v29 = v8->path;
-            if (v29)
-            {
-              v28 += strlen(v29);
-            }
-
-            v30 = malloc_type_malloc(v28, 0x100004077774924uLL);
-            v7->path = v30;
-            if (!v30)
-            {
-              xmlURIErrMemory("resolving URI against base\n");
-              goto LABEL_6;
-            }
-
-            *v30 = 0;
-            v31 = v8->path;
-            if (v31)
-            {
-              v32 = *v31;
-              if (*v31)
-              {
-                v33 = 0;
-                v34 = 0;
-                do
-                {
-                  v35 = v34;
-                  for (i = v34 - v33 + 1; ; ++i)
-                  {
-                    if (!v31[v35])
-                    {
-                      v32 = v33;
-                      goto LABEL_97;
-                    }
-
-                    if (v31[v35] == 47)
-                    {
-                      break;
-                    }
-
-                    ++v35;
-                  }
-
-                  v34 = v35 + 1;
-                  if (v33 <= v35)
-                  {
-                    v32 = v35 + 1;
-                    v37 = v33;
-                    do
-                    {
-                      v7->path[v37] = v8->path[v37];
-                      ++v37;
-                      --i;
-                    }
-
-                    while (i);
-                    v31 = v8->path;
-                    v33 = v34;
-                  }
-
-                  else
-                  {
-                    v32 = v33;
-                  }
-                }
-
-                while (v31[v34]);
-              }
-            }
-
-            else
-            {
-              v32 = 0;
-            }
-
-LABEL_97:
-            v7->path[v32] = 0;
-            v38 = v6->path;
-            if (v38)
-            {
-              v39 = *v38;
-              if (v39)
-              {
-                if (v32)
-                {
-                  goto LABEL_100;
-                }
-
-                if (v8->server)
-                {
-                  *v7->path = 47;
-                  LOBYTE(v39) = *v6->path;
-                  v32 = 1;
-                  if (!v39)
-                  {
-                    goto LABEL_103;
-                  }
-                }
-
-                else
-                {
-                  v32 = 0;
-                }
-
-LABEL_100:
-                v40 = 0;
-                do
-                {
-                  v7->path[v32 + v40] = v39;
-                  v41 = &v6->path[v40++];
-                  v39 = v41[1];
-                }
-
-                while (v39);
-                v32 += v40;
-              }
-            }
-
-LABEL_103:
-            v7->path[v32] = 0;
-            xmlNormalizeURIPath(v7->path);
-            goto LABEL_54;
-          }
-
-          if (v8->scheme)
-          {
-            v11->scheme = strdup(v8->scheme);
-          }
-
-          v23 = v8->authority;
-          if (v23)
-          {
-            v7->authority = strdup(v23);
-            goto LABEL_108;
-          }
-
-          v26 = v8->server;
-          if (v26)
-          {
-            v7->server = strdup(v26);
-          }
-
-          else if (v8->port != -1)
-          {
-            goto LABEL_108;
-          }
-
-          v27 = v8->user;
-          if (v27)
-          {
-            v7->user = strdup(v27);
-          }
-
-          v7->port = v8->port;
-LABEL_108:
-          v42 = v8->path;
-          if (v42)
-          {
-            v7->path = strdup(v42);
-          }
-
-          query = v6->query_raw;
-          if (query)
-          {
-            goto LABEL_111;
-          }
-
-          query = v6->query;
-          if (!query)
-          {
-            query = v8->query_raw;
-            if (query)
-            {
-LABEL_111:
-              v44 = 80;
-LABEL_114:
-              *(&v7->scheme + v44) = strdup(query);
-              goto LABEL_115;
-            }
-
-            query = v8->query;
-            if (!query)
-            {
-LABEL_115:
-              v45 = v6->fragment;
-              if (v45)
-              {
-                v7->fragment = strdup(v45);
-              }
-
-              goto LABEL_54;
-            }
-          }
-
-          v44 = 56;
-          goto LABEL_114;
-        }
-
-        goto LABEL_21;
-      }
-
-      v14 = v8->fragment;
-      if (v14)
-      {
-        free(v14);
-        v8->fragment = 0;
-      }
-
-      v9 = xmlSaveUri(v8);
-      v7 = 0;
-LABEL_25:
-      xmlFreeURI(v8);
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (v4)
-  {
-    v9 = xmlSaveUri(v6);
-    goto LABEL_22;
-  }
-
-  v7 = 0;
-  v9 = 0;
-  if (v8)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  if (v7)
-  {
-    xmlFreeURI(v7);
-  }
-
-  return v9;
-}
-
-xmlChar *__cdecl xmlBuildRelativeURI(const xmlChar *URI, const xmlChar *base)
-{
-  if (URI)
-  {
-    v2 = URI;
-    if (*URI)
-    {
-      v4 = xmlCreateURI();
-      if (v4)
-      {
-        v5 = v4;
-        if (*v2 == 46)
-        {
-          v4->path = xmlStrdup(v2);
-        }
-
-        else if (xmlParse3986URIReference(v4, v2))
-        {
-          goto LABEL_14;
-        }
-
-        if (!base || !*base)
-        {
-          v6 = xmlStrdup(v2);
-LABEL_15:
-          v8 = v5;
-LABEL_16:
-          xmlFreeURI(v8);
-          return v6;
-        }
-
-        v7 = xmlCreateURI();
-        if (v7)
-        {
-          v8 = v7;
-          if (*base == 46)
-          {
-            v7->path = xmlStrdup(base);
-          }
-
-          else if (xmlParse3986URIReference(v7, base))
-          {
-            v6 = 0;
-LABEL_36:
-            xmlFreeURI(v5);
-            goto LABEL_16;
-          }
-
-          if (v5->scheme && (!v8->scheme || xmlStrcmp(v8->scheme, v5->scheme) || xmlStrcmp(v8->server, v5->server)))
-          {
-            goto LABEL_34;
-          }
-
-          if (xmlStrEqual(v8->path, v5->path))
-          {
-            v10 = "";
-LABEL_35:
-            v6 = xmlStrdup(v10);
-            goto LABEL_36;
-          }
-
-          path = v8->path;
-          v2 = v5->path;
-          if (!path)
-          {
-LABEL_34:
-            v10 = v2;
-            goto LABEL_35;
-          }
-
-          v12 = v5->path;
-          if (!v2)
-          {
-            v12 = "/";
-            v5->path = "/";
-            path = v8->path;
-          }
-
-          if (*v12 == 46)
-          {
-            v12 += 2 * (v12[1] == 47);
-          }
-
-          v13 = *path;
-          if (v13 == 47)
-          {
-            if (*v12 != 47)
-            {
-              ++path;
-            }
-          }
-
-          else if (v13 == 46)
-          {
-            path += 2 * (path[1] == 47);
-          }
-
-          v14 = 0;
-          do
-          {
-            v15 = path[v14];
-            v16 = v12[v14++];
-            if (v15)
-            {
-              v17 = v15 == v16;
-            }
-
-            else
-            {
-              v17 = 0;
-            }
-          }
-
-          while (v17);
-          if (v15 == v16)
-          {
-            v18 = "";
-          }
-
-          else
-          {
-            while (1)
-            {
-              v20 = v14 - 1;
-              if (v14 - 1 < 1)
-              {
-                break;
-              }
-
-              v21 = v12[v14-- - 2];
-              v22 = v20;
-              if (v21 == 47)
-              {
-                goto LABEL_53;
-              }
-            }
-
-            v22 = 0;
-LABEL_53:
-            v23 = 0;
-            v24 = &path[v20 & ~(v20 >> 63)];
-            do
-            {
-              while (1)
-              {
-                v26 = *v24++;
-                v25 = v26;
-                if (v26 != 47)
-                {
-                  break;
-                }
-
-                ++v23;
-              }
-            }
-
-            while (v25);
-            v27 = &v12[v22];
-            if (v23)
-            {
-              v28 = xmlStrlen(&v12[v22]);
-              if ((v23 & 0x80000000) != 0 || v28 < -1 || (v29 = v28, v23 > (2147483646 - v28) / 3u) || (v30 = (v28 + 1), (v31 = malloc_type_malloc(v30 + 3 * v23, 0x100004077774924uLL)) == 0))
-              {
-                xmlURIErrMemory("building relative URI\n");
-                v6 = 0;
-                if (v2)
-                {
-                  goto LABEL_36;
-                }
-              }
-
-              else
-              {
-                v32 = v31;
-                v33 = v23 + 1;
-                v34 = v31;
-                do
-                {
-                  *v34 = 11822;
-                  v34[2] = 47;
-                  v34 += 3;
-                  --v33;
-                }
-
-                while (v33 > 1);
-                if (v34 <= v31 || (v29 & 0x80000000) != 0 || *v27 != 47)
-                {
-                  memcpy(v34, v27, v30);
-                  v35 = &v34[v29];
-                }
-
-                else
-                {
-                  memcpy(v34, v27 + 1, v29);
-                  v35 = &v34[v29 - 1];
-                }
-
-                *v35 = 0;
-                v6 = xmlURIEscapeStr(v32, "/;&=+$,");
-                free(v32);
-                if (v2)
-                {
-                  goto LABEL_36;
-                }
-              }
-
-              goto LABEL_70;
-            }
-
-            if (*v27)
-            {
-              xmlStrlen(v27);
-              v19 = xmlURIEscapeStr(v27, "/;&=+$,");
-LABEL_47:
-              v6 = v19;
-              if (v2)
-              {
-                goto LABEL_36;
-              }
-
-LABEL_70:
-              v5->path = 0;
-              goto LABEL_36;
-            }
-
-            v18 = "./";
-          }
-
-          v19 = xmlStrdup(v18);
-          goto LABEL_47;
-        }
-
-LABEL_14:
-        v6 = 0;
-        goto LABEL_15;
-      }
-    }
-  }
-
-  return 0;
-}
-
-xmlChar *__cdecl xmlCanonicPath(const xmlChar *path)
-{
-  if (path)
-  {
-    v1 = path;
-    if (*path == 47 && path[1] == 47 && path[2] != 47)
-    {
-      v1 = path + 1;
-    }
-
-    v2 = xmlParseURI(v1);
-    if (v2)
-    {
-      xmlFreeURI(v2);
-    }
-
-    else
-    {
-      v5 = xmlStrstr(v1, "://");
-      if (v5 && (v5 - v1 - 21) >= 0xFFFFFFEC)
-      {
-        v6 = 0;
-        while ((v1[v6] & 0xDFu) - 65 < 0x1A)
-        {
-          if (((v5 - v1) & 0x7FFFFFFF) == ++v6)
-          {
-            v7 = xmlURIEscapeStr(v1, ":/?_.#&;=");
-            if (!v7)
-            {
-              break;
-            }
-
-            v4 = v7;
-            v8 = xmlParseURI(v7);
-            if (v8)
-            {
-              xmlFreeURI(v8);
-              return v4;
-            }
-
-            free(v4);
-            break;
-          }
-        }
-      }
-    }
-
-    return xmlStrdup(v1);
-  }
-
-  else
-  {
-    return 0;
-  }
 }

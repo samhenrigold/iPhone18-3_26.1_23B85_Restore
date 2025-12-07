@@ -194,7 +194,7 @@ LABEL_11:
 - (void)synchronize
 {
   writtenDefaults = [(WatchSyncedPreferences *)self writtenDefaults];
-  v4 = MAPSGetPreferencesSyncLog();
+  v4 = MAPSGetPreferencesSyncLog(writtenDefaults);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;

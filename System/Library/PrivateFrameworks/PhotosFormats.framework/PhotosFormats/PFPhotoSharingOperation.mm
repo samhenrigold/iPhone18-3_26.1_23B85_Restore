@@ -241,9 +241,12 @@ uint64_t __55__PFPhotoSharingOperation_setCustomAccessibilityLabel___block_invok
   result = [*(*(a1 + 32) + 312) isEqualToString:*(a1 + 40)];
   if ((result & 1) == 0)
   {
-    *(*(a1 + 32) + 312) = [*(a1 + 40) copy];
+    v3 = [*(a1 + 40) copy];
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 312);
+    *(v4 + 312) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;
@@ -290,9 +293,12 @@ uint64_t __44__PFPhotoSharingOperation_setCustomCaption___block_invoke(uint64_t 
   result = [*(*(a1 + 32) + 304) isEqualToString:*(a1 + 40)];
   if ((result & 1) == 0)
   {
-    *(*(a1 + 32) + 304) = [*(a1 + 40) copy];
+    v3 = [*(a1 + 40) copy];
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 304);
+    *(v4 + 304) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;
@@ -339,9 +345,12 @@ uint64_t __45__PFPhotoSharingOperation_setCustomLocation___block_invoke(uint64_t
   result = [*(*(a1 + 32) + 288) isEqual:*(a1 + 40)];
   if ((result & 1) == 0)
   {
-    *(*(a1 + 32) + 288) = [*(a1 + 40) copy];
+    v3 = [*(a1 + 40) copy];
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 288);
+    *(v4 + 288) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;
@@ -392,9 +401,12 @@ uint64_t __45__PFPhotoSharingOperation_setOutputFilename___block_invoke(uint64_t
     result = [result isEqualToString:?];
     if ((result & 1) == 0)
     {
-      *(*(a1 + 32) + 280) = [*(a1 + 40) copy];
+      v4 = [*(a1 + 40) copy];
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 280);
+      *(v5 + 280) = v4;
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v4, v6);
     }
   }
 
@@ -446,9 +458,12 @@ uint64_t __49__PFPhotoSharingOperation_setOutputDirectoryURL___block_invoke(uint
     result = [result isEqual:?];
     if ((result & 1) == 0)
     {
-      *(*(a1 + 32) + 272) = [*(a1 + 40) copy];
+      v4 = [*(a1 + 40) copy];
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 272);
+      *(v5 + 272) = v4;
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v4, v6);
     }
   }
 
@@ -817,7 +832,7 @@ LABEL_26:
   {
     v35 = *MEMORY[0x1E696DD90];
     v36 = [(__CFDictionary *)v46 objectForKeyedSubscript:*MEMORY[0x1E696DD90]];
-    dictionary2 = [v36 mutableCopy];
+    dictionary2 = objc_msgSend_mutableCopy(v36);
 
     if (*(v73 + 24) == 1)
     {
@@ -1098,9 +1113,11 @@ void __31__PFPhotoSharingOperation_main__block_invoke_31(uint64_t a1)
 
 uint64_t __60__PFPhotoSharingOperation_outputSupportedForTypeIdentifier___block_invoke()
 {
-  outputSupportedForTypeIdentifier__supportedImageDestinationTypeIdentifiers = CGImageDestinationCopyTypeIdentifiers();
+  v0 = CGImageDestinationCopyTypeIdentifiers();
+  v1 = outputSupportedForTypeIdentifier__supportedImageDestinationTypeIdentifiers;
+  outputSupportedForTypeIdentifier__supportedImageDestinationTypeIdentifiers = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

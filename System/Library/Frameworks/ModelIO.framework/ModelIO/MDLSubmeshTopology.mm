@@ -8,88 +8,88 @@
 
 - (MDLSubmeshTopology)initWithSubmesh:(MDLSubmesh *)submesh
 {
-  v7 = submesh;
-  if (!v7)
+  v12 = submesh;
+  if (!v12)
   {
-    v8 = MEMORY[0x277CBEAD8];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = NSStringFromSelector(a2);
-    objc_msgSend_raise_format_(v8, v12, @"ModelIOException", @"[%@ %@]: Cannot create topology with a submesh", v10, v11);
+    v17 = MEMORY[0x277CBEAD8];
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = NSStringFromSelector(a2);
+    objc_msgSend_raise_format_(v17, v21, @"ModelIOException", @"[%@ %@]: Cannot create topology with a submesh", v26, v27, v28, v29, v22, v23, v24, v25, v19, v20);
   }
 
-  if (objc_msgSend_geometryType(v7, v5, v6) == 3)
+  if (objc_msgSend_geometryType(v12, v5, v6, v7, v13, v14, v15, v16, v8, v9, v10, v11) == 3)
   {
-    v13 = MEMORY[0x277CBEAD8];
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = NSStringFromSelector(a2);
-    objc_msgSend_raise_format_(v13, v17, @"ModelIOException", @"[%@ %@]: Cannot create topology from triangle strips", v15, v16);
+    v30 = MEMORY[0x277CBEAD8];
+    v31 = objc_opt_class();
+    v32 = NSStringFromClass(v31);
+    v33 = NSStringFromSelector(a2);
+    objc_msgSend_raise_format_(v30, v34, @"ModelIOException", @"[%@ %@]: Cannot create topology from triangle strips", v39, v40, v41, v42, v35, v36, v37, v38, v32, v33);
   }
 
-  v86.receiver = self;
-  v86.super_class = MDLSubmeshTopology;
-  v20 = [(MDLSubmeshTopology *)&v86 init];
-  if (v20)
+  v262.receiver = self;
+  v262.super_class = MDLSubmeshTopology;
+  v50 = [(MDLSubmeshTopology *)&v262 init];
+  if (v50)
   {
-    v21 = objc_msgSend_topology(v7, v18, v19);
+    v55 = objc_msgSend_topology(v12, v43, v44, v45, v51, v52, v53, v54, v46, v47, v48, v49);
 
-    if (v21)
+    if (v55)
     {
-      v24 = objc_msgSend_topology(v7, v22, v23);
-      v27 = objc_msgSend_faceTopology(v24, v25, v26);
-      faceTopology = v20->_faceTopology;
-      v20->_faceTopology = v27;
+      v67 = objc_msgSend_topology(v12, v56, v57, v58, v63, v64, v65, v66, v59, v60, v61, v62);
+      v79 = objc_msgSend_faceTopology(v67, v68, v69, v70, v75, v76, v77, v78, v71, v72, v73, v74);
+      faceTopology = v50->_faceTopology;
+      v50->_faceTopology = v79;
 
-      v20->_faceCount = objc_msgSend_faceCount(v24, v29, v30);
-      v33 = objc_msgSend_vertexCreaseIndices(v24, v31, v32);
-      vertexCreaseIndices = v20->_vertexCreaseIndices;
-      v20->_vertexCreaseIndices = v33;
+      v50->_faceCount = objc_msgSend_faceCount(v67, v81, v82, v83, v88, v89, v90, v91, v84, v85, v86, v87);
+      v103 = objc_msgSend_vertexCreaseIndices(v67, v92, v93, v94, v99, v100, v101, v102, v95, v96, v97, v98);
+      vertexCreaseIndices = v50->_vertexCreaseIndices;
+      v50->_vertexCreaseIndices = v103;
 
-      v37 = objc_msgSend_vertexCreases(v24, v35, v36);
-      vertexCreases = v20->_vertexCreases;
-      v20->_vertexCreases = v37;
+      v116 = objc_msgSend_vertexCreases(v67, v105, v106, v107, v112, v113, v114, v115, v108, v109, v110, v111);
+      vertexCreases = v50->_vertexCreases;
+      v50->_vertexCreases = v116;
 
-      v20->_vertexCreaseCount = objc_msgSend_vertexCreaseCount(v24, v39, v40);
-      v20->_edgeCreaseCount = objc_msgSend_edgeCreaseCount(v24, v41, v42);
-      v45 = objc_msgSend_edgeCreaseIndices(v24, v43, v44);
-      edgeCreaseIndices = v20->_edgeCreaseIndices;
-      v20->_edgeCreaseIndices = v45;
+      v50->_vertexCreaseCount = objc_msgSend_vertexCreaseCount(v67, v118, v119, v120, v125, v126, v127, v128, v121, v122, v123, v124);
+      v50->_edgeCreaseCount = objc_msgSend_edgeCreaseCount(v67, v129, v130, v131, v136, v137, v138, v139, v132, v133, v134, v135);
+      v151 = objc_msgSend_edgeCreaseIndices(v67, v140, v141, v142, v147, v148, v149, v150, v143, v144, v145, v146);
+      edgeCreaseIndices = v50->_edgeCreaseIndices;
+      v50->_edgeCreaseIndices = v151;
 
-      v49 = objc_msgSend_edgeCreases(v24, v47, v48);
-      edgeCreases = v20->_edgeCreases;
-      v20->_edgeCreases = v49;
+      v164 = objc_msgSend_edgeCreases(v67, v153, v154, v155, v160, v161, v162, v163, v156, v157, v158, v159);
+      edgeCreases = v50->_edgeCreases;
+      v50->_edgeCreases = v164;
 
-      v53 = objc_msgSend_holes(v24, v51, v52);
-      holes = v20->_holes;
-      v20->_holes = v53;
+      v177 = objc_msgSend_holes(v67, v166, v167, v168, v173, v174, v175, v176, v169, v170, v171, v172);
+      holes = v50->_holes;
+      v50->_holes = v177;
 
-      v20->_holeCount = objc_msgSend_holeCount(v24, v55, v56);
-      v57 = v20;
+      v50->_holeCount = objc_msgSend_holeCount(v67, v179, v180, v181, v186, v187, v188, v189, v182, v183, v184, v185);
+      v190 = v50;
 
       goto LABEL_28;
     }
 
-    v58 = objc_msgSend_indexCount(v7, v22, v23);
+    v191 = objc_msgSend_indexCount(v12, v56, v57, v58, v63, v64, v65, v66, v59, v60, v61, v62);
     __p = 0;
-    v84 = 0;
-    v85 = 0;
-    v61 = objc_msgSend_geometryType(v7, v59, v60);
-    if (v61 <= 1)
+    v260 = 0;
+    v261 = 0;
+    v203 = objc_msgSend_geometryType(v12, v192, v193, v194, v199, v200, v201, v202, v195, v196, v197, v198);
+    if (v203 <= 1)
     {
-      if (v61)
+      if (v203)
       {
-        if (v61 != 1)
+        if (v203 != 1)
         {
           goto LABEL_26;
         }
 
-        v63 = v58 >> 1;
-        v82 = 2;
-        v64 = __p;
-        v65 = v58 >> 1 >= v84 - __p;
-        v62 = ((v58 >> 1) - (v84 - __p));
-        if (v58 >> 1 > v84 - __p)
+        v213 = v191 >> 1;
+        v258 = 2;
+        v214 = __p;
+        v215 = v191 >> 1 >= v260 - __p;
+        v204 = ((v191 >> 1) - (v260 - __p));
+        if (v191 >> 1 > v260 - __p)
         {
           goto LABEL_20;
         }
@@ -97,37 +97,37 @@
         goto LABEL_21;
       }
 
-      v82 = 1;
-      v62 = (v58 - (v84 - __p));
-      if (v58 <= v84 - __p)
+      v258 = 1;
+      v204 = (v191 - (v260 - __p));
+      if (v191 <= v260 - __p)
       {
-        if (v58 >= v84 - __p)
+        if (v191 >= v260 - __p)
         {
           goto LABEL_26;
         }
 
-        v66 = __p + v58;
+        v216 = __p + v191;
 LABEL_25:
-        v84 = v66;
+        v260 = v216;
 LABEL_26:
-        v67 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v62, __p, v84 - __p);
-        v70 = objc_msgSend_indexBuffer(v7, v68, v69);
-        v73 = objc_msgSend_allocator(v70, v71, v72);
-        v75 = objc_msgSend_newBufferWithData_type_(v73, v74, v67, 2);
+        v217 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v204, __p, v260 - __p, v209, v210, v211, v212, v205, v206, v207, v208);
+        v229 = objc_msgSend_indexBuffer(v12, v218, v219, v220, v225, v226, v227, v228, v221, v222, v223, v224);
+        v241 = objc_msgSend_allocator(v229, v230, v231, v232, v237, v238, v239, v240, v233, v234, v235, v236);
+        v251 = objc_msgSend_newBufferWithData_type_(v241, v242, v217, 2, v247, v248, v249, v250, v243, v244, v245, v246);
 
-        v76 = v20->_faceTopology;
-        v20->_faceTopology = v75;
-        v77 = v75;
+        v252 = v50->_faceTopology;
+        v50->_faceTopology = v251;
+        v253 = v251;
 
-        v79 = __p;
-        v78 = v84;
+        v255 = __p;
+        v254 = v260;
 
-        v20->_faceCount = v78 - v79;
-        v80 = v20;
+        v50->_faceCount = v254 - v255;
+        v256 = v50;
 
         if (__p)
         {
-          v84 = __p;
+          v260 = __p;
           operator delete(__p);
         }
 
@@ -135,18 +135,18 @@ LABEL_26:
       }
 
 LABEL_20:
-      sub_239EFF5E8(&__p, v62, &v82);
+      sub_239EFF5E8(&__p, v204, &v258);
       goto LABEL_26;
     }
 
-    if (v61 == 2)
+    if (v203 == 2)
     {
-      v63 = v58 / 3;
-      v82 = 3;
-      v64 = __p;
-      v65 = v58 / 3 >= v84 - __p;
-      v62 = (v58 / 3 - (v84 - __p));
-      if (v58 / 3 > v84 - __p)
+      v213 = v191 / 3;
+      v258 = 3;
+      v214 = __p;
+      v215 = v191 / 3 >= v260 - __p;
+      v204 = (v191 / 3 - (v260 - __p));
+      if (v191 / 3 > v260 - __p)
       {
         goto LABEL_20;
       }
@@ -154,35 +154,35 @@ LABEL_20:
 
     else
     {
-      if (v61 != 4)
+      if (v203 != 4)
       {
         goto LABEL_26;
       }
 
-      v63 = v58 >> 2;
-      v82 = 4;
-      v64 = __p;
-      v65 = v58 >> 2 >= v84 - __p;
-      v62 = ((v58 >> 2) - (v84 - __p));
-      if (v58 >> 2 > v84 - __p)
+      v213 = v191 >> 2;
+      v258 = 4;
+      v214 = __p;
+      v215 = v191 >> 2 >= v260 - __p;
+      v204 = ((v191 >> 2) - (v260 - __p));
+      if (v191 >> 2 > v260 - __p)
       {
         goto LABEL_20;
       }
     }
 
 LABEL_21:
-    if (v65)
+    if (v215)
     {
       goto LABEL_26;
     }
 
-    v66 = &v64[v63];
+    v216 = &v214[v213];
     goto LABEL_25;
   }
 
 LABEL_28:
 
-  return v20;
+  return v50;
 }
 
 + (id)decodeTopologyWithCoder:(id)coder allocator:(id)allocator
@@ -190,14 +190,14 @@ LABEL_28:
   coderCopy = coder;
   allocatorCopy = allocator;
   v7 = objc_alloc_init(MDLSubmeshTopology);
-  v7->_faceCount = objc_msgSend_decodeIntegerForKey_(coderCopy, v8, @"faceCount");
+  v7->_faceCount = objc_msgSend_decodeIntegerForKey_(coderCopy, v8, @"faceCount", v9, v14, v15, v16, v17, v10, v11, v12, v13);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = allocatorCopy;
-    v11 = objc_msgSend_decodeMeshBufferWithCoder_forKey_(v9, v10, coderCopy, @"faceTopology");
+    v18 = allocatorCopy;
+    v28 = objc_msgSend_decodeMeshBufferWithCoder_forKey_(v18, v19, coderCopy, @"faceTopology", v24, v25, v26, v27, v20, v21, v22, v23);
     faceTopology = v7->_faceTopology;
-    v7->_faceTopology = v11;
+    v7->_faceTopology = v28;
   }
 
   return v7;
@@ -207,14 +207,14 @@ LABEL_28:
 {
   coderCopy = coder;
   allocatorCopy = allocator;
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v7, self->_faceCount, @"faceCount");
+  objc_msgSend_encodeInteger_forKey_(coderCopy, v7, self->_faceCount, @"faceCount", v12, v13, v14, v15, v8, v9, v10, v11);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = allocatorCopy;
-    v10 = objc_msgSend_decodeMeshBufferWithCoder_forKey_(v8, v9, coderCopy, @"faceTopology");
+    v16 = allocatorCopy;
+    v26 = objc_msgSend_decodeMeshBufferWithCoder_forKey_(v16, v17, coderCopy, @"faceTopology", v22, v23, v24, v25, v18, v19, v20, v21);
     faceTopology = self->_faceTopology;
-    self->_faceTopology = v10;
+    self->_faceTopology = v26;
   }
 }
 

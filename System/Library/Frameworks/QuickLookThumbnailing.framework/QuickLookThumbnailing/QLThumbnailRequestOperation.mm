@@ -1,6 +1,8 @@
 @interface QLThumbnailRequestOperation
 + (id)operationWithThumbnailRequest:(id)request;
 - (BOOL)_finishIfNeeded;
+- (QLThumbnailRequestOperation)initWithFPItem:(id)item size:(CGSize)size minimumDimension:(double)dimension scale:(double)scale iconMode:(BOOL)mode;
+- (QLThumbnailRequestOperation)initWithFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode;
 - (QLThumbnailRequestOperation)initWithThumbnailRequest:(id)request;
 - (id)sharedSerialResponseQueue;
 - (void)__finishWithError:(id)error;
@@ -14,6 +16,39 @@
 @end
 
 @implementation QLThumbnailRequestOperation
+
+- (QLThumbnailRequestOperation)initWithFPItem:(id)item size:(CGSize)size minimumDimension:(double)dimension scale:(double)scale iconMode:(BOOL)mode
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  itemCopy = item;
+  scale = [[QLTUbiquitousFileThumbnailRequest alloc] initWithFPItem:itemCopy size:modeCopy minimumDimension:width scale:height iconMode:dimension, scale];
+
+  v15 = [(QLThumbnailRequestOperation *)self initWithThumbnailRequest:scale];
+  return v15;
+}
+
+- (QLThumbnailRequestOperation)initWithFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  lCopy = l;
+  v18 = 0;
+  scale = [[QLTFileThumbnailRequest alloc] initWithFileAtURL:lCopy size:modeCopy minimumDimension:&v18 scale:width iconMode:height error:0.0, scale];
+
+  v13 = v18;
+  v14 = v18;
+  v15 = [(QLThumbnailRequestOperation *)self initWithThumbnailRequest:scale];
+  v16 = v15;
+  if (v15)
+  {
+    objc_storeStrong(&v15->_thumbnailRequestInvalidError, v13);
+  }
+
+  return v16;
+}
 
 - (QLThumbnailRequestOperation)initWithThumbnailRequest:(id)request
 {
@@ -138,7 +173,7 @@ uint64_t __56__QLThumbnailRequestOperation_sharedSerialResponseQueue__block_invo
 
 void __49__QLThumbnailRequestOperation___finishWithError___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) requestCompletionBlock];
   if (v2)
   {
@@ -159,11 +194,11 @@ void __49__QLThumbnailRequestOperation___finishWithError___block_invoke(uint64_t
         v6 = v4;
         v7 = [v5 request];
         v8 = *(a1 + 40);
-        v11 = 138412546;
-        v12 = v7;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_1CA1E7000, v6, OS_LOG_TYPE_INFO, "Calling requestCompletionBlock for %@ with error: %@", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v7;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1CA1E7000, v6, OS_LOG_TYPE_INFO, "Calling requestCompletionBlock for %@ with error: %@", &v10, 0x16u);
       }
 
       v9 = [*(a1 + 32) requestCompletionBlock];
@@ -173,8 +208,6 @@ void __49__QLThumbnailRequestOperation___finishWithError___block_invoke(uint64_t
       [*(a1 + 32) setRequestCompletionBlock:0];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishIfRequestIsInvalid

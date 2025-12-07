@@ -3,59 +3,51 @@
 
 @implementation AddImageQueueReceiverToConfiguration
 
-CFIndex __videoReceiver_AddImageQueueReceiverToConfiguration_block_invoke(uint64_t a1)
+void __videoReceiver_AddImageQueueReceiverToConfiguration_block_invoke(void *a1)
 {
-  result = FigDataChannelConfigurationGetChannelCount(*(a1 + 40));
-  if (result >= 1)
+  ChannelCount = FigDataChannelConfigurationGetChannelCount(a1[5]);
+  if (ChannelCount >= 1)
   {
-    v3 = result;
+    v3 = ChannelCount;
     v4 = 0;
     while (1)
     {
-      while (1)
+      while (FigDataChannelConfigurationGetOutputQueueTypeAtIndex(a1[5], v4) != 1)
       {
-        result = FigDataChannelConfigurationGetOutputQueueTypeAtIndex(*(a1 + 40), v4);
-        if (result == 1)
-        {
-          break;
-        }
-
         if (++v4 >= v3)
         {
-          return result;
+          return;
         }
       }
 
-      FigDataChannelConfigurationGetCAImageQueueIDAtIndex();
-      if (!videoReceiver_getImageQueueReceiverByIDOnSyncQueue())
+      CAImageQueueIDAtIndex = FigDataChannelConfigurationGetCAImageQueueIDAtIndex();
+      if (!videoReceiver_getImageQueueReceiverByIDOnSyncQueue(a1[6], CAImageQueueIDAtIndex))
       {
         break;
       }
 
-      result = FigDataChannelConfigurationSetCAImageQueueReceiverAtIndex(*(a1 + 40), v4);
-      *(*(*(a1 + 32) + 8) + 24) = result;
+      FigDataChannelConfigurationSetCAImageQueueReceiverAtIndex(a1[5], v4);
+      *(*(a1[4] + 8) + 24) = v6;
       ++v4;
-      if (*(*(*(a1 + 32) + 8) + 24))
+      if (*(*(a1[4] + 8) + 24))
       {
-        v5 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v5 = v4 < v3;
+        v7 = v4 < v3;
       }
 
-      if (!v5)
+      if (!v7)
       {
-        return result;
+        return;
       }
     }
 
-    result = FigSignalErrorAtGM();
-    *(*(*(a1 + 32) + 8) + 24) = result;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, v10, v11);
+    *(*(a1[4] + 8) + 24) = v8;
   }
-
-  return result;
 }
 
 @end

@@ -42,7 +42,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if ([v5 slice] == self->_slice && objc_msgSend(v5, "mipLevel") == self->_mipLevel && objc_msgSend(v5, "depthPlane") == self->_depthPlane)
+    if (objc_msgSend_slice(v5) == self->_slice && [v5 mipLevel] == self->_mipLevel && objc_msgSend(v5, "depthPlane") == self->_depthPlane)
     {
       plane = [v5 plane];
       if (plane == self->_plane)

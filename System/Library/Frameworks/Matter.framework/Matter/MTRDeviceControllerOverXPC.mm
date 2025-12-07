@@ -49,7 +49,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDeviceController doesn't support setupCommissioningSessionWithPayload over XPC");
   }
 
   if (error)
@@ -71,7 +71,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support pairDevice over XPC");
   }
 
   if (error)
@@ -94,7 +94,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support pairDevice over XPC");
   }
 
   if (error)
@@ -117,7 +117,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support pairDevice over XPC");
   }
 
   if (error)
@@ -140,7 +140,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support commissionDevice over XPC");
   }
 
   if (error)
@@ -162,7 +162,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support stopDevicePairing over XPC");
   }
 
   if (error)
@@ -184,7 +184,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support getDeviceBeingCommissioned over XPC");
   }
 
   if (error)
@@ -208,7 +208,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDeviceController doesn't support commissionNodeWithID over XPC");
   }
 
   if (error)
@@ -231,7 +231,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDeviceController doesn't support cancelCommissioningForNodeID over XPC");
   }
 
   if (error)
@@ -254,7 +254,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDeviceController doesn't support deviceBeingCommissionedWithNodeID over XPC");
   }
 
   if (error)
@@ -328,7 +328,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support openPairingWindow over XPC");
   }
 
   return 0;
@@ -345,7 +345,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRDevice doesn't support openPairingWindow over XPC");
   }
 
   return 0;

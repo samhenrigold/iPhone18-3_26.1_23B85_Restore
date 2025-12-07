@@ -6,7 +6,7 @@
 
 - (void)refreshIsFeatureSupportedWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9568);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9568, &qword_1DCC08);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

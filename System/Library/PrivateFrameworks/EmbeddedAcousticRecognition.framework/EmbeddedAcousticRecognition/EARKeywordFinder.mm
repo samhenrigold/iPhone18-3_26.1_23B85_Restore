@@ -34,8 +34,7 @@
 
 - (id)correctedResultWithKeyword:(id)keyword tokenizedKeyword:(id)tokenizedKeyword preItnSausage:(id)sausage preItnOneBest:(id)best preItnOneBestIndices:(id)indices nbestSize:(int64_t)size
 {
-  sizeCopy = size;
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   keywordCopy = keyword;
   tokenizedKeywordCopy = tokenizedKeyword;
   sausageCopy = sausage;
@@ -45,53 +44,51 @@
   v52 = keywordCopy;
   if (keywordCopy)
   {
-    [keywordCopy ear_toString];
+    objc_msgSend_ear_toString(keywordCopy);
   }
 
   else
   {
-    v67[0] = 0;
-    v67[1] = 0;
-    v68 = 0;
+    memset(&v67, 0, sizeof(v67));
   }
 
   v53 = ptr;
-  v54 = sizeCopy;
+  sizeCopy = size;
   v17 = tokenizedKeywordCopy;
   v65 = 0;
   v66 = 0;
   v64 = 0;
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   obj = v17;
-  v18 = [obj countByEnumeratingWithState:&v77 objects:&v81 count:16];
+  v18 = [obj countByEnumeratingWithState:&v76 objects:&v80 count:16];
   if (v18)
   {
-    v19 = *v78;
+    v19 = *v77;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v78 != v19)
+        if (*v77 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v77 + 1) + 8 * i);
+        v21 = *(*(&v76 + 1) + 8 * i);
         v22 = v21;
         if (v21)
         {
-          [v21 _quasarProns];
+          objc_msgSend__quasarProns(v21);
         }
 
         else
         {
-          v76 = 0;
-          v75 = 0u;
+          v75 = 0;
+          v74 = 0u;
           *__p = 0u;
-          memset(v74, 0, sizeof(v74));
+          memset(v73, 0, sizeof(v73));
         }
 
         v23 = v65;
@@ -103,65 +100,65 @@
         else
         {
           v24 = *__p;
-          *(v65 + 16) = *&v74[0];
+          *(v65 + 16) = *&v73[0];
           *(v23 + 24) = 0;
           *v23 = v24;
           __p[1] = 0;
-          *&v74[0] = 0;
+          *&v73[0] = 0;
           __p[0] = 0;
           *(v23 + 32) = 0;
           *(v23 + 40) = 0;
-          *(v23 + 24) = *(v74 + 8);
-          *(&v74[0] + 1) = 0;
-          *&v74[1] = 0;
-          *(v23 + 40) = *(&v74[1] + 1);
+          *(v23 + 24) = *(v73 + 8);
+          *(&v73[0] + 1) = 0;
+          *&v73[1] = 0;
+          *(v23 + 40) = *(&v73[1] + 1);
           *(v23 + 48) = 0;
-          *(&v74[1] + 1) = 0;
+          *(&v73[1] + 1) = 0;
           *(v23 + 56) = 0;
           *(v23 + 64) = 0;
-          *(v23 + 48) = v75;
-          *(v23 + 64) = v76;
-          v75 = 0uLL;
-          v76 = 0;
+          *(v23 + 48) = v74;
+          *(v23 + 64) = v75;
+          v74 = 0uLL;
+          v75 = 0;
           v25 = v23 + 72;
         }
 
         v65 = v25;
-        v63.__r_.__value_.__r.__words[0] = &v75;
+        v63.__r_.__value_.__r.__words[0] = &v74;
         std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](&v63);
-        v63.__r_.__value_.__r.__words[0] = v74 + 8;
+        v63.__r_.__value_.__r.__words[0] = v73 + 8;
         std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](&v63);
-        if (SBYTE7(v74[0]) < 0)
+        if (SBYTE7(v73[0]) < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v77 objects:&v81 count:16];
+      v18 = [obj countByEnumeratingWithState:&v76 objects:&v80 count:16];
     }
 
     while (v18);
   }
 
-  EARHelpers::ArrayToVector2<std::vector<quasar::Token>,std::vector<quasar::Token> (*)(NSArray<_EARSpeechRecognitionToken *> *)>(sausageCopy, EARHelpers::QuasarResultFromEARSpeechRecognitionTokens, &v77);
+  EARHelpers::ArrayToVector2<std::vector<quasar::Token>,std::vector<quasar::Token> (*)(NSArray<_EARSpeechRecognitionToken *> *)>(sausageCopy, &v76, EARHelpers::QuasarResultFromEARSpeechRecognitionTokens);
   EARHelpers::QuasarResultFromEARSpeechRecognitionTokens(bestCopy, &v63);
   v26 = indicesCopy;
   v61 = 0;
   v62 = 0;
   __src = 0;
   *__p = 0u;
-  memset(v74, 0, sizeof(v74));
-  v75 = 0u;
+  memset(v73, 0, sizeof(v73));
+  v74 = 0u;
   v58 = v26;
-  v27 = [v58 countByEnumeratingWithState:__p objects:&v81 count:16];
+  v27 = [v58 countByEnumeratingWithState:__p objects:&v80 count:16];
   if (v27)
   {
-    v28 = **&v74[0];
+    v28 = **&v73[0];
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (**&v74[0] != v28)
+        if (**&v73[0] != v28)
         {
           objc_enumerationMutation(v58);
         }
@@ -223,71 +220,71 @@
         v61 = v33;
       }
 
-      v27 = [v58 countByEnumeratingWithState:__p objects:&v81 count:16];
+      v27 = [v58 countByEnumeratingWithState:__p objects:&v80 count:16];
     }
 
     while (v27);
   }
 
-  quasar::KeywordFinder::correctResultWithKeyword(v53, v67, &v64, &v77, &v63, v54, &v69);
-  v81.__r_.__value_.__r.__words[0] = &v63;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v81);
-  v81.__r_.__value_.__r.__words[0] = &v77;
-  std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](&v81);
-  v81.__r_.__value_.__r.__words[0] = &v64;
-  std::vector<quasar::G2P::TokenProns>::__destroy_vector::operator()[abi:ne200100](&v81);
-  if (SHIBYTE(v68) < 0)
+  quasar::KeywordFinder::correctResultWithKeyword(v53, &v67, &v64, &v76, &v63, sizeCopy, &v68);
+  v80.__r_.__value_.__r.__words[0] = &v63;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v80);
+  v80.__r_.__value_.__r.__words[0] = &v76;
+  std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](&v80);
+  v80.__r_.__value_.__r.__words[0] = &v64;
+  std::vector<quasar::G2P::TokenProns>::__destroy_vector::operator()[abi:ne200100](&v80);
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v67[0]);
+    operator delete(v67.__r_.__value_.__l.__data_);
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v42 = v69;
-  if (v69 != *(&v69 + 1))
+  v42 = v68;
+  if (v68 != *(&v68 + 1))
   {
-    v43 = *(&v69 + 1);
+    v43 = *(&v68 + 1);
     do
     {
       __p[0] = 0;
       __p[1] = 0;
-      *&v74[0] = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(__p, *v42, v42[1], 0x6DB6DB6DB6DB6DB7 * ((v42[1] - *v42) >> 5));
+      *&v73[0] = 0;
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(__p, *v42, *(v42 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v42 + 8) - *v42) >> 5));
       array2 = [MEMORY[0x1E695DF70] array];
       v46 = __p[0];
       v45 = __p[1];
       while (v46 != v45)
       {
-        quasar::Token::Token(&v81, v46);
-        v47 = [[_EARSpeechRecognitionToken alloc] _initWithQuasarToken:&v81];
+        quasar::Token::Token(&v80, v46);
+        v47 = [[_EARSpeechRecognitionToken alloc] _initWithQuasarToken:&v80];
         [array2 addObject:v47];
 
-        if (v91 < 0)
+        if (v90 < 0)
         {
-          operator delete(v90);
+          operator delete(v89);
         }
 
-        if (v89 < 0)
+        if (v88 < 0)
         {
-          operator delete(v88);
+          operator delete(v87);
         }
 
-        *&v77 = &v87;
-        std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&v77);
-        if (v86 < 0)
+        *&v76 = &v86;
+        std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&v76);
+        if (v85 < 0)
         {
-          operator delete(v85);
+          operator delete(v84);
         }
 
-        *&v77 = &v84;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v77);
-        if (v83 < 0)
+        *&v76 = &v83;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v76);
+        if (v82 < 0)
         {
-          operator delete(v82);
+          operator delete(v81);
         }
 
-        if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v81.__r_.__value_.__l.__data_);
+          operator delete(v80.__r_.__value_.__l.__data_);
         }
 
         v46 = (v46 + 224);
@@ -296,9 +293,9 @@
       v48 = [array2 copy];
 
       [array addObject:v48];
-      v81.__r_.__value_.__r.__words[0] = __p;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v81);
-      v42 += 3;
+      v80.__r_.__value_.__r.__words[0] = __p;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v80);
+      v42 += 24;
     }
 
     while (v42 != v43);
@@ -307,14 +304,14 @@
   v49 = [array copy];
 
   v50 = [[EARKeywordFinderResult alloc] _initWithCorrectedUtterances:v49];
-  v81.__r_.__value_.__r.__words[0] = &v72;
-  std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](&v81);
-  v81.__r_.__value_.__r.__words[0] = &v71;
-  std::vector<quasar::KeywordFinder::KeywordLoggingStats>::__destroy_vector::operator()[abi:ne200100](&v81);
-  v81.__r_.__value_.__r.__words[0] = &v70;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v81);
-  v81.__r_.__value_.__r.__words[0] = &v69;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v81);
+  v80.__r_.__value_.__r.__words[0] = &v71;
+  std::vector<quasar::KeywordFinder::KeywordLocationLoggingStats>::__destroy_vector::operator()[abi:ne200100](&v80);
+  v80.__r_.__value_.__r.__words[0] = &v70;
+  std::vector<quasar::KeywordFinder::KeywordLoggingStats>::__destroy_vector::operator()[abi:ne200100](&v80);
+  v80.__r_.__value_.__r.__words[0] = &v69;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v80);
+  v80.__r_.__value_.__r.__words[0] = &v68;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v80);
 
   return v50;
 }

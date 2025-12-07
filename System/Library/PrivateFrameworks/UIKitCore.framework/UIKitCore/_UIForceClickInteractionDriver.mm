@@ -243,9 +243,9 @@ LABEL_9:
 
   name = [gestureRecognizerCopy name];
   name2 = [recognizerCopy name];
-  v12 = [name isEqualToString:name2];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v12)
+  if (isEqualToString)
   {
     view = [recognizerCopy view];
     view2 = [gestureRecognizerCopy view];

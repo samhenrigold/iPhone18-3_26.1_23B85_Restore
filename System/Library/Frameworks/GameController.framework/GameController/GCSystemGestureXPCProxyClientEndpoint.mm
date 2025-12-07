@@ -38,13 +38,13 @@
   endpointCopy = endpoint;
   connectionCopy = connection;
   objc_initWeak(&location, self);
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __70__GCSystemGestureXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
-  v18 = &unk_1E8418D18;
-  objc_copyWeak(&v19, &location);
-  v9 = _Block_copy(&v15);
-  v10 = [connectionCopy addInterruptionHandler:{v9, v15, v16, v17, v18}];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __70__GCSystemGestureXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
+  v21 = &unk_1E8418D18;
+  objc_copyWeak(&v22, &location);
+  v9 = _Block_copy(&v18);
+  v10 = [connectionCopy addInterruptionHandler:{v9, v18, v19, v20, v21}];
   connectionInterruptionRegistration = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v10;
 
@@ -53,34 +53,36 @@
   self->_connectionInvalidationRegistration = v12;
 
   objc_storeStrong(&self->_serverEndpoint, endpoint);
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v14, v15);
+  if (isInternalBuild)
   {
-    v14 = getGCLogger();
-    [GCSystemGestureXPCProxyClientEndpoint setRemoteEndpoint:v14 connection:?];
+    v17 = getGCLogger(isInternalBuild);
+    [GCSystemGestureXPCProxyClientEndpoint setRemoteEndpoint:v17 connection:?];
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 }
 
 void __70__GCSystemGestureXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(WeakRetained, v2))
     {
-      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
+      __64__GCBatteryXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1(v3);
     }
 
-    v2 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v3[4];
+    v3[4] = 0;
 
-    v3 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v3[3];
+    v3[3] = 0;
 
-    v4 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    v6 = v3[2];
+    v3[2] = 0;
   }
 }
 
@@ -129,11 +131,12 @@ void __61__GCSystemGestureXPCProxyClientEndpoint_invalidateConnection__block_inv
   _os_activity_initiate(&dword_1D2CD5000, "(SystemGesture XPC Proxy Client Endpoint) Disable system gesture for input name", OS_ACTIVITY_FLAG_DEFAULT, v6);
 }
 
-uint64_t __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke(uint64_t a1)
+uint64_t __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke_cold_1();
+    __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke_cold_1(isInternalBuild);
   }
 
   return [*(*(a1 + 32) + 16) disableSystemGestureForInput:*(a1 + 40)];
@@ -152,11 +155,12 @@ uint64_t __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInpu
   _os_activity_initiate(&dword_1D2CD5000, "(SystemGesture XPC Proxy Client Endpoint) Enable system gesture for input name", OS_ACTIVITY_FLAG_DEFAULT, v6);
 }
 
-uint64_t __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke(uint64_t a1)
+uint64_t __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (isInternalBuild)
   {
-    __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke_cold_1();
+    __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke_cold_1(isInternalBuild);
   }
 
   return [*(*(a1 + 32) + 16) enableSystemGestureForInput:*(a1 + 40)];
@@ -164,31 +168,30 @@ uint64_t __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput
 
 - (void)setRemoteEndpoint:(NSObject *)a1 connection:.cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v3, v4, "Server connection established for %@", v5, v6, v7, v8, v9);
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke_cold_1()
-{
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
-  {
-    OUTLINED_FUNCTION_2_19(&dword_1D2CD5000, v1, v2, "(SystemGesture XPC Proxy Client Endpoint) Disable system gesture for input name", v3, v4, v5, v6, 0);
+    OUTLINED_FUNCTION_0_0(&dword_1D2CD5000, v2, v3, "Server connection established for %@", v4, v5, v6, v7);
   }
 }
 
-void __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke_cold_1()
+void __70__GCSystemGestureXPCProxyClientEndpoint_disableSystemGestureForInput___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_2_19(&dword_1D2CD5000, v1, v2, "(SystemGesture XPC Proxy Client Endpoint) Enable system gesture for input name", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_2_19(&dword_1D2CD5000, v2, v3, "(SystemGesture XPC Proxy Client Endpoint) Disable system gesture for input name", v4, v5, v6, v7, v8);
+  }
+}
+
+void __69__GCSystemGestureXPCProxyClientEndpoint_enableSystemGestureForInput___block_invoke_cold_1(uint64_t a1)
+{
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+  {
+    v8 = 0;
+    OUTLINED_FUNCTION_2_19(&dword_1D2CD5000, v2, v3, "(SystemGesture XPC Proxy Client Endpoint) Enable system gesture for input name", v4, v5, v6, v7, v8);
   }
 }
 

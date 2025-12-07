@@ -25,15 +25,15 @@
 
 - (ANSTISPInferencePostprocessorV3)initWithInferenceDescriptor:(id)descriptor error:(id *)error
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v9 = objc_msgSend_inputImageDescriptor(descriptorCopy, v7, v8);
-  v65[0] = v9;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v65, 1);
+  v64[0] = v9;
+  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v64, 1);
   v14 = objc_msgSend_outputDescriptors(descriptorCopy, v12, v13);
-  v62.receiver = self;
-  v62.super_class = ANSTISPInferencePostprocessorV3;
-  v15 = [(ANSTISPInferencePostprocessor *)&v62 initWithInferenceInputDescriptors:v11 inferenceOutputDescriptors:v14 processedOutputDescriptors:MEMORY[0x277CBEBF8] error:error];
+  v61.receiver = self;
+  v61.super_class = ANSTISPInferencePostprocessorV3;
+  v15 = [(ANSTISPInferencePostprocessor *)&v61 initWithInferenceInputDescriptors:v11 inferenceOutputDescriptors:v14 processedOutputDescriptors:MEMORY[0x277CBEBF8] error:error];
 
   if (!v15)
   {
@@ -65,19 +65,19 @@
   *(v15 + 61366) = 0;
   *(v15 + 245468) = vcvt_f32_u32(*(v15 + 245424));
   *(v15 + 61369) = 1;
-  v61 = 0;
-  v39 = AcANSTCreate((v15 + 33152), &v61);
+  v60 = 0;
+  AcANSTCreate(v15 + 4144, &v60, (v15 + 245424), (v15 + 36880));
   if (v39 || (v39 = AcANSTStart(*(v15 + 4144), (v15 + 36880)), v39) || (v39 = AcANSTGetParams(*(v15 + 4144), v15 + 9220, (v15 + 245424), (v15 + 33160)), v39) || (v39 = AcANSTUseLowThresholds(*(v15 + 4144)), v39) || (v39 = AcANSTSetRunSaliency(*(v15 + 4144), 1), v39) || (v39 = AcANSTSetRunSaliencyObjectDetection(*(v15 + 4144), 1), v39) || (v39 = AcANSTSetRunViSeg(*(v15 + 4144)), v39))
   {
     if (error)
     {
       v41 = MEMORY[0x277CCA9B8];
-      v63[0] = *MEMORY[0x277CCA068];
-      v63[1] = @"AcReturn";
-      v64[0] = @"Failed to set up AcANST for post-processing.";
+      v62[0] = *MEMORY[0x277CCA068];
+      v62[1] = @"AcReturn";
+      v63[0] = @"Failed to set up AcANST for post-processing.";
       v42 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v40, v39);
-      v64[1] = v42;
-      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, v64, v63, 2);
+      v63[1] = v42;
+      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, v63, v62, 2);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v41, v45, @"ANSTErrorDomain", 3, v44);
     }
 
@@ -107,7 +107,6 @@ LABEL_11:
   v46 = 0;
 LABEL_14:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
@@ -121,7 +120,7 @@ LABEL_14:
 
 - (BOOL)processWithError:(id *)error
 {
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v6 = os_signpost_id_make_with_pointer(v5, self);
 
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -156,7 +155,7 @@ LABEL_14:
 
 - (BOOL)_initializeRTCVWithError:(id *)error
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   p_detControl = &self->_detControl;
   *&self->_detControl.originalImageWidth = 0u;
   *&self->_detControl.imageOrientation = 0u;
@@ -172,33 +171,25 @@ LABEL_14:
   p_detControl->besCropInfo.y = 0.0;
   *&p_detControl->besCropInfo.width = vcvt_f32_u32(*&p_detControl->originalImageWidth);
   p_detControl->version = 1;
-  v22 = 0;
-  v11 = AcANSTCreate(&self->_det, &v22);
-  if (v11)
+  v21 = 0;
+  AcANSTCreate(&self->_det, &v21, p_detControl, &self->_detState);
+  if (v11 || (v11 = AcANSTStart(self->_det, &self->_detState), v11) || (v11 = AcANSTGetParams(self->_det, self->_detState.data, p_detControl, &self->_detParams), v11) || (v11 = AcANSTUseLowThresholds(self->_det), v11) || (v11 = AcANSTSetRunSaliency(self->_det, 1), v11) || (v11 = AcANSTSetRunSaliencyObjectDetection(self->_det, 1), v11) || (det = self->_det, v14 = 1, v11 = AcANSTSetRunViSeg(det), v11))
   {
-    goto LABEL_8;
-  }
-
-  v11 = AcANSTStart(self->_det, &self->_detState);
-  if (v11 || (v11 = AcANSTGetParams(self->_det, self->_detState.data, p_detControl, &self->_detParams), v11) || (v11 = AcANSTUseLowThresholds(self->_det), v11) || (v11 = AcANSTSetRunSaliency(self->_det, 1), v11) || (v11 = AcANSTSetRunSaliencyObjectDetection(self->_det, 1), v11) || (det = self->_det, v14 = 1, v11 = AcANSTSetRunViSeg(det), v11))
-  {
-LABEL_8:
     if (error)
     {
       v15 = MEMORY[0x277CCA9B8];
-      v23[0] = *MEMORY[0x277CCA068];
-      v23[1] = @"AcReturn";
-      v24[0] = @"Failed to set up AcANST for post-processing.";
+      v22[0] = *MEMORY[0x277CCA068];
+      v22[1] = @"AcReturn";
+      v23[0] = @"Failed to set up AcANST for post-processing.";
       v16 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, v11);
-      v24[1] = v16;
-      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v24, v23, 2);
+      v23[1] = v16;
+      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v23, v22, 2);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v19, @"ANSTErrorDomain", 3, v18);
     }
 
-    v14 = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -239,37 +230,37 @@ LABEL_8:
   self->_detControl.originalImageHeight = networkInputHeight;
   v18 = objc_msgSend_acResult(self, v7, v8);
   bzero(v18, 0x8110uLL);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_22E5DFC84;
-  v29 = sub_22E5DFC94;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_22E5DFC84;
+  v30 = sub_22E5DFC94;
+  v31 = 0;
   skipIndexSet = self->_skipIndexSet;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_22E5DFC9C;
-  v24[3] = &unk_27884F7D8;
-  v24[4] = self;
-  v24[5] = &v25;
-  objc_msgSend_accessANSTOutputsAsBmBuffersWithSkipIndexSet_usingBlock_(self, v20, skipIndexSet, v24);
-  v21 = v26[5];
-  v17 = v21 == 0;
-  if (v21)
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = sub_22E5DFC9C;
+  v25[3] = &unk_27884F7D8;
+  v25[4] = self;
+  v25[5] = &v26;
+  v21 = objc_msgSend_accessANSTOutputsAsBmBuffersWithSkipIndexSet_usingBlock_(self, v20, skipIndexSet, v25);
+  v22 = v27[5];
+  v17 = v22 == 0;
+  if (v22)
   {
-    v22 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _ANSTLoggingGetOSLogForCategoryANSTKit(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_22E657794(v21, v22);
+      sub_22E657794(v22, v23);
     }
 
     if (error)
     {
-      *error = v26[5];
+      *error = v27[5];
     }
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v17;
 }

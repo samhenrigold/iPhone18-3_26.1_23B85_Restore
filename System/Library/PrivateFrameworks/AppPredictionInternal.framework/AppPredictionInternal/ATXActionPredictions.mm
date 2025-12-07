@@ -3,8 +3,12 @@
 + (BOOL)isActionPredictionContainerEligibleForLimit:(id)limit;
 + (id)_actionPredictionCandidatesForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger multiStageScoreLogger:(id)stageScoreLogger context:(id)context featureCache:(id)cache remainingPredictionItems:(void *)self0;
 + (id)_actionPredictionCandidatesForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger multiStageScoreLogger:(id)stageScoreLogger featureCache:(id)cache remainingPredictionItems:(void *)items;
++ (id)_predictionsForConsumerSubType:(unsigned __int8)type thirdStageScoreLogger:(id)logger multiStageScoreLogger:(id)scoreLogger actionPredictionCandidates:(id)candidates remainingPredictionItems:(void *)items predictionsPerAppActionLimit:(id)limit;
++ (id)_predictionsForConsumerSubType:(unsigned __int8)type thirdStageScoreLogger:(id)logger multiStageScoreLogger:(id)scoreLogger context:(id)context actionPredictionCandidates:(id)candidates remainingPredictionItems:(void *)items predictionsPerAppActionLimit:(id)limit;
++ (id)actionResultsForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger thirdStageScoreLogger:(id)stageScoreLogger multiStageScoreLogger:(id)multiStageScoreLogger predictionsPerAppActionLimit:(id)self0;
 + (id)actionsFromActions:(id)actions byMovingActionsWithBundleIdentifiers:(id)identifiers toRemainingPredictionItems:(void *)items;
 + (id)filterHighQualityActionResults:(id)results consumerSubType:(unsigned __int8)type;
++ (id)predictionsWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger thirdStageScoreLogger:(id)stageScoreLogger multiStageScoreLogger:(id)multiStageScoreLogger;
 + (id)removeActionsBelowThresholdForActionPredictions:(id)predictions withThreshold:(double)threshold actionKeyWhitelist:(id)whitelist actionTypeWhitelist:(id)typeWhitelist;
 + (id)scoredActionsWithoutLog:(id)log;
 + (id)sortStageScores:(id)scores;
@@ -40,6 +44,58 @@
   return v6;
 }
 
++ (id)actionResultsForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger thirdStageScoreLogger:(id)stageScoreLogger multiStageScoreLogger:(id)multiStageScoreLogger predictionsPerAppActionLimit:(id)self0
+{
+  typeCopy = type;
+  stageScoreLoggerCopy = stageScoreLogger;
+  multiStageScoreLoggerCopy = multiStageScoreLogger;
+  limitCopy = limit;
+  memset(v22, 0, sizeof(v22));
+  v19 = [self _actionPredictionCandidatesForCandidateBundleIdentifiers:identifiers candidateActiontypes:actiontypes firstStageScoreLogger:logger secondStageScoreLogger:scoreLogger multiStageScoreLogger:multiStageScoreLoggerCopy featureCache:0 remainingPredictionItems:v22];
+  v20 = [ATXActionPredictions _predictionsForConsumerSubType:typeCopy thirdStageScoreLogger:stageScoreLoggerCopy multiStageScoreLogger:multiStageScoreLoggerCopy actionPredictionCandidates:v19 remainingPredictionItems:v22 predictionsPerAppActionLimit:limitCopy];
+
+  v23 = v22;
+  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v23);
+
+  return v20;
+}
+
++ (id)predictionsWithCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes consumerSubType:(unsigned __int8)type firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger thirdStageScoreLogger:(id)stageScoreLogger multiStageScoreLogger:(id)multiStageScoreLogger
+{
+  typeCopy = type;
+  v10 = [self actionResultsForCandidateBundleIdentifiers:identifiers candidateActiontypes:actiontypes consumerSubType:type firstStageScoreLogger:logger secondStageScoreLogger:scoreLogger thirdStageScoreLogger:stageScoreLogger multiStageScoreLogger:multiStageScoreLogger predictionsPerAppActionLimit:0];
+  v11 = [ATXDisplayCacheIntermediateFormat fromActions:v10];
+  v12 = v11;
+  if (v11)
+  {
+    actions = [v11 actions];
+    if (typeCopy == 22)
+    {
+      lockscreenPredictionIndices = [v12 lockscreenPredictionIndices];
+      v15 = [actions objectsAtIndexes:lockscreenPredictionIndices];
+
+      actions = v15;
+    }
+
+    predictionChunks = [v12 predictionChunks];
+    v17 = ATXCacheFileJoinChunks();
+
+    v18 = [objc_alloc(MEMORY[0x277CEB2F0]) initWithScoredActions:actions cacheFileData:v17 consumerSubType:typeCopy error:0];
+    v19 = 0;
+  }
+
+  else
+  {
+    v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ActionPredictions" code:1001 userInfo:0];
+    v18 = [objc_alloc(MEMORY[0x277CEB2F0]) initWithScoredActions:0 cacheFileData:0 consumerSubType:typeCopy error:v20];
+    v19 = v20;
+  }
+
+  v21 = [MEMORY[0x277D42648] tupleWithFirst:v18 second:v19];
+
+  return v21;
+}
+
 + (id)_actionPredictionCandidatesForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger multiStageScoreLogger:(id)stageScoreLogger featureCache:(id)cache remainingPredictionItems:(void *)items
 {
   identifiersCopy = identifiers;
@@ -73,9 +129,30 @@
   return v25;
 }
 
++ (id)_predictionsForConsumerSubType:(unsigned __int8)type thirdStageScoreLogger:(id)logger multiStageScoreLogger:(id)scoreLogger actionPredictionCandidates:(id)candidates remainingPredictionItems:(void *)items predictionsPerAppActionLimit:(id)limit
+{
+  typeCopy = type;
+  loggerCopy = logger;
+  scoreLoggerCopy = scoreLogger;
+  candidatesCopy = candidates;
+  limitCopy = limit;
+  v19 = +[ATXPredictionContextBuilder sharedInstance];
+  predictionContextForCurrentContext = [v19 predictionContextForCurrentContext];
+
+  if (!predictionContextForCurrentContext)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"ATXActionPredictions.mm" lineNumber:176 description:{@"Invalid parameter not satisfying: %@", @"predictionContext"}];
+  }
+
+  v21 = [self _predictionsForConsumerSubType:typeCopy thirdStageScoreLogger:loggerCopy multiStageScoreLogger:scoreLoggerCopy context:predictionContextForCurrentContext actionPredictionCandidates:candidatesCopy remainingPredictionItems:items predictionsPerAppActionLimit:limitCopy];
+
+  return v21;
+}
+
 + (id)_actionPredictionCandidatesForCandidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes firstStageScoreLogger:(id)logger secondStageScoreLogger:(id)scoreLogger multiStageScoreLogger:(id)stageScoreLogger context:(id)context featureCache:(id)cache remainingPredictionItems:(void *)self0
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   actiontypesCopy = actiontypes;
   loggerCopy = logger;
@@ -83,305 +160,491 @@
   stageScoreLoggerCopy = stageScoreLogger;
   contextCopy = context;
   cacheCopy = cache;
-  v85 = objc_opt_new();
-  v77 = objc_autoreleasePoolPush();
-  v81 = +[_ATXAppPredictor sharedInstance];
-  v87 = +[_ATXGlobals sharedInstance];
-  v15 = [v81 predictWithLimit:objc_msgSend(v87 consumerSubType:"actionPredictionFirstStageBeamWidth") intent:24 candidateBundleIdentifiers:0 candidateActiontypes:identifiersCopy scoreLogger:actiontypesCopy predictionItemsToKeep:loggerCopy predictedItemsOutParameter:items context:0 featureCache:{contextCopy, cacheCopy}];
+  v88 = objc_opt_new();
+  v80 = objc_autoreleasePoolPush();
+  v84 = +[_ATXAppPredictor sharedInstance];
+  v90 = +[_ATXGlobals sharedInstance];
+  v15 = [v84 predictWithLimit:objc_msgSend(v90 consumerSubType:"actionPredictionFirstStageBeamWidth") intent:24 candidateBundleIdentifiers:0 candidateActiontypes:identifiersCopy scoreLogger:actiontypesCopy predictionItemsToKeep:loggerCopy predictedItemsOutParameter:items context:0 featureCache:{contextCopy, cacheCopy}];
   if (loggerCopy)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v16 = dispatch_semaphore_create(0);
-      v105[0] = MEMORY[0x277D85DD0];
-      v105[1] = 3221225472;
-      v105[2] = __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke;
-      v105[3] = &unk_27859AED0;
+      v108[0] = MEMORY[0x277D85DD0];
+      v108[1] = 3221225472;
+      v108[2] = __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke;
+      v108[3] = &unk_27859AED0;
       v17 = v16;
-      v106 = v17;
-      [loggerCopy flushWithCompletion:v105];
+      v109 = v17;
+      [loggerCopy flushWithCompletion:v108];
       [MEMORY[0x277D425A0] waitForSemaphore:v17 timeoutSeconds:&__block_literal_global_132 onAcquire:&__block_literal_global_50 onTimeout:5.0];
     }
   }
 
   if (v15 && ([v15 predictionSetChunk], (v18 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v76 = v15;
+    v79 = v15;
     feedbackStateChunk = [v15 feedbackStateChunk];
     v20 = feedbackStateChunk == 0;
 
     if (v20)
     {
-      v57 = v85;
+      v59 = v88;
     }
 
     else
     {
-      v21 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = __atxlog_handle_action_prediction(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         +[ATXActionPredictions _actionPredictionCandidatesForCandidateBundleIdentifiers:candidateActiontypes:firstStageScoreLogger:secondStageScoreLogger:multiStageScoreLogger:context:featureCache:remainingPredictionItems:];
       }
 
-      v22 = MEMORY[0x277CEB7D0];
-      predictionSetChunk = [v76 predictionSetChunk];
-      v75 = [v22 bundleIdReader:predictionSetChunk];
+      v23 = MEMORY[0x277CEB7D0];
+      predictionSetChunk = [v79 predictionSetChunk];
+      v78 = [v23 bundleIdReader:predictionSetChunk];
 
-      v93 = [v75 readScoredPredictionsWithLimit:0x7FFFFFFFLL];
-      feedbackStateChunk2 = [v76 feedbackStateChunk];
-      [ATXActionCacheReader getActionKeyToPredictionItemMapFromChunk:feedbackStateChunk2];
+      v96 = [v78 readScoredPredictionsWithLimit:0x7FFFFFFFLL];
+      feedbackStateChunk2 = [v79 feedbackStateChunk];
+      objc_msgSend_getActionKeyToPredictionItemMapFromChunk_(ATXActionCacheReader);
 
-      v82 = objc_opt_new();
-      v25 = objc_opt_new();
-      v26 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v85 = objc_opt_new();
+      v26 = objc_opt_new();
+      v27 = __atxlog_handle_action_prediction(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        v29 = [v93 count];
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
+        v30 = [v96 count];
         *buf = 138543618;
-        v109 = v28;
-        v110 = 2050;
-        v111 = v29;
-        _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 1 Action Predictions returned num candidates: %{public}lu", buf, 0x16u);
+        v112 = v29;
+        v113 = 2050;
+        v114 = v30;
+        _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 1 Action Predictions returned num candidates: %{public}lu", buf, 0x16u);
       }
 
-      [ATXActionPredictionsHelpers applyLogSoftmaxToPredictions:v93];
-      v90 = objc_opt_new();
-      v86 = objc_opt_new();
-      v30 = arc4random_uniform([v93 count]);
+      [ATXActionPredictionsHelpers applyLogSoftmaxToPredictions:v96];
+      v93 = objc_opt_new();
+      v89 = objc_opt_new();
+      v31 = arc4random_uniform([v96 count]);
       if ([MEMORY[0x277CEBC58] isSpotlightPlusEnabled])
       {
-        v31 = +[_ATXAppPredictor sharedInstance];
-        [v31 prewarmModelForConsumerSubtype:25];
+        v32 = +[_ATXAppPredictor sharedInstance];
+        [v32 prewarmModelForConsumerSubtype:25];
       }
 
-      v96 = 0;
-      v84 = v30;
-      while ([v93 count] > v96)
+      v99 = 0;
+      v87 = v31;
+      while ([v96 count] > v99)
       {
         context = objc_autoreleasePoolPush();
-        v95 = [v93 objectAtIndexedSubscript:v96];
-        predictedItem = [v95 predictedItem];
-        v32 = std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::find<NSString * {__strong}>(v104, &predictedItem);
-        if (v32)
+        v98 = [v96 objectAtIndexedSubscript:v99];
+        predictedItem = [v98 predictedItem];
+        v33 = std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::find<NSString * {__strong}>(v107, &predictedItem);
+        if (v33)
         {
-          v94 = [v90 statisticsForActionKey:predictedItem context:contextCopy];
-          v33 = predictedItem;
-          [v95 score];
-          v35 = v34;
-          [v87 predictionsForMultiStageLoggingLimit];
-          v37 = v36;
+          v97 = [v93 statisticsForActionKey:predictedItem context:contextCopy];
+          v34 = predictedItem;
+          [v98 score];
+          v36 = v35;
+          [v90 predictionsForMultiStageLoggingLimit];
+          v38 = v37;
           timeContext = [contextCopy timeContext];
           date = [timeContext date];
-          if (v96 == v84)
+          if (v99 == v87)
           {
-            [v90 actionPredictionsForActionKey:v33 statistics:v94 appActionPredictionItem:v32 + 3 appActionLogProbability:scoreLoggerCopy scoreLogger:v37 andLimit:0 forMagicalMoments:v35 predictionItemsToKeep:items currentDate:date];
+            [v93 actionPredictionsForActionKey:v34 statistics:v97 appActionPredictionItem:v33 + 3 appActionLogProbability:scoreLoggerCopy scoreLogger:v38 andLimit:0 forMagicalMoments:v36 predictionItemsToKeep:items currentDate:date];
           }
 
           else
           {
-            [v90 actionPredictionsForActionKey:v33 statistics:v94 appActionPredictionItem:v32 + 3 appActionLogProbability:scoreLoggerCopy scoreLogger:v37 andLimit:0 forMagicalMoments:v35 currentDate:date];
+            [v93 actionPredictionsForActionKey:v34 statistics:v97 appActionPredictionItem:v33 + 3 appActionLogProbability:scoreLoggerCopy scoreLogger:v38 andLimit:0 forMagicalMoments:v36 currentDate:date];
           }
-          v40 = ;
+          v41 = ;
 
-          [v86 updateActionStatisticsForSlotResolutionStatistics:v94 candidateActionPredictions:v40];
+          [v89 updateActionStatisticsForSlotResolutionStatistics:v97 candidateActionPredictions:v41];
           if (stageScoreLoggerCopy)
           {
-            v41 = MEMORY[0x277CCABB0];
-            [v95 score];
-            v42 = [v41 numberWithFloat:?];
-            v43 = MEMORY[0x277CCACA8];
-            v44 = predictedItem;
-            [v95 score];
-            v46 = [v43 stringWithFormat:@"%@:%f", v44, v45];
-            [v82 setObject:v42 forKeyedSubscript:v46];
+            v42 = MEMORY[0x277CCABB0];
+            [v98 score];
+            v43 = [v42 numberWithFloat:?];
+            v44 = MEMORY[0x277CCACA8];
+            v45 = predictedItem;
+            [v98 score];
+            v47 = [v44 stringWithFormat:@"%@:%f", v45, v46];
+            [v85 setObject:v43 forKeyedSubscript:v47];
 
-            v101 = 0u;
+            v104 = 0u;
+            v105 = 0u;
             v102 = 0u;
-            v99 = 0u;
-            v100 = 0u;
-            v47 = v40;
-            v48 = [v47 countByEnumeratingWithState:&v99 objects:v107 count:16];
-            if (v48)
+            v103 = 0u;
+            v48 = v41;
+            v49 = [v48 countByEnumeratingWithState:&v102 objects:v110 count:16];
+            if (v49)
             {
-              v49 = *v100;
+              v50 = *v103;
               do
               {
-                for (i = 0; i != v48; ++i)
+                for (i = 0; i != v49; ++i)
                 {
-                  if (*v100 != v49)
+                  if (*v103 != v50)
                   {
-                    objc_enumerationMutation(v47);
+                    objc_enumerationMutation(v48);
                   }
 
-                  v51 = *(*(&v99 + 1) + 8 * i);
-                  scoredAction = [v51 scoredAction];
-                  v53 = [scoredAction description];
+                  v52 = *(*(&v102 + 1) + 8 * i);
+                  scoredAction = [v52 scoredAction];
+                  v54 = [scoredAction description];
 
-                  v54 = MEMORY[0x277CCABB0];
-                  [v51 score];
-                  v55 = [v54 numberWithFloat:?];
-                  [v25 setObject:v55 forKeyedSubscript:v53];
+                  v55 = MEMORY[0x277CCABB0];
+                  [v52 score];
+                  v56 = [v55 numberWithFloat:?];
+                  [v26 setObject:v56 forKeyedSubscript:v54];
                 }
 
-                v48 = [v47 countByEnumeratingWithState:&v99 objects:v107 count:16];
+                v49 = [v48 countByEnumeratingWithState:&v102 objects:v110 count:16];
               }
 
-              while (v48);
+              while (v49);
             }
           }
 
-          if ([v40 count])
+          v57 = [v41 count];
+          if (v57)
           {
-            v56 = __atxlog_handle_action_prediction();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+            v58 = __atxlog_handle_action_prediction(v57);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v109 = v40;
-              v110 = 2112;
-              v111 = predictedItem;
-              _os_log_debug_impl(&dword_2263AA000, v56, OS_LOG_TYPE_DEBUG, "Got %@ predictions based on slot resolution for: %@", buf, 0x16u);
+              v112 = v41;
+              v113 = 2112;
+              v114 = predictedItem;
+              _os_log_debug_impl(&dword_2263AA000, v58, OS_LOG_TYPE_DEBUG, "Got %@ predictions based on slot resolution for: %@", buf, 0x16u);
             }
 
-            [v85 addObjectsFromArray:v40];
+            [v88 addObjectsFromArray:v41];
           }
         }
 
         objc_autoreleasePoolPop(context);
-        ++v96;
+        ++v99;
       }
 
-      if ([MEMORY[0x277CEBC58] isSpotlightPlusEnabled])
+      isSpotlightPlusEnabled = [MEMORY[0x277CEBC58] isSpotlightPlusEnabled];
+      if (isSpotlightPlusEnabled)
       {
-        v58 = +[_ATXAppPredictor sharedInstance];
-        [v58 coolDownModelForConsumerSubtype:25];
+        v61 = +[_ATXAppPredictor sharedInstance];
+        [v61 coolDownModelForConsumerSubtype:25];
       }
 
-      v59 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      v62 = __atxlog_handle_action_prediction(isSpotlightPlusEnabled);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
-        v60 = objc_opt_class();
-        v61 = NSStringFromClass(v60);
-        v62 = [v85 count];
+        v63 = objc_opt_class();
+        v64 = NSStringFromClass(v63);
+        v65 = [v88 count];
         *buf = 138543618;
-        v109 = v61;
-        v110 = 2050;
-        v111 = v62;
-        _os_log_impl(&dword_2263AA000, v59, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 2 Action Predictions returned num candidates from slot exploration: %{public}lu", buf, 0x16u);
+        v112 = v64;
+        v113 = 2050;
+        v114 = v65;
+        _os_log_impl(&dword_2263AA000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 2 Action Predictions returned num candidates from slot exploration: %{public}lu", buf, 0x16u);
       }
 
-      v63 = [ATXActionPredictionsProcessor removeAlarmActionsInconsistentWithAlarmAppState:v85];
-      v57 = [v63 mutableCopy];
+      v66 = [ATXActionPredictionsProcessor removeAlarmActionsInconsistentWithAlarmAppState:v88];
+      v59 = [v66 mutableCopy];
 
-      v64 = objc_opt_new();
-      [v64 setFeatureValuesAndFilterPredictableActions:v57 actionStatistics:v86];
+      v67 = objc_opt_new();
+      isKindOfClass = [v67 setFeatureValuesAndFilterPredictableActions:v59 actionStatistics:v89];
       if (scoreLoggerCopy)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v65 = dispatch_semaphore_create(0);
-          v97[0] = MEMORY[0x277D85DD0];
-          v97[1] = 3221225472;
-          v97[2] = __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_62;
-          v97[3] = &unk_27859AED0;
-          v66 = v65;
-          v98 = v66;
-          [scoreLoggerCopy flushWithCompletion:v97];
-          [MEMORY[0x277D425A0] waitForSemaphore:v66 timeoutSeconds:&__block_literal_global_65_0 onAcquire:&__block_literal_global_68 onTimeout:5.0];
+          v69 = dispatch_semaphore_create(0);
+          v100[0] = MEMORY[0x277D85DD0];
+          v100[1] = 3221225472;
+          v100[2] = __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_62;
+          v100[3] = &unk_27859AED0;
+          v70 = v69;
+          v101 = v70;
+          [scoreLoggerCopy flushWithCompletion:v100];
+          [MEMORY[0x277D425A0] waitForSemaphore:v70 timeoutSeconds:&__block_literal_global_65_0 onAcquire:&__block_literal_global_68 onTimeout:5.0];
         }
       }
 
       if (stageScoreLoggerCopy)
       {
-        v67 = [ATXActionPredictions sortStageScores:v82];
-        [stageScoreLoggerCopy logStageScores:v67 forStageType:0];
+        v71 = [ATXActionPredictions sortStageScores:v85];
+        [stageScoreLoggerCopy logStageScores:v71 forStageType:0];
 
-        v68 = [ATXActionPredictions sortStageScores:v25];
-        [stageScoreLoggerCopy logStageScores:v68 forStageType:1];
+        v72 = [ATXActionPredictions sortStageScores:v26];
+        [stageScoreLoggerCopy logStageScores:v72 forStageType:1];
       }
 
-      v69 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+      v73 = __atxlog_handle_action_prediction(isKindOfClass);
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
-        v70 = objc_opt_class();
-        v71 = NSStringFromClass(v70);
-        v72 = [v57 count];
+        v74 = objc_opt_class();
+        v75 = NSStringFromClass(v74);
+        v76 = [v59 count];
         *buf = 138543618;
-        v109 = v71;
-        v110 = 2050;
-        v111 = v72;
-        _os_log_impl(&dword_2263AA000, v69, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 2 Action Predictions retained num candidates after post-processing: %{public}lu", buf, 0x16u);
+        v112 = v75;
+        v113 = 2050;
+        v114 = v76;
+        _os_log_impl(&dword_2263AA000, v73, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 2 Action Predictions retained num candidates after post-processing: %{public}lu", buf, 0x16u);
       }
 
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::~__hash_table(v104);
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::~__hash_table(v107);
     }
 
-    v15 = v76;
+    v15 = v79;
   }
 
   else
   {
-    v57 = v85;
+    v59 = v88;
   }
 
-  objc_autoreleasePoolPop(v77);
-  v73 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v80);
 
-  return v57;
+  return v59;
 }
 
-void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2()
+void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2_cold_1();
   }
 }
 
-void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_48()
+void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_48(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_48_cold_1();
   }
 }
 
-void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2_63()
+void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2_63(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_2_63_cold_1();
   }
 }
 
-void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_66()
+void __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_66(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __215__ATXActionPredictions__actionPredictionCandidatesForCandidateBundleIdentifiers_candidateActiontypes_firstStageScoreLogger_secondStageScoreLogger_multiStageScoreLogger_context_featureCache_remainingPredictionItems___block_invoke_66_cold_1();
   }
 }
 
-void __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_2()
++ (id)_predictionsForConsumerSubType:(unsigned __int8)type thirdStageScoreLogger:(id)logger multiStageScoreLogger:(id)scoreLogger context:(id)context actionPredictionCandidates:(id)candidates remainingPredictionItems:(void *)items predictionsPerAppActionLimit:(id)limit
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  typeCopy = type;
+  v81 = *MEMORY[0x277D85DE8];
+  loggerCopy = logger;
+  scoreLoggerCopy = scoreLogger;
+  contextCopy = context;
+  obj = candidates;
+  limitCopy = limit;
+  context = objc_autoreleasePoolPush();
+  v13 = objc_opt_new();
+  v56 = objc_opt_new();
+  v14 = __atxlog_handle_action_prediction([v56 scoreActions:obj scoreLogger:loggerCopy consumerSubType:typeCopy]);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    *buf = 138543618;
+    *&buf[4] = v16;
+    v77 = 2050;
+    v78 = [obj count];
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 3 Action Predictions scored num candidates: %{public}lu", buf, 0x16u);
+  }
+
+  v17 = ATXSortAndLimitPredictionsWhileKeepingPredictionItems(obj, limitCopy, items);
+
+  obja = v17;
+  if (scoreLoggerCopy)
+  {
+    v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v18 = v17;
+    v19 = [v18 countByEnumeratingWithState:&v72 objects:v80 count:16];
+    if (v19)
+    {
+      v20 = *v73;
+      do
+      {
+        for (i = 0; i != v19; ++i)
+        {
+          if (*v73 != v20)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v22 = *(*(&v72 + 1) + 8 * i);
+          scoredAction = [v22 scoredAction];
+          v24 = [scoredAction description];
+
+          v25 = MEMORY[0x277CCABB0];
+          [v22 score];
+          v26 = [v25 numberWithFloat:?];
+          [v13 setObject:v26 forKeyedSubscript:v24];
+        }
+
+        v19 = [v18 countByEnumeratingWithState:&v72 objects:v80 count:16];
+      }
+
+      while (v19);
+    }
+  }
+
+  if (loggerCopy)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v27 = dispatch_semaphore_create(0);
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke;
+      v70[3] = &unk_27859AED0;
+      v28 = v27;
+      v71 = v28;
+      [loggerCopy flushWithCompletion:v70];
+      [MEMORY[0x277D425A0] waitForSemaphore:v28 timeoutSeconds:&__block_literal_global_70 onAcquire:&__block_literal_global_73_0 onTimeout:5.0];
+    }
+  }
+
+  if (scoreLoggerCopy)
+  {
+    v29 = [ATXActionPredictions sortStageScores:v13];
+    [scoreLoggerCopy logStageScores:v29 forStageType:2];
+  }
+
+  [ATXActionPredictionsHelpers sortPredictions:obja];
+  [ATXActionPredictions penalizeMultipleActionsPerAppAndKeepSorted:obja];
+  [ATXActionPredictions fetchDataAndUpdateContentAttributeSetForActions:obja];
+  v30 = [ATXActionPredictionsProcessor removeDuplicateActionPredictions:obja];
+  v31 = [v30 mutableCopy];
+
+  v32 = [ATXActionPredictionsProcessor removeActionsMatchingARegexFilter:v31];
+  objd = [v32 mutableCopy];
+
+  v33 = [ATXActionPredictionsProcessor removeMissingOrBlockedRecipientPredictions:objd];
+  v34 = [v33 mutableCopy];
+
+  v35 = [ATXActionPredictionsProcessor removeDuplicateTVActionPredictions:v34];
+  objb = [v35 mutableCopy];
+
+  if (typeCopy != 22)
+  {
+    [objc_opt_class() setTVActionPredictionsConfidenceToLow:objb];
+  }
+
+  v36 = objc_opt_new();
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  objc = objb;
+  v37 = [objc countByEnumeratingWithState:&v66 objects:v79 count:16];
+  if (v37)
+  {
+    v38 = *v67;
+    do
+    {
+      for (j = 0; j != v37; ++j)
+      {
+        if (*v67 != v38)
+        {
+          objc_enumerationMutation(objc);
+        }
+
+        v40 = *(*(&v66 + 1) + 8 * j);
+        if (v40)
+        {
+          objc_msgSend_predictionItem(*(*(&v66 + 1) + 8 * j));
+        }
+
+        else
+        {
+          bzero(buf, 0xD08uLL);
+        }
+
+        v41 = [ATXActionResult alloc];
+        scoredAction2 = [v40 scoredAction];
+        actionKey = [v40 actionKey];
+        v44 = [(ATXActionResult *)v41 initWithScoredAction:scoredAction2 predictionItem:buf actionKey:actionKey];
+
+        [v36 addObject:v44];
+      }
+
+      v37 = [objc countByEnumeratingWithState:&v66 objects:v79 count:16];
+    }
+
+    while (v37);
+  }
+
+  v47 = *items;
+  v46 = *(items + 1);
+  if (*items != v46)
+  {
+    do
+    {
+      v48 = [[ATXActionResult alloc] initForLoggingWithPredictionItem:v47];
+      [v36 addObject:v48];
+
+      v47 += 3336;
+    }
+
+    while (v47 != v46);
+  }
+
+  v49 = __atxlog_handle_action_prediction(v45);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  {
+    v50 = objc_opt_class();
+    v51 = NSStringFromClass(v50);
+    v52 = [v36 count];
+    *buf = 138543618;
+    *&buf[4] = v51;
+    v77 = 2050;
+    v78 = v52;
+    _os_log_impl(&dword_2263AA000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ - Stage 3 Action Predictions returned num predictions: %{public}lu", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(context);
+
+  return v36;
+}
+
+void __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_2(uint64_t a1)
+{
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_2_cold_1();
   }
 }
 
-void __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_71()
+void __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_71(uint64_t a1)
 {
-  v0 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_action_prediction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __188__ATXActionPredictions__predictionsForConsumerSubType_thirdStageScoreLogger_multiStageScoreLogger_context_actionPredictionCandidates_remainingPredictionItems_predictionsPerAppActionLimit___block_invoke_71_cold_1();
   }
@@ -442,7 +705,7 @@ void __107__ATXActionPredictions_actionsFromActions_byMovingActionsWithBundleIde
         v15 = *(a1 + 48);
         if (v5)
         {
-          [v5 predictionItem];
+          objc_msgSend_predictionItem(v5);
         }
 
         else
@@ -463,27 +726,27 @@ void __107__ATXActionPredictions_actionsFromActions_byMovingActionsWithBundleIde
 
 + (void)fetchDataAndUpdateContentAttributeSetForActions:(id)actions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   actionsCopy = actions;
-  v4 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        scoredAction = [*(*(&v10 + 1) + 8 * v6) scoredAction];
+        scoredAction = [*(*(&v9 + 1) + 8 * v6) scoredAction];
         predictedItem = [scoredAction predictedItem];
         [_ATXActionUtils fetchDataAndUpdateContentAttributeSetForAction:predictedItem];
 
@@ -491,40 +754,38 @@ void __107__ATXActionPredictions_actionsFromActions_byMovingActionsWithBundleIde
       }
 
       while (v4 != v6);
-      v4 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setTVActionPredictionsConfidenceToLow:(id)low
 {
-  MEMORY[0x28223BE20](self, a2);
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = v3;
+  MEMORY[0x28223BE20](self);
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = v3;
   v4 = [MEMORY[0x277CEB2C8] getActionKeyForBundleId:@"com.apple.tv" actionType:@"INPlayMediaIntent"];
-  v29 = 0u;
   v28 = 0u;
   v27 = 0u;
   v26 = 0u;
-  v5 = v18;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v25 = 0u;
+  v5 = v17;
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         actionKey = [v9 actionKey];
         v11 = [actionKey isEqualToString:v4];
 
@@ -532,31 +793,31 @@ void __107__ATXActionPredictions_actionsFromActions_byMovingActionsWithBundleIde
         {
           if (v9)
           {
-            [v9 predictionItem];
-            v12 = v23[0];
-            v13 = v23[1];
-            v14 = v25;
+            objc_msgSend_predictionItem(v9);
+            v12 = v22[0];
+            v13 = v22[1];
+            v14 = v24;
           }
 
           else
           {
-            bzero(v23, 0xD08uLL);
+            bzero(v22, 0xD08uLL);
             v13 = 0;
             v12 = 0;
             v14 = 0;
           }
 
           v15 = v12;
-          memcpy(v30, v24, sizeof(v30));
+          memcpy(v29, v23, sizeof(v29));
           v16 = v15;
-          v19[0] = v16;
-          v19[1] = v13;
-          memcpy(v20, v30, sizeof(v20));
-          v21 = v14;
-          v22 = 0;
+          v18[0] = v16;
+          v18[1] = v13;
+          memcpy(v19, v29, sizeof(v19));
+          v20 = v14;
+          v21 = 0;
           if (v9)
           {
-            [v9 setPredictionItem:v19];
+            [v9 setPredictionItem:v18];
           }
 
           else
@@ -565,13 +826,11 @@ void __107__ATXActionPredictions_actionsFromActions_byMovingActionsWithBundleIde
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)filterHighQualityActionResults:(id)results consumerSubType:(unsigned __int8)type
@@ -711,113 +970,113 @@ uint64_t __71__ATXActionPredictions_filterHighQualityActionResults_consumerSubTy
 
 + (id)removeActionsBelowThresholdForActionPredictions:(id)predictions withThreshold:(double)threshold actionKeyWhitelist:(id)whitelist actionTypeWhitelist:(id)typeWhitelist
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   whitelistCopy = whitelist;
   typeWhitelistCopy = typeWhitelist;
-  v28 = objc_opt_new();
+  v29 = objc_opt_new();
   v9 = [objc_opt_class() numActionResultsWithOnlyPredictionItemForLogging:predictionsCopy];
-  if ([predictionsCopy count])
+  v10 = [predictionsCopy count];
+  if (v10)
   {
-    v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     obj = predictionsCopy;
-    v10 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
-    if (v10)
+    v11 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
+    if (v11)
     {
-      v11 = *v32;
+      v12 = *v33;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v11)
+          if (*v33 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * i);
-          if ([ATXActionPredictions actionScoreAboveThresholdOrWhitelistedAction:v13 confidenceThreshold:whitelistCopy actionKeyWhitelist:typeWhitelistCopy actionTypeWhitelist:threshold])
+          v14 = *(*(&v32 + 1) + 8 * i);
+          v15 = [ATXActionPredictions actionScoreAboveThresholdOrWhitelistedAction:v14 confidenceThreshold:whitelistCopy actionKeyWhitelist:typeWhitelistCopy actionTypeWhitelist:threshold];
+          if (v15)
           {
-            v14 = __atxlog_handle_action_prediction();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+            v16 = __atxlog_handle_action_prediction(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              scoredAction = [v13 scoredAction];
+              scoredAction = [v14 scoredAction];
               predictedItem = [scoredAction predictedItem];
               actionTitle = [predictedItem actionTitle];
               *buf = 138412290;
-              v36 = actionTitle;
-              _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_INFO, "Adding high confidence action %@", buf, 0xCu);
+              v37 = actionTitle;
+              _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "Adding high confidence action %@", buf, 0xCu);
             }
 
-            [v28 addObject:v13];
+            [v29 addObject:v14];
           }
 
           else
           {
-            v18 = +[_ATXGlobals sharedInstance];
-            v19 = v9 < [v18 numberOfActionsToKeepForLogging];
+            v20 = +[_ATXGlobals sharedInstance];
+            v21 = v9 < [v20 numberOfActionsToKeepForLogging];
 
-            if (v19)
+            if (v21)
             {
-              v20 = -[ATXActionResult initForLoggingWithPredictionItem:]([ATXActionResult alloc], "initForLoggingWithPredictionItem:", [v13 predictionItem]);
-              [v28 addObject:v20];
+              v22 = [[ATXActionResult alloc] initForLoggingWithPredictionItem:objc_msgSend_predictionItem(v14)];
+              [v29 addObject:v22];
 
               ++v9;
             }
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v11 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
   }
 
-  v21 = __atxlog_handle_default();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v23 = __atxlog_handle_default(v10);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v22 = [v28 count];
-    v23 = [predictionsCopy count];
+    v24 = [v29 count];
+    v25 = [predictionsCopy count];
     *buf = 134218496;
-    v36 = v22;
-    v37 = 2048;
+    v37 = v24;
+    v38 = 2048;
     thresholdCopy = threshold;
-    v39 = 2048;
-    v40 = v23;
-    _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_INFO, "Filtered %tu predictions with score above %0.2f threshold, out of %tu.", buf, 0x20u);
+    v40 = 2048;
+    v41 = v25;
+    _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_INFO, "Filtered %tu predictions with score above %0.2f threshold, out of %tu.", buf, 0x20u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v29;
 }
 
 + (unint64_t)numActionResultsWithOnlyPredictionItemForLogging:(id)logging
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   loggingCopy = logging;
   v4 = 0;
-  v5 = [loggingCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [loggingCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(loggingCopy);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         scoredAction = [v8 scoredAction];
         if (!scoredAction)
         {
@@ -828,19 +1087,18 @@ uint64_t __71__ATXActionPredictions_filterHighQualityActionResults_consumerSubTy
         }
       }
 
-      v5 = [loggingCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [loggingCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (BOOL)actionScoreAboveThresholdOrWhitelistedAction:(id)action confidenceThreshold:(double)threshold actionKeyWhitelist:(id)whitelist actionTypeWhitelist:(id)typeWhitelist
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   whitelistCopy = whitelist;
   typeWhitelistCopy = typeWhitelist;
@@ -848,7 +1106,7 @@ uint64_t __71__ATXActionPredictions_filterHighQualityActionResults_consumerSubTy
 
   if (scoredAction)
   {
-    if ([actionCopy predictionItem] && *(objc_msgSend(actionCopy, "predictionItem") + 1028) < 3.0)
+    if (objc_msgSend_predictionItem(actionCopy) && *(objc_msgSend_predictionItem(actionCopy) + 1028) < 3.0)
     {
       scoredAction2 = [actionCopy scoredAction];
       predictedItem = [scoredAction2 predictedItem];
@@ -857,20 +1115,20 @@ uint64_t __71__ATXActionPredictions_filterHighQualityActionResults_consumerSubTy
       {
 
 LABEL_7:
-        actionKey = __atxlog_handle_action_prediction();
+        actionKey = __atxlog_handle_action_prediction(v15);
         if (os_log_type_enabled(actionKey, OS_LOG_TYPE_INFO))
         {
           scoredAction3 = [actionCopy scoredAction];
           predictedItem2 = [scoredAction3 predictedItem];
-          v23 = *([actionCopy predictionItem] + 1028);
+          v24 = *(objc_msgSend_predictionItem(actionCopy) + 1028);
           *buf = 138412546;
-          v50 = predictedItem2;
-          v51 = 2048;
-          v52 = v23;
+          v52 = predictedItem2;
+          v53 = 2048;
+          v54 = v24;
           _os_log_impl(&dword_2263AA000, actionKey, OS_LOG_TYPE_INFO, "Filtering out low confidence parameterized action: %@ : %f", buf, 0x16u);
         }
 
-        v24 = 0;
+        v25 = 0;
         goto LABEL_25;
       }
 
@@ -878,54 +1136,55 @@ LABEL_7:
       predictedItem3 = [scoredAction4 predictedItem];
       intent = [predictedItem3 intent];
       atx_nonNilParameters = [intent atx_nonNilParameters];
-      v19 = [atx_nonNilParameters count];
+      v20 = [atx_nonNilParameters count];
 
-      if (v19)
+      if (v20)
       {
         goto LABEL_7;
       }
     }
 
-    if ([actionCopy predictionItem])
+    v26 = objc_msgSend_predictionItem(actionCopy);
+    if (v26)
     {
-      v25 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = __atxlog_handle_action_prediction(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         scoredAction5 = [actionCopy scoredAction];
         predictedItem4 = [scoredAction5 predictedItem];
-        v28 = *([actionCopy predictionItem] + 1028);
+        v30 = *(objc_msgSend_predictionItem(actionCopy) + 1028);
         *buf = 138412546;
-        v50 = predictedItem4;
-        v51 = 2048;
-        v52 = v28;
-        _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "Allowing action: %@ : %f", buf, 0x16u);
+        v52 = predictedItem4;
+        v53 = 2048;
+        v54 = v30;
+        _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Allowing action: %@ : %f", buf, 0x16u);
       }
     }
 
     scoredAction6 = [actionCopy scoredAction];
     [scoredAction6 score];
-    v31 = v30 < threshold;
+    v33 = v32 < threshold;
 
-    if (!v31)
+    if (!v33)
     {
-      v24 = 1;
+      v25 = 1;
       goto LABEL_26;
     }
 
-    v32 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v35 = __atxlog_handle_action_prediction(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       scoredAction7 = [actionCopy scoredAction];
       predictedItem5 = [scoredAction7 predictedItem];
       scoredAction8 = [actionCopy scoredAction];
       [scoredAction8 score];
       *buf = 138412802;
-      v50 = predictedItem5;
-      v51 = 2048;
-      v52 = v36;
+      v52 = predictedItem5;
       v53 = 2048;
+      v54 = v39;
+      v55 = 2048;
       thresholdCopy = threshold;
-      _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "Action %@ has a score of %f which is below the confidenceThreshold of %f", buf, 0x20u);
+      _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Action %@ has a score of %f which is below the confidenceThreshold of %f", buf, 0x20u);
     }
 
     scoredAction9 = [actionCopy scoredAction];
@@ -934,31 +1193,18 @@ LABEL_7:
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((isKindOfClass & 1) == 0)
+    if ((isKindOfClass & 1) == 0 || ([actionCopy scoredAction], v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "predictedItem"), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v45, "intent"), v46 = objc_claimAutoreleasedReturnValue(), v45, v44, objc_msgSend(v46, "_nonNilParameters"), v47 = objc_claimAutoreleasedReturnValue(), LOBYTE(v45) = objc_msgSend(v47, "containsObject:", @"content"), v47, v46, (v45 & 1) == 0))
     {
-      goto LABEL_21;
-    }
-
-    scoredAction10 = [actionCopy scoredAction];
-    predictedItem7 = [scoredAction10 predictedItem];
-    intent3 = [predictedItem7 intent];
-
-    _nonNilParameters = [intent3 _nonNilParameters];
-    LOBYTE(predictedItem7) = [_nonNilParameters containsObject:@"content"];
-
-    if ((predictedItem7 & 1) == 0)
-    {
-LABEL_21:
       actionKey = [actionCopy actionKey];
-      v45 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
+      v48 = [_ATXActionUtils getActionTypeFromActionKey:actionKey];
       if ([whitelistCopy containsObject:actionKey])
       {
-        v24 = 1;
+        v25 = 1;
       }
 
       else
       {
-        v24 = [typeWhitelistCopy containsObject:v45];
+        v25 = [typeWhitelistCopy containsObject:v48];
       }
 
 LABEL_25:
@@ -966,37 +1212,36 @@ LABEL_25:
     }
   }
 
-  v24 = 0;
+  v25 = 0;
 LABEL_26:
 
-  v46 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v25;
 }
 
 + (id)scoredActionsWithoutLog:(id)log
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   logCopy = log;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(logCopy, "count")}];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = logCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         scoredAction = [v9 scoredAction];
         v11 = [scoredAction copy];
 
@@ -1005,42 +1250,40 @@ LABEL_26:
         [v4 addObject:v11];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (void)penalizeMultipleActionsPerAppAndKeepSorted:(id)sorted
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sortedCopy = sorted;
-  v24 = +[_ATXGlobals sharedInstance];
+  v23 = +[_ATXGlobals sharedInstance];
   v3 = objc_opt_new();
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v4 = sortedCopy;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         v9 = MEMORY[0x277CEB7F8];
         scoredAction = [v8 scoredAction];
         predictedItem = [scoredAction predictedItem];
@@ -1060,7 +1303,7 @@ LABEL_26:
 
           if (integerValue >= 1)
           {
-            [v24 penaltyForMultipleActionsPerApp];
+            [v23 penaltyForMultipleActionsPerApp];
             v19 = v18;
             [v8 score];
             v21 = v19 + v20;
@@ -1070,14 +1313,13 @@ LABEL_26:
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v5);
   }
 
   [ATXActionPredictionsHelpers sortPredictions:v4];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sortStageScores:(id)scores

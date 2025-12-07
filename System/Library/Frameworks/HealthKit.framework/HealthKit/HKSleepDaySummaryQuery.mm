@@ -22,21 +22,21 @@
   v27.receiver = self;
   v27.super_class = HKSleepDaySummaryQuery;
   v14 = [(HKQuery *)&v27 _initWithObjectType:0 predicate:0];
-  v15 = v14;
+  v16 = v14;
   if (v14)
   {
     v14->_morningIndexRange.start = var0;
     v14->_morningIndexRange.duration = var1;
     if (var0 >= 1 && var1 <= 0)
     {
-      _HKInitializeLogging();
-      v16 = HKLogSleep;
+      _HKInitializeLogging(v14, v15);
+      v17 = HKLogSleep;
       if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_FAULT))
       {
-        v23 = v16;
+        v23 = v17;
         v24 = objc_opt_class();
         v26 = v24;
-        debugIdentifier = [(HKQuery *)v15 debugIdentifier];
+        debugIdentifier = [(HKQuery *)v16 debugIdentifier];
         *buf = 138544130;
         v29 = v24;
         v30 = 2114;
@@ -49,22 +49,21 @@
       }
     }
 
-    v15->_ascending = ascending;
-    v15->_limit = limit;
-    v15->_options = options;
-    v17 = [handlerCopy copy];
-    resultsHandler = v15->_resultsHandler;
-    v15->_resultsHandler = v17;
+    v16->_ascending = ascending;
+    v16->_limit = limit;
+    v16->_options = options;
+    v18 = [handlerCopy copy];
+    resultsHandler = v16->_resultsHandler;
+    v16->_resultsHandler = v18;
 
-    cacheSettings = v15->_cacheSettings;
-    v15->_cacheSettings = 0;
+    cacheSettings = v16->_cacheSettings;
+    v16->_cacheSettings = 0;
 
-    calendarOverrides = v15->_calendarOverrides;
-    v15->_calendarOverrides = 0;
+    calendarOverrides = v16->_calendarOverrides;
+    v16->_calendarOverrides = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 - (void)setCacheSettings:(id)settings
@@ -89,7 +88,7 @@ uint64_t __43__HKSleepDaySummaryQuery_setCacheSettings___block_invoke(uint64_t a
   v4 = *(v3 + 192);
   *(v3 + 192) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setCalendarOverrides:(id)overrides
@@ -114,7 +113,7 @@ uint64_t __47__HKSleepDaySummaryQuery_setCalendarOverrides___block_invoke(uint64
   v4 = *(v3 + 200);
   *(v3 + 200) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)client_deliverDaySummaries:(id)summaries clearPending:(BOOL)pending isFinalBatch:(BOOL)batch queryUUID:(id)d
@@ -136,197 +135,196 @@ uint64_t __47__HKSleepDaySummaryQuery_setCalendarOverrides___block_invoke(uint64
   dispatch_async(queue, v15);
 }
 
-void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke(uint64_t a1)
+void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogSleep;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogSleep;
   if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG))
   {
-    __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(a1, v2);
+    __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = *(*(a1 + 32) + 160);
-  if (v3 && *(a1 + 56) != 1)
+  v4 = *(*(a1 + 32) + 160);
+  if (v4 && *(a1 + 56) != 1)
   {
-    [v3 addObjectsFromArray:*(a1 + 40)];
+    [v4 addObjectsFromArray:*(a1 + 40)];
   }
 
   else
   {
-    v4 = [*(a1 + 40) mutableCopy];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 160);
-    *(v5 + 160) = v4;
+    v5 = [*(a1 + 40) mutableCopy];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 160);
+    *(v6 + 160) = v5;
   }
 
   if (*(a1 + 57) == 1)
   {
-    v7 = [*(*(a1 + 32) + 160) copy];
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 160);
-    *(v8 + 160) = 0;
+    v8 = [*(*(a1 + 32) + 160) copy];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 160);
+    *(v9 + 160) = 0;
 
-    v10 = _Block_copy(*(*(a1 + 32) + 152));
-    if (v10)
+    v11 = _Block_copy(*(*(a1 + 32) + 152));
+    if (v11)
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27;
-      v15[3] = &unk_1E73766C8;
-      v13 = v7;
-      v14 = *(a1 + 32);
-      v16 = v13;
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 48);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27;
+      v16[3] = &unk_1E73766C8;
+      v14 = v8;
+      v15 = *(a1 + 32);
       v17 = v14;
-      v18 = v10;
-      [v11 queue_dispatchToClientForUUID:v12 shouldDeactivate:1 block:v15];
+      v18 = v15;
+      v19 = v11;
+      [v12 queue_dispatchToClientForUUID:v13 shouldDeactivate:1 block:v16];
     }
   }
 }
 
 void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AD50]);
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v31 objects:v42 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v32 objects:v43 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v33;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [v2 hk_addDayIndex:{objc_msgSend(*(*(&v31 + 1) + 8 * i), "morningIndex")}];
+        [v2 hk_addDayIndex:{objc_msgSend(*(*(&v32 + 1) + 8 * i), "morningIndex")}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v31 objects:v42 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v32 objects:v43 count:16];
     }
 
     while (v5);
   }
 
-  _HKInitializeLogging();
-  v8 = HKLogSleep;
+  _HKInitializeLogging(v8, v9);
+  v10 = HKLogSleep;
   if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 40);
-    v10 = v8;
-    v11 = objc_opt_class();
-    v12 = *(a1 + 40);
-    v13 = v11;
-    v14 = [v12 debugIdentifier];
+    v11 = v10;
+    v12 = objc_opt_class();
+    v13 = *(a1 + 40);
+    v14 = v12;
+    v15 = [v13 debugIdentifier];
     *buf = 138543874;
-    v37 = v11;
-    v38 = 2114;
-    v39 = v14;
-    v40 = 2114;
-    v41 = v2;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Delivering summaries for: %{public}@", buf, 0x20u);
+    v38 = v12;
+    v39 = 2114;
+    v40 = v15;
+    v41 = 2114;
+    v42 = v2;
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Delivering summaries for: %{public}@", buf, 0x20u);
   }
 
-  if (HKShowSensitiveLogItems() && os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG))
+  if (HKShowSensitiveLogItems())
   {
-    _HKInitializeLogging();
-    v15 = HKLogSleep;
-    if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG))
+    v16 = os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG);
+    if (v16)
     {
-      __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27_cold_1(a1, v15);
-    }
-
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v26 = a1;
-    v16 = *(a1 + 32);
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v17)
-    {
-      v18 = v17;
-      v19 = *v28;
-      do
+      _HKInitializeLogging(v16, v17);
+      v18 = HKLogSleep;
+      if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG))
       {
-        v20 = 0;
-        do
-        {
-          if (*v28 != v19)
-          {
-            objc_enumerationMutation(v16);
-          }
-
-          v21 = *(*(&v27 + 1) + 8 * v20);
-          _HKInitializeLogging();
-          v22 = HKLogSleep;
-          if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138412290;
-            v37 = v21;
-            _os_log_debug_impl(&dword_19197B000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-          }
-
-          ++v20;
-        }
-
-        while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27_cold_1(a1, v18);
       }
 
-      while (v18);
-    }
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = a1;
+      v19 = *(a1 + 32);
+      v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v20)
+      {
+        v22 = v20;
+        v23 = *v29;
+        do
+        {
+          v24 = 0;
+          do
+          {
+            if (*v29 != v23)
+            {
+              objc_enumerationMutation(v19);
+            }
 
-    a1 = v26;
+            v25 = *(*(&v28 + 1) + 8 * v24);
+            _HKInitializeLogging(v20, v21);
+            v26 = HKLogSleep;
+            v20 = os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEBUG);
+            if (v20)
+            {
+              *buf = 138412290;
+              v38 = v25;
+              _os_log_debug_impl(&dword_19197B000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            }
+
+            ++v24;
+          }
+
+          while (v22 != v24);
+          v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v22 = v20;
+        }
+
+        while (v20);
+      }
+
+      a1 = v27;
+    }
   }
 
-  v23 = *(a1 + 40);
-  v24 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_populateConfiguration:(id)configuration
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v11.receiver = self;
-  v11.super_class = HKSleepDaySummaryQuery;
-  [(HKQuery *)&v11 queue_populateConfiguration:configurationCopy];
+  v12.receiver = self;
+  v12.super_class = HKSleepDaySummaryQuery;
+  [(HKQuery *)&v12 queue_populateConfiguration:configurationCopy];
   [configurationCopy setMorningIndexRange:{self->_morningIndexRange.start, self->_morningIndexRange.duration}];
   [configurationCopy setAscending:self->_ascending];
   [configurationCopy setLimit:self->_limit];
   [configurationCopy setOptions:self->_options];
   [configurationCopy setCacheSettings:self->_cacheSettings];
-  [configurationCopy setCalendarOverrides:self->_calendarOverrides];
-  _HKInitializeLogging();
-  v5 = HKLogSleep;
+  v5 = [configurationCopy setCalendarOverrides:self->_calendarOverrides];
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogSleep;
   if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v7 = objc_opt_class();
     v8 = v7;
+    v9 = objc_opt_class();
+    v10 = v9;
     debugIdentifier = [(HKQuery *)self debugIdentifier];
     *buf = 138543874;
-    v13 = v7;
-    v14 = 2114;
-    v15 = debugIdentifier;
-    v16 = 2114;
-    v17 = configurationCopy;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Configuration populated: %{public}@", buf, 0x20u);
+    v14 = v9;
+    v15 = 2114;
+    v16 = debugIdentifier;
+    v17 = 2114;
+    v18 = configurationCopy;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Configuration populated: %{public}@", buf, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configureClientInterface:(id)interface
@@ -360,22 +358,20 @@ void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFina
 
 - (void)queue_validate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v4 = objc_opt_class();
   v5 = v4;
   debugIdentifier = [a2 debugIdentifier];
   cacheSettings = [a2 cacheSettings];
   identifier = [cacheSettings identifier];
-  v10 = 138543874;
-  v11 = v4;
-  v12 = 2114;
-  v13 = debugIdentifier;
-  v14 = 2112;
-  v15 = identifier;
-  _os_log_fault_impl(&dword_19197B000, selfCopy, OS_LOG_TYPE_FAULT, "[%{public}@:%{public}@] Not using cached results for query with caching identifier %@ due to unbounded morning index range", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138543874;
+  v10 = v4;
+  v11 = 2114;
+  v12 = debugIdentifier;
+  v13 = 2112;
+  v14 = identifier;
+  _os_log_fault_impl(&dword_19197B000, selfCopy, OS_LOG_TYPE_FAULT, "[%{public}@:%{public}@] Not using cached results for query with caching identifier %@ due to unbounded morning index range", &v9, 0x20u);
 }
 
 - (void)queue_queryDidDeactivate:(id)deactivate
@@ -399,57 +395,51 @@ void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFina
 
 void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
+  v31 = *MEMORY[0x1E69E9840];
   log = a2;
-  v4 = objc_opt_class();
-  v5 = *(a1 + 32);
-  v18 = v4;
-  v6 = [v5 debugIdentifier];
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
-  v8 = MEMORY[0x1E696AD98];
-  v9 = [*(a1 + 40) firstObject];
-  v10 = [v8 numberWithInteger:{objc_msgSend(v9, "morningIndex")}];
-  v11 = MEMORY[0x1E696AD98];
-  v12 = [*(a1 + 40) lastObject];
-  v13 = [v11 numberWithInteger:{objc_msgSend(v12, "morningIndex")}];
-  v14 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-  v15 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 57)];
+  v3 = objc_opt_class();
+  v4 = *(a1 + 32);
+  v16 = v3;
+  v5 = [v4 debugIdentifier];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 40), "count")}];
+  v7 = MEMORY[0x1E696AD98];
+  v8 = [*(a1 + 40) firstObject];
+  v9 = [v7 numberWithInteger:{objc_msgSend(v8, "morningIndex")}];
+  v10 = MEMORY[0x1E696AD98];
+  v11 = [*(a1 + 40) lastObject];
+  v12 = [v10 numberWithInteger:{objc_msgSend(v11, "morningIndex")}];
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 57)];
   *buf = 138544898;
-  v20 = v4;
-  v21 = 2114;
+  v18 = v3;
+  v19 = 2114;
+  v20 = v5;
+  v21 = 2112;
   v22 = v6;
   v23 = 2112;
-  v24 = v7;
+  v24 = v9;
   v25 = 2112;
-  v26 = v10;
+  v26 = v12;
   v27 = 2112;
   v28 = v13;
   v29 = 2112;
   v30 = v14;
-  v31 = 2112;
-  v32 = v15;
   _os_log_debug_impl(&dword_19197B000, log, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Received batch of %@ summaries (%@ - %@), clear pending: %@, is final: %@", buf, 0x48u);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __89__HKSleepDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_27_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = *(a1 + 40);
-  v7 = v5;
-  v8 = [v6 debugIdentifier];
-  v10 = 138543618;
-  v11 = v5;
-  v12 = 2114;
-  v13 = v8;
-  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Summaries:", &v10, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = *(a1 + 40);
+  v6 = v4;
+  v7 = [v5 debugIdentifier];
+  v8 = 138543618;
+  v9 = v4;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@:%{public}@] Summaries:", &v8, 0x16u);
 }
 
 @end

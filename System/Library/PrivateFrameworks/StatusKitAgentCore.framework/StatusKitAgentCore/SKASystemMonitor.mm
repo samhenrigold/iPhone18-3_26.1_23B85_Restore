@@ -139,30 +139,30 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
 
 - (void)_deliverNotificationSelectorToListeners:(SEL)listeners
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_ivarLock);
   allObjects = [(NSHashTable *)self->_listeners allObjects];
   os_unfair_lock_unlock(&self->_ivarLock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v12 = +[SKASystemMonitor logger];
@@ -170,9 +170,9 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
           {
             v13 = NSStringFromSelector(listeners);
             *buf = 138412546;
-            v20 = v13;
-            v21 = 2112;
-            v22 = v11;
+            v19 = v13;
+            v20 = 2112;
+            v21 = v11;
             _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Delivering %@ to %@", buf, 0x16u);
           }
 
@@ -180,18 +180,16 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isFirstProcessLaunchOfBootSession
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   isFirstProcessLaunch = self->_isFirstProcessLaunch;
   if (!isFirstProcessLaunch)
   {
@@ -220,11 +218,11 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
     v14 = +[SKASystemMonitor logger];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 138412546;
-      *&v23[4] = v12;
-      v24 = 2112;
-      v25 = getBootSessionUUID;
-      _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Found current boot UUID %@ and last boot UUID %@", v23, 0x16u);
+      *v22 = 138412546;
+      *&v22[4] = v12;
+      v23 = 2112;
+      v24 = getBootSessionUUID;
+      _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Found current boot UUID %@ and last boot UUID %@", v22, 0x16u);
     }
 
     if (!getBootSessionUUID)
@@ -248,8 +246,8 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
       {
         if (v17)
         {
-          *v23 = 0;
-          _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "StatusKitAgent is launching for the first time in this boot session", v23, 2u);
+          *v22 = 0;
+          _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "StatusKitAgent is launching for the first time in this boot session", v22, 2u);
         }
 
         v19 = MEMORY[0x277CBEC38];
@@ -258,10 +256,10 @@ uint64_t __34__SKASystemMonitor_sharedInstance__block_invoke()
 
       if (v17)
       {
-        *v23 = 0;
+        *v22 = 0;
         v18 = "StatusKitAgent is not launching for the first time in this boot session";
 LABEL_17:
-        _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, v18, v23, 2u);
+        _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, v18, v22, 2u);
       }
     }
 
@@ -270,7 +268,7 @@ LABEL_17:
       v16 = +[SKASystemMonitor logger];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
+        *v22 = 0;
         v18 = "Last boot session UUID was not present in preferences";
         goto LABEL_17;
       }
@@ -286,9 +284,7 @@ LABEL_19:
     isFirstProcessLaunch = self->_isFirstProcessLaunch;
   }
 
-  result = [(NSNumber *)isFirstProcessLaunch BOOLValue];
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(NSNumber *)isFirstProcessLaunch BOOLValue];
 }
 
 - (id)getBootSessionUUID
@@ -305,29 +301,27 @@ LABEL_19:
 
 void __38__SKASystemMonitor_getBootSessionUUID__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  memset(v4, 0, sizeof(v4));
-  v3 = 37;
-  if (!sysctlbyname("kern.bootsessionuuid", v4, &v3, 0, 0))
+  v4 = *MEMORY[0x277D85DE8];
+  memset(v3, 0, sizeof(v3));
+  v2 = 37;
+  if (!sysctlbyname("kern.bootsessionuuid", v3, &v2, 0, 0))
   {
-    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
+    v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
     v1 = getBootSessionUUID_bootUUID;
     getBootSessionUUID_bootUUID = v0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBootSessionUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = +[SKASystemMonitor logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = dCopy;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Recording that current boot session UUID is %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = dCopy;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Recording that current boot session UUID is %@", &v15, 0xCu);
   }
 
   v6 = +[SKAEnvironment overrideStatusKitPrefsDomain];
@@ -353,8 +347,6 @@ void __38__SKASystemMonitor_getBootSessionUUID__block_invoke()
   CFPreferencesSetAppValue(v13, dCopy, v9);
   isFirstProcessLaunch = self->_isFirstProcessLaunch;
   self->_isFirstProcessLaunch = 0;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logger
@@ -378,11 +370,10 @@ uint64_t __26__SKASystemMonitor_logger__block_invoke()
 
 - (void)isFirstProcessLaunchOfBootSession
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Current boot session UUID could not be retrieved, last boot session UUID is %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Current boot session UUID could not be retrieved, last boot session UUID is %@", &v2, 0xCu);
 }
 
 @end

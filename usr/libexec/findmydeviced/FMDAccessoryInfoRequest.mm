@@ -12,16 +12,17 @@
   accountCopy = account;
   registryCopy = registry;
   typesCopy = types;
-  v17.receiver = self;
-  v17.super_class = FMDAccessoryInfoRequest;
-  v11 = [(FMDRequest *)&v17 initWithAccount:accountCopy];
+  v18.receiver = self;
+  v18.super_class = FMDAccessoryInfoRequest;
+  v11 = [(FMDRequest *)&v18 initWithAccount:accountCopy];
   if (!v11)
   {
     goto LABEL_4;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     extAccessoryConfigURL = [accountCopy extAccessoryConfigURL];
     baseURL = v11->_baseURL;
@@ -30,20 +31,20 @@
     objc_storeStrong(&v11->_registry, registry);
     objc_storeStrong(&v11->_accessoryTypes, types);
 LABEL_4:
-    v14 = v11;
+    v15 = v11;
     goto LABEL_8;
   }
 
-  v15 = sub_10000BE38();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_10000BE38(isKindOfClass);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    sub_1002265FC(accountCopy, v15);
+    sub_1002265FC(accountCopy, v16);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 - (id)requestUrl
@@ -52,7 +53,7 @@ LABEL_8:
   v3 = [NSString stringWithFormat:@"%@/accessoryInfo", baseURL];
 
   v4 = [NSURL URLWithString:v3];
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

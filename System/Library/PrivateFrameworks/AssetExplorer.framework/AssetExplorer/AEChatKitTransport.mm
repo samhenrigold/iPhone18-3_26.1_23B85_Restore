@@ -16,6 +16,7 @@
 - (void)commitPackage:(id)package;
 - (void)stagePackages:(id)packages;
 - (void)stagePersistedPayloads:(id)payloads;
+- (void)unstagePackageWithIdentifier:(id)identifier andNotify:(BOOL)notify;
 - (void)unstagePackagesWithIdentifiers:(id)identifiers evictFiles:(BOOL)files;
 @end
 
@@ -31,32 +32,32 @@
 
 - (id)orderedStagedPayloads
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   orderedStagedIdentifiers = [(AEPackageTransport *)self orderedStagedIdentifiers];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = orderedStagedIdentifiers;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v18;
+    v9 = *v17;
     *&v7 = 138412290;
-    v16 = v7;
+    v15 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [(AEChatKitTransport *)self payloadForIdentifier:v11, v16, v17];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [(AEChatKitTransport *)self payloadForIdentifier:v11, v15, v16];
         if (v12)
         {
           [v4 addObject:v12];
@@ -67,20 +68,18 @@
           v13 = PLAssetExplorerGetLog();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *buf = v16;
-            v22 = v11;
+            *buf = v15;
+            v21 = v11;
             _os_log_impl(&dword_2411DE000, v13, OS_LOG_TYPE_ERROR, "Failed to generate browser payload for package identifier %@", buf, 0xCu);
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -88,7 +87,7 @@
 - (void)unstagePackagesWithIdentifiers:(id)identifiers evictFiles:(BOOL)files
 {
   filesCopy = files;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if (filesCopy)
   {
@@ -100,26 +99,26 @@
     orderedStagedPayloads = [(AEChatKitTransport *)self orderedStagedPayloads];
     [(AEChatKitTransport *)self _unstagePackagesWithIdentifiers:identifiersCopy evictFiles:0];
     v8 = orderedStagedPayloads;
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          userInfo = [*(*(&v17 + 1) + 8 * i) userInfo];
+          userInfo = [*(*(&v16 + 1) + 8 * i) userInfo];
           v15 = [userInfo objectForKey:kAEChatKitPayloadSendSource];
 
           if (v15)
@@ -129,7 +128,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -142,8 +141,6 @@
 
     AEChatKitSendAnalyticsEventAssetsSentCount(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unstagePackagesWithIdentifiers:(id)identifiers evictFiles:(BOOL)files
@@ -167,78 +164,93 @@
 
 void __65__AEChatKitTransport__unstagePackagesWithIdentifiers_evictFiles___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _evictPersistedURLsForPackageIdentifier:*(*(&v8 + 1) + 8 * v6++) evictFiles:{*(a1 + 48), v8}];
+        [*(a1 + 40) _evictPersistedURLsForPackageIdentifier:*(*(&v7 + 1) + 8 * v6++) evictFiles:{*(a1 + 48), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)unstagePackageWithIdentifier:(id)identifier andNotify:(BOOL)notify
+{
+  notifyCopy = notify;
+  identifierCopy = identifier;
+  v12.receiver = self;
+  v12.super_class = AEChatKitTransport;
+  [(AEPackageTransport *)&v12 unstagePackageWithIdentifier:identifierCopy andNotify:notifyCopy];
+  _packagePreparationGroup = [(AEChatKitTransport *)self _packagePreparationGroup];
+  _workQueue = [(AEChatKitTransport *)self _workQueue];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__AEChatKitTransport_unstagePackageWithIdentifier_andNotify___block_invoke;
+  v10[3] = &unk_278CC76A8;
+  v10[4] = self;
+  v11 = identifierCopy;
+  v9 = identifierCopy;
+  dispatch_group_async(_packagePreparationGroup, _workQueue, v10);
 }
 
 - (void)stagePackages:(id)packages
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   packagesCopy = packages;
-  v15.receiver = self;
-  v15.super_class = AEChatKitTransport;
-  [(AEPackageTransport *)&v15 stagePackages:packagesCopy];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14.receiver = self;
+  v14.super_class = AEChatKitTransport;
+  [(AEPackageTransport *)&v14 stagePackages:packagesCopy];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = packagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AEChatKitTransport *)self _beginStagingWorkForPackage:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(AEChatKitTransport *)self _beginStagingWorkForPackage:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stagePackage:(id)package initiateStagingWork:(BOOL)work
@@ -349,7 +361,7 @@ void __50__AEChatKitTransport__chatkitPackageForIdentifer___block_invoke(uint64_
 
 - (void)_updatePrimaryURLsForPackageIdentifier:(id)identifier urls:(id)urls
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   urlsCopy = urls;
   v8 = [(AEPackageTransport *)self stagedPackageForIdentifier:identifierCopy];
@@ -357,39 +369,39 @@ void __50__AEChatKitTransport__chatkitPackageForIdentifer___block_invoke(uint64_
   if (v8)
   {
     v10 = [v8 mutableCopy];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = urlsCopy;
+    v18 = urlsCopy;
     v11 = urlsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
+          v16 = *(*(&v19 + 1) + 8 * i);
           v17 = [v11 objectForKeyedSubscript:v16];
           [v10 replaceURLForType:v16 withURL:v17];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
     }
 
     [(AEChatKitTransport *)self _stagePackage:v10 initiateStagingWork:0];
-    urlsCopy = v19;
+    urlsCopy = v18;
   }
 
   else
@@ -398,17 +410,15 @@ void __50__AEChatKitTransport__chatkitPackageForIdentifer___block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = identifierCopy;
+      v25 = identifierCopy;
       _os_log_impl(&dword_2411DE000, v10, OS_LOG_TYPE_ERROR, "Staging work ending early; couldn't find staged package with identifier %@", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginStagingWorkForPackage:(id)package
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   v5 = [packageCopy durableURLsSnapshotApplyingSuppression:1];
   identifier = [packageCopy identifier];
@@ -423,15 +433,15 @@ void __50__AEChatKitTransport__chatkitPackageForIdentifer___block_invoke(uint64_
   {
     _packagePreparationGroup = [(AEChatKitTransport *)self _packagePreparationGroup];
     _workQueue = [(AEChatKitTransport *)self _workQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke;
-    v16[3] = &unk_278CC7680;
-    v16[4] = self;
-    v17 = identifier;
-    v18 = v11;
-    v19 = v5;
-    dispatch_group_async(_packagePreparationGroup, _workQueue, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke;
+    v15[3] = &unk_278CC7680;
+    v15[4] = self;
+    v16 = identifier;
+    v17 = v11;
+    v18 = v5;
+    dispatch_group_async(_packagePreparationGroup, _workQueue, v15);
   }
 
   else
@@ -440,29 +450,27 @@ void __50__AEChatKitTransport__chatkitPackageForIdentifer___block_invoke(uint64_
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v21 = workingDirForDraft;
+      v20 = workingDirForDraft;
       _os_log_fault_impl(&dword_2411DE000, v14, OS_LOG_TYPE_FAULT, "Draft directory is empty or nil. Unable to persist attachments for staging: %@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke(uint64_t a1)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy__987;
-  v67 = __Block_byref_object_dispose__988;
-  v68 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__987;
-  v61 = __Block_byref_object_dispose__988;
-  v62 = 0;
+  v74 = *MEMORY[0x277D85DE8];
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy__987;
+  v65 = __Block_byref_object_dispose__988;
+  v66 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__987;
+  v59 = __Block_byref_object_dispose__988;
+  v60 = 0;
   v2 = [*(a1 + 32) _urlSidetableIsolationQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -470,152 +478,149 @@ void __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke(uint64_
   block[3] = &unk_278CC7308;
   v3 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v55 = &v63;
-  v54 = v3;
-  v56 = &v57;
+  v53 = &v61;
+  v52 = v3;
+  v54 = &v55;
   dispatch_barrier_sync(v2, block);
 
-  v4 = *(a1 + 48);
-  v5 = DCIM_MakeUniqueDirectoryWithPath();
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 56);
-  v52 = 0;
-  v8 = [v6 _persistedURLsFromURLs:v7 inBaseDirectory:v5 outError:&v52];
-  v9 = v52;
-  v10 = v58[5];
-  if (!v10)
+  v4 = DCIM_MakeUniqueDirectoryWithPath();
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 56);
+  v50 = 0;
+  v7 = [v5 _persistedURLsFromURLs:v6 inBaseDirectory:v4 outError:&v50];
+  v8 = v50;
+  v9 = v56[5];
+  if (!v9)
   {
-    v11 = [AEAssetPackage unsuppressedURLsFromURLs:v8];
-    v12 = v58[5];
-    v58[5] = v11;
+    v10 = [AEAssetPackage unsuppressedURLsFromURLs:v7];
+    v11 = v56[5];
+    v56[5] = v10;
   }
 
-  if (v8)
+  if (v7)
   {
-    v13 = [*(a1 + 32) _urlSidetableIsolationQueue];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_425;
-    v45[3] = &unk_278CC7330;
-    v45[4] = *(a1 + 32);
-    v46 = v8;
-    v14 = *(a1 + 40);
-    v48 = v10 == 0;
-    v47[0] = v14;
-    v47[1] = &v57;
-    dispatch_barrier_sync(v13, v45);
+    v12 = [*(a1 + 32) _urlSidetableIsolationQueue];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_425;
+    v43[3] = &unk_278CC7330;
+    v43[4] = *(a1 + 32);
+    v44 = v7;
+    v13 = *(a1 + 40);
+    v46 = v9 == 0;
+    v45[0] = v13;
+    v45[1] = &v55;
+    dispatch_barrier_sync(v12, v43);
 
-    v15 = PLAssetExplorerGetLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = PLAssetExplorerGetLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 40);
+      v15 = *(a1 + 40);
       *buf = 138543618;
-      v71 = v16;
-      v72 = 2114;
-      v73 = v5;
-      _os_log_impl(&dword_2411DE000, v15, OS_LOG_TYPE_DEFAULT, "Successfully staged package with identifier %{public}@ using base directory %{public}@", buf, 0x16u);
+      v69 = v15;
+      v70 = 2114;
+      v71 = v4;
+      _os_log_impl(&dword_2411DE000, v14, OS_LOG_TYPE_DEFAULT, "Successfully staged package with identifier %{public}@ using base directory %{public}@", buf, 0x16u);
     }
 
-    v17 = v10 == 0;
+    v16 = v9 == 0;
 
-    v18 = &v46;
-    v19 = v47;
-    if (v17)
+    v17 = &v44;
+    v18 = v45;
+    if (v16)
     {
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_426;
-      v42[3] = &unk_278CC7358;
-      v20 = *(a1 + 40);
-      v42[4] = *(a1 + 32);
-      v43 = v20;
-      v44 = &v57;
-      dispatch_async(MEMORY[0x277D85CD0], v42);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_426;
+      v40[3] = &unk_278CC7358;
+      v19 = *(a1 + 40);
+      v40[4] = *(a1 + 32);
+      v41 = v19;
+      v42 = &v55;
+      dispatch_async(MEMORY[0x277D85CD0], v40);
     }
   }
 
   else
   {
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_3;
-    v49[3] = &unk_278CC7658;
-    v21 = *(a1 + 40);
-    v49[4] = *(a1 + 32);
-    v50 = v21;
-    v22 = v9;
-    v51 = v22;
-    dispatch_async(MEMORY[0x277D85CD0], v49);
-    v23 = PLAssetExplorerGetLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_3;
+    v47[3] = &unk_278CC7658;
+    v20 = *(a1 + 40);
+    v47[4] = *(a1 + 32);
+    v48 = v20;
+    v21 = v8;
+    v49 = v21;
+    dispatch_async(MEMORY[0x277D85CD0], v47);
+    v22 = PLAssetExplorerGetLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 40);
-      v25 = [v22 localizedDescription];
+      v23 = *(a1 + 40);
+      v24 = [v21 localizedDescription];
       *buf = 138543874;
-      v71 = v24;
+      v69 = v23;
+      v70 = 2114;
+      v71 = v4;
       v72 = 2114;
-      v73 = v5;
-      v74 = 2114;
-      v75 = v25;
-      _os_log_impl(&dword_2411DE000, v23, OS_LOG_TYPE_ERROR, "Error occurred while staging package with identifier %{public}@ using base directory %{public}@: %{public}@", buf, 0x20u);
+      v73 = v24;
+      _os_log_impl(&dword_2411DE000, v22, OS_LOG_TYPE_ERROR, "Error occurred while staging package with identifier %{public}@ using base directory %{public}@: %{public}@", buf, 0x20u);
     }
 
-    v18 = &v50;
-    v19 = &v51;
+    v17 = &v48;
+    v18 = &v49;
   }
 
-  v26 = v64[5];
-  if (v26)
+  v25 = v62[5];
+  if (v25)
   {
-    v27 = MEMORY[0x277CBEB58];
-    v28 = [v26 allValues];
-    v29 = [v27 setWithArray:v28];
+    v26 = MEMORY[0x277CBEB58];
+    v27 = [v25 allValues];
+    v28 = [v26 setWithArray:v27];
 
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v30 = [v58[5] allValues];
-    v31 = [v30 countByEnumeratingWithState:&v38 objects:v69 count:16];
-    if (v31)
+    v36 = 0u;
+    v37 = 0u;
+    v29 = [v56[5] allValues];
+    v30 = [v29 countByEnumeratingWithState:&v36 objects:v67 count:16];
+    if (v30)
     {
-      v32 = *v39;
+      v31 = *v37;
       do
       {
-        v33 = 0;
+        v32 = 0;
         do
         {
-          if (*v39 != v32)
+          if (*v37 != v31)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v29);
           }
 
-          [v29 removeObject:*(*(&v38 + 1) + 8 * v33++)];
+          [v28 removeObject:*(*(&v36 + 1) + 8 * v32++)];
         }
 
-        while (v31 != v33);
-        v31 = [v30 countByEnumeratingWithState:&v38 objects:v69 count:16];
+        while (v30 != v32);
+        v30 = [v29 countByEnumeratingWithState:&v36 objects:v67 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    [*(a1 + 32) _evictPersistedURLs:v29];
+    [*(a1 + 32) _evictPersistedURLs:v28];
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_2_427;
-  v36[3] = &unk_278CC76A8;
-  v34 = *(a1 + 40);
-  v36[4] = *(a1 + 32);
-  v37 = v34;
-  dispatch_async(MEMORY[0x277D85CD0], v36);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_2_427;
+  v34[3] = &unk_278CC76A8;
+  v33 = *(a1 + 40);
+  v34[4] = *(a1 + 32);
+  v35 = v33;
+  dispatch_async(MEMORY[0x277D85CD0], v34);
 
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v63, 8);
-
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v61, 8);
 }
 
 void __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_2(uint64_t a1)
@@ -682,27 +687,27 @@ void __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_425(uin
 
 - (void)_evictPersistedURLs:(id)ls
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [lsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [lsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(lsCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 isFileURL])
         {
           defaultManager = [MEMORY[0x277D3D070] defaultManager];
@@ -710,13 +715,11 @@ void __50__AEChatKitTransport__beginStagingWorkForPackage___block_invoke_425(uin
         }
       }
 
-      v5 = [lsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [lsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evictPersistedURLsForPackageIdentifier:(id)identifier evictFiles:(BOOL)files
@@ -797,42 +800,42 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
 
 - (id)_persistedURLsFromURLs:(id)ls inBaseDirectory:(id)directory outError:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   directoryCopy = directory;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = [lsCopy allKeys];
-  v9 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v9 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v49;
+    v11 = *v48;
     errorCopy = error;
-    v39 = *v49;
-    v37 = lsCopy;
+    v38 = *v48;
+    v36 = lsCopy;
     while (2)
     {
       v12 = 0;
-      v40 = v10;
+      v39 = v10;
       do
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * v12);
+        v13 = *(*(&v47 + 1) + 8 * v12);
         v14 = [lsCopy objectForKeyedSubscript:v13];
         if ([v14 isFileURL])
         {
           lastPathComponent = [v14 lastPathComponent];
           pathExtension = [lastPathComponent pathExtension];
-          v44 = pathExtension;
-          v45 = v8;
+          v43 = pathExtension;
+          v44 = v8;
           if ([pathExtension isEqualToString:@"mov"])
           {
             stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -844,24 +847,24 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
 
           lastPathComponent2 = [v13 lastPathComponent];
           v21 = MEMORY[0x277CBEBC0];
-          v52[0] = directoryCopy;
-          v52[1] = lastPathComponent2;
-          v43 = lastPathComponent2;
-          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+          v51[0] = directoryCopy;
+          v51[1] = lastPathComponent2;
+          v42 = lastPathComponent2;
+          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
           v23 = [v21 fileURLWithPathComponents:v22];
 
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-          v47 = 0;
-          v25 = [defaultManager createDirectoryAtURL:v23 withIntermediateDirectories:0 attributes:0 error:&v47];
-          v26 = v47;
+          v46 = 0;
+          v25 = [defaultManager createDirectoryAtURL:v23 withIntermediateDirectories:0 attributes:0 error:&v46];
+          v26 = v46;
 
           if (v25)
           {
             v27 = [v23 URLByAppendingPathComponent:lastPathComponent];
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v46 = 0;
-            v29 = [defaultManager2 copyItemAtURL:v14 toURL:v27 error:&v46];
-            v30 = v46;
+            v45 = 0;
+            v29 = [defaultManager2 copyItemAtURL:v14 toURL:v27 error:&v45];
+            v30 = v45;
 
             if (v29)
             {
@@ -877,10 +880,10 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
               }
 
               v31 = 0;
-              v45 = 0;
+              v44 = 0;
             }
 
-            lsCopy = v37;
+            lsCopy = v36;
           }
 
           else
@@ -899,20 +902,20 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
               v29 = 0;
             }
 
-            v27 = v45;
-            v45 = 0;
+            v27 = v44;
+            v44 = 0;
           }
 
           if ((v29 & 1) == 0)
           {
 
-            v8 = v45;
+            v8 = v44;
             goto LABEL_27;
           }
 
-          v8 = v45;
-          v11 = v39;
-          v10 = v40;
+          v8 = v44;
+          v11 = v38;
+          v10 = v39;
         }
 
         else
@@ -926,7 +929,7 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v10 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
       if (v10)
       {
         continue;
@@ -939,48 +942,47 @@ void __73__AEChatKitTransport__evictPersistedURLsForPackageIdentifier_evictFiles
 LABEL_27:
 
   v34 = [v8 copy];
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
 
 - (void)stagePersistedPayloads:(id)payloads
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   payloadsCopy = payloads;
   if ([payloadsCopy count])
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = payloadsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * v10);
+          v11 = *(*(&v14 + 1) + 8 * v10);
           v12 = [AEChatKitAssetPackage alloc];
-          v13 = [(AEChatKitAssetPackage *)v12 initWithPayload:v11, v15];
+          v13 = [(AEChatKitAssetPackage *)v12 initWithPayload:v11, v14];
           [v5 addObject:v13];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -988,8 +990,6 @@ LABEL_27:
 
     [(AEChatKitTransport *)self stagePackages:v5];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (AEChatKitTransport)init

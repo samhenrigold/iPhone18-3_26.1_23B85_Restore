@@ -1,6 +1,7 @@
 @interface TSBonjourNode
 - (TSBonjourNode)init;
 - (TSBonjourNode)initWithServiceName:(id)name type:(id)type andDomain:(id)domain;
+- (void)addedOnInterface:(unsigned int)interface named:(id)named;
 - (void)removedFromInterface:(unsigned int)interface named:(id)named;
 @end
 
@@ -9,9 +10,8 @@
 - (TSBonjourNode)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSBonjourNode init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -46,6 +46,34 @@
   return v11;
 }
 
+- (void)addedOnInterface:(unsigned int)interface named:(id)named
+{
+  namedCopy = named;
+  v5 = [TSBonjourInterface alloc];
+  name = [(TSBonjourNode *)self name];
+  type = [(TSBonjourNode *)self type];
+  domain = [(TSBonjourNode *)self domain];
+  v9 = [TSBonjourInterface initWithServiceName:v5 type:"initWithServiceName:type:andDomain:onInterfaceIndex:andName:" andDomain:? onInterfaceIndex:? andName:?];
+
+  [(TSBonjourInterface *)v9 setNode:?];
+  interfaces = [(TSBonjourNode *)self interfaces];
+
+  v11 = MEMORY[0x277CBEB38];
+  if (interfaces)
+  {
+    interfaces2 = [(TSBonjourNode *)self interfaces];
+    dictionary = [v11 dictionaryWithDictionary:?];
+  }
+
+  else
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+  }
+
+  [dictionary setObject:? forKey:?];
+  [(TSBonjourNode *)self setInterfaces:?];
+}
+
 - (void)removedFromInterface:(unsigned int)interface named:(id)named
 {
   namedCopy = named;
@@ -55,7 +83,7 @@
   if (interfaces)
   {
     interfaces2 = [(TSBonjourNode *)self interfaces];
-    dictionary = [v7 dictionaryWithDictionary:interfaces2];
+    dictionary = [v7 dictionaryWithDictionary:?];
   }
 
   else
@@ -63,9 +91,9 @@
     dictionary = [MEMORY[0x277CBEB38] dictionary];
   }
 
-  [dictionary removeObjectForKey:namedCopy];
+  [dictionary removeObjectForKey:?];
 
-  [(TSBonjourNode *)self setInterfaces:dictionary];
+  [(TSBonjourNode *)self setInterfaces:?];
 }
 
 @end

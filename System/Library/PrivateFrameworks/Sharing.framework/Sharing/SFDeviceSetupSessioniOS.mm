@@ -7,7 +7,6 @@
 - (int)_runPreAuthPairSetup;
 - (int)_runResume;
 - (int)_runWalletSetup;
-- (uint64_t)_handleSetupActionSoftwareUpdate;
 - (uint64_t)_sendConfigInfo;
 - (void)_cleanup;
 - (void)_completedWithError:(id)error;
@@ -42,31 +41,30 @@
 
 - (SFDeviceSetupSessioniOS)init
 {
-  v7.receiver = self;
-  v7.super_class = SFDeviceSetupSessioniOS;
-  v2 = [(SFDeviceSetupSessioniOS *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFDeviceSetupSessioniOS;
+  v2 = [(SFDeviceSetupSessioniOS *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v3->_pairFlags = 0;
+    v2->_pairFlags = 0;
     if (CFPrefs_GetInt64())
     {
-      v3->_pairFlags |= 0x100u;
+      v2->_pairFlags |= 0x100u;
     }
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFDeviceSetupSessioniOS *)v3 _cleanup];
   }
 
@@ -109,15 +107,15 @@
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __40__SFDeviceSetupSessioniOS_setPairFlags___block_invoke(uint64_t result)
+void *__40__SFDeviceSetupSessioniOS_setPairFlags___block_invoke(void *result)
 {
-  *(*(result + 32) + 184) = *(result + 40);
-  v1 = *(result + 32);
+  *(*(result + 4) + 184) = *(result + 10);
+  v1 = *(result + 4);
   if (*(v1 + 8) == 1)
   {
     *(v1 + 184) |= 0x80000u;
-    *(*(result + 32) + 37) = 1;
-    return [*(result + 32) _run];
+    *(*(result + 4) + 37) = 1;
+    return [*(result + 4) _run];
   }
 
   return result;
@@ -134,31 +132,35 @@ uint64_t __40__SFDeviceSetupSessioniOS_setPairFlags___block_invoke(uint64_t resu
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__SFDeviceSetupSessioniOS_activate__block_invoke(uint64_t a1)
+uint64_t __35__SFDeviceSetupSessioniOS_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    __35__SFDeviceSetupSessioniOS_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __35__SFDeviceSetupSessioniOS_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  *(*(a1 + 32) + 104) = CFPrefs_GetInt64() != 0;
+  *(*(v3 + 32) + 8) = 1;
+  v4 = CFPrefs_GetInt64() != 0;
+  *(*(v3 + 32) + 104) = v4;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    __35__SFDeviceSetupSessioniOS_activate__block_invoke_cold_2();
+    __35__SFDeviceSetupSessioniOS_activate__block_invoke_cold_2(v4);
   }
 
-  v2 = *(a1 + 32);
   RandomBytes();
-  v3 = *(a1 + 32);
-  v4 = v3[29];
-  if (v4)
+  v5 = *(v3 + 32);
+  v6 = v5[29];
+  if (v6)
   {
-    (*(v4 + 16))(v3[29], 10, 0);
-    v3 = *(a1 + 32);
+    (*(v6 + 16))(v5[29], 10, 0);
+    v5 = *(v3 + 32);
   }
 
-  return [v3 _run];
+  return [v5 _run];
 }
 
 - (void)invalidate
@@ -172,125 +174,131 @@ uint64_t __35__SFDeviceSetupSessioniOS_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFDeviceSetupSessioniOS_invalidate__block_invoke(uint64_t a1)
+uint64_t __37__SFDeviceSetupSessioniOS_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 35) & 1) == 0 && gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 35) & 1) == 0 && gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    __37__SFDeviceSetupSessioniOS_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __37__SFDeviceSetupSessioniOS_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 35) = 1;
-  [*(*(a1 + 32) + 24) invalidate];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 24);
-  *(v2 + 24) = 0;
+  *(*(v3 + 32) + 35) = 1;
+  [*(*(v3 + 32) + 24) invalidate];
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 24);
+  *(v4 + 24) = 0;
 
-  [*(*(a1 + 32) + 144) invalidate];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 144);
-  *(v4 + 144) = 0;
+  [*(*(v3 + 32) + 144) invalidate];
+  v6 = *(v3 + 32);
+  v7 = *(v6 + 144);
+  *(v6 + 144) = 0;
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 136);
-  *(v6 + 136) = 0;
+  v8 = *(v3 + 32);
+  v9 = *(v8 + 136);
+  *(v8 + 136) = 0;
 
-  v8 = *(*(a1 + 32) + 96);
-  if (v8)
+  v10 = *(*(v3 + 32) + 96);
+  if (v10)
   {
-    v9 = v8;
-    v10 = [v9 endPlanTransferForEndPoint:1];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 96);
-    *(v11 + 96) = 0;
+    v11 = v10;
+    v12 = [v11 endPlanTransferForEndPoint:1];
+    v13 = *(v3 + 32);
+    v14 = *(v13 + 96);
+    *(v13 + 96) = 0;
   }
 
-  [*(*(a1 + 32) + 168) invalidate];
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 168);
-  *(v13 + 168) = 0;
+  [*(*(v3 + 32) + 168) invalidate];
+  v15 = *(v3 + 32);
+  v16 = *(v15 + 168);
+  *(v15 + 168) = 0;
 
-  [*(*(a1 + 32) + 80) invalidate];
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 80);
-  *(v15 + 80) = 0;
+  [*(*(v3 + 32) + 80) invalidate];
+  v17 = *(v3 + 32);
+  v18 = *(v17 + 80);
+  *(v17 + 80) = 0;
 
-  *(*(a1 + 32) + 88) = 0;
-  v17 = *(a1 + 32);
-  v18 = v17[27];
-  if (v18)
+  *(*(v3 + 32) + 88) = 0;
+  v19 = *(v3 + 32);
+  v20 = v19[27];
+  if (v20)
   {
-    (*(v18 + 16))(v17[27]);
-    v17 = *(a1 + 32);
+    (*(v20 + 16))(v19[27]);
+    v19 = *(v3 + 32);
   }
 
-  return [v17 _cleanup];
+  return [v19 _cleanup];
 }
 
 - (void)_completedWithError:(id)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v5 = errorCopy;
+  v8 = v5;
   if (v5)
   {
     if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceSetupSessioniOS _completedWithError:];
+      [SFDeviceSetupSessioniOS _completedWithError:v8];
     }
 
     progressHandler = self->_progressHandler;
     if (progressHandler)
     {
-      v17 = @"eo";
-      v18[0] = v5;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-      progressHandler[2](progressHandler, 20, v7);
+      v19 = @"eo";
+      v20[0] = v8;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      progressHandler[2](progressHandler, 20, v10);
     }
   }
 
   else
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _completedWithError:];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        [(SFDeviceSetupSessioniOS *)v5 _completedWithError:v6, v7];
+      }
     }
 
-    v8 = self->_progressHandler;
-    if (v8)
+    v11 = self->_progressHandler;
+    if (v11)
     {
-      v8[2](v8, 20, 0);
+      v11[2](v11, 20, 0);
     }
   }
 
-  v15[0] = @"errDomain";
-  domain = [v5 domain];
-  v10 = domain;
+  v17[0] = @"errDomain";
+  domain = [v8 domain];
+  v13 = domain;
   if (domain)
   {
-    v11 = domain;
+    v14 = domain;
   }
 
   else
   {
-    v11 = &stru_1F1D30528;
+    v14 = &stru_1F1D30528;
   }
 
-  v15[1] = @"errCode";
-  v16[0] = v11;
-  v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "code")}];
-  v16[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  SFMetricsLog(@"com.apple.sharing.iOSSetup", v13);
-
-  v14 = *MEMORY[0x1E69E9840];
+  v17[1] = @"errCode";
+  v18[0] = v14;
+  v15 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "code")}];
+  v18[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  SFMetricsLog(@"com.apple.sharing.iOSSetup", v16);
 }
 
 - (void)_run
 {
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_1();
+    OUTLINED_FUNCTION_2_1(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _run]", a3, "Buddy not complete yet\n");
   }
 }
 
@@ -299,7 +307,7 @@ void __31__SFDeviceSetupSessioniOS__run__block_invoke(uint64_t a1, void *a2)
   v3 = a2;
   *(*(a1 + 32) + 38) = 0;
   *(*(a1 + 32) + 36) = 1;
-  v6 = v3;
+  v8 = v3;
   if (v3)
   {
     [*(a1 + 32) _completedWithError:v3];
@@ -307,71 +315,78 @@ void __31__SFDeviceSetupSessioniOS__run__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      __31__SFDeviceSetupSessioniOS__run__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __31__SFDeviceSetupSessioniOS__run__block_invoke_cold_1(v3, v4, v5);
+      }
     }
 
-    v4 = *(a1 + 32);
-    v5 = v4[29];
-    if (v5)
+    v6 = *(a1 + 32);
+    v7 = v6[29];
+    if (v7)
     {
-      (*(v5 + 16))(v4[29], 70, 0);
-      v4 = *(a1 + 32);
+      (*(v7 + 16))(v6[29], 70, 0);
+      v6 = *(a1 + 32);
     }
 
-    [v4 _run];
+    [v6 _run];
   }
 }
 
 - (void)_runSFSessionStart
 {
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    [SFDeviceSetupSessioniOS _runSFSessionStart];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupSessioniOS *)self _runSFSessionStart];
+    }
   }
 
-  [(SFSession *)self->_sfSession invalidate];
-  v3 = objc_alloc_init(SFSession);
-  sfSession = self->_sfSession;
-  self->_sfSession = v3;
+  [(SFSession *)selfCopy->_sfSession invalidate];
+  v4 = objc_alloc_init(SFSession);
+  sfSession = selfCopy->_sfSession;
+  selfCopy->_sfSession = v4;
 
-  [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-  [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-  [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.iOSSetup"];
-  [(SFSession *)self->_sfSession setSessionFlags:1];
+  [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+  [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.iOSSetup"];
+  [(SFSession *)selfCopy->_sfSession setSessionFlags:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke;
+  v11[3] = &unk_1E788B238;
+  v11[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setErrorHandler:v11];
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
-  v10[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke;
-  v10[3] = &unk_1E788B238;
-  v10[4] = self;
-  [(SFSession *)self->_sfSession setErrorHandler:v10];
+  v10[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2;
+  v10[3] = &unk_1E788B198;
+  v10[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setInterruptionHandler:v10];
+  [(SFSession *)selfCopy->_sfSession setInvalidationHandler:&__block_literal_global_53];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
-  v9[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2;
-  v9[3] = &unk_1E788B198;
-  v9[4] = self;
-  [(SFSession *)self->_sfSession setInterruptionHandler:v9];
-  [(SFSession *)self->_sfSession setInvalidationHandler:&__block_literal_global_53];
+  v9[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_4;
+  v9[3] = &unk_1E788CFD0;
+  v9[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setPromptForPINHandler:v9];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
-  v8[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_4;
-  v8[3] = &unk_1E788CFD0;
-  v8[4] = self;
-  [(SFSession *)self->_sfSession setPromptForPINHandler:v8];
+  v8[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_5;
+  v8[3] = &unk_1E788CFF8;
+  v8[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setReceivedObjectHandler:v8];
+  v6 = selfCopy->_sfSession;
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
-  v7[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_5;
-  v7[3] = &unk_1E788CFF8;
-  v7[4] = self;
-  [(SFSession *)self->_sfSession setReceivedObjectHandler:v7];
-  v5 = self->_sfSession;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6;
-  v6[3] = &unk_1E788B238;
-  v6[4] = self;
-  [(SFSession *)v5 activateWithCompletion:v6];
+  v7[2] = __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6;
+  v7[3] = &unk_1E788B238;
+  v7[4] = selfCopy;
+  [(SFSession *)v6 activateWithCompletion:v7];
 }
 
 void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke(uint64_t a1, void *a2)
@@ -382,7 +397,7 @@ void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke(uint64_t a1,
   {
     if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_cold_1();
+      __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -390,39 +405,54 @@ void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke(uint64_t a1,
   [*(a1 + 32) _completedWithError:v3];
 }
 
-void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2(uint64_t a1)
+void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2_cold_1();
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_2_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = NSErrorWithOSStatusF();
-  [v2 _completedWithError:v3];
+  v4 = *(v3 + 32);
+  v5 = NSErrorWithOSStatusF(4294960534, "SFSession Interrupted");
+  [v4 _completedWithError:v5];
 }
 
-void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_3()
+uint64_t __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
+  {
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1)
+    {
+      return __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_4(uint64_t a1, int a2, int a3)
 {
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_3_cold_1();
-  }
-}
-
-uint64_t __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_4(uint64_t a1)
-{
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runSFSessionStart]_block_invoke_4", 30, "Prompt for PIN, flags 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   result = *(*(a1 + 32) + 240);
   if (result)
   {
-    v3 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v3();
+    return v7();
   }
 
   return result;
@@ -439,7 +469,7 @@ void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6(uint64_t a
     {
       if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6_cold_1();
+        __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6_cold_1(v4);
         v4 = v6;
       }
     }
@@ -455,24 +485,29 @@ void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6(uint64_t a
 
 - (void)_runSFSessionActivated
 {
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    [SFDeviceSetupSessioniOS _runSFSessionActivated];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupSessioniOS *)self _runSFSessionActivated];
+    }
   }
 
-  self->_sfSessionActivated = 1;
-  sfSession = self->_sfSession;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __49__SFDeviceSetupSessioniOS__runSFSessionActivated__block_invoke;
-  v4[3] = &unk_1E788B4F8;
-  v4[4] = self;
-  [(SFSession *)sfSession registerRequestID:@"_sa" options:&unk_1F1D7D4C0 handler:v4];
-  [(SFDeviceSetupSessioniOS *)self _run];
+  selfCopy->_sfSessionActivated = 1;
+  sfSession = selfCopy->_sfSession;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __49__SFDeviceSetupSessioniOS__runSFSessionActivated__block_invoke;
+  v5[3] = &unk_1E788B4F8;
+  v5[4] = selfCopy;
+  [(SFSession *)sfSession registerRequestID:@"_sa" options:&unk_1F1D7D4C0 handler:v5];
+  [(SFDeviceSetupSessioniOS *)selfCopy _run];
 }
 
 - (int)_runPreAuthPairSetup
 {
+  selfCopy = self;
   preAuthPairSetupState = self->_preAuthPairSetupState;
   if (preAuthPairSetupState != 4)
   {
@@ -484,53 +519,60 @@ void __45__SFDeviceSetupSessioniOS__runSFSessionStart__block_invoke_6(uint64_t a
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_preAuthPairSetupState;
+            return selfCopy->_preAuthPairSetupState;
           }
 
-          v6 = self->_preAuthPairSetupState;
+          preAuthPairSetupState = selfCopy->_preAuthPairSetupState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runPreAuthPairSetup]", 30, "PreAuth PairSetup not done yet (%d)\n", preAuthPairSetupState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
       {
-        [SFDeviceSetupSessioniOS _runPreAuthPairSetup];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupSessioniOS *)self _runPreAuthPairSetup];
+        }
       }
 
-      self->_preAuthPairSetupState = 1;
-      [(SFSession *)self->_sfSession setFixedPIN:@"public"];
-      sfSession = self->_sfSession;
+      selfCopy->_preAuthPairSetupState = 1;
+      [(SFSession *)selfCopy->_sfSession setFixedPIN:@"public"];
+      sfSession = selfCopy->_sfSession;
       v7[0] = MEMORY[0x1E69E9820];
       v7[1] = 3221225472;
       v7[2] = __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke;
       v7[3] = &unk_1E788B238;
-      v7[4] = self;
+      v7[4] = selfCopy;
       [(SFSession *)sfSession pairSetupWithFlags:24 completion:v7];
     }
   }
 
-  return self->_preAuthPairSetupState;
+  return selfCopy->_preAuthPairSetupState;
 }
 
 void __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  [*(*(a1 + 32) + 80) setFixedPIN:0];
-  if (v3)
+  v6 = a2;
+  v3 = [*(*(a1 + 32) + 80) setFixedPIN:0];
+  v5 = v6;
+  if (v6)
   {
     *(*(a1 + 32) + 40) = 3;
-    [*(a1 + 32) _completedWithError:v3];
+    [*(a1 + 32) _completedWithError:v6];
   }
 
   else
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke_cold_1();
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke_cold_1(v3, v5, v4);
+      }
     }
 
     *(*(a1 + 32) + 40) = 4;
@@ -543,47 +585,57 @@ void __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke(uint64_t a
   eSIMSetupState = self->_eSIMSetupState;
   if (!eSIMSetupState)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _runESIMSetup];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceSetupSessioniOS *)self _runESIMSetup];
+      }
     }
 
-    messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
+    messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
     if (messageSessionTemplate)
     {
-      v6 = messageSessionTemplate;
-      v7 = [objc_alloc(getCoreTelephonyClientClass()) initWithQueue:self->_dispatchQueue];
-      if (v7)
+      v9 = messageSessionTemplate;
+      v10 = [objc_alloc(getCoreTelephonyClientClass()) initWithQueue:selfCopy->_dispatchQueue];
+      if (v10)
       {
-        v8 = v7;
-        objc_storeStrong(&self->_eSIMClient, v7);
-        v9 = [v8 bootstrapPlanTransferForEndpoint:1 usingMessageSession:v6];
-        self->_eSIMSetupState = 4;
+        v13 = v10;
+        objc_storeStrong(&selfCopy->_eSIMClient, v10);
+        v14 = [v13 bootstrapPlanTransferForEndpoint:1 usingMessageSession:v9];
+        selfCopy->_eSIMSetupState = 4;
 
-        return self->_eSIMSetupState;
+        return selfCopy->_eSIMSetupState;
       }
 
       else
       {
-        if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
         {
-          [SFDeviceSetupSessioniOS _runESIMSetup];
+          if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v10 = _LogCategory_Initialize(), v10))
+          {
+            [(SFDeviceSetupSessioniOS *)v10 _runESIMSetup];
+          }
         }
 
         eSIMSetupState = 2;
-        self->_eSIMSetupState = 2;
+        selfCopy->_eSIMSetupState = 2;
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
       {
-        [SFDeviceSetupSessioniOS _runESIMSetup];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (messageSessionTemplate = _LogCategory_Initialize(), messageSessionTemplate))
+        {
+          [(SFDeviceSetupSessioniOS *)messageSessionTemplate _runESIMSetup];
+        }
       }
 
       eSIMSetupState = 2;
-      self->_eSIMSetupState = 2;
+      selfCopy->_eSIMSetupState = 2;
     }
   }
 
@@ -613,31 +665,34 @@ void __47__SFDeviceSetupSessioniOS__runPreAuthPairSetup__block_invoke(uint64_t a
 
 void __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v10 = a2;
   v5 = a3;
   if (v5)
   {
     if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke_cold_1();
+      __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke_cold_1(v5);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = WeakRetained;
+    v9 = WeakRetained;
     if (WeakRetained)
     {
-      if (([WeakRetained _allowAllOTCSenders] & 1) != 0 || objc_msgSend(v8, "count"))
+      if (([WeakRetained _allowAllOTCSenders] & 1) != 0 || objc_msgSend(v10, "count"))
       {
-        [v7 _registerOneTimeCodeDetection:v8];
+        [v9 _registerOneTimeCodeDetection:v10];
       }
     }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
     {
-      __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke_cold_2();
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (WeakRetained = _LogCategory_Initialize(), WeakRetained))
+      {
+        __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke_cold_2(WeakRetained, v7, v8);
+      }
     }
   }
 }
@@ -674,34 +729,41 @@ void __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke(uint64_t a1, void 
 - (void)_registerOneTimeCodeDetection:(id)detection
 {
   detectionCopy = detection;
+  v7 = detectionCopy;
   if (self->_oneTimeCodeAccelerator)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _registerOneTimeCodeDetection:];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (detectionCopy = _LogCategory_Initialize(), detectionCopy))
+      {
+        [(SFDeviceSetupSessioniOS *)detectionCopy _registerOneTimeCodeDetection:v5, v6];
+      }
     }
   }
 
   else
   {
-    objc_initWeak(&location, self);
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    inited = objc_initWeak(&location, self);
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      LogPrintF();
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (inited = _LogCategory_Initialize(), inited))
+      {
+        inited = LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _registerOneTimeCodeDetection:]", 30, "register OTC detection\n");
+      }
     }
 
-    v5 = objc_alloc(getIMOneTimeCodeAcceleratorClass[0]());
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke;
-    v8[3] = &unk_1E788FE88;
-    objc_copyWeak(&v10, &location);
-    v9 = detectionCopy;
-    v6 = [v5 initWithBlockForUpdates:v8];
+    v9 = objc_alloc(getIMOneTimeCodeAcceleratorClass(inited));
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke;
+    v12[3] = &unk_1E788FE88;
+    objc_copyWeak(&v14, &location);
+    v13 = v7;
+    v10 = [v9 initWithBlockForUpdates:v12];
     oneTimeCodeAccelerator = self->_oneTimeCodeAccelerator;
-    self->_oneTimeCodeAccelerator = v6;
+    self->_oneTimeCodeAccelerator = v10;
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 }
@@ -709,13 +771,13 @@ void __39__SFDeviceSetupSessioniOS__runOTCSetup__block_invoke(uint64_t a1, void 
 void __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v9 = v3;
+  v15 = v3;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v4 = _LogCategory_Initialize(), v3 = v9, v4))
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v4 = _LogCategory_Initialize(), v3 = v15, v4))
     {
-      __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_1();
-      v3 = v9;
+      __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_1(v3);
+      v3 = v15;
     }
   }
 
@@ -724,30 +786,37 @@ void __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke(
   if ([v6 length])
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
+    v10 = WeakRetained;
     if (WeakRetained)
     {
-      v8 = [v5 objectForKeyedSubscript:@"handle"];
-      if (([*(a1 + 32) containsObject:v8] & 1) != 0 || objc_msgSend(WeakRetained, "_allowAllOTCSenders"))
+      v11 = [v5 objectForKeyedSubscript:@"handle"];
+      if (([*(a1 + 32) containsObject:v11] & 1) != 0 || (v12 = objc_msgSend(v10, "_allowAllOTCSenders"), v12))
       {
-        [WeakRetained _presentOneTimeCodeProxCard:v6];
+        [v10 _presentOneTimeCodeProxCard:v6];
       }
 
-      else if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      else if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
       {
-        __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_2();
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v12 = _LogCategory_Initialize(), v12))
+        {
+          __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_2(v12, v13, v14);
+        }
       }
     }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
     {
-      __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_3();
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (WeakRetained = _LogCategory_Initialize(), WeakRetained))
+      {
+        __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke_cold_3(WeakRetained, v8, v9);
+      }
     }
   }
 }
 
 - (void)_presentOneTimeCodeProxCard:(id)card
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   cardCopy = card;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
@@ -757,65 +826,68 @@ void __57__SFDeviceSetupSessioniOS__registerOneTimeCodeDetection___block_invoke(
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    v8 = @"oneTimeCode";
-    v9[0] = cardCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"oneTimeCode";
+    v8[0] = cardCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     progressHandler[2](progressHandler, 1100, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_runDependentSetup
 {
-  result = self->_dependentSetupState;
-  if (!result)
+  dependentSetupState = self->_dependentSetupState;
+  if (!dependentSetupState)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _runDependentSetup];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (dependentSetupState = _LogCategory_Initialize(), dependentSetupState))
+      {
+        [(SFDeviceSetupSessioniOS *)dependentSetupState _runDependentSetup];
+      }
     }
 
     messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
     if (messageSessionTemplate)
     {
-      v5 = messageSessionTemplate;
+      v8 = messageSessionTemplate;
       self->_dependentSetupState = 1;
-      v6 = [objc_alloc(getPRXCardContentViewControllerClass()) initWithNibName:0 bundle:0];
-      v7 = [objc_alloc(getPASUIGuardianViewPresenterClass()) initWithSharingViewController:v6];
+      v9 = [objc_alloc(getPRXCardContentViewControllerClass()) initWithNibName:0 bundle:0];
+      v10 = [objc_alloc(getPASUIGuardianViewPresenterClass()) initWithSharingViewController:v9];
       dependentSetupSession = self->_dependentSetupSession;
-      self->_dependentSetupSession = v7;
+      self->_dependentSetupSession = v10;
 
-      v9 = self->_dependentSetupSession;
       if (objc_opt_respondsToSelector())
       {
         [(PASUIGuardianViewPresenter *)self->_dependentSetupSession setDelegate:self];
       }
 
-      v10 = self->_dependentSetupSession;
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke;
-      v11[3] = &unk_1E788FEB0;
-      v11[4] = self;
-      [(PASUIGuardianViewPresenter *)v10 activateWithTemplateMessageSession:v5 completion:v11];
+      v12 = self->_dependentSetupSession;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke;
+      v14[3] = &unk_1E788FEB0;
+      v14[4] = self;
+      [(PASUIGuardianViewPresenter *)v12 activateWithTemplateMessageSession:v8 completion:v14];
 
-      return self->_dependentSetupState;
+      LODWORD(dependentSetupState) = self->_dependentSetupState;
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
       {
-        [SFDeviceSetupSessioniOS _runDependentSetup];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (messageSessionTemplate = _LogCategory_Initialize(), messageSessionTemplate))
+        {
+          [(SFDeviceSetupSessioniOS *)messageSessionTemplate _runDependentSetup];
+        }
       }
 
-      result = 2;
+      LODWORD(dependentSetupState) = 2;
       self->_dependentSetupState = 2;
     }
   }
 
-  return result;
+  return dependentSetupState;
 }
 
 void __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke(uint64_t a1, void *a2)
@@ -839,19 +911,18 @@ void __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke(uint64_t a1,
 
 void __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 40);
   v2 = *(*(a1 + 32) + 232);
-  v5 = @"viewController";
-  v6[0] = v1;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = @"viewController";
+  v5[0] = v1;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   (*(v2 + 16))(v2, 2000, v3);
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_runCoreCDPSetup
 {
+  selfCopy = self;
   cdpState = self->_cdpState;
   if (cdpState != 4 && cdpState != 2)
   {
@@ -863,55 +934,58 @@ void __45__SFDeviceSetupSessioniOS__runDependentSetup__block_invoke_2(uint64_t a
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_cdpState;
+            return selfCopy->_cdpState;
           }
 
-          v13 = self->_cdpState;
+          cdpState = selfCopy->_cdpState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runCoreCDPSetup]", 30, "CoreCDP hasn't succeeded yet (%d)\n", cdpState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
       {
-        [SFDeviceSetupSessioniOS _runCoreCDPSetup];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupSessioniOS *)self _runCoreCDPSetup];
+        }
       }
 
-      self->_cdpState = 1;
-      messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
+      selfCopy->_cdpState = 1;
+      messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
       if (messageSessionTemplate)
       {
-        v6 = objc_alloc_init(getCDPContextClass_0());
-        cdpContext = self->_cdpContext;
-        self->_cdpContext = v6;
+        v7 = objc_alloc_init(getCDPContextClass_0());
+        cdpContext = selfCopy->_cdpContext;
+        selfCopy->_cdpContext = v7;
 
-        [(CDPContext *)self->_cdpContext setSharingChannel:messageSessionTemplate];
-        v8 = [objc_alloc(getCDPStateControllerClass_0()) initWithContext:self->_cdpContext];
-        cdpController = self->_cdpController;
-        self->_cdpController = v8;
+        v9 = [(CDPContext *)selfCopy->_cdpContext setSharingChannel:messageSessionTemplate];
+        v10 = [objc_alloc(getCDPStateControllerClass_0(v9)) initWithContext:selfCopy->_cdpContext];
+        cdpController = selfCopy->_cdpController;
+        selfCopy->_cdpController = v10;
 
-        v10 = self->_cdpController;
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke;
-        v14[3] = &unk_1E788C170;
-        v14[4] = self;
-        [(CDPStateController *)v10 startCircleApplicationApprovalServer:v14];
+        v12 = selfCopy->_cdpController;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke;
+        v15[3] = &unk_1E788C170;
+        v15[4] = selfCopy;
+        [(CDPStateController *)v12 startCircleApplicationApprovalServer:v15];
       }
 
       else
       {
-        self->_cdpState = 3;
-        v11 = NSErrorWithOSStatusF();
-        [(SFDeviceSetupSessioniOS *)self _completedWithError:v11];
+        selfCopy->_cdpState = 3;
+        v13 = NSErrorWithOSStatusF(4294960551, "NoMessageSessionTemplateForCoreCDP");
+        [(SFDeviceSetupSessioniOS *)selfCopy _completedWithError:v13];
       }
     }
   }
 
-  return self->_cdpState;
+  return selfCopy->_cdpState;
 }
 
 void __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke(uint64_t a1, char a2, void *a3)
@@ -948,49 +1022,59 @@ uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2(uint64_t
   walletClientState = self->_walletClientState;
   if (!walletClientState)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _runWalletSetup];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceSetupSessioniOS *)self _runWalletSetup];
+      }
     }
 
-    messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
+    messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
     if (messageSessionTemplate)
     {
-      v6 = messageSessionTemplate;
-      v7 = objc_alloc_init(getPKProximitySetupSourceClientClass[0]());
-      if (v7)
+      v9 = messageSessionTemplate;
+      v10 = objc_alloc_init(getPKProximitySetupSourceClientClass());
+      if (v10)
       {
-        walletClient = self->_walletClient;
-        self->_walletClient = v7;
-        v9 = v7;
+        walletClient = selfCopy->_walletClient;
+        selfCopy->_walletClient = v10;
+        v14 = v10;
 
-        [(PKProximitySetupSourceClient *)v9 startWithSession:v6];
-        self->_walletClientState = 4;
+        [(PKProximitySetupSourceClient *)v14 startWithSession:v9];
+        selfCopy->_walletClientState = 4;
 
-        return self->_walletClientState;
+        return selfCopy->_walletClientState;
       }
 
       else
       {
-        if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
         {
-          [SFDeviceSetupSessioniOS _runWalletSetup];
+          if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v10 = _LogCategory_Initialize(), v10))
+          {
+            [(SFDeviceSetupSessioniOS *)v10 _runWalletSetup];
+          }
         }
 
         walletClientState = 2;
-        self->_walletClientState = 2;
+        selfCopy->_walletClientState = 2;
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 90)
       {
-        [SFDeviceSetupSessioniOS _runWalletSetup];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (messageSessionTemplate = _LogCategory_Initialize(), messageSessionTemplate))
+        {
+          [(SFDeviceSetupSessioniOS *)messageSessionTemplate _runWalletSetup];
+        }
       }
 
       walletClientState = 2;
-      self->_walletClientState = 2;
+      selfCopy->_walletClientState = 2;
     }
   }
 
@@ -999,6 +1083,7 @@ uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2(uint64_t
 
 - (int)_runResume
 {
+  selfCopy = self;
   resumeState = self->_resumeState;
   if (resumeState != 4)
   {
@@ -1010,35 +1095,38 @@ uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2(uint64_t
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_resumeState;
+            return selfCopy->_resumeState;
           }
 
-          v6 = self->_resumeState;
+          resumeState = selfCopy->_resumeState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runResume]", 30, "Resume not done yet (%d)\n", resumeState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
       {
-        [SFDeviceSetupSessioniOS _runResume];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceSetupSessioniOS *)self _runResume];
+        }
       }
 
-      self->_resumeState = 1;
-      sfSession = self->_sfSession;
+      selfCopy->_resumeState = 1;
+      sfSession = selfCopy->_sfSession;
       v7[0] = MEMORY[0x1E69E9820];
       v7[1] = 3221225472;
       v7[2] = __37__SFDeviceSetupSessioniOS__runResume__block_invoke;
       v7[3] = &unk_1E788B548;
-      v7[4] = self;
+      v7[4] = selfCopy;
       [(SFSession *)sfSession sendRequestID:@"_sa" options:0 request:&unk_1F1D7D4E8 responseHandler:v7];
     }
   }
 
-  return self->_resumeState;
+  return selfCopy->_resumeState;
 }
 
 void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1048,7 +1136,7 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
   v8 = a4;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runResume]_block_invoke", 30, "Resume response: %##@, %{error}\n", v8, v12);
   }
 
   if (v12)
@@ -1074,23 +1162,28 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
 - (void)_sendConfigInfo
 {
-  v18 = 0;
-  if (self->_sfSession)
+  v30 = 0;
+  sfSession = self->_sfSession;
+  v5 = gLogCategory_SFDeviceSetupSessioniOS;
+  if (sfSession)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _sendConfigInfo];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        [(SFDeviceSetupSessioniOS *)v5 _sendConfigInfo];
+      }
     }
 
-    v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v3 setObject:&unk_1F1D7CF70 forKeyedSubscript:@"op"];
-    [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"dn"];
+    v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v6 setObject:&unk_1F1D7CF70 forKeyedSubscript:@"op"];
+    [v6 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"dn"];
     fileTransferSessionTemplate = self->_fileTransferSessionTemplate;
     if (!fileTransferSessionTemplate)
     {
-      v5 = objc_alloc_init(MEMORY[0x1E69C6B90]);
-      v6 = self->_fileTransferSessionTemplate;
-      self->_fileTransferSessionTemplate = v5;
+      v8 = objc_alloc_init(MEMORY[0x1E69C6B90]);
+      v9 = self->_fileTransferSessionTemplate;
+      self->_fileTransferSessionTemplate = v8;
 
       [(RPFileTransferSession *)self->_fileTransferSessionTemplate setFlags:418];
       [(RPFileTransferSession *)self->_fileTransferSessionTemplate prepareTemplateAndReturnError:0];
@@ -1100,20 +1193,24 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
     selfPublicKey = [(RPFileTransferSession *)fileTransferSessionTemplate selfPublicKey];
     if (selfPublicKey)
     {
-      [v3 setObject:selfPublicKey forKeyedSubscript:@"ftPK"];
+      [v6 setObject:selfPublicKey forKeyedSubscript:@"ftPK"];
     }
 
-    v8 = objc_alloc_init(getACAccountStoreClass_5());
-    aa_primaryAppleAccount = [v8 aa_primaryAppleAccount];
+    v11 = objc_alloc_init(getACAccountStoreClass_5());
+    aa_primaryAppleAccount = [v11 aa_primaryAppleAccount];
     username = [aa_primaryAppleAccount username];
-    if ([username length])
+    v14 = [username length];
+    if (v14)
     {
-      [v3 setObject:username forKeyedSubscript:@"icn"];
+      [v6 setObject:username forKeyedSubscript:@"icn"];
     }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
     {
-      [SFDeviceSetupSessioniOS _sendConfigInfo];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v14 = _LogCategory_Initialize(), v14))
+      {
+        [(SFDeviceSetupSessioniOS *)v14 _sendConfigInfo];
+      }
     }
 
     preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
@@ -1121,12 +1218,15 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
     if (firstObject)
     {
-      [v3 setObject:firstObject forKeyedSubscript:@"lang"];
+      [v6 setObject:firstObject forKeyedSubscript:@"lang"];
     }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
     {
-      [SFDeviceSetupSessioniOS _sendConfigInfo];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v19 = _LogCategory_Initialize(), v19))
+      {
+        [(SFDeviceSetupSessioniOS *)v19 _sendConfigInfo];
+      }
     }
 
     currentLocale = [MEMORY[0x1E695DF58] currentLocale];
@@ -1134,23 +1234,26 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
     if (localeIdentifier)
     {
-      [v3 setObject:localeIdentifier forKeyedSubscript:@"locale"];
+      [v6 setObject:localeIdentifier forKeyedSubscript:@"locale"];
     }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
     {
-      [SFDeviceSetupSessioniOS _sendConfigInfo];
-    }
-
-    v15 = WiFiCopyCurrentNetworkInfoEx();
-    v16 = v15;
-    if (v15)
-    {
-      v17 = [v15 objectForKeyedSubscript:@"ssid"];
-
-      if (v17)
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v24 = _LogCategory_Initialize(), v24))
       {
-        [v3 setObject:v17 forKeyedSubscript:@"wifiSSID"];
+        [(SFDeviceSetupSessioniOS *)v24 _sendConfigInfo];
+      }
+    }
+
+    v27 = WiFiCopyCurrentNetworkInfoEx();
+    v28 = v27;
+    if (v27)
+    {
+      v29 = [v27 objectForKeyedSubscript:@"ssid"];
+
+      if (v29)
+      {
+        [v6 setObject:v29 forKeyedSubscript:@"wifiSSID"];
       }
 
       else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
@@ -1158,11 +1261,11 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
         [SFDeviceSetupSessioniOS _sendConfigInfo];
       }
 
-      localeIdentifier = [v16 objectForKeyedSubscript:@"password"];
+      localeIdentifier = [v28 objectForKeyedSubscript:@"password"];
 
       if (localeIdentifier)
       {
-        [v3 setObject:localeIdentifier forKeyedSubscript:@"wifiPW"];
+        [v6 setObject:localeIdentifier forKeyedSubscript:@"wifiPW"];
       }
 
       else
@@ -1178,10 +1281,10 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
     else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      [(SFDeviceSetupSessioniOS *)&v18 _sendConfigInfo];
+      [(SFDeviceSetupSessioniOS *)&v30 _sendConfigInfo];
     }
 
-    [(SFSession *)self->_sfSession sendWithFlags:1 object:v3];
+    [(SFSession *)self->_sfSession sendWithFlags:1 object:v6];
   }
 
   else
@@ -1220,50 +1323,66 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
 - (void)_sendPreAuthInfo
 {
-  v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v10 setObject:&unk_1F1D7CF88 forKeyedSubscript:@"op"];
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v3 = [v27 setObject:&unk_1F1D7CF88 forKeyedSubscript:@"op"];
   if (AccessibilityLibrary_sOnce_0 != -1)
   {
     [SFDeviceSetupSessioniOS _sendPreAuthInfo];
   }
 
-  if (AccessibilityLibrary_sLib_0 && dlsym(AccessibilityLibrary_sLib_0, "_AXSCopySettingsDataBlobForBuddy"))
+  if (AccessibilityLibrary_sLib_0)
   {
-    v3 = softLink_AXSCopySettingsDataBlobForBuddy();
+    v3 = dlsym(AccessibilityLibrary_sLib_0, "_AXSCopySettingsDataBlobForBuddy");
     if (v3)
     {
-      [v10 setObject:v3 forKeyedSubscript:@"axSt"];
-    }
+      v5 = softLink_AXSCopySettingsDataBlobForBuddy(v3);
+      v8 = v5;
+      if (v5)
+      {
+        [v27 setObject:v5 forKeyedSubscript:@"axSt"];
+      }
 
-    else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
-    {
-      [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+      else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
+      {
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v5 = _LogCategory_Initialize(), v5))
+        {
+          [(SFDeviceSetupSessioniOS *)v5 _sendPreAuthInfo];
+        }
+      }
     }
   }
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:SFDeviceClassCodeGet()];
-  [v10 setObject:v4 forKeyedSubscript:@"dclass"];
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{SFDeviceClassCodeGet(v3, v4)}];
+  [v27 setObject:v9 forKeyedSubscript:@"dclass"];
 
   preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
+  v13 = preferredLanguages;
   if (preferredLanguages)
   {
-    [v10 setObject:preferredLanguages forKeyedSubscript:@"langs"];
+    [v27 setObject:preferredLanguages forKeyedSubscript:@"langs"];
   }
 
-  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (preferredLanguages = _LogCategory_Initialize(), preferredLanguages))
+    {
+      [(SFDeviceSetupSessioniOS *)preferredLanguages _sendPreAuthInfo];
+    }
   }
 
-  firstObject = [preferredLanguages firstObject];
+  firstObject = [v13 firstObject];
+  v17 = firstObject;
   if (firstObject)
   {
-    [v10 setObject:firstObject forKeyedSubscript:@"lang"];
+    [v27 setObject:firstObject forKeyedSubscript:@"lang"];
   }
 
-  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (firstObject = _LogCategory_Initialize(), firstObject))
+    {
+      [(SFDeviceSetupSessioniOS *)firstObject _sendPreAuthInfo];
+    }
   }
 
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
@@ -1271,19 +1390,22 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
 
   if (localeIdentifier)
   {
-    [v10 setObject:localeIdentifier forKeyedSubscript:@"locale"];
+    [v27 setObject:localeIdentifier forKeyedSubscript:@"locale"];
   }
 
-  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v20 = _LogCategory_Initialize(), v20))
+    {
+      [(SFDeviceSetupSessioniOS *)v20 _sendPreAuthInfo];
+    }
   }
 
-  v9 = GestaltCopyAnswer();
+  v23 = GestaltCopyAnswer();
 
-  if (v9)
+  if (v23)
   {
-    [v10 setObject:v9 forKeyedSubscript:@"model"];
+    [v27 setObject:v23 forKeyedSubscript:@"model"];
   }
 
   else
@@ -1293,53 +1415,57 @@ void __37__SFDeviceSetupSessioniOS__runResume__block_invoke(uint64_t a1, void *a
       goto LABEL_34;
     }
 
-    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize())
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v24 = _LogCategory_Initialize(), v24))
     {
-      [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+      [(SFDeviceSetupSessioniOS *)v24 _sendPreAuthInfo];
     }
   }
 
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupSessioniOS _sendPreAuthInfo];
+    [(SFDeviceSetupSessioniOS *)v27 _sendPreAuthInfo];
   }
 
 LABEL_34:
-  [(SFSession *)self->_sfSession sendWithFlags:self->_preAuthPairSetupState == 4 object:v10];
+  [(SFSession *)self->_sfSession sendWithFlags:self->_preAuthPairSetupState == 4 object:v27];
 }
 
 - (void)_startBuddySession
 {
   if (!self->_buddySession)
   {
-    v8[7] = v2;
-    v8[8] = v3;
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    v9[7] = v3;
+    v9[8] = v4;
+    selfCopy = self;
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _startBuddySession];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFDeviceSetupSessioniOS *)self _startBuddySession];
+      }
     }
 
-    v5 = objc_alloc_init(getBYDeviceSetupSourceSessionClass());
-    buddySession = self->_buddySession;
-    self->_buddySession = v5;
+    v6 = objc_alloc_init(getBYDeviceSetupSourceSessionClass());
+    buddySession = selfCopy->_buddySession;
+    selfCopy->_buddySession = v6;
 
     if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      [(SFDeviceSetupSessioniOS *)self _startBuddySession];
+      [(SFDeviceSetupSessioniOS *)selfCopy _startBuddySession];
     }
 
-    [(BYDeviceSetupSourceSession *)self->_buddySession setFileTransferSessionTemplate:self->_fileTransferSessionTemplate];
-    messageSessionTemplate = [(SFSession *)self->_sfSession messageSessionTemplate];
-    [(BYDeviceSetupSourceSession *)self->_buddySession setMessageSession:messageSessionTemplate];
+    [(BYDeviceSetupSourceSession *)selfCopy->_buddySession setFileTransferSessionTemplate:selfCopy->_fileTransferSessionTemplate];
+    messageSessionTemplate = [(SFSession *)selfCopy->_sfSession messageSessionTemplate];
+    [(BYDeviceSetupSourceSession *)selfCopy->_buddySession setMessageSession:messageSessionTemplate];
 
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __45__SFDeviceSetupSessioniOS__startBuddySession__block_invoke;
-    v8[3] = &unk_1E788FED8;
-    v8[4] = self;
-    [(BYDeviceSetupSourceSession *)self->_buddySession setProgressHandler:v8];
-    [(BYDeviceSetupSourceSession *)self->_buddySession activate];
-    self->_buddyConfigured = 1;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __45__SFDeviceSetupSessioniOS__startBuddySession__block_invoke;
+    v9[3] = &unk_1E788FED8;
+    v9[4] = selfCopy;
+    [(BYDeviceSetupSourceSession *)selfCopy->_buddySession setProgressHandler:v9];
+    [(BYDeviceSetupSourceSession *)selfCopy->_buddySession activate];
+    selfCopy->_buddyConfigured = 1;
   }
 }
 
@@ -1360,20 +1486,24 @@ void __45__SFDeviceSetupSessioniOS__startBuddySession__block_invoke(uint64_t a1,
 
 - (void)_handleBuddyProgress:(id)progress
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   progressCopy = progress;
   if (self->_buddySession)
   {
     if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceSetupSessioniOS _handleBuddyProgress:];
+      [SFDeviceSetupSessioniOS _handleBuddyProgress:progressCopy];
     }
 
-    if (CFDictionaryGetInt64())
+    Int64 = CFDictionaryGetInt64();
+    if (Int64)
     {
-      if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
       {
-        [SFDeviceSetupSessioniOS _handleBuddyProgress:];
+        if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (Int64 = _LogCategory_Initialize(), Int64))
+        {
+          [(SFDeviceSetupSessioniOS *)Int64 _handleBuddyProgress:v6, v7];
+        }
       }
 
       progressHandler = self->_progressHandler;
@@ -1395,45 +1525,45 @@ void __45__SFDeviceSetupSessioniOS__startBuddySession__block_invoke(uint64_t a1,
     }
 
     CFErrorGetTypeID();
-    v6 = CFDictionaryGetTypedValue();
-    if (v6)
+    v9 = CFDictionaryGetTypedValue();
+    if (v9)
     {
       if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
       {
-        [SFDeviceSetupSessioniOS _handleBuddyProgress:];
+        [SFDeviceSetupSessioniOS _handleBuddyProgress:v9];
       }
 
-      [(SFDeviceSetupSessioniOS *)self _completedWithError:v6];
+      [(SFDeviceSetupSessioniOS *)self _completedWithError:v9];
     }
 
     else
     {
       Int64Ranged = CFDictionaryGetInt64Ranged();
       CFDictionaryGetDouble();
-      v10 = v9;
-      CFDictionaryGetDouble();
       v12 = v11;
+      CFDictionaryGetDouble();
+      v14 = v13;
       if (Int64Ranged == 2)
       {
         if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleBuddyProgress:]", 30, "Buddy sync progress: %f%% (%f seconds remaining)\n", v12 * 100.0, v14);
         }
 
-        v17 = self->_progressHandler;
-        if (!v17)
+        v19 = self->_progressHandler;
+        if (!v19)
         {
           goto LABEL_23;
         }
 
-        v18[0] = @"progress";
-        v14 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
-        v18[1] = @"remainSecs";
-        v19[0] = v14;
-        v15 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
-        v19[1] = v15;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-        v17[2](v17, 310, v16);
+        v20[0] = @"progress";
+        v16 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
+        v20[1] = @"remainSecs";
+        v21[0] = v16;
+        v17 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
+        v21[1] = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v19[2](v19, 310, v18);
       }
 
       else
@@ -1445,23 +1575,23 @@ void __45__SFDeviceSetupSessioniOS__startBuddySession__block_invoke(uint64_t a1,
 
         if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleBuddyProgress:]", 30, "Buddy backup progress: %f%% (%f seconds remaining)\n", v12 * 100.0, v14);
         }
 
-        v13 = self->_progressHandler;
-        if (!v13)
+        v15 = self->_progressHandler;
+        if (!v15)
         {
           goto LABEL_23;
         }
 
-        v20[0] = @"progress";
-        v14 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
-        v20[1] = @"remainSecs";
-        v21[0] = v14;
-        v15 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
-        v21[1] = v15;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-        v13[2](v13, 300, v16);
+        v22[0] = @"progress";
+        v16 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
+        v22[1] = @"remainSecs";
+        v23[0] = v16;
+        v17 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
+        v23[1] = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+        v15[2](v15, 300, v18);
       }
     }
 
@@ -1472,12 +1602,10 @@ LABEL_23:
 
   if (gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupSessioniOS _handleBuddyProgress:];
+    [SFDeviceSetupSessioniOS _handleBuddyProgress:progressCopy];
   }
 
 LABEL_24:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSetupActionRequest:(id)request responseHandler:(id)handler
@@ -1488,7 +1616,7 @@ LABEL_24:
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupSessioniOS _handleSetupActionRequest:Int64Ranged responseHandler:?];
+    [(SFDeviceSetupSessioniOS *)Int64Ranged _handleSetupActionRequest:requestCopy responseHandler:?];
   }
 
   if (Int64Ranged <= 3)
@@ -1592,20 +1720,18 @@ LABEL_31:
 {
   if (gLogCategory_SFDeviceSetupSessioniOS <= 90 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_13();
+    OUTLINED_FUNCTION_2_13(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleSetupActionSoftwareUpdate]", a3, "### SWUpdate derive ResumeKey failed\n");
   }
 }
 
 void __59__SFDeviceSetupSessioniOS__handleSetupActionSoftwareUpdate__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v11 = a2;
+  v9 = a2;
   v7 = a3;
   v8 = a4;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    v9 = v8;
-    v10 = v11;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleSetupActionSoftwareUpdate]_block_invoke", 30, "Suspend response: %##@, %{error}\n", v8, v9);
   }
 
   [*(a1 + 32) _handleSetupPeerSuspended];
@@ -1626,33 +1752,36 @@ void __59__SFDeviceSetupSessioniOS__handleSetupActionSoftwareUpdate__block_invok
   sfSession = self->_sfSession;
   self->_sfSession = 0;
 
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    [SFDeviceSetupSessioniOS _handleSetupPeerSuspended];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      [(SFDeviceSetupSessioniOS *)v6 _handleSetupPeerSuspended];
+    }
   }
 
-  v6 = objc_alloc_init(SFDeviceDiscovery);
+  v9 = objc_alloc_init(SFDeviceDiscovery);
   resumeDiscovery = self->_resumeDiscovery;
-  self->_resumeDiscovery = v6;
-  v8 = v6;
+  self->_resumeDiscovery = v9;
+  v11 = v9;
 
-  [(SFDeviceDiscovery *)v8 setDiscoveryFlags:512];
-  [(SFDeviceDiscovery *)v8 setDispatchQueue:self->_dispatchQueue];
-  [(SFDeviceDiscovery *)v8 setPurpose:@"iOSSetupResume"];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke;
-  v10[3] = &unk_1E788FF00;
-  v10[4] = v8;
-  v10[5] = self;
-  [(SFDeviceDiscovery *)v8 setDeviceFoundHandler:v10];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2;
-  v9[3] = &unk_1E788B520;
-  v9[4] = v8;
-  v9[5] = self;
-  [(SFDeviceDiscovery *)v8 activateWithCompletion:v9];
+  [(SFDeviceDiscovery *)v11 setDiscoveryFlags:512];
+  [(SFDeviceDiscovery *)v11 setDispatchQueue:self->_dispatchQueue];
+  [(SFDeviceDiscovery *)v11 setPurpose:@"iOSSetupResume"];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke;
+  v13[3] = &unk_1E788FF00;
+  v13[4] = v11;
+  v13[5] = self;
+  [(SFDeviceDiscovery *)v11 setDeviceFoundHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2;
+  v12[3] = &unk_1E788B520;
+  v12[4] = v11;
+  v12[5] = self;
+  [(SFDeviceDiscovery *)v11 activateWithCompletion:v12];
 }
 
 void *__52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke(uint64_t a1, uint64_t a2)
@@ -1676,7 +1805,7 @@ void __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2(uin
     v6 = v3;
     if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2_cold_1();
+      __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2_cold_1(v4);
       v4 = v6;
     }
   }
@@ -1696,7 +1825,7 @@ void __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2(uin
     {
       if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
       {
-        [SFDeviceSetupSessioniOS _handleSetupResumeFoundDevice:];
+        [SFDeviceSetupSessioniOS _handleSetupResumeFoundDevice:deviceCopy];
       }
 
       objc_storeStrong(&self->_peerDevice, device);
@@ -1709,49 +1838,53 @@ void __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2(uin
 
     else if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
     {
-      resumeAuthTag = self->_resumeAuthTag;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleSetupResumeFoundDevice:]", 30, "Resume discovery ignoring non-matching device: %@ vs %@, %@\n", v7, self->_resumeAuthTag, deviceCopy);
     }
   }
 
   else if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupSessioniOS _handleSetupResumeFoundDevice:];
+    [SFDeviceSetupSessioniOS _handleSetupResumeFoundDevice:deviceCopy];
   }
 }
 
 - (void)_receivedObject:(id)object flags:(unsigned int)flags
 {
-  flagsCopy = flags;
+  v4 = *&flags;
   objectCopy = object;
-  v12 = objectCopy;
+  v16 = objectCopy;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v7 = _LogCategory_Initialize(), objectCopy = v12, v7))
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v7 = _LogCategory_Initialize(), objectCopy = v16, v7))
     {
-      [SFDeviceSetupSessioniOS _receivedObject:objectCopy flags:?];
+      [SFDeviceSetupSessioniOS _receivedObject:objectCopy flags:v4];
     }
   }
 
   Int64Ranged = CFDictionaryGetInt64Ranged();
+  v11 = Int64Ranged;
   if (Int64Ranged == 2)
   {
-    if ((flagsCopy & 1) == 0)
+    v13 = gLogCategory_SFDeviceSetupSessioniOS;
+    if ((v4 & 1) == 0)
     {
-      [SFDeviceSetupSessioniOS _receivedObject:? flags:?];
+      [SFDeviceSetupSessioniOS _receivedObject:v16 flags:?];
       goto LABEL_21;
     }
 
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _receivedObject:flags:];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v13 = _LogCategory_Initialize(), v13))
+      {
+        [(SFDeviceSetupSessioniOS *)v13 _receivedObject:v9 flags:v10];
+      }
     }
 
-    [(SFDeviceSetupSessioniOS *)self _receivedConfigResponse:v12];
+    [(SFDeviceSetupSessioniOS *)self _receivedConfigResponse:v16];
     receivedObjectHandler = self->_receivedObjectHandler;
     if (receivedObjectHandler)
     {
-      (receivedObjectHandler)[2](receivedObjectHandler, v12);
+      receivedObjectHandler[2](receivedObjectHandler, v16);
     }
 
     self->_configResponseReceived = 1;
@@ -1760,37 +1893,40 @@ void __52__SFDeviceSetupSessioniOS__handleSetupPeerSuspended__block_invoke_2(uin
 
   if (Int64Ranged == 5)
   {
-    v9 = v12;
-    if (flagsCopy)
+    v12 = v16;
+    if (v4)
     {
       goto LABEL_22;
     }
 
-    [SFDeviceSetupSessioniOS _receivedObject:flags:];
+    [SFDeviceSetupSessioniOS _receivedObject:v16 flags:?];
     goto LABEL_21;
   }
 
-  v9 = v12;
+  v12 = v16;
   if (Int64Ranged == 4)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
     {
-      [SFDeviceSetupSessioniOS _receivedObject:flags:];
+      if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (Int64Ranged = _LogCategory_Initialize(), Int64Ranged))
+      {
+        [(SFDeviceSetupSessioniOS *)Int64Ranged _receivedObject:v12 flags:v10];
+      }
     }
 
     self->_preAuthResponseReceived = 1;
 LABEL_20:
     [(SFDeviceSetupSessioniOS *)self _run];
 LABEL_21:
-    v9 = v12;
+    v12 = v16;
     goto LABEL_22;
   }
 
   if (gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v11 = _LogCategory_Initialize(), v9 = v12, v11))
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (v15 = _LogCategory_Initialize(), v12 = v16, v15))
     {
-      [SFDeviceSetupSessioniOS _receivedObject:flags:];
+      [SFDeviceSetupSessioniOS _receivedObject:v11 flags:?];
       goto LABEL_21;
     }
   }
@@ -1819,7 +1955,7 @@ void __40__SFDeviceSetupSessioniOS_sendAppEvent___block_invoke(uint64_t a1)
   *(v2 + 12) = v3 + 1;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    __40__SFDeviceSetupSessioniOS_sendAppEvent___block_invoke_cold_1();
+    __40__SFDeviceSetupSessioniOS_sendAppEvent___block_invoke_cold_1(v3);
   }
 
   v5 = [*(a1 + 40) mutableCopy];
@@ -1844,54 +1980,60 @@ void __40__SFDeviceSetupSessioniOS_sendAppEvent___block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __34__SFDeviceSetupSessioniOS_tryPIN___block_invoke(uint64_t a1)
+uint64_t __34__SFDeviceSetupSessioniOS_tryPIN___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*(a1 + 32) + 80) && gLogCategory_SFDeviceSetupSessioniOS <= 60 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (!*(*(a1 + 32) + 80) && gLogCategory_SFDeviceSetupSessioniOS <= 60)
   {
-    __34__SFDeviceSetupSessioniOS_tryPIN___block_invoke_cold_1();
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __34__SFDeviceSetupSessioniOS_tryPIN___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 80);
+  v4 = *(v3 + 40);
+  v5 = *(*(v3 + 32) + 80);
 
-  return [v3 pairSetupTryPIN:v2];
+  return [v5 pairSetupTryPIN:v4];
 }
 
 - (void)didComplete
 {
-  if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFDeviceSetupSessioniOS <= 30)
   {
-    [SFDeviceSetupSessioniOS didComplete];
+    if (gLogCategory_SFDeviceSetupSessioniOS != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceSetupSessioniOS *)self didComplete];
+    }
   }
 
-  progressHandler = self->_progressHandler;
+  progressHandler = selfCopy->_progressHandler;
   if (progressHandler)
   {
-    v4 = *(progressHandler + 2);
+    v5 = *(progressHandler + 2);
 
-    v4();
+    v5();
   }
 }
 
 - (void)didRequestPresentationForProxCard:(id)card
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   cardCopy = card;
   if (gLogCategory_SFDeviceSetupSessioniOS <= 30 && (gLogCategory_SFDeviceSetupSessioniOS != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceSetupSessioniOS didRequestPresentationForProxCard:];
+    [SFDeviceSetupSessioniOS didRequestPresentationForProxCard:cardCopy];
   }
 
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    v8 = @"viewController";
-    v9[0] = cardCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"viewController";
+    v8[0] = cardCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     progressHandler[2](progressHandler, 1000, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)proximitySetupCompletedWithResult:(id)result
@@ -1965,11 +2107,26 @@ LABEL_17:
   return [v5 _run];
 }
 
+uint64_t __35__SFDeviceSetupSessioniOS_activate__block_invoke_cold_2(char a1)
+{
+  v1 = "no";
+  if (a1)
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS activate]_block_invoke", 30, "eSIMSetup: %s\n", v1);
+}
+
 uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2_cold_1(uint64_t a1)
 {
-  *(a1 + 48);
-  v2 = *(a1 + 32);
-  return LogPrintF();
+  v1 = "no";
+  if (*(a1 + 48))
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _runCoreCDPSetup]_block_invoke_2", 30, "CoreCDP start approval server: success %s, %{error}\n", v1, *(a1 + 32));
 }
 
 - (uint64_t)_sendConfigInfo
@@ -1978,78 +2135,82 @@ uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2_cold_1(u
   {
     if (result != -1)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _sendConfigInfo]", a3, "### Send config info without session\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return OUTLINED_FUNCTION_1_16();
+      return OUTLINED_FUNCTION_1_16(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _sendConfigInfo]", a3, "### Send config info without session\n");
     }
   }
 
   return result;
 }
 
-- (uint64_t)_handleSetupActionRequest:(unsigned int)a1 responseHandler:(char)a2 .cold.1(unsigned int a1, char a2)
+- (uint64_t)_handleSetupActionRequest:(uint64_t)a3 responseHandler:.cold.1(unsigned int a1, char a2, uint64_t a3)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
   {
-    v2 = off_1E788FF20[a2 & 0xF];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E788FF20[a2 & 0xF];
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleSetupActionRequest:responseHandler:]", 30, "SetupActionRequest: %s, %##.32@\n", v5, a3, v3, v4);
 }
 
 - (uint64_t)_handleSetupActionRequest:(unsigned int)a1 responseHandler:(char)a2 .cold.2(unsigned int a1, char a2)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1E788FF78[a2 & 0xF];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _handleSetupActionRequest:responseHandler:]", 60, "### Unsupported SetupAction: %u (%s)\n", a1, v2);
 }
 
-- (uint64_t)_handleSetupActionSoftwareUpdate
-{
-  v3 = *self;
-  v4 = *a2;
-  return LogPrintF();
-}
-
-- (uint64_t)_receivedObject:flags:.cold.2()
+- (uint64_t)_receivedObject:(uint64_t)result flags:.cold.2(uint64_t result)
 {
   if (gLogCategory_SFDeviceSetupSessioniOS <= 50)
   {
+    v1 = result;
     if (gLogCategory_SFDeviceSetupSessioniOS != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _receivedObject:flags:]", 50, "### Ignoring unencrypted config message: %@\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _receivedObject:flags:]", 50, "### Ignoring unencrypted config message: %@\n", v1);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_receivedObject:(uint64_t)result flags:.cold.4(uint64_t result)
+- (uint64_t)_receivedObject:(uint64_t)result flags:(uint64_t)a2 .cold.4(uint64_t result, uint64_t a2)
 {
   if (result <= 50)
   {
     if (result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _receivedObject:flags:]", 50, "### Ignoring unencrypted config response: %@\n", a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS _receivedObject:flags:]", 50, "### Ignoring unencrypted config response: %@\n", a2);
     }
   }
 
@@ -2058,22 +2219,25 @@ uint64_t __43__SFDeviceSetupSessioniOS__runCoreCDPSetup__block_invoke_2_cold_1(u
 
 uint64_t __61__SFDeviceSetupSessioniOS_proximitySetupCompletedWithResult___block_invoke_cold_1(id *a1, uint64_t *a2)
 {
-  *a2 = [*a1 error];
-  return LogPrintF();
+  v3 = [*a1 error];
+  *a2 = v3;
+  return LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS proximitySetupCompletedWithResult:]_block_invoke", 90, "Finished PAS with error: %@\n", v3);
 }
 
 void __61__SFDeviceSetupSessioniOS_proximitySetupCompletedWithResult___block_invoke_cold_2(id *a1, uint64_t *a2)
 {
-  *a2 = [*a1 authResults];
-  v4 = [*a1 familyMember];
-  LogPrintF();
+  v4 = [*a1 authResults];
+  *a2 = v4;
+  v5 = [*a1 familyMember];
+  LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS proximitySetupCompletedWithResult:]_block_invoke", 50, "Finished PAS for dependent with\nauth results: %@\nfamily member: %@\n", v4, v5);
 }
 
 void __61__SFDeviceSetupSessioniOS_proximitySetupCompletedWithResult___block_invoke_cold_3(id *a1, uint64_t *a2)
 {
-  *a2 = [*a1 authResults];
-  v4 = [*a1 personalAccount];
-  LogPrintF();
+  v4 = [*a1 authResults];
+  *a2 = v4;
+  v5 = [*a1 personalAccount];
+  LogPrintF(&gLogCategory_SFDeviceSetupSessioniOS, "[SFDeviceSetupSessioniOS proximitySetupCompletedWithResult:]_block_invoke", 50, "Finished PAS for self with\nauth results: %@\naccount: %@\n", v4, v5);
 }
 
 @end

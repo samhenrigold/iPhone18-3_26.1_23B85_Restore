@@ -329,7 +329,7 @@ LABEL_13:
     }
   }
 
-  v17 = +[UIColor blackColor];
+  v17 = objc_msgSend_blackColor(UIColor);
 LABEL_13:
 
   return v17;
@@ -670,7 +670,7 @@ LABEL_18:
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
   objectCopy = object;
-  if ([path isEqualToString:@"state"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     v9 = objectCopy;
     v10[0] = MEMORY[0x1E69E9820];

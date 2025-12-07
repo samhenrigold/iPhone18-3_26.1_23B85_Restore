@@ -173,7 +173,7 @@ LABEL_11:
     v10 = [TUPhoneNumber phoneNumberWithDigits:value countryCode:codeCopy];
 
     unformattedInternationalRepresentation = [v10 unformattedInternationalRepresentation];
-    v12 = sub_100004778();
+    v12 = sub_100004778(unformattedInternationalRepresentation);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412546;
@@ -207,36 +207,45 @@ LABEL_11:
   capabilities4 = [(CSDAbstractIDSProviderDelegate *)self capabilities];
   isCellularDataAllowed = [capabilities4 isCellularDataAllowed];
 
-  v11 = (isWiFiAvailable & isWiFiAllowed & 1) != 0 || (isCellularDataAvailable & isCellularDataAllowed & 1) != 0 || [(CSDAbstractIDSProviderDelegate *)self shouldOverrideNetworkAsAvailable];
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = 1;
+  if ((isWiFiAvailable & isWiFiAllowed & 1) == 0 && (isCellularDataAvailable & isCellularDataAllowed & 1) == 0)
   {
-    if (v11)
+    shouldOverrideNetworkAsAvailable = [(CSDAbstractIDSProviderDelegate *)self shouldOverrideNetworkAsAvailable];
+    if (!shouldOverrideNetworkAsAvailable)
     {
-      v13 = @"allowed";
+      v12 = 0;
+    }
+  }
+
+  v13 = sub_100004778(shouldOverrideNetworkAsAvailable);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v12)
+    {
+      v14 = @"allowed";
     }
 
     else
     {
-      v13 = @"ignored";
+      v14 = @"ignored";
     }
 
-    v15 = 138413570;
-    v16 = v13;
-    v17 = 1024;
-    v18 = isWiFiAvailable;
-    v19 = 1024;
-    v20 = isWiFiAllowed & 1;
-    v21 = 1024;
-    v22 = isCellularDataAvailable;
-    v23 = 1024;
-    v24 = isCellularDataAllowed & 1;
-    v25 = 1024;
-    shouldOverrideNetworkAsAvailable = [(CSDAbstractIDSProviderDelegate *)self shouldOverrideNetworkAsAvailable];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Determined that invite should be %@ - (isWiFiAvailable=%d isWiFiAllowed=%d isCellularDataAvailable=%d isCellularDataAllowed=%d shouldOverrideNetworkAsAvailable=%d)", &v15, 0x2Au);
+    v16 = 138413570;
+    v17 = v14;
+    v18 = 1024;
+    v19 = isWiFiAvailable;
+    v20 = 1024;
+    v21 = isWiFiAllowed & 1;
+    v22 = 1024;
+    v23 = isCellularDataAvailable;
+    v24 = 1024;
+    v25 = isCellularDataAllowed & 1;
+    v26 = 1024;
+    shouldOverrideNetworkAsAvailable2 = [(CSDAbstractIDSProviderDelegate *)self shouldOverrideNetworkAsAvailable];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Determined that invite should be %@ - (isWiFiAvailable=%d isWiFiAllowed=%d isCellularDataAvailable=%d isCellularDataAllowed=%d shouldOverrideNetworkAsAvailable=%d)", &v16, 0x2Au);
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)service:(id)service account:(id)account incomingPendingMessageOfType:(int64_t)type fromID:(id)d context:(id)context
@@ -245,40 +254,40 @@ LABEL_11:
   accountCopy = account;
   dCopy = d;
   contextCopy = context;
-  v16 = sub_100004778();
+  v16 = sub_100004778(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     typeCopy2 = serviceCopy;
-    v35 = 2112;
-    v36 = accountCopy;
-    v37 = 2112;
-    v38 = dCopy;
-    v39 = 2112;
-    v40 = contextCopy;
+    v36 = 2112;
+    v37 = accountCopy;
+    v38 = 2112;
+    v39 = dCopy;
+    v40 = 2112;
+    v41 = contextCopy;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Invite received for service %@ account %@ from (fromID=%@) with context: %@", buf, 0x2Au);
   }
 
-  v17 = sub_100004778();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = sub_100004778(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if ((type & 0xFFFFFFFFFFFFFFFELL) == 6)
   {
-    v30 = serviceCopy;
-    if (v18)
+    v31 = serviceCopy;
+    if (v19)
     {
       *buf = 134217984;
       typeCopy2 = type;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Recieved pending message of type %ld", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Recieved pending message of type %ld", buf, 0xCu);
     }
 
-    v19 = IDSCopyAddressDestinationForDestination();
-    v17 = IDSCopyRawAddressForDestination();
+    v20 = IDSCopyAddressDestinationForDestination();
+    v18 = IDSCopyRawAddressForDestination();
 
-    v20 = [TUHandle handleWithDestinationID:v17];
-    v21 = [CSDIDSPendingChat alloc];
-    v22 = +[NSUUID UUID];
+    v21 = [TUHandle handleWithDestinationID:v18];
+    v22 = [CSDIDSPendingChat alloc];
+    v23 = +[NSUUID UUID];
     serviceIdentifier = [contextCopy serviceIdentifier];
-    v24 = -[CSDIDSPendingChat initWithUUID:isVideo:handle:](v21, "initWithUUID:isVideo:handle:", v22, [serviceIdentifier containsString:@"audio"] ^ 1, v20);
+    v25 = -[CSDIDSPendingChat initWithUUID:isVideo:handle:](v22, "initWithUUID:isVideo:handle:", v23, [serviceIdentifier containsString:@"audio"] ^ 1, v21);
 
     if (type == 6)
     {
@@ -286,39 +295,39 @@ LABEL_11:
       {
 LABEL_13:
 
-        serviceCopy = v30;
+        serviceCopy = v31;
         goto LABEL_14;
       }
 
-      provider2 = [(CSDAbstractIDSProviderDelegate *)self callUpdateForPendingChat:v24];
+      provider2 = [(CSDAbstractIDSProviderDelegate *)self callUpdateForPendingChat:v25];
       provider = [(CSDAbstractIDSProviderDelegate *)self provider];
-      uuid = [(CSDIDSPendingChat *)v24 uuid];
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_1000FDFC4;
-      v31[3] = &unk_10061A4C0;
-      v32 = v24;
-      [provider reportNewIncomingCallWithUUID:uuid update:provider2 completion:v31];
+      uuid = [(CSDIDSPendingChat *)v25 uuid];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1000FDFC4;
+      v32[3] = &unk_10061A4C0;
+      v33 = v25;
+      [provider reportNewIncomingCallWithUUID:uuid update:provider2 completion:v32];
 
-      uuid2 = v32;
+      uuid2 = v33;
     }
 
     else
     {
       provider2 = [(CSDAbstractIDSProviderDelegate *)self provider];
-      uuid2 = [(CSDIDSPendingChat *)v24 uuid];
-      v29 = +[NSDate date];
-      [provider2 reportCallWithUUID:uuid2 endedAtDate:v29 reason:3];
+      uuid2 = [(CSDIDSPendingChat *)v25 uuid];
+      v30 = +[NSDate date];
+      [provider2 reportCallWithUUID:uuid2 endedAtDate:v30 reason:3];
     }
 
     goto LABEL_13;
   }
 
-  if (v18)
+  if (v19)
   {
     *buf = 134217984;
     typeCopy2 = type;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Not handling pending message of type: %ld", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Not handling pending message of type: %ld", buf, 0xCu);
   }
 
 LABEL_14:
@@ -346,204 +355,180 @@ LABEL_14:
   dCopy = d;
   contextCopy = context;
   v15 = [[CSDMessagingCallMessage alloc] initWithData:contextCopy];
-  v16 = sub_100004778();
+  v16 = sub_100004778(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     *&buf[4] = sessionCopy;
-    v94 = 2112;
-    v95 = accountCopy;
-    v96 = 2112;
-    v97 = dCopy;
-    v98 = 2112;
-    v99 = v15;
+    v97 = 2112;
+    v98 = accountCopy;
+    v99 = 2112;
+    v100 = dCopy;
+    v101 = 2112;
+    v102 = v15;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Invite received for session %@ account %@ from (fromID=%@) with data: %@", buf, 0x2Au);
   }
 
-  if ([(CSDMessagingCallMessage *)v15 type]!= 1)
+  type = [(CSDMessagingCallMessage *)v15 type];
+  if (type != 1)
   {
-    v19 = sub_100004778();
-    v60 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v21 = sub_100004778(type);
+    v63 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
     if (v15)
     {
-      if (v60)
+      if (v63)
       {
-        type = [(CSDMessagingCallMessage *)v15 type];
-        if (type >= 3)
+        type2 = [(CSDMessagingCallMessage *)v15 type];
+        if (type2 >= 3)
         {
-          v62 = [NSString stringWithFormat:@"(unknown: %i)", type];
+          v65 = [NSString stringWithFormat:@"(unknown: %i)", type2];
         }
 
         else
         {
-          v62 = off_10061BA38[type];
+          v65 = off_10061BA38[type2];
         }
 
         *buf = 138412290;
-        *&buf[4] = v62;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Ignoring incoming invite since message with type=%@ was not an invite.", buf, 0xCu);
+        *&buf[4] = v65;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Ignoring incoming invite since message with type=%@ was not an invite.", buf, 0xCu);
       }
 
       goto LABEL_35;
     }
 
-    if (!v60)
+    if (!v63)
     {
       goto LABEL_35;
     }
 
     *buf = 0;
-    v63 = "[WARN] Ignoring incoming invite since accompanying message was nil";
-    v64 = v19;
-    v65 = 2;
+    v66 = "[WARN] Ignoring incoming invite since accompanying message was nil";
+    v67 = v21;
+    v68 = 2;
 LABEL_25:
-    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, v63, buf, v65);
+    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, v66, buf, v68);
     goto LABEL_35;
   }
 
-  if (![(CSDAbstractIDSProviderDelegate *)self shouldAcceptIncomingInvite])
+  shouldAcceptIncomingInvite = [(CSDAbstractIDSProviderDelegate *)self shouldAcceptIncomingInvite];
+  if (!shouldAcceptIncomingInvite)
   {
-    v19 = sub_100004778();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100004778(shouldAcceptIncomingInvite);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_35;
     }
 
     *buf = 67109120;
-    v63 = "Ignoring incoming invite since shouldAcceptIncomingInvite is %d";
-    v64 = v19;
-    v65 = 8;
+    v66 = "Ignoring incoming invite since shouldAcceptIncomingInvite is %d";
+    v67 = v21;
+    v68 = 8;
     goto LABEL_25;
   }
 
   incomingSessionProviderGenerator = [(CSDAbstractIDSProviderDelegate *)self incomingSessionProviderGenerator];
   queue = [(CSDAbstractIDSProviderDelegate *)self queue];
-  v19 = (incomingSessionProviderGenerator)[2](incomingSessionProviderGenerator, sessionCopy, queue);
+  v21 = (incomingSessionProviderGenerator)[2](incomingSessionProviderGenerator, sessionCopy, queue);
 
-  v20 = [[CSDExternalIDSDualSession alloc] initAsReceiverWithSessionProvider:v19 remoteFromID:dCopy remoteProtocolVersion:[(CSDMessagingCallMessage *)v15 protocolVersion]];
-  [v20 setInvitationTimeout:TUIncomingInvitationTimeout()];
-  v21 = IDSCopyAddressDestinationForDestination();
-  v22 = IDSCopyRawAddressForDestination();
+  v22 = [[CSDExternalIDSDualSession alloc] initAsReceiverWithSessionProvider:v21 remoteFromID:dCopy remoteProtocolVersion:[(CSDMessagingCallMessage *)v15 protocolVersion]];
+  [v22 setInvitationTimeout:TUIncomingInvitationTimeout()];
+  v23 = IDSCopyAddressDestinationForDestination();
+  v24 = IDSCopyRawAddressForDestination();
 
-  v81 = v22;
-  v83 = [[CXHandle alloc] initWithDestinationID:v22];
-  v23 = [CSDAbstractIDSProviderDelegate waitingChatWithHandle:"waitingChatWithHandle:isOutgoing:" isOutgoing:?];
-  v24 = v23;
+  v84 = v24;
+  v86 = [[CXHandle alloc] initWithDestinationID:v24];
+  v25 = [CSDAbstractIDSProviderDelegate waitingChatWithHandle:"waitingChatWithHandle:isOutgoing:" isOutgoing:?];
+  v26 = v25;
   selfCopy = self;
-  v82 = v20;
-  if (!v23)
+  v85 = v22;
+  if (v25 && ([v25 sessionUUID], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "UUID"), v28 = contextCopy, v29 = v15, v30 = dCopy, v31 = accountCopy, v32 = sessionCopy, v33 = v26, v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v27, "caseInsensitiveCompare:", v34), v34, v26 = v33, sessionCopy = v32, accountCopy = v31, dCopy = v30, v15 = v29, contextCopy = v28, v22 = v85, v27, v37 = v35 + 1 == 0, self = selfCopy, v37))
   {
-    goto LABEL_7;
-  }
-
-  sessionUUID = [v23 sessionUUID];
-  [v20 UUID];
-  v26 = contextCopy;
-  v27 = v15;
-  v28 = dCopy;
-  v29 = accountCopy;
-  v30 = sessionCopy;
-  v32 = v31 = v24;
-  v33 = [sessionUUID caseInsensitiveCompare:v32];
-
-  v24 = v31;
-  sessionCopy = v30;
-  accountCopy = v29;
-  dCopy = v28;
-  v15 = v27;
-  contextCopy = v26;
-  v20 = v82;
-
-  v34 = v33 + 1 == 0;
-  self = selfCopy;
-  if (v34)
-  {
-    v72 = sub_100004778();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+    v75 = sub_100004778(v36);
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v24;
-      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "Declining this invite because we found a sending chat with the same destination: %@", buf, 0xCu);
+      *&buf[4] = v26;
+      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "Declining this invite because we found a sending chat with the same destination: %@", buf, 0xCu);
     }
 
-    [v82 declineInvitation];
+    [v85 declineInvitation];
   }
 
   else
   {
-LABEL_7:
-    v78 = v24;
-    v79 = v19;
-    v80 = contextCopy;
+    v81 = v26;
+    v82 = v21;
+    v83 = contextCopy;
     incomingChatGenerator = [(CSDAbstractIDSProviderDelegate *)self incomingChatGenerator];
-    tuHandle = [v83 tuHandle];
+    tuHandle = [v86 tuHandle];
     protoWantsVideo = [(CSDMessagingCallMessage *)v15 protoWantsVideo];
     inviteData = [(CSDMessagingCallMessage *)v15 inviteData];
     faceTimeInviteDictionary = [inviteData faceTimeInviteDictionary];
-    v40 = v20;
-    v41 = selfCopy;
-    v42 = (incomingChatGenerator)[2](incomingChatGenerator, v40, tuHandle, protoWantsVideo, faceTimeInviteDictionary);
+    v43 = v22;
+    v44 = selfCopy;
+    v45 = (incomingChatGenerator)[2](incomingChatGenerator, v43, tuHandle, protoWantsVideo, faceTimeInviteDictionary);
 
-    [v42 setDelegate:selfCopy];
-    [v42 setRemoteMomentsAvailable:{-[CSDMessagingCallMessage isMomentsAvailable](v15, "isMomentsAvailable")}];
-    [v42 setShouldSuppressInCallUI:{-[CSDMessagingCallMessage shouldSuppressInCallUI](v15, "shouldSuppressInCallUI")}];
-    v43 = [(CSDAbstractIDSProviderDelegate *)selfCopy callUpdateForChat:v42];
+    [v45 setDelegate:selfCopy];
+    [v45 setRemoteMomentsAvailable:{-[CSDMessagingCallMessage isMomentsAvailable](v15, "isMomentsAvailable")}];
+    [v45 setShouldSuppressInCallUI:{-[CSDMessagingCallMessage shouldSuppressInCallUI](v15, "shouldSuppressInCallUI")}];
+    v46 = [(CSDAbstractIDSProviderDelegate *)selfCopy callUpdateForChat:v45];
     loginID = [accountCopy loginID];
-    v45 = [loginID length];
+    v48 = [loginID length];
 
-    if (v45)
+    if (v48)
     {
-      v76 = accountCopy;
-      v77 = v43;
-      v73 = v42;
-      v74 = dCopy;
-      v75 = sessionCopy;
+      v79 = accountCopy;
+      v80 = v46;
+      v76 = v45;
+      v77 = dCopy;
+      v78 = sessionCopy;
       loginID2 = [accountCopy loginID];
-      v47 = TUHandleForIDSCanonicalAddress();
+      v50 = TUHandleForIDSCanonicalAddress();
 
       provider = [(CSDAbstractIDSProviderDelegate *)selfCopy provider];
       configuration = [provider configuration];
       prioritizedSenderIdentities = [configuration prioritizedSenderIdentities];
 
-      v90 = 0u;
+      v93 = 0u;
+      v94 = 0u;
       v91 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v51 = prioritizedSenderIdentities;
-      v52 = [v51 countByEnumeratingWithState:&v88 objects:v92 count:16];
-      if (v52)
+      v92 = 0u;
+      v54 = prioritizedSenderIdentities;
+      v55 = [v54 countByEnumeratingWithState:&v91 objects:v95 count:16];
+      if (v55)
       {
-        v53 = v52;
-        v54 = *v89;
+        v56 = v55;
+        v57 = *v92;
         while (2)
         {
-          for (i = 0; i != v53; i = i + 1)
+          for (i = 0; i != v56; i = i + 1)
           {
-            if (*v89 != v54)
+            if (*v92 != v57)
             {
-              objc_enumerationMutation(v51);
+              objc_enumerationMutation(v54);
             }
 
-            v56 = *(*(&v88 + 1) + 8 * i);
-            handle = [v56 handle];
+            v59 = *(*(&v91 + 1) + 8 * i);
+            handle = [v59 handle];
             tuHandle2 = [handle tuHandle];
-            v59 = [tuHandle2 isEqualToHandle:v47];
+            v62 = [tuHandle2 isEqualToHandle:v50];
 
-            if (v59)
+            if (v62)
             {
-              uUID = [v56 UUID];
-              [v77 setLocalSenderIdentityUUID:uUID];
+              uUID = [v59 UUID];
+              [v80 setLocalSenderIdentityUUID:uUID];
 
-              account = [v56 account];
+              account = [v59 account];
               uUID2 = [account UUID];
-              [v77 setLocalSenderIdentityAccountUUID:uUID2];
+              [v80 setLocalSenderIdentityAccountUUID:uUID2];
 
               goto LABEL_29;
             }
           }
 
-          v53 = [v51 countByEnumeratingWithState:&v88 objects:v92 count:16];
-          if (v53)
+          v56 = [v54 countByEnumeratingWithState:&v91 objects:v95 count:16];
+          if (v56)
           {
             continue;
           }
@@ -554,30 +539,30 @@ LABEL_7:
 
 LABEL_29:
 
-      sessionCopy = v75;
-      accountCopy = v76;
-      v42 = v73;
-      dCopy = v74;
-      v41 = selfCopy;
-      v43 = v77;
+      sessionCopy = v78;
+      accountCopy = v79;
+      v45 = v76;
+      dCopy = v77;
+      v44 = selfCopy;
+      v46 = v80;
     }
 
-    provider2 = [(CSDAbstractIDSProviderDelegate *)v41 provider];
-    uUID3 = [v42 UUID];
-    v85[0] = _NSConcreteStackBlock;
-    v85[1] = 3221225472;
-    v85[2] = sub_1000FE8BC;
-    v85[3] = &unk_10061A6A0;
-    v85[4] = v41;
-    v86 = v42;
-    v20 = v82;
-    v87 = v82;
-    v71 = v42;
-    [provider2 reportNewIncomingCallWithUUID:uUID3 update:v43 completion:v85];
+    provider2 = [(CSDAbstractIDSProviderDelegate *)v44 provider];
+    uUID3 = [v45 UUID];
+    v88[0] = _NSConcreteStackBlock;
+    v88[1] = 3221225472;
+    v88[2] = sub_1000FE8BC;
+    v88[3] = &unk_10061A6A0;
+    v88[4] = v44;
+    v89 = v45;
+    v22 = v85;
+    v90 = v85;
+    v74 = v45;
+    [provider2 reportNewIncomingCallWithUUID:uUID3 update:v46 completion:v88];
 
-    v19 = v79;
-    contextCopy = v80;
-    v24 = v78;
+    v21 = v82;
+    contextCopy = v83;
+    v26 = v81;
   }
 
 LABEL_35:
@@ -669,7 +654,7 @@ LABEL_15:
 - (void)providerDidBegin:(id)begin
 {
   beginCopy = begin;
-  v5 = sub_100004778();
+  v5 = sub_100004778(beginCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -690,7 +675,7 @@ LABEL_15:
 - (void)providerDidReset:(id)reset
 {
   resetCopy = reset;
-  v5 = sub_100004778();
+  v5 = sub_100004778(resetCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -733,12 +718,12 @@ LABEL_15:
 - (void)provider:(id)provider performAnswerCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v12, 0xCu);
+    v14 = 138412290;
+    v15 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v14, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
@@ -748,10 +733,10 @@ LABEL_15:
 
   if (dateConnected)
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100474A2C(v8, v10);
+      sub_100474A2C(v8, v11);
     }
 
     if (([actionCopy isComplete] & 1) == 0)
@@ -762,18 +747,19 @@ LABEL_15:
 
   else
   {
-    if ([actionCopy downgradeToAudio])
+    downgradeToAudio = [actionCopy downgradeToAudio];
+    if (downgradeToAudio)
     {
       [v8 setVideo:0];
-      [v8 setSendingVideo:0];
+      downgradeToAudio = [v8 setSendingVideo:0];
     }
 
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(downgradeToAudio);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling answer on chat %@", &v12, 0xCu);
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling answer on chat %@", &v14, 0xCu);
     }
 
     [v8 answerWithVideoAspectRatioDescriptor:actionCopy];
@@ -783,23 +769,23 @@ LABEL_15:
 - (void)provider:(id)provider performEndCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v11, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   v8 = [(CSDAbstractIDSProviderDelegate *)self chatWithUUID:callUUID];
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling end on chat %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling end on chat %@", &v11, 0xCu);
   }
 
   [v8 end];
@@ -812,12 +798,12 @@ LABEL_15:
 - (void)provider:(id)provider performSetHeldCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v15, 0xCu);
+    v17 = 138412290;
+    v18 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v17, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
@@ -828,36 +814,37 @@ LABEL_15:
   if (dateConnected)
   {
     isOnHold = [actionCopy isOnHold];
-    v11 = sub_100004778();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (isOnHold)
+    v12 = isOnHold;
+    v13 = sub_100004778(isOnHold);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      if (!v12)
+      if (!v14)
       {
         goto LABEL_14;
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      v13 = "Setting sendingAudio to NO for chat %@";
+      v17 = 138412290;
+      v18 = v8;
+      v15 = "Setting sendingAudio to NO for chat %@";
     }
 
     else
     {
-      if (!v12)
+      if (!v14)
       {
         goto LABEL_14;
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      v13 = "Setting sendingAudio to YES for chat %@";
+      v17 = 138412290;
+      v18 = v8;
+      v15 = "Setting sendingAudio to YES for chat %@";
     }
 
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, &v15, 0xCu);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, &v17, 0xCu);
 LABEL_14:
 
-    [v8 setSendingAudio:isOnHold ^ 1];
+    [v8 setSendingAudio:v12 ^ 1u];
     if (([actionCopy isComplete] & 1) == 0)
     {
       [actionCopy fulfill];
@@ -866,10 +853,10 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  v14 = sub_100004778();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = sub_100004778(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    sub_100474AA4(v8, v14);
+    sub_100474AA4(v8, v16);
   }
 
   if (([actionCopy isComplete] & 1) == 0)
@@ -883,26 +870,26 @@ LABEL_16:
 - (void)provider:(id)provider performSetSendingVideoCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12[0] = actionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13[0] = actionCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", &v12, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   v8 = [(CSDAbstractIDSProviderDelegate *)self chatWithUUID:callUUID];
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     isSendingVideo = [actionCopy isSendingVideo];
-    v11 = 67109378;
-    LODWORD(v12[0]) = isSendingVideo;
-    WORD2(v12[0]) = 2112;
-    *(v12 + 6) = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling setIsSendingVideo with %d for chat %@", &v11, 0x12u);
+    v12 = 67109378;
+    LODWORD(v13[0]) = isSendingVideo;
+    WORD2(v13[0]) = 2112;
+    *(v13 + 6) = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling setIsSendingVideo with %d for chat %@", &v12, 0x12u);
   }
 
   [v8 setSendingVideo:{objc_msgSend(actionCopy, "isSendingVideo")}];
@@ -915,7 +902,7 @@ LABEL_16:
 - (void)provider:(id)provider performSetSharingScreenCallAction:(id)action
 {
   actionCopy = action;
-  v5 = sub_100004778();
+  v5 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -929,7 +916,7 @@ LABEL_16:
 - (void)provider:(id)provider performEnableVideoCallAction:(id)action
 {
   actionCopy = action;
-  v5 = sub_100004778();
+  v5 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -943,7 +930,7 @@ LABEL_16:
 - (void)provider:(id)provider performSetVideoPresentationSizeCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -965,7 +952,7 @@ LABEL_16:
 - (void)provider:(id)provider performSetVideoPresentationStateCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -986,7 +973,7 @@ LABEL_16:
 - (void)provider:(id)provider performSetRelayingCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1007,7 +994,7 @@ LABEL_16:
 - (void)provider:(id)provider performSetMutedCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1132,23 +1119,24 @@ LABEL_16:
       v25 = 0u;
       v26 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
-      if (v15)
+      isComplete = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      if (isComplete)
       {
-        v16 = v15;
+        v16 = isComplete;
         v24 = v5;
         v17 = *v26;
         do
         {
-          for (i = 0; i != v16; i = i + 1)
+          v18 = 0;
+          do
           {
             if (*v26 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v25 + 1) + 8 * i);
-            v20 = sub_100004778();
+            v19 = *(*(&v25 + 1) + 8 * v18);
+            v20 = sub_100004778(isComplete);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
@@ -1156,7 +1144,8 @@ LABEL_16:
               _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Chat with matching UUID connected; attempting to fulfill pending answer call action %@", buf, 0xCu);
             }
 
-            if (([v19 isComplete] & 1) == 0)
+            isComplete = [v19 isComplete];
+            if ((isComplete & 1) == 0)
             {
               dateConnected2 = [connectedCopy dateConnected];
               if (dateConnected2)
@@ -1166,7 +1155,7 @@ LABEL_16:
 
               else
               {
-                v22 = sub_100004778();
+                v22 = sub_100004778(0);
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
@@ -1177,19 +1166,23 @@ LABEL_16:
                 [v19 fail];
               }
             }
+
+            ++v18;
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
+          while (v16 != v18);
+          isComplete = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
+          v16 = isComplete;
         }
 
-        while (v16);
+        while (isComplete);
         v5 = v24;
       }
     }
 
     else
     {
-      v14 = sub_100004778();
+      v14 = sub_100004778(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         uUID4 = [connectedCopy UUID];
@@ -1215,22 +1208,23 @@ LABEL_16:
   v16 = 0u;
   v17 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
-  if (v10)
+  isComplete = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  if (isComplete)
   {
-    v11 = v10;
+    v11 = isComplete;
     v12 = *v17;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      v13 = 0;
+      do
       {
         if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
-        v15 = sub_100004778();
+        v14 = *(*(&v16 + 1) + 8 * v13);
+        v15 = sub_100004778(isComplete);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -1238,16 +1232,21 @@ LABEL_16:
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Failing answer call action for call because it disconnected before connecting: %@", buf, 0xCu);
         }
 
-        if (([v14 isComplete] & 1) == 0)
+        isComplete = [v14 isComplete];
+        if ((isComplete & 1) == 0)
         {
-          [v14 fail];
+          isComplete = [v14 fail];
         }
+
+        ++v13;
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      while (v11 != v13);
+      isComplete = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v11 = isComplete;
     }
 
-    while (v11);
+    while (isComplete);
   }
 }
 

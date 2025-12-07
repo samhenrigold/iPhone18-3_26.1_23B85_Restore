@@ -22,47 +22,47 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (objc_msgSend_allowsKeyedCoding(coder, a2, v3, v4))
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder))
   {
     level = self->level;
 
-    objc_msgSend_encodeInteger_forKey_(coder, v7, v8, v9, level, @"kCLLocationCodingKeyFloor");
+    objc_msgSend_encodeInteger_forKey_(coder, v5, level, @"kCLLocationCodingKeyFloor");
   }
 
   else
   {
 
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v7, v8, v9, "q", &self->level);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v5, "q", &self->level);
   }
 }
 
 - (CLFloor)initWithCoder:(id)coder
 {
-  v12.receiver = self;
-  v12.super_class = CLFloor;
-  v5 = [(CLFloor *)&v12 init];
-  if (v5)
+  v9.receiver = self;
+  v9.super_class = CLFloor;
+  v6 = [(CLFloor *)&v9 init];
+  if (v6)
   {
-    if (objc_msgSend_allowsKeyedCoding(coder, v4, v6, v7))
+    if (objc_msgSend_allowsKeyedCoding(coder, v4, v5))
     {
-      v5->level = objc_msgSend_decodeIntegerForKey_(coder, v8, v9, v10, @"kCLLocationCodingKeyFloor");
+      v6->level = objc_msgSend_decodeIntegerForKey_(coder, v7, @"kCLLocationCodingKeyFloor");
     }
 
     else
     {
-      objc_msgSend_decodeValueOfObjCType_at_(coder, v8, v9, v10, "q", &v5->level);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v7, "q", &v6->level);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6 = objc_msgSend_allocWithZone_(CLFloor, a2, v3, v4, zone);
+  v4 = objc_msgSend_allocWithZone_(CLFloor, a2, zone);
   level = self->level;
 
-  return objc_msgSend_initWithLevel_(v6, v7, v8, v9, level);
+  return objc_msgSend_initWithLevel_(v4, v5, level);
 }
 
 @end

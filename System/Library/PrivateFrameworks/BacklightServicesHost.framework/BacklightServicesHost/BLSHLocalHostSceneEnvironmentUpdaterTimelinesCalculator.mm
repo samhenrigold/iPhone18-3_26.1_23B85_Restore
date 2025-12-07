@@ -19,7 +19,7 @@
 
   if (self->_lock_completion)
   {
-    [BLSHLocalHostSceneEnvironmentUpdaterTimelinesCalculator calculateWithCompletion:a2];
+    [(BLSHLocalHostSceneEnvironmentUpdaterTimelinesCalculator *)a2 calculateWithCompletion:?];
   }
 
   v8 = MEMORY[0x223D70730](completionCopy);
@@ -122,40 +122,38 @@ id __83__BLSHLocalHostSceneEnvironmentUpdaterTimelinesCalculator_calculateWithCo
 
 - (void)lock_completeAllTimelineEntries
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = self->_lock_incompleteTimelineEntriesForDateInterval;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = [(NSMutableDictionary *)self->_lock_incompleteTimelineEntriesForDateInterval objectForKeyedSubscript:v8, v12];
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [(NSMutableDictionary *)self->_lock_incompleteTimelineEntriesForDateInterval objectForKeyedSubscript:v8, v11];
         v10 = [MEMORY[0x277CF0858] timelineWithEntries:v9 identifier:v8 configure:0];
         [(NSMutableSet *)self->_lock_timelines addObject:v10];
       }
 
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestDatesOperation:(id)operation environment:(id)environment didProvideSpecifiers:(id)specifiers forPresentationInterval:(id)interval isComplete:(BOOL)complete
@@ -268,19 +266,21 @@ id __149__BLSHLocalHostSceneEnvironmentUpdaterTimelinesCalculator_requestDatesOp
   return self;
 }
 
-- (void)calculateWithCompletion:(const char *)a1 .cold.1(const char *a1)
+- (void)calculateWithCompletion:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"we only support one calculation in-flight at a time"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"we only support one calculation in-flight at a time"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = v4;
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

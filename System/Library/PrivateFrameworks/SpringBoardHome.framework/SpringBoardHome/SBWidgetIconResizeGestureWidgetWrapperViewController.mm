@@ -28,7 +28,7 @@
 {
   v41[4] = *MEMORY[0x1E69E9840];
   widgetViewController = [(SBWidgetIconResizeGestureWidgetWrapperViewController *)self widgetViewController];
-  [widgetViewController iconImageInfo];
+  objc_msgSend_iconImageInfo(widgetViewController);
   v4 = v3;
   v7 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{0.0, 0.0, v5, v6}];
   v39 = widgetViewController;

@@ -20,6 +20,7 @@
 - (void)serviceClient:(id)client reportedChannelWithUUID:(id)d startedConnectingAtDate:(id)date;
 - (void)serviceClient:(id)client reportedChannelWithUUID:(id)d updated:(id)updated;
 - (void)serviceClient:(id)client reportedIncomingTransmissionEndedForChannelWithUUID:(id)d reason:(int64_t)reason completionHandler:(id)handler;
+- (void)serviceClient:(id)client reportedIncomingTransmissionStartedForChannelWithUUID:(id)d update:(id)update shouldReplaceOutgoingTransmission:(BOOL)transmission completionHandler:(id)handler;
 - (void)serviceClient:(id)client requestedTransaction:(id)transaction completionHandler:(id)handler;
 @end
 
@@ -100,16 +101,14 @@ void __30__CXChannelServiceServer_init__block_invoke(uint64_t a1, void *a2)
   listener = [(CXChannelServiceServer *)self listener];
   [listener activate];
 
-  v4 = CXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CXDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     listener2 = [(CXChannelServiceServer *)self listener];
     v7 = 138412290;
     v8 = listener2;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Activated listener %@", &v7, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Activated listener %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -179,7 +178,7 @@ void __30__CXChannelServiceServer_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v7 = [[CXChannelServiceClient alloc] initWithConnection:connectionCopy];
   definition = [(CXChannelServiceServer *)self definition];
@@ -197,21 +196,20 @@ void __30__CXChannelServiceServer_init__block_invoke(uint64_t a1, void *a2)
   v17 = [v15 protocolForProtocol:serverXPCInterface];
   [v11 setServer:v17];
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___block_invoke;
-  v22[3] = &unk_1E7C06C58;
-  v23 = v11;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___block_invoke;
+  v21[3] = &unk_1E7C06C58;
+  v22 = v11;
   v18 = v7;
-  v24 = v18;
+  v23 = v18;
   selfCopy = self;
   v19 = v11;
-  [connectionCopy configureConnection:v22];
-  v20 = CXDefaultLog();
+  v20 = CXDefaultLog([connectionCopy configureConnection:v21]);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = connectionCopy;
+    v26 = connectionCopy;
     _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Activating connection %@", buf, 0xCu);
   }
 
@@ -220,8 +218,6 @@ void __30__CXChannelServiceServer_init__block_invoke(uint64_t a1, void *a2)
   {
     [(CXChannelServiceServer *)self addClient:v18];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -256,34 +252,32 @@ void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___bl
 
 void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Interrupted connection %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Interrupted connection %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) removeClient:*(a1 + 40)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___block_invoke_14(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Invalidated connection %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Invalidated connection %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) removeClient:*(a1 + 40)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serviceClient:(id)client actionCompleted:(id)completed
@@ -355,6 +349,17 @@ void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___bl
   [delegate serviceServer:self client:clientCopy reportedIncomingTransmissionEndedForChannelWithUUID:dCopy reason:reason completionHandler:handlerCopy];
 }
 
+- (void)serviceClient:(id)client reportedIncomingTransmissionStartedForChannelWithUUID:(id)d update:(id)update shouldReplaceOutgoingTransmission:(BOOL)transmission completionHandler:(id)handler
+{
+  transmissionCopy = transmission;
+  handlerCopy = handler;
+  updateCopy = update;
+  dCopy = d;
+  clientCopy = client;
+  delegate = [(CXChannelServiceServer *)self delegate];
+  [delegate serviceServer:self client:clientCopy reportedIncomingTransmissionStartedForChannelWithUUID:dCopy update:updateCopy shouldReplaceOutgoingTransmission:transmissionCopy completionHandler:handlerCopy];
+}
+
 - (void)serviceClient:(id)client requestedTransaction:(id)transaction completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -383,23 +388,21 @@ void __68__CXChannelServiceServer_listener_didReceiveConnection_withContext___bl
 
 void __77__CXChannelServiceServer_addAction_toUncommittedTransactionForServiceClient___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to add action %@ to uncommitted transaction for service client %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to add action %@ to uncommitted transaction for service client %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 48) uncommittedTransactionGroup];
   [v5 addAction:*(a1 + 32) forServiceClient:*(a1 + 40)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failOutstandingActionsForChannelWithUUID:(id)d
@@ -435,13 +438,13 @@ void __67__CXChannelServiceServer_failOutstandingActionsForChannelWithUUID___blo
 
 void __55__CXChannelServiceServer_commitUncommittedTransactions__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v23 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) uncommittedTransactionGroup];
     *buf = 138412290;
-    v23 = v3;
+    v22 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to commit uncommitted transactions: %@", buf, 0xCu);
   }
 
@@ -449,29 +452,29 @@ void __55__CXChannelServiceServer_commitUncommittedTransactions__block_invoke(ui
   v5 = [*(a1 + 32) uncommittedTransactionGroup];
   [v4 addOutstandingTransactionGroup:v5];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = [*(a1 + 32) uncommittedTransactionGroup];
   v7 = [v6 serviceClients];
 
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         v13 = [*(a1 + 32) uncommittedTransactionGroup];
         v14 = [v13 transactionForServiceClient:v12];
 
@@ -480,7 +483,7 @@ void __55__CXChannelServiceServer_commitUncommittedTransactions__block_invoke(ui
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -488,8 +491,6 @@ void __55__CXChannelServiceServer_commitUncommittedTransactions__block_invoke(ui
 
   v15 = objc_alloc_init(CXTransactionGroup);
   [*(a1 + 32) setUncommittedTransactionGroup:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (CXChannelServiceServerDelegate)delegate

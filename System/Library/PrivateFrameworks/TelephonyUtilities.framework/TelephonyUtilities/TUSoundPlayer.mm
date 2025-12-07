@@ -18,11 +18,11 @@
     repeatingActor = [(TUSoundPlayer *)self repeatingActor];
     [repeatingActor stop];
 
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TUDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "TUSoundPlayer: stop playing", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "TUSoundPlayer: stop playing", buf, 2u);
     }
 
     queue = [(TUSoundPlayer *)self queue];
@@ -35,12 +35,12 @@
   }
 
   queue2 = [(TUSoundPlayer *)self queue];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __28__TUSoundPlayer_stopPlaying__block_invoke_30;
-  v7[3] = &unk_1E7424950;
-  v7[4] = self;
-  dispatch_async(queue2, v7);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __28__TUSoundPlayer_stopPlaying__block_invoke_30;
+  v8[3] = &unk_1E7424950;
+  v8[4] = self;
+  dispatch_async(queue2, v8);
 }
 
 - (BOOL)isRepeatingActorPlaying
@@ -109,9 +109,9 @@
 
 - (void)playSound:(unsigned int)sound iterations:(unint64_t)iterations pauseDurationBetweenIterations:(double)betweenIterations completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v12 = TUDefaultLog();
+  v12 = TUDefaultLog(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     if (iterations == -1)
@@ -126,9 +126,9 @@
 
     *buf = 67109634;
     soundCopy = sound;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2048;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2048;
     betweenIterationsCopy = betweenIterations;
     _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Asked to play sound with soundID: %d iterations: %@ pauseDurationBetweenIterations: %f", buf, 0x1Cu);
     if (iterations != -1)
@@ -158,28 +158,23 @@
   v15 = _Block_copy(aBlock);
   repeatingActor = [(TUSoundPlayer *)self repeatingActor];
   [repeatingActor beginRepeatingAction:v15 iterations:iterations pauseDurationBetweenIterations:completionCopy completion:betweenIterations];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setSoundID:*(a1 + 40)];
-  [*(a1 + 32) setIsCurrentPlaying:1];
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog([*(a1 + 32) setIsCurrentPlaying:1]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) soundID];
     v4 = [*(a1 + 32) isCurrentPlaying];
-    v6[0] = 67109376;
-    v6[1] = v3;
-    v7 = 1024;
-    v8 = v4;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Started to play current soundID: %d, isCurrentPlaying: %d", v6, 0xEu);
+    v5[0] = 67109376;
+    v5[1] = v3;
+    v6 = 1024;
+    v7 = v4;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Started to play current soundID: %d, isCurrentPlaying: %d", v5, 0xEu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_5(uint64_t a1, void *a2)
@@ -204,9 +199,10 @@ void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_com
 
 void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_2(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
-  if ([*(a1 + 32) isCurrentPlaying])
+  v3 = [*(a1 + 32) isCurrentPlaying];
+  if (v3)
   {
     if (TUSoundPlayerInfiniteIterations_block_invoke__pred__kAudioServicesPlaySystemSoundOptionLoopKey != -1)
     {
@@ -223,67 +219,65 @@ void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_com
       __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_2_cold_3();
     }
 
-    v3 = *(a1 + 56) == -1 && *(a1 + 64) == 0.0;
-    v21 = TUSoundPlayerInfiniteIterations_block_invoke__kAudioServicesPlaySystemSoundOptionLoopKey;
-    v6 = [MEMORY[0x1E696AD98] numberWithBool:v3];
-    v22[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v4 = [v7 mutableCopy];
+    v4 = *(a1 + 56) == -1 && *(a1 + 64) == 0.0;
+    v22 = TUSoundPlayerInfiniteIterations_block_invoke__kAudioServicesPlaySystemSoundOptionLoopKey;
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:v4];
+    v23[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v5 = [v8 mutableCopy];
 
     if (*(a1 + 72) == 36)
     {
-      v8 = [*v2 configurationProvider];
-      v9 = [v8 isCallHapticsEnabled];
+      v10 = [*v2 configurationProvider];
+      v11 = [v10 isCallHapticsEnabled];
 
-      if ((v9 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         if (TUSoundPlayerInfiniteIterations_block_invoke__pred__kAudioServicesPlaySystemSoundOptionFlagsKey != -1)
         {
           __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_2_cold_4();
         }
 
-        v10 = TUSoundPlayerInfiniteIterations_block_invoke__kAudioServicesPlaySystemSoundOptionFlagsKey;
+        v12 = TUSoundPlayerInfiniteIterations_block_invoke__kAudioServicesPlaySystemSoundOptionFlagsKey;
         if (!TUSoundPlayerInfiniteIterations_block_invoke__kAudioServicesPlaySystemSoundOptionFlagsKey)
         {
-          __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_2_cold_5(a1, v2, &v16);
-          v10 = v16;
+          __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_2_cold_5(a1, v2, &v17);
+          v12 = v17;
         }
 
-        v19 = v10;
-        v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2];
-        v20 = v11;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-        [v4 addEntriesFromDictionary:v12];
+        v20 = v12;
+        v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2];
+        v21 = v13;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+        [v5 addEntriesFromDictionary:v14];
       }
     }
 
-    v13 = TUDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [*v2 soundID];
-      LODWORD(v16) = 67109378;
-      HIDWORD(v16) = v14;
-      v17 = 2112;
-      v18 = v4;
-      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesPlaySystemSoundWithCompletion with soundID: %d options: %@", &v16, 0x12u);
+      v16 = [*v2 soundID];
+      LODWORD(v17) = 67109378;
+      HIDWORD(v17) = v16;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesPlaySystemSoundWithCompletion with soundID: %d options: %@", &v17, 0x12u);
     }
 
-    (TUSoundPlayerInfiniteIterations_block_invoke__AudioServicesPlaySystemSoundWithOptions)([*(a1 + 32) soundID], v4, *(a1 + 40));
+    (TUSoundPlayerInfiniteIterations_block_invoke__AudioServicesPlaySystemSoundWithOptions)([*(a1 + 32) soundID], v5, *(a1 + 40));
   }
 
   else
   {
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TUDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*v2 soundID];
-      LODWORD(v16) = 67109120;
-      HIDWORD(v16) = v5;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "soundID: %d is stopped, don't play", &v16, 8u);
+      v6 = [*v2 soundID];
+      LODWORD(v17) = 67109120;
+      HIDWORD(v17) = v6;
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "soundID: %d is stopped, don't play", &v17, 8u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_completion___block_invoke_6()
@@ -327,24 +321,22 @@ void __80__TUSoundPlayer_playSound_iterations_pauseDurationBetweenIterations_com
 
 uint64_t __28__TUSoundPlayer_stopPlaying__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (TUSoundPlayerInfiniteIterations_block_invoke_2__pred_AudioServicesStopSystemSoundAudioToolbox != -1)
   {
     __28__TUSoundPlayer_stopPlaying__block_invoke_cold_1();
   }
 
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) soundID];
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesStopSystemSound with soundID=%d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesStopSystemSound with soundID=%d", v5, 8u);
   }
 
-  result = (TUSoundPlayerInfiniteIterations_block_invoke_2__AudioServicesStopSystemSound)([*(a1 + 32) soundID], 1);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (TUSoundPlayerInfiniteIterations_block_invoke_2__AudioServicesStopSystemSound)([*(a1 + 32) soundID], 1);
 }
 
 void *__28__TUSoundPlayer_stopPlaying__block_invoke_2()
@@ -354,25 +346,24 @@ void *__28__TUSoundPlayer_stopPlaying__block_invoke_2()
   return result;
 }
 
-uint64_t __28__TUSoundPlayer_stopPlaying__block_invoke_30(uint64_t a1)
+void *__28__TUSoundPlayer_stopPlaying__block_invoke_30(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) isCurrentPlaying];
   if (result)
   {
-    v3 = TUDefaultLog();
+    v3 = TUDefaultLog(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 32) soundID];
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Stop playing current soundID: %d", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Stop playing current soundID: %d", v5, 8u);
     }
 
-    result = [*(a1 + 32) setIsCurrentPlaying:0];
+    return [*(a1 + 32) setIsCurrentPlaying:0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -1,6 +1,6 @@
 @interface PKTileController
-- (id)initWithPixelSize:(int)size actualSize:(int)actualSize pixelFormat:(int)format sixChannelBlending:(void *)blending transparentBlending:(double)transparentBlending wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config;
-- (void)callbackAfterTileGeneration:(uint64_t)generation;
+- (void)callbackAfterTileGeneration:(uint64_t)result;
+- (void)initWithPixelSize:(int)size actualSize:(int)actualSize pixelFormat:(int)format sixChannelBlending:(void *)blending transparentBlending:(double)transparentBlending wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config;
 - (void)renderStrokes:(void *)strokes additionalStrokes:(void *)additionalStrokes intoTile:(void *)tile completionBlock:;
 - (void)renderTilesIntoTiles:(void *)tiles completion:;
 - (void)resumePreviews;
@@ -34,7 +34,7 @@
   }
 }
 
-- (id)initWithPixelSize:(int)size actualSize:(int)actualSize pixelFormat:(int)format sixChannelBlending:(void *)blending transparentBlending:(double)transparentBlending wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config
+- (void)initWithPixelSize:(int)size actualSize:(int)actualSize pixelFormat:(int)format sixChannelBlending:(void *)blending transparentBlending:(double)transparentBlending wantsExtendedDynamicRangeContent:(double)content metalConfig:(double)config
 {
   blendingCopy = blending;
   if (self && +[PKMetalUtility isMetalAvailable])
@@ -227,9 +227,9 @@ uint64_t __52__PKTileController_renderTilesIntoTiles_completion___block_invoke(u
   return v2();
 }
 
-- (void)callbackAfterTileGeneration:(uint64_t)generation
+- (void)callbackAfterTileGeneration:(uint64_t)result
 {
-  if (generation)
+  if (result)
   {
     v3 = a2;
     v4 = os_log_create("com.apple.pencilkit", "Tiles");
@@ -239,11 +239,11 @@ uint64_t __52__PKTileController_renderTilesIntoTiles_completion___block_invoke(u
       _os_log_debug_impl(&dword_1C7CCA000, v4, OS_LOG_TYPE_DEBUG, "queue tile completion", v7, 2u);
     }
 
-    v5 = *(generation + 40);
+    v5 = *(result + 40);
     v6 = _Block_copy(v3);
 
     [v5 addObject:v6];
-    [(PKTileController *)generation runTasks];
+    [(PKTileController *)result runTasks];
   }
 }
 

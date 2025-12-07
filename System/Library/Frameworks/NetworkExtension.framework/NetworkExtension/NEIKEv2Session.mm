@@ -12,9 +12,9 @@
 - (NSObject)initWithIKEConfig:(void *)config configurationDelegate:(void *)delegate queue:(void *)queue kernelSASessionName:(void *)name transport:(void *)transport packetDelegate:;
 - (NSObject)initWithIKEConfig:(void *)config firstChildConfig:(void *)childConfig sessionConfig:(void *)sessionConfig queue:(void *)queue ipsecInterface:(void *)interface ikeSocketHandler:(void *)handler saSession:(char)session shouldOwnSASession:(void *)self0 packetDelegate:(void *)self1 transport:(void *)self2 configurationDelegate:;
 - (NSString)description;
+- (SCDynamicStoreRef)addEmptyInterface;
 - (_BYTE)abort;
 - (_DWORD)copyChildWithID:(void *)d;
-- (_OWORD)addEmptyInterface;
 - (__CFString)interfaceName;
 - (id)copyChildWithSPI:(void *)i;
 - (id)copySAFromDictionary:(void *)dictionary forChild:(void *)child;
@@ -35,7 +35,6 @@
 - (uint64_t)sendRequest:(uint64_t)request retry:(void *)retry replyHandler:(void *)handler;
 - (uint64_t)sendRequest:(unint64_t)request retryIntervalInMilliseconds:(int)milliseconds maxRetries:(void *)retries timeoutError:(char)error resend:(uint64_t)resend sendMessageID:(void *)d sendCompletionHandler:(void *)handler replyHandler:;
 - (uint64_t)setupReceivedChildCopyError;
-- (uint64_t)uninstallAllChildSAs;
 - (unsigned)addChild:(id)child;
 - (void)addFirstChild:(void *)child;
 - (void)blackholeDetectedSA:(id)a;
@@ -77,6 +76,7 @@
 - (void)removeChild:(void *)child withReason:;
 - (void)removeFirstChild;
 - (void)reportConfiguration;
+- (void)reportError:(int)error;
 - (void)reportPrivateNotifies:(void *)notifies;
 - (void)reportPrivateNotifiesInPacket:(id *)packet;
 - (void)reportServerRedirect:(void *)redirect;
@@ -95,6 +95,7 @@
 - (void)setSentMOBIKERequest:(int)request messageID:;
 - (void)startDPDTimer;
 - (void)startIKELifetimeTimer;
+- (void)uninstallAllChildSAs;
 - (void)uninstallOldRekeyedChildSA:(void *)a andDeleteIPsecSAs:;
 - (void)uninstallTLSChildSA:(char)a rekey:;
 - (void)updateEndpointState;
@@ -106,17 +107,17 @@
 
 - (void)reportPrivateNotifiesInPacket:(id *)packet
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (packet)
   {
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v31 = v3;
+    v30 = v3;
     self = packet;
-    v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (v3)
     {
       Property = objc_getProperty(v3, v4, 64, 1);
@@ -128,21 +129,21 @@
     }
 
     v6 = Property;
-    v7 = [v6 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           if (v11)
           {
             v12 = v11[4];
@@ -153,11 +154,11 @@
               {
                 v15 = objc_getProperty(v11, v14, 40, 1);
                 *buf = 138412802;
-                *v39 = self;
-                *&v39[8] = 1024;
-                *&v39[10] = v12;
-                v40 = 2112;
-                v41 = v15;
+                *v38 = self;
+                *&v38[8] = 1024;
+                *&v38[10] = v12;
+                v39 = 2112;
+                v40 = v15;
                 _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_INFO, "%@ Received private notify status %u %@", buf, 0x1Cu);
               }
 
@@ -167,7 +168,7 @@
 
               if (v19)
               {
-                [v33 addObject:v19];
+                [v32 addObject:v19];
               }
 
               else
@@ -177,9 +178,9 @@
                 {
                   v22 = objc_getProperty(v11, v21, 40, 1);
                   *buf = 67109378;
-                  *v39 = v12;
-                  *&v39[4] = 2112;
-                  *&v39[6] = v22;
+                  *v38 = v12;
+                  *&v38[4] = 2112;
+                  *&v38[6] = v22;
                   _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, "NEIKEv2PrivateNotify init %u %@ failed", buf, 0x12u);
                 }
               }
@@ -187,19 +188,19 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v8);
     }
 
-    v3 = v31;
-    if ([v33 count])
+    v3 = v30;
+    if ([v32 count])
     {
       v24 = objc_getProperty(self, v23, 352, 1);
       if (v24 && (v25 = v24[6], v24, v25 == 2))
       {
-        [(NEIKEv2Session *)self reportPrivateNotifies:v33];
+        [(NEIKEv2Session *)self reportPrivateNotifies:v32];
       }
 
       else
@@ -214,17 +215,15 @@
         }
 
         v29 = self[51];
-        [v29 addObjectsFromArray:v33];
+        [v29 addObjectsFromArray:v32];
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateDelete:(void *)delete
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (delete)
   {
@@ -265,12 +264,12 @@
         goto LABEL_11;
       }
 
-      v48 = ne_log_obj();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+      v47 = ne_log_obj();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "+[NEIKEv2InformationalPacket(Exchange) createDeleteIKE]";
-        _os_log_fault_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
       }
     }
 
@@ -291,25 +290,25 @@ LABEL_11:
     {
       if (v4[24] == 1)
       {
-        v54[0] = MEMORY[0x1E69E9820];
-        v54[1] = 3221225472;
-        v54[2] = __43__NEIKEv2Session_Exchange__initiateDelete___block_invoke;
-        v54[3] = &unk_1E7F08198;
-        v54[4] = delete;
+        v53[0] = MEMORY[0x1E69E9820];
+        v53[1] = 3221225472;
+        v53[2] = __43__NEIKEv2Session_Exchange__initiateDelete___block_invoke;
+        v53[3] = &unk_1E7F08198;
+        v53[4] = delete;
         v12 = v4;
-        v55 = v12;
-        if ([NEIKEv2Session sendRequest:delete retry:v11 replyHandler:v54]== -1)
+        v54 = v12;
+        if ([NEIKEv2Session sendRequest:delete retry:v11 replyHandler:v53]== -1)
         {
           [v12 sendCallbackSuccess:0 session:delete];
           v14 = objc_getProperty(delete, v13, 352, 1);
-          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete with reply", v15, v16, v17, v18, v19, v20, v21, v49);
+          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete with reply", v15, v16, v17, v18, v19, v20, v21, v48);
           [(NEIKEv2IKESA *)v14 setState:ErrorFailedToSend error:?];
 
           [(NEIKEv2Session *)delete reportState];
           [(NEIKEv2Session *)delete resetAll];
         }
 
-        v25 = v55;
+        v25 = v54;
       }
 
       else
@@ -319,7 +318,7 @@ LABEL_11:
         aBlock[2] = __43__NEIKEv2Session_Exchange__initiateDelete___block_invoke_4;
         aBlock[3] = &unk_1E7F081C0;
         v27 = v4;
-        v52 = v27;
+        v51 = v27;
         deleteCopy = delete;
         v28 = _Block_copy(aBlock);
         v11 = v11;
@@ -346,14 +345,14 @@ LABEL_11:
         {
           [v27 sendCallbackSuccess:0 session:delete];
           v36 = objc_getProperty(delete, v35, 352, 1);
-          v44 = NEIKEv2CreateErrorFailedToSend(@"delete with send complete", v37, v38, v39, v40, v41, v42, v43, v50);
+          v44 = NEIKEv2CreateErrorFailedToSend(@"delete with send complete", v37, v38, v39, v40, v41, v42, v43, v49);
           [(NEIKEv2IKESA *)v36 setState:v44 error:?];
 
           [(NEIKEv2Session *)delete reportState];
           [(NEIKEv2Session *)delete resetAll];
         }
 
-        v25 = v52;
+        v25 = v51;
       }
     }
 
@@ -373,13 +372,11 @@ LABEL_11:
 
 LABEL_27:
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateDelete___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 37)
   {
@@ -395,11 +392,11 @@ void __43__NEIKEv2Session_Exchange__initiateDelete___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      *v13 = 138412290;
-      *&v13[4] = v6;
+      *v12 = 138412290;
+      *&v12[4] = v6;
       v7 = "%@ Failed to process packet";
 LABEL_11:
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, v7, v13, 0xCu);
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, v7, v12, 0xCu);
     }
   }
 
@@ -408,9 +405,9 @@ LABEL_11:
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      *v13 = 138412290;
-      *&v13[4] = v12;
+      v11 = *(a1 + 32);
+      *v12 = 138412290;
+      *&v12[4] = v11;
       v7 = "%@ Failed to receive Delete packet";
       goto LABEL_11;
     }
@@ -420,14 +417,12 @@ LABEL_11:
   v8 = *(a1 + 40);
   v10 = 0;
 LABEL_9:
-  [v8 sendCallbackSuccess:v10 session:{v9, *v13}];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 sendCallbackSuccess:v10 session:{v9, *v12, *&v12[8]}];
 }
 
 - (void)initiateDeleteChildSPI:(void *)i remoteSPI:(void *)pI deleteCompletionCallback:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   iCopy = i;
   pICopy = pI;
   if (!self)
@@ -475,8 +470,8 @@ LABEL_9:
     v14->_protocol = protocol;
   }
 
-  v40 = v12;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+  v39 = v12;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
   if (v14)
   {
     objc_setProperty_atomic(v14, v16, v17, 40);
@@ -484,12 +479,12 @@ LABEL_9:
 
   if (([(NEIKEv2Payload *)v14 isValid]& 1) == 0)
   {
-    v36 = ne_log_obj();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v35 = ne_log_obj();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "+[NEIKEv2InformationalPacket(Exchange) createDeleteChild:]";
-      _os_log_fault_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
     }
 
 LABEL_12:
@@ -507,19 +502,19 @@ LABEL_13:
 LABEL_14:
   if (v20)
   {
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __86__NEIKEv2Session_Exchange__initiateDeleteChildSPI_remoteSPI_deleteCompletionCallback___block_invoke;
-    v37[3] = &unk_1E7F08210;
-    v37[4] = self;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __86__NEIKEv2Session_Exchange__initiateDeleteChildSPI_remoteSPI_deleteCompletionCallback___block_invoke;
+    v36[3] = &unk_1E7F08210;
+    v36[4] = self;
     v21 = pICopy;
-    v39 = v21;
-    v38 = iCopy;
-    if ([NEIKEv2Session sendRequest:self retry:v20 replyHandler:v37]== -1)
+    v38 = v21;
+    v37 = iCopy;
+    if ([NEIKEv2Session sendRequest:self retry:v20 replyHandler:v36]== -1)
     {
       (*(v21 + 2))(v21, 0);
       v23 = objc_getProperty(self, v22, 352, 1);
-      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete child", v24, v25, v26, v27, v28, v29, v30, v37[0]);
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete child", v24, v25, v26, v27, v28, v29, v30, v36[0]);
       [(NEIKEv2IKESA *)v23 setState:ErrorFailedToSend error:?];
 
       [(NEIKEv2Session *)self reportState];
@@ -541,12 +536,11 @@ LABEL_14:
   }
 
 LABEL_22:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
-void __86__NEIKEv2Session_Exchange__initiateDeleteChildSPI_remoteSPI_deleteCompletionCallback___block_invoke(uint64_t a1, void *a2)
+void __86__NEIKEv2Session_Exchange__initiateDeleteChildSPI_remoteSPI_deleteCompletionCallback___block_invoke(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] != 37)
   {
@@ -555,16 +549,16 @@ void __86__NEIKEv2Session_Exchange__initiateDeleteChildSPI_remoteSPI_deleteCompl
     {
 LABEL_7:
 
-      (*(*(a1 + 48) + 16))(*(a1 + 48), 0);
+      (*(a1[6] + 16))(a1[6], 0);
       goto LABEL_8;
     }
 
-    v5 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v5;
+    v5 = a1[4];
+    v8 = 138412290;
+    v9 = v5;
     v6 = "%@ Failed to receive Delete packet";
 LABEL_10:
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v6, &v9, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v6, &v8, 0xCu);
     goto LABEL_7;
   }
 
@@ -576,22 +570,20 @@ LABEL_10:
       goto LABEL_7;
     }
 
-    v8 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v8;
+    v7 = a1[4];
+    v8 = 138412290;
+    v9 = v7;
     v6 = "%@ Failed to process Delete packet";
     goto LABEL_10;
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), 1);
+  (*(a1[6] + 16))(a1[6], 1);
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)receiveDeleteChildSPI:(void *)i remoteSPI:(void *)pI packet:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
   iCopy = i;
   pICopy = pI;
@@ -613,9 +605,9 @@ LABEL_8:
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v31 = 138412290;
-      *&v31[4] = self;
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ Failed to process Delete packet", v31, 0xCu);
+      *v30 = 138412290;
+      *&v30[4] = self;
+      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ Failed to process Delete packet", v30, 0xCu);
     }
 
     goto LABEL_18;
@@ -636,9 +628,9 @@ LABEL_8:
     v16 = ne_log_obj();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      *v31 = 138412290;
-      *&v31[4] = self;
-      _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to create Delete packet", v31, 0xCu);
+      *v30 = 138412290;
+      *&v30[4] = self;
+      _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to create Delete packet", v30, 0xCu);
     }
 
     v13 = 0;
@@ -658,7 +650,7 @@ LABEL_8:
     }
 
     v18 = v17;
-    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete child reply", v19, v20, v21, v22, v23, v24, v25, *v31);
+    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete child reply", v19, v20, v21, v22, v23, v24, v25, *v30);
     [(NEIKEv2IKESA *)v18 setState:ErrorFailedToSend error:?];
 
     [(NEIKEv2Session *)self reportState];
@@ -671,13 +663,12 @@ LABEL_18:
   v15 = 1;
 LABEL_19:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -687,7 +678,7 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke(uint64_
     {
       v10 = *(a1 + 32);
       *buf = 138412290;
-      v48 = v10;
+      v47 = v10;
       v9 = "%@ Failed to receive informational packet";
       v11 = v7;
       v12 = 12;
@@ -704,11 +695,11 @@ LABEL_32:
     v7 = ne_log_large_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v44 = *(a1 + 32);
+      v43 = *(a1 + 32);
       *buf = 138412546;
-      v48 = v44;
-      v49 = 2112;
-      v50 = v4;
+      v47 = v43;
+      v48 = 2112;
+      v49 = v4;
       v9 = "%@ Received packet was not informational as expected %@";
       goto LABEL_31;
     }
@@ -738,9 +729,9 @@ LABEL_9:
     {
       v8 = *(a1 + 32);
       *buf = 138412546;
-      v48 = v8;
-      v49 = 2112;
-      v50 = v4;
+      v47 = v8;
+      v48 = 2112;
+      v49 = v4;
       v9 = "%@ Failed to process informational packet %@";
 LABEL_31:
       v11 = v7;
@@ -751,107 +742,105 @@ LABEL_31:
     goto LABEL_9;
   }
 
-  v20 = *(a1 + 32);
+  v19 = *(a1 + 32);
+  if (!v19)
+  {
+    goto LABEL_22;
+  }
+
+  v20 = objc_getProperty(v19, v6, 352, 1);
   if (!v20)
   {
     goto LABEL_22;
   }
 
-  v21 = objc_getProperty(v20, v6, 352, 1);
-  if (!v21)
+  v21 = v20[11];
+
+  if ((v21 & 1) == 0)
   {
     goto LABEL_22;
   }
 
-  v22 = v21[11];
-
-  if ((v22 & 1) == 0)
+  v22 = [(NEIKEv2Packet *)v4 copyNotification:?];
+  v24 = v22;
+  if (v22)
   {
-    goto LABEL_22;
+    v22 = objc_getProperty(v22, v23, 40, 1);
   }
 
-  v23 = [(NEIKEv2Packet *)v4 copyNotification:?];
-  v25 = v23;
-  if (v23)
+  v26 = v22;
+  v27 = *(a1 + 32);
+  if (v27)
   {
-    v23 = objc_getProperty(v23, v24, 40, 1);
-  }
-
-  v27 = v23;
-  v28 = *(a1 + 32);
-  if (v28)
-  {
-    v29 = objc_getProperty(v28, v26, 352, 1);
-    v31 = v29;
-    if (v29)
+    v28 = objc_getProperty(v27, v25, 352, 1);
+    v30 = v28;
+    if (v28)
     {
-      v29 = objc_getProperty(v29, v30, 504, 1);
+      v28 = objc_getProperty(v28, v29, 504, 1);
     }
   }
 
   else
   {
-    v31 = 0;
-    v29 = 0;
+    v30 = 0;
+    v28 = 0;
   }
 
-  v32 = v29;
-  v33 = [v27 isEqualToData:v32];
+  v31 = v28;
+  v32 = [v26 isEqualToData:v31];
 
-  if ((v33 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
-    v36 = ne_log_obj();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v35 = ne_log_obj();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v37 = *(a1 + 32);
+      v36 = *(a1 + 32);
       *buf = 138412290;
-      v48 = v37;
-      _os_log_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_INFO, "%@ Successfully received informational packet, need SA update", buf, 0xCu);
+      v47 = v36;
+      _os_log_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_INFO, "%@ Successfully received informational packet, need SA update", buf, 0xCu);
     }
 
-    v39 = [NEIKEv2MOBIKEContext alloc];
-    v40 = *(a1 + 32);
-    if (v40)
+    v38 = [NEIKEv2MOBIKEContext alloc];
+    v39 = *(a1 + 32);
+    if (v39)
     {
-      v40 = objc_getProperty(v40, v38, 384, 1);
+      v39 = objc_getProperty(v39, v37, 384, 1);
     }
 
-    v41 = v40;
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28;
-    v45[3] = &unk_1E7F081E8;
-    v42 = *(a1 + 40);
-    v45[4] = *(a1 + 32);
-    v46 = v42;
-    v43 = [(NEIKEv2MOBIKEContext *)&v39->super.super.isa initWithMOBIKEInterface:0 mobikeEndpoint:0 invalidateTransport:4 maxRetries:0 retryIntervalMilliseconds:v41 callbackQueue:v45 callback:?];
+    v40 = v39;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28;
+    v44[3] = &unk_1E7F081E8;
+    v41 = *(a1 + 40);
+    v44[4] = *(a1 + 32);
+    v45 = v41;
+    v42 = [(NEIKEv2MOBIKEContext *)&v38->super.super.isa initWithMOBIKEInterface:0 mobikeEndpoint:0 invalidateTransport:4 maxRetries:0 retryIntervalMilliseconds:v40 callbackQueue:v44 callback:?];
 
-    [(NEIKEv2Session *)*(a1 + 32) initiateMOBIKE:v43];
+    [(NEIKEv2Session *)*(a1 + 32) initiateMOBIKE:v42];
   }
 
   else
   {
 LABEL_22:
-    v34 = ne_log_obj();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v33 = ne_log_obj();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v35 = *(a1 + 32);
+      v34 = *(a1 + 32);
       *buf = 138412290;
-      v48 = v35;
-      _os_log_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_INFO, "%@ Successfully received informational packet", buf, 0xCu);
+      v47 = v34;
+      _os_log_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_INFO, "%@ Successfully received informational packet", buf, 0xCu);
     }
 
     [*(a1 + 40) sendCallbackSuccess:1 session:*(a1 + 32)];
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a2;
   v9 = ne_log_obj();
@@ -861,9 +850,9 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 32);
-      v19 = 138412290;
-      v20 = v11;
-      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@ Updated remote SA successfully", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v11;
+      _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@ Updated remote SA successfully", &v18, 0xCu);
     }
 
     [*(a1 + 40) sendCallbackSuccess:1 session:v8];
@@ -873,10 +862,10 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v19 = 138412290;
-      v20 = v18;
-      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ Failed to remote SA", &v19, 0xCu);
+      v17 = *(a1 + 32);
+      v18 = 138412290;
+      v19 = v17;
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ Failed to remote SA", &v18, 0xCu);
     }
 
     [*(a1 + 40) sendCallbackSuccess:0 session:*(a1 + 32)];
@@ -896,13 +885,11 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint
     [(NEIKEv2Session *)v8 reportState];
     [(NEIKEv2Session *)v8 resetAll];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateMOBIKE:(_BYTE *)e
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (e)
   {
@@ -920,7 +907,7 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v58 = "[NEIKEv2Session(Exchange) initiateMOBIKE:]";
+        v57 = "[NEIKEv2Session(Exchange) initiateMOBIKE:]";
         _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null mobikeContext", buf, 0xCu);
       }
 
@@ -930,12 +917,12 @@ void __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke_28(uint
     v7 = objc_getProperty(e, v6, 352, 1);
     if (!v7)
     {
-      v52 = ne_log_obj();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+      v51 = ne_log_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v58 = "[NEIKEv2Session(Exchange) initiateMOBIKE:]";
-        _os_log_fault_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
+        v57 = "[NEIKEv2Session(Exchange) initiateMOBIKE:]";
+        _os_log_fault_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
       }
 
       [v4 sendCallbackSuccess:0 session:e];
@@ -990,13 +977,13 @@ LABEL_27:
       Error = [(NEIKEv2IKESA *)v8 copyTransport];
       if (Error)
       {
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke;
-        v55[3] = &unk_1E7F0A0E8;
-        v55[4] = e;
-        v56 = v4;
-        [(NEIKEv2Transport *)Error waitForTransport:v55];
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke;
+        v54[3] = &unk_1E7F0A0E8;
+        v54[4] = e;
+        v55 = v4;
+        [(NEIKEv2Transport *)Error waitForTransport:v54];
       }
 
       else
@@ -1008,7 +995,7 @@ LABEL_27:
           _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to create a new transport for IKE SA", buf, 2u);
         }
 
-        ErrorInternal = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create a new transport for IKE SA", v43, v44, v45, v46, v47, v48, v49, v55[0]);
+        ErrorInternal = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create a new transport for IKE SA", v43, v44, v45, v46, v47, v48, v49, v54[0]);
         [(NEIKEv2MOBIKEContext *)v4 sendCallbackSuccess:e session:ErrorInternal error:?];
       }
 
@@ -1030,9 +1017,9 @@ LABEL_33:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v58 = v8;
-            v59 = 2112;
-            v60 = v16;
+            v57 = v8;
+            v58 = 2112;
+            v59 = v16;
             _os_log_debug_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEBUG, "Setting remote address of %@ to %@", buf, 0x16u);
           }
         }
@@ -1075,8 +1062,8 @@ LABEL_33:
         goto LABEL_26;
       }
 
-      v53 = ne_log_obj();
-      if (!os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+      v52 = ne_log_obj();
+      if (!os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
 LABEL_44:
 
@@ -1085,35 +1072,33 @@ LABEL_26:
       }
 
       *buf = 136315138;
-      v58 = "[NEIKEv2IKESA resetRemoteAddress:]";
-      v54 = "%s called with null remoteAddress.address";
+      v57 = "[NEIKEv2IKESA resetRemoteAddress:]";
+      v53 = "%s called with null remoteAddress.address";
     }
 
     else
     {
-      v53 = ne_log_obj();
-      if (!os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+      v52 = ne_log_obj();
+      if (!os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_44;
       }
 
       *buf = 136315138;
-      v58 = "[NEIKEv2IKESA resetRemoteAddress:]";
-      v54 = "%s called with null remoteAddress";
+      v57 = "[NEIKEv2IKESA resetRemoteAddress:]";
+      v53 = "%s called with null remoteAddress";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_FAULT, v54, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_FAULT, v53, buf, 0xCu);
     goto LABEL_44;
   }
 
 LABEL_34:
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke(uint64_t a1, const char *a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   Property = *(a1 + 32);
   if (Property)
   {
@@ -1150,14 +1135,14 @@ void __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke(uint64_t a1, c
           v16 = 0;
         }
 
-        *&v59 = MEMORY[0x1E69E9820];
-        *(&v59 + 1) = 3221225472;
-        v60 = __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke;
-        v61 = &unk_1E7F08378;
-        v62 = v8;
-        v63 = v6;
-        v64 = v13;
-        v17 = &v59;
+        *&v58 = MEMORY[0x1E69E9820];
+        *(&v58 + 1) = 3221225472;
+        v59 = __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke;
+        v60 = &unk_1E7F08378;
+        v61 = v8;
+        v62 = v6;
+        v63 = v13;
+        v17 = &v58;
         v19 = objc_getProperty(v6, v18, 384, 1);
         dispatch_assert_queue_V2(v19);
 
@@ -1167,12 +1152,12 @@ void __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke(uint64_t a1, c
         v25 = v24;
         if (v22 == -1 || !v24)
         {
-          v60(v17, 0);
+          v59(v17, 0);
         }
 
         else
         {
-          v51 = v16;
+          v50 = v16;
           v26 = ne_log_obj();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
@@ -1181,35 +1166,35 @@ void __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke(uint64_t a1, c
           }
 
           *buf = MEMORY[0x1E69E9820];
-          v54 = 3221225472;
-          v55 = __87__NEIKEv2Session_Exchange__resendPreviousMOBIKEInnerWithRetries_retryInterval_handler___block_invoke;
-          v56 = &unk_1E7F08580;
+          v53 = 3221225472;
+          v54 = __87__NEIKEv2Session_Exchange__resendPreviousMOBIKEInnerWithRetries_retryInterval_handler___block_invoke;
+          v55 = &unk_1E7F08580;
           v27 = v17;
-          v58 = v27;
-          v57 = v21;
-          if ([(NEIKEv2Session *)v6 sendRequest:v25 retryIntervalInMilliseconds:v51 maxRetries:v15 timeoutError:0 resend:1 sendMessageID:v22 sendCompletionHandler:0 replyHandler:buf]== -1)
+          v57 = v27;
+          v56 = v21;
+          if ([(NEIKEv2Session *)v6 sendRequest:v25 retryIntervalInMilliseconds:v50 maxRetries:v15 timeoutError:0 resend:1 sendMessageID:v22 sendCompletionHandler:0 replyHandler:buf]== -1)
           {
             v28 = ne_log_obj();
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              *v52 = 0;
-              _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "Resend previous MOBIKE, failed to send Informational packet", v52, 2u);
+              *v51 = 0;
+              _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "Resend previous MOBIKE, failed to send Informational packet", v51, 2u);
             }
 
-            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"resend previous MOBIKE, failed to send Informational packet", v29, v30, v31, v32, v33, v34, v35, v50);
-            v60(v27, ErrorFailedToSend);
+            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"resend previous MOBIKE, failed to send Informational packet", v29, v30, v31, v32, v33, v34, v35, v49);
+            v59(v27, ErrorFailedToSend);
           }
         }
 
-        ErrorInternal = v62;
+        ErrorInternal = v61;
         goto LABEL_23;
       }
 
       v37 = ne_log_obj();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v59) = 0;
-        _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to fetch new local address for IKE SA", &v59, 2u);
+        LOWORD(v58) = 0;
+        _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to fetch new local address for IKE SA", &v58, 2u);
       }
 
       v45 = @"Initiate MOBIKE failed to fetch new local address for IKE SA";
@@ -1217,171 +1202,168 @@ void __43__NEIKEv2Session_Exchange__initiateMOBIKE___block_invoke(uint64_t a1, c
 
     else
     {
-      v48 = ne_log_obj();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+      v47 = ne_log_obj();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
       {
-        LODWORD(v59) = 136315138;
-        *(&v59 + 4) = "[NEIKEv2Session(Exchange) initiateMOBIKEInner:]";
-        _os_log_fault_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", &v59, 0xCu);
+        LODWORD(v58) = 136315138;
+        *(&v58 + 4) = "[NEIKEv2Session(Exchange) initiateMOBIKEInner:]";
+        _os_log_fault_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", &v58, 0xCu);
       }
 
       v45 = @"Initiate MOBIKE failed, no IKE SA";
     }
 
-    ErrorInternal = NEIKEv2CreateErrorInternal(v45, v38, v39, v40, v41, v42, v43, v44, v49);
+    ErrorInternal = NEIKEv2CreateErrorInternal(v45, v38, v39, v40, v41, v42, v43, v44, v48);
     [(NEIKEv2MOBIKEContext *)v8 sendCallbackSuccess:v6 session:ErrorInternal error:?];
 LABEL_23:
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke(uint64_t a1, void *a2)
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v5 = *MEMORY[0x1E69E9840];
 
     [(NEIKEv2MOBIKEContext *)v3 sendCallbackSuccess:v4 session:a2 error:?];
     return;
   }
 
-  v6 = *(a1 + 48);
+  v5 = *(a1 + 48);
   objc_opt_self();
-  if (!v6)
+  if (!v5)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v89 = "+[NEIKEv2InformationalPacket(Exchange) createUpdateAddressInitiator:]";
-      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
+      v87 = "+[NEIKEv2InformationalPacket(Exchange) createUpdateAddressInitiator:]";
+      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
     }
 
-    v23 = 0;
+    v22 = 0;
     goto LABEL_23;
   }
 
-  v7 = [(NEIKEv2Packet *)[NEIKEv2InformationalPacket alloc] initOutbound];
-  v8 = v7;
-  if (!v7)
+  v6 = [(NEIKEv2Packet *)[NEIKEv2InformationalPacket alloc] initOutbound];
+  v7 = v6;
+  if (!v6)
   {
-    v15 = ne_log_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_14;
     }
 
     *buf = 0;
-    v24 = "[[NEIKEv2InformationalPacket alloc] initOutbound:] failed";
+    v23 = "[[NEIKEv2InformationalPacket alloc] initOutbound:] failed";
 LABEL_38:
-    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v24, buf, 2u);
+    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v23, buf, 2u);
     goto LABEL_14;
   }
 
-  if ([(NEIKEv2Packet *)v7 addNotification:0 data:?])
+  if ([(NEIKEv2Packet *)v6 addNotification:0 data:?])
   {
-    v10 = [(NEIKEv2IKESA *)v6 initiatorSPI];
-    v12 = [(NEIKEv2IKESA *)v6 responderSPI];
-    v14 = objc_getProperty(v6, v13, 64, 1);
-    v15 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:v10 responderSPI:v12 address:v14];
+    v9 = [(NEIKEv2IKESA *)v5 initiatorSPI];
+    v11 = [(NEIKEv2IKESA *)v5 responderSPI];
+    v13 = objc_getProperty(v5, v12, 64, 1);
+    v14 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:v9 responderSPI:v11 address:v13];
 
-    if ([(NEIKEv2Packet *)v8 addNotification:v15 data:?])
+    if ([(NEIKEv2Packet *)v7 addNotification:v14 data:?])
     {
-      v17 = [(NEIKEv2IKESA *)v6 initiatorSPI];
-      v19 = [(NEIKEv2IKESA *)v6 responderSPI];
-      v21 = objc_getProperty(v6, v20, 72, 1);
-      v22 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:v17 responderSPI:v19 address:v21];
+      v16 = [(NEIKEv2IKESA *)v5 initiatorSPI];
+      v18 = [(NEIKEv2IKESA *)v5 responderSPI];
+      v20 = objc_getProperty(v5, v19, 72, 1);
+      v21 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:v16 responderSPI:v18 address:v20];
 
-      if ([(NEIKEv2Packet *)v8 addNotification:v22 data:?])
+      if ([(NEIKEv2Packet *)v7 addNotification:v21 data:?])
       {
-        v23 = v8;
+        v22 = v7;
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      v25 = ne_log_obj();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v24 = ne_log_obj();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionDestinationIP] failed", buf, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionDestinationIP] failed", buf, 2u);
       }
     }
 
     else
     {
-      v22 = ne_log_obj();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v21 = ne_log_obj();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionSourceIP] failed", buf, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionSourceIP] failed", buf, 2u);
       }
     }
 
-    v23 = 0;
+    v22 = 0;
     goto LABEL_21;
   }
 
-  v15 = ne_log_obj();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v14 = ne_log_obj();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
     *buf = 0;
-    v24 = "[packet addNotification:NEIKEv2NotifyTypeUpdateSAAddresses] failed";
+    v23 = "[packet addNotification:NEIKEv2NotifyTypeUpdateSAAddresses] failed";
     goto LABEL_38;
   }
 
 LABEL_14:
-  v23 = 0;
+  v22 = 0;
 LABEL_22:
 
 LABEL_23:
-  if (v23)
+  if (v22)
   {
-    v26 = *(a1 + 32);
-    v27 = *(a1 + 40);
-    if (v26)
+    v25 = *(a1 + 32);
+    v26 = *(a1 + 40);
+    if (v25)
     {
-      v28 = *(v26 + 48);
-      v29 = *(v26 + 28);
+      v27 = *(v25 + 48);
+      v28 = *(v25 + 28);
     }
 
     else
     {
+      v27 = 0;
       v28 = 0;
-      v29 = 0;
     }
 
     Error = NEIKEv2CreateError(3);
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v84[2] = __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643;
-    v84[3] = &unk_1E7F08530;
-    v84[4] = *(a1 + 40);
-    v85 = v23;
-    v86 = *(a1 + 32);
-    v87 = *(a1 + 48);
-    v31 = [(NEIKEv2Session *)v27 sendRequest:v85 retryIntervalInMilliseconds:v28 maxRetries:v29 timeoutError:Error resend:0 sendMessageID:0xFFFFFFFFLL sendCompletionHandler:0 replyHandler:v84];
+    v82[0] = MEMORY[0x1E69E9820];
+    v82[1] = 3221225472;
+    v82[2] = __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643;
+    v82[3] = &unk_1E7F08530;
+    v82[4] = *(a1 + 40);
+    v83 = v22;
+    v84 = *(a1 + 32);
+    v85 = *(a1 + 48);
+    v30 = [(NEIKEv2Session *)v26 sendRequest:v83 retryIntervalInMilliseconds:v27 maxRetries:v28 timeoutError:Error resend:0 sendMessageID:0xFFFFFFFFLL sendCompletionHandler:0 replyHandler:v82];
 
-    if (v31 == -1)
+    if (v30 == -1)
     {
-      v39 = *(a1 + 32);
-      v40 = *(a1 + 40);
-      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator update addresses", v32, v33, v34, v35, v36, v37, v38, v81);
-      [(NEIKEv2MOBIKEContext *)v39 sendCallbackSuccess:v40 session:ErrorFailedToSend error:?];
+      v38 = *(a1 + 32);
+      v39 = *(a1 + 40);
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator update addresses", v31, v32, v33, v34, v35, v36, v37, v79);
+      [(NEIKEv2MOBIKEContext *)v38 sendCallbackSuccess:v39 session:ErrorFailedToSend error:?];
 
       Property = *(a1 + 40);
       if (Property)
       {
-        Property = objc_getProperty(Property, v42, 352, 1);
+        Property = objc_getProperty(Property, v41, 352, 1);
       }
 
-      v44 = Property;
-      v52 = NEIKEv2CreateErrorFailedToSend(@"initiator update addresses", v45, v46, v47, v48, v49, v50, v51, v82);
-      [(NEIKEv2IKESA *)v44 setState:v52 error:?];
+      v43 = Property;
+      v51 = NEIKEv2CreateErrorFailedToSend(@"initiator update addresses", v44, v45, v46, v47, v48, v49, v50, v80);
+      [(NEIKEv2IKESA *)v43 setState:v51 error:?];
 
       [(NEIKEv2Session *)*(a1 + 40) reportState];
       [(NEIKEv2Session *)*(a1 + 40) resetAll];
@@ -1390,33 +1372,31 @@ LABEL_23:
 
   else
   {
-    v55 = ne_log_obj();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v54 = ne_log_obj();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to create Update Addresses packet", buf, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to create Update Addresses packet", buf, 2u);
     }
 
-    v56 = *(a1 + 32);
-    v57 = *(a1 + 40);
-    ErrorInternal = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create Update Addresses packet", v58, v59, v60, v61, v62, v63, v64, v80);
-    [(NEIKEv2MOBIKEContext *)v56 sendCallbackSuccess:v57 session:ErrorInternal error:?];
+    v55 = *(a1 + 32);
+    v56 = *(a1 + 40);
+    ErrorInternal = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create Update Addresses packet", v57, v58, v59, v60, v61, v62, v63, v78);
+    [(NEIKEv2MOBIKEContext *)v55 sendCallbackSuccess:v56 session:ErrorInternal error:?];
 
-    v67 = *(a1 + 40);
-    if (v67)
+    v66 = *(a1 + 40);
+    if (v66)
     {
-      v67 = objc_getProperty(v67, v66, 352, 1);
+      v66 = objc_getProperty(v66, v65, 352, 1);
     }
 
-    v68 = v67;
-    v76 = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create Update Addresses packet", v69, v70, v71, v72, v73, v74, v75, v83);
-    [(NEIKEv2IKESA *)v68 setState:v76 error:?];
+    v67 = v66;
+    v75 = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to create Update Addresses packet", v68, v69, v70, v71, v72, v73, v74, v81);
+    [(NEIKEv2IKESA *)v67 setState:v75 error:?];
 
     [(NEIKEv2Session *)*(a1 + 40) reportState];
     [(NEIKEv2Session *)*(a1 + 40) resetAll];
   }
-
-  v79 = *MEMORY[0x1E69E9840];
 }
 
 void __87__NEIKEv2Session_Exchange__resendPreviousMOBIKEInnerWithRetries_retryInterval_handler___block_invoke(uint64_t a1, void *a2)
@@ -1458,24 +1438,24 @@ LABEL_10:
 LABEL_11:
 }
 
-void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint64_t a1, void *a2)
+void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(void *a1, void *a2)
 {
   v3 = a2;
   if ([v3 exchangeType] == 37)
   {
-    [(NEIKEv2Session *)*(a1 + 32) setSentMOBIKERequest:-1 messageID:?];
+    [(NEIKEv2Session *)a1[4] setSentMOBIKERequest:-1 messageID:?];
     if (([(NEIKEv2InformationalPacket *)v3 validateUpdateAddresses:?]& 1) != 0)
     {
-      if (([(NEIKEv2Session *)*(a1 + 32) migrateAllChildSAs]& 1) != 0)
+      if (([(NEIKEv2Session *)a1[4] migrateAllChildSAs]& 1) != 0)
       {
-        [(NEIKEv2Session *)*(a1 + 32) reportConfiguration];
-        v6 = *(a1 + 56);
+        [(NEIKEv2Session *)a1[4] reportConfiguration];
+        v6 = a1[7];
         if (v6)
         {
           *(v6 + 26) = 0;
           *(v6 + 120) = 0;
           *(v6 + 21) = 0;
-          v7 = *(a1 + 56);
+          v7 = a1[7];
         }
 
         else
@@ -1484,7 +1464,7 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
         }
 
         [(NEIKEv2IKESA *)v7 setState:0 error:?];
-        [(NEIKEv2Session *)*(a1 + 32) reportState];
+        [(NEIKEv2Session *)a1[4] reportState];
         v9 = ne_log_obj();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
@@ -1492,7 +1472,7 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
           _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_INFO, "Initiate MOBIKE switched IKE SA addresses", &v54, 2u);
         }
 
-        [(NEIKEv2MOBIKEContext *)*(a1 + 48) sendCallbackSuccess:*(a1 + 32) session:0 error:?];
+        [(NEIKEv2MOBIKEContext *)a1[6] sendCallbackSuccess:a1[4] session:0 error:?];
       }
 
       else
@@ -1504,12 +1484,12 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
           _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to migrate child SAs", v55, 2u);
         }
 
-        v31 = *(a1 + 48);
-        v32 = *(a1 + 32);
+        v31 = a1[6];
+        v32 = a1[4];
         ErrorInternal = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to migrate child SAs", v33, v34, v35, v36, v37, v38, v39, v54);
         [(NEIKEv2MOBIKEContext *)v31 sendCallbackSuccess:v32 session:ErrorInternal error:?];
 
-        Property = *(a1 + 32);
+        Property = a1[4];
         if (Property)
         {
           Property = objc_getProperty(Property, v41, 352, 1);
@@ -1519,8 +1499,8 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
         v51 = NEIKEv2CreateErrorInternal(@"Initiate MOBIKE failed to migrate child SAs", v44, v45, v46, v47, v48, v49, v50, v54);
         [(NEIKEv2IKESA *)v43 setState:v51 error:?];
 
-        [(NEIKEv2Session *)*(a1 + 32) reportState];
-        [(NEIKEv2Session *)*(a1 + 32) resetAll];
+        [(NEIKEv2Session *)a1[4] reportState];
+        [(NEIKEv2Session *)a1[4] resetAll];
       }
     }
 
@@ -1534,8 +1514,8 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
       }
 
       ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Initiate MOBIKE failed to process Informational packet", v17, v18, v19, v20, v21, v22, v23, v54);
-      [(NEIKEv2MOBIKEContext *)*(a1 + 48) sendCallbackSuccess:*(a1 + 32) session:ErrorPeerInvalidSyntax error:?];
-      v26 = *(a1 + 32);
+      [(NEIKEv2MOBIKEContext *)a1[6] sendCallbackSuccess:a1[4] session:ErrorPeerInvalidSyntax error:?];
+      v26 = a1[4];
       if (v26)
       {
         v26 = objc_getProperty(v26, v25, 352, 1);
@@ -1544,8 +1524,8 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
       v27 = v26;
       [(NEIKEv2IKESA *)v27 setState:ErrorPeerInvalidSyntax error:?];
 
-      [(NEIKEv2Session *)*(a1 + 32) reportState];
-      [(NEIKEv2Session *)*(a1 + 32) resetAll];
+      [(NEIKEv2Session *)a1[4] reportState];
+      [(NEIKEv2Session *)a1[4] resetAll];
     }
   }
 
@@ -1558,7 +1538,7 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Initiate MOBIKE failed to receive Informational packet", buf, 2u);
     }
 
-    v11 = *(a1 + 40);
+    v11 = a1[5];
     if (v11)
     {
       v12 = v11[7];
@@ -1569,9 +1549,9 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
       v12 = 0;
     }
 
-    [(NEIKEv2Session *)*(a1 + 32) setSentMOBIKERequest:v11 messageID:v12];
-    v13 = *(a1 + 48);
-    v14 = *(a1 + 32);
+    [(NEIKEv2Session *)a1[4] setSentMOBIKERequest:v11 messageID:v12];
+    v13 = a1[6];
+    v14 = a1[4];
     Error = NEIKEv2CreateError(3);
     [(NEIKEv2MOBIKEContext *)v13 sendCallbackSuccess:v14 session:Error error:?];
   }
@@ -1579,7 +1559,7 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
 
 - (void)receiveInformational:(_BYTE *)informational
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (informational)
   {
@@ -1606,8 +1586,8 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
         v11 = ne_log_obj();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v40) = 138412290;
-          *(&v40 + 4) = informational;
+          LODWORD(v39) = 138412290;
+          *(&v39 + 4) = informational;
           v12 = "%@ Session has been aborted, cannot process informational";
           goto LABEL_13;
         }
@@ -1635,19 +1615,19 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
               *(shortDPDEventBlock + 21) = 1;
               *(shortDPDEventBlock + 120) = Current;
 
-              if (objc_getProperty(informational, v38, 352, 1))
+              if (objc_getProperty(informational, v37, 352, 1))
               {
                 shortDPDEventBlock = [informational shortDPDEventBlock];
                 clientQueue = [informational clientQueue];
                 if (clientQueue && shortDPDEventBlock)
                 {
-                  *&v40 = MEMORY[0x1E69E9820];
-                  *(&v40 + 1) = 3221225472;
-                  v41 = __32__NEIKEv2Session_reportShortDPD__block_invoke;
-                  v42 = &unk_1E7F0B588;
+                  *&v39 = MEMORY[0x1E69E9820];
+                  *(&v39 + 1) = 3221225472;
+                  v40 = __32__NEIKEv2Session_reportShortDPD__block_invoke;
+                  v41 = &unk_1E7F0B588;
                   informationalCopy = informational;
-                  v44 = shortDPDEventBlock;
-                  dispatch_async(clientQueue, &v40);
+                  v43 = shortDPDEventBlock;
+                  dispatch_async(clientQueue, &v39);
                 }
               }
 
@@ -1656,9 +1636,9 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
                 shortDPDEventBlock = ne_log_obj();
                 if (os_log_type_enabled(shortDPDEventBlock, OS_LOG_TYPE_FAULT))
                 {
-                  LODWORD(v40) = 136315138;
-                  *(&v40 + 4) = "[NEIKEv2Session reportShortDPD]";
-                  _os_log_fault_impl(&dword_1BA83C000, shortDPDEventBlock, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v40, 0xCu);
+                  LODWORD(v39) = 136315138;
+                  *(&v39 + 4) = "[NEIKEv2Session reportShortDPD]";
+                  _os_log_fault_impl(&dword_1BA83C000, shortDPDEventBlock, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v39, 0xCu);
                 }
               }
             }
@@ -1674,7 +1654,7 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
           if (([(NEIKEv2Session *)informational sendReply:v11 replyHandler:0]& 1) == 0)
           {
             v25 = objc_getProperty(informational, v24, 352, 1);
-            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"informational reply", v26, v27, v28, v29, v30, v31, v32, v40);
+            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"informational reply", v26, v27, v28, v29, v30, v31, v32, v39);
             [(NEIKEv2IKESA *)v25 setState:ErrorFailedToSend error:?];
 
             [(NEIKEv2Session *)informational reportState];
@@ -1687,9 +1667,9 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
           v36 = ne_log_obj();
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v40) = 138412290;
-            *(&v40 + 4) = informational;
-            _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Failed to create Keepalive packet", &v40, 0xCu);
+            LODWORD(v39) = 138412290;
+            *(&v39 + 4) = informational;
+            _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Failed to create Keepalive packet", &v39, 0xCu);
           }
 
           v11 = 0;
@@ -1702,11 +1682,11 @@ void __48__NEIKEv2Session_Exchange__initiateMOBIKEInner___block_invoke_643(uint6
       v11 = ne_log_obj();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v40) = 138412290;
-        *(&v40 + 4) = informational;
+        LODWORD(v39) = 138412290;
+        *(&v39 + 4) = informational;
         v12 = "%@ Failed to process informational packet";
 LABEL_13:
-        _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v12, &v40, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v12, &v39, 0xCu);
       }
     }
   }
@@ -1716,18 +1696,16 @@ LABEL_13:
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v40) = 136315138;
-      *(&v40 + 4) = "[NEIKEv2Session(Exchange) receiveInformational:]";
-      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v40, 0xCu);
+      LODWORD(v39) = 136315138;
+      *(&v39 + 4) = "[NEIKEv2Session(Exchange) receiveInformational:]";
+      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v39, 0xCu);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retryCookieForIKESA:(uint64_t)a validated:(void *)validated handler:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   validatedCopy = validated;
   if (self)
@@ -1755,17 +1733,17 @@ LABEL_13:
       if (v16)
       {
         v17 = v16;
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___block_invoke;
-        v45[3] = &unk_1E7F08210;
-        v45[4] = self;
-        v46 = v7;
-        v47 = validatedCopy;
-        if ([NEIKEv2Session sendRequest:self retry:v17 replyHandler:v45]== -1)
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___block_invoke;
+        v44[3] = &unk_1E7F08210;
+        v44[4] = self;
+        v45 = v7;
+        v46 = validatedCopy;
+        if ([NEIKEv2Session sendRequest:self retry:v17 replyHandler:v44]== -1)
         {
           v19 = objc_getProperty(self, v18, 352, 1);
-          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"retry SA INIT cookie", v20, v21, v22, v23, v24, v25, v26, v44);
+          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"retry SA INIT cookie", v20, v21, v22, v23, v24, v25, v26, v43);
           [(NEIKEv2IKESA *)v19 setState:ErrorFailedToSend error:?];
 
           [(NEIKEv2Session *)self reportState];
@@ -1775,36 +1753,34 @@ LABEL_13:
 
       else
       {
-        v31 = ne_log_obj();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v30 = ne_log_obj();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           selfCopy2 = self;
-          _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init retry packet (connect retry cookie)", buf, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init retry packet (connect retry cookie)", buf, 0xCu);
         }
 
-        v33 = objc_getProperty(self, v32, 352, 1);
-        ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init retry packet (connect retry cookie)", v34, v35, v36, v37, v38, v39, v40, v44);
-        [(NEIKEv2IKESA *)v33 setState:ErrorInternal error:?];
+        v32 = objc_getProperty(self, v31, 352, 1);
+        ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init retry packet (connect retry cookie)", v33, v34, v35, v36, v37, v38, v39, v43);
+        [(NEIKEv2IKESA *)v32 setState:ErrorInternal error:?];
 
         [(NEIKEv2Session *)self reportState];
         [(NEIKEv2Session *)self resetAll];
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
-void __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___block_invoke(uint64_t a1, void *a2)
+void __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 34)
   {
     if (([(NEIKEv2IKESAInitPacket *)v3 validateSAInitAsInitiator:?]& 1) != 0)
     {
-      v4 = *(*(a1 + 48) + 16);
+      v4 = *(a1[6] + 16);
     }
 
     else
@@ -1812,13 +1788,13 @@ void __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___bloc
       v19 = ne_log_obj();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v22 = *(a1 + 32);
-        *v23 = 138412290;
-        *&v23[4] = v22;
-        _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ Failed to parse IKE SA Init retry reply (connect retry cookie)", v23, 0xCu);
+        v21 = a1[4];
+        *v22 = 138412290;
+        *&v22[4] = v21;
+        _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ Failed to parse IKE SA Init retry reply (connect retry cookie)", v22, 0xCu);
       }
 
-      v4 = *(*(a1 + 48) + 16);
+      v4 = *(a1[6] + 16);
     }
 
     v4();
@@ -1829,38 +1805,36 @@ void __66__NEIKEv2Session_Exchange__retryCookieForIKESA_validated_handler___bloc
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      *v23 = 138412290;
-      *&v23[4] = v21;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE SA Init retry reply (connect retry cookie)", v23, 0xCu);
+      v20 = a1[4];
+      *v22 = 138412290;
+      *&v22[4] = v20;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE SA Init retry reply (connect retry cookie)", v22, 0xCu);
     }
 
-    Property = *(a1 + 32);
+    Property = a1[4];
     if (Property)
     {
       Property = objc_getProperty(Property, v6, 352, 1);
     }
 
     v8 = Property;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init retry reply (connect retry cookie)", v9, v10, v11, v12, v13, v14, v15, *v23);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init retry reply (connect retry cookie)", v9, v10, v11, v12, v13, v14, v15, *v22);
     [(NEIKEv2IKESA *)v8 setState:ErrorPeerInvalidSyntax error:?];
 
-    [(NEIKEv2Session *)*(a1 + 32) reportState];
-    [(NEIKEv2Session *)*(a1 + 32) resetAll];
+    [(NEIKEv2Session *)a1[4] reportState];
+    [(NEIKEv2Session *)a1[4] resetAll];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-void __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_invoke(uint64_t a1, void *a2)
+void __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 34)
   {
     if (([(NEIKEv2IKESAInitPacket *)v3 validateSAInitAsInitiator:?]& 1) != 0)
     {
-      v4 = *(*(a1 + 48) + 16);
+      v4 = *(a1[6] + 16);
     }
 
     else
@@ -1868,13 +1842,13 @@ void __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_in
       v19 = ne_log_obj();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v22 = *(a1 + 32);
-        *v23 = 138412290;
-        *&v23[4] = v22;
-        _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ Failed to parse IKE SA Init retry reply (connect retry KE)", v23, 0xCu);
+        v21 = a1[4];
+        *v22 = 138412290;
+        *&v22[4] = v21;
+        _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ Failed to parse IKE SA Init retry reply (connect retry KE)", v22, 0xCu);
       }
 
-      v4 = *(*(a1 + 48) + 16);
+      v4 = *(a1[6] + 16);
     }
 
     v4();
@@ -1885,32 +1859,30 @@ void __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_in
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      *v23 = 138412290;
-      *&v23[4] = v21;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE SA Init retry reply (connect retry KE)", v23, 0xCu);
+      v20 = a1[4];
+      *v22 = 138412290;
+      *&v22[4] = v20;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE SA Init retry reply (connect retry KE)", v22, 0xCu);
     }
 
-    Property = *(a1 + 32);
+    Property = a1[4];
     if (Property)
     {
       Property = objc_getProperty(Property, v6, 352, 1);
     }
 
     v8 = Property;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init retry reply (connect retry KE)", v9, v10, v11, v12, v13, v14, v15, *v23);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init retry reply (connect retry KE)", v9, v10, v11, v12, v13, v14, v15, *v22);
     [(NEIKEv2IKESA *)v8 setState:ErrorPeerInvalidSyntax error:?];
 
-    [(NEIKEv2Session *)*(a1 + 32) reportState];
-    [(NEIKEv2Session *)*(a1 + 32) resetAll];
+    [(NEIKEv2Session *)a1[4] reportState];
+    [(NEIKEv2Session *)a1[4] resetAll];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIKEIntermediateForInitiatorIKESA:(unint64_t)a iteration:(void *)iteration handler:
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   v7 = a2;
   iterationCopy = iteration;
   if (self)
@@ -1997,7 +1969,7 @@ void __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_in
             v35 = 0;
           }
 
-          v112 = v22;
+          v111 = v22;
           if (v7)
           {
             v37 = objc_getProperty(v7, v36, 160, 1);
@@ -2050,31 +2022,31 @@ LABEL_19:
             }
 
             v67 = objc_getProperty(self, v66, 352, 1);
-            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE_INTERMEDIATE packet (connect intermediate)", v68, v69, v70, v71, v72, v73, v74, v111);
+            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE_INTERMEDIATE packet (connect intermediate)", v68, v69, v70, v71, v72, v73, v74, v110);
             [(NEIKEv2IKESA *)v67 setState:ErrorInternal error:?];
 
             [(NEIKEv2Session *)self reportState];
             [(NEIKEv2Session *)self resetAll];
-            v53 = v112;
+            v53 = v111;
             goto LABEL_40;
           }
 
-          v113[0] = MEMORY[0x1E69E9820];
-          v113[1] = 3221225472;
-          v113[2] = __85__NEIKEv2Session_Exchange__handleIKEIntermediateForInitiatorIKESA_iteration_handler___block_invoke;
-          v113[3] = &unk_1E7F08238;
-          v113[4] = self;
-          v114 = v27;
+          v112[0] = MEMORY[0x1E69E9820];
+          v112[1] = 3221225472;
+          v112[2] = __85__NEIKEv2Session_Exchange__handleIKEIntermediateForInitiatorIKESA_iteration_handler___block_invoke;
+          v112[3] = &unk_1E7F08238;
+          v112[4] = self;
+          v113 = v27;
           v50 = v7;
-          v115 = v50;
+          v114 = v50;
           aCopy = a;
-          v116 = iterationCopy;
-          if ([NEIKEv2Session sendRequest:self retry:initOutbound replyHandler:v113]== -1)
+          v115 = iterationCopy;
+          if ([NEIKEv2Session sendRequest:self retry:initOutbound replyHandler:v112]== -1)
           {
             v56 = objc_getProperty(self, v51, 352, 1);
             ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator IKE_INTERMEDIATE #%zu", v78, v79, v80, v81, v82, v83, v84, a + 1);
             [(NEIKEv2IKESA *)v56 setState:ErrorFailedToSend error:?];
-            v53 = v112;
+            v53 = v111;
           }
 
           else
@@ -2089,7 +2061,7 @@ LABEL_19:
               v52 = 1;
             }
 
-            v53 = v112;
+            v53 = v111;
             if (v7)
             {
               v50[7] = v52;
@@ -2109,7 +2081,7 @@ LABEL_19:
             }
 
             v56 = objc_getProperty(self, v55, 352, 1);
-            ErrorFailedToSend = NEIKEv2CreateErrorCrypto(@"Failed to process IKE_INTERMEDIATE request packet for AUTH (connect intermediate)", v57, v58, v59, v60, v61, v62, v63, v111);
+            ErrorFailedToSend = NEIKEv2CreateErrorCrypto(@"Failed to process IKE_INTERMEDIATE request packet for AUTH (connect intermediate)", v57, v58, v59, v60, v61, v62, v63, v110);
             [(NEIKEv2IKESA *)v56 setState:ErrorFailedToSend error:?];
           }
 
@@ -2121,38 +2093,38 @@ LABEL_40:
           goto LABEL_41;
         }
 
-        v99 = ne_log_obj();
-        if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+        v98 = ne_log_obj();
+        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
           selfCopy4 = self;
-          v120 = 2112;
-          v121 = v27;
-          _os_log_error_impl(&dword_1BA83C000, v99, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (connect intermediate)", buf, 0x16u);
+          v119 = 2112;
+          v120 = v27;
+          _os_log_error_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (connect intermediate)", buf, 0x16u);
         }
 
-        v90 = objc_getProperty(self, v100, 352, 1);
-        v98 = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (connect intermediate)", v101, v102, v103, v104, v105, v106, v107, v27);
+        v89 = objc_getProperty(self, v99, 352, 1);
+        v97 = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (connect intermediate)", v100, v101, v102, v103, v104, v105, v106, v27);
       }
 
       else
       {
-        v88 = ne_log_obj();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+        v87 = ne_log_obj();
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
           selfCopy4 = self;
-          v120 = 2112;
-          v121 = v22;
-          _os_log_error_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (connect intermediate)", buf, 0x16u);
+          v119 = 2112;
+          v120 = v22;
+          _os_log_error_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (connect intermediate)", buf, 0x16u);
         }
 
-        v90 = objc_getProperty(self, v89, 352, 1);
-        v98 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (connect intermediate)", v91, v92, v93, v94, v95, v96, v97, v22);
+        v89 = objc_getProperty(self, v88, 352, 1);
+        v97 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (connect intermediate)", v90, v91, v92, v93, v94, v95, v96, v22);
       }
 
-      v108 = v98;
-      [(NEIKEv2IKESA *)v90 setState:v98 error:?];
+      v107 = v97;
+      [(NEIKEv2IKESA *)v89 setState:v97 error:?];
 
       [(NEIKEv2Session *)self reportState];
       [(NEIKEv2Session *)self resetAll];
@@ -2164,13 +2136,11 @@ LABEL_40:
   }
 
 LABEL_41:
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 void __85__NEIKEv2Session_Exchange__handleIKEIntermediateForInitiatorIKESA_iteration_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 43)
   {
@@ -2247,65 +2217,65 @@ void __85__NEIKEv2Session_Exchange__handleIKEIntermediateForInitiatorIKESA_itera
 
           if (v23 != v24)
           {
-            v57 = ne_log_obj();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v56 = ne_log_obj();
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
-              v77 = *(a1 + 32);
+              v76 = *(a1 + 32);
               if (v6)
               {
-                v78 = objc_getProperty(v6, v58, 96, 1);
-                v80 = v78;
-                if (v78)
+                v77 = objc_getProperty(v6, v57, 96, 1);
+                v79 = v77;
+                if (v77)
                 {
-                  v78 = objc_getProperty(v78, v79, 32, 1);
+                  v77 = objc_getProperty(v77, v78, 32, 1);
                 }
               }
 
               else
               {
-                v80 = 0;
-                v78 = 0;
+                v79 = 0;
+                v77 = 0;
               }
 
-              v81 = v78;
-              v82 = [v81 method];
-              v83 = [*(a1 + 40) method];
+              v80 = v77;
+              v81 = [v80 method];
+              v82 = [*(a1 + 40) method];
               *buf = 138412802;
-              v120 = v77;
-              v121 = 2048;
-              v122 = v82;
-              v123 = 2048;
-              v124 = v83;
-              _os_log_error_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (connect intermediate)", buf, 0x20u);
+              v119 = v76;
+              v120 = 2048;
+              v121 = v81;
+              v122 = 2048;
+              v123 = v82;
+              _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (connect intermediate)", buf, 0x20u);
             }
 
-            v60 = *(a1 + 32);
-            if (v60)
+            v59 = *(a1 + 32);
+            if (v59)
             {
-              v60 = objc_getProperty(v60, v59, 352, 1);
+              v59 = objc_getProperty(v59, v58, 352, 1);
             }
 
-            v44 = v60;
+            v44 = v59;
             if (v6)
             {
-              v62 = objc_getProperty(v6, v61, 96, 1);
-              v53 = v62;
-              if (v62)
+              v61 = objc_getProperty(v6, v60, 96, 1);
+              v53 = v61;
+              if (v61)
               {
-                v62 = objc_getProperty(v62, v63, 32, 1);
+                v61 = objc_getProperty(v61, v62, 32, 1);
               }
             }
 
             else
             {
               v53 = 0;
-              v62 = 0;
+              v61 = 0;
             }
 
-            v64 = v62;
-            v65 = [v64 method];
+            v63 = v61;
+            v64 = [v63 method];
             [*(a1 + 40) method];
-            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (connect intermediate)", v66, v67, v68, v69, v70, v71, v72, v65);
+            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (connect intermediate)", v65, v66, v67, v68, v69, v70, v71, v64);
             [(NEIKEv2IKESA *)v44 setState:ErrorPeerInvalidSyntax error:?];
 
             goto LABEL_44;
@@ -2347,67 +2317,67 @@ LABEL_45:
                 goto LABEL_46;
               }
 
-              v112 = ne_log_obj();
-              if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+              v111 = ne_log_obj();
+              if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
               {
-                v117 = *(a1 + 32);
+                v116 = *(a1 + 32);
                 *buf = 138412290;
-                v120 = v117;
-                _os_log_error_impl(&dword_1BA83C000, v112, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (connect intermediate)", buf, 0xCu);
+                v119 = v116;
+                _os_log_error_impl(&dword_1BA83C000, v111, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (connect intermediate)", buf, 0xCu);
               }
 
-              v114 = *(a1 + 32);
-              if (v114)
+              v113 = *(a1 + 32);
+              if (v113)
               {
-                v114 = objc_getProperty(v114, v113, 352, 1);
+                v113 = objc_getProperty(v113, v112, 352, 1);
               }
 
-              v44 = v114;
-              v108 = @"Failed to generate crypto values (connect intermediate)";
+              v44 = v113;
+              v107 = @"Failed to generate crypto values (connect intermediate)";
             }
 
             else
             {
-              v109 = ne_log_obj();
-              if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+              v108 = ne_log_obj();
+              if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_error_impl(&dword_1BA83C000, v109, OS_LOG_TYPE_ERROR, "Failed to process KE data (connect intermediate)", buf, 2u);
+                _os_log_error_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_ERROR, "Failed to process KE data (connect intermediate)", buf, 2u);
               }
 
-              v111 = *(a1 + 32);
-              if (v111)
+              v110 = *(a1 + 32);
+              if (v110)
               {
-                v111 = objc_getProperty(v111, v110, 352, 1);
+                v110 = objc_getProperty(v110, v109, 352, 1);
               }
 
-              v44 = v111;
-              v108 = @"Failed to process KE data (connect intermediate)";
+              v44 = v110;
+              v107 = @"Failed to process KE data (connect intermediate)";
             }
           }
 
           else
           {
-            v98 = ne_log_obj();
-            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+            v97 = ne_log_obj();
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
             {
-              v116 = *(a1 + 32);
+              v115 = *(a1 + 32);
               *buf = 138412290;
-              v120 = v116;
-              _os_log_error_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE reply packet for AUTH (connect intermediate)", buf, 0xCu);
+              v119 = v115;
+              _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE reply packet for AUTH (connect intermediate)", buf, 0xCu);
             }
 
-            v100 = *(a1 + 32);
-            if (v100)
+            v99 = *(a1 + 32);
+            if (v99)
             {
-              v100 = objc_getProperty(v100, v99, 352, 1);
+              v99 = objc_getProperty(v99, v98, 352, 1);
             }
 
-            v44 = v100;
-            v108 = @"Failed to process IKE_INTERMEDIATE reply packet for AUTH (connect intermediate)";
+            v44 = v99;
+            v107 = @"Failed to process IKE_INTERMEDIATE reply packet for AUTH (connect intermediate)";
           }
 
-          ErrorCrypto = NEIKEv2CreateErrorCrypto(v108, v101, v102, v103, v104, v105, v106, v107, v118);
+          ErrorCrypto = NEIKEv2CreateErrorCrypto(v107, v100, v101, v102, v103, v104, v105, v106, v117);
 LABEL_43:
           v53 = ErrorCrypto;
           [(NEIKEv2IKESA *)v44 setState:ErrorCrypto error:?];
@@ -2421,9 +2391,9 @@ LABEL_44:
         v49 = ne_log_obj();
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          v76 = *(a1 + 32);
+          v75 = *(a1 + 32);
           *buf = 138412290;
-          v120 = v76;
+          v119 = v75;
           _os_log_error_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (connect intermediate)", buf, 0xCu);
         }
 
@@ -2442,9 +2412,9 @@ LABEL_44:
         v46 = ne_log_obj();
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          v75 = *(a1 + 32);
+          v74 = *(a1 + 32);
           *buf = 138412290;
-          v120 = v75;
+          v119 = v74;
           _os_log_error_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (connect intermediate)", buf, 0xCu);
         }
 
@@ -2464,9 +2434,9 @@ LABEL_44:
       v34 = ne_log_obj();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v74 = *(a1 + 32);
+        v73 = *(a1 + 32);
         *buf = 138412290;
-        v120 = v74;
+        v119 = v73;
         _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (connect intermediate)", buf, 0xCu);
       }
 
@@ -2480,34 +2450,32 @@ LABEL_44:
       v45 = @"Did not receive KE payload (connect intermediate)";
     }
 
-    ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v45, v37, v38, v39, v40, v41, v42, v43, v118);
+    ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v45, v37, v38, v39, v40, v41, v42, v43, v117);
     goto LABEL_43;
   }
 
-  v84 = ne_log_obj();
-  if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+  v83 = ne_log_obj();
+  if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
   {
-    v115 = *(a1 + 32);
+    v114 = *(a1 + 32);
     *buf = 138412290;
-    v120 = v115;
-    _os_log_error_impl(&dword_1BA83C000, v84, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE_INTERMEDIATE reply (connect intermediate)", buf, 0xCu);
+    v119 = v114;
+    _os_log_error_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE_INTERMEDIATE reply (connect intermediate)", buf, 0xCu);
   }
 
-  v86 = *(a1 + 32);
-  if (v86)
+  v85 = *(a1 + 32);
+  if (v85)
   {
-    v86 = objc_getProperty(v86, v85, 352, 1);
+    v85 = objc_getProperty(v85, v84, 352, 1);
   }
 
-  v87 = v86;
-  v95 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE_INTERMEDIATE reply (connect intermediate)", v88, v89, v90, v91, v92, v93, v94, v118);
-  [(NEIKEv2IKESA *)v87 setState:v95 error:?];
+  v86 = v85;
+  v94 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE_INTERMEDIATE reply (connect intermediate)", v87, v88, v89, v90, v91, v92, v93, v117);
+  [(NEIKEv2IKESA *)v86 setState:v94 error:?];
 
   [(NEIKEv2Session *)*(a1 + 32) reportState];
   [(NEIKEv2Session *)*(a1 + 32) resetAll];
 LABEL_46:
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)handleIKEIntermediateForResponderIKESA:(uint64_t)a iteration:(void *)iteration replyPacket:(void *)packet replyPacketDescription:(void *)description handler:
@@ -2552,7 +2520,7 @@ LABEL_46:
 
 void __120__NEIKEv2Session_Exchange__handleIKEIntermediateForResponderIKESA_iteration_replyPacket_replyPacketDescription_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v239 = *MEMORY[0x1E69E9840];
+  v238 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 56);
   v6 = *(a1 + 32);
@@ -2613,27 +2581,27 @@ void __120__NEIKEv2Session_Exchange__handleIKEIntermediateForResponderIKESA_iter
 
       if (!v25)
       {
-        v206 = ne_log_obj();
-        if (os_log_type_enabled(v206, OS_LOG_TYPE_ERROR))
+        v205 = ne_log_obj();
+        if (os_log_type_enabled(v205, OS_LOG_TYPE_ERROR))
         {
-          v219 = *(a1 + 40);
+          v218 = *(a1 + 40);
           *buf = 138412546;
-          v234 = v219;
-          v235 = 2112;
-          v236 = v20;
-          _os_log_error_impl(&dword_1BA83C000, v206, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (receive intermediate)", buf, 0x16u);
+          v233 = v218;
+          v234 = 2112;
+          v235 = v20;
+          _os_log_error_impl(&dword_1BA83C000, v205, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (receive intermediate)", buf, 0x16u);
         }
 
-        v209 = *(a1 + 40);
+        v208 = *(a1 + 40);
         v111 = (a1 + 40);
-        v208 = v209;
-        if (v209)
+        v207 = v208;
+        if (v208)
         {
-          v208 = objc_getProperty(v208, v207, 352, 1);
+          v207 = objc_getProperty(v207, v206, 352, 1);
         }
 
-        v120 = v208;
-        ErrorInternal = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (receive intermediate)", v210, v211, v212, v213, v214, v215, v216, v20);
+        v120 = v207;
+        ErrorInternal = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (receive intermediate)", v209, v210, v211, v212, v213, v214, v215, v20);
         goto LABEL_81;
       }
 
@@ -2691,7 +2659,7 @@ void __120__NEIKEv2Session_Exchange__handleIKEIntermediateForResponderIKESA_iter
 
           if (v38)
           {
-            v232 = v20;
+            v231 = v20;
             if (v14)
             {
               v40 = objc_getProperty(v14, v39, 96, 1);
@@ -2714,68 +2682,68 @@ void __120__NEIKEv2Session_Exchange__handleIKEIntermediateForResponderIKESA_iter
 
             if (v44 != v45)
             {
-              v135 = ne_log_obj();
-              if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+              v134 = ne_log_obj();
+              if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
               {
-                v231 = *(a1 + 40);
+                v230 = *(a1 + 40);
                 if (v14)
                 {
-                  v182 = objc_getProperty(v14, v136, 96, 1);
-                  v184 = v182;
-                  if (v182)
+                  v181 = objc_getProperty(v14, v135, 96, 1);
+                  v183 = v181;
+                  if (v181)
                   {
-                    v182 = objc_getProperty(v182, v183, 32, 1);
+                    v181 = objc_getProperty(v181, v182, 32, 1);
                   }
                 }
 
                 else
                 {
-                  v184 = 0;
-                  v182 = 0;
+                  v183 = 0;
+                  v181 = 0;
                 }
 
-                v185 = v182;
+                v184 = v181;
                 *buf = 138412802;
-                v234 = v231;
-                v235 = 2048;
-                v236 = [v185 method];
-                v237 = 2048;
-                v238 = [v25 method];
-                _os_log_error_impl(&dword_1BA83C000, v135, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (receive intermediate)", buf, 0x20u);
+                v233 = v230;
+                v234 = 2048;
+                v235 = [v184 method];
+                v236 = 2048;
+                v237 = [v25 method];
+                _os_log_error_impl(&dword_1BA83C000, v134, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (receive intermediate)", buf, 0x20u);
               }
 
-              v139 = *(a1 + 40);
+              v138 = *(a1 + 40);
               v111 = (a1 + 40);
-              v138 = v139;
-              if (v139)
+              v137 = v138;
+              if (v138)
               {
-                v138 = objc_getProperty(v138, v137, 352, 1);
+                v137 = objc_getProperty(v137, v136, 352, 1);
               }
 
-              v120 = v138;
+              v120 = v137;
               if (v14)
               {
-                v141 = objc_getProperty(v14, v140, 96, 1);
-                v131 = v141;
-                if (v141)
+                v140 = objc_getProperty(v14, v139, 96, 1);
+                v131 = v140;
+                if (v140)
                 {
-                  v141 = objc_getProperty(v141, v142, 32, 1);
+                  v140 = objc_getProperty(v140, v141, 32, 1);
                 }
               }
 
               else
               {
                 v131 = 0;
-                v141 = 0;
+                v140 = 0;
               }
 
-              v143 = v141;
-              v144 = [v143 method];
+              v142 = v140;
+              v143 = [v142 method];
               [v25 method];
-              ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (receive intermediate)", v145, v146, v147, v148, v149, v150, v151, v144);
+              ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (receive intermediate)", v144, v145, v146, v147, v148, v149, v150, v143);
               [(NEIKEv2IKESA *)v120 setState:ErrorPeerInvalidSyntax error:?];
 
-              v20 = v232;
+              v20 = v231;
               goto LABEL_82;
             }
 
@@ -2866,27 +2834,27 @@ LABEL_37:
 
               if ((v75 & 1) == 0)
               {
-                v164 = ne_log_obj();
-                if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
+                v163 = ne_log_obj();
+                if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
                 {
-                  v187 = *(a1 + 40);
+                  v186 = *(a1 + 40);
                   *buf = 138412290;
-                  v234 = v187;
-                  _os_log_error_impl(&dword_1BA83C000, v164, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE_INTERMEDIATE packet (receive intermediate)", buf, 0xCu);
+                  v233 = v186;
+                  _os_log_error_impl(&dword_1BA83C000, v163, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE_INTERMEDIATE packet (receive intermediate)", buf, 0xCu);
                 }
 
-                v168 = *(a1 + 40);
-                v167 = (a1 + 40);
-                v166 = v168;
-                if (v168)
+                v167 = *(a1 + 40);
+                v166 = (a1 + 40);
+                v165 = v167;
+                if (v167)
                 {
-                  v166 = objc_getProperty(v166, v165, 352, 1);
+                  v165 = objc_getProperty(v165, v164, 352, 1);
                 }
 
-                v104 = v166;
-                ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to create IKE_INTERMEDIATE packet (receive intermediate)", v169, v170, v171, v172, v173, v174, v175, v229);
+                v104 = v165;
+                ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to create IKE_INTERMEDIATE packet (receive intermediate)", v168, v169, v170, v171, v172, v173, v174, v228);
                 [(NEIKEv2IKESA *)v104 setState:ErrorCrypto error:?];
-                v87 = v167;
+                v87 = v166;
                 goto LABEL_102;
               }
 
@@ -2922,11 +2890,11 @@ LABEL_45:
                   v88 = *(a1 + 40);
                   v89 = *(a1 + 56);
                   v90 = objc_alloc(MEMORY[0x1E696AEC0]);
-                  v230 = *(a1 + 56) + 1;
+                  v229 = *(a1 + 56) + 1;
                   v91 = [v90 initWithFormat:@"responder IKE_INTERMEDIATE #%zu"];
                   v92 = [(NEIKEv2Session *)v88 handleIKEIntermediateForResponderIKESA:v86 iteration:v89 + 1 replyPacket:v53 replyPacketDescription:v91 handler:*(a1 + 48)];
 
-                  v20 = v232;
+                  v20 = v231;
                   if (!v92)
                   {
                     goto LABEL_103;
@@ -2945,9 +2913,9 @@ LABEL_45:
                       v94 = ne_log_obj();
                       if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
                       {
-                        v228 = *v87;
+                        v227 = *v87;
                         *buf = 138412290;
-                        v234 = v228;
+                        v233 = v227;
                         _os_log_error_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (receive intermediate)", buf, 0xCu);
                       }
 
@@ -2963,54 +2931,54 @@ LABEL_45:
 
                     else
                     {
-                      v223 = ne_log_obj();
-                      if (os_log_type_enabled(v223, OS_LOG_TYPE_ERROR))
+                      v222 = ne_log_obj();
+                      if (os_log_type_enabled(v222, OS_LOG_TYPE_ERROR))
                       {
-                        v227 = *v87;
+                        v226 = *v87;
                         *buf = 138412290;
-                        v234 = v227;
-                        _os_log_error_impl(&dword_1BA83C000, v223, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE reply packet for AUTH (receive intermediate)", buf, 0xCu);
+                        v233 = v226;
+                        _os_log_error_impl(&dword_1BA83C000, v222, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE reply packet for AUTH (receive intermediate)", buf, 0xCu);
                       }
 
-                      v225 = *v87;
+                      v224 = *v87;
                       if (*v87)
                       {
-                        v225 = objc_getProperty(v225, v224, 352, 1);
+                        v224 = objc_getProperty(v224, v223, 352, 1);
                       }
 
-                      v104 = v225;
+                      v104 = v224;
                       v105 = @"Failed to process IKE_INTERMEDIATE reply packet for AUTH (receive intermediate)";
                     }
                   }
 
                   else
                   {
-                    v220 = ne_log_obj();
-                    if (os_log_type_enabled(v220, OS_LOG_TYPE_ERROR))
+                    v219 = ne_log_obj();
+                    if (os_log_type_enabled(v219, OS_LOG_TYPE_ERROR))
                     {
-                      v226 = *v87;
+                      v225 = *v87;
                       *buf = 138412290;
-                      v234 = v226;
-                      _os_log_error_impl(&dword_1BA83C000, v220, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE request packet for AUTH (receive intermediate)", buf, 0xCu);
+                      v233 = v225;
+                      _os_log_error_impl(&dword_1BA83C000, v219, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE_INTERMEDIATE request packet for AUTH (receive intermediate)", buf, 0xCu);
                     }
 
-                    v222 = *v87;
+                    v221 = *v87;
                     if (*v87)
                     {
-                      v222 = objc_getProperty(v222, v221, 352, 1);
+                      v221 = objc_getProperty(v221, v220, 352, 1);
                     }
 
-                    v104 = v222;
+                    v104 = v221;
                     v105 = @"Failed to process IKE_INTERMEDIATE request packet for AUTH (receive intermediate)";
                   }
 
-                  ErrorCrypto = NEIKEv2CreateErrorCrypto(v105, v97, v98, v99, v100, v101, v102, v103, v230);
+                  ErrorCrypto = NEIKEv2CreateErrorCrypto(v105, v97, v98, v99, v100, v101, v102, v103, v229);
                   [(NEIKEv2IKESA *)v104 setState:ErrorCrypto error:?];
 LABEL_102:
 
                   [(NEIKEv2Session *)*v87 reportState];
                   [(NEIKEv2Session *)*v87 resetAll];
-                  v20 = v232;
+                  v20 = v231;
 LABEL_103:
 
                   goto LABEL_83;
@@ -3026,28 +2994,28 @@ LABEL_103:
               goto LABEL_45;
             }
 
-            v153 = ne_log_obj();
-            v20 = v232;
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+            v152 = ne_log_obj();
+            v20 = v231;
+            if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
             {
-              v186 = *(a1 + 40);
+              v185 = *(a1 + 40);
               *buf = 138412546;
-              v234 = v186;
-              v235 = 2112;
-              v236 = v25;
-              _os_log_error_impl(&dword_1BA83C000, v153, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (receive intermediate)", buf, 0x16u);
+              v233 = v185;
+              v234 = 2112;
+              v235 = v25;
+              _os_log_error_impl(&dword_1BA83C000, v152, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (receive intermediate)", buf, 0x16u);
             }
 
-            v156 = *(a1 + 40);
+            v155 = *(a1 + 40);
             v111 = (a1 + 40);
-            v155 = v156;
-            if (v156)
+            v154 = v155;
+            if (v155)
             {
-              v155 = objc_getProperty(v155, v154, 352, 1);
+              v154 = objc_getProperty(v154, v153, 352, 1);
             }
 
-            v120 = v155;
-            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (receive intermediate)", v157, v158, v159, v160, v161, v162, v163, v25);
+            v120 = v154;
+            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (receive intermediate)", v156, v157, v158, v159, v160, v161, v162, v25);
 LABEL_81:
             v131 = ErrorInternal;
             [(NEIKEv2IKESA *)v120 setState:ErrorInternal error:?];
@@ -3063,9 +3031,9 @@ LABEL_83:
           v126 = ne_log_obj();
           if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
-            v181 = *(a1 + 40);
+            v180 = *(a1 + 40);
             *buf = 138412290;
-            v234 = v181;
+            v233 = v180;
             _os_log_error_impl(&dword_1BA83C000, v126, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (receive intermediate)", buf, 0xCu);
           }
 
@@ -3086,9 +3054,9 @@ LABEL_83:
           v122 = ne_log_obj();
           if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
           {
-            v180 = *(a1 + 40);
+            v179 = *(a1 + 40);
             *buf = 138412290;
-            v234 = v180;
+            v233 = v179;
             _os_log_error_impl(&dword_1BA83C000, v122, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (receive intermediate)", buf, 0xCu);
           }
 
@@ -3110,9 +3078,9 @@ LABEL_83:
         v108 = ne_log_obj();
         if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
         {
-          v179 = *(a1 + 40);
+          v178 = *(a1 + 40);
           *buf = 138412290;
-          v234 = v179;
+          v233 = v178;
           _os_log_error_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (receive intermediate)", buf, 0xCu);
         }
 
@@ -3128,30 +3096,30 @@ LABEL_83:
         v121 = @"Did not receive KE payload (receive intermediate)";
       }
 
-      ErrorInternal = NEIKEv2CreateErrorPeerInvalidSyntax(v121, v113, v114, v115, v116, v117, v118, v119, v229);
+      ErrorInternal = NEIKEv2CreateErrorPeerInvalidSyntax(v121, v113, v114, v115, v116, v117, v118, v119, v228);
       goto LABEL_81;
     }
 
-    v188 = ne_log_obj();
-    if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
+    v187 = ne_log_obj();
+    if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
     {
-      v217 = *(a1 + 40);
+      v216 = *(a1 + 40);
       *buf = 138412290;
-      v234 = v217;
-      _os_log_error_impl(&dword_1BA83C000, v188, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE_INTERMEDIATE packet (receive intermediate)", buf, 0xCu);
+      v233 = v216;
+      _os_log_error_impl(&dword_1BA83C000, v187, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE_INTERMEDIATE packet (receive intermediate)", buf, 0xCu);
     }
 
-    v190 = *(a1 + 40);
-    if (v190)
+    v189 = *(a1 + 40);
+    if (v189)
     {
-      v190 = objc_getProperty(v190, v189, 352, 1);
+      v189 = objc_getProperty(v189, v188, 352, 1);
     }
 
-    v198 = v190;
-    v199 = @"Failed to receive IKE_INTERMEDIATE packet (receive intermediate)";
+    v197 = v189;
+    v198 = @"Failed to receive IKE_INTERMEDIATE packet (receive intermediate)";
 LABEL_118:
-    v203 = NEIKEv2CreateErrorPeerInvalidSyntax(v199, v191, v192, v193, v194, v195, v196, v197, v229);
-    [(NEIKEv2IKESA *)v198 setState:v203 error:?];
+    v202 = NEIKEv2CreateErrorPeerInvalidSyntax(v198, v190, v191, v192, v193, v194, v195, v196, v228);
+    [(NEIKEv2IKESA *)v197 setState:v202 error:?];
 
     [(NEIKEv2Session *)*(a1 + 40) reportState];
     [(NEIKEv2Session *)*(a1 + 40) resetAll];
@@ -3160,23 +3128,23 @@ LABEL_118:
 
   if (v12 != 35)
   {
-    v200 = ne_log_obj();
-    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+    v199 = ne_log_obj();
+    if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
     {
-      v218 = *(a1 + 40);
+      v217 = *(a1 + 40);
       *buf = 138412290;
-      v234 = v218;
-      _os_log_error_impl(&dword_1BA83C000, v200, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE Auth packet (receive)", buf, 0xCu);
+      v233 = v217;
+      _os_log_error_impl(&dword_1BA83C000, v199, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE Auth packet (receive)", buf, 0xCu);
     }
 
-    v202 = *(a1 + 40);
-    if (v202)
+    v201 = *(a1 + 40);
+    if (v201)
     {
-      v202 = objc_getProperty(v202, v201, 352, 1);
+      v201 = objc_getProperty(v201, v200, 352, 1);
     }
 
-    v198 = v202;
-    v199 = @"Failed to receive IKE Auth packet (receive)";
+    v197 = v201;
+    v198 = @"Failed to receive IKE Auth packet (receive)";
     goto LABEL_118;
   }
 
@@ -3198,13 +3166,11 @@ LABEL_118:
 
   (*(*(a1 + 48) + 16))();
 LABEL_84:
-
-  v134 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEAPAndGSPMForIKESA:(void *)a authPacket:(void *)packet handler:
 {
-  v464 = *MEMORY[0x1E69E9840];
+  v463 = *MEMORY[0x1E69E9840];
   v7 = a2;
   aCopy = a;
   packetCopy = packet;
@@ -3281,60 +3247,60 @@ LABEL_9:
     v46 = v7;
     v47 = aCopy;
     objc_opt_self();
-    v435 = aCopy;
+    v434 = aCopy;
     if (v46)
     {
       if (aCopy)
       {
-        v433 = packetCopy;
+        v432 = packetCopy;
         if ([(NEIKEv2Packet *)v47 hasErrors])
         {
-          v437 = v47;
+          v436 = v47;
           obja = v46;
-          v457 = 0u;
-          v458 = 0u;
-          v455 = 0u;
           v456 = 0u;
+          v457 = 0u;
+          v454 = 0u;
+          v455 = 0u;
           v50 = objc_getProperty(v47, v49, 64, 1);
-          v51 = [v50 countByEnumeratingWithState:&v455 objects:v462 count:16];
+          v51 = [v50 countByEnumeratingWithState:&v454 objects:v461 count:16];
           if (v51)
           {
             v52 = v51;
-            v53 = *v456;
+            v53 = *v455;
             while (2)
             {
               for (i = 0; i != v52; ++i)
               {
-                if (*v456 != v53)
+                if (*v455 != v53)
                 {
                   objc_enumerationMutation(v50);
                 }
 
-                v55 = *(*(&v455 + 1) + 8 * i);
+                v55 = *(*(&v454 + 1) + 8 * i);
                 if (v55 && v55[1].isa - 1 <= 0x3FFE)
                 {
                   copyError = [(NEIKEv2NotifyPayload *)v55 copyError];
                   v96 = ne_log_obj();
                   if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
                   {
-                    copyShortDescription = [(NEIKEv2Packet *)v437 copyShortDescription];
+                    copyShortDescription = [(NEIKEv2Packet *)v436 copyShortDescription];
                     *buf = 138412546;
                     *&buf[4] = copyShortDescription;
-                    v460 = 2112;
-                    v461 = copyError;
+                    v459 = 2112;
+                    v460 = copyError;
                     _os_log_error_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_ERROR, "%@ Initiator auth GSPM received notify error: %@", buf, 0x16u);
                   }
 
                   ErrorInternal = copyError;
                   v65 = 0;
                   v63 = ErrorInternal;
-                  v47 = v437;
+                  v47 = v436;
                   v46 = obja;
                   goto LABEL_169;
                 }
               }
 
-              v52 = [v50 countByEnumeratingWithState:&v455 objects:v462 count:16];
+              v52 = [v50 countByEnumeratingWithState:&v454 objects:v461 count:16];
               if (v52)
               {
                 continue;
@@ -3344,7 +3310,7 @@ LABEL_9:
             }
           }
 
-          v47 = v437;
+          v47 = v436;
           v46 = obja;
         }
 
@@ -3373,7 +3339,7 @@ LABEL_9:
             _os_log_error_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_ERROR, "%@ No GSPM data received", buf, 0xCu);
           }
 
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"No GSPM data received", v99, v100, v101, v102, v103, v104, v105, v422);
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"No GSPM data received", v99, v100, v101, v102, v103, v104, v105, v421);
           goto LABEL_90;
         }
 
@@ -3387,7 +3353,7 @@ LABEL_9:
             {
 LABEL_58:
               v64 = 0;
-              v428 = 0;
+              v427 = 0;
               goto LABEL_117;
             }
 
@@ -3403,23 +3369,23 @@ LABEL_58:
 
             else
             {
-              Error = NEIKEv2CreateErrorPeerInvalidSyntax(@"Initial AUTH validation failed", v129, v130, v131, v132, v133, v134, v135, v422);
+              Error = NEIKEv2CreateErrorPeerInvalidSyntax(@"Initial AUTH validation failed", v129, v130, v131, v132, v133, v134, v135, v421);
             }
 
             ErrorInternal = Error;
             goto LABEL_168;
           }
 
-          v374 = ne_log_obj();
-          if (os_log_type_enabled(v374, OS_LOG_TYPE_ERROR))
+          v373 = ne_log_obj();
+          if (os_log_type_enabled(v373, OS_LOG_TYPE_ERROR))
           {
             copyShortDescription3 = [(NEIKEv2Packet *)v47 copyShortDescription];
             *buf = 138412290;
             *&buf[4] = copyShortDescription3;
-            _os_log_error_impl(&dword_1BA83C000, v374, OS_LOG_TYPE_ERROR, "%@ Initiator is missing GSPM handler", buf, 0xCu);
+            _os_log_error_impl(&dword_1BA83C000, v373, OS_LOG_TYPE_ERROR, "%@ Initiator is missing GSPM handler", buf, 0xCu);
           }
 
-          v382 = @"Initiator is missing GSPM handler";
+          v381 = @"Initiator is missing GSPM handler";
           goto LABEL_269;
         }
 
@@ -3433,18 +3399,18 @@ LABEL_58:
           v138 = [[NEIKEv2GSPM alloc] initWithIKESA:v46];
           if (!v138)
           {
-            v391 = ne_log_obj();
-            if (os_log_type_enabled(v391, OS_LOG_TYPE_ERROR))
+            v390 = ne_log_obj();
+            if (os_log_type_enabled(v390, OS_LOG_TYPE_ERROR))
             {
               copyShortDescription4 = [(NEIKEv2Packet *)v47 copyShortDescription];
               *buf = 138412290;
               *&buf[4] = copyShortDescription4;
-              _os_log_error_impl(&dword_1BA83C000, v391, OS_LOG_TYPE_ERROR, "%@ Failed to create GSPM handler", buf, 0xCu);
+              _os_log_error_impl(&dword_1BA83C000, v390, OS_LOG_TYPE_ERROR, "%@ Failed to create GSPM handler", buf, 0xCu);
             }
 
-            v382 = @"Failed to create GSPM handler";
+            v381 = @"Failed to create GSPM handler";
 LABEL_269:
-            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(v382, v375, v376, v377, v378, v379, v380, v381, v422);
+            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(v381, v374, v375, v376, v377, v378, v379, v380, v421);
 LABEL_90:
             ErrorInternal = ErrorPeerInvalidSyntax;
             v63 = 0;
@@ -3464,7 +3430,7 @@ LABEL_168:
 
           if (([(NEIKEv2Payload *)v64 isValid]& 1) == 0)
           {
-            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create responder identifier payload for GSPM", v143, v144, v145, v146, v147, v148, v149, v422);
+            ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create responder identifier payload for GSPM", v143, v144, v145, v146, v147, v148, v149, v421);
 
             goto LABEL_168;
           }
@@ -3472,9 +3438,9 @@ LABEL_168:
           objc_storeStrong(&v46[42].isa, v64);
         }
 
-        v428 = v63[2].isa;
+        v427 = v63[2].isa;
 LABEL_117:
-        v439 = v47;
+        v438 = v47;
         objb = v46;
         BYTE1(v46[2].isa) = 1;
         v150 = objc_getProperty(v47, v62, 144, 1);
@@ -3494,7 +3460,7 @@ LABEL_117:
         {
           if (v63[1].isa)
           {
-            v161 = NEIKEv2CreateErrorInternal(@"Failed to process extraneous peer message", v153, v154, v155, v156, v157, v158, v159, v422);
+            v161 = NEIKEv2CreateErrorInternal(@"Failed to process extraneous peer message", v153, v154, v155, v156, v157, v158, v159, v421);
           }
 
           else
@@ -3522,7 +3488,7 @@ LABEL_117:
 
         else
         {
-          v424 = v64;
+          v423 = v64;
           v162 = v7;
           v163 = v63[3].isa;
           *buf = 0;
@@ -3543,29 +3509,29 @@ LABEL_117:
           }
 
           v7 = v162;
-          v64 = v424;
+          v64 = v423;
         }
 
-        v426 = v161;
+        v425 = v161;
         if (v161)
         {
-          v349 = ne_log_obj();
-          if (os_log_type_enabled(v349, OS_LOG_TYPE_ERROR))
+          v348 = ne_log_obj();
+          if (os_log_type_enabled(v348, OS_LOG_TYPE_ERROR))
           {
-            copyShortDescription5 = [(NEIKEv2Packet *)v439 copyShortDescription];
+            copyShortDescription5 = [(NEIKEv2Packet *)v438 copyShortDescription];
             *buf = 138412546;
             *&buf[4] = copyShortDescription5;
-            v460 = 2112;
-            v461 = v161;
-            _os_log_error_impl(&dword_1BA83C000, v349, OS_LOG_TYPE_ERROR, "%@ Failed to process GSPM message: %@", buf, 0x16u);
+            v459 = 2112;
+            v460 = v161;
+            _os_log_error_impl(&dword_1BA83C000, v348, OS_LOG_TYPE_ERROR, "%@ Failed to process GSPM message: %@", buf, 0x16u);
           }
 
-          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to process GSPM message", v350, v351, v352, v353, v354, v355, v356, v422);
+          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to process GSPM message", v349, v350, v351, v352, v353, v354, v355, v421);
         }
 
         else
         {
-          v173 = v428;
+          v173 = v427;
           if (BYTE1(v46[1].isa))
           {
             v174 = v63[2].isa;
@@ -3577,26 +3543,26 @@ LABEL_117:
               initOutbound = [(NEIKEv2Packet *)v176 initOutbound];
               if (!initOutbound)
               {
-                v383 = ne_log_obj();
-                if (os_log_type_enabled(v383, OS_LOG_TYPE_FAULT))
+                v382 = ne_log_obj();
+                if (os_log_type_enabled(v382, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 0;
-                  _os_log_fault_impl(&dword_1BA83C000, v383, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKEAuthPacket alloc] initOutbound] failed", buf, 2u);
+                  _os_log_fault_impl(&dword_1BA83C000, v382, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKEAuthPacket alloc] initOutbound] failed", buf, 2u);
                 }
 
-                ErrorInternal = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initOutbound] failed", v384, v385, v386, v387, v388, v389, v390, v422);
+                ErrorInternal = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initOutbound] failed", v383, v384, v385, v386, v387, v388, v389, v421);
                 v185 = 0;
                 v65 = 0;
                 v184 = v174;
-                packetCopy = v433;
-                v47 = v439;
+                packetCopy = v432;
+                v47 = v438;
                 goto LABEL_161;
               }
 
               v65 = initOutbound;
               v173 = v174;
-              packetCopy = v433;
-              v47 = v439;
+              packetCopy = v432;
+              v47 = v438;
 LABEL_137:
               if (v173)
               {
@@ -3614,8 +3580,8 @@ LABEL_161:
                 goto LABEL_169;
               }
 
-              v428 = 0;
-              v425 = v64;
+              v427 = 0;
+              v424 = v64;
               v186 = objc_alloc_init(NEIKEv2AuthPayload);
               objc_setProperty_atomic(v65, v187, v186, 128);
 
@@ -3633,7 +3599,7 @@ LABEL_161:
               if ((v193 & 1) == 0)
               {
                 v209 = ne_log_obj();
-                v64 = v425;
+                v64 = v424;
                 if (os_log_type_enabled(v209, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 136315138;
@@ -3656,7 +3622,7 @@ LABEL_161:
               v197 = objc_getProperty(v46, v196, 88, 1);
               ppkIDType = [v197 ppkIDType];
 
-              HIBYTE(v454) = ppkIDType;
+              HIBYTE(v453) = ppkIDType;
               if (ppkIDType)
               {
                 v200 = objc_getProperty(v46, v199, 88, 1);
@@ -3665,9 +3631,9 @@ LABEL_161:
                 if (ppkIDType != 2 || ppkID)
                 {
                   v202 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{objc_msgSend(ppkID, "length") + 1}];
-                  [v202 appendBytes:&v454 + 1 length:1];
+                  [v202 appendBytes:&v453 + 1 length:1];
                   [v202 appendData:ppkID];
-                  v423 = v202;
+                  v422 = v202;
                   if ([(NEIKEv2Packet *)v65 addNotification:v202 data:?])
                   {
                     v46 = objb;
@@ -3681,9 +3647,9 @@ LABEL_148:
 LABEL_149:
                       ErrorInternal = 0;
                       v185 = 0;
-                      v64 = v425;
+                      v64 = v424;
 LABEL_150:
-                      v184 = v428;
+                      v184 = v427;
                       goto LABEL_161;
                     }
 
@@ -3691,32 +3657,32 @@ LABEL_150:
                     if ([(NEIKEv2Packet *)v65 addNotification:v206 data:?])
                     {
 
-                      v47 = v439;
+                      v47 = v438;
                       goto LABEL_148;
                     }
 
-                    v394 = ppkID;
-                    v404 = ne_log_obj();
-                    if (os_log_type_enabled(v404, OS_LOG_TYPE_FAULT))
+                    v393 = ppkID;
+                    v403 = ne_log_obj();
+                    if (os_log_type_enabled(v403, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 0;
-                      _os_log_fault_impl(&dword_1BA83C000, v404, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", buf, 2u);
+                      _os_log_fault_impl(&dword_1BA83C000, v403, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", buf, 2u);
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", v405, v406, v407, v408, v409, v410, v411, v422);
+                    ErrorInternal = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", v404, v405, v406, v407, v408, v409, v410, v421);
                   }
 
                   else
                   {
-                    v394 = ppkID;
-                    v395 = ne_log_obj();
-                    if (os_log_type_enabled(v395, OS_LOG_TYPE_FAULT))
+                    v393 = ppkID;
+                    v394 = ne_log_obj();
+                    if (os_log_type_enabled(v394, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 0;
-                      _os_log_fault_impl(&dword_1BA83C000, v395, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", buf, 2u);
+                      _os_log_fault_impl(&dword_1BA83C000, v394, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", buf, 2u);
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", v396, v397, v398, v399, v400, v401, v402, v422);
+                    ErrorInternal = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", v395, v396, v397, v398, v399, v400, v401, v421);
                     v206 = 0;
                   }
 
@@ -3724,15 +3690,15 @@ LABEL_284:
                   v184 = 0;
                   v185 = v65;
                   v65 = 0;
-                  packetCopy = v433;
-                  v47 = v439;
+                  packetCopy = v432;
+                  v47 = v438;
                   v46 = objb;
-                  v64 = v425;
+                  v64 = v424;
                   goto LABEL_161;
                 }
 
-                v392 = ne_log_obj();
-                if (!os_log_type_enabled(v392, OS_LOG_TYPE_FAULT))
+                v391 = ne_log_obj();
+                if (!os_log_type_enabled(v391, OS_LOG_TYPE_FAULT))
                 {
 LABEL_279:
 
@@ -3742,23 +3708,23 @@ LABEL_279:
 
                 *buf = 136315138;
                 *&buf[4] = "+[NEIKEv2IKEAuthPacket(Exchange) createGSPMForIKESA:lastPacket:refusalError:]";
-                v393 = "%s called with null ppkID";
+                v392 = "%s called with null ppkID";
               }
 
               else
               {
-                v392 = ne_log_obj();
-                if (!os_log_type_enabled(v392, OS_LOG_TYPE_FAULT))
+                v391 = ne_log_obj();
+                if (!os_log_type_enabled(v391, OS_LOG_TYPE_FAULT))
                 {
                   goto LABEL_279;
                 }
 
                 *buf = 136315138;
                 *&buf[4] = "+[NEIKEv2IKEAuthPacket(Exchange) createGSPMForIKESA:lastPacket:refusalError:]";
-                v393 = "%s called with null ppkIDType";
+                v392 = "%s called with null ppkIDType";
               }
 
-              _os_log_fault_impl(&dword_1BA83C000, v392, OS_LOG_TYPE_FAULT, v393, buf, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v391, OS_LOG_TYPE_FAULT, v392, buf, 0xCu);
               goto LABEL_279;
             }
 
@@ -3770,9 +3736,9 @@ LABEL_279:
             v176 = [NEIKEv2IKEAuthPacket alloc];
           }
 
-          packetCopy = v433;
-          v47 = v439;
-          v178 = [(NEIKEv2Packet *)v176 initResponse:v439];
+          packetCopy = v432;
+          v47 = v438;
+          v178 = [(NEIKEv2Packet *)&v176->super.super initResponse:v438];
           if (v178)
           {
             v65 = v178;
@@ -3780,22 +3746,22 @@ LABEL_279:
             goto LABEL_137;
           }
 
-          v428 = v173;
-          v414 = ne_log_obj();
-          if (os_log_type_enabled(v414, OS_LOG_TYPE_FAULT))
+          v427 = v173;
+          v413 = ne_log_obj();
+          if (os_log_type_enabled(v413, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v414, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKEAuthPacket alloc] initResponse:] failed", buf, 2u);
+            _os_log_fault_impl(&dword_1BA83C000, v413, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKEAuthPacket alloc] initResponse:] failed", buf, 2u);
           }
 
-          ErrorCrypto = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initResponse:] failed", v415, v416, v417, v418, v419, v420, v421, v422);
+          ErrorCrypto = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initResponse:] failed", v414, v415, v416, v417, v418, v419, v420, v421);
         }
 
         ErrorInternal = ErrorCrypto;
         v185 = 0;
         v65 = 0;
-        packetCopy = v433;
-        v47 = v439;
+        packetCopy = v432;
+        v47 = v438;
         goto LABEL_150;
       }
 
@@ -3811,7 +3777,7 @@ LABEL_169:
         {
 
           v66 = "GSPM";
-          aCopy = v435;
+          aCopy = v434;
           if (!v7)
           {
             goto LABEL_175;
@@ -3822,16 +3788,16 @@ LABEL_169:
 
         if (!v46 || (BYTE1(v46[1].isa) & 1) == 0)
         {
-          v345 = ne_log_obj();
-          if (os_log_type_enabled(v345, OS_LOG_TYPE_ERROR))
+          v344 = ne_log_obj();
+          if (os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
           {
-            *v462 = 138412290;
+            *v461 = 138412290;
             selfCopy8 = self;
-            _os_log_error_impl(&dword_1BA83C000, v345, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (GSPM) packet (receive)", v462, 0xCu);
+            _os_log_error_impl(&dword_1BA83C000, v344, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (GSPM) packet (receive)", v461, 0xCu);
           }
 
-          v346 = [NEIKEv2IKEAuthPacket createIKEAuthResponse:v47 refusalError:0x18uLL];
-          if (([(NEIKEv2Session *)self sendReply:v346 replyHandler:0]& 1) != 0)
+          v345 = [NEIKEv2IKEAuthPacket createIKEAuthResponse:v47 refusalError:0x18uLL];
+          if (([(NEIKEv2Session *)self sendReply:v345 replyHandler:0]& 1) != 0)
           {
             [(NEIKEv2IKESA *)v46 setState:ErrorInternal error:?];
             [(NEIKEv2Session *)self reportState];
@@ -3839,9 +3805,9 @@ LABEL_169:
 
           else
           {
-            v358 = objc_getProperty(self, v347, 352, 1);
-            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"GSPM refusal (receive) %@", v359, v360, v361, v362, v363, v364, v365, ErrorInternal);
-            [(NEIKEv2IKESA *)v358 setState:ErrorFailedToSend error:?];
+            v357 = objc_getProperty(self, v346, 352, 1);
+            ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"GSPM refusal (receive) %@", v358, v359, v360, v361, v362, v363, v364, ErrorInternal);
+            [(NEIKEv2IKESA *)v357 setState:ErrorFailedToSend error:?];
 
             [(NEIKEv2Session *)self reportState];
             [(NEIKEv2Session *)self resetAll];
@@ -3857,12 +3823,12 @@ LABEL_169:
 
           if (code == 5)
           {
-            v329 = ne_log_obj();
-            if (os_log_type_enabled(v329, OS_LOG_TYPE_DEFAULT))
+            v328 = ne_log_obj();
+            if (os_log_type_enabled(v328, OS_LOG_TYPE_DEFAULT))
             {
-              *v462 = 138412290;
+              *v461 = 138412290;
               selfCopy8 = self;
-              _os_log_impl(&dword_1BA83C000, v329, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (GSPM) (connect)", v462, 0xCu);
+              _os_log_impl(&dword_1BA83C000, v328, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (GSPM) (connect)", v461, 0xCu);
             }
 
             [(NEIKEv2IKESA *)v46 setState:ErrorInternal error:?];
@@ -3871,7 +3837,7 @@ LABEL_169:
             packetCopy[2](packetCopy, 0);
 LABEL_256:
 
-            aCopy = v435;
+            aCopy = v434;
             goto LABEL_179;
           }
         }
@@ -3880,25 +3846,25 @@ LABEL_256:
         {
         }
 
-        v369 = ne_log_obj();
-        if (os_log_type_enabled(v369, OS_LOG_TYPE_ERROR))
+        v368 = ne_log_obj();
+        if (os_log_type_enabled(v368, OS_LOG_TYPE_ERROR))
         {
-          *v462 = 138412290;
+          *v461 = 138412290;
           selfCopy8 = self;
-          _os_log_error_impl(&dword_1BA83C000, v369, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (GSPM) packet (connect)", v462, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v368, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (GSPM) packet (connect)", v461, 0xCu);
         }
 
-        v371 = objc_getProperty(self, v370, 352, 1);
-        [(NEIKEv2IKESA *)v371 setState:ErrorInternal error:?];
+        v370 = objc_getProperty(self, v369, 352, 1);
+        [(NEIKEv2IKESA *)v370 setState:ErrorInternal error:?];
 
         [(NEIKEv2Session *)self reportState];
         [(NEIKEv2Session *)self resetAll];
         goto LABEL_256;
       }
 
-      *v462 = 136315138;
+      *v461 = 136315138;
       selfCopy8 = "+[NEIKEv2IKEAuthPacket(Exchange) createGSPMForIKESA:lastPacket:refusalError:]";
-      v326 = "%s called with null lastPacket";
+      v325 = "%s called with null lastPacket";
     }
 
     else
@@ -3909,48 +3875,48 @@ LABEL_256:
         goto LABEL_237;
       }
 
-      *v462 = 136315138;
+      *v461 = 136315138;
       selfCopy8 = "+[NEIKEv2IKEAuthPacket(Exchange) createGSPMForIKESA:lastPacket:refusalError:]";
-      v326 = "%s called with null ikeSA";
+      v325 = "%s called with null ikeSA";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_FAULT, v326, v462, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_FAULT, v325, v461, 0xCu);
     goto LABEL_237;
   }
 
   if (!v7 || (v7[9] & 1) == 0)
   {
-    v283 = packetCopy;
-    v284 = v7;
-    v285 = ne_log_obj();
-    if (os_log_type_enabled(v285, OS_LOG_TYPE_FAULT))
+    v282 = packetCopy;
+    v283 = v7;
+    v284 = ne_log_obj();
+    if (os_log_type_enabled(v284, OS_LOG_TYPE_FAULT))
     {
-      *v462 = 138412290;
+      *v461 = 138412290;
       selfCopy8 = self;
-      _os_log_fault_impl(&dword_1BA83C000, v285, OS_LOG_TYPE_FAULT, "%@ EAP is not supported by responder (receive)", v462, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v284, OS_LOG_TYPE_FAULT, "%@ EAP is not supported by responder (receive)", v461, 0xCu);
     }
 
-    v286 = [NEIKEv2IKEAuthPacket createIKEAuthResponse:aCopy refusalError:0x18uLL];
-    if (([(NEIKEv2Session *)self sendReply:v286 replyHandler:0]& 1) != 0)
+    v285 = [NEIKEv2IKEAuthPacket createIKEAuthResponse:aCopy refusalError:0x18uLL];
+    if (([(NEIKEv2Session *)self sendReply:v285 replyHandler:0]& 1) != 0)
     {
-      v294 = NEIKEv2CreateErrorInternal(@"EAP is not supported by responder (receive)", v287, v288, v289, v290, v291, v292, v293, v422);
-      [(NEIKEv2IKESA *)v284 setState:v294 error:?];
+      v293 = NEIKEv2CreateErrorInternal(@"EAP is not supported by responder (receive)", v286, v287, v288, v289, v290, v291, v292, v421);
+      [(NEIKEv2IKESA *)v283 setState:v293 error:?];
 
       [(NEIKEv2Session *)self reportState];
     }
 
     else
     {
-      v315 = objc_getProperty(self, v287, 352, 1);
-      v323 = NEIKEv2CreateErrorFailedToSend(@"EAP unsupported refusal (receive)", v316, v317, v318, v319, v320, v321, v322, v422);
-      [(NEIKEv2IKESA *)v315 setState:v323 error:?];
+      v314 = objc_getProperty(self, v286, 352, 1);
+      v322 = NEIKEv2CreateErrorFailedToSend(@"EAP unsupported refusal (receive)", v315, v316, v317, v318, v319, v320, v321, v421);
+      [(NEIKEv2IKESA *)v314 setState:v322 error:?];
 
       [(NEIKEv2Session *)self reportState];
       [(NEIKEv2Session *)self resetAll];
     }
 
-    v7 = v284;
-    packetCopy = v283;
+    v7 = v283;
+    packetCopy = v282;
     goto LABEL_179;
   }
 
@@ -3967,11 +3933,11 @@ LABEL_219:
       goto LABEL_156;
     }
 
-    *v462 = 136315138;
+    *v461 = 136315138;
     selfCopy8 = "+[NEIKEv2IKEAuthPacket(Exchange) createEAPForInitiatorIKESA:lastResponderPacket:]";
-    v296 = "%s called with null ikeSA.isInitiator";
+    v295 = "%s called with null ikeSA.isInitiator";
 LABEL_261:
-    _os_log_fault_impl(&dword_1BA83C000, copyError2, OS_LOG_TYPE_FAULT, v296, v462, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, copyError2, OS_LOG_TYPE_FAULT, v295, v461, 0xCu);
     goto LABEL_219;
   }
 
@@ -3983,42 +3949,42 @@ LABEL_261:
       goto LABEL_219;
     }
 
-    *v462 = 136315138;
+    *v461 = 136315138;
     selfCopy8 = "+[NEIKEv2IKEAuthPacket(Exchange) createEAPForInitiatorIKESA:lastResponderPacket:]";
-    v296 = "%s called with null lastResponderPacket";
+    v295 = "%s called with null lastResponderPacket";
     goto LABEL_261;
   }
 
   if ([(NEIKEv2Packet *)v22 hasErrors])
   {
-    v436 = v21;
+    v435 = v21;
     selfCopy5 = self;
-    v432 = packetCopy;
-    v457 = 0u;
-    v458 = 0u;
-    v455 = 0u;
+    v431 = packetCopy;
     v456 = 0u;
+    v457 = 0u;
+    v454 = 0u;
+    v455 = 0u;
     v25 = v22;
     obj = objc_getProperty(v22, v24, 64, 1);
-    v26 = [(NEIKEv2EAP *)obj countByEnumeratingWithState:&v455 objects:v462 count:16];
+    v26 = [(NEIKEv2EAP *)obj countByEnumeratingWithState:&v454 objects:v461 count:16];
     if (v26)
     {
       v27 = v26;
       v28 = 0;
-      v29 = *v456;
+      v29 = *v455;
       while (2)
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v456 != v29)
+          if (*v455 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v455 + 1) + 8 * j);
+          v31 = *(*(&v454 + 1) + 8 * j);
           if (v31 && (*(v31 + 32) - 1) <= 0x3FFE)
           {
-            copyError2 = [(NEIKEv2NotifyPayload *)*(*(&v455 + 1) + 8 * j) copyError];
+            copyError2 = [(NEIKEv2NotifyPayload *)*(*(&v454 + 1) + 8 * j) copyError];
 
             v33 = ne_log_obj();
             if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
@@ -4026,20 +3992,20 @@ LABEL_261:
               copyShortDescription6 = [(NEIKEv2Packet *)v25 copyShortDescription];
               *buf = 138412546;
               *&buf[4] = copyShortDescription6;
-              v460 = 2112;
-              v461 = copyError2;
+              v459 = 2112;
+              v460 = copyError2;
               _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "%@ Initiator auth EAP received notify error: %@", buf, 0x16u);
             }
 
-            if (*(v31 + 32) & 0xFFFFFFFFFFFFE000) != 0x2000 || (*(v436 + 18))
+            if (*(v31 + 32) & 0xFFFFFFFFFFFFE000) != 0x2000 || (*(v435 + 18))
             {
 LABEL_60:
-              [(NEIKEv2IKESA *)v436 setState:copyError2 error:?];
+              [(NEIKEv2IKESA *)v435 setState:copyError2 error:?];
               v65 = 0;
               self = selfCopy5;
-              packetCopy = v432;
+              packetCopy = v431;
               v22 = v25;
-              v21 = v436;
+              v21 = v435;
               goto LABEL_155;
             }
 
@@ -4070,7 +4036,7 @@ LABEL_60:
           }
         }
 
-        v27 = [(NEIKEv2EAP *)obj countByEnumeratingWithState:&v455 objects:v462 count:16];
+        v27 = [(NEIKEv2EAP *)obj countByEnumeratingWithState:&v454 objects:v461 count:16];
         if (v27)
         {
           continue;
@@ -4087,9 +4053,9 @@ LABEL_60:
 
     copyError2 = v28;
     self = selfCopy5;
-    packetCopy = v432;
+    packetCopy = v431;
     v22 = v25;
-    v21 = v436;
+    v21 = v435;
   }
 
   else
@@ -4118,7 +4084,7 @@ LABEL_60:
       _os_log_error_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_ERROR, "%@ No EAP data received", buf, 0xCu);
     }
 
-    objc = NEIKEv2CreateErrorAuthentication(@"No EAP data received", v87, v88, v89, v90, v91, v92, v93, v422);
+    objc = NEIKEv2CreateErrorAuthentication(@"No EAP data received", v87, v88, v89, v90, v91, v92, v93, v421);
     [(NEIKEv2IKESA *)v21 setState:objc error:?];
     v65 = 0;
     copyError2 = v85;
@@ -4143,7 +4109,7 @@ LABEL_60:
     objc_setProperty_atomic(v21, v137, obj, 456);
     BYTE1(v21[2].isa) = 1;
 LABEL_70:
-    v454 = 0;
+    v453 = 0;
     v73 = objc_getProperty(v22, v72, 136, 1);
     v75 = v73;
     selfCopy6 = self;
@@ -4153,7 +4119,7 @@ LABEL_70:
     }
 
     v76 = v73;
-    v77 = [(NEIKEv2EAP *)obj createPayloadResponseForRequest:v76 ikeSA:v21 success:&v454 + 1 reportEAPError:&v454];
+    v77 = [(NEIKEv2EAP *)obj createPayloadResponseForRequest:v76 ikeSA:v21 success:&v453 + 1 reportEAPError:&v453];
 
     if (copyError2)
     {
@@ -4163,16 +4129,16 @@ LABEL_153:
       goto LABEL_154;
     }
 
-    if ((v454 & 0x100) == 0 && !v77)
+    if ((v453 & 0x100) == 0 && !v77)
     {
-      if (v454 == 1)
+      if (v453 == 1)
       {
         ErrorAuthentication = NEIKEv2CreateError(10);
       }
 
       else
       {
-        ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP error", v78, v79, v80, v81, v82, v83, v84, v422);
+        ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP error", v78, v79, v80, v81, v82, v83, v84, v421);
       }
 
       v207 = ErrorAuthentication;
@@ -4191,7 +4157,7 @@ LABEL_153:
         _os_log_fault_impl(&dword_1BA83C000, v210, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKEAuthPacket alloc] initOutbound:] failed", buf, 2u);
       }
 
-      v218 = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initOutbound:] failed", v211, v212, v213, v214, v215, v216, v217, v422);
+      v218 = NEIKEv2CreateErrorInternal(@"[[NEIKEv2IKEAuthPacket alloc] initOutbound:] failed", v211, v212, v213, v214, v215, v216, v217, v421);
       [(NEIKEv2IKESA *)v21 setState:v218 error:?];
 
       goto LABEL_165;
@@ -4212,8 +4178,8 @@ LABEL_153:
 LABEL_98:
       if ([(NEIKEv2Packet *)v22 hasNotification:?])
       {
-        v434 = initOutbound2;
-        v438 = v21;
+        v433 = initOutbound2;
+        v437 = v21;
         v114 = BYTE2(v21[2].isa);
         v115 = ne_log_obj();
         v116 = os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT);
@@ -4227,8 +4193,8 @@ LABEL_98:
             _os_log_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_DEFAULT, "%@ Received request for device identity", buf, 0xCu);
           }
 
-          v21 = v438;
-          copyDeviceIdentityNotifyPayload = [(NEIKEv2IKESA *)v438 copyDeviceIdentityNotifyPayload];
+          v21 = v437;
+          copyDeviceIdentityNotifyPayload = [(NEIKEv2IKESA *)v437 copyDeviceIdentityNotifyPayload];
           if (copyDeviceIdentityNotifyPayload)
           {
             v115 = copyDeviceIdentityNotifyPayload;
@@ -4241,9 +4207,9 @@ LABEL_98:
                 _os_log_fault_impl(&dword_1BA83C000, v120, OS_LOG_TYPE_FAULT, "[responsePacket addNotifyPayload:notifyPayload] failed", buf, 2u);
               }
 
-              v128 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeDeviceIdentity] failed", v121, v122, v123, v124, v125, v126, v127, v422);
-              v21 = v438;
-              [(NEIKEv2IKESA *)v438 setState:v128 error:?];
+              v128 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeDeviceIdentity] failed", v121, v122, v123, v124, v125, v126, v127, v421);
+              v21 = v437;
+              [(NEIKEv2IKESA *)v437 setState:v128 error:?];
 
               v65 = 0;
               goto LABEL_194;
@@ -4252,13 +4218,13 @@ LABEL_98:
 
           else
           {
-            v273 = ne_log_obj();
-            if (os_log_type_enabled(v273, OS_LOG_TYPE_ERROR))
+            v272 = ne_log_obj();
+            if (os_log_type_enabled(v272, OS_LOG_TYPE_ERROR))
             {
               copyShortDescription9 = [(NEIKEv2Packet *)v22 copyShortDescription];
               *buf = 138412290;
               *&buf[4] = copyShortDescription9;
-              _os_log_error_impl(&dword_1BA83C000, v273, OS_LOG_TYPE_ERROR, "%@ Failed to get device identity payload", buf, 0xCu);
+              _os_log_error_impl(&dword_1BA83C000, v272, OS_LOG_TYPE_ERROR, "%@ Failed to get device identity payload", buf, 0xCu);
             }
 
             v115 = 0;
@@ -4275,7 +4241,7 @@ LABEL_98:
             _os_log_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_DEFAULT, "%@ Ignoring request for device identity as peer is not authenticated", buf, 0xCu);
           }
 
-          v21 = v438;
+          v21 = v437;
         }
       }
 
@@ -4283,105 +4249,105 @@ LABEL_98:
       goto LABEL_201;
     }
 
-    v246 = objc_alloc_init(NEIKEv2AuthPayload);
-    objc_setProperty_atomic(initOutbound2, v247, v246, 128);
+    v245 = objc_alloc_init(NEIKEv2AuthPayload);
+    objc_setProperty_atomic(initOutbound2, v246, v245, 128);
 
-    v248 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
-    objc_getProperty(initOutbound2, v249, 128, 1);
-    v251 = v250 = initOutbound2;
-    [(NEIKEv2AuthPayload *)v251 setAuthProtocol:v248];
+    v247 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
+    objc_getProperty(initOutbound2, v248, 128, 1);
+    v250 = v249 = initOutbound2;
+    [(NEIKEv2AuthPayload *)v250 setAuthProtocol:v247];
 
-    v252 = [(NEIKEv2IKESA *)v21 createInitiatorEAPAuthenticationDataUsingPrimeKey:?];
-    v254 = objc_getProperty(v250, v253, 128, 1);
-    [(NEIKEv2AuthPayload *)v254 setAuthenticationData:v252];
+    v251 = [(NEIKEv2IKESA *)v21 createInitiatorEAPAuthenticationDataUsingPrimeKey:?];
+    v253 = objc_getProperty(v249, v252, 128, 1);
+    [(NEIKEv2AuthPayload *)v253 setAuthenticationData:v251];
 
-    v434 = v250;
-    v256 = objc_getProperty(v250, v255, 128, 1);
-    LOBYTE(v254) = [(NEIKEv2Payload *)v256 isValid];
+    v433 = v249;
+    v255 = objc_getProperty(v249, v254, 128, 1);
+    LOBYTE(v253) = [(NEIKEv2Payload *)v255 isValid];
 
-    if (v254)
+    if (v253)
     {
-      initOutbound2 = v250;
+      initOutbound2 = v249;
       if ((v21[3].isa & 1) == 0)
       {
         goto LABEL_98;
       }
 
-      v258 = objc_getProperty(v21, v257, 88, 1);
-      ppkIDType2 = [v258 ppkIDType];
+      v257 = objc_getProperty(v21, v256, 88, 1);
+      ppkIDType2 = [v257 ppkIDType];
 
-      v453 = ppkIDType2;
+      v452 = ppkIDType2;
       if (!ppkIDType2)
       {
-        v270 = ne_log_obj();
-        if (!os_log_type_enabled(v270, OS_LOG_TYPE_FAULT))
+        v269 = ne_log_obj();
+        if (!os_log_type_enabled(v269, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_193;
         }
 
         *buf = 136315138;
         *&buf[4] = "+[NEIKEv2IKEAuthPacket(Exchange) createEAPForInitiatorIKESA:lastResponderPacket:]";
-        v314 = "%s called with null ppkIDType";
+        v313 = "%s called with null ppkIDType";
         goto LABEL_224;
       }
 
-      v261 = objc_getProperty(v21, v260, 88, 1);
-      ppkID2 = [v261 ppkID];
+      v260 = objc_getProperty(v21, v259, 88, 1);
+      ppkID2 = [v260 ppkID];
 
-      initOutbound2 = v434;
-      if (v453 != 2 || ppkID2)
+      initOutbound2 = v433;
+      if (v452 != 2 || ppkID2)
       {
-        v263 = ppkID2;
-        v264 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{objc_msgSend(ppkID2, "length") + 1}];
-        [v264 appendBytes:&v453 length:1];
-        v429 = v263;
-        [v264 appendData:v263];
-        if ([(NEIKEv2Packet *)v434 addNotification:v264 data:?])
+        v262 = ppkID2;
+        v263 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{objc_msgSend(ppkID2, "length") + 1}];
+        [v263 appendBytes:&v452 length:1];
+        v428 = v262;
+        [v263 appendData:v262];
+        if ([(NEIKEv2Packet *)v433 addNotification:v263 data:?])
         {
-          v266 = objc_getProperty(v21, v265, 88, 1);
-          ppkMandatory2 = [v266 ppkMandatory];
+          v265 = objc_getProperty(v21, v264, 88, 1);
+          ppkMandatory2 = [v265 ppkMandatory];
 
           if (ppkMandatory2)
           {
 LABEL_189:
 
-            initOutbound2 = v434;
+            initOutbound2 = v433;
             goto LABEL_98;
           }
 
-          v268 = [(NEIKEv2IKESA *)v21 createInitiatorEAPAuthenticationDataUsingPrimeKey:?];
-          initOutbound2 = v434;
-          if ([(NEIKEv2Packet *)v434 addNotification:v268 data:?])
+          v267 = [(NEIKEv2IKESA *)v21 createInitiatorEAPAuthenticationDataUsingPrimeKey:?];
+          initOutbound2 = v433;
+          if ([(NEIKEv2Packet *)v433 addNotification:v267 data:?])
           {
 
             goto LABEL_189;
           }
 
-          v427 = v268;
-          v305 = ne_log_obj();
-          if (os_log_type_enabled(v305, OS_LOG_TYPE_FAULT))
+          v426 = v267;
+          v304 = ne_log_obj();
+          if (os_log_type_enabled(v304, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v305, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", buf, 2u);
+            _os_log_fault_impl(&dword_1BA83C000, v304, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", buf, 2u);
           }
 
-          v313 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", v306, v307, v308, v309, v310, v311, v312, v422);
-          [(NEIKEv2IKESA *)v21 setState:v313 error:?];
+          v312 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed", v305, v306, v307, v308, v309, v310, v311, v421);
+          [(NEIKEv2IKESA *)v21 setState:v312 error:?];
 
-          v282 = v427;
+          v281 = v426;
         }
 
         else
         {
-          v274 = ne_log_obj();
-          if (os_log_type_enabled(v274, OS_LOG_TYPE_FAULT))
+          v273 = ne_log_obj();
+          if (os_log_type_enabled(v273, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v274, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", buf, 2u);
+            _os_log_fault_impl(&dword_1BA83C000, v273, OS_LOG_TYPE_FAULT, "[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", buf, 2u);
           }
 
-          v282 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", v275, v276, v277, v278, v279, v280, v281, v422);
-          [(NEIKEv2IKESA *)v21 setState:v282 error:?];
+          v281 = NEIKEv2CreateErrorInternal(@"[responsePacket addNotification:NEIKEv2NotifyTypePPKIdentity] failed", v274, v275, v276, v277, v278, v279, v280, v421);
+          [(NEIKEv2IKESA *)v21 setState:v281 error:?];
         }
 
 LABEL_165:
@@ -4395,26 +4361,26 @@ LABEL_155:
         goto LABEL_156;
       }
 
-      v270 = ne_log_obj();
-      if (os_log_type_enabled(v270, OS_LOG_TYPE_FAULT))
+      v269 = ne_log_obj();
+      if (os_log_type_enabled(v269, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "+[NEIKEv2IKEAuthPacket(Exchange) createEAPForInitiatorIKESA:lastResponderPacket:]";
-        v314 = "%s called with null ppkID";
+        v313 = "%s called with null ppkID";
         goto LABEL_224;
       }
     }
 
     else
     {
-      v270 = ne_log_obj();
-      if (os_log_type_enabled(v270, OS_LOG_TYPE_FAULT))
+      v269 = ne_log_obj();
+      if (os_log_type_enabled(v269, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "+[NEIKEv2IKEAuthPacket(Exchange) createEAPForInitiatorIKESA:lastResponderPacket:]";
-        v314 = "%s called with null responsePacket.auth.isValid";
+        v313 = "%s called with null responsePacket.auth.isValid";
 LABEL_224:
-        _os_log_fault_impl(&dword_1BA83C000, v270, OS_LOG_TYPE_FAULT, v314, buf, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v269, OS_LOG_TYPE_FAULT, v313, buf, 0xCu);
       }
     }
 
@@ -4422,7 +4388,7 @@ LABEL_193:
 
     v65 = 0;
 LABEL_194:
-    initOutbound2 = v434;
+    initOutbound2 = v433;
     goto LABEL_201;
   }
 
@@ -4437,15 +4403,15 @@ LABEL_156:
 LABEL_171:
     if (v7[9])
     {
-      v449[0] = MEMORY[0x1E69E9820];
-      v449[1] = 3221225472;
-      v449[2] = __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke;
-      v449[3] = &unk_1E7F08260;
-      v449[4] = self;
-      v452 = v66;
-      v450 = v7;
-      v451 = packetCopy;
-      if ([NEIKEv2Session sendRequest:self retry:v65 replyHandler:v449]== -1)
+      v448[0] = MEMORY[0x1E69E9820];
+      v448[1] = 3221225472;
+      v448[2] = __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke;
+      v448[3] = &unk_1E7F08260;
+      v448[4] = self;
+      v451 = v66;
+      v449 = v7;
+      v450 = packetCopy;
+      if ([NEIKEv2Session sendRequest:self retry:v65 replyHandler:v448]== -1)
       {
         v220 = objc_getProperty(self, v219, 352, 1);
         v228 = NEIKEv2CreateErrorFailedToSend(@"%s response (connect)", v221, v222, v223, v224, v225, v226, v227, v66);
@@ -4455,22 +4421,22 @@ LABEL_171:
         [(NEIKEv2Session *)self resetAll];
       }
 
-      v231 = v450;
+      v231 = v449;
 LABEL_178:
 
       goto LABEL_179;
     }
 
 LABEL_175:
-    v445[0] = MEMORY[0x1E69E9820];
-    v445[1] = 3221225472;
-    v445[2] = __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke_168;
-    v445[3] = &unk_1E7F08260;
-    v445[4] = self;
-    v448 = v66;
-    v446 = v7;
-    v447 = packetCopy;
-    if (([(NEIKEv2Session *)self sendReply:v65 replyHandler:v445]& 1) == 0)
+    v444[0] = MEMORY[0x1E69E9820];
+    v444[1] = 3221225472;
+    v444[2] = __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke_168;
+    v444[3] = &unk_1E7F08260;
+    v444[4] = self;
+    v447 = v66;
+    v445 = v7;
+    v446 = packetCopy;
+    if (([(NEIKEv2Session *)self sendReply:v65 replyHandler:v444]& 1) == 0)
     {
       v233 = objc_getProperty(self, v232, 352, 1);
       v241 = NEIKEv2CreateErrorFailedToSend(@"%s response (receive)", v234, v235, v236, v237, v238, v239, v240, v66);
@@ -4480,28 +4446,28 @@ LABEL_175:
       [(NEIKEv2Session *)self resetAll];
     }
 
-    v231 = v446;
+    v231 = v445;
     goto LABEL_178;
   }
 
   if (v21[6].isa == 3)
   {
-    v297 = v21;
-    v298 = objc_getProperty(v21, v208, 56, 1);
-    domain2 = [v298 domain];
+    v296 = v21;
+    v297 = objc_getProperty(v21, v208, 56, 1);
+    domain2 = [v297 domain];
     if ([domain2 isEqual:@"NEIKEv2ErrorDomain"])
     {
-      v301 = objc_getProperty(v297, v300, 56, 1);
-      code2 = [v301 code];
+      v300 = objc_getProperty(v296, v299, 56, 1);
+      code2 = [v300 code];
 
       if (code2 == 5)
       {
-        v303 = ne_log_obj();
-        if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
+        v302 = ne_log_obj();
+        if (os_log_type_enabled(v302, OS_LOG_TYPE_DEFAULT))
         {
-          *v462 = 138412290;
+          *v461 = 138412290;
           selfCopy8 = self;
-          _os_log_impl(&dword_1BA83C000, v303, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (EAP) (connect)", v462, 0xCu);
+          _os_log_impl(&dword_1BA83C000, v302, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (EAP) (connect)", v461, 0xCu);
         }
 
         [(NEIKEv2Session *)self reportServerRedirect:v22];
@@ -4516,32 +4482,30 @@ LABEL_175:
     }
   }
 
-  v332 = ne_log_obj();
-  if (os_log_type_enabled(v332, OS_LOG_TYPE_ERROR))
+  v331 = ne_log_obj();
+  if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
   {
-    *v462 = 138412290;
+    *v461 = 138412290;
     selfCopy8 = self;
-    _os_log_error_impl(&dword_1BA83C000, v332, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (EAP) packet (connect)", v462, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v331, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth (EAP) packet (connect)", v461, 0xCu);
   }
 
-  v334 = objc_getProperty(self, v333, 352, 1);
-  v342 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE Auth (EAP) packet (connect)", v335, v336, v337, v338, v339, v340, v341, v422);
-  [(NEIKEv2IKESA *)v334 setState:v342 error:?];
+  v333 = objc_getProperty(self, v332, 352, 1);
+  v341 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE Auth (EAP) packet (connect)", v334, v335, v336, v337, v338, v339, v340, v421);
+  [(NEIKEv2IKESA *)v333 setState:v341 error:?];
 
   [(NEIKEv2Session *)self reportState];
   [(NEIKEv2Session *)self resetAll];
 LABEL_179:
-
-  v244 = *MEMORY[0x1E69E9840];
 }
 
-void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke(uint64_t *a1, void *a2)
+void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 35)
   {
-    [(NEIKEv2Session *)a1[4] handleEAPAndGSPMForIKESA:v3 authPacket:a1[6] handler:?];
+    [(NEIKEv2Session *)*(a1 + 32) handleEAPAndGSPMForIKESA:v3 authPacket:*(a1 + 48) handler:?];
   }
 
   else
@@ -4549,39 +4513,37 @@ void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler_
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v19 = a1[4];
-      v20 = a1[7];
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 56);
       *buf = 138412546;
-      v22 = v19;
-      v23 = 2080;
-      v24 = v20;
+      v21 = v18;
+      v22 = 2080;
+      v23 = v19;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE Auth (%s) reply (connect)", buf, 0x16u);
     }
 
-    Property = a1[4];
+    Property = *(a1 + 32);
     if (Property)
     {
       Property = objc_getProperty(Property, v5, 352, 1);
     }
 
     v7 = Property;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth (%s) reply (connect)", v8, v9, v10, v11, v12, v13, v14, a1[7]);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth (%s) reply (connect)", v8, v9, v10, v11, v12, v13, v14, *(a1 + 56));
     [(NEIKEv2IKESA *)v7 setState:ErrorPeerInvalidSyntax error:?];
 
-    [(NEIKEv2Session *)a1[4] reportState];
-    [(NEIKEv2Session *)a1[4] resetAll];
+    [(NEIKEv2Session *)*(a1 + 32) reportState];
+    [(NEIKEv2Session *)*(a1 + 32) resetAll];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke_168(uint64_t *a1, void *a2)
+void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler___block_invoke_168(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 35)
   {
-    [(NEIKEv2Session *)a1[4] handleEAPAndGSPMForIKESA:v3 authPacket:a1[6] handler:?];
+    [(NEIKEv2Session *)*(a1 + 32) handleEAPAndGSPMForIKESA:v3 authPacket:*(a1 + 48) handler:?];
   }
 
   else
@@ -4589,77 +4551,75 @@ void __72__NEIKEv2Session_Exchange__handleEAPAndGSPMForIKESA_authPacket_handler_
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v19 = a1[4];
-      v20 = a1[7];
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 56);
       *buf = 138412546;
-      v22 = v19;
-      v23 = 2080;
-      v24 = v20;
+      v21 = v18;
+      v22 = 2080;
+      v23 = v19;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE Auth (%s) reply (receive)", buf, 0x16u);
     }
 
-    Property = a1[4];
+    Property = *(a1 + 32);
     if (Property)
     {
       Property = objc_getProperty(Property, v5, 352, 1);
     }
 
     v7 = Property;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth (%s) reply (receive)", v8, v9, v10, v11, v12, v13, v14, a1[7]);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth (%s) reply (receive)", v8, v9, v10, v11, v12, v13, v14, *(a1 + 56));
     [(NEIKEv2IKESA *)v7 setState:ErrorPeerInvalidSyntax error:?];
 
-    [(NEIKEv2Session *)a1[4] reportState];
-    [(NEIKEv2Session *)a1[4] resetAll];
+    [(NEIKEv2Session *)*(a1 + 32) reportState];
+    [(NEIKEv2Session *)*(a1 + 32) resetAll];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke(uint64_t a1, void *a2)
+void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke(void *a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] != 34)
   {
     v16 = ne_log_obj();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v34 = *(a1 + 32);
+      v33 = a1[4];
       *buf = 138412290;
-      v40 = v34;
+      v39 = v33;
       _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE SA Init reply (connect)", buf, 0xCu);
     }
 
-    Property = *(a1 + 32);
+    Property = a1[4];
     if (Property)
     {
       Property = objc_getProperty(Property, v17, 352, 1);
     }
 
     v19 = Property;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init reply (connect)", v20, v21, v22, v23, v24, v25, v26, v35);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE SA Init reply (connect)", v20, v21, v22, v23, v24, v25, v26, v34);
     [(NEIKEv2IKESA *)v19 setState:ErrorPeerInvalidSyntax error:?];
 
-    [(NEIKEv2Session *)*(a1 + 32) reportState];
+    [(NEIKEv2Session *)a1[4] reportState];
     goto LABEL_17;
   }
 
   v5 = [(NEIKEv2IKESAInitPacket *)v3 validateSAInitAsInitiator:?];
-  if ((v5 & 1) != 0 || (v6 = *(a1 + 40)) == 0 || v6[6] != 3)
+  if ((v5 & 1) != 0 || (v6 = a1[5]) == 0 || v6[6] != 3)
   {
 LABEL_19:
-    v30 = *(a1 + 32);
-    v29 = *(a1 + 40);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193;
-    v36[3] = &unk_1E7F08300;
-    v36[4] = v30;
+    v30 = a1[4];
+    v29 = a1[5];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193;
+    v35[3] = &unk_1E7F08300;
+    v35[4] = v30;
     v31 = v29;
-    v32 = *(a1 + 48);
-    v37 = v31;
-    v38 = v32;
-    [(NEIKEv2Session *)v30 retryCookieForIKESA:v31 validated:v5 handler:v36];
+    v32 = a1[6];
+    v36 = v31;
+    v37 = v32;
+    [(NEIKEv2Session *)v30 retryCookieForIKESA:v31 validated:v5 handler:v35];
 
     goto LABEL_20;
   }
@@ -4672,7 +4632,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v10 = *(a1 + 40);
+  v10 = a1[5];
   if (v10)
   {
     v10 = objc_getProperty(v10, v9, 56, 1);
@@ -4689,36 +4649,34 @@ LABEL_19:
   v13 = ne_log_obj();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
+    v14 = a1[4];
     *buf = 138412290;
-    v40 = v14;
+    v39 = v14;
     _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE SA Init (connect)", buf, 0xCu);
   }
 
-  [(NEIKEv2Session *)*(a1 + 32) reportServerRedirect:v3];
+  [(NEIKEv2Session *)a1[4] reportServerRedirect:v3];
 LABEL_17:
-  [(NEIKEv2Session *)*(a1 + 32) resetAll];
+  [(NEIKEv2Session *)a1[4] resetAll];
 LABEL_20:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, uint64_t a2)
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   v5 = a1[4];
   v4 = a1[5];
-  v100[0] = MEMORY[0x1E69E9820];
-  v100[1] = 3221225472;
-  v101 = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_2;
-  v102 = &unk_1E7F08300;
-  v103 = v5;
+  v99[0] = MEMORY[0x1E69E9820];
+  v99[1] = 3221225472;
+  v100 = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_2;
+  v101 = &unk_1E7F08300;
+  v102 = v5;
   v6 = v4;
   v7 = a1[6];
-  v104 = v6;
-  v105 = v7;
+  v103 = v6;
+  v104 = v7;
   v8 = v6;
-  v10 = v100;
+  v10 = v99;
   if (!v5)
   {
     goto LABEL_49;
@@ -4729,7 +4687,7 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
 
   if ((a2 & 1) != 0 || (!v8 ? (Property = 0) : (Property = objc_getProperty(v8, v12, 144, 1)), v14 = Property, v14, !v14))
   {
-    v101(v10, a2);
+    v100(v10, a2);
     goto LABEL_49;
   }
 
@@ -4771,9 +4729,9 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
     v23 = 0;
   }
 
-  v98 = v23;
-  v25 = [v98 method];
-  v99 = v10;
+  v97 = v23;
+  v25 = [v97 method];
+  v98 = v10;
   if (v8)
   {
     v26 = objc_getProperty(v8, v24, 80, 1);
@@ -4784,76 +4742,76 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
     v26 = 0;
   }
 
-  v97 = v26;
-  v27 = [v97 proposals];
+  v96 = v26;
+  v27 = [v96 proposals];
   objc_opt_self();
+  v109 = 0u;
   v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
   v28 = v27;
-  v29 = [v28 countByEnumeratingWithState:&v110 objects:buf count:16];
+  v29 = [v28 countByEnumeratingWithState:&v109 objects:buf count:16];
   if (!v29)
   {
     goto LABEL_31;
   }
 
   v30 = v29;
-  v31 = *v111;
-  v96 = *v111;
+  v31 = *v110;
+  v95 = *v110;
   do
   {
     for (i = 0; i != v30; ++i)
     {
-      if (*v111 != v31)
+      if (*v110 != v31)
       {
         objc_enumerationMutation(v28);
       }
 
-      v33 = *(*(&v110 + 1) + 8 * i);
+      v33 = *(*(&v109 + 1) + 8 * i);
+      v105 = 0u;
       v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v109 = 0u;
       v34 = [v33 kemProtocols];
-      v35 = [v34 countByEnumeratingWithState:&v106 objects:v114 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v105 objects:v113 count:16];
       if (!v35)
       {
         goto LABEL_29;
       }
 
       v36 = v35;
-      v37 = *v107;
+      v37 = *v106;
       while (2)
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v107 != v37)
+          if (*v106 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          if ([*(*(&v106 + 1) + 8 * j) method] == v25)
+          if ([*(*(&v105 + 1) + 8 * j) method] == v25)
           {
 
             if (([(NEIKEv2IKESA *)v8 generateInitialValues]& 1) != 0)
             {
               v56 = [NEIKEv2IKESAInitPacket createIKESAInitForInitiatorIKESA:v8];
-              v10 = v99;
+              v10 = v98;
               if (v56)
               {
                 v57 = v56;
                 *buf = MEMORY[0x1E69E9820];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __62__NEIKEv2Session_Exchange__retryKEForIKESA_validated_handler___block_invoke;
-                v116 = &unk_1E7F08210;
-                v117 = v5;
-                v118 = v8;
-                v119 = v99;
+                v115 = &unk_1E7F08210;
+                v116 = v5;
+                v117 = v8;
+                v118 = v98;
                 if ([NEIKEv2Session sendRequest:v5 retry:v57 replyHandler:buf]== -1)
                 {
                   v59 = objc_getProperty(v5, v58, 352, 1);
-                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"retry SA INIT KE", v60, v61, v62, v63, v64, v65, v66, v95);
+                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"retry SA INIT KE", v60, v61, v62, v63, v64, v65, v66, v94);
                   [(NEIKEv2IKESA *)v59 setState:ErrorFailedToSend error:?];
 
                   [(NEIKEv2Session *)v5 reportState];
@@ -4872,13 +4830,13 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
               }
 
               v43 = objc_getProperty(v5, v81, 352, 1);
-              ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init retry packet (connect retry KE)", v82, v83, v84, v85, v86, v87, v88, v95);
+              ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init retry packet (connect retry KE)", v82, v83, v84, v85, v86, v87, v88, v94);
             }
 
             else
             {
               v70 = ne_log_obj();
-              v10 = v99;
+              v10 = v98;
               if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
@@ -4887,7 +4845,7 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
               }
 
               v43 = objc_getProperty(v5, v71, 352, 1);
-              ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (connect retry KE)", v72, v73, v74, v75, v76, v77, v78, v95);
+              ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (connect retry KE)", v72, v73, v74, v75, v76, v77, v78, v94);
             }
 
             v45 = ErrorInternal;
@@ -4896,7 +4854,7 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v106 objects:v114 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v105 objects:v113 count:16];
         if (v36)
         {
           continue;
@@ -4907,35 +4865,35 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_193(void *a1, 
 
 LABEL_29:
 
-      v31 = v96;
+      v31 = v95;
     }
 
-    v30 = [v28 countByEnumeratingWithState:&v110 objects:buf count:16];
+    v30 = [v28 countByEnumeratingWithState:&v109 objects:buf count:16];
   }
 
   while (v30);
 LABEL_31:
 
   v39 = ne_log_obj();
-  v10 = v99;
+  v10 = v98;
   if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     if (v8)
     {
-      v92 = objc_getProperty(v8, v40, 144, 1);
+      v91 = objc_getProperty(v8, v40, 144, 1);
     }
 
     else
     {
-      v92 = 0;
+      v91 = 0;
     }
 
-    v93 = v92;
-    v94 = [v93 method];
+    v92 = v91;
+    v93 = [v92 method];
     *buf = 138412546;
     *&buf[4] = v5;
     *&buf[12] = 2048;
-    *&buf[14] = v94;
+    *&buf[14] = v93;
     _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@ Received KE method preference %tu is not in config (connect retry KE)", buf, 0x16u);
   }
 
@@ -4959,8 +4917,6 @@ LABEL_48:
   [(NEIKEv2Session *)v5 reportState];
   [(NEIKEv2Session *)v5 resetAll];
 LABEL_49:
-
-  v91 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_2(void *a1, uint64_t a2)
@@ -4979,9 +4935,9 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_2(void *a1, ui
   [(NEIKEv2Session *)v5 retryCookieForIKESA:v6 validated:a2 handler:v8];
 }
 
-void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_3(uint64_t *a1, const char *a2)
+void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_3(void *a1, const char *a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
     v10 = ne_log_obj();
@@ -4989,7 +4945,7 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_3(uint64_t *a1
     {
       v26 = a1[4];
       *buf = 138412290;
-      v54 = v26;
+      v53 = v26;
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE SA Init packet (connect)", buf, 0xCu);
     }
 
@@ -5005,52 +4961,41 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_3(uint64_t *a1
   }
 
   v3 = a1[5];
-  if (v3)
+  if (!v3)
   {
-    objc_setProperty_atomic(v3, a2, 0, 280);
-    v5 = a1[5];
     v6 = *(*(a1[6] + 8) + 40);
-    if (v5)
+LABEL_20:
+    if (v6)
     {
-      v7 = *(v5 + 23);
-      if (v6)
-      {
-        if (v7)
-        {
-          [(NEIKEv2Session *)a1[4] removeFirstChild];
-          v8 = *(a1[6] + 8);
-          v9 = *(v8 + 40);
-          *(v8 + 40) = 0;
-
-          goto LABEL_22;
-        }
-
-        goto LABEL_21;
-      }
-
-      if (v7)
-      {
-        goto LABEL_22;
-      }
-
-      goto LABEL_14;
+      goto LABEL_21;
     }
+
+    goto LABEL_14;
   }
 
-  else
+  objc_setProperty_atomic(v3, a2, 0, 280);
+  v5 = a1[5];
+  v6 = *(*(a1[6] + 8) + 40);
+  if (!v5)
   {
-    v6 = *(*(a1[6] + 8) + 40);
+    goto LABEL_20;
   }
 
+  v7 = *(v5 + 23);
   if (!v6)
   {
+    if (v7)
+    {
+      goto LABEL_22;
+    }
+
 LABEL_14:
     v23 = ne_log_obj();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v27 = a1[4];
       *buf = 138412290;
-      v54 = v27;
+      v53 = v27;
       _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "%@ Failed to negotiate Childless SA (connect)", buf, 0xCu);
     }
 
@@ -5063,79 +5008,87 @@ LABEL_14:
     v20 = v25;
     v21 = @"Failed to negotiate Childless SA (connect)";
 LABEL_12:
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v21, v13, v14, v15, v16, v17, v18, v19, v48);
-LABEL_29:
-    v43 = ErrorPeerInvalidSyntax;
-    [(NEIKEv2IKESA *)v20 setState:ErrorPeerInvalidSyntax error:?];
-
-    [(NEIKEv2Session *)a1[4] reportState];
-    [(NEIKEv2Session *)a1[4] resetAll];
-    goto LABEL_30;
-  }
-
-LABEL_21:
-  [(NEIKEv2ChildSA *)v6 setState:0 error:?];
-  [(NEIKEv2Session *)a1[4] reportState];
-LABEL_22:
-  if (([(NEIKEv2IKESA *)a1[5] generateAllValuesForSAInit]& 1) == 0)
-  {
-    v33 = ne_log_obj();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-    {
-      v47 = a1[4];
-      *buf = 138412290;
-      v54 = v47;
-      _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (connect)", buf, 0xCu);
-    }
-
-    v35 = a1[4];
-    if (v35)
-    {
-      v35 = objc_getProperty(v35, v34, 352, 1);
-    }
-
-    v20 = v35;
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorCrypto(@"Failed to generate crypto values (connect)", v36, v37, v38, v39, v40, v41, v42, v48);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v21, v13, v14, v15, v16, v17, v18, v19, v47);
     goto LABEL_29;
   }
 
-  v30 = a1[4];
-  v29 = a1[5];
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_203;
-  v49[3] = &unk_1E7F082D8;
-  v31 = v29;
-  v32 = a1[4];
-  v50 = v31;
-  v51 = v32;
-  v52 = a1[6];
-  [(NEIKEv2Session *)v30 handleIKEIntermediateForInitiatorIKESA:v31 iteration:0 handler:v49];
+  if ((v7 & 1) == 0)
+  {
+LABEL_21:
+    [(NEIKEv2ChildSA *)v6 setState:0 error:?];
+    [(NEIKEv2Session *)a1[4] reportState];
+    goto LABEL_22;
+  }
 
-LABEL_30:
-  v46 = *MEMORY[0x1E69E9840];
+  [(NEIKEv2Session *)a1[4] removeFirstChild];
+  v8 = *(a1[6] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
+
+LABEL_22:
+  if (([(NEIKEv2IKESA *)a1[5] generateAllValuesForSAInit]& 1) != 0)
+  {
+    v30 = a1[4];
+    v29 = a1[5];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_203;
+    v48[3] = &unk_1E7F082D8;
+    v31 = v29;
+    v32 = a1[4];
+    v49 = v31;
+    v50 = v32;
+    v51 = a1[6];
+    [(NEIKEv2Session *)v30 handleIKEIntermediateForInitiatorIKESA:v31 iteration:0 handler:v48];
+
+    return;
+  }
+
+  v33 = ne_log_obj();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  {
+    v46 = a1[4];
+    *buf = 138412290;
+    v53 = v46;
+    _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (connect)", buf, 0xCu);
+  }
+
+  v35 = a1[4];
+  if (v35)
+  {
+    v35 = objc_getProperty(v35, v34, 352, 1);
+  }
+
+  v20 = v35;
+  ErrorPeerInvalidSyntax = NEIKEv2CreateErrorCrypto(@"Failed to generate crypto values (connect)", v36, v37, v38, v39, v40, v41, v42, v47);
+LABEL_29:
+  v43 = ErrorPeerInvalidSyntax;
+  [(NEIKEv2IKESA *)v20 setState:ErrorPeerInvalidSyntax error:?];
+
+  [(NEIKEv2Session *)a1[4] reportState];
+  [(NEIKEv2Session *)a1[4] resetAll];
 }
 
-void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_203(uint64_t a1, const char *a2)
+void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_203(uint64_t *a1, const char *a2)
 {
-  v77 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
+  v76 = *MEMORY[0x1E69E9840];
+  v3 = a1[4];
   if (!v3 || (v3[24] & 1) == 0)
   {
     goto LABEL_5;
   }
 
-  v4 = [(NEIKEv2IKESA *)*(a1 + 32) ppk];
+  v4 = [(NEIKEv2IKESA *)a1[4] ppk];
   v5 = [(NEIKEv2IKESA *)v3 generateDerivativesFromPPK:v4];
 
   if (v5)
   {
-    v3 = *(a1 + 32);
+    v3 = a1[4];
 LABEL_5:
-    v7 = [NEIKEv2IKEAuthPacket createIKEAuthForInitiatorIKESA:v3 childSA:*(*(*(a1 + 48) + 8) + 40)];
+    v7 = [NEIKEv2IKEAuthPacket createIKEAuthForInitiatorIKESA:v3 childSA:*(*(a1[6] + 8) + 40)];
     if (v7)
     {
-      Property = *(a1 + 40);
+      Property = a1[5];
       if (Property)
       {
         Property = objc_getProperty(Property, v6, 352, 1);
@@ -5147,7 +5100,7 @@ LABEL_5:
 
       if (v12)
       {
-        v14 = *(a1 + 40);
+        v14 = a1[5];
         if (v14)
         {
           v14 = objc_getProperty(v14, v13, 352, 1);
@@ -5175,7 +5128,7 @@ LABEL_5:
       }
 
       v49 = v17;
-      v50 = *(a1 + 40);
+      v50 = a1[5];
       if (v50)
       {
         v50 = objc_getProperty(v50, v18, 352, 1);
@@ -5184,30 +5137,30 @@ LABEL_5:
       v51 = v50;
       [(NEIKEv2IKESA *)v51 setLocalAuthProtocolUsed:v49];
 
-      v52 = *(a1 + 40);
-      v72[0] = MEMORY[0x1E69E9820];
-      v72[1] = 3221225472;
-      v72[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_210;
-      v72[3] = &unk_1E7F082B0;
-      v72[4] = v52;
-      v53 = *(a1 + 32);
-      v54 = *(a1 + 48);
-      v73 = v53;
-      v74 = v54;
-      if ([NEIKEv2Session sendRequest:v52 retry:v7 replyHandler:v72]== -1)
+      v52 = a1[5];
+      v71[0] = MEMORY[0x1E69E9820];
+      v71[1] = 3221225472;
+      v71[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_210;
+      v71[3] = &unk_1E7F082B0;
+      v71[4] = v52;
+      v53 = a1[4];
+      v54 = a1[6];
+      v72 = v53;
+      v73 = v54;
+      if ([NEIKEv2Session sendRequest:v52 retry:v7 replyHandler:v71]== -1)
       {
-        v56 = *(a1 + 40);
+        v56 = a1[5];
         if (v56)
         {
           v56 = objc_getProperty(v56, v55, 352, 1);
         }
 
         v57 = v56;
-        ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator AUTH", v58, v59, v60, v61, v62, v63, v64, v71);
+        ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator AUTH", v58, v59, v60, v61, v62, v63, v64, v70);
         [(NEIKEv2IKESA *)v57 setState:ErrorFailedToSend error:?];
 
-        [(NEIKEv2Session *)*(a1 + 40) reportState];
-        [(NEIKEv2Session *)*(a1 + 40) resetAll];
+        [(NEIKEv2Session *)a1[5] reportState];
+        [(NEIKEv2Session *)a1[5] resetAll];
       }
     }
 
@@ -5216,57 +5169,55 @@ LABEL_5:
       v19 = ne_log_obj();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v69 = *(a1 + 40);
+        v68 = a1[5];
         *buf = 138412290;
-        v76 = v69;
+        v75 = v68;
         _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE Auth packet (connect)", buf, 0xCu);
       }
 
-      v21 = *(a1 + 40);
+      v21 = a1[5];
       if (v21)
       {
         v21 = objc_getProperty(v21, v20, 352, 1);
       }
 
       v22 = v21;
-      ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE Auth packet (connect)", v23, v24, v25, v26, v27, v28, v29, v71);
+      ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE Auth packet (connect)", v23, v24, v25, v26, v27, v28, v29, v70);
       [(NEIKEv2IKESA *)v22 setState:ErrorInternal error:?];
 
-      [(NEIKEv2Session *)*(a1 + 40) reportState];
-      [(NEIKEv2Session *)*(a1 + 40) resetAll];
+      [(NEIKEv2Session *)a1[5] reportState];
+      [(NEIKEv2Session *)a1[5] resetAll];
     }
 
-    goto LABEL_33;
+    return;
   }
 
   v33 = ne_log_obj();
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
-    v70 = *(a1 + 40);
+    v69 = a1[5];
     *buf = 138412290;
-    v76 = v70;
+    v75 = v69;
     _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "%@ Failed to generate PPK-derived keys (connect)", buf, 0xCu);
   }
 
-  v35 = *(a1 + 40);
+  v35 = a1[5];
   if (v35)
   {
     v35 = objc_getProperty(v35, v34, 352, 1);
   }
 
   v36 = v35;
-  ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate PPK-derived keys (connect)", v37, v38, v39, v40, v41, v42, v43, v71);
+  ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate PPK-derived keys (connect)", v37, v38, v39, v40, v41, v42, v43, v70);
   [(NEIKEv2IKESA *)v36 setState:ErrorCrypto error:?];
 
-  [(NEIKEv2Session *)*(a1 + 40) reportState];
-  [(NEIKEv2Session *)*(a1 + 40) resetAll];
-LABEL_33:
-  v68 = *MEMORY[0x1E69E9840];
+  [(NEIKEv2Session *)a1[5] reportState];
+  [(NEIKEv2Session *)a1[5] resetAll];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_210(uint64_t a1, void *a2)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 35)
   {
@@ -5291,46 +5242,46 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_210(uint64_t a
 
         if ([(NEIKEv2Packet *)v4 hasErrors])
         {
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
-          v38 = objc_getProperty(v4, v31, 64, 1);
-          v39 = [v38 countByEnumeratingWithState:&v66 objects:buf count:16];
-          if (v39)
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v37 = objc_getProperty(v4, v30, 64, 1);
+          v38 = [v37 countByEnumeratingWithState:&v65 objects:buf count:16];
+          if (v38)
           {
-            v40 = v39;
-            v41 = *v67;
+            v39 = v38;
+            v40 = *v66;
             while (2)
             {
-              for (i = 0; i != v40; ++i)
+              for (i = 0; i != v39; ++i)
               {
-                if (*v67 != v41)
+                if (*v66 != v40)
                 {
-                  objc_enumerationMutation(v38);
+                  objc_enumerationMutation(v37);
                 }
 
-                v43 = *(*(&v66 + 1) + 8 * i);
-                if (v43 && v43[1].isa - 1 <= 0x3FFE)
+                v42 = *(*(&v65 + 1) + 8 * i);
+                if (v42 && v42[1].isa - 1 <= 0x3FFE)
                 {
-                  v15 = [(NEIKEv2NotifyPayload *)v43 copyError];
-                  v46 = ne_log_obj();
-                  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                  v15 = [(NEIKEv2NotifyPayload *)v42 copyError];
+                  v45 = ne_log_obj();
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                   {
-                    v52 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                    *v70 = 138412546;
-                    v71 = v52;
-                    v72 = 2112;
-                    v73 = v15;
-                    _os_log_error_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_ERROR, "%@ EAP only authentication, received notify error %@", v70, 0x16u);
+                    v51 = [(NEIKEv2Packet *)v4 copyShortDescription];
+                    *v69 = 138412546;
+                    v70 = v51;
+                    v71 = 2112;
+                    v72 = v15;
+                    _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "%@ EAP only authentication, received notify error %@", v69, 0x16u);
                   }
 
                   goto LABEL_31;
                 }
               }
 
-              v40 = [v38 countByEnumeratingWithState:&v66 objects:buf count:16];
-              if (v40)
+              v39 = [v37 countByEnumeratingWithState:&v65 objects:buf count:16];
+              if (v39)
               {
                 continue;
               }
@@ -5342,20 +5293,20 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_210(uint64_t a
           goto LABEL_6;
         }
 
-        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"EAP only mode, IKE Auth packet does not contain EAP (connect)", v31, v32, v33, v34, v35, v36, v37, v61[0]);
+        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"EAP only mode, IKE Auth packet does not contain EAP (connect)", v30, v31, v32, v33, v34, v35, v36, v60[0]);
       }
 
       else
       {
-        v53 = ne_log_obj();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+        v52 = ne_log_obj();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
         {
-          *v70 = 136315138;
-          v71 = "[NEIKEv2IKEAuthPacket(Exchange) validateEAPOnlyAuthentication:]";
-          _os_log_fault_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v70, 0xCu);
+          *v69 = 136315138;
+          v70 = "[NEIKEv2IKEAuthPacket(Exchange) validateEAPOnlyAuthentication:]";
+          _os_log_fault_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v69, 0xCu);
         }
 
-        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"IKE SA is nil", v54, v55, v56, v57, v58, v59, v60, v61[0]);
+        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"IKE SA is nil", v53, v54, v55, v56, v57, v58, v59, v60[0]);
       }
 
       v15 = ErrorPeerInvalidSyntax;
@@ -5366,7 +5317,7 @@ LABEL_31:
       {
         if (v11)
         {
-          Property = objc_getProperty(*(a1 + 32), v47, 352, 1);
+          Property = objc_getProperty(*(a1 + 32), v46, 352, 1);
         }
 
         else
@@ -5374,8 +5325,8 @@ LABEL_31:
           Property = 0;
         }
 
-        v49 = Property;
-        [(NEIKEv2IKESA *)v49 setState:v15 error:?];
+        v48 = Property;
+        [(NEIKEv2IKESA *)v48 setState:v15 error:?];
 
         [(NEIKEv2Session *)*(a1 + 32) reportState];
         [(NEIKEv2Session *)*(a1 + 32) resetAll];
@@ -5384,17 +5335,17 @@ LABEL_31:
 
 LABEL_7:
       v12 = *(a1 + 40);
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214;
-      v61[3] = &unk_1E7F08288;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214;
+      v60[3] = &unk_1E7F08288;
       v13 = v12;
-      v65 = *(a1 + 48);
+      v64 = *(a1 + 48);
       v14 = *(a1 + 32);
-      v62 = v13;
-      v63 = v14;
-      v64 = v4;
-      [(NEIKEv2Session *)v11 handleEAPAndGSPMForIKESA:v13 authPacket:v64 handler:v61];
+      v61 = v13;
+      v62 = v14;
+      v63 = v4;
+      [(NEIKEv2Session *)v11 handleEAPAndGSPMForIKESA:v13 authPacket:v63 handler:v60];
 
       v15 = 0;
 LABEL_8:
@@ -5411,9 +5362,9 @@ LABEL_6:
   v16 = ne_log_obj();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v45 = *(a1 + 32);
+    v44 = *(a1 + 32);
     *buf = 138412290;
-    v75 = v45;
+    v74 = v44;
     _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to receive IKE Auth packet (connect)", buf, 0xCu);
   }
 
@@ -5424,26 +5375,24 @@ LABEL_6:
   }
 
   v19 = v18;
-  v27 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth packet (connect)", v20, v21, v22, v23, v24, v25, v26, v61[0]);
+  v27 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive IKE Auth packet (connect)", v20, v21, v22, v23, v24, v25, v26, v60[0]);
   [(NEIKEv2IKESA *)v19 setState:v27 error:?];
 
   [(NEIKEv2Session *)*(a1 + 32) reportState];
   [(NEIKEv2Session *)*(a1 + 32) resetAll];
 LABEL_14:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a1, void *a2)
 {
-  v460 = *MEMORY[0x1E69E9840];
+  v459 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(*(a1 + 56) + 8) + 40);
   v5 = *(a1 + 32);
   v6 = v4;
   v8 = v6;
   self = v3;
-  v410 = a1;
+  v409 = a1;
   if (!v3)
   {
     goto LABEL_315;
@@ -5457,23 +5406,23 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a
       {
         if ([(NEIKEv2Packet *)v3 hasErrors])
         {
-          v458 = 0u;
-          v459 = 0u;
-          *block = 0u;
           v457 = 0u;
+          v458 = 0u;
+          *block = 0u;
+          v456 = 0u;
           v10 = objc_getProperty(v3, v9, 64, 1);
-          v11 = [v10 countByEnumeratingWithState:block objects:&v433 count:16];
+          v11 = [v10 countByEnumeratingWithState:block objects:&v432 count:16];
           if (v11)
           {
             v12 = v11;
             v13 = 0;
-            v14 = *v457;
+            v14 = *v456;
             do
             {
               v15 = 0;
               do
               {
-                if (*v457 != v14)
+                if (*v456 != v14)
                 {
                   objc_enumerationMutation(v10);
                 }
@@ -5495,11 +5444,11 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a
                   }
 
                   v20 = v16[1].isa & 0xFFFFFFFFFFFFE000;
-                  a1 = v410;
+                  a1 = v409;
                   if (v20 != 0x2000 || (v5[18] & 1) != 0 || ((objc_getProperty(self, v19, 128, 1), v21 = objc_claimAutoreleasedReturnValue(), (v22 = v21) == 0) ? (v23 = 0) : (v23 = *(v21 + 40)), v24 = v23, v24, v22, !v24))
                   {
                     [(NEIKEv2IKESA *)v5 setState:v17 error:?];
-                    v421[0] = 0;
+                    v420[0] = 0;
 
                     v3 = self;
                     goto LABEL_43;
@@ -5510,14 +5459,14 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a
 
                 else
                 {
-                  a1 = v410;
+                  a1 = v409;
                 }
 
                 ++v15;
               }
 
               while (v12 != v15);
-              v26 = [v10 countByEnumeratingWithState:block objects:&v433 count:16];
+              v26 = [v10 countByEnumeratingWithState:block objects:&v432 count:16];
               v12 = v26;
             }
 
@@ -5542,13 +5491,13 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a
           v27 = ne_log_obj();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            v266 = [(NEIKEv2Packet *)v3 copyShortDescription];
+            v265 = [(NEIKEv2Packet *)v3 copyShortDescription];
             *buf = 138412290;
-            *&buf[4] = v266;
+            *&buf[4] = v265;
             _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "%@ EAP only authentication incomplete", buf, 0xCu);
           }
 
-          ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP only authentication did not complete", v28, v29, v30, v31, v32, v33, v34, v377);
+          ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP only authentication did not complete", v28, v29, v30, v31, v32, v33, v34, v376);
           [(NEIKEv2IKESA *)v5 setState:ErrorAuthentication error:?];
 
           goto LABEL_42;
@@ -5557,10 +5506,10 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_214(uint64_t a
         if ((v5[17] & 1) == 0 && ([(NEIKEv2IKEAuthPacket *)v3 validateAuthInitialAsInitiator:v5 beforeEAP:0]& 1) == 0 || ([(NEIKEv2IKEAuthPacket *)v3 validateAuthPayloadAsInitiator:v5 beforeEAP:0]& 1) == 0)
         {
 LABEL_42:
-          v421[0] = 0;
+          v420[0] = 0;
 
 LABEL_43:
-          v36 = v421[0];
+          v36 = v420[0];
           goto LABEL_44;
         }
 
@@ -5577,42 +5526,42 @@ LABEL_219:
           Error = NEIKEv2CreateError(v244);
           [(NEIKEv2IKESA *)v5 setState:Error error:?];
 
-          v421[0] = 0;
+          v420[0] = 0;
           goto LABEL_43;
         }
 
         if (v5[23])
         {
 LABEL_228:
-          v250 = objc_getProperty(v3, v243, 152, 1);
+          v249 = objc_getProperty(v3, v243, 152, 1);
 
-          if (v250)
+          if (v249)
           {
-            Property = objc_getProperty(v3, v251, 152, 1);
-            v254 = Property;
+            Property = objc_getProperty(v3, v250, 152, 1);
+            v253 = Property;
             if (Property)
             {
-              Property = objc_getProperty(Property, v253, 32, 1);
+              Property = objc_getProperty(Property, v252, 32, 1);
             }
 
-            v255 = Property;
-            objc_setProperty_atomic(v5, v256, v255, 496);
+            v254 = Property;
+            objc_setProperty_atomic(v5, v255, v254, 496);
           }
 
-          v257 = objc_getProperty(v5, v251, 88, 1);
-          if ([v257 negotiateMOBIKE])
+          v256 = objc_getProperty(v5, v250, 88, 1);
+          if ([v256 negotiateMOBIKE])
           {
-            v258 = [(NEIKEv2Packet *)v3 hasNotification:?];
+            v257 = [(NEIKEv2Packet *)v3 hasNotification:?];
 
-            if (v258)
+            if (v257)
             {
-              v259 = ne_log_obj();
-              if (os_log_type_enabled(v259, OS_LOG_TYPE_DEBUG))
+              v258 = ne_log_obj();
+              if (os_log_type_enabled(v258, OS_LOG_TYPE_DEBUG))
               {
-                v340 = [(NEIKEv2Packet *)v3 copyShortDescription];
-                *v421 = 138412290;
-                v422 = v340;
-                _os_log_debug_impl(&dword_1BA83C000, v259, OS_LOG_TYPE_DEBUG, "%@ Server MOBIKE supported", v421, 0xCu);
+                v339 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                *v420 = 138412290;
+                v421 = v339;
+                _os_log_debug_impl(&dword_1BA83C000, v258, OS_LOG_TYPE_DEBUG, "%@ Server MOBIKE supported", v420, 0xCu);
               }
 
               v5[11] = 1;
@@ -5623,34 +5572,34 @@ LABEL_228:
           {
           }
 
-          v421[0] = 1;
+          v420[0] = 1;
           goto LABEL_43;
         }
 
         if (v8)
         {
-          v261 = objc_getProperty(v8, v243, 48, 1);
+          v260 = objc_getProperty(v8, v243, 48, 1);
         }
 
         else
         {
-          v261 = 0;
+          v260 = 0;
         }
 
-        v262 = v261;
-        if ([v262 mode] == 1)
+        v261 = v260;
+        if ([v261 mode] == 1)
         {
-          v263 = [(NEIKEv2Packet *)v3 hasNotification:?];
+          v262 = [(NEIKEv2Packet *)v3 hasNotification:?];
 
-          if ((v263 & 1) == 0)
+          if ((v262 & 1) == 0)
           {
-            v265 = ne_log_obj();
-            if (os_log_type_enabled(v265, OS_LOG_TYPE_ERROR))
+            v264 = ne_log_obj();
+            if (os_log_type_enabled(v264, OS_LOG_TYPE_ERROR))
             {
-              v341 = [(NEIKEv2Packet *)v3 copyShortDescription];
+              v340 = [(NEIKEv2Packet *)v3 copyShortDescription];
               *buf = 138412290;
-              *&buf[4] = v341;
-              _os_log_error_impl(&dword_1BA83C000, v265, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA was not accepted", buf, 0xCu);
+              *&buf[4] = v340;
+              _os_log_error_impl(&dword_1BA83C000, v264, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA was not accepted", buf, 0xCu);
             }
 
             v244 = 9;
@@ -5662,84 +5611,84 @@ LABEL_228:
         {
         }
 
-        v268 = objc_getProperty(v3, v264, 88, 1);
-        v270 = v268;
-        if (v268)
+        v267 = objc_getProperty(v3, v263, 88, 1);
+        v269 = v267;
+        if (v267)
         {
-          v268 = objc_getProperty(v268, v269, 32, 1);
+          v267 = objc_getProperty(v267, v268, 32, 1);
         }
 
-        v271 = v268;
+        v270 = v267;
 
-        if ([v271 count] != 1)
+        if ([v270 count] != 1)
         {
-          v285 = ne_log_obj();
-          if (os_log_type_enabled(v285, OS_LOG_TYPE_ERROR))
+          v284 = ne_log_obj();
+          if (os_log_type_enabled(v284, OS_LOG_TYPE_ERROR))
           {
-            v330 = [(NEIKEv2Packet *)v3 copyShortDescription];
-            v331 = [v271 count];
+            v329 = [(NEIKEv2Packet *)v3 copyShortDescription];
+            v330 = [v270 count];
             *buf = 138412546;
-            *&buf[4] = v330;
+            *&buf[4] = v329;
             *&buf[12] = 1024;
-            *&buf[14] = v331;
-            _os_log_error_impl(&dword_1BA83C000, v285, OS_LOG_TYPE_ERROR, "%@ Received %u child SA proposals, require 1", buf, 0x12u);
+            *&buf[14] = v330;
+            _os_log_error_impl(&dword_1BA83C000, v284, OS_LOG_TYPE_ERROR, "%@ Received %u child SA proposals, require 1", buf, 0x12u);
           }
 
-          v286 = [v271 count];
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Received %u child SA proposals", v287, v288, v289, v290, v291, v292, v293, v286);
+          v285 = [v270 count];
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Received %u child SA proposals", v286, v287, v288, v289, v290, v291, v292, v285);
           [(NEIKEv2IKESA *)v5 setState:ErrorPeerInvalidSyntax error:?];
 
-          v421[0] = 0;
+          v420[0] = 0;
           goto LABEL_295;
         }
 
-        v272 = [v271 firstObject];
-        if (([(NEIKEv2ChildSAProposal *)v272 isAValidResponse]& 1) != 0)
+        v271 = [v270 firstObject];
+        if (([(NEIKEv2ChildSAProposal *)v271 isAValidResponse]& 1) != 0)
         {
-          if (v272)
+          if (v271)
           {
-            v275 = objc_getProperty(v272, v274, 80, 1);
+            v274 = objc_getProperty(v271, v273, 80, 1);
           }
 
           else
           {
-            v275 = 0;
+            v274 = 0;
           }
 
-          v276 = v275;
+          v275 = v274;
 
-          if (v276)
+          if (v275)
           {
-            v408 = v5;
-            v431 = 0u;
-            v432 = 0u;
-            *v429 = 0u;
+            v407 = v5;
             v430 = 0u;
-            v278 = [(NEIKEv2ChildSA *)v8 configProposalsWithoutKEM];
-            v279 = [v278 countByEnumeratingWithState:v429 objects:buf count:16];
-            if (v279)
+            v431 = 0u;
+            *v428 = 0u;
+            v429 = 0u;
+            v277 = [(NEIKEv2ChildSA *)v8 configProposalsWithoutKEM];
+            v278 = [v277 countByEnumeratingWithState:v428 objects:buf count:16];
+            if (v278)
             {
-              v280 = v279;
-              v281 = *v430;
+              v279 = v278;
+              v280 = *v429;
 LABEL_256:
-              v282 = 0;
+              v281 = 0;
               while (1)
               {
-                if (*v430 != v281)
+                if (*v429 != v280)
                 {
-                  objc_enumerationMutation(v278);
+                  objc_enumerationMutation(v277);
                 }
 
-                v283 = *(*&v429[8] + 8 * v282);
-                if (([(NEIKEv2ChildSAProposal *)v283 matchesLocalProposal:v272 preferRemoteProposal:0 checkKEMethod:0]& 1) != 0)
+                v282 = *(*&v428[8] + 8 * v281);
+                if (([(NEIKEv2ChildSAProposal *)v282 matchesLocalProposal:v271 preferRemoteProposal:0 checkKEMethod:0]& 1) != 0)
                 {
                   break;
                 }
 
-                if (v280 == ++v282)
+                if (v279 == ++v281)
                 {
-                  v280 = [v278 countByEnumeratingWithState:v429 objects:buf count:16];
-                  if (v280)
+                  v279 = [v277 countByEnumeratingWithState:v428 objects:buf count:16];
+                  if (v279)
                   {
                     goto LABEL_256;
                   }
@@ -5748,101 +5697,101 @@ LABEL_256:
                 }
               }
 
-              v298 = v283;
+              v297 = v282;
 
-              if (!v298)
+              if (!v297)
               {
                 goto LABEL_287;
               }
 
-              v299 = [(NEIKEv2ChildSAProposal *)v298 copyFromRemote:v272 preferRemoteProposal:0 checkKEMethod:0];
-              v301 = v299;
+              v298 = [(NEIKEv2ChildSAProposal *)v297 copyFromRemote:v271 preferRemoteProposal:0 checkKEMethod:0];
+              v300 = v298;
               v3 = self;
               if (v8)
               {
-                objc_setProperty_atomic(v8, v300, v299, 56);
+                objc_setProperty_atomic(v8, v299, v298, 56);
 
-                v303 = objc_getProperty(v8, v302, 56, 1);
+                v302 = objc_getProperty(v8, v301, 56, 1);
               }
 
               else
               {
 
-                v303 = 0;
+                v302 = 0;
               }
 
-              v304 = v303;
+              v303 = v302;
 
-              v305 = ne_log_obj();
-              v306 = v305;
-              if (!v304)
+              v304 = ne_log_obj();
+              v305 = v304;
+              if (!v303)
               {
-                if (os_log_type_enabled(v305, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v304, OS_LOG_TYPE_ERROR))
                 {
-                  v373 = [(NEIKEv2Packet *)self copyShortDescription];
-                  *v421 = 138412290;
-                  v422 = v373;
-                  _os_log_error_impl(&dword_1BA83C000, v306, OS_LOG_TYPE_ERROR, "%@ Could not set chosen proposal values", v421, 0xCu);
+                  v372 = [(NEIKEv2Packet *)self copyShortDescription];
+                  *v420 = 138412290;
+                  v421 = v372;
+                  _os_log_error_impl(&dword_1BA83C000, v305, OS_LOG_TYPE_ERROR, "%@ Could not set chosen proposal values", v420, 0xCu);
                 }
 
-                v339 = @"Could not set chosen proposal values";
+                v338 = @"Could not set chosen proposal values";
 LABEL_324:
-                v366 = NEIKEv2CreateErrorPeerInvalidSyntax(v339, v332, v333, v334, v335, v336, v337, v338, v377);
-                v5 = v408;
-                [(NEIKEv2IKESA *)v408 setState:v366 error:?];
+                v365 = NEIKEv2CreateErrorPeerInvalidSyntax(v338, v331, v332, v333, v334, v335, v336, v337, v376);
+                v5 = v407;
+                [(NEIKEv2IKESA *)v407 setState:v365 error:?];
 
-                v421[0] = 0;
+                v420[0] = 0;
                 goto LABEL_294;
               }
 
-              if (os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v304, OS_LOG_TYPE_DEFAULT))
               {
-                v308 = [(NEIKEv2Packet *)self copyShortDescription];
+                v307 = [(NEIKEv2Packet *)self copyShortDescription];
                 if (v8)
                 {
-                  v309 = objc_getProperty(v8, v307, 56, 1);
+                  v308 = objc_getProperty(v8, v306, 56, 1);
                 }
 
                 else
                 {
-                  v309 = 0;
+                  v308 = 0;
                 }
 
-                v310 = v309;
-                *v421 = 138412802;
-                v422 = v8;
-                v423 = 2112;
-                v424 = v308;
-                v425 = 2112;
-                v426 = v310;
-                _os_log_impl(&dword_1BA83C000, v306, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose responder auth child proposal %@", v421, 0x20u);
+                v309 = v308;
+                *v420 = 138412802;
+                v421 = v8;
+                v422 = 2112;
+                v423 = v307;
+                v424 = 2112;
+                v425 = v309;
+                _os_log_impl(&dword_1BA83C000, v305, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose responder auth child proposal %@", v420, 0x20u);
               }
 
-              [(NEIKEv2ChildSA *)v8 setConfigProposalsWithoutKEM:v311];
+              [(NEIKEv2ChildSA *)v8 setConfigProposalsWithoutKEM:v310];
               if (v8)
               {
-                v313 = objc_getProperty(v8, v312, 48, 1);
+                v312 = objc_getProperty(v8, v311, 48, 1);
               }
 
               else
               {
-                v313 = 0;
+                v312 = 0;
               }
 
-              v314 = v313;
-              if ([v314 sequencePerTrafficClass])
+              v313 = v312;
+              if ([v313 sequencePerTrafficClass])
               {
-                v315 = [(NEIKEv2Packet *)self hasNotification:?];
+                v314 = [(NEIKEv2Packet *)self hasNotification:?];
 
-                if (v315)
+                if (v314)
                 {
-                  v317 = ne_log_obj();
-                  if (os_log_type_enabled(v317, OS_LOG_TYPE_DEBUG))
+                  v316 = ne_log_obj();
+                  if (os_log_type_enabled(v316, OS_LOG_TYPE_DEBUG))
                   {
-                    v375 = [(NEIKEv2Packet *)self copyShortDescription];
-                    *v421 = 138412290;
-                    v422 = v375;
-                    _os_log_debug_impl(&dword_1BA83C000, v317, OS_LOG_TYPE_DEBUG, "%@ Server Sequence Per Traffic Class supported", v421, 0xCu);
+                    v374 = [(NEIKEv2Packet *)self copyShortDescription];
+                    *v420 = 138412290;
+                    v421 = v374;
+                    _os_log_debug_impl(&dword_1BA83C000, v316, OS_LOG_TYPE_DEBUG, "%@ Server Sequence Per Traffic Class supported", v420, 0xCu);
                   }
 
                   if (v8)
@@ -5856,69 +5805,69 @@ LABEL_324:
               {
               }
 
-              v342 = objc_getProperty(self, v316, 160, 1);
-              v344 = v342;
-              if (v342)
+              v341 = objc_getProperty(self, v315, 160, 1);
+              v343 = v341;
+              if (v341)
               {
-                v342 = objc_getProperty(v342, v343, 32, 1);
+                v341 = objc_getProperty(v341, v342, 32, 1);
               }
 
-              v345 = v342;
-              [(NEIKEv2ChildSA *)v8 setInitiatorTrafficSelectors:v345];
+              v344 = v341;
+              [(NEIKEv2ChildSA *)v8 setInitiatorTrafficSelectors:v344];
 
-              v347 = [(NEIKEv2ChildSA *)v8 initiatorTrafficSelectors];
+              v346 = [(NEIKEv2ChildSA *)v8 initiatorTrafficSelectors];
 
-              if (v347)
+              if (v346)
               {
-                v349 = objc_getProperty(self, v348, 168, 1);
-                v351 = v349;
-                if (v349)
+                v348 = objc_getProperty(self, v347, 168, 1);
+                v350 = v348;
+                if (v348)
                 {
-                  v349 = objc_getProperty(v349, v350, 32, 1);
+                  v348 = objc_getProperty(v348, v349, 32, 1);
                 }
 
-                v352 = v349;
-                [(NEIKEv2ChildSA *)v8 setResponderTrafficSelectors:v352];
+                v351 = v348;
+                [(NEIKEv2ChildSA *)v8 setResponderTrafficSelectors:v351];
 
-                v354 = [(NEIKEv2ChildSA *)v8 responderTrafficSelectors];
+                v353 = [(NEIKEv2ChildSA *)v8 responderTrafficSelectors];
 
                 v3 = self;
-                if (v354)
+                if (v353)
                 {
 
-                  v5 = v408;
+                  v5 = v407;
                   goto LABEL_228;
                 }
 
-                v365 = ne_log_obj();
-                if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
+                v364 = ne_log_obj();
+                if (os_log_type_enabled(v364, OS_LOG_TYPE_ERROR))
                 {
-                  v376 = [(NEIKEv2Packet *)self copyShortDescription];
-                  *v421 = 138412290;
-                  v422 = v376;
-                  _os_log_error_impl(&dword_1BA83C000, v365, OS_LOG_TYPE_ERROR, "%@ Could not set responder traffic selectors", v421, 0xCu);
+                  v375 = [(NEIKEv2Packet *)self copyShortDescription];
+                  *v420 = 138412290;
+                  v421 = v375;
+                  _os_log_error_impl(&dword_1BA83C000, v364, OS_LOG_TYPE_ERROR, "%@ Could not set responder traffic selectors", v420, 0xCu);
                 }
 
-                v339 = @"Could not set responder traffic selectors";
+                v338 = @"Could not set responder traffic selectors";
                 goto LABEL_324;
               }
 
-              v356 = ne_log_obj();
-              v5 = v408;
-              if (os_log_type_enabled(v356, OS_LOG_TYPE_ERROR))
+              v355 = ne_log_obj();
+              v5 = v407;
+              if (os_log_type_enabled(v355, OS_LOG_TYPE_ERROR))
               {
-                v374 = [(NEIKEv2Packet *)self copyShortDescription];
-                *v421 = 138412290;
-                v422 = v374;
-                _os_log_error_impl(&dword_1BA83C000, v356, OS_LOG_TYPE_ERROR, "%@ Could not set initiator traffic selectors", v421, 0xCu);
+                v373 = [(NEIKEv2Packet *)self copyShortDescription];
+                *v420 = 138412290;
+                v421 = v373;
+                _os_log_error_impl(&dword_1BA83C000, v355, OS_LOG_TYPE_ERROR, "%@ Could not set initiator traffic selectors", v420, 0xCu);
 
-                v5 = v408;
+                v5 = v407;
               }
 
-              v364 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Could not set initiator traffic selectors", v357, v358, v359, v360, v361, v362, v363, v377);
-              [(NEIKEv2IKESA *)v5 setState:v364 error:?];
+              v363 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Could not set initiator traffic selectors", v356, v357, v358, v359, v360, v361, v362, v376);
+              [(NEIKEv2IKESA *)v5 setState:v363 error:?];
 
-              v421[0] = 0;
+              v420[0] = 0;
               v3 = self;
               goto LABEL_294;
             }
@@ -5926,118 +5875,118 @@ LABEL_324:
 LABEL_262:
 
 LABEL_287:
-            v318 = ne_log_obj();
+            v317 = ne_log_obj();
             v3 = self;
-            v5 = v408;
-            if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
+            v5 = v407;
+            if (os_log_type_enabled(v317, OS_LOG_TYPE_ERROR))
             {
-              v368 = [(NEIKEv2Packet *)self copyShortDescription];
+              v367 = [(NEIKEv2Packet *)self copyShortDescription];
               if (v8)
               {
-                v369 = objc_getProperty(v8, v367, 48, 1);
+                v368 = objc_getProperty(v8, v366, 48, 1);
               }
 
               else
               {
-                v369 = 0;
+                v368 = 0;
               }
 
-              v370 = v369;
-              v371 = [v370 proposals];
-              *v421 = 138413058;
-              v422 = v8;
-              v423 = 2112;
-              v424 = v368;
-              v425 = 2112;
-              v426 = v272;
-              v427 = 2112;
-              v428 = v371;
-              _os_log_error_impl(&dword_1BA83C000, v318, OS_LOG_TYPE_ERROR, "%@ %@ Received child proposal %@ does not match config %@", v421, 0x2Au);
+              v369 = v368;
+              v370 = [v369 proposals];
+              *v420 = 138413058;
+              v421 = v8;
+              v422 = 2112;
+              v423 = v367;
+              v424 = 2112;
+              v425 = v271;
+              v426 = 2112;
+              v427 = v370;
+              _os_log_error_impl(&dword_1BA83C000, v317, OS_LOG_TYPE_ERROR, "%@ %@ Received child proposal %@ does not match config %@", v420, 0x2Au);
 
               v3 = self;
-              a1 = v410;
-              v5 = v408;
+              a1 = v409;
+              v5 = v407;
             }
 
-            v326 = @"Received child proposal does not match config";
+            v325 = @"Received child proposal does not match config";
 LABEL_293:
-            v327 = NEIKEv2CreateErrorPeerInvalidSyntax(v326, v319, v320, v321, v322, v323, v324, v325, v377);
-            [(NEIKEv2IKESA *)v5 setState:v327 error:?];
+            v326 = NEIKEv2CreateErrorPeerInvalidSyntax(v325, v318, v319, v320, v321, v322, v323, v324, v376);
+            [(NEIKEv2IKESA *)v5 setState:v326 error:?];
 
-            v421[0] = 0;
+            v420[0] = 0;
 LABEL_294:
 
 LABEL_295:
             goto LABEL_43;
           }
 
-          v296 = ne_log_obj();
-          if (os_log_type_enabled(v296, OS_LOG_TYPE_ERROR))
+          v295 = ne_log_obj();
+          if (os_log_type_enabled(v295, OS_LOG_TYPE_ERROR))
           {
-            v372 = [(NEIKEv2Packet *)v3 copyShortDescription];
+            v371 = [(NEIKEv2Packet *)v3 copyShortDescription];
             *buf = 138412290;
-            *&buf[4] = v372;
-            _os_log_error_impl(&dword_1BA83C000, v296, OS_LOG_TYPE_ERROR, "%@ Child SA proposal missing SPI", buf, 0xCu);
+            *&buf[4] = v371;
+            _os_log_error_impl(&dword_1BA83C000, v295, OS_LOG_TYPE_ERROR, "%@ Child SA proposal missing SPI", buf, 0xCu);
           }
 
-          v297 = @"Received child proposal missing SPI %@";
+          v296 = @"Received child proposal missing SPI %@";
         }
 
         else
         {
-          v296 = ne_log_obj();
-          if (os_log_type_enabled(v296, OS_LOG_TYPE_ERROR))
+          v295 = ne_log_obj();
+          if (os_log_type_enabled(v295, OS_LOG_TYPE_ERROR))
           {
-            v355 = [(NEIKEv2Packet *)v3 copyShortDescription];
+            v354 = [(NEIKEv2Packet *)v3 copyShortDescription];
             *buf = 138412802;
             *&buf[4] = v8;
             *&buf[12] = 2112;
-            *&buf[14] = v355;
+            *&buf[14] = v354;
             *&buf[22] = 2112;
-            *&buf[24] = v272;
-            _os_log_error_impl(&dword_1BA83C000, v296, OS_LOG_TYPE_ERROR, "%@ %@ Received invalid child proposal %@", buf, 0x20u);
+            *&buf[24] = v271;
+            _os_log_error_impl(&dword_1BA83C000, v295, OS_LOG_TYPE_ERROR, "%@ %@ Received invalid child proposal %@", buf, 0x20u);
           }
 
-          v297 = @"Received invalid child proposal %@";
+          v296 = @"Received invalid child proposal %@";
         }
 
-        v377 = v272;
-        v326 = v297;
+        v376 = v271;
+        v325 = v296;
         goto LABEL_293;
       }
 
-      v328 = ne_log_obj();
-      if (!os_log_type_enabled(v328, OS_LOG_TYPE_FAULT))
+      v327 = ne_log_obj();
+      if (!os_log_type_enabled(v327, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_314;
       }
 
-      LODWORD(v433) = 136315138;
-      *(&v433 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
-      v329 = "%s called with null ikeSA.isInitiator";
+      LODWORD(v432) = 136315138;
+      *(&v432 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
+      v328 = "%s called with null ikeSA.isInitiator";
       goto LABEL_313;
     }
 
-    v328 = ne_log_obj();
-    if (os_log_type_enabled(v328, OS_LOG_TYPE_FAULT))
+    v327 = ne_log_obj();
+    if (os_log_type_enabled(v327, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v433) = 136315138;
-      *(&v433 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
-      v329 = "%s called with null childSA";
+      LODWORD(v432) = 136315138;
+      *(&v432 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
+      v328 = "%s called with null childSA";
       goto LABEL_313;
     }
   }
 
   else
   {
-    v328 = ne_log_obj();
-    if (os_log_type_enabled(v328, OS_LOG_TYPE_FAULT))
+    v327 = ne_log_obj();
+    if (os_log_type_enabled(v327, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v433) = 136315138;
-      *(&v433 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
-      v329 = "%s called with null ikeSA";
+      LODWORD(v432) = 136315138;
+      *(&v432 + 4) = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsInitiator:childSA:]";
+      v328 = "%s called with null ikeSA";
 LABEL_313:
-      _os_log_fault_impl(&dword_1BA83C000, v328, OS_LOG_TYPE_FAULT, v329, &v433, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v327, OS_LOG_TYPE_FAULT, v328, &v432, 0xCu);
     }
   }
 
@@ -6078,9 +6027,9 @@ LABEL_44:
           if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
             v82 = *(a1 + 40);
-            LODWORD(v433) = 138412290;
-            *(&v433 + 4) = v82;
-            _os_log_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (connect)", &v433, 0xCu);
+            LODWORD(v432) = 138412290;
+            *(&v432 + 4) = v82;
+            _os_log_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_DEFAULT, "%@ Received server redirect in IKE Auth (connect)", &v432, 0xCu);
           }
 
           v84 = [NEIKEv2DeleteIKEContext alloc];
@@ -6091,13 +6040,13 @@ LABEL_44:
           }
 
           v86 = v85;
-          v418[0] = MEMORY[0x1E69E9820];
-          v418[1] = 3221225472;
-          v418[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_216;
-          v418[3] = &unk_1E7F081C0;
-          v418[4] = *(a1 + 40);
-          v419 = v3;
-          v87 = [(NEIKEv2DeleteIKEContext *)&v84->super.super.isa initDeleteIKEWithResponse:v86 callbackQueue:v418 callback:?];
+          v417[0] = MEMORY[0x1E69E9820];
+          v417[1] = 3221225472;
+          v417[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_216;
+          v417[3] = &unk_1E7F081C0;
+          v417[4] = *(a1 + 40);
+          v418 = v3;
+          v87 = [(NEIKEv2DeleteIKEContext *)&v84->super.super.isa initDeleteIKEWithResponse:v86 callbackQueue:v417 callback:?];
 
           [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v87];
           goto LABEL_226;
@@ -6112,10 +6061,10 @@ LABEL_44:
     v88 = ne_log_obj();
     if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
     {
-      v260 = *(a1 + 40);
-      LODWORD(v433) = 138412290;
-      *(&v433 + 4) = v260;
-      _os_log_error_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (connect)", &v433, 0xCu);
+      v259 = *(a1 + 40);
+      LODWORD(v432) = 138412290;
+      *(&v432 + 4) = v259;
+      _os_log_error_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (connect)", &v432, 0xCu);
     }
 
     v90 = *(a1 + 32);
@@ -6128,7 +6077,7 @@ LABEL_44:
       }
 
       v99 = v98;
-      v107 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE Auth packet (connect)", v100, v101, v102, v103, v104, v105, v106, v377);
+      v107 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE Auth packet (connect)", v100, v101, v102, v103, v104, v105, v106, v376);
       [(NEIKEv2IKESA *)v99 setState:v107 error:?];
 
       [(NEIKEv2Session *)*(a1 + 40) reportState];
@@ -6151,12 +6100,12 @@ LABEL_44:
     }
 
     v96 = v95;
-    v417[0] = MEMORY[0x1E69E9820];
-    v417[1] = 3221225472;
-    v417[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_217;
-    v417[3] = &unk_1E7F08740;
-    v417[4] = *(a1 + 40);
-    v97 = v417;
+    v416[0] = MEMORY[0x1E69E9820];
+    v416[1] = 3221225472;
+    v416[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_217;
+    v416[3] = &unk_1E7F08740;
+    v416[4] = *(a1 + 40);
+    v97 = v416;
 LABEL_216:
     v242 = [(NEIKEv2DeleteIKEContext *)&v94->super.super.isa initDeleteIKEWithResponse:v96 callbackQueue:v97 callback:?];
 
@@ -6170,10 +6119,10 @@ LABEL_216:
   {
     v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
     memset(buf, 0, sizeof(buf));
+    v453 = 0u;
     v454 = 0u;
-    v455 = 0u;
-    v402 = v40;
-    v404 = v41;
+    v401 = v40;
+    v403 = v41;
     if (v3)
     {
       v44 = objc_getProperty(v41, v42, 64, 1);
@@ -6185,7 +6134,7 @@ LABEL_216:
     }
 
     v45 = v44;
-    v46 = [v45 countByEnumeratingWithState:buf objects:&v433 count:16];
+    v46 = [v45 countByEnumeratingWithState:buf objects:&v432 count:16];
     if (v46)
     {
       v48 = v46;
@@ -6210,8 +6159,8 @@ LABEL_216:
             if (v55 == 16398)
             {
               memset(block, 0, sizeof(block));
-              DWORD2(v457) = 0;
-              *&v457 = 0;
+              DWORD2(v456) = 0;
+              *&v456 = 0;
               if ([v53 length] == 16)
               {
                 *block = 7708;
@@ -6229,12 +6178,12 @@ LABEL_63:
                 if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                 {
                   v68 = [v54 length];
-                  *v429 = 134217984;
-                  *&v429[4] = v68;
+                  *v428 = 134217984;
+                  *&v428[4] = v68;
                   v66 = v64;
                   v67 = "Additional IPv6 address has invalid length %llu";
 LABEL_77:
-                  _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, v67, v429, 0xCu);
+                  _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, v67, v428, 0xCu);
                 }
 
 LABEL_70:
@@ -6266,8 +6215,8 @@ LABEL_70:
                 if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                 {
                   v65 = [v54 length];
-                  *v429 = 134217984;
-                  *&v429[4] = v65;
+                  *v428 = 134217984;
+                  *&v428[4] = v65;
                   v66 = v64;
                   v67 = "Additional IPv4 address has invalid length %llu";
                   goto LABEL_77;
@@ -6298,7 +6247,7 @@ LABEL_70:
         }
 
         while (v48 != v51);
-        v69 = [v45 countByEnumeratingWithState:buf objects:&v433 count:16];
+        v69 = [v45 countByEnumeratingWithState:buf objects:&v432 count:16];
         v48 = v69;
       }
 
@@ -6306,7 +6255,7 @@ LABEL_70:
     }
 
     v3 = self;
-    a1 = v410;
+    a1 = v409;
     if (![v43 count])
     {
       goto LABEL_113;
@@ -6315,19 +6264,19 @@ LABEL_70:
     v71 = v43;
     if (v71)
     {
-      if (objc_getProperty(v402, v70, 352, 1))
+      if (objc_getProperty(v401, v70, 352, 1))
       {
-        v72 = [v402 additionalAddressesUpdateBlock];
-        v73 = [v402 clientQueue];
+        v72 = [v401 additionalAddressesUpdateBlock];
+        v73 = [v401 clientQueue];
         if (v73 && v72)
         {
           *block = MEMORY[0x1E69E9820];
           *&block[8] = 3221225472;
-          *&v457 = __50__NEIKEv2Session_reportServerAdditionalAddresses___block_invoke;
-          *(&v457 + 1) = &unk_1E7F0AAA0;
-          *&v458 = v402;
-          *&v459 = v72;
-          *(&v458 + 1) = v71;
+          *&v456 = __50__NEIKEv2Session_reportServerAdditionalAddresses___block_invoke;
+          *(&v456 + 1) = &unk_1E7F0AAA0;
+          *&v457 = v401;
+          *&v458 = v72;
+          *(&v457 + 1) = v71;
           dispatch_async(v73, block);
         }
 
@@ -6340,13 +6289,13 @@ LABEL_70:
 LABEL_112:
 
 LABEL_113:
-        v41 = v404;
+        v41 = v403;
         goto LABEL_114;
       }
 
       *block = 136315138;
       *&block[4] = "[NEIKEv2Session reportServerAdditionalAddresses:]";
-      v284 = "%s called with null self.ikeSA";
+      v283 = "%s called with null self.ikeSA";
     }
 
     else
@@ -6359,10 +6308,10 @@ LABEL_113:
 
       *block = 136315138;
       *&block[4] = "[NEIKEv2Session reportServerAdditionalAddresses:]";
-      v284 = "%s called with null additionalAddresses";
+      v283 = "%s called with null additionalAddresses";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v72, OS_LOG_TYPE_FAULT, v284, block, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v72, OS_LOG_TYPE_FAULT, v283, block, 0xCu);
     goto LABEL_112;
   }
 
@@ -6403,10 +6352,10 @@ LABEL_114:
     v236 = ne_log_obj();
     if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
     {
-      v267 = *(a1 + 40);
-      LODWORD(v433) = 138412290;
-      *(&v433 + 4) = v267;
-      _os_log_error_impl(&dword_1BA83C000, v236, OS_LOG_TYPE_ERROR, "%@ Failed to generate Child SA crypto values (connect)", &v433, 0xCu);
+      v266 = *(a1 + 40);
+      LODWORD(v432) = 138412290;
+      *(&v432 + 4) = v266;
+      _os_log_error_impl(&dword_1BA83C000, v236, OS_LOG_TYPE_ERROR, "%@ Failed to generate Child SA crypto values (connect)", &v432, 0xCu);
     }
 
     v94 = [NEIKEv2DeleteIKEContext alloc];
@@ -6417,12 +6366,12 @@ LABEL_114:
     }
 
     v96 = v238;
-    v416[0] = MEMORY[0x1E69E9820];
-    v416[1] = 3221225472;
-    v416[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_221;
-    v416[3] = &unk_1E7F08740;
-    v416[4] = *(a1 + 40);
-    v97 = v416;
+    v415[0] = MEMORY[0x1E69E9820];
+    v415[1] = 3221225472;
+    v415[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_221;
+    v415[3] = &unk_1E7F08740;
+    v415[4] = *(a1 + 40);
+    v97 = v415;
     goto LABEL_216;
   }
 
@@ -6464,7 +6413,7 @@ LABEL_114:
       }
 
       v134 = v133;
-      v406 = [v134 description];
+      v405 = [v134 description];
 
       if (v126)
       {
@@ -6477,7 +6426,7 @@ LABEL_114:
       }
 
       v137 = v136;
-      v405 = [v137 description];
+      v404 = [v137 description];
 
       if (v126)
       {
@@ -6490,7 +6439,7 @@ LABEL_114:
       }
 
       v140 = v139;
-      v403 = [v140 description];
+      v402 = [v140 description];
 
       if (v126)
       {
@@ -6503,7 +6452,7 @@ LABEL_114:
       }
 
       v143 = v142;
-      v401 = [v143 description];
+      v400 = [v143 description];
 
       if (v125)
       {
@@ -6528,7 +6477,7 @@ LABEL_114:
         v149 = MEMORY[0x1E695E110];
       }
 
-      v400 = v149;
+      v399 = v149;
 
       if (v125)
       {
@@ -6551,7 +6500,7 @@ LABEL_114:
         v153 = v148;
       }
 
-      v399 = v153;
+      v398 = v153;
 
       if (v131)
       {
@@ -6564,7 +6513,7 @@ LABEL_114:
       }
 
       v156 = v155;
-      v397 = [v156 description];
+      v396 = [v156 description];
 
       if (v131)
       {
@@ -6577,7 +6526,7 @@ LABEL_114:
       }
 
       v159 = v158;
-      v395 = [v159 description];
+      v394 = [v159 description];
 
       if (v125)
       {
@@ -6590,7 +6539,7 @@ LABEL_114:
       }
 
       v161 = v160;
-      v390 = [v161 description];
+      v389 = [v161 description];
 
       if (v125)
       {
@@ -6603,7 +6552,7 @@ LABEL_114:
       }
 
       v163 = v162;
-      v388 = [v163 description];
+      v387 = [v163 description];
 
       if (v125)
       {
@@ -6611,12 +6560,12 @@ LABEL_114:
         v167 = v165;
         if (v165)
         {
-          v386 = [objc_getProperty(v165 v166];
+          v385 = [objc_getProperty(v165 v166];
         }
 
         else
         {
-          v386 = 0;
+          v385 = 0;
         }
 
         v168 = MEMORY[0x1E696AD98];
@@ -6625,13 +6574,13 @@ LABEL_114:
 
       else
       {
-        v386 = 0;
+        v385 = 0;
         v170 = 0;
         v168 = MEMORY[0x1E696AD98];
       }
 
       v171 = v170;
-      v385 = [v168 numberWithUnsignedInteger:{objc_msgSend(v171, "length")}];
+      v384 = [v168 numberWithUnsignedInteger:{objc_msgSend(v171, "length")}];
 
       v173 = MEMORY[0x1E696AD98];
       if (v125)
@@ -6645,9 +6594,9 @@ LABEL_114:
       }
 
       v175 = v174;
-      v383 = [v173 numberWithUnsignedInteger:{objc_msgSend(v175, "length")}];
+      v382 = [v173 numberWithUnsignedInteger:{objc_msgSend(v175, "length")}];
 
-      v393 = v131;
+      v392 = v131;
       if (v126)
       {
         v177 = objc_getProperty(v126, v176, 136, 1);
@@ -6659,7 +6608,7 @@ LABEL_114:
       }
 
       v178 = v177;
-      v381 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v178, "count")}];
+      v380 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v178, "count")}];
       v180 = MEMORY[0x1E696AD98];
       if (v125)
       {
@@ -6671,9 +6620,9 @@ LABEL_114:
         v181 = 0;
       }
 
-      v407 = v121;
+      v406 = v121;
       v182 = v181;
-      v379 = [v180 numberWithBool:{objc_msgSend(v182, "allowPostQuantumKeyExchangeFallbackForAnalytics")}];
+      v378 = [v180 numberWithBool:{objc_msgSend(v182, "allowPostQuantumKeyExchangeFallbackForAnalytics")}];
 
       v183 = 7;
       v184 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:7];
@@ -6684,24 +6633,24 @@ LABEL_114:
       }
 
       while (v183);
-      v392 = v125;
-      v394 = v126;
+      v391 = v125;
+      v393 = v126;
       v185 = [(NEIKEv2IKESAProposal *)v126 chosenAdditionalKEMProtocols];
       *block = 0u;
+      v456 = 0u;
       v457 = 0u;
       v458 = 0u;
-      v459 = 0u;
       v186 = v178;
       v187 = [v186 countByEnumeratingWithState:block objects:buf count:16];
       if (v187)
       {
         v188 = v187;
-        v189 = *v457;
+        v189 = *v456;
         do
         {
           for (i = 0; i != v188; ++i)
           {
-            if (*v457 != v189)
+            if (*v456 != v189)
             {
               objc_enumerationMutation(v186);
             }
@@ -6719,48 +6668,48 @@ LABEL_114:
         while (v188);
       }
 
-      *&v433 = MEMORY[0x1E69E9820];
-      *(&v433 + 1) = 3221225472;
-      v434 = __48__NEIKEv2Session_sendAnalyticsOfChosenProtocols__block_invoke;
-      v435 = &unk_1E7F08B80;
-      v436 = v406;
-      v437 = v405;
-      v438 = v403;
-      v439 = v401;
-      v440 = v400;
-      v441 = v399;
-      v442 = v397;
-      v443 = v395;
-      v444 = v390;
-      v445 = v388;
-      v446 = v386;
-      v447 = v385;
-      v448 = v383;
-      v449 = v407;
-      v450 = v379;
-      v451 = v381;
-      v452 = v184;
-      v378 = v184;
-      v382 = v381;
-      v380 = v379;
-      v384 = v383;
-      v195 = v385;
-      v387 = v386;
-      v389 = v388;
-      v391 = v390;
-      v396 = v395;
-      v398 = v397;
-      v121 = v407;
-      v196 = v399;
-      v197 = v400;
-      v198 = v401;
-      v199 = v403;
-      v200 = v405;
-      v201 = v406;
+      *&v432 = MEMORY[0x1E69E9820];
+      *(&v432 + 1) = 3221225472;
+      v433 = __48__NEIKEv2Session_sendAnalyticsOfChosenProtocols__block_invoke;
+      v434 = &unk_1E7F08B80;
+      v435 = v405;
+      v436 = v404;
+      v437 = v402;
+      v438 = v400;
+      v439 = v399;
+      v440 = v398;
+      v441 = v396;
+      v442 = v394;
+      v443 = v389;
+      v444 = v387;
+      v445 = v385;
+      v446 = v384;
+      v447 = v382;
+      v448 = v406;
+      v449 = v378;
+      v450 = v380;
+      v451 = v184;
+      v377 = v184;
+      v381 = v380;
+      v379 = v378;
+      v383 = v382;
+      v195 = v384;
+      v386 = v385;
+      v388 = v387;
+      v390 = v389;
+      v395 = v394;
+      v397 = v396;
+      v121 = v406;
+      v196 = v398;
+      v197 = v399;
+      v198 = v400;
+      v199 = v402;
+      v200 = v404;
+      v201 = v405;
       AnalyticsSendEventLazy();
 
       v3 = self;
-      a1 = v410;
+      a1 = v409;
     }
   }
 
@@ -6773,10 +6722,10 @@ LABEL_114:
     v239 = ne_log_obj();
     if (os_log_type_enabled(v239, OS_LOG_TYPE_ERROR))
     {
-      v295 = *(a1 + 40);
-      LODWORD(v433) = 138412290;
-      *(&v433 + 4) = v295;
-      _os_log_error_impl(&dword_1BA83C000, v239, OS_LOG_TYPE_ERROR, "%@ Failed to install Child SA (connect)", &v433, 0xCu);
+      v294 = *(a1 + 40);
+      LODWORD(v432) = 138412290;
+      *(&v432 + 4) = v294;
+      _os_log_error_impl(&dword_1BA83C000, v239, OS_LOG_TYPE_ERROR, "%@ Failed to install Child SA (connect)", &v432, 0xCu);
     }
 
     v94 = [NEIKEv2DeleteIKEContext alloc];
@@ -6787,12 +6736,12 @@ LABEL_114:
     }
 
     v96 = v241;
-    v415[0] = MEMORY[0x1E69E9820];
-    v415[1] = 3221225472;
-    v415[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_225;
-    v415[3] = &unk_1E7F08740;
-    v415[4] = *(a1 + 40);
-    v97 = v415;
+    v414[0] = MEMORY[0x1E69E9820];
+    v414[1] = 3221225472;
+    v414[2] = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_225;
+    v414[3] = &unk_1E7F08740;
+    v414[4] = *(a1 + 40);
+    v97 = v414;
     goto LABEL_216;
   }
 
@@ -6809,10 +6758,10 @@ LABEL_114:
     goto LABEL_221;
   }
 
-  v413 = 0u;
-  v414 = 0u;
-  v411 = 0u;
   v412 = 0u;
+  v413 = 0u;
+  v410 = 0u;
+  v411 = 0u;
   v207 = *(a1 + 48);
   if (v207 && (v208 = objc_getProperty(v207, v206, 152, 1)) != 0)
   {
@@ -6834,7 +6783,7 @@ LABEL_114:
 
   v214 = v211;
 
-  v215 = [v214 countByEnumeratingWithState:&v411 objects:v420 count:16];
+  v215 = [v214 countByEnumeratingWithState:&v410 objects:v419 count:16];
   if (!v215)
   {
 
@@ -6844,18 +6793,18 @@ LABEL_114:
   v216 = v215;
   v217 = v3;
   v218 = 0;
-  v219 = *v412;
+  v219 = *v411;
   do
   {
     v220 = 0;
     do
     {
-      if (*v412 != v219)
+      if (*v411 != v219)
       {
         objc_enumerationMutation(v214);
       }
 
-      v221 = *(*(&v411 + 1) + 8 * v220);
+      v221 = *(*(&v410 + 1) + 8 * v220);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -6912,7 +6861,7 @@ LABEL_198:
     }
 
     while (v216 != v220);
-    v232 = [v214 countByEnumeratingWithState:&v411 objects:v420 count:16];
+    v232 = [v214 countByEnumeratingWithState:&v410 objects:v419 count:16];
     v216 = v232;
   }
 
@@ -6925,9 +6874,9 @@ LABEL_198:
     if (os_log_type_enabled(v233, OS_LOG_TYPE_INFO))
     {
       v234 = *(a1 + 40);
-      LODWORD(v433) = 138412290;
-      *(&v433 + 4) = v234;
-      _os_log_impl(&dword_1BA83C000, v233, OS_LOG_TYPE_INFO, "%@ Changing addresses and migrating (connect)", &v433, 0xCu);
+      LODWORD(v432) = 138412290;
+      *(&v432 + 4) = v234;
+      _os_log_impl(&dword_1BA83C000, v233, OS_LOG_TYPE_INFO, "%@ Changing addresses and migrating (connect)", &v432, 0xCu);
     }
 
     [(NEIKEv2Session *)*(a1 + 40) migrateAllChildSAs];
@@ -6938,9 +6887,9 @@ LABEL_221:
   if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
   {
     v247 = *(a1 + 40);
-    LODWORD(v433) = 138412290;
-    *(&v433 + 4) = v247;
-    _os_log_impl(&dword_1BA83C000, v246, OS_LOG_TYPE_DEFAULT, "%@ Completed connection (connect)", &v433, 0xCu);
+    LODWORD(v432) = 138412290;
+    *(&v432 + 4) = v247;
+    _os_log_impl(&dword_1BA83C000, v246, OS_LOG_TYPE_DEFAULT, "%@ Completed connection (connect)", &v432, 0xCu);
   }
 
   [(NEIKEv2IKESA *)*(a1 + 32) setState:0 error:?];
@@ -6953,8 +6902,6 @@ LABEL_221:
 
   [(NEIKEv2Session *)*(a1 + 40) reportState];
 LABEL_226:
-
-  v249 = *MEMORY[0x1E69E9840];
 }
 
 void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_216(uint64_t a1)
@@ -7003,7 +6950,7 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_225(uint64_t a
 
 - (uint64_t)setupReceivedChildCopyError
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = objc_getProperty(self, a2, 384, 1);
@@ -7026,14 +6973,14 @@ void __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke_225(uint64_t a
         v14 = ne_log_obj();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          *v29 = 138412290;
-          *&v29[4] = self;
-          _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ Failed to generate Child SA SPI (receive)", v29, 0xCu);
+          *v28 = 138412290;
+          *&v28[4] = self;
+          _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ Failed to generate Child SA SPI (receive)", v28, 0xCu);
         }
 
         v22 = @"Failed to generate Child SA SPI (receive)";
 LABEL_14:
-        ErrorInternal = NEIKEv2CreateErrorInternal(v22, v15, v16, v17, v18, v19, v20, v21, *v29);
+        ErrorInternal = NEIKEv2CreateErrorInternal(v22, v15, v16, v17, v18, v19, v20, v21, *v28);
       }
     }
 
@@ -7045,9 +6992,9 @@ LABEL_14:
         v26 = ne_log_obj();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          *v29 = 138412290;
-          *&v29[4] = self;
-          _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "%@ Failed to get childSA receiver", v29, 0xCu);
+          *v28 = 138412290;
+          *&v28[4] = self;
+          _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "%@ Failed to get childSA receiver", v28, 0xCu);
         }
 
         v22 = @"Failed to get childSA receiver";
@@ -7058,18 +7005,15 @@ LABEL_14:
       ErrorInternal = 0;
     }
 
-    goto LABEL_16;
+    return ErrorInternal;
   }
 
-  ErrorInternal = 0;
-LABEL_16:
-  v27 = *MEMORY[0x1E69E9840];
-  return ErrorInternal;
+  return 0;
 }
 
 void __58__NEIKEv2Session_Exchange__setupReceivedChildWithHandler___block_invoke(uint64_t a1, void *a2, void *a3, const void *a4)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v9 = a3;
   Property = *(a1 + 32);
@@ -7088,9 +7032,9 @@ void __58__NEIKEv2Session_Exchange__setupReceivedChildWithHandler___block_invoke
     if (os_log_type_enabled(ErrorInternal, OS_LOG_TYPE_FAULT))
     {
       v29 = *(a1 + 32);
-      *v52 = 138412290;
-      *&v52[4] = v29;
-      _os_log_fault_impl(&dword_1BA83C000, ErrorInternal, OS_LOG_TYPE_FAULT, "%@ already received config block", v52, 0xCu);
+      *v51 = 138412290;
+      *&v51[4] = v29;
+      _os_log_fault_impl(&dword_1BA83C000, ErrorInternal, OS_LOG_TYPE_FAULT, "%@ already received config block", v51, 0xCu);
     }
 
     goto LABEL_35;
@@ -7103,9 +7047,9 @@ void __58__NEIKEv2Session_Exchange__setupReceivedChildWithHandler___block_invoke
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       v35 = *(a1 + 32);
-      *v52 = 138412290;
-      *&v52[4] = v35;
-      _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Listener rejected this IKEv2 inbound connection by sending back nil sessionConfig", v52, 0xCu);
+      *v51 = 138412290;
+      *&v51[4] = v35;
+      _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Listener rejected this IKEv2 inbound connection by sending back nil sessionConfig", v51, 0xCu);
     }
 
     v26 = *(a1 + 40);
@@ -7138,15 +7082,15 @@ LABEL_9:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v36 = *(a1 + 32);
-      *v52 = 138412290;
-      *&v52[4] = v36;
-      _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ Listener rejected this IKEv2 inbound connection by sending back nil childConfig", v52, 0xCu);
+      *v51 = 138412290;
+      *&v51[4] = v36;
+      _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ Listener rejected this IKEv2 inbound connection by sending back nil childConfig", v51, 0xCu);
     }
 
     v26 = *(a1 + 40);
     v27 = @"Listener rejected this IKEv2 inbound connection by sending back nil childConfig";
 LABEL_34:
-    ErrorInternal = NEIKEv2CreateErrorInternal(v27, v19, v20, v21, v22, v23, v24, v25, *v52);
+    ErrorInternal = NEIKEv2CreateErrorInternal(v27, v19, v20, v21, v22, v23, v24, v25, *v51);
     (*(v26 + 16))(v26, ErrorInternal);
     goto LABEL_35;
   }
@@ -7167,9 +7111,9 @@ LABEL_34:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
           {
             v37 = *(a1 + 32);
-            *v52 = 138412290;
-            *&v52[4] = v37;
-            _os_log_fault_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_FAULT, "%@ Listener sent back non-nil childConfig for childless SA connection", v52, 0xCu);
+            *v51 = 138412290;
+            *&v51[4] = v37;
+            _os_log_fault_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_FAULT, "%@ Listener sent back non-nil childConfig for childless SA connection", v51, 0xCu);
           }
 
           v26 = *(a1 + 40);
@@ -7188,8 +7132,8 @@ LABEL_34:
       v39 = ne_log_obj();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
       {
-        *v52 = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_FAULT, "Tried to set ipsecInterface when already set", v52, 2u);
+        *v51 = 0;
+        _os_log_fault_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_FAULT, "Tried to set ipsecInterface when already set", v51, 2u);
       }
 
       v26 = *(a1 + 40);
@@ -7197,41 +7141,41 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    v41 = CFRetain(a4);
-    v42 = *(a1 + 32);
-    if (v42)
+    v40 = CFRetain(a4);
+    v41 = *(a1 + 32);
+    if (v41)
     {
-      *(v42 + 344) = v41;
+      *(v41 + 344) = v40;
     }
   }
 
-  v43 = ne_log_large_obj();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+  v42 = ne_log_large_obj();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
   {
-    v44 = *(a1 + 32);
-    *v52 = 138412802;
-    *&v52[4] = v44;
-    v53 = 2112;
-    v54 = v7;
-    v55 = 2112;
-    v56 = v9;
-    _os_log_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_INFO, "%@ Received responseSessionConfig %@ responseChildConfig %@", v52, 0x20u);
+    v43 = *(a1 + 32);
+    *v51 = 138412802;
+    *&v51[4] = v43;
+    v52 = 2112;
+    v53 = v7;
+    v54 = 2112;
+    v55 = v9;
+    _os_log_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_INFO, "%@ Received responseSessionConfig %@ responseChildConfig %@", v51, 0x20u);
   }
 
-  v46 = *(a1 + 32);
-  if (v46)
+  v45 = *(a1 + 32);
+  if (v45)
   {
-    v47 = objc_getProperty(v46, v45, 352, 1);
-    v49 = v47;
-    if (v47)
+    v46 = objc_getProperty(v45, v44, 352, 1);
+    v48 = v46;
+    if (v46)
     {
-      objc_setProperty_atomic(v47, v48, v7, 88);
+      objc_setProperty_atomic(v46, v47, v7, 88);
     }
   }
 
   else
   {
-    v49 = 0;
+    v48 = 0;
   }
 
   if (v9)
@@ -7239,17 +7183,15 @@ LABEL_34:
     [(NEIKEv2Session *)*(a1 + 32) addFirstChild:v9];
   }
 
-  v51 = *(a1 + 40);
+  v50 = *(a1 + 40);
   ErrorInternal = [(NEIKEv2Session *)*(a1 + 32) setupReceivedChildCopyError];
-  (*(v51 + 16))(v51, ErrorInternal);
+  (*(v50 + 16))(v50, ErrorInternal);
 LABEL_35:
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveConnection:(void *)connection
 {
-  v275[1] = *MEMORY[0x1E69E9840];
+  v274[1] = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!connection)
   {
@@ -7264,12 +7206,12 @@ LABEL_35:
   if (!v7)
   {
 LABEL_161:
-    v245 = ne_log_obj();
-    if (os_log_type_enabled(v245, OS_LOG_TYPE_FAULT))
+    v244 = ne_log_obj();
+    if (os_log_type_enabled(v244, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       connectionCopy12 = "[NEIKEv2Session(Exchange) receiveConnection:]";
-      _os_log_fault_impl(&dword_1BA83C000, v245, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v244, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
     }
 
     v9 = 0;
@@ -7290,11 +7232,11 @@ LABEL_161:
 
       *buf = 138412546;
       connectionCopy12 = connection;
-      v273 = 1024;
-      v274 = v10;
+      v272 = 1024;
+      v273 = v10;
       v17 = "%@ Dropping IKE_SA_INIT with wrong message ID %d";
-      v189 = v16;
-      v190 = 18;
+      v188 = v16;
+      v189 = 18;
       goto LABEL_92;
     }
   }
@@ -7330,10 +7272,10 @@ LABEL_10:
       connectionCopy12 = connection;
       v17 = "%@ Dropping IKE_SA_INIT sent to session that already selected proposal";
 LABEL_91:
-      v189 = v16;
-      v190 = 12;
+      v188 = v16;
+      v189 = 12;
 LABEL_92:
-      _os_log_error_impl(&dword_1BA83C000, v189, OS_LOG_TYPE_ERROR, v17, buf, v190);
+      _os_log_error_impl(&dword_1BA83C000, v188, OS_LOG_TYPE_ERROR, v17, buf, v189);
       goto LABEL_10;
     }
 
@@ -7350,66 +7292,66 @@ LABEL_92:
   v9[9] = 0;
   [(NEIKEv2IKESA *)v9 setState:0 error:?];
   [(NEIKEv2Session *)connection reportState];
-  v21 = objc_getProperty(v9, v20, 304, 1);
+  v20 = objc_getProperty(v9, v19, 304, 1);
 
-  if (!v21)
+  if (!v20)
   {
     ikeInterfaceName = [connection ikeInterfaceName];
-    objc_setProperty_atomic(v9, v23, ikeInterfaceName, 304);
+    objc_setProperty_atomic(v9, v22, ikeInterfaceName, 304);
   }
 
-  v259 = 7;
-  if (([(NEIKEv2IKESAInitPacket *)v4 validateSAInitAsResponder:v9 errorCodeToSend:&v259]& 1) == 0)
+  v258 = 7;
+  if (([(NEIKEv2IKESAInitPacket *)v4 validateSAInitAsResponder:v9 errorCodeToSend:&v258]& 1) == 0)
   {
-    if (v259 == 17)
+    if (v258 == 17)
     {
-      Property = objc_getProperty(v4, v24, 104, 1);
-      v146 = Property;
+      Property = objc_getProperty(v4, v23, 104, 1);
+      v145 = Property;
       if (Property)
       {
-        Property = objc_getProperty(Property, v145, 32, 1);
+        Property = objc_getProperty(Property, v144, 32, 1);
       }
 
       v16 = Property;
 
-      v148 = objc_getProperty(v9, v147, 96, 1);
-      kemProtocol = [(NEIKEv2IKESAProposal *)v148 kemProtocol];
+      v147 = objc_getProperty(v9, v146, 96, 1);
+      kemProtocol = [(NEIKEv2IKESAProposal *)v147 kemProtocol];
 
-      *v269 = bswap32([kemProtocol method]) >> 16;
-      v151 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v269 length:2];
-      v152 = [NEIKEv2IKESAInitPacket createIKESAInitResponse:v4 errorCode:0x11uLL errorData:v151];
+      *v268 = bswap32([kemProtocol method]) >> 16;
+      v150 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v268 length:2];
+      v151 = [NEIKEv2IKESAInitPacket createIKESAInitResponse:v4 errorCode:0x11uLL errorData:v150];
 
-      if (v152)
+      if (v151)
       {
-        v153 = [(NEIKEv2Session *)connection sendReply:v152 replyHandler:0];
-        v162 = objc_getProperty(connection, v154, 352, 1);
-        if (v153)
+        v152 = [(NEIKEv2Session *)connection sendReply:v151 replyHandler:0];
+        v161 = objc_getProperty(connection, v153, 352, 1);
+        if (v152)
         {
-          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"KE method received in IKE SA Init packet (%@) doesn't match selected (%@) (receive)", v155, v156, v157, v158, v159, v160, v161, v16);
+          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"KE method received in IKE SA Init packet (%@) doesn't match selected (%@) (receive)", v154, v155, v156, v157, v158, v159, v160, v16);
         }
 
         else
         {
-          ErrorCrypto = NEIKEv2CreateErrorFailedToSend(@"SA INIT INVALID KE", v155, v156, v157, v158, v159, v160, v161, v246);
+          ErrorCrypto = NEIKEv2CreateErrorFailedToSend(@"SA INIT INVALID KE", v154, v155, v156, v157, v158, v159, v160, v245);
         }
       }
 
       else
       {
-        v191 = ne_log_obj();
-        if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
+        v190 = ne_log_obj();
+        if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           connectionCopy12 = connection;
-          _os_log_error_impl(&dword_1BA83C000, v191, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init Invalid KE packet", buf, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v190, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init Invalid KE packet", buf, 0xCu);
         }
 
-        v162 = objc_getProperty(connection, v192, 352, 1);
-        ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init Invalid KE packet", v193, v194, v195, v196, v197, v198, v199, v246);
+        v161 = objc_getProperty(connection, v191, 352, 1);
+        ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init Invalid KE packet", v192, v193, v194, v195, v196, v197, v198, v245);
       }
 
-      v209 = ErrorCrypto;
-      [(NEIKEv2IKESA *)v162 setState:ErrorCrypto error:?];
+      v208 = ErrorCrypto;
+      [(NEIKEv2IKESA *)v161 setState:ErrorCrypto error:?];
 
       [(NEIKEv2Session *)connection reportState];
       [(NEIKEv2Session *)connection resetAll];
@@ -7417,46 +7359,46 @@ LABEL_92:
 
     else
     {
-      v177 = ne_log_obj();
-      if (os_log_type_enabled(v177, OS_LOG_TYPE_ERROR))
+      v176 = ne_log_obj();
+      if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         connectionCopy12 = connection;
-        _os_log_error_impl(&dword_1BA83C000, v177, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE SA Init packet (receive)", buf, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v176, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE SA Init packet (receive)", buf, 0xCu);
       }
 
-      v16 = [NEIKEv2IKESAInitPacket createIKESAInitResponse:v4 errorCode:v259 errorData:0];
+      v16 = [NEIKEv2IKESAInitPacket createIKESAInitResponse:v4 errorCode:v258 errorData:0];
       if (v16)
       {
-        v178 = [(NEIKEv2Session *)connection sendReply:v16 replyHandler:0];
-        v187 = objc_getProperty(connection, v179, 352, 1);
-        if (v178)
+        v177 = [(NEIKEv2Session *)connection sendReply:v16 replyHandler:0];
+        v186 = objc_getProperty(connection, v178, 352, 1);
+        if (v177)
         {
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE SA Init packet (receive)", v180, v181, v182, v183, v184, v185, v186, v246);
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process IKE SA Init packet (receive)", v179, v180, v181, v182, v183, v184, v185, v245);
         }
 
         else
         {
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorFailedToSend(@"SA INIT refusal", v180, v181, v182, v183, v184, v185, v186, v246);
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorFailedToSend(@"SA INIT refusal", v179, v180, v181, v182, v183, v184, v185, v245);
         }
       }
 
       else
       {
-        v200 = ne_log_obj();
-        if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+        v199 = ne_log_obj();
+        if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           connectionCopy12 = connection;
-          _os_log_error_impl(&dword_1BA83C000, v200, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init refusal packet", buf, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v199, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init refusal packet", buf, 0xCu);
         }
 
-        v187 = objc_getProperty(connection, v201, 352, 1);
-        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init refusal packet", v202, v203, v204, v205, v206, v207, v208, v246);
+        v186 = objc_getProperty(connection, v200, 352, 1);
+        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init refusal packet", v201, v202, v203, v204, v205, v206, v207, v245);
       }
 
-      v212 = ErrorPeerInvalidSyntax;
-      [(NEIKEv2IKESA *)v187 setState:ErrorPeerInvalidSyntax error:?];
+      v211 = ErrorPeerInvalidSyntax;
+      [(NEIKEv2IKESA *)v186 setState:ErrorPeerInvalidSyntax error:?];
 
       [(NEIKEv2Session *)connection reportState];
       [(NEIKEv2Session *)connection resetAll];
@@ -7467,76 +7409,76 @@ LABEL_92:
 
   if (([(NEIKEv2IKESA *)v9 generateInitialValues]& 1) != 0)
   {
-    v25 = v4;
-    v26 = v9;
+    v24 = v4;
+    v25 = v9;
     objc_opt_self();
-    v28 = objc_getProperty(v26, v27, 96, 1);
+    v27 = objc_getProperty(v25, v26, 96, 1);
 
-    if (!v28)
+    if (!v27)
     {
-      v29 = ne_log_obj();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v28 = ne_log_obj();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         connectionCopy12 = "+[NEIKEv2IKESAInitPacket(Exchange) createIKESAInitResponse:ikeSA:]";
-        _os_log_fault_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.chosenProposal", buf, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.chosenProposal", buf, 0xCu);
       }
 
-      v143 = 0;
+      v142 = 0;
 LABEL_118:
 
-      if (v143)
+      if (v142)
       {
-        generateAllValuesForSAInit = [(NEIKEv2IKESA *)v26 generateAllValuesForSAInit];
-        v218 = ne_log_obj();
-        v219 = v218;
+        generateAllValuesForSAInit = [(NEIKEv2IKESA *)v25 generateAllValuesForSAInit];
+        v217 = ne_log_obj();
+        v218 = v217;
         if (generateAllValuesForSAInit)
         {
-          if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v217, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             connectionCopy12 = connection;
-            _os_log_impl(&dword_1BA83C000, v219, OS_LOG_TYPE_DEFAULT, "%@ Sending SA_INIT reply", buf, 0xCu);
+            _os_log_impl(&dword_1BA83C000, v218, OS_LOG_TYPE_DEFAULT, "%@ Sending SA_INIT reply", buf, 0xCu);
           }
 
-          v256[0] = MEMORY[0x1E69E9820];
-          v256[1] = 3221225472;
-          v256[2] = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke;
-          v256[3] = &unk_1E7F083A0;
-          v257 = v26;
+          v255[0] = MEMORY[0x1E69E9820];
+          v255[1] = 3221225472;
+          v255[2] = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke;
+          v255[3] = &unk_1E7F083A0;
+          v256 = v25;
           connectionCopy9 = connection;
-          [(NEIKEv2Session *)connection handleIKEIntermediateForResponderIKESA:v257 iteration:0 replyPacket:v143 replyPacketDescription:@"responder SA INIT" handler:v256];
+          [(NEIKEv2Session *)connection handleIKEIntermediateForResponderIKESA:v256 iteration:0 replyPacket:v142 replyPacketDescription:@"responder SA INIT" handler:v255];
 
           goto LABEL_130;
         }
 
-        if (os_log_type_enabled(v218, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v217, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           connectionCopy12 = connection;
-          _os_log_error_impl(&dword_1BA83C000, v219, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (receive)", buf, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v218, OS_LOG_TYPE_ERROR, "%@ Failed to generate crypto values (receive)", buf, 0xCu);
         }
 
-        v222 = objc_getProperty(connection, v231, 352, 1);
-        ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate crypto values (receive)", v232, v233, v234, v235, v236, v237, v238, v246);
+        v221 = objc_getProperty(connection, v230, 352, 1);
+        ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate crypto values (receive)", v231, v232, v233, v234, v235, v236, v237, v245);
       }
 
       else
       {
-        v220 = ne_log_obj();
-        if (os_log_type_enabled(v220, OS_LOG_TYPE_ERROR))
+        v219 = ne_log_obj();
+        if (os_log_type_enabled(v219, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           connectionCopy12 = connection;
-          _os_log_error_impl(&dword_1BA83C000, v220, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init packet (receive)", buf, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v219, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init packet (receive)", buf, 0xCu);
         }
 
-        v222 = objc_getProperty(connection, v221, 352, 1);
-        ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init packet (receive)", v223, v224, v225, v226, v227, v228, v229, v246);
+        v221 = objc_getProperty(connection, v220, 352, 1);
+        ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init packet (receive)", v222, v223, v224, v225, v226, v227, v228, v245);
       }
 
-      v239 = ErrorInternal;
-      [(NEIKEv2IKESA *)v222 setState:ErrorInternal error:?];
+      v238 = ErrorInternal;
+      [(NEIKEv2IKESA *)v221 setState:ErrorInternal error:?];
 
       [(NEIKEv2Session *)connection reportState];
       [(NEIKEv2Session *)connection resetAll];
@@ -7545,336 +7487,336 @@ LABEL_130:
       goto LABEL_11;
     }
 
-    v29 = [(NEIKEv2Packet *)[NEIKEv2IKESAInitPacket alloc] initResponse:v25];
-    if (!v29)
+    v28 = [(NEIKEv2Packet *)[NEIKEv2IKESAInitPacket alloc] initResponse:v24];
+    if (!v28)
     {
-      v81 = ne_log_obj();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+      v80 = ne_log_obj();
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKESAInitPacket alloc] initResponse:] failed", buf, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, "[[NEIKEv2IKESAInitPacket alloc] initResponse:] failed", buf, 2u);
       }
 
-      v143 = 0;
+      v142 = 0;
       goto LABEL_117;
     }
 
-    v254 = v25;
-    v30 = objc_alloc_init(NEIKEv2IKESAPayload);
-    objc_setProperty_atomic(v29, v31, v30, 96);
+    v253 = v24;
+    v29 = objc_alloc_init(NEIKEv2IKESAPayload);
+    objc_setProperty_atomic(v28, v30, v29, 96);
 
-    self = v26;
-    v33 = objc_getProperty(v26, v32, 96, 1);
-    v275[0] = v33;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v275 count:1];
-    v36 = objc_getProperty(v29, v35, 96, 1);
-    v38 = v36;
-    if (v36)
+    self = v25;
+    v32 = objc_getProperty(v25, v31, 96, 1);
+    v274[0] = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v274 count:1];
+    v35 = objc_getProperty(v28, v34, 96, 1);
+    v37 = v35;
+    if (v35)
     {
-      objc_setProperty_atomic(v36, v37, v34, 32);
+      objc_setProperty_atomic(v35, v36, v33, 32);
     }
 
-    v40 = objc_getProperty(v29, v39, 96, 1);
-    isValid = [(NEIKEv2Payload *)v40 isValid];
+    v39 = objc_getProperty(v28, v38, 96, 1);
+    isValid = [(NEIKEv2Payload *)v39 isValid];
 
     if (isValid)
     {
-      v42 = objc_alloc_init(NEIKEv2KeyExchangePayload);
-      objc_setProperty_atomic(v29, v43, v42, 104);
+      v41 = objc_alloc_init(NEIKEv2KeyExchangePayload);
+      objc_setProperty_atomic(v28, v42, v41, 104);
 
-      v45 = objc_getProperty(self, v44, 96, 1);
-      kemProtocol2 = [(NEIKEv2IKESAProposal *)v45 kemProtocol];
-      v49 = objc_getProperty(v29, v48, 104, 1);
-      v51 = v49;
-      if (v49)
+      v44 = objc_getProperty(self, v43, 96, 1);
+      kemProtocol2 = [(NEIKEv2IKESAProposal *)v44 kemProtocol];
+      v48 = objc_getProperty(v28, v47, 104, 1);
+      v50 = v48;
+      if (v48)
       {
-        objc_setProperty_atomic(v49, v50, kemProtocol2, 32);
+        objc_setProperty_atomic(v48, v49, kemProtocol2, 32);
       }
 
-      v53 = objc_getProperty(self, v52, 160, 1);
-      v54 = v53;
-      if (v53)
+      v52 = objc_getProperty(self, v51, 160, 1);
+      v53 = v52;
+      if (v52)
       {
-        v55 = *(v53 + 2);
+        v54 = *(v52 + 2);
       }
 
       else
       {
-        v55 = 0;
+        v54 = 0;
       }
 
-      v56 = v55;
-      v58 = objc_getProperty(v29, v57, 104, 1);
-      v60 = v58;
-      if (v58)
+      v55 = v54;
+      v57 = objc_getProperty(v28, v56, 104, 1);
+      v59 = v57;
+      if (v57)
       {
-        objc_setProperty_atomic(v58, v59, v56, 40);
+        objc_setProperty_atomic(v57, v58, v55, 40);
       }
 
-      v62 = objc_getProperty(v29, v61, 104, 1);
-      isValid2 = [(NEIKEv2Payload *)v62 isValid];
+      v61 = objc_getProperty(v28, v60, 104, 1);
+      isValid2 = [(NEIKEv2Payload *)v61 isValid];
 
       if (isValid2)
       {
-        v64 = objc_alloc_init(NEIKEv2NoncePayload);
-        objc_setProperty_atomic(v29, v65, v64, 112);
+        v63 = objc_alloc_init(NEIKEv2NoncePayload);
+        objc_setProperty_atomic(v28, v64, v63, 112);
 
-        v26 = self;
-        v67 = objc_getProperty(self, v66, 128, 1);
-        v69 = objc_getProperty(v29, v68, 112, 1);
-        v71 = v69;
-        if (v69)
+        v25 = self;
+        v66 = objc_getProperty(self, v65, 128, 1);
+        v68 = objc_getProperty(v28, v67, 112, 1);
+        v70 = v68;
+        if (v68)
         {
-          objc_setProperty_atomic(v69, v70, v67, 32);
+          objc_setProperty_atomic(v68, v69, v66, 32);
         }
 
-        v73 = objc_getProperty(v29, v72, 112, 1);
-        isValid3 = [(NEIKEv2Payload *)v73 isValid];
+        v72 = objc_getProperty(v28, v71, 112, 1);
+        isValid3 = [(NEIKEv2Payload *)v72 isValid];
 
         if (isValid3)
         {
           initiatorSPI = [(NEIKEv2IKESA *)self initiatorSPI];
           responderSPI = [(NEIKEv2IKESA *)self responderSPI];
-          v80 = objc_getProperty(self, v79, 64, 1);
-          v81 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:initiatorSPI responderSPI:responderSPI address:v80];
+          v79 = objc_getProperty(self, v78, 64, 1);
+          v80 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:initiatorSPI responderSPI:responderSPI address:v79];
 
-          if (![(NEIKEv2Packet *)v29 addNotification:v81 data:?])
+          if (![(NEIKEv2Packet *)v28 addNotification:v80 data:?])
           {
-            v89 = ne_log_obj();
-            v25 = v254;
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
+            v88 = ne_log_obj();
+            v24 = v253;
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionSourceIP] failed", buf, 2u);
+              _os_log_fault_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionSourceIP] failed", buf, 2u);
             }
 
-            v143 = 0;
-            v26 = self;
+            v142 = 0;
+            v25 = self;
             goto LABEL_156;
           }
 
-          v248 = v81;
+          v247 = v80;
           initiatorSPI2 = [(NEIKEv2IKESA *)self initiatorSPI];
           responderSPI2 = [(NEIKEv2IKESA *)self responderSPI];
-          v87 = objc_getProperty(self, v86, 72, 1);
-          v88 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:initiatorSPI2 responderSPI:responderSPI2 address:v87];
+          v86 = objc_getProperty(self, v85, 72, 1);
+          v87 = [NEIKEv2Crypto createNATDetectionHashForInitiatorSPI:initiatorSPI2 responderSPI:responderSPI2 address:v86];
 
-          v89 = v88;
-          if ([(NEIKEv2Packet *)v29 addNotification:v88 data:?])
+          v88 = v87;
+          if ([(NEIKEv2Packet *)v28 addNotification:v87 data:?])
           {
-            if ([(NEIKEv2Packet *)v29 addNotification:0 data:?])
+            if ([(NEIKEv2Packet *)v28 addNotification:0 data:?])
             {
-              v247 = v88;
-              v91 = objc_getProperty(self, v90, 80, 1);
-              extraSupportedSignatureHashes = [v91 extraSupportedSignatureHashes];
+              v246 = v87;
+              v90 = objc_getProperty(self, v89, 80, 1);
+              extraSupportedSignatureHashes = [v90 extraSupportedSignatureHashes];
               remoteAuthentication = [(NEIKEv2IKESA *)self remoteAuthentication];
-              v95 = [NEIKEv2Crypto copySignHashDataForSet:extraSupportedSignatureHashes authentication:remoteAuthentication];
+              v94 = [NEIKEv2Crypto copySignHashDataForSet:extraSupportedSignatureHashes authentication:remoteAuthentication];
 
-              log = v95;
-              if (v95 && ![(NEIKEv2Packet *)v29 addNotification:v95 data:?])
+              log = v94;
+              if (v94 && ![(NEIKEv2Packet *)v28 addNotification:v94 data:?])
               {
-                v242 = ne_log_obj();
-                if (!os_log_type_enabled(v242, OS_LOG_TYPE_FAULT))
+                v241 = ne_log_obj();
+                if (!os_log_type_enabled(v241, OS_LOG_TYPE_FAULT))
                 {
                   goto LABEL_152;
                 }
 
                 *buf = 0;
-                v243 = "[packet addNotification:NEIKEv2NotifyTypeSignatureHashAlgorithms] failed";
+                v242 = "[packet addNotification:NEIKEv2NotifyTypeSignatureHashAlgorithms] failed";
               }
 
               else
               {
-                v97 = objc_getProperty(self, v96, 80, 1);
-                requestChildlessSA = [v97 requestChildlessSA];
+                v96 = objc_getProperty(self, v95, 80, 1);
+                requestChildlessSA = [v96 requestChildlessSA];
 
-                if (requestChildlessSA && ![(NEIKEv2Packet *)v29 addNotification:0 data:?])
+                if (requestChildlessSA && ![(NEIKEv2Packet *)v28 addNotification:0 data:?])
                 {
-                  v242 = ne_log_obj();
-                  if (!os_log_type_enabled(v242, OS_LOG_TYPE_FAULT))
+                  v241 = ne_log_obj();
+                  if (!os_log_type_enabled(v241, OS_LOG_TYPE_FAULT))
                   {
                     goto LABEL_152;
                   }
 
                   *buf = 0;
-                  v243 = "[packet addNotification:NEIKEv2NotifyTypeChildlessIKEv2Supported] failed";
+                  v242 = "[packet addNotification:NEIKEv2NotifyTypeChildlessIKEv2Supported] failed";
                 }
 
                 else
                 {
-                  if ((self[3] & 1) == 0 || [(NEIKEv2Packet *)v29 addNotification:0 data:?])
+                  if ((self[3] & 1) == 0 || [(NEIKEv2Packet *)v28 addNotification:0 data:?])
                   {
-                    v100 = objc_getProperty(self, v99, 96, 1);
-                    v102 = v100;
-                    if (v100)
+                    v99 = objc_getProperty(self, v98, 96, 1);
+                    v101 = v99;
+                    if (v99)
                     {
-                      v100 = objc_getProperty(v100, v101, 136, 1);
+                      v99 = objc_getProperty(v99, v100, 136, 1);
                     }
 
-                    v103 = v100;
+                    v102 = v99;
 
-                    if (!v103 || [(NEIKEv2Packet *)v29 addNotification:0 data:?])
+                    if (!v102 || [(NEIKEv2Packet *)v28 addNotification:0 data:?])
                     {
-                      v104 = self;
-                      v105 = self[13];
+                      v103 = self;
+                      v104 = self[13];
 
-                      if (!v105)
+                      if (!v104)
                       {
 LABEL_49:
-                        v266 = 0u;
-                        v267 = 0u;
                         v265 = 0u;
+                        v266 = 0u;
                         v264 = 0u;
-                        v110 = objc_getProperty(v104, v106, 80, 1);
-                        customIKESAInitVendorPayloads = [v110 customIKESAInitVendorPayloads];
+                        v263 = 0u;
+                        v109 = objc_getProperty(v103, v105, 80, 1);
+                        customIKESAInitVendorPayloads = [v109 customIKESAInitVendorPayloads];
 
-                        v252 = [customIKESAInitVendorPayloads countByEnumeratingWithState:&v264 objects:buf count:16];
-                        if (v252)
+                        v251 = [customIKESAInitVendorPayloads countByEnumeratingWithState:&v263 objects:buf count:16];
+                        if (v251)
                         {
-                          v250 = *v265;
+                          v249 = *v264;
                           do
                           {
-                            for (i = 0; i != v252; ++i)
+                            for (i = 0; i != v251; ++i)
                             {
-                              if (*v265 != v250)
+                              if (*v264 != v249)
                               {
                                 objc_enumerationMutation(customIKESAInitVendorPayloads);
                               }
 
-                              v113 = *(*(&v264 + 1) + 8 * i);
-                              v114 = objc_alloc_init(NEIKEv2VendorIDPayload);
-                              vendorData = [v113 vendorData];
-                              if (v114)
+                              v112 = *(*(&v263 + 1) + 8 * i);
+                              v113 = objc_alloc_init(NEIKEv2VendorIDPayload);
+                              vendorData = [v112 vendorData];
+                              if (v113)
                               {
-                                objc_setProperty_atomic(v114, v115, vendorData, 32);
+                                objc_setProperty_atomic(v113, v114, vendorData, 32);
                               }
 
-                              v118 = objc_getProperty(v29, v117, 120, 1);
+                              v117 = objc_getProperty(v28, v116, 120, 1);
 
-                              if (v118)
+                              if (v117)
                               {
-                                v120 = objc_getProperty(v29, v119, 120, 1);
-                                v121 = [v120 arrayByAddingObject:v114];
-                                objc_setProperty_atomic(v29, v122, v121, 120);
+                                v119 = objc_getProperty(v28, v118, 120, 1);
+                                v120 = [v119 arrayByAddingObject:v113];
+                                objc_setProperty_atomic(v28, v121, v120, 120);
                               }
 
                               else
                               {
-                                v270 = v114;
-                                v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v270 count:1];
-                                objc_setProperty_atomic(v29, v123, v120, 120);
+                                v269 = v113;
+                                v119 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v269 count:1];
+                                objc_setProperty_atomic(v28, v122, v119, 120);
                               }
                             }
 
-                            v252 = [customIKESAInitVendorPayloads countByEnumeratingWithState:&v264 objects:buf count:16];
+                            v251 = [customIKESAInitVendorPayloads countByEnumeratingWithState:&v263 objects:buf count:16];
                           }
 
-                          while (v252);
+                          while (v251);
                         }
 
-                        v262 = 0u;
-                        v263 = 0u;
-                        v260 = 0u;
                         v261 = 0u;
-                        v125 = objc_getProperty(self, v124, 80, 1);
-                        customIKESAInitPayloads = [v125 customIKESAInitPayloads];
+                        v262 = 0u;
+                        v259 = 0u;
+                        v260 = 0u;
+                        v124 = objc_getProperty(self, v123, 80, 1);
+                        customIKESAInitPayloads = [v124 customIKESAInitPayloads];
 
-                        v251 = customIKESAInitPayloads;
-                        v127 = [customIKESAInitPayloads countByEnumeratingWithState:&v260 objects:v269 count:16];
-                        if (v127)
+                        v250 = customIKESAInitPayloads;
+                        v126 = [customIKESAInitPayloads countByEnumeratingWithState:&v259 objects:v268 count:16];
+                        if (v126)
                         {
-                          v128 = v127;
-                          v253 = *v261;
+                          v127 = v126;
+                          v252 = *v260;
                           do
                           {
-                            v129 = 0;
+                            v128 = 0;
                             do
                             {
-                              if (*v261 != v253)
+                              if (*v260 != v252)
                               {
-                                objc_enumerationMutation(v251);
+                                objc_enumerationMutation(v250);
                               }
 
-                              v130 = *(*(&v260 + 1) + 8 * v129);
-                              v131 = objc_alloc_init(NEIKEv2CustomPayload);
-                              customType = [v130 customType];
-                              if (v131)
+                              v129 = *(*(&v259 + 1) + 8 * v128);
+                              v130 = objc_alloc_init(NEIKEv2CustomPayload);
+                              customType = [v129 customType];
+                              if (v130)
                               {
-                                v131->_customType = customType;
-                                customData = [v130 customData];
-                                objc_setProperty_atomic(v131, v134, customData, 40);
-                              }
-
-                              else
-                              {
-                                customData = [v130 customData];
-                              }
-
-                              v136 = objc_getProperty(v29, v135, 56, 1);
-
-                              if (v136)
-                              {
-                                v138 = objc_getProperty(v29, v137, 56, 1);
-                                v139 = [v138 arrayByAddingObject:v131];
-                                objc_setProperty_atomic(v29, v140, v139, 56);
+                                v130->_customType = customType;
+                                customData = [v129 customData];
+                                objc_setProperty_atomic(v130, v133, customData, 40);
                               }
 
                               else
                               {
-                                v268 = v131;
-                                v138 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v268 count:1];
-                                objc_setProperty_atomic(v29, v141, v138, 56);
+                                customData = [v129 customData];
                               }
 
-                              ++v129;
+                              v135 = objc_getProperty(v28, v134, 56, 1);
+
+                              if (v135)
+                              {
+                                v137 = objc_getProperty(v28, v136, 56, 1);
+                                v138 = [v137 arrayByAddingObject:v130];
+                                objc_setProperty_atomic(v28, v139, v138, 56);
+                              }
+
+                              else
+                              {
+                                v267 = v130;
+                                v137 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v267 count:1];
+                                objc_setProperty_atomic(v28, v140, v137, 56);
+                              }
+
+                              ++v128;
                             }
 
-                            while (v128 != v129);
-                            v142 = [v251 countByEnumeratingWithState:&v260 objects:v269 count:16];
-                            v128 = v142;
+                            while (v127 != v128);
+                            v141 = [v250 countByEnumeratingWithState:&v259 objects:v268 count:16];
+                            v127 = v141;
                           }
 
-                          while (v142);
+                          while (v141);
                         }
 
-                        v143 = v29;
+                        v142 = v28;
                         goto LABEL_154;
                       }
 
-                      v107 = self[13];
-                      v108 = bswap32([v107 securePasswordMethod]) >> 16;
+                      v106 = self[13];
+                      v107 = bswap32([v106 securePasswordMethod]) >> 16;
 
-                      *buf = v108;
-                      v109 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:2];
-                      if ([(NEIKEv2Packet *)v29 addNotification:v109 data:?])
+                      *buf = v107;
+                      v108 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:2];
+                      if ([(NEIKEv2Packet *)v28 addNotification:v108 data:?])
                       {
 
-                        v104 = self;
+                        v103 = self;
                         goto LABEL_49;
                       }
 
-                      v244 = ne_log_obj();
-                      if (os_log_type_enabled(v244, OS_LOG_TYPE_FAULT))
+                      v243 = ne_log_obj();
+                      if (os_log_type_enabled(v243, OS_LOG_TYPE_FAULT))
                       {
-                        *v269 = 0;
-                        _os_log_fault_impl(&dword_1BA83C000, v244, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeSecurePasswordMethods] failed", v269, 2u);
+                        *v268 = 0;
+                        _os_log_fault_impl(&dword_1BA83C000, v243, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeSecurePasswordMethods] failed", v268, 2u);
                       }
 
 LABEL_153:
-                      v143 = 0;
+                      v142 = 0;
 LABEL_154:
-                      v25 = v254;
-                      v26 = self;
-                      v89 = v247;
-                      v81 = v248;
+                      v24 = v253;
+                      v25 = self;
+                      v88 = v246;
+                      v80 = v247;
                       goto LABEL_155;
                     }
 
-                    v242 = ne_log_obj();
-                    if (os_log_type_enabled(v242, OS_LOG_TYPE_FAULT))
+                    v241 = ne_log_obj();
+                    if (os_log_type_enabled(v241, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 0;
-                      v243 = "[packet addNotification:NEIKEv2NotifyTypeIntermediateExchangeSupported] failed";
+                      v242 = "[packet addNotification:NEIKEv2NotifyTypeIntermediateExchangeSupported] failed";
                       goto LABEL_151;
                     }
 
@@ -7883,124 +7825,122 @@ LABEL_152:
                     goto LABEL_153;
                   }
 
-                  v242 = ne_log_obj();
-                  if (!os_log_type_enabled(v242, OS_LOG_TYPE_FAULT))
+                  v241 = ne_log_obj();
+                  if (!os_log_type_enabled(v241, OS_LOG_TYPE_FAULT))
                   {
                     goto LABEL_152;
                   }
 
                   *buf = 0;
-                  v243 = "[packet addNotification:NEIKEv2NotifyTypeUsePPK] failed";
+                  v242 = "[packet addNotification:NEIKEv2NotifyTypeUsePPK] failed";
                 }
               }
 
 LABEL_151:
-              _os_log_fault_impl(&dword_1BA83C000, v242, OS_LOG_TYPE_FAULT, v243, buf, 2u);
+              _os_log_fault_impl(&dword_1BA83C000, v241, OS_LOG_TYPE_FAULT, v242, buf, 2u);
               goto LABEL_152;
             }
 
             log = ne_log_obj();
-            v25 = v254;
-            v26 = self;
+            v24 = v253;
+            v25 = self;
             if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
               _os_log_fault_impl(&dword_1BA83C000, log, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeIKEv2FragmentationSupported] failed", buf, 2u);
             }
 
-            v143 = 0;
+            v142 = 0;
           }
 
           else
           {
             log = ne_log_obj();
-            v25 = v254;
+            v24 = v253;
             if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
               _os_log_fault_impl(&dword_1BA83C000, log, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypeNATDetectionDestinationIP] failed", buf, 2u);
             }
 
-            v143 = 0;
-            v26 = self;
+            v142 = 0;
+            v25 = self;
           }
 
-          v81 = v248;
+          v80 = v247;
 LABEL_155:
 
 LABEL_156:
           goto LABEL_117;
         }
 
-        v81 = ne_log_obj();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+        v80 = ne_log_obj();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           connectionCopy12 = "+[NEIKEv2IKESAInitPacket(Exchange) createIKESAInitResponse:ikeSA:]";
-          v215 = "%s called with null packet.nonce.isValid";
+          v214 = "%s called with null packet.nonce.isValid";
           goto LABEL_115;
         }
 
 LABEL_116:
-        v143 = 0;
+        v142 = 0;
 LABEL_117:
 
         goto LABEL_118;
       }
 
-      v81 = ne_log_obj();
-      v26 = self;
-      if (!os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+      v80 = ne_log_obj();
+      v25 = self;
+      if (!os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_116;
       }
 
       *buf = 136315138;
       connectionCopy12 = "+[NEIKEv2IKESAInitPacket(Exchange) createIKESAInitResponse:ikeSA:]";
-      v215 = "%s called with null packet.ke.isValid";
+      v214 = "%s called with null packet.ke.isValid";
     }
 
     else
     {
-      v81 = ne_log_obj();
-      v26 = self;
-      if (!os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
+      v80 = ne_log_obj();
+      v25 = self;
+      if (!os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_116;
       }
 
       *buf = 136315138;
       connectionCopy12 = "+[NEIKEv2IKESAInitPacket(Exchange) createIKESAInitResponse:ikeSA:]";
-      v215 = "%s called with null packet.sa.isValid";
+      v214 = "%s called with null packet.sa.isValid";
     }
 
 LABEL_115:
-    _os_log_fault_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_FAULT, v215, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, v214, buf, 0xCu);
     goto LABEL_116;
   }
 
-  v164 = ne_log_obj();
-  if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
+  v163 = ne_log_obj();
+  if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
     connectionCopy12 = connection;
-    _os_log_error_impl(&dword_1BA83C000, v164, OS_LOG_TYPE_ERROR, "%@ Failed to generate local crypto values (receive)", buf, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v163, OS_LOG_TYPE_ERROR, "%@ Failed to generate local crypto values (receive)", buf, 0xCu);
   }
 
-  v166 = objc_getProperty(connection, v165, 352, 1);
-  v174 = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (receive)", v167, v168, v169, v170, v171, v172, v173, v246);
-  [(NEIKEv2IKESA *)v166 setState:v174 error:?];
+  v165 = objc_getProperty(connection, v164, 352, 1);
+  v173 = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (receive)", v166, v167, v168, v169, v170, v171, v172, v245);
+  [(NEIKEv2IKESA *)v165 setState:v173 error:?];
 
   [(NEIKEv2Session *)connection reportState];
   [(NEIKEv2Session *)connection resetAll];
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v262 = *MEMORY[0x1E69E9840];
+  v261 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v6 = v4;
@@ -8011,35 +7951,35 @@ void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke(uint64_t a1
 
   if (v4 && (v4[9] & 1) != 0)
   {
-    v231 = ne_log_obj();
-    if (os_log_type_enabled(v231, OS_LOG_TYPE_FAULT))
+    v230 = ne_log_obj();
+    if (os_log_type_enabled(v230, OS_LOG_TYPE_FAULT))
     {
-      *v252 = 136315138;
-      v253 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart1AsResponderCopyErrorForIKESA:errorCodeToSend:]";
-      _os_log_fault_impl(&dword_1BA83C000, v231, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", v252, 0xCu);
+      *v251 = 136315138;
+      v252 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart1AsResponderCopyErrorForIKESA:errorCodeToSend:]";
+      _os_log_fault_impl(&dword_1BA83C000, v230, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", v251, 0xCu);
     }
 
-    ErrorInternal = NEIKEv2CreateErrorInternal(@"validateAuthPart1AsResponder called as initiator", v232, v233, v234, v235, v236, v237, v238, v239);
+    ErrorInternal = NEIKEv2CreateErrorInternal(@"validateAuthPart1AsResponder called as initiator", v231, v232, v233, v234, v235, v236, v237, v238);
     goto LABEL_142;
   }
 
   if ([(NEIKEv2Packet *)v3 hasErrors])
   {
-    v250 = 0u;
-    v251 = 0u;
-    *location = 0u;
     v249 = 0u;
+    v250 = 0u;
+    *location = 0u;
+    v248 = 0u;
     v8 = objc_getProperty(v3, v7, 64, 1);
     v9 = [v8 countByEnumeratingWithState:location objects:buf count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v249;
+      v11 = *v248;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v249 != v11)
+          if (*v248 != v11)
           {
             objc_enumerationMutation(v8);
           }
@@ -8053,18 +7993,18 @@ void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke(uint64_t a1
               ErrorPeerInvalidSyntax = [(NEIKEv2NotifyPayload *)v13 copyError];
               if (!ErrorPeerInvalidSyntax)
               {
-                ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"Failed to copy notify error", v28, v29, v30, v31, v32, v33, v34, v239);
+                ErrorPeerInvalidSyntax = NEIKEv2CreateErrorInternal(@"Failed to copy notify error", v28, v29, v30, v31, v32, v33, v34, v238);
               }
 
               v36 = ne_log_obj();
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
-                v219 = [(NEIKEv2Packet *)v3 copyShortDescription];
-                *v252 = 138412546;
-                v253 = v219;
-                v254 = 2112;
-                v255 = ErrorPeerInvalidSyntax;
-                _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Responder auth received notify error %@", v252, 0x16u);
+                v218 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                *v251 = 138412546;
+                v252 = v218;
+                v253 = 2112;
+                v254 = ErrorPeerInvalidSyntax;
+                _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Responder auth received notify error %@", v251, 0x16u);
               }
 
               goto LABEL_106;
@@ -8097,10 +8037,10 @@ void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke(uint64_t a1
     v37 = ne_log_obj();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v220 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v252 = 138412290;
-      v253 = v220;
-      _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "%@ Initiator ID missing", v252, 0xCu);
+      v219 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v251 = 138412290;
+      v252 = v219;
+      _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "%@ Initiator ID missing", v251, 0xCu);
     }
 
     v45 = @"Initiator ID missing";
@@ -8163,15 +8103,15 @@ LABEL_35:
     v154 = ne_log_obj();
     if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
     {
-      v229 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v252 = 138412290;
-      v253 = v229;
-      _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ Received no SA proposals", v252, 0xCu);
+      v228 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v251 = 138412290;
+      v252 = v228;
+      _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ Received no SA proposals", v251, 0xCu);
     }
 
     v45 = @"Received no SA proposals";
 LABEL_104:
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v45, v38, v39, v40, v41, v42, v43, v44, v239);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v45, v38, v39, v40, v41, v42, v43, v44, v238);
     goto LABEL_105;
   }
 
@@ -8351,38 +8291,38 @@ LABEL_38:
     v97 = ne_log_obj();
     if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
-      v221 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      v223 = objc_getProperty(v3, v222, 128, 1);
-      v224 = v223;
-      if (v223)
+      v220 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      v222 = objc_getProperty(v3, v221, 128, 1);
+      v223 = v222;
+      if (v222)
       {
-        v225 = *(v223 + 32);
+        v224 = *(v222 + 32);
       }
 
       else
       {
-        v225 = 0;
+        v224 = 0;
       }
 
-      v226 = v225;
+      v225 = v224;
       if (v6)
       {
-        v227 = *(v6 + 104);
+        v226 = *(v6 + 104);
       }
 
       else
       {
-        v227 = 0;
+        v226 = 0;
       }
 
-      v228 = v227;
-      *v252 = 138412802;
-      v253 = v221;
-      v254 = 2112;
-      v255 = v226;
-      v256 = 2112;
-      v257 = v228;
-      _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ Responder packet authentication method %@ is not compatible with configuration %@", v252, 0x20u);
+      v227 = v226;
+      *v251 = 138412802;
+      v252 = v220;
+      v253 = 2112;
+      v254 = v225;
+      v255 = 2112;
+      v256 = v227;
+      _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ Responder packet authentication method %@ is not compatible with configuration %@", v251, 0x20u);
     }
 
     v99 = objc_getProperty(v3, v98, 128, 1);
@@ -8408,7 +8348,7 @@ LABEL_38:
       v103 = 0;
     }
 
-    v240 = v103;
+    v239 = v103;
     ErrorPeerInvalidSyntax = NEIKEv2CreateErrorAuthentication(@"Responder packet authentication method %@ is not compatible with configuration %@", v104, v105, v106, v107, v108, v109, v110, v102);
 
     goto LABEL_76;
@@ -8421,13 +8361,13 @@ LABEL_38:
     v203 = ne_log_obj();
     if (os_log_type_enabled(v203, OS_LOG_TYPE_ERROR))
     {
-      v230 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v252 = 138412290;
-      v253 = v230;
-      _os_log_error_impl(&dword_1BA83C000, v203, OS_LOG_TYPE_ERROR, "%@ Packet missing GSPM payload", v252, 0xCu);
+      v229 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v251 = 138412290;
+      v252 = v229;
+      _os_log_error_impl(&dword_1BA83C000, v203, OS_LOG_TYPE_ERROR, "%@ Packet missing GSPM payload", v251, 0xCu);
     }
 
-    ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Packet missing GSPM payload", v204, v205, v206, v207, v208, v209, v210, v239);
+    ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Packet missing GSPM payload", v204, v205, v206, v207, v208, v209, v210, v238);
 LABEL_142:
     ErrorPeerInvalidSyntax = ErrorInternal;
 LABEL_76:
@@ -8477,7 +8417,7 @@ LABEL_100:
     v131 = [v130 length];
     if (v129 == 2 && !v131)
     {
-      ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"PPK ID missing from payload", v132, v133, v134, v135, v136, v137, v138, v239);
+      ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"PPK ID missing from payload", v132, v133, v134, v135, v136, v137, v138, v238);
     }
 
     else
@@ -8506,9 +8446,9 @@ LABEL_100:
         goto LABEL_98;
       }
 
-      v252[0] = 0;
-      [v142 getBytes:v252 length:1];
-      v145 = v252[0] + 1;
+      v251[0] = 0;
+      [v142 getBytes:v251 length:1];
+      v145 = v251[0] + 1;
       if ([v142 length] > v145)
       {
         v153 = [v142 subdataWithRange:{v145, objc_msgSend(v142, "length") - v145}];
@@ -8533,9 +8473,9 @@ LABEL_106:
     v155 = ne_log_obj();
     if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
     {
-      v218 = *(a1 + 40);
+      v217 = *(a1 + 40);
       *buf = 138412546;
-      *&buf[4] = v218;
+      *&buf[4] = v217;
       *&buf[12] = 2112;
       *&buf[14] = ErrorPeerInvalidSyntax;
       _os_log_error_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (receive p1) %@", buf, 0x16u);
@@ -8569,14 +8509,14 @@ LABEL_106:
 
 LABEL_111:
   v159 = *(a1 + 40);
-  v242[0] = MEMORY[0x1E69E9820];
-  v242[1] = 3221225472;
-  v243 = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_292;
-  v244 = &unk_1E7F08378;
-  v245 = v159;
-  v246 = *(a1 + 32);
-  v247 = v3;
-  v161 = v242;
+  v241[0] = MEMORY[0x1E69E9820];
+  v241[1] = 3221225472;
+  v242 = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_292;
+  v243 = &unk_1E7F08378;
+  v244 = v159;
+  v245 = *(a1 + 32);
+  v246 = v3;
+  v161 = v241;
   if (v159)
   {
     v162 = objc_getProperty(v159, v160, 384, 1);
@@ -8604,7 +8544,7 @@ LABEL_111:
       }
 
       v167 = [(NEIKEv2Session *)v159 setupReceivedChildCopyError];
-      v243(v161, v167);
+      v242(v161, v167);
     }
 
     else if (*(v159 + 13) == 1)
@@ -8683,20 +8623,20 @@ LABEL_111:
               _os_log_fault_impl(&dword_1BA83C000, v201, OS_LOG_TYPE_FAULT, "copyChildConfig called on initiator", buf, 2u);
             }
 
-            v241 = 51;
+            v240 = 51;
             v202 = 52;
           }
 
           else
           {
-            v241 = 52;
+            v240 = 52;
             v202 = 51;
           }
 
           v212 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v199[v202] copyItems:1];
           [(NEIKEv2ChildSAConfiguration *)v198 setRemoteTrafficSelectors:v212];
 
-          v213 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v199[v241] copyItems:1];
+          v213 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v199[v240] copyItems:1];
           [(NEIKEv2ChildSAConfiguration *)v198 setLocalTrafficSelectors:v213];
         }
 
@@ -8713,10 +8653,10 @@ LABEL_111:
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __45__NEIKEv2IKESA_Crypto__copyValidateAuthBlock__block_invoke;
-        v259 = &unk_1E7F080B0;
-        objc_copyWeak(&v260, location);
+        v258 = &unk_1E7F080B0;
+        objc_copyWeak(&v259, location);
         v216 = _Block_copy(buf);
-        objc_destroyWeak(&v260);
+        objc_destroyWeak(&v259);
         objc_destroyWeak(location);
       }
 
@@ -8728,22 +8668,20 @@ LABEL_111:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __58__NEIKEv2Session_Exchange__setupReceivedChildWithHandler___block_invoke;
-      v259 = &unk_1E7F08328;
-      v260 = v159;
-      v261 = v161;
+      v258 = &unk_1E7F08328;
+      v259 = v159;
+      v260 = v161;
       [WeakRetained requestConfigurationForSession:v159 sessionConfig:v167 childConfig:v198 validateAuthBlock:v216 responseBlock:buf];
     }
   }
 
   ErrorPeerInvalidSyntax = 0;
 LABEL_151:
-
-  v217 = *MEMORY[0x1E69E9840];
 }
 
 void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_292(void **a1, void *a2)
 {
-  v268 = *MEMORY[0x1E69E9840];
+  v265 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = [(NEIKEv2Session *)a1[4] firstChildSA];
   v6 = v5;
@@ -8754,66 +8692,66 @@ void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_292(void **
 
   if (v5)
   {
-    v25 = ne_log_obj();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = ne_log_obj();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = a1[4];
+      v25 = a1[4];
       *buf = 138412546;
-      v263 = v26;
-      v264 = 2112;
-      v265 = v6;
-      _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "%@ Set up Child SA %@", buf, 0x16u);
+      v260 = v25;
+      v261 = 2112;
+      v262 = v6;
+      _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "%@ Set up Child SA %@", buf, 0x16u);
     }
 
     goto LABEL_22;
   }
 
-  v27 = a1[5];
-  if (v27 && (v27[23] & 1) != 0)
+  v26 = a1[5];
+  if (v26 && (v26[23] & 1) != 0)
   {
     goto LABEL_22;
   }
 
-  v28 = ne_log_obj();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v27 = ne_log_obj();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    v212 = a1[4];
+    v210 = a1[4];
     *buf = 138412290;
-    v263 = v212;
-    _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%@ Failed to set up Child SA", buf, 0xCu);
+    v260 = v210;
+    _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "%@ Failed to set up Child SA", buf, 0xCu);
   }
 
-  ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to set up Child SA", v29, v30, v31, v32, v33, v34, v35, v233);
+  ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to set up Child SA", v28, v29, v30, v31, v32, v33, v34, v231);
   if (!ErrorInternal)
   {
 LABEL_22:
-    v37 = a1[6];
-    v38 = a1[5];
-    v39 = v6;
-    v41 = v39;
-    if (!v37)
+    v36 = a1[6];
+    v37 = a1[5];
+    v38 = v6;
+    v40 = v38;
+    if (!v36)
     {
       goto LABEL_128;
     }
 
-    if (v38)
+    if (v37)
     {
-      if (v38[9])
+      if (v37[9])
       {
-        v222 = ne_log_obj();
-        if (os_log_type_enabled(v222, OS_LOG_TYPE_FAULT))
+        v220 = ne_log_obj();
+        if (os_log_type_enabled(v220, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v263 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart2AsResponderCopyErrorForIKESA:childSA:errorCodeToSend:]";
-          _os_log_fault_impl(&dword_1BA83C000, v222, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", buf, 0xCu);
+          v260 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart2AsResponderCopyErrorForIKESA:childSA:errorCodeToSend:]";
+          _os_log_fault_impl(&dword_1BA83C000, v220, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", buf, 0xCu);
         }
 
-        v230 = @"validateAuthPart2AsResponder called as initiator";
+        v228 = @"validateAuthPart2AsResponder called as initiator";
         goto LABEL_144;
       }
 
-      v42 = v38[23];
-      if (v39)
+      v41 = v37[23];
+      if (v38)
       {
         goto LABEL_27;
       }
@@ -8821,165 +8759,165 @@ LABEL_22:
 
     else
     {
-      v42 = 0;
-      if (v39)
+      v41 = 0;
+      if (v38)
       {
 LABEL_27:
-        v43 = [(NEIKEv2IKESA *)v38 remoteIdentifier];
+        v42 = [(NEIKEv2IKESA *)v37 remoteIdentifier];
 
-        v244 = v37;
-        if (!v43)
+        v241 = v36;
+        if (!v42)
         {
           goto LABEL_31;
         }
 
-        Property = objc_getProperty(v37, v44, 96, 1);
-        v47 = Property;
+        Property = objc_getProperty(v36, v43, 96, 1);
+        v46 = Property;
         if (Property)
         {
-          Property = objc_getProperty(Property, v46, 32, 1);
+          Property = objc_getProperty(Property, v45, 32, 1);
         }
 
-        v48 = Property;
-        v50 = [(NEIKEv2IKESA *)v38 remoteIdentifier];
-        v51 = [v48 isEqual:v50];
+        v47 = Property;
+        v49 = [(NEIKEv2IKESA *)v37 remoteIdentifier];
+        v50 = [v47 isEqual:v49];
 
-        v37 = v244;
-        if ((v51 & 1) == 0)
+        v36 = v241;
+        if ((v50 & 1) == 0)
         {
-          v109 = objc_getProperty(v244, v44, 96, 1);
-          v111 = v109;
-          if (v109)
+          v107 = objc_getProperty(v241, v43, 96, 1);
+          v109 = v107;
+          if (v107)
           {
-            v109 = objc_getProperty(v109, v110, 32, 1);
+            v107 = objc_getProperty(v107, v108, 32, 1);
           }
 
-          v112 = v109;
-          v113 = [(NEIKEv2Identifier *)v112 copyShortDescription];
+          v110 = v107;
+          v111 = [(NEIKEv2Identifier *)v110 copyShortDescription];
 
-          v115 = [(NEIKEv2IKESA *)v38 remoteIdentifier];
-          v116 = [(NEIKEv2Identifier *)v115 copyShortDescription];
+          v113 = [(NEIKEv2IKESA *)v37 remoteIdentifier];
+          v114 = [(NEIKEv2Identifier *)v113 copyShortDescription];
 
-          v117 = ne_log_obj();
-          if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          v115 = ne_log_obj();
+          if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
           {
-            v210 = [(NEIKEv2Packet *)v244 copyShortDescription];
+            v208 = [(NEIKEv2Packet *)v241 copyShortDescription];
             *buf = 138412802;
-            v263 = v210;
-            v264 = 2112;
-            v265 = v113;
-            v266 = 2112;
-            v267 = v116;
-            _os_log_error_impl(&dword_1BA83C000, v117, OS_LOG_TYPE_ERROR, "%@ Initiator ID could not be verified (%@ != %@)", buf, 0x20u);
+            v260 = v208;
+            v261 = 2112;
+            v262 = v111;
+            v263 = 2112;
+            v264 = v114;
+            _os_log_error_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_ERROR, "%@ Initiator ID could not be verified (%@ != %@)", buf, 0x20u);
           }
 
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Initiator ID could not be verified (%@ != %@)", v118, v119, v120, v121, v122, v123, v124, v113);
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Initiator ID could not be verified (%@ != %@)", v116, v117, v118, v119, v120, v121, v122, v111);
         }
 
         else
         {
 LABEL_31:
-          v52 = objc_getProperty(v37, v44, 104, 1);
-          v54 = v52;
-          if (v52)
+          v51 = objc_getProperty(v36, v43, 104, 1);
+          v53 = v51;
+          if (v51)
           {
-            v52 = objc_getProperty(v52, v53, 32, 1);
+            v51 = objc_getProperty(v51, v52, 32, 1);
           }
 
-          v55 = v52;
+          v54 = v51;
 
-          if (!v55)
+          if (!v54)
           {
             goto LABEL_37;
           }
 
-          v57 = objc_getProperty(v37, v56, 104, 1);
-          v59 = v57;
-          if (v57)
+          v56 = objc_getProperty(v36, v55, 104, 1);
+          v58 = v56;
+          if (v56)
           {
-            v57 = objc_getProperty(v57, v58, 32, 1);
+            v56 = objc_getProperty(v56, v57, 32, 1);
           }
 
-          v60 = v57;
-          v62 = [(NEIKEv2IKESA *)v38 localIdentifier];
-          v63 = [v60 isEqual:v62];
+          v59 = v56;
+          v61 = [(NEIKEv2IKESA *)v37 localIdentifier];
+          v62 = [v59 isEqual:v61];
 
-          v37 = v244;
-          if (v63)
+          v36 = v241;
+          if (v62)
           {
 LABEL_37:
-            v64 = objc_getProperty(v37, v56, 152, 1);
-            v66 = v64;
-            if (!v64 || (v67 = objc_getProperty(v64, v65, 32, 1)) == 0)
+            v63 = objc_getProperty(v36, v55, 152, 1);
+            v65 = v63;
+            if (!v63 || (v66 = objc_getProperty(v63, v64, 32, 1)) == 0)
             {
-              v77 = 0;
+              v76 = 0;
 LABEL_72:
 
               goto LABEL_73;
             }
 
-            v68 = v67[1];
+            v67 = v66[1];
 
-            if (v68 != 1)
+            if (v67 != 1)
             {
 LABEL_73:
-              if (!v38 || (v38[23] & 1) == 0)
+              if (!v37 || (v37[23] & 1) == 0)
               {
-                if ([(NEIKEv2Packet *)v37 hasNotification:?])
+                if ([(NEIKEv2Packet *)v36 hasNotification:?])
                 {
-                  v98 = 1;
+                  v96 = 1;
                 }
 
                 else
                 {
-                  v98 = 2;
+                  v96 = 2;
                 }
 
                 if (v6)
                 {
-                  v99 = objc_getProperty(v41, v97, 48, 1);
+                  v97 = objc_getProperty(v40, v95, 48, 1);
                 }
 
                 else
                 {
-                  v99 = 0;
+                  v97 = 0;
                 }
 
-                v100 = v99;
-                v101 = [v100 mode];
+                v98 = v97;
+                v99 = [v98 mode];
 
-                if (v98 == v101)
+                if (v96 == v99)
                 {
                   if (v6)
                   {
-                    v103 = objc_getProperty(v41, v102, 48, 1);
+                    v101 = objc_getProperty(v40, v100, 48, 1);
                   }
 
                   else
                   {
-                    v103 = 0;
+                    v101 = 0;
                   }
 
-                  v104 = v244;
-                  v105 = v103;
-                  if ([v105 sequencePerTrafficClass])
+                  v102 = v241;
+                  v103 = v101;
+                  if ([v103 sequencePerTrafficClass])
                   {
-                    v106 = [(NEIKEv2Packet *)v244 hasNotification:?];
+                    v104 = [(NEIKEv2Packet *)v241 hasNotification:?];
 
-                    if (v106)
+                    if (v104)
                     {
-                      v108 = ne_log_obj();
-                      if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
+                      v106 = ne_log_obj();
+                      if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
                       {
-                        v221 = [(NEIKEv2Packet *)v244 copyShortDescription];
+                        v219 = [(NEIKEv2Packet *)v241 copyShortDescription];
                         *buf = 138412290;
-                        v263 = v221;
-                        _os_log_debug_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_DEBUG, "%@ Sequence Per Traffic Class supported", buf, 0xCu);
+                        v260 = v219;
+                        _os_log_debug_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_DEBUG, "%@ Sequence Per Traffic Class supported", buf, 0xCu);
                       }
 
                       if (v6)
                       {
-                        BYTE2(v41->info) = 1;
+                        v40[10] = 1;
                       }
                     }
                   }
@@ -8988,197 +8926,197 @@ LABEL_73:
                   {
                   }
 
-                  v153 = objc_getProperty(v244, v107, 88, 1);
-                  v155 = v153;
-                  if (v153)
+                  v151 = objc_getProperty(v241, v105, 88, 1);
+                  v153 = v151;
+                  if (v151)
                   {
-                    v153 = objc_getProperty(v153, v154, 32, 1);
+                    v151 = objc_getProperty(v151, v152, 32, 1);
                   }
 
-                  v156 = v153;
+                  v154 = v151;
 
                   if (v6)
                   {
-                    v158 = objc_getProperty(v41, v157, 48, 1);
+                    v156 = objc_getProperty(v40, v155, 48, 1);
                   }
 
                   else
                   {
-                    v158 = 0;
+                    v156 = 0;
                   }
 
-                  v159 = v158;
-                  v160 = [v159 proposals];
+                  v157 = v156;
+                  v158 = [v157 proposals];
 
                   if (v6)
                   {
-                    v162 = objc_getProperty(v41, v161, 48, 1);
+                    v160 = objc_getProperty(v40, v159, 48, 1);
                   }
 
                   else
                   {
-                    v162 = 0;
+                    v160 = 0;
                   }
 
-                  v163 = v162;
-                  v164 = +[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:](NEIKEv2ChildSAProposal, v160, v156, [v163 preferInitiatorProposalOrder], 0);
-                  v166 = v164;
+                  v161 = v160;
+                  v162 = +[NEIKEv2ChildSAProposal chooseChildSAProposalFromLocalProposals:remoteProposals:preferRemoteProposals:checkKEMethod:](NEIKEv2ChildSAProposal, v158, v154, [v161 preferInitiatorProposalOrder], 0);
+                  v164 = v162;
                   if (v6)
                   {
-                    objc_setProperty_atomic(v41, v165, v164, 56);
+                    objc_setProperty_atomic(v40, v163, v162, 56);
 
-                    v168 = objc_getProperty(v41, v167, 56, 1);
+                    v166 = objc_getProperty(v40, v165, 56, 1);
                   }
 
                   else
                   {
 
-                    v168 = 0;
+                    v166 = 0;
                   }
 
+                  v167 = v166;
+
+                  v168 = ne_log_obj();
                   v169 = v168;
-
-                  v170 = ne_log_obj();
-                  v171 = v170;
-                  if (v169)
+                  if (v167)
                   {
-                    v247 = v160;
-                    if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
+                    v244 = v158;
+                    if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
                     {
-                      v173 = [(NEIKEv2Packet *)v244 copyShortDescription];
+                      v171 = [(NEIKEv2Packet *)v241 copyShortDescription];
                       if (v6)
                       {
-                        v174 = objc_getProperty(v41, v172, 56, 1);
+                        v172 = objc_getProperty(v40, v170, 56, 1);
                       }
 
                       else
                       {
-                        v174 = 0;
+                        v172 = 0;
                       }
 
-                      v175 = v174;
+                      v173 = v172;
                       *buf = 138412802;
-                      v263 = v41;
-                      v264 = 2112;
-                      v265 = v173;
-                      v266 = 2112;
-                      v267 = v175;
-                      _os_log_impl(&dword_1BA83C000, v171, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose initiator auth child proposal %@", buf, 0x20u);
+                      v260 = v40;
+                      v261 = 2112;
+                      v262 = v171;
+                      v263 = 2112;
+                      v264 = v173;
+                      _os_log_impl(&dword_1BA83C000, v169, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose initiator auth child proposal %@", buf, 0x20u);
 
-                      v104 = v244;
+                      v102 = v241;
                     }
 
-                    v177 = objc_getProperty(v104, v176, 160, 1);
-                    v179 = v177;
-                    if (v177)
+                    v175 = objc_getProperty(v102, v174, 160, 1);
+                    v177 = v175;
+                    if (v175)
                     {
-                      v177 = objc_getProperty(v177, v178, 32, 1);
+                      v175 = objc_getProperty(v175, v176, 32, 1);
                     }
 
-                    v180 = v38;
-                    v182 = v177;
-                    v243 = a1;
+                    v178 = v37;
+                    v180 = v175;
+                    v240 = a1;
                     if (v6)
                     {
-                      v183 = v41;
-                      v184 = objc_getProperty(v41, v181, 48, 1);
+                      v181 = v40;
+                      v182 = objc_getProperty(v40, v179, 48, 1);
                     }
 
                     else
                     {
-                      v184 = 0;
-                      v183 = v41;
+                      v182 = 0;
+                      v181 = v40;
                     }
 
-                    v185 = v184;
-                    v186 = [v185 remoteTrafficSelectors];
-                    v187 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v182 reply:v186];
-                    [(NEIKEv2ChildSA *)v183 setInitiatorTrafficSelectors:v187];
+                    v183 = v182;
+                    v184 = [v183 remoteTrafficSelectors];
+                    v185 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v180 reply:v184];
+                    [(NEIKEv2ChildSA *)v181 setInitiatorTrafficSelectors:v185];
 
-                    v189 = objc_getProperty(v244, v188, 168, 1);
-                    v191 = v189;
-                    if (v189)
+                    v187 = objc_getProperty(v241, v186, 168, 1);
+                    v189 = v187;
+                    if (v187)
                     {
-                      v189 = objc_getProperty(v189, v190, 32, 1);
+                      v187 = objc_getProperty(v187, v188, 32, 1);
                     }
 
-                    v38 = v180;
-                    v193 = v189;
+                    v37 = v178;
+                    v191 = v187;
                     if (v6)
                     {
-                      v194 = objc_getProperty(v41, v192, 48, 1);
+                      v192 = objc_getProperty(v40, v190, 48, 1);
                     }
 
                     else
                     {
-                      v194 = 0;
+                      v192 = 0;
                     }
 
-                    v195 = v194;
-                    v196 = [v195 localTrafficSelectors];
-                    v197 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v193 reply:v196];
-                    [(NEIKEv2ChildSA *)v41 setResponderTrafficSelectors:v197];
+                    v193 = v192;
+                    v194 = [v193 localTrafficSelectors];
+                    v195 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v191 reply:v194];
+                    [(NEIKEv2ChildSA *)v40 setResponderTrafficSelectors:v195];
 
-                    a1 = v243;
+                    a1 = v240;
                     goto LABEL_128;
                   }
 
-                  if (os_log_type_enabled(v170, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
                   {
-                    v220 = [(NEIKEv2Packet *)v244 copyShortDescription];
+                    v218 = [(NEIKEv2Packet *)v241 copyShortDescription];
                     *buf = 138412290;
-                    v263 = v220;
-                    _os_log_error_impl(&dword_1BA83C000, v171, OS_LOG_TYPE_ERROR, "%@ No matching proposal found", buf, 0xCu);
+                    v260 = v218;
+                    _os_log_error_impl(&dword_1BA83C000, v169, OS_LOG_TYPE_ERROR, "%@ No matching proposal found", buf, 0xCu);
                   }
 
-                  v3 = NEIKEv2CreateErrorPeerInvalidSyntax(@"No matching proposal found", v198, v199, v200, v201, v202, v203, v204, v233);
+                  v3 = NEIKEv2CreateErrorPeerInvalidSyntax(@"No matching proposal found", v196, v197, v198, v199, v200, v201, v202, v231);
                 }
 
                 else
                 {
-                  v141 = ne_log_obj();
-                  if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+                  v139 = ne_log_obj();
+                  if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
                   {
-                    v213 = [(NEIKEv2Packet *)v244 copyShortDescription];
-                    ChildSAModeString = NEIKEv2CreateChildSAModeString(v98);
-                    v216 = v38;
+                    v211 = [(NEIKEv2Packet *)v241 copyShortDescription];
+                    ChildSAModeString = NEIKEv2CreateChildSAModeString(v96);
+                    v214 = v37;
                     if (v6)
                     {
-                      v217 = objc_getProperty(v41, v214, 48, 1);
+                      v215 = objc_getProperty(v40, v212, 48, 1);
                     }
 
                     else
                     {
-                      v217 = 0;
+                      v215 = 0;
                     }
 
-                    v218 = v217;
-                    v219 = NEIKEv2CreateChildSAModeString([v218 mode]);
+                    v216 = v215;
+                    v217 = NEIKEv2CreateChildSAModeString([v216 mode]);
                     *buf = 138412802;
-                    v263 = v213;
-                    v264 = 2112;
-                    v265 = ChildSAModeString;
-                    v266 = 2112;
-                    v267 = v219;
-                    _os_log_error_impl(&dword_1BA83C000, v141, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA did not match (packet had %@ but config expected %@)", buf, 0x20u);
+                    v260 = v211;
+                    v261 = 2112;
+                    v262 = ChildSAModeString;
+                    v263 = 2112;
+                    v264 = v217;
+                    _os_log_error_impl(&dword_1BA83C000, v139, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA did not match (packet had %@ but config expected %@)", buf, 0x20u);
 
-                    v38 = v216;
+                    v37 = v214;
                   }
 
-                  v143 = NEIKEv2CreateChildSAModeString(v98);
+                  v141 = NEIKEv2CreateChildSAModeString(v96);
                   if (v6)
                   {
-                    v144 = objc_getProperty(v41, v142, 48, 1);
+                    v142 = objc_getProperty(v40, v140, 48, 1);
                   }
 
                   else
                   {
-                    v144 = 0;
+                    v142 = 0;
                   }
 
-                  v145 = v144;
-                  v234 = NEIKEv2CreateChildSAModeString([v145 mode]);
-                  v3 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Transport mode Child SA did not match (packet had %@ but config expected %@)", v146, v147, v148, v149, v150, v151, v152, v143);
+                  v143 = v142;
+                  v232 = NEIKEv2CreateChildSAModeString([v143 mode]);
+                  v3 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Transport mode Child SA did not match (packet had %@ but config expected %@)", v144, v145, v146, v147, v148, v149, v150, v141);
                 }
 
                 v7 = 14;
@@ -9190,22 +9128,22 @@ LABEL_133:
                 }
 
 LABEL_134:
-                v206 = a1[4];
-                v205 = a1[5];
-                v207 = a1[6];
-                v248[0] = MEMORY[0x1E69E9820];
-                v248[1] = 3221225472;
-                v248[2] = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_299;
-                v248[3] = &unk_1E7F08350;
-                v208 = v205;
-                v209 = a1[4];
-                v249 = v208;
-                v250 = v209;
-                v251 = a1[6];
-                v252 = v41;
-                [(NEIKEv2Session *)v206 handleEAPAndGSPMForIKESA:v208 authPacket:v207 handler:v248];
+                v204 = a1[4];
+                v203 = a1[5];
+                v205 = a1[6];
+                v245[0] = MEMORY[0x1E69E9820];
+                v245[1] = 3221225472;
+                v245[2] = __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_299;
+                v245[3] = &unk_1E7F08350;
+                v206 = v203;
+                v207 = a1[4];
+                v246 = v206;
+                v247 = v207;
+                v248 = a1[6];
+                v249 = v40;
+                [(NEIKEv2Session *)v204 handleEAPAndGSPMForIKESA:v206 authPacket:v205 handler:v245];
 
-                v3 = v249;
+                v3 = v246;
                 goto LABEL_11;
               }
 
@@ -9214,192 +9152,189 @@ LABEL_128:
               goto LABEL_134;
             }
 
-            v70 = objc_getProperty(v37, v69, 152, 1);
-            v66 = v70;
-            if (v70)
+            v69 = objc_getProperty(v36, v68, 152, 1);
+            v65 = v69;
+            if (v69)
             {
-              v70 = objc_getProperty(v70, v71, 32, 1);
+              v69 = objc_getProperty(v69, v70, 32, 1);
             }
 
-            v73 = v70;
-            if (v38)
+            v72 = v69;
+            if (v37)
             {
-              v74 = objc_getProperty(v38, v72, 88, 1);
+              v73 = objc_getProperty(v37, v71, 88, 1);
             }
 
             else
             {
-              v74 = 0;
+              v73 = 0;
             }
 
-            v75 = v74;
-            v76 = [v75 configurationReply];
-            v77 = v73;
-            v78 = v76;
+            v74 = v73;
+            v75 = [v74 configurationReply];
+            v76 = v72;
+            v77 = v75;
             objc_opt_self();
-            v241 = v6;
-            if (v77 && v77[1] == 1)
+            v238 = v6;
+            if (v76 && v76[1] == 1)
             {
-              if (v78 && v78[1] == 2)
+              if (v77 && v77[1] == 2)
               {
-                v236 = v75;
-                v238 = v66;
-                v239 = v38;
-                v240 = v41;
-                v242 = a1;
-                v79 = objc_alloc_init(NEIKEv2ConfigurationMessage);
-                if (v79)
+                v234 = v74;
+                v236 = v37;
+                v237 = v40;
+                v239 = a1;
+                v78 = objc_alloc_init(NEIKEv2ConfigurationMessage);
+                if (v78)
                 {
-                  v79->_configurationType = 2;
+                  v78->_configurationType = 2;
                 }
 
-                self = v79;
-                v80 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                self = v78;
+                v79 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v254 = 0u;
+                v255 = 0u;
+                v256 = 0u;
                 v257 = 0u;
-                v258 = 0u;
-                v259 = 0u;
-                v260 = 0u;
-                v237 = v77;
-                obj = objc_getProperty(v77, v81, 16, 1);
-                v82 = [obj countByEnumeratingWithState:&v257 objects:buf count:16];
-                if (v82)
+                v235 = v76;
+                obj = objc_getProperty(v76, v80, 16, 1);
+                v81 = [obj countByEnumeratingWithState:&v254 objects:buf count:16];
+                if (v81)
                 {
-                  v84 = v82;
-                  v246 = *v258;
+                  v83 = v81;
+                  v243 = *v255;
                   do
                   {
-                    for (i = 0; i != v84; ++i)
+                    for (i = 0; i != v83; ++i)
                     {
-                      if (*v258 != v246)
+                      if (*v255 != v243)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v86 = *(*(&v257 + 1) + 8 * i);
+                      v250 = 0u;
+                      v251 = 0u;
+                      v252 = 0u;
                       v253 = 0u;
-                      v254 = 0u;
-                      v255 = 0u;
-                      v256 = 0u;
-                      v87 = v78;
-                      v88 = objc_getProperty(v78, v83, 16, 1);
-                      v89 = [v88 countByEnumeratingWithState:&v253 objects:v261 count:16];
-                      if (v89)
+                      v85 = v77;
+                      v86 = objc_getProperty(v77, v82, 16, 1);
+                      v87 = [v86 countByEnumeratingWithState:&v250 objects:v258 count:16];
+                      if (v87)
                       {
-                        v90 = v89;
-                        v91 = *v254;
+                        v88 = v87;
+                        v89 = *v251;
                         do
                         {
-                          for (j = 0; j != v90; ++j)
+                          for (j = 0; j != v88; ++j)
                           {
-                            if (*v254 != v91)
+                            if (*v251 != v89)
                             {
-                              objc_enumerationMutation(v88);
+                              objc_enumerationMutation(v86);
                             }
 
-                            v93 = *(*(&v253 + 1) + 8 * j);
-                            if ([v93 isMemberOfClass:objc_opt_class()])
+                            v91 = *(*(&v250 + 1) + 8 * j);
+                            if ([v91 isMemberOfClass:objc_opt_class()])
                             {
-                              [v80 addObject:v93];
+                              [v79 addObject:v91];
                             }
                           }
 
-                          v90 = [v88 countByEnumeratingWithState:&v253 objects:v261 count:16];
+                          v88 = [v86 countByEnumeratingWithState:&v250 objects:v258 count:16];
                         }
 
-                        while (v90);
+                        while (v88);
                       }
 
-                      v78 = v87;
+                      v77 = v85;
                     }
 
-                    v84 = [obj countByEnumeratingWithState:&v257 objects:buf count:16];
+                    v83 = [obj countByEnumeratingWithState:&v254 objects:buf count:16];
                   }
 
-                  while (v84);
+                  while (v83);
                 }
 
-                v95 = self;
+                v93 = self;
                 if (self)
                 {
-                  objc_setProperty_atomic(self, v94, v80, 16);
+                  objc_setProperty_atomic(self, v92, v79, 16);
                 }
 
-                a1 = v242;
-                v37 = v244;
-                v38 = v239;
-                v41 = v240;
-                v77 = v237;
-                v66 = v238;
-                v75 = v236;
+                a1 = v239;
+                v36 = v241;
+                v37 = v236;
+                v40 = v237;
+                v76 = v235;
+                v74 = v234;
                 goto LABEL_69;
               }
 
-              v80 = ne_log_obj();
-              if (!os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+              v79 = ne_log_obj();
+              if (!os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
               {
 LABEL_148:
-                v95 = 0;
-                v37 = v244;
+                v93 = 0;
+                v36 = v241;
 LABEL_69:
 
-                if (v38)
+                if (v37)
                 {
-                  objc_setProperty_atomic(v38, v96, v95, 496);
+                  objc_setProperty_atomic(v37, v94, v93, 496);
                 }
 
-                v6 = v241;
+                v6 = v238;
                 goto LABEL_72;
               }
 
               *buf = 136315138;
-              v263 = "+[NEIKEv2ConfigurationMessage copyConfigurationForRequest:reply:]";
-              v232 = "%s called with null (reply.configurationType == NEIKEv2ConfigurationTypeReply)";
+              v260 = "+[NEIKEv2ConfigurationMessage copyConfigurationForRequest:reply:]";
+              v230 = "%s called with null (reply.configurationType == NEIKEv2ConfigurationTypeReply)";
             }
 
             else
             {
-              v80 = ne_log_obj();
-              if (!os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+              v79 = ne_log_obj();
+              if (!os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
               {
                 goto LABEL_148;
               }
 
               *buf = 136315138;
-              v263 = "+[NEIKEv2ConfigurationMessage copyConfigurationForRequest:reply:]";
-              v232 = "%s called with null (request.configurationType == NEIKEv2ConfigurationTypeRequest)";
+              v260 = "+[NEIKEv2ConfigurationMessage copyConfigurationForRequest:reply:]";
+              v230 = "%s called with null (request.configurationType == NEIKEv2ConfigurationTypeRequest)";
             }
 
-            _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, v232, buf, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_FAULT, v230, buf, 0xCu);
             goto LABEL_148;
           }
 
-          v126 = objc_getProperty(v244, v56, 104, 1);
-          v128 = v126;
-          if (v126)
+          v124 = objc_getProperty(v241, v55, 104, 1);
+          v126 = v124;
+          if (v124)
           {
-            v126 = objc_getProperty(v126, v127, 32, 1);
+            v124 = objc_getProperty(v124, v125, 32, 1);
           }
 
-          v129 = v126;
-          v113 = [(NEIKEv2Identifier *)v129 copyShortDescription];
+          v127 = v124;
+          v111 = [(NEIKEv2Identifier *)v127 copyShortDescription];
 
-          v131 = [(NEIKEv2IKESA *)v38 localIdentifier];
-          v116 = [(NEIKEv2Identifier *)v131 copyShortDescription];
+          v129 = [(NEIKEv2IKESA *)v37 localIdentifier];
+          v114 = [(NEIKEv2Identifier *)v129 copyShortDescription];
 
-          v132 = ne_log_obj();
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
+          v130 = ne_log_obj();
+          if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
           {
-            v211 = [(NEIKEv2Packet *)v244 copyShortDescription];
+            v209 = [(NEIKEv2Packet *)v241 copyShortDescription];
             *buf = 138412802;
-            v263 = v211;
-            v264 = 2112;
-            v265 = v113;
-            v266 = 2112;
-            v267 = v116;
-            _os_log_error_impl(&dword_1BA83C000, v132, OS_LOG_TYPE_ERROR, "%@ Responder ID could not be verified (%@ != %@)", buf, 0x20u);
+            v260 = v209;
+            v261 = 2112;
+            v262 = v111;
+            v263 = 2112;
+            v264 = v114;
+            _os_log_error_impl(&dword_1BA83C000, v130, OS_LOG_TYPE_ERROR, "%@ Responder ID could not be verified (%@ != %@)", buf, 0x20u);
           }
 
-          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Responder ID could not be verified (%@ != %@)", v133, v134, v135, v136, v137, v138, v139, v113);
+          ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Responder ID could not be verified (%@ != %@)", v131, v132, v133, v134, v135, v136, v137, v111);
         }
 
         v3 = ErrorPeerInvalidSyntax;
@@ -9410,22 +9345,22 @@ LABEL_100:
       }
     }
 
-    if (v42)
+    if (v41)
     {
       goto LABEL_27;
     }
 
-    v231 = ne_log_obj();
-    if (os_log_type_enabled(v231, OS_LOG_TYPE_FAULT))
+    v229 = ne_log_obj();
+    if (os_log_type_enabled(v229, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v263 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart2AsResponderCopyErrorForIKESA:childSA:errorCodeToSend:]";
-      _os_log_fault_impl(&dword_1BA83C000, v231, OS_LOG_TYPE_FAULT, "%s called with null childSA", buf, 0xCu);
+      v260 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthPart2AsResponderCopyErrorForIKESA:childSA:errorCodeToSend:]";
+      _os_log_fault_impl(&dword_1BA83C000, v229, OS_LOG_TYPE_FAULT, "%s called with null childSA", buf, 0xCu);
     }
 
-    v230 = @"validateAuthPart2AsResponder called with nil childSA";
+    v228 = @"validateAuthPart2AsResponder called with nil childSA";
 LABEL_144:
-    v3 = NEIKEv2CreateErrorInternal(v230, v223, v224, v225, v226, v227, v228, v229, v233);
+    v3 = NEIKEv2CreateErrorInternal(v228, v221, v222, v223, v224, v225, v226, v227, v231);
     goto LABEL_100;
   }
 
@@ -9436,9 +9371,9 @@ LABEL_3:
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v140 = a1[4];
+    v138 = a1[4];
     *buf = 138412290;
-    v263 = v140;
+    v260 = v138;
     _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (receive p2)", buf, 0xCu);
   }
 
@@ -9466,12 +9401,11 @@ LABEL_3:
   }
 
 LABEL_11:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __46__NEIKEv2Session_Exchange__receiveConnection___block_invoke_299(uint64_t a1, void *a2)
 {
-  v530[1] = *MEMORY[0x1E69E9840];
+  v529[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v6 = v4;
@@ -9535,19 +9469,19 @@ LABEL_7:
             v121 = ne_log_obj();
             if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
             {
-              v458 = [(NEIKEv2Packet *)v3 copyShortDescription];
-              v460 = [(NEIKEv2IKESA *)v6 remoteAuthentication];
+              v457 = [(NEIKEv2Packet *)v3 copyShortDescription];
+              v459 = [(NEIKEv2IKESA *)v6 remoteAuthentication];
               *buf = 138412802;
-              v525 = v458;
-              v526 = 2112;
-              v527 = v14;
-              v528 = 2112;
-              v529 = v460;
+              v524 = v457;
+              v525 = 2112;
+              v526 = v14;
+              v527 = 2112;
+              v528 = v459;
               _os_log_error_impl(&dword_1BA83C000, v121, OS_LOG_TYPE_ERROR, "%@ Responder packet authentication method %@ is not compatible with configuration %@", buf, 0x20u);
             }
 
             v100 = [(NEIKEv2IKESA *)v6 remoteAuthentication];
-            v496 = v14;
+            v495 = v14;
             v130 = @"Packet authentication method %@ is not compatible with configuration %@";
             goto LABEL_71;
           }
@@ -9591,11 +9525,11 @@ LABEL_52:
                     v106 = ne_log_obj();
                     if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
                     {
-                      v479 = *(v6 + 432);
+                      v478 = *(v6 + 432);
                       *buf = 138412546;
-                      v525 = v479;
-                      v526 = 2112;
-                      v527 = v100;
+                      v524 = v478;
+                      v525 = 2112;
+                      v526 = v100;
                       _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "PPK ID %@ != Expected %@", buf, 0x16u);
                     }
 
@@ -9616,7 +9550,7 @@ LABEL_200:
 
                       v130 = @"Wrong PPK ID received with mandatory PPK auth";
 LABEL_71:
-                      ErrorAuthentication = NEIKEv2CreateErrorAuthentication(v130, v123, v124, v125, v126, v127, v128, v129, v496);
+                      ErrorAuthentication = NEIKEv2CreateErrorAuthentication(v130, v123, v124, v125, v126, v127, v128, v129, v495);
 LABEL_72:
                       ErrorInternal = ErrorAuthentication;
 
@@ -9662,21 +9596,21 @@ LABEL_294:
                 {
                 }
 
-                v462 = [(NEIKEv2IKESA *)v6 ppk];
-                v463 = [(NEIKEv2IKESA *)v6 generateDerivativesFromPPK:v462];
+                v461 = [(NEIKEv2IKESA *)v6 ppk];
+                v462 = [(NEIKEv2IKESA *)v6 generateDerivativesFromPPK:v461];
 
-                if ((v463 & 1) == 0)
+                if ((v462 & 1) == 0)
                 {
-                  v464 = ne_log_obj();
+                  v463 = ne_log_obj();
                   v3 = v101;
-                  if (os_log_type_enabled(v464, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v463, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v525 = v101;
-                    _os_log_error_impl(&dword_1BA83C000, v464, OS_LOG_TYPE_ERROR, "%@ Failed to generate PPK-derived keys", buf, 0xCu);
+                    v524 = v101;
+                    _os_log_error_impl(&dword_1BA83C000, v463, OS_LOG_TYPE_ERROR, "%@ Failed to generate PPK-derived keys", buf, 0xCu);
                   }
 
-                  ErrorAuthentication = NEIKEv2CreateErrorCrypto(@"Failed to generate PPK-derived keys", v465, v466, v467, v468, v469, v470, v471, v496);
+                  ErrorAuthentication = NEIKEv2CreateErrorCrypto(@"Failed to generate PPK-derived keys", v464, v465, v466, v467, v468, v469, v470, v495);
                   goto LABEL_72;
                 }
 
@@ -9731,27 +9665,27 @@ LABEL_197:
                     v300 = ne_log_obj();
                     if (os_log_type_enabled(v300, OS_LOG_TYPE_ERROR))
                     {
-                      v474 = v3;
-                      v475 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                      v473 = v3;
+                      v474 = [(NEIKEv2Packet *)v3 copyShortDescription];
                       *buf = 138412290;
-                      v525 = v475;
+                      v524 = v474;
                       _os_log_error_impl(&dword_1BA83C000, v300, OS_LOG_TYPE_ERROR, "%@ GSPM authentication data could not be verified", buf, 0xCu);
 
-                      v3 = v474;
+                      v3 = v473;
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorAuthentication(@"GSPM authentication data could not be verified", v301, v302, v303, v304, v305, v306, v307, v496);
+                    ErrorInternal = NEIKEv2CreateErrorAuthentication(@"GSPM authentication data could not be verified", v301, v302, v303, v304, v305, v306, v307, v495);
                     goto LABEL_293;
                   }
 
                   v289 = ne_log_obj();
                   if (os_log_type_enabled(v289, OS_LOG_TYPE_ERROR))
                   {
-                    v473 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                    v472 = [(NEIKEv2Packet *)v3 copyShortDescription];
                     *buf = 138412546;
-                    v525 = v473;
-                    v526 = 2112;
-                    v527 = v278;
+                    v524 = v472;
+                    v525 = 2112;
+                    v526 = v278;
                     _os_log_error_impl(&dword_1BA83C000, v289, OS_LOG_TYPE_ERROR, "%@ Wrong authentication method %@ for GSPM", buf, 0x16u);
                   }
 
@@ -9796,30 +9730,30 @@ LABEL_197:
                         goto LABEL_197;
                       }
 
-                      v438 = ne_log_obj();
-                      if (os_log_type_enabled(v438, OS_LOG_TYPE_ERROR))
+                      v437 = ne_log_obj();
+                      if (os_log_type_enabled(v437, OS_LOG_TYPE_ERROR))
                       {
-                        v478 = [(NEIKEv2Packet *)v284 copyShortDescription];
+                        v477 = [(NEIKEv2Packet *)v284 copyShortDescription];
                         *buf = 138412546;
-                        v525 = v478;
-                        v526 = 2112;
-                        v527 = v278;
-                        _os_log_error_impl(&dword_1BA83C000, v438, OS_LOG_TYPE_ERROR, "%@ Responder failed to validate remote authentication data %@", buf, 0x16u);
+                        v524 = v477;
+                        v525 = 2112;
+                        v526 = v278;
+                        _os_log_error_impl(&dword_1BA83C000, v437, OS_LOG_TYPE_ERROR, "%@ Responder failed to validate remote authentication data %@", buf, 0x16u);
                       }
 
-                      ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Failed to validate remote authentication data %@", v439, v440, v441, v442, v443, v444, v445, v278);
+                      ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Failed to validate remote authentication data %@", v438, v439, v440, v441, v442, v443, v444, v278);
                     }
 
                     else
                     {
-                      v488 = ne_log_obj();
-                      if (os_log_type_enabled(v488, OS_LOG_TYPE_FAULT))
+                      v487 = ne_log_obj();
+                      if (os_log_type_enabled(v487, OS_LOG_TYPE_FAULT))
                       {
                         *buf = 0;
-                        _os_log_fault_impl(&dword_1BA83C000, v488, OS_LOG_TYPE_FAULT, "Responder configuration is missing remote public key", buf, 2u);
+                        _os_log_fault_impl(&dword_1BA83C000, v487, OS_LOG_TYPE_FAULT, "Responder configuration is missing remote public key", buf, 2u);
                       }
 
-                      ErrorInternal = NEIKEv2CreateErrorInternal(@"Responder configuration is missing remote public key", v489, v490, v491, v492, v493, v494, v495, v496);
+                      ErrorInternal = NEIKEv2CreateErrorInternal(@"Responder configuration is missing remote public key", v488, v489, v490, v491, v492, v493, v494, v495);
                     }
 
                     v3 = v284;
@@ -9843,18 +9777,18 @@ LABEL_293:
                     goto LABEL_197;
                   }
 
-                  v415 = ne_log_obj();
-                  if (os_log_type_enabled(v415, OS_LOG_TYPE_ERROR))
+                  v414 = ne_log_obj();
+                  if (os_log_type_enabled(v414, OS_LOG_TYPE_ERROR))
                   {
-                    v477 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                    v476 = [(NEIKEv2Packet *)v3 copyShortDescription];
                     *buf = 138412546;
-                    v525 = v477;
-                    v526 = 2112;
-                    v527 = v278;
-                    _os_log_error_impl(&dword_1BA83C000, v415, OS_LOG_TYPE_ERROR, "%@ Responder failed to validate remote authentication data %@", buf, 0x16u);
+                    v524 = v476;
+                    v525 = 2112;
+                    v526 = v278;
+                    _os_log_error_impl(&dword_1BA83C000, v414, OS_LOG_TYPE_ERROR, "%@ Responder failed to validate remote authentication data %@", buf, 0x16u);
                   }
 
-                  v297 = NEIKEv2CreateErrorAuthentication(@"Failed to validate remote authentication data %@", v416, v417, v418, v419, v420, v421, v422, v278);
+                  v297 = NEIKEv2CreateErrorAuthentication(@"Failed to validate remote authentication data %@", v415, v416, v417, v418, v419, v420, v421, v278);
                 }
 
                 ErrorInternal = v297;
@@ -9864,26 +9798,26 @@ LABEL_293:
               v106 = ne_log_obj();
               if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
               {
-                v476 = *(v6 + 424);
+                v475 = *(v6 + 424);
                 *buf = 134218240;
-                v525 = v476;
-                v526 = 2048;
-                v527 = v97;
+                v524 = v475;
+                v525 = 2048;
+                v526 = v97;
                 _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "PPK Type %zu != Expected Type %zu", buf, 0x16u);
               }
 
               goto LABEL_200;
             }
 
-            v449 = ne_log_obj();
-            if (os_log_type_enabled(v449, OS_LOG_TYPE_FAULT))
+            v448 = ne_log_obj();
+            if (os_log_type_enabled(v448, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315138;
-              v525 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsResponderCopyErrorForIKESA:errorCodeToSend:]";
-              _os_log_fault_impl(&dword_1BA83C000, v449, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.sessionConfiguration.ppkID", buf, 0xCu);
+              v524 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsResponderCopyErrorForIKESA:errorCodeToSend:]";
+              _os_log_fault_impl(&dword_1BA83C000, v448, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.sessionConfiguration.ppkID", buf, 0xCu);
             }
 
-            v271 = NEIKEv2CreateErrorInternal(@"PPK use negotiated but PPK ID is not present in configuration", v450, v451, v452, v453, v454, v455, v456, v496);
+            v271 = NEIKEv2CreateErrorInternal(@"PPK use negotiated but PPK ID is not present in configuration", v449, v450, v451, v452, v453, v454, v455, v495);
 LABEL_312:
             ErrorInternal = v271;
             goto LABEL_73;
@@ -9900,7 +9834,7 @@ LABEL_312:
               _os_log_error_impl(&dword_1BA83C000, v263, OS_LOG_TYPE_ERROR, "No PPK ID received with mandatory PPK auth", buf, 2u);
             }
 
-            v271 = NEIKEv2CreateErrorAuthentication(@"No PPK ID received with mandatory PPK auth", v264, v265, v266, v267, v268, v269, v270, v496);
+            v271 = NEIKEv2CreateErrorAuthentication(@"No PPK ID received with mandatory PPK auth", v264, v265, v266, v267, v268, v269, v270, v495);
             goto LABEL_312;
           }
 
@@ -9943,7 +9877,7 @@ LABEL_161:
               goto LABEL_51;
             }
 
-            ErrorInternal = NEIKEv2CreateErrorPeerInvalidSyntax(@"PPK ID missing from payload", v77, v78, v79, v80, v81, v82, v83, v496);
+            ErrorInternal = NEIKEv2CreateErrorPeerInvalidSyntax(@"PPK ID missing from payload", v77, v78, v79, v80, v81, v82, v83, v495);
           }
 
           v133 = 7;
@@ -9972,27 +9906,27 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v480 = ne_log_obj();
-  if (os_log_type_enabled(v480, OS_LOG_TYPE_FAULT))
+  v479 = ne_log_obj();
+  if (os_log_type_enabled(v479, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v525 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsResponderCopyErrorForIKESA:errorCodeToSend:]";
-    _os_log_fault_impl(&dword_1BA83C000, v480, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", buf, 0xCu);
+    v524 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthFinalAsResponderCopyErrorForIKESA:errorCodeToSend:]";
+    _os_log_fault_impl(&dword_1BA83C000, v479, OS_LOG_TYPE_FAULT, "%s called with null !ikeSA.isInitiator", buf, 0xCu);
   }
 
-  ErrorInternal = NEIKEv2CreateErrorInternal(@"validateAuthFinalAsResponder called as initiator", v481, v482, v483, v484, v485, v486, v487, v496);
+  ErrorInternal = NEIKEv2CreateErrorInternal(@"validateAuthFinalAsResponder called as initiator", v480, v481, v482, v483, v484, v485, v486, v495);
   v133 = 24;
 LABEL_295:
 
   if (ErrorInternal)
   {
-    v423 = ne_log_obj();
-    if (os_log_type_enabled(v423, OS_LOG_TYPE_ERROR))
+    v422 = ne_log_obj();
+    if (os_log_type_enabled(v422, OS_LOG_TYPE_ERROR))
     {
-      v457 = *(a1 + 40);
+      v456 = *(a1 + 40);
       *buf = 138412290;
-      v525 = v457;
-      _os_log_error_impl(&dword_1BA83C000, v423, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (receive final)", buf, 0xCu);
+      v524 = v456;
+      _os_log_error_impl(&dword_1BA83C000, v422, OS_LOG_TYPE_ERROR, "%@ Failed to process IKE Auth packet (receive final)", buf, 0xCu);
     }
 
     v214 = [NEIKEv2IKEAuthPacket createIKEAuthResponse:v3 refusalError:v133];
@@ -10004,15 +9938,15 @@ LABEL_295:
 
     else
     {
-      v426 = *(a1 + 40);
-      if (v426)
+      v425 = *(a1 + 40);
+      if (v425)
       {
-        v426 = objc_getProperty(v426, v424, 352, 1);
+        v425 = objc_getProperty(v425, v423, 352, 1);
       }
 
-      v427 = v426;
-      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"AUTH refusal final %@", v428, v429, v430, v431, v432, v433, v434, ErrorInternal);
-      [(NEIKEv2IKESA *)v427 setState:ErrorFailedToSend error:?];
+      v426 = v425;
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"AUTH refusal final %@", v427, v428, v429, v430, v431, v432, v433, ErrorInternal);
+      [(NEIKEv2IKESA *)v426 setState:ErrorFailedToSend error:?];
 
       [(NEIKEv2Session *)*(a1 + 40) reportState];
       [(NEIKEv2Session *)*(a1 + 40) resetAll];
@@ -10071,7 +10005,7 @@ LABEL_16:
     }
 
     *buf = 136315138;
-    v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+    v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
     v57 = "%s called with null ikeSA";
     goto LABEL_38;
   }
@@ -10085,7 +10019,7 @@ LABEL_16:
     }
 
     *buf = 136315138;
-    v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+    v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
     v57 = "%s called with null childSA";
     goto LABEL_38;
   }
@@ -10103,7 +10037,7 @@ LABEL_219:
     }
 
     *buf = 136315138;
-    v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+    v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
     v57 = "%s called with null ikeSA.chosenProposal";
 LABEL_38:
     _os_log_fault_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_FAULT, v57, buf, 0xCu);
@@ -10150,7 +10084,7 @@ LABEL_38:
       }
 
       *buf = 136315138;
-      v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+      v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
       v135 = "%s called with null packet.idr.isValid";
 LABEL_188:
       v298 = v134;
@@ -10164,7 +10098,7 @@ LABEL_189:
     objc_storeStrong(v34 + 42, v53);
   }
 
-  v499 = v3;
+  v498 = v3;
   v54 = objc_getProperty(v34, v39, 96, 1);
   if ([(NEIKEv2IKESAProposal *)v54 hasEAPMethods])
   {
@@ -10209,14 +10143,14 @@ LABEL_189:
   if ((v139 & 1) == 0)
   {
     v134 = ne_log_obj();
-    v3 = v499;
+    v3 = v498;
     if (!os_log_type_enabled(v134, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_218;
     }
 
     *buf = 136315138;
-    v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+    v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
     v135 = "%s called with null packet.auth.isValid";
     goto LABEL_188;
   }
@@ -10232,9 +10166,9 @@ LABEL_189:
     }
 
     *buf = 0;
-    v446 = "[packet addNotification:NEIKEv2NotifyTypePPKIdentity] failed";
-    v447 = v261;
-    v448 = 2;
+    v445 = "[packet addNotification:NEIKEv2NotifyTypePPKIdentity] failed";
+    v446 = v261;
+    v447 = 2;
     goto LABEL_320;
   }
 
@@ -10267,23 +10201,23 @@ LABEL_81:
 LABEL_154:
 
         v214 = 0;
-        v3 = v499;
+        v3 = v498;
         goto LABEL_220;
       }
 
       *buf = 136315138;
-      v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
-      v446 = "%s called with null packet.config.isValid";
-      v447 = v261;
-      v448 = 12;
+      v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+      v445 = "%s called with null packet.config.isValid";
+      v446 = v261;
+      v447 = 12;
 LABEL_320:
-      _os_log_fault_impl(&dword_1BA83C000, v447, OS_LOG_TYPE_FAULT, v446, buf, v448);
+      _os_log_fault_impl(&dword_1BA83C000, v446, OS_LOG_TYPE_FAULT, v445, buf, v447);
       goto LABEL_154;
     }
   }
 
-  v3 = v499;
-  v501 = v40;
+  v3 = v498;
+  v500 = v40;
   if (*(v34 + 23))
   {
     goto LABEL_86;
@@ -10304,8 +10238,8 @@ LABEL_320:
 
   v219 = v218;
   v220 = [(NEIKEv2ChildSAProposal *)v219 copyWithoutKEM];
-  v530[0] = v220;
-  v221 = [MEMORY[0x1E695DEC8] arrayWithObjects:v530 count:1];
+  v529[0] = v220;
+  v221 = [MEMORY[0x1E695DEC8] arrayWithObjects:v529 count:1];
   v223 = objc_getProperty(v40, v222, 88, 1);
   v225 = v223;
   if (v223)
@@ -10319,14 +10253,14 @@ LABEL_320:
   if ((v228 & 1) == 0)
   {
     v134 = ne_log_obj();
-    v3 = v499;
+    v3 = v498;
     if (!os_log_type_enabled(v134, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_218;
     }
 
     *buf = 136315138;
-    v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+    v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
     v135 = "%s called with null packet.sa.isValid";
     goto LABEL_188;
   }
@@ -10337,7 +10271,7 @@ LABEL_320:
   v232 = [(NEIKEv2ChildSA *)v35 initiatorTrafficSelectors];
   v234 = objc_getProperty(v40, v233, 160, 1);
   v236 = v234;
-  v3 = v499;
+  v3 = v498;
   if (v234)
   {
     objc_setProperty_atomic(v234, v235, v232, 32);
@@ -10352,7 +10286,7 @@ LABEL_320:
     if (os_log_type_enabled(v317, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+      v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
       _os_log_fault_impl(&dword_1BA83C000, v317, OS_LOG_TYPE_FAULT, "%s called with null packet.tsi.isValid", buf, 0xCu);
     }
 
@@ -10379,7 +10313,7 @@ LABEL_320:
     if (os_log_type_enabled(v317, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v525 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
+      v524 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthResponse:ikeSA:childSA:]";
       _os_log_fault_impl(&dword_1BA83C000, v317, OS_LOG_TYPE_FAULT, "%s called with null packet.tsr.isValid", buf, 0xCu);
     }
 
@@ -10462,7 +10396,7 @@ LABEL_315:
 
   if (v258)
   {
-    v259 = +[NEIKEv2NotifyPayload createNotifyPayloadType:];
+    v259 = [NEIKEv2NotifyPayload createNotifyPayloadType:?];
     v260 = [(NEIKEv2Packet *)v40 addNotifyPayload:v259];
 
     if (!v260)
@@ -10517,31 +10451,31 @@ LABEL_86:
     goto LABEL_336;
   }
 
-  v497 = v33;
-  v498 = a1;
-  v517 = 0u;
-  v518 = 0u;
-  v515 = 0u;
+  v496 = v33;
+  v497 = a1;
   v516 = 0u;
+  v517 = 0u;
+  v514 = 0u;
+  v515 = 0u;
   v163 = objc_getProperty(v34, v162, 88, 1);
   v164 = [v163 customIKEAuthPrivateNotifies];
 
-  v165 = [v164 countByEnumeratingWithState:&v515 objects:buf count:16];
+  v165 = [v164 countByEnumeratingWithState:&v514 objects:buf count:16];
   if (v165)
   {
     v166 = v165;
-    v167 = *v516;
+    v167 = *v515;
     while (2)
     {
       v168 = 0;
       do
       {
-        if (*v516 != v167)
+        if (*v515 != v167)
         {
           objc_enumerationMutation(v164);
         }
 
-        v169 = *(*(&v515 + 1) + 8 * v168);
+        v169 = *(*(&v514 + 1) + 8 * v168);
         v170 = objc_alloc_init(NEIKEv2NotifyPayload);
         v171 = [v169 notifyStatus];
         if (v170)
@@ -10561,8 +10495,8 @@ LABEL_86:
           v312 = ne_log_obj();
           if (os_log_type_enabled(v312, OS_LOG_TYPE_FAULT))
           {
-            *v523 = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v312, OS_LOG_TYPE_FAULT, "[packet addNotifyPayload:notifyPayload] failed", v523, 2u);
+            *v522 = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v312, OS_LOG_TYPE_FAULT, "[packet addNotifyPayload:notifyPayload] failed", v522, 2u);
           }
 
           v214 = 0;
@@ -10573,7 +10507,7 @@ LABEL_86:
       }
 
       while (v166 != v168);
-      v174 = [v164 countByEnumeratingWithState:&v515 objects:buf count:16];
+      v174 = [v164 countByEnumeratingWithState:&v514 objects:buf count:16];
       v166 = v174;
       if (v174)
       {
@@ -10584,29 +10518,29 @@ LABEL_86:
     }
   }
 
-  v513 = 0u;
-  v514 = 0u;
-  v511 = 0u;
   v512 = 0u;
+  v513 = 0u;
+  v510 = 0u;
+  v511 = 0u;
   v176 = objc_getProperty(v34, v175, 88, 1);
   v177 = [v176 customIKEAuthVendorPayloads];
 
   obj = v177;
-  v178 = [v177 countByEnumeratingWithState:&v511 objects:v523 count:16];
+  v178 = [v177 countByEnumeratingWithState:&v510 objects:v522 count:16];
   if (v178)
   {
     v179 = v178;
-    v180 = *v512;
+    v180 = *v511;
     do
     {
       for (i = 0; i != v179; ++i)
       {
-        if (*v512 != v180)
+        if (*v511 != v180)
         {
           objc_enumerationMutation(obj);
         }
 
-        v182 = *(*(&v511 + 1) + 8 * i);
+        v182 = *(*(&v510 + 1) + 8 * i);
         v183 = objc_alloc_init(NEIKEv2VendorIDPayload);
         v185 = [v182 vendorData];
         if (v183)
@@ -10614,53 +10548,53 @@ LABEL_86:
           objc_setProperty_atomic(v183, v184, v185, 32);
         }
 
-        v187 = objc_getProperty(v501, v186, 176, 1);
+        v187 = objc_getProperty(v500, v186, 176, 1);
 
         if (v187)
         {
-          v189 = objc_getProperty(v501, v188, 176, 1);
+          v189 = objc_getProperty(v500, v188, 176, 1);
           v190 = [v189 arrayByAddingObject:v183];
-          objc_setProperty_atomic(v501, v191, v190, 176);
+          objc_setProperty_atomic(v500, v191, v190, 176);
         }
 
         else
         {
-          v522 = v183;
-          v189 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v522 count:1];
-          objc_setProperty_atomic(v501, v192, v189, 176);
+          v521 = v183;
+          v189 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v521 count:1];
+          objc_setProperty_atomic(v500, v192, v189, 176);
         }
       }
 
-      v179 = [obj countByEnumeratingWithState:&v511 objects:v523 count:16];
+      v179 = [obj countByEnumeratingWithState:&v510 objects:v522 count:16];
     }
 
     while (v179);
   }
 
-  v509 = 0u;
-  v510 = 0u;
-  v507 = 0u;
   v508 = 0u;
+  v509 = 0u;
+  v506 = 0u;
+  v507 = 0u;
   v194 = objc_getProperty(v34, v193, 88, 1);
   v195 = [v194 customIKEAuthPayloads];
 
   v196 = v195;
-  v197 = [v195 countByEnumeratingWithState:&v507 objects:v521 count:16];
+  v197 = [v195 countByEnumeratingWithState:&v506 objects:v520 count:16];
   if (v197)
   {
     v198 = v197;
-    v199 = *v508;
+    v199 = *v507;
     do
     {
       v200 = 0;
       do
       {
-        if (*v508 != v199)
+        if (*v507 != v199)
         {
           objc_enumerationMutation(v196);
         }
 
-        v201 = *(*(&v507 + 1) + 8 * v200);
+        v201 = *(*(&v506 + 1) + 8 * v200);
         v202 = objc_alloc_init(NEIKEv2CustomPayload);
         v203 = [v201 customType];
         if (v202)
@@ -10675,39 +10609,39 @@ LABEL_86:
           v204 = [v201 customData];
         }
 
-        v207 = objc_getProperty(v501, v206, 56, 1);
+        v207 = objc_getProperty(v500, v206, 56, 1);
 
         if (v207)
         {
-          v209 = objc_getProperty(v501, v208, 56, 1);
+          v209 = objc_getProperty(v500, v208, 56, 1);
           v210 = [v209 arrayByAddingObject:v202];
-          objc_setProperty_atomic(v501, v211, v210, 56);
+          objc_setProperty_atomic(v500, v211, v210, 56);
         }
 
         else
         {
-          v520 = v202;
-          v209 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v520 count:1];
-          objc_setProperty_atomic(v501, v212, v209, 56);
+          v519 = v202;
+          v209 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v519 count:1];
+          objc_setProperty_atomic(v500, v212, v209, 56);
         }
 
         ++v200;
       }
 
       while (v198 != v200);
-      v213 = [v196 countByEnumeratingWithState:&v507 objects:v521 count:16];
+      v213 = [v196 countByEnumeratingWithState:&v506 objects:v520 count:16];
       v198 = v213;
     }
 
     while (v213);
   }
 
-  v40 = v501;
+  v40 = v500;
   v214 = v40;
 LABEL_207:
-  v3 = v499;
-  v33 = v497;
-  a1 = v498;
+  v3 = v498;
+  v33 = v496;
+  a1 = v497;
 LABEL_220:
 
   if (v214)
@@ -10724,7 +10658,7 @@ LABEL_220:
     {
       v321 = *(a1 + 40);
       *buf = 138412290;
-      v525 = v321;
+      v524 = v321;
       _os_log_impl(&dword_1BA83C000, v320, OS_LOG_TYPE_DEFAULT, "%@ Sending AUTH reply", buf, 0xCu);
     }
 
@@ -10736,9 +10670,9 @@ LABEL_220:
         v387 = ne_log_obj();
         if (os_log_type_enabled(v387, OS_LOG_TYPE_ERROR))
         {
-          v461 = *(a1 + 40);
+          v460 = *(a1 + 40);
           *buf = 138412290;
-          v525 = v461;
+          v524 = v460;
           _os_log_error_impl(&dword_1BA83C000, v387, OS_LOG_TYPE_ERROR, "%@ Failed to generate Child SA crypto values (receive)", buf, 0xCu);
         }
 
@@ -10749,7 +10683,7 @@ LABEL_220:
         }
 
         v378 = v389;
-        ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate Child SA crypto values (receive)", v390, v391, v392, v393, v394, v395, v396, v496);
+        ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate Child SA crypto values (receive)", v390, v391, v392, v393, v394, v395, v396, v495);
       }
 
       else
@@ -10766,9 +10700,9 @@ LABEL_220:
             v328 = *(a1 + 40);
             v329 = *(a1 + 56);
             *buf = 138412546;
-            v525 = v328;
-            v526 = 2112;
-            v527 = v329;
+            v524 = v328;
+            v525 = 2112;
+            v526 = v329;
             _os_log_impl(&dword_1BA83C000, v327, OS_LOG_TYPE_DEFAULT, "%@ Installed Child SA %@", buf, 0x16u);
           }
 
@@ -10779,10 +10713,10 @@ LABEL_220:
 
             if (WeakRetained)
             {
-              v505 = 0u;
-              v506 = 0u;
-              v503 = 0u;
               v504 = 0u;
+              v505 = 0u;
+              v502 = 0u;
+              v503 = 0u;
               v333 = *(a1 + 40);
               if (v333)
               {
@@ -10812,7 +10746,7 @@ LABEL_220:
 
               v342 = v339;
 
-              v343 = [v342 countByEnumeratingWithState:&v503 objects:v519 count:16];
+              v343 = [v342 countByEnumeratingWithState:&v502 objects:v518 count:16];
               if (!v343)
               {
 
@@ -10821,20 +10755,20 @@ LABEL_220:
               }
 
               v344 = v343;
-              v502 = v214;
+              v501 = v214;
               v345 = 0;
-              v346 = *v504;
+              v346 = *v503;
               while (1)
               {
                 v347 = 0;
                 do
                 {
-                  if (*v504 != v346)
+                  if (*v503 != v346)
                   {
                     objc_enumerationMutation(v342);
                   }
 
-                  v348 = *(*(&v503 + 1) + 8 * v347);
+                  v348 = *(*(&v502 + 1) + 8 * v347);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
@@ -10891,13 +10825,13 @@ LABEL_254:
                 }
 
                 while (v344 != v347);
-                v359 = [v342 countByEnumeratingWithState:&v503 objects:v519 count:16];
+                v359 = [v342 countByEnumeratingWithState:&v502 objects:v518 count:16];
                 v344 = v359;
                 if (!v359)
                 {
 
                   a1 = v337;
-                  v214 = v502;
+                  v214 = v501;
                   if (v345)
                   {
                     v360 = ne_log_obj();
@@ -10905,7 +10839,7 @@ LABEL_254:
                     {
                       v361 = *(v337 + 40);
                       *buf = 138412290;
-                      v525 = v361;
+                      v524 = v361;
                       _os_log_impl(&dword_1BA83C000, v360, OS_LOG_TYPE_DEFAULT, "%@ Changing addresses and migrating (receive)", buf, 0xCu);
                     }
 
@@ -10924,7 +10858,7 @@ LABEL_282:
           {
             v411 = *(a1 + 40);
             *buf = 138412290;
-            v525 = v411;
+            v524 = v411;
             _os_log_impl(&dword_1BA83C000, v410, OS_LOG_TYPE_DEFAULT, "%@ Completed connection (receive)", buf, 0xCu);
           }
 
@@ -10945,9 +10879,9 @@ LABEL_287:
         v397 = ne_log_obj();
         if (os_log_type_enabled(v397, OS_LOG_TYPE_ERROR))
         {
-          v472 = *(a1 + 40);
+          v471 = *(a1 + 40);
           *buf = 138412290;
-          v525 = v472;
+          v524 = v471;
           _os_log_error_impl(&dword_1BA83C000, v397, OS_LOG_TYPE_ERROR, "%@ Failed to install Child SA (receive)", buf, 0xCu);
         }
 
@@ -10958,7 +10892,7 @@ LABEL_287:
         }
 
         v378 = v399;
-        ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to install Child SA (receive)", v400, v401, v402, v403, v404, v405, v406, v496);
+        ErrorCrypto = NEIKEv2CreateErrorInternal(@"Failed to install Child SA (receive)", v400, v401, v402, v403, v404, v405, v406, v495);
       }
     }
 
@@ -10971,7 +10905,7 @@ LABEL_287:
       }
 
       v378 = v377;
-      ErrorCrypto = NEIKEv2CreateErrorFailedToSend(@"responder AUTH", v379, v380, v381, v382, v383, v384, v385, v496);
+      ErrorCrypto = NEIKEv2CreateErrorFailedToSend(@"responder AUTH", v379, v380, v381, v382, v383, v384, v385, v495);
     }
 
     v407 = ErrorCrypto;
@@ -10985,9 +10919,9 @@ LABEL_287:
   v363 = ne_log_obj();
   if (os_log_type_enabled(v363, OS_LOG_TYPE_ERROR))
   {
-    v414 = *(a1 + 40);
+    v413 = *(a1 + 40);
     *buf = 138412290;
-    v525 = v414;
+    v524 = v413;
     _os_log_error_impl(&dword_1BA83C000, v363, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE AUTH packet (receive)", buf, 0xCu);
   }
 
@@ -10998,7 +10932,7 @@ LABEL_287:
   }
 
   v366 = v365;
-  v374 = NEIKEv2CreateErrorInternal(@"Failed to create IKE AUTH packet (receive)", v367, v368, v369, v370, v371, v372, v373, v496);
+  v374 = NEIKEv2CreateErrorInternal(@"Failed to create IKE AUTH packet (receive)", v367, v368, v369, v370, v371, v372, v373, v495);
   [(NEIKEv2IKESA *)v366 setState:v374 error:?];
 
   [(NEIKEv2Session *)*(a1 + 40) reportState];
@@ -11006,21 +10940,19 @@ LABEL_287:
   ErrorInternal = 0;
   v214 = 0;
 LABEL_288:
-
-  v413 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke(id *a1, void *a2)
 {
-  v220 = *MEMORY[0x1E69E9840];
+  v219 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] != 36)
   {
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      *v219 = 0;
-      _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "Failed to receive Create Child SA packet", v219, 2u);
+      *v218 = 0;
+      _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "Failed to receive Create Child SA packet", v218, 2u);
     }
 
     [a1[4] sendCallbackSuccess:0 session:a1[5]];
@@ -11042,7 +10974,7 @@ void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke(id *a1, vo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v211 = "[NEIKEv2CreateChildPacket(Exchange) validateCreateChildAsInitiator:]";
+      v210 = "[NEIKEv2CreateChildPacket(Exchange) validateCreateChildAsInitiator:]";
       _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null childSA.isInitiator", buf, 0xCu);
     }
 
@@ -11054,29 +10986,29 @@ void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke(id *a1, vo
     goto LABEL_16;
   }
 
-  v208 = 0u;
-  v209 = 0u;
   v207 = 0u;
+  v208 = 0u;
   v206 = 0u;
+  v205 = 0u;
   v8 = objc_getProperty(v3, v7, 64, 1);
-  v9 = [v8 countByEnumeratingWithState:&v206 objects:v219 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v205 objects:v218 count:16];
   if (!v9)
   {
     goto LABEL_15;
   }
 
   v10 = v9;
-  v11 = *v207;
+  v11 = *v206;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v207 != v11)
+      if (*v206 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v206 + 1) + 8 * i);
+      v13 = *(*(&v205 + 1) + 8 * i);
       if (v13 && v13[1].isa - 1 <= 0x3FFE)
       {
         v17 = ne_log_obj();
@@ -11085,11 +11017,11 @@ void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke(id *a1, vo
           v43 = [(NEIKEv2Packet *)v3 copyShortDescription];
           v44 = [(NEIKEv2NotifyPayload *)v13 copyError];
           *buf = 138412802;
-          v211 = v6;
-          v212 = 2112;
-          v213 = v43;
-          v214 = 2112;
-          v215 = v44;
+          v210 = v6;
+          v211 = 2112;
+          v212 = v43;
+          v213 = 2112;
+          v214 = v44;
           v45 = "%@ %@ Initiator create child received notify error %@";
           v46 = v17;
           goto LABEL_46;
@@ -11101,7 +11033,7 @@ LABEL_78:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v206 objects:v219 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v205 objects:v218 count:16];
   }
 
   while (v10);
@@ -11141,28 +11073,28 @@ LABEL_24:
 
         if (v34)
         {
-          v204 = 0u;
-          v205 = 0u;
-          v202 = 0u;
           v203 = 0u;
+          v204 = 0u;
+          v201 = 0u;
+          v202 = 0u;
           v36 = objc_getProperty(v6, v35, 48, 1);
           v37 = [v36 proposals];
 
-          v38 = [v37 countByEnumeratingWithState:&v202 objects:v218 count:16];
+          v38 = [v37 countByEnumeratingWithState:&v201 objects:v217 count:16];
           if (v38)
           {
             v39 = v38;
-            v40 = *v203;
+            v40 = *v202;
 LABEL_33:
             v41 = 0;
             while (1)
             {
-              if (*v203 != v40)
+              if (*v202 != v40)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v42 = *(*(&v202 + 1) + 8 * v41);
+              v42 = *(*(&v201 + 1) + 8 * v41);
               if (([(NEIKEv2ChildSAProposal *)v42 matchesLocalProposal:v17 preferRemoteProposal:0 checkKEMethod:0]& 1) != 0)
               {
                 break;
@@ -11170,7 +11102,7 @@ LABEL_33:
 
               if (v39 == ++v41)
               {
-                v39 = [v37 countByEnumeratingWithState:&v202 objects:v218 count:16];
+                v39 = [v37 countByEnumeratingWithState:&v201 objects:v217 count:16];
                 if (v39)
                 {
                   goto LABEL_33;
@@ -11200,11 +11132,11 @@ LABEL_33:
                 v54 = [(NEIKEv2Packet *)v3 copyShortDescription];
                 v56 = objc_getProperty(v6, v55, 56, 1);
                 *buf = 138412802;
-                v211 = v6;
-                v212 = 2112;
-                v213 = v54;
-                v214 = 2112;
-                v215 = v56;
+                v210 = v6;
+                v211 = 2112;
+                v212 = v54;
+                v213 = 2112;
+                v214 = v56;
                 _os_log_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose responder new child proposal %@", buf, 0x20u);
               }
 
@@ -11252,11 +11184,11 @@ LABEL_33:
                       {
                         v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                         *buf = 138412802;
-                        v211 = v6;
-                        v212 = 2112;
-                        v213 = v76;
-                        v214 = 2048;
-                        v215 = v73;
+                        v210 = v6;
+                        v211 = 2112;
+                        v212 = v76;
+                        v213 = 2048;
+                        v214 = v73;
                         v77 = "%@ %@ NONCE data length %zu is out of bounds";
                         v78 = v75;
                         v79 = 32;
@@ -11269,18 +11201,18 @@ LABEL_148:
                       goto LABEL_77;
                     }
 
-                    v89 = self;
-                    v194 = v73;
+                    v88 = self;
+                    v193 = v73;
                     if (self)
                     {
-                      v89 = objc_getProperty(self, v74, 96, 1);
+                      v88 = objc_getProperty(self, v74, 96, 1);
                     }
 
-                    v90 = v89;
-                    v92 = [(NEIKEv2IKESAProposal *)v90 prfProtocol];
-                    v93 = [v92 nonceSize];
+                    v89 = v88;
+                    v91 = [(NEIKEv2IKESAProposal *)v89 prfProtocol];
+                    v92 = [v91 nonceSize];
 
-                    if (v194 < v93)
+                    if (v193 < v92)
                     {
                       v75 = ne_log_obj();
                       if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -11288,27 +11220,27 @@ LABEL_148:
                         goto LABEL_148;
                       }
 
-                      v95 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                      v94 = [(NEIKEv2Packet *)v3 copyShortDescription];
                       if (self)
                       {
-                        v96 = objc_getProperty(self, v94, 96, 1);
+                        v95 = objc_getProperty(self, v93, 96, 1);
                       }
 
                       else
                       {
-                        v96 = 0;
+                        v95 = 0;
                       }
 
-                      v97 = v96;
-                      v99 = [(NEIKEv2IKESAProposal *)v97 prfProtocol];
+                      v96 = v95;
+                      v98 = [(NEIKEv2IKESAProposal *)v96 prfProtocol];
                       *buf = 138413058;
-                      v211 = v6;
-                      v212 = 2112;
-                      v213 = v95;
-                      v214 = 2048;
-                      v215 = v194;
-                      v216 = 2112;
-                      v217 = v99;
+                      v210 = v6;
+                      v211 = 2112;
+                      v212 = v94;
+                      v213 = 2048;
+                      v214 = v193;
+                      v215 = 2112;
+                      v216 = v98;
                       _os_log_error_impl(&dword_1BA83C000, v75, OS_LOG_TYPE_ERROR, "%@ %@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", buf, 0x2Au);
 
 LABEL_147:
@@ -11316,21 +11248,21 @@ LABEL_147:
                     }
                   }
 
-                  v100 = objc_getProperty(v3, v68, 112, 1);
-                  v102 = v100;
-                  if (v100)
+                  v99 = objc_getProperty(v3, v68, 112, 1);
+                  v101 = v99;
+                  if (v99)
                   {
-                    v100 = objc_getProperty(v100, v101, 32, 1);
+                    v99 = objc_getProperty(v99, v100, 32, 1);
                   }
 
-                  v103 = v100;
-                  objc_setProperty_atomic(v6, v104, v103, 88);
+                  v102 = v99;
+                  objc_setProperty_atomic(v6, v103, v102, 88);
 
                   if ([(NEIKEv2ChildSA *)v6 shouldGenerateNewDHKeys])
                   {
-                    v107 = objc_getProperty(v3, v106, 104, 1);
+                    v106 = objc_getProperty(v3, v105, 104, 1);
 
-                    if (!v107)
+                    if (!v106)
                     {
                       v75 = ne_log_obj();
                       if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -11340,23 +11272,23 @@ LABEL_147:
 
                       v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                       *buf = 138412546;
-                      v211 = v6;
-                      v212 = 2112;
-                      v213 = v76;
+                      v210 = v6;
+                      v211 = 2112;
+                      v212 = v76;
                       v77 = "%@ %@ Did not receive KE payload";
                       goto LABEL_141;
                     }
 
-                    v109 = objc_getProperty(v3, v108, 104, 1);
-                    v111 = v109;
-                    if (v109)
+                    v108 = objc_getProperty(v3, v107, 104, 1);
+                    v110 = v108;
+                    if (v108)
                     {
-                      v109 = objc_getProperty(v109, v110, 32, 1);
+                      v108 = objc_getProperty(v108, v109, 32, 1);
                     }
 
-                    v112 = v109;
+                    v111 = v108;
 
-                    if (!v112)
+                    if (!v111)
                     {
                       v75 = ne_log_obj();
                       if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -11366,23 +11298,23 @@ LABEL_147:
 
                       v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                       *buf = 138412546;
-                      v211 = v6;
-                      v212 = 2112;
-                      v213 = v76;
+                      v210 = v6;
+                      v211 = 2112;
+                      v212 = v76;
                       v77 = "%@ %@ Did not receive method in KE payload";
                       goto LABEL_141;
                     }
 
-                    v114 = objc_getProperty(v3, v113, 104, 1);
-                    v116 = v114;
-                    if (v114)
+                    v113 = objc_getProperty(v3, v112, 104, 1);
+                    v115 = v113;
+                    if (v113)
                     {
-                      v114 = objc_getProperty(v114, v115, 40, 1);
+                      v113 = objc_getProperty(v113, v114, 40, 1);
                     }
 
-                    v117 = v114;
+                    v116 = v113;
 
-                    if (!v117)
+                    if (!v116)
                     {
                       v75 = ne_log_obj();
                       if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -11392,32 +11324,32 @@ LABEL_147:
 
                       v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                       *buf = 138412546;
-                      v211 = v6;
-                      v212 = 2112;
-                      v213 = v76;
+                      v210 = v6;
+                      v211 = 2112;
+                      v212 = v76;
                       v77 = "%@ %@ Did not receive data in KE payload";
                       goto LABEL_141;
                     }
 
-                    v119 = objc_getProperty(v3, v118, 104, 1);
-                    if (v119)
+                    v118 = objc_getProperty(v3, v117, 104, 1);
+                    if (v118)
                     {
-                      v121 = v119;
-                      v119 = objc_getProperty(v119, v120, 32, 1);
+                      v120 = v118;
+                      v118 = objc_getProperty(v118, v119, 32, 1);
                     }
 
                     else
                     {
-                      v121 = 0;
+                      v120 = 0;
                     }
 
-                    v192 = v119;
-                    v195 = [v192 method];
-                    v123 = objc_getProperty(v6, v122, 56, 1);
-                    v125 = [(NEIKEv2ChildSAProposal *)v123 kemProtocol];
-                    v126 = [v125 method];
+                    v191 = v118;
+                    v194 = [v191 method];
+                    v122 = objc_getProperty(v6, v121, 56, 1);
+                    v124 = [(NEIKEv2ChildSAProposal *)v122 kemProtocol];
+                    v125 = [v124 method];
 
-                    if (v195 != v126)
+                    if (v194 != v125)
                     {
                       v75 = ne_log_obj();
                       if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -11425,104 +11357,104 @@ LABEL_147:
                         goto LABEL_148;
                       }
 
-                      v193 = [(NEIKEv2Packet *)v3 copyShortDescription];
-                      v165 = objc_getProperty(v3, v164, 104, 1);
-                      v196 = v165;
-                      if (v165)
+                      v192 = [(NEIKEv2Packet *)v3 copyShortDescription];
+                      v164 = objc_getProperty(v3, v163, 104, 1);
+                      v195 = v164;
+                      if (v164)
                       {
-                        v165 = objc_getProperty(v165, v166, 32, 1);
+                        v164 = objc_getProperty(v164, v165, 32, 1);
                       }
 
-                      v191 = v165;
-                      v190 = [v191 method];
-                      v168 = objc_getProperty(v6, v167, 56, 1);
-                      v170 = [(NEIKEv2ChildSAProposal *)v168 kemProtocol];
-                      v171 = [v170 method];
+                      v190 = v164;
+                      v189 = [v190 method];
+                      v167 = objc_getProperty(v6, v166, 56, 1);
+                      v169 = [(NEIKEv2ChildSAProposal *)v167 kemProtocol];
+                      v170 = [v169 method];
                       *buf = 138413058;
-                      v211 = v6;
-                      v212 = 2112;
-                      v95 = v193;
-                      v213 = v193;
-                      v214 = 2048;
-                      v215 = v190;
-                      v216 = 2048;
-                      v217 = v171;
+                      v210 = v6;
+                      v211 = 2112;
+                      v94 = v192;
+                      v212 = v192;
+                      v213 = 2048;
+                      v214 = v189;
+                      v215 = 2048;
+                      v216 = v170;
                       _os_log_error_impl(&dword_1BA83C000, v75, OS_LOG_TYPE_ERROR, "%@ %@ Did not receive matching method from KE payload (%zu != %zu)", buf, 0x2Au);
 
                       goto LABEL_147;
                     }
 
-                    v128 = objc_getProperty(v3, v127, 104, 1);
-                    v130 = v128;
-                    if (v128)
+                    v127 = objc_getProperty(v3, v126, 104, 1);
+                    v129 = v127;
+                    if (v127)
                     {
-                      v128 = objc_getProperty(v128, v129, 40, 1);
+                      v127 = objc_getProperty(v127, v128, 40, 1);
                     }
 
-                    v131 = v128;
-                    objc_setProperty_atomic(v6, v132, v131, 104);
+                    v130 = v127;
+                    objc_setProperty_atomic(v6, v131, v130, 104);
                   }
 
-                  v133 = objc_getProperty(v3, v106, 128, 1);
-                  v135 = v133;
-                  if (v133)
+                  v132 = objc_getProperty(v3, v105, 128, 1);
+                  v134 = v132;
+                  if (v132)
                   {
-                    v133 = objc_getProperty(v133, v134, 32, 1);
+                    v132 = objc_getProperty(v132, v133, 32, 1);
                   }
 
-                  v136 = v133;
-                  [(NEIKEv2ChildSA *)v6 setInitiatorTrafficSelectors:v136];
+                  v135 = v132;
+                  [(NEIKEv2ChildSA *)v6 setInitiatorTrafficSelectors:v135];
 
-                  v138 = [(NEIKEv2ChildSA *)v6 initiatorTrafficSelectors];
+                  v137 = [(NEIKEv2ChildSA *)v6 initiatorTrafficSelectors];
 
-                  if (v138)
+                  if (v137)
                   {
-                    v140 = objc_getProperty(v3, v139, 136, 1);
-                    v142 = v140;
-                    if (v140)
+                    v139 = objc_getProperty(v3, v138, 136, 1);
+                    v141 = v139;
+                    if (v139)
                     {
-                      v140 = objc_getProperty(v140, v141, 32, 1);
+                      v139 = objc_getProperty(v139, v140, 32, 1);
                     }
 
-                    v143 = v140;
-                    [(NEIKEv2ChildSA *)v6 setResponderTrafficSelectors:v143];
+                    v142 = v139;
+                    [(NEIKEv2ChildSA *)v6 setResponderTrafficSelectors:v142];
 
-                    v145 = [(NEIKEv2ChildSA *)v6 responderTrafficSelectors];
+                    v144 = [(NEIKEv2ChildSA *)v6 responderTrafficSelectors];
 
-                    if (v145)
+                    if (v144)
                     {
 
-                      v147 = a1[6];
-                      if (v147)
+                      v146 = a1[6];
+                      if (v146)
                       {
-                        v148 = objc_getProperty(v147, v146, 56, 1);
-                        v150 = v148;
-                        if (v148)
+                        v147 = objc_getProperty(v146, v145, 56, 1);
+                        v149 = v147;
+                        if (v147)
                         {
-                          v148 = objc_getProperty(v148, v149, 112, 1);
+                          v147 = objc_getProperty(v147, v148, 112, 1);
                         }
                       }
 
                       else
                       {
-                        v150 = 0;
-                        v148 = 0;
+                        v149 = 0;
+                        v147 = 0;
                       }
 
-                      v151 = v148;
+                      v150 = v147;
 
-                      if (v151 && ([(NEIKEv2ChildSA *)a1[6] processPrimaryKeyExchange]& 1) == 0)
+                      if (v150 && ([(NEIKEv2ChildSA *)a1[6] processPrimaryKeyExchange]& 1) == 0)
                       {
-                        v189 = ne_log_obj();
-                        if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
+                        v188 = ne_log_obj();
+                        if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
                         {
-                          *v219 = 0;
-                          _os_log_error_impl(&dword_1BA83C000, v189, OS_LOG_TYPE_ERROR, "Failed to process KE data", v219, 2u);
+                          *v218 = 0;
+                          _os_log_error_impl(&dword_1BA83C000, v188, OS_LOG_TYPE_ERROR, "Failed to process KE data", v218, 2u);
                         }
 
                         [a1[4] sendCallbackSuccess:0 session:a1[5]];
                         v26 = a1[6];
-                        v163 = @"Failed to process KE data";
+                        v162 = @"Failed to process KE data";
                       }
 
                       else
@@ -11532,11 +11464,11 @@ LABEL_147:
                           if (([(NEIKEv2Session *)a1[5] installChildSA:?]& 1) != 0)
                           {
                             [(NEIKEv2Session *)a1[5] reportTrafficSelectorsForChildSA:?];
-                            v153 = ne_log_obj();
-                            if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+                            v152 = ne_log_obj();
+                            if (os_log_type_enabled(v152, OS_LOG_TYPE_INFO))
                             {
-                              *v219 = 0;
-                              _os_log_impl(&dword_1BA83C000, v153, OS_LOG_TYPE_INFO, "Completed new child SA connection", v219, 2u);
+                              *v218 = 0;
+                              _os_log_impl(&dword_1BA83C000, v152, OS_LOG_TYPE_INFO, "Completed new child SA connection", v218, 2u);
                             }
 
                             [(NEIKEv2ChildSA *)a1[6] setState:0 error:?];
@@ -11546,79 +11478,79 @@ LABEL_147:
 
                           else
                           {
-                            v172 = ne_log_obj();
-                            if (os_log_type_enabled(v172, OS_LOG_TYPE_ERROR))
+                            v171 = ne_log_obj();
+                            if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
                             {
-                              *v219 = 0;
-                              _os_log_error_impl(&dword_1BA83C000, v172, OS_LOG_TYPE_ERROR, "Failed to install Child SA", v219, 2u);
+                              *v218 = 0;
+                              _os_log_error_impl(&dword_1BA83C000, v171, OS_LOG_TYPE_ERROR, "Failed to install Child SA", v218, 2u);
                             }
 
-                            v175 = a1[5];
-                            v174 = a1[6];
-                            if (v174)
+                            v174 = a1[5];
+                            v173 = a1[6];
+                            if (v173)
                             {
-                              v176 = objc_getProperty(v174, v173, 56, 1);
-                              v178 = v176;
-                              if (v176)
+                              v175 = objc_getProperty(v173, v172, 56, 1);
+                              v177 = v175;
+                              if (v175)
                               {
-                                v176 = objc_getProperty(v176, v177, 80, 1);
+                                v175 = objc_getProperty(v175, v176, 80, 1);
                               }
                             }
 
                             else
                             {
-                              v178 = 0;
-                              v176 = 0;
+                              v177 = 0;
+                              v175 = 0;
                             }
 
-                            v180 = v176;
-                            v181 = a1[6];
-                            if (v181)
+                            v179 = v175;
+                            v180 = a1[6];
+                            if (v180)
                             {
-                              v182 = objc_getProperty(v181, v179, 56, 1);
-                              v184 = v182;
-                              if (v182)
+                              v181 = objc_getProperty(v180, v178, 56, 1);
+                              v183 = v181;
+                              if (v181)
                               {
-                                v182 = objc_getProperty(v182, v183, 88, 1);
+                                v181 = objc_getProperty(v181, v182, 88, 1);
                               }
                             }
 
                             else
                             {
-                              v184 = 0;
-                              v182 = 0;
+                              v183 = 0;
+                              v181 = 0;
                             }
 
-                            v185 = v182;
-                            v198[0] = MEMORY[0x1E69E9820];
-                            v198[1] = 3221225472;
-                            v198[2] = __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke_338;
-                            v198[3] = &unk_1E7F083C8;
-                            v186 = a1[4];
-                            v187 = a1[5];
-                            v188 = a1[6];
+                            v184 = v181;
+                            v197[0] = MEMORY[0x1E69E9820];
+                            v197[1] = 3221225472;
+                            v197[2] = __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke_338;
+                            v197[3] = &unk_1E7F083C8;
+                            v185 = a1[4];
+                            v186 = a1[5];
+                            v187 = a1[6];
+                            v198 = v185;
                             v199 = v186;
                             v200 = v187;
-                            v201 = v188;
-                            [(NEIKEv2Session *)v175 initiateDeleteChildSPI:v180 remoteSPI:v185 deleteCompletionCallback:v198];
+                            [(NEIKEv2Session *)v174 initiateDeleteChildSPI:v179 remoteSPI:v184 deleteCompletionCallback:v197];
                           }
 
                           goto LABEL_85;
                         }
 
-                        v155 = ne_log_obj();
-                        if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+                        v154 = ne_log_obj();
+                        if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
                         {
-                          *v219 = 0;
-                          _os_log_error_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_ERROR, "Failed to generate Child SA crypto values", v219, 2u);
+                          *v218 = 0;
+                          _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "Failed to generate Child SA crypto values", v218, 2u);
                         }
 
                         [a1[4] sendCallbackSuccess:0 session:a1[5]];
                         v26 = a1[6];
-                        v163 = @"Failed to generate Child SA crypto values";
+                        v162 = @"Failed to generate Child SA crypto values";
                       }
 
-                      ErrorCrypto = NEIKEv2CreateErrorCrypto(v163, v156, v157, v158, v159, v160, v161, v162, v190);
+                      ErrorCrypto = NEIKEv2CreateErrorCrypto(v162, v155, v156, v157, v158, v159, v160, v161, v189);
                       goto LABEL_84;
                     }
 
@@ -11630,9 +11562,9 @@ LABEL_147:
 
                     v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                     *buf = 138412546;
-                    v211 = v6;
-                    v212 = 2112;
-                    v213 = v76;
+                    v210 = v6;
+                    v211 = 2112;
+                    v212 = v76;
                     v77 = "%@ %@ Could not set responder traffic selectors";
                   }
 
@@ -11646,9 +11578,9 @@ LABEL_147:
 
                     v76 = [(NEIKEv2Packet *)v3 copyShortDescription];
                     *buf = 138412546;
-                    v211 = v6;
-                    v212 = 2112;
-                    v213 = v76;
+                    v210 = v6;
+                    v211 = 2112;
+                    v212 = v76;
                     v77 = "%@ %@ Could not set initiator traffic selectors";
                   }
 
@@ -11666,9 +11598,9 @@ LABEL_141:
 
                 v81 = [(NEIKEv2Packet *)v3 copyShortDescription];
                 *buf = 138412546;
-                v211 = v6;
-                v212 = 2112;
-                v213 = v81;
+                v210 = v6;
+                v211 = 2112;
+                v212 = v81;
                 v83 = "%@ %@ Did not receive NONCE data";
               }
 
@@ -11682,9 +11614,9 @@ LABEL_141:
 
                 v81 = [(NEIKEv2Packet *)v3 copyShortDescription];
                 *buf = 138412546;
-                v211 = v6;
-                v212 = 2112;
-                v213 = v81;
+                v210 = v6;
+                v211 = 2112;
+                v212 = v81;
                 v83 = "%@ %@ Did not receive NONCE payload";
               }
             }
@@ -11698,9 +11630,9 @@ LABEL_141:
 
               v81 = [(NEIKEv2Packet *)v3 copyShortDescription];
               *buf = 138412546;
-              v211 = v6;
-              v212 = 2112;
-              v213 = v81;
+              v210 = v6;
+              v211 = 2112;
+              v212 = v81;
               v83 = "%@ %@ Could not set chosen proposal values";
             }
 
@@ -11721,13 +11653,13 @@ LABEL_64:
           v81 = objc_getProperty(v6, v80, 48, 1);
           v82 = [v81 proposals];
           *buf = 138413058;
-          v211 = v6;
-          v212 = 2112;
-          v213 = v43;
-          v214 = 2112;
-          v215 = v17;
-          v216 = 2112;
-          v217 = v82;
+          v210 = v6;
+          v211 = 2112;
+          v212 = v43;
+          v213 = 2112;
+          v214 = v17;
+          v215 = 2112;
+          v216 = v82;
           _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@ %@ Received proposal %@ does not match config %@", buf, 0x2Au);
 
 LABEL_75:
@@ -11739,9 +11671,9 @@ LABEL_75:
         {
           v43 = [(NEIKEv2Packet *)v3 copyShortDescription];
           *buf = 138412546;
-          v211 = v6;
-          v212 = 2112;
-          v213 = v43;
+          v210 = v6;
+          v211 = 2112;
+          v212 = v43;
           v45 = "%@ %@ Child SA proposal missing SPI";
           v46 = v44;
           v48 = 22;
@@ -11758,11 +11690,11 @@ LABEL_76:
         {
           v43 = [(NEIKEv2Packet *)v3 copyShortDescription];
           *buf = 138412802;
-          v211 = v6;
-          v212 = 2112;
-          v213 = v43;
-          v214 = 2112;
-          v215 = v17;
+          v210 = v6;
+          v211 = 2112;
+          v212 = v43;
+          v213 = 2112;
+          v214 = v17;
           v45 = "%@ %@ Received invalid child proposal %@";
           v46 = v44;
 LABEL_46:
@@ -11783,11 +11715,11 @@ LABEL_46:
       v44 = [(NEIKEv2Packet *)v3 copyShortDescription];
       v47 = [v8 count];
       *buf = 138412802;
-      v211 = v6;
-      v212 = 2112;
-      v213 = v44;
-      v214 = 1024;
-      LODWORD(v215) = v47;
+      v210 = v6;
+      v211 = 2112;
+      v212 = v44;
+      v213 = 1024;
+      LODWORD(v214) = v47;
       _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%@ %@ Received %u child SA proposals, require 1", buf, 0x1Cu);
     }
 
@@ -11808,9 +11740,9 @@ LABEL_77:
   {
     v17 = [(NEIKEv2Packet *)v3 copyShortDescription];
     *buf = 138412546;
-    v211 = v6;
-    v212 = 2112;
-    v213 = v17;
+    v210 = v6;
+    v211 = 2112;
+    v212 = v17;
     _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ %@ Transport mode Child SA was not accepted", buf, 0x16u);
     goto LABEL_78;
   }
@@ -11821,15 +11753,15 @@ LABEL_80:
   v84 = ne_log_obj();
   if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
   {
-    *v219 = 0;
-    _os_log_error_impl(&dword_1BA83C000, v84, OS_LOG_TYPE_ERROR, "Failed to process Create Child SA packet", v219, 2u);
+    *v218 = 0;
+    _os_log_error_impl(&dword_1BA83C000, v84, OS_LOG_TYPE_ERROR, "Failed to process Create Child SA packet", v218, 2u);
   }
 
   [a1[4] sendCallbackSuccess:0 session:a1[5]];
   v26 = a1[6];
   v27 = @"Failed to process Create Child SA packet";
 LABEL_83:
-  ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v27, v19, v20, v21, v22, v23, v24, v25, v190);
+  ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v27, v19, v20, v21, v22, v23, v24, v25, v189);
 LABEL_84:
   v86 = ErrorCrypto;
   [(NEIKEv2ChildSA *)v26 setState:ErrorCrypto error:?];
@@ -11837,8 +11769,6 @@ LABEL_84:
   [(NEIKEv2Session *)a1[5] reportState];
   [(NEIKEv2Session *)a1[5] resetChild:?];
 LABEL_85:
-
-  v88 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke_338(uint64_t a1)
@@ -11857,7 +11787,7 @@ void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke_338(uint64
 
 - (void)receiveNewChildSA:(void *)a packet:
 {
-  v398 = *MEMORY[0x1E69E9840];
+  v396 = *MEMORY[0x1E69E9840];
   v5 = a2;
   selfCopy2 = a;
   if (!self)
@@ -11873,12 +11803,12 @@ void __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke_338(uint64
   if (!v10)
   {
 LABEL_226:
-    v352 = ne_log_obj();
-    if (os_log_type_enabled(v352, OS_LOG_TYPE_FAULT))
+    v350 = ne_log_obj();
+    if (os_log_type_enabled(v350, OS_LOG_TYPE_FAULT))
     {
-      *v396 = 136315138;
-      v397 = "[NEIKEv2Session(Exchange) receiveNewChildSA:packet:]";
-      _os_log_fault_impl(&dword_1BA83C000, v352, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v396, 0xCu);
+      *v394 = 136315138;
+      v395 = "[NEIKEv2Session(Exchange) receiveNewChildSA:packet:]";
+      _os_log_fault_impl(&dword_1BA83C000, v350, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v394, 0xCu);
     }
 
     v12 = 0;
@@ -11891,8 +11821,8 @@ LABEL_226:
     v73 = ne_log_obj();
     if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
     {
-      *v396 = 0;
-      _os_log_debug_impl(&dword_1BA83C000, v73, OS_LOG_TYPE_DEBUG, "No eligible configuration for new Child SAs", v396, 2u);
+      *v394 = 0;
+      _os_log_debug_impl(&dword_1BA83C000, v73, OS_LOG_TYPE_DEBUG, "No eligible configuration for new Child SAs", v394, 2u);
     }
 
     v74 = [NEIKEv2CreateChildPacket createChildSAResponse:selfCopy2 errorCode:0x23uLL errorData:0];
@@ -11909,7 +11839,7 @@ LABEL_59:
         goto LABEL_92;
       }
 
-      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"create child SA refusal (no eligible configuration)", v75, v76, v77, v78, v79, v80, v81, v365);
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"create child SA refusal (no eligible configuration)", v75, v76, v77, v78, v79, v80, v81, v363);
     }
 
     else
@@ -11917,11 +11847,11 @@ LABEL_59:
       v95 = ne_log_obj();
       if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        *v396 = 0;
-        _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v396, 2u);
+        *v394 = 0;
+        _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v394, 2u);
       }
 
-      ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v96, v97, v98, v99, v100, v101, v102, v365);
+      ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v96, v97, v98, v99, v100, v101, v102, v363);
     }
 
     v82 = ErrorFailedToSend;
@@ -11939,13 +11869,13 @@ LABEL_59:
     {
       v17 = v5;
       v18 = 0x1E7F04000;
-      if (v17[9])
+      if (*(v17 + 9))
       {
         v21 = ne_log_obj();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v389 = "[NEIKEv2CreateChildPacket(Exchange) validateCreateChildAsResponder:]";
+          v387 = "[NEIKEv2CreateChildPacket(Exchange) validateCreateChildAsResponder:]";
           _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "%s called with null !childSA.isInitiator", buf, 0xCu);
         }
 
@@ -11955,10 +11885,10 @@ LABEL_59:
 
       if ([(NEIKEv2Packet *)selfCopy2 hasErrors])
       {
-        v386 = 0u;
-        v387 = 0u;
         v384 = 0u;
         v385 = 0u;
+        v382 = 0u;
+        v383 = 0u;
         self = selfCopy2;
         if (selfCopy2)
         {
@@ -11971,21 +11901,21 @@ LABEL_59:
         }
 
         v21 = Property;
-        v22 = [v21 countByEnumeratingWithState:&v384 objects:v396 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v382 objects:v394 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v385;
+          v24 = *v383;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v385 != v24)
+              if (*v383 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v384 + 1) + 8 * i);
+              v26 = *(*(&v382 + 1) + 8 * i);
               if (v26 && v26[1].isa - 1 <= 0x3FFE)
               {
                 v105 = ne_log_obj();
@@ -11994,11 +11924,11 @@ LABEL_59:
                   copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
                   copyError = [(NEIKEv2NotifyPayload *)v26 copyError];
                   *buf = 138412802;
-                  v389 = v17;
+                  v387 = v17;
+                  v388 = 2112;
+                  v389 = copyShortDescription;
                   v390 = 2112;
-                  v391 = copyShortDescription;
-                  v392 = 2112;
-                  v393 = copyError;
+                  v391 = copyError;
                   _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ %@ Responder create child received notify error %@", buf, 0x20u);
                 }
 
@@ -12008,7 +11938,7 @@ LABEL_59:
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v384 objects:v396 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v382 objects:v394 count:16];
             if (v23)
             {
               continue;
@@ -12047,9 +11977,9 @@ LABEL_75:
 
         copyShortDescription2 = [(NEIKEv2Packet *)selfCopy2 copyShortDescription];
         *buf = 138412546;
-        v389 = v17;
-        v390 = 2112;
-        v391 = copyShortDescription2;
+        v387 = v17;
+        v388 = 2112;
+        v389 = copyShortDescription2;
         _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "%@ %@ Transport mode Child SA did not match", buf, 0x16u);
 LABEL_74:
 
@@ -12086,9 +12016,9 @@ LABEL_74:
             v107 = selfa;
             copyShortDescription3 = [(NEIKEv2Packet *)selfa copyShortDescription];
             *buf = 138412546;
-            v389 = v17;
-            v390 = 2112;
-            v391 = copyShortDescription3;
+            v387 = v17;
+            v388 = 2112;
+            v389 = copyShortDescription3;
             v109 = "%@ %@ No matching proposal found";
             goto LABEL_164;
           }
@@ -12105,11 +12035,11 @@ LABEL_72:
           v49 = v12;
           v50 = objc_getProperty(v17, v47, 56, 1);
           *buf = 138412802;
-          v389 = v17;
+          v387 = v17;
+          v388 = 2112;
+          v389 = copyShortDescription4;
           v390 = 2112;
-          v391 = copyShortDescription4;
-          v392 = 2112;
-          v393 = v50;
+          v391 = v50;
           _os_log_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_DEFAULT, "%@ %@ Chose initiator new child proposal %@", buf, 0x20u);
 
           v12 = v49;
@@ -12133,7 +12063,7 @@ LABEL_72:
           if (v57)
           {
             WeakRetained = objc_loadWeakRetained(v17 + 3);
-            v370 = WeakRetained;
+            v368 = WeakRetained;
             v60 = v12;
             if (WeakRetained)
             {
@@ -12155,7 +12085,7 @@ LABEL_72:
               v67 = v64;
               v68 = [v67 length];
 
-              v366 = v68;
+              v364 = v68;
               v70 = (v68 != 15) & __CFADD__(v68 - 257, 242);
               v12 = v60;
               if (!v70)
@@ -12165,28 +12095,28 @@ LABEL_72:
                 {
                   copyShortDescription5 = [(NEIKEv2Packet *)selfa copyShortDescription];
                   *buf = 138412802;
-                  v389 = v17;
-                  v390 = 2112;
-                  v391 = copyShortDescription5;
-                  v392 = 2048;
-                  v393 = v366;
+                  v387 = v17;
+                  v388 = 2112;
+                  v389 = copyShortDescription5;
+                  v390 = 2048;
+                  v391 = v364;
                   _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, "%@ %@ NONCE data length %zu is out of bounds", buf, 0x20u);
                 }
 
                 goto LABEL_162;
               }
 
-              v142 = v370;
-              if (v370)
+              v141 = v368;
+              if (v368)
               {
-                v142 = objc_getProperty(v370, v69, 96, 1);
+                v141 = objc_getProperty(v368, v69, 96, 1);
               }
 
-              v143 = v142;
-              prfProtocol = [(NEIKEv2IKESAProposal *)v143 prfProtocol];
+              v142 = v141;
+              prfProtocol = [(NEIKEv2IKESAProposal *)v142 prfProtocol];
               nonceSize = [prfProtocol nonceSize];
 
-              if (v366 < nonceSize)
+              if (v364 < nonceSize)
               {
                 v71 = ne_log_obj();
                 if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
@@ -12199,8 +12129,8 @@ LABEL_76:
                   v111 = ne_log_obj();
                   if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
                   {
-                    *v396 = 0;
-                    _os_log_error_impl(&dword_1BA83C000, v111, OS_LOG_TYPE_ERROR, "Failed to process Create Child SA", v396, 2u);
+                    *v394 = 0;
+                    _os_log_error_impl(&dword_1BA83C000, v111, OS_LOG_TYPE_ERROR, "Failed to process Create Child SA", v394, 2u);
                   }
 
                   v113 = objc_getProperty(v17, v112, 40, 1);
@@ -12241,7 +12171,7 @@ LABEL_91:
                       goto LABEL_92;
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorFailedToSend(@"create child SA refusal (failed to create response packet)", v121, v122, v123, v124, v125, v126, v127, v365);
+                    ErrorInternal = NEIKEv2CreateErrorFailedToSend(@"create child SA refusal (failed to create response packet)", v121, v122, v123, v124, v125, v126, v127, v363);
                   }
 
                   else
@@ -12249,11 +12179,11 @@ LABEL_91:
                     v129 = ne_log_obj();
                     if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
                     {
-                      *v396 = 0;
-                      _os_log_error_impl(&dword_1BA83C000, v129, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v396, 2u);
+                      *v394 = 0;
+                      _os_log_error_impl(&dword_1BA83C000, v129, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v394, 2u);
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v130, v131, v132, v133, v134, v135, v136, v365);
+                    ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v130, v131, v132, v133, v134, v135, v136, v363);
                   }
 
                   v138 = ErrorInternal;
@@ -12262,598 +12192,596 @@ LABEL_91:
                   goto LABEL_91;
                 }
 
-                v369 = copyShortDescription2;
+                v367 = copyShortDescription2;
                 copyShortDescription6 = [(NEIKEv2Packet *)selfa copyShortDescription];
-                if (v370)
+                if (v368)
                 {
-                  v337 = objc_getProperty(v370, v335, 96, 1);
+                  v335 = objc_getProperty(v368, v333, 96, 1);
                 }
 
                 else
                 {
-                  v337 = 0;
+                  v335 = 0;
                 }
 
-                v338 = v337;
-                prfProtocol2 = [(NEIKEv2IKESAProposal *)v338 prfProtocol];
+                v336 = v335;
+                prfProtocol2 = [(NEIKEv2IKESAProposal *)v336 prfProtocol];
                 *buf = 138413058;
-                v389 = v17;
-                v390 = 2112;
-                v391 = copyShortDescription6;
-                v392 = 2048;
-                v393 = v366;
-                v394 = 2112;
-                v395 = prfProtocol2;
+                v387 = v17;
+                v388 = 2112;
+                v389 = copyShortDescription6;
+                v390 = 2048;
+                v391 = v364;
+                v392 = 2112;
+                v393 = prfProtocol2;
                 _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, "%@ %@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", buf, 0x2Au);
 
                 v12 = v60;
 LABEL_161:
-                copyShortDescription2 = v369;
+                copyShortDescription2 = v367;
                 goto LABEL_162;
               }
             }
 
-            v147 = objc_getProperty(selfa, v63, 112, 1);
-            v149 = v147;
-            if (v147)
+            v146 = objc_getProperty(selfa, v63, 112, 1);
+            v148 = v146;
+            if (v146)
             {
-              v147 = objc_getProperty(v147, v148, 32, 1);
+              v146 = objc_getProperty(v146, v147, 32, 1);
             }
 
-            v150 = v147;
-            objc_setProperty_atomic(v17, v151, v150, 88);
+            v149 = v146;
+            objc_setProperty_atomic(v17, v150, v149, 88);
 
             v12 = v60;
-            v369 = copyShortDescription2;
+            v367 = copyShortDescription2;
             if (![(NEIKEv2ChildSA *)v17 shouldGenerateNewDHKeys])
             {
 LABEL_114:
-              v181 = objc_getProperty(selfa, v153, 128, 1);
-              v183 = v181;
-              v372 = v12;
-              if (v181)
+              v180 = objc_getProperty(selfa, v152, 128, 1);
+              v182 = v180;
+              v370 = v12;
+              if (v180)
               {
-                v181 = objc_getProperty(v181, v182, 32, 1);
+                v180 = objc_getProperty(v180, v181, 32, 1);
               }
 
-              v184 = v181;
-              v186 = objc_getProperty(v17, v185, 48, 1);
-              remoteTrafficSelectors = [v186 remoteTrafficSelectors];
-              v188 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v184 reply:remoteTrafficSelectors];
-              [(NEIKEv2ChildSA *)v17 setInitiatorTrafficSelectors:v188];
+              v183 = v180;
+              v185 = objc_getProperty(v17, v184, 48, 1);
+              remoteTrafficSelectors = [v185 remoteTrafficSelectors];
+              v187 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v183 reply:remoteTrafficSelectors];
+              [(NEIKEv2ChildSA *)v17 setInitiatorTrafficSelectors:v187];
 
-              v190 = objc_getProperty(selfa, v189, 136, 1);
-              v192 = v190;
-              if (v190)
+              v189 = objc_getProperty(selfa, v188, 136, 1);
+              v191 = v189;
+              if (v189)
               {
-                v190 = objc_getProperty(v190, v191, 32, 1);
+                v189 = objc_getProperty(v189, v190, 32, 1);
               }
 
-              v193 = v190;
-              v195 = objc_getProperty(v17, v194, 48, 1);
-              localTrafficSelectors = [v195 localTrafficSelectors];
-              v197 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v193 reply:localTrafficSelectors];
-              [(NEIKEv2ChildSA *)v17 setResponderTrafficSelectors:v197];
+              v192 = v189;
+              v194 = objc_getProperty(v17, v193, 48, 1);
+              localTrafficSelectors = [v194 localTrafficSelectors];
+              v196 = [NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:v192 reply:localTrafficSelectors];
+              [(NEIKEv2ChildSA *)v17 setResponderTrafficSelectors:v196];
 
-              v198 = *(v18 + 2384);
               selfCopy2 = selfa;
-              v199 = selfa;
-              v200 = v17;
+              v197 = selfa;
+              v198 = v17;
               objc_opt_self();
-              if (v17[9])
+              if (*(v17 + 9))
               {
-                v205 = ne_log_obj();
-                if (os_log_type_enabled(v205, OS_LOG_TYPE_FAULT))
+                v203 = ne_log_obj();
+                if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
                 {
-                  *v396 = 136315138;
-                  v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v205, OS_LOG_TYPE_FAULT, "%s called with null !childSA.isInitiator", v396, 0xCu);
+                  *v394 = 136315138;
+                  v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                  _os_log_fault_impl(&dword_1BA83C000, v203, OS_LOG_TYPE_FAULT, "%s called with null !childSA.isInitiator", v394, 0xCu);
                 }
 
-                v276 = 0;
-                v12 = v372;
+                v274 = 0;
+                v12 = v370;
                 goto LABEL_176;
               }
 
-              v202 = objc_getProperty(v200, v201, 56, 1);
+              v200 = objc_getProperty(v198, v199, 56, 1);
 
-              v12 = v372;
-              if (v202)
+              v12 = v370;
+              if (v200)
               {
-                v203 = [(NEIKEv2Packet *)[NEIKEv2CreateChildPacket alloc] initResponse:v199];
-                if (v203)
+                v201 = [(NEIKEv2Packet *)[NEIKEv2CreateChildPacket alloc] initResponse:v197];
+                if (v201)
                 {
-                  v205 = v203;
-                  v206 = objc_getProperty(v200, v204, 48, 1);
-                  mode2 = [v206 mode];
+                  v203 = v201;
+                  v204 = objc_getProperty(v198, v202, 48, 1);
+                  mode2 = [v204 mode];
 
-                  if (mode2 != 1 || [(NEIKEv2Packet *)v205 addNotification:0 data:?])
+                  if (mode2 != 1 || [(NEIKEv2Packet *)v203 addNotification:0 data:?])
                   {
-                    v208 = objc_alloc_init(NEIKEv2ChildSAPayload);
-                    objc_setProperty_atomic(v205, v209, v208, 96);
+                    v206 = objc_alloc_init(NEIKEv2ChildSAPayload);
+                    objc_setProperty_atomic(v203, v207, v206, 96);
 
-                    v211 = objc_getProperty(v200, v210, 48, 1);
-                    proposals2 = [v211 proposals];
-                    v214 = objc_getProperty(v205, v213, 96, 1);
-                    v216 = v214;
-                    if (v214)
+                    v209 = objc_getProperty(v198, v208, 48, 1);
+                    proposals2 = [v209 proposals];
+                    v212 = objc_getProperty(v203, v211, 96, 1);
+                    v214 = v212;
+                    if (v212)
                     {
-                      objc_setProperty_atomic(v214, v215, proposals2, 32);
+                      objc_setProperty_atomic(v212, v213, proposals2, 32);
                     }
 
-                    v218 = objc_getProperty(v205, v217, 96, 1);
-                    isValid = [(NEIKEv2Payload *)v218 isValid];
+                    v216 = objc_getProperty(v203, v215, 96, 1);
+                    isValid = [(NEIKEv2Payload *)v216 isValid];
 
                     if (isValid)
                     {
-                      if ([(NEIKEv2ChildSA *)v200 shouldGenerateNewDHKeys])
+                      if ([(NEIKEv2ChildSA *)v198 shouldGenerateNewDHKeys])
                       {
-                        v221 = objc_alloc_init(NEIKEv2KeyExchangePayload);
-                        objc_setProperty_atomic(v205, v222, v221, 104);
+                        v219 = objc_alloc_init(NEIKEv2KeyExchangePayload);
+                        objc_setProperty_atomic(v203, v220, v219, 104);
 
-                        v224 = objc_getProperty(v200, v223, 56, 1);
-                        kemProtocol = [(NEIKEv2ChildSAProposal *)v224 kemProtocol];
-                        v228 = objc_getProperty(v205, v227, 104, 1);
-                        v230 = v228;
-                        if (v228)
+                        v222 = objc_getProperty(v198, v221, 56, 1);
+                        kemProtocol = [(NEIKEv2ChildSAProposal *)v222 kemProtocol];
+                        v226 = objc_getProperty(v203, v225, 104, 1);
+                        v228 = v226;
+                        if (v226)
                         {
-                          objc_setProperty_atomic(v228, v229, kemProtocol, 32);
+                          objc_setProperty_atomic(v226, v227, kemProtocol, 32);
                         }
 
-                        v232 = objc_getProperty(v200, v231, 112, 1);
-                        v233 = v232;
-                        if (v232)
+                        v230 = objc_getProperty(v198, v229, 112, 1);
+                        v231 = v230;
+                        if (v230)
                         {
-                          v234 = *(v232 + 2);
+                          v232 = *(v230 + 2);
                         }
 
                         else
                         {
-                          v234 = 0;
+                          v232 = 0;
                         }
 
-                        v235 = v234;
-                        v237 = objc_getProperty(v205, v236, 104, 1);
-                        v239 = v237;
-                        if (v237)
+                        v233 = v232;
+                        v235 = objc_getProperty(v203, v234, 104, 1);
+                        v237 = v235;
+                        if (v235)
                         {
-                          objc_setProperty_atomic(v237, v238, v235, 40);
+                          objc_setProperty_atomic(v235, v236, v233, 40);
                         }
 
-                        v241 = objc_getProperty(v205, v240, 104, 1);
-                        isValid2 = [(NEIKEv2Payload *)v241 isValid];
+                        v239 = objc_getProperty(v203, v238, 104, 1);
+                        isValid2 = [(NEIKEv2Payload *)v239 isValid];
 
                         if ((isValid2 & 1) == 0)
                         {
-                          v285 = ne_log_obj();
-                          if (!os_log_type_enabled(v285, OS_LOG_TYPE_FAULT))
+                          v283 = ne_log_obj();
+                          if (!os_log_type_enabled(v283, OS_LOG_TYPE_FAULT))
                           {
                             goto LABEL_215;
                           }
 
-                          *v396 = 136315138;
-                          v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                          v286 = "%s called with null packet.ke.isValid";
+                          *v394 = 136315138;
+                          v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                          v284 = "%s called with null packet.ke.isValid";
                           goto LABEL_221;
                         }
                       }
 
-                      v243 = objc_alloc_init(NEIKEv2NoncePayload);
-                      objc_setProperty_atomic(v205, v244, v243, 112);
+                      v241 = objc_alloc_init(NEIKEv2NoncePayload);
+                      objc_setProperty_atomic(v203, v242, v241, 112);
 
-                      v246 = objc_getProperty(v200, v245, 80, 1);
-                      v248 = objc_getProperty(v205, v247, 112, 1);
-                      v250 = v248;
-                      v12 = v372;
-                      if (v248)
+                      v244 = objc_getProperty(v198, v243, 80, 1);
+                      v246 = objc_getProperty(v203, v245, 112, 1);
+                      v248 = v246;
+                      v12 = v370;
+                      if (v246)
                       {
-                        objc_setProperty_atomic(v248, v249, v246, 32);
+                        objc_setProperty_atomic(v246, v247, v244, 32);
                       }
 
-                      v252 = objc_getProperty(v205, v251, 112, 1);
-                      isValid3 = [(NEIKEv2Payload *)v252 isValid];
+                      v250 = objc_getProperty(v203, v249, 112, 1);
+                      isValid3 = [(NEIKEv2Payload *)v250 isValid];
 
                       if (isValid3)
                       {
-                        v254 = objc_alloc_init(NEIKEv2InitiatorTrafficSelectorPayload);
-                        objc_setProperty_atomic(v205, v255, v254, 128);
+                        v252 = objc_alloc_init(NEIKEv2InitiatorTrafficSelectorPayload);
+                        objc_setProperty_atomic(v203, v253, v252, 128);
 
-                        initiatorTrafficSelectors = [(NEIKEv2ChildSA *)v200 initiatorTrafficSelectors];
-                        v259 = objc_getProperty(v205, v258, 128, 1);
-                        v261 = v259;
-                        if (v259)
+                        initiatorTrafficSelectors = [(NEIKEv2ChildSA *)v198 initiatorTrafficSelectors];
+                        v257 = objc_getProperty(v203, v256, 128, 1);
+                        v259 = v257;
+                        if (v257)
                         {
-                          objc_setProperty_atomic(v259, v260, initiatorTrafficSelectors, 32);
+                          objc_setProperty_atomic(v257, v258, initiatorTrafficSelectors, 32);
                         }
 
-                        v263 = objc_getProperty(v205, v262, 128, 1);
-                        isValid4 = [(NEIKEv2Payload *)v263 isValid];
+                        v261 = objc_getProperty(v203, v260, 128, 1);
+                        isValid4 = [(NEIKEv2Payload *)v261 isValid];
 
                         if (isValid4)
                         {
-                          v265 = objc_alloc_init(NEIKEv2ResponderTrafficSelectorPayload);
-                          objc_setProperty_atomic(v205, v266, v265, 136);
+                          v263 = objc_alloc_init(NEIKEv2ResponderTrafficSelectorPayload);
+                          objc_setProperty_atomic(v203, v264, v263, 136);
 
-                          responderTrafficSelectors = [(NEIKEv2ChildSA *)v200 responderTrafficSelectors];
-                          v270 = objc_getProperty(v205, v269, 136, 1);
-                          v272 = v270;
-                          if (v270)
+                          responderTrafficSelectors = [(NEIKEv2ChildSA *)v198 responderTrafficSelectors];
+                          v268 = objc_getProperty(v203, v267, 136, 1);
+                          v270 = v268;
+                          if (v268)
                           {
-                            objc_setProperty_atomic(v270, v271, responderTrafficSelectors, 32);
+                            objc_setProperty_atomic(v268, v269, responderTrafficSelectors, 32);
                           }
 
-                          v274 = objc_getProperty(v205, v273, 136, 1);
-                          isValid5 = [(NEIKEv2Payload *)v274 isValid];
+                          v272 = objc_getProperty(v203, v271, 136, 1);
+                          isValid5 = [(NEIKEv2Payload *)v272 isValid];
 
                           if (isValid5)
                           {
-                            v205 = v205;
-                            v276 = v205;
+                            v203 = v203;
+                            v274 = v203;
 LABEL_216:
-                            v12 = v372;
+                            v12 = v370;
                             goto LABEL_176;
                           }
 
-                          v285 = ne_log_obj();
-                          if (!os_log_type_enabled(v285, OS_LOG_TYPE_FAULT))
+                          v283 = ne_log_obj();
+                          if (!os_log_type_enabled(v283, OS_LOG_TYPE_FAULT))
                           {
 LABEL_215:
 
-                            v276 = 0;
+                            v274 = 0;
                             goto LABEL_216;
                           }
 
-                          *v396 = 136315138;
-                          v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                          v286 = "%s called with null packet.tsr.isValid";
+                          *v394 = 136315138;
+                          v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                          v284 = "%s called with null packet.tsr.isValid";
 LABEL_221:
-                          _os_log_fault_impl(&dword_1BA83C000, v285, OS_LOG_TYPE_FAULT, v286, v396, 0xCu);
+                          _os_log_fault_impl(&dword_1BA83C000, v283, OS_LOG_TYPE_FAULT, v284, v394, 0xCu);
                           goto LABEL_215;
                         }
 
-                        v281 = ne_log_obj();
-                        if (os_log_type_enabled(v281, OS_LOG_TYPE_FAULT))
+                        v279 = ne_log_obj();
+                        if (os_log_type_enabled(v279, OS_LOG_TYPE_FAULT))
                         {
-                          *v396 = 136315138;
-                          v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                          v282 = "%s called with null packet.tsi.isValid";
+                          *v394 = 136315138;
+                          v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                          v280 = "%s called with null packet.tsi.isValid";
                           goto LABEL_173;
                         }
 
 LABEL_175:
 
-                        v276 = 0;
+                        v274 = 0;
 LABEL_176:
                         selfCopy2 = selfa;
 LABEL_177:
 
-                        if (v276)
+                        if (v274)
                         {
-                          if (([(NEIKEv2Session *)self sendReply:v276 replyHandler:0]& 1) != 0)
+                          if (([(NEIKEv2Session *)self sendReply:v274 replyHandler:0]& 1) != 0)
                           {
-                            v294 = objc_getProperty(v200, v287, 56, 1);
-                            v296 = v294;
-                            if (v294)
+                            v292 = objc_getProperty(v198, v285, 56, 1);
+                            v294 = v292;
+                            if (v292)
                             {
-                              v294 = objc_getProperty(v294, v295, 112, 1);
+                              v292 = objc_getProperty(v292, v293, 112, 1);
                             }
 
-                            v297 = v294;
+                            v295 = v292;
 
-                            if (v297 && ([(NEIKEv2ChildSA *)v200 processPrimaryKeyExchange]& 1) == 0)
+                            if (v295 && ([(NEIKEv2ChildSA *)v198 processPrimaryKeyExchange]& 1) == 0)
                             {
-                              v353 = v12;
-                              v354 = ne_log_obj();
-                              if (os_log_type_enabled(v354, OS_LOG_TYPE_ERROR))
+                              v351 = v12;
+                              v352 = ne_log_obj();
+                              if (os_log_type_enabled(v352, OS_LOG_TYPE_ERROR))
                               {
-                                *v396 = 0;
-                                _os_log_error_impl(&dword_1BA83C000, v354, OS_LOG_TYPE_ERROR, "Failed to process KE data", v396, 2u);
+                                *v394 = 0;
+                                _os_log_error_impl(&dword_1BA83C000, v352, OS_LOG_TYPE_ERROR, "Failed to process KE data", v394, 2u);
                               }
 
-                              v356 = objc_getProperty(v200, v355, 56, 1);
-                              v358 = v356;
-                              if (v356)
+                              v354 = objc_getProperty(v198, v353, 56, 1);
+                              v356 = v354;
+                              if (v354)
                               {
-                                v356 = objc_getProperty(v356, v357, 80, 1);
+                                v354 = objc_getProperty(v354, v355, 80, 1);
                               }
 
-                              v359 = v356;
-                              v361 = objc_getProperty(v200, v360, 56, 1);
-                              v363 = v361;
-                              if (v361)
+                              v357 = v354;
+                              v359 = objc_getProperty(v198, v358, 56, 1);
+                              v361 = v359;
+                              if (v359)
                               {
-                                v361 = objc_getProperty(v361, v362, 88, 1);
+                                v359 = objc_getProperty(v359, v360, 88, 1);
                               }
 
-                              v364 = v361;
-                              v381[0] = MEMORY[0x1E69E9820];
-                              v381[1] = 3221225472;
-                              v381[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke;
-                              v381[3] = &unk_1E7F081C0;
-                              v382 = v200;
+                              v362 = v359;
+                              v379[0] = MEMORY[0x1E69E9820];
+                              v379[1] = 3221225472;
+                              v379[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke;
+                              v379[3] = &unk_1E7F081C0;
+                              v380 = v198;
                               selfCopy3 = self;
-                              [(NEIKEv2Session *)self initiateDeleteChildSPI:v359 remoteSPI:v364 deleteCompletionCallback:v381];
+                              [(NEIKEv2Session *)self initiateDeleteChildSPI:v357 remoteSPI:v362 deleteCompletionCallback:v379];
 
-                              v12 = v353;
+                              v12 = v351;
                             }
 
                             else
                             {
-                              if (([(NEIKEv2ChildSA *)v200 generateAllValues]& 1) != 0)
+                              if (([(NEIKEv2ChildSA *)v198 generateAllValues]& 1) != 0)
                               {
-                                if (([(NEIKEv2Session *)self installChildSA:v200]& 1) != 0)
+                                if (([(NEIKEv2Session *)self installChildSA:v198]& 1) != 0)
                                 {
-                                  [(NEIKEv2ChildSA *)v200 setState:0 error:?];
+                                  [(NEIKEv2ChildSA *)v198 setState:0 error:?];
                                   [(NEIKEv2Session *)self reportState];
 LABEL_207:
 
                                   goto LABEL_92;
                                 }
 
-                                v324 = ne_log_obj();
-                                if (os_log_type_enabled(v324, OS_LOG_TYPE_ERROR))
+                                v322 = ne_log_obj();
+                                if (os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
                                 {
-                                  *v396 = 0;
-                                  _os_log_error_impl(&dword_1BA83C000, v324, OS_LOG_TYPE_ERROR, "Failed to install Child SA", v396, 2u);
+                                  *v394 = 0;
+                                  _os_log_error_impl(&dword_1BA83C000, v322, OS_LOG_TYPE_ERROR, "Failed to install Child SA", v394, 2u);
                                 }
 
-                                v326 = objc_getProperty(v200, v325, 56, 1);
-                                v328 = v326;
-                                if (v326)
+                                v324 = objc_getProperty(v198, v323, 56, 1);
+                                v326 = v324;
+                                if (v324)
                                 {
-                                  v326 = objc_getProperty(v326, v327, 80, 1);
+                                  v324 = objc_getProperty(v324, v325, 80, 1);
                                 }
 
-                                v329 = v326;
-                                v331 = objc_getProperty(v200, v330, 56, 1);
-                                v333 = v331;
-                                v321 = v12;
-                                if (v331)
+                                v327 = v324;
+                                v329 = objc_getProperty(v198, v328, 56, 1);
+                                v331 = v329;
+                                v319 = v12;
+                                if (v329)
                                 {
-                                  v331 = objc_getProperty(v331, v332, 88, 1);
+                                  v329 = objc_getProperty(v329, v330, 88, 1);
                                 }
 
-                                v334 = v331;
-                                v375[0] = MEMORY[0x1E69E9820];
-                                v375[1] = 3221225472;
-                                v375[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke_355;
-                                v375[3] = &unk_1E7F081C0;
-                                v376 = v200;
+                                v332 = v329;
+                                v373[0] = MEMORY[0x1E69E9820];
+                                v373[1] = 3221225472;
+                                v373[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke_355;
+                                v373[3] = &unk_1E7F081C0;
+                                v374 = v198;
                                 selfCopy4 = self;
-                                [(NEIKEv2Session *)self initiateDeleteChildSPI:v329 remoteSPI:v334 deleteCompletionCallback:v375];
+                                [(NEIKEv2Session *)self initiateDeleteChildSPI:v327 remoteSPI:v332 deleteCompletionCallback:v373];
 
-                                v323 = v376;
+                                v321 = v374;
                               }
 
                               else
                               {
-                                v311 = ne_log_obj();
-                                if (os_log_type_enabled(v311, OS_LOG_TYPE_ERROR))
+                                v309 = ne_log_obj();
+                                if (os_log_type_enabled(v309, OS_LOG_TYPE_ERROR))
                                 {
-                                  *v396 = 0;
-                                  _os_log_error_impl(&dword_1BA83C000, v311, OS_LOG_TYPE_ERROR, "Failed to generate Child SA crypto values", v396, 2u);
+                                  *v394 = 0;
+                                  _os_log_error_impl(&dword_1BA83C000, v309, OS_LOG_TYPE_ERROR, "Failed to generate Child SA crypto values", v394, 2u);
                                 }
 
-                                v313 = objc_getProperty(v200, v312, 56, 1);
-                                v315 = v313;
-                                if (v313)
+                                v311 = objc_getProperty(v198, v310, 56, 1);
+                                v313 = v311;
+                                if (v311)
                                 {
-                                  v313 = objc_getProperty(v313, v314, 80, 1);
+                                  v311 = objc_getProperty(v311, v312, 80, 1);
                                 }
 
-                                v316 = v313;
-                                v318 = objc_getProperty(v200, v317, 56, 1);
-                                v320 = v318;
-                                v321 = v12;
-                                if (v318)
+                                v314 = v311;
+                                v316 = objc_getProperty(v198, v315, 56, 1);
+                                v318 = v316;
+                                v319 = v12;
+                                if (v316)
                                 {
-                                  v318 = objc_getProperty(v318, v319, 88, 1);
+                                  v316 = objc_getProperty(v316, v317, 88, 1);
                                 }
 
-                                v322 = v318;
-                                v378[0] = MEMORY[0x1E69E9820];
-                                v378[1] = 3221225472;
-                                v378[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke_354;
-                                v378[3] = &unk_1E7F081C0;
-                                v379 = v200;
+                                v320 = v316;
+                                v376[0] = MEMORY[0x1E69E9820];
+                                v376[1] = 3221225472;
+                                v376[2] = __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke_354;
+                                v376[3] = &unk_1E7F081C0;
+                                v377 = v198;
                                 selfCopy5 = self;
-                                [(NEIKEv2Session *)self initiateDeleteChildSPI:v316 remoteSPI:v322 deleteCompletionCallback:v378];
+                                [(NEIKEv2Session *)self initiateDeleteChildSPI:v314 remoteSPI:v320 deleteCompletionCallback:v376];
 
-                                v323 = v379;
+                                v321 = v377;
                               }
 
-                              v12 = v321;
+                              v12 = v319;
                             }
 
                             selfCopy2 = selfa;
                             goto LABEL_207;
                           }
 
-                          v308 = NEIKEv2CreateErrorFailedToSend(@"create child SA reply", v287, v288, v289, v290, v291, v292, v293, v365);
+                          v306 = NEIKEv2CreateErrorFailedToSend(@"create child SA reply", v285, v286, v287, v288, v289, v290, v291, v363);
                         }
 
                         else
                         {
-                          v300 = ne_log_obj();
-                          if (os_log_type_enabled(v300, OS_LOG_TYPE_ERROR))
+                          v298 = ne_log_obj();
+                          if (os_log_type_enabled(v298, OS_LOG_TYPE_ERROR))
                           {
-                            *v396 = 0;
-                            _os_log_error_impl(&dword_1BA83C000, v300, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v396, 2u);
+                            *v394 = 0;
+                            _os_log_error_impl(&dword_1BA83C000, v298, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v394, 2u);
                           }
 
-                          v308 = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v301, v302, v303, v304, v305, v306, v307, v365);
+                          v306 = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v299, v300, v301, v302, v303, v304, v305, v363);
                         }
 
-                        v309 = v308;
-                        [(NEIKEv2ChildSA *)v200 setState:v308 error:?];
+                        v307 = v306;
+                        [(NEIKEv2ChildSA *)v198 setState:v306 error:?];
 
                         [(NEIKEv2Session *)self reportState];
-                        [(NEIKEv2Session *)self resetChild:v200];
+                        [(NEIKEv2Session *)self resetChild:v198];
                         goto LABEL_207;
                       }
 
-                      v281 = ne_log_obj();
-                      if (!os_log_type_enabled(v281, OS_LOG_TYPE_FAULT))
+                      v279 = ne_log_obj();
+                      if (!os_log_type_enabled(v279, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_175;
                       }
 
-                      *v396 = 136315138;
-                      v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                      v282 = "%s called with null packet.nonce.isValid";
+                      *v394 = 136315138;
+                      v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                      v280 = "%s called with null packet.nonce.isValid";
                     }
 
                     else
                     {
-                      v281 = ne_log_obj();
-                      v12 = v372;
-                      if (!os_log_type_enabled(v281, OS_LOG_TYPE_FAULT))
+                      v279 = ne_log_obj();
+                      v12 = v370;
+                      if (!os_log_type_enabled(v279, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_175;
                       }
 
-                      *v396 = 136315138;
-                      v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                      v282 = "%s called with null packet.childSA.isValid";
+                      *v394 = 136315138;
+                      v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                      v280 = "%s called with null packet.childSA.isValid";
                     }
 
 LABEL_173:
-                    v283 = v281;
-                    v284 = 12;
+                    v281 = v279;
+                    v282 = 12;
                     goto LABEL_174;
                   }
 
-                  v281 = ne_log_obj();
-                  if (os_log_type_enabled(v281, OS_LOG_TYPE_FAULT))
+                  v279 = ne_log_obj();
+                  if (os_log_type_enabled(v279, OS_LOG_TYPE_FAULT))
                   {
-                    *v396 = 0;
-                    v282 = "[packet addNotification:NEIKEv2NotifyTypeUseTransportMode] failed";
-                    v283 = v281;
-                    v284 = 2;
+                    *v394 = 0;
+                    v280 = "[packet addNotification:NEIKEv2NotifyTypeUseTransportMode] failed";
+                    v281 = v279;
+                    v282 = 2;
 LABEL_174:
-                    _os_log_fault_impl(&dword_1BA83C000, v283, OS_LOG_TYPE_FAULT, v282, v396, v284);
+                    _os_log_fault_impl(&dword_1BA83C000, v281, OS_LOG_TYPE_FAULT, v280, v394, v282);
                     goto LABEL_175;
                   }
 
                   goto LABEL_175;
                 }
 
-                v278 = ne_log_obj();
-                if (os_log_type_enabled(v278, OS_LOG_TYPE_FAULT))
+                v276 = ne_log_obj();
+                if (os_log_type_enabled(v276, OS_LOG_TYPE_FAULT))
                 {
-                  *v396 = 0;
-                  _os_log_fault_impl(&dword_1BA83C000, v278, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initResponse:] failed", v396, 2u);
+                  *v394 = 0;
+                  _os_log_fault_impl(&dword_1BA83C000, v276, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initResponse:] failed", v394, 2u);
                 }
 
-                v205 = 0;
+                v203 = 0;
               }
 
               else
               {
-                v205 = ne_log_obj();
-                if (os_log_type_enabled(v205, OS_LOG_TYPE_FAULT))
+                v203 = ne_log_obj();
+                if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
                 {
-                  *v396 = 136315138;
-                  v397 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v205, OS_LOG_TYPE_FAULT, "%s called with null childSA.chosenProposal", v396, 0xCu);
+                  *v394 = 136315138;
+                  v395 = "+[NEIKEv2CreateChildPacket(Exchange) createChildSAResponse:childSA:]";
+                  _os_log_fault_impl(&dword_1BA83C000, v203, OS_LOG_TYPE_FAULT, "%s called with null childSA.chosenProposal", v394, 0xCu);
                 }
               }
 
-              v276 = 0;
+              v274 = 0;
               goto LABEL_177;
             }
 
-            v154 = objc_getProperty(selfa, v153, 104, 1);
+            v153 = objc_getProperty(selfa, v152, 104, 1);
 
-            if (v154)
+            if (v153)
             {
-              v156 = objc_getProperty(selfa, v155, 104, 1);
-              v158 = v156;
-              if (v156)
+              v155 = objc_getProperty(selfa, v154, 104, 1);
+              v157 = v155;
+              if (v155)
               {
-                v156 = objc_getProperty(v156, v157, 32, 1);
+                v155 = objc_getProperty(v155, v156, 32, 1);
               }
 
               v18 = 0x1E7F04000;
-              v159 = v156;
+              v158 = v155;
 
-              if (v159)
+              if (v158)
               {
-                v161 = objc_getProperty(selfa, v160, 104, 1);
-                v163 = v161;
-                if (v161)
+                v160 = objc_getProperty(selfa, v159, 104, 1);
+                v162 = v160;
+                if (v160)
                 {
-                  v161 = objc_getProperty(v161, v162, 40, 1);
+                  v160 = objc_getProperty(v160, v161, 40, 1);
                 }
 
-                v164 = v161;
+                v163 = v160;
 
-                if (v164)
+                if (v163)
                 {
-                  v166 = objc_getProperty(selfa, v165, 104, 1);
-                  v371 = v60;
-                  if (v166)
+                  v165 = objc_getProperty(selfa, v164, 104, 1);
+                  v369 = v60;
+                  if (v165)
                   {
-                    v168 = v166;
-                    v166 = objc_getProperty(v166, v167, 32, 1);
+                    v167 = v165;
+                    v165 = objc_getProperty(v165, v166, 32, 1);
                   }
 
                   else
                   {
-                    v168 = 0;
+                    v167 = 0;
                   }
 
-                  v169 = v166;
-                  method = [v169 method];
-                  v171 = objc_getProperty(v17, v170, 56, 1);
-                  kemProtocol2 = [(NEIKEv2ChildSAProposal *)v171 kemProtocol];
+                  v168 = v165;
+                  method = [v168 method];
+                  v170 = objc_getProperty(v17, v169, 56, 1);
+                  kemProtocol2 = [(NEIKEv2ChildSAProposal *)v170 kemProtocol];
                   method2 = [kemProtocol2 method];
 
                   if (method == method2)
                   {
-                    v176 = objc_getProperty(selfa, v175, 104, 1);
-                    v178 = v176;
-                    v12 = v371;
-                    if (v176)
+                    v175 = objc_getProperty(selfa, v174, 104, 1);
+                    v177 = v175;
+                    v12 = v369;
+                    if (v175)
                     {
-                      v176 = objc_getProperty(v176, v177, 40, 1);
+                      v175 = objc_getProperty(v175, v176, 40, 1);
                     }
 
-                    v18 = 0x1E7F04000uLL;
-                    v179 = v176;
-                    objc_setProperty_atomic(v17, v180, v179, 104);
+                    v178 = v175;
+                    objc_setProperty_atomic(v17, v179, v178, 104);
 
                     goto LABEL_114;
                   }
 
                   v71 = ne_log_obj();
-                  v12 = v371;
+                  v12 = v369;
                   if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
                   {
                     copyShortDescription7 = [(NEIKEv2Packet *)selfa copyShortDescription];
-                    v343 = objc_getProperty(selfa, v342, 104, 1);
-                    v345 = v343;
-                    if (v343)
+                    v341 = objc_getProperty(selfa, v340, 104, 1);
+                    v343 = v341;
+                    if (v341)
                     {
-                      v343 = objc_getProperty(v343, v344, 32, 1);
+                      v341 = objc_getProperty(v341, v342, 32, 1);
                     }
 
-                    v368 = v343;
-                    method3 = [v368 method];
-                    v348 = objc_getProperty(v17, v347, 56, 1);
-                    kemProtocol3 = [(NEIKEv2ChildSAProposal *)v348 kemProtocol];
+                    v366 = v341;
+                    method3 = [v366 method];
+                    v346 = objc_getProperty(v17, v345, 56, 1);
+                    kemProtocol3 = [(NEIKEv2ChildSAProposal *)v346 kemProtocol];
                     method4 = [kemProtocol3 method];
                     *buf = 138413058;
-                    v389 = v17;
-                    v390 = 2112;
-                    v391 = copyShortDescription7;
+                    v387 = v17;
+                    v388 = 2112;
+                    v389 = copyShortDescription7;
+                    v390 = 2048;
+                    v391 = method3;
                     v392 = 2048;
-                    v393 = method3;
-                    v394 = 2048;
-                    v395 = method4;
+                    v393 = method4;
                     _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, "%@ %@ Did not receive matching method from KE payload (%zu != %zu)", buf, 0x2Au);
 
-                    v12 = v371;
+                    v12 = v369;
                   }
 
 LABEL_160:
@@ -12869,10 +12797,10 @@ LABEL_160:
 
                 copyShortDescription8 = [(NEIKEv2Packet *)selfa copyShortDescription];
                 *buf = 138412546;
-                v389 = v17;
-                v390 = 2112;
-                v391 = copyShortDescription8;
-                v280 = "%@ %@ Did not receive KE data";
+                v387 = v17;
+                v388 = 2112;
+                v389 = copyShortDescription8;
+                v278 = "%@ %@ Did not receive KE data";
               }
 
               else
@@ -12885,13 +12813,13 @@ LABEL_160:
 
                 copyShortDescription8 = [(NEIKEv2Packet *)selfa copyShortDescription];
                 *buf = 138412546;
-                v389 = v17;
-                v390 = 2112;
-                v391 = copyShortDescription8;
-                v280 = "%@ %@ Did not receive method in KE payload";
+                v387 = v17;
+                v388 = 2112;
+                v389 = copyShortDescription8;
+                v278 = "%@ %@ Did not receive method in KE payload";
               }
 
-              _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, v280, buf, 0x16u);
+              _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, v278, buf, 0x16u);
 
               goto LABEL_161;
             }
@@ -12901,9 +12829,9 @@ LABEL_160:
             {
               copyShortDescription9 = [(NEIKEv2Packet *)selfa copyShortDescription];
               *buf = 138412546;
-              v389 = v17;
-              v390 = 2112;
-              v391 = copyShortDescription9;
+              v387 = v17;
+              v388 = 2112;
+              v389 = copyShortDescription9;
               _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, "%@ %@ Did not receive KE payload", buf, 0x16u);
             }
 
@@ -12920,9 +12848,9 @@ LABEL_160:
           v107 = selfa;
           copyShortDescription3 = [(NEIKEv2Packet *)selfa copyShortDescription];
           *buf = 138412546;
-          v389 = v17;
-          v390 = 2112;
-          v391 = copyShortDescription3;
+          v387 = v17;
+          v388 = 2112;
+          v389 = copyShortDescription3;
           v109 = "%@ %@ Did not receive NONCE data";
 LABEL_164:
           _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, v109, buf, 0x16u);
@@ -12937,9 +12865,9 @@ LABEL_164:
         {
           copyShortDescription10 = [(NEIKEv2Packet *)selfa copyShortDescription];
           *buf = 138412546;
-          v389 = v17;
-          v390 = 2112;
-          v391 = copyShortDescription10;
+          v387 = v17;
+          v388 = 2112;
+          v389 = copyShortDescription10;
           _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "%@ %@ Did not receive NONCE payload", buf, 0x16u);
 
           goto LABEL_72;
@@ -12955,9 +12883,9 @@ LABEL_164:
           v107 = selfCopy2;
           copyShortDescription3 = [(NEIKEv2Packet *)selfCopy2 copyShortDescription];
           *buf = 138412546;
-          v389 = v17;
-          v390 = 2112;
-          v391 = copyShortDescription3;
+          v387 = v17;
+          v388 = 2112;
+          v389 = copyShortDescription3;
           v109 = "%@ %@ Received no SA proposals";
           goto LABEL_164;
         }
@@ -12971,8 +12899,8 @@ LABEL_73:
     v92 = ne_log_obj();
     if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
     {
-      *v396 = 0;
-      _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", v396, 2u);
+      *v394 = 0;
+      _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", v394, 2u);
     }
 
     v91 = @"Failed to generate local Child crypto values";
@@ -12983,21 +12911,19 @@ LABEL_73:
     v83 = ne_log_obj();
     if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
     {
-      *v396 = 0;
-      _os_log_error_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", v396, 2u);
+      *v394 = 0;
+      _os_log_error_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", v394, 2u);
     }
 
     v91 = @"Failed to generate Child SA SPI";
   }
 
-  ErrorCrypto = NEIKEv2CreateErrorCrypto(v91, v84, v85, v86, v87, v88, v89, v90, v365);
+  ErrorCrypto = NEIKEv2CreateErrorCrypto(v91, v84, v85, v86, v87, v88, v89, v90, v363);
   [(NEIKEv2ChildSA *)v5 setState:ErrorCrypto error:?];
 
   [(NEIKEv2Session *)self reportState];
   [(NEIKEv2Session *)self resetChild:v5];
 LABEL_92:
-
-  v139 = *MEMORY[0x1E69E9840];
 }
 
 void __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -13041,7 +12967,7 @@ void __53__NEIKEv2Session_Exchange__receiveNewChildSA_packet___block_invoke_355(
 
 void __69__NEIKEv2Session_Exchange__retryKEForRekeyChildSA_validated_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 36)
   {
@@ -13055,10 +12981,10 @@ void __69__NEIKEv2Session_Exchange__retryKEForRekeyChildSA_validated_handler___b
       v16 = ne_log_obj();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v19 = *(a1 + 32);
-        *v20 = 138412290;
-        *&v20[4] = v19;
-        _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to process Create Child SA packet (child rekey retry KE)", v20, 0xCu);
+        v18 = *(a1 + 32);
+        *v19 = 138412290;
+        *&v19[4] = v18;
+        _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to process Create Child SA packet (child rekey retry KE)", v19, 0xCu);
       }
 
       v4 = *(*(a1 + 56) + 16);
@@ -13072,27 +12998,25 @@ void __69__NEIKEv2Session_Exchange__retryKEForRekeyChildSA_validated_handler___b
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      *v20 = 138412290;
-      *&v20[4] = v18;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive Create Child SA packet (child rekey retry KE)", v20, 0xCu);
+      v17 = *(a1 + 32);
+      *v19 = 138412290;
+      *&v19[4] = v17;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ Failed to receive Create Child SA packet (child rekey retry KE)", v19, 0xCu);
     }
 
     [*(a1 + 40) sendCallbackSuccess:0 session:*(a1 + 32)];
     v6 = *(a1 + 48);
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive Create Child SA packet (child rekey retry KE)", v7, v8, v9, v10, v11, v12, v13, *v20);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive Create Child SA packet (child rekey retry KE)", v7, v8, v9, v10, v11, v12, v13, *v19);
     [(NEIKEv2ChildSA *)v6 setState:ErrorPeerInvalidSyntax error:?];
 
     [(NEIKEv2Session *)*(a1 + 32) reportState];
     [(NEIKEv2Session *)*(a1 + 32) resetChild:?];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFollowupKEForRekeyChildSAInitiator:(unint64_t)initiator iteration:(void *)iteration handler:
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   v7 = a2;
   iterationCopy = iteration;
   if (self)
@@ -13289,18 +13213,18 @@ LABEL_28:
 
             if (isValid)
             {
-              v113[0] = MEMORY[0x1E69E9820];
-              v113[1] = 3221225472;
-              v113[2] = __87__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAInitiator_iteration_handler___block_invoke;
-              v113[3] = &unk_1E7F08440;
-              v113[4] = self;
+              v112[0] = MEMORY[0x1E69E9820];
+              v112[1] = 3221225472;
+              v112[2] = __87__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAInitiator_iteration_handler___block_invoke;
+              v112[3] = &unk_1E7F08440;
+              v112[4] = self;
               v68 = v47;
-              v114 = v68;
-              v115 = v14;
-              v116 = v38;
-              v118 = initiatorCopy;
-              v117 = iterationCopy;
-              if ([NEIKEv2Session sendRequest:self retry:initOutbound replyHandler:v113]== -1)
+              v113 = v68;
+              v114 = v14;
+              v115 = v38;
+              v117 = initiatorCopy;
+              v116 = iterationCopy;
+              if ([NEIKEv2Session sendRequest:self retry:initOutbound replyHandler:v112]== -1)
               {
                 [v68 sendCallbackSuccess:0 session:self];
                 v70 = objc_getProperty(self, v69, 352, 1);
@@ -13323,7 +13247,7 @@ LABEL_28:
               }
 
               [v7 sendCallbackSuccess:0 session:self];
-              ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create FOLLOWUP_KE packet (initiator rekey child followup KE)", v82, v83, v84, v85, v86, v87, v88, v111);
+              ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create FOLLOWUP_KE packet (initiator rekey child followup KE)", v82, v83, v84, v85, v86, v87, v88, v110);
               [(NEIKEv2ChildSA *)v14 setState:ErrorInternal error:?];
 
               [(NEIKEv2Session *)self reportState];
@@ -13346,38 +13270,38 @@ LABEL_28:
         goto LABEL_28;
       }
 
-      v101 = ne_log_obj();
-      if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+      v100 = ne_log_obj();
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy3 = self;
-        v121 = 2112;
-        v122 = v38;
-        _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (initiator rekey child followup KE)", buf, 0x16u);
+        v120 = 2112;
+        v121 = v38;
+        _os_log_error_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (initiator rekey child followup KE)", buf, 0x16u);
       }
 
       [v7 sendCallbackSuccess:0 session:self];
-      v100 = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (initiator rekey child followup KE)", v102, v103, v104, v105, v106, v107, v108, v38);
+      v99 = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (initiator rekey child followup KE)", v101, v102, v103, v104, v105, v106, v107, v38);
     }
 
     else
     {
-      v92 = ne_log_obj();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v91 = ne_log_obj();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy3 = self;
-        v121 = 2112;
-        v122 = v33;
-        _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (initiator rekey child followup KE)", buf, 0x16u);
+        v120 = 2112;
+        v121 = v33;
+        _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (initiator rekey child followup KE)", buf, 0x16u);
       }
 
       [v7 sendCallbackSuccess:0 session:self];
-      v100 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (initiator rekey child followup KE)", v93, v94, v95, v96, v97, v98, v99, v33);
+      v99 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (initiator rekey child followup KE)", v92, v93, v94, v95, v96, v97, v98, v33);
     }
 
-    v109 = v100;
-    [(NEIKEv2ChildSA *)v14 setState:v100 error:?];
+    v108 = v99;
+    [(NEIKEv2ChildSA *)v14 setState:v99 error:?];
 
     [(NEIKEv2Session *)self reportState];
     [(NEIKEv2Session *)self resetChild:v14];
@@ -13385,13 +13309,11 @@ LABEL_46:
 
 LABEL_47:
   }
-
-  v91 = *MEMORY[0x1E69E9840];
 }
 
 void __87__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAInitiator_iteration_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 44)
   {
@@ -13468,61 +13390,61 @@ void __87__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAInitiator_ite
 
           if (v23 != v24)
           {
-            v64 = ne_log_obj();
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+            v63 = ne_log_obj();
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
             {
-              v92 = *(a1 + 32);
+              v91 = *(a1 + 32);
               if (v6)
               {
-                v93 = objc_getProperty(v6, v65, 88, 1);
-                v95 = v93;
-                if (v93)
+                v92 = objc_getProperty(v6, v64, 88, 1);
+                v94 = v92;
+                if (v92)
                 {
-                  v93 = objc_getProperty(v93, v94, 32, 1);
+                  v92 = objc_getProperty(v92, v93, 32, 1);
                 }
               }
 
               else
               {
-                v95 = 0;
-                v93 = 0;
+                v94 = 0;
+                v92 = 0;
               }
 
-              v96 = v93;
-              v97 = [v96 method];
-              v98 = [*(a1 + 56) method];
+              v95 = v92;
+              v96 = [v95 method];
+              v97 = [*(a1 + 56) method];
               *buf = 138412802;
-              v113 = v92;
-              v114 = 2048;
-              v115 = v97;
-              v116 = 2048;
-              v117 = v98;
-              _os_log_error_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (initiator rekey child followup KE)", buf, 0x20u);
+              v112 = v91;
+              v113 = 2048;
+              v114 = v96;
+              v115 = 2048;
+              v116 = v97;
+              _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (initiator rekey child followup KE)", buf, 0x20u);
             }
 
             [*(a1 + 40) sendCallbackSuccess:0 session:*(a1 + 32)];
-            v67 = *(a1 + 48);
+            v66 = *(a1 + 48);
             if (v6)
             {
-              v68 = objc_getProperty(v6, v66, 88, 1);
-              v61 = v68;
-              if (v68)
+              v67 = objc_getProperty(v6, v65, 88, 1);
+              v61 = v67;
+              if (v67)
               {
-                v68 = objc_getProperty(v68, v69, 32, 1);
+                v67 = objc_getProperty(v67, v68, 32, 1);
               }
             }
 
             else
             {
               v61 = 0;
-              v68 = 0;
+              v67 = 0;
             }
 
-            v70 = v68;
-            v71 = [v70 method];
+            v69 = v67;
+            v70 = [v69 method];
             [*(a1 + 56) method];
-            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (initiator rekey child followup KE)", v72, v73, v74, v75, v76, v77, v78, v71);
-            [(NEIKEv2ChildSA *)v67 setState:ErrorPeerInvalidSyntax error:?];
+            ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (initiator rekey child followup KE)", v71, v72, v73, v74, v75, v76, v77, v70);
+            [(NEIKEv2ChildSA *)v66 setState:ErrorPeerInvalidSyntax error:?];
 
             goto LABEL_43;
           }
@@ -13599,26 +13521,26 @@ void __87__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAInitiator_ite
 
             else
             {
-              v80 = ne_log_obj();
-              if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+              v79 = ne_log_obj();
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
               {
                 *buf = 136315138;
-                v113 = "[NEIKEv2ChildSA(Crypto) processFollowupKeyExchange]";
-                _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, "%s called with null self.followupSharedSecrets", buf, 0xCu);
+                v112 = "[NEIKEv2ChildSA(Crypto) processFollowupKeyExchange]";
+                _os_log_fault_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_FAULT, "%s called with null self.followupSharedSecrets", buf, 0xCu);
               }
             }
           }
 
-          v81 = ne_log_obj();
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          v80 = ne_log_obj();
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_ERROR, "Failed to process KE data (initiator rekey child followup KE)", buf, 2u);
+            _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "Failed to process KE data (initiator rekey child followup KE)", buf, 2u);
           }
 
           [*(a1 + 40) sendCallbackSuccess:0 session:*(a1 + 32)];
           v56 = *(a1 + 48);
-          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to process KE data (initiator rekey child followup KE)", v82, v83, v84, v85, v86, v87, v88, v111);
+          ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to process KE data (initiator rekey child followup KE)", v81, v82, v83, v84, v85, v86, v87, v110);
 LABEL_42:
           v61 = ErrorCrypto;
           [(NEIKEv2ChildSA *)v56 setState:ErrorCrypto error:?];
@@ -13634,9 +13556,9 @@ LABEL_44:
         v59 = ne_log_obj();
         if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
-          v91 = *(a1 + 32);
+          v90 = *(a1 + 32);
           *buf = 138412290;
-          v113 = v91;
+          v112 = v90;
           _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (initiator rekey child followup KE)", buf, 0xCu);
         }
 
@@ -13650,9 +13572,9 @@ LABEL_44:
         v58 = ne_log_obj();
         if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
-          v90 = *(a1 + 32);
+          v89 = *(a1 + 32);
           *buf = 138412290;
-          v113 = v90;
+          v112 = v89;
           _os_log_error_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (initiator rekey child followup KE)", buf, 0xCu);
         }
 
@@ -13667,9 +13589,9 @@ LABEL_44:
       v48 = ne_log_obj();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v89 = *(a1 + 32);
+        v88 = *(a1 + 32);
         *buf = 138412290;
-        v113 = v89;
+        v112 = v88;
         _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (initiator rekey child followup KE)", buf, 0xCu);
       }
 
@@ -13678,29 +13600,27 @@ LABEL_44:
       v57 = @"Did not receive KE payload (initiator rekey child followup KE)";
     }
 
-    ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v57, v49, v50, v51, v52, v53, v54, v55, v111);
+    ErrorCrypto = NEIKEv2CreateErrorPeerInvalidSyntax(v57, v49, v50, v51, v52, v53, v54, v55, v110);
     goto LABEL_42;
   }
 
-  v99 = ne_log_obj();
-  if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+  v98 = ne_log_obj();
+  if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
   {
-    v110 = *(a1 + 32);
+    v109 = *(a1 + 32);
     *buf = 138412290;
-    v113 = v110;
-    _os_log_error_impl(&dword_1BA83C000, v99, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE reply (initiator rekey child followup KE)", buf, 0xCu);
+    v112 = v109;
+    _os_log_error_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE reply (initiator rekey child followup KE)", buf, 0xCu);
   }
 
   [*(a1 + 40) sendCallbackSuccess:0 session:*(a1 + 32)];
-  v100 = *(a1 + 48);
-  v108 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive FOLLOWUP_KE reply (initiator rekey child followup KE)", v101, v102, v103, v104, v105, v106, v107, v111);
-  [(NEIKEv2ChildSA *)v100 setState:v108 error:?];
+  v99 = *(a1 + 48);
+  v107 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive FOLLOWUP_KE reply (initiator rekey child followup KE)", v100, v101, v102, v103, v104, v105, v106, v110);
+  [(NEIKEv2ChildSA *)v99 setState:v107 error:?];
 
   [(NEIKEv2Session *)*(a1 + 32) reportState];
   [(NEIKEv2Session *)*(a1 + 32) resetChild:?];
 LABEL_45:
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFollowupKEForRekeyChildSAResponder:(uint64_t)responder iteration:(void *)iteration replyPacket:(void *)packet replyPacketDescription:(void *)description handler:
@@ -13736,12 +13656,12 @@ LABEL_45:
   }
 }
 
-void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke(uint64_t *a1, void *a2)
+void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v276 = *MEMORY[0x1E69E9840];
+  v275 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = a1[7];
-  v6 = a1[4];
+  v5 = *(a1 + 56);
+  v6 = *(a1 + 32);
   if (v6)
   {
     Property = objc_getProperty(v6, v3, 184, 1);
@@ -13763,10 +13683,10 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
 
   if (v5 < v11)
   {
-    if (!a1[7])
+    if (!*(a1 + 56))
     {
       v13 = objc_alloc(MEMORY[0x1E695DF70]);
-      v14 = a1[4];
+      v14 = *(a1 + 32);
       if (v14)
       {
         v15 = objc_getProperty(v14, v12, 184, 1);
@@ -13785,7 +13705,7 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
 
       v18 = v15;
       v20 = [v13 initWithCapacity:{objc_msgSend(v18, "count")}];
-      v21 = a1[4];
+      v21 = *(a1 + 32);
       if (v21)
       {
         objc_setProperty_atomic(v21, v19, v20, 136);
@@ -13795,7 +13715,7 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
     if ([v4 exchangeType] == 44)
     {
       v23 = v4;
-      v24 = a1[4];
+      v24 = *(a1 + 32);
       if (v24)
       {
         v25 = objc_getProperty(v24, v22, 184, 1);
@@ -13813,9 +13733,9 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
       }
 
       v28 = v25;
-      v29 = [v28 objectAtIndexedSubscript:a1[7]];
+      v29 = [v28 objectAtIndexedSubscript:*(a1 + 56)];
 
-      v31 = a1[4];
+      v31 = *(a1 + 32);
       if (v31)
       {
         v31 = objc_getProperty(v31, v30, 184, 1);
@@ -13920,8 +13840,8 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
                 }
 
                 v60 = v56;
-                v61 = a1[4];
-                v271 = v29;
+                v61 = *(a1 + 32);
+                v270 = v29;
                 if (v61)
                 {
                   v62 = objc_getProperty(v61, v59, 128, 1);
@@ -13943,126 +13863,126 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
 
                 if ((v66 & 1) == 0)
                 {
-                  v132 = ne_log_obj();
-                  if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
+                  v131 = ne_log_obj();
+                  if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
                   {
-                    v244 = a1[5];
+                    v243 = *(a1 + 40);
                     if (v23)
                     {
-                      v245 = objc_getProperty(v23, v133, 96, 1);
-                      v247 = v245;
-                      if (v245)
+                      v244 = objc_getProperty(v23, v132, 96, 1);
+                      v246 = v244;
+                      if (v244)
                       {
-                        v245 = objc_getProperty(v245, v246, 40, 1);
+                        v244 = objc_getProperty(v244, v245, 40, 1);
                       }
                     }
 
                     else
                     {
-                      v247 = 0;
-                      v245 = 0;
+                      v246 = 0;
+                      v244 = 0;
                     }
 
-                    v249 = v245;
-                    v250 = a1[4];
-                    if (v250)
+                    v248 = v244;
+                    v249 = *(a1 + 32);
+                    if (v249)
                     {
-                      v251 = objc_getProperty(v250, v248, 128, 1);
-                      v253 = v251;
-                      if (v251)
+                      v250 = objc_getProperty(v249, v247, 128, 1);
+                      v252 = v250;
+                      if (v250)
                       {
-                        v251 = objc_getProperty(v251, v252, 40, 1);
+                        v250 = objc_getProperty(v250, v251, 40, 1);
                       }
                     }
 
                     else
                     {
-                      v253 = 0;
-                      v251 = 0;
+                      v252 = 0;
+                      v250 = 0;
                     }
 
-                    v254 = v251;
+                    v253 = v250;
                     *buf = 138412802;
-                    *&buf[4] = v244;
+                    *&buf[4] = v243;
                     *&buf[12] = 2112;
-                    *&buf[14] = v249;
-                    v274 = 2112;
-                    v275 = v254;
-                    _os_log_error_impl(&dword_1BA83C000, v132, OS_LOG_TYPE_ERROR, "%@ ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey child followup KE)", buf, 0x20u);
+                    *&buf[14] = v248;
+                    v273 = 2112;
+                    v274 = v253;
+                    _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, "%@ ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey child followup KE)", buf, 0x20u);
                   }
 
-                  v134 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
-                  v135 = v134;
-                  v29 = v271;
-                  if (v134)
+                  v133 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
+                  v134 = v133;
+                  v29 = v270;
+                  if (v133)
                   {
-                    [(NEIKEv2Packet *)v134 addNotification:0 data:?];
+                    [(NEIKEv2Packet *)v133 addNotification:0 data:?];
                   }
 
-                  v136 = [(NEIKEv2Session *)a1[5] sendReply:v135 replyHandler:0];
-                  v144 = a1[4];
-                  if (v136)
+                  v135 = [(NEIKEv2Session *)*(a1 + 40) sendReply:v134 replyHandler:0];
+                  v143 = *(a1 + 32);
+                  if (v135)
                   {
-                    v270 = a1[4];
+                    v269 = *(a1 + 32);
                     if (v23)
                     {
-                      v145 = objc_getProperty(v23, v137, 96, 1);
-                      ErrorFailedToSend = v145;
-                      if (v145)
+                      v144 = objc_getProperty(v23, v136, 96, 1);
+                      ErrorFailedToSend = v144;
+                      if (v144)
                       {
-                        v145 = objc_getProperty(v145, v146, 40, 1);
+                        v144 = objc_getProperty(v144, v145, 40, 1);
                       }
                     }
 
                     else
                     {
                       ErrorFailedToSend = 0;
-                      v145 = 0;
+                      v144 = 0;
                     }
 
-                    v149 = v145;
-                    v150 = a1[4];
-                    if (v150)
+                    v148 = v144;
+                    v149 = *(a1 + 32);
+                    if (v149)
                     {
-                      v151 = objc_getProperty(v150, v148, 128, 1);
-                      v153 = v151;
-                      if (v151)
+                      v150 = objc_getProperty(v149, v147, 128, 1);
+                      v152 = v150;
+                      if (v150)
                       {
-                        v151 = objc_getProperty(v151, v152, 40, 1);
+                        v150 = objc_getProperty(v150, v151, 40, 1);
                       }
                     }
 
                     else
                     {
-                      v153 = 0;
-                      v151 = 0;
+                      v152 = 0;
+                      v150 = 0;
                     }
 
-                    v269 = v151;
-                    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey child followup KE)", v154, v155, v156, v157, v158, v159, v160, v149);
-                    [(NEIKEv2ChildSA *)v270 setState:ErrorPeerInvalidSyntax error:?];
+                    v268 = v150;
+                    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey child followup KE)", v153, v154, v155, v156, v157, v158, v159, v148);
+                    [(NEIKEv2ChildSA *)v269 setState:ErrorPeerInvalidSyntax error:?];
 
-                    v29 = v271;
+                    v29 = v270;
                   }
 
                   else
                   {
-                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"responder rekey child followup KE mismatched link", v137, v138, v139, v140, v141, v142, v143, v268);
-                    [(NEIKEv2ChildSA *)v144 setState:ErrorFailedToSend error:?];
+                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"responder rekey child followup KE mismatched link", v136, v137, v138, v139, v140, v141, v142, v267);
+                    [(NEIKEv2ChildSA *)v143 setState:ErrorFailedToSend error:?];
                   }
 
-                  [(NEIKEv2Session *)a1[5] reportState];
-                  [(NEIKEv2Session *)a1[5] resetChild:?];
+                  [(NEIKEv2Session *)*(a1 + 40) reportState];
+                  [(NEIKEv2Session *)*(a1 + 40) resetChild:?];
 
                   goto LABEL_72;
                 }
 
-                v68 = a1[4];
+                v68 = *(a1 + 32);
                 if (v23)
                 {
                   v69 = objc_getProperty(v23, v67, 88, 1);
                   v71 = v69;
-                  v29 = v271;
+                  v29 = v270;
                   if (v69)
                   {
                     v69 = objc_getProperty(v69, v70, 40, 1);
@@ -14073,7 +13993,7 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
                 {
                   v71 = 0;
                   v69 = 0;
-                  v29 = v271;
+                  v29 = v270;
                 }
 
                 v72 = v69;
@@ -14096,36 +14016,36 @@ void __122__NEIKEv2Session_Exchange__handleFollowupKEForRekeyChildSAResponder_it
                     _os_log_fault_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", buf, 0xCu);
                   }
 
-                  v29 = v271;
+                  v29 = v270;
 LABEL_49:
 
 LABEL_50:
                   v78 = ne_log_obj();
                   if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
                   {
-                    v255 = a1[5];
+                    v254 = *(a1 + 40);
                     *buf = 138412546;
-                    *&buf[4] = v255;
+                    *&buf[4] = v254;
                     *&buf[12] = 2112;
                     *&buf[14] = v73;
                     _os_log_error_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (responder rekey child followup KE)", buf, 0x16u);
                   }
 
-                  v79 = a1[4];
+                  v79 = *(a1 + 32);
                   ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to generate values for KEM %@ (responder rekey child followup KE)", v80, v81, v82, v83, v84, v85, v86, v73);
                   [(NEIKEv2ChildSA *)v79 setState:ErrorInternal error:?];
 
                   goto LABEL_71;
                 }
 
-                v163 = +[NEIKEv2KeyExchangeHandler handlerForMethod:peerPayload:](NEIKEv2KeyExchangeHandler, [v73 method], v75);
-                objc_setProperty_atomic(v68, v164, v163, 112);
+                v162 = +[NEIKEv2KeyExchangeHandler handlerForMethod:peerPayload:](NEIKEv2KeyExchangeHandler, [v73 method], v75);
+                objc_setProperty_atomic(v68, v163, v162, 112);
 
-                v166 = objc_getProperty(v68, v165, 112, 1);
-                if (!v166)
+                v165 = objc_getProperty(v68, v164, 112, 1);
+                if (!v165)
                 {
                   v77 = ne_log_obj();
-                  v29 = v271;
+                  v29 = v270;
                   if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
@@ -14136,189 +14056,189 @@ LABEL_50:
                   goto LABEL_49;
                 }
 
-                v168 = a1[7] + 1;
-                v169 = a1[4];
-                v29 = v271;
-                if (v169)
+                v167 = *(a1 + 56) + 1;
+                v168 = *(a1 + 32);
+                v29 = v270;
+                if (v168)
                 {
-                  v170 = objc_getProperty(v169, v167, 184, 1);
-                  v172 = v170;
-                  if (v170)
+                  v169 = objc_getProperty(v168, v166, 184, 1);
+                  v171 = v169;
+                  if (v169)
                   {
-                    v170 = objc_getProperty(v170, v171, 120, 1);
+                    v169 = objc_getProperty(v169, v170, 120, 1);
                   }
                 }
 
                 else
                 {
-                  v172 = 0;
-                  v170 = 0;
+                  v171 = 0;
+                  v169 = 0;
                 }
 
-                v173 = v170;
-                v174 = [v173 count];
+                v172 = v169;
+                v173 = [v172 count];
 
-                if (v168 >= v174)
+                if (v167 >= v173)
                 {
-                  v190 = a1[4];
-                  v181 = &OBJC_IVAR___NEFilterFlow__direction;
-                  if (v190)
+                  v189 = *(a1 + 32);
+                  v180 = &OBJC_IVAR___NEFilterFlow__direction;
+                  if (v189)
                   {
-                    objc_setProperty_atomic(v190, v175, 0, 128);
+                    objc_setProperty_atomic(v189, v174, 0, 128);
                   }
                 }
 
                 else
                 {
-                  v176 = [MEMORY[0x1E696AFB0] UUID];
+                  v175 = [MEMORY[0x1E696AFB0] UUID];
                   *buf = 0;
                   *&buf[8] = 0;
-                  [v176 getUUIDBytes:buf];
-                  v177 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:16];
-                  v179 = [NEIKEv2NotifyPayload createNotifyPayloadType:v177 data:?];
-                  v180 = a1[4];
-                  v181 = &OBJC_IVAR___NEFilterFlow__direction;
-                  if (v180)
+                  [v175 getUUIDBytes:buf];
+                  v176 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:16];
+                  v178 = [NEIKEv2NotifyPayload createNotifyPayloadType:v176 data:?];
+                  v179 = *(a1 + 32);
+                  v180 = &OBJC_IVAR___NEFilterFlow__direction;
+                  if (v179)
                   {
-                    objc_setProperty_atomic(v180, v178, v179, 128);
+                    objc_setProperty_atomic(v179, v177, v178, 128);
                   }
                 }
 
-                v191 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
-                v192 = objc_alloc_init(NEIKEv2KeyExchangePayload);
-                v194 = v192;
-                if (v191)
+                v190 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
+                v191 = objc_alloc_init(NEIKEv2KeyExchangePayload);
+                v193 = v191;
+                if (v190)
                 {
-                  objc_setProperty_atomic(v191, v193, v192, 88);
+                  objc_setProperty_atomic(v190, v192, v191, 88);
 
-                  v196 = objc_getProperty(v191, v195, 88, 1);
-                  v198 = v196;
-                  if (v196)
+                  v195 = objc_getProperty(v190, v194, 88, 1);
+                  v197 = v195;
+                  if (v195)
                   {
-                    objc_setProperty_atomic(v196, v197, v73, v181[541]);
+                    objc_setProperty_atomic(v195, v196, v73, v180[541]);
                   }
                 }
 
                 else
                 {
 
-                  v198 = 0;
+                  v197 = 0;
                 }
 
-                v200 = a1[4];
-                if (v200)
+                v199 = *(a1 + 32);
+                if (v199)
                 {
-                  v201 = objc_getProperty(v200, v199, 112, 1);
-                  v202 = v201;
-                  if (v201)
+                  v200 = objc_getProperty(v199, v198, 112, 1);
+                  v201 = v200;
+                  if (v200)
                   {
-                    v203 = *(v201 + 2);
+                    v202 = *(v200 + 2);
                     goto LABEL_115;
                   }
                 }
 
                 else
                 {
-                  v202 = 0;
+                  v201 = 0;
                 }
 
-                v203 = 0;
+                v202 = 0;
 LABEL_115:
-                v205 = v203;
-                if (v191)
+                v204 = v202;
+                if (v190)
                 {
-                  v206 = objc_getProperty(v191, v204, 88, 1);
-                  v208 = v206;
-                  if (v206)
+                  v205 = objc_getProperty(v190, v203, 88, 1);
+                  v207 = v205;
+                  if (v205)
                   {
-                    objc_setProperty_atomic(v206, v207, v205, 40);
+                    objc_setProperty_atomic(v205, v206, v204, 40);
                   }
                 }
 
                 else
                 {
-                  v208 = 0;
+                  v207 = 0;
                 }
 
-                v210 = a1[4];
-                if (v210)
+                v209 = *(a1 + 32);
+                if (v209)
                 {
-                  v210 = objc_getProperty(v210, v209, 128, 1);
+                  v209 = objc_getProperty(v209, v208, 128, 1);
                 }
 
-                v211 = v210;
-                v213 = v211;
-                if (v191)
+                v210 = v209;
+                v212 = v210;
+                if (v190)
                 {
-                  objc_setProperty_atomic(v191, v212, v211, 96);
+                  objc_setProperty_atomic(v190, v211, v210, 96);
 
-                  v215 = objc_getProperty(v191, v214, 88, 1);
+                  v214 = objc_getProperty(v190, v213, 88, 1);
                 }
 
                 else
                 {
 
-                  v215 = 0;
+                  v214 = 0;
                 }
 
-                v216 = v215;
-                v217 = [(NEIKEv2Payload *)v216 isValid];
+                v215 = v214;
+                v216 = [(NEIKEv2Payload *)v215 isValid];
 
-                if ((v217 & 1) == 0)
+                if ((v216 & 1) == 0)
                 {
-                  v233 = ne_log_obj();
-                  if (os_log_type_enabled(v233, OS_LOG_TYPE_ERROR))
+                  v232 = ne_log_obj();
+                  if (os_log_type_enabled(v232, OS_LOG_TYPE_ERROR))
                   {
-                    v265 = a1[5];
+                    v264 = *(a1 + 40);
                     *buf = 138412290;
-                    *&buf[4] = v265;
-                    _os_log_error_impl(&dword_1BA83C000, v233, OS_LOG_TYPE_ERROR, "%@ Failed to create FOLLOWUP_KE packet (responder rekey child followup KE)", buf, 0xCu);
+                    *&buf[4] = v264;
+                    _os_log_error_impl(&dword_1BA83C000, v232, OS_LOG_TYPE_ERROR, "%@ Failed to create FOLLOWUP_KE packet (responder rekey child followup KE)", buf, 0xCu);
                   }
 
-                  v234 = a1[4];
-                  v242 = NEIKEv2CreateErrorInternal(@"Failed to create FOLLOWUP_KE packet (responder rekey child followup KE)", v235, v236, v237, v238, v239, v240, v241, v268);
-                  [(NEIKEv2ChildSA *)v234 setState:v242 error:?];
+                  v233 = *(a1 + 32);
+                  v241 = NEIKEv2CreateErrorInternal(@"Failed to create FOLLOWUP_KE packet (responder rekey child followup KE)", v234, v235, v236, v237, v238, v239, v240, v267);
+                  [(NEIKEv2ChildSA *)v233 setState:v241 error:?];
 
-                  [(NEIKEv2Session *)a1[5] reportState];
-                  [(NEIKEv2Session *)a1[5] resetChild:?];
+                  [(NEIKEv2Session *)*(a1 + 40) reportState];
+                  [(NEIKEv2Session *)*(a1 + 40) resetChild:?];
                   goto LABEL_134;
                 }
 
-                v219 = a1[4];
-                if (v219)
+                v218 = *(a1 + 32);
+                if (v218)
                 {
-                  v219 = objc_getProperty(v219, v218, 136, 1);
+                  v218 = objc_getProperty(v218, v217, 136, 1);
                 }
 
-                v221 = v219;
-                v222 = a1[4];
-                if (v222)
+                v220 = v218;
+                v221 = *(a1 + 32);
+                if (v221)
                 {
-                  v223 = objc_getProperty(v222, v220, 112, 1);
-                  v224 = v223;
-                  if (v223)
+                  v222 = objc_getProperty(v221, v219, 112, 1);
+                  v223 = v222;
+                  if (v222)
                   {
-                    v225 = *(v223 + 3);
+                    v224 = *(v222 + 3);
 LABEL_128:
-                    v226 = v225;
-                    [v221 addObject:v226];
+                    v225 = v224;
+                    [v220 addObject:v225];
 
-                    v228 = a1[4];
-                    if (v228)
+                    v227 = *(a1 + 32);
+                    if (v227)
                     {
-                      objc_setProperty_atomic(v228, v227, 0, 112);
-                      v229 = a1[4];
+                      objc_setProperty_atomic(v227, v226, 0, 112);
+                      v228 = *(a1 + 32);
                     }
 
                     else
                     {
-                      v229 = 0;
+                      v228 = 0;
                     }
 
-                    v230 = a1[5];
-                    v231 = a1[7];
-                    v232 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"responder rekey child FOLLOWUP_KE #%zu", v231];
-                    [(NEIKEv2Session *)v230 handleFollowupKEForRekeyChildSAResponder:v229 iteration:v231 + 1 replyPacket:v191 replyPacketDescription:v232 handler:a1[6]];
+                    v229 = *(a1 + 40);
+                    v230 = *(a1 + 56);
+                    v231 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"responder rekey child FOLLOWUP_KE #%zu", v230];
+                    [(NEIKEv2Session *)v229 handleFollowupKEForRekeyChildSAResponder:v228 iteration:v230 + 1 replyPacket:v190 replyPacketDescription:v231 handler:*(a1 + 48)];
 
 LABEL_134:
                     goto LABEL_73;
@@ -14327,73 +14247,73 @@ LABEL_134:
 
                 else
                 {
-                  v224 = 0;
+                  v223 = 0;
                 }
 
-                v225 = 0;
+                v224 = 0;
                 goto LABEL_128;
               }
 
-              v116 = ne_log_obj();
-              if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+              v115 = ne_log_obj();
+              if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
               {
-                v272 = v29;
-                v185 = a1[5];
+                v271 = v29;
+                v184 = *(a1 + 40);
                 if (v23)
                 {
-                  v186 = objc_getProperty(v23, v117, 88, 1);
-                  v188 = v186;
-                  if (v186)
+                  v185 = objc_getProperty(v23, v116, 88, 1);
+                  v187 = v185;
+                  if (v185)
                   {
-                    v186 = objc_getProperty(v186, v187, 32, 1);
+                    v185 = objc_getProperty(v185, v186, 32, 1);
                   }
                 }
 
                 else
                 {
-                  v188 = 0;
-                  v186 = 0;
+                  v187 = 0;
+                  v185 = 0;
                 }
 
-                v189 = v186;
+                v188 = v185;
                 *buf = 138412802;
-                *&buf[4] = v185;
+                *&buf[4] = v184;
                 *&buf[12] = 2048;
-                *&buf[14] = [v189 method];
-                v274 = 2048;
-                v275 = [v34 method];
-                _os_log_error_impl(&dword_1BA83C000, v116, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (responder rekey child followup KE)", buf, 0x20u);
+                *&buf[14] = [v188 method];
+                v273 = 2048;
+                v274 = [v34 method];
+                _os_log_error_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (responder rekey child followup KE)", buf, 0x20u);
 
-                v29 = v272;
+                v29 = v271;
               }
 
-              v119 = a1[4];
+              v118 = *(a1 + 32);
               if (v23)
               {
-                v120 = objc_getProperty(v23, v118, 88, 1);
-                v114 = v120;
-                if (v120)
+                v119 = objc_getProperty(v23, v117, 88, 1);
+                v114 = v119;
+                if (v119)
                 {
-                  v120 = objc_getProperty(v120, v121, 32, 1);
+                  v119 = objc_getProperty(v119, v120, 32, 1);
                 }
               }
 
               else
               {
                 v114 = 0;
-                v120 = 0;
+                v119 = 0;
               }
 
-              v122 = v120;
-              v123 = [v122 method];
+              v121 = v119;
+              v122 = [v121 method];
               [v34 method];
-              v131 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (responder rekey child followup KE)", v124, v125, v126, v127, v128, v129, v130, v123);
-              [(NEIKEv2ChildSA *)v119 setState:v131 error:?];
+              v130 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu) (responder rekey child followup KE)", v123, v124, v125, v126, v127, v128, v129, v122);
+              [(NEIKEv2ChildSA *)v118 setState:v130 error:?];
 
 LABEL_70:
 LABEL_71:
-              [(NEIKEv2Session *)a1[5] reportState];
-              [(NEIKEv2Session *)a1[5] resetChild:?];
+              [(NEIKEv2Session *)*(a1 + 40) reportState];
+              [(NEIKEv2Session *)*(a1 + 40) resetChild:?];
 LABEL_72:
 
 LABEL_73:
@@ -14403,13 +14323,13 @@ LABEL_73:
             v112 = ne_log_obj();
             if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
             {
-              v184 = a1[5];
+              v183 = *(a1 + 40);
               *buf = 138412290;
-              *&buf[4] = v184;
+              *&buf[4] = v183;
               _os_log_error_impl(&dword_1BA83C000, v112, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (responder rekey child followup KE)", buf, 0xCu);
             }
 
-            v109 = a1[4];
+            v109 = *(a1 + 32);
             v110 = @"Did not receive data in KE payload (responder rekey child followup KE)";
           }
 
@@ -14418,13 +14338,13 @@ LABEL_73:
             v111 = ne_log_obj();
             if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
             {
-              v183 = a1[5];
+              v182 = *(a1 + 40);
               *buf = 138412290;
-              *&buf[4] = v183;
+              *&buf[4] = v182;
               _os_log_error_impl(&dword_1BA83C000, v111, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (responder rekey child followup KE)", buf, 0xCu);
             }
 
-            v109 = a1[4];
+            v109 = *(a1 + 32);
             v110 = @"Did not receive method in KE payload (responder rekey child followup KE)";
           }
         }
@@ -14434,34 +14354,34 @@ LABEL_73:
           v101 = ne_log_obj();
           if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
           {
-            v182 = a1[5];
+            v181 = *(a1 + 40);
             *buf = 138412290;
-            *&buf[4] = v182;
+            *&buf[4] = v181;
             _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (responder rekey child followup KE)", buf, 0xCu);
           }
 
-          v109 = a1[4];
+          v109 = *(a1 + 32);
           v110 = @"Did not receive KE payload (responder rekey child followup KE)";
         }
 
-        v113 = NEIKEv2CreateErrorPeerInvalidSyntax(v110, v102, v103, v104, v105, v106, v107, v108, v268);
+        v113 = NEIKEv2CreateErrorPeerInvalidSyntax(v110, v102, v103, v104, v105, v106, v107, v108, v267);
       }
 
       else
       {
-        v257 = ne_log_obj();
-        if (os_log_type_enabled(v257, OS_LOG_TYPE_ERROR))
+        v256 = ne_log_obj();
+        if (os_log_type_enabled(v256, OS_LOG_TYPE_ERROR))
         {
-          v267 = a1[5];
+          v266 = *(a1 + 40);
           *buf = 138412546;
-          *&buf[4] = v267;
+          *&buf[4] = v266;
           *&buf[12] = 2112;
           *&buf[14] = v29;
-          _os_log_error_impl(&dword_1BA83C000, v257, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (responder rekey child followup KE)", buf, 0x16u);
+          _os_log_error_impl(&dword_1BA83C000, v256, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (responder rekey child followup KE)", buf, 0x16u);
         }
 
-        v109 = a1[4];
-        v113 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (responder rekey child followup KE)", v258, v259, v260, v261, v262, v263, v264, v29);
+        v109 = *(a1 + 32);
+        v113 = NEIKEv2CreateErrorInternal(@"No chosen KEM found for transform type %@ (responder rekey child followup KE)", v257, v258, v259, v260, v261, v262, v263, v29);
       }
 
       v114 = v113;
@@ -14469,16 +14389,16 @@ LABEL_73:
       goto LABEL_70;
     }
 
-    v256 = ne_log_obj();
-    if (os_log_type_enabled(v256, OS_LOG_TYPE_ERROR))
+    v255 = ne_log_obj();
+    if (os_log_type_enabled(v255, OS_LOG_TYPE_ERROR))
     {
-      v266 = a1[5];
+      v265 = *(a1 + 40);
       *buf = 138412290;
-      *&buf[4] = v266;
-      _os_log_error_impl(&dword_1BA83C000, v256, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE packet (responder rekey child followup KE)", buf, 0xCu);
+      *&buf[4] = v265;
+      _os_log_error_impl(&dword_1BA83C000, v255, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE packet (responder rekey child followup KE)", buf, 0xCu);
     }
 
-    v97 = a1[4];
+    v97 = *(a1 + 32);
     v98 = @"Failed to receive FOLLOWUP_KE packet (responder rekey child followup KE)";
     goto LABEL_58;
   }
@@ -14492,50 +14412,48 @@ LABEL_73:
       _os_log_error_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_ERROR, "Failed to receive Rekey Child SA Delete packet", buf, 2u);
     }
 
-    v97 = a1[4];
+    v97 = *(a1 + 32);
     v98 = @"Failed to receive Rekey Child SA Delete packet";
 LABEL_58:
-    v99 = NEIKEv2CreateErrorPeerInvalidSyntax(v98, v90, v91, v92, v93, v94, v95, v96, v268);
+    v99 = NEIKEv2CreateErrorPeerInvalidSyntax(v98, v90, v91, v92, v93, v94, v95, v96, v267);
     [(NEIKEv2ChildSA *)v97 setState:v99 error:?];
 
-    [(NEIKEv2Session *)a1[5] reportState];
-    [(NEIKEv2Session *)a1[5] resetChild:?];
+    [(NEIKEv2Session *)*(a1 + 40) reportState];
+    [(NEIKEv2Session *)*(a1 + 40) resetChild:?];
     goto LABEL_74;
   }
 
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 LABEL_74:
-
-  v115 = *MEMORY[0x1E69E9840];
 }
 
 void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t a1, void *a2)
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v131 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 36)
   {
     v4 = [(NEIKEv2CreateChildPacket *)v3 validateRekeyResponseChildSA:?];
     v5 = *(a1 + 32);
-    v111[0] = MEMORY[0x1E69E9820];
-    v111[1] = 3221225472;
-    v112 = __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_442;
-    v113 = &unk_1E7F084B8;
-    v109 = *(a1 + 40);
-    v6 = *(&v109 + 1);
+    v110[0] = MEMORY[0x1E69E9820];
+    v110[1] = 3221225472;
+    v111 = __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_442;
+    v112 = &unk_1E7F084B8;
+    v108 = *(a1 + 40);
+    v6 = *(&v108 + 1);
     v7 = *(a1 + 32);
     v8 = *(a1 + 56);
     *&v9 = v7;
     *(&v9 + 1) = v8;
-    v114 = v109;
-    v115 = v9;
-    v116 = *(a1 + 64);
+    v113 = v108;
+    v114 = v9;
+    v115 = *(a1 + 64);
     v10 = v5;
-    v12 = v111;
-    v13 = v109;
-    if (v109)
+    v12 = v110;
+    v13 = v108;
+    if (v108)
     {
-      v14 = objc_getProperty(v109, v11, 384, 1);
+      v14 = objc_getProperty(v108, v11, 384, 1);
       dispatch_assert_queue_V2(v14);
 
       if (v10)
@@ -14548,11 +14466,11 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
         v15 = 0;
       }
 
-      v16 = [(NEIKEv2Session *)v109 copyChildWithID:v15];
+      v16 = [(NEIKEv2Session *)v108 copyChildWithID:v15];
       v18 = v16;
       if ((v4 & 1) != 0 || (!v16 ? (Property = 0) : (Property = objc_getProperty(v16, v17, 96, 1)), v20 = Property, v20, !v20))
       {
-        v112(v12, v4);
+        v111(v12, v4);
         goto LABEL_55;
       }
 
@@ -14577,14 +14495,14 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
         v25 = v24;
         v26 = [v25 method];
         *buf = 138412546;
-        *&buf[4] = v109;
+        *&buf[4] = v108;
         *&buf[12] = 2048;
         *&buf[14] = v26;
         _os_log_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_INFO, "%@ Received KE method preference %tu, retrying rekey Child SA (child rekey retry KE)", buf, 0x16u);
       }
 
-      v108 = v12;
-      v110 = v10;
+      v107 = v12;
+      v109 = v10;
 
       if (v18)
       {
@@ -14610,75 +14528,75 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
 
       v33 = v32;
       objc_opt_self();
+      v120 = 0u;
       v121 = 0u;
       v122 = 0u;
       v123 = 0u;
-      v124 = 0u;
       v34 = v33;
-      v107 = [v34 countByEnumeratingWithState:&v121 objects:buf count:16];
-      if (!v107)
+      v106 = [v34 countByEnumeratingWithState:&v120 objects:buf count:16];
+      if (!v106)
       {
         goto LABEL_34;
       }
 
-      v35 = *v122;
-      v105 = *v122;
-      v106 = v29;
+      v35 = *v121;
+      v104 = *v121;
+      v105 = v29;
       do
       {
-        for (i = 0; i != v107; ++i)
+        for (i = 0; i != v106; ++i)
         {
-          if (*v122 != v35)
+          if (*v121 != v35)
           {
             objc_enumerationMutation(v34);
           }
 
-          v37 = *(*(&v121 + 1) + 8 * i);
+          v37 = *(*(&v120 + 1) + 8 * i);
+          v116 = 0u;
           v117 = 0u;
           v118 = 0u;
           v119 = 0u;
-          v120 = 0u;
           v38 = [v37 kemProtocols];
-          v39 = [v38 countByEnumeratingWithState:&v117 objects:v125 count:16];
+          v39 = [v38 countByEnumeratingWithState:&v116 objects:v124 count:16];
           if (!v39)
           {
             goto LABEL_32;
           }
 
           v40 = v39;
-          v41 = *v118;
+          v41 = *v117;
           while (2)
           {
             for (j = 0; j != v40; ++j)
             {
-              if (*v118 != v41)
+              if (*v117 != v41)
               {
                 objc_enumerationMutation(v38);
               }
 
-              if ([*(*(&v117 + 1) + 8 * j) method] == v31)
+              if ([*(*(&v116 + 1) + 8 * j) method] == v31)
               {
 
                 if (([(NEIKEv2ChildSA *)v18 generateInitialValues]& 1) != 0)
                 {
                   v68 = [NEIKEv2CreateChildPacket createRekeyRequestChildSA:v18];
-                  v12 = v108;
-                  v10 = v110;
+                  v12 = v107;
+                  v10 = v109;
                   if (v68)
                   {
                     v69 = v68;
                     *buf = MEMORY[0x1E69E9820];
                     *&buf[8] = 3221225472;
                     *&buf[16] = __69__NEIKEv2Session_Exchange__retryKEForRekeyChildSA_validated_handler___block_invoke;
-                    v127 = &unk_1E7F08418;
-                    v128 = v13;
-                    v129 = v110;
-                    v130 = v18;
-                    v131 = v108;
+                    v126 = &unk_1E7F08418;
+                    v127 = v13;
+                    v128 = v109;
+                    v129 = v18;
+                    v130 = v107;
                     if ([NEIKEv2Session sendRequest:v13 retry:v69 replyHandler:buf]== -1)
                     {
                       v71 = objc_getProperty(v13, v70, 352, 1);
-                      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"child rekey retry KE", v72, v73, v74, v75, v76, v77, v78, v104);
+                      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"child rekey retry KE", v72, v73, v74, v75, v76, v77, v78, v103);
                       [(NEIKEv2IKESA *)v71 setState:ErrorFailedToSend error:?];
 
                       [(NEIKEv2Session *)v13 reportState];
@@ -14696,15 +14614,15 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
                     _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "%@ Failed to create Create Child SA packet (child rekey retry KE)", buf, 0xCu);
                   }
 
-                  [v110 sendCallbackSuccess:0 session:v13];
-                  ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (child rekey retry KE)", v92, v93, v94, v95, v96, v97, v98, v104);
+                  [v109 sendCallbackSuccess:0 session:v13];
+                  ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (child rekey retry KE)", v92, v93, v94, v95, v96, v97, v98, v103);
                 }
 
                 else
                 {
                   v82 = ne_log_obj();
-                  v12 = v108;
-                  v10 = v110;
+                  v12 = v107;
+                  v10 = v109;
                   if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
@@ -14712,8 +14630,8 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
                     _os_log_error_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_ERROR, "%@ Failed to generate local Child crypto values (child rekey retry KE)", buf, 0xCu);
                   }
 
-                  [v110 sendCallbackSuccess:0 session:v13];
-                  ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate local Child crypto values (child rekey retry KE)", v83, v84, v85, v86, v87, v88, v89, v104);
+                  [v109 sendCallbackSuccess:0 session:v13];
+                  ErrorInternal = NEIKEv2CreateErrorCrypto(@"Failed to generate local Child crypto values (child rekey retry KE)", v83, v84, v85, v86, v87, v88, v89, v103);
                 }
 
                 v47 = ErrorInternal;
@@ -14722,7 +14640,7 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
               }
             }
 
-            v40 = [v38 countByEnumeratingWithState:&v117 objects:v125 count:16];
+            v40 = [v38 countByEnumeratingWithState:&v116 objects:v124 count:16];
             if (v40)
             {
               continue;
@@ -14733,41 +14651,41 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke(uint64_t
 
 LABEL_32:
 
-          v35 = v105;
+          v35 = v104;
         }
 
-        v29 = v106;
-        v107 = [v34 countByEnumeratingWithState:&v121 objects:buf count:16];
+        v29 = v105;
+        v106 = [v34 countByEnumeratingWithState:&v120 objects:buf count:16];
       }
 
-      while (v107);
+      while (v106);
 LABEL_34:
 
       v43 = ne_log_obj();
-      v12 = v108;
-      v10 = v110;
+      v12 = v107;
+      v10 = v109;
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         if (v18)
         {
-          v101 = objc_getProperty(v18, v44, 96, 1);
+          v100 = objc_getProperty(v18, v44, 96, 1);
         }
 
         else
         {
-          v101 = 0;
+          v100 = 0;
         }
 
-        v102 = v101;
-        v103 = [v102 method];
+        v101 = v100;
+        v102 = [v101 method];
         *buf = 138412546;
         *&buf[4] = v13;
         *&buf[12] = 2048;
-        *&buf[14] = v103;
+        *&buf[14] = v102;
         _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, "%@ Received KE method preference %tu is not in Child rekey proposal (child rekey retry KE)", buf, 0x16u);
       }
 
-      [v110 sendCallbackSuccess:0 session:v13];
+      [v109 sendCallbackSuccess:0 session:v13];
       if (v18)
       {
         v46 = objc_getProperty(v18, v45, 96, 1);
@@ -14801,14 +14719,12 @@ LABEL_55:
 
     [*(a1 + 32) sendCallbackSuccess:0 session:*(a1 + 40)];
     v58 = *(a1 + 48);
-    v66 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive Create Child SA packet", v59, v60, v61, v62, v63, v64, v65, v104);
+    v66 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to receive Create Child SA packet", v59, v60, v61, v62, v63, v64, v65, v103);
     [(NEIKEv2ChildSA *)v58 setState:v66 error:?];
 
     [(NEIKEv2Session *)*(a1 + 40) reportState];
     [(NEIKEv2Session *)*(a1 + 40) resetChild:?];
   }
-
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_442(uint64_t a1, const char *a2)
@@ -15237,7 +15153,7 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
 
 - (void)receiveRekeyChildSA:(void *)a packet:
 {
-  v372 = *MEMORY[0x1E69E9840];
+  v371 = *MEMORY[0x1E69E9840];
   v5 = a2;
   selfCopy9 = a;
   if (self)
@@ -15283,7 +15199,7 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
             v21 = objc_getProperty(v21, v22, 88, 1);
           }
 
-          v353 = v21;
+          v352 = v21;
 
           objc_setProperty_atomic(v5, v24, 0, 184);
           v25 = v5;
@@ -15306,9 +15222,9 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
             if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
             {
               copyShortDescription = [(NEIKEv2Packet *)selfCopy9 copyShortDescription];
-              *v361 = 138412290;
-              v362 = copyShortDescription;
-              _os_log_error_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA did not match", v361, 0xCu);
+              *v360 = 138412290;
+              v361 = copyShortDescription;
+              _os_log_error_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_ERROR, "%@ Transport mode Child SA did not match", v360, 0xCu);
             }
 
             v82 = 7;
@@ -15333,31 +15249,31 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
             v39 = objc_getProperty(v25, v38, 48, 1);
             opportunisticPFS = [v39 opportunisticPFS];
 
-            v351 = v34;
+            v350 = v34;
             if (opportunisticPFS)
             {
-              v349 = v14;
+              v348 = v14;
               v42 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithArray:proposals];
-              *v368 = 0u;
+              *v367 = 0u;
+              v368 = 0u;
               v369 = 0u;
               v370 = 0u;
-              v371 = 0u;
               proposals = proposals;
-              v43 = [proposals countByEnumeratingWithState:v368 objects:buf count:16];
+              v43 = [proposals countByEnumeratingWithState:v367 objects:buf count:16];
               if (v43)
               {
                 v44 = v43;
-                v45 = *v369;
+                v45 = *v368;
                 do
                 {
                   for (i = 0; i != v44; ++i)
                   {
-                    if (*v369 != v45)
+                    if (*v368 != v45)
                     {
                       objc_enumerationMutation(proposals);
                     }
 
-                    copyWithoutKEM = [(NEIKEv2ChildSAProposal *)*(*&v368[8] + 8 * i) copyWithoutKEM];
+                    copyWithoutKEM = [(NEIKEv2ChildSAProposal *)*(*&v367[8] + 8 * i) copyWithoutKEM];
                     v48 = [v42 count];
                     if (copyWithoutKEM)
                     {
@@ -15367,7 +15283,7 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
                     [v42 addObject:copyWithoutKEM];
                   }
 
-                  v44 = [proposals countByEnumeratingWithState:v368 objects:buf count:16];
+                  v44 = [proposals countByEnumeratingWithState:v367 objects:buf count:16];
                 }
 
                 while (v44);
@@ -15381,9 +15297,9 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
                 proposals = array;
               }
 
-              v34 = v351;
+              v34 = v350;
 
-              v14 = v349;
+              v14 = v348;
             }
 
             v51 = objc_getProperty(v25, v41, 48, 1);
@@ -15405,13 +15321,13 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
                   v60 = objc_getProperty(v60, v61, 32, 1);
                 }
 
-                v34 = v351;
+                v34 = v350;
                 v63 = v60;
 
                 if (v63)
                 {
                   WeakRetained = objc_loadWeakRetained(v25 + 3);
-                  v350 = WeakRetained;
+                  v349 = WeakRetained;
                   if (WeakRetained)
                   {
                     WeakRetained = objc_getProperty(WeakRetained, v65, 80, 1);
@@ -15432,194 +15348,194 @@ void __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke_2_447(vo
                     v72 = v69;
                     v73 = [v72 length];
 
-                    v346 = v73;
+                    v345 = v73;
                     if ((v73 - 257) <= 0xFFFFFFFFFFFFFF0ELL)
                     {
                       v75 = ne_log_obj();
                       if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                       {
                         copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
-                        *v361 = 138412546;
-                        v362 = copyShortDescription2;
-                        v363 = 2048;
-                        v364 = v73;
+                        *v360 = 138412546;
+                        v361 = copyShortDescription2;
+                        v362 = 2048;
+                        v363 = v73;
                         v77 = "%@ NONCE data length %zu is out of bounds";
                         v78 = v75;
                         v79 = 22;
 LABEL_110:
-                        _os_log_error_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_ERROR, v77, v361, v79);
+                        _os_log_error_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_ERROR, v77, v360, v79);
                       }
 
 LABEL_111:
 
 LABEL_112:
-                      v359 = 0;
+                      v358 = 0;
                       v82 = 7;
                       goto LABEL_119;
                     }
 
-                    v110 = v350;
-                    if (v350)
+                    v109 = v349;
+                    if (v349)
                     {
-                      v110 = objc_getProperty(v350, v74, 96, 1);
+                      v109 = objc_getProperty(v349, v74, 96, 1);
                     }
 
                     v57 = &OBJC_IVAR___NEFilterFlow__direction;
-                    v111 = v110;
-                    prfProtocol = [(NEIKEv2IKESAProposal *)v111 prfProtocol];
+                    v110 = v109;
+                    prfProtocol = [(NEIKEv2IKESAProposal *)v110 prfProtocol];
                     nonceSize = [prfProtocol nonceSize];
 
-                    if (v346 < nonceSize)
+                    if (v345 < nonceSize)
                     {
-                      v114 = ne_log_obj();
-                      if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+                      v113 = ne_log_obj();
+                      if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
                       {
                         copyShortDescription3 = [(NEIKEv2Packet *)self copyShortDescription];
-                        if (v350)
+                        if (v349)
                         {
-                          v334 = objc_getProperty(v350, v333, 96, 1);
+                          v333 = objc_getProperty(v349, v332, 96, 1);
                         }
 
                         else
                         {
-                          v334 = 0;
+                          v333 = 0;
                         }
 
-                        v341 = v334;
-                        prfProtocol2 = [(NEIKEv2IKESAProposal *)v341 prfProtocol];
-                        *v361 = 138412802;
-                        v362 = copyShortDescription3;
-                        v363 = 2048;
-                        v364 = v346;
-                        v365 = 2112;
+                        v340 = v333;
+                        prfProtocol2 = [(NEIKEv2IKESAProposal *)v340 prfProtocol];
+                        *v360 = 138412802;
+                        v361 = copyShortDescription3;
+                        v362 = 2048;
+                        v363 = v345;
+                        v364 = 2112;
                         method5 = prfProtocol2;
-                        _os_log_error_impl(&dword_1BA83C000, v114, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v361, 0x20u);
+                        _os_log_error_impl(&dword_1BA83C000, v113, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v360, 0x20u);
                       }
 
                       goto LABEL_112;
                     }
                   }
 
-                  v115 = objc_getProperty(self, v68, v57[604], 1);
-                  v117 = v115;
-                  if (v115)
+                  v114 = objc_getProperty(self, v68, v57[604], 1);
+                  v116 = v114;
+                  if (v114)
                   {
-                    v115 = objc_getProperty(v115, v116, 32, 1);
+                    v114 = objc_getProperty(v114, v115, 32, 1);
                   }
 
-                  v118 = v115;
-                  objc_setProperty_atomic(v25, v119, v118, 88);
+                  v117 = v114;
+                  objc_setProperty_atomic(v25, v118, v117, 88);
 
-                  v121 = objc_getProperty(v25, v120, 184, 1);
-                  v123 = v121;
-                  if (v121)
+                  v120 = objc_getProperty(v25, v119, 184, 1);
+                  v122 = v120;
+                  if (v120)
                   {
-                    v121 = objc_getProperty(v121, v122, 112, 1);
+                    v120 = objc_getProperty(v120, v121, 112, 1);
                   }
 
-                  v124 = v121;
-                  method = [v124 method];
+                  v123 = v120;
+                  method = [v123 method];
 
                   if (!method)
                   {
 LABEL_99:
-                    v359 = 1;
+                    v358 = 1;
                     v82 = 7;
-                    v34 = v351;
+                    v34 = v350;
 LABEL_119:
 
                     goto LABEL_120;
                   }
 
-                  v127 = objc_getProperty(self, v126, 104, 1);
+                  v126 = objc_getProperty(self, v125, 104, 1);
 
-                  if (v127)
+                  if (v126)
                   {
-                    v129 = objc_getProperty(self, v128, 104, 1);
-                    v131 = v129;
-                    if (v129)
+                    v128 = objc_getProperty(self, v127, 104, 1);
+                    v130 = v128;
+                    if (v128)
                     {
-                      v129 = objc_getProperty(v129, v130, 32, 1);
+                      v128 = objc_getProperty(v128, v129, 32, 1);
                     }
 
-                    v34 = v351;
-                    v132 = v129;
+                    v34 = v350;
+                    v131 = v128;
 
-                    if (v132)
+                    if (v131)
                     {
-                      v134 = objc_getProperty(self, v133, 104, 1);
-                      v136 = v134;
-                      if (v134)
+                      v133 = objc_getProperty(self, v132, 104, 1);
+                      v135 = v133;
+                      if (v133)
                       {
-                        v134 = objc_getProperty(v134, v135, 40, 1);
+                        v133 = objc_getProperty(v133, v134, 40, 1);
                       }
 
-                      v137 = v134;
+                      v136 = v133;
 
-                      if (v137)
+                      if (v136)
                       {
-                        v139 = objc_getProperty(self, v138, 104, 1);
-                        v347 = v139;
-                        if (v139)
+                        v138 = objc_getProperty(self, v137, 104, 1);
+                        v346 = v138;
+                        if (v138)
                         {
-                          v139 = objc_getProperty(v139, v140, 32, 1);
+                          v138 = objc_getProperty(v138, v139, 32, 1);
                         }
 
-                        v339 = v139;
-                        method2 = [v339 method];
-                        v142 = objc_getProperty(v25, v141, 184, 1);
-                        v144 = v142;
-                        if (v142)
+                        v338 = v138;
+                        method2 = [v338 method];
+                        v141 = objc_getProperty(v25, v140, 184, 1);
+                        v143 = v141;
+                        if (v141)
                         {
-                          v142 = objc_getProperty(v142, v143, 112, 1);
+                          v141 = objc_getProperty(v141, v142, 112, 1);
                         }
 
-                        v145 = v142;
-                        method3 = [v145 method];
+                        v144 = v141;
+                        method3 = [v144 method];
 
                         if (method2 == method3)
                         {
-                          v148 = objc_getProperty(self, v147, 104, 1);
-                          v150 = v148;
-                          if (v148)
+                          v147 = objc_getProperty(self, v146, 104, 1);
+                          v149 = v147;
+                          if (v147)
                           {
-                            v148 = objc_getProperty(v148, v149, 40, 1);
+                            v147 = objc_getProperty(v147, v148, 40, 1);
                           }
 
-                          v151 = v148;
-                          objc_setProperty_atomic(v25, v152, v151, 104);
+                          v150 = v147;
+                          objc_setProperty_atomic(v25, v151, v150, 104);
 
                           goto LABEL_99;
                         }
 
-                        v156 = ne_log_obj();
-                        if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
+                        v155 = ne_log_obj();
+                        if (os_log_type_enabled(v155, OS_LOG_TYPE_INFO))
                         {
                           copyShortDescription4 = [(NEIKEv2Packet *)self copyShortDescription];
-                          v158 = objc_getProperty(self, v157, 104, 1);
-                          v344 = v158;
-                          if (v158)
+                          v157 = objc_getProperty(self, v156, 104, 1);
+                          v343 = v157;
+                          if (v157)
                           {
-                            v158 = objc_getProperty(v158, v159, 32, 1);
+                            v157 = objc_getProperty(v157, v158, 32, 1);
                           }
 
-                          v340 = v158;
-                          method4 = [v340 method];
-                          v161 = objc_getProperty(v25, v160, 184, 1);
-                          kemProtocol = [(NEIKEv2ChildSAProposal *)v161 kemProtocol];
-                          *v361 = 138412802;
-                          v362 = copyShortDescription4;
-                          v363 = 2048;
-                          v364 = method4;
-                          v365 = 2048;
+                          v339 = v157;
+                          method4 = [v339 method];
+                          v160 = objc_getProperty(v25, v159, 184, 1);
+                          kemProtocol = [(NEIKEv2ChildSAProposal *)v160 kemProtocol];
+                          *v360 = 138412802;
+                          v361 = copyShortDescription4;
+                          v362 = 2048;
+                          v363 = method4;
+                          v364 = 2048;
                           method5 = [kemProtocol method];
-                          _os_log_impl(&dword_1BA83C000, v156, OS_LOG_TYPE_INFO, "%@ Received KE method %zu does not match KE method %zu in CHILD SA rekey proposal", v361, 0x20u);
+                          _os_log_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_INFO, "%@ Received KE method %zu does not match KE method %zu in CHILD SA rekey proposal", v360, 0x20u);
 
-                          v34 = v351;
+                          v34 = v350;
                         }
 
 LABEL_118:
-                        v359 = 0;
+                        v358 = 0;
                         v82 = 17;
                         goto LABEL_119;
                       }
@@ -15631,8 +15547,8 @@ LABEL_118:
                       }
 
                       copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
-                      *v361 = 138412290;
-                      v362 = copyShortDescription2;
+                      *v360 = 138412290;
+                      v361 = copyShortDescription2;
                       v77 = "%@ Did not receive data in KE payload";
                     }
 
@@ -15645,8 +15561,8 @@ LABEL_118:
                       }
 
                       copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
-                      *v361 = 138412290;
-                      v362 = copyShortDescription2;
+                      *v360 = 138412290;
+                      v361 = copyShortDescription2;
                       v77 = "%@ Did not receive method in KE payload";
                     }
 
@@ -15655,14 +15571,14 @@ LABEL_118:
                     goto LABEL_110;
                   }
 
-                  v153 = ne_log_obj();
-                  v34 = v351;
-                  if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+                  v152 = ne_log_obj();
+                  v34 = v350;
+                  if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
                   {
                     copyShortDescription5 = [(NEIKEv2Packet *)self copyShortDescription];
-                    *v361 = 138412290;
-                    v362 = copyShortDescription5;
-                    _os_log_error_impl(&dword_1BA83C000, v153, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v361, 0xCu);
+                    *v360 = 138412290;
+                    v361 = copyShortDescription5;
+                    _os_log_error_impl(&dword_1BA83C000, v152, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v360, 0xCu);
                   }
 
                   goto LABEL_118;
@@ -15672,11 +15588,11 @@ LABEL_118:
                 if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
                 {
                   copyShortDescription6 = [(NEIKEv2Packet *)self copyShortDescription];
-                  *v361 = 138412290;
-                  v362 = copyShortDescription6;
-                  v108 = "%@ Did not receive NONCE data";
+                  *v360 = 138412290;
+                  v361 = copyShortDescription6;
+                  v107 = "%@ Did not receive NONCE data";
 LABEL_104:
-                  _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, v108, v361, 0xCu);
+                  _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, v107, v360, 0xCu);
 
                   goto LABEL_60;
                 }
@@ -15684,18 +15600,18 @@ LABEL_104:
                 goto LABEL_60;
               }
 
-              v106 = ne_log_obj();
-              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+              v105 = ne_log_obj();
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
               {
                 copyShortDescription7 = [(NEIKEv2Packet *)self copyShortDescription];
-                *v361 = 138412290;
-                v362 = copyShortDescription7;
-                _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v361, 0xCu);
+                *v360 = 138412290;
+                v361 = copyShortDescription7;
+                _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v360, 0xCu);
               }
 
-              v359 = 0;
+              v358 = 0;
               v82 = 7;
-              v34 = v351;
+              v34 = v350;
             }
 
             else
@@ -15704,30 +15620,30 @@ LABEL_104:
               if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
               {
                 copyShortDescription8 = [(NEIKEv2Packet *)self copyShortDescription];
-                *v361 = 138412290;
-                v362 = copyShortDescription8;
-                _os_log_error_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_ERROR, "%@ No matching rekey proposal found", v361, 0xCu);
+                *v360 = 138412290;
+                v361 = copyShortDescription8;
+                _os_log_error_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_ERROR, "%@ No matching rekey proposal found", v360, 0xCu);
               }
 
-              v359 = 0;
+              v358 = 0;
               v82 = 14;
             }
 
 LABEL_120:
 
-            if (v359)
+            if (v358)
             {
               selfCopy9 = self;
               if (([(NEIKEv2ChildSA *)v25 generateInitialValues]& 1) == 0)
               {
-                v279 = ne_log_obj();
-                if (os_log_type_enabled(v279, OS_LOG_TYPE_ERROR))
+                v278 = ne_log_obj();
+                if (os_log_type_enabled(v278, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v279, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v278, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", buf, 2u);
                 }
 
-                ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate local Child crypto values", v280, v281, v282, v283, v284, v285, v286, method4);
+                ErrorCrypto = NEIKEv2CreateErrorCrypto(@"Failed to generate local Child crypto values", v279, v280, v281, v282, v283, v284, v285, method4);
                 [(NEIKEv2ChildSA *)v25 setState:ErrorCrypto error:?];
 
                 [(NEIKEv2Session *)self reportState];
@@ -15735,138 +15651,138 @@ LABEL_120:
                 goto LABEL_67;
               }
 
-              v166 = objc_getProperty(v25, v165, 184, 1);
-              v168 = v166;
-              if (v166)
+              v165 = objc_getProperty(v25, v164, 184, 1);
+              v167 = v165;
+              if (v165)
               {
-                v166 = objc_getProperty(v166, v167, 112, 1);
+                v165 = objc_getProperty(v165, v166, 112, 1);
               }
 
-              v169 = v166;
-              method6 = [v169 method];
+              v168 = v165;
+              method6 = [v168 method];
 
               if (method6 && ([(NEIKEv2ChildSA *)v25 processCurrentKeyExchange]& 1) == 0)
               {
-                v337 = ne_log_obj();
-                if (os_log_type_enabled(v337, OS_LOG_TYPE_ERROR))
+                v336 = ne_log_obj();
+                if (os_log_type_enabled(v336, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v337, OS_LOG_TYPE_ERROR, "Failed to process KE data", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v336, OS_LOG_TYPE_ERROR, "Failed to process KE data", buf, 2u);
                 }
 
-                v297 = @"ailed to process KE data";
+                v296 = @"ailed to process KE data";
               }
 
               else
               {
-                v172 = objc_getProperty(v25, v171, 184, 1);
-                v360 = v172;
-                v173 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v360 count:1];
-                v174 = [(NEIKEv2Session *)self generateSPIForChild:v25 proposals:v173];
+                v171 = objc_getProperty(v25, v170, 184, 1);
+                v359 = v171;
+                v172 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v359 count:1];
+                v173 = [(NEIKEv2Session *)self generateSPIForChild:v25 proposals:v172];
 
-                if (v174)
+                if (v173)
                 {
                   selfCopy2 = self;
-                  v176 = v25;
+                  v175 = v25;
                   objc_opt_self();
-                  v177 = [(NEIKEv2Packet *)[NEIKEv2CreateChildPacket alloc] initResponse:selfCopy2];
-                  if (!v177)
+                  v176 = [(NEIKEv2Packet *)[NEIKEv2CreateChildPacket alloc] initResponse:selfCopy2];
+                  if (!v176)
+                  {
+                    v308 = ne_log_obj();
+                    if (os_log_type_enabled(v308, OS_LOG_TYPE_FAULT))
+                    {
+                      *buf = 0;
+                      _os_log_fault_impl(&dword_1BA83C000, v308, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initResponse:] failed", buf, 2u);
+                    }
+
+                    v178 = 0;
+                    v264 = 0;
+                    goto LABEL_183;
+                  }
+
+                  v178 = v176;
+                  v179 = objc_getProperty(v175, v177, 48, 1);
+                  mode2 = [v179 mode];
+
+                  if (mode2 == 1 && ![(NEIKEv2Packet *)v178 addNotification:0 data:?])
                   {
                     v309 = ne_log_obj();
                     if (os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 0;
-                      _os_log_fault_impl(&dword_1BA83C000, v309, OS_LOG_TYPE_FAULT, "[[NEIKEv2CreateChildPacket alloc] initResponse:] failed", buf, 2u);
-                    }
-
-                    v179 = 0;
-                    v265 = 0;
-                    goto LABEL_183;
-                  }
-
-                  v179 = v177;
-                  v180 = objc_getProperty(v176, v178, 48, 1);
-                  mode2 = [v180 mode];
-
-                  if (mode2 == 1 && ![(NEIKEv2Packet *)v179 addNotification:0 data:?])
-                  {
-                    v310 = ne_log_obj();
-                    if (os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
-                    {
-                      *buf = 0;
-                      v311 = "[packet addNotification:NEIKEv2NotifyTypeUseTransportMode] failed";
-                      v312 = v310;
-                      v313 = 2;
+                      v310 = "[packet addNotification:NEIKEv2NotifyTypeUseTransportMode] failed";
+                      v311 = v309;
+                      v312 = 2;
 LABEL_204:
-                      _os_log_fault_impl(&dword_1BA83C000, v312, OS_LOG_TYPE_FAULT, v311, buf, v313);
+                      _os_log_fault_impl(&dword_1BA83C000, v311, OS_LOG_TYPE_FAULT, v310, buf, v312);
                       goto LABEL_182;
                     }
 
                     goto LABEL_182;
                   }
 
-                  v182 = objc_alloc_init(NEIKEv2ChildSAPayload);
-                  objc_setProperty_atomic(v179, v183, v182, 96);
+                  v181 = objc_alloc_init(NEIKEv2ChildSAPayload);
+                  objc_setProperty_atomic(v178, v182, v181, 96);
 
-                  v185 = objc_getProperty(v176, v184, 184, 1);
-                  *v368 = v185;
-                  v186 = [MEMORY[0x1E695DEC8] arrayWithObjects:v368 count:1];
-                  v188 = objc_getProperty(v179, v187, 96, 1);
-                  v190 = v188;
-                  if (v188)
+                  v184 = objc_getProperty(v175, v183, 184, 1);
+                  *v367 = v184;
+                  v185 = [MEMORY[0x1E695DEC8] arrayWithObjects:v367 count:1];
+                  v187 = objc_getProperty(v178, v186, 96, 1);
+                  v189 = v187;
+                  if (v187)
                   {
-                    objc_setProperty_atomic(v188, v189, v186, 32);
+                    objc_setProperty_atomic(v187, v188, v185, 32);
                   }
 
-                  v192 = objc_getProperty(v176, v191, 184, 1);
-                  kemProtocol2 = [(NEIKEv2ChildSAProposal *)v192 kemProtocol];
+                  v191 = objc_getProperty(v175, v190, 184, 1);
+                  kemProtocol2 = [(NEIKEv2ChildSAProposal *)v191 kemProtocol];
                   method7 = [kemProtocol2 method];
 
                   if (method7)
                   {
-                    v197 = objc_alloc_init(NEIKEv2KeyExchangePayload);
-                    objc_setProperty_atomic(v179, v198, v197, 104);
+                    v196 = objc_alloc_init(NEIKEv2KeyExchangePayload);
+                    objc_setProperty_atomic(v178, v197, v196, 104);
 
-                    v200 = objc_getProperty(v176, v199, 184, 1);
-                    kemProtocol3 = [(NEIKEv2ChildSAProposal *)v200 kemProtocol];
-                    v204 = objc_getProperty(v179, v203, 104, 1);
-                    v206 = v204;
-                    if (v204)
+                    v199 = objc_getProperty(v175, v198, 184, 1);
+                    kemProtocol3 = [(NEIKEv2ChildSAProposal *)v199 kemProtocol];
+                    v203 = objc_getProperty(v178, v202, 104, 1);
+                    v205 = v203;
+                    if (v203)
                     {
-                      objc_setProperty_atomic(v204, v205, kemProtocol3, 32);
+                      objc_setProperty_atomic(v203, v204, kemProtocol3, 32);
                     }
 
-                    v208 = objc_getProperty(v176, v207, 112, 1);
-                    v209 = v208;
-                    if (v208)
+                    v207 = objc_getProperty(v175, v206, 112, 1);
+                    v208 = v207;
+                    if (v207)
                     {
-                      v210 = *(v208 + 2);
+                      v209 = *(v207 + 2);
                     }
 
                     else
                     {
-                      v210 = 0;
+                      v209 = 0;
                     }
 
-                    v211 = v210;
-                    v213 = objc_getProperty(v179, v212, 104, 1);
-                    v215 = v213;
-                    if (v213)
+                    v210 = v209;
+                    v212 = objc_getProperty(v178, v211, 104, 1);
+                    v214 = v212;
+                    if (v212)
                     {
-                      objc_setProperty_atomic(v213, v214, v211, 40);
+                      objc_setProperty_atomic(v212, v213, v210, 40);
                     }
 
-                    v217 = objc_getProperty(v179, v216, 104, 1);
-                    isValid = [(NEIKEv2Payload *)v217 isValid];
+                    v216 = objc_getProperty(v178, v215, 104, 1);
+                    isValid = [(NEIKEv2Payload *)v216 isValid];
 
                     if ((isValid & 1) == 0)
                     {
-                      v310 = ne_log_obj();
-                      if (os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
+                      v309 = ne_log_obj();
+                      if (os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                       {
                         *buf = 136315138;
                         *&buf[4] = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyResponse:childSA:]";
-                        v311 = "%s called with null packet.ke.isValid";
+                        v310 = "%s called with null packet.ke.isValid";
                         goto LABEL_203;
                       }
 
@@ -15874,205 +15790,205 @@ LABEL_204:
                     }
                   }
 
-                  v219 = objc_getProperty(v179, v196, 96, 1);
-                  isValid2 = [(NEIKEv2Payload *)v219 isValid];
+                  v218 = objc_getProperty(v178, v195, 96, 1);
+                  isValid2 = [(NEIKEv2Payload *)v218 isValid];
 
                   if (isValid2)
                   {
-                    v221 = objc_alloc_init(NEIKEv2NoncePayload);
-                    objc_setProperty_atomic(v179, v222, v221, 112);
+                    v220 = objc_alloc_init(NEIKEv2NoncePayload);
+                    objc_setProperty_atomic(v178, v221, v220, 112);
 
-                    v224 = objc_getProperty(v176, v223, 80, 1);
-                    v226 = objc_getProperty(v179, v225, 112, 1);
-                    v228 = v226;
-                    if (v226)
+                    v223 = objc_getProperty(v175, v222, 80, 1);
+                    v225 = objc_getProperty(v178, v224, 112, 1);
+                    v227 = v225;
+                    if (v225)
                     {
-                      objc_setProperty_atomic(v226, v227, v224, 32);
+                      objc_setProperty_atomic(v225, v226, v223, 32);
                     }
 
-                    v230 = objc_getProperty(v179, v229, 112, 1);
-                    isValid3 = [(NEIKEv2Payload *)v230 isValid];
+                    v229 = objc_getProperty(v178, v228, 112, 1);
+                    isValid3 = [(NEIKEv2Payload *)v229 isValid];
 
                     if (isValid3)
                     {
-                      v232 = objc_alloc_init(NEIKEv2InitiatorTrafficSelectorPayload);
-                      objc_setProperty_atomic(v179, v233, v232, 128);
+                      v231 = objc_alloc_init(NEIKEv2InitiatorTrafficSelectorPayload);
+                      objc_setProperty_atomic(v178, v232, v231, 128);
 
-                      v235 = objc_getProperty(v176, v234, 72, 1);
-                      v237 = objc_getProperty(v179, v236, 128, 1);
-                      v239 = v237;
-                      if (v237)
+                      v234 = objc_getProperty(v175, v233, 72, 1);
+                      v236 = objc_getProperty(v178, v235, 128, 1);
+                      v238 = v236;
+                      if (v236)
                       {
-                        objc_setProperty_atomic(v237, v238, v235, 32);
+                        objc_setProperty_atomic(v236, v237, v234, 32);
                       }
 
-                      v241 = objc_getProperty(v179, v240, 128, 1);
-                      isValid4 = [(NEIKEv2Payload *)v241 isValid];
+                      v240 = objc_getProperty(v178, v239, 128, 1);
+                      isValid4 = [(NEIKEv2Payload *)v240 isValid];
 
                       if (isValid4)
                       {
-                        v243 = objc_alloc_init(NEIKEv2ResponderTrafficSelectorPayload);
-                        objc_setProperty_atomic(v179, v244, v243, 136);
+                        v242 = objc_alloc_init(NEIKEv2ResponderTrafficSelectorPayload);
+                        objc_setProperty_atomic(v178, v243, v242, 136);
 
-                        v246 = objc_getProperty(v176, v245, 64, 1);
-                        v248 = objc_getProperty(v179, v247, 136, 1);
-                        v250 = v248;
-                        if (v248)
+                        v245 = objc_getProperty(v175, v244, 64, 1);
+                        v247 = objc_getProperty(v178, v246, 136, 1);
+                        v249 = v247;
+                        if (v247)
                         {
-                          objc_setProperty_atomic(v248, v249, v246, 32);
+                          objc_setProperty_atomic(v247, v248, v245, 32);
                         }
 
-                        v252 = objc_getProperty(v179, v251, 136, 1);
-                        isValid5 = [(NEIKEv2Payload *)v252 isValid];
+                        v251 = objc_getProperty(v178, v250, 136, 1);
+                        isValid5 = [(NEIKEv2Payload *)v251 isValid];
 
                         if (isValid5)
                         {
-                          v255 = objc_getProperty(v176, v254, 184, 1);
-                          v257 = v255;
-                          if (v255)
+                          v254 = objc_getProperty(v175, v253, 184, 1);
+                          v256 = v254;
+                          if (v254)
                           {
-                            v255 = objc_getProperty(v255, v256, 120, 1);
+                            v254 = objc_getProperty(v254, v255, 120, 1);
                           }
 
-                          v258 = v255;
+                          v257 = v254;
 
-                          if (v258)
+                          if (v257)
                           {
                             uUID = [MEMORY[0x1E696AFB0] UUID];
                             *buf = 0uLL;
                             [uUID getUUIDBytes:buf];
-                            v260 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:16];
-                            v261 = [NEIKEv2NotifyPayload createNotifyPayloadType:v260 data:?];
-                            objc_setProperty_atomic(v176, v262, v261, 128);
+                            v259 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:16];
+                            v260 = [NEIKEv2NotifyPayload createNotifyPayloadType:v259 data:?];
+                            objc_setProperty_atomic(v175, v261, v260, 128);
 
-                            v264 = objc_getProperty(v176, v263, 128, 1);
-                            [(NEIKEv2Packet *)v179 addNotifyPayload:v264];
+                            v263 = objc_getProperty(v175, v262, 128, 1);
+                            [(NEIKEv2Packet *)v178 addNotifyPayload:v263];
                           }
 
-                          v179 = v179;
-                          v265 = v179;
+                          v178 = v178;
+                          v264 = v178;
                           goto LABEL_183;
                         }
 
-                        v310 = ne_log_obj();
-                        if (os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
+                        v309 = ne_log_obj();
+                        if (os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                         {
                           *buf = 136315138;
                           *&buf[4] = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyResponse:childSA:]";
-                          v311 = "%s called with null packet.tsr.isValid";
+                          v310 = "%s called with null packet.tsr.isValid";
                           goto LABEL_203;
                         }
 
                         goto LABEL_182;
                       }
 
-                      v310 = ne_log_obj();
-                      if (!os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
+                      v309 = ne_log_obj();
+                      if (!os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_182;
                       }
 
                       *buf = 136315138;
                       *&buf[4] = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyResponse:childSA:]";
-                      v331 = "%s called with null packet.tsi.isValid";
+                      v330 = "%s called with null packet.tsi.isValid";
                     }
 
                     else
                     {
-                      v310 = ne_log_obj();
-                      if (!os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
+                      v309 = ne_log_obj();
+                      if (!os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_182;
                       }
 
                       *buf = 136315138;
                       *&buf[4] = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyResponse:childSA:]";
-                      v331 = "%s called with null packet.nonce.isValid";
+                      v330 = "%s called with null packet.nonce.isValid";
                     }
 
-                    _os_log_fault_impl(&dword_1BA83C000, v310, OS_LOG_TYPE_FAULT, v331, buf, 0xCu);
+                    _os_log_fault_impl(&dword_1BA83C000, v309, OS_LOG_TYPE_FAULT, v330, buf, 0xCu);
                     goto LABEL_182;
                   }
 
-                  v310 = ne_log_obj();
-                  if (os_log_type_enabled(v310, OS_LOG_TYPE_FAULT))
+                  v309 = ne_log_obj();
+                  if (os_log_type_enabled(v309, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 136315138;
                     *&buf[4] = "+[NEIKEv2CreateChildPacket(Exchange) createRekeyResponse:childSA:]";
-                    v311 = "%s called with null packet.childSA.isValid";
+                    v310 = "%s called with null packet.childSA.isValid";
 LABEL_203:
-                    v312 = v310;
-                    v313 = 12;
+                    v311 = v309;
+                    v312 = 12;
                     goto LABEL_204;
                   }
 
 LABEL_182:
 
-                  v265 = 0;
+                  v264 = 0;
 LABEL_183:
 
-                  if (v265)
+                  if (v264)
                   {
-                    v315 = objc_getProperty(v176, v314, 112, 1);
-                    v316 = v315;
+                    v314 = objc_getProperty(v175, v313, 112, 1);
+                    v315 = v314;
                     selfCopy9 = self;
-                    if (v315)
+                    if (v314)
                     {
-                      v317 = *(v315 + 3);
+                      v316 = *(v314 + 3);
                     }
 
                     else
                     {
-                      v317 = 0;
+                      v316 = 0;
                     }
 
-                    v318 = v317;
-                    objc_setProperty_atomic(v176, v319, v318, 120);
+                    v317 = v316;
+                    objc_setProperty_atomic(v175, v318, v317, 120);
 
-                    objc_setProperty_atomic(v176, v320, 0, 112);
-                    v354[0] = MEMORY[0x1E69E9820];
-                    v354[1] = 3221225472;
-                    v354[2] = __55__NEIKEv2Session_Exchange__receiveRekeyChildSA_packet___block_invoke;
-                    v354[3] = &unk_1E7F08508;
-                    v355 = v353;
-                    v356 = v176;
+                    objc_setProperty_atomic(v175, v319, 0, 112);
+                    v353[0] = MEMORY[0x1E69E9820];
+                    v353[1] = 3221225472;
+                    v353[2] = __55__NEIKEv2Session_Exchange__receiveRekeyChildSA_packet___block_invoke;
+                    v353[3] = &unk_1E7F08508;
+                    v354 = v352;
+                    v355 = v175;
                     selfCopy4 = self;
-                    v358 = v14;
-                    [(NEIKEv2Session *)self handleFollowupKEForRekeyChildSAResponder:v356 iteration:0 replyPacket:v265 replyPacketDescription:@"responder rekey child SA reply" handler:v354];
+                    v357 = v14;
+                    [(NEIKEv2Session *)self handleFollowupKEForRekeyChildSAResponder:v355 iteration:0 replyPacket:v264 replyPacketDescription:@"responder rekey child SA reply" handler:v353];
                   }
 
                   else
                   {
-                    v321 = ne_log_obj();
+                    v320 = ne_log_obj();
                     selfCopy9 = self;
-                    if (os_log_type_enabled(v321, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v320, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      _os_log_error_impl(&dword_1BA83C000, v321, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", buf, 2u);
+                      _os_log_error_impl(&dword_1BA83C000, v320, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", buf, 2u);
                     }
 
-                    ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v322, v323, v324, v325, v326, v327, v328, method4);
-                    [(NEIKEv2ChildSA *)v176 setState:ErrorInternal error:?];
+                    ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v321, v322, v323, v324, v325, v326, v327, method4);
+                    [(NEIKEv2ChildSA *)v175 setState:ErrorInternal error:?];
 
                     [(NEIKEv2Session *)self reportState];
-                    [(NEIKEv2Session *)self resetChild:v176];
+                    [(NEIKEv2Session *)self resetChild:v175];
                   }
 
                   goto LABEL_67;
                 }
 
-                v289 = ne_log_obj();
-                if (os_log_type_enabled(v289, OS_LOG_TYPE_ERROR))
+                v288 = ne_log_obj();
+                if (os_log_type_enabled(v288, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v289, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v288, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", buf, 2u);
                 }
 
-                v297 = @"Failed to generate Child SA SPI";
+                v296 = @"Failed to generate Child SA SPI";
               }
 
-              v298 = NEIKEv2CreateErrorCrypto(v297, v290, v291, v292, v293, v294, v295, v296, method4);
-              [(NEIKEv2ChildSA *)v25 setState:v298 error:?];
+              v297 = NEIKEv2CreateErrorCrypto(v296, v289, v290, v291, v292, v293, v294, v295, method4);
+              [(NEIKEv2ChildSA *)v25 setState:v297 error:?];
 
               [(NEIKEv2Session *)self reportState];
               [(NEIKEv2Session *)self resetChild:v25];
@@ -16085,19 +16001,19 @@ LABEL_67:
             selfCopy9 = self;
             if (v82 == 17)
             {
-              v266 = objc_getProperty(v25, v164, 184, 1);
-              v268 = v266;
-              if (v266)
+              v265 = objc_getProperty(v25, v163, 184, 1);
+              v267 = v265;
+              if (v265)
               {
-                v266 = objc_getProperty(v266, v267, 112, 1);
+                v265 = objc_getProperty(v265, v266, 112, 1);
               }
 
-              v269 = v266;
-              v270 = bswap32([v269 method]) >> 16;
+              v268 = v265;
+              v269 = bswap32([v268 method]) >> 16;
 
-              *buf = v270;
-              v271 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:2];
-              v83 = [NEIKEv2CreateChildPacket createChildSAResponse:0x11uLL errorCode:v271 errorData:?];
+              *buf = v269;
+              v270 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:2];
+              v83 = [NEIKEv2CreateChildPacket createChildSAResponse:0x11uLL errorCode:v270 errorData:?];
 
               if (v83)
               {
@@ -16108,19 +16024,19 @@ LABEL_67:
                   goto LABEL_161;
                 }
 
-                ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"rekey child SA refusal", v272, v273, v274, v275, v276, v277, v278, method4);
+                ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"rekey child SA refusal", v271, v272, v273, v274, v275, v276, v277, method4);
               }
 
               else
               {
-                v300 = ne_log_obj();
-                if (os_log_type_enabled(v300, OS_LOG_TYPE_ERROR))
+                v299 = ne_log_obj();
+                if (os_log_type_enabled(v299, OS_LOG_TYPE_ERROR))
                 {
-                  *v368 = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v300, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v368, 2u);
+                  *v367 = 0;
+                  _os_log_error_impl(&dword_1BA83C000, v299, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v367, 2u);
                 }
 
-                ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v301, v302, v303, v304, v305, v306, v307, method4);
+                ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v300, v301, v302, v303, v304, v305, v306, method4);
               }
 
               v103 = ErrorFailedToSend;
@@ -16177,15 +16093,15 @@ LABEL_66:
           if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
           {
             copyShortDescription6 = [(NEIKEv2Packet *)self copyShortDescription];
-            *v361 = 138412290;
-            v362 = copyShortDescription6;
-            v108 = "%@ Received no SA proposals";
+            *v360 = 138412290;
+            v361 = copyShortDescription6;
+            v107 = "%@ Received no SA proposals";
             goto LABEL_104;
           }
 
 LABEL_60:
 
-          v359 = 0;
+          v358 = 0;
           v82 = 7;
           goto LABEL_120;
         }
@@ -16234,8 +16150,6 @@ LABEL_60:
 
   v12 = 0;
 LABEL_68:
-
-  v105 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEIKEv2Session_Exchange__receiveRekeyChildSA_packet___block_invoke(id *a1, void *a2)
@@ -16444,7 +16358,7 @@ void __55__NEIKEv2Session_Exchange__receiveRekeyChildSA_packet___block_invoke_46
 
 - (void)handleFollowupKEForRekeyIKESAInitiator:(void *)initiator rekeyIKEContext:(unint64_t)context iteration:(void *)iteration handler:
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   v9 = a2;
   initiatorCopy = initiator;
   iterationCopy = iteration;
@@ -16539,7 +16453,7 @@ void __55__NEIKEv2Session_Exchange__receiveRekeyChildSA_packet___block_invoke_46
 
     if (v38)
     {
-      v102 = v33;
+      v101 = v33;
       if (([(NEIKEv2IKESA *)v9 generateLocalValuesForKEMProtocol:v38]& 1) != 0)
       {
         initOutbound = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initOutbound];
@@ -16624,18 +16538,18 @@ LABEL_26:
 
             if (isValid)
             {
-              v103[0] = MEMORY[0x1E69E9820];
-              v103[1] = 3221225472;
-              v103[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_2;
-              v103[3] = &unk_1E7F08440;
-              v103[4] = selfCopy;
+              v102[0] = MEMORY[0x1E69E9820];
+              v102[1] = 3221225472;
+              v102[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_2;
+              v102[3] = &unk_1E7F08440;
+              v102[4] = selfCopy;
               v68 = initiatorCopy;
-              v104 = v68;
-              v105 = v47;
-              v106 = v9;
+              v103 = v68;
+              v104 = v47;
+              v105 = v9;
               contextCopy = context;
-              v107 = v49;
-              if ([NEIKEv2Session sendRequest:selfCopy retry:initOutbound replyHandler:v103]== -1)
+              v106 = v49;
+              if ([NEIKEv2Session sendRequest:selfCopy retry:initOutbound replyHandler:v102]== -1)
               {
                 [v68 sendCallbackSuccess:0 session:selfCopy];
                 v70 = objc_getProperty(selfCopy, v69, 352, 1);
@@ -16646,7 +16560,7 @@ LABEL_26:
                 [(NEIKEv2Session *)selfCopy resetAll];
               }
 
-              v81 = v104;
+              v81 = v103;
             }
 
             else
@@ -16661,16 +16575,16 @@ LABEL_26:
 
               v83 = [NEIKEv2DeleteIKEContext alloc];
               v85 = objc_getProperty(selfCopy, v84, 384, 1);
-              v109[0] = MEMORY[0x1E69E9820];
-              v109[1] = 3221225472;
-              v109[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_481;
-              v109[3] = &unk_1E7F081C0;
-              v110 = initiatorCopy;
-              v111 = selfCopy;
-              v86 = [(NEIKEv2DeleteIKEContext *)&v83->super.super.isa initDeleteIKEWithResponse:v85 callbackQueue:v109 callback:?];
+              v108[0] = MEMORY[0x1E69E9820];
+              v108[1] = 3221225472;
+              v108[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_481;
+              v108[3] = &unk_1E7F081C0;
+              v109 = initiatorCopy;
+              v110 = selfCopy;
+              v86 = [(NEIKEv2DeleteIKEContext *)&v83->super.super.isa initDeleteIKEWithResponse:v85 callbackQueue:v108 callback:?];
 
               [(NEIKEv2Session *)selfCopy initiateDelete:v86];
-              v81 = v110;
+              v81 = v109;
             }
 
             goto LABEL_44;
@@ -16690,62 +16604,62 @@ LABEL_26:
       }
 
       selfCopy3 = self;
-      v97 = v38;
-      v98 = ne_log_obj();
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+      v96 = v38;
+      v97 = ne_log_obj();
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy4 = selfCopy3;
-        v120 = 2112;
-        v121 = v38;
-        _os_log_error_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (initiator rekey followup KE)", buf, 0x16u);
+        v119 = 2112;
+        v120 = v38;
+        _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (initiator rekey followup KE)", buf, 0x16u);
       }
 
-      v99 = [NEIKEv2DeleteIKEContext alloc];
-      v93 = objc_getProperty(selfCopy3, v100, 384, 1);
-      v112[0] = MEMORY[0x1E69E9820];
-      v112[1] = 3221225472;
-      v112[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_477;
-      v112[3] = &unk_1E7F083C8;
-      v94 = v113;
-      v113[0] = initiatorCopy;
-      v113[1] = selfCopy3;
-      v95 = &v114;
-      v114 = v97;
-      v96 = [(NEIKEv2DeleteIKEContext *)&v99->super.super.isa initDeleteIKEWithResponse:v93 callbackQueue:v112 callback:?];
-      v89 = v102;
+      v98 = [NEIKEv2DeleteIKEContext alloc];
+      v92 = objc_getProperty(selfCopy3, v99, 384, 1);
+      v111[0] = MEMORY[0x1E69E9820];
+      v111[1] = 3221225472;
+      v111[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_477;
+      v111[3] = &unk_1E7F083C8;
+      v93 = v112;
+      v112[0] = initiatorCopy;
+      v112[1] = selfCopy3;
+      v94 = &v113;
+      v113 = v96;
+      v95 = [(NEIKEv2DeleteIKEContext *)&v98->super.super.isa initDeleteIKEWithResponse:v92 callbackQueue:v111 callback:?];
+      v88 = v101;
     }
 
     else
     {
       selfCopy3 = self;
-      v89 = v33;
-      v90 = ne_log_obj();
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      v88 = v33;
+      v89 = ne_log_obj();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy4 = self;
-        v120 = 2112;
-        v121 = v33;
-        _os_log_error_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (initiator rekey followup KE)", buf, 0x16u);
+        v119 = 2112;
+        v120 = v33;
+        _os_log_error_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (initiator rekey followup KE)", buf, 0x16u);
       }
 
-      v91 = [NEIKEv2DeleteIKEContext alloc];
-      v93 = objc_getProperty(selfCopy3, v92, 384, 1);
-      v115[0] = MEMORY[0x1E69E9820];
-      v115[1] = 3221225472;
-      v115[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke;
-      v115[3] = &unk_1E7F083C8;
-      v94 = v116;
-      v116[0] = initiatorCopy;
-      v116[1] = selfCopy3;
-      v95 = &v117;
-      v117 = v89;
-      v96 = [(NEIKEv2DeleteIKEContext *)&v91->super.super.isa initDeleteIKEWithResponse:v93 callbackQueue:v115 callback:?];
-      v97 = 0;
+      v90 = [NEIKEv2DeleteIKEContext alloc];
+      v92 = objc_getProperty(selfCopy3, v91, 384, 1);
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke;
+      v114[3] = &unk_1E7F083C8;
+      v93 = v115;
+      v115[0] = initiatorCopy;
+      v115[1] = selfCopy3;
+      v94 = &v116;
+      v116 = v88;
+      v95 = [(NEIKEv2DeleteIKEContext *)&v90->super.super.isa initDeleteIKEWithResponse:v92 callbackQueue:v114 callback:?];
+      v96 = 0;
     }
 
-    [(NEIKEv2Session *)selfCopy3 initiateDelete:v96];
+    [(NEIKEv2Session *)selfCopy3 initiateDelete:v95];
     goto LABEL_44;
   }
 
@@ -16756,8 +16670,6 @@ LABEL_26:
 
   iterationCopy[2](iterationCopy);
 LABEL_44:
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke(uint64_t a1)
@@ -16819,7 +16731,7 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
 
 void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v137 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] == 44)
   {
@@ -16972,7 +16884,7 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
                 if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 136315138;
-                  v132 = "[NEIKEv2IKESA(Crypto) processFollowupKeyExchange]";
+                  v131 = "[NEIKEv2IKESA(Crypto) processFollowupKeyExchange]";
                   _os_log_fault_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_FAULT, "%s called with null self.followupSharedSecrets", buf, 0xCu);
                 }
               }
@@ -16993,18 +16905,18 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
             }
 
             v87 = v86;
-            v111[0] = MEMORY[0x1E69E9820];
-            v111[1] = 3221225472;
-            v111[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_505;
-            v111[3] = &unk_1E7F081C0;
+            v110[0] = MEMORY[0x1E69E9820];
+            v110[1] = 3221225472;
+            v110[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_505;
+            v110[3] = &unk_1E7F081C0;
             v88 = *(a1 + 40);
             v89 = *(a1 + 32);
-            v112 = v88;
-            v113 = v89;
-            v90 = [(NEIKEv2DeleteIKEContext *)&v85->super.super.isa initDeleteIKEWithResponse:v87 callbackQueue:v111 callback:?];
+            v111 = v88;
+            v112 = v89;
+            v90 = [(NEIKEv2DeleteIKEContext *)&v85->super.super.isa initDeleteIKEWithResponse:v87 callbackQueue:v110 callback:?];
 
             [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v90];
-            v56 = v112;
+            v56 = v111;
           }
 
           else
@@ -17012,32 +16924,32 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
             v73 = ne_log_obj();
             if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
             {
-              v95 = *(a1 + 32);
+              v94 = *(a1 + 32);
               if (v6)
               {
-                v96 = objc_getProperty(v6, v74, 88, 1);
-                v98 = v96;
-                if (v96)
+                v95 = objc_getProperty(v6, v74, 88, 1);
+                v97 = v95;
+                if (v95)
                 {
-                  v96 = objc_getProperty(v96, v97, 32, 1);
+                  v95 = objc_getProperty(v95, v96, 32, 1);
                 }
               }
 
               else
               {
-                v98 = 0;
-                v96 = 0;
+                v97 = 0;
+                v95 = 0;
               }
 
-              v99 = v96;
-              v100 = [v99 method];
-              v101 = [*(a1 + 48) method];
+              v98 = v95;
+              v99 = [v98 method];
+              v100 = [*(a1 + 48) method];
               *buf = 138412802;
-              v132 = v95;
-              v133 = 2048;
-              v134 = v100;
-              v135 = 2048;
-              v136 = v101;
+              v131 = v94;
+              v132 = 2048;
+              v133 = v99;
+              v134 = 2048;
+              v135 = v100;
               _os_log_error_impl(&dword_1BA83C000, v73, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (initiator rekey followup KE)", buf, 0x20u);
             }
 
@@ -17049,21 +16961,21 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
             }
 
             v78 = v77;
-            v114[0] = MEMORY[0x1E69E9820];
-            v114[1] = 3221225472;
-            v114[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_501;
-            v114[3] = &unk_1E7F08468;
+            v113[0] = MEMORY[0x1E69E9820];
+            v113[1] = 3221225472;
+            v113[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_501;
+            v113[3] = &unk_1E7F08468;
             v79 = *(a1 + 40);
             v80 = *(a1 + 32);
-            v115 = v79;
-            v116 = v80;
+            v114 = v79;
+            v115 = v80;
             v6 = v6;
-            v117 = v6;
-            v118 = *(a1 + 48);
-            v81 = [(NEIKEv2DeleteIKEContext *)&v76->super.super.isa initDeleteIKEWithResponse:v78 callbackQueue:v114 callback:?];
+            v116 = v6;
+            v117 = *(a1 + 48);
+            v81 = [(NEIKEv2DeleteIKEContext *)&v76->super.super.isa initDeleteIKEWithResponse:v78 callbackQueue:v113 callback:?];
 
             [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v81];
-            v56 = v115;
+            v56 = v114;
           }
         }
 
@@ -17072,9 +16984,9 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
           v65 = ne_log_obj();
           if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
           {
-            v94 = *(a1 + 32);
+            v93 = *(a1 + 32);
             *buf = 138412290;
-            v132 = v94;
+            v131 = v93;
             _os_log_error_impl(&dword_1BA83C000, v65, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (initiator rekey followup KE)", buf, 0xCu);
           }
 
@@ -17086,18 +16998,18 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
           }
 
           v69 = v68;
-          v119[0] = MEMORY[0x1E69E9820];
-          v119[1] = 3221225472;
-          v119[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_497;
-          v119[3] = &unk_1E7F081C0;
+          v118[0] = MEMORY[0x1E69E9820];
+          v118[1] = 3221225472;
+          v118[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_497;
+          v118[3] = &unk_1E7F081C0;
           v70 = *(a1 + 40);
           v71 = *(a1 + 32);
-          v120 = v70;
-          v121 = v71;
-          v72 = [(NEIKEv2DeleteIKEContext *)&v67->super.super.isa initDeleteIKEWithResponse:v69 callbackQueue:v119 callback:?];
+          v119 = v70;
+          v120 = v71;
+          v72 = [(NEIKEv2DeleteIKEContext *)&v67->super.super.isa initDeleteIKEWithResponse:v69 callbackQueue:v118 callback:?];
 
           [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v72];
-          v56 = v120;
+          v56 = v119;
         }
       }
 
@@ -17106,9 +17018,9 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
         v57 = ne_log_obj();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          v93 = *(a1 + 32);
+          v92 = *(a1 + 32);
           *buf = 138412290;
-          v132 = v93;
+          v131 = v92;
           _os_log_error_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (initiator rekey followup KE)", buf, 0xCu);
         }
 
@@ -17120,18 +17032,18 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
         }
 
         v61 = v60;
-        v122[0] = MEMORY[0x1E69E9820];
-        v122[1] = 3221225472;
-        v122[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_493;
-        v122[3] = &unk_1E7F081C0;
+        v121[0] = MEMORY[0x1E69E9820];
+        v121[1] = 3221225472;
+        v121[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_493;
+        v121[3] = &unk_1E7F081C0;
         v62 = *(a1 + 40);
         v63 = *(a1 + 32);
-        v123 = v62;
-        v124 = v63;
-        v64 = [(NEIKEv2DeleteIKEContext *)&v59->super.super.isa initDeleteIKEWithResponse:v61 callbackQueue:v122 callback:?];
+        v122 = v62;
+        v123 = v63;
+        v64 = [(NEIKEv2DeleteIKEContext *)&v59->super.super.isa initDeleteIKEWithResponse:v61 callbackQueue:v121 callback:?];
 
         [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v64];
-        v56 = v123;
+        v56 = v122;
       }
     }
 
@@ -17140,9 +17052,9 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
       v48 = ne_log_obj();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v92 = *(a1 + 32);
+        v91 = *(a1 + 32);
         *buf = 138412290;
-        v132 = v92;
+        v131 = v91;
         _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (initiator rekey followup KE)", buf, 0xCu);
       }
 
@@ -17154,55 +17066,53 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
       }
 
       v52 = v51;
-      v125[0] = MEMORY[0x1E69E9820];
-      v125[1] = 3221225472;
-      v125[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_489;
-      v125[3] = &unk_1E7F081C0;
+      v124[0] = MEMORY[0x1E69E9820];
+      v124[1] = 3221225472;
+      v124[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_489;
+      v124[3] = &unk_1E7F081C0;
       v53 = *(a1 + 40);
       v54 = *(a1 + 32);
-      v126 = v53;
-      v127 = v54;
-      v55 = [(NEIKEv2DeleteIKEContext *)&v50->super.super.isa initDeleteIKEWithResponse:v52 callbackQueue:v125 callback:?];
+      v125 = v53;
+      v126 = v54;
+      v55 = [(NEIKEv2DeleteIKEContext *)&v50->super.super.isa initDeleteIKEWithResponse:v52 callbackQueue:v124 callback:?];
 
       [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v55];
-      v56 = v126;
+      v56 = v125;
     }
 
     goto LABEL_60;
   }
 
-  v102 = ne_log_obj();
-  if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+  v101 = ne_log_obj();
+  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
   {
-    v110 = *(a1 + 32);
+    v109 = *(a1 + 32);
     *buf = 138412290;
-    v132 = v110;
-    _os_log_error_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE reply (initiator rekey followup KE)", buf, 0xCu);
+    v131 = v109;
+    _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE reply (initiator rekey followup KE)", buf, 0xCu);
   }
 
-  v104 = [NEIKEv2DeleteIKEContext alloc];
-  v105 = *(a1 + 32);
-  if (v105)
+  v103 = [NEIKEv2DeleteIKEContext alloc];
+  v104 = *(a1 + 32);
+  if (v104)
   {
-    v105 = objc_getProperty(v105, v103, 384, 1);
+    v104 = objc_getProperty(v104, v102, 384, 1);
   }
 
-  v106 = v105;
-  v128[0] = MEMORY[0x1E69E9820];
-  v128[1] = 3221225472;
-  v128[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_485;
-  v128[3] = &unk_1E7F081C0;
-  v107 = *(a1 + 40);
-  v108 = *(a1 + 32);
+  v105 = v104;
+  v127[0] = MEMORY[0x1E69E9820];
+  v127[1] = 3221225472;
+  v127[2] = __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_485;
+  v127[3] = &unk_1E7F081C0;
+  v106 = *(a1 + 40);
+  v107 = *(a1 + 32);
+  v128 = v106;
   v129 = v107;
-  v130 = v108;
-  v109 = [(NEIKEv2DeleteIKEContext *)&v104->super.super.isa initDeleteIKEWithResponse:v106 callbackQueue:v128 callback:?];
+  v108 = [(NEIKEv2DeleteIKEContext *)&v103->super.super.isa initDeleteIKEWithResponse:v105 callbackQueue:v127 callback:?];
 
-  [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v109];
-  v6 = v129;
+  [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v108];
+  v6 = v128;
 LABEL_60:
-
-  v91 = *MEMORY[0x1E69E9840];
 }
 
 void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_rekeyIKEContext_iteration_handler___block_invoke_485(uint64_t a1)
@@ -17374,7 +17284,7 @@ void __101__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAInitiator_reke
 
 void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v247 = *MEMORY[0x1E69E9840];
+  v246 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 56);
   v6 = *(a1 + 32);
@@ -17557,7 +17467,7 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
 
                 v60 = v56;
                 v61 = *(a1 + 32);
-                v226 = v29;
+                v225 = v29;
                 if (v61)
                 {
                   v62 = objc_getProperty(v61, v59, 176, 1);
@@ -17579,97 +17489,97 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
 
                 if ((v66 & 1) == 0)
                 {
-                  v117 = ne_log_obj();
-                  if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+                  v116 = ne_log_obj();
+                  if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
                   {
-                    v200 = *(a1 + 40);
+                    v199 = *(a1 + 40);
                     if (v23)
                     {
-                      v201 = objc_getProperty(v23, v118, 96, 1);
-                      v203 = v201;
-                      v204 = &OBJC_IVAR___NEFilterFlow__direction;
-                      if (v201)
+                      v200 = objc_getProperty(v23, v117, 96, 1);
+                      v202 = v200;
+                      v203 = &OBJC_IVAR___NEFilterFlow__direction;
+                      if (v200)
                       {
-                        v201 = objc_getProperty(v201, v202, 40, 1);
+                        v200 = objc_getProperty(v200, v201, 40, 1);
                       }
                     }
 
                     else
                     {
-                      v203 = 0;
-                      v201 = 0;
-                      v204 = &OBJC_IVAR___NEFilterFlow__direction;
+                      v202 = 0;
+                      v200 = 0;
+                      v203 = &OBJC_IVAR___NEFilterFlow__direction;
                     }
 
-                    v206 = v201;
-                    v207 = *(a1 + 32);
-                    if (v207)
+                    v205 = v200;
+                    v206 = *(a1 + 32);
+                    if (v206)
                     {
-                      v208 = objc_getProperty(v207, v205, 176, 1);
-                      v210 = v208;
-                      if (v208)
+                      v207 = objc_getProperty(v206, v204, 176, 1);
+                      v209 = v207;
+                      if (v207)
                       {
-                        v208 = objc_getProperty(v208, v209, v204[559], 1);
+                        v207 = objc_getProperty(v207, v208, v203[559], 1);
                       }
                     }
 
                     else
                     {
-                      v210 = 0;
-                      v208 = 0;
+                      v209 = 0;
+                      v207 = 0;
                     }
 
-                    v211 = v208;
+                    v210 = v207;
                     *buf = 138412802;
-                    *&buf[4] = v200;
+                    *&buf[4] = v199;
                     *&buf[12] = 2112;
-                    *&buf[14] = v206;
-                    v245 = 2112;
-                    v246 = v211;
-                    _os_log_error_impl(&dword_1BA83C000, v117, OS_LOG_TYPE_ERROR, "%@ ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey followup KE)", buf, 0x20u);
+                    *&buf[14] = v205;
+                    v244 = 2112;
+                    v245 = v210;
+                    _os_log_error_impl(&dword_1BA83C000, v116, OS_LOG_TYPE_ERROR, "%@ ADDITIONAL_KEY_EXCHANGE in FOLLOWUP_KE request doesn't match expected (%@ != %@) (responder rekey followup KE)", buf, 0x20u);
                   }
 
-                  v119 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
-                  v107 = v119;
-                  v29 = v226;
-                  if (v119)
+                  v118 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
+                  v107 = v118;
+                  v29 = v225;
+                  if (v118)
                   {
-                    [(NEIKEv2Packet *)v119 addNotification:0 data:?];
+                    [(NEIKEv2Packet *)v118 addNotification:0 data:?];
                   }
 
                   if (([(NEIKEv2Session *)*(a1 + 40) sendReply:v107 replyHandler:0]& 1) != 0)
                   {
-                    v122 = [NEIKEv2DeleteIKEContext alloc];
-                    v123 = *(a1 + 40);
-                    if (v123)
+                    v121 = [NEIKEv2DeleteIKEContext alloc];
+                    v122 = *(a1 + 40);
+                    if (v122)
                     {
-                      v123 = objc_getProperty(v123, v121, 384, 1);
+                      v122 = objc_getProperty(v122, v120, 384, 1);
                     }
 
-                    v124 = v123;
-                    v232[0] = MEMORY[0x1E69E9820];
-                    v232[1] = 3221225472;
-                    v232[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_539;
-                    v232[3] = &unk_1E7F083C8;
-                    v232[4] = *(a1 + 40);
-                    v233 = v23;
-                    v234 = *(a1 + 32);
-                    v125 = [(NEIKEv2DeleteIKEContext *)&v122->super.super.isa initDeleteIKEWithResponse:v124 callbackQueue:v232 callback:?];
+                    v123 = v122;
+                    v231[0] = MEMORY[0x1E69E9820];
+                    v231[1] = 3221225472;
+                    v231[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_539;
+                    v231[3] = &unk_1E7F083C8;
+                    v231[4] = *(a1 + 40);
+                    v232 = v23;
+                    v233 = *(a1 + 32);
+                    v124 = [(NEIKEv2DeleteIKEContext *)&v121->super.super.isa initDeleteIKEWithResponse:v123 callbackQueue:v231 callback:?];
 
-                    [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v125];
+                    [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v124];
                   }
 
                   else
                   {
-                    v132 = *(a1 + 40);
-                    if (v132)
+                    v131 = *(a1 + 40);
+                    if (v131)
                     {
-                      v132 = objc_getProperty(v132, v120, 352, 1);
+                      v131 = objc_getProperty(v131, v119, 352, 1);
                     }
 
-                    v133 = v132;
-                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"responder rekey followup KE mismatched link", v134, v135, v136, v137, v138, v139, v140, v225);
-                    [(NEIKEv2IKESA *)v133 setState:ErrorFailedToSend error:?];
+                    v132 = v131;
+                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"responder rekey followup KE mismatched link", v133, v134, v135, v136, v137, v138, v139, v224);
+                    [(NEIKEv2IKESA *)v132 setState:ErrorFailedToSend error:?];
 
                     [(NEIKEv2Session *)*(a1 + 40) reportState];
                     [(NEIKEv2Session *)*(a1 + 40) resetAll];
@@ -17683,7 +17593,7 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
                 {
                   v69 = objc_getProperty(v23, v67, 88, 1);
                   v71 = v69;
-                  v29 = v226;
+                  v29 = v225;
                   if (v69)
                   {
                     v69 = objc_getProperty(v69, v70, 40, 1);
@@ -17694,7 +17604,7 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
                 {
                   v71 = 0;
                   v69 = 0;
-                  v29 = v226;
+                  v29 = v225;
                 }
 
                 v72 = v69;
@@ -17725,11 +17635,11 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
 
                   if (v75 >= v81)
                   {
-                    v145 = *(a1 + 32);
+                    v144 = *(a1 + 32);
                     v88 = &OBJC_IVAR___NEFilterFlow__direction;
-                    if (v145)
+                    if (v144)
                     {
-                      objc_setProperty_atomic(v145, v82, 0, 176);
+                      objc_setProperty_atomic(v144, v82, 0, 176);
                     }
                   }
 
@@ -17750,150 +17660,150 @@ void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iter
                   }
 
                   v107 = [(NEIKEv2Packet *)[NEIKEv2FollowupKEPacket alloc] initResponse:v23];
-                  v146 = objc_alloc_init(NEIKEv2KeyExchangePayload);
-                  v148 = v146;
+                  v145 = objc_alloc_init(NEIKEv2KeyExchangePayload);
+                  v147 = v145;
                   if (v107)
                   {
-                    objc_setProperty_atomic(v107, v147, v146, 88);
+                    objc_setProperty_atomic(v107, v146, v145, 88);
 
-                    v150 = objc_getProperty(v107, v149, 88, 1);
-                    v152 = v150;
-                    if (v150)
+                    v149 = objc_getProperty(v107, v148, 88, 1);
+                    v151 = v149;
+                    if (v149)
                     {
-                      objc_setProperty_atomic(v150, v151, v34, v88[541]);
+                      objc_setProperty_atomic(v149, v150, v34, v88[541]);
                     }
                   }
 
                   else
                   {
 
-                    v152 = 0;
+                    v151 = 0;
                   }
 
-                  v154 = *(a1 + 32);
-                  if (v154)
+                  v153 = *(a1 + 32);
+                  if (v153)
                   {
-                    v155 = objc_getProperty(v154, v153, 160, 1);
-                    v156 = v155;
-                    if (v155)
+                    v154 = objc_getProperty(v153, v152, 160, 1);
+                    v155 = v154;
+                    if (v154)
                     {
-                      v157 = *(v155 + 2);
+                      v156 = *(v154 + 2);
                       goto LABEL_108;
                     }
                   }
 
                   else
                   {
-                    v156 = 0;
+                    v155 = 0;
                   }
 
-                  v157 = 0;
+                  v156 = 0;
 LABEL_108:
-                  v159 = v157;
+                  v158 = v156;
                   if (v107)
                   {
-                    v160 = objc_getProperty(v107, v158, 88, 1);
-                    v162 = v160;
-                    if (v160)
+                    v159 = objc_getProperty(v107, v157, 88, 1);
+                    v161 = v159;
+                    if (v159)
                     {
-                      objc_setProperty_atomic(v160, v161, v159, 40);
+                      objc_setProperty_atomic(v159, v160, v158, 40);
                     }
                   }
 
                   else
                   {
-                    v162 = 0;
+                    v161 = 0;
                   }
 
-                  v164 = *(a1 + 32);
-                  if (v164)
+                  v163 = *(a1 + 32);
+                  if (v163)
                   {
-                    v164 = objc_getProperty(v164, v163, 176, 1);
+                    v163 = objc_getProperty(v163, v162, 176, 1);
                   }
 
-                  v165 = v164;
-                  v167 = v165;
+                  v164 = v163;
+                  v166 = v164;
                   if (v107)
                   {
-                    objc_setProperty_atomic(v107, v166, v165, 96);
+                    objc_setProperty_atomic(v107, v165, v164, 96);
 
-                    v169 = objc_getProperty(v107, v168, 88, 1);
+                    v168 = objc_getProperty(v107, v167, 88, 1);
                   }
 
                   else
                   {
 
-                    v169 = 0;
+                    v168 = 0;
                   }
 
-                  v170 = v169;
-                  v171 = [(NEIKEv2Payload *)v170 isValid];
+                  v169 = v168;
+                  v170 = [(NEIKEv2Payload *)v169 isValid];
 
-                  if ((v171 & 1) == 0)
+                  if ((v170 & 1) == 0)
                   {
-                    v187 = ne_log_obj();
-                    if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
+                    v186 = ne_log_obj();
+                    if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
                     {
-                      v213 = *(a1 + 40);
+                      v212 = *(a1 + 40);
                       *buf = 138412290;
-                      *&buf[4] = v213;
-                      _os_log_error_impl(&dword_1BA83C000, v187, OS_LOG_TYPE_ERROR, "%@ Failed to create FOLLOWUP_KE packet (responder rekey followup KE)", buf, 0xCu);
+                      *&buf[4] = v212;
+                      _os_log_error_impl(&dword_1BA83C000, v186, OS_LOG_TYPE_ERROR, "%@ Failed to create FOLLOWUP_KE packet (responder rekey followup KE)", buf, 0xCu);
                     }
 
-                    v189 = [NEIKEv2DeleteIKEContext alloc];
-                    v190 = *(a1 + 40);
-                    if (v190)
+                    v188 = [NEIKEv2DeleteIKEContext alloc];
+                    v189 = *(a1 + 40);
+                    if (v189)
                     {
-                      v190 = objc_getProperty(v190, v188, 384, 1);
+                      v189 = objc_getProperty(v189, v187, 384, 1);
                     }
 
-                    v191 = v190;
-                    v229[0] = MEMORY[0x1E69E9820];
-                    v229[1] = 3221225472;
-                    v229[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_547;
-                    v229[3] = &unk_1E7F08740;
-                    v229[4] = *(a1 + 40);
-                    v192 = [(NEIKEv2DeleteIKEContext *)&v189->super.super.isa initDeleteIKEWithResponse:v191 callbackQueue:v229 callback:?];
+                    v190 = v189;
+                    v228[0] = MEMORY[0x1E69E9820];
+                    v228[1] = 3221225472;
+                    v228[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_547;
+                    v228[3] = &unk_1E7F08740;
+                    v228[4] = *(a1 + 40);
+                    v191 = [(NEIKEv2DeleteIKEContext *)&v188->super.super.isa initDeleteIKEWithResponse:v190 callbackQueue:v228 callback:?];
 
-                    [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v192];
+                    [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v191];
                     goto LABEL_76;
                   }
 
-                  v173 = *(a1 + 32);
-                  if (v173)
+                  v172 = *(a1 + 32);
+                  if (v172)
                   {
-                    v173 = objc_getProperty(v173, v172, 184, 1);
+                    v172 = objc_getProperty(v172, v171, 184, 1);
                   }
 
-                  v175 = v173;
-                  v176 = *(a1 + 32);
-                  if (v176)
+                  v174 = v172;
+                  v175 = *(a1 + 32);
+                  if (v175)
                   {
-                    v177 = objc_getProperty(v176, v174, 160, 1);
-                    v178 = v177;
-                    if (v177)
+                    v176 = objc_getProperty(v175, v173, 160, 1);
+                    v177 = v176;
+                    if (v176)
                     {
-                      v179 = *(v177 + 3);
+                      v178 = *(v176 + 3);
 LABEL_121:
-                      v180 = v179;
-                      [v175 addObject:v180];
+                      v179 = v178;
+                      [v174 addObject:v179];
 
-                      v182 = *(a1 + 32);
-                      if (v182)
+                      v181 = *(a1 + 32);
+                      if (v181)
                       {
-                        objc_setProperty_atomic(v182, v181, 0, 160);
-                        v183 = *(a1 + 32);
+                        objc_setProperty_atomic(v181, v180, 0, 160);
+                        v182 = *(a1 + 32);
                       }
 
                       else
                       {
-                        v183 = 0;
+                        v182 = 0;
                       }
 
-                      v184 = *(a1 + 40);
-                      v185 = *(a1 + 56);
-                      v186 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"responder rekey FOLLOWUP_KE #%zu", v185 + 1];
-                      [(NEIKEv2Session *)v184 handleFollowupKEForRekeyIKESAResponder:v183 iteration:v185 + 1 replyPacket:v107 replyPacketDescription:v186 handler:*(a1 + 48)];
+                      v183 = *(a1 + 40);
+                      v184 = *(a1 + 56);
+                      v185 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"responder rekey FOLLOWUP_KE #%zu", v184 + 1];
+                      [(NEIKEv2Session *)v183 handleFollowupKEForRekeyIKESAResponder:v182 iteration:v184 + 1 replyPacket:v107 replyPacketDescription:v185 handler:*(a1 + 48)];
 
                       goto LABEL_76;
                     }
@@ -17901,98 +17811,98 @@ LABEL_121:
 
                   else
                   {
-                    v178 = 0;
+                    v177 = 0;
                   }
 
-                  v179 = 0;
+                  v178 = 0;
                   goto LABEL_121;
                 }
 
-                v126 = ne_log_obj();
-                if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+                v125 = ne_log_obj();
+                if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
                 {
-                  v212 = *(a1 + 40);
+                  v211 = *(a1 + 40);
                   *buf = 138412546;
-                  *&buf[4] = v212;
+                  *&buf[4] = v211;
                   *&buf[12] = 2112;
                   *&buf[14] = v34;
-                  _os_log_error_impl(&dword_1BA83C000, v126, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (responder rekey followup KE)", buf, 0x16u);
+                  _os_log_error_impl(&dword_1BA83C000, v125, OS_LOG_TYPE_ERROR, "%@ Failed to generate values for KEM %@ (responder rekey followup KE)", buf, 0x16u);
                 }
 
-                v128 = [NEIKEv2DeleteIKEContext alloc];
-                v129 = *(a1 + 40);
-                if (v129)
+                v127 = [NEIKEv2DeleteIKEContext alloc];
+                v128 = *(a1 + 40);
+                if (v128)
                 {
-                  v129 = objc_getProperty(v129, v127, 384, 1);
+                  v128 = objc_getProperty(v128, v126, 384, 1);
                 }
 
-                v130 = v129;
-                v230[0] = MEMORY[0x1E69E9820];
-                v230[1] = 3221225472;
-                v230[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_543;
-                v230[3] = &unk_1E7F081C0;
-                v230[4] = *(a1 + 40);
-                v231 = v34;
-                v131 = [(NEIKEv2DeleteIKEContext *)&v128->super.super.isa initDeleteIKEWithResponse:v130 callbackQueue:v230 callback:?];
+                v129 = v128;
+                v229[0] = MEMORY[0x1E69E9820];
+                v229[1] = 3221225472;
+                v229[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_543;
+                v229[3] = &unk_1E7F081C0;
+                v229[4] = *(a1 + 40);
+                v230 = v34;
+                v130 = [(NEIKEv2DeleteIKEContext *)&v127->super.super.isa initDeleteIKEWithResponse:v129 callbackQueue:v229 callback:?];
 
-                [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v131];
-                v116 = v231;
+                [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v130];
+                v115 = v230;
               }
 
               else
               {
-                v109 = ne_log_obj();
-                if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+                v108 = ne_log_obj();
+                if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
                 {
-                  v227 = v29;
-                  v195 = *(a1 + 40);
+                  v226 = v29;
+                  v194 = *(a1 + 40);
                   if (v23)
                   {
-                    v196 = objc_getProperty(v23, v110, 88, 1);
-                    v198 = v196;
-                    if (v196)
+                    v195 = objc_getProperty(v23, v109, 88, 1);
+                    v197 = v195;
+                    if (v195)
                     {
-                      v196 = objc_getProperty(v196, v197, 32, 1);
+                      v195 = objc_getProperty(v195, v196, 32, 1);
                     }
                   }
 
                   else
                   {
-                    v198 = 0;
-                    v196 = 0;
+                    v197 = 0;
+                    v195 = 0;
                   }
 
-                  v199 = v196;
+                  v198 = v195;
                   *buf = 138412802;
-                  *&buf[4] = v195;
+                  *&buf[4] = v194;
                   *&buf[12] = 2048;
-                  *&buf[14] = [v199 method];
-                  v245 = 2048;
-                  v246 = [v34 method];
-                  _os_log_error_impl(&dword_1BA83C000, v109, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (responder rekey followup KE)", buf, 0x20u);
+                  *&buf[14] = [v198 method];
+                  v244 = 2048;
+                  v245 = [v34 method];
+                  _os_log_error_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu) (responder rekey followup KE)", buf, 0x20u);
 
-                  v29 = v227;
+                  v29 = v226;
                 }
 
-                v112 = [NEIKEv2DeleteIKEContext alloc];
-                v113 = *(a1 + 40);
-                if (v113)
+                v111 = [NEIKEv2DeleteIKEContext alloc];
+                v112 = *(a1 + 40);
+                if (v112)
                 {
-                  v113 = objc_getProperty(v113, v111, 384, 1);
+                  v112 = objc_getProperty(v112, v110, 384, 1);
                 }
 
-                v114 = v113;
-                v235[0] = MEMORY[0x1E69E9820];
-                v235[1] = 3221225472;
-                v235[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_532;
-                v235[3] = &unk_1E7F083C8;
-                v235[4] = *(a1 + 40);
-                v236 = v23;
-                v237 = v34;
-                v115 = [(NEIKEv2DeleteIKEContext *)&v112->super.super.isa initDeleteIKEWithResponse:v114 callbackQueue:v235 callback:?];
+                v113 = v112;
+                v234[0] = MEMORY[0x1E69E9820];
+                v234[1] = 3221225472;
+                v234[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_532;
+                v234[3] = &unk_1E7F083C8;
+                v234[4] = *(a1 + 40);
+                v235 = v23;
+                v236 = v34;
+                v114 = [(NEIKEv2DeleteIKEContext *)&v111->super.super.isa initDeleteIKEWithResponse:v113 callbackQueue:v234 callback:?];
 
-                [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v115];
-                v116 = v236;
+                [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v114];
+                v115 = v235;
               }
 
 LABEL_84:
@@ -18003,9 +17913,9 @@ LABEL_84:
             v104 = ne_log_obj();
             if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
             {
-              v194 = *(a1 + 40);
+              v193 = *(a1 + 40);
               *buf = 138412290;
-              *&buf[4] = v194;
+              *&buf[4] = v193;
               _os_log_error_impl(&dword_1BA83C000, v104, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload (responder rekey followup KE)", buf, 0xCu);
             }
 
@@ -18017,12 +17927,12 @@ LABEL_84:
             }
 
             v99 = v106;
-            v238[0] = MEMORY[0x1E69E9820];
-            v238[1] = 3221225472;
-            v238[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_528;
-            v238[3] = &unk_1E7F08740;
-            v238[4] = *(a1 + 40);
-            v100 = v238;
+            v237[0] = MEMORY[0x1E69E9820];
+            v237[1] = 3221225472;
+            v237[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_528;
+            v237[3] = &unk_1E7F08740;
+            v237[4] = *(a1 + 40);
+            v100 = v237;
           }
 
           else
@@ -18030,9 +17940,9 @@ LABEL_84:
             v101 = ne_log_obj();
             if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
             {
-              v193 = *(a1 + 40);
+              v192 = *(a1 + 40);
               *buf = 138412290;
-              *&buf[4] = v193;
+              *&buf[4] = v192;
               _os_log_error_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload (responder rekey followup KE)", buf, 0xCu);
             }
 
@@ -18044,12 +17954,12 @@ LABEL_84:
             }
 
             v99 = v103;
-            v239[0] = MEMORY[0x1E69E9820];
-            v239[1] = 3221225472;
-            v239[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_524;
-            v239[3] = &unk_1E7F08740;
-            v239[4] = *(a1 + 40);
-            v100 = v239;
+            v238[0] = MEMORY[0x1E69E9820];
+            v238[1] = 3221225472;
+            v238[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_524;
+            v238[3] = &unk_1E7F08740;
+            v238[4] = *(a1 + 40);
+            v100 = v238;
           }
         }
 
@@ -18058,9 +17968,9 @@ LABEL_84:
           v95 = ne_log_obj();
           if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
           {
-            v144 = *(a1 + 40);
+            v143 = *(a1 + 40);
             *buf = 138412290;
-            *&buf[4] = v144;
+            *&buf[4] = v143;
             _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload (responder rekey followup KE)", buf, 0xCu);
           }
 
@@ -18072,12 +17982,12 @@ LABEL_84:
           }
 
           v99 = v98;
-          v240[0] = MEMORY[0x1E69E9820];
-          v240[1] = 3221225472;
-          v240[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_520;
-          v240[3] = &unk_1E7F08740;
-          v240[4] = *(a1 + 40);
-          v100 = v240;
+          v239[0] = MEMORY[0x1E69E9820];
+          v239[1] = 3221225472;
+          v239[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_520;
+          v239[3] = &unk_1E7F08740;
+          v239[4] = *(a1 + 40);
+          v100 = v239;
         }
 
         v107 = [(NEIKEv2DeleteIKEContext *)&v97->super.super.isa initDeleteIKEWithResponse:v99 callbackQueue:v100 callback:?];
@@ -18089,61 +17999,61 @@ LABEL_77:
         goto LABEL_78;
       }
 
-      v217 = ne_log_obj();
-      if (os_log_type_enabled(v217, OS_LOG_TYPE_ERROR))
+      v216 = ne_log_obj();
+      if (os_log_type_enabled(v216, OS_LOG_TYPE_ERROR))
       {
-        v224 = *(a1 + 40);
+        v223 = *(a1 + 40);
         *buf = 138412546;
-        *&buf[4] = v224;
+        *&buf[4] = v223;
         *&buf[12] = 2112;
         *&buf[14] = v29;
-        _os_log_error_impl(&dword_1BA83C000, v217, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (responder rekey followup KE)", buf, 0x16u);
+        _os_log_error_impl(&dword_1BA83C000, v216, OS_LOG_TYPE_ERROR, "%@ No chosen KEM found for transform type %@ (responder rekey followup KE)", buf, 0x16u);
       }
 
-      v219 = [NEIKEv2DeleteIKEContext alloc];
-      v220 = *(a1 + 40);
-      if (v220)
+      v218 = [NEIKEv2DeleteIKEContext alloc];
+      v219 = *(a1 + 40);
+      if (v219)
       {
-        v220 = objc_getProperty(v220, v218, 384, 1);
+        v219 = objc_getProperty(v219, v217, 384, 1);
       }
 
-      v221 = v220;
-      v241[0] = MEMORY[0x1E69E9820];
-      v241[1] = 3221225472;
-      v241[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_516;
-      v241[3] = &unk_1E7F081C0;
-      v241[4] = *(a1 + 40);
-      v242 = v29;
-      v222 = [(NEIKEv2DeleteIKEContext *)&v219->super.super.isa initDeleteIKEWithResponse:v221 callbackQueue:v241 callback:?];
+      v220 = v219;
+      v240[0] = MEMORY[0x1E69E9820];
+      v240[1] = 3221225472;
+      v240[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_516;
+      v240[3] = &unk_1E7F081C0;
+      v240[4] = *(a1 + 40);
+      v241 = v29;
+      v221 = [(NEIKEv2DeleteIKEContext *)&v218->super.super.isa initDeleteIKEWithResponse:v220 callbackQueue:v240 callback:?];
 
-      [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v222];
-      v116 = v242;
+      [(NEIKEv2Session *)*(a1 + 40) initiateDelete:v221];
+      v115 = v241;
       goto LABEL_84;
     }
 
-    v214 = ne_log_obj();
-    if (os_log_type_enabled(v214, OS_LOG_TYPE_ERROR))
+    v213 = ne_log_obj();
+    if (os_log_type_enabled(v213, OS_LOG_TYPE_ERROR))
     {
-      v223 = *(a1 + 40);
+      v222 = *(a1 + 40);
       *buf = 138412290;
-      *&buf[4] = v223;
-      _os_log_error_impl(&dword_1BA83C000, v214, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE packet (responder rekey followup KE)", buf, 0xCu);
+      *&buf[4] = v222;
+      _os_log_error_impl(&dword_1BA83C000, v213, OS_LOG_TYPE_ERROR, "%@ Failed to receive FOLLOWUP_KE packet (responder rekey followup KE)", buf, 0xCu);
     }
 
     v91 = [NEIKEv2DeleteIKEContext alloc];
-    v216 = *(a1 + 40);
-    if (v216)
+    v215 = *(a1 + 40);
+    if (v215)
     {
-      v216 = objc_getProperty(v216, v215, 384, 1);
+      v215 = objc_getProperty(v215, v214, 384, 1);
     }
 
-    v93 = v216;
-    v243[0] = MEMORY[0x1E69E9820];
-    v243[1] = 3221225472;
-    v243[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_512;
-    v243[3] = &unk_1E7F08740;
-    v243[4] = *(a1 + 40);
-    v94 = v243;
+    v93 = v215;
+    v242[0] = MEMORY[0x1E69E9820];
+    v242[1] = 3221225472;
+    v242[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_512;
+    v242[3] = &unk_1E7F08740;
+    v242[4] = *(a1 + 40);
+    v94 = v242;
 LABEL_59:
     v23 = [(NEIKEv2DeleteIKEContext *)&v91->super.super.isa initDeleteIKEWithResponse:v93 callbackQueue:v94 callback:?];
 
@@ -18170,19 +18080,17 @@ LABEL_78:
     }
 
     v93 = v92;
-    v228[0] = MEMORY[0x1E69E9820];
-    v228[1] = 3221225472;
-    v228[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_554;
-    v228[3] = &unk_1E7F08740;
-    v228[4] = *(a1 + 40);
-    v94 = v228;
+    v227[0] = MEMORY[0x1E69E9820];
+    v227[1] = 3221225472;
+    v227[2] = __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_554;
+    v227[3] = &unk_1E7F08740;
+    v227[4] = *(a1 + 40);
+    v94 = v227;
     goto LABEL_59;
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_79:
-
-  v108 = *MEMORY[0x1E69E9840];
 }
 
 void __120__NEIKEv2Session_Exchange__handleFollowupKEForRekeyIKESAResponder_iteration_replyPacket_replyPacketDescription_handler___block_invoke_512(uint64_t a1, const char *a2)
@@ -18478,9 +18386,9 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_565(uint64
   [(NEIKEv2Session *)v15 resetAll];
 }
 
-void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(uint64_t a1, void *a2)
+void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(void **a1, void *a2)
 {
-  v262 = *MEMORY[0x1E69E9840];
+  v261 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 exchangeType] != 36)
   {
@@ -18492,27 +18400,27 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(uint64_t
     }
 
     v111 = [NEIKEv2DeleteIKEContext alloc];
-    Property = *(a1 + 32);
+    Property = a1[4];
     if (Property)
     {
       Property = objc_getProperty(Property, v110, 384, 1);
     }
 
     v113 = Property;
-    v249[0] = MEMORY[0x1E69E9820];
-    v249[1] = 3221225472;
-    v249[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_569;
-    v249[3] = &unk_1E7F081C0;
-    v114 = v250;
-    v115 = *(a1 + 40);
-    v116 = *(a1 + 32);
-    v250[0] = v115;
-    v250[1] = v116;
-    v117 = v249;
+    v248[0] = MEMORY[0x1E69E9820];
+    v248[1] = 3221225472;
+    v248[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_569;
+    v248[3] = &unk_1E7F081C0;
+    v114 = v249;
+    v115 = a1[5];
+    v116 = a1[4];
+    v249[0] = v115;
+    v249[1] = v116;
+    v117 = v248;
     goto LABEL_81;
   }
 
-  v4 = *(a1 + 48);
+  v4 = a1[6];
   v6 = v4;
   if (!v3)
   {
@@ -18524,9 +18432,9 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(uint64_t
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      *v255 = 136315138;
-      v256 = "[NEIKEv2CreateChildPacket(Exchange) validateRekeyIKESA:]";
-      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v255, 0xCu);
+      *v254 = 136315138;
+      v255 = "[NEIKEv2CreateChildPacket(Exchange) validateRekeyIKESA:]";
+      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v254, 0xCu);
     }
 
     goto LABEL_75;
@@ -18534,45 +18442,45 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(uint64_t
 
   if ([(NEIKEv2Packet *)v3 hasErrors])
   {
-    v253 = 0u;
-    v254 = 0u;
-    v251 = 0u;
     v252 = 0u;
+    v253 = 0u;
+    v250 = 0u;
+    v251 = 0u;
     v8 = objc_getProperty(v3, v7, 64, 1);
-    v9 = [v8 countByEnumeratingWithState:&v251 objects:buf count:16];
+    v9 = [v8 countByEnumeratingWithState:&v250 objects:buf count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v252;
+      v11 = *v251;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v252 != v11)
+          if (*v251 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v251 + 1) + 8 * i);
+          v13 = *(*(&v250 + 1) + 8 * i);
           if (v13 && v13[1].isa - 1 <= 0x3FFE)
           {
             ErrorPeerInvalidSyntax = [(NEIKEv2NotifyPayload *)v13 copyError];
             v127 = ne_log_obj();
             if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
             {
-              v159 = [(NEIKEv2Packet *)v3 copyShortDescription];
-              *v255 = 138412546;
-              v256 = v159;
-              v257 = 2112;
-              v258 = ErrorPeerInvalidSyntax;
-              _os_log_error_impl(&dword_1BA83C000, v127, OS_LOG_TYPE_ERROR, "%@ Rekey IKE received notify error %@", v255, 0x16u);
+              v158 = [(NEIKEv2Packet *)v3 copyShortDescription];
+              *v254 = 138412546;
+              v255 = v158;
+              v256 = 2112;
+              v257 = ErrorPeerInvalidSyntax;
+              _os_log_error_impl(&dword_1BA83C000, v127, OS_LOG_TYPE_ERROR, "%@ Rekey IKE received notify error %@", v254, 0x16u);
             }
 
             goto LABEL_63;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v251 objects:buf count:16];
+        v10 = [v8 countByEnumeratingWithState:&v250 objects:buf count:16];
         if (v10)
         {
           continue;
@@ -18597,13 +18505,13 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2(uint64_t
     v118 = ne_log_obj();
     if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
     {
-      v156 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      v157 = [v8 count];
-      *v255 = 138412546;
-      v256 = v156;
-      v257 = 2048;
-      v258 = v157;
-      _os_log_error_impl(&dword_1BA83C000, v118, OS_LOG_TYPE_ERROR, "%@ Received %zu SA proposals, require 1", v255, 0x16u);
+      v155 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      v156 = [v8 count];
+      *v254 = 138412546;
+      v255 = v155;
+      v256 = 2048;
+      v257 = v156;
+      _os_log_error_impl(&dword_1BA83C000, v118, OS_LOG_TYPE_ERROR, "%@ Received %zu SA proposals, require 1", v254, 0x16u);
     }
 
     v119 = [v8 count];
@@ -18619,12 +18527,12 @@ LABEL_63:
     v128 = ne_log_obj();
     if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
     {
-      v161 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412546;
-      v256 = v161;
-      v257 = 2112;
-      v258 = ErrorPeerInvalidSyntax;
-      _os_log_error_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_ERROR, "%@ Received invalid SA proposal for rekey %@", v255, 0x16u);
+      v160 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412546;
+      v255 = v160;
+      v256 = 2112;
+      v257 = ErrorPeerInvalidSyntax;
+      _os_log_error_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_ERROR, "%@ Received invalid SA proposal for rekey %@", v254, 0x16u);
     }
 
     v136 = @"Received invalid SA proposal for rekey";
@@ -18639,15 +18547,15 @@ LABEL_63:
     v138 = ne_log_obj();
     if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
     {
-      v163 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      v165 = objc_getProperty(v6, v164, 96, 1);
-      *v255 = 138412802;
-      v256 = v163;
-      v257 = 2112;
-      v258 = ErrorPeerInvalidSyntax;
-      v259 = 2112;
-      v260 = v165;
-      _os_log_error_impl(&dword_1BA83C000, v138, OS_LOG_TYPE_ERROR, "%@ Received proposal for rekey %@ does not match previous chosen proposal %@", v255, 0x20u);
+      v162 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      v164 = objc_getProperty(v6, v163, 96, 1);
+      *v254 = 138412802;
+      v255 = v162;
+      v256 = 2112;
+      v257 = ErrorPeerInvalidSyntax;
+      v258 = 2112;
+      v259 = v164;
+      _os_log_error_impl(&dword_1BA83C000, v138, OS_LOG_TYPE_ERROR, "%@ Received proposal for rekey %@ does not match previous chosen proposal %@", v254, 0x20u);
     }
 
     v99 = objc_getProperty(v6, v139, 96, 1);
@@ -18663,13 +18571,13 @@ LABEL_63:
   v27 = objc_getProperty(v6, v26, 96, 1);
   if (!v27)
   {
-    v155 = ne_log_obj();
-    if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+    v154 = ne_log_obj();
+    if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
     {
-      v185 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v185;
-      _os_log_error_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_ERROR, "%@ Could not set chosen proposal values", v255, 0xCu);
+      v184 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v184;
+      _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ Could not set chosen proposal values", v254, 0xCu);
     }
 
     v136 = @"Could not set chosen proposal values";
@@ -18687,13 +18595,13 @@ LABEL_63:
 
   if (!v32)
   {
-    v158 = ne_log_obj();
-    if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+    v157 = ne_log_obj();
+    if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
     {
-      v199 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v199;
-      _os_log_error_impl(&dword_1BA83C000, v158, OS_LOG_TYPE_ERROR, "%@ SA proposal missing rekey SPI", v255, 0xCu);
+      v198 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v198;
+      _os_log_error_impl(&dword_1BA83C000, v157, OS_LOG_TYPE_ERROR, "%@ SA proposal missing rekey SPI", v254, 0xCu);
     }
 
     v136 = @"SA proposal missing rekey SPI";
@@ -18722,13 +18630,13 @@ LABEL_63:
 
   if (!v45)
   {
-    v160 = ne_log_obj();
-    if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
+    v159 = ne_log_obj();
+    if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
     {
-      v201 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v201;
-      _os_log_error_impl(&dword_1BA83C000, v160, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v255, 0xCu);
+      v200 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v200;
+      _os_log_error_impl(&dword_1BA83C000, v159, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v254, 0xCu);
     }
 
     v136 = @"Did not receive KE payload";
@@ -18746,13 +18654,13 @@ LABEL_63:
 
   if (!v50)
   {
-    v162 = ne_log_obj();
-    if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+    v161 = ne_log_obj();
+    if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
     {
-      v202 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v202;
-      _os_log_error_impl(&dword_1BA83C000, v162, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload", v255, 0xCu);
+      v201 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v201;
+      _os_log_error_impl(&dword_1BA83C000, v161, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload", v254, 0xCu);
     }
 
     v136 = @"Did not receive method in KE payload";
@@ -18770,13 +18678,13 @@ LABEL_63:
 
   if (!v55)
   {
-    v166 = ne_log_obj();
-    if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
+    v165 = ne_log_obj();
+    if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
     {
-      v203 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v203;
-      _os_log_error_impl(&dword_1BA83C000, v166, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload", v255, 0xCu);
+      v202 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v202;
+      _os_log_error_impl(&dword_1BA83C000, v165, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload", v254, 0xCu);
     }
 
     v136 = @"Did not receive data in KE payload";
@@ -18784,62 +18692,62 @@ LABEL_63:
   }
 
   v57 = objc_getProperty(v3, v56, 104, 1);
-  v238 = v57;
+  v237 = v57;
   if (v57)
   {
     v57 = objc_getProperty(v57, v58, 32, 1);
   }
 
   v59 = v57;
-  v237 = [v59 method];
+  v236 = [v59 method];
   v61 = objc_getProperty(v6, v60, 96, 1);
   v63 = [(NEIKEv2IKESAProposal *)v61 kemProtocol];
   v64 = [v63 method];
 
-  if (v237 != v64)
+  if (v236 != v64)
   {
-    v167 = ne_log_obj();
-    v168 = &OBJC_IVAR___NEFilterFlow__direction;
-    if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
+    v166 = ne_log_obj();
+    v167 = &OBJC_IVAR___NEFilterFlow__direction;
+    if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
     {
-      v204 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      v206 = objc_getProperty(v3, v205, 104, 1);
-      v240 = v206;
-      if (v206)
+      v203 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      v205 = objc_getProperty(v3, v204, 104, 1);
+      v239 = v205;
+      if (v205)
       {
-        v206 = objc_getProperty(v206, v207, 32, 1);
+        v205 = objc_getProperty(v205, v206, 32, 1);
       }
 
-      v236 = v206;
-      v235 = [v236 method];
-      v209 = objc_getProperty(v6, v208, 96, 1);
-      v211 = [(NEIKEv2IKESAProposal *)v209 kemProtocol];
-      v212 = [v211 method];
-      *v255 = 138412802;
-      v256 = v204;
-      v257 = 2048;
-      v258 = v235;
-      v259 = 2048;
-      v260 = v212;
-      _os_log_error_impl(&dword_1BA83C000, v167, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu)", v255, 0x20u);
+      v235 = v205;
+      v234 = [v235 method];
+      v208 = objc_getProperty(v6, v207, 96, 1);
+      v210 = [(NEIKEv2IKESAProposal *)v208 kemProtocol];
+      v211 = [v210 method];
+      *v254 = 138412802;
+      v255 = v203;
+      v256 = 2048;
+      v257 = v234;
+      v258 = 2048;
+      v259 = v211;
+      _os_log_error_impl(&dword_1BA83C000, v166, OS_LOG_TYPE_ERROR, "%@ Did not receive matching method from KE payload (%zu != %zu)", v254, 0x20u);
 
-      v168 = &OBJC_IVAR___NEFilterFlow__direction;
+      v167 = &OBJC_IVAR___NEFilterFlow__direction;
     }
 
-    v170 = objc_getProperty(v3, v169, v168[603], 1);
-    v99 = v170;
-    if (v170)
+    v169 = objc_getProperty(v3, v168, v167[603], 1);
+    v99 = v169;
+    if (v169)
     {
-      v170 = objc_getProperty(v170, v171, 32, 1);
+      v169 = objc_getProperty(v169, v170, 32, 1);
     }
 
-    v147 = v170;
-    v172 = [v147 method];
-    v174 = objc_getProperty(v6, v173, 96, 1);
-    v176 = [(NEIKEv2IKESAProposal *)v174 kemProtocol];
-    [v176 method];
-    v184 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu)", v177, v178, v179, v180, v181, v182, v183, v172);
-    [(NEIKEv2IKESA *)v6 setState:v184 error:?];
+    v147 = v169;
+    v171 = [v147 method];
+    v173 = objc_getProperty(v6, v172, 96, 1);
+    v175 = [(NEIKEv2IKESAProposal *)v173 kemProtocol];
+    [v175 method];
+    v183 = NEIKEv2CreateErrorPeerInvalidSyntax(@"Did not receive matching method from KE payload (%zu != %zu)", v176, v177, v178, v179, v180, v181, v182, v171);
+    [(NEIKEv2IKESA *)v6 setState:v183 error:?];
 
 LABEL_72:
     goto LABEL_73;
@@ -18863,13 +18771,13 @@ LABEL_72:
 
   if (!v75)
   {
-    v186 = ne_log_obj();
-    if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
+    v185 = ne_log_obj();
+    if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
     {
-      v213 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v213;
-      _os_log_error_impl(&dword_1BA83C000, v186, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v255, 0xCu);
+      v212 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v212;
+      _os_log_error_impl(&dword_1BA83C000, v185, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v254, 0xCu);
     }
 
     v136 = @"Did not receive NONCE payload";
@@ -18888,18 +18796,18 @@ LABEL_72:
 
   if (!v81)
   {
-    v200 = ne_log_obj();
-    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+    v199 = ne_log_obj();
+    if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
     {
-      v214 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412290;
-      v256 = v214;
-      _os_log_error_impl(&dword_1BA83C000, v200, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE data", v255, 0xCu);
+      v213 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412290;
+      v255 = v213;
+      _os_log_error_impl(&dword_1BA83C000, v199, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE data", v254, 0xCu);
     }
 
     v136 = @"Did not receive NONCE data";
 LABEL_67:
-    v137 = NEIKEv2CreateErrorPeerInvalidSyntax(v136, v129, v130, v131, v132, v133, v134, v135, v233);
+    v137 = NEIKEv2CreateErrorPeerInvalidSyntax(v136, v129, v130, v131, v132, v133, v134, v135, v232);
 LABEL_68:
     v99 = v137;
     [(NEIKEv2IKESA *)v6 setState:v137 error:?];
@@ -18917,23 +18825,23 @@ LABEL_76:
     }
 
     v111 = [NEIKEv2DeleteIKEContext alloc];
-    v150 = *(a1 + 32);
+    v150 = a1[4];
     if (v150)
     {
       v150 = objc_getProperty(v150, v149, 384, 1);
     }
 
     v113 = v150;
-    v247[0] = MEMORY[0x1E69E9820];
-    v247[1] = 3221225472;
-    v247[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_573;
-    v247[3] = &unk_1E7F081C0;
-    v114 = v248;
-    v151 = *(a1 + 40);
-    v152 = *(a1 + 32);
-    v248[0] = v151;
-    v248[1] = v152;
-    v117 = v247;
+    v246[0] = MEMORY[0x1E69E9820];
+    v246[1] = 3221225472;
+    v246[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_573;
+    v246[3] = &unk_1E7F081C0;
+    v114 = v247;
+    v151 = a1[5];
+    v152 = a1[4];
+    v247[0] = v151;
+    v247[1] = v152;
+    v117 = v246;
     goto LABEL_81;
   }
 
@@ -18957,18 +18865,18 @@ LABEL_76:
 
   if (v90 - 257 <= 0xFFFFFFFFFFFFFF0ELL)
   {
-    v224 = ne_log_obj();
-    if (os_log_type_enabled(v224, OS_LOG_TYPE_ERROR))
+    v223 = ne_log_obj();
+    if (os_log_type_enabled(v223, OS_LOG_TYPE_ERROR))
     {
-      v232 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      *v255 = 138412546;
-      v256 = v232;
-      v257 = 2048;
-      v258 = v90;
-      _os_log_error_impl(&dword_1BA83C000, v224, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is out of bounds", v255, 0x16u);
+      v231 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      *v254 = 138412546;
+      v255 = v231;
+      v256 = 2048;
+      v257 = v90;
+      _os_log_error_impl(&dword_1BA83C000, v223, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is out of bounds", v254, 0x16u);
     }
 
-    v137 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is out of bounds", v225, v226, v227, v228, v229, v230, v231, v90);
+    v137 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is out of bounds", v224, v225, v226, v227, v228, v229, v230, v90);
     goto LABEL_68;
   }
 
@@ -18984,20 +18892,20 @@ LABEL_76:
     v97 = ne_log_obj();
     if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
     {
-      v215 = [(NEIKEv2Packet *)v3 copyShortDescription];
-      v241 = objc_getProperty(v6, v216, 96, 1);
-      v218 = [(NEIKEv2IKESAProposal *)v241 prfProtocol];
-      *v255 = 138412802;
-      v256 = v215;
-      v257 = 2048;
-      v258 = v90;
-      v259 = 2112;
-      v260 = v218;
-      _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v255, 0x20u);
+      v214 = [(NEIKEv2Packet *)v3 copyShortDescription];
+      v240 = objc_getProperty(v6, v215, 96, 1);
+      v217 = [(NEIKEv2IKESAProposal *)v240 prfProtocol];
+      *v254 = 138412802;
+      v255 = v214;
+      v256 = 2048;
+      v257 = v90;
+      v258 = 2112;
+      v259 = v217;
+      _os_log_error_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v254, 0x20u);
     }
 
     v99 = objc_getProperty(v6, v98, 96, 1);
-    v234 = [(NEIKEv2IKESAProposal *)v99 prfProtocol];
+    v233 = [(NEIKEv2IKESAProposal *)v99 prfProtocol];
     v108 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is shorter than the minimum for PRF protocol %@", v101, v102, v103, v104, v105, v106, v107, v90);
     [(NEIKEv2IKESA *)v6 setState:v108 error:?];
 
@@ -19005,70 +18913,68 @@ LABEL_76:
   }
 
 LABEL_105:
-  v187 = objc_getProperty(v3, v85, v73[604], 1);
-  v189 = v187;
-  if (v187)
+  v186 = objc_getProperty(v3, v85, v73[604], 1);
+  v188 = v186;
+  if (v186)
   {
-    v187 = objc_getProperty(v187, v188, v80[546], 1);
+    v186 = objc_getProperty(v186, v187, v80[546], 1);
   }
 
-  v190 = v187;
-  objc_setProperty_atomic(v6, v191, v190, 136);
+  v189 = v186;
+  objc_setProperty_atomic(v6, v190, v189, 136);
 
-  if (([(NEIKEv2IKESA *)*(a1 + 48) processPrimaryKeyExchange]& 1) != 0)
+  if (([(NEIKEv2IKESA *)a1[6] processPrimaryKeyExchange]& 1) != 0)
   {
-    v193 = *(a1 + 32);
-    v194 = *(a1 + 40);
-    v242[0] = MEMORY[0x1E69E9820];
-    v242[1] = 3221225472;
-    v242[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581;
-    v242[3] = &unk_1E7F097D0;
-    v114 = &v243;
-    v195 = *(a1 + 48);
-    v196 = *(a1 + 56);
-    v239 = *(a1 + 32);
-    v197 = *(&v239 + 1);
-    *&v198 = v195;
-    *(&v198 + 1) = v196;
-    v243 = v198;
-    v244 = v239;
-    [(NEIKEv2Session *)v193 handleFollowupKEForRekeyIKESAInitiator:v195 rekeyIKEContext:v194 iteration:0 handler:v242];
+    v192 = a1[4];
+    v193 = a1[5];
+    v241[0] = MEMORY[0x1E69E9820];
+    v241[1] = 3221225472;
+    v241[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581;
+    v241[3] = &unk_1E7F097D0;
+    v114 = &v242;
+    v194 = a1[6];
+    v195 = a1[7];
+    v238 = *(a1 + 2);
+    v196 = *(&v238 + 1);
+    *&v197 = v194;
+    *(&v197 + 1) = v195;
+    v242 = v197;
+    v243 = v238;
+    [(NEIKEv2Session *)v192 handleFollowupKEForRekeyIKESAInitiator:v194 rekeyIKEContext:v193 iteration:0 handler:v241];
 
     goto LABEL_82;
   }
 
-  v219 = ne_log_obj();
-  if (os_log_type_enabled(v219, OS_LOG_TYPE_ERROR))
+  v218 = ne_log_obj();
+  if (os_log_type_enabled(v218, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_1BA83C000, v219, OS_LOG_TYPE_ERROR, "Failed to process KE data (initiate rekey)", buf, 2u);
+    _os_log_error_impl(&dword_1BA83C000, v218, OS_LOG_TYPE_ERROR, "Failed to process KE data (initiate rekey)", buf, 2u);
   }
 
   v111 = [NEIKEv2DeleteIKEContext alloc];
-  v221 = *(a1 + 32);
-  if (v221)
+  v220 = a1[4];
+  if (v220)
   {
-    v221 = objc_getProperty(v221, v220, 384, 1);
+    v220 = objc_getProperty(v220, v219, 384, 1);
   }
 
-  v113 = v221;
-  v245[0] = MEMORY[0x1E69E9820];
-  v245[1] = 3221225472;
-  v245[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_577;
-  v245[3] = &unk_1E7F081C0;
-  v114 = v246;
-  v222 = *(a1 + 40);
-  v223 = *(a1 + 32);
-  v246[0] = v222;
-  v246[1] = v223;
-  v117 = v245;
+  v113 = v220;
+  v244[0] = MEMORY[0x1E69E9820];
+  v244[1] = 3221225472;
+  v244[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_577;
+  v244[3] = &unk_1E7F081C0;
+  v114 = v245;
+  v221 = a1[5];
+  v222 = a1[4];
+  v245[0] = v221;
+  v245[1] = v222;
+  v117 = v244;
 LABEL_81:
   v153 = [(NEIKEv2DeleteIKEContext *)&v111->super.super.isa initDeleteIKEWithResponse:v113 callbackQueue:v117 callback:?];
 
-  [(NEIKEv2Session *)*(a1 + 32) initiateDelete:v153];
+  [(NEIKEv2Session *)a1[4] initiateDelete:v153];
 LABEL_82:
-
-  v154 = *MEMORY[0x1E69E9840];
 }
 
 void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_569(uint64_t a1)
@@ -19128,13 +19034,13 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_577(uint64
   [(NEIKEv2Session *)v15 resetAll];
 }
 
-void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581(uint64_t a1)
+void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581(id *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2 && ([(NEIKEv2IKESA *)v2 generateAllValuesUsingSA:?]& 1) != 0)
   {
     v4 = [NEIKEv2DeleteIKEContext alloc];
-    Property = *(a1 + 48);
+    Property = a1[6];
     if (Property)
     {
       Property = objc_getProperty(Property, v3, 384, 1);
@@ -19146,15 +19052,15 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581(uint
     v20[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_586;
     v20[3] = &unk_1E7F083C8;
     v7 = v21;
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
+    v8 = a1[4];
+    v9 = a1[6];
+    v10 = a1[7];
     v21[0] = v8;
     v21[1] = v9;
     v22 = v10;
     v11 = [(NEIKEv2DeleteIKEContext *)&v4->super.super.isa initDeleteIKEWithResponse:v6 callbackQueue:v20 callback:?];
 
-    [(NEIKEv2Session *)*(a1 + 48) initiateDelete:v11];
+    [(NEIKEv2Session *)a1[6] initiateDelete:v11];
     v12 = v22;
   }
 
@@ -19168,7 +19074,7 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581(uint
     }
 
     v15 = [NEIKEv2DeleteIKEContext alloc];
-    v16 = *(a1 + 48);
+    v16 = a1[6];
     if (v16)
     {
       v16 = objc_getProperty(v16, v14, 384, 1);
@@ -19180,13 +19086,13 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_581(uint
     v23[2] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_582;
     v23[3] = &unk_1E7F081C0;
     v7 = v24;
-    v18 = *(a1 + 56);
-    v19 = *(a1 + 48);
+    v18 = a1[7];
+    v19 = a1[6];
     v24[0] = v18;
     v24[1] = v19;
     v12 = [(NEIKEv2DeleteIKEContext *)&v15->super.super.isa initDeleteIKEWithResponse:v17 callbackQueue:v23 callback:?];
 
-    [(NEIKEv2Session *)*(a1 + 48) initiateDelete:v12];
+    [(NEIKEv2Session *)a1[6] initiateDelete:v12];
   }
 }
 
@@ -19251,7 +19157,7 @@ void __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2_586(uint
 
 - (void)receiveRekeyIKESA:(void *)a
 {
-  v372 = *MEMORY[0x1E69E9840];
+  v371 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!a)
   {
@@ -19298,10 +19204,10 @@ LABEL_175:
     v9 = v10;
     if ([(NEIKEv2Packet *)v4 hasErrors])
     {
-      v370 = 0u;
-      v371 = 0u;
-      *v368 = 0u;
       v369 = 0u;
+      v370 = 0u;
+      *v367 = 0u;
+      v368 = 0u;
       if (v4)
       {
         Property = objc_getProperty(v4, v12, 64, 1);
@@ -19313,21 +19219,21 @@ LABEL_175:
       }
 
       v14 = Property;
-      v15 = [v14 countByEnumeratingWithState:v368 objects:buf count:16];
+      v15 = [v14 countByEnumeratingWithState:v367 objects:buf count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v369;
+        v17 = *v368;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v369 != v17)
+            if (*v368 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*&v368[8] + 8 * i);
+            v19 = *(*&v367[8] + 8 * i);
             if (v19 && v19[1].isa - 1 <= 0x3FFE)
             {
               copyError = [(NEIKEv2NotifyPayload *)v19 copyError];
@@ -19335,11 +19241,11 @@ LABEL_175:
               if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
               {
                 copyShortDescription = [(NEIKEv2Packet *)v4 copyShortDescription];
-                *v361 = 138412546;
-                v362 = copyShortDescription;
-                v363 = 2112;
-                v364 = copyError;
-                _os_log_error_impl(&dword_1BA83C000, v110, OS_LOG_TYPE_ERROR, "%@ Responder rekey IKE received notify error %@", v361, 0x16u);
+                *v360 = 138412546;
+                v361 = copyShortDescription;
+                v362 = 2112;
+                v363 = copyError;
+                _os_log_error_impl(&dword_1BA83C000, v110, OS_LOG_TYPE_ERROR, "%@ Responder rekey IKE received notify error %@", v360, 0x16u);
               }
 
               [(NEIKEv2IKESA *)v9 setState:copyError error:?];
@@ -19349,7 +19255,7 @@ LABEL_175:
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:v368 objects:buf count:16];
+          v16 = [v14 countByEnumeratingWithState:v367 objects:buf count:16];
           if (v16)
           {
             continue;
@@ -19373,7 +19279,7 @@ LABEL_175:
     v26 = objc_getProperty(v9, v25, 80, 1);
     proposals = [v26 proposals];
 
-    v354 = proposals;
+    v353 = proposals;
     if ([v24 count])
     {
       v29 = objc_getProperty(v9, v28, 80, 1);
@@ -19387,12 +19293,12 @@ LABEL_175:
         if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
         {
           copyShortDescription2 = [(NEIKEv2Packet *)v4 copyShortDescription];
-          *v361 = 138412290;
-          v362 = copyShortDescription2;
-          _os_log_error_impl(&dword_1BA83C000, v121, OS_LOG_TYPE_ERROR, "%@ No matching proposal found", v361, 0xCu);
+          *v360 = 138412290;
+          v361 = copyShortDescription2;
+          _os_log_error_impl(&dword_1BA83C000, v121, OS_LOG_TYPE_ERROR, "%@ No matching proposal found", v360, 0xCu);
         }
 
-        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"No matching proposal found", v122, v123, v124, v125, v126, v127, v128, v347);
+        ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"No matching proposal found", v122, v123, v124, v125, v126, v127, v128, v346);
         [(NEIKEv2IKESA *)v9 setState:ErrorPeerInvalidSyntax error:?];
         v130 = 0;
         v111 = 14;
@@ -19516,60 +19422,60 @@ LABEL_175:
                         if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
                         {
                           copyShortDescription3 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                          *v361 = 138412546;
-                          v362 = copyShortDescription3;
-                          v363 = 2048;
-                          v364 = v93;
-                          _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is out of bounds", v361, 0x16u);
+                          *v360 = 138412546;
+                          v361 = copyShortDescription3;
+                          v362 = 2048;
+                          v363 = v93;
+                          _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is out of bounds", v360, 0x16u);
                         }
 
                         v103 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is out of bounds", v96, v97, v98, v99, v100, v101, v102, v93);
                         goto LABEL_153;
                       }
 
-                      v298 = objc_getProperty(v9, v94, 96, 1);
-                      prfProtocol = [(NEIKEv2IKESAProposal *)v298 prfProtocol];
+                      v297 = objc_getProperty(v9, v94, 96, 1);
+                      prfProtocol = [(NEIKEv2IKESAProposal *)v297 prfProtocol];
                       nonceSize = [prfProtocol nonceSize];
 
-                      v302 = v93 >= nonceSize;
+                      v301 = v93 >= nonceSize;
                       v20 = &OBJC_IVAR___NEFilterFlow__direction;
-                      if (!v302)
+                      if (!v301)
                       {
-                        v303 = ne_log_obj();
-                        if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
+                        v302 = ne_log_obj();
+                        if (os_log_type_enabled(v302, OS_LOG_TYPE_ERROR))
                         {
                           copyShortDescription4 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                          v344 = objc_getProperty(v9, v343, 96, 1);
-                          prfProtocol2 = [(NEIKEv2IKESAProposal *)v344 prfProtocol];
-                          *v361 = 138412802;
-                          v362 = copyShortDescription4;
-                          v363 = 2048;
-                          v364 = v93;
-                          v365 = 2112;
+                          v343 = objc_getProperty(v9, v342, 96, 1);
+                          prfProtocol2 = [(NEIKEv2IKESAProposal *)v343 prfProtocol];
+                          *v360 = 138412802;
+                          v361 = copyShortDescription4;
+                          v362 = 2048;
+                          v363 = v93;
+                          v364 = 2112;
                           method4 = prfProtocol2;
-                          _os_log_error_impl(&dword_1BA83C000, v303, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v361, 0x20u);
+                          _os_log_error_impl(&dword_1BA83C000, v302, OS_LOG_TYPE_ERROR, "%@ NONCE data length %zu is shorter than the minimum for PRF protocol %@", v360, 0x20u);
 
                           v20 = &OBJC_IVAR___NEFilterFlow__direction;
                         }
 
-                        ErrorPeerInvalidSyntax = objc_getProperty(v9, v304, 96, 1);
+                        ErrorPeerInvalidSyntax = objc_getProperty(v9, v303, 96, 1);
                         prfProtocol3 = [(NEIKEv2IKESAProposal *)ErrorPeerInvalidSyntax prfProtocol];
-                        v313 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is shorter than the minimum for PRF protocol %@", v306, v307, v308, v309, v310, v311, v312, v93);
-                        [(NEIKEv2IKESA *)v9 setState:v313 error:?];
+                        v312 = NEIKEv2CreateErrorPeerInvalidSyntax(@"NONCE data length %zu is shorter than the minimum for PRF protocol %@", v305, v306, v307, v308, v309, v310, v311, v93);
+                        [(NEIKEv2IKESA *)v9 setState:v312 error:?];
 
                         goto LABEL_154;
                       }
                     }
 
-                    v314 = objc_getProperty(v4, v88, 112, 1);
-                    ErrorPeerInvalidSyntax = v314;
-                    if (v314)
+                    v313 = objc_getProperty(v4, v88, 112, 1);
+                    ErrorPeerInvalidSyntax = v313;
+                    if (v313)
                     {
-                      v314 = objc_getProperty(v314, v315, 32, 1);
+                      v313 = objc_getProperty(v313, v314, 32, 1);
                     }
 
-                    v316 = v314;
-                    objc_setProperty_atomic(v9, v317, v316, 136);
+                    v315 = v313;
+                    objc_setProperty_atomic(v9, v316, v315, 136);
 
                     v130 = 1;
 LABEL_79:
@@ -19577,33 +19483,33 @@ LABEL_79:
                     goto LABEL_80;
                   }
 
-                  v295 = ne_log_obj();
-                  if (os_log_type_enabled(v295, OS_LOG_TYPE_ERROR))
+                  v294 = ne_log_obj();
+                  if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
                   {
                     copyShortDescription5 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                    *v361 = 138412290;
-                    v362 = copyShortDescription5;
-                    _os_log_error_impl(&dword_1BA83C000, v295, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE data", v361, 0xCu);
+                    *v360 = 138412290;
+                    v361 = copyShortDescription5;
+                    _os_log_error_impl(&dword_1BA83C000, v294, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE data", v360, 0xCu);
                   }
 
-                  v293 = @"Did not receive NONCE data";
+                  v292 = @"Did not receive NONCE data";
                 }
 
                 else
                 {
-                  v285 = ne_log_obj();
-                  if (os_log_type_enabled(v285, OS_LOG_TYPE_ERROR))
+                  v284 = ne_log_obj();
+                  if (os_log_type_enabled(v284, OS_LOG_TYPE_ERROR))
                   {
                     copyShortDescription6 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                    *v361 = 138412290;
-                    v362 = copyShortDescription6;
-                    _os_log_error_impl(&dword_1BA83C000, v285, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v361, 0xCu);
+                    *v360 = 138412290;
+                    v361 = copyShortDescription6;
+                    _os_log_error_impl(&dword_1BA83C000, v284, OS_LOG_TYPE_ERROR, "%@ Did not receive NONCE payload", v360, 0xCu);
                   }
 
-                  v293 = @"Did not receive NONCE payload";
+                  v292 = @"Did not receive NONCE payload";
                 }
 
-                v103 = NEIKEv2CreateErrorPeerInvalidSyntax(v293, v286, v287, v288, v289, v290, v291, v292, v347);
+                v103 = NEIKEv2CreateErrorPeerInvalidSyntax(v292, v285, v286, v287, v288, v289, v290, v291, v346);
 LABEL_153:
                 ErrorPeerInvalidSyntax = v103;
                 [(NEIKEv2IKESA *)v9 setState:v103 error:?];
@@ -19618,25 +19524,25 @@ LABEL_154:
               if (os_log_type_enabled(v243, OS_LOG_TYPE_ERROR))
               {
                 copyShortDescription7 = [(NEIKEv2Packet *)v4 copyShortDescription];
-                v321 = objc_getProperty(v4, v320, 104, 1);
-                v350 = v321;
-                v353 = copyShortDescription7;
-                if (v321)
+                v320 = objc_getProperty(v4, v319, 104, 1);
+                v349 = v320;
+                v352 = copyShortDescription7;
+                if (v320)
                 {
-                  v321 = objc_getProperty(v321, v322, 32, 1);
+                  v320 = objc_getProperty(v320, v321, 32, 1);
                 }
 
-                v349 = v321;
-                method3 = [v349 method];
-                v325 = objc_getProperty(v9, v324, 96, 1);
-                kemProtocol2 = [(NEIKEv2IKESAProposal *)v325 kemProtocol];
-                *v361 = 138412802;
-                v362 = v353;
-                v363 = 2048;
-                v364 = method3;
-                v365 = 2048;
+                v348 = v320;
+                method3 = [v348 method];
+                v324 = objc_getProperty(v9, v323, 96, 1);
+                kemProtocol2 = [(NEIKEv2IKESAProposal *)v324 kemProtocol];
+                *v360 = 138412802;
+                v361 = v352;
+                v362 = 2048;
+                v363 = method3;
+                v364 = 2048;
                 method4 = [kemProtocol2 method];
-                _os_log_error_impl(&dword_1BA83C000, v243, OS_LOG_TYPE_ERROR, "%@ Received KE method %zu does not match KE method %zu in SA rekey proposal", v361, 0x20u);
+                _os_log_error_impl(&dword_1BA83C000, v243, OS_LOG_TYPE_ERROR, "%@ Received KE method %zu does not match KE method %zu in SA rekey proposal", v360, 0x20u);
 
                 v244 = &OBJC_IVAR___NEFilterFlow__direction;
               }
@@ -19649,8 +19555,8 @@ LABEL_154:
                 v246 = objc_getProperty(v246, v247, 32, 1);
               }
 
-              v352 = v246;
-              [v352 method];
+              v351 = v246;
+              [v351 method];
               v250 = objc_getProperty(v9, v249, 96, 1);
               kemProtocol3 = [(NEIKEv2IKESAProposal *)v250 kemProtocol];
               [kemProtocol3 method];
@@ -19679,13 +19585,13 @@ LABEL_80:
                       if (v140)
                       {
                         v141 = v140;
-                        v355 = v137;
+                        v354 = v137;
                         v142 = objc_alloc_init(NEIKEv2IKESAPayload);
                         objc_setProperty_atomic(v141, v143, v142, v20[601]);
 
                         v145 = objc_getProperty(v9, v144, 96, 1);
-                        *v368 = v145;
-                        v146 = [MEMORY[0x1E695DEC8] arrayWithObjects:v368 count:1];
+                        *v367 = v145;
+                        v146 = [MEMORY[0x1E695DEC8] arrayWithObjects:v367 count:1];
                         v147 = v20;
                         v149 = objc_getProperty(v141, v148, v20[601], 1);
                         v151 = v149;
@@ -19792,7 +19698,7 @@ LABEL_135:
 
                             v199 = 0;
 LABEL_136:
-                            v137 = v355;
+                            v137 = v354;
                             goto LABEL_137;
                           }
 
@@ -19867,14 +19773,14 @@ LABEL_137:
                       objc_setProperty_atomic(v9, v269, v268, 168);
 
                       objc_setProperty_atomic(v9, v270, 0, 160);
-                      v356[0] = MEMORY[0x1E69E9820];
-                      v356[1] = 3221225472;
-                      v356[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614;
-                      v356[3] = &unk_1E7F08558;
-                      v357 = v9;
-                      v358 = v8;
+                      v355[0] = MEMORY[0x1E69E9820];
+                      v355[1] = 3221225472;
+                      v355[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614;
+                      v355[3] = &unk_1E7F08558;
+                      v356 = v9;
+                      v357 = v8;
                       aCopy = a;
-                      [(NEIKEv2Session *)a handleFollowupKEForRekeyIKESAResponder:v357 iteration:0 replyPacket:v199 replyPacketDescription:@"rekey IKE SA reply" handler:v356];
+                      [(NEIKEv2Session *)a handleFollowupKEForRekeyIKESAResponder:v356 iteration:0 replyPacket:v199 replyPacketDescription:@"rekey IKE SA reply" handler:v355];
                     }
 
                     else
@@ -19887,7 +19793,7 @@ LABEL_137:
                       }
 
                       v273 = objc_getProperty(a, v272, 352, 1);
-                      ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (receive rekey)", v274, v275, v276, v277, v278, v279, v280, v347);
+                      ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (receive rekey)", v274, v275, v276, v277, v278, v279, v280, v346);
                       [(NEIKEv2IKESA *)v273 setState:ErrorInternal error:?];
 
                       [(NEIKEv2Session *)a reportState];
@@ -19897,14 +19803,14 @@ LABEL_137:
                     goto LABEL_145;
                   }
 
-                  v332 = ne_log_obj();
-                  if (os_log_type_enabled(v332, OS_LOG_TYPE_ERROR))
+                  v331 = ne_log_obj();
+                  if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 0;
-                    _os_log_error_impl(&dword_1BA83C000, v332, OS_LOG_TYPE_ERROR, "Failed to process KE data (receive rekey)", buf, 2u);
+                    _os_log_error_impl(&dword_1BA83C000, v331, OS_LOG_TYPE_ERROR, "Failed to process KE data (receive rekey)", buf, 2u);
                   }
 
-                  v235 = objc_getProperty(a, v333, 352, 1);
+                  v235 = objc_getProperty(a, v332, 352, 1);
                   v236 = @"Failed to process KE data (receive rekey)";
                 }
 
@@ -19921,7 +19827,7 @@ LABEL_137:
                   v236 = @"Failed to generate local IKE crypto values (receive rekey)";
                 }
 
-                ErrorCrypto = NEIKEv2CreateErrorCrypto(v236, v228, v229, v230, v231, v232, v233, v234, v347);
+                ErrorCrypto = NEIKEv2CreateErrorCrypto(v236, v228, v229, v230, v231, v232, v233, v234, v346);
                 [(NEIKEv2IKESA *)v235 setState:ErrorCrypto error:?];
 
                 [(NEIKEv2Session *)a reportState];
@@ -19950,11 +19856,11 @@ LABEL_137:
                   goto LABEL_113;
                 }
 
-                v330 = ne_log_obj();
-                if (os_log_type_enabled(v330, OS_LOG_TYPE_ERROR))
+                v329 = ne_log_obj();
+                if (os_log_type_enabled(v329, OS_LOG_TYPE_ERROR))
                 {
-                  *v368 = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v330, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet (receive rekey)", v368, 2u);
+                  *v367 = 0;
+                  _os_log_error_impl(&dword_1BA83C000, v329, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet (receive rekey)", v367, 2u);
                 }
               }
 
@@ -19968,14 +19874,14 @@ LABEL_107:
                   {
 LABEL_111:
                     v207 = objc_getProperty(a, v206, 352, 1);
-                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"rekey IKE SA refusal", v216, v217, v218, v219, v220, v221, v222, v347);
+                    ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"rekey IKE SA refusal", v216, v217, v218, v219, v220, v221, v222, v346);
                     goto LABEL_112;
                   }
 
                   if (v111 != 14)
                   {
                     v207 = objc_getProperty(a, v206, 352, 1);
-                    ErrorFailedToSend = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process Create Child SA packet (receive rekey)", v208, v209, v210, v211, v212, v213, v214, v347);
+                    ErrorFailedToSend = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process Create Child SA packet (receive rekey)", v208, v209, v210, v211, v212, v213, v214, v346);
 LABEL_112:
                     v223 = ErrorFailedToSend;
                     [(NEIKEv2IKESA *)v207 setState:ErrorFailedToSend error:?];
@@ -19989,16 +19895,16 @@ LABEL_113:
                   goto LABEL_145;
                 }
 
-                v330 = ne_log_obj();
-                if (os_log_type_enabled(v330, OS_LOG_TYPE_ERROR))
+                v329 = ne_log_obj();
+                if (os_log_type_enabled(v329, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v330, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet (receive rekey)", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v329, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet (receive rekey)", buf, 2u);
                 }
               }
 
-              v207 = objc_getProperty(a, v334, 352, 1);
-              ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (receive rekey)", v335, v336, v337, v338, v339, v340, v341, v347);
+              v207 = objc_getProperty(a, v333, 352, 1);
+              ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet (receive rekey)", v334, v335, v336, v337, v338, v339, v340, v346);
               goto LABEL_112;
             }
 
@@ -20006,9 +19912,9 @@ LABEL_113:
             if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
             {
               copyShortDescription8 = [(NEIKEv2Packet *)v4 copyShortDescription];
-              *v361 = 138412290;
-              v362 = copyShortDescription8;
-              _os_log_error_impl(&dword_1BA83C000, v134, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload", v361, 0xCu);
+              *v360 = 138412290;
+              v361 = copyShortDescription8;
+              _os_log_error_impl(&dword_1BA83C000, v134, OS_LOG_TYPE_ERROR, "%@ Did not receive data in KE payload", v360, 0xCu);
             }
 
             v120 = @"Did not receive data in KE payload";
@@ -20020,9 +19926,9 @@ LABEL_113:
             if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
             {
               copyShortDescription9 = [(NEIKEv2Packet *)v4 copyShortDescription];
-              *v361 = 138412290;
-              v362 = copyShortDescription9;
-              _os_log_error_impl(&dword_1BA83C000, v133, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload", v361, 0xCu);
+              *v360 = 138412290;
+              v361 = copyShortDescription9;
+              _os_log_error_impl(&dword_1BA83C000, v133, OS_LOG_TYPE_ERROR, "%@ Did not receive method in KE payload", v360, 0xCu);
             }
 
             v120 = @"Did not receive method in KE payload";
@@ -20035,9 +19941,9 @@ LABEL_113:
           if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
           {
             copyShortDescription10 = [(NEIKEv2Packet *)v4 copyShortDescription];
-            *v361 = 138412290;
-            v362 = copyShortDescription10;
-            _os_log_error_impl(&dword_1BA83C000, v132, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v361, 0xCu);
+            *v360 = 138412290;
+            v361 = copyShortDescription10;
+            _os_log_error_impl(&dword_1BA83C000, v132, OS_LOG_TYPE_ERROR, "%@ Did not receive KE payload", v360, 0xCu);
           }
 
           v120 = @"Did not receive KE payload";
@@ -20050,9 +19956,9 @@ LABEL_113:
         if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
         {
           copyShortDescription11 = [(NEIKEv2Packet *)v4 copyShortDescription];
-          *v361 = 138412290;
-          v362 = copyShortDescription11;
-          _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, "%@ SA proposal missing rekey SPI", v361, 0xCu);
+          *v360 = 138412290;
+          v361 = copyShortDescription11;
+          _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, "%@ SA proposal missing rekey SPI", v360, 0xCu);
         }
 
         v120 = @"SA proposal missing rekey SPI";
@@ -20065,15 +19971,15 @@ LABEL_113:
       if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
       {
         copyShortDescription12 = [(NEIKEv2Packet *)v4 copyShortDescription];
-        *v361 = 138412290;
-        v362 = copyShortDescription12;
-        _os_log_error_impl(&dword_1BA83C000, v112, OS_LOG_TYPE_ERROR, "%@ Received no SA proposals", v361, 0xCu);
+        *v360 = 138412290;
+        v361 = copyShortDescription12;
+        _os_log_error_impl(&dword_1BA83C000, v112, OS_LOG_TYPE_ERROR, "%@ Received no SA proposals", v360, 0xCu);
       }
 
       v120 = @"Received no SA proposals";
     }
 
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v120, v113, v114, v115, v116, v117, v118, v119, v347);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(v120, v113, v114, v115, v116, v117, v118, v119, v346);
     [(NEIKEv2IKESA *)v9 setState:ErrorPeerInvalidSyntax error:?];
     v130 = 0;
     goto LABEL_79;
@@ -20088,18 +19994,16 @@ LABEL_113:
 
   v105 = [NEIKEv2DeleteIKEContext alloc];
   v107 = objc_getProperty(a, v106, 384, 1);
-  v360[0] = MEMORY[0x1E69E9820];
-  v360[1] = 3221225472;
-  v360[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke;
-  v360[3] = &unk_1E7F08740;
-  v360[4] = a;
-  v108 = [(NEIKEv2DeleteIKEContext *)&v105->super.super.isa initDeleteIKEWithResponse:v107 callbackQueue:v360 callback:?];
+  v359[0] = MEMORY[0x1E69E9820];
+  v359[1] = 3221225472;
+  v359[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke;
+  v359[3] = &unk_1E7F08740;
+  v359[4] = a;
+  v108 = [(NEIKEv2DeleteIKEContext *)&v105->super.super.isa initDeleteIKEWithResponse:v107 callbackQueue:v359 callback:?];
 
   [(NEIKEv2Session *)a initiateDelete:v108];
   v9 = 0;
 LABEL_145:
-
-  v284 = *MEMORY[0x1E69E9840];
 }
 
 void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke(uint64_t a1, const char *a2)
@@ -20122,7 +20026,7 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke(uint64_t a1
 
 void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614(uint64_t a1, void *a2)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v4 || ([(NEIKEv2IKESA *)v4 generateAllValuesUsingSA:?]& 1) == 0)
@@ -20142,12 +20046,12 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614(uint64_
     }
 
     v13 = Property;
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_615;
-    v54[3] = &unk_1E7F08740;
-    v54[4] = *(a1 + 48);
-    v6 = [(NEIKEv2DeleteIKEContext *)&v11->super.super.isa initDeleteIKEWithResponse:v13 callbackQueue:v54 callback:?];
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_615;
+    v53[3] = &unk_1E7F08740;
+    v53[4] = *(a1 + 48);
+    v6 = [(NEIKEv2DeleteIKEContext *)&v11->super.super.isa initDeleteIKEWithResponse:v13 callbackQueue:v53 callback:?];
 
     [(NEIKEv2Session *)*(a1 + 48) initiateDelete:v6];
     goto LABEL_29;
@@ -20179,7 +20083,7 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614(uint64_
       }
 
       v31 = v40;
-      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete reply", v41, v42, v43, v44, v45, v46, v47, v53);
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete reply", v41, v42, v43, v44, v45, v46, v47, v52);
     }
 
     else
@@ -20187,9 +20091,9 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614(uint64_
       v28 = ne_log_obj();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v52 = *(a1 + 48);
+        v51 = *(a1 + 48);
         *buf = 138412290;
-        v56 = v52;
+        v55 = v51;
         _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE Delete response packet", buf, 0xCu);
       }
 
@@ -20200,7 +20104,7 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_614(uint64_
       }
 
       v31 = v30;
-      ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create IKE Delete response packet (receive rekey)", v32, v33, v34, v35, v36, v37, v38, v53);
+      ErrorFailedToSend = NEIKEv2CreateErrorInternal(@"Failed to create IKE Delete response packet (receive rekey)", v32, v33, v34, v35, v36, v37, v38, v52);
     }
 
     v48 = ErrorFailedToSend;
@@ -20227,14 +20131,12 @@ LABEL_29:
   }
 
   v17 = v16;
-  ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process Rekey IKE Delete packet (receive rekey)", v18, v19, v20, v21, v22, v23, v24, v53);
+  ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Failed to process Rekey IKE Delete packet (receive rekey)", v18, v19, v20, v21, v22, v23, v24, v52);
   [(NEIKEv2IKESA *)v17 setState:ErrorPeerInvalidSyntax error:?];
 
   [(NEIKEv2Session *)*(a1 + 48) reportState];
   [(NEIKEv2Session *)*(a1 + 48) resetAll];
 LABEL_30:
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_615(uint64_t a1, const char *a2)
@@ -20257,7 +20159,7 @@ void __46__NEIKEv2Session_Exchange__receiveRekeyIKESA___block_invoke_615(uint64_
 
 - (void)receiveMOBIKE:(void *)e
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!e)
   {
@@ -20276,7 +20178,7 @@ LABEL_49:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v63 = "[NEIKEv2Session(Exchange) receiveMOBIKE:]";
+      v62 = "[NEIKEv2Session(Exchange) receiveMOBIKE:]";
       _os_log_fault_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
     }
 
@@ -20372,7 +20274,7 @@ LABEL_41:
       if (([(NEIKEv2Session *)e sendReply:v34 replyHandler:0]& 1) == 0)
       {
         v40 = objc_getProperty(e, v39, 352, 1);
-        ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"MOBIKE reply", v41, v42, v43, v44, v45, v46, v47, v54);
+        ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"MOBIKE reply", v41, v42, v43, v44, v45, v46, v47, v53);
         [(NEIKEv2IKESA *)v40 setState:ErrorFailedToSend error:?];
 
         [(NEIKEv2Session *)e reportState];
@@ -20395,10 +20297,10 @@ LABEL_41:
     goto LABEL_47;
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   if (v4)
   {
     v11 = objc_getProperty(v4, v10, 64, 1);
@@ -20410,7 +20312,7 @@ LABEL_41:
   }
 
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v54 objects:buf count:16];
+  v13 = [v12 countByEnumeratingWithState:&v53 objects:buf count:16];
   if (!v13)
   {
 LABEL_16:
@@ -20419,17 +20321,17 @@ LABEL_16:
   }
 
   v14 = v13;
-  v15 = *v55;
+  v15 = *v54;
 LABEL_9:
   v16 = 0;
   while (1)
   {
-    if (*v55 != v15)
+    if (*v54 != v15)
     {
       objc_enumerationMutation(v12);
     }
 
-    v17 = *(*(&v54 + 1) + 8 * v16);
+    v17 = *(*(&v53 + 1) + 8 * v16);
     if (v17)
     {
       if ((*(v17 + 32) - 1) <= 0x3FFE)
@@ -20440,7 +20342,7 @@ LABEL_9:
 
     if (v14 == ++v16)
     {
-      v14 = [v12 countByEnumeratingWithState:&v54 objects:buf count:16];
+      v14 = [v12 countByEnumeratingWithState:&v53 objects:buf count:16];
       if (v14)
       {
         goto LABEL_9;
@@ -20454,11 +20356,11 @@ LABEL_9:
   if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     copyShortDescription = [(NEIKEv2Packet *)v4 copyShortDescription];
-    *v58 = 138412546;
-    v59 = copyShortDescription;
-    v60 = 2112;
-    v61 = v17;
-    _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ MOBIKE received notify error %@", v58, 0x16u);
+    *v57 = 138412546;
+    v58 = copyShortDescription;
+    v59 = 2112;
+    v60 = v17;
+    _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ MOBIKE received notify error %@", v57, 0x16u);
   }
 
   v34 = ne_log_obj();
@@ -20470,8 +20372,6 @@ LABEL_9:
   }
 
 LABEL_47:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveRedirect:(void *)redirect
@@ -20579,7 +20479,7 @@ LABEL_9:
 
 - (void)receiveDeleteIKESA:(void *)a
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (a)
   {
@@ -20605,7 +20505,7 @@ LABEL_9:
           }
 
           v17 = objc_getProperty(a, v14, 352, 1);
-          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete reply", v18, v19, v20, v21, v22, v23, v24, *v37);
+          ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"delete reply", v18, v19, v20, v21, v22, v23, v24, *v36);
           [(NEIKEv2IKESA *)v17 setState:ErrorFailedToSend error:?];
 
           [(NEIKEv2Session *)a reportState];
@@ -20617,9 +20517,9 @@ LABEL_9:
           v16 = ne_log_obj();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            *v37 = 138412290;
-            *&v37[4] = a;
-            _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to create Delete packet", v37, 0xCu);
+            *v36 = 138412290;
+            *&v36[4] = a;
+            _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@ Failed to create Delete packet", v36, 0xCu);
           }
 
           v12 = 0;
@@ -20631,9 +20531,9 @@ LABEL_9:
         v12 = ne_log_obj();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          *v37 = 138412290;
-          *&v37[4] = a;
-          _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ Failed to process Delete packet", v37, 0xCu);
+          *v36 = 138412290;
+          *&v36[4] = a;
+          _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ Failed to process Delete packet", v36, 0xCu);
         }
       }
 
@@ -20646,11 +20546,11 @@ LABEL_15:
       {
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          *v37 = 138412546;
-          *&v37[4] = a;
-          v38 = 2112;
-          v39 = v8;
-          _os_log_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEFAULT, "%@ Received IKE SA Delete %@", v37, 0x16u);
+          *v36 = 138412546;
+          *&v36[4] = a;
+          v37 = 2112;
+          v38 = v8;
+          _os_log_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEFAULT, "%@ Received IKE SA Delete %@", v36, 0x16u);
         }
 
         v31 = objc_getProperty(a, v30, 352, 1);
@@ -20665,11 +20565,11 @@ LABEL_15:
       {
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          *v37 = 138412546;
-          *&v37[4] = a;
-          v38 = 2112;
-          v39 = v8;
-          _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, "%@ Failed to process received IKE SA Delete %@", v37, 0x16u);
+          *v36 = 138412546;
+          *&v36[4] = a;
+          v37 = 2112;
+          v38 = v8;
+          _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, "%@ Failed to process received IKE SA Delete %@", v36, 0x16u);
         }
       }
 
@@ -20682,23 +20582,21 @@ LABEL_15:
     dispatch_assert_queue_V2(0);
   }
 
-  v36 = ne_log_obj();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+  v35 = ne_log_obj();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
   {
-    *v37 = 136315138;
-    *&v37[4] = "[NEIKEv2Session(Exchange) receiveDeleteIKESA:]";
-    _os_log_fault_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v37, 0xCu);
+    *v36 = 136315138;
+    *&v36[4] = "[NEIKEv2Session(Exchange) receiveDeleteIKESA:]";
+    _os_log_fault_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", v36, 0xCu);
   }
 
   v8 = 0;
 LABEL_22:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveDeleteChildSA:(void *)a
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (a)
   {
@@ -20709,7 +20607,7 @@ LABEL_22:
     if (v7)
     {
       v9 = v7;
-      v65 = v4;
+      v64 = v4;
       v10 = objc_getProperty(v4, v8, 88, 1);
       firstObject = [v10 firstObject];
 
@@ -20727,7 +20625,7 @@ LABEL_22:
       firstObject2 = [v14 firstObject];
 
       v16 = [(NEIKEv2Session *)a copyChildWithSPI:firstObject2];
-      v64 = firstObject2;
+      v63 = firstObject2;
       if (v16)
       {
         v18 = v16;
@@ -20738,7 +20636,7 @@ LABEL_22:
           v19 = objc_getProperty(v19, v20, 80, 1);
         }
 
-        v4 = v65;
+        v4 = v64;
         v22 = v19;
         v24 = objc_getProperty(v18, v23, 56, 1);
         v26 = v24;
@@ -20748,7 +20646,7 @@ LABEL_22:
         }
 
         v27 = v24;
-        v28 = [(NEIKEv2Session *)a receiveDeleteChildSPI:v22 remoteSPI:v27 packet:v65];
+        v28 = [(NEIKEv2Session *)a receiveDeleteChildSPI:v22 remoteSPI:v27 packet:v64];
 
         v29 = ne_log_large_obj();
         v30 = v29;
@@ -20767,20 +20665,20 @@ LABEL_22:
             v36 = v33;
             *buf = 138412546;
             aCopy4 = a;
-            v72 = 2112;
-            v73 = v36;
+            v71 = 2112;
+            v72 = v36;
             _os_log_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_DEFAULT, "%@ Received Child SA Delete for remote SPI %@", buf, 0x16u);
           }
 
           [(NEIKEv2ChildSA *)v18 setState:0 error:?];
           [(NEIKEv2Session *)a reportState];
           [(NEIKEv2Session *)a resetChild:v18];
-          v38 = v64;
+          v38 = v63;
           goto LABEL_43;
         }
 
         v32 = v9;
-        v38 = v64;
+        v38 = v63;
         if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
 LABEL_34:
@@ -20792,49 +20690,49 @@ LABEL_43:
 
       else
       {
-        v63 = v9;
+        v62 = v9;
         v39 = firstObject2;
+        v65 = 0u;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
         v41 = objc_getProperty(a, v40, 304, 1);
-        v42 = [v41 countByEnumeratingWithState:&v66 objects:buf count:16];
+        v42 = [v41 countByEnumeratingWithState:&v65 objects:buf count:16];
         if (!v42)
         {
 LABEL_32:
 
 LABEL_40:
           v18 = ne_log_obj();
-          v38 = v64;
-          v4 = v65;
+          v38 = v63;
+          v4 = v64;
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             aCopy4 = a;
-            v72 = 2112;
-            v73 = v39;
+            v71 = 2112;
+            v72 = v39;
             _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ Failed to find child SA for spi %@", buf, 0x16u);
           }
 
-          v32 = v63;
+          v32 = v62;
           goto LABEL_43;
         }
 
         v44 = v42;
-        v45 = *v67;
-        v62 = firstObject;
+        v45 = *v66;
+        v61 = firstObject;
 LABEL_18:
         v46 = 0;
         while (1)
         {
-          if (*v67 != v45)
+          if (*v66 != v45)
           {
             objc_enumerationMutation(v41);
           }
 
-          v47 = *(*(&v66 + 1) + 8 * v46);
-          v48 = v47 ? objc_getProperty(*(*(&v66 + 1) + 8 * v46), v43, 192, 1) : 0;
+          v47 = *(*(&v65 + 1) + 8 * v46);
+          v48 = v47 ? objc_getProperty(*(*(&v65 + 1) + 8 * v46), v43, 192, 1) : 0;
           v49 = v48;
           if ([v49 isEqual:v39])
           {
@@ -20861,9 +20759,9 @@ LABEL_18:
 
           if (v44 == ++v46)
           {
-            v54 = [v41 countByEnumeratingWithState:&v66 objects:buf count:16];
+            v54 = [v41 countByEnumeratingWithState:&v65 objects:buf count:16];
             v44 = v54;
-            firstObject = v62;
+            firstObject = v61;
             if (v54)
             {
               goto LABEL_18;
@@ -20876,20 +20774,20 @@ LABEL_18:
 LABEL_36:
         v18 = v47;
 
-        firstObject = v62;
+        firstObject = v61;
         if (!v47)
         {
           goto LABEL_40;
         }
 
-        v38 = v64;
-        v4 = v65;
+        v38 = v63;
+        v4 = v64;
         v56 = objc_getProperty(v18, v55, 200, 1);
-        v57 = [(NEIKEv2Session *)a receiveDeleteChildSPI:v56 remoteSPI:v65 packet:?];
+        v57 = [(NEIKEv2Session *)a receiveDeleteChildSPI:v56 remoteSPI:v64 packet:?];
 
         v58 = ne_log_large_obj();
         v30 = v58;
-        v32 = v63;
+        v32 = v62;
         if (v57)
         {
           if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
@@ -20897,8 +20795,8 @@ LABEL_36:
             v60 = objc_getProperty(v18, v59, 200, 1);
             *buf = 138412546;
             aCopy4 = a;
-            v72 = 2112;
-            v73 = v60;
+            v71 = 2112;
+            v72 = v60;
             _os_log_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_DEFAULT, "%@ Received Child SA Delete for remote SPI %@", buf, 0x16u);
           }
 
@@ -20913,8 +20811,8 @@ LABEL_36:
 
       *buf = 138412546;
       aCopy4 = a;
-      v72 = 2112;
-      v73 = v18;
+      v71 = 2112;
+      v72 = v18;
       _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Failed to process received Child SA Delete %@", buf, 0x16u);
       goto LABEL_34;
     }
@@ -20935,15 +20833,13 @@ LABEL_36:
 
   v32 = 0;
 LABEL_44:
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __50__NEIKEv2Session_Exchange__initiateDeleteChildSA___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __50__NEIKEv2Session_Exchange__initiateDeleteChildSA___block_invoke(void *a1, uint64_t a2)
 {
-  [(NEIKEv2Session *)*(a1 + 32) resetChild:?];
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 32);
+  [(NEIKEv2Session *)a1[4] resetChild:?];
+  v4 = a1[6];
+  v5 = a1[4];
 
   return [v4 sendCallbackSuccess:a2 session:v5];
 }
@@ -21257,7 +21153,7 @@ LABEL_43:
 
 - (void)invalidateWithCompletionHandler:(BOOL)handler completionHandler:(id)completionHandler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionHandlerCopy = completionHandler;
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -21284,16 +21180,14 @@ LABEL_43:
   block[3] = &unk_1E7F08C20;
   handlerCopy = handler;
   block[4] = self;
-  v13 = completionHandlerCopy;
+  v12 = completionHandlerCopy;
   v10 = completionHandlerCopy;
   dispatch_async(Property, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___block_invoke(uint64_t a1, const char *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) == 1)
   {
     v3 = *(a1 + 32);
@@ -21307,7 +21201,7 @@ void __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___bl
         if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v18 = v3;
+          v17 = v3;
           _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@ flushed all pending requests", buf, 0xCu);
         }
 
@@ -21326,20 +21220,19 @@ void __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___bl
   }
 
   v10 = v9;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___block_invoke_2;
-  v14[3] = &unk_1E7F08BF8;
-  objc_copyWeak(&v16, buf);
-  v15 = *(a1 + 40);
-  v11 = [(NEIKEv2DeleteIKEContext *)&v7->super.super.isa initDeleteIKEWithResponse:v10 callbackQueue:v14 callback:?];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___block_invoke_2;
+  v13[3] = &unk_1E7F08BF8;
+  objc_copyWeak(&v15, buf);
+  v14 = *(a1 + 40);
+  v11 = [(NEIKEv2DeleteIKEContext *)&v7->super.super.isa initDeleteIKEWithResponse:v10 callbackQueue:v13 callback:?];
 
   [(NEIKEv2Session *)*(a1 + 32) abort];
   [(NEIKEv2Session *)*(a1 + 32) enqueuePendingRequestContext:v11];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler___block_invoke_2(uint64_t a1)
@@ -21383,7 +21276,7 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
 
 - (_BYTE)abort
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = result;
@@ -21392,9 +21285,9 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v2;
-      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Aborting session %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v2;
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Aborting session %@", &v7, 0xCu);
     }
 
     v2[11] = 1;
@@ -21402,16 +21295,15 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
     [v2 setTrafficSelectorUpdateBlock:0];
     [(NEIKEv2Session *)v2 cancelSendTimer];
     [(NEIKEv2Session *)v2 invalidateDPDTimer];
-    result = [(NEIKEv2Session *)v2 fireWaitingRequestHandlerWithPacket:?];
+    return [(NEIKEv2Session *)v2 fireWaitingRequestHandlerWithPacket:?];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)enqueuePendingRequestContext:(void *)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (context)
   {
@@ -21425,8 +21317,8 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
       {
         *buf = 138412546;
         contextCopy = context;
-        v24 = 2112;
-        v25 = v4;
+        v23 = 2112;
+        v24 = v4;
         _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "%@ Enqueueing %@", buf, 0x16u);
       }
 
@@ -21464,7 +21356,7 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
         }
       }
 
-      if ((contextCopy2[15] & 1) == 0)
+      if ((*(contextCopy2 + 15) & 1) == 0)
       {
         [(NEIKEv2Session *)contextCopy2 sendPendingRequestContext];
       }
@@ -21480,13 +21372,11 @@ uint64_t __68__NEIKEv2Session_invalidateWithCompletionHandler_completionHandler_
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendPendingRequestContext
 {
-  v513 = *MEMORY[0x1E69E9840];
+  v512 = *MEMORY[0x1E69E9840];
   if (self)
   {
     Property = objc_getProperty(self, a2, 384, 1);
@@ -21530,7 +21420,7 @@ LABEL_7:
                 [(NEIKEv2Session *)self initiateMOBIKE:firstObject3];
 LABEL_279:
 
-                goto LABEL_306;
+                return;
               }
 
               firstObject3 = firstObject3;
@@ -21754,16 +21644,16 @@ LABEL_269:
                                 *buf = MEMORY[0x1E69E9820];
                                 *&buf[8] = 3221225472;
                                 *&buf[16] = __47__NEIKEv2Session_Exchange__initiateNewChildSA___block_invoke;
-                                v508 = &unk_1E7F083F0;
+                                v507 = &unk_1E7F083F0;
                                 v386 = firstObject3;
                                 selfCopy8 = v386;
                                 selfCopy10 = self;
-                                v511 = v21;
+                                v510 = v21;
                                 if ([NEIKEv2Session sendRequest:self retry:v96 replyHandler:buf]== -1)
                                 {
                                   [v386 sendCallbackSuccess:0 session:self];
                                   v388 = objc_getProperty(self, v387, 352, 1);
-                                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"create child SA", v389, v390, v391, v392, v393, v394, v395, v476);
+                                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"create child SA", v389, v390, v391, v392, v393, v394, v395, v475);
                                   [(NEIKEv2IKESA *)v388 setState:ErrorFailedToSend error:?];
 
                                   [(NEIKEv2Session *)self reportState];
@@ -21781,7 +21671,7 @@ LABEL_269:
                                 }
 
                                 [firstObject3 sendCallbackSuccess:0 session:self];
-                                ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v400, v401, v402, v403, v404, v405, v406, v476);
+                                ErrorInternal = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v400, v401, v402, v403, v404, v405, v406, v475);
                                 [(NEIKEv2ChildSA *)v21 setState:ErrorInternal error:?];
 
                                 [(NEIKEv2Session *)self reportState];
@@ -21861,7 +21751,7 @@ LABEL_266:
                     v211 = @"Failed to generate Child SA SPI";
                   }
 
-                  ErrorCrypto = NEIKEv2CreateErrorCrypto(v211, v204, v205, v206, v207, v208, v209, v210, v476);
+                  ErrorCrypto = NEIKEv2CreateErrorCrypto(v211, v204, v205, v206, v207, v208, v209, v210, v475);
                   [(NEIKEv2ChildSA *)v12 setState:ErrorCrypto error:?];
 
                   [(NEIKEv2Session *)self reportState];
@@ -21949,11 +21839,11 @@ LABEL_278:
                   *buf = MEMORY[0x1E69E9820];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __50__NEIKEv2Session_Exchange__initiateDeleteChildSA___block_invoke;
-                  v508 = &unk_1E7F083C8;
+                  v507 = &unk_1E7F083C8;
                   selfCopy8 = self;
                   v12 = v12;
                   selfCopy10 = v12;
-                  v511 = firstObject3;
+                  v510 = firstObject3;
                   [(NEIKEv2Session *)self initiateDeleteChildSPI:v160 remoteSPI:v165 deleteCompletionCallback:buf];
                 }
               }
@@ -22047,16 +21937,16 @@ LABEL_81:
                 v109 = initOutbound2;
                 if (initOutbound2)
                 {
-                  v417 = initOutbound2;
+                  v416 = initOutbound2;
                 }
 
                 else
                 {
-                  v418 = ne_log_obj();
-                  if (os_log_type_enabled(v418, OS_LOG_TYPE_FAULT))
+                  v417 = ne_log_obj();
+                  if (os_log_type_enabled(v417, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 0;
-                    _os_log_fault_impl(&dword_1BA83C000, v418, OS_LOG_TYPE_FAULT, "[[NEIKEv2InformationalPacket alloc] initOutbound:] failed", buf, 2u);
+                    _os_log_fault_impl(&dword_1BA83C000, v417, OS_LOG_TYPE_FAULT, "[[NEIKEv2InformationalPacket alloc] initOutbound:] failed", buf, 2u);
                   }
                 }
 
@@ -22065,75 +21955,75 @@ LABEL_313:
 
                 if (v128)
                 {
-                  v419 = *(v97 + 4);
-                  v420 = [v419 count];
+                  v418 = *(v97 + 4);
+                  v419 = [v418 count];
 
-                  if (v420)
+                  if (v419)
                   {
-                    v421 = v128;
-                    v498 = 0u;
-                    v499 = 0u;
-                    *v496 = 0u;
+                    v420 = v128;
                     v497 = 0u;
+                    v498 = 0u;
+                    *v495 = 0u;
+                    v496 = 0u;
                     objc = *(v97 + 4);
-                    v422 = [objc countByEnumeratingWithState:v496 objects:buf count:16];
-                    if (v422)
+                    v421 = [objc countByEnumeratingWithState:v495 objects:buf count:16];
+                    if (v421)
                     {
-                      v423 = v422;
-                      v424 = *v497;
+                      v422 = v421;
+                      v423 = *v496;
                       while (2)
                       {
-                        v425 = 0;
+                        v424 = 0;
                         do
                         {
-                          if (*v497 != v424)
+                          if (*v496 != v423)
                           {
                             objc_enumerationMutation(objc);
                           }
 
-                          v426 = *(*&v496[8] + 8 * v425);
-                          v427 = objc_alloc_init(NEIKEv2NotifyPayload);
-                          notifyStatus = [v426 notifyStatus];
-                          if (v427)
+                          v425 = *(*&v495[8] + 8 * v424);
+                          v426 = objc_alloc_init(NEIKEv2NotifyPayload);
+                          notifyStatus = [v425 notifyStatus];
+                          if (v426)
                           {
-                            v427->_notifyType = notifyStatus;
-                            notifyData = [v426 notifyData];
-                            objc_setProperty_atomic(v427, v430, notifyData, 40);
+                            v426->_notifyType = notifyStatus;
+                            notifyData = [v425 notifyData];
+                            objc_setProperty_atomic(v426, v429, notifyData, 40);
                           }
 
                           else
                           {
-                            notifyData = [v426 notifyData];
+                            notifyData = [v425 notifyData];
                           }
 
-                          if (![(NEIKEv2Packet *)v421 addNotifyPayload:v427])
+                          if (![(NEIKEv2Packet *)v420 addNotifyPayload:v426])
                           {
-                            v451 = ne_log_obj();
-                            if (os_log_type_enabled(v451, OS_LOG_TYPE_FAULT))
+                            v450 = ne_log_obj();
+                            if (os_log_type_enabled(v450, OS_LOG_TYPE_FAULT))
                             {
-                              *v492 = 0;
-                              _os_log_fault_impl(&dword_1BA83C000, v451, OS_LOG_TYPE_FAULT, "[sendKeepalive addNotifyPayload:notifyPayload] failed", v492, 2u);
+                              *v491 = 0;
+                              _os_log_fault_impl(&dword_1BA83C000, v450, OS_LOG_TYPE_FAULT, "[sendKeepalive addNotifyPayload:notifyPayload] failed", v491, 2u);
                             }
 
                             [v97 sendCallbackSuccess:0 session:self];
-                            v453 = objc_getProperty(self, v452, 352, 1);
-                            v461 = NEIKEv2CreateErrorInternal(@"[sendKeepalive addNotifyPayload:notifyPayload] failed", v454, v455, v456, v457, v458, v459, v460, v476);
-                            [(NEIKEv2IKESA *)v453 setState:v461 error:?];
+                            v452 = objc_getProperty(self, v451, 352, 1);
+                            v460 = NEIKEv2CreateErrorInternal(@"[sendKeepalive addNotifyPayload:notifyPayload] failed", v453, v454, v455, v456, v457, v458, v459, v475);
+                            [(NEIKEv2IKESA *)v452 setState:v460 error:?];
 
                             [(NEIKEv2Session *)self reportState];
                             [(NEIKEv2Session *)self resetAll];
 
-                            v128 = v421;
+                            v128 = v420;
                             goto LABEL_257;
                           }
 
-                          ++v425;
+                          ++v424;
                         }
 
-                        while (v423 != v425);
-                        v431 = [objc countByEnumeratingWithState:v496 objects:buf count:16];
-                        v423 = v431;
-                        if (v431)
+                        while (v422 != v424);
+                        v430 = [objc countByEnumeratingWithState:v495 objects:buf count:16];
+                        v422 = v430;
+                        if (v430)
                         {
                           continue;
                         }
@@ -22143,27 +22033,27 @@ LABEL_313:
                     }
 
                     v102 = &OBJC_IVAR___NEFilterFlow__direction;
-                    v128 = v421;
+                    v128 = v420;
                   }
 
-                  v432 = *(v97 + 5);
-                  v433 = *(v97 + v102[776]);
+                  v431 = *(v97 + 5);
+                  v432 = *(v97 + v102[776]);
                   Error = NEIKEv2CreateError(3);
-                  *v492 = MEMORY[0x1E69E9820];
-                  *&v492[8] = 3221225472;
-                  *&v493 = __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke;
-                  *(&v493 + 1) = &unk_1E7F08198;
-                  *&v494 = self;
-                  v435 = v97;
-                  *(&v494 + 1) = v435;
-                  v436 = [(NEIKEv2Session *)self sendRequest:v128 retryIntervalInMilliseconds:v432 maxRetries:v433 timeoutError:Error resend:0 sendMessageID:0xFFFFFFFFLL sendCompletionHandler:0 replyHandler:v492];
+                  *v491 = MEMORY[0x1E69E9820];
+                  *&v491[8] = 3221225472;
+                  *&v492 = __50__NEIKEv2Session_Exchange__initiateInformational___block_invoke;
+                  *(&v492 + 1) = &unk_1E7F08198;
+                  *&v493 = self;
+                  v434 = v97;
+                  *(&v493 + 1) = v434;
+                  v435 = [(NEIKEv2Session *)self sendRequest:v128 retryIntervalInMilliseconds:v431 maxRetries:v432 timeoutError:Error resend:0 sendMessageID:0xFFFFFFFFLL sendCompletionHandler:0 replyHandler:v491];
 
-                  if (v436 == -1)
+                  if (v435 == -1)
                   {
-                    [v435 sendCallbackSuccess:0 session:self];
-                    v465 = objc_getProperty(self, v464, 352, 1);
-                    v473 = NEIKEv2CreateErrorFailedToSend(@"informational packet", v466, v467, v468, v469, v470, v471, v472, v477);
-                    [(NEIKEv2IKESA *)v465 setState:v473 error:?];
+                    [v434 sendCallbackSuccess:0 session:self];
+                    v464 = objc_getProperty(self, v463, 352, 1);
+                    v472 = NEIKEv2CreateErrorFailedToSend(@"informational packet", v465, v466, v467, v468, v469, v470, v471, v476);
+                    [(NEIKEv2IKESA *)v464 setState:v472 error:?];
 
                     [(NEIKEv2Session *)self reportState];
                     [(NEIKEv2Session *)self resetAll];
@@ -22171,34 +22061,34 @@ LABEL_313:
 
                   else
                   {
-                    v437 = ne_log_obj();
-                    if (os_log_type_enabled(v437, OS_LOG_TYPE_INFO))
+                    v436 = ne_log_obj();
+                    if (os_log_type_enabled(v436, OS_LOG_TYPE_INFO))
                     {
-                      *v501 = 138412802;
+                      *v500 = 138412802;
                       selfCopy3 = self;
-                      v503 = 2112;
-                      v504 = v435;
-                      v505 = 1024;
-                      v506 = v436;
-                      _os_log_impl(&dword_1BA83C000, v437, OS_LOG_TYPE_INFO, "%@ Sent %@ with message ID %d", v501, 0x1Cu);
+                      v502 = 2112;
+                      v503 = v434;
+                      v504 = 1024;
+                      v505 = v435;
+                      _os_log_impl(&dword_1BA83C000, v436, OS_LOG_TYPE_INFO, "%@ Sent %@ with message ID %d", v500, 0x1Cu);
                     }
                   }
                 }
 
                 else
                 {
-                  v438 = ne_log_obj();
-                  if (os_log_type_enabled(v438, OS_LOG_TYPE_ERROR))
+                  v437 = ne_log_obj();
+                  if (os_log_type_enabled(v437, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
                     *&buf[4] = self;
-                    _os_log_error_impl(&dword_1BA83C000, v438, OS_LOG_TYPE_ERROR, "%@ Failed to create informational packet", buf, 0xCu);
+                    _os_log_error_impl(&dword_1BA83C000, v437, OS_LOG_TYPE_ERROR, "%@ Failed to create informational packet", buf, 0xCu);
                   }
 
                   [v97 sendCallbackSuccess:0 session:self];
-                  v440 = objc_getProperty(self, v439, 352, 1);
-                  v448 = NEIKEv2CreateErrorInternal(@"Failed to create informational packet", v441, v442, v443, v444, v445, v446, v447, v476);
-                  [(NEIKEv2IKESA *)v440 setState:v448 error:?];
+                  v439 = objc_getProperty(self, v438, 352, 1);
+                  v447 = NEIKEv2CreateErrorInternal(@"Failed to create informational packet", v440, v441, v442, v443, v444, v445, v446, v475);
+                  [(NEIKEv2IKESA *)v439 setState:v447 error:?];
 
                   [(NEIKEv2Session *)self reportState];
                   [(NEIKEv2Session *)self resetAll];
@@ -22400,35 +22290,35 @@ LABEL_228:
 
                 else
                 {
-                  v480 = v222;
-                  v483 = v96;
+                  v479 = v222;
+                  v482 = v96;
                   selfa = v12;
-                  v487 = firstObject3;
+                  v486 = firstObject3;
                   v229 = objc_getProperty(v15, v226, 56, 1);
                   copyForRekey2 = [(NEIKEv2ChildSAProposal *)v229 copyForRekey];
                   copyForRekey = [(NEIKEv2ChildSAProposal *)copyForRekey2 copyWithoutKEM];
 
                   v232 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-                  *v492 = 0u;
+                  *v491 = 0u;
+                  v492 = 0u;
                   v493 = 0u;
                   v494 = 0u;
-                  v495 = 0u;
                   v233 = objb;
-                  v234 = [v233 countByEnumeratingWithState:v492 objects:buf count:16];
+                  v234 = [v233 countByEnumeratingWithState:v491 objects:buf count:16];
                   if (v234)
                   {
                     v235 = v234;
-                    v236 = *v493;
+                    v236 = *v492;
                     do
                     {
                       for (i = 0; i != v235; ++i)
                       {
-                        if (*v493 != v236)
+                        if (*v492 != v236)
                         {
                           objc_enumerationMutation(v233);
                         }
 
-                        copyForRekey3 = [(NEIKEv2ChildSAProposal *)*(*&v492[8] + 8 * i) copyForRekey];
+                        copyForRekey3 = [(NEIKEv2ChildSAProposal *)*(*&v491[8] + 8 * i) copyForRekey];
                         copyWithoutKEM = [(NEIKEv2ChildSAProposal *)copyForRekey3 copyWithoutKEM];
                         if ([copyWithoutKEM isEqual:copyForRekey])
                         {
@@ -22442,7 +22332,7 @@ LABEL_228:
                         }
                       }
 
-                      v235 = [v233 countByEnumeratingWithState:v492 objects:buf count:16];
+                      v235 = [v233 countByEnumeratingWithState:v491 objects:buf count:16];
                     }
 
                     while (v235);
@@ -22452,9 +22342,9 @@ LABEL_228:
                   opportunisticPFS = [v242 opportunisticPFS];
 
                   v12 = selfa;
-                  firstObject3 = v487;
-                  v222 = v480;
-                  v96 = v483;
+                  firstObject3 = v486;
+                  v222 = v479;
+                  v96 = v482;
                   if (opportunisticPFS)
                   {
                     v244 = [v232 count];
@@ -22480,9 +22370,9 @@ LABEL_228:
                   v283 = ne_log_obj();
                   if (os_log_type_enabled(v283, OS_LOG_TYPE_FAULT))
                   {
-                    *v496 = 136315138;
-                    *&v496[4] = "[NEIKEv2Session(Exchange) initiateRekeyChildSA:]";
-                    _os_log_fault_impl(&dword_1BA83C000, v283, OS_LOG_TYPE_FAULT, "%s called with null childSA.rekeyRequestProposals", v496, 0xCu);
+                    *v495 = 136315138;
+                    *&v495[4] = "[NEIKEv2Session(Exchange) initiateRekeyChildSA:]";
+                    _os_log_fault_impl(&dword_1BA83C000, v283, OS_LOG_TYPE_FAULT, "%s called with null childSA.rekeyRequestProposals", v495, 0xCu);
                   }
 
                   [firstObject3 sendCallbackSuccess:0 session:self];
@@ -22499,21 +22389,21 @@ LABEL_228:
                     v269 = [NEIKEv2CreateChildPacket createRekeyRequestChildSA:v15];
                     if (v269)
                     {
-                      *v496 = MEMORY[0x1E69E9820];
-                      *&v496[8] = 3221225472;
-                      *&v497 = __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke;
-                      *(&v497 + 1) = &unk_1E7F084E0;
+                      *v495 = MEMORY[0x1E69E9820];
+                      *&v495[8] = 3221225472;
+                      *&v496 = __49__NEIKEv2Session_Exchange__initiateRekeyChildSA___block_invoke;
+                      *(&v496 + 1) = &unk_1E7F084E0;
                       v270 = firstObject3;
-                      *&v498 = v270;
-                      *(&v498 + 1) = self;
-                      *&v499 = v15;
-                      *(&v499 + 1) = v96;
-                      v500 = v222;
-                      if ([NEIKEv2Session sendRequest:self retry:v269 replyHandler:v496]== -1)
+                      *&v497 = v270;
+                      *(&v497 + 1) = self;
+                      *&v498 = v15;
+                      *(&v498 + 1) = v96;
+                      v499 = v222;
+                      if ([NEIKEv2Session sendRequest:self retry:v269 replyHandler:v495]== -1)
                       {
                         [v270 sendCallbackSuccess:0 session:self];
                         v272 = objc_getProperty(self, v271, 352, 1);
-                        v280 = NEIKEv2CreateErrorFailedToSend(@"initiator rekey child SA", v273, v274, v275, v276, v277, v278, v279, v476);
+                        v280 = NEIKEv2CreateErrorFailedToSend(@"initiator rekey child SA", v273, v274, v275, v276, v277, v278, v279, v475);
                         [(NEIKEv2IKESA *)v272 setState:v280 error:?];
 
                         [(NEIKEv2Session *)self reportState];
@@ -22526,12 +22416,12 @@ LABEL_228:
                       v313 = ne_log_obj();
                       if (os_log_type_enabled(v313, OS_LOG_TYPE_ERROR))
                       {
-                        *v496 = 0;
-                        _os_log_error_impl(&dword_1BA83C000, v313, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v496, 2u);
+                        *v495 = 0;
+                        _os_log_error_impl(&dword_1BA83C000, v313, OS_LOG_TYPE_ERROR, "Failed to create Create Child SA packet", v495, 2u);
                       }
 
                       [firstObject3 sendCallbackSuccess:0 session:self];
-                      v321 = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v314, v315, v316, v317, v318, v319, v320, v476);
+                      v321 = NEIKEv2CreateErrorInternal(@"Failed to create Create Child SA packet", v314, v315, v316, v317, v318, v319, v320, v475);
                       [(NEIKEv2ChildSA *)v15 setState:v321 error:?];
 
                       [(NEIKEv2Session *)self reportState];
@@ -22544,8 +22434,8 @@ LABEL_228:
                   v297 = ne_log_obj();
                   if (os_log_type_enabled(v297, OS_LOG_TYPE_ERROR))
                   {
-                    *v496 = 0;
-                    _os_log_error_impl(&dword_1BA83C000, v297, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", v496, 2u);
+                    *v495 = 0;
+                    _os_log_error_impl(&dword_1BA83C000, v297, OS_LOG_TYPE_ERROR, "Failed to generate local Child crypto values", v495, 2u);
                   }
 
                   [firstObject3 sendCallbackSuccess:0 session:self];
@@ -22557,15 +22447,15 @@ LABEL_228:
                   v284 = ne_log_obj();
                   if (os_log_type_enabled(v284, OS_LOG_TYPE_ERROR))
                   {
-                    *v496 = 0;
-                    _os_log_error_impl(&dword_1BA83C000, v284, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", v496, 2u);
+                    *v495 = 0;
+                    _os_log_error_impl(&dword_1BA83C000, v284, OS_LOG_TYPE_ERROR, "Failed to generate Child SA SPI", v495, 2u);
                   }
 
                   [firstObject3 sendCallbackSuccess:0 session:self];
                   v292 = @"Failed to generate Child SA SPI";
                 }
 
-                v298 = NEIKEv2CreateErrorCrypto(v292, v285, v286, v287, v288, v289, v290, v291, v476);
+                v298 = NEIKEv2CreateErrorCrypto(v292, v285, v286, v287, v288, v289, v290, v291, v475);
                 [(NEIKEv2ChildSA *)v15 setState:v298 error:?];
 
                 [(NEIKEv2Session *)self reportState];
@@ -22655,7 +22545,7 @@ LABEL_80:
 LABEL_257:
 
 LABEL_305:
-            goto LABEL_306;
+            return;
           }
 
           LOBYTE(v135[2].isa) = 1;
@@ -22703,7 +22593,7 @@ LABEL_305:
 
               v177 = objc_getProperty(v169, v176, 96, 1);
               v179 = objc_getProperty(v169, v178, 32, 1);
-              v486 = v179;
+              v485 = v179;
               obja = v169;
               if (v177)
               {
@@ -22739,7 +22629,7 @@ LABEL_305:
                   objc_setProperty_atomic(v182, v192, v191, 128);
                 }
 
-                v482 = v182;
+                v481 = v182;
 
                 chosenAdditionalKEMProtocols = [(NEIKEv2IKESAProposal *)v177 chosenAdditionalKEMProtocols];
 
@@ -22755,58 +22645,58 @@ LABEL_305:
                     chosenAdditionalKEMProtocols3 = [(NEIKEv2IKESAProposal *)v177 chosenAdditionalKEMProtocols];
                     v202 = [v200 initWithDictionary:chosenAdditionalKEMProtocols3 copyItems:1];
 LABEL_219:
-                    v179 = v486;
-                    v182 = v482;
-                    [(NEIKEv2IKESAProposal *)v482 setChosenAdditionalKEMProtocols:v202];
+                    v179 = v485;
+                    v182 = v481;
+                    [(NEIKEv2IKESAProposal *)v481 setChosenAdditionalKEMProtocols:v202];
 
                     goto LABEL_232;
                   }
 
                   if (objc_getProperty(v177, v199, 136, 1))
                   {
-                    v479 = v97;
-                    v481 = v168;
-                    v478 = v128;
+                    v478 = v97;
+                    v480 = v168;
+                    v477 = v128;
                     chosenAdditionalKEMProtocols3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                    *v496 = 0u;
+                    *v495 = 0u;
+                    v496 = 0u;
                     v497 = 0u;
                     v498 = 0u;
-                    v499 = 0u;
                     v305 = objc_getProperty(v177, v304, 136, 1);
-                    v306 = [v305 countByEnumeratingWithState:v496 objects:buf count:16];
+                    v306 = [v305 countByEnumeratingWithState:v495 objects:buf count:16];
                     if (v306)
                     {
                       v307 = v306;
-                      v308 = *v497;
+                      v308 = *v496;
                       do
                       {
                         for (j = 0; j != v307; ++j)
                         {
-                          if (*v497 != v308)
+                          if (*v496 != v308)
                           {
                             objc_enumerationMutation(v305);
                           }
 
-                          v310 = *(*&v496[8] + 8 * j);
+                          v310 = *(*&v495[8] + 8 * j);
                           chosenAdditionalKEMProtocols4 = [(NEIKEv2IKESAProposal *)v177 chosenAdditionalKEMProtocols];
                           v312 = [chosenAdditionalKEMProtocols4 objectForKeyedSubscript:v310];
                           [chosenAdditionalKEMProtocols3 setObject:v312 forKeyedSubscript:v310];
                         }
 
-                        v307 = [v305 countByEnumeratingWithState:v496 objects:buf count:16];
+                        v307 = [v305 countByEnumeratingWithState:v495 objects:buf count:16];
                       }
 
                       while (v307);
                     }
 
                     v202 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:chosenAdditionalKEMProtocols3 copyItems:1];
-                    v128 = v478;
-                    v97 = v479;
-                    v168 = v481;
+                    v128 = v477;
+                    v97 = v478;
+                    v168 = v480;
                     goto LABEL_219;
                   }
 
-                  v179 = v486;
+                  v179 = v485;
                 }
               }
 
@@ -22817,8 +22707,8 @@ LABEL_219:
 
 LABEL_232:
 
-              *v496 = v182;
-              v324 = [MEMORY[0x1E695DEC8] arrayWithObjects:v496 count:1];
+              *v495 = v182;
+              v324 = [MEMORY[0x1E695DEC8] arrayWithObjects:v495 count:1];
               v326 = objc_getProperty(self, v325, 88, 1);
               v328 = v326;
               if (v326)
@@ -22934,17 +22824,17 @@ LABEL_249:
                     *buf = MEMORY[0x1E69E9820];
                     *&buf[8] = 3221225472;
                     *&buf[16] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_2;
-                    v508 = &unk_1E7F08530;
+                    v507 = &unk_1E7F08530;
                     selfCopy8 = self;
                     v366 = v97;
                     selfCopy10 = v366;
-                    v511 = v169;
-                    v512 = v128;
+                    v510 = v169;
+                    v511 = v128;
                     if ([NEIKEv2Session sendRequest:self retry:v260 replyHandler:buf]== -1)
                     {
                       [v366 sendCallbackSuccess:0 session:self];
                       v368 = objc_getProperty(self, v367, 352, 1);
-                      v376 = NEIKEv2CreateErrorFailedToSend(@"initiator rekey IKE SA", v369, v370, v371, v372, v373, v374, v375, v476);
+                      v376 = NEIKEv2CreateErrorFailedToSend(@"initiator rekey IKE SA", v369, v370, v371, v372, v373, v374, v375, v475);
                       [(NEIKEv2IKESA *)v368 setState:v376 error:?];
 
                       [(NEIKEv2Session *)self reportState];
@@ -22966,7 +22856,7 @@ LABEL_249:
                     *buf = MEMORY[0x1E69E9820];
                     *&buf[8] = 3221225472;
                     *&buf[16] = __47__NEIKEv2Session_Exchange__initiateRekeyIKESA___block_invoke_565;
-                    v508 = &unk_1E7F081C0;
+                    v507 = &unk_1E7F081C0;
                     selfCopy8 = v97;
                     selfCopy10 = self;
                     v383 = [(NEIKEv2DeleteIKEContext *)&v380->super.super.isa initDeleteIKEWithResponse:v382 callbackQueue:buf callback:?];
@@ -23018,7 +22908,7 @@ LABEL_249:
           }
 
           *&buf[16] = v255;
-          v508 = &unk_1E7F081C0;
+          v507 = &unk_1E7F081C0;
           selfCopy8 = v97;
           selfCopy10 = self;
           v259 = [(NEIKEv2DeleteIKEContext *)&v252->super.super.isa initDeleteIKEWithResponse:v254 callbackQueue:buf callback:?];
@@ -23063,9 +22953,6 @@ LABEL_256:
       }
     }
   }
-
-LABEL_306:
-  v415 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelSendTimer
@@ -23156,7 +23043,7 @@ LABEL_6:
 
 - (void)resetAll
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self)
   {
     Property = objc_getProperty(self, a2, 384, 1);
@@ -23164,9 +23051,9 @@ LABEL_6:
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 138412290;
+      v39 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Resetting %@", &v40, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Resetting %@", &v39, 0xCu);
     }
 
     [(NEIKEv2Session *)self abort];
@@ -23241,13 +23128,11 @@ LABEL_6:
       }
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)uninstallAllChildSAs
+- (void)uninstallAllChildSAs
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -23255,78 +23140,77 @@ LABEL_6:
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v31 = v1;
-      v32 = 2112;
+      v30 = v1;
+      v31 = 2112;
       Property = objc_getProperty(v1, v3, 192, 1);
       _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@ %@ Uninstalling all child SAs", buf, 0x16u);
     }
 
     [objc_getProperty(v1 v4];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v6 = objc_getProperty(v1, v5, 200, 1);
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         v10 = 0;
         do
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v24 + 1) + 8 * v10++) invalidate];
+          [*(*(&v23 + 1) + 8 * v10++) invalidate];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
     }
 
     [objc_getProperty(v1 v11];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = objc_getProperty(v1, v12, 208, 1);
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [*(*(&v20 + 1) + 8 * v17++) invalidate];
+          [*(*(&v19 + 1) + 8 * v17++) invalidate];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v15);
     }
 
-    result = [objc_getProperty(v1 v18];
+    return [objc_getProperty(v1 v18];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -23361,7 +23245,7 @@ LABEL_6:
 
 - (void)receivePacket:(id)packet
 {
-  v195 = *MEMORY[0x1E69E9840];
+  v194 = *MEMORY[0x1E69E9840];
   packetCopy = packet;
   if (self)
   {
@@ -23412,9 +23296,9 @@ LABEL_6:
         v15 = "Request";
       }
 
-      v180 = [MEMORY[0x1E696AD98] numberWithInt:{v10, v15}];
+      v179 = [MEMORY[0x1E696AD98] numberWithInt:{v10, v15}];
       v17 = v13;
-      if ([v13 containsObject:v180])
+      if ([v13 containsObject:v179])
       {
         v18 = " retransmission";
       }
@@ -23428,22 +23312,22 @@ LABEL_6:
       v4 = objc_getProperty(packetCopy, v16, 32, 1);
       v21 = objc_getProperty(packetCopy, v20, 40, 1);
       *buf = 138414082;
-      *v185 = self;
-      *&v185[8] = 2112;
-      *v186 = typeDescription;
+      *v184 = self;
+      *&v184[8] = 2112;
+      *v185 = typeDescription;
+      *&v185[8] = 2080;
+      *v186 = v178;
       *&v186[8] = 2080;
-      *v187 = v179;
-      *&v187[8] = 2080;
-      v188 = v18;
+      v187 = v18;
       v13 = v17;
-      v189 = 1024;
-      *v190 = v19;
-      *&v190[4] = 1024;
-      *&v190[6] = v10;
-      v191 = 2112;
-      v192 = v4;
-      v193 = 2112;
-      v194 = v21;
+      v188 = 1024;
+      *v189 = v19;
+      *&v189[4] = 1024;
+      *&v189[6] = v10;
+      v190 = 2112;
+      v191 = v4;
+      v192 = 2112;
+      v193 = v21;
       _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, "%@ Receiving %@ %s%s, length %u, ID %u (%@->%@)", buf, 0x4Au);
     }
 
@@ -23540,7 +23424,7 @@ LABEL_31:
             if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v185 = self;
+              *v184 = self;
               _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "%@ Ignoring fragment received before security established", buf, 0xCu);
             }
 
@@ -23553,13 +23437,13 @@ LABEL_31:
             v38 = *(packetCopy + 5);
             v39 = *(packetCopy + 6);
             *buf = 138413058;
-            *v185 = self;
-            *&v185[8] = 1024;
-            *v186 = v38;
-            *&v186[4] = 1024;
-            *&v186[6] = v39;
-            *v187 = 2112;
-            *&v187[2] = packetCopy;
+            *v184 = self;
+            *&v184[8] = 1024;
+            *v185 = v38;
+            *&v185[4] = 1024;
+            *&v185[6] = v39;
+            *v186 = 2112;
+            *&v186[2] = packetCopy;
             _os_log_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_DEFAULT, "%@ Received fragment %u/%u: %@", buf, 0x22u);
           }
         }
@@ -23651,14 +23535,14 @@ LABEL_44:
                 {
                 }
 
-                v106 = ne_log_obj();
-                if (os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+                v105 = ne_log_obj();
+                if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  *v185 = self;
-                  *&v185[8] = 1024;
-                  *v186 = v10;
-                  _os_log_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_INFO, "%@ Received duplicate for message %d, re-sending reply", buf, 0x12u);
+                  *v184 = self;
+                  *&v184[8] = 1024;
+                  *v185 = v10;
+                  _os_log_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_INFO, "%@ Received duplicate for message %d, re-sending reply", buf, 0x12u);
                 }
 
                 [(NEIKEv2Session *)self sendReplyForMessageID:v10];
@@ -23678,55 +23562,55 @@ LABEL_82:
               goto LABEL_72;
             }
 
-            v80 = packetCopy;
+            v79 = packetCopy;
             if (packetCopy[9] != 1)
             {
-              v81 = *(packetCopy + 7);
-              v82 = objc_getProperty(self, v79, 352, 1);
-              if (([(NEIKEv2Packet *)v80 decryptReceivedPacketWithIKESA:v82]& 1) == 0)
+              v80 = *(packetCopy + 7);
+              v81 = objc_getProperty(self, v78, 352, 1);
+              if (([(NEIKEv2Packet *)v79 decryptReceivedPacketWithIKESA:v81]& 1) == 0)
               {
-                v91 = ne_log_obj();
-                if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+                v90 = ne_log_obj();
+                if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  *v185 = self;
-                  _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "%@ Discarding undecrypted packet", buf, 0xCu);
+                  *v184 = self;
+                  _os_log_error_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_ERROR, "%@ Discarding undecrypted packet", buf, 0xCu);
                 }
 
                 goto LABEL_114;
               }
 
-              v83 = ne_log_large_obj();
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+              v82 = ne_log_large_obj();
+              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                *v185 = self;
-                *&v185[8] = 2112;
-                *v186 = v80;
-                _os_log_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_DEFAULT, "%@ Received request: %@", buf, 0x16u);
+                *v184 = self;
+                *&v184[8] = 2112;
+                *v185 = v79;
+                _os_log_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_DEFAULT, "%@ Received request: %@", buf, 0x16u);
               }
 
-              if (self->_lastReceivedMessageID < v81)
+              if (self->_lastReceivedMessageID < v80)
               {
-                self->_lastReceivedMessageID = v81;
+                self->_lastReceivedMessageID = v80;
               }
 
-              v85 = objc_getProperty(self, v84, 248, 1);
-              v86 = MEMORY[0x1E696AD98];
-              v87 = v85;
-              v88 = [v86 numberWithInt:v81];
-              [v87 addObject:v88];
+              v84 = objc_getProperty(self, v83, 248, 1);
+              v85 = MEMORY[0x1E696AD98];
+              v86 = v84;
+              v87 = [v85 numberWithInt:v80];
+              [v86 addObject:v87];
 
               [(NEIKEv2Session *)self updateReceivedRequestWindow];
-              if (([(NEIKEv2Session *)self fireWaitingRequestHandlerWithPacket:v80]& 1) != 0)
+              if (([(NEIKEv2Session *)self fireWaitingRequestHandlerWithPacket:v79]& 1) != 0)
               {
                 goto LABEL_115;
               }
 
-              exchangeType = [v80 exchangeType];
+              exchangeType = [v79 exchangeType];
               if (exchangeType == 34)
               {
-                [(NEIKEv2Session *)self receiveConnection:v80];
+                [(NEIKEv2Session *)self receiveConnection:v79];
                 goto LABEL_115;
               }
 
@@ -23734,35 +23618,35 @@ LABEL_82:
               {
                 if (exchangeType == 36)
                 {
-                  v91 = v80;
-                  if (objc_getProperty(v91, v92, 88, 1))
+                  v90 = v79;
+                  if (objc_getProperty(v90, v91, 88, 1))
                   {
-                    [(NEIKEv2Session *)self receiveRekeyIKESA:v91];
+                    [(NEIKEv2Session *)self receiveRekeyIKESA:v90];
                   }
 
                   else
                   {
-                    if ([(NEIKEv2Packet *)v91 hasNotification:?])
+                    if ([(NEIKEv2Packet *)v90 hasNotification:?])
                     {
-                      v112 = [(NEIKEv2Packet *)v91 copyNotification:?];
-                      v114 = v112;
-                      if (v112)
+                      v111 = [(NEIKEv2Packet *)v90 copyNotification:?];
+                      v113 = v111;
+                      if (v111)
                       {
-                        v112 = objc_getProperty(v112, v113, 48, 1);
+                        v111 = objc_getProperty(v111, v112, 48, 1);
                       }
 
-                      v115 = v112;
-                      v116 = [(NEIKEv2Session *)self copyChildWithSPI:v115];
+                      v114 = v111;
+                      v115 = [(NEIKEv2Session *)self copyChildWithSPI:v114];
 
-                      [(NEIKEv2Session *)self receiveRekeyChildSA:v116 packet:v91];
+                      [(NEIKEv2Session *)self receiveRekeyChildSA:v115 packet:v90];
                     }
 
                     else
                     {
-                      if (objc_getProperty(self, v111, 184, 1))
+                      if (objc_getProperty(self, v110, 184, 1))
                       {
-                        v121 = [NEIKEv2ChildSA alloc];
-                        v123 = objc_getProperty(self, v122, 184, 1);
+                        v120 = [NEIKEv2ChildSA alloc];
+                        v122 = objc_getProperty(self, v121, 184, 1);
                         objc_opt_self();
                         add_explicit = atomic_fetch_add_explicit(getNewChildSAID_nextChildSAID, 1u, memory_order_relaxed);
                         if (!add_explicit)
@@ -23770,31 +23654,31 @@ LABEL_82:
                           add_explicit = atomic_fetch_add_explicit(getNewChildSAID_nextChildSAID, 1u, memory_order_relaxed);
                         }
 
-                        v126 = objc_getProperty(self, v124, 352, 1);
-                        v114 = [(NEIKEv2ChildSA *)&v121->super initWithConfiguration:v123 childID:add_explicit ikeSA:v126];
+                        v125 = objc_getProperty(self, v123, 352, 1);
+                        v113 = [(NEIKEv2ChildSA *)&v120->super initWithConfiguration:v122 childID:add_explicit ikeSA:v125];
                       }
 
                       else
                       {
-                        v114 = 0;
+                        v113 = 0;
                       }
 
-                      [(NEIKEv2Session *)self receiveNewChildSA:v114 packet:v91];
+                      [(NEIKEv2Session *)self receiveNewChildSA:v113 packet:v90];
                     }
                   }
 
                   goto LABEL_114;
                 }
 
-                v109 = ne_log_obj();
-                if (os_log_type_enabled(v109, OS_LOG_TYPE_FAULT))
+                v108 = ne_log_obj();
+                if (os_log_type_enabled(v108, OS_LOG_TYPE_FAULT))
                 {
-                  copyShortDescription = [(NEIKEv2Packet *)v80 copyShortDescription];
+                  copyShortDescription = [(NEIKEv2Packet *)v79 copyShortDescription];
                   *buf = 138412546;
-                  *v185 = self;
-                  *&v185[8] = 2112;
-                  *v186 = copyShortDescription;
-                  _os_log_fault_impl(&dword_1BA83C000, v109, OS_LOG_TYPE_FAULT, "%@ Unable to handle unsolicited request %@", buf, 0x16u);
+                  *v184 = self;
+                  *&v184[8] = 2112;
+                  *v185 = copyShortDescription;
+                  _os_log_fault_impl(&dword_1BA83C000, v108, OS_LOG_TYPE_FAULT, "%@ Unable to handle unsolicited request %@", buf, 0x16u);
                 }
 
 LABEL_184:
@@ -23802,35 +23686,35 @@ LABEL_184:
                 goto LABEL_115;
               }
 
-              v91 = v80;
-              if ([(NEIKEv2InformationalPacket *)v91 isDeleteIKE])
+              v90 = v79;
+              if ([(NEIKEv2InformationalPacket *)v90 isDeleteIKE])
               {
-                [(NEIKEv2Session *)self receiveDeleteIKESA:v91];
+                [(NEIKEv2Session *)self receiveDeleteIKESA:v90];
               }
 
-              else if ([(NEIKEv2InformationalPacket *)v91 isDeleteChild])
+              else if ([(NEIKEv2InformationalPacket *)v90 isDeleteChild])
               {
-                [(NEIKEv2Session *)self receiveDeleteChildSA:v91];
+                [(NEIKEv2Session *)self receiveDeleteChildSA:v90];
               }
 
               else
               {
-                if (![(NEIKEv2InformationalPacket *)v91 isMOBIKE])
+                if (![(NEIKEv2InformationalPacket *)v90 isMOBIKE])
                 {
-                  v127 = objc_getProperty(self, v117, 352, 1);
-                  if (v127)
+                  v126 = objc_getProperty(self, v116, 352, 1);
+                  if (v126)
                   {
-                    v127 = objc_getProperty(v127, v128, 80, 1);
+                    v126 = objc_getProperty(v126, v127, 80, 1);
                   }
 
-                  v129 = v127;
-                  if ([v129 allowRedirect] && (v131 = objc_getProperty(self, v130, 352, 1)) != 0 && v131[6] == 2)
+                  v128 = v126;
+                  if ([v128 allowRedirect] && (v130 = objc_getProperty(self, v129, 352, 1)) != 0 && v130[6] == 2)
                   {
-                    v132 = [(NEIKEv2Packet *)v91 hasNotification:?];
+                    v131 = [(NEIKEv2Packet *)v90 hasNotification:?];
 
-                    if (v132)
+                    if (v131)
                     {
-                      [(NEIKEv2Session *)self receiveRedirect:v91];
+                      [(NEIKEv2Session *)self receiveRedirect:v90];
                       goto LABEL_114;
                     }
                   }
@@ -23839,11 +23723,11 @@ LABEL_184:
                   {
                   }
 
-                  [(NEIKEv2Session *)self receiveInformational:v91];
+                  [(NEIKEv2Session *)self receiveInformational:v90];
                   goto LABEL_114;
                 }
 
-                [(NEIKEv2Session *)self receiveMOBIKE:v91];
+                [(NEIKEv2Session *)self receiveMOBIKE:v90];
               }
 
 LABEL_114:
@@ -23861,7 +23745,7 @@ LABEL_72:
             if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *v185 = self;
+              *v184 = self;
               v77 = "%@ Discarding stale request";
 LABEL_78:
               _os_log_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_INFO, v77, buf, 0xCu);
@@ -23872,7 +23756,7 @@ LABEL_78:
           }
 
 LABEL_221:
-          v178 = packetCopy;
+          v177 = packetCopy;
           goto LABEL_115;
         }
 
@@ -23888,7 +23772,7 @@ LABEL_76:
           if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            *v185 = self;
+            *v184 = self;
             v77 = "%@ Discarding stale reply";
             goto LABEL_78;
           }
@@ -23903,93 +23787,93 @@ LABEL_81:
           goto LABEL_76;
         }
 
-        v80 = packetCopy;
+        v79 = packetCopy;
         if (packetCopy[9] == 1)
         {
 LABEL_97:
-          [(NEIKEv2Session *)self processFragment:v80];
+          [(NEIKEv2Session *)self processFragment:v79];
 LABEL_115:
 
           goto LABEL_82;
         }
 
-        v94 = *(packetCopy + 7);
-        v95 = objc_getProperty(self, v93, 352, 1);
-        if (![(NEIKEv2Packet *)v80 decryptReceivedPacketWithIKESA:v95])
+        v93 = *(packetCopy + 7);
+        v94 = objc_getProperty(self, v92, 352, 1);
+        if (![(NEIKEv2Packet *)v79 decryptReceivedPacketWithIKESA:v94])
         {
           goto LABEL_115;
         }
 
-        if (objc_getProperty(self, v96, 352, 1) && [v80 exchangeType] == 34 && -[NEIKEv2Packet hasNotification:](v80, 0x4017))
+        if (objc_getProperty(self, v95, 352, 1) && [v79 exchangeType] == 34 && -[NEIKEv2Packet hasNotification:](v79, 0x4017))
         {
-          v97 = [(NEIKEv2Packet *)v80 copyNotification:?];
-          v99 = v97;
-          if (!v97)
+          v96 = [(NEIKEv2Packet *)v79 copyNotification:?];
+          v98 = v96;
+          if (!v96)
           {
 LABEL_153:
-            v133 = 0;
+            v132 = 0;
 LABEL_154:
-            v134 = ne_log_large_obj();
-            if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+            v133 = ne_log_large_obj();
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              *v185 = self;
-              *&v185[8] = 2112;
-              *v186 = v80;
-              _os_log_error_impl(&dword_1BA83C000, v134, OS_LOG_TYPE_ERROR, "%@ Ignoring received SA_INIT packet (redirect nonce check failed): %@", buf, 0x16u);
+              *v184 = self;
+              *&v184[8] = 2112;
+              *v185 = v79;
+              _os_log_error_impl(&dword_1BA83C000, v133, OS_LOG_TYPE_ERROR, "%@ Ignoring received SA_INIT packet (redirect nonce check failed): %@", buf, 0x16u);
             }
 
             goto LABEL_115;
           }
 
-          if (v97[4] != 16407)
+          if (v96[4] != 16407)
           {
-            v100 = ne_log_obj();
-            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+            v99 = ne_log_obj();
+            if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v185 = v99;
-              _os_log_error_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_ERROR, "BACKTRACE Cannot copy server redirect nonce from notification %@", buf, 0xCu);
+              *v184 = v98;
+              _os_log_error_impl(&dword_1BA83C000, v99, OS_LOG_TYPE_ERROR, "BACKTRACE Cannot copy server redirect nonce from notification %@", buf, 0xCu);
             }
 
             goto LABEL_152;
           }
 
-          v100 = objc_getProperty(v97, v98, 40, 1);
-          if ([v100 length]<= 1)
+          v99 = objc_getProperty(v96, v97, 40, 1);
+          if ([v99 length]<= 1)
           {
-            v101 = ne_log_obj();
-            if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+            v100 = ne_log_obj();
+            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
             {
-              v102 = [v100 length];
+              v101 = [v99 length];
               *buf = 134217984;
-              *v185 = v102;
-              v103 = "Server redirect has invalid length %llu";
-              v104 = v101;
-              v105 = 12;
+              *v184 = v101;
+              v102 = "Server redirect has invalid length %llu";
+              v103 = v100;
+              v104 = 12;
 LABEL_150:
-              _os_log_error_impl(&dword_1BA83C000, v104, OS_LOG_TYPE_ERROR, v103, buf, v105);
+              _os_log_error_impl(&dword_1BA83C000, v103, OS_LOG_TYPE_ERROR, v102, buf, v104);
               goto LABEL_151;
             }
 
             goto LABEL_151;
           }
 
-          bytes = [v100 bytes];
-          if ([v100 length]- 2 < *(bytes + 1))
+          bytes = [v99 bytes];
+          if ([v99 length]- 2 < *(bytes + 1))
           {
-            v101 = ne_log_obj();
-            if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+            v100 = ne_log_obj();
+            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
             {
-              v119 = [v100 length];
-              v120 = *(bytes + 1);
+              v118 = [v99 length];
+              v119 = *(bytes + 1);
               *buf = 67109376;
-              *v185 = v119;
-              *&v185[4] = 1024;
-              *&v185[6] = v120;
-              v103 = "Server redirect has invalid length %u (gateway length %u)";
-              v104 = v101;
-              v105 = 14;
+              *v184 = v118;
+              *&v184[4] = 1024;
+              *&v184[6] = v119;
+              v102 = "Server redirect has invalid length %u (gateway length %u)";
+              v103 = v100;
+              v104 = 14;
               goto LABEL_150;
             }
 
@@ -23999,223 +23883,223 @@ LABEL_152:
             goto LABEL_153;
           }
 
-          if ([v100 length]== *(bytes + 1) + 2)
+          if ([v99 length]== *(bytes + 1) + 2)
           {
-            v101 = ne_log_obj();
-            if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+            v100 = ne_log_obj();
+            if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              v103 = "Server redirect has no nonce";
-              v104 = v101;
-              v105 = 2;
+              v102 = "Server redirect has no nonce";
+              v103 = v100;
+              v104 = 2;
               goto LABEL_150;
             }
 
             goto LABEL_151;
           }
 
-          v181 = v13;
-          v133 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:bytes + *(bytes + 1) + 2 length:{-[NSObject length](v100, "length") - *(bytes + 1) - 2}];
+          v180 = v13;
+          v132 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:bytes + *(bytes + 1) + 2 length:{-[NSObject length](v99, "length") - *(bytes + 1) - 2}];
 
-          if (!v133)
+          if (!v132)
           {
             goto LABEL_154;
           }
 
-          v136 = objc_getProperty(self, v135, 352, 1);
-          if (v136)
+          v135 = objc_getProperty(self, v134, 352, 1);
+          if (v135)
           {
-            v136 = objc_getProperty(v136, v137, 128, 1);
+            v135 = objc_getProperty(v135, v136, 128, 1);
           }
 
-          v138 = v136;
-          v139 = [v133 isEqualToData:v138];
+          v137 = v135;
+          v138 = [v132 isEqualToData:v137];
 
-          if ((v139 & 1) == 0)
+          if ((v138 & 1) == 0)
           {
-            v13 = v181;
+            v13 = v180;
             goto LABEL_154;
           }
 
-          v13 = v181;
+          v13 = v180;
         }
 
-        v140 = ne_log_large_obj();
-        if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+        v139 = ne_log_large_obj();
+        if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          *v185 = self;
-          *&v185[8] = 2112;
-          *v186 = v80;
-          _os_log_impl(&dword_1BA83C000, v140, OS_LOG_TYPE_DEFAULT, "%@ Received response: %@", buf, 0x16u);
+          *v184 = self;
+          *&v184[8] = 2112;
+          *v185 = v79;
+          _os_log_impl(&dword_1BA83C000, v139, OS_LOG_TYPE_DEFAULT, "%@ Received response: %@", buf, 0x16u);
         }
 
-        v142 = objc_getProperty(self, v141, 256, 1);
-        v143 = MEMORY[0x1E696AD98];
-        v144 = v142;
-        v145 = [v143 numberWithInt:v94];
-        [v144 addObject:v145];
+        v141 = objc_getProperty(self, v140, 256, 1);
+        v142 = MEMORY[0x1E696AD98];
+        v143 = v141;
+        v144 = [v142 numberWithInt:v93];
+        [v143 addObject:v144];
 
-        v147 = objc_getProperty(self, v146, 216, 1);
+        v146 = objc_getProperty(self, v145, 216, 1);
         selfCopy2 = self;
-        if (!v147 || (v149 = packetCopy, v150 = v13, lastRequestMessageID = selfCopy2->_lastRequestMessageID, v147, v61 = lastRequestMessageID == v94, v13 = v150, packetCopy = v149, !v61))
+        if (!v146 || (v148 = packetCopy, v149 = v13, lastRequestMessageID = selfCopy2->_lastRequestMessageID, v146, v61 = lastRequestMessageID == v93, v13 = v149, packetCopy = v148, !v61))
         {
-          v91 = ne_log_obj();
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
+          v90 = ne_log_obj();
+          if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            *v185 = selfCopy2;
-            _os_log_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_INFO, "%@ Ignoring unexpected response", buf, 0xCu);
+            *v184 = selfCopy2;
+            _os_log_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_INFO, "%@ Ignoring unexpected response", buf, 0xCu);
           }
 
           goto LABEL_114;
         }
 
-        v152 = ne_log_obj();
-        if (os_log_type_enabled(v152, OS_LOG_TYPE_INFO))
+        v151 = ne_log_obj();
+        if (os_log_type_enabled(v151, OS_LOG_TYPE_INFO))
         {
-          v153 = selfCopy2->_lastRequestMessageID;
+          v152 = selfCopy2->_lastRequestMessageID;
           *buf = 138412546;
-          *v185 = selfCopy2;
-          *&v185[8] = 1024;
-          *v186 = v153;
-          _os_log_impl(&dword_1BA83C000, v152, OS_LOG_TYPE_INFO, "%@ Processing response for message %u", buf, 0x12u);
+          *v184 = selfCopy2;
+          *&v184[8] = 1024;
+          *v185 = v152;
+          _os_log_impl(&dword_1BA83C000, v151, OS_LOG_TYPE_INFO, "%@ Processing response for message %u", buf, 0x12u);
         }
 
-        v155 = objc_getProperty(selfCopy2, v154, 376, 1);
-        v156 = selfCopy2;
-        if (!v155)
+        v154 = objc_getProperty(selfCopy2, v153, 376, 1);
+        v155 = selfCopy2;
+        if (!v154)
         {
 LABEL_183:
 
-          v109 = objc_getProperty(v156, v159, 216, 1);
-          objc_setProperty_atomic_copy(v156, v160, 0, 216);
-          objc_setProperty_atomic(v156, v161, 0, 232);
-          [(NEIKEv2Session *)v156 cancelSendTimer];
-          (v109[2].isa)(v109, v80);
+          v108 = objc_getProperty(v155, v158, 216, 1);
+          objc_setProperty_atomic_copy(v155, v159, 0, 216);
+          objc_setProperty_atomic(v155, v160, 0, 232);
+          [(NEIKEv2Session *)v155 cancelSendTimer];
+          (v108[2].isa)(v108, v79);
           goto LABEL_184;
         }
 
-        if (*(v155 + 3) != v94)
+        if (*(v154 + 3) != v93)
         {
-          v157 = ne_log_obj();
-          if (os_log_type_enabled(v157, OS_LOG_TYPE_INFO))
+          v156 = ne_log_obj();
+          if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
           {
-            v158 = *(v155 + 3);
+            v157 = *(v154 + 3);
             *buf = 138412802;
-            *v185 = v156;
-            *&v185[8] = 1024;
-            *v186 = v94;
-            *&v186[4] = 1024;
-            *&v186[6] = v158;
-            _os_log_impl(&dword_1BA83C000, v157, OS_LOG_TYPE_INFO, "%@, response message ID(%u) != request message ID(%u)", buf, 0x18u);
+            *v184 = v155;
+            *&v184[8] = 1024;
+            *v185 = v93;
+            *&v185[4] = 1024;
+            *&v185[6] = v157;
+            _os_log_impl(&dword_1BA83C000, v156, OS_LOG_TYPE_INFO, "%@, response message ID(%u) != request message ID(%u)", buf, 0x18u);
           }
 
           goto LABEL_183;
         }
 
-        if (*(v155 + 4) < 2u)
+        if (*(v154 + 4) < 2u)
         {
+          v181 = 0;
           v182 = 0;
-          v183 = 0;
           if (![NEIKEv2RTT getCurrentTime:?])
           {
-            v172 = ne_log_obj();
-            if (os_log_type_enabled(v172, OS_LOG_TYPE_ERROR))
+            v171 = ne_log_obj();
+            if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v185 = v156;
-              _os_log_error_impl(&dword_1BA83C000, v172, OS_LOG_TYPE_ERROR, "%@, failed to update RTT", buf, 0xCu);
+              *v184 = v155;
+              _os_log_error_impl(&dword_1BA83C000, v171, OS_LOG_TYPE_ERROR, "%@, failed to update RTT", buf, 0xCu);
             }
 
             goto LABEL_183;
           }
 
-          v163 = (v183 / 1000);
-          v164 = 1000 * v182 - *(v155 + 5);
-          v165 = v164 + v163;
-          if (v164 + v163 >= 1)
+          v162 = (v182 / 1000);
+          v163 = 1000 * v181 - *(v154 + 5);
+          v164 = v163 + v162;
+          if (v163 + v162 >= 1)
           {
-            ++*(v155 + 7);
-            *(v155 + 2) = v165 & 0x7FFFFFFF;
-            v166 = ne_log_obj();
-            if (os_log_type_enabled(v166, OS_LOG_TYPE_INFO))
+            ++*(v154 + 7);
+            *(v154 + 2) = v164 & 0x7FFFFFFF;
+            v165 = ne_log_obj();
+            if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              *v185 = v156;
-              *&v185[8] = 1024;
-              *v186 = v165;
-              _os_log_impl(&dword_1BA83C000, v166, OS_LOG_TYPE_INFO, "%@, current rtt %u", buf, 0x12u);
+              *v184 = v155;
+              *&v184[8] = 1024;
+              *v185 = v164;
+              _os_log_impl(&dword_1BA83C000, v165, OS_LOG_TYPE_INFO, "%@, current rtt %u", buf, 0x12u);
             }
 
-            v167 = *(v155 + 3);
-            if (v167)
+            v166 = *(v154 + 3);
+            if (v166)
             {
-              v168 = 4 * v165 - (v167 >> 3);
-              v169 = v167 + v168;
+              v167 = 4 * v164 - (v166 >> 3);
+              v168 = v166 + v167;
+              if (v168 <= 1)
+              {
+                v168 = 1;
+              }
+
+              if (v167 < 0)
+              {
+                LODWORD(v167) = -v167;
+              }
+
+              v169 = *(v154 + 4) + (v167 - (*(v154 + 4) >> 2));
               if (v169 <= 1)
               {
-                v169 = 1;
-              }
-
-              if (v168 < 0)
-              {
-                LODWORD(v168) = -v168;
-              }
-
-              v170 = *(v155 + 4) + (v168 - (*(v155 + 4) >> 2));
-              if (v170 <= 1)
-              {
-                v171 = 1;
+                v170 = 1;
               }
 
               else
               {
-                v171 = v170;
+                v170 = v169;
               }
 
-              *(v155 + 3) = v169;
-              *(v155 + 4) = v171;
+              *(v154 + 3) = v168;
+              *(v154 + 4) = v170;
             }
 
             else
             {
-              v173 = vshl_u32(vdup_n_s32(v165), 0x300000005);
-              *&v174 = v173.i32[0];
-              *(&v174 + 1) = v173.i32[1];
-              *(v155 + 24) = v174;
-              v169 = v173.i32[0];
-              v171 = v173.i32[1];
+              v172 = vshl_u32(vdup_n_s32(v164), 0x300000005);
+              *&v173 = v172.i32[0];
+              *(&v173 + 1) = v172.i32[1];
+              *(v154 + 24) = v173;
+              v168 = v172.i32[0];
+              v170 = v172.i32[1];
             }
 
-            v175 = *(v155 + 6);
-            v176 = v171 + (v169 >> 3);
-            if (v175 <= v176 >> 2)
+            v174 = *(v154 + 6);
+            v175 = v170 + (v168 >> 3);
+            if (v174 <= v175 >> 2)
             {
-              v177 = v176 >> 2;
+              v176 = v175 >> 2;
             }
 
             else
             {
-              v177 = *(v155 + 6);
+              v176 = *(v154 + 6);
             }
 
-            *(v155 + 8) = v177;
-            if (v177 < v175)
+            *(v154 + 8) = v176;
+            if (v176 < v174)
             {
               goto LABEL_208;
             }
 
-            if (v177 >= 0xFA01)
+            if (v176 >= 0xFA01)
             {
-              v175 = 64000;
+              v174 = 64000;
 LABEL_208:
-              *(v155 + 8) = v175;
+              *(v154 + 8) = v174;
             }
           }
         }
 
-        [(NEIKEv2RTT *)v155 resetRTTMeasurement];
+        [(NEIKEv2RTT *)v154 resetRTTMeasurement];
         goto LABEL_183;
       }
     }
@@ -24275,15 +24159,15 @@ LABEL_208:
 
       v76 = v73;
       *buf = 138413314;
-      *v185 = self;
-      *&v185[8] = 2080;
-      *v186 = v68;
+      *v184 = self;
+      *&v184[8] = 2080;
+      *v185 = v68;
+      *&v185[8] = 2112;
+      *v186 = v75;
       *&v186[8] = 2112;
-      *v187 = v75;
-      *&v187[8] = 2112;
-      v188 = v76;
-      v189 = 2112;
-      *v190 = packetCopy;
+      v187 = v76;
+      v188 = 2112;
+      *v189 = packetCopy;
       _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "%@ %s ignoring received packet: (Local %@, Remote %@): %@", buf, 0x34u);
     }
 
@@ -24294,19 +24178,17 @@ LABEL_208:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    *v185 = "[NEIKEv2Session receivePacket:]";
+    *v184 = "[NEIKEv2Session receivePacket:]";
     _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null packet", buf, 0xCu);
   }
 
 LABEL_83:
-
-  v78 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)sendReplyForMessageID:(id)self
 {
   selfCopy = self;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   if (self)
   {
     Property = objc_getProperty(self, a2, 384, 1);
@@ -24317,9 +24199,9 @@ LABEL_83:
       if (os_log_type_enabled(copyTransport, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v49 = selfCopy;
-        v50 = 1024;
-        *v51 = a2;
+        v48 = selfCopy;
+        v49 = 1024;
+        *v50 = a2;
         _os_log_impl(&dword_1BA83C000, copyTransport, OS_LOG_TYPE_DEFAULT, "%@ Skipping sending reply %d on invalidated session", buf, 0x12u);
       }
 
@@ -24346,13 +24228,13 @@ LABEL_83:
           {
             firstObject = [v18 firstObject];
             *buf = 138413058;
-            v49 = selfCopy;
-            v50 = 1024;
-            *v51 = [firstObject length];
-            *&v51[4] = 1024;
-            *&v51[6] = a2;
-            v52 = 2112;
-            *v53 = copyTransport;
+            v48 = selfCopy;
+            v49 = 1024;
+            *v50 = [firstObject length];
+            *&v50[4] = 1024;
+            *&v50[6] = a2;
+            v51 = 2112;
+            *v52 = copyTransport;
             _os_log_debug_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEBUG, "%@ Sending reply of length %u with ID %u on %@\n", buf, 0x22u);
           }
 
@@ -24379,73 +24261,73 @@ LABEL_83:
         {
           if ([v18 count])
           {
-            v42 = v18;
-            v43 = [v18 count];
+            v41 = v18;
+            v42 = [v18 count];
+            v43 = 0u;
             v44 = 0u;
             v45 = 0u;
             v46 = 0u;
-            v47 = 0u;
-            v28 = v18;
-            v29 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
-            if (v29)
+            v27 = v18;
+            v28 = [v27 countByEnumeratingWithState:&v43 objects:v55 count:16];
+            if (v28)
             {
-              v30 = v29;
-              v31 = *v45;
-              v32 = 1;
+              v29 = v28;
+              v30 = *v44;
+              v31 = 1;
               while (2)
               {
-                v33 = 0;
+                v32 = 0;
                 do
                 {
-                  if (*v45 != v31)
+                  if (*v44 != v30)
                   {
-                    objc_enumerationMutation(v28);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v34 = *(*(&v44 + 1) + 8 * v33);
-                  v35 = ne_log_obj();
-                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+                  v33 = *(*(&v43 + 1) + 8 * v32);
+                  v34 = ne_log_obj();
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
                   {
-                    v36 = [v34 length];
+                    v35 = [v33 length];
                     *buf = 138413570;
-                    v49 = selfCopy;
-                    v50 = 1024;
-                    *v51 = v32;
-                    *&v51[4] = 1024;
-                    *&v51[6] = v43;
-                    v52 = 1024;
-                    *v53 = v36;
-                    *&v53[4] = 1024;
-                    *&v53[6] = a2;
-                    v54 = 2112;
-                    v55 = copyTransport;
-                    _os_log_debug_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_DEBUG, "%@ Sending reply fragment %u/%u of length %u with ID %u on %@\n", buf, 0x2Eu);
+                    v48 = selfCopy;
+                    v49 = 1024;
+                    *v50 = v31;
+                    *&v50[4] = 1024;
+                    *&v50[6] = v42;
+                    v51 = 1024;
+                    *v52 = v35;
+                    *&v52[4] = 1024;
+                    *&v52[6] = a2;
+                    v53 = 2112;
+                    v54 = copyTransport;
+                    _os_log_debug_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_DEBUG, "%@ Sending reply fragment %u/%u of length %u with ID %u on %@\n", buf, 0x2Eu);
                   }
 
-                  if (([(NEIKEv2Transport *)&copyTransport->isa sendData:v34 sendCompletionHandler:0]& 1) == 0)
+                  if (([(NEIKEv2Transport *)&copyTransport->isa sendData:v33 sendCompletionHandler:0]& 1) == 0)
                   {
-                    v37 = ne_log_obj();
-                    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                    v36 = ne_log_obj();
+                    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v49 = selfCopy;
-                      _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "%@ Sending fragment reply data failed", buf, 0xCu);
+                      v48 = selfCopy;
+                      _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Sending fragment reply data failed", buf, 0xCu);
                     }
 
-                    v39 = objc_getProperty(selfCopy, v38, 352, 1);
-                    [(NEIKEv2IKESA *)v39 detachTransportWithShouldInvalidate:?];
+                    v38 = objc_getProperty(selfCopy, v37, 352, 1);
+                    [(NEIKEv2IKESA *)v38 detachTransportWithShouldInvalidate:?];
 
                     selfCopy = 0;
                     goto LABEL_35;
                   }
 
+                  ++v31;
                   ++v32;
-                  ++v33;
                 }
 
-                while (v30 != v33);
-                v30 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
-                if (v30)
+                while (v29 != v32);
+                v29 = [v27 countByEnumeratingWithState:&v43 objects:v55 count:16];
+                if (v29)
                 {
                   continue;
                 }
@@ -24456,18 +24338,18 @@ LABEL_83:
 
             selfCopy = 1;
 LABEL_35:
-            v18 = v42;
+            v18 = v41;
             goto LABEL_40;
           }
 
-          v40 = ne_log_obj();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = ne_log_obj();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v49 = selfCopy;
-            v50 = 2112;
-            *v51 = v18;
-            _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%@ Sending reply had unexpected sendValue %@", buf, 0x16u);
+            v48 = selfCopy;
+            v49 = 2112;
+            *v50 = v18;
+            _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@ Sending reply had unexpected sendValue %@", buf, 0x16u);
           }
         }
 
@@ -24484,11 +24366,11 @@ LABEL_17:
         selfCopy = 0;
 LABEL_18:
 
-        goto LABEL_19;
+        return selfCopy;
       }
 
       *buf = 136315138;
-      v49 = "[NEIKEv2Session sendReplyForMessageID:]";
+      v48 = "[NEIKEv2Session sendReplyForMessageID:]";
       v25 = "%s called with null self.ikeSA.hasTransport";
     }
 
@@ -24501,7 +24383,7 @@ LABEL_18:
       }
 
       *buf = 136315138;
-      v49 = "[NEIKEv2Session sendReplyForMessageID:]";
+      v48 = "[NEIKEv2Session sendReplyForMessageID:]";
       v25 = "%s called with null self.ikeSA";
     }
 
@@ -24509,14 +24391,12 @@ LABEL_18:
     goto LABEL_17;
   }
 
-LABEL_19:
-  v26 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)processFragment:(_DWORD *)fragment
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v4 = a2;
   Property = objc_getProperty(fragment, v5, 384, 1);
   dispatch_assert_queue_V2(Property);
@@ -24588,8 +24468,8 @@ LABEL_17:
         *&buf[4] = fragment;
         *&buf[12] = 1024;
         *&buf[14] = v22;
-        v76 = 1024;
-        v77 = v21;
+        v75 = 1024;
+        v76 = v21;
         v24 = "%@ Invalid fragment numbers %u/%u";
         goto LABEL_29;
       }
@@ -24605,8 +24485,8 @@ LABEL_17:
             *&buf[4] = fragment;
             *&buf[12] = 1024;
             *&buf[14] = v22;
-            v76 = 1024;
-            v77 = v8;
+            v75 = 1024;
+            v76 = v8;
             _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "%@ Received duplicate fragment %u for message %d", buf, 0x18u);
           }
 
@@ -24622,8 +24502,8 @@ LABEL_17:
             *&buf[4] = fragment;
             *&buf[12] = 1024;
             *&buf[14] = v21;
-            v76 = 1024;
-            v77 = v20;
+            v75 = 1024;
+            v76 = v20;
             v24 = "%@ Fragment count %u < last received count %u";
 LABEL_29:
             v25 = v23;
@@ -24657,7 +24537,7 @@ LABEL_77:
         goto LABEL_78;
       }
 
-      v70 = v14;
+      v69 = v14;
       if (v21 <= v20)
       {
 LABEL_42:
@@ -24718,8 +24598,8 @@ LABEL_94:
                   *&buf[4] = fragment;
                   *&buf[12] = 1024;
                   *&buf[14] = v47;
-                  v76 = 1024;
-                  v77 = v8;
+                  v75 = 1024;
+                  v76 = v8;
                   _os_log_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_INFO, "%@ Received all %u fragments for message ID %d", buf, 0x18u);
                 }
 
@@ -24755,34 +24635,34 @@ LABEL_94:
                   }
 
                   v23 = 0;
-                  v14 = v70;
+                  v14 = v69;
                   goto LABEL_69;
                 }
 
                 v53 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:*(v18 + 12)];
-                v73 = 0u;
-                v74 = 0u;
-                *v71 = 0u;
                 v72 = 0u;
+                v73 = 0u;
+                *v70 = 0u;
+                v71 = 0u;
                 v54 = *(v18 + 24);
-                v55 = [v54 countByEnumeratingWithState:v71 objects:buf count:16];
+                v55 = [v54 countByEnumeratingWithState:v70 objects:buf count:16];
                 if (v55)
                 {
                   v56 = v55;
-                  v57 = *v72;
+                  v57 = *v71;
                   do
                   {
                     for (i = 0; i != v56; ++i)
                     {
-                      if (*v72 != v57)
+                      if (*v71 != v57)
                       {
                         objc_enumerationMutation(v54);
                       }
 
-                      [v53 appendData:*(*&v71[8] + 8 * i), v69];
+                      [v53 appendData:*(*&v70[8] + 8 * i), v68];
                     }
 
-                    v56 = [v54 countByEnumeratingWithState:v71 objects:buf count:16];
+                    v56 = [v54 countByEnumeratingWithState:v70 objects:buf count:16];
                   }
 
                   while (v56);
@@ -24810,7 +24690,7 @@ LABEL_94:
 LABEL_67:
                   v23 = v61;
 LABEL_68:
-                  v14 = v70;
+                  v14 = v69;
 
 LABEL_69:
                   if (v23)
@@ -24826,24 +24706,24 @@ LABEL_69:
                 goto LABEL_68;
               }
 
-              v67 = ne_log_obj();
-              if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+              v66 = ne_log_obj();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
               {
                 *buf = 136315138;
                 *&buf[4] = "[NEIKEv2FragmentMap addFragment:]";
-                _os_log_fault_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_FAULT, "%s called with null payloadData", buf, 0xCu);
+                _os_log_fault_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_FAULT, "%s called with null payloadData", buf, 0xCu);
               }
 
-              v65 = 0;
+              v64 = 0;
               goto LABEL_93;
             }
 
-            v65 = ne_log_obj();
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+            v64 = ne_log_obj();
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315138;
               *&buf[4] = "[NEIKEv2FragmentMap addFragment:]";
-              v66 = "%s called with null ![self hasFragmentForNumber:fragmentNumber]";
+              v65 = "%s called with null ![self hasFragmentForNumber:fragmentNumber]";
               goto LABEL_89;
             }
 
@@ -24852,32 +24732,32 @@ LABEL_93:
             goto LABEL_94;
           }
 
-          v65 = ne_log_obj();
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+          v64 = ne_log_obj();
+          if (!os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_93;
           }
 
           *buf = 136315138;
           *&buf[4] = "[NEIKEv2FragmentMap addFragment:]";
-          v66 = "%s called with null (fragmentNumber <= self.expectedCount)";
+          v65 = "%s called with null (fragmentNumber <= self.expectedCount)";
         }
 
         else
         {
-          v65 = ne_log_obj();
-          if (!os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+          v64 = ne_log_obj();
+          if (!os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_93;
           }
 
           *buf = 136315138;
           *&buf[4] = "[NEIKEv2FragmentMap addFragment:]";
-          v66 = "%s called with null (fragmentNumber >= 1)";
+          v65 = "%s called with null (fragmentNumber >= 1)";
         }
 
 LABEL_89:
-        _os_log_fault_impl(&dword_1BA83C000, v65, OS_LOG_TYPE_FAULT, v66, buf, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_FAULT, v65, buf, 0xCu);
         goto LABEL_93;
       }
 
@@ -24890,15 +24770,15 @@ LABEL_89:
           *&buf[4] = fragment;
           *&buf[12] = 1024;
           *&buf[14] = v21;
-          v76 = 1024;
-          v77 = v20;
+          v75 = 1024;
+          v76 = v20;
           _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_INFO, "%@ Fragment count %u > last received count %u, discarding stored fragments", buf, 0x18u);
         }
       }
 
       v29 = [NEIKEv2FragmentMap alloc];
       v30 = v29;
-      v69 = a2;
+      v68 = a2;
       if (v29)
       {
         if (v21)
@@ -24932,19 +24812,19 @@ LABEL_89:
           v30 = ne_log_obj();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
           {
-            *v71 = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "[super init] failed", v71, 2u);
+            *v70 = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_FAULT, "[super init] failed", v70, 2u);
           }
         }
 
         else
         {
-          v68 = ne_log_obj();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+          v67 = ne_log_obj();
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315138;
             *&buf[4] = "[NEIKEv2FragmentMap initWithExpectedCount:]";
-            _os_log_fault_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_FAULT, "%s called with null (expectedCount > 0)", buf, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_FAULT, "%s called with null (expectedCount > 0)", buf, 0xCu);
           }
         }
 
@@ -24954,8 +24834,8 @@ LABEL_89:
 LABEL_41:
 
       v38 = [MEMORY[0x1E696AD98] numberWithInt:v8];
-      v14 = v70;
-      [v70 setObject:v30 forKeyedSubscript:v38];
+      v14 = v69;
+      [v69 setObject:v30 forKeyedSubscript:v38];
 
       v18 = v30;
       goto LABEL_42;
@@ -24991,38 +24871,36 @@ LABEL_41:
   }
 
 LABEL_75:
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyChildWithSPI:(void *)i
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = objc_getProperty(i, v4, 304, 1);
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         if (v10)
         {
-          Property = objc_getProperty(*(*(&v26 + 1) + 8 * v9), v6, 56, 1);
+          Property = objc_getProperty(*(*(&v25 + 1) + 8 * v9), v6, 56, 1);
           v13 = Property;
           if (Property)
           {
@@ -25073,7 +24951,7 @@ LABEL_22:
       }
 
       while (v7 != v9);
-      v21 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v21 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       v7 = v21;
       v22 = 0;
     }
@@ -25088,24 +24966,23 @@ LABEL_22:
 
 LABEL_23:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)updateReceivedRequestWindow
 {
-  if (self)
+  if (result)
   {
-    packetsToSave = [(NEIKEv2Session *)self packetsToSave];
-    v5 = self[5];
+    packetsToSave = [(NEIKEv2Session *)result packetsToSave];
+    v5 = result[5];
     v6 = v5 - packetsToSave;
     if (v5 >= packetsToSave)
     {
-      Property = objc_getProperty(self, v4, 248, 1);
+      Property = objc_getProperty(result, v4, 248, 1);
       [NEIKEv2Session removeItemsFromSet:v6 lowerEdge:?];
-      v9 = objc_getProperty(self, v8, 240, 1);
+      v9 = objc_getProperty(result, v8, 240, 1);
       [NEIKEv2Session removeItemsFromDictionary:v9 lowerEdge:v6];
-      v11 = objc_getProperty(self, v10, 264, 1);
+      v11 = objc_getProperty(result, v10, 264, 1);
 
       [NEIKEv2Session removeItemsFromDictionary:v11 lowerEdge:v6];
     }
@@ -25209,7 +25086,7 @@ LABEL_23:
 
 - (unsigned)addChild:(id)child
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   childCopy = child;
   if (childCopy)
   {
@@ -25236,9 +25113,9 @@ LABEL_23:
     v11 = v9;
     if (v10)
     {
-      v25.receiver = v10;
-      v25.super_class = NEIKEv2NewChildContext;
-      v12 = [(NEIKEv2Session *)&v25 init];
+      v24.receiver = v10;
+      v24.super_class = NEIKEv2NewChildContext;
+      v12 = [(NEIKEv2Session *)&v24 init];
       if (v12)
       {
         v10 = v12;
@@ -25275,8 +25152,8 @@ LABEL_23:
     block[2] = __27__NEIKEv2Session_addChild___block_invoke;
     block[3] = &unk_1E7F0A7B0;
     block[4] = self;
-    v22 = v11;
-    v23 = v10;
+    v21 = v11;
+    v22 = v10;
     v17 = v10;
     v18 = v11;
     dispatch_async(v16, block);
@@ -25287,15 +25164,14 @@ LABEL_23:
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v25.receiver) = 136315138;
-      *(&v25.receiver + 4) = "[NEIKEv2Session addChild:]";
-      _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null configuration", &v25, 0xCu);
+      LODWORD(v24.receiver) = 136315138;
+      *(&v24.receiver + 4) = "[NEIKEv2Session addChild:]";
+      _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null configuration", &v24, 0xCu);
     }
 
     add_explicit = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return add_explicit;
 }
 
@@ -25321,7 +25197,7 @@ void __27__NEIKEv2Session_addChild___block_invoke(void *a1, const char *a2)
 
 - (void)sendMOBIKEWithRetries:(unsigned int)retries retryInterval:(unint64_t)interval interfaceName:(id)name invalidateTransport:(BOOL)transport resetEndpoint:(id)endpoint callbackQueue:(id)queue callback:(id)callback
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   endpointCopy = endpoint;
   queueCopy = queue;
@@ -25339,14 +25215,14 @@ void __27__NEIKEv2Session_addChild___block_invoke(void *a1, const char *a2)
       Property = 0;
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __125__NEIKEv2Session_sendMOBIKEWithRetries_retryInterval_interfaceName_invalidateTransport_resetEndpoint_callbackQueue_callback___block_invoke;
-    v24[3] = &unk_1E7F0A0E8;
-    v24[4] = self;
-    v25 = v20;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __125__NEIKEv2Session_sendMOBIKEWithRetries_retryInterval_interfaceName_invalidateTransport_resetEndpoint_callbackQueue_callback___block_invoke;
+    v23[3] = &unk_1E7F0A0E8;
+    v23[4] = self;
+    v24 = v20;
     v22 = v20;
-    dispatch_async(Property, v24);
+    dispatch_async(Property, v23);
   }
 
   else
@@ -25355,12 +25231,10 @@ void __27__NEIKEv2Session_addChild___block_invoke(void *a1, const char *a2)
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v27 = "[NEIKEv2Session sendMOBIKEWithRetries:retryInterval:interfaceName:invalidateTransport:resetEndpoint:callbackQueue:callback:]";
+      v26 = "[NEIKEv2Session sendMOBIKEWithRetries:retryInterval:interfaceName:invalidateTransport:resetEndpoint:callbackQueue:callback:]";
       _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "%s called with null interfaceName", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __125__NEIKEv2Session_sendMOBIKEWithRetries_retryInterval_interfaceName_invalidateTransport_resetEndpoint_callbackQueue_callback___block_invoke(uint64_t a1)
@@ -25476,7 +25350,7 @@ void __94__NEIKEv2Session_sendKeepaliveWithRetries_retryIntervalInMilliseconds_c
 
 - (BOOL)updateConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (configurationCopy)
   {
@@ -25490,33 +25364,32 @@ void __94__NEIKEv2Session_sendKeepaliveWithRetries_retryIntervalInMilliseconds_c
       Property = 0;
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __38__NEIKEv2Session_updateConfiguration___block_invoke;
-    v10[3] = &unk_1E7F0A0E8;
-    v10[4] = self;
-    v11 = configurationCopy;
-    dispatch_async(Property, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __38__NEIKEv2Session_updateConfiguration___block_invoke;
+    v9[3] = &unk_1E7F0A0E8;
+    v9[4] = self;
+    v10 = configurationCopy;
+    dispatch_async(Property, v9);
   }
 
   else
   {
-    v9 = ne_log_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = ne_log_obj();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v13 = "[NEIKEv2Session updateConfiguration:]";
-      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null sessionConfig", buf, 0xCu);
+      v12 = "[NEIKEv2Session updateConfiguration:]";
+      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null sessionConfig", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return configurationCopy != 0;
 }
 
 void __38__NEIKEv2Session_updateConfiguration___block_invoke(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (!v3)
   {
@@ -25525,44 +25398,42 @@ void __38__NEIKEv2Session_updateConfiguration___block_invoke(uint64_t a1, const 
 
   if (v3[11])
   {
-LABEL_13:
-    v10 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  if (!objc_getProperty(v3, a2, 352, 1))
+  if (objc_getProperty(v3, a2, 352, 1))
+  {
+    v5 = *(a1 + 32);
+    if (v5)
+    {
+      Property = objc_getProperty(v5, v4, 352, 1);
+      if (Property)
+      {
+        objc_setProperty_atomic(Property, v4, *(a1 + 40), 88);
+      }
+    }
+
+    v7 = *(a1 + 32);
+
+    [(NEIKEv2Session *)v7 startDPDTimer];
+  }
+
+  else
   {
 LABEL_10:
-    v9 = ne_log_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = ne_log_obj();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315138;
-      v12 = "[NEIKEv2Session updateConfiguration:]_block_invoke";
-      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v11, 0xCu);
-    }
-
-    goto LABEL_13;
-  }
-
-  v5 = *(a1 + 32);
-  if (v5)
-  {
-    Property = objc_getProperty(v5, v4, 352, 1);
-    if (Property)
-    {
-      objc_setProperty_atomic(Property, v4, *(a1 + 40), 88);
+      v9 = 136315138;
+      v10 = "[NEIKEv2Session updateConfiguration:]_block_invoke";
+      _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v9, 0xCu);
     }
   }
-
-  v7 = *(a1 + 32);
-  v8 = *MEMORY[0x1E69E9840];
-
-  [(NEIKEv2Session *)v7 startDPDTimer];
 }
 
 - (void)startDPDTimer
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (objc_getProperty(self, a2, 352, 1))
@@ -25611,26 +25482,26 @@ LABEL_10:
             v18 = NEGetSystemWakeTime();
             *buf = 138413058;
             selfCopy2 = self;
-            v48 = 2048;
-            v49 = v8;
-            v50 = 2048;
-            v51 = v9;
-            v52 = 2112;
-            v53 = v18;
+            v47 = 2048;
+            v48 = v8;
+            v49 = 2048;
+            v50 = v9;
+            v51 = 2112;
+            v52 = v18;
             _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_INFO, "%@: Setting DPD timer for %llu seconds, leeway %f seconds, last wake date %@", buf, 0x2Au);
           }
 
           objc_initWeak(buf, self);
           v20 = objc_getProperty(self, v19, 288, 1);
           v22 = objc_getProperty(self, v21, 384, 1);
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __31__NEIKEv2Session_startDPDTimer__block_invoke;
-          v44[3] = &unk_1E7F08A50;
-          objc_copyWeak(&v45, buf);
-          [v20 scheduleWithFireInterval:v22 leewayInterval:v44 queue:v8 handler:v9];
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __31__NEIKEv2Session_startDPDTimer__block_invoke;
+          v43[3] = &unk_1E7F08A50;
+          objc_copyWeak(&v44, buf);
+          [v20 scheduleWithFireInterval:v22 leewayInterval:v43 queue:v8 handler:v9];
 
-          objc_destroyWeak(&v45);
+          objc_destroyWeak(&v44);
           objc_destroyWeak(buf);
         }
 
@@ -25638,56 +25509,56 @@ LABEL_10:
         {
           if (objc_getProperty(self, v10, 296, 1))
           {
-            v25 = objc_getProperty(self, v24, 296, 1);
-            dispatch_source_cancel(v25);
-            objc_setProperty_atomic(self, v26, 0, 296);
+            v24 = objc_getProperty(self, v23, 296, 1);
+            dispatch_source_cancel(v24);
+            objc_setProperty_atomic(self, v25, 0, 296);
           }
 
-          v27 = ne_log_obj();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v26 = ne_log_obj();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
             selfCopy2 = self;
-            v48 = 2048;
-            v49 = v8;
-            v50 = 2048;
-            v51 = v9;
-            _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_INFO, "%@: Setting DPD timer for %llu seconds, leeway %f seconds", buf, 0x20u);
+            v47 = 2048;
+            v48 = v8;
+            v49 = 2048;
+            v50 = v9;
+            _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_INFO, "%@: Setting DPD timer for %llu seconds, leeway %f seconds", buf, 0x20u);
           }
 
-          v29 = objc_getProperty(self, v28, 384, 1);
-          v30 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v29);
-          objc_setProperty_atomic(self, v31, v30, 296);
+          v28 = objc_getProperty(self, v27, 384, 1);
+          v29 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v28);
+          objc_setProperty_atomic(self, v30, v29, 296);
 
-          if (objc_getProperty(self, v32, 296, 1))
+          if (objc_getProperty(self, v31, 296, 1))
           {
-            v34 = objc_getProperty(self, v33, 296, 1);
-            v35 = dispatch_time(0x8000000000000000, 1000000000 * v8);
-            dispatch_source_set_timer(v34, v35, 0xFFFFFFFFFFFFFFFFLL, (v9 * 1000000000.0));
+            v33 = objc_getProperty(self, v32, 296, 1);
+            v34 = dispatch_time(0x8000000000000000, 1000000000 * v8);
+            dispatch_source_set_timer(v33, v34, 0xFFFFFFFFFFFFFFFFLL, (v9 * 1000000000.0));
 
             objc_initWeak(buf, self);
-            v37 = objc_getProperty(self, v36, 296, 1);
+            v36 = objc_getProperty(self, v35, 296, 1);
             handler[0] = MEMORY[0x1E69E9820];
             handler[1] = 3221225472;
             handler[2] = __31__NEIKEv2Session_startDPDTimer__block_invoke_69;
             handler[3] = &unk_1E7F0AA58;
-            v38 = v37;
-            objc_copyWeak(&v43, buf);
-            dispatch_source_set_event_handler(v38, handler);
+            v37 = v36;
+            objc_copyWeak(&v42, buf);
+            dispatch_source_set_event_handler(v37, handler);
 
-            v40 = objc_getProperty(self, v39, 296, 1);
-            dispatch_activate(v40);
-            objc_destroyWeak(&v43);
+            v39 = objc_getProperty(self, v38, 296, 1);
+            dispatch_activate(v39);
+            objc_destroyWeak(&v42);
             objc_destroyWeak(buf);
           }
 
           else
           {
-            v41 = ne_log_obj();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+            v40 = ne_log_obj();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
+              _os_log_fault_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
             }
           }
         }
@@ -25705,8 +25576,6 @@ LABEL_10:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __31__NEIKEv2Session_startDPDTimer__block_invoke(uint64_t a1)
@@ -25739,8 +25608,8 @@ void __31__NEIKEv2Session_startDPDTimer__block_invoke_69(uint64_t a1)
     Property = objc_getProperty(Property, v4, 88, 1);
   }
 
-  v5 = Property;
-  [self sendKeepaliveWithRetries:objc_msgSend(v5 retryIntervalInMilliseconds:"deadPeerDetectionMaxRetryCount") callbackQueue:objc_msgSend(v5 callback:{"deadPeerDetectionRetryIntervalMilliseconds"), 0, 0}];
+  v6 = Property;
+  [self sendKeepaliveWithRetries:objc_msgSend(v6 retryIntervalInMilliseconds:"deadPeerDetectionMaxRetryCount") callbackQueue:objc_msgSend(v6 callback:{"deadPeerDetectionRetryIntervalMilliseconds"), 0, 0}];
   [(NEIKEv2Session *)self startDPDTimer];
 }
 
@@ -25934,13 +25803,13 @@ void __31__NEIKEv2Session_forceRekeyIKE__block_invoke(uint64_t a1)
 
 void __28__NEIKEv2Session_disconnect__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Disconnect %@", buf, 0xCu);
   }
 
@@ -25956,26 +25825,24 @@ void __28__NEIKEv2Session_disconnect__block_invoke(uint64_t a1)
     }
 
     v8 = Property;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __28__NEIKEv2Session_disconnect__block_invoke_53;
-    v12[3] = &unk_1E7F08A28;
-    objc_copyWeak(&v13, buf);
-    v9 = [(NEIKEv2DeleteIKEContext *)&v6->super.super.isa initDeleteIKEWithResponse:v8 callbackQueue:v12 callback:?];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __28__NEIKEv2Session_disconnect__block_invoke_53;
+    v11[3] = &unk_1E7F08A28;
+    objc_copyWeak(&v12, buf);
+    v9 = [(NEIKEv2DeleteIKEContext *)&v6->super.super.isa initDeleteIKEWithResponse:v8 callbackQueue:v11 callback:?];
 
     [(NEIKEv2Session *)*(a1 + 32) abort];
     [(NEIKEv2Session *)*(a1 + 32) enqueuePendingRequestContext:v9];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __28__NEIKEv2Session_disconnect__block_invoke_53(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -25992,21 +25859,19 @@ void __28__NEIKEv2Session_disconnect__block_invoke_53(uint64_t a1)
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "Disconnected %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v3;
+      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "Disconnected %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportState
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_46;
+    return;
   }
 
   Property = objc_getProperty(self, a2, 352, 1);
@@ -26030,7 +25895,7 @@ void __28__NEIKEv2Session_disconnect__block_invoke_53(uint64_t a1)
   v8 = v6;
   v9 = ne_log_obj();
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-  v41 = v8;
+  v40 = v8;
   if (v8)
   {
     if (!v10)
@@ -26041,10 +25906,10 @@ void __28__NEIKEv2Session_disconnect__block_invoke_53(uint64_t a1)
     SessionStateString = NEIKEv2CreateSessionStateString(v5);
     *buf = 138412802;
     selfCopy3 = self;
-    v61 = 2112;
-    v62 = SessionStateString;
-    v63 = 2112;
-    v64 = v8;
+    v60 = 2112;
+    v61 = SessionStateString;
+    v62 = 2112;
+    v63 = v8;
     v12 = "%@ Reporting state %@ error %@";
     v13 = v9;
     v14 = 32;
@@ -26060,8 +25925,8 @@ void __28__NEIKEv2Session_disconnect__block_invoke_53(uint64_t a1)
     SessionStateString = NEIKEv2CreateSessionStateString(v5);
     *buf = 138412546;
     selfCopy3 = self;
-    v61 = 2112;
-    v62 = SessionStateString;
+    v60 = 2112;
+    v61 = SessionStateString;
     v12 = "%@ Reporting state %@";
     v13 = v9;
     v14 = 22;
@@ -26082,9 +25947,9 @@ LABEL_12:
     block[2] = __29__NEIKEv2Session_reportState__block_invoke;
     block[3] = &unk_1E7F09280;
     block[4] = self;
-    v56 = stateUpdateBlock;
-    v57 = v5;
-    v55 = v41;
+    v55 = stateUpdateBlock;
+    v56 = v5;
+    v54 = v40;
     dispatch_async(queue, block);
     v20 = objc_getProperty(self, v19, 352, 1);
     if (v20)
@@ -26093,28 +25958,28 @@ LABEL_12:
     }
   }
 
-  v39 = stateUpdateBlock;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v38 = stateUpdateBlock;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v21 = objc_getProperty(self, v18, 304, 1);
-  v22 = [v21 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v51;
-    v40 = v45;
+    v24 = *v50;
+    v39 = v44;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v51 != v24)
+        if (*v50 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v50 + 1) + 8 * i);
+        v26 = *(*(&v49 + 1) + 8 * i);
         if (v26)
         {
           v27 = *(v26 + 16);
@@ -26144,7 +26009,7 @@ LABEL_12:
             {
               v28 = 0;
 LABEL_33:
-              [(NEIKEv2ChildSA *)*(*(&v50 + 1) + 8 * i) setState:v28 error:v41];
+              [(NEIKEv2ChildSA *)*(*(&v49 + 1) + 8 * i) setState:v28 error:v40];
             }
 
             if (*(v26 + 8))
@@ -26154,18 +26019,18 @@ LABEL_33:
               if (queue && childStateUpdateBlock)
               {
                 v33 = objc_getProperty(v26, v31, 40, 1);
-                v44[0] = MEMORY[0x1E69E9820];
-                v44[1] = 3221225472;
-                v45[0] = __29__NEIKEv2Session_reportState__block_invoke_2;
-                v45[1] = &unk_1E7F08B58;
-                v45[2] = selfCopy;
+                v43[0] = MEMORY[0x1E69E9820];
+                v43[1] = 3221225472;
+                v44[0] = __29__NEIKEv2Session_reportState__block_invoke_2;
+                v44[1] = &unk_1E7F08B58;
+                v44[2] = selfCopy;
                 v34 = v32;
-                v49 = v27;
-                v47 = v34;
-                v48 = v28;
-                v46 = v33;
+                v48 = v27;
+                v46 = v34;
+                v47 = v28;
+                v45 = v33;
                 v35 = v33;
-                dispatch_async(queue, v44);
+                dispatch_async(queue, v43);
                 *(v26 + 8) = 0;
 
                 selfCopy4 = selfCopy;
@@ -26177,7 +26042,7 @@ LABEL_33:
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v23);
@@ -26190,9 +26055,6 @@ LABEL_33:
     *(selfCopy4 + 14) = 1;
     [WeakRetained sessionFailedBeforeRequestingConfiguration:selfCopy4];
   }
-
-LABEL_46:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEndpointState
@@ -26283,41 +26145,39 @@ uint64_t __29__NEIKEv2Session_reportState__block_invoke_2(uint64_t result)
 
 void __25__NEIKEv2Session_connect__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Connect %@", buf, 0xCu);
   }
 
   Property = *(a1 + 32);
-  if (!Property)
+  if (Property)
   {
-    goto LABEL_6;
-  }
+    if (Property[11])
+    {
+      return;
+    }
 
-  if ((Property[11] & 1) == 0)
-  {
     Property = objc_getProperty(Property, v4, 352, 1);
-LABEL_6:
-    v6 = [(NEIKEv2IKESA *)Property copyTransport];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __25__NEIKEv2Session_connect__block_invoke_51;
-    v8[3] = &unk_1E7F0B0E8;
-    v8[4] = *(a1 + 32);
-    [(NEIKEv2Transport *)v6 waitForTransport:v8];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [(NEIKEv2IKESA *)Property copyTransport];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __25__NEIKEv2Session_connect__block_invoke_51;
+  v7[3] = &unk_1E7F0B0E8;
+  v7[4] = *(a1 + 32);
+  [(NEIKEv2Transport *)v6 waitForTransport:v7];
 }
 
 void __25__NEIKEv2Session_connect__block_invoke_51(uint64_t a1, const char *a2)
 {
-  v192 = *MEMORY[0x1E69E9840];
+  v191 = *MEMORY[0x1E69E9840];
   Property = *(a1 + 32);
   if (Property)
   {
@@ -26332,12 +26192,12 @@ void __25__NEIKEv2Session_connect__block_invoke_51(uint64_t a1, const char *a2)
     dispatch_assert_queue_V2(v6);
 
     v8 = objc_getProperty(v5, v7, 352, 1);
-    v165 = 0;
-    v166 = &v165;
-    v167 = 0x3032000000;
-    v168 = __Block_byref_object_copy__9420;
-    v169 = __Block_byref_object_dispose__9421;
-    v170 = [(NEIKEv2Session *)v5 firstChildSA];
+    v164 = 0;
+    v165 = &v164;
+    v166 = 0x3032000000;
+    v167 = __Block_byref_object_copy__9420;
+    v168 = __Block_byref_object_dispose__9421;
+    v169 = [(NEIKEv2Session *)v5 firstChildSA];
     if (!v8)
     {
       v29 = ne_log_obj();
@@ -26355,7 +26215,7 @@ void __25__NEIKEv2Session_connect__block_invoke_51(uint64_t a1, const char *a2)
     v11 = objc_getProperty(v8, v10, 80, 1);
     v12 = [v11 requestChildlessSA];
 
-    v14 = v166[5];
+    v14 = v165[5];
     if (v12)
     {
       if (!v14)
@@ -26427,7 +26287,7 @@ LABEL_82:
 
           else
           {
-            ErrorInternal = NEIKEv2CreateErrorInternal(@"Transport is not connected (connect)", v59, v60, v61, v62, v63, v64, v65, v157);
+            ErrorInternal = NEIKEv2CreateErrorInternal(@"Transport is not connected (connect)", v59, v60, v61, v62, v63, v64, v65, v156);
           }
 
           v67 = ErrorInternal;
@@ -26438,10 +26298,10 @@ LABEL_82:
 
         [(NEIKEv2IKESA *)v8 setState:0 error:?];
         [(NEIKEv2Session *)v5 reportState];
-        v35 = v166[5];
+        v35 = v165[5];
         if (v35)
         {
-          v36 = [(NEIKEv2ChildSA *)v166[5] configProposalsWithoutKEM];
+          v36 = [(NEIKEv2ChildSA *)v165[5] configProposalsWithoutKEM];
           v37 = [(NEIKEv2Session *)v5 generateSPIForChild:v35 proposals:v36];
 
           if ((v37 & 1) == 0)
@@ -26455,7 +26315,7 @@ LABEL_82:
             }
 
             v27 = objc_getProperty(v5, v78, 352, 1);
-            Error = NEIKEv2CreateErrorCrypto(@"Failed to generate Child SA SPI (connect)", v79, v80, v81, v82, v83, v84, v85, v157);
+            Error = NEIKEv2CreateErrorCrypto(@"Failed to generate Child SA SPI (connect)", v79, v80, v81, v82, v83, v84, v85, v156);
             [(NEIKEv2IKESA *)v27 setState:Error error:?];
             goto LABEL_82;
           }
@@ -26472,7 +26332,7 @@ LABEL_82:
           }
 
           v27 = objc_getProperty(v5, v69, 352, 1);
-          Error = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (connect)", v70, v71, v72, v73, v74, v75, v76, v157);
+          Error = NEIKEv2CreateErrorCrypto(@"Failed to generate local crypto values (connect)", v70, v71, v72, v73, v74, v75, v76, v156);
           [(NEIKEv2IKESA *)v27 setState:Error error:?];
           goto LABEL_82;
         }
@@ -26481,10 +26341,10 @@ LABEL_82:
         v40 = [v39 localCertificateReference];
 
         v42 = objc_getProperty(v8, v41, 88, 1);
-        v164 = [v42 localCertificateKeyReference];
+        v163 = [v42 localCertificateKeyReference];
 
         v44 = objc_getProperty(v8, v43, 88, 1);
-        v163 = [v44 localCertificateIsModernSystem];
+        v162 = [v44 localCertificateIsModernSystem];
 
         v45 = ne_log_obj();
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
@@ -26498,8 +26358,8 @@ LABEL_82:
         {
 LABEL_34:
           v47 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithData:v40];
-          v48 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithData:v164];
-          v49 = [NEIKEv2Crypto copySecIdentity:v47 keyData:v48 isModernSystem:v163];
+          v48 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithData:v163];
+          v49 = [NEIKEv2Crypto copySecIdentity:v47 keyData:v48 isModernSystem:v162];
           v50 = v49;
           if (v49)
           {
@@ -26519,15 +26379,15 @@ LABEL_34:
               {
                 if (IsValid == 3)
                 {
-                  v126 = ne_log_obj();
-                  if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+                  v125 = ne_log_obj();
+                  if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
                   {
                     LOWORD(buf) = 0;
-                    _os_log_error_impl(&dword_1BA83C000, v126, OS_LOG_TYPE_ERROR, "local certificate is expired", &buf, 2u);
+                    _os_log_error_impl(&dword_1BA83C000, v125, OS_LOG_TYPE_ERROR, "local certificate is expired", &buf, 2u);
                   }
 
-                  v127 = NEIKEv2CreateError(12);
-                  [(NEIKEv2IKESA *)v8 setState:v127 error:?];
+                  v126 = NEIKEv2CreateError(12);
+                  [(NEIKEv2IKESA *)v8 setState:v126 error:?];
                 }
 
                 else if (IsValid == 2)
@@ -26545,23 +26405,23 @@ LABEL_34:
 
                 else
                 {
-                  v154 = ne_log_obj();
-                  if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+                  v153 = ne_log_obj();
+                  if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
                   {
-                    v156 = off_1E7F0ADC8[IsValid - 1];
+                    v155 = off_1E7F0ADC8[IsValid - 1];
                     LODWORD(buf) = 136315138;
-                    *(&buf + 4) = v156;
-                    _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "local certificate status %s", &buf, 0xCu);
+                    *(&buf + 4) = v155;
+                    _os_log_error_impl(&dword_1BA83C000, v153, OS_LOG_TYPE_ERROR, "local certificate status %s", &buf, 0xCu);
                   }
 
-                  v155 = NEIKEv2CreateError(13);
-                  [(NEIKEv2IKESA *)v8 setState:v155 error:?];
+                  v154 = NEIKEv2CreateError(13);
+                  [(NEIKEv2IKESA *)v8 setState:v154 error:?];
                 }
 
 LABEL_78:
-                v171 = 0;
+                v170 = 0;
 
-                v100 = v171;
+                v100 = v170;
                 if ((v100 & 1) == 0)
                 {
 LABEL_79:
@@ -26574,7 +26434,7 @@ LABEL_79:
                   }
 
                   v27 = objc_getProperty(v5, v102, 352, 1);
-                  Error = NEIKEv2CreateErrorInternal(@"Failed to fetch local certificate identity (connect)", v103, v104, v105, v106, v107, v108, v109, v157);
+                  Error = NEIKEv2CreateErrorInternal(@"Failed to fetch local certificate identity (connect)", v103, v104, v105, v106, v107, v108, v109, v156);
                   [(NEIKEv2IKESA *)v27 setState:Error error:?];
                   goto LABEL_82;
                 }
@@ -26583,8 +26443,8 @@ LABEL_79:
               }
 
               objc_setProperty_atomic(v8, v52, v47, 264);
-              objc_setProperty_atomic(v8, v128, v48, 272);
-              v8[22] = v163;
+              objc_setProperty_atomic(v8, v127, v48, 272);
+              v8[22] = v162;
 
 LABEL_124:
 LABEL_125:
@@ -26593,16 +26453,16 @@ LABEL_125:
               {
                 *&buf = MEMORY[0x1E69E9820];
                 *(&buf + 1) = 3221225472;
-                v179 = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke;
-                v180 = &unk_1E7F082B0;
-                v181 = v5;
-                v182 = v8;
-                v183 = &v165;
+                v178 = __43__NEIKEv2Session_Exchange__initiateConnect__block_invoke;
+                v179 = &unk_1E7F082B0;
+                v180 = v5;
+                v181 = v8;
+                v182 = &v164;
                 if ([NEIKEv2Session sendRequest:v5 retry:v29 replyHandler:&buf]== -1)
                 {
-                  v130 = objc_getProperty(v5, v129, 352, 1);
-                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator SA INIT", v131, v132, v133, v134, v135, v136, v137, v157);
-                  [(NEIKEv2IKESA *)v130 setState:ErrorFailedToSend error:?];
+                  v129 = objc_getProperty(v5, v128, 352, 1);
+                  ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"initiator SA INIT", v130, v131, v132, v133, v134, v135, v136, v156);
+                  [(NEIKEv2IKESA *)v129 setState:ErrorFailedToSend error:?];
 
                   [(NEIKEv2Session *)v5 reportState];
                   [(NEIKEv2Session *)v5 resetAll];
@@ -26611,17 +26471,17 @@ LABEL_125:
 
               else
               {
-                v141 = ne_log_obj();
-                if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+                v140 = ne_log_obj();
+                if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                 {
                   LODWORD(buf) = 138412290;
                   *(&buf + 4) = v5;
-                  _os_log_error_impl(&dword_1BA83C000, v141, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init packet (connect)", &buf, 0xCu);
+                  _os_log_error_impl(&dword_1BA83C000, v140, OS_LOG_TYPE_ERROR, "%@ Failed to create IKE SA Init packet (connect)", &buf, 0xCu);
                 }
 
-                v143 = objc_getProperty(v5, v142, 352, 1);
-                v151 = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init packet (connect)", v144, v145, v146, v147, v148, v149, v150, v157);
-                [(NEIKEv2IKESA *)v143 setState:v151 error:?];
+                v142 = objc_getProperty(v5, v141, 352, 1);
+                v150 = NEIKEv2CreateErrorInternal(@"Failed to create IKE SA Init packet (connect)", v143, v144, v145, v146, v147, v148, v149, v156);
+                [(NEIKEv2IKESA *)v142 setState:v150 error:?];
 
                 [(NEIKEv2Session *)v5 reportState];
                 [(NEIKEv2Session *)v5 resetAll];
@@ -26671,20 +26531,20 @@ LABEL_125:
         objc_opt_self();
         v88 = *MEMORY[0x1E697B010];
         v89 = *MEMORY[0x1E697B328];
-        v185 = *MEMORY[0x1E697AFF8];
-        v186 = v89;
+        v184 = *MEMORY[0x1E697AFF8];
+        v185 = v89;
         v90 = *MEMORY[0x1E695E4D0];
-        *&v189 = v88;
-        *(&v189 + 1) = v90;
+        *&v188 = v88;
+        *(&v188 + 1) = v90;
         v91 = *MEMORY[0x1E697B268];
         v92 = *MEMORY[0x1E697B3A8];
-        v187 = *MEMORY[0x1E697B260];
-        v188 = v92;
-        v160 = v92;
-        v161 = v90;
-        v190 = v91;
-        v191 = v90;
-        v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v185 count:4];
+        v186 = *MEMORY[0x1E697B260];
+        v187 = v92;
+        v159 = v92;
+        v160 = v90;
+        v189 = v91;
+        v190 = v90;
+        v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v184 count:4];
         result = 0;
         v94 = SecItemCopyMatching(v93, &result);
         v95 = result;
@@ -26693,80 +26553,80 @@ LABEL_125:
           v96 = ne_log_obj();
           if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v184[0]) = 67109120;
-            HIDWORD(v184[0]) = v94;
-            _os_log_error_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_ERROR, "failed to retrieve all certificate identities (%d)", v184, 8u);
+            LODWORD(v183[0]) = 67109120;
+            HIDWORD(v183[0]) = v94;
+            _os_log_error_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_ERROR, "failed to retrieve all certificate identities (%d)", v183, 8u);
           }
         }
 
         else
         {
-          v113 = v95;
+          v112 = v95;
 
-          if (v113)
+          if (v112)
           {
-            v174 = 0u;
-            v175 = 0u;
-            *certificateRef = 0u;
             v173 = 0u;
-            v114 = v113;
-            v115 = [v114 countByEnumeratingWithState:certificateRef objects:&buf count:16];
-            if (v115)
+            v174 = 0u;
+            *certificateRef = 0u;
+            v172 = 0u;
+            v113 = v112;
+            v114 = [v113 countByEnumeratingWithState:certificateRef objects:&buf count:16];
+            if (v114)
             {
-              v116 = *v173;
-              v158 = *MEMORY[0x1E697B3D0];
-              v159 = *MEMORY[0x1E697B320];
-              v157 = 136315138;
+              v115 = *v172;
+              v157 = *MEMORY[0x1E697B3D0];
+              v158 = *MEMORY[0x1E697B320];
+              v156 = 136315138;
               do
               {
-                v117 = 0;
+                v116 = 0;
                 do
                 {
-                  if (*v173 != v116)
+                  if (*v172 != v115)
                   {
-                    objc_enumerationMutation(v114);
+                    objc_enumerationMutation(v113);
                   }
 
-                  v118 = *(certificateRef[1] + v117);
-                  v184[0] = 0;
-                  if (SecIdentityCopyCertificate(v118, v184))
+                  v117 = *(certificateRef[1] + v116);
+                  v183[0] = 0;
+                  if (SecIdentityCopyCertificate(v117, v183))
                   {
-                    if (v184[0])
+                    if (v183[0])
                     {
-                      CFRelease(v184[0]);
+                      CFRelease(v183[0]);
                     }
                   }
 
                   else
                   {
-                    v119 = SecCertificateCopyCommonNames();
-                    v120 = v119;
-                    if (v119)
+                    v118 = SecCertificateCopyCommonNames();
+                    v119 = v118;
+                    if (v118)
                     {
-                      v193.length = CFArrayGetCount(v119);
-                      v193.location = 0;
-                      if (CFArrayContainsValue(v120, v193, value))
+                      v192.length = CFArrayGetCount(v118);
+                      v192.location = 0;
+                      if (CFArrayContainsValue(v119, v192, value))
                       {
                         objc_opt_self();
-                        if (v118)
+                        if (v117)
                         {
-                          v185 = v159;
-                          v186 = v158;
-                          *&v189 = v161;
-                          *(&v189 + 1) = v118;
-                          v187 = v160;
-                          v190 = v161;
-                          v121 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v185 count:3];
+                          v184 = v158;
+                          v185 = v157;
+                          *&v188 = v160;
+                          *(&v188 + 1) = v117;
+                          v186 = v159;
+                          v189 = v160;
+                          v120 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v184 count:3];
                           result = 0;
-                          v122 = SecItemCopyMatching(v121, &result);
-                          v123 = result;
-                          if (v122)
+                          v121 = SecItemCopyMatching(v120, &result);
+                          v122 = result;
+                          if (v121)
                           {
-                            v124 = ne_log_obj();
-                            if (os_log_type_enabled(v124, OS_LOG_TYPE_FAULT))
+                            v123 = ne_log_obj();
+                            if (os_log_type_enabled(v123, OS_LOG_TYPE_FAULT))
                             {
-                              *v176 = 0;
-                              _os_log_fault_impl(&dword_1BA83C000, v124, OS_LOG_TYPE_FAULT, "SecItemCopyMatching failed", v176, 2u);
+                              *v175 = 0;
+                              _os_log_fault_impl(&dword_1BA83C000, v123, OS_LOG_TYPE_FAULT, "SecItemCopyMatching failed", v175, 2u);
                             }
 
                             v40 = 0;
@@ -26780,12 +26640,12 @@ LABEL_125:
 
                         else
                         {
-                          v121 = ne_log_obj();
-                          if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
+                          v120 = ne_log_obj();
+                          if (os_log_type_enabled(v120, OS_LOG_TYPE_FAULT))
                           {
-                            LODWORD(v189) = 136315138;
-                            *(&v189 + 4) = "+[NEIKEv2Crypto copyPersistentDataForIdentity:]";
-                            _os_log_fault_impl(&dword_1BA83C000, v121, OS_LOG_TYPE_FAULT, "%s called with null identity", &v189, 0xCu);
+                            LODWORD(v188) = 136315138;
+                            *(&v188 + 4) = "+[NEIKEv2Crypto copyPersistentDataForIdentity:]";
+                            _os_log_fault_impl(&dword_1BA83C000, v120, OS_LOG_TYPE_FAULT, "%s called with null identity", &v188, 0xCu);
                           }
 
                           v40 = 0;
@@ -26797,7 +26657,7 @@ LABEL_125:
                         v40 = 0;
                       }
 
-                      CFRelease(v120);
+                      CFRelease(v119);
                     }
 
                     else
@@ -26805,9 +26665,9 @@ LABEL_125:
                       v40 = 0;
                     }
 
-                    if (v184[0])
+                    if (v183[0])
                     {
-                      CFRelease(v184[0]);
+                      CFRelease(v183[0]);
                     }
 
                     if (v40)
@@ -26816,15 +26676,15 @@ LABEL_125:
                     }
                   }
 
-                  ++v117;
+                  ++v116;
                 }
 
-                while (v115 != v117);
-                v125 = [v114 countByEnumeratingWithState:certificateRef objects:&buf count:16];
-                v115 = v125;
+                while (v114 != v116);
+                v124 = [v113 countByEnumeratingWithState:certificateRef objects:&buf count:16];
+                v114 = v124;
               }
 
-              while (v125);
+              while (v124);
             }
 
             v40 = 0;
@@ -26852,8 +26712,8 @@ LABEL_65:
         v97 = ne_log_obj();
         if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
         {
-          LOWORD(v189) = 0;
-          _os_log_fault_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_FAULT, "ikev2_crypto_copy_all_cert_identities failed", &v189, 2u);
+          LOWORD(v188) = 0;
+          _os_log_fault_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_FAULT, "ikev2_crypto_copy_all_cert_identities failed", &v188, 2u);
         }
 
         goto LABEL_65;
@@ -26892,7 +26752,7 @@ LABEL_65:
 
     else
     {
-      v18 = [(NEIKEv2ChildSA *)v166[5] configProposalsWithoutKEM];
+      v18 = [(NEIKEv2ChildSA *)v165[5] configProposalsWithoutKEM];
       v19 = v18 == 0;
 
       if (!v19)
@@ -26906,9 +26766,9 @@ LABEL_65:
 LABEL_22:
 
 LABEL_83:
-        _Block_object_dispose(&v165, 8);
+        _Block_object_dispose(&v164, 8);
 
-        goto LABEL_84;
+        return;
       }
 
       LODWORD(buf) = 136315138;
@@ -26920,14 +26780,11 @@ LABEL_69:
     _os_log_fault_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_FAULT, v30, &buf, 0xCu);
     goto LABEL_22;
   }
-
-LABEL_84:
-  v112 = *MEMORY[0x1E69E9840];
 }
 
 - (NEIKEv2Session)initWithIKEConfig:(id)config firstChildConfig:(id)childConfig sessionConfig:(id)sessionConfig queue:(id)queue ipsecInterface:(NEVirtualInterface_s *)interface ikeSocketHandler:(id)handler kernelSASessionName:(id)name packetDelegate:(id)self0
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configCopy = config;
   childConfigCopy = childConfig;
   sessionConfigCopy = sessionConfig;
@@ -26937,12 +26794,12 @@ LABEL_84:
   delegateCopy = delegate;
   if (!configCopy)
   {
-    v27 = ne_log_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
-      v28 = "%s called with null ikeConfig";
+      v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
+      v27 = "%s called with null ikeConfig";
       goto LABEL_13;
     }
 
@@ -26954,12 +26811,12 @@ LABEL_11:
 
   if (!nameCopy)
   {
-    v27 = ne_log_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
-      v28 = "%s called with null kernelSASessionName";
+      v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
+      v27 = "%s called with null kernelSASessionName";
       goto LABEL_13;
     }
 
@@ -26968,17 +26825,17 @@ LABEL_11:
 
   if (!queueCopy)
   {
-    v27 = ne_log_obj();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_11;
     }
 
     *buf = 136315138;
-    v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
-    v28 = "%s called with null queue";
+    v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:kernelSASessionName:packetDelegate:]";
+    v27 = "%s called with null queue";
 LABEL_13:
-    _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, v28, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
     goto LABEL_11;
   }
 
@@ -26988,14 +26845,13 @@ LABEL_13:
   selfCopy = self;
 LABEL_5:
 
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NSObject)initWithIKEConfig:(void *)config firstChildConfig:(void *)childConfig sessionConfig:(void *)sessionConfig queue:(void *)queue ipsecInterface:(void *)interface ikeSocketHandler:(void *)handler saSession:(char)session shouldOwnSASession:(void *)self0 packetDelegate:(void *)self1 transport:(void *)self2 configurationDelegate:
 {
-  v200 = *MEMORY[0x1E69E9840];
-  v165 = a2;
+  v199 = *MEMORY[0x1E69E9840];
+  v164 = a2;
   configCopy = config;
   childConfigCopy = childConfig;
   sessionConfigCopy = sessionConfig;
@@ -27005,42 +26861,42 @@ LABEL_5:
   delegateCopy = delegate;
   obj = transport;
   self = self;
-  v164 = handlerCopy;
+  v163 = handlerCopy;
   if (!self)
   {
-    v22 = v165;
+    v22 = v164;
     goto LABEL_148;
   }
 
   if (handlerCopy)
   {
-    v187.receiver = self;
-    v187.super_class = NEIKEv2Session;
-    v20 = [&v187 init];
-    v22 = v165;
+    v186.receiver = self;
+    v186.super_class = NEIKEv2Session;
+    v20 = [&v186 init];
+    v22 = v164;
     v23 = v20;
     if (v20)
     {
-      v20[4] = -1;
-      v20[5] = -1;
-      v20[6] = -1;
-      *(v20 + 41) = atomic_fetch_add_explicit(&sNEIKEv2SessionIndex, 1uLL, memory_order_relaxed);
+      LODWORD(v20[2].isa) = -1;
+      HIDWORD(v20[2].isa) = -1;
+      LODWORD(v20[3].isa) = -1;
+      v20[41].isa = atomic_fetch_add_explicit(&sNEIKEv2SessionIndex, 1uLL, memory_order_relaxed);
       objc_setProperty_atomic_copy(v20, v21, newValue, 176);
       if (obj)
       {
-        objc_storeWeak(v23 + 45, obj);
+        objc_storeWeak(&v23[45].isa, obj);
       }
 
       if (aSessionCopy)
       {
-        objc_storeWeak(v23 + 46, aSessionCopy);
+        objc_storeWeak(&v23[46].isa, aSessionCopy);
       }
 
       if (queue)
       {
         if (queue[32] == 2)
         {
-          *(v23 + 43) = CFRetain(queue);
+          v23[43].isa = CFRetain(queue);
         }
 
         else
@@ -27049,27 +26905,27 @@ LABEL_5:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
             v156 = queue[32];
-            *v198 = 134217984;
+            *v197 = 134217984;
             selfCopy = v156;
-            _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "Passed in virtual interface of bad type %lld", v198, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "Passed in virtual interface of bad type %lld", v197, 0xCu);
           }
         }
       }
 
-      objc_storeStrong(v23 + 50, a2);
+      objc_storeStrong(&v23[50].isa, a2);
       objc_setProperty_atomic(v23, v25, sessionConfigCopy, 384);
       objc_initWeak(&location, v23);
       v26 = [NEIKEv2IKESA alloc];
-      v167 = objc_getProperty(v23, v27, 176, 1);
-      if (v167)
+      v166 = objc_getProperty(v23, v27, 176, 1);
+      if (v166)
       {
-        v184[0] = MEMORY[0x1E69E9820];
-        v184[1] = 3221225472;
-        v184[2] = __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queue_ipsecInterface_ikeSocketHandler_saSession_shouldOwnSASession_packetDelegate_transport_configurationDelegate___block_invoke;
-        v184[3] = &unk_1E7F08A00;
-        v162 = &v185;
-        objc_copyWeak(&v185, &location);
-        v28 = v184;
+        v183[0] = MEMORY[0x1E69E9820];
+        v183[1] = 3221225472;
+        v183[2] = __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queue_ipsecInterface_ikeSocketHandler_saSession_shouldOwnSASession_packetDelegate_transport_configurationDelegate___block_invoke;
+        v183[3] = &unk_1E7F08A00;
+        v161 = &v184;
+        objc_copyWeak(&v184, &location);
+        v28 = v183;
       }
 
       else
@@ -27077,16 +26933,16 @@ LABEL_5:
         v28 = 0;
       }
 
-      v29 = *(v23 + 41);
-      v30 = v165;
-      v172 = childConfigCopy;
-      v173 = sessionConfigCopy;
+      isa = v23[41].isa;
+      v30 = v164;
+      v171 = childConfigCopy;
+      v172 = sessionConfigCopy;
       v31 = delegateCopy;
       self = v23;
-      v174 = v28;
-      v175 = aSessionCopy;
-      v168 = obj;
-      v180 = v30;
+      v173 = v28;
+      v174 = aSessionCopy;
+      v167 = obj;
+      v179 = v30;
       if (!v26)
       {
         v32 = 0;
@@ -27098,9 +26954,9 @@ LABEL_99:
           v154 = ne_log_obj();
           if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
           {
-            *v198 = 138412290;
+            *v197 = 138412290;
             selfCopy = self;
-            _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ failed to create IKE SA", v198, 0xCu);
+            _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ failed to create IKE SA", v197, 0xCu);
           }
 
           self = 0;
@@ -27109,15 +26965,15 @@ LABEL_99:
 
         v112 = objc_getProperty(self, v111, 352, 1);
         copyTransport = [(NEIKEv2IKESA *)v112 copyTransport];
-        v182[0] = MEMORY[0x1E69E9820];
-        v182[1] = 3221225472;
-        v182[2] = __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queue_ipsecInterface_ikeSocketHandler_saSession_shouldOwnSASession_packetDelegate_transport_configurationDelegate___block_invoke_45;
-        v182[3] = &unk_1E7F0B0E8;
+        v181[0] = MEMORY[0x1E69E9820];
+        v181[1] = 3221225472;
+        v181[2] = __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queue_ipsecInterface_ikeSocketHandler_saSession_shouldOwnSASession_packetDelegate_transport_configurationDelegate___block_invoke_45;
+        v181[3] = &unk_1E7F0B0E8;
         selfCopy2 = self;
-        v183 = selfCopy2;
-        [(NEIKEv2Transport *)copyTransport waitForTransport:v182];
+        v182 = selfCopy2;
+        [(NEIKEv2Transport *)copyTransport waitForTransport:v181];
 
-        serverMode = [v180 serverMode];
+        serverMode = [v179 serverMode];
         LOBYTE(selfCopy2[1].isa) = serverMode;
         if (serverMode)
         {
@@ -27134,9 +26990,9 @@ LABEL_99:
             v155 = ne_log_obj();
             if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
             {
-              *v198 = 136315138;
+              *v197 = 136315138;
               selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-              _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.firstChildSA", v198, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.firstChildSA", v197, 0xCu);
             }
           }
 
@@ -27178,7 +27034,7 @@ LABEL_99:
                         if (objc_getProperty(selfCopy2, v144, 272, 1))
                         {
                           BYTE1(selfCopy2[1].isa) = session;
-                          objc_setProperty_atomic(selfCopy2, v145, v164, 192);
+                          objc_setProperty_atomic(selfCopy2, v145, v163, 192);
                           v147 = objc_getProperty(selfCopy2, v146, 192, 1);
                           [v147 setDelegate:selfCopy2];
 
@@ -27191,12 +27047,12 @@ LABEL_99:
 
                           self = selfCopy2;
 LABEL_143:
-                          v154 = v183;
+                          v154 = v182;
 LABEL_144:
 
-                          if (v167)
+                          if (v166)
                           {
-                            objc_destroyWeak(v162);
+                            objc_destroyWeak(v161);
                           }
 
                           objc_destroyWeak(&location);
@@ -27206,9 +27062,9 @@ LABEL_144:
                         v155 = ne_log_obj();
                         if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                         {
-                          *v198 = 136315138;
+                          *v197 = 136315138;
                           selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                          _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.replyFragmentMaps", v198, 0xCu);
+                          _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.replyFragmentMaps", v197, 0xCu);
                         }
                       }
 
@@ -27217,9 +27073,9 @@ LABEL_144:
                         v155 = ne_log_obj();
                         if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                         {
-                          *v198 = 136315138;
+                          *v197 = 136315138;
                           selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                          _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.requestFragmentMaps", v198, 0xCu);
+                          _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.requestFragmentMaps", v197, 0xCu);
                         }
                       }
                     }
@@ -27229,9 +27085,9 @@ LABEL_144:
                       v155 = ne_log_obj();
                       if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                       {
-                        *v198 = 136315138;
+                        *v197 = 136315138;
                         selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                        _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.receivedReplyIDs", v198, 0xCu);
+                        _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.receivedReplyIDs", v197, 0xCu);
                       }
                     }
                   }
@@ -27241,9 +27097,9 @@ LABEL_144:
                     v155 = ne_log_obj();
                     if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                     {
-                      *v198 = 136315138;
+                      *v197 = 136315138;
                       selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                      _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.receivedRequestIDs", v198, 0xCu);
+                      _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.receivedRequestIDs", v197, 0xCu);
                     }
                   }
                 }
@@ -27253,9 +27109,9 @@ LABEL_144:
                   v155 = ne_log_obj();
                   if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                   {
-                    *v198 = 136315138;
+                    *v197 = 136315138;
                     selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                    _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.sentReplies", v198, 0xCu);
+                    _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.sentReplies", v197, 0xCu);
                   }
                 }
               }
@@ -27265,9 +27121,9 @@ LABEL_144:
                 v155 = ne_log_obj();
                 if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
                 {
-                  *v198 = 136315138;
+                  *v197 = 136315138;
                   selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.databaseSAs", v198, 0xCu);
+                  _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.databaseSAs", v197, 0xCu);
                 }
               }
             }
@@ -27277,9 +27133,9 @@ LABEL_144:
               v155 = ne_log_obj();
               if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
               {
-                *v198 = 136315138;
+                *v197 = 136315138;
                 selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-                _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.databaseLarvalSAs", v198, 0xCu);
+                _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.databaseLarvalSAs", v197, 0xCu);
               }
             }
           }
@@ -27290,9 +27146,9 @@ LABEL_144:
           v155 = ne_log_obj();
           if (os_log_type_enabled(v155, OS_LOG_TYPE_FAULT))
           {
-            *v198 = 136315138;
+            *v197 = 136315138;
             selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-            _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.childSAs", v198, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_FAULT, "%s called with null self.childSAs", v197, 0xCu);
           }
         }
 
@@ -27300,7 +27156,7 @@ LABEL_144:
         goto LABEL_143;
       }
 
-      v32 = -[NEIKEv2IKESA initIKESACommonWithConfiguration:sessionConfiguration:queue:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:isInitiator:](v26, v30, v172, v173, self, v174, v175, v168, v29, [v30 serverMode] ^ 1u);
+      v32 = -[NEIKEv2IKESA initIKESACommonWithConfiguration:sessionConfiguration:queue:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:isInitiator:](v26, v30, v171, v172, self, v173, v174, v167, isa, [v30 serverMode] ^ 1u);
       if (!v32)
       {
         goto LABEL_99;
@@ -27308,7 +27164,7 @@ LABEL_144:
 
       if ([v30 randomizeLocalPort])
       {
-        v163 = 0;
+        v162 = 0;
       }
 
       else
@@ -27323,7 +27179,7 @@ LABEL_144:
           v33 = 500;
         }
 
-        v163 = v33;
+        v162 = v33;
       }
 
       if (aSessionCopy)
@@ -27345,9 +27201,9 @@ LABEL_144:
         v57 = ne_log_obj();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
         {
-          *v198 = 136315138;
+          *v197 = 136315138;
           selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-          _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null configuration.remoteEndpoint", v198, 0xCu);
+          _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null configuration.remoteEndpoint", v197, 0xCu);
         }
       }
 
@@ -27362,9 +27218,9 @@ LABEL_144:
           v58 = ne_log_obj();
           if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
           {
-            *v198 = 136315138;
+            *v197 = 136315138;
             selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-            _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "%s called with null [configuration.remoteEndpoint isKindOfClass:[NWAddressEndpoint class]]", v198, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "%s called with null [configuration.remoteEndpoint isKindOfClass:[NWAddressEndpoint class]]", v197, 0xCu);
           }
 
           goto LABEL_46;
@@ -27406,7 +27262,7 @@ LABEL_39:
               objc_setProperty_atomic(v32, v61, v60, 72);
 
 LABEL_54:
-              if (BYTE1(v32[3].isa) & 1) != 0 && (BYTE1(v32[1].isa))
+              if ((v32[1]._value & 0x100) != 0 && (v32->_value & 0x100) != 0)
               {
                 v62 = objc_getProperty(v32, v36, 72, 1);
                 if (!v62 || (v63 = v62, v64 = objc_getProperty(v32, v36, 64, 1) == 0, v63, v64))
@@ -27419,11 +27275,11 @@ LABEL_54:
 
                   else
                   {
-                    v190 = 0u;
-                    v191 = 0u;
-                    v188 = 0u;
                     v189 = 0u;
-                    configurationRequest = [v172 configurationRequest];
+                    v190 = 0u;
+                    v187 = 0u;
+                    v188 = 0u;
+                    configurationRequest = [v171 configurationRequest];
                     v70 = configurationRequest;
                     if (configurationRequest)
                     {
@@ -27437,22 +27293,22 @@ LABEL_54:
 
                     v72 = Property;
 
-                    v73 = [v72 countByEnumeratingWithState:&v188 objects:v198 count:16];
+                    v73 = [v72 countByEnumeratingWithState:&v187 objects:v197 count:16];
                     v66 = 0;
                     v67 = 0;
                     if (v73)
                     {
-                      v74 = *v189;
+                      v74 = *v188;
                       do
                       {
                         for (i = 0; i != v73; ++i)
                         {
-                          if (*v189 != v74)
+                          if (*v188 != v74)
                           {
                             objc_enumerationMutation(v72);
                           }
 
-                          v76 = *(*(&v188 + 1) + 8 * i);
+                          v76 = *(*(&v187 + 1) + 8 * i);
                           if ([v76 attributeType] == 25958)
                           {
                             v66 = 1;
@@ -27464,13 +27320,13 @@ LABEL_54:
                           }
                         }
 
-                        v73 = [v72 countByEnumeratingWithState:&v188 objects:v198 count:16];
+                        v73 = [v72 countByEnumeratingWithState:&v187 objects:v197 count:16];
                       }
 
                       while (v73);
                     }
 
-                    v22 = v165;
+                    v22 = v164;
                   }
 
                   if (((objc_getProperty(v32, v65, 64, 1) == 0) & v66) == 1)
@@ -27521,21 +27377,21 @@ LABEL_94:
                       v104 = objc_getProperty(v32, v103, 72, 1);
                       v106 = objc_getProperty(v32, v105, 80, 1);
                       *buf = 138412802;
-                      v193 = v32;
-                      v194 = 2112;
-                      v195 = v104;
-                      v196 = 2112;
-                      v197 = v106;
+                      v192 = v32;
+                      v193 = 2112;
+                      v194 = v104;
+                      v195 = 2112;
+                      v196 = v106;
                       _os_log_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_INFO, "Created %@ to %@ with configuration %@", buf, 0x20u);
                     }
 
-                    v94 = ne_log_large_obj();
-                    if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
+                    p_super = ne_log_large_obj();
+                    if (os_log_type_enabled(p_super, OS_LOG_TYPE_INFO))
                     {
                       v108 = objc_getProperty(v32, v107, 88, 1);
                       *buf = 138412290;
-                      v193 = v108;
-                      _os_log_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_INFO, "Session configuration %@", buf, 0xCu);
+                      v192 = v108;
+                      _os_log_impl(&dword_1BA83C000, p_super, OS_LOG_TYPE_INFO, "Session configuration %@", buf, 0xCu);
                     }
 
                     goto LABEL_98;
@@ -27545,23 +27401,23 @@ LABEL_94:
                   v84 = 12;
                 }
 
-                *(&v32->isa + v84) = 1;
+                *(&v32->super.super.isa + v84) = 1;
 LABEL_93:
                 objc_setProperty_atomic(v32, v36, v31, v83);
                 goto LABEL_94;
               }
 
-              forceUDPEncapsulation = [v180 forceUDPEncapsulation];
+              forceUDPEncapsulation = [v179 forceUDPEncapsulation];
               v87 = objc_getProperty(v32, v86, 72, 1);
               v89 = objc_getProperty(v32, v88, 64, 1);
               v91 = objc_getProperty(v32, v90, 304, 1);
-              v31 = [NEIKEv2Transport createTransport:forceUDPEncapsulation remote:v87 local:v89 localPort:v163 boundInterface:v91 queue:v173 socketGetBlock:v174 packetDelegate:v175];
+              v31 = [NEIKEv2Transport createTransport:forceUDPEncapsulation remote:v87 local:v89 localPort:v162 boundInterface:v91 queue:v172 socketGetBlock:v173 packetDelegate:v174];
 
               if (v31)
               {
-                if ([v180 forceUDPEncapsulation])
+                if ([v179 forceUDPEncapsulation])
                 {
-                  BYTE4(v32[1].isa) = 1;
+                  BYTE4(v32->_value) = 1;
                   v83 = 480;
                 }
 
@@ -27576,17 +27432,17 @@ LABEL_93:
               v92 = ne_log_obj();
               if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
               {
-                v159 = objc_getProperty(v32, v93, 72, 1);
+                v158 = objc_getProperty(v32, v93, 72, 1);
                 *buf = 138412546;
-                v193 = v32;
-                v194 = 2112;
-                v195 = v159;
+                v192 = v32;
+                v193 = 2112;
+                v194 = v158;
                 _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "%@ failed to create transport for %@", buf, 0x16u);
               }
 
               v31 = 0;
 LABEL_90:
-              v94 = v32;
+              p_super = &v32->super.super;
               v32 = 0;
 LABEL_98:
 
@@ -27614,47 +27470,47 @@ LABEL_98:
 
                   else
                   {
-                    v50 = v163;
+                    v50 = v162;
                   }
 
-                  v163 = v50;
+                  v162 = v50;
                   localEndpoint4 = [v30 localEndpoint];
-                  v52 = -[NEIKEv2IKESA copyAddressFrom:with:]([localEndpoint4 address], v163);
+                  v52 = -[NEIKEv2IKESA copyAddressFrom:with:]([localEndpoint4 address], v162);
                   objc_setProperty_atomic(v32, v53, v52, 64);
 
                   goto LABEL_39;
                 }
 
-                v161 = ne_log_obj();
-                if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
+                v160 = ne_log_obj();
+                if (os_log_type_enabled(v160, OS_LOG_TYPE_FAULT))
                 {
-                  *v198 = 136315138;
+                  *v197 = 136315138;
                   selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v161, OS_LOG_TYPE_FAULT, "%s called with null (localAddress->sa_len >= sizeof(struct sockaddr_in))", v198, 0xCu);
+                  _os_log_fault_impl(&dword_1BA83C000, v160, OS_LOG_TYPE_FAULT, "%s called with null (localAddress->sa_len >= sizeof(struct sockaddr_in))", v197, 0xCu);
                 }
               }
 
               else
               {
-                v161 = ne_log_obj();
-                if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
+                v160 = ne_log_obj();
+                if (os_log_type_enabled(v160, OS_LOG_TYPE_FAULT))
                 {
-                  *v198 = 136315138;
+                  *v197 = 136315138;
                   selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v161, OS_LOG_TYPE_FAULT, "%s called with null localAddress", v198, 0xCu);
+                  _os_log_fault_impl(&dword_1BA83C000, v160, OS_LOG_TYPE_FAULT, "%s called with null localAddress", v197, 0xCu);
                 }
               }
 
-              v22 = v165;
+              v22 = v164;
               goto LABEL_90;
             }
 
             v58 = ne_log_obj();
             if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
             {
-              *v198 = 136315138;
+              *v197 = 136315138;
               selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-              _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "%s called with null [configuration.localEndpoint isKindOfClass:[NWAddressEndpoint class]]", v198, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_FAULT, "%s called with null [configuration.localEndpoint isKindOfClass:[NWAddressEndpoint class]]", v197, 0xCu);
             }
 
 LABEL_46:
@@ -27665,9 +27521,9 @@ LABEL_46:
           v57 = ne_log_obj();
           if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
           {
-            *v198 = 136315138;
+            *v197 = 136315138;
             selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-            _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))", v198, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))", v197, 0xCu);
           }
         }
 
@@ -27676,9 +27532,9 @@ LABEL_46:
           v57 = ne_log_obj();
           if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
           {
-            *v198 = 136315138;
+            *v197 = 136315138;
             selfCopy = "[NEIKEv2IKESA initIKESAWithConfiguration:sessionConfiguration:queue:initialTransport:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:]";
-            _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null remoteAddress", v198, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_FAULT, "%s called with null remoteAddress", v197, 0xCu);
           }
         }
       }
@@ -27689,20 +27545,20 @@ LABEL_46:
     self = ne_log_obj();
     if (os_log_type_enabled(self, OS_LOG_TYPE_FAULT))
     {
-      *v198 = 0;
-      _os_log_fault_impl(&dword_1BA83C000, self, OS_LOG_TYPE_FAULT, "[super init] failed", v198, 2u);
+      *v197 = 0;
+      _os_log_fault_impl(&dword_1BA83C000, self, OS_LOG_TYPE_FAULT, "[super init] failed", v197, 2u);
     }
   }
 
   else
   {
     ne_log_obj();
-    v160 = v22 = v165;
-    if (os_log_type_enabled(v160, OS_LOG_TYPE_FAULT))
+    v159 = v22 = v164;
+    if (os_log_type_enabled(v159, OS_LOG_TYPE_FAULT))
     {
-      *v198 = 136315138;
+      *v197 = 136315138;
       selfCopy = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]";
-      _os_log_fault_impl(&dword_1BA83C000, v160, OS_LOG_TYPE_FAULT, "%s called with null saSession", v198, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v159, OS_LOG_TYPE_FAULT, "%s called with null saSession", v197, 0xCu);
     }
   }
 
@@ -27710,13 +27566,12 @@ LABEL_46:
 LABEL_147:
 
 LABEL_148:
-  v157 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 void __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queue_ipsecInterface_ikeSocketHandler_saSession_shouldOwnSASession_packetDelegate_transport_configurationDelegate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v11 = WeakRetained;
   if (WeakRetained && (WeakRetained[12] & 1) == 0 && objc_getProperty(WeakRetained, v10, 176, 1))
@@ -27729,21 +27584,19 @@ void __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queu
     v16 = ne_log_obj();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *a5;
-      v19 = 136315394;
-      v20 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]_block_invoke";
-      v21 = 1024;
-      v22 = v18;
-      _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%s: Get socket %d\n", &v19, 0x12u);
+      v17 = *a5;
+      v18 = 136315394;
+      v19 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:shouldOwnSASession:packetDelegate:transport:configurationDelegate:]_block_invoke";
+      v20 = 1024;
+      v21 = v17;
+      _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%s: Get socket %d\n", &v18, 0x12u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFirstChild:(void *)child
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (child)
   {
@@ -27754,9 +27607,9 @@ void __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queu
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
+        v14 = 138412290;
         childCopy = child;
-        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ Already have a first child SA, ignoring request", &v15, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ Already have a first child SA, ignoring request", &v14, 0xCu);
       }
     }
 
@@ -27780,25 +27633,23 @@ void __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queu
 
       else
       {
-        v14 = ne_log_obj();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v13 = ne_log_obj();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
-          v15 = 136315138;
+          v14 = 136315138;
           childCopy = "[NEIKEv2Session addFirstChild:]";
-          _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null firstChildSA", &v15, 0xCu);
+          _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null firstChildSA", &v14, 0xCu);
         }
 
         v6 = 0;
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NEIKEv2Session)initWithIKEConfig:(id)config firstChildConfig:(id)childConfig sessionConfig:(id)sessionConfig queue:(id)queue ipsecInterface:(NEVirtualInterface_s *)interface ikeSocketHandler:(id)handler saSession:(id)session packetDelegate:(id)self0
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configCopy = config;
   childConfigCopy = childConfig;
   sessionConfigCopy = sessionConfig;
@@ -27809,12 +27660,12 @@ void __181__NEIKEv2Session_initWithIKEConfig_firstChildConfig_sessionConfig_queu
   v23 = delegateCopy;
   if (!configCopy)
   {
-    v27 = ne_log_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
-      v28 = "%s called with null ikeConfig";
+      v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
+      v27 = "%s called with null ikeConfig";
       goto LABEL_13;
     }
 
@@ -27826,12 +27677,12 @@ LABEL_11:
 
   if (!sessionCopy)
   {
-    v27 = ne_log_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
-      v28 = "%s called with null saSession";
+      v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
+      v27 = "%s called with null saSession";
       goto LABEL_13;
     }
 
@@ -27840,17 +27691,17 @@ LABEL_11:
 
   if (!queueCopy)
   {
-    v27 = ne_log_obj();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v26 = ne_log_obj();
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_11;
     }
 
     *buf = 136315138;
-    v30 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
-    v28 = "%s called with null queue";
+    v29 = "[NEIKEv2Session initWithIKEConfig:firstChildConfig:sessionConfig:queue:ipsecInterface:ikeSocketHandler:saSession:packetDelegate:]";
+    v27 = "%s called with null queue";
 LABEL_13:
-    _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, v28, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
     goto LABEL_11;
   }
 
@@ -27858,7 +27709,6 @@ LABEL_13:
   selfCopy = self;
 LABEL_5:
 
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -27914,9 +27764,129 @@ LABEL_5:
   return v11;
 }
 
+- (void)reportError:(int)error
+{
+  v3 = *&error;
+  selfCopy = self;
+  v53 = *MEMORY[0x1E69E9840];
+  if (self)
+  {
+    isInvalidated = self->_isInvalidated;
+    if (!error)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    isInvalidated = 0;
+    if (!error)
+    {
+      return;
+    }
+  }
+
+  if (isInvalidated)
+  {
+    return;
+  }
+
+  if (error == 49)
+  {
+    if (!self || (v6 = objc_getProperty(self, a2, 352, 1)) == 0 || (v6[11] & 1) == 0)
+    {
+      v7 = ne_log_obj();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        v50 = selfCopy;
+        v51 = 1024;
+        v52 = 49;
+        _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "%@ Reporting transport error %d", buf, 0x12u);
+      }
+
+      if (selfCopy)
+      {
+        Property = objc_getProperty(selfCopy, v8, 352, 1);
+      }
+
+      else
+      {
+        Property = 0;
+      }
+
+      v10 = Property;
+      ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"Transport error %d", v11, v12, v13, v14, v15, v16, v17, 49);
+      [(NEIKEv2IKESA *)v10 setState:ErrorFailedToSend error:?];
+
+      [(NEIKEv2Session *)selfCopy reportState];
+      return;
+    }
+  }
+
+  else if (!self)
+  {
+    goto LABEL_21;
+  }
+
+  v20 = objc_getProperty(selfCopy, a2, 352, 1);
+  if (!v20 || v20[6] != 2 || selfCopy->_lastRequestMessageID == -1 || (v22 = objc_getProperty(selfCopy, v21, 256, 1), [MEMORY[0x1E696AD98] numberWithInt:selfCopy->_lastRequestMessageID], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "containsObject:", v23), v23, v22, !v24))
+  {
+LABEL_21:
+    v36 = ne_log_obj();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      v50 = selfCopy;
+      v51 = 1024;
+      v52 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ Reporting transport error %d", buf, 0x12u);
+    }
+
+    if (selfCopy)
+    {
+      v44 = objc_getProperty(selfCopy, v37, 352, 1);
+      v46 = objc_getProperty(selfCopy, v45, 352, 1);
+      selfCopy = v46;
+      if (v46)
+      {
+        v47 = *(v46 + 6);
+LABEL_26:
+        ErrorInternal = NEIKEv2CreateErrorInternal(@"Transport error %d", v37, v38, v39, v40, v41, v42, v43, v3);
+        [(NEIKEv2IKESA *)v44 setState:v47 error:ErrorInternal];
+
+        return;
+      }
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+
+    v47 = 0;
+    goto LABEL_26;
+  }
+
+  v25 = ne_log_obj();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412546;
+    v50 = selfCopy;
+    v51 = 1024;
+    v52 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, "%@ Reporting transport error %d while connected", buf, 0x12u);
+  }
+
+  v27 = objc_getProperty(selfCopy, v26, 352, 1);
+  v35 = NEIKEv2CreateErrorInternal(@"Transport error %d", v28, v29, v30, v31, v32, v33, v34, v3);
+  [(NEIKEv2IKESA *)v27 setState:v35 error:?];
+}
+
 - (void)blackholeDetectedSA:(id)a
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   aCopy = a;
   if (self)
   {
@@ -27942,28 +27912,26 @@ LABEL_5:
       v10 = 0;
     }
 
-    v12 = 138413058;
+    v11 = 138413058;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v10;
-    v16 = 2112;
-    v17 = aCopy;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ blackhole detected SA %@ childSA %@", &v12, 0x2Au);
+    v13 = 2112;
+    v14 = v10;
+    v15 = 2112;
+    v16 = aCopy;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ blackhole detected SA %@ childSA %@", &v11, 0x2Au);
   }
 
   if (v7)
   {
     [(NEIKEv2Session *)self sendKeepaliveWithRetries:4 retryIntervalInMilliseconds:0 callbackQueue:0 callback:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)idleTimeoutSA:(id)a
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   aCopy = a;
   if (self)
   {
@@ -27989,15 +27957,15 @@ LABEL_5:
       v10 = 0;
     }
 
-    v14 = 138413058;
+    v13 = 138413058;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = aCopy;
-    v20 = 2112;
-    v21 = v7;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ idle timeout SA %@ childSA %@", &v14, 0x2Au);
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = aCopy;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ idle timeout SA %@ childSA %@", &v13, 0x2Au);
   }
 
   if (v7)
@@ -28008,13 +27976,11 @@ LABEL_5:
   }
 
   [aCopy invalidate];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSA:(id)a
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   aCopy = a;
   if (self)
   {
@@ -28040,15 +28006,15 @@ LABEL_5:
       v10 = 0;
     }
 
-    v14 = 138413058;
+    v13 = 138413058;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = aCopy;
-    v20 = 2112;
-    v21 = v7;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ delete SA %@ childSA %@", &v14, 0x2Au);
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = aCopy;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ delete SA %@ childSA %@", &v13, 0x2Au);
   }
 
   if (v7)
@@ -28068,13 +28034,11 @@ LABEL_5:
 
   [v12 setObject:0 forKeyedSubscript:aCopy];
   [aCopy invalidate];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)expireSA:(id)a
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   aCopy = a;
   if (self)
   {
@@ -28100,15 +28064,15 @@ LABEL_5:
       v10 = 0;
     }
 
-    v12 = 138413058;
+    v11 = 138413058;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v10;
-    v16 = 2112;
-    v17 = aCopy;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ expire SA %@ childSA %@", &v12, 0x2Au);
+    v13 = 2112;
+    v14 = v10;
+    v15 = 2112;
+    v16 = aCopy;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ expire SA %@ childSA %@", &v11, 0x2Au);
   }
 
   if (v7 && [aCopy direction] == 2)
@@ -28117,13 +28081,11 @@ LABEL_5:
   }
 
   [aCopy invalidate];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -28180,15 +28142,14 @@ LABEL_5:
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = NEIKEv2Session;
-  [(NEIKEv2Session *)&v19 dealloc];
-  v18 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = NEIKEv2Session;
+  [(NEIKEv2Session *)&v18 dealloc];
 }
 
 - (NSObject)initWithIKEConfig:(NSObject *)config configurationDelegate:(void *)delegate queue:(void *)queue saSession:(void *)session shouldCopySASession:(void *)aSession transport:(void *)transport packetDelegate:(void *)packetDelegate
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   sessionCopy = session;
@@ -28203,12 +28164,12 @@ LABEL_5:
 
   if (!delegateCopy)
   {
-    v23 = ne_log_obj();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
-      v24 = "%s called with null ikeConfig";
+      v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
+      v23 = "%s called with null ikeConfig";
       goto LABEL_15;
     }
 
@@ -28220,12 +28181,12 @@ LABEL_13:
 
   if (!aSessionCopy)
   {
-    v23 = ne_log_obj();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
-      v24 = "%s called with null saSession";
+      v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
+      v23 = "%s called with null saSession";
       goto LABEL_15;
     }
 
@@ -28234,17 +28195,17 @@ LABEL_13:
 
   if (!sessionCopy)
   {
-    v23 = ne_log_obj();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_13;
     }
 
     *buf = 136315138;
-    v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
-    v24 = "%s called with null queue";
+    v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:saSession:shouldCopySASession:transport:packetDelegate:]";
+    v23 = "%s called with null queue";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, v23, buf, 0xCu);
     goto LABEL_13;
   }
 
@@ -28255,13 +28216,12 @@ LABEL_15:
 LABEL_6:
 
 LABEL_7:
-  v21 = *MEMORY[0x1E69E9840];
   return configCopy;
 }
 
 - (NSObject)initWithIKEConfig:(void *)config configurationDelegate:(void *)delegate queue:(void *)queue kernelSASessionName:(void *)name transport:(void *)transport packetDelegate:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v13 = a2;
   configCopy = config;
   delegateCopy = delegate;
@@ -28276,12 +28236,12 @@ LABEL_7:
 
   if (!v13)
   {
-    v23 = ne_log_obj();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
-      v24 = "%s called with null ikeConfig";
+      v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
+      v23 = "%s called with null ikeConfig";
       goto LABEL_15;
     }
 
@@ -28293,12 +28253,12 @@ LABEL_13:
 
   if (!queueCopy)
   {
-    v23 = ne_log_obj();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
-      v24 = "%s called with null kernelSASessionName";
+      v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
+      v23 = "%s called with null kernelSASessionName";
       goto LABEL_15;
     }
 
@@ -28307,17 +28267,17 @@ LABEL_13:
 
   if (!delegateCopy)
   {
-    v23 = ne_log_obj();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v22 = ne_log_obj();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_13;
     }
 
     *buf = 136315138;
-    v26 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
-    v24 = "%s called with null queue";
+    v25 = "[NEIKEv2Session initWithIKEConfig:configurationDelegate:queue:kernelSASessionName:transport:packetDelegate:]";
+    v23 = "%s called with null queue";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, v24, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, v23, buf, 0xCu);
     goto LABEL_13;
   }
 
@@ -28328,13 +28288,12 @@ LABEL_15:
 LABEL_6:
 
 LABEL_7:
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)removeFirstChild
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self)
   {
     firstChildSA = [(NEIKEv2Session *)self firstChildSA];
@@ -28360,19 +28319,17 @@ LABEL_7:
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = 138412290;
+        v7 = 138412290;
         selfCopy = self;
-        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ No first child SA, ignoring request", &v8, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ No first child SA, ignoring request", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetChild:(char *)child
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (child)
   {
@@ -28382,11 +28339,11 @@ LABEL_7:
     {
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v32 = 138412546;
+        v31 = 138412546;
         childCopy2 = child;
-        v34 = 2112;
-        v35 = v3;
-        _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@ reset child SA %@", &v32, 0x16u);
+        v33 = 2112;
+        v34 = v3;
+        _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@ reset child SA %@", &v31, 0x16u);
       }
 
       v6 = v3;
@@ -28404,13 +28361,13 @@ LABEL_7:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           Property = objc_getProperty(child, v11, 192, 1);
-          v32 = 138412802;
+          v31 = 138412802;
           childCopy2 = child;
-          v34 = 2112;
-          v35 = Property;
-          v36 = 2112;
-          v37 = v6;
-          _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "%@ %@ Uninstalling child SA %@", &v32, 0x20u);
+          v33 = 2112;
+          v34 = Property;
+          v35 = 2112;
+          v36 = v6;
+          _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "%@ %@ Uninstalling child SA %@", &v31, 0x20u);
         }
 
         v14 = objc_getProperty(child, v13, 208, 1);
@@ -28457,27 +28414,25 @@ LABEL_7:
     {
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
-        v32 = 136315138;
+        v31 = 136315138;
         childCopy2 = "[NEIKEv2Session resetChild:]";
-        _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "%s called with null childSA", &v32, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "%s called with null childSA", &v31, 0xCu);
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)uninstallTLSChildSA:(char)a rekey:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = ne_log_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     selfCopy = self;
-    v33 = 2112;
-    v34 = v5;
+    v32 = 2112;
+    v33 = v5;
     _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@ Uninstalling TLS childSA %@", buf, 0x16u);
   }
 
@@ -28496,17 +28451,17 @@ LABEL_7:
 LABEL_8:
         v15 = Property;
 LABEL_14:
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __44__NEIKEv2Session_uninstallTLSChildSA_rekey___block_invoke;
-        v26[3] = &unk_1E7F08BA8;
-        v28 = v15;
-        v29 = tlsChildSAUninstallBlock;
-        v30 = v11;
-        v27 = v12;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __44__NEIKEv2Session_uninstallTLSChildSA_rekey___block_invoke;
+        v25[3] = &unk_1E7F08BA8;
+        v27 = v15;
+        v28 = tlsChildSAUninstallBlock;
+        v29 = v11;
+        v26 = v12;
         v23 = v15;
         v24 = v12;
-        dispatch_async(v10, v26);
+        dispatch_async(v10, v25);
 
         goto LABEL_15;
       }
@@ -28551,35 +28506,33 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copySAFromDictionary:(void *)dictionary forChild:(void *)child
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   childCopy = child;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = [v5 objectForKeyedSubscript:{v9, v13}];
+        v9 = *(*(&v12 + 1) + 8 * i);
+        v10 = [v5 objectForKeyedSubscript:{v9, v12}];
 
         if (v10 == childCopy)
         {
@@ -28588,7 +28541,7 @@ LABEL_15:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -28600,13 +28553,12 @@ LABEL_15:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)startIKELifetimeTimer
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (objc_getProperty(self, a2, 352, 1))
   {
     if (objc_getProperty(self, v3, 280, 1))
@@ -28655,8 +28607,8 @@ LABEL_11:
           {
             *buf = 138412546;
             selfCopy = self;
-            v38 = 2048;
-            v39 = v13;
+            v37 = 2048;
+            v38 = v13;
             _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_INFO, "%@ Setting IKE soft lifetime timer for %llu seconds", buf, 0x16u);
           }
 
@@ -28666,18 +28618,18 @@ LABEL_11:
 
           objc_initWeak(buf, self);
           v29 = objc_getProperty(self, v28, 280, 1);
-          v34[0] = MEMORY[0x1E69E9820];
-          v34[1] = 3221225472;
-          v34[2] = __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke;
-          v34[3] = &unk_1E7F08A78;
+          v33[0] = MEMORY[0x1E69E9820];
+          v33[1] = 3221225472;
+          v33[2] = __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke;
+          v33[3] = &unk_1E7F08A78;
           v30 = v29;
-          objc_copyWeak(v35, buf);
-          v35[1] = (lifetimeSeconds - v17);
-          dispatch_source_set_event_handler(v30, v34);
+          objc_copyWeak(v34, buf);
+          v34[1] = (lifetimeSeconds - v17);
+          dispatch_source_set_event_handler(v30, v33);
 
           v32 = objc_getProperty(self, v31, 280, 1);
           dispatch_activate(v32);
-          objc_destroyWeak(v35);
+          objc_destroyWeak(v34);
           objc_destroyWeak(buf);
         }
       }
@@ -28694,13 +28646,11 @@ LABEL_11:
       _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", buf, 0xCu);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && (WeakRetained[11] & 1) == 0)
@@ -28735,9 +28685,9 @@ void __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke(uint64_t a1)
       {
         v15 = *(a1 + 40);
         *buf = 138412546;
-        v30 = v3;
-        v31 = 2048;
-        v32 = v15;
+        v29 = v3;
+        v30 = 2048;
+        v31 = v15;
         _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, "%@ Setting IKE hard lifetime timer for %llu seconds", buf, 0x16u);
       }
 
@@ -28753,23 +28703,21 @@ void __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke(uint64_t a1)
       handler[2] = __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_70;
       handler[3] = &unk_1E7F0AA58;
       v23 = v22;
-      objc_copyWeak(&v28, (a1 + 32));
+      objc_copyWeak(&v27, (a1 + 32));
       dispatch_source_set_event_handler(v23, handler);
 
       v25 = objc_getProperty(v3, v24, 280, 1);
       dispatch_activate(v25);
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_70(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
-  if (WeakRetained && (WeakRetained[11] & 1) == 0)
+  if (WeakRetained && (*(WeakRetained + 11) & 1) == 0)
   {
     v4 = [NEIKEv2DeleteIKEContext alloc];
     v6 = objc_getProperty(v3, v5, 384, 1);
@@ -28814,7 +28762,7 @@ uint64_t __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_2(uint64_t a1)
 
 - (void)setIKESA:(uint64_t)a
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (a)
@@ -28824,33 +28772,33 @@ uint64_t __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_2(uint64_t a1)
       if ((*(a + 11) & 1) == 0)
       {
         [(NEIKEv2Session *)a resetMessages];
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v7 = objc_getProperty(a, v6, 304, 1);
-        v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v20;
+          v10 = *v19;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v20 != v10)
+              if (*v19 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v19 + 1) + 8 * i);
+              v12 = *(*(&v18 + 1) + 8 * i);
               if (v12)
               {
                 objc_storeWeak((v12 + 24), v5);
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v9);
@@ -28865,44 +28813,42 @@ uint64_t __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_2(uint64_t a1)
 
     else
     {
-      v18 = ne_log_obj();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = ne_log_obj();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v25 = "[NEIKEv2Session setIKESA:]";
-        _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null newIKESA", buf, 0xCu);
+        v24 = "[NEIKEv2Session setIKESA:]";
+        _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "%s called with null newIKESA", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (_DWORD)copyChildWithID:(void *)d
 {
   v2 = a2;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = objc_getProperty(d, a2, 304, 1);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         if (v8)
         {
           v9 = v8[4];
@@ -28923,7 +28869,7 @@ uint64_t __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_2(uint64_t a1)
       }
 
       while (v5 != v7);
-      v10 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v5 = v10;
     }
 
@@ -28933,11 +28879,10 @@ uint64_t __39__NEIKEv2Session_startIKELifetimeTimer__block_invoke_2(uint64_t a1)
   v11 = 0;
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-- (_OWORD)addEmptyInterface
+- (SCDynamicStoreRef)addEmptyInterface
 {
   v2 = *(self + 344);
   if (v2)
@@ -28981,42 +28926,38 @@ LABEL_15:
 
 - (uint64_t)interfaceIndex
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     v2 = *(result + 344);
-    if (!v2)
+    if (v2)
     {
-LABEL_7:
-      result = 0;
-      goto LABEL_8;
-    }
+      result = *(v2 + 292);
+      if (result)
+      {
+        return result;
+      }
 
-    result = *(v2 + 292);
-    if (!result)
-    {
       v3 = ne_log_obj();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
         interfaceName = [(NEIKEv2Session *)v1 interfaceName];
-        v6 = 138412290;
-        v7 = interfaceName;
-        _os_log_fault_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_FAULT, "NEVirtualInterfaceGetIndex (interfaceName=%@) failed", &v6, 0xCu);
+        v5 = 138412290;
+        v6 = interfaceName;
+        _os_log_fault_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_FAULT, "NEVirtualInterfaceGetIndex (interfaceName=%@) failed", &v5, 0xCu);
       }
-
-      goto LABEL_7;
     }
+
+    return 0;
   }
 
-LABEL_8:
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)copyIPsecInterfaceWithMissingAllowed:(uint64_t)allowed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = *(allowed + 344);
   if (v3)
   {
@@ -29049,10 +28990,10 @@ LABEL_8:
               goto LABEL_36;
             }
 
-            v23 = 138412546;
-            *v24 = allowed;
-            *&v24[8] = 2112;
-            *&v24[10] = v4;
+            v22 = 138412546;
+            *v23 = allowed;
+            *&v23[8] = 2112;
+            *&v23[10] = v4;
             v10 = "Created interface for %@ from name %@";
             v11 = v9;
             v12 = 22;
@@ -29064,8 +29005,8 @@ LABEL_8:
             goto LABEL_35;
           }
 
-          v23 = 138412290;
-          *v24 = v4;
+          v22 = 138412290;
+          *v23 = v4;
           v18 = "[NWInterface initWithInterfaceName:%@] failed";
         }
 
@@ -29077,8 +29018,8 @@ LABEL_8:
             goto LABEL_35;
           }
 
-          v23 = 138412290;
-          *v24 = allowed;
+          v22 = 138412290;
+          *v23 = allowed;
           v18 = "%@ has ipsecInterface without index or name";
         }
 
@@ -29094,15 +29035,15 @@ LABEL_8:
       {
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v23 = 138412546;
-          *v24 = allowed;
-          *&v24[8] = 1024;
-          *&v24[10] = v6;
+          v22 = 138412546;
+          *v23 = allowed;
+          *&v23[8] = 1024;
+          *&v23[10] = v6;
           v10 = "Created interface for %@ from index %u";
           v11 = v9;
           v12 = 18;
 LABEL_17:
-          _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, v10, &v23, v12);
+          _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, v10, &v22, v12);
         }
 
 LABEL_36:
@@ -29112,8 +29053,8 @@ LABEL_36:
 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v23 = 67109120;
-        *v24 = v6;
+        v22 = 67109120;
+        *v23 = v6;
         v18 = "[NWInterface initWithInterfaceIndex:%u] failed";
         v19 = v9;
         v20 = 8;
@@ -29130,12 +29071,12 @@ LABEL_36:
       {
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v23 = 138412802;
-          *v24 = allowed;
-          *&v24[8] = 1024;
-          *&v24[10] = v6;
-          *&v24[14] = 2112;
-          *&v24[16] = v4;
+          v22 = 138412802;
+          *v23 = allowed;
+          *&v23[8] = 1024;
+          *&v23[10] = v6;
+          *&v23[14] = 2112;
+          *&v23[16] = v4;
           v10 = "Created interface for %@ from index %u and name %@";
           v11 = v9;
           v12 = 28;
@@ -29147,15 +29088,15 @@ LABEL_36:
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v23 = 67109378;
-        *v24 = v6;
-        *&v24[4] = 2112;
-        *&v24[6] = v4;
+        v22 = 67109378;
+        *v23 = v6;
+        *&v23[4] = 2112;
+        *&v23[6] = v4;
         v18 = "[NWInterface initWithInterfaceIndex:%u interfaceName:%@] failed";
         v19 = v9;
         v20 = 18;
 LABEL_34:
-        _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, v18, &v23, v20);
+        _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, v18, &v22, v20);
       }
     }
 
@@ -29170,29 +29111,28 @@ LABEL_35:
   {
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 138412290;
-      *v24 = allowed;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ missing ipsecInterface", &v23, 0xCu);
+      v22 = 138412290;
+      *v23 = allowed;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ missing ipsecInterface", &v22, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
-    v23 = 138412290;
-    *v24 = allowed;
-    _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "%@ missing ipsecInterface", &v23, 0xCu);
+    v22 = 138412290;
+    *v23 = allowed;
+    _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "%@ missing ipsecInterface", &v22, 0xCu);
   }
 
   v15 = 0;
 LABEL_37:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (uint64_t)generateSPIForChild:(void *)child proposals:
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v5 = a2;
   childCopy = child;
   if (!childCopy)
@@ -29277,48 +29217,48 @@ LABEL_53:
   {
     *buf = 138412546;
     selfCopy3 = self;
-    v89 = 2112;
-    v90 = objc_getProperty(self, v18, 192, 1);
+    v88 = 2112;
+    v89 = objc_getProperty(self, v18, 192, 1);
     _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_INFO, "%@ %@ Generating SPI(s) for child", buf, 0x16u);
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v75 = childCopy;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v74 = childCopy;
   v19 = childCopy;
-  v20 = [v19 countByEnumeratingWithState:&v80 objects:v86 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v79 objects:v85 count:16];
   if (!v20)
   {
     v22 = 0;
     v23 = 0;
 LABEL_57:
-    v74 = v5;
+    v73 = v5;
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v56 = v19;
-    v57 = [v56 countByEnumeratingWithState:&v76 objects:v85 count:16];
+    v57 = [v56 countByEnumeratingWithState:&v75 objects:v84 count:16];
     if (!v57)
     {
       goto LABEL_77;
     }
 
     v58 = v57;
-    v59 = *v77;
+    v59 = *v76;
 LABEL_59:
     v60 = 0;
     while (1)
     {
-      if (*v77 != v59)
+      if (*v76 != v59)
       {
         objc_enumerationMutation(v56);
       }
 
-      v61 = *(*(&v76 + 1) + 8 * v60);
+      v61 = *(*(&v75 + 1) + 8 * v60);
       if ([v61 protocol] == 2)
       {
         break;
@@ -29328,15 +29268,15 @@ LABEL_59:
       {
         if (!v23)
         {
-          v71 = ne_log_obj();
-          if (!os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+          v70 = ne_log_obj();
+          if (!os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_87;
           }
 
           *buf = 136315138;
           selfCopy3 = "[NEIKEv2Session generateSPIForChild:proposals:]";
-          v72 = "%s called with null espLarvalSA";
+          v71 = "%s called with null espLarvalSA";
           goto LABEL_91;
         }
 
@@ -29354,15 +29294,15 @@ LABEL_59:
 LABEL_72:
       if (v58 == ++v60)
       {
-        v67 = [v56 countByEnumeratingWithState:&v76 objects:v85 count:16];
+        v67 = [v56 countByEnumeratingWithState:&v75 objects:v84 count:16];
         v58 = v67;
         if (!v67)
         {
 LABEL_77:
 
-          v84 = 1;
-          v5 = v74;
-          childCopy = v75;
+          v83 = 1;
+          v5 = v73;
+          childCopy = v74;
           goto LABEL_82;
         }
 
@@ -29372,22 +29312,22 @@ LABEL_77:
 
     if (!v22)
     {
-      v71 = ne_log_obj();
-      if (!os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+      v70 = ne_log_obj();
+      if (!os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
       {
 LABEL_87:
-        v5 = v74;
-        childCopy = v75;
+        v5 = v73;
+        childCopy = v74;
 
-        v84 = 0;
+        v83 = 0;
         goto LABEL_82;
       }
 
       *buf = 136315138;
       selfCopy3 = "[NEIKEv2Session generateSPIForChild:proposals:]";
-      v72 = "%s called with null ahLarvalSA";
+      v71 = "%s called with null ahLarvalSA";
 LABEL_91:
-      _os_log_fault_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_FAULT, v72, buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_FAULT, v71, buf, 0xCu);
       goto LABEL_87;
     }
 
@@ -29408,17 +29348,17 @@ LABEL_69:
   v21 = v20;
   v22 = 0;
   v23 = 0;
-  v24 = *v81;
+  v24 = *v80;
 LABEL_13:
   v25 = 0;
   while (1)
   {
-    if (*v81 != v24)
+    if (*v80 != v24)
     {
       objc_enumerationMutation(v19);
     }
 
-    v26 = *(*(&v80 + 1) + 8 * v25);
+    v26 = *(*(&v79 + 1) + 8 * v25);
     if ([v26 protocol] == 240)
     {
       goto LABEL_41;
@@ -29453,8 +29393,8 @@ LABEL_13:
           v55 = NEIKEv2ProtocolIDCreateString([v26 protocol]);
           *buf = 138412546;
           selfCopy3 = self;
-          v89 = 2112;
-          v90 = v55;
+          v88 = 2112;
+          v89 = v55;
           _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "%@ Unsupported SA protcol %@", buf, 0x16u);
         }
 
@@ -29474,7 +29414,7 @@ LABEL_40:
 LABEL_41:
     if (v21 == ++v25)
     {
-      v51 = [v19 countByEnumeratingWithState:&v80 objects:v86 count:16];
+      v51 = [v19 countByEnumeratingWithState:&v79 objects:v85 count:16];
       v21 = v51;
       if (!v51)
       {
@@ -29560,52 +29500,51 @@ LABEL_41:
   v54 = ne_log_obj();
   if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
   {
-    v73 = objc_getProperty(self, v68, 192, 1);
+    v72 = objc_getProperty(self, v68, 192, 1);
     *buf = 138412546;
     selfCopy3 = self;
-    v89 = 2112;
-    v90 = v73;
+    v88 = 2112;
+    v89 = v72;
     _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "%@ [%@ addLarvalSA:larvalSA] failed", buf, 0x16u);
   }
 
   v23 = v27;
 LABEL_81:
-  childCopy = v75;
+  childCopy = v74;
 
-  v84 = 0;
+  v83 = 0;
 LABEL_82:
 
-  v53 = v84;
+  v53 = v83;
 LABEL_83:
 
-  v69 = *MEMORY[0x1E69E9840];
   return v53;
 }
 
 - (id)copySAFromDictionary:(void *)dictionary forSPI:(void *)i
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   iCopy = i;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 spi];
         if (v10 == [iCopy value])
         {
@@ -29614,7 +29553,7 @@ LABEL_83:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -29626,13 +29565,12 @@ LABEL_83:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (uint64_t)installChildSA:(uint64_t)a
 {
-  v304[3] = *MEMORY[0x1E69E9840];
+  v303[3] = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!a)
   {
@@ -29739,7 +29677,7 @@ LABEL_69:
             *&buf[12] = 2112;
             *&buf[14] = objc_getProperty(a, v113, 200, 1);
             *&buf[22] = 2112;
-            v294 = objc_getProperty(a, v114, 208, 1);
+            v293 = objc_getProperty(a, v114, 208, 1);
             _os_log_fault_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_FAULT, "copySAFromDictionary incoming %@ databaseLarvalSAs %@ databaseSAs %@ failed", buf, 0x20u);
           }
 
@@ -29753,7 +29691,7 @@ LABEL_69:
           *&buf[12] = 2112;
           *&buf[14] = objc_getProperty(a, v78, 192, 1);
           *&buf[22] = 2112;
-          v294 = v4;
+          v293 = v4;
           _os_log_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_INFO, "%@ %@ Installing IPsec childSA %@", buf, 0x20u);
         }
 
@@ -29861,16 +29799,16 @@ LABEL_69:
                 v259 = encryptionProtocol3;
                 if (encryptionProtocol3)
                 {
-                  v280 = *(encryptionProtocol3 + 16);
+                  v279 = *(encryptionProtocol3 + 16);
                 }
 
                 else
                 {
-                  v280 = 0;
+                  v279 = 0;
                 }
 
-                String = NEIKEv2EncryptionWireTypeCreateString(v280);
-                v263 = objc_getProperty(v4, v281, 56, 1);
+                String = NEIKEv2EncryptionWireTypeCreateString(v279);
+                v263 = objc_getProperty(v4, v280, 56, 1);
                 encryptionProtocol4 = [(NEIKEv2ChildSAProposal *)v263 encryptionProtocol];
                 v266 = encryptionProtocol4;
                 if (encryptionProtocol4)
@@ -29992,7 +29930,7 @@ LABEL_217:
                 *&buf[12] = 2112;
                 *&buf[14] = String;
                 *&buf[22] = 1024;
-                LODWORD(v294) = v267;
+                LODWORD(v293) = v267;
                 _os_log_fault_impl(&dword_1BA83C000, v148, OS_LOG_TYPE_FAULT, "%@ Unsupported %@ key length %u", buf, 0x1Cu);
 
                 goto LABEL_209;
@@ -30519,18 +30457,18 @@ LABEL_143:
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __36__NEIKEv2Session_installTLSChildSA___block_invoke;
-    v294 = &unk_1E7F08AA0;
+    v293 = &unk_1E7F08AA0;
     v34 = tlsChildSAInstallBlock;
-    v298 = v31;
-    v299 = v34;
-    v300 = v18;
-    v295 = v22;
-    v296 = v29;
-    v297 = v27;
-    v289 = v31;
-    v288 = v27;
-    v287 = v29;
-    v286 = v22;
+    v297 = v31;
+    v298 = v34;
+    v299 = v18;
+    v294 = v22;
+    v295 = v29;
+    v296 = v27;
+    v288 = v31;
+    v287 = v27;
+    v286 = v29;
+    v285 = v22;
     dispatch_async(v15, buf);
     aCopy = a;
     if (objc_getProperty(v11, v36, 216, 1))
@@ -30547,7 +30485,7 @@ LABEL_143:
       v42 = v11[9];
       v43 = [(NEIKEv2IKESAProposal *)v40 softLifetimeSecondsForInitiator:?];
       lifetimeSeconds = [v41 lifetimeSeconds];
-      v284 = [(NEIKEv2IKESAProposal *)v41 softLifetimeSecondsForInitiator:?];
+      v283 = [(NEIKEv2IKESAProposal *)v41 softLifetimeSecondsForInitiator:?];
       if (v43)
       {
         v45 = objc_getProperty(aCopy, v44, 384, 1);
@@ -30587,17 +30525,17 @@ LABEL_143:
           *handler = MEMORY[0x1E69E9820];
           *&handler[8] = 3221225472;
           *&handler[16] = __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke;
-          v302 = &unk_1E7F07BA8;
+          v301 = &unk_1E7F07BA8;
           v57 = v56;
-          objc_copyWeak(&v303, &location);
-          objc_copyWeak(v304, &from);
-          v304[1] = (lifetimeSeconds - v284);
+          objc_copyWeak(&v302, &location);
+          objc_copyWeak(v303, &from);
+          v303[1] = (lifetimeSeconds - v283);
           dispatch_source_set_event_handler(v57, handler);
 
           v59 = objc_getProperty(v11, v58, 216, 1);
           dispatch_activate(v59);
-          objc_destroyWeak(v304);
-          objc_destroyWeak(&v303);
+          objc_destroyWeak(v303);
+          objc_destroyWeak(&v302);
           objc_destroyWeak(&from);
           objc_destroyWeak(&location);
         }
@@ -30606,46 +30544,44 @@ LABEL_143:
   }
 
 LABEL_212:
-  v276 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (uint64_t)migrateAllChildSAs
 {
-  v161 = *MEMORY[0x1E69E9840];
+  v160 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v3 = 0;
-    goto LABEL_104;
+    return 0;
   }
 
-  v150 = 0u;
-  v151 = 0u;
-  v148 = 0u;
   v149 = 0u;
+  v150 = 0u;
+  v147 = 0u;
+  v148 = 0u;
   v3 = 1;
   v4 = objc_getProperty(self, a2, 304, 1);
-  v5 = [v4 countByEnumeratingWithState:&v148 objects:v152 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v147 objects:v151 count:16];
   if (!v5)
   {
     goto LABEL_103;
   }
 
   v7 = v5;
-  v8 = *v149;
+  v8 = *v148;
   *&v6 = 138413058;
-  v146 = v6;
-  v147 = v4;
+  v145 = v6;
+  v146 = v4;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v149 != v8)
+      if (*v148 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v148 + 1) + 8 * i);
+      v10 = *(*(&v147 + 1) + 8 * i);
       if (!objc_getProperty(self, v11, 352, 1))
       {
         v26 = ne_log_obj();
@@ -30754,10 +30690,10 @@ LABEL_92:
         v28 = objc_getProperty(self, v27, 192, 1);
         *buf = 138412802;
         selfCopy6 = self;
-        v155 = 2112;
-        v156 = v28;
-        v157 = 2112;
-        v158 = v10;
+        v154 = 2112;
+        v155 = v28;
+        v156 = 2112;
+        v157 = v10;
         _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_INFO, "%@ %@ Migrating IPsec childSA %@", buf, 0x20u);
       }
 
@@ -30777,23 +30713,23 @@ LABEL_92:
         v43 = ne_log_obj();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
         {
-          v129 = objc_getProperty(v10, v123, 56, 1);
-          v131 = v129;
-          v4 = v147;
-          if (v129)
+          v128 = objc_getProperty(v10, v123, 56, 1);
+          v130 = v128;
+          v4 = v146;
+          if (v128)
           {
-            v129 = objc_getProperty(v129, v130, 80, 1);
+            v128 = objc_getProperty(v128, v129, 80, 1);
           }
 
-          v132 = v129;
-          v134 = objc_getProperty(self, v133, 208, 1);
-          v136 = objc_getProperty(self, v135, 200, 1);
+          v131 = v128;
+          v133 = objc_getProperty(self, v132, 208, 1);
+          v135 = objc_getProperty(self, v134, 200, 1);
           *buf = 138412802;
-          selfCopy6 = v132;
-          v155 = 2112;
-          v156 = v134;
-          v157 = 2112;
-          v158 = v136;
+          selfCopy6 = v131;
+          v154 = 2112;
+          v155 = v133;
+          v156 = 2112;
+          v157 = v135;
           _os_log_fault_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_FAULT, "copySAFromDictionary incoming %@ databaseSAs %@ databaseLarvalSAs %@ failed", buf, 0x20u);
 
           v26 = 0;
@@ -30802,7 +30738,7 @@ LABEL_92:
         else
         {
           v26 = 0;
-          v4 = v147;
+          v4 = v146;
         }
 
         goto LABEL_100;
@@ -30822,29 +30758,29 @@ LABEL_92:
       if (!v43)
       {
         v124 = ne_log_obj();
-        v4 = v147;
+        v4 = v146;
         if (os_log_type_enabled(v124, OS_LOG_TYPE_FAULT))
         {
-          v137 = objc_getProperty(v10, v125, 56, 1);
-          v139 = v137;
-          if (v137)
+          v136 = objc_getProperty(v10, v125, 56, 1);
+          v138 = v136;
+          if (v136)
           {
-            v137 = objc_getProperty(v137, v138, 88, 1);
+            v136 = objc_getProperty(v136, v137, 88, 1);
           }
 
-          v140 = v137;
-          v142 = objc_getProperty(self, v141, 208, 1);
-          v144 = objc_getProperty(self, v143, 200, 1);
+          v139 = v136;
+          v141 = objc_getProperty(self, v140, 208, 1);
+          v143 = objc_getProperty(self, v142, 200, 1);
           *buf = 138412802;
-          selfCopy6 = v140;
-          v155 = 2112;
-          v156 = v142;
-          v157 = 2112;
-          v158 = v144;
+          selfCopy6 = v139;
+          v154 = 2112;
+          v155 = v141;
+          v156 = 2112;
+          v157 = v143;
           _os_log_fault_impl(&dword_1BA83C000, v124, OS_LOG_TYPE_FAULT, "copySAFromDictionary outgoing %@ databaseSAs %@ databaseLarvalSAs %@ failed", buf, 0x20u);
 
           v43 = 0;
-          v4 = v147;
+          v4 = v146;
         }
 
         else
@@ -30991,7 +30927,7 @@ LABEL_92:
 
       else
       {
-        [v26 setNatTraversalEnabled:0, v146];
+        [v26 setNatTraversalEnabled:0, v145];
         [v43 setNatTraversalEnabled:0];
         [v26 setNatTraversalPort:0];
         [v26 setNatTraversalSrcPort:0];
@@ -31073,33 +31009,33 @@ LABEL_58:
         if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
         {
           v121 = objc_getProperty(self, v120, 192, 1);
-          *buf = v146;
+          *buf = v145;
           selfCopy6 = self;
-          v155 = 2112;
-          v156 = v121;
-          v157 = 2112;
-          v158 = v26;
-          v159 = 2112;
-          v160 = v10;
+          v154 = 2112;
+          v155 = v121;
+          v156 = 2112;
+          v157 = v26;
+          v158 = 2112;
+          v159 = v10;
           _os_log_error_impl(&dword_1BA83C000, v119, OS_LOG_TYPE_ERROR, "%@ %@ Failed to migrate incoming SA %@ for %@", buf, 0x2Au);
         }
       }
 
-      v4 = v147;
+      v4 = v146;
       if (([objc_getProperty(self v117] & 1) == 0)
       {
         v124 = ne_log_large_obj();
         if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
         {
-          v145 = objc_getProperty(self, v126, 192, 1);
-          *buf = v146;
+          v144 = objc_getProperty(self, v126, 192, 1);
+          *buf = v145;
           selfCopy6 = self;
-          v155 = 2112;
-          v156 = v145;
-          v157 = 2112;
-          v158 = v43;
-          v159 = 2112;
-          v160 = v10;
+          v154 = 2112;
+          v155 = v144;
+          v156 = 2112;
+          v157 = v43;
+          v158 = 2112;
+          v159 = v10;
           _os_log_error_impl(&dword_1BA83C000, v124, OS_LOG_TYPE_ERROR, "%@ %@ Failed to migrate outgoing SA %@ for %@", buf, 0x2Au);
         }
 
@@ -31115,7 +31051,7 @@ LABEL_100:
       }
     }
 
-    v7 = [v4 countByEnumeratingWithState:&v148 objects:v152 count:16];
+    v7 = [v4 countByEnumeratingWithState:&v147 objects:v151 count:16];
     v3 = 1;
     if (v7)
     {
@@ -31127,8 +31063,6 @@ LABEL_100:
 
 LABEL_103:
 
-LABEL_104:
-  v127 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -31152,7 +31086,7 @@ LABEL_104:
 
 - (void)setSentMOBIKERequest:(int)request messageID:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
@@ -31165,24 +31099,22 @@ LABEL_104:
         v8 = ne_log_obj();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v11 = 138412802;
+          v10 = 138412802;
           selfCopy = self;
-          v13 = 1024;
+          v12 = 1024;
           requestCopy = request;
-          v15 = 2112;
+          v14 = 2112;
           Property = objc_getProperty(self, v9, 392, 1);
-          _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@ Saving MOBIKE request (message %u) %@\n", &v11, 0x1Cu);
+          _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@ Saving MOBIKE request (message %u) %@\n", &v10, 0x1Cu);
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)sendCurrentRequest:(uint64_t)request
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!request)
   {
@@ -31203,16 +31135,16 @@ LABEL_104:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         firstObject = [v14 firstObject];
-        v41 = [firstObject length];
-        v42 = *(request + 16);
+        v40 = [firstObject length];
+        v41 = *(request + 16);
         *buf = 138413058;
         requestCopy5 = request;
-        v55 = 1024;
-        v56 = v41;
-        v57 = 1024;
-        v58 = v42;
-        v59 = 2112;
-        *v60 = copyTransport;
+        v54 = 1024;
+        v55 = v40;
+        v56 = 1024;
+        v57 = v41;
+        v58 = 2112;
+        *v59 = copyTransport;
         _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "%@ Sending request of length %u with ID %u on %@\n", buf, 0x22u);
       }
 
@@ -31240,31 +31172,31 @@ LABEL_38:
     else if ([v14 count])
     {
       v22 = [v14 count];
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v43 = v14;
+      v42 = v14;
       obj = v14;
-      v23 = [obj countByEnumeratingWithState:&v47 objects:v63 count:16];
+      v23 = [obj countByEnumeratingWithState:&v46 objects:v62 count:16];
       if (!v23)
       {
         goto LABEL_26;
       }
 
       v24 = v23;
-      v25 = *v48;
+      v25 = *v47;
       v26 = 1;
 LABEL_15:
       v27 = 0;
       while (1)
       {
-        if (*v48 != v25)
+        if (*v47 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v47 + 1) + 8 * v27);
+        v28 = *(*(&v46 + 1) + 8 * v27);
         v29 = ne_log_obj();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
@@ -31272,16 +31204,16 @@ LABEL_15:
           v31 = *(request + 16);
           *buf = 138413570;
           requestCopy5 = request;
-          v55 = 1024;
-          v56 = v26;
-          v57 = 1024;
-          v58 = v22;
-          v59 = 1024;
-          *v60 = v30;
-          *&v60[4] = 1024;
-          *&v60[6] = v31;
-          v61 = 2112;
-          v62 = copyTransport;
+          v54 = 1024;
+          v55 = v26;
+          v56 = 1024;
+          v57 = v22;
+          v58 = 1024;
+          *v59 = v30;
+          *&v59[4] = 1024;
+          *&v59[6] = v31;
+          v60 = 2112;
+          v61 = copyTransport;
           _os_log_debug_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEBUG, "%@ Sending request fragment %u/%u of length %u with ID %u on %@\n", buf, 0x2Eu);
         }
 
@@ -31297,7 +31229,7 @@ LABEL_15:
               _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "%@ Sending fragment request data failed", buf, 0xCu);
             }
 
-            v14 = v43;
+            v14 = v42;
 LABEL_36:
 
             goto LABEL_37;
@@ -31314,17 +31246,17 @@ LABEL_36:
             _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%@ Sending fragment request data failed", buf, 0xCu);
           }
 
-          v14 = v43;
+          v14 = v42;
           if (v4)
           {
             v34 = objc_getProperty(request, v33, 384, 1);
-            v45[0] = MEMORY[0x1E69E9820];
-            v45[1] = 3221225472;
-            v45[2] = __37__NEIKEv2Session_sendCurrentRequest___block_invoke_79;
-            v45[3] = &unk_1E7F0B600;
-            v46 = v4;
-            dispatch_async(v34, v45);
-            v35 = v46;
+            v44[0] = MEMORY[0x1E69E9820];
+            v44[1] = 3221225472;
+            v44[2] = __37__NEIKEv2Session_sendCurrentRequest___block_invoke_79;
+            v44[3] = &unk_1E7F0B600;
+            v45 = v4;
+            dispatch_async(v34, v44);
+            v35 = v45;
             goto LABEL_36;
           }
 
@@ -31338,7 +31270,7 @@ LABEL_37:
         ++v26;
         if (v24 == ++v27)
         {
-          v24 = [obj countByEnumeratingWithState:&v47 objects:v63 count:16];
+          v24 = [obj countByEnumeratingWithState:&v46 objects:v62 count:16];
           if (v24)
           {
             goto LABEL_15;
@@ -31347,7 +31279,7 @@ LABEL_37:
 LABEL_26:
 
           request = 1;
-          v14 = v43;
+          v14 = v42;
 LABEL_39:
 
 LABEL_40:
@@ -31367,23 +31299,22 @@ LABEL_40:
     block[1] = 3221225472;
     block[2] = __37__NEIKEv2Session_sendCurrentRequest___block_invoke;
     block[3] = &unk_1E7F0B600;
-    v52 = v4;
+    v51 = v4;
     dispatch_async(v21, block);
     request = 0;
-    copyTransport = v52;
+    copyTransport = v51;
     goto LABEL_40;
   }
 
   request = 0;
 LABEL_41:
 
-  v38 = *MEMORY[0x1E69E9840];
   return request;
 }
 
 - (uint64_t)sendRequest:(unint64_t)request retryIntervalInMilliseconds:(int)milliseconds maxRetries:(void *)retries timeoutError:(char)error resend:(uint64_t)resend sendMessageID:(void *)d sendCompletionHandler:(void *)handler replyHandler:
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v16 = a2;
   retriesCopy = retries;
   dCopy = d;
@@ -31438,15 +31369,15 @@ LABEL_41:
     objc_setProperty_atomic_copy(self, v29, newValue, 216);
     v16[7] = resend;
     v31 = objc_getProperty(self, v30, 352, 1);
-    v68 = [(NEIKEv2Packet *)v16 copyPacketDatagramsForIKESA:v31];
-    if (!v68)
+    v67 = [(NEIKEv2Packet *)v16 copyPacketDatagramsForIKESA:v31];
+    if (!v67)
     {
-      v64 = ne_log_obj();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v63 = ne_log_obj();
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = self;
-        _os_log_error_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_ERROR, "%@ Failed to generate datagrams from packet", buf, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "%@ Failed to generate datagrams from packet", buf, 0xCu);
       }
 
       if (!dCopy)
@@ -31455,15 +31386,15 @@ LABEL_41:
         goto LABEL_53;
       }
 
-      v66 = objc_getProperty(self, v65, 384, 1);
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_80;
-      v84[3] = &unk_1E7F0B600;
-      v85 = dCopy;
-      dispatch_async(v66, v84);
+      v65 = objc_getProperty(self, v64, 384, 1);
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_80;
+      v83[3] = &unk_1E7F0B600;
+      v84 = dCopy;
+      dispatch_async(v65, v83);
       resend = 0xFFFFFFFFLL;
-      copyTransport = v85;
+      copyTransport = v84;
 LABEL_52:
 
 LABEL_53:
@@ -31472,7 +31403,7 @@ LABEL_53:
 
     if ([v16 exchangeType] == 34)
     {
-      firstObject = [v68 firstObject];
+      firstObject = [v67 firstObject];
       if (v26)
       {
         objc_setProperty_atomic(v26, v32, firstObject, 312);
@@ -31482,7 +31413,7 @@ LABEL_53:
     v34 = ne_log_large_obj();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = [v68 count];
+      v35 = [v67 count];
       *buf = 138412802;
       *&buf[4] = self;
       *&buf[12] = 1024;
@@ -31547,13 +31478,13 @@ LABEL_36:
         handler[1] = 3221225472;
         handler[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_81;
         handler[3] = &unk_1E7F08B30;
-        v80 = buf;
+        v79 = buf;
         handler[4] = self;
         resendCopy = resend;
         millisecondsCopy = milliseconds;
-        v78 = v26;
+        v77 = v26;
         requestCopy2 = request;
-        v79 = retriesCopy;
+        v78 = retriesCopy;
         dispatch_source_set_event_handler(v53, handler);
         v55 = objc_getProperty(self, v54, 312, 1);
         dispatch_activate(v55);
@@ -31566,15 +31497,15 @@ LABEL_44:
       copyTransport = [(NEIKEv2IKESA *)v56 copyTransport];
       if (copyTransport)
       {
-        v73[0] = MEMORY[0x1E69E9820];
-        v73[1] = 3221225472;
-        v73[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_89;
-        v73[3] = &unk_1E7F08BA8;
-        v73[4] = self;
-        v75 = dCopy;
-        v74 = v26;
+        v72[0] = MEMORY[0x1E69E9820];
+        v72[1] = 3221225472;
+        v72[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_89;
+        v72[3] = &unk_1E7F08BA8;
+        v72[4] = self;
+        v74 = dCopy;
+        v73 = v26;
         resendCopy2 = resend;
-        [(NEIKEv2Transport *)copyTransport waitForTransport:v73];
+        [(NEIKEv2Transport *)copyTransport waitForTransport:v72];
 
         goto LABEL_52;
       }
@@ -31582,12 +31513,12 @@ LABEL_44:
       if (dCopy)
       {
         v60 = objc_getProperty(self, v58, 384, 1);
-        v71[0] = MEMORY[0x1E69E9820];
-        v71[1] = 3221225472;
-        v71[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_2;
-        v71[3] = &unk_1E7F0B600;
-        v72 = dCopy;
-        dispatch_async(v60, v71);
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_2;
+        v70[3] = &unk_1E7F0B600;
+        v71 = dCopy;
+        dispatch_async(v60, v70);
       }
 
       copyTransport = 0;
@@ -31596,7 +31527,7 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    objc_setProperty_atomic(self, v36, v68, 232);
+    objc_setProperty_atomic(self, v36, v67, 232);
     [(NEIKEv2Session *)self updateSentRequestWindow];
     v39 = objc_getProperty(self, v38, 376, 1);
     selfCopy = self;
@@ -31607,11 +31538,11 @@ LABEL_51:
         v40 = ne_log_obj();
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v63 = v39[3];
+          v62 = v39[3];
           *buf = 138412802;
           *&buf[4] = selfCopy;
           *&buf[12] = 1024;
-          *&buf[14] = v63;
+          *&buf[14] = v62;
           *&buf[18] = 1024;
           *&buf[20] = resend;
           _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%@, bad request message ID old %u new %u", buf, 0x18u);
@@ -31630,9 +31561,9 @@ LABEL_34:
         v40 = ne_log_obj();
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          *v89 = 138412290;
-          v90 = selfCopy;
-          _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%@, failed to start RTT measurement", v89, 0xCu);
+          *v88 = 138412290;
+          v89 = selfCopy;
+          _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%@, failed to start RTT measurement", v88, 0xCu);
         }
 
         goto LABEL_34;
@@ -31661,10 +31592,10 @@ LABEL_35:
     block[1] = 3221225472;
     block[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke;
     block[3] = &unk_1E7F0B600;
-    v87 = dCopy;
+    v86 = dCopy;
     dispatch_async(v25, block);
     resend = 0xFFFFFFFFLL;
-    v26 = v87;
+    v26 = v86;
 LABEL_54:
 
     goto LABEL_55;
@@ -31673,13 +31604,12 @@ LABEL_54:
   resend = 0xFFFFFFFFLL;
 LABEL_55:
 
-  v61 = *MEMORY[0x1E69E9840];
   return resend;
 }
 
 void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_81(uint64_t a1, const char *a2)
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 56) + 8) + 24))
   {
     v3 = ne_log_obj();
@@ -31695,8 +31625,8 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
       *&buf[14] = v5;
       *&buf[18] = 1024;
       *&buf[20] = v7;
-      LOWORD(v93) = 1024;
-      *(&v93 + 2) = v6;
+      LOWORD(v91) = 1024;
+      *(&v91 + 2) = v6;
       _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@ Retry sending request %u (%u/%u), closing", buf, 0x1Eu);
     }
 
@@ -31732,17 +31662,16 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
       }
 
       dispatch_activate(v21);
-      goto LABEL_28;
+      return;
     }
 
     v34 = *(a1 + 40);
-    v88 = (*(a1 + 76) - *(*(*(a1 + 56) + 8) + 24));
     ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"request %u attempt %u/%u", v8, v9, v10, v11, v12, v13, v14, *(a1 + 72));
     [(NEIKEv2IKESA *)v34 setState:ErrorFailedToSend error:?];
 
 LABEL_27:
     [(NEIKEv2Session *)*(a1 + 32) cancelSendTimer];
-    goto LABEL_28;
+    return;
   }
 
   if (*(a1 + 72))
@@ -31778,165 +31707,162 @@ LABEL_23:
   }
 
   v24 = v22;
-  if (![v24 allowTCPEncapsulation] || (v26 = *(a1 + 32)) == 0 || (v27 = objc_getProperty(v26, v25, 352, 1)) != 0 && (v27[13] & 1) != 0 || (v37 = *(a1 + 32)) == 0 || (v38 = objc_getProperty(v37, v28, 352, 1)) == 0)
+  if (![v24 allowTCPEncapsulation] || (v26 = *(a1 + 32)) == 0 || (v27 = objc_getProperty(v26, v25, 352, 1)) != 0 && (v27[13] & 1) != 0 || (v36 = *(a1 + 32)) == 0 || (v37 = objc_getProperty(v36, v28, 352, 1)) == 0)
   {
 LABEL_22:
 
     goto LABEL_23;
   }
 
-  v40 = v38;
-  *(v38 + 13) = 1;
-  *(v38 + 10) = 0;
-  v41 = [objc_getProperty(v38 v39];
-  if (!v41)
+  v39 = v37;
+  *(v37 + 13) = 1;
+  *(v37 + 10) = 0;
+  v40 = [objc_getProperty(v37 v38];
+  if (!v40)
   {
-    v46 = ne_log_obj();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v45 = ne_log_obj();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
-      *v95 = 136315138;
-      v96 = "[NEIKEv2IKESA switchToTCPEncapsulation]";
-      v87 = "%s called with null remoteAddress";
-LABEL_61:
-      _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, v87, v95, 0xCu);
+      *v93 = 136315138;
+      v94 = "[NEIKEv2IKESA switchToTCPEncapsulation]";
+      v86 = "%s called with null remoteAddress";
+LABEL_60:
+      _os_log_fault_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_FAULT, v86, v93, 0xCu);
     }
 
-LABEL_42:
+LABEL_41:
 
     goto LABEL_22;
   }
 
-  v43 = v41;
-  if (*v41 <= 0xFu)
+  v42 = v40;
+  if (*v40 <= 0xFu)
   {
-    v46 = ne_log_obj();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v45 = ne_log_obj();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
-      *v95 = 136315138;
-      v96 = "[NEIKEv2IKESA switchToTCPEncapsulation]";
-      v87 = "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))";
-      goto LABEL_61;
+      *v93 = 136315138;
+      v94 = "[NEIKEv2IKESA switchToTCPEncapsulation]";
+      v86 = "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))";
+      goto LABEL_60;
     }
 
-    goto LABEL_42;
+    goto LABEL_41;
   }
 
-  v44 = [objc_getProperty(v40 v42];
-  if (v44)
+  v43 = [objc_getProperty(v39 v41];
+  if (v43)
   {
-    v45 = v44;
+    v44 = v43;
   }
 
   else
   {
-    v45 = 4500;
+    v44 = 4500;
   }
 
-  v46 = [NEIKEv2IKESA copyAddressFrom:v43 with:v45];
-  if (!objc_getProperty(v40, v47, 488, 1))
+  v45 = [NEIKEv2IKESA copyAddressFrom:v42 with:v44];
+  if (!objc_getProperty(v39, v46, 488, 1))
   {
-    WeakRetained = objc_loadWeakRetained(v40 + 71);
-    v51 = objc_loadWeakRetained(v40 + 69);
-    if ((*(v40 + 25) & 1) != 0 && !WeakRetained)
+    WeakRetained = objc_loadWeakRetained(v39 + 71);
+    v50 = objc_loadWeakRetained(v39 + 69);
+    if ((*(v39 + 25) & 1) != 0 && !WeakRetained)
     {
-      v52 = ne_log_obj();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v51 = ne_log_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        *v95 = 0;
-        _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "Cannot create transport for packet delegate, delegate no longer valid", v95, 2u);
+        *v93 = 0;
+        _os_log_error_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_ERROR, "Cannot create transport for packet delegate, delegate no longer valid", v93, 2u);
       }
 
-      goto LABEL_42;
+      goto LABEL_41;
     }
 
-    if ([objc_getProperty(v40 v50])
+    if ([objc_getProperty(v39 v49])
     {
-      v54 = 3;
+      v53 = 3;
     }
 
     else
     {
-      v54 = 2;
+      v53 = 2;
     }
 
-    v55 = objc_getProperty(v40, v53, 304, 1);
-    v57 = objc_getProperty(v40, v56, 544, 1);
-    v59 = objc_getProperty(v40, v58, 560, 1);
-    v60 = [NEIKEv2Transport createTransport:v54 remote:v46 local:0 localPort:0 boundInterface:v55 queue:v57 socketGetBlock:v59 packetDelegate:WeakRetained];
+    v54 = objc_getProperty(v39, v52, 304, 1);
+    v56 = objc_getProperty(v39, v55, 544, 1);
+    v58 = objc_getProperty(v39, v57, 560, 1);
+    v59 = [NEIKEv2Transport createTransport:v53 remote:v45 local:0 localPort:0 boundInterface:v54 queue:v56 socketGetBlock:v58 packetDelegate:WeakRetained];
 
-    objc_setProperty_atomic(v40, v61, v60, 488);
-    v63 = objc_getProperty(v40, v62, 488, 1);
-    v65 = objc_getProperty(v40, v64, 32, 1);
-    [(NEIKEv2Transport *)v63 addClient:v65 delegate:v51];
+    objc_setProperty_atomic(v39, v60, v59, 488);
+    v62 = objc_getProperty(v39, v61, 488, 1);
+    v64 = objc_getProperty(v39, v63, 32, 1);
+    [(NEIKEv2Transport *)v62 addClient:v64 delegate:v50];
 
-    v67 = objc_getProperty(v40, v66, 488, 1);
-    if (v67)
+    v66 = objc_getProperty(v39, v65, 488, 1);
+    if (v66)
     {
-      v67 = objc_getProperty(v67, v68, 24, 1);
+      v66 = objc_getProperty(v66, v67, 24, 1);
     }
 
-    v69 = v67;
-    objc_setProperty_atomic(v40, v70, v69, 72);
+    v68 = v66;
+    objc_setProperty_atomic(v39, v69, v68, 72);
 
-    v72 = objc_getProperty(v40, v71, 488, 1);
-    if (v72)
+    v71 = objc_getProperty(v39, v70, 488, 1);
+    if (v71)
     {
-      v72 = objc_getProperty(v72, v73, 16, 1);
+      v71 = objc_getProperty(v71, v72, 16, 1);
     }
 
-    v74 = v72;
-    objc_setProperty_atomic(v40, v75, v74, 64);
+    v73 = v71;
+    objc_setProperty_atomic(v39, v74, v73, 64);
 
-    v77 = objc_getProperty(v40, v76, 488, 1);
+    v76 = objc_getProperty(v39, v75, 488, 1);
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __40__NEIKEv2IKESA_switchToTCPEncapsulation__block_invoke;
-    v93 = &unk_1E7F0B0E8;
-    v94 = v40;
-    [(NEIKEv2Transport *)v77 waitForTransport:buf];
+    v91 = &unk_1E7F0B0E8;
+    v92 = v39;
+    [(NEIKEv2Transport *)v76 waitForTransport:buf];
   }
 
-  v78 = objc_getProperty(v40, v48, 488, 1);
+  v77 = objc_getProperty(v39, v47, 488, 1);
 
-  if (!v78)
+  if (!v77)
   {
     goto LABEL_23;
   }
 
-  v79 = ne_log_obj();
-  if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+  v78 = ne_log_obj();
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
   {
-    v80 = *(a1 + 32);
-    v82 = *(a1 + 72);
-    v81 = *(a1 + 76);
+    v79 = *(a1 + 32);
+    v81 = *(a1 + 72);
+    v80 = *(a1 + 76);
     *buf = 138412802;
-    *&buf[4] = v80;
+    *&buf[4] = v79;
     *&buf[12] = 1024;
-    *&buf[14] = v81;
+    *&buf[14] = v80;
     *&buf[18] = 1024;
-    *&buf[20] = v82;
-    _os_log_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_INFO, "%@ Hit max send retries (%u) for request %u, trying TCP encapsulation", buf, 0x18u);
+    *&buf[20] = v81;
+    _os_log_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_INFO, "%@ Hit max send retries (%u) for request %u, trying TCP encapsulation", buf, 0x18u);
   }
 
-  v84 = *(a1 + 32);
-  if (v84)
+  v83 = *(a1 + 32);
+  if (v83)
   {
-    v84 = objc_getProperty(v84, v83, 352, 1);
+    v83 = objc_getProperty(v83, v82, 352, 1);
   }
 
-  v85 = [(NEIKEv2IKESA *)v84 copyTransport];
-  v89[0] = MEMORY[0x1E69E9820];
-  v89[1] = 3221225472;
-  v89[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_85;
-  v89[3] = &unk_1E7F08B08;
-  v86 = *(a1 + 40);
-  v89[4] = *(a1 + 32);
-  v90 = v86;
-  v91 = *(a1 + 72);
-  [(NEIKEv2Transport *)v85 waitForTransport:v89];
-
-LABEL_28:
-  v36 = *MEMORY[0x1E69E9840];
+  v84 = [(NEIKEv2IKESA *)v83 copyTransport];
+  v87[0] = MEMORY[0x1E69E9820];
+  v87[1] = 3221225472;
+  v87[2] = __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_85;
+  v87[3] = &unk_1E7F08B08;
+  v85 = *(a1 + 40);
+  v87[4] = *(a1 + 32);
+  v88 = v85;
+  v89 = *(a1 + 72);
+  [(NEIKEv2Transport *)v84 waitForTransport:v87];
 }
 
 void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_timeoutError_resend_sendMessageID_sendCompletionHandler_replyHandler___block_invoke_89(uint64_t a1, const char *a2)
@@ -31969,7 +31895,6 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
   if (([(NEIKEv2Session *)*(a1 + 32) sendCurrentRequest:?]& 1) == 0)
   {
     v11 = *(a1 + 40);
-    v15 = *(a1 + 52);
     ErrorFailedToSend = NEIKEv2CreateErrorFailedToSend(@"request %u attempts %u", v4, v5, v6, v7, v8, v9, v10, *(a1 + 48));
     [(NEIKEv2IKESA *)v11 setState:ErrorFailedToSend error:?];
 
@@ -31981,7 +31906,7 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
 
 - (uint64_t)sendRequest:(uint64_t)request retry:(void *)retry replyHandler:(void *)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   retryCopy = retry;
   handlerCopy = handler;
   if (request)
@@ -32009,25 +31934,24 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
 
     else
     {
-      v13 = ne_log_obj();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v12 = ne_log_obj();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v15 = "[NEIKEv2Session sendRequest:retry:replyHandler:]";
-        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null packet", buf, 0xCu);
+        v14 = "[NEIKEv2Session sendRequest:retry:replyHandler:]";
+        _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null packet", buf, 0xCu);
       }
 
       request = 0xFFFFFFFFLL;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return request;
 }
 
 - (uint64_t)sendReply:(void *)reply replyHandler:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v5 = a2;
   replyCopy = reply;
   if (!self)
@@ -32054,11 +31978,11 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
           v17 = ne_log_obj();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v47 = v5[7];
+            v46 = v5[7];
             *buf = 138412546;
             selfCopy3 = self;
-            v52 = 1024;
-            v53 = v47;
+            v51 = 1024;
+            v52 = v46;
             _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%@ Already sent reply %u, skipping new reply", buf, 0x12u);
           }
 
@@ -32106,10 +32030,10 @@ void __138__NEIKEv2Session_sendRequest_retryIntervalInMilliseconds_maxRetries_ti
         {
           *buf = 138412802;
           selfCopy3 = self;
-          v52 = 1024;
-          v53 = [v21 count];
-          v54 = 2112;
-          v55 = v5;
+          v51 = 1024;
+          v52 = [v21 count];
+          v53 = 2112;
+          v54 = v5;
           _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEFAULT, "%@ Sending %u datagrams for reply: %@", buf, 0x1Cu);
         }
 
@@ -32179,7 +32103,7 @@ LABEL_34:
 
       *buf = 136315138;
       selfCopy3 = "[NEIKEv2Session sendReply:replyHandler:]";
-      v48 = "%s called with null packet.isResponse";
+      v47 = "%s called with null packet.isResponse";
     }
 
     else
@@ -32192,7 +32116,7 @@ LABEL_34:
 
       *buf = 136315138;
       selfCopy3 = "[NEIKEv2Session sendReply:replyHandler:]";
-      v48 = "%s called with null packet";
+      v47 = "%s called with null packet";
     }
 
     goto LABEL_37;
@@ -32203,9 +32127,9 @@ LABEL_34:
   {
     *buf = 136315138;
     selfCopy3 = "[NEIKEv2Session sendReply:replyHandler:]";
-    v48 = "%s called with null self.ikeSA";
+    v47 = "%s called with null self.ikeSA";
 LABEL_37:
-    _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, v48, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, v47, buf, 0xCu);
   }
 
 LABEL_11:
@@ -32214,89 +32138,80 @@ LABEL_12:
   v19 = 0;
 LABEL_35:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 uint64_t __41__NEIKEv2Session_sendReply_replyHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@ Timed out waiting for next request", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@ Timed out waiting for next request", &v5, 0xCu);
   }
 
-  result = [(NEIKEv2Session *)*(a1 + 32) fireWaitingRequestHandlerWithPacket:?];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NEIKEv2Session *)*(a1 + 32) fireWaitingRequestHandlerWithPacket:?];
 }
 
 - (void)finishConfigurationEstablishment
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!self)
+  v8 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    goto LABEL_10;
-  }
-
-  if (!objc_getProperty(self, a2, 352, 1))
-  {
-    v6 = ne_log_obj();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    if (objc_getProperty(self, a2, 352, 1))
     {
-      v8 = 136315138;
-      v9 = "[NEIKEv2Session finishConfigurationEstablishment]";
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v8, 0xCu);
+      if ((self[11] & 1) == 0)
+      {
+        [(NEIKEv2Session *)self startIKELifetimeTimer];
+
+        [(NEIKEv2Session *)self startDPDTimer];
+      }
     }
 
-    goto LABEL_10;
+    else
+    {
+      v5 = ne_log_obj();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      {
+        v6 = 136315138;
+        v7 = "[NEIKEv2Session finishConfigurationEstablishment]";
+        _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "%s called with null self.ikeSA", &v6, 0xCu);
+      }
+    }
   }
-
-  if (self[11])
-  {
-LABEL_10:
-    v7 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  [(NEIKEv2Session *)self startIKELifetimeTimer];
-  v5 = *MEMORY[0x1E69E9840];
-
-  [(NEIKEv2Session *)self startDPDTimer];
 }
 
 id __48__NEIKEv2Session_sendAnalyticsOfChosenProtocols__block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = @"<unknown>";
   v3 = vdupq_n_s64(@"<unknown>");
   v4 = vbslq_s8(vceqzq_s64(*(a1 + 32)), v3, *(a1 + 32));
   v5 = vbslq_s8(vceqzq_s64(*(a1 + 48)), v3, *(a1 + 48));
   v6 = vbslq_s8(vceqzq_s64(*(a1 + 80)), v3, *(a1 + 80));
   v7 = vbslq_s8(vceqzq_s64(*(a1 + 96)), v3, *(a1 + 96));
-  v22[0] = @"ChosenIKESAEncryptionProtocol";
-  v22[1] = @"ChosenIKESAIntegrityProtocol";
-  v22[2] = @"ChosenIKESAPRFProtocol";
-  v22[3] = @"ChosenIKESADHProtocol";
-  v23[0] = v4;
-  v23[1] = v5;
-  v22[4] = @"RemoteHasPreferredIKESADHProtocol";
-  v22[5] = @"IsIKESACookieIncluded";
+  v21[0] = @"ChosenIKESAEncryptionProtocol";
+  v21[1] = @"ChosenIKESAIntegrityProtocol";
+  v21[2] = @"ChosenIKESAPRFProtocol";
+  v21[3] = @"ChosenIKESADHProtocol";
+  v22[0] = v4;
+  v22[1] = v5;
+  v21[4] = @"RemoteHasPreferredIKESADHProtocol";
+  v21[5] = @"IsIKESACookieIncluded";
   v8 = *(a1 + 72);
-  v24 = *(a1 + 64);
-  v25 = v8;
-  v22[6] = @"ChosenIKEChildSAEncryptionProtocol";
-  v22[7] = @"ChosenIKEChildSAIntegrityProtocol";
-  v22[8] = @"LocalAuthProtocolUsed";
-  v22[9] = @"RemoteAuthProtocolUsed";
-  v26 = v6;
-  v27 = v7;
-  v22[10] = @"EAPProtocolUsed";
-  v22[11] = @"LocalNonceSize";
+  v23 = *(a1 + 64);
+  v24 = v8;
+  v21[6] = @"ChosenIKEChildSAEncryptionProtocol";
+  v21[7] = @"ChosenIKEChildSAIntegrityProtocol";
+  v21[8] = @"LocalAuthProtocolUsed";
+  v21[9] = @"RemoteAuthProtocolUsed";
+  v25 = v6;
+  v26 = v7;
+  v21[10] = @"EAPProtocolUsed";
+  v21[11] = @"LocalNonceSize";
   v9 = *(a1 + 112);
   v10 = *(a1 + 120);
   if (!v9)
@@ -32304,46 +32219,44 @@ id __48__NEIKEv2Session_sendAnalyticsOfChosenProtocols__block_invoke(uint64_t a1
     v9 = @"<unknown>";
   }
 
-  v28 = v9;
-  v29 = v10;
-  v22[12] = @"RemoteNonceSize";
-  v22[13] = @"ProcessName";
+  v27 = v9;
+  v28 = v10;
+  v21[12] = @"RemoteNonceSize";
+  v21[13] = @"ProcessName";
   if (*(a1 + 136))
   {
     v2 = *(a1 + 136);
   }
 
-  v30 = *(a1 + 128);
-  v31 = v2;
-  v22[14] = @"AllowPostQuantumKeyExchangeFallback";
-  v22[15] = @"ChosenIKESAAdditionalKEMProtocolCount";
+  v29 = *(a1 + 128);
+  v30 = v2;
+  v21[14] = @"AllowPostQuantumKeyExchangeFallback";
+  v21[15] = @"ChosenIKESAAdditionalKEMProtocolCount";
   v11 = *(a1 + 152);
-  v32 = *(a1 + 144);
-  v33 = v11;
-  v22[16] = @"ChosenIKESAAdditionalKEMProtocol1";
+  v31 = *(a1 + 144);
+  v32 = v11;
+  v21[16] = @"ChosenIKESAAdditionalKEMProtocol1";
   v12 = [*(a1 + 160) objectAtIndexedSubscript:0];
-  v34 = v12;
-  v22[17] = @"ChosenIKESAAdditionalKEMProtocol2";
+  v33 = v12;
+  v21[17] = @"ChosenIKESAAdditionalKEMProtocol2";
   v13 = [*(a1 + 160) objectAtIndexedSubscript:1];
-  v35 = v13;
-  v22[18] = @"ChosenIKESAAdditionalKEMProtocol3";
+  v34 = v13;
+  v21[18] = @"ChosenIKESAAdditionalKEMProtocol3";
   v14 = [*(a1 + 160) objectAtIndexedSubscript:2];
-  v36 = v14;
-  v22[19] = @"ChosenIKESAAdditionalKEMProtocol4";
+  v35 = v14;
+  v21[19] = @"ChosenIKESAAdditionalKEMProtocol4";
   v15 = [*(a1 + 160) objectAtIndexedSubscript:3];
-  v37 = v15;
-  v22[20] = @"ChosenIKESAAdditionalKEMProtocol5";
+  v36 = v15;
+  v21[20] = @"ChosenIKESAAdditionalKEMProtocol5";
   v16 = [*(a1 + 160) objectAtIndexedSubscript:4];
-  v38 = v16;
-  v22[21] = @"ChosenIKESAAdditionalKEMProtocol6";
+  v37 = v16;
+  v21[21] = @"ChosenIKESAAdditionalKEMProtocol6";
   v17 = [*(a1 + 160) objectAtIndexedSubscript:5];
-  v39 = v17;
-  v22[22] = @"ChosenIKESAAdditionalKEMProtocol7";
+  v38 = v17;
+  v21[22] = @"ChosenIKESAAdditionalKEMProtocol7";
   v18 = [*(a1 + 160) objectAtIndexedSubscript:6];
-  v40 = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:23];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v39 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:23];
 
   return v19;
 }
@@ -32404,7 +32317,7 @@ void *__50__NEIKEv2Session_reportServerAdditionalAddresses___block_invoke(void *
 
 - (void)reportServerRedirect:(void *)redirect
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (redirect)
@@ -32428,8 +32341,8 @@ LABEL_20:
             block[2] = __39__NEIKEv2Session_reportServerRedirect___block_invoke;
             block[3] = &unk_1E7F0AAA0;
             block[4] = redirect;
-            v35 = redirectEventBlock;
-            v34 = v16;
+            v34 = redirectEventBlock;
+            v33 = v16;
             dispatch_async(clientQueue, block);
           }
 
@@ -32480,30 +32393,30 @@ LABEL_19:
             goto LABEL_20;
           }
 
-          v31 = [v9 length];
-          v32 = bytes[1];
+          v30 = [v9 length];
+          v31 = bytes[1];
           *buf = 67109376;
-          *&buf[4] = v31;
+          *&buf[4] = v30;
           *&buf[8] = 1024;
-          *&buf[10] = v32;
-          v24 = "Server redirect has invalid length %u (gateway length %u)";
-          v27 = buf;
-          v29 = v15;
-          v30 = 14;
+          *&buf[10] = v31;
+          v23 = "Server redirect has invalid length %u (gateway length %u)";
+          v26 = buf;
+          v28 = v15;
+          v29 = 14;
 LABEL_48:
-          _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, v24, v27, v30);
+          _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, v23, v26, v29);
           goto LABEL_17;
         }
 
-        v21 = bytes + 2;
-        v20 = *bytes;
-        switch(v20)
+        v20 = bytes + 2;
+        v19 = *bytes;
+        switch(v19)
         {
           case 3:
             if (bytes[1])
             {
-              v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:bytes + 2 length:bytes[1] encoding:4];
-              v16 = [MEMORY[0x1E6977E28] endpointWithHostname:v22 port:@"0"];
+              v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:bytes + 2 length:bytes[1] encoding:4];
+              v16 = [MEMORY[0x1E6977E28] endpointWithHostname:v21 port:@"0"];
 
               goto LABEL_19;
             }
@@ -32514,18 +32427,18 @@ LABEL_48:
               goto LABEL_17;
             }
 
-            v28 = bytes[1];
+            v27 = bytes[1];
             *buf = 67109120;
-            *&buf[4] = v28;
-            v24 = "Invalid FQDN length %u";
+            *&buf[4] = v27;
+            v23 = "Invalid FQDN length %u";
             break;
           case 2:
             memset(buf, 0, sizeof(buf));
-            v37 = 0;
+            v36 = 0;
             if (v14 == 16)
             {
               *buf = 7708;
-              *&buf[8] = *v21;
+              *&buf[8] = *v20;
               goto LABEL_33;
             }
 
@@ -32535,10 +32448,10 @@ LABEL_48:
               goto LABEL_17;
             }
 
-            v25 = bytes[1];
-            v38 = 67109120;
-            v39 = v25;
-            v24 = "Invalid IPv6 address length %u";
+            v24 = bytes[1];
+            v37 = 67109120;
+            v38 = v24;
+            v23 = "Invalid IPv6 address length %u";
             goto LABEL_42;
           case 1:
             *buf = 0;
@@ -32546,7 +32459,7 @@ LABEL_48:
             if (v14 == 4)
             {
               *buf = 528;
-              *&buf[4] = *v21;
+              *&buf[4] = *v20;
 LABEL_33:
               v16 = [MEMORY[0x1E6977E08] endpointWithAddress:buf];
               goto LABEL_19;
@@ -32558,15 +32471,15 @@ LABEL_33:
               goto LABEL_17;
             }
 
-            v26 = bytes[1];
-            v38 = 67109120;
-            v39 = v26;
-            v24 = "Invalid IPv4 address length %u";
+            v25 = bytes[1];
+            v37 = 67109120;
+            v38 = v25;
+            v23 = "Invalid IPv4 address length %u";
 LABEL_42:
-            v27 = &v38;
+            v26 = &v37;
 LABEL_46:
-            v29 = v15;
-            v30 = 8;
+            v28 = v15;
+            v29 = 8;
             goto LABEL_48;
           default:
             v15 = ne_log_obj();
@@ -32575,14 +32488,14 @@ LABEL_46:
               goto LABEL_17;
             }
 
-            v23 = *bytes;
+            v22 = *bytes;
             *buf = 67109120;
-            *&buf[4] = v23;
-            v24 = "Server redirect has invalid type %u";
+            *&buf[4] = v22;
+            v23 = "Server redirect has invalid type %u";
             break;
         }
 
-        v27 = buf;
+        v26 = buf;
         goto LABEL_46;
       }
 
@@ -32617,8 +32530,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void *__39__NEIKEv2Session_reportServerRedirect___block_invoke(void *result)
@@ -32679,7 +32590,7 @@ void *__40__NEIKEv2Session_reportPrivateNotifies___block_invoke(void *result)
 
 - (void)installRekeyedChildSA:(id *)a andReturnIPsecSAsToDelete:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = v5;
   if (self)
@@ -32725,25 +32636,24 @@ void *__40__NEIKEv2Session_reportPrivateNotifies___block_invoke(void *result)
 
     else
     {
-      v21 = ne_log_obj();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        v22 = 136315138;
-        v23 = "[NEIKEv2Session installRekeyedChildSA:andReturnIPsecSAsToDelete:]";
-        _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "%s called with null childSA", &v22, 0xCu);
+        v21 = 136315138;
+        v22 = "[NEIKEv2Session installRekeyedChildSA:andReturnIPsecSAsToDelete:]";
+        _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, "%s called with null childSA", &v21, 0xCu);
       }
 
       self = 0;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (void)uninstallOldRekeyedChildSA:(void *)a andDeleteIPsecSAs:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   aCopy = a;
   if (!self)
@@ -32753,8 +32663,8 @@ void *__40__NEIKEv2Session_reportPrivateNotifies___block_invoke(void *result)
 
   if (!v5)
   {
-    v21 = ne_log_obj();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v20 = ne_log_obj();
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
 LABEL_20:
 
@@ -32763,9 +32673,9 @@ LABEL_20:
 
     *buf = 136315138;
     selfCopy = "[NEIKEv2Session uninstallOldRekeyedChildSA:andDeleteIPsecSAs:]";
-    v22 = "%s called with null childSA";
+    v21 = "%s called with null childSA";
 LABEL_22:
-    _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, v22, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, v21, buf, 0xCu);
     goto LABEL_20;
   }
 
@@ -32780,70 +32690,68 @@ LABEL_22:
 
   if (!aCopy)
   {
-    v21 = ne_log_obj();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v20 = ne_log_obj();
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_20;
     }
 
     *buf = 136315138;
     selfCopy = "[NEIKEv2Session uninstallOldRekeyedChildSA:andDeleteIPsecSAs:]";
-    v22 = "%s called with null sasToDelete";
+    v21 = "%s called with null sasToDelete";
     goto LABEL_22;
   }
 
-  v23 = v5;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v22 = v5;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v10 = aCopy;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = ne_log_obj();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           Property = objc_getProperty(self, v17, 192, 1);
           *buf = 138412802;
           selfCopy = self;
-          v30 = 2112;
-          v31 = Property;
-          v32 = 2112;
-          v33 = v15;
+          v29 = 2112;
+          v30 = Property;
+          v31 = 2112;
+          v32 = v15;
           _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@ %@ Uninstalling old rekeyed child SA %@", buf, 0x20u);
         }
 
         [objc_getProperty(self v19];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v12);
   }
 
-  v5 = v23;
+  v5 = v22;
 LABEL_16:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportTrafficSelectorsForChildSA:(void *)a
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (a)
@@ -32863,10 +32771,10 @@ LABEL_16:
         block[2] = __51__NEIKEv2Session_reportTrafficSelectorsForChildSA___block_invoke;
         block[3] = &unk_1E7F08BD0;
         block[4] = a;
-        v17 = trafficSelectorUpdateBlock;
-        v18 = v6;
-        v15 = v7;
-        v16 = v9;
+        v16 = trafficSelectorUpdateBlock;
+        v17 = v6;
+        v14 = v7;
+        v15 = v9;
         dispatch_async(v12, block);
       }
     }
@@ -32877,13 +32785,11 @@ LABEL_16:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v20 = "[NEIKEv2Session reportTrafficSelectorsForChildSA:]";
+        v19 = "[NEIKEv2Session reportTrafficSelectorsForChildSA:]";
         _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "%s called with null childSA", buf, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__NEIKEv2Session_reportTrafficSelectorsForChildSA___block_invoke(uint64_t result)

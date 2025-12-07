@@ -94,11 +94,10 @@ LABEL_14:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPDynamicButtonVisibilityFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -106,43 +105,39 @@ LABEL_14:
 
   if (cardSectionIdentifier)
   {
-    cardSectionIdentifier = self->_cardSectionIdentifier;
     PBDataWriterWriteStringField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_visibleDynamicButton2s;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_visibleDynamicButton2s;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      v12 = 0;
+      v10 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v10;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v8 != v10);
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addVisibleDynamicButton2s:(id)button2s
@@ -165,9 +160,7 @@ LABEL_14:
 
 - (void)setVisibleDynamicButton2s:(id)button2s
 {
-  v4 = [button2s mutableCopy];
-  visibleDynamicButton2s = self->_visibleDynamicButton2s;
-  self->_visibleDynamicButton2s = v4;
+  self->_visibleDynamicButton2s = [button2s mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -188,7 +181,7 @@ LABEL_14:
 
 - (_CPDynamicButtonVisibilityFeedback)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_CPDynamicButtonVisibilityFeedback *)self init];
   if (v5)
@@ -200,34 +193,34 @@ LABEL_14:
     if (v7)
     {
       v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       buttons2 = [facadeCopy buttons];
-      v10 = [buttons2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [buttons2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v22;
+        v12 = *v21;
         do
         {
           v13 = 0;
           do
           {
-            if (*v22 != v12)
+            if (*v21 != v12)
             {
               objc_enumerationMutation(buttons2);
             }
 
-            v14 = [[_CPButtonForFeedback alloc] initWithFacade:*(*(&v21 + 1) + 8 * v13)];
+            v14 = [[_CPButtonForFeedback alloc] initWithFacade:*(*(&v20 + 1) + 8 * v13)];
             [v8 addObject:v14];
 
             ++v13;
           }
 
           while (v11 != v13);
-          v11 = [buttons2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v11 = [buttons2 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v11);
@@ -248,7 +241,6 @@ LABEL_14:
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

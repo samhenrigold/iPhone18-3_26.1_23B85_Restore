@@ -16,7 +16,7 @@
 
 - (_SFPBDynamicURLImageResource)initWithFacade:(id)facade
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBDynamicURLImageResource *)self init];
   if (v5)
@@ -61,33 +61,33 @@
       v13 = 0;
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     imageOptions2 = [facadeCopy imageOptions];
-    v15 = [imageOptions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v15 = [imageOptions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v24;
+      v17 = *v23;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v17)
+          if (*v23 != v17)
           {
             objc_enumerationMutation(imageOptions2);
           }
 
-          v19 = [[_SFPBImageOption alloc] initWithFacade:*(*(&v23 + 1) + 8 * i)];
+          v19 = [[_SFPBImageOption alloc] initWithFacade:*(*(&v22 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [imageOptions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [imageOptions2 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v16);
@@ -97,17 +97,16 @@
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBDynamicURLImageResource)initWithDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = _SFPBDynamicURLImageResource;
-  v5 = [(_SFPBDynamicURLImageResource *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _SFPBDynamicURLImageResource;
+  v5 = [(_SFPBDynamicURLImageResource *)&v30 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"pixelWidth"];
@@ -145,29 +144,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v24 = v12;
-      v25 = v8;
-      v26 = v6;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v23 = v12;
+      v24 = v8;
+      v25 = v6;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v28;
+        v17 = *v27;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v28 != v17)
+            if (*v27 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v27 + 1) + 8 * i);
+            v19 = *(*(&v26 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -176,21 +175,20 @@
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v16);
       }
 
-      v8 = v25;
-      v6 = v26;
-      v12 = v24;
+      v8 = v24;
+      v6 = v25;
+      v12 = v23;
     }
 
     v21 = v5;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -230,7 +228,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_formatURL)
   {
@@ -242,26 +240,26 @@
   if ([(NSArray *)self->_imageOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v7 = self->_imageOptions;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -274,7 +272,7 @@
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -320,8 +318,6 @@
     v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[_SFPBDynamicURLImageResource supportsResizing](self, "supportsResizing")}];
     [dictionary setObject:v20 forKeyedSubscript:@"supportsResizing"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -470,7 +466,7 @@ LABEL_24:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   pixelWidth = [(_SFPBDynamicURLImageResource *)self pixelWidth];
   if (pixelWidth)
@@ -496,38 +492,35 @@ LABEL_24:
   }
 
   imageOptions = [(_SFPBDynamicURLImageResource *)self imageOptions];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = [imageOptions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [imageOptions countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(imageOptions);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [imageOptions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [imageOptions countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addImageOptions:(id)options
@@ -550,18 +543,14 @@ LABEL_24:
 
 - (void)setImageOptions:(id)options
 {
-  v4 = [options copy];
-  imageOptions = self->_imageOptions;
-  self->_imageOptions = v4;
+  self->_imageOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFormatURL:(id)l
 {
-  v4 = [l copy];
-  formatURL = self->_formatURL;
-  self->_formatURL = v4;
+  self->_formatURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }

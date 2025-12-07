@@ -7,8 +7,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"bundleId";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"bundleId";
   bundleId = [(ATXModeAppConfigurationMetric *)self bundleId];
   null = bundleId;
   if (!bundleId)
@@ -16,8 +16,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v10[1] = @"semanticType";
-  v11[0] = null;
+  v9[1] = @"semanticType";
+  v10[0] = null;
   modeSemanticType = [(ATXModeAppConfigurationMetric *)self modeSemanticType];
   null2 = modeSemanticType;
   if (!modeSemanticType)
@@ -25,8 +25,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (!modeSemanticType)
   {
   }
@@ -34,8 +34,6 @@
   if (!bundleId)
   {
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

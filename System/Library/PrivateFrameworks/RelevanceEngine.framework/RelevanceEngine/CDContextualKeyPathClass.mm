@@ -15,7 +15,7 @@ REHTMLTagElement *__get_CDContextualKeyPathClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_CDContextualKeyPathClass_block_invoke_cold_1();
+    __get_CDContextualKeyPathClass_block_invoke_cold_1();
     return [(REHTMLTagElement *)v3 initWithTag:v4 content:v5, v6];
   }
 

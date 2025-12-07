@@ -29,166 +29,172 @@
 
 - (id)bestModelMatchingDevice:(id)device
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v5 = _gc_log_devicedb();
+  v5 = _gc_log_devicedb(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_GCDeviceOnDiskDB *)deviceCopy bestModelMatchingDevice:v5];
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   obj = self->_bundles;
-  v42 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
-  if (v42)
+  v6 = [(NSArray *)obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+  v48 = v6;
+  if (v6)
   {
-    v6 = *v62;
-    v39 = *v62;
+    v7 = *v68;
+    v45 = *v68;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v62 != v6)
+        if (*v68 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v41 = *(*(&v61 + 1) + 8 * v7);
-        v8 = _gc_log_devicedb();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v47 = *(*(&v67 + 1) + 8 * v8);
+        v9 = _gc_log_devicedb(v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v67 = v41;
-          _os_log_debug_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_DEBUG, "  > Searching bundle '%{public}@'...", buf, 0xCu);
+          v73 = v47;
+          _os_log_debug_impl(&dword_1D2C3B000, v9, OS_LOG_TYPE_DEBUG, "  > Searching bundle '%{public}@'...", buf, 0xCu);
         }
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        devices = [v41 devices];
-        v9 = [devices countByEnumeratingWithState:&v57 objects:v69 count:16];
-        if (v9)
+        v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        devices = [v47 devices];
+        v10 = [devices countByEnumeratingWithState:&v63 objects:v75 count:16];
+        v11 = v10;
+        if (v10)
         {
-          v10 = *v58;
-          v40 = *v58;
+          v12 = *v64;
+          v46 = *v64;
           do
           {
-            v11 = 0;
+            v13 = 0;
             do
             {
-              if (*v58 != v10)
+              if (*v64 != v12)
               {
                 objc_enumerationMutation(devices);
               }
 
-              v12 = *(*(&v57 + 1) + 8 * v11);
-              v13 = _gc_log_devicedb();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+              v14 = *(*(&v63 + 1) + 8 * v13);
+              v15 = _gc_log_devicedb(v10);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v67 = v12;
-                _os_log_debug_impl(&dword_1D2C3B000, v13, OS_LOG_TYPE_DEBUG, "    > Trying '%{public}@'...", buf, 0xCu);
+                v73 = v14;
+                _os_log_debug_impl(&dword_1D2C3B000, v15, OS_LOG_TYPE_DEBUG, "    > Trying '%{public}@'...", buf, 0xCu);
               }
 
-              ioMatchingPredicates = [v12 ioMatchingPredicates];
-              v55 = 0u;
-              v56 = 0u;
-              v53 = 0u;
-              v54 = 0u;
-              v15 = ioMatchingPredicates;
-              v16 = [v15 countByEnumeratingWithState:&v53 objects:v68 count:16];
-              if (v16)
+              ioMatchingPredicates = [v14 ioMatchingPredicates];
+              v61 = 0u;
+              v62 = 0u;
+              v59 = 0u;
+              v60 = 0u;
+              v17 = ioMatchingPredicates;
+              v18 = [v17 countByEnumeratingWithState:&v59 objects:v74 count:16];
+              if (v18)
               {
-                v17 = *v54;
+                v19 = *v60;
                 while (2)
                 {
-                  for (i = 0; i != v16; ++i)
+                  for (i = 0; i != v18; ++i)
                   {
-                    if (*v54 != v17)
+                    if (*v60 != v19)
                     {
-                      objc_enumerationMutation(v15);
+                      objc_enumerationMutation(v17);
                     }
 
-                    if ([*(*(&v53 + 1) + 8 * i) evaluateWithObject:deviceCopy])
+                    if ([*(*(&v59 + 1) + 8 * i) evaluateWithObject:deviceCopy])
                     {
 
-                      v24 = _gc_log_devicedb();
-                      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+                      v28 = _gc_log_devicedb(v27);
+                      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                       {
-                        [(_GCDeviceOnDiskDB *)v12 bestModelMatchingDevice:v24];
+                        [(_GCDeviceOnDiskDB *)v14 bestModelMatchingDevice:v28];
                       }
 
-                      v51 = 0u;
-                      v52 = 0u;
-                      v49 = 0u;
-                      v50 = 0u;
-                      personalities = [v12 personalities];
-                      v26 = [personalities countByEnumeratingWithState:&v49 objects:v65 count:16];
-                      if (v26)
+                      v57 = 0u;
+                      v58 = 0u;
+                      v55 = 0u;
+                      v56 = 0u;
+                      personalities = [v14 personalities];
+                      v30 = [personalities countByEnumeratingWithState:&v55 objects:v71 count:16];
+                      v31 = v30;
+                      if (v30)
                       {
-                        v27 = *v50;
+                        v32 = *v56;
                         while (2)
                         {
-                          v28 = 0;
+                          v33 = 0;
                           do
                           {
-                            if (*v50 != v27)
+                            if (*v56 != v32)
                             {
                               objc_enumerationMutation(personalities);
                             }
 
-                            v29 = *(*(&v49 + 1) + 8 * v28);
-                            v30 = _gc_log_devicedb();
-                            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+                            v34 = *(*(&v55 + 1) + 8 * v33);
+                            v35 = _gc_log_devicedb(v30);
+                            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
                             {
                               *buf = 138543362;
-                              v67 = v29;
-                              _os_log_debug_impl(&dword_1D2C3B000, v30, OS_LOG_TYPE_DEBUG, "      > Trying %{public}@...", buf, 0xCu);
+                              v73 = v34;
+                              _os_log_debug_impl(&dword_1D2C3B000, v35, OS_LOG_TYPE_DEBUG, "      > Trying %{public}@...", buf, 0xCu);
                             }
 
-                            ioMatchingPredicate = [v29 ioMatchingPredicate];
+                            ioMatchingPredicate = [v34 ioMatchingPredicate];
+                            v37 = ioMatchingPredicate;
                             if (!ioMatchingPredicate)
                             {
                               goto LABEL_51;
                             }
 
-                            v32 = _gc_log_devicedb();
-                            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+                            v38 = _gc_log_devicedb(ioMatchingPredicate);
+                            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
                             {
-                              [(_GCDeviceOnDiskDB *)&v47 bestModelMatchingDevice:v48, v32];
+                              [(_GCDeviceOnDiskDB *)&v53 bestModelMatchingDevice:v54, v38];
                             }
 
-                            if ([ioMatchingPredicate evaluateWithObject:deviceCopy])
+                            ioMatchingPredicate = [v37 evaluateWithObject:deviceCopy];
+                            if (ioMatchingPredicate)
                             {
 LABEL_51:
-                              v34 = _gc_log_devicedb();
-                              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+                              v41 = _gc_log_devicedb(ioMatchingPredicate);
+                              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
                               {
-                                [(_GCDeviceOnDiskDB *)v34 bestModelMatchingDevice:v35, v36];
+                                [(_GCDeviceOnDiskDB *)v41 bestModelMatchingDevice:v42, v43];
                               }
 
-                              model = [v29 model];
+                              model = [v34 model];
 
                               goto LABEL_54;
                             }
 
-                            v33 = _gc_log_devicedb();
-                            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+                            v39 = _gc_log_devicedb(ioMatchingPredicate);
+                            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                             {
-                              [(_GCDeviceOnDiskDB *)&v45 bestModelMatchingDevice:v46, v33];
+                              [(_GCDeviceOnDiskDB *)&v51 bestModelMatchingDevice:v52, v39];
                             }
 
-                            ++v28;
+                            ++v33;
                           }
 
-                          while (v26 != v28);
-                          v26 = [personalities countByEnumeratingWithState:&v49 objects:v65 count:16];
-                          if (v26)
+                          while (v31 != v33);
+                          v30 = [personalities countByEnumeratingWithState:&v55 objects:v71 count:16];
+                          v31 = v30;
+                          if (v30)
                           {
                             continue;
                           }
@@ -197,7 +203,7 @@ LABEL_51:
                         }
                       }
 
-                      personalities = _gc_log_devicedb();
+                      personalities = _gc_log_devicedb(v40);
                       if (os_log_type_enabled(personalities, OS_LOG_TYPE_FAULT))
                       {
                         [_GCDeviceOnDiskDB bestModelMatchingDevice:];
@@ -206,13 +212,13 @@ LABEL_51:
                       model = 0;
 LABEL_54:
 
-                      v20 = obj;
+                      v23 = obj;
                       goto LABEL_56;
                     }
                   }
 
-                  v16 = [v15 countByEnumeratingWithState:&v53 objects:v68 count:16];
-                  if (v16)
+                  v18 = [v17 countByEnumeratingWithState:&v59 objects:v74 count:16];
+                  if (v18)
                   {
                     continue;
                   }
@@ -221,37 +227,39 @@ LABEL_54:
                 }
               }
 
-              ++v11;
-              v10 = v40;
+              ++v13;
+              v12 = v46;
             }
 
-            while (v11 != v9);
-            v9 = [devices countByEnumeratingWithState:&v57 objects:v69 count:16];
-            v10 = v40;
+            while (v13 != v11);
+            v10 = [devices countByEnumeratingWithState:&v63 objects:v75 count:16];
+            v11 = v10;
+            v12 = v46;
           }
 
-          while (v9);
+          while (v10);
         }
 
-        ++v7;
-        v6 = v39;
+        ++v8;
+        v7 = v45;
       }
 
-      while (v7 != v42);
-      v42 = [(NSArray *)obj countByEnumeratingWithState:&v61 objects:v70 count:16];
-      v6 = v39;
+      while (v8 != v48);
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v48 = v6;
+      v7 = v45;
     }
 
-    while (v42);
+    while (v6);
   }
 
-  v19 = _gc_log_devicedb();
-  v20 = v19;
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v22 = _gc_log_devicedb(v21);
+  v23 = v22;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    [(_GCDeviceOnDiskDB *)v19 bestModelMatchingDevice:v21, v22];
+    [(_GCDeviceOnDiskDB *)v22 bestModelMatchingDevice:v24, v25];
     model = 0;
-    v20 = v19;
+    v23 = v22;
   }
 
   else
@@ -260,8 +268,6 @@ LABEL_54:
   }
 
 LABEL_56:
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return model;
 }
@@ -274,22 +280,19 @@ LABEL_56:
 
 - (void)bestModelMatchingDevice:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "Find model for device %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "Find model for device %@", &v4, 0xCu);
 }
 
 - (void)bestModelMatchingDevice:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "    > Matched %{public}@.  Checking personalities...", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "    > Matched %{public}@.  Checking personalities...", &v2, 0xCu);
 }
 
 - (void)bestModelMatchingDevice:(NSObject *)a3 .cold.3(uint8_t *a1, _BYTE *a2, NSObject *a3)
@@ -304,14 +307,6 @@ LABEL_56:
   *a1 = 0;
   *a2 = 0;
   OUTLINED_FUNCTION_2_6(&dword_1D2C3B000, a3, a3, "        > Failed IO property requirements...", a1);
-}
-
-- (void)bestModelMatchingDevice:.cold.6()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_5(&dword_1D2C3B000, v0, v1, "📦 Found matching device definition %{public}@ in bundle '%{public}@', but did not find a compatible personality.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

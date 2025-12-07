@@ -37,7 +37,7 @@
 {
   objectCopy = object;
   v5 = [objectCopy defaultSeriesNameForIndex:{objc_msgSend(objectCopy, "styleIndex")}];
-  EDValue::makeWithNSString(v5, &v7);
+  EDValue::makeWithNSString(&v7.type, v5);
 
   v6 = [[CHDDataValue alloc] initWithIndex:-1 value:&v7];
   [objectCopy setLastCachedName:v6];

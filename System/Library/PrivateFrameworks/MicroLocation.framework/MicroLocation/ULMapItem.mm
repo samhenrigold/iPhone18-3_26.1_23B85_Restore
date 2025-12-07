@@ -221,21 +221,20 @@ LABEL_12:
 
 + (BOOL)_verifyInput:(id)input
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"ULMapItemTypeClientGenerated";
-  v8[1] = @"ULMapItemTypeMiLoGenerated";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"ULMapItemTypeClientGenerated";
+  v7[1] = @"ULMapItemTypeMiLoGenerated";
   v3 = MEMORY[0x277CBEA60];
   inputCopy = input;
-  v5 = [v3 arrayWithObjects:v8 count:2];
+  v5 = [v3 arrayWithObjects:v7 count:2];
   LOBYTE(v3) = [v5 containsObject:inputCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 + (BOOL)_verifyInput:(id)input labels:(id)labels
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   labelsCopy = labels;
   firstObject = [labelsCopy firstObject];
@@ -244,27 +243,27 @@ LABEL_12:
     firstObject2 = [labelsCopy firstObject];
     contextLayer = [firstObject2 contextLayer];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v10 = labelsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
-      v23 = labelsCopy;
+      v13 = *v24;
+      v22 = labelsCopy;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           name = [v15 name];
           v17 = [name isEqual:inputCopy];
 
@@ -284,13 +283,13 @@ LABEL_12:
           }
 
           v20 = 0;
-          labelsCopy = v23;
+          labelsCopy = v22;
           goto LABEL_16;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
         v20 = 1;
-        labelsCopy = v23;
+        labelsCopy = v22;
         if (v12)
         {
           continue;
@@ -313,7 +312,6 @@ LABEL_16:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

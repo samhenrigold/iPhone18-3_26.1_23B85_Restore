@@ -42,37 +42,37 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_409618();
+  sub_409618(v2);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  v14 = sub_409C08(viewCopy);
+  v15 = sub_409C08(viewCopy, v14);
 
   (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v15;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  sub_40AF40();
+  sub_40AF40(v14);
 
   (*(v8 + 8))(v10, v7);
 }
@@ -81,7 +81,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   type metadata accessor for LibraryMenuViewController.Cell();

@@ -60,30 +60,30 @@
 
 + (id)predicateForObjectsWithUUIDs:(id)ds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = MEMORY[0x1E696AD98];
         uUIDString = [v11 UUIDString];
         v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(uUIDString, "hash")}];
@@ -93,72 +93,64 @@
         [array2 addObject:uUIDString2];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
 
-  v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(uuidHash IN %@ AND uuid IN %@)", array, array2, v19];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(uuidHash IN %@ AND uuid IN %@)", array, array2, v18];
 
   return v16;
 }
 
 + (id)predicateForEventsWithStartOrEndInDateRangeWithFrom:(id)from to:(id)to
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   toCopy = to;
   fromCopy = from;
   v8 = [self predicateForEventsWithStartInDateRangeFrom:fromCopy to:toCopy];
   v9 = [self predicateForEventsWithEndInDateRangeFrom:fromCopy to:toCopy];
 
   v10 = MEMORY[0x1E696AB28];
-  v15[0] = v8;
-  v15[1] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v8;
+  v14[1] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v12 = [v10 orPredicateWithSubpredicates:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)predicateForEventsWithStartAndEndInDateRangeFrom:(id)from to:(id)to
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   toCopy = to;
   fromCopy = from;
   v8 = [self predicateForEventsWithStartInDateRangeFrom:fromCopy to:toCopy];
   v9 = [self predicateForEventsWithEndInDateRangeFrom:fromCopy to:toCopy];
 
   v10 = MEMORY[0x1E696AB28];
-  v15[0] = v8;
-  v15[1] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v8;
+  v14[1] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)predicateForEventsWithDayOfWeek:(unint64_t)week
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:week];
   v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(startDayOfWeek == %@ || endDayOfWeek == %@)", v3, v3];
   v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(endDayOfWeek > startDayOfWeek AND  startDayOfWeek < %@ AND  endDayOfWeek > %@)", v3, v3];
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(endDayOfWeek < startDayOfWeek AND  startDayOfWeek > %@ AND endDayOfWeek < %@)", v3, v3];
   v7 = MEMORY[0x1E696AB28];
-  v12[0] = v4;
-  v12[1] = v5;
-  v12[2] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[0] = v4;
+  v11[1] = v5;
+  v11[2] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v9 = [v7 orPredicateWithSubpredicates:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -296,50 +288,48 @@
 
 + (id)predicateForEventsWithStringValueInValues:(id)values
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   v4 = valuesCopy;
   if (valuesCopy && [valuesCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "hash")}];
+          v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "hash")}];
           [array addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
     }
 
-    v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(valueInteger IN %@ AND valueString IN %@)", array, v6, v15];
+    v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(valueInteger IN %@ AND valueString IN %@)", array, v6, v14];
   }
 
   else
   {
     v12 = [MEMORY[0x1E696AE18] predicateWithValue:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -465,7 +455,7 @@
 
 + (id)predicateForObjectsWithMetadataKey:(id)key andStringValue:(id)value
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueCopy = value;
   v8 = [(_DKQuery *)self predicateForObjectsWithStructuredMetadataKey:keyCopy andValue:valueCopy];
@@ -484,13 +474,11 @@
     v14 = [v10 predicateWithFormat:@"ANY customMetadata.valueHash == %@", v13];
 
     v15 = MEMORY[0x1E696AB28];
-    v19[0] = v8;
-    v19[1] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = v8;
+    v18[1] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v9 = [v15 andPredicateWithSubpredicates:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -521,7 +509,7 @@
 
 + (id)predicateForObjectsWithMetadataKey:(id)key andIntegerValue:(int64_t)value
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:value];
   v8 = [(_DKQuery *)self predicateForObjectsWithStructuredMetadataKey:keyCopy andValue:v7];
@@ -541,20 +529,18 @@
     v14 = [v10 predicateWithFormat:@"ANY customMetadata.valueHash == %@", v13];
 
     v15 = MEMORY[0x1E696AB28];
-    v19[0] = v14;
-    v19[1] = v8;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = v14;
+    v18[1] = v8;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v9 = [v15 andPredicateWithSubpredicates:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)predicateForObjectsWithMetadataKey:(id)key andDoubleValue:(double)value
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:value];
   v8 = [(_DKQuery *)self predicateForObjectsWithStructuredMetadataKey:keyCopy andValue:v7];
@@ -574,20 +560,18 @@
     v14 = [v10 predicateWithFormat:@"ANY customMetadata.valueHash = %@", v13];
 
     v15 = MEMORY[0x1E696AB28];
-    v19[0] = v14;
-    v19[1] = v8;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = v14;
+    v18[1] = v8;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v9 = [v15 andPredicateWithSubpredicates:v16];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)predicateForObjectsWithMetadataKey:(id)key andDoubleValueBetween:(double)between andValue:(double)value
 {
-  v33[3] = *MEMORY[0x1E69E9840];
+  v32[3] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v9 = [self predicateForObjectsWithMetadataKey:keyCopy];
   if (between >= value)
@@ -649,7 +633,7 @@ LABEL_18:
 LABEL_14:
     v18 = MEMORY[0x1E696AE18];
     v17 = [MEMORY[0x1E696AD98] numberWithDouble:value];
-    [v18 predicateWithFormat:@"ANY customMetadata.doubleValue <= %@", v17, v30];
+    [v18 predicateWithFormat:@"ANY customMetadata.doubleValue <= %@", v17, v29];
     goto LABEL_15;
   }
 
@@ -661,11 +645,11 @@ LABEL_14:
   if (v15 && v19)
   {
     v20 = MEMORY[0x1E696AB28];
-    v33[0] = v9;
-    v33[1] = v15;
-    v33[2] = v19;
+    v32[0] = v9;
+    v32[1] = v15;
+    v32[2] = v19;
     v21 = MEMORY[0x1E695DEC8];
-    v22 = v33;
+    v22 = v32;
     v23 = 3;
 LABEL_22:
     v24 = [v21 arrayWithObjects:v22 count:v23];
@@ -678,10 +662,10 @@ LABEL_22:
   {
 LABEL_21:
     v20 = MEMORY[0x1E696AB28];
-    v32[0] = v9;
-    v32[1] = v15;
+    v31[0] = v9;
+    v31[1] = v15;
     v21 = MEMORY[0x1E695DEC8];
-    v22 = v32;
+    v22 = v31;
     v23 = 2;
     goto LABEL_22;
   }
@@ -689,9 +673,9 @@ LABEL_21:
   if (v19)
   {
     v26 = MEMORY[0x1E696AB28];
-    v31[0] = v9;
-    v31[1] = v19;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+    v30[0] = v9;
+    v30[1] = v19;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     v25 = [v26 andPredicateWithSubpredicates:v27];
 
     goto LABEL_26;
@@ -700,8 +684,6 @@ LABEL_21:
 LABEL_25:
   v25 = v9;
 LABEL_26:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -724,17 +706,17 @@ LABEL_26:
 
 + (id)predicateForEventsWithSourceID:(id)d bundleID:(id)iD
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (iD)
   {
     v7 = [self predicateForEventsWithBundleID:iD];
     v8 = MEMORY[0x1E696AB28];
-    v14[0] = v7;
+    v13[0] = v7;
     v9 = [self predicateForEventsWithSourceID:dCopy];
 
-    v14[1] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[1] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
     v11 = [v8 andPredicateWithSubpredicates:v10];
   }
 
@@ -743,23 +725,21 @@ LABEL_26:
     v11 = [self predicateForEventsWithSourceID:dCopy];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)predicateForEventsWithSourceID:(id)d bundleID:(id)iD groupIDs:(id)ds
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v9 = [self predicateForEventsWithSourceID:d bundleID:iD];
   if ([dsCopy count])
   {
     v10 = [_DKQuery predicateForEventsWithSourceGroupIDs:dsCopy];
     v11 = MEMORY[0x1E696AB28];
-    v16[0] = v9;
-    v16[1] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = v9;
+    v15[1] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v13 = [v11 andPredicateWithSubpredicates:v12];
   }
 
@@ -768,41 +748,39 @@ LABEL_26:
     v13 = v9;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (id)predicateForEventsWithSourceGroupIDs:(id)ds
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([dsCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v20 = dsCopy;
+    v19 = dsCopy;
     obj = dsCopy;
-    v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     v7 = 0x1E696A000uLL;
     if (v6)
     {
       v8 = v6;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"source.groupID BEGINSWITH %@", *(*(&v22 + 1) + 8 * i)];
+          v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"source.groupID BEGINSWITH %@", *(*(&v21 + 1) + 8 * i)];
           [array2 addObject:v11];
 
           if ([array2 count] >= 0x385)
@@ -819,7 +797,7 @@ LABEL_26:
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
@@ -833,7 +811,7 @@ LABEL_26:
 
     v17 = [*(v7 + 2856) orPredicateWithSubpredicates:array];
 
-    dsCopy = v20;
+    dsCopy = v19;
   }
 
   else
@@ -841,14 +819,12 @@ LABEL_26:
     v17 = [MEMORY[0x1E696AE18] predicateWithValue:0];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 + (id)predicateForEventsWithSourceID:(id)d bundleID:(id)iD itemIDs:(id)ds
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   if (ds)
   {
     v8 = MEMORY[0x1E696AE18];
@@ -856,11 +832,11 @@ LABEL_26:
     dCopy = d;
     v11 = [v8 predicateWithFormat:@"source.itemID IN %@", ds];
     v12 = MEMORY[0x1E696AB28];
-    v20[0] = v11;
+    v19[0] = v11;
     v13 = [self predicateForEventsWithSourceID:dCopy bundleID:iDCopy];
 
-    v20[1] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[1] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v15 = [v12 andPredicateWithSubpredicates:v14];
   }
 
@@ -871,42 +847,40 @@ LABEL_26:
     v15 = [self predicateForEventsWithSourceID:dCopy2 bundleID:iDCopy2];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)predicateForEventsWithSourceDeviceIDs:(id)ds
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([dsCopy count])
   {
     v4 = objc_opt_new();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = dsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          uUIDString = [*(*(&v14 + 1) + 8 * i) UUIDString];
+          uUIDString = [*(*(&v13 + 1) + 8 * i) UUIDString];
           [v4 addObject:uUIDString];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -919,8 +893,6 @@ LABEL_26:
   {
     v11 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -987,66 +959,62 @@ LABEL_26:
 
 + (id)queryNotExecutableError
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Query is not executable";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A578];
+  v7[0] = @"Query is not executable";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.coreduet.knowledge" code:3 userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)predicateForSpotlightEventsWithBundleID:(uint64_t)d
 {
-  v29[6] = *MEMORY[0x1E69E9840];
-  v26 = a2;
+  v28[6] = *MEMORY[0x1E69E9840];
+  v25 = a2;
   objc_opt_self();
-  v25 = +[_DKSystemEventStreams appActivityStream];
-  name = [v25 name];
-  v29[0] = name;
-  v23 = +[_DKSystemEventStreams appIntentsStream];
-  name2 = [v23 name];
-  v29[1] = name2;
+  v24 = +[_DKSystemEventStreams appActivityStream];
+  name = [v24 name];
+  v28[0] = name;
+  v22 = +[_DKSystemEventStreams appIntentsStream];
+  name2 = [v22 name];
+  v28[1] = name2;
   v3 = +[_DKSystemEventStreams appLocationActivityStream];
   name3 = [v3 name];
-  v29[2] = name3;
+  v28[2] = name3;
   v5 = +[_CDPortraitStreams entityStream];
   name4 = [v5 name];
-  v29[3] = name4;
+  v28[3] = name4;
   v7 = +[_CDPortraitStreams topicStream];
   name5 = [v7 name];
-  v29[4] = name5;
+  v28[4] = name5;
   v9 = +[_DKSystemEventStreams safariHistoryStream];
   name6 = [v9 name];
-  v29[5] = name6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:6];
-  v22 = [_DKQuery predicateForEventsWithStreamNames:v11];
+  v28[5] = name6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:6];
+  v21 = [_DKQuery predicateForEventsWithStreamNames:v11];
 
   v12 = MEMORY[0x1E696AE18];
   v13 = +[_DKSource intentsSourceID];
-  v28[0] = v13;
+  v27[0] = v13;
   v14 = +[_DKSource spotlightSourceID];
-  v28[1] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
-  v16 = [v12 predicateWithFormat:@"source.bundleID == %@ AND source.sourceID IN %@", v26, v15];
+  v27[1] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v16 = [v12 predicateWithFormat:@"source.bundleID == %@ AND source.sourceID IN %@", v25, v15];
 
   v17 = MEMORY[0x1E696AB28];
-  v27[0] = v22;
-  v27[1] = v16;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[0] = v21;
+  v26[1] = v16;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v19 = [v17 andPredicateWithSubpredicates:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 + (id)predicateForSpotlightEventsWithDomainIdentifiers:(void *)identifiers bundleID:
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = a2;
   objc_opt_self();
@@ -1055,28 +1023,26 @@ LABEL_26:
   v7 = [_DKQuery predicateForEventsWithSourceGroupIDs:v5];
 
   v8 = MEMORY[0x1E696AB28];
-  v13[0] = v6;
-  v13[1] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = v6;
+  v12[1] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v10 = [v8 andPredicateWithSubpredicates:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)predicateForSpotlightEventsWithItemIdentifiers:(void *)identifiers bundleID:
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v4 = a2;
   identifiersCopy = identifiers;
   objc_opt_self();
   v6 = MEMORY[0x1E696AE18];
   v7 = +[_DKSource intentsSourceID];
-  v30[0] = v7;
+  v29[0] = v7;
   v8 = +[_DKSource spotlightSourceID];
-  v30[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v29[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   v10 = [v6 predicateWithFormat:@"source.itemID IN %@ AND source.bundleID == %@ AND source.sourceID IN %@", v4, identifiersCopy, v9];
 
   v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v10, 0}];
@@ -1085,21 +1051,21 @@ LABEL_26:
   {
     v13 = +[_DKSystemEventStreams appActivityStream];
     name = [v13 name];
-    v29[0] = name;
+    v28[0] = name;
     v15 = +[_DKSystemEventStreams appLocationActivityStream];
     name2 = [v15 name];
-    v29[1] = name2;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[1] = name2;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
 
-    v17 = [_DKQuery predicateForEventsWithStreamNames:v27];
+    v17 = [_DKQuery predicateForEventsWithStreamNames:v26];
     v18 = [_DKQuery predicateForEventsWithStringValue:identifiersCopy];
     v19 = +[_DKApplicationActivityMetadataKey itemRelatedUniqueIdentifier];
     v20 = [_DKQuery predicateForObjectsWithMetadataKey:v19 inValues:v4];
     v21 = MEMORY[0x1E696AB28];
-    v28[0] = v17;
-    v28[1] = v18;
-    v28[2] = v20;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+    v27[0] = v17;
+    v27[1] = v18;
+    v27[2] = v20;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
     v23 = [v21 andPredicateWithSubpredicates:v22];
 
     v12 = 0x1E696A000uLL;
@@ -1108,14 +1074,12 @@ LABEL_26:
 
   v24 = [*(v12 + 2856) orPredicateWithSubpredicates:v11];
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 + (id)predicateForSpotlightEventsWithBundleID:(void *)d sinceDate:
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = a2;
   objc_opt_self();
@@ -1124,21 +1088,19 @@ LABEL_26:
   v7 = [_DKQuery predicateForEventsWithStartDateAfter:dCopy];
 
   v8 = MEMORY[0x1E696AB28];
-  v13[0] = v7;
-  v13[1] = v6;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = v7;
+  v12[1] = v6;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v10 = [v8 andPredicateWithSubpredicates:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (void)predicateForObjectsWithMetadataKey:(uint64_t)a3 andValue:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Invalid key provided to predicateForObjectsWithMetadataKey: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_191750000, a2, a3, "Invalid key provided to predicateForObjectsWithMetadataKey: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

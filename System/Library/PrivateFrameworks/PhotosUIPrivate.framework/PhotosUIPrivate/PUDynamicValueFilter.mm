@@ -9,7 +9,7 @@
 
 - (void)_update
 {
-  [(PUDynamicValueFilter *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v4 = v3;
   [(PUValueFilter *)self currentValue];
   v6 = v5;
@@ -25,12 +25,12 @@
 
 - (double)outputValueChangeRate
 {
-  [(PUDynamicValueFilter *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v4 = v3;
   [(PUValueFilter *)self currentValue];
   v6 = v5;
   [(PUDynamicValueFilter *)self _update];
-  [(PUDynamicValueFilter *)self currentTime];
+  objc_msgSend_currentTime(self);
   v8 = v7;
   [(PUValueFilter *)self currentValue];
   return (v9 - v6) / (v8 - v4);

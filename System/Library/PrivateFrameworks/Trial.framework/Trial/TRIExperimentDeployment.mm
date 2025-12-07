@@ -1,8 +1,10 @@
 @interface TRIExperimentDeployment
++ (id)deploymentWithExperimentId:(id)id deploymentId:(int)deploymentId;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDeployment:(id)deployment;
 - (TRIExperimentDeployment)initWithCoder:(id)coder;
 - (TRIExperimentDeployment)initWithExperimentId:(id)id deploymentId:(int)deploymentId;
+- (id)copyWithReplacementDeploymentId:(int)id;
 - (id)copyWithReplacementExperimentId:(id)id;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -32,6 +34,15 @@
   return v10;
 }
 
++ (id)deploymentWithExperimentId:(id)id deploymentId:(int)deploymentId
+{
+  v4 = *&deploymentId;
+  idCopy = id;
+  v7 = [[self alloc] initWithExperimentId:idCopy deploymentId:v4];
+
+  return v7;
+}
+
 - (id)copyWithReplacementExperimentId:(id)id
 {
   idCopy = id;
@@ -40,22 +51,21 @@
   return v5;
 }
 
+- (id)copyWithReplacementDeploymentId:(int)id
+{
+  v3 = *&id;
+  v5 = objc_alloc(objc_opt_class());
+  experimentId = self->_experimentId;
+
+  return [v5 initWithExperimentId:experimentId deploymentId:v3];
+}
+
 - (BOOL)isEqualToDeployment:(id)deployment
 {
   deploymentCopy = deployment;
   v5 = deploymentCopy;
-  if (!deploymentCopy)
+  if (!deploymentCopy || (v6 = self->_experimentId == 0, [deploymentCopy experimentId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (experimentId = self->_experimentId) != 0 && (objc_msgSend(v5, "experimentId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](experimentId, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_experimentId == 0;
-  experimentId = [deploymentCopy experimentId];
-  v8 = experimentId != 0;
-
-  if (v6 == v8 || (experimentId = self->_experimentId) != 0 && ([v5 experimentId], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](experimentId, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 
@@ -87,7 +97,7 @@ LABEL_6:
 
 - (TRIExperimentDeployment)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"experimentId"];
   if (!v5)
@@ -96,9 +106,9 @@ LABEL_6:
 
     if (!error)
     {
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Retrieved nil serialized value for nonnull TRIExperimentDeployment.experimentId";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = @"Retrieved nil serialized value for nonnull TRIExperimentDeployment.experimentId";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 2;
 LABEL_9:
@@ -123,9 +133,9 @@ LABEL_10:
         goto LABEL_3;
       }
 
-      v16 = *MEMORY[0x277CCA450];
-      v17 = @"Missing serialized value for TRIExperimentDeployment.deploymentId";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA450];
+      v16 = @"Missing serialized value for TRIExperimentDeployment.deploymentId";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 1;
       goto LABEL_9;
@@ -139,7 +149,6 @@ LABEL_3:
   selfCopy = self;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

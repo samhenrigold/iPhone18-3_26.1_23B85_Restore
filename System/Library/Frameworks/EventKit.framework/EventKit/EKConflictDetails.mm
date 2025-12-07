@@ -25,22 +25,22 @@
 
 + (id)infoWithConflicts:(int64_t)conflicts needsAction:(int64_t)action event:(id)event
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v8 = objc_opt_new();
   if (eventCopy)
   {
-    v17[0] = eventCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = eventCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v8 setConflictingEvents:v9];
 
-    v16 = eventCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = eventCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     [v8 setNeedsActionEvents:v10];
 
     startDate = [eventCopy startDate];
-    v15 = startDate;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = startDate;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     [v8 setConflictingDates:v12];
   }
 
@@ -48,8 +48,6 @@
   [v8 setTotalNeedsActionEvents:action];
   [v8 setTotalOccurrencesInSeries:1];
   [v8 setTotalConflictsInSeries:1];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

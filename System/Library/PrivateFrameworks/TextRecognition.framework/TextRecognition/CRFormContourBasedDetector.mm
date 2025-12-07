@@ -67,10 +67,10 @@
 
   v19 = v18;
 
-  [v9 vImage];
+  objc_msgSend_vImage(v9);
   v92 = 0u;
   v93 = 0u;
-  [v9 vImage];
+  objc_msgSend_vImage(v9);
   *&v90 = malloc_type_malloc(*(&v87 + 1) * v13, 0x100004077774924uLL);
   *(&v90 + 1) = v13;
   *&v91 = v11;

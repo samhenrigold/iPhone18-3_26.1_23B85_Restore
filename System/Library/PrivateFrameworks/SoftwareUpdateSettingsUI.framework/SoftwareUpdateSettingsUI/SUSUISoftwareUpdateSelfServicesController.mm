@@ -202,19 +202,18 @@
 - (void)updateFooter
 {
   selfCopy = self;
-  v7[1] = a2;
-  v7[0] = MEMORY[0x277D82BE0](&stru_287B79370);
+  v6[1] = a2;
+  v6[0] = MEMORY[0x277D82BE0](&stru_287B79370);
   groupSpecifier = [(SUSUISoftwareUpdateSelfServicesController *)selfCopy groupSpecifier];
   v2 = objc_opt_class();
-  v4 = NSStringFromClass(v2);
-  v3 = *MEMORY[0x277D3FF48];
+  v3 = NSStringFromClass(v2);
   [PSSpecifier setProperty:groupSpecifier forKey:"setProperty:forKey:"];
-  MEMORY[0x277D82BD8](v4);
+  MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](groupSpecifier);
   groupSpecifier2 = [(SUSUISoftwareUpdateSelfServicesController *)selfCopy groupSpecifier];
-  [(PSSpecifier *)groupSpecifier2 setProperty:v7[0] forKey:*MEMORY[0x277D3FF70]];
+  [(PSSpecifier *)groupSpecifier2 setProperty:v6[0] forKey:*MEMORY[0x277D3FF70]];
   MEMORY[0x277D82BD8](groupSpecifier2);
-  objc_storeStrong(v7, 0);
+  objc_storeStrong(v6, 0);
 }
 
 @end

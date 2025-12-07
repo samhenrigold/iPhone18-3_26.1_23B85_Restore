@@ -130,17 +130,17 @@
   swift_unknownObjectRetain();
   sub_1A524E0B4();
   swift_unknownObjectRelease();
-  sub_1A3C57128(&v7, &v6);
-  sub_1A47BEC78();
-  v3 = swift_dynamicCast();
-  if (v3)
+  sub_1A3C57128(&v8, &v7);
+  sub_1A47BEC78(0, v3);
+  v4 = swift_dynamicCast();
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
 
-    LOBYTE(v3) = v4;
+    LOBYTE(v4) = v5;
   }
 
-  return v3;
+  return v4;
 }
 
 - (PXPhotosHighlightsOverlayController)init

@@ -99,7 +99,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (sub_1000056EC())
+  if (sub_1000056EC(0))
   {
     v16 = [sub_100001E00() managerWithID:@"com.apple.powerdatad.gridManager" locationBundlePath:@"/System/Library/LocationBundles/WirelessDiagnostics.bundle"];
     v17 = *(v2 + 6);
@@ -129,20 +129,19 @@ LABEL_17:
   forCopy = for;
   if (forCopy)
   {
-    p_utcMidnight = &self->_utcMidnight;
     if (!self->_utcMidnight || ![(NSCalendar *)self->_utcCal isDate:forCopy inSameDayAsDate:?])
     {
-      v6 = [(NSCalendar *)self->_utcCal dateBySettingHour:0 minute:0 second:0 ofDate:forCopy options:0];
+      v5 = [(NSCalendar *)self->_utcCal dateBySettingHour:0 minute:0 second:0 ofDate:forCopy options:0];
       utcMidnight = self->_utcMidnight;
-      self->_utcMidnight = v6;
+      self->_utcMidnight = v5;
 
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
       {
-        sub_100007804(p_utcMidnight);
+        sub_100007804();
       }
     }
 
-    v8 = *p_utcMidnight;
+    v7 = self->_utcMidnight;
   }
 
   else
@@ -152,10 +151,10 @@ LABEL_17:
       sub_10000787C();
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (unsigned)getSlotWithDate:(id)date
@@ -251,7 +250,7 @@ LABEL_17:
 
 - (BOOL)isBAInfoAvailable
 {
-  v2 = sub_1000056EC();
+  v2 = sub_1000056EC(0);
   if (v2)
   {
     v7 = 0;
@@ -755,7 +754,7 @@ LABEL_9:
   CFRelease(v17);
   CFRelease(v9);
   IOObjectRelease(v7);
-  if (!sub_1000056EC() || !sub_1000019E8() || ![(EnergyTelemetry *)self isBAInfoAvailable])
+  if (!sub_1000056EC(0) || !sub_1000019E8() || ![(EnergyTelemetry *)self isBAInfoAvailable])
   {
 LABEL_23:
     identifier = 0;
@@ -815,7 +814,7 @@ LABEL_28:
     else
     {
       v68 = [(os_log_t *)obj findDayStarts:v71 returnMidnights:0];
-      if (sub_1000056EC())
+      if (sub_1000056EC(0))
       {
         if (sub_1000019E8() && [(os_log_t *)obj isBAInfoAvailable])
         {
@@ -1114,7 +1113,7 @@ LABEL_61:
 - (id)getBalancingAuthority
 {
   sub_100001E00();
-  if (objc_opt_class() && [(EnergyTelemetry *)self isBAInfoAvailable]&& sub_1000056EC())
+  if (objc_opt_class() && [(EnergyTelemetry *)self isBAInfoAvailable]&& sub_1000056EC(0))
   {
     latestBalancingAuthority = [(_GDSManager *)self->gridManager latestBalancingAuthority];
     log = self->_log;
@@ -1632,7 +1631,7 @@ LABEL_26:
 
       v8 = v45;
       v38 = v49;
-      if (sub_1000056EC())
+      if (sub_1000056EC(0))
       {
         v48 = v34;
         v39 = self->_log;

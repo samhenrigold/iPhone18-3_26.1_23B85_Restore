@@ -1,19 +1,19 @@
 @interface NSValue(TSMSGExternalSyncConfig)
-- (uint64_t)TSMSGExternalSyncConfigValue;
+- (void)TSMSGExternalSyncConfigValue;
 @end
 
 @implementation NSValue(TSMSGExternalSyncConfig)
 
-- (uint64_t)TSMSGExternalSyncConfigValue
+- (void)TSMSGExternalSyncConfigValue
 {
-  *(x8_0 + 96) = 0;
-  *(x8_0 + 64) = 0u;
-  *(x8_0 + 80) = 0u;
-  *(x8_0 + 32) = 0u;
-  *(x8_0 + 48) = 0u;
-  *x8_0 = 0u;
-  *(x8_0 + 16) = 0u;
-  return [self getValue:x8_0];
+  a2[12] = 0;
+  *(a2 + 4) = 0u;
+  *(a2 + 5) = 0u;
+  *(a2 + 2) = 0u;
+  *(a2 + 3) = 0u;
+  *a2 = 0u;
+  *(a2 + 1) = 0u;
+  return [self getValue:?];
 }
 
 @end

@@ -1351,10 +1351,10 @@ void __78__DBSessionController_themeAssetLibrary_attemptingDownloadOfAssetWithVe
   dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
-void __80__DBSessionController_themeAssetLibrary_failedDownloadOfAssetWithVersion_error___block_invoke()
+void __80__DBSessionController_themeAssetLibrary_failedDownloadOfAssetWithVersion_error___block_invoke(uint64_t a1)
 {
-  v0 = DBLogForCategory(0x1DuLL);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DBLogForCategory(0x1DuLL);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __80__DBSessionController_themeAssetLibrary_failedDownloadOfAssetWithVersion_error___block_invoke_cold_1();
   }

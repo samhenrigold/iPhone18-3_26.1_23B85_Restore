@@ -360,7 +360,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(v10) = 1;
   }
 
   else
@@ -370,35 +370,35 @@
     {
       v5 = equalCopy;
       format = [(BBSectionIconVariant *)self format];
-      if (format == [(BBSectionIconVariant *)v5 format]&& (imageInfo = self->_imageInfo, v8 = v5->_imageInfo, BSEqualObjects()) && self->_imageInfoType == v5->_imageInfoType)
+      if (format == [(BBSectionIconVariant *)v5 format]&& BSEqualObjects() && self->_imageInfoType == v5->_imageInfoType)
       {
         bundlePath = [(BBSectionIconVariant *)self bundlePath];
         bundlePath2 = [(BBSectionIconVariant *)v5 bundlePath];
         if (BSEqualObjects())
         {
           isPrecomposed = [(BBSectionIconVariant *)self isPrecomposed];
-          v12 = isPrecomposed ^ [(BBSectionIconVariant *)v5 isPrecomposed]^ 1;
+          v10 = isPrecomposed ^ [(BBSectionIconVariant *)v5 isPrecomposed]^ 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(v10) = 0;
         }
       }
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(v10) = 0;
       }
     }
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(v10) = 0;
     }
   }
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -415,7 +415,7 @@
 
 - (BBSectionIconVariant)initWithCoder:(id)coder
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(BBSectionIconVariant *)self init];
   if (v5)
@@ -428,19 +428,19 @@
       if (v6 == 7)
       {
         v8 = MEMORY[0x277CBEB98];
-        v29[0] = objc_opt_class();
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+        v28[0] = objc_opt_class();
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
         v10 = [v8 setWithArray:v9];
 
         v11 = MEMORY[0x277CBEB98];
+        v22 = objc_opt_class();
         v23 = objc_opt_class();
         v24 = objc_opt_class();
         v25 = objc_opt_class();
         v26 = objc_opt_class();
         v27 = objc_opt_class();
-        v28 = objc_opt_class();
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:6];
-        v13 = [v11 setWithArray:{v12, v23, v24, v25, v26, v27}];
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:6];
+        v13 = [v11 setWithArray:{v12, v22, v23, v24, v25, v26}];
 
         v14 = [v7 decodeDictionaryWithKeysOfClasses:v10 objectsOfClasses:v13 forKey:@"imageInfo"];
       }
@@ -483,7 +483,6 @@
     v5->_precomposed = [coderCopy decodeBoolForKey:@"precomposed"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -7,15 +7,16 @@
 
 - (id)transformedValue:(id)value
 {
-  v7 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:value requiringSecureCoding:1 error:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:value requiringSecureCoding:1 error:&v8];
+  v4 = v8;
+  v5 = v4;
   if (v4)
   {
-    v5 = VSErrorLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VSErrorLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(VSAppleSubscriptionValueTransformer *)v4 transformedValue:v5];
+      [(VSAppleSubscriptionValueTransformer *)v5 transformedValue:v6];
     }
   }
 
@@ -24,25 +25,25 @@
 
 - (id)reverseTransformedValue:(id)value
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAC8];
   v4 = MEMORY[0x277CBEB98];
   valueCopy = value;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v14[2] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v7 = [v4 setWithArray:v6];
-  v12 = 0;
-  v8 = [v3 unarchivedObjectOfClasses:v7 fromData:valueCopy error:&v12];
+  v13 = 0;
+  v8 = [v3 unarchivedObjectOfClasses:v7 fromData:valueCopy error:&v13];
 
-  v9 = v12;
+  v9 = v13;
   if (v9)
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(VSAppleSubscriptionValueTransformer *)v9 reverseTransformedValue:v10];
+      [(VSAppleSubscriptionValueTransformer *)v9 reverseTransformedValue:v11];
     }
   }
 

@@ -27,18 +27,16 @@
 
 - (void)_setState:(id)state
 {
-  v4 = [state copy];
-  state = self->_state;
-  self->_state = v4;
+  self->_state = [state copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)addParticipants:(id)participants
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
-  v5 = MSPGetSharedTripLog();
+  v5 = MSPGetSharedTripLog(participantsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     if (self)
@@ -54,34 +52,34 @@
     }
 
     *buf = 138543875;
-    v11 = selfCopy;
-    v12 = 2048;
-    v13 = [participantsCopy count];
-    v14 = 2113;
-    v15 = participantsCopy;
+    v10 = selfCopy;
+    v11 = 2048;
+    v12 = [participantsCopy count];
+    v13 = 2113;
+    v14 = participantsCopy;
     _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_INFO, "[%{public}@] add %lu participants: %{private}@", buf, 0x20u);
   }
 
   [(NSMutableSet *)self->_participants addObjectsFromArray:participantsCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeParticipants:(id)participants
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   participantsCopy = participants;
   v5 = [MEMORY[0x277CBEB98] setWithArray:participantsCopy];
   v6 = [v5 count];
-  if (v6 != [participantsCopy count])
+  v7 = [participantsCopy count];
+  if (v6 != v7)
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = MSPGetSharedTripLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       if (self)
       {
-        v8 = MEMORY[0x277CCACA8];
+        v9 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
       }
 
       else
@@ -90,36 +88,35 @@
       }
 
       *buf = 138543619;
-      v18 = selfCopy;
-      v19 = 2113;
-      v20 = participantsCopy;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_FAULT, "[%{public}@] - found duplicate handles in array to remove: %{private}@", buf, 0x16u);
+      v19 = selfCopy;
+      v20 = 2113;
+      v21 = participantsCopy;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_FAULT, "[%{public}@] - found duplicate handles in array to remove: %{private}@", buf, 0x16u);
     }
   }
 
-  if ([(NSMutableSet *)self->_participants intersectsSet:v5])
+  v12 = [(NSMutableSet *)self->_participants intersectsSet:v5];
+  if (v12)
   {
-    v11 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = MSPGetSharedTripLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = MEMORY[0x277CCACA8];
+      v14 = MEMORY[0x277CCACA8];
       selfCopy2 = self;
-      selfCopy2 = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+      selfCopy2 = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
-      v15 = [v5 count];
+      v17 = [v5 count];
       *buf = 138543875;
-      v18 = selfCopy2;
-      v19 = 2048;
-      v20 = v15;
-      v21 = 2113;
-      v22 = v5;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_INFO, "[%{public}@] remove %lu participants: %{private}@", buf, 0x20u);
+      v19 = selfCopy2;
+      v20 = 2048;
+      v21 = v17;
+      v22 = 2113;
+      v23 = v5;
+      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_INFO, "[%{public}@] remove %lu participants: %{private}@", buf, 0x20u);
     }
 
     [(NSMutableSet *)self->_participants minusSet:v5];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeParticipant:(id)participant forReason:(unint64_t)reason
@@ -127,27 +124,27 @@
   v17 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   v6 = [(NSMutableSet *)self->_participants containsObject:participantCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = MSPGetSharedTripLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = MEMORY[0x277CCACA8];
+      v9 = MEMORY[0x277CCACA8];
       selfCopy = self;
-      selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+      selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543619;
       v14 = selfCopy;
       v15 = 2113;
       v16 = participantCopy;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] remove participant: %{private}@", buf, 0x16u);
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] remove participant: %{private}@", buf, 0x16u);
     }
 
     [(NSMutableSet *)self->_participants removeObject:participantCopy];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 + (BOOL)_validateState:(id)state forEvent:(unint64_t)event
@@ -224,25 +221,26 @@ LABEL_22:
 
 - (BOOL)setState:(id)state forEvent:(unint64_t)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (![objc_opt_class() _supportsEvent:event])
   {
 LABEL_16:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_21;
   }
 
-  if (([objc_opt_class() _validateState:stateCopy forEvent:event] & 1) == 0)
+  v7 = [objc_opt_class() _validateState:stateCopy forEvent:event];
+  if ((v7 & 1) == 0)
   {
-    v12 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = MSPGetSharedTripLog(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       if (self)
       {
-        v13 = MEMORY[0x277CCACA8];
+        v15 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v15 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
       }
 
       else
@@ -252,62 +250,62 @@ LABEL_16:
 
       if (event > 9)
       {
-        v16 = @"(none)";
+        v18 = @"(none)";
       }
 
       else
       {
-        v16 = off_279866058[event];
+        v18 = off_279866058[event];
       }
 
       *buf = 138543875;
-      v22 = selfCopy;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2113;
-      v26 = stateCopy;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@: incoming state failed validation: %{private}@", buf, 0x20u);
+      v23 = selfCopy;
+      v24 = 2114;
+      v25 = v18;
+      v26 = 2113;
+      v27 = stateCopy;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@: incoming state failed validation: %{private}@", buf, 0x20u);
     }
 
     goto LABEL_16;
   }
 
-  if ([(NSMutableSet *)self->_participants count])
+  v8 = [(NSMutableSet *)self->_participants count];
+  if (v8)
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = MSPGetSharedTripLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = MEMORY[0x277CCACA8];
+      v10 = MEMORY[0x277CCACA8];
       selfCopy2 = self;
-      selfCopy2 = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+      selfCopy2 = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
       if (event > 9)
       {
-        v11 = @"(none)";
+        v13 = @"(none)";
       }
 
       else
       {
-        v11 = off_279866058[event];
+        v13 = off_279866058[event];
       }
 
-      v18 = [(NSMutableSet *)self->_participants count];
+      v20 = [(NSMutableSet *)self->_participants count];
       *buf = 138543874;
-      v22 = selfCopy2;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2048;
-      v26 = v18;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@ (%lu participants)", buf, 0x20u);
+      v23 = selfCopy2;
+      v24 = 2114;
+      v25 = v13;
+      v26 = 2048;
+      v27 = v20;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@ (%lu participants)", buf, 0x20u);
     }
   }
 
   [(MSPSenderStrategy *)self _setState:stateCopy];
-  v17 = 1;
+  v19 = 1;
 LABEL_21:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v19;
 }
 
 @end

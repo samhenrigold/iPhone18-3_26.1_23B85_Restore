@@ -50,9 +50,9 @@
     arrivalDateComponents = v5->_arrivalDateComponents;
     v5->_arrivalDateComponents = flightArrivalDateComponents;
 
-    flightDepartureTimeZone = [answersCopy flightDepartureTimeZone];
+    v12 = objc_msgSend_flightDepartureTimeZone(answersCopy);
     departureTimeZone = v5->_departureTimeZone;
-    v5->_departureTimeZone = flightDepartureTimeZone;
+    v5->_departureTimeZone = v12;
 
     flightArrivalTimeZone = [answersCopy flightArrivalTimeZone];
     arrivalTimeZone = v5->_arrivalTimeZone;

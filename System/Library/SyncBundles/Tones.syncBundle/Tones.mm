@@ -34,42 +34,41 @@ void sub_2540(void *a1, void *a2, uint64_t a3)
   {
     v13 = a1[4];
     *buf = 138543874;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v5;
-    v22 = 2114;
-    v23 = v6;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v6;
     _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Backing up %{public}@ with attributes: %{public}@.", buf, 0x20u);
   }
 
-  v14 = *(a1[7] + 8);
   (*(a1[6] + 16))();
   if (*(*(a1[7] + 8) + 24) == 1)
   {
-    v15 = _ATLogCategorySyncBundle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = _ATLogCategorySyncBundle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = a1[4];
-      v17 = a1[5];
+      v15 = a1[4];
+      v16 = a1[5];
       *buf = 138543618;
-      v19 = v16;
-      v20 = 2114;
-      v21 = v17;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Enumeration of paths for backup of type %{public}@ was just interrupted.", buf, 0x16u);
+      v18 = v15;
+      v19 = 2114;
+      v20 = v16;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Enumeration of paths for backup of type %{public}@ was just interrupted.", buf, 0x16u);
     }
   }
 }
 
-void sub_29A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);

@@ -38,7 +38,7 @@
 - (void)dealloc
 {
   v3 = +[NSNotificationCenter defaultCenter];
-  v4 = sub_100227468();
+  v4 = sub_100227468(NetworkMonitor);
   [v3 removeObserver:self name:@"NetworkStateDidChangeNotification" object:v4];
 
   v5.receiver = self;

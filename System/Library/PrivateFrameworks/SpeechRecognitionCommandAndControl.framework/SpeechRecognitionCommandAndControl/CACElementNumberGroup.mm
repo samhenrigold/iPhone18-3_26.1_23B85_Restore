@@ -7,7 +7,7 @@
 
 - (_TtC34SpeechRecognitionCommandAndControl21CACElementNumberGroup)initWithElements:(id)elements volatile:(BOOL)volatile
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_pMd, &_sSo30CACNumberedPresentationElement_pMR);
   *(&self->super.isa + OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl21CACElementNumberGroup_elements) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(&self->super.isa + OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl21CACElementNumberGroup_volatile) = volatile;
   v7.receiver = self;

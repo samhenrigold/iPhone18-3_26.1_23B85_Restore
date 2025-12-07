@@ -36,10 +36,11 @@
   v3 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC12NowPlayingUI27NowPlayingQueueControlsView_layoutInvalidationHandler);
   if (v3)
   {
+    v4 = *&selfCopy->shareHandler[OBJC_IVAR____TtC12NowPlayingUI27NowPlayingQueueControlsView_layoutInvalidationHandler];
 
     v3(selfCopy);
 
-    sub_2173C(v3);
+    sub_2173C(v3, v4);
   }
 
   else

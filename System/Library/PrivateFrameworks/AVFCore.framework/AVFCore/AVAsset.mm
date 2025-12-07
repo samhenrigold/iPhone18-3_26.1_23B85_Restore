@@ -166,7 +166,7 @@
   if (result)
   {
 
-    return [(CMTime *)result duration];
+    return objc_msgSend_duration(result);
   }
 
   else
@@ -489,7 +489,7 @@ LABEL_10:
   if (result)
   {
 
-    return [(CGAffineTransform *)result preferredTransform];
+    return objc_msgSend_preferredTransform(result);
   }
 
   else
@@ -1560,7 +1560,7 @@ uint64_t __68__AVAsset_findCompatibleTrackForCompositionTrack_completionHandler_
   if (result)
   {
 
-    return [(CMTime *)result overallDurationHint];
+    return objc_msgSend_overallDurationHint(result);
   }
 
   else
@@ -1605,7 +1605,7 @@ uint64_t __68__AVAsset_findCompatibleTrackForCompositionTrack_completionHandler_
   [(AVDispatchOnce *)loadChapterInfoOnce runBlockOnce:v3];
 }
 
-uint64_t __53__AVAsset_AVAssetChapterInspection___loadChapterInfo__block_invoke(uint64_t a1)
+void *__53__AVAsset_AVAssetChapterInspection___loadChapterInfo__block_invoke(uint64_t a1)
 {
   v1 = a1;
   v96 = *MEMORY[0x1E69E9840];
@@ -1959,7 +1959,7 @@ LABEL_72:
       memset(&v24, 0, sizeof(v24));
       if (v14)
       {
-        [v14 timeRange];
+        objc_msgSend_timeRange(v14);
       }
 
       range = v24;

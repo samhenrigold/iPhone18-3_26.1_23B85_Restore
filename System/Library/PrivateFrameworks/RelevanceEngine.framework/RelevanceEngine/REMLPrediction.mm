@@ -38,23 +38,25 @@
 - (void)addExplanation:(id)explanation
 {
   explanationCopy = explanation;
+  v5 = explanationCopy;
   if (explanationCopy)
   {
     explanations = self->_explanations;
-    v8 = explanationCopy;
+    v9 = v5;
     if (!explanations)
     {
-      v6 = [MEMORY[0x277CBEB58] set];
-      v7 = self->_explanations;
-      self->_explanations = v6;
+      v7 = [MEMORY[0x277CBEB58] set];
+      v8 = self->_explanations;
+      self->_explanations = v7;
 
       explanations = self->_explanations;
     }
 
-    [(NSMutableSet *)explanations addObject:v8];
+    explanationCopy = [(NSMutableSet *)explanations addObject:v9];
+    v5 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](explanationCopy, v5);
 }
 
 - (id)explanationDescription

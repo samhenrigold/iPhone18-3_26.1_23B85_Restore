@@ -30,37 +30,13 @@
   v12.super_class = DIIODaemonDelegate;
   v4 = [(DIBaseServiceDelegate *)&v12 init];
   v5 = v4;
-  if (!v4)
+  if (!v4 || (atomic_store(0, &v4->_unmountStarted), v4->_isRAM = m, v6 = objc_alloc_init(NSMutableSet), activeConnections = v5->_activeConnections, v5->_activeConnections = v6, activeConnections, [(DIIODaemonDelegate *)v5 validateInstance], [(DIIODaemonDelegate *)v5 createNotificationPortWithError:0]) && ([(DIIODaemonDelegate *)v5 setupSigtermHandler], [DIDiskArb diskArbWithError:0], v8 = objc_claimAutoreleasedReturnValue(), diskArbDisappear = v5->_diskArbDisappear, v5->_diskArbDisappear = v8, diskArbDisappear, v5->_diskArbDisappear))
   {
-    goto LABEL_4;
-  }
-
-  atomic_store(0, &v4->_unmountStarted);
-  v4->_isRAM = m;
-  v6 = objc_alloc_init(NSMutableSet);
-  activeConnections = v5->_activeConnections;
-  v5->_activeConnections = v6;
-
-  [(DIIODaemonDelegate *)v5 validateInstance];
-  if (![(DIIODaemonDelegate *)v5 createNotificationPortWithError:0])
-  {
-    goto LABEL_5;
-  }
-
-  [(DIIODaemonDelegate *)v5 setupSigtermHandler];
-  v8 = [DIDiskArb diskArbWithError:0];
-  diskArbDisappear = v5->_diskArbDisappear;
-  v5->_diskArbDisappear = v8;
-
-  if (v5->_diskArbDisappear)
-  {
-LABEL_4:
     v10 = v5;
   }
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 
@@ -158,10 +134,21 @@ LABEL_5:
 - (void)exitDaemon
 {
   v4 = *__error();
-  if (sub_1000E95F0())
+  v5 = sub_1000E95F0();
+  if (v5)
   {
-    v5 = sub_1000E957C();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v46 = 0;
+    v7 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
     deviceHandle = [(DIIODaemonDelegate *)self deviceHandle];
     if (deviceHandle)
     {
@@ -175,29 +162,27 @@ LABEL_5:
     }
 
     *buf = 68158210;
-    v38 = 32;
-    v39 = 2080;
-    v40 = "[DIIODaemonDelegate exitDaemon]";
-    v41 = 2114;
-    v42 = bSDName;
-    LODWORD(v36) = 28;
-    v35 = buf;
-    v8 = _os_log_send_and_compose_impl();
+    v48 = 32;
+    v49 = 2080;
+    v50 = "[DIIODaemonDelegate exitDaemon]";
+    v51 = 2114;
+    v52 = bSDName;
+    v11 = _os_log_send_and_compose_impl(v8, &v46, 0, 0, &_mh_execute_header, v7, 0, "%.*s: IO daemon of %{public}@ is shutting down, stopping IO channels", buf, 28);
     if (deviceHandle)
     {
     }
 
-    if (v8)
+    if (v11)
     {
-      fprintf(__stderrp, "%s\n", v8);
-      free(v8);
+      fprintf(__stderrp, "%s\n", v11);
+      free(v11);
     }
   }
 
   else
   {
-    v9 = sub_1000E957C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       deviceHandle3 = [(DIIODaemonDelegate *)self deviceHandle];
       if (deviceHandle3)
@@ -212,12 +197,12 @@ LABEL_5:
       }
 
       *buf = 68158210;
-      v38 = 32;
-      v39 = 2080;
-      v40 = "[DIIODaemonDelegate exitDaemon]";
-      v41 = 2114;
-      v42 = bSDName2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%.*s: IO daemon of %{public}@ is shutting down, stopping IO channels", buf, 0x1Cu);
+      v48 = 32;
+      v49 = 2080;
+      v50 = "[DIIODaemonDelegate exitDaemon]";
+      v51 = 2114;
+      v52 = bSDName2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: IO daemon of %{public}@ is shutting down, stopping IO channels", buf, 0x1Cu);
       if (deviceHandle3)
       {
       }
@@ -232,63 +217,75 @@ LABEL_5:
   [listener invalidate];
 
   clientDelegate = [(DIIODaemonDelegate *)selfCopy clientDelegate];
-  v15 = clientDelegate == 0;
+  v18 = clientDelegate == 0;
 
-  if (!v15)
+  if (!v18)
   {
     clientDelegate2 = [(DIIODaemonDelegate *)selfCopy clientDelegate];
     listener2 = [clientDelegate2 listener];
     [listener2 invalidate];
   }
 
-  v16 = *__error();
-  if (sub_1000E95F0())
+  v19 = *__error();
+  v20 = sub_1000E95F0();
+  if (v20)
   {
-    v17 = sub_1000E957C();
-    os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    v18 = [(DIIODaemonDelegate *)selfCopy activeConnections:v35];
-    v19 = [v18 count];
-    *buf = 68158210;
-    v38 = 32;
-    v39 = 2080;
-    v40 = "[DIIODaemonDelegate exitDaemon]";
-    v41 = 2048;
-    v42 = v19;
-    v20 = _os_log_send_and_compose_impl();
-
-    if (v20)
+    v46 = 0;
+    v22 = sub_1000E957C(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v20);
-      free(v20);
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    activeConnections = [(DIIODaemonDelegate *)selfCopy activeConnections];
+    v25 = [activeConnections count];
+    *buf = 68158210;
+    v48 = 32;
+    v49 = 2080;
+    v50 = "[DIIODaemonDelegate exitDaemon]";
+    v51 = 2048;
+    v52 = v25;
+    LODWORD(v44) = 28;
+    v26 = _os_log_send_and_compose_impl(v23, &v46, 0, 0, &_mh_execute_header, v22, 0, "%.*s: # client connections at time of daemon termination: %lu", buf, v44, v45);
+
+    if (v26)
+    {
+      fprintf(__stderrp, "%s\n", v26);
+      free(v26);
     }
   }
 
   else
   {
-    v23 = sub_1000E957C();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_1000E957C(v20, v21);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      activeConnections = [(DIIODaemonDelegate *)selfCopy activeConnections];
-      v25 = [activeConnections count];
+      activeConnections2 = [(DIIODaemonDelegate *)selfCopy activeConnections];
+      v31 = [activeConnections2 count];
       *buf = 68158210;
-      v38 = 32;
-      v39 = 2080;
-      v40 = "[DIIODaemonDelegate exitDaemon]";
-      v41 = 2048;
-      v42 = v25;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%.*s: # client connections at time of daemon termination: %lu", buf, 0x1Cu);
+      v48 = 32;
+      v49 = 2080;
+      v50 = "[DIIODaemonDelegate exitDaemon]";
+      v51 = 2048;
+      v52 = v31;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%.*s: # client connections at time of daemon termination: %lu", buf, 0x1Cu);
     }
   }
 
-  *__error() = v16;
+  *__error() = v19;
   [(DIIODaemonDelegate *)selfCopy destroyNotificationPort];
   diskArbDisappear = [(DIIODaemonDelegate *)selfCopy diskArbDisappear];
   [diskArbDisappear stop];
 
   sigtermHandler = [(DIIODaemonDelegate *)selfCopy sigtermHandler];
-  v28 = sigtermHandler == 0;
+  v34 = sigtermHandler == 0;
 
-  if (!v28)
+  if (!v34)
   {
     sigtermHandler2 = [(DIIODaemonDelegate *)selfCopy sigtermHandler];
     dispatch_source_cancel(sigtermHandler2);
@@ -299,38 +296,50 @@ LABEL_5:
   ioManager = selfCopy->_ioManager;
   if (!ioManager)
   {
-    v30 = *__error();
-    if (sub_1000E95F0())
+    v36 = *__error();
+    v37 = sub_1000E95F0();
+    if (v37)
     {
-      v31 = sub_1000E957C();
-      os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v38 = 32;
-      v39 = 2080;
-      v40 = "[DIIODaemonDelegate exitDaemon]";
-      v32 = _os_log_send_and_compose_impl();
-
-      if (v32)
+      v46 = 0;
+      v39 = sub_1000E957C(v37, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v32);
-        free(v32);
+        v40 = 3;
+      }
+
+      else
+      {
+        v40 = 2;
+      }
+
+      *buf = 68157954;
+      v48 = 32;
+      v49 = 2080;
+      v50 = "[DIIODaemonDelegate exitDaemon]";
+      LODWORD(v44) = 18;
+      v41 = _os_log_send_and_compose_impl(v40, &v46, 0, 0, &_mh_execute_header, v39, 0, "%.*s: _ioManager was not initialized yet, quitting immediately", buf, v44);
+
+      if (v41)
+      {
+        fprintf(__stderrp, "%s\n", v41);
+        free(v41);
       }
     }
 
     else
     {
-      v34 = sub_1000E957C();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_1000E957C(v37, v38);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v38 = 32;
-        v39 = 2080;
-        v40 = "[DIIODaemonDelegate exitDaemon]";
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%.*s: _ioManager was not initialized yet, quitting immediately", buf, 0x12u);
+        v48 = 32;
+        v49 = 2080;
+        v50 = "[DIIODaemonDelegate exitDaemon]";
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%.*s: _ioManager was not initialized yet, quitting immediately", buf, 0x12u);
       }
     }
 
-    *__error() = v30;
+    *__error() = v36;
     exit(0);
   }
 
@@ -348,37 +357,48 @@ LABEL_5:
   {
     v3 = v2;
     v4 = *__error();
-    if (sub_1000E95F0())
+    v5 = sub_1000E95F0();
+    if (v5)
     {
-      v5 = sub_1000E957C();
-      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      v9 = 38;
-      v10 = 2080;
-      v11 = "[DIIODaemonDelegate validateInstance]";
-      v12 = 2082;
-      v13 = v3;
-      v6 = _os_log_send_and_compose_impl();
-
-      if (v6)
+      v11 = 0;
+      v7 = sub_1000E957C(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v6);
-        free(v6);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      *buf = 68158210;
+      v13 = 38;
+      v14 = 2080;
+      v15 = "[DIIODaemonDelegate validateInstance]";
+      v16 = 2082;
+      v17 = v3;
+      v9 = _os_log_send_and_compose_impl(v8, &v11, 0, 0, &_mh_execute_header, v7, 0, "%.*s: Instance ID: %{public}s", buf, 28);
+
+      if (v9)
+      {
+        fprintf(__stderrp, "%s\n", v9);
+        free(v9);
       }
     }
 
     else
     {
-      v7 = sub_1000E957C();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000E957C(v5, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158210;
-        v9 = 38;
-        v10 = 2080;
-        v11 = "[DIIODaemonDelegate validateInstance]";
-        v12 = 2082;
-        v13 = v3;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%.*s: Instance ID: %{public}s", buf, 0x1Cu);
+        v13 = 38;
+        v14 = 2080;
+        v15 = "[DIIODaemonDelegate validateInstance]";
+        v16 = 2082;
+        v17 = v3;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Instance ID: %{public}s", buf, 0x1Cu);
       }
     }
 
@@ -416,242 +436,36 @@ LABEL_5:
   deviceHandle = [(DIIODaemonDelegate *)selfCopy deviceHandle];
   if (!deviceHandle || (-[DIIODaemonDelegate deviceHandle](selfCopy, "deviceHandle"), v5 = objc_claimAutoreleasedReturnValue(), [v5 BSDName], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, deviceHandle, !v6))
   {
-LABEL_12:
+LABEL_15:
     objc_sync_exit(v3);
-    goto LABEL_13;
+    goto LABEL_16;
   }
 
   ioManager = v3->_ioManager;
   if (!ioManager || (ioManager[112] & 1) != 0)
   {
     v8 = *__error();
-    if (sub_1000E95F0())
+    v9 = sub_1000E95F0();
+    if (v9)
     {
-      v45 = 0;
-      v9 = sub_1000E957C();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v47 = 32;
-      v48 = 2080;
-      v49 = "[DIIODaemonDelegate unmountAll]";
-      v10 = _os_log_send_and_compose_impl();
-
-      if (v10)
-      {
-        fprintf(__stderrp, "%s\n", v10);
-        free(v10);
-      }
-    }
-
-    else
-    {
-      v11 = sub_1000E957C();
+      v58 = 0;
+      v11 = sub_1000E957C(v9, v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 68157954;
-        v47 = 32;
-        v48 = 2080;
-        v49 = "[DIIODaemonDelegate unmountAll]";
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Device is already ejected, skipping unmount", buf, 0x12u);
+        v12 = 3;
       }
-    }
 
-    *__error() = v8;
-    goto LABEL_12;
-  }
-
-  objc_sync_exit(v3);
-
-  v12 = [DIAttachedDeviceInfo alloc];
-  deviceHandle2 = [(DIIODaemonDelegate *)v3 deviceHandle];
-  bSDName = [deviceHandle2 BSDName];
-  v3 = [(DIAttachedDeviceInfo *)v12 initWithBSDName:bSDName error:0];
-
-  if (v3)
-  {
-    v39 = v3;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    obj = [(DIIODaemonDelegate *)v3 copyEntitiesList];
-    v15 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
-    if (v15)
-    {
-      v16 = *v42;
-      do
+      else
       {
-        for (i = 0; i != v15; i = i + 1)
-        {
-          if (*v42 != v16)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v18 = *(*(&v41 + 1) + 8 * i);
-          v19 = [v18 objectForKeyedSubscript:{@"Mount Point", v37, v38}];
-          if (v19)
-          {
-            v20 = *__error();
-            if (sub_1000E95F0())
-            {
-              v45 = 0;
-              v21 = sub_1000E957C();
-              os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-              v22 = [v18 objectForKeyedSubscript:@"BSD Name"];
-              *buf = 68158467;
-              v47 = 32;
-              v48 = 2080;
-              v49 = "[DIIODaemonDelegate unmountAll]";
-              v50 = 2113;
-              v51 = v19;
-              v52 = 2114;
-              v53 = v22;
-              LODWORD(v38) = 38;
-              v37 = buf;
-              v23 = _os_log_send_and_compose_impl();
-
-              if (v23)
-              {
-                fprintf(__stderrp, "%s\n", v23);
-                free(v23);
-              }
-            }
-
-            else
-            {
-              v24 = sub_1000E957C();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-              {
-                v25 = [v18 objectForKeyedSubscript:@"BSD Name"];
-                *buf = 68158467;
-                v47 = 32;
-                v48 = 2080;
-                v49 = "[DIIODaemonDelegate unmountAll]";
-                v50 = 2113;
-                v51 = v19;
-                v52 = 2114;
-                v53 = v25;
-                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%.*s: Forcing unmount of %{private}@ (%{public}@)", buf, 0x26u);
-              }
-            }
-
-            *__error() = v20;
-            v26 = v19;
-            if (unmount([v19 fileSystemRepresentation], 0x80000))
-            {
-              v27 = *__error();
-              if (sub_1000E95F0())
-              {
-                v45 = 0;
-                v28 = sub_1000E957C();
-                os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-                v29 = *__error();
-                *buf = 68158467;
-                v47 = 32;
-                v48 = 2080;
-                v49 = "[DIIODaemonDelegate unmountAll]";
-                v50 = 2113;
-                v51 = v19;
-                v52 = 1024;
-                LODWORD(v53) = v29;
-                LODWORD(v38) = 34;
-                v37 = buf;
-                v30 = _os_log_send_and_compose_impl();
-
-                if (v30)
-                {
-                  fprintf(__stderrp, "%s\n", v30);
-                  free(v30);
-                }
-              }
-
-              else
-              {
-                v31 = sub_1000E957C();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-                {
-                  v32 = *__error();
-                  *buf = 68158467;
-                  v47 = 32;
-                  v48 = 2080;
-                  v49 = "[DIIODaemonDelegate unmountAll]";
-                  v50 = 2113;
-                  v51 = v19;
-                  v52 = 1024;
-                  LODWORD(v53) = v32;
-                  _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%.*s: Force unmount of %{private}@ failed with errno %d", buf, 0x22u);
-                }
-              }
-
-              *__error() = v27;
-            }
-          }
-        }
-
-        v15 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
+        v12 = 2;
       }
 
-      while (v15);
-    }
-
-    v33 = *__error();
-    if (sub_1000E95F0())
-    {
-      v45 = 0;
-      v34 = sub_1000E957C();
-      os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
       *buf = 68157954;
-      v47 = 32;
-      v48 = 2080;
-      v49 = "[DIIODaemonDelegate unmountAll]";
-      v35 = _os_log_send_and_compose_impl();
-
-      if (v35)
-      {
-        fprintf(__stderrp, "%s\n", v35);
-        free(v35);
-      }
-    }
-
-    else
-    {
-      v36 = sub_1000E957C();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68157954;
-        v47 = 32;
-        v48 = 2080;
-        v49 = "[DIIODaemonDelegate unmountAll]";
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%.*s: Unmount done", buf, 0x12u);
-      }
-    }
-
-    *__error() = v33;
-
-    v3 = v39;
-  }
-
-LABEL_13:
-}
-
-- (void)exitWithUnmount
-{
-  v2 = 0;
-  atomic_compare_exchange_strong(&self->_unmountStarted.__a_.__a_value, &v2, 1u);
-  if (v2)
-  {
-    v11 = *__error();
-    if (sub_1000E95F0())
-    {
-      v24 = 0;
-      v12 = sub_1000E957C();
-      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v26 = 37;
-      v27 = 2080;
-      v28 = "[DIIODaemonDelegate exitWithUnmount]";
-      v13 = _os_log_send_and_compose_impl();
+      v60 = 32;
+      v61 = 2080;
+      v62 = "[DIIODaemonDelegate unmountAll]";
+      LODWORD(v51) = 18;
+      v13 = _os_log_send_and_compose_impl(v12, &v58, 0, 0, &_mh_execute_header, v11, 0, "%.*s: Device is already ejected, skipping unmount", buf, v51);
 
       if (v13)
       {
@@ -662,18 +476,277 @@ LABEL_13:
 
     else
     {
-      v14 = sub_1000E957C();
+      v14 = sub_1000E957C(v9, v10);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v26 = 37;
-        v27 = 2080;
-        v28 = "[DIIODaemonDelegate exitWithUnmount]";
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Exit already in progress", buf, 0x12u);
+        v60 = 32;
+        v61 = 2080;
+        v62 = "[DIIODaemonDelegate unmountAll]";
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Device is already ejected, skipping unmount", buf, 0x12u);
       }
     }
 
-    *__error() = v11;
+    *__error() = v8;
+    goto LABEL_15;
+  }
+
+  objc_sync_exit(v3);
+
+  v15 = [DIAttachedDeviceInfo alloc];
+  deviceHandle2 = [(DIIODaemonDelegate *)v3 deviceHandle];
+  bSDName = [deviceHandle2 BSDName];
+  v3 = [(DIAttachedDeviceInfo *)v15 initWithBSDName:bSDName error:0];
+
+  if (v3)
+  {
+    v52 = v3;
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    obj = [(DIIODaemonDelegate *)v3 copyEntitiesList];
+    v18 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+    if (v18)
+    {
+      v19 = *v55;
+      do
+      {
+        for (i = 0; i != v18; i = i + 1)
+        {
+          if (*v55 != v19)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v21 = *(*(&v54 + 1) + 8 * i);
+          v22 = [v21 objectForKeyedSubscript:@"Mount Point"];
+          if (v22)
+          {
+            v23 = *__error();
+            v24 = sub_1000E95F0();
+            if (v24)
+            {
+              v58 = 0;
+              v26 = sub_1000E957C(v24, v25);
+              v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+              v28 = [v21 objectForKeyedSubscript:@"BSD Name"];
+              *buf = 68158467;
+              if (v27)
+              {
+                v29 = 3;
+              }
+
+              else
+              {
+                v29 = 2;
+              }
+
+              v60 = 32;
+              v61 = 2080;
+              v62 = "[DIIODaemonDelegate unmountAll]";
+              v63 = 2113;
+              v64 = v22;
+              v65 = 2114;
+              v66 = v28;
+              LODWORD(v51) = 38;
+              v30 = _os_log_send_and_compose_impl(v29, &v58, 0, 0, &_mh_execute_header, v26, 0, "%.*s: Forcing unmount of %{private}@ (%{public}@)", buf, v51);
+
+              if (v30)
+              {
+                fprintf(__stderrp, "%s\n", v30);
+                free(v30);
+              }
+            }
+
+            else
+            {
+              v31 = sub_1000E957C(v24, v25);
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              {
+                v32 = [v21 objectForKeyedSubscript:@"BSD Name"];
+                *buf = 68158467;
+                v60 = 32;
+                v61 = 2080;
+                v62 = "[DIIODaemonDelegate unmountAll]";
+                v63 = 2113;
+                v64 = v22;
+                v65 = 2114;
+                v66 = v32;
+                _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%.*s: Forcing unmount of %{private}@ (%{public}@)", buf, 0x26u);
+              }
+            }
+
+            *__error() = v23;
+            v33 = v22;
+            if (unmount([v22 fileSystemRepresentation], 0x80000))
+            {
+              v34 = *__error();
+              v35 = sub_1000E95F0();
+              if (v35)
+              {
+                v58 = 0;
+                v37 = sub_1000E957C(v35, v36);
+                v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+                v39 = *__error();
+                if (v38)
+                {
+                  v40 = 3;
+                }
+
+                else
+                {
+                  v40 = 2;
+                }
+
+                *buf = 68158467;
+                v60 = 32;
+                v61 = 2080;
+                v62 = "[DIIODaemonDelegate unmountAll]";
+                v63 = 2113;
+                v64 = v22;
+                v65 = 1024;
+                LODWORD(v66) = v39;
+                LODWORD(v51) = 34;
+                v41 = _os_log_send_and_compose_impl(v40, &v58, 0, 0, &_mh_execute_header, v37, 16, "%.*s: Force unmount of %{private}@ failed with errno %d", buf, v51);
+
+                if (v41)
+                {
+                  fprintf(__stderrp, "%s\n", v41);
+                  free(v41);
+                }
+              }
+
+              else
+              {
+                v42 = sub_1000E957C(v35, v36);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                {
+                  v43 = *__error();
+                  *buf = 68158467;
+                  v60 = 32;
+                  v61 = 2080;
+                  v62 = "[DIIODaemonDelegate unmountAll]";
+                  v63 = 2113;
+                  v64 = v22;
+                  v65 = 1024;
+                  LODWORD(v66) = v43;
+                  _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%.*s: Force unmount of %{private}@ failed with errno %d", buf, 0x22u);
+                }
+              }
+
+              *__error() = v34;
+            }
+          }
+        }
+
+        v18 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+      }
+
+      while (v18);
+    }
+
+    v44 = *__error();
+    v45 = sub_1000E95F0();
+    if (v45)
+    {
+      v58 = 0;
+      v47 = sub_1000E957C(v45, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        v48 = 3;
+      }
+
+      else
+      {
+        v48 = 2;
+      }
+
+      *buf = 68157954;
+      v60 = 32;
+      v61 = 2080;
+      v62 = "[DIIODaemonDelegate unmountAll]";
+      LODWORD(v51) = 18;
+      v49 = _os_log_send_and_compose_impl(v48, &v58, 0, 0, &_mh_execute_header, v47, 0, "%.*s: Unmount done", buf, v51);
+
+      if (v49)
+      {
+        fprintf(__stderrp, "%s\n", v49);
+        free(v49);
+      }
+    }
+
+    else
+    {
+      v50 = sub_1000E957C(v45, v46);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68157954;
+        v60 = 32;
+        v61 = 2080;
+        v62 = "[DIIODaemonDelegate unmountAll]";
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%.*s: Unmount done", buf, 0x12u);
+      }
+    }
+
+    *__error() = v44;
+
+    v3 = v52;
+  }
+
+LABEL_16:
+}
+
+- (void)exitWithUnmount
+{
+  v2 = 0;
+  atomic_compare_exchange_strong(&self->_unmountStarted.__a_.__a_value, &v2, 1u);
+  if (v2)
+  {
+    v14 = *__error();
+    v15 = sub_1000E95F0();
+    if (v15)
+    {
+      v32 = 0;
+      v17 = sub_1000E957C(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      *buf = 68157954;
+      v34 = 37;
+      v35 = 2080;
+      v36 = "[DIIODaemonDelegate exitWithUnmount]";
+      LODWORD(v29) = 18;
+      v19 = _os_log_send_and_compose_impl(v18, &v32, 0, 0, &_mh_execute_header, v17, 0, "%.*s: Exit already in progress", buf, v29);
+
+      if (v19)
+      {
+        fprintf(__stderrp, "%s\n", v19);
+        free(v19);
+      }
+    }
+
+    else
+    {
+      v20 = sub_1000E957C(v15, v16);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68157954;
+        v34 = 37;
+        v35 = 2080;
+        v36 = "[DIIODaemonDelegate exitWithUnmount]";
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%.*s: Exit already in progress", buf, 0x12u);
+      }
+    }
+
+    *__error() = v14;
   }
 
   else
@@ -681,39 +754,50 @@ LABEL_13:
     v4 = dispatch_semaphore_create(0);
     if (!v4)
     {
-      v16 = *__error();
-      if (sub_1000E95F0())
+      v22 = *__error();
+      v23 = sub_1000E95F0();
+      if (v23)
       {
-        v24 = 0;
-        v17 = sub_1000E957C();
-        os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-        *buf = 68157954;
-        v26 = 37;
-        v27 = 2080;
-        v28 = "[DIIODaemonDelegate exitWithUnmount]";
-        v18 = _os_log_send_and_compose_impl();
-
-        if (v18)
+        v32 = 0;
+        v25 = sub_1000E957C(v23, v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          fprintf(__stderrp, "%s\n", v18);
-          free(v18);
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        *buf = 68157954;
+        v34 = 37;
+        v35 = 2080;
+        v36 = "[DIIODaemonDelegate exitWithUnmount]";
+        LODWORD(v29) = 18;
+        v27 = _os_log_send_and_compose_impl(v26, &v32, 0, 0, &_mh_execute_header, v25, 16, "%.*s: Failed creating unmount done semaphore", buf, v29);
+
+        if (v27)
+        {
+          fprintf(__stderrp, "%s\n", v27);
+          free(v27);
         }
       }
 
       else
       {
-        v19 = sub_1000E957C();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v28 = sub_1000E957C(v23, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 68157954;
-          v26 = 37;
-          v27 = 2080;
-          v28 = "[DIIODaemonDelegate exitWithUnmount]";
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%.*s: Failed creating unmount done semaphore", buf, 0x12u);
+          v34 = 37;
+          v35 = 2080;
+          v36 = "[DIIODaemonDelegate exitWithUnmount]";
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%.*s: Failed creating unmount done semaphore", buf, 0x12u);
         }
       }
 
-      *__error() = v16;
+      *__error() = v22;
       exit(0);
     }
 
@@ -724,50 +808,59 @@ LABEL_13:
     block[3] = &unk_1001F57D0;
     block[4] = self;
     v6 = v4;
-    v23 = v6;
+    v31 = v6;
     dispatch_async(dispatchQueue, block);
 
     v7 = dispatch_time(0, 30000000000);
     if (dispatch_semaphore_wait(v6, v7))
     {
       v8 = *__error();
-      if (sub_1000E95F0())
+      v9 = sub_1000E95F0();
+      if (v9)
       {
-        v24 = 0;
-        v9 = sub_1000E957C();
-        os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-        *buf = 68157954;
-        v26 = 37;
-        v27 = 2080;
-        v28 = "[DIIODaemonDelegate exitWithUnmount]";
-        LODWORD(v21) = 18;
-        v20 = buf;
-        v10 = _os_log_send_and_compose_impl();
-
-        if (v10)
+        v32 = 0;
+        v11 = sub_1000E957C(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          fprintf(__stderrp, "%s\n", v10);
-          free(v10);
+          v12 = 3;
+        }
+
+        else
+        {
+          v12 = 2;
+        }
+
+        *buf = 68157954;
+        v34 = 37;
+        v35 = 2080;
+        v36 = "[DIIODaemonDelegate exitWithUnmount]";
+        LODWORD(v29) = 18;
+        v13 = _os_log_send_and_compose_impl(v12, &v32, 0, 0, &_mh_execute_header, v11, 16, "%.*s: Unmount timeout occurred", buf, v29);
+
+        if (v13)
+        {
+          fprintf(__stderrp, "%s\n", v13);
+          free(v13);
         }
       }
 
       else
       {
-        v15 = sub_1000E957C();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v21 = sub_1000E957C(v9, v10);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 68157954;
-          v26 = 37;
-          v27 = 2080;
-          v28 = "[DIIODaemonDelegate exitWithUnmount]";
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%.*s: Unmount timeout occurred", buf, 0x12u);
+          v34 = 37;
+          v35 = 2080;
+          v36 = "[DIIODaemonDelegate exitWithUnmount]";
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%.*s: Unmount timeout occurred", buf, 0x12u);
         }
       }
 
       *__error() = v8;
     }
 
-    [(DIIODaemonDelegate *)self exitDaemon:v20];
+    [(DIIODaemonDelegate *)self exitDaemon];
   }
 }
 
@@ -784,35 +877,45 @@ LABEL_13:
   if (!deviceHandle)
   {
     v8 = *__error();
-    if (sub_1000E95F0())
+    v9 = sub_1000E95F0();
+    if (v9)
     {
-      v9 = sub_1000E957C();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v31 = 55;
-      v32 = 2080;
-      v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-      LODWORD(v29) = 18;
-      v28 = buf;
-      v10 = _os_log_send_and_compose_impl();
-
-      if (v10)
+      v39 = 0;
+      v11 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v10);
-        free(v10);
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      *buf = 68157954;
+      v41 = 55;
+      v42 = 2080;
+      v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+      LODWORD(v37) = 18;
+      v13 = _os_log_send_and_compose_impl(v12, &v39, 0, 0, &_mh_execute_header, v11, 0, "%.*s: Reached XPC invalidation/interruption before device initialization, quitting.", buf, v37);
+
+      if (v13)
+      {
+        fprintf(__stderrp, "%s\n", v13);
+        free(v13);
       }
     }
 
     else
     {
-      v11 = sub_1000E957C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v31 = 55;
-        v32 = 2080;
-        v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Reached XPC invalidation/interruption before device initialization, quitting.", buf, 0x12u);
+        v41 = 55;
+        v42 = 2080;
+        v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Reached XPC invalidation/interruption before device initialization, quitting.", buf, 0x12u);
       }
     }
 
@@ -820,146 +923,183 @@ LABEL_13:
     [(DIIODaemonDelegate *)selfCopy exitDaemon];
   }
 
-  if (![(DIIODaemonDelegate *)selfCopy handleRefCount:v28])
+  if (![(DIIODaemonDelegate *)selfCopy handleRefCount])
   {
-    v14 = *__error();
-    if (!sub_1000E95F0())
+    v17 = *__error();
+    v25 = sub_1000E95F0();
+    if (!v25)
     {
-      v22 = sub_1000E957C();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_1000E957C(v25, v26);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         activeConnections2 = [(DIIODaemonDelegate *)selfCopy activeConnections];
-        v24 = [activeConnections2 count];
+        v33 = [activeConnections2 count];
         *buf = 68158210;
-        v31 = 55;
-        v32 = 2080;
-        v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-        v34 = 2048;
-        v35 = v24;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%.*s: Unmanaged attach, ignoring XPC disconnection (# open connections left: %lu)", buf, 0x1Cu);
+        v41 = 55;
+        v42 = 2080;
+        v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+        v44 = 2048;
+        v45 = v33;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%.*s: Unmanaged attach, ignoring XPC disconnection (# open connections left: %lu)", buf, 0x1Cu);
       }
 
-      goto LABEL_25;
+      goto LABEL_34;
     }
 
-    v19 = sub_1000E957C();
-    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-    activeConnections3 = [(DIIODaemonDelegate *)selfCopy activeConnections];
-    v21 = [activeConnections3 count];
-    *buf = 68158210;
-    v31 = 55;
-    v32 = 2080;
-    v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-    v34 = 2048;
-    v35 = v21;
-    v18 = _os_log_send_and_compose_impl();
-
-    if (v18)
+    v39 = 0;
+    v27 = sub_1000E957C(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_13:
-      fprintf(__stderrp, "%s\n", v18);
-      free(v18);
+      v28 = 3;
     }
 
-LABEL_25:
-    *__error() = v14;
+    else
+    {
+      v28 = 2;
+    }
+
+    activeConnections3 = [(DIIODaemonDelegate *)selfCopy activeConnections];
+    v30 = [activeConnections3 count];
+    *buf = 68158210;
+    v41 = 55;
+    v42 = 2080;
+    v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+    v44 = 2048;
+    v45 = v30;
+    LODWORD(v37) = 28;
+    v24 = _os_log_send_and_compose_impl(v28, &v39, 0, 0, &_mh_execute_header, v27, 0, "%.*s: Unmanaged attach, ignoring XPC disconnection (# open connections left: %lu)", buf, v37, v38);
+
+    if (v24)
+    {
+LABEL_19:
+      fprintf(__stderrp, "%s\n", v24);
+      free(v24);
+    }
+
+LABEL_34:
+    *__error() = v17;
     objc_sync_exit(selfCopy);
 
-    goto LABEL_26;
+    goto LABEL_35;
   }
 
   activeConnections4 = [(DIIODaemonDelegate *)selfCopy activeConnections];
-  v13 = [activeConnections4 count] == 0;
+  v16 = [activeConnections4 count] == 0;
 
-  if (!v13)
+  if (!v16)
   {
-    v14 = *__error();
-    if (!sub_1000E95F0())
+    v17 = *__error();
+    v18 = sub_1000E95F0();
+    if (!v18)
     {
-      v25 = sub_1000E957C();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_1000E957C(v18, v19);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         activeConnections5 = [(DIIODaemonDelegate *)selfCopy activeConnections];
-        v27 = [activeConnections5 count];
+        v36 = [activeConnections5 count];
         *buf = 68158210;
-        v31 = 55;
-        v32 = 2080;
-        v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-        v34 = 2048;
-        v35 = v27;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%.*s: XPC connection closed for a managed attach, # open connections left: %lu", buf, 0x1Cu);
+        v41 = 55;
+        v42 = 2080;
+        v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+        v44 = 2048;
+        v45 = v36;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%.*s: XPC connection closed for a managed attach, # open connections left: %lu", buf, 0x1Cu);
       }
 
-      goto LABEL_25;
+      goto LABEL_34;
     }
 
-    v15 = sub_1000E957C();
-    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-    activeConnections6 = [(DIIODaemonDelegate *)selfCopy activeConnections];
-    v17 = [activeConnections6 count];
-    *buf = 68158210;
-    v31 = 55;
-    v32 = 2080;
-    v33 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
-    v34 = 2048;
-    v35 = v17;
-    v18 = _os_log_send_and_compose_impl();
-
-    if (v18)
+    v39 = 0;
+    v20 = sub_1000E957C(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_13;
+      v21 = 3;
     }
 
-    goto LABEL_25;
+    else
+    {
+      v21 = 2;
+    }
+
+    activeConnections6 = [(DIIODaemonDelegate *)selfCopy activeConnections];
+    v23 = [activeConnections6 count];
+    *buf = 68158210;
+    v41 = 55;
+    v42 = 2080;
+    v43 = "[DIIODaemonDelegate onClientInvalidateWithConnection:]";
+    v44 = 2048;
+    v45 = v23;
+    LODWORD(v37) = 28;
+    v24 = _os_log_send_and_compose_impl(v21, &v39, 0, 0, &_mh_execute_header, v20, 0, "%.*s: XPC connection closed for a managed attach, # open connections left: %lu", buf, v37, v38);
+
+    if (v24)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_34;
   }
 
   objc_sync_exit(selfCopy);
 
   [(DIIODaemonDelegate *)selfCopy exitWithUnmount];
-LABEL_26:
+LABEL_35:
 }
 
 - (void)runIOmanager
 {
   sub_10000E300(self->_ioManager);
-  if (self->_ioManager)
+  ioManager = self->_ioManager;
+  if (ioManager)
   {
-    sub_10000E2FC();
+    sub_10000E2FC(ioManager);
     operator delete();
   }
 
-  v3 = *__error();
-  if (sub_1000E95F0())
+  v4 = *__error();
+  v5 = sub_1000E95F0();
+  if (v5)
   {
-    v4 = sub_1000E957C();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v8 = 34;
-    v9 = 2080;
-    v10 = "[DIIODaemonDelegate runIOmanager]";
-    v5 = _os_log_send_and_compose_impl();
-
-    if (v5)
+    v12 = 0;
+    v7 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v5);
-      free(v5);
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    *buf = 68157954;
+    v14 = 34;
+    v15 = 2080;
+    v16 = "[DIIODaemonDelegate runIOmanager]";
+    LODWORD(v11) = 18;
+    v9 = _os_log_send_and_compose_impl(v8, &v12, 0, 0, &_mh_execute_header, v7, 0, "%.*s: Shutdown is complete", buf, v11);
+
+    if (v9)
+    {
+      fprintf(__stderrp, "%s\n", v9);
+      free(v9);
     }
   }
 
   else
   {
-    v6 = sub_1000E957C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v8 = 34;
-      v9 = 2080;
-      v10 = "[DIIODaemonDelegate runIOmanager]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Shutdown is complete", buf, 0x12u);
+      v14 = 34;
+      v15 = 2080;
+      v16 = "[DIIODaemonDelegate runIOmanager]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Shutdown is complete", buf, 0x12u);
     }
   }
 
-  *__error() = v3;
+  *__error() = v4;
   [(DIIODaemonDelegate *)self setAttachedTransaction:0];
   exit(0);
 }
@@ -992,11 +1132,11 @@ LABEL_26:
   }
 
   deviceHandle = [(DIIODaemonDelegate *)self deviceHandle];
-  v25 = +[DIBlockDevice copyUnmatchedDiskImageWithRegEntryID:error:](DIBlockDevice, "copyUnmatchedDiskImageWithRegEntryID:error:", [deviceHandle regEntryID], error);
+  v29 = +[DIBlockDevice copyUnmatchedDiskImageWithRegEntryID:error:](DIBlockDevice, "copyUnmatchedDiskImageWithRegEntryID:error:", [deviceHandle regEntryID], error);
 
-  if (v25)
+  if (v29)
   {
-    IOObjectRetain([v25 ioObj]);
+    IOObjectRetain([v29 ioObj]);
     if ([(DIIODaemonDelegate *)self setupTerminationNotificationWithError:error])
     {
       diskArbDisappear = [(DIIODaemonDelegate *)self diskArbDisappear];
@@ -1021,33 +1161,45 @@ LABEL_26:
       }
 
       v20 = *__error();
-      if (sub_1000E95F0())
+      v21 = sub_1000E95F0();
+      if (v21)
       {
-        v21 = sub_1000E957C();
-        os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-        *buf = 68157954;
-        v29 = 48;
-        v30 = 2080;
-        v31 = "[DIIODaemonDelegate tryAttachWithParams:error:]";
-        v22 = _os_log_send_and_compose_impl();
-
-        if (v22)
+        v31 = 0;
+        v23 = sub_1000E957C(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(__stderrp, "%s\n", v22);
-          free(v22);
+          v24 = 3;
+        }
+
+        else
+        {
+          v24 = 2;
+        }
+
+        *buf = 68157954;
+        v34 = 48;
+        v35 = 2080;
+        v36 = "[DIIODaemonDelegate tryAttachWithParams:error:]";
+        LODWORD(v28) = 18;
+        v25 = _os_log_send_and_compose_impl(v24, &v31, 0, 0, &_mh_execute_header, v23, 0, "%.*s: Dispatching DIIOManager", buf, v28);
+
+        if (v25)
+        {
+          fprintf(__stderrp, "%s\n", v25);
+          free(v25);
         }
       }
 
       else
       {
-        v23 = sub_1000E957C();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v26 = sub_1000E957C(v21, v22);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68157954;
-          v29 = 48;
-          v30 = 2080;
-          v31 = "[DIIODaemonDelegate tryAttachWithParams:error:]";
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Dispatching DIIOManager", buf, 0x12u);
+          v34 = 48;
+          v35 = 2080;
+          v36 = "[DIIODaemonDelegate tryAttachWithParams:error:]";
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%.*s: Dispatching DIIOManager", buf, 0x12u);
         }
       }
 
@@ -1083,70 +1235,78 @@ LABEL_26:
   if ([(DIIODaemonDelegate *)self validateDeserializationWithParams:paramsCopy reply:replyCopy])
   {
     v8 = *__error();
-    if (sub_1000E95F0())
+    v9 = sub_1000E95F0();
+    if (v9)
     {
-      v23[1] = 0;
-      v9 = sub_1000E957C();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v25 = 0;
+      v11 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
       instanceID = [paramsCopy instanceID];
       regEntryID = [paramsCopy regEntryID];
       *buf = 68158466;
-      v26 = 56;
-      v27 = 2080;
-      v28 = "[DIIODaemonDelegate attachToNewDeviceWithParams:reply:]";
-      v29 = 2114;
-      v30 = instanceID;
-      v31 = 2048;
-      v32 = regEntryID;
-      LODWORD(v19) = 38;
-      v18 = buf;
-      v12 = _os_log_send_and_compose_impl();
+      v28 = 56;
+      v29 = 2080;
+      v30 = "[DIIODaemonDelegate attachToNewDeviceWithParams:reply:]";
+      v31 = 2114;
+      v32 = instanceID;
+      v33 = 2048;
+      v34 = regEntryID;
+      v15 = _os_log_send_and_compose_impl(v12, &v25, 0, 0, &_mh_execute_header, v11, 0, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 38);
 
-      if (v12)
+      if (v15)
       {
-        fprintf(__stderrp, "%s\n", v12);
-        free(v12);
+        fprintf(__stderrp, "%s\n", v15);
+        free(v15);
       }
     }
 
     else
     {
-      v13 = sub_1000E957C();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         instanceID2 = [paramsCopy instanceID];
         regEntryID2 = [paramsCopy regEntryID];
         *buf = 68158466;
-        v26 = 56;
-        v27 = 2080;
-        v28 = "[DIIODaemonDelegate attachToNewDeviceWithParams:reply:]";
-        v29 = 2114;
-        v30 = instanceID2;
-        v31 = 2048;
-        v32 = regEntryID2;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 0x26u);
+        v28 = 56;
+        v29 = 2080;
+        v30 = "[DIIODaemonDelegate attachToNewDeviceWithParams:reply:]";
+        v31 = 2114;
+        v32 = instanceID2;
+        v33 = 2048;
+        v34 = regEntryID2;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 0x26u);
       }
     }
 
     *__error() = v8;
     if (!getuid() && ([paramsCopy requiresRootDaemon] & 1) == 0)
     {
-      v16 = [DIError errorWithPOSIXCode:1 verboseInfo:@"Root daemon connection denied"];
-      replyCopy[2](replyCopy, 0, v16);
+      v19 = [DIError errorWithPOSIXCode:1 verboseInfo:@"Root daemon connection denied"];
+      replyCopy[2](replyCopy, 0, v19);
       [(DIIODaemonDelegate *)self exitDaemon];
     }
 
-    v17 = [(DIBaseServiceDelegate *)self dispatchQueue:v18];
+    dispatchQueue = [(DIBaseServiceDelegate *)self dispatchQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10000A0C4;
     block[3] = &unk_1001F5820;
-    objc_copyWeak(v23, &location);
-    v22 = replyCopy;
-    v21 = paramsCopy;
-    dispatch_async(v17, block);
+    objc_copyWeak(&v24, &location);
+    v23 = replyCopy;
+    v22 = paramsCopy;
+    dispatch_async(dispatchQueue, block);
 
-    objc_destroyWeak(v23);
+    objc_destroyWeak(&v24);
   }
 
   objc_destroyWeak(&location);
@@ -1159,45 +1319,54 @@ LABEL_26:
   if ([(DIIODaemonDelegate *)self validateDeserializationWithParams:paramsCopy reply:replyCopy])
   {
     v8 = *__error();
-    if (sub_1000E95F0())
+    v9 = sub_1000E95F0();
+    if (v9)
     {
-      v9 = sub_1000E957C();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v48 = 0;
+      v11 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
       instanceID = [paramsCopy instanceID];
       *buf = 68158466;
-      v38 = 61;
-      v39 = 2080;
-      v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-      v41 = 2114;
-      v42 = instanceID;
-      v43 = 2048;
+      v50 = 61;
+      v51 = 2080;
+      v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+      v53 = 2114;
+      v54 = instanceID;
+      v55 = 2048;
       regEntryID = [paramsCopy regEntryID];
-      LODWORD(v36) = 38;
-      v35 = buf;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v12, &v48, 0, 0, &_mh_execute_header, v11, 0, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 38);
 
-      if (v11)
+      if (v14)
       {
-        fprintf(__stderrp, "%s\n", v11);
-        free(v11);
+        fprintf(__stderrp, "%s\n", v14);
+        free(v14);
       }
     }
 
     else
     {
-      v12 = sub_1000E957C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000E957C(v9, v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         instanceID2 = [paramsCopy instanceID];
         *buf = 68158466;
-        v38 = 61;
-        v39 = 2080;
-        v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-        v41 = 2114;
-        v42 = instanceID2;
-        v43 = 2048;
+        v50 = 61;
+        v51 = 2080;
+        v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+        v53 = 2114;
+        v54 = instanceID2;
+        v55 = 2048;
         regEntryID = [paramsCopy regEntryID];
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 0x26u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: entry, instance ID = %{public}@, registry entry ID = 0x%llx", buf, 0x26u);
       }
     }
 
@@ -1205,12 +1374,12 @@ LABEL_26:
     selfCopy = self;
     objc_sync_enter(selfCopy);
     deviceHandle = [(DIIODaemonDelegate *)selfCopy deviceHandle];
-    v16 = deviceHandle == 0;
+    v19 = deviceHandle == 0;
 
-    if (v16)
+    if (v19)
     {
-      v20 = [DIError errorWithEnumValue:155 verboseInfo:@"A controller XPC service attempted to connect to an existing device, but this daemon instance has no such device yet"];
-      replyCopy[2](replyCopy, 0, v20);
+      v23 = [DIError errorWithEnumValue:155 verboseInfo:@"A controller XPC service attempted to connect to an existing device, but this daemon instance has no such device yet"];
+      replyCopy[2](replyCopy, 0, v23);
     }
 
     else
@@ -1221,133 +1390,169 @@ LABEL_26:
 
       if (regEntryID2)
       {
-        v19 = atomic_load(&selfCopy->_unmountStarted);
-        if (v19)
+        v22 = atomic_load(&selfCopy->_unmountStarted);
+        if (v22)
         {
-          v20 = [DIError errorWithEnumValue:170 verboseInfo:@"Unmount already started, notifying controller to retry later"];
-          replyCopy[2](replyCopy, 0, v20);
+          v23 = [DIError errorWithEnumValue:170 verboseInfo:@"Unmount already started, notifying controller to retry later"];
+          replyCopy[2](replyCopy, 0, v23);
         }
 
         else
         {
           if ([paramsCopy handleRefCount] && !-[DIIODaemonDelegate handleRefCount](selfCopy, "handleRefCount"))
           {
-            v24 = *__error();
-            if (sub_1000E95F0())
+            v30 = *__error();
+            v31 = sub_1000E95F0();
+            if (v31)
             {
-              v25 = sub_1000E957C();
-              os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-              *buf = 68157954;
-              v38 = 61;
-              v39 = 2080;
-              v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-              v26 = _os_log_send_and_compose_impl();
-
-              if (v26)
+              v48 = 0;
+              v33 = sub_1000E957C(v31, v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
-                fprintf(__stderrp, "%s\n", v26);
-                free(v26);
+                v34 = 3;
+              }
+
+              else
+              {
+                v34 = 2;
+              }
+
+              *buf = 68157954;
+              v50 = 61;
+              v51 = 2080;
+              v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+              LODWORD(v47) = 18;
+              v35 = _os_log_send_and_compose_impl(v34, &v48, 0, 0, &_mh_execute_header, v33, 0, "%.*s: Ignoring client reference counting request as a previous attach was performed without reference counting", buf, v47);
+
+              if (v35)
+              {
+                fprintf(__stderrp, "%s\n", v35);
+                free(v35);
               }
             }
 
             else
             {
-              v27 = sub_1000E957C();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v36 = sub_1000E957C(v31, v32);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 68157954;
-                v38 = 61;
-                v39 = 2080;
-                v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%.*s: Ignoring client reference counting request as a previous attach was performed without reference counting", buf, 0x12u);
+                v50 = 61;
+                v51 = 2080;
+                v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%.*s: Ignoring client reference counting request as a previous attach was performed without reference counting", buf, 0x12u);
               }
             }
 
-            *__error() = v24;
+            *__error() = v30;
           }
 
           else if (([paramsCopy handleRefCount] & 1) == 0 && -[DIIODaemonDelegate handleRefCount](selfCopy, "handleRefCount"))
           {
-            v21 = *__error();
-            if (sub_1000E95F0())
+            v24 = *__error();
+            v25 = sub_1000E95F0();
+            if (v25)
             {
-              v22 = sub_1000E957C();
-              os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-              *buf = 68157954;
-              v38 = 61;
-              v39 = 2080;
-              v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-              v23 = _os_log_send_and_compose_impl();
-
-              if (v23)
+              v48 = 0;
+              v27 = sub_1000E957C(v25, v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
-                fprintf(__stderrp, "%s\n", v23);
-                free(v23);
+                v28 = 3;
+              }
+
+              else
+              {
+                v28 = 2;
+              }
+
+              *buf = 68157954;
+              v50 = 61;
+              v51 = 2080;
+              v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+              LODWORD(v47) = 18;
+              v29 = _os_log_send_and_compose_impl(v28, &v48, 0, 0, &_mh_execute_header, v27, 0, "%.*s: Disabling reference counting", buf, v47);
+
+              if (v29)
+              {
+                fprintf(__stderrp, "%s\n", v29);
+                free(v29);
               }
             }
 
             else
             {
-              v28 = sub_1000E957C();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v37 = sub_1000E957C(v25, v26);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 68157954;
-                v38 = 61;
-                v39 = 2080;
-                v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%.*s: Disabling reference counting", buf, 0x12u);
+                v50 = 61;
+                v51 = 2080;
+                v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%.*s: Disabling reference counting", buf, 0x12u);
               }
             }
 
-            *__error() = v21;
+            *__error() = v24;
             [(DIIODaemonDelegate *)selfCopy setHandleRefCount:0];
             deviceHandle3 = [(DIIODaemonDelegate *)selfCopy deviceHandle];
             [deviceHandle3 setXpcEndpoint:0];
           }
 
-          v30 = *__error();
-          if (sub_1000E95F0())
+          v39 = *__error();
+          v40 = sub_1000E95F0();
+          if (v40)
           {
-            v31 = sub_1000E957C();
-            os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-            *buf = 68157954;
-            v38 = 61;
-            v39 = 2080;
-            v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-            v32 = _os_log_send_and_compose_impl();
-
-            if (v32)
+            v48 = 0;
+            v42 = sub_1000E957C(v40, v41);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
-              fprintf(__stderrp, "%s\n", v32);
-              free(v32);
+              v43 = 3;
+            }
+
+            else
+            {
+              v43 = 2;
+            }
+
+            *buf = 68157954;
+            v50 = 61;
+            v51 = 2080;
+            v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+            LODWORD(v47) = 18;
+            v44 = _os_log_send_and_compose_impl(v43, &v48, 0, 0, &_mh_execute_header, v42, 0, "%.*s: Got connection to an existing disk image, returning its handle", buf, v47);
+
+            if (v44)
+            {
+              fprintf(__stderrp, "%s\n", v44);
+              free(v44);
             }
           }
 
           else
           {
-            v33 = sub_1000E957C();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v45 = sub_1000E957C(v40, v41);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 68157954;
-              v38 = 61;
-              v39 = 2080;
-              v40 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
-              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%.*s: Got connection to an existing disk image, returning its handle", buf, 0x12u);
+              v50 = 61;
+              v51 = 2080;
+              v52 = "[DIIODaemonDelegate attachToExistingDeviceWithParams:reply:]";
+              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%.*s: Got connection to an existing disk image, returning its handle", buf, 0x12u);
             }
           }
 
-          *__error() = v30;
+          *__error() = v39;
           deviceHandle4 = [(DIIODaemonDelegate *)selfCopy deviceHandle];
           (replyCopy)[2](replyCopy, deviceHandle4, 0);
 
-          v20 = 0;
+          v23 = 0;
         }
       }
 
       else
       {
-        v20 = [DIError errorWithEnumValue:150 verboseInfo:@"Registry entry ID mismatch between controller and daemon"];
-        replyCopy[2](replyCopy, 0, v20);
+        v23 = [DIError errorWithEnumValue:150 verboseInfo:@"Registry entry ID mismatch between controller and daemon"];
+        replyCopy[2](replyCopy, 0, v23);
       }
     }
 
@@ -1360,33 +1565,45 @@ LABEL_26:
   if (!getenv("LaunchInstanceID"))
   {
     v2 = *__error();
-    if (sub_1000E95F0())
+    v3 = sub_1000E95F0();
+    if (v3)
     {
-      v3 = sub_1000E957C();
-      os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v7 = 40;
-      v8 = 2080;
-      v9 = "[DIIODaemonDelegate validateConnection]";
-      v4 = _os_log_send_and_compose_impl();
-
-      if (v4)
+      v10 = 0;
+      v5 = sub_1000E957C(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v4);
-        free(v4);
+        v6 = 3;
+      }
+
+      else
+      {
+        v6 = 2;
+      }
+
+      *buf = 68157954;
+      v12 = 40;
+      v13 = 2080;
+      v14 = "[DIIODaemonDelegate validateConnection]";
+      LODWORD(v9) = 18;
+      v7 = _os_log_send_and_compose_impl(v6, &v10, 0, 0, &_mh_execute_header, v5, 0, "%.*s: As we were launched without instance ID, rejecting the connection and killing the daemon.", buf, v9);
+
+      if (v7)
+      {
+        fprintf(__stderrp, "%s\n", v7);
+        free(v7);
       }
     }
 
     else
     {
-      v5 = sub_1000E957C();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000E957C(v3, v4);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v7 = 40;
-        v8 = 2080;
-        v9 = "[DIIODaemonDelegate validateConnection]";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%.*s: As we were launched without instance ID, rejecting the connection and killing the daemon.", buf, 0x12u);
+        v12 = 40;
+        v13 = 2080;
+        v14 = "[DIIODaemonDelegate validateConnection]";
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%.*s: As we were launched without instance ID, rejecting the connection and killing the daemon.", buf, 0x12u);
       }
     }
 
@@ -1402,89 +1619,26 @@ LABEL_26:
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0 && ([v5 BOOLValue] & 1) != 0)
   {
     v6 = *__error();
-    if (sub_1000E95F0())
+    v7 = sub_1000E95F0();
+    if (v7)
     {
       location = 0;
-      v7 = sub_1000E957C();
-      os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      buf = 0x2904100202;
-      v36 = 2080;
-      v37 = "[DIIODaemonDelegate setupNewConnection:]";
-      v8 = _os_log_send_and_compose_impl();
-
-      if (v8)
+      v9 = sub_1000E957C(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v8);
-        free(v8);
+        v10 = 3;
       }
-    }
 
-    else
-    {
-      v19 = sub_1000E957C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        buf = 0x2904100202;
-        v36 = 2080;
-        v37 = "[DIIODaemonDelegate setupNewConnection:]";
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Connected client is entitled to attach a disk image", &buf, 0x12u);
+        v10 = 2;
       }
-    }
 
-    *__error() = v6;
-    v20 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DIIODaemonProtocol];
-    [connectionCopy setExportedInterface:v20];
-
-    [connectionCopy setExportedObject:self];
-    objc_initWeak(&buf, self);
-    objc_initWeak(&location, connectionCopy);
-    selfCopy = self;
-    objc_sync_enter(selfCopy);
-    v22 = atomic_load(&selfCopy->_unmountStarted);
-    if ((v22 & 1) == 0)
-    {
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_10000B46C;
-      v31[3] = &unk_1001F5848;
-      objc_copyWeak(&v32, &buf);
-      objc_copyWeak(&v33, &location);
-      [connectionCopy setInterruptionHandler:v31];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_10000B64C;
-      v28[3] = &unk_1001F5848;
-      objc_copyWeak(&v29, &buf);
-      objc_copyWeak(&v30, &location);
-      [connectionCopy setInvalidationHandler:v28];
-      activeConnections = [(DIIODaemonDelegate *)selfCopy activeConnections];
-      [activeConnections addObject:connectionCopy];
-
-      objc_destroyWeak(&v30);
-      objc_destroyWeak(&v29);
-      objc_destroyWeak(&v33);
-      objc_destroyWeak(&v32);
-    }
-
-    objc_sync_exit(selfCopy);
-
-    objc_destroyWeak(&location);
-    objc_destroyWeak(&buf);
-    v17 = 1;
-  }
-
-  else
-  {
-    v9 = *__error();
-    if (sub_1000E95F0())
-    {
-      location = 0;
-      v10 = sub_1000E957C();
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
       buf = 0x2904100202;
-      v36 = 2080;
-      v37 = "[DIIODaemonDelegate setupNewConnection:]";
-      v11 = _os_log_send_and_compose_impl();
+      v46 = 2080;
+      v47 = "[DIIODaemonDelegate setupNewConnection:]";
+      LODWORD(v37) = 18;
+      v11 = _os_log_send_and_compose_impl(v10, &location, 0, 0, &_mh_execute_header, v9, 0, "%.*s: Connected client is entitled to attach a disk image", &buf, v37);
 
       if (v11)
       {
@@ -1495,17 +1649,102 @@ LABEL_26:
 
     else
     {
-      v12 = sub_1000E957C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v25 = sub_1000E957C(v7, v8);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         buf = 0x2904100202;
-        v36 = 2080;
-        v37 = "[DIIODaemonDelegate setupNewConnection:]";
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%.*s: The connected client is not entitled to attach a disk image, rejecting", &buf, 0x12u);
+        v46 = 2080;
+        v47 = "[DIIODaemonDelegate setupNewConnection:]";
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%.*s: Connected client is entitled to attach a disk image", &buf, 0x12u);
       }
     }
 
-    *__error() = v9;
+    *__error() = v6;
+    v26 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DIIODaemonProtocol];
+    [connectionCopy setExportedInterface:v26];
+
+    [connectionCopy setExportedObject:self];
+    objc_initWeak(&buf, self);
+    objc_initWeak(&location, connectionCopy);
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v28 = atomic_load(&selfCopy->_unmountStarted);
+    if ((v28 & 1) == 0)
+    {
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_10000B46C;
+      v41[3] = &unk_1001F5848;
+      objc_copyWeak(&v42, &buf);
+      objc_copyWeak(&v43, &location);
+      [connectionCopy setInterruptionHandler:v41];
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_10000B64C;
+      v38[3] = &unk_1001F5848;
+      objc_copyWeak(&v39, &buf);
+      objc_copyWeak(&v40, &location);
+      [connectionCopy setInvalidationHandler:v38];
+      activeConnections = [(DIIODaemonDelegate *)selfCopy activeConnections];
+      [activeConnections addObject:connectionCopy];
+
+      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
+      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
+    }
+
+    objc_sync_exit(selfCopy);
+
+    objc_destroyWeak(&location);
+    objc_destroyWeak(&buf);
+    v23 = 1;
+  }
+
+  else
+  {
+    v12 = *__error();
+    v13 = sub_1000E95F0();
+    if (v13)
+    {
+      location = 0;
+      v15 = sub_1000E957C(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = 3;
+      }
+
+      else
+      {
+        v16 = 2;
+      }
+
+      buf = 0x2904100202;
+      v46 = 2080;
+      v47 = "[DIIODaemonDelegate setupNewConnection:]";
+      LODWORD(v37) = 18;
+      v17 = _os_log_send_and_compose_impl(v16, &location, 0, 0, &_mh_execute_header, v15, 16, "%.*s: The connected client is not entitled to attach a disk image, rejecting", &buf, v37);
+
+      if (v17)
+      {
+        fprintf(__stderrp, "%s\n", v17);
+        free(v17);
+      }
+    }
+
+    else
+    {
+      v18 = sub_1000E957C(v13, v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        buf = 0x2904100202;
+        v46 = 2080;
+        v47 = "[DIIODaemonDelegate setupNewConnection:]";
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%.*s: The connected client is not entitled to attach a disk image, rejecting", &buf, 0x12u);
+      }
+    }
+
+    *__error() = v12;
     selfCopy2 = self;
     objc_sync_enter(selfCopy2);
     deviceHandle = [(DIIODaemonDelegate *)selfCopy2 deviceHandle];
@@ -1516,51 +1755,62 @@ LABEL_26:
     else
     {
       activeConnections2 = [(DIIODaemonDelegate *)selfCopy2 activeConnections];
-      v16 = [activeConnections2 count] == 0;
+      v22 = [activeConnections2 count] == 0;
 
-      if (v16)
+      if (v22)
       {
-        v24 = *__error();
-        if (sub_1000E95F0())
+        v30 = *__error();
+        v31 = sub_1000E95F0();
+        if (v31)
         {
           location = 0;
-          v25 = sub_1000E957C();
-          os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-          buf = 0x2904100202;
-          v36 = 2080;
-          v37 = "[DIIODaemonDelegate setupNewConnection:]";
-          v26 = _os_log_send_and_compose_impl();
-
-          if (v26)
+          v33 = sub_1000E957C(v31, v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            fprintf(__stderrp, "%s\n", v26);
-            free(v26);
+            v34 = 3;
+          }
+
+          else
+          {
+            v34 = 2;
+          }
+
+          buf = 0x2904100202;
+          v46 = 2080;
+          v47 = "[DIIODaemonDelegate setupNewConnection:]";
+          LODWORD(v37) = 18;
+          v35 = _os_log_send_and_compose_impl(v34, &location, 0, 0, &_mh_execute_header, v33, 16, "%.*s: The rejected connection caused a daemon instance to wake up. Killing it", &buf, v37);
+
+          if (v35)
+          {
+            fprintf(__stderrp, "%s\n", v35);
+            free(v35);
           }
         }
 
         else
         {
-          v27 = sub_1000E957C();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v36 = sub_1000E957C(v31, v32);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             buf = 0x2904100202;
-            v36 = 2080;
-            v37 = "[DIIODaemonDelegate setupNewConnection:]";
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%.*s: The rejected connection caused a daemon instance to wake up. Killing it", &buf, 0x12u);
+            v46 = 2080;
+            v47 = "[DIIODaemonDelegate setupNewConnection:]";
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "%.*s: The rejected connection caused a daemon instance to wake up. Killing it", &buf, 0x12u);
           }
         }
 
-        *__error() = v24;
+        *__error() = v30;
         exit(0);
       }
     }
 
     objc_sync_exit(selfCopy2);
 
-    v17 = 0;
+    v23 = 0;
   }
 
-  return v17;
+  return v23;
 }
 
 - (void)retrieveStatsWithParams:(id)params reply:(id)reply

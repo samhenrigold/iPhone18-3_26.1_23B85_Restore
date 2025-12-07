@@ -25,7 +25,7 @@
 
 id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 readResponse];
   v5 = [v4 responseForCharacteristicType:*MEMORY[0x277CCF868]];
@@ -36,7 +36,7 @@ id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invo
 
   v9 = [v8 mutableCopy];
   [v9 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"tempreatureUnitDependency"];
-  v10 = [*(a1 + 32) service];
+  v10 = objc_msgSend_service(*(a1 + 32));
   v11 = [v10 accessory];
   v12 = [v11 isCalibrating];
 
@@ -50,13 +50,13 @@ id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invo
     {
       v15 = *(a1 + 32);
       v16 = NSStringFromSelector(*(a1 + 40));
-      v33 = 138412802;
-      v34 = v15;
-      v35 = 2112;
-      v36 = v16;
-      v37 = 2112;
-      v38 = v9;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@:%@ Sensor calibrating, resetting potential error descriptions: %@", &v33, 0x20u);
+      v32 = 138412802;
+      v33 = v15;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2112;
+      v37 = v9;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@:%@ Sensor calibrating, resetting potential error descriptions: %@", &v32, 0x20u);
     }
 
     [v9 setObject:0 forKeyedSubscript:@"errorDescription"];
@@ -65,7 +65,7 @@ id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invo
 
   if (v7)
   {
-    v17 = [*(a1 + 32) service];
+    v17 = objc_msgSend_service(*(a1 + 32));
     v18 = [v17 accessory];
 
     if ([v18 hf_isHomePod] && ((objc_msgSend(v18, "hf_isReadyToInstallSoftwareUpdate") & 1) != 0 || objc_msgSend(v18, "hf_isSoftwareUpdateInProgress")))
@@ -75,11 +75,11 @@ id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invo
       {
         v20 = *(a1 + 32);
         v21 = NSStringFromSelector(*(a1 + 40));
-        v33 = 138412546;
-        v34 = v20;
-        v35 = 2112;
-        v36 = v21;
-        _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "%@:%@ Clearing display elements for SU for Homepod Temperature Sensor", &v33, 0x16u);
+        v32 = 138412546;
+        v33 = v20;
+        v34 = 2112;
+        v35 = v21;
+        _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "%@:%@ Clearing display elements for SU for Homepod Temperature Sensor", &v32, 0x16u);
       }
 
       [v9 setObject:0 forKeyedSubscript:@"description"];
@@ -115,8 +115,6 @@ id __62__HFTemperatureSensorServiceItem__subclass_updateWithOptions___block_invo
     v18 = [HFItemUpdateOutcome outcomeWithResults:v9];
     v29 = [v30 futureWithResult:v18];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

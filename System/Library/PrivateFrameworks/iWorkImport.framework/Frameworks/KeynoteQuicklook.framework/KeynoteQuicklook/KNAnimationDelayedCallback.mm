@@ -40,19 +40,19 @@
 - (KNAnimationDelayedCallback)initWithBlock:(id)block delay:(double)delay
 {
   blockCopy = block;
-  v13.receiver = self;
-  v13.super_class = KNAnimationDelayedCallback;
-  v9 = [(KNAnimationDelayedCallback *)&v13 init];
-  if (v9)
+  v11.receiver = self;
+  v11.super_class = KNAnimationDelayedCallback;
+  v7 = [(KNAnimationDelayedCallback *)&v11 init];
+  if (v7)
   {
-    v10 = objc_msgSend_copy(blockCopy, v7, v8);
-    block = v9->_block;
-    v9->_block = v10;
+    v8 = [blockCopy copy];
+    block = v7->_block;
+    v7->_block = v8;
 
-    v9->_delay = delay;
+    v7->_delay = delay;
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)p_performSelectorOnTarget
@@ -61,20 +61,21 @@
   target = self->_target;
   if (selector)
   {
-    objc_msgSend_performSelector_withObject_(target, a2, selector, self->_object);
+    v5 = selector;
   }
 
   else
   {
-    objc_msgSend_performSelector_withObject_(target, a2, 0, self->_object);
+    v5 = 0;
   }
 
+  [target performSelector:v5 withObject:self->_object];
   completionHandler = self->_completionHandler;
   if (completionHandler)
   {
-    v6 = *(completionHandler + 2);
+    v7 = *(completionHandler + 2);
 
-    v6();
+    v7();
   }
 }
 
@@ -83,20 +84,20 @@
   self->_startTime = CACurrentMediaTime();
   if (self->_block)
   {
-    v4 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+    v3 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
     sourceTimer = self->_sourceTimer;
-    self->_sourceTimer = v4;
+    self->_sourceTimer = v3;
 
-    v6 = self->_sourceTimer;
-    v7 = dispatch_time(0, (self->_delay * 1000000000.0));
-    dispatch_source_set_timer(v6, v7, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v8 = self->_sourceTimer;
+    v5 = self->_sourceTimer;
+    v6 = dispatch_time(0, (self->_delay * 1000000000.0));
+    dispatch_source_set_timer(v5, v6, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v7 = self->_sourceTimer;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = sub_275D7CD28;
     handler[3] = &unk_27A697B20;
     handler[4] = self;
-    dispatch_source_set_event_handler(v8, handler);
+    dispatch_source_set_event_handler(v7, handler);
     dispatch_resume(self->_sourceTimer);
   }
 
@@ -104,7 +105,7 @@
   {
     delay = self->_delay;
 
-    objc_msgSend_performSelector_withObject_afterDelay_(self, v3, sel_p_performSelectorOnTarget, 0, delay);
+    [(KNAnimationDelayedCallback *)self performSelector:sel_p_performSelectorOnTarget withObject:0 afterDelay:delay];
   }
 }
 
@@ -117,7 +118,7 @@
 
   else
   {
-    MEMORY[0x2821F9670](MEMORY[0x277D82BB8], sel_cancelPreviousPerformRequestsWithTarget_selector_object_, self);
+    MEMORY[0x2821F9670](MEMORY[0x277D82BB8], sel_cancelPreviousPerformRequestsWithTarget_selector_object_);
   }
 }
 

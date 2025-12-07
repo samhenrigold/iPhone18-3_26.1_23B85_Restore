@@ -39,12 +39,12 @@
 
 - (BOOL)_eapConfigIsValid:(id)valid error:(id *)error
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v6 = [valid mutableCopy];
-  v86 = 0;
-  v7 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v86];
-  v8 = v86;
-  if (v8 || (v85 = 0, v9 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserPassword" isRequired:0 outError:&v85], (v8 = v85) != 0))
+  v85 = 0;
+  v7 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserName" isRequired:0 outError:&v85];
+  v8 = v85;
+  if (v8 || (v84 = 0, v9 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"UserPassword" isRequired:0 outError:&v84], (v8 = v84) != 0))
   {
     v10 = v8;
     v11 = 0;
@@ -59,35 +59,35 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v84 = 0;
-  v12 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AcceptEAPTypes" isRequired:1 outError:&v84];
-  v20 = v84;
-  if (v20)
+  v83 = 0;
+  v12 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"AcceptEAPTypes" isRequired:1 outError:&v83];
+  v19 = v83;
+  if (v19)
   {
     goto LABEL_11;
   }
 
-  v21 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1AA5968];
+  v20 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1AA5968];
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v12 = v12;
-  v22 = [v12 countByEnumeratingWithState:&v80 objects:v93 count:16];
-  if (v22)
+  v21 = [v12 countByEnumeratingWithState:&v79 objects:v92 count:16];
+  if (v21)
   {
-    v23 = v22;
-    v24 = *v81;
+    v22 = v21;
+    v23 = *v80;
     while (2)
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v81 != v24)
+        if (*v80 != v23)
         {
           objc_enumerationMutation(v12);
         }
 
-        if (![v21 containsObject:*(*(&v80 + 1) + 8 * i)])
+        if (![v20 containsObject:*(*(&v79 + 1) + 8 * i)])
         {
           v10 = [MCPayload badFieldValueErrorWithField:@"AcceptEAPTypes"];
 
@@ -99,8 +99,8 @@ LABEL_6:
         }
       }
 
-      v23 = [v12 countByEnumeratingWithState:&v80 objects:v93 count:16];
-      if (v23)
+      v22 = [v12 countByEnumeratingWithState:&v79 objects:v92 count:16];
+      if (v22)
       {
         continue;
       }
@@ -109,47 +109,23 @@ LABEL_6:
     }
   }
 
-  v79 = 0;
-  v26 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v79];
-  v20 = v79;
-  if (v20)
-  {
-    goto LABEL_11;
-  }
-
   v78 = 0;
-  v27 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"TLSTrustedCertificates" isRequired:0 outError:&v78];
-  v20 = v78;
-  if (v20)
-  {
-    goto LABEL_11;
-  }
-
-  v77 = 0;
-  v28 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"TLSTrustedServerCommonNames" isRequired:0 outError:&v77];
-  v20 = v77;
-  if (v20)
-  {
-    goto LABEL_11;
-  }
-
-  v76 = 0;
-  v29 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"TLSTrustedServerNames" isRequired:0 outError:&v76];
-  v20 = v76;
-  if (v20 || (v75 = 0, v30 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"TLSAllowTrustExceptions" isRequired:0 outError:&v75], (v20 = v75) != 0) || (v74 = 0, v31 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSCertificateIsRequired", 0, &v74), (v20 = v74) != 0))
+  v25 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v78];
+  v19 = v78;
+  if (v19 || (v77 = 0, v26 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"TLSTrustedCertificates" isRequired:0 outError:&v77], (v19 = v77) != 0) || (v76 = 0, v27 = objc_msgSend(v6, "MCValidateAndRemoveArrayOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSTrustedServerCommonNames", 0, &v76), (v19 = v76) != 0) || (v75 = 0, v28 = objc_msgSend(v6, "MCValidateAndRemoveArrayOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSTrustedServerNames", 0, &v75), (v19 = v75) != 0) || (v74 = 0, v29 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSAllowTrustExceptions", 0, &v74), (v19 = v74) != 0) || (v73 = 0, v30 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"TLSCertificateIsRequired", 0, &v73), (v19 = v73) != 0))
   {
 LABEL_11:
-    v10 = v20;
+    v10 = v19;
     v11 = 0;
     goto LABEL_4;
   }
 
-  v73 = 0;
-  v13 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TTLSInnerAuthentication" isRequired:0 outError:&v73];
-  v32 = v73;
-  if (v32)
+  v72 = 0;
+  v13 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TTLSInnerAuthentication" isRequired:0 outError:&v72];
+  v31 = v72;
+  if (v31)
   {
-    v10 = v32;
+    v10 = v31;
     v11 = 0;
     goto LABEL_5;
   }
@@ -157,21 +133,21 @@ LABEL_11:
   if (!v13)
   {
 LABEL_38:
-    v72 = 0;
-    v15 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMinimumVersion" isRequired:0 outError:&v72];
-    v39 = v72;
-    if (v39)
+    v71 = 0;
+    v15 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMinimumVersion" isRequired:0 outError:&v71];
+    v38 = v71;
+    if (v38)
     {
-      v10 = v39;
+      v10 = v38;
       v11 = 0;
       v14 = 0;
       goto LABEL_6;
     }
 
-    v71 = 0;
-    v16 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMaximumVersion" isRequired:0 outError:&v71];
-    v40 = v71;
-    if (v40)
+    v70 = 0;
+    v16 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"TLSMaximumVersion" isRequired:0 outError:&v70];
+    v39 = v70;
+    if (v39)
     {
       goto LABEL_56;
     }
@@ -181,15 +157,15 @@ LABEL_38:
       goto LABEL_52;
     }
 
-    v91[0] = @"1.0";
-    v91[1] = @"1.1";
-    v91[2] = @"1.2";
-    v91[3] = @"1.3";
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:4];
-    v58 = [MEMORY[0x1E695DFD8] setWithArray:?];
-    if (v15 && ([v58 containsObject:v15] & 1) == 0)
+    v90[0] = @"1.0";
+    v90[1] = @"1.1";
+    v90[2] = @"1.2";
+    v90[3] = @"1.3";
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:4];
+    v57 = [MEMORY[0x1E695DFD8] setWithArray:?];
+    if (v15 && ([v57 containsObject:v15] & 1) == 0)
     {
-      v47 = @"TLSMinimumVersion";
+      v46 = @"TLSMinimumVersion";
     }
 
     else
@@ -199,110 +175,102 @@ LABEL_38:
 LABEL_51:
 
 LABEL_52:
-        v70 = 0;
-        v43 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"OuterIdentity" isRequired:0 outError:&v70];
-        v40 = v70;
-        if (v40)
-        {
-          goto LABEL_56;
-        }
-
         v69 = 0;
-        v44 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTUsePAC" isRequired:0 outError:&v69];
-        v40 = v69;
-        if (v40 || (v68 = 0, v45 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTProvisionPAC" isRequired:0 outError:&v68], (v40 = v68) != 0) || (v67 = 0, v46 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EAPFASTProvisionPACAnonymously", 0, &v67), (v40 = v67) != 0))
+        v42 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"OuterIdentity" isRequired:0 outError:&v69];
+        v39 = v69;
+        if (v39 || (v68 = 0, v43 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPFASTUsePAC" isRequired:0 outError:&v68], (v39 = v68) != 0) || (v67 = 0, v44 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EAPFASTProvisionPAC", 0, &v67), (v39 = v67) != 0) || (v66 = 0, v45 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"EAPFASTProvisionPACAnonymously", 0, &v66), (v39 = v66) != 0))
         {
 LABEL_56:
-          v10 = v40;
+          v10 = v39;
           v11 = 0;
           v14 = 0;
           goto LABEL_7;
         }
 
-        v66 = 0;
-        v14 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMNumberOfRANDs" isRequired:0 outError:&v66];
-        v48 = v66;
-        if (!v48)
+        v65 = 0;
+        v14 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMNumberOfRANDs" isRequired:0 outError:&v65];
+        v47 = v65;
+        if (!v47)
         {
           if (!v14 || [v14 intValue] == 2 || objc_msgSend(v14, "intValue") == 3)
           {
-            v65 = 0;
-            v49 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OneTimeUserPassword" isRequired:0 outError:&v65];
-            v48 = v65;
-            if (v48)
-            {
-              goto LABEL_71;
-            }
-
             v64 = 0;
-            v50 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAConservativePeer" isRequired:0 outError:&v64];
-            v48 = v64;
-            if (v48)
+            v48 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OneTimeUserPassword" isRequired:0 outError:&v64];
+            v47 = v64;
+            if (v47)
             {
               goto LABEL_71;
             }
 
             v63 = 0;
-            v51 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAPseudonymIdentityLifetimeHours" isRequired:0 outError:&v63];
-            v48 = v63;
-            if (v48)
+            v49 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAConservativePeer" isRequired:0 outError:&v63];
+            v47 = v63;
+            if (v47)
             {
               goto LABEL_71;
             }
 
             v62 = 0;
-            v52 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAEncryptedIdentityEnabled" isRequired:0 outError:&v62];
-            v48 = v62;
-            if (v48)
+            v50 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAPseudonymIdentityLifetimeHours" isRequired:0 outError:&v62];
+            v47 = v62;
+            if (v47)
             {
               goto LABEL_71;
             }
 
             v61 = 0;
-            v53 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKARealm" isRequired:0 outError:&v61];
-            v48 = v61;
-            if (v48)
+            v51 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKAEncryptedIdentityEnabled" isRequired:0 outError:&v61];
+            v47 = v61;
+            if (v47)
             {
               goto LABEL_71;
             }
 
             v60 = 0;
-            v54 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"ExtensibleSSOProvider" isRequired:0 outError:&v60];
-            v48 = v60;
-            if (v48)
+            v52 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPSIMAKARealm" isRequired:0 outError:&v60];
+            v47 = v60;
+            if (v47)
             {
               goto LABEL_71;
             }
 
             v59 = 0;
-            v56 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"EAPSIMAKANotificationActions" isRequired:0 outError:&v59];
-            v55 = v59;
+            v53 = [v6 MCValidateAndRemoveNonZeroLengthStringWithKey:@"ExtensibleSSOProvider" isRequired:0 outError:&v59];
+            v47 = v59;
+            if (v47)
+            {
+              goto LABEL_71;
+            }
+
+            v58 = 0;
+            v55 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"EAPSIMAKANotificationActions" isRequired:0 outError:&v58];
+            v54 = v58;
           }
 
           else
           {
-            v55 = [MCPayload badFieldValueErrorWithField:@"EAPSIMNumberOfRANDs"];
+            v54 = [MCPayload badFieldValueErrorWithField:@"EAPSIMNumberOfRANDs"];
           }
 
-          v10 = v55;
+          v10 = v54;
           goto LABEL_29;
         }
 
 LABEL_71:
-        v10 = v48;
+        v10 = v47;
         goto LABEL_30;
       }
 
-      if ([v58 containsObject:v16])
+      if ([v57 containsObject:v16])
       {
         if (v15)
         {
-          v57 = [v41 indexOfObject:v15];
-          if (v57 > [v41 indexOfObject:v16])
+          v56 = [v40 indexOfObject:v15];
+          if (v56 > [v40 indexOfObject:v16])
           {
-            v42 = [MCPayload conflictingFieldValueErrorWithUnderlyingError:0, @"TLSMinimumVersion", @"TLSMaximumVersion", v15, v16, 0];
+            v41 = [MCPayload conflictingFieldValueErrorWithUnderlyingError:0, @"TLSMinimumVersion", @"TLSMaximumVersion", v15, v16, 0];
 LABEL_60:
-            v10 = v42;
+            v10 = v41;
 
             goto LABEL_41;
           }
@@ -311,23 +279,23 @@ LABEL_60:
         goto LABEL_51;
       }
 
-      v47 = @"TLSMaximumVersion";
+      v46 = @"TLSMaximumVersion";
     }
 
-    v42 = [MCPayload badFieldValueErrorWithField:v47];
+    v41 = [MCPayload badFieldValueErrorWithField:v46];
     goto LABEL_60;
   }
 
-  v36 = MEMORY[0x1E695DFD8];
-  v92[0] = @"PAP";
-  v92[1] = @"CHAP";
-  v92[2] = @"MSCHAP";
-  v92[3] = @"MSCHAPv2";
-  v92[4] = @"EAP";
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:5];
-  v38 = [v36 setWithArray:v37];
+  v35 = MEMORY[0x1E695DFD8];
+  v91[0] = @"PAP";
+  v91[1] = @"CHAP";
+  v91[2] = @"MSCHAP";
+  v91[3] = @"MSCHAPv2";
+  v91[4] = @"EAP";
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:5];
+  v37 = [v35 setWithArray:v36];
 
-  if ([v38 containsObject:v13])
+  if ([v37 containsObject:v13])
   {
 
     goto LABEL_38;
@@ -349,16 +317,16 @@ LABEL_30:
 
   if ([v6 count])
   {
-    v33 = _MCLogObjects;
+    v32 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = v33;
+      v33 = v32;
       friendlyName = [(MCPayload *)self friendlyName];
       *buf = 138543618;
-      v88 = friendlyName;
-      v89 = 2114;
-      v90 = v6;
-      _os_log_impl(&dword_1A795B000, v34, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in EAP Configuration. They are: %{public}@", buf, 0x16u);
+      v87 = friendlyName;
+      v88 = 2114;
+      v89 = v6;
+      _os_log_impl(&dword_1A795B000, v33, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in EAP Configuration. They are: %{public}@", buf, 0x16u);
     }
   }
 
@@ -371,36 +339,18 @@ LABEL_7:
     *error = v10;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)_qosMarkingConfigIsValid:(id)valid error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = [valid mutableCopy];
-  v25 = 0;
-  v7 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"QoSMarkingWhitelistedAppIdentifiers" isRequired:0 allowZeroLengthString:0 outError:&v25];
-  v8 = v25;
-  if (v8)
-  {
-    goto LABEL_6;
-  }
-
   v24 = 0;
-  v9 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"QoSMarkingAllowListAppIdentifiers" isRequired:0 allowZeroLengthString:0 outError:&v24];
+  v7 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"QoSMarkingWhitelistedAppIdentifiers" isRequired:0 allowZeroLengthString:0 outError:&v24];
   v8 = v24;
-  if (v8)
+  if (v8 || (v23 = 0, v9 = [v6 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"QoSMarkingAllowListAppIdentifiers" isRequired:0 allowZeroLengthString:0 outError:&v23], (v8 = v23) != 0) || (v22 = 0, v10 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"QoSMarkingAppleAudioVideoCalls", 0, &v22), (v8 = v22) != 0) || (v21 = 0, v11 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"QoSMarkingEnabled", 0, &v21), (v8 = v21) != 0) || (v20 = 0, v12 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"QoSMarkingURL", 0, &v20), (v8 = v20) != 0))
   {
-    goto LABEL_6;
-  }
-
-  v23 = 0;
-  v10 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"QoSMarkingAppleAudioVideoCalls" isRequired:0 outError:&v23];
-  v8 = v23;
-  if (v8 || (v22 = 0, v11 = [v6 MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"QoSMarkingEnabled" isRequired:0 outError:&v22], (v8 = v22) != 0) || (v21 = 0, v12 = objc_msgSend(v6, "MCValidateAndRemoveObjectOfClass:withKey:isRequired:outError:", objc_opt_class(), @"QoSMarkingURL", 0, &v21), (v8 = v21) != 0))
-  {
-LABEL_6:
     v13 = v8;
     v14 = 0;
     if (error)
@@ -415,16 +365,16 @@ LABEL_7:
   {
     if ([v6 count])
     {
-      v18 = _MCLogObjects;
+      v17 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = v18;
+        v18 = v17;
         friendlyName = [(MCPayload *)self friendlyName];
         *buf = 138543618;
-        v27 = friendlyName;
-        v28 = 2114;
-        v29 = v6;
-        _os_log_impl(&dword_1A795B000, v19, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in QoS Marking Configuration. They are: %{public}@", buf, 0x16u);
+        v26 = friendlyName;
+        v27 = 2114;
+        v28 = v6;
+        _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_DEFAULT, "Payload “%{public}@” contains unexpected fields in QoS Marking Configuration. They are: %{public}@", buf, 0x16u);
       }
     }
 
@@ -436,7 +386,6 @@ LABEL_7:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -562,20 +511,20 @@ LABEL_9:
 
 - (MCWiFiPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v176 = *MEMORY[0x1E69E9840];
+  v175 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v170.receiver = self;
-  v170.super_class = MCWiFiPayload;
-  v10 = [(MCPayload *)&v170 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v169.receiver = self;
+  v169.super_class = MCWiFiPayload;
+  v10 = [(MCPayload *)&v169 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_25;
   }
 
-  v169 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsHotspot" isRequired:0 outError:&v169];
-  qosMarkingConfig = v169;
+  v168 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"IsHotspot" isRequired:0 outError:&v168];
+  qosMarkingConfig = v168;
   isHotspotNum = v10->_isHotspotNum;
   v10->_isHotspotNum = v11;
 
@@ -585,9 +534,9 @@ LABEL_9:
   }
 
   v10->_isHotspot = [(NSNumber *)v10->_isHotspotNum BOOLValue];
-  v168 = 0;
-  v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ServiceProviderRoamingEnabled" isRequired:0 outError:&v168];
-  qosMarkingConfig = v168;
+  v167 = 0;
+  v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ServiceProviderRoamingEnabled" isRequired:0 outError:&v167];
+  qosMarkingConfig = v167;
   serviceProviderRoamingEnabledNum = v10->_serviceProviderRoamingEnabledNum;
   v10->_serviceProviderRoamingEnabledNum = v14;
 
@@ -597,9 +546,9 @@ LABEL_9:
   }
 
   v10->_serviceProviderRoamingEnabled = [(NSNumber *)v10->_serviceProviderRoamingEnabledNum BOOLValue];
-  v167 = 0;
-  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyPACFallbackAllowed" isRequired:0 outError:&v167];
-  qosMarkingConfig = v167;
+  v166 = 0;
+  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyPACFallbackAllowed" isRequired:0 outError:&v166];
+  qosMarkingConfig = v166;
   proxyPACFallbackAllowedNum = v10->_proxyPACFallbackAllowedNum;
   v10->_proxyPACFallbackAllowedNum = v16;
 
@@ -609,9 +558,9 @@ LABEL_9:
   }
 
   v10->_proxyPACFallbackAllowed = [(NSNumber *)v10->_proxyPACFallbackAllowedNum BOOLValue];
-  v166 = 0;
-  v18 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DomainName" isRequired:0 outError:&v166];
-  qosMarkingConfig = v166;
+  v165 = 0;
+  v18 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DomainName" isRequired:0 outError:&v165];
+  qosMarkingConfig = v165;
   domainName = v10->_domainName;
   v10->_domainName = v18;
 
@@ -620,9 +569,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v165 = 0;
-  v20 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"HESSID" isRequired:0 outError:&v165];
-  qosMarkingConfig = v165;
+  v164 = 0;
+  v20 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"HESSID" isRequired:0 outError:&v164];
+  qosMarkingConfig = v164;
   HESSID = v10->_HESSID;
   v10->_HESSID = v20;
 
@@ -631,9 +580,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v164 = 0;
-  v22 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"RoamingConsortiumOIs" isRequired:0 outError:&v164];
-  qosMarkingConfig = v164;
+  v163 = 0;
+  v22 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"RoamingConsortiumOIs" isRequired:0 outError:&v163];
+  qosMarkingConfig = v163;
   roamingConsortiumOIs = v10->_roamingConsortiumOIs;
   v10->_roamingConsortiumOIs = v22;
 
@@ -642,9 +591,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v163 = 0;
-  v24 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"NAIRealmNames" isRequired:0 outError:&v163];
-  qosMarkingConfig = v163;
+  v162 = 0;
+  v24 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"NAIRealmNames" isRequired:0 outError:&v162];
+  qosMarkingConfig = v162;
   NAIRealmNames = v10->_NAIRealmNames;
   v10->_NAIRealmNames = v24;
 
@@ -653,9 +602,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v162 = 0;
-  v26 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MCCAndMNCs" isRequired:0 outError:&v162];
-  qosMarkingConfig = v162;
+  v161 = 0;
+  v26 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MCCAndMNCs" isRequired:0 outError:&v161];
+  qosMarkingConfig = v161;
   MCCAndMNCs = v10->_MCCAndMNCs;
   v10->_MCCAndMNCs = v26;
 
@@ -664,9 +613,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v161 = 0;
-  v28 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayedOperatorName" isRequired:0 outError:&v161];
-  qosMarkingConfig = v161;
+  v160 = 0;
+  v28 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayedOperatorName" isRequired:0 outError:&v160];
+  qosMarkingConfig = v160;
   displayedOperatorName = v10->_displayedOperatorName;
   v10->_displayedOperatorName = v28;
 
@@ -675,9 +624,9 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v160 = 0;
-  v30 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"HIDDEN_NETWORK" isRequired:0 outError:&v160];
-  qosMarkingConfig = v160;
+  v159 = 0;
+  v30 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"HIDDEN_NETWORK" isRequired:0 outError:&v159];
+  qosMarkingConfig = v159;
   isHiddenNum = v10->_isHiddenNum;
   v10->_isHiddenNum = v30;
 
@@ -687,9 +636,9 @@ LABEL_9:
   }
 
   v10->_isHidden = [(NSNumber *)v10->_isHiddenNum BOOLValue];
-  v159 = 0;
-  v32 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SSID_STR" isRequired:0 outError:&v159];
-  v33 = v159;
+  v158 = 0;
+  v32 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SSID_STR" isRequired:0 outError:&v158];
+  v33 = v158;
   ssid = v10->_ssid;
   v10->_ssid = v32;
 
@@ -698,9 +647,9 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v158 = 0;
-  v35 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EncryptionType" isRequired:0 outError:&v158];
-  v33 = v158;
+  v157 = 0;
+  v35 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EncryptionType" isRequired:0 outError:&v157];
+  v33 = v157;
   encryptionType = v10->_encryptionType;
   v10->_encryptionType = v35;
 
@@ -717,11 +666,11 @@ LABEL_9:
 
   if ([profileCopy isStub])
   {
-    v157 = 0;
-    v50 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"CredentialUUID" isRequired:0 outError:&v157];
-    v33 = v157;
+    v156 = 0;
+    v49 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"CredentialUUID" isRequired:0 outError:&v156];
+    v33 = v156;
     credentialUUID = v10->_credentialUUID;
-    v10->_credentialUUID = v50;
+    v10->_credentialUUID = v49;
 
     if (v33)
     {
@@ -744,9 +693,9 @@ LABEL_15:
         v43 = v42;
         mCVerboseDescription = [v38 MCVerboseDescription];
         *buf = 138543618;
-        v172 = v42;
-        v173 = 2114;
-        v174 = mCVerboseDescription;
+        v171 = v42;
+        v172 = 2114;
+        v173 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v41, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -754,19 +703,19 @@ LABEL_15:
       goto LABEL_20;
     }
 
-    v156 = 0;
-    v128 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyType" isRequired:0 outError:&v156];
-    v52 = v156;
-    if (!v52)
+    v155 = 0;
+    v127 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyType" isRequired:0 outError:&v155];
+    v51 = v155;
+    if (!v51)
     {
-      intValue = [v128 intValue];
+      intValue = [v127 intValue];
       v10->_proxyType = intValue;
       if (intValue == 1)
       {
-        v151 = 0;
-        v61 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v151];
-        v55 = v151;
-        v62 = 216;
+        v150 = 0;
+        v60 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v150];
+        v54 = v150;
+        v61 = 216;
       }
 
       else
@@ -776,60 +725,60 @@ LABEL_15:
           goto LABEL_65;
         }
 
-        v155 = 0;
-        v54 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:0 outError:&v155];
-        v55 = v155;
-        proxyServer = v10->_proxyServer;
-        v10->_proxyServer = v54;
-
-        if (v55)
-        {
-          goto LABEL_95;
-        }
-
         v154 = 0;
-        v57 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v154];
-        v55 = v154;
-        proxyServerPort = v10->_proxyServerPort;
-        v10->_proxyServerPort = v57;
+        v53 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:0 outError:&v154];
+        v54 = v154;
+        proxyServer = v10->_proxyServer;
+        v10->_proxyServer = v53;
 
-        if (v55)
+        if (v54)
         {
           goto LABEL_95;
         }
 
         v153 = 0;
-        v59 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v153];
-        v55 = v153;
-        proxyUsername = v10->_proxyUsername;
-        v10->_proxyUsername = v59;
+        v56 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v153];
+        v54 = v153;
+        proxyServerPort = v10->_proxyServerPort;
+        v10->_proxyServerPort = v56;
 
-        if (v55)
+        if (v54)
         {
           goto LABEL_95;
         }
 
         v152 = 0;
-        v61 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v152];
-        v55 = v152;
-        v62 = 208;
+        v58 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v152];
+        v54 = v152;
+        proxyUsername = v10->_proxyUsername;
+        v10->_proxyUsername = v58;
+
+        if (v54)
+        {
+          goto LABEL_95;
+        }
+
+        v151 = 0;
+        v60 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v151];
+        v54 = v151;
+        v61 = 208;
       }
 
-      v78 = *(&v10->super.super.isa + v62);
-      *(&v10->super.super.isa + v62) = v61;
+      v77 = *(&v10->super.super.isa + v61);
+      *(&v10->super.super.isa + v61) = v60;
 
-      if (!v55)
+      if (!v54)
       {
         goto LABEL_65;
       }
 
 LABEL_95:
-      qosMarkingConfig = v55;
+      qosMarkingConfig = v54;
       goto LABEL_46;
     }
 
 LABEL_45:
-    qosMarkingConfig = v52;
+    qosMarkingConfig = v51;
 LABEL_46:
 
     goto LABEL_15;
@@ -837,78 +786,78 @@ LABEL_46:
 
   if ([(NSString *)v10->_encryptionType isEqualToString:@"Any"])
   {
-    v63 = 1;
+    v62 = 1;
   }
 
   else
   {
-    v63 = [(NSString *)v10->_encryptionType isEqualToString:@"WEP"];
+    v62 = [(NSString *)v10->_encryptionType isEqualToString:@"WEP"];
   }
 
-  v10->_isWEP = v63;
+  v10->_isWEP = v62;
   if ([(NSString *)v10->_encryptionType isEqualToString:@"Any"]|| [(NSString *)v10->_encryptionType isEqualToString:@"WPA"]|| [(NSString *)v10->_encryptionType isEqualToString:@"WPA2"])
   {
     v10->_isWPA = 1;
     goto LABEL_44;
   }
 
-  v76 = [(NSString *)v10->_encryptionType isEqualToString:@"WPA3"];
-  v10->_isWPA = v76;
-  if (v10->_isWEP || v76)
+  v75 = [(NSString *)v10->_encryptionType isEqualToString:@"WPA3"];
+  v10->_isWPA = v75;
+  if (v10->_isWEP || v75)
   {
 LABEL_44:
-    v150 = 0;
-    v128 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPClientConfiguration" isRequired:0 outError:&v150];
-    v52 = v150;
-    if (v52)
+    v149 = 0;
+    v127 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"EAPClientConfiguration" isRequired:0 outError:&v149];
+    v51 = v149;
+    if (v51)
     {
       goto LABEL_45;
     }
 
-    if (v128)
+    if (v127)
     {
-      v149 = 0;
-      v64 = [(MCWiFiPayload *)v10 _eapConfigIsValid:v128 error:&v149];
-      v65 = v149;
-      if (v64)
+      v148 = 0;
+      v63 = [(MCWiFiPayload *)v10 _eapConfigIsValid:v127 error:&v148];
+      v64 = v148;
+      if (v63)
       {
-        v66 = [(MCWiFiPayload *)v10 _eapUsernameFromConfig:v128 isRequired:&v10->_usernameRequired];
+        v65 = [(MCWiFiPayload *)v10 _eapUsernameFromConfig:v127 isRequired:&v10->_usernameRequired];
         username = v10->_username;
-        v10->_username = v66;
+        v10->_username = v65;
 
-        v68 = [(MCWiFiPayload *)v10 _eapPasswordFromConfig:v128 isRequired:&v10->_passwordRequired];
+        v67 = [(MCWiFiPayload *)v10 _eapPasswordFromConfig:v127 isRequired:&v10->_passwordRequired];
         password = v10->_password;
-        v10->_password = v68;
+        v10->_password = v67;
 
-        v148 = v65;
-        v126 = [v128 mutableCopy];
-        v70 = [v126 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v148];
-        v71 = v148;
+        v147 = v64;
+        v125 = [v127 mutableCopy];
+        v69 = [v125 MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"PayloadCertificateAnchorUUID" isRequired:0 outError:&v147];
+        v70 = v147;
 
         payloadCertificateAnchorUUID = v10->_payloadCertificateAnchorUUID;
-        v10->_payloadCertificateAnchorUUID = v70;
+        v10->_payloadCertificateAnchorUUID = v69;
 
-        if (v71)
+        if (v70)
         {
-          qosMarkingConfig = v71;
+          qosMarkingConfig = v70;
 LABEL_70:
 
           goto LABEL_46;
         }
 
-        v147 = 0;
-        v83 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v147];
-        v84 = v147;
+        v146 = 0;
+        v82 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"PayloadCertificateUUID" isRequired:0 outError:&v146];
+        v83 = v146;
         certificateUUID = v10->_certificateUUID;
-        v10->_certificateUUID = v83;
+        v10->_certificateUUID = v82;
 
-        if (v84)
+        if (v83)
         {
-          qosMarkingConfig = v84;
+          qosMarkingConfig = v83;
           goto LABEL_70;
         }
 
-        [(MCWiFiPayload *)v10 setEapClientConfig:v126];
+        [(MCWiFiPayload *)v10 setEapClientConfig:v125];
 
         goto LABEL_58;
       }
@@ -916,19 +865,19 @@ LABEL_70:
 
     else
     {
-      v65 = 0;
+      v64 = 0;
     }
 
-    v146 = v65;
-    v73 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Password" isRequired:0 outError:&v146];
-    v74 = v146;
+    v145 = v64;
+    v72 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"Password" isRequired:0 outError:&v145];
+    v73 = v145;
 
-    v75 = v10->_password;
-    v10->_password = v73;
+    v74 = v10->_password;
+    v10->_password = v72;
 
-    if (v74)
+    if (v73)
     {
-      qosMarkingConfig = v74;
+      qosMarkingConfig = v73;
       goto LABEL_46;
     }
 
@@ -936,38 +885,38 @@ LABEL_70:
 LABEL_58:
   }
 
-  v145 = 0;
-  v128 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyType" isRequired:0 outError:&v145];
-  v52 = v145;
-  if (v52)
+  v144 = 0;
+  v127 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyType" isRequired:0 outError:&v144];
+  v51 = v144;
+  if (v51)
   {
     goto LABEL_45;
   }
 
-  if (v128)
+  if (v127)
   {
-    if ([v128 isEqualToString:@"None"])
+    if ([v127 isEqualToString:@"None"])
     {
-      v77 = 0;
+      v76 = 0;
 LABEL_86:
-      [(MCWiFiPayload *)v10 setProxyType:v77];
+      [(MCWiFiPayload *)v10 setProxyType:v76];
       goto LABEL_87;
     }
 
-    if ([v128 isEqualToString:@"Manual"])
+    if ([v127 isEqualToString:@"Manual"])
     {
-      v77 = 2;
+      v76 = 2;
       goto LABEL_86;
     }
 
-    if ([v128 isEqualToString:@"Auto"])
+    if ([v127 isEqualToString:@"Auto"])
     {
-      v77 = 1;
+      v76 = 1;
       goto LABEL_86;
     }
 
-    v52 = [MCPayload badFieldValueErrorWithField:@"ProxyType"];
-    if (v52)
+    v51 = [MCPayload badFieldValueErrorWithField:@"ProxyType"];
+    if (v51)
     {
       goto LABEL_45;
     }
@@ -976,43 +925,43 @@ LABEL_86:
 LABEL_87:
   if ([(MCWiFiPayload *)v10 proxyType]== 2)
   {
-    v144 = 0;
-    v93 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:1 outError:&v144];
-    v55 = v144;
-    v94 = v10->_proxyServer;
-    v10->_proxyServer = v93;
-
-    if (v55)
-    {
-      goto LABEL_95;
-    }
-
     v143 = 0;
-    v95 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v143];
-    v55 = v143;
-    v96 = v10->_proxyServerPort;
-    v10->_proxyServerPort = v95;
+    v92 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:1 outError:&v143];
+    v54 = v143;
+    v93 = v10->_proxyServer;
+    v10->_proxyServer = v92;
 
-    if (v55)
+    if (v54)
     {
       goto LABEL_95;
     }
 
     v142 = 0;
-    v97 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v142];
-    v55 = v142;
-    v98 = v10->_proxyUsername;
-    v10->_proxyUsername = v97;
+    v94 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v142];
+    v54 = v142;
+    v95 = v10->_proxyServerPort;
+    v10->_proxyServerPort = v94;
 
-    if (v55)
+    if (v54)
     {
       goto LABEL_95;
     }
 
     v141 = 0;
-    v99 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v141];
-    v55 = v141;
-    v100 = 208;
+    v96 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v141];
+    v54 = v141;
+    v97 = v10->_proxyUsername;
+    v10->_proxyUsername = v96;
+
+    if (v54)
+    {
+      goto LABEL_95;
+    }
+
+    v140 = 0;
+    v98 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v140];
+    v54 = v140;
+    v99 = 208;
   }
 
   else
@@ -1022,25 +971,25 @@ LABEL_87:
       goto LABEL_96;
     }
 
-    v140 = 0;
-    v99 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v140];
-    v55 = v140;
-    v100 = 216;
+    v139 = 0;
+    v98 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v139];
+    v54 = v139;
+    v99 = 216;
   }
 
-  v101 = *(&v10->super.super.isa + v100);
-  *(&v10->super.super.isa + v100) = v99;
+  v100 = *(&v10->super.super.isa + v99);
+  *(&v10->super.super.isa + v99) = v98;
 
-  if (v55)
+  if (v54)
   {
     goto LABEL_95;
   }
 
 LABEL_96:
   ssid = [(MCWiFiPayload *)v10 ssid];
-  v103 = [ssid length];
+  v102 = [ssid length];
 
-  if (v103)
+  if (v102)
   {
 LABEL_97:
     qosMarkingConfig = 0;
@@ -1050,16 +999,16 @@ LABEL_97:
   if ([(MCWiFiPayload *)v10 isHotspot])
   {
     domainName = [(MCWiFiPayload *)v10 domainName];
-    v105 = [domainName length];
+    v104 = [domainName length];
 
-    if (v105)
+    if (v104)
     {
-      v106 = MEMORY[0x1E696AEC0];
+      v105 = MEMORY[0x1E696AEC0];
       domainName2 = [(MCWiFiPayload *)v10 domainName];
       mCMakeUUID = [MEMORY[0x1E696AEC0] MCMakeUUID];
-      v108 = [v106 stringWithFormat:@"%@-%@", domainName2, mCMakeUUID];
-      v110 = v10->_ssid;
-      v10->_ssid = v108;
+      v107 = [v105 stringWithFormat:@"%@-%@", domainName2, mCMakeUUID];
+      v109 = v10->_ssid;
+      v10->_ssid = v107;
 
       goto LABEL_97;
     }
@@ -1068,9 +1017,9 @@ LABEL_97:
   qosMarkingConfig = [MCPayload badFieldTypeErrorWithField:@"SSID_STR"];
 LABEL_102:
   roamingConsortiumOIs = [(MCWiFiPayload *)v10 roamingConsortiumOIs];
-  v112 = [roamingConsortiumOIs count];
+  v111 = [roamingConsortiumOIs count];
 
-  if (!v112)
+  if (!v111)
   {
     [(MCWiFiPayload *)v10 setRoamingConsortiumOIs:0];
   }
@@ -1081,62 +1030,62 @@ LABEL_102:
   }
 
   nAIRealmNames = [(MCWiFiPayload *)v10 NAIRealmNames];
-  v114 = [nAIRealmNames count];
+  v113 = [nAIRealmNames count];
 
-  if (!v114)
+  if (!v113)
   {
     [(MCWiFiPayload *)v10 setNAIRealmNames:0];
   }
 
   mCCAndMNCs = [(MCWiFiPayload *)v10 MCCAndMNCs];
-  v116 = [mCCAndMNCs count];
+  v115 = [mCCAndMNCs count];
 
-  if (v116)
+  if (v115)
   {
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
     v137 = 0u;
+    v138 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     obj = [(MCWiFiPayload *)v10 MCCAndMNCs];
-    v123 = [obj countByEnumeratingWithState:&v136 objects:v175 count:16];
-    if (v123)
+    v122 = [obj countByEnumeratingWithState:&v135 objects:v174 count:16];
+    if (v122)
     {
-      v124 = *v137;
+      v123 = *v136;
       while (1)
       {
-        v127 = 0;
+        v126 = 0;
 LABEL_111:
-        if (*v137 != v124)
+        if (*v136 != v123)
         {
           objc_enumerationMutation(obj);
         }
 
-        v117 = *(*(&v136 + 1) + 8 * v127);
+        v116 = *(*(&v135 + 1) + 8 * v126);
         objc_opt_class();
-        v118 = v117;
-        if ((objc_opt_isKindOfClass() & 1) == 0 || [v117 length] != 6)
+        v117 = v116;
+        if ((objc_opt_isKindOfClass() & 1) == 0 || [v116 length] != 6)
         {
           break;
         }
 
-        v129 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"0123456789"];
+        v128 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"0123456789"];
         for (i = 0; i != 6; ++i)
         {
-          v120 = [v118 characterAtIndex:i];
-          v121 = [v129 characterIsMember:v120];
+          v119 = [v117 characterAtIndex:i];
+          v120 = [v128 characterIsMember:v119];
           if (i == 3)
           {
-            if (v120 == 70)
+            if (v119 == 70)
             {
-              v122 = 1;
+              v121 = 1;
             }
 
             else
             {
-              v122 = v121;
+              v121 = v120;
             }
 
-            if ((v122 & 1) == 0)
+            if ((v121 & 1) == 0)
             {
 LABEL_130:
 
@@ -1144,28 +1093,28 @@ LABEL_130:
             }
           }
 
-          else if ((v121 & 1) == 0)
+          else if ((v120 & 1) == 0)
           {
             goto LABEL_130;
           }
         }
 
-        if (++v127 != v123)
+        if (++v126 != v122)
         {
           goto LABEL_111;
         }
 
-        v123 = [obj countByEnumeratingWithState:&v136 objects:v175 count:16];
-        if (!v123)
+        v122 = [obj countByEnumeratingWithState:&v135 objects:v174 count:16];
+        if (!v122)
         {
           goto LABEL_126;
         }
       }
 
 LABEL_131:
-      v55 = [MCPayload badFieldTypeErrorWithField:@"MCCAndMNCs"];
+      v54 = [MCPayload badFieldTypeErrorWithField:@"MCCAndMNCs"];
 
-      if (v55)
+      if (v54)
       {
         goto LABEL_95;
       }
@@ -1184,76 +1133,76 @@ LABEL_126:
 
 LABEL_65:
 
-  v135 = 0;
-  v79 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AutoJoin" isRequired:0 outError:&v135];
-  v33 = v135;
-  autoJoinNum = v10->_autoJoinNum;
-  v10->_autoJoinNum = v79;
-
-  if (v33)
-  {
-    goto LABEL_14;
-  }
-
-  v81 = v10->_autoJoinNum;
-  v82 = !v81 || [(NSNumber *)v81 BOOLValue];
-  v10->_autoJoin = v82;
   v134 = 0;
-  v86 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FirstAutoJoinRestricted" isRequired:0 outError:&v134];
+  v78 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AutoJoin" isRequired:0 outError:&v134];
   v33 = v134;
-  isFirstAutoJoinRestricted = v10->_isFirstAutoJoinRestricted;
-  v10->_isFirstAutoJoinRestricted = v86;
+  autoJoinNum = v10->_autoJoinNum;
+  v10->_autoJoinNum = v78;
 
   if (v33)
   {
     goto LABEL_14;
   }
 
+  v80 = v10->_autoJoinNum;
+  v81 = !v80 || [(NSNumber *)v80 BOOLValue];
+  v10->_autoJoin = v81;
   v133 = 0;
-  v88 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CaptiveBypass" isRequired:0 outError:&v133];
+  v85 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"FirstAutoJoinRestricted" isRequired:0 outError:&v133];
   v33 = v133;
-  captiveBypassNum = v10->_captiveBypassNum;
-  v10->_captiveBypassNum = v88;
+  isFirstAutoJoinRestricted = v10->_isFirstAutoJoinRestricted;
+  v10->_isFirstAutoJoinRestricted = v85;
 
   if (v33)
   {
     goto LABEL_14;
   }
 
-  v90 = v10->_captiveBypassNum;
-  if (v90)
-  {
-    LOBYTE(v90) = [(NSNumber *)v90 BOOLValue];
-  }
-
-  v10->_captiveBypass = v90;
   v132 = 0;
-  v91 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DisableAssociationMACRandomization" isRequired:0 outError:&v132];
+  v87 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"CaptiveBypass" isRequired:0 outError:&v132];
   v33 = v132;
-  disableAssociationMACRandomization = v10->_disableAssociationMACRandomization;
-  v10->_disableAssociationMACRandomization = v91;
+  captiveBypassNum = v10->_captiveBypassNum;
+  v10->_captiveBypassNum = v87;
 
   if (v33)
   {
     goto LABEL_14;
   }
 
+  v89 = v10->_captiveBypassNum;
+  if (v89)
+  {
+    LOBYTE(v89) = [(NSNumber *)v89 BOOLValue];
+  }
+
+  v10->_captiveBypass = v89;
   v131 = 0;
-  v128 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"QoSMarkingPolicy" isRequired:0 outError:&v131];
-  v52 = v131;
-  if (v52)
+  v90 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"DisableAssociationMACRandomization" isRequired:0 outError:&v131];
+  v33 = v131;
+  disableAssociationMACRandomization = v10->_disableAssociationMACRandomization;
+  v10->_disableAssociationMACRandomization = v90;
+
+  if (v33)
+  {
+    goto LABEL_14;
+  }
+
+  v130 = 0;
+  v127 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"QoSMarkingPolicy" isRequired:0 outError:&v130];
+  v51 = v130;
+  if (v51)
   {
     goto LABEL_45;
   }
 
-  if (v128)
+  if (v127)
   {
-    v130 = 0;
-    [(MCWiFiPayload *)v10 _qosMarkingConfigIsValid:v128 error:&v130];
-    v52 = v130;
-    if (!v52)
+    v129 = 0;
+    [(MCWiFiPayload *)v10 _qosMarkingConfigIsValid:v127 error:&v129];
+    v51 = v129;
+    if (!v51)
     {
-      v38 = [(MCWiFiPayload *)v10 _createDictionaryWithAllowListKeyMigrated:v128];
+      v38 = [(MCWiFiPayload *)v10 _createDictionaryWithAllowListKeyMigrated:v127];
 
       goto LABEL_134;
     }
@@ -1298,15 +1247,14 @@ LABEL_21:
       v46 = v45;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v172 = friendlyName;
-      v173 = 2114;
-      v174 = dictionaryCopy;
+      v171 = friendlyName;
+      v172 = 2114;
+      v173 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v46, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_25:
-  v48 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2098,7 +2046,7 @@ LABEL_8:
 
 - (id)installationWarnings
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   if ([(MCWiFiPayload *)self proxyType])
   {
     v3 = +[MCHacks sharedHacks];
@@ -2180,16 +2128,14 @@ LABEL_19:
     v17 = MCLocalizedString(v16);
 
     v18 = [MCProfileWarning warningWithLocalizedTitle:v17 localizedBody:v14 isLongForm:1];
-    v22[0] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   }
 
   else
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -2247,7 +2193,7 @@ LABEL_11:
 
 - (id)filterForUserEnrollmentOutError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v5 = array;
   if (self->_proxyType)
@@ -2311,15 +2257,14 @@ LABEL_11:
     {
       v13 = v12;
       friendlyName = [(MCPayload *)self friendlyName];
-      v17 = 138543618;
-      v18 = friendlyName;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_INFO, "Payload “%{public}@” has ignored proxy keys. They are: %{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = friendlyName;
+      v18 = 2114;
+      v19 = v5;
+      _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_INFO, "Payload “%{public}@” has ignored proxy keys. They are: %{public}@", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

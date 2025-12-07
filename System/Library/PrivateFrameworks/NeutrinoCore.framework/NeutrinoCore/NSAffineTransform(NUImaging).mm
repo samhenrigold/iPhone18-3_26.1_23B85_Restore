@@ -8,35 +8,35 @@
 
 - (id)description
 {
-  v4 = 0u;
   v5 = 0u;
-  v3 = 0u;
-  [self nu_CGAffineTransform];
-  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%g %g %g %g %g %g]", v3, v4, v5];
+  v6 = 0u;
+  v4 = 0u;
+  objc_msgSend_nu_CGAffineTransform(self, a2);
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%g %g %g %g %g %g]", v4, v5, v6];
 
-  return v1;
+  return v2;
 }
 
 - (double)nu_CGAffineTransform
 {
-  [self transformStruct];
-  *a2 = 0u;
-  a2[1] = 0u;
+  objc_msgSend_transformStruct(self, a2);
+  *a3 = 0u;
+  a3[1] = 0u;
   result = 0.0;
-  a2[2] = 0u;
+  a3[2] = 0u;
   return result;
 }
 
 + (id)nu_transformWithCGAffineTransform:()NUImaging
 {
-  transform = [MEMORY[0x1E696AA98] transform];
+  v4 = objc_msgSend_transform(MEMORY[0x1E696AA98], a2);
   v5 = a3[1];
   v7[0] = *a3;
   v7[1] = v5;
   v7[2] = a3[2];
-  [transform setTransformStruct:v7];
+  [v4 setTransformStruct:v7];
 
-  return transform;
+  return v4;
 }
 
 @end

@@ -41,7 +41,7 @@
 
   selfCopy = self;
   CarPlayConnectionManager.registerUpdateHandler(_:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v7, v6);
 }
 
 - (void)carManager:(id)manager didUpdateCurrentCar:(id)car

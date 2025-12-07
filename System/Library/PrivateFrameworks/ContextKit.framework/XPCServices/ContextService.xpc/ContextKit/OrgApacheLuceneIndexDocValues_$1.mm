@@ -8,7 +8,7 @@
 - (OrgApacheLuceneIndexDocValues_$1)initWithOrgApacheLuceneUtilBytesRef:(id)ref
 {
   JreStrongAssign(&self->val$empty_, ref);
-  OrgApacheLuceneIndexBinaryDocValues_init(self, v4);
+  OrgApacheLuceneIndexBinaryDocValues_init();
   return self;
 }
 

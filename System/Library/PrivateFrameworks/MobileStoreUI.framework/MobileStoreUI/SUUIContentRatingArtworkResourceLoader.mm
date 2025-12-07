@@ -63,7 +63,7 @@
 {
   ratingCopy = rating;
   v7 = [(SUUIContentRatingArtworkResourceLoader *)self _urlForContentRating:ratingCopy clientContext:context];
-  if (v7 || ([ratingCopy contentRatingSystemName], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @"appsBrazil"), v8, !v9) || (v10 = MEMORY[0x277CCACA8], objc_msgSend(ratingCopy, "contentRank"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringWithFormat:", @"ContentRating-appsBrazil-%@", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, -[SUUIContentRatingArtworkResourceLoader _loadImage:](self, "_loadImage:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, !v13))
+  if (v7 || ([ratingCopy contentRatingSystemName], v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v8, !isEqualToString) || (v10 = MEMORY[0x277CCACA8], objc_msgSend(ratingCopy, "contentRank"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringWithFormat:", @"ContentRating-appsBrazil-%@", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, -[SUUIContentRatingArtworkResourceLoader _loadImage:](self, "_loadImage:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, !v13))
   {
     v14 = [(NSMapTable *)self->_artworkRequestIDs objectForKey:ratingCopy];
     v15 = v14;

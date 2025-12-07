@@ -187,15 +187,15 @@ LABEL_6:
 
 - (void)appendEvent:(id)event
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
-  v7 = 0;
-  [eventCopy encodeEventValue:&v7 + 4 secondValue:&v7];
-  -[BiometricKitEventLogger appendEventValue:isMetadata:](self, "appendEventValue:isMetadata:", HIDWORD(v7), [eventCopy isMetadata]);
-  if (v7)
+  v6 = 0;
+  [eventCopy encodeEventValue:&v6 + 4 secondValue:&v6];
+  -[BiometricKitEventLogger appendEventValue:isMetadata:](self, "appendEventValue:isMetadata:", HIDWORD(v6), [eventCopy isMetadata]);
+  if (v6)
   {
-    -[BiometricKitEventLogger appendEventValue:isMetadata:](self, "appendEventValue:isMetadata:", v7, [eventCopy isMetadata]);
+    -[BiometricKitEventLogger appendEventValue:isMetadata:](self, "appendEventValue:isMetadata:", v6, [eventCopy isMetadata]);
   }
 
   if (OSLogHandle)
@@ -211,11 +211,9 @@ LABEL_6:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v9 = eventCopy;
+    v8 = eventCopy;
     _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_DEBUG, "BKLogEvent: %@\n", buf, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventOrCode:(unint64_t)code
@@ -264,7 +262,7 @@ void __42__BiometricKitEventLogger_logEventOrCode___block_invoke(uint64_t a1)
 
 - (void)flushEvents
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_eventListLength)
   {
@@ -309,7 +307,7 @@ LABEL_21:
     v9 = 0;
     eventList = self->_eventList;
     *&v8 = 67109378;
-    v17 = v8;
+    v16 = v8;
     do
     {
       if (OSLogHandle)
@@ -326,14 +324,14 @@ LABEL_21:
       {
         v12 = v11;
         v13 = [[BKEvent alloc] initWithEncodedEventOrCode:eventList[v9]];
-        *buf = v17;
-        v19 = v9;
-        v20 = 2112;
-        v21 = v13;
+        *buf = v16;
+        v18 = v9;
+        v19 = 2112;
+        v20 = v13;
         _os_log_impl(&dword_223E00000, v12, OS_LOG_TYPE_DEBUG, "BKLogEvent flush %3d: %@\n\n", buf, 0x12u);
       }
 
-      [v7 addEvent:{eventList[v9++], v17}];
+      [v7 addEvent:{eventList[v9++], v16}];
     }
 
     while (v9 < self->_eventListLength);
@@ -350,8 +348,6 @@ LABEL_21:
 LABEL_22:
   self->_eventListLength = 0;
   *&self->_terminalFlushPending = 0;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

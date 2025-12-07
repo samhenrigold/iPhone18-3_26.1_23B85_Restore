@@ -13,9 +13,11 @@
 - (void)setNumberOfSections:(unint64_t)sections
 {
   self->_numberOfSections = sections;
-  self->_sections = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:sections];
+  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:sections];
+  sections = self->_sections;
+  self->_sections = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, sections);
 }
 
 - (unint64_t)numberOfNonEmptySections

@@ -1,5 +1,7 @@
 @interface ComAppleContextkitCategoriesConstellation_Request
 - (BOOL)hasEntriesForQIDWithNSString:(id)string;
+- (BOOL)iterateAncestorsForCategoryIdWithInt:(int)int withComAppleContextkitCategoriesConstellation_AncestorConsumer:(id)consumer;
+- (id)getTopKCategoriesWithInt:(int)int;
 - (id)newQIDContainer;
 - (id)trimMatches;
 - (int)highlevelThemeForCategoryIdWithInt:(int)int;
@@ -149,6 +151,57 @@ LABEL_27:
   }
 }
 
+- (id)getTopKCategoriesWithInt:(int)int
+{
+  v4 = sub_1000BFF80(self, *&int);
+  if (self->this$0_->maxCategoryIdExcl_ >= 1)
+  {
+    v5 = 0;
+    do
+    {
+      qidCounts = self->qidCounts_;
+      if (!qidCounts)
+      {
+LABEL_16:
+        JreThrowNullPointerException();
+      }
+
+      size = qidCounts->super.size_;
+      if (v5 >= size)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(size, v5);
+      }
+
+      v8 = *(&qidCounts->super.size_ + v5 + 1);
+      if (v8 >= 1)
+      {
+        qidWeights = self->qidWeights_;
+        if (!qidWeights)
+        {
+          goto LABEL_16;
+        }
+
+        v10 = qidWeights->super.size_;
+        if (v5 >= v10)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v10, v5);
+        }
+
+        v11 = *(&qidWeights->super.size_ + v5 + 1);
+        v12 = [ComAppleContextkitCategoriesConstellation_CategoryCount alloc];
+        ComAppleContextkitCategoriesConstellation_CategoryCount_initWithInt_withInt_withInt_(&v12->super.isa, v5, v8, v11);
+        [(OrgApacheLuceneUtilPriorityQueue *)v4 insertWithOverflowWithId:v12];
+      }
+
+      ++v5;
+    }
+
+    while (v5 < self->this$0_->maxCategoryIdExcl_);
+  }
+
+  return [(ComAppleContextkitCategoriesConstellation_Request_CategoryCountPQ *)v4 toArray];
+}
+
 - (void)trimCounts
 {
   seenQids = self->seenQids_;
@@ -229,6 +282,60 @@ LABEL_17:
   in = self->in_;
 
   return [(OrgApacheLuceneStoreDataInput *)in readInt];
+}
+
+- (BOOL)iterateAncestorsForCategoryIdWithInt:(int)int withComAppleContextkitCategoriesConstellation_AncestorConsumer:(id)consumer
+{
+  v5 = *&int;
+  v7 = sub_1000C01E4(self, int);
+  if (v7)
+  {
+    in = self->in_;
+    if (!in)
+    {
+LABEL_13:
+      JreThrowNullPointerException();
+    }
+
+    [(OrgApacheLuceneStoreIndexInput *)in seekWithLong:(v7 + 4)];
+    readByte = [(OrgApacheLuceneStoreIndexInput *)self->in_ readByte];
+    if ((readByte + 1) >= 2u)
+    {
+      readByte2 = readByte;
+      do
+      {
+        readVInt = [(OrgApacheLuceneStoreDataInput *)self->in_ readVInt];
+        if (readVInt >= 1)
+        {
+          v12 = readVInt;
+          LODWORD(v13) = 0;
+          do
+          {
+            v13 = [(OrgApacheLuceneStoreDataInput *)self->in_ readVInt]+ v13;
+            if (v13 < self->this$0_->maxCategoryIdExcl_)
+            {
+              if (!consumer)
+              {
+                goto LABEL_13;
+              }
+
+              [consumer acceptWithInt:v5 withInt:readByte2 withInt:v13];
+            }
+
+            --v12;
+          }
+
+          while (v12);
+        }
+
+        readByte2 = [(OrgApacheLuceneStoreIndexInput *)self->in_ readByte];
+      }
+
+      while ((readByte2 + 1) >= 2u);
+    }
+  }
+
+  return v7 != 0;
 }
 
 - (void)subtractAncestorCounts

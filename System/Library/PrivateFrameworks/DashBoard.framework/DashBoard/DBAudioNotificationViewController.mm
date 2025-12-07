@@ -13,9 +13,9 @@
 - (_TtC9DashBoard33DBAudioNotificationViewController)initWithEnvironment:(id)environment
 {
   swift_unknownObjectRetain();
-  v3 = sub_248270210();
+  v4 = sub_248270210(environment);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (_TtC9DashBoard33DBAudioNotificationViewController)initWithCoder:(id)coder
@@ -60,10 +60,10 @@
   [v2 alpha];
   if (v3 > 0.0)
   {
-    sub_248383DC0();
-    sub_24814FB28(0, &qword_27EE90950);
-    v4 = sub_2483841B0();
-    sub_248382A40();
+    v4 = sub_248383DC0();
+    sub_24814FB28(0, &qword_27EE90950, 0x277D86200);
+    v5 = sub_2483841B0();
+    sub_248382A40(v4, &dword_248146000, v5, "Audio notification hidden because of assertion.", 47, 2, MEMORY[0x277D84F90]);
 
     sub_24826EE70(0);
   }

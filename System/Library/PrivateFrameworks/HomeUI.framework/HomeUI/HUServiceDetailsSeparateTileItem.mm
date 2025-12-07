@@ -130,7 +130,7 @@ LABEL_26:
           [hf_visibleServices count];
         }
 
-        [dictionary setObject:v27 forKeyedSubscript:{*MEMORY[0x277D13F60], *v39}];
+        [dictionary setObject:v27 forKeyedSubscript:{*MEMORY[0x277D13F60], *v39, *&v39[8]}];
         [dictionary setObject:v28 forKeyedSubscript:@"HUServiceDetailsSeparateTileSectionFooterResultKey"];
         goto LABEL_34;
       }

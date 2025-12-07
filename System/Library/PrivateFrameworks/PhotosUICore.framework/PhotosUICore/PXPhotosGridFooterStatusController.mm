@@ -172,7 +172,7 @@ LABEL_20:
   countsController = self->_countsController;
   if (countsController)
   {
-    [(PXAssetsDataSourceCountsController *)countsController counts];
+    objc_msgSend_counts(countsController);
     v8 = v129;
     v9 = v130;
     v10 = v131;

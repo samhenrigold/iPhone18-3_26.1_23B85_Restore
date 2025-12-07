@@ -43,7 +43,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_heldObjects)
   {
     v3 = [(Request *)self log];
@@ -51,15 +51,14 @@
     {
       heldObjects = self->_heldObjects;
       *buf = 138543362;
-      v8 = heldObjects;
+      v7 = heldObjects;
       _os_log_impl(&dword_238B7F000, v3, OS_LOG_TYPE_DEFAULT, "Releasing %{public}@", buf, 0xCu);
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = Request;
-  [(Request *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = Request;
+  [(Request *)&v5 dealloc];
 }
 
 - (Request)initWithCaller:(id)caller
@@ -121,7 +120,7 @@
 
 - (void)holdObject:(id)object
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (!self->_heldObjects)
   {
@@ -133,26 +132,23 @@
   v7 = [(Request *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = objectCopy;
-    _os_log_impl(&dword_238B7F000, v7, OS_LOG_TYPE_DEFAULT, "Holding %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = objectCopy;
+    _os_log_impl(&dword_238B7F000, v7, OS_LOG_TYPE_DEFAULT, "Holding %{public}@", &v8, 0xCu);
   }
 
   [(NSMutableArray *)self->_heldObjects addObject:objectCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestFromCurrentConnection
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCACC8];
   selfCopy = self;
   callStackSymbols = [v1 callStackSymbols];
-  v5 = 138412290;
-  v6 = callStackSymbols;
-  _os_log_error_impl(&dword_238B7F000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to determine request: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = callStackSymbols;
+  _os_log_error_impl(&dword_238B7F000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to determine request: %@", &v4, 0xCu);
 }
 
 @end

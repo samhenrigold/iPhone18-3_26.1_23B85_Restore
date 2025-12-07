@@ -22,8 +22,12 @@
 - (void)_runPipelineWithCompletion:(id)completion;
 - (void)_saveState:(id)state forPluginWithCompletion:(id)completion;
 - (void)_sensitiveCondition:(int)condition endedAt:(unint64_t)at completion:(id)completion;
+- (void)_sensitiveCondition:(int)condition startedAt:(unint64_t)at completion:(id)completion;
+- (void)_setKillSwitchEnabled:(BOOL)enabled completion:(id)completion;
 - (void)_startIdleTimer;
 - (void)_stopIdleTimer;
+- (void)_vendResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion;
+- (void)_vendSandboxExtensionWithResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion;
 - (void)barrierWithCompletion:(id)completion;
 - (void)createTag:(id)tag completion:(id)completion;
 - (void)dealloc;
@@ -56,7 +60,7 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
 
 - (void)_idleTimerFired
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -65,14 +69,13 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   v3 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[SiriAnalyticsXPCConnection _idleTimerFired]";
-    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriAnalyticsXPCConnection _idleTimerFired]";
+    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v4, 0xCu);
   }
 
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   [(SiriAnalyticsXPCConnection *)self _cleanupConnection];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopIdleTimer
@@ -88,7 +91,7 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
 
 - (void)_cleanupConnection
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -97,9 +100,9 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   v3 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315138;
-    v8 = "[SiriAnalyticsXPCConnection _cleanupConnection]";
-    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriAnalyticsXPCConnection _cleanupConnection]";
+    _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v6, 0xCu);
   }
 
   connection = self->_connection;
@@ -112,8 +115,6 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
     v5 = self->_connection;
     self->_connection = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_currentConnection
@@ -193,7 +194,7 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
 
 - (void)_connectionInvalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -203,7 +204,7 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[SiriAnalyticsXPCConnection _connectionInvalidated]";
+    v7 = "[SiriAnalyticsXPCConnection _connectionInvalidated]";
     _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -214,12 +215,11 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   block[3] = &unk_1E8587918;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectionInterrupted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -229,7 +229,7 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[SiriAnalyticsXPCConnection _connectionInterrupted]";
+    v7 = "[SiriAnalyticsXPCConnection _connectionInterrupted]";
     _os_log_debug_impl(&dword_1D9863000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -240,7 +240,6 @@ void __45__SiriAnalyticsXPCConnection__startIdleTimer__block_invoke(uint64_t a1)
   block[3] = &unk_1E8587918;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SiriAnalyticsXPCConnection__currentConnection__block_invoke(uint64_t a1)
@@ -257,7 +256,7 @@ void __48__SiriAnalyticsXPCConnection__currentConnection__block_invoke_2(uint64_
 
 - (void)_purgeStagedMessagesWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -265,9 +264,9 @@ void __48__SiriAnalyticsXPCConnection__currentConnection__block_invoke_2(uint64_
   aBlock[2] = __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke;
   aBlock[3] = &unk_1E8587670;
   aBlock[4] = self;
-  objc_copyWeak(&v21, &location);
+  objc_copyWeak(&v20, &location);
   v5 = completionCopy;
-  v20 = v5;
+  v19 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -281,33 +280,31 @@ void __48__SiriAnalyticsXPCConnection__currentConnection__block_invoke_2(uint64_
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]";
-    v25 = 2112;
-    v26 = _currentConnection;
+    v23 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]";
+    v24 = 2112;
+    v25 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Purging staged messages connection: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_47;
-  v17[3] = &unk_1E8587898;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_47;
+  v16[3] = &unk_1E8587898;
   v9 = v6;
-  v18 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v17];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_48;
-  v14[3] = &unk_1E8587328;
+  v17 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v16];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_48;
+  v13[3] = &unk_1E8587328;
   v11 = _currentConnection;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [v10 purgeStagedMessagesWithCompletion:v14];
+  v15 = v12;
+  [v10 purgeStagedMessagesWithCompletion:v13];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -331,7 +328,7 @@ void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block
 
 void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_47(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -341,21 +338,19 @@ void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to purge staged messages due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to purge staged messages due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_48(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -368,26 +363,24 @@ void __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
     {
       v7 = *(a1 + 32);
-      v9 = 136315394;
-      v10 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Staged messages purged for connection:%@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Staged messages purged for connection:%@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315394;
-    v10 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to purge staged messages due to %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriAnalyticsXPCConnection _purgeStagedMessagesWithCompletion:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to purge staged messages due to %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___block_invoke_2(uint64_t a1)
@@ -425,7 +418,7 @@ uint64_t __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___b
 
 - (void)_runPipelineWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -433,9 +426,9 @@ uint64_t __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___b
   aBlock[2] = __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke;
   aBlock[3] = &unk_1E8587670;
   aBlock[4] = self;
-  objc_copyWeak(&v21, &location);
+  objc_copyWeak(&v20, &location);
   v5 = completionCopy;
-  v20 = v5;
+  v19 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -449,33 +442,31 @@ uint64_t __65__SiriAnalyticsXPCConnection__purgeStagedMessagesWithCompletion___b
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]";
-    v25 = 2112;
-    v26 = _currentConnection;
+    v23 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]";
+    v24 = 2112;
+    v25 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Running pipeline for connection: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_45;
-  v17[3] = &unk_1E8587898;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_45;
+  v16[3] = &unk_1E8587898;
   v9 = v6;
-  v18 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v17];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_46;
-  v14[3] = &unk_1E8587328;
+  v17 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v16];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_46;
+  v13[3] = &unk_1E8587328;
   v11 = _currentConnection;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [v10 runPipelineWithCompletion:v14];
+  v15 = v12;
+  [v10 runPipelineWithCompletion:v13];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -499,7 +490,7 @@ void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke(
 
 void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_45(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -509,21 +500,19 @@ void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to run pipeline due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to run pipeline due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_46(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -536,26 +525,24 @@ void __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
     {
       v7 = *(a1 + 32);
-      v9 = 136315394;
-      v10 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Pipeline ran for connection:%@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Pipeline ran for connection:%@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315394;
-    v10 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to run pipeline due to %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriAnalyticsXPCConnection _runPipelineWithCompletion:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    _os_log_error_impl(&dword_1D9863000, v6, OS_LOG_TYPE_ERROR, "%s Failed to run pipeline due to %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_invoke_2(uint64_t a1)
@@ -591,6 +578,46 @@ uint64_t __57__SiriAnalyticsXPCConnection__runPipelineWithCompletion___block_inv
   dispatch_async(queue, v7);
 }
 
+- (void)_setKillSwitchEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  v21 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_invoke;
+  aBlock[3] = &unk_1E8587328;
+  aBlock[4] = self;
+  v7 = completionCopy;
+  v16 = v7;
+  v8 = _Block_copy(aBlock);
+  [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
+  _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v10 = SiriAnalyticsLogContextXPC;
+  if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315394;
+    v18 = "[SiriAnalyticsXPCConnection _setKillSwitchEnabled:completion:]";
+    v19 = 2112;
+    v20 = _currentConnection;
+    _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Starting for connection:%@", buf, 0x16u);
+  }
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_invoke_44;
+  v13[3] = &unk_1E8587898;
+  v14 = v8;
+  v11 = v8;
+  v12 = [_currentConnection remoteObjectProxyWithErrorHandler:v13];
+  [v12 setKillSwitchEnabled:enabledCopy completion:v11];
+}
+
 void __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
@@ -611,7 +638,7 @@ void __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_i
 
 void __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_invoke_44(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -621,16 +648,14 @@ void __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_i
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _setKillSwitchEnabled:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _setKillSwitchEnabled:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___block_invoke_2(uint64_t a1)
@@ -639,11 +664,9 @@ uint64_t __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___blo
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -666,7 +689,7 @@ uint64_t __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___blo
 
 - (void)_fetchKillSwitchEnabledWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -674,7 +697,7 @@ uint64_t __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___blo
   aBlock[3] = &unk_1E8587328;
   aBlock[4] = self;
   v5 = completionCopy;
-  v15 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
@@ -687,22 +710,20 @@ uint64_t __63__SiriAnalyticsXPCConnection__setKillSwitchEnabled_completion___blo
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v17 = "[SiriAnalyticsXPCConnection _fetchKillSwitchEnabledWithCompletion:]";
-    v18 = 2112;
-    v19 = _currentConnection;
+    v16 = "[SiriAnalyticsXPCConnection _fetchKillSwitchEnabledWithCompletion:]";
+    v17 = 2112;
+    v18 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Starting for connection:%@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___block_invoke_43;
-  v12[3] = &unk_1E8587898;
-  v13 = v6;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___block_invoke_43;
+  v11[3] = &unk_1E8587898;
+  v12 = v6;
   v9 = v6;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v12];
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v11];
   [v10 fetchKillSwitchEnabledWithCompletion:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -725,7 +746,7 @@ void __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___bl
 
 void __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___block_invoke_43(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -735,16 +756,14 @@ void __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___bl
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _fetchKillSwitchEnabledWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _fetchKillSwitchEnabledWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion___block_invoke_2(uint64_t a1)
@@ -753,11 +772,9 @@ uint64_t __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion_
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -779,7 +796,7 @@ uint64_t __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion_
 
 - (void)_createTag:(id)tag completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   tagCopy = tag;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -788,7 +805,7 @@ uint64_t __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion_
   aBlock[3] = &unk_1E8587328;
   aBlock[4] = self;
   v8 = completionCopy;
-  v23 = v8;
+  v22 = v8;
   v9 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
@@ -801,26 +818,24 @@ uint64_t __68__SiriAnalyticsXPCConnection__fetchKillSwitchEnabledWithCompletion_
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v25 = "[SiriAnalyticsXPCConnection _createTag:completion:]";
-    v26 = 2112;
-    v27 = tagCopy;
-    v28 = 2112;
-    v29 = _currentConnection;
+    v24 = "[SiriAnalyticsXPCConnection _createTag:completion:]";
+    v25 = 2112;
+    v26 = tagCopy;
+    v27 = 2112;
+    v28 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Starting tagSensitiveCondition %@ for connection:%@", buf, 0x20u);
   }
 
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_42;
-  v19 = &unk_1E8587620;
-  v20 = tagCopy;
-  v21 = v9;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_42;
+  v18 = &unk_1E8587620;
+  v19 = tagCopy;
+  v20 = v9;
   v12 = v9;
   v13 = tagCopy;
-  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:&v16];
-  [v14 createTag:v13 completion:{v12, v16, v17, v18, v19}];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:&v15];
+  [v14 createTag:v13 completion:{v12, v15, v16, v17, v18}];
 }
 
 void __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -842,7 +857,7 @@ void __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke(uint6
 
 void __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_42(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -852,19 +867,17 @@ void __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_42(ui
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[SiriAnalyticsXPCConnection _createTag:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to tag sensitive condition %@ due to %@", &v7, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = 136315650;
+    v7 = "[SiriAnalyticsXPCConnection _createTag:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to tag sensitive condition %@ due to %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_2(uint64_t a1)
@@ -873,11 +886,9 @@ uint64_t __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_2
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -902,7 +913,7 @@ uint64_t __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_2
 
 - (void)_saveState:(id)state forPluginWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   completionCopy = completion;
   objc_initWeak(&location, self);
@@ -911,9 +922,9 @@ uint64_t __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_2
   aBlock[2] = __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke;
   aBlock[3] = &unk_1E85875F8;
   aBlock[4] = self;
-  objc_copyWeak(&v22, &location);
+  objc_copyWeak(&v21, &location);
   v8 = completionCopy;
-  v21 = v8;
+  v20 = v8;
   v9 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -927,31 +938,29 @@ uint64_t __52__SiriAnalyticsXPCConnection__createTag_completion___block_invoke_2
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v25 = "[SiriAnalyticsXPCConnection _saveState:forPluginWithCompletion:]";
-    v26 = 2112;
-    v27 = _currentConnection;
+    v24 = "[SiriAnalyticsXPCConnection _saveState:forPluginWithCompletion:]";
+    v25 = 2112;
+    v26 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v11, OS_LOG_TYPE_DEBUG, "%s Saving state for plugin for connection: %@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_40;
-  v18[3] = &unk_1E8587898;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_40;
+  v17[3] = &unk_1E8587898;
   v12 = v9;
-  v19 = v12;
-  v13 = [_currentConnection remoteObjectProxyWithErrorHandler:v18];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_41;
-  v16[3] = &unk_1E8587C18;
+  v18 = v12;
+  v13 = [_currentConnection remoteObjectProxyWithErrorHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_41;
+  v15[3] = &unk_1E8587C18;
   v14 = v12;
-  v17 = v14;
-  [v13 saveState:stateCopy forPluginWithCompletion:v16];
+  v16 = v14;
+  [v13 saveState:stateCopy forPluginWithCompletion:v15];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke(uint64_t a1)
@@ -970,7 +979,7 @@ void __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block
 
 void __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_40(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -980,16 +989,14 @@ void __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _saveState:forPluginWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to save state due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _saveState:forPluginWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to save state due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___block_invoke_2(uint64_t a1)
@@ -1032,7 +1039,7 @@ uint64_t __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___b
 
 - (void)_fetchStateForPluginWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1040,9 +1047,9 @@ uint64_t __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___b
   aBlock[2] = __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke;
   aBlock[3] = &unk_1E8587580;
   aBlock[4] = self;
-  objc_copyWeak(&v19, &location);
+  objc_copyWeak(&v18, &location);
   v5 = completionCopy;
-  v18 = v5;
+  v17 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -1056,31 +1063,29 @@ uint64_t __65__SiriAnalyticsXPCConnection__saveState_forPluginWithCompletion___b
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "[SiriAnalyticsXPCConnection _fetchStateForPluginWithCompletion:]";
-    v23 = 2112;
-    v24 = _currentConnection;
+    v21 = "[SiriAnalyticsXPCConnection _fetchStateForPluginWithCompletion:]";
+    v22 = 2112;
+    v23 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Fetching state for plugin for connection: %@", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_38;
-  v15[3] = &unk_1E8587898;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_38;
+  v14[3] = &unk_1E8587898;
   v9 = v6;
-  v16 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_39;
-  v13[3] = &unk_1E85875A8;
+  v15 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_39;
+  v12[3] = &unk_1E85875A8;
   v11 = v9;
-  v14 = v11;
-  [v10 fetchStateForPluginWithCompletion:v13];
+  v13 = v11;
+  [v10 fetchStateForPluginWithCompletion:v12];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -1103,7 +1108,7 @@ void __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block
 
 void __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_38(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1113,16 +1118,14 @@ void __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _fetchStateForPluginWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch state due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _fetchStateForPluginWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch state due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___block_invoke_2(uint64_t a1)
@@ -1160,7 +1163,7 @@ uint64_t __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___b
 
 - (void)_fetchTags:(id)tags
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1168,9 +1171,9 @@ uint64_t __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___b
   aBlock[2] = __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke;
   aBlock[3] = &unk_1E8587558;
   aBlock[4] = self;
-  objc_copyWeak(&v16, &location);
+  objc_copyWeak(&v15, &location);
   v5 = tagsCopy;
-  v15 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -1184,25 +1187,23 @@ uint64_t __65__SiriAnalyticsXPCConnection__fetchStateForPluginWithCompletion___b
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[SiriAnalyticsXPCConnection _fetchTags:]";
-    v20 = 2112;
-    v21 = _currentConnection;
+    v18 = "[SiriAnalyticsXPCConnection _fetchTags:]";
+    v19 = 2112;
+    v20 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Fetching tags for connection: %@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_36;
-  v12[3] = &unk_1E8587898;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_36;
+  v11[3] = &unk_1E8587898;
   v9 = v6;
-  v13 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v12];
+  v12 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v11];
   [v10 fetchTags:v9];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -1229,7 +1230,7 @@ void __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke(uint64_t a1, cha
 
 void __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_36(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1239,16 +1240,14 @@ void __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_36(uint64_t a1, 
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _fetchTags:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch tags due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _fetchTags:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch tags due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_2(uint64_t a1)
@@ -1286,7 +1285,7 @@ uint64_t __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_2(uint64_t a
 
 - (void)_fetchLogicalClocksWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1294,9 +1293,9 @@ uint64_t __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_2(uint64_t a
   aBlock[2] = __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke;
   aBlock[3] = &unk_1E8587530;
   aBlock[4] = self;
-  objc_copyWeak(&v16, &location);
+  objc_copyWeak(&v15, &location);
   v5 = completionCopy;
-  v15 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -1310,25 +1309,23 @@ uint64_t __41__SiriAnalyticsXPCConnection__fetchTags___block_invoke_2(uint64_t a
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[SiriAnalyticsXPCConnection _fetchLogicalClocksWithCompletion:]";
-    v20 = 2112;
-    v21 = _currentConnection;
+    v18 = "[SiriAnalyticsXPCConnection _fetchLogicalClocksWithCompletion:]";
+    v19 = 2112;
+    v20 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Fetching logical clocks for connection: %@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke_34;
-  v12[3] = &unk_1E8587898;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke_34;
+  v11[3] = &unk_1E8587898;
   v9 = v6;
-  v13 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v12];
+  v12 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v11];
   [v10 fetchLogicalClocksWithCompletion:v9];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -1355,7 +1352,7 @@ void __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_
 
 void __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke_34(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1365,16 +1362,14 @@ void __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _fetchLogicalClocksWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch logical clocks due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _fetchLogicalClocksWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to fetch logical clocks due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___block_invoke_2(uint64_t a1)
@@ -1410,6 +1405,60 @@ uint64_t __64__SiriAnalyticsXPCConnection__fetchLogicalClocksWithCompletion___bl
   dispatch_async(queue, v7);
 }
 
+- (void)_vendResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion
+{
+  readonlyCopy = readonly;
+  v30 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke;
+  aBlock[3] = &unk_1E85874E0;
+  aBlock[4] = self;
+  objc_copyWeak(&v24, &location);
+  v9 = completionCopy;
+  v23 = v9;
+  v10 = _Block_copy(aBlock);
+  [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
+  dispatch_group_enter(self->_xpcPublishingGroup);
+  _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v12 = SiriAnalyticsLogContextXPC;
+  if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315394;
+    v27 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]";
+    v28 = 2112;
+    v29 = _currentConnection;
+    _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Vending sandbox extension for connection: %@", buf, 0x16u);
+  }
+
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke_31;
+  v20[3] = &unk_1E8587898;
+  v13 = v10;
+  v21 = v13;
+  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:v20];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke_32;
+  v17[3] = &unk_1E8587508;
+  v15 = _currentConnection;
+  v18 = v15;
+  v16 = v13;
+  v19 = v16;
+  [v14 vendResource:resource readonly:readonlyCopy completion:v17];
+
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&location);
+}
+
 void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
@@ -1436,7 +1485,7 @@ void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_
 
 void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke_31(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1446,21 +1495,19 @@ void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke_32(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = a3;
@@ -1475,28 +1522,26 @@ void __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
     {
       v11 = *(a1 + 32);
-      v13 = 136315650;
-      v14 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Sandbox extension vended successfully (token: %@) for %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_debug_impl(&dword_1D9863000, v10, OS_LOG_TYPE_DEBUG, "%s Sandbox extension vended successfully (token: %@) for %@", &v12, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315394;
-    v14 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
-    v15 = 2112;
-    v16 = v8;
-    _os_log_error_impl(&dword_1D9863000, v10, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[SiriAnalyticsXPCConnection _vendResource:readonly:completion:]_block_invoke";
+    v14 = 2112;
+    v15 = v8;
+    _os_log_error_impl(&dword_1D9863000, v10, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v12, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___block_invoke_2(uint64_t a1)
@@ -1534,6 +1579,60 @@ uint64_t __64__SiriAnalyticsXPCConnection__vendResource_readonly_completion___bl
   dispatch_async(queue, v11);
 }
 
+- (void)_vendSandboxExtensionWithResource:(int64_t)resource readonly:(BOOL)readonly completion:(id)completion
+{
+  readonlyCopy = readonly;
+  v30 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke;
+  aBlock[3] = &unk_1E8587468;
+  aBlock[4] = self;
+  objc_copyWeak(&v24, &location);
+  v9 = completionCopy;
+  v23 = v9;
+  v10 = _Block_copy(aBlock);
+  [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
+  dispatch_group_enter(self->_xpcPublishingGroup);
+  _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v12 = SiriAnalyticsLogContextXPC;
+  if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315394;
+    v27 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]";
+    v28 = 2112;
+    v29 = _currentConnection;
+    _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Vending sandbox extension for connection: %@", buf, 0x16u);
+  }
+
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke_28;
+  v20[3] = &unk_1E8587898;
+  v13 = v10;
+  v21 = v13;
+  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:v20];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke_29;
+  v17[3] = &unk_1E8587490;
+  v15 = _currentConnection;
+  v18 = v15;
+  v16 = v13;
+  v19 = v16;
+  [v14 vendSandboxExtensionWithResource:resource readonly:readonlyCopy completion:v17];
+
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&location);
+}
+
 void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -1557,7 +1656,7 @@ void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly
 
 void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke_28(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1567,21 +1666,19 @@ void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke_29(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -1595,28 +1692,26 @@ void __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
     {
       v8 = *(a1 + 32);
-      v10 = 136315650;
-      v11 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_debug_impl(&dword_1D9863000, v7, OS_LOG_TYPE_DEBUG, "%s Sandbox extension vended successfully (token: %@) for %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
+      v11 = 2112;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_debug_impl(&dword_1D9863000, v7, OS_LOG_TYPE_DEBUG, "%s Sandbox extension vended successfully (token: %@) for %@", &v9, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315394;
-    v11 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    _os_log_error_impl(&dword_1D9863000, v7, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriAnalyticsXPCConnection _vendSandboxExtensionWithResource:readonly:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v6;
+    _os_log_error_impl(&dword_1D9863000, v7, OS_LOG_TYPE_ERROR, "%s Failed to vend sandbox extension due to %@", &v9, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_readonly_completion___block_invoke_2(uint64_t a1)
@@ -1656,7 +1751,7 @@ uint64_t __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_read
 
 - (void)_resetLogicalClockWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1664,9 +1759,9 @@ uint64_t __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_read
   aBlock[2] = __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke;
   aBlock[3] = &unk_1E85873F0;
   aBlock[4] = self;
-  objc_copyWeak(&v21, &location);
+  objc_copyWeak(&v20, &location);
   v5 = completionCopy;
-  v20 = v5;
+  v19 = v5;
   v6 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   dispatch_group_enter(self->_xpcPublishingGroup);
@@ -1680,33 +1775,31 @@ uint64_t __84__SiriAnalyticsXPCConnection__vendSandboxExtensionWithResource_read
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]";
-    v25 = 2112;
-    v26 = _currentConnection;
+    v23 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]";
+    v24 = 2112;
+    v25 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v8, OS_LOG_TYPE_DEBUG, "%s Resetting logical clock for connection: %@", buf, 0x16u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_25;
-  v17[3] = &unk_1E8587898;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_25;
+  v16[3] = &unk_1E8587898;
   v9 = v6;
-  v18 = v9;
-  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v17];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_26;
-  v14[3] = &unk_1E8587418;
+  v17 = v9;
+  v10 = [_currentConnection remoteObjectProxyWithErrorHandler:v16];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_26;
+  v13[3] = &unk_1E8587418;
   v11 = _currentConnection;
-  v15 = v11;
+  v14 = v11;
   v12 = v9;
-  v16 = v12;
-  [v10 resetLogicalClockWithCompletion:v14];
+  v15 = v12;
+  [v10 resetLogicalClockWithCompletion:v13];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -1733,7 +1826,7 @@ void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_i
 
 void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_25(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1743,21 +1836,19 @@ void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_i
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to reset logical clock due to %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to reset logical clock due to %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_26(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -1771,28 +1862,26 @@ void __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_i
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
     {
       v10 = *(a1 + 32);
-      v12 = 136315650;
-      v13 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_debug_impl(&dword_1D9863000, v9, OS_LOG_TYPE_DEBUG, "%s Logical clock: %@ reset for connection:%@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_debug_impl(&dword_1D9863000, v9, OS_LOG_TYPE_DEBUG, "%s Logical clock: %@ reset for connection:%@", &v11, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v12 = 136315394;
-    v13 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
-    v14 = 2112;
-    v15 = v8;
-    _os_log_error_impl(&dword_1D9863000, v9, OS_LOG_TYPE_ERROR, "%s Failed to reset logical clock due to %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SiriAnalyticsXPCConnection _resetLogicalClockWithCompletion:]_block_invoke";
+    v13 = 2112;
+    v14 = v8;
+    _os_log_error_impl(&dword_1D9863000, v9, OS_LOG_TYPE_ERROR, "%s Failed to reset logical clock due to %@", &v11, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___block_invoke_2(uint64_t a1)
@@ -1830,7 +1919,7 @@ uint64_t __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___blo
 
 - (void)_sensitiveCondition:(int)condition endedAt:(unint64_t)at completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -1838,7 +1927,7 @@ uint64_t __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___blo
   aBlock[3] = &unk_1E8587328;
   aBlock[4] = self;
   v9 = completionCopy;
-  v28 = v9;
+  v27 = v9;
   v10 = _Block_copy(aBlock);
   [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
   _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
@@ -1851,36 +1940,34 @@ uint64_t __63__SiriAnalyticsXPCConnection__resetLogicalClockWithCompletion___blo
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v30 = "[SiriAnalyticsXPCConnection _sensitiveCondition:endedAt:completion:]";
-    v31 = 2048;
+    v29 = "[SiriAnalyticsXPCConnection _sensitiveCondition:endedAt:completion:]";
+    v30 = 2048;
     conditionCopy = condition;
-    v33 = 2112;
-    v34 = _currentConnection;
+    v32 = 2112;
+    v33 = _currentConnection;
     _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Ending sensitiveCondition %lu for connection:%@", buf, 0x20u);
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_22;
-  v24[3] = &unk_1E85873A0;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_22;
+  v23[3] = &unk_1E85873A0;
   conditionCopy2 = condition;
   v13 = v10;
-  v25 = v13;
-  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:v24];
+  v24 = v13;
+  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:v23];
   queue = self->_queue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_23;
-  v19[3] = &unk_1E8587C68;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_23;
+  v18[3] = &unk_1E8587C68;
   conditionCopy3 = condition;
-  v21 = v13;
+  v20 = v13;
   atCopy = at;
-  v20 = v14;
+  v19 = v14;
   v16 = v13;
   v17 = v14;
-  dispatch_async(queue, v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v18);
 }
 
 void __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1903,7 +1990,7 @@ void __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___b
 
 void __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_22(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1913,19 +2000,17 @@ void __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___b
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 40);
-    v7 = 136315650;
-    v8 = "[SiriAnalyticsXPCConnection _sensitiveCondition:endedAt:completion:]_block_invoke";
-    v9 = 2048;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to end sensitive condition %lu due to %@", &v7, 0x20u);
+    v5 = *(a1 + 40);
+    v6 = 136315650;
+    v7 = "[SiriAnalyticsXPCConnection _sensitiveCondition:endedAt:completion:]_block_invoke";
+    v8 = 2048;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to end sensitive condition %lu due to %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion___block_invoke_2(uint64_t a1)
@@ -1934,11 +2019,9 @@ uint64_t __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -1960,6 +2043,49 @@ uint64_t __69__SiriAnalyticsXPCConnection__sensitiveCondition_endedAt_completion
   dispatch_async(queue, v11);
 }
 
+- (void)_sensitiveCondition:(int)condition startedAt:(unint64_t)at completion:(id)completion
+{
+  v6 = *&condition;
+  v29 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion___block_invoke;
+  aBlock[3] = &unk_1E8587328;
+  aBlock[4] = self;
+  v9 = completionCopy;
+  v22 = v9;
+  v10 = _Block_copy(aBlock);
+  [(SiriAnalyticsXPCConnection *)self _stopIdleTimer];
+  _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
+  if (SiriAnalyticsLoggingInit_once != -1)
+  {
+    dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+  }
+
+  v12 = SiriAnalyticsLogContextXPC;
+  if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315650;
+    v24 = "[SiriAnalyticsXPCConnection _sensitiveCondition:startedAt:completion:]";
+    v25 = 2048;
+    v26 = v6;
+    v27 = 2112;
+    v28 = _currentConnection;
+    _os_log_debug_impl(&dword_1D9863000, v12, OS_LOG_TYPE_DEBUG, "%s Starting sensitiveCondition %lu for connection:%@", buf, 0x20u);
+  }
+
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion___block_invoke_21;
+  v18 = &unk_1E85873A0;
+  v20 = v6;
+  v19 = v10;
+  v13 = v10;
+  v14 = [_currentConnection remoteObjectProxyWithErrorHandler:&v15];
+  [v14 sensitiveCondition:v6 startedAt:at completion:{v13, v15, v16, v17, v18}];
+}
+
 void __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
@@ -1979,7 +2105,7 @@ void __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion__
 
 void __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion___block_invoke_21(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -1989,19 +2115,17 @@ void __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion__
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 40);
-    v7 = 136315650;
-    v8 = "[SiriAnalyticsXPCConnection _sensitiveCondition:startedAt:completion:]_block_invoke";
-    v9 = 2048;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to start sensitive condition %lu due to %@", &v7, 0x20u);
+    v5 = *(a1 + 40);
+    v6 = 136315650;
+    v7 = "[SiriAnalyticsXPCConnection _sensitiveCondition:startedAt:completion:]_block_invoke";
+    v8 = 2048;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to start sensitive condition %lu due to %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completion___block_invoke_2(uint64_t a1)
@@ -2010,11 +2134,9 @@ uint64_t __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completi
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -2038,7 +2160,7 @@ uint64_t __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completi
 
 - (void)barrierWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -2049,7 +2171,7 @@ uint64_t __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completi
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v13 = "[SiriAnalyticsXPCConnection barrierWithCompletion:]";
+    v12 = "[SiriAnalyticsXPCConnection barrierWithCompletion:]";
     _os_log_debug_impl(&dword_1D9863000, v5, OS_LOG_TYPE_DEBUG, "%s entering barrier", buf, 0xCu);
   }
 
@@ -2059,16 +2181,14 @@ uint64_t __71__SiriAnalyticsXPCConnection__sensitiveCondition_startedAt_completi
   block[1] = 3221225472;
   block[2] = __52__SiriAnalyticsXPCConnection_barrierWithCompletion___block_invoke;
   block[3] = &unk_1E8587C18;
-  v11 = completionCopy;
+  v10 = completionCopy;
   v8 = completionCopy;
   dispatch_group_notify(xpcPublishingGroup, queue, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__SiriAnalyticsXPCConnection_barrierWithCompletion___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -2077,18 +2197,17 @@ uint64_t __52__SiriAnalyticsXPCConnection_barrierWithCompletion___block_invoke(u
   v2 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[SiriAnalyticsXPCConnection barrierWithCompletion:]_block_invoke";
-    _os_log_debug_impl(&dword_1D9863000, v2, OS_LOG_TYPE_DEBUG, "%s exiting barrier", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriAnalyticsXPCConnection barrierWithCompletion:]_block_invoke";
+    _os_log_debug_impl(&dword_1D9863000, v2, OS_LOG_TYPE_DEBUG, "%s exiting barrier", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2145,7 +2264,7 @@ void __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_comp
 
 void __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -2155,13 +2274,13 @@ void __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_comp
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 64);
+    v12 = *(a1 + 64);
     *buf = 136315650;
-    v20 = "[SiriAnalyticsXPCConnection _publishLargeMessageToRemote:attempts:completion:]_block_invoke_3";
-    v21 = 2112;
-    v22 = v3;
-    v23 = 2048;
-    v24 = v13;
+    v19 = "[SiriAnalyticsXPCConnection _publishLargeMessageToRemote:attempts:completion:]_block_invoke_3";
+    v20 = 2112;
+    v21 = v3;
+    v22 = 2048;
+    v23 = v12;
     _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Failed to send large message due to %@. (attempts = %tu)", buf, 0x20u);
   }
 
@@ -2175,11 +2294,11 @@ void __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_comp
     v11 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 40);
+      v13 = *(a1 + 40);
       *buf = 136315394;
-      v20 = "[SiriAnalyticsXPCConnection _publishLargeMessageToRemote:attempts:completion:]_block_invoke_2";
-      v21 = 2112;
-      v22 = v14;
+      v19 = "[SiriAnalyticsXPCConnection _publishLargeMessageToRemote:attempts:completion:]_block_invoke_2";
+      v20 = 2112;
+      v21 = v13;
       _os_log_error_impl(&dword_1D9863000, v11, OS_LOG_TYPE_ERROR, "%s Dropping %@ because the maximum number of retries was reached.", buf, 0x16u);
     }
 
@@ -2192,20 +2311,18 @@ void __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_comp
     v7 = *(a1 + 32);
     v6 = *(a1 + 40);
     v8 = *(v7 + 16);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_completion___block_invoke_18;
-    v15[3] = &unk_1E8587288;
-    v15[4] = v7;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_completion___block_invoke_18;
+    v14[3] = &unk_1E8587288;
+    v14[4] = v7;
     v9 = v6;
     v10 = *(a1 + 64);
-    v16 = v9;
-    v18 = v10;
-    v17 = *(a1 + 48);
-    dispatch_after(v5, v8, v15);
+    v15 = v9;
+    v17 = v10;
+    v16 = *(a1 + 48);
+    dispatch_after(v5, v8, v14);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__SiriAnalyticsXPCConnection__publishLargeMessageToRemote_attempts_completion___block_invoke_2(uint64_t a1)
@@ -2274,7 +2391,7 @@ void __62__SiriAnalyticsXPCConnection__publishLargeMessage_completion___block_in
 
 - (void)_resolveMessagesAtRemote:(id)remote attempts:(unint64_t)attempts completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   remoteCopy = remote;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -2283,7 +2400,7 @@ void __62__SiriAnalyticsXPCConnection__publishLargeMessage_completion___block_in
   aBlock[3] = &unk_1E8587C90;
   aBlock[4] = self;
   v10 = completionCopy;
-  v35 = v10;
+  v34 = v10;
   v11 = _Block_copy(aBlock);
   _currentConnection = [(SiriAnalyticsXPCConnection *)self _currentConnection];
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -2294,43 +2411,41 @@ void __62__SiriAnalyticsXPCConnection__publishLargeMessage_completion___block_in
   v13 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
-    v22 = v13;
-    v23 = [remoteCopy count];
+    v21 = v13;
+    v22 = [remoteCopy count];
     *buf = 136315650;
-    v37 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]";
-    v38 = 2048;
-    v39 = v23;
-    v40 = 2112;
-    v41 = _currentConnection;
-    _os_log_debug_impl(&dword_1D9863000, v22, OS_LOG_TYPE_DEBUG, "%s Sending %lu unresolved messages to connection %@", buf, 0x20u);
+    v36 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]";
+    v37 = 2048;
+    v38 = v22;
+    v39 = 2112;
+    v40 = _currentConnection;
+    _os_log_debug_impl(&dword_1D9863000, v21, OS_LOG_TYPE_DEBUG, "%s Sending %lu unresolved messages to connection %@", buf, 0x20u);
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_9;
-  v28[3] = &unk_1E85872B0;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_9;
+  v27[3] = &unk_1E85872B0;
   v14 = remoteCopy;
-  v29 = v14;
+  v28 = v14;
   selfCopy = self;
   attemptsCopy = attempts;
-  v31 = v10;
+  v30 = v10;
   v15 = v11;
-  v32 = v15;
+  v31 = v15;
   v16 = v10;
-  v17 = [_currentConnection remoteObjectProxyWithErrorHandler:v28];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_12;
-  v24[3] = &unk_1E8587CE0;
-  v25 = v14;
-  v26 = _currentConnection;
-  v27 = v15;
+  v17 = [_currentConnection remoteObjectProxyWithErrorHandler:v27];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_12;
+  v23[3] = &unk_1E8587CE0;
+  v24 = v14;
+  v25 = _currentConnection;
+  v26 = v15;
   v18 = v15;
   v19 = _currentConnection;
   v20 = v14;
-  [v17 resolveMessages:v20 completion:v24];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [v17 resolveMessages:v20 completion:v23];
 }
 
 void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke(uint64_t a1)
@@ -2346,7 +2461,7 @@ void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completi
 
 void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_9(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -2356,19 +2471,19 @@ void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completi
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v14 = v4;
-    v15 = [v13 count];
-    v16 = *(a1 + 64);
+    v12 = *(a1 + 32);
+    v13 = v4;
+    v14 = [v12 count];
+    v15 = *(a1 + 64);
     *buf = 136315906;
-    v23 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke";
-    v24 = 2048;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v3;
-    v28 = 2048;
-    v29 = v16;
-    _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s Failed to send %tu unresolved messages due to %@. (attempts = %tu)", buf, 0x2Au);
+    v22 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke";
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2112;
+    v26 = v3;
+    v27 = 2048;
+    v28 = v15;
+    _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s Failed to send %tu unresolved messages due to %@. (attempts = %tu)", buf, 0x2Au);
   }
 
   if (*(a1 + 64) > 2uLL)
@@ -2381,11 +2496,11 @@ void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completi
     v11 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 136315394;
-      v23 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke_2";
-      v24 = 2112;
-      v25 = v17;
+      v22 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke_2";
+      v23 = 2112;
+      v24 = v16;
       _os_log_error_impl(&dword_1D9863000, v11, OS_LOG_TYPE_ERROR, "%s Dropping %@ because the maximum number of retries was reached.", buf, 0x16u);
     }
 
@@ -2398,25 +2513,23 @@ void __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completi
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     v8 = *(v7 + 16);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_10;
-    v18[3] = &unk_1E8587288;
-    v18[4] = v7;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_10;
+    v17[3] = &unk_1E8587288;
+    v17[4] = v7;
     v9 = v6;
     v10 = *(a1 + 64);
-    v19 = v9;
-    v21 = v10;
-    v20 = *(a1 + 48);
-    dispatch_after(v5, v8, v18);
+    v18 = v9;
+    v20 = v10;
+    v19 = *(a1 + 48);
+    dispatch_after(v5, v8, v17);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_12(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -2425,22 +2538,20 @@ uint64_t __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_comp
   v2 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
-    v6 = v2;
-    v7 = [v5 count];
-    v8 = a1[5];
-    v9 = 136315650;
-    v10 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke";
-    v11 = 2048;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_debug_impl(&dword_1D9863000, v6, OS_LOG_TYPE_DEBUG, "%s Resolved %lu messages to connection %@", &v9, 0x20u);
+    v4 = a1[4];
+    v5 = v2;
+    v6 = [v4 count];
+    v7 = a1[5];
+    v8 = 136315650;
+    v9 = "[SiriAnalyticsXPCConnection _resolveMessagesAtRemote:attempts:completion:]_block_invoke";
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_debug_impl(&dword_1D9863000, v5, OS_LOG_TYPE_DEBUG, "%s Resolved %lu messages to connection %@", &v8, 0x20u);
   }
 
-  result = (*(a1[6] + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __75__SiriAnalyticsXPCConnection__resolveMessagesAtRemote_attempts_completion___block_invoke_2(uint64_t a1)
@@ -2563,7 +2674,7 @@ void __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_c
 
 void __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -2573,19 +2684,19 @@ void __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_c
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v14 = v4;
-    v15 = [v13 count];
-    v16 = *(a1 + 72);
+    v12 = *(a1 + 32);
+    v13 = v4;
+    v14 = [v12 count];
+    v15 = *(a1 + 72);
     *buf = 136315906;
-    v24 = "[SiriAnalyticsXPCConnection _publishUnorderedMessages:topic:attempts:completion:]_block_invoke_3";
-    v25 = 2048;
-    v26 = v15;
-    v27 = 2112;
-    v28 = v3;
-    v29 = 2048;
-    v30 = v16;
-    _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s Failed to send %tu messages due to %@. (attempts = %tu)", buf, 0x2Au);
+    v23 = "[SiriAnalyticsXPCConnection _publishUnorderedMessages:topic:attempts:completion:]_block_invoke_3";
+    v24 = 2048;
+    v25 = v14;
+    v26 = 2112;
+    v27 = v3;
+    v28 = 2048;
+    v29 = v15;
+    _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s Failed to send %tu messages due to %@. (attempts = %tu)", buf, 0x2Au);
   }
 
   if (*(a1 + 72) > 2uLL)
@@ -2598,11 +2709,11 @@ void __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_c
     v11 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 136315394;
-      v24 = "[SiriAnalyticsXPCConnection _publishUnorderedMessages:topic:attempts:completion:]_block_invoke_2";
-      v25 = 2112;
-      v26 = v17;
+      v23 = "[SiriAnalyticsXPCConnection _publishUnorderedMessages:topic:attempts:completion:]_block_invoke_2";
+      v24 = 2112;
+      v25 = v16;
       _os_log_error_impl(&dword_1D9863000, v11, OS_LOG_TYPE_ERROR, "%s Dropping %@ because the maximum number of retries was reached.", buf, 0x16u);
     }
 
@@ -2614,22 +2725,20 @@ void __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_c
     v5 = dispatch_time(0, 1000000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
-    *v18 = *(a1 + 32);
-    v6 = *(v18[1] + 2);
+    v17 = *(a1 + 32);
+    v6 = *(v17.i64[1] + 16);
     block[2] = __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_completion___block_invoke_6;
     block[3] = &unk_1E85872D8;
-    v7 = v18[0];
+    v7 = v17.i64[0];
     v8 = *(a1 + 48);
-    v22 = *(a1 + 72);
+    v21 = *(a1 + 72);
     v9 = *(a1 + 56);
     *&v10 = v8;
     *(&v10 + 1) = v9;
-    v20 = vextq_s8(*v18, *v18, 8uLL);
-    v21 = v10;
+    v19 = vextq_s8(v17, v17, 8uLL);
+    v20 = v10;
     dispatch_after(v5, v6, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__SiriAnalyticsXPCConnection__publishUnorderedMessages_topic_attempts_completion___block_invoke_2(uint64_t a1)
@@ -2719,7 +2828,7 @@ void __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completi
 
 void __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -2729,19 +2838,19 @@ void __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completi
   v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v14 = v4;
-    v15 = [v13 count];
-    v16 = *(a1 + 64);
+    v12 = *(a1 + 32);
+    v13 = v4;
+    v14 = [v12 count];
+    v15 = *(a1 + 64);
     *buf = 136315906;
-    v23 = "[SiriAnalyticsXPCConnection _publishMessagesToRemote:attempts:completion:]_block_invoke_3";
-    v24 = 2048;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v3;
-    v28 = 2048;
-    v29 = v16;
-    _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s Failed to send %tu messages due to %@. (attempts = %tu)", buf, 0x2Au);
+    v22 = "[SiriAnalyticsXPCConnection _publishMessagesToRemote:attempts:completion:]_block_invoke_3";
+    v23 = 2048;
+    v24 = v14;
+    v25 = 2112;
+    v26 = v3;
+    v27 = 2048;
+    v28 = v15;
+    _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s Failed to send %tu messages due to %@. (attempts = %tu)", buf, 0x2Au);
   }
 
   if (*(a1 + 64) > 2uLL)
@@ -2754,11 +2863,11 @@ void __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completi
     v11 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 136315394;
-      v23 = "[SiriAnalyticsXPCConnection _publishMessagesToRemote:attempts:completion:]_block_invoke_2";
-      v24 = 2112;
-      v25 = v17;
+      v22 = "[SiriAnalyticsXPCConnection _publishMessagesToRemote:attempts:completion:]_block_invoke_2";
+      v23 = 2112;
+      v24 = v16;
       _os_log_error_impl(&dword_1D9863000, v11, OS_LOG_TYPE_ERROR, "%s Dropping %@ because the maximum number of retries was reached.", buf, 0x16u);
     }
 
@@ -2771,20 +2880,18 @@ void __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completi
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     v8 = *(v7 + 16);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completion___block_invoke_2;
-    v18[3] = &unk_1E8587288;
-    v18[4] = v7;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completion___block_invoke_2;
+    v17[3] = &unk_1E8587288;
+    v17[4] = v7;
     v9 = v6;
     v10 = *(a1 + 64);
-    v19 = v9;
-    v21 = v10;
-    v20 = *(a1 + 48);
-    dispatch_after(v5, v8, v18);
+    v18 = v9;
+    v20 = v10;
+    v19 = *(a1 + 48);
+    dispatch_after(v5, v8, v17);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__SiriAnalyticsXPCConnection__publishMessagesToRemote_attempts_completion___block_invoke_2(uint64_t a1)

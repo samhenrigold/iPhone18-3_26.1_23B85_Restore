@@ -32,7 +32,7 @@
 - (id)_hostingNavigationBar
 {
   selfCopy = self;
-  v3 = sub_1D7E4C0E8();
+  v3 = sub_1D7E4C0E8(selfCopy);
 
   return v3;
 }
@@ -54,7 +54,7 @@
 - (BOOL)_shouldOverlayTabBar
 {
   selfCopy = self;
-  v3 = sub_1D7F858B8();
+  v3 = sub_1D7F858B8(selfCopy);
 
   return v3 & 1;
 }

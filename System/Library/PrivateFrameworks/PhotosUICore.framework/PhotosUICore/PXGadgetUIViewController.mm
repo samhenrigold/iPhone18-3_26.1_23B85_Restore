@@ -156,9 +156,9 @@ LABEL_8:
 - (void)_gadgetSpecDidChange
 {
   specManager = [(PXGadgetUIViewController *)self specManager];
-  layout = [(PXGadgetUIViewController *)self layout];
+  v3 = objc_msgSend_layout(self);
   currentGadgetSpec = [specManager currentGadgetSpec];
-  [layout setSpec:currentGadgetSpec];
+  [v3 setSpec:currentGadgetSpec];
 
   currentGadgetSpec2 = [specManager currentGadgetSpec];
   [currentGadgetSpec2 contentInsets];
@@ -191,7 +191,7 @@ LABEL_8:
 LABEL_8:
   if (![(PXGadgetUIViewController *)self isBatchUpdating])
   {
-    [layout invalidateLayout];
+    [v3 invalidateLayout];
   }
 }
 
@@ -601,8 +601,8 @@ void __50__PXGadgetUIViewController_gadget_animateChanges___block_invoke(uint64_
       gadgetCopy = v10;
       if (!isBatchUpdating)
       {
-        layout = [(PXGadgetUIViewController *)self layout];
-        [layout invalidateLayout];
+        v9 = objc_msgSend_layout(self, v10);
+        [v9 invalidateLayout];
 
         gadgetCopy = v10;
       }
@@ -612,8 +612,8 @@ void __50__PXGadgetUIViewController_gadget_animateChanges___block_invoke(uint64_
 
 - (void)contentSizeCategoryDidChangeNotification:(id)notification
 {
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout invalidateLayout];
+  v3 = objc_msgSend_layout(self, a2, notification);
+  [v3 invalidateLayout];
 }
 
 - (void)collectionView:(id)view performDropWithCoordinator:(id)coordinator
@@ -758,8 +758,8 @@ void __50__PXGadgetUIViewController_gadget_animateChanges___block_invoke(uint64_
 {
   layoutCopy = layout;
   viewCopy = view;
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout collectionView:viewCopy layout:layoutCopy referenceSizeForHeaderInSection:section];
+  v10 = objc_msgSend_layout(self);
+  [v10 collectionView:viewCopy layout:layoutCopy referenceSizeForHeaderInSection:section];
   v12 = v11;
   v14 = v13;
 
@@ -775,8 +775,8 @@ void __50__PXGadgetUIViewController_gadget_animateChanges___block_invoke(uint64_
   pathCopy = path;
   layoutCopy = layout;
   viewCopy = view;
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout collectionView:viewCopy layout:layoutCopy sizeForItemAtIndexPath:pathCopy];
+  v11 = objc_msgSend_layout(self);
+  [v11 collectionView:viewCopy layout:layoutCopy sizeForItemAtIndexPath:pathCopy];
   v13 = v12;
   v15 = v14;
 
@@ -791,8 +791,8 @@ void __50__PXGadgetUIViewController_gadget_animateChanges___block_invoke(uint64_
 {
   layoutCopy = layout;
   viewCopy = view;
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout collectionView:viewCopy layout:layoutCopy insetForSectionAtIndex:index];
+  v10 = objc_msgSend_layout(self);
+  [v10 collectionView:viewCopy layout:layoutCopy insetForSectionAtIndex:index];
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -1403,7 +1403,7 @@ void __56__PXGadgetUIViewController__setTimerToHandleGadgetsSeen__block_invoke(u
   v6 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForGadget:gadgetCopy];
+    objc_msgSend_indexPathForGadget_(dataSource);
   }
 
   else
@@ -1938,7 +1938,7 @@ void __51__PXGadgetUIViewController_debugURLsForDiagnostics__block_invoke(uint64
 
 void __79__PXGadgetUIViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) layout];
+  v2 = objc_msgSend_layout(*(a1 + 32));
   [v2 invalidateLayout];
 
   v3 = [*(a1 + 32) collectionView];
@@ -1947,8 +1947,8 @@ void __79__PXGadgetUIViewController_viewWillTransitionToSize_withTransitionCoord
 
 - (int64_t)_scrollAxis
 {
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout scrollDirection];
+  v2 = objc_msgSend_layout(self, a2);
+  [v2 scrollDirection];
 
   PXAxisFromUICollectionViewScrollDirection();
 }
@@ -2095,8 +2095,8 @@ LABEL_11:
 
 - (void)_initializeHelpers
 {
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout scrollDirection];
+  v2 = objc_msgSend_layout(self, a2);
+  [v2 scrollDirection];
 
   PXAxisFromUICollectionViewScrollDirection();
 }

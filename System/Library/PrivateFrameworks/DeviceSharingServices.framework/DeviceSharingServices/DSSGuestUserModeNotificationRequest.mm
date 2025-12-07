@@ -53,19 +53,18 @@
 {
   v3 = MEMORY[0x277CCACA8];
   ClassName = object_getClassName(self);
-  reason = self->_reason;
   notificationType = self->_notificationType;
   if (notificationType > 4)
   {
-    v7 = @"Invalid";
+    v6 = @"Invalid";
   }
 
   else
   {
-    v7 = off_278F623B8[notificationType];
+    v6 = off_278F623B8[notificationType];
   }
 
-  return [v3 stringWithFormat:@"<%s: %p, { Reason: %@ NotificationType: %@}>", ClassName, self, self->_reason, v7];
+  return [v3 stringWithFormat:@"<%s: %p, { Reason: %@ NotificationType: %@}>", ClassName, self, self->_reason, v6];
 }
 
 @end

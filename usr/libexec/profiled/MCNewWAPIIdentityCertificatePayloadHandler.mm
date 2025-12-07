@@ -175,7 +175,7 @@ LABEL_15:
 
   if (error && _cannotStoreCertificateError)
   {
-    *error = [_cannotStoreCertificateError MCCopyAsPrimaryError];
+    *error = objc_msgSend_MCCopyAsPrimaryError(_cannotStoreCertificateError);
   }
 
   return _cannotStoreCertificateError == 0;

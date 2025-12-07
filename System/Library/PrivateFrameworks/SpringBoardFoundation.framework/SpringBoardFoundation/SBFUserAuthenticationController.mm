@@ -1569,14 +1569,18 @@ LABEL_14:
 {
   v1 = [MEMORY[0x1E698E680] builderWithObject:a1];
   v2 = [v1 build];
-  OUTLINED_FUNCTION_2(&dword_1BEA11000, v3, v4, "Authentication responder added: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_2(&dword_1BEA11000, v3, v4, "Authentication responder added: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_removeAuthResponder:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v1 = [MEMORY[0x1E698E680] builderWithObject:a1];
   v2 = [v1 build];
-  OUTLINED_FUNCTION_2(&dword_1BEA11000, v3, v4, "Authentication responder removed: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_2(&dword_1BEA11000, v3, v4, "Authentication responder removed: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_authenticateIfInGracePeriod

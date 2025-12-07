@@ -110,45 +110,64 @@ void __41__PKEditTableNoPassesView_initWithFrame___block_invoke_2(uint64_t a1)
   v8 = v7;
   v10 = v9;
   memset(&slice, 0, sizeof(slice));
-  v22.origin.x = v3;
-  v22.origin.y = v5;
-  v22.size.width = v7;
-  v22.size.height = v9;
+  v40.origin.x = v3;
+  v40.origin.y = v5;
+  v40.size.width = v7;
+  v40.size.height = v9;
   [(UILabel *)self->_titleLabel sizeThatFits:v7, v9];
   v12 = v11;
-  v24.origin.x = v4;
-  v24.origin.y = v6;
-  v24.size.width = v8;
-  v24.size.height = v10;
-  CGRectDivide(v24, &slice, &v22, v12, CGRectMinYEdge);
+  v42.origin.x = v4;
+  v42.origin.y = v6;
+  v42.size.width = v8;
+  v42.size.height = v10;
+  CGRectDivide(v42, &slice, &v40, v12, CGRectMinYEdge);
   [(UILabel *)self->_titleLabel pkui_setFrame:0 animated:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-  CGRectDivide(v22, &slice, &v22, 16.0, CGRectMinYEdge);
-  [(UILabel *)self->_descriptionLabel sizeThatFits:v8 + -80.0, v22.size.height];
+  CGRectDivide(v40, &slice, &v40, 16.0, CGRectMinYEdge);
+  [(UILabel *)self->_descriptionLabel sizeThatFits:v8 + -80.0, v40.size.height];
   v14 = v13;
-  CGRectDivide(v22, &slice, &v22, v13, CGRectMinYEdge);
+  CGRectDivide(v40, &slice, &v40, v13, CGRectMinYEdge);
   [(UILabel *)self->_descriptionLabel pkui_setFrame:0 animated:40.0, slice.origin.y, v8 + -80.0, v14];
-  CGRectDivide(v22, &slice, &v22, 16.0, CGRectMinYEdge);
+  CGRectDivide(v40, &slice, &v40, 16.0, CGRectMinYEdge);
   buttonScanCode = self->_buttonScanCode;
   if (buttonScanCode)
   {
     titleLabel = [(UIButton *)buttonScanCode titleLabel];
-    [titleLabel sizeThatFits:{v8, v22.size.height}];
+    [titleLabel sizeThatFits:{v8, v40.size.height}];
     v18 = v17;
 
-    CGRectDivide(v22, &slice, &v22, v18, CGRectMinYEdge);
+    CGRectDivide(v40, &slice, &v40, v18, CGRectMinYEdge);
     [(UIButton *)self->_buttonScanCode frame];
-    PKSizeAlignedInRect();
+    v20.n128_u64[0] = v19;
+    v21.n128_f64[0] = v18 + 5.0;
+    v22.n128_u64[0] = *&slice.origin.x;
+    v23.n128_u64[0] = *&slice.origin.y;
+    v24.n128_u64[0] = *&slice.size.width;
+    v25.n128_u64[0] = *&slice.size.height;
+    v26 = *MEMORY[0x1E69BB7F8];
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v21, v22, v23, v24, v25, v27);
     [(UIButton *)self->_buttonScanCode setFrame:?];
-    CGRectDivide(v22, &slice, &v22, 16.0, CGRectMinYEdge);
+    CGRectDivide(v40, &slice, &v40, 16.0, CGRectMinYEdge);
+  }
+
+  else
+  {
+    v26 = *MEMORY[0x1E69BB7F8];
   }
 
   titleLabel2 = [(UIButton *)self->_buttonFindApps titleLabel];
-  [titleLabel2 sizeThatFits:{v8, v22.size.height}];
-  v21 = v20;
+  [titleLabel2 sizeThatFits:{v8, v40.size.height}];
+  v30 = v29;
 
-  CGRectDivide(v22, &slice, &v22, v21 + 5.0, CGRectMinYEdge);
+  v31 = v30 + 5.0;
+  CGRectDivide(v40, &slice, &v40, v31, CGRectMinYEdge);
   [(UIButton *)self->_buttonFindApps frame];
-  PKSizeAlignedInRect();
+  v33.n128_u64[0] = v32;
+  v34.n128_u64[0] = *&slice.origin.x;
+  v35.n128_u64[0] = *&slice.origin.y;
+  v36.n128_u64[0] = *&slice.size.width;
+  v37.n128_u64[0] = *&slice.size.height;
+  v38.n128_f64[0] = v31;
+  PKSizeAlignedInRect(v26, v33, v38, v34, v35, v36, v37, v39);
   [(UIButton *)self->_buttonFindApps setFrame:?];
 }
 

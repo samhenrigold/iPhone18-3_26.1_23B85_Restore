@@ -11,31 +11,29 @@
 
 - (void)voipNetworkExtensionRegistrationFailed
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@ registration with CallKit failed", &v5, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@ registration with CallKit failed", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)voipNetworkExtensionPayloadReceived:(id)received mustPostCall:(BOOL)call withCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   handlerCopy = handler;
   v9 = ne_log_obj();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    *v20 = 138412546;
-    *&v20[4] = self;
-    *&v20[12] = 2112;
-    *&v20[14] = receivedCopy;
-    _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ callkit delivered payload %@", v20, 0x16u);
+    *v19 = 138412546;
+    *&v19[4] = self;
+    *&v19[12] = 2112;
+    *&v19[14] = receivedCopy;
+    _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ callkit delivered payload %@", v19, 0x16u);
   }
 
   v10 = receivedCopy;
@@ -54,29 +52,29 @@
       {
         if (v17)
         {
-          v19 = [v15 count];
-          *v20 = 134217984;
-          *&v20[4] = v19;
-          _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "loaded manager count %zd", v20, 0xCu);
+          v18 = [v15 count];
+          *v19 = 134217984;
+          *&v19[4] = v18;
+          _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "loaded manager count %zd", v19, 0xCu);
         }
 
-        *v20 = MEMORY[0x1E69E9820];
-        *&v20[8] = 3221225472;
-        *&v20[16] = __69__NEAppPushManager_deliverIncomingCallPayload_withCompletionHandler___block_invoke;
-        v21 = &unk_1E7F07A28;
-        v22 = v14;
-        v25 = v12;
-        v23 = v13;
-        v24 = v11;
-        [v15 enumerateKeysAndObjectsUsingBlock:v20];
+        *v19 = MEMORY[0x1E69E9820];
+        *&v19[8] = 3221225472;
+        *&v19[16] = __69__NEAppPushManager_deliverIncomingCallPayload_withCompletionHandler___block_invoke;
+        v20 = &unk_1E7F07A28;
+        v21 = v14;
+        v24 = v12;
+        v22 = v13;
+        v23 = v11;
+        [v15 enumerateKeysAndObjectsUsingBlock:v19];
 
-        v16 = v22;
+        v16 = v21;
       }
 
       else if (v17)
       {
-        *v20 = 0;
-        _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "no loaded managers found", v20, 2u);
+        *v19 = 0;
+        _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "no loaded managers found", v19, 2u);
       }
     }
 
@@ -85,11 +83,11 @@
       v15 = ne_log_obj();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v20 = 138412546;
-        *&v20[4] = v12;
-        *&v20[12] = 2112;
-        *&v20[14] = @"ap-push-config-uuid";
-        _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@ received payload without [%@] key", v20, 0x16u);
+        *v19 = 138412546;
+        *&v19[4] = v12;
+        *&v19[12] = 2112;
+        *&v19[14] = @"ap-push-config-uuid";
+        _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@ received payload without [%@] key", v19, 0x16u);
       }
     }
   }
@@ -99,13 +97,11 @@
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 138412290;
-      *&v20[4] = v12;
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ received invalid incoming call payload", v20, 0xCu);
+      *v19 = 138412290;
+      *&v19[4] = v12;
+      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@ received invalid incoming call payload", v19, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -148,13 +144,13 @@
 
 void __33__NEAppPushCallKitXPCClient_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "com.apple.pushkit.launch.voip";
-    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Received notification %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "com.apple.pushkit.launch.voip";
+    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Received notification %s", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -167,8 +163,6 @@ void __33__NEAppPushCallKitXPCClient_init__block_invoke(uint64_t a1)
     [NEAppPushCallKitXPCClient setConnection:v4];
     [(NEAppPushCallKitXPCClient *)v4 registerVoIPMessagePayload];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConnection:(uint64_t)connection
@@ -184,7 +178,7 @@ void __33__NEAppPushCallKitXPCClient_init__block_invoke(uint64_t a1)
 
 - (void)registerVoIPMessagePayload
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 8));
@@ -205,19 +199,19 @@ void __33__NEAppPushCallKitXPCClient_init__block_invoke(uint64_t a1)
       objc_initWeak(&location, self);
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v18 = __39__NEAppPushCallKitXPCClient_connection__block_invoke;
-      v19 = &unk_1E7F0AA58;
-      objc_copyWeak(v20, &location);
+      v17 = __39__NEAppPushCallKitXPCClient_connection__block_invoke;
+      v18 = &unk_1E7F0AA58;
+      objc_copyWeak(v19, &location);
       [*(self + 16) setInterruptionHandler:&buf];
-      v11 = MEMORY[0x1E69E9820];
-      v12 = 3221225472;
-      v13 = __39__NEAppPushCallKitXPCClient_connection__block_invoke_13;
-      v14 = &unk_1E7F0AA58;
-      objc_copyWeak(&v15, &location);
-      [*(self + 16) setInvalidationHandler:&v11];
+      v10 = MEMORY[0x1E69E9820];
+      v11 = 3221225472;
+      v12 = __39__NEAppPushCallKitXPCClient_connection__block_invoke_13;
+      v13 = &unk_1E7F0AA58;
+      objc_copyWeak(&v14, &location);
+      [*(self + 16) setInvalidationHandler:&v10];
       [*(self + 16) resume];
-      objc_destroyWeak(&v15);
-      objc_destroyWeak(v20);
+      objc_destroyWeak(&v14);
+      objc_destroyWeak(v19);
       objc_destroyWeak(&location);
       v2 = *(self + 16);
     }
@@ -235,8 +229,6 @@ void __33__NEAppPushCallKitXPCClient_init__block_invoke(uint64_t a1)
       _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ registered with CallKit", &buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __39__NEAppPushCallKitXPCClient_connection__block_invoke(uint64_t a1)

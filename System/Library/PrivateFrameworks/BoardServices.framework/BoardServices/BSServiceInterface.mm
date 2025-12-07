@@ -79,7 +79,7 @@
 
 - (void)_initWithIdentifier:(void *)identifier server:(void *)server client:(uint64_t)client clientWaitsForActivation:
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v9 = a2;
   identifierCopy = identifier;
   serverCopy = server;
@@ -91,29 +91,29 @@
       v13 = objc_opt_class();
       if (v13 != objc_opt_class())
       {
-        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BSServiceInterface is not intended to be subclassed"];
+        v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BSServiceInterface is not intended to be subclassed"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v46 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
+          v45 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
+          v46 = objc_opt_class();
+          v47 = NSStringFromClass(v46);
           *buf = 138544642;
-          v52 = v46;
-          v53 = 2114;
-          v54 = v48;
-          v55 = 2048;
+          v51 = v45;
+          v52 = 2114;
+          v53 = v47;
+          v54 = 2048;
           selfCopy5 = self;
-          v57 = 2114;
-          v58 = @"BSServiceInterface.m";
-          v59 = 1024;
-          v60 = 317;
-          v61 = 2114;
-          v62 = v45;
+          v56 = 2114;
+          v57 = @"BSServiceInterface.m";
+          v58 = 1024;
+          v59 = 317;
+          v60 = 2114;
+          v61 = v44;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        v49 = v45;
-        [v45 UTF8String];
+        v48 = v44;
+        [v44 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A858C4CLL);
@@ -124,29 +124,29 @@
     NSClassFromString(&cfstr_Bsobjcprotocol.isa);
     if (!v14)
     {
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v26 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v25 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
         *buf = 138544642;
-        v52 = v26;
-        v53 = 2114;
-        v54 = v28;
-        v55 = 2048;
+        v51 = v25;
+        v52 = 2114;
+        v53 = v27;
+        v54 = 2048;
         selfCopy5 = self;
-        v57 = 2114;
-        v58 = @"BSServiceInterface.m";
-        v59 = 1024;
-        v60 = 318;
-        v61 = 2114;
-        v62 = v25;
+        v56 = 2114;
+        v57 = @"BSServiceInterface.m";
+        v58 = 1024;
+        v59 = 318;
+        v60 = 2114;
+        v61 = v24;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v29 = v25;
-      [v25 UTF8String];
+      v28 = v24;
+      [v24 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A858848);
@@ -154,29 +154,29 @@
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v31 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
-        v32 = objc_opt_class();
-        v33 = NSStringFromClass(v32);
+        v30 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
         *buf = 138544642;
-        v52 = v31;
-        v53 = 2114;
-        v54 = v33;
-        v55 = 2048;
+        v51 = v30;
+        v52 = 2114;
+        v53 = v32;
+        v54 = 2048;
         selfCopy5 = self;
-        v57 = 2114;
-        v58 = @"BSServiceInterface.m";
-        v59 = 1024;
-        v60 = 318;
-        v61 = 2114;
-        v62 = v30;
+        v56 = 2114;
+        v57 = @"BSServiceInterface.m";
+        v58 = 1024;
+        v59 = 318;
+        v60 = 2114;
+        v61 = v29;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v34 = v30;
-      [v30 UTF8String];
+      v33 = v29;
+      [v29 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A85894CLL);
@@ -186,29 +186,29 @@
     NSClassFromString(&cfstr_Bsobjcprotocol.isa);
     if (!v15)
     {
-      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v36 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
-        v37 = objc_opt_class();
-        v38 = NSStringFromClass(v37);
+        v35 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
+        v36 = objc_opt_class();
+        v37 = NSStringFromClass(v36);
         *buf = 138544642;
-        v52 = v36;
-        v53 = 2114;
-        v54 = v38;
-        v55 = 2048;
+        v51 = v35;
+        v52 = 2114;
+        v53 = v37;
+        v54 = 2048;
         selfCopy5 = self;
-        v57 = 2114;
-        v58 = @"BSServiceInterface.m";
-        v59 = 1024;
-        v60 = 319;
-        v61 = 2114;
-        v62 = v35;
+        v56 = 2114;
+        v57 = @"BSServiceInterface.m";
+        v58 = 1024;
+        v59 = 319;
+        v60 = 2114;
+        v61 = v34;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v39 = v35;
-      [v35 UTF8String];
+      v38 = v34;
+      [v34 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A858A50);
@@ -216,37 +216,37 @@
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v41 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
-        v42 = objc_opt_class();
-        v43 = NSStringFromClass(v42);
+        v40 = NSStringFromSelector(sel__initWithIdentifier_server_client_clientWaitsForActivation_);
+        v41 = objc_opt_class();
+        v42 = NSStringFromClass(v41);
         *buf = 138544642;
-        v52 = v41;
-        v53 = 2114;
-        v54 = v43;
-        v55 = 2048;
+        v51 = v40;
+        v52 = 2114;
+        v53 = v42;
+        v54 = 2048;
         selfCopy5 = self;
-        v57 = 2114;
-        v58 = @"BSServiceInterface.m";
-        v59 = 1024;
-        v60 = 319;
-        v61 = 2114;
-        v62 = v40;
+        v56 = 2114;
+        v57 = @"BSServiceInterface.m";
+        v58 = 1024;
+        v59 = 319;
+        v60 = 2114;
+        v61 = v39;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v44 = v40;
-      [v40 UTF8String];
+      v43 = v39;
+      [v39 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A858B54);
     }
 
-    v50.receiver = self;
-    v50.super_class = BSServiceInterface;
-    v16 = objc_msgSendSuper2(&v50, sel_init);
+    v49.receiver = self;
+    v49.super_class = BSServiceInterface;
+    v16 = objc_msgSendSuper2(&v49, sel_init);
     if (v16)
     {
       v17 = [v9 copy];
@@ -270,40 +270,39 @@
     v16 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (BSServiceInterface)interfaceWithIdentifier:(id)identifier configurator:(id)configurator
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   configuratorCopy = configurator;
   if (!configuratorCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"configurator"];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"configurator"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v14 = NSStringFromSelector(a2);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138544642;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v17;
-      v23 = 2048;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2048;
       selfCopy = self;
-      v25 = 2114;
-      v26 = @"BSServiceInterface.m";
-      v27 = 1024;
-      v28 = 306;
-      v29 = 2114;
-      v30 = v14;
+      v24 = 2114;
+      v25 = @"BSServiceInterface.m";
+      v26 = 1024;
+      v27 = 306;
+      v28 = 2114;
+      v29 = v13;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v18 = v14;
-    [v14 UTF8String];
+    v17 = v13;
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A858F2CLL);
@@ -315,7 +314,6 @@
   v11 = [v10 copy];
 
   objc_autoreleasePoolPop(v9);
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -348,36 +346,36 @@
 
 + (BSServiceInterface)interfaceWithServer:(id)server client:(id)client
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   clientCopy = client;
   v9 = serverCopy;
   NSClassFromString(&cfstr_Bsobjcprotocol.isa);
   if (!v9)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v23 = NSStringFromSelector(a2);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v22 = NSStringFromSelector(a2);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138544642;
-      v43 = v23;
-      v44 = 2114;
-      v45 = v25;
-      v46 = 2048;
+      v42 = v22;
+      v43 = 2114;
+      v44 = v24;
+      v45 = 2048;
       selfCopy4 = self;
-      v48 = 2114;
-      v49 = @"BSServiceInterface.m";
-      v50 = 1024;
-      v51 = 378;
-      v52 = 2114;
-      v53 = v22;
+      v47 = 2114;
+      v48 = @"BSServiceInterface.m";
+      v49 = 1024;
+      v50 = 378;
+      v51 = 2114;
+      v52 = v21;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v26 = v22;
-    [v22 UTF8String];
+    v25 = v21;
+    [v21 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A859378);
@@ -385,29 +383,29 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = NSStringFromSelector(a2);
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v27 = NSStringFromSelector(a2);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138544642;
-      v43 = v28;
-      v44 = 2114;
-      v45 = v30;
-      v46 = 2048;
+      v42 = v27;
+      v43 = 2114;
+      v44 = v29;
+      v45 = 2048;
       selfCopy4 = self;
-      v48 = 2114;
-      v49 = @"BSServiceInterface.m";
-      v50 = 1024;
-      v51 = 378;
-      v52 = 2114;
-      v53 = v27;
+      v47 = 2114;
+      v48 = @"BSServiceInterface.m";
+      v49 = 1024;
+      v50 = 378;
+      v51 = 2114;
+      v52 = v26;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v31 = v27;
-    [v27 UTF8String];
+    v30 = v26;
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A85947CLL);
@@ -421,29 +419,29 @@
   NSClassFromString(&cfstr_Bsobjcprotocol.isa);
   if (!v12)
   {
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v33 = NSStringFromSelector(a2);
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
+      v32 = NSStringFromSelector(a2);
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
       *buf = 138544642;
-      v43 = v33;
-      v44 = 2114;
-      v45 = v35;
-      v46 = 2048;
+      v42 = v32;
+      v43 = 2114;
+      v44 = v34;
+      v45 = 2048;
       selfCopy4 = self;
-      v48 = 2114;
-      v49 = @"BSServiceInterface.m";
-      v50 = 1024;
-      v51 = 382;
-      v52 = 2114;
-      v53 = v32;
+      v47 = 2114;
+      v48 = @"BSServiceInterface.m";
+      v49 = 1024;
+      v50 = 382;
+      v51 = 2114;
+      v52 = v31;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v36 = v32;
-    [v32 UTF8String];
+    v35 = v31;
+    [v31 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A859580);
@@ -451,29 +449,29 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
+    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSObjCProtocolClass]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(a2);
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v37 = NSStringFromSelector(a2);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       *buf = 138544642;
-      v43 = v38;
-      v44 = 2114;
-      v45 = v40;
-      v46 = 2048;
+      v42 = v37;
+      v43 = 2114;
+      v44 = v39;
+      v45 = 2048;
       selfCopy4 = self;
-      v48 = 2114;
-      v49 = @"BSServiceInterface.m";
-      v50 = 1024;
-      v51 = 382;
-      v52 = 2114;
-      v53 = v37;
+      v47 = 2114;
+      v48 = @"BSServiceInterface.m";
+      v49 = 1024;
+      v50 = 382;
+      v51 = 2114;
+      v52 = v36;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v41 = v37;
-    [v37 UTF8String];
+    v40 = v36;
+    [v36 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A859684);
@@ -493,8 +491,6 @@
   }
 
   v19 = [(BSServiceInterface *)v15 _initWithIdentifier:v11 server:v14 client:*v18 clientWaitsForActivation:?];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -591,25 +587,25 @@ const __CFBoolean *__60__BSServiceInterface_descriptionBuilderWithMultilinePrefi
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v14 = 1;
+    v8 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && (identifier = self->_identifier, v8 = equalCopy->_identifier, BSEqualStrings()) && (server = self->_server, v10 = equalCopy->_server, BSEqualObjects()) && (client = self->_client, v12 = equalCopy->_client, BSEqualObjects()))
+    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && BSEqualStrings() && BSEqualObjects() && BSEqualObjects())
     {
       clientMessagingExpectation = [(BSServiceInterface *)self clientMessagingExpectation];
-      v14 = clientMessagingExpectation == [(BSServiceInterface *)equalCopy clientMessagingExpectation];
+      v8 = clientMessagingExpectation == [(BSServiceInterface *)equalCopy clientMessagingExpectation];
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
-  return v14;
+  return v8;
 }
 
 @end

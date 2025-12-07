@@ -18,8 +18,8 @@
 
 - (void)stopSharing:(DSSharedResource *)sharing withCompletion:(id)completion
 {
-  v7 = (*(*(sub_F3B8(&qword_1EF38, &qword_14018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_F3B8(&qword_1EF38, &qword_14018);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -45,8 +45,8 @@
 
 - (void)stopSharingWithParticipant:(DSParticipation *)participant completion:(id)completion
 {
-  v7 = (*(*(sub_F3B8(&qword_1EF38, &qword_14018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_F3B8(&qword_1EF38, &qword_14018);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();
@@ -72,8 +72,8 @@
 
 - (void)stopAllSharingWithCompletion:(id)completion
 {
-  v5 = (*(*(sub_F3B8(&qword_1EF38, &qword_14018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_F3B8(&qword_1EF38, &qword_14018);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);
   v9 = swift_allocObject();

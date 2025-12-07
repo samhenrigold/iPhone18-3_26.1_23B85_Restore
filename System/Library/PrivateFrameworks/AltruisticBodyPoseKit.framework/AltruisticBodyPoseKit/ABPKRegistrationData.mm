@@ -1,8 +1,6 @@
 @interface ABPKRegistrationData
 - (ABPKRegistrationData)initWithImagePoints:(ABPKRegistrationData *)self imagePointsCount:(SEL)count jointsLifted3D:jointsLifted3DCount:cameraIntrinsics:imageDimensions:cameraFromBodyPose:registrationValid:;
 - (CGSize)imageDimensions;
-- (__n128)cameraFromBodyPose;
-- (__n128)cameraIntrinsics;
 - (id).cxx_construct;
 @end
 
@@ -29,7 +27,7 @@
     v19->_imagePointsCount = v15;
     v31 = 0uLL;
     v32 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v31, v18, v18 + 8 * v15, v15);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v31, v18, &v18[v15], v15);
     v21 = *v20->_anon_8;
     if (v21)
     {
@@ -45,7 +43,7 @@
     v20->_jointsLifted3DCount = v13;
     v31 = 0uLL;
     v32 = 0;
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v31, v14, v14 + 16 * v13, v13);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v31, v14, &v14[v13], v13);
     v22 = v34;
     v23 = v35;
     v24 = v36;
@@ -81,29 +79,12 @@
   return v20;
 }
 
-- (__n128)cameraIntrinsics
-{
-  result = *(self + 96);
-  v2 = *(self + 112);
-  v3 = *(self + 128);
-  return result;
-}
-
 - (CGSize)imageDimensions
 {
   width = self->_imageDimensions.width;
   height = self->_imageDimensions.height;
   result.height = height;
   result.width = width;
-  return result;
-}
-
-- (__n128)cameraFromBodyPose
-{
-  result = *(self + 144);
-  v2 = *(self + 160);
-  v3 = *(self + 176);
-  v4 = *(self + 192);
   return result;
 }
 

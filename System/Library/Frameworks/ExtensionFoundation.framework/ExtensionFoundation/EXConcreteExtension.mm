@@ -63,6 +63,7 @@
 - (void)_hostWillResignActiveNote:(id)note;
 - (void)_isPhotoServiceAccessGranted;
 - (void)_isSystemExtension;
+- (void)_kill:(int)_kill;
 - (void)_loadItemForPayload:(id)payload contextIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)_loadPreviewImageForPayload:(id)payload contextIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)_openURL:(id)l completion:(id)completion;
@@ -125,18 +126,18 @@
 
   if (!infoDictionary)
   {
-    v4 = _EXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = _EXDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [EXConcreteExtension _wantsProcessPerRequest];
     }
   }
 
   infoDictionary2 = [(EXConcreteExtension *)self infoDictionary];
-  v6 = [infoDictionary2 objectForKey:@"XPCService"];
+  v7 = [infoDictionary2 objectForKey:@"XPCService"];
 
-  v7 = [v6 objectForKey:@"_MultipleInstances"];
-  bOOLValue = [v7 BOOLValue];
+  v8 = [v7 objectForKey:@"_MultipleInstances"];
+  bOOLValue = [v8 BOOLValue];
 
   return bOOLValue;
 }
@@ -163,33 +164,33 @@
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allValues = [(NSMutableDictionary *)self->__extensionServiceConnections allValues];
-  v4 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         [v8 setInvalidationHandler:0];
         [v8 setInterruptionHandler:0];
         [v8 invalidate];
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -220,10 +221,9 @@
     self->_observingHostAppStateChanges = 0;
   }
 
-  v18.receiver = self;
-  v18.super_class = EXConcreteExtension;
-  [(EXConcreteExtension *)&v18 dealloc];
-  v17 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = EXConcreteExtension;
+  [(EXConcreteExtension *)&v17 dealloc];
 }
 
 - (NSBundle)_extensionBundle
@@ -232,44 +232,45 @@
   if (extensionBundle)
   {
 LABEL_8:
-    v11 = extensionBundle;
+    v12 = extensionBundle;
     goto LABEL_9;
   }
 
   plugIn = self->__plugIn;
-  v14 = 0;
-  v5 = [(PKPlugIn *)plugIn useBundle:0 error:&v14];
-  v6 = v14;
+  v15 = 0;
+  v5 = [(PKPlugIn *)plugIn useBundle:0 error:&v15];
+  v6 = v15;
+  v7 = v6;
   if (v5)
   {
-    v7 = [(PKPlugIn *)self->__plugIn url];
-    if (!v7)
+    v8 = [(PKPlugIn *)self->__plugIn url];
+    if (!v8)
     {
-      v8 = _EXDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = _EXDefaultLog(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         [EXConcreteExtension _extensionBundle];
       }
     }
 
-    v9 = [objc_alloc(MEMORY[0x1E696AAE8]) initWithURL:v7];
-    v10 = self->__extensionBundle;
-    self->__extensionBundle = v9;
+    v10 = [objc_alloc(MEMORY[0x1E696AAE8]) initWithURL:v8];
+    v11 = self->__extensionBundle;
+    self->__extensionBundle = v10;
 
     extensionBundle = self->__extensionBundle;
     goto LABEL_8;
   }
 
-  v13 = _EXDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = _EXDefaultLog(v6);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [(EXConcreteExtension *)v6 _extensionBundle];
+    [(EXConcreteExtension *)v7 _extensionBundle];
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_9:
 
-  return v11;
+  return v12;
 }
 
 - (Class)_hostContextClass
@@ -297,7 +298,7 @@ LABEL_5:
   v7 = Class;
   if (!Class)
   {
-    v8 = _EXDefaultLog();
+    v8 = _EXDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [(EXConcreteExtension *)v5 _hostContextClass];
@@ -360,10 +361,10 @@ LABEL_5:
   }
 
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", bundleIdentifier, *MEMORY[0x1E696A2A8]];
-  v6 = _EXLegacyLog();
+  v6 = _EXLegacyLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(EXConcreteExtension *)self _bareExtensionServiceConnection];
+    [EXConcreteExtension _bareExtensionServiceConnection];
   }
 
   v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:v5];
@@ -374,12 +375,13 @@ LABEL_5:
   [v7 setExportedInterface:v9];
 
   [v7 setExportedObject:self];
-  if ([(EXConcreteExtension *)self _wantsProcessPerRequest])
+  _wantsProcessPerRequest = [(EXConcreteExtension *)self _wantsProcessPerRequest];
+  if (_wantsProcessPerRequest)
   {
     if (!self->_connectionUUID)
     {
-      v10 = _EXDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = _EXDefaultLog(_wantsProcessPerRequest);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [EXConcreteExtension _bareExtensionServiceConnection];
       }
@@ -391,8 +393,6 @@ LABEL_5:
     [(NSUUID *)self->_connectionUUID getUUIDBytes:v14];
     xpc_connection_set_oneshot_instance();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -530,42 +530,42 @@ void __62__EXConcreteExtension_extensionsWithMatchingAttributes_error___block_in
 
 void __81__EXConcreteExtension_extensionsWithMatchingAttributes_synchronously_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E695DFA8] set];
   if (v5)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           v14 = [EXConcreteExtension alloc];
-          v15 = [(EXConcreteExtension *)v14 _initWithPKPlugin:v13, v19];
+          v15 = [(EXConcreteExtension *)v14 _initWithPKPlugin:v13, v18];
           [v7 addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -575,40 +575,35 @@ void __81__EXConcreteExtension_extensionsWithMatchingAttributes_synchronously_co
   v16 = *(a1 + 32);
   v17 = [v7 allObjects];
   (*(v16 + 16))(v16, v17, v6);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)extensionWithIdentifier:(id)identifier excludingDisabledExtensions:(BOOL)extensions error:(id *)error
 {
-  v21[2] = *MEMORY[0x1E69E9840];
-  v7 = *MEMORY[0x1E696A2E0];
+  v19[2] = *MEMORY[0x1E69E9840];
   if (extensions)
   {
-    v20[0] = *MEMORY[0x1E696A2E0];
-    v20[1] = @"NSUserElection";
-    v21[0] = identifier;
-    v8 = MEMORY[0x1E696AD98];
+    v18[0] = *MEMORY[0x1E696A2E0];
+    v18[1] = @"NSUserElection";
+    v19[0] = identifier;
+    v7 = MEMORY[0x1E696AD98];
     identifierCopy = identifier;
-    identifierCopy3 = [v8 numberWithInteger:1];
+    identifierCopy3 = [v7 numberWithInteger:1];
     stringValue = [identifierCopy3 stringValue];
-    v21[1] = stringValue;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[1] = stringValue;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   }
 
   else
   {
-    v18 = *MEMORY[0x1E696A2E0];
+    v16 = *MEMORY[0x1E696A2E0];
     identifierCopy2 = identifier;
-    v13 = MEMORY[0x1E695DF20];
+    v12 = MEMORY[0x1E695DF20];
     identifierCopy3 = identifier;
-    v12 = [v13 dictionaryWithObjects:&identifierCopy2 forKeys:&v18 count:1];
+    v11 = [v12 dictionaryWithObjects:&identifierCopy2 forKeys:&v16 count:1];
   }
 
-  v14 = [self extensionsWithMatchingAttributes:v12 error:error];
-  firstObject = [v14 firstObject];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = [self extensionsWithMatchingAttributes:v11 error:error];
+  firstObject = [v13 firstObject];
 
   return firstObject;
 }
@@ -649,19 +644,19 @@ void __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke(uint6
 
 void __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a1[4])
   {
     v2 = [[EXConcreteExtension alloc] _initWithPKPlugin:a1[4]];
-    v3 = _EXLegacyLog();
+    v3 = _EXLegacyLog(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = a1[5];
-      v8 = 138543618;
-      v9 = v2;
-      v10 = 2114;
-      v11 = v4;
-      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "discovered extension: %{public}@, uuid: %{public}@", &v8, 0x16u);
+      v6 = 138543618;
+      v7 = v2;
+      v8 = 2114;
+      v9 = v4;
+      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "discovered extension: %{public}@, uuid: %{public}@", &v6, 0x16u);
     }
 
     (*(a1[7] + 16))();
@@ -669,17 +664,14 @@ void __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2(voi
 
   else
   {
-    v5 = _EXLegacyLog();
+    v5 = _EXLegacyLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1(a1);
+      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1();
     }
 
-    v6 = a1[6];
     (*(a1[7] + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)extensionWithURL:(id)l completion:(id)completion
@@ -718,19 +710,19 @@ void __51__EXConcreteExtension_extensionWithURL_completion___block_invoke(uint64
 
 void __51__EXConcreteExtension_extensionWithURL_completion___block_invoke_2(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a1[4])
   {
     v2 = [[EXConcreteExtension alloc] _initWithPKPlugin:a1[4]];
-    v3 = _EXLegacyLog();
+    v3 = _EXLegacyLog(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = a1[5];
-      v8 = 138543618;
-      v9 = v2;
-      v10 = 2114;
-      v11 = v4;
-      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "discovered extension: %{public}@, url: %{public}@", &v8, 0x16u);
+      v6 = 138543618;
+      v7 = v2;
+      v8 = 2114;
+      v9 = v4;
+      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "discovered extension: %{public}@, url: %{public}@", &v6, 0x16u);
     }
 
     (*(a1[7] + 16))();
@@ -738,17 +730,14 @@ void __51__EXConcreteExtension_extensionWithURL_completion___block_invoke_2(void
 
   else
   {
-    v5 = _EXLegacyLog();
+    v5 = _EXLegacyLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1(a1);
+      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1();
     }
 
-    v6 = a1[6];
     (*(a1[7] + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)beginMatchingExtensionsWithAttributes:(id)attributes completion:(id)completion
@@ -828,41 +817,39 @@ void __72__EXConcreteExtension_beginMatchingExtensionsWithAttributes_completion_
       while (v5);
     }
 
-    v11 = _EXLegacyLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _EXLegacyLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
       *buf = 138412546;
-      v23 = v12;
+      v23 = v13;
       v24 = 2114;
       v25 = v2;
-      _os_log_impl(&dword_1847D1000, v11, OS_LOG_TYPE_DEFAULT, "discovered extensions: attributes %@, extensionSet %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_DEFAULT, "discovered extensions: attributes %@, extensionSet %{public}@", buf, 0x16u);
     }
 
-    v13 = *(a1 + 56);
-    if (v13)
+    v14 = *(a1 + 56);
+    if (v14)
     {
-      v14 = [v2 allObjects];
-      (*(v13 + 16))(v13, v14, 0);
+      v15 = [v2 allObjects];
+      (*(v14 + 16))(v14, v15, 0);
     }
   }
 
   else
   {
-    v15 = _EXLegacyLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _EXLegacyLog(a1);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1(a1);
+      __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1();
     }
 
-    v16 = *(a1 + 56);
-    if (v16)
+    v17 = *(a1 + 56);
+    if (v17)
     {
-      (*(v16 + 16))(v16, 0, *(a1 + 48));
+      (*(v17 + 16))(v17, 0, *(a1 + 48));
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)endMatchingExtensions:(id)extensions
@@ -906,12 +893,12 @@ uint64_t __52__EXConcreteExtension_globalStateQueueForExtension___block_invoke()
 
 - (id)_initWithPKPlugin:(id)plugin identity:(id)identity
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   pluginCopy = plugin;
   identityCopy = identity;
-  v51.receiver = self;
-  v51.super_class = EXConcreteExtension;
-  _init = [(EXConcreteExtension *)&v51 _init];
+  v50.receiver = self;
+  v50.super_class = EXConcreteExtension;
+  _init = [(EXConcreteExtension *)&v50 _init];
   v9 = _init;
   if (_init)
   {
@@ -953,35 +940,35 @@ uint64_t __52__EXConcreteExtension_globalStateQueueForExtension___block_invoke()
     v9[10] = v29;
 
     v31 = v9[11];
-    v46 = 11;
+    v45 = 11;
     v9[11] = 0;
 
     v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     launchPersonas = [pluginCopy launchPersonas];
-    v34 = [launchPersonas countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v34 = [launchPersonas countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v48;
+      v36 = *v47;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v48 != v36)
+          if (*v47 != v36)
           {
             objc_enumerationMutation(launchPersonas);
           }
 
-          personaUniqueString = [*(*(&v47 + 1) + 8 * i) personaUniqueString];
+          personaUniqueString = [*(*(&v46 + 1) + 8 * i) personaUniqueString];
           v39 = [_EXPersona personaWithPersonaUniqueString:personaUniqueString];
           [v32 addObject:v39];
         }
 
-        v35 = [launchPersonas countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v35 = [launchPersonas countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v35);
@@ -991,10 +978,10 @@ uint64_t __52__EXConcreteExtension_globalStateQueueForExtension___block_invoke()
     if ([v9 _wantsProcessPerRequest])
     {
       uUID = [MEMORY[0x1E696AFB0] UUID];
-      v41 = v9[v46];
-      v9[v46] = uUID;
+      v41 = v9[v45];
+      v9[v45] = uUID;
 
-      v42 = [pluginCopy createInstanceWithUUID:v9[v46]];
+      v42 = [pluginCopy createInstanceWithUUID:v9[v45]];
     }
 
     else
@@ -1008,7 +995,6 @@ uint64_t __52__EXConcreteExtension_globalStateQueueForExtension___block_invoke()
     *(v9 + 2) = 0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1095,9 +1081,9 @@ void __63__EXConcreteExtension__reallyBeginExtensionRequest_completion___block_i
 
 - (BOOL)makeExtensionContextAndXPCConnectionForRequest:(id)request error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v6 = _EXLegacyLog();
+  v6 = _EXLegacyLog(requestCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:error:];
@@ -1111,11 +1097,11 @@ void __63__EXConcreteExtension__reallyBeginExtensionRequest_completion___block_i
 
   if (!v10)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _EXDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v12 = NSStringFromClass(_hostContextClass);
-      [(EXConcreteExtension *)v12 makeExtensionContextAndXPCConnectionForRequest:buf error:v11];
+      v13 = NSStringFromClass(_hostContextClass);
+      [(EXConcreteExtension *)v13 makeExtensionContextAndXPCConnectionForRequest:buf error:v12];
     }
   }
 
@@ -1125,9 +1111,9 @@ void __63__EXConcreteExtension__reallyBeginExtensionRequest_completion___block_i
   extensionContexts = self->__extensionContexts;
   if (!extensionContexts)
   {
-    v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v17 = self->__extensionContexts;
-    self->__extensionContexts = v16;
+    v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v18 = self->__extensionContexts;
+    self->__extensionContexts = v17;
 
     extensionContexts = self->__extensionContexts;
   }
@@ -1137,57 +1123,57 @@ void __63__EXConcreteExtension__reallyBeginExtensionRequest_completion___block_i
   extensionServiceConnections = self->__extensionServiceConnections;
   if (!extensionServiceConnections)
   {
-    v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v21 = self->__extensionServiceConnections;
-    self->__extensionServiceConnections = v20;
+    v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v22 = self->__extensionServiceConnections;
+    self->__extensionServiceConnections = v21;
 
     extensionServiceConnections = self->__extensionServiceConnections;
   }
 
   [(NSMutableDictionary *)extensionServiceConnections setObject:_bareExtensionServiceConnection forKey:_UUID];
   objc_initWeak(&location, self);
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke;
-  v53[3] = &unk_1E6E4DAE8;
-  objc_copyWeak(&v55, &location);
-  v22 = _UUID;
-  v54 = v22;
-  [_bareExtensionServiceConnection setInterruptionHandler:v53];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke_68;
-  v50[3] = &unk_1E6E4DAE8;
-  objc_copyWeak(&v52, &location);
-  v23 = v22;
-  v51 = v23;
-  [_bareExtensionServiceConnection setInvalidationHandler:v50];
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke;
+  v58[3] = &unk_1E6E4DAE8;
+  objc_copyWeak(&v60, &location);
+  v23 = _UUID;
+  v59 = v23;
+  [_bareExtensionServiceConnection setInterruptionHandler:v58];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke_68;
+  v55[3] = &unk_1E6E4DAE8;
+  objc_copyWeak(&v57, &location);
+  v24 = v23;
+  v56 = v24;
+  [_bareExtensionServiceConnection setInvalidationHandler:v55];
 
-  objc_destroyWeak(&v52);
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v60);
   objc_destroyWeak(&location);
 
   os_unfair_lock_unlock(&self->_unfairLock);
-  v24 = v10 != 0;
+  v26 = v10 != 0;
   if (v10)
   {
-    [requestCopy setContext:v10];
+    v27 = [requestCopy setContext:v10];
   }
 
   else
   {
     if (error)
     {
-      v25 = MEMORY[0x1E696ABC0];
-      v61 = *MEMORY[0x1E696A278];
+      v28 = MEMORY[0x1E696ABC0];
+      v66 = *MEMORY[0x1E696A278];
       requestCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to make extension context for extension: %@ request: %@", self, requestCopy];
-      v62 = requestCopy;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-      *error = [v25 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v27];
+      v67 = requestCopy;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      *error = [v28 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v30];
     }
 
-    v28 = _EXLegacyLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = _EXLegacyLog(v25);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:error:];
     }
@@ -1205,49 +1191,49 @@ void __63__EXConcreteExtension__reallyBeginExtensionRequest_completion___block_i
       goto LABEL_30;
     }
 
-    v35 = _EXLegacyLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v39 = _EXLegacyLog(v34);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:v10 error:self];
     }
 
     if (error)
     {
-      v36 = MEMORY[0x1E696ABC0];
-      v59 = *MEMORY[0x1E696A278];
-      v37 = MEMORY[0x1E696AEC0];
+      v40 = MEMORY[0x1E696ABC0];
+      v64 = *MEMORY[0x1E696A278];
+      v41 = MEMORY[0x1E696AEC0];
       _UUID2 = [v10 _UUID];
       identifier = [(EXConcreteExtension *)self identifier];
-      v40 = [v37 stringWithFormat:@"Extension assertion was invalidated! request: %@ plugin_identifier: %@", _UUID2, identifier];;
-      v60 = v40;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-      *error = [v36 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v41];
+      v44 = [v41 stringWithFormat:@"Extension assertion was invalidated! request: %@ plugin_identifier: %@", _UUID2, identifier];;
+      v65 = v44;
+      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      *error = [v40 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v45];
     }
   }
 
   else
   {
-    v31 = _EXLegacyLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v35 = _EXLegacyLog(v27);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:error:];
     }
 
     if (error)
     {
-      v32 = MEMORY[0x1E696ABC0];
-      v57 = *MEMORY[0x1E696A278];
+      v36 = MEMORY[0x1E696ABC0];
+      v62 = *MEMORY[0x1E696A278];
       requestCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to make XPC connection for extension: %@ request: %@", self, requestCopy];
-      v58 = requestCopy2;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-      *error = [v32 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v34];
+      v63 = requestCopy2;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      *error = [v36 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v38];
     }
   }
 
-  v24 = 0;
+  v26 = 0;
 LABEL_30:
-  v42 = +[_EXDefaults sharedInstance];
-  if (![v42 allowSimulatedJetsam])
+  v46 = +[_EXDefaults sharedInstance];
+  if (![v46 allowSimulatedJetsam])
   {
 LABEL_35:
 
@@ -1262,34 +1248,34 @@ LABEL_35:
   }
 
   [(EXConcreteExtension *)self _plugInProcessIdentifier];
-  v44 = terminate_with_reason() == 0;
-  v42 = _EXLegacyLog();
-  v45 = os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG);
-  if (!v44)
+  v49 = terminate_with_reason();
+  v50 = v49 == 0;
+  v46 = _EXLegacyLog(v49);
+  v51 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+  if (!v50)
   {
-    if (v45)
+    if (v51)
     {
-      [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:v42 error:?];
+      [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:v46 error:?];
     }
 
     goto LABEL_35;
   }
 
-  if (v45)
+  if (v51)
   {
     [EXConcreteExtension makeExtensionContextAndXPCConnectionForRequest:error:];
   }
 
-  sleep(1u);
+  v48 = sleep(1u);
 LABEL_36:
-  v46 = _EXLegacyLog();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v52 = _EXLegacyLog(v48);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
   {
-    [(EXConcreteExtension *)self makeExtensionContextAndXPCConnectionForRequest:requestCopy error:v46];
+    [(EXConcreteExtension *)self makeExtensionContextAndXPCConnectionForRequest:requestCopy error:v52];
   }
 
-  v47 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v26;
 }
 
 void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke(uint64_t a1)
@@ -1314,85 +1300,83 @@ void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_er
 {
   v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _EXLegacyLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _EXLegacyLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = [WeakRetained identifier];
+      v5 = *(a1 + 32);
+      v6 = [v3 identifier];
       v9 = 138543618;
-      v10 = v4;
+      v10 = v5;
       v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "extension connection was interrupted! request: %{public}@; plugin_identifier: %{public}@", &v9, 0x16u);
+      v12 = v6;
+      _os_log_impl(&dword_1847D1000, v4, OS_LOG_TYPE_DEFAULT, "extension connection was interrupted! request: %{public}@; plugin_identifier: %{public}@", &v9, 0x16u);
     }
 
-    v6 = [WeakRetained requestInterruptionBlock];
-    v7 = v6;
-    if (v6)
+    v7 = [v3 requestInterruptionBlock];
+    v8 = v7;
+    if (v7)
     {
-      (*(v6 + 16))(v6, *(a1 + 32));
+      (*(v7 + 16))(v7, *(a1 + 32));
     }
 
-    EXConcreteExtensionErrorCleanupHandler(WeakRetained, *(a1 + 32));
+    EXConcreteExtensionErrorCleanupHandler(v3, *(a1 + 32));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke_68(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _EXLegacyLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _EXLegacyLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = [WeakRetained identifier];
+      v5 = *(a1 + 32);
+      v6 = [v3 identifier];
       *buf = 138543618;
-      v12 = v4;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "extension connection was invalidated! request: %{public}@; plugin_identifier: %{public}@", buf, 0x16u);
+      v13 = v5;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_impl(&dword_1847D1000, v4, OS_LOG_TYPE_DEFAULT, "extension connection was invalidated! request: %{public}@; plugin_identifier: %{public}@", buf, 0x16u);
     }
 
-    v6 = _sharedSafePluginQueue();
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke_69;
-    v8[3] = &unk_1E6E4DB10;
-    v9 = WeakRetained;
-    v10 = *(a1 + 32);
-    dispatch_async(v6, v8);
+    v8 = _sharedSafePluginQueue(v7);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_error___block_invoke_69;
+    v9[3] = &unk_1E6E4DB10;
+    v10 = v3;
+    v11 = *(a1 + 32);
+    dispatch_async(v8, v9);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reallyBeginExtensionRequest:(id)request synchronously:(BOOL)synchronously completion:(id)completion
 {
   synchronouslyCopy = synchronously;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v10 = _EXLegacyLog();
+  v10 = _EXLegacyLog(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v26 = "NO";
+    v25 = "NO";
     *buf = 138543874;
     selfCopy = self;
     if (synchronouslyCopy)
     {
-      v26 = "YES";
+      v25 = "YES";
     }
 
-    v37 = 2114;
-    v38 = requestCopy;
-    v39 = 2082;
-    v40 = v26;
+    v36 = 2114;
+    v37 = requestCopy;
+    v38 = 2082;
+    v39 = v25;
     _os_log_debug_impl(&dword_1847D1000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ really begining request: %{public}@ synchronously: %{public}s", buf, 0x20u);
   }
 
@@ -1403,7 +1387,7 @@ void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_er
   aBlock[2] = __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke;
   aBlock[3] = &unk_1E6E4DB38;
   v11 = completionCopy;
-  v34 = v11;
+  v33 = v11;
   v12 = _Block_copy(aBlock);
   xpcConnection = [requestCopy xpcConnection];
   context = [requestCopy context];
@@ -1419,7 +1403,7 @@ void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_er
     [xpcConnection remoteObjectProxyWithErrorHandler:v12];
   }
   v17 = ;
-  v27 = v12;
+  v26 = v12;
   internalImplementation = [context internalImplementation];
   [internalImplementation _setExtensionVendorProxy:v17];
   if (endpoint)
@@ -1434,26 +1418,24 @@ void __76__EXConcreteExtension_makeExtensionContextAndXPCConnectionForRequest_er
   }
 
   _UUID = [context _UUID];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84;
-  v29[3] = &unk_1E6E4DB60;
-  v29[4] = selfCopy2;
-  v30 = requestCopy;
-  v31 = context;
-  v32 = v11;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84;
+  v28[3] = &unk_1E6E4DB60;
+  v28[4] = selfCopy2;
+  v29 = requestCopy;
+  v30 = context;
+  v31 = v11;
   v22 = v11;
   v23 = context;
   v24 = requestCopy;
-  [v17 _beginRequestWithExtensionItems:inputItems listenerEndpoint:endpoint2 withContextUUID:_UUID completion:v29];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [v17 _beginRequestWithExtensionItems:inputItems listenerEndpoint:endpoint2 withContextUUID:_UUID completion:v28];
 }
 
 void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _EXLegacyLog();
+  v4 = _EXLegacyLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_cold_1(v3);
@@ -1466,10 +1448,10 @@ void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_comple
 {
   v5 = a2;
   v6 = a3;
-  v7 = _EXLegacyLog();
+  v7 = _EXLegacyLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_1(a1);
+    __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_1();
   }
 
   v8 = [*(a1 + 48) _UUID];
@@ -1477,10 +1459,10 @@ void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_comple
 
   if ((v9 & 1) == 0)
   {
-    v10 = _EXLegacyLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = _EXLegacyLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_2(v10);
+      __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_2(v11);
     }
   }
 
@@ -1546,36 +1528,36 @@ void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_comple
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = _EXRegistrationLog();
+  v8 = _EXRegistrationLog(completionCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = _EXRegistrationLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _EXRegistrationLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "async extension request", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "async extension request", "", buf, 2u);
   }
 
-  v12 = _EXLegacyLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = _EXLegacyLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [EXConcreteExtension _beginExtensionRequest:completion:];
   }
 
   [requestCopy applyActiveWebPageAlternativeIfNeededForExtension:self];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke;
-  v19 = &unk_1E6E4DBD8;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke;
+  v21 = &unk_1E6E4DBD8;
   selfCopy = self;
-  v21 = requestCopy;
-  v22 = completionCopy;
-  v23 = v9;
-  v13 = completionCopy;
-  v14 = requestCopy;
-  v15 = _Block_copy(&v16);
-  [(EXConcreteExtension *)self _safelyBeginUsingWithRequest:v14 readyHandler:v15, v16, v17, v18, v19, selfCopy];
+  v23 = requestCopy;
+  v24 = completionCopy;
+  v25 = v9;
+  v15 = completionCopy;
+  v16 = requestCopy;
+  v17 = _Block_copy(&v18);
+  [(EXConcreteExtension *)self _safelyBeginUsingWithRequest:v16 readyHandler:v17, v18, v19, v20, v21, selfCopy];
 }
 
 void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1602,16 +1584,15 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke(
 
 void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _EXLegacyLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = _EXLegacyLog(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_2_cold_1(a1, v2);
+      __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_2_cold_1();
     }
 
-    v4 = _EXRegistrationLog();
+    v4 = _EXRegistrationLog(v3);
     v5 = v4;
     v6 = *(a1 + 72);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -1620,38 +1601,37 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_
       _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_END, v6, "async extension request'", "", buf, 2u);
     }
 
-    v7 = *(a1 + 32);
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
     *buf = 0;
-    v22 = buf;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v19[0] = 0;
-    v19[1] = v19;
-    v19[2] = 0x2020000000;
-    v20 = 0;
+    v21 = buf;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v18[0] = 0;
+    v18[1] = v18;
+    v18[2] = 0x2020000000;
+    v19 = 0;
     [*(a1 + 40) setAssertion:*(a1 + 48)];
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 40);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3;
-    v13[3] = &unk_1E6E4DB88;
-    v16 = buf;
-    v17 = v19;
-    v10 = v9;
-    v12 = *(a1 + 64);
-    v11 = *(a1 + 72);
-    v14 = v10;
-    v18 = v11;
-    v15 = v12;
-    [v8 _reallyBeginExtensionRequest:v10 completion:v13];
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 40);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3;
+    v12[3] = &unk_1E6E4DB88;
+    v15 = buf;
+    v16 = v18;
+    v9 = v8;
+    v11 = *(a1 + 64);
+    v10 = *(a1 + 72);
+    v13 = v9;
+    v17 = v10;
+    v14 = v11;
+    [v7 _reallyBeginExtensionRequest:v9 completion:v12];
 
-    _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v18, 8);
     _Block_object_dispose(buf, 8);
   }
 }
@@ -1666,7 +1646,7 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_
     if (v6)
     {
       *(*(a1[7] + 8) + 24) = 1;
-      v10 = _EXLegacyLog();
+      v10 = _EXLegacyLog(v6);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_4();
@@ -1675,20 +1655,20 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_
 
     else
     {
-      v10 = _EXLegacyLog();
+      v10 = _EXLegacyLog(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_5(a1);
+        __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_5();
       }
     }
 
-    v14 = _EXRegistrationLog();
-    v15 = v14;
-    v16 = a1[8];
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v15 = _EXRegistrationLog(v14);
+    v16 = v15;
+    v17 = a1[8];
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      *v17 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1847D1000, v15, OS_SIGNPOST_INTERVAL_END, v16, "async extension request'", "", v17, 2u);
+      *v18 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1847D1000, v16, OS_SIGNPOST_INTERVAL_END, v17, "async extension request'", "", v18, 2u);
     }
 
     (*(a1[5] + 16))();
@@ -1698,7 +1678,7 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_
 
   if (v6)
   {
-    v8 = _EXLegacyLog();
+    v8 = _EXLegacyLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_1();
@@ -1711,7 +1691,7 @@ LABEL_18:
   }
 
   v11 = *(*(a1[7] + 8) + 24);
-  v12 = _EXLegacyLog();
+  v12 = _EXLegacyLog(0);
   v13 = v12;
   if (v11 == 1)
   {
@@ -1731,131 +1711,134 @@ LABEL_22:
 
 - (id)_beginExtensionRequest:(id)request error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v7 = _EXRegistrationLog();
+  v7 = _EXRegistrationLog(requestCopy);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = _EXRegistrationLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = _EXRegistrationLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "synchronus extension request", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "synchronus extension request", "", buf, 2u);
   }
 
-  v11 = _EXLegacyLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = _EXLegacyLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [EXConcreteExtension _beginExtensionRequest:error:];
   }
 
   *buf = 0;
-  v27 = buf;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = 0;
-  if ([(EXConcreteExtension *)self _beginUsingAndCreateExtensionAssertionWithRequest:requestCopy error:error]&& [(EXConcreteExtension *)self makeExtensionContextAndXPCConnectionForRequest:requestCopy error:error])
+  v31 = buf;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
+  v14 = [(EXConcreteExtension *)self _beginUsingAndCreateExtensionAssertionWithRequest:requestCopy error:error];
+  if (v14)
   {
-    *v32 = 0;
-    *&v32[8] = v32;
-    *&v32[16] = 0x3032000000;
-    v33 = __Block_byref_object_copy_;
-    v34 = __Block_byref_object_dispose_;
-    v35 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke;
-    v25[3] = &unk_1E6E4DC00;
-    v25[4] = v32;
-    v25[5] = buf;
-    [(EXConcreteExtension *)self _reallyBeginExtensionRequest:requestCopy synchronously:1 completion:v25];
-    context = [requestCopy context];
-
-    if (context)
-    {
-      context2 = [requestCopy context];
-      [(EXConcreteExtension *)self _didCreateExtensionContext:context2];
-    }
-
-    v14 = *(*&v32[8] + 40);
+    v14 = [(EXConcreteExtension *)self makeExtensionContextAndXPCConnectionForRequest:requestCopy error:error];
     if (v14)
     {
-      if (!error)
+      *v36 = 0;
+      *&v36[8] = v36;
+      *&v36[16] = 0x3032000000;
+      v37 = __Block_byref_object_copy_;
+      v38 = __Block_byref_object_dispose_;
+      v39 = 0;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke;
+      v29[3] = &unk_1E6E4DC00;
+      v29[4] = v36;
+      v29[5] = buf;
+      [(EXConcreteExtension *)self _reallyBeginExtensionRequest:requestCopy synchronously:1 completion:v29];
+      context = [requestCopy context];
+
+      if (context)
+      {
+        context2 = [requestCopy context];
+        [(EXConcreteExtension *)self _didCreateExtensionContext:context2];
+      }
+
+      v17 = *(*&v36[8] + 40);
+      if (v17)
+      {
+        if (!error)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      else if (!error || *(v31 + 5))
       {
         goto LABEL_22;
       }
-    }
 
-    else if (!error || *(v27 + 5))
-    {
-      goto LABEL_22;
-    }
-
-    *error = v14;
+      *error = v17;
 LABEL_22:
-    _Block_object_dispose(v32, 8);
+      _Block_object_dispose(v36, 8);
 
-    goto LABEL_23;
+      goto LABEL_23;
+    }
   }
 
-  v15 = _EXLegacyLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _EXLegacyLog(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     if (error)
     {
-      v16 = *error;
+      v19 = *error;
     }
 
     else
     {
-      v16 = 0;
+      v19 = 0;
     }
 
-    *v32 = 138543362;
-    *&v32[4] = v16;
-    _os_log_impl(&dword_1847D1000, v15, OS_LOG_TYPE_DEFAULT, "Failed to begin using with error: %{public}@", v32, 0xCu);
+    *v36 = 138543362;
+    *&v36[4] = v19;
+    _os_log_impl(&dword_1847D1000, v18, OS_LOG_TYPE_DEFAULT, "Failed to begin using with error: %{public}@", v36, 0xCu);
   }
 
 LABEL_23:
-  v17 = _EXLegacyLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v21 = _EXLegacyLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(v27 + 5);
+    v27 = *(v31 + 5);
     if (error)
     {
-      v24 = *error;
+      v28 = *error;
     }
 
     else
     {
-      v24 = 0;
+      v28 = 0;
     }
 
-    *v32 = 138543874;
-    *&v32[4] = requestCopy;
-    *&v32[12] = 2114;
-    *&v32[14] = v23;
-    *&v32[22] = 2114;
-    v33 = v24;
-    _os_log_debug_impl(&dword_1847D1000, v17, OS_LOG_TYPE_DEBUG, "completed synchronus begin extension request %{public}@ with identifier: %{public}@ error: %{public}@", v32, 0x20u);
+    *v36 = 138543874;
+    *&v36[4] = requestCopy;
+    *&v36[12] = 2114;
+    *&v36[14] = v27;
+    *&v36[22] = 2114;
+    v37 = v28;
+    _os_log_debug_impl(&dword_1847D1000, v21, OS_LOG_TYPE_DEBUG, "completed synchronus begin extension request %{public}@ with identifier: %{public}@ error: %{public}@", v36, 0x20u);
   }
 
-  v18 = _EXRegistrationLog();
-  v19 = v18;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v23 = _EXRegistrationLog(v22);
+  v24 = v23;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    *v32 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v19, OS_SIGNPOST_INTERVAL_END, v8, "synchronus extension request'", "", v32, 2u);
+    *v36 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v24, OS_SIGNPOST_INTERVAL_END, v8, "synchronus extension request'", "", v36, 2u);
   }
 
-  v20 = *(v27 + 5);
+  v25 = *(v31 + 5);
   _Block_object_dispose(buf, 8);
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v25;
 }
 
 void __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1870,13 +1853,13 @@ void __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke(uint6
 
 - (void)cancelExtensionRequestWithIdentifier:(id)identifier
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A2B8];
-  v18 = *MEMORY[0x1E696A578];
-  v19[0] = @"Extension cancelled by host.";
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = *MEMORY[0x1E696A578];
+  v18[0] = @"Extension cancelled by host.";
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v8 = [v5 errorWithDomain:v6 code:-2 userInfo:v7];
 
   requestCancellationBlock = [(EXConcreteExtension *)self requestCancellationBlock];
@@ -1892,7 +1875,7 @@ void __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke(uint6
   aBlock[3] = &unk_1E6E4DB10;
   aBlock[4] = self;
   v11 = identifierCopy;
-  v17 = v11;
+  v16 = v11;
   v12 = _Block_copy(aBlock);
   _requestPostCompletionBlock = [(EXConcreteExtension *)self _requestPostCompletionBlock];
 
@@ -1906,8 +1889,6 @@ void __52__EXConcreteExtension__beginExtensionRequest_error___block_invoke(uint6
   {
     v12[2](v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __60__EXConcreteExtension_cancelExtensionRequestWithIdentifier___block_invoke(uint64_t a1)
@@ -1925,25 +1906,24 @@ void __60__EXConcreteExtension_cancelExtensionRequestWithIdentifier___block_invo
 
 - (int)pidForRequestIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_unfairLock);
   v5 = [(NSMutableDictionary *)self->__extensionServiceConnections objectForKeyedSubscript:identifierCopy];
   if (!v5)
   {
-    v6 = _EXLegacyLog();
+    v6 = _EXLegacyLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = identifierCopy;
-      _os_log_impl(&dword_1847D1000, v6, OS_LOG_TYPE_DEFAULT, "nil service connection for UUID: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = identifierCopy;
+      _os_log_impl(&dword_1847D1000, v6, OS_LOG_TYPE_DEFAULT, "nil service connection for UUID: %{public}@", &v9, 0xCu);
     }
   }
 
   processIdentifier = [v5 processIdentifier];
 
   os_unfair_lock_unlock(&self->_unfairLock);
-  v8 = *MEMORY[0x1E69E9840];
   return processIdentifier;
 }
 
@@ -1971,22 +1951,22 @@ void __60__EXConcreteExtension_cancelExtensionRequestWithIdentifier___block_invo
 
   if (bOOLValue)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _EXDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1847D1000, v11, OS_LOG_TYPE_DEFAULT, "Disallowing host app state observation due to Info.plist override.", buf, 2u);
+      _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_DEFAULT, "Disallowing host app state observation due to Info.plist override.", buf, 2u);
     }
 
 LABEL_8:
-    v12 = 1;
+    v13 = 1;
     goto LABEL_10;
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_10:
   os_unfair_lock_lock(&self->_unfairLock);
-  if ((v12 & 1) == 0 && !self->_observingHostAppStateChanges)
+  if ((v13 & 1) == 0 && !self->_observingHostAppStateChanges)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -2030,6 +2010,7 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
   v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   v7 = plugIn;
   v8 = v6;
+  v9 = v8;
   v23 = 0;
   v24 = &v23;
   v25 = 0x3032000000;
@@ -2038,36 +2019,34 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
   v28 = 0;
   if (!v7)
   {
-    v9 = _EXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = _EXDefaultLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [EXConcreteExtension objectForInfoDictionaryKey:];
     }
   }
 
-  v10 = dispatch_semaphore_create(0);
+  v11 = dispatch_semaphore_create(0);
   v17 = MEMORY[0x1E69E9820];
   v18 = 3221225472;
   v19 = __EXConcreteExtensionGetLocalizedInfoDictionaryObjectForPlugInAndKeys_block_invoke;
   v20 = &unk_1E6E4DED0;
   v22 = &v23;
-  v11 = v10;
-  v21 = v11;
-  [(PKPlugIn *)v7 localizedInfoDictionaryForKeys:v8 completion:&v17];
-  if (dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL))
+  v12 = v11;
+  v21 = v12;
+  [(PKPlugIn *)v7 localizedInfoDictionaryForKeys:v9 completion:&v17];
+  if (dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL))
   {
     NSLog(&cfstr_TimedOutAttemp.isa, v17, v18, v19, v20);
   }
 
-  v12 = v21;
-  v13 = v24[5];
+  v13 = v21;
+  v14 = v24[5];
 
   _Block_object_dispose(&v23, 8);
-  v14 = [v13 objectForKey:keyCopy];
+  v15 = [v14 objectForKey:keyCopy];
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v15;
 }
 
 - (id)icons
@@ -2097,51 +2076,51 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
 
 - (id)_itemProviderForPayload:(id)payload extensionContext:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = [payload objectForKeyedSubscript:0x1EF28A810];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   inputItems = [contextCopy inputItems];
-  v25 = [inputItems countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v25)
+  v24 = [inputItems countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v24)
   {
-    v8 = *v32;
-    v23 = *v32;
-    v24 = contextCopy;
-    v26 = inputItems;
+    v8 = *v31;
+    v22 = *v31;
+    v23 = contextCopy;
+    v25 = inputItems;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(inputItems);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         attachments = [v10 attachments];
-        v12 = [attachments countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v12 = [attachments countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v28;
+          v14 = *v27;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v28 != v14)
+              if (*v27 != v14)
               {
                 objc_enumerationMutation(attachments);
               }
 
-              v16 = *(*(&v27 + 1) + 8 * j);
+              v16 = *(*(&v26 + 1) + 8 * j);
               _loadOperator = [v16 _loadOperator];
               identifier = [_loadOperator identifier];
               v19 = [identifier isEqual:v6];
@@ -2150,13 +2129,13 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
               {
                 v20 = v16;
 
-                contextCopy = v24;
-                inputItems = v26;
+                contextCopy = v23;
+                inputItems = v25;
                 goto LABEL_19;
               }
             }
 
-            v13 = [attachments countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v13 = [attachments countByEnumeratingWithState:&v26 objects:v34 count:16];
             if (v13)
             {
               continue;
@@ -2166,16 +2145,16 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
           }
         }
 
-        inputItems = v26;
-        v8 = v23;
+        inputItems = v25;
+        v8 = v22;
       }
 
       v20 = 0;
-      contextCopy = v24;
-      v25 = [v26 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      contextCopy = v23;
+      v24 = [v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
   else
@@ -2184,8 +2163,6 @@ void __50__EXConcreteExtension__didCreateExtensionContext___block_invoke(uint64_
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -2196,7 +2173,7 @@ LABEL_19:
   uuid = [(PKPlugIn *)self->__plugIn uuid];
   if (!uuid)
   {
-    v3 = _EXDefaultLog();
+    v3 = _EXDefaultLog(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [EXConcreteExtension _isPhotoServiceAccessGranted];
@@ -2210,18 +2187,17 @@ LABEL_19:
 
   if ((v5 & 1) == 0)
   {
-    v7 = _EXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _EXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       v12 = uuid;
       v13 = 2114;
       v14 = v6;
-      _os_log_impl(&dword_1847D1000, v7, OS_LOG_TYPE_DEFAULT, "Cannot access privacy settings for %{public}@ with error %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEFAULT, "Cannot access privacy settings for %{public}@ with error %{public}@", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2434,7 +2410,7 @@ LABEL_8:
 
 void __86__EXConcreteExtension__cancelRequestWithError_forExtensionContextWithUUID_completion___block_invoke_2(void *a1)
 {
-  v2 = _EXLegacyLog();
+  v2 = _EXLegacyLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2465,7 +2441,7 @@ void __86__EXConcreteExtension__cancelRequestWithError_forExtensionContextWithUU
   v17 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
@@ -2566,7 +2542,7 @@ void __79__EXConcreteExtension__loadItemForPayload_contextIdentifier_completionH
   v16 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
@@ -2652,20 +2628,20 @@ void __43__EXConcreteExtension__openURL_completion___block_invoke(uint64_t a1)
 
   if (!infoDictionary)
   {
-    v4 = _EXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = _EXDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [EXConcreteExtension _isSystemExtension];
     }
   }
 
   infoDictionary2 = [(EXConcreteExtension *)self infoDictionary];
-  v6 = [infoDictionary2 objectForKey:@"XPCService"];
+  v7 = [infoDictionary2 objectForKey:@"XPCService"];
 
-  v7 = [v6 objectForKey:@"ServiceType"];
-  v8 = [v7 isEqualToString:@"System"];
+  v8 = [v7 objectForKey:@"ServiceType"];
+  v9 = [v8 isEqualToString:@"System"];
 
-  return v8;
+  return v9;
 }
 
 - (void)_safelyBeginUsing:(id)using
@@ -2685,24 +2661,24 @@ void __43__EXConcreteExtension__openURL_completion___block_invoke(uint64_t a1)
 - (void)_safelyBeginUsingSynchronously:(BOOL)synchronously request:(id)request readyHandler:(id)handler
 {
   synchronouslyCopy = synchronously;
-  v76 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
-  v10 = _sharedSafePluginQueue();
+  v10 = _sharedSafePluginQueue(handlerCopy);
   dispatch_assert_queue_V2(v10);
 
   plugIn = self->__plugIn;
   if (plugIn && ![(PKPlugIn *)plugIn spent])
   {
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x3010000000;
-    v64 = 0;
-    v65 = 0;
-    v63 = &unk_1848DD1FB;
-    v46 = _os_activity_create(&dword_1847D1000, "begin using plugin", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v46, v61 + 2);
-    v48 = synchronouslyCopy;
+    v62 = 0;
+    v63 = &v62;
+    v64 = 0x3010000000;
+    v66 = 0;
+    v67 = 0;
+    v65 = &unk_1848DD1FB;
+    v48 = _os_activity_create(&dword_1847D1000, "begin using plugin", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v48, v63 + 2);
+    v50 = synchronouslyCopy;
     if (useAssertions())
     {
       objc_initWeak(location, requestCopy);
@@ -2710,225 +2686,224 @@ void __43__EXConcreteExtension__openURL_completion___block_invoke(uint64_t a1)
       aBlock[1] = 3221225472;
       aBlock[2] = __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke;
       aBlock[3] = &unk_1E6E4DDB8;
-      objc_copyWeak(&v59, location);
-      v16 = _Block_copy(aBlock);
-      objc_destroyWeak(&v59);
+      objc_copyWeak(&v61, location);
+      v17 = _Block_copy(aBlock);
+      objc_destroyWeak(&v61);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     if (useAssertions())
     {
       identifier = [(EXConcreteExtension *)self identifier];
       selfCopy = self;
-      v19 = identifier;
+      v20 = identifier;
       if ([(EXConcreteExtension *)selfCopy _wantsProcessPerRequest])
       {
-        v20 = 0;
+        v21 = 0;
       }
 
       else
       {
-        v66 = 0;
-        v67 = &v66;
-        v68 = 0x2020000000;
-        v69 = 0;
+        v68 = 0;
+        v69 = &v68;
+        v70 = 0x2020000000;
+        v71 = 0;
         *location = MEMORY[0x1E69E9820];
         *&location[8] = 3221225472;
         *&location[16] = __EXConcreteExtensionGetProcessIdentifierForExtensionIdentifier_block_invoke;
-        v73 = &unk_1E6E4DF58;
-        v75 = &v66;
-        v22 = v19;
-        v74 = v22;
+        v75 = &unk_1E6E4DF58;
+        v77 = &v68;
+        v23 = v20;
+        v76 = v23;
         safelyAccessPidForExtensionIdentiferDictionary(location);
-        v20 = *(v67 + 6);
-        if (v20 <= 0)
+        v21 = *(v69 + 6);
+        if (v21 <= 0)
         {
           if ([(EXConcreteExtension *)selfCopy _isSystemExtension])
           {
-            v23 = v22;
+            v24 = v23;
             if (EXConcreteExtensionResolveSystemExtensionPIDByIdentifier_onceToken != -1)
             {
               [EXConcreteExtension _safelyBeginUsingSynchronously:request:readyHandler:];
             }
 
-            v24 = v23;
-            uTF8String = [v23 UTF8String];
-            v26 = xpc_connection_create(uTF8String, EXConcreteExtensionResolveSystemExtensionPIDByIdentifier_resolution_queue);
-            if (v26)
+            v25 = v24;
+            uTF8String = [v24 UTF8String];
+            v27 = xpc_connection_create(uTF8String, EXConcreteExtensionResolveSystemExtensionPIDByIdentifier_resolution_queue);
+            if (v27)
             {
-              v20 = [EXXPCUtil servicePidFromXPCConnection:v26];
-              xpc_connection_set_event_handler(v26, &__block_literal_global_424);
-              xpc_connection_activate(v26);
+              v21 = [EXXPCUtil servicePidFromXPCConnection:v27];
+              xpc_connection_set_event_handler(v27, &__block_literal_global_424);
+              xpc_connection_activate(v27);
             }
 
             else
             {
-              v20 = 0;
+              v21 = 0;
             }
 
-            *(v67 + 6) = v20;
+            *(v69 + 6) = v21;
           }
 
           else
           {
-            v20 = *(v67 + 6);
+            v21 = *(v69 + 6);
           }
         }
 
-        _Block_object_dispose(&v66, 8);
+        _Block_object_dispose(&v68, 8);
       }
 
-      v21 = _NSAcquireProcessAssertionForPIDWithOptions(v20, [requestCopy options], v16);
-      if (v21)
+      v28 = _NSAcquireProcessAssertionForPIDWithOptions(v21, [requestCopy options], v17);
+      v22 = v28;
+      if (v28)
       {
-        v27 = _EXLegacyLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v29 = _EXLegacyLog(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *location = 138543618;
-          *&location[4] = v21;
+          *&location[4] = v22;
           *&location[12] = 1024;
-          *&location[14] = v20;
-          _os_log_impl(&dword_1847D1000, v27, OS_LOG_TYPE_DEFAULT, "Aquired asertion %{public}@ for running extension with pid %d", location, 0x12u);
+          *&location[14] = v21;
+          _os_log_impl(&dword_1847D1000, v29, OS_LOG_TYPE_DEFAULT, "Aquired asertion %{public}@ for running extension with pid %d", location, 0x12u);
         }
       }
     }
 
     else
     {
-      v21 = 0;
-      LODWORD(v20) = -1;
+      v22 = 0;
+      LODWORD(v21) = -1;
     }
 
-    v28 = self->__plugIn;
-    if (!v28)
+    v30 = self->__plugIn;
+    if (!v30)
     {
-      v29 = _EXDefaultLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v31 = _EXDefaultLog(0);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
         [EXConcreteExtension _safelyBeginUsingSynchronously:request:readyHandler:];
       }
 
-      v28 = self->__plugIn;
+      v30 = self->__plugIn;
     }
 
-    if ([(PKPlugIn *)v28 spent])
+    spent = [(PKPlugIn *)v30 spent];
+    if (spent)
     {
-      v30 = _EXDefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v33 = _EXDefaultLog(spent);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         [EXConcreteExtension _safelyBeginUsingSynchronously:request:readyHandler:];
       }
     }
 
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142;
-    v51[3] = &unk_1E6E4DDE0;
-    v51[4] = self;
-    v31 = v21;
-    v52 = v31;
-    v57 = v20;
-    v32 = requestCopy;
-    v53 = v32;
-    v33 = v16;
-    v54 = v33;
-    v55 = handlerCopy;
-    v56 = &v60;
-    v34 = _Block_copy(v51);
-    v35 = self->__plugIn;
-    v36 = _EXLegacyLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142;
+    v53[3] = &unk_1E6E4DDE0;
+    v53[4] = self;
+    v34 = v22;
+    v54 = v34;
+    v59 = v21;
+    v35 = requestCopy;
+    v55 = v35;
+    v36 = v17;
+    v56 = v36;
+    v57 = handlerCopy;
+    v58 = &v62;
+    v37 = _Block_copy(v53);
+    v38 = self->__plugIn;
+    v39 = _EXLegacyLog(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      pkUUID = [v32 pkUUID];
-      [(EXConcreteExtension *)v35 _safelyBeginUsingSynchronously:pkUUID request:location readyHandler:v36];
+      pkUUID = [v35 pkUUID];
+      [(EXConcreteExtension *)v38 _safelyBeginUsingSynchronously:pkUUID request:location readyHandler:v39];
     }
 
-    v38 = MEMORY[0x1E69C4A90];
-    pkUUID2 = [v32 pkUUID];
-    persona = [v32 persona];
-    v41 = [v38 launchRequestWithUUID:pkUUID2 launchPersona:persona];
+    v41 = MEMORY[0x1E69C4A90];
+    pkUUID2 = [v35 pkUUID];
+    persona = [v35 persona];
+    v44 = [v41 launchRequestWithUUID:pkUUID2 launchPersona:persona];
 
-    sandboxProfileName = [v32 sandboxProfileName];
-    [(PKPlugIn *)v35 setSandboxProfile:sandboxProfileName];
+    sandboxProfileName = [v35 sandboxProfileName];
+    [(PKPlugIn *)v38 setSandboxProfile:sandboxProfileName];
 
-    if (v48)
+    if (v50)
     {
       if (objc_opt_respondsToSelector())
       {
-        v50 = 0;
-        v43 = &v50;
-        [(PKPlugIn *)v35 beginUsingRequest:v41 error:&v50];
+        v52 = 0;
+        v46 = &v52;
+        [(PKPlugIn *)v38 beginUsingRequest:v44 error:&v52];
       }
 
       else
       {
-        v49 = 0;
-        v43 = &v49;
-        [(PKPlugIn *)v35 beginUsingWithError:&v49];
+        v51 = 0;
+        v46 = &v51;
+        [(PKPlugIn *)v38 beginUsingWithError:&v51];
       }
 
-      v44 = *v43;
-      v34[2](v34, v44);
+      v47 = *v46;
+      v37[2](v37, v47);
     }
 
     else if (objc_opt_respondsToSelector())
     {
-      [(PKPlugIn *)v35 beginUsingRequest:v41 completion:v34];
+      [(PKPlugIn *)v38 beginUsingRequest:v44 completion:v37];
     }
 
     else
     {
-      [(PKPlugIn *)v35 beginUsing:v34];
+      [(PKPlugIn *)v38 beginUsing:v37];
     }
 
-    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v62, 8);
   }
 
   else
   {
     v12 = MEMORY[0x1E696ABC0];
-    v70 = *MEMORY[0x1E696A278];
-    v71 = @"The plugin has been invalidated.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+    v72 = *MEMORY[0x1E696A278];
+    v73 = @"The plugin has been invalidated.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
     v14 = [v12 errorWithDomain:*MEMORY[0x1E696A2B8] code:-1 userInfo:v13];
 
-    v15 = _EXLegacyLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _EXLegacyLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [EXConcreteExtension _safelyBeginUsingSynchronously:request:readyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _EXLegacyLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _EXLegacyLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [WeakRetained xpcConnection];
+      v4 = [v2 xpcConnection];
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_1847D1000, v2, OS_LOG_TYPE_DEFAULT, "Assertion invalidated: Invalidating XPC connection %{public}@ ", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_1847D1000, v3, OS_LOG_TYPE_DEFAULT, "Assertion invalidated: Invalidating XPC connection %{public}@ ", &v6, 0xCu);
     }
 
-    v4 = [WeakRetained xpcConnection];
-    [v4 invalidate];
+    v5 = [v2 xpcConnection];
+    [v5 invalidate];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142(uint64_t a1, void *a2)
@@ -2936,118 +2911,119 @@ void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandl
   v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  if (useAssertions())
+  v5 = useAssertions();
+  if (v5)
   {
-    v5 = (a1 + 32);
-    v6 = [*(a1 + 32) _plugInProcessIdentifier];
-    if (!v6)
+    v6 = (a1 + 32);
+    v7 = [*(a1 + 32) _plugInProcessIdentifier];
+    v8 = v7;
+    if (!v7)
     {
-      v7 = _EXLegacyLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = _EXLegacyLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_1(a1 + 32);
+        __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_1();
       }
     }
 
-    v8 = [*(*(a1 + 32) + 96) pluginConnection];
-    v9 = [v8 _xpcConnection];
-    [*(a1 + 32) set_stashedPlugInConnection:v9];
+    v10 = [*(*(a1 + 32) + 96) pluginConnection];
+    v11 = [v10 _xpcConnection];
+    [*(a1 + 32) set_stashedPlugInConnection:v11];
 
-    v10 = *(a1 + 40);
-    if (v10 && v6 == *(a1 + 80))
+    v12 = *(a1 + 40);
+    if (v12 && v8 == *(a1 + 80))
     {
-      v11 = v10;
+      v5 = v12;
 LABEL_12:
-      v14 = v11;
+      v15 = v5;
       goto LABEL_18;
     }
 
-    [v10 invalidate];
-    v12 = *v5;
-    v13 = [*v5 identifier];
-    if (([v12 _wantsProcessPerRequest] & 1) == 0)
+    [v12 invalidate];
+    v13 = *v6;
+    v14 = [*v6 identifier];
+    if (([v13 _wantsProcessPerRequest] & 1) == 0)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __EXConcreteExtensionSetProcessIdentifierForExtensionIdentifier_block_invoke;
       v28 = &unk_1E6E4DFA0;
-      v29 = v13;
-      v30 = v6;
+      v29 = v14;
+      v30 = v8;
       safelyAccessPidForExtensionIdentiferDictionary(buf);
     }
 
-    v11 = _NSAcquireProcessAssertionForPIDWithOptions(v6, [*(a1 + 48) options], *(a1 + 56));
-    if (v11)
+    v5 = _NSAcquireProcessAssertionForPIDWithOptions(v8, [*(a1 + 48) options], *(a1 + 56));
+    if (v5)
     {
       goto LABEL_12;
     }
 
-    v15 = _EXLegacyLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _EXLegacyLog(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(*v5 + 12);
+      v24 = *(*v6 + 12);
       *buf = 138543618;
       *&buf[4] = v24;
       *&buf[12] = 1024;
-      *&buf[14] = v6;
-      _os_log_error_impl(&dword_1847D1000, v15, OS_LOG_TYPE_ERROR, "Failed to acquire assertion for plugin: %{public}@ pid: %d", buf, 0x12u);
+      *&buf[14] = v8;
+      _os_log_error_impl(&dword_1847D1000, v16, OS_LOG_TYPE_ERROR, "Failed to acquire assertion for plugin: %{public}@ pid: %d", buf, 0x12u);
     }
 
     if (!v3)
     {
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A2B8];
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A2B8];
       v25 = *MEMORY[0x1E696A578];
       v26 = @"The plugin cannot be restarted.";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v3 = [v16 errorWithDomain:v17 code:-1 userInfo:v18];
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v3 = [v17 errorWithDomain:v18 code:-1 userInfo:v19];
     }
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_18:
-  v19 = _EXLegacyLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = _EXLegacyLog(v5);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_2(a1, v3, v19);
+    __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_2(a1, v3, v20);
   }
 
   (*(*(a1 + 64) + 16))();
-  v20 = useAssertions();
-  if (!v14 && v20)
+  v21 = useAssertions();
+  if (!v15 && v21)
   {
-    v21 = _EXLegacyLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _EXLegacyLog(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_3(a1);
     }
 
-    [*(a1 + 32) _kill:9];
+    v21 = [*(a1 + 32) _kill:9];
   }
 
   if (v3)
   {
-    v22 = _EXLegacyLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _EXLegacyLog(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_4(a1);
     }
 
-    [v14 invalidate];
+    [v15 invalidate];
     [*(a1 + 32) _kill:9];
   }
 
   os_activity_scope_leave((*(*(a1 + 72) + 8) + 32));
 
   objc_autoreleasePoolPop(v4);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_safelyBeginUsingWithRequest:(id)request readyHandler:(id)handler
 {
   requestCopy = request;
   handlerCopy = handler;
-  v8 = _sharedSafePluginQueue();
+  v8 = _sharedSafePluginQueue(handlerCopy);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __65__EXConcreteExtension__safelyBeginUsingWithRequest_readyHandler___block_invoke;
@@ -3063,51 +3039,51 @@ LABEL_18:
 - (BOOL)_beginUsingAndCreateExtensionAssertionWithRequest:(id)request error:(id *)error
 {
   requestCopy = request;
-  v7 = _sharedSafePluginQueue();
+  v7 = _sharedSafePluginQueue(requestCopy);
   dispatch_assert_queue_not_V2(v7);
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = 0;
-  v8 = _sharedSafePluginQueue();
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v9 = _sharedSafePluginQueue(v8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __79__EXConcreteExtension__beginUsingAndCreateExtensionAssertionWithRequest_error___block_invoke;
   block[3] = &unk_1E6E4DE30;
   block[4] = self;
-  v9 = requestCopy;
-  v15 = v9;
-  v16 = &v17;
-  dispatch_sync(v8, block);
+  v10 = requestCopy;
+  v16 = v10;
+  v17 = &v18;
+  dispatch_sync(v9, block);
 
-  assertion = [v9 assertion];
+  assertion = [v10 assertion];
   if (assertion)
   {
 
 LABEL_3:
-    v11 = 1;
+    v12 = 1;
     goto LABEL_4;
   }
 
-  v13 = v18[5];
-  if (!v13)
+  v14 = v19[5];
+  if (!v14)
   {
     goto LABEL_3;
   }
 
-  v11 = 0;
+  v12 = 0;
   if (error)
   {
-    *error = v13;
+    *error = v14;
   }
 
 LABEL_4:
 
-  _Block_object_dispose(&v17, 8);
-  return v11;
+  _Block_object_dispose(&v18, 8);
+  return v12;
 }
 
 void __79__EXConcreteExtension__beginUsingAndCreateExtensionAssertionWithRequest_error___block_invoke(void *a1)
@@ -3138,7 +3114,7 @@ void __79__EXConcreteExtension__beginUsingAndCreateExtensionAssertionWithRequest
 {
   dCopy = d;
   continuationCopy = continuation;
-  v9 = _sharedSafePluginQueue();
+  v9 = _sharedSafePluginQueue(continuationCopy);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke;
@@ -3153,61 +3129,81 @@ void __79__EXConcreteExtension__beginUsingAndCreateExtensionAssertionWithRequest
 
 void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 32);
-  v3 = *(*(a1 + 32) + 96);
-  if (v3)
+  v17[1] = *MEMORY[0x1E69E9840];
+  v2 = *(*(a1 + 32) + 96);
+  if (v2)
   {
-    v4 = v3;
-    v5 = _EXLegacyLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v3 = v2;
+    v4 = _EXLegacyLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_1(v4, a1);
+      __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_1();
     }
 
     if (objc_opt_respondsToSelector())
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_153;
-      v15[3] = &unk_1E6E4DB38;
-      v6 = &v16;
-      v7 = *(a1 + 40);
-      v16 = *(a1 + 48);
-      [v4 endUsingRequest:v7 completion:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_153;
+      v14[3] = &unk_1E6E4DB38;
+      v5 = &v15;
+      v6 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      [v3 endUsingRequest:v6 completion:v14];
     }
 
     else
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_2;
-      v13[3] = &unk_1E6E4DB38;
-      v6 = &v14;
-      v14 = *(a1 + 48);
-      [v4 endUsing:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_2;
+      v12[3] = &unk_1E6E4DB38;
+      v5 = &v13;
+      v13 = *(a1 + 48);
+      [v3 endUsing:v12];
     }
   }
 
   else
   {
-    v8 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A2B8];
-    v17 = *MEMORY[0x1E696A278];
-    v18[0] = @"The plugin has been invalidated.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v4 = [v8 errorWithDomain:v9 code:-1 userInfo:v10];
+    v7 = MEMORY[0x1E696ABC0];
+    v8 = *MEMORY[0x1E696A2B8];
+    v16 = *MEMORY[0x1E696A278];
+    v17[0] = @"The plugin has been invalidated.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v3 = [v7 errorWithDomain:v8 code:-1 userInfo:v9];
 
-    v11 = _EXLegacyLog();
+    v11 = _EXLegacyLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_2(v2);
+      __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_2();
     }
 
     (*(*(a1 + 48) + 16))();
   }
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (void)_kill:(int)_kill
+{
+  v3 = *&_kill;
+  v5 = _EXLegacyLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [EXConcreteExtension _kill:];
+  }
+
+  pluginConnection = [(PKPlugIn *)self->__plugIn pluginConnection];
+  [pluginConnection _killConnection:v3];
+
+  _stashedPlugInConnection = [(EXConcreteExtension *)self _stashedPlugInConnection];
+
+  if (_stashedPlugInConnection)
+  {
+    _stashedPlugInConnection2 = [(EXConcreteExtension *)self _stashedPlugInConnection];
+    xpc_connection_kill();
+
+    [(EXConcreteExtension *)self set_stashedPlugInConnection:0];
+  }
 }
 
 - (id)extensionContexts
@@ -3221,7 +3217,7 @@ void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion
 
 - (void)_dropAssertion
 {
-  v3 = _sharedSafePluginQueue();
+  v3 = _sharedSafePluginQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __37__EXConcreteExtension__dropAssertion__block_invoke;
@@ -3232,28 +3228,28 @@ void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion
 
 void __37__EXConcreteExtension__dropAssertion__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = [*(a1 + 32) extensionContexts];
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = [*(*(&v9 + 1) + 8 * v5) internalImplementation];
+        v6 = [*(*(&v8 + 1) + 8 * v5) internalImplementation];
         v7 = [v6 _processAssertion];
         [v7 invalidate];
         [v6 _setProcessAssertion:0];
@@ -3262,13 +3258,11 @@ void __37__EXConcreteExtension__dropAssertion__block_invoke(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hostWillEnterForegroundNote:(id)note
@@ -3283,40 +3277,38 @@ void __37__EXConcreteExtension__dropAssertion__block_invoke(uint64_t a1)
 
 void __52__EXConcreteExtension__hostWillEnterForegroundNote___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = [*(a1 + 32) extensionContexts];
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [v6 internalImplementation];
         v8 = [v7 _extensionVendorProxy];
         v9 = [v6 _UUID];
         [v8 _hostWillEnterForegroundForContextUUID:v9 completion:&__block_literal_global_155];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hostDidEnterBackgroundNote:(id)note
@@ -3331,40 +3323,38 @@ void __52__EXConcreteExtension__hostWillEnterForegroundNote___block_invoke(uint6
 
 void __51__EXConcreteExtension__hostDidEnterBackgroundNote___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = [*(a1 + 32) extensionContexts];
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [v6 internalImplementation];
         v8 = [v7 _extensionVendorProxy];
         v9 = [v6 _UUID];
         [v8 _hostDidEnterBackgroundForContextUUID:v9 completion:&__block_literal_global_157];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hostWillResignActiveNote:(id)note
@@ -3379,40 +3369,38 @@ void __51__EXConcreteExtension__hostDidEnterBackgroundNote___block_invoke(uint64
 
 void __49__EXConcreteExtension__hostWillResignActiveNote___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = [*(a1 + 32) extensionContexts];
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [v6 internalImplementation];
         v8 = [v7 _extensionVendorProxy];
         v9 = [v6 _UUID];
         [v8 _hostWillResignActiveForContextUUID:v9 completion:&__block_literal_global_159];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hostDidBecomeActiveNote:(id)note
@@ -3427,40 +3415,38 @@ void __49__EXConcreteExtension__hostWillResignActiveNote___block_invoke(uint64_t
 
 void __48__EXConcreteExtension__hostDidBecomeActiveNote___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = [*(a1 + 32) extensionContexts];
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [v6 internalImplementation];
         v8 = [v7 _extensionVendorProxy];
         v9 = [v6 _UUID];
         [v8 _hostDidBecomeActiveForContextUUID:v9 completion:&__block_literal_global_161];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)_extensionState
@@ -3582,31 +3568,31 @@ void __48__EXConcreteExtension__hostDidBecomeActiveNote___block_invoke(uint64_t 
 
 uint64_t __131__EXConcreteExtension_NSExtensionActiveWebPageAlternative___inputItemsByApplyingActiveWebPageAlternative_ifNeededByActivationRule___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = [v3 attachments];
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if (*(a1 + 32) == 1)
         {
-          v10 = [*(*(&v19 + 1) + 8 * i) registeredTypeIdentifiers];
+          v10 = [*(*(&v18 + 1) + 8 * i) registeredTypeIdentifiers];
           v11 = [v10 containsObject:@"com.apple.webarchive"];
 
           if (!v11)
@@ -3642,7 +3628,7 @@ LABEL_19:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       v16 = 1;
       if (v6)
       {
@@ -3660,7 +3646,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -3903,7 +3888,7 @@ void __199__EXConcreteExtension_NSExtensionActiveWebPageAlternative___genericVal
 
 uint64_t __141__EXConcreteExtension_NSExtensionActiveWebPageAlternative___dictionaryIncludingOnlyItemsWithRegisteredTypeIdentifier_fromMatchingDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3930,27 +3915,27 @@ uint64_t __141__EXConcreteExtension_NSExtensionActiveWebPageAlternative___dictio
 
   v7 = v6;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v23 = v3;
-    v11 = *v25;
+    v22 = v3;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3986,7 +3971,7 @@ uint64_t __141__EXConcreteExtension_NSExtensionActiveWebPageAlternative___dictio
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         continue;
@@ -3997,7 +3982,7 @@ uint64_t __141__EXConcreteExtension_NSExtensionActiveWebPageAlternative___dictio
 
     v20 = 1;
 LABEL_23:
-    v3 = v23;
+    v3 = v22;
   }
 
   else
@@ -4005,21 +3990,19 @@ LABEL_23:
     v20 = 1;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (BOOL)_evaluateActivationRule:(id)rule withInputItemsIfTheyMatchActiveWebPageAlternative:(id)alternative matchResult:(int64_t *)result
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = @"extensionItems";
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12 = @"extensionItems";
   ruleCopy = rule;
   v9 = [alternative valueForKey:@"_matchingDictionaryRepresentation"];
-  v14[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   LOBYTE(result) = [self _evaluateActivationRule:ruleCopy withDictionaryIfItMatchesActiveWebPageAlternative:v10 matchResult:result];
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4074,13 +4057,13 @@ LABEL_23:
 
 + (BOOL)_evaluateActivationRule:(id)rule withExtensionItemsRepresentation:(id)representation error:(id *)error
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   ruleCopy = rule;
   representationCopy = representation;
-  v12[0] = 0;
-  if ([self _evaluateActivationRule:ruleCopy withDictionaryIfItMatchesActiveWebPageAlternative:representationCopy matchResult:v12])
+  v11[0] = 0;
+  if ([self _evaluateActivationRule:ruleCopy withDictionaryIfItMatchesActiveWebPageAlternative:representationCopy matchResult:v11])
   {
-    v9 = v12[0] != 0;
+    v9 = v11[0] != 0;
   }
 
   else
@@ -4088,7 +4071,6 @@ LABEL_23:
     v9 = [self _evaluateActivationRuleWithoutWorkarounds:ruleCopy withExtensionItemsRepresentation:representationCopy];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -4185,31 +4167,18 @@ void __109__EXConcreteExtension_Filtering___evaluateActivationRuleWithoutWorkaro
   }
 }
 
-void __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v2, v3, "errors encountered while discovering extensions: %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_bareExtensionServiceConnection
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: _connectionUUID is required for process per request!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: _connectionUUID is required for process per request!", v2, v3, v4, v5);
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:(os_log_t)log error:.cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -4227,237 +4196,161 @@ void __52__EXConcreteExtension_extensionWithUUID_completion___block_invoke_2_col
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_12(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:(void *)a1 error:(void *)a2 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [a1 _UUID];
-  v10 = [a2 identifier];
+  v9 = [a2 identifier];
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:error:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_12(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:(NSObject *)a1 error:.cold.6(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_1847D1000, a1, OS_LOG_TYPE_DEBUG, "could not terminate extension: %{darwin.errno}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)makeExtensionContextAndXPCConnectionForRequest:error:.cold.7()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_1847D1000, a1, OS_LOG_TYPE_DEBUG, "could not terminate extension: %{darwin.errno}d", v3, 8u);
 }
 
 - (void)makeExtensionContextAndXPCConnectionForRequest:(NSObject *)a3 error:.cold.8(uint64_t a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = [a2 context];
   v7 = [a2 xpcConnection];
-  v9 = 138412802;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "%@ Finished making extension context: %{public}@ and connection: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412802;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "%@ Finished making extension context: %{public}@ and connection: %{public}@", &v8, 0x20u);
 }
 
 void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_1(uint64_t a1)
+void __77__EXConcreteExtension__reallyBeginExtensionRequest_synchronously_completion___block_invoke_84_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)_beginExtensionRequest:completion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_2_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(v4, v5, v6, v7, v8);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Async Begin using internal completion handler called multiple times. Due to error after initial completion: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_12(v0, v1, v2, v3, v4);
 }
 
 void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v3 = 0;
-  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "Async Begin using internal completion handler called multiple times. For unknow reasons. (request ID: %{public}@ error: %{public}@)", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = 0;
+  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "Async Begin using internal completion handler called multiple times. For unknow reasons. (request ID: %{public}@ error: %{public}@)", v1, 0x16u);
 }
 
-void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_3()
+void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_5()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Async Begin using internal completion handler called multiple times. Due to error before initial completion for request: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Async Begin using error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_3_cold_5(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_beginExtensionRequest:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)objectForInfoDictionaryKey:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: can't get info dictionary keys from a nil plugin", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: can't get info dictionary keys from a nil plugin", v2, v3, v4, v5);
 }
 
 - (void)_extensionBundle
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: Unable to fetch URL for plugIn!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: Unable to fetch URL for plugIn!", v2, v3, v4, v5);
 }
 
 - (void)_isPhotoServiceAccessGranted
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: PlugIn's UUID is nil!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: PlugIn's UUID is nil!", v2, v3, v4, v5);
 }
 
 - (void)_isSystemExtension
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: infoDictionary is not available", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: infoDictionary is not available", v2, v3, v4, v5);
 }
 
 - (void)_wantsProcessPerRequest
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: infoDictionary is not available", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: infoDictionary is not available", v2, v3, v4, v5);
 }
 
 - (void)_hostContextClass
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = 136315906;
-  v4 = "extensionContextHostClass != nil";
-  v5 = 2080;
-  v6 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXConcreteExtension.m";
-  v7 = 1024;
-  v8 = 1381;
-  v9 = 2112;
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = 136315906;
+  v3 = "extensionContextHostClass != nil";
+  v4 = 2080;
+  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXConcreteExtension.m";
+  v6 = 1024;
+  v7 = 1381;
+  v8 = 2112;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1847D1000, a2, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to load host extension context class: %@", &v3, 0x26u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1847D1000, a2, OS_LOG_TYPE_FAULT, "%s - %s:%d: Unable to load host extension context class: %@", &v2, 0x26u);
 }
 
 - (void)_safelyBeginUsingSynchronously:request:readyHandler:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: attempting to message a nil plugin!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: attempting to message a nil plugin!", v2, v3, v4, v5);
 }
 
 - (void)_safelyBeginUsingSynchronously:request:readyHandler:.cold.3()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: attempting to message a spent plugin!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: attempting to message a spent plugin!", v2, v3, v4, v5);
 }
 
 - (void)_safelyBeginUsingSynchronously:(uint8_t *)buf request:(os_log_t)log readyHandler:.cold.4(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -4471,82 +4364,55 @@ void __57__EXConcreteExtension__beginExtensionRequest_completion___block_invoke_
 
 - (void)_safelyBeginUsingSynchronously:request:readyHandler:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(*a1 + 96);
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v2, v3, "Plugin %{public}@ must have pid! Extension request will fail", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 48) pkUUID];
   OUTLINED_FUNCTION_1();
-  v8 = a2;
-  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "BeginUsing: PluginKit responded for requesr: %{public}@ with error: %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "BeginUsing: PluginKit responded for requesr: %{public}@ with error: %{public}@", v6, 0x16u);
 }
 
 void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(*(a1 + 32) + 96) identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EXConcreteExtension__safelyBeginUsingSynchronously_request_readyHandler___block_invoke_142_cold_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(*(a1 + 32) + 96) identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 40);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_2(uint64_t *a1)
+void __86__EXConcreteExtension__safelyEndUsingRequestWithPKUUID_processAssertion_continuation___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_12(v0, v1, v2, v3, v4);
 }
 
 - (void)_kill:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

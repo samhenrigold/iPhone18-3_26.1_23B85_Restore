@@ -64,10 +64,10 @@ uint64_t __30___HKWorkoutEvent_description__block_invoke()
   v11 = [[v8 alloc] initWithStartDate:dateCopy duration:0.0];
 
   v12 = [self _newWorkoutEventWithType:type dateInterval:v11 metadata:metadataCopy];
-  v13 = HKDefaultObjectValidationConfiguration();
-  v15 = [v12 _validateWithConfiguration:{v13, v14}];
+  v15 = HKDefaultObjectValidationConfiguration(v13, v14);
+  v17 = [v12 _validateWithConfiguration:{v15, v16}];
 
-  if (v15)
+  if (v17)
   {
 
     v12 = 0;
@@ -79,10 +79,10 @@ uint64_t __30___HKWorkoutEvent_description__block_invoke()
 + (id)_workoutEventWithType:(int64_t)type dateInterval:(id)interval metadata:(id)metadata
 {
   v5 = [self _newWorkoutEventWithType:type dateInterval:interval metadata:metadata];
-  v6 = HKDefaultObjectValidationConfiguration();
-  v8 = [v5 _validateWithConfiguration:{v6, v7}];
+  v7 = HKDefaultObjectValidationConfiguration(v5, v6);
+  v9 = [v5 _validateWithConfiguration:{v7, v8}];
 
-  if (v8)
+  if (v9)
   {
 
     v5 = 0;
@@ -367,7 +367,7 @@ LABEL_23:
 
 - (void)_assertPropertiesValid
 {
-  v3 = HKDefaultObjectValidationConfiguration();
+  v3 = HKDefaultObjectValidationConfiguration(self, a2);
   v5 = [(HKWorkoutEvent *)self _validateWithConfiguration:v3, v4];
   if (v5)
   {
@@ -454,7 +454,7 @@ LABEL_10:
 
 - (HKWorkoutEvent)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"type"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateInterval"];
@@ -465,20 +465,19 @@ LABEL_10:
   }
 
   v8 = MEMORY[0x1E695DFD8];
+  v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = objc_opt_class();
-  v20 = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:5];
-  v10 = [v8 setWithArray:{v9, v16, v17, v18, v19}];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:5];
+  v10 = [v8 setWithArray:{v9, v15, v16, v17, v18}];
 
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"metadata"];
   hk_replaceKeysFromSharedStringCache = [v11 hk_replaceKeysFromSharedStringCache];
 
   v13 = [objc_opt_class() _unvalidatedWorkoutEventWithType:v5 dateInterval:v6 metadata:hk_replaceKeysFromSharedStringCache];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

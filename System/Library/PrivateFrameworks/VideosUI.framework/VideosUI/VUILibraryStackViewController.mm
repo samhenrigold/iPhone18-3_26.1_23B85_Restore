@@ -64,11 +64,11 @@ void __37__VUILibraryStackViewController_init__block_invoke(uint64_t a1, void *a
 
         if (v13)
         {
-          v14 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v15 = VUIDefaultLogObject(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            *v15 = 0;
-            _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUILibraryStackViewController:: size category changed, update traits to relayout the collection view", v15, 2u);
+            *v16 = 0;
+            _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUILibraryStackViewController:: size category changed, update traits to relayout the collection view", v16, 2u);
           }
 
           [v8 updateTraitsIfNeeded];

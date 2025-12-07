@@ -59,7 +59,7 @@
 
 - (UAFAssetSetSubscription)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   if (v5)
@@ -81,9 +81,9 @@
       {
         uTF8String = [(NSString *)self->_name UTF8String];
         *buf = 136315394;
-        v21 = "[UAFAssetSetSubscription initWithCoder:]";
-        v22 = 2080;
-        v23 = uTF8String;
+        v20 = "[UAFAssetSetSubscription initWithCoder:]";
+        v21 = 2080;
+        v22 = uTF8String;
         _os_log_error_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_ERROR, "%s Decoding of the subscription %s failed: both asset sets and usage aliases are nil", buf, 0x16u);
       }
     }
@@ -100,22 +100,21 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[UAFAssetSetSubscription initWithCoder:]";
+      v20 = "[UAFAssetSetSubscription initWithCoder:]";
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Decoding of the asset set subscription name failed", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)propertiesAsDictionary
 {
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   expirationAsString = [(UAFAssetSetSubscription *)self expirationAsString];
-  v13[0] = @"name";
+  v12[0] = @"name";
   name = [(UAFAssetSetSubscription *)self name];
   if (name)
   {
@@ -127,8 +126,8 @@
     name2 = &stru_1F3B6B510;
   }
 
-  v14[0] = name2;
-  v13[1] = @"assetSets";
+  v13[0] = name2;
+  v12[1] = @"assetSets";
   assetSets = [(UAFAssetSetSubscription *)self assetSets];
   if (assetSets)
   {
@@ -140,8 +139,8 @@
     assetSets2 = MEMORY[0x1E695E0F8];
   }
 
-  v14[1] = assetSets2;
-  v13[2] = @"usageAliases";
+  v13[1] = assetSets2;
+  v12[2] = @"usageAliases";
   usageAliases = [(UAFAssetSetSubscription *)self usageAliases];
   if (usageAliases)
   {
@@ -153,10 +152,10 @@
     usageAliases2 = MEMORY[0x1E695E0F8];
   }
 
-  v13[3] = @"expiration";
-  v14[2] = usageAliases2;
-  v14[3] = expirationAsString;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v12[3] = @"expiration";
+  v13[2] = usageAliases2;
+  v13[3] = expirationAsString;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (usageAliases)
   {
   }
@@ -168,8 +167,6 @@
   if (name)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -411,77 +408,76 @@ LABEL_49:
 
 - (BOOL)isValid:(id)valid error:(id *)error
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   if (!validCopy)
   {
     validCopy = +[UAFConfigurationManager defaultManager];
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
-  v108 = 0u;
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   obj = [(UAFAssetSetSubscription *)self assetSets];
-  v7 = [obj countByEnumeratingWithState:&v107 objects:v137 count:16];
+  v7 = [obj countByEnumeratingWithState:&v102 objects:v132 count:16];
   selfCopy = self;
   if (v7)
   {
     v8 = v7;
-    v9 = *v108;
-    v96 = validCopy;
-    v91 = *v108;
+    v9 = *v103;
+    v91 = validCopy;
+    v86 = *v103;
     while (2)
     {
       v10 = 0;
-      v92 = v8;
+      v87 = v8;
       do
       {
-        if (*v108 != v9)
+        if (*v103 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v107 + 1) + 8 * v10);
-        v12 = [v96 getAssetSet:v11];
+        v11 = *(*(&v102 + 1) + 8 * v10);
+        v12 = [v91 getAssetSet:v11];
         if (!v12)
         {
-          validCopy = v96;
+          validCopy = v91;
           if (error)
           {
-            v73 = MEMORY[0x1E696ABC0];
-            v74 = *MEMORY[0x1E696A578];
+            v69 = MEMORY[0x1E696ABC0];
             if (*error)
             {
-              v135[0] = *MEMORY[0x1E696A578];
-              v75 = MEMORY[0x1E696AEC0];
+              v130[0] = *MEMORY[0x1E696A578];
+              v70 = MEMORY[0x1E696AEC0];
               name = [(UAFAssetSetSubscription *)self name];
-              v77 = [v75 stringWithFormat:@"Subscription %@ references unknown asset set %@", name, v11];
-              v135[1] = *MEMORY[0x1E696AA08];
-              v78 = *error;
-              v136[0] = v77;
-              v136[1] = v78;
-              v79 = MEMORY[0x1E695DF20];
-              v80 = v136;
-              v81 = v135;
-              v82 = 2;
+              v72 = [v70 stringWithFormat:@"Subscription %@ references unknown asset set %@", name, v11];
+              v130[1] = *MEMORY[0x1E696AA08];
+              v73 = *error;
+              v131[0] = v72;
+              v131[1] = v73;
+              v74 = MEMORY[0x1E695DF20];
+              v75 = v131;
+              v76 = v130;
+              v77 = 2;
             }
 
             else
             {
-              v133 = *MEMORY[0x1E696A578];
-              v89 = MEMORY[0x1E696AEC0];
+              v128 = *MEMORY[0x1E696A578];
+              v84 = MEMORY[0x1E696AEC0];
               name = [(UAFAssetSetSubscription *)self name];
-              v77 = [v89 stringWithFormat:@"Subscription %@ references unknown asset set %@", name, v11];
-              v134 = v77;
-              v79 = MEMORY[0x1E695DF20];
-              v80 = &v134;
-              v81 = &v133;
-              v82 = 1;
+              v72 = [v84 stringWithFormat:@"Subscription %@ references unknown asset set %@", name, v11];
+              v129 = v72;
+              v74 = MEMORY[0x1E695DF20];
+              v75 = &v129;
+              v76 = &v128;
+              v77 = 1;
             }
 
-            v90 = [v79 dictionaryWithObjects:v80 forKeys:v81 count:v82];
-            *error = [v73 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v90];
+            v85 = [v74 dictionaryWithObjects:v75 forKeys:v76 count:v77];
+            *error = [v69 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v85];
 
             self = selfCopy;
           }
@@ -491,14 +487,14 @@ LABEL_49:
           {
             name2 = [(UAFAssetSetSubscription *)self name];
             *buf = 136315650;
-            v121 = "[UAFAssetSetSubscription isValid:error:]";
-            v122 = 2112;
-            v123 = name2;
-            v124 = 2112;
-            v125 = v11;
-            v86 = "%s Subscription %@ references unknown asset set %@";
+            v116 = "[UAFAssetSetSubscription isValid:error:]";
+            v117 = 2112;
+            v118 = name2;
+            v119 = 2112;
+            v120 = v11;
+            v81 = "%s Subscription %@ references unknown asset set %@";
 LABEL_66:
-            _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, v86, buf, 0x20u);
+            _os_log_error_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_ERROR, v81, buf, 0x20u);
           }
 
           goto LABEL_41;
@@ -506,95 +502,94 @@ LABEL_66:
 
         v13 = v12;
         errorCopy = error;
-        v105 = 0u;
-        v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
+        v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
         assetSets = [(UAFAssetSetSubscription *)self assetSets];
-        v95 = v11;
+        v90 = v11;
         v16 = [assetSets objectForKeyedSubscript:v11];
 
-        v17 = [v16 countByEnumeratingWithState:&v103 objects:v132 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v98 objects:v127 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v104;
+          v19 = *v99;
           while (2)
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v104 != v19)
+              if (*v99 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v103 + 1) + 8 * i);
+              v21 = *(*(&v98 + 1) + 8 * i);
               usageTypes = [v13 usageTypes];
               v23 = [usageTypes containsObject:v21];
 
               if ((v23 & 1) == 0)
               {
-                validCopy = v96;
+                validCopy = v91;
                 if (errorCopy)
                 {
                   v38 = errorCopy;
-                  v94 = MEMORY[0x1E696ABC0];
-                  v39 = *MEMORY[0x1E696A578];
+                  v89 = MEMORY[0x1E696ABC0];
                   if (*errorCopy)
                   {
-                    v130[0] = *MEMORY[0x1E696A578];
-                    v40 = MEMORY[0x1E696AEC0];
+                    v125[0] = *MEMORY[0x1E696A578];
+                    v39 = MEMORY[0x1E696AEC0];
                     name3 = [(UAFAssetSetSubscription *)selfCopy name];
-                    v42 = [v40 stringWithFormat:@"Subscription %@ references unknown usage type %@ in asset set %@", name3, v21, v95];
-                    v130[1] = *MEMORY[0x1E696AA08];
-                    v43 = *errorCopy;
-                    v131[0] = v42;
-                    v131[1] = v43;
-                    v44 = MEMORY[0x1E695DF20];
-                    v45 = v131;
-                    v46 = v130;
-                    v47 = 2;
+                    v41 = [v39 stringWithFormat:@"Subscription %@ references unknown usage type %@ in asset set %@", name3, v21, v90];
+                    v125[1] = *MEMORY[0x1E696AA08];
+                    v42 = *errorCopy;
+                    v126[0] = v41;
+                    v126[1] = v42;
+                    v43 = MEMORY[0x1E695DF20];
+                    v44 = v126;
+                    v45 = v125;
+                    v46 = 2;
                   }
 
                   else
                   {
-                    v128 = *MEMORY[0x1E696A578];
-                    v48 = MEMORY[0x1E696AEC0];
+                    v123 = *MEMORY[0x1E696A578];
+                    v47 = MEMORY[0x1E696AEC0];
                     name3 = [(UAFAssetSetSubscription *)selfCopy name];
-                    v42 = [v48 stringWithFormat:@"Subscription %@ references unknown usage type %@ in asset set %@", name3, v21, v95];
-                    v129 = v42;
-                    v44 = MEMORY[0x1E695DF20];
-                    v45 = &v129;
-                    v46 = &v128;
-                    v47 = 1;
+                    v41 = [v47 stringWithFormat:@"Subscription %@ references unknown usage type %@ in asset set %@", name3, v21, v90];
+                    v124 = v41;
+                    v43 = MEMORY[0x1E695DF20];
+                    v44 = &v124;
+                    v45 = &v123;
+                    v46 = 1;
                   }
 
-                  v49 = [v44 dictionaryWithObjects:v45 forKeys:v46 count:v47];
-                  *v38 = [v94 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v49];
+                  v48 = [v43 dictionaryWithObjects:v44 forKeys:v45 count:v46];
+                  *v38 = [v89 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v48];
                 }
 
-                v50 = UAFGetLogCategory(&UAFLogContextConfiguration);
-                if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+                v49 = UAFGetLogCategory(&UAFLogContextConfiguration);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
                 {
                   name4 = [(UAFAssetSetSubscription *)selfCopy name];
                   *buf = 136315906;
-                  v121 = "[UAFAssetSetSubscription isValid:error:]";
-                  v122 = 2112;
-                  v123 = name4;
-                  v124 = 2112;
-                  v125 = v21;
-                  v126 = 2112;
-                  v127 = v95;
-                  v72 = "%s Subscription %@ references unknown usage type %@ in asset set %@";
+                  v116 = "[UAFAssetSetSubscription isValid:error:]";
+                  v117 = 2112;
+                  v118 = name4;
+                  v119 = 2112;
+                  v120 = v21;
+                  v121 = 2112;
+                  v122 = v90;
+                  v68 = "%s Subscription %@ references unknown usage type %@ in asset set %@";
 LABEL_50:
-                  _os_log_error_impl(&dword_1BCF2C000, v50, OS_LOG_TYPE_ERROR, v72, buf, 0x2Au);
+                  _os_log_error_impl(&dword_1BCF2C000, v49, OS_LOG_TYPE_ERROR, v68, buf, 0x2Au);
                 }
 
                 goto LABEL_40;
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v103 objects:v132 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v98 objects:v127 count:16];
             if (v18)
             {
               continue;
@@ -605,14 +600,14 @@ LABEL_50:
         }
 
         ++v10;
-        v9 = v91;
+        v9 = v86;
         self = selfCopy;
         error = errorCopy;
       }
 
-      while (v10 != v92);
-      v8 = [obj countByEnumeratingWithState:&v107 objects:v137 count:16];
-      validCopy = v96;
+      while (v10 != v87);
+      v8 = [obj countByEnumeratingWithState:&v102 objects:v132 count:16];
+      validCopy = v91;
       if (v8)
       {
         continue;
@@ -622,64 +617,63 @@ LABEL_50:
     }
   }
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
-  v100 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   obj = [(UAFAssetSetSubscription *)self usageAliases];
-  v24 = [obj countByEnumeratingWithState:&v99 objects:v119 count:16];
+  v24 = [obj countByEnumeratingWithState:&v94 objects:v114 count:16];
   if (v24)
   {
     v25 = v24;
     errorCopy2 = error;
-    v26 = *v100;
+    v26 = *v95;
 LABEL_21:
     v27 = 0;
     while (1)
     {
-      if (*v100 != v26)
+      if (*v95 != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v99 + 1) + 8 * v27);
+      v28 = *(*(&v94 + 1) + 8 * v27);
       v29 = [validCopy getUsageAlias:v28 includeDeprecatedValues:0];
       if (!v29)
       {
         if (errorCopy2)
         {
-          v53 = MEMORY[0x1E696ABC0];
-          v54 = *MEMORY[0x1E696A578];
+          v51 = MEMORY[0x1E696ABC0];
           if (*errorCopy2)
           {
-            v117[0] = *MEMORY[0x1E696A578];
-            v55 = MEMORY[0x1E696AEC0];
+            v112[0] = *MEMORY[0x1E696A578];
+            v52 = MEMORY[0x1E696AEC0];
             name5 = [(UAFAssetSetSubscription *)self name];
-            v57 = [v55 stringWithFormat:@"Subscription %@ references unknown usage alias %@", name5, v28];
-            v117[1] = *MEMORY[0x1E696AA08];
-            v118[0] = v57;
-            v118[1] = *errorCopy2;
-            v58 = MEMORY[0x1E695DF20];
-            v59 = v118;
-            v60 = v117;
-            v61 = 2;
+            v54 = [v52 stringWithFormat:@"Subscription %@ references unknown usage alias %@", name5, v28];
+            v112[1] = *MEMORY[0x1E696AA08];
+            v113[0] = v54;
+            v113[1] = *errorCopy2;
+            v55 = MEMORY[0x1E695DF20];
+            v56 = v113;
+            v57 = v112;
+            v58 = 2;
           }
 
           else
           {
-            v115 = *MEMORY[0x1E696A578];
-            v83 = MEMORY[0x1E696AEC0];
+            v110 = *MEMORY[0x1E696A578];
+            v78 = MEMORY[0x1E696AEC0];
             name5 = [(UAFAssetSetSubscription *)self name];
-            v57 = [v83 stringWithFormat:@"Subscription %@ references unknown usage alias %@", name5, v28];
-            v116 = v57;
-            v58 = MEMORY[0x1E695DF20];
-            v59 = &v116;
-            v60 = &v115;
-            v61 = 1;
+            v54 = [v78 stringWithFormat:@"Subscription %@ references unknown usage alias %@", name5, v28];
+            v111 = v54;
+            v55 = MEMORY[0x1E695DF20];
+            v56 = &v111;
+            v57 = &v110;
+            v58 = 1;
           }
 
-          v84 = [v58 dictionaryWithObjects:v59 forKeys:v60 count:v61];
-          *errorCopy2 = [v53 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v84];
+          v79 = [v55 dictionaryWithObjects:v56 forKeys:v57 count:v58];
+          *errorCopy2 = [v51 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v79];
 
           self = selfCopy;
         }
@@ -689,12 +683,12 @@ LABEL_21:
         {
           name2 = [(UAFAssetSetSubscription *)self name];
           *buf = 136315650;
-          v121 = "[UAFAssetSetSubscription isValid:error:]";
-          v122 = 2112;
-          v123 = name2;
-          v124 = 2112;
-          v125 = v28;
-          v86 = "%s Subscription %@ references unknown usage alias %@";
+          v116 = "[UAFAssetSetSubscription isValid:error:]";
+          v117 = 2112;
+          v118 = name2;
+          v119 = 2112;
+          v120 = v28;
+          v81 = "%s Subscription %@ references unknown usage alias %@";
           goto LABEL_66;
         }
 
@@ -714,11 +708,11 @@ LABEL_21:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v121 = "[UAFAssetSetSubscription isValid:error:]";
-          v122 = 2114;
-          v123 = v28;
-          v124 = 2114;
-          v125 = v16;
+          v116 = "[UAFAssetSetSubscription isValid:error:]";
+          v117 = 2114;
+          v118 = v28;
+          v119 = 2114;
+          v120 = v16;
           _os_log_impl(&dword_1BCF2C000, v33, OS_LOG_TYPE_DEFAULT, "%s Loading deprecated values to process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
         }
 
@@ -739,7 +733,7 @@ LABEL_21:
       self = selfCopy;
       if (v25 == v27)
       {
-        v25 = [obj countByEnumeratingWithState:&v99 objects:v119 count:16];
+        v25 = [obj countByEnumeratingWithState:&v94 objects:v114 count:16];
         v37 = 1;
         if (v25)
         {
@@ -752,53 +746,52 @@ LABEL_21:
 
     if (errorCopy2)
     {
-      v62 = MEMORY[0x1E696ABC0];
-      v63 = *MEMORY[0x1E696A578];
+      v59 = MEMORY[0x1E696ABC0];
       if (*errorCopy2)
       {
-        v113[0] = *MEMORY[0x1E696A578];
-        v64 = MEMORY[0x1E696AEC0];
+        v108[0] = *MEMORY[0x1E696A578];
+        v60 = MEMORY[0x1E696AEC0];
         name6 = [(UAFAssetSetSubscription *)selfCopy name];
-        v66 = [v64 stringWithFormat:@"Subscription %@ references unknown value %@ in usage type %@", name6, v16, v28];
-        v113[1] = *MEMORY[0x1E696AA08];
-        v114[0] = v66;
-        v114[1] = *errorCopy2;
-        v67 = MEMORY[0x1E695DF20];
-        v68 = v114;
-        v69 = v113;
-        v70 = 2;
+        v62 = [v60 stringWithFormat:@"Subscription %@ references unknown value %@ in usage type %@", name6, v16, v28];
+        v108[1] = *MEMORY[0x1E696AA08];
+        v109[0] = v62;
+        v109[1] = *errorCopy2;
+        v63 = MEMORY[0x1E695DF20];
+        v64 = v109;
+        v65 = v108;
+        v66 = 2;
       }
 
       else
       {
-        v111 = *MEMORY[0x1E696A578];
-        v87 = MEMORY[0x1E696AEC0];
+        v106 = *MEMORY[0x1E696A578];
+        v82 = MEMORY[0x1E696AEC0];
         name6 = [(UAFAssetSetSubscription *)selfCopy name];
-        v66 = [v87 stringWithFormat:@"Subscription %@ references unknown value %@ in usage type %@", name6, v16, v28];
-        v112 = v66;
-        v67 = MEMORY[0x1E695DF20];
-        v68 = &v112;
-        v69 = &v111;
-        v70 = 1;
+        v62 = [v82 stringWithFormat:@"Subscription %@ references unknown value %@ in usage type %@", name6, v16, v28];
+        v107 = v62;
+        v63 = MEMORY[0x1E695DF20];
+        v64 = &v107;
+        v65 = &v106;
+        v66 = 1;
       }
 
-      v88 = [v67 dictionaryWithObjects:v68 forKeys:v69 count:v70];
-      *errorCopy2 = [v62 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v88];
+      v83 = [v63 dictionaryWithObjects:v64 forKeys:v65 count:v66];
+      *errorCopy2 = [v59 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:-1 userInfo:v83];
     }
 
-    v50 = UAFGetLogCategory(&UAFLogContextConfiguration);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v49 = UAFGetLogCategory(&UAFLogContextConfiguration);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       name4 = [(UAFAssetSetSubscription *)selfCopy name];
       *buf = 136315906;
-      v121 = "[UAFAssetSetSubscription isValid:error:]";
-      v122 = 2112;
-      v123 = name4;
-      v124 = 2112;
-      v125 = v16;
-      v126 = 2112;
-      v127 = v28;
-      v72 = "%s Subscription %@ references unknown value %@ in usage type %@";
+      v116 = "[UAFAssetSetSubscription isValid:error:]";
+      v117 = 2112;
+      v118 = name4;
+      v119 = 2112;
+      v120 = v16;
+      v121 = 2112;
+      v122 = v28;
+      v68 = "%s Subscription %@ references unknown value %@ in usage type %@";
       goto LABEL_50;
     }
 
@@ -815,7 +808,6 @@ LABEL_41:
 
 LABEL_42:
 
-  v51 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

@@ -123,26 +123,32 @@ void __81__PKPaymentSetupHeroView_initWithContext_heroImageController_heroImages
   width = fits.width;
   if (!PKPaymentSetupContextIsBridge())
   {
-    if (!PKIsPad())
+    if (PKIsPad())
+    {
+      v9.n128_f64[0] = height * 0.3;
+    }
+
+    else
     {
       if ([(PKPaymentSetupHeroView *)self _isSmallPhone])
       {
         [(PKPaymentSetupHeroView *)self bounds];
-        v10 = v9 * 0.560000002;
+        v12 = v11 * 0.560000002;
         [MEMORY[0x1E69B8C10] cardAspectRatio];
-        v12 = v10 / v11;
+        v14 = v12 / v13;
         [(PKPaymentSetupHeroView *)self _phoneTopPadding];
-        v14 = v13 + v12;
+        v16 = v15 + v14;
         [(PKPaymentSetupHeroView *)self _phoneCardHeightInset];
-        v8 = v15 + v14;
+        v8 = v17 + v16;
         goto LABEL_13;
       }
 
       PKScreenSize();
+      v9.n128_f64[0] = v10.n128_f64[0] * 0.3;
     }
 
-    PKFloatRoundToPixel();
-    v8 = v16;
+    PKFloatRoundToPixel(v9, v10);
+    v8 = v18;
     goto LABEL_13;
   }
 
@@ -166,9 +172,9 @@ LABEL_14:
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = PKPaymentSetupHeroView;
-  [(PKPaymentSetupHeroView *)&v22 layoutSubviews];
+  v46.receiver = self;
+  v46.super_class = PKPaymentSetupHeroView;
+  [(PKPaymentSetupHeroView *)&v46 layoutSubviews];
   [(PKPaymentSetupHeroView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -176,10 +182,17 @@ LABEL_14:
   v10 = v9;
   [(UIView *)self->_heroDeviceView sizeThatFits:v7 * 0.560000002, 1.79769313e308];
   v12 = v11;
+  v14 = v13;
   if (PKPaymentSetupContextIsBridge())
   {
     heroDeviceView = self->_heroDeviceView;
-    PKSizeAlignedInRect();
+    v15.n128_f64[0] = v12;
+    v16.n128_u64[0] = v14;
+    v17.n128_f64[0] = v4;
+    v18.n128_f64[0] = v6;
+    v19.n128_f64[0] = v8;
+    v20.n128_f64[0] = v10;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v15, v16, v17, v18, v19, v20, v21);
     [(UIView *)heroDeviceView setFrame:?];
     [(UIView *)self->_heroDeviceView cardFrame];
     [(PKImageSequenceView *)self->_cardCarouselView setFrame:?];
@@ -195,32 +208,43 @@ LABEL_14:
       goto LABEL_9;
     }
 
-    v15 = PKContentAlignmentMake();
+    v24 = PKContentAlignmentMake();
     [(PKPaymentSetupHeroView *)self _phoneTopPadding];
-    v17 = v10 - v16;
-    v18 = self->_heroDeviceView;
-    PKSizeAlignedInRect();
-    [(UIView *)v18 setFrame:?];
+    v26.n128_f64[0] = v6 + v25;
+    v27 = v10 - v25;
+    v28 = self->_heroDeviceView;
+    v29.n128_f64[0] = v12;
+    v30.n128_u64[0] = v14;
+    v31.n128_f64[0] = v4;
+    v32.n128_f64[0] = v8;
+    v33.n128_f64[0] = v27;
+    PKSizeAlignedInRect(v24, v29, v30, v31, v26, v32, v33, v34);
+    [(UIView *)v28 setFrame:?];
     layer = objc_alloc_init(MEMORY[0x1E6979398]);
     blackColor = [MEMORY[0x1E69DC888] blackColor];
     [layer setBackgroundColor:{objc_msgSend(blackColor, "CGColor")}];
 
-    [layer setFrame:{-50.0, -50.0, v12 + 100.0, v17 + 50.0}];
+    [layer setFrame:{-50.0, -50.0, v12 + 100.0, v27 + 50.0}];
     layer2 = [(UIView *)self->_heroDeviceView layer];
     [layer2 setMask:layer];
 
-    [(PKPaymentSetupHeroView *)self _layoutCardCarouselWithAlignment:v15];
+    [(PKPaymentSetupHeroView *)self _layoutCardCarouselWithAlignment:v24];
     if (self->_faceIDGlyphView)
     {
       [(PKImageSequenceView *)self->_cardCarouselView frame];
-      CGRectGetMaxY(v23);
-      v24.origin.x = v4;
-      v24.origin.y = v6;
-      v24.size.width = v8;
-      v24.size.height = v10;
-      CGRectGetMaxY(v24);
+      MaxY = CGRectGetMaxY(v47);
+      v48.origin.x = v4;
+      v48.origin.y = v6;
+      v48.size.width = v8;
+      v48.size.height = v10;
+      v38.n128_f64[0] = CGRectGetMaxY(v48) - MaxY;
       faceIDGlyphView = self->_faceIDGlyphView;
-      PKSizeAlignedInRect();
+      v40.n128_u64[0] = 30.0;
+      v41.n128_u64[0] = 30.0;
+      v42.n128_f64[0] = v4;
+      v43.n128_f64[0] = MaxY;
+      v44.n128_f64[0] = v8;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v40, v41, v42, v43, v44, v38, v45);
       [(UIImageView *)faceIDGlyphView setFrame:?];
     }
 
@@ -238,24 +262,34 @@ LABEL_9:
 - (void)_layoutCardCarouselWithAlignment:(id)alignment
 {
   [(UIView *)self->_heroDeviceView frame];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
   [(PKPaymentSetupHeroView *)self _phoneCardHeightInset];
-  v13 = v12;
-  v18.origin.x = v5;
-  v18.origin.y = v7;
-  v18.size.width = v9;
-  v18.size.height = v11;
-  CGRectInset(v18, 9.0, v13);
+  v14 = v13;
+  v31.origin.x = v6;
+  v31.origin.y = v8;
+  v31.size.width = v10;
+  v31.size.height = v12;
+  v32 = CGRectInset(v31, 9.0, v14);
+  x = v32.origin.x;
+  y = v32.origin.y;
+  width = v32.size.width;
+  height = v32.size.height;
   [MEMORY[0x1E69B8C10] cardAspectRatio];
   cardCarouselView = self->_cardCarouselView;
-  PKSizeAlignedInRect();
+  v21.n128_f64[0] = width / v20;
+  v22.n128_f64[0] = width;
+  v23.n128_f64[0] = x;
+  v24.n128_f64[0] = y;
+  v25.n128_f64[0] = width;
+  v26.n128_f64[0] = height;
+  PKSizeAlignedInRect(*&alignment, v22, v21, v23, v24, v25, v26, v27);
   [(PKImageSequenceView *)cardCarouselView setFrame:?];
   layer = [(PKImageSequenceView *)self->_cardCarouselView layer];
-  v15 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.1];
-  [v15 CGColor];
+  v28 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.1];
+  [v28 CGColor];
   PKPaymentStyleApplyCorners();
 }
 

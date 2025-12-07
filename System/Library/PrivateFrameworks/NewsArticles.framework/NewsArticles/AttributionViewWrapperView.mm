@@ -57,7 +57,7 @@
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5, v7);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for AttributionViewWrapperView();
+  v10 = type metadata accessor for AttributionViewWrapperView(0);
   v14.receiver = self;
   v14.super_class = v10;
   changeCopy = change;

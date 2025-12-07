@@ -51,24 +51,13 @@ void __98__TimerApertureElementControllerAccessibility_viewWillTransitionToSize_
 {
   v3 = [(TimerApertureElementControllerAccessibility *)self safeSwiftValueForKey:@"playPauseButton"];
   accessibilityLabel = [v3 accessibilityLabel];
-  if (!accessibilityLabel)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = accessibilityLabel;
-  accessibilityLabel2 = [v3 accessibilityLabel];
-  v7 = accessibilityLocalizedString(@"pause.button");
-  v8 = [accessibilityLabel2 isEqualToString:v7];
-
-  if (v8)
+  if (accessibilityLabel && (v5 = accessibilityLabel, [v3 accessibilityLabel], v6 = objc_claimAutoreleasedReturnValue(), accessibilityLocalizedString(@"pause.button"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqualToString:", v7), v7, v6, v5, (v8 & 1) != 0))
   {
     v9 = @"start.button";
   }
 
   else
   {
-LABEL_4:
     v9 = @"pause.button";
   }
 

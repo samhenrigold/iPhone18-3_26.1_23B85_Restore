@@ -1,8 +1,19 @@
 @interface XPCCallerInformation
++ (id)callerInformationWithProcessIdentifier:(int)identifier credentialIdentityStoreIdentifier:(id)storeIdentifier associatedExtensionEnabled:(BOOL)enabled;
 - (XPCCallerInformation)initWithProcessIdentifier:(int)identifier credentialIdentityStoreIdentifier:(id)storeIdentifier associatedExtensionEnabled:(BOOL)enabled;
 @end
 
 @implementation XPCCallerInformation
+
++ (id)callerInformationWithProcessIdentifier:(int)identifier credentialIdentityStoreIdentifier:(id)storeIdentifier associatedExtensionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = *&identifier;
+  storeIdentifierCopy = storeIdentifier;
+  v9 = [[self alloc] initWithProcessIdentifier:v6 credentialIdentityStoreIdentifier:storeIdentifierCopy associatedExtensionEnabled:enabledCopy];
+
+  return v9;
+}
 
 - (XPCCallerInformation)initWithProcessIdentifier:(int)identifier credentialIdentityStoreIdentifier:(id)storeIdentifier associatedExtensionEnabled:(BOOL)enabled
 {

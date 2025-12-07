@@ -24,12 +24,11 @@
     return *(self + OBJC_IVAR____TtC9AirDropUI35AirDropSystemApertureViewController_overridePreferredLayoutMode);
   }
 
-  v2 = *(self + OBJC_IVAR____TtC9AirDropUI35AirDropSystemApertureViewController_airDropTransferSession);
   selfCopy = self;
 
-  v5 = sub_100064084(v4);
+  v4 = sub_100064084(v3);
 
-  return v5;
+  return v4;
 }
 
 - (void)setElementIdentifier:(id)identifier
@@ -54,8 +53,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100066ED0(appear);
+  sub_100066ED0(appearCopy);
 }
 
 - (void)viewWillLayoutSubviewsWithTransitionCoordinator:(id)coordinator

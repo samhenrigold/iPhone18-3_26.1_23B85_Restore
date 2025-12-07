@@ -22,8 +22,8 @@
 
 - (id)toDict
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"docScanLength";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"docScanLength";
   docScanLength = [(ICASDocScanSnapshotItemData *)self docScanLength];
   if (docScanLength)
   {
@@ -36,10 +36,8 @@
   }
 
   v5 = docScanLength2;
-  v10[0] = docScanLength2;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = docScanLength2;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }

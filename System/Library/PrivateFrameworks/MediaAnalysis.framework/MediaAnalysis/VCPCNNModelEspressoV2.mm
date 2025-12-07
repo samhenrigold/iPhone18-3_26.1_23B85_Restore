@@ -118,7 +118,7 @@ LABEL_13:
 LABEL_21:
 
         std::vector<VCPEspressoV2Data * {__strong}>::vector[abi:ne200100](buf, [v27 count]);
-        std::vector<VCPEspressoV2Data * {__strong}>::__vdeallocate(&v15->_outputs.__begin_);
+        std::vector<VCPEspressoV2Data * {__strong}>::__vdeallocate(&v15->_outputs);
         *&v15->_outputs.__begin_ = *buf;
         v15->_outputs.var1 = v59;
         v59 = 0;

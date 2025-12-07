@@ -3,17 +3,28 @@
 + (NSURL)managedObjectModelURL;
 + (NSURL)xpcServiceDirectoryURL;
 + (id)URLWithResolvedSymlinksFromURL:(id)l error:(id *)error;
++ (id)_applicationSupportChildDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed childName:(id)name descriptor:(id)descriptor;
++ (id)_dataVaultChildDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed childName:(id)name descriptor:(id)descriptor;
 + (id)_rootDirectoryURLInDomain:(int64_t)domain error:(id *)error;
++ (id)assetCacheDirectoryURLCreateIfNeeded:(BOOL)needed;
++ (id)baseDirectoryURLCreateIfNeeded:(BOOL)needed;
 + (id)baseDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed;
 + (id)darwinCacheDirectoryURL;
 + (id)darwinTemporaryDirectoryURL;
 + (id)darwinUserDirectoryURL;
++ (id)dataVaultDirectoryURLCreateIfNeeded:(BOOL)needed;
 + (id)dataVaultDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed;
++ (id)defaultsOverrideFileURLCreateIfNeeded:(BOOL)needed;
 + (id)homeDirectoryURL;
++ (id)httpLoggingDirectoryURLCreateIfNeeded:(BOOL)needed;
++ (id)identityDirectoryURLCreateIfNeeded:(BOOL)needed;
++ (id)migrationStatusFileURLCreateIfNeeded:(BOOL)needed;
++ (id)migrationStatusFileURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed;
++ (id)persistentStoreDirectoryURLCreateIfNeeded:(BOOL)needed;
++ (id)persistentStoreURLCreateIfNeeded:(BOOL)needed;
++ (id)persistentStoreURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed;
++ (id)statusDirectoryURLCreateIfNeeded:(BOOL)needed;
 + (void)_oneTimeDataVaultConversionInDomain:(int64_t)domain dataVaultDirectoryURL:(id)l;
-+ (void)darwinCacheDirectoryURL;
-+ (void)darwinTemporaryDirectoryURL;
-+ (void)darwinUserDirectoryURL;
 + (void)homeDirectoryURL;
 @end
 
@@ -68,6 +79,14 @@ LABEL_5:
   }
 
 LABEL_6:
+}
+
++ (id)baseDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self baseDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
 }
 
 + (id)baseDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed
@@ -137,17 +156,23 @@ LABEL_6:
 
 void __55__RMLocations_baseDirectoryURLInDomain_createIfNeeded___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[RMLog locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "Base directory is %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "Base directory is %{public}@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
++ (id)dataVaultDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self dataVaultDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
 }
 
 + (id)dataVaultDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed
@@ -221,17 +246,95 @@ LABEL_11:
 
 void __73__RMLocations__oneTimeDataVaultConversionInDomain_dataVaultDirectoryURL___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[RMLog locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "Data Vault directory is %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "Data Vault directory is %{public}@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
++ (id)identityDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self identityDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)persistentStoreDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self persistentStoreDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)persistentStoreURLCreateIfNeeded:(BOOL)needed
+{
+  v3 = [self persistentStoreDirectoryURLCreateIfNeeded:needed];
+  v4 = [v3 URLByAppendingPathComponent:@"RemoteManagement.sqlite"];
+
+  return v4;
+}
+
++ (id)persistentStoreURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed
+{
+  v4 = [self persistentStoreDirectoryURLInDomain:domain createIfNeeded:needed];
+  v5 = [v4 URLByAppendingPathComponent:@"RemoteManagement.sqlite"];
+
+  return v5;
+}
+
++ (id)httpLoggingDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self httpLoggingDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)statusDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self statusDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)assetCacheDirectoryURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self assetCacheDirectoryURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)defaultsOverrideFileURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self defaultsOverrideFileURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)migrationStatusFileURLCreateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  currentDomain = [self currentDomain];
+
+  return [self migrationStatusFileURLInDomain:currentDomain createIfNeeded:neededCopy];
+}
+
++ (id)migrationStatusFileURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed
+{
+  v4 = [self dataVaultDirectoryURLInDomain:domain createIfNeeded:needed];
+  v5 = [v4 URLByAppendingPathComponent:@"MigrationStatus.plist"];
+
+  return v5;
 }
 
 + (NSURL)managedObjectModelURL
@@ -280,179 +383,165 @@ void __73__RMLocations__oneTimeDataVaultConversionInDomain_dataVaultDirectoryURL
 
 void __31__RMLocations_homeDirectoryURL__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v2;
-    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Home directory is %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Home directory is %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)darwinUserDirectoryURL
 {
-  v17 = *MEMORY[0x1E69E9840];
-  bzero(v16, 0x400uLL);
-  if (!confstr(0x10000, v16, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v16, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
+  v15 = *MEMORY[0x1E69E9840];
+  bzero(v14, 0x400uLL);
+  if (!confstr(0x10000, v14, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v14, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
   {
-    v5 = __error();
+    __error();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      +[(RMLocations *)v5];
+      +[RMLocations darwinUserDirectoryURL];
     }
 
     v4 = 0;
   }
 
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __37__RMLocations_darwinUserDirectoryURL__block_invoke;
-  v14 = &unk_1E8706038;
-  v15 = v4;
-  v6 = darwinUserDirectoryURL_onceToken;
-  v7 = v4;
-  if (v6 != -1)
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __37__RMLocations_darwinUserDirectoryURL__block_invoke;
+  v12 = &unk_1E8706038;
+  v13 = v4;
+  v5 = darwinUserDirectoryURL_onceToken;
+  v6 = v4;
+  if (v5 != -1)
   {
-    dispatch_once(&darwinUserDirectoryURL_onceToken, &v11);
+    dispatch_once(&darwinUserDirectoryURL_onceToken, &v9);
   }
 
-  v8 = [RMLocations URLWithResolvedSymlinksFromURL:v7 error:0, v11, v12, v13, v14];
+  v7 = [RMLocations URLWithResolvedSymlinksFromURL:v6 error:0, v9, v10, v11, v12];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v7;
 }
 
 void __37__RMLocations_darwinUserDirectoryURL__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v2;
-    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Cache directory is %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Cache directory is %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)darwinCacheDirectoryURL
 {
-  v17 = *MEMORY[0x1E69E9840];
-  bzero(v16, 0x400uLL);
-  if (!confstr(65538, v16, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v16, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
+  v15 = *MEMORY[0x1E69E9840];
+  bzero(v14, 0x400uLL);
+  if (!confstr(65538, v14, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v14, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
   {
-    v5 = __error();
+    __error();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      +[(RMLocations *)v5];
+      +[RMLocations darwinCacheDirectoryURL];
     }
 
     v4 = 0;
   }
 
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __38__RMLocations_darwinCacheDirectoryURL__block_invoke;
-  v14 = &unk_1E8706038;
-  v15 = v4;
-  v6 = darwinCacheDirectoryURL_onceToken;
-  v7 = v4;
-  if (v6 != -1)
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __38__RMLocations_darwinCacheDirectoryURL__block_invoke;
+  v12 = &unk_1E8706038;
+  v13 = v4;
+  v5 = darwinCacheDirectoryURL_onceToken;
+  v6 = v4;
+  if (v5 != -1)
   {
-    dispatch_once(&darwinCacheDirectoryURL_onceToken, &v11);
+    dispatch_once(&darwinCacheDirectoryURL_onceToken, &v9);
   }
 
-  v8 = [RMLocations URLWithResolvedSymlinksFromURL:v7 error:0, v11, v12, v13, v14];
+  v7 = [RMLocations URLWithResolvedSymlinksFromURL:v6 error:0, v9, v10, v11, v12];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v7;
 }
 
 void __38__RMLocations_darwinCacheDirectoryURL__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v2;
-    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Cache directory is %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Cache directory is %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)darwinTemporaryDirectoryURL
 {
-  v17 = *MEMORY[0x1E69E9840];
-  bzero(v16, 0x400uLL);
-  if (!confstr(65537, v16, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v16, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
+  v15 = *MEMORY[0x1E69E9840];
+  bzero(v14, 0x400uLL);
+  if (!confstr(65537, v14, 0x400uLL) || (v2 = realpath_DARWIN_EXTSN(v14, 0)) == 0 || (v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v2 length:strlen(v2) encoding:4 freeWhenDone:1], objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", v3), v4 = objc_claimAutoreleasedReturnValue(), v3, !v4))
   {
-    v5 = __error();
+    __error();
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      +[(RMLocations *)v5];
+      +[RMLocations darwinTemporaryDirectoryURL];
     }
 
     v4 = 0;
   }
 
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __42__RMLocations_darwinTemporaryDirectoryURL__block_invoke;
-  v14 = &unk_1E8706038;
-  v15 = v4;
-  v6 = darwinTemporaryDirectoryURL_onceToken;
-  v7 = v4;
-  if (v6 != -1)
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __42__RMLocations_darwinTemporaryDirectoryURL__block_invoke;
+  v12 = &unk_1E8706038;
+  v13 = v4;
+  v5 = darwinTemporaryDirectoryURL_onceToken;
+  v6 = v4;
+  if (v5 != -1)
   {
-    dispatch_once(&darwinTemporaryDirectoryURL_onceToken, &v11);
+    dispatch_once(&darwinTemporaryDirectoryURL_onceToken, &v9);
   }
 
-  v8 = [RMLocations URLWithResolvedSymlinksFromURL:v7 error:0, v11, v12, v13, v14];
+  v7 = [RMLocations URLWithResolvedSymlinksFromURL:v6 error:0, v9, v10, v11, v12];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v7;
 }
 
 void __42__RMLocations_darwinTemporaryDirectoryURL__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v4 = 138543362;
-    v5 = v2;
-    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Temporary directory is %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v2;
+    _os_log_impl(&dword_1E1168000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Darwin Temporary directory is %{public}@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)fixFilePermissionsForURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v4 = +[RMLog locations];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = lCopy;
+    v24 = lCopy;
     _os_log_impl(&dword_1E1168000, v4, OS_LOG_TYPE_INFO, "Trying to fix permissions: %{public}@", buf, 0xCu);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [lCopy path];
-  v21 = 0;
-  v7 = [defaultManager attributesOfItemAtPath:path error:&v21];
-  v8 = v21;
+  v20 = 0;
+  v7 = [defaultManager attributesOfItemAtPath:path error:&v20];
+  v8 = v20;
 
   if (v7)
   {
@@ -472,14 +561,14 @@ void __42__RMLocations_darwinTemporaryDirectoryURL__block_invoke(uint64_t a1)
 
     else
     {
-      v22 = v9;
-      v23 = &unk_1F5C0CEC0;
+      v21 = v9;
+      v22 = &unk_1F5C0CEC0;
       v14 = 1;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       path2 = [lCopy path];
-      v20 = v8;
-      v17 = [defaultManager setAttributes:v15 ofItemAtPath:path2 error:&v20];
-      v13 = v20;
+      v19 = v8;
+      v17 = [defaultManager setAttributes:v15 ofItemAtPath:path2 error:&v19];
+      v13 = v19;
 
       if (v17)
       {
@@ -508,58 +597,181 @@ LABEL_13:
   v14 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
+}
+
++ (id)_applicationSupportChildDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed childName:(id)name descriptor:(id)descriptor
+{
+  neededCopy = needed;
+  v35 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  descriptorCopy = descriptor;
+  v12 = [self baseDirectoryURLInDomain:domain createIfNeeded:neededCopy];
+  if (!v12)
+  {
+    v13 = +[RMLog locations];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      +[RMLocations _applicationSupportChildDirectoryURLInDomain:createIfNeeded:childName:descriptor:];
+    }
+  }
+
+  v14 = [v12 URLByAppendingPathComponent:nameCopy isDirectory:1];
+  v15 = v14;
+  if (neededCopy)
+  {
+    v28 = 0;
+    DirectoryAtURL = createDirectoryAtURL(v14, domain, &v28);
+    v17 = v28;
+    if ((DirectoryAtURL & 1) == 0)
+    {
+      v18 = +[RMLog locations];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543874;
+        v30 = descriptorCopy;
+        v31 = 2114;
+        v32 = v15;
+        v33 = 2114;
+        v34 = v17;
+        _os_log_error_impl(&dword_1E1168000, v18, OS_LOG_TYPE_ERROR, "Unable to create %{public}@ directory at %{public}@: %{public}@", buf, 0x20u);
+      }
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __96__RMLocations__applicationSupportChildDirectoryURLInDomain_createIfNeeded_childName_descriptor___block_invoke;
+  block[3] = &unk_1E8706210;
+  v26 = descriptorCopy;
+  v19 = v15;
+  v27 = v19;
+  v20 = _applicationSupportChildDirectoryURLInDomain_createIfNeeded_childName_descriptor__onceToken;
+  v21 = descriptorCopy;
+  if (v20 != -1)
+  {
+    dispatch_once(&_applicationSupportChildDirectoryURLInDomain_createIfNeeded_childName_descriptor__onceToken, block);
+  }
+
+  v22 = v27;
+  v23 = v19;
+
+  return v19;
 }
 
 void __96__RMLocations__applicationSupportChildDirectoryURLInDomain_createIfNeeded_childName_descriptor___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = +[RMLog locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "%{public}@ directory is %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "%{public}@ directory is %{public}@", &v5, 0x16u);
+  }
+}
+
++ (id)_dataVaultChildDirectoryURLInDomain:(int64_t)domain createIfNeeded:(BOOL)needed childName:(id)name descriptor:(id)descriptor
+{
+  neededCopy = needed;
+  v35 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  descriptorCopy = descriptor;
+  v12 = [self dataVaultDirectoryURLInDomain:domain createIfNeeded:neededCopy];
+  if (!v12)
+  {
+    v13 = +[RMLog locations];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      +[RMLocations _dataVaultChildDirectoryURLInDomain:createIfNeeded:childName:descriptor:];
+    }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  v14 = [v12 URLByAppendingPathComponent:nameCopy isDirectory:1];
+  v15 = v14;
+  if (neededCopy)
+  {
+    v28 = 0;
+    DirectoryAtURL = createDirectoryAtURL(v14, domain, &v28);
+    v17 = v28;
+    if ((DirectoryAtURL & 1) == 0)
+    {
+      v18 = +[RMLog locations];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543874;
+        v30 = descriptorCopy;
+        v31 = 2114;
+        v32 = v15;
+        v33 = 2114;
+        v34 = v17;
+        _os_log_error_impl(&dword_1E1168000, v18, OS_LOG_TYPE_ERROR, "Unable to create %{public}@ directory at %{public}@: %{public}@", buf, 0x20u);
+      }
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __87__RMLocations__dataVaultChildDirectoryURLInDomain_createIfNeeded_childName_descriptor___block_invoke;
+  block[3] = &unk_1E8706210;
+  v26 = descriptorCopy;
+  v19 = v15;
+  v27 = v19;
+  v20 = _dataVaultChildDirectoryURLInDomain_createIfNeeded_childName_descriptor__onceToken;
+  v21 = descriptorCopy;
+  if (v20 != -1)
+  {
+    dispatch_once(&_dataVaultChildDirectoryURLInDomain_createIfNeeded_childName_descriptor__onceToken, block);
+  }
+
+  v22 = v27;
+  v23 = v19;
+
+  return v19;
 }
 
 void __87__RMLocations__dataVaultChildDirectoryURLInDomain_createIfNeeded_childName_descriptor___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = +[RMLog locations];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "%{public}@ directory is %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1E1168000, v2, OS_LOG_TYPE_INFO, "%{public}@ directory is %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)URLWithResolvedSymlinksFromURL:(id)l error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   lCopy = l;
   path = [lCopy path];
   v7 = open([path fileSystemRepresentation], 0x8000, 0);
 
   if (v7 >= 1)
   {
-    if (fcntl(v7, 50, v27) != -1)
+    if (fcntl(v7, 50, v26) != -1)
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v27];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v26];
       close(v7);
       if (v8)
       {
@@ -586,9 +798,9 @@ void __87__RMLocations__dataVaultChildDirectoryURLInDomain_createIfNeeded_childN
 LABEL_12:
       v16 = MEMORY[0x1E696ABC0];
       v17 = *MEMORY[0x1E696A798];
-      v25 = *MEMORY[0x1E696A998];
-      v26 = lCopy;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x1E696A998];
+      v25 = lCopy;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v19 = [v16 errorWithDomain:v17 code:v15 userInfo:v18];
 
       if (v19)
@@ -621,9 +833,9 @@ LABEL_16:
 LABEL_7:
     v10 = MEMORY[0x1E696ABC0];
     v11 = *MEMORY[0x1E696A798];
-    v23 = *MEMORY[0x1E696A998];
-    v24 = lCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A998];
+    v23 = lCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v13 = [v10 errorWithDomain:v11 code:v9 userInfo:v12];
 
     if (v13)
@@ -637,133 +849,70 @@ LABEL_7:
 
 LABEL_17:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 + (void)baseDirectoryURLInDomain:createIfNeeded:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)baseDirectoryURLInDomain:createIfNeeded:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Unable to create root directory at %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)dataVaultDirectoryURLInDomain:createIfNeeded:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)dataVaultDirectoryURLInDomain:createIfNeeded:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Unable to create Data Vault at %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)homeDirectoryURL
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)darwinUserDirectoryURL
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)darwinCacheDirectoryURL
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)darwinTemporaryDirectoryURL
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fixFilePermissionsForURL:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fixFilePermissionsForURL:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fixFilePermissionsForURL:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_applicationSupportChildDirectoryURLInDomain:createIfNeeded:childName:descriptor:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_dataVaultChildDirectoryURLInDomain:createIfNeeded:childName:descriptor:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)URLWithResolvedSymlinksFromURL:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

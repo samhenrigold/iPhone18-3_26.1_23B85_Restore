@@ -13,8 +13,7 @@
 - (void)provisionAnisetteWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(completion);
   v10 = swift_allocObject();
@@ -39,8 +38,7 @@
 - (void)syncAnisetteWithSIMData:(NSData *)data completion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
   v12 = swift_allocObject();
@@ -67,8 +65,7 @@
 - (void)eraseAnisetteWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(completion);
   v10 = swift_allocObject();
@@ -93,8 +90,7 @@
 - (void)fetchAnisetteDataAndProvisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v16 - v9;
   v11 = _Block_copy(completion);
   v12 = swift_allocObject();
@@ -120,8 +116,7 @@
 - (void)legacyAnisetteDataForDSID:(NSString *)d withCompletion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
   v12 = swift_allocObject();
@@ -148,8 +143,7 @@
 - (void)fetchPeerAttestationDataForRequest:(NSURLRequest *)request completion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FE65800, &qword_2610BF910);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
   v12 = swift_allocObject();

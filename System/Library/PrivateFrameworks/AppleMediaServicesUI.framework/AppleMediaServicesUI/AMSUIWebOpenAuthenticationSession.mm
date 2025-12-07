@@ -163,12 +163,12 @@
   return v15;
 }
 
-void __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_20(uint64_t a1, void *a2, void *a3)
+void __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_20(void *a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = *(*(a1 + 40) + 8);
+  v7 = *(a1[5] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = 0;
 
@@ -186,30 +186,29 @@ void __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_20(uint64_t
     {
       v12 = AMSLogKey();
       v13 = MEMORY[0x1E696AEC0];
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v16 = v15;
+      v14 = objc_opt_class();
+      v15 = v14;
       if (v12)
       {
         a1 = AMSLogKey();
-        [v13 stringWithFormat:@"%@: [%@] ", v16, a1];
+        [v13 stringWithFormat:@"%@: [%@] ", v15, a1];
       }
 
       else
       {
-        [v13 stringWithFormat:@"%@: ", v15];
+        [v13 stringWithFormat:@"%@: ", v14];
       }
-      v17 = ;
-      v24 = AMSHashIfNeeded();
+      v16 = ;
+      v22 = AMSHashIfNeeded();
       *buf = 138543618;
-      v27 = v17;
-      v28 = 2114;
-      v29 = v24;
+      v24 = v16;
+      v25 = 2114;
+      v26 = v22;
       _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Action finished successfully with a URL. url = %{public}@", buf, 0x16u);
       if (v12)
       {
 
-        v17 = a1;
+        v16 = a1;
       }
     }
   }
@@ -224,43 +223,40 @@ void __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_20(uint64_t
     v11 = [v10 OSLogObject];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = AMSLogKey();
-      v19 = MEMORY[0x1E696AEC0];
-      v20 = *(a1 + 32);
-      v21 = objc_opt_class();
-      v22 = v21;
-      if (v18)
+      v17 = AMSLogKey();
+      v18 = MEMORY[0x1E696AEC0];
+      v19 = objc_opt_class();
+      v20 = v19;
+      if (v17)
       {
         a1 = AMSLogKey();
-        [v19 stringWithFormat:@"%@: [%@] ", v22, a1];
+        [v18 stringWithFormat:@"%@: [%@] ", v20, a1];
       }
 
       else
       {
-        [v19 stringWithFormat:@"%@: ", v21];
+        [v18 stringWithFormat:@"%@: ", v19];
       }
-      v23 = ;
+      v21 = ;
       *buf = 138543618;
-      v27 = v23;
-      v28 = 2114;
-      v29 = v6;
+      v24 = v21;
+      v25 = 2114;
+      v26 = v6;
       _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Task finished with error. error = %{public}@", buf, 0x16u);
-      if (v18)
+      if (v17)
       {
 
-        v23 = a1;
+        v21 = a1;
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 id __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_29(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E698CAD0];
-  v10 = @"url";
+  v9 = @"url";
   v3 = [a2 absoluteString];
   v4 = v3;
   v5 = &stru_1F3921360;
@@ -269,11 +265,9 @@ id __46__AMSUIWebOpenAuthenticationSession_runAction__block_invoke_29(uint64_t a
     v5 = v3;
   }
 
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v2 promiseWithResult:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

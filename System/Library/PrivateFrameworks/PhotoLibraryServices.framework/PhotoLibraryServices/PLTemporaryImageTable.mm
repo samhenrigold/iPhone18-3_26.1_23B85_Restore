@@ -58,7 +58,7 @@
 
 - (void)removeItemAtIndex:(unint64_t)index
 {
-  if ([(NSMutableArray *)self->_itemIndexToThumbEntryMapping count]> index)
+  if (objc_msgSend_count(self->_itemIndexToThumbEntryMapping, a2) > index)
   {
     v5 = [(PLTemporaryImageTable *)self _imageTableIndexForItemIndex:index];
     if (v5 != 0x7FFFFFFFFFFFFFFFLL)
@@ -74,7 +74,7 @@
 
 - (void)insertItemAtIndex:(unint64_t)index
 {
-  if ([(NSMutableArray *)self->_itemIndexToThumbEntryMapping count]> index)
+  if (objc_msgSend_count(self->_itemIndexToThumbEntryMapping, a2) > index)
   {
     itemIndexToThumbEntryMapping = self->_itemIndexToThumbEntryMapping;
     null = [MEMORY[0x1E695DFB0] null];
@@ -102,7 +102,7 @@
 
 - (unint64_t)_imageTableIndexForItemIndex:(unint64_t)index
 {
-  if ([(NSMutableArray *)self->_itemIndexToThumbEntryMapping count]<= index)
+  if (objc_msgSend_count(self->_itemIndexToThumbEntryMapping, a2) <= index)
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -126,14 +126,14 @@
 - (void)setImage:(id)image forItemAtIndex:(unint64_t)index
 {
   imageCopy = image;
-  while ([(NSMutableArray *)self->_itemIndexToThumbEntryMapping count]<= index)
+  while (objc_msgSend_count(self->_itemIndexToThumbEntryMapping) <= index)
   {
     itemIndexToThumbEntryMapping = self->_itemIndexToThumbEntryMapping;
     null = [MEMORY[0x1E695DFB0] null];
     [(NSMutableArray *)itemIndexToThumbEntryMapping addObject:null];
   }
 
-  if ([(NSMutableArray *)self->_itemIndexToThumbEntryMapping count]<= index)
+  if (objc_msgSend_count(self->_itemIndexToThumbEntryMapping) <= index)
   {
     v8 = 0;
 LABEL_8:

@@ -112,46 +112,50 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v18 = 138543618;
-      *&v18[4] = objc_opt_class();
-      *&v18[12] = 2114;
-      *&v18[14] = v5;
-      v11 = *&v18[4];
-      LODWORD(v17) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      v17 = 138543618;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = v5;
+      v11 = v18;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to load URL bag with error: %{public}@", &v17, 22);
 
       if (!v12)
       {
-LABEL_16:
+LABEL_17:
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, v18, v17, *v18, *&v18[16]];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_17:
+LABEL_18:
   v13 = [ISAMSBagShim alloc];
   uRLBag = [v2 URLBag];
   v15 = [v13 initWithURLBag:uRLBag];

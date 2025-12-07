@@ -292,18 +292,14 @@ LABEL_14:
 
 - (void)setViewConfigName:(id)name
 {
-  v4 = [name copy];
-  viewConfigName = self->_viewConfigName;
-  self->_viewConfigName = v4;
+  self->_viewConfigName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSearchQuery:(id)query
 {
-  v4 = [query copy];
-  searchQuery = self->_searchQuery;
-  self->_searchQuery = v4;
+  self->_searchQuery = [query copy];
 
   MEMORY[0x1EEE66BB8]();
 }

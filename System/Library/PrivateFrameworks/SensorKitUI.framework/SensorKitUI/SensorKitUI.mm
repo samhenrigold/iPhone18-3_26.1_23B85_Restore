@@ -1,72 +1,69 @@
 Swift::Void __swiftcall UIViewController.sk_showViewController(_:animated:)(UIViewController *_, Swift::Bool animated)
 {
   v3 = v2;
-  v31 = animated;
-  v37 = _;
+  v28 = animated;
+  v34 = _;
   v4 = sub_265610260();
-  v35 = *(v4 - 8);
-  v36 = v4;
-  v5 = *(v35 + 64);
-  (MEMORY[0x28223BE20])();
-  v34 = &v30[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = sub_2656102A0();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  (MEMORY[0x28223BE20])();
-  v11 = &v30[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v12 = sub_265610250();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = (MEMORY[0x28223BE20])();
-  v17 = &v30[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v15);
-  v19 = &v30[-v18];
-  v20 = [v2 traitCollection];
+  v32 = *(v4 - 8);
+  v33 = v4;
+  MEMORY[0x28223BE20](v4);
+  v31 = &v27[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = sub_2656102A0();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v27[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = sub_265610250();
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v12);
+  v16 = &v27[-v15];
+  v17 = [v2 traitCollection];
   sub_2656102F0();
 
-  v38 = v3;
-  v21 = [v3 traitCollection];
+  v35 = v3;
+  v18 = [v3 traitCollection];
   sub_265610300();
 
-  v22 = sub_265610280();
-  v32 = *(v8 + 8);
-  v33 = v7;
-  v32(v11, v7);
-  (*(v13 + 104))(v17, *MEMORY[0x277D40270], v12);
-  sub_265603E1C(&qword_280019DA8, MEMORY[0x277D40288]);
+  v19 = sub_265610280();
+  v29 = *(v7 + 8);
+  v30 = v6;
+  v29(v9, v6);
+  (*(v11 + 104))(v14, *MEMORY[0x277D40270], v10);
+  sub_265603E1C(&qword_280019DA8, MEMORY[0x277D40288], MEMORY[0x277D402C0]);
   sub_2656102B0();
   sub_2656102B0();
-  v23 = *(v13 + 8);
-  v23(v17, v12);
-  if (v40 == v39 && (v22 & 1) != 0)
+  v20 = *(v11 + 8);
+  v20(v14, v10);
+  if (v37 == v36 && (v19 & 1) != 0)
   {
-    v24 = v37;
-    v25 = v34;
+    v21 = v34;
+    v22 = v31;
     sub_265610270();
-    v26 = [v38 traitCollection];
+    v23 = [v35 traitCollection];
     sub_265610300();
 
-    sub_265603E1C(&qword_280019DB0, MEMORY[0x277D402E8]);
-    v27 = v36;
+    sub_265603E1C(&qword_280019DB0, MEMORY[0x277D402E8], MEMORY[0x277D402F8]);
+    v24 = v33;
     sub_265610290();
-    v32(v11, v33);
-    (*(v35 + 8))(v25, v27);
+    v29(v9, v30);
+    (*(v32 + 8))(v22, v24);
   }
 
   else
   {
-    v28 = [v38 navigationController];
-    if (v28)
+    v25 = [v35 navigationController];
+    if (v25)
     {
-      v29 = v28;
-      [v28 pushViewController:v37 animated:v31];
+      v26 = v25;
+      [v25 pushViewController:v34 animated:v28];
     }
   }
 
-  v23(v19, v12);
+  v20(v16, v10);
 }
 
-uint64_t sub_265603E1C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_265603E1C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -122,7 +119,7 @@ void sub_26560BF74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26560C400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, id location)
+void sub_26560C400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, id location)
 {
   objc_destroyWeak((v41 + 56));
   objc_destroyWeak((v41 + 48));

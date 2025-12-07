@@ -37,11 +37,11 @@
   return v11;
 }
 
-id __70__ATXUIFeedbackMetricsResult_initWithSpecification_startDate_endDate___block_invoke()
+id __70__ATXUIFeedbackMetricsResult_initWithSpecification_startDate_endDate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal

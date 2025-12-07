@@ -1,7 +1,9 @@
 @interface MTPObjectProperty
++ (id)objectPropertyWithPropertyCode:(unsigned int)code andDataType:(unsigned __int16)type;
 - (MTPObjectProperty)initWithPropertyCode:(unsigned __int16)code andDataType:(unsigned __int16)type;
 - (void)dealloc;
 - (void)objectPropertyDescriptionDataset:(id)dataset;
+- (void)objectPropertyListElement:(id)element withObject:(id)object andHandle:(unsigned int)handle;
 - (void)objectValue:(id)value withObject:(id)object andHandle:(unsigned int)handle;
 @end
 
@@ -21,6 +23,13 @@
   }
 
   return result;
+}
+
++ (id)objectPropertyWithPropertyCode:(unsigned int)code andDataType:(unsigned __int16)type
+{
+  v4 = [[MTPObjectProperty alloc] initWithPropertyCode:code andDataType:type];
+
+  return v4;
 }
 
 - (void)objectValue:(id)value withObject:(id)object andHandle:(unsigned int)handle
@@ -213,6 +222,20 @@ LABEL_14:
   LODWORD(v8) = 0;
   [datasetCopy appendBytes:&v8 length:4];
   [datasetCopy appendBytes:&self->_formFlag length:1];
+}
+
+- (void)objectPropertyListElement:(id)element withObject:(id)object andHandle:(unsigned int)handle
+{
+  v5 = *&handle;
+  handleCopy = handle;
+  objectCopy = object;
+  elementCopy = element;
+  [elementCopy appendBytes:&handleCopy length:4];
+  propertyCode = self->_propertyCode;
+  [elementCopy appendBytes:&propertyCode length:2];
+  dataType = self->_dataType;
+  [elementCopy appendBytes:&dataType length:2];
+  [(MTPObjectProperty *)self objectValue:elementCopy withObject:objectCopy andHandle:v5];
 }
 
 - (void)dealloc

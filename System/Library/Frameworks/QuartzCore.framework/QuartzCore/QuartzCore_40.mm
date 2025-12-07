@@ -1,1045 +1,3 @@
-void *std::__split_buffer<objc_object  {objcproto9MTLBuffer}**>::emplace_back<objc_object  {objcproto9MTLBuffer}*&>(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      if (v4 == *result)
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = &v4[-*result] >> 2;
-      }
-
-      std::__allocate_at_least[abi:nn200100]<std::allocator<objc_object  {objcproto9MTLBuffer}**>>(v11);
-    }
-
-    v7 = ((v6 >> 3) + 1) / -2;
-    v8 = ((v6 >> 3) + 1) / 2;
-    v9 = &v5[-8 * v8];
-    v10 = v4 - v5;
-    if (v4 != v5)
-    {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
-    }
-
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
-  }
-
-  *v4 = *a2;
-  v3[2] += 8;
-  return result;
-}
-
-void std::__allocate_at_least[abi:nn200100]<std::allocator<objc_object  {objcproto9MTLBuffer}**>>(unint64_t a1)
-{
-  if (!(a1 >> 61))
-  {
-    operator new();
-  }
-
-  std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
-}
-
-void CA::OGL::MetalContext::issue_cache_drop_hints(CA::OGL::MetalContext *this)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 10);
-  if (v2)
-  {
-    v3 = -1;
-    v4 = *(this + 10);
-    do
-    {
-      v5 = v3;
-      v4 = *(v4 + 8);
-      ++v3;
-    }
-
-    while (v4);
-    v6 = 8 * (v5 + 2);
-    if (v3 > 0x1FF)
-    {
-      v7 = malloc_type_malloc(8 * (v5 + 2), 0x80040B8603338uLL);
-      v2 = *(this + 10);
-      if (!v2)
-      {
-        goto LABEL_24;
-      }
-
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  MEMORY[0x1EEE9AC00](this);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFF0);
-  bzero(v7, v6);
-  if (!v2)
-  {
-    goto LABEL_24;
-  }
-
-LABEL_9:
-  v9 = 0;
-  v10 = &unk_1EA851000;
-  v11 = &unk_1EA851000;
-  *&v8 = 134219010;
-  do
-  {
-    v12 = *(v2 + 308);
-    if ((v12 & 0x40) != 0 && *(v2 + 224) == *(this + 441))
-    {
-      if (xmmword_1ED4E982C == 1 && (*(v2 + 144) & 1) != 0)
-      {
-        v13 = v10[252];
-        v23 = v8;
-        if (v13 != -1)
-        {
-          dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-          v11 = &unk_1EA851000;
-        }
-
-        v22 = *(v11 + 253);
-        v14 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
-        v11 = &unk_1EA851000;
-        v10 = &unk_1EA851000;
-        v8 = v23;
-        if (v14)
-        {
-          v21 = CA::OGL::MetalContext::metal_pixel_format_name(*(v2 + 192), v15);
-          v20 = [*(v2 + 168) width];
-          v16 = [*(v2 + 168) height];
-          *buf = v23;
-          v25 = v2;
-          v26 = 1024;
-          v27 = 0;
-          v28 = 2080;
-          v29 = v21;
-          v30 = 1024;
-          v31 = v20;
-          v32 = 1024;
-          v33 = v16;
-          _os_log_debug_impl(&dword_183AA6000, v22, OS_LOG_TYPE_DEBUG, "> drop surface %p texture %d %s %dx%d\n", buf, 0x28u);
-          v8 = v23;
-          v10 = &unk_1EA851000;
-          v11 = &unk_1EA851000;
-        }
-      }
-
-      *&v7[8 * v9++] = *(v2 + 216);
-      v12 = *(v2 + 308);
-    }
-
-    *(v2 + 308) = v12 & 0xFFBF;
-    v2 = *(v2 + 8);
-  }
-
-  while (v2);
-  if (v9 > 0)
-  {
-    if (xmmword_1ED4E982C == 1)
-    {
-      if (v10[252] != -1)
-      {
-        v18 = v11;
-        dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-        v11 = v18;
-      }
-
-      v17 = *(v11 + 253);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 67109120;
-        LODWORD(v25) = v9;
-        _os_log_debug_impl(&dword_183AA6000, v17, OS_LOG_TYPE_DEBUG, "issuing drop hints for %d surfaces", buf, 8u);
-      }
-    }
-
-    [*(this + 441) encodeCacheHintFinalize:1 resourceGroups:v7 count:v9];
-  }
-
-LABEL_24:
-  if (v6 > 0x1000)
-  {
-    free(v7);
-  }
-}
-
-void CA::OGL::MetalContext::purge_deferred_surfaces(CA::OGL::MetalContext *this)
-{
-  for (i = *(this + 491); i; i = *(this + 491))
-  {
-    *(this + 491) = *(i + 16);
-    *(i + 16) = 0;
-    *(i + 308) &= ~0x800u;
-    CA::OGL::MetalContext::finalize_surface(this, i);
-  }
-}
-
-const char *CA::OGL::MetalContext::metal_pixel_format_name(CA::OGL::MetalContext *this, MTLPixelFormat a2)
-{
-  Name = MTLPixelFormatGetName();
-  if (!strncmp(Name, "MTLPixelFormat", 0xEuLL))
-  {
-    v3 = 14;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return &Name[v3];
-}
-
-void CA::OGL::MetalContext::SharedEvent::add_encoded(CA::OGL::MetalContext::SharedEvent *this, uint64_t a2, atomic_uint *a3, uint64_t a4)
-{
-  os_unfair_lock_lock(this + 26);
-  v8 = *(this + 14);
-  v9 = *(this + 15);
-  while (v8 != v9)
-  {
-    if (*(v8 + 8) == a3)
-    {
-      *v8 = a2;
-      *(v8 + 16) = a4;
-    }
-
-    v8 += 24;
-  }
-
-  atomic_fetch_add(a3 + 32, 1u);
-  if (a3)
-  {
-    atomic_fetch_add(a3 + 32, 1u);
-    v10 = *(this + 15);
-    v11 = *(this + 16);
-    if (v10 < v11)
-    {
-      *v10 = a2;
-      atomic_fetch_add(a3 + 32, 1u);
-      v12 = a3;
-LABEL_11:
-      v10[1] = v12;
-      v10[2] = a4;
-      v13 = v10 + 3;
-      *(this + 15) = v10 + 3;
-      goto LABEL_35;
-    }
-
-    v12 = a3;
-  }
-
-  else
-  {
-    v10 = *(this + 15);
-    v11 = *(this + 16);
-    if (v10 < v11)
-    {
-      v12 = 0;
-      *v10 = a2;
-      goto LABEL_11;
-    }
-
-    v12 = 0;
-  }
-
-  v14 = *(this + 14);
-  v15 = 0xAAAAAAAAAAAAAAABLL * ((v10 - v14) >> 3);
-  v16 = v15 + 1;
-  if (v15 + 1 > 0xAAAAAAAAAAAAAAALL)
-  {
-    std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
-  }
-
-  v17 = 0xAAAAAAAAAAAAAAABLL * ((v11 - v14) >> 3);
-  if (2 * v17 > v16)
-  {
-    v16 = 2 * v17;
-  }
-
-  if (v17 >= 0x555555555555555)
-  {
-    v18 = 0xAAAAAAAAAAAAAAALL;
-  }
-
-  else
-  {
-    v18 = v16;
-  }
-
-  if (v18)
-  {
-    if (v18 <= 0xAAAAAAAAAAAAAAALL)
-    {
-      operator new();
-    }
-
-    std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
-  }
-
-  v19 = 24 * v15;
-  *(24 * v15) = a2;
-  if (v12)
-  {
-    atomic_fetch_add(v12 + 32, 1u);
-    v20 = v12;
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  *(24 * v15 + 8) = v20;
-  *(24 * v15 + 0x10) = a4;
-  v13 = (v19 + 24);
-  v27 = (v19 + 24);
-  v21 = *(this + 14);
-  v22 = *(this + 15);
-  v23 = (v19 + v21 - v22);
-  if (v21 != v22)
-  {
-    v24 = *(this + 14);
-    v25 = v23;
-    do
-    {
-      *v25 = *v24;
-      *(v24 + 1) = 0;
-      *(v25 + 2) = *(v24 + 2);
-      v24 += 24;
-      v25 += 24;
-    }
-
-    while (v24 != v22);
-    do
-    {
-      v26 = *(v21 + 1);
-      if (v26)
-      {
-        CA::CASharedEvent::unref(v26);
-      }
-
-      v21 += 24;
-    }
-
-    while (v21 != v22);
-    v21 = *(this + 14);
-  }
-
-  *(this + 14) = v23;
-  *(this + 120) = v27;
-  if (v21)
-  {
-    operator delete(v21);
-  }
-
-LABEL_35:
-  *(this + 15) = v13;
-  if (v12)
-  {
-    CA::CASharedEvent::unref(v12);
-  }
-
-  if (a3)
-  {
-    CA::CASharedEvent::unref(a3);
-  }
-
-  os_unfair_lock_unlock(this + 26);
-}
-
-void sub_183D0A71C(_Unwind_Exception *a1)
-{
-  if (v3)
-  {
-    CA::CASharedEvent::unref(v3);
-  }
-
-  if (v2)
-  {
-    CA::CASharedEvent::unref(v2);
-  }
-
-  os_unfair_lock_unlock(v1 + 26);
-  _Unwind_Resume(a1);
-}
-
-void CA::OGL::MetalContext::mark_cache_drop_hints(CA::OGL::MetalContext *this)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 10);
-  if (v2)
-  {
-    v3 = -1;
-    v4 = *(this + 10);
-    do
-    {
-      v5 = v3;
-      v4 = *(v4 + 8);
-      ++v3;
-    }
-
-    while (v4);
-    v6 = 8 * (v5 + 2);
-    if (v3 > 0x1FF)
-    {
-      v7 = malloc_type_malloc(8 * (v5 + 2), 0x80040B8603338uLL);
-      v2 = *(this + 10);
-      if (!v2)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  MEMORY[0x1EEE9AC00](this);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFF0);
-  bzero(v7, v6);
-  if (!v2)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_9:
-  v9 = 0;
-  *&v8 = 134219010;
-  v19 = v8;
-  do
-  {
-    if (*(v2 + 216) || (v10 = [*(this + 438) newResourceGroupFromResources:v2 + 168 count:*(v2 + 144) & 1], (*(v2 + 216) = v10) != 0))
-    {
-      if (xmmword_1ED4E982C == 1 && (*(v2 + 144) & 1) != 0)
-      {
-        if (x_log_get_ogl_metal(void)::once != -1)
-        {
-          dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-        }
-
-        v18 = x_log_get_ogl_metal(void)::log;
-        if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_DEBUG))
-        {
-          v17 = CA::OGL::MetalContext::metal_pixel_format_name(*(v2 + 192), v12);
-          v16 = [*(v2 + 168) width];
-          v13 = [*(v2 + 168) height];
-          *buf = v19;
-          v21 = v2;
-          v22 = 1024;
-          v23 = 0;
-          v24 = 2080;
-          v25 = v17;
-          v26 = 1024;
-          v27 = v16;
-          v28 = 1024;
-          v29 = v13;
-          _os_log_debug_impl(&dword_183AA6000, v18, OS_LOG_TYPE_DEBUG, "> mark surface %p texture %d %s %dx%d\n", buf, 0x28u);
-        }
-      }
-
-      *&v7[8 * v9++] = *(v2 + 216);
-      v11 = *(this + 441);
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    *(v2 + 224) = v11;
-    *(v2 + 308) &= ~0x40u;
-    v2 = *(v2 + 8);
-  }
-
-  while (v2);
-  if (v9 > 0)
-  {
-    if (xmmword_1ED4E982C == 1)
-    {
-      if (x_log_get_ogl_metal(void)::once != -1)
-      {
-        dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-      }
-
-      v14 = x_log_get_ogl_metal(void)::log;
-      if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 67109120;
-        LODWORD(v21) = v9;
-        _os_log_debug_impl(&dword_183AA6000, v14, OS_LOG_TYPE_DEBUG, "marking %d surfaces for cache drop hints", buf, 8u);
-      }
-    }
-
-    [*(this + 441) encodeCacheHintTag:1 resourceGroups:v7 count:v9];
-  }
-
-LABEL_25:
-  if (v6 > 0x1000)
-  {
-    free(v7);
-  }
-}
-
-void *std::vector<CA::OGL::MetalContext::SharedEvent::Encoded>::clear[abi:nn200100](void *result)
-{
-  v1 = result;
-  v2 = *result;
-  for (i = result[1]; i != v2; i -= 24)
-  {
-    result = *(i - 16);
-    if (result)
-    {
-      result = CA::CASharedEvent::unref(result);
-    }
-  }
-
-  v1[1] = v2;
-  return result;
-}
-
-uint64_t ___ZN2CA3OGLL15layer_flags_strEj_block_invoke()
-{
-  result = objc_opt_new();
-  CA::OGL::layer_flags_str::str_cache = result;
-  return result;
-}
-
-os_log_t ___Z21x_log_get_metal_tracev_block_invoke()
-{
-  result = os_log_create("com.apple.coreanimation", "Metal.Trace");
-  x_log_get_metal_trace(void)::log = result;
-  return result;
-}
-
-void std::deque<objc_object  {objcproto9MTLBuffer}*>::__maybe_remove_front_spare[abi:nn200100](uint64_t a1)
-{
-  if (*(a1 + 32) >= 0x400uLL)
-  {
-    operator delete(**(a1 + 8));
-    *(a1 + 8) += 8;
-    *(a1 + 32) -= 512;
-  }
-}
-
-BOOL CA::OGL::MetalContext::backward_dm(uint64_t a1, void *a2, void *a3, double *a4, double *a5, __IOSurface *a6, double *a7, double *a8, float16x4_t *a9, __int128 *a10, uint64_t a11)
-{
-  v134 = *MEMORY[0x1E69E9840];
-  if (CADeviceSupportsHDRProcessing::once != -1)
-  {
-    dispatch_once(&CADeviceSupportsHDRProcessing::once, &__block_literal_global_199);
-  }
-
-  if (CADeviceSupportsHDRProcessing::supports_hdr != 1)
-  {
-    return 0;
-  }
-
-  if (a2 && a2[2])
-  {
-    __assert_rtn("backward_dm", "ogl-metal.mm", 18342, "!dst || !dst->shared_event ()");
-  }
-
-  if (a3 && a3[2])
-  {
-    __assert_rtn("backward_dm", "ogl-metal.mm", 18343, "!srcVideo || !srcVideo->shared_event ()");
-  }
-
-  if (a6)
-  {
-    if (*(a6 + 2))
-    {
-      __assert_rtn("backward_dm", "ogl-metal.mm", 18344, "!srcUI || !srcUI->shared_event ()");
-    }
-
-    a6 = (*(*a6 + 168))(a6);
-  }
-
-  v127 = a7;
-  if (a3)
-  {
-    v19 = (*(*a3 + 168))(a3);
-    if (a2)
-    {
-LABEL_13:
-      v20 = (*(*a2 + 168))(a2);
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    v19 = 0;
-    if (a2)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v20 = 0;
-LABEL_16:
-  v21 = CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface;
-  if (byte_1ED4E9801 == 1)
-  {
-    if (!CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface)
-    {
-      Width = IOSurfaceGetWidth(v20);
-      Height = IOSurfaceGetHeight(v20);
-      CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface = CA::Render::create_iosurface(0x23, Width, Height, 0, v112, v113);
-      CA::OGL::fillB3A8SurfaceWithColor(CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface, v114, v115, v116, v117, v118);
-      v21 = CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface;
-    }
-  }
-
-  else
-  {
-    if (CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface)
-    {
-      CFRelease(CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface);
-      CA::OGL::MetalContext::backward_dm(CA::WindowServer::Surface *,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::WindowServer::Surface *,CA::Rect &,CA::Rect &,CA::OGL::ExtendedColor const&,CA::Mat4<float> const*,CA::Render::DisplayAttributes const*)::debug_iosurface = 0;
-    }
-
-    v21 = a6;
-  }
-
-  if (!(v21 | v19) || !v20)
-  {
-    if (x_log_get_ogl_metal(void)::once != -1)
-    {
-      dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-    }
-
-    v25 = x_log_get_ogl_metal(void)::log;
-    if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_183AA6000, v25, OS_LOG_TYPE_ERROR, "Backward DM has no inputs\n", buf, 2u);
-    }
-
-    return 0;
-  }
-
-  v126 = a8;
-  v22 = IOSurfaceGetWidth(v20);
-  buffer = v20;
-  v23 = IOSurfaceGetHeight(v20);
-  v24 = v23;
-  if (!*(a1 + 3704) && !*(a1 + 3708) && *(a1 + 3712) == v22 && *(a1 + 3716) == v23 && *(a1 + 3724) == *(a11 + 4) && *(a1 + 3788) == *(a11 + 68) && CA::Render::Chromaticity::operator==(a1 + 3796, a11 + 76))
-  {
-    v124 = (a1 + 3688);
-    if (*(a1 + 3688))
-    {
-      goto LABEL_49;
-    }
-  }
-
-  else
-  {
-    v124 = (a1 + 3688);
-
-    *(a1 + 3688) = 0;
-    *(a1 + 3704) = 0;
-    *(a1 + 3712) = v22;
-    *(a1 + 3716) = v24;
-  }
-
-  v28 = [objc_msgSend(MEMORY[0x1E696AAE8] bundleWithPath:{@"/System/Library/PrivateFrameworks/HDRProcessing.framework", "classNamed:", @"HDRBackwardDisplayManagement"}];
-  v29 = *(a11 + 68) - 2;
-  if (v29 > 2)
-  {
-    goto LABEL_109;
-  }
-
-  v30 = v28;
-  v31 = *off_1E6DEDE68[v29];
-  v32 = *off_1E6DEDE50[v29];
-  v33 = objc_alloc(MEMORY[0x1E695DF90]);
-  v34 = [v33 initWithObjectsAndKeys:{v32, _kHDRProcessingDisplayColorFormatKey, v31, _kHDRProcessingDestinationDisplayTypeKey, 0}];
-  if (*(a11 + 4) != 0.0)
-  {
-    v36 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-    [v34 setObject:v36 forKeyedSubscript:_kHDRProcessingDisplayMaximumBrightnessInNitsKey];
-    LODWORD(v37) = *a11;
-    v38 = [MEMORY[0x1E696AD98] numberWithFloat:v37];
-    [v34 setObject:v38 forKeyedSubscript:_kHDRProcessingDisplayMinimumBrightnessInNitsKey];
-  }
-
-  if (*(a11 + 132) >= 1 && _kHDRProcessingDisplayDolbyVisionDMVersionKey)
-  {
-    v39 = [MEMORY[0x1E696AD98] numberWithInt:?];
-    [v34 setObject:v39 forKeyedSubscript:_kHDRProcessingDisplayDolbyVisionDMVersionKey];
-  }
-
-  if (*(a11 + 108) == 1 && _kHDRProcessingDisplayChromaticityBx)
-  {
-    LODWORD(v35) = *(a11 + 92);
-    v40 = [MEMORY[0x1E696AD98] numberWithFloat:v35];
-    [v34 setObject:v40 forKeyedSubscript:_kHDRProcessingDisplayChromaticityBx];
-    LODWORD(v41) = *(a11 + 96);
-    v42 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-    [v34 setObject:v42 forKeyedSubscript:_kHDRProcessingDisplayChromaticityBy];
-    LODWORD(v43) = *(a11 + 84);
-    v44 = [MEMORY[0x1E696AD98] numberWithFloat:v43];
-    [v34 setObject:v44 forKeyedSubscript:_kHDRProcessingDisplayChromaticityGx];
-    LODWORD(v45) = *(a11 + 88);
-    v46 = [MEMORY[0x1E696AD98] numberWithFloat:v45];
-    [v34 setObject:v46 forKeyedSubscript:_kHDRProcessingDisplayChromaticityGy];
-    LODWORD(v47) = *(a11 + 76);
-    v48 = [MEMORY[0x1E696AD98] numberWithFloat:v47];
-    [v34 setObject:v48 forKeyedSubscript:_kHDRProcessingDisplayChromaticityRx];
-    LODWORD(v49) = *(a11 + 80);
-    v50 = [MEMORY[0x1E696AD98] numberWithFloat:v49];
-    [v34 setObject:v50 forKeyedSubscript:_kHDRProcessingDisplayChromaticityRy];
-    LODWORD(v51) = *(a11 + 100);
-    v52 = [MEMORY[0x1E696AD98] numberWithFloat:v51];
-    [v34 setObject:v52 forKeyedSubscript:_kHDRProcessingDisplayChromaticityWx];
-    LODWORD(v53) = *(a11 + 104);
-    v54 = [MEMORY[0x1E696AD98] numberWithFloat:v53];
-    [v34 setObject:v54 forKeyedSubscript:_kHDRProcessingDisplayChromaticityWy];
-  }
-
-  if (!v34)
-  {
-LABEL_109:
-    if (x_log_get_ogl_metal(void)::once != -1)
-    {
-      dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-    }
-
-    v119 = x_log_get_ogl_metal(void)::log;
-    if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      v120 = "CoreAnimation: Could not create backwardDM display properties!";
-LABEL_117:
-      _os_log_error_impl(&dword_183AA6000, v119, OS_LOG_TYPE_ERROR, v120, buf, 2u);
-    }
-
-LABEL_118:
-    abort();
-  }
-
-  *(a1 + 3688) = [[v30 alloc] initWithDevice:*(a1 + 3504) displayProperties:v34];
-  *(a1 + 3720) = *a11;
-  v55 = *(a11 + 64);
-  v57 = *(a11 + 16);
-  v56 = *(a11 + 32);
-  *(a1 + 3768) = *(a11 + 48);
-  *(a1 + 3784) = v55;
-  *(a1 + 3736) = v57;
-  *(a1 + 3752) = v56;
-  v59 = *(a11 + 96);
-  v58 = *(a11 + 112);
-  v60 = *(a11 + 80);
-  *(a1 + 3848) = *(a11 + 128);
-  *(a1 + 3816) = v59;
-  *(a1 + 3832) = v58;
-  *(a1 + 3800) = v60;
-  CFRelease(v34);
-  if (!*(a1 + 3688))
-  {
-    if (x_log_get_ogl_metal(void)::once != -1)
-    {
-      dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-    }
-
-    v119 = x_log_get_ogl_metal(void)::log;
-    if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      v120 = "CoreAnimation: Failed to initialize HDRBackwardDisplayManagement!";
-      goto LABEL_117;
-    }
-
-    goto LABEL_118;
-  }
-
-LABEL_49:
-  CA::OGL::MetalContext::stop_encoders(a1);
-  if (a2)
-  {
-    v62 = (*(*a2 + 232))(a2);
-  }
-
-  else
-  {
-    v62 = 0;
-  }
-
-  if (!CA::OGL::MetalContext::start_command_buffer(a1, v62, v61))
-  {
-    return 0;
-  }
-
-  if (BYTE11(xmmword_1ED4E980C) == 1)
-  {
-    if (v21)
-    {
-      IOSurfaceGetID(v21);
-    }
-
-    if (v19)
-    {
-      IOSurfaceGetID(v19);
-    }
-
-    IOSurfaceGetID(buffer);
-    kdebug_trace();
-  }
-
-  if (initialized[0] != -1)
-  {
-    dispatch_once_f(initialized, 0, init_debug);
-  }
-
-  v64 = dword_1ED4E96B0;
-  if (*&dword_1ED4E96B0 == 0.0)
-  {
-    v64 = *(a11 + 4);
-  }
-
-  if (v19)
-  {
-    [*(a1 + 3696) setObject:IOSurfaceCopyAllValues(v19) forKeyedSubscript:_kHDRProcessingDolbyVisionBackwardDMDictinary];
-  }
-
-  LODWORD(v63) = v64;
-  v65 = [MEMORY[0x1E696AD98] numberWithFloat:v63];
-  [*(a1 + 3696) setObject:v65 forKeyedSubscript:_kHDRProcessingSDRMaxBrightnessInNits];
-  if (a10)
-  {
-    v67 = *a10;
-    v68 = a10[2];
-    *v132 = a10[1];
-    v133 = v68;
-    HIDWORD(v67) = *v132;
-    v69.f64[0] = *&v132[4];
-    *&v69.f64[1] = v68;
-    *buf = v67;
-    v130 = v69;
-    v131 = DWORD2(v68);
-    [*v124 setAccessibilityMatrix:buf];
-  }
-
-  v70 = a9;
-  if (v19)
-  {
-    v71 = a4[2];
-    v72 = a4[3];
-    if (v71 >= v72)
-    {
-      v73 = a4[3];
-    }
-
-    else
-    {
-      v73 = a4[2];
-    }
-
-    if (v73 > 0.0)
-    {
-      v78 = v71 | (v72 << 32);
-      v77 = *a4 & 0xFFFFFFFE;
-      v76 = a4[1] << 32;
-    }
-
-    else
-    {
-      v74 = IOSurfaceGetWidth(v19);
-      v75 = IOSurfaceGetHeight(v19);
-      v76 = 0;
-      v77 = 0;
-      v78 = v74 | (v75 << 32);
-    }
-
-    v90 = a5[2];
-    v66 = a5[3];
-    if (v90 >= v66)
-    {
-      v91 = a5[3];
-    }
-
-    else
-    {
-      v91 = a5[2];
-    }
-
-    if (v91 > 0.0)
-    {
-      v96 = v90 | (v66 << 32);
-      v81 = *a5 & 0xFFFFFFFE;
-      v80 = a5[1] << 32;
-    }
-
-    else
-    {
-      v92 = v76;
-      v93 = v77;
-      v94 = IOSurfaceGetWidth(buffer);
-      v95 = IOSurfaceGetHeight(buffer);
-      v77 = v93;
-      v76 = v92;
-      v80 = 0;
-      v81 = 0;
-      v96 = v94 | (v95 << 32);
-    }
-
-    v82 = v78 & 0xFFFFFFFFFFFFFFFELL;
-    v79 = v96 & 0xFFFFFFFFFFFFFFFELL;
-    if (v21)
-    {
-      goto LABEL_78;
-    }
-
-LABEL_69:
-    v83 = v19;
-    v84 = 0;
-    v85 = 0;
-    v86 = 0;
-    v87 = 0;
-    v88 = 0;
-    v89 = 0;
-    goto LABEL_91;
-  }
-
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  v82 = 0;
-  v76 = 0;
-  v77 = 0;
-  if (!v21)
-  {
-    goto LABEL_69;
-  }
-
-LABEL_78:
-  v83 = v19;
-  v97 = v127[2];
-  v98 = v127[3];
-  if (v97 >= v98)
-  {
-    v99 = v127[3];
-  }
-
-  else
-  {
-    v99 = v127[2];
-  }
-
-  v123 = v81;
-  v125 = v80;
-  v121 = v82;
-  v122 = v77;
-  v100 = v76;
-  if (v99 > 0.0)
-  {
-    v89 = *v127;
-    v88 = v127[1];
-    v101 = v97;
-    v102 = v98;
-  }
-
-  else
-  {
-    v101 = IOSurfaceGetWidth(v21);
-    v102 = IOSurfaceGetHeight(v21);
-    v88 = 0;
-    v89 = 0;
-  }
-
-  v87 = v101 | (v102 << 32);
-  v103 = v126[2];
-  v66 = v126[3];
-  if (v103 >= v66)
-  {
-    v104 = v126[3];
-  }
-
-  else
-  {
-    v104 = v126[2];
-  }
-
-  if (v104 > 0.0)
-  {
-    v86 = *v126;
-    v84 = v103 | (v66 << 32);
-    v85 = v126[1] << 32;
-  }
-
-  else
-  {
-    v105 = IOSurfaceGetWidth(buffer);
-    v106 = IOSurfaceGetHeight(buffer);
-    v85 = 0;
-    v86 = 0;
-    v84 = v105 | (v106 << 32);
-  }
-
-  v76 = v100;
-  v77 = v122;
-  v81 = v123;
-  v70 = a9;
-  v80 = v125;
-  v82 = v121;
-LABEL_91:
-  LODWORD(v66) = v70->i32[1];
-  *buf = vcvtq_f64_f32(*&vcvtq_f32_f16(*v70));
-  v130 = vcvtq_f64_f32(*&vcvtq_f32_f16(*&v66));
-  v107 = [*(a1 + 3688) encodeToCommandBuffer:*(a1 + 3528) video:v83 videoSrcRegion:v77 | v76 videoDstRegion:v82 ui:v81 | v80 uiSrcRegion:v79 uiDstRegion:v21 backgroundColor:v89 | (v88 << 32) output:v87 frameProperties:{v86 | v85, v84, buf, buffer, *(a1 + 3696)}];
-  [*(a1 + 3696) removeObjectForKey:_kHDRProcessingDolbyVisionBackwardDMDictinary];
-  v26 = v107 == -17000;
-  if (v107 != -17000)
-  {
-    if (x_log_get_ogl_metal(void)::once != -1)
-    {
-      dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
-    }
-
-    v108 = x_log_get_ogl_metal(void)::log;
-    if (os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
-    {
-      if ((v107 + 17008) >= 9)
-      {
-        v109 = CA::OGL::hdr_processing_error_str(HDRError)::err_buffer;
-        snprintf(CA::OGL::hdr_processing_error_str(HDRError)::err_buffer, 0x20uLL, "%d", v107);
-      }
-
-      else
-      {
-        v109 = off_1E6DF5458[v107 + 17008];
-      }
-
-      *v132 = 136315138;
-      *&v132[4] = v109;
-      _os_log_error_impl(&dword_183AA6000, v108, OS_LOG_TYPE_ERROR, "Backward DM failed to convert surface: %s\n", v132, 0xCu);
-    }
-  }
-
-  return v26;
-}
-
 uint64_t CA::OGL::fillB3A8SurfaceWithColor(CA::OGL *this, __IOSurface *a2, float a3, float a4, float a5, float a6)
 {
   v16 = *MEMORY[0x1E69E9840];
@@ -1066,28 +24,28 @@ uint64_t CA::OGL::fillB3A8SurfaceWithColor(CA::OGL *this, __IOSurface *a2, float
 void CA::OGL::MetalContext::clear_surface(CA::OGL::MetalContext *this, CA::WindowServer::Surface *a2)
 {
   MEMORY[0x1EEE9AC00](this);
-  v12 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (v3)
   {
     v4 = v3;
     v5 = v2;
     v6 = objc_autoreleasePoolPush();
-    if (CA::OGL::MetalContext::make_buffer_current(v5, v4))
+    if (CA::OGL::MetalContext::make_buffer_current(v5, v4, v7, v8, v9, v10, v11, v12))
     {
-      bzero(v11, 0x3F0uLL);
-      CA::OGL::Context::prepare_context(v5, v11);
-      *(v5 + 136) = &v10;
+      bzero(v23, 0x3F0uLL);
+      CA::OGL::Context::prepare_context(v5, v23);
+      *(v5 + 136) = &v22;
       *(v5 + 152) = 128;
-      v9[4] = 0x3C003C003C003C00;
-      memset(&v9[5], 0, 24);
-      v9[9] = 0;
-      v9[8] = 1065353216;
-      v9[10] = 1025;
-      v9[2] = 0;
-      v9[3] = &CA::identity_transform;
-      v9[0] = 0;
-      v9[1] = &CA::Shape::_infinite_shape;
-      CA::OGL::MetalContext::begin_rendering(v5, v9);
+      v21[4] = 0x3C003C003C003C00;
+      memset(&v21[5], 0, 24);
+      v21[9] = 0;
+      v21[8] = 1065353216;
+      v21[10] = 1025;
+      v21[2] = 0;
+      v21[3] = &CA::identity_transform;
+      v21[0] = 0;
+      v21[1] = &CA::Shape::_infinite_shape;
+      CA::OGL::MetalContext::begin_rendering(v5, v21);
       CA::OGL::MetalContext::shared_event_submit(v5, *(v4 + 16), 1, 2);
       *(*(v5 + 16) + 497) &= ~1u;
       *(*(v5 + 16) + 16) = 0;
@@ -1095,19 +53,19 @@ void CA::OGL::MetalContext::clear_surface(CA::OGL::MetalContext *this, CA::Windo
       *(v5 + 112) = v5 + 1386;
       *(v5 + 120) = xmmword_183E20E50;
       CA::OGL::Context::array_rect(v5, 0.0, 0.0, *(v4 + 56), *(v4 + 60));
-      v7 = *(v5 + 136) + 48 * *(v5 + 144);
-      *(v7 - 160) = 0x3C00000000000000;
-      *(v7 - 112) = 0x3C00000000000000;
-      *(v7 - 64) = 0x3C00000000000000;
-      *(v7 - 16) = 0x3C00000000000000;
+      v13 = *(v5 + 136) + 48 * *(v5 + 144);
+      *(v13 - 160) = 0x3C00000000000000;
+      *(v13 - 112) = 0x3C00000000000000;
+      *(v13 - 64) = 0x3C00000000000000;
+      *(v13 - 16) = 0x3C00000000000000;
       CA::OGL::Context::array_flush(v5);
       CA::OGL::MetalContext::shared_event_submit(v5, *(v4 + 16), 0, 2);
       CA::OGL::MetalContext::end_rendering(v5);
-      CA::OGL::MetalContext::make_buffer_current(v5, 0);
+      CA::OGL::MetalContext::make_buffer_current(v5, 0, v14, v15, v16, v17, v18, v19);
       CA::OGL::MetalContext::finish(v5);
       for (i = 504; i != -504; i -= 504)
       {
-        if (*&v11[i])
+        if (*&v23[i])
         {
           __assert_rtn("~ContextState", "ogl-context.h", 613, "!next && Imbalanced ContextState push/pop");
         }
@@ -1394,7 +352,7 @@ uint64_t CA::OGL::MetalContext::compute_surface_apl_dimming_factor(CA::OGL::Surf
   return a2;
 }
 
-uint64_t CA::OGL::MetalContext::start_blit_encoder(CA::OGL::MetalContext *this, uint64_t a2)
+uint64_t CA::OGL::MetalContext::start_blit_encoder(CA::OGL::MetalContext *this, void *a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (*(this + 443))
@@ -1447,28 +405,28 @@ uint64_t CA::OGL::MetalContext::start_blit_encoder(CA::OGL::MetalContext *this, 
 
 int32x2_t *CA::OGL::MetalContext::create_variable_blur_mip_surface(uint64_t a1, int32x2_t *a2, _OWORD *a3, _OWORD *a4, int a5, unsigned int a6, char a7, int a8, float a9, char a10, char a11)
 {
-  v199 = *MEMORY[0x1E69E9840];
+  v224 = *MEMORY[0x1E69E9840];
   if (!a6)
   {
     return 0;
   }
 
   v17 = a11;
-  if ((a10 & 1) != 0 || (v18 = *a3, v184 = *a3, v19 = *(a1 + 3316), ((byte_1ED4E98AB ^ 1) & (v19 >> 3)) == 0))
+  if ((a10 & 1) != 0 || (v18 = *a3, v209 = *a3, v19 = *(a1 + 3316), ((byte_1ED4E98AB ^ 1) & (v19 >> 3)) == 0))
   {
 LABEL_101:
-    *v193 = *a3;
-    v154 = a4[1];
+    *v218 = *a3;
+    v173 = a4[1];
     *__dst = *a4;
-    *&__dst[16] = v154;
-    return CA::OGL::Context::create_variable_blur_mip_surface(a1, a2, v193, __dst, a5, a6, a9, 0, a8, 0, v17);
+    *&__dst[16] = v173;
+    return CA::OGL::Context::create_variable_blur_mip_surface(a1, a2, v218, __dst, a5, a6, a9, 0, a8, 0, v17);
   }
 
-  v180 = a3;
+  v205 = a3;
   v21 = DWORD1(v18);
   v22 = (SHIDWORD(v18) + a9);
-  HIDWORD(v184) = v22;
-  v181 = a5;
+  HIDWORD(v209) = v22;
+  v206 = a5;
   if (a11)
   {
     v23 = 25167375;
@@ -1495,34 +453,34 @@ LABEL_101:
   {
     v26 = a6 - 1;
     v21 = SDWORD1(v18) / 2;
-    LODWORD(v184) = v18 / 2;
-    DWORD1(v184) = SDWORD1(v18) / 2;
-    DWORD2(v184) = SDWORD2(v18) / 2;
-    HIDWORD(v184) = v22 / 2;
+    LODWORD(v209) = v18 / 2;
+    DWORD1(v209) = SDWORD1(v18) / 2;
+    DWORD2(v209) = SDWORD2(v18) / 2;
+    HIDWORD(v209) = v22 / 2;
   }
 
-  v171 = DWORD2(v18);
-  v177 = v21;
-  v175 = v18;
-  v192[1] = 0;
-  v192[2] = 0;
-  v192[0].i32[1] = v26;
-  v192[0].i32[0] = 1;
-  v27 = CA::OGL::MetalContext::create_surface_with_properties(a1, 1, &v184, v24, v192, @"compute-variable-blur-mip-surface");
+  v196 = DWORD2(v18);
+  v202 = v21;
+  v200 = v18;
+  v217[1] = 0;
+  v217[2] = 0;
+  v217[0].i32[1] = v26;
+  v217[0].i32[0] = 1;
+  v27 = CA::OGL::MetalContext::create_surface_with_properties(a1, 1, &v209, v24, v217, @"compute-variable-blur-mip-surface");
   v28 = v27;
   if (!v27)
   {
 LABEL_100:
     v17 = a11;
-    a5 = v181;
-    a3 = v180;
+    a5 = v206;
+    a3 = v205;
     goto LABEL_101;
   }
 
-  v179 = a8;
-  v182 = v26;
+  v204 = a8;
+  v207 = v26;
   CA::OGL::MetalContext::extend_surface(v27, v27, v27[5].u32[0], v27[5].u32[1]);
-  v168 = v25;
+  v193 = v25;
   if (v25)
   {
     v31 = 128;
@@ -1548,188 +506,188 @@ LABEL_100:
 
   v29.i32[0] = 1073741822;
   v30.i32[0] = v34;
-  v169 = vdupq_lane_s32(*&vcgtq_s32(v30, v29), 0);
+  v194 = vdupq_lane_s32(*&vcgtq_s32(v30, v29), 0);
   v35 = a2[6];
   v36 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
-  v37 = v32;
+  *v30.i64 = v32;
   *&__dst[496] = 0;
   if (v34 > 1073741822)
   {
-    v37 = 1.79769313e308;
+    *v30.i64 = 1.79769313e308;
   }
 
-  v159 = v37;
+  v180 = v30;
   if (v34 <= 1073741822)
   {
-    v38 = v33;
+    *v30.i64 = v33;
   }
 
   else
   {
-    v38 = 1.79769313e308;
+    *v30.i64 = 1.79769313e308;
   }
 
-  v161 = v38;
-  v39.i64[0] = v35.i32[0];
-  v39.i64[1] = v35.i32[1];
-  v163 = vcvtq_f64_s64(v39);
-  v165 = v36;
+  v183 = v30;
+  v37.i64[0] = v35.i32[0];
+  v37.i64[1] = v35.i32[1];
+  v186 = vcvtq_f64_s64(v37);
+  v188 = v36;
   memset(__dst, 0, 496);
-  v40 = *(a1 + 16);
-  memcpy(__dst, v40, sizeof(__dst));
-  *__dst = v40;
+  v38 = *(a1 + 16);
+  memcpy(__dst, v38, sizeof(__dst));
+  *__dst = v38;
   *(a1 + 16) = __dst;
-  v194 = 0u;
-  v195 = 0u;
-  v196 = 0u;
-  v197 = 0u;
-  v41 = *(a1 + 656);
-  *(&v194 + 1) = 0x3C003C003C003C00;
-  v195 = 0uLL;
-  *&v196 = 0;
-  WORD4(v197) = 1;
-  memset(v193, 0, sizeof(v193));
-  if (v41)
+  v219 = 0u;
+  v220 = 0u;
+  v221 = 0u;
+  v222 = 0u;
+  v39 = *(a1 + 656);
+  *(&v219 + 1) = 0x3C003C003C003C00;
+  v220 = 0uLL;
+  *&v221 = 0;
+  WORD4(v222) = 1;
+  memset(v218, 0, sizeof(v218));
+  if (v39)
   {
-    v42 = *(v41 + 64);
-    WORD4(v197) = *(v41 + 80) & 0x100 | 1;
-    v43 = WORD4(v197) | *(v41 + 80) & 0x400;
+    v40 = *(v39 + 64);
+    WORD4(v222) = *(v39 + 80) & 0x100 | 1;
+    v41 = WORD4(v222) | *(v39 + 80) & 0x400;
   }
 
   else
   {
-    v43 = 1025;
-    v42 = 1.0;
+    v41 = 1025;
+    v40 = 1.0;
   }
 
-  v166 = vbslq_s8(v169, v165, v163);
-  *(&v196 + 2) = v42;
-  WORD4(v197) = v43;
-  *&v193[16] = 0;
-  *&v194 = &CA::identity_transform;
-  *&v193[8] = &CA::Shape::_infinite_shape;
-  *v193 = CA::OGL::Context::set_gstate(a1, v193);
-  v170 = *(v28 + 40);
-  v44 = v26;
-  if (xmmword_1ED4E98AC & 1) != 0 || (a7 & 1) != 0 || ((v171 | v22))
+  v189 = vbslq_s8(v194, v188, v186);
+  *(&v221 + 2) = v40;
+  WORD4(v222) = v41;
+  *&v218[16] = 0;
+  *&v219 = &CA::identity_transform;
+  *&v218[8] = &CA::Shape::_infinite_shape;
+  *v218 = CA::OGL::Context::set_gstate(a1, v218);
+  v195 = *(v28 + 40);
+  v42 = v26;
+  if (xmmword_1ED4E98AC & 1) != 0 || (a7 & 1) != 0 || ((v196 | v22))
   {
     *(*(a1 + 16) + 497) &= ~1u;
     *(*(a1 + 16) + 16) = 1;
     CA::OGL::Context::push_surface(a1, v28, 1u, 0, 0);
     CA::OGL::Context::bind_surface(a1, a2, 0, 1u, 1, 0.0);
-    v47 = *(*(a1 + 16) + 96);
-    v48 = a2[7];
-    v49.i64[0] = v48.i32[0];
-    v49.i64[1] = v48.i32[1];
+    v45 = *(*(a1 + 16) + 96);
+    v46 = a2[7];
+    v47.i64[0] = v46.i32[0];
+    v47.i64[1] = v46.i32[1];
     __asm { FMOV            V1.2D, #-0.5 }
 
-    v55 = vmulq_f64(vaddq_f64(vcvtq_f64_s64(v49), _Q1), vcvtq_f64_f32(v47));
+    v53 = vmulq_f64(vaddq_f64(vcvtq_f64_s64(v47), _Q1), vcvtq_f64_f32(v45));
     *(a1 + 144) = 0;
     *(a1 + 112) = a1 + 1386;
     *(a1 + 120) = xmmword_183E20E50;
     if (*(a1 + 152) <= 3uLL)
     {
       *(a1 + 1384) |= 0x20u;
-      v172 = v55;
+      v197 = v53;
       CA::OGL::Context::array_flush(a1);
-      v55 = v172;
+      v53 = v197;
       *(a1 + 144) = 0;
       *(a1 + 112) = a1 + 1386;
       *(a1 + 120) = xmmword_183E20E50;
     }
 
-    v56 = vmul_f32(v47, 0x3F0000003F000000);
-    v57 = vcvt_f32_f64(v55);
-    if (v168)
+    v54 = vmul_f32(v45, 0x3F0000003F000000);
+    v55 = vcvt_f32_f64(v53);
+    if (v193)
     {
-      v59 = *(v28 + 40);
-      v58 = *(v28 + 44);
+      v57 = *(v28 + 40);
+      v56 = *(v28 + 44);
       *(*(a1 + 16) + 16) = 40;
       *(*(a1 + 16) + 19) = 0;
-      if ((v179 & 1) == 0)
+      if ((v204 & 1) == 0)
       {
         __assert_rtn("create_variable_blur_mip_surface_compute", "ogl-metal.mm", 17308, "edge_extend");
       }
 
       __asm { FMOV            V3.2S, #1.0 }
 
-      v61 = vdiv_f32(_D3, vcvt_f32_s32(a2[5]));
+      v59 = vdiv_f32(_D3, vcvt_f32_s32(a2[5]));
       *(a1 + 160) = 0;
-      *(a1 + 164) = v61;
+      *(a1 + 164) = v59;
       *(a1 + 172) = 0;
-      *(a1 + 240) = v56;
-      *(a1 + 248) = v57;
-      CA::OGL::Context::array_rect(a1, v184, v177, (v184 + v59), (v177 + v58));
-      v62.i64[0] = v175;
-      v62.i64[1] = SHIDWORD(v175);
-      v63 = vsubq_f64(vcvtq_f64_s64(v62), v166);
-      v64 = vcvt_f32_f64(v63);
-      v65 = v63.f64[0] + (2 * v59);
-      v66 = v63.f64[1] + (2 * v58);
-      v44 = v26;
+      *(a1 + 240) = v54;
+      *(a1 + 248) = v55;
+      CA::OGL::Context::array_rect(a1, v209, v202, (v209 + v57), (v202 + v56));
+      v60.i64[0] = v200;
+      v60.i64[1] = SHIDWORD(v200);
+      v61 = vsubq_f64(vcvtq_f64_s64(v60), v189);
+      v62 = vcvt_f32_f64(v61);
+      v63 = v61.f64[0] + (2 * v57);
+      v64 = v61.f64[1] + (2 * v56);
+      v42 = v26;
     }
 
     else
     {
       *(*(a1 + 16) + 16) = 1;
       *(*(a1 + 16) + 19) = 5;
-      v67 = *(a1 + 16);
-      v67[48] = v56;
-      v67[49] = v57;
-      if (v179)
+      v65 = *(a1 + 16);
+      v65[48] = v54;
+      v65[49] = v55;
+      if (v204)
       {
-        v68 = *(v28 + 40);
-        v69 = *(v28 + 44);
-        v70 = v184;
-        CA::OGL::Context::array_rect(a1, v184, v177, (v184 + v68), (v177 + v69));
-        v71 = v70;
-        v44 = v182;
-        v72.i64[0] = v71;
-        v72.i64[1] = v177;
-        v73 = vsubq_f64(vcvtq_f64_s64(v72), v166);
-        v64 = vcvt_f32_f64(v73);
-        v65 = v73.f64[0] + v68;
-        v66 = v73.f64[1] + v69;
+        v66 = *(v28 + 40);
+        v67 = *(v28 + 44);
+        v68 = v209;
+        CA::OGL::Context::array_rect(a1, v209, v202, (v209 + v66), (v202 + v67));
+        v69 = v68;
+        v42 = v207;
+        v70.i64[0] = v69;
+        v70.i64[1] = v202;
+        v71 = vsubq_f64(vcvtq_f64_s64(v70), v189);
+        v62 = vcvt_f32_f64(v71);
+        v63 = v71.f64[0] + v66;
+        v64 = v71.f64[1] + v67;
       }
 
       else
       {
-        v74 = v166.f64[0];
-        v75 = v166.f64[1];
-        v76 = v159 + v166.f64[0];
-        v77 = v161 + v166.f64[1];
-        CA::OGL::Context::array_rect(a1, v74, v75, v76, v77);
-        v65 = v159;
-        v66 = v161;
-        v64 = 0;
+        v72 = *v189.i64;
+        v73 = *&v189.i64[1];
+        v74 = *v180.i64 + *v189.i64;
+        v75 = *v183.i64 + *&v189.i64[1];
+        CA::OGL::Context::array_rect(a1, v72, v73, v74, v75);
+        v63 = *v180.i64;
+        v64 = *v183.i64;
+        v62 = 0;
       }
     }
 
-    v78 = v65;
-    v79 = v66;
-    v80 = *(a1 + 136) + 48 * *(a1 + 144);
-    *(v80 - 176) = v64;
-    *(v80 - 128) = v78;
-    *(v80 - 124) = v64.i32[1];
-    *(v80 - 80) = v78;
-    *(v80 - 76) = v79;
-    *(v80 - 32) = v64.i32[0];
-    *(v80 - 28) = v79;
+    v76 = v63;
+    v77 = v64;
+    v78 = *(a1 + 136) + 48 * *(a1 + 144);
+    *(v78 - 176) = v62;
+    *(v78 - 128) = v76;
+    *(v78 - 124) = v62.i32[1];
+    *(v78 - 80) = v76;
+    *(v78 - 76) = v77;
+    *(v78 - 32) = v62.i32[0];
+    *(v78 - 28) = v77;
     CA::OGL::Context::array_flush(a1);
     CA::OGL::Context::unbind_surface(a1, a2, 0);
-    CA::OGL::Context::pop_surface(a1);
+    CA::OGL::Context::pop_surface(a1, v79, v80, v81, v82, v83, v84, v85);
     *(*(a1 + 16) + 19) = 0;
-    v81 = v170.i32[0];
-    v82 = v170.i32[1];
-    v83 = 1;
+    v86 = v195.i32[0];
+    v87 = v195.i32[1];
+    v88 = 1;
     goto LABEL_42;
   }
 
   CA::OGL::Context::push_surface(a1, v28, 0, 0, 0);
   CA::OGL::Context::bind_surface(a1, a2, 0, 1u, 1, 0.0);
-  v45 = *(a1 + 680);
-  v46 = *(a1 + 672);
-  if (v45 != v46 || (!v45 ? (v92 = 0) : (v92 = (*(v46 + 144) >> 1) & 0x1F), *(a1 + 668) != v92))
+  v43 = *(a1 + 680);
+  v44 = *(a1 + 672);
+  if (v43 != v44 || (!v43 ? (v97 = 0) : (v97 = (*(v44 + 144) >> 1) & 0x1F), *(a1 + 668) != v97))
   {
     CA::OGL::Context::prepare_destination_(a1);
   }
@@ -1740,271 +698,271 @@ LABEL_100:
   }
 
   CA::OGL::MetalContext::flip_texture_matrices(a1, 1u);
-  v178 = *(*(a1 + 16) + 96);
-  v94 = a2[7].i32[0];
-  v93 = a2[7].i32[1];
-  v173 = *(a1 + 3120);
-  CA::OGL::Context::marked_destination(a1);
+  v203 = *(*(a1 + 16) + 96);
+  v99 = a2[7].i32[0];
+  v98 = a2[7].i32[1];
+  v198 = *(a1 + 3120);
+  CA::OGL::Context::marked_destination(a1, v100, v101, v102, v103, v104, v105, v106, v177, v178, v180.i64[0], v180.i64[1], v183.i64[0], v183.i64[1], v186.i64[0], v186.i64[1], v189.i64[0], v189.i64[1], v192);
   CA::OGL::Context::unbind_surface(a1, a2, 0);
-  CA::OGL::Context::pop_surface(a1);
-  if (v168)
+  CA::OGL::Context::pop_surface(a1, v107, v108, v109, v110, v111, v112, v113);
+  if (v193)
   {
-    if ((v179 & 1) == 0)
+    if ((v204 & 1) == 0)
     {
       __assert_rtn("create_variable_blur_mip_surface_compute", "ogl-metal.mm", 17410, "edge_extend");
     }
 
-    _D1 = vcvt_f32_s32(*&v184);
-    _D0 = vcvt_f32_s32(vadd_s32(*&v184, v170));
-    v97.i64[0] = v175;
-    v97.i64[1] = SHIDWORD(v175);
-    v98 = vsubq_f64(vcvtq_f64_s64(v97), v166);
-    v99 = vcvt_f32_f64(v98);
-    v100 = v98.f64[0] + (2 * v170.i32[0]);
-    v101 = 2 * v170.i32[1];
+    _D1 = vcvt_f32_s32(*&v209);
+    _D0 = vcvt_f32_s32(vadd_s32(*&v209, v195));
+    v116.i64[0] = v200;
+    v116.i64[1] = SHIDWORD(v200);
+    v117 = vsubq_f64(vcvtq_f64_s64(v116), v190);
+    v118 = vcvt_f32_f64(v117);
+    v119 = v117.f64[0] + (2 * v195.i32[0]);
+    v120 = 2 * v195.i32[1];
   }
 
   else
   {
-    if (!v179)
+    if (!v204)
     {
-      v103 = v161;
-      v104.f64[0] = v159;
-      v104.f64[1] = v161;
-      _D1 = vcvt_f32_f64(v166);
-      _D0 = vcvt_f32_f64(vaddq_f64(v104, v166));
-      v100 = v159;
-      v99 = 0;
+      v122 = v184;
+      v123.f64[0] = v181;
+      v123.f64[1] = v184;
+      _D1 = vcvt_f32_f64(v190);
+      _D0 = vcvt_f32_f64(vaddq_f64(v123, v190));
+      v119 = v181;
+      v118 = 0;
       goto LABEL_76;
     }
 
-    _D1 = vcvt_f32_s32(*&v184);
-    _D0 = vcvt_f32_s32(vadd_s32(*&v184, v170));
-    v102.i64[0] = v184;
-    v102.i64[1] = SDWORD1(v184);
-    v98 = vsubq_f64(vcvtq_f64_s64(v102), v166);
-    v99 = vcvt_f32_f64(v98);
-    v100 = v98.f64[0] + v170.i32[0];
-    v101 = v170.i32[1];
+    _D1 = vcvt_f32_s32(*&v209);
+    _D0 = vcvt_f32_s32(vadd_s32(*&v209, v195));
+    v121.i64[0] = v209;
+    v121.i64[1] = SDWORD1(v209);
+    v117 = vsubq_f64(vcvtq_f64_s64(v121), v190);
+    v118 = vcvt_f32_f64(v117);
+    v119 = v117.f64[0] + v195.i32[0];
+    v120 = v195.i32[1];
   }
 
-  v103 = v98.f64[1] + v101;
+  v122 = v117.f64[1] + v120;
 LABEL_76:
-  v105 = v173;
-  v106 = vmuls_lane_f32(v93, v178, 1);
-  v107 = v103;
-  v108 = *(a1 + 3048);
-  v109 = v108 * _D1.f32[0];
-  v110 = (v108 * _D1.f32[0]) + *(a1 + 3096);
+  v124 = v198;
+  v125 = vmuls_lane_f32(v98, v203, 1);
+  v126 = v122;
+  v127 = *(a1 + 3048);
+  v128 = v127 * _D1.f32[0];
+  v129 = (v127 * _D1.f32[0]) + *(a1 + 3096);
   _S19 = *(a1 + 3068);
   __asm { FMLA            S20, S19, V1.S[1] }
 
-  v113.f32[0] = vmuls_n_f32(v99.f32[0], *v173.i32);
-  v114 = vmuls_lane_f32(v99.f32[1], *v173.i8, 1);
-  v115 = vmuls_n_f32(v100, *v173.i32);
-  v116 = v115 + *&v173.i32[2];
-  v117 = vmuls_lane_f32(v107, *v173.i8, 1);
-  v118 = (v115 - v113.f32[0]);
+  v132.f32[0] = vmuls_n_f32(v118.f32[0], *v198.i32);
+  v133 = vmuls_lane_f32(v118.f32[1], *v198.i8, 1);
+  v134 = vmuls_n_f32(v119, *v198.i32);
+  v135 = v134 + *&v198.i32[2];
+  v136 = vmuls_lane_f32(v126, *v198.i8, 1);
+  v137 = (v134 - v132.f32[0]);
   __asm { FMLA            S5, S19, V0.S[1] }
 
-  v120 = _S5;
-  v121 = (v117 - v114);
-  v176 = v110;
-  v174 = -(v109 - (v108 * _D0.f32[0]));
-  v164 = _S20;
-  v113.f32[1] = v114;
-  v122 = vadd_f32(v113, *&vextq_s8(v105, v105, 8uLL));
-  v123 = v122.f32[0];
-  v167 = v122;
-  v124 = v122.f32[1];
-  v125 = (1.0 - v110) * v118 / v174 + v122.f32[0];
-  if (v116 < v125)
+  v139 = _S5;
+  v140 = (v136 - v133);
+  v201 = v129;
+  v199 = -(v128 - (v127 * _D0.f32[0]));
+  v187 = _S20;
+  v132.f32[1] = v133;
+  v141 = vadd_f32(v132, *&vextq_s8(v124, v124, 8uLL));
+  v142 = v141.f32[0];
+  v191 = v141;
+  v143 = v141.f32[1];
+  v144 = (1.0 - v129) * v137 / v199 + v141.f32[0];
+  if (v135 < v144)
   {
-    v125 = v116;
+    v144 = v135;
   }
 
-  if (v125 >= (v94 * v178.f32[0]))
+  if (v144 >= (v99 * v203.f32[0]))
   {
-    v127 = v94 * v178.f32[0];
-  }
-
-  else
-  {
-    v127 = v125;
-  }
-
-  v126 = (-1.0 - _S20) * v121 / _S5 + v122.f32[1];
-  if ((v117 + *&v173.i32[3]) >= v126)
-  {
-    v128 = (-1.0 - _S20) * v121 / _S5 + v122.f32[1];
+    v146 = v99 * v203.f32[0];
   }
 
   else
   {
-    v128 = v117 + *&v173.i32[3];
+    v146 = v144;
   }
 
-  if (v128 >= v106)
+  v145 = (-1.0 - _S20) * v140 / _S5 + v141.f32[1];
+  if ((v136 + *&v198.i32[3]) >= v145)
   {
-    v129 = v106;
+    v147 = (-1.0 - _S20) * v140 / _S5 + v141.f32[1];
   }
 
   else
   {
-    v129 = v128;
+    v147 = v136 + *&v198.i32[3];
   }
 
-  v130 = 0.5;
-  if (v127 >= 0.0)
+  if (v147 >= v125)
   {
-    v131 = 0.5;
+    v148 = v125;
   }
 
   else
   {
-    v131 = -0.5;
+    v148 = v147;
   }
 
-  v158 = a2[5];
-  v160 = v131;
-  if (v129 < 0.0)
+  v149 = 0.5;
+  if (v146 >= 0.0)
   {
-    v130 = -0.5;
+    v150 = 0.5;
   }
 
-  v162 = v130;
+  else
+  {
+    v150 = -0.5;
+  }
+
+  v179 = a2[5];
+  v182 = v150;
+  if (v148 < 0.0)
+  {
+    v149 = -0.5;
+  }
+
+  v185 = v149;
   if ((CA::OGL::MetalContext::start_compute_encoder(a1, *(a1 + 3640)) & 1) == 0)
   {
 LABEL_99:
     CA::OGL::Context::release_surface(a1, v28);
     CA::OGL::Context::set_gstate(a1, **(a1 + 656));
     *(a1 + 16) = *__dst;
-    a8 = v179;
+    a8 = v204;
     goto LABEL_100;
   }
 
-  v191 = 0;
-  v190 = 0;
-  v132 = CA::OGL::MetalBufferPool::alloc_bytes(*(a1 + 4760), 0x20u, 8u, &v191, &v190);
-  v133 = v132;
-  v134 = vmul_f32(v178, 0);
-  v135.f64[0] = (-1.0 - v176) * v118 / v174 + v123;
-  v135.f64[1] = (1.0 - v164) * v121 / v120 + v124;
-  *&v135.f64[0] = vcvt_f32_f64(v135);
-  v136 = vcvt_f32_s32(v158);
-  v137 = vcltz_f32(*&v135.f64[0]);
-  v138.i64[0] = v137.i32[0];
-  v138.i64[1] = v137.i32[1];
+  v216 = 0;
+  v215 = 0;
+  v151 = CA::OGL::MetalBufferPool::alloc_bytes(*(a1 + 4760), 0x20u, 8u, &v216, &v215);
+  v152 = v151;
+  v153 = vmul_f32(v203, 0);
+  v154.f64[0] = (-1.0 - v201) * v137 / v199 + v142;
+  v154.f64[1] = (1.0 - v187) * v140 / v139 + v143;
+  *&v154.f64[0] = vcvt_f32_f64(v154);
+  v155 = vcvt_f32_s32(v179);
+  v156 = vcltz_f32(*&v154.f64[0]);
+  v157.i64[0] = v156.i32[0];
+  v157.i64[1] = v156.i32[1];
   __asm
   {
     FMOV            V5.2D, #0.5
     FMOV            V6.2D, #-0.5
   }
 
-  v141 = vmovn_s64(vcvtq_s64_f64(vaddq_f64(vbslq_s8(v138, _Q6, _Q5), vcvtq_f64_f32(vmul_f32(*&v135.f64[0], v136)))));
-  *&v135.f64[0] = vbsl_s8(vcgt_f32(v167, *&v135.f64[0]), v167, *&v135.f64[0]);
-  v142 = vbsl_s8(vcgt_f32(*&v135.f64[0], v134), *&v135.f64[0], v134);
-  v143 = vcvtq_f64_f32(vmul_f32(v142, v136));
-  v144 = vcltz_f32(v142);
-  v138.i64[0] = v144.i32[0];
-  v138.i64[1] = v144.i32[1];
-  v145 = (v160 + (v127 * v136.f32[0]));
-  v146 = (v162 + vmuls_lane_f32(v129, v136, 1));
-  v147 = vmax_s32(vmovn_s64(vcvtq_s64_f64(vaddq_f64(vbslq_s8(v138, _Q6, _Q5), v143))), 0);
-  LODWORD(v148) = vuzp1_s16(v147, v147).u32[0];
-  HIDWORD(v148) = HIDWORD(v132[1]);
-  v132[1] = v148;
-  if (v145 >= a2[5].i32[0])
+  v160 = vmovn_s64(vcvtq_s64_f64(vaddq_f64(vbslq_s8(v157, _Q6, _Q5), vcvtq_f64_f32(vmul_f32(*&v154.f64[0], v155)))));
+  *&v154.f64[0] = vbsl_s8(vcgt_f32(v191, *&v154.f64[0]), v191, *&v154.f64[0]);
+  v161 = vbsl_s8(vcgt_f32(*&v154.f64[0], v153), *&v154.f64[0], v153);
+  v162 = vcvtq_f64_f32(vmul_f32(v161, v155));
+  v163 = vcltz_f32(v161);
+  v157.i64[0] = v163.i32[0];
+  v157.i64[1] = v163.i32[1];
+  v164 = (v182 + (v146 * v155.f32[0]));
+  v165 = (v185 + vmuls_lane_f32(v148, v155, 1));
+  v166 = vmax_s32(vmovn_s64(vcvtq_s64_f64(vaddq_f64(vbslq_s8(v157, _Q6, _Q5), v162))), 0);
+  LODWORD(v167) = vuzp1_s16(v166, v166).u32[0];
+  HIDWORD(v167) = HIDWORD(v151[1]);
+  v151[1] = v167;
+  if (v164 >= a2[5].i32[0])
   {
-    LOWORD(v145) = a2[5].i32[0];
+    LOWORD(v164) = a2[5].i32[0];
   }
 
-  WORD2(v148) = v145 - 1;
-  v132[1] = v148;
-  v149 = a2[5].i32[1];
-  if (v146 < v149)
+  WORD2(v167) = v164 - 1;
+  v151[1] = v167;
+  v168 = a2[5].i32[1];
+  if (v165 < v168)
   {
-    LOWORD(v149) = v146;
+    LOWORD(v168) = v165;
   }
 
-  HIWORD(v148) = v149 - 1;
-  v132[1] = v148;
-  *(v132 + 1) = v141.i16[2];
-  *v132 = v141.i16[0];
-  *(v132 + 26) = v168;
-  v150 = v170;
-  v81 = v170.i32[0];
-  if (v168)
+  HIWORD(v167) = v168 - 1;
+  v151[1] = v167;
+  *(v151 + 1) = v160.i16[2];
+  *v151 = v160.i16[0];
+  *(v151 + 26) = v193;
+  v169 = v195;
+  v86 = v195.i32[0];
+  if (v193)
   {
-    v151 = 0;
-    v82 = v170.i32[1];
-    v152 = vadd_s32(v170, v170);
-    v153 = "-no-base-mip";
+    v170 = 0;
+    v87 = v195.i32[1];
+    v171 = vadd_s32(v195, v195);
+    v172 = "-no-base-mip";
   }
 
   else
   {
-    if (v170.i32[0] <= 3)
+    if (v195.i32[0] <= 3)
     {
-      v81 = 1;
+      v86 = 1;
     }
 
     else
     {
-      v81 = v170.i32[0] / 2;
+      v86 = v195.i32[0] / 2;
     }
 
-    if (v170.i32[1] <= 3)
+    if (v195.i32[1] <= 3)
     {
-      v82 = 1;
+      v87 = 1;
     }
 
     else
     {
-      v82 = v170.i32[1] / 2;
+      v87 = v195.i32[1] / 2;
     }
 
-    v152 = v170;
-    v150.i16[0] = v81;
-    v150.i16[2] = v82;
-    v151 = 1;
-    v153 = "";
+    v171 = v195;
+    v169.i16[0] = v86;
+    v169.i16[2] = v87;
+    v170 = 1;
+    v172 = "";
   }
 
-  *(v132 + 9) = v152.i16[2];
-  *(v132 + 8) = v152.i16[0];
-  *(v132 + 11) = v150.i16[2];
-  *(v132 + 10) = v150.i16[0];
-  *(v132 + 12) = v151;
-  [*(a1 + 3552) setLabel:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"com.apple.coreanimation.compute-downsample-blur-cdm-copy%s", v153)}];
+  *(v151 + 9) = v171.i16[2];
+  *(v151 + 8) = v171.i16[0];
+  *(v151 + 11) = v169.i16[2];
+  *(v151 + 10) = v169.i16[0];
+  *(v151 + 12) = v170;
+  [*(a1 + 3552) setLabel:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"com.apple.coreanimation.compute-downsample-blur-cdm-copy%s", v172)}];
   [*(a1 + 3552) setComputePipelineState:{CA::OGL::MetalContext::get_compute_pipeline(a1, 8u)}];
   [*(a1 + 3552) setTexture:*&a2[21] atIndex:0];
   [*(a1 + 3552) setTexture:*(v28 + 168) atIndex:1];
   [*(a1 + 3552) setImageblockWidth:32 height:32];
-  [*(a1 + 3552) setBuffer:v191 offset:v190 atIndex:0];
-  v156 = *(a1 + 3552);
-  v157 = (*(v133 + 9) + 31) >> 5;
-  v187 = (*(v133 + 8) + 31) >> 5;
-  v188 = v157;
-  v189 = 1;
-  v185 = vdupq_n_s64(0x14uLL);
-  v186 = 1;
-  [v156 dispatchThreadgroups:&v187 threadsPerThreadgroup:&v185];
-  v83 = v151 + 1;
+  [*(a1 + 3552) setBuffer:v216 offset:v215 atIndex:0];
+  v175 = *(a1 + 3552);
+  v176 = (*(v152 + 9) + 31) >> 5;
+  v212 = (*(v152 + 8) + 31) >> 5;
+  v213 = v176;
+  v214 = 1;
+  v210 = vdupq_n_s64(0x14uLL);
+  v211 = 1;
+  [v175 dispatchThreadgroups:&v212 threadsPerThreadgroup:&v210];
+  v88 = v170 + 1;
 LABEL_42:
   if ((*(a1 + 3316) & 0x40) != 0)
   {
-    v84 = 6;
+    v89 = 6;
   }
 
   else
   {
-    v84 = 7;
+    v89 = 7;
   }
 
-  compute_pipeline = CA::OGL::MetalContext::get_compute_pipeline(a1, v84);
-  v86 = *(a1 + 3552);
-  if (v86)
+  compute_pipeline = CA::OGL::MetalContext::get_compute_pipeline(a1, v89);
+  v91 = *(a1 + 3552);
+  if (v91)
   {
     goto LABEL_48;
   }
@@ -2014,9 +972,9 @@ LABEL_42:
     goto LABEL_99;
   }
 
-  v86 = *(a1 + 3552);
+  v91 = *(a1 + 3552);
 LABEL_48:
-  if (![v86 label])
+  if (![v91 label])
   {
     [*(a1 + 3552) setLabel:@"com.apple.coreanimation.compute-downsample-blur"];
   }
@@ -2026,71 +984,71 @@ LABEL_48:
   [*(a1 + 3552) setTexture:*(v28 + 168) atIndex:1];
   if ((*(a1 + 3316) & 0x40) != 0)
   {
-    v87 = 32;
+    v92 = 32;
   }
 
   else
   {
-    v87 = 16;
+    v92 = 16;
   }
 
   [*(a1 + 3552) setImageblockWidth:16 height:32];
-  if (v83 < v44)
+  if (v88 < v42)
   {
     __asm { FMOV            V0.2D, #1.0 }
 
-    v183 = _Q0;
+    v208 = _Q0;
     do
     {
-      v191 = 0;
-      v190 = 0;
-      v89 = CA::OGL::MetalBufferPool::alloc_bytes(*(a1 + 4760), 0x10u, 4u, &v191, &v190);
-      v89->i16[0] = v83 - 1;
-      if (v81 <= 3)
+      v216 = 0;
+      v215 = 0;
+      v94 = CA::OGL::MetalBufferPool::alloc_bytes(*(a1 + 4760), 0x10u, 4u, &v216, &v215);
+      v94->i16[0] = v88 - 1;
+      if (v86 <= 3)
       {
-        v81 = 1;
+        v86 = 1;
       }
 
       else
       {
-        v81 /= 2;
+        v86 /= 2;
       }
 
-      if (v82 <= 3)
+      if (v87 <= 3)
       {
-        v82 = 1;
+        v87 = 1;
       }
 
       else
       {
-        v82 /= 2;
+        v87 /= 2;
       }
 
-      v89->i16[1] = v83;
-      v89->i16[2] = v81;
-      v89->i16[3] = v82;
-      v90.f64[0] = v81;
-      v90.f64[1] = v82;
-      v89[1] = vcvt_f32_f64(vdivq_f64(v183, v90));
-      [*(a1 + 3552) setBuffer:v191 offset:v190 atIndex:0];
-      v91 = *(a1 + 3552);
-      v187 = (v81 + 15) >> 4;
-      v188 = (v82 + 31) >> 5;
-      v189 = 1;
-      v185.i64[0] = 16;
-      v185.i64[1] = v87;
-      v186 = 1;
-      [v91 dispatchThreadgroups:&v187 threadsPerThreadgroup:&v185];
-      ++v83;
+      v94->i16[1] = v88;
+      v94->i16[2] = v86;
+      v94->i16[3] = v87;
+      v95.f64[0] = v86;
+      v95.f64[1] = v87;
+      v94[1] = vcvt_f32_f64(vdivq_f64(v208, v95));
+      [*(a1 + 3552) setBuffer:v216 offset:v215 atIndex:0];
+      v96 = *(a1 + 3552);
+      v212 = (v86 + 15) >> 4;
+      v213 = (v87 + 31) >> 5;
+      v214 = 1;
+      v210.i64[0] = 16;
+      v210.i64[1] = v92;
+      v211 = 1;
+      [v96 dispatchThreadgroups:&v212 threadsPerThreadgroup:&v210];
+      ++v88;
     }
 
-    while (v44 != v83);
+    while (v42 != v88);
   }
 
   CA::OGL::Context::set_gstate(a1, **(a1 + 656));
   *(a1 + 16) = *__dst;
   *(v28 + 148) |= 2u;
-  *(v28 + 96) = v44 - 1;
+  *(v28 + 96) = v42 - 1;
   return v28;
 }
 
@@ -2627,7 +1585,7 @@ LABEL_117:
   }
 
   v141 = v49;
-  v74 = a1 + 80;
+  v74 = (a1 + 80);
   v73 = *(a1 + 80);
   v75 = (a1 + 3640);
   v76 = v146->i32[0];
@@ -2736,7 +1694,7 @@ LABEL_184:
     }
 
 LABEL_194:
-    v74 = v73 + 8;
+    v74 = (v73 + 8);
     v73 = *(v73 + 8);
   }
 
@@ -3684,7 +2642,7 @@ uint64_t CA::OGL::MetalContext::Pipeline::Spec::decode_segment(char const**)::$_
   return result;
 }
 
-uint64_t CA::OGL::MetalContext::generate_mipmaps_for_texture(CA::OGL::MetalContext *a1, uint64_t a2)
+void *CA::OGL::MetalContext::generate_mipmaps_for_texture(CA::OGL::MetalContext *a1, uint64_t a2)
 {
   v3 = *(a2 + 64);
   if (!v3)
@@ -3706,7 +2664,7 @@ uint64_t CA::OGL::MetalContext::generate_mipmaps_for_texture(CA::OGL::MetalConte
 
 uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, uint64_t a2, int32x2_t *a3, uint64_t a4)
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   if (*(a2 + 72))
   {
     __assert_rtn("calculate_average_luma", "ogl-metal.mm", 17049, "!surf->protection_options");
@@ -3723,22 +2681,22 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
       v11 = v10 / [compute_pipeline threadExecutionWidth];
       v12 = *(v5 + 96);
       v13 = vcvt_f32_u32(vmax_s32(vshl_s32(a3[1], vneg_s32(vdup_n_s32(v12))), 0x100000001));
-      v93 = v13;
+      v107 = v13;
       v13.i32[0] = ceilf(0.125 * v13.f32[0]);
       v14 = vcvt_u32_f32(v13);
       v15 = vadd_s32(vadd_s32(__PAIR64__(v11, v9), -1), v14);
       v16 = v15.i32[1] / v11;
       v14.i32[0] = v15.i32[0] / v9;
-      v97 = v15.i32[0] / v9;
+      v111 = v15.i32[0] / v9;
       v17 = vmul_s32(v14, vdup_n_s32(v15.i32[1] / v11)).u32[0];
       external_buffer = CA::OGL::MetalBufferPool::create_external_buffer(*(this + 595), 16 * v17, 0x10uLL, 0);
       if (external_buffer)
       {
-        v95 = a4;
-        v98 = __PAIR64__(v16, v97);
-        v92 = external_buffer[4];
-        v90 = external_buffer;
-        v91 = *(external_buffer + 10);
+        v109 = a4;
+        v112 = __PAIR64__(v16, v111);
+        v106 = external_buffer[4];
+        v104 = external_buffer;
+        v105 = *(external_buffer + 10);
         if (v17 >= 8)
         {
           v19 = 8;
@@ -3758,9 +2716,9 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
           LODWORD(v23) = [compute_pipeline maxTotalThreadsPerThreadgroup];
         }
 
-        v102[0] = 0;
-        LODWORD(v103) = 0;
-        v24 = CA::OGL::MetalBufferPool::alloc_bytes(*(this + 595), 0x14u, 4u, v102, &v103);
+        v116[0] = 0;
+        LODWORD(v117) = 0;
+        v24 = CA::OGL::MetalBufferPool::alloc_bytes(*(this + 595), 0x14u, 4u, v116, &v117);
         v25 = a3->i32[0] >> v12;
         *v24 = v25;
         v26 = a3->i32[1] >> v12;
@@ -3768,7 +2726,7 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
         v27.f32[0] = v25;
         v24[1] = v26;
         v27.f32[1] = v26;
-        v28 = vcvt_s32_f32(vadd_f32(v27, v93));
+        v28 = vcvt_s32_f32(vadd_f32(v27, v107));
         v24[3] = v28.i16[2];
         v24[2] = v28.i16[0];
         *(v24 + 16) = 1;
@@ -3778,18 +2736,18 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
         v29 = [*(v5 + 168) newTextureViewWithPixelFormat:objc_msgSend(*(v5 + 168) textureType:"pixelFormat") levels:objc_msgSend(*(v5 + 168) slices:"textureType"), v12, 1, 0, 1];
         [*(this + 444) setComputePipelineState:compute_pipeline];
         [*(this + 444) setTexture:v29 atIndex:0];
-        [*(this + 444) setBuffer:v102[0] offset:v103 atIndex:0];
-        [*(this + 444) setBuffer:v92 offset:v91 atIndex:2];
+        [*(this + 444) setBuffer:v116[0] offset:v117 atIndex:0];
+        [*(this + 444) setBuffer:v106 offset:v105 atIndex:2];
         [*(this + 444) setThreadgroupMemoryLength:16 * v9 * v11 atIndex:0];
         v30 = *(this + 444);
-        *&v31.f64[0] = v98;
-        *&v31.f64[1] = HIDWORD(v98);
-        v105 = v31;
-        v106 = 1;
-        *v118 = v9;
-        *&v118[8] = v11;
-        *&v118[16] = 1;
-        [v30 dispatchThreadgroups:&v105 threadsPerThreadgroup:v118];
+        *&v31.f64[0] = v112;
+        *&v31.f64[1] = HIDWORD(v112);
+        v119 = v31;
+        v120 = 1;
+        *v132 = v9;
+        *&v132[8] = v11;
+        *&v132[16] = 1;
+        [v30 dispatchThreadgroups:&v119 threadsPerThreadgroup:v132];
         v32 = CA::OGL::MetalContext::get_compute_pipeline(this, 5u);
         v33 = CA::OGL::MetalBufferPool::create_external_buffer(*(this + 595), 0x10u, 4uLL, 0);
         if (v33)
@@ -3798,35 +2756,35 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
           v35 = v33[4];
           v36 = *(v33 + 10);
           [*(this + 444) setComputePipelineState:v32];
-          [*(this + 444) setBuffer:v92 offset:v91 atIndex:1];
+          [*(this + 444) setBuffer:v106 offset:v105 atIndex:1];
           [*(this + 444) setBuffer:v35 offset:v36 atIndex:2];
           [*(this + 444) setThreadgroupMemoryLength:16 * v23 atIndex:0];
           v37 = *(this + 444);
-          v105 = vdupq_n_s64(1uLL);
-          v106 = 1;
-          *v118 = v23;
-          *&v118[8] = v105;
-          [v37 dispatchThreadgroups:&v105 threadsPerThreadgroup:v118];
+          v119 = vdupq_n_s64(1uLL);
+          v120 = 1;
+          *v132 = v23;
+          *&v132[8] = v119;
+          [v37 dispatchThreadgroups:&v119 threadsPerThreadgroup:v132];
           v38 = powf(*(v5 + 88), -1.0 / *(this + 144));
-          v109 = MEMORY[0x1E69E9820];
-          v110 = 3221225472;
-          v111 = ___ZN2CA3OGL12MetalContext30compute_calculate_average_lumaEPNS0_7SurfaceERNS_6BoundsEU13block_pointerFvfE_block_invoke;
-          v112 = &unk_1E6DF53E0;
-          v115 = v36;
-          a4 = v95;
-          v113 = v35;
-          v114 = v95;
-          v116 = v38;
+          v123 = MEMORY[0x1E69E9820];
+          v124 = 3221225472;
+          v125 = ___ZN2CA3OGL12MetalContext30compute_calculate_average_lumaEPNS0_7SurfaceERNS_6BoundsEU13block_pointerFvfE_block_invoke;
+          v126 = &unk_1E6DF53E0;
+          v129 = v36;
+          a4 = v109;
+          v127 = v35;
+          v128 = v109;
+          v130 = v38;
           v39 = *(this + 441);
-          *&v105.f64[0] = MEMORY[0x1E69E9820];
-          *&v105.f64[1] = 3221225472;
-          v106 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
-          v107 = COERCE_DOUBLE(&unk_1E6DF53B8);
-          v108 = &v109;
-          [v39 addCompletedHandler:&v105];
+          *&v119.f64[0] = MEMORY[0x1E69E9820];
+          *&v119.f64[1] = 3221225472;
+          v120 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
+          v121 = COERCE_DOUBLE(&unk_1E6DF53B8);
+          v122 = &v123;
+          [v39 addCompletedHandler:&v119];
           if (*(this + 441))
           {
-            CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v90);
+            CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v104);
             CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v34);
 
             return 1;
@@ -3835,9 +2793,9 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
 
         else
         {
-          CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v90);
+          CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v104);
 
-          a4 = v95;
+          a4 = v109;
         }
       }
     }
@@ -3862,7 +2820,7 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
     CA::OGL::Context::prepare_destination_(this);
   }
 
-  v96 = a4;
+  v110 = a4;
   if ((*(this + 692) & 0x200) != 0)
   {
     CA::OGL::Context::flatten_detached_layers_(this);
@@ -3873,218 +2831,218 @@ uint64_t CA::OGL::MetalContext::calculate_average_luma(CA::OGL::Context *this, u
     goto LABEL_47;
   }
 
-  v45 = *(this + 829);
-  v46 = [*(this + 442) tileWidth];
-  v47 = [*(this + 442) tileHeight];
-  v48 = v47;
-  v49 = *(v5 + 256) >> v41;
-  if (v49 <= 1)
+  v52 = *(this + 829);
+  v53 = [*(this + 442) tileWidth];
+  v54 = [*(this + 442) tileHeight];
+  v55 = v54;
+  v56 = *(v5 + 256) >> v41;
+  if (v56 <= 1)
   {
-    v49 = 1;
+    v56 = 1;
   }
 
-  v50 = *(v5 + 260) >> v41;
-  if (v50 <= 1)
+  v57 = *(v5 + 260) >> v41;
+  if (v57 <= 1)
   {
-    v50 = 1;
+    v57 = 1;
   }
 
-  v51 = (v46 + v49 - 1) / v46;
-  v52 = (v47 + v50 - 1) / v47 * v51;
-  v53 = (v45 & 0x100000) != 0 ? 3 : 4;
-  v54 = v52 << v53;
-  v55 = CA::OGL::MetalBufferPool::create_external_buffer(*(this + 595), 8 * (v52 << v53), 8uLL, 0);
-  if (!v55)
+  v58 = (v53 + v56 - 1) / v53;
+  v59 = (v54 + v57 - 1) / v54 * v58;
+  v60 = (v52 & 0x100000) != 0 ? 3 : 4;
+  v61 = v59 << v60;
+  v62 = CA::OGL::MetalBufferPool::create_external_buffer(*(this + 595), 8 * (v59 << v60), 8uLL, 0);
+  if (!v62)
   {
 LABEL_47:
-    CA::OGL::Context::pop_surface(this);
-    a4 = v96;
+    CA::OGL::Context::pop_surface(this, v45, v46, v47, v48, v49, v50, v51);
+    a4 = v110;
     goto LABEL_48;
   }
 
-  v56 = v55;
-  v99 = v55[4];
-  v94 = *(v55 + 10);
-  v57 = *(v5 + 192);
-  if ((v45 & 0x100000) != 0)
+  v63 = v62;
+  v113 = v62[4];
+  v108 = *(v62 + 10);
+  v64 = *(v5 + 192);
+  if ((v52 & 0x100000) != 0)
   {
-    v58 = 11;
+    v65 = 11;
   }
 
   else
   {
-    v58 = 12;
+    v65 = 12;
   }
 
-  v59 = v5;
-  if ((v45 & 0x100000) != 0)
+  v66 = v5;
+  if ((v52 & 0x100000) != 0)
   {
-    v60 = 11;
+    v67 = 11;
   }
 
   else
   {
-    v60 = 12;
+    v67 = 12;
   }
 
-  tile_pipeline = CA::OGL::MetalContext::get_tile_pipeline(this, v58, v57);
-  v62 = *(&CA::OGL::MetalContext::tile_shader_type_info + 16 * v60 + 8);
-  *&v63 = v46 / v62;
-  *&v64 = v48 / v62;
-  v65 = *(v59 + 56) >> v41;
-  if (v65 <= 1)
+  tile_pipeline = CA::OGL::MetalContext::get_tile_pipeline(this, v65, v64);
+  v69 = *(&CA::OGL::MetalContext::tile_shader_type_info + 16 * v67 + 8);
+  *&v70 = v53 / v69;
+  *&v71 = v55 / v69;
+  v72 = *(v66 + 56) >> v41;
+  if (v72 <= 1)
   {
-    LOWORD(v65) = 1;
+    LOWORD(v72) = 1;
   }
 
-  v66 = *(v59 + 60) >> v41;
-  if (v66 <= 1)
+  v73 = *(v66 + 60) >> v41;
+  if (v73 <= 1)
   {
-    LOWORD(v66) = 1;
+    LOWORD(v73) = 1;
   }
 
-  *v118 = v65;
-  *&v118[2] = v66;
-  *&v118[4] = v51;
+  *v132 = v72;
+  *&v132[2] = v73;
+  *&v132[4] = v58;
   [*(this + 442) setRenderPipelineState:tile_pipeline];
-  [*(this + 442) setTileBuffer:v99 offset:v94 atIndex:2];
-  [*(this + 442) setTileBytes:v118 length:8 atIndex:0];
-  v67 = *(this + 442);
-  v105.f64[0] = v63;
-  v105.f64[1] = v64;
+  [*(this + 442) setTileBuffer:v113 offset:v108 atIndex:2];
+  [*(this + 442) setTileBytes:v132 length:8 atIndex:0];
+  v74 = *(this + 442);
+  v119.f64[0] = v70;
+  v119.f64[1] = v71;
   v40 = 1;
-  v106 = 1;
-  [v67 dispatchThreadsPerTile:&v105];
+  v120 = 1;
+  [v74 dispatchThreadsPerTile:&v119];
   *(this + 496) = tile_pipeline;
-  v68 = powf(*(v59 + 88), -1.0 / *(this + 144));
-  v109 = MEMORY[0x1E69E9820];
-  v110 = 3221225472;
-  v111 = ___ZN2CA3OGL12MetalContext27tile_calculate_average_lumaEPNS0_7SurfaceEU13block_pointerFvfE_block_invoke;
-  v112 = &unk_1E6DF5408;
-  v115 = v54;
-  v116 = *&v94;
-  v117 = v68;
-  v113 = v99;
-  a4 = v96;
-  v114 = v96;
-  CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v56);
-  CA::OGL::Context::pop_surface(this);
-  v69 = *(this + 441);
-  *&v105.f64[0] = MEMORY[0x1E69E9820];
-  *&v105.f64[1] = 3221225472;
-  v106 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
-  v107 = COERCE_DOUBLE(&unk_1E6DF53B8);
-  v108 = &v109;
-  v5 = v59;
-  [v69 addCompletedHandler:&v105];
+  v75 = powf(*(v66 + 88), -1.0 / *(this + 144));
+  v123 = MEMORY[0x1E69E9820];
+  v124 = 3221225472;
+  v125 = ___ZN2CA3OGL12MetalContext27tile_calculate_average_lumaEPNS0_7SurfaceEU13block_pointerFvfE_block_invoke;
+  v126 = &unk_1E6DF5408;
+  v129 = v61;
+  v130 = *&v108;
+  v131 = v75;
+  v127 = v113;
+  a4 = v110;
+  v128 = v110;
+  CA::OGL::MetalBufferPool::release_external_buffer(*(this + 595), v63);
+  CA::OGL::Context::pop_surface(this, v76, v77, v78, v79, v80, v81, v82);
+  v83 = *(this + 441);
+  *&v119.f64[0] = MEMORY[0x1E69E9820];
+  *&v119.f64[1] = 3221225472;
+  v120 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
+  v121 = COERCE_DOUBLE(&unk_1E6DF53B8);
+  v122 = &v123;
+  v5 = v66;
+  [v83 addCompletedHandler:&v119];
   if (!*(this + 441))
   {
 LABEL_48:
-    v103 = 0;
-    v104 = *(v5 + 56);
-    v109 = 0;
-    v110 = 0;
-    v111 = 0;
-    v70 = (*(*this + 704))(this, 1, &v103, 1446991, &v109, @"calculate-average-luma");
-    if (!v70)
+    v117 = 0;
+    v118 = *(v5 + 56);
+    v123 = 0;
+    v124 = 0;
+    v125 = 0;
+    v84 = (*(*this + 704))(this, 1, &v117, 1446991, &v123, @"calculate-average-luma");
+    if (!v84)
     {
       return 0;
     }
 
-    v73 = v70;
-    *(v70 + 148) |= 0x20u;
-    if (v104 <= SHIDWORD(v104))
+    v87 = v84;
+    *(v84 + 148) |= 0x20u;
+    if (v118 <= SHIDWORD(v118))
     {
-      v74 = HIDWORD(v104);
+      v88 = HIDWORD(v118);
     }
 
     else
     {
-      v74 = v104;
+      v88 = v118;
     }
 
-    v71.i32[0] = 1073741822;
-    v72.i32[0] = v74;
-    v75.i64[0] = v103;
-    v75.i64[1] = SHIDWORD(v103);
-    v76 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v72, v71), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v75));
-    v77 = v104;
-    if (v74 > 1073741822)
+    v85.i32[0] = 1073741822;
+    v86.i32[0] = v88;
+    v89.i64[0] = v117;
+    v89.i64[1] = SHIDWORD(v117);
+    v90 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v86, v85), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v89));
+    v91 = v118;
+    if (v88 > 1073741822)
     {
-      v77 = 1.79769313e308;
+      v91 = 1.79769313e308;
     }
 
-    v105 = v76;
-    if (v74 <= 1073741822)
+    v119 = v90;
+    if (v88 <= 1073741822)
     {
-      v78 = SHIDWORD(v104);
+      v92 = SHIDWORD(v118);
     }
 
     else
     {
-      v78 = 1.79769313e308;
+      v92 = 1.79769313e308;
     }
 
-    v106 = *&v77;
-    v107 = v78;
-    v79 = 1;
-    CA::OGL::MetalContext::copy_surface(this, v70, v5, 1, 0, &v105, &v105);
-    v80 = *(v73 + 168);
+    v120 = *&v91;
+    v121 = v92;
+    v93 = 1;
+    CA::OGL::MetalContext::copy_surface(this, v84, v5, 1, 0, &v119, &v119);
+    v94 = *(v87 + 168);
     if (CA::OGL::MetalContext::start_blit_encoder(this, 0))
     {
-      [*(this + 443) generateMipmapsForTexture:v80];
-      *v118 = xmmword_183E210F0;
-      v109 = 0;
-      v110 = 0;
-      v111 = 0;
-      v81 = (*(*this + 704))(this, 1, v118, 1971279, &v109, @"calculate-average-luma-blit-surf");
-      if (!v81)
+      [*(this + 443) generateMipmapsForTexture:v94];
+      *v132 = xmmword_183E210F0;
+      v123 = 0;
+      v124 = 0;
+      v125 = 0;
+      v95 = (*(*this + 704))(this, 1, v132, 1971279, &v123, @"calculate-average-luma-blit-surf");
+      if (!v95)
       {
 LABEL_61:
-        v79 = 0;
+        v93 = 0;
         goto LABEL_62;
       }
 
-      v82 = v81;
-      *(v81 + 148) |= 0x20u;
-      v83 = *(this + 443);
-      v84 = *(v73 + 168);
-      v85 = [v80 mipmapLevelCount];
-      v109 = 0;
-      v110 = 0;
-      v111 = 0;
-      v79 = 1;
-      *v118 = vdupq_n_s64(1uLL);
-      *&v118[16] = 1;
-      v86 = *(v82 + 168);
-      memset(v102, 0, sizeof(v102));
-      [v83 copyFromTexture:v84 sourceSlice:0 sourceLevel:v85 - 1 sourceOrigin:&v109 sourceSize:v118 toTexture:v86 destinationSlice:0 destinationLevel:0 destinationOrigin:v102];
-      v87 = powf(*(v82 + 88), -1.0 / *(this + 144));
-      v100[0] = MEMORY[0x1E69E9820];
-      v100[1] = 3221225472;
-      v100[2] = ___ZN2CA3OGL12MetalContext22calculate_average_lumaEPNS0_7SurfaceERNS_6BoundsEU13block_pointerFvfE_block_invoke;
-      v100[3] = &unk_1E6DF5430;
-      v100[5] = this;
-      v100[6] = v82;
-      v101 = v87;
-      v100[4] = a4;
-      v88 = *(this + 441);
-      v109 = MEMORY[0x1E69E9820];
-      v110 = 3221225472;
-      v111 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
-      v112 = &unk_1E6DF53B8;
-      v113 = v100;
-      [v88 addCompletedHandler:&v109];
+      v96 = v95;
+      *(v95 + 148) |= 0x20u;
+      v97 = *(this + 443);
+      v98 = *(v87 + 168);
+      v99 = [v94 mipmapLevelCount];
+      v123 = 0;
+      v124 = 0;
+      v125 = 0;
+      v93 = 1;
+      *v132 = vdupq_n_s64(1uLL);
+      *&v132[16] = 1;
+      v100 = *(v96 + 168);
+      memset(v116, 0, sizeof(v116));
+      [v97 copyFromTexture:v98 sourceSlice:0 sourceLevel:v99 - 1 sourceOrigin:&v123 sourceSize:v132 toTexture:v100 destinationSlice:0 destinationLevel:0 destinationOrigin:v116];
+      v101 = powf(*(v96 + 88), -1.0 / *(this + 144));
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = ___ZN2CA3OGL12MetalContext22calculate_average_lumaEPNS0_7SurfaceERNS_6BoundsEU13block_pointerFvfE_block_invoke;
+      v114[3] = &unk_1E6DF5430;
+      v114[5] = this;
+      v114[6] = v96;
+      v115 = v101;
+      v114[4] = a4;
+      v102 = *(this + 441);
+      v123 = MEMORY[0x1E69E9820];
+      v124 = 3221225472;
+      v125 = ___ZN2CA3OGL12MetalContext22add_completed_callbackEU13block_pointerFvvE_block_invoke;
+      v126 = &unk_1E6DF53B8;
+      v127 = v114;
+      [v102 addCompletedHandler:&v123];
       if (!*(this + 441))
       {
-        CA::OGL::Context::release_surface(this, v82);
+        CA::OGL::Context::release_surface(this, v96);
         goto LABEL_61;
       }
     }
 
 LABEL_62:
-    CA::OGL::Context::release_surface(this, v73);
-    return v79;
+    CA::OGL::Context::release_surface(this, v87);
+    return v93;
   }
 
   return v40;
@@ -4370,24 +3328,24 @@ _OWORD *CA::OGL::MetalContext::create_null_surface(CA::OGL::MetalContext *this)
   return v2;
 }
 
-uint64_t CA::OGL::MetalContext::compute_copy_texture(CA::OGL::MetalContext *this, void *a2)
+uint64_t CA::OGL::MetalContext::compute_copy_texture(id *this, void *a2)
 {
   v14[3] = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
-  if (CA::OGL::MetalContext::start_compute_encoder(this, *(this + 455)))
+  if (CA::OGL::MetalContext::start_compute_encoder(this, this[455]))
   {
     compute_pipeline = CA::OGL::MetalContext::get_compute_pipeline(this, 9u);
     v6 = [a2 width];
     v7 = [a2 height];
     v8 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:115 width:v6 height:v7 mipmapped:0];
     [v8 setUsage:3];
-    v9 = [*(this + 438) newTextureWithDescriptor:v8];
+    v9 = [this[438] newTextureWithDescriptor:v8];
     if (v9)
     {
-      [*(this + 444) setComputePipelineState:compute_pipeline];
-      [*(this + 444) setTexture:a2 atIndex:0];
-      [*(this + 444) setTexture:v9 atIndex:1];
-      v10 = *(this + 444);
+      [this[444] setComputePipelineState:compute_pipeline];
+      [this[444] setTexture:a2 atIndex:0];
+      [this[444] setTexture:v9 atIndex:1];
+      v10 = this[444];
       v14[0] = (v6 + 15) >> 4;
       v14[1] = (v7 + 15) >> 4;
       v14[2] = 1;
@@ -4570,7 +3528,7 @@ _DWORD *CA::OGL::MetalContext::create_surface_from_iosurface(CA::OGL::MetalConte
         if (v17)
         {
           v18 = v17;
-          if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(this, buffer, v17))
+          if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(this, buffer, v17, Width, v13))
           {
             return 0;
           }
@@ -4963,7 +3921,7 @@ uint64_t CA::OGL::MetalContext::can_generate_mipmaps_for_format(CA::OGL::MetalCo
   return 0;
 }
 
-uint64_t *CA::OGL::MetalContext::bind_lut_texture(os_unfair_lock_s *this, unsigned int a2, CA::Render::Texture *a3)
+uint64_t **CA::OGL::MetalContext::bind_lut_texture(os_unfair_lock_s *this, int a2, CA::Render::Texture *a3)
 {
   v6 = CA::OGL::Context::lookup_image(this, a3, 1);
   if (v6)
@@ -4975,7 +3933,7 @@ uint64_t *CA::OGL::MetalContext::bind_lut_texture(os_unfair_lock_s *this, unsign
   return v6;
 }
 
-void CA::OGL::MetalContext::bind_color_cube(os_unfair_lock_s *this, unsigned int a2, CA::Render::Texture *a3)
+void CA::OGL::MetalContext::bind_color_cube(os_unfair_lock_s *this, int a2, CA::Render::Texture *a3)
 {
   v6 = CA::OGL::Context::lookup_image(this, a3, 1);
   if (v6)
@@ -4985,7 +3943,7 @@ void CA::OGL::MetalContext::bind_color_cube(os_unfair_lock_s *this, unsigned int
     v10 = v8;
     if (*(v7 + 122))
     {
-      if (*(v7 + 16) == *(v8 + 9))
+      if (*(v7 + 16) == v8[9])
       {
         v11 = *&this[4]._os_unfair_lock_opaque;
         *(v11 + 2 * a2 + 144) = *(v7 + 52);
@@ -4996,9 +3954,9 @@ void CA::OGL::MetalContext::bind_color_cube(os_unfair_lock_s *this, unsigned int
 
     else
     {
-      v12 = *(v8 + 4);
-      v13 = *(v8 + 5);
-      v14 = (*(*v8 + 17))(v8);
+      v12 = v8[4];
+      v13 = v8[5];
+      v14 = (*(*v8 + 136))(v8);
       *(v7 + 120) = v14;
       v15 = *(v7 + 123) | 0x400;
       *(v7 + 123) = v15;
@@ -5265,7 +4223,7 @@ LABEL_35:
   return v12;
 }
 
-void CA::OGL::MetalContext::bind_table_image(os_unfair_lock_s *this, unsigned int a2, atomic_uint *a3)
+void CA::OGL::MetalContext::bind_table_image(os_unfair_lock_s *this, int a2, atomic_uint *a3)
 {
   v6 = CA::OGL::Context::lookup_image(this, a3, 1);
   if (v6)
@@ -5296,11 +4254,11 @@ void CA::OGL::MetalContext::bind_table_image(os_unfair_lock_s *this, unsigned in
   }
 }
 
-void *CA::OGL::MetalContext::bind_luma_boost(void *this, unsigned int a2)
+CA::OGL::MetalContext *CA::OGL::MetalContext::bind_luma_boost(CA::OGL::MetalContext *this, unsigned int a2)
 {
   v3 = this;
   v31 = *MEMORY[0x1E69E9840];
-  v4 = this[432];
+  v4 = *(this + 432);
   if (!v4)
   {
     v6 = 0;
@@ -5360,7 +4318,7 @@ void *CA::OGL::MetalContext::bind_luma_boost(void *this, unsigned int a2)
     [v23 setPixelFormat:10];
     [v23 setUsage:1];
     *(v4 + 88) = v23;
-    v24 = [v3[438] newTextureWithDescriptor:v23];
+    v24 = [*(v3 + 438) newTextureWithDescriptor:v23];
     *(v4 + 64) = v24;
     [v24 setLabel:@"com.apple.coreanimation.luma-boost-texture"];
     v25 = *(v4 + 64);
@@ -5368,10 +4326,10 @@ void *CA::OGL::MetalContext::bind_luma_boost(void *this, unsigned int a2)
     v27 = xmmword_183E21470;
     v28 = 1;
     this = [v25 replaceRegion:v26 mipmapLevel:0 withBytes:v29 bytesPerRow:128];
-    v3[432] = v4;
+    *(v3 + 432) = v4;
   }
 
-  v5 = v3[2];
+  v5 = *(v3 + 2);
   *(v5 + 2 * a2 + 144) = 0;
   *(v5 + 8 * a2 + 176) = v4;
   return this;
@@ -5419,18 +4377,18 @@ uint64_t CA::OGL::MetalContext::insert_event_marker(CA::OGL::MetalContext *this,
   return [v2 insertDebugSignpost:v3];
 }
 
-void CA::OGL::MetalContext::detach_surface(CA::OGL::MetalContext *this)
+void CA::OGL::MetalContext::detach_surface(void *this)
 {
-  if (!*(*(this + 85) + 272))
+  if (!*(this[85] + 272))
   {
     CA::OGL::MetalContext::stop_encoders(this);
   }
 
-  *(this + 85) = 0;
-  *(this + 589) = 0;
+  this[85] = 0;
+  this[589] = 0;
 }
 
-void CA::OGL::MetalContext::draw_apl_dimming_factor(CA::OGL::Context *a1, unsigned int a2, char *a3, uint64_t a4)
+void CA::OGL::MetalContext::draw_apl_dimming_factor(CA::OGL::Context *a1, unsigned __int32 a2, char *a3, uint64_t a4)
 {
   if (*(*(a1 + 2) + 16) != 118)
   {
@@ -5511,7 +4469,7 @@ void CA::OGL::MetalContext::stroke_lines(CA::OGL::Context *a1, unsigned int a2, 
   CA::OGL::MetalContext::draw(a1, 4, 4u, a2 >> 1, a3, 8uLL, 8u, 0, a2, 0, 0, 0);
 }
 
-void CA::OGL::MetalContext::draw_points(CA::OGL::Context *a1, int a2, unsigned int a3, char *a4)
+void CA::OGL::MetalContext::draw_points(CA::OGL::Context *a1, int a2, unsigned __int32 a3, char *a4)
 {
   if (*(*(a1 + 2) + 16) - 104 <= 6)
   {
@@ -5692,7 +4650,7 @@ void CA::OGL::MetalContext::stop_pipeline_queue(CA::OGL::MetalContext *this)
   *(this + 680) = 0;
 }
 
-unint64_t CA::OGL::MetalContext::subimage_max_rowbytes(CA::OGL::MetalContext *this, unsigned int a2, unsigned int a3, unsigned int a4)
+uint64_t CA::OGL::MetalContext::subimage_max_rowbytes(CA::OGL::MetalContext *this, unsigned int a2, unsigned int a3, unsigned int a4)
 {
   if ((*(this + 829) & 1) == 0)
   {
@@ -5934,7 +4892,7 @@ void CA::OGL::MetalContext::warmup_shaders(CA::OGL::MetalContext *this)
       }
 
       while (v24 != 3);
-      v32 = *(v26 + 3316);
+      v32 = v26[414].i32[1];
       if ((v32 & 0x80000) != 0)
       {
         for (j = 0; j != 7; ++j)
@@ -5951,7 +4909,7 @@ void CA::OGL::MetalContext::warmup_shaders(CA::OGL::MetalContext *this)
           [v23 dispatchThreadsPerTile:&v77];
         }
 
-        v32 = *(v26 + 3316);
+        v32 = v26[414].i32[1];
       }
 
       v35 = v26;
@@ -6076,7 +5034,7 @@ LABEL_72:
 
               CA::OGL::MetalContext::dispatch_async_pipeline(v50, v79, v51, 1, 0);
               v77.i64[0] = v79;
-              std::__hash_table<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::__unordered_map_hasher<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::__unordered_map_equal<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::allocator<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>>>::__emplace_unique_key_args<CA::OGL::MetalContext::Pipeline::Spec,std::piecewise_construct_t const&,std::tuple<CA::OGL::MetalContext::Pipeline::Spec const&>,std::tuple<>>(v49 + 335, v79)[6] = v48;
+              std::__hash_table<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::__unordered_map_hasher<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::__unordered_map_equal<CA::OGL::MetalContext::Pipeline::Spec,std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>,std::equal_to<CA::OGL::MetalContext::Pipeline::Spec>,CA::OGL::MetalContext::StructHasher<CA::OGL::MetalContext::Pipeline::Spec>,true>,std::allocator<std::__hash_value_type<CA::OGL::MetalContext::Pipeline::Spec,CA::OGL::MetalContext::Pipeline*>>>::__emplace_unique_key_args<CA::OGL::MetalContext::Pipeline::Spec,std::piecewise_construct_t const&,std::tuple<CA::OGL::MetalContext::Pipeline::Spec const&>,std::tuple<>>(v49 + 670, v79, &v77)[6] = v48;
               v52 = *(v49 + 341);
               *(v49 + 341) = v52 + 1;
               *(v48 + 2) = v52;
@@ -6085,7 +5043,7 @@ LABEL_72:
             }
           }
 
-          else if ((CA::OGL::MetalContext::texture_function_info[8 * (BYTE6(v79[1]) & 0x7F)] & 0x3F) != 0)
+          else if ((CA::OGL::MetalContext::texture_function_info[4 * (BYTE6(v79[1]) & 0x7F)] & 0x3F) != 0)
           {
             goto LABEL_72;
           }
@@ -6765,7 +5723,7 @@ double CA::OGL::MetalContext::get_metal_state(CA::OGL::MetalContext *this, uint6
   return result;
 }
 
-uint64_t CA::OGL::MetalContext::set_metal_state(uint64_t a1, uint64_t a2)
+void *CA::OGL::MetalContext::set_metal_state(uint64_t a1, uint64_t a2)
 {
   v14[5] = *MEMORY[0x1E69E9840];
   if (*(a1 + 3528))
@@ -7101,105 +6059,107 @@ void CA::OGL::MetalContext::purge_iosurface_cache(os_unfair_lock_s *this, __IOSu
   }
 }
 
-BOOL CA::OGL::MetalContext::set_destination_iosurface(os_unfair_lock_s *this, __IOSurface *a2, int a3, int a4)
+BOOL CA::OGL::MetalContext::set_destination_iosurface(os_unfair_lock_s *this, __IOSurface *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24[0] = 0;
+  v28[1] = *MEMORY[0x1E69E9840];
+  v27 = 0;
+  v28[0] = 0;
   if (a2)
   {
     os_unfair_lock_lock(this + 850);
-    v8 = *&this[852]._os_unfair_lock_opaque;
-    if (v8)
+    v12 = *&this[852]._os_unfair_lock_opaque;
+    if (v12)
     {
-      v9 = x_hash_table_lookup(v8, a2, 0);
+      v13 = x_hash_table_lookup(v12, a2, 0);
     }
 
     else
     {
-      v9 = 0;
+      v13 = 0;
     }
 
-    v10 = 0;
-    v11 = 0;
-    v12 = &v23;
-    v13 = 1;
+    v14 = 0;
+    v15 = 0;
+    v16 = &v27;
+    v17 = 1;
     do
     {
-      v14 = v13;
-      v15 = v12;
-      while (!v9)
+      v18 = v17;
+      v19 = v16;
+      while (!v13)
       {
-        v16 = v13;
-        v13 = 0;
-        *v15 = 0;
-        v15 = v24;
-        if ((v16 & 1) == 0)
+        v20 = v17;
+        v17 = 0;
+        *v19 = 0;
+        v19 = v28;
+        if ((v20 & 1) == 0)
         {
           os_unfair_lock_unlock(this + 850);
-          v23 = CA::OGL::MetalContext::alloc_destination_texture(this, a2);
+          v27 = CA::OGL::MetalContext::alloc_destination_texture(this, a2);
           operator new[]();
         }
       }
 
-      v17 = *(v9 + 8 * v11);
-      v13 = 0;
-      *v12 = v17;
-      if (v17)
+      v21 = *(v13 + 8 * v15);
+      v17 = 0;
+      *v16 = v21;
+      if (v21)
       {
-        ++v10;
+        ++v14;
       }
 
-      v12 = v24;
-      v11 = 1;
+      v16 = v28;
+      v15 = 1;
     }
 
-    while ((v14 & 1) != 0);
+    while ((v18 & 1) != 0);
     os_unfair_lock_unlock(this + 850);
   }
 
   else
   {
-    v10 = 0;
+    v14 = 0;
   }
 
   *&this[910]._os_unfair_lock_opaque = 0;
-  CA::OGL::MetalContext::set_destination_textures(this, 0, &v23, v10, a3, a4);
-  if (v10)
+  CA::OGL::MetalContext::set_destination_textures(this, 0, &v27, v14, a3, a4, a7, a8);
+  if (v14)
   {
-    v18 = &v23;
-    v19 = v10;
+    v22 = &v27;
+    v23 = v14;
     do
     {
-      v20 = *v18++;
+      v24 = *v22++;
 
-      --v19;
+      --v23;
     }
 
-    while (v19);
+    while (v23);
   }
 
   if (a2)
   {
-    v21 = v10 == 0;
+    v25 = v14 == 0;
   }
 
   else
   {
-    v21 = 0;
+    v25 = 0;
   }
 
-  return !v21;
+  return !v25;
 }
 
-void CA::OGL::MetalContext::set_destination_textures(CA::OGL::MetalContext *this, uint64_t a2, id *a3, unint64_t a4, int a5, int a6)
+void CA::OGL::MetalContext::set_destination_textures(CA::OGL::MetalContext *this, uint64_t a2, id *a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v12 = *(this + 84);
-  if (v12)
+  v8 = a6;
+  v9 = a5;
+  v14 = *(this + 84);
+  if (v14)
   {
     *(this + 1968) |= 0x100u;
-    CA::OGL::Context::pop_surface(this);
-    CA::OGL::Context::release_surface(this, v12);
+    CA::OGL::Context::pop_surface(this, a2, a3, a4, a5, a6, a7, a8);
+    CA::OGL::Context::release_surface(this, v14);
     *(this + 1968) &= ~0x100u;
     if (*(this + 84))
     {
@@ -7210,133 +6170,133 @@ void CA::OGL::MetalContext::set_destination_textures(CA::OGL::MetalContext *this
   *(this + 3416) = 0u;
   if (a4)
   {
-    v13 = *a3;
-    v14 = [*a3 pixelFormat];
-    has_alpha_plane = CA::OGL::metal_pixel_format_has_alpha_plane(v14, v15);
-    *(this + 455) = [v13 protectionOptions];
+    v15 = *a3;
+    v16 = [*a3 pixelFormat];
+    has_alpha_plane = CA::OGL::metal_pixel_format_has_alpha_plane(v16, v17);
+    *(this + 455) = [v15 protectionOptions];
     if (x_malloc_get_zone::once != -1)
     {
       dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
     }
 
-    v17 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x138uLL, 0x10A004045BE2C27uLL);
-    v18 = v17;
-    v17->i32[0] = 1;
+    v19 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x138uLL, 0x10A004045BE2C27uLL);
+    v20 = v19;
+    v19->i32[0] = 1;
     if (has_alpha_plane)
     {
-      v19 = 1039;
+      v21 = 1039;
     }
 
     else
     {
-      v19 = 1031;
+      v21 = 1031;
     }
 
-    v17[11].i32[1] = v19;
-    v20 = v17[38].i16[2] & 0xFD40 | a4 & 0xF;
-    v17[18].i32[0] = v17[18].i32[0] & 0xFFFFFFE | 0x90000000;
-    v17[18].i16[2] |= 1u;
-    v17[20] = this;
-    if (a5)
+    v19[11].i32[1] = v21;
+    v22 = v19[38].i16[2] & 0xFD40 | a4 & 0xF;
+    v19[18].i32[0] = v19[18].i32[0] & 0xFFFFFFE | 0x90000000;
+    v19[18].i16[2] |= 1u;
+    v19[20] = this;
+    if (v9)
     {
-      v21 = 640;
+      v23 = 640;
     }
 
     else
     {
-      v21 = 128;
+      v23 = 128;
     }
 
-    v17[38].i16[2] = v21 | v20;
-    v17[5].i32[0] = [v13 width];
-    v18[5].i32[1] = [v13 height];
-    v18[9] = [v13 protectionOptions];
-    v22 = v18[5].i32[0];
-    v23 = v18[5].i32[1];
-    v18[32].i32[0] = v22;
-    v18[32].i32[1] = v23;
-    v18[6] = vneg_s32(*(this + 3432));
-    v18[7].i32[0] = v22;
-    v18[7].i32[1] = v23;
-    v18[11].i32[0] = *(this + 872);
+    v19[38].i16[2] = v23 | v22;
+    v19[5].i32[0] = [v15 width];
+    v20[5].i32[1] = [v15 height];
+    v20[9] = [v15 protectionOptions];
+    v24 = v20[5].i32[0];
+    v25 = v20[5].i32[1];
+    v20[32].i32[0] = v24;
+    v20[32].i32[1] = v25;
+    v20[6] = vneg_s32(*(this + 3432));
+    v20[7].i32[0] = v24;
+    v20[7].i32[1] = v25;
+    v20[11].i32[0] = *(this + 872);
     if (a4 > 3)
     {
       __assert_rtn("set_destination_textures", "ogl-metal.mm", 10708, "count <= MAX_COLOR_ATTACHMENTS");
     }
 
-    v33 = a6;
-    v24 = 0;
+    v35 = v8;
+    v26 = 0;
     do
     {
-      v25 = a3[v24];
-      v26 = &v18[v24];
-      v26[21] = v25;
-      v26[24] = [v25 pixelFormat];
-      if ([v25 storageMode] == 3)
+      v27 = a3[v26];
+      v28 = &v20[v26];
+      v28[21] = v27;
+      v28[24] = [v27 pixelFormat];
+      if ([v27 storageMode] == 3)
       {
-        v18[35].i16[3] |= 1 << v24;
+        v20[35].i16[3] |= 1 << v26;
       }
 
       else
       {
-        v18[18].i32[0] ^= 1u;
+        v20[18].i32[0] ^= 1u;
       }
 
-      ++v24;
+      ++v26;
     }
 
-    while (a4 != v24);
+    while (a4 != v26);
     if (!a2 || a4 == 1)
     {
-      CA::OGL::MetalContext::add_memoryless_textures(this, v18);
-      v27 = v33;
+      CA::OGL::MetalContext::add_memoryless_textures(this, v20);
+      v29 = v35;
     }
 
     else
     {
-      v27 = v33;
+      v29 = v35;
       if ((*(this + 1968) & 8) != 0)
       {
-        v28 = v18[35].i16[3] != 0;
-        v18[36].i16[0] = v18[35].i16[3];
-        *(this + 1968) = *(this + 1968) & 0xFFFD | (2 * v28);
+        v30 = v20[35].i16[3] != 0;
+        v20[36].i16[0] = v20[35].i16[3];
+        *(this + 1968) = *(this + 1968) & 0xFFFD | (2 * v30);
       }
     }
 
-    if (v27 && (*(this + 1968) & 0x10) != 0)
+    if (v29 && (*(this + 1968) & 0x10) != 0)
     {
-      v18[11].i32[1] |= 0x2000u;
-      CA::OGL::MetalContext::add_path_buffer_texture(this, v18);
+      v20[11].i32[1] |= 0x2000u;
+      CA::OGL::MetalContext::add_path_buffer_texture(this, v20);
     }
 
-    v29 = [v13 pixelFormat];
-    v30 = v29;
-    if ((v29 - 550) >= 6)
+    v31 = [v15 pixelFormat];
+    v32 = v31;
+    if ((v31 - 550) >= 6)
     {
-      v31 = v18[11].i32[1];
+      v33 = v20[11].i32[1];
     }
 
     else
     {
-      v31 = v18[11].i32[1] | 0x100;
+      v33 = v20[11].i32[1] | 0x100;
     }
 
-    v32 = v31 | 0x20;
-    if (v29 == 115)
+    v34 = v33 | 0x20;
+    if (v31 == 115)
     {
-      v31 |= 0x10u;
+      v33 |= 0x10u;
     }
 
-    if (v29 == 125)
+    if (v31 == 125)
     {
-      v31 = v32;
+      v33 = v34;
     }
 
-    v18[11].i32[1] = v31 | 0x400;
-    CA::OGL::Context::track_surface(this, v18);
-    CA::OGL::Context::push_surface(this, v18, 0, 0, 0);
-    *(this + 427) = v18;
-    *(this + 428) = v30;
+    v20[11].i32[1] = v33 | 0x400;
+    CA::OGL::Context::track_surface(this, v20);
+    CA::OGL::Context::push_surface(this, v20, 0, 0, 0);
+    *(this + 427) = v20;
+    *(this + 428) = v32;
   }
 
   else
@@ -7448,83 +6408,84 @@ void CA::OGL::MetalContext::~MetalContext(CA::OGL::MetalContext *this)
   v13 = *(this + 595);
   if (v13)
   {
-    if (*(v13 + 48))
+    v14 = *(v13 + 48);
+    if (v14)
     {
-      CA::OGL::MetalBufferPool::retire_metal_buffer(*(this + 595));
+      CA::OGL::MetalBufferPool::retire_metal_buffer(*(this + 595), *v14);
     }
 
-    v14 = *(v13 + 248);
-    if (*(v13 + 256) != v14)
+    v15 = *(v13 + 248);
+    if (*(v13 + 256) != v15)
     {
-      v15 = *(v13 + 272);
-      v16 = (v14 + 8 * (v15 >> 9));
-      v17 = (*v16 + 8 * (v15 & 0x1FF));
-      v18 = *(v14 + (((*(v13 + 280) + v15) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v13 + 280) + v15) & 0x1FF);
-      while (v17 != v18)
+      v16 = *(v13 + 272);
+      v17 = (v15 + 8 * (v16 >> 9));
+      v18 = (*v17 + 8 * (v16 & 0x1FF));
+      v19 = *(v15 + (((*(v13 + 280) + v16) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v13 + 280) + v16) & 0x1FF);
+      while (v18 != v19)
       {
 
-        if ((v17 - *v16) == 4096)
+        if ((v18 - *v17) == 4096)
         {
-          v19 = v16[1];
-          ++v16;
-          v17 = v19;
+          v20 = v17[1];
+          ++v17;
+          v18 = v20;
         }
       }
     }
 
-    v20 = *(v13 + 296);
-    if (*(v13 + 304) != v20)
+    v21 = *(v13 + 296);
+    if (*(v13 + 304) != v21)
     {
-      v21 = *(v13 + 320);
-      v22 = (v20 + 8 * (v21 >> 9));
-      v23 = (*v22 + 8 * (v21 & 0x1FF));
-      v24 = *(v20 + (((*(v13 + 328) + v21) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v13 + 328) + v21) & 0x1FF);
-      while (v23 != v24)
+      v22 = *(v13 + 320);
+      v23 = (v21 + 8 * (v22 >> 9));
+      v24 = (*v23 + 8 * (v22 & 0x1FF));
+      v25 = *(v21 + (((*(v13 + 328) + v22) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v13 + 328) + v22) & 0x1FF);
+      while (v24 != v25)
       {
 
-        if ((v23 - *v22) == 4096)
+        if ((v24 - *v23) == 4096)
         {
-          v25 = v22[1];
-          ++v22;
-          v23 = v25;
+          v26 = v23[1];
+          ++v23;
+          v24 = v26;
         }
       }
     }
 
-    v26 = *(v13 + 336);
-    if (v26 != (v13 + 344))
+    v27 = *(v13 + 336);
+    if (v27 != (v13 + 344))
     {
       do
       {
 
-        v27 = v26[1];
-        if (v27)
+        v28 = v27[1];
+        if (v28)
         {
           do
           {
-            v28 = v27;
-            v27 = *v27;
+            v29 = v28;
+            v28 = *v28;
           }
 
-          while (v27);
+          while (v28);
         }
 
         else
         {
           do
           {
-            v28 = v26[2];
-            v29 = *v28 == v26;
-            v26 = v28;
+            v29 = v27[2];
+            v30 = *v29 == v27;
+            v27 = v29;
           }
 
-          while (!v29);
+          while (!v30);
         }
 
-        v26 = v28;
+        v27 = v29;
       }
 
-      while (v28 != (v13 + 344));
+      while (v29 != (v13 + 344));
     }
 
     std::__tree<std::tuple<unsigned short,unsigned short>>::destroy(*(v13 + 344));
@@ -7542,47 +6503,47 @@ void CA::OGL::MetalContext::~MetalContext(CA::OGL::MetalContext *this)
   if (atomic_fetch_add(CA::OGL::MetalContext::_context_count, 0xFFFFFFFF) == 1)
   {
     pthread_mutex_lock(&CA::OGL::MetalContext::_library_lock);
-    v30 = CA::OGL::MetalContext::_libraries;
-    v31 = qword_1EA84E950;
+    v31 = CA::OGL::MetalContext::_libraries;
+    v32 = qword_1EA84E950;
     if (CA::OGL::MetalContext::_libraries != qword_1EA84E950)
     {
       do
       {
       }
 
-      while (v30 != v31);
-      v30 = CA::OGL::MetalContext::_libraries;
+      while (v31 != v32);
+      v31 = CA::OGL::MetalContext::_libraries;
     }
 
-    qword_1EA84E950 = v30;
+    qword_1EA84E950 = v31;
     pthread_mutex_unlock(&CA::OGL::MetalContext::_library_lock);
     pthread_mutex_lock(&CA::OGL::MetalContext::_library_lock);
-    v32 = CA::OGL::MetalContext::_binary_archives;
-    v33 = qword_1EA84E920;
+    v33 = CA::OGL::MetalContext::_binary_archives;
+    v34 = qword_1EA84E920;
     if (CA::OGL::MetalContext::_binary_archives != qword_1EA84E920)
     {
       do
       {
       }
 
-      while (v32 != v33);
-      v32 = CA::OGL::MetalContext::_binary_archives;
+      while (v33 != v34);
+      v33 = CA::OGL::MetalContext::_binary_archives;
     }
 
-    qword_1EA84E920 = v32;
+    qword_1EA84E920 = v33;
     pthread_mutex_unlock(&CA::OGL::MetalContext::_library_lock);
   }
 
-  v34 = *(this + 632);
-  if (v34 != *(this + 634))
-  {
-    free(v34);
-  }
-
-  v35 = *(this + 604);
-  if (v35 != *(this + 606))
+  v35 = *(this + 632);
+  if (v35 != *(this + 634))
   {
     free(v35);
+  }
+
+  v36 = *(this + 604);
+  if (v36 != *(this + 606))
+  {
+    free(v36);
   }
 
   pthread_mutex_destroy((this + 4768));
@@ -7591,11 +6552,11 @@ void CA::OGL::MetalContext::~MetalContext(CA::OGL::MetalContext *this)
     __assert_rtn("~IntrusiveList", "x-list-template.h", 181, "empty ()");
   }
 
-  v36 = *(this + 452);
-  if (v36)
+  v37 = *(this + 452);
+  if (v37)
   {
-    *(this + 453) = v36;
-    operator delete(v36);
+    *(this + 453) = v37;
+    operator delete(v37);
   }
 
   std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(this + 3336);
@@ -7616,7 +6577,7 @@ void CA::OGL::MetalContext::SharedEvent::~SharedEvent(CA::OGL::MetalContext::Sha
   v2 = (this + 112);
   if (*(this + 14))
   {
-    std::vector<CA::OGL::MetalContext::SharedEvent::Encoded>::clear[abi:nn200100](this + 14);
+    std::vector<CA::OGL::MetalContext::SharedEvent::Encoded>::clear[abi:nn200100]((this + 112));
     operator delete(*v2);
   }
 
@@ -8922,162 +7883,162 @@ CFTypeRef CAML::Context::set_error(CAML::Context *this, CFTypeRef cf)
   return result;
 }
 
-void CA::FrameRateRangeGroup::remove(int8x8_t *this, CAFrameRateRange a2)
+void CA::FrameRateRangeGroup::remove(int8x8_t *this, CAFrameRateRange a2, uint64_t a3, BOOL a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24 = a2;
-  v3 = CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(this, a2);
-  v5 = v4;
-  v6 = std::__hash_table<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::__unordered_map_hasher<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,CAFrameRateRangeHasher,std::equal_to<CAFrameRateRange>,true>,std::__unordered_map_equal<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::equal_to<CAFrameRateRange>,CAFrameRateRangeHasher,true>,std::allocator<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>>>::find<CAFrameRateRange>(&this[7], &v24.minimum);
-  if (v6)
+  v28 = *MEMORY[0x1E69E9840];
+  v26 = a2;
+  v5 = CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(this, a2, a3, a4);
+  v7 = v6;
+  v8 = std::__hash_table<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::__unordered_map_hasher<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,CAFrameRateRangeHasher,std::equal_to<CAFrameRateRange>,true>,std::__unordered_map_equal<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::equal_to<CAFrameRateRange>,CAFrameRateRangeHasher,true>,std::allocator<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>>>::find<CAFrameRateRange>(&this[7], &v26.minimum);
+  if (v8)
   {
-    v7 = *(v6 + 6);
-    if (!v7 || *(v6 + 8) != v3 || *(v6 + 9) != __PAIR64__(v5, HIDWORD(v3)))
+    v9 = *(v8 + 6);
+    if (!v9 || *(v8 + 8) != v5 || *(v8 + 9) != __PAIR64__(v7, HIDWORD(v5)))
     {
       __assert_rtn("remove", "CAFrameRateRangeGroup.mm", 178, "info.count > 0 && info.range == range");
     }
 
-    v8 = v7 - 1;
-    if (v8)
+    v10 = v9 - 1;
+    if (v10)
     {
-      *(v6 + 6) = v8;
+      *(v8 + 6) = v10;
     }
 
     else
     {
-      v10 = this[12];
-      v9 = this[13];
-      if (*&v10 != *&v9)
+      v12 = this[12];
+      v11 = this[13];
+      if (*&v12 != *&v11)
       {
-        while (**&v10 != v3 || *(*&v10 + 4) != __PAIR64__(v5, HIDWORD(v3)))
+        while (**&v12 != v5 || *(*&v12 + 4) != __PAIR64__(v7, HIDWORD(v5)))
         {
-          *&v10 += 12;
-          if (*&v10 == *&v9)
+          *&v12 += 12;
+          if (*&v12 == *&v11)
           {
-            v10 = this[13];
+            v12 = this[13];
             break;
           }
         }
       }
 
-      if (*&v9 == *&v10)
+      if (*&v11 == *&v12)
       {
         __assert_rtn("remove", "CAFrameRateRangeGroup.mm", 183, "it != _ranges.end ()");
       }
 
-      v11 = *&v9 - (*&v10 + 12);
-      if (*&v9 != *&v10 + 12)
+      v13 = *&v11 - (*&v12 + 12);
+      if (*&v11 != *&v12 + 12)
       {
-        memmove(*&v10, (*&v10 + 12), *&v9 - (*&v10 + 12));
+        memmove(*&v12, (*&v12 + 12), *&v11 - (*&v12 + 12));
       }
 
-      this[13] = (*&v10 + v11);
-      v12 = std::__hash_table<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::__unordered_map_hasher<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,CAFrameRateRangeHasher,std::equal_to<CAFrameRateRange>,true>,std::__unordered_map_equal<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::equal_to<CAFrameRateRange>,CAFrameRateRangeHasher,true>,std::allocator<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>>>::find<CAFrameRateRange>(&this[7], &v24.minimum);
-      if (v12)
+      this[13] = (*&v12 + v13);
+      v14 = std::__hash_table<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::__unordered_map_hasher<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,CAFrameRateRangeHasher,std::equal_to<CAFrameRateRange>,true>,std::__unordered_map_equal<CAFrameRateRange,std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>,std::equal_to<CAFrameRateRange>,CAFrameRateRangeHasher,true>,std::allocator<std::__hash_value_type<CAFrameRateRange,CA::FrameRateRangeGroup::RangeInfo>>>::find<CAFrameRateRange>(&this[7], &v26.minimum);
+      if (v14)
       {
-        v13 = this[8];
-        v14 = *(v12 + 1);
-        v15 = vcnt_s8(v13);
-        v15.i16[0] = vaddlv_u8(v15);
-        if (v15.u32[0] > 1uLL)
+        v15 = this[8];
+        v16 = *(v14 + 1);
+        v17 = vcnt_s8(v15);
+        v17.i16[0] = vaddlv_u8(v17);
+        if (v17.u32[0] > 1uLL)
         {
-          if (v14 >= *&v13)
+          if (v16 >= *&v15)
           {
-            v14 %= *&v13;
+            v16 %= *&v15;
           }
         }
 
         else
         {
-          v14 &= *&v13 - 1;
+          v16 &= *&v15 - 1;
         }
 
-        v17 = this[7];
-        v18 = *(*&v17 + 8 * v14);
+        v19 = this[7];
+        v20 = *(*&v19 + 8 * v16);
         do
         {
-          v19 = v18;
-          v18 = *v18;
+          v21 = v20;
+          v20 = *v20;
         }
 
-        while (v18 != v12);
-        if (v19 == &this[9])
+        while (v20 != v14);
+        if (v21 == &this[9])
         {
           goto LABEL_38;
         }
 
-        v20 = *(v19 + 1);
-        if (v15.u32[0] > 1uLL)
+        v22 = v21[1];
+        if (v17.u32[0] > 1uLL)
         {
-          if (v20 >= *&v13)
+          if (*&v22 >= *&v15)
           {
-            v20 %= *&v13;
+            *&v22 %= *&v15;
           }
         }
 
         else
         {
-          v20 &= *&v13 - 1;
+          *&v22 &= *&v15 - 1;
         }
 
-        if (v20 != v14)
+        if (*&v22 != v16)
         {
 LABEL_38:
-          if (!*v12)
+          if (!*v14)
           {
             goto LABEL_39;
           }
 
-          v21 = *(*v12 + 8);
-          if (v15.u32[0] > 1uLL)
+          v23 = *(*v14 + 8);
+          if (v17.u32[0] > 1uLL)
           {
-            if (v21 >= *&v13)
+            if (v23 >= *&v15)
             {
-              v21 %= *&v13;
+              v23 %= *&v15;
             }
           }
 
           else
           {
-            v21 &= *&v13 - 1;
+            v23 &= *&v15 - 1;
           }
 
-          if (v21 != v14)
+          if (v23 != v16)
           {
 LABEL_39:
-            *(*&v17 + 8 * v14) = 0;
+            *(*&v19 + 8 * v16) = 0;
           }
         }
 
-        v22 = *v12;
-        if (*v12)
+        v24 = *v14;
+        if (*v14)
         {
-          v23 = *(v22 + 8);
-          if (v15.u32[0] > 1uLL)
+          v25 = *(*&v24 + 8);
+          if (v17.u32[0] > 1uLL)
           {
-            if (v23 >= *&v13)
+            if (v25 >= *&v15)
             {
-              v23 %= *&v13;
+              v25 %= *&v15;
             }
           }
 
           else
           {
-            v23 &= *&v13 - 1;
+            v25 &= *&v15 - 1;
           }
 
-          if (v23 != v14)
+          if (v25 != v16)
           {
-            *(*&this[7] + 8 * v23) = v19;
-            v22 = *v12;
+            *(*&this[7] + 8 * v25) = v21;
+            v24 = *v14;
           }
         }
 
-        *v19 = v22;
-        *v12 = 0;
+        *v21 = v24;
+        *v14 = 0;
         --*&this[10];
 
-        operator delete(v12);
+        operator delete(v14);
       }
     }
   }
@@ -9089,11 +8050,11 @@ LABEL_39:
       dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
     }
 
-    v16 = x_log_get_utilities::log;
+    v18 = x_log_get_utilities::log;
     if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_183AA6000, v16, OS_LOG_TYPE_ERROR, "Unmatched FrameRateRangeGroup remove.", buf, 2u);
+      _os_log_error_impl(&dword_183AA6000, v18, OS_LOG_TYPE_ERROR, "Unmatched FrameRateRangeGroup remove.", buf, 2u);
     }
   }
 }
@@ -9264,9 +8225,9 @@ void *CA::Render::LayerNode::copy_node(CA::Render::LayerNode *this)
     do
     {
       v13 = CA::Render::LayerNode::copy_node(v11);
-      v14 = *(v13 + 8);
+      v14 = v13[1];
       v15 = *v12;
-      *(v13 + 8) = v12;
+      v13[1] = v12;
       *v12 = v13;
       *v14 = v15;
       *(v15 + 8) = v14;
@@ -9451,8 +8412,9 @@ CA::Render::LayerNode *CA::Render::LayerNode::split_node(CA::Render::LayerNode *
   return v5;
 }
 
-xpc_object_t encode_batch_handle_port(unint64_t a1, uint64_t a2, int a3)
+xpc_object_t encode_batch_handle_port(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   do
   {
     add = atomic_fetch_add(next_batch_encode_count(void)::last_encode_count, 1u);
@@ -9468,7 +8430,7 @@ xpc_object_t encode_batch_handle_port(unint64_t a1, uint64_t a2, int a3)
     xpc_dictionary_set_uint64(v7, "f", a2);
   }
 
-  if ((a3 - 1) <= 0xFFFFFFFD)
+  if ((v3 - 1) <= 0xFFFFFFFD)
   {
     xpc_dictionary_set_mach_send();
   }
@@ -9880,4 +8842,997 @@ LABEL_23:
   }
 
   return 1;
+}
+
+uint64_t CA::Render::NamedFunction::input_count(CA::Render::NamedFunction *this)
+{
+  v1 = *(this + 4);
+  if (v1 > 0xC)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return dword_183E264E8[v1];
+  }
+}
+
+CA::Render::Encoder *CA::Render::NamedFunction::encode(CA::Render::NamedFunction *this, CA::Render::Encoder *a2)
+{
+  v4 = (*(*this + 96))(this);
+  v5 = *(a2 + 4);
+  if ((v5 + 1) > *(a2 + 5))
+  {
+    CA::Render::Encoder::grow(a2, 1);
+    v5 = *(a2 + 4);
+  }
+
+  *(a2 + 4) = v5 + 1;
+  *v5 = v4;
+  CA::Render::Encoder::encode_sanity_check(a2);
+  v6 = *(this + 4);
+  v7 = *(a2 + 4);
+  if ((v7 + 1) > *(a2 + 5))
+  {
+    CA::Render::Encoder::grow(a2, 1);
+    v7 = *(a2 + 4);
+  }
+
+  *(a2 + 4) = v7 + 1;
+  *v7 = v6;
+
+  return CA::Render::Encoder::encode_sanity_check(a2);
+}
+
+void CA::Render::NamedFunction::~NamedFunction(CA::Render::NamedFunction *this, const CA::Render::Object *a2)
+{
+  --dword_1ED4EAA80;
+  *this = &unk_1EF1F6D08;
+  if ((*(this + 3) & 0x80000000) != 0)
+  {
+    CA::Render::Encoder::ObjectCache::invalidate(this, a2);
+  }
+
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v3 = malloc_zone;
+
+  malloc_zone_free(v3, this);
+}
+
+{
+  --dword_1ED4EAA80;
+  *this = &unk_1EF1F6D08;
+  if ((*(this + 3) & 0x80000000) != 0)
+  {
+    CA::Render::Encoder::ObjectCache::invalidate(this, a2);
+  }
+}
+
+atomic_ullong CA::Render::Function::decode(CA::Render::Function *this, CA::Render::Decoder *a2)
+{
+  v3 = CA::Render::Decoder::decode_int8(this);
+  CA::Render::Decoder::decode_sanity_check(this, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-function.mm", 39);
+  switch(v3)
+  {
+    case 3:
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      v7 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x38uLL, 0xDEEC3011uLL);
+      v5 = v7;
+      if (v7)
+      {
+        CA::Render::Gradient::Gradient(v7, this);
+      }
+
+      break;
+    case 2:
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      v6 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x38uLL, 0xDEEC3011uLL);
+      v5 = v6;
+      if (v6)
+      {
+        CA::Render::InterpolatedFunction::InterpolatedFunction(v6, this);
+      }
+
+      break;
+    case 1:
+      v4 = CA::Render::Decoder::decode_int8(this);
+      v5 = CA::Render::NamedFunction::new_function(v4);
+      CA::Render::Decoder::decode_sanity_check(this, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-function.mm", 214);
+      break;
+    default:
+      return 0;
+  }
+
+  return v5;
+}
+
+void sub_183D1AA0C(_Unwind_Exception *a1)
+{
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  malloc_zone_free(malloc_zone, v1);
+  _Unwind_Resume(a1);
+}
+
+atomic_ullong CA::Render::NamedFunction::new_function(unsigned int a1)
+{
+  if (a1 > 0xC)
+  {
+    return 0;
+  }
+
+  result = CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1];
+  if (result)
+  {
+    goto LABEL_12;
+  }
+
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v3 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0x18uLL, 0xDEEC3011uLL);
+  v4 = 0;
+  if (v3)
+  {
+    v3[2] = 1;
+    v3[3] = 18;
+    ++dword_1ED4EAA80;
+    *v3 = &unk_1EF1FBFB8;
+    v3[4] = a1;
+    atomic_compare_exchange_strong(&CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1], &v4, v3);
+    if (v4 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
+    {
+      (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    atomic_compare_exchange_strong(&CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1], &v4, 0);
+  }
+
+  result = CA::Render::NamedFunction::new_function(CA::Render::FunctionName)::table[a1];
+  if (result)
+  {
+LABEL_12:
+    v5 = (result + 8);
+    if (!atomic_fetch_add((result + 8), 1u))
+    {
+      result = 0;
+      atomic_fetch_add(v5, 0xFFFFFFFF);
+    }
+  }
+
+  return result;
+}
+
+uint64_t CA::Render::InterpolatedFunction::set_location(uint64_t this, unint64_t a2, float a3)
+{
+  v3 = *(this + 40);
+  if (v3 && *(this + 16) > a2)
+  {
+    v4 = (v3 + 4 * a2);
+    *v4 = a3;
+    if (a2)
+    {
+      if (*(v4 - 1) > a3)
+      {
+        *(this + 12) &= ~0x100u;
+      }
+    }
+
+    *(this + 12) |= 0x200u;
+  }
+
+  return this;
+}
+
+uint64_t CA::Render::Gradient::set_colors(uint64_t this, const double *a2)
+{
+  v2 = *(this + 32);
+  if (v2)
+  {
+    v3 = *(this + 16);
+    if (!v3)
+    {
+      goto LABEL_8;
+    }
+
+    v4 = 0;
+    v5 = 1;
+    do
+    {
+      v6 = 0;
+      v7 = (v2 + 20 * v4++);
+      v8 = v7;
+      do
+      {
+        v9 = a2[v6];
+        *v8++ = v9;
+        ++v6;
+      }
+
+      while (v6 != 5);
+      v5 &= v7[3] >= 1.0;
+      a2 += 5;
+    }
+
+    while (v4 != v3);
+    if ((v5 & 1) == 0)
+    {
+      v10 = *(this + 12) & 0xFFFFF7FF;
+    }
+
+    else
+    {
+LABEL_8:
+      v10 = *(this + 12) | 0x800;
+    }
+
+    *(this + 12) = v10;
+  }
+
+  return this;
+}
+
+uint64_t CA::Render::Gradient::set_color(uint64_t this, unint64_t a2, const double *a3)
+{
+  v3 = *(this + 32);
+  if (v3 && *(this + 16) > a2)
+  {
+    v4 = 0;
+    v5 = (v3 + 20 * a2);
+    v6 = v5;
+    do
+    {
+      v7 = a3[v4];
+      *v6++ = v7;
+      ++v4;
+    }
+
+    while (v4 != 5);
+    if (v5[3] < 1.0)
+    {
+      *(this + 12) &= ~0x800u;
+    }
+  }
+
+  return this;
+}
+
+__n128 CA::Render::Gradient::set_values(CA::Render::Gradient *this, uint64_t a2, const unsigned int *a3, unint64_t a4, const double *a5, CGColorSpace *a6, CGColorSpace *a7, CGColorSpace *a8, __n128 result)
+{
+  v47 = *MEMORY[0x1E69E9840];
+  v16 = *a3;
+  if (*a3 == 490 || v16 == 121)
+  {
+    if (a2 == 2)
+    {
+      v21 = a3[1];
+      if ((v21 & 0x40000000) == 0)
+      {
+        goto LABEL_31;
+      }
+
+      v22 = v21 & 0xFFFFFFFFBFFFFFFFLL;
+      if (*(this + 2) <= (v21 & 0xFFFFFFFFBFFFFFFFLL))
+      {
+        goto LABEL_31;
+      }
+
+      if (a4 < 5 || v16 != 121)
+      {
+        if (v16 == 490 && a4 && *(this + 5))
+        {
+          v24 = *a5;
+          CA::Render::InterpolatedFunction::set_location(this, v22, v24);
+        }
+
+        goto LABEL_31;
+      }
+
+      if ((CARequiresColorMatching(a6, a7, 0) & 1) == 0)
+      {
+        CA::Render::Gradient::set_color(this, v22, a5);
+        goto LABEL_31;
+      }
+
+      v23 = CARetainColorTransform(a7);
+      if (v23)
+      {
+        memset(v42, 0, 40);
+        CA::Render::convert_color(a5, v42, v23, a6);
+        CA::Render::Gradient::set_color(this, v22, v42);
+LABEL_21:
+        CGColorTransformRelease();
+      }
+    }
+
+    else if (a2 == 1)
+    {
+      if (v16 == 490)
+      {
+        if (*(this + 5) && *(this + 2) <= a4)
+        {
+          CA::Render::InterpolatedFunction::set_locations(this, a5);
+        }
+
+        goto LABEL_31;
+      }
+
+      if (v16 == 121 && 5 * *(this + 2) <= a4)
+      {
+        if ((CARequiresColorMatching(a6, a7, 0) & 1) == 0)
+        {
+          CA::Render::Gradient::set_colors(this, a5);
+          goto LABEL_31;
+        }
+
+        if (CARetainColorTransform(a7))
+        {
+          if (*(this + 2))
+          {
+            v17 = 0;
+            v18 = a5 + 3;
+            do
+            {
+              v43 = 0u;
+              v44 = 0u;
+              v19 = *(v18 - 1);
+              v45 = *(v18 - 3);
+              v46 = v19;
+              CGColorTransformConvertColorComponents();
+              v42[0] = v43;
+              *&v42[1] = v44;
+              v20 = *v18;
+              v18 += 5;
+              *(&v42[1] + 8) = v20;
+              CA::Render::Gradient::set_color(this, v17++, v42);
+            }
+
+            while (v17 < *(this + 2));
+          }
+
+          goto LABEL_21;
+        }
+      }
+    }
+
+LABEL_31:
+    v16 = *a3;
+  }
+
+  if (v16 == 446)
+  {
+    if (a2 == 2)
+    {
+      if (a4 >= 4)
+      {
+        v35 = a3[1];
+        if ((v35 & 0x40000000) != 0)
+        {
+          v36 = *(this + 2);
+          _CF = v36 != 0;
+          v37 = v36 - 1;
+          if (_CF)
+          {
+            v38 = v35 & 0xFFFFFFFFBFFFFFFFLL;
+            if (v37 > (v35 & 0xFFFFFFFFBFFFFFFFLL))
+            {
+              *(this + 3) |= 0x400u;
+              CA::Render::InterpolatedFunction::allocate_storage(this);
+              v39 = *(this + 6);
+              if (v39)
+              {
+                v40 = (v39 + 32 * v38);
+                result = *a5;
+                v41 = *(a5 + 1);
+                *v40 = *a5;
+                v40[1] = v41;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    else if (a2 == 1)
+    {
+      *(this + 3) |= 0x400u;
+      v25 = *(this + 2);
+      CA::Render::InterpolatedFunction::allocate_storage(this);
+      v26 = *(this + 6);
+      if (v26)
+      {
+        if (v25 - 1 >= a4 >> 2)
+        {
+          v27 = a4 >> 2;
+        }
+
+        else
+        {
+          v27 = v25 - 1;
+        }
+
+        memcpy(v26, a5, 32 * v27);
+        v28 = *(this + 2);
+        if (v27 < v28 - 1)
+        {
+          v29 = ~v27 + v28;
+          v30 = (*(this + 6) + 32 * v27 + 16);
+          __asm { FMOV            V0.2D, #1.0 }
+
+          do
+          {
+            v30[-1].n128_u64[0] = 0;
+            v30[-1].n128_u64[1] = 0;
+            *v30 = result;
+            v30 += 2;
+            --v29;
+          }
+
+          while (v29);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+double CA::Render::convert_color(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  CGColorTransformConvertColorComponents();
+  *a2 = 0u;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = *(a1 + 24);
+  result = *(a1 + 32);
+  *(a2 + 32) = result;
+  return result;
+}
+
+uint64_t CA::Render::Image::TiledImage::copy_subtexture(CA::Render::Image::TiledImage *this, unsigned int a2, unsigned int a3, int a4, int a5, int a6, unsigned int a7, unsigned int a8, double a9, float *a10, unsigned int *a11)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  v22 = __PAIR64__(a3, a2);
+  v23 = a4;
+  os_unfair_lock_lock(this + 42);
+  v15 = x_hash_table_lookup(*(this + 20), &v22, 0);
+  if (!v15)
+  {
+    v16 = *(this + 28);
+    v17 = *(this + 29);
+    v21[0] = v16 * a3;
+    v21[1] = v17 * a4;
+    v21[2] = v16;
+    v21[3] = v17;
+    v15 = CA::Render::Image::copy_subimage(*(this + 19), a2, v21, *(this + 22), (*(this + 184) & 1) == 0);
+    if (!v15)
+    {
+      os_unfair_lock_unlock(this + 42);
+      goto LABEL_9;
+    }
+
+    if (x_malloc_get_zone::once != -1)
+    {
+      dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+    }
+
+    v18 = malloc_type_zone_malloc(malloc_zone, 0xCuLL, 0x10000403E1C8BA9uLL);
+    v19 = v22;
+    v18[2] = v23;
+    *v18 = v19;
+    hash_table_modify(*(this + 20), v18, v15, 0);
+  }
+
+  if (!atomic_fetch_add((v15 + 8), 1u))
+  {
+    atomic_fetch_add((v15 + 8), 0xFFFFFFFF);
+  }
+
+  os_unfair_lock_unlock(this + 42);
+  *(v15 + 36) = *(*(this + 19) + 36);
+LABEL_9:
+  *a10 = 1.0;
+  *a11 = 0;
+  return v15;
+}
+
+uint64_t CA::Render::Image::TiledImage::finalize(os_unfair_lock_s *this)
+{
+  os_unfair_lock_lock(this + 42);
+  v2 = *&this[38]._os_unfair_lock_opaque;
+  if (v2)
+  {
+    CA::Render::remove_observer(3u, v2, CA::Render::Image::TiledImage::will_deallocate, this);
+    *&this[38]._os_unfair_lock_opaque = 0;
+  }
+
+  os_unfair_lock_unlock(this + 42);
+  v3 = *(*&this->_os_unfair_lock_opaque + 8);
+
+  return v3(this);
+}
+
+void CA::Render::Image::TiledImage::will_deallocate(CA::Render::Image::TiledImage *this, os_unfair_lock_s *a2, void *a3, void *a4)
+{
+  os_unfair_lock_lock(a2 + 42);
+  v5 = 0;
+  *&a2[38]._os_unfair_lock_opaque = 0;
+  v6 = *&a2[40]._os_unfair_lock_opaque;
+  v7 = 1 << *v6;
+  do
+  {
+    for (i = *(*(v6 + 16) + 8 * v5); i; i = *i)
+    {
+      CA::Render::Image::TiledImage::free_tile(i[2], i[3]);
+    }
+
+    ++v5;
+  }
+
+  while (v5 != v7);
+  x_hash_table_remove_all(*&a2[40]._os_unfair_lock_opaque);
+
+  os_unfair_lock_unlock(a2 + 42);
+}
+
+void CA::Render::Image::TiledImage::free_tile(void *ptr, atomic_uint *a2)
+{
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  malloc_zone_free(malloc_zone, ptr);
+  if (atomic_fetch_add(a2 + 2, 0xFFFFFFFF) == 1)
+  {
+    v4 = *(*a2 + 16);
+
+    v4(a2);
+  }
+}
+
+void CA::Render::Image::TiledImage::~TiledImage(CA::Render::Image::TiledImage *this)
+{
+  CA::Render::Image::TiledImage::~TiledImage(this);
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v2 = malloc_zone;
+
+  malloc_zone_free(v2, this);
+}
+
+{
+  v2 = 0;
+  *this = &unk_1EF1FC050;
+  v3 = *(this + 20);
+  v4 = 1 << *v3;
+  do
+  {
+    for (i = *(*(v3 + 16) + 8 * v2); i; i = *i)
+    {
+      CA::Render::Image::TiledImage::free_tile(i[2], i[3]);
+    }
+
+    ++v2;
+  }
+
+  while (v2 != v4);
+  x_hash_table_free(*(this + 20));
+  --CA::Render::Object::_instance_counts[0];
+  *this = &unk_1EF1FC198;
+  v6 = *(this + 17);
+  if (v6 && atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
+  {
+    (*(*v6 + 16))(v6);
+  }
+
+  CA::Render::Texture::~Texture(this);
+}
+
+unint64_t CA::Render::Image::TiledImage::Key::hash(_DWORD *a1)
+{
+  v1 = ((a1[1] << 10) ^ (*a1 << 20)) ^ a1[2];
+  v2 = (~(v1 << 32) + v1) ^ ((~(v1 << 32) + v1) >> 22);
+  v3 = 9 * ((v2 + ~(v2 << 13)) ^ ((v2 + ~(v2 << 13)) >> 8));
+  v4 = (v3 ^ (v3 >> 15)) + ~((v3 ^ (v3 >> 15)) << 27);
+  return v4 ^ (v4 >> 31);
+}
+
+uint64_t CA::Render::Image::copy_tiled_texture(CA::Render::Image *this, uint64_t a2, int a3)
+{
+  if (CA::Render::tiled_image_mutex_once[0] != -1)
+  {
+    dispatch_once_f(CA::Render::tiled_image_mutex_once, 0, CA::Render::Image::tiled_image_mutex_init);
+  }
+
+  pthread_mutex_lock(&CA::Render::Image::_tiled_image_lock);
+  v6 = *(this + 18);
+  if (v6)
+  {
+    while (*(v6 + 176) != a2 || *(v6 + 184) != a3)
+    {
+      v6 = *(v6 + 144);
+      if (!v6)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    goto LABEL_33;
+  }
+
+LABEL_7:
+  v7 = *(this + 4);
+  if (v7 >= 0x40)
+  {
+    v8 = 64;
+  }
+
+  else
+  {
+    v8 = 32;
+  }
+
+  if (v7 >= 0x40)
+  {
+    v9 = 1024;
+  }
+
+  else
+  {
+    v9 = 2048;
+  }
+
+  if (v7 <= 0x7F)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v8 = 128;
+    v10 = 512;
+  }
+
+  if (v7 <= 0xFF)
+  {
+    v11 = v8;
+  }
+
+  else
+  {
+    v11 = 256;
+  }
+
+  if (v7 <= 0xFF)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = 256;
+  }
+
+  while (v12 > *(this + 5))
+  {
+    v13 = v12 >> 1;
+    v11 *= 2;
+    v14 = v12 > 0x41;
+    v12 >>= 1;
+    if (!v14)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  v13 = v12;
+LABEL_26:
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v15 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0xC0uLL, 0xDEEC3011uLL);
+  v6 = v15;
+  if (v15)
+  {
+    v16 = *(this + 169);
+    v17 = CA::Render::Texture::Texture(v15, *(this + 4), *(this + 5));
+    *(v6 + 112) = v11;
+    *(v6 + 116) = v13;
+    *(v6 + 124) = 0;
+    *(v6 + 128) = 0;
+    *(v6 + 120) = v16;
+    *(v6 + 136) = 0;
+    *(v6 + 12) &= 0xFFFFFF00;
+    ++CA::Render::Object::_instance_counts[0];
+    *v6 = &unk_1EF1FC050;
+    *(v6 + 152) = this;
+    *(v6 + 168) = 0;
+    *(v6 + 176) = a2;
+    *(v6 + 184) = a3;
+    CA::Render::Texture::set_colorspace(v17, *(this + 7));
+    *(v6 + 160) = x_hash_table_new_(CA::Render::Image::TiledImage::Key::hash, CA::Render::Image::TiledImage::Key::compare, 0, 0, 0, 0);
+    CA::Render::add_observer(3u, *(v6 + 152), CA::Render::Image::TiledImage::will_deallocate, v6, 0);
+    v18 = *(this + 168);
+    if (v18 > 0x23 || ((0xC99B4EB03uLL >> v18) & 1) == 0)
+    {
+      *(v6 + 12) |= 0x1000u;
+    }
+
+    *(v6 + 144) = *(this + 18);
+    *(this + 18) = v6;
+LABEL_33:
+    v19 = (v6 + 8);
+    if (!atomic_fetch_add((v6 + 8), 1u))
+    {
+      v6 = 0;
+      atomic_fetch_add(v19, 0xFFFFFFFF);
+    }
+  }
+
+  pthread_mutex_unlock(&CA::Render::Image::_tiled_image_lock);
+  return v6;
+}
+
+uint64_t CA::Render::Image::get_tiled_texture_size(CA::Render::Image *this, unsigned int *a2, unsigned int *a3)
+{
+  v3 = *(this + 4);
+  if (v3 >= 0x40)
+  {
+    v4 = 64;
+  }
+
+  else
+  {
+    v4 = 32;
+  }
+
+  if (v3 >= 0x40)
+  {
+    v5 = 1024;
+  }
+
+  else
+  {
+    v5 = 2048;
+  }
+
+  if (v3 <= 0x7F)
+  {
+    v6 = v4;
+  }
+
+  else
+  {
+    v6 = 128;
+  }
+
+  if (v3 <= 0x7F)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = 512;
+  }
+
+  if (v3 <= 0xFF)
+  {
+    v8 = v6;
+  }
+
+  else
+  {
+    v8 = 256;
+  }
+
+  if (v3 <= 0xFF)
+  {
+    v9 = v7;
+  }
+
+  else
+  {
+    v9 = 256;
+  }
+
+  while (v9 > *(this + 5))
+  {
+    v10 = v9 >> 1;
+    v8 *= 2;
+    v11 = v9 > 0x41;
+    v9 >>= 1;
+    if (!v11)
+    {
+      goto LABEL_23;
+    }
+  }
+
+  v10 = v9;
+LABEL_23:
+  *a2 = v8;
+  *a3 = v10;
+  return 1;
+}
+
+uint64_t CAImageProviderMaxLOD(unsigned int a1, unsigned int a2)
+{
+  if (a1 >= a2)
+  {
+    v2 = a2;
+  }
+
+  else
+  {
+    v2 = a1;
+  }
+
+  v3 = 32 - __clz(v2);
+  if (v2 <= 1)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+uint64_t CAImageProviderCreate(unsigned int a1, unsigned int a2, int a3, int a4, int a5, int a6, int a7, double a8)
+{
+  if (a1 >= a2)
+  {
+    v15 = a2;
+  }
+
+  else
+  {
+    v15 = a1;
+  }
+
+  v16 = 32 - __clz(v15);
+  if (v15 <= 1)
+  {
+    v17 = 1;
+  }
+
+  else
+  {
+    v17 = v16;
+  }
+
+  if (a5 - a6 <= v17)
+  {
+    v18 = a5;
+  }
+
+  else
+  {
+    v18 = v17 + a6;
+  }
+
+  if (CAImageProviderGetTypeID::once[0] != -1)
+  {
+    dispatch_once(CAImageProviderGetTypeID::once, &__block_literal_global_5_9450);
+  }
+
+  Instance = _CFRuntimeCreateInstance();
+  v20 = Instance;
+  if (Instance)
+  {
+    *(Instance + 240) = 0u;
+    *(Instance + 256) = 0u;
+    *(Instance + 208) = 0u;
+    *(Instance + 224) = 0u;
+    *(Instance + 176) = 0u;
+    *(Instance + 192) = 0u;
+    *(Instance + 144) = 0u;
+    *(Instance + 160) = 0u;
+    *(Instance + 112) = 0u;
+    *(Instance + 128) = 0u;
+    *(Instance + 80) = 0u;
+    *(Instance + 96) = 0u;
+    *(Instance + 48) = 0u;
+    *(Instance + 64) = 0u;
+    *(Instance + 16) = 0u;
+    *(Instance + 32) = 0u;
+    do
+    {
+      add = atomic_fetch_add(CA::Render::next_sequence(void)::sequence, 1u);
+      v22 = __CFADD__(add, 1);
+      v23 = add + 1;
+    }
+
+    while (v22);
+    *(Instance + 20) = v23;
+    pthread_mutex_init((Instance + 88), 0);
+    pthread_cond_init((v20 + 152), 0);
+    *(v20 + 200) = v20 + 200;
+    *(v20 + 208) = v20 + 200;
+    *(v20 + 216) = a7;
+    *(v20 + 220) = a1;
+    *(v20 + 224) = a2;
+    *(v20 + 228) = a3;
+    *(v20 + 232) = a4;
+    *(v20 + 236) = v18;
+    *(v20 + 240) = a6;
+    v24 = a8;
+    *(v20 + 244) = v24;
+    *(v20 + 56) = ++CAImageProviderCreate::id;
+    if (CAImageProviderCreate::once != -1)
+    {
+      dispatch_once(&CAImageProviderCreate::once, &__block_literal_global_9451);
+    }
+  }
+
+  return v20;
+}
+
+dispatch_queue_t __CAImageProviderCreate_block_invoke()
+{
+  v0 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_USER_INITIATED, 0);
+  result = dispatch_queue_create("com.apple.coreanimation.imageprovider.concurrent", v0);
+  provider_queue = result;
+  return result;
+}
+
+uint64_t imageProviderFinalize(char *a1)
+{
+  if (*(a1 + 8))
+  {
+    CAImageProviderSetCallback(a1, 0, 0);
+  }
+
+  v2 = *(a1 + 5);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = CA::Transaction::ensure_compat(v2);
+  CA::Transaction::add_deleted_id(*(v3 + 15), *(a1 + 7), *(a1 + 5), 0);
+  CGColorRelease(*(a1 + 32));
+  v4 = *(a1 + 4);
+  if (v4)
+  {
+    do
+    {
+      v5 = v4[1];
+      free(v4);
+      v4 = v5;
+    }
+
+    while (v5);
+  }
+
+  pthread_mutex_destroy((a1 + 88));
+
+  return pthread_cond_destroy((a1 + 152));
 }

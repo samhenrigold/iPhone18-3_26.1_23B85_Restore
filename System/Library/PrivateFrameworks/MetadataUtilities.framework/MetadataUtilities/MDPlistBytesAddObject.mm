@@ -5,7 +5,6 @@
 
 uint64_t ____MDPlistBytesAddObject_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   qword_1ED6F3F80 = CFArrayGetTypeID();
   qword_1ED6F3F88 = CFDictionaryGetTypeID();
   qword_1ED6F3F90 = CFBooleanGetTypeID();
@@ -24,7 +23,6 @@ uint64_t ____MDPlistBytesAddObject_block_invoke()
   qword_1ED6F3FC8 = qword_1ED6F3F58;
   result = _MDStoreOIDArrayGetTypeID();
   qword_1ED6F3FD0 = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -37,7 +37,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10003CE68();
+  sub_10003CE68(update);
   swift_unknownObjectRelease();
 }
 

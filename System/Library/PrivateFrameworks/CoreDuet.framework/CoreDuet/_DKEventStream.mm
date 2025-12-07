@@ -87,7 +87,7 @@
 
 + (id)eventStreamWithName:(id)name valueType:(id)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typeCopy = type;
   v7 = [_CDEventStreams eventStreamPropertiesForKBName:nameCopy];
@@ -106,13 +106,13 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           valueType3 = [v7 valueType];
-          v18 = 138412802;
-          v19 = nameCopy;
-          v20 = 2112;
-          v21 = typeCopy;
-          v22 = 2112;
-          v23 = valueType3;
-          _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_INFO, "Event with stream %@ had valueType %@ but should be %@. Overriding.", &v18, 0x20u);
+          v17 = 138412802;
+          v18 = nameCopy;
+          v19 = 2112;
+          v20 = typeCopy;
+          v21 = 2112;
+          v22 = valueType3;
+          _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_INFO, "Event with stream %@ had valueType %@ but should be %@. Overriding.", &v17, 0x20u);
         }
       }
     }
@@ -124,8 +124,6 @@
 
   v14 = +[_DKEventStreamCache sharedCached];
   v15 = [v14 eventStreamWithName:nameCopy valueType:typeCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

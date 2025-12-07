@@ -57,7 +57,7 @@
   }
 }
 
-uint64_t __62__SBFramewiseInteractiveTransitionAnimator_animateTransition___block_invoke_2(uint64_t a1)
+void *__62__SBFramewiseInteractiveTransitionAnimator_animateTransition___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isTransitioning];
   if (result)

@@ -110,8 +110,8 @@
     while (v6);
   }
 
-  allKeys = [dictionary allKeys];
-  v18 = [allKeys sortedArrayUsingSelector:sel_compare_];
+  v17 = objc_msgSend_allKeys(dictionary);
+  v18 = [v17 sortedArrayUsingSelector:sel_compare_];
 
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;

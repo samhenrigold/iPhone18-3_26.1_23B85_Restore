@@ -25,17 +25,17 @@
   v3 = objc_msgSend_nightMode(self, a2, v2);
   if (v3 > 2)
   {
-    objc_msgSend_stringByAppendingString_(0, v4, v5, @"_COMPANION");
+    objc_msgSend_stringByAppendingString_(0, v4, @"_COMPANION");
   }
 
   else
   {
-    objc_msgSend_stringByAppendingString_(off_278BA15D8[v3], v4, v5, @"_COMPANION");
+    objc_msgSend_stringByAppendingString_(off_278BA15D8[v3], v4, @"_COMPANION");
   }
-  v6 = ;
-  v7 = NTKCompanionClockFaceLocalizedString();
+  v5 = ;
+  v6 = NTKCompanionClockFaceLocalizedString();
 
-  return v7;
+  return v6;
 }
 
 - (id)analyticsKey

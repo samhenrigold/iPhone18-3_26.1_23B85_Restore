@@ -4,10 +4,15 @@
 - (BOOL)triggerFlush;
 - (id)flush;
 - (int)mergeWithOrgApacheLuceneIndexMergeState:(id)state;
+- (void)addPositionWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withOrgApacheLuceneUtilBytesRef:(id)ref;
+- (void)addProxWithInt:(int)int withOrgApacheLuceneStoreDataInput:(id)input withOrgApacheLuceneStoreDataInput:(id)dataInput;
 - (void)close;
 - (void)dealloc;
 - (void)finishDocument;
+- (void)finishWithOrgApacheLuceneIndexFieldInfos:(id)infos withInt:(int)int;
 - (void)startDocumentWithInt:(int)int;
+- (void)startFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withInt:(int)int withBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean withBoolean:(BOOL)a7;
+- (void)startTermWithOrgApacheLuceneUtilBytesRef:(id)ref withInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter
@@ -17,7 +22,7 @@
   indexWriter = self->indexWriter_;
   v5[0] = self->vectorsStream_;
   v5[1] = indexWriter;
-  v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_()];
+  v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v4);
   JreStrongAssign(&self->vectorsStream_, 0);
   JreStrongAssign(&self->indexWriter_, 0);
@@ -25,7 +30,7 @@
 
 - (void)startDocumentWithInt:(int)int
 {
-  v4 = sub_1000055F0(&self->super.super.isa, int);
+  v4 = sub_1000055F0(&self->super.super.isa, *&int);
 
   JreStrongAssign(&self->curDoc_, v4);
 }
@@ -134,6 +139,353 @@ LABEL_8:
   *(v18 + 24) = 0;
   ++*(self + 56);
   return result;
+}
+
+- (void)startFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withInt:(int)int withBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean withBoolean:(BOOL)a7
+{
+  curDoc = self->curDoc_;
+  if (!curDoc || !info || (JreStrongAssign(&self->curField_, [(OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_DocData *)curDoc addFieldWithInt:*(info + 4) withInt:*&int withBoolean:boolean withBoolean:withBoolean withBoolean:a7]), (lastTerm = self->lastTerm_) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  lastTerm->length_ = 0;
+}
+
+- (void)startTermWithOrgApacheLuceneUtilBytesRef:(id)ref withInt:(int)int
+{
+  v4 = *&int;
+  v7 = OrgApacheLuceneUtilStringHelper_bytesDifferenceWithOrgApacheLuceneUtilBytesRef_withOrgApacheLuceneUtilBytesRef_(self->lastTerm_, ref, ref);
+  curField = self->curField_;
+  if (!curField || !ref || ([(OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FieldData *)curField addTermWithInt:v4 withInt:v7 withInt:(*(ref + 5) - v7)], (termSuffixes = self->termSuffixes_) == 0) || ([(OrgApacheLuceneUtilGrowableByteArrayDataOutput *)termSuffixes writeBytesWithByteArray:*(ref + 1) withInt:(*(ref + 4) + v7) withInt:(*(ref + 5) - v7)], (lastTerm = self->lastTerm_) == 0) || (bytes = lastTerm->bytes_) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v18 = *(ref + 5);
+  if (bytes->super.size_ < v18)
+  {
+    v19 = [IOSByteArray newArrayWithLength:OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(v18, 1, v10, v11, v12, v13, v14, v15)];
+    JreStrongAssignAndConsume(&lastTerm->bytes_, v19);
+    lastTerm = self->lastTerm_;
+  }
+
+  lastTerm->offset_ = 0;
+  self->lastTerm_->length_ = *(ref + 5);
+  v20 = *(ref + 1);
+  v21 = *(ref + 4);
+  v22 = self->lastTerm_->bytes_;
+  v23 = *(ref + 5);
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v20, v21, v22, 0, v23);
+}
+
+- (void)addPositionWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withOrgApacheLuceneUtilBytesRef:(id)ref
+{
+  refCopy = ref;
+  curField = self->curField_;
+  v9 = (a5 - withInt);
+  if (ref)
+  {
+    ref = *(ref + 5);
+  }
+
+  [(OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FieldData *)curField addPositionWithInt:*&int withInt:*&withInt withInt:v9 withInt:ref];
+  if (refCopy && self->curField_->hasPayloads_)
+  {
+    payloadBytes = self->payloadBytes_;
+    if (!payloadBytes)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v11 = refCopy[1];
+    v12 = *(refCopy + 4);
+    v13 = *(refCopy + 5);
+
+    [(OrgApacheLuceneUtilGrowableByteArrayDataOutput *)payloadBytes writeBytesWithByteArray:v11 withInt:v12 withInt:v13];
+  }
+}
+
+- (void)finishWithOrgApacheLuceneIndexFieldInfos:(id)infos withInt:(int)int
+{
+  pendingDocs = self->pendingDocs_;
+  if (!pendingDocs)
+  {
+    goto LABEL_10;
+  }
+
+  v6 = *&int;
+  if (([(JavaUtilDeque *)pendingDocs isEmpty]& 1) == 0)
+  {
+    [OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter flush]_0(self);
+    ++self->numDirtyChunks_;
+  }
+
+  if (self->numDocs_ != v6)
+  {
+    v17 = JreStrcat("$I$I", v7, v8, v9, v10, v11, v12, v13, @"Wrote ");
+    v18 = new_JavaLangRuntimeException_initWithNSString_(v17);
+    objc_exception_throw(v18);
+  }
+
+  indexWriter = self->indexWriter_;
+  if (!indexWriter || (vectorsStream = self->vectorsStream_) == 0)
+  {
+LABEL_10:
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter *)indexWriter finishWithInt:v6 withLong:[(OrgApacheLuceneStoreIndexOutput *)vectorsStream getFilePointer]];
+  [(OrgApacheLuceneStoreDataOutput *)self->vectorsStream_ writeVLongWithLong:self->numChunks_];
+  [(OrgApacheLuceneStoreDataOutput *)self->vectorsStream_ writeVLongWithLong:self->numDirtyChunks_];
+  v16 = self->vectorsStream_;
+
+  OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v16);
+}
+
+- (void)addProxWithInt:(int)int withOrgApacheLuceneStoreDataInput:(id)input withOrgApacheLuceneStoreDataInput:(id)dataInput
+{
+  curField = self->curField_;
+  if (curField->hasPositions_)
+  {
+    v10 = 112;
+    positionsBuf = self->positionsBuf_;
+    if (!positionsBuf)
+    {
+      goto LABEL_57;
+    }
+
+    inputCopy = input;
+    posStart = curField->posStart_;
+    totalPositions = curField->totalPositions_;
+    v15 = totalPositions + posStart + int;
+    if (v15 > positionsBuf[2])
+    {
+      v16 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(positionsBuf, v15, *&int, input, dataInput, v5, v6, v7);
+      JreStrongAssign(&self->positionsBuf_, v16);
+      curField = self->curField_;
+    }
+
+    if (curField->hasPayloads_)
+    {
+      payloadLengthsBuf = self->payloadLengthsBuf_;
+      if (!payloadLengthsBuf)
+      {
+        goto LABEL_57;
+      }
+
+      payStart = curField->payStart_;
+      v19 = curField->totalPositions_;
+      v20 = v19 + payStart + int;
+      if (v20 > payloadLengthsBuf[2])
+      {
+        v21 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(payloadLengthsBuf, v20, *&int, input, dataInput, v5, v6, v7);
+        JreStrongAssign(&self->payloadLengthsBuf_, v21);
+      }
+
+      if (int >= 1)
+      {
+        if (!inputCopy)
+        {
+          goto LABEL_57;
+        }
+
+        v22 = 0;
+        v23 = (v19 + payStart);
+        v24 = (totalPositions + posStart);
+        v25 = &OBJC_IVAR___IOSIntArray_buffer_;
+        intCopy = int;
+        v67 = inputCopy;
+        do
+        {
+          readVInt = [inputCopy readVInt];
+          if (readVInt)
+          {
+            v30 = inputCopy;
+            v31 = v10;
+            v32 = v25;
+            readVInt2 = [v30 readVInt];
+            v34 = self->payloadLengthsBuf_;
+            if (!v34)
+            {
+              goto LABEL_57;
+            }
+
+            v35 = readVInt2;
+            size = v34->super.size_;
+            if ((v23 & 0x80000000) != 0 || v23 >= size)
+            {
+              IOSArray_throwOutOfBoundsWithMsg(size, v23);
+            }
+
+            *(&v34->super.super.isa + 4 * v23 + *v32) = v35;
+            payloadBytes = self->payloadBytes_;
+            if (!payloadBytes)
+            {
+              goto LABEL_57;
+            }
+
+            [(OrgApacheLuceneStoreDataOutput *)payloadBytes copyBytesWithOrgApacheLuceneStoreDataInput:v67 withLong:v35];
+            v25 = v32;
+            v10 = v31;
+          }
+
+          else
+          {
+            v28 = self->payloadLengthsBuf_;
+            if (!v28)
+            {
+              goto LABEL_57;
+            }
+
+            v29 = v28->super.size_;
+            if ((v23 & 0x80000000) != 0 || v23 >= v29)
+            {
+              IOSArray_throwOutOfBoundsWithMsg(v29, v23);
+            }
+
+            *(&v28->super.super.isa + 4 * v23 + *v25) = 0;
+          }
+
+          v38 = *(&self->super.super.isa + v10);
+          if (!v38)
+          {
+            goto LABEL_57;
+          }
+
+          v39 = *(v38 + 8);
+          if ((v24 & 0x80000000) != 0 || v24 >= v39)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v39, v24);
+          }
+
+          v22 += readVInt >> 1;
+          *(v38 + *v25 + 4 * v24) = v22;
+          v23 = (v23 + 1);
+          v24 = (v24 + 1);
+          --intCopy;
+          inputCopy = v67;
+        }
+
+        while (intCopy);
+      }
+    }
+
+    else if (int >= 1)
+    {
+      if (inputCopy)
+      {
+        v40 = 0;
+        v41 = (totalPositions + posStart);
+        intCopy2 = int;
+        while (1)
+        {
+          readVInt3 = [inputCopy readVInt];
+          v44 = self->positionsBuf_;
+          if (!v44)
+          {
+            break;
+          }
+
+          v45 = readVInt3;
+          v46 = v44->super.size_;
+          if ((v41 & 0x80000000) != 0 || v41 >= v46)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v46, v41);
+          }
+
+          v40 += v45 >> 1;
+          *(&v44->super.size_ + v41 + 1) = v40;
+          v41 = (v41 + 1);
+          if (!--intCopy2)
+          {
+            goto LABEL_39;
+          }
+        }
+      }
+
+LABEL_57:
+      JreThrowNullPointerException();
+    }
+  }
+
+LABEL_39:
+  v47 = self->curField_;
+  if (v47->hasOffsets_)
+  {
+    startOffsetsBuf = self->startOffsetsBuf_;
+    if (!startOffsetsBuf)
+    {
+      goto LABEL_57;
+    }
+
+    offStart = v47->offStart_;
+    v50 = v47->totalPositions_;
+    v51 = v50 + offStart + int;
+    if (v51 > startOffsetsBuf->super.size_)
+    {
+      v52 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(v51, 4, *&int, input, dataInput, v5, v6, v7);
+      v53 = JavaUtilArrays_copyOfWithIntArray_withInt_(self->startOffsetsBuf_, v52);
+      JreStrongAssign(&self->startOffsetsBuf_, v53);
+      v54 = JavaUtilArrays_copyOfWithIntArray_withInt_(self->lengthsBuf_, v52);
+      JreStrongAssign(&self->lengthsBuf_, v54);
+    }
+
+    if (int >= 1)
+    {
+      if (dataInput)
+      {
+        v55 = 0;
+        v56 = (v50 + offStart);
+        intCopy3 = int;
+        while (1)
+        {
+          readVInt4 = [dataInput readVInt];
+          readVInt5 = [dataInput readVInt];
+          v60 = self->startOffsetsBuf_;
+          if (!v60)
+          {
+            break;
+          }
+
+          v61 = readVInt5;
+          v62 = v60->super.size_;
+          if ((v56 & 0x80000000) != 0 || v56 >= v62)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v62, v56);
+          }
+
+          v63 = readVInt4 + v55;
+          *(&v60->super.size_ + v56 + 1) = v63;
+          lengthsBuf = self->lengthsBuf_;
+          if (!lengthsBuf)
+          {
+            break;
+          }
+
+          v65 = lengthsBuf->super.size_;
+          if ((v56 & 0x80000000) != 0 || v56 >= v65)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v65, v56);
+          }
+
+          v55 = v63 + v61;
+          *(&lengthsBuf->super.size_ + v56 + 1) = v61;
+          v56 = (v56 + 1);
+          if (!--intCopy3)
+          {
+            goto LABEL_56;
+          }
+        }
+      }
+
+      goto LABEL_57;
+    }
+  }
+
+LABEL_56:
+  self->curField_->totalPositions_ += int;
 }
 
 - (int)mergeWithOrgApacheLuceneIndexMergeState:(id)state

@@ -11,7 +11,6 @@
   v6 = _Block_copy(completion);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd26UnknownDiscoveryTrampoline_implementation);
   selfCopy = self;
   sub_10046EB28(sub_10026AE30, v7);
 }
@@ -21,7 +20,6 @@
   v6 = _Block_copy(completion);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd26UnknownDiscoveryTrampoline_implementation);
   beaconCopy = beacon;
   selfCopy = self;
   sub_10046FB0C(beaconCopy, sub_1007BF38C, v7);

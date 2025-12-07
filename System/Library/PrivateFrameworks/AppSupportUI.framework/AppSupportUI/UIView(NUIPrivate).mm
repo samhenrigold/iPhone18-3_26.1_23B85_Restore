@@ -26,22 +26,22 @@
 
 - (uint64_t)debugSizeCache
 {
-  v2 = MEMORY[0x277CCAB68];
-  v3 = objc_opt_class();
-  v4 = [v2 stringWithFormat:@"<%@ %p size cache:\n", NSStringFromClass(v3), self];
+  v3 = MEMORY[0x277CCAB68];
+  v4 = objc_opt_class();
+  v5 = [v3 stringWithFormat:@"<%@ %p size cache:\n", NSStringFromClass(v4), self];
   IfNeeded = _NUIContainerViewInfoCreateIfNeeded(self, 1);
   begin = IfNeeded->_sizeCache.__begin_;
   for (i = IfNeeded->_sizeCache.__end_; begin != i; begin += 2)
   {
     width = begin[1].width;
     height = begin[1].height;
-    v10 = NSStringFromCGSize(*begin);
-    v13.width = width;
-    v13.height = height;
-    [v4 appendFormat:@"\t%@ : %@\n", v10, NSStringFromCGSize(v13)];
+    v11 = NSStringFromCGSize(*begin);
+    v14.width = width;
+    v14.height = height;
+    [v5 appendFormat:@"\t%@ : %@\n", v11, NSStringFromCGSize(v14)];
   }
 
-  return [v4 stringByAppendingString:@">"];
+  return [v5 stringByAppendingString:@">"];
 }
 
 - (double)calculateLayoutSizeFittingSize:()NUIPrivate

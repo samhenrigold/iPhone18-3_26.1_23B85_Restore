@@ -70,12 +70,10 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromDeviationType(self->_type);
-  start = self->_days.start;
-  duration = self->_days.duration;
-  v8 = NSStringFromHKDayIndexRange();
-  v9 = [v3 stringWithFormat:@"<%@:%p type:%@ days:%@ analytics:%@>", v4, self, v5, v8, self->_analyticsMetadata];
+  v6 = NSStringFromHKDayIndexRange();
+  v7 = [v3 stringWithFormat:@"<%@:%p type:%@ days:%@ analytics:%@>", v4, self, v5, v6, self->_analyticsMetadata];
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

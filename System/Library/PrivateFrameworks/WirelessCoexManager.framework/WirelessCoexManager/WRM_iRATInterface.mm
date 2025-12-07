@@ -20,6 +20,7 @@
 - (void)processOperatingModeNotification:(id)notification;
 - (void)processVoiceLqmNotification:(id)notification;
 - (void)reConnect;
+- (void)registerClient:(int)client queue:(id)queue;
 - (void)removeAppType:(id)type;
 - (void)removeProximityLinkRecommendationType:(id)type;
 - (void)setTelephonyEnabled:(BOOL)enabled;
@@ -386,6 +387,38 @@ LABEL_27:
 LABEL_28:
 }
 
+- (void)registerClient:(int)client queue:(id)queue
+{
+  v4 = *&client;
+  queueCopy = queue;
+  v7 = queueCopy;
+  if (!queueCopy)
+  {
+    v7 = MEMORY[0x277D85CD0];
+    v8 = MEMORY[0x277D85CD0];
+  }
+
+  objc_storeStrong(&self->super.mQueue, v7);
+  if (!queueCopy)
+  {
+  }
+
+  self->super.mProcessId = v4;
+  objc_initWeak(&location, self);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __42__WRM_iRATInterface_registerClient_queue___block_invoke;
+  v12[3] = &unk_279ED5CE0;
+  objc_copyWeak(&v13, &location);
+  v9 = MEMORY[0x2743E9050](v12);
+  mQueue = self->super.mQueue;
+  v11.receiver = self;
+  v11.super_class = WRM_iRATInterface;
+  [(WRMClientInterface *)&v11 registerClient:v4 queue:mQueue notificationHandler:v9];
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
 - (int)getSubscribeMessageType:(int)type
 {
   if ((type - 11) > 0xF)
@@ -457,9 +490,7 @@ LABEL_28:
 
 - (void)subscribeOperatingModeChangeNotification:(id)notification
 {
-  v4 = MEMORY[0x2743E9050](notification, a2);
-  mOppModeObserver = self->mOppModeObserver;
-  self->mOppModeObserver = v4;
+  self->mOppModeObserver = MEMORY[0x2743E9050](notification, a2);
 
   MEMORY[0x2821F96F8]();
 }

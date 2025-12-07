@@ -113,7 +113,7 @@ uint64_t __104__HFPrimaryStateCharacteristicActionSuggestionVendor_suggestedActi
   return v12;
 }
 
-uint64_t __104__HFPrimaryStateCharacteristicActionSuggestionVendor_suggestedActionForCharacteristic_candidateActions___block_invoke_3(uint64_t a1)
+BOOL __104__HFPrimaryStateCharacteristicActionSuggestionVendor_suggestedActionForCharacteristic_candidateActions___block_invoke_3(uint64_t a1)
 {
   if (!*(a1 + 32) || ![*(a1 + 40) countForObject:?])
   {

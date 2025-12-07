@@ -101,18 +101,18 @@ LABEL_21:
   }
 
   v30 = result;
-  WTF::tryFastCompactMalloc((v16 + 20));
+  WTF::tryFastCompactMalloc(&v31, (v16 + 20));
   v17 = v31;
   if (!v31)
   {
     goto LABEL_46;
   }
 
-  v21 = (v31 + 20);
+  v21 = v31 + 5;
   *v31 = 2;
-  *(v31 + 4) = v16;
-  *(v31 + 8) = v31 + 20;
-  *(v31 + 16) = 4;
+  v17[1] = v16;
+  *(v17 + 1) = v17 + 5;
+  v17[4] = 4;
   v22 = a8;
   v23 = a6;
   v24 = a4;
@@ -125,7 +125,7 @@ LABEL_21:
 
     else
     {
-      memcpy((v31 + 20), a2, v9);
+      memcpy(v17 + 5, a2, v9);
       v24 = a4;
       v23 = a6;
       v22 = a8;
@@ -201,7 +201,7 @@ LABEL_22:
   return result;
 }
 
-void *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(void *result, unsigned int a2, _BYTE *a3, size_t a4, _BYTE *a5, size_t a6, _BYTE *a7, size_t a8, _BYTE *__src, size_t __n, _BYTE *a11, size_t a12, _BYTE *a13, size_t a14, _BYTE *a15, size_t a16, _BYTE *a17, size_t a18)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(uint64_t *result, unint64_t a2, _BYTE *a3, size_t a4, _BYTE *a5, size_t a6, _BYTE *a7, size_t a8, _BYTE *__src, size_t __n, _BYTE *a11, size_t a12, _BYTE *a13, size_t a14, _BYTE *a15, size_t a16, _BYTE *a17, size_t a18)
 {
   v18 = result;
   if (!a2)
@@ -217,8 +217,9 @@ void *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASC
     goto LABEL_48;
   }
 
+  v25 = a2;
   v26 = a2;
-  result = WTF::tryFastCompactMalloc((a2 + 20));
+  result = WTF::tryFastCompactMalloc(&v46, (a2 + 20));
   v27 = v46;
   if (!v46)
   {
@@ -228,11 +229,11 @@ LABEL_48:
   }
 
   v45 = v18;
-  v28 = (v46 + 20);
+  v28 = v46 + 5;
   *v46 = 2;
-  *(v46 + 4) = a2;
-  *(v46 + 8) = v46 + 20;
-  *(v46 + 16) = 4;
+  v27[1] = v25;
+  *(v27 + 1) = v27 + 5;
+  v27[4] = 4;
   if (a4)
   {
     if (a4 == 1)
@@ -242,7 +243,7 @@ LABEL_48:
 
     else
     {
-      result = memcpy((v46 + 20), a3, a4);
+      result = memcpy(v27 + 5, a3, a4);
     }
   }
 
@@ -383,8 +384,9 @@ LABEL_48:
   return result;
 }
 
-uint64_t WTF::HashTable<WGSL::AST::Function *,WTF::KeyValuePair<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>>,WTF::DefaultHash<WGSL::AST::Function *>,WTF::HashMap<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>,WTF::DefaultHash<WGSL::AST::Function *>,WTF::HashTraits<WGSL::AST::Function *>,WTF::HashTraits<WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Function *>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t WTF::HashTable<WGSL::AST::Function *,WTF::KeyValuePair<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>>,WTF::DefaultHash<WGSL::AST::Function *>,WTF::HashMap<WGSL::AST::Function *,WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>,WTF::DefaultHash<WGSL::AST::Function *>,WTF::HashTraits<WGSL::AST::Function *>,WTF::HashTraits<WTF::ListHashSet<WTF::String,WTF::DefaultHash<WTF::String>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Function *>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v3 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -401,14 +403,14 @@ uint64_t WTF::HashTable<WGSL::AST::Function *,WTF::KeyValuePair<WGSL::AST::Funct
   v7 = WTF::fastMalloc(((32 * a2) | 0x10));
   v9 = v7;
   v10 = v7 + 16;
-  if (a2)
+  if (v3)
   {
-    bzero((v7 + 16), 32 * a2);
+    bzero((v7 + 16), 32 * v3);
   }
 
   *a1 = v10;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v3 - 1;
+  v9[3] = v3;
   *v9 = 0;
   v9[1] = v6;
   if (v5)
@@ -950,8 +952,9 @@ uint64_t _ZNSt3__110__function6__funcIZN4WGSL12ShaderModule7replaceINS2_3AST14Ca
   return result;
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::RewriteGlobalVariables::Global>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::RewriteGlobalVariables::Global>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::RewriteGlobalVariables::Global,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::RewriteGlobalVariables::Global>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::RewriteGlobalVariables::Global>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::RewriteGlobalVariables::Global,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -968,14 +971,14 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::RewriteG
   v9 = WTF::fastMalloc(((32 * a2) | 0x10));
   v11 = v9;
   v12 = v9 + 16;
-  if (a2)
+  if (v4)
   {
-    bzero((v9 + 16), 32 * a2);
+    bzero((v9 + 16), 32 * v4);
   }
 
   *a1 = v12;
-  v11[2] = a2 - 1;
-  v11[3] = a2;
+  v11[2] = v4 - 1;
+  v11[3] = v4;
   *v11 = 0;
   v11[1] = v8;
   if (v7)
@@ -1070,8 +1073,9 @@ LABEL_25:
   return result;
 }
 
-_DWORD *WTF::HashTable<std::tuple<unsigned int,unsigned int>,WTF::KeyValuePair<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *>>,WTF::DefaultHash<std::tuple<unsigned int,unsigned int>>,WTF::HashMap<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *,WTF::DefaultHash<std::tuple<unsigned int,unsigned int>>,WTF::HashTraits<std::tuple<unsigned int,unsigned int>>,WTF::HashTraits<WGSL::AST::Variable *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::tuple<unsigned int,unsigned int>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<std::tuple<unsigned int,unsigned int>,WTF::KeyValuePair<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *>>,WTF::DefaultHash<std::tuple<unsigned int,unsigned int>>,WTF::HashMap<std::tuple<unsigned int,unsigned int>,WGSL::AST::Variable *,WTF::DefaultHash<std::tuple<unsigned int,unsigned int>>,WTF::HashTraits<std::tuple<unsigned int,unsigned int>>,WTF::HashTraits<WGSL::AST::Variable *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::tuple<unsigned int,unsigned int>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1087,8 +1091,8 @@ _DWORD *WTF::HashTable<std::tuple<unsigned int,unsigned int>,WTF::KeyValuePair<s
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1142,8 +1146,9 @@ _DWORD *WTF::HashTable<std::tuple<unsigned int,unsigned int>,WTF::KeyValuePair<s
   return WTF::fastFree((v4 - 16), v8);
 }
 
-uint64_t WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::IntHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(void *a1, unsigned int a2, uint64_t *a3)
+uint64_t WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::IntHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::Vector<std::pair<unsigned int,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(void *a1, unint64_t a2, uint64_t *a3)
 {
+  v3 = a2;
   v4 = a1;
   v5 = *a1;
   if (*a1)
@@ -1152,7 +1157,7 @@ uint64_t WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,
     v7 = *(v5 - 12);
     v8 = WTF::fastMalloc((24 * a2 + 16));
     v10 = v8 + 4;
-    if (!a2)
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -1164,13 +1169,13 @@ uint64_t WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,
     v7 = 0;
     v8 = WTF::fastMalloc((24 * a2 + 16));
     v10 = v8 + 4;
-    if (!a2)
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 
-  v11 = a2;
+  v11 = v3;
   v12 = v8 + 6;
   do
   {
@@ -1184,8 +1189,8 @@ uint64_t WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,
   while (v11);
 LABEL_7:
   *v4 = v10;
-  v8[2] = a2 - 1;
-  v8[3] = a2;
+  v8[2] = v3 - 1;
+  v8[3] = v3;
   *v8 = 0;
   v8[1] = v7;
   if (v6)
@@ -1196,14 +1201,14 @@ LABEL_7:
     v49 = v6;
     do
     {
-      v16 = (v5 + 24 * v13);
+      v16 = v5 + 24 * v13;
       v17 = *v16;
       if (*v16 != -2)
       {
         if (v17 == -1)
         {
-          v18 = *(v16 + 5);
-          v19 = v16[1];
+          v18 = *(v16 + 20);
+          v19 = *(v16 + 8);
           if (v18)
           {
             v20 = 16 * v18;
@@ -1222,13 +1227,13 @@ LABEL_7:
             }
 
             while (v20);
-            v19 = v16[1];
+            v19 = *(v16 + 8);
           }
 
           if (v19)
           {
-            v16[1] = 0;
-            *(v16 + 4) = 0;
+            *(v16 + 8) = 0;
+            *(v16 + 16) = 0;
             WTF::fastFree(v19, v9);
           }
         }
@@ -1299,18 +1304,18 @@ LABEL_7:
           v39 = *v16;
           *v32 = 0;
           *(v30 + 16) = 0;
-          v40 = v16[1];
-          v16[1] = 0;
+          v40 = *(v16 + 8);
+          *(v16 + 8) = 0;
           *v30 = v39;
           *(v30 + 8) = v40;
-          LODWORD(v39) = *(v16 + 4);
-          *(v16 + 4) = 0;
+          LODWORD(v39) = *(v16 + 16);
+          *(v16 + 16) = 0;
           *(v30 + 16) = v39;
-          LODWORD(v39) = *(v16 + 5);
-          *(v16 + 5) = 0;
+          LODWORD(v39) = *(v16 + 20);
+          *(v16 + 20) = 0;
           *(v30 + 20) = v39;
-          v41 = *(v16 + 5);
-          v42 = v16[1];
+          v41 = *(v16 + 20);
+          v42 = *(v16 + 8);
           if (v41)
           {
             v43 = 16 * v41;
@@ -1329,14 +1334,14 @@ LABEL_7:
             }
 
             while (v43);
-            v42 = v16[1];
+            v42 = *(v16 + 8);
             v15 = v49;
           }
 
           if (v42)
           {
-            v16[1] = 0;
-            *(v16 + 4) = 0;
+            *(v16 + 8) = 0;
+            *(v16 + 16) = 0;
             WTF::fastFree(v42, v9);
           }
 
@@ -2050,8 +2055,9 @@ void WGSL::AST::AbstractIntegerLiteral::~AbstractIntegerLiteral(WGSL::AST::Abstr
   MEMORY[0x22AA68560]();
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflection::EntryPointInformation>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::Reflection::EntryPointInformation>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::Reflection::EntryPointInformation,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::Reflection::EntryPointInformation>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflection::EntryPointInformation>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::Reflection::EntryPointInformation>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::Reflection::EntryPointInformation,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::Reflection::EntryPointInformation>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -2068,14 +2074,14 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflecti
   v7 = WTF::fastMalloc((104 * a2 + 16));
   v9 = v7;
   v10 = v7 + 16;
-  if (a2)
+  if (v3)
   {
-    bzero((v7 + 16), 104 * a2);
+    bzero((v7 + 16), 104 * v3);
   }
 
   *a1 = v10;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v3 - 1;
+  v9[3] = v3;
   *v9 = 0;
   v9[1] = v6;
   if (v5)
@@ -2366,16 +2372,17 @@ LABEL_31:
   return a3;
 }
 
-void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::IntHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::IntHash<unsigned long long>,WTF::HashMap<unsigned long long,WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WTF::HashMap<unsigned long long,WGSL::RewriteGlobalVariables::Global *,WTF::IntHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WGSL::RewriteGlobalVariables::Global *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
@@ -2386,18 +2393,18 @@ void *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WTF
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
   }
 
-  if (a2 < 4)
+  if (v4 < 4)
   {
     v12 = 0;
 LABEL_10:
-    v15 = a2 - v12;
+    v15 = v4 - v12;
     v16 = &v9[4 * v12 + 6];
     do
     {
@@ -2411,7 +2418,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v12 = a2 & 0xFFFFFFFC;
+  v12 = v4 & 0xFFFFFFFC;
   v13 = v9 + 12;
   v14 = v12;
   do
@@ -2425,15 +2432,15 @@ LABEL_10:
   }
 
   while (v14);
-  if (v12 != a2)
+  if (v12 != v4)
   {
     goto LABEL_10;
   }
 
 LABEL_12:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -2608,7 +2615,7 @@ unint64_t WTF::Detail::CallableWrapper<WGSL::RewriteGlobalVariables::determineUs
         }
 
 LABEL_17:
-        WTF::String::number(result);
+        WTF::String::number(&v11, result);
         WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("The combined byte size of all variables in the workgroup address space exceeds ", 80, &v11, " bytes", 7, &v12);
         result = v11;
         *a2 = v12;
@@ -2710,7 +2717,7 @@ unint64_t WTF::Detail::CallableWrapper<WGSL::RewriteGlobalVariables::determineUs
     }
 
 LABEL_15:
-    WTF::String::number(0x2000);
+    WTF::String::number(&v10, 0x2000);
     WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("The combined byte size of all variables in the private address space exceeds ", 78, &v10, " bytes", 7, &v11);
     result = v10;
     *a2 = v11;
@@ -2737,8 +2744,9 @@ LABEL_12:
   return result;
 }
 
-void WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflection::SpecializationConstant>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::Reflection::SpecializationConstant>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::Reflection::SpecializationConstant,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::Reflection::SpecializationConstant>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+void WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflection::SpecializationConstant>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::Reflection::SpecializationConstant>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::Reflection::SpecializationConstant,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::Reflection::SpecializationConstant>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -2755,14 +2763,14 @@ void WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::Reflection::
   v7 = WTF::fastMalloc(((32 * a2) | 0x10));
   v9 = v7;
   v10 = v7 + 16;
-  if (a2)
+  if (v2)
   {
-    bzero((v7 + 16), 32 * a2);
+    bzero((v7 + 16), 32 * v2);
   }
 
   *a1 = v10;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v2 - 1;
+  v9[3] = v2;
   *v9 = 0;
   v9[1] = v6;
   if (v5)
@@ -2948,8 +2956,9 @@ void WGSL::AST::IfStatement::~IfStatement(WGSL::AST::IfStatement *this, void *a2
   JUMPOUT(0x22AA68560);
 }
 
-_OWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::AST::Variable *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::AST::Variable *>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::AST::Variable *,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::AST::Variable *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, WTF::StringImpl **a3)
+_OWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::AST::Variable *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::AST::Variable *>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::AST::Variable *,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::AST::Variable *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, WTF::StringImpl **a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -2965,8 +2974,8 @@ _OWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::AST::Vari
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -3058,7 +3067,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned int,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned int,void>>(uint64_t result, unsigned int a2, unsigned int a3, unsigned int a4)
+unsigned int *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned int,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned int,void>>(unsigned int *result, unint64_t a2, unsigned int a3, int a4)
 {
   v4 = result;
   if (!a2)
@@ -3074,28 +3083,29 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     goto LABEL_12;
   }
 
+  v7 = a2;
   v8 = a2;
-  result = WTF::tryFastCompactMalloc((a2 + 20));
-  v9 = *v15;
-  if (!*v15)
+  result = WTF::tryFastCompactMalloc(&v15, (a2 + 20));
+  v9 = v15;
+  if (!v15)
   {
 LABEL_12:
     *v4 = v9;
     return result;
   }
 
-  **v15 = 2;
-  v9[1] = a2;
-  *(v9 + 1) = v9 + 5;
-  v9[4] = 4;
-  *(v9 + 18) = 24404;
-  *(v9 + 5) = *"__ArgumentBufferT_";
-  if (a2 > 0x11)
+  *v15 = 2;
+  *(v9 + 4) = v7;
+  *(v9 + 8) = v9 + 20;
+  *(v9 + 16) = 4;
+  *(v9 + 36) = 24404;
+  *(v9 + 20) = *"__ArgumentBufferT_";
+  if (v7 > 0x11)
   {
     v10 = v8 - 18;
     v11 = v9 + 38;
     v16 = a3;
-    result = WTF::StringTypeAdapter<unsigned int,void>::writeTo<unsigned char>(&v16, v9 + 38, v10);
+    result = WTF::StringTypeAdapter<unsigned int,void>::writeTo<unsigned char>(&v16, (v9 + 38), v10);
     LODWORD(v12) = 0;
     v13 = v16;
     do
@@ -3108,11 +3118,11 @@ LABEL_12:
     while (v14);
     if (v10 >= v12)
     {
-      v11[v12] = 95;
+      *(v11 + v12) = 95;
       if (v10 != v12)
       {
-        v15[0] = a4;
-        result = WTF::StringTypeAdapter<unsigned int,void>::writeTo<unsigned char>(v15, &v11[v12 + 1], v10 + ~v12);
+        LODWORD(v15) = a4;
+        result = WTF::StringTypeAdapter<unsigned int,void>::writeTo<unsigned char>(&v15, (v11 + v12 + 1), v10 + ~v12);
         goto LABEL_12;
       }
     }
@@ -3122,7 +3132,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t WGSL::Lexer<unsigned char>::lex@<X0>(uint64_t result@<X0>, char *a2@<X1>, unsigned int *a3@<X8>)
+uint64_t WGSL::Lexer<unsigned char>::lex@<X0>(uint64_t result@<X0>, char *a2@<X1>, WTF::StringImpl *a3@<X8>)
 {
   v3 = result;
   v5 = &v284;
@@ -3184,14 +3194,14 @@ LABEL_6:
     v14 = v7 - 1;
     if (v7 != 1 && *v13 == 47)
     {
-      v15 = v13[1];
+      v15 = *(v13 + 1);
       if (v15 != 42)
       {
         if (v15 == 47)
         {
           v16 = *(v3 + 28);
-          v17 = v13 + 1;
-          v18 = v13 + 1;
+          v17 = (v13 + 1);
+          v18 = (v13 + 1);
           while (1)
           {
             *v3 = 0;
@@ -3242,7 +3252,7 @@ LABEL_333:
       *(v3 + 28) = v20;
       v21 = v20.i32[1];
       v22 = v7 - 2;
-      v23 = v13 + 2;
+      v23 = (v13 + 2);
       *(v3 + 8) = v13 + 2;
       *(v3 + 16) = v7 - 2;
       if (v7 == 2)
@@ -3408,7 +3418,7 @@ LABEL_49:
         *(v3 + 32) = v30 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v33 = v13[1], *v3 = v33, v33 != 61))
+        if (v7 == 1 || (v33 = *(v13 + 1), *v3 = v33, v33 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -3426,7 +3436,7 @@ LABEL_49:
         *(v3 + 32) = v34;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -3444,7 +3454,7 @@ LABEL_49:
         *(v3 + 32) = v81 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v84 = v13[1], *v3 = v84, v84 != 61))
+        if (v7 == 1 || (v84 = *(v13 + 1), *v3 = v84, v84 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -3462,7 +3472,7 @@ LABEL_49:
         *(v3 + 32) = v85;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -3484,7 +3494,7 @@ LABEL_49:
           goto LABEL_281;
         }
 
-        v59 = v13[1];
+        v59 = *(v13 + 1);
         *v3 = v59;
         if (v59 == 61)
         {
@@ -3496,7 +3506,7 @@ LABEL_49:
           *(v3 + 32) = v132;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -3516,7 +3526,7 @@ LABEL_49:
           *(v3 + 32) = v60;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -3545,7 +3555,7 @@ LABEL_281:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -3562,7 +3572,7 @@ LABEL_281:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -3580,7 +3590,7 @@ LABEL_281:
         *(v3 + 32) = v74 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v77 = v13[1], *v3 = v77, v77 != 61))
+        if (v7 == 1 || (v77 = *(v13 + 1), *v3 = v77, v77 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -3598,7 +3608,7 @@ LABEL_281:
         *(v3 + 32) = v78;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -3620,7 +3630,7 @@ LABEL_281:
           goto LABEL_283;
         }
 
-        v88 = v13[1];
+        v88 = *(v13 + 1);
         *v3 = v88;
         if (v88 == 61)
         {
@@ -3632,7 +3642,7 @@ LABEL_281:
           *(v3 + 32) = v136;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -3652,7 +3662,7 @@ LABEL_281:
           *(v3 + 32) = v89;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -3681,7 +3691,7 @@ LABEL_283:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -3703,7 +3713,7 @@ LABEL_283:
           goto LABEL_306;
         }
 
-        v104 = v13[1];
+        v104 = *(v13 + 1);
         *v3 = v104;
         switch(v104)
         {
@@ -3716,7 +3726,7 @@ LABEL_283:
             *(v3 + 32) = v147;
             if (v7 != 2)
             {
-              *v3 = v13[2];
+              *v3 = *(v13 + 2);
             }
 
             v46 = *(v3 + 36);
@@ -3734,7 +3744,7 @@ LABEL_283:
             *(v3 + 32) = v146;
             if (v7 != 2)
             {
-              *v3 = v13[2];
+              *v3 = *(v13 + 2);
             }
 
             v46 = *(v3 + 36);
@@ -3752,7 +3762,7 @@ LABEL_283:
             *(v3 + 32) = v105;
             if (v7 != 2)
             {
-              *v3 = v13[2];
+              *v3 = *(v13 + 2);
             }
 
             v46 = *(v3 + 36);
@@ -3781,7 +3791,7 @@ LABEL_306:
         *(v3 + 32) = v97 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v100 = v13[1], *v3 = v100, v100 != 61))
+        if (v7 == 1 || (v100 = *(v13 + 1), *v3 = v100, v100 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -3799,7 +3809,7 @@ LABEL_306:
         *(v3 + 32) = v101;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -3816,7 +3826,7 @@ LABEL_306:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -3833,7 +3843,7 @@ LABEL_306:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -3856,7 +3866,7 @@ LABEL_306:
           goto LABEL_282;
         }
 
-        v66 = v13[1];
+        v66 = *(v13 + 1);
         *v3 = v66;
         if (v66 == 60)
         {
@@ -3866,7 +3876,7 @@ LABEL_306:
           v133 = v64 + 2;
           *(v3 + 28) = v63 + 2;
           *(v3 + 32) = v64 + 2;
-          if (v7 == 2 || (v134 = v13[2], *v3 = v134, v134 != 61))
+          if (v7 == 2 || (v134 = *(v13 + 2), *v3 = v134, v134 != 61))
           {
             v46 = *(v3 + 36);
             v47 = *(v3 + 44);
@@ -3884,7 +3894,7 @@ LABEL_306:
           *(v3 + 32) = v135;
           if (v7 != 3)
           {
-            *v3 = v13[3];
+            *v3 = *(v13 + 3);
           }
 
           v68 = *(v3 + 36);
@@ -3915,7 +3925,7 @@ LABEL_282:
           *(v3 + 32) = v67;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v68 = *(v3 + 36);
@@ -3935,7 +3945,7 @@ LABEL_282:
         *(v3 + 32) = v51 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v54 = v13[1], *v3 = v54, v54 != 61))
+        if (v7 == 1 || (v54 = *(v13 + 1), *v3 = v54, v54 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -3953,7 +3963,7 @@ LABEL_282:
         *(v3 + 32) = v55;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -3976,7 +3986,7 @@ LABEL_282:
           goto LABEL_284;
         }
 
-        v94 = v13[1];
+        v94 = *(v13 + 1);
         *v3 = v94;
         if (v94 == 62)
         {
@@ -3986,7 +3996,7 @@ LABEL_282:
           v137 = v92 + 2;
           *(v3 + 28) = v91 + 2;
           *(v3 + 32) = v92 + 2;
-          if (v7 == 2 || (v138 = v13[2], *v3 = v138, v138 != 61))
+          if (v7 == 2 || (v138 = *(v13 + 2), *v3 = v138, v138 != 61))
           {
             v46 = *(v3 + 36);
             v47 = *(v3 + 44);
@@ -4004,7 +4014,7 @@ LABEL_282:
           *(v3 + 32) = v139;
           if (v7 != 3)
           {
-            *v3 = v13[3];
+            *v3 = *(v13 + 3);
           }
 
           v68 = *(v3 + 36);
@@ -4035,7 +4045,7 @@ LABEL_284:
           *(v3 + 32) = v95;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v68 = *(v3 + 36);
@@ -4056,7 +4066,7 @@ LABEL_302:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4073,7 +4083,7 @@ LABEL_302:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4090,7 +4100,7 @@ LABEL_302:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4108,7 +4118,7 @@ LABEL_302:
         *(v3 + 32) = v40 + 1;
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v43 = v13[1], *v3 = v43, v43 != 61))
+        if (v7 == 1 || (v43 = *(v13 + 1), *v3 = v43, v43 != 61))
         {
           v46 = *(v3 + 36);
           v47 = *(v3 + 44);
@@ -4126,7 +4136,7 @@ LABEL_302:
         *(v3 + 32) = v44;
         if (v7 != 2)
         {
-          *v3 = v13[2];
+          *v3 = *(v13 + 2);
         }
 
         v35 = *(v3 + 36);
@@ -4148,7 +4158,7 @@ LABEL_131:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4170,7 +4180,7 @@ LABEL_131:
           goto LABEL_285;
         }
 
-        v110 = v13[1];
+        v110 = *(v13 + 1);
         *v3 = v110;
         if (v110 == 61)
         {
@@ -4182,7 +4192,7 @@ LABEL_131:
           *(v3 + 32) = v140;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -4202,7 +4212,7 @@ LABEL_131:
           *(v3 + 32) = v111;
           if (v7 != 2)
           {
-            *v3 = v13[2];
+            *v3 = *(v13 + 2);
           }
 
           v46 = *(v3 + 36);
@@ -4231,7 +4241,7 @@ LABEL_285:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4248,7 +4258,7 @@ LABEL_285:
         *(v3 + 16) = v7 - 1;
         if (v7 != 1)
         {
-          *v3 = v13[1];
+          *v3 = *(v13 + 1);
         }
 
         v46 = *(v3 + 36);
@@ -4394,7 +4404,7 @@ LABEL_337:
 
                 v125 = 0;
                 v119 = 5;
-                v116 = &v13[v112];
+                v116 = &v112[v13];
 LABEL_270:
                 *v3 = 0;
                 if (v7 == v112)
@@ -4403,7 +4413,7 @@ LABEL_270:
                 }
 
                 --v121;
-                *(v3 + 8) = &v13[v112 + 1];
+                *(v3 + 8) = &v112[v13 + 1];
                 *(v3 + 16) = v121;
                 *(v3 + 28) = vadd_s32(*(v3 + 28), 0x100000001);
                 if (v14 == v112)
@@ -4414,18 +4424,18 @@ LABEL_270:
                   if (v125)
                   {
 LABEL_275:
-                    v120 = &v13[v112];
+                    v120 = &v112[v13];
 LABEL_276:
                     if (v116 | v115)
                     {
                       if (v117)
                       {
                         v281 = v113;
-                        v127 = v120 - v13;
+                        v127 = &v120[-v13];
                         v128 = v114 != 0;
-                        v129 = (v127 - v128);
+                        v129 = &v127[-v128];
                         *v288 = v6;
-                        v130 = v127 - v128 + 1;
+                        v130 = &v127[-v128 + 1];
                         *&v288[8] = 256;
                         *&v288[12] = v127 - v128 + 1;
                         if (v130 < 0x101)
@@ -4472,7 +4482,7 @@ LABEL_399:
                               JUMPOUT(0x22573F828);
                             }
 
-                            *(*v288 + v196) = v13[v196];
+                            *(*v288 + v196) = *(v13 + v196);
                             ++v196;
                           }
 
@@ -4939,7 +4949,7 @@ LABEL_575:
 
                 else
                 {
-                  v8 = v13[v112 + 1];
+                  v8 = v112[v13 + 1];
                   *v3 = v8;
                   ++v120;
                   ++v112;
@@ -4953,7 +4963,7 @@ LABEL_575:
               case 5:
                 if (!v116)
                 {
-                  v116 = &v13[v112];
+                  v116 = &v112[v13];
                 }
 
                 if (v8 > 0x65u)
@@ -4995,12 +5005,12 @@ LABEL_575:
 
                 v125 = 0;
                 v119 = 8;
-                v115 = &v13[v112];
+                v115 = &v112[v13];
                 goto LABEL_270;
               case 7:
                 if (v118 == 43)
                 {
-                  v115 = &v13[v112];
+                  v115 = &v112[v13];
                 }
 
                 if ((v8 - 48) >= 0xAu)
@@ -5033,7 +5043,7 @@ LABEL_239:
                   v119 = 11;
                   v117 = 1;
 LABEL_247:
-                  result = &v13[v112];
+                  result = &v112[v13];
                   a2 = v121;
                   goto LABEL_270;
                 }
@@ -5046,7 +5056,7 @@ LABEL_247:
                   goto LABEL_247;
                 }
 
-                result = &v13[v112];
+                result = &v112[v13];
                 a2 = v121;
                 if (((v8 | 0x20) - 97) >= 6u)
                 {
@@ -5104,12 +5114,12 @@ LABEL_251:
                 v119 = 12;
                 if ((v8 - 48) < 0xAu)
                 {
-                  v116 = &v13[v112];
+                  v116 = &v112[v13];
                 }
 
                 else
                 {
-                  v116 = &v13[v112];
+                  v116 = &v112[v13];
                   if (((v8 | 0x20) - 97) >= 6u)
                   {
                     goto LABEL_143;
@@ -5121,7 +5131,7 @@ LABEL_251:
                 v125 = 0;
                 if (!v116)
                 {
-                  v116 = &v13[v112];
+                  v116 = &v112[v13];
                 }
 
                 v119 = 12;
@@ -5143,7 +5153,7 @@ LABEL_251:
                 {
                   v125 = 0;
                   v119 = 15;
-                  v115 = &v13[v112];
+                  v115 = &v112[v13];
                   goto LABEL_270;
                 }
 
@@ -5159,7 +5169,7 @@ LABEL_251:
               case 14:
                 if (v118 == 43)
                 {
-                  v115 = &v13[v112];
+                  v115 = &v112[v13];
                 }
 
                 if ((v8 - 48) >= 0xAu)
@@ -5191,14 +5201,14 @@ LABEL_251:
                   if (v8 == 43)
                   {
 LABEL_253:
-                    v115 = &v13[v112];
+                    v115 = &v112[v13];
                     v118 = v8;
                   }
 
                   else
                   {
 LABEL_242:
-                    v115 = &v13[v112];
+                    v115 = &v112[v13];
                     v118 = v8;
                     if (v126 != 45)
                     {
@@ -5211,14 +5221,14 @@ LABEL_242:
                 {
                   v125 = 0;
                   v119 = 18;
-                  v115 = &v13[v112];
+                  v115 = &v112[v13];
                 }
 
                 goto LABEL_270;
               case 17:
                 if (v118 == 43)
                 {
-                  v115 = &v13[v112];
+                  v115 = &v112[v13];
                 }
 
                 if ((v8 - 48) >= 0xAu)
@@ -5299,7 +5309,7 @@ LABEL_143:
         v142 = v141.i32[1];
         *(v3 + 8) = v13 + 1;
         *(v3 + 16) = v7 - 1;
-        if (v7 == 1 || (v143 = v13[1], *v3 = v143, v143 != 95) && (v143 - 48) >= 0xA && (v143 | 0x20u) - 97 > 0x19)
+        if (v7 == 1 || (v143 = *(v13 + 1), *v3 = v143, v143 != 95) && (v143 - 48) >= 0xA && (v143 | 0x20u) - 97 > 0x19)
         {
           v144 = 0;
           v145 = *(v3 + 44);
@@ -5311,12 +5321,12 @@ LABEL_143:
           goto LABEL_581;
         }
 
-        v151 = v13 + 2;
+        v151 = (v13 + 2);
         v152 = v141.i32[0] + 1;
         v153 = v141.i32[1] + 1;
         v154 = v7 - 2;
         v155 = 1;
-        v156 = v13 + 2;
+        v156 = (v13 + 2);
         while (1)
         {
           v142 = v153;
@@ -5470,7 +5480,7 @@ LABEL_353:
               goto LABEL_581;
             }
 
-            if (v13[1] != 95)
+            if (*(v13 + 1) != 95)
             {
 LABEL_382:
               v178 = *(v3 + 36);
@@ -5504,11 +5514,11 @@ LABEL_382:
         }
 
 LABEL_486:
-        v245 = a3[3];
-        if (v245 == a3[2])
+        v245 = *(a3 + 3);
+        if (v245 == *(a3 + 2))
         {
           result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v245 + 1, &v283);
-          v245 = a3[3];
+          v245 = *(a3 + 3);
           v246 = *a3;
           v247 = *a3 + 32 * v245;
           *v247 = *result;
@@ -5597,7 +5607,7 @@ LABEL_499:
 
 LABEL_500:
         v252 = (v245 + 1);
-        a3[3] = v252;
+        *(a3 + 3) = v252;
         if (v250 - 52 < 2 || v250 == 60)
         {
           goto LABEL_529;
@@ -5615,10 +5625,10 @@ LABEL_500:
         *&v288[4] = v253;
         *&v288[12] = v254;
         *&v288[16] = v255;
-        if (v252 == a3[2])
+        if (v252 == *(a3 + 2))
         {
           result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v252 + 1, v288);
-          v256 = *a3 + 32 * a3[3];
+          v256 = *a3 + 32 * *(a3 + 3);
           *v256 = *result;
           *(v256 + 4) = *(result + 4);
           v257 = *result;
@@ -5703,8 +5713,8 @@ LABEL_524:
         }
 
 LABEL_525:
-        LODWORD(v252) = a3[3] + 1;
-        a3[3] = v252;
+        LODWORD(v252) = *(a3 + 3) + 1;
+        *(a3 + 3) = v252;
         if (v259 == 8)
         {
           result = v289;
@@ -5726,10 +5736,10 @@ LABEL_529:
         *&v288[4] = v262;
         *&v288[12] = v263;
         *&v288[16] = v264;
-        if (v252 == a3[2])
+        if (v252 == *(a3 + 2))
         {
           result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v252 + 1, v288);
-          v252 = a3[3];
+          v252 = *(a3 + 3);
           v265 = *a3 + 32 * v252;
           *v265 = *result;
           *(v265 + 4) = *(result + 4);
@@ -5815,7 +5825,7 @@ LABEL_542:
         }
 
 LABEL_543:
-        a3[3] = v252 + 1;
+        *(a3 + 3) = v252 + 1;
         if (v268 == 8)
         {
           result = v289;
@@ -5953,7 +5963,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t WGSL::Lexer<char16_t>::lex@<X0>(uint64_t result@<X0>, WTF::StringImpl *a2@<X1>, unsigned int *a3@<X8>)
+uint64_t WGSL::Lexer<char16_t>::lex@<X0>(uint64_t result@<X0>, WTF::StringImpl *a2@<X1>, WTF::StringImpl *a3@<X8>)
 {
   v3 = result;
   v5 = &v279;
@@ -8423,11 +8433,11 @@ LABEL_352:
         v280 = v49;
         v281 = v50;
 LABEL_353:
-        v155 = a3[3];
-        if (v155 == a3[2])
+        v155 = *(a3 + 3);
+        if (v155 == *(a3 + 2))
         {
           result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v155 + 1, &v278);
-          v155 = a3[3];
+          v155 = *(a3 + 3);
           v156 = *a3;
           v157 = *a3 + 32 * v155;
           *v157 = *result;
@@ -8507,7 +8517,7 @@ LABEL_362:
 
 LABEL_367:
         v162 = (v155 + 1);
-        a3[3] = v162;
+        *(a3 + 3) = v162;
         if (v160 - 52 < 2 || v160 == 60)
         {
           goto LABEL_396;
@@ -8522,10 +8532,10 @@ LABEL_367:
           *&v283[4] = v163;
           v284 = v164;
           v285 = v165;
-          if (v162 == a3[2])
+          if (v162 == *(a3 + 2))
           {
             result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v162 + 1, v283);
-            v166 = *a3 + 32 * a3[3];
+            v166 = *a3 + 32 * *(a3 + 3);
             *v166 = *result;
             *(v166 + 4) = *(result + 4);
             v167 = *result;
@@ -8603,8 +8613,8 @@ LABEL_379:
           }
 
 LABEL_392:
-          LODWORD(v162) = a3[3] + 1;
-          a3[3] = v162;
+          LODWORD(v162) = *(a3 + 3) + 1;
+          *(a3 + 3) = v162;
           if (v169 == 8)
           {
             result = v286;
@@ -8626,10 +8636,10 @@ LABEL_396:
           *&v283[4] = v172;
           v284 = v173;
           v285 = v174;
-          if (v162 == a3[2])
+          if (v162 == *(a3 + 2))
           {
             result = WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a3, v162 + 1, v283);
-            v162 = a3[3];
+            v162 = *(a3 + 3);
             v175 = *a3 + 32 * v162;
             *v175 = *result;
             *(v175 + 4) = *(result + 4);
@@ -8706,7 +8716,7 @@ LABEL_405:
           }
 
 LABEL_410:
-          a3[3] = v162 + 1;
+          *(a3 + 3) = v162 + 1;
           if (v178 == 8)
           {
             result = v286;
@@ -8771,10 +8781,10 @@ LABEL_410:
   }
 }
 
-unint64_t WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *a1, unint64_t a2, unint64_t a3)
 {
   v4 = *a1;
-  if (*a1 > a3 || v4 + 32 * a1[3] <= a3)
+  if (*a1 > a3 || v4 + 32 * *(a1 + 3) <= a3)
   {
     WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, a2);
     return a3;
@@ -8788,9 +8798,9 @@ unint64_t WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>
   }
 }
 
-unsigned int *WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *result, unint64_t a2)
+WTF::StringImpl *WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *result, unint64_t a2)
 {
-  v2 = result[2];
+  v2 = *(result + 2);
   if (v2 + (v2 >> 1) <= v2 + 1)
   {
     v3 = v2 + 1;
@@ -8825,19 +8835,19 @@ unsigned int *WTF::Vector<WGSL::Token,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMal
       v6 = v3;
     }
 
-    v7 = result[3];
+    v7 = *(result + 3);
     result = WTF::fastMalloc((32 * v6));
-    v4[2] = v6;
+    *(v4 + 2) = v6;
     *v4 = result;
     if (v7)
     {
-      v9 = (result + 6);
+      v9 = (result + 24);
       v10 = 32 * v7;
       v11 = (v5 + 24);
       while (1)
       {
         *(v9 - 6) = *(v11 - 6);
-        *(v9 - 20) = *(v11 - 20);
+        *(v9 - 5) = *(v11 - 20);
         v12 = *(v11 - 6);
         if (v12 > 8)
         {
@@ -8892,7 +8902,7 @@ LABEL_19:
           }
         }
 
-        v9 += 4;
+        v9 += 8;
         v11 += 4;
         v10 -= 32;
         if (!v10)
@@ -8911,7 +8921,7 @@ LABEL_28:
       if (*v4 == v5)
       {
         *v4 = 0;
-        v4[2] = 0;
+        *(v4 + 2) = 0;
       }
 
       return WTF::fastFree(v5, v8);
@@ -9129,12 +9139,12 @@ void WGSL::NameManglerVisitor::visit(WGSL::NameManglerVisitor *this, WGSL::AST::
   {
     atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
     WGSL::NameManglerVisitor::introduceVariable(this, a2 + 24, 4);
-    WGSL::AST::ScopedVisitor<WGSL::MangledName>::visit();
+    WGSL::AST::ScopedVisitor<WGSL::MangledName>::visit(this, a2);
   }
 
   WGSL::NameManglerVisitor::introduceVariable(this, a2 + 24, 4);
 
-  WGSL::AST::ScopedVisitor<WGSL::MangledName>::visit();
+  WGSL::AST::ScopedVisitor<WGSL::MangledName>::visit(this, a2);
 }
 
 WTF::StringImpl *WGSL::NameManglerVisitor::introduceVariable(uint64_t a1, uint64_t a2, const WTF::StringImpl *a3)
@@ -9154,7 +9164,7 @@ WTF::StringImpl *WGSL::NameManglerVisitor::introduceVariable(uint64_t a1, uint64
   v10 = *(v9 + 8);
   if (!v10)
   {
-    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::MangledName>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::MangledName>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash((v9 + 8), 8u, 0);
+    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::MangledName>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::MangledName>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash((v9 + 8), 8uLL, 0);
     v10 = *(v9 + 8);
     if (!v10)
     {
@@ -9268,7 +9278,7 @@ LABEL_34:
     if (v28 <= 2 * v27)
     {
 LABEL_35:
-      v29 = v28 << (6 * v26 >= (2 * v28));
+      v29 = (v28 << (6 * v26 >= (2 * v28)));
       goto LABEL_36;
     }
   }
@@ -9340,23 +9350,6 @@ LABEL_39:
   return result;
 }
 
-void WGSL::AST::ScopedVisitor<WGSL::MangledName>::visit()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 WTF::StringImpl *WGSL::NameManglerVisitor::visit(WGSL::NameManglerVisitor *this, WGSL::AST::Parameter *a2)
 {
   WGSL::AST::Visitor::visit(this, *(a2 + 8));
@@ -9390,7 +9383,7 @@ void WGSL::NameManglerVisitor::visit(WGSL::NameManglerVisitor *this, uint64_t **
       }
 
       v13 = v75;
-      if (v75 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::MangledName>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::MangledName>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(&v75, 8u, 0), (v13 = v75) != 0))
+      if (v75 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::MangledName>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::MangledName>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(&v75, 8uLL, 0), (v13 = v75) != 0))
       {
         v14 = *(v13 - 8);
         v15 = *(v7 + 48);
@@ -9497,7 +9490,7 @@ LABEL_38:
         if (v31 <= 2 * v30)
         {
 LABEL_39:
-          v32 = v31 << (6 * v29 >= (2 * v31));
+          v32 = (v31 << (6 * v29 >= (2 * v31)));
           goto LABEL_40;
         }
       }
@@ -9571,7 +9564,7 @@ LABEL_41:
   v40 = v42;
   if (!v42)
   {
-    WTF::HashTable<WGSL::AST::Structure *,WTF::KeyValuePair<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Structure *>,WTF::HashMap<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Structure *>,WTF::HashTraits<WGSL::AST::Structure *>,WTF::HashTraits<WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Structure *>,WTF::FastMalloc>::rehash(v41, 8u);
+    WTF::HashTable<WGSL::AST::Structure *,WTF::KeyValuePair<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Structure *>,WTF::HashMap<WGSL::AST::Structure *,WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Structure *>,WTF::HashTraits<WGSL::AST::Structure *>,WTF::HashTraits<WTF::HashMap<WTF::String,WGSL::MangledName,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::MangledName>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Structure *>,WTF::FastMalloc>::rehash(v41, 8uLL);
     v40 = *v41;
   }
 
@@ -9655,7 +9648,7 @@ LABEL_78:
       }
     }
 
-    v62 = v61 << (6 * v59 >= (2 * v61));
+    v62 = (v61 << (6 * v59 >= (2 * v61)));
     goto LABEL_78;
   }
 
@@ -9786,7 +9779,7 @@ WTF::StringImpl *WGSL::MangledName::toString(WGSL::MangledName *this, unsigned _
   v4 = &(&WGSL::MangledName::toString(void)const::prefixes)[2 * v3];
   v5 = *v4;
   v6 = v4[1];
-  WTF::String::number(*(a2 + 1));
+  WTF::String::number(&v12, *(a2 + 1));
   if (v6)
   {
     v7 = (v6 - 1);
@@ -9830,7 +9823,7 @@ LABEL_20:
 
   if (!v12)
   {
-    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v9, 1, v5, v7, 0, v2);
+    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v9, 1uLL, v5, v7, 0, v2);
     if (*v2)
     {
       goto LABEL_15;
@@ -9849,9 +9842,10 @@ LABEL_21:
 
 LABEL_15:
   result = v12;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v12 = 0;
+  if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    return WTF::StringImpl::destroy(v12, v10);
+    return WTF::StringImpl::destroy(result, v10);
   }
 
   return result;

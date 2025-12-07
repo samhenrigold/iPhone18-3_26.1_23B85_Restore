@@ -42,15 +42,15 @@
 
 - (void)is_addFilter:()PhotosPlayer
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   filters = [self filters];
   if (([filters containsObject:v4] & 1) == 0)
   {
     if (filters)
     {
-      v10[0] = v4;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = v4;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       v7 = [v6 arrayByAddingObjectsFromArray:filters];
 
       filters = v7;
@@ -58,19 +58,17 @@
 
     else
     {
-      v9 = v4;
-      filters = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+      v8 = v4;
+      filters = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
     }
 
     [self setFilters:filters];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)is_addBlurFilterIfNeeded
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   _is_blurFilter = [self _is_blurFilter];
 
   if (!_is_blurFilter)
@@ -82,13 +80,13 @@
     [v3 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
     [v3 setValue:@"medium" forKey:@"inputQuality"];
     [self _is_setBlurFilter:v3];
-    v10[0] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     filters = [self filters];
     if (filters)
     {
-      v9 = v3;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+      v8 = v3;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
       v7 = [v6 arrayByAddingObjectsFromArray:filters];
 
       v4 = v7;
@@ -96,8 +94,6 @@
 
     [self setFilters:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (double)is_blurRadius

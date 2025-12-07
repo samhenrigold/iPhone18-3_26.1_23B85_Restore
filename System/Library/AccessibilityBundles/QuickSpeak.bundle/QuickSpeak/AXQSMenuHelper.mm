@@ -18,9 +18,11 @@
 
 uint64_t __32__AXQSMenuHelper_sharedInstance__block_invoke()
 {
-  sharedInstance__shared_0 = objc_alloc_init(AXQSMenuHelper);
+  v0 = objc_alloc_init(AXQSMenuHelper);
+  v1 = sharedInstance__shared_0;
+  sharedInstance__shared_0 = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 @end

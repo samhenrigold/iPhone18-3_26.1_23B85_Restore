@@ -35,7 +35,7 @@
   v5 = target;
   if (target)
   {
-    [target transformInRoot];
+    objc_msgSend_transformInRoot(target);
   }
 
   else

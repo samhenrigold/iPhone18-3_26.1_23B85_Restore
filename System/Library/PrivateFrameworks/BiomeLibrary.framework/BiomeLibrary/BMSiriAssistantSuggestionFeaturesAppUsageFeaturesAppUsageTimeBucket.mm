@@ -56,28 +56,28 @@ LABEL_9:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   usage = [(BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucket *)self usage];
   jsonDictionary = [usage jsonDictionary];
 
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucket timeBucket](self, "timeBucket")}];
-  v11[0] = @"usage";
+  v10[0] = @"usage";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"timeBucket";
-  v12[0] = null;
+  v10[1] = @"timeBucket";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (jsonDictionary)
@@ -96,14 +96,13 @@ LABEL_9:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucket)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"usage"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -116,9 +115,9 @@ LABEL_7:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v23 = 0;
-    v8 = [[BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucketAppUsage alloc] initWithJSONDictionary:v10 error:&v23];
-    v11 = v23;
+    v22 = 0;
+    v8 = [[BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucketAppUsage alloc] initWithJSONDictionary:v10 error:&v22];
+    v11 = v22;
     if (v11)
     {
       if (error)
@@ -148,13 +147,13 @@ LABEL_4:
         {
           if (error)
           {
-            v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v20 = *MEMORY[0x1E698F240];
-            v24 = *MEMORY[0x1E696A578];
-            v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"timeBucket"];
-            v25 = v21;
-            v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-            *error = [v19 initWithDomain:v20 code:2 userInfo:v22];
+            v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v19 = *MEMORY[0x1E698F240];
+            v23 = *MEMORY[0x1E696A578];
+            v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"timeBucket"];
+            v24 = v20;
+            v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+            *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
           }
 
           v10 = 0;
@@ -188,17 +187,16 @@ LABEL_20:
 
   v14 = objc_alloc(MEMORY[0x1E696ABC0]);
   v15 = *MEMORY[0x1E698F240];
-  v26 = *MEMORY[0x1E696A578];
+  v25 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"usage"];
-  v27[0] = v8;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v26[0] = v8;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   v16 = [v14 initWithDomain:v15 code:2 userInfo:v10];
   selfCopy = 0;
   *error = v16;
 LABEL_21:
 
 LABEL_22:
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -221,7 +219,6 @@ LABEL_22:
     PBDataWriterRecallMark();
   }
 
-  timeBucket = self->_timeBucket;
   PBDataWriterWriteUint32Field();
 }
 
@@ -406,40 +403,36 @@ LABEL_41:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"usage" number:1 type:14 subMessageClass:objc_opt_class()];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timeBucket" number:2 type:4 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"usage_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_418];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timeBucket" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __78__BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucket_columns__block_invoke(uint64_t a1, void *a2)
+id __78__BMSiriAssistantSuggestionFeaturesAppUsageFeaturesAppUsageTimeBucket_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 usage];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 usage];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

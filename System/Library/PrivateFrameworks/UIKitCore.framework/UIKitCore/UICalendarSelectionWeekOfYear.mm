@@ -61,9 +61,9 @@
 
   if (v8 && v7)
   {
-    v9 = [(NSDateComponents *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7, v8, v8);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -251,12 +251,12 @@ LABEL_14:
     lastObject = [(NSArray *)self->_dateComponentsForWeekOfYear lastObject];
     date3 = [lastObject date];
 
-    if ([date2 isEqual:date])
+    if (objc_msgSend_isEqual_(date2))
     {
       v6 = 1;
     }
 
-    else if ([date3 isEqual:date])
+    else if (objc_msgSend_isEqual_(date3))
     {
       v6 = 2;
     }

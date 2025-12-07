@@ -853,14 +853,14 @@ void __41__CNFavorites_rematchEntriesWithOptions___block_invoke(uint64_t a1, voi
   }
 }
 
-uint64_t __41__CNFavorites_rematchEntriesWithOptions___block_invoke_2(uint64_t a1, void *a2)
+void *__41__CNFavorites_rematchEntriesWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 rematchWithContacts];
   *(*(*(a1 + 32) + 8) + 24) |= result;
   return result;
 }
 
-uint64_t __41__CNFavorites_rematchEntriesWithOptions___block_invoke_3(uint64_t a1, void *a2)
+void *__41__CNFavorites_rematchEntriesWithOptions___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 rematchWithGeminiManager:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) |= result;

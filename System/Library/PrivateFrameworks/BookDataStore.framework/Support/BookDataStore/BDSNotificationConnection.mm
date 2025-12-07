@@ -26,10 +26,10 @@
   [v3 timeIntervalSinceReferenceDate];
   v9 = v7 - v8;
 
-  v10 = sub_100002660();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100002660(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1001C20FC(v9 < 1209600.0, v10, v11, v12, v13, v14, v15, v16);
+    sub_1001C20FC(v9 < 1209600.0, v11, v12, v13, v14, v15, v16, v17);
   }
 
   return v9 < 1209600.0;
@@ -37,9 +37,9 @@
 
 - (BDSNotificationConnection)init
 {
-  v25.receiver = self;
-  v25.super_class = BDSNotificationConnection;
-  v2 = [(BDSNotificationConnection *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = BDSNotificationConnection;
+  v2 = [(BDSNotificationConnection *)&v26 init];
   if (v2)
   {
     v3 = objc_alloc_init(NSMutableOrderedSet);
@@ -64,18 +64,18 @@
 
     if (!v2->_lastConnectionDate)
     {
-      v14 = +[NSDate date];
-      v15 = *p_lastConnectionDate;
-      *p_lastConnectionDate = v14;
+      v15 = +[NSDate date];
+      v16 = *p_lastConnectionDate;
+      *p_lastConnectionDate = v15;
 
-      v16 = +[NSUserDefaults standardUserDefaults];
-      [v16 setObject:*p_lastConnectionDate forKey:@"BookDataStore.ConnectionDate"];
+      v17 = +[NSUserDefaults standardUserDefaults];
+      [v17 setObject:*p_lastConnectionDate forKey:@"BookDataStore.ConnectionDate"];
     }
 
-    v17 = sub_100002660();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100002660(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001C2180(&v2->_lastConnectionDate, v17, v18, v19, v20, v21, v22, v23);
+      sub_1001C2180(&v2->_lastConnectionDate, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 
@@ -98,10 +98,10 @@
   lastConnectionDate = [(BDSNotificationConnection *)self lastConnectionDate];
   [v5 setObject:lastConnectionDate forKey:@"BookDataStore.ConnectionDate"];
 
-  v7 = sub_100002660();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100002660(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_1001C21F0(self, v7, v8, v9, v10, v11, v12, v13);
+    sub_1001C21F0(self, v8, v9, v10, v11, v12, v13, v14);
   }
 
   os_unfair_lock_unlock(&self->_unfairLock);
@@ -119,26 +119,26 @@
   v10 = v7 - v9;
 
   os_unfair_lock_unlock(&self->_unfairLock);
-  v11 = sub_100002660();
-  v12 = v11;
+  v12 = sub_100002660(v11);
+  v13 = v12;
   if (v10 >= 1209600.0)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Ignoring cloud notifications - Application has not been launched recently.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Ignoring cloud notifications - Application has not been launched recently.", v14, 2u);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001C2260(v12);
+      sub_1001C2260(v13);
     }
 
-    v12 = [BCCloudKitController instanceForCKNotification:notificationCopy];
-    [v12 handleRemoteCKNotification:notificationCopy];
+    v13 = [BCCloudKitController instanceForCKNotification:notificationCopy];
+    [v13 handleRemoteCKNotification:notificationCopy];
   }
 }
 

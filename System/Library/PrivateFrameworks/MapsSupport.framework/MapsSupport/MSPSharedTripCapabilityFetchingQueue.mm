@@ -120,12 +120,12 @@
   additionsCopy = additions;
   subtractionsCopy = subtractions;
   dispatch_assert_queue_V2(self->_workQueue);
-  v8 = MSPGetSharedTripCapabilityFetchingQueueLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = MSPGetSharedTripCapabilityFetchingQueueLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v9 = MEMORY[0x277CCACA8];
+    v10 = MEMORY[0x277CCACA8];
     selfCopy = self;
-    selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+    selfCopy = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     label = [(MSPSharedTripCapabilityFetchingQueue *)selfCopy label];
     *buf = 138413571;
@@ -140,56 +140,54 @@
     v37 = [subtractionsCopy count];
     v38 = 2113;
     v39 = subtractionsCopy;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEBUG, "%@ (%@) add: %lu %{private}@, removed: %lu %{private}@", buf, 0x3Eu);
+    _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEBUG, "%@ (%@) add: %lu %{private}@, removed: %lu %{private}@", buf, 0x3Eu);
   }
 
   [(MSPCountedOrderedSet *)self->_requestedHandles unionSet:additionsCopy];
   [(MSPCountedOrderedSet *)self->_requestedHandles minusSet:subtractionsCopy];
   if ([subtractionsCopy count])
   {
-    v13 = [(NSMutableOrderedSet *)self->_inflightHandles copy];
+    v14 = [(NSMutableOrderedSet *)self->_inflightHandles copy];
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v15)
+    v15 = v14;
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v24;
+      v17 = v16;
+      v18 = *v24;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v24 != v17)
+          if (*v24 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v23 + 1) + 8 * i);
-          if (![(MSPCountedOrderedSet *)self->_requestedHandles containsObject:v19])
+          v20 = *(*(&v23 + 1) + 8 * i);
+          if (![(MSPCountedOrderedSet *)self->_requestedHandles containsObject:v20])
           {
-            [(NSMutableOrderedSet *)self->_inflightHandles removeObject:v19];
+            [(NSMutableOrderedSet *)self->_inflightHandles removeObject:v20];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
   }
 
   _pendingHandles = [(MSPSharedTripCapabilityFetchingQueue *)self _pendingHandles];
-  v21 = [_pendingHandles count];
+  v22 = [_pendingHandles count];
 
-  if (v21)
+  if (v22)
   {
     [(MSPSharedTripCapabilityFetchingQueue *)self _processPendingHandles];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsHandle:(id)handle
@@ -216,7 +214,7 @@
   return handleCopy;
 }
 
-uint64_t __55__MSPSharedTripCapabilityFetchingQueue_containsHandle___block_invoke(void *a1)
+void *__55__MSPSharedTripCapabilityFetchingQueue_containsHandle___block_invoke(void *a1)
 {
   result = [*(a1[4] + 32) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -243,7 +241,7 @@ uint64_t __55__MSPSharedTripCapabilityFetchingQueue_containsHandle___block_invok
   return v4;
 }
 
-uint64_t __45__MSPSharedTripCapabilityFetchingQueue_count__block_invoke(uint64_t a1)
+void *__45__MSPSharedTripCapabilityFetchingQueue_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -275,10 +273,7 @@ uint64_t __45__MSPSharedTripCapabilityFetchingQueue_count__block_invoke(uint64_t
 
 uint64_t __56__MSPSharedTripCapabilityFetchingQueue_requestedHandles__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) contents];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) contents];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -308,10 +303,7 @@ uint64_t __56__MSPSharedTripCapabilityFetchingQueue_requestedHandles__block_invo
 
 uint64_t __55__MSPSharedTripCapabilityFetchingQueue_inflightHandles__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -381,22 +373,21 @@ void __59__MSPSharedTripCapabilityFetchingQueue_markHandleInflight___block_invok
   v14 = *MEMORY[0x277D85DE8];
   inflightCopy = inflight;
   dispatch_assert_queue_V2(self->_workQueue);
-  v5 = MSPGetSharedTripCapabilityFetchingQueueLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = MSPGetSharedTripCapabilityFetchingQueueLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = MEMORY[0x277CCACA8];
+    v7 = MEMORY[0x277CCACA8];
     selfCopy = self;
-    selfCopy = [v6 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+    selfCopy = [v7 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     *buf = 138543619;
     v11 = selfCopy;
     v12 = 2113;
     v13 = inflightCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] mark handle inflight: %{private}@", buf, 0x16u);
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@] mark handle inflight: %{private}@", buf, 0x16u);
   }
 
   [(NSMutableOrderedSet *)self->_inflightHandles addObject:inflightCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markHandlesInflight:(id)inflight
@@ -429,22 +420,21 @@ void __60__MSPSharedTripCapabilityFetchingQueue_markHandlesInflight___block_invo
   v14 = *MEMORY[0x277D85DE8];
   inflightCopy = inflight;
   dispatch_assert_queue_V2(self->_workQueue);
-  v5 = MSPGetSharedTripCapabilityFetchingQueueLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = MSPGetSharedTripCapabilityFetchingQueueLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = MEMORY[0x277CCACA8];
+    v7 = MEMORY[0x277CCACA8];
     selfCopy = self;
-    selfCopy = [v6 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+    selfCopy = [v7 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     *buf = 138543619;
     v11 = selfCopy;
     v12 = 2113;
     v13 = inflightCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "[%{public}@] mark handles inflight: %{private}@", buf, 0x16u);
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@] mark handles inflight: %{private}@", buf, 0x16u);
   }
 
   [(NSMutableOrderedSet *)self->_inflightHandles unionOrderedSet:inflightCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (MSPSharedTripCapabilityFetchingQueueDelegate)delegate

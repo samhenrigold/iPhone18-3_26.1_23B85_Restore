@@ -1365,7 +1365,7 @@ LABEL_8:
   imageDerivativeTypes = [MEMORY[0x1E6994B90] imageDerivativeTypes];
   v8 = [v6 predicateWithFormat:@"cplType IN %@", imageDerivativeTypes];
   v9 = [allAssetAttachedResources filteredSetUsingPredicate:v8];
-  v10 = [v9 count];
+  v10 = objc_msgSend_count(v9);
 
   if (v10)
   {
@@ -1397,7 +1397,7 @@ LABEL_8:
     videoDerivativeTypes = [MEMORY[0x1E6994B90] videoDerivativeTypes];
     v16 = [v14 predicateWithFormat:@"cplType IN %@", videoDerivativeTypes];
     v17 = [allAssetAttachedResources filteredSetUsingPredicate:v16];
-    v18 = [v17 count];
+    v18 = objc_msgSend_count(v17);
 
     if (!v18)
     {
@@ -1585,7 +1585,7 @@ LABEL_13:
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
-  if ([type isEqualToString:@"com.apple.UIKit.activity.CopyToPasteboard"])
+  if (objc_msgSend_isEqualToString_(type, a2, @"com.apple.UIKit.activity.CopyToPasteboard"))
   {
     [(PLManagedAsset *)self pasteBoardRepresentation];
   }
@@ -1897,7 +1897,7 @@ id __49__PLManagedAsset_descriptionForNonCloudResources__block_invoke(void *a1, 
   sceneAnalysisVersion = [additionalAttributes2 sceneAnalysisVersion];
   additionalAttributes3 = [(PLManagedAsset *)self additionalAttributes];
   sceneAnalysisTimestamp = [additionalAttributes3 sceneAnalysisTimestamp];
-  v10 = [v5 stringWithFormat:@"version: %ld\ntimestamp: %@\n%lu total", sceneAnalysisVersion, sceneAnalysisTimestamp, objc_msgSend(sceneClassifications, "count")];
+  v10 = [v5 stringWithFormat:@"version: %ld\ntimestamp: %@\n%lu total", sceneAnalysisVersion, sceneAnalysisTimestamp, objc_msgSend_count(sceneClassifications)];
 
   v30 = 0u;
   v31 = 0u;
@@ -2346,7 +2346,7 @@ LABEL_11:
 {
   v3 = objc_autoreleasePoolPush();
   allFileExtensions = [(PLManagedAsset *)self allFileExtensions];
-  if ([allFileExtensions count] == 1 && (-[PLManagedAsset isPhoto](self, "isPhoto") || -[PLManagedAsset isVideo](self, "isVideo") || -[PLManagedAsset isAudio](self, "isAudio") || -[PLManagedAsset kind](self, "kind") == 3))
+  if (objc_msgSend_count(allFileExtensions) == 1 && ([(PLManagedAsset *)self isPhoto]|| [(PLManagedAsset *)self isVideo]|| [(PLManagedAsset *)self isAudio]|| [(PLManagedAsset *)self kind]== 3))
   {
 
     objc_autoreleasePoolPop(v3);
@@ -2355,7 +2355,7 @@ LABEL_11:
 
   else
   {
-    v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(allFileExtensions, "count")}];
+    v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(allFileExtensions)];
     v28 = 0;
     v29 = &v28;
     v30 = 0x2020000000;
@@ -2383,12 +2383,12 @@ LABEL_11:
     v14 = &v20;
     v15 = &v16;
     [allFileExtensions enumerateObjectsUsingBlock:v10];
-    if ([v7 count] == 2 && *(v29 + 24) == 1 && (v25[3] & 1) != 0)
+    if (objc_msgSend_count(v7) == 2 && *(v29 + 24) == 1 && (v25[3] & 1) != 0)
     {
       uppercaseString = @"RAW+JPG";
     }
 
-    else if ([v7 count] == 2 && *(v21 + 24) == 1 && (v17[3] & 1) != 0)
+    else if (objc_msgSend_count(v7) == 2 && *(v21 + 24) == 1 && (v17[3] & 1) != 0)
     {
       uppercaseString = 0;
     }
@@ -2678,26 +2678,26 @@ LABEL_16:
   unmanagedAdjustment = [additionalAttributes unmanagedAdjustment];
 
   adjustmentFormatIdentifier = [unmanagedAdjustment adjustmentFormatIdentifier];
-  v6 = [adjustmentFormatIdentifier isEqualToString:@"com.apple.video.slomo"];
+  isEqualToString = objc_msgSend_isEqualToString_(adjustmentFormatIdentifier);
 
   adjustmentFormatVersion = [unmanagedAdjustment adjustmentFormatVersion];
   v8 = adjustmentFormatVersion;
-  if (v6)
+  if (isEqualToString)
   {
-    if ([adjustmentFormatVersion isEqualToString:@"1.1"])
+    if (objc_msgSend_isEqualToString_(adjustmentFormatVersion))
     {
-      LOBYTE(v6) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v6) = [v8 isEqualToString:@"1.0"];
+      LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v8);
     }
   }
 
   isVideo = [(PLManagedAsset *)self isVideo];
 
-  return isVideo & v6;
+  return isVideo & isEqualToString;
 }
 
 - (BOOL)isMogul
@@ -3574,7 +3574,7 @@ LABEL_56:
   _Block_object_dispose(&v144, 8);
 }
 
-uint64_t __165__PLManagedAsset__generateDeferredAdjustmentWithImageConversionClient_videoConversionClient_reason_retryNumber_allowCancellationByService_clientBundleID_completion___block_invoke_1273(uint64_t a1)
+void *__165__PLManagedAsset__generateDeferredAdjustmentWithImageConversionClient_videoConversionClient_reason_retryNumber_allowCancellationByService_clientBundleID_completion___block_invoke_1273(uint64_t a1)
 {
   if ([*(a1 + 32) deferredProcessingNeeded] == 2 || (result = objc_msgSend(*(a1 + 32), "deferredProcessingNeeded"), result == 9))
   {
@@ -4105,7 +4105,7 @@ LABEL_10:
   {
     modernResources = [(PLManagedAsset *)self modernResources];
     v8 = [modernResources objectsPassingTest:&__block_literal_global_1207];
-    LOBYTE(canPlayPhotoIris) = [v8 count] != 0;
+    LOBYTE(canPlayPhotoIris) = objc_msgSend_count(v8) != 0;
   }
 
   return canPlayPhotoIris;
@@ -4213,13 +4213,13 @@ void __98__PLManagedAsset_synchronouslyGenerateFullsizeRenderImageIfNecessaryAtP
   v15 = a5;
   v16 = a8;
   v17 = a9;
-  v18 = [v14 isEqualToString:@"com.apple.mobileiphoto"];
-  if (v18)
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
+  if (isEqualToString)
   {
-    LOBYTE(v18) = [v15 isEqualToString:@"2"];
+    LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v15);
   }
 
-  if (!v13 || (v18 & 1) != 0)
+  if (!v13 || (isEqualToString & 1) != 0)
   {
     [*(a1 + 56) copyItemAtPath:*(a1 + 64) toPath:*(a1 + 48) error:0];
     v27 = *(a1 + 72);
@@ -4295,7 +4295,7 @@ void __98__PLManagedAsset_synchronouslyGenerateFullsizeRenderImageIfNecessaryAtP
 
   else
   {
-    [*(a1 + 32) copyItemAtPath:*(a1 + 40) toPath:*(a1 + 48) error:0];
+    [*(a1 + 32) copyItemAtPath:*(a1 + 40) toPath:*(a1 + 48) error:{0, a3, a4}];
   }
 
   v6 = *(a1 + 56);
@@ -4319,7 +4319,7 @@ void __98__PLManagedAsset_synchronouslyGenerateFullsizeRenderImageIfNecessaryAtP
   }
 
   v20 = objc_alloc_init(PLPhotoEditPersistenceManager);
-  [(PLManagedAsset *)self photoIrisVideoDuration];
+  objc_msgSend_photoIrisVideoDuration(self);
   v21 = [PLPhotoEditImportProperties importPropertiesWithEXIFOrientation:orientation duration:CMTimeGetSeconds(&time)];
   v22 = MEMORY[0x1E696AEC0];
   v23 = objc_opt_class();
@@ -4379,7 +4379,7 @@ void __98__PLManagedAsset_synchronouslyGenerateFullsizeRenderImageIfNecessaryAtP
 uint64_t __197__PLManagedAsset__asyncGenerateRenderImageFileWithSize_formatIdentifier_formatVersion_adjustmentDataBlob_originalImageFilePath_originalImageEXIFOrientation_renderedImageFilePath_completionHandler___block_invoke(void *a1, void *a2, double a3, double a4, double a5, double a6)
 {
   v28 = *MEMORY[0x1E69E9840];
-  v9 = [a2 writeToFile:a1[4] options:1073741825 error:0];
+  v9 = [a2 writeToFile:a1[4] options:1073741825 error:{0, a3, a4}];
   v10 = PLBackendGetLog();
   v11 = v10;
   if (v9)
@@ -4616,7 +4616,7 @@ uint64_t __197__PLManagedAsset__asyncGenerateRenderImageFileWithSize_formatIdent
 {
   v3 = MEMORY[0x1E695DF70];
   sidecars = [(PLManagedAsset *)self sidecars];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(sidecars, "count") + 1}];
+  v5 = [v3 arrayWithCapacity:objc_msgSend_count(sidecars) + 1];
 
   uniformTypeIdentifier = [(PLManagedAsset *)self uniformTypeIdentifier];
   if (uniformTypeIdentifier)
@@ -4631,7 +4631,7 @@ uint64_t __197__PLManagedAsset__asyncGenerateRenderImageFileWithSize_formatIdent
   }
 
   sidecars2 = [(PLManagedAsset *)self sidecars];
-  v9 = [sidecars2 count];
+  v9 = objc_msgSend_count(sidecars2);
 
   if (v9)
   {
@@ -4668,7 +4668,7 @@ void __43__PLManagedAsset_allUniformTypeIdentifiers__block_invoke(uint64_t a1, v
 {
   v3 = MEMORY[0x1E695DF70];
   sidecars = [(PLManagedAsset *)self sidecars];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(sidecars, "count") + 1}];
+  v5 = [v3 arrayWithCapacity:objc_msgSend_count(sidecars) + 1];
 
   pathForOriginalFile = [(PLManagedAsset *)self pathForOriginalFile];
   pathExtension = [pathForOriginalFile pathExtension];
@@ -6349,9 +6349,9 @@ LABEL_14:
   if ([objc_opt_class() isPrimaryImageFormatForUTI:uniformTypeIdentifier])
   {
     identifier = [*MEMORY[0x1E6982E10] identifier];
-    v7 = [uniformTypeIdentifier isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(uniformTypeIdentifier);
 
-    if ((v7 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -6417,7 +6417,7 @@ BOOL __48__PLManagedAsset_pathForFullsizeRenderImageFile__block_invoke(uint64_t 
     v8 = objc_alloc(MEMORY[0x1E69C0910]);
     if (v6)
     {
-      [v6 slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(v6);
     }
 
     else
@@ -6429,11 +6429,11 @@ BOOL __48__PLManagedAsset_pathForFullsizeRenderImageFile__block_invoke(uint64_t 
     v9 = [v8 initWithSlowMotionTimeRange:v21 rate:?];
     adjustmentFormatIdentifier = [v9 adjustmentFormatIdentifier];
     adjustmentFormatIdentifier2 = [v6 adjustmentFormatIdentifier];
-    if ([adjustmentFormatIdentifier isEqualToString:adjustmentFormatIdentifier2])
+    if (objc_msgSend_isEqualToString_(adjustmentFormatIdentifier))
     {
       adjustmentFormatVersion = [v9 adjustmentFormatVersion];
       adjustmentFormatVersion2 = [v6 adjustmentFormatVersion];
-      if ([adjustmentFormatVersion isEqualToString:adjustmentFormatVersion2])
+      if (objc_msgSend_isEqualToString_(adjustmentFormatVersion))
       {
         adjustmentData = [v9 adjustmentData];
         adjustmentData2 = [v6 adjustmentData];
@@ -6595,27 +6595,27 @@ LABEL_15:
 
 - (BOOL)_setDefaultSlowMotionAdjustmentsWithMainFileMetadata:(id)metadata
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   if ([metadataCopy isSyndicationOriginated])
   {
     if (metadataCopy)
     {
-      [metadataCopy duration];
-      v5 = HIDWORD(v26);
-      v6 = v27;
+      objc_msgSend_duration(metadataCopy);
+      v5 = HIDWORD(v24);
+      v6 = v25;
     }
 
     else
     {
       v6 = 0;
       v5 = 0;
-      v26 = 0uLL;
-      *&v27 = 0;
+      v24 = 0uLL;
+      *&v25 = 0;
     }
 
-    v29 = v26;
-    v30 = DWORD2(v26);
+    v27 = v24;
+    v28 = DWORD2(v24);
     nominalFrameRate = [metadataCopy nominalFrameRate];
     [nominalFrameRate floatValue];
     v11 = v10;
@@ -6628,21 +6628,21 @@ LABEL_15:
     v9 = v8;
     if (v8)
     {
-      [v8 duration];
-      v5 = HIDWORD(v26);
-      v6 = v27;
+      objc_msgSend_duration(v8);
+      v5 = HIDWORD(v24);
+      v6 = v25;
     }
 
     else
     {
       v6 = 0;
       v5 = 0;
-      v26 = 0uLL;
-      *&v27 = 0;
+      v24 = 0uLL;
+      *&v25 = 0;
     }
 
-    v29 = v26;
-    v30 = DWORD2(v26);
+    v27 = v24;
+    v28 = DWORD2(v24);
     v12 = [MEMORY[0x1E69C0708] tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:v9];
     firstObject = [v12 firstObject];
     [firstObject nominalFrameRate];
@@ -6651,21 +6651,18 @@ LABEL_15:
 
   if (v5)
   {
-    v27 = 0u;
-    v28 = 0u;
+    v25 = 0u;
     v26 = 0u;
-    *&v23 = v29;
-    *(&v23 + 1) = __PAIR64__(v5, v30);
-    *&v24 = v6;
-    [MEMORY[0x1E69C0910] defaultSlowMotionTimeRangeForDuration:&v23];
+    v24 = 0u;
+    objc_msgSend_defaultSlowMotionTimeRangeForDuration_(MEMORY[0x1E69C0910], v27, __PAIR64__(v5, v28), v6);
     LODWORD(v16) = v11;
     [MEMORY[0x1E69C0910] defaultSlowMotionRateForNominalFrameRate:v16];
     v18 = v17;
     v19 = objc_alloc(MEMORY[0x1E69C0910]);
-    v23 = v26;
-    v24 = v27;
-    v25 = v28;
-    v20 = [v19 initWithSlowMotionTimeRange:&v23 rate:{COERCE_DOUBLE(__PAIR64__(DWORD1(v28), v18))}];
+    v23[0] = v24;
+    v23[1] = v25;
+    v23[2] = v26;
+    v20 = [v19 initWithSlowMotionTimeRange:v23 rate:{COERCE_DOUBLE(__PAIR64__(DWORD1(v26), v18))}];
     v15 = v20 != 0;
     if (v20)
     {
@@ -9704,7 +9701,7 @@ LABEL_4:
   return v3;
 }
 
-uint64_t __43__PLManagedAsset_shouldUseNonAdjustedVideo__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__43__PLManagedAsset_shouldUseNonAdjustedVideo__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [MEMORY[0x1E69C0910] isRecognizedSlowMotionFormatWithIdentifier:a2 version:a3];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -9978,7 +9975,7 @@ void __34__PLManagedAsset_adjustedFileURLs__block_invoke_2(uint64_t a1, uint64_t
 {
   v109 = *MEMORY[0x1E69E9840];
   sidecars = [(PLManagedAsset *)self sidecars];
-  v4 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(sidecars, "count") + 1}];
+  v4 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(sidecars) + 1];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __29__PLManagedAsset_allFileURLs__block_invoke;
@@ -10285,7 +10282,7 @@ void __29__PLManagedAsset_allFileURLs__block_invoke_986(uint64_t a1, uint64_t a2
 {
   v20 = *MEMORY[0x1E69E9840];
   sidecars = [(PLManagedAsset *)self sidecars];
-  v4 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(sidecars, "count") + 1}];
+  v4 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(sidecars) + 1];
   pathForOriginalFile = [(PLManagedAsset *)self pathForOriginalFile];
   if (pathForOriginalFile)
   {
@@ -10932,7 +10929,7 @@ LABEL_5:
 {
   v16 = *MEMORY[0x1E69E9840];
   libraryScopeAssetContributors = [(PLManagedAsset *)self libraryScopeAssetContributors];
-  v3 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(libraryScopeAssetContributors, "count")}];
+  v3 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(libraryScopeAssetContributors)];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
@@ -11172,13 +11169,13 @@ LABEL_5:
   bOOLValue2 = [smartStyleExpectingReversibility BOOLValue];
 
   importedByBundleIdentifier = [(PLManagedAsset *)self importedByBundleIdentifier];
-  v10 = [importedByBundleIdentifier isEqualToString:*MEMORY[0x1E69BF420]];
+  isEqualToString = objc_msgSend_isEqualToString_(importedByBundleIdentifier);
 
   if (bOOLValue)
   {
     extendedAttributes = [(PLManagedAsset *)self extendedAttributes];
     sleetCast = [extendedAttributes sleetCast];
-    v13 = ([sleetCast intValue] < 1) | v10;
+    v13 = ([sleetCast intValue] < 1) | isEqualToString;
 
     if ((v13 & 1) == 0)
     {
@@ -11198,9 +11195,9 @@ LABEL_5:
     }
   }
 
-  if ((bOOLValue2 & v10) != 1 || [(PLManagedAsset *)self deferredProcessingNeeded]!= 1)
+  if ((bOOLValue2 & isEqualToString) != 1 || [(PLManagedAsset *)self deferredProcessingNeeded]!= 1)
   {
-    if ((bOOLValue & v10) != 1)
+    if ((bOOLValue & isEqualToString) != 1)
     {
       goto LABEL_12;
     }
@@ -11224,7 +11221,7 @@ LABEL_12:
 
 - (BOOL)isTimelapsePlaceholder
 {
-  if ([(PLManagedAsset *)self kindSubtype]== 102 && ([(PLManagedAsset *)self duration], v3 == 0.0))
+  if ([(PLManagedAsset *)self kindSubtype]== 102 && (objc_msgSend_duration(self), v3 == 0.0))
   {
     pathForOriginalFile = [(PLManagedAsset *)self pathForOriginalFile];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -11367,12 +11364,12 @@ LABEL_14:
   return v6 & 1;
 }
 
-uint64_t __42__PLManagedAsset_canPerformEditOperation___block_invoke(uint64_t result)
+id *__42__PLManagedAsset_canPerformEditOperation___block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 48) == 101 && (result = [*(result + 32) hasLibraryScope], result))
+  if (result[6] == 101 && (result = [result[4] hasLibraryScope], result))
   {
-    result = [objc_opt_class() _isLibraryScopeExiting:*(v1 + 32)];
+    result = [objc_opt_class() _isLibraryScopeExiting:v1[4]];
     if (result)
     {
       v2 = 0;
@@ -11380,16 +11377,16 @@ uint64_t __42__PLManagedAsset_canPerformEditOperation___block_invoke(uint64_t re
 
     else
     {
-      result = [*(v1 + 32) shareState];
+      result = [v1[4] shareState];
       v2 = result == 1;
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = v2;
+    *(*(v1[5] + 1) + 24) = v2;
   }
 
   else
   {
-    *(*(*(v1 + 40) + 8) + 24) = 1;
+    *(*(v1[5] + 1) + 24) = 1;
   }
 
   return result;
@@ -11530,21 +11527,21 @@ LABEL_8:
 
       v8 = v7;
 
-      v9 = [v8 isEqualToString:@"Screenshot"];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
     }
 
     else
     {
-      v9 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
-  return v9;
+  return isEqualToString;
 }
 
 - (BOOL)_hasPanoramaDimensions
@@ -12505,7 +12502,7 @@ id __93__PLManagedAsset_fullSizeResourceMetadataFromMediaPropertiesOrFullSizeRes
     [durationTimeInterval doubleValue];
     v9 = v8;
 
-    [(PLManagedAsset *)self duration];
+    objc_msgSend_duration(self);
     if (vabdd_f64(v10, v9) > 0.00000011920929)
     {
       [(PLManagedAsset *)self setDuration:v9];
@@ -12623,8 +12620,8 @@ id __93__PLManagedAsset_fullSizeResourceMetadataFromMediaPropertiesOrFullSizeRes
     [durationTimeInterval doubleValue];
     v7 = v6;
 
-    duration = [v4 duration];
-    [duration doubleValue];
+    v8 = objc_msgSend_duration(v4);
+    [v8 doubleValue];
     v10 = vabdd_f64(v9, v7);
 
     if (v10 > 2.22044605e-16)
@@ -12688,8 +12685,8 @@ id __93__PLManagedAsset_fullSizeResourceMetadataFromMediaPropertiesOrFullSizeRes
     durationTimeInterval = [metadataCopy durationTimeInterval];
     if (durationTimeInterval)
     {
-      duration = [v4 duration];
-      [duration doubleValue];
+      v7 = objc_msgSend_duration(v4);
+      [v7 doubleValue];
       v9 = v8;
       [durationTimeInterval doubleValue];
       v11 = vabdd_f64(v9, v10);
@@ -12717,9 +12714,9 @@ id __93__PLManagedAsset_fullSizeResourceMetadataFromMediaPropertiesOrFullSizeRes
 
     firstVideoTrackCodecString = [metadataCopy firstVideoTrackCodecString];
     codec = [v4 codec];
-    v20 = [firstVideoTrackCodecString isEqualToString:codec];
+    isEqualToString = objc_msgSend_isEqualToString_(firstVideoTrackCodecString);
 
-    if ((v20 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       [v4 setCodec:firstVideoTrackCodecString];
     }
@@ -13028,16 +13025,16 @@ LABEL_8:
 LABEL_10:
   cameraMake = [metadataCopy cameraMake];
   cameraMake2 = [attributesCopy cameraMake];
-  v17 = [cameraMake isEqualToString:cameraMake2];
+  isEqualToString = objc_msgSend_isEqualToString_(cameraMake);
 
-  if ((v17 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [attributesCopy setCameraMake:cameraMake];
   }
 
   cameraModel = [metadataCopy cameraModel];
   cameraModel2 = [attributesCopy cameraModel];
-  v20 = [cameraModel isEqualToString:cameraModel2];
+  v20 = objc_msgSend_isEqualToString_(cameraModel);
 
   if ((v20 & 1) == 0)
   {
@@ -13607,7 +13604,7 @@ LABEL_13:
   additionalAttributes = [(PLManagedAsset *)self additionalAttributes];
   exifTimestampString = [additionalAttributes exifTimestampString];
 
-  if (creationDateString | exifTimestampString && ([exifTimestampString isEqualToString:creationDateString] & 1) == 0)
+  if (creationDateString | exifTimestampString && (objc_msgSend_isEqualToString_(exifTimestampString) & 1) == 0)
   {
     additionalAttributes2 = [(PLManagedAsset *)self additionalAttributes];
     [additionalAttributes2 setExifTimestampString:creationDateString];
@@ -13987,9 +13984,9 @@ LABEL_22:
         }
 
         v10 = *(*(&v27 + 1) + 8 * v9);
-        if (([v10 isEqualToString:{@"dateCreated", v24}] & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"trashedReason") & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v10, v24) & 1) == 0 && (objc_msgSend_isEqualToString_(v10) & 1) == 0)
         {
-          if ([v10 isEqualToString:@"trashedState"])
+          if (objc_msgSend_isEqualToString_(v10))
           {
             v11 = [v5 objectForKeyedSubscript:v10];
             bOOLValue = [v11 BOOLValue];
@@ -14012,7 +14009,7 @@ LABEL_22:
             }
           }
 
-          else if ([v10 isEqualToString:@"photoIrisVideoDuration"])
+          else if (objc_msgSend_isEqualToString_(v10))
           {
             memset(&v31, 0, sizeof(v31));
             v16 = [v5 objectForKeyedSubscript:v10];
@@ -14022,7 +14019,7 @@ LABEL_22:
             [(PLManagedAsset *)self setPhotoIrisVideoDuration:&v26];
           }
 
-          else if ([v10 isEqualToString:@"photoIrisStillDisplayTime"])
+          else if (objc_msgSend_isEqualToString_(v10))
           {
             memset(&v31, 0, sizeof(v31));
             v17 = [v5 objectForKeyedSubscript:v10];
@@ -14032,7 +14029,7 @@ LABEL_22:
             [(PLManagedAsset *)self setPhotoIrisStillDisplayTime:&v26];
           }
 
-          else if ([v10 isEqualToString:@"location"])
+          else if (objc_msgSend_isEqualToString_(v10))
           {
             v18 = [v5 objectForKeyedSubscript:v10];
             dateCreated = [(PLManagedAsset *)self dateCreated];
@@ -14046,7 +14043,7 @@ LABEL_22:
             }
           }
 
-          else if ([v10 isEqualToString:@"hdrType"])
+          else if (objc_msgSend_isEqualToString_(v10))
           {
             v21 = [v5 objectForKeyedSubscript:v10];
             -[PLManagedAsset setHdrType:](self, "setHdrType:", [v21 unsignedIntegerValue]);
@@ -15312,7 +15309,7 @@ LABEL_148:
             v119 = v153;
 
             v142 = v53;
-            if ([v118 count])
+            if (objc_msgSend_count(v118))
             {
               additionalAttributes10 = [(PLManagedAsset *)self additionalAttributes];
               [additionalAttributes10 setLibraryScopeAssetContributorsToUpdate:v118];
@@ -15762,7 +15759,7 @@ LABEL_8:
   v15 = [v13 stringWithFormat:@"added:%@", addedDate];
   [array addObject:v15];
 
-  if ([array count])
+  if (objc_msgSend_count(array))
   {
     objc_msgSend(string, "appendString:", @" (");
     v16 = [array componentsJoinedByString:{@", "}];
@@ -15784,9 +15781,9 @@ LABEL_8:
   path = [uRIRepresentation path];
   pathComponents = [path pathComponents];
 
-  if ([pathComponents count] >= 2)
+  if (objc_msgSend_count(pathComponents) >= 2)
   {
-    v8 = [pathComponents subarrayWithRange:{objc_msgSend(pathComponents, "count") - 2, 2}];
+    v8 = [pathComponents subarrayWithRange:{objc_msgSend_count(pathComponents) - 2, 2}];
 
     pathComponents = v8;
   }
@@ -15893,7 +15890,7 @@ LABEL_8:
     originalAssetsUUID = [(PLManagedAsset *)self originalAssetsUUID];
     v6 = [photoLibrary assetWithUUID:originalAssetsUUID];
 
-    if (v6 && (-[PLManagedAsset duration](self, "duration"), v8 = v7, [v6 duration], v8 == v9))
+    if (v6 && (objc_msgSend_duration(self), v8 = v7, objc_msgSend_duration(v6), v8 == v9))
     {
       pathForVideoFile = [v6 pathForVideoFile];
       v11 = PLPhotoSharingGetLog();
@@ -16025,7 +16022,7 @@ LABEL_8:
   *&v44 = -1.0;
   *&v45 = -1.0;
   detectedFaces = [(PLManagedAsset *)self detectedFaces];
-  v4 = [detectedFaces count];
+  v4 = objc_msgSend_count(detectedFaces);
 
   if (v4)
   {
@@ -16097,7 +16094,7 @@ LABEL_20:
     faceRegions2 = [(PLManagedAsset *)self faceRegions];
     detectedFaces2 = PLManagedAssetDecodeFaceRegions(faceRegions2);
 
-    if ([detectedFaces2 count])
+    if (objc_msgSend_count(detectedFaces2))
     {
       v23 = 0;
       do
@@ -16131,7 +16128,7 @@ LABEL_20:
         ++v23;
       }
 
-      while ([detectedFaces2 count] > v23);
+      while (objc_msgSend_count(detectedFaces2) > v23);
     }
 
     goto LABEL_20;
@@ -16481,9 +16478,9 @@ void __28__PLManagedAsset_setMoment___block_invoke(uint64_t a1, void *a2)
   }
 
   originalColorSpace2 = [(PLManagedAsset *)self originalColorSpace];
-  v5 = [originalColorSpace2 isEqualToString:@"sRGB IEC61966-2.1"];
+  isEqualToString = objc_msgSend_isEqualToString_(originalColorSpace2);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (int64_t)originalImageOrientation
@@ -16831,7 +16828,7 @@ LABEL_5:
   v6 = [userInfo objectForKeyedSubscript:@"updatingAssetPersonEdgesKey"];
 
   changedValues = [(PLManagedAsset *)self changedValues];
-  if ([changedValues count] || !v6)
+  if (objc_msgSend_count(changedValues) || !v6)
   {
   }
 
@@ -17126,7 +17123,7 @@ LABEL_105:
 
         if ([(PLManagedAsset *)self isVideo]&& ![(PLManagedAsset *)self isCloudSharedAsset])
         {
-          [(PLManagedAsset *)self videoKeyFrameTime];
+          objc_msgSend_videoKeyFrameTime(self);
           if ((v191 & 0x1D) == 1)
           {
             localVideoKeyFrameResource = [(PLManagedAsset *)self localVideoKeyFrameResource];
@@ -17624,9 +17621,9 @@ LABEL_214:
   v4 = [&unk_1F0FBF448 containsObject:v3];
 
   importedByBundleIdentifier = [(PLManagedAsset *)self importedByBundleIdentifier];
-  v6 = [importedByBundleIdentifier isEqualToString:@"com.apple.camera.CameraMessagesApp"];
+  isEqualToString = objc_msgSend_isEqualToString_(importedByBundleIdentifier);
 
-  v7 = [MEMORY[0x1E696AD98] numberWithBool:((v6 | v4) & 1) == 0];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:((isEqualToString | v4) & 1) == 0];
   [(PLManagedObject *)self pl_safeSetValue:v7 forKey:@"isRecentlySaved" valueDidChangeHandler:0];
 }
 
@@ -18087,7 +18084,7 @@ LABEL_11:
       albums = [(PLManagedAsset *)self albums];
       v18 = [v16 mutableCopy];
       [v18 minusSet:albums];
-      if ([v18 count])
+      if (objc_msgSend_count(v18))
       {
         v30 = albums;
         v31 = v16;
@@ -18428,7 +18425,7 @@ LABEL_31:
       while (v10);
     }
 
-    if ([array count])
+    if (objc_msgSend_count(array))
     {
       v17 = 0;
       do
@@ -18466,7 +18463,7 @@ LABEL_31:
         ++v17;
       }
 
-      while ([array count] > v17);
+      while (objc_msgSend_count(array) > v17);
     }
 
     v26[0] = MEMORY[0x1E69E9820];
@@ -19576,7 +19573,7 @@ LABEL_5:
   _checkForAndAddFrameDropRecoveryForPhotoKitIngest = [(PLManagedAsset *)self _checkForAndAddFrameDropRecoveryForPhotoKitIngest];
   path = [lCopy path];
   pathForDeferredVideoComplementFile = [(PLManagedAsset *)self pathForDeferredVideoComplementFile];
-  v22 = [path isEqualToString:pathForDeferredVideoComplementFile];
+  isEqualToString = objc_msgSend_isEqualToString_(path);
 
   if (!isPhoto)
   {
@@ -19586,8 +19583,8 @@ LABEL_5:
     goto LABEL_45;
   }
 
-  v23 = v22 | _checkForAndAddFrameDropRecoveryForPhotoKitIngest;
-  v49 = v22 | _checkForAndAddFrameDropRecoveryForPhotoKitIngest;
+  v23 = isEqualToString | _checkForAndAddFrameDropRecoveryForPhotoKitIngest;
+  v49 = isEqualToString | _checkForAndAddFrameDropRecoveryForPhotoKitIngest;
   if ((options & 2) != 0)
   {
     path2 = [lCopy path];
@@ -19769,7 +19766,7 @@ LABEL_45:
   pathCopy = path;
   destinationPathCopy = destinationPath;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  if ([pathCopy isEqualToString:destinationPathCopy] && (objc_msgSend(defaultManager, "fileExistsAtPath:", destinationPathCopy) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(pathCopy) && ([defaultManager fileExistsAtPath:destinationPathCopy] & 1) != 0)
   {
     v8 = 1;
   }
@@ -19861,9 +19858,9 @@ LABEL_45:
 {
   dCopy = d;
   mediaGroupUUID = [(PLManagedAsset *)self mediaGroupUUID];
-  v10 = [mediaGroupUUID isEqualToString:dCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(mediaGroupUUID);
 
-  if ((v10 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(PLManagedAsset *)self setMediaGroupUUID:dCopy];
   }
@@ -19890,9 +19887,9 @@ LABEL_45:
     goto LABEL_8;
   }
 
-  [v5 videoDuration];
+  objc_msgSend_videoDuration(v5);
   memset(v21, 0, 24);
-  [v6 imageDisplayTime];
+  objc_msgSend_imageDisplayTime(v6);
   if (v21[1].value)
   {
     goto LABEL_18;
@@ -20041,7 +20038,7 @@ LABEL_18:
 
 - (void)setPhotoIrisVideoDuration:(id *)duration
 {
-  [(PLManagedAsset *)self photoIrisVideoDuration];
+  objc_msgSend_photoIrisVideoDuration(self, a2);
   v6 = *duration;
   if (CMTimeCompare(&v6, &time2))
   {
@@ -20066,7 +20063,7 @@ LABEL_18:
 
 - (void)setPhotoIrisStillDisplayTime:(id *)time
 {
-  [(PLManagedAsset *)self photoIrisStillDisplayTime];
+  objc_msgSend_photoIrisStillDisplayTime(self, a2);
   v6 = *time;
   if (CMTimeCompare(&v6, &time2))
   {
@@ -20574,9 +20571,9 @@ LABEL_48:
   {
     importSession = [(PLManagedAsset *)self importSession];
     importSessionID = [importSession importSessionID];
-    v8 = [importSessionID isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(importSessionID);
 
-    if (v8)
+    if (isEqualToString)
     {
 LABEL_18:
 
@@ -20643,7 +20640,7 @@ LABEL_12:
       }
     }
 
-    [(PLManagedAsset *)self setImportSession:v14, *v21, *&v21[16]];
+    [(PLManagedAsset *)self setImportSession:v14, *v21, *&v21[8]];
     [v14 updateImportDatesFromAddedAsset:self];
     objectID = [v14 objectID];
     [dictionary setObject:objectID forKeyedSubscript:dCopy];
@@ -21597,7 +21594,7 @@ void __85__PLManagedAsset__handleHighlightRelationshipChangeForKey_forAssetCount
 - (BOOL)hasLibraryScope
 {
   v2 = [(PLManagedAsset *)self objectIDsForRelationshipNamed:@"libraryScope"];
-  v3 = [v2 count] != 0;
+  v3 = objc_msgSend_count(v2) != 0;
 
   return v3;
 }
@@ -22021,12 +22018,12 @@ void __77__PLManagedAsset_batchFetchAssetsByFaceUUIDWithFaceUUIDs_library_comple
   lCopy = l;
   v8 = objc_autoreleasePoolPush();
   scheme = [lCopy scheme];
-  if ([scheme isEqualToString:@"assets-library"])
+  if (objc_msgSend_isEqualToString_(scheme))
   {
     host = [lCopy host];
-    v11 = [host isEqualToString:@"asset"];
+    isEqualToString = objc_msgSend_isEqualToString_(host);
 
-    if (!v11)
+    if (!isEqualToString)
     {
       goto LABEL_26;
     }
@@ -22070,25 +22067,25 @@ void __77__PLManagedAsset_batchFetchAssetsByFaceUUIDWithFaceUUIDs_library_comple
           }
 
           v19 = [*(*(&v41 + 1) + 8 * v18) componentsSeparatedByString:{@"=", v33}];
-          if ([v19 count] >= 2)
+          if (objc_msgSend_count(v19) >= 2)
           {
             v20 = [v19 objectAtIndex:0];
             v21 = [v19 objectAtIndex:1];
-            if ([v20 isEqualToString:@"id"])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v22 = v16;
               v16 = v21;
               goto LABEL_14;
             }
 
-            if ([v20 isEqualToString:@"ext"])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v22 = v15;
               v15 = v21;
               goto LABEL_14;
             }
 
-            if ([v20 isEqualToString:@"sci"])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v22 = [MEMORY[0x1E696AE88] scannerWithString:v21];
               v40 = 0;
@@ -22186,16 +22183,16 @@ LABEL_32:
   libraryCopy = library;
   v10 = objc_autoreleasePoolPush();
   scheme = [lCopy scheme];
-  if (([scheme isEqualToString:@"assets-library"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) == 0)
   {
 
     goto LABEL_11;
   }
 
   host = [lCopy host];
-  v13 = [host isEqualToString:@"asset"];
+  isEqualToString = objc_msgSend_isEqualToString_(host);
 
-  if (!v13)
+  if (!isEqualToString)
   {
 LABEL_11:
     objc_autoreleasePoolPop(v10);
@@ -22303,7 +22300,7 @@ LABEL_17:
 + (BOOL)isKnownFileExtension:(id)extension
 {
   uppercaseString = [extension uppercaseString];
-  if ([uppercaseString isEqualToString:@"TIF"] & 1) != 0 || (objc_msgSend(uppercaseString, "isEqualToString:", @"PNG") & 1) != 0 || (objc_msgSend(uppercaseString, "isEqualToString:", @"GIF") & 1) != 0 || (objc_msgSend(uppercaseString, "isEqualToString:", @"JPG"))
+  if (objc_msgSend_isEqualToString_(uppercaseString) & 1) != 0 || (objc_msgSend_isEqualToString_(uppercaseString) & 1) != 0 || (objc_msgSend_isEqualToString_(uppercaseString) & 1) != 0 || (objc_msgSend_isEqualToString_(uppercaseString))
   {
     LOBYTE(v4) = 1;
   }
@@ -22350,7 +22347,7 @@ LABEL_17:
 + (BOOL)isValidFileExtensionForImport:(id)import
 {
   importCopy = import;
-  v4 = ([importCopy isEqualToString:@"DBG"] & 1) == 0 && !objc_msgSend(importCopy, "isEqualToString:", @"SLM");
+  v4 = (objc_msgSend_isEqualToString_(importCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(importCopy);
 
   return v4;
 }
@@ -22768,7 +22765,7 @@ void __41__PLManagedAsset__isLibraryScopeExiting___block_invoke(uint64_t a1)
 + (BOOL)isHFRVideoAVAsset:(id)asset
 {
   v3 = [MEMORY[0x1E69C0708] tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:asset];
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v4 = [v3 objectAtIndex:0];
     [v4 nominalFrameRate];
@@ -22790,7 +22787,7 @@ void __41__PLManagedAsset__isLibraryScopeExiting___block_invoke(uint64_t a1)
   if (asset)
   {
     v5 = [MEMORY[0x1E69C0708] tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:asset];
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       v6 = [v5 objectAtIndex:0];
       [v6 naturalSize];
@@ -22798,7 +22795,7 @@ void __41__PLManagedAsset__isLibraryScopeExiting___block_invoke(uint64_t a1)
       v10 = v9;
       if (v6)
       {
-        [v6 preferredTransform];
+        objc_msgSend_preferredTransform(v6);
       }
 
       v14.size.width = v10 * 0.0 + 0.0 * v8;
@@ -23130,7 +23127,7 @@ void __33__PLManagedAsset_eventInfoForPTP__block_invoke()
     [v10 setFetchLimit:1];
     v15 = 0;
     v12 = [contextCopy executeFetchRequest:v10 error:&v15];
-    if ([v12 count])
+    if (objc_msgSend_count(v12))
     {
       v13 = [v12 objectAtIndex:0];
     }
@@ -23304,7 +23301,7 @@ void __33__PLManagedAsset_eventInfoForPTP__block_invoke()
     v22 = v38;
     if (v21)
     {
-      if ([v21 count] == 1)
+      if (objc_msgSend_count(v21) == 1)
       {
         v23 = [v21 objectAtIndexedSubscript:0];
         v24 = [v23 objectForKeyedSubscript:@"totalFileSize"];
@@ -23423,7 +23420,7 @@ LABEL_24:
   v12 = dCopy;
   if (uuidCopy && dCopy)
   {
-    if ([uuidCopy isEqualToString:dCopy])
+    if (objc_msgSend_isEqualToString_(uuidCopy))
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"PLManagedAsset.m" lineNumber:5107 description:{@"Invalid parameter not satisfying: %@", @"![uuid isEqualToString:replacementUUID]"}];
@@ -24756,7 +24753,7 @@ void __74__PLManagedAsset_assetUUIDsByObjectIDs_withFilterPredicate_context_erro
 {
   dsCopy = ds;
   libraryCopy = library;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = objc_autoreleasePoolPush();
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", dsCopy];
@@ -24766,7 +24763,7 @@ void __74__PLManagedAsset_assetUUIDsByObjectIDs_withFilterPredicate_context_erro
 
     [v11 setIncludesPendingChanges:0];
     [v11 setPredicate:dsCopy];
-    if ([dsCopy count] >= 0x65)
+    if (objc_msgSend_count(dsCopy) >= 0x65)
     {
       [v11 setFetchBatchSize:100];
     }
@@ -24801,7 +24798,7 @@ void __74__PLManagedAsset_assetUUIDsByObjectIDs_withFilterPredicate_context_erro
   dsCopy = ds;
   pathCopy = path;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v14 = objc_autoreleasePoolPush();
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", pathCopy, dsCopy];
@@ -24838,7 +24835,7 @@ void __74__PLManagedAsset_assetUUIDsByObjectIDs_withFilterPredicate_context_erro
   optionsCopy = options;
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v9 = objc_autoreleasePoolPush();
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
@@ -26133,7 +26130,7 @@ LABEL_11:
   v41 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   libraryCopy = library;
-  v28 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(resultsCopy, "count")}];
+  v28 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(resultsCopy)];
   pathManager = [libraryCopy pathManager];
   v29 = [pathManager photoDirectoryWithType:1];
 
@@ -27257,7 +27254,7 @@ LABEL_16:
   v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:5];
   [v12 setRelationshipKeyPathsForPrefetching:v14];
 
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v12 setFetchBatchSize:100];
   }
@@ -27265,7 +27262,7 @@ LABEL_16:
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
   [v12 setPredicate:dsCopy];
 
-  [v12 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v12 setFetchLimit:objc_msgSend_count(dsCopy)];
   v16 = [contextCopy executeFetchRequest:v12 error:error];
 
   return v16;
@@ -27286,7 +27283,7 @@ LABEL_16:
   relationshipKeyPathsToPrefetch = [self relationshipKeyPathsToPrefetch];
   [v10 setRelationshipKeyPathsForPrefetching:relationshipKeyPathsToPrefetch];
 
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v10 setFetchBatchSize:100];
   }
@@ -27294,7 +27291,7 @@ LABEL_16:
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
   [v10 setPredicate:dsCopy];
 
-  [v10 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v10 setFetchLimit:objc_msgSend_count(dsCopy)];
   v18 = 0;
   v14 = [contextCopy executeFetchRequest:v10 error:&v18];
 
@@ -28341,10 +28338,10 @@ LABEL_17:
   allObjects = [modernResources allObjects];
   v8 = [allObjects sortedArrayUsingDescriptors:v5];
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v20 = v5;
-    [string appendFormat:@"%lu resources\n", objc_msgSend(v8, "count")];
+    [string appendFormat:@"%lu resources\n", objc_msgSend_count(v8)];
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
@@ -29121,7 +29118,7 @@ LABEL_11:
       [(PLManagedAsset *)self removeLibraryScopeAndContributors];
 LABEL_41:
       updateSharingContributorUserIdentifiers = [changeCopy updateSharingContributorUserIdentifiers];
-      v21 = [updateSharingContributorUserIdentifiers count];
+      v21 = objc_msgSend_count(updateSharingContributorUserIdentifiers);
       additionalAttributes = [(PLManagedAsset *)self additionalAttributes];
       libraryScopeAssetContributorsToUpdate = [additionalAttributes libraryScopeAssetContributorsToUpdate];
       v24 = libraryScopeAssetContributorsToUpdate;
@@ -29142,7 +29139,7 @@ LABEL_46:
 
       else
       {
-        v29 = [libraryScopeAssetContributorsToUpdate count];
+        v29 = objc_msgSend_count(libraryScopeAssetContributorsToUpdate);
 
         if (v29)
         {
@@ -29181,10 +29178,10 @@ LABEL_40:
   if (v10)
   {
     sharingContributorUserIdentifiers = [changeCopy sharingContributorUserIdentifiers];
-    if ([sharingContributorUserIdentifiers count])
+    if (objc_msgSend_count(sharingContributorUserIdentifiers))
     {
       v12 = [PLShareParticipant participantsWithUserIdentifiers:sharingContributorUserIdentifiers inScope:v10 inPhotoLibrary:libraryCopy];
-      if (![v12 count]&& (*MEMORY[0x1E6994D48] & 1) == 0)
+      if (!objc_msgSend_count(v12) && (*MEMORY[0x1E6994D48] & 1) == 0)
       {
         v13 = __CPLAssetsdOSLogDomain();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -29203,7 +29200,7 @@ LABEL_40:
       v12 = 0;
     }
 
-    if ([v12 count])
+    if (objc_msgSend_count(v12))
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {
@@ -29224,7 +29221,7 @@ LABEL_40:
       [(PLManagedAsset *)self setLibraryScope:v10 withContributors:v18];
     }
 
-    else if ([sharingContributorUserIdentifiers count])
+    else if (objc_msgSend_count(sharingContributorUserIdentifiers))
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {
@@ -29311,9 +29308,9 @@ LABEL_48:
 
   timeZoneName = [changeCopy timeZoneName];
   timeZoneName2 = [additionalAttributes timeZoneName];
-  v14 = [timeZoneName2 isEqualToString:timeZoneName];
+  isEqualToString = objc_msgSend_isEqualToString_(timeZoneName2);
 
-  if ((v14 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [additionalAttributes setTimeZoneName:timeZoneName];
   }
@@ -29333,7 +29330,7 @@ LABEL_14:
     }
   }
 
-  if ((v14 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     goto LABEL_14;
   }
@@ -29343,7 +29340,7 @@ LABEL_15:
   if (identifier)
   {
     cloudAssetGUID = [(PLManagedAsset *)self cloudAssetGUID];
-    if (!cloudAssetGUID || (v18 = cloudAssetGUID, -[PLManagedAsset cloudAssetGUID](self, "cloudAssetGUID"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 isEqualToString:identifier], v19, v18, (v20 & 1) == 0))
+    if (!cloudAssetGUID || (v18 = cloudAssetGUID, [(PLManagedAsset *)self cloudAssetGUID], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend_isEqualToString_(v19), v19, v18, (v20 & 1) == 0))
     {
       [(PLManagedAsset *)self setCloudAssetGUID:identifier];
     }
@@ -29492,7 +29489,7 @@ LABEL_38:
   }
 
   longDescription = [(PLManagedAsset *)self longDescription];
-  if (!longDescription || (v61 = longDescription, -[PLManagedAsset longDescription](self, "longDescription"), v62 = objc_claimAutoreleasedReturnValue(), [changeCopy extendedDescription], v63 = objc_claimAutoreleasedReturnValue(), v64 = objc_msgSend(v62, "isEqualToString:", v63), v63, v62, v61, (v64 & 1) == 0))
+  if (!longDescription || (v61 = longDescription, -[PLManagedAsset longDescription](self, "longDescription"), v62 = objc_claimAutoreleasedReturnValue(), [changeCopy extendedDescription], v63 = objc_claimAutoreleasedReturnValue(), v64 = objc_msgSend_isEqualToString_(v62), v63, v62, v61, (v64 & 1) == 0))
   {
     extendedDescription = [changeCopy extendedDescription];
     [(PLManagedAsset *)self setLongDescription:extendedDescription];
@@ -29500,14 +29497,14 @@ LABEL_38:
 
   v139 = additionalAttributes;
   accessibilityDescription = [(PLManagedAsset *)self accessibilityDescription];
-  if (!accessibilityDescription || (v67 = accessibilityDescription, -[PLManagedAsset accessibilityDescription](self, "accessibilityDescription"), v68 = objc_claimAutoreleasedReturnValue(), [changeCopy accessibilityDescription], v69 = objc_claimAutoreleasedReturnValue(), v70 = objc_msgSend(v68, "isEqualToString:", v69), v69, v68, v67, (v70 & 1) == 0))
+  if (!accessibilityDescription || (v67 = accessibilityDescription, -[PLManagedAsset accessibilityDescription](self, "accessibilityDescription"), v68 = objc_claimAutoreleasedReturnValue(), [changeCopy accessibilityDescription], v69 = objc_claimAutoreleasedReturnValue(), v70 = objc_msgSend_isEqualToString_(v68), v69, v68, v67, (v70 & 1) == 0))
   {
     accessibilityDescription2 = [changeCopy accessibilityDescription];
     [(PLManagedAsset *)self setAccessibilityDescription:accessibilityDescription2];
   }
 
   title = [(PLManagedAsset *)self title];
-  if (!title || (v73 = title, -[PLManagedAsset title](self, "title"), v74 = objc_claimAutoreleasedReturnValue(), [changeCopy caption], v75 = objc_claimAutoreleasedReturnValue(), v76 = objc_msgSend(v74, "isEqualToString:", v75), v75, v74, v73, (v76 & 1) == 0))
+  if (!title || (v73 = title, -[PLManagedAsset title](self, "title"), v74 = objc_claimAutoreleasedReturnValue(), [changeCopy caption], v75 = objc_claimAutoreleasedReturnValue(), v76 = objc_msgSend_isEqualToString_(v74), v75, v74, v73, (v76 & 1) == 0))
   {
     caption = [changeCopy caption];
     [(PLManagedAsset *)self setTitle:caption];
@@ -29520,7 +29517,7 @@ LABEL_38:
   [(PLManagedAsset *)self updatePanoramosityWithMetadata:0];
   v140 = changeCopy;
   people = [changeCopy people];
-  v79 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(people, "count")}];
+  v79 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(people)];
   v148 = 0u;
   v149 = 0u;
   v150 = 0u;
@@ -29638,7 +29635,7 @@ LABEL_87:
       collectionShare2 = [(PLManagedAsset *)selfCopy collectionShare];
       v106 = [PLShareParticipant participantsWithUserIdentifiers:v104 inScope:collectionShare2 inPhotoLibrary:libraryCopy];
 
-      if ([v106 count])
+      if (objc_msgSend_count(v106))
       {
         collectionShare3 = [(PLManagedAsset *)selfCopy collectionShare];
         firstObject = [v106 firstObject];
@@ -29651,7 +29648,7 @@ LABEL_87:
   if (syndicationIdentifier)
   {
     syndicationIdentifier2 = [v139 syndicationIdentifier];
-    v111 = [syndicationIdentifier2 isEqualToString:syndicationIdentifier];
+    v111 = objc_msgSend_isEqualToString_(syndicationIdentifier2);
 
     if ((v111 & 1) == 0)
     {
@@ -29720,7 +29717,7 @@ LABEL_87:
         libraryScope = [(PLManagedAsset *)selfCopy libraryScope];
         v127 = [PLShareParticipant participantsWithUserIdentifiers:v125 inScope:libraryScope inPhotoLibrary:libraryCopy];
 
-        if ([v127 count])
+        if (objc_msgSend_count(v127))
         {
           firstObject2 = [v127 firstObject];
           [(PLManagedAsset *)selfCopy setTrashedByParticipant:firstObject2];
@@ -29815,7 +29812,7 @@ LABEL_87:
     [master2 setCodecName:plVideoCodecName];
 
     v8 = [MEMORY[0x1E69C0708] tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:assetCopy];
-    if ([v8 count])
+    if (objc_msgSend_count(v8))
     {
       v9 = [v8 objectAtIndex:0];
       master3 = [(PLManagedAsset *)self master];
@@ -29962,9 +29959,9 @@ LABEL_9:
   }
 
   uniformTypeIdentifier3 = [(PLManagedAsset *)self uniformTypeIdentifier];
-  v19 = [uniformTypeIdentifier3 isEqualToString:uniformTypeIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(uniformTypeIdentifier3);
 
-  if (v19)
+  if (isEqualToString)
   {
 LABEL_32:
     uniformTypeIdentifier4 = [(PLManagedAsset *)self uniformTypeIdentifier];
@@ -30001,7 +29998,7 @@ LABEL_34:
     v24 = originalFilename;
     originalFilename2 = [masterCopy originalFilename];
     originalFilename3 = [(PLManagedAsset *)self originalFilename];
-    v27 = [originalFilename2 isEqualToString:originalFilename3];
+    v27 = objc_msgSend_isEqualToString_(originalFilename2);
 
     if ((v27 & 1) == 0)
     {
@@ -30070,7 +30067,7 @@ LABEL_57:
 
 LABEL_58:
   v43 = [masterCopy rm_cloudResourcesForResourceType:18];
-  v44 = [v43 count];
+  v44 = objc_msgSend_count(v43);
 
   if (v44)
   {
@@ -30078,7 +30075,7 @@ LABEL_58:
   }
 
   v45 = [masterCopy rm_cloudResourcesForResourceType:23];
-  v46 = [v45 count];
+  v46 = objc_msgSend_count(v45);
 
   if (v46)
   {
@@ -30222,7 +30219,7 @@ LABEL_74:
   managedObjectContext = [libraryCopy managedObjectContext];
   v29 = managerCopy;
   v9 = [managerCopy albumsAndOrderValuesForAsset:self inManagedObjectContext:managedObjectContext];
-  if ([v9 count] >= 2)
+  if (objc_msgSend_count(v9) >= 2)
   {
     v11 = 0;
     *&v10 = 138412546;
@@ -30241,7 +30238,7 @@ LABEL_74:
 
 LABEL_21:
 
-      v24 = [v9 count];
+      v24 = objc_msgSend_count(v9);
       v25 = v11 + 3;
       v11 += 2;
       if (v25 >= v24)
@@ -30693,9 +30690,9 @@ LABEL_10:
 
   burstIdentifier = [changeCopy burstIdentifier];
   avalancheUUID = [(PLManagedAsset *)self avalancheUUID];
-  v11 = [avalancheUUID isEqualToString:burstIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(avalancheUUID);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(PLManagedAsset *)self setAvalancheUUID:burstIdentifier];
     if (burstIdentifier)
@@ -32473,7 +32470,7 @@ LABEL_18:
   libraryCopy = library;
   v12 = MEMORY[0x1E695DF70];
   allAssetCPLResources = [(PLManagedAsset *)self allAssetCPLResources];
-  v14 = [v12 arrayWithCapacity:{objc_msgSend(allAssetCPLResources, "count")}];
+  v14 = [v12 arrayWithCapacity:objc_msgSend_count(allAssetCPLResources)];
 
   if (![(PLManagedAsset *)self isPlaceholderAsset])
   {
@@ -32552,7 +32549,7 @@ LABEL_18:
         while (v35);
       }
 
-      if ([v14 count])
+      if (objc_msgSend_count(v14))
       {
         additionalAttributes2 = [(PLManagedAsset *)selfCopy2 additionalAttributes];
         sourceAssetForDuplicationCPLScopedIdentifier2 = [additionalAttributes2 sourceAssetForDuplicationCPLScopedIdentifier];
@@ -32819,7 +32816,7 @@ LABEL_77:
   }
 
   [assetCopy setOrientation:{-[PLManagedAsset orientation](self, "orientation")}];
-  [(PLManagedAsset *)self duration];
+  objc_msgSend_duration(self);
   [assetCopy setDuration:llround(v74 * 1000.0)];
   [assetCopy setOriginalChoice:{-[PLManagedAsset originalResourceChoice](self, "originalResourceChoice")}];
   additionalAttributes4 = [(PLManagedAsset *)self additionalAttributes];
@@ -34189,7 +34186,7 @@ void __52__PLManagedAsset_CPL__bestAvailableAdjustedResource__block_invoke()
   }
 
   libraryScopeContributors = [(PLManagedAsset *)self libraryScopeContributors];
-  v14 = [libraryScopeContributors count];
+  v14 = objc_msgSend_count(libraryScopeContributors);
 
   if (v14)
   {
@@ -34206,7 +34203,7 @@ LABEL_14:
 LABEL_15:
   additionalAttributes = [(PLManagedAsset *)self additionalAttributes];
   libraryScopeAssetContributorsToUpdate = [additionalAttributes libraryScopeAssetContributorsToUpdate];
-  v20 = [libraryScopeAssetContributorsToUpdate count];
+  v20 = objc_msgSend_count(libraryScopeAssetContributorsToUpdate);
 
   if (v20)
   {
@@ -34305,7 +34302,7 @@ LABEL_15:
   [changeCopy setTrashedReason:{-[PLManagedAsset trashedReason](self, "trashedReason")}];
   v70 = additionalAttributes;
   personReferences = [additionalAttributes personReferences];
-  v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(personReferences, "count")}];
+  v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(personReferences)];
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
@@ -34358,8 +34355,8 @@ LABEL_15:
 
   mediaGroupUUID = [(PLManagedAsset *)self mediaGroupUUID];
   [v73 setMediaGroupIdentifier:mediaGroupUUID];
-  [(PLManagedAsset *)self photoIrisVideoDuration];
-  [(PLManagedAsset *)self photoIrisStillDisplayTime];
+  objc_msgSend_photoIrisVideoDuration(self);
+  objc_msgSend_photoIrisStillDisplayTime(self);
   [v73 setVideoComplementDurationValue:0];
   [v73 setVideoComplementDurationTimescale:0];
   [v73 setVideoComplementImageDisplayValue:0];
@@ -34605,7 +34602,7 @@ LABEL_35:
         {
           v19 = [(PLManagedAsset *)self createResourcesForMaster:v10 shouldGenerateDerivatives:v40 inPhotoLibrary:libraryCopy];
           v12 = v39;
-          if ([v19 count])
+          if (objc_msgSend_count(v19))
           {
             v31 = [(PLManagedAsset *)v10 cplMasterPropertyChangeForAsset:self];
             [(PLManagedAsset *)v31 setResources:v19];
@@ -35204,7 +35201,7 @@ LABEL_82:
       v78 = cplType2;
       if (cplType2 <= 0x18)
       {
-        if (((1 << cplType2) & 0x1860104) != 0 || cplType2 == 22 && ([v76 uniformTypeIdentifier], v100 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v100, "identifier"), v101 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69C08F0], "supplementalResourceAAEType"), v102 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v102, "identifier"), v103 = objc_claimAutoreleasedReturnValue(), v104 = objc_msgSend(v101, "isEqualToString:", v103), v103, v102, v101, v100, v104))
+        if (((1 << cplType2) & 0x1860104) != 0 || cplType2 == 22 && ([v76 uniformTypeIdentifier], v100 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v100, "identifier"), v101 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69C08F0], "supplementalResourceAAEType"), v102 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v102, "identifier"), v103 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v101), v103, v102, v101, v100, isEqualToString))
         {
           v79 = objc_opt_class();
           cplFileURL = [v76 cplFileURL];
@@ -35656,9 +35653,9 @@ LABEL_19:
     v7 = originalFilename;
     originalFilename2 = [(PLManagedAsset *)self originalFilename];
     originalFilename3 = [masterCopy originalFilename];
-    v10 = [originalFilename2 isEqualToString:originalFilename3];
+    isEqualToString = objc_msgSend_isEqualToString_(originalFilename2);
 
-    if ((v10 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       originalFilename4 = [masterCopy originalFilename];
       [(PLManagedAsset *)self setOriginalFilename:originalFilename4];
@@ -35671,7 +35668,7 @@ LABEL_19:
     v13 = importedByBundleIdentifier;
     importedByBundleIdentifier2 = [masterCopy importedByBundleIdentifier];
     importedByBundleIdentifier3 = [(PLManagedAsset *)self importedByBundleIdentifier];
-    v16 = [importedByBundleIdentifier2 isEqualToString:importedByBundleIdentifier3];
+    v16 = objc_msgSend_isEqualToString_(importedByBundleIdentifier2);
 
     if ((v16 & 1) == 0)
     {
@@ -35686,7 +35683,7 @@ LABEL_19:
     v19 = importedByDisplayName;
     importedByDisplayName2 = [masterCopy importedByDisplayName];
     importedByDisplayName3 = [(PLManagedAsset *)self importedByDisplayName];
-    v22 = [importedByDisplayName2 isEqualToString:importedByDisplayName3];
+    v22 = objc_msgSend_isEqualToString_(importedByDisplayName2);
 
     if ((v22 & 1) == 0)
     {
@@ -35896,9 +35893,9 @@ LABEL_9:
         v17 = originalFilename;
         originalFilename2 = [(PLManagedAsset *)self originalFilename];
         originalFilename3 = [v6 originalFilename];
-        v20 = [originalFilename2 isEqualToString:originalFilename3];
+        isEqualToString = objc_msgSend_isEqualToString_(originalFilename2);
 
-        if ((v20 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           originalFilename4 = [v6 originalFilename];
           [(PLManagedAsset *)self setOriginalFilename:originalFilename4];
@@ -35906,7 +35903,7 @@ LABEL_9:
       }
 
       importedByBundleIdentifier = [(PLManagedAsset *)self importedByBundleIdentifier];
-      if (importedByBundleIdentifier && (v23 = importedByBundleIdentifier, [v6 importedByBundleIdentifier], v24 = objc_claimAutoreleasedReturnValue(), -[PLManagedAsset importedByBundleIdentifier](self, "importedByBundleIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v24, "isEqualToString:", v25), v25, v24, v23, (v26 & 1) == 0))
+      if (importedByBundleIdentifier && (v23 = importedByBundleIdentifier, [v6 importedByBundleIdentifier], v24 = objc_claimAutoreleasedReturnValue(), -[PLManagedAsset importedByBundleIdentifier](self, "importedByBundleIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend_isEqualToString_(v24), v25, v24, v23, (v26 & 1) == 0))
       {
         importedByBundleIdentifier2 = [(PLManagedAsset *)self importedByBundleIdentifier];
         [v6 updateImportedByBundleIdentifier:importedByBundleIdentifier2];
@@ -35925,7 +35922,7 @@ LABEL_9:
         v30 = importedByDisplayName;
         importedByDisplayName2 = [v6 importedByDisplayName];
         importedByDisplayName3 = [(PLManagedAsset *)self importedByDisplayName];
-        v33 = [importedByDisplayName2 isEqualToString:importedByDisplayName3];
+        v33 = objc_msgSend_isEqualToString_(importedByDisplayName2);
 
         if ((v33 & 1) == 0)
         {
@@ -36385,7 +36382,7 @@ LABEL_24:
   contextCopy = context;
   predicateForSupportedAssetTypesForUploadWithoutCloudKitSharingScopesAndPlaceholders = [self predicateForSupportedAssetTypesForUploadWithoutCloudKitSharingScopesAndPlaceholders];
   v8 = [self _notPushedAssetsToUploadInitiallyInManagedObjectContext:contextCopy withSavedAssetTypePredicate:predicateForSupportedAssetTypesForUploadWithoutCloudKitSharingScopesAndPlaceholders shouldSort:1 limit:limit];
-  if (![v8 count])
+  if (!objc_msgSend_count(v8))
   {
     v37 = predicateForSupportedAssetTypesForUploadWithoutCloudKitSharingScopesAndPlaceholders;
     limitCopy = limit;
@@ -36413,7 +36410,7 @@ LABEL_24:
     contextCopy = v39;
     v19 = [self _notPushedAssetsToUploadInitiallyInManagedObjectContext:v39 withSavedAssetTypePredicate:v18 shouldSort:0 limit:limitCopy];
 
-    if (![v19 count])
+    if (!objc_msgSend_count(v19))
     {
       v32 = MEMORY[0x1E696AB28];
       v36 = [MEMORY[0x1E69BF328] predicateForIncludeMask:objc_msgSend(MEMORY[0x1E69BF328] useIndex:{"maskForPlaceholderAsset"), 1}];
@@ -37024,7 +37021,7 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
   nameCopy = name;
   prefetchingCopy = prefetching;
   libraryCopy = library;
-  if (identifiersCopy && ![identifiersCopy count])
+  if (identifiersCopy && !objc_msgSend_count(identifiersCopy))
   {
     v35 = MEMORY[0x1E695E0F0];
   }
@@ -37032,12 +37029,12 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
   else
   {
     v14 = +[PLCloudMaster entityName];
-    v15 = [nameCopy isEqualToString:v14];
+    isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-    if ((v15 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v16 = +[PLManagedAsset entityName];
-      v17 = [nameCopy isEqualToString:v16];
+      v17 = objc_msgSend_isEqualToString_(nameCopy);
 
       if ((v17 & 1) == 0)
       {
@@ -37081,13 +37078,13 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
       v48 = array;
       v59 = v48;
       v60 = libraryCopy;
-      v63 = v15;
+      v63 = isEqualToString;
       v30 = array2;
       v61 = v30;
       [v29 enumerateObjectsUsingBlock:v57];
       v31 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:v30];
       v32 = v31;
-      if (v15)
+      if (isEqualToString)
       {
         v33 = v31;
         v34 = MEMORY[0x1E695D5E0];
@@ -37110,8 +37107,8 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
       v40 = [v34 fetchRequestWithEntityName:v39];
 
       [v40 setPredicate:v33];
-      [v40 setFetchLimit:{objc_msgSend(v53, "count")}];
-      if ([v53 count] >= 0x65)
+      [v40 setFetchLimit:objc_msgSend_count(v53)];
+      if (objc_msgSend_count(v53) >= 0x65)
       {
         [v40 setFetchBatchSize:100];
       }
@@ -37120,7 +37117,7 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
       v42 = v41;
       if (resourcesCopy)
       {
-        if (v15)
+        if (isEqualToString)
         {
           v43 = @"assets.modernResources";
         }
@@ -37165,7 +37162,7 @@ void __96__PLManagedAsset_CPL__totalSizeOfUnpushedOriginalsInPhotoLibrary_outMas
   return v35;
 }
 
-void __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_prefetchResources_relationshipKeyPathsForPrefetching_inLibrary___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_prefetchResources_relationshipKeyPathsForPrefetching_inLibrary___block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v6 = [v5 scopeIdentifier];
@@ -37174,7 +37171,7 @@ void __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_prefe
   v7 = *(*(*(a1 + 64) + 8) + 40);
   if (v7)
   {
-    v8 = [v7 isEqualToString:v6] ^ 1;
+    v8 = objc_msgSend_isEqualToString_(v7) ^ 1;
   }
 
   else
@@ -37182,7 +37179,7 @@ void __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_prefe
     v8 = 0;
   }
 
-  v9 = [*(a1 + 32) count] - 1;
+  v9 = (objc_msgSend_count(*(a1 + 32)) - 1);
   if ((v8 & 1) != 0 || v9 == a3)
   {
     if (v9 == a3)
@@ -37198,9 +37195,9 @@ void __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_prefe
 
     v11 = v10;
     v12 = [*(a1 + 48) mainScopeIdentifier];
-    v13 = [v11 isEqualToString:v12];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (v13)
+    if (isEqualToString)
     {
       v14 = *(a1 + 72);
       v15 = MEMORY[0x1E696AE18];
@@ -37331,7 +37328,7 @@ uint64_t __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_p
   v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   libraryCopy = library;
-  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dCopy, "count")}];
+  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(dCopy)];
   context = objc_autoreleasePoolPush();
   v9 = [MEMORY[0x1E6994BB8] scopedIdentifiersFromArrayOfUnknownIdentifiers:dCopy];
   v10 = [self assetsWithScopedIdentifiers:v9 prefetchResources:0 relationshipKeyPathsForPrefetching:0 inLibrary:libraryCopy];
@@ -37373,12 +37370,12 @@ uint64_t __129__PLManagedAsset_CPL__objectsWithScopedIdentifiers_forEntityName_p
 {
   v92 = *MEMORY[0x1E69E9840];
   copiedCopy = copied;
-  if ([copiedCopy count])
+  if (objc_msgSend_count(copiedCopy))
   {
     firstObject = [copiedCopy firstObject];
     photoLibrary = [firstObject photoLibrary];
 
-    v68 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(copiedCopy, "count")}];
+    v68 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(copiedCopy)];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
     v81 = 0u;
@@ -38157,7 +38154,7 @@ LABEL_28:
     v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
     v27 = [PLShareParticipant participantsWithUserIdentifiers:v26 inScope:v16 inPhotoLibrary:libraryCopy];
 
-    if ([v27 count])
+    if (objc_msgSend_count(v27))
     {
       firstObject = [v27 firstObject];
       [v17 setCollectionShare:v16 withContributor:firstObject];
@@ -38666,9 +38663,9 @@ void __46__PLManagedAsset_CPL__createMastersInLibrary___block_invoke_2(uint64_t 
   if (pathForOriginalFile)
   {
     lastPathComponent = [pathForOriginalFile lastPathComponent];
-    v8 = [filenameCopy isEqualToString:lastPathComponent];
+    isEqualToString = objc_msgSend_isEqualToString_(filenameCopy);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       stringByDeletingLastPathComponent = [v6 stringByDeletingLastPathComponent];
       v10 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:filenameCopy];
@@ -38769,10 +38766,10 @@ LABEL_4:
 
 LABEL_5:
   filename = [(PLManagedAsset *)self filename];
-  v25 = [filenameCopy isEqualToString:filename];
+  isEqualToString = objc_msgSend_isEqualToString_(filenameCopy);
 
   v26 = 0;
-  if (lCopy && (v25 & 1) == 0 && sizeCopy)
+  if (lCopy && (isEqualToString & 1) == 0 && sizeCopy)
   {
     v40 = dateCopy;
     pathForVideoComplementFile = [(PLManagedAsset *)self pathForVideoComplementFile];
@@ -39361,9 +39358,9 @@ LABEL_12:
 
     additionalAttributes2 = [(PLManagedAsset *)self additionalAttributes];
     adjustedStableHash2 = [additionalAttributes2 adjustedStableHash];
-    v20 = [fingerprintCopy isEqualToString:adjustedStableHash2];
+    isEqualToString = objc_msgSend_isEqualToString_(fingerprintCopy);
 
-    if ((v20 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       additionalAttributes3 = [(PLManagedAsset *)self additionalAttributes];
       adjustedStableHash3 = [additionalAttributes3 adjustedStableHash];
@@ -40449,9 +40446,9 @@ LABEL_20:
 
       version = [recordCopy version];
       _currentComputeStateVersion = [v15 _currentComputeStateVersion];
-      v19 = [version isEqualToString:_currentComputeStateVersion];
+      isEqualToString = objc_msgSend_isEqualToString_(version);
 
-      if ((v19 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         if ((*MEMORY[0x1E6994D48] & 1) == 0)
         {
@@ -40686,7 +40683,7 @@ LABEL_30:
   v19 = 0x3032000000;
   v20 = __Block_byref_object_copy__56697;
   v21 = __Block_byref_object_dispose__56698;
-  v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v7)];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __87__PLManagedAsset_ComputeSync__createSparseComputeStateRecordsForAssets_inPhotoLibrary___block_invoke;
@@ -40697,7 +40694,7 @@ LABEL_30:
   v15 = v9;
   v16 = &v17;
   [v9 performBlockAndWait:v13];
-  if ([v18[5] count])
+  if (objc_msgSend_count(v18[5]))
   {
     v10 = v18[5];
   }
@@ -41053,7 +41050,7 @@ LABEL_11:
 {
   v3 = [(PLManagedAsset *)self analysisStateForWorkerType:type];
   changedValues = [v3 changedValues];
-  v5 = [changedValues count] != 0;
+  v5 = objc_msgSend_count(changedValues) != 0;
 
   return v5;
 }
@@ -41264,7 +41261,7 @@ LABEL_3:
   else
   {
     v12 = [(PLManagedAsset *)self valueForKey:namedCopy];
-    v15 = [v12 count];
+    v15 = objc_msgSend_count(v12);
   }
 
   return v15;
@@ -41875,103 +41872,103 @@ LABEL_16:
   }
 }
 
-void __62__PLManagedAsset_PLCloudSharedAsset__markAssetAsRecentlyUsed___block_invoke_129(uint64_t a1)
+void __62__PLManagedAsset_PLCloudSharedAsset__markAssetAsRecentlyUsed___block_invoke_129(void *a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v36 = *MEMORY[0x1E69E9840];
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = a1[4];
     *buf = 138412290;
-    v30 = v3;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) markAssetAsRecentlyUsed %@", buf, 0xCu);
+    v31 = v4;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) markAssetAsRecentlyUsed %@", buf, 0xCu);
   }
 
-  v4 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
+  v5 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
   if (!markAssetAsRecentlyUsed__recentlyUsedGUIDS)
   {
-    v5 = [objc_opt_class() persistedRecentlyUsedGUIDSWithPathManager:*(a1 + 40)];
-    v6 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
-    markAssetAsRecentlyUsed__recentlyUsedGUIDS = v5;
+    v6 = [objc_opt_class() persistedRecentlyUsedGUIDSWithPathManager:a1[5]];
+    v7 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
+    markAssetAsRecentlyUsed__recentlyUsedGUIDS = v6;
 
-    v7 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [markAssetAsRecentlyUsed__recentlyUsedGUIDS count];
+      v9 = objc_msgSend_count(markAssetAsRecentlyUsed__recentlyUsedGUIDS);
       *buf = 134217984;
-      v30 = v8;
-      _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) loaded recently used list with %lu entries", buf, 0xCu);
+      v31 = v9;
+      _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) loaded recently used list with %lu entries", buf, 0xCu);
     }
 
-    v4 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
+    v5 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
     if (!markAssetAsRecentlyUsed__recentlyUsedGUIDS)
     {
-      v9 = objc_alloc(MEMORY[0x1E695DFA0]);
-      v10 = [v9 initWithCapacity:markAssetAsRecentlyUsed__maxListSize];
-      v11 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
-      markAssetAsRecentlyUsed__recentlyUsedGUIDS = v10;
+      v10 = objc_alloc(MEMORY[0x1E695DFA0]);
+      v11 = [v10 initWithCapacity:markAssetAsRecentlyUsed__maxListSize];
+      v12 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
+      markAssetAsRecentlyUsed__recentlyUsedGUIDS = v11;
 
-      v4 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
+      v5 = markAssetAsRecentlyUsed__recentlyUsedGUIDS;
     }
   }
 
-  if ([v4 containsObject:*(a1 + 32)])
+  if ([v5 containsObject:a1[4]])
   {
-    [markAssetAsRecentlyUsed__recentlyUsedGUIDS removeObject:*(a1 + 32)];
+    [markAssetAsRecentlyUsed__recentlyUsedGUIDS removeObject:a1[4]];
   }
 
-  [markAssetAsRecentlyUsed__recentlyUsedGUIDS addObject:*(a1 + 32)];
+  [markAssetAsRecentlyUsed__recentlyUsedGUIDS addObject:a1[4]];
   ++markAssetAsRecentlyUsed__changesSinceLastSave;
-  v12 = [markAssetAsRecentlyUsed__recentlyUsedGUIDS count];
-  if (v12 >= markAssetAsRecentlyUsed__maxListSize)
+  v13 = objc_msgSend_count(markAssetAsRecentlyUsed__recentlyUsedGUIDS);
+  if (v13 >= markAssetAsRecentlyUsed__maxListSize)
   {
-    [markAssetAsRecentlyUsed__recentlyUsedGUIDS removeObjectsInRange:{0, v12 - markAssetAsRecentlyUsed__maxListSize}];
-    v12 = [markAssetAsRecentlyUsed__recentlyUsedGUIDS count];
+    [markAssetAsRecentlyUsed__recentlyUsedGUIDS removeObjectsInRange:{0, v13 - markAssetAsRecentlyUsed__maxListSize}];
+    v13 = objc_msgSend_count(markAssetAsRecentlyUsed__recentlyUsedGUIDS);
   }
 
   if (markAssetAsRecentlyUsed__changesSinceLastSave > markAssetAsRecentlyUsed__maxChangesBetweenSaves)
   {
-    v13 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v30 = v12;
-      v31 = 2048;
-      v32 = markAssetAsRecentlyUsed__changesSinceLastSave;
-      v33 = 2048;
-      v34 = markAssetAsRecentlyUsed__maxChangesBetweenSaves;
-      _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) will save recently used list with size %lu changes since last save %lu maxChangesBetweenSaves %lu", buf, 0x20u);
+      v31 = v13;
+      v32 = 2048;
+      v33 = markAssetAsRecentlyUsed__changesSinceLastSave;
+      v34 = 2048;
+      v35 = markAssetAsRecentlyUsed__maxChangesBetweenSaves;
+      _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "(sharing-space-management) will save recently used list with size %lu changes since last save %lu maxChangesBetweenSaves %lu", buf, 0x20u);
     }
 
-    v14 = [MEMORY[0x1E696AC08] defaultManager];
-    v15 = [objc_opt_class() recentlyUsedGUIDsPathWithPathManager:*(a1 + 40)];
-    v28 = 0;
-    v16 = [v14 removeItemAtPath:v15 error:&v28];
-    v17 = v28;
-    if ((v16 & 1) == 0 && [v14 fileExistsAtPath:v15])
+    v15 = [MEMORY[0x1E696AC08] defaultManager];
+    v16 = [objc_opt_class() recentlyUsedGUIDsPathWithPathManager:a1[5]];
+    v29 = 0;
+    v17 = [v15 removeItemAtPath:v16 error:&v29];
+    v18 = v29;
+    if ((v17 & 1) == 0 && [v15 fileExistsAtPath:v16])
     {
-      v18 = PLPhotoSharingGetLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = PLPhotoSharingGetLog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v17;
-        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR deleting recently used list :%@", buf, 0xCu);
+        v31 = v18;
+        _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR deleting recently used list :%@", buf, 0xCu);
       }
     }
 
-    v19 = MEMORY[0x1E696AE40];
-    v20 = [markAssetAsRecentlyUsed__recentlyUsedGUIDS array];
-    v27 = 0;
-    v21 = [v19 dataWithPropertyList:v20 format:200 options:0 error:&v27];
-    v22 = v27;
+    v20 = MEMORY[0x1E696AE40];
+    v21 = [markAssetAsRecentlyUsed__recentlyUsedGUIDS array];
+    v28 = 0;
+    v22 = [v20 dataWithPropertyList:v21 format:200 options:0 error:&v28];
+    v23 = v28;
 
-    if (v21)
+    if (v22)
     {
-      v26 = v22;
-      v23 = [v21 writeToFile:v15 options:1073741825 error:&v26];
-      v24 = v26;
+      v27 = v23;
+      v24 = [v22 writeToFile:v16 options:1073741825 error:&v27];
+      v25 = v27;
 
-      if (v23)
+      if (v24)
       {
 LABEL_28:
         markAssetAsRecentlyUsed__changesSinceLastSave = 0;
@@ -41979,29 +41976,29 @@ LABEL_28:
         return;
       }
 
-      v25 = PLPhotoSharingGetLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = PLPhotoSharingGetLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v24;
-        _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR failed to write recently used list: %@", buf, 0xCu);
+        v31 = v25;
+        _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR failed to write recently used list: %@", buf, 0xCu);
       }
 
-      v22 = v24;
+      v23 = v25;
     }
 
     else
     {
-      v25 = PLPhotoSharingGetLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = PLPhotoSharingGetLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v22;
-        _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR failed to serialize recently used list: %@", buf, 0xCu);
+        v31 = v23;
+        _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_ERROR, "(sharing-space-management) ERROR failed to serialize recently used list: %@", buf, 0xCu);
       }
     }
 
-    v24 = v22;
+    v25 = v23;
     goto LABEL_28;
   }
 }
@@ -42155,7 +42152,7 @@ void __62__PLManagedAsset_PLCloudSharedAsset__markAssetAsRecentlyUsed___block_in
   v15 = +[PLManagedAsset entityName];
   v16 = [v14 fetchRequestWithEntityName:v15];
 
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v16 setFetchBatchSize:100];
   }
@@ -42347,7 +42344,7 @@ LABEL_20:
   -[PLManagedAsset setVideoCpVisibilityState:](self, "setVideoCpVisibilityState:", [assetCopy videoCpVisibilityState]);
   -[PLManagedAsset setOrientation:](self, "setOrientation:", [assetCopy orientation]);
   -[PLManagedAsset setOriginalOrientation:](self, "setOriginalOrientation:", [assetCopy originalOrientation]);
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   [(PLManagedAsset *)self setDuration:?];
   -[PLManagedAsset setHdrType:](self, "setHdrType:", [assetCopy hdrType]);
   mediaGroupUUID = [assetCopy mediaGroupUUID];
@@ -42420,7 +42417,7 @@ LABEL_20:
     [additionalAttributes4 setLongDescription:longDescription];
 
     v42 = [PLKeywordManager keywordsForAsset:assetCopy];
-    if ([v42 count])
+    if (objc_msgSend_count(v42))
     {
       v43 = [PLKeywordManager alloc];
       pathManager = [(PLManagedObject *)self pathManager];
@@ -42925,7 +42922,7 @@ BOOL __96__PLManagedAsset_Share__filterCameraProcessingAdjustmentResourcesFromPl
   shareCopy = share;
   libraryCopy = library;
   handlerCopy = handler;
-  v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(dsCopy)];
   pathManager = [libraryCopy pathManager];
   capabilities = [pathManager capabilities];
 
@@ -42995,14 +42992,14 @@ void __185__PLManagedAsset_Share___createSharedStreamCollectionShareAssetsWithOr
   if (*(a1 + 40))
   {
     v1 = [PLManagedAsset assetsWithUUIDs:*(a1 + 48) options:1 inLibrary:*(a1 + 32)];
-    v2 = [v1 count];
-    if (v2 != [*(a1 + 48) count])
+    v2 = objc_msgSend_count(v1);
+    if (v2 != objc_msgSend_count(*(a1 + 48)))
     {
       v3 = PLPhotoSharingGetLog();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v4 = [v1 count];
-        v5 = [*(a1 + 48) count];
+        v4 = objc_msgSend_count(v1);
+        v5 = objc_msgSend_count(*(a1 + 48));
         *buf = 134218240;
         *&buf[4] = v4;
         *&buf[12] = 2048;
@@ -43011,7 +43008,7 @@ void __185__PLManagedAsset_Share___createSharedStreamCollectionShareAssetsWithOr
       }
     }
 
-    v124 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
+    v124 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(v1)];
     v151 = 0u;
     v152 = 0u;
     v149 = 0u;
@@ -43044,7 +43041,7 @@ void __185__PLManagedAsset_Share___createSharedStreamCollectionShareAssetsWithOr
     v107 = [MEMORY[0x1E69BF320] UUIDString];
     v108 = [MEMORY[0x1E695DF00] date];
     v106 = [*(a1 + 56) length];
-    v11 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 64), "count")}];
+    v11 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(*(a1 + 64))];
     v12 = *(a1 + 64);
     v147[0] = MEMORY[0x1E69E9820];
     v147[1] = 3221225472;
@@ -43334,8 +43331,8 @@ LABEL_81:
                   if (v128)
                   {
                     v84 = [v16 mediaGroupUUID];
-                    [v16 photoIrisVideoDuration];
-                    [v16 photoIrisStillDisplayTime];
+                    objc_msgSend_photoIrisVideoDuration(v16);
+                    objc_msgSend_photoIrisStillDisplayTime(v16);
                     [v53 becomePhotoIrisWithMediaGroupUUID:v84 mainFileMetadata:0 videoURL:v128 videoDuration:buf stillDisplayTime:&v134 options:0];
                   }
 
@@ -43753,7 +43750,7 @@ LABEL_24:
   }
 
   allAssetCPLResources = [sourceAsset allAssetCPLResources];
-  if (![allAssetCPLResources count])
+  if (!objc_msgSend_count(allAssetCPLResources))
   {
     goto LABEL_29;
   }
@@ -44550,17 +44547,17 @@ LABEL_111:
   v95 = [v24 fetchRequestWithEntityName:v25];
 
   [v95 setPredicate:v91];
-  [v95 setFetchLimit:{objc_msgSend(copyCopy, "count")}];
+  [v95 setFetchLimit:objc_msgSend_count(copyCopy)];
   v148[0] = @"additionalAttributes";
   v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v148 count:1];
   [v95 setRelationshipKeyPathsForPrefetching:v26];
 
-  if ([copyCopy count] >= 0x65)
+  if (objc_msgSend_count(copyCopy) >= 0x65)
   {
     [v95 setFetchBatchSize:100];
   }
 
-  v27 = [copyCopy count];
+  v27 = objc_msgSend_count(copyCopy);
   v22 = v27 == 0;
   if (!v27)
   {
@@ -44619,7 +44616,7 @@ LABEL_19:
   v30 = v29;
 LABEL_20:
   v89 = v30;
-  if (![v30 count])
+  if (!objc_msgSend_count(v30))
   {
     goto LABEL_64;
   }
@@ -44730,9 +44727,9 @@ LABEL_43:
         if (v48)
         {
           uuid3 = [v39 uuid];
-          v51 = [uuid3 isEqualToString:identifierCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(uuid3);
 
-          if (v51)
+          if (isEqualToString)
           {
             v52 = v103;
             v53 = objc_alloc(MEMORY[0x1E6994B28]);
@@ -44832,7 +44829,7 @@ LABEL_64:
   if (subclassKind == 1)
   {
     v77 = v103;
-    if ([v99 count])
+    if (objc_msgSend_count(v99))
     {
       v78 = objc_alloc(MEMORY[0x1E6994B28]);
       previewData2 = [v77 previewData];
@@ -44946,12 +44943,12 @@ void __273__PLManagedAsset_Share__createShareAssetsForShare_batchedSourceAssetsT
 
 void __107__PLManagedAsset_Share__shouldBakeInAdjustmentsAndFlattenLivePhoto_forSourceAsset_adjustmentBakeInOptions___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, void *a8, void *a9)
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   v13 = a2;
-  v88 = a4;
-  v86 = a5;
-  v85 = a8;
-  v84 = a9;
+  v84 = a4;
+  v82 = a5;
+  v81 = a8;
+  v80 = a9;
   if (v13)
   {
     v14 = objc_alloc_init(PLPhotoEditPersistenceManager);
@@ -44972,7 +44969,7 @@ void __107__PLManagedAsset_Share__shouldBakeInAdjustmentsAndFlattenLivePhoto_for
       {
         v17 = [*(a1 + 32) scopedIdentifier];
         *buf = 138412290;
-        v117 = v17;
+        v113 = v17;
         _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments and flatten because Live Photo playback is disabled in source asset: %@", buf, 0xCu);
       }
     }
@@ -44981,45 +44978,44 @@ void __107__PLManagedAsset_Share__shouldBakeInAdjustmentsAndFlattenLivePhoto_for
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
-  v90 = a1;
-  v87 = v15;
+  v86 = a1;
+  v83 = v15;
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfLivePhotoMuted])
   {
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     v18 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
-    v19 = [v18 countByEnumeratingWithState:&v107 objects:v115 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v103 objects:v111 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v108;
+      v21 = *v104;
       v22 = *MEMORY[0x1E69C0E30];
-      v23 = *MEMORY[0x1E69C0E50];
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v108 != v21)
+          if (*v104 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v25 = *(*(&v107 + 1) + 8 * i);
-          v26 = [v25 objectForKeyedSubscript:v22];
-          v27 = [v25 objectForKeyedSubscript:@"enabled"];
-          if ([v26 isEqualToString:v23] && objc_msgSend(v27, "BOOLValue"))
+          v24 = *(*(&v103 + 1) + 8 * i);
+          v25 = [v24 objectForKeyedSubscript:v22];
+          v26 = [v24 objectForKeyedSubscript:@"enabled"];
+          if (objc_msgSend_isEqualToString_(v25) && [v26 BOOLValue])
           {
             if ((*MEMORY[0x1E6994D48] & 1) == 0)
             {
-              v28 = __CPLAssetsdOSLogDomain();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v27 = __CPLAssetsdOSLogDomain();
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
-                v29 = [*(a1 + 32) scopedIdentifier];
+                v28 = [*(a1 + 32) scopedIdentifier];
                 *buf = 138412290;
-                v117 = v29;
-                _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because Live Photo is muted in source asset: %@", buf, 0xCu);
+                v113 = v28;
+                _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because Live Photo is muted in source asset: %@", buf, 0xCu);
               }
             }
 
@@ -45029,7 +45025,7 @@ void __107__PLManagedAsset_Share__shouldBakeInAdjustmentsAndFlattenLivePhoto_for
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v107 objects:v115 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v103 objects:v111 count:16];
         if (v20)
         {
           continue;
@@ -45041,20 +45037,20 @@ void __107__PLManagedAsset_Share__shouldBakeInAdjustmentsAndFlattenLivePhoto_for
 
 LABEL_29:
 
-    v15 = v87;
+    v15 = v83;
   }
 
-  if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfAdjustedByThirdParty] && (objc_msgSend(v88, "isEqualToString:", *MEMORY[0x1E69C0E58]) & 1) == 0 && (objc_msgSend(v88, "isEqualToString:", *MEMORY[0x1E69C0E98]) & 1) == 0 && (objc_msgSend(v88, "isEqualToString:", *MEMORY[0x1E69C0E90]) & 1) == 0 && (IPAAdjustmentsComeFromSupportedApp() & 1) == 0)
+  if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfAdjustedByThirdParty] && (objc_msgSend_isEqualToString_(v84) & 1) == 0 && (objc_msgSend_isEqualToString_(v84) & 1) == 0 && (objc_msgSend_isEqualToString_(v84) & 1) == 0 && (IPAAdjustmentsComeFromSupportedApp() & 1) == 0)
   {
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
     {
-      v30 = __CPLAssetsdOSLogDomain();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v29 = __CPLAssetsdOSLogDomain();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = [*(a1 + 32) scopedIdentifier];
+        v30 = [*(a1 + 32) scopedIdentifier];
         *buf = 138412290;
-        v117 = v31;
-        _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because third-party edits are applied in source asset: %@", buf, 0xCu);
+        v113 = v30;
+        _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because third-party edits are applied in source asset: %@", buf, 0xCu);
       }
     }
 
@@ -45066,78 +45062,77 @@ LABEL_29:
     goto LABEL_70;
   }
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   obj = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
-  v32 = [obj countByEnumeratingWithState:&v103 objects:v114 count:16];
-  if (!v32)
+  v31 = [obj countByEnumeratingWithState:&v99 objects:v110 count:16];
+  if (!v31)
   {
     goto LABEL_69;
   }
 
-  v33 = v32;
-  v34 = *v104;
-  v35 = *MEMORY[0x1E69C0E30];
-  v36 = *MEMORY[0x1E69C0E68];
-  v82 = *MEMORY[0x1E69C0EC0];
-  v83 = *MEMORY[0x1E69C0E40];
-  v81 = v13;
+  v32 = v31;
+  v33 = *v100;
+  v34 = *MEMORY[0x1E69C0E30];
+  v78 = *MEMORY[0x1E69C0EC0];
+  v79 = *MEMORY[0x1E69C0E40];
+  v77 = v13;
   while (2)
   {
-    for (j = 0; j != v33; ++j)
+    for (j = 0; j != v32; ++j)
     {
-      if (*v104 != v34)
+      if (*v100 != v33)
       {
         objc_enumerationMutation(obj);
       }
 
-      v38 = *(*(&v103 + 1) + 8 * j);
-      v39 = [v38 objectForKeyedSubscript:{v35, v81}];
-      v40 = [v38 objectForKeyedSubscript:@"enabled"];
-      if ([v39 isEqualToString:v36] && (!v40 || objc_msgSend(v40, "BOOLValue")))
+      v36 = *(*(&v99 + 1) + 8 * j);
+      v37 = [v36 objectForKeyedSubscript:{v34, v77}];
+      v38 = [v36 objectForKeyedSubscript:@"enabled"];
+      if (objc_msgSend_isEqualToString_(v37) && (!v38 || [v38 BOOLValue]))
       {
-        a1 = v90;
+        a1 = v86;
         if (*MEMORY[0x1E6994D48])
         {
 LABEL_68:
           *(*(*(a1 + 56) + 8) + 24) = 1;
 
-          v13 = v81;
-          v15 = v87;
+          v13 = v77;
+          v15 = v83;
           goto LABEL_69;
         }
 
-        v45 = __CPLAssetsdOSLogDomain();
-        if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v43 = __CPLAssetsdOSLogDomain();
+        if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_67:
 
           goto LABEL_68;
         }
 
-        v46 = [*(v90 + 32) scopedIdentifier];
+        v44 = [*(v86 + 32) scopedIdentifier];
         *buf = 138412290;
-        v117 = v46;
-        v47 = "Will bake in adjustments because of cropping edits in source asset: %@";
+        v113 = v44;
+        v45 = "Will bake in adjustments because of cropping edits in source asset: %@";
 LABEL_66:
-        _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_DEFAULT, v47, buf, 0xCu);
+        _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_DEFAULT, v45, buf, 0xCu);
 
         goto LABEL_67;
       }
 
-      if ([v39 isEqualToString:v36])
+      if (objc_msgSend_isEqualToString_(v37))
       {
-        v41 = v34;
-        v42 = [v38 objectForKeyedSubscript:v83];
-        v43 = [v42 objectForKeyedSubscript:v82];
-        if (![v43 BOOLValue])
+        v39 = v33;
+        v40 = [v36 objectForKeyedSubscript:v79];
+        v41 = [v40 objectForKeyedSubscript:v78];
+        if (![v41 BOOLValue])
         {
-          v44 = [v39 isEqualToString:@"VideoReframe"];
+          isEqualToString = objc_msgSend_isEqualToString_(v37);
 
-          v34 = v41;
-          if (v44)
+          v33 = v39;
+          if (isEqualToString)
           {
             goto LABEL_63;
           }
@@ -45148,25 +45143,25 @@ LABEL_66:
 LABEL_63:
         if (*MEMORY[0x1E6994D48])
         {
-          a1 = v90;
+          a1 = v86;
           goto LABEL_68;
         }
 
-        v45 = __CPLAssetsdOSLogDomain();
-        a1 = v90;
-        if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v43 = __CPLAssetsdOSLogDomain();
+        a1 = v86;
+        if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_67;
         }
 
-        v46 = [*(v90 + 32) scopedIdentifier];
+        v44 = [*(v86 + 32) scopedIdentifier];
         *buf = 138412290;
-        v117 = v46;
-        v47 = "Will bake in adjustments because of reframe edits in source asset: %@";
+        v113 = v44;
+        v45 = "Will bake in adjustments because of reframe edits in source asset: %@";
         goto LABEL_66;
       }
 
-      if ([v39 isEqualToString:@"VideoReframe"])
+      if (objc_msgSend_isEqualToString_(v37))
       {
         goto LABEL_63;
       }
@@ -45174,11 +45169,11 @@ LABEL_63:
 LABEL_56:
     }
 
-    v33 = [obj countByEnumeratingWithState:&v103 objects:v114 count:16];
-    v13 = v81;
-    a1 = v90;
-    v15 = v87;
-    if (v33)
+    v32 = [obj countByEnumeratingWithState:&v99 objects:v110 count:16];
+    v13 = v77;
+    a1 = v86;
+    v15 = v83;
+    if (v32)
     {
       continue;
     }
@@ -45191,52 +45186,51 @@ LABEL_69:
 LABEL_70:
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfTimelineTrimmed])
   {
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
-    v100 = 0u;
-    v48 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
-    v49 = [v48 countByEnumeratingWithState:&v99 objects:v113 count:16];
-    if (v49)
+    v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v46 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
+    v47 = [v46 countByEnumeratingWithState:&v95 objects:v109 count:16];
+    if (v47)
     {
-      v50 = v49;
-      v51 = *v100;
-      v52 = *MEMORY[0x1E69C0E30];
-      v53 = *MEMORY[0x1E69C0EA8];
+      v48 = v47;
+      v49 = *v96;
+      v50 = *MEMORY[0x1E69C0E30];
       while (2)
       {
-        for (k = 0; k != v50; ++k)
+        for (k = 0; k != v48; ++k)
         {
-          if (*v100 != v51)
+          if (*v96 != v49)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v46);
           }
 
-          v55 = *(*(&v99 + 1) + 8 * k);
-          v56 = [v55 objectForKeyedSubscript:v52];
-          v57 = [v55 objectForKeyedSubscript:@"enabled"];
-          if ([v56 isEqualToString:v53] && (!v57 || objc_msgSend(v57, "BOOLValue")))
+          v52 = *(*(&v95 + 1) + 8 * k);
+          v53 = [v52 objectForKeyedSubscript:v50];
+          v54 = [v52 objectForKeyedSubscript:@"enabled"];
+          if (objc_msgSend_isEqualToString_(v53) && (!v54 || [v54 BOOLValue]))
           {
             if ((*MEMORY[0x1E6994D48] & 1) == 0)
             {
-              v58 = __CPLAssetsdOSLogDomain();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+              v55 = __CPLAssetsdOSLogDomain();
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
               {
-                v59 = [*(v90 + 32) scopedIdentifier];
+                v56 = [*(v86 + 32) scopedIdentifier];
                 *buf = 138412290;
-                v117 = v59;
-                _os_log_impl(&dword_19BF1F000, v58, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because of timeline trimming edits in source asset: %@", buf, 0xCu);
+                v113 = v56;
+                _os_log_impl(&dword_19BF1F000, v55, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because of timeline trimming edits in source asset: %@", buf, 0xCu);
               }
             }
 
-            *(*(*(v90 + 56) + 8) + 24) = 1;
+            *(*(*(v86 + 56) + 8) + 24) = 1;
 
             goto LABEL_88;
           }
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v99 objects:v113 count:16];
-        if (v50)
+        v48 = [v46 countByEnumeratingWithState:&v95 objects:v109 count:16];
+        if (v48)
         {
           continue;
         }
@@ -45247,58 +45241,57 @@ LABEL_70:
 
 LABEL_88:
 
-    a1 = v90;
-    v15 = v87;
+    a1 = v86;
+    v15 = v83;
   }
 
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfPortraitDepthEffectEnabled])
   {
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
-    v96 = 0u;
-    v60 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
-    v61 = [v60 countByEnumeratingWithState:&v95 objects:v112 count:16];
-    if (v61)
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v57 = [v15 objectForKeyedSubscript:*MEMORY[0x1E69C0E48]];
+    v58 = [v57 countByEnumeratingWithState:&v91 objects:v108 count:16];
+    if (v58)
     {
-      v62 = v61;
-      v63 = *v96;
-      v64 = *MEMORY[0x1E69C0E30];
-      v65 = *MEMORY[0x1E69C0E70];
+      v59 = v58;
+      v60 = *v92;
+      v61 = *MEMORY[0x1E69C0E30];
       while (2)
       {
-        for (m = 0; m != v62; ++m)
+        for (m = 0; m != v59; ++m)
         {
-          if (*v96 != v63)
+          if (*v92 != v60)
           {
-            objc_enumerationMutation(v60);
+            objc_enumerationMutation(v57);
           }
 
-          v67 = *(*(&v95 + 1) + 8 * m);
-          v68 = [v67 objectForKeyedSubscript:v64];
-          v69 = [v67 objectForKeyedSubscript:@"enabled"];
-          if ([v68 isEqualToString:v65] && (!v69 || objc_msgSend(v69, "BOOLValue")))
+          v63 = *(*(&v91 + 1) + 8 * m);
+          v64 = [v63 objectForKeyedSubscript:v61];
+          v65 = [v63 objectForKeyedSubscript:@"enabled"];
+          if (objc_msgSend_isEqualToString_(v64) && (!v65 || [v65 BOOLValue]))
           {
             if ((*MEMORY[0x1E6994D48] & 1) == 0)
             {
-              v70 = __CPLAssetsdOSLogDomain();
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+              v66 = __CPLAssetsdOSLogDomain();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                v71 = [*(v90 + 32) scopedIdentifier];
+                v67 = [*(v86 + 32) scopedIdentifier];
                 *buf = 138412290;
-                v117 = v71;
-                _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because of portrait depth effect in source asset: %@", buf, 0xCu);
+                v113 = v67;
+                _os_log_impl(&dword_19BF1F000, v66, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because of portrait depth effect in source asset: %@", buf, 0xCu);
               }
             }
 
-            *(*(*(v90 + 56) + 8) + 24) = 1;
+            *(*(*(v86 + 56) + 8) + 24) = 1;
 
             goto LABEL_107;
           }
         }
 
-        v62 = [v60 countByEnumeratingWithState:&v95 objects:v112 count:16];
-        if (v62)
+        v59 = [v57 countByEnumeratingWithState:&v91 objects:v108 count:16];
+        if (v59)
         {
           continue;
         }
@@ -45309,46 +45302,46 @@ LABEL_88:
 
 LABEL_107:
 
-    a1 = v90;
-    v15 = v87;
+    a1 = v86;
+    v15 = v83;
   }
 
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(a1 + 40) shouldBakeInIfContainsPenultimateResources])
   {
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
-    v92 = 0u;
-    v72 = [*(a1 + 32) modernResources];
-    v73 = [v72 countByEnumeratingWithState:&v91 objects:v111 count:16];
-    if (v73)
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v68 = [*(a1 + 32) modernResources];
+    v69 = [v68 countByEnumeratingWithState:&v87 objects:v107 count:16];
+    if (v69)
     {
-      v74 = v73;
-      v75 = *v92;
-      v76 = MEMORY[0x1E6994D48];
+      v70 = v69;
+      v71 = *v88;
+      v72 = MEMORY[0x1E6994D48];
       do
       {
-        for (n = 0; n != v74; ++n)
+        for (n = 0; n != v70; ++n)
         {
-          if (*v92 != v75)
+          if (*v88 != v71)
           {
-            objc_enumerationMutation(v72);
+            objc_enumerationMutation(v68);
           }
 
-          v78 = *(*(&v91 + 1) + 8 * n);
-          if ([v78 version] == 1 && (objc_msgSend(v78, "isDerivative") & 1) == 0)
+          v74 = *(*(&v87 + 1) + 8 * n);
+          if ([v74 version] == 1 && (objc_msgSend(v74, "isDerivative") & 1) == 0)
           {
-            if ((*v76 & 1) == 0)
+            if ((*v72 & 1) == 0)
             {
-              v79 = __CPLAssetsdOSLogDomain();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              v75 = __CPLAssetsdOSLogDomain();
+              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
               {
-                v80 = [*(a1 + 32) scopedIdentifier];
+                v76 = [*(a1 + 32) scopedIdentifier];
                 *buf = 138412290;
-                v117 = v80;
-                _os_log_impl(&dword_19BF1F000, v79, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because penultimate resources exist in source asset: %@", buf, 0xCu);
+                v113 = v76;
+                _os_log_impl(&dword_19BF1F000, v75, OS_LOG_TYPE_DEFAULT, "Will bake in adjustments because penultimate resources exist in source asset: %@", buf, 0xCu);
 
-                a1 = v90;
+                a1 = v86;
               }
             }
 
@@ -45356,13 +45349,13 @@ LABEL_107:
           }
         }
 
-        v74 = [v72 countByEnumeratingWithState:&v91 objects:v111 count:16];
+        v70 = [v68 countByEnumeratingWithState:&v87 objects:v107 count:16];
       }
 
-      while (v74);
+      while (v70);
     }
 
-    v15 = v87;
+    v15 = v83;
   }
 }
 
@@ -45535,19 +45528,18 @@ LABEL_13:
 - (void)purgeSyndicationResourcesOriginalsOnly:(BOOL)only
 {
   onlyCopy = only;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v34 = objc_alloc_init(MEMORY[0x1E696AC08]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   modernResources = [(PLManagedAsset *)self modernResources];
-  v6 = [modernResources countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v6 = [modernResources countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v40;
-    v36 = *MEMORY[0x1E69BFF00];
+    v9 = *v39;
     *&v7 = 138412546;
     v33 = v7;
     v35 = onlyCopy;
@@ -45556,12 +45548,12 @@ LABEL_13:
       v10 = 0;
       do
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(modernResources);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * v10);
+        v11 = *(*(&v38 + 1) + 8 * v10);
         if ([v11 dataStoreClassID] == 3)
         {
           if ([v11 isLocallyAvailable])
@@ -45576,9 +45568,9 @@ LABEL_13:
 
               uuid = [(PLManagedAsset *)self uuid];
               *buf = 138543618;
-              v44 = uuid;
-              v45 = 2112;
-              v46 = v11;
+              v43 = uuid;
+              v44 = 2112;
+              v45 = v11;
               v25 = v16;
               v26 = OS_LOG_TYPE_INFO;
               v27 = "Skipping purge of syndication asset %{public}@ resource that is not an original %@";
@@ -45587,9 +45579,9 @@ LABEL_13:
 
             additionalAttributes = [(PLManagedAsset *)self additionalAttributes];
             importedByBundleIdentifier = [additionalAttributes importedByBundleIdentifier];
-            v14 = [importedByBundleIdentifier isEqualToString:v36];
+            isEqualToString = objc_msgSend_isEqualToString_(importedByBundleIdentifier);
 
-            if (!v14)
+            if (!isEqualToString)
             {
               goto LABEL_24;
             }
@@ -45599,9 +45591,9 @@ LABEL_13:
             if (fileURL)
             {
               path = [fileURL path];
-              v38 = 0;
-              v18 = [PLCacheDeleteSupport isPurgeableFile:path outIsPhotoType:0 outUrgencyLevel:0 error:&v38];
-              v19 = v38;
+              v37 = 0;
+              v18 = [PLCacheDeleteSupport isPurgeableFile:path outIsPhotoType:0 outUrgencyLevel:0 error:&v37];
+              v19 = v37;
 
               if (v18)
               {
@@ -45610,15 +45602,15 @@ LABEL_13:
                 {
                   uuid2 = [(PLManagedAsset *)self uuid];
                   *buf = 138543618;
-                  v44 = uuid2;
-                  v45 = 2112;
-                  v46 = v11;
+                  v43 = uuid2;
+                  v44 = 2112;
+                  v45 = v11;
                   _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_INFO, "Purge syndication asset %{public}@ resource %@", buf, 0x16u);
                 }
 
-                v37 = 0;
-                v22 = [v34 removeItemAtURL:v16 error:&v37];
-                v23 = v37;
+                v36 = 0;
+                v22 = [v34 removeItemAtURL:v16 error:&v36];
+                v23 = v36;
                 if (v22 || PLIsErrorFileNotFound())
                 {
                   [v11 markAsNotLocallyAvailableAfterPurge];
@@ -45631,9 +45623,9 @@ LABEL_13:
                   {
                     v31 = [MEMORY[0x1E69BF220] descriptionWithFileURL:v16];
                     *buf = v33;
-                    v44 = v31;
-                    v45 = 2112;
-                    v46 = v23;
+                    v43 = v31;
+                    v44 = 2112;
+                    v45 = v23;
                     _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "purgeSyndicationResources: removeItemAtURL:%@ failed: %@", buf, 0x16u);
                   }
                 }
@@ -45655,9 +45647,9 @@ LABEL_13:
                   {
                     v29 = [MEMORY[0x1E69BF220] descriptionWithFileURL:v16];
                     *buf = v33;
-                    v44 = v29;
-                    v45 = 2112;
-                    v46 = v19;
+                    v43 = v29;
+                    v44 = 2112;
+                    v45 = v19;
                     _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_INFO, "File is not purgeable at %@ error %@", buf, 0x16u);
                   }
                 }
@@ -45674,9 +45666,9 @@ LABEL_13:
             {
               uuid = [(PLManagedAsset *)self uuid];
               *buf = 138543618;
-              v44 = uuid;
-              v45 = 2112;
-              v46 = v11;
+              v43 = uuid;
+              v44 = 2112;
+              v45 = v11;
               v25 = v16;
               v26 = OS_LOG_TYPE_INFO;
               v27 = "Skipping purge of syndication asset %{public}@ resource that is already not locally available %@";
@@ -45692,9 +45684,9 @@ LABEL_13:
           {
             uuid = [(PLManagedAsset *)self uuid];
             *buf = 138543618;
-            v44 = uuid;
-            v45 = 2112;
-            v46 = v11;
+            v43 = uuid;
+            v44 = 2112;
+            v45 = v11;
             v25 = v16;
             v26 = OS_LOG_TYPE_ERROR;
             v27 = "Skipping non-syndication resource found during asset %{public}@ purgeSyndicationResources %@";
@@ -45710,7 +45702,7 @@ LABEL_24:
       }
 
       while (v8 != v10);
-      v32 = [modernResources countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v32 = [modernResources countByEnumeratingWithState:&v38 objects:v46 count:16];
       v8 = v32;
     }
 
@@ -45768,9 +45760,9 @@ LABEL_24:
   {
     conversation = [(PLManagedAsset *)self conversation];
     importSessionID = [conversation importSessionID];
-    v8 = [importSessionID isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(importSessionID);
 
-    if (v8)
+    if (isEqualToString)
     {
       goto LABEL_27;
     }
@@ -45930,7 +45922,7 @@ void __74__PLManagedAsset_Syndication___updateIMCoreSyndicationForIdentifier_hid
       _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "calling IMCore to un-hide %{public}@ from syndication", buf, 0xCu);
     }
 
-    if (IMCoreLibraryCore() && getIMSPIUnhideSyndicationForAttachmentGUIDSymbolLoc())
+    if (IMCoreLibraryCore(0) && getIMSPIUnhideSyndicationForAttachmentGUIDSymbolLoc())
     {
       v6 = *(a1 + 32);
       IMSPIUnhideSyndicationForAttachmentGUIDSymbolLoc = getIMSPIUnhideSyndicationForAttachmentGUIDSymbolLoc();
@@ -45968,7 +45960,7 @@ LABEL_18:
     _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "rejectSyndicatedAsset: calling IMCore to remove %{public}@ from syndication", buf, 0xCu);
   }
 
-  if (!IMCoreLibraryCore() || !getIMSPIRemoveAttachmentGUIDFromSyndicationSymbolLoc())
+  if (!IMCoreLibraryCore(0) || !getIMSPIRemoveAttachmentGUIDFromSyndicationSymbolLoc())
   {
     v6 = PLSyndicationGetLog();
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -46299,8 +46291,8 @@ void __52__PLManagedAsset_Syndication__rejectSyndicatedAsset__block_invoke(uint6
 - (void)_preserveRelationshipsOfDeletedGuestAsset:(id)asset
 {
   assetCopy = asset;
-  entity = [assetCopy entity];
-  relationshipsByName = [entity relationshipsByName];
+  v5 = objc_msgSend_entity(assetCopy);
+  relationshipsByName = [v5 relationshipsByName];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __73__PLManagedAsset_Syndication___preserveRelationshipsOfDeletedGuestAsset___block_invoke;
@@ -46316,7 +46308,7 @@ void __73__PLManagedAsset_Syndication___preserveRelationshipsOfDeletedGuestAsset
   v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  if (([v5 hasPrefix:@"memoriesBeing"] & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"suggestionsBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"dayGroupHighlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"highlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"monthHighlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"yearHighlightBeing") & 1) != 0 || objc_msgSend(v5, "isEqualToString:", @"moment"))
+  if (([v5 hasPrefix:@"memoriesBeing"] & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"suggestionsBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"dayGroupHighlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"highlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"monthHighlightBeing") & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"yearHighlightBeing") & 1) != 0 || objc_msgSend_isEqualToString_(v5))
   {
     v7 = [v6 isToMany];
     v8 = *(a1 + 32);
@@ -46325,7 +46317,7 @@ void __73__PLManagedAsset_Syndication___preserveRelationshipsOfDeletedGuestAsset
 
     if (v7)
     {
-      if ([v10 count])
+      if (objc_msgSend_count(v10))
       {
         v11 = [v10 copy];
         v12 = PLSyndicationGetLog();
@@ -47035,10 +47027,10 @@ LABEL_3:
     v35 = 0;
     if (v16)
     {
-      [v16 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v16);
       v32 = 0uLL;
       v33 = 0;
-      [v16 originalVideoDuration];
+      objc_msgSend_originalVideoDuration(v16);
       if (!v21)
       {
         goto LABEL_19;
@@ -47075,10 +47067,10 @@ LABEL_19:
   v35 = 0;
   if (complementMetadataCopy)
   {
-    [complementMetadataCopy stillImageDisplayTime];
+    objc_msgSend_stillImageDisplayTime(complementMetadataCopy);
     v32 = 0uLL;
     v33 = 0;
-    [complementMetadataCopy duration];
+    objc_msgSend_duration(complementMetadataCopy);
     if (!v16)
     {
       goto LABEL_20;
@@ -47588,12 +47580,12 @@ LABEL_37:
       v71 = v30;
       v31 = PLSearchableItemMessagesLivePhotoVideoURL(itemCopy);
       bundleID = [itemCopy bundleID];
-      v33 = [bundleID isEqualToString:*MEMORY[0x1E69BFF00]];
+      isEqualToString = objc_msgSend_isEqualToString_(bundleID);
 
       v34 = 0;
       v35 = 0;
       v73 = v31;
-      if (v33 && v31)
+      if (isEqualToString && v31)
       {
         if (v23)
         {
@@ -47865,7 +47857,7 @@ LABEL_4:
     v19 = [managedObjectContext executeFetchRequest:v11 error:&v26];
     v20 = v26;
 
-    v21 = [v19 count];
+    v21 = objc_msgSend_count(v19);
     if (v21)
     {
       v22 = v21;
@@ -48169,7 +48161,7 @@ LABEL_26:
   }
 
 LABEL_31:
-  if (v9 == [allRequiredResourcesForCPLDisable count])
+  if (v9 == objc_msgSend_count(allRequiredResourcesForCPLDisable))
   {
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
     {
@@ -48521,12 +48513,12 @@ LABEL_53:
     -[PLManagedAsset setOrientation:](selfCopy, "setOrientation:", [changeCopy orientation]);
   }
 
-  [(PLManagedAsset *)selfCopy duration];
+  objc_msgSend_duration(selfCopy);
   v50 = (v49 * 1000.0);
-  duration = [changeCopy duration];
-  if (duration != v50)
+  v51 = objc_msgSend_duration(changeCopy);
+  if (v51 != v50)
   {
-    v52 = duration;
+    v52 = v51;
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
     {
       v53 = __CPLAssetsdOSLogDomain();
@@ -48561,7 +48553,7 @@ LABEL_53:
   adjustedStableHash = [additionalAttributes3 adjustedStableHash];
 
   v61 = v141;
-  if (v141 && [v141 isEqualToString:adjustedStableHash])
+  if (v141 && objc_msgSend_isEqualToString_(v141))
   {
     v62 = v138;
     goto LABEL_183;
@@ -49422,9 +49414,9 @@ LABEL_21:
         v13 = *(*(&v25 + 1) + 8 * i);
         uuid = [v13 uuid];
         uuid2 = [(PLManagedAsset *)self uuid];
-        v16 = [uuid isEqualToString:uuid2];
+        isEqualToString = objc_msgSend_isEqualToString_(uuid);
 
-        if ((v16 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           v17 = [v13 _rm_localResourceURLForResource:resourceCopy];
           v18 = [resourceCopy validatedExternalResourceRepresentationUsingFileURL:v17];
@@ -49503,7 +49495,7 @@ LABEL_21:
         v13 = *(*(&v40 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         v15 = [masterCopy rm_assetAttachedResourcesForResourceType:{objc_msgSend(v13, "resourceType")}];
-        if ([v15 count])
+        if (objc_msgSend_count(v15))
         {
           v38 = 0u;
           v39 = 0u;
@@ -49692,11 +49684,11 @@ void __83__PLManagedAsset_RM_CPL__rm_createMasterResourcesForCPLResources_master
   modernResources = [inCopy modernResources];
   v9 = [modernResources copy];
 
-  if (![v9 count])
+  if (!objc_msgSend_count(v9))
   {
     uuid = [(PLManagedAsset *)self uuid];
     rm_assetUUIDToAssetAttachedResources = [inCopy rm_assetUUIDToAssetAttachedResources];
-    if (![rm_assetUUIDToAssetAttachedResources count])
+    if (!objc_msgSend_count(rm_assetUUIDToAssetAttachedResources))
     {
       if (*MEMORY[0x1E6994D48])
       {
@@ -49728,7 +49720,7 @@ LABEL_43:
     [v28 removeObject:uuid];
     anyObject = [v28 anyObject];
     v30 = [rm_assetUUIDToAssetAttachedResources objectForKey:anyObject];
-    v31 = [v30 count];
+    v31 = objc_msgSend_count(v30);
     v24 = v31 != 0;
     v52 = v30;
     if (v31)
@@ -49738,8 +49730,8 @@ LABEL_43:
       v51 = v9;
       v32 = inCopy;
       v33 = [rm_assetUUIDToAssetAttachedResources objectForKeyedSubscript:uuid];
-      v34 = [v33 count];
-      v35 = [v30 count];
+      v34 = objc_msgSend_count(v33);
+      v35 = objc_msgSend_count(v30);
 
       if (v34 < v35)
       {
@@ -50466,7 +50458,7 @@ LABEL_26:
     }
 
     v5 = [(PLManagedAsset *)self persistedResourcesWithRecipeID:131280 andVersion:0];
-    if ([v5 count] == 1)
+    if (objc_msgSend_count(v5) == 1)
     {
       persistedOriginalVideoComplementResource = [(PLManagedAsset *)self persistedOriginalVideoComplementResource];
 
@@ -50507,7 +50499,7 @@ LABEL_26:
 {
   v3 = [(PLManagedAsset *)self persistedResourcesWithRecipeID:65944 andVersion:0];
   v4 = 0;
-  if ([v3 count] == 1)
+  if (objc_msgSend_count(v3) == 1)
   {
     persistedOriginalImageResource = [(PLManagedAsset *)self persistedOriginalImageResource];
     v4 = persistedOriginalImageResource == 0;
@@ -50520,7 +50512,7 @@ LABEL_26:
 {
   v3 = [(PLManagedAsset *)self persistedResourcesWithRecipeID:65943 andVersion:0];
   v4 = 0;
-  if ([v3 count] == 1)
+  if (objc_msgSend_count(v3) == 1)
   {
     persistedOriginalImageResource = [(PLManagedAsset *)self persistedOriginalImageResource];
     v4 = persistedOriginalImageResource == 0;
@@ -50658,7 +50650,7 @@ BOOL __98__PLManagedAsset_RM__reconsiderLocalAvailabilityTargetsForResourceGener
   v71 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   v5 = +[PLResourceModelValidationError allPossibleErrorCodes];
-  if (![errorsCopy count])
+  if (!objc_msgSend_count(errorsCopy))
   {
     v6 = v5;
 
@@ -50666,7 +50658,7 @@ BOOL __98__PLManagedAsset_RM__reconsiderLocalAvailabilityTargetsForResourceGener
   }
 
   v7 = [errorsCopy mutableCopy];
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     hasChanges = 0;
     v49 = v5;
@@ -50684,7 +50676,7 @@ BOOL __98__PLManagedAsset_RM__reconsiderLocalAvailabilityTargetsForResourceGener
 LABEL_18:
       [v7 removeObject:{anyObject, v47}];
 
-      if (![v7 count])
+      if (!objc_msgSend_count(v7))
       {
         goto LABEL_66;
       }
@@ -50754,7 +50746,7 @@ LABEL_18:
     }
 
     v52 = [PLResourceGenerator expectedLocalResourceRecipesForAsset:self versions:&unk_1F0FC02A0];
-    if ([v52 count])
+    if (objc_msgSend_count(v52))
     {
       v19 = anyObject;
       v20 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -50807,7 +50799,7 @@ LABEL_18:
     }
 
     v51 = v29;
-    if (![v29 count])
+    if (!objc_msgSend_count(v29))
     {
 LABEL_64:
 
@@ -51122,7 +51114,7 @@ id __40__PLManagedAsset_RM___originalResources__block_invoke(uint64_t a1, void *
   v42[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   _originalResources = [(PLManagedAsset *)self _originalResources];
-  if ([_originalResources count])
+  if (objc_msgSend_count(_originalResources))
   {
     photoLibrary = [(PLManagedObject *)self photoLibrary];
     if (photoLibrary)
@@ -51281,7 +51273,7 @@ void __90__PLManagedAsset_RM__makeOriginalResourceAvailableAndMarkPurgeableWithU
   dispatch_group_leave(*(a1 + 64));
 }
 
-uint64_t __90__PLManagedAsset_RM__makeOriginalResourceAvailableAndMarkPurgeableWithUrgency_completion___block_invoke_3(uint64_t a1)
+void *__90__PLManagedAsset_RM__makeOriginalResourceAvailableAndMarkPurgeableWithUrgency_completion___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) fileID];
   if (result != *(a1 + 40))
@@ -51602,7 +51594,7 @@ LABEL_12:
 {
   v28 = *MEMORY[0x1E69E9840];
   persistedAdjustedResources = [(PLManagedAsset *)self persistedAdjustedResources];
-  if ([persistedAdjustedResources count])
+  if (objc_msgSend_count(persistedAdjustedResources))
   {
     v19 = 0u;
     v20 = 0u;
@@ -52146,7 +52138,7 @@ void __58__PLManagedAsset_RM__resourcesSortedByQualityWithOptions___block_invoke
     v13[3] = &unk_1E7577AB0;
     v13[4] = self;
     v9 = [(PLManagedAsset *)self persistedResourcesMatching:v13];
-    v10 = [v9 count] != 0;
+    v10 = objc_msgSend_count(v9) != 0;
     *(v16 + 24) = v10;
   }
 

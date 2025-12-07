@@ -150,7 +150,7 @@
       primaryResidentVersionInHome = [v7 primaryResidentVersionInHome];
       [dictionary setObject:primaryResidentVersionInHome forKeyedSubscript:@"primaryResidentVersionInHome"];
 
-      v5 = [dictionary copy];
+      v5 = objc_msgSend_copy(dictionary);
       [(NSMutableDictionary *)self->_homeDimensions setObject:v5 forKeyedSubscript:homeCopy];
     }
 
@@ -307,7 +307,7 @@
       [dictionary setObject:v69 forKeyedSubscript:@"mediaOnlyConfiguration"];
     }
 
-    v70 = [dictionary copy];
+    v70 = objc_msgSend_copy(dictionary);
     v71 = self->_aggregatedHomeDimensions;
     self->_aggregatedHomeDimensions = v70;
 
@@ -371,7 +371,7 @@
 
     [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"isHH2Enabled"];
     [dictionary setObject:&unk_283E71CF0 forKeyedSubscript:@"isHH2Enabled_INT"];
-    v19 = [dictionary copy];
+    v19 = objc_msgSend_copy(dictionary);
     v20 = self->_deviceCapabilitiesAndEnablementsDimensions;
     self->_deviceCapabilitiesAndEnablementsDimensions = v19;
 
@@ -409,7 +409,7 @@
       [dictionary setObject:v10 forKeyedSubscript:@"currentUserPrivilegeBitMask"];
     }
 
-    v11 = [dictionary copy];
+    v11 = objc_msgSend_copy(dictionary);
     v12 = self->_aggregatedHomeCategorizationDimensions;
     self->_aggregatedHomeCategorizationDimensions = v11;
 
@@ -455,7 +455,7 @@
 
 - (void)addDimensionsForAccessoryIdentifier:(id)identifier toEventDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
   dataSource = [(HMDCoreAnalyticsLogEventObserverDelegate *)self dataSource];
@@ -474,17 +474,15 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2114;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory with identifier %{public}@ doesn't exist", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2114;
+      v17 = identifierCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Accessory with identifier %{public}@ doesn't exist", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCommonDimensionsToEventDictionary:(id)dictionary

@@ -21,7 +21,7 @@
   specialized DragAndDropBridge.dragInteraction(_:itemsForBeginning:)(session);
 
   swift_unknownObjectRelease();
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDragItem, 0x1E69DC990);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -37,7 +37,7 @@
   specialized DragAndDropBridge.dragInteraction(_:itemsForAddingTo:withTouchAt:)(session, x, y);
 
   swift_unknownObjectRelease();
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIDragItem, 0x1E69DC990);
   v11.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v11.super.isa;
@@ -115,23 +115,26 @@
 {
   v5 = (self + OBJC_IVAR____TtC7SwiftUI17DragAndDropBridge_onSessionEnded);
   v6 = *(&self->super.super.isa + OBJC_IVAR____TtC7SwiftUI17DragAndDropBridge_onSessionEnded);
-  selfCopy = self;
   if (v6)
   {
-    v8 = outlined copy of AppIntentExecutor?(v6);
-    v6(v8);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6);
-    v9 = *v5;
+    v7 = v5[1];
+    selfCopy = self;
+    v9 = outlined copy of AppIntentExecutor?(v6, v7);
+    v6(v9);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6, v7);
+    v10 = *v5;
   }
 
   else
   {
-    v9 = 0;
+    selfCopy2 = self;
+    v10 = 0;
   }
 
+  v12 = v5[1];
   *v5 = 0;
   v5[1] = 0;
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v9);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v10, v12);
 }
 
 - (id)dropInteraction:(id)interaction sessionDidUpdate:(id)update

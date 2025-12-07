@@ -63,102 +63,103 @@
 
 - (void)_convertToCA
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   self->_caReady = 1;
   cfxAnimation = self->_cfxAnimation;
   if (cfxAnimation)
   {
     selfCopy = self;
-    v90 = CFRetain(cfxAnimation);
-    v4 = sub_1AF11D8C8(v90);
-    v89 = sub_1AF11CA18(v4);
-    v5 = sub_1AF11C9D0(v4);
-    v6 = v5;
-    v9 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v7, v5, v8);
-    v12 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v10, v5, v11);
-    v13 = sub_1AF11D654(v4);
-    if (v5)
+    v71 = CFRetain(cfxAnimation);
+    v5 = sub_1AF11D8C8(v71, v4);
+    v70 = sub_1AF11CA18(v5, v6);
+    v8 = sub_1AF11C9D0(v5, v7);
+    v9 = v8;
+    v11 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v10, v8);
+    v13 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v12, v8);
+    v14 = sub_1AF11D654(v5);
+    if (v8)
     {
-      v14 = !v13;
+      v15 = !v14;
     }
 
     else
     {
-      v14 = 1;
+      v15 = 1;
     }
 
-    if (!v14)
+    if (!v15)
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        v16 = sub_1AF11D674(v4, v15);
-        v17 = sub_1AF11D680(v4, v15);
-        v18 = sub_1AF11D68C(v4, v15);
-        v22 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v19, v20, v21, v16);
-        objc_msgSend_addObject_(0, v23, v22, v24);
-        v28 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v25, v26, v27, v17);
-        objc_msgSend_addObject_(0, v29, v28, v30);
-        v34 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v31, v32, v33, v18);
-        objc_msgSend_addObject_(0, v35, v34, v36);
-        ++v15;
+        v17 = sub_1AF11D674(v5, v16);
+        v18 = sub_1AF11D680(v5, v16);
+        v19 = sub_1AF11D68C(v5, v16);
+        v22 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v20, v21, v17);
+        objc_msgSend_addObject_(0, v23, v22);
+        v26 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v24, v25, v18);
+        objc_msgSend_addObject_(0, v27, v26);
+        v30 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v28, v29, v19);
+        objc_msgSend_addObject_(0, v31, v30);
+        ++v16;
       }
 
-      while (v6 != v15);
+      while (v9 != v16);
     }
 
     memset(__dst, 0, sizeof(__dst));
-    v37 = sub_1AF11D698(v4);
-    if (v6 && v37)
+    v32 = sub_1AF11D698(v5);
+    if (v9 && v32)
     {
-      v38 = 0;
-      v39 = 0.0;
-      v40 = 1;
+      v34 = 0;
+      v35 = 0.0;
+      v36 = 1;
       do
       {
-        v92 = v39;
-        v41 = sub_1AF11D6CC(v4, v38);
-        v45 = sub_1AF11D6B8(v4, v38);
-        if ((v40 & 1) == 0)
+        v73 = v35;
+        v37 = sub_1AF11D6CC(v5, v34);
+        v39 = sub_1AF11D6B8(v5, v34);
+        if ((v36 & 1) == 0)
         {
-          LODWORD(v46) = HIDWORD(v92);
-          LODWORD(v47) = HIDWORD(*v41);
-          v48 = objc_msgSend_functionWithControlPoints__::(MEMORY[0x1E69793D0], v42, v43, v44, v92, v46, *v41, v47);
-          objc_msgSend_addObject_(0, v49, v48, v50);
+          LODWORD(v40) = HIDWORD(v73);
+          LODWORD(v41) = HIDWORD(*v37);
+          v42 = objc_msgSend_functionWithControlPoints__::(MEMORY[0x1E69793D0], v33, v38, v73, v40, *v37, v41);
+          objc_msgSend_addObject_(0, v43, v42);
         }
 
-        v40 = 0;
-        v39 = *v45;
-        ++v38;
+        v36 = 0;
+        v35 = *v39;
+        ++v34;
       }
 
-      while (v6 != v38);
+      while (v9 != v34);
     }
 
-    *&v53 = sub_1AF112A24(v90);
-    if (v6)
+    *&v45 = sub_1AF112A24(v71, v33);
+    if (v9)
     {
-      v54 = 0;
-      if (*&v53 == 0.0)
+      v46 = 0;
+      if (*&v45 == 0.0)
       {
-        *&v53 = 1.0;
+        *&v45 = 1.0;
       }
 
-      v55 = *&v53;
+      v47 = *&v45;
       while (1)
       {
-        v56 = sub_1AF11CA60(v4, v54);
-        sub_1AF11CAD0(v4, v54, __dst);
-        v60 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v57, v58, v59, v56 / v55);
-        objc_msgSend_addObject_(v9, v61, v60, v62);
-        v66 = sub_1AF376790(__dst, v89, v65, v63, v64);
-        if (!v66)
+        v48 = sub_1AF11CA60(v5, v46);
+        sub_1AF11CAD0(v5, v46, __dst);
+        v51 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v49, v50, v48 / v47);
+        objc_msgSend_addObject_(v11, v52, v51);
+        v54 = sub_1AF376790(__dst, v70, v53);
+        if (!v54)
         {
           break;
         }
 
-        objc_msgSend_addObject_(v12, v67, v66, v68);
-        if (v6 == ++v54)
+        objc_msgSend_addObject_(v13, v55, v54);
+        v46 = (v46 + 1);
+        if (v9 == v46)
         {
           goto LABEL_20;
         }
@@ -168,40 +169,40 @@
     }
 
 LABEL_20:
-    objc_msgSend_setKeyTimes_(selfCopy, v51, v9, v52, v53);
-    objc_msgSend_setValues_(selfCopy, v69, v12, v70);
-    objc_msgSend_setContinuityValues_(selfCopy, v71, 0, v72);
-    objc_msgSend_setTensionValues_(selfCopy, v73, 0, v74);
-    objc_msgSend_setBiasValues_(selfCopy, v75, 0, v76);
-    objc_msgSend_setTimingFunctions_(selfCopy, v77, 0, v78);
-    v79 = sub_1AF11CFA4(v4);
-    if (sub_1AF11CEF0(v4) == 1)
+    objc_msgSend_setKeyTimes_(selfCopy, v44, v11, v45);
+    objc_msgSend_setValues_(selfCopy, v56, v13);
+    objc_msgSend_setContinuityValues_(selfCopy, v57, 0);
+    objc_msgSend_setTensionValues_(selfCopy, v58, 0);
+    objc_msgSend_setBiasValues_(selfCopy, v59, 0);
+    objc_msgSend_setTimingFunctions_(selfCopy, v60, 0);
+    v62 = sub_1AF11CFA4(v5, v61);
+    if (sub_1AF11CEF0(v5, v63) == 1)
     {
-      v82 = MEMORY[0x1E69795B8];
-      if (v79 == 2)
+      v65 = MEMORY[0x1E69795B8];
+      if (v62 == 2)
       {
-        v82 = MEMORY[0x1E6979598];
+        v65 = MEMORY[0x1E6979598];
       }
     }
 
     else
     {
-      if (v79 > 2)
+      if (v62 > 2)
       {
 LABEL_27:
-        v83 = sub_1AF11C79C(v4);
-        objc_msgSend_setDuration_(selfCopy, v84, v85, v86, v83);
-        sub_1AF298E6C(selfCopy, v90);
+        v66 = sub_1AF11C79C(v5, v64);
+        objc_msgSend_setDuration_(selfCopy, v67, v68, v66);
+        sub_1AF298E6C(selfCopy, v71);
 LABEL_29:
-        objc_msgSend_setCfxAnimation_(selfCopy, v87, v90, v88);
-        CFRelease(v90);
+        objc_msgSend_setCfxAnimation_(selfCopy, v69, v71);
+        CFRelease(v71);
         return;
       }
 
-      v82 = qword_1E7A7E490[v79];
+      v65 = qword_1E7A7E490[v62];
     }
 
-    objc_msgSend_setCalculationMode_(selfCopy, v80, *v82, v81);
+    objc_msgSend_setCalculationMode_(selfCopy, v64, *v65);
     goto LABEL_27;
   }
 }
@@ -210,7 +211,7 @@ LABEL_29:
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
   cfxAnimation = self->_cfxAnimation;
@@ -226,165 +227,165 @@ LABEL_29:
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 values];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 values];
 }
 
 - (void)setValues:(id)values
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, values, v3);
+    objc_msgSend__clearCFXCache(self, a2, values);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setValues:values];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setValues:values];
 }
 
 - (id)keyTimes
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 keyTimes];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 keyTimes];
 }
 
 - (void)setKeyTimes:(id)times
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, times, v3);
+    objc_msgSend__clearCFXCache(self, a2, times);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setKeyTimes:times];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setKeyTimes:times];
 }
 
 - (id)timingFunctions
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 timingFunctions];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 timingFunctions];
 }
 
 - (void)setTimingFunctions:(id)functions
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, functions, v3);
+    objc_msgSend__clearCFXCache(self, a2, functions);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setTimingFunctions:functions];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setTimingFunctions:functions];
 }
 
 - (id)tensionValues
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 tensionValues];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 tensionValues];
 }
 
 - (void)setTensionValues:(id)values
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, values, v3);
+    objc_msgSend__clearCFXCache(self, a2, values);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setTensionValues:values];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setTensionValues:values];
 }
 
 - (id)continuityValues
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 continuityValues];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 continuityValues];
 }
 
 - (void)setContinuityValues:(id)values
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, values, v3);
+    objc_msgSend__clearCFXCache(self, a2, values);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setContinuityValues:values];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setContinuityValues:values];
 }
 
 - (id)biasValues
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  return [(VFXKeyframeAnimation *)&v6 biasValues];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  return [(VFXKeyframeAnimation *)&v5 biasValues];
 }
 
 - (void)setBiasValues:(id)values
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, values, v3);
+    objc_msgSend__clearCFXCache(self, a2, values);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 setBiasValues:values];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 setBiasValues:values];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   if (self->_caReady || !self->_cfxAnimation)
   {
-    v21.receiver = self;
-    v21.super_class = VFXKeyframeAnimation;
-    return [(VFXKeyframeAnimation *)&v21 copyWithZone:zone];
+    v17.receiver = self;
+    v17.super_class = VFXKeyframeAnimation;
+    return [(VFXKeyframeAnimation *)&v17 copyWithZone:zone];
   }
 
   else
   {
     v4 = objc_alloc_init(objc_opt_class());
-    v5 = sub_1AF113C58(self->_cfxAnimation);
-    objc_msgSend_setCfxAnimation_(v4, v6, v5, v7);
-    CFRelease(v5);
-    v11 = objc_msgSend_keyPath(self, v8, v9, v10);
-    objc_msgSend_setKeyPath_(v4, v12, v11, v13);
-    v17 = objc_msgSend_delegate(self, v14, v15, v16);
-    objc_msgSend_setDelegate_(v4, v18, v17, v19);
+    v6 = sub_1AF113C58(self->_cfxAnimation, v5);
+    objc_msgSend_setCfxAnimation_(v4, v7, v6);
+    CFRelease(v6);
+    v10 = objc_msgSend_keyPath(self, v8, v9);
+    objc_msgSend_setKeyPath_(v4, v11, v10);
+    v14 = objc_msgSend_delegate(self, v12, v13);
+    objc_msgSend_setDelegate_(v4, v15, v14);
   }
 
   return v4;
@@ -394,18 +395,18 @@ LABEL_29:
 {
   if (self->_caReady)
   {
-    v15.receiver = self;
-    v15.super_class = VFXKeyframeAnimation;
-    return [(VFXKeyframeAnimation *)&v15 description];
+    v12.receiver = self;
+    v12.super_class = VFXKeyframeAnimation;
+    return [(VFXKeyframeAnimation *)&v12 description];
   }
 
   else
   {
-    v6 = MEMORY[0x1E696AEC0];
-    objc_msgSend_duration(self, a2, v2, v3);
-    v8 = v7;
-    v12 = objc_msgSend_keyPath(self, v9, v10, v11);
-    return objc_msgSend_stringWithFormat_(v6, v13, @"VFXKeyframeAnimation %p (duration=%f, keyPath:%@)", v14, self, v8, v12);
+    v5 = MEMORY[0x1E696AEC0];
+    objc_msgSend_duration(self, a2, v2);
+    v7 = v6;
+    v10 = objc_msgSend_keyPath(self, v8, v9);
+    return objc_msgSend_stringWithFormat_(v5, v11, @"VFXKeyframeAnimation %p (duration=%f, keyPath:%@)", self, v7, v10);
   }
 }
 
@@ -443,7 +444,7 @@ LABEL_29:
     if (cfxAnimation)
     {
       durationCopy = duration;
-      sub_1AF1129D0(cfxAnimation, durationCopy);
+      sub_1AF1129D0(cfxAnimation, a2, durationCopy);
     }
 
     goto LABEL_8;
@@ -460,14 +461,14 @@ LABEL_8:
 
   durationCopy2 = duration;
 
-  sub_1AF1129D0(cfxAnimation, durationCopy2);
+  sub_1AF1129D0(cfxAnimation, a2, durationCopy2);
 }
 
 - (double)duration
 {
   if (self->_cfxAnimation)
   {
-    return sub_1AF112A24(self->_cfxAnimation);
+    return sub_1AF112A24(self->_cfxAnimation, a2);
   }
 
   v3.receiver = self;
@@ -522,7 +523,7 @@ LABEL_5:
   cfxAnimation = self->_cfxAnimation;
   if (cfxAnimation)
   {
-    sub_1AF112B00(cfxAnimation, count);
+    sub_1AF112B00(cfxAnimation, a2, count);
   }
 
   if (self->_caReady)
@@ -540,7 +541,7 @@ LABEL_5:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF112B54(cfxAnimation);
+    return sub_1AF112B54(cfxAnimation, a2);
   }
 
   else
@@ -559,24 +560,24 @@ LABEL_5:
 {
   if (self->_cfxAnimation)
   {
-    objc_msgSend__clearCFXCache(self, a2, v3, v4);
+    objc_msgSend__clearCFXCache(self, a2, v3);
   }
 
-  v7.receiver = self;
-  v7.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v7 setRepeatDuration:duration];
+  v6.receiver = self;
+  v6.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v6 setRepeatDuration:duration];
 }
 
 - (double)repeatDuration
 {
   if (!self->_caReady)
   {
-    objc_msgSend__convertToCA(self, a2, v2, v3);
+    objc_msgSend__convertToCA(self, a2, v2);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXKeyframeAnimation;
-  [(VFXKeyframeAnimation *)&v6 repeatDuration];
+  v5.receiver = self;
+  v5.super_class = VFXKeyframeAnimation;
+  [(VFXKeyframeAnimation *)&v5 repeatDuration];
   return result;
 }
 
@@ -613,7 +614,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF112BFC(cfxAnimation);
+    return sub_1AF112BFC(cfxAnimation, a2);
   }
 
   else
@@ -634,7 +635,7 @@ LABEL_8:
   {
     if (cfxAnimation)
     {
-      sub_1AF11307C(cfxAnimation, offset);
+      sub_1AF11307C(cfxAnimation, a2, offset);
     }
 
     goto LABEL_8;
@@ -649,7 +650,7 @@ LABEL_8:
     return;
   }
 
-  sub_1AF11307C(cfxAnimation, offset);
+  sub_1AF11307C(cfxAnimation, a2, offset);
 }
 
 - (double)timeOffset
@@ -658,7 +659,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF1130D0(cfxAnimation);
+    return sub_1AF1130D0(cfxAnimation, a2);
   }
 
   else
@@ -681,7 +682,7 @@ LABEL_8:
   {
     if (cfxAnimation)
     {
-      sub_1AF113118(cfxAnimation, speed);
+      sub_1AF113118(cfxAnimation, a2, speed);
     }
 
     goto LABEL_8;
@@ -697,7 +698,7 @@ LABEL_8:
     return;
   }
 
-  sub_1AF113118(cfxAnimation, speed);
+  sub_1AF113118(cfxAnimation, a2, speed);
 }
 
 - (float)speed
@@ -706,7 +707,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF11316C(cfxAnimation);
+    return sub_1AF11316C(cfxAnimation, a2);
   }
 
   else
@@ -754,7 +755,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF112E80(cfxAnimation);
+    return sub_1AF112E80(cfxAnimation, a2);
   }
 
   else
@@ -774,8 +775,8 @@ LABEL_8:
   {
     if (cfxAnimation)
     {
-      v7 = sub_1AF290524(mode, a2, mode, v3);
-      sub_1AF113614(cfxAnimation, v7);
+      v6 = sub_1AF290524(mode, a2);
+      sub_1AF113614(cfxAnimation, v6);
     }
 
     goto LABEL_8;
@@ -784,31 +785,31 @@ LABEL_8:
   if (!cfxAnimation)
   {
 LABEL_8:
-    v9.receiver = self;
-    v9.super_class = VFXKeyframeAnimation;
-    [(VFXKeyframeAnimation *)&v9 setFillMode:mode];
+    v8.receiver = self;
+    v8.super_class = VFXKeyframeAnimation;
+    [(VFXKeyframeAnimation *)&v8 setFillMode:mode];
     return;
   }
 
-  v8 = sub_1AF290524(mode, a2, mode, v3);
+  v7 = sub_1AF290524(mode, a2);
 
-  sub_1AF113614(cfxAnimation, v8);
+  sub_1AF113614(cfxAnimation, v7);
 }
 
 - (id)fillMode
 {
   if (self->_cfxAnimation)
   {
-    v2 = sub_1AF1135C8(self->_cfxAnimation);
+    v2 = sub_1AF1135C8(self->_cfxAnimation, a2);
 
-    return sub_1AF290614(v2);
+    return sub_1AF290614(v2, v3);
   }
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = VFXKeyframeAnimation;
-    return [(VFXKeyframeAnimation *)&v4 fillMode];
+    v5.receiver = self;
+    v5.super_class = VFXKeyframeAnimation;
+    return [(VFXKeyframeAnimation *)&v5 fillMode];
   }
 }
 
@@ -819,8 +820,8 @@ LABEL_8:
   {
     if (cfxAnimation)
     {
-      v7 = sub_1AF290784(events, a2, events, v3);
-      sub_1AF113490(cfxAnimation, v7);
+      v6 = sub_1AF290784(events, a2, events);
+      sub_1AF113490(cfxAnimation, v6);
     }
 
     goto LABEL_8;
@@ -829,33 +830,33 @@ LABEL_8:
   if (!cfxAnimation)
   {
 LABEL_8:
-    v9 = objc_msgSend_copy(events, a2, events, v3);
-    v10.receiver = self;
-    v10.super_class = VFXKeyframeAnimation;
-    [(CAAnimation *)&v10 setAnimationEvents:v9];
+    v8 = objc_msgSend_copy(events, a2, events);
+    v9.receiver = self;
+    v9.super_class = VFXKeyframeAnimation;
+    [(CAAnimation *)&v9 setAnimationEvents:v8];
 
     return;
   }
 
-  v8 = sub_1AF290784(events, a2, events, v3);
+  v7 = sub_1AF290784(events, a2, events);
 
-  sub_1AF113490(cfxAnimation, v8);
+  sub_1AF113490(cfxAnimation, v7);
 }
 
 - (id)animationEvents
 {
   if (self->_cfxAnimation)
   {
-    v2 = sub_1AF113448(self->_cfxAnimation);
+    v2 = sub_1AF113448(self->_cfxAnimation, a2);
 
-    return sub_1AF290934(v2);
+    return sub_1AF290934(v2, v3);
   }
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = VFXKeyframeAnimation;
-    return [(CAAnimation *)&v4 animationEvents];
+    v5.receiver = self;
+    v5.super_class = VFXKeyframeAnimation;
+    return [(CAAnimation *)&v5 animationEvents];
   }
 }
 
@@ -891,19 +892,19 @@ LABEL_8:
 {
   if (self->_cfxAnimation)
   {
-    result = sub_1AF112CC8(self->_cfxAnimation);
+    result = sub_1AF112CC8(self->_cfxAnimation, a2);
     if (result)
     {
 
-      return sub_1AF36FD0C(result);
+      return sub_1AF36FD0C(result, v3);
     }
   }
 
   else
   {
-    v3.receiver = self;
-    v3.super_class = VFXKeyframeAnimation;
-    return [(VFXKeyframeAnimation *)&v3 timingFunction];
+    v4.receiver = self;
+    v4.super_class = VFXKeyframeAnimation;
+    return [(VFXKeyframeAnimation *)&v4 timingFunction];
   }
 
   return result;
@@ -942,7 +943,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF112E34(cfxAnimation);
+    return sub_1AF112E34(cfxAnimation, a2);
   }
 
   else
@@ -988,7 +989,7 @@ LABEL_8:
   {
     cfxAnimation = self->_cfxAnimation;
 
-    return sub_1AF112D7C(cfxAnimation);
+    return sub_1AF112D7C(cfxAnimation, a2);
   }
 
   else

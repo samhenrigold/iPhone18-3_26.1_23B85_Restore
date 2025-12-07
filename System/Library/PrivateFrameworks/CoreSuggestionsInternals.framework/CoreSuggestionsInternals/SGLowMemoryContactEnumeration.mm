@@ -27,7 +27,7 @@
 void __71__SGLowMemoryContactEnumeration_enumerateContactIdentifiersUsingBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v12 = a2;
-  v5 = [v12 count];
+  v5 = objc_msgSend_count(v12);
   if (v5)
   {
     v6 = 0;
@@ -54,7 +54,7 @@ void __71__SGLowMemoryContactEnumeration_enumerateContactIdentifiersUsingBlock__
 
 + (void)enumerateContactIdentifierBatchesUsingBlock:(id)block
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v4 = objc_opt_new();
   [v4 setLowPriority:1];
@@ -66,9 +66,9 @@ void __71__SGLowMemoryContactEnumeration_enumerateContactIdentifiersUsingBlock__
   if ([MEMORY[0x277D42598] isDeviceFormattedForProtection])
   {
     v6 = *MEMORY[0x277CCA1B8];
-    v40[0] = *MEMORY[0x277CCA1A0];
-    v40[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+    v39[0] = *MEMORY[0x277CCA1A0];
+    v39[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
     [v5 setProtectionClasses:v7];
   }
 
@@ -76,55 +76,55 @@ void __71__SGLowMemoryContactEnumeration_enumerateContactIdentifiersUsingBlock__
   v9 = dispatch_queue_create("SGLowMemoryContactEnumeration", v8);
 
   v10 = dispatch_semaphore_create(0);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__11856;
-  v38 = __Block_byref_object_dispose__11857;
-  v39 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
   v33 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke;
-  v25[3] = &unk_27894D448;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__11856;
+  v37 = __Block_byref_object_dispose__11857;
+  v38 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke;
+  v24[3] = &unk_27894D448;
   v11 = v9;
-  v26 = v11;
-  v28 = &v30;
-  v29 = &v34;
+  v25 = v11;
+  v27 = &v29;
+  v28 = &v33;
   v12 = v10;
-  v27 = v12;
-  [v5 setFoundItemsHandler:v25];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke_4;
-  v21 = &unk_278951198;
+  v26 = v12;
+  [v5 setFoundItemsHandler:v24];
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke_4;
+  v20 = &unk_278951198;
   v13 = v11;
-  v22 = v13;
-  v24 = &v30;
+  v21 = v13;
+  v23 = &v29;
   v14 = v12;
-  v23 = v14;
-  [v5 setCompletionHandler:&v18];
+  v22 = v14;
+  [v5 setCompletionHandler:&v17];
   [v5 start];
   while (1)
   {
     dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-    if (v31[3])
+    if (v30[3])
     {
       break;
     }
 
     v15 = objc_autoreleasePoolPush();
-    blockCopy[2](blockCopy, v35[5], (v31 + 3));
-    if (*(v31 + 24) == 1)
+    blockCopy[2](blockCopy, v34[5], (v30 + 3));
+    if (*(v30 + 24) == 1)
     {
       [v5 cancel];
     }
 
     objc_autoreleasePoolPop(v15);
-    v16 = *(v31 + 24);
+    v16 = *(v30 + 24);
     dispatch_resume(v13);
     if (v16)
     {
@@ -135,10 +135,8 @@ void __71__SGLowMemoryContactEnumeration_enumerateContactIdentifiersUsingBlock__
   dispatch_resume(v13);
 LABEL_10:
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 void __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke(uint64_t a1, void *a2)
@@ -175,7 +173,7 @@ void __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingB
 
 intptr_t __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUsingBlock___block_invoke_5(intptr_t result)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(*(result + 56) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
@@ -186,10 +184,10 @@ intptr_t __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUs
       v3 = sgLogHandle();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
-        v5 = *(v2 + 32);
-        v6 = 138412290;
-        v7 = v5;
-        _os_log_fault_impl(&dword_231E60000, v3, OS_LOG_TYPE_FAULT, "SGLowMemoryContactEnumeration got an error from Spotlight: %@", &v6, 0xCu);
+        v4 = *(v2 + 32);
+        v5 = 138412290;
+        v6 = v4;
+        _os_log_fault_impl(&dword_231E60000, v3, OS_LOG_TYPE_FAULT, "SGLowMemoryContactEnumeration got an error from Spotlight: %@", &v5, 0xCu);
       }
 
       if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -199,10 +197,9 @@ intptr_t __77__SGLowMemoryContactEnumeration_enumerateContactIdentifierBatchesUs
     }
 
     dispatch_suspend(*(v2 + 40));
-    result = dispatch_semaphore_signal(*(v2 + 48));
+    return dispatch_semaphore_signal(*(v2 + 48));
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 

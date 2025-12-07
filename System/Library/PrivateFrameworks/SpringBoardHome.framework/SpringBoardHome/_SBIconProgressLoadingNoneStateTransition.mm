@@ -10,7 +10,7 @@
   v10.receiver = self;
   v10.super_class = _SBIconProgressLoadingNoneStateTransition;
   [(_SBIconProgressStateTransition *)&v10 _updateView:viewCopy];
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   UIRectGetCenter();
   UIDistanceBetweenPoints();
   v6 = v5;

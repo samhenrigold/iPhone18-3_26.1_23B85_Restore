@@ -273,9 +273,9 @@
 
 - (void)layoutSubviews
 {
-  v89.receiver = self;
-  v89.super_class = EKDayView;
-  [(EKDayView *)&v89 layoutSubviews];
+  v93.receiver = self;
+  v93.super_class = EKDayView;
+  [(EKDayView *)&v93 layoutSubviews];
   if (CalCanvasPocketEnabled())
   {
     topContentInset = self->_topContentInset;
@@ -329,7 +329,7 @@
   [grid updateHourHeight];
 
   [EKDayTimeView defaultHeightForSizeClass:[(EKDayView *)self _sizeClass] orientation:self->_orientation withHourScale:self->_hourScale];
-  v87 = v24;
+  v91 = v24;
   [EKDayTimeView timeWidthForOrientation:self->_orientation inViewHierarchy:self];
   v26 = v25;
   window = [(EKDayView *)self window];
@@ -340,107 +340,108 @@
   }
 
   [(EKDayView *)self leadingMargin];
-  v85 = v26;
+  v89 = v26;
   v29 = v26 + v28;
-  v86 = v14;
-  v90.origin.x = v14;
-  v90.origin.y = topContentInset;
-  v88 = v22;
-  v90.size.width = v22;
-  v90.size.height = v21;
-  CGRectGetWidth(v90);
+  v90 = v14;
+  v94.origin.x = v14;
+  v94.origin.y = topContentInset;
+  v92 = v22;
+  v94.size.width = v22;
+  v94.size.height = v21;
+  CGRectGetWidth(v94);
   [(EKDayView *)self scrollBarOffset];
   [(EKDayView *)self trailingMargin];
-  [(EKDayView *)self _verticalOffset];
-  v31 = v30;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
-  v33 = v29;
+  _verticalOffset = [(EKDayView *)self _verticalOffset];
+  v32 = v31;
+  IsLeftToRight = CalInterfaceIsLeftToRight(_verticalOffset, v33);
+  v35 = v29;
   if ((IsLeftToRight & 1) == 0)
   {
     [(EKDayView *)self trailingMargin];
   }
 
-  v84 = -v31;
-  [(EKDayViewContent *)self->_dayContent setFrame:v33];
+  v88 = -v32;
+  [(EKDayViewContent *)self->_dayContent setFrame:v35];
   [(UIScrollView *)self->_scroller contentOffset];
-  v35 = v34;
   v37 = v36;
-  v91.origin.x = v86;
-  v91.origin.y = topContentInset;
-  v38 = v88;
-  v91.size.width = v88;
-  v91.size.height = v21;
-  [(UIScrollView *)self->_scroller setContentSize:CGRectGetWidth(v91), v87 + v31 * -2.0];
-  [(UIScrollView *)self->_scroller setContentOffset:v35, v37];
-  v39 = self->_allDayView;
+  v39 = v38;
+  v95.origin.x = v90;
+  v95.origin.y = topContentInset;
+  v40 = v92;
+  v95.size.width = v92;
+  v95.size.height = v21;
+  [(UIScrollView *)self->_scroller setContentSize:CGRectGetWidth(v95), v91 + v32 * -2.0];
+  [(UIScrollView *)self->_scroller setContentOffset:v37, v39];
+  v41 = self->_allDayView;
   [EKDayTimeView timeInsetForSizeClass:[(EKDayView *)self _sizeClass] orientation:self->_orientation];
-  [(EKDayAllDayView *)v39 setOccurrenceInset:v85 labelInset:v85 - v40];
+  [(EKDayAllDayView *)v41 setOccurrenceInset:v89 labelInset:v89 - v42];
   if (CalCanvasPocketEnabled())
   {
     [(EKDayView *)self bounds];
-    v42 = v41;
+    v44 = v43;
     [(EKDayView *)self scrollBarOffset];
-    v44 = v43 + v42;
+    v46 = v45 + v44;
     [(EKDayView *)self bounds];
-    v46 = v45;
+    v48 = v47;
     [(UIScrollView *)self->_scroller frame];
-    v97.origin.x = 0.0;
-    v97.origin.y = 0.0;
-    v97.size.width = v44;
-    v97.size.height = v46;
-    if (!CGRectEqualToRect(v92, v97))
+    v101.origin.x = 0.0;
+    v101.origin.y = 0.0;
+    v101.size.width = v46;
+    v101.size.height = v48;
+    if (!CGRectEqualToRect(v96, v101))
     {
-      [(UIScrollView *)self->_scroller setFrame:0.0, 0.0, v44, v46];
+      [(UIScrollView *)self->_scroller setFrame:0.0, 0.0, v46, v48];
     }
 
     [(EKDayView *)self safeAreaInsets];
     [(UIScrollView *)self->_scroller setContentInset:topContentInset, 0.0];
     [(EKDayView *)self safeAreaInsets];
-    [(UIScrollView *)self->_scroller setVerticalScrollIndicatorInsets:topContentInset, 0.0];
-    v47 = v86;
-    v38 = v88;
+    v49 = [(UIScrollView *)self->_scroller setVerticalScrollIndicatorInsets:topContentInset, 0.0];
+    v51 = v90;
+    v40 = v92;
   }
 
   else
   {
     [(UIScrollView *)self->_scroller frame];
-    v98.origin.x = v86;
-    v98.origin.y = topContentInset;
-    v98.size.width = v88;
-    v98.size.height = v21;
-    v47 = v86;
-    if (!CGRectEqualToRect(v93, v98))
+    v102.origin.x = v90;
+    v102.origin.y = topContentInset;
+    v102.size.width = v92;
+    v102.size.height = v21;
+    v49 = CGRectEqualToRect(v97, v102);
+    v51 = v90;
+    if ((v49 & 1) == 0)
     {
-      [(UIScrollView *)self->_scroller setFrame:v86, topContentInset, v88, v21];
+      v49 = [(UIScrollView *)self->_scroller setFrame:v90, topContentInset, v92, v21];
     }
   }
 
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(v49, v50))
   {
-    v48 = v29 - v85;
+    v52 = v29 - v89;
   }
 
   else
   {
     [(EKDayViewContent *)self->_dayContent frame];
-    v50 = v49;
+    v54 = v53;
     [(EKDayViewContent *)self->_dayContent frame];
-    v48 = v50 + v51;
-    v38 = v88;
+    v52 = v54 + v55;
+    v40 = v92;
   }
 
-  [(EKDayTimeView *)self->_timeView setFrame:v48, v84, v85, v87];
+  [(EKDayTimeView *)self->_timeView setFrame:v52, v88, v89, v91];
   outlineStyle = self->_outlineStyle;
   if (outlineStyle == 2)
   {
     bottomLine = self->_bottomLine;
-    v95.origin.x = v47;
-    v95.origin.y = topContentInset;
-    v95.size.width = v38;
-    v95.size.height = v21;
-    MaxY = CGRectGetMaxY(v95);
+    v99.origin.x = v51;
+    v99.origin.y = topContentInset;
+    v99.size.width = v40;
+    v99.size.height = v21;
+    MaxY = CGRectGetMaxY(v99);
     [(EKDayView *)self scrollBarOffset];
-    v56 = v38 - v29 - v57;
+    v60 = v40 - v29 - v61;
   }
 
   else
@@ -451,54 +452,54 @@
     }
 
     bottomLine = self->_bottomLine;
-    v94.origin.x = v47;
-    v94.origin.y = topContentInset;
-    v94.size.width = v38;
-    v94.size.height = v21;
-    MaxY = CGRectGetMaxY(v94);
+    v98.origin.x = v51;
+    v98.origin.y = topContentInset;
+    v98.size.width = v40;
+    v98.size.height = v21;
+    MaxY = CGRectGetMaxY(v98);
     [(EKDayView *)self scrollBarOffset];
-    v56 = v38 - v55;
+    v60 = v40 - v59;
     v29 = 0.0;
   }
 
-  [(UIView *)bottomLine setFrame:v29, MaxY, v56, 1.0];
+  [(UIView *)bottomLine setFrame:v29, MaxY, v60, 1.0];
 LABEL_28:
-  v58 = CalCanvasPocketEventIndicatorEnabled();
+  v62 = CalCanvasPocketEventIndicatorEnabled();
   dayContent = self->_dayContent;
   [(UIScrollView *)self->_scroller bounds];
-  v64 = v63;
-  if (v58)
+  v68 = v67;
+  if (v62)
   {
     [(UIScrollView *)self->_scroller bounds];
-    v66 = v65 + self->_topContentInset;
+    v70 = v69 + self->_topContentInset;
     [(EKDayAllDayView *)self->_allDayView naturalHeight];
-    v68 = v66 + v67;
+    v72 = v70 + v71;
     [(UIScrollView *)self->_scroller bounds];
-    v70 = v69;
+    v74 = v73;
     [(UIScrollView *)self->_scroller bounds];
-    v72 = v71 - self->_topContentInset;
+    v76 = v75 - self->_topContentInset;
     [(EKDayAllDayView *)self->_allDayView naturalHeight];
-    v74 = v72 - v73;
+    v78 = v76 - v77;
   }
 
   else
   {
-    v75 = v60;
-    v76 = v61;
-    v77 = v62;
+    v79 = v64;
+    v80 = v65;
+    v81 = v66;
     [(EKDayViewContent *)self->_dayContent frame];
-    v79 = -v78;
-    v96.origin.x = v64;
-    v96.origin.y = v75;
-    v96.size.width = v76;
-    v96.size.height = v77;
-    *(&v74 - 3) = CGRectOffset(v96, 0.0, v79);
-    v64 = v80;
-    v68 = v81;
-    v70 = v82;
+    v83 = -v82;
+    v100.origin.x = v68;
+    v100.origin.y = v79;
+    v100.size.width = v80;
+    v100.size.height = v81;
+    *(&v78 - 3) = CGRectOffset(v100, 0.0, v83);
+    v68 = v84;
+    v72 = v85;
+    v74 = v86;
   }
 
-  [(EKDayViewContent *)dayContent rectBecameVisible:v64, v68, v70, v74];
+  [(EKDayViewContent *)dayContent rectBecameVisible:v68, v72, v74, v78];
   grid2 = [(EKDayViewContent *)self->_dayContent grid];
   [grid2 updateMarkerPosition];
 
@@ -1162,7 +1163,7 @@ void __151__EKDayView_initWithFrame_sizeClass_orientation_displayDate_background
 - (void)setOrientation:(int64_t)orientation
 {
   [(EKDayView *)self bounds];
-  if (v5 > 0.0 && v5 < EKUIWidthForWindowSizeParadigm(4))
+  if (v6 > 0.0 && v6 < EKUIWidthForWindowSizeParadigm(4, v5))
   {
     orientation = 4;
   }
@@ -1850,7 +1851,7 @@ LABEL_14:
 
 - (double)leftContentInset
 {
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(self, a2))
   {
     [(EKDayViewContent *)self->_dayContent frame];
     v4 = v3;
@@ -2683,7 +2684,7 @@ void __37__EKDayView_loadData_withCompletion___block_invoke_2(uint64_t a1)
   [v3 applyLoadedOccurrencesWithBatching:0 animated:0 reverse:0 completion:v4];
 }
 
-uint64_t __37__EKDayView_loadData_withCompletion___block_invoke_3(uint64_t a1)
+uint64_t (**__37__EKDayView_loadData_withCompletion___block_invoke_3(uint64_t a1))(void)
 {
   [*(a1 + 32) setNeedsLayout];
   if (*(a1 + 48) == 1)
@@ -2716,7 +2717,7 @@ uint64_t __37__EKDayView_loadData_withCompletion___block_invoke_3(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
   }
 
   if ((*(a1 + 49) & 1) == 0)
@@ -3406,7 +3407,7 @@ LABEL_7:
 {
   dayCopy = day;
   v7 = 0.0;
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(self, a2))
   {
     [(EKDayView *)self leftContentInset];
     v7 = v8;

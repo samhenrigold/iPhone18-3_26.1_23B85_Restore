@@ -15,96 +15,101 @@
 
 + (BOOL)launchApplicationWithIdentifier:(id)identifier options:(id)options error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   optionsCopy = options;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__17;
-  v46 = __Block_byref_object_dispose__17;
-  v47 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__17;
+  v48 = __Block_byref_object_dispose__17;
+  v49 = 0;
   v9 = dispatch_semaphore_create(0);
-  v10 = SSVFrontBoardServicesFramework();
-  v11 = [SSVWeakLinkedClassForString(&cfstr_Fbssystemservi.isa v10)];
-  v36 = MEMORY[0x1E69E9820];
-  v37 = 3221225472;
-  v38 = __70__SSSpringBoardUtility_launchApplicationWithIdentifier_options_error___block_invoke;
-  v39 = &unk_1E84ADE80;
-  v41 = &v42;
-  v12 = v9;
-  v40 = v12;
-  [v11 openApplication:identifierCopy options:optionsCopy withResult:&v36];
+  v11 = SSVFrontBoardServicesFramework(v9, v10);
+  v12 = [SSVWeakLinkedClassForString(&cfstr_Fbssystemservi.isa v11)];
+  v38 = MEMORY[0x1E69E9820];
+  v39 = 3221225472;
+  v40 = __70__SSSpringBoardUtility_launchApplicationWithIdentifier_options_error___block_invoke;
+  v41 = &unk_1E84ADE80;
+  v43 = &v44;
+  v13 = v9;
+  v42 = v13;
+  [v12 openApplication:identifierCopy options:optionsCopy withResult:&v38];
 
-  v13 = dispatch_time(0, 30000000000);
-  if (dispatch_semaphore_wait(v12, v13))
+  v14 = dispatch_time(0, 30000000000);
+  v15 = dispatch_semaphore_wait(v13, v14);
+  if (v15)
   {
-    v14 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v14)
+    v17 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v17)
     {
-      v14 = +[SSLogConfig sharedConfig];
+      v17 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v14 shouldLog];
-    shouldLogToDisk = [v14 shouldLogToDisk];
-    oSLogObject = [v14 OSLogObject];
-    v18 = oSLogObject;
+    LODWORD(v18) = [v17 shouldLog];
+    shouldLogToDisk = [v17 shouldLogToDisk];
+    oSLogObject = [v17 OSLogObject];
+    v21 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v18) = v18 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v18 = v18;
     }
 
-    if (shouldLog)
+    else
     {
-      v19 = objc_opt_class();
-      v48 = 138543618;
-      v49 = v19;
-      v50 = 2114;
-      v51 = identifierCopy;
-      v20 = v19;
-      LODWORD(v35) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v18 &= 2u;
+    }
 
-      if (!v21)
+    if (v18)
+    {
+      v22 = objc_opt_class();
+      v50 = 138543618;
+      v51 = v22;
+      v52 = 2114;
+      v53 = identifierCopy;
+      v23 = v22;
+      v24 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, v21, 16, "%{public}@: Timed out while launching application %{public}@.", &v50, 22, v38, v39, v40, v41);
+
+      if (!v24)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v48, v35, v36, v37, v38, v39}];
-      free(v21);
-      SSFileLog(v14, @"%@", v22, v23, v24, v25, v26, v27, v18);
+      v21 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+      free(v24);
+      SSFileLog(v17, @"%@", v25, v26, v27, v28, v29, v30, v21);
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
-  v28 = SSVFrontBoardServicesFramework();
-  v29 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationErrorDomain", v28);
-  domain = [v43[5] domain];
-  v31 = [domain isEqualToString:v29];
+LABEL_14:
+  v31 = SSVFrontBoardServicesFramework(v15, v16);
+  v32 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationErrorDomain", v31);
+  domain = [v45[5] domain];
+  v34 = [domain isEqualToString:v32];
 
-  code = v43[5];
-  if (v31)
+  code = v45[5];
+  if (v34)
   {
     code = [code code];
   }
 
-  v33 = code == 0;
+  v36 = code == 0;
   if (error && code)
   {
-    *error = v43[5];
+    *error = v45[5];
   }
 
-  _Block_object_dispose(&v42, 8);
-  return v33;
+  _Block_object_dispose(&v44, 8);
+  return v36;
 }
 
 void __70__SSSpringBoardUtility_launchApplicationWithIdentifier_options_error___block_invoke(uint64_t a1, void *a2)
@@ -130,7 +135,7 @@ void __70__SSSpringBoardUtility_launchApplicationWithIdentifier_options_error___
 
 void __44__SSSpringBoardUtility_wakeAppUsingRequest___block_invoke(uint64_t a1)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   v2 = +[SSTransactionStore defaultStore];
   [v2 takeKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
 
@@ -138,233 +143,246 @@ void __44__SSSpringBoardUtility_wakeAppUsingRequest___block_invoke(uint64_t a1)
   if ([*(a1 + 32) shouldLaunchApp])
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v5 = SSVFrontBoardServicesFramework();
-    v6 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyActivateSuspended", v5);
-    [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v6];
+    v6 = SSVFrontBoardServicesFramework(v4, v5);
+    v7 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyActivateSuspended", v6);
+    [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:v7];
 
-    v7 = [*(a1 + 32) launchOptions];
-    if (v7)
+    v8 = [*(a1 + 32) launchOptions];
+    v10 = v8;
+    if (v8)
     {
-      v8 = SSVFrontBoardServicesFramework();
-      v9 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyPayloadOptions", v8);
-      [v4 setObject:v7 forKeyedSubscript:v9];
+      v11 = SSVFrontBoardServicesFramework(v8, v9);
+      v12 = SSVWeakLinkedStringConstantForString("FBSOpenApplicationOptionKeyPayloadOptions", v11);
+      [v4 setObject:v10 forKeyedSubscript:v12];
     }
 
-    v10 = *(a1 + 40);
-    v83 = 0;
-    v11 = [v10 launchApplicationWithIdentifier:v3 options:v4 error:&v83];
-    v12 = v83;
-    v13 = v12;
-    if (v11)
+    v13 = *(a1 + 40);
+    v85 = 0;
+    v14 = [v13 launchApplicationWithIdentifier:v3 options:v4 error:&v85];
+    v15 = v85;
+    v16 = v15;
+    if (v14)
     {
 
       goto LABEL_6;
     }
 
-    v44 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v44)
+    v47 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v47)
     {
-      v44 = +[SSLogConfig sharedConfig];
+      v47 = +[SSLogConfig sharedConfig];
     }
 
-    v45 = [v44 shouldLog];
-    if ([v44 shouldLogToDisk])
+    v48 = [v47 shouldLog];
+    if ([v47 shouldLogToDisk])
     {
-      v46 = v45 | 2;
+      LODWORD(v49) = v48 | 2;
     }
 
     else
     {
-      v46 = v45;
+      LODWORD(v49) = v48;
     }
 
-    v47 = [v44 OSLogObject];
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v50 = [v47 OSLogObject];
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
-      v46 &= 2u;
+      v49 = v49;
     }
 
-    if (v46)
+    else
     {
-      v48 = objc_opt_class();
-      v84 = 138543874;
-      v85 = v48;
-      v86 = 2114;
-      v87 = v3;
+      v49 &= 2u;
+    }
+
+    if (v49)
+    {
+      v51 = objc_opt_class();
+      v86 = 138543874;
+      v87 = v51;
       v88 = 2114;
-      v89 = *&v13;
-      v49 = v48;
-      LODWORD(v77) = 32;
-      v50 = _os_log_send_and_compose_impl();
+      v89 = v3;
+      v90 = 2114;
+      v91 = *&v16;
+      v52 = v51;
+      v53 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &dword_1D48BA000, v50, 0, "%{public}@: Could not launch %{public}@. %{public}@", &v86, 32);
 
-      if (!v50)
+      if (!v53)
       {
-LABEL_44:
+LABEL_47:
 
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
-      v47 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:{4, &v84, v77}];
-      free(v50);
-      SSFileLog(v44, @"%@", v51, v52, v53, v54, v55, v56, v47);
+      v50 = [MEMORY[0x1E696AEC0] stringWithCString:v53 encoding:4];
+      free(v53);
+      SSFileLog(v47, @"%@", v54, v55, v56, v57, v58, v59, v50);
     }
 
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
 LABEL_6:
-  v82 = 0;
-  if ([*(a1 + 40) _getProcessID:&v82 forApplicationIdentifier:v3])
+  v84 = 0;
+  if ([*(a1 + 40) _getProcessID:&v84 forApplicationIdentifier:v3])
   {
-    v14 = [*(a1 + 32) processAssertionIdentifier];
+    v17 = [*(a1 + 32) processAssertionIdentifier];
     [*(a1 + 32) processAssertionInterval];
-    v16 = v15;
-    v17 = [*(a1 + 32) processAssertionReason];
-    v18 = v17;
-    if (!v14 || !v17 || v16 <= 2.22044605e-16)
+    v19 = v18;
+    v20 = [*(a1 + 32) processAssertionReason];
+    v21 = v20;
+    if (!v17 || !v20 || v19 <= 2.22044605e-16)
     {
-      v58 = +[SSTransactionStore defaultStore];
-      [v58 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
-LABEL_66:
+      v61 = +[SSTransactionStore defaultStore];
+      [v61 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
+LABEL_70:
 
-      goto LABEL_67;
+      goto LABEL_71;
     }
 
-    v19 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v19)
+    v22 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v22)
     {
-      v19 = +[SSLogConfig sharedConfig];
+      v22 = +[SSLogConfig sharedConfig];
     }
 
-    v20 = [v19 shouldLog];
-    if ([v19 shouldLogToDisk])
+    v23 = [v22 shouldLog];
+    if ([v22 shouldLogToDisk])
     {
-      v21 = v20 | 2;
+      LODWORD(v24) = v23 | 2;
     }
 
     else
     {
-      v21 = v20;
+      LODWORD(v24) = v23;
     }
 
-    v22 = [v19 OSLogObject];
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v25 = [v22 OSLogObject];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v21 &= 2u;
+      v24 = v24;
     }
 
-    if (v21)
+    else
     {
-      v23 = objc_opt_class();
-      v84 = 138544130;
-      v85 = v23;
-      v86 = 2114;
-      v87 = v14;
-      v88 = 2050;
-      v89 = v16;
-      v90 = 2114;
-      v91 = v18;
-      v24 = v23;
-      LODWORD(v77) = 42;
-      v76 = &v84;
-      v25 = _os_log_send_and_compose_impl();
+      v24 &= 2u;
+    }
 
-      if (!v25)
+    if (v24)
+    {
+      v26 = objc_opt_class();
+      v86 = 138544130;
+      v87 = v26;
+      v88 = 2114;
+      v89 = v17;
+      v90 = 2050;
+      v91 = v19;
+      v92 = 2114;
+      v93 = v21;
+      v27 = v26;
+      v28 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1D48BA000, v25, 1, "%{public}@: Taking process assertion %{public}@ for %{public}.2f seconds with reason %{public}@.", &v86, 42);
+
+      if (!v28)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v84, v77}];
-      free(v25);
-      SSFileLog(v19, @"%@", v26, v27, v28, v29, v30, v31, v22);
+      v25 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+      free(v28);
+      SSFileLog(v22, @"%@", v29, v30, v31, v32, v33, v34, v25);
     }
 
-LABEL_21:
-    if ([v18 isEqualToString:@"ProcessAssertionReasonBackgroundDownload"])
+LABEL_22:
+    if ([v21 isEqualToString:@"ProcessAssertionReasonBackgroundDownload"])
     {
-      v32 = 10;
+      v35 = 10;
     }
 
-    else if ([v18 isEqualToString:@"ProcessAssertionReasonTaskCompletion"])
+    else if ([v21 isEqualToString:@"ProcessAssertionReasonTaskCompletion"])
     {
-      v32 = 4;
+      v35 = 4;
     }
 
     else
     {
-      v32 = 0;
+      v35 = 0;
     }
 
-    v59 = objc_alloc(MEMORY[0x1E698D038]);
-    v58 = [v59 initWithPID:v82 flags:1 reason:v32 name:v14];
-    if ([v58 valid])
+    v62 = objc_alloc(MEMORY[0x1E698D038]);
+    v61 = [v62 initWithPID:v84 flags:1 reason:v35 name:v17];
+    if ([v61 valid])
     {
-      v60 = dispatch_time(0, (v16 * 1000000000.0));
-      v61 = [*(a1 + 40) _dispatchQueue];
+      v63 = dispatch_time(0, (v19 * 1000000000.0));
+      v64 = [*(a1 + 40) _dispatchQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __44__SSSpringBoardUtility_wakeAppUsingRequest___block_invoke_18;
       block[3] = &unk_1E84AD6E0;
-      v81 = *(a1 + 40);
-      v79 = v14;
-      v80 = v58;
-      dispatch_after(v60, v61, block);
+      v83 = *(a1 + 40);
+      v81 = v17;
+      v82 = v61;
+      dispatch_after(v63, v64, block);
 
-      v62 = v79;
-LABEL_65:
+      v65 = v81;
+LABEL_69:
 
-      goto LABEL_66;
+      goto LABEL_70;
     }
 
-    v63 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v63)
+    v66 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v66)
     {
-      v63 = +[SSLogConfig sharedConfig];
+      v66 = +[SSLogConfig sharedConfig];
     }
 
-    v64 = [v63 shouldLog];
-    if ([v63 shouldLogToDisk])
+    v67 = [v66 shouldLog];
+    if ([v66 shouldLogToDisk])
     {
-      v65 = v64 | 2;
+      LODWORD(v68) = v67 | 2;
     }
 
     else
     {
-      v65 = v64;
+      LODWORD(v68) = v67;
     }
 
-    v66 = [v63 OSLogObject];
-    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    v69 = [v66 OSLogObject];
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
-      v65 &= 2u;
+      v68 = v68;
     }
 
-    if (v65)
+    else
     {
-      v67 = objc_opt_class();
-      v84 = 138543618;
-      v85 = v67;
-      v86 = 2114;
-      v87 = v14;
-      v68 = v67;
-      LODWORD(v77) = 22;
-      v69 = _os_log_send_and_compose_impl();
+      v68 &= 2u;
+    }
 
-      if (!v69)
+    if (v68)
+    {
+      v70 = objc_opt_class();
+      v86 = 138543618;
+      v87 = v70;
+      v88 = 2114;
+      v89 = v17;
+      v71 = v70;
+      LODWORD(v79) = 22;
+      v72 = _os_log_send_and_compose_impl(v68, 0, 0, 0, &dword_1D48BA000, v69, 16, "%{public}@: Could not take process assertion %{public}@.", &v86, v79);
+
+      if (!v72)
       {
-LABEL_64:
+LABEL_68:
 
-        v62 = +[SSTransactionStore defaultStore];
-        [v62 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
-        goto LABEL_65;
+        v65 = +[SSTransactionStore defaultStore];
+        [v65 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
+        goto LABEL_69;
       }
 
-      v66 = [MEMORY[0x1E696AEC0] stringWithCString:v69 encoding:{4, &v84, v77}];
-      free(v69);
-      SSFileLog(v63, @"%@", v70, v71, v72, v73, v74, v75, v66);
+      v69 = [MEMORY[0x1E696AEC0] stringWithCString:v72 encoding:4];
+      free(v72);
+      SSFileLog(v66, @"%@", v73, v74, v75, v76, v77, v78, v69);
     }
 
-    goto LABEL_64;
+    goto LABEL_68;
   }
 
   v4 = +[SSLogConfig sharedStoreServicesConfig];
@@ -373,54 +391,58 @@ LABEL_64:
     v4 = +[SSLogConfig sharedConfig];
   }
 
-  v33 = [v4 shouldLog];
+  v36 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v34 = v33 | 2;
+    LODWORD(v37) = v36 | 2;
   }
 
   else
   {
-    v34 = v33;
+    LODWORD(v37) = v36;
   }
 
-  v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v10 = [v4 OSLogObject];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v34 &= 2u;
+    v37 = v37;
   }
 
-  if (!v34)
+  else
   {
-    goto LABEL_45;
+    v37 &= 2u;
   }
 
-  v35 = objc_opt_class();
-  v84 = 138543618;
-  v85 = v35;
-  v86 = 2114;
-  v87 = v3;
-  v36 = v35;
-  LODWORD(v77) = 22;
-  v37 = _os_log_send_and_compose_impl();
-
-  if (v37)
+  if (!v37)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:{4, &v84, v77}];
-    free(v37);
-    SSFileLog(v4, @"%@", v38, v39, v40, v41, v42, v43, v7);
-LABEL_45:
+    goto LABEL_48;
   }
 
-  v57 = +[SSTransactionStore defaultStore];
-  [v57 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
+  v38 = objc_opt_class();
+  v86 = 138543618;
+  v87 = v38;
+  v88 = 2114;
+  v89 = v3;
+  v39 = v38;
+  v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1D48BA000, v10, 16, "%{public}@: No PID for app ID %{public}@.", &v86, 22);
 
-LABEL_67:
+  if (v40)
+  {
+    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:4];
+    free(v40);
+    SSFileLog(v4, @"%@", v41, v42, v43, v44, v45, v46, v10);
+LABEL_48:
+  }
+
+  v60 = +[SSTransactionStore defaultStore];
+  [v60 releaseKeepAliveWithTransactionID:@"com.apple.storeservices.wakeAppTransactionIdentifier"];
+
+LABEL_71:
 }
 
 void __44__SSSpringBoardUtility_wakeAppUsingRequest___block_invoke_18(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = +[SSLogConfig sharedDaemonConfig];
   if (!v2)
   {
@@ -430,41 +452,45 @@ void __44__SSSpringBoardUtility_wakeAppUsingRequest___block_invoke_18(uint64_t a
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v6 = objc_opt_class();
   v7 = *(a1 + 32);
-  *v18 = 138543618;
-  *&v18[4] = v6;
-  *&v18[12] = 2112;
-  *&v18[14] = v7;
+  v17 = 138543618;
+  v18 = v6;
+  v19 = 2112;
+  v20 = v7;
   v8 = v6;
-  LODWORD(v17) = 22;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v5, 1, "%{public}@: Releasing power assertion %@.", &v17, 22);
 
   if (v9)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v18, v17, *v18, *&v18[16]}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog(v2, @"%@", v10, v11, v12, v13, v14, v15, v5);
-LABEL_11:
+LABEL_12:
   }
 
   [*(a1 + 40) invalidate];
@@ -580,30 +606,30 @@ void __49__SSSpringBoardUtility__dispatchQueueSpringBoard__block_invoke()
 
 + (id)_getApplicationInfoForIdentifier:(id)identifier key:(id)key
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   keyCopy = key;
   _dispatchQueueSpringBoard = [self _dispatchQueueSpringBoard];
   dispatch_assert_queue_V2(_dispatchQueueSpringBoard);
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__17;
-  v39 = __Block_byref_object_dispose__17;
-  v40 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__17;
+  v38 = __Block_byref_object_dispose__17;
+  v39 = 0;
   _applicationStateMonitor = [self _applicationStateMonitor];
   v10 = dispatch_semaphore_create(0);
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __61__SSSpringBoardUtility__getApplicationInfoForIdentifier_key___block_invoke;
-  v31[3] = &unk_1E84AE590;
-  v34 = &v35;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __61__SSSpringBoardUtility__getApplicationInfoForIdentifier_key___block_invoke;
+  v30[3] = &unk_1E84AE590;
+  v33 = &v34;
   v11 = keyCopy;
-  v32 = v11;
+  v31 = v11;
   v12 = v10;
-  v33 = v12;
-  [_applicationStateMonitor applicationInfoForApplication:identifierCopy completion:v31];
+  v32 = v12;
+  [_applicationStateMonitor applicationInfoForApplication:identifierCopy completion:v30];
   v13 = dispatch_time(0, 30000000000);
   if (dispatch_semaphore_wait(v12, v13))
   {
@@ -613,52 +639,56 @@ void __49__SSSpringBoardUtility__dispatchQueueSpringBoard__block_invoke()
       v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v14 shouldLog];
+    LODWORD(v15) = [v14 shouldLog];
     shouldLogToDisk = [v14 shouldLogToDisk];
     oSLogObject = [v14 OSLogObject];
     v18 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v15 = v15;
     }
 
-    if (shouldLog)
+    else
+    {
+      v15 &= 2u;
+    }
+
+    if (v15)
     {
       v19 = objc_opt_class();
-      v41 = 138412802;
-      v42 = v19;
-      v43 = 2114;
-      v44 = identifierCopy;
-      v45 = 2114;
-      v46 = v11;
+      v40 = 138412802;
+      v41 = v19;
+      v42 = 2114;
+      v43 = identifierCopy;
+      v44 = 2114;
+      v45 = v11;
       v20 = v19;
-      LODWORD(v30) = 32;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, v18, 16, "%@: Timed out while getting application info. identifier = %{public}@ key = %{public}@", &v40, 32);
 
       if (!v21)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v41, v30}];
+      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog(v14, @"%@", v22, v23, v24, v25, v26, v27, v18);
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
-  v28 = v36[5];
+LABEL_14:
+  v28 = v35[5];
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 
   return v28;
 }

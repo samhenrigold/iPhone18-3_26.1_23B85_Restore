@@ -3,7 +3,11 @@
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)suspend;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PSGDeviceNameEditingController
@@ -59,6 +63,23 @@
   [(PSGDeviceNameEditingController *)self setTitle:v3];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = PSGDeviceNameEditingController;
+  [(PSGDeviceNameEditingController *)&v9 viewWillAppear:appear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v5 = *MEMORY[0x277D25CA0];
+  mainQueue = [MEMORY[0x277CCABD8] mainQueue];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__PSGDeviceNameEditingController_viewWillAppear___block_invoke;
+  v8[3] = &unk_278324E98;
+  v8[4] = self;
+  v7 = [defaultCenter addObserverForName:v5 object:0 queue:mainQueue usingBlock:v8];
+  [(PSGDeviceNameEditingController *)self setEffectiveSettingsChangedNotificationObserver:v7];
+}
+
 void __49__PSGDeviceNameEditingController_viewWillAppear___block_invoke(uint64_t a1)
 {
   if ((PSGIsDeviceNameSettable() & 1) == 0)
@@ -86,6 +107,38 @@ void __49__PSGDeviceNameEditingController_viewWillAppear___block_invoke(uint64_t
       v9 = [v8 popViewControllerAnimated:1];
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PSGDeviceNameEditingController;
+  [(PSGDeviceNameEditingController *)&v5 viewDidAppear:appear];
+  _editedDeviceName = [(PSGDeviceNameEditingController *)self _editedDeviceName];
+  [(PSGDeviceNameEditingController *)self setOriginalDeviceName:_editedDeviceName];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) firstResponder];
+  [firstResponder resignFirstResponder];
+
+  v6.receiver = self;
+  v6.super_class = PSGDeviceNameEditingController;
+  [(PSGDeviceNameEditingController *)&v6 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PSGDeviceNameEditingController;
+  [(PSGDeviceNameEditingController *)&v6 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  effectiveSettingsChangedNotificationObserver = [(PSGDeviceNameEditingController *)self effectiveSettingsChangedNotificationObserver];
+  [defaultCenter removeObserver:effectiveSettingsChangedNotificationObserver];
+
+  [(PSGDeviceNameEditingController *)self setEffectiveSettingsChangedNotificationObserver:0];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

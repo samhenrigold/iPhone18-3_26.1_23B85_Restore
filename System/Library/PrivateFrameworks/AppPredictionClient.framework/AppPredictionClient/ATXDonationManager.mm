@@ -118,8 +118,7 @@ uint64_t __35__ATXDonationManager_sharedManager__block_invoke()
     v8 = v7;
     v12 = v8;
     objc_copyWeak(&v13, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v11];
-    v9 = __atxlog_handle_client_donations();
+    v9 = __atxlog_handle_client_donations([(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v11]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(ATXDonationManager *)v9 _connection];
@@ -135,18 +134,18 @@ uint64_t __35__ATXDonationManager_sharedManager__block_invoke()
   return xpcConnection;
 }
 
-void __33__ATXDonationManager__connection__block_invoke()
+void __33__ATXDonationManager__connection__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_client_donations();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_client_donations(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __33__ATXDonationManager__connection__block_invoke_cold_1(v0);
+    __33__ATXDonationManager__connection__block_invoke_cold_1(v1);
   }
 }
 
 void __33__ATXDonationManager__connection__block_invoke_13(uint64_t a1)
 {
-  v2 = __atxlog_handle_client_donations();
+  v2 = __atxlog_handle_client_donations(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __33__ATXDonationManager__connection__block_invoke_13_cold_1(v2);

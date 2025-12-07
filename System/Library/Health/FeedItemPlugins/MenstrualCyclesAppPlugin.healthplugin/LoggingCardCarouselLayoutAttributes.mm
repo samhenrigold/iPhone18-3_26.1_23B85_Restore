@@ -37,7 +37,7 @@
   MEMORY[0x2A1C7C4A8](v6);
   v9[2] = v10;
   v9[3] = self;
-  v7 = sub_29E0D8ABC(sub_29DEC0C98, v9, "MenstrualCyclesAppPlugin/LoggingCardCarouselLayoutAttributes.swift");
+  v7 = sub_29E0D8ABC(sub_29DEC0C98, v9, "MenstrualCyclesAppPlugin/LoggingCardCarouselLayoutAttributes.swift", 66, 2, 26);
 
   sub_29DEC0CB4(v10);
   return v7 & 1;

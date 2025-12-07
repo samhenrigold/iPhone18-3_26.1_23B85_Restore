@@ -19,28 +19,28 @@
 {
   invitationCopy = invitation;
   selfCopy = self;
-  sub_10001DB14(invitationCopy, selfCopy);
+  sub_10001DB14(invitationCopy, selfCopy, v6);
 }
 
 - (void)manager:(id)manager senderDidCancelInvitation:(id)invitation
 {
   invitationCopy = invitation;
   selfCopy = self;
-  sub_10001FFF8(invitationCopy);
+  sub_10001FFF8(invitationCopy, v6, v7);
 }
 
 - (void)manager:(id)manager receiverDidAcceptInvitation:(id)invitation
 {
   invitationCopy = invitation;
   selfCopy = self;
-  sub_1000201F0(invitationCopy);
+  sub_1000201F0(invitationCopy, v6, v7);
 }
 
 - (void)manager:(id)manager receiverDidDeclineInvitation:(id)invitation
 {
   invitationCopy = invitation;
   selfCopy = self;
-  sub_1000208EC(invitationCopy);
+  sub_1000208EC(invitationCopy, v6, v7);
 }
 
 @end

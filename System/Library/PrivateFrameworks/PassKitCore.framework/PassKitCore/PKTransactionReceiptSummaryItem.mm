@@ -38,26 +38,26 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v11 = [(__CFString *)v9 isEqualToString:@"tax"];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v13 = v10;
-    if (v13 == @"shipping" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"shipping"], v14, (v15 & 1) != 0))
+    if (v13 == @"shipping" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, (v15 & 1) != 0))
     {
       v12 = 2;
       goto LABEL_16;
     }
 
     v16 = v14;
-    if (v16 == @"fee" || (v17 = v16, v18 = [(__CFString *)v16 isEqualToString:@"fee"], v17, (v18 & 1) != 0))
+    if (v16 == @"fee" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(v16), v17, (v18 & 1) != 0))
     {
       v12 = 3;
       goto LABEL_16;
     }
 
     v19 = v17;
-    if (v19 == @"credit" || (v20 = v19, v21 = [(__CFString *)v19 isEqualToString:@"credit"], v20, v21))
+    if (v19 == @"credit" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(v19), v20, v21))
     {
       v12 = 4;
       goto LABEL_16;
@@ -140,7 +140,7 @@ LABEL_19:
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (!v7 || !v8)
       {
 LABEL_20:
@@ -148,9 +148,9 @@ LABEL_20:
         goto LABEL_18;
       }
 
-      v10 = [(NSString *)v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (!v10)
+      if (!isEqualToString)
       {
         goto LABEL_18;
       }
@@ -176,15 +176,15 @@ LABEL_12:
       v9 = v15;
       if (v7 == v15)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v7 && v15)
         {
-          LOBYTE(v10) = [(NSString *)v7 isEqualToString:v15];
+          LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v7);
         }
       }
 
@@ -192,10 +192,10 @@ LABEL_12:
     }
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_18:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

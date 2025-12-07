@@ -124,7 +124,7 @@
 
 - (void)cancelPressed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [(CTCellularPlanManager *)self->_cellularPlanManager cancelPlanActivation:self->_planPendingTransfer];
   getLogger = [(PSUIPlanPendingTransferCancelConsentRequestCell *)self getLogger];
   v5 = getLogger;
@@ -132,22 +132,20 @@
   {
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[PSUIPlanPendingTransferCancelConsentRequestCell cancelPressed]";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_2658DE000, v5, OS_LOG_TYPE_ERROR, "%s Failed to cancel the consent request on source device with error %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[PSUIPlanPendingTransferCancelConsentRequestCell cancelPressed]";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_2658DE000, v5, OS_LOG_TYPE_ERROR, "%s Failed to cancel the consent request on source device with error %@", &v6, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[PSUIPlanPendingTransferCancelConsentRequestCell cancelPressed]";
-    _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "%s Successfully cancelled the consent request on the source device", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PSUIPlanPendingTransferCancelConsentRequestCell cancelPressed]";
+    _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "%s Successfully cancelled the consent request on the source device", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface TKVibrationRecorderTouchSurface
 - (TKVibrationRecorderTouchSurface)initWithVibrationPatternMaximumDuration:(double)duration styleProvider:(id)provider;
 - (TKVibrationRecorderTouchSurfaceDelegate)delegate;
+- (void)_recordTouchLocation:(CGPoint)location touchPhase:(int)phase;
 - (void)_updateTouchLocationForReplayMode:(id)mode;
 - (void)currentVibrationComponentShouldEnd;
 - (void)dealloc;
@@ -233,6 +234,27 @@ LABEL_13:
     [(TKVibrationRecorderTouchSurface *)self touchesEnded:v4 withEvent:0];
     self->_shouldIgnoreCurrentTouch = 1;
   }
+}
+
+- (void)_recordTouchLocation:(CGPoint)location touchPhase:(int)phase
+{
+  v4 = *&phase;
+  y = location.y;
+  x = location.x;
+  [(TKVibrationRecorderTouchSurface *)self bounds];
+  v8 = v16.origin.x;
+  v9 = v16.origin.y;
+  width = v16.size.width;
+  height = v16.size.height;
+  v12 = x / CGRectGetWidth(v16);
+  v17.origin.x = v8;
+  v17.origin.y = v9;
+  v17.size.width = width;
+  v17.size.height = height;
+  v13 = y / CGRectGetHeight(v17);
+  recordedDataWrapper = self->_recordedDataWrapper;
+
+  [(TKVibrationRecorderTouchSurfaceRecordedDataWrapper *)recordedDataWrapper recordNormalizedTouchLocation:v4 touchPhase:v12, v13];
 }
 
 - (void)enterReplayModeWithVibrationPattern:(id)pattern

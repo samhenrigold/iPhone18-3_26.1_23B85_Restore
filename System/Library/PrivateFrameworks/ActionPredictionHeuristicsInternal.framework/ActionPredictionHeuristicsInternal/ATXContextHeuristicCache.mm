@@ -55,48 +55,47 @@
 
 - (void)setSuggestions:(id)suggestions forKey:(id)key
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   keyCopy = key;
   pthread_mutex_lock(&self->_lock);
-  [(NSMutableDictionary *)self->_cache setObject:suggestionsCopy forKeyedSubscript:keyCopy];
-  v8 = __atxlog_handle_context_heuristic();
+  v8 = __atxlog_handle_context_heuristic([(NSMutableDictionary *)self->_cache setObject:suggestionsCopy forKeyedSubscript:keyCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = keyCopy;
-    v34 = 2048;
-    v35 = [suggestionsCopy count];
+    v32 = keyCopy;
+    v33 = 2048;
+    v34 = [suggestionsCopy count];
     _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "[Cache internal] Adding suggestions for key %@: %lu", buf, 0x16u);
   }
 
-  v23 = keyCopy;
+  v22 = keyCopy;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = suggestionsCopy;
-  v9 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
-    v24 = *v29;
+    v11 = *v28;
+    v23 = *v28;
     do
     {
       v12 = 0;
-      v25 = v10;
+      v24 = v10;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
+        v13 = *(*(&v27 + 1) + 8 * v12);
         atxActionCriteria = [v13 atxActionCriteria];
-        v15 = __atxlog_handle_context_heuristic();
+        v15 = __atxlog_handle_context_heuristic(atxActionCriteria);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           uiSpecification = [v13 uiSpecification];
@@ -107,17 +106,17 @@
           startDate = [atxActionCriteria startDate];
           endDate = [atxActionCriteria endDate];
           *buf = 138413058;
-          v33 = title;
-          v34 = 2048;
-          v35 = v19;
-          v36 = 2112;
-          v37 = startDate;
-          v38 = 2112;
-          v39 = endDate;
+          v32 = title;
+          v33 = 2048;
+          v34 = v19;
+          v35 = 2112;
+          v36 = startDate;
+          v37 = 2112;
+          v38 = endDate;
           _os_log_impl(&dword_23E3EA000, v15, OS_LOG_TYPE_DEFAULT, "[Cache internal] Adding criteria for suggestion %@, reason.hash %lu, start: %@ end: %@", buf, 0x2Au);
 
-          v11 = v24;
-          v10 = v25;
+          v11 = v23;
+          v10 = v24;
         }
 
         [(NSHashTable *)self->_criteriaTable addObject:atxActionCriteria];
@@ -125,14 +124,13 @@
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v10 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v10);
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)heuristicsCached
@@ -194,7 +192,7 @@
 
               v11 = *(*(&v29 + 1) + 8 * i);
               atxActionCriteria = [v11 atxActionCriteria];
-              v13 = __atxlog_handle_context_heuristic();
+              v13 = __atxlog_handle_context_heuristic(atxActionCriteria);
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
                 startDate = [atxActionCriteria startDate];
@@ -218,12 +216,12 @@
 
               else
               {
-                v18 = __atxlog_handle_context_heuristic();
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v19 = __atxlog_handle_context_heuristic(v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
                   v38 = v11;
-                  _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "[Cache internal] Suggestion is no longer relevant: %@", buf, 0xCu);
+                  _os_log_impl(&dword_23E3EA000, v19, OS_LOG_TYPE_DEFAULT, "[Cache internal] Suggestion is no longer relevant: %@", buf, 0xCu);
                 }
               }
             }
@@ -245,24 +243,22 @@
   }
 
   pthread_mutex_unlock(&selfCopy->_lock);
-  v19 = [v27 copy];
+  v20 = [v27 copy];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 - (id)nextChangeAfterDate:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   pthread_mutex_lock(&self->_lock);
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v5 = self->_criteriaTable;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -271,18 +267,18 @@
 
   v7 = v6;
   v8 = 0;
-  v9 = *v34;
+  v9 = *v33;
   do
   {
     v10 = 0;
     do
     {
-      if (*v34 != v9)
+      if (*v33 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v33 + 1) + 8 * v10);
+      v11 = *(*(&v32 + 1) + 8 * v10);
       startDate = [v11 startDate];
       if (startDate)
       {
@@ -360,7 +356,7 @@ LABEL_18:
     }
 
     while (v7 != v10);
-    v30 = [(NSHashTable *)v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v30 = [(NSHashTable *)v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
     v7 = v30;
   }
 
@@ -368,55 +364,52 @@ LABEL_18:
 LABEL_24:
 
   pthread_mutex_unlock(&self->_lock);
-  v31 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)evictBefore:(id)before
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   beforeCopy = before;
   pthread_mutex_lock(&self->_lock);
   [(NSMutableDictionary *)self->_cache allKeys];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  obj = v19 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  obj = v18 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v9];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __40__ATXContextHeuristicCache_evictBefore___block_invoke;
-        v14[3] = &unk_278C3CD80;
-        v15 = beforeCopy;
-        v11 = [v10 _pas_filteredArrayWithTest:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __40__ATXContextHeuristicCache_evictBefore___block_invoke;
+        v13[3] = &unk_278C3CD80;
+        v14 = beforeCopy;
+        v11 = [v10 _pas_filteredArrayWithTest:v13];
         [(NSMutableDictionary *)self->_cache setObject:v11 forKeyedSubscript:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   pthread_mutex_unlock(&self->_lock);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__ATXContextHeuristicCache_evictBefore___block_invoke(uint64_t a1, void *a2)
@@ -428,55 +421,52 @@ uint64_t __40__ATXContextHeuristicCache_evictBefore___block_invoke(uint64_t a1, 
 
   if (v5 && ([*(a1 + 32) timeIntervalSinceReferenceDate], v7 = v6, objc_msgSend(v4, "endDate"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "timeIntervalSinceReferenceDate"), v10 = v9, v8, v7 >= v10))
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_context_heuristic(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
       v16 = v3;
-      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing suggestion: %@", &v15, 0xCu);
+      _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing suggestion: %@", &v15, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = 1;
+    v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)evict:(id)evict
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   evictCopy = evict;
-  v5 = __atxlog_handle_context_heuristic();
+  v5 = __atxlog_handle_context_heuristic(evictCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = evictCopy;
-    _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = evictCopy;
+    _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing %@", &v6, 0xCu);
   }
 
   pthread_mutex_lock(&self->_lock);
   [(NSMutableDictionary *)self->_cache removeObjectForKey:evictCopy];
   pthread_mutex_unlock(&self->_lock);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evictAll
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_context_heuristic();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_context_heuristic(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     heuristicsCached = [(ATXContextHeuristicCache *)self heuristicsCached];
-    v8 = 138412290;
-    v9 = heuristicsCached;
-    _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing all heuristics %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = heuristicsCached;
+    _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "[Cache internal] Removing all heuristics %@", &v7, 0xCu);
   }
 
   pthread_mutex_lock(&self->_lock);
@@ -485,7 +475,6 @@ uint64_t __40__ATXContextHeuristicCache_evictBefore___block_invoke(uint64_t a1, 
   self->_cache = v5;
 
   pthread_mutex_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

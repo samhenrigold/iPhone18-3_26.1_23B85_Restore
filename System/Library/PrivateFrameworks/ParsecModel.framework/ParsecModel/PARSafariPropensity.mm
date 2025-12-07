@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARSafariPropensity.init(entity:insertInto:)();
+  return PARSafariPropensity.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

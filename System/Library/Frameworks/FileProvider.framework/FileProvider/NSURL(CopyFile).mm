@@ -336,18 +336,16 @@ LABEL_29:
 
 - (void)fp_volumeUsesAppleDouble:()CopyFile .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = [a2 fp_prettyDescription];
   v6 = *__error();
-  v8 = 138412802;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 1024;
-  v13 = v6;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] copyfile: statfs(%@) failed: %@ %{errno}d", &v8, 0x1Cu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 1024;
+  v12 = v6;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] copyfile: statfs(%@) failed: %@ %{errno}d", &v7, 0x1Cu);
 }
 
 @end

@@ -36,8 +36,8 @@
   endpoint = [(MTROTASoftwareUpdateRequestorClusterProviderLocation *)self endpoint];
   [(MTROTASoftwareUpdateRequestorClusterProviderLocation *)v4 setEndpoint:endpoint];
 
-  fabricIndex = [(MTROTASoftwareUpdateRequestorClusterProviderLocation *)self fabricIndex];
-  [(MTROTASoftwareUpdateRequestorClusterProviderLocation *)v4 setFabricIndex:fabricIndex];
+  v7 = objc_msgSend_fabricIndex(self);
+  [(MTROTASoftwareUpdateRequestorClusterProviderLocation *)v4 setFabricIndex:v7];
 
   return v4;
 }

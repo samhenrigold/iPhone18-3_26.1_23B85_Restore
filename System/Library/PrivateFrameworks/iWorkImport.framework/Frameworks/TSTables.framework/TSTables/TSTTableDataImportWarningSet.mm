@@ -14,7 +14,7 @@
   v4 = *&count;
   setCopy = set;
   v7 = [self alloc];
-  inited = objc_msgSend_initObjectWithImportWarningSet_refCount_(v7, v8, setCopy, v4, v9);
+  inited = objc_msgSend_initObjectWithImportWarningSet_refCount_(v7, v8, setCopy, v4);
 
   return inited;
 }
@@ -38,20 +38,20 @@
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver completion:(id)completion
 {
   completionCopy = completion;
-  objc_msgSend_sharedLoadFromArchive_(self, v7, archive, v8, v9);
-  v10 = [TSTImportWarningSet alloc];
+  objc_msgSend_sharedLoadFromArchive_(self, v7, archive, v8);
+  v9 = [TSTImportWarningSet alloc];
   if (*(archive + 10))
   {
-    v14 = objc_msgSend_initFromArchive_(v10, v11, *(archive + 10), v12, v13);
+    v12 = objc_msgSend_initFromArchive_(v9, v10, *(archive + 10), v11);
   }
 
   else
   {
-    v14 = objc_msgSend_initFromArchive_(v10, v11, &TST::_ImportWarningSetArchive_default_instance_, v12, v13);
+    v12 = objc_msgSend_initFromArchive_(v9, v10, &TST::_ImportWarningSetArchive_default_instance_, v11);
   }
 
   payload = self->super._payload;
-  self->super._payload = v14;
+  self->super._payload = v12;
 
   completionCopy[2](completionCopy, self);
 }
@@ -59,46 +59,46 @@
 - (void)encodeToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v17.receiver = self;
-  v17.super_class = TSTTableDataImportWarningSet;
-  [(TSTTableDataObject *)&v17 encodeToArchive:archive archiver:archiverCopy];
-  v14 = objc_msgSend_importWarningSet(self, v7, v8, v9, v10);
+  v15.receiver = self;
+  v15.super_class = TSTTableDataImportWarningSet;
+  [(TSTTableDataObject *)&v15 encodeToArchive:archive archiver:archiverCopy];
+  v12 = objc_msgSend_importWarningSet(self, v7, v8, v9);
   *(archive + 4) |= 0x80u;
-  v15 = *(archive + 10);
-  if (!v15)
+  v13 = *(archive + 10);
+  if (!v13)
   {
-    v16 = *(archive + 1);
-    if (v16)
+    v14 = *(archive + 1);
+    if (v14)
     {
-      v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+      v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v15 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v16);
-    *(archive + 10) = v15;
+    v13 = google::protobuf::Arena::CreateMaybeMessage<TST::ImportWarningSetArchive>(v14);
+    *(archive + 10) = v13;
   }
 
-  objc_msgSend_saveToArchive_(v14, v11, v15, v12, v13);
+  objc_msgSend_saveToArchive_(v12, v10, v13, v11);
 }
 
 - (unint64_t)estimateByteSize
 {
-  TST::ImportWarningSetArchive::ImportWarningSetArchive(v13, 0);
-  v7 = objc_msgSend_importWarningSet(self, v3, v4, v5, v6);
-  objc_msgSend_saveToArchive_(v7, v8, v13, v9, v10);
+  TST::ImportWarningSetArchive::ImportWarningSetArchive(v11, 0);
+  v6 = objc_msgSend_importWarningSet(self, v3, v4, v5);
+  objc_msgSend_saveToArchive_(v6, v7, v11, v8);
 
-  v11 = TST::ImportWarningSetArchive::ByteSizeLong(v13);
-  TST::ImportWarningSetArchive::~ImportWarningSetArchive(v13);
-  return v11 + 8;
+  v9 = TST::ImportWarningSetArchive::ByteSizeLong(v11);
+  TST::ImportWarningSetArchive::~ImportWarningSetArchive(v11);
+  return v9 + 8;
 }
 
 - (id)description
 {
-  v6 = MEMORY[0x277CCACA8];
-  v7 = objc_msgSend_refCount(self, a2, v2, v3, v4);
-  v12 = objc_msgSend_importWarningSet(self, v8, v9, v10, v11);
-  v16 = objc_msgSend_stringWithFormat_(v6, v13, @"refCount: %d   importWarningSet: %@", v14, v15, v7, v12);
+  v5 = MEMORY[0x277CCACA8];
+  v6 = objc_msgSend_refCount(self, a2, v2, v3);
+  v10 = objc_msgSend_importWarningSet(self, v7, v8, v9);
+  v13 = objc_msgSend_stringWithFormat_(v5, v11, @"refCount: %d   importWarningSet: %@", v12, v6, v10);
 
-  return v16;
+  return v13;
 }
 
 @end

@@ -146,18 +146,17 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_app)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

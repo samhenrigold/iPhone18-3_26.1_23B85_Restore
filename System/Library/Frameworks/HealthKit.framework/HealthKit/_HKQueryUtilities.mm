@@ -20,17 +20,17 @@
 
 + (id)coalesceTimePeriods:(id)periods strictStartDate:(id)date strictEndDate:(id)endDate
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   periodsCopy = periods;
   dateCopy = date;
   endDateCopy = endDate;
   array = [MEMORY[0x1E695DF70] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v9 = periodsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v10)
   {
     startDate2 = 0;
@@ -42,18 +42,18 @@
   v11 = v10;
   v12 = 0;
   startDate2 = 0;
-  v14 = *v33;
+  v14 = *v32;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v33 != v14)
+      if (*v32 != v14)
       {
         objc_enumerationMutation(v9);
       }
 
-      v16 = *(*(&v32 + 1) + 8 * i);
-      if (v12 && ([*(*(&v32 + 1) + 8 * i) startDate], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hk_isBeforeDate:", v12), v17, (v18 & 1) == 0))
+      v16 = *(*(&v31 + 1) + 8 * i);
+      if (v12 && ([*(*(&v31 + 1) + 8 * i) startDate], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hk_isBeforeDate:", v12), v17, (v18 & 1) == 0))
       {
         v21 = _HKDateIntervalCreate(startDate2, v12, dateCopy, endDateCopy);
         [v21 duration];
@@ -91,7 +91,7 @@ LABEL_14:
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   }
 
   while (v11);
@@ -108,55 +108,51 @@ LABEL_14:
 LABEL_24:
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)coalesceTimePeriodsFromSamples:(id)samples strictStartDate:(id)date strictEndDate:(id)endDate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   samplesCopy = samples;
   dateCopy = date;
   endDateCopy = endDate;
   array = [MEMORY[0x1E695DF70] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = samplesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __82___HKQueryUtilities_coalesceTimePeriodsFromSamples_strictStartDate_strictEndDate___block_invoke;
-        v21[3] = &unk_1E737F448;
-        v22 = array;
-        [v15 _enumerateTimePeriodsWithBlock:v21];
+        v15 = *(*(&v22 + 1) + 8 * i);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __82___HKQueryUtilities_coalesceTimePeriodsFromSamples_strictStartDate_strictEndDate___block_invoke;
+        v20[3] = &unk_1E737F448;
+        v21 = array;
+        [v15 _enumerateTimePeriodsWithBlock:v20];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
 
   v16 = [self coalesceTimePeriods:array strictStartDate:dateCopy strictEndDate:endDateCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -207,37 +203,8 @@ LABEL_24:
       startDate2 = [v26 startDate];
       v30 = [endDate hk_isAfterOrEqualToDate:startDate2];
 
-      if (!v30)
+      if (!v30 || ([v27 startDate], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "endDate"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "hk_isBeforeOrEqualToDate:", v32), v32, v31, !v33) || (objc_msgSend(v27, "startDate"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "startDate"), v35 = objc_claimAutoreleasedReturnValue(), HKDateMax(v34, v35), v36 = objc_claimAutoreleasedReturnValue(), v35, v34, objc_msgSend(v27, "endDate"), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "endDate"), v38 = objc_claimAutoreleasedReturnValue(), HKDateMin(v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v38, v37, objc_msgSend(v39, "timeIntervalSinceDate:", v36), v25 = v25 + v40, objc_msgSend(v27, "endDate"), v41 = objc_claimAutoreleasedReturnValue(), LODWORD(v38) = objc_msgSend(v41, "isEqualToDate:", v39), v41, v24 += v38, v39, v36, (v38 & 1) == 0))
       {
-        goto LABEL_7;
-      }
-
-      startDate3 = [v27 startDate];
-      endDate2 = [v26 endDate];
-      v33 = [startDate3 hk_isBeforeOrEqualToDate:endDate2];
-
-      if (!v33)
-      {
-        goto LABEL_7;
-      }
-
-      startDate4 = [v27 startDate];
-      startDate5 = [v26 startDate];
-      v36 = HKDateMax(startDate4, startDate5);
-
-      endDate3 = [v27 endDate];
-      endDate4 = [v26 endDate];
-      v39 = HKDateMin(endDate3, endDate4);
-
-      [v39 timeIntervalSinceDate:v36];
-      v25 = v25 + v40;
-      endDate5 = [v27 endDate];
-      LODWORD(endDate4) = [endDate5 isEqualToDate:v39];
-
-      v24 += endDate4;
-      if ((endDate4 & 1) == 0)
-      {
-LABEL_7:
         if (v25 > 0.0)
         {
           v42 = [MEMORY[0x1E696AD98] numberWithDouble:v25];
@@ -247,16 +214,16 @@ LABEL_7:
         }
 
         v43 = objc_alloc(MEMORY[0x1E696AB80]);
-        endDate6 = [v22 endDate];
-        endDate7 = [v22 endDate];
-        v46 = [v55 dateByAddingComponents:v56 toDate:endDate7 options:0];
-        v47 = [v43 initWithStartDate:endDate6 endDate:v46];
+        endDate2 = [v22 endDate];
+        endDate3 = [v22 endDate];
+        v46 = [v55 dateByAddingComponents:v56 toDate:endDate3 options:0];
+        v47 = [v43 initWithStartDate:endDate2 endDate:v46];
 
         v22 = v47;
       }
 
-      startDate6 = [v22 startDate];
-      v49 = [startDate6 hk_isBeforeDate:v57];
+      startDate3 = [v22 startDate];
+      v49 = [startDate3 hk_isBeforeDate:v57];
 
       if ((v49 & 1) == 0)
       {
@@ -425,35 +392,35 @@ LABEL_15:
 
 + (double)totalDurationFromCoalescedDateIntervals:(id)intervals
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [intervalsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [intervalsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(intervalsCopy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         endDate = [v9 endDate];
         startDate = [v9 startDate];
         [endDate timeIntervalSinceDate:startDate];
         v7 = v7 + v12;
       }
 
-      v5 = [intervalsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [intervalsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -464,7 +431,6 @@ LABEL_15:
     v7 = 0.0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -489,7 +455,7 @@ LABEL_15:
 
 + (id)countStatisticsQueryWithSampleType:(id)type startDate:(id)date endDate:(id)endDate intervalComponents:(id)components predicate:(id)predicate completion:(id)completion
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   componentsCopy = components;
@@ -498,66 +464,64 @@ LABEL_15:
   predicateCopy = predicate;
   typeCopy = type;
   v20 = [v17 sortDescriptorWithKey:@"endDate" ascending:1];
-  v39[0] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+  v38[0] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
 
   v22 = [HKQuery predicateForSamplesWithStartDate:dateCopy endDate:endDateCopy options:1];
   v23 = [HKSampleQuery alloc];
   v24 = _HKPredicateMatchingPredicates(v22, predicateCopy);
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __114___HKQueryUtilities_countStatisticsQueryWithSampleType_startDate_endDate_intervalComponents_predicate_completion___block_invoke;
-  v33[3] = &unk_1E737F508;
-  v37 = completionCopy;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __114___HKQueryUtilities_countStatisticsQueryWithSampleType_startDate_endDate_intervalComponents_predicate_completion___block_invoke;
+  v32[3] = &unk_1E737F508;
+  v36 = completionCopy;
   selfCopy = self;
-  v34 = dateCopy;
-  v35 = endDateCopy;
-  v36 = componentsCopy;
+  v33 = dateCopy;
+  v34 = endDateCopy;
+  v35 = componentsCopy;
   v25 = componentsCopy;
   v26 = endDateCopy;
   v27 = dateCopy;
   v28 = completionCopy;
-  v29 = [(HKSampleQuery *)v23 initWithSampleType:typeCopy predicate:v24 limit:0 sortDescriptors:v21 resultsHandler:v33];
-
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = [(HKSampleQuery *)v23 initWithSampleType:typeCopy predicate:v24 limit:0 sortDescriptors:v21 resultsHandler:v32];
 
   return v29;
 }
 
 + (id)averageSumFromStatistics:(id)statistics unit:(id)unit
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   unitCopy = unit;
   if ([statisticsCopy count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v7 = statisticsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          sumQuantity = [*(*(&v18 + 1) + 8 * i) sumQuantity];
+          sumQuantity = [*(*(&v17 + 1) + 8 * i) sumQuantity];
           [sumQuantity doubleValueForUnit:unitCopy];
           v11 = v11 + v14;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -576,43 +540,41 @@ LABEL_15:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)averageSumFromQuantities:(id)quantities unit:(id)unit
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   quantitiesCopy = quantities;
   unitCopy = unit;
   if ([quantitiesCopy count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = quantitiesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v17 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v17}];
+          [*(*(&v16 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v16}];
           v11 = v11 + v13;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -631,14 +593,12 @@ LABEL_15:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)minimumFromQuantities:(id)quantities unit:(id)unit
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   quantitiesCopy = quantities;
   unitCopy = unit;
   if ([quantitiesCopy count])
@@ -647,33 +607,33 @@ LABEL_15:
     [firstObject doubleValueForUnit:unitCopy];
     v9 = v8;
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = quantitiesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v19 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v19}];
+          [*(*(&v18 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v18}];
           if (v15 < v9)
           {
             v9 = v15;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -687,14 +647,12 @@ LABEL_15:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)maximumFromQuantities:(id)quantities unit:(id)unit
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   quantitiesCopy = quantities;
   unitCopy = unit;
   if ([quantitiesCopy count])
@@ -703,33 +661,33 @@ LABEL_15:
     [firstObject doubleValueForUnit:unitCopy];
     v9 = v8;
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = quantitiesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v19 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v19}];
+          [*(*(&v18 + 1) + 8 * i) doubleValueForUnit:{unitCopy, v18}];
           if (v15 > v9)
           {
             v9 = v15;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -742,8 +700,6 @@ LABEL_15:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

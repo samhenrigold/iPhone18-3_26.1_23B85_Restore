@@ -51,7 +51,11 @@
 - (id)JSONCompatibleKeyValueMap;
 - (id)OSSpecificValueForKey:(id)key;
 - (id)__descriptionForAirPortBaseStationModel:(int64_t)model;
+- (id)__descriptionForRSNAuthSel:(int)sel;
+- (id)__descriptionForRSNCipher:(int)cipher;
 - (id)__descriptionForRSNIE;
+- (id)__descriptionForWPAAuthSel:(int)sel;
+- (id)__descriptionForWPACipher:(int)cipher;
 - (id)__descriptionForWPAIE;
 - (id)__internalDictionaryFromScanRecord:(id)record knownNetworkProfile:(id)profile includeProperties:(id)properties;
 - (id)__supportedProperties;
@@ -161,7 +165,7 @@
 
 - (NSString)description
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   sSID = [(CWFScanResult *)self SSID];
 
@@ -224,31 +228,31 @@
     if ([rNRChannelList count])
     {
       objc_msgSend(string, "appendString:", @" (");
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
       v22 = rNRChannelList;
-      v23 = [v22 countByEnumeratingWithState:&v103 objects:v113 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v102 objects:v112 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v104;
+        v25 = *v103;
         do
         {
           v26 = 0;
           do
           {
-            if (*v104 != v25)
+            if (*v103 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v103 + 1) + 8 * v26++)];
+            [string appendFormat:@"%@, ", *(*(&v102 + 1) + 8 * v26++)];
           }
 
           while (v24 != v26);
-          v24 = [v22 countByEnumeratingWithState:&v103 objects:v113 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v102 objects:v112 count:16];
         }
 
         while (v24);
@@ -337,31 +341,31 @@
   if ([rNRBSSList count])
   {
     [string appendString:@"rnr=["];
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
     v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
     v34 = rNRBSSList;
-    v35 = [v34 countByEnumeratingWithState:&v99 objects:v112 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v98 objects:v111 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v100;
+      v37 = *v99;
       do
       {
         v38 = 0;
         do
         {
-          if (*v100 != v37)
+          if (*v99 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          [string appendFormat:@"(%@), ", *(*(&v99 + 1) + 8 * v38++)];
+          [string appendFormat:@"(%@), ", *(*(&v98 + 1) + 8 * v38++)];
         }
 
         while (v36 != v38);
-        v36 = [v34 countByEnumeratingWithState:&v99 objects:v112 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v98 objects:v111 count:16];
       }
 
       while (v36);
@@ -382,31 +386,31 @@
     if ([domainNameList count])
     {
       [string appendString:@"hs20-domains=["];
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
       v96 = 0u;
+      v97 = 0u;
+      v94 = 0u;
+      v95 = 0u;
       v39 = domainNameList;
-      v40 = [v39 countByEnumeratingWithState:&v95 objects:v111 count:16];
+      v40 = [v39 countByEnumeratingWithState:&v94 objects:v110 count:16];
       if (v40)
       {
         v41 = v40;
-        v42 = *v96;
+        v42 = *v95;
         do
         {
           v43 = 0;
           do
           {
-            if (*v96 != v42)
+            if (*v95 != v42)
             {
               objc_enumerationMutation(v39);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v95 + 1) + 8 * v43++)];
+            [string appendFormat:@"%@, ", *(*(&v94 + 1) + 8 * v43++)];
           }
 
           while (v41 != v43);
-          v41 = [v39 countByEnumeratingWithState:&v95 objects:v111 count:16];
+          v41 = [v39 countByEnumeratingWithState:&v94 objects:v110 count:16];
         }
 
         while (v41);
@@ -417,36 +421,36 @@
     }
 
     nAIRealmNameList = [(CWFScanResult *)self NAIRealmNameList];
-    v75 = v18;
+    v74 = v18;
     if ([nAIRealmNameList count])
     {
       [string appendString:@"hs20-nai=["];
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
       v92 = 0u;
+      v93 = 0u;
+      v90 = 0u;
+      v91 = 0u;
       v45 = nAIRealmNameList;
       v46 = nAIRealmNameList;
-      v47 = [v46 countByEnumeratingWithState:&v91 objects:v110 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v90 objects:v109 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v92;
+        v49 = *v91;
         do
         {
           v50 = 0;
           do
           {
-            if (*v92 != v49)
+            if (*v91 != v49)
             {
               objc_enumerationMutation(v46);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v91 + 1) + 8 * v50++)];
+            [string appendFormat:@"%@, ", *(*(&v90 + 1) + 8 * v50++)];
           }
 
           while (v48 != v50);
-          v48 = [v46 countByEnumeratingWithState:&v91 objects:v110 count:16];
+          v48 = [v46 countByEnumeratingWithState:&v90 objects:v109 count:16];
         }
 
         while (v48);
@@ -457,36 +461,36 @@
       nAIRealmNameList = v45;
     }
 
-    v76 = v16;
+    v75 = v16;
     roamingConsortiumList = [(CWFScanResult *)self roamingConsortiumList];
     if ([roamingConsortiumList count])
     {
       [string appendString:@"hs20-rc=["];
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       v51 = roamingConsortiumList;
-      v52 = [v51 countByEnumeratingWithState:&v87 objects:v109 count:16];
+      v52 = [v51 countByEnumeratingWithState:&v86 objects:v108 count:16];
       if (v52)
       {
         v53 = v52;
-        v54 = *v88;
+        v54 = *v87;
         do
         {
           v55 = 0;
           do
           {
-            if (*v88 != v54)
+            if (*v87 != v54)
             {
               objc_enumerationMutation(v51);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v87 + 1) + 8 * v55++)];
+            [string appendFormat:@"%@, ", *(*(&v86 + 1) + 8 * v55++)];
           }
 
           while (v53 != v55);
-          v53 = [v51 countByEnumeratingWithState:&v87 objects:v109 count:16];
+          v53 = [v51 countByEnumeratingWithState:&v86 objects:v108 count:16];
         }
 
         while (v53);
@@ -500,31 +504,31 @@
     if ([operatorFriendlyNameList count])
     {
       [string appendString:@"hs20-friend=["];
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
       v84 = 0u;
+      v85 = 0u;
+      v82 = 0u;
+      v83 = 0u;
       v57 = operatorFriendlyNameList;
-      v58 = [v57 countByEnumeratingWithState:&v83 objects:v108 count:16];
+      v58 = [v57 countByEnumeratingWithState:&v82 objects:v107 count:16];
       if (v58)
       {
         v59 = v58;
-        v60 = *v84;
+        v60 = *v83;
         do
         {
           v61 = 0;
           do
           {
-            if (*v84 != v60)
+            if (*v83 != v60)
             {
               objc_enumerationMutation(v57);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v83 + 1) + 8 * v61++)];
+            [string appendFormat:@"%@, ", *(*(&v82 + 1) + 8 * v61++)];
           }
 
           while (v59 != v61);
-          v59 = [v57 countByEnumeratingWithState:&v83 objects:v108 count:16];
+          v59 = [v57 countByEnumeratingWithState:&v82 objects:v107 count:16];
         }
 
         while (v59);
@@ -537,34 +541,34 @@
     cellularNetworkInfo = [(CWFScanResult *)self cellularNetworkInfo];
     if ([cellularNetworkInfo count])
     {
-      v74 = nAIRealmNameList;
+      v73 = nAIRealmNameList;
       v63 = rNRBSSList;
       [string appendString:@"hs20-cell=["];
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
       v80 = 0u;
+      v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       v64 = cellularNetworkInfo;
-      v65 = [v64 countByEnumeratingWithState:&v79 objects:v107 count:16];
+      v65 = [v64 countByEnumeratingWithState:&v78 objects:v106 count:16];
       if (v65)
       {
         v66 = v65;
-        v67 = *v80;
+        v67 = *v79;
         do
         {
           v68 = 0;
           do
           {
-            if (*v80 != v67)
+            if (*v79 != v67)
             {
               objc_enumerationMutation(v64);
             }
 
-            [string appendFormat:@"%@, ", *(*(&v79 + 1) + 8 * v68++)];
+            [string appendFormat:@"%@, ", *(*(&v78 + 1) + 8 * v68++)];
           }
 
           while (v66 != v68);
-          v66 = [v64 countByEnumeratingWithState:&v79 objects:v107 count:16];
+          v66 = [v64 countByEnumeratingWithState:&v78 objects:v106 count:16];
         }
 
         while (v66);
@@ -573,11 +577,11 @@
       [string deleteCharactersInRange:{objc_msgSend(string, "length") - 2, 2}];
       [string appendString:{@"], "}];
       rNRBSSList = v63;
-      nAIRealmNameList = v74;
+      nAIRealmNameList = v73;
     }
 
-    v18 = v75;
-    v16 = v76;
+    v18 = v74;
+    v16 = v75;
   }
 
   [string appendFormat:@"age=%lums (%llu), ", -[CWFScanResult age](self, "age"), -[CWFScanResult timestamp](self, "timestamp")];
@@ -596,13 +600,12 @@
 
   v71 = string;
 
-  v72 = *MEMORY[0x1E69E9840];
   return string;
 }
 
 - (id)__descriptionForRSNIE
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   scanRecord = [(CWFScanResult *)self scanRecord];
   v4 = [scanRecord objectForKeyedSubscript:@"RSN_IE"];
 
@@ -632,7 +635,7 @@
       rSNAuthSelectors = [(CWFScanResult *)self RSNAuthSelectors];
     }
 
-    v38 = rSNAuthSelectors;
+    v37 = rSNAuthSelectors;
     v12 = [v4 objectForKeyedSubscript:@"IE_KEY_RSN_CAPS"];
     v13 = [v12 objectForKeyedSubscript:@"RSN_CAPABILITIES"];
 
@@ -643,80 +646,80 @@
 
     string = [MEMORY[0x1E696AD60] string];
     [string appendString:@"["];
-    v40 = v8;
+    v39 = v8;
     v15 = -[CWFScanResult __descriptionForRSNCipher:](self, "__descriptionForRSNCipher:", [v8 intValue]);
     [string appendFormat:@"mcast=%@, ", v15];
 
-    v39 = v9;
+    v38 = v9;
     v16 = -[CWFScanResult __descriptionForRSNCipher:](self, "__descriptionForRSNCipher:", [v9 intValue]);
     [string appendFormat:@"bip=%@, ", v16];
 
     [string appendString:@"ucast={ "];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v17 = rSNUnicastCiphers;
-    v18 = [v17 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v47;
+      v20 = *v46;
       do
       {
         v21 = 0;
         do
         {
-          if (*v47 != v20)
+          if (*v46 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = -[CWFScanResult __descriptionForRSNCipher:](self, "__descriptionForRSNCipher:", [*(*(&v46 + 1) + 8 * v21) intValue]);
+          v22 = -[CWFScanResult __descriptionForRSNCipher:](self, "__descriptionForRSNCipher:", [*(*(&v45 + 1) + 8 * v21) intValue]);
           [string appendFormat:@"%@ ", v22];
 
           ++v21;
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v19);
     }
 
-    v41 = v4;
+    v40 = v4;
 
     [string appendString:{@"}, "}];
     [string appendString:@"auths={ "];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v23 = v38;
-    v24 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v23 = v37;
+    v24 = [v23 countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v43;
+      v26 = *v42;
       do
       {
         v27 = 0;
         do
         {
-          if (*v43 != v26)
+          if (*v42 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = -[CWFScanResult __descriptionForRSNAuthSel:](self, "__descriptionForRSNAuthSel:", [*(*(&v42 + 1) + 8 * v27) intValue]);
+          v28 = -[CWFScanResult __descriptionForRSNAuthSel:](self, "__descriptionForRSNAuthSel:", [*(*(&v41 + 1) + 8 * v27) intValue]);
           [string appendFormat:@"%@ ", v28];
 
           ++v27;
         }
 
         while (v25 != v27);
-        v25 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v41 objects:v49 count:16];
       }
 
       while (v25);
@@ -748,9 +751,9 @@
       [string appendFormat:@"caps=%@", @"n/a"];
     }
 
-    v33 = v40;
-    v4 = v41;
-    v34 = v39;
+    v33 = v39;
+    v4 = v40;
+    v34 = v38;
     [string appendString:@"]"];
   }
 
@@ -766,7 +769,6 @@
 
   v35 = string;
 
-  v36 = *MEMORY[0x1E69E9840];
   return string;
 }
 
@@ -860,7 +862,7 @@
 
 - (id)__descriptionForWPAIE
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   scanRecord = [(CWFScanResult *)self scanRecord];
   v4 = [scanRecord objectForKeyedSubscript:@"WPA_IE"];
 
@@ -886,39 +888,39 @@
 
     string = [MEMORY[0x1E696AD60] string];
     [string appendString:@"["];
-    v29 = v8;
+    v28 = v8;
     v12 = -[CWFScanResult __descriptionForWPACipher:](self, "__descriptionForWPACipher:", [v8 intValue]);
     [string appendFormat:@"mcast=%@, ", v12];
 
     [string appendString:@"ucast={ "];
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v13 = wPAUnicastCiphers;
-    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         v17 = 0;
         do
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = -[CWFScanResult __descriptionForWPACipher:](self, "__descriptionForWPACipher:", [*(*(&v34 + 1) + 8 * v17) intValue]);
+          v18 = -[CWFScanResult __descriptionForWPACipher:](self, "__descriptionForWPACipher:", [*(*(&v33 + 1) + 8 * v17) intValue]);
           [string appendFormat:@"%@ ", v18];
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v15);
@@ -926,34 +928,34 @@
 
     [string appendString:{@"}, "}];
     [string appendString:@"auths={ "];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v19 = wPAAuthSelectors;
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v30;
       do
       {
         v23 = 0;
         do
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = -[CWFScanResult __descriptionForWPAAuthSel:](self, "__descriptionForWPAAuthSel:", [*(*(&v30 + 1) + 8 * v23) intValue]);
+          v24 = -[CWFScanResult __descriptionForWPAAuthSel:](self, "__descriptionForWPAAuthSel:", [*(*(&v29 + 1) + 8 * v23) intValue]);
           [string appendFormat:@"%@ ", v24];
 
           ++v23;
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v21);
@@ -961,7 +963,7 @@
 
     [string appendString:@"}"];
     [string appendString:@"]"];
-    v25 = v29;
+    v25 = v28;
   }
 
   else
@@ -974,7 +976,6 @@
 
   v26 = string;
 
-  v27 = *MEMORY[0x1E69E9840];
   return string;
 }
 
@@ -1020,7 +1021,7 @@
 
 - (BOOL)isWiFi6E
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   channel = [(CWFScanResult *)self channel];
   is6GHz = [channel is6GHz];
 
@@ -1031,25 +1032,25 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     rNRBSSList = [(CWFScanResult *)self RNRBSSList];
-    v5 = [rNRBSSList countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [rNRBSSList countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(rNRBSSList);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           channel2 = [v9 channel];
           if ([channel2 is6GHz])
           {
@@ -1067,7 +1068,7 @@
           }
         }
 
-        v5 = [rNRBSSList countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [rNRBSSList countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v5);
@@ -1076,13 +1077,12 @@
 LABEL_14:
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)JSONCompatibleKeyValueMap
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CWFScanResult age](self, "age")}];
   [v3 setObject:v4 forKeyedSubscript:@"cache_age"];
@@ -1283,27 +1283,27 @@ LABEL_14:
   v70 = [MEMORY[0x1E696AD98] numberWithBool:{-[CWFScanResult isAssociationDisallowed](self, "isAssociationDisallowed")}];
   [v3 setObject:v70 forKeyedSubscript:@"is_assoc_disallowed"];
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
   v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   rNRBSSList = [(CWFScanResult *)self RNRBSSList];
-  v72 = [rNRBSSList countByEnumeratingWithState:&v95 objects:v100 count:16];
+  v72 = [rNRBSSList countByEnumeratingWithState:&v94 objects:v99 count:16];
   if (v72)
   {
     v73 = v72;
     array = 0;
-    v75 = *v96;
+    v75 = *v95;
     do
     {
       for (i = 0; i != v73; ++i)
       {
-        if (*v96 != v75)
+        if (*v95 != v75)
         {
           objc_enumerationMutation(rNRBSSList);
         }
 
-        v77 = *(*(&v95 + 1) + 8 * i);
+        v77 = *(*(&v94 + 1) + 8 * i);
         if (!array)
         {
           array = [MEMORY[0x1E695DF70] array];
@@ -1313,7 +1313,7 @@ LABEL_14:
         [array addObject:jSONCompatibleKeyValueMap2];
       }
 
-      v73 = [rNRBSSList countByEnumeratingWithState:&v95 objects:v100 count:16];
+      v73 = [rNRBSSList countByEnumeratingWithState:&v94 objects:v99 count:16];
     }
 
     while (v73);
@@ -1325,27 +1325,27 @@ LABEL_14:
   }
 
   [v3 setObject:array forKeyedSubscript:@"rnr_bss_list"];
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
   v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
   rNRChannelList = [(CWFScanResult *)self RNRChannelList];
-  v80 = [rNRChannelList countByEnumeratingWithState:&v91 objects:v99 count:16];
+  v80 = [rNRChannelList countByEnumeratingWithState:&v90 objects:v98 count:16];
   if (v80)
   {
     v81 = v80;
     array2 = 0;
-    v83 = *v92;
+    v83 = *v91;
     do
     {
       for (j = 0; j != v81; ++j)
       {
-        if (*v92 != v83)
+        if (*v91 != v83)
         {
           objc_enumerationMutation(rNRChannelList);
         }
 
-        v85 = *(*(&v91 + 1) + 8 * j);
+        v85 = *(*(&v90 + 1) + 8 * j);
         if (!array2)
         {
           array2 = [MEMORY[0x1E695DF70] array];
@@ -1355,7 +1355,7 @@ LABEL_14:
         [array2 addObject:jSONCompatibleKeyValueMap3];
       }
 
-      v81 = [rNRChannelList countByEnumeratingWithState:&v91 objects:v99 count:16];
+      v81 = [rNRChannelList countByEnumeratingWithState:&v90 objects:v98 count:16];
     }
 
     while (v81);
@@ -1377,8 +1377,6 @@ LABEL_14:
   {
     v88 = 0;
   }
-
-  v89 = *MEMORY[0x1E69E9840];
 
   return v88;
 }
@@ -1515,7 +1513,7 @@ LABEL_23:
 
 - (id)__internalDictionaryFromScanRecord:(id)record knownNetworkProfile:(id)profile includeProperties:(id)properties
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   profileCopy = profile;
   propertiesCopy = properties;
@@ -1528,28 +1526,28 @@ LABEL_23:
     [v13 intersectSet:propertiesCopy];
   }
 
-  v50 = propertiesCopy;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v49 = propertiesCopy;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v52;
+    v17 = *v51;
     while (1)
     {
       v18 = 0;
       while (2)
       {
-        if (*v52 != v17)
+        if (*v51 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        switch([*(*(&v51 + 1) + 8 * v18) integerValue])
+        switch([*(*(&v50 + 1) + 8 * v18) integerValue])
         {
           case 1:
             v19 = &unk_1F5BBCBB0;
@@ -1716,7 +1714,7 @@ LABEL_226:
               continue;
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v51 objects:v55 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v50 objects:v54 count:16];
             if (!v16)
             {
               goto LABEL_228;
@@ -2332,8 +2330,6 @@ LABEL_207:
 
 LABEL_228:
 
-  v48 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
@@ -2567,33 +2563,33 @@ LABEL_228:
 
 - (void)setOSSpecificAttributes:(id)attributes
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   if (attributesCopy)
   {
     selfCopy = self;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v19 = 0u;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
     allKeys = [attributesCopy allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v21 objects:v33 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v19 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = [CWFScanResult supportedOSSpecificKeys:v18];
+          v11 = *(*(&v19 + 1) + 8 * i);
+          v12 = +[CWFScanResult supportedOSSpecificKeys];
           v13 = [v12 containsObject:v11];
 
           if (v13)
@@ -2618,22 +2614,21 @@ LABEL_228:
 
             if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
             {
-              v25 = 136446978;
-              v26 = "[CWFScanResult setOSSpecificAttributes:]";
-              v27 = 2082;
-              v28 = "CWFScanResult.m";
-              v29 = 1024;
-              v30 = 1052;
-              v31 = 2112;
-              v32 = v11;
-              LODWORD(v19) = 38;
-              v18 = &v25;
-              _os_log_send_and_compose_impl();
+              v23 = 136446978;
+              v24 = "[CWFScanResult setOSSpecificAttributes:]";
+              v25 = 2082;
+              v26 = "CWFScanResult.m";
+              v27 = 1024;
+              v28 = 1052;
+              v29 = 2112;
+              v30 = v11;
+              LODWORD(v17) = 38;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v23, v17);
             }
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v21 objects:v33 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v19 objects:v31 count:16];
       }
 
       while (v8);
@@ -2647,9 +2642,7 @@ LABEL_228:
     dictionary = 0;
   }
 
-  [(NSMutableDictionary *)self->_internal setObject:dictionary forKeyedSubscript:&unk_1F5BBD228, v18, v19];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(NSMutableDictionary *)self->_internal setObject:dictionary forKeyedSubscript:&unk_1F5BBD228];
 }
 
 - (NSDictionary)OSSpecificAttributes
@@ -2662,7 +2655,7 @@ LABEL_228:
 
 - (void)setOSSpecificValue:(id)value forKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   if (keyCopy && (+[CWFScanResult supportedOSSpecificKeys](CWFScanResult, "supportedOSSpecificKeys"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:keyCopy], v8, v9))
@@ -2695,11 +2688,17 @@ LABEL_228:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      _os_log_send_and_compose_impl();
+      v15 = 136446978;
+      v16 = "[CWFScanResult setOSSpecificValue:forKey:]";
+      v17 = 2082;
+      v18 = "CWFScanResult.m";
+      v19 = 1024;
+      v20 = 1080;
+      v21 = 2112;
+      v22 = keyCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v15, 38);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)OSSpecificValueForKey:(id)key
@@ -2789,36 +2788,36 @@ LABEL_228:
 
 - (BOOL)hasWEP40Cipher
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([(CWFScanResult *)self WPAMulticastCipher]!= 1 && [(CWFScanResult *)self RSNMulticastCipher]!= 1)
   {
     [(CWFScanResult *)self WPAUnicastCiphers];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v4 = v21 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v4 = v20 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
 LABEL_6:
       v8 = 0;
       while (1)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v18 + 1) + 8 * v8) intValue] == 1)
+        if ([*(*(&v17 + 1) + 8 * v8) intValue] == 1)
         {
           break;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
           if (v6)
           {
             goto LABEL_6;
@@ -2835,37 +2834,37 @@ LABEL_12:
 
       rSNUnicastCiphers = [(CWFScanResult *)self RSNUnicastCiphers];
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v4 = rSNUnicastCiphers;
-      v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
       if (!v3)
       {
 LABEL_22:
 
-        goto LABEL_23;
+        return v3;
       }
 
-      v10 = *v15;
+      v10 = *v14;
 LABEL_14:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v14 + 1) + 8 * v11) intValue] == 1)
+        if ([*(*(&v13 + 1) + 8 * v11) intValue] == 1)
         {
           break;
         }
 
         if (v3 == ++v11)
         {
-          v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+          v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
           if (v3)
           {
             goto LABEL_14;
@@ -2881,43 +2880,41 @@ LABEL_14:
   }
 
   LOBYTE(v3) = 1;
-LABEL_23:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)hasWEP104Cipher
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([(CWFScanResult *)self WPAMulticastCipher]!= 5 && [(CWFScanResult *)self RSNMulticastCipher]!= 5)
   {
     [(CWFScanResult *)self WPAUnicastCiphers];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v4 = v21 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v4 = v20 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
 LABEL_6:
       v8 = 0;
       while (1)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v18 + 1) + 8 * v8) intValue] == 5)
+        if ([*(*(&v17 + 1) + 8 * v8) intValue] == 5)
         {
           break;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
           if (v6)
           {
             goto LABEL_6;
@@ -2934,37 +2931,37 @@ LABEL_12:
 
       rSNUnicastCiphers = [(CWFScanResult *)self RSNUnicastCiphers];
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v4 = rSNUnicastCiphers;
-      v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
       if (!v3)
       {
 LABEL_22:
 
-        goto LABEL_23;
+        return v3;
       }
 
-      v10 = *v15;
+      v10 = *v14;
 LABEL_14:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v14 + 1) + 8 * v11) intValue] == 5)
+        if ([*(*(&v13 + 1) + 8 * v11) intValue] == 5)
         {
           break;
         }
 
         if (v3 == ++v11)
         {
-          v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+          v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
           if (v3)
           {
             goto LABEL_14;
@@ -2980,43 +2977,41 @@ LABEL_14:
   }
 
   LOBYTE(v3) = 1;
-LABEL_23:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)hasTKIPCipher
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([(CWFScanResult *)self WPAMulticastCipher]!= 2 && [(CWFScanResult *)self RSNMulticastCipher]!= 2)
   {
     [(CWFScanResult *)self WPAUnicastCiphers];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v4 = v21 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v4 = v20 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
 LABEL_6:
       v8 = 0;
       while (1)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v18 + 1) + 8 * v8) intValue] == 2)
+        if ([*(*(&v17 + 1) + 8 * v8) intValue] == 2)
         {
           break;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
           if (v6)
           {
             goto LABEL_6;
@@ -3033,37 +3028,37 @@ LABEL_12:
 
       rSNUnicastCiphers = [(CWFScanResult *)self RSNUnicastCiphers];
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v4 = rSNUnicastCiphers;
-      v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
       if (!v3)
       {
 LABEL_22:
 
-        goto LABEL_23;
+        return v3;
       }
 
-      v10 = *v15;
+      v10 = *v14;
 LABEL_14:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v14 + 1) + 8 * v11) intValue] == 2)
+        if ([*(*(&v13 + 1) + 8 * v11) intValue] == 2)
         {
           break;
         }
 
         if (v3 == ++v11)
         {
-          v3 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+          v3 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
           if (v3)
           {
             goto LABEL_14;
@@ -3079,8 +3074,6 @@ LABEL_14:
   }
 
   LOBYTE(v3) = 1;
-LABEL_23:
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -3278,27 +3271,27 @@ LABEL_23:
 
 - (BOOL)hasNon6GHzRNRChannel
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   rNRChannelList = [(CWFScanResult *)self RNRChannelList];
-  v3 = [rNRChannelList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [rNRChannelList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(rNRChannelList);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if ([v7 is2GHz] & 1) != 0 || (objc_msgSend(v7, "is5GHz"))
         {
           v8 = 1;
@@ -3306,7 +3299,7 @@ LABEL_23:
         }
       }
 
-      v4 = [rNRChannelList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [rNRChannelList countByEnumeratingWithState:&v10 objects:v14 count:16];
       v8 = 0;
       if (v4)
       {
@@ -3324,7 +3317,6 @@ LABEL_23:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3334,6 +3326,66 @@ LABEL_13:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (id)__descriptionForWPACipher:(int)cipher
+{
+  if (cipher < 6 && ((0x37u >> cipher) & 1) != 0)
+  {
+    v4 = off_1E86E92D8[cipher];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%i>", *&cipher];
+  }
+
+  return v4;
+}
+
+- (id)__descriptionForWPAAuthSel:(int)sel
+{
+  if (sel >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%i>", *&sel];
+  }
+
+  else
+  {
+    v4 = off_1E86E9308[sel];
+  }
+
+  return v4;
+}
+
+- (id)__descriptionForRSNCipher:(int)cipher
+{
+  if (cipher < 0xE && ((0x3B7Fu >> cipher) & 1) != 0)
+  {
+    v4 = off_1E86E9320[cipher];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%i>", *&cipher];
+  }
+
+  return v4;
+}
+
+- (id)__descriptionForRSNAuthSel:(int)sel
+{
+  if (sel < 0x1A && ((0x30033FFu >> sel) & 1) != 0)
+  {
+    v4 = off_1E86E9390[sel];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%i>", *&sel];
+  }
+
+  return v4;
 }
 
 - (id)__descriptionForAirPortBaseStationModel:(int64_t)model

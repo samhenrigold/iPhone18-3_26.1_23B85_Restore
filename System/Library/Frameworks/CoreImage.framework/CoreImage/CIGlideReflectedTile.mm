@@ -54,7 +54,7 @@
   v26 = v25;
   v28 = v27;
   v30 = v29;
-  affine::inverse(&v44, v43);
+  affine::inverse(v43, &v44);
   v31 = [CIVector vectorWithX:v43[0] Y:v43[2] Z:v43[1] W:v43[3]];
   v32 = [CIVector vectorWithX:v44.f64[0] Y:v45 Z:v44.f64[1] W:v46];
   _kernel = [(CIGlideReflectedTile *)self _kernel];

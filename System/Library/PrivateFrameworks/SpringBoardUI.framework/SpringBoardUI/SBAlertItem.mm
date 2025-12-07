@@ -6,6 +6,7 @@
 - (NSString)clientIdentifier;
 - (NSString)elementIdentifier;
 - (SBAlertItem)init;
+- (id)_prepareNewAlertControllerWithLockedState:(BOOL)state requirePasscodeForActions:(BOOL)actions;
 - (id)_publicDescription;
 - (id)_systemApertureElement;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
@@ -15,6 +16,7 @@
 - (void)_deactivationCompleted;
 - (void)_setPresentationState:(unint64_t)state;
 - (void)_setPresented:(BOOL)presented;
+- (void)deactivateForReason:(int)reason;
 - (void)didActivate;
 - (void)elementLayoutSpecifier:(id)specifier layoutModeDidChange:(int64_t)change reason:(int64_t)reason;
 - (void)playPresentationSound;
@@ -85,6 +87,13 @@
   }
 }
 
+- (void)deactivateForReason:(int)reason
+{
+  v3 = *&reason;
+  _alertItemsController = [objc_opt_class() _alertItemsController];
+  [_alertItemsController deactivateAlertItem:self reason:v3];
+}
+
 - (void)setIconImagePath:(id)path
 {
   objc_storeStrong(&self->_iconImagePath, path);
@@ -105,7 +114,7 @@
 
 - (void)presentationStateDidChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = SBLogCFUserNotifications();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -119,14 +128,12 @@
       v7 = off_27836B050[toState - 1];
     }
 
-    v9 = 134218242;
+    v8 = 134218242;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_21E74E000, v6, OS_LOG_TYPE_DEFAULT, "<%p> Presentation state changed to %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_21E74E000, v6, OS_LOG_TYPE_DEFAULT, "<%p> Presentation state changed to %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivationCompleted
@@ -140,7 +147,42 @@
 {
   alertController = self->_alertController;
   self->_alertController = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, alertController);
+}
+
+- (id)_prepareNewAlertControllerWithLockedState:(BOOL)state requirePasscodeForActions:(BOOL)actions
+{
+  actionsCopy = actions;
+  stateCopy = state;
+  [(SBAlertItem *)self _clearAlertController];
+  v7 = [[_SBAlertController alloc] initWithStyleProvider:self];
+  alertController = self->_alertController;
+  self->_alertController = v7;
+
+  [(_SBAlertController *)self->_alertController setAlertItem:self];
+  [(_SBAlertController *)self->_alertController setPreferredStyle:1];
+  if (!stateCopy)
+  {
+    _headerImage = [(SBAlertItem *)self _headerImage];
+    if (_headerImage)
+    {
+      v10 = [[_SBAlertItemHeaderViewController alloc] initWithImage:_headerImage];
+      [(_SBAlertController *)self->_alertController _setHeaderContentViewController:v10];
+    }
+  }
+
+  [(SBAlertItem *)self configure:stateCopy requirePasscodeForActions:actionsCopy];
+  if ([(SBAlertItem *)self hideOnClonedDisplay])
+  {
+    [(_SBAlertController *)self->_alertController setHiddenOnClonedDisplay:1];
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"SBAlertItemDidPrepareNewAlertControllerNotification" object:self userInfo:0];
+
+  v12 = self->_alertController;
+
+  return v12;
 }
 
 - (id)_systemApertureElement

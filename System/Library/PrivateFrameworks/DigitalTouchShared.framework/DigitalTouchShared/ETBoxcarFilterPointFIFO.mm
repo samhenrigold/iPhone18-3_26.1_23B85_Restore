@@ -1,12 +1,12 @@
 @interface ETBoxcarFilterPointFIFO
 - (ETBoxcarFilterPointFIFO)initWithFIFO:(id)o width:(unint64_t)width spacing:(float)spacing;
-- (char)setPrevPoints:(char *)points;
 - (id).cxx_construct;
-- (uint64_t)prevPoints;
+- (uint64_t)setPrevPoints:(char *)points;
 - (void)addPoints:(ETBoxcarFilterPointFIFO *)self count:(SEL)count;
 - (void)clear;
 - (void)emitAveragedPoint;
 - (void)flush;
+- (void)prevPoints;
 @end
 
 @implementation ETBoxcarFilterPointFIFO
@@ -130,7 +130,7 @@
   [(ETPointFIFO *)&v2 clear];
 }
 
-- (uint64_t)prevPoints
+- (void)prevPoints
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -138,9 +138,9 @@
   return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a2, *(self + 32), *(self + 40), (*(self + 40) - *(self + 32)) >> 3);
 }
 
-- (char)setPrevPoints:(char *)points
+- (uint64_t)setPrevPoints:(char *)points
 {
-  result = (self + 32);
+  result = self + 32;
   if (result != points)
   {
     return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, *points, points[1], (points[1] - *points) >> 3);

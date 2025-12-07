@@ -41,7 +41,7 @@
 - (void)setDeserializeCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -72,7 +72,7 @@ LABEL_9:
 
 - (id)deserializeCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -137,56 +137,52 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_serializedModifications(self, a2, run);
 
-  if (!v5)
+  if (v5)
   {
-    if (ck_log_initialization_predicate != -1)
-    {
-      dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
-    }
-
-    v7 = ck_log_facility_ck;
-    if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
-    {
-      v13 = v7;
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v18 = objc_msgSend_ckShortDescription(self, v16, v17);
-      *buf = 138543874;
-      v21 = v15;
-      v22 = 2048;
-      selfCopy = self;
-      v24 = 2114;
-      v25 = v18;
-      _os_log_debug_impl(&dword_1883EA000, v13, OS_LOG_TYPE_DEBUG, "Not running operation <%{public}@: %p; %{public}@> due to nil inputs", buf, 0x20u);
-
-      if (!run)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    else if (!run)
-    {
-LABEL_8:
-      result = 0;
-      goto LABEL_9;
-    }
-
-    v10 = objc_msgSend_operationID(self, v8, v9);
-    *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v11, @"CKErrorDomain", 12, @"There are no inputs for operation %@.", v10);
-
-    goto LABEL_8;
+    v18.receiver = self;
+    v18.super_class = CKDeserializeRecordModificationsOperation;
+    return [(CKDatabaseOperation *)&v18 CKOperationShouldRun:run];
   }
 
-  v19.receiver = self;
-  v19.super_class = CKDeserializeRecordModificationsOperation;
-  result = [(CKDatabaseOperation *)&v19 CKOperationShouldRun:run];
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v7 = ck_log_facility_ck;
+  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = v7;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v17 = objc_msgSend_ckShortDescription(self, v15, v16);
+    *buf = 138543874;
+    v20 = v14;
+    v21 = 2048;
+    selfCopy = self;
+    v23 = 2114;
+    v24 = v17;
+    _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "Not running operation <%{public}@: %p; %{public}@> due to nil inputs", buf, 0x20u);
+
+    if (!run)
+    {
+      return 0;
+    }
+
+    goto LABEL_7;
+  }
+
+  if (run)
+  {
+LABEL_7:
+    v10 = objc_msgSend_operationID(self, v8, v9);
+    *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v11, @"CKErrorDomain", 12, @"There are no inputs for operation %@.", v10);
+  }
+
+  return 0;
 }
 
 + (void)applyDaemonCallbackInterfaceTweaks:(id)tweaks
@@ -211,7 +207,7 @@ LABEL_9:
 
 - (void)handleDeserializationOfSaves:(id)saves deletes:(id)deletes error:(id)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   savesCopy = saves;
   deletesCopy = deletes;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -260,11 +256,11 @@ LABEL_9:
       if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
         v28 = objc_msgSend_count(savesCopy, v26, v27);
-        v48 = 134218242;
-        v49 = objc_msgSend_count(deletesCopy, v29, v30) + v28;
-        v50 = 2112;
-        v51 = v12;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v20, OS_SIGNPOST_EVENT, v25, "CKDeserializeRecordModificationsOperation", "Deserialized results (%lu items) received with error: %@", &v48, 0x16u);
+        v47 = 134218242;
+        v48 = objc_msgSend_count(deletesCopy, v29, v30) + v28;
+        v49 = 2112;
+        v50 = v12;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v20, OS_SIGNPOST_EVENT, v25, "CKDeserializeRecordModificationsOperation", "Deserialized results (%lu items) received with error: %@", &v47, 0x16u);
       }
     }
 
@@ -304,17 +300,15 @@ LABEL_9:
       if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
         v43 = objc_msgSend_count(savesCopy, v41, v42);
-        v48 = 134217984;
-        v49 = objc_msgSend_count(deletesCopy, v44, v45) + v43;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v35, OS_SIGNPOST_EVENT, v40, "CKDeserializeRecordModificationsOperation", "Deserialized results (%lu items) received", &v48, 0xCu);
+        v47 = 134217984;
+        v48 = objc_msgSend_count(deletesCopy, v44, v45) + v43;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v35, OS_SIGNPOST_EVENT, v40, "CKDeserializeRecordModificationsOperation", "Deserialized results (%lu items) received", &v47, 0xCu);
       }
     }
 
     objc_msgSend_setRecordsToSave_(self, v15, savesCopy);
     objc_msgSend_setRecordIDsToDelete_(self, v46, deletesCopy);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -389,7 +383,7 @@ LABEL_9:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -442,28 +436,26 @@ LABEL_9:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKDeserializeRecordModificationsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKDeserializeRecordModificationsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -507,13 +499,11 @@ LABEL_9:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKDeserializeRecordModificationsOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKDeserializeRecordModificationsOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

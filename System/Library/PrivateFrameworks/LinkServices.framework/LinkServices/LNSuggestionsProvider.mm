@@ -8,36 +8,36 @@
 
 - (id)suggestedActionsForSuggestionsRequests:(id)requests error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6810;
-  v31 = __Block_byref_object_dispose__6811;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__6810;
-  v25 = __Block_byref_object_dispose__6811;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__6810;
+  v30 = __Block_byref_object_dispose__6811;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__6810;
+  v24 = __Block_byref_object_dispose__6811;
+  v25 = 0;
   connection = self->_connection;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __70__LNSuggestionsProvider_suggestedActionsForSuggestionsRequests_error___block_invoke;
-  v20[3] = &unk_1E74B2658;
-  v20[4] = &v27;
-  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v20];
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __70__LNSuggestionsProvider_suggestedActionsForSuggestionsRequests_error___block_invoke_2;
-  v19[3] = &unk_1E74B1330;
-  v19[4] = &v21;
-  v19[5] = &v27;
-  [v8 suggestedActionsForSuggestionsRequests:requestsCopy reply:v19];
+  v19[2] = __70__LNSuggestionsProvider_suggestedActionsForSuggestionsRequests_error___block_invoke;
+  v19[3] = &unk_1E74B2658;
+  v19[4] = &v26;
+  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __70__LNSuggestionsProvider_suggestedActionsForSuggestionsRequests_error___block_invoke_2;
+  v18[3] = &unk_1E74B1330;
+  v18[4] = &v20;
+  v18[5] = &v26;
+  [v8 suggestedActionsForSuggestionsRequests:requestsCopy reply:v18];
 
-  v9 = v22[5];
+  v9 = v21[5];
   if (v9)
   {
     v10 = v9;
@@ -45,31 +45,30 @@
 
   else if (error)
   {
-    v13 = v28[5];
-    if (v13)
+    v12 = v27[5];
+    if (v12)
     {
-      *error = v13;
+      *error = v12;
     }
 
     else
     {
-      v33 = *MEMORY[0x1E696A578];
+      v32 = *MEMORY[0x1E696A578];
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-      v15 = [mainBundle localizedStringForKey:@"Empty result" value:&stru_1F0BBC770 table:0];
-      v34[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v14 = [mainBundle localizedStringForKey:@"Empty result" value:&stru_1F0BBC770 table:0];
+      v33[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
 
-      v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"LNSuggestionsProviderErrorDomain" code:9003 userInfo:v16];
+      v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"LNSuggestionsProviderErrorDomain" code:9003 userInfo:v15];
 
-      v18 = v17;
-      *error = v17;
+      v17 = v16;
+      *error = v16;
     }
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
 
   return v9;
 }

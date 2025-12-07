@@ -23,9 +23,11 @@
 
 uint64_t __52__PSUICoreTelephonyPostponementCache_sharedInstance__block_invoke()
 {
-  sharedInstance_cacheInstance = [[PSUICoreTelephonyPostponementCache alloc] initPrivate];
+  v0 = [[PSUICoreTelephonyPostponementCache alloc] initPrivate];
+  v1 = sharedInstance_cacheInstance;
+  sharedInstance_cacheInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)initPrivate
@@ -58,7 +60,7 @@ uint64_t __52__PSUICoreTelephonyPostponementCache_sharedInstance__block_invoke()
 - (PSUICoreTelephonyPostponementCache)init
 {
   v5 = *MEMORY[0x277D85DE8];
-  v2 = _PSGLoggingFacility();
+  v2 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 136315138;
@@ -73,18 +75,17 @@ uint64_t __52__PSUICoreTelephonyPostponementCache_sharedInstance__block_invoke()
 {
   activationPolicyState = self->_activationPolicyState;
   self->_activationPolicyState = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, activationPolicyState);
 }
 
 - (void)fetchActivationPolicyState
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[PSUICoreTelephonyPostponementCache fetchActivationPolicyState]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[PSUICoreTelephonyPostponementCache fetchActivationPolicyState]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "%s fetch failed: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21CF20000, a2, OS_LOG_TYPE_ERROR, "%s fetch failed: %@", &v2, 0x16u);
 }
 
 - (id)getActivationPolicyState

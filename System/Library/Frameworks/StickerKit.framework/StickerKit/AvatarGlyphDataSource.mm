@@ -52,7 +52,7 @@
 
 - (id)indexPathForIdentifier:(id)identifier ofType:(int64_t)type
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v18 - v7;
   sub_19A7AB014();
@@ -96,7 +96,7 @@
 
 - (_TtC10StickerKit21AvatarGlyphDataSource)initWithDataSources:(id)sources
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF160);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF160, &qword_19A7C0600);
   v3 = sub_19A7AB254();
   return sub_19A733188(v3);
 }

@@ -1,6 +1,7 @@
 @interface STSNDEFRecord
 + (BOOL)_parseNDEFData:(id)data outRecords:(id)records;
 + (id)ndefRecordsWithData:(id)data;
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unint64_t *)error;
 - (BOOL)isAlternativeCarrierRecord;
 - (BOOL)isBluetoothLEConfigurationRecord;
 - (BOOL)isCollisionResolutionRecord;
@@ -13,6 +14,7 @@
 - (BOOL)isNfcConfigurationRecord;
 - (BOOL)isWiFiAwareConfigurationRecord;
 - (STSNDEFRecord)initWithCoder:(id)coder;
+- (STSNDEFRecord)initWithFormat:(unsigned __int8)format type:(id)type identifier:(id)identifier payload:(id)payload;
 - (id)description;
 - (id)getAuxiliaryDataReferencesFromAlternativeCarrierRecord;
 - (id)getCarrierDataReferenceFromAlternativeCarrierRecord;
@@ -28,6 +30,32 @@
 @end
 
 @implementation STSNDEFRecord
+
+- (STSNDEFRecord)initWithFormat:(unsigned __int8)format type:(id)type identifier:(id)identifier payload:(id)payload
+{
+  formatCopy = format;
+  typeCopy = type;
+  identifierCopy = identifier;
+  payloadCopy = payload;
+  v19.receiver = self;
+  v19.super_class = STSNDEFRecord;
+  v13 = [(STSNDEFRecord *)&v19 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(STSNDEFRecord *)v13 setTypeNameFormat:formatCopy];
+    v15 = [typeCopy copy];
+    [(STSNDEFRecord *)v14 setType:v15];
+
+    v16 = [identifierCopy copy];
+    [(STSNDEFRecord *)v14 setIdentifier:v16];
+
+    v17 = [payloadCopy copy];
+    [(STSNDEFRecord *)v14 setPayload:v17];
+  }
+
+  return v14;
+}
 
 - (void)setMessageBegin:(BOOL)begin
 {
@@ -129,6 +157,158 @@
   v6 = [(NSData *)self->_payload length];
 
   [(STSNDEFRecord *)self setShortRecord:v6 < 0x100];
+}
+
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unint64_t *)error
+{
+  fCopy = f;
+  typeCopy = type;
+  identifierCopy = identifier;
+  payloadCopy = payload;
+  v16 = +[NSMutableArray array];
+  if ([identifierCopy length] > 0xFF || (v19 = objc_msgSend(typeCopy, "length"), fCopy > 7) || v19 >= 0x100)
+  {
+    if (error)
+    {
+      v17 = 0;
+      v18 = 5;
+LABEL_4:
+      *error = v18;
+      goto LABEL_37;
+    }
+
+LABEL_36:
+    v17 = 0;
+    goto LABEL_37;
+  }
+
+  if ([payloadCopy length] < size)
+  {
+    sub_100024938(OS_LOG_TYPE_INFO, 0, "+[STSNDEFRecord recordsWithTNF:type:identifier:payload:chunkSize:outError:]", 167, @"ChunkSize=%lu, RecordCount=%lu", v20, v21, v22, size);
+    goto LABEL_13;
+  }
+
+  v40 = fCopy;
+  v23 = [payloadCopy length] / size;
+  if ([payloadCopy length] % size)
+  {
+    ++v23;
+  }
+
+  sub_100024938(OS_LOG_TYPE_INFO, 0, "+[STSNDEFRecord recordsWithTNF:type:identifier:payload:chunkSize:outError:]", 167, @"ChunkSize=%lu, RecordCount=%lu", v24, v25, v26, size);
+  v41 = v23;
+  if (!v23)
+  {
+    goto LABEL_18;
+  }
+
+  fCopy = v40;
+  if (v41 != 1)
+  {
+    v30 = 0;
+    v31 = 0;
+    while (1)
+    {
+      v32 = objc_opt_new();
+      if (!v32)
+      {
+        goto LABEL_34;
+      }
+
+      v33 = v32;
+      if (!v31)
+      {
+        break;
+      }
+
+      if (v41 - 1 != v31)
+      {
+        [v32 setTypeNameFormat:6];
+        v35 = v30;
+LABEL_31:
+        sizeCopy = size;
+        goto LABEL_32;
+      }
+
+      [v32 setChunked:1];
+      [v33 setTypeNameFormat:6];
+      v34 = [payloadCopy length];
+      v35 = (v41 - 1) * size;
+      sizeCopy = v34 - v35;
+LABEL_32:
+      v38 = [payloadCopy subdataWithRange:{v35, sizeCopy}];
+      [v33 setPayload:v38];
+
+      [v16 addObject:v33];
+      ++v31;
+      v30 += size;
+      if (v31 >= v41)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    [v32 setChunked:1];
+    [v33 setTypeNameFormat:v40];
+    [v33 setType:typeCopy];
+    if ([identifierCopy length])
+    {
+      v37 = identifierCopy;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+    [v33 setIdentifier:v37];
+    v35 = 0;
+    goto LABEL_31;
+  }
+
+LABEL_13:
+  v27 = objc_opt_new();
+  if (!v27)
+  {
+LABEL_34:
+    if (error)
+    {
+      v17 = 0;
+      v18 = 6;
+      goto LABEL_4;
+    }
+
+    goto LABEL_36;
+  }
+
+  v28 = v27;
+  [v27 setShortRecord:{objc_msgSend(payloadCopy, "length") < 0x100}];
+  [v28 setTypeNameFormat:fCopy];
+  [v28 setType:typeCopy];
+  if ([identifierCopy length])
+  {
+    v29 = identifierCopy;
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  [v28 setIdentifier:v29];
+  [v28 setPayload:payloadCopy];
+  [v16 addObject:v28];
+
+LABEL_18:
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v17 = v16;
+LABEL_37:
+
+  return v17;
 }
 
 - (BOOL)isEqual:(id)equal

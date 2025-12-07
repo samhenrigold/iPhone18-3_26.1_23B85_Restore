@@ -1,20 +1,20 @@
 @interface PHAsset(MediaAnalysisSceneProcessing)
 - (BOOL)mad_needsImageEmbeddingProcessing;
 - (BOOL)mad_needsVideoEmbeddingProcessing;
+- (BOOL)vcp_abnormalImageDimensionForSceneNet;
 - (id)vcp_confidenceForExtendedSceneIdentifier:()MediaAnalysisSceneProcessing;
-- (uint64_t)mad_needSceneProcessingForSharedAsset;
-- (uint64_t)vcp_abnormalImageDimensionForSceneNet;
 - (uint64_t)vcp_needSceneProcessing;
+- (void)mad_needSceneProcessingForSharedAsset;
 @end
 
 @implementation PHAsset(MediaAnalysisSceneProcessing)
 
-- (uint64_t)mad_needSceneProcessingForSharedAsset
+- (void)mad_needSceneProcessingForSharedAsset
 {
   result = [self mad_isShared];
   if (result)
   {
-    return [self compactSCSensitivityAnalysis] == 0;
+    return ([self compactSCSensitivityAnalysis] == 0);
   }
 
   return result;
@@ -135,7 +135,7 @@ LABEL_16:
   return v14;
 }
 
-- (uint64_t)vcp_abnormalImageDimensionForSceneNet
+- (BOOL)vcp_abnormalImageDimensionForSceneNet
 {
   v2 = [self pixelWidth] <= 0x12A && objc_msgSend(self, "pixelHeight") < 0x12B;
   if ([self pixelHeight])

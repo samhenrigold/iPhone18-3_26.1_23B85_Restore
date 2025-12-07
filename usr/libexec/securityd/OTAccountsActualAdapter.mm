@@ -213,24 +213,8 @@ LABEL_25:
   {
     if (dCopy)
     {
-      if (!v23)
+      if (!v23 || !v75 || (-[NSObject personaIdentifier](v75, "personaIdentifier"), v42 = objc_claimAutoreleasedReturnValue(), -[NSObject personaIdentifier](v23, "personaIdentifier"), v43 = objc_claimAutoreleasedReturnValue(), v44 = [v42 isEqualToString:v43], v43, v42, v41 = v23, (v44 & 1) == 0))
       {
-        goto LABEL_41;
-      }
-
-      if (!v75)
-      {
-        goto LABEL_41;
-      }
-
-      personaIdentifier5 = [v75 personaIdentifier];
-      personaIdentifier6 = [v23 personaIdentifier];
-      v44 = [personaIdentifier5 isEqualToString:personaIdentifier6];
-
-      v41 = v23;
-      if ((v44 & 1) == 0)
-      {
-LABEL_41:
         v45 = sub_100006274("octagon-account");
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
@@ -256,10 +240,10 @@ LABEL_41:
         v48 = sub_100006274("octagon-account");
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
-          personaIdentifier7 = [v23 personaIdentifier];
+          personaIdentifier5 = [v23 personaIdentifier];
           aa_altDSID6 = [v23 aa_altDSID];
           *buf = 138412546;
-          *v81 = personaIdentifier7;
+          *v81 = personaIdentifier5;
           *&v81[8] = 2112;
           *&v81[10] = aa_altDSID6;
           _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Match by persona - persona: %@ altDSID: %@", buf, 0x16u);
@@ -268,10 +252,10 @@ LABEL_41:
         v51 = sub_100006274("octagon-account");
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          personaIdentifier8 = [v75 personaIdentifier];
+          personaIdentifier6 = [v75 personaIdentifier];
           aa_altDSID7 = [v75 aa_altDSID];
           *buf = 138412546;
-          *v81 = personaIdentifier8;
+          *v81 = personaIdentifier6;
           *&v81[8] = 2112;
           *&v81[10] = aa_altDSID7;
           _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Match by altDSID - persona: %@ altDSID: %@", buf, 0x16u);
@@ -327,11 +311,11 @@ LABEL_56:
     dCopy2 = v41;
     aa_altDSID8 = [dCopy2 aa_altDSID];
     identifier = [dCopy2 identifier];
-    personaIdentifier9 = [dCopy2 personaIdentifier];
+    personaIdentifier7 = [dCopy2 personaIdentifier];
     v59 = [TPSpecificUser alloc];
     iDCopy = v69;
     nameCopy = v70;
-    v36 = [(TPSpecificUser *)v59 initWithCloudkitContainerName:v70 octagonContextID:v69 appleAccountID:identifier altDSID:aa_altDSID8 isPrimaryPersona:[dCopy2 aa_isAccountClass:AAAccountClassPrimary] personaUniqueString:personaIdentifier9];
+    v36 = [(TPSpecificUser *)v59 initWithCloudkitContainerName:v70 octagonContextID:v69 appleAccountID:identifier altDSID:aa_altDSID8 isPrimaryPersona:[dCopy2 aa_isAccountClass:AAAccountClassPrimary] personaUniqueString:personaIdentifier7];
 
     threadCopy = v72;
     v20 = obj;

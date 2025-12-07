@@ -7,8 +7,10 @@
 
 - (id)setObjectUUID:(id)d forIdentifier:(int64_t)identifier
 {
-  d;
-  if (!self->super._identifierToUUIDMap)
+  identifierCopy = identifier;
+  dCopy = d;
+  identifierToUUIDMap = self->super._identifierToUUIDMap;
+  if (!identifierToUUIDMap)
   {
     operator new();
   }
@@ -18,7 +20,7 @@
     operator new();
   }
 
-  sub_276ACE740();
+  sub_276ACE740(identifierToUUIDMap, &identifierCopy, &dCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

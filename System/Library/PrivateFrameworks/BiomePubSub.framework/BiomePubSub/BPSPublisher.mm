@@ -30,6 +30,7 @@
 - (id)sinkWithCompletion:(id)completion receiveInput:(id)input;
 - (id)sinkWithCompletion:(id)completion shouldContinue:(id)continue;
 - (id)startWithSubscriber:(id)subscriber;
+- (id)throttleFor:(double)for latest:(BOOL)latest getTimestamp:(id)timestamp;
 - (id)timerFor:(double)for getTimestamp:(id)timestamp;
 - (id)windowByKey:(id)key assigner:(id)assigner;
 - (id)windowWithAssigner:(id)assigner;
@@ -43,34 +44,34 @@
 
 - (BOOL)completed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   upstreamPublishers = [(BPSPublisher *)self upstreamPublishers];
-  v3 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [upstreamPublishers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(upstreamPublishers);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) completed])
+        if (![*(*(&v9 + 1) + 8 * i) completed])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [upstreamPublishers countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -83,44 +84,41 @@
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)reset
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   upstreamPublishers = [(BPSPublisher *)self upstreamPublishers];
-  v3 = [upstreamPublishers countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [upstreamPublishers countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(upstreamPublishers);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) reset];
+        [*(*(&v7 + 1) + 8 * v6++) reset];
       }
 
       while (v4 != v6);
-      v4 = [upstreamPublishers countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [upstreamPublishers countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)correlateWithCurrent:(id)current comparator:(id)comparator correlateHandler:(id)handler
@@ -152,28 +150,28 @@ LABEL_11:
 
 - (id)startWithSubscriber:(id)subscriber
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   subscriberCopy = subscriber;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   upstreamPublishers = [(BPSPublisher *)self upstreamPublishers];
-  v6 = [upstreamPublishers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [upstreamPublishers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(upstreamPublishers);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * i) startWithSubscriber:subscriberCopy];
+        v10 = [*(*(&v13 + 1) + 8 * i) startWithSubscriber:subscriberCopy];
         if (v10)
         {
           v11 = v10;
@@ -181,7 +179,7 @@ LABEL_11:
         }
       }
 
-      v7 = [upstreamPublishers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [upstreamPublishers countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -193,8 +191,6 @@ LABEL_11:
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -386,15 +382,14 @@ LABEL_11:
 
 - (id)mergeWithOthers:(id)others
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v3 = MEMORY[0x1E695DEC8];
   othersCopy = others;
   v5 = [v3 arrayWithObjects:&selfCopy count:1];
-  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v11}];
+  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v10}];
 
   v7 = [[BPSMergeMany alloc] initWithPublishers:v6];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -421,6 +416,15 @@ LABEL_11:
   v7 = [[BPSDebounce alloc] initWithUpstream:self for:timestampCopy getTimestamp:for];
 
   return v7;
+}
+
+- (id)throttleFor:(double)for latest:(BOOL)latest getTimestamp:(id)timestamp
+{
+  latestCopy = latest;
+  timestampCopy = timestamp;
+  v9 = [[BPSThrottle alloc] initWithUpstream:self interval:latestCopy latest:timestampCopy getTimestamp:for];
+
+  return v9;
 }
 
 - (id)scanWithInitial:(id)initial nextPartialResult:(id)result
@@ -517,15 +521,14 @@ LABEL_11:
 
 - (id)zipWithOthers:(id)others
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v3 = MEMORY[0x1E695DEC8];
   othersCopy = others;
   v5 = [v3 arrayWithObjects:&selfCopy count:1];
-  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v11}];
+  v6 = [v5 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v10}];
 
   v7 = [[BPSZipMany alloc] initWithPublishers:v6];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -541,16 +544,15 @@ LABEL_11:
 
 - (id)orderedMergeWithOthers:(id)others comparator:(id)comparator
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v5 = MEMORY[0x1E695DEC8];
   comparatorCopy = comparator;
   othersCopy = others;
   v8 = [v5 arrayWithObjects:&selfCopy count:1];
-  v9 = [v8 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v14}];
+  v9 = [v8 arrayByAddingObjectsFromArray:{othersCopy, selfCopy, v13}];
 
   v10 = [[BPSOrderedMerge alloc] initWithPublishers:v9 comparator:comparatorCopy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

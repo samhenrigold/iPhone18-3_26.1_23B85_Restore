@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v18 = @"rentalCompanyName";
+  v22[5] = *MEMORY[0x1E69E9840];
+  v17 = @"rentalCompanyName";
   rentalCompanyName = self->_rentalCompanyName;
   null = rentalCompanyName;
   if (!rentalCompanyName)
@@ -23,9 +23,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"type";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"type";
   type = self->_type;
   null2 = type;
   if (!type)
@@ -33,8 +33,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"make";
+  v22[1] = null2;
+  v19 = @"make";
   make = self->_make;
   null3 = make;
   if (!make)
@@ -42,8 +42,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"model";
+  v22[2] = null3;
+  v20 = @"model";
   model = self->_model;
   null4 = model;
   if (!model)
@@ -51,8 +51,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"rentalCarDescription";
+  v22[3] = null4;
+  v21 = @"rentalCarDescription";
   rentalCarDescription = self->_rentalCarDescription;
   null5 = rentalCarDescription;
   if (!rentalCarDescription)
@@ -60,8 +60,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (rentalCarDescription)
   {
     if (model)
@@ -119,7 +119,6 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -155,7 +155,6 @@ LABEL_9:
 {
   if ((*&self->_has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -167,7 +166,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    isToDefaultPairedDevice = self->_isToDefaultPairedDevice;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -179,7 +177,6 @@ LABEL_7:
       }
 
 LABEL_12:
-      rTT = self->_rTT;
       PBDataWriterWriteUint64Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -195,7 +192,6 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  messageSize = self->_messageSize;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -210,7 +206,6 @@ LABEL_8:
   }
 
 LABEL_13:
-  priority = self->_priority;
 
   PBDataWriterWriteUint64Field();
 }
@@ -345,7 +340,6 @@ LABEL_7:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 56);
     if ((has & 0x10) != 0)
     {
       if ((*(equal + 56) & 0x10) == 0 || self->_timestamp != *(equal + 5))

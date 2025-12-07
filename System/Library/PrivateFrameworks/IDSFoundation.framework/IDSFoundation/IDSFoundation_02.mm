@@ -1,6 +1,6 @@
 void sub_1A7B671EC(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/local/bin/netdiagnose stop packetcapture"];
   [v2 UTF8String];
   IMPerformSystem();
@@ -9,7 +9,7 @@ void sub_1A7B671EC(uint64_t a1)
   {
     v4 = *(a1 + 32);
     *buf = 136315138;
-    v6 = v4;
+    v15 = v4;
     _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "%s: netdiagnose stop packetcapture", buf, 0xCu);
   }
 
@@ -17,10 +17,10 @@ void sub_1A7B671EC(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: netdiagnose stop packetcapture");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: netdiagnose stop packetcapture", v5, v6, v7, v8, v9, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: netdiagnose stop packetcapture");
+        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: netdiagnose stop packetcapture", v10, v11, v12, v13, *(a1 + 32));
       }
     }
   }
@@ -28,14 +28,14 @@ void sub_1A7B671EC(uint64_t a1)
 
 void sub_1A7B67358(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 136315138;
-    v7 = v5;
+    v16 = v5;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "%s: sysdiagnose finished", buf, 0xCu);
   }
 
@@ -43,10 +43,10 @@ void sub_1A7B67358(uint64_t a1, void *a2)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: sysdiagnose finished");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: sysdiagnose finished", v6, v7, v8, v9, v10, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: sysdiagnose finished");
+        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: sysdiagnose finished", v11, v12, v13, v14, *(a1 + 32));
       }
     }
   }
@@ -154,11 +154,11 @@ void sub_1A7B68B34(uint64_t a1)
   }
 }
 
-uint64_t sub_1A7B68DD4(void *a1)
+void *sub_1A7B68DD4(void *a1)
 {
   [*(a1[4] + 24) addObject:a1[5]];
   result = a1[4];
-  if (!*(result + 48) || (*(result + 88) & 1) == 0)
+  if (!*(result + 6) || (*(result + 88) & 1) == 0)
   {
     result = [result _setupWriteSource];
   }
@@ -169,7 +169,7 @@ uint64_t sub_1A7B68DD4(void *a1)
 
 uint64_t sub_1A7B691B4(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = +[IDSServerBag sharedInstance];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ids-use-%@-portion", v1];
@@ -195,7 +195,7 @@ uint64_t sub_1A7B691B4(void *a1)
   {
     v11 = @"NO";
     *buf = 138413058;
-    v15 = v1;
+    v24 = v1;
     if (v9)
     {
       v12 = @"YES";
@@ -206,17 +206,17 @@ uint64_t sub_1A7B691B4(void *a1)
       v12 = @"NO";
     }
 
-    v17 = v12;
-    v16 = 2112;
+    v26 = v12;
+    v25 = 2112;
     if (v7 <= (v6 * 4294967300.0))
     {
       v11 = @"YES";
     }
 
-    v18 = 2112;
-    v19 = v11;
-    v20 = 2048;
-    v21 = v6;
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2048;
+    v30 = v6;
     _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "IDS Ramped Feature use%@: %@ (coin flip: %@, chance: %f)", buf, 0x2Au);
   }
 
@@ -224,10 +224,10 @@ uint64_t sub_1A7B691B4(void *a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%@: %@ (coin flip: %@, chance: %f)");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%@: %@ (coin flip: %@, chance: %f)", v13, v14, v15, v16, v17, v1);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%@: %@ (coin flip: %@, chance: %f)");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%@: %@ (coin flip: %@, chance: %f)", v18, v19, v20, v21, v1);
       }
     }
   }
@@ -237,14 +237,14 @@ uint64_t sub_1A7B691B4(void *a1)
 
 uint64_t sub_1A7B69448(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = a1;
+      v27 = a1;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "IDS Ramped Feature use%s: os feature flag enabled; checking ramp", buf, 0xCu);
     }
 
@@ -252,38 +252,36 @@ uint64_t sub_1A7B69448(uint64_t a1, int a2)
     {
       if (_IDSShouldLogTransport())
       {
-        v8 = a1;
-        _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%s: os feature flag enabled; checking ramp");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%s: os feature flag enabled; checking ramp", v4, v5, v6, v7, v8, a1);
+        if (_IDSShouldLog(0))
         {
-          v8 = a1;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%s: os feature flag enabled; checking ramp");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%s: os feature flag enabled; checking ramp", v9, v10, v11, v12, a1);
         }
       }
     }
 
-    v4 = [MEMORY[0x1E696AEC0] stringWithCString:a1 encoding:{4, v8}];
-    v5 = sub_1A7B691B4(v4);
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:a1 encoding:4];
+    v14 = sub_1A7B691B4(v13);
   }
 
   else
   {
-    v6 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v15 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = a1;
-      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "IDS Ramped Feature use%s: os feature flag disabled; not checking ramp", buf, 0xCu);
+      v27 = a1;
+      _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "IDS Ramped Feature use%s: os feature flag disabled; not checking ramp", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%s: os feature flag disabled; not checking ramp");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"IDS Ramped Feature use%s: os feature flag disabled; not checking ramp", v16, v17, v18, v19, v20, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%s: os feature flag disabled; not checking ramp");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDS Ramped Feature use%s: os feature flag disabled; not checking ramp", v21, v22, v23, v24, a1);
         }
       }
     }
@@ -291,12 +289,12 @@ uint64_t sub_1A7B69448(uint64_t a1, int a2)
     return 0;
   }
 
-  return v5;
+  return v14;
 }
 
 uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5, char a6)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   v11 = a1;
   v12 = a3;
   v13 = a4;
@@ -310,133 +308,119 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
     }
 
     *buf = 138412546;
-    v43 = v11;
-    v44 = 2112;
-    v45 = v15;
+    v110 = v11;
+    v111 = 2112;
+    v112 = v15;
     _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: default value: %@", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    v16 = a2 ? @"YES" : @"NO";
-    v39 = v16;
-    _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: default value: %@");
-    if (_IDSShouldLog())
+    v21 = a2 ? @"YES" : @"NO";
+    v108 = v21;
+    _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: default value: %@", v16, v17, v18, v19, v20, v11);
+    if (_IDSShouldLog(0))
     {
-      v39 = v16;
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: default value: %@");
+      v108 = v21;
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: default value: %@", v22, v23, v24, v25, v11);
     }
   }
 
-  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"use%s", a5, v39];
-  v18 = MEMORY[0x1AC562F80](@"com.apple.ids", v17);
-  if (v18)
+  v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"use%s", a5, v108];
+  v27 = MEMORY[0x1AC562F80](@"com.apple.ids", v26);
+  if (v27)
   {
-    v19 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v28 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v18 BOOLValue];
-      v21 = @"NO";
+      v29 = [v27 BOOLValue];
+      v30 = @"NO";
       *buf = 138412802;
-      v43 = v11;
-      v44 = 2112;
-      if (v20)
+      v110 = v11;
+      v111 = 2112;
+      if (v29)
       {
-        v21 = @"YES";
+        v30 = @"YES";
       }
 
-      v45 = v17;
-      v46 = 2112;
-      v47 = v21;
-      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@", buf, 0x20u);
+      v112 = v26;
+      v113 = 2112;
+      v114 = v30;
+      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@", buf, 0x20u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
+    if (os_log_shim_legacy_logging_enabled())
     {
-      v22 = [v18 BOOLValue] ? @"YES" : @"NO";
-      v40 = v17;
-      v41 = v22;
-      v38 = v11;
-      _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@");
-      if (_IDSShouldLog())
+      if (_IDSShouldLogTransport())
       {
-        if ([v18 BOOLValue])
+        [v27 BOOLValue];
+        _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@", v31, v32, v33, v34, v35, v11);
+        if (_IDSShouldLog(0))
         {
-          v23 = @"YES";
+          [v27 BOOLValue];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@", v36, v37, v38, v39, v11);
         }
-
-        else
-        {
-          v23 = @"NO";
-        }
-
-        v40 = v17;
-        v41 = v23;
-        v38 = v11;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: from defaults (ignoring feature flag, forced experiments, and server experiments): %@=%@");
       }
     }
 
-    a2 = [v18 BOOLValue];
+    a2 = [v27 BOOLValue];
   }
 
   else if (a6)
   {
     if (v13)
     {
-      v24 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v40 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v43 = v11;
-        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.", buf, 0xCu);
+        v110 = v11;
+        _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v38 = v11;
-          _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.", v41, v42, v43, v44, v45, v11);
+          if (_IDSShouldLog(0))
           {
-            v38 = v11;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: has forcedExperiments.", v46, v47, v48, v49, v11);
           }
         }
       }
 
-      v25 = [v13 objectForKey:{v11, v38}];
-      v26 = v25;
-      if (v25)
+      v50 = [v13 objectForKey:v11];
+      v51 = v50;
+      if (v50)
       {
-        a2 = [v25 BOOLValue];
-        v27 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        a2 = [v50 BOOLValue];
+        v52 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = @"NO";
+          v53 = @"NO";
           *buf = 138412802;
-          v43 = v11;
-          v44 = 2112;
+          v110 = v11;
+          v111 = 2112;
           if (a2)
           {
-            v28 = @"YES";
+            v53 = @"YES";
           }
 
-          v45 = v11;
-          v46 = 2112;
-          v47 = v28;
-          _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@", buf, 0x20u);
+          v112 = v11;
+          v113 = 2112;
+          v114 = v53;
+          _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@", v54, v55, v56, v57, v58, v11);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using forced value: %@=%@", v59, v60, v61, v62, v11);
             }
           }
         }
@@ -444,32 +428,32 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
 
       else
       {
-        v33 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v85 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = @"NO";
+          v86 = @"NO";
           *buf = 138412802;
-          v43 = v11;
-          v44 = 2112;
+          v110 = v11;
+          v111 = 2112;
           if (a2)
           {
-            v34 = @"YES";
+            v86 = @"YES";
           }
 
-          v45 = v11;
-          v46 = 2112;
-          v47 = v34;
-          _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)", buf, 0x20u);
+          v112 = v11;
+          v113 = 2112;
+          v114 = v86;
+          _os_log_impl(&dword_1A7AD9000, v85, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)", v87, v88, v89, v90, v91, v11);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@ (ignoring value from server)", v92, v93, v94, v95, v11);
             }
           }
         }
@@ -478,37 +462,37 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
 
     else
     {
-      v30 = [v12 objectForKey:v11];
-      v26 = v30;
-      if (v30)
+      v73 = [v12 objectForKey:v11];
+      v51 = v73;
+      if (v73)
       {
-        a2 = [v30 BOOLValue];
-        v31 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        a2 = [v73 BOOLValue];
+        v74 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = @"NO";
+          v75 = @"NO";
           *buf = 138412802;
-          v43 = v11;
-          v44 = 2112;
+          v110 = v11;
+          v111 = 2112;
           if (a2)
           {
-            v32 = @"YES";
+            v75 = @"YES";
           }
 
-          v45 = v11;
-          v46 = 2112;
-          v47 = v32;
-          _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@", buf, 0x20u);
+          v112 = v11;
+          v113 = 2112;
+          v114 = v75;
+          _os_log_impl(&dword_1A7AD9000, v74, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@", v76, v77, v78, v79, v80, v11);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using session experiment value from server: %@=%@", v81, v82, v83, v84, v11);
             }
           }
         }
@@ -516,32 +500,32 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
 
       else
       {
-        v35 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v96 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = @"NO";
+          v97 = @"NO";
           *buf = 138412802;
-          v43 = v11;
-          v44 = 2112;
+          v110 = v11;
+          v111 = 2112;
           if (a2)
           {
-            v36 = @"YES";
+            v97 = @"YES";
           }
 
-          v45 = v11;
-          v46 = 2112;
-          v47 = v36;
-          _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@", buf, 0x20u);
+          v112 = v11;
+          v113 = 2112;
+          v114 = v97;
+          _os_log_impl(&dword_1A7AD9000, v96, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@", v98, v99, v100, v101, v102, v11);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: using default value %@=%@", v103, v104, v105, v106, v11);
             }
           }
         }
@@ -551,26 +535,26 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
 
   else
   {
-    v29 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v63 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v43 = v11;
-      v44 = 2080;
-      v45 = a5;
-      v46 = 2112;
-      v47 = v11;
-      _os_log_impl(&dword_1A7AD9000, v29, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO", buf, 0x20u);
+      v110 = v11;
+      v111 = 2080;
+      v112 = a5;
+      v113 = 2112;
+      v114 = v11;
+      _os_log_impl(&dword_1A7AD9000, v63, OS_LOG_TYPE_DEFAULT, "IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO", v64, v65, v66, v67, v68, v11);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSGLShouldExperimentBeEnabled[%@]: feature flag %s disabled, so %@=NO", v69, v70, v71, v72, v11);
         }
       }
     }
@@ -583,7 +567,7 @@ uint64_t sub_1A7B69680(void *a1, uint64_t a2, void *a3, void *a4, __CFString *a5
 
 uint64_t sub_1A7B6A940(uint64_t a1, uint64_t *a2, _BYTE *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a2[2] < 4)
   {
     return -1;
@@ -603,16 +587,17 @@ uint64_t sub_1A7B6A940(uint64_t a1, uint64_t *a2, _BYTE *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = __rev16(v6);
+      v19 = __rev16(v6);
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "unknown packet, %04x", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"unknown packet, %04x");
-      if (_IDSShouldLog())
+      v13 = __rev16(v6);
+      _IDSLogTransport(@"GL", @"IDS", @"unknown packet, %04x", v8, v9, v10, v11, v12, v13);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"unknown packet, %04x");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"unknown packet, %04x", v14, v15, v16, v17, v13);
       }
     }
 
@@ -630,14 +615,14 @@ uint64_t sub_1A7B6A940(uint64_t a1, uint64_t *a2, _BYTE *a3)
   }
 }
 
-void sub_1A7B6C638(uint64_t a1, signed int a2, const void *a3)
+double sub_1A7B6C638(uint64_t a1, uint64_t a2, const void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v6 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v18 = a2;
+    v46 = a2;
     _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "prefixCount: %d", buf, 8u);
   }
 
@@ -645,83 +630,85 @@ void sub_1A7B6C638(uint64_t a1, signed int a2, const void *a3)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"prefixCount: %d");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"prefixCount: %d", v7, v8, v9, v10, v11, a2);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"prefixCount: %d");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"prefixCount: %d", v12, v13, v14, v15, a2);
       }
     }
   }
 
-  if (a2 >= 1 && (v7 = IDSNAT64PrefixCreate(a3, a2, *(a1 + 48))) != 0)
+  if (a2 >= 1 && (v16 = IDSNAT64PrefixCreate(a3, a2, *(a1 + 48))) != 0)
   {
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v17 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 48);
+      v18 = *(a1 + 48);
       *buf = 67109376;
-      v18 = a2;
-      v19 = 1024;
-      v20 = v9;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "receive %d nat64 prefix for if:%d", buf, 0xEu);
+      v46 = a2;
+      v47 = 1024;
+      v48 = v18;
+      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "receive %d nat64 prefix for if:%d", buf, 0xEu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"receive %d nat64 prefix for if:%d");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"receive %d nat64 prefix for if:%d", v19, v20, v21, v22, v23, a2);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d nat64 prefix for if:%d");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d nat64 prefix for if:%d", v24, v25, v26, v27, a2);
       }
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = sub_1A7B6C9E4;
-    v13[3] = &unk_1E77E0B70;
-    v16 = *(a1 + 48);
-    v10 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v15 = v7;
-    v14 = v10;
-    IDSTransportThreadAddBlock(v13);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = sub_1A7B6C9E4;
+    v41[3] = &unk_1E77E0B70;
+    v44 = *(a1 + 48);
+    v28 = *(a1 + 40);
+    v41[4] = *(a1 + 32);
+    v43 = v16;
+    v42 = v28;
+    IDSTransportThreadAddBlock(v41);
   }
 
   else
   {
     *(*(a1 + 32) + 1568) = 0;
-    v11 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v30 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 48);
+      v31 = *(a1 + 48);
       *buf = 67109120;
-      v18 = v12;
-      _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "nw_nat64_copy_prefixes_async failed for if:%d.", buf, 8u);
+      v46 = v31;
+      _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "nw_nat64_copy_prefixes_async failed for if:%d.", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"nw_nat64_copy_prefixes_async failed for if:%d.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"nw_nat64_copy_prefixes_async failed for if:%d.", v32, v33, v34, v35, v36, *(a1 + 48));
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"nw_nat64_copy_prefixes_async failed for if:%d.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"nw_nat64_copy_prefixes_async failed for if:%d.", v37, v38, v39, v40, *(a1 + 48));
         }
       }
     }
   }
+
+  return result;
 }
 
 uint64_t sub_1A7B6C9E4(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 56);
     *buf = 67109120;
-    v6 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "set nat64 prefix for if:%d in cache.", buf, 8u);
   }
 
@@ -729,10 +716,10 @@ uint64_t sub_1A7B6C9E4(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"set nat64 prefix for if:%d in cache.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"set nat64 prefix for if:%d in cache.", v4, v5, v6, v7, v8, *(a1 + 56));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"set nat64 prefix for if:%d in cache.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"set nat64 prefix for if:%d in cache.", v9, v10, v11, v12, *(a1 + 56));
       }
     }
   }
@@ -741,7 +728,7 @@ uint64_t sub_1A7B6C9E4(uint64_t a1)
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))(result);
+    return (*(result + 16))();
   }
 
   return result;
@@ -773,9 +760,9 @@ void sub_1A7B7016C(uint64_t a1, void *a2)
   IDSTransportThreadAddBlock(v5);
 }
 
-uint64_t sub_1A7B70D74(uint64_t a1)
+void sub_1A7B70D74(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 72);
   if (*(a1 + 100) == 1 && (v2 == 0.0 || *(a1 + 96) == 10))
   {
@@ -785,86 +772,73 @@ uint64_t sub_1A7B70D74(uint64_t a1)
       v4 = *(a1 + 72);
       v5 = *(a1 + 96);
       *buf = 134218240;
-      *v18 = v4;
-      *&v18[8] = 1024;
-      *&v18[10] = v5;
+      *v36 = v4;
+      *&v36[8] = 1024;
+      *&v36[10] = v5;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "initiator: allocateRequestTime: %f, IDSRadioAccessTechnology_Unknown: %u", buf, 0x12u);
     }
 
-    result = os_log_shim_legacy_logging_enabled();
-    if (result)
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      result = _IDSShouldLogTransport();
-      if (result)
+      _IDSLogTransport(@"GL", @"IDS", @"initiator: allocateRequestTime: %f, IDSRadioAccessTechnology_Unknown: %u", v6, v7, v8, v9, v10, *(a1 + 72));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogTransport(@"GL", @"IDS", @"initiator: allocateRequestTime: %f, IDSRadioAccessTechnology_Unknown: %u");
-        result = _IDSShouldLog();
-        if (result)
-        {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"initiator: allocateRequestTime: %f, IDSRadioAccessTechnology_Unknown: %u");
-        }
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"initiator: allocateRequestTime: %f, IDSRadioAccessTechnology_Unknown: %u", v11, v12, v13, v14, *(a1 + 72));
       }
     }
   }
 
   else
   {
-    v7 = (v2 * 1000.0);
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v15 = (v2 * 1000.0);
+    v16 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 96);
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
+      v17 = *(a1 + 96);
+      v18 = *(a1 + 32);
+      v19 = *(a1 + 40);
       *buf = 67110146;
-      *v18 = 402;
-      *&v18[4] = 2112;
-      *&v18[6] = v10;
-      v19 = 1024;
-      v20 = v7;
-      v21 = 1024;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@", buf, 0x28u);
+      *v36 = 402;
+      *&v36[4] = 2112;
+      *&v36[6] = v18;
+      v37 = 1024;
+      v38 = v15;
+      v39 = 1024;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v19;
+      _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@", buf, 0x28u);
     }
 
-    result = os_log_shim_legacy_logging_enabled();
-    if (result)
+    if (os_log_shim_legacy_logging_enabled())
     {
-      result = _IDSShouldLogTransport();
-      if (result)
+      if (_IDSShouldLogTransport())
       {
-        v15 = *(a1 + 96);
-        v16 = *(a1 + 40);
-        v14 = v7;
-        v13 = 402;
-        _IDSLogTransport(@"GL", @"IDS", @"report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@");
-        result = _IDSShouldLog();
-        if (result)
+        v33 = *(a1 + 96);
+        v34 = *(a1 + 40);
+        v32 = v15;
+        _IDSLogTransport(@"GL", @"IDS", @"report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@", v20, v21, v22, v23, v24, 402);
+        if (_IDSShouldLog(0))
         {
-          v15 = *(a1 + 96);
-          v16 = *(a1 + 40);
-          v14 = v7;
-          v13 = 402;
-          result = _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@");
+          v33 = *(a1 + 96);
+          v34 = *(a1 + 40);
+          v32 = v15;
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"report AWD allocator event %d for request %@, duration %u ms, RAT: %u, serverSoftwareVersion: %@", v25, v26, v27, v28, 402);
         }
       }
     }
 
-    v12 = *(*(a1 + 48) + 1608);
-    if (v12)
+    v29 = *(*(a1 + 48) + 1608);
+    if (v29)
     {
-      result = *(v12 + 16);
-      if (result)
+      v30 = *(v29 + 16);
+      if (v30)
       {
-        LOBYTE(v13) = *(a1 + 100);
-        return (*(result + 16))(result, 402, *(a1 + 80), *(a1 + 88), *(a1 + 96), v7, *(a1 + 56), *(a1 + 64), v13, *(a1 + 40), v14, v15, v16);
+        LOBYTE(v31) = *(a1 + 100);
+        (*(v30 + 16))(v30, 402, *(a1 + 80), *(a1 + 88), *(a1 + 96), v15, *(a1 + 56), *(a1 + 64), v31, *(a1 + 40), v32, v33, v34);
       }
     }
   }
-
-  return result;
 }
 
 id sub_1A7B714AC(uint64_t a1)
@@ -892,7 +866,7 @@ id sub_1A7B714AC(uint64_t a1)
 
 void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (a5)
@@ -923,9 +897,9 @@ void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
         }
 
         [*(a1 + 32) _reportNoSessionState:? errorCode:?];
-        v23 = [*(a1 + 40) linkEngine];
-        v24 = [*(a1 + 40) linkUniqueName];
-        [v23 linkDidFail:v24 errorCode:699 isRecoverable:a3 shouldReconnect:a4];
+        v59 = [*(a1 + 40) linkEngine];
+        v60 = [*(a1 + 40) linkUniqueName];
+        [v59 linkDidFail:v60 errorCode:699 isRecoverable:a3 shouldReconnect:a4];
       }
 
       else
@@ -935,9 +909,9 @@ void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
         {
           v15 = *(a1 + 40);
           *buf = 138412546;
-          v29 = v15;
-          v30 = 2112;
-          v31 = v13;
+          v65 = v15;
+          v66 = 2112;
+          v67 = v13;
           _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", buf, 0x16u);
         }
 
@@ -945,10 +919,10 @@ void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", v16, v17, v18, v19, v20, *(a1 + 40));
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", v21, v22, v23, v24, *(a1 + 40));
             }
           }
         }
@@ -959,60 +933,54 @@ void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
     {
       if ((a3 & 1) == 0)
       {
-        v16 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v25 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = (&_IDSStunCandidatePairStateStrings)[[*(a1 + 40) state]];
-          v18 = *(a1 + 40);
+          v26 = (&_IDSStunCandidatePairStateStrings)[[*(a1 + 40) state]];
+          v27 = *(a1 + 40);
           *buf = 136315650;
-          v29 = v17;
-          v30 = 2080;
-          v31 = off_1EB2B43B8;
-          v32 = 2112;
-          v33 = v18;
-          _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
+          v65 = v26;
+          v66 = 2080;
+          v67 = off_1EB2B43B8;
+          v68 = 2112;
+          v69 = v27;
+          _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v19 = [*(a1 + 40) state];
-            v26 = off_1EB2B43B8;
-            v27 = *(a1 + 40);
-            v25 = (&_IDSStunCandidatePairStateStrings)[v19];
-            _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.");
-            if (_IDSShouldLog())
+            v28 = [*(a1 + 40) state];
+            _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.", v29, v30, v31, v32, v33, (&_IDSStunCandidatePairStateStrings)[v28]);
+            if (_IDSShouldLog(0))
             {
-              v20 = [*(a1 + 40) state];
-              v26 = off_1EB2B43B8;
-              v27 = *(a1 + 40);
-              v25 = (&_IDSStunCandidatePairStateStrings)[v20];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.");
+              v34 = [*(a1 + 40) state];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.", v35, v36, v37, v38, (&_IDSStunCandidatePairStateStrings)[v34]);
             }
           }
         }
 
-        [*(a1 + 40) setState:{2, v25, v26, v27}];
+        [*(a1 + 40) setState:2];
       }
 
       if (a4)
       {
-        v21 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v39 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "QR connection(H2) to the QR server failed - reconnecting...", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v39, OS_LOG_TYPE_DEFAULT, "QR connection(H2) to the QR server failed - reconnecting...", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"QR connection(H2) to the QR server failed - reconnecting...");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"QR connection(H2) to the QR server failed - reconnecting...", v40, v41, v42, v43, v44, v61);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection(H2) to the QR server failed - reconnecting...");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection(H2) to the QR server failed - reconnecting...", v45, v46, v47, v48, v62);
             }
           }
         }
@@ -1022,21 +990,21 @@ void sub_1A7B71580(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
       else
       {
-        v22 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v49 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "QR connection(H2) to the QR server failed - do not reconnect", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "QR connection(H2) to the QR server failed - do not reconnect", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"QR connection(H2) to the QR server failed - do not reconnect");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"QR connection(H2) to the QR server failed - do not reconnect", v50, v51, v52, v53, v54, v61);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection(H2) to the QR server failed - do not reconnect");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection(H2) to the QR server failed - do not reconnect", v55, v56, v57, v58, v63);
             }
           }
         }
@@ -1070,12 +1038,12 @@ id sub_1A7B71F9C(uint64_t a1)
 
 void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if ((*(a1 + 56) & 1) == 0)
     {
-      [*(a1 + 32) setState:0];
+      [*(a1 + 32) setState:{0, a4}];
     }
 
     v5 = *(*(a1 + 48) + 16);
@@ -1101,9 +1069,9 @@ void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         }
 
         [*(a1 + 40) _reportNoSessionState:? errorCode:?];
-        v22 = [*(a1 + 32) linkEngine];
-        v23 = [*(a1 + 32) linkUniqueName];
-        [v22 linkDidFail:v23 errorCode:699 isRecoverable:a3 shouldReconnect:a4];
+        v58 = [*(a1 + 32) linkEngine];
+        v59 = [*(a1 + 32) linkUniqueName];
+        [v58 linkDidFail:v59 errorCode:699 isRecoverable:a3 shouldReconnect:a4];
       }
 
       else
@@ -1113,9 +1081,9 @@ void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         {
           v14 = *(a1 + 32);
           *buf = 138412546;
-          v28 = v14;
-          v29 = 2112;
-          v30 = v12;
+          v64 = v14;
+          v65 = 2112;
+          v66 = v12;
           _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", buf, 0x16u);
         }
 
@@ -1123,10 +1091,10 @@ void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", v15, v16, v17, v18, v19, *(a1 + 32));
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"ignoring NWLink connection error because it is for a different candidate pair:\n- old: %@\n- new: %@", v20, v21, v22, v23, *(a1 + 32));
             }
           }
         }
@@ -1137,60 +1105,54 @@ void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
     {
       if ((a3 & 1) == 0)
       {
-        v15 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v24 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = (&_IDSStunCandidatePairStateStrings)[[*(a1 + 32) state]];
-          v17 = *(a1 + 32);
+          v25 = (&_IDSStunCandidatePairStateStrings)[[*(a1 + 32) state]];
+          v26 = *(a1 + 32);
           *buf = 136315650;
-          v28 = v16;
-          v29 = 2080;
-          v30 = off_1EB2B43B8;
-          v31 = 2112;
-          v32 = v17;
-          _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
+          v64 = v25;
+          v65 = 2080;
+          v66 = off_1EB2B43B8;
+          v67 = 2112;
+          v68 = v26;
+          _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v18 = [*(a1 + 32) state];
-            v25 = off_1EB2B43B8;
-            v26 = *(a1 + 32);
-            v24 = (&_IDSStunCandidatePairStateStrings)[v18];
-            _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.");
-            if (_IDSShouldLog())
+            v27 = [*(a1 + 32) state];
+            _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.", v28, v29, v30, v31, v32, (&_IDSStunCandidatePairStateStrings)[v27]);
+            if (_IDSShouldLog(0))
             {
-              v19 = [*(a1 + 32) state];
-              v25 = off_1EB2B43B8;
-              v26 = *(a1 + 32);
-              v24 = (&_IDSStunCandidatePairStateStrings)[v19];
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.");
+              v33 = [*(a1 + 32) state];
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.", v34, v35, v36, v37, (&_IDSStunCandidatePairStateStrings)[v33]);
             }
           }
         }
 
-        [*(a1 + 32) setState:{2, v24, v25, v26}];
+        [*(a1 + 32) setState:2];
       }
 
       if (a4)
       {
-        v20 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v38 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "QR connection to the QR server failed - reconnecting...", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "QR connection to the QR server failed - reconnecting...", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"QR connection to the QR server failed - reconnecting...");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"QR connection to the QR server failed - reconnecting...", v39, v40, v41, v42, v43, v60);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection to the QR server failed - reconnecting...");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection to the QR server failed - reconnecting...", v44, v45, v46, v47, v61);
             }
           }
         }
@@ -1200,21 +1162,21 @@ void sub_1A7B72070(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 
       else
       {
-        v21 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v48 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "QR connection to the QR server failed - do not reconnect", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "QR connection to the QR server failed - do not reconnect", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"QR connection to the QR server failed - do not reconnect");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"QR connection to the QR server failed - do not reconnect", v49, v50, v51, v52, v53, v60);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection to the QR server failed - do not reconnect");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"QR connection to the QR server failed - do not reconnect", v54, v55, v56, v57, v62);
             }
           }
         }
@@ -1386,27 +1348,21 @@ void sub_1A7B77B0C(uint64_t a1)
   }
 }
 
-uint64_t sub_1A7B78820()
+double sub_1A7B78820()
 {
   v0 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1A7AD9000, v0, OS_LOG_TYPE_DEFAULT, "configureGLExperiments: started capturing quality metrics", v2, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1A7AD9000, v0, OS_LOG_TYPE_DEFAULT, "configureGLExperiments: started capturing quality metrics", v11, 2u);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    result = _IDSShouldLogTransport();
-    if (result)
+    _IDSLogTransport(@"GL", @"IDS", @"configureGLExperiments: started capturing quality metrics", v2, v3, v4, v5, v6, *v11);
+    if (_IDSShouldLog(0))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"configureGLExperiments: started capturing quality metrics");
-      result = _IDSShouldLog();
-      if (result)
-      {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"configureGLExperiments: started capturing quality metrics");
-      }
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"configureGLExperiments: started capturing quality metrics", v7, v8, v9, v10, *v11);
     }
   }
 
@@ -1517,14 +1473,14 @@ void sub_1A7B81E00(uint64_t a1)
 
 void sub_1A7B82B78(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v5;
+    v20 = v5;
     _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "Register plugin: %@", buf, 0xCu);
   }
 
@@ -1532,26 +1488,24 @@ void sub_1A7B82B78(uint64_t a1, void *a2, void *a3)
   {
     if (_IDSShouldLogTransport())
     {
-      v10 = v5;
-      _IDSLogTransport(@"GL", @"IDS", @"Register plugin: %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"Register plugin: %@", v8, v9, v10, v11, v12, v5);
+      if (_IDSShouldLog(0))
       {
-        v10 = v5;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"Register plugin: %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"Register plugin: %@", v13, v14, v15, v16, v5);
       }
     }
   }
 
-  v8 = [*(a1 + 32) isQUIC];
-  v9 = *(a1 + 40);
-  if (v8)
+  v17 = [*(a1 + 32) isQUIC];
+  v18 = *(a1 + 40);
+  if (v17)
   {
-    [v9 sendQUICPluginRegistrationRequestWithOptions:v6];
+    [v18 sendQUICPluginRegistrationRequestWithOptions:v6];
   }
 
   else
   {
-    [v9 sendQRPluginRegistrationRequest:0 options:v6];
+    [v18 sendQRPluginRegistrationRequest:0 options:v6];
   }
 }
 
@@ -1568,29 +1522,29 @@ void sub_1A7B84808(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"building quality report...");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"building quality report...", v3, v4, v5, v6, v7, v17);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"building quality report...");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"building quality report...", v8, v9, v10, v11, v18);
       }
     }
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_1A7B849A0;
-  v9[3] = &unk_1E77E0DA0;
-  v3 = *(a1 + 32);
-  *&v4 = *(a1 + 40);
-  *(&v4 + 1) = *(a1 + 48);
-  v8 = v4;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 56);
-  *&v7 = v5;
-  *(&v7 + 1) = v6;
-  v10 = v8;
-  v11 = v7;
-  [v3 generateReportWithCompletionHandler:v9];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1A7B849A0;
+  v20[3] = &unk_1E77E0DA0;
+  v12 = *(a1 + 32);
+  *&v13 = *(a1 + 40);
+  *(&v13 + 1) = *(a1 + 48);
+  v19 = v13;
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 56);
+  *&v16 = v14;
+  *(&v16 + 1) = v15;
+  v21 = v19;
+  v22 = v16;
+  [v12 generateReportWithCompletionHandler:v20];
 }
 
 void sub_1A7B849A0(uint64_t a1, void *a2)
@@ -1616,31 +1570,31 @@ void sub_1A7B849A0(uint64_t a1, void *a2)
 
 uint64_t sub_1A7B84A90(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v31;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v31 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
         v7 = OSLogHandleForTransportCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v16 = v6;
+          v35 = v6;
           _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "quality report event: %@", buf, 0xCu);
         }
 
@@ -1648,40 +1602,38 @@ uint64_t sub_1A7B84A90(uint64_t a1)
         {
           if (_IDSShouldLogTransport())
           {
-            v10 = v6;
-            _IDSLogTransport(@"GL", @"IDS", @"quality report event: %@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"quality report event: %@", v8, v9, v10, v11, v12, v6);
+            if (_IDSShouldLog(0))
             {
-              v10 = v6;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"quality report event: %@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"quality report event: %@", v13, v14, v15, v16, v6);
             }
           }
         }
 
-        [*(a1 + 40) link:*(a1 + 48) didAddQREvent:{v6, v10}];
+        [*(a1 + 40) link:*(a1 + 48) didAddQREvent:v6];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v3);
   }
 
-  v8 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v17 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "stopping quality measurements...", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "stopping quality measurements...", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"stopping quality measurements...");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"stopping quality measurements...", v18, v19, v20, v21, v22, v28);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"stopping quality measurements...");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"stopping quality measurements...", v23, v24, v25, v26, v29);
       }
     }
   }
@@ -1690,27 +1642,21 @@ uint64_t sub_1A7B84A90(uint64_t a1)
   return [*(a1 + 48) _callDisconnectCompletionHandler:*(a1 + 64)];
 }
 
-uint64_t sub_1A7B84D5C()
+double sub_1A7B84D5C()
 {
   v0 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1A7AD9000, v0, OS_LOG_TYPE_DEFAULT, "stopped quality measurements", v2, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1A7AD9000, v0, OS_LOG_TYPE_DEFAULT, "stopped quality measurements", v11, 2u);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    result = _IDSShouldLogTransport();
-    if (result)
+    _IDSLogTransport(@"GL", @"IDS", @"stopped quality measurements", v2, v3, v4, v5, v6, *v11);
+    if (_IDSShouldLog(0))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"stopped quality measurements");
-      result = _IDSShouldLog();
-      if (result)
-      {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"stopped quality measurements");
-      }
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"stopped quality measurements", v7, v8, v9, v10, *v11);
     }
   }
 
@@ -1740,13 +1686,13 @@ void sub_1A7B85520(uint64_t a1, void *a2)
 
 uint64_t sub_1A7B867A0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v7 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "session connected message timed out for receiver, disconnect %@.", buf, 0xCu);
   }
 
@@ -1754,22 +1700,20 @@ uint64_t sub_1A7B867A0(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v5 = *(a1 + 32);
-      _IDSLogTransport(@"GL", @"IDS", @"session connected message timed out for receiver, disconnect %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"session connected message timed out for receiver, disconnect %@.", v4, v5, v6, v7, v8, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        v5 = *(a1 + 32);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected message timed out for receiver, disconnect %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected message timed out for receiver, disconnect %@.", v9, v10, v11, v12, *(a1 + 32));
       }
     }
   }
 
-  return [*(a1 + 40) _sendUnallocbindRequest:*(a1 + 48) stunMessage:0 reason:{9, v5}];
+  return [*(a1 + 40) _sendUnallocbindRequest:*(a1 + 48) stunMessage:0 reason:9];
 }
 
-void sub_1A7B89A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1A7B89A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1782,9 +1726,9 @@ uint64_t *sub_1A7B89A98()
   return result;
 }
 
-uint64_t sub_1A7B89AF4(uint64_t a1)
+void sub_1A7B89AF4(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) snapshotWithSignature:*(a1 + 40) delay:0 events:0 payload:*(a1 + 48) actions:&unk_1F1AAA440 reply:*(a1 + 64)])
   {
     v2 = OSLogHandleForTransportCategory();
@@ -1792,67 +1736,56 @@ uint64_t sub_1A7B89AF4(uint64_t a1)
     {
       v3 = *(a1 + 40);
       *buf = 138412290;
-      v8 = v3;
+      v25 = v3;
       _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "SymptomReporter: Sent snapshot for signature %@", buf, 0xCu);
     }
 
-    result = os_log_shim_legacy_logging_enabled();
-    if (result)
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      result = _IDSShouldLogTransport();
-      if (result)
+      _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: Sent snapshot for signature %@", v4, v5, v6, v7, v8, *(a1 + 40));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: Sent snapshot for signature %@");
-        result = _IDSShouldLog();
-        if (result)
-        {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: Sent snapshot for signature %@");
-        }
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: Sent snapshot for signature %@", v9, v10, v11, v12, *(a1 + 40));
       }
     }
   }
 
   else
   {
-    v5 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v13 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138412290;
-      v8 = v6;
-      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "SymptomReporter: Failed to send snapshot for signature %@", buf, 0xCu);
+      v25 = v14;
+      _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "SymptomReporter: Failed to send snapshot for signature %@", buf, 0xCu);
     }
 
-    result = os_log_shim_legacy_logging_enabled();
-    if (result)
+    if (os_log_shim_legacy_logging_enabled())
     {
-      result = _IDSShouldLogTransport();
-      if (result)
+      if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: Failed to send snapshot for signature %@");
-        result = _IDSShouldLog();
-        if (result)
+        _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: Failed to send snapshot for signature %@", v15, v16, v17, v18, v19, *(a1 + 40));
+        if (_IDSShouldLog(0))
         {
-          result = _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: Failed to send snapshot for signature %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: Failed to send snapshot for signature %@", v20, v21, v22, v23, *(a1 + 40));
         }
       }
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  return result;
 }
 
 void sub_1A7B89D40(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v5 = v2;
+    v14 = v2;
     _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "SymptomReporter: got response from diagnosticReporter - %@", buf, 0xCu);
   }
 
@@ -1860,10 +1793,10 @@ void sub_1A7B89D40(uint64_t a1, void *a2)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: got response from diagnosticReporter - %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"SymptomReporter: got response from diagnosticReporter - %@", v4, v5, v6, v7, v8, v2);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: got response from diagnosticReporter - %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"SymptomReporter: got response from diagnosticReporter - %@", v9, v10, v11, v12, v2);
       }
     }
   }
@@ -1885,15 +1818,15 @@ uint64_t sub_1A7B8A4C4(uint64_t a1)
   return [*(a1 + 40) _updateLinksForSession:*(a1 + 32)];
 }
 
-uint64_t sub_1A7B8A59C(uint64_t a1)
+void sub_1A7B8A59C(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = +[IDSFoundationLog GlobalLink];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v18 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "disconnect session %@ for goaway.", buf, 0xCu);
   }
 
@@ -1901,42 +1834,37 @@ uint64_t sub_1A7B8A59C(uint64_t a1)
   v4 = [*(a1 + 40) state];
   if (v4 < 5)
   {
-    return [*(a1 + 48) _sendUnallocbindRequest:*(a1 + 32) stunMessage:0 reason:4];
+    [*(a1 + 48) _sendUnallocbindRequest:*(a1 + 32) stunMessage:0 reason:4];
   }
 
-  v5 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    v6 = *(a1 + 32);
-    v7 = (&_IDSStunCandidatePairStateStrings)[v4];
-    *buf = 138412546;
-    v10 = v6;
-    v11 = 2080;
-    v12 = v7;
-    _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already disconnecting [%s], ignore.", buf, 0x16u);
-  }
-
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
-  {
-    result = _IDSShouldLogTransport();
-    if (result)
+    v5 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already disconnecting [%s], ignore.");
-      result = _IDSShouldLog();
-      if (result)
+      v6 = *(a1 + 32);
+      v7 = (&_IDSStunCandidatePairStateStrings)[v4];
+      *buf = 138412546;
+      v18 = v6;
+      v19 = 2080;
+      v20 = v7;
+      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already disconnecting [%s], ignore.", buf, 0x16u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already disconnecting [%s], ignore.", v8, v9, v10, v11, v12, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already disconnecting [%s], ignore.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already disconnecting [%s], ignore.", v13, v14, v15, v16, *(a1 + 32));
       }
     }
   }
-
-  return result;
 }
 
 void sub_1A7B8A79C(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 1608);
   if (v1 && *(v1 + 8))
   {
@@ -1946,36 +1874,32 @@ void sub_1A7B8A79C(uint64_t a1)
       v4 = *(a1 + 48);
       v5 = *(*(a1 + 32) + 1688);
       *buf = 67109378;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v5;
+      v27 = v4;
+      v28 = 2112;
+      v29 = v5;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "request new allocation with type %d for goaway indication (ids-session-id:%@).", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      v16 = *(a1 + 48);
-      v17 = *(*(a1 + 32) + 1688);
-      _IDSLogTransport(@"GL", @"IDS", @"request new allocation with type %d for goaway indication (ids-session-id:%@).");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"request new allocation with type %d for goaway indication (ids-session-id:%@).", v6, v7, v8, v9, v10, *(a1 + 48));
+      if (_IDSShouldLog(0))
       {
-        v16 = *(a1 + 48);
-        v17 = *(*(a1 + 32) + 1688);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"request new allocation with type %d for goaway indication (ids-session-id:%@).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"request new allocation with type %d for goaway indication (ids-session-id:%@).", v11, v12, v13, v14, *(a1 + 48));
       }
     }
 
-    v6 = *(a1 + 32);
-    v7 = *(*(v6 + 1608) + 8);
-    v8 = *(v6 + 1688);
-    v9 = [*(a1 + 40) sessionID];
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 68);
-    v13 = *(a1 + 64);
-    v14 = [*(a1 + 40) relaySessionToken];
-    LOWORD(v18) = 0;
-    v15 = (*(v7 + 16))(v7, v8, 0, v9, v10, 4, v11, v12, v13, v14, v18, 0);
+    v15 = *(a1 + 32);
+    v16 = *(*(v15 + 1608) + 8);
+    v17 = *(v15 + 1688);
+    v18 = [*(a1 + 40) sessionID];
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 56);
+    v21 = *(a1 + 68);
+    v22 = *(a1 + 64);
+    v23 = [*(a1 + 40) relaySessionToken];
+    LOWORD(v25) = 0;
+    v24 = (*(v16 + 16))(v16, v17, 0, v18, v19, 4, v20, v21, v22, v23, v25, 0);
   }
 }
 
@@ -2061,7 +1985,7 @@ void sub_1A7B8D854(uint64_t a1)
 
 void sub_1A7B90410(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _sendStunMessage:*(a1 + 40) candidatePair:*(a1 + 48)] == -2 && *(a1 + 56) == 1)
   {
     v2 = OSLogHandleForTransportCategory();
@@ -2070,9 +1994,9 @@ void sub_1A7B90410(uint64_t a1)
       v3 = *(a1 + 40);
       v4 = [*(a1 + 48) candidatePairToken];
       *buf = 138412546;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v4;
+      v23 = v3;
+      v24 = 2112;
+      v25 = v4;
       _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "warning: allocbind request %@ for %@ exceeds MTU size", buf, 0x16u);
     }
 
@@ -2081,27 +2005,28 @@ void sub_1A7B90410(uint64_t a1)
       if (_IDSShouldLogTransport())
       {
         v5 = *(a1 + 40);
-        v10 = [*(a1 + 48) candidatePairToken];
-        _IDSLogTransport(@"GL", @"IDS", @"warning: allocbind request %@ for %@ exceeds MTU size");
+        v20 = [*(a1 + 48) candidatePairToken];
+        _IDSLogTransport(@"GL", @"IDS", @"warning: allocbind request %@ for %@ exceeds MTU size", v6, v7, v8, v9, v10, v5);
 
-        if (_IDSShouldLog())
+        if (_IDSShouldLog(0))
         {
-          v11 = [*(a1 + 48) candidatePairToken];
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"warning: allocbind request %@ for %@ exceeds MTU size");
+          v11 = *(a1 + 40);
+          v21 = [*(a1 + 48) candidatePairToken];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"warning: allocbind request %@ for %@ exceeds MTU size", v12, v13, v14, v15, v11);
         }
       }
     }
 
-    v6 = GLUCreateQRStunMessageEvent(*(a1 + 40), 0x24u, *(a1 + 48), *(*(a1 + 32) + 1920), 0.0);
-    if (v6)
+    v16 = GLUCreateQRStunMessageEvent(*(a1 + 40), 36, *(a1 + 48), *(*(a1 + 32) + 1920), 0.0);
+    if (v16)
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
-      v8 = objc_opt_respondsToSelector();
+      v18 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v18)
       {
-        v9 = objc_loadWeakRetained((*(a1 + 32) + 64));
-        [v9 link:*(a1 + 32) didAddQREvent:v6];
+        v19 = objc_loadWeakRetained((*(a1 + 32) + 64));
+        [v19 link:*(a1 + 32) didAddQREvent:v16];
       }
     }
   }
@@ -2120,7 +2045,7 @@ void sub_1A7B995F8(uint64_t a1)
   [WeakRetained _processCommandConnectionData:*(a1 + 32) candidatePairToken:*(a1 + 40)];
 }
 
-uint64_t sub_1A7B9A700(uint64_t a1)
+void *sub_1A7B9A700(uint64_t a1)
 {
   result = [*(a1 + 32) _sendNowConnectionDataWithRemovedAddressList:*(a1 + 40)];
   *(*(a1 + 32) + 1880) = 0;
@@ -2137,11 +2062,11 @@ void sub_1A7B9B294(uint64_t a1)
   IDSTransportThreadAddBlock(v1);
 }
 
-void sub_1A7B9B500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A7B9B500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -2229,7 +2154,7 @@ void sub_1A7B9F510(_Unwind_Exception *a1, int a2)
 
 void sub_1A7BA0650(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(v1 + 1608);
   if (v2)
@@ -2237,43 +2162,42 @@ void sub_1A7BA0650(uint64_t a1)
     v4 = *(v2 + 8);
     if (v4)
     {
-      LOWORD(v12) = 0;
-      v5 = (*(v4 + 16))(v4, *(v1 + 1688), 0, 0, 2, 0xFFFFLL, 0, 0, 0, 0, v12, 0);
+      LOWORD(v21) = 0;
+      v5 = (*(v4 + 16))(v4, *(v1 + 1688), 0, 0, 2, 0xFFFFLL, 0, 0, 0, 0, v21, 0);
       v6 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = [*(a1 + 40) address];
         v8 = *(*(a1 + 32) + 1688);
         *buf = 138412802;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v5;
-        v20 = 2112;
-        v21 = v8;
+        v25 = v7;
+        v26 = 2112;
+        v27 = v5;
+        v28 = 2112;
+        v29 = v8;
         _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "request self allocation for [%@], requestID %@, ids-sesion-id %@", buf, 0x20u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
         v9 = [*(a1 + 40) address];
-        v13 = *(*(a1 + 32) + 1688);
-        _IDSLogTransport(@"GL", @"IDS", @"request self allocation for [%@], requestID %@, ids-sesion-id %@");
+        _IDSLogTransport(@"GL", @"IDS", @"request self allocation for [%@], requestID %@, ids-sesion-id %@", v10, v11, v12, v13, v14, v9);
 
-        if (_IDSShouldLog())
+        if (_IDSShouldLog(0))
         {
-          v10 = [*(a1 + 40) address];
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"request self allocation for [%@], requestID %@, ids-sesion-id %@");
+          v15 = [*(a1 + 40) address];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"request self allocation for [%@], requestID %@, ids-sesion-id %@", v16, v17, v18, v19, v15);
         }
       }
 
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_1A7BA08B4;
-      v14[3] = &unk_1E77E0250;
-      v14[4] = *(a1 + 32);
-      v15 = v5;
-      v11 = v5;
-      IDSTransportThreadAddBlock(v14);
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = sub_1A7BA08B4;
+      v22[3] = &unk_1E77E0250;
+      v22[4] = *(a1 + 32);
+      v23 = v5;
+      v20 = v5;
+      IDSTransportThreadAddBlock(v22);
     }
   }
 }
@@ -2303,8 +2227,8 @@ void sub_1A7BA08B4(uint64_t a1)
 
 void sub_1A7BA2A48(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v31 = a2;
+  v63 = *MEMORY[0x1E69E9840];
+  v46 = a2;
   v3 = [*(a1 + 32) linkMetrics];
   [v3 sendBindingRequest];
 
@@ -2319,39 +2243,39 @@ void sub_1A7BA2A48(uint64_t a1, void *a2)
   __str[3] = v4;
   __str[0] = v4;
   __str[1] = v4;
-  v46[6] = v4;
-  v46[7] = v4;
-  v46[4] = v4;
-  v46[5] = v4;
-  v46[2] = v4;
-  v46[3] = v4;
-  v46[0] = v4;
-  v46[1] = v4;
+  v61[6] = v4;
+  v61[7] = v4;
+  v61[4] = v4;
+  v61[5] = v4;
+  v61[2] = v4;
+  v61[3] = v4;
+  v61[0] = v4;
+  v61[1] = v4;
   v5 = [*(a1 + 32) local];
   v6 = [v5 address];
 
   v7 = [*(a1 + 32) remote];
-  v30 = [v7 external];
+  v45 = [v7 external];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v8 = *(*(a1 + 40) + 1424);
-  v9 = [v8 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v9)
   {
-    v10 = *v36;
+    v10 = *v51;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v10)
+        if (*v51 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v50 + 1) + 8 * i);
         v13 = [v12 address];
         v14 = [v13 sa];
 
@@ -2364,7 +2288,7 @@ void sub_1A7BA2A48(uint64_t a1, void *a2)
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
       if (v9)
       {
         continue;
@@ -2389,13 +2313,13 @@ LABEL_13:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     v20 = SAToIPPortString(__str, 0x80uLL, v6);
-    v21 = SAToIPPortString(v46, 0x80uLL, v30);
+    v21 = SAToIPPortString(v61, 0x80uLL, v45);
     *buf = 138412802;
-    v40 = v31;
-    v41 = 2080;
-    v42 = v20;
-    v43 = 2080;
-    v44 = v21;
+    v55 = v46;
+    v56 = 2080;
+    v57 = v20;
+    v58 = 2080;
+    v59 = v21;
     _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "send binding request %@ for %s-%s.", buf, 0x20u);
   }
 
@@ -2403,66 +2327,64 @@ LABEL_13:
   {
     if (_IDSShouldLogTransport())
     {
-      v28 = SAToIPPortString(__str, 0x80uLL, v6);
-      v29 = SAToIPPortString(v46, 0x80uLL, v30);
-      v27 = v31;
-      _IDSLogTransport(@"GL", @"IDS", @"send binding request %@ for %s-%s.");
-      if (_IDSShouldLog())
+      SAToIPPortString(__str, 0x80uLL, v6);
+      SAToIPPortString(v61, 0x80uLL, v45);
+      _IDSLogTransport(@"GL", @"IDS", @"send binding request %@ for %s-%s.", v22, v23, v24, v25, v26, v46);
+      if (_IDSShouldLog(0))
       {
-        v28 = SAToIPPortString(__str, 0x80uLL, v6);
-        v29 = SAToIPPortString(v46, 0x80uLL, v30);
-        v27 = v31;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"send binding request %@ for %s-%s.");
+        SAToIPPortString(__str, 0x80uLL, v6);
+        SAToIPPortString(v61, 0x80uLL, v45);
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"send binding request %@ for %s-%s.", v27, v28, v29, v30, v46);
       }
     }
   }
 
-  [*(a1 + 40) _sendStunMessage:v31 candidatePair:{*(a1 + 32), v27, v28, v29}];
+  [*(a1 + 40) _sendStunMessage:v46 candidatePair:*(a1 + 32)];
   if (!*(a1 + 56))
   {
     [*(a1 + 32) setState:1];
-    v22 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v31 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 48);
-      v24 = (&_IDSStunCandidatePairStateStrings)[*(a1 + 56)];
+      v32 = *(a1 + 48);
+      v33 = (&_IDSStunCandidatePairStateStrings)[*(a1 + 56)];
       *buf = 136315650;
-      v40 = v24;
-      v41 = 2080;
-      v42 = off_1EB2B43B0;
-      v43 = 2112;
-      v44 = v23;
-      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
+      v55 = v33;
+      v56 = 2080;
+      v57 = off_1EB2B43B0;
+      v58 = 2112;
+      v59 = v32;
+      _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.", v34, v35, v36, v37, v38, (&_IDSStunCandidatePairStateStrings)[*(a1 + 56)]);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.", v39, v40, v41, v42, (&_IDSStunCandidatePairStateStrings)[*(a1 + 56)]);
         }
       }
     }
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = sub_1A7BA2FB8;
-  v32[3] = &unk_1E77E1068;
-  v25 = *(a1 + 48);
-  v32[4] = *(a1 + 40);
-  v33 = v25;
-  v34 = v31;
-  v26 = v31;
-  IDSTransportThreadAddBlockAfter(v32, 1.0);
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = sub_1A7BA2FB8;
+  v47[3] = &unk_1E77E1068;
+  v43 = *(a1 + 48);
+  v47[4] = *(a1 + 40);
+  v48 = v43;
+  v49 = v46;
+  v44 = v46;
+  IDSTransportThreadAddBlockAfter(v47, 1.0);
 }
 
 void sub_1A7BA2FD8(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2470,9 +2392,9 @@ void sub_1A7BA2FD8(uint64_t a1, void *a2)
     v5 = [v3 blob];
     v6 = *(a1 + 32);
     *buf = 138412546;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
+    v27 = v5;
+    v28 = 2112;
+    v29 = v6;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "p2p negotiation blob: %@ for:%@", buf, 0x16u);
   }
 
@@ -2480,36 +2402,34 @@ void sub_1A7BA2FD8(uint64_t a1, void *a2)
   {
     if (_IDSShouldLogTransport())
     {
-      v14 = [v3 blob];
-      v15 = *(a1 + 32);
-      _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation blob: %@ for:%@");
+      v7 = [v3 blob];
+      _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation blob: %@ for:%@", v8, v9, v10, v11, v12, v7);
 
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        v14 = [v3 blob];
-        v15 = *(a1 + 32);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation blob: %@ for:%@");
+        v13 = [v3 blob];
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation blob: %@ for:%@", v14, v15, v16, v17, v13);
       }
     }
   }
 
-  v7 = [*(a1 + 40) QUICConnectionIDs];
-  if (!v7)
+  v18 = [*(a1 + 40) QUICConnectionIDs];
+  if (!v18)
   {
-    v7 = objc_alloc_init(IDSQUICConnectionIDs);
-    v8 = [*(*(a1 + 48) + 2136) copy];
-    v16 = v8;
-    v9 = [(IDSQUICConnectionIDs *)v7 generateLocalIDs:&v16];
-    v10 = v16;
+    v18 = objc_alloc_init(IDSQUICConnectionIDs);
+    v19 = [*(*(a1 + 48) + 2136) copy];
+    v25 = v19;
+    v20 = [(IDSQUICConnectionIDs *)v18 generateLocalIDs:&v25];
+    v21 = v25;
 
-    [*(*(a1 + 48) + 2136) addObjectsFromArray:v9];
-    [*(a1 + 40) setQUICConnectionIDs:v7];
+    [*(*(a1 + 48) + 2136) addObjectsFromArray:v20];
+    [*(a1 + 40) setQUICConnectionIDs:v18];
   }
 
-  v11 = [v3 blob];
-  if (v11)
+  v22 = [v3 blob];
+  if (v22)
   {
-    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-blob", v11);
+    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-blob", v22);
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2517,10 +2437,10 @@ void sub_1A7BA2FD8(uint64_t a1, void *a2)
     sub_1A7E15C30();
   }
 
-  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[IDSQUICConnectionIDs localAVCConnectionID](v7, "localAVCConnectionID")}];
-  if (v12)
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[IDSQUICConnectionIDs localAVCConnectionID](v18, "localAVCConnectionID")}];
+  if (v23)
   {
-    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-connection-id-avc", v12);
+    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-connection-id-avc", v23);
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2528,10 +2448,10 @@ void sub_1A7BA2FD8(uint64_t a1, void *a2)
     sub_1A7E15CB8();
   }
 
-  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[IDSQUICConnectionIDs localIDSConnectionID](v7, "localIDSConnectionID")}];
-  if (v13)
+  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[IDSQUICConnectionIDs localIDSConnectionID](v18, "localIDSConnectionID")}];
+  if (v24)
   {
-    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-connection-id-ids", v13);
+    CFDictionarySetValue(*(a1 + 56), @"ids-stun-attribute-tle-p2p-connection-id-ids", v24);
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2561,13 +2481,13 @@ void sub_1A7BA38B4(uint64_t a1, void *a2)
 
 void sub_1A7BA396C(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v3;
+    v54 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "getting p2p negotiation from candidate pair %@...", buf, 0xCu);
   }
 
@@ -2575,104 +2495,98 @@ void sub_1A7BA396C(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v15 = *(a1 + 32);
-      _IDSLogTransport(@"GL", @"IDS", @"getting p2p negotiation from candidate pair %@...");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"getting p2p negotiation from candidate pair %@...", v4, v5, v6, v7, v8, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        v15 = *(a1 + 32);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"getting p2p negotiation from candidate pair %@...");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"getting p2p negotiation from candidate pair %@...", v9, v10, v11, v12, *(a1 + 32));
       }
     }
   }
 
-  v4 = [*(a1 + 32) p2pNegotiation];
+  v13 = [*(a1 + 32) p2pNegotiation];
 
-  if (v4)
+  if (v13)
   {
-    v5 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v14 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = [v6 p2pNegotiation];
+      v15 = *(a1 + 32);
+      v16 = [v15 p2pNegotiation];
       *buf = 138412546;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "p2p negotiation exists for candidate pair %@: %@", buf, 0x16u);
+      v54 = v15;
+      v55 = 2112;
+      v56 = v16;
+      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "p2p negotiation exists for candidate pair %@: %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v8 = *(a1 + 32);
-        [v8 p2pNegotiation];
-        v17 = v16 = v8;
-        _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation exists for candidate pair %@: %@");
+        v17 = *(a1 + 32);
+        v51 = [v17 p2pNegotiation];
+        _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation exists for candidate pair %@: %@", v18, v19, v20, v21, v22, v17);
 
-        if (_IDSShouldLog())
+        if (_IDSShouldLog(0))
         {
-          v9 = *(a1 + 32);
-          [v9 p2pNegotiation];
-          v17 = v16 = v9;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation exists for candidate pair %@: %@");
+          v23 = *(a1 + 32);
+          v52 = [v23 p2pNegotiation];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation exists for candidate pair %@: %@", v24, v25, v26, v27, v23);
         }
       }
     }
 
-    v10 = *(a1 + 48);
-    v11 = [*(a1 + 32) p2pNegotiation];
-    (*(v10 + 16))(v10, v11);
+    v28 = *(a1 + 48);
+    v29 = [*(a1 + 32) p2pNegotiation];
+    (*(v28 + 16))(v28, v29);
   }
 
   else
   {
-    v12 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v30 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v31 = *(a1 + 32);
       *buf = 138412290;
-      v19 = v13;
-      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "creating p2p negotiation for candidate pair %@...", buf, 0xCu);
+      v54 = v31;
+      _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "creating p2p negotiation for candidate pair %@...", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v16 = *(a1 + 32);
-        _IDSLogTransport(@"GL", @"IDS", @"creating p2p negotiation for candidate pair %@...");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"creating p2p negotiation for candidate pair %@...", v32, v33, v34, v35, v36, *(a1 + 32));
+        if (_IDSShouldLog(0))
         {
-          v16 = *(a1 + 32);
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"creating p2p negotiation for candidate pair %@...");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"creating p2p negotiation for candidate pair %@...", v37, v38, v39, v40, *(a1 + 32));
         }
       }
     }
 
-    v11 = [*(a1 + 40) beginNegotiation];
-    [*(a1 + 32) setP2pNegotiation:v11];
-    v14 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v29 = [*(a1 + 40) beginNegotiation];
+    [*(a1 + 32) setP2pNegotiation:v29];
+    v41 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v11;
-      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "p2p negotiation: %@", buf, 0xCu);
+      v54 = v29;
+      _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "p2p negotiation: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation: %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"p2p negotiation: %@", v42, v43, v44, v45, v46, v29);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation: %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p negotiation: %@", v47, v48, v49, v50, v29);
         }
       }
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48));
+    (*(*(a1 + 48) + 16))();
   }
 }
 
@@ -2696,9 +2610,9 @@ uint64_t sub_1A7BA55D8(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1A7BA55F0(uint64_t a1)
+void *sub_1A7BA55F0(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = a1 + 80;
   v3 = [*(*(*(a1 + 80) + 8) + 40) linkMetrics];
   [v3 sendBindingResponse];
@@ -2715,11 +2629,11 @@ uint64_t sub_1A7BA55F0(uint64_t a1)
     v8 = *(a1 + 56);
     v9 = *(a1 + 64);
     *buf = 138412802;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
+    v28 = v7;
+    v29 = 2112;
+    v30 = v8;
+    v31 = 2112;
+    v32 = v9;
     _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "send binding response %@ for %@-%@.", buf, 0x20u);
   }
 
@@ -2727,31 +2641,27 @@ uint64_t sub_1A7BA55F0(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v18 = *(a1 + 56);
-      v20 = *(a1 + 64);
-      v17 = *(*(*(a1 + 88) + 8) + 40);
-      _IDSLogTransport(@"GL", @"IDS", @"send binding response %@ for %@-%@.");
-      if (_IDSShouldLog())
+      v26 = *(a1 + 56);
+      _IDSLogTransport(@"GL", @"IDS", @"send binding response %@ for %@-%@.", v10, v11, v12, v13, v14, *(*(*(a1 + 88) + 8) + 40));
+      if (_IDSShouldLog(0))
       {
-        v18 = *(a1 + 56);
-        v20 = *(a1 + 64);
-        v17 = *(*(*(a1 + 88) + 8) + 40);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"send binding response %@ for %@-%@.");
+        v26 = *(a1 + 56);
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"send binding response %@ for %@-%@.", v15, v16, v17, v18, *(*(*(a1 + 88) + 8) + 40));
       }
     }
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(*(*(a1 + 88) + 8) + 40);
-  v12 = *(a1 + 352);
-  v13 = *(a1 + 72);
-  v14 = [*(*(*(a1 + 80) + 8) + 40) local];
-  HIDWORD(v19) = [v14 mtu];
-  LOWORD(v19) = -1;
-  [v10 _sendStunMessage:v11 sourceIfIndex:v12 source:a1 + 96 destination:a1 + 224 stunTransport:2 glLinkProtocol:0 token:v13 linkID:v19 delegatedLinkID:? MTULimit:?];
+  v19 = *(a1 + 32);
+  v20 = *(*(*(a1 + 88) + 8) + 40);
+  v21 = *(a1 + 352);
+  v22 = *(a1 + 72);
+  v23 = [*(*(*(a1 + 80) + 8) + 40) local];
+  HIDWORD(v26) = [v23 mtu];
+  LOWORD(v26) = -1;
+  [v19 _sendStunMessage:v20 sourceIfIndex:v21 source:a1 + 96 destination:a1 + 224 stunTransport:2 glLinkProtocol:0 token:v22 linkID:v26 delegatedLinkID:? MTULimit:?];
 
   result = [*(*(*(a1 + 80) + 8) + 40) triggeredCheckTime];
-  if (v16 == 0.0)
+  if (v25 == 0.0)
   {
     [*(*(*(a1 + 80) + 8) + 40) setTriggeredCheckTime:ids_monotonic_time()];
     return [*(a1 + 32) _startStunCheck:*(a1 + 72)];
@@ -2762,16 +2672,16 @@ uint64_t sub_1A7BA55F0(uint64_t a1)
 
 void sub_1A7BA5890(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v6;
     _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "p2p info for binding response: %@, %@", buf, 0x16u);
   }
 
@@ -2779,10 +2689,10 @@ void sub_1A7BA5890(uint64_t a1, void *a2, void *a3)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"p2p info for binding response: %@, %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"p2p info for binding response: %@, %@", v8, v9, v10, v11, v12, v5);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p info for binding response: %@, %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"p2p info for binding response: %@, %@", v13, v14, v15, v16, v5);
       }
     }
   }
@@ -2790,10 +2700,10 @@ void sub_1A7BA5890(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     CFDictionarySetValue(*(a1 + 32), @"ids-stun-attribute-tle-p2p-blob", v5);
-    v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v6, "localAVCConnectionID")}];
-    if (v9)
+    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v6, "localAVCConnectionID")}];
+    if (v17)
     {
-      CFDictionarySetValue(*(a1 + 32), @"ids-stun-attribute-tle-p2p-connection-id-avc", v9);
+      CFDictionarySetValue(*(a1 + 32), @"ids-stun-attribute-tle-p2p-connection-id-avc", v17);
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2801,10 +2711,10 @@ void sub_1A7BA5890(uint64_t a1, void *a2, void *a3)
       sub_1A7E15CB8();
     }
 
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v6, "localIDSConnectionID")}];
-    if (v10)
+    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v6, "localIDSConnectionID")}];
+    if (v18)
     {
-      CFDictionarySetValue(*(a1 + 32), @"ids-stun-attribute-tle-p2p-connection-id-ids", v10);
+      CFDictionarySetValue(*(a1 + 32), @"ids-stun-attribute-tle-p2p-connection-id-ids", v18);
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2813,7 +2723,7 @@ void sub_1A7BA5890(uint64_t a1, void *a2, void *a3)
     }
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v8);
+  (*(*(a1 + 40) + 16))();
 }
 
 void sub_1A7BA6044(uint64_t a1, void *a2)
@@ -2839,7 +2749,7 @@ void sub_1A7BA6044(uint64_t a1, void *a2)
 
 void sub_1A7BA6120(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 40) receiveBlob:*(a1 + 48)];
   [*(a1 + 32) setP2pNegotiatedKeys:v2];
 
@@ -2850,11 +2760,11 @@ void sub_1A7BA6120(uint64_t a1)
     v5 = [*(a1 + 32) p2pNegotiatedKeys];
     v6 = *(a1 + 32);
     *buf = 134218498;
-    v36 = v4;
-    v37 = 2112;
-    v38 = v5;
-    v39 = 2112;
-    v40 = v6;
+    v60 = v4;
+    v61 = 2112;
+    v62 = v5;
+    v63 = 2112;
+    v64 = v6;
     _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: p2p negotiated keys:%@ candidatePair:%@", buf, 0x20u);
   }
 
@@ -2863,110 +2773,98 @@ void sub_1A7BA6120(uint64_t a1)
     if (_IDSShouldLogTransport())
     {
       v7 = *(a1 + 72);
-      v26 = [*(a1 + 32) p2pNegotiatedKeys];
-      v28 = *(a1 + 32);
-      v24 = v7;
-      _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated keys:%@ candidatePair:%@");
+      v51 = [*(a1 + 32) p2pNegotiatedKeys];
+      _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated keys:%@ candidatePair:%@", v8, v9, v10, v11, v12, v7);
 
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        v8 = *(a1 + 72);
-        v26 = [*(a1 + 32) p2pNegotiatedKeys];
-        v28 = *(a1 + 32);
-        v24 = v8;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated keys:%@ candidatePair:%@");
+        v13 = *(a1 + 72);
+        v52 = [*(a1 + 32) p2pNegotiatedKeys];
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated keys:%@ candidatePair:%@", v14, v15, v16, v17, v13);
       }
     }
   }
 
-  v9 = [*(a1 + 32) p2pNegotiatedKeys];
+  v18 = [*(a1 + 32) p2pNegotiatedKeys];
 
-  if (v9)
+  if (v18)
   {
-    v10 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 72);
-      v12 = *(a1 + 80);
+      v20 = *(a1 + 72);
+      v21 = *(a1 + 80);
       *buf = 134218240;
-      v36 = v11;
-      v37 = 1024;
-      LODWORD(v38) = v12;
-      _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x", buf, 0x12u);
+      v60 = v20;
+      v61 = 1024;
+      LODWORD(v62) = v21;
+      _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v25 = *(a1 + 72);
-        v27 = *(a1 + 80);
-        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x", v22, v23, v24, v25, v26, *(a1 + 72));
+        if (_IDSShouldLog(0))
         {
-          v25 = *(a1 + 72);
-          v27 = *(a1 + 80);
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated AVC connection ID: %08x", v27, v28, v29, v30, *(a1 + 72));
         }
       }
     }
 
-    v13 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v31 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 72);
-      v15 = *(a1 + 84);
+      v32 = *(a1 + 72);
+      v33 = *(a1 + 84);
       *buf = 134218240;
-      v36 = v14;
-      v37 = 1024;
-      LODWORD(v38) = v15;
-      _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x", buf, 0x12u);
+      v60 = v32;
+      v61 = 1024;
+      LODWORD(v62) = v33;
+      _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v25 = *(a1 + 72);
-        v27 = *(a1 + 84);
-        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x", v34, v35, v36, v37, v38, *(a1 + 72));
+        if (_IDSShouldLog(0))
         {
-          v25 = *(a1 + 72);
-          v27 = *(a1 + 84);
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"_receiveP2PNegotiationBlob[%llu]: p2p negotiated IDS connection ID: %08x", v39, v40, v41, v42, *(a1 + 72));
         }
       }
     }
 
-    v16 = [*(a1 + 32) QUICConnectionIDs];
-    if (!v16)
+    v43 = [*(a1 + 32) QUICConnectionIDs];
+    if (!v43)
     {
-      v16 = objc_alloc_init(IDSQUICConnectionIDs);
-      v17 = [*(*(a1 + 56) + 2136) copy];
-      v34 = v17;
-      v18 = [(IDSQUICConnectionIDs *)v16 generateLocalIDs:&v34];
-      v19 = v34;
+      v43 = objc_alloc_init(IDSQUICConnectionIDs);
+      v44 = [*(*(a1 + 56) + 2136) copy];
+      v58 = v44;
+      v45 = [(IDSQUICConnectionIDs *)v43 generateLocalIDs:&v58];
+      v46 = v58;
 
-      [*(*(a1 + 56) + 2136) addObjectsFromArray:v18];
-      [*(a1 + 32) setQUICConnectionIDs:v16];
+      [*(*(a1 + 56) + 2136) addObjectsFromArray:v45];
+      [*(a1 + 32) setQUICConnectionIDs:v43];
     }
 
-    [(IDSQUICConnectionIDs *)v16 setRemoteAVCConnectionID:*(a1 + 80)];
-    [(IDSQUICConnectionIDs *)v16 setRemoteIDSConnectionID:*(a1 + 84)];
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 72);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = sub_1A7BA6640;
-    v29[3] = &unk_1E77E11A8;
-    v33 = v21;
-    v22 = *(a1 + 56);
-    v32 = *(a1 + 64);
-    v30 = *(a1 + 40);
-    v31 = v16;
-    v23 = v16;
-    [v22 setUpP2PQUICPodConnectionsForCandidatePair:v20 attemptID:v21 completionHandler:v29];
+    [(IDSQUICConnectionIDs *)v43 setRemoteAVCConnectionID:*(a1 + 80)];
+    [(IDSQUICConnectionIDs *)v43 setRemoteIDSConnectionID:*(a1 + 84)];
+    v47 = *(a1 + 32);
+    v48 = *(a1 + 72);
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = sub_1A7BA6640;
+    v53[3] = &unk_1E77E11A8;
+    v57 = v48;
+    v49 = *(a1 + 56);
+    v56 = *(a1 + 64);
+    v54 = *(a1 + 40);
+    v55 = v43;
+    v50 = v43;
+    [v49 setUpP2PQUICPodConnectionsForCandidatePair:v47 attemptID:v48 completionHandler:v53];
   }
 }
 
@@ -2987,7 +2885,7 @@ void sub_1A7BA6640(uint64_t a1, char a2)
 
 void sub_1A7BA66F8(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*(a1 + 64))
   {
     v2 = OSLogHandleForTransportCategory();
@@ -2995,7 +2893,7 @@ void sub_1A7BA66F8(uint64_t a1)
     {
       v3 = *(a1 + 56);
       *buf = 134217984;
-      v12 = v3;
+      v25 = v3;
       _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: set up p2p qpod connections", buf, 0xCu);
     }
 
@@ -3003,15 +2901,13 @@ void sub_1A7BA66F8(uint64_t a1)
     {
       if (_IDSShouldLogTransport())
       {
-        v4 = (a1 + 56);
-        v10 = *(a1 + 56);
-        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: set up p2p qpod connections");
-        if (_IDSShouldLog())
+        v9 = (a1 + 56);
+        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: set up p2p qpod connections", v4, v5, v6, v7, v8, *(a1 + 56));
+        if (_IDSShouldLog(0))
         {
-          v5 = @"_receiveP2PNegotiationBlob[%llu]: set up p2p qpod connections";
+          v14 = @"_receiveP2PNegotiationBlob[%llu]: set up p2p qpod connections";
 LABEL_14:
-          v10 = *v4;
-          _IDSLogV(0, @"IDSFoundation", @"GL", v5);
+          _IDSLogV(0, @"IDSFoundation", @"GL", v14, v10, v11, v12, v13, *v9);
         }
       }
     }
@@ -3019,47 +2915,46 @@ LABEL_14:
 
   else
   {
-    v6 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v15 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 56);
+      v16 = *(a1 + 56);
       *buf = 134217984;
-      v12 = v7;
-      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections", buf, 0xCu);
+      v25 = v16;
+      _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v4 = (a1 + 56);
-        v10 = *(a1 + 56);
-        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections");
-        if (_IDSShouldLog())
+        v9 = (a1 + 56);
+        _IDSLogTransport(@"GL", @"IDS", @"_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections", v17, v18, v19, v20, v21, *(a1 + 56));
+        if (_IDSShouldLog(0))
         {
-          v5 = @"_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections";
+          v14 = @"_receiveP2PNegotiationBlob[%llu]: failed to set up p2p qpod connections";
           goto LABEL_14;
         }
       }
     }
   }
 
-  v8 = *(a1 + 48);
-  v9 = [*(a1 + 32) blob];
-  (*(v8 + 16))(v8, v9, *(a1 + 40));
+  v22 = *(a1 + 48);
+  v23 = [*(a1 + 32) blob];
+  (*(v22 + 16))(v22, v23, *(a1 + 40));
 }
 
 void sub_1A7BA7680(uint64_t a1, void *a2, void *a3)
 {
-  v101 = *MEMORY[0x1E69E9840];
-  v91 = a2;
-  v92 = a3;
+  v140 = *MEMORY[0x1E69E9840];
+  v130 = a2;
+  v131 = a3;
   *(*(*(a1 + 64) + 8) + 24) = a1 + 80;
   *(*(*(a1 + 72) + 8) + 24) = a1 + 208;
-  v94 = a1;
+  v133 = a1;
   v5 = *(a1 + 32);
   a1 += 32;
-  v6 = [v5 isRelayStunCandidatePair];
+  isRelayStunCandidatePair = objc_msgSend_isRelayStunCandidatePair(v5);
   v7 = *(*(a1 + 8) + 48);
   v8 = [*a1 local];
   v9 = [v8 address];
@@ -3068,65 +2963,65 @@ void sub_1A7BA7680(uint64_t a1, void *a2, void *a3)
   v12 = [*a1 sessionID];
   v13 = [*a1 kindSuffix];
   v14 = [*a1 local];
-  LOBYTE(v84) = [v14 isCellularStunCandidate];
-  if (v6)
+  LOBYTE(v127) = [v14 isCellularStunCandidate];
+  if (isRelayStunCandidatePair)
   {
-    v15 = [v7 connectionInfoForLocalAddress:v9 remoteAddress:v11 clientUniquePID:0 sessionID:v12 type:0 isRelay:1 protocolStackSuffix:v13 isCellular:v84];
+    v15 = [v7 connectionInfoForLocalAddress:v9 remoteAddress:v11 clientUniquePID:0 sessionID:v12 type:0 isRelay:1 protocolStackSuffix:v13 isCellular:v127];
 
-    v16 = *(*(v94 + 40) + 48);
-    v17 = [*(v94 + 32) local];
+    v16 = *(*(v133 + 40) + 48);
+    v17 = [*(v133 + 32) local];
     v18 = [v17 address];
-    v19 = [*(v94 + 32) remote];
+    v19 = [*(v133 + 32) remote];
     v20 = [v19 address];
-    v21 = [*(v94 + 32) sessionID];
-    v22 = [*(v94 + 32) kindSuffix];
-    v23 = [*(v94 + 32) local];
-    LOBYTE(v85) = [v23 isCellularStunCandidate];
-    [v16 connectionInfoForLocalAddress:v18 remoteAddress:v20 clientUniquePID:0 sessionID:v21 type:7 isRelay:1 protocolStackSuffix:v22 isCellular:v85];
+    v21 = [*(v133 + 32) sessionID];
+    v22 = [*(v133 + 32) kindSuffix];
+    v23 = [*(v133 + 32) local];
+    LOBYTE(v128) = [v23 isCellularStunCandidate];
+    [v16 connectionInfoForLocalAddress:v18 remoteAddress:v20 clientUniquePID:0 sessionID:v21 type:7 isRelay:1 protocolStackSuffix:v22 isCellular:v128];
   }
 
   else
   {
-    v15 = [v7 connectionInfoForLocalAddress:v9 remoteAddress:v11 clientUniquePID:0 sessionID:v12 type:0 isRelay:0 protocolStackSuffix:v13 isCellular:v84];
+    v15 = [v7 connectionInfoForLocalAddress:v9 remoteAddress:v11 clientUniquePID:0 sessionID:v12 type:0 isRelay:0 protocolStackSuffix:v13 isCellular:v127];
 
-    v24 = *(*(v94 + 40) + 48);
-    v17 = [*(v94 + 32) local];
+    v24 = *(*(v133 + 40) + 48);
+    v17 = [*(v133 + 32) local];
     v25 = [v17 address];
-    v19 = [*(v94 + 32) remote];
+    v19 = [*(v133 + 32) remote];
     v26 = [v19 address];
-    v21 = [*(v94 + 32) sessionID];
-    v22 = [*(v94 + 32) kindSuffix];
-    v23 = [*(v94 + 32) local];
-    LOBYTE(v87) = [v23 isCellularStunCandidate];
-    [v24 connectionInfoForLocalAddress:v25 remoteAddress:v26 clientUniquePID:0 sessionID:v21 type:9 isRelay:0 protocolStackSuffix:v22 isCellular:v87];
+    v21 = [*(v133 + 32) sessionID];
+    v22 = [*(v133 + 32) kindSuffix];
+    v23 = [*(v133 + 32) local];
+    LOBYTE(v129) = [v23 isCellularStunCandidate];
+    [v24 connectionInfoForLocalAddress:v25 remoteAddress:v26 clientUniquePID:0 sessionID:v21 type:9 isRelay:0 protocolStackSuffix:v22 isCellular:v129];
   }
   v27 = ;
 
   v28 = GLUtilConnectionDictionaryForNWConnectionInfo(v15, 1);
-  v29 = [*(v94 + 32) connections];
+  v29 = [*(v133 + 32) connections];
   [v29 setObject:v28 forKeyedSubscript:@"udp"];
 
-  v30 = GLUtilConnectionDictionaryForNWConnectionInfo(v27, [*(v94 + 40) _shouldUseP2PTLE]);
-  v31 = [*(v94 + 32) connections];
+  v30 = GLUtilConnectionDictionaryForNWConnectionInfo(v27, [*(v133 + 40) _shouldUseP2PTLE]);
+  v31 = [*(v133 + 32) connections];
   [v31 setObject:v30 forKeyedSubscript:@"qpod"];
 
-  v32 = [*(v94 + 32) state];
+  v32 = [*(v133 + 32) state];
   if (v32 <= 2)
   {
     v33 = v32;
-    [*(v94 + 32) setState:3];
-    [*(v94 + 40) _notifyLinkEngineCandidatePairDidConnect:*(v94 + 32)];
+    [*(v133 + 32) setState:3];
+    [*(v133 + 40) _notifyLinkEngineCandidatePairDidConnect:*(v133 + 32)];
     v34 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       v35 = (&_IDSStunCandidatePairStateStrings)[v33];
-      v36 = *(v94 + 48);
+      v36 = *(v133 + 48);
       *buf = 136315650;
-      v96 = v35;
-      v97 = 2080;
-      v98 = off_1EB2B43C0;
-      v99 = 2112;
-      v100 = v36;
+      v135 = v35;
+      v136 = 2080;
+      v137 = off_1EB2B43C0;
+      v138 = 2112;
+      v139 = v36;
       _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
     }
 
@@ -3134,99 +3029,92 @@ void sub_1A7BA7680(uint64_t a1, void *a2, void *a3)
     {
       if (_IDSShouldLogTransport())
       {
-        v86 = off_1EB2B43C0;
-        v89 = *(v94 + 48);
-        v80 = (&_IDSStunCandidatePairStateStrings)[v33];
-        _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.", v37, v38, v39, v40, v41, (&_IDSStunCandidatePairStateStrings)[v33]);
+        if (_IDSShouldLog(0))
         {
-          v86 = off_1EB2B43C0;
-          v89 = *(v94 + 48);
-          v80 = (&_IDSStunCandidatePairStateStrings)[v33];
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.", v42, v43, v44, v45, (&_IDSStunCandidatePairStateStrings)[v33]);
         }
       }
     }
   }
 
-  v37 = v94;
-  if (*(v94 + 350) == 1)
+  v46 = v133;
+  if (*(v133 + 350) == 1)
   {
-    v38 = +[IDSStunConnectionDataController sharedInstance];
-    v39 = [v38 deliveryStatus:*(*(v94 + 40) + 1640)] == 1;
+    v47 = +[IDSStunConnectionDataController sharedInstance];
+    v48 = [v47 deliveryStatus:*(*(v133 + 40) + 1640)] == 1;
 
-    v37 = v94;
-    if (v39)
+    v46 = v133;
+    if (v48)
     {
-      [*(v94 + 40) _sendConnectionDataWithRemovedAddressList:0];
-      v37 = v94;
+      [*(v133 + 40) _sendConnectionDataWithRemovedAddressList:0];
+      v46 = v133;
     }
   }
 
-  v41 = *(v37 + 40);
-  v40 = (v37 + 40);
-  v42 = tokenForStunCandidatePair(*(*(v40[3] + 8) + 24), *(*(v40[4] + 8) + 24), *(v41 + 1640));
-  v43 = *(*v40 + 224);
-  if (!v43 || !v42 || !CFDictionaryGetValue(v43, v42))
+  v50 = *(v46 + 40);
+  v49 = (v46 + 40);
+  v51 = tokenForStunCandidatePair(*(*(v49[3] + 8) + 24), *(*(v49[4] + 8) + 24), *(v50 + 1640));
+  v52 = *(*v49 + 224);
+  if (!v52 || !v51 || !CFDictionaryGetValue(v52, v51))
   {
-    v44 = v94;
-    v45 = *(v94 + 56);
-    if (v45)
+    v53 = v133;
+    v54 = *(v133 + 56);
+    if (v54)
     {
-      v93 = v45;
+      v132 = v54;
     }
 
     else
     {
-      v93 = [*(v94 + 32) local];
-      v44 = v94;
+      v132 = [*(v133 + 32) local];
+      v53 = v133;
     }
 
-    v46 = [*(v44 + 32) remote];
-    v47 = [v46 radioAccessTechnology];
+    v55 = [*(v53 + 32) remote];
+    v56 = [v55 radioAccessTechnology];
 
-    v48 = [*(v44 + 32) remote];
-    v49 = [v48 mtu];
+    v57 = [*(v53 + 32) remote];
+    v58 = [v57 mtu];
 
-    v50 = [IDSStunCandidate candidateWithType:2 transport:1 radioAccessTechnology:v47 mtu:v49 index:0xFFFFFFFFLL address:*(*(*(v94 + 72) + 8) + 24) external:?];
-    v51 = v50;
-    v52 = v94;
-    if (*(v94 + 348))
+    v125 = *(*(*(v133 + 72) + 8) + 24);
+    v59 = [IDSStunCandidate candidateWithType:"candidateWithType:transport:radioAccessTechnology:mtu:index:address:external:" transport:2 radioAccessTechnology:1 mtu:v56 index:v58 address:0xFFFFFFFFLL external:?];
+    v60 = v59;
+    v61 = v133;
+    if (*(v133 + 348))
     {
-      [v50 setLinkFlags:?];
-      v52 = v94;
+      [v59 setLinkFlags:?];
+      v61 = v133;
     }
 
-    if (*(v52 + 344))
+    if (*(v61 + 344))
     {
-      [v51 setDataSoMask:?];
-      v52 = v94;
+      [v60 setDataSoMask:?];
+      v61 = v133;
     }
 
-    v53 = *(*(v52 + 40) + 1464);
-    if (v53)
+    v62 = *(*(v61 + 40) + 1464);
+    if (v62)
     {
-      v54 = [v53 indexOfObject:v51];
-      if (v54 == 0x7FFFFFFFFFFFFFFFLL)
+      v63 = [v62 indexOfObject:v60];
+      if (v63 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v55 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v64 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v96 = v51;
-          _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEFAULT, "failed to find stored remote candidate %@, this should NOT happen.", buf, 0xCu);
+          v135 = v60;
+          _os_log_impl(&dword_1A7AD9000, v64, OS_LOG_TYPE_DEFAULT, "failed to find stored remote candidate %@, this should NOT happen.", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v81 = v51;
-            _IDSLogTransport(@"GL", @"IDS", @"failed to find stored remote candidate %@, this should NOT happen.");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"failed to find stored remote candidate %@, this should NOT happen.", v65, v66, v67, v68, v69, v60);
+            if (_IDSShouldLog(0))
             {
-              v81 = v51;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to find stored remote candidate %@, this should NOT happen.");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to find stored remote candidate %@, this should NOT happen.", v70, v71, v72, v73, v60);
             }
           }
         }
@@ -3234,62 +3122,62 @@ void sub_1A7BA7680(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v57 = [*(*(v94 + 40) + 1464) objectAtIndex:v54];
+        v84 = [*(*(v133 + 40) + 1464) objectAtIndex:v63];
 
-        v51 = v57;
+        v60 = v84;
       }
 
-      v58 = v94;
-      if (*(v94 + 348))
+      v85 = v133;
+      if (*(v133 + 348))
       {
-        [v51 setLinkFlags:?];
-        v58 = v94;
+        [v60 setLinkFlags:?];
+        v85 = v133;
       }
 
-      if (*(v58 + 344))
+      if (*(v85 + 344))
       {
-        [v51 setDataSoMask:?];
-        v58 = v94;
+        [v60 setDataSoMask:?];
+        v85 = v133;
       }
 
-      v60 = *(v58 + 40);
-      v59 = (v58 + 40);
-      v61 = [IDSStunCandidatePair candidatePairWithLocalCandidate:v93 remoteCandidate:v51 sessionID:*(v60 + 1640) delegate:v81];
-      v62 = GLUtilConnectionDictionaryForNWConnectionInfo(v15, 1);
-      v63 = [v61 connections];
-      [v63 setObject:v62 forKeyedSubscript:@"udp"];
+      v87 = *(v85 + 40);
+      v86 = (v85 + 40);
+      v88 = [IDSStunCandidatePair candidatePairWithLocalCandidate:v132 remoteCandidate:v60 sessionID:*(v87 + 1640) delegate:?];
+      v89 = GLUtilConnectionDictionaryForNWConnectionInfo(v15, 1);
+      v90 = [v88 connections];
+      [v90 setObject:v89 forKeyedSubscript:@"udp"];
 
-      v64 = GLUtilConnectionDictionaryForNWConnectionInfo(v27, [*v59 _shouldUseP2PTLE]);
-      v65 = [v61 connections];
-      [v65 setObject:v64 forKeyedSubscript:@"qpod"];
+      v91 = GLUtilConnectionDictionaryForNWConnectionInfo(v27, [*v86 _shouldUseP2PTLE]);
+      v92 = [v88 connections];
+      [v92 setObject:v91 forKeyedSubscript:@"qpod"];
 
-      [v61 setState:3];
-      [*v59 registerP2PCandidatePairWithLinkEngine:v61];
-      [*v59 _notifyLinkEngineCandidatePairDidConnect:*(v94 + 32)];
-      v66 = [*(v94 + 32) linkUUID];
-      [v61 setLinkUUID:v66];
+      [v88 setState:3];
+      [*v86 registerP2PCandidatePairWithLinkEngine:v88];
+      [*v86 _notifyLinkEngineCandidatePairDidConnect:*(v133 + 32)];
+      v93 = [*(v133 + 32) linkUUID];
+      [v88 setLinkUUID:v93];
 
-      if ([*(v94 + 32) isNominated])
+      if ([*(v133 + 32) isNominated])
       {
-        [v61 setIsNominated:1];
+        [v88 setIsNominated:1];
       }
 
-      [v61 setLastIncomingPacketTime:*(v94 + 336)];
-      v67 = v94;
-      if (!*(*(v94 + 40) + 224))
+      [v88 setLastIncomingPacketTime:*(v133 + 336)];
+      v94 = v133;
+      if (!*(*(v133 + 40) + 224))
       {
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v69 = *(v94 + 40);
-        v70 = *(v69 + 224);
-        *(v69 + 224) = Mutable;
+        v96 = *(v133 + 40);
+        v97 = *(v96 + 224);
+        *(v96 + 224) = Mutable;
 
-        v67 = v94;
+        v94 = v133;
       }
 
-      v71 = v61;
-      if (v71)
+      v98 = v88;
+      if (v98)
       {
-        CFDictionarySetValue(*(*(v67 + 40) + 224), v42, v71);
+        CFDictionarySetValue(*(*(v94 + 40) + 224), v51, v98);
       }
 
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -3297,98 +3185,92 @@ void sub_1A7BA7680(uint64_t a1, void *a2, void *a3)
         sub_1A7E15FDC();
       }
 
-      v72 = [*(*(v94 + 40) + 224) allValues];
-      v73 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+      v99 = [*(*(v133 + 40) + 224) allValues];
+      v100 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = [v72 count];
+        v101 = [v99 count];
         *buf = 138412802;
-        v96 = v71;
-        v97 = 2048;
-        v98 = v74;
-        v99 = 2112;
-        v100 = v72;
-        _os_log_impl(&dword_1A7AD9000, v73, OS_LOG_TYPE_DEFAULT, "add valid pair %@, #total:%lu.\n(%@).", buf, 0x20u);
+        v135 = v98;
+        v136 = 2048;
+        v137 = v101;
+        v138 = 2112;
+        v139 = v99;
+        _os_log_impl(&dword_1A7AD9000, v100, OS_LOG_TYPE_DEFAULT, "add valid pair %@, #total:%lu.\n(%@).", buf, 0x20u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v88 = [v72 count];
-          v90 = v72;
-          v82 = v71;
-          _IDSLogTransport(@"GL", @"IDS", @"add valid pair %@, #total:%lu.\n(%@).");
-          if (_IDSShouldLog())
+          [v99 count];
+          _IDSLogTransport(@"GL", @"IDS", @"add valid pair %@, #total:%lu.\n(%@).", v102, v103, v104, v105, v106, v98);
+          if (_IDSShouldLog(0))
           {
-            v88 = [v72 count];
-            v90 = v72;
-            v82 = v71;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"add valid pair %@, #total:%lu.\n(%@).");
+            [v99 count];
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"add valid pair %@, #total:%lu.\n(%@).", v107, v108, v109, v110, v98);
           }
         }
       }
 
-      [*(v94 + 40) _setChannelToCandidatePair:v71 localAddress:objc_msgSend(v93 remoteAddress:"address" channelNumber:{v82, v88, v90), objc_msgSend(v51, "external"), 0}];
-      [*(v94 + 40) _notifyCandidatePairConnected:v42];
-      v75 = *(v94 + 40);
-      v76 = [*(v94 + 32) local];
-      v77 = [v75 _interfaceNameForInterfaceIndexIncludingVPN:{objc_msgSend(v76, "index")}];
+      [*(v133 + 40) _setChannelToCandidatePair:v98 localAddress:objc_msgSend(v132 remoteAddress:"address") channelNumber:{objc_msgSend(v60, "external"), 0}];
+      [*(v133 + 40) _notifyCandidatePairConnected:v51];
+      v111 = *(v133 + 40);
+      v112 = [*(v133 + 32) local];
+      v113 = [v111 _interfaceNameForInterfaceIndexIncludingVPN:{objc_msgSend(v112, "index")}];
 
-      v78 = *(*(v94 + 40) + 2160);
-      if (v78 && [v78 isEqualToIgnoringCase:v77])
+      v114 = *(*(v133 + 40) + 2160);
+      if (v114 && [v114 isEqualToIgnoringCase:v113])
       {
-        [*(v94 + 40) _discardNonSlicedP2PCandidatePairs];
+        [*(v133 + 40) _discardNonSlicedP2PCandidatePairs];
       }
 
-      if ([v71 isNominated] && (objc_msgSend(v71, "isActive") & 1) == 0)
+      if ([v98 isNominated] && (objc_msgSend(v98, "isActive") & 1) == 0)
       {
-        v79 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v115 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v96 = v71;
-          _os_log_impl(&dword_1A7AD9000, v79, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already nominated.", buf, 0xCu);
+          v135 = v98;
+          _os_log_impl(&dword_1A7AD9000, v115, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already nominated.", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v83 = v71;
-            _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already nominated.");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already nominated.", v116, v117, v118, v119, v120, v98);
+            if (_IDSShouldLog(0))
             {
-              v83 = v71;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already nominated.");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already nominated.", v121, v122, v123, v124, v98);
             }
           }
         }
 
-        [*(v94 + 40) _updateDefaultCandidatePair:{v71, v83}];
-        [*(v94 + 40) _notifyDefaultUnderlyingLinkChanged:v42 error:0];
+        [*(v133 + 40) _updateDefaultCandidatePair:v98];
+        [*(v133 + 40) _notifyDefaultUnderlyingLinkChanged:v51 error:0];
       }
 
-      [*(v94 + 40) _selectBetterDefaultCandidatePair:v71];
+      [*(v133 + 40) _selectBetterDefaultCandidatePair:v98];
     }
 
     else
     {
-      v56 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      v74 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v56, OS_LOG_TYPE_DEFAULT, "remote candidates list is nil; not processing binding response", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v74, OS_LOG_TYPE_DEFAULT, "remote candidates list is nil; not processing binding response", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"remote candidates list is nil; not processing binding response");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"remote candidates list is nil; not processing binding response", v75, v76, v77, v78, v79, v125);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"remote candidates list is nil; not processing binding response");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"remote candidates list is nil; not processing binding response", v80, v81, v82, v83, v126);
           }
         }
       }
@@ -3440,11 +3322,11 @@ void sub_1A7BABD60(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1A7BAC038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A7BAC038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -3549,29 +3431,29 @@ LABEL_6:
 
 void sub_1A7BB1CB8(void *a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (*(v2 + 1664) == 2)
   {
     [*(v2 + 224) allValues];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v3 = v22 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v3 = v40 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v4)
     {
-      v5 = *v22;
+      v5 = *v40;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v22 != v5)
+          if (*v40 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v21 + 1) + 8 * i);
+          v7 = *(*(&v39 + 1) + 8 * i);
           v8 = [v7 sessionID];
           if ([v8 isEqualToString:*(a1[4] + 1512)])
           {
@@ -3579,25 +3461,25 @@ void sub_1A7BB1CB8(void *a1)
 
             if (v9)
             {
-              v15 = OSLogHandleForTransportCategory();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v24 = OSLogHandleForTransportCategory();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
-                v17 = _IDSLinkStateStrings[*(a1[4] + 1664)];
+                v26 = _IDSLinkStateStrings[*(a1[4] + 1664)];
                 *buf = 136315650;
-                v26 = v17;
-                v27 = 2112;
-                v28 = v7;
-                v29 = 2080;
-                v30 = off_1EB2B43C0;
-                _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s", buf, 0x20u);
+                v44 = v26;
+                v45 = 2112;
+                v46 = v7;
+                v47 = 2080;
+                v48 = off_1EB2B43C0;
+                _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s", buf, 0x20u);
               }
 
               if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s", v27, v28, v29, v30, v31, _IDSLinkStateStrings[*(a1[4] + 1664)]);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"skip TCP/TCP-SSL relay set up, GL state [%s], candidatePair %@ in state: %s", v32, v33, v34, v35, _IDSLinkStateStrings[*(a1[4] + 1664)]);
                 }
               }
 
@@ -3610,7 +3492,7 @@ void sub_1A7BB1CB8(void *a1)
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v39 objects:v49 count:16];
         if (v4)
         {
           continue;
@@ -3628,8 +3510,8 @@ void sub_1A7BB1CB8(void *a1)
     v12 = a1[5];
     v11 = a1[6];
     block[4] = a1[4];
-    v20 = v11;
-    v19 = v12;
+    v38 = v11;
+    v37 = v12;
     dispatch_async(v10, block);
 
 LABEL_27:
@@ -3642,7 +3524,7 @@ LABEL_27:
     {
       v14 = _IDSLinkStateStrings[*(a1[4] + 1664)];
       *buf = 136315138;
-      v26 = v14;
+      v44 = v14;
       _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "skip TCP/TCP-SSL relay set up, GL state [%s].", buf, 0xCu);
     }
 
@@ -3650,10 +3532,10 @@ LABEL_27:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"skip TCP/TCP-SSL relay set up, GL state [%s].");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"skip TCP/TCP-SSL relay set up, GL state [%s].", v15, v16, v17, v18, v19, _IDSLinkStateStrings[*(a1[4] + 1664)]);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"skip TCP/TCP-SSL relay set up, GL state [%s].");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"skip TCP/TCP-SSL relay set up, GL state [%s].", v20, v21, v22, v23, _IDSLinkStateStrings[*(a1[4] + 1664)]);
         }
       }
     }
@@ -3662,7 +3544,7 @@ LABEL_27:
 
 void sub_1A7BB20EC(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = *(a1[4] + 1608);
   if (v1 && *(v1 + 8))
   {
@@ -3674,38 +3556,38 @@ void sub_1A7BB20EC(void *a1)
       v6 = *(v5 + 1512);
       v7 = *(v5 + 1688);
       *buf = 136315650;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
+      v22 = v4;
+      v23 = 2112;
+      v24 = v6;
+      v25 = 2112;
+      v26 = v7;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "set up %s session: %@, ids-session-id: %@.", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"set up %s session: %@, ids-session-id: %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"set up %s session: %@, ids-session-id: %@.", v8, v9, v10, v11, v12, (&_IDSStunTransportStrings)[a1[6]]);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"set up %s session: %@, ids-session-id: %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"set up %s session: %@, ids-session-id: %@.", v13, v14, v15, v16, (&_IDSStunTransportStrings)[a1[6]]);
       }
     }
 
-    v8 = (*(*(*(a1[4] + 1608) + 8) + 16))(*(*(a1[4] + 1608) + 8), *(a1[4] + 1688), 0, a1[5]);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1A7BB2340;
-    v10[3] = &unk_1E77E0250;
-    v10[4] = a1[4];
-    v11 = v8;
-    v9 = v8;
-    IDSTransportThreadAddBlock(v10);
+    v17 = (*(*(*(a1[4] + 1608) + 8) + 16))(*(*(a1[4] + 1608) + 8), *(a1[4] + 1688), 0, a1[5]);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = sub_1A7BB2340;
+    v19[3] = &unk_1E77E0250;
+    v19[4] = a1[4];
+    v20 = v17;
+    v18 = v17;
+    IDSTransportThreadAddBlock(v19);
   }
 }
 
-uint64_t sub_1A7BB2340(uint64_t a1)
+double sub_1A7BB2340(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 1576);
   if (v2 || (v3 = objc_alloc_init(MEMORY[0x1E695DF70]), v4 = *(a1 + 32), v5 = *(v4 + 1576), *(v4 + 1576) = v3, v5, (v2 = *(*(a1 + 32) + 1576)) != 0))
   {
@@ -3721,22 +3603,16 @@ uint64_t sub_1A7BB2340(uint64_t a1)
   {
     v8 = *(*(a1 + 32) + 1576);
     *buf = 138412290;
-    v11 = v8;
+    v20 = v8;
     _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "_requestNonUDPRelayAllocation: targeted allocation request IDs: %@", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    result = _IDSShouldLogTransport();
-    if (result)
+    _IDSLogTransport(@"GL", @"IDS", @"_requestNonUDPRelayAllocation: targeted allocation request IDs: %@", v10, v11, v12, v13, v14, *(*(a1 + 32) + 1576));
+    if (_IDSShouldLog(0))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"_requestNonUDPRelayAllocation: targeted allocation request IDs: %@");
-      result = _IDSShouldLog();
-      if (result)
-      {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"_requestNonUDPRelayAllocation: targeted allocation request IDs: %@");
-      }
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"_requestNonUDPRelayAllocation: targeted allocation request IDs: %@", v15, v16, v17, v18, *(*(a1 + 32) + 1576));
     }
   }
 
@@ -3939,7 +3815,7 @@ void sub_1A7BBEB5C(uint64_t a1)
   }
 }
 
-uint64_t sub_1A7BBF2A8(uint64_t a1)
+void *sub_1A7BBF2A8(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = +[IDSFoundationLog GlobalLink];
@@ -4048,13 +3924,13 @@ uint64_t sub_1A7BC1E04(uint64_t a1)
 
 uint64_t sub_1A7BC56F8(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v7 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "session connected message timed out for receiver, disconnect %@.", buf, 0xCu);
   }
 
@@ -4062,17 +3938,15 @@ uint64_t sub_1A7BC56F8(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v5 = *(a1 + 32);
-      _IDSLogTransport(@"GL", @"IDS", @"session connected message timed out for receiver, disconnect %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"session connected message timed out for receiver, disconnect %@.", v4, v5, v6, v7, v8, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        v5 = *(a1 + 32);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected message timed out for receiver, disconnect %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected message timed out for receiver, disconnect %@.", v9, v10, v11, v12, *(a1 + 32));
       }
     }
   }
 
-  return [*(a1 + 40) _sendQUICUnallocbindRequest:*(a1 + 48) reason:{9, v5}];
+  return [*(a1 + 40) _sendQUICUnallocbindRequest:*(a1 + 48) reason:9];
 }
 
 void sub_1A7BC8594(_Unwind_Exception *a1, int a2)
@@ -4104,15 +3978,15 @@ void sub_1A7BC85DC(uint64_t a1)
   [v4 scheduleUpdate];
 }
 
-uint64_t sub_1A7BC86C4(uint64_t a1)
+void sub_1A7BC86C4(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = +[IDSFoundationLog GlobalLink];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v18 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "disconnect session %@ for goaway.", buf, 0xCu);
   }
 
@@ -4120,42 +3994,37 @@ uint64_t sub_1A7BC86C4(uint64_t a1)
   v4 = [*(a1 + 40) state];
   if (v4 < 5)
   {
-    return [*(a1 + 48) _sendQUICUnallocbindRequest:*(a1 + 32) reason:4];
+    [*(a1 + 48) _sendQUICUnallocbindRequest:*(a1 + 32) reason:4];
   }
 
-  v5 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    v6 = *(a1 + 32);
-    v7 = (&_IDSStunCandidatePairStateStrings)[v4];
-    *buf = 138412546;
-    v10 = v6;
-    v11 = 2080;
-    v12 = v7;
-    _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already disconnecting [%s], ignore.", buf, 0x16u);
-  }
-
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
-  {
-    result = _IDSShouldLogTransport();
-    if (result)
+    v5 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already disconnecting [%s], ignore.");
-      result = _IDSShouldLog();
-      if (result)
+      v6 = *(a1 + 32);
+      v7 = (&_IDSStunCandidatePairStateStrings)[v4];
+      *buf = 138412546;
+      v18 = v6;
+      v19 = 2080;
+      v20 = v7;
+      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "candidate pair %@ is already disconnecting [%s], ignore.", buf, 0x16u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"candidate pair %@ is already disconnecting [%s], ignore.", v8, v9, v10, v11, v12, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already disconnecting [%s], ignore.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"candidate pair %@ is already disconnecting [%s], ignore.", v13, v14, v15, v16, *(a1 + 32));
       }
     }
   }
-
-  return result;
 }
 
 void sub_1A7BC88C0(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 1608);
   if (v1 && *(v1 + 8))
   {
@@ -4165,36 +4034,32 @@ void sub_1A7BC88C0(uint64_t a1)
       v4 = *(a1 + 48);
       v5 = *(*(a1 + 32) + 1688);
       *buf = 67109378;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v5;
+      v27 = v4;
+      v28 = 2112;
+      v29 = v5;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "request new allocation with type %d for goaway indication (ids-session-id:%@).", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      v16 = *(a1 + 48);
-      v17 = *(*(a1 + 32) + 1688);
-      _IDSLogTransport(@"GL", @"IDS", @"request new allocation with type %d for goaway indication (ids-session-id:%@).");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"request new allocation with type %d for goaway indication (ids-session-id:%@).", v6, v7, v8, v9, v10, *(a1 + 48));
+      if (_IDSShouldLog(0))
       {
-        v16 = *(a1 + 48);
-        v17 = *(*(a1 + 32) + 1688);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"request new allocation with type %d for goaway indication (ids-session-id:%@).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"request new allocation with type %d for goaway indication (ids-session-id:%@).", v11, v12, v13, v14, *(a1 + 48));
       }
     }
 
-    v6 = *(a1 + 32);
-    v7 = *(*(v6 + 1608) + 8);
-    v8 = *(v6 + 1688);
-    v9 = [*(a1 + 40) sessionID];
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 68);
-    v13 = *(a1 + 64);
-    v14 = [*(a1 + 40) relaySessionToken];
-    LOWORD(v18) = 0;
-    v15 = (*(v7 + 16))(v7, v8, 0, v9, v10, 4, v11, v12, v13, v14, v18, 0);
+    v15 = *(a1 + 32);
+    v16 = *(*(v15 + 1608) + 8);
+    v17 = *(v15 + 1688);
+    v18 = [*(a1 + 40) sessionID];
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 56);
+    v21 = *(a1 + 68);
+    v22 = *(a1 + 64);
+    v23 = [*(a1 + 40) relaySessionToken];
+    LOWORD(v25) = 0;
+    v24 = (*(v16 + 16))(v16, v17, 0, v18, v19, 4, v20, v21, v22, v23, v25, 0);
   }
 }
 
@@ -4237,9 +4102,9 @@ uint64_t sub_1A7BCC2FC(uint64_t a1)
   return [v2 addProtoRequest:v3];
 }
 
-unint64_t sub_1A7BCC358(uint64_t a1)
+void *sub_1A7BCC358(uint64_t a1)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) state];
   if (result > 1)
   {
@@ -4271,11 +4136,11 @@ unint64_t sub_1A7BCC358(uint64_t a1)
     v11 = (&_IDSStunCandidatePairStateStrings)[*(a1 + 72)];
     v12 = *(a1 + 48);
     *buf = 136315650;
-    v71 = v11;
-    v72 = 2080;
-    v73 = off_1EB2B43B8;
-    v74 = 2112;
-    v75 = v12;
+    v97 = v11;
+    v98 = 2080;
+    v99 = off_1EB2B43B8;
+    v100 = 2112;
+    v101 = v12;
     _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "update state (%s->%s) for %@.", buf, 0x20u);
   }
 
@@ -4283,150 +4148,142 @@ unint64_t sub_1A7BCC358(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v64 = off_1EB2B43B8;
-      v66 = *(a1 + 48);
-      v62 = (&_IDSStunCandidatePairStateStrings)[*(a1 + 72)];
-      _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"update state (%s->%s) for %@.", v13, v14, v15, v16, v17, (&_IDSStunCandidatePairStateStrings)[*(a1 + 72)]);
+      if (_IDSShouldLog(0))
       {
-        v64 = off_1EB2B43B8;
-        v66 = *(a1 + 48);
-        v62 = (&_IDSStunCandidatePairStateStrings)[*(a1 + 72)];
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"update state (%s->%s) for %@.", v18, v19, v20, v21, (&_IDSStunCandidatePairStateStrings)[*(a1 + 72)]);
       }
     }
   }
 
-  v13 = [IDSFoundationLog GlobalLink:v62];
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v22 = +[IDSFoundationLog GlobalLink];
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [*(a1 + 32) candidatePairToken];
+    v23 = [*(a1 + 32) candidatePairToken];
     *buf = 138412290;
-    v71 = v14;
-    _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "Disconnecting QUIC connection %@ after allocbind timed out", buf, 0xCu);
+    v97 = v23;
+    _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "Disconnecting QUIC connection %@ after allocbind timed out", buf, 0xCu);
   }
 
-  v15 = *(*(a1 + 40) + 48);
-  v16 = [*(a1 + 32) sessionID];
-  v17 = [*(a1 + 32) local];
-  v18 = [v17 address];
-  v19 = [*(a1 + 32) remote];
-  [v15 disconnectWithSessionID:v16 localAddress:v18 remoteAddress:objc_msgSend(v19 waitTime:"external") final:{0, 5.0}];
+  v24 = *(*(a1 + 40) + 48);
+  v25 = [*(a1 + 32) sessionID];
+  v26 = [*(a1 + 32) local];
+  v27 = [v26 address];
+  v28 = [*(a1 + 32) remote];
+  [v24 disconnectWithSessionID:v25 localAddress:v27 remoteAddress:objc_msgSend(v28 waitTime:"external") final:{0, 5.0}];
 
-  v20 = *(a1 + 40);
-  if (v20[247])
+  v29 = *(a1 + 40);
+  if (v29[247])
   {
     [*(*(a1 + 40) + 1976) invalidate];
-    v20 = *(a1 + 40);
+    v29 = *(a1 + 40);
   }
 
-  v21 = [v20 _hasCandidatePairInState:3 anotherState:4 relayCandidatePairsOnly:0 excludeSelfAlloc:0];
-  if (((v21 | [*(a1 + 40) _hasConnectingRelayCandidatePair]) & 1) == 0)
+  v30 = [v29 _hasCandidatePairInState:3 anotherState:4 relayCandidatePairsOnly:0 excludeSelfAlloc:0];
+  if (((v30 | [*(a1 + 40) _hasConnectingRelayCandidatePair]) & 1) == 0)
   {
-    v22 = _Block_copy(*(*(a1 + 40) + 80));
-    v23 = +[IDSFoundationLog GlobalLink];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v31 = _Block_copy(*(*(a1 + 40) + 80));
+    v32 = +[IDSFoundationLog GlobalLink];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(*(a1 + 40) + 1688);
+      v33 = *(*(a1 + 40) + 1688);
       if (*(a1 + 96))
       {
-        v25 = "realloc";
+        v34 = "realloc";
       }
 
       else
       {
-        v25 = "allocbind";
+        v34 = "allocbind";
       }
 
-      v26 = *(a1 + 80);
+      v35 = *(a1 + 80);
       *buf = 138412802;
-      v71 = v24;
-      v72 = 2080;
-      v73 = v25;
-      v74 = 2048;
-      v75 = v26;
-      _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "Connect to QR server for IDSSessionID: %@, proto message type %s timed out after %lf seconds.", buf, 0x20u);
+      v97 = v33;
+      v98 = 2080;
+      v99 = v34;
+      v100 = 2048;
+      v101 = v35;
+      _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "Connect to QR server for IDSSessionID: %@, proto message type %s timed out after %lf seconds.", buf, 0x20u);
     }
 
-    v27 = [*(a1 + 32) local];
-    v28 = *(a1 + 40);
-    v29 = [*(a1 + 32) sessionID];
-    v30 = [v28 getAllocBindErrorCodeForSessionID:v29];
+    v36 = [*(a1 + 32) local];
+    v37 = *(a1 + 40);
+    v38 = [*(a1 + 32) sessionID];
+    v39 = [v37 getAllocBindErrorCodeForSessionID:v38];
 
-    v31 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v40 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = (&_IDSStunTransportStrings)[[v27 transport]];
+      v41 = (&_IDSStunTransportStrings)[[v36 transport]];
       *buf = 136315394;
-      v71 = v32;
-      v72 = 1024;
-      LODWORD(v73) = 7;
-      _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "report session setup failure (%s, %d).", buf, 0x12u);
+      v97 = v41;
+      v98 = 1024;
+      LODWORD(v99) = 7;
+      _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "report session setup failure (%s, %d).", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v63 = (&_IDSStunTransportStrings)[[v27 transport]];
-        v65 = 7;
-        _IDSLogTransport(@"GL", @"IDS", @"report session setup failure (%s, %d).");
-        if (_IDSShouldLog())
+        v42 = [v36 transport];
+        _IDSLogTransport(@"GL", @"IDS", @"report session setup failure (%s, %d).", v43, v44, v45, v46, v47, (&_IDSStunTransportStrings)[v42]);
+        if (_IDSShouldLog(0))
         {
-          v63 = (&_IDSStunTransportStrings)[[v27 transport]];
-          v65 = 7;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"report session setup failure (%s, %d).");
+          v48 = [v36 transport];
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"report session setup failure (%s, %d).", v49, v50, v51, v52, (&_IDSStunTransportStrings)[v48]);
         }
       }
     }
 
     GLUtilReportAWDClientTimerEvent(305, 7, *(a1 + 32), *(*(a1 + 40) + 1480), *(*(a1 + 40) + 1444), 0.0);
-    v33 = GLUCreateQRClientTimeEvent(305, v30, *(a1 + 32), *(*(a1 + 40) + 1920), 0.0);
+    v53 = GLUCreateQRClientTimeEvent(305, v39, *(a1 + 32), *(*(a1 + 40) + 1920), 0.0);
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 64));
-    v35 = objc_opt_respondsToSelector();
+    v55 = objc_opt_respondsToSelector();
 
-    if (v35)
+    if (v55)
     {
-      v36 = objc_loadWeakRetained((*(a1 + 40) + 64));
-      [v36 link:*(a1 + 40) didAddQREvent:v33];
+      v56 = objc_loadWeakRetained((*(a1 + 40) + 64));
+      [v56 link:*(a1 + 40) didAddQREvent:v53];
     }
 
-    v37 = [IDSFoundationLog GlobalLink:v63];
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v57 = +[IDSFoundationLog GlobalLink];
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = [*(a1 + 32) participantID];
-      v39 = [*(a1 + 32) relaySessionToken];
-      v40 = [v39 base64EncodedStringWithOptions:0];
+      v58 = [*(a1 + 32) participantID];
+      v59 = [*(a1 + 32) relaySessionToken];
+      v60 = [v59 base64EncodedStringWithOptions:0];
       *buf = 134218242;
-      v71 = v38;
-      v72 = 2112;
-      v73 = v40;
-      _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "failed participant:[%16llX], token:[%@]", buf, 0x16u);
+      v97 = v58;
+      v98 = 2112;
+      v99 = v60;
+      _os_log_impl(&dword_1A7AD9000, v57, OS_LOG_TYPE_DEFAULT, "failed participant:[%16llX], token:[%@]", buf, 0x16u);
     }
 
-    if (v22)
+    if (v31)
     {
-      v41 = MEMORY[0x1E696ABC0];
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Allocbind timed out." forKey:*MEMORY[0x1E696A578]];
-      v43 = [v41 errorWithDomain:@"GlobalLink" code:7 userInfo:v42];
+      v61 = MEMORY[0x1E696ABC0];
+      v62 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Allocbind timed out." forKey:*MEMORY[0x1E696A578]];
+      v63 = [v61 errorWithDomain:@"GlobalLink" code:7 userInfo:v62];
 
-      v44 = im_primary_queue();
+      v64 = im_primary_queue();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_1A7BCCE4C;
       block[3] = &unk_1E77DD0F0;
-      v69 = v22;
-      v45 = v43;
-      v68 = v45;
-      dispatch_async(v44, block);
+      v95 = v31;
+      v65 = v63;
+      v94 = v65;
+      dispatch_async(v64, block);
 
       if (*(*(a1 + 40) + 96) == 6)
       {
-        v46 = +[IDSFoundationLog GlobalLink];
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v66 = +[IDSFoundationLog GlobalLink];
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEFAULT, "QUIC Allocbind timed out. - gathering ABC with packet capture", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v66, OS_LOG_TYPE_DEFAULT, "QUIC Allocbind timed out. - gathering ABC with packet capture", buf, 2u);
         }
 
         [*(a1 + 40) _triggerSymptomsWithType:@"IDSQuickRelayShared" subType:@"FailedToConnect" subTypeContext:@"QUICAllocbindTimedout" duration:15];
@@ -4435,18 +4292,18 @@ unint64_t sub_1A7BCC358(uint64_t a1)
 
     else
     {
-      v47 = objc_loadWeakRetained((*(a1 + 40) + 64));
-      v48 = objc_opt_respondsToSelector();
+      v67 = objc_loadWeakRetained((*(a1 + 40) + 64));
+      v68 = objc_opt_respondsToSelector();
 
-      if ((v48 & 1) == 0)
+      if ((v68 & 1) == 0)
       {
 LABEL_40:
 
         goto LABEL_41;
       }
 
-      v45 = objc_loadWeakRetained((*(a1 + 40) + 64));
-      [v45 link:*(a1 + 40) didFailToConnectOverCloud:0 cbuuid:*(*(a1 + 40) + 1640)];
+      v65 = objc_loadWeakRetained((*(a1 + 40) + 64));
+      [v65 link:*(a1 + 40) didFailToConnectOverCloud:0 cbuuid:*(*(a1 + 40) + 1640)];
     }
 
     goto LABEL_40;
@@ -4455,35 +4312,35 @@ LABEL_40:
 LABEL_41:
   if (*(a1 + 97) == 1)
   {
-    v49 = ids_monotonic_time();
+    v69 = ids_monotonic_time();
     [*(a1 + 56) startTime];
-    *&v49 = ((v49 - v50) * 1000.0);
-    GLUtilReportAWDClientTimerEvent(308, 23, *(a1 + 32), *(*(a1 + 40) + 1480), *(*(a1 + 40) + 1444), *&v49);
-    v51 = GLUCreateQRClientTimeEvent(308, 23, *(a1 + 32), *(*(a1 + 40) + 1920), *&v49);
-    v52 = objc_loadWeakRetained((*(a1 + 40) + 64));
-    v53 = objc_opt_respondsToSelector();
+    *&v69 = ((v69 - v70) * 1000.0);
+    GLUtilReportAWDClientTimerEvent(308, 23, *(a1 + 32), *(*(a1 + 40) + 1480), *(*(a1 + 40) + 1444), *&v69);
+    v71 = GLUCreateQRClientTimeEvent(308, 23, *(a1 + 32), *(*(a1 + 40) + 1920), *&v69);
+    v72 = objc_loadWeakRetained((*(a1 + 40) + 64));
+    v73 = objc_opt_respondsToSelector();
 
-    if (v53)
+    if (v73)
     {
-      v54 = objc_loadWeakRetained((*(a1 + 40) + 64));
-      [v54 link:*(a1 + 40) didAddQREvent:v51];
+      v74 = objc_loadWeakRetained((*(a1 + 40) + 64));
+      [v74 link:*(a1 + 40) didAddQREvent:v71];
     }
 
     if ([*(a1 + 40) _isExtIPDiscoveryDone])
     {
-      v55 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v75 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEFAULT, "discard self allocate candidate pairs", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v75, OS_LOG_TYPE_DEFAULT, "discard self allocate candidate pairs", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"discard self allocate candidate pairs");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"discard self allocate candidate pairs", v76, v77, v78, v79, v80, v91);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"discard self allocate candidate pairs");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"discard self allocate candidate pairs", v81, v82, v83, v84, v92);
         }
       }
 
@@ -4495,22 +4352,22 @@ LABEL_41:
 
   else
   {
-    v56 = [*(a1 + 32) linkMetrics];
-    [v56 allocBindRequestTimeOut];
+    v85 = [*(a1 + 32) linkMetrics];
+    [v85 allocBindRequestTimeOut];
 
-    v57 = *(a1 + 80);
-    GLUtilReportAWDStunMessageEventWithType(*(a1 + 88), 7, *(a1 + 32), v57);
-    v58 = *(a1 + 80);
-    v51 = GLUCreateQRStunMessageEventWithType(*(a1 + 88), 7u, *(a1 + 32), 0, v58);
-    if (v51)
+    v86 = *(a1 + 80);
+    GLUtilReportAWDStunMessageEventWithType(*(a1 + 88), 7, *(a1 + 32), v86);
+    v87 = *(a1 + 80);
+    v71 = GLUCreateQRStunMessageEventWithType(*(a1 + 88), 7, *(a1 + 32), 0, v87);
+    if (v71)
     {
-      v59 = objc_loadWeakRetained((*(a1 + 40) + 64));
-      v60 = objc_opt_respondsToSelector();
+      v88 = objc_loadWeakRetained((*(a1 + 40) + 64));
+      v89 = objc_opt_respondsToSelector();
 
-      if (v60)
+      if (v89)
       {
-        v61 = objc_loadWeakRetained((*(a1 + 40) + 64));
-        [v61 link:*(a1 + 40) didAddQREvent:v51];
+        v90 = objc_loadWeakRetained((*(a1 + 40) + 64));
+        [v90 link:*(a1 + 40) didAddQREvent:v71];
       }
     }
   }
@@ -4533,56 +4390,56 @@ void sub_1A7BCDA2C(uint64_t a1)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"unallocbind request timed out.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"unallocbind request timed out.", v3, v4, v5, v6, v7, *v32);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"unallocbind request timed out.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"unallocbind request timed out.", v8, v9, v10, v11, *v32);
         }
       }
     }
 
     [*(a1 + 40) _removeProtoRequest:*(a1 + 48) status:0];
     [*(a1 + 32) removeProtoRequest:*(a1 + 48)];
-    v3 = *(*(a1 + 40) + 1352);
-    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 48)];
-    [v3 removeObjectForKey:v4];
+    v12 = *(*(a1 + 40) + 1352);
+    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 48)];
+    [v12 removeObjectForKey:v13];
 
     [*(a1 + 40) _notifyCandidatePairDisconnected:*(a1 + 32) withReason:*(a1 + 60)];
-    v5 = *(a1 + 40);
-    if (v5[1844] == 1)
+    v14 = *(a1 + 40);
+    if (v14[1844] == 1)
     {
-      [v5 _destroyVirtualRelayLinksForCandidatePair:*(a1 + 32) withReason:*(a1 + 60)];
-      v5 = *(a1 + 40);
+      [v14 _destroyVirtualRelayLinksForCandidatePair:*(a1 + 32) withReason:*(a1 + 60)];
+      v14 = *(a1 + 40);
     }
 
-    v6 = [v5 _hasCandidatePairInState:3 anotherState:4 relayCandidatePairsOnly:0 excludeSelfAlloc:0];
-    v7 = *(a1 + 40);
-    if (*(v7 + 1664) == 5)
+    v15 = [v14 _hasCandidatePairInState:3 anotherState:4 relayCandidatePairsOnly:0 excludeSelfAlloc:0];
+    v16 = *(a1 + 40);
+    if (*(v16 + 1664) == 5)
     {
-      [v7 _discardCandidatePairsWithOption:0 isReinitiating:0];
-      if ((v6 & 1) == 0)
+      [v16 _discardCandidatePairsWithOption:0 isReinitiating:0];
+      if ((v15 & 1) == 0)
       {
         [*(a1 + 40) _notifyLinkDisconnectedWithError:8 reason:*(a1 + 60)];
       }
     }
 
-    else if ((v6 & 1) == 0 && [*(v7 + 1640) isEqualToString:@"12345678-7654-DADA-DADA-DADADADADADA"])
+    else if ((v15 & 1) == 0 && [*(v16 + 1640) isEqualToString:@"12345678-7654-DADA-DADA-DADADADADADA"])
     {
-      v8 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v17 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "no more underlying link is connected.", v14, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "no more underlying link is connected.", v32, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"no more underlying link is connected.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"no more underlying link is connected.", v18, v19, v20, v21, v22, *v32);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"no more underlying link is connected.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"no more underlying link is connected.", v23, v24, v25, v26, *v32);
           }
         }
       }
@@ -4590,18 +4447,18 @@ void sub_1A7BCDA2C(uint64_t a1)
       [*(a1 + 40) disconnectWithCompletionHandler:0 isReinitiating:0];
     }
 
-    v9 = stunMessageTypeFromProtoMessageType(*(a1 + 56), 0);
-    GLUtilReportAWDStunMessageEventWithType(v9, 8, *(a1 + 32), 0.0);
-    v10 = GLUCreateQRStunMessageEventWithType(v9, 8u, *(a1 + 32), 0, 0.0);
-    if (v10)
+    v27 = stunMessageTypeFromProtoMessageType(*(a1 + 56), 0);
+    GLUtilReportAWDStunMessageEventWithType(v27, 8, *(a1 + 32), 0.0);
+    v28 = GLUCreateQRStunMessageEventWithType(v27, 8, *(a1 + 32), 0, 0.0);
+    if (v28)
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 64));
-      v12 = objc_opt_respondsToSelector();
+      v30 = objc_opt_respondsToSelector();
 
-      if (v12)
+      if (v30)
       {
-        v13 = objc_loadWeakRetained((*(a1 + 40) + 64));
-        [v13 link:*(a1 + 40) didAddQREvent:v10];
+        v31 = objc_loadWeakRetained((*(a1 + 40) + 64));
+        [v31 link:*(a1 + 40) didAddQREvent:v28];
       }
     }
   }
@@ -5620,48 +5477,45 @@ uint64_t sub_1A7BD5834()
   return pthread_mutex_init(&stru_1EB2BBCE0, 0);
 }
 
-void *sub_1A7BD5F4C()
+uint64_t (*sub_1A7BD5F4C())(void, void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("PLLogRegisteredEvent", @"PowerLog");
   off_1EB2BBD20 = result;
   return result;
 }
 
-uint64_t sub_1A7BD6CD4(uint64_t *a1)
+double sub_1A7BD6CD4(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] pushTokenChanged:{a1[6], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] pushTokenChanged:a1[6]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
@@ -5675,41 +5529,38 @@ uint64_t sub_1A7BD7500(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1A7BD7518(uint64_t *a1)
+double sub_1A7BD7518(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] pushTokenChanged:{*(*(a1[6] + 8) + 40), v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] pushTokenChanged:*(*(a1[6] + 8) + 40)];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
@@ -5725,41 +5576,38 @@ void sub_1A7BD7838(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_1A7BD7DFC(uint64_t *a1)
+double sub_1A7BD7DFC(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] pushTokenChanged:{a1[6], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] pushTokenChanged:a1[6]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
@@ -5768,10 +5616,10 @@ uint64_t sub_1A7BD7DFC(uint64_t *a1)
 
 void sub_1A7BD8660(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v186 = *MEMORY[0x1E69E9840];
-  v117 = a2;
-  v113 = a4;
-  if (!v113 || !a3)
+  v214 = *MEMORY[0x1E69E9840];
+  v145 = a2;
+  v141 = a4;
+  if (!v141 || !a3)
   {
     [*(*(a1 + 32) + 48) lock];
     if ([*(*(a1 + 32) + 24) containsObject:*(a1 + 40)] & 1) != 0 || (objc_msgSend(*(*(a1 + 32) + 40), "containsObject:", *(a1 + 40)))
@@ -5787,27 +5635,27 @@ void sub_1A7BD8660(uint64_t a1, void *a2, int a3, void *a4)
     [*(*(a1 + 32) + 48) unlock];
     v10 = objc_alloc_init(MEMORY[0x1E69A6100]);
     [v10 setContext:*(a1 + 48)];
-    v118 = v10;
+    v146 = v10;
     if (v9)
     {
       v11 = objc_opt_class();
-      v114 = sub_1A7B0A150(v11, v117, @"c");
+      v142 = sub_1A7B0A150(v11, v145, @"c");
       v12 = objc_opt_class();
-      v116 = sub_1A7B0A150(v12, v117, @"sP");
-      if (!v114)
+      v144 = sub_1A7B0A150(v12, v145, @"sP");
+      if (!v142)
       {
-        v31 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v39 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = *(a1 + 56);
+          v40 = *(a1 + 56);
           *buf = 138412290;
-          *&buf[4] = v32;
-          _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "Received message with no command: %@", buf, 0xCu);
+          *&buf[4] = v40;
+          _os_log_impl(&dword_1A7AD9000, v39, OS_LOG_TYPE_DEFAULT, "Received message with no command: %@", buf, 0xCu);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received message with no command: %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received message with no command: %@", v41, v42, v43, v44, *(a1 + 56));
         }
 
         state.opaque[0] = _os_activity_create(&dword_1A7AD9000, "Dropping push without command", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -5819,12 +5667,12 @@ void sub_1A7BD8660(uint64_t a1, void *a2, int a3, void *a4)
         goto LABEL_144;
       }
 
-      if ([v114 integerValue] == 160)
+      if ([v142 integerValue] == 160)
       {
-        v172 = _os_activity_create(&dword_1A7AD9000, "Incoming storage pending push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+        v200 = _os_activity_create(&dword_1A7AD9000, "Incoming storage pending push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
         state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
         state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-        os_activity_scope_enter(v172, &state);
+        os_activity_scope_enter(v200, &state);
         v13 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
@@ -5832,317 +5680,303 @@ void sub_1A7BD8660(uint64_t a1, void *a2, int a3, void *a4)
           *buf = 138412546;
           *&buf[4] = v14;
           *&buf[12] = 2112;
-          *&buf[14] = v114;
+          *&buf[14] = v142;
           _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "Received offline pending message for topic %@ with command %@", buf, 0x16u);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          v105 = *(a1 + 40);
-          v108 = v114;
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received offline pending message for topic %@ with command %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received offline pending message for topic %@ with command %@", v15, v16, v17, v18, *(a1 + 40));
         }
 
         [*(*(a1 + 32) + 48) lock];
         if ([*(*(a1 + 32) + 16) count])
         {
-          v15 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-          v169 = 0u;
-          v170 = 0u;
-          v167 = 0u;
-          v168 = 0u;
-          v16 = *(*(a1 + 32) + 16);
-          v17 = [v16 countByEnumeratingWithState:&v167 objects:v180 count:16];
-          if (v17)
+          v19 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
+          v197 = 0u;
+          v198 = 0u;
+          v195 = 0u;
+          v196 = 0u;
+          v20 = *(*(a1 + 32) + 16);
+          v21 = [v20 countByEnumeratingWithState:&v195 objects:v208 count:16];
+          if (v21)
           {
-            v18 = *v168;
+            v22 = *v196;
             do
             {
-              for (i = 0; i != v17; ++i)
+              for (i = 0; i != v21; ++i)
               {
-                if (*v168 != v18)
+                if (*v196 != v22)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v20);
                 }
 
-                v20 = *(*(&v167 + 1) + 8 * i);
-                if ([*(a1 + 32) _validateHandler:v20 withSelector:sel_handler_receivedOfflineMessagePendingForTopic_messageContext_ topic:*(a1 + 40) command:0])
+                v24 = *(*(&v195 + 1) + 8 * i);
+                if ([*(a1 + 32) _validateHandler:v24 withSelector:sel_handler_receivedOfflineMessagePendingForTopic_messageContext_ topic:*(a1 + 40) command:0])
                 {
-                  v21 = [*(*(a1 + 32) + 16) objectForKey:v20];
-                  [v15 setObject:v21 forKey:v20];
+                  v25 = [*(*(a1 + 32) + 16) objectForKey:v24];
+                  [v19 setObject:v25 forKey:v24];
                 }
               }
 
-              v17 = [v16 countByEnumeratingWithState:&v167 objects:v180 count:16];
+              v21 = [v20 countByEnumeratingWithState:&v195 objects:v208 count:16];
             }
 
-            while (v17);
+            while (v21);
           }
         }
 
         else
         {
-          v66 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          v90 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
           {
-            v67 = NSStringFromSelector(sel_handler_receivedOfflineMessagePendingForTopic_messageContext_);
-            v68 = *(a1 + 40);
-            v69 = *(a1 + 48);
+            v91 = NSStringFromSelector(sel_handler_receivedOfflineMessagePendingForTopic_messageContext_);
+            v92 = *(a1 + 40);
+            v93 = *(a1 + 48);
             *buf = 138413058;
-            *&buf[4] = v67;
+            *&buf[4] = v91;
             *&buf[12] = 2112;
-            *&buf[14] = v68;
-            v182 = 2112;
-            v183 = 0;
-            v184 = 2112;
-            v185 = v69;
-            _os_log_impl(&dword_1A7AD9000, v66, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+            *&buf[14] = v92;
+            v210 = 2112;
+            v211 = 0;
+            v212 = 2112;
+            v213 = v93;
+            _os_log_impl(&dword_1A7AD9000, v90, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
           }
 
-          if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+          if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
           {
-            v15 = 0;
+            v19 = 0;
             goto LABEL_106;
           }
 
-          v16 = NSStringFromSelector(sel_handler_receivedOfflineMessagePendingForTopic_messageContext_);
-          v111 = 0;
-          v112 = *(a1 + 48);
-          v106 = v16;
-          v109 = *(a1 + 40);
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
-          v15 = 0;
+          v20 = NSStringFromSelector(sel_handler_receivedOfflineMessagePendingForTopic_messageContext_);
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v94, v95, v96, v97, v20);
+          v19 = 0;
         }
 
 LABEL_106:
         [*(*(a1 + 32) + 48) unlock];
-        v165 = 0u;
-        v166 = 0u;
-        v163 = 0u;
-        v164 = 0u;
-        v70 = v15;
-        v71 = [v70 countByEnumeratingWithState:&v163 objects:v179 count:16];
-        if (v71)
+        v193 = 0u;
+        v194 = 0u;
+        v191 = 0u;
+        v192 = 0u;
+        v98 = v19;
+        v99 = [v98 countByEnumeratingWithState:&v191 objects:v207 count:16];
+        if (v99)
         {
-          v72 = *v164;
+          v100 = *v192;
           do
           {
-            for (j = 0; j != v71; ++j)
+            for (j = 0; j != v99; ++j)
             {
-              if (*v164 != v72)
+              if (*v192 != v100)
               {
-                objc_enumerationMutation(v70);
+                objc_enumerationMutation(v98);
               }
 
-              v74 = *(*(&v163 + 1) + 8 * j);
-              v75 = [*(*(a1 + 32) + 16) objectForKey:v74];
-              v76 = [v75 queue];
-              v159[0] = MEMORY[0x1E69E9820];
-              v159[1] = 3221225472;
-              v159[2] = sub_1A7BD9F50;
-              v159[3] = &unk_1E77E1580;
-              v77 = *(a1 + 32);
-              v78 = *(a1 + 40);
-              v159[4] = v74;
-              v159[5] = v77;
-              v160 = v78;
-              v161 = v118;
-              v162 = *(a1 + 48);
-              dispatch_async(v76, v159);
+              v102 = *(*(&v191 + 1) + 8 * j);
+              v103 = [*(*(a1 + 32) + 16) objectForKey:v102];
+              v104 = [v103 queue];
+              v187[0] = MEMORY[0x1E69E9820];
+              v187[1] = 3221225472;
+              v187[2] = sub_1A7BD9F50;
+              v187[3] = &unk_1E77E1580;
+              v105 = *(a1 + 32);
+              v106 = *(a1 + 40);
+              v187[4] = v102;
+              v187[5] = v105;
+              v188 = v106;
+              v189 = v146;
+              v190 = *(a1 + 48);
+              dispatch_async(v104, v187);
             }
 
-            v71 = [v70 countByEnumeratingWithState:&v163 objects:v179 count:16];
+            v99 = [v98 countByEnumeratingWithState:&v191 objects:v207 count:16];
           }
 
-          while (v71);
+          while (v99);
         }
 
-        [v70 count];
+        [v98 count];
         os_activity_scope_leave(&state);
         cut_arc_os_release();
 
 LABEL_144:
 LABEL_145:
-        v8 = v118;
+        v8 = v146;
         goto LABEL_146;
       }
 
-      if ([v114 integerValue] == 165)
+      if ([v142 integerValue] == 165)
       {
-        v172 = _os_activity_create(&dword_1A7AD9000, "Incoming storage empty push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+        v200 = _os_activity_create(&dword_1A7AD9000, "Incoming storage empty push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
         state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
         state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-        os_activity_scope_enter(v172, &state);
-        v37 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        os_activity_scope_enter(v200, &state);
+        v53 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = *(a1 + 40);
+          v54 = *(a1 + 40);
           *buf = 138412546;
-          *&buf[4] = v38;
+          *&buf[4] = v54;
           *&buf[12] = 2112;
-          *&buf[14] = v114;
-          _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "Received offline storage empty message for topic %@ with command %@", buf, 0x16u);
+          *&buf[14] = v142;
+          _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "Received offline storage empty message for topic %@ with command %@", buf, 0x16u);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          v105 = *(a1 + 40);
-          v108 = v114;
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received offline storage empty message for topic %@ with command %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received offline storage empty message for topic %@ with command %@", v55, v56, v57, v58, *(a1 + 40));
         }
 
-        v39 = objc_opt_class();
-        v115 = sub_1A7B0A150(v39, v117, @"scU");
+        v59 = objc_opt_class();
+        v143 = sub_1A7B0A150(v59, v145, @"scU");
         [*(*(a1 + 32) + 48) lock];
         if ([*(*(a1 + 32) + 16) count])
         {
-          v40 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-          v157 = 0u;
-          v158 = 0u;
-          v155 = 0u;
-          v156 = 0u;
-          v41 = *(*(a1 + 32) + 16);
-          v42 = [v41 countByEnumeratingWithState:&v155 objects:v178 count:16];
-          if (v42)
+          v60 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
+          v185 = 0u;
+          v186 = 0u;
+          v183 = 0u;
+          v184 = 0u;
+          v61 = *(*(a1 + 32) + 16);
+          v62 = [v61 countByEnumeratingWithState:&v183 objects:v206 count:16];
+          if (v62)
           {
-            v43 = *v156;
+            v63 = *v184;
             do
             {
-              for (k = 0; k != v42; ++k)
+              for (k = 0; k != v62; ++k)
               {
-                if (*v156 != v43)
+                if (*v184 != v63)
                 {
-                  objc_enumerationMutation(v41);
+                  objc_enumerationMutation(v61);
                 }
 
-                v45 = *(*(&v155 + 1) + 8 * k);
-                if ([*(a1 + 32) _validateHandler:v45 withSelector:sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_ topic:*(a1 + 40) command:{0, v105, v108}])
+                v65 = *(*(&v183 + 1) + 8 * k);
+                if ([*(a1 + 32) _validateHandler:v65 withSelector:sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_ topic:*(a1 + 40) command:0])
                 {
-                  v46 = [*(*(a1 + 32) + 16) objectForKey:v45];
-                  [v40 setObject:v46 forKey:v45];
+                  v66 = [*(*(a1 + 32) + 16) objectForKey:v65];
+                  [v60 setObject:v66 forKey:v65];
                 }
               }
 
-              v42 = [v41 countByEnumeratingWithState:&v155 objects:v178 count:16];
+              v62 = [v61 countByEnumeratingWithState:&v183 objects:v206 count:16];
             }
 
-            while (v42);
+            while (v62);
           }
         }
 
         else
         {
-          v79 = OSLogHandleForIDSCategory();
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+          v107 = OSLogHandleForIDSCategory();
+          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
           {
-            v80 = NSStringFromSelector(sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_);
-            v81 = *(a1 + 40);
-            v82 = *(a1 + 48);
+            v108 = NSStringFromSelector(sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_);
+            v109 = *(a1 + 40);
+            v110 = *(a1 + 48);
             *buf = 138413058;
-            *&buf[4] = v80;
+            *&buf[4] = v108;
             *&buf[12] = 2112;
-            *&buf[14] = v81;
-            v182 = 2112;
-            v183 = 0;
-            v184 = 2112;
-            v185 = v82;
-            _os_log_impl(&dword_1A7AD9000, v79, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+            *&buf[14] = v109;
+            v210 = 2112;
+            v211 = 0;
+            v212 = 2112;
+            v213 = v110;
+            _os_log_impl(&dword_1A7AD9000, v107, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
           }
 
-          if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+          if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
           {
-            v40 = 0;
+            v60 = 0;
             goto LABEL_125;
           }
 
-          v41 = NSStringFromSelector(sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_);
-          v111 = 0;
-          v112 = *(a1 + 48);
-          v105 = v41;
-          v108 = *(a1 + 40);
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
-          v40 = 0;
+          v61 = NSStringFromSelector(sel_handler_receivedNoStorageResponseForTopic_identifier_messageContext_);
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v111, v112, v113, v114, v61);
+          v60 = 0;
         }
 
 LABEL_125:
         [*(*(a1 + 32) + 48) unlock];
-        v153 = 0u;
-        v154 = 0u;
-        v151 = 0u;
-        v152 = 0u;
-        v87 = v40;
-        v88 = [v87 countByEnumeratingWithState:&v151 objects:v177 count:16];
-        if (v88)
+        v181 = 0u;
+        v182 = 0u;
+        v179 = 0u;
+        v180 = 0u;
+        v123 = v60;
+        v124 = [v123 countByEnumeratingWithState:&v179 objects:v205 count:16];
+        if (v124)
         {
-          v89 = *v152;
+          v125 = *v180;
           do
           {
-            for (m = 0; m != v88; ++m)
+            for (m = 0; m != v124; ++m)
             {
-              if (*v152 != v89)
+              if (*v180 != v125)
               {
-                objc_enumerationMutation(v87);
+                objc_enumerationMutation(v123);
               }
 
-              v91 = *(*(&v151 + 1) + 8 * m);
-              v92 = [*(*(a1 + 32) + 16) objectForKey:v91];
-              v93 = [v92 queue];
-              v146[0] = MEMORY[0x1E69E9820];
-              v146[1] = 3221225472;
-              v146[2] = sub_1A7BDA11C;
-              v146[3] = &unk_1E77E15A8;
-              v94 = *(a1 + 32);
-              v95 = *(a1 + 40);
-              v146[4] = v91;
-              v146[5] = v94;
-              v147 = v95;
-              v148 = v115;
-              v149 = v118;
-              v150 = *(a1 + 48);
-              dispatch_async(v93, v146);
+              v127 = *(*(&v179 + 1) + 8 * m);
+              v128 = [*(*(a1 + 32) + 16) objectForKey:v127];
+              v129 = [v128 queue];
+              v174[0] = MEMORY[0x1E69E9820];
+              v174[1] = 3221225472;
+              v174[2] = sub_1A7BDA11C;
+              v174[3] = &unk_1E77E15A8;
+              v130 = *(a1 + 32);
+              v131 = *(a1 + 40);
+              v174[4] = v127;
+              v174[5] = v130;
+              v175 = v131;
+              v176 = v143;
+              v177 = v146;
+              v178 = *(a1 + 48);
+              dispatch_async(v129, v174);
             }
 
-            v88 = [v87 countByEnumeratingWithState:&v151 objects:v177 count:16];
+            v124 = [v123 countByEnumeratingWithState:&v179 objects:v205 count:16];
           }
 
-          while (v88);
+          while (v124);
         }
 
-        [v87 count];
+        [v123 count];
         os_activity_scope_leave(&state);
         cut_arc_os_release();
 
         goto LABEL_144;
       }
 
-      v172 = _os_activity_create(&dword_1A7AD9000, "Incoming message push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      v200 = _os_activity_create(&dword_1A7AD9000, "Incoming message push", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
       state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
       state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-      os_activity_scope_enter(v172, &state);
-      v55 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      os_activity_scope_enter(v200, &state);
+      v75 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = *(a1 + 40);
+        v76 = *(a1 + 40);
         *buf = 138412546;
-        *&buf[4] = v56;
+        *&buf[4] = v76;
         *&buf[12] = 2112;
-        *&buf[14] = v114;
-        _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEFAULT, "Received message for topic %@ with command %@", buf, 0x16u);
+        *&buf[14] = v142;
+        _os_log_impl(&dword_1A7AD9000, v75, OS_LOG_TYPE_DEFAULT, "Received message for topic %@ with command %@", buf, 0x16u);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        v105 = *(a1 + 40);
-        v108 = v114;
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received message for topic %@ with command %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Received message for topic %@ with command %@", v77, v78, v79, v80, *(a1 + 40));
       }
 
       if (_os_feature_enabled_impl())
       {
-        v57 = [*(a1 + 48) topic];
-        v58 = [v57 isEqualToString:@"com.apple.private.alloy.facetime.multi"];
+        v81 = [*(a1 + 48) topic];
+        v82 = [v81 isEqualToString:@"com.apple.private.alloy.facetime.multi"];
 
-        if (v58)
+        if (v82)
         {
           [*(a1 + 48) identifier];
           kdebug_trace();
@@ -6152,122 +5986,118 @@ LABEL_125:
       [*(*(a1 + 32) + 48) lock];
       if ([*(*(a1 + 32) + 16) count])
       {
-        v59 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-        v144 = 0u;
-        v145 = 0u;
-        v142 = 0u;
-        v143 = 0u;
-        v60 = *(*(a1 + 32) + 16);
-        v61 = [v60 countByEnumeratingWithState:&v142 objects:v176 count:16];
-        if (v61)
+        v83 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
+        v172 = 0u;
+        v173 = 0u;
+        v170 = 0u;
+        v171 = 0u;
+        v84 = *(*(a1 + 32) + 16);
+        v85 = [v84 countByEnumeratingWithState:&v170 objects:v204 count:16];
+        if (v85)
         {
-          v62 = *v143;
+          v86 = *v171;
           do
           {
-            for (n = 0; n != v61; ++n)
+            for (n = 0; n != v85; ++n)
             {
-              if (*v143 != v62)
+              if (*v171 != v86)
               {
-                objc_enumerationMutation(v60);
+                objc_enumerationMutation(v84);
               }
 
-              v64 = *(*(&v142 + 1) + 8 * n);
-              if ([*(a1 + 32) _validateHandler:v64 withSelector:sel_handler_didReceiveMessage_forTopic_fromID_messageContext_ topic:*(a1 + 40) command:v114])
+              v88 = *(*(&v170 + 1) + 8 * n);
+              if ([*(a1 + 32) _validateHandler:v88 withSelector:sel_handler_didReceiveMessage_forTopic_fromID_messageContext_ topic:*(a1 + 40) command:v142])
               {
-                v65 = [*(*(a1 + 32) + 16) objectForKey:v64];
-                [v59 setObject:v65 forKey:v64];
+                v89 = [*(*(a1 + 32) + 16) objectForKey:v88];
+                [v83 setObject:v89 forKey:v88];
               }
             }
 
-            v61 = [v60 countByEnumeratingWithState:&v142 objects:v176 count:16];
+            v85 = [v84 countByEnumeratingWithState:&v170 objects:v204 count:16];
           }
 
-          while (v61);
+          while (v85);
         }
       }
 
       else
       {
-        v83 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+        v115 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
         {
-          v84 = NSStringFromSelector(sel_handler_didReceiveMessage_forTopic_fromID_messageContext_);
-          v85 = *(a1 + 40);
-          v86 = *(a1 + 48);
+          v116 = NSStringFromSelector(sel_handler_didReceiveMessage_forTopic_fromID_messageContext_);
+          v117 = *(a1 + 40);
+          v118 = *(a1 + 48);
           *buf = 138413058;
-          *&buf[4] = v84;
+          *&buf[4] = v116;
           *&buf[12] = 2112;
-          *&buf[14] = v85;
-          v182 = 2112;
-          v183 = v114;
-          v184 = 2112;
-          v185 = v86;
-          _os_log_impl(&dword_1A7AD9000, v83, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+          *&buf[14] = v117;
+          v210 = 2112;
+          v211 = v142;
+          v212 = 2112;
+          v213 = v118;
+          _os_log_impl(&dword_1A7AD9000, v115, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
         }
 
-        if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+        if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
         {
-          v59 = 0;
+          v83 = 0;
           goto LABEL_134;
         }
 
-        v60 = NSStringFromSelector(sel_handler_didReceiveMessage_forTopic_fromID_messageContext_);
-        v111 = v114;
-        v112 = *(a1 + 48);
-        v107 = v60;
-        v110 = *(a1 + 40);
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
-        v59 = 0;
+        v84 = NSStringFromSelector(sel_handler_didReceiveMessage_forTopic_fromID_messageContext_);
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v119, v120, v121, v122, v84);
+        v83 = 0;
       }
 
 LABEL_134:
       [*(*(a1 + 32) + 48) unlock];
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
-      v139 = 0u;
-      v96 = v59;
-      v97 = [v96 countByEnumeratingWithState:&v138 objects:v175 count:16];
-      if (v97)
+      v168 = 0u;
+      v169 = 0u;
+      v166 = 0u;
+      v167 = 0u;
+      v132 = v83;
+      v133 = [v132 countByEnumeratingWithState:&v166 objects:v203 count:16];
+      if (v133)
       {
-        v98 = *v139;
+        v134 = *v167;
         do
         {
-          for (ii = 0; ii != v97; ++ii)
+          for (ii = 0; ii != v133; ++ii)
           {
-            if (*v139 != v98)
+            if (*v167 != v134)
             {
-              objc_enumerationMutation(v96);
+              objc_enumerationMutation(v132);
             }
 
-            v100 = *(*(&v138 + 1) + 8 * ii);
-            v101 = [*(*(a1 + 32) + 16) objectForKey:v100];
-            v102 = [v101 queue];
-            v132[0] = MEMORY[0x1E69E9820];
-            v132[1] = 3221225472;
-            v132[2] = sub_1A7BDA2EC;
-            v132[3] = &unk_1E77E15D0;
-            v103 = *(a1 + 32);
-            v132[4] = v100;
-            v132[5] = v103;
-            v133 = v117;
-            v134 = *(a1 + 40);
-            v135 = v116;
-            v136 = v118;
-            v137 = *(a1 + 48);
-            dispatch_async(v102, v132);
+            v136 = *(*(&v166 + 1) + 8 * ii);
+            v137 = [*(*(a1 + 32) + 16) objectForKey:v136];
+            v138 = [v137 queue];
+            v160[0] = MEMORY[0x1E69E9820];
+            v160[1] = 3221225472;
+            v160[2] = sub_1A7BDA2EC;
+            v160[3] = &unk_1E77E15D0;
+            v139 = *(a1 + 32);
+            v160[4] = v136;
+            v160[5] = v139;
+            v161 = v145;
+            v162 = *(a1 + 40);
+            v163 = v144;
+            v164 = v146;
+            v165 = *(a1 + 48);
+            dispatch_async(v138, v160);
           }
 
-          v97 = [v96 countByEnumeratingWithState:&v138 objects:v175 count:16];
+          v133 = [v132 countByEnumeratingWithState:&v166 objects:v203 count:16];
         }
 
-        while (v97);
+        while (v133);
       }
 
-      v104 = [v96 count] == 0;
-      if (!v104)
+      v140 = [v132 count] == 0;
+      if (!v140)
       {
-        [*(a1 + 32) _powerLogIncomingMessage:v117 command:v114 topic:*(a1 + 40)];
+        [*(a1 + 32) _powerLogIncomingMessage:v145 command:v142 topic:*(a1 + 40)];
       }
 
       os_activity_scope_leave(&state);
@@ -6276,140 +6106,135 @@ LABEL_134:
       goto LABEL_144;
     }
 
-    v22 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v26 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 40);
+      v27 = *(a1 + 40);
       *buf = 138412290;
-      *&buf[4] = v23;
-      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "Recieved message for unknown topic: %@", buf, 0xCu);
+      *&buf[4] = v27;
+      _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "Recieved message for unknown topic: %@", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      v105 = *(a1 + 40);
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Recieved message for unknown topic: %@");
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Recieved message for unknown topic: %@", v28, v29, v30, v31, *(a1 + 40));
     }
 
-    v172 = _os_activity_create(&dword_1A7AD9000, "Dropping push with unknown command", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v200 = _os_activity_create(&dword_1A7AD9000, "Dropping push with unknown command", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
     state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-    os_activity_scope_enter(v172, &state);
+    os_activity_scope_enter(v200, &state);
     [*(*(a1 + 32) + 48) lock];
     if ([*(*(a1 + 32) + 16) count])
     {
-      v24 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-      v130 = 0u;
-      v131 = 0u;
-      v128 = 0u;
-      v129 = 0u;
-      v25 = *(*(a1 + 32) + 16);
-      v26 = [v25 countByEnumeratingWithState:&v128 objects:v174 count:16];
-      if (v26)
+      v32 = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
+      v158 = 0u;
+      v159 = 0u;
+      v156 = 0u;
+      v157 = 0u;
+      v33 = *(*(a1 + 32) + 16);
+      v34 = [v33 countByEnumeratingWithState:&v156 objects:v202 count:16];
+      if (v34)
       {
-        v27 = *v129;
+        v35 = *v157;
         do
         {
-          for (jj = 0; jj != v26; ++jj)
+          for (jj = 0; jj != v34; ++jj)
           {
-            if (*v129 != v27)
+            if (*v157 != v35)
             {
-              objc_enumerationMutation(v25);
+              objc_enumerationMutation(v33);
             }
 
-            v29 = *(*(&v128 + 1) + 8 * jj);
-            if ([*(a1 + 32) _validateHandler:v29 withSelector:sel_handler_didReceiveMessage_forUnknownTopic_messageContext_ topic:*(a1 + 40) command:{0, v105}])
+            v37 = *(*(&v156 + 1) + 8 * jj);
+            if ([*(a1 + 32) _validateHandler:v37 withSelector:sel_handler_didReceiveMessage_forUnknownTopic_messageContext_ topic:*(a1 + 40) command:0])
             {
-              v30 = [*(*(a1 + 32) + 16) objectForKey:v29];
-              [v24 setObject:v30 forKey:v29];
+              v38 = [*(*(a1 + 32) + 16) objectForKey:v37];
+              [v32 setObject:v38 forKey:v37];
             }
           }
 
-          v26 = [v25 countByEnumeratingWithState:&v128 objects:v174 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v156 objects:v202 count:16];
         }
 
-        while (v26);
+        while (v34);
       }
     }
 
     else
     {
-      v33 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v45 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = NSStringFromSelector(sel_handler_didReceiveMessage_forUnknownTopic_messageContext_);
-        v35 = *(a1 + 40);
-        v36 = *(a1 + 48);
+        v46 = NSStringFromSelector(sel_handler_didReceiveMessage_forUnknownTopic_messageContext_);
+        v47 = *(a1 + 40);
+        v48 = *(a1 + 48);
         *buf = 138413058;
-        *&buf[4] = v34;
+        *&buf[4] = v46;
         *&buf[12] = 2112;
-        *&buf[14] = v35;
-        v182 = 2112;
-        v183 = 0;
-        v184 = 2112;
-        v185 = v36;
-        _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
+        *&buf[14] = v47;
+        v210 = 2112;
+        v211 = 0;
+        v212 = 2112;
+        v213 = v48;
+        _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", buf, 0x2Au);
       }
 
-      if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+      if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
       {
-        v24 = 0;
+        v32 = 0;
         goto LABEL_73;
       }
 
-      v25 = NSStringFromSelector(sel_handler_didReceiveMessage_forUnknownTopic_messageContext_);
-      v111 = 0;
-      v112 = *(a1 + 48);
-      v105 = v25;
-      v108 = *(a1 + 40);
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@");
-      v24 = 0;
+      v33 = NSStringFromSelector(sel_handler_didReceiveMessage_forUnknownTopic_messageContext_);
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"No incoming push handler for selector: %@    topic: %@   command: %@   context: %@", v49, v50, v51, v52, v33);
+      v32 = 0;
     }
 
 LABEL_73:
     [*(*(a1 + 32) + 48) unlock];
-    v126 = 0u;
-    v127 = 0u;
-    v124 = 0u;
-    v125 = 0u;
-    v47 = v24;
-    v48 = [v47 countByEnumeratingWithState:&v124 objects:v173 count:16];
-    if (v48)
+    v154 = 0u;
+    v155 = 0u;
+    v152 = 0u;
+    v153 = 0u;
+    v67 = v32;
+    v68 = [v67 countByEnumeratingWithState:&v152 objects:v201 count:16];
+    if (v68)
     {
-      v49 = *v125;
+      v69 = *v153;
       do
       {
-        for (kk = 0; kk != v48; ++kk)
+        for (kk = 0; kk != v68; ++kk)
         {
-          if (*v125 != v49)
+          if (*v153 != v69)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v67);
           }
 
-          v51 = *(*(&v124 + 1) + 8 * kk);
-          v52 = [*(*(a1 + 32) + 16) objectForKey:v51];
-          v53 = [v52 queue];
+          v71 = *(*(&v152 + 1) + 8 * kk);
+          v72 = [*(*(a1 + 32) + 16) objectForKey:v71];
+          v73 = [v72 queue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = sub_1A7BDA4BC;
           block[3] = &unk_1E77E15A8;
-          v54 = *(a1 + 32);
-          block[4] = v51;
-          block[5] = v54;
-          v120 = v117;
-          v121 = *(a1 + 40);
-          v122 = v118;
-          v123 = *(a1 + 48);
-          dispatch_async(v53, block);
+          v74 = *(a1 + 32);
+          block[4] = v71;
+          block[5] = v74;
+          v148 = v145;
+          v149 = *(a1 + 40);
+          v150 = v146;
+          v151 = *(a1 + 48);
+          dispatch_async(v73, block);
         }
 
-        v48 = [v47 countByEnumeratingWithState:&v124 objects:v173 count:16];
+        v68 = [v67 countByEnumeratingWithState:&v152 objects:v201 count:16];
       }
 
-      while (v48);
+      while (v68);
     }
 
-    [v47 count];
+    [v67 count];
     os_activity_scope_leave(&state);
     cut_arc_os_release();
 
@@ -6427,235 +6252,206 @@ LABEL_73:
 LABEL_146:
 }
 
-void sub_1A7BD9BE4(_Unwind_Exception *a1, int a2)
+double sub_1A7BD9F50(uint64_t *a1)
 {
-  if (a2 == 1)
-  {
-    objc_begin_catch(a1);
-    objc_end_catch();
-    JUMPOUT(0x1A7BD97BCLL);
-  }
-
-  os_activity_scope_leave(&STACK[0x3A8]);
-  cut_arc_os_release();
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1A7BD9F50(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] receivedOfflineMessagePendingForTopic:a1[6] messageContext:{a1[7], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] receivedOfflineMessagePendingForTopic:a1[6] messageContext:a1[7]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1A7BDA11C(uint64_t *a1)
+double sub_1A7BDA11C(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] receivedNoStorageResponseForTopic:a1[6] identifier:a1[7] messageContext:{a1[8], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] receivedNoStorageResponseForTopic:a1[6] identifier:a1[7] messageContext:a1[8]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1A7BDA2EC(uint64_t *a1)
+double sub_1A7BDA2EC(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] didReceiveMessage:a1[6] forTopic:a1[7] fromID:a1[8] messageContext:{a1[9], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] didReceiveMessage:a1[6] forTopic:a1[7] fromID:a1[8] messageContext:a1[9]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1A7BDA4BC(uint64_t *a1)
+double sub_1A7BDA4BC(uint64_t *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = a1[4];
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, a1[4]);
   }
 
-  [a1[4] handler:a1[5] didReceiveMessage:a1[6] forUnknownTopic:a1[7] messageContext:{a1[8], v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [a1[4] handler:a1[5] didReceiveMessage:a1[6] forUnknownTopic:a1[7] messageContext:a1[8]];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
+    v9 = a1[4];
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, a1[4]);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1A7BDAC58(uint64_t a1)
+double sub_1A7BDAC58(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v9 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEBUG, "Making handler call to %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
   {
-    v7 = *(a1 + 32);
-    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@");
+    _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Making handler call to %@", v4, v5, v6, v7, *(a1 + 32));
   }
 
-  [*(a1 + 32) handler:*(a1 + 40) isConnectedChanged:{*(a1 + 48), v7}];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  [*(a1 + 32) handler:*(a1 + 40) isConnectedChanged:*(a1 + 48)];
+  v8 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
+    v9 = *(a1 + 32);
     *buf = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEBUG, "Call to %@ completed", buf, 0xCu);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLog();
-    if (result)
+    if (_IDSShouldLog(1))
     {
-      return _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed");
+      _IDSLogV(1, @"IDSFoundation", @"IDSPushHandler", @"Call to %@ completed", v11, v12, v13, v14, *(a1 + 32));
     }
   }
 
   return result;
 }
 
-id sub_1A7BDB8F4()
+id sub_1A7BDB8F4(uint64_t a1)
 {
   if (qword_1EB2BBD38 != -1)
   {
     sub_1A7E18470();
   }
 
-  v1 = qword_1EB2BBD30;
+  v2 = qword_1EB2BBD30;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A7BDB938()
@@ -6669,16 +6465,16 @@ void sub_1A7BDB938()
   }
 }
 
-id sub_1A7BDB988()
+id sub_1A7BDB988(uint64_t a1)
 {
   if (qword_1EB2BBD48 != -1)
   {
     sub_1A7E18484();
   }
 
-  v1 = qword_1EB2BBD40;
+  v2 = qword_1EB2BBD40;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A7BDB9CC()
@@ -6692,16 +6488,16 @@ void sub_1A7BDB9CC()
   }
 }
 
-id sub_1A7BDBA1C()
+id sub_1A7BDBA1C(uint64_t a1)
 {
   if (qword_1EB2BBD58 != -1)
   {
     sub_1A7E18498();
   }
 
-  v1 = qword_1EB2BBD50;
+  v2 = qword_1EB2BBD50;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A7BDBA60()
@@ -6883,14 +6679,14 @@ uint64_t sub_1A7BDD040()
   return result;
 }
 
-void *sub_1A7BDDDD4()
+uint64_t (*sub_1A7BDDDD4())(void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMWCreateSessionSeed", @"MessageProtection");
   off_1EB2BBEE0 = result;
   return result;
 }
 
-void *sub_1A7BDDE04()
+uint64_t (*sub_1A7BDDE04())(void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMWCreateSessionSalt", @"MessageProtection");
   off_1EB2BBEF0 = result;
@@ -7156,10 +6952,11 @@ LABEL_21:
   return v22;
 }
 
-void sub_1A7BE1A9C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1A7BE1A9C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void *IDSOSChannelManagerCreate(uint64_t a1)
@@ -7258,21 +7055,21 @@ void sub_1A7BE5664(uint64_t a1, uint64_t a2, int a3)
 
 void sub_1A7BE56E0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  if (_IDSRunningInDaemon())
+  v5 = a3;
+  if (_IDSRunningInDaemon(v5, v3))
   {
-    v3 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.ids"];
-    [v3 setObject:v4 forKey:@"FTMessageDeliveryServerTimestamp"];
+    v4 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.ids"];
+    [v4 setObject:v5 forKey:@"FTMessageDeliveryServerTimestamp"];
   }
 }
 
 void sub_1A7BE5758(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  if (_IDSRunningInDaemon())
+  v5 = a3;
+  if (_IDSRunningInDaemon(v5, v3))
   {
-    v3 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.ids"];
-    [v3 setObject:v4 forKey:@"FTMessageDeliveryServerTimestampReceivedDate"];
+    v4 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.ids"];
+    [v4 setObject:v5 forKey:@"FTMessageDeliveryServerTimestampReceivedDate"];
   }
 }
 
@@ -7637,9 +7434,9 @@ void sub_1A7BE8D60(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1A7BE91C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A7BE91C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7792,91 +7589,91 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void *sub_1A7BEE9F0()
+uint64_t (*sub_1A7BEE9F0())(void, void, void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPVerifyAndExposeMessage", @"MessageProtection");
   off_1EB2B87D8 = result;
   return result;
 }
 
-void *sub_1A7BEEA20()
+uint64_t (*sub_1A7BEEA20())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPCopyProtectedMsgHash", @"MessageProtection");
   off_1EB2B8868 = result;
   return result;
 }
 
-void *sub_1A7BEEA50()
+uint64_t (*sub_1A7BEEA50())(void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFICopyProtClass", @"MessageProtection");
   off_1EB2B8848 = result;
   return result;
 }
 
-void *sub_1A7BEEA80()
+uint64_t (*sub_1A7BEEA80())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFIUpdateProtClass", @"MessageProtection");
   off_1EB2B8838 = result;
   return result;
 }
 
-void *sub_1A7BEEAB0()
+uint64_t (*sub_1A7BEEAB0())(void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFIPurgeFromKeychain", @"MessageProtection");
   off_1EB2BBF18 = result;
   return result;
 }
 
-void *sub_1A7BEEAE0()
+uint64_t (*sub_1A7BEEAE0())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFullIdentityCreateFromData", @"MessageProtection");
   off_1EB2B8828 = result;
   return result;
 }
 
-void *sub_1A7BEEB10()
+uint64_t (*sub_1A7BEEB10())(void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFullIdentityCreate", @"MessageProtection");
   off_1EB2BBF28 = result;
   return result;
 }
 
-void *sub_1A7BEEB40()
+uint64_t (*sub_1A7BEEB40())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFullIdentityCreateWithProtClass", @"MessageProtection");
   off_1EB2BBF38 = result;
   return result;
 }
 
-void *sub_1A7BEEB70()
+uint64_t (*sub_1A7BEEB70())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPPublicIdentityCopyFromPrivate", @"MessageProtection");
   off_1EB2B8808 = result;
   return result;
 }
 
-void *sub_1A7BEEBA0()
+uint64_t (*sub_1A7BEEBA0())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPFIAppendSerialization", @"MessageProtection");
   off_1EB2B8858 = result;
   return result;
 }
 
-void *sub_1A7BEEBD0()
+uint64_t (*sub_1A7BEEBD0())(void, void, void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPSignAndProtectMessage", @"MessageProtection");
   off_1EB2B87E8 = result;
   return result;
 }
 
-void *sub_1A7BEEC00()
+uint64_t (*sub_1A7BEEC00())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPPublicIdentityCreateFromData", @"MessageProtection");
   off_1EB2B87F8 = result;
   return result;
 }
 
-void *sub_1A7BEEC30()
+uint64_t (*sub_1A7BEEC30())(void, void, void)
 {
   result = MEMORY[0x1AC5631C0]("SecMPPIAppendSerialization", @"MessageProtection");
   off_1EB2B8818 = result;
@@ -7939,9 +7736,9 @@ void sub_1A7BEF3DC(uint64_t a1)
   [v6 postNotificationName:@"_kIDSServerBagFinishedLoadingNotification" object:*(a1 + 32)];
 }
 
-void sub_1A7BF02BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A7BF02BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7984,7 +7781,7 @@ Class sub_1A7BF0B50(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1A7BF0C74()
+uint64_t sub_1A7BF0C74(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1EB2BBC18 = result;
@@ -8893,9 +8690,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1A7C026A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A7C026A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9142,4 +8939,389 @@ LABEL_7:
 LABEL_9:
 
   return v4;
+}
+
+uint64_t IDSQRProtoH3EndToEndChannelUnRegisterE2EChannelUnRegisterReadFrom(uint64_t a1, void *a2)
+{
+  while (1)
+  {
+    v3 = [a2 position];
+    if (v3 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v4 = 0;
+    v5 = 0;
+    v6 = 0;
+    while (1)
+    {
+      v13 = 0;
+      v7 = [a2 position] + 1;
+      if (v7 >= [a2 position] && (v8 = objc_msgSend(a2, "position") + 1, v8 <= objc_msgSend(a2, "length")))
+      {
+        v9 = [a2 data];
+        [v9 getBytes:&v13 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v6 |= (v13 & 0x7F) << v4;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v4 += 7;
+      if (v5++ >= 9)
+      {
+        v11 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v11 = [a2 hasError] ? 0 : v6;
+LABEL_15:
+    if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t IDSQRProtoH3EndToEndChannelRegisterResponseReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v17[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v17[0] & 0x7F) << v5;
+        if ((v17[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      if ((v12 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v12 >> 3) == 1)
+      {
+        v13 = PBReaderReadData();
+        v14 = *(a1 + 16);
+        *(a1 + 16) = v13;
+LABEL_23:
+
+        goto LABEL_25;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v15 = [a2 position];
+      if (v15 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v14 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterE2EChannelInfo);
+    objc_storeStrong((a1 + 8), v14);
+    v17[0] = 0xAAAAAAAAAAAAAAAALL;
+    v17[1] = 0xAAAAAAAAAAAAAAAALL;
+    if (!PBReaderPlaceMark() || !IDSQRProtoH3EndToEndChannelRegisterE2EChannelInfoReadFrom(v14, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_23;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+void sub_1A7C0AC44(uint64_t a1)
+{
+  v1[0] = MEMORY[0x1E69E9820];
+  v1[1] = 3221225472;
+  v1[2] = sub_1A7C0ACB4;
+  v1[3] = &unk_1E77E0138;
+  v1[4] = *(a1 + 32);
+  IDSTransportThreadAddBlock(v1);
+}
+
+void sub_1A7C0B420(uint64_t a1)
+{
+  v1[0] = MEMORY[0x1E69E9820];
+  v1[1] = 3221225472;
+  v1[2] = sub_1A7C0B490;
+  v1[3] = &unk_1E77E0138;
+  v1[4] = *(a1 + 32);
+  IDSTransportThreadAddBlock(v1);
+}
+
+uint64_t IDSQRProtoDiagnosticIndicationReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v33 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        if (v13 == 3)
+        {
+          v25 = 0;
+          v26 = 0;
+          v27 = 0;
+          *(a1 + 36) |= 2u;
+          while (1)
+          {
+            v34 = 0;
+            v28 = [a2 position] + 1;
+            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
+            {
+              v30 = [a2 data];
+              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v27 |= (v34 & 0x7F) << v25;
+            if ((v34 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v25 += 7;
+            v11 = v26++ >= 9;
+            if (v11)
+            {
+              v31 = 0;
+              goto LABEL_52;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v31 = 0;
+          }
+
+          else
+          {
+            v31 = v27;
+          }
+
+LABEL_52:
+          *(a1 + 32) = v31;
+        }
+
+        else
+        {
+          if (v13 != 15)
+          {
+LABEL_32:
+            result = PBReaderSkipValueWithTag();
+            if (!result)
+            {
+              return result;
+            }
+
+            goto LABEL_53;
+          }
+
+          v16 = 0;
+          v17 = 0;
+          v18 = 0;
+          *(a1 + 36) |= 1u;
+          while (1)
+          {
+            v35 = 0;
+            v19 = [a2 position] + 1;
+            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+            {
+              v21 = [a2 data];
+              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v18 |= (v35 & 0x7F) << v16;
+            if ((v35 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v16 += 7;
+            v11 = v17++ >= 9;
+            if (v11)
+            {
+              v22 = 0;
+              goto LABEL_48;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v22 = v18;
+          }
+
+LABEL_48:
+          *(a1 + 8) = v22;
+        }
+      }
+
+      else
+      {
+        if (v13 == 1)
+        {
+          v14 = PBReaderReadString();
+          v15 = 16;
+        }
+
+        else
+        {
+          if (v13 != 2)
+          {
+            goto LABEL_32;
+          }
+
+          v14 = PBReaderReadString();
+          v15 = 24;
+        }
+
+        v24 = *(a1 + v15);
+        *(a1 + v15) = v14;
+      }
+
+LABEL_53:
+      v32 = [a2 position];
+    }
+
+    while (v32 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
 }

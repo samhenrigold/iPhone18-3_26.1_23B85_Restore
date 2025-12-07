@@ -58,7 +58,7 @@
   v10 = *(v12 - 8);
   v11 = v12 - 8;
   v9 = (*(v10 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = MEMORY[0x1EEE9AC00](viewCopy);
+  MEMORY[0x1EEE9AC00](viewCopy);
   v13 = &v8 - v9;
   MEMORY[0x1E69E5928](v5);
   MEMORY[0x1E69E5928](pathCopy);
@@ -78,34 +78,34 @@
 {
   selfCopy = self;
   selectedCopy = selected;
-  v8 = sub_1AC3090EC();
-  v9 = *(v8 - 8);
-  v10 = v8 - 8;
-  v11 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v5 - v11;
-  v13 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB54C650) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x1EEE9AC00](selectedCopy);
-  v14 = &v5 - v13;
+  v9 = sub_1AC3090EC();
+  v10 = *(v9 - 8);
+  v11 = v9 - 8;
+  v12 = (*(v10 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](v9);
+  v13 = &v6 - v12;
+  v14 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB54C650, &qword_1AC3127C0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x1EEE9AC00](selectedCopy);
+  v15 = &v6 - v14;
   MEMORY[0x1E69E5928](v3);
   v4 = MEMORY[0x1E69E5928](selfCopy);
   if (selectedCopy)
   {
+    v8 = selectedCopy;
     v7 = selectedCopy;
-    v6 = selectedCopy;
     sub_1AC3090BC();
-    (*(v9 + 32))(v14, v12, v8);
-    (*(v9 + 56))(v14, 0, 1, v8);
-    MEMORY[0x1E69E5920](v6);
+    (*(v10 + 32))(v15, v13, v9);
+    (*(v10 + 56))(v15, 0, 1, v9);
+    MEMORY[0x1E69E5920](v7);
   }
 
   else
   {
-    (*(v9 + 56))(v14, 1, 1, v8, v4);
+    (*(v10 + 56))(v15, 1, 1, v9, v4);
   }
 
-  sub_1AC273AA0(v14);
-  sub_1AC274B68(v14);
+  sub_1AC273AA0(v15);
+  sub_1AC274B68(v15, v5);
   MEMORY[0x1E69E5920](selfCopy);
 }
 

@@ -4,6 +4,7 @@
 + (id)colorizeStringIfEnabled:(id)enabled withColor:(int64_t)color;
 + (id)defaultColorizer;
 - (AXLogColorTheme)colorTheme;
+- (id)_initAndManageWithSettings:(BOOL)settings;
 - (id)blueString:(id)string;
 - (id)cyanString:(id)string;
 - (id)debugString:(id)string;
@@ -80,6 +81,46 @@ uint64_t __34__AXLogColorizer_defaultColorizer__block_invoke()
   return enabledCopy;
 }
 
+- (id)_initAndManageWithSettings:(BOOL)settings
+{
+  settingsCopy = settings;
+  v13.receiver = self;
+  v13.super_class = AXLogColorizer;
+  v4 = [(AXLogColorizer *)&v13 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(AXLogColorizer *)v4 setManagedBySettings:settingsCopy];
+    if (settingsCopy)
+    {
+      sharedInstance = [getAXSettingsClass() sharedInstance];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __45__AXLogColorizer__initAndManageWithSettings___block_invoke;
+      v11[3] = &unk_1E735AD18;
+      v7 = v5;
+      v12 = v7;
+      [sharedInstance registerUpdateBlock:v11 forRetrieveSelector:sel_internalLoggingColorTheme withListener:v7];
+
+      [(AXLogColorizer *)v7 _updateSettingsFromUserPrefs];
+    }
+
+    else
+    {
+      [(AXLogColorizer *)v5 setActive:1];
+      objc_msgSend_defaultLightColorsTheme(AXLogColorizer);
+      *v10 = *&v10[5];
+      *&v10[2] = *&v10[7];
+      [(AXLogColorizer *)v5 setColorTheme:v10];
+      [(AXLogColorizer *)v5 setPreferDarkColors:0];
+    }
+
+    v8 = v5;
+  }
+
+  return v5;
+}
+
 - (void)_updateSettingsFromUserPrefs
 {
   sharedInstance = [getAXSettingsClass() sharedInstance];
@@ -88,7 +129,7 @@ uint64_t __34__AXLogColorizer_defaultColorizer__block_invoke()
   if (internalLoggingColorTheme == 1)
   {
     [(AXLogColorizer *)self setActive:1];
-    +[AXLogColorizer defaultLightColorsTheme];
+    objc_msgSend_defaultLightColorsTheme(AXLogColorizer);
     v6 = v10;
     v7 = v11;
 LABEL_6:
@@ -102,7 +143,7 @@ LABEL_6:
   if (internalLoggingColorTheme != 2)
   {
     [(AXLogColorizer *)self setActive:0];
-    +[AXLogColorizer defaultLightColorsTheme];
+    objc_msgSend_defaultLightColorsTheme(AXLogColorizer);
     v6 = v8;
     v7 = v9;
     goto LABEL_6;
@@ -110,7 +151,7 @@ LABEL_6:
 
   v5 = 1;
   [(AXLogColorizer *)self setActive:1];
-  +[AXLogColorizer defaultDarkColorsTheme];
+  objc_msgSend_defaultDarkColorsTheme(AXLogColorizer);
   v12 = v14;
   v13 = v15;
   [(AXLogColorizer *)self setColorTheme:&v12];
@@ -134,7 +175,7 @@ LABEL_7:
   stringCopy = string;
   if ([(AXLogColorizer *)self isActive])
   {
-    [(AXLogColorizer *)self colorTheme];
+    objc_msgSend_colorTheme(self);
     v5 = [AXLogColorizer coloredString:stringCopy withColor:v8];
   }
 
@@ -153,7 +194,7 @@ LABEL_7:
   stringCopy = string;
   if ([(AXLogColorizer *)self isActive])
   {
-    [(AXLogColorizer *)self colorTheme];
+    objc_msgSend_colorTheme(self);
     v5 = [AXLogColorizer coloredString:stringCopy withColor:v8];
   }
 
@@ -172,7 +213,7 @@ LABEL_7:
   stringCopy = string;
   if ([(AXLogColorizer *)self isActive])
   {
-    [(AXLogColorizer *)self colorTheme];
+    objc_msgSend_colorTheme(self);
     v5 = [AXLogColorizer coloredString:stringCopy withColor:v8];
   }
 
@@ -191,7 +232,7 @@ LABEL_7:
   stringCopy = string;
   if ([(AXLogColorizer *)self isActive])
   {
-    [(AXLogColorizer *)self colorTheme];
+    objc_msgSend_colorTheme(self);
     v5 = [AXLogColorizer coloredString:stringCopy withColor:v8];
   }
 

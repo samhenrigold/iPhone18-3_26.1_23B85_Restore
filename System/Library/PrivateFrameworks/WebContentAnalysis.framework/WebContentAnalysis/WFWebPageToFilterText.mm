@@ -2,6 +2,7 @@
 - (BOOL)isWorthAnalyzingWithEvidence:(int *)evidence message:(id *)message;
 - (BOOL)selfRestricted;
 - (id)URLFuzzyForFilter;
+- (id)URLFuzzyWithWordLength:(int)length;
 - (id)rawPlainText;
 @end
 
@@ -27,7 +28,7 @@
 
 - (BOOL)isWorthAnalyzingWithEvidence:(int *)evidence message:(id *)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *message = 0;
   pageContent = [(WFWebPageDecorator *)self pageContent];
   v8 = [pageContent length];
@@ -38,9 +39,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v17 = [pageContent length];
-      v18 = 2048;
-      v19 = [-[WFWebPageDecorator scriptBlocks](self "scriptBlocks")];
+      v16 = [pageContent length];
+      v17 = 2048;
+      v18 = [-[WFWebPageDecorator scriptBlocks](self "scriptBlocks")];
       _os_log_impl(&dword_272D73000, v10, OS_LOG_TYPE_INFO, "Page not worth analyzing [pageContent length]:%lu [[self images] count]==0 [[self scriptBlocks] count]:%lu", buf, 0x16u);
     }
 
@@ -53,26 +54,13 @@
     }
   }
 
-  if ([(WFWebPageDecorator *)self hasFrameset])
+  if (![(WFWebPageDecorator *)self hasFrameset])
   {
-    if (v8 <= 0x7F)
+    if (![(WFWebPageDecorator *)self hasShortRefresh])
     {
-      *evidence = 6;
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"it has a frameset (length:%lu)", v8];
-LABEL_15:
-      v12 = v11;
-      result = 0;
-LABEL_20:
-      *message = v12;
-      goto LABEL_21;
+      return 1;
     }
 
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"it has a frameset, but there is a lot of content! (length:%lu)", v8];
-    goto LABEL_19;
-  }
-
-  if ([(WFWebPageDecorator *)self hasShortRefresh])
-  {
     if (v8 <= 0x7F)
     {
       *evidence = 7;
@@ -87,93 +75,120 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  result = 1;
-LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
+  if (v8 > 0x7F)
+  {
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"it has a frameset, but there is a lot of content! (length:%lu)", v8];
+    goto LABEL_19;
+  }
+
+  *evidence = 6;
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"it has a frameset (length:%lu)", v8];
+LABEL_15:
+  v12 = v11;
+  result = 0;
+LABEL_20:
+  *message = v12;
   return result;
 }
 
 - (BOOL)selfRestricted
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [-[WFWebPageDecorator metaTagsLabeled](self "metaTagsLabeled")];
   if (v3 && ![v3 caseInsensitiveCompare:@"RTA-5042-1996-1400-1577-RTA"])
   {
-LABEL_30:
-    result = 1;
+    return 1;
   }
 
-  else
+  metaTagsUnlabeled = [(WFWebPageDecorator *)self metaTagsUnlabeled];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v5 = [metaTagsUnlabeled countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v5)
   {
-    metaTagsUnlabeled = [(WFWebPageDecorator *)self metaTagsUnlabeled];
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v5 = [metaTagsUnlabeled countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v19;
+    v6 = v5;
+    v7 = *v18;
 LABEL_5:
-      v8 = 0;
-      while (1)
+    v8 = 0;
+    while (1)
+    {
+      if (*v18 != v7)
       {
-        if (*v19 != v7)
+        objc_enumerationMutation(metaTagsUnlabeled);
+      }
+
+      v9 = *(*(&v17 + 1) + 8 * v8);
+      [v9 rangeOfString:@"SS~~" options:1];
+      if (v10)
+      {
+        break;
+      }
+
+      if (v6 == ++v8)
+      {
+        v6 = [metaTagsUnlabeled countByEnumeratingWithState:&v17 objects:v21 count:16];
+        if (v6)
         {
-          objc_enumerationMutation(metaTagsUnlabeled);
+          goto LABEL_5;
         }
 
-        v9 = *(*(&v18 + 1) + 8 * v8);
-        [v9 rangeOfString:@"SS~~" options:1];
-        if (v10)
+        return 0;
+      }
+    }
+
+    if (v9)
+    {
+      v11 = [MEMORY[0x277CCAC80] scannerWithString:v9];
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v16 = 0;
+      v15 = 0;
+      while (([v11 scanUpToString:@"SS~~" intoString:0] & 1) != 0 || objc_msgSend(v11, "scanString:intoString:", @"SS~~", 0))
+      {
+        [v11 scanString:@"SS~~" intoString:0];
+        if (![v11 scanUpToString:@" " intoString:&v16] || !objc_msgSend(v11, "scanInt:", &v15))
         {
           break;
         }
 
-        if (v6 == ++v8)
-        {
-          v6 = [metaTagsUnlabeled countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v6)
-          {
-            goto LABEL_5;
-          }
-
-          goto LABEL_29;
-        }
+        v13 = [MEMORY[0x277CCABB0] numberWithInt:v15];
+        [dictionary setObject:v13 forKey:v16];
       }
 
-      if (v9)
+      if ([objc_msgSend(dictionary objectForKey:{@"000", "intValue"}] > 4 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"001"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"002"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"003"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"004"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"005"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"007"), "intValue") > 4 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"008"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"009"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"00A"), "intValue") > 5)
       {
-        v11 = [MEMORY[0x277CCAC80] scannerWithString:v9];
-        dictionary = [MEMORY[0x277CBEB38] dictionary];
-        v17 = 0;
-        v16 = 0;
-        while (([v11 scanUpToString:@"SS~~" intoString:0] & 1) != 0 || objc_msgSend(v11, "scanString:intoString:", @"SS~~", 0))
-        {
-          [v11 scanString:@"SS~~" intoString:0];
-          if (![v11 scanUpToString:@" " intoString:&v17] || !objc_msgSend(v11, "scanInt:", &v16))
-          {
-            break;
-          }
-
-          v13 = [MEMORY[0x277CCABB0] numberWithInt:v16];
-          [dictionary setObject:v13 forKey:v17];
-        }
-
-        if ([objc_msgSend(dictionary objectForKey:{@"000", "intValue"}] > 4 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"001"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"002"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"003"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"004"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"005"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"007"), "intValue") > 4 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"008"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"009"), "intValue") > 5 || objc_msgSend(objc_msgSend(dictionary, "objectForKey:", @"00A"), "intValue") > 5)
-        {
-          goto LABEL_30;
-        }
+        return 1;
       }
     }
-
-LABEL_29:
-    result = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
+}
+
+- (id)URLFuzzyWithWordLength:(int)length
+{
+  v3 = *&length;
+  uRLString = [(WFWebPageDecorator *)self URLString];
+  v5 = [(NSString *)uRLString length];
+  if (v5 < v3 + 7)
+  {
+    return &stru_28826CB10;
+  }
+
+  if (v5 >= 0x1B)
+  {
+    v7 = 20;
+  }
+
+  else
+  {
+    v7 = v5 - 7;
+  }
+
+  v8 = [(NSString *)uRLString substringWithRange:7, v7];
+
+  return [(NSString *)v8 WF_fuzzyStringWithWordLength:v3];
 }
 
 - (id)URLFuzzyForFilter

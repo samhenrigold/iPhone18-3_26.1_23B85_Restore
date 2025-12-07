@@ -108,7 +108,7 @@ id __98__UIViewController_MusicParentTraitEnvironmentOverride___music_setParentT
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_61C994(controller, &qword_E0CDA8, &qword_E11248);
+  sub_61C994(controller, &qword_E0CDA8, &qword_E11248, sub_61A504);
 }
 
 - (NSData)playActivityForwardedRecommendationData
@@ -174,7 +174,7 @@ id __98__UIViewController_MusicParentTraitEnvironmentOverride___music_setParentT
 
 - (id)playActivityFeatureNamesWithSourceChildViewController:(id)controller
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E10EF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E10EF0, &unk_B1DCB0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_AF4EC0;
   selfCopy = self;
@@ -206,7 +206,7 @@ id __98__UIViewController_MusicParentTraitEnvironmentOverride___music_setParentT
   completePlayActivityFeatureNames = [(UIViewController *)selfCopy completePlayActivityFeatureNames];
   sub_AB9760();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E103E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E103E0, &unk_B16BD0);
   sub_61CA70();
   sub_4FD6CC();
   sub_AB96C0();

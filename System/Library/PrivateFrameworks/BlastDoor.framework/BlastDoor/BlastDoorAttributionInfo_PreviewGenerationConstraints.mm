@@ -11,10 +11,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorAttributionInfo_PreviewGenerationConstraints_attributionInfo_PreviewGenerationConstraints);
-  v5 = *&self->attributionInfo_PreviewGenerationConstraints[OBJC_IVAR___BlastDoorAttributionInfo_PreviewGenerationConstraints_attributionInfo_PreviewGenerationConstraints + 8];
-  *v6 = *&self->attributionInfo_PreviewGenerationConstraints[OBJC_IVAR___BlastDoorAttributionInfo_PreviewGenerationConstraints_attributionInfo_PreviewGenerationConstraints + 24];
-  *&v6[10] = *&self->attributionInfo_PreviewGenerationConstraints[OBJC_IVAR___BlastDoorAttributionInfo_PreviewGenerationConstraints_attributionInfo_PreviewGenerationConstraints + 34];
   sub_2146D9608();
   v2 = sub_2146D9588();
 

@@ -33,30 +33,28 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   clientCopy = client;
   selfCopy = self;
-  sub_100006308(clientCopy, v10);
+  sub_100006308(clientCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)deleteAllUploadFilesWithTopicClient:(id)client outputDirectory:(id)directory
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   clientCopy = client;
   selfCopy = self;
-  sub_1000034DC(clientCopy, v10);
+  sub_1000034DC(clientCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (BOOL)generateWithTopicClient:(id)client outputDirectory:(id)directory uploadSizeLimit:(int64_t)limit eventQuota:(unint64_t)quota uuid:(id)uuid error:(id *)error
@@ -65,22 +63,20 @@
   quotaCopy = quota;
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for URL();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = &v23 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for URL();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14);
+  v17 = &v21 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   clientCopy = client;
   selfCopy = self;
-  sub_1000037F8(clientCopy, v19, limitCopy, quotaCopy, v14);
+  sub_1000037F8(clientCopy, v17, limitCopy, quotaCopy, v13);
 
-  (*(v11 + 8))(v14, v10);
-  (*(v16 + 8))(v19, v15);
+  (*(v11 + 8))(v13, v10);
+  (*(v15 + 8))(v17, v14);
   return 1;
 }
 

@@ -18,7 +18,10 @@
 - (void)_reportWalrusRepairFinishEventWithCombinedWalrusStatus:(id)status error:(id)error;
 - (void)_reportWalrusRepairStartEventWithCombinedWalrusStatus:(id)status;
 - (void)_setAccountTelemetryOptInConfig:(BOOL)config altDSID:(id)d authController:(id)controller accountManager:(id)manager completion:(id)completion;
+- (void)_updateWalrusState:(BOOL)state context:(id)context account:(id)account completion:(id)completion;
+- (void)_updateWalrusStateAndPerformPostEnablementActions:(BOOL)actions context:(id)context account:(id)account completion:(id)completion;
 - (void)repairWalrusStatusWithCompletion:(id)completion;
+- (void)setWalrusStatusEnabled:(BOOL)enabled password:(id)password completion:(id)completion;
 - (void)walrusStatusWithContext:(id)context completion:(id)completion;
 @end
 
@@ -156,7 +159,7 @@
 
 - (unint64_t)_walrusStatusWithOptions:(id)options withError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v7 = _CDPSignpostLogSystem();
   v8 = _CDPSignpostCreate();
@@ -173,15 +176,15 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = v8;
+    v28 = v8;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchAccountCleanupStatus  enableTelemetry=YES ", buf, 0xCu);
   }
 
   pcsProxy = self->_pcsProxy;
-  v27 = 0;
-  v13 = [(CDPProtectedCloudStorageProxy *)pcsProxy isWalrusEnabledWithOptions:optionsCopy error:&v27];
+  v26 = 0;
+  v13 = [(CDPProtectedCloudStorageProxy *)pcsProxy isWalrusEnabledWithOptions:optionsCopy error:&v26];
 
-  v14 = v27;
+  v14 = v26;
   Nanoseconds = _CDPSignpostGetNanoseconds();
   v16 = _CDPSignpostLogSystem();
   v17 = v16;
@@ -189,7 +192,7 @@
   {
     code = [v14 code];
     *buf = 67240192;
-    LODWORD(v29) = code;
+    LODWORD(v28) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v17, OS_SIGNPOST_INTERVAL_END, v8, "FetchAccountCleanupStatus", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
@@ -198,11 +201,11 @@
   {
     code2 = [v14 code];
     *buf = 134218496;
-    v29 = v8;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 1026;
-    v33 = code2;
+    v28 = v8;
+    v29 = 2048;
+    v30 = Nanoseconds / 1000000000.0;
+    v31 = 1026;
+    v32 = code2;
     _os_log_impl(&dword_24510B000, v19, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchAccountCleanupStatus  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
 
@@ -233,7 +236,7 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v29) = v13;
+      LODWORD(v28) = v13;
       _os_log_impl(&dword_24510B000, v22, OS_LOG_TYPE_DEFAULT, "Successfully fetched walrus status: (%{BOOL}d)", buf, 8u);
     }
 
@@ -248,7 +251,6 @@
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -390,19 +392,19 @@ void __71__CDPInternalWalrusStateController_walrusStatusWithContext_completion__
 
 - (id)_combinedWalrusStatusWithOptions:(id)options context:(id)context error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v9 = MEMORY[0x277CFD4A0];
   optionsCopy = options;
   v11 = objc_alloc_init(v9);
-  v36 = 0;
-  v12 = [(CDPInternalWalrusStateController *)self _walrusStatusWithOptions:optionsCopy withError:&v36];
-
-  v13 = v36;
-  [v11 setOctagonWalrusStatus:v12];
   v35 = 0;
-  v14 = [(CDPInternalWalrusStateController *)self _fetchiCDPAccountInfoDictionaryWithContext:contextCopy error:&v35];
-  v15 = v35;
+  v12 = [(CDPInternalWalrusStateController *)self _walrusStatusWithOptions:optionsCopy withError:&v35];
+
+  v13 = v35;
+  [v11 setOctagonWalrusStatus:v12];
+  v34 = 0;
+  v14 = [(CDPInternalWalrusStateController *)self _fetchiCDPAccountInfoDictionaryWithContext:contextCopy error:&v34];
+  v15 = v34;
   if (v15)
   {
     if (!v13)
@@ -483,9 +485,9 @@ LABEL_12:
       [contextForADPStateHealing setTelemetryFlowID:telemetryFlowID];
 
       v27 = +[CDPDFollowUpController sharedInstance];
-      v34 = 0;
-      v28 = [v27 clearFollowUpWithContext:contextForADPStateHealing error:&v34];
-      v20 = v34;
+      v33 = 0;
+      v28 = [v27 clearFollowUpWithContext:contextForADPStateHealing error:&v33];
+      v20 = v33;
 
       v29 = _CDPLogSystem();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
@@ -504,26 +506,25 @@ LABEL_12:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = v11;
+    v37 = v11;
     _os_log_impl(&dword_24510B000, v30, OS_LOG_TYPE_DEFAULT, "Walrus state: %@", buf, 0xCu);
   }
 
   v31 = v11;
-  v32 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)repairWalrusStatusWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v23 = 0;
-  v5 = [(CDPInternalWalrusStateController *)self _combinedWalrusStatusForPrimaryAccountWithError:&v23];
-  v6 = v23;
-  [(CDPInternalWalrusStateController *)self _reportWalrusRepairStartEventWithCombinedWalrusStatus:v5];
   v22 = 0;
-  v7 = [(CDPInternalWalrusStateController *)self _eligiblePrimaryAccountForFlow:1 error:&v22];
-  v8 = v22;
+  v5 = [(CDPInternalWalrusStateController *)self _combinedWalrusStatusForPrimaryAccountWithError:&v22];
+  v6 = v22;
+  [(CDPInternalWalrusStateController *)self _reportWalrusRepairStartEventWithCombinedWalrusStatus:v5];
+  v21 = 0;
+  v7 = [(CDPInternalWalrusStateController *)self _eligiblePrimaryAccountForFlow:1 error:&v21];
+  v8 = v21;
   v9 = _CDPLogSystem();
   v10 = v9;
   if (v7)
@@ -538,23 +539,23 @@ LABEL_12:
     v11 = os_transaction_create();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__6;
-    v27 = __Block_byref_object_dispose__6;
-    v28 = objc_opt_new();
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __69__CDPInternalWalrusStateController_repairWalrusStatusWithCompletion___block_invoke;
-    v14[3] = &unk_278E25DB8;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__6;
+    v26 = __Block_byref_object_dispose__6;
+    v27 = objc_opt_new();
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __69__CDPInternalWalrusStateController_repairWalrusStatusWithCompletion___block_invoke;
+    v13[3] = &unk_278E25DB8;
     v12 = v11;
     p_buf = &buf;
-    v15 = v12;
+    v14 = v12;
     selfCopy = self;
-    v17 = v5;
-    v20 = completionCopy;
-    v18 = v7;
-    v19 = v6;
-    [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v14];
+    v16 = v5;
+    v19 = completionCopy;
+    v17 = v7;
+    v18 = v6;
+    [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v13];
 
     _Block_object_dispose(&buf, 8);
   }
@@ -572,13 +573,11 @@ LABEL_12:
       (*(completionCopy + 2))(completionCopy, v8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CDPInternalWalrusStateController_repairWalrusStatusWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _CDPLogSystem();
@@ -607,25 +606,25 @@ void __69__CDPInternalWalrusStateController_repairWalrusStatusWithCompletion___b
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Silent auth completed, continuing walrus repair.", buf, 2u);
   }
 
-  v27 = v5;
-  v26 = [objc_alloc(MEMORY[0x277CFD4A8]) initWithAuthenticationResults:v5];
+  v26 = v5;
+  v25 = [objc_alloc(MEMORY[0x277CFD4A8]) initWithAuthenticationResults:v5];
   v10 = [*(a1 + 40) _optionsWithContext:?];
   v11 = *(*(a1 + 40) + 16);
   v12 = [*(a1 + 56) identifier];
-  v29 = 0;
-  v25 = v10;
-  v24 = [v11 repairWalrusWithAccountIdentifier:v12 options:v10 error:&v29];
-  v23 = v29;
+  v28 = 0;
+  v24 = v10;
+  v23 = [v11 repairWalrusWithAccountIdentifier:v12 options:v10 error:&v28];
+  v22 = v28;
 
   v13 = *(a1 + 40);
-  v28 = 0;
-  v14 = [v13 _combinedWalrusStatusForPrimaryAccountWithError:&v28];
-  v15 = v28;
-  [*(*(*(a1 + 80) + 8) + 40) reportRepairAttemptFinishedWithSuccess:v24 authenticationError:0 accountInfoFetchErrorBeforeRepair:*(a1 + 64) repairError:v23 accountInfoFetchErrorAfterRepair:v15 octagonStatusBefore:objc_msgSend(*(a1 + 48) octagonStatusAfter:"octagonWalrusStatus") pcsStatusBefore:objc_msgSend(v14 pcsStatusAfter:"octagonWalrusStatus") escrowKeysStatusBefore:objc_msgSend(*(a1 + 48) escrowKeysStatusAfter:{"pcsWalrusStatus"), objc_msgSend(v14, "pcsWalrusStatus"), objc_msgSend(*(a1 + 48), "escrowWalrusStatus"), objc_msgSend(v14, "escrowWalrusStatus")}];
-  [*(a1 + 40) _reportWalrusRepairFinishEventWithCombinedWalrusStatus:v14 error:v23];
+  v27 = 0;
+  v14 = [v13 _combinedWalrusStatusForPrimaryAccountWithError:&v27];
+  v15 = v27;
+  [*(*(*(a1 + 80) + 8) + 40) reportRepairAttemptFinishedWithSuccess:v23 authenticationError:0 accountInfoFetchErrorBeforeRepair:*(a1 + 64) repairError:v22 accountInfoFetchErrorAfterRepair:v15 octagonStatusBefore:objc_msgSend(*(a1 + 48) octagonStatusAfter:"octagonWalrusStatus") pcsStatusBefore:objc_msgSend(v14 pcsStatusAfter:"octagonWalrusStatus") escrowKeysStatusBefore:objc_msgSend(*(a1 + 48) escrowKeysStatusAfter:{"pcsWalrusStatus"), objc_msgSend(v14, "pcsWalrusStatus"), objc_msgSend(*(a1 + 48), "escrowWalrusStatus"), objc_msgSend(v14, "escrowWalrusStatus")}];
+  [*(a1 + 40) _reportWalrusRepairFinishEventWithCombinedWalrusStatus:v14 error:v22];
   v16 = _CDPLogSystem();
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-  if (v24)
+  if (v23)
   {
     if (v17)
     {
@@ -641,7 +640,7 @@ LABEL_13:
   else if (v17)
   {
     *buf = 138412290;
-    v31 = v23;
+    v30 = v22;
     v18 = "Repair completed with error: %@";
     v19 = v16;
     v20 = 12;
@@ -649,14 +648,13 @@ LABEL_13:
   }
 
   v21 = *(a1 + 72);
-  v5 = v27;
+  v5 = v26;
   if (v21)
   {
-    (*(v21 + 16))(v21, v23);
+    (*(v21 + 16))(v21, v22);
   }
 
 LABEL_17:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportWalrusRepairStartEventWithCombinedWalrusStatus:(id)status
@@ -802,6 +800,61 @@ LABEL_17:
   return v4;
 }
 
+- (void)setWalrusStatusEnabled:(BOOL)enabled password:(id)password completion:(id)completion
+{
+  enabledCopy = enabled;
+  v30 = *MEMORY[0x277D85DE8];
+  passwordCopy = password;
+  completionCopy = completion;
+  v27 = 0;
+  v10 = [(CDPInternalWalrusStateController *)self _eligiblePrimaryAccountForFlow:1 error:&v27];
+  v11 = v27;
+  if (v10)
+  {
+    v12 = objc_alloc_init(MEMORY[0x277CF0178]);
+    mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
+    aa_altDSID = [v10 aa_altDSID];
+    [(CDPInternalWalrusStateController *)self _setAccountTelemetryOptInConfig:enabledCopy altDSID:aa_altDSID authController:v12 accountManager:mEMORY[0x277CF0130] completion:&__block_literal_global_10];
+
+    v15 = _CDPLogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      primaryAccountAltDSID = [(CDPAccount *)self->_cdpAccount primaryAccountAltDSID];
+      *buf = 138739971;
+      v29 = primaryAccountAltDSID;
+      _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "Updating Walrus status for account %{sensitive}@, initiating silent auth.", buf, 0xCu);
+    }
+
+    v17 = os_transaction_create();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __79__CDPInternalWalrusStateController_setWalrusStatusEnabled_password_completion___block_invoke_60;
+    v20[3] = &unk_278E25E28;
+    v21 = v17;
+    v25 = completionCopy;
+    v22 = passwordCopy;
+    selfCopy = self;
+    v26 = enabledCopy;
+    v24 = v10;
+    v18 = v17;
+    [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v20];
+  }
+
+  else
+  {
+    v19 = _CDPLogSystem();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      [CDPInternalWalrusStateController repairWalrusStatusWithCompletion:];
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0, v11);
+    }
+  }
+}
+
 void __79__CDPInternalWalrusStateController_setWalrusStatusEnabled_password_completion___block_invoke_60(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -850,19 +903,19 @@ void __79__CDPInternalWalrusStateController_setWalrusStatusEnabled_password_comp
 
 void __79__CDPInternalWalrusStateController_setWalrusStatusEnabled_password_completion___block_invoke_61(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) _optionsWithContext:*(a1 + 40)];
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v16 = 0;
-  v9 = [v7 _combinedWalrusStatusWithOptions:v6 context:v8 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [v7 _combinedWalrusStatusWithOptions:v6 context:v8 error:&v15];
+  v10 = v15;
   v11 = _CDPLogSystem();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Walrus state after update attempt: %@", buf, 0xCu);
   }
 
@@ -891,13 +944,11 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAccountTelemetryOptInConfig:(BOOL)config altDSID:(id)d authController:(id)controller accountManager:(id)manager completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   controllerCopy = controller;
   managerCopy = manager;
@@ -918,7 +969,7 @@ LABEL_10:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v29 = v17;
+      v28 = v17;
       _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "Is opted-in = %{BOOL}d", buf, 8u);
     }
 
@@ -943,22 +994,21 @@ LABEL_10:
   stringValue = [v20 stringValue];
 
   v22 = *MEMORY[0x277CEFF60];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_altDSID_authController_accountManager_completion___block_invoke;
-  v24[3] = &unk_278E24B38;
-  v25 = v15;
-  v27 = v17;
-  v26 = completionCopy;
-  [controllerCopy setConfigurationInfo:stringValue forIdentifier:v22 forAltDSID:dCopy completion:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_altDSID_authController_accountManager_completion___block_invoke;
+  v23[3] = &unk_278E24B38;
+  v24 = v15;
+  v26 = v17;
+  v25 = completionCopy;
+  [controllerCopy setConfigurationInfo:stringValue forIdentifier:v22 forAltDSID:dCopy completion:v23];
 
 LABEL_12:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_altDSID_authController_accountManager_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   v7 = v6;
@@ -967,9 +1017,9 @@ void __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_alt
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 48);
-      v13[0] = 67109120;
-      v13[1] = v8;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Set Account Telemetry Opt-In Value to %{BOOL}d", v13, 8u);
+      v12[0] = 67109120;
+      v12[1] = v8;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Set Account Telemetry Opt-In Value to %{BOOL}d", v12, 8u);
     }
 
     v9 = *(a1 + 40);
@@ -995,8 +1045,6 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_eligibleAccountWithContext:(id)context checkWithServer:(BOOL)server requireCKAccount:(BOOL)account error:(id *)error
@@ -1196,6 +1244,32 @@ LABEL_21:
   }
 }
 
+- (void)_updateWalrusStateAndPerformPostEnablementActions:(BOOL)actions context:(id)context account:(id)account completion:(id)completion
+{
+  actionsCopy = actions;
+  accountCopy = account;
+  completionCopy = completion;
+  contextCopy = context;
+  v13 = _CDPLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Walrus state change initiated...", buf, 2u);
+  }
+
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEnablementActions_context_account_completion___block_invoke;
+  v16[3] = &unk_278E25EA0;
+  v19 = actionsCopy;
+  v16[4] = self;
+  v17 = accountCopy;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = accountCopy;
+  [(CDPInternalWalrusStateController *)self _updateWalrusState:actionsCopy context:contextCopy account:v15 completion:v16];
+}
+
 void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEnablementActions_context_account_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
@@ -1251,7 +1325,7 @@ void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEna
 
 void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEnablementActions_context_account_completion___block_invoke_67(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _CDPLogSystem();
   v5 = v4;
@@ -1266,32 +1340,87 @@ void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEna
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
-    v8[0] = 67109376;
-    v8[1] = v6;
-    v9 = 1024;
-    v10 = v6 ^ 1;
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "After updating walrus state to %{BOOL}d, successfully updated web access status to %{BOOL}d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v6;
+    v8 = 1024;
+    v9 = v6 ^ 1;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "After updating walrus state to %{BOOL}d, successfully updated web access status to %{BOOL}d", v7, 0xEu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEnablementActions_context_account_completion___block_invoke_69(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v4 description];
-    v8 = 134218242;
-    v9 = a2;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Renew credentials completed with result %tu, with error: %@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = a2;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Renew credentials completed with result %tu, with error: %@", &v7, 0x16u);
+  }
+}
+
+- (void)_updateWalrusState:(BOOL)state context:(id)context account:(id)account completion:(id)completion
+{
+  stateCopy = state;
+  contextCopy = context;
+  accountCopy = account;
+  completionCopy = completion;
+  v13 = [(CDPInternalWalrusStateController *)self _optionsWithContext:contextCopy];
+  pcsProxy = self->_pcsProxy;
+  identifier = [accountCopy identifier];
+  v27 = 0;
+  v16 = [(CDPProtectedCloudStorageProxy *)pcsProxy setWalrusEnabled:stateCopy accountIdentifier:identifier options:v13 error:&v27];
+  v17 = v27;
+
+  if (v16)
+  {
+    if (completionCopy)
+    {
+LABEL_3:
+      completionCopy[2](completionCopy, 1, 0);
+    }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  else if (stateCopy && [v17 code] == 159)
+  {
+    v18 = _CDPLogSystem();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "Dropped keys successfully, this error means success for mismatched state", buf, 2u);
+    }
+
+    if (completionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v19 = _CDPLogSystem();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24510B000, v19, OS_LOG_TYPE_DEFAULT, "Walrus state update failed... try again", buf, 2u);
+    }
+
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __82__CDPInternalWalrusStateController__updateWalrusState_context_account_completion___block_invoke;
+    v20[3] = &unk_278E25EC8;
+    v21 = contextCopy;
+    selfCopy = self;
+    v25 = stateCopy;
+    v23 = accountCopy;
+    v24 = completionCopy;
+    [CDPAuthenticationHelper silentAuthenticationForContext:v21 withCompletion:v20];
+  }
 }
 
 void __82__CDPInternalWalrusStateController__updateWalrusState_context_account_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1327,120 +1456,38 @@ void __82__CDPInternalWalrusStateController__updateWalrusState_context_account_c
   }
 }
 
-- (void)_walrusStatusWithContext:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Account not eligible, cannot fetch walrus status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_walrusStatusForPrimaryAccountWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "No eligible primary account found, cannot fetch walrus status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_walrusStatusWithOptions:withError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to fetch walrus status with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_combinedWalrusStatusWithContext:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Account not eligible, cannot fetch walrus matched status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_combinedWalrusStatusForPrimaryAccountWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "No eligible primary account found, cannot fetch walrus matched status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_combinedWalrusStatusWithOptions:context:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Walrus stingray state error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_combinedWalrusStatusWithOptions:context:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Walrus octagon state error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_combinedWalrusStatusWithOptions:(uint64_t)a1 context:(void *)a2 error:.cold.6(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 description];
+  v7 = [a2 description];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)repairWalrusStatusWithCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "No eligible primary account found, cannot update walrus status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__CDPInternalWalrusStateController_repairWalrusStatusWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to perform silent auth with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchiCDPAccountInfoDictionaryWithContext:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [CDPDSecureBackupController _sanitizedInfoDictionary:a1];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchiCDPAccountInfoDictionaryWithContext:(uint64_t)a1 error:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [CDPDSecureBackupController _sanitizedInfoDictionary:a1];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_altDSID_authController_accountManager_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
-  v5[0] = 67109378;
-  v5[1] = v3;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "Did not set Account Telemetry Opt-In Value to %{BOOL}d with error: %@", v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = v3;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "Did not set Account Telemetry Opt-In Value to %{BOOL}d with error: %@", v4, 0x12u);
 }
 
 - (void)_eligibleAccountWithContext:checkWithServer:requireCKAccount:error:.cold.1()
@@ -1469,22 +1516,6 @@ void __117__CDPInternalWalrusStateController__setAccountTelemetryOptInConfig_alt
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __113__CDPInternalWalrusStateController__updateWalrusStateAndPerformPostEnablementActions_context_account_completion___block_invoke_67_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "After successfully updating walrus state to ON, failed to update web access state to OFF with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __82__CDPInternalWalrusStateController__updateWalrusState_context_account_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Silent re-authentication prior to Walrus re-try failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -73,7 +73,8 @@
       goto LABEL_19;
     }
 
-    if ([passCopy requiresTransferSerialNumberBasedProvisioning])
+    requiresTransferSerialNumberBasedProvisioning = [passCopy requiresTransferSerialNumberBasedProvisioning];
+    if (requiresTransferSerialNumberBasedProvisioning)
     {
       completionCopy[2](completionCopy, 0, @"pass requires transfer");
       goto LABEL_19;
@@ -81,10 +82,10 @@
 
     if (numbersCopy)
     {
-      v12 = PKPairedOrPairingDevice();
-      v13 = PKSerialNumberFromNRDevice();
+      v13 = PKPairedOrPairingDevice();
+      v14 = PKSerialNumberFromNRDevice();
 
-      if ([numbersCopy containsObject:v13])
+      if ([numbersCopy containsObject:v14])
       {
         completionCopy[2](completionCopy, 0, @"pass already provisioned onto watch earlier in flow");
 LABEL_26:
@@ -93,17 +94,17 @@ LABEL_26:
       }
     }
 
-    v13 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3[0]());
-    if (v13)
+    v14 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3(requiresTransferSerialNumberBasedProvisioning));
+    if (v14)
     {
       paymentPass = [passCopy paymentPass];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __141__PKPaymentSetupAddToWatchOfferViewController_shouldShowAddToWatchOfferForPass_inContext_externalProvisioningDeviceSerialNumbers_completion___block_invoke;
-      v15[3] = &unk_1E80158C0;
-      v16 = v13;
-      v17 = completionCopy;
-      [v16 shouldShowWatchOfferForPaymentPass:paymentPass withCompletion:v15];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __141__PKPaymentSetupAddToWatchOfferViewController_shouldShowAddToWatchOfferForPass_inContext_externalProvisioningDeviceSerialNumbers_completion___block_invoke;
+      v16[3] = &unk_1E80158C0;
+      v17 = v14;
+      v18 = completionCopy;
+      [v17 shouldShowWatchOfferForPaymentPass:paymentPass withCompletion:v16];
     }
 
     goto LABEL_26;
@@ -139,14 +140,14 @@ void __141__PKPaymentSetupAddToWatchOfferViewController_shouldShowAddToWatchOffe
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v7.receiver = self;
-  v7.super_class = PKPaymentSetupAddToWatchOfferViewController;
-  [(PKPaymentSetupAddToWatchOfferViewController *)&v7 viewDidAppear:appear];
-  [(PKProvisioningAnalyticsSessionUIReporter *)self->_reporter reportViewAppeared];
-  v4 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3[0]());
+  v8.receiver = self;
+  v8.super_class = PKPaymentSetupAddToWatchOfferViewController;
+  [(PKPaymentSetupAddToWatchOfferViewController *)&v8 viewDidAppear:appear];
+  reportViewAppeared = [(PKProvisioningAnalyticsSessionUIReporter *)self->_reporter reportViewAppeared];
+  v5 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3(reportViewAppeared));
   pass = [(PKAddToWatchOfferViewController *)self pass];
   paymentPass = [pass paymentPass];
-  [v4 noteWatchOfferShownForPaymentPass:paymentPass];
+  [v5 noteWatchOfferShownForPaymentPass:paymentPass];
 }
 
 - (void)_handleBridgeProvisioningError:(id)error
@@ -232,42 +233,42 @@ uint64_t __78__PKPaymentSetupAddToWatchOfferViewController__handleBridgeProvisio
 
 - (void)addToWatchOfferViewControllerDidRequestToAddToWatch
 {
-  [(PKProvisioningAnalyticsSessionUIReporter *)self->_reporter reportButtonPressed:0];
-  v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3[0]());
+  v3 = [(PKProvisioningAnalyticsSessionUIReporter *)self->_reporter reportButtonPressed:0];
+  v4 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3(v3));
   [(PKAddToWatchOfferViewController *)self showSpinner:1];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __98__PKPaymentSetupAddToWatchOfferViewController_addToWatchOfferViewControllerDidRequestToAddToWatch__block_invoke;
-  v15[3] = &unk_1E8011A18;
-  v15[4] = &v16;
-  v5 = [mEMORY[0x1E69DC668] beginBackgroundTaskWithName:@"com.apple.passbook.watchOffer" expirationHandler:v15];
-  v17[3] = v5;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __98__PKPaymentSetupAddToWatchOfferViewController_addToWatchOfferViewControllerDidRequestToAddToWatch__block_invoke;
+  v16[3] = &unk_1E8011A18;
+  v16[4] = &v17;
+  v6 = [mEMORY[0x1E69DC668] beginBackgroundTaskWithName:@"com.apple.passbook.watchOffer" expirationHandler:v16];
+  v18[3] = v6;
 
-  v6 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "Asking bridge to open from watch offer", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v7, OS_LOG_TYPE_DEFAULT, "Asking bridge to open from watch offer", buf, 2u);
   }
 
   pass = [(PKAddToWatchOfferViewController *)self pass];
   paymentPass = [pass paymentPass];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __98__PKPaymentSetupAddToWatchOfferViewController_addToWatchOfferViewControllerDidRequestToAddToWatch__block_invoke_57;
-  v10[3] = &unk_1E8019188;
-  v9 = v3;
-  v11 = v9;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __98__PKPaymentSetupAddToWatchOfferViewController_addToWatchOfferViewControllerDidRequestToAddToWatch__block_invoke_57;
+  v11[3] = &unk_1E8019188;
+  v10 = v4;
+  v12 = v10;
   selfCopy = self;
-  v13 = &v16;
-  [v9 beginProvisioningFromWatchOfferForPaymentPass:paymentPass withCompletion:v10];
+  v14 = &v17;
+  [v10 beginProvisioningFromWatchOfferForPaymentPass:paymentPass withCompletion:v11];
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 void __98__PKPaymentSetupAddToWatchOfferViewController_addToWatchOfferViewControllerDidRequestToAddToWatch__block_invoke(uint64_t a1)

@@ -7,6 +7,7 @@
 - (BOOL)applicationIsForeground:(id)foreground;
 - (BOOL)identifierIsForSpringBoardApplication:(id)application;
 - (BOOL)isValidAssertion:(id)assertion withName:(id)name;
+- (BOOL)takeAssertionForBundleID:(id)d sessionID:(id)iD sessionUUID:(id)uID pid:(int)pid;
 - (BOOL)wakeUpApp:(id)app forSession:(id)session withSessionUUID:(id)d;
 - (NDSpringBoard)init;
 - (id)assertionNameForSessionUUID:(id)d;
@@ -172,6 +173,89 @@ LABEL_5:
   _Block_object_dispose(buf, 8);
 
   return 1;
+}
+
+- (BOOL)takeAssertionForBundleID:(id)d sessionID:(id)iD sessionUUID:(id)uID pid:(int)pid
+{
+  v6 = *&pid;
+  dCopy = d;
+  iDCopy = iD;
+  uIDCopy = uID;
+  v33 = [(NDSpringBoard *)self assertionNameForSessionUUID:uIDCopy];
+  v13 = [RBSDomainAttribute attributeWithDomain:@"com.apple.cfnetwork" name:@"BackgroundDownload"];
+  v14 = [RBSAssertion alloc];
+  v15 = [RBSTarget targetWithPid:v6];
+  v41 = v13;
+  v16 = [NSArray arrayWithObjects:&v41 count:1];
+  v17 = [v14 initWithExplanation:v33 target:v15 attributes:v16];
+
+  v34 = 0;
+  v18 = [v17 acquireWithError:&v34];
+  v19 = v34;
+  if (v18)
+  {
+    os_unfair_lock_lock(&self->_assertion_lock);
+    v20 = [(NSMutableDictionary *)self->_assertions objectForKeyedSubscript:dCopy];
+    v21 = v20 == 0;
+
+    if (v21)
+    {
+      v22 = +[NSMutableDictionary dictionary];
+      [(NSMutableDictionary *)self->_assertions setObject:v22 forKeyedSubscript:dCopy];
+    }
+
+    v23 = [(NSMutableDictionary *)self->_assertions objectForKeyedSubscript:dCopy];
+    v24 = [v23 objectForKeyedSubscript:iDCopy];
+    v25 = v24 == 0;
+
+    if (!v25)
+    {
+      v26 = qword_1000EB210;
+      if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543618;
+        v36 = dCopy;
+        v37 = 2112;
+        v38 = iDCopy;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "We already have an assertion for bundleID: %{public}@, sessionID: %@", buf, 0x16u);
+      }
+
+      v27 = [(NSMutableDictionary *)self->_assertions objectForKeyedSubscript:dCopy];
+      v28 = [v27 objectForKeyedSubscript:iDCopy];
+      [v28 invalidate];
+    }
+
+    v29 = [(NSMutableDictionary *)self->_assertions objectForKeyedSubscript:dCopy];
+    [v29 setObject:v17 forKeyedSubscript:iDCopy];
+
+    os_unfair_lock_unlock(&self->_assertion_lock);
+    v30 = qword_1000EB210;
+    if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543874;
+      v36 = dCopy;
+      v37 = 2112;
+      v38 = iDCopy;
+      v39 = 2114;
+      v40 = uIDCopy;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "took assertion for %{public}@, session %@, uuid %{public}@", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v31 = qword_1000EB210;
+    if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      v36 = dCopy;
+      v37 = 2112;
+      v38 = v19;
+      _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Couldn't create process assertion for %{public}@ (%@)", buf, 0x16u);
+    }
+  }
+
+  return v18;
 }
 
 - (id)assertionNameForSessionUUID:(id)d

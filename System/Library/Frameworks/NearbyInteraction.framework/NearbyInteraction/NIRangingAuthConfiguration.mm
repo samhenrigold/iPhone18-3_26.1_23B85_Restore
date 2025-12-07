@@ -13,31 +13,30 @@
 
 - (id)initAsResponder:(BOOL)responder macAddress:(id)address key:(id)key
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   keyCopy = key;
-  v20.receiver = self;
-  v20.super_class = NIRangingAuthConfiguration;
-  initInternal = [(NIConfiguration *)&v20 initInternal];
+  v19.receiver = self;
+  v19.super_class = NIRangingAuthConfiguration;
+  initInternal = [(NIConfiguration *)&v19 initInternal];
   v12 = initInternal;
   if (initInternal)
   {
     *(initInternal + 32) = responder;
     objc_storeStrong(initInternal + 6, address);
     objc_storeStrong(v12 + 7, key);
-    v21[0] = &unk_1F38D7BF0;
+    v20[0] = &unk_1F38D7BF0;
     v13 = v12[6];
-    v21[1] = &unk_1F38D7C08;
-    v22[0] = v13;
-    v22[1] = v12[7];
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[1] = &unk_1F38D7C08;
+    v21[0] = v13;
+    v21[1] = v12[7];
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
     v15 = MEMORY[0x1BFAFF9B0](v14, 8, 0);
     v16 = [[NIDiscoveryToken alloc] initWithBytes:v15];
     v17 = v12[5];
     v12[5] = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

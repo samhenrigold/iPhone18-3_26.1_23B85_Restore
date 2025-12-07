@@ -3,7 +3,7 @@
 
 @implementation ClientRendererClass
 
-Class __get_ClientRendererClass_block_invoke(uint64_t a1)
+Class __get_ClientRendererClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   ComplicationDisplayLibrary();
   result = objc_getClass("_ClientRenderer");

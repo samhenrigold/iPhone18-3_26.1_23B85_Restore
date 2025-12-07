@@ -3,11 +3,11 @@
 
 @implementation ML3MigrationPerformPostMigration
 
-uint64_t ___ML3MigrationPerformPostMigration_block_invoke_26(uint64_t result, int a2)
+id *___ML3MigrationPerformPostMigration_block_invoke_26(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) notifyContentsDidChange];
+    return [result[4] notifyContentsDidChange];
   }
 
   return result;

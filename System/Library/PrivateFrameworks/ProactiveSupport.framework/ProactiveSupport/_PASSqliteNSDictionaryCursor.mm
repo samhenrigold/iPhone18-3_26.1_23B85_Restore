@@ -24,7 +24,6 @@
     v5 = 0;
   }
 
-  currentValue = self->_currentValue;
   self->_currentValue = v5;
 
   MEMORY[0x1EEE66BB8]();
@@ -58,23 +57,21 @@
       currentKey = self->_currentKey;
       self->_currentKey = firstObject;
 
-      v7 = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:self->_currentKey];
-      currentValue = self->_currentValue;
-      self->_currentValue = v7;
+      self->_currentValue = [(NSDictionary *)self->_dictionary objectForKeyedSubscript:self->_currentKey];
 
       MEMORY[0x1EEE66BB8]();
     }
 
     else
     {
-      v9 = objc_autoreleasePoolPush();
+      v7 = objc_autoreleasePoolPush();
       keyEnumerator = [(NSDictionary *)self->_dictionary keyEnumerator];
       keysEnumerator = self->_keysEnumerator;
       self->_keysEnumerator = keyEnumerator;
 
       [(_PASSqliteNSDictionaryCursor *)self stepIndexedRow];
 
-      objc_autoreleasePoolPop(v9);
+      objc_autoreleasePoolPop(v7);
     }
   }
 }

@@ -2,6 +2,7 @@
 - (PHPhotoLibrary)photoLibrary;
 - (PHPhotoLibraryAppPrivateData)initWithLibrary:(id)library;
 - (id)debugDescription;
+- (void)invalidate;
 - (void)setValue:(id)value forKey:(id)key;
 - (void)setValue:(id)value forKeyPath:(id)path;
 - (void)setValuesForKeysWithDictionary:(id)dictionary;
@@ -50,6 +51,13 @@
     photoLibrary = [(PHPhotoLibraryAppPrivateData *)self photoLibrary];
     [photoLibrary appPrivateDataWriteFailedWithError:v6];
   }
+}
+
+- (void)invalidate
+{
+  impl = self->_impl;
+  self->_impl = 0;
+  MEMORY[0x1EEE66BB8](self, impl);
 }
 
 - (id)debugDescription

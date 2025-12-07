@@ -142,7 +142,7 @@
 
 - (unint64_t)maximumMessageBytes
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = [(NSMutableArray *)self->_serviceExtensions count];
   if (result)
   {
@@ -177,17 +177,16 @@
       if (v8 == Bytes)
       {
         __str[0] = 0;
-        result = strtoull(__str, 0, 10);
+        return strtoull(__str, 0, 10);
       }
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -775,7 +774,7 @@ BOOL __29__MFSMTPConnection_sendData___block_invoke_2(uint64_t a1, _BYTE *a2, ui
   dataCopy = data;
   fromCopy = from;
   responseCopy3 = response;
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   v18 = [MFActivityMonitor currentMonitor:from];
   if (error)
   {
@@ -783,7 +782,7 @@ BOOL __29__MFSMTPConnection_sendData___block_invoke_2(uint64_t a1, _BYTE *a2, ui
   }
 
   supportsChunking = [(MFSMTPConnection *)self supportsChunking];
-  v99 = supportsChunking;
+  v98 = supportsChunking;
   if (![(MFSMTPConnection *)self supportsPipelining])
   {
     if ([(MFSMTPConnection *)self mailFrom:fromCopy]!= 2)
@@ -801,24 +800,24 @@ LABEL_125:
       goto LABEL_126;
     }
 
-    v97 = fromCopy;
-    v91 = v18;
+    v96 = fromCopy;
+    v90 = v18;
     [self->_delegate setPercentDone:0.15];
     v28 = [recipients count];
+    v101 = 0u;
     v102 = 0u;
     v103 = 0u;
     v104 = 0u;
-    v105 = 0u;
-    v29 = [recipients countByEnumeratingWithState:&v102 objects:v113 count:16];
+    v29 = [recipients countByEnumeratingWithState:&v101 objects:v112 count:16];
     if (v29)
     {
       v30 = v29;
-      v94 = dataCopy;
+      v93 = dataCopy;
       titleCopy = title;
       v31 = 0;
       v32 = 0;
       status = 0;
-      v34 = *v103;
+      v34 = *v102;
       v35 = (0.05 / v28);
       v36 = 0.150000006;
       while (1)
@@ -826,13 +825,13 @@ LABEL_125:
         v37 = 0;
         do
         {
-          if (*v103 != v34)
+          if (*v102 != v34)
           {
             objc_enumerationMutation(recipients);
           }
 
-          v106 = 0;
-          v106 = *(*(&v102 + 1) + 8 * v37);
+          v105 = 0;
+          v105 = *(*(&v101 + 1) + 8 * v37);
           if ([(MFSMTPConnection *)self rcptTo:?]== 2)
           {
             ++v32;
@@ -843,7 +842,7 @@ LABEL_125:
 
           if (v31)
           {
-            [v31 addObject:v106];
+            [v31 addObject:v105];
             if (status)
             {
               goto LABEL_29;
@@ -855,7 +854,7 @@ LABEL_28:
             goto LABEL_29;
           }
 
-          v31 = [objc_allocWithZone(MEMORY[0x277CBEB18]) initWithObjects:&v106 count:1];
+          v31 = [objc_allocWithZone(MEMORY[0x277CBEB18]) initWithObjects:&v105 count:1];
           if (!status)
           {
             goto LABEL_28;
@@ -865,13 +864,13 @@ LABEL_29:
           v38 = MFLogGeneral();
           if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            v39 = v106;
+            v39 = v105;
             lastResponseLine2 = [(MFSMTPConnection *)self lastResponseLine];
             *buf = 138412546;
-            *v112 = v39;
+            *v111 = v39;
             responseCopy3 = response;
-            *&v112[8] = 2112;
-            *&v112[10] = lastResponseLine2;
+            *&v111[8] = 2112;
+            *&v111[10] = lastResponseLine2;
             _os_log_error_impl(&dword_258BDA000, v38, OS_LOG_TYPE_ERROR, "SMTP error for recipient %@: %@", buf, 0x16u);
           }
 
@@ -880,12 +879,12 @@ LABEL_31:
         }
 
         while (v30 != v37);
-        v41 = [recipients countByEnumeratingWithState:&v102 objects:v113 count:16];
+        v41 = [recipients countByEnumeratingWithState:&v101 objects:v112 count:16];
         v30 = v41;
         if (!v41)
         {
           v42 = status == 0;
-          dataCopy = v94;
+          dataCopy = v93;
           title = titleCopy;
           goto LABEL_42;
         }
@@ -900,9 +899,9 @@ LABEL_42:
     if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v112 = v32;
-      *&v112[4] = 2112;
-      *&v112[6] = v31;
+      *v111 = v32;
+      *&v111[4] = 2112;
+      *&v111[6] = v31;
       _os_log_impl(&dword_258BDA000, v51, OS_LOG_TYPE_INFO, "SMTP delivery:%d valid recipients; invalid recipients = %@", buf, 0x12u);
     }
 
@@ -952,7 +951,7 @@ LABEL_42:
         goto LABEL_127;
       }
 
-      goto LABEL_129;
+      return v50;
     }
 
     if (self->_useSaveSent && [(MFSMTPConnection *)self _supportsSaveSentExtension])
@@ -971,7 +970,7 @@ LABEL_42:
       self->_dislikesSaveSentMbox = v83;
     }
 
-    if (v99)
+    if (v98)
     {
       v84 = [(MFSMTPConnection *)self sendBData:dataCopy];
     }
@@ -999,7 +998,7 @@ LABEL_124:
       goto LABEL_126;
     }
 
-    if ([v91 shouldCancel])
+    if ([v90 shouldCancel])
     {
       goto LABEL_114;
     }
@@ -1009,7 +1008,7 @@ LABEL_124:
       v86 = self->_lastResponse;
       v76 = MFLookupLocalizedString(@"SMTP_SENDING_CONTENT_LATER", @"Mail will try to send the message again later.", @"Delayed");
       v77 = v86;
-      v78 = v97;
+      v78 = v96;
       goto LABEL_119;
     }
 
@@ -1026,7 +1025,7 @@ LABEL_124:
     v88 = self->_lastResponse;
     v80 = MFLookupLocalizedString(@"SMTP_SENDING_CONTENT_FAILED", @"Sending the message content to the server failed.", @"Delayed");
     v81 = v88;
-    v82 = v97;
+    v82 = v96;
 LABEL_122:
     v87 = [(MFSMTPResponse *)v81 errorMessageWithAddress:v82 defaultMessage:v80];
 LABEL_123:
@@ -1036,11 +1035,11 @@ LABEL_123:
   }
 
   titleCopy2 = title;
-  v93 = dataCopy;
+  v92 = dataCopy;
   [(NSMutableData *)self->_mdata setLength:0];
   [(NSMutableData *)self->_mdata appendData:[(MFSMTPConnection *)self dataForMailFrom:fromCopy]];
+  v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
   if (supportsChunking)
   {
     v20 = 1;
@@ -1051,26 +1050,26 @@ LABEL_123:
     v20 = 2;
   }
 
+  v106 = 0uLL;
   v107 = 0uLL;
-  v108 = 0uLL;
-  v21 = [recipients countByEnumeratingWithState:&v107 objects:v118 count:16];
+  v21 = [recipients countByEnumeratingWithState:&v106 objects:v117 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v108;
+    v23 = *v107;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v108 != v23)
+        if (*v107 != v23)
         {
           objc_enumerationMutation(recipients);
         }
 
-        [(NSMutableData *)self->_mdata appendData:[(MFSMTPConnection *)self dataForRcptTo:*(*(&v107 + 1) + 8 * i)]];
+        [(NSMutableData *)self->_mdata appendData:[(MFSMTPConnection *)self dataForRcptTo:*(*(&v106 + 1) + 8 * i)]];
       }
 
-      v22 = [recipients countByEnumeratingWithState:&v107 objects:v118 count:16];
+      v22 = [recipients countByEnumeratingWithState:&v106 objects:v117 count:16];
     }
 
     while (v22);
@@ -1079,12 +1078,12 @@ LABEL_123:
   v25 = [recipients count] + v20;
   if (self->_useSaveSent)
   {
-    v26 = v99;
+    v26 = v98;
     if (![(MFSMTPConnection *)self _supportsSaveSentExtension])
     {
       v43 = 0;
       v44 = v25;
-      if (v99)
+      if (v98)
       {
         goto LABEL_58;
       }
@@ -1114,15 +1113,15 @@ LABEL_123:
     v44 = v25;
   }
 
-  v26 = v99;
-  if (!v99)
+  v26 = v98;
+  if (!v98)
   {
 LABEL_57:
     [(NSMutableData *)self->_mdata appendData:[(MFSMTPConnection *)self dataForDataCmd]];
   }
 
 LABEL_58:
-  v92 = v18;
+  v91 = v18;
   [(MFSMTPConnection *)self _sendData:self->_mdata];
   if (!v44)
   {
@@ -1136,12 +1135,12 @@ LABEL_58:
     goto LABEL_84;
   }
 
-  v98 = fromCopy;
+  v97 = fromCopy;
   v50 = 0;
   v57 = 0;
   v58 = v25 - 1;
   v59 = 0x27F97B000uLL;
-  v100 = *MEMORY[0x277D07128];
+  v99 = *MEMORY[0x277D07128];
   v60 = 1;
   do
   {
@@ -1167,7 +1166,7 @@ LABEL_58:
     {
       if (v57)
       {
-        v64 = v99;
+        v64 = v98;
         if (v44 != 1)
         {
           v64 = 1;
@@ -1192,7 +1191,7 @@ LABEL_58:
       else
       {
         *code = 1047;
-        v66 = [(MFSMTPResponse *)self->_lastResponse errorMessageWithAddress:v98 defaultMessage:MFLookupLocalizedString(@"SMTP_INVALID_SENDER_ADDRESS", @"The sender address “%@” was rejected by the server.", @"Delayed")];
+        v66 = [(MFSMTPResponse *)self->_lastResponse errorMessageWithAddress:v97 defaultMessage:MFLookupLocalizedString(@"SMTP_INVALID_SENDER_ADDRESS", @"The sender address “%@” was rejected by the server.", @"Delayed")];
       }
 
       infoCopy2 = info;
@@ -1201,12 +1200,12 @@ LABEL_76:
       *response = [(MFSMTPConnection *)self lastResponseLine];
       if (infoCopy2)
       {
-        v116 = v100;
-        v114 = @"SMTPFailureReason";
-        v115 = MFSMTPFailureReasonString([(MFSMTPResponse *)self->_lastResponse failureReason]);
-        v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+        v115 = v99;
+        v113 = @"SMTPFailureReason";
+        v114 = MFSMTPFailureReasonString([(MFSMTPResponse *)self->_lastResponse failureReason]);
+        v116 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
         v60 = 0;
-        *infoCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+        *infoCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
       }
 
       else
@@ -1224,10 +1223,10 @@ LABEL_80:
   }
 
   while (v44);
-  v67 = v60 & (v62 == 3 || v99);
-  v26 = v99;
+  v67 = v60 & (v62 == 3 || v98);
+  v26 = v98;
   title = titleCopy2;
-  fromCopy = v98;
+  fromCopy = v97;
   if ((v67 & 1) == 0)
   {
     goto LABEL_126;
@@ -1237,18 +1236,18 @@ LABEL_84:
   [self->_delegate setPercentDone:0.2];
   if (v26)
   {
-    v68 = [(MFSMTPConnection *)self sendBData:v93];
+    v68 = [(MFSMTPConnection *)self sendBData:v92];
   }
 
   else
   {
-    v68 = [(MFSMTPConnection *)self sendData:v93];
+    v68 = [(MFSMTPConnection *)self sendData:v92];
   }
 
   v69 = v68;
   if (v68 != 2)
   {
-    if (([v92 shouldCancel] & 1) == 0)
+    if (([v91 shouldCancel] & 1) == 0)
     {
       if (v69 != 4)
       {
@@ -1293,8 +1292,6 @@ LABEL_127:
     }
   }
 
-LABEL_129:
-  v89 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
@@ -1636,7 +1633,7 @@ LABEL_16:
   return v24;
 }
 
-uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke(uint64_t a1)
+void *__54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke(uint64_t a1)
 {
   result = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"^([0-9]+)([- ])?(.*)$" options:16 error:0];
   _readResponseRange_isContinuation___responseRegex = result;
@@ -1651,9 +1648,9 @@ uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke
 - (BOOL)_connectUsingAccount:(id)account
 {
   [(MFSMTPConnection *)self _setLastResponse:0];
-  v13.receiver = self;
-  v13.super_class = MFSMTPConnection;
-  v5 = [(MFConnection *)&v13 connectUsingAccount:account];
+  v12.receiver = self;
+  v12.super_class = MFSMTPConnection;
+  v5 = [(MFConnection *)&v12 connectUsingAccount:account];
   socket = self->super._socket;
   if (v5)
   {
@@ -1661,18 +1658,17 @@ uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke
     self->_originalSocketTimeout = timeout;
     if (timeout >= 1)
     {
-      v8 = self->super._socket;
       if (timeout <= 0x12C)
       {
-        v9 = 300;
+        v8 = 300;
       }
 
       else
       {
-        v9 = timeout;
+        v8 = timeout;
       }
 
-      [(_MFSocket *)self->super._socket setTimeout:v9];
+      [(_MFSocket *)self->super._socket setTimeout:v8];
     }
 
     if ([(MFSMTPConnection *)self _getReply]== 2)
@@ -1687,10 +1683,10 @@ uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke
     self->super._socket = 0;
   }
 
-  v11 = [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
-  if (!v11 || [v11 code] == 1029)
+  v10 = [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
+  if (!v10 || [v10 code] == 1029)
   {
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"FAILED_SEND", @"Check the account settings for the outgoing server “%@”.", @"Delayed", objc_msgSend(account, "hostname")];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"FAILED_SEND", @"Check the account settings for the outgoing server “%@”.", @"Delayed", objc_msgSend(account, "hostname")];
     [+[MFActivityMonitor currentMonitor](MFActivityMonitor "currentMonitor")];
   }
 
@@ -1699,7 +1695,7 @@ uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke
 
 - (int)_doHandshakeUsingAccount:(id)account
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   sourceIPAddress = [(_MFSocket *)self->super._socket sourceIPAddress];
   accountCopy = account;
   if (!sourceIPAddress)
@@ -1710,12 +1706,12 @@ uint64_t __54__MFSMTPConnection__readResponseRange_isContinuation___block_invoke
   bytes = [(NSData *)sourceIPAddress bytes];
   v7 = bytes;
   v8 = &cStr[1];
-  memset(v50, 0, sizeof(v50));
-  v49 = 0u;
+  memset(v49, 0, sizeof(v49));
   v48 = 0u;
   v47 = 0u;
   v46 = 0u;
   v45 = 0u;
+  v44 = 0u;
   *&cStr[1] = 0u;
   cStr[0] = 91;
   v9 = *(bytes + 1);
@@ -1750,7 +1746,7 @@ LABEL_8:
   v12 = 0;
 LABEL_9:
   v13 = 1;
-  v42 = 1;
+  v41 = 1;
   if (v12)
   {
     v14 = v12;
@@ -1761,19 +1757,19 @@ LABEL_9:
     v14 = @"localhost";
   }
 
-  v39 = v14;
-  v40 = [MFSMTPConnection _sendCommand:"_sendCommand:length:argument:trailer:" length:"EHLO " argument:5 trailer:?];
-  if (v40 == 2 && v42 == 1)
+  v38 = v14;
+  v39 = [MFSMTPConnection _sendCommand:"_sendCommand:length:argument:trailer:" length:"EHLO " argument:5 trailer:?];
+  if (v39 == 2 && v41 == 1)
   {
     v16 = 0x27F97B000uLL;
     *&v15 = 138412290;
-    v38 = v15;
+    v37 = v15;
     v17 = 1;
     do
     {
       *cStr = 0;
       *&cStr[8] = 0;
-      if ([(MFSMTPConnection *)self _readResponseRange:cStr isContinuation:&v42, v38]== 250)
+      if ([(MFSMTPConnection *)self _readResponseRange:cStr isContinuation:&v41, v37]== 250)
       {
         if (!(v17 & 1 | (*&cStr[8] == 0)))
         {
@@ -1783,18 +1779,18 @@ LABEL_9:
           *buf = bytes2 + *cStr;
           if (*&cStr[8] >= 6uLL && !strncasecmp((bytes2 + *cStr), "AUTH=", 5uLL))
           {
-            v21 = v20 + 5;
+            v21 = (v20 + 5);
           }
 
           else
           {
-            v21 = v20 + v19;
+            v21 = (v20 + v19);
           }
 
           ParameterStringFromBytes = _createParameterStringFromBytes(buf, v21);
           if (ParameterStringFromBytes)
           {
-            v23 = _createParameterStringFromBytes(buf, v20 + v19);
+            v23 = _createParameterStringFromBytes(buf, (v20 + v19));
             if (v23)
             {
               v24 = v23;
@@ -1808,7 +1804,7 @@ LABEL_9:
 
                 [v25 addObject:v24];
 
-                v24 = _createParameterStringFromBytes(buf, v20 + v19);
+                v24 = _createParameterStringFromBytes(buf, (v20 + v19));
               }
 
               while (v24);
@@ -1856,53 +1852,51 @@ LABEL_9:
           v31 = *(&self->super.super.isa + v29);
           v16 = v28;
           v32 = [v27 initWithBytes:bytes3 length:objc_msgSend(v31 encoding:{"length"), 4}];
-          *buf = v38;
+          *buf = v37;
           *&buf[4] = v32;
           _os_log_impl(&dword_258BDA000, v26, OS_LOG_TYPE_INFO, "--- Got unexpected EHLO response ESMTP params %@", buf, 0xCu);
         }
 
-        v42 = 0;
+        v41 = 0;
       }
     }
 
-    while ((v42 & 1) != 0);
+    while ((v41 & 1) != 0);
   }
 
   if ([accountCopy usesSSL])
   {
     if ((([*MEMORY[0x277CCA670] isEqualToString:{objc_msgSend(objc_msgSend(+[MFActivityMonitor currentMonitor](MFActivityMonitor, "currentMonitor"), "error"), "domain")}] ^ 1) & v13 & 1) == 0)
     {
-LABEL_44:
-      _getReply = v40;
-      goto LABEL_57;
+      return v39;
     }
   }
 
   else if ((v13 & 1) == 0)
   {
-    goto LABEL_44;
+    return v39;
   }
 
   if (![(_MFSocket *)self->super._socket isWritable])
   {
-    _getReply = v40;
+    _getReply = v39;
 LABEL_54:
     [(_MFSocket *)self->super._socket abort];
 
     self->super._socket = 0;
     if ([(MFSMTPConnection *)self _connectUsingAccount:accountCopy])
     {
-      _getReply = [(MFSMTPConnection *)self _sendCommand:"HELO " length:5 argument:v39 trailer:0];
+      _getReply = [(MFSMTPConnection *)self _sendCommand:"HELO " length:5 argument:v38 trailer:0];
       if (_getReply == 2)
       {
-        _getReply = [(MFSMTPConnection *)self _getReply];
+        return [(MFSMTPConnection *)self _getReply];
       }
     }
 
-    goto LABEL_57;
+    return _getReply;
   }
 
-  _getReply = v40;
+  _getReply = v39;
   if ([(MFSMTPConnection *)self _sendCommand:"RSET" length:4 argument:0 trailer:0]== 2)
   {
     [(MFSMTPConnection *)self _getReply];
@@ -1913,7 +1907,7 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  if ([(MFSMTPConnection *)self _sendCommand:"HELO " length:5 argument:v39 trailer:0]!= 2)
+  if ([(MFSMTPConnection *)self _sendCommand:"HELO " length:5 argument:v38 trailer:0]!= 2)
   {
     goto LABEL_54;
   }
@@ -1924,8 +1918,6 @@ LABEL_54:
     goto LABEL_54;
   }
 
-LABEL_57:
-  v36 = *MEMORY[0x277D85DE8];
   return _getReply;
 }
 

@@ -8,9 +8,11 @@
 
 uint64_t __39__CNKeyboardStateMonitor_sharedMonitor__block_invoke(uint64_t a1)
 {
-  sharedMonitor_cn_once_object_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedMonitor_cn_once_object_0;
+  sharedMonitor_cn_once_object_0 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (CNKeyboardStateMonitor)sharedMonitor

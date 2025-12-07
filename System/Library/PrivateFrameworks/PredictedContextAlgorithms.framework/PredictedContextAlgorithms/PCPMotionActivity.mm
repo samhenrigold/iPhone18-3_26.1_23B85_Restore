@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)motionActivityConfidenceAsString:(int)string;
+- (id)motionActivityTypeAsString:(int)string;
 - (int)StringAsMotionActivityConfidence:(id)confidence;
 - (int)StringAsMotionActivityType:(id)type;
 - (int)motionActivityConfidence;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)motionActivityTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B80D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMotionActivityType:(id)type
@@ -117,6 +134,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)motionActivityConfidenceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8108[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMotionActivityConfidence:(id)confidence
@@ -230,12 +262,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    motionActivityType = self->_motionActivityType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -254,15 +285,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  motionActivityConfidence = self->_motionActivityConfidence;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    startTimeCFAbsolute = self->_startTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

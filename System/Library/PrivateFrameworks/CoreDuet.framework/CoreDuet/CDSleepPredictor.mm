@@ -5,13 +5,12 @@
 
 uint64_t __51___CDSleepPredictor_array_reduce_withInitialValue___block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = (*(*(a1 + 32) + 16))();
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8](v3, v5);
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 id __41___CDSleepPredictor_indexSetFromUnionOf___block_invoke(uint64_t a1, uint64_t a2, void *a3)

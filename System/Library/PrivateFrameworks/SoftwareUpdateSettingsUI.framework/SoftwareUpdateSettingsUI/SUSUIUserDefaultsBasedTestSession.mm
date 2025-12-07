@@ -38,7 +38,6 @@
 
   objc_storeStrong(v8, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -182,7 +181,6 @@
   objc_storeStrong(&v27, 0);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)strategyForServiceType:(int64_t)type
@@ -301,8 +299,6 @@
       [(SUSUIUserDefaultsBasedTestSession *)selfCopy handlePhaseFinished];
       break;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePhaseConfigurationSealed
@@ -567,7 +563,6 @@
   MEMORY[0x277D82BD8](softwareUpdateShared2);
   objc_storeStrong(&unitTestingRegisteredServicesDictionary, 0);
   objc_storeStrong(v104, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePhaseRunning
@@ -655,9 +650,7 @@ uint64_t __55__SUSUIUserDefaultsBasedTestSession_handlePhaseRunning__block_invok
     }
   }
 
-  result = MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](obj);
 }
 
 - (void)handlePhaseFinished
@@ -738,9 +731,7 @@ uint64_t __56__SUSUIUserDefaultsBasedTestSession_handlePhaseFinished__block_invo
     }
   }
 
-  result = MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](obj);
 }
 
 @end

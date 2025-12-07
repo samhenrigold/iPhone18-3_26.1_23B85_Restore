@@ -25,9 +25,9 @@
 
     if (v9 && v10)
     {
-      v12 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (v12)
+      if (isEqual)
       {
         goto LABEL_10;
       }
@@ -67,9 +67,9 @@ LABEL_14:
     goto LABEL_8;
   }
 
-  v8 = [configuration isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(configuration);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     image = [(_UIImageAssetLocalRegistration *)self image];
@@ -85,7 +85,7 @@ LABEL_8:
       v9 = 0;
       if (v7 && configuration2)
       {
-        v9 = [configuration2 isEqual:v12];
+        v9 = objc_msgSend_isEqual_(configuration2);
       }
     }
 

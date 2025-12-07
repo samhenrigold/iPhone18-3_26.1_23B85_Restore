@@ -8,7 +8,7 @@
 - (_TtC20ProductPageExtension34SmallLockupCollectionViewTableCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension34SmallLockupCollectionViewTableCell_lockupView;
-  type metadata accessor for SmallLockupView();
+  type metadata accessor for SmallLockupView(0);
   *&self->UICollectionViewTableCell_opaque[v4] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = sub_10077156C();
   __break(1u);

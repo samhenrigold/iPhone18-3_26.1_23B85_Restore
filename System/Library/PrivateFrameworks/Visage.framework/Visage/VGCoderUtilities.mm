@@ -54,12 +54,12 @@
   v14 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v13];
   if (!v14)
   {
-    v21 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = __VGLogSharedInstance(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *pixelBufferOut = 138412290;
       *&pixelBufferOut[4] = v13;
-      _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_ERROR, " Failed to create iosurface with properties %@ ", pixelBufferOut, 0xCu);
+      _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_ERROR, " Failed to create iosurface with properties %@ ", pixelBufferOut, 0xCu);
     }
 
     goto LABEL_10;
@@ -71,36 +71,36 @@
   v17 = [decoderCopy decodeBytesForKey:v16 returnedLength:&v27];
 
   v18 = v27;
-  if (v18 != [v14 allocationSize])
+  allocationSize = [v14 allocationSize];
+  if (v18 != allocationSize)
   {
-    v22 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __VGLogSharedInstance(allocationSize);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v23 = v27;
-      allocationSize = [v14 allocationSize];
+      v24 = v27;
+      allocationSize2 = [v14 allocationSize];
       *pixelBufferOut = 134218240;
-      *&pixelBufferOut[4] = v23;
+      *&pixelBufferOut[4] = v24;
       v29 = 2048;
-      v30 = allocationSize;
-      _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_ERROR, " Failed to decode iosurface data [%ld != %ld] ", pixelBufferOut, 0x16u);
+      v30 = allocationSize2;
+      _os_log_impl(&dword_270F06000, v23, OS_LOG_TYPE_ERROR, " Failed to decode iosurface data [%ld != %ld] ", pixelBufferOut, 0x16u);
     }
 
 LABEL_10:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_11;
   }
 
   [v14 lockWithOptions:0 seed:0];
-  v19 = v14;
+  v20 = v14;
   memcpy([v14 baseAddress], v17, objc_msgSend(v14, "allocationSize"));
   [v14 unlockWithOptions:0 seed:0];
   *pixelBufferOut = 0;
   CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v14, 0, pixelBufferOut);
-  v20 = *pixelBufferOut;
+  v21 = *pixelBufferOut;
 LABEL_11:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
 + (BOOL)hasPixelBufferForKey:(id)key decoder:(id)decoder

@@ -161,7 +161,7 @@
 - (void)_darkenSystemColorsChanged:(id)changed
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;

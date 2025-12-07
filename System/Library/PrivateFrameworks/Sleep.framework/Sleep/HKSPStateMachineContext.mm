@@ -1,5 +1,6 @@
 @interface HKSPStateMachineContext
 - (BOOL)hasStateTransition;
+- (HKSPStateMachineContext)contextWithNextState:(id)state previousState:(id)previousState isInitializing:(BOOL)initializing;
 - (HKSPStateMachineContext)initWithNextState:(id)state previousState:(id)previousState isInitializing:(BOOL)initializing;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
@@ -39,6 +40,20 @@
   [v4 setPreviousState:previousState];
 
   return v4;
+}
+
+- (HKSPStateMachineContext)contextWithNextState:(id)state previousState:(id)previousState isInitializing:(BOOL)initializing
+{
+  initializingCopy = initializing;
+  previousStateCopy = previousState;
+  stateCopy = state;
+  v10 = [(HKSPStateMachineContext *)self copy];
+  [v10 setNextState:stateCopy];
+
+  [v10 setPreviousState:previousStateCopy];
+  [v10 setIsInitializing:initializingCopy];
+
+  return v10;
 }
 
 - (BOOL)hasStateTransition

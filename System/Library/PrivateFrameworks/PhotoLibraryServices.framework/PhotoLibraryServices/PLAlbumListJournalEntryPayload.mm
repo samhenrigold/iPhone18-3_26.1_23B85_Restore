@@ -61,7 +61,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([albumUUIDs count])
+  if (objc_msgSend_count(albumUUIDs))
   {
     v9 = PLMigrationGetLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -180,7 +180,7 @@ uint64_t __50__PLAlbumListJournalEntryPayload_updateAlbumList___block_invoke(uin
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"albums"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self orderedSetForUUIDEncodedData:valueCopy];
 

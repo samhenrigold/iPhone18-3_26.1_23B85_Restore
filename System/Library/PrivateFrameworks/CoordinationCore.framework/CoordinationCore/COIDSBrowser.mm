@@ -151,51 +151,48 @@ id __48__COIDSBrowser_initWithMeshName_idsServiceName___block_invoke_2(uint64_t 
 
 void __43__COIDSBrowser_startWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
     *(v2 + 8) = 1;
-    v6 = [*(a1 + 32) idsPresenceProvider];
-    v7 = v6[2]();
-    [*(a1 + 32) setPresence:v7];
-    v8 = *(a1 + 32);
-    v9 = [v8 workQueue];
-    [v7 addObserver:v8 queue:v9];
+    v4 = [*(a1 + 32) idsPresenceProvider];
+    v5 = v4[2]();
+    [*(a1 + 32) setPresence:v5];
+    v6 = *(a1 + 32);
+    v7 = [v6 workQueue];
+    [v5 addObserver:v6 queue:v7];
 
-    v10 = [*(a1 + 32) idsServiceProvider];
-    v11 = v10[2]();
-    v12 = [COIDSServiceDirector alloc];
-    v13 = [*(a1 + 32) meshName];
-    v14 = [(COIDSServiceDirector *)v12 initWithIDSService:v11 meshName:v13];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 64);
-    *(v15 + 64) = v14;
+    v8 = [*(a1 + 32) idsServiceProvider];
+    v9 = v8[2]();
+    v10 = [COIDSServiceDirector alloc];
+    v11 = [*(a1 + 32) meshName];
+    v12 = [(COIDSServiceDirector *)v10 initWithIDSService:v9 meshName:v11];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 64);
+    *(v13 + 64) = v12;
 
     [*(*(a1 + 32) + 64) setDiscoveryDelegate:?];
-    v17 = [*(a1 + 32) serviceDirector];
-    [v17 start];
+    v15 = [*(a1 + 32) serviceDirector];
+    [v15 start];
 
-    v18 = COCoreLogForCategory(14);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v16 = COCoreLogForCategory(14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v21 = 138543362;
-      v22 = v19;
-      _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ IDS browser started", &v21, 0xCu);
+      v17 = *(a1 + 32);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_244378000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ IDS browser started", &v18, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
-    v20 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -212,50 +209,24 @@ void __43__COIDSBrowser_startWithCompletionHandler___block_invoke(uint64_t a1)
 
 uint64_t __20__COIDSBrowser_stop__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(14);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ IDS browser stopping", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ IDS browser stopping", &v6, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 0;
   v4 = [*(a1 + 32) presence];
   [v4 removeObserver:*(a1 + 32)];
 
-  result = [*(a1 + 32) setPresence:0];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setPresence:0];
 }
 
 - (void)didAddDevice:(id)device
-{
-  v13 = *MEMORY[0x277D85DE8];
-  deviceCopy = device;
-  dispatch_assert_queue_V2(self->_workQueue);
-  v5 = COCoreLogForCategory(14);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = 134218242;
-    selfCopy = self;
-    v11 = 2114;
-    v12 = deviceCopy;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS browser found device %{public}@", &v9, 0x16u);
-  }
-
-  serviceDirector = [(COIDSBrowser *)self serviceDirector];
-  [deviceCopy setServiceDirector:serviceDirector];
-
-  observerSet = [(COIDSBrowser *)self observerSet];
-  [observerSet informObserverAboutDevice:deviceCopy added:1];
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didRemoveDevice:(id)device
 {
   v12 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
@@ -267,18 +238,38 @@ uint64_t __20__COIDSBrowser_stop__block_invoke(uint64_t a1)
     selfCopy = self;
     v10 = 2114;
     v11 = deviceCopy;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS browser lost device %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS browser found device %{public}@", &v8, 0x16u);
+  }
+
+  serviceDirector = [(COIDSBrowser *)self serviceDirector];
+  [deviceCopy setServiceDirector:serviceDirector];
+
+  observerSet = [(COIDSBrowser *)self observerSet];
+  [observerSet informObserverAboutDevice:deviceCopy added:1];
+}
+
+- (void)didRemoveDevice:(id)device
+{
+  v11 = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_workQueue);
+  v5 = COCoreLogForCategory(14);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 134218242;
+    selfCopy = self;
+    v9 = 2114;
+    v10 = deviceCopy;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS browser lost device %{public}@", &v7, 0x16u);
   }
 
   observerSet = [(COIDSBrowser *)self observerSet];
   [observerSet informObserverAboutDevice:deviceCopy added:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onDemandDiscoveryForRequest:(id)request
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   idsIdentifier = [requestCopy idsIdentifier];
   fromURIToken = [requestCopy fromURIToken];
@@ -291,17 +282,15 @@ uint64_t __20__COIDSBrowser_stop__block_invoke(uint64_t a1)
   v9 = COCoreLogForCategory(14);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134218242;
+    v11 = 134218242;
     selfCopy = self;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p IDS browser got demand node request %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = v7;
+    _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p IDS browser got demand node request %{public}@", &v11, 0x16u);
   }
 
   observerSet = [(COIDSBrowser *)self observerSet];
   [observerSet informObserverAboutDevice:v7 added:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,34 +8,34 @@
 
 + (id)validatedMDMOptionsFromOptionsDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v15 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
   if (validatedMDMOptionsFromOptionsDictionary__onceToken != -1)
   {
     +[MCMDMOptionsUtilities validatedMDMOptionsFromOptionsDictionary:];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = validatedMDMOptionsFromOptionsDictionary__validKeysAndClasses;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [dictionaryCopy objectForKeyedSubscript:v9];
         if (v10)
         {
@@ -44,32 +44,28 @@
 
           if (isKindOfClass)
           {
-            [v15 setObject:v10 forKeyedSubscript:v9];
+            [v14 setObject:v10 forKeyedSubscript:v9];
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v14;
 }
 
-void __66__MCMDMOptionsUtilities_validatedMDMOptionsFromOptionsDictionary___block_invoke()
+void __66__MCMDMOptionsUtilities_validatedMDMOptionsFromOptionsDictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69AD4F8];
-  v4[0] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = validatedMDMOptionsFromOptionsDictionary__validKeysAndClasses;
-  validatedMDMOptionsFromOptionsDictionary__validKeysAndClasses = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69AD4F8];
+  v5[0] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = validatedMDMOptionsFromOptionsDictionary__validKeysAndClasses;
+  validatedMDMOptionsFromOptionsDictionary__validKeysAndClasses = v2;
 }
 
 + (id)defaultMDMOptions

@@ -95,7 +95,7 @@
   if (self->_showsHeader)
   {
     v4 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-    v5 = PRBundle();
+    v5 = PRBundle(v4);
     v6 = [v5 localizedStringForKey:@"COLOR_HEADING" value:&stru_1F1C13D90 table:@"PosterKit"];
     [v4 setText:v6];
 

@@ -87,11 +87,11 @@ void __67___UIDragSourceLiftEffect__installInteractionPlattersForOperation___blo
   }
 }
 
-uint64_t __67___UIDragSourceLiftEffect__installInteractionPlattersForOperation___block_invoke_3(uint64_t result, uint64_t a2)
+id *__67___UIDragSourceLiftEffect__installInteractionPlattersForOperation___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2 == 1)
   {
-    return [*(result + 32) _uninstallInteractionPlattersForOperation:*(result + 40)];
+    return [result[4] _uninstallInteractionPlattersForOperation:result[5]];
   }
 
   return result;

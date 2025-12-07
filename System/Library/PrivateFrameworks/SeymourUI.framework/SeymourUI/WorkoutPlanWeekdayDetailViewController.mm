@@ -29,8 +29,8 @@
   v4 = v5.receiver;
   [(WorkoutPlanWeekdayDetailViewController *)&v5 viewDidAppear:appearCopy];
   sub_20B589790();
-  sub_20B9EE6E8(&qword_27C768EF8);
-  sub_20B9EE6E8(&qword_27C768F00);
+  sub_20B9EE6E8(&qword_27C768EF8, &protocol conformance descriptor for WorkoutPlanWeekdayDetailViewController);
+  sub_20B9EE6E8(&qword_27C768F00, &protocol conformance descriptor for WorkoutPlanWeekdayDetailViewController);
   sub_20C139364();
 }
 
@@ -48,7 +48,7 @@
   [(WorkoutPlanWeekdayDetailViewController *)&v12 viewWillDisappear:disappearCopy];
   v11[1] = selfCopy;
   sub_20C132E84();
-  sub_20B9EE6E8(&qword_27C768EF8);
+  sub_20B9EE6E8(&qword_27C768EF8, &protocol conformance descriptor for WorkoutPlanWeekdayDetailViewController);
   sub_20C139274();
   (*(v7 + 8))(v9, v6);
 }
@@ -60,8 +60,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(WorkoutPlanWeekdayDetailViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20B9EE6E8(&qword_27C768EF8);
-  sub_20B9EE6E8(&qword_27C768F00);
+  sub_20B9EE6E8(&qword_27C768EF8, &protocol conformance descriptor for WorkoutPlanWeekdayDetailViewController);
+  sub_20B9EE6E8(&qword_27C768F00, &protocol conformance descriptor for WorkoutPlanWeekdayDetailViewController);
   sub_20C139374();
 }
 

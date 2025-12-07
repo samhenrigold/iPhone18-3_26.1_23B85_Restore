@@ -263,25 +263,25 @@ void __54__MOPromptManager_scheduleDatabaseUpgradeWithHandler___block_invoke(uin
 
 void __54__MOPromptManager_scheduleDatabaseUpgradeWithHandler___block_invoke_2(uint64_t a1, unint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEFAULT, "calling back from scheduleDatabaseUpgradeWithContext with status %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEFAULT, "calling back from scheduleDatabaseUpgradeWithContext with status %@", &v11, 0xCu);
   }
 
   if (a2 <= 4)
   {
     if (a2 == 2)
     {
-      v11 = *(a1 + 32);
-      if (v11)
+      v10 = *(a1 + 32);
+      if (v10)
       {
-        (*(v11 + 16))(v11, 2, v5);
+        (*(v10 + 16))(v10, 2, v5);
       }
     }
 
@@ -299,13 +299,11 @@ void __54__MOPromptManager_scheduleDatabaseUpgradeWithHandler___block_invoke_2(u
       v9 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_22D8C5000, v9, OS_LOG_TYPE_DEFAULT, "calling scheduleDatabaseUpgradeWithContext completed", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_22D8C5000, v9, OS_LOG_TYPE_DEFAULT, "calling scheduleDatabaseUpgradeWithContext completed", &v11, 2u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__MOPromptManager_scheduleDatabaseUpgradeWithHandler___block_invoke_208(uint64_t a1, uint64_t a2)
@@ -480,69 +478,65 @@ uint64_t __50__MOPromptManager_fetchEventsWithOptions_handler___block_invoke_212
 
 - (BOOL)setupPeriodicTimeToWriteMomentsNotificationsUsingDateComponents:(id)components defaultURL:(id)l handler:(id)handler
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CCA5B8];
-  v14 = *MEMORY[0x277CCA450];
-  v15[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
+  v13 = *MEMORY[0x277CCA450];
+  v14[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
   v8 = MEMORY[0x277CBEAC0];
   handlerCopy = handler;
-  v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v10 = [v8 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [v6 errorWithDomain:v7 code:1 userInfo:v10];
   (*(handler + 2))(handlerCopy, v11);
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)getTimeToWriteNotificationsScheduleWithHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277CCA5B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = @"Notification Scheduling SPIs deprecated, schedule is now handled internally within moments";
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = @"Notification Scheduling SPIs deprecated, schedule is now handled internally within moments";
   v6 = MEMORY[0x277CBEAC0];
   handlerCopy = handler;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v4 errorWithDomain:v5 code:1 userInfo:v8];
   (*(handler + 2))(handlerCopy, 0, 0, v9);
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)setupMomentsNotificationsWithSchedule:(id)schedule options:(id)options handler:(id)handler
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CCA5B8];
-  v14 = *MEMORY[0x277CCA450];
-  v15[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
+  v13 = *MEMORY[0x277CCA450];
+  v14[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
   v8 = MEMORY[0x277CBEAC0];
   handlerCopy = handler;
-  v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v10 = [v8 dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [v6 errorWithDomain:v7 code:1 userInfo:v10];
   (*(handler + 2))(handlerCopy, v11);
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (BOOL)getMomentsNotificationsSchedule:(id)schedule
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277CCA5B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = @"Notification Scheduling SPIs are deprecated, schedule is now handled internally within moments";
   v6 = MEMORY[0x277CBEAC0];
   scheduleCopy = schedule;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v4 errorWithDomain:v5 code:1 userInfo:v8];
   (*(schedule + 2))(scheduleCopy, 0, 0, v9);
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -611,7 +605,7 @@ void __58__MOPromptManager_fetchEventBundlesWithPredicate_handler___block_invoke
 
 void __58__MOPromptManager_fetchEventBundlesWithPredicate_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((*(*(a1 + 32) + 16))())
@@ -627,12 +621,10 @@ void __58__MOPromptManager_fetchEventBundlesWithPredicate_handler___block_invoke
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithPredicate completed found %@ bundles", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithPredicate completed found %@ bundles", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__MOPromptManager_fetchEventBundlesWithPredicate_handler___block_invoke_220(uint64_t a1, uint64_t a2)
@@ -686,7 +678,7 @@ uint64_t __58__MOPromptManager_fetchEventBundlesWithPredicate_handler___block_in
 
 void __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
@@ -696,30 +688,28 @@ void __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke(u
     v9 = *(v8 + 24) + 1;
     *(v8 + 24) = v9;
     *buf = 67109120;
-    v21 = v9;
+    v20 = v9;
     _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOptions (%d)", buf, 8u);
   }
 
   v10 = *(a1 + 32);
   v11 = [*(a1 + 40) context];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke_221;
-  v16[3] = &unk_278775B10;
-  v18 = v5;
-  v19 = *(a1 + 48);
-  v15 = *(a1 + 32);
-  v12 = v15.i64[0];
-  v17 = vextq_s8(v15, v15, 8uLL);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke_221;
+  v15[3] = &unk_278775B10;
+  v17 = v5;
+  v18 = *(a1 + 48);
+  v14 = *(a1 + 32);
+  v12 = v14.i64[0];
+  v16 = vextq_s8(v14, v14, 8uLL);
   v13 = v5;
-  [v6 fetchEventBundlesWithOptions:v10 withContext:v11 andHandler:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v6 fetchEventBundlesWithOptions:v10 withContext:v11 andHandler:v15];
 }
 
 void __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke_221(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((*(*(a1 + 48) + 16))() && *(a1 + 56))
@@ -732,12 +722,10 @@ void __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke_2
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOptions completed found %@ events", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_22D8C5000, v7, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOptions completed found %@ events", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__MOPromptManager_fetchEventBundlesWithOptions_handler___block_invoke_222(uint64_t a1, uint64_t a2)
@@ -824,7 +812,7 @@ void __119__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval
 
 void __119__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval_ascending_limit_respectOnboardingDates_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((*(*(a1 + 48) + 16))() && *(a1 + 56))
@@ -838,12 +826,10 @@ void __119__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOption completed found %@ eventBundles", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOption completed found %@ eventBundles", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __119__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval_ascending_limit_respectOnboardingDates_handler___block_invoke_225(uint64_t a1, uint64_t a2)
@@ -918,7 +904,7 @@ void __143__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval
 
 void __143__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval_ascending_limit_respectOnboardingDates_respectLearnFromThisApp_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ((*(*(a1 + 48) + 16))() && *(a1 + 56))
@@ -948,12 +934,10 @@ void __143__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v17 = 138412290;
-    v18 = v15;
-    _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOption completed found %@ eventBundles", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v15;
+    _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEFAULT, "calling fetchEventBundlesWithOption completed found %@ eventBundles", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __143__MOPromptManager_fetchEventBundlesWithAllowedSourceTypes_dateInterval_ascending_limit_respectOnboardingDates_respectLearnFromThisApp_handler___block_invoke_227(uint64_t a1, uint64_t a2)
@@ -1737,31 +1721,31 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
 
 - (void)_buildMetadataOnlyForEventBundles:(id)bundles
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bundlesCopy = bundles;
   v4 = objc_autoreleasePoolPush();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = bundlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [MOEventBundleMetaDataUtility buildMetaDataForEventBundle:v11, v17];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [MOEventBundleMetaDataUtility buildMetaDataForEventBundle:v11, v16];
         [v11 setMetaData:v12];
 
         metaData = [v11 metaData];
@@ -1771,7 +1755,7 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v7);
@@ -1787,65 +1771,64 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
   {
     v15 = [v5 count];
     *buf = 134218240;
-    v22 = v8;
-    v23 = 2048;
-    v24 = v15;
+    v21 = v8;
+    v22 = 2048;
+    v23 = v15;
     _os_log_impl(&dword_22D8C5000, v14, OS_LOG_TYPE_DEFAULT, "build metadata only, count, %lu, of, %lu", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildLabelsForEventBundles:(id)bundles
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   bundlesCopy = bundles;
   context = objc_autoreleasePoolPush();
-  v51 = objc_alloc_init(MOEventBundleLabelFormatter);
+  v50 = objc_alloc_init(MOEventBundleLabelFormatter);
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   obj = bundlesCopy;
-  v59 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
-  if (v59)
+  v58 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+  if (v58)
   {
-    v58 = *v65;
+    v57 = *v64;
     do
     {
-      for (i = 0; i != v59; ++i)
+      for (i = 0; i != v58; ++i)
       {
-        if (*v65 != v58)
+        if (*v64 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v64 + 1) + 8 * i);
+        v5 = *(*(&v63 + 1) + 8 * i);
         if ([v5 bundleSuperType] == 11)
         {
           [v5 setLabels:&unk_284100678];
           v6 = objc_opt_new();
+          v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
           resources = [v5 resources];
-          v8 = [resources countByEnumeratingWithState:&v60 objects:v76 count:16];
+          v8 = [resources countByEnumeratingWithState:&v59 objects:v75 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v61;
+            v10 = *v60;
             do
             {
               for (j = 0; j != v9; ++j)
               {
-                if (*v61 != v10)
+                if (*v60 != v10)
                 {
                   objc_enumerationMutation(resources);
                 }
 
-                v12 = *(*(&v60 + 1) + 8 * j);
+                v12 = *(*(&v59 + 1) + 8 * j);
                 name = [v12 name];
 
                 if (name)
@@ -1855,7 +1838,7 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
                 }
               }
 
-              v9 = [resources countByEnumeratingWithState:&v60 objects:v76 count:16];
+              v9 = [resources countByEnumeratingWithState:&v59 objects:v75 count:16];
             }
 
             while (v9);
@@ -1866,7 +1849,7 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             labels = [v5 labels];
-            v52 = [labels count];
+            v51 = [labels count];
             labels2 = [v5 labels];
             firstObject = [labels2 firstObject];
             mask = [firstObject mask];
@@ -1876,13 +1859,13 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
             firstObject2 = [promptLanguages2 firstObject];
             mask2 = [firstObject2 mask];
             *buf = 134218754;
-            v69 = v52;
-            v70 = 2112;
-            v71 = mask;
-            v72 = 2048;
-            v73 = v19;
-            v74 = 2112;
-            v75 = mask2;
+            v68 = v51;
+            v69 = 2112;
+            v70 = mask;
+            v71 = 2048;
+            v72 = v19;
+            v73 = 2112;
+            v74 = mask2;
             _os_log_impl(&dword_22D8C5000, v15, OS_LOG_TYPE_INFO, "build labels, labels, %lu, label, %@, prompts, %lu, prompt, %@", buf, 0x2Au);
           }
         }
@@ -1902,9 +1885,9 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
             {
               getBundleType = [v5 getBundleType];
               *buf = 138412546;
-              v69 = getBundleType;
-              v70 = 2112;
-              v71 = v5;
+              v68 = getBundleType;
+              v69 = 2112;
+              v70 = v5;
               _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_INFO, "build labels, bundleType, %@, event bundle, %@", buf, 0x16u);
             }
 
@@ -1914,18 +1897,18 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
               metaData2 = [v5 metaData];
               allKeys = [metaData2 allKeys];
               *buf = 138412290;
-              v69 = allKeys;
+              v68 = allKeys;
               _os_log_impl(&dword_22D8C5000, v27, OS_LOG_TYPE_INFO, "build labels, meta data, %@", buf, 0xCu);
             }
 
             metaData3 = [v5 metaData];
             getBundleType2 = [v5 getBundleType];
-            v32 = [(MOEventBundleLabelFormatter *)v51 formattedBundleLabelsForMetaData:metaData3 bundleType:getBundleType2];
+            v32 = [(MOEventBundleLabelFormatter *)v50 formattedBundleLabelsForMetaData:metaData3 bundleType:getBundleType2];
             [v5 setLabels:v32];
 
             metaData4 = [v5 metaData];
             getBundleType3 = [v5 getBundleType];
-            v35 = [(MOEventBundleLabelFormatter *)v51 formattedBundlePromptsForMetaData:metaData4 bundleType:getBundleType3];
+            v35 = [(MOEventBundleLabelFormatter *)v50 formattedBundlePromptsForMetaData:metaData4 bundleType:getBundleType3];
             [v5 setPromptLanguages:v35];
 
             labels3 = [v5 labels];
@@ -1952,13 +1935,13 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
               firstObject5 = [promptLanguages4 firstObject];
               mask4 = [firstObject5 mask];
               *buf = 134218754;
-              v69 = v40;
-              v70 = 2112;
-              v71 = mask3;
-              v72 = 2048;
-              v73 = v44;
-              v74 = 2112;
-              v75 = mask4;
+              v68 = v40;
+              v69 = 2112;
+              v70 = mask3;
+              v71 = 2048;
+              v72 = v44;
+              v73 = 2112;
+              v74 = mask4;
               _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_INFO, "build labels, labels, %lu, label, %@, prompts, %lu, prompt, %@", buf, 0x2Au);
             }
           }
@@ -1967,22 +1950,21 @@ uint64_t __61__MOPromptManager_uploadFeedbackWithDBStateToServer_handler___block
           {
             getBundleType4 = [v5 getBundleType];
             *buf = 138412546;
-            v69 = v5;
-            v70 = 2112;
-            v71 = getBundleType4;
+            v68 = v5;
+            v69 = 2112;
+            v70 = getBundleType4;
             _os_log_error_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_ERROR, "build labels, nil meta data, event bundle, %@, bundleType, %@", buf, 0x16u);
           }
         }
       }
 
-      v59 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+      v58 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
 
   objc_autoreleasePoolPop(context);
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)printEvergreenBundlesWithSeed:(unint64_t)seed handler:(id)handler
@@ -2118,7 +2100,7 @@ void __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke(uin
 
 void __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2127,18 +2109,16 @@ void __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke_2(u
     v6 = *(v5 + 24) + 1;
     *(v5 + 24) = v6;
     *buf = 67109120;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_22D8C5000, v4, OS_LOG_TYPE_DEFAULT, "MOPromptManager: calling(%d) getDiagnosticReporterConfiguration:handler", buf, 8u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke_256;
-  v8[3] = &unk_278775D18;
-  v9 = *(a1 + 32);
-  [v3 getDiagnosticReporterConfiguration:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke_256;
+  v7[3] = &unk_278775D18;
+  v8 = *(a1 + 32);
+  [v3 getDiagnosticReporterConfiguration:v7];
 }
 
 void __54__MOPromptManager_getDiagnosticReporterConfiguration___block_invoke_256(uint64_t a1, void *a2, void *a3)
@@ -2552,50 +2532,46 @@ uint64_t __50__MOPromptManager_printOnboardingStatusAnalytics___block_invoke_263
 
 - (void)testMomentsNotificationsWithOptions:(id)options handler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277CCA5B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = @"Test notifications Moments command deprecated and moved to MomentsUI";
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = @"Test notifications Moments command deprecated and moved to MomentsUI";
   v7 = MEMORY[0x277CBEAC0];
   handlerCopy = handler;
-  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v5 errorWithDomain:v6 code:1 userInfo:v9];
   (*(handler + 2))(handlerCopy, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerFeedbackAssistantFlow:(id)flow handler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   handlerCopy = handler;
   v8 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = flowCopy;
+    v18 = flowCopy;
     _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "calling triggerFeedbackAssistantFlow:%@", buf, 0xCu);
   }
 
   connectionManager = self->connectionManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__MOPromptManager_triggerFeedbackAssistantFlow_handler___block_invoke;
-  v15[3] = &unk_278775C00;
-  v16 = flowCopy;
-  v17 = handlerCopy;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__MOPromptManager_triggerFeedbackAssistantFlow_handler___block_invoke_268;
-  v13[3] = &unk_278773648;
-  v14 = v17;
-  v10 = v17;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __56__MOPromptManager_triggerFeedbackAssistantFlow_handler___block_invoke;
+  v14[3] = &unk_278775C00;
+  v15 = flowCopy;
+  v16 = handlerCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__MOPromptManager_triggerFeedbackAssistantFlow_handler___block_invoke_268;
+  v12[3] = &unk_278773648;
+  v13 = v16;
+  v10 = v16;
   v11 = flowCopy;
-  [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v15 onError:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v14 onError:v12];
 }
 
 void __56__MOPromptManager_triggerFeedbackAssistantFlow_handler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2955,11 +2931,10 @@ uint64_t __78__MOPromptManager_acquireBackgroundProcessingPermissionsForMomentsW
 
 void __54__MOPromptManager_setUpNotificationTimerWithFireDate___block_invoke_271_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "calling setUpNotificationTimerWithFireDate hit error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "calling setUpNotificationTimerWithFireDate hit error: %@", &v2, 0xCu);
 }
 
 @end

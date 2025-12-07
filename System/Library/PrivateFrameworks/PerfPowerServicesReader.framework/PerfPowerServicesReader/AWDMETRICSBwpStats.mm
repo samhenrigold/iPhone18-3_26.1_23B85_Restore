@@ -1,5 +1,6 @@
 @interface AWDMETRICSBwpStats
 - (BOOL)isEqual:(id)equal;
+- (id)bandwidthAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -56,6 +57,21 @@
   {
     return 0;
   }
+}
+
+- (id)bandwidthAsString:(int)string
+{
+  if (string >= 0x12)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10830[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBandwidth:(id)bandwidth
@@ -232,12 +248,11 @@ LABEL_11:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    scsSpacing = self->_scsSpacing;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -256,15 +271,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    bandwidth = self->_bandwidth;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

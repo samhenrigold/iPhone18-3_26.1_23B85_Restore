@@ -50,7 +50,7 @@
 
 - (NSDictionary)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionary = self->_dictionary;
   if (dictionary)
   {
@@ -60,9 +60,10 @@
   else
   {
     data = self->_data;
-    v26 = 0;
-    v5 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v26];
-    v6 = v26;
+    v27 = 0;
+    v5 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v27];
+    v6 = v27;
+    v7 = v6;
     if (v5)
     {
       objc_opt_class();
@@ -71,29 +72,29 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v29 = 0u;
         v30 = 0u;
-        v27 = 0u;
+        v31 = 0u;
         v28 = 0u;
+        v29 = 0u;
         allKeys = [(NSDictionary *)dictionary2 allKeys];
-        v8 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
-        if (v8)
+        v9 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+        if (v9)
         {
-          v9 = v8;
-          v10 = *v28;
+          v10 = v9;
+          v11 = *v29;
           while (2)
           {
-            for (i = 0; i != v9; ++i)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v28 != v10)
+              if (*v29 != v11)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v12 = *(*(&v27 + 1) + 8 * i);
+              v13 = *(*(&v28 + 1) + 8 * i);
               if (objc_opt_isKindOfClass())
               {
-                v13 = [(NSDictionary *)dictionary2 objectForKey:v12];
+                v14 = [(NSDictionary *)dictionary2 objectForKey:v13];
                 isKindOfClass = objc_opt_isKindOfClass();
 
                 if (isKindOfClass)
@@ -105,8 +106,8 @@
               goto LABEL_20;
             }
 
-            v9 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
-            if (v9)
+            v10 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+            if (v10)
             {
               continue;
             }
@@ -120,10 +121,10 @@
       {
 
 LABEL_20:
-        v22 = UVLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = UVLog(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [(UVPropertyList *)v22 dictionary];
+          [(UVPropertyList *)v24 dictionary];
         }
 
         dictionary = [MEMORY[0x277CBEAC0] dictionary];
@@ -134,17 +135,15 @@ LABEL_20:
 
     else
     {
-      v15 = UVLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = UVLog(v6);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(UVPropertyList *)v6 dictionary:v15];
+        [(UVPropertyList *)v7 dictionary:v16];
       }
 
       dictionary2 = [MEMORY[0x277CBEAC0] dictionary];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return dictionary2;
 }
@@ -160,15 +159,16 @@ LABEL_20:
   else
   {
     dictionary = self->_dictionary;
-    v14 = 0;
-    data = [MEMORY[0x277CCAC58] dataWithPropertyList:dictionary format:200 options:0 error:&v14];
-    v5 = v14;
+    v15 = 0;
+    data = [MEMORY[0x277CCAC58] dataWithPropertyList:dictionary format:200 options:0 error:&v15];
+    v5 = v15;
+    v6 = v5;
     if (!data)
     {
-      v6 = UVLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = UVLog(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(UVPropertyList *)v5 data:v6];
+        [(UVPropertyList *)v6 data:v7];
       }
 
       data = [MEMORY[0x277CBEA90] data];
@@ -219,23 +219,23 @@ LABEL_20:
 
 - (void)dictionary
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList data could not be deserialized: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList data could not be deserialized: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)data
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList dictionary could not be serialized: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList dictionary could not be serialized: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithXpcDictionary:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList XPC dictionary could not be serialized: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_25F533000, a2, a3, "UVPropertyList XPC dictionary could not be serialized: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

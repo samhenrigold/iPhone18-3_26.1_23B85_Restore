@@ -24,9 +24,9 @@
 
 - (NBSCBrailleTranslator)init
 {
-  v19.receiver = self;
-  v19.super_class = NBSCBrailleTranslator;
-  v2 = [(NBSCBrailleTranslator *)&v19 init];
+  v23.receiver = self;
+  v23.super_class = NBSCBrailleTranslator;
+  v2 = [(NBSCBrailleTranslator *)&v23 init];
   _initialized = 0;
   if (v2)
   {
@@ -36,52 +36,55 @@
     v5 = [resourcePath stringByAppendingString:@"/"];
     uTF8String = [v5 UTF8String];
 
-    if (Init(uTF8String))
+    v7 = Init(uTF8String);
+    if (v7)
     {
       _initialized = 0;
-      v7 = NBSCLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = NBSCLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_23478();
       }
     }
 
-    v8 = [NSBundle bundleForClass:objc_opt_class()];
-    v9 = [v8 pathForResource:@"HanKataToZenHira" ofType:@"plist"];
+    v9 = [NSBundle bundleForClass:objc_opt_class()];
+    v10 = [v9 pathForResource:@"HanKataToZenHira" ofType:@"plist"];
 
-    v10 = [NSDictionary dictionaryWithContentsOfFile:v9];
+    v11 = [NSDictionary dictionaryWithContentsOfFile:v10];
     hanKataToZenHira = v2->_hanKataToZenHira;
-    v2->_hanKataToZenHira = v10;
+    v2->_hanKataToZenHira = v11;
 
     if (!v2->_hanKataToZenHira)
     {
       _initialized = 0;
-      v12 = NBSCLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = NBSCLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_234E8();
       }
     }
 
-    v13 = [NSBundle bundleForClass:objc_opt_class()];
-    v14 = [v13 pathForResource:@"kan" ofType:@"dat"];
-    uTF8String2 = [v14 UTF8String];
+    v15 = [NSBundle bundleForClass:objc_opt_class()];
+    v16 = [v15 pathForResource:@"kan" ofType:@"dat"];
+    uTF8String2 = [v16 UTF8String];
 
-    if (CToText::Init(&v2->_brlToText, uTF8String2))
+    v18 = CToText::Init(&v2->_brlToText, uTF8String2);
+    if (v18)
     {
       _initialized = 0;
-      v16 = NBSCLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v19 = NBSCLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_2355C();
       }
     }
 
-    if (CToText::SetConvertMode(&v2->_brlToText, 0))
+    v20 = CToText::SetConvertMode(&v2->_brlToText, 0);
+    if (v20)
     {
       _initialized = 0;
-      v17 = NBSCLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = NBSCLog(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_235CC();
       }
@@ -95,67 +98,68 @@
 {
   textCopy = text;
   rangesCopy = ranges;
+  v25 = rangesCopy;
   if (_initialized)
   {
-    v8 = [[NSMutableData alloc] initWithCapacity:{8 * objc_msgSend(textCopy, "length")}];
+    v9 = [[NSMutableData alloc] initWithCapacity:{8 * objc_msgSend(textCopy, "length")}];
     for (i = 0; i < [textCopy length]; ++i)
     {
-      v32[0] = i;
-      [v8 appendBytes:v32 length:8];
+      v33[0] = i;
+      [v9 appendBytes:v33 length:8];
     }
 
-    v22 = [[BRLTEmojiPrintPreprocessor alloc] initWithPrimaryLanguageCode:@"ja-JP"];
-    v23 = objc_opt_new();
-    v10 = [[NSArray alloc] initWithObjects:{v22, v23, 0, v8}];
-    v25 = v8;
-    v11 = textCopy;
-    v28 = 0u;
+    v23 = [[BRLTEmojiPrintPreprocessor alloc] initWithPrimaryLanguageCode:@"ja-JP"];
+    v24 = objc_opt_new();
+    v11 = [[NSArray alloc] initWithObjects:{v23, v24, 0, v9}];
+    v26 = v9;
+    v12 = textCopy;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v13)
+    v32 = 0u;
+    v13 = v11;
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v14)
     {
-      v14 = *v29;
-      v15 = v25;
+      v15 = *v30;
+      v16 = v26;
       do
       {
-        v16 = 0;
-        v17 = v11;
-        v18 = v15;
+        v17 = 0;
+        v18 = v12;
+        v19 = v16;
         do
         {
-          if (*v29 != v14)
+          if (*v30 != v15)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * v16);
-          v27 = 0;
-          v11 = [v19 preprocessPrintString:v17 withLocationMap:&v27 isEightDot:1 textFormattingRanges:0];
-          v20 = v27;
+          v20 = *(*(&v29 + 1) + 8 * v17);
+          v28 = 0;
+          v12 = [v20 preprocessPrintString:v18 withLocationMap:&v28 isEightDot:1 textFormattingRanges:0];
+          v21 = v28;
 
-          v15 = [BRLTPreprocessorHelper mergeLocationMap:v18 withLocationMap:v20];
+          v16 = [BRLTPreprocessorHelper mergeLocationMap:v19 withLocationMap:v21];
 
-          v16 = v16 + 1;
-          v17 = v11;
-          v18 = v15;
+          v17 = v17 + 1;
+          v18 = v12;
+          v19 = v16;
         }
 
-        while (v13 != v16);
-        v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        while (v14 != v17);
+        v14 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     else
     {
-      v15 = v25;
+      v16 = v26;
     }
 
-    if ([v11 length])
+    if ([v12 length])
     {
       operator new[]();
     }
@@ -163,8 +167,8 @@
 
   else
   {
-    v25 = NBSCLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = NBSCLog(rangesCopy);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_2363C();
     }

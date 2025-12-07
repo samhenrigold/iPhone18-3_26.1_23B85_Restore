@@ -270,13 +270,11 @@ LABEL_22:
   storeID = self->_storeID;
   userIdentity = [(ICConnectionConfiguration *)self->_configuration userIdentity];
   globalPlaylistID = self->_globalPlaylistID;
-  contentTasteType = self->_contentTasteType;
-  v7 = ICNSStringForICMediaContentTaste();
-  contentTasteItem = self->_contentTasteItem;
-  v9 = ICNSStringForICMediaContentTasteItem();
-  v10 = [NSString stringWithFormat:@"ICCloudContentTasteUpdateItem (%p) storeID=%lld, identity=%@, globalPlaylistID=%@, contentTasteType=%@, contentTasteItem=%@, updateTimeStamp=%@", self, storeID, userIdentity, globalPlaylistID, v7, v9, self->_updateActionTimeStamp];
+  v6 = ICNSStringForICMediaContentTaste();
+  v7 = ICNSStringForICMediaContentTasteItem();
+  v8 = [NSString stringWithFormat:@"ICCloudContentTasteUpdateItem (%p) storeID=%lld, identity=%@, globalPlaylistID=%@, contentTasteType=%@, contentTasteItem=%@, updateTimeStamp=%@", self, storeID, userIdentity, globalPlaylistID, v6, v7, self->_updateActionTimeStamp];
 
-  return v10;
+  return v8;
 }
 
 - (ICCloudContentTasteUpdateItem)initWithGlobalPlaylistID:(id)d contentTaste:(int64_t)taste configuration:(id)configuration

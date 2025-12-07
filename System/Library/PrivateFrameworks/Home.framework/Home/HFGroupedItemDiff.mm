@@ -349,32 +349,32 @@ void __71__HFGroupedItemDiff__performItemDiffFromGroup_atIndex_toGroup_atIndex__
 
 - (id)_briefDescriptionForOperations:(id)operations type:(id)type
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   typeCopy = type;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v7 = operationsCopy;
   v8 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v12 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v12)
   {
-    v13 = *v29;
+    v13 = *v28;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
-        type = [*(*(&v28 + 1) + 8 * i) type];
+        type = [*(*(&v27 + 1) + 8 * i) type];
         if (type > 1)
         {
           if (type == 2)
@@ -402,26 +402,26 @@ void __71__HFGroupedItemDiff__performItemDiffFromGroup_atIndex_toGroup_atIndex__
         }
       }
 
-      v12 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v12);
   }
 
   string = [MEMORY[0x277CCAB68] string];
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x2020000000;
-  v27[3] = 0;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x2020000000;
+  v26[3] = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __57__HFGroupedItemDiff__briefDescriptionForOperations_type___block_invoke;
   aBlock[3] = &unk_277DFAA88;
   v17 = string;
-  v24 = v17;
-  v26 = v27;
+  v23 = v17;
+  v25 = v26;
   v18 = typeCopy;
-  v25 = v18;
+  v24 = v18;
   v19 = _Block_copy(aBlock);
   v19[2](v19, v11, @"inserted");
   v19[2](v19, v10, @"deleted");
@@ -429,8 +429,7 @@ void __71__HFGroupedItemDiff__performItemDiffFromGroup_atIndex_toGroup_atIndex__
   v19[2](v19, v8, @"reloaded");
   v20 = v17;
 
-  _Block_object_dispose(v27, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v26, 8);
 
   return v20;
 }
@@ -461,14 +460,14 @@ void __57__HFGroupedItemDiff__briefDescriptionForOperations_type___block_invoke(
 
 - (id)description
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   groupOperations = [(HFGroupedItemDiff *)self groupOperations];
   v4 = [(HFGroupedItemDiff *)self _briefDescriptionForOperations:groupOperations type:@"groups"];
-  v12[0] = v4;
+  v11[0] = v4;
   itemOperations = [(HFGroupedItemDiff *)self itemOperations];
   v6 = [(HFGroupedItemDiff *)self _briefDescriptionForOperations:itemOperations type:@"items"];
-  v12[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   if ([v7 count])
   {
@@ -481,8 +480,6 @@ void __57__HFGroupedItemDiff__briefDescriptionForOperations_type___block_invoke(
   }
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p %@>", objc_opt_class(), self, v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

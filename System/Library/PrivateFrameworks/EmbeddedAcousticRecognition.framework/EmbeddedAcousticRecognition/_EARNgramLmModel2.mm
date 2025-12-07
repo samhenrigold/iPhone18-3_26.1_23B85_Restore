@@ -56,7 +56,7 @@
   ptr = self->_ngramModel.__ptr_;
   if (directoryCopy)
   {
-    [directoryCopy ear_toString];
+    objc_msgSend_ear_toString(directoryCopy);
   }
 
   else
@@ -102,7 +102,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v6 = EarLmLogger();
+  v6 = EarLmLogger(classCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

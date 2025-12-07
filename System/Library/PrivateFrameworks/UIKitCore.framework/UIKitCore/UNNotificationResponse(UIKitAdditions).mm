@@ -32,9 +32,9 @@
           v8 = *(*(&v13 + 1) + 8 * i);
           session = [v8 session];
           persistentIdentifier = [session persistentIdentifier];
-          v11 = [persistentIdentifier isEqualToString:targetSceneIdentifier];
+          isEqualToString = objc_msgSend_isEqualToString_(persistentIdentifier);
 
-          if (v11)
+          if (isEqualToString)
           {
             v5 = v8;
             goto LABEL_12;

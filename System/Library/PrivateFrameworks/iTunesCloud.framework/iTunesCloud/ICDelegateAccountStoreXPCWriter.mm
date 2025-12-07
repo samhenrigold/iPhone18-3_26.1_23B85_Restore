@@ -419,9 +419,12 @@ void __45__ICDelegateAccountStoreXPCWriter_invalidate__block_invoke(uint64_t a1)
 
 uint64_t __60__ICDelegateAccountStoreXPCWriter_setExternalChangeHandler___block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 40) = MEMORY[0x1B8C781E0](*(a1 + 40));
+  v2 = MEMORY[0x1B8C781E0](*(a1 + 40));
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)externalChangeHandler
@@ -448,9 +451,12 @@ uint64_t __60__ICDelegateAccountStoreXPCWriter_setExternalChangeHandler___block_
 
 uint64_t __56__ICDelegateAccountStoreXPCWriter_externalChangeHandler__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = MEMORY[0x1B8C781E0](*(*(a1 + 32) + 40));
+  v2 = MEMORY[0x1B8C781E0](*(*(a1 + 32) + 40));
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)delegateAccountStoreDidChange

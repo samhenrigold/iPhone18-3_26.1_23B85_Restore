@@ -343,34 +343,35 @@ LABEL_10:
   v9 = SecItemCopyMatching(v7, &result);
   if (error && v9)
   {
-    *error = SecCopyLastError();
-    v10 = _AAFLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = SecCopyLastError();
+    *error = v10;
+    v11 = _AAFLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(AAFKeychainManager *)error _unsafe_fetchKeychainItemWithDescriptor:v10 error:v11, v12, v13, v14, v15, v16];
+      [(AAFKeychainManager *)error _unsafe_fetchKeychainItemWithDescriptor:v11 error:v12, v13, v14, v15, v16, v17];
     }
   }
 
-  if (result && (v17 = CFGetTypeID(result), v17 == CFDictionaryGetTypeID()))
+  if (result && (v18 = CFGetTypeID(result), v18 == CFDictionaryGetTypeID()))
   {
-    v18 = result;
-    v19 = [[AAFKeychainItem alloc] initWithAttributes:result];
-    descriptor = [(AAFKeychainItem *)v19 descriptor];
+    v19 = result;
+    v20 = [[AAFKeychainItem alloc] initWithAttributes:result];
+    descriptor = [(AAFKeychainItem *)v20 descriptor];
     itemClass = [descriptor itemClass];
 
     if (!itemClass)
     {
-      descriptor2 = [(AAFKeychainItem *)v19 descriptor];
+      descriptor2 = [(AAFKeychainItem *)v20 descriptor];
       [descriptor2 setItemClass:{objc_msgSend(descriptorCopy, "itemClass")}];
     }
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)_unsafe_fetchKeychainItemsWithDescriptor:(id)descriptor error:(id *)error
@@ -388,75 +389,74 @@ LABEL_10:
   v8 = SecItemCopyMatching(v6, &result);
   if (error && v8)
   {
-    *error = SecCopyLastError();
-    v9 = _AAFLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = SecCopyLastError();
+    *error = v9;
+    v10 = _AAFLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(AAFKeychainManager *)error _unsafe_fetchKeychainItemsWithDescriptor:v9 error:v10, v11, v12, v13, v14, v15];
+      [(AAFKeychainManager *)error _unsafe_fetchKeychainItemsWithDescriptor:v10 error:v11, v12, v13, v14, v15, v16];
     }
   }
 
-  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (result)
   {
-    v17 = CFGetTypeID(result);
-    if (v17 == CFArrayGetTypeID())
+    v18 = CFGetTypeID(result);
+    if (v18 == CFArrayGetTypeID())
     {
       v32 = v6;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v18 = result;
-      v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v19)
+      v19 = result;
+      v20 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v21 = *v35;
+        v21 = v20;
+        v22 = *v35;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v35 != v21)
+            if (*v35 != v22)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            v23 = *(*(&v34 + 1) + 8 * i);
+            v24 = *(*(&v34 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = v23;
-              v25 = [[AAFKeychainItem alloc] initWithAttributes:v24];
+              v25 = v24;
+              v26 = [[AAFKeychainItem alloc] initWithAttributes:v25];
 
-              descriptor = [(AAFKeychainItem *)v25 descriptor];
+              descriptor = [(AAFKeychainItem *)v26 descriptor];
               itemClass = [descriptor itemClass];
 
               if (!itemClass)
               {
-                descriptor2 = [(AAFKeychainItem *)v25 descriptor];
+                descriptor2 = [(AAFKeychainItem *)v26 descriptor];
                 [descriptor2 setItemClass:{objc_msgSend(descriptorCopy, "itemClass")}];
               }
 
-              [v16 addObject:{v25, v32}];
+              [v17 addObject:{v26, v32}];
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
       v6 = v32;
     }
   }
 
-  v29 = [v16 copy];
+  v30 = [v17 copy];
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v30;
 }
 
 - (BOOL)_unsafe_deleteKeychainItemWithDescriptor:(id)descriptor error:(id *)error
@@ -466,11 +466,12 @@ LABEL_10:
   v7 = v6;
   if (error && v6)
   {
-    *error = SecCopyLastError();
-    v8 = _AAFLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = SecCopyLastError();
+    *error = v8;
+    v9 = _AAFLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(AAFKeychainManager *)error _unsafe_deleteKeychainItemWithDescriptor:v8 error:v9, v10, v11, v12, v13, v14];
+      [(AAFKeychainManager *)error _unsafe_deleteKeychainItemWithDescriptor:v9 error:v10, v11, v12, v13, v14, v15];
     }
   }
 
@@ -479,26 +480,23 @@ LABEL_10:
 
 - (void)_unsafe_fetchKeychainItemWithDescriptor:(uint64_t)a3 error:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error fetching keychain item - %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error fetching keychain item - %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_unsafe_fetchKeychainItemsWithDescriptor:(uint64_t)a3 error:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error fetching keychain items - %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error fetching keychain items - %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_unsafe_deleteKeychainItemWithDescriptor:(uint64_t)a3 error:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error deleting keychain items - %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C8644000, a2, a3, "Error deleting keychain items - %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -18,7 +18,7 @@
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC0F0B0, &qword_1DB0A2820);
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ODINFHardwareMonitor();
+  v6.super_class = type metadata accessor for ODINFHardwareMonitor(0);
   return [(ODINFHardwareMonitor *)&v6 init];
 }
 

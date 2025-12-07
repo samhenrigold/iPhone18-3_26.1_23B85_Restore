@@ -10,44 +10,44 @@
   if (stringCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = [stringCopy length];
-      if (v6 >= length)
+      v7 = [stringCopy length];
+      if (v7 >= length)
       {
         lengthCopy = length;
       }
 
       else
       {
-        lengthCopy = v6;
+        lengthCopy = v7;
       }
 
-      v8 = [stringCopy rangeOfComposedCharacterSequencesForRange:{0, lengthCopy}];
-      v10 = [stringCopy substringWithRange:{v8, v9}];
+      v9 = [stringCopy rangeOfComposedCharacterSequencesForRange:{0, lengthCopy}];
+      v11 = [stringCopy substringWithRange:{v9, v10}];
       goto LABEL_11;
     }
 
-    v11 = LACLogDefault();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LACLogDefault(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [LACStringHelper truncateString:stringCopy maxLength:v11];
+      [LACStringHelper truncateString:stringCopy maxLength:v12];
     }
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 + (void)truncateString:(uint64_t)a1 maxLength:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Invalid string (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Invalid string (%@)", &v2, 0xCu);
 }
 
 @end

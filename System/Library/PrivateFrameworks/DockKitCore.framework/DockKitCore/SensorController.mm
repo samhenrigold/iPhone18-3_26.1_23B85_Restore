@@ -30,7 +30,7 @@
 
 - (void)getSensorDataWithSensors:(NSArray *)sensors delegate:(_TtP11DockKitCore23XPCSensorClientProtocol_ *)delegate occurrence:(int64_t)occurrence completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v21 - v12;
   v14 = _Block_copy(handler);
@@ -60,7 +60,7 @@
 
 - (void)stopSensorDataWithSensors:(NSArray *)sensors completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -87,7 +87,7 @@
 
 - (void)setSensorStateWithSensors:(NSArray *)sensors states:(NSArray *)states completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

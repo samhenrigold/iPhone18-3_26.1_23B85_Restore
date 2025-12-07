@@ -2,8 +2,8 @@
 - (CGPath)bottomLeftQuiltPathRef;
 - (CGPath)topQuiltPathRef;
 - (UPQuiltViewPhone)initWithFrame:(CGRect)frame;
-- (uint64_t)bottomRightQuiltPathRef;
-- (uint64_t)intersectionPiecePathRef;
+- (id)bottomRightQuiltPathRef;
+- (id)intersectionPiecePathRef;
 - (void)cleanupQuiltPaths;
 - (void)dealloc;
 - (void)layoutSubviews;
@@ -244,11 +244,11 @@
   }
 }
 
-- (uint64_t)intersectionPiecePathRef
+- (id)intersectionPiecePathRef
 {
   if (result)
   {
-    presentationLayer = [*(result + 560) presentationLayer];
+    presentationLayer = [result[70] presentationLayer];
     path = [presentationLayer path];
 
     return path;
@@ -257,11 +257,11 @@
   return result;
 }
 
-- (uint64_t)bottomRightQuiltPathRef
+- (id)bottomRightQuiltPathRef
 {
   if (result)
   {
-    presentationLayer = [*(result + 576) presentationLayer];
+    presentationLayer = [result[72] presentationLayer];
     path = [presentationLayer path];
 
     return path;

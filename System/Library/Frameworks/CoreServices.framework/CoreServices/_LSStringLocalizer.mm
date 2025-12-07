@@ -7,9 +7,14 @@
 + (id)localizedStringsForCanonicalString:(id)string context:(LSContext *)context;
 + (id)newFrameworkBundleLocalizer;
 + (void)findKeysToLocalizeInInfoDictionary:(id)dictionary forArrayKey:(__CFString *)key stringKeys:(id)keys localizedKeys:(id)localizedKeys;
++ (void)gatherLocalizedStringsForCFBundle:(__CFBundle *)bundle infoDictionary:(id)dictionary domains:(unsigned int)domains delegatesMightBeMainBundle:(BOOL)mainBundle legacyLocalizationList:(BOOL)list;
++ (void)gatherLocalizedStringsForLSBundleProvider:(id)provider infoDictionary:(id)dictionary domains:(unsigned int)domains delegatesMightBeMainBundle:(BOOL)bundle legacyLocalizationList:(BOOL)list;
 + (void)newFrameworkBundleLocalizer;
 + (void)setPreferredLocalizationsForXCTests:(id)tests;
 - (_LSStringLocalizer)initWithBundleProvider:(id)provider stringsFile:(id)file legacyLocalizationList:(BOOL)list;
+- (_LSStringLocalizer)initWithBundleURL:(id)l stringsFile:(id)file checkMainBundle:(BOOL)bundle legacyLocalizationList:(BOOL)list;
+- (_LSStringLocalizer)initWithCFBundle:(__CFBundle *)bundle stringsFile:(id)file legacyLocalizationList:(BOOL)list;
+- (_LSStringLocalizer)initWithDatabase:(id)database bundleUnit:(unsigned int)unit delegate:(unsigned int)delegate;
 - (_LSStringLocalizer)initWithDatabase:(id)database pluginUnit:(unsigned int)unit;
 - (id)debugDescription;
 - (id)localizedStringDictionaryWithString:(id)string defaultValue:(id)value;
@@ -25,11 +30,11 @@
 
 + (id)newFrameworkBundleLocalizer
 {
-  v2 = _LSGetBundle();
+  v2 = _LSGetBundle(self, a2);
   if (!v2 || (v3 = [[_LSStringLocalizer alloc] initWithCFBundle:v2 stringsFile:@"Localized"]) == 0)
   {
     v3 = objc_alloc_init(_LSStringLocalizer);
-    v4 = _LSDefaultLog();
+    v4 = _LSDefaultLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       +[(_LSStringLocalizer *)v3];
@@ -51,15 +56,72 @@
   return v3;
 }
 
+- (_LSStringLocalizer)initWithBundleURL:(id)l stringsFile:(id)file checkMainBundle:(BOOL)bundle legacyLocalizationList:(BOOL)list
+{
+  listCopy = list;
+  bundleCopy = bundle;
+  lCopy = l;
+  fileCopy = file;
+  v12 = objc_autoreleasePoolPush();
+  v13 = v12;
+  if (!lCopy || !bundleCopy)
+  {
+    if (!lCopy)
+    {
+      v19 = 0;
+      goto LABEL_9;
+    }
+
+LABEL_7:
+    v18 = [[_LSBundleProvider alloc] initWithURL:lCopy useCacheIfPossible:1];
+    v19 = [(_LSStringLocalizer *)self initWithBundleProvider:v18 stringsFile:fileCopy legacyLocalizationList:listCopy];
+    self = v18;
+LABEL_9:
+
+    v17 = v19;
+    goto LABEL_10;
+  }
+
+  v14 = _LSGetMainBundleURL(v12);
+  v15 = v14;
+  if (!v14)
+  {
+    goto LABEL_7;
+  }
+
+  v16 = [v14 isEqual:lCopy];
+
+  if (!v16)
+  {
+    goto LABEL_7;
+  }
+
+  v17 = [(_LSStringLocalizer *)self initWithCFBundle:CFBundleGetMainBundle() stringsFile:fileCopy legacyLocalizationList:listCopy];
+LABEL_10:
+  objc_autoreleasePoolPop(v13);
+
+  return v17;
+}
+
+- (_LSStringLocalizer)initWithCFBundle:(__CFBundle *)bundle stringsFile:(id)file legacyLocalizationList:(BOOL)list
+{
+  listCopy = list;
+  fileCopy = file;
+  v9 = [[_LSBundleProvider alloc] initWithCFBundle:bundle];
+  v10 = [(_LSStringLocalizer *)self initWithBundleProvider:v9 stringsFile:fileCopy legacyLocalizationList:listCopy];
+
+  return v10;
+}
+
 - (_LSStringLocalizer)initWithBundleProvider:(id)provider stringsFile:(id)file legacyLocalizationList:(BOOL)list
 {
   listCopy = list;
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   fileCopy = file;
-  v57.receiver = self;
-  v57.super_class = _LSStringLocalizer;
-  v11 = [(_LSStringLocalizer *)&v57 init];
+  v58.receiver = self;
+  v58.super_class = _LSStringLocalizer;
+  v11 = [(_LSStringLocalizer *)&v58 init];
   v12 = v11;
   if (!v11)
   {
@@ -85,7 +147,7 @@
     }
 
 LABEL_25:
-    v41 = *p_bundleLocalizations;
+    v42 = *p_bundleLocalizations;
     v19 = @"en";
     goto LABEL_26;
   }
@@ -112,9 +174,9 @@ LABEL_25:
         goto LABEL_7;
       }
 
-      v39 = [_LSLazyPropertyList lazyPropertyListWithPropertyListURL:bundleProvider4];
+      v40 = [_LSLazyPropertyList lazyPropertyListWithPropertyListURL:bundleProvider4];
       unlocalizedInfoPlistStrings = v12->_unlocalizedInfoPlistStrings;
-      v12->_unlocalizedInfoPlistStrings = v39;
+      v12->_unlocalizedInfoPlistStrings = v40;
     }
 
     else
@@ -136,42 +198,48 @@ LABEL_8:
   bundleLocalizations = v12->_bundleLocalizations;
   v12->_bundleLocalizations = v28;
 
-  if (listCopy && v19 && [*p_bundleLocalizations containsObject:v19])
+  if (listCopy)
   {
-    v31 = _LSDefaultLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    if (v19)
     {
-      *buf = 138412290;
-      v59 = providerCopy;
-      _os_log_impl(&dword_18162D000, v31, OS_LOG_TYPE_DEFAULT, "Applying legacy localization list behavior to bundle %@", buf, 0xCu);
-    }
-
-    bundleProvider6 = [(_LSStringLocalizer *)v12 bundleProvider];
-    bundleURL = [bundleProvider6 bundleURL];
-    v34 = *MEMORY[0x1E695E480];
-    Unique = _CFBundleCreateUnique();
-
-    if (Unique)
-    {
-      v36 = MEMORY[0x1865D5B20](Unique, 1);
-      v37 = [v36 copy];
-      v38 = *p_bundleLocalizations;
-      *p_bundleLocalizations = v37;
-
-      CFRelease(Unique);
-    }
-
-    else
-    {
-      v40 = _LSDefaultLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v31 = [*p_bundleLocalizations containsObject:v19];
+      if (v31)
       {
-        [_LSStringLocalizer initWithBundleProvider:v40 stringsFile:? legacyLocalizationList:?];
+        v32 = _LSDefaultLog(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v60 = providerCopy;
+          _os_log_impl(&dword_18162D000, v32, OS_LOG_TYPE_DEFAULT, "Applying legacy localization list behavior to bundle %@", buf, 0xCu);
+        }
+
+        bundleProvider6 = [(_LSStringLocalizer *)v12 bundleProvider];
+        bundleURL = [bundleProvider6 bundleURL];
+        Unique = _CFBundleCreateUnique();
+
+        if (Unique)
+        {
+          v37 = MEMORY[0x1865D5B20](Unique, 1);
+          v38 = [v37 copy];
+          v39 = *p_bundleLocalizations;
+          *p_bundleLocalizations = v38;
+
+          CFRelease(Unique);
+        }
+
+        else
+        {
+          v41 = _LSDefaultLog(v36);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            [_LSStringLocalizer initWithBundleProvider:v41 stringsFile:? legacyLocalizationList:?];
+          }
+        }
       }
     }
   }
 
-  v41 = *p_bundleLocalizations;
+  v42 = *p_bundleLocalizations;
   if (!*p_bundleLocalizations)
   {
     goto LABEL_33;
@@ -183,55 +251,55 @@ LABEL_8:
   }
 
 LABEL_26:
-  v42 = [v41 indexOfObject:v19];
-  v43 = v42;
-  if (v42)
+  v43 = [v42 indexOfObject:v19];
+  v45 = v43;
+  if (v43)
   {
-    if (v42 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v43 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v44 = _LSDefaultLog();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v46 = _LSDefaultLog(0x7FFFFFFFFFFFFFFFLL);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         bundleProvider7 = [(_LSStringLocalizer *)v12 bundleProvider];
         bundleURL2 = [bundleProvider7 bundleURL];
         *buf = 138543619;
-        v59 = v19;
-        v60 = 2113;
-        v61 = bundleURL2;
-        _os_log_error_impl(&dword_18162D000, v44, OS_LOG_TYPE_ERROR, "LSStringLocalizer development region %{public}@ not found in localizations available for bundle %{private}@", buf, 0x16u);
+        v60 = v19;
+        v61 = 2113;
+        v62 = bundleURL2;
+        _os_log_error_impl(&dword_18162D000, v46, OS_LOG_TYPE_ERROR, "LSStringLocalizer development region %{public}@ not found in localizations available for bundle %{private}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v44 = [*p_bundleLocalizations mutableCopy];
-      [v44 removeObjectAtIndex:v43];
-      [v44 insertObject:v19 atIndex:0];
-      v47 = [v44 copy];
-      v48 = *p_bundleLocalizations;
-      *p_bundleLocalizations = v47;
+      v46 = [*p_bundleLocalizations mutableCopy];
+      [v46 removeObjectAtIndex:v45];
+      [v46 insertObject:v19 atIndex:0];
+      v49 = [v46 copy];
+      v50 = *p_bundleLocalizations;
+      *p_bundleLocalizations = v49;
     }
   }
 
-  v49 = *p_bundleLocalizations;
+  v51 = *p_bundleLocalizations;
   if (*p_bundleLocalizations)
   {
     goto LABEL_34;
   }
 
 LABEL_33:
-  v50 = *p_bundleLocalizations;
+  v52 = *p_bundleLocalizations;
   *p_bundleLocalizations = MEMORY[0x1E695E0F0];
 
-  v49 = *p_bundleLocalizations;
+  v51 = *p_bundleLocalizations;
   if (*p_bundleLocalizations)
   {
 LABEL_34:
-    preferredLocalizations = [__LSDefaultsGetSharedInstance() preferredLocalizations];
-    v52 = CFBundleCopyLocalizationsForPreferences(v49, preferredLocalizations);
-    v53 = [(__CFArray *)v52 copy];
+    v53 = [__LSDefaultsGetSharedInstance(v43 v44)];
+    v54 = CFBundleCopyLocalizationsForPreferences(v51, v53);
+    v55 = [(__CFArray *)v54 copy];
     bundleLocalizationsWithDefaultPrefLocs = v12->_bundleLocalizationsWithDefaultPrefLocs;
-    v12->_bundleLocalizationsWithDefaultPrefLocs = v53;
+    v12->_bundleLocalizationsWithDefaultPrefLocs = v55;
   }
 
   if (!v12->_bundleLocalizationsWithDefaultPrefLocs)
@@ -242,7 +310,6 @@ LABEL_34:
   objc_autoreleasePoolPop(v15);
 LABEL_38:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -282,10 +349,10 @@ LABEL_38:
 
 - (id)localizedStringsWithStrings:(id)strings preferredLocalizations:(id)localizations
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   localizationsCopy = localizations;
-  v22 = stringsCopy;
+  v21 = stringsCopy;
   if (!stringsCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -297,25 +364,25 @@ LABEL_38:
   cfBundleRef = [(_LSBundleProvider *)self->_bundleProvider cfBundleRef];
   if (cfBundleRef)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v11 = stringsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
-      v13 = *v24;
+      v13 = *v23;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           v16 = [(_LSStringLocalizer *)self localizedStringWithString:v15 inBundle:cfBundleRef preferredLocalizations:localizationsCopy];
           if (v16)
           {
@@ -323,7 +390,7 @@ LABEL_38:
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v12);
@@ -333,17 +400,16 @@ LABEL_38:
   v17 = [v9 copy];
 
   objc_autoreleasePoolPop(context);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)localizedStringDictionaryWithString:(id)string defaultValue:(id)value
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   valueCopy = value;
-  v26 = stringCopy;
+  v25 = stringCopy;
   if (!stringCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -351,33 +417,33 @@ LABEL_38:
   }
 
   context = objc_autoreleasePoolPush();
-  v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
   bundleProvider = [(_LSStringLocalizer *)self bundleProvider];
   cfBundleRef = [bundleProvider cfBundleRef];
 
   if (cfBundleRef)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = self->_bundleLocalizations;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v11)
     {
-      v12 = *v28;
+      v12 = *v27;
       v13 = *MEMORY[0x1E695E480];
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
-          v16 = [(_LSStringLocalizer *)self localizedStringWithString:v26 inBundle:cfBundleRef localeCode:v15];
+          v15 = *(*(&v26 + 1) + 8 * i);
+          v16 = [(_LSStringLocalizer *)self localizedStringWithString:v25 inBundle:cfBundleRef localeCode:v15];
           if (v16)
           {
             CanonicalLanguageIdentifierFromString = CFLocaleCreateCanonicalLanguageIdentifierFromString(v13, v15);
@@ -392,11 +458,11 @@ LABEL_38:
               v19 = v15;
             }
 
-            [v25 setObject:v16 forKeyedSubscript:v19];
+            [v24 setObject:v16 forKeyedSubscript:v19];
           }
         }
 
-        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v11);
@@ -405,22 +471,20 @@ LABEL_38:
 
   if (valueCopy)
   {
-    [v25 setObject:valueCopy forKeyedSubscript:@"LSDefaultLocalizedValue"];
+    [v24 setObject:valueCopy forKeyedSubscript:@"LSDefaultLocalizedValue"];
   }
 
   objc_autoreleasePoolPop(context);
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 - (void)enumerateLocalizedStringsForKeys:(id)keys usingBlock:(id)block
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   blockCopy = block;
-  v73 = keysCopy;
+  v74 = keysCopy;
   selfCopy = self;
   if (!blockCopy)
   {
@@ -429,208 +493,209 @@ LABEL_38:
   }
 
   context = objc_autoreleasePoolPush();
-  if ([(NSArray *)self->_bundleLocalizations count])
+  v8 = [(NSArray *)self->_bundleLocalizations count];
+  if (v8)
   {
-    isRegionChina = [__LSDefaultsGetSharedInstance() isRegionChina];
-    v9 = isRegionChina ^ 1;
+    v10 = [__LSDefaultsGetSharedInstance(v8 v9)];
+    v11 = v10 ^ 1;
     if (!keysCopy)
     {
-      v9 = 1;
+      v11 = 1;
     }
 
-    v76 = isRegionChina;
-    if (v9)
+    v77 = v10;
+    if (v11)
     {
-      v72 = 0;
+      v73 = 0;
     }
 
     else
     {
-      v10 = objc_autoreleasePoolPush();
-      v11 = [keysCopy mutableCopy];
-      v92 = 0u;
+      v12 = objc_autoreleasePoolPush();
+      v13 = [keysCopy mutableCopy];
       v93 = 0u;
-      v90 = 0u;
+      v94 = 0u;
       v91 = 0u;
-      v12 = keysCopy;
-      v13 = [v12 countByEnumeratingWithState:&v90 objects:v99 count:16];
-      if (v13)
+      v92 = 0u;
+      v14 = keysCopy;
+      v15 = [v14 countByEnumeratingWithState:&v91 objects:v100 count:16];
+      if (v15)
       {
-        v14 = *v91;
+        v16 = *v92;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v91 != v14)
+            if (*v92 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            v16 = [*(*(&v90 + 1) + 8 * i) stringByAppendingString:@"#CH"];
-            [v11 addObject:v16];
+            v18 = [*(*(&v91 + 1) + 8 * i) stringByAppendingString:@"#CH"];
+            [v13 addObject:v18];
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v90 objects:v99 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v91 objects:v100 count:16];
         }
 
-        while (v13);
+        while (v15);
       }
 
-      v72 = [v11 copy];
-      objc_autoreleasePoolPop(v10);
+      v73 = [v13 copy];
+      objc_autoreleasePoolPop(v12);
     }
 
-    v17 = objc_autoreleasePoolPush();
-    v18 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v19 = objc_autoreleasePoolPush();
+    v20 = objc_alloc(MEMORY[0x1E696AEC0]);
     bundleProvider = [(_LSStringLocalizer *)selfCopy bundleProvider];
     bundleURL = [bundleProvider bundleURL];
     path = [bundleURL path];
-    v22 = [v18 initWithFormat:@"Reading localized string from %@", path];
+    v24 = [v20 initWithFormat:@"Reading localized string from %@", path];
     if (_LSLoggingQueue(void)::onceToken != -1)
     {
       [_LSStringLocalizer enumerateLocalizedStringsForKeys:usingBlock:];
     }
 
-    v23 = _LSLoggingQueue(void)::logQueue;
+    v25 = _LSLoggingQueue(void)::logQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = ___ZL18_LSSetCrashMessageP8NSString_block_invoke_1;
     block[3] = &unk_1E6A1A830;
-    v95 = v22;
-    v24 = v22;
-    dispatch_sync(v23, block);
+    v96 = v24;
+    v26 = v24;
+    dispatch_sync(v25, block);
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v19);
+    v76 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v75 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v74 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v88 = 0u;
     v89 = 0u;
-    v86 = 0u;
+    v90 = 0u;
     v87 = 0u;
+    v88 = 0u;
     obj = selfCopy->_bundleLocalizations;
-    v69 = [(NSArray *)obj countByEnumeratingWithState:&v86 objects:v98 count:16];
-    if (v69)
+    v70 = [(NSArray *)obj countByEnumeratingWithState:&v87 objects:v99 count:16];
+    if (v70)
     {
-      v67 = *v87;
+      v68 = *v88;
       do
       {
-        v25 = 0;
+        v27 = 0;
         do
         {
-          if (*v87 != v67)
+          if (*v88 != v68)
           {
             objc_enumerationMutation(obj);
           }
 
-          v70 = v25;
-          v26 = *(*(&v86 + 1) + 8 * v25);
-          v27 = objc_autoreleasePoolPush();
-          v28 = v72;
-          if (!v72)
-          {
-            v28 = v73;
-          }
-
+          v71 = v27;
+          v28 = *(*(&v87 + 1) + 8 * v27);
+          v29 = objc_autoreleasePoolPush();
+          v30 = v73;
           if (!v73)
           {
-            v28 = 0;
+            v30 = v74;
           }
 
-          v29 = v28;
+          if (!v74)
+          {
+            v30 = 0;
+          }
+
+          v31 = v30;
           stringsContent = selfCopy->_stringsContent;
           bundleProvider2 = [(_LSStringLocalizer *)selfCopy bundleProvider];
-          v32 = -[_LSStringsFileContent uncheckedObjectsForKeys:forLocaleCode:fromBundle:cacheLocalizations:](stringsContent, v29, v26, [bundleProvider2 cfBundleRef], selfCopy->_bundleLocalizationsWithDefaultPrefLocs);
+          v34 = -[_LSStringsFileContent uncheckedObjectsForKeys:forLocaleCode:fromBundle:cacheLocalizations:](stringsContent, v31, v28, [bundleProvider2 cfBundleRef], selfCopy->_bundleLocalizationsWithDefaultPrefLocs);
 
-          if (v32)
+          if (v34)
           {
-            v33 = v73 != 0;
+            v35 = v74 != 0;
           }
 
           else
           {
-            v33 = 1;
+            v35 = 1;
           }
 
-          if (!v33)
+          if (!v35)
           {
-            v34 = MEMORY[0x1E695DFD8];
-            allKeys = [v32 allKeys];
-            v36 = allKeys;
+            v36 = MEMORY[0x1E695DFD8];
+            allKeys = [v34 allKeys];
+            v38 = allKeys;
             if (allKeys)
             {
-              v37 = allKeys;
+              v39 = allKeys;
             }
 
             else
             {
-              v37 = MEMORY[0x1E695E0F0];
+              v39 = MEMORY[0x1E695E0F0];
             }
 
-            v73 = [v34 setWithArray:v37];
+            v74 = [v36 setWithArray:v39];
           }
 
-          objc_autoreleasePoolPop(v27);
-          if (v32)
+          objc_autoreleasePoolPop(v29);
+          if (v34)
           {
-            v84 = 0u;
             v85 = 0u;
-            v82 = 0u;
+            v86 = 0u;
             v83 = 0u;
-            v38 = v73;
-            v39 = [v38 countByEnumeratingWithState:&v82 objects:v97 count:16];
-            if (!v39)
+            v84 = 0u;
+            v40 = v74;
+            v41 = [v40 countByEnumeratingWithState:&v83 objects:v98 count:16];
+            if (!v41)
             {
               goto LABEL_54;
             }
 
-            v40 = *v83;
+            v42 = *v84;
             while (1)
             {
-              for (j = 0; j != v39; ++j)
+              for (j = 0; j != v41; ++j)
               {
-                if (*v83 != v40)
+                if (*v84 != v42)
                 {
-                  objc_enumerationMutation(v38);
+                  objc_enumerationMutation(v40);
                 }
 
-                v42 = *(*(&v82 + 1) + 8 * j);
-                v43 = objc_autoreleasePoolPush();
-                if (v76 && ([v42 stringByAppendingString:@"#CH"], v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "objectForKeyedSubscript:", v44), v45 = objc_claimAutoreleasedReturnValue(), v44, v45) || (objc_msgSend(v32, "objectForKeyedSubscript:", v42), (v45 = objc_claimAutoreleasedReturnValue()) != 0))
+                v44 = *(*(&v83 + 1) + 8 * j);
+                v45 = objc_autoreleasePoolPush();
+                if (v77 && ([v44 stringByAppendingString:@"#CH"], v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "objectForKeyedSubscript:", v46), v47 = objc_claimAutoreleasedReturnValue(), v46, v47) || (objc_msgSend(v34, "objectForKeyedSubscript:", v44), (v47 = objc_claimAutoreleasedReturnValue()) != 0))
                 {
                   if (!_NSIsNSString())
                   {
                     goto LABEL_52;
                   }
 
-                  v46 = [v75 objectForKeyedSubscript:v42];
-                  if (!v46)
+                  v48 = [v76 objectForKeyedSubscript:v44];
+                  if (!v48)
                   {
-                    v46 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                    [v75 setObject:v46 forKeyedSubscript:v42];
+                    v48 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                    [v76 setObject:v48 forKeyedSubscript:v44];
                   }
 
-                  [v46 setObject:v45 forKeyedSubscript:v26];
+                  [v48 setObject:v47 forKeyedSubscript:v28];
                 }
 
                 else
                 {
-                  v46 = [v74 objectForKeyedSubscript:v42];
-                  if (!v46)
+                  v48 = [v75 objectForKeyedSubscript:v44];
+                  if (!v48)
                   {
-                    v46 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-                    [v74 setObject:v46 forKeyedSubscript:v42];
+                    v48 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+                    [v75 setObject:v48 forKeyedSubscript:v44];
                   }
 
-                  [v46 addObject:v26];
-                  v45 = 0;
+                  [v48 addObject:v28];
+                  v47 = 0;
                 }
 
 LABEL_52:
-                objc_autoreleasePoolPop(v43);
+                objc_autoreleasePoolPop(v45);
               }
 
-              v39 = [v38 countByEnumeratingWithState:&v82 objects:v97 count:16];
-              if (!v39)
+              v41 = [v40 countByEnumeratingWithState:&v83 objects:v98 count:16];
+              if (!v41)
               {
 LABEL_54:
 
@@ -639,14 +704,14 @@ LABEL_54:
             }
           }
 
-          v25 = v70 + 1;
+          v27 = v71 + 1;
         }
 
-        while (v70 + 1 != v69);
-        v69 = [(NSArray *)obj countByEnumeratingWithState:&v86 objects:v98 count:16];
+        while (v71 + 1 != v70);
+        v70 = [(NSArray *)obj countByEnumeratingWithState:&v87 objects:v99 count:16];
       }
 
-      while (v69);
+      while (v70);
     }
 
     if (_LSLoggingQueue(void)::onceToken != -1)
@@ -655,57 +720,57 @@ LABEL_54:
     }
 
     dispatch_sync(_LSLoggingQueue(void)::logQueue, &__block_literal_global_205_0);
-    v77 = objc_alloc_init(MEMORY[0x1E695DF20]);
-    v47 = objc_alloc_init(MEMORY[0x1E695DFD8]);
-    v80 = 0u;
+    v78 = objc_alloc_init(MEMORY[0x1E695DF20]);
+    v49 = objc_alloc_init(MEMORY[0x1E695DFD8]);
     v81 = 0u;
-    v78 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v71 = v73;
-    v48 = [v71 countByEnumeratingWithState:&v78 objects:v96 count:16];
-    if (v48)
+    v80 = 0u;
+    v72 = v74;
+    v50 = [v72 countByEnumeratingWithState:&v79 objects:v97 count:16];
+    if (v50)
     {
-      v49 = *v79;
+      v51 = *v80;
 LABEL_61:
-      v50 = 0;
+      v52 = 0;
       while (1)
       {
-        if (*v79 != v49)
+        if (*v80 != v51)
         {
-          objc_enumerationMutation(v71);
+          objc_enumerationMutation(v72);
         }
 
-        v51 = *(*(&v78 + 1) + 8 * v50);
-        v52 = objc_autoreleasePoolPush();
-        v53 = [v75 objectForKeyedSubscript:v51];
-        v54 = v53;
-        v55 = v77;
-        if (v53)
-        {
-          v55 = v53;
-        }
-
+        v53 = *(*(&v79 + 1) + 8 * v52);
+        v54 = objc_autoreleasePoolPush();
+        v55 = [v76 objectForKeyedSubscript:v53];
         v56 = v55;
+        v57 = v78;
+        if (v55)
+        {
+          v57 = v55;
+        }
 
-        v57 = [v74 objectForKeyedSubscript:v51];
         v58 = v57;
-        v59 = v57 ? v57 : v47;
+
+        v59 = [v75 objectForKeyedSubscript:v53];
         v60 = v59;
+        v61 = v59 ? v59 : v49;
+        v62 = v61;
 
         LOBYTE(block[0]) = 0;
-        blockCopy[2](blockCopy, v51, v56, v60, block);
-        v61 = block[0];
+        blockCopy[2](blockCopy, v53, v58, v62, block);
+        v63 = block[0];
 
-        objc_autoreleasePoolPop(v52);
-        if (v61)
+        objc_autoreleasePoolPop(v54);
+        if (v63)
         {
           break;
         }
 
-        if (v48 == ++v50)
+        if (v50 == ++v52)
         {
-          v48 = [v71 countByEnumeratingWithState:&v78 objects:v96 count:16];
-          if (v48)
+          v50 = [v72 countByEnumeratingWithState:&v79 objects:v97 count:16];
+          if (v50)
           {
             goto LABEL_61;
           }
@@ -715,12 +780,10 @@ LABEL_61:
       }
     }
 
-    keysCopy = v71;
+    keysCopy = v72;
   }
 
   objc_autoreleasePoolPop(context);
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)missingLocalizationPlaceholder
@@ -748,6 +811,218 @@ LABEL_61:
   }
 
   return v4 > version;
+}
+
++ (void)gatherLocalizedStringsForLSBundleProvider:(id)provider infoDictionary:(id)dictionary domains:(unsigned int)domains delegatesMightBeMainBundle:(BOOL)bundle legacyLocalizationList:(BOOL)list
+{
+  listCopy = list;
+  domainsCopy = domains;
+  v50[4] = *MEMORY[0x1E69E9840];
+  providerCopy = provider;
+  dictionaryCopy = dictionary;
+  v14 = [[self alloc] initWithBundleProvider:providerCopy stringsFile:@"InfoPlist" legacyLocalizationList:listCopy];
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x3032000000;
+  v47[3] = __Block_byref_object_copy__48;
+  v47[4] = __Block_byref_object_dispose__48;
+  v48 = 0;
+  if (v14)
+  {
+    v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = v15;
+    if (v32 && v15)
+    {
+      _LSStringLocalizerPrewarmAllLocalizations(v14);
+      v17 = MEMORY[0x1E695DFA8];
+      if (domainsCopy)
+      {
+        v19 = *MEMORY[0x1E695E4F8];
+        v50[0] = *MEMORY[0x1E695E120];
+        v50[1] = v19;
+        v50[2] = @"NSMicrophoneUsageDescription";
+        v50[3] = @"NSIdentityUsageDescription";
+        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:4];
+        v21 = [v17 setWithArray:v20];
+
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke;
+        v45[3] = &unk_1E6A1E170;
+        v18 = v21;
+        v46 = v18;
+        _LSBundleDisplayNameContextEnumerate(v45);
+        [v16 setObject:v18 forKeyedSubscript:&stru_1EEF65710];
+      }
+
+      else
+      {
+        v18 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        [v16 setObject:v18 forKeyedSubscript:&stru_1EEF65710];
+      }
+
+      if ((domainsCopy & 4) != 0)
+      {
+        v49 = *MEMORY[0x1E695E170];
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:*MEMORY[0x1E695E128] stringKeys:v22 localizedKeys:v16];
+      }
+
+      if ((domainsCopy & 2) != 0)
+      {
+        v23 = UTTypeDescriptionKeys();
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:@"UTExportedTypeDeclarations" stringKeys:v23 localizedKeys:v16];
+
+        v24 = UTTypeDescriptionKeys();
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:@"UTImportedTypeDeclarations" stringKeys:v24 localizedKeys:v16];
+      }
+
+      v33 = MEMORY[0x1E69E9820];
+      v34 = 3221225472;
+      v35 = __137___LSStringLocalizer_gatherLocalizedStringsForLSBundleProvider_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke_2;
+      v36 = &unk_1E6A1E1C0;
+      v37 = v14;
+      v25 = dictionaryCopy;
+      v38 = v25;
+      v41 = v47;
+      v39 = providerCopy;
+      selfCopy = self;
+      bundleCopy = bundle;
+      v44 = listCopy;
+      v26 = v32;
+      v40 = v26;
+      [v16 enumerateKeysAndObjectsUsingBlock:&v33];
+      if ([v26 count])
+      {
+        v27 = *MEMORY[0x1E695E120];
+        v28 = [v26 objectForKeyedSubscript:*MEMORY[0x1E695E120]];
+        v29 = v28;
+        if (!v28 || ![v28 count])
+        {
+          if (_LSGetBooleanFromDict(v25, @"LSHasLocalizedDisplayName"))
+          {
+            v30 = [v26 objectForKeyedSubscript:*MEMORY[0x1E695E4F8]];
+
+            v29 = v30;
+            [v26 setObject:v30 forKeyedSubscript:v27];
+          }
+        }
+
+        v31 = [v26 copy];
+        [v25 setObject:v31 forKeyedSubscript:@"_LSLocalizedStringsDictionary"];
+      }
+    }
+  }
+
+  _Block_object_dispose(v47, 8);
+}
+
++ (void)gatherLocalizedStringsForCFBundle:(__CFBundle *)bundle infoDictionary:(id)dictionary domains:(unsigned int)domains delegatesMightBeMainBundle:(BOOL)mainBundle legacyLocalizationList:(BOOL)list
+{
+  listCopy = list;
+  domainsCopy = domains;
+  v47[4] = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [[self alloc] initWithCFBundle:bundle stringsFile:@"InfoPlist" legacyLocalizationList:listCopy];
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x3032000000;
+  v44[3] = __Block_byref_object_copy__48;
+  v44[4] = __Block_byref_object_dispose__48;
+  v45 = 0;
+  if (v13)
+  {
+    v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v15 = v14;
+    if (v31 && v14)
+    {
+      _LSStringLocalizerPrewarmAllLocalizations(v13);
+      v16 = MEMORY[0x1E695DFA8];
+      if (domainsCopy)
+      {
+        v18 = *MEMORY[0x1E695E4F8];
+        v47[0] = *MEMORY[0x1E695E120];
+        v47[1] = v18;
+        v47[2] = @"NSMicrophoneUsageDescription";
+        v47[3] = @"NSIdentityUsageDescription";
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:4];
+        v20 = [v16 setWithArray:v19];
+
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke;
+        v42[3] = &unk_1E6A1E170;
+        v17 = v20;
+        v43 = v17;
+        _LSBundleDisplayNameContextEnumerate(v42);
+        [v15 setObject:v17 forKeyedSubscript:&stru_1EEF65710];
+      }
+
+      else
+      {
+        v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        [v15 setObject:v17 forKeyedSubscript:&stru_1EEF65710];
+      }
+
+      if ((domainsCopy & 4) != 0)
+      {
+        v46 = *MEMORY[0x1E695E170];
+        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:*MEMORY[0x1E695E128] stringKeys:v21 localizedKeys:v15];
+      }
+
+      if ((domainsCopy & 2) != 0)
+      {
+        v22 = UTTypeDescriptionKeys();
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:@"UTExportedTypeDeclarations" stringKeys:v22 localizedKeys:v15];
+
+        v23 = UTTypeDescriptionKeys();
+        [self findKeysToLocalizeInInfoDictionary:dictionaryCopy forArrayKey:@"UTImportedTypeDeclarations" stringKeys:v23 localizedKeys:v15];
+      }
+
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __129___LSStringLocalizer_gatherLocalizedStringsForCFBundle_infoDictionary_domains_delegatesMightBeMainBundle_legacyLocalizationList___block_invoke_2;
+      v33[3] = &unk_1E6A1E1E8;
+      v34 = v13;
+      v24 = dictionaryCopy;
+      v35 = v24;
+      v37 = v44;
+      bundleCopy = bundle;
+      selfCopy = self;
+      mainBundleCopy = mainBundle;
+      v41 = listCopy;
+      v25 = v31;
+      v36 = v25;
+      [v15 enumerateKeysAndObjectsUsingBlock:v33];
+      if ([v25 count])
+      {
+        v26 = *MEMORY[0x1E695E120];
+        v27 = [v25 objectForKeyedSubscript:*MEMORY[0x1E695E120]];
+        v28 = v27;
+        if (!v27 || ![v27 count])
+        {
+          if (_LSGetBooleanFromDict(v24, @"LSHasLocalizedDisplayName"))
+          {
+            v29 = [v25 objectForKeyedSubscript:*MEMORY[0x1E695E4F8]];
+
+            v28 = v29;
+            [v25 setObject:v29 forKeyedSubscript:v26];
+          }
+        }
+
+        v30 = [v25 copy];
+        [v24 setObject:v30 forKeyedSubscript:@"_LSLocalizedStringsDictionary"];
+      }
+    }
+  }
+
+  _Block_object_dispose(v44, 8);
+
+  objc_autoreleasePoolPop(v12);
 }
 
 - (id)debugDescription
@@ -779,54 +1054,67 @@ LABEL_61:
   return v12;
 }
 
-- (_LSStringLocalizer)initWithDatabase:(id)database pluginUnit:(unsigned int)unit
+- (_LSStringLocalizer)initWithDatabase:(id)database bundleUnit:(unsigned int)unit delegate:(unsigned int)delegate
 {
+  v5 = *&delegate;
+  v6 = *&unit;
   v19 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
-  v7 = _LSGetPlugin(databaseCopy, unit);
+  v17 = 0;
+  if (_LSBundleCopyNode(databaseCopy, v6, v5, 0, &v17))
+  {
+    v9 = [(_LSStringLocalizer *)self init];
+  }
+
+  else
+  {
+    v10 = _LSBundleGet(databaseCopy, v6);
+    if (v10)
+    {
+      v11 = *(v10 + 20);
+      v12 = *(v10 + 76);
+      v18[0] = *(v10 + 60);
+      v18[1] = v12;
+      DYLDVersion = _LSVersionNumberGetDYLDVersion(v18);
+    }
+
+    else
+    {
+      v11 = 0;
+      DYLDVersion = 0;
+    }
+
+    v14 = [_LSStringLocalizer useLegacyLocalizationListForPlatform:v11 sdkVersion:DYLDVersion];
+    v15 = [v17 URL];
+    v9 = [(_LSStringLocalizer *)self initWithBundleURL:v15 stringsFile:@"InfoPlist" legacyLocalizationList:v14];
+  }
+
+  return v9;
+}
+
+- (_LSStringLocalizer)initWithDatabase:(id)database pluginUnit:(unsigned int)unit
+{
+  v4 = *&unit;
+  v18 = *MEMORY[0x1E69E9840];
+  databaseCopy = database;
+  v7 = _LSGetPlugin(databaseCopy, v4);
   v8 = v7;
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  if (!*v7)
-  {
-    goto LABEL_6;
-  }
-
-  v9 = *(v7 + 20);
-  v10 = *(v7 + 76);
-  v18[0] = *(v7 + 60);
-  v18[1] = v10;
-  v11 = [_LSStringLocalizer useLegacyLocalizationListForPlatform:v9 sdkVersion:_LSVersionNumberGetDYLDVersion(v18)];
-  v12 = _LSAliasCopyResolvedNode(databaseCopy, *v8, 0, 0, 0);
-  v13 = v12;
-  if (!v12)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = [v12 URL];
-
-  if (v14)
+  if (v7 && *v7 && (v9 = *(v7 + 20), v10 = *(v7 + 76), v17[0] = *(v7 + 60), v17[1] = v10, v11 = +[_LSStringLocalizer useLegacyLocalizationListForPlatform:sdkVersion:](_LSStringLocalizer, "useLegacyLocalizationListForPlatform:sdkVersion:", v9, _LSVersionNumberGetDYLDVersion(v17)), v12 = _LSAliasCopyResolvedNode(databaseCopy, *v8, 0, 0, 0), (v13 = v12) != 0) && ([v12 URL], v14 = objc_claimAutoreleasedReturnValue(), v13, v14))
   {
     v15 = [(_LSStringLocalizer *)self initWithBundleURL:v14 stringsFile:@"InfoPlist" legacyLocalizationList:v11];
   }
 
   else
   {
-LABEL_6:
     v15 = [(_LSStringLocalizer *)self init];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (NSArray)preferredLocalizationsForXCTests
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure] && (v2 = getenv("LS_PREFERRED_LOCALIZATIONS")) != 0)
+  if ([__LSDefaultsGetSharedInstance(self a2)] && (v2 = getenv("LS_PREFERRED_LOCALIZATIONS")) != 0)
   {
     v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
     v4 = [v3 componentsSeparatedByString:@"||"];
@@ -843,12 +1131,12 @@ LABEL_6:
 + (void)setPreferredLocalizationsForXCTests:(id)tests
 {
   testsCopy = tests;
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(testsCopy v3)])
   {
     if (testsCopy)
     {
-      v3 = [testsCopy componentsJoinedByString:@"||"];
-      setenv("LS_PREFERRED_LOCALIZATIONS", [v3 UTF8String], 1);
+      v4 = [testsCopy componentsJoinedByString:@"||"];
+      setenv("LS_PREFERRED_LOCALIZATIONS", [v4 UTF8String], 1);
     }
 
     else
@@ -908,13 +1196,13 @@ LABEL_6:
   v31 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   localizationsCopy = localizations;
-  v11 = localizationsCopy;
+  v12 = localizationsCopy;
   if (stringCopy)
   {
     if (!localizationsCopy)
     {
 LABEL_4:
-      v14 = self->_bundleLocalizationsWithDefaultPrefLocs;
+      v15 = self->_bundleLocalizationsWithDefaultPrefLocs;
       goto LABEL_6;
     }
   }
@@ -924,51 +1212,51 @@ LABEL_4:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSStringLocalizer.mm" lineNumber:1033 description:{@"Invalid parameter not satisfying: %@", @"string != nil"}];
 
-    if (!v11)
+    if (!v12)
     {
       goto LABEL_4;
     }
   }
 
-  preferredLocalizations = [__LSDefaultsGetSharedInstance() preferredLocalizations];
-  v13 = [v11 isEqual:preferredLocalizations];
+  v13 = [__LSDefaultsGetSharedInstance(localizationsCopy v11)];
+  v14 = [v12 isEqual:v13];
 
-  if (v13)
+  if (v14)
   {
     goto LABEL_4;
   }
 
-  v14 = CFBundleCopyLocalizationsForPreferences(self->_bundleLocalizations, v11);
+  v15 = CFBundleCopyLocalizationsForPreferences(self->_bundleLocalizations, v12);
 LABEL_6:
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v15 = v14;
-  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v16)
+  v16 = v15;
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v17)
   {
-    v17 = *v27;
+    v18 = *v27;
     while (2)
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v17)
+        if (*v27 != v18)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v19 = [(_LSStringLocalizer *)self localizedStringWithString:stringCopy inBundle:bundle localeCode:*(*(&v26 + 1) + 8 * i)];
-        v20 = v19;
-        if (v19 && [(NSArray *)v19 length])
+        v20 = [(_LSStringLocalizer *)self localizedStringWithString:stringCopy inBundle:bundle localeCode:*(*(&v26 + 1) + 8 * i)];
+        v21 = v20;
+        if (v20 && [(NSArray *)v20 length])
         {
-          v22 = v15;
+          v23 = v16;
           goto LABEL_20;
         }
       }
 
-      v16 = [(NSArray *)v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v16)
+      v17 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      if (v17)
       {
         continue;
       }
@@ -977,24 +1265,22 @@ LABEL_6:
     }
   }
 
-  v21 = [(_LSLazyPropertyList *)self->_unlocalizedInfoPlistStrings objectForKey:stringCopy ofClass:objc_opt_class()];
-  v22 = v21;
-  if (v21 && [(NSArray *)v21 length])
+  v22 = [(_LSLazyPropertyList *)self->_unlocalizedInfoPlistStrings objectForKey:stringCopy ofClass:objc_opt_class()];
+  v23 = v22;
+  if (v22 && [(NSArray *)v22 length])
   {
-    v22 = v22;
-    v20 = v22;
+    v23 = v23;
+    v21 = v23;
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
 LABEL_20:
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v21;
 }
 
 - (id)localizedStringWithString:(id)string inBundle:(__CFBundle *)bundle localeCode:(id)code
@@ -1062,12 +1348,12 @@ LABEL_3:
 
 + (void)findKeysToLocalizeInInfoDictionary:(id)dictionary forArrayKey:(__CFString *)key stringKeys:(id)keys localizedKeys:(id)localizedKeys
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   keysCopy = keys;
   localizedKeysCopy = localizedKeys;
   context = objc_autoreleasePoolPush();
-  v33 = dictionaryCopy;
+  v32 = dictionaryCopy;
   v10 = objc_opt_class();
   v11 = [dictionaryCopy objectForKey:key];
   v12 = v11;
@@ -1087,29 +1373,29 @@ LABEL_3:
     v12 = 0;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = v12;
-  v14 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v14 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v14)
   {
-    v37 = *v45;
+    v36 = *v44;
     do
     {
-      v38 = v14;
-      for (i = 0; i != v38; ++i)
+      v37 = v14;
+      for (i = 0; i != v37; ++i)
       {
-        if (*v45 != v37)
+        if (*v44 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v43 + 1) + 8 * i);
         if (_NSIsNSDictionary())
         {
-          v17 = [v16 objectForKeyedSubscript:{@"_LSBundleLibraryDelegate", context, v33}];
+          v17 = [v16 objectForKeyedSubscript:{@"_LSBundleLibraryDelegate", context, v32}];
           v18 = v17;
           v19 = &stru_1EEF65710;
           if (v17)
@@ -1117,34 +1403,34 @@ LABEL_3:
             v19 = v17;
           }
 
-          v39 = v19;
+          v38 = v19;
 
-          v20 = [localizedKeysCopy objectForKeyedSubscript:v39];
+          v20 = [localizedKeysCopy objectForKeyedSubscript:v38];
           if (!v20)
           {
             v20 = [MEMORY[0x1E695DFA8] set];
-            [localizedKeysCopy setObject:v20 forKeyedSubscript:v39];
+            [localizedKeysCopy setObject:v20 forKeyedSubscript:v38];
           }
 
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
           v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
           v21 = keysCopy;
-          v22 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v39 objects:v47 count:16];
           if (v22)
           {
-            v23 = *v41;
+            v23 = *v40;
             do
             {
               for (j = 0; j != v22; ++j)
               {
-                if (*v41 != v23)
+                if (*v40 != v23)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                v25 = *(*(&v40 + 1) + 8 * j);
+                v25 = *(*(&v39 + 1) + 8 * j);
                 v26 = objc_opt_class();
                 v27 = [v16 objectForKey:v25];
                 v28 = v27;
@@ -1182,7 +1468,7 @@ LABEL_30:
 LABEL_32:
               }
 
-              v22 = [v21 countByEnumeratingWithState:&v40 objects:v48 count:16];
+              v22 = [v21 countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
             while (v22);
@@ -1190,32 +1476,29 @@ LABEL_32:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v14 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v14);
   }
 
   objc_autoreleasePoolPop(context);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)newFrameworkBundleLocalizer
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
   selfCopy = self;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "frameworkBundleLocalizer init fallback localizer %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "frameworkBundleLocalizer init fallback localizer %{private}@", &v2, 0xCu);
 }
 
 - (void)initWithBundleProvider:(os_log_t)log stringsFile:legacyLocalizationList:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[_LSStringLocalizer initWithBundleProvider:stringsFile:legacyLocalizationList:]";
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "could not create fresh unique bundle in %s", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[_LSStringLocalizer initWithBundleProvider:stringsFile:legacyLocalizationList:]";
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "could not create fresh unique bundle in %s", &v1, 0xCu);
 }
 
 @end

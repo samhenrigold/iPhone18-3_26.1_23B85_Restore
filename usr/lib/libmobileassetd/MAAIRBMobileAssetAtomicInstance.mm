@@ -9,13 +9,20 @@
 {
   if (id)
   {
-    sub_303948();
+    v5 = sub_303948();
+    v7 = v6;
+  }
+
+  else
+  {
+    v5 = 0;
+    v7 = 0;
   }
 
   setCopy = set;
-  v6 = sub_252810(setCopy);
+  v9 = sub_252810(setCopy, v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (MAAIRBMobileAssetAtomicInstance)init

@@ -12,54 +12,42 @@
 
 - (void)setHandle:(id)handle
 {
-  v4 = [handle copy];
-  handle = self->super._handle;
-  self->super._handle = v4;
+  self->super._handle = [handle copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setServiceName:(id)name
 {
-  v4 = [name copy];
-  serviceName = self->super._serviceName;
-  self->super._serviceName = v4;
+  self->super._serviceName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDisplayName:(id)name
 {
-  v4 = [name copy];
-  displayName = self->super._displayName;
-  self->super._displayName = v4;
+  self->super._displayName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCustomIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  customIdentifier = self->super._customIdentifier;
-  self->super._customIdentifier = v4;
+  self->super._customIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCnContactIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  cnContactIdentifier = self->super._cnContactIdentifier;
-  self->super._cnContactIdentifier = v4;
+  self->super._cnContactIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCnContactFullname:(id)fullname
 {
-  v4 = [fullname copy];
-  cnContactFullname = self->super._cnContactFullname;
-  self->super._cnContactFullname = v4;
+  self->super._cnContactFullname = [fullname copy];
 
   MEMORY[0x1EEE66BB8]();
 }

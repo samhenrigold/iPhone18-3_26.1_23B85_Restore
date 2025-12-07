@@ -137,21 +137,21 @@
 
 - (id)description
 {
-  v26[4] = *MEMORY[0x1E69E9840];
-  v25 = MEMORY[0x1E696AEC0];
-  v24 = objc_opt_class();
+  v25[4] = *MEMORY[0x1E69E9840];
+  v24 = MEMORY[0x1E696AEC0];
+  v23 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
   v4 = MEMORY[0x1E696AD98];
   [(LACDTOGracePeriodState *)self time];
   v5 = [v4 numberWithDouble:?];
   v6 = [v3 stringWithFormat:@"time: %@", v5];
-  v26[0] = v6;
+  v25[0] = v6;
   v7 = MEMORY[0x1E696AEC0];
   v8 = MEMORY[0x1E696AD98];
   [(LACDTOGracePeriodState *)self maxThreshold];
   v9 = [v8 numberWithDouble:?];
   v10 = [v7 stringWithFormat:@"maxThreshold: %@", v9];
-  v26[1] = v10;
+  v25[1] = v10;
   v11 = MEMORY[0x1E696AEC0];
   isActive = [(LACDTOGracePeriodState *)self isActive];
   v13 = @"NO";
@@ -161,18 +161,16 @@
   }
 
   v14 = [v11 stringWithFormat:@"isActive: %@", v13];
-  v26[2] = v14;
+  v25[2] = v14;
   v15 = MEMORY[0x1E696AEC0];
   v16 = MEMORY[0x1E696AD98];
   [(LACDTOGracePeriodState *)self duration];
   v17 = [v16 numberWithDouble:?];
   v18 = [v15 stringWithFormat:@"duration: %@", v17];
-  v26[3] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+  v25[3] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
   v20 = [v19 componentsJoinedByString:@" "];;
-  v21 = [v25 stringWithFormat:@"<%@ %p %@>", v24, self, v20];;
-
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [v24 stringWithFormat:@"<%@ %p %@>", v23, self, v20];;
 
   return v21;
 }

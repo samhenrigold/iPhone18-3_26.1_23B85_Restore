@@ -561,6 +561,7 @@ _BYTE *__53__VCPVideoFaceMeshAnalyzer_validateFace_eulerAngles___block_invoke(vo
     [(VCPRTLandmarkDetector *)self->_lmTracker calculateFaceRectFromPrevLM:self->_prevLM result:v62 numOfLandmarks:63];
     *buf = 0;
     *&pixelBuffer[4] = frame;
+    *&pixelBuffer[12] = 0;
     if (frame)
     {
       a_low = CVPixelBufferLockBaseAddress(frame, 0);

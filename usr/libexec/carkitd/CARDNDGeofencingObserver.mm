@@ -11,6 +11,7 @@
 - (void)_createGeofencesAroundPredictedLocationsFromLocation:(id)location;
 - (void)_postNotificationForGeofence;
 - (void)_updateState:(int64_t)state forRegion:(id)region;
+- (void)beginMonitoringLOIsWithStartingLocationGeofence:(BOOL)geofence;
 - (void)dealloc;
 - (void)locationManager:(id)manager didDetermineState:(int64_t)state forRegion:(id)region;
 - (void)locationManager:(id)manager didEnterRegion:(id)region;
@@ -19,6 +20,7 @@
 - (void)locationManager:(id)manager didStartMonitoringForRegion:(id)region;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
+- (void)setExitConfirmationOverride:(BOOL)override;
 - (void)stopMonitoringLOIs;
 @end
 
@@ -104,6 +106,73 @@
   v4.receiver = self;
   v4.super_class = CARDNDGeofencingObserver;
   [(CARDNDGeofencingObserver *)&v4 dealloc];
+}
+
+- (void)beginMonitoringLOIsWithStartingLocationGeofence:(BOOL)geofence
+{
+  geofenceCopy = geofence;
+  _shouldCreateGeofences = [(CARDNDGeofencingObserver *)self _shouldCreateGeofences];
+  v6 = CarDNDWDLogging();
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (_shouldCreateGeofences)
+  {
+    if (v7)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Beginning to fetch LOIs for geofencing", buf, 2u);
+    }
+
+    [(CARDNDGeofencingObserver *)self setActivelyMonitoringGeofences:1];
+    [(CARDNDGeofencingObserver *)self setShouldCreateGeofenceAroundStart:geofenceCopy];
+    if ([(CARDNDGeofencingObserver *)self shouldCreateGeofenceAroundStart]&& ![(CARDNDGeofencingObserver *)self didCreateGeofenceAroundStart])
+    {
+      locationManager = [(CARDNDGeofencingObserver *)self locationManager];
+      location = [locationManager location];
+
+      if (location && ([location horizontalAccuracy], v10 < 400.0) && (objc_msgSend(location, "timestamp"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "timeIntervalSinceNow"), v13 = fabs(v12), v11, v13 <= 30.0))
+      {
+        v15 = CarDNDWDLogging();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          *v18 = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Creating geofence around start location using cached location", v18, 2u);
+        }
+
+        [location coordinate];
+        v14 = [(CARDNDGeofencingObserver *)self _addCoordinatesToMonitoredRegion:@"Start Identifier" identifier:100 radius:?];
+        [v14 setRegionState:1];
+        [(CARDNDGeofencingObserver *)self setDidCreateGeofenceAroundStart:1];
+        [(CARDNDGeofencingObserver *)self setIsCurrentlyInsideGeofence:1];
+        [(CARDNDGeofencingObserver *)self _createGeofencesAroundPredictedLocationsFromLocation:location];
+      }
+
+      else
+      {
+        v14 = CarDNDWDLogging();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *v17 = 0;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No start location geofence created, location manager doesn't have cached location or accuracy does not qualify", v17, 2u);
+        }
+      }
+    }
+
+    [(CARDNDGeofencingObserver *)self _postNotificationForGeofence];
+    [(CARDNDGeofencingObserver *)self _createGeofencesAroundHomeAndWork];
+    locationManager2 = [(CARDNDGeofencingObserver *)self locationManager];
+    [locationManager2 startMonitoringSignificantLocationChanges];
+  }
+
+  else
+  {
+    if (v7)
+    {
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Not setting up geofences; posting exit confirmation.", v20, 2u);
+    }
+
+    [(CARDNDGeofencingObserver *)self _postNotificationForGeofence];
+  }
 }
 
 - (void)stopMonitoringLOIs
@@ -228,6 +297,25 @@
 LABEL_15:
 
   return v7;
+}
+
+- (void)setExitConfirmationOverride:(BOOL)override
+{
+  overrideCopy = override;
+  v5 = CarDNDWDLogging();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:overrideCopy];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting exit confirmation override %@", &v7, 0xCu);
+  }
+
+  if (self->_exitConfirmationOverride != overrideCopy)
+  {
+    self->_exitConfirmationOverride = overrideCopy;
+    [(CARDNDGeofencingObserver *)self _postNotificationForGeofence];
+  }
 }
 
 - (id)_addCoordinatesToMonitoredRegion:(CLLocationCoordinate2D)region identifier:(id)identifier radius:(unint64_t)radius

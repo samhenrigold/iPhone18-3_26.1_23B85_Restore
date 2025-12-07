@@ -68,7 +68,7 @@
     {
       overrideDisplayString2 = [keyCopy overrideDisplayString];
       displayString = [keyCopy displayString];
-      v16->_differentDisplayStrings = [overrideDisplayString2 isEqualToString:displayString] ^ 1;
+      v16->_differentDisplayStrings = objc_msgSend_isEqualToString_(overrideDisplayString2) ^ 1;
     }
 
     else

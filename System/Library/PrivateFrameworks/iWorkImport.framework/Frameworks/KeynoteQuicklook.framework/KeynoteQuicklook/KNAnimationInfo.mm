@@ -18,31 +18,31 @@
 
 - (KNAnimationInfo)initWithAnimationClass:(Class)class
 {
-  if (class && (objc_msgSend_conformsToProtocol_(class, a2, &unk_2884F5FE0) & 1) == 0)
+  if (class && ([(objc_class *)class conformsToProtocol:&unk_2884F5FE0]& 1) == 0)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNAnimationInfo initWithAnimationClass:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationInfo.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 30, 0, "The animationClass argument must conform to the KNAnimationPlugin protocol.");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationInfo initWithAnimationClass:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationInfo.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:30 isFatal:0 description:"The animationClass argument must conform to the KNAnimationPlugin protocol."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v23.receiver = self;
-  v23.super_class = KNAnimationInfo;
-  v13 = [(KNAnimationInfo *)&v23 init];
-  v14 = v13;
-  if (v13)
+  v15.receiver = self;
+  v15.super_class = KNAnimationInfo;
+  v8 = [(KNAnimationInfo *)&v15 init];
+  v9 = v8;
+  if (v8)
   {
-    objc_storeStrong(&v13->_animationClass, class);
-    v15 = MEMORY[0x277CBEB98];
-    v18 = objc_msgSend_supportedTypes(v14->_animationClass, v16, v17);
-    v20 = objc_msgSend_setWithArray_(v15, v19, v18);
-    validAnimationTypes = v14->_validAnimationTypes;
-    v14->_validAnimationTypes = v20;
+    objc_storeStrong(&v8->_animationClass, class);
+    v10 = MEMORY[0x277CBEB98];
+    supportedTypes = [(objc_class *)v9->_animationClass supportedTypes];
+    v12 = [v10 setWithArray:supportedTypes];
+    validAnimationTypes = v9->_validAnimationTypes;
+    v9->_validAnimationTypes = v12;
   }
 
-  return v14;
+  return v9;
 }
 
 + (id)localizedEffectNamesForAnimationInfos:(id)infos animationType:(int64_t)type
@@ -52,60 +52,60 @@
   v6[2] = sub_275D43768;
   v6[3] = &unk_27A697830;
   v6[4] = type;
-  v4 = objc_msgSend_tsu_setByMappingObjectsUsingBlock_(infos, a2, v6);
+  v4 = [infos tsu_setByMappingObjectsUsingBlock:v6];
 
   return v4;
 }
 
 - (BOOL)isDrift
 {
-  v3 = objc_msgSend_animationClass(self, a2, v2);
-  v5 = objc_msgSend_conformsToProtocol_(v3, v4, &unk_2885461F0);
-  if (v5)
+  animationClass = [(KNAnimationInfo *)self animationClass];
+  v3 = [(objc_class *)animationClass conformsToProtocol:&unk_2885461F0];
+  if (v3)
   {
 
-    LOBYTE(v5) = MEMORY[0x2821F9670](v3, sel_isDriftAnimation, v6);
+    LOBYTE(v3) = MEMORY[0x2821F9670](animationClass, sel_isDriftAnimation);
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)customAttributesForAttributeKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v7 = objc_msgSend_customAttributes(self, v5, v6, 0);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
-  if (v9)
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  customAttributes = [(KNAnimationInfo *)self customAttributes];
+  v6 = [customAttributes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
   {
-    v11 = v9;
-    v12 = *v21;
+    v7 = v6;
+    v8 = *v16;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v12)
+        if (*v16 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(customAttributes);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
-        v15 = objc_msgSend_objectForKeyedSubscript_(v14, v10, &unk_2884F35E8);
-        isEqual = objc_msgSend_isEqual_(v15, v16, keyCopy);
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [v10 objectForKeyedSubscript:&unk_2884F35E8];
+        v12 = [v11 isEqual:keyCopy];
 
-        if (isEqual)
+        if (v12)
         {
-          v18 = v14;
+          v13 = v10;
           goto LABEL_11;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v20, v24, 16);
-      if (v11)
+      v7 = [customAttributes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v7)
       {
         continue;
       }
@@ -114,25 +114,25 @@
     }
   }
 
-  v18 = 0;
+  v13 = 0;
 LABEL_11:
 
-  return v18;
+  return v13;
 }
 
 - (NSArray)customAttributes
 {
   if (objc_opt_respondsToSelector())
   {
-    v5 = objc_msgSend_customAttributes(self->_animationClass, v3, v4);
+    customAttributes = [(objc_class *)self->_animationClass customAttributes];
   }
 
   else
   {
-    v5 = 0;
+    customAttributes = 0;
   }
 
-  return v5;
+  return customAttributes;
 }
 
 - (NSSet)supportedCustomAttributeKeys
@@ -141,33 +141,33 @@ LABEL_11:
   {
     if (objc_opt_respondsToSelector())
     {
-      v5 = objc_msgSend_customAttributes(self->_animationClass, v3, v4);
-      v7 = objc_msgSend_tsu_arrayByMappingObjectsUsingBlock_(v5, v6, &unk_2884D4AC0);
-      v10 = objc_msgSend_tsu_uniqueObjects(v7, v8, v9);
+      customAttributes = [(objc_class *)self->_animationClass customAttributes];
+      v4 = [customAttributes tsu_arrayByMappingObjectsUsingBlock:&unk_2884D4AC0];
+      tsu_uniqueObjects = [v4 tsu_uniqueObjects];
       supportedCustomAttributeKeys = self->_supportedCustomAttributeKeys;
-      self->_supportedCustomAttributeKeys = v10;
+      self->_supportedCustomAttributeKeys = tsu_uniqueObjects;
     }
 
     else
     {
-      v12 = objc_msgSend_set(MEMORY[0x277CBEB98], v3, v4);
-      v5 = self->_supportedCustomAttributeKeys;
-      self->_supportedCustomAttributeKeys = v12;
+      v7 = [MEMORY[0x277CBEB98] set];
+      customAttributes = self->_supportedCustomAttributeKeys;
+      self->_supportedCustomAttributeKeys = v7;
     }
   }
 
-  v13 = self->_supportedCustomAttributeKeys;
+  v8 = self->_supportedCustomAttributeKeys;
 
-  return v13;
+  return v8;
 }
 
 - (BOOL)supportsCustomAttributeKey:(id)key
 {
   keyCopy = key;
-  v7 = objc_msgSend_supportedCustomAttributeKeys(self, v5, v6);
-  v9 = objc_msgSend_containsObject_(v7, v8, keyCopy);
+  supportedCustomAttributeKeys = [(KNAnimationInfo *)self supportedCustomAttributeKeys];
+  v6 = [supportedCustomAttributeKeys containsObject:keyCopy];
 
-  return v9;
+  return v6;
 }
 
 - (id)customEffectTimingCurveDisplayParametersForAttributes:(id)attributes layoutStyleOnly:(BOOL)only
@@ -176,42 +176,41 @@ LABEL_11:
   attributesCopy = attributes;
   if (objc_opt_respondsToSelector())
   {
-    v8 = objc_msgSend_customEffectTimingCurveDisplayParametersForAttributes_layoutStyleOnly_(self->_animationClass, v7, attributesCopy, onlyCopy);
+    v7 = [(objc_class *)self->_animationClass customEffectTimingCurveDisplayParametersForAttributes:attributesCopy layoutStyleOnly:onlyCopy];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)localizedNameForType:(int64_t)type
 {
-  if ((objc_msgSend_supportsAnimationType_(self, a2, type) & 1) == 0)
+  if (![(KNAnimationInfo *)self supportsAnimationType:?])
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNAnimationInfo localizedNameForType:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationInfo.m");
-    v10 = KNAnimationTypeAsString();
-    v13 = objc_msgSend_animationClass(self, v11, v12);
-    v14 = NSStringFromClass(v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v15, v7, v9, 194, 0, "Requesting %{public}@, but that is not a valid type for %{public}@.", v10, v14);
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationInfo localizedNameForType:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationInfo.m"];
+    v8 = KNAnimationTypeAsString();
+    v9 = NSStringFromClass([(KNAnimationInfo *)self animationClass]);
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:194 isFatal:0 description:{"Requesting %{public}@, but that is not a valid type for %{public}@.", v8, v9}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   animationClass = self->_animationClass;
 
-  return objc_msgSend_localizedMenuString_(animationClass, v5, type);
+  return [(objc_class *)animationClass localizedMenuString:type];
 }
 
 - (BOOL)supportsAnimationType:(int64_t)type
 {
   validAnimationTypes = self->_validAnimationTypes;
   v4 = KNAnimationTypeAsNumber();
-  LOBYTE(validAnimationTypes) = objc_msgSend_containsObject_(validAnimationTypes, v5, v4);
+  LOBYTE(validAnimationTypes) = [(NSSet *)validAnimationTypes containsObject:v4];
 
   return validAnimationTypes;
 }
@@ -222,16 +221,16 @@ LABEL_11:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = objc_msgSend_animationClass(equalCopy, v5, v6);
-    v10 = v7 == objc_msgSend_animationClass(self, v8, v9);
+    animationClass = [equalCopy animationClass];
+    v6 = animationClass == [(KNAnimationInfo *)self animationClass];
   }
 
   else
   {
-    v10 = 0;
+    v6 = 0;
   }
 
-  return v10;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -241,30 +240,30 @@ LABEL_11:
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v6 = objc_msgSend_stringWithFormat_(v2, v5, @"%@Info", v4);
+    v5 = [v2 stringWithFormat:@"%@Info", v4];
   }
 
   else
   {
-    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@Info", @"KNAnimation");
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@Info", @"KNAnimation"];
   }
 
-  v9 = objc_msgSend_hash(v6, v7, v8);
+  v6 = [v5 hash];
 
-  return v9;
+  return v6;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v14.receiver = self;
-  v14.super_class = KNAnimationInfo;
-  v4 = [(KNAnimationInfo *)&v14 description];
-  v7 = objc_msgSend_effectIdentifier(self, v5, v6);
-  v10 = objc_msgSend_animationFilter(self, v8, v9);
-  v12 = objc_msgSend_stringWithFormat_(v3, v11, @"%@ %@ %@", v4, v7, v10);
+  v9.receiver = self;
+  v9.super_class = KNAnimationInfo;
+  v4 = [(KNAnimationInfo *)&v9 description];
+  effectIdentifier = [(KNAnimationInfo *)self effectIdentifier];
+  animationFilter = [(KNAnimationInfo *)self animationFilter];
+  v7 = [v3 stringWithFormat:@"%@ %@ %@", v4, effectIdentifier, animationFilter];
 
-  return v12;
+  return v7;
 }
 
 @end

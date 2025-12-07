@@ -1,13 +1,13 @@
-id sub_1000015FC()
+id sub_1000015FC(uint64_t a1)
 {
   if (qword_10000CA80 != -1)
   {
     sub_1000020B4();
   }
 
-  v1 = qword_10000CA88;
+  v2 = qword_10000CA88;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001A04(_Unwind_Exception *a1)
@@ -33,7 +33,7 @@ void sub_100001A80(uint64_t a1)
 void sub_100001D10(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000015FC();
+  v4 = sub_1000015FC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_100002248(v3, v4);

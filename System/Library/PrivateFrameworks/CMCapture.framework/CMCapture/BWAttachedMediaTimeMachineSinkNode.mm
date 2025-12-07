@@ -21,9 +21,9 @@
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"The attachedMediaKeys array needs to have at least one element" userInfo:0]);
   }
 
-  v27.receiver = self;
-  v27.super_class = BWAttachedMediaTimeMachineSinkNode;
-  v11 = [(BWSinkNode *)&v27 initWithSinkID:d];
+  v28.receiver = self;
+  v28.super_class = BWAttachedMediaTimeMachineSinkNode;
+  v11 = [(BWSinkNode *)&v28 initWithSinkID:d];
   if (v11)
   {
     v12 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v11];
@@ -36,26 +36,26 @@
     {
       v13 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:keys];
       v11->_attachedMediaKeys = v13;
-      v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v22 count:16];
+      v25 = 0u;
+      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v23 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v24;
+        v16 = *v25;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v24 != v16)
+            if (*v25 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v23 + 1) + 8 * i);
-            if (([v18 isEqualToString:@"PrimaryFormat"] & 1) == 0)
+            v18 = *(*(&v24 + 1) + 8 * i);
+            if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
             {
               v19 = objc_alloc_init(BWNodeInputMediaConfiguration);
               [(BWNodeInput *)v11->super.super._input formatRequirements];
@@ -66,7 +66,7 @@
             }
           }
 
-          v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v22 count:16];
+          v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v23 count:16];
         }
 
         while (v15);
@@ -76,7 +76,7 @@
       v20 = objc_alloc_init(BWNodeInputMediaConfiguration);
       [(BWNodeInputMediaConfiguration *)v20 setFormatRequirements:objc_alloc_init(BWVideoFormatRequirements)];
       [(BWNodeInputMediaConfiguration *)v20 setPassthroughMode:0];
-      [(BWNodeInput *)v11->super.super._input setUnspecifiedAttachedMediaConfiguration:v20];
+      v21 = [(BWNodeInput *)v11->super.super._input setUnspecifiedAttachedMediaConfiguration:v20];
       if (metadataKeys)
       {
         v11->_metadataKeys = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:metadataKeys];
@@ -87,7 +87,7 @@
 
       else
       {
-        [BWAttachedMediaTimeMachineSinkNode initWithTimeMachineCapacity:attachedMediaKeys:metadataKeys:sinkID:];
+        [BWAttachedMediaTimeMachineSinkNode initWithTimeMachineCapacity:v21 attachedMediaKeys:? metadataKeys:? sinkID:?];
       }
     }
 
@@ -113,13 +113,13 @@
 
     else
     {
-      [BWAttachedMediaTimeMachineSinkNode didSelectFormat:forInput:forAttachedMediaKey:];
+      [BWAttachedMediaTimeMachineSinkNode didSelectFormat:a2 forInput:? forAttachedMediaKey:?];
     }
   }
 
   else
   {
-    [BWAttachedMediaTimeMachineSinkNode didSelectFormat:forInput:forAttachedMediaKey:];
+    [(BWAttachedMediaTimeMachineSinkNode *)self didSelectFormat:a2 forInput:0 forAttachedMediaKey:input, key];
   }
 }
 
@@ -203,7 +203,7 @@
 
   os_unfair_lock_lock(&self->_timeMachineLock);
   attachedMediaKeys = self->_attachedMediaKeys;
-  v20 = OUTLINED_FUNCTION_8_37(v12, v13, v14, v15, v16, v17, v18, v19, v61, v64, v67, v4, 216, key, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v129, v131, v133, v135, v137, v139, v141);
+  v20 = OUTLINED_FUNCTION_8_37(v12, v13, v14, v15, v16, v17, v18, v19, v61, v64, v67, v4, 216, key, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v126, v128, v130, v132, v134, v136, v138);
   if (v20)
   {
     v21 = v20;
@@ -246,7 +246,7 @@
         }
       }
 
-      v21 = OUTLINED_FUNCTION_8_37(v25, v26, v27, v28, v29, v30, v31, v32, v62, v65, v68, v70, v72, keya, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v130, v132, v134, v136, v138, v140, v142);
+      v21 = OUTLINED_FUNCTION_8_37(v25, v26, v27, v28, v29, v30, v31, v32, v62, v65, v68, v70, v72, keya, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v127, v129, v131, v133, v135, v137, v139);
     }
 
     while (v21);
@@ -260,7 +260,7 @@
       v39 = v38;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       metadataKeys = self->_metadataKeys;
-      v49 = OUTLINED_FUNCTION_16(dictionary, v42, v43, v44, v45, v46, v47, v48, v62, v65, v68, v70, v72, keya, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, 0);
+      v49 = OUTLINED_FUNCTION_16(dictionary, v42, v43, v44, v45, v46, v47, v48, v62, v65, v68, v70, v72, keya, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122);
       if (v49)
       {
         v50 = v49;
@@ -277,7 +277,7 @@
             v53 = [dictionary setObject:objc_msgSend(v39 forKeyedSubscript:{"objectForKeyedSubscript:", *(8 * j)), *(8 * j)}];
           }
 
-          v50 = OUTLINED_FUNCTION_16(v53, v54, v55, v56, v57, v58, v59, v60, v63, v66, v69, v71, v72, keyb, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126);
+          v50 = OUTLINED_FUNCTION_16(v53, v54, v55, v56, v57, v58, v59, v60, v63, v66, v69, v71, v72, keyb, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123);
         }
 
         while (v50);
@@ -293,7 +293,8 @@
     else
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      LODWORD(v62) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v62, v70, v68, v70, v72, keya, v77, v80);
     }
   }
 
@@ -551,34 +552,6 @@ LABEL_29:
   }
 
   return v6;
-}
-
-- (uint64_t)initWithTimeMachineCapacity:attachedMediaKeys:metadataKeys:sinkID:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithTimeMachineCapacity:attachedMediaKeys:metadataKeys:sinkID:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

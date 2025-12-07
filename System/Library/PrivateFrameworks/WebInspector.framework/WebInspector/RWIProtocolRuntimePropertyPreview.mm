@@ -7,6 +7,8 @@
 - (RWIProtocolRuntimePropertyPreview)initWithName:(id)name type:(int64_t)type;
 - (int64_t)subtype;
 - (int64_t)type;
+- (void)setInternal:(BOOL)internal;
+- (void)setIsPrivate:(BOOL)private;
 - (void)setName:(id)name;
 - (void)setSubtype:(int64_t)subtype;
 - (void)setType:(int64_t)type;
@@ -223,7 +225,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimePropertyPreview;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"valuePreview"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -267,11 +269,25 @@ LABEL_8:
   return v7;
 }
 
+- (void)setIsPrivate:(BOOL)private
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyPreview;
+  [(RWIProtocolJSONObject *)&v3 setBool:private forKey:@"isPrivate"];
+}
+
 - (BOOL)isPrivate
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolRuntimePropertyPreview;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"isPrivate"];
+}
+
+- (void)setInternal:(BOOL)internal
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimePropertyPreview;
+  [(RWIProtocolJSONObject *)&v3 setBool:internal forKey:@"internal"];
 }
 
 - (BOOL)internal

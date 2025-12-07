@@ -1,47 +1,3 @@
-void sub_1A2655960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1A26559C0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  JUMPOUT(0x1A26559B0);
-}
-
-void sub_1A26559D8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  JUMPOUT(0x1A26559B4);
-}
-
-void ___ZL30_MPMLInitPropertyStoreAssetMapv_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
-{
-  v8 = a5;
-  v9 = [a2 mediaLibrary];
-  v10 = [v9 uniqueIdentifier];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = ___ZL30_MPMLInitPropertyStoreAssetMapv_block_invoke_2;
-  v11[3] = &__block_descriptor_48_e44_v16__0___MPMutableLocalLibraryIdentifiers__8l;
-  v11[4] = a3;
-  v11[5] = a4;
-  [v8 setLibraryIdentifiersWithDatabaseID:v10 block:v11];
-}
-
 void ___ZL30_MPMLInitPropertyStoreAssetMapv_block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1202,7 +1158,7 @@ id ___ZL24_MPMLInitPropertySongMapv_block_invoke_15(uint64_t a1, void *a2, void 
   return v8;
 }
 
-void ___ZL24_MPMLInitPropertySongMapv_block_invoke_14(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL24_MPMLInitPropertySongMapv_block_invoke_14(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1249,7 +1205,7 @@ id ___ZL24_MPMLInitPropertySongMapv_block_invoke_13(uint64_t a1, void *a2, void 
   return v8;
 }
 
-void ___ZL24_MPMLInitPropertySongMapv_block_invoke_12(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL24_MPMLInitPropertySongMapv_block_invoke_12(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1308,19 +1264,19 @@ id ___ZL24_MPMLInitPropertySongMapv_block_invoke_11(uint64_t a1, void *a2, void 
   return v8;
 }
 
-void ___ZL24_MPMLInitPropertySongMapv_block_invoke_10(uint64_t a1, void *a2, void *a3, uint64_t a4)
+void ___ZL24_MPMLInitPropertySongMapv_block_invoke_10(void x0_0, void *a1, void *a2, uint64_t a3)
 {
-  v6 = a3;
-  std::string::basic_string[abi:ne200100]<0>(&v13, [v6 UTF8String]);
+  v6 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v15, [v6 UTF8String]);
   std::string::basic_string[abi:ne200100]<0>(__p, "title");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a2, __p);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlcore::ModelPropertyBase *>>>::find<std::string>(a1, __p);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
   v8 = v7[5];
-  if (v12 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1332,19 +1288,22 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_10(uint64_t a1, void *a2, voi
     [v9 handleFailureInFunction:v10 file:@"MPMediaLibraryTranslatorSchema.mm" lineNumber:408 description:@"The base property key for Song's property[title] is not a string and thus cannot be used to create a SearchPredicate"];
   }
 
-  if (a4 == 1)
+  v12 = v8;
+  if (a3 == 1)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (!a4)
+  if (!a3)
   {
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>();
+    v11 = 4;
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *&,std::string&,mediaplatform::UnicodeSearch::MatchType,0>(__p, &v12, v15, &v11);
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    operator delete(v13);
+    operator delete(v15[0]);
   }
 }
 
@@ -1358,7 +1317,7 @@ void sub_1A2658D20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL24_MPMLInitPropertySongMapv_block_invoke_9(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void ___ZL24_MPMLInitPropertySongMapv_block_invoke_9(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1434,10 +1393,10 @@ void sub_1A265907C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v94[3] = *MEMORY[0x1E69E9840];
+  v93[3] = *MEMORY[0x1E69E9840];
+  v86 = 0;
   v87 = 0;
   v88 = 0;
-  v89 = 0;
   v64 = a2;
   v63 = [v64 modelKind];
   v4 = [v63 identityKind];
@@ -1452,17 +1411,17 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
   }
 
   v7 = a3[1];
-  v85 = *a3;
-  v86 = v7;
+  v84 = *a3;
+  v85 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v63 applyToView:&v85 withContext:v64];
-  if (v86)
+  [v63 applyToView:&v84 withContext:v64];
+  if (v85)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v85);
   }
 
   v8 = [v64 allowedEntityIdentifiers];
@@ -1473,7 +1432,7 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
   v13 = mlcore::ItemPropertySyncID(v12);
   v14 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v13);
   v15 = mlcore::ItemPropertyStoreCloudAlbumID(v14);
-  _MPMLInsertPredicatesForIdentifierSet(&v87, v8, v9, v10, v11, v12, 0, v13, v14, v15);
+  _MPMLInsertPredicatesForIdentifierSet(&v86, v8, v9, v10, v11, v12, 0, v13, v14, v15);
 
   v16 = [v64 filterText];
   v17 = [v16 length] == 0;
@@ -1485,39 +1444,39 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
     std::string::basic_string[abi:ne200100]<0>(&__p, [v18 UTF8String]);
 
     *&v69 = mlcore::ItemPropertyTitle(v20);
-    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>();
+    std::allocate_shared[abi:ne200100]<mlcore::SearchPredicate,std::allocator<mlcore::SearchPredicate>,mlcore::ModelProperty<std::string> *,std::string&,0>(v77, &v69, &__p);
   }
 
-  v84[0] = 0;
-  v84[1] = 0;
-  v83 = v84;
+  v83[0] = 0;
+  v83[1] = 0;
+  v82 = v83;
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = [v64 scopedContainers];
-  v21 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
+  v21 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
   if (v21)
   {
-    v22 = *v80;
+    v22 = *v79;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v80 != v22)
+        if (*v79 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = [*(*(&v79 + 1) + 8 * i) identifiers];
+        v24 = [*(*(&v78 + 1) + 8 * i) identifiers];
         v25 = [v24 library];
         v26 = [v25 persistentID];
 
-        v93 = v26;
+        v92 = v26;
         v27 = [v24 universalStore];
         v28 = [v27 adamID];
 
-        v77 = v28;
+        v77[0] = v28;
         v29 = [v24 universalStore];
         v30 = [v29 subscriptionAdamID];
 
@@ -1532,11 +1491,11 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
           if (v26)
           {
             __p = &v69;
-            v38 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-            v91 = mlcore::ItemPropertyAlbumPersistentID(v38);
-            __p = &v91;
-            v39 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v38 + 40, v91);
-            std::vector<long long>::push_back[abi:ne200100]((v39 + 5), &v93);
+            v38 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+            v90 = mlcore::ItemPropertyAlbumPersistentID(v38);
+            __p = &v90;
+            v39 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v38 + 5, v90, &__p);
+            std::vector<long long>::push_back[abi:ne200100]((v39 + 5), &v92);
           }
 
           else
@@ -1544,30 +1503,30 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
             if (v32)
             {
               __p = &v69;
-              v44 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-              v91 = mlcore::ItemPropertyAlbumSyncID(v44);
-              __p = &v91;
-              v45 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v44 + 40, v91);
+              v44 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+              v90 = mlcore::ItemPropertyAlbumSyncID(v44);
+              __p = &v90;
+              v45 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v44 + 5, v90, &__p);
               std::vector<long long>::push_back[abi:ne200100]((v45 + 5), &v70);
             }
 
             if (v28)
             {
               __p = &v69;
-              v46 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-              v91 = mlcore::ItemPropertyStorePlaylistID(v46);
-              __p = &v91;
-              v47 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v46 + 40, v91);
-              std::vector<long long>::push_back[abi:ne200100]((v47 + 5), &v77);
+              v46 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+              v90 = mlcore::ItemPropertyStorePlaylistID(v46);
+              __p = &v90;
+              v47 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v46 + 5, v90, &__p);
+              std::vector<long long>::push_back[abi:ne200100]((v47 + 5), v77);
             }
 
             if (v30)
             {
               __p = &v69;
-              v48 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-              v91 = mlcore::ItemPropertyStorePlaylistID(v48);
-              __p = &v91;
-              v49 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v48 + 40, v91);
+              v48 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+              v90 = mlcore::ItemPropertyStorePlaylistID(v48);
+              __p = &v90;
+              v49 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v48 + 5, v90, &__p);
               std::vector<long long>::push_back[abi:ne200100]((v49 + 5), &v75);
             }
           }
@@ -1581,21 +1540,21 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
             if (v26)
             {
               __p = &v69;
-              v40 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-              v91 = mlcore::ItemPropertyAlbumArtistPersistentID(v40);
-              __p = &v91;
-              v41 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v40 + 40, v91);
-              std::vector<long long>::push_back[abi:ne200100]((v41 + 5), &v93);
+              v40 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+              v90 = mlcore::ItemPropertyAlbumArtistPersistentID(v40);
+              __p = &v90;
+              v41 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v40 + 5, v90, &__p);
+              std::vector<long long>::push_back[abi:ne200100]((v41 + 5), &v92);
             }
 
             else if (v28)
             {
               __p = &v69;
-              v52 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-              v91 = mlcore::ItemPropertyArtistStoreID(v52);
-              __p = &v91;
-              v53 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v52 + 40, v91);
-              std::vector<long long>::push_back[abi:ne200100]((v53 + 5), &v77);
+              v52 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+              v90 = mlcore::ItemPropertyArtistStoreID(v52);
+              __p = &v90;
+              v53 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v52 + 5, v90, &__p);
+              std::vector<long long>::push_back[abi:ne200100]((v53 + 5), v77);
             }
           }
 
@@ -1607,11 +1566,11 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
               if (v26)
               {
                 __p = &v69;
-                v42 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-                v91 = mlcore::ItemPropertyItemArtistPersistentID(v42);
-                __p = &v91;
-                v43 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v42 + 40, v91);
-                std::vector<long long>::push_back[abi:ne200100]((v43 + 5), &v93);
+                v42 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+                v90 = mlcore::ItemPropertyItemArtistPersistentID(v42);
+                __p = &v90;
+                v43 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v42 + 5, v90, &__p);
+                std::vector<long long>::push_back[abi:ne200100]((v43 + 5), &v92);
               }
             }
 
@@ -1623,11 +1582,11 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
                 if (v26)
                 {
                   __p = &v69;
-                  v50 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-                  v91 = mlcore::ItemPropertyGenrePersistentID(v50);
-                  __p = &v91;
-                  v51 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v50 + 40, v91);
-                  std::vector<long long>::push_back[abi:ne200100]((v51 + 5), &v93);
+                  v50 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+                  v90 = mlcore::ItemPropertyGenrePersistentID(v50);
+                  __p = &v90;
+                  v51 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v50 + 5, v90, &__p);
+                  std::vector<long long>::push_back[abi:ne200100]((v51 + 5), &v92);
                 }
               }
 
@@ -1637,11 +1596,11 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
                 if (v36 == objc_opt_class())
                 {
                   __p = &v69;
-                  v54 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v83, v69);
-                  v91 = mlcore::ItemPropertyComposerPersistentID(v54);
-                  __p = &v91;
-                  v55 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v54 + 40, v91);
-                  std::vector<long long>::push_back[abi:ne200100]((v55 + 5), &v93);
+                  v54 = std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::__emplace_unique_key_args<objc_class * {__strong},std::piecewise_construct_t const&,std::tuple<objc_class * const {__strong}&>,std::tuple<>>(&v82, v69, &__p);
+                  v90 = mlcore::ItemPropertyComposerPersistentID(v54);
+                  __p = &v90;
+                  v55 = std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::__emplace_unique_key_args<mlcore::ModelProperty<long long> *,std::piecewise_construct_t const&,std::tuple<mlcore::ModelProperty<long long> *&&>,std::tuple<>>(v54 + 5, v90, &__p);
+                  std::vector<long long>::push_back[abi:ne200100]((v55 + 5), &v92);
                 }
 
                 else
@@ -1658,44 +1617,44 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
+      v21 = [obj countByEnumeratingWithState:&v78 objects:v91 count:16];
     }
 
     while (v21);
   }
 
-  v56 = v83;
-  if (v83 != v84)
+  v56 = v82;
+  if (v82 != v83)
   {
     do
     {
-      std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long>>,std::vector<std::pair<mlcore::ModelProperty<long long> const,std::allocator<long long>>>>>::pair[abi:ne200100](&v93, v56 + 4);
-      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](&v77, v94);
+      std::pair<objc_class * const {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long>>,std::vector<std::pair<mlcore::ModelProperty<long long> const,std::allocator<long long>>>>>::pair[abi:ne200100](&v92, v56 + 4);
+      std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>::map[abi:ne200100](v77, v93);
       v75 = 0uLL;
       v76 = 0;
-      if (v77 != &v78)
+      if (v77[0] != &v77[1])
       {
-        v57 = *(v77 + 40);
-        __p = *(v77 + 32);
+        v57 = *(v77[0] + 40);
+        __p = *(v77[0] + 32);
         v73 = 0;
         v74 = 0;
         v72 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v72, v57, *(v77 + 48), (*(v77 + 48) - v57) >> 3);
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v72, v57, *(v77[0] + 48), (*(v77[0] + 48) - v57) >> 3);
         if (v73 - v72 == 8)
         {
-          v91 = __p;
-          v90 = 0;
-          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+          v90 = __p;
+          v89 = 0;
+          std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v69, &v90, &v89, v72);
         }
 
-        v91 = __p;
-        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+        v90 = __p;
+        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v69, &v90, &v72);
       }
 
       memset(v68, 0, sizeof(v68));
       std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v68, 0, 0, 0);
       mlcore::CreateOrPredicate();
-      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v87, &__p);
+      std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v86, &__p);
       if (v72)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v72);
@@ -1705,8 +1664,8 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
       std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v70);
       __p = &v75;
       std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&__p);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v78);
-      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v94[1]);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v77[1]);
+      std::__tree<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::__map_value_compare<mlcore::ModelProperty<long long> *,std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>,std::less<mlcore::ModelProperty<long long> *>,true>,std::allocator<std::__value_type<mlcore::ModelProperty<long long> *,std::vector<long long>>>>::destroy(v93[1]);
 
       v58 = v56[1];
       if (v58)
@@ -1735,11 +1694,11 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
       v56 = v59;
     }
 
-    while (v59 != v84);
+    while (v59 != v83);
   }
 
   memset(v66, 0, sizeof(v66));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v66, v87, v88, (v88 - v87) >> 4);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v66, v86, v87, (v87 - v86) >> 4);
   mlcore::CreateAndPredicate();
   mlcore::EntityQuery::songsQuery();
   if (v67)
@@ -1747,12 +1706,12 @@ void ___ZL24_MPMLInitPropertySongMapv_block_invoke_5(uint64_t a1, void *a2, uint
     std::__shared_weak_count::__release_shared[abi:ne200100](v67);
   }
 
-  v93 = v66;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v93);
-  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v84[0]);
+  v92 = v66;
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v92);
+  std::__tree<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::__map_value_compare<objc_class * {__strong},std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>,std::less<objc_class * {__strong}>,true>,std::allocator<std::__value_type<objc_class * {__strong},std::map<mlcore::ModelProperty<long long> *,std::vector<long long>,std::less<mlcore::ModelProperty<long long> *>,std::allocator<std::pair<mlcore::ModelProperty<long long> * const,std::vector<long long>>>>>>>::destroy(v83[0]);
 
-  v93 = &v87;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v93);
+  v92 = &v86;
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__destroy_vector::operator()[abi:ne200100](&v92);
 }
 
 void sub_1A2659AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, void *a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
@@ -2165,11 +2124,11 @@ id MPTranslatorUtilitiesTransformIsExplicit(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_1A267CC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A267CC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2178,6 +2137,13 @@ uint64_t __Block_byref_object_copy__45828(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1A267D618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 char *MPChangeDetailOperationGenerateEx(uint64_t a1, uint64_t a2, unint64_t *a3, char *a4, void *a5)
@@ -3104,16 +3070,16 @@ LABEL_179:
   return ptr;
 }
 
-void sub_1A2680500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2680500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A2680648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2680648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3151,7 +3117,7 @@ void _MPChangeDetailOperationNodeRelease(_DWORD *a1)
   }
 }
 
-uint64_t MPChangeDetailOperationMaximumSegmentCount(uint64_t a1)
+uint64_t MPChangeDetailOperationMaximumSegmentCount(unint64_t a1)
 {
   v1 = 250;
   if (a1 < 0x1389)
@@ -3220,32 +3186,39 @@ id MPChangeDetailOperationsCopyDescription(unint64_t *a1, uint64_t a2)
   return v7;
 }
 
-id MPContainerUniqueIDPrefix(void *a1)
+id MPContainerUniqueIDPrefix(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = a1;
-  v2 = [v1 universalStore];
-  v3 = [v2 subscriptionAdamID];
+  v4 = a1;
+  v5 = [v4 universalStore];
+  v6 = [v5 subscriptionAdamID];
 
-  if (!v3)
+  if (!v6)
   {
-    v4 = [v1 universalStore];
-    [v4 adamID];
+    v7 = [v4 universalStore];
+    [v7 adamID];
   }
 
-  v5 = [v1 universalStore];
-  v6 = [v5 universalCloudLibraryID];
-  v7 = [v1 universalStore];
-  [v7 purchasedAdamID];
-  v8 = [v1 library];
-  [v8 persistentID];
-  v9 = ML3ContainerItemOccurrencePrefix();
+  v8 = [v4 universalStore];
+  v9 = [v8 universalCloudLibraryID];
+  v10 = [v4 universalStore];
+  [v10 purchasedAdamID];
+  v11 = [v4 library];
+  [v11 persistentID];
+  v12 = ML3ContainerItemOccurrencePrefix();
 
-  return v9;
+  return v12;
 }
 
-void sub_1A2691E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2691E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A26927D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3309,24 +3282,25 @@ void sub_1A269912C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A2699EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A2699EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A269A6FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1A269A6FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3337,16 +3311,16 @@ uint64_t __Block_byref_object_copy__48370(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A269DC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A269DC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A269DEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A269DEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3404,9 +3378,9 @@ __CFString *NSStringFromMPPlaybackContextSupplementalReason(unint64_t a1)
   return v2;
 }
 
-void sub_1A26A13F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26A13F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3418,9 +3392,9 @@ uint64_t __Block_byref_object_copy__49047(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A26A2514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A26A2514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3432,9 +3406,9 @@ uint64_t __Block_byref_object_copy__49133(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A26A2728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26A2728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3556,9 +3530,9 @@ void getCARSessionLimitUserInterfacesChangedNotification()
   }
 }
 
-void sub_1A26A4184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26A4184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3609,7 +3583,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __CarKitLibraryCore_block_invoke_49684()
+uint64_t __CarKitLibraryCore_block_invoke_49684(uint64_t a1)
 {
   result = _sl_dlopen();
   CarKitLibraryCore_frameworkLibrary_49683 = result;
@@ -3849,7 +3823,7 @@ uint64_t _MPGetSupportsPlaybackProgressCallback(uint64_t a1, unint64_t a2, void 
   return v7;
 }
 
-void *_MPCopyNowPlayingIdentifiersCallback(void *a1)
+CFArrayRef _MPCopyNowPlayingIdentifiersCallback(void *a1)
 {
   v1 = a1;
   Copy = [v1 nowPlayingIdentifiers];
@@ -3918,9 +3892,9 @@ void __getCARSessionStatusClass_block_invoke_49779(uint64_t a1)
   }
 }
 
-void sub_1A26A76C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26A76C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3932,9 +3906,9 @@ uint64_t __Block_byref_object_copy__49928(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A26AC7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26AC7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3985,7 +3959,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __AVKitLibraryCore_block_invoke()
+uint64_t __AVKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AVKitLibraryCore_frameworkLibrary = result;
@@ -4013,9 +3987,9 @@ void sub_1A26AFFDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A26B46B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26B46B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4027,23 +4001,23 @@ uint64_t __Block_byref_object_copy__51752(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A26B669C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26B669C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26B6DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26B6DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26B71C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26B71C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4071,20 +4045,21 @@ void sub_1A26C0FC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A26C12F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1A26C12F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 80), 8);
+  _Block_object_dispose((v19 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D0528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1A26D0528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 224), 8);
-  _Block_object_dispose((v37 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 224), 8);
+  _Block_object_dispose((v36 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4095,44 +4070,51 @@ uint64_t __Block_byref_object_copy__54662(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A26D1330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1A26D0F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a15);
+  va_start(va, a27);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D2784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26D1330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a9);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D2EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A26D2784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D3018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26D2EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D3468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26D3018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D3638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26D3468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A26D3638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4155,23 +4137,24 @@ void sub_1A26D4484(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D4BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1A26D4BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A26D4E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A26D7E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A26D4E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A26D7E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5461,10 +5444,11 @@ void MPVolumeSettingsAlertShow(void)
   }
 }
 
-void sub_1A26F8148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A26F8148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

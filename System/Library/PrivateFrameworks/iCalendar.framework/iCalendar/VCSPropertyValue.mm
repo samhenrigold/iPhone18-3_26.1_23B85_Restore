@@ -48,7 +48,7 @@
 
 - (id)dictify
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   valueType = self->_valueType;
   if (valueType >= 0xA)
@@ -69,32 +69,32 @@
   if ([(NSMutableDictionary *)self->_parameters count])
   {
     v7 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     allKeys = [(NSMutableDictionary *)self->_parameters allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           v14 = [(NSMutableDictionary *)self->_parameters objectForKeyedSubscript:v13];
           dictify = [v14 dictify];
           [v7 setObject:dictify forKeyedSubscript:v13];
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -102,8 +102,6 @@
 
     [v3 setObject:v7 forKeyedSubscript:@"parameters"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

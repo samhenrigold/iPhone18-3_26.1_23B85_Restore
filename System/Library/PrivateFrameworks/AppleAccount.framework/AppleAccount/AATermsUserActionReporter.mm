@@ -61,10 +61,10 @@ void __40__AATermsUserActionReporter_reportEvent__block_invoke(uint64_t a1, void
     v6 = *(a1 + 32);
     v5 = a1 + 32;
     v7 = [(AATermsReportUserActionRequest *)v4 initWithAccount:*(v6 + 8) urlRequest:v3 parameters:*(v6 + 16)];
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __40__AATermsUserActionReporter_reportEvent__block_invoke_cold_1(v5);
+      __40__AATermsUserActionReporter_reportEvent__block_invoke_cold_1();
     }
 
     ++*(*v5 + 32);
@@ -78,7 +78,7 @@ void __40__AATermsUserActionReporter_reportEvent__block_invoke(uint64_t a1, void
 
   else
   {
-    v7 = _AALogSystem();
+    v7 = _AALogSystem(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __40__AATermsUserActionReporter_reportEvent__block_invoke_cold_2();
@@ -89,61 +89,61 @@ void __40__AATermsUserActionReporter_reportEvent__block_invoke(uint64_t a1, void
 void __40__AATermsUserActionReporter_reportEvent__block_invoke_32(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __40__AATermsUserActionReporter_reportEvent__block_invoke_32_cold_1(v4);
   }
 
-  v6 = _AALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _AALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __40__AATermsUserActionReporter_reportEvent__block_invoke_32_cold_2(v4);
   }
 
-  v7 = [v4 httpResponse];
-  v8 = [v7 statusCode];
+  v8 = [v4 httpResponse];
+  v9 = [v8 statusCode];
 
-  if (v8 != 200)
+  if (v9 != 200)
   {
-    v9 = [v4 httpResponse];
-    v10 = [v9 statusCode];
+    v10 = [v4 httpResponse];
+    v11 = [v10 statusCode];
 
-    if (v10 != 400)
+    if (v11 != 400)
     {
-      v11 = [v4 httpResponse];
-      v12 = [v11 statusCode];
+      v12 = [v4 httpResponse];
+      v13 = [v12 statusCode];
 
-      if (v12 == 401)
+      if (v13 == 401)
       {
-        v13 = objc_alloc_init(MEMORY[0x1E698DCB8]);
-        v14 = [*(*(a1 + 32) + 8) aa_altDSID];
-        [v13 setAltDSID:v14];
+        v14 = objc_alloc_init(MEMORY[0x1E698DCB8]);
+        v15 = [*(*(a1 + 32) + 8) aa_altDSID];
+        [v14 setAltDSID:v15];
 
-        v15 = [*(*(a1 + 32) + 8) username];
-        [v13 setUsername:v15];
+        v16 = [*(*(a1 + 32) + 8) username];
+        [v14 setUsername:v16];
 
-        [v13 setAuthenticationType:1];
-        [v13 setIsUsernameEditable:0];
-        v16 = [*(a1 + 32) _authController];
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __40__AATermsUserActionReporter_reportEvent__block_invoke_34;
-        v19[3] = &unk_1E7C9D740;
-        v19[4] = *(a1 + 32);
-        [v16 authenticateWithContext:v13 completion:v19];
+        [v14 setAuthenticationType:1];
+        [v14 setIsUsernameEditable:0];
+        v17 = [*(a1 + 32) _authController];
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __40__AATermsUserActionReporter_reportEvent__block_invoke_34;
+        v20[3] = &unk_1E7C9D740;
+        v20[4] = *(a1 + 32);
+        [v17 authenticateWithContext:v14 completion:v20];
 
 LABEL_11:
         goto LABEL_12;
       }
 
-      v17 = [v4 httpResponse];
-      v18 = [v17 statusCode];
+      v18 = [v4 httpResponse];
+      v19 = [v18 statusCode];
 
-      if (v18 != 500)
+      if (v19 != 500)
       {
-        v13 = [v4 httpResponse];
-        [v13 statusCode];
+        v14 = [v4 httpResponse];
+        [v14 statusCode];
         goto LABEL_11;
       }
     }
@@ -156,7 +156,7 @@ void __40__AATermsUserActionReporter_reportEvent__block_invoke_34(uint64_t a1, v
 {
   v5 = a2;
   v6 = a3;
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __40__AATermsUserActionReporter_reportEvent__block_invoke_34_cold_1();
@@ -164,7 +164,7 @@ void __40__AATermsUserActionReporter_reportEvent__block_invoke_34(uint64_t a1, v
 
   if (v6 || (v8 = *(a1 + 32), v8[4] > 2uLL))
   {
-    v9 = _AALogSystem();
+    v9 = _AALogSystem(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __40__AATermsUserActionReporter_reportEvent__block_invoke_34_cold_2();
@@ -215,7 +215,7 @@ void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___b
   if (v3)
   {
     v4 = [MEMORY[0x1E695DFF8] URLWithString:v3];
-    v5 = _AALogSystem();
+    v5 = _AALogSystem(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_cold_1(v4);
@@ -249,30 +249,31 @@ void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___b
 void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_45(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_46;
-    v9[3] = &unk_1E7C9AC08;
-    v10 = v6;
-    v11 = *(a1 + 40);
-    [a2 signRequest:v10 withCompletionHandler:v9];
+    v7 = *(a1 + 32);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_46;
+    v10[3] = &unk_1E7C9AC08;
+    v11 = v7;
+    v12 = *(a1 + 40);
+    [a2 signRequest:v11 withCompletionHandler:v10];
   }
 
   else
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _AALogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_45_cold_1();
     }
 
-    v8 = *(a1 + 40);
-    if (v8)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v8 + 16))(v8, 0, v5);
+      (*(v9 + 16))(v9, 0, v6);
     }
   }
 }
@@ -282,8 +283,7 @@ void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___b
   v2 = [*(a1 + 32) allHTTPHeaderFields];
   v3 = [v2 mutableCopy];
 
-  [v3 setValue:@"application/json" forKey:@"Accept"];
-  v4 = _AALogSystem();
+  v4 = _AALogSystem([v3 setValue:@"application/json" forKey:@"Accept"]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_46_cold_1();
@@ -297,75 +297,52 @@ void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___b
   }
 }
 
-void __40__AATermsUserActionReporter_reportEvent__block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 16);
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __40__AATermsUserActionReporter_reportEvent__block_invoke_32_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 statusCode];
-  v8 = [a1 responseParameters];
+  v7 = [a1 responseParameters];
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __40__AATermsUserActionReporter_reportEvent__block_invoke_32_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 httpResponse];
   [v1 statusCode];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __40__AATermsUserActionReporter_reportEvent__block_invoke_34_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1B6F6A000, v1, OS_LOG_TYPE_DEBUG, "TermsQFA: AATermsUserActionReporter reporting event after reauth with authResults %{private}@ and error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1B6F6A000, v1, OS_LOG_TYPE_DEBUG, "TermsQFA: AATermsUserActionReporter reporting event after reauth with authResults %{private}@ and error: %@", v2, 0x16u);
 }
 
 void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 absoluteString];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_45_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AATermsUserActionReporter__createRequestForAccount_requestHandler___block_invoke_46_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

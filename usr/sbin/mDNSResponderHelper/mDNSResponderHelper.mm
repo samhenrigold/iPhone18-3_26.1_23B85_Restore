@@ -240,332 +240,308 @@ LABEL_6:
   }
 
   *a5 = -1;
-  if ((SetLocalAddressCacheEntry_s & 0x80000000) == 0)
+  if ((SetLocalAddressCacheEntry_s & 0x80000000) == 0 || (SetLocalAddressCacheEntry_s = socket(17, 3, 0), (SetLocalAddressCacheEntry_s & 0x80000000) == 0) || (v90 = log_handle, os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT)) && (v91 = *__error(), v92 = __error(), v93 = strerror(*v92), *buf = 67109378, LODWORD(v127) = v91, WORD2(v127) = 2080, *(&v127 + 6) = v93, _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: socket(PF_ROUTE, SOCK_RAW, 0) failed %d (%s)", buf, 0x12u), (SetLocalAddressCacheEntry_s & 0x80000000) == 0))
   {
-    goto LABEL_9;
-  }
-
-  SetLocalAddressCacheEntry_s = socket(17, 3, 0);
-  if ((SetLocalAddressCacheEntry_s & 0x80000000) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  v90 = log_handle;
-  if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
-  {
-    v91 = *__error();
-    v92 = __error();
-    v93 = strerror(*v92);
-    *buf = 67109378;
-    LODWORD(v127) = v91;
-    WORD2(v127) = 2080;
-    *(&v127 + 6) = v93;
-    _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: socket(PF_ROUTE, SOCK_RAW, 0) failed %d (%s)", buf, 0x12u);
-    if ((SetLocalAddressCacheEntry_s & 0x80000000) == 0)
+    v125.tv_sec = 0;
+    *&v125.tv_usec = 0;
+    gettimeofday(&v125, 0);
+    if (a2 == 4)
     {
-LABEL_9:
-      v125.tv_sec = 0;
-      *&v125.tv_usec = 0;
-      gettimeofday(&v125, 0);
-      if (a2 == 4)
+      v127 = 0uLL;
+      memset(&v128[8], 0, 32);
+      *&v128[46] = 0uLL;
+      memset(&v128[24], 0, 48);
+      *buf = 17105024;
+      LOWORD(v127) = a1;
+      *(&v127 + 4) = 0x301000804;
+      v47 = SetLocalAddressCacheEntry_seq++;
+      *v128 = v47;
+      *&v128[4] = 0x400000000;
+      *&v128[14] = LODWORD(v125.tv_sec) + 30;
+      v128[36] = 528;
+      *&v128[38] = *a3;
+      v128[44] = 4628;
+      v128[45] = a1;
+      LOBYTE(v128[46]) = 6;
+      LOBYTE(v128[47]) = 6;
+      v48 = *a4;
+      v128[50] = *(a4 + 2);
+      *&v128[48] = v48;
+      v49 = write(SetLocalAddressCacheEntry_s, buf, 0x80uLL);
+      if (v49 < 0)
       {
-        v127 = 0uLL;
-        memset(&v128[8], 0, 32);
-        *&v128[46] = 0uLL;
-        memset(&v128[24], 0, 48);
-        *buf = 17105024;
-        LOWORD(v127) = a1;
-        *(&v127 + 4) = 0x301000804;
-        v47 = SetLocalAddressCacheEntry_seq++;
-        *v128 = v47;
-        *&v128[4] = 0x400000000;
-        *&v128[14] = LODWORD(v125.tv_sec) + 30;
-        v128[36] = 528;
-        *&v128[38] = *a3;
-        v128[44] = 4628;
-        v128[45] = a1;
-        LOBYTE(v128[46]) = 6;
-        LOBYTE(v128[47]) = 6;
-        v48 = *a4;
-        v128[50] = *(a4 + 2);
-        *&v128[48] = v48;
-        v49 = write(SetLocalAddressCacheEntry_s, buf, 0x80uLL);
-        if (v49 < 0)
+        v50 = v49;
+        v51 = log_handle;
+        if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
         {
-          v50 = v49;
-          v51 = log_handle;
-          if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
-          {
-            v52 = *a3;
-            v53 = a3[1];
-            v113 = a3[2];
-            v116 = a3[3];
-            v122 = *v128;
-            v119 = *__error();
-            v54 = __error();
-            v55 = strerror(*v54);
-            *__buf = 134220290;
-            *&v134 = 128;
-            WORD4(v134) = 1024;
-            *(&v134 + 10) = a1;
-            HIWORD(v134) = 1024;
-            v135 = v52;
-            *v136 = 1024;
-            *&v136[2] = v53;
-            *&v136[6] = 1024;
-            *&v136[8] = v113;
-            LOWORD(v137[0]) = 1024;
-            *(v137 + 2) = v116;
-            HIWORD(v137[1]) = 1024;
-            v137[2] = v122;
-            LOWORD(v137[3]) = 2048;
-            *(&v137[3] + 2) = v50;
-            HIWORD(v137[5]) = 1024;
-            v137[6] = v119;
-            LOWORD(v137[7]) = 2080;
-            *(&v137[7] + 2) = v55;
-            _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: write(%zu) interface %d address %d.%d.%d.%d seq %d result %zd errno %d (%s)", __buf, 0x4Au);
-          }
+          v52 = *a3;
+          v53 = a3[1];
+          v113 = a3[2];
+          v116 = a3[3];
+          v122 = *v128;
+          v119 = *__error();
+          v54 = __error();
+          v55 = strerror(*v54);
+          *__buf = 134220290;
+          *&v134 = 128;
+          WORD4(v134) = 1024;
+          *(&v134 + 10) = a1;
+          HIWORD(v134) = 1024;
+          v135 = v52;
+          *v136 = 1024;
+          *&v136[2] = v53;
+          *&v136[6] = 1024;
+          *&v136[8] = v113;
+          LOWORD(v137[0]) = 1024;
+          *(v137 + 2) = v116;
+          HIWORD(v137[1]) = 1024;
+          v137[2] = v122;
+          LOWORD(v137[3]) = 2048;
+          *(&v137[3] + 2) = v50;
+          HIWORD(v137[5]) = 1024;
+          v137[6] = v119;
+          LOWORD(v137[7]) = 2080;
+          *(&v137[7] + 2) = v55;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: write(%zu) interface %d address %d.%d.%d.%d seq %d result %zd errno %d (%s)", __buf, 0x4Au);
         }
-
-        v56 = read(SetLocalAddressCacheEntry_s, buf, 0x80uLL);
-        if ((v56 & 0x8000000000000000) == 0 && !*&v128[2])
-        {
-          goto LABEL_25;
-        }
-
-        v57 = log_handle;
-        if (!os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_25;
-        }
-
-        v58 = *a3;
-        v59 = a3[1];
-        v60 = a3[2];
-        v61 = a3[3];
-        v62 = *v128;
-        v63 = *__error();
-        v64 = __error();
-        v65 = strerror(*v64);
-        *__buf = 134220546;
-        *&v134 = 128;
-        WORD4(v134) = 1024;
-        *(&v134 + 10) = a1;
-        HIWORD(v134) = 1024;
-        v135 = v58;
-        *v136 = 1024;
-        *&v136[2] = v59;
-        *&v136[6] = 1024;
-        *&v136[8] = v60;
-        LOWORD(v137[0]) = 1024;
-        *(v137 + 2) = v61;
-        HIWORD(v137[1]) = 1024;
-        v137[2] = v62;
-        LOWORD(v137[3]) = 2048;
-        *(&v137[3] + 2) = v56;
-        HIWORD(v137[5]) = 1024;
-        v137[6] = v63;
-        LOWORD(v137[7]) = 2080;
-        *(&v137[7] + 2) = v65;
-        HIWORD(v137[9]) = 1024;
-        v137[10] = *&v128[2];
-        v66 = "SetLocalAddressCacheEntry: read (%zu) interface %d address %d.%d.%d.%d seq %d result %zd errno %d (%s) %d";
-        v67 = __buf;
-        v68 = v57;
-        v69 = 80;
       }
 
-      else
+      v56 = read(SetLocalAddressCacheEntry_s, buf, 0x80uLL);
+      if ((v56 & 0x8000000000000000) == 0 && !*&v128[2])
       {
-        v134 = 0uLL;
-        *v136 = 0;
-        memset(v137, 0, sizeof(v137));
-        v138 = 0uLL;
-        v141 = 0;
-        v140 = 0uLL;
-        v139 = 0uLL;
-        *__buf = 17105036;
-        LOWORD(v134) = a1;
-        *(&v134 + 4) = 0x301000804;
-        v70 = SetLocalAddressCacheEntry_seq++;
-        *&v136[4] = 0x400000000;
-        v135 = v70;
-        v137[3] = LODWORD(v125.tv_sec) + 30;
-        WORD4(v138) = 7708;
-        v139 = *a3;
-        LODWORD(v140) = a1;
-        WORD2(v140) = 4628;
-        WORD3(v140) = a1;
-        BYTE8(v140) = 6;
-        BYTE10(v140) = 6;
-        v71 = *a4;
-        LOWORD(v141) = *(a4 + 2);
-        HIDWORD(v140) = v71;
-        v72 = write(SetLocalAddressCacheEntry_s, __buf, 0x8CuLL);
-        if (v72 < 0)
-        {
-          v73 = v72;
-          v74 = log_handle;
-          if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
-          {
-            v75 = *a3;
-            v76 = a3[1];
-            v77 = a3[2];
-            v94 = a3[3];
-            v95 = a3[4];
-            v96 = a3[5];
-            v97 = a3[6];
-            v99 = a3[7];
-            v101 = a3[8];
-            v103 = a3[9];
-            v105 = a3[10];
-            v107 = a3[11];
-            v109 = a3[12];
-            v111 = a3[13];
-            v114 = a3[14];
-            v117 = a3[15];
-            v123 = v135;
-            v120 = *__error();
-            v78 = __error();
-            v79 = strerror(*v78);
-            *buf = 134223362;
-            *&v127 = 140;
-            WORD4(v127) = 1024;
-            *(&v127 + 10) = a1;
-            HIWORD(v127) = 1024;
-            *v128 = v75;
-            v128[2] = 1024;
-            *&v128[3] = v76;
-            v128[5] = 1024;
-            *&v128[6] = v77;
-            v128[8] = 1024;
-            *&v128[9] = v94;
-            v128[11] = 1024;
-            *&v128[12] = v95;
-            v128[14] = 1024;
-            *&v128[15] = v96;
-            v128[17] = 1024;
-            *&v128[18] = v97;
-            v128[20] = 1024;
-            *&v128[21] = v99;
-            v128[23] = 1024;
-            *&v128[24] = v101;
-            v128[26] = 1024;
-            *&v128[27] = v103;
-            v128[29] = 1024;
-            *&v128[30] = v105;
-            v128[32] = 1024;
-            *&v128[33] = v107;
-            v128[35] = 1024;
-            *&v128[36] = v109;
-            v128[38] = 1024;
-            *&v128[39] = v111;
-            v128[41] = 1024;
-            *&v128[42] = v114;
-            v128[44] = 1024;
-            *&v128[45] = v117;
-            v128[47] = 1024;
-            *&v128[48] = v123;
-            v128[50] = 2048;
-            *&v128[51] = v73;
-            *v129 = 1024;
-            *&v129[2] = v120;
-            *v130 = 2080;
-            *&v130[2] = v79;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: write(%zu) interface %d address %02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X seq %d result %zd errno %d (%s)", buf, 0x92u);
-          }
-        }
-
-        v80 = read(SetLocalAddressCacheEntry_s, __buf, 0x8CuLL);
-        if ((v80 & 0x8000000000000000) == 0 && !*v136)
-        {
-          goto LABEL_25;
-        }
-
-        v81 = log_handle;
-        if (!os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_25;
-        }
-
-        v82 = *a3;
-        v83 = a3[1];
-        v84 = a3[2];
-        v85 = a3[3];
-        v86 = a3[4];
-        v98 = a3[5];
-        v100 = a3[6];
-        v102 = a3[7];
-        v104 = a3[8];
-        v106 = a3[9];
-        v108 = a3[10];
-        v110 = a3[11];
-        v112 = a3[12];
-        v115 = a3[13];
-        v118 = a3[14];
-        v87 = a3[15];
-        v124 = v135;
-        v121 = *__error();
-        v88 = __error();
-        v89 = strerror(*v88);
-        *buf = 134223618;
-        *&v127 = 140;
-        WORD4(v127) = 1024;
-        *(&v127 + 10) = a1;
-        HIWORD(v127) = 1024;
-        *v128 = v82;
-        v128[2] = 1024;
-        *&v128[3] = v83;
-        v128[5] = 1024;
-        *&v128[6] = v84;
-        v128[8] = 1024;
-        *&v128[9] = v85;
-        v128[11] = 1024;
-        *&v128[12] = v86;
-        v128[14] = 1024;
-        *&v128[15] = v98;
-        v128[17] = 1024;
-        *&v128[18] = v100;
-        v128[20] = 1024;
-        *&v128[21] = v102;
-        v128[23] = 1024;
-        *&v128[24] = v104;
-        v128[26] = 1024;
-        *&v128[27] = v106;
-        v128[29] = 1024;
-        *&v128[30] = v108;
-        v128[32] = 1024;
-        *&v128[33] = v110;
-        v128[35] = 1024;
-        *&v128[36] = v112;
-        v128[38] = 1024;
-        *&v128[39] = v115;
-        v128[41] = 1024;
-        *&v128[42] = v118;
-        v128[44] = 1024;
-        *&v128[45] = v87;
-        v128[47] = 1024;
-        *&v128[48] = v124;
-        v128[50] = 2048;
-        *&v128[51] = v80;
-        *v129 = 1024;
-        *&v129[2] = v121;
-        *v130 = 2080;
-        *&v130[2] = v89;
-        v131 = 1024;
-        v132 = *v136;
-        v66 = "SetLocalAddressCacheEntry: read (%zu) interface %d address %02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X seq %d result %zd errno %d (%s) %d";
-        v67 = buf;
-        v68 = v81;
-        v69 = 152;
+        goto LABEL_25;
       }
 
-      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, v66, v67, v69);
-LABEL_25:
-      *a5 = 0;
+      v57 = log_handle;
+      if (!os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_25;
+      }
+
+      v58 = *a3;
+      v59 = a3[1];
+      v60 = a3[2];
+      v61 = a3[3];
+      v62 = *v128;
+      v63 = *__error();
+      v64 = __error();
+      v65 = strerror(*v64);
+      *__buf = 134220546;
+      *&v134 = 128;
+      WORD4(v134) = 1024;
+      *(&v134 + 10) = a1;
+      HIWORD(v134) = 1024;
+      v135 = v58;
+      *v136 = 1024;
+      *&v136[2] = v59;
+      *&v136[6] = 1024;
+      *&v136[8] = v60;
+      LOWORD(v137[0]) = 1024;
+      *(v137 + 2) = v61;
+      HIWORD(v137[1]) = 1024;
+      v137[2] = v62;
+      LOWORD(v137[3]) = 2048;
+      *(&v137[3] + 2) = v56;
+      HIWORD(v137[5]) = 1024;
+      v137[6] = v63;
+      LOWORD(v137[7]) = 2080;
+      *(&v137[7] + 2) = v65;
+      HIWORD(v137[9]) = 1024;
+      v137[10] = *&v128[2];
+      v66 = "SetLocalAddressCacheEntry: read (%zu) interface %d address %d.%d.%d.%d seq %d result %zd errno %d (%s) %d";
+      v67 = __buf;
+      v68 = v57;
+      v69 = 80;
     }
+
+    else
+    {
+      v134 = 0uLL;
+      *v136 = 0;
+      memset(v137, 0, sizeof(v137));
+      v138 = 0uLL;
+      v141 = 0;
+      v140 = 0uLL;
+      v139 = 0uLL;
+      *__buf = 17105036;
+      LOWORD(v134) = a1;
+      *(&v134 + 4) = 0x301000804;
+      v70 = SetLocalAddressCacheEntry_seq++;
+      *&v136[4] = 0x400000000;
+      v135 = v70;
+      v137[3] = LODWORD(v125.tv_sec) + 30;
+      WORD4(v138) = 7708;
+      v139 = *a3;
+      LODWORD(v140) = a1;
+      WORD2(v140) = 4628;
+      WORD3(v140) = a1;
+      BYTE8(v140) = 6;
+      BYTE10(v140) = 6;
+      v71 = *a4;
+      LOWORD(v141) = *(a4 + 2);
+      HIDWORD(v140) = v71;
+      v72 = write(SetLocalAddressCacheEntry_s, __buf, 0x8CuLL);
+      if (v72 < 0)
+      {
+        v73 = v72;
+        v74 = log_handle;
+        if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
+        {
+          v75 = *a3;
+          v76 = a3[1];
+          v77 = a3[2];
+          v94 = a3[3];
+          v95 = a3[4];
+          v96 = a3[5];
+          v97 = a3[6];
+          v99 = a3[7];
+          v101 = a3[8];
+          v103 = a3[9];
+          v105 = a3[10];
+          v107 = a3[11];
+          v109 = a3[12];
+          v111 = a3[13];
+          v114 = a3[14];
+          v117 = a3[15];
+          v123 = v135;
+          v120 = *__error();
+          v78 = __error();
+          v79 = strerror(*v78);
+          *buf = 134223362;
+          *&v127 = 140;
+          WORD4(v127) = 1024;
+          *(&v127 + 10) = a1;
+          HIWORD(v127) = 1024;
+          *v128 = v75;
+          v128[2] = 1024;
+          *&v128[3] = v76;
+          v128[5] = 1024;
+          *&v128[6] = v77;
+          v128[8] = 1024;
+          *&v128[9] = v94;
+          v128[11] = 1024;
+          *&v128[12] = v95;
+          v128[14] = 1024;
+          *&v128[15] = v96;
+          v128[17] = 1024;
+          *&v128[18] = v97;
+          v128[20] = 1024;
+          *&v128[21] = v99;
+          v128[23] = 1024;
+          *&v128[24] = v101;
+          v128[26] = 1024;
+          *&v128[27] = v103;
+          v128[29] = 1024;
+          *&v128[30] = v105;
+          v128[32] = 1024;
+          *&v128[33] = v107;
+          v128[35] = 1024;
+          *&v128[36] = v109;
+          v128[38] = 1024;
+          *&v128[39] = v111;
+          v128[41] = 1024;
+          *&v128[42] = v114;
+          v128[44] = 1024;
+          *&v128[45] = v117;
+          v128[47] = 1024;
+          *&v128[48] = v123;
+          v128[50] = 2048;
+          *&v128[51] = v73;
+          *v129 = 1024;
+          *&v129[2] = v120;
+          *v130 = 2080;
+          *&v130[2] = v79;
+          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "SetLocalAddressCacheEntry: write(%zu) interface %d address %02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X seq %d result %zd errno %d (%s)", buf, 0x92u);
+        }
+      }
+
+      v80 = read(SetLocalAddressCacheEntry_s, __buf, 0x8CuLL);
+      if ((v80 & 0x8000000000000000) == 0 && !*v136)
+      {
+        goto LABEL_25;
+      }
+
+      v81 = log_handle;
+      if (!os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_25;
+      }
+
+      v82 = *a3;
+      v83 = a3[1];
+      v84 = a3[2];
+      v85 = a3[3];
+      v86 = a3[4];
+      v98 = a3[5];
+      v100 = a3[6];
+      v102 = a3[7];
+      v104 = a3[8];
+      v106 = a3[9];
+      v108 = a3[10];
+      v110 = a3[11];
+      v112 = a3[12];
+      v115 = a3[13];
+      v118 = a3[14];
+      v87 = a3[15];
+      v124 = v135;
+      v121 = *__error();
+      v88 = __error();
+      v89 = strerror(*v88);
+      *buf = 134223618;
+      *&v127 = 140;
+      WORD4(v127) = 1024;
+      *(&v127 + 10) = a1;
+      HIWORD(v127) = 1024;
+      *v128 = v82;
+      v128[2] = 1024;
+      *&v128[3] = v83;
+      v128[5] = 1024;
+      *&v128[6] = v84;
+      v128[8] = 1024;
+      *&v128[9] = v85;
+      v128[11] = 1024;
+      *&v128[12] = v86;
+      v128[14] = 1024;
+      *&v128[15] = v98;
+      v128[17] = 1024;
+      *&v128[18] = v100;
+      v128[20] = 1024;
+      *&v128[21] = v102;
+      v128[23] = 1024;
+      *&v128[24] = v104;
+      v128[26] = 1024;
+      *&v128[27] = v106;
+      v128[29] = 1024;
+      *&v128[30] = v108;
+      v128[32] = 1024;
+      *&v128[33] = v110;
+      v128[35] = 1024;
+      *&v128[36] = v112;
+      v128[38] = 1024;
+      *&v128[39] = v115;
+      v128[41] = 1024;
+      *&v128[42] = v118;
+      v128[44] = 1024;
+      *&v128[45] = v87;
+      v128[47] = 1024;
+      *&v128[48] = v124;
+      v128[50] = 2048;
+      *&v128[51] = v80;
+      *v129 = 1024;
+      *&v129[2] = v121;
+      *v130 = 2080;
+      *&v130[2] = v89;
+      v131 = 1024;
+      v132 = *v136;
+      v66 = "SetLocalAddressCacheEntry: read (%zu) interface %d address %02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X seq %d result %zd errno %d (%s) %d";
+      v67 = buf;
+      v68 = v81;
+      v69 = 152;
+    }
+
+    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, v66, v67, v69);
+LABEL_25:
+    *a5 = 0;
   }
 
   update_idle_timer();
@@ -940,7 +916,7 @@ void SendKeepalive(uint16x4_t *a1, uint16x4_t *a2, unsigned int a3, unsigned int
   v22 = (v18 >> 16) + v18 + (((v18 >> 16) + v18) >> 16);
   if (v15 == 30)
   {
-    v23 = &a2[1] + 1;
+    v23 = &a2[1] + 2;
     v27 = vmovl_u16(*a2);
     v28 = vmovl_u16(a1[1]);
     v24 = vaddvq_s64(vaddq_s64(vaddl_u32(*v28.i8, *v27.i8), vaddl_high_u32(v28, v27))) + a1->u16[0] + a1->u16[1] + a2[1].u16[0] + v22 + HIWORD(v13) + v13;
@@ -950,7 +926,7 @@ void SendKeepalive(uint16x4_t *a1, uint16x4_t *a2, unsigned int a3, unsigned int
 
   else
   {
-    v23 = a1 + 1;
+    v23 = a1 + 2;
     v24 = v22 + a1->u16[0];
     v25 = 1;
     v26 = a2;
@@ -1848,7 +1824,7 @@ BOOL _mhs_handle_set_ip_forwarding_request(void *a1, int a2)
   return reply != 0;
 }
 
-xpc_object_t _mdns_xpc_dictionary_get_object(void *a1, const char *a2, const _xpc_type_s *a3)
+xpc_object_t _mdns_xpc_dictionary_get_object(void *a1, const char *a2, xpc_type_t a3)
 {
   value = xpc_dictionary_get_value(a1, a2);
   v5 = value;

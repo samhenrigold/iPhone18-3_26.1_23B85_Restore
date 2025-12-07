@@ -30,76 +30,76 @@
 - (int64_t)numberOfSections
 {
   sections = [(CPSSectionedDataSource *)self sections];
-  v6 = [(NSMutableArray *)sections count];
-  MEMORY[0x277D82BD8](sections);
-  v13 = v6;
+  v7 = [(NSMutableArray *)sections count];
+  *&v2 = MEMORY[0x277D82BD8](sections).n128_u64[0];
+  v14 = v7;
   self->_limitingWithSections = 0;
   if (self->_assistantCellIndexPath)
   {
-    v13 = v6 + 1;
+    v14 = v7 + 1;
   }
 
   if (![(CPSSectionedDataSource *)self isLimitingLists])
   {
-    return v13;
+    return v14;
   }
 
-  if (v13 <= 1)
+  if (v14 <= 1)
   {
-    return v13;
+    return v14;
   }
 
   self->_limitingWithSections = 1;
   self->_maxVisibleSection = 0;
-  v12 = 0;
+  v13 = 0;
   for (i = 0; ; ++i)
   {
-    if (i >= v13)
+    if (i >= v14)
     {
       self->_maxVisibleSection = 0x7FFFFFFFFFFFFFFFLL;
-      return v13;
+      return v14;
     }
 
-    v9 = 0;
-    v7 = 0;
+    v10 = 0;
+    v8 = 0;
     if (self->_assistantCellIndexPath && [(NSIndexPath *)self->_assistantCellIndexPath section]== i)
     {
-      v4 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v10 = [(CPSSectionedDataSource *)self sectionAtIndex:i];
-      v9 = 1;
-      items = [v10 items];
-      v7 = 1;
-      v4 = [items count];
+      v11 = [(CPSSectionedDataSource *)self sectionAtIndex:i];
+      v10 = 1;
+      items = [v11 items];
+      v8 = 1;
+      v5 = [items count];
     }
 
-    if (v7)
+    if (v8)
     {
       MEMORY[0x277D82BD8](items);
     }
 
-    if (v9)
+    if (v10)
     {
-      MEMORY[0x277D82BD8](v10);
+      MEMORY[0x277D82BD8](v11);
     }
 
-    if (v12 + v4 == 12)
+    if (v13 + v5 == 12)
     {
       self->_maxVisibleSection = i;
       if ([(CPSSectionedDataSource *)self showingAssistantInLastPosition])
       {
-        v3 = 11 - v12;
+        v4 = 11 - v13;
       }
 
       else
       {
-        v3 = v4;
+        v4 = v5;
       }
 
-      self->_numberOfVisibleItemsInLastSection = v3;
+      self->_numberOfVisibleItemsInLastSection = v4;
       if ([(CPSSectionedDataSource *)self showingAssistantInLastPosition])
       {
         return i + 2;
@@ -111,16 +111,16 @@
       }
     }
 
-    if ((v12 + v4) > 0xC)
+    if ((v13 + v5) > 0xC)
     {
       break;
     }
 
-    v12 += v4;
+    v13 += v5;
   }
 
   self->_maxVisibleSection = i;
-  self->_numberOfVisibleItemsInLastSection = 12 - v12;
+  self->_numberOfVisibleItemsInLastSection = 12 - v13;
   if ([(CPSSectionedDataSource *)self showingAssistantInLastPosition])
   {
     --self->_numberOfVisibleItemsInLastSection;

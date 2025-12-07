@@ -36,40 +36,40 @@
 
 - (id)accessibilityLabel
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if ([(UICollectionViewListCellAccessibility__Music__UIKit *)self _axIsListCellAccessibleInMusicApp])
   {
     array = [MEMORY[0x29EDB8DE8] array];
-    v21 = 0;
+    v20 = 0;
     objc_opt_class();
     v4 = __UIAccessibilityCastAsClass();
     contentView = [v4 contentView];
     accessibilityElements = [contentView accessibilityElements];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = accessibilityElements;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          accessibilityLabel = [*(*(&v17 + 1) + 8 * i) accessibilityLabel];
+          accessibilityLabel = [*(*(&v16 + 1) + 8 * i) accessibilityLabel];
           [array axSafelyAddObject:accessibilityLabel];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v9);
@@ -80,12 +80,10 @@
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = UICollectionViewListCellAccessibility__Music__UIKit;
-    accessibilityLabel2 = [(UICollectionViewListCellAccessibility__Music__UIKit *)&v16 accessibilityLabel];
+    v15.receiver = self;
+    v15.super_class = UICollectionViewListCellAccessibility__Music__UIKit;
+    accessibilityLabel2 = [(UICollectionViewListCellAccessibility__Music__UIKit *)&v15 accessibilityLabel];
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel2;
 }

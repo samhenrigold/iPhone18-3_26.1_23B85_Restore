@@ -1,160 +1,3 @@
-unint64_t sub_100017A74()
-{
-  result = qword_100029990;
-  if (!qword_100029990)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_100029990);
-  }
-
-  return result;
-}
-
-uint64_t sub_100017AC8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v6 = sub_100001DFC(a3, a4);
-  (*(*(v6 - 8) + 32))(a2, a1, v6);
-  return a2;
-}
-
-uint64_t *sub_100017B30(uint64_t *result)
-{
-  v1 = *(result[3] - 8);
-  if ((*(v1 + 80) & 0x20000) != 0)
-  {
-    v2 = *result;
-    v3 = *(v1 + 64);
-  }
-
-  return result;
-}
-
-uint64_t sub_100017B80()
-{
-
-  return _swift_deallocObject(v0, 24, 7);
-}
-
-uint64_t sub_100017BC8()
-{
-  _Block_release(*(v0 + 16));
-
-  return _swift_deallocObject(v0, 24, 7);
-}
-
-uint64_t sub_100017C08()
-{
-  v1 = *(v0 + 24);
-
-  return _swift_deallocObject(v0, 40, 7);
-}
-
-void sub_100017C48(uint64_t a1)
-{
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 32);
-  sub_100012E70(a1, *(v1 + 16));
-}
-
-uint64_t sub_100017C7C(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_100017CC4(unint64_t *a1, uint64_t *a2, uint64_t *a3)
-{
-  result = *a1;
-  if (!result)
-  {
-    sub_1000028E8(a2, a3);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ReportViewController.ClientError(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xFD)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 3 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 3) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 3;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 3;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 3;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 4;
-  v8 = v6 - 4;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
 uint64_t storeEnumTagSinglePayload for ReportViewController.ClientError(uint64_t result, unsigned int a2, unsigned int a3)
 {
   if (a3 + 3 >= 0xFFFF00)
@@ -279,16 +122,14 @@ uint64_t sub_100017FD0@<X0>(char a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, vo
 
 void sub_1000180F0(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t sub_100018178()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -296,9 +137,8 @@ uint64_t sub_100018178()
 uint64_t sub_1000181B0(uint64_t a1)
 {
   v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = a1;
-  return v2(&v5);
+  v4 = a1;
+  return v2(&v4);
 }
 
 uint64_t sub_1000181E8(uint64_t a1, uint64_t a2)
@@ -312,17 +152,16 @@ uint64_t sub_100018200()
 {
   v0 = sub_10001AAB4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v11 - v6;
+  v2 = __chkstk_darwin(v0);
+  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &v10 - v5;
   sub_10001AAA4();
-  v8 = objc_allocWithZone(type metadata accessor for TokenCoder());
-  (*(v1 + 16))(v5, v7, v0);
-  v9 = sub_10001A24C(0x656C707041, 0xE500000000000000, v5, v8);
-  result = (*(v1 + 8))(v7, v0);
-  qword_100029BB8 = v9;
+  v7 = objc_allocWithZone(type metadata accessor for TokenCoder());
+  (*(v1 + 16))(v4, v6, v0);
+  v8 = sub_10001A24C(0x656C707041, 0xE500000000000000, v4, v7);
+  result = (*(v1 + 8))(v6, v0);
+  qword_100029BB8 = v8;
   return result;
 }
 
@@ -330,68 +169,67 @@ id sub_100018398()
 {
   v0 = sub_10001AAB4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &token - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &token - v6;
-  v8 = [objc_opt_self() currentConnection];
-  if (!v8)
+  v2 = __chkstk_darwin(v0);
+  v4 = &token - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &token - v5;
+  v7 = [objc_opt_self() currentConnection];
+  if (!v7)
   {
     if (qword_1000291C8 != -1)
     {
       swift_once();
     }
 
-    v17 = sub_10001AB64();
-    sub_10000BDA0(v17, qword_100029BA0);
-    v18 = sub_10001AB44();
-    v19 = sub_10001AD94();
-    if (os_log_type_enabled(v18, v19))
+    v16 = sub_10001AB64();
+    sub_10000BDA0(v16, qword_100029BA0);
+    v17 = sub_10001AB44();
+    v18 = sub_10001AD94();
+    if (os_log_type_enabled(v17, v18))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v18, v19, "Failed to get the current XPC connection", v20, 2u);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Failed to get the current XPC connection", v19, 2u);
     }
 
     goto LABEL_14;
   }
 
-  v9 = v8;
-  [v8 auditToken];
-  v10 = SecTaskCreateWithAuditToken(0, &token);
-  if (!v10 || (v11 = sub_100018694(), !v12))
+  v8 = v7;
+  [v7 auditToken];
+  v9 = SecTaskCreateWithAuditToken(0, &token);
+  if (!v9 || (v10 = sub_100018694(), !v11))
   {
     sub_10001AC44();
-    v15 = os_variant_allows_internal_security_policies();
+    v14 = os_variant_allows_internal_security_policies();
 
-    if (v15)
+    if (v14)
     {
-      v13 = sub_100018878();
-      v14 = v16;
+      v12 = sub_100018878();
+      v13 = v15;
 
       goto LABEL_7;
     }
 
 LABEL_14:
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
     goto LABEL_15;
   }
 
+  v12 = v10;
   v13 = v11;
-  v14 = v12;
 LABEL_7:
 
 LABEL_15:
   sub_10001AAA4();
-  v21 = objc_allocWithZone(type metadata accessor for TokenCoder());
-  (*(v1 + 16))(v5, v7, v0);
-  v22 = sub_10001A24C(v13, v14, v5, v21);
-  (*(v1 + 8))(v7, v0);
+  v20 = objc_allocWithZone(type metadata accessor for TokenCoder());
+  (*(v1 + 16))(v4, v6, v0);
+  v21 = sub_10001A24C(v12, v13, v4, v20);
+  (*(v1 + 8))(v6, v0);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v22;
+  return v21;
 }
 
 uint64_t sub_100018694()
@@ -505,7 +343,7 @@ Class sub_100018A64(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *))
   return v8.super.isa;
 }
 
-uint64_t sub_100018B28(uint64_t a1, uint64_t a2, uint64_t (*a3)(char *))
+void *sub_100018B28(uint64_t a1, uint64_t a2, uint64_t (*a3)(char *))
 {
   v15 = &_swiftEmptySetSingleton;
   v6 = a1 + 56;
@@ -560,14 +398,13 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_100018C70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(char *))
+uint64_t sub_100018C70(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t (*a4)(char *))
 {
   v8 = sub_100001DFC(&qword_100029B18, &unk_10001C380);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v29 - v11;
-  sub_10000BC84(*a2, *(a2 + 8));
+  v11 = &v27 - v10;
+  sub_10000BC84(*a2, a2[1]);
   sub_10001AA94();
   if (!*(a3 + OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_decoder))
   {
@@ -576,30 +413,28 @@ uint64_t sub_100018C70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(cha
       swift_once();
     }
 
-    v25 = sub_10001AB64();
-    sub_10000BDA0(v25, qword_100029BA0);
-    v26 = sub_10001AB44();
-    v27 = sub_10001AD94();
-    if (os_log_type_enabled(v26, v27))
+    v23 = sub_10001AB64();
+    sub_10000BDA0(v23, qword_100029BA0);
+    v24 = sub_10001AB44();
+    v25 = sub_10001AD94();
+    if (os_log_type_enabled(v24, v25))
     {
-      v28 = swift_slowAlloc();
-      *v28 = 0;
-      _os_log_impl(&_mh_execute_header, v26, v27, "Failed to create token decoder", v28, 2u);
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&_mh_execute_header, v24, v25, "Failed to create token decoder", v26, 2u);
 
-      return (*(v9 + 8))(v12, v8);
+      return (*(v9 + 8))(v11, v8);
     }
 
-    return (*(v9 + 8))(v12, v8);
+    return (*(v9 + 8))(v11, v8);
   }
 
-  v13 = *(a3 + OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_decoder);
-
-  v14 = a4(v12);
+  v12 = a4(v11);
   if (!v4)
   {
-    sub_100007040(v31, v14, v15);
+    sub_100007040(v29, v12, v13);
 
-    return (*(v9 + 8))(v12, v8);
+    return (*(v9 + 8))(v11, v8);
   }
 
   if (qword_1000291C8 != -1)
@@ -607,41 +442,41 @@ uint64_t sub_100018C70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(cha
     swift_once();
   }
 
-  v16 = sub_10001AB64();
-  sub_10000BDA0(v16, qword_100029BA0);
+  v14 = sub_10001AB64();
+  sub_10000BDA0(v14, qword_100029BA0);
   swift_errorRetain();
-  v17 = sub_10001AB44();
-  v18 = sub_10001AD94();
+  v15 = sub_10001AB44();
+  v16 = sub_10001AD94();
 
-  if (os_log_type_enabled(v17, v18))
+  if (os_log_type_enabled(v15, v16))
   {
-    v19 = swift_slowAlloc();
-    v29 = swift_slowAlloc();
-    v31[0] = v29;
-    *v19 = 136446210;
-    v31[3] = v4;
+    v17 = swift_slowAlloc();
+    v27 = swift_slowAlloc();
+    v29[0] = v27;
+    *v17 = 136446210;
+    v29[3] = v4;
     swift_errorRetain();
     sub_100001DFC(&qword_100029920, &qword_10001BD00);
-    v20 = sub_10001AC34();
-    v30 = v8;
-    v22 = v9;
-    v23 = sub_100019C94(v20, v21, v31);
+    v18 = sub_10001AC34();
+    v28 = v8;
+    v20 = v9;
+    v21 = sub_100019C94(v18, v19, v29);
 
-    *(v19 + 4) = v23;
-    _os_log_impl(&_mh_execute_header, v17, v18, "Failed to decode token: %{public}s", v19, 0xCu);
-    sub_10000BF9C(v29);
+    *(v17 + 4) = v21;
+    _os_log_impl(&_mh_execute_header, v15, v16, "Failed to decode token: %{public}s", v17, 0xCu);
+    sub_10000BF9C(v27);
 
-    return (*(v22 + 8))(v12, v30);
+    return (*(v20 + 8))(v11, v28);
   }
 
   else
   {
 
-    return (*(v9 + 8))(v12, v8);
+    return (*(v9 + 8))(v11, v8);
   }
 }
 
-Class sub_1000190D4(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
+Class sub_1000190D4(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
 {
   v6 = sub_10001AD54();
   v7 = a1;
@@ -779,17 +614,16 @@ uint64_t sub_10001946C(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
 {
   v8 = sub_100001DFC(&qword_100029B18, &unk_10001C380);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v19 - v11;
+  v11 = &v18 - v10;
   if (*(a3 + OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_encoder))
   {
 
     a4(a1, a2);
-    v17 = sub_10001AA84();
+    v16 = sub_10001AA84();
 
-    (*(v9 + 8))(v12, v8);
-    return v17;
+    (*(v9 + 8))(v11, v8);
+    return v16;
   }
 
   else
@@ -799,26 +633,26 @@ uint64_t sub_10001946C(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
       swift_once();
     }
 
-    v13 = sub_10001AB64();
-    sub_10000BDA0(v13, qword_100029BA0);
-    v14 = sub_10001AB44();
-    v15 = sub_10001AD94();
-    if (os_log_type_enabled(v14, v15))
+    v12 = sub_10001AB64();
+    sub_10000BDA0(v12, qword_100029BA0);
+    v13 = sub_10001AB44();
+    v14 = sub_10001AD94();
+    if (os_log_type_enabled(v13, v14))
     {
-      v16 = swift_slowAlloc();
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, v15, "Failed to create token encoder", v16, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, v14, "Failed to create token encoder", v15, 2u);
     }
 
     return 0;
   }
 }
 
-id sub_1000197D4()
+id sub_1000197D4(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TokenCoder();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TokenCoder();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_10001988C(uint64_t result, _BYTE **a2)
@@ -829,7 +663,7 @@ uint64_t sub_10001988C(uint64_t result, _BYTE **a2)
   return result;
 }
 
-size_t sub_100019928(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *sub_100019928(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -889,7 +723,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -1000,9 +834,9 @@ char *sub_100019B04(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_100019C38(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t sub_100019C38(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = sub_100019C94(v6, v7, a3);
 
   v10 = *a1;
@@ -1011,7 +845,7 @@ uint64_t sub_100019C38(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(
   return result;
 }
 
-uint64_t sub_100019C94(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100019C94(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100019D60(v11, 0, 0, 1, a1, a2);
@@ -1111,11 +945,9 @@ LABEL_8:
 
 char *sub_100019E6C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100019EB8(a1, a2);
+  v3 = sub_100019EB8(a1, a2);
   sub_100019FE8(&off_100024D18);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100019EB8(uint64_t a1, unint64_t a2)
@@ -1215,7 +1047,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1229,15 +1060,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10001A148(result, v12, 1, v3);
+  result = sub_10001A148(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1252,15 +1083,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1269,12 +1100,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1393,28 +1224,24 @@ _BYTE **sub_10001A23C(_BYTE **result, uint64_t a2, uint64_t a3, char a4)
 id sub_10001A24C(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   v8 = sub_10001AAB4();
-  v27[3] = v8;
-  v27[4] = &protocol witness table for KeyRetriever;
-  v9 = sub_10000F158(v27);
+  v21[3] = v8;
+  v21[4] = &protocol witness table for KeyRetriever;
+  v9 = sub_10000F158(v21);
   (*(*(v8 - 8) + 32))(v9, a3, v8);
   v10 = &a4[OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_teamIdentifier];
   *v10 = a1;
   *(v10 + 1) = a2;
   if (a2)
   {
-    sub_10000EB64(v27, v25);
-    v11 = sub_10001AAD4();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    sub_10000EB64(v21, v19);
+    sub_10001AAD4();
     swift_allocObject();
     swift_bridgeObjectRetain_n();
     *&a4[OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_decoder] = sub_10001AAC4();
-    sub_10000EB64(v27, v25);
-    v14 = sub_10001AAF4();
-    v15 = *(v14 + 48);
-    v16 = *(v14 + 52);
+    sub_10000EB64(v21, v19);
+    sub_10001AAF4();
     swift_allocObject();
-    v17 = sub_10001AAE4();
+    v11 = sub_10001AAE4();
   }
 
   else
@@ -1424,28 +1251,28 @@ id sub_10001A24C(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
       swift_once();
     }
 
-    v18 = sub_10001AB64();
-    sub_10000BDA0(v18, qword_100029BA0);
-    v19 = sub_10001AB44();
-    v20 = sub_10001AD94();
-    if (os_log_type_enabled(v19, v20))
+    v12 = sub_10001AB64();
+    sub_10000BDA0(v12, qword_100029BA0);
+    v13 = sub_10001AB44();
+    v14 = sub_10001AD94();
+    if (os_log_type_enabled(v13, v14))
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v19, v20, "Failed to create token coder with nil team identifier", v21, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, v14, "Failed to create token coder with nil team identifier", v15, 2u);
     }
 
-    v17 = 0;
+    v11 = 0;
     *&a4[OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_decoder] = 0;
   }
 
-  *&a4[OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_encoder] = v17;
-  v22 = type metadata accessor for TokenCoder();
-  v26.receiver = a4;
-  v26.super_class = v22;
-  v23 = objc_msgSendSuper2(&v26, "init");
-  sub_10000BF9C(v27);
-  return v23;
+  *&a4[OBJC_IVAR____TtC27DeviceActivityReportService10TokenCoder_encoder] = v11;
+  v16 = type metadata accessor for TokenCoder();
+  v20.receiver = a4;
+  v20.super_class = v16;
+  v17 = objc_msgSendSuper2(&v20, "init");
+  sub_10000BF9C(v21);
+  return v17;
 }
 
 uint64_t sub_10001A470(uint64_t a1)

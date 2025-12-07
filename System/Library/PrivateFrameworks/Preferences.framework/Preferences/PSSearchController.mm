@@ -263,27 +263,27 @@ void __43__PSSearchController_removeRootSpecifiers___block_invoke(uint64_t a1, v
 
 - (void)searchResultsController:(id)controller didSelectSearchEntry:(id)entry
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   isRootURL = [entryCopy isRootURL];
   v7 = [entryCopy url];
 
   if (v7)
   {
-    v8 = _PSLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _PSLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = @"NO";
+      v10 = @"NO";
       if (isRootURL)
       {
-        v9 = @"YES";
+        v10 = @"YES";
       }
 
-      v11 = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "Opening URL %@, is root: %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_18B008000, v9, OS_LOG_TYPE_DEFAULT, "Opening URL %@, is root: %@", &v12, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);

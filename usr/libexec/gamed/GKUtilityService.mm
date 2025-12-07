@@ -666,15 +666,13 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = idCopy;
+    v10 = idCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "launchOverlaySystemSettingsForGameBundleId: %@", buf, 0xCu);
   }
 
   v6 = [GKClientProxy clientForBundleID:idCopy];
   currentGame = [v6 currentGame];
-  v9 = GKRemoteAlertDeeplinkActionKey;
-  v10 = GKRemoteAlertDeeplinkActionSystemSettingsValue;
-  v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary, GKRemoteAlertDeeplinkActionKey, GKRemoteAlertDeeplinkActionSystemSettingsValue);
   [GKOverlayServiceUtils showDashboardWithGame:currentGame deepLink:v8 launchContext:@"gameModeBanner"];
 }
 

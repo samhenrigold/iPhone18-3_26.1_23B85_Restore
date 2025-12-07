@@ -9,6 +9,7 @@
 - (void)_dismissMeCardPicker;
 - (void)_enablingAutoFillWithoutPasscodePromptEndedWithResult:(int64_t)result;
 - (void)_promptForEnablingAutoFillWithoutPasscodeWithTitle:(id)title message:(id)message allowAnyway:(BOOL)anyway completionHandler:(id)handler;
+- (void)_setShouldAutoFill:(BOOL)fill specifier:(id)specifier message:(id)message setter:(id)setter;
 - (void)_setupMeCardPicker;
 - (void)_showCreditCardListInWallet:(id)wallet;
 - (void)_showPasscodeSetupSheetWithCompletionHandler:(id)handler;
@@ -27,6 +28,7 @@
 - (void)showMeCardPicker;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateUseContactInfoSpecifiers;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willResignActive;
 - (void)willRotateToInterfaceOrientation:(int64_t)orientation duration:(double)duration;
 @end
@@ -86,6 +88,28 @@
   self->_passcodeEntryCompletionHandler = 0;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = SafariAutoFillSettingsController;
+  [(SafariAutoFillSettingsController *)&v12 viewWillAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/AUTO_FILL"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"AutoFill" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v9 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v10 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v13[0] = v9;
+    v13[1] = v10;
+    v11 = [NSArray arrayWithObjects:v13 count:2];
+    [(SafariAutoFillSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:v11 deepLink:v4];
+  }
+}
+
 - (void)_setupMeCardPicker
 {
   v3 = objc_alloc_init(SafariCNContactPickerViewController);
@@ -138,18 +162,7 @@
 
 - (id)meCardName
 {
-  if ([CNContactStore authorizationStatusForEntityType:0]!= &dword_0 + 3)
-  {
-    goto LABEL_6;
-  }
-
-  contactStore = self->_contactStore;
-  v4 = [CNContactFormatter descriptorForRequiredKeysForStyle:0];
-  v12 = v4;
-  v5 = [NSArray arrayWithObjects:&v12 count:1];
-  v6 = [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v5 error:0];
-
-  if (v6)
+  if ([CNContactStore authorizationStatusForEntityType:0]== &dword_0 + 3 && (contactStore = self->_contactStore, [CNContactFormatter descriptorForRequiredKeysForStyle:0], v4 = objc_claimAutoreleasedReturnValue(), v12 = v4, [NSArray arrayWithObjects:&v12 count:1], v5 = objc_claimAutoreleasedReturnValue(), [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v5 error:0], v6 = objc_claimAutoreleasedReturnValue(), v5, v4, v6))
   {
     v7 = [CNContactFormatter stringFromContact:v6 style:0];
     v8 = v7;
@@ -164,7 +177,6 @@
 
   else
   {
-LABEL_6:
     v10 = SafariSettingsLocalizedString(@"None", @"AutoFill");
   }
 
@@ -300,41 +312,65 @@ LABEL_6:
   [(SafariAutoFillSettingsController *)self showPINSheet:v6];
 }
 
+- (void)_setShouldAutoFill:(BOOL)fill specifier:(id)specifier message:(id)message setter:(id)setter
+{
+  fillCopy = fill;
+  specifierCopy = specifier;
+  messageCopy = message;
+  setterCopy = setter;
+  if (fillCopy && (+[DevicePINController settingEnabled]& 1) == 0)
+  {
+    v13 = SafariSettingsLocalizedString(@"Passcode Lock Suggested", @"AutoFill");
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = __80__SafariAutoFillSettingsController__setShouldAutoFill_specifier_message_setter___block_invoke;
+    v14[3] = &unk_89740;
+    v16 = setterCopy;
+    v14[4] = self;
+    v15 = specifierCopy;
+    [(SafariAutoFillSettingsController *)self _promptForEnablingAutoFillWithoutPasscodeWithTitle:v13 message:messageCopy allowAnyway:1 completionHandler:v14];
+  }
+
+  else
+  {
+    (*(setterCopy + 2))(setterCopy, fillCopy);
+  }
+}
+
 void __80__SafariAutoFillSettingsController__setShouldAutoFill_specifier_message_setter___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     if (a2 == 2)
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
+      v4 = *(a1 + 32);
+      v5 = *(a1 + 40);
 
-      [v5 reloadSpecifier:v6 animated:1];
+      [v4 reloadSpecifier:v5 animated:1];
     }
 
     else if (a2 == 1)
     {
-      v3 = *(a1 + 48);
-      v4 = *(*(a1 + 48) + 16);
+      v3 = *(*(a1 + 48) + 16);
 
-      v4();
+      v3();
     }
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = __80__SafariAutoFillSettingsController__setShouldAutoFill_specifier_message_setter___block_invoke_2;
-    v11[3] = &unk_89718;
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v13 = v8;
-    v11[4] = v9;
-    v12 = v10;
-    [v7 _showPasscodeSetupSheetWithCompletionHandler:v11];
+    v6 = *(a1 + 32);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __80__SafariAutoFillSettingsController__setShouldAutoFill_specifier_message_setter___block_invoke_2;
+    v10[3] = &unk_89718;
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v12 = v7;
+    v10[4] = v8;
+    v11 = v9;
+    [v6 _showPasscodeSetupSheetWithCompletionHandler:v10];
   }
 }
 

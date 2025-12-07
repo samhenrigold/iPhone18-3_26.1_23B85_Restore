@@ -1460,7 +1460,7 @@ LABEL_54:
       v118 = v26;
       if (v26)
       {
-        [v26 vcp_timerange];
+        objc_msgSend_vcp_timerange(v26);
       }
 
       v28 = [v27 objectForKeyedSubscript:v115];
@@ -1598,7 +1598,7 @@ LABEL_54:
       memset(buf, 0, sizeof(buf));
       if (v54)
       {
-        [v54 vcp_timerange];
+        objc_msgSend_vcp_timerange(v54);
       }
 
       v56 = [v55 objectForKeyedSubscript:*typea];
@@ -1697,7 +1697,7 @@ LABEL_54:
       memset(buf, 0, sizeof(buf));
       if (v75)
       {
-        [v75 vcp_timerange];
+        objc_msgSend_vcp_timerange(v75);
       }
 
       v77 = [v76 objectForKeyedSubscript:v72];
@@ -1737,7 +1737,7 @@ LABEL_54:
       memset(buf, 0, sizeof(buf));
       if (v85)
       {
-        [v85 vcp_timerange];
+        objc_msgSend_vcp_timerange(v85);
       }
 
       v87 = [v86 objectForKeyedSubscript:v72];
@@ -1776,7 +1776,7 @@ LABEL_54:
       memset(buf, 0, sizeof(buf));
       if (v97)
       {
-        [v97 vcp_timerange];
+        objc_msgSend_vcp_timerange(v97);
       }
 
       v99 = [v98 objectForKeyedSubscript:v72];
@@ -1916,7 +1916,7 @@ LABEL_54:
     }
 
     memset(&v31, 0, sizeof(v31));
-    [analysisCopy vcp_syncPoint];
+    objc_msgSend_vcp_syncPoint(analysisCopy);
     if (!(0 >> 96))
     {
       if (MediaAnalysisLogLevel() >= 4)
@@ -2468,7 +2468,7 @@ LABEL_35:
       }
 
       memset(&v65, 0, sizeof(v65));
-      [v6 vcp_syncPoint];
+      objc_msgSend_vcp_syncPoint(v6);
       if (!(0 >> 96))
       {
         if (MediaAnalysisLogLevel() < 4)

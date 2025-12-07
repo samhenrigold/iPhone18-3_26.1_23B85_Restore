@@ -14,7 +14,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   productName = self->_productName;
@@ -74,30 +74,30 @@
   if ([(NSMutableArray *)self->_internalTestConfigs count])
   {
     v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_internalTestConfigs, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v15 = self->_internalTestConfigs;
-    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [v14 addObject:dictionaryRepresentation];
         }
 
-        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v17);
@@ -105,8 +105,6 @@
 
     [v4 setObject:v14 forKey:@"internal_test_config"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -143,7 +141,7 @@
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_productName)
   {
@@ -167,7 +165,6 @@
 
   if (*&self->_has)
   {
-    isAppleInternal = self->_isAppleInternal;
     PBDataWriterWriteBOOLField();
   }
 
@@ -191,39 +188,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_internalTestConfigs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_internalTestConfigs;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -298,7 +292,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_productName copyWithZone:zone];
   v7 = *(v5 + 48);
@@ -338,40 +332,39 @@
   v21 = *(v5 + 72);
   *(v5 + 72) = v20;
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v22 = self->_internalTestConfigs;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v31;
+    v25 = *v30;
     do
     {
       v26 = 0;
       do
       {
-        if (*v31 != v25)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [*(*(&v30 + 1) + 8 * v26) copyWithZone:{zone, v30}];
+        v27 = [*(*(&v29 + 1) + 8 * v26) copyWithZone:{zone, v29}];
         [v5 addInternalTestConfig:v27];
 
         ++v26;
       }
 
       while (v24 != v26);
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v24);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -525,7 +518,7 @@ LABEL_24:
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 6))
   {
@@ -573,35 +566,33 @@ LABEL_24:
     [(C2MPDeviceInfo *)self setUserDefaultTestName:?];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(fromCopy + 1);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(C2MPDeviceInfo *)self addInternalTestConfig:*(*(&v11 + 1) + 8 * i), v11];
+        [(C2MPDeviceInfo *)self addInternalTestConfig:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

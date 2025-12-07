@@ -1,4 +1,5 @@
 @interface BTHearingHealthObject
+- (BTHearingHealthObject)initWithUUID:(id)d productID:(unsigned int)iD vendorID:(unsigned int)vendorID EURegionBit:(unsigned __int8)bit audioDevice:(void *)device readCharacteristics:(id)characteristics;
 - (float)getRegionalDosimetryVolumeCurve:(unsigned __int8)curve productID:(unsigned int)d;
 - (id)centralManagerStateString;
 - (void)centralManager:(id)manager connectionEventDidOccur:(int64_t)occur forPeripheral:(id)peripheral;
@@ -14,10 +15,287 @@
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)readData:(id)data;
 - (void)registerService;
+- (void)updateRegionalDosimetryVolumeCurve:(unsigned __int8)curve productID:(unsigned int)d audioDevice:(void *)device;
 - (void)writeData:(id)data forCharacteristic:(id)characteristic;
 @end
 
 @implementation BTHearingHealthObject
+
+- (BTHearingHealthObject)initWithUUID:(id)d productID:(unsigned int)iD vendorID:(unsigned int)vendorID EURegionBit:(unsigned __int8)bit audioDevice:(void *)device readCharacteristics:(id)characteristics
+{
+  bitCopy = bit;
+  v47.receiver = self;
+  v47.super_class = BTHearingHealthObject;
+  v14 = [(BTHearingHealthObject *)&v47 init];
+  v15 = v14;
+  if (!v14)
+  {
+    return v15;
+  }
+
+  if (vendorID == 76)
+  {
+    v18 = 0;
+    v19 = &dword_B73A0;
+    v20 = 98.0;
+    if (iD > 8203)
+    {
+      if (iD > 8205)
+      {
+        if (iD - 8206 < 2)
+        {
+          goto LABEL_44;
+        }
+
+        if (iD == 8208)
+        {
+          v19 = [(BTHearingHealthObject *)v14 getRegionalDosimetryVolumeCurve:bitCopy productID:8208];
+          v18 = 0;
+          v20 = 98.7;
+          goto LABEL_44;
+        }
+
+        goto LABEL_42;
+      }
+
+      if (iD == 8204)
+      {
+        v18 = 0;
+        v20 = 97.75;
+        goto LABEL_44;
+      }
+
+      v22 = 8205;
+    }
+
+    else
+    {
+      if (iD <= 8197)
+      {
+        switch(iD)
+        {
+          case 0x2002u:
+            goto LABEL_44;
+          case 0x2003u:
+            v19 = [(BTHearingHealthObject *)v14 getRegionalDosimetryVolumeCurve:bitCopy productID:8195];
+            v18 = 0;
+            *&v21 = 99.0;
+            goto LABEL_43;
+          case 0x2005u:
+            v19 = [(BTHearingHealthObject *)v14 getRegionalDosimetryVolumeCurve:bitCopy productID:8197];
+            v18 = 0;
+            *&v21 = 98.0;
+LABEL_43:
+            v20 = *&v21;
+            goto LABEL_44;
+        }
+
+LABEL_42:
+        v18 = 1;
+        *&v21 = 100.0;
+        goto LABEL_43;
+      }
+
+      if (iD == 8198)
+      {
+        v19 = [(BTHearingHealthObject *)v14 getRegionalDosimetryVolumeCurve:bitCopy productID:8198];
+        v18 = 0;
+        *&v21 = 101.0;
+        goto LABEL_43;
+      }
+
+      if (iD == 8201)
+      {
+        v19 = [(BTHearingHealthObject *)v14 getRegionalDosimetryVolumeCurve:bitCopy productID:8201];
+        v18 = 0;
+        *&v21 = 102.0;
+        goto LABEL_43;
+      }
+
+      v22 = 8203;
+    }
+
+    if (iD == v22)
+    {
+      v18 = 0;
+      *&v21 = 97.5;
+      goto LABEL_43;
+    }
+
+    goto LABEL_42;
+  }
+
+  if (vendorID != 158)
+  {
+    if (iD != 4110 || vendorID != 259)
+    {
+      if (iD != 771 || vendorID != 474)
+      {
+        return v15;
+      }
+
+      v18 = 0;
+      v19 = &dword_B75C0;
+      v20 = 92.8;
+      goto LABEL_44;
+    }
+
+    v18 = 0;
+    v19 = &dword_B757C;
+    *&v21 = 92.0;
+    goto LABEL_43;
+  }
+
+  HIDWORD(v17) = iD - 16402;
+  LODWORD(v17) = iD - 16402;
+  v16 = v17 >> 1;
+  if (v16 <= 2)
+  {
+    if (v16)
+    {
+      if (v16 != 1)
+      {
+        return v15;
+      }
+
+      v18 = 0;
+      v19 = &dword_B74F4;
+      v20 = 95.7;
+      goto LABEL_44;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (v16 == 3)
+  {
+LABEL_28:
+    v18 = 0;
+    v19 = &dword_B74F4;
+LABEL_29:
+    *&v21 = 97.0;
+    goto LABEL_43;
+  }
+
+  if (v16 != 7)
+  {
+    if (v16 != 9)
+    {
+      return v15;
+    }
+
+    v18 = 0;
+    v19 = &dword_B7538;
+    goto LABEL_29;
+  }
+
+  v18 = 0;
+  v19 = &dword_B74F4;
+  v20 = 95.4;
+LABEL_44:
+  v23 = qword_D8510;
+  if (os_log_type_enabled(qword_D8510, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    *&buf[4] = v20;
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Dosimetry sensitivity = %f", buf, 0xCu);
+    v23 = qword_D8510;
+  }
+
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    v24 = *v19;
+    v25 = v19[1];
+    v26 = v19[2];
+    v27 = v19[3];
+    v28 = v19[4];
+    v29 = v19[5];
+    v30 = v19[6];
+    v31 = v19[7];
+    v32 = v19[8];
+    v33 = v19[9];
+    v34 = v19[10];
+    v35 = v19[11];
+    v36 = v19[12];
+    v37 = v19[13];
+    v38 = v19[14];
+    v39 = v19[15];
+    v40 = v19[16];
+    *buf = 134222080;
+    *&buf[4] = v24;
+    *&buf[12] = 2048;
+    *&buf[14] = v25;
+    *&buf[22] = 2048;
+    *&buf[24] = v26;
+    *&buf[32] = 2048;
+    *&buf[34] = v27;
+    *&buf[42] = 2048;
+    *&buf[44] = v28;
+    *&buf[52] = 2048;
+    *&buf[54] = v29;
+    *&buf[62] = 2048;
+    *&buf[64] = v30;
+    *&buf[72] = 2048;
+    *&buf[74] = v31;
+    *&buf[82] = 2048;
+    *&buf[84] = v32;
+    *&buf[92] = 2048;
+    *&buf[94] = v33;
+    *&buf[102] = 2048;
+    *&buf[104] = v34;
+    *&buf[112] = 2048;
+    *&buf[114] = v35;
+    *&buf[122] = 2048;
+    *&buf[124] = v36;
+    *&buf[132] = 2048;
+    *&buf[134] = v37;
+    v51 = 2048;
+    v52 = v38;
+    v53 = 2048;
+    v54 = v39;
+    v55 = 2048;
+    v56 = v40;
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Dosimetry volume curve = [%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f]", buf, 0xACu);
+  }
+
+  (*(*device + 1392))(device, v20);
+  v41 = 0;
+  memset(buf, 0, 136);
+  do
+  {
+    *&buf[v41] = CFNumberCreate(kCFAllocatorDefault, kCFNumberFloat32Type, v19);
+    v41 += 8;
+    ++v19;
+  }
+
+  while (v41 != 136);
+  v42 = CFArrayCreate(kCFAllocatorDefault, buf, 17, &kCFTypeArrayCallBacks);
+  (*(*device + 1400))(device, v42);
+  for (i = 0; i != 136; i += 8)
+  {
+    v44 = *&buf[i];
+    if (v44)
+    {
+      CFRelease(v44);
+    }
+  }
+
+  CFRelease(v42);
+  if (v18)
+  {
+    v45 = [CBCentralManager alloc];
+    v48[0] = CBCentralManagerOptionReceiveSystemEvents;
+    v48[1] = CBManagerNeedsRestrictedStateOperation;
+    v49[0] = &__kCFBooleanTrue;
+    v49[1] = &__kCFBooleanTrue;
+    v15->_centralManager = [v45 initWithDelegate:v15 queue:&_dispatch_main_q options:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v49, v48, 2)}];
+    [(BTHearingHealthObject *)v15 setUuid:d];
+    [(BTHearingHealthObject *)v15 setCharacteristics:characteristics];
+    [(BTHearingHealthObject *)v15 setAudioDevice:device];
+  }
+
+  return v15;
+}
 
 - (void)dealloc
 {
@@ -439,6 +717,37 @@
     {
       return v4;
     }
+  }
+}
+
+- (void)updateRegionalDosimetryVolumeCurve:(unsigned __int8)curve productID:(unsigned int)d audioDevice:(void *)device
+{
+  if (device)
+  {
+    v6 = [(BTHearingHealthObject *)self getRegionalDosimetryVolumeCurve:curve productID:*&d];
+    v7 = 0;
+    v12 = 0;
+    memset(v11, 0, sizeof(v11));
+    do
+    {
+      *(v11 + v7) = CFNumberCreate(kCFAllocatorDefault, kCFNumberFloat32Type, v6);
+      v7 += 8;
+      ++v6;
+    }
+
+    while (v7 != 136);
+    v8 = CFArrayCreate(kCFAllocatorDefault, v11, 17, &kCFTypeArrayCallBacks);
+    (*(*device + 1400))(device, v8);
+    for (i = 0; i != 136; i += 8)
+    {
+      v10 = *(v11 + i);
+      if (v10)
+      {
+        CFRelease(v10);
+      }
+    }
+
+    CFRelease(v8);
   }
 }
 

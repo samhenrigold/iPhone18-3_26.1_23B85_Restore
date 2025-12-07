@@ -811,7 +811,6 @@ LABEL_12:
   v5 = completionCopy;
   if (self->_registrationStatus && self->_hasAccountResolution)
   {
-    accountResolution = self->_accountResolution;
     (*(completionCopy + 2))(completionCopy);
   }
 
@@ -819,18 +818,18 @@ LABEL_12:
   {
     peerPaymentPass = [(PKPeerPaymentController *)self->_peerPaymentController peerPaymentPass];
     account = [(PKPeerPaymentController *)self->_peerPaymentController account];
-    v9 = PKPeerPaymentAccountResolutionForAccountAndPeerPaymentPass();
-    self->_accountResolution = v9;
+    v8 = PKPeerPaymentAccountResolutionForAccountAndPeerPaymentPass();
+    self->_accountResolution = v8;
     self->_hasAccountResolution = 1;
     peerPaymentService = self->_peerPaymentService;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100002FE8;
-    v11[3] = &unk_100014540;
-    v11[4] = self;
-    v12 = v5;
-    v13 = v9;
-    [(PKPeerPaymentService *)peerPaymentService registrationStatusWithCompletion:v11];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100002FE8;
+    v10[3] = &unk_100014540;
+    v10[4] = self;
+    v11 = v5;
+    v12 = v8;
+    [(PKPeerPaymentService *)peerPaymentService registrationStatusWithCompletion:v10];
   }
 }
 

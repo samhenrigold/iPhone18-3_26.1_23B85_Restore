@@ -453,7 +453,7 @@ LABEL_31:
 
 - (id)visualRepresentation
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   if ([(SCROBrailleUIBrailleAreaView *)self showingBackButton])
   {
     v3 = SCROBrailleUILocString(@"back.btn.label");
@@ -461,8 +461,8 @@ LABEL_31:
     v5 = [[SCROBrailleUICaptionableBrailleLine alloc] initWithBraille:v4 selection:0x7FFFFFFFFFFFFFFFLL, 0];
     [(SCROBrailleUICaptionableBrailleLine *)v5 setManualCaption:v3];
     v6 = [SCROBrailleUIVisualRepresentation alloc];
-    v41[0] = v5;
-    mEMORY[0x277CF3318] = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+    v40[0] = v5;
+    mEMORY[0x277CF3318] = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
     v8 = v6;
     v9 = mEMORY[0x277CF3318];
     uiFocusedLineIndex = 0;
@@ -477,37 +477,37 @@ LABEL_31:
     v13 = [braille componentsSeparatedByString:@"\n"];
 
     v5 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v4 = v13;
-    v14 = [v4 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v14 = [v4 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
-      v17 = *v37;
-      v35 = *v37;
+      v17 = *v36;
+      v34 = *v36;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v37 != v17)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(v4);
           }
 
-          v19 = *(*(&v36 + 1) + 8 * i);
+          v19 = *(*(&v35 + 1) + 8 * i);
           [v3 selection];
           if (v20)
           {
             v21 = [v19 length];
-            v44.location = [v3 selection];
-            v44.length = v22;
-            v43.location = v16;
-            v43.length = v21;
-            v23 = NSIntersectionRange(v43, v44);
+            v43.location = [v3 selection];
+            v43.length = v22;
+            v42.location = v16;
+            v42.length = v21;
+            v23 = NSIntersectionRange(v42, v43);
             if (v23.length)
             {
               length = v23.length;
@@ -557,7 +557,7 @@ LABEL_31:
 
             v4 = v27;
             v5 = v26;
-            v17 = v35;
+            v17 = v34;
           }
 
           v30 = [[SCROBrailleUICaptionableBrailleLine alloc] initWithBraille:v19 selection:v25, length];
@@ -565,7 +565,7 @@ LABEL_31:
           v16 += [v19 length] + 1;
         }
 
-        v15 = [v4 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v15 = [v4 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v15);
@@ -579,8 +579,6 @@ LABEL_31:
   }
 
   v32 = [(SCROBrailleUIVisualRepresentation *)v8 initWithLines:v9 focusedIndex:uiFocusedLineIndex isList:0];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

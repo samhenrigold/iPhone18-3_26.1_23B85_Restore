@@ -67,11 +67,11 @@
 
 - (SYVectorClock)initWithJSONRepresentation:(id)representation
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v31.receiver = self;
-  v31.super_class = SYVectorClock;
-  v5 = [(SYVectorClock *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = SYVectorClock;
+  v5 = [(SYVectorClock *)&v30 init];
   if (v5)
   {
     if ([representationCopy length])
@@ -84,31 +84,31 @@
 
       if (v9)
       {
-        v28 = representationCopy;
-        v26 = v8;
+        v27 = representationCopy;
+        v25 = v8;
         v10 = [v8 objectForKeyedSubscript:@"clocks"];
-        v27 = v5;
+        v26 = v5;
         v11 = v5;
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
-        v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v33;
+          v14 = *v32;
           do
           {
             v15 = 0;
             do
             {
-              if (*v33 != v14)
+              if (*v32 != v14)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v16 = *(*(&v32 + 1) + 8 * v15);
+              v16 = *(*(&v31 + 1) + 8 * v15);
               v17 = objc_opt_new();
               v18 = [v16 objectForKeyedSubscript:@"version"];
               [v17 setVersion:{objc_msgSend(v18, "unsignedLongLongValue")}];
@@ -124,33 +124,32 @@
             }
 
             while (v13 != v15);
-            v13 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v13 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
           while (v13);
         }
 
-        v5 = v27;
-        representationCopy = v28;
-        v8 = v26;
+        v5 = v26;
+        representationCopy = v27;
+        v8 = v25;
       }
 
       else
       {
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __55__SYVectorClock_Additions__initWithJSONRepresentation___block_invoke;
-        v29[3] = &unk_1E86CB038;
-        v30 = v5;
-        [v8 enumerateKeysAndObjectsUsingBlock:v29];
-        v10 = v30;
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __55__SYVectorClock_Additions__initWithJSONRepresentation___block_invoke;
+        v28[3] = &unk_1E86CB038;
+        v29 = v5;
+        [v8 enumerateKeysAndObjectsUsingBlock:v28];
+        v10 = v29;
       }
     }
 
     v23 = v5;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -203,29 +202,29 @@ void __55__SYVectorClock_Additions__initWithJSONRepresentation___block_invoke(ui
 
 - (id)clockForPeerID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if ([dCopy length])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     clocks = [(SYVectorClock *)self clocks];
-    v6 = [clocks countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [clocks countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(clocks);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           peer = [v9 peer];
           peerID = [peer peerID];
           v12 = [peerID isEqualToString:dCopy];
@@ -237,7 +236,7 @@ void __55__SYVectorClock_Additions__initWithJSONRepresentation___block_invoke(ui
           }
         }
 
-        v6 = [clocks countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [clocks countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -255,8 +254,6 @@ LABEL_12:
     LogWithTrace("Nil peer ID");
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -489,35 +486,35 @@ void __59__SYVectorClock_Additions__compactDictionaryRepresentation__block_invok
 
 - (id)dictionaryRepresentation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSMutableArray *)self->_clocks count])
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_clocks, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = self->_clocks;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v12 + 1) + 8 * i) dictionaryRepresentation];
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -526,48 +523,43 @@ void __59__SYVectorClock_Additions__compactDictionaryRepresentation__block_invok
     [dictionary setObject:v4 forKey:@"clocks"];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v5 = self->_clocks;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -591,42 +583,41 @@ void __59__SYVectorClock_Additions__compactDictionaryRepresentation__block_invok
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_clocks;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:{zone, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:{zone, v13}];
         [v5 addClocks:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -657,38 +648,36 @@ void __59__SYVectorClock_Additions__compactDictionaryRepresentation__block_invok
 
 - (void)mergeFrom:(id)from
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(from + 1);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [(SYVectorClock *)self addClocks:*(*(&v10 + 1) + 8 * v8++), v10];
+        [(SYVectorClock *)self addClocks:*(*(&v9 + 1) + 8 * v8++), v9];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

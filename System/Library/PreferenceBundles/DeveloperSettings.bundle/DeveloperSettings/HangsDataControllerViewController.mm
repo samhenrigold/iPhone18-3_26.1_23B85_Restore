@@ -219,28 +219,21 @@
   entryCopy = entry;
   v5 = [(HangsDataControllerViewController *)self specifierNameForEntry:entryCopy];
   v6 = objc_opt_class();
-  isLogFile = [entryCopy isLogFile];
-  v8 = PSTextViewPane_ptr;
-  if (!isLogFile)
-  {
-    v8 = off_3C8D8;
-  }
-
-  v9 = *v8;
-  v10 = [PSSpecifier preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:v6 cell:2 edit:objc_opt_class()];
+  [entryCopy isLogFile];
+  v7 = [PSSpecifier preferenceSpecifierNamed:v5 target:self set:0 get:0 detail:v6 cell:2 edit:objc_opt_class()];
 
   path = [entryCopy path];
-  [v10 setObject:path forKeyedSubscript:@"file-path"];
+  [v7 setObject:path forKeyedSubscript:@"file-path"];
 
-  v12 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [entryCopy fileSize]);
-  [v10 setObject:v12 forKeyedSubscript:@"HangsDataControllerFileSize"];
+  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [entryCopy fileSize]);
+  [v7 setObject:v9 forKeyedSubscript:@"HangsDataControllerFileSize"];
 
   hangID = [entryCopy hangID];
-  [v10 setObject:hangID forKeyedSubscript:@"HangsDataControllerHangEvent"];
+  [v7 setObject:hangID forKeyedSubscript:@"HangsDataControllerHangEvent"];
 
-  [v10 setObject:objc_opt_class() forKeyedSubscript:PSCellClassKey];
+  [v7 setObject:objc_opt_class() forKeyedSubscript:PSCellClassKey];
 
-  return v10;
+  return v7;
 }
 
 - (id)specifierNameForEntry:(id)entry

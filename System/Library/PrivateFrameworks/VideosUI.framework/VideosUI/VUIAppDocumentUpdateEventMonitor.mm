@@ -123,8 +123,7 @@ void __49__VUIAppDocumentUpdateEventMonitor_sharedMonitor__block_invoke()
     [defaultCenter addObserver:v3 selector:sel__handleMediaLibraryContentsDidChangeNotification_ name:@"VUIMediaLibraryContentsDidChangeNotification" object:v14];
     [defaultCenter addObserver:v3 selector:sel__handleAccountDidChangeNotification_ name:*MEMORY[0x1E69D4A40] object:0];
     [defaultCenter addObserver:v3 selector:sel__handlePreferredVideoFormatDidChangeNotification_ name:@"VUIPreferredVideoFormatDidChangeNotification" object:0];
-    [defaultCenter2 addObserver:v3 selector:sel__handleFamilyUpdate_ name:*MEMORY[0x1E699C038] object:0];
-    v15 = VUIDefaultLogObject();
+    v15 = VUIDefaultLogObject([defaultCenter2 addObserver:v3 selector:sel__handleFamilyUpdate_ name:*MEMORY[0x1E699C038] object:0]);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *v22 = 0;
@@ -190,7 +189,7 @@ void __49__VUIAppDocumentUpdateEventMonitor_sharedMonitor__block_invoke()
 
 void __41__VUIAppDocumentUpdateEventMonitor__init__block_invoke(uint64_t a1)
 {
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -254,56 +253,57 @@ void __41__VUIAppDocumentUpdateEventMonitor__init__block_invoke(uint64_t a1)
 
 void __82__VUIAppDocumentUpdateEventMonitor_updateDescriptorsForObserver_eventDescriptors___block_invoke(void **a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = objc_loadWeakRetained(a1 + 6);
   if ([a1[4] count])
   {
     v4 = [WeakRetained observerMapTable];
     v5 = [v4 objectForKey:v3];
+    v6 = v5;
     if (v5)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VUIDefaultLogObject(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 134217984;
-        v13 = v3;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: updating descriptors for observer [%p].", &v12, 0xCu);
+        v14 = 134217984;
+        v15 = v3;
+        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: updating descriptors for observer [%p].", &v14, 0xCu);
       }
 
-      [v5 updateDescriptorsWithDescriptors:a1[4]];
+      v5 = [v6 updateDescriptorsWithDescriptors:a1[4]];
     }
 
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = VUIAppDocumentUpdateEventStringRepresentationForDescriptors(a1[4]);
-      v12 = 134218242;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Updated observer [%p] with event descriptors [%@]", &v12, 0x16u);
+      v9 = VUIAppDocumentUpdateEventStringRepresentationForDescriptors(a1[4]);
+      v14 = 134218242;
+      v15 = v3;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Updated observer [%p] with event descriptors [%@]", &v14, 0x16u);
     }
 
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v5 refreshTimerByEventDescriptor];
-      v11 = [v10 allKeys];
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Active timers for event descriptors after update [%@]", &v12, 0xCu);
+      v12 = [v6 refreshTimerByEventDescriptor];
+      v13 = [v12 allKeys];
+      v14 = 138412290;
+      v15 = v13;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Active timers for event descriptors after update [%@]", &v14, 0xCu);
     }
   }
 
   else
   {
-    v4 = VUIDefaultLogObject();
+    v4 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134217984;
-      v13 = v3;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: No operation for observer during update [%p] since there were no event descriptors", &v12, 0xCu);
+      v14 = 134217984;
+      v15 = v3;
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: No operation for observer during update [%p] since there were no event descriptors", &v14, 0xCu);
     }
   }
 }
@@ -346,7 +346,7 @@ void __82__VUIAppDocumentUpdateEventMonitor_updateDescriptorsForObserver_eventDe
 
 void __83__VUIAppDocumentUpdateEventMonitor_addObserver_forEventDescriptors_viewController___block_invoke(void **a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = objc_loadWeakRetained(a1 + 6);
   v4 = objc_loadWeakRetained(a1 + 7);
@@ -360,51 +360,50 @@ void __83__VUIAppDocumentUpdateEventMonitor_addObserver_forEventDescriptors_view
       [v5 setObject:v6 forKey:v4];
       objc_initWeak(location, WeakRetained);
       objc_initWeak(&from, v4);
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __83__VUIAppDocumentUpdateEventMonitor_addObserver_forEventDescriptors_viewController___block_invoke_151;
-      v13[3] = &unk_1E87327D0;
-      objc_copyWeak(&v14, location);
-      objc_copyWeak(&v15, &from);
-      [(_VUIAppDocumentUpdateEventObserverContext *)v6 setRefreshTimerFiredBlock:v13];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __83__VUIAppDocumentUpdateEventMonitor_addObserver_forEventDescriptors_viewController___block_invoke_151;
+      v14[3] = &unk_1E87327D0;
+      objc_copyWeak(&v15, location);
+      objc_copyWeak(&v16, &from);
+      [(_VUIAppDocumentUpdateEventObserverContext *)v6 setRefreshTimerFiredBlock:v14];
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&v15);
-      objc_destroyWeak(&v14);
       objc_destroyWeak(&from);
       objc_destroyWeak(location);
     }
 
     [(_VUIAppDocumentUpdateEventObserverContext *)v6 setEventDescriptors:a1[4]];
-    [(_VUIAppDocumentUpdateEventObserverContext *)v6 setViewController:v3];
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject([(_VUIAppDocumentUpdateEventObserverContext *)v6 setViewController:v3]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = VUIAppDocumentUpdateEventStringRepresentationForDescriptors(a1[4]);
       *location = 134218242;
       *&location[4] = v4;
-      v18 = 2112;
-      v19 = v8;
+      v19 = 2112;
+      v20 = v8;
       _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Added observer [%p] for event descriptors [%@]", location, 0x16u);
     }
 
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(_VUIAppDocumentUpdateEventObserverContext *)v6 refreshTimerByEventDescriptor];
-      v11 = [v10 allKeys];
+      v11 = [(_VUIAppDocumentUpdateEventObserverContext *)v6 refreshTimerByEventDescriptor];
+      v12 = [v11 allKeys];
       *location = 138412290;
-      *&location[4] = v11;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Active timers for event descriptors [%@]", location, 0xCu);
+      *&location[4] = v12;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Active timers for event descriptors [%@]", location, 0xCu);
     }
   }
 
   else
   {
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = VUIDefaultLogObject(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *location = 134217984;
       *&location[4] = v4;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Removed observer [%p] since there were no event descriptors", location, 0xCu);
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Removed observer [%p] since there were no event descriptors", location, 0xCu);
     }
 
     [WeakRetained removeObserver:v4];
@@ -456,7 +455,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
   v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
@@ -472,7 +471,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handleMediaLibraryContentsDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -503,50 +502,51 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handlePlaybackReportNotification:(id)notification
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  VUIRequireMainThread();
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = VUIRequireMainThread();
+  v6 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] WLK activity notification received", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] WLK activity notification received", buf, 2u);
   }
 
   userInfo = [notificationCopy userInfo];
 
-  v7 = [userInfo vui_stringForKey:*MEMORY[0x1E69E16B0]];
+  v8 = [userInfo vui_stringForKey:*MEMORY[0x1E69E16B0]];
 
-  v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v7 options:0];
-  if (v8)
+  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v8 options:0];
+  if (v9)
   {
-    v16 = 0;
-    v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v16];
-    v10 = v16;
-    if (v9)
+    v18 = 0;
+    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v18];
+    v11 = v18;
+    v12 = v11;
+    if (v10)
     {
       playbackIsActive = self->_playbackIsActive;
-      v12 = VUIDefaultLogObject();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v14 = VUIDefaultLogObject(v11);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
       if (playbackIsActive)
       {
-        if (v13)
+        if (v15)
         {
           *buf = 0;
-          _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Playback activity is pended during playback.", buf, 2u);
+          _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Playback activity is pended during playback.", buf, 2u);
         }
 
-        v14 = v9;
+        v16 = v10;
         pendingPlayActivity = self->_pendingPlayActivity;
-        self->_pendingPlayActivity = v14;
+        self->_pendingPlayActivity = v16;
       }
 
       else
       {
-        if (v13)
+        if (v15)
         {
           *buf = 0;
-          _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Notifying observers", buf, 2u);
+          _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Notifying observers", buf, 2u);
         }
 
         pendingPlayActivity = +[VUIAppDocumentUpdateEvent playActivity];
@@ -556,11 +556,11 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
     else
     {
-      pendingPlayActivity = VUIDefaultLogObject();
+      pendingPlayActivity = VUIDefaultLogObject(v11);
       if (os_log_type_enabled(pendingPlayActivity, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v10;
+        v20 = v12;
         _os_log_impl(&dword_1E323F000, pendingPlayActivity, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Failed to decode summary %@", buf, 0xCu);
       }
     }
@@ -568,23 +568,23 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
   else
   {
-    v10 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = VUIDefaultLogObject(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] WLK notification lacks data payload", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] WLK notification lacks data payload", buf, 2u);
     }
   }
 }
 
 - (void)_handleNowPlayingWillStartNotification:(id)notification
 {
-  VUIRequireMainThread();
-  v4 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = VUIRequireMainThread();
+  v5 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Player begin notification received", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Player begin notification received", v6, 2u);
   }
 
   self->_playbackIsActive = 1;
@@ -592,39 +592,40 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handleNowPlayingDidEndNotification:(id)notification
 {
-  VUIRequireMainThread();
-  v4 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = VUIRequireMainThread();
+  v5 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Player end notification received", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Player end notification received", buf, 2u);
   }
 
   self->_playbackIsActive = 0;
   pendingPlayActivity = self->_pendingPlayActivity;
   if (pendingPlayActivity)
   {
-    if ([(WLKPlaybackSummary *)pendingPlayActivity playbackState]!= 1)
+    playbackState = [(WLKPlaybackSummary *)pendingPlayActivity playbackState];
+    if (playbackState != 1)
     {
-      v6 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(playbackState);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Notifying observers with pending play activity", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: [Playback] Notifying observers with pending play activity", v11, 2u);
       }
 
-      v7 = +[VUIAppDocumentUpdateEvent playActivity];
-      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v7];
+      v9 = +[VUIAppDocumentUpdateEvent playActivity];
+      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v9];
     }
 
-    v8 = self->_pendingPlayActivity;
+    v10 = self->_pendingPlayActivity;
     self->_pendingPlayActivity = 0;
   }
 }
 
 - (void)_handleAccountDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -637,7 +638,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handleRestrictionsDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -650,7 +651,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handleUpNextLockupArtSettingDidChange:(id)change
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -663,7 +664,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handlePreferredVideoFormatDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -676,7 +677,7 @@ void __51__VUIAppDocumentUpdateEventMonitor_removeObserver___block_invoke(uint64
 
 - (void)_handleClearPlayHistoryNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -745,7 +746,7 @@ void __96__VUIAppDocumentUpdateEventMonitor__postSubscriptionNotification_interr
   v6 = WeakRetained;
   if (a3)
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -765,7 +766,7 @@ void __96__VUIAppDocumentUpdateEventMonitor__postSubscriptionNotification_interr
   v6 = WeakRetained;
   if (a3)
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -833,7 +834,7 @@ void __83__VUIAppDocumentUpdateEventMonitor__handleSubscriptionNotificationHelpe
 {
   v8 = *MEMORY[0x1E69E9840];
   updateCopy = update;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(updateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -853,29 +854,29 @@ void __83__VUIAppDocumentUpdateEventMonitor__handleSubscriptionNotificationHelpe
   }
 }
 
-void __56__VUIAppDocumentUpdateEventMonitor__handleFamilyUpdate___block_invoke()
+void __56__VUIAppDocumentUpdateEventMonitor__handleFamilyUpdate___block_invoke(uint64_t a1)
 {
-  v0 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VUIDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1E323F000, v0, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: _handleFamilyUpdate completion", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1E323F000, v1, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: _handleFamilyUpdate completion", v2, 2u);
   }
 }
 
-void __56__VUIAppDocumentUpdateEventMonitor__handleFamilyUpdate___block_invoke_169()
+void __56__VUIAppDocumentUpdateEventMonitor__handleFamilyUpdate___block_invoke_169(uint64_t a1)
 {
-  v0 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VUIDefaultLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1E323F000, v0, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: _handleFamilyUpdate completion", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1E323F000, v1, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: _handleFamilyUpdate completion", v2, 2u);
   }
 }
 
 - (void)_handleTVSubscriptionEntitlementsChanged:(id)changed
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -898,7 +899,7 @@ void __77__VUIAppDocumentUpdateEventMonitor__handleTVSubscriptionEntitlementsCha
 {
   v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -928,7 +929,7 @@ void __77__VUIAppDocumentUpdateEventMonitor__handleTVSubscriptionEntitlementsCha
 {
   v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -956,7 +957,7 @@ LABEL_6:
 
 - (void)_handleVPPADidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -970,7 +971,7 @@ LABEL_6:
 - (void)_handleAppWillEnterForegroundNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -996,15 +997,15 @@ LABEL_6:
 
     if (v10 > 5.0)
     {
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = VUIDefaultLogObject(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Send AppDidBecomeActive notification", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Send AppDidBecomeActive notification", v15, 2u);
       }
 
-      v12 = +[VUIAppDocumentUpdateEvent appDidBecomeActive];
-      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v12];
+      v13 = +[VUIAppDocumentUpdateEvent appDidBecomeActive];
+      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v13];
     }
   }
 
@@ -1014,7 +1015,7 @@ LABEL_6:
 
 - (void)_handleAppDidEnterBackgroundNotification:(id)notification
 {
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1027,7 +1028,7 @@ LABEL_6:
 
 - (void)_handleSyndicationInfoUpdatedNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1040,7 +1041,7 @@ LABEL_6:
 
 - (void)_handleDeviceDiscoveryDataAvailableNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1053,7 +1054,7 @@ LABEL_6:
 
 - (void)_handleFavoritesRequestDidFinishNotification:(id)notification
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
@@ -1063,50 +1064,50 @@ LABEL_6:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = object;
+      v8 = object;
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = v7;
-    v9 = [userInfo vui_numberForKey:@"Action"];
-    unsignedIntegerValue = [v9 unsignedIntegerValue];
-    v11 = [userInfo vui_errorForKey:@"Error"];
-    v12 = [userInfo vui_BOOLForKey:@"FireBackgroundEvent" defaultValue:0];
-    v13 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v9 = v8;
+    v10 = [userInfo vui_numberForKey:@"Action"];
+    unsignedIntegerValue = [v10 unsignedIntegerValue];
+    v12 = [userInfo vui_errorForKey:@"Error"];
+    v13 = [userInfo vui_BOOLForKey:@"FireBackgroundEvent" defaultValue:0];
+    v14 = VUIDefaultLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = userInfo;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Sports favorites request did finish notification received [%@], teamId: %@", &v15, 0x16u);
+      v16 = 138412546;
+      v17 = userInfo;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Sports favorites request did finish notification received [%@], teamId: %@", &v16, 0x16u);
     }
 
-    if (v8 || !v11)
+    if (v9 || !v12)
     {
-      v14 = [[VUIAppDocumentModifiedFavoritesEvent alloc] initWithAction:unsignedIntegerValue entityID:v8 isBackground:v12];
-      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v14];
+      v15 = [[VUIAppDocumentModifiedFavoritesEvent alloc] initWithAction:unsignedIntegerValue entityID:v9 isBackground:v13];
+      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v15];
     }
   }
 
   else
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Ignoring Sports favorites request did finish notification: missing userInfo", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Ignoring Sports favorites request did finish notification: missing userInfo", &v16, 2u);
     }
   }
 }
 
 - (void)_handleFavoritesSyncCompleted:(id)completed
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1119,7 +1120,7 @@ LABEL_6:
 
 - (void)_handleSettingsDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1142,7 +1143,7 @@ LABEL_6:
       v6 = [v5 vui_dictionaryForKey:*MEMORY[0x1E69E1678]];
       v7 = [v5 vui_dictionaryForKey:*MEMORY[0x1E69E1670]];
       v8 = [v5 vui_dictionaryForKey:*MEMORY[0x1E69E1680]];
-      v9 = VUIDefaultLogObject();
+      v9 = VUIDefaultLogObject(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *v13 = 0;
@@ -1170,7 +1171,7 @@ LABEL_6:
 
 - (void)_handlePurchaseFlowDidFinishNotification:(id)notification
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   if (userInfo)
@@ -1196,14 +1197,14 @@ LABEL_6:
     v10 = 0;
   }
 
-  v11 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = VUIDefaultLogObject(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v10;
-    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Purchase did finish notification received for canonicals %@, error [%@]", buf, 0x16u);
+    v29 = v7;
+    v30 = 2112;
+    v31 = v10;
+    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Purchase did finish notification received for canonicals %@, error [%@]", buf, 0x16u);
   }
 
   if (!v10)
@@ -1211,49 +1212,49 @@ LABEL_6:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && [v7 count])
     {
-      v20 = 0;
-      v21 = v7;
-      v24 = 0u;
+      v21 = 0;
+      v22 = v7;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v12 = v7;
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v13)
+      v24 = 0u;
+      v13 = v7;
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v23;
+        v15 = v14;
+        v16 = *v24;
         do
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v23 != v15)
+            if (*v24 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v13);
             }
 
-            v17 = [[VUIAppDocumentPurchaseEventDescriptor alloc] initWithCanonicalID:*(*(&v22 + 1) + 8 * i)];
-            v18 = [[VUIAppDocumentPurchaseEvent alloc] initWithPurchaseEventDescriptor:v17];
-            [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v18];
+            v18 = [[VUIAppDocumentPurchaseEventDescriptor alloc] initWithCanonicalID:*(*(&v23 + 1) + 8 * i)];
+            v19 = [[VUIAppDocumentPurchaseEvent alloc] initWithPurchaseEventDescriptor:v18];
+            [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v19];
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
 
       v10 = 0;
     }
 
-    v19 = [VUIAppDocumentUpdateEvent purchases:v20];
-    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v19];
+    v20 = [VUIAppDocumentUpdateEvent purchases:v21];
+    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v20];
   }
 }
 
 - (void)_handleSubscriptionDidChangeNotification:(id)notification
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   if (userInfo)
@@ -1267,24 +1268,24 @@ LABEL_6:
     v7 = 0;
   }
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Subscription did finish notification received with error [%@]", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Subscription did finish notification received with error [%@]", &v11, 0xCu);
   }
 
   if (!v7)
   {
-    v9 = +[VUIAppDocumentUpdateEvent entitlements];
-    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v9];
+    v10 = +[VUIAppDocumentUpdateEvent entitlements];
+    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v10];
   }
 }
 
 - (void)_handleEntitlementsDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1297,7 +1298,7 @@ LABEL_6:
 
 - (void)_handleUTSKDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1310,7 +1311,7 @@ LABEL_6:
 
 - (void)_handleLocationAuthorizationDidChangeNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1324,7 +1325,7 @@ LABEL_6:
 - (void)_handleLocationDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -1362,7 +1363,7 @@ LABEL_9:
   v9 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(userInfo);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -1378,36 +1379,36 @@ LABEL_9:
 
 - (void)_handleUpNextRequestDidFinishNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = userInfo;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Upnext request did finish notification received [%@]", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = userInfo;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Upnext request did finish notification received [%@]", &v13, 0xCu);
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && userInfo)
   {
-    v8 = object;
-    v9 = [userInfo vui_errorForKey:@"Error"];
-    if (!v9)
+    v9 = object;
+    v10 = [userInfo vui_errorForKey:@"Error"];
+    if (!v10)
     {
-      v10 = [userInfo vui_numberForKey:@"Action"];
-      v11 = -[VUIAppDocumentModifiedUpNextEvent initWithAction:canonicalID:]([VUIAppDocumentModifiedUpNextEvent alloc], "initWithAction:canonicalID:", [v10 unsignedIntegerValue], v8);
-      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v11];
+      v11 = [userInfo vui_numberForKey:@"Action"];
+      v12 = -[VUIAppDocumentModifiedUpNextEvent initWithAction:canonicalID:]([VUIAppDocumentModifiedUpNextEvent alloc], "initWithAction:canonicalID:", [v11 unsignedIntegerValue], v9);
+      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v12];
     }
   }
 }
 
 - (void)_handlePlayHistoryUpdatedNotification:(id)notification
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1420,81 +1421,81 @@ LABEL_9:
 
 - (void)_handleRemoveFromPlayHistoryRequestDidFinishNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = userInfo;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Remove from play history request did finish notification received [%@]", buf, 0xCu);
+    v14 = userInfo;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Remove from play history request did finish notification received [%@]", buf, 0xCu);
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && userInfo)
   {
-    v8 = [userInfo vui_stringForKey:@"CanonicalID"];
-    v9 = [VUIAppDocumentRemovePlayHistoryEvent alloc];
-    v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v8, 0}];
-    v11 = [(VUIAppDocumentRemovePlayHistoryEvent *)v9 initWithRemovedCanonicalIDs:v10];
+    v9 = [userInfo vui_stringForKey:@"CanonicalID"];
+    v10 = [VUIAppDocumentRemovePlayHistoryEvent alloc];
+    v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithObjects:{v9, 0}];
+    v12 = [(VUIAppDocumentRemovePlayHistoryEvent *)v10 initWithRemovedCanonicalIDs:v11];
 
-    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v11];
+    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v12];
   }
 }
 
 - (void)_handleClearFromPlayHistoryRequestDidFinishNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = userInfo;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Clear from play history request did finish notification received [%@]", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = userInfo;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Clear from play history request did finish notification received [%@]", &v12, 0xCu);
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && userInfo)
   {
-    v8 = object;
-    v9 = [userInfo vui_errorForKey:@"Error"];
-    if (!v9)
+    v9 = object;
+    v10 = [userInfo vui_errorForKey:@"Error"];
+    if (!v10)
     {
-      v10 = [[VUIAppDocumentModifiedUpNextEvent alloc] initWithAction:1 canonicalID:v8];
-      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v10];
+      v11 = [[VUIAppDocumentModifiedUpNextEvent alloc] initWithAction:1 canonicalID:v9];
+      [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v11];
     }
   }
 }
 
 - (void)_handleFederatedAppDidInstallNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   userInfo = [notificationCopy userInfo];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = object;
-    v11 = 2112;
-    v12 = userInfo;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Federated app installation successful for %@ changed [%@]", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = object;
+    v12 = 2112;
+    v13 = userInfo;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Federated app installation successful for %@ changed [%@]", &v10, 0x16u);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = +[VUIAppDocumentUpdateEvent federatedAppDidInstall];
-    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v8];
+    v9 = +[VUIAppDocumentUpdateEvent federatedAppDidInstall];
+    [(VUIAppDocumentUpdateEventMonitor *)self _notifyObserversOfEvent:v9];
   }
 }
 
@@ -1503,7 +1504,7 @@ LABEL_9:
   v12 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   eventCopy = event;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(eventCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134218242;
@@ -1539,64 +1540,64 @@ LABEL_9:
 
 void __60__VUIAppDocumentUpdateEventMonitor__notifyObserversOfEvent___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  v38 = [*(a1 + 32) observerMapTable];
-  v1 = [v38 keyEnumerator];
+  v56 = *MEMORY[0x1E69E9840];
+  v39 = [*(a1 + 32) observerMapTable];
+  v1 = [v39 keyEnumerator];
   v2 = [v1 allObjects];
 
-  v35 = [objc_opt_class() _isAppRefreshEventType:*(a1 + 40)];
-  v33 = +[VUIAppDocumentUpdateEvent appRefresh];
+  v36 = [objc_opt_class() _isAppRefreshEventType:*(a1 + 40)];
+  v34 = +[VUIAppDocumentUpdateEvent appRefresh];
   v3 = [*(a1 + 40) descriptor];
   v4 = +[VUIAppDocumentUpdateEventDescriptor appDidBecomeActive];
-  v36 = [v3 isEqual:v4];
+  v37 = [v3 isEqual:v4];
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __60__VUIAppDocumentUpdateEventMonitor__notifyObserversOfEvent___block_invoke_2;
   aBlock[3] = &unk_1E87328B0;
-  aBlock[4] = &v46;
-  v37 = _Block_copy(aBlock);
-  v43 = 0u;
+  aBlock[4] = &v47;
+  v38 = _Block_copy(aBlock);
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   obj = v2;
-  v5 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
+  v5 = [obj countByEnumeratingWithState:&v42 objects:v55 count:16];
   if (v5)
   {
-    v34 = *v42;
+    v35 = *v43;
     *&v6 = 134218242;
-    v31 = v6;
+    v32 = v6;
     do
     {
-      v39 = v5;
-      for (i = 0; i != v39; ++i)
+      v40 = v5;
+      for (i = 0; i != v40; ++i)
       {
-        if (*v42 != v34)
+        if (*v43 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v41 + 1) + 8 * i);
-        v9 = [v38 objectForKey:{v8, v31}];
-        v10 = v37[2](v37, v8, v9);
+        v8 = *(*(&v42 + 1) + 8 * i);
+        v9 = [v39 objectForKey:{v8, v32}];
+        v10 = v38[2](v38, v8, v9);
         v11 = v10;
-        if (v36)
+        if (v37)
         {
-          if (*(v47 + 24) != 1)
+          if (*(v48 + 24) != 1)
           {
-            v12 = VUIDefaultLogObject();
+            v12 = VUIDefaultLogObject(v10);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               v16 = *(a1 + 40);
-              *buf = v31;
-              v51 = v8;
-              v52 = 2112;
-              v53 = v16;
+              *buf = v32;
+              v52 = v8;
+              v53 = 2112;
+              v54 = v16;
               v14 = v12;
               v15 = "UPDATE_EVENTS: MONITOR: observer document became active by coming to foreground. Observer: [%p] for event: [%@]";
 LABEL_13:
@@ -1611,14 +1612,14 @@ LABEL_14:
 
           if (v10)
           {
-            v12 = VUIDefaultLogObject();
+            v12 = VUIDefaultLogObject(v10);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               v13 = *(a1 + 40);
-              *buf = v31;
-              v51 = v8;
-              v52 = 2112;
-              v53 = v13;
+              *buf = v32;
+              v52 = v8;
+              v53 = 2112;
+              v54 = v13;
               v14 = v12;
               v15 = "UPDATE_EVENTS: MONITOR: view controller backed observer document became active by coming to foreground. Observer: [%p] for event: [%@]";
               goto LABEL_13;
@@ -1631,9 +1632,9 @@ LABEL_14:
 LABEL_15:
         v17 = [v9 eventDescriptors];
         v18 = [*(a1 + 40) descriptor];
-        if (v35 && ([v9 eventDescriptors], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "descriptor"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "containsObject:", v20), v20, v19, v21))
+        if (v36 && ([v9 eventDescriptors], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "descriptor"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "containsObject:", v20), v20, v19, v21))
         {
-          v22 = v33;
+          v22 = v34;
         }
 
         else
@@ -1657,29 +1658,29 @@ LABEL_15:
 
           if ((v26 & v11) != 0)
           {
-            v27 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v28 = VUIDefaultLogObject(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              v28 = *(a1 + 40);
-              *buf = v31;
-              v51 = v8;
-              v52 = 2112;
-              v53 = v28;
-              _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Ignoring observer [%p] for event: [%@]", buf, 0x16u);
+              v29 = *(a1 + 40);
+              *buf = v32;
+              v52 = v8;
+              v53 = 2112;
+              v54 = v29;
+              _os_log_impl(&dword_1E323F000, v28, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Ignoring observer [%p] for event: [%@]", buf, 0x16u);
             }
           }
 
           else
           {
-            v29 = VUIDefaultLogObject();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            v30 = VUIDefaultLogObject(v27);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              v30 = *(a1 + 40);
-              *buf = v31;
-              v51 = v8;
-              v52 = 2112;
-              v53 = v30;
-              _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Notifying observer [%p] of event: [%@]", buf, 0x16u);
+              v31 = *(a1 + 40);
+              *buf = v32;
+              v52 = v8;
+              v53 = 2112;
+              v54 = v31;
+              _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "UPDATE_EVENTS: MONITOR: Notifying observer [%p] of event: [%@]", buf, 0x16u);
             }
 
             [v8 appDocumentDidReceiveEvent:v22];
@@ -1689,13 +1690,13 @@ LABEL_15:
 LABEL_29:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v5 = [obj countByEnumeratingWithState:&v42 objects:v55 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v47, 8);
 }
 
 BOOL __60__VUIAppDocumentUpdateEventMonitor__notifyObserversOfEvent___block_invoke_2(uint64_t a1, void *a2, void *a3)

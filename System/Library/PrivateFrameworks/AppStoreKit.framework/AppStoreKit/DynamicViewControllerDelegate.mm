@@ -25,7 +25,7 @@
   }
 
   __swift_project_boxed_opaque_existential_1Tm(qword_1EE215660, qword_1EE215678);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEB3D50);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEB3D50, &qword_1E1B05580);
   sub_1E1AF38EC();
   *(swift_allocObject() + 16) = xmmword_1E1B02CC0;
   sub_1E1AF382C();

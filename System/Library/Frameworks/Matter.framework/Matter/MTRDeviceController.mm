@@ -34,6 +34,7 @@
 - (NSArray)devices;
 - (NSArray)nodesWithStoredData;
 - (NSData)attestationChallengeForDeviceID:(NSNumber *)deviceID;
+- (NSData)computePaseVerifier:(uint32_t)setupPincode iterations:(uint32_t)iterations salt:(NSData *)salt;
 - (NSData)fetchAttestationChallengeForDeviceId:(uint64_t)deviceId;
 - (NSNumber)compressedFabricID;
 - (NSNumber)controllerNodeID;
@@ -93,7 +94,7 @@
 
 - (MTRDeviceController)initWithParameters:(id)parameters error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -102,13 +103,13 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = parametersCopy;
+      v19 = parametersCopy;
       _os_log_impl(&dword_238DAE000, v7, OS_LOG_TYPE_DEFAULT, "Starting up with XPC Device Controller Parameters: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "Starting up with XPC Device Controller Parameters: %@", parametersCopy);
     }
 
     v8 = off_278A6FDA8;
@@ -125,13 +126,13 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_DEFAULT, "Starting up with Mach Service XPC Device Controller Parameters: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "Starting up with Mach Service XPC Device Controller Parameters: %@", v10);
     }
 
     v12 = [MTRDeviceController_XPC alloc];
@@ -150,13 +151,13 @@ LABEL_7:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = parametersCopy;
+        v19 = parametersCopy;
         _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_DEFAULT, "Starting up with Device Controller Parameters: %@", buf, 0xCu);
       }
 
       if (sub_2393D5398(2u))
       {
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "Starting up with Device Controller Parameters: %@", parametersCopy);
       }
 
       v8 = off_278A6FDA0;
@@ -166,13 +167,13 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = parametersCopy;
+      v19 = parametersCopy;
       _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "Unsupported type of MTRDeviceControllerAbstractParameters: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Unsupported type of MTRDeviceControllerAbstractParameters: %@", parametersCopy);
     }
 
     if (error)
@@ -189,13 +190,12 @@ LABEL_7:
 
 LABEL_27:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = sub_2393D9044(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -206,14 +206,12 @@ LABEL_27:
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ dealloc", self);
   }
 
-  v6.receiver = self;
-  v6.super_class = MTRDeviceController;
-  [(MTRDeviceController *)&v6 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MTRDeviceController;
+  [(MTRDeviceController *)&v4 dealloc];
 }
 
 - (NSString)description
@@ -251,12 +249,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -274,19 +271,18 @@ LABEL_27:
 
 - (void)suspend
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = sub_2393D9044(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    selfCopy6 = self;
+    selfCopy4 = self;
     _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ suspending", buf, 0xCu);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ suspending", self);
   }
 
   if ([(MTRDeviceController *)self isRunning])
@@ -299,13 +295,13 @@ LABEL_27:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        selfCopy6 = self;
+        selfCopy4 = self;
         _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ already suspended", buf, 0xCu);
       }
 
       if (sub_2393D5398(2u))
       {
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "%@ already suspended", self);
       }
 
       os_unfair_lock_unlock(deviceMapLock);
@@ -324,41 +320,39 @@ LABEL_27:
       {
         v10 = [allObjects count];
         *buf = 138412546;
-        selfCopy6 = self;
-        v25 = 2048;
-        v26 = v10;
+        selfCopy4 = self;
+        v21 = 2048;
+        v22 = v10;
         _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ found %lu devices to suspend", buf, 0x16u);
       }
 
       if (sub_2393D5398(2u))
       {
-        selfCopy5 = self;
-        v17 = [allObjects count];
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "%@ found %lu devices to suspend", self, [allObjects count]);
       }
 
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v6 = allObjects;
-      v11 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v11)
       {
-        v12 = *v19;
+        v12 = *v15;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v19 != v12)
+            if (*v15 != v12)
             {
               objc_enumerationMutation(v6);
             }
 
-            [*(*(&v18 + 1) + 8 * i) controllerSuspended];
+            [*(*(&v14 + 1) + 8 * i) controllerSuspended];
           }
 
-          v11 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v11 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v11);
@@ -374,34 +368,31 @@ LABEL_27:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      selfCopy6 = self;
+      selfCopy4 = self;
       _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_ERROR, "%@ not running; can't suspend", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ not running; can't suspend", self);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resume
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = sub_2393D9044(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    selfCopy6 = self;
+    selfCopy4 = self;
     _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ resuming", buf, 0xCu);
   }
 
   if (sub_2393D5398(2u))
   {
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ resuming", self);
   }
 
   if ([(MTRDeviceController *)self isRunning])
@@ -421,41 +412,39 @@ LABEL_27:
       {
         v9 = [allObjects count];
         *buf = 138412546;
-        selfCopy6 = self;
-        v25 = 2048;
-        v26 = v9;
+        selfCopy4 = self;
+        v21 = 2048;
+        v22 = v9;
         _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ found %lu devices to resume", buf, 0x16u);
       }
 
       if (sub_2393D5398(2u))
       {
-        selfCopy4 = self;
-        v17 = [allObjects count];
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "%@ found %lu devices to resume", self, [allObjects count]);
       }
 
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v10 = allObjects;
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v11)
       {
-        v12 = *v19;
+        v12 = *v15;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v19 != v12)
+            if (*v15 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v18 + 1) + 8 * i) controllerResumed];
+            [*(*(&v14 + 1) + 8 * i) controllerResumed];
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v11);
@@ -470,13 +459,13 @@ LABEL_27:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        selfCopy6 = self;
+        selfCopy4 = self;
         _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_DEFAULT, "%@ already not suspended", buf, 0xCu);
       }
 
       if (sub_2393D5398(2u))
       {
-        sub_2393D5320(0, 2);
+        sub_2393D5320(0, 2, "%@ already not suspended", self);
       }
 
       os_unfair_lock_unlock(deviceMapLock);
@@ -489,17 +478,15 @@ LABEL_27:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      selfCopy6 = self;
+      selfCopy4 = self;
       _os_log_impl(&dword_238DAE000, v3, OS_LOG_TYPE_ERROR, "%@ not running; can't resume", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ not running; can't resume", self);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)controllerNodeID
@@ -519,12 +506,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -547,9 +533,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v13 = objc_opt_class();
+    v14 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v13, v14);
   }
 
   if (error)
@@ -557,7 +543,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x13B00000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -581,9 +566,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v18 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v16 = objc_opt_class();
+    v17 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v16, v17);
   }
 
   if (error)
@@ -591,7 +576,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x14700000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -614,9 +598,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v13 = objc_opt_class();
+    v14 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v13, v14);
   }
 
   if (error)
@@ -624,7 +608,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x15200000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -645,9 +628,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v12 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v10 = objc_opt_class();
+    v11 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v10, v11);
   }
 
   if (error)
@@ -655,7 +638,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x15D00000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -677,9 +659,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v12 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v10 = objc_opt_class();
+    v11 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v10, v11);
   }
 
   if (error)
@@ -687,7 +669,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x16600000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -710,12 +691,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v13 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v11 = objc_opt_class();
+    v12 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v11, v12);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -736,12 +716,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -762,12 +741,10 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
+    v6 = objc_opt_class();
     v7 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (MTRBaseDevice)deviceBeingCommissionedWithNodeID:(NSNumber *)nodeID error:(NSError *)error
@@ -788,9 +765,9 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v12 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v10 = objc_opt_class();
+    v11 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v10, v11);
   }
 
   if (error)
@@ -798,7 +775,6 @@ LABEL_27:
     *error = sub_23921C1E4(MTRError, 0x18000000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -829,16 +805,14 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v12 = objc_opt_class();
+    v13 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v12, v13);
   }
 
-  v12 = [[MTRDevice alloc] initForSubclassesWithNodeID:dCopy controller:self];
+  v14 = [[MTRDevice alloc] initForSubclassesWithNodeID:dCopy controller:self];
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v14;
 }
 
 - (id)_deviceForNodeID:(id)d createIfNeeded:(BOOL)needed
@@ -896,7 +870,7 @@ LABEL_27:
 
 - (void)removeDevice:(id)device
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   deviceMapLock = [(MTRDeviceController *)self deviceMapLock];
   os_unfair_lock_lock(deviceMapLock);
@@ -916,59 +890,56 @@ LABEL_27:
     {
       *buf = 138412802;
       selfCopy = self;
-      v13 = 2048;
-      v14 = deviceCopy;
-      v15 = 2048;
+      v12 = 2048;
+      v13 = deviceCopy;
+      v14 = 2048;
       unsignedLongLongValue = [nodeID unsignedLongLongValue];
       _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "%@ Error: Cannot remove device %p with nodeID %llu", buf, 0x20u);
     }
 
     if (sub_2393D5398(1u))
     {
-      [nodeID unsignedLongLongValue];
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Error: Cannot remove device %p with nodeID %llu", self, deviceCopy, [nodeID unsignedLongLongValue]);
     }
   }
 
   os_unfair_lock_unlock(deviceMapLock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)devices
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceMapLock = [(MTRDeviceController *)self deviceMapLock];
   os_unfair_lock_lock(deviceMapLock);
   array = [MEMORY[0x277CBEB18] array];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   objectEnumerator = [(NSMapTable *)self->_nodeIDToDeviceMap objectEnumerator];
-  v6 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [array addObject:*(*(&v11 + 1) + 8 * i)];
+        [array addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(deviceMapLock);
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1002,48 +973,45 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v13 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v11 = objc_opt_class();
+    v12 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v11, v12);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 + (NSData)computePASEVerifierForSetupPasscode:(NSNumber *)setupPasscode iterations:(NSNumber *)iterations salt:(NSData *)salt error:(NSError *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v9 = setupPasscode;
   v10 = iterations;
   v11 = salt;
   unsignedIntValue = [(NSNumber *)v10 unsignedIntValue];
   v13 = v11;
-  sub_238DB6950(&v25, [(NSData *)v13 bytes], [(NSData *)v13 length]);
+  sub_238DB6950(&v24, [(NSData *)v13 bytes], [(NSData *)v13 length]);
 
-  v22 = v25;
-  v23 = sub_2393F2748(v27, unsignedIntValue, &v22, [(NSNumber *)v9 unsignedIntValue]);
-  v24 = v14;
-  *&v22 = "dwnfw_pase_verifier_for_code";
-  *(&v22 + 1) = &v23;
-  LODWORD(v25) = 0;
-  *(&v25 + 1) = "dwnfw_pase_verifier_for_code";
-  v26 = 0;
-  sub_23948BD20(&v25);
-  if ([MTRDeviceController checkForError:v23 logMsg:v24 error:@"PASE verifier generation failed", error]|| (v20 = &v25, v21 = 97, v23 = sub_2393F265C(v27, &v20), v24 = v15, [MTRDeviceController checkForError:v23 logMsg:v15 error:@"PASE verifier serialization failed", error]))
+  v21 = v24;
+  v22 = sub_2393F2748(v26, unsignedIntValue, &v21, [(NSNumber *)v9 unsignedIntValue]);
+  v23 = v14;
+  *&v21 = "dwnfw_pase_verifier_for_code";
+  *(&v21 + 1) = &v22;
+  LODWORD(v24) = 0;
+  *(&v24 + 1) = "dwnfw_pase_verifier_for_code";
+  v25 = 0;
+  sub_23948BD20(&v24);
+  if ([MTRDeviceController checkForError:v22 logMsg:v23 error:@"PASE verifier generation failed", error]|| (v19 = &v24, v20 = 97, v22 = sub_2393F265C(v26, &v19), v23 = v15, [MTRDeviceController checkForError:v22 logMsg:v15 error:@"PASE verifier serialization failed", error]))
   {
     v16 = 0;
   }
 
   else
   {
-    sub_238DB6950(v19, v20, v21);
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v19[0] length:v19[1]];
+    sub_238DB6950(v18, v19, v20);
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v18[0] length:v18[1]];
   }
 
-  sub_238F3F7E4(&v22);
-
-  v17 = *MEMORY[0x277D85DE8];
+  sub_238F3F7E4(&v21);
 
   return v16;
 }
@@ -1066,12 +1034,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v10 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v8, v9);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1093,12 +1060,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v10 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v8, v9);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1122,17 +1088,15 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
+    v14 = objc_opt_class();
     v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v14, v15);
   }
 
   if (queueCopy && completionCopy)
   {
     dispatch_async(queueCopy, completionCopy);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)checkForError:(ChipError)error logMsg:(id)msg error:(id *)a5
@@ -1157,10 +1121,9 @@ LABEL_27:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      v11 = msgCopy;
-      [msgCopy UTF8String];
-      sub_2393D5320(0, 1);
+      v11 = sub_2393C9138();
+      v12 = msgCopy;
+      sub_2393D5320(0, 1, "Error(%s): %@ %s", v11, self, [msgCopy UTF8String]);
     }
 
     if (a5)
@@ -1169,7 +1132,6 @@ LABEL_27:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7 != 0;
 }
 
@@ -1192,15 +1154,13 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v13 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v11 = objc_opt_class();
+    v12 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v11, v12);
   }
 
-  v11 = sub_23921C1E4(MTRError, 0x22600000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
-  handlerCopy[2](handlerCopy, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = sub_23921C1E4(MTRError, 0x22600000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
+  handlerCopy[2](handlerCopy, v13);
 }
 
 - (NSNumber)compressedFabricID
@@ -1220,12 +1180,11 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1246,18 +1205,17 @@ LABEL_27:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v8 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v6 = objc_opt_class();
+    v7 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v6, v7);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return MEMORY[0x277CBEBF8];
 }
 
 - (void)setDeviceControllerDelegate:(id)delegate queue:(dispatch_queue_t)queue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = delegate;
   v8 = queue;
   selfCopy = self;
@@ -1278,44 +1236,39 @@ LABEL_8:
     if (v12)
     {
       *buf = 138412802;
-      v18 = selfCopy;
-      v19 = 2048;
-      v20 = strongDelegateForSetDelegateAPI;
-      v21 = 2048;
-      v22 = v7;
+      v14 = selfCopy;
+      v15 = 2048;
+      v16 = strongDelegateForSetDelegateAPI;
+      v17 = 2048;
+      v18 = v7;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_DEFAULT, "%@ setDeviceControllerDelegate: replacing %p with %p", buf, 0x20u);
     }
 
     if (sub_2393D5398(2u))
     {
-      v15 = selfCopy->_strongDelegateForSetDelegateAPI;
-      v16 = v7;
-      v14 = selfCopy;
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "%@ setDeviceControllerDelegate: replacing %p with %p", selfCopy, selfCopy->_strongDelegateForSetDelegateAPI, v7);
     }
 
-    [(MTRDeviceController *)selfCopy removeDeviceControllerDelegate:selfCopy->_strongDelegateForSetDelegateAPI, v14, v15, v16];
+    [(MTRDeviceController *)selfCopy removeDeviceControllerDelegate:selfCopy->_strongDelegateForSetDelegateAPI];
     goto LABEL_8;
   }
 
   if (v12)
   {
     *buf = 138412546;
-    v18 = selfCopy;
-    v19 = 2048;
-    v20 = v7;
+    v14 = selfCopy;
+    v15 = 2048;
+    v16 = v7;
     _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_DEFAULT, "%@ setDeviceControllerDelegate: delegate %p is already set", buf, 0x16u);
   }
 
   if (sub_2393D5398(2u))
   {
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ setDeviceControllerDelegate: delegate %p is already set", selfCopy, v7);
   }
 
 LABEL_9:
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDeviceControllerDelegate:(id)delegate queue:(id)queue
@@ -1486,12 +1439,11 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v14 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v12 = objc_opt_class();
+    v13 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v12, v13);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1512,9 +1464,9 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v13 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v11 = objc_opt_class();
+    v12 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v11, v12);
   }
 
   if (error)
@@ -1522,7 +1474,6 @@ LABEL_9:
     *error = sub_23921C1E4(MTRError, 0x34800000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1544,9 +1495,9 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v15 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v13 = objc_opt_class();
+    v14 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v13, v14);
   }
 
   if (error)
@@ -1554,7 +1505,6 @@ LABEL_9:
     *error = sub_23921C1E4(MTRError, 0x35500000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1576,9 +1526,9 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v13 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v11 = objc_opt_class();
+    v12 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v11, v12);
   }
 
   if (error)
@@ -1586,7 +1536,6 @@ LABEL_9:
     *error = sub_23921C1E4(MTRError, 0x35E00000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1632,9 +1581,9 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v12 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v10 = objc_opt_class();
+    v11 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v10, v11);
   }
 
   if (error)
@@ -1642,7 +1591,6 @@ LABEL_9:
     *error = sub_23921C1E4(MTRError, 0x37800000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1663,9 +1611,9 @@ LABEL_9:
 
   if (sub_2393D5398(1u))
   {
-    objc_opt_class();
-    v14 = NSStringFromSelector(a2);
-    sub_2393D5320(0, 1);
+    v12 = objc_opt_class();
+    v13 = NSStringFromSelector(a2);
+    sub_2393D5320(0, 1, "%@ or some ancestor must implement %@", v12, v13);
   }
 
   if (error)
@@ -1673,8 +1621,19 @@ LABEL_9:
     *error = sub_23921C1E4(MTRError, 0x38500000003, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceController.mm");
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
+}
+
+- (NSData)computePaseVerifier:(uint32_t)setupPincode iterations:(uint32_t)iterations salt:(NSData *)salt
+{
+  v5 = *&iterations;
+  v6 = *&setupPincode;
+  v7 = salt;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+  v10 = [MTRDeviceController computePASEVerifierForSetupPasscode:v8 iterations:v9 salt:v7 error:0];
+
+  return v10;
 }
 
 - (void)setPairingDelegate:(id)delegate queue:(dispatch_queue_t)queue
@@ -1702,34 +1661,34 @@ LABEL_9:
 
 + (NSArray)encodeXPCResponseValues:(NSArray *)values
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v28 = values;
-  if (v28)
+  v40 = *MEMORY[0x277D85DE8];
+  v27 = values;
+  if (v27)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    obj = v28;
-    v3 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    obj = v27;
+    v3 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (!v3)
     {
       goto LABEL_25;
     }
 
-    v30 = *v34;
+    v29 = *v33;
     while (1)
     {
-      v32 = v3;
-      for (i = 0; i != v32; ++i)
+      v31 = v3;
+      for (i = 0; i != v31; ++i)
       {
-        if (*v34 != v30)
+        if (*v33 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v33 + 1) + 8 * i);
+        v5 = *(*(&v32 + 1) + 8 * i);
         if (!v5)
         {
 LABEL_14:
@@ -1737,7 +1696,7 @@ LABEL_14:
           continue;
         }
 
-        v6 = [*(*(&v33 + 1) + 8 * i) objectForKeyedSubscript:@"attributePath"];
+        v6 = [*(*(&v32 + 1) + 8 * i) objectForKeyedSubscript:@"attributePath"];
         if (v6)
         {
         }
@@ -1765,12 +1724,12 @@ LABEL_14:
           if (v12)
           {
             endpoint = [v12 endpoint];
-            v38 = endpoint;
+            v37 = endpoint;
             cluster = [v13 cluster];
-            v39 = cluster;
+            v38 = cluster;
             attribute = [v13 attribute];
-            v40 = attribute;
-            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:3];
+            v39 = attribute;
+            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:3];
           }
 
           else
@@ -1791,12 +1750,12 @@ LABEL_14:
           if (v20)
           {
             endpoint2 = [v20 endpoint];
-            v38 = endpoint2;
+            v37 = endpoint2;
             cluster2 = [v21 cluster];
-            v39 = cluster2;
+            v38 = cluster2;
             command = [v21 command];
-            v40 = command;
-            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:3];
+            v39 = command;
+            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:3];
           }
 
           else
@@ -1810,7 +1769,7 @@ LABEL_14:
         [array addObject:v9];
       }
 
-      v3 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v3 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (!v3)
       {
 LABEL_25:
@@ -1823,47 +1782,45 @@ LABEL_25:
   array = 0;
 LABEL_27:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 + (NSArray)decodeXPCResponseValues:(NSArray *)values
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v28 = values;
-  if (v28)
+  v37 = *MEMORY[0x277D85DE8];
+  v27 = values;
+  if (v27)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    obj = v28;
-    v3 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    obj = v27;
+    v3 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (!v3)
     {
       goto LABEL_26;
     }
 
-    v30 = *v34;
+    v29 = *v33;
     while (1)
     {
-      v31 = v3;
-      for (i = 0; i != v31; ++i)
+      v30 = v3;
+      for (i = 0; i != v30; ++i)
       {
-        if (*v34 != v30)
+        if (*v33 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v33 + 1) + 8 * i);
+        v5 = *(*(&v32 + 1) + 8 * i);
         if (!v5)
         {
           goto LABEL_11;
         }
 
-        v6 = [*(*(&v33 + 1) + 8 * i) objectForKeyedSubscript:@"attributePath"];
+        v6 = [*(*(&v32 + 1) + 8 * i) objectForKeyedSubscript:@"attributePath"];
         if (v6)
         {
 
@@ -1931,7 +1888,7 @@ LABEL_12:
         [array addObject:v9];
       }
 
-      v3 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v3 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (!v3)
       {
 LABEL_26:
@@ -1943,8 +1900,6 @@ LABEL_26:
 
   array = 0;
 LABEL_28:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return array;
 }

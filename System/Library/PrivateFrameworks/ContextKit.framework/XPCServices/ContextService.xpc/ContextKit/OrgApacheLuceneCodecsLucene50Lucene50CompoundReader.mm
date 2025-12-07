@@ -1,5 +1,4 @@
 @interface OrgApacheLuceneCodecsLucene50Lucene50CompoundReader
-- (id)description;
 - (id)listAll;
 - (id)openInputWithNSString:(id)string withOrgApacheLuceneStoreIOContext:(id)context;
 - (int64_t)fileLengthWithNSString:(id)string;
@@ -12,7 +11,7 @@
 - (void)close
 {
   handle = self->handle_;
-  v2 = [IOSObjectArray arrayWithObjects:&handle count:1 type:JavaIoCloseable_class_()];
+  v2 = [IOSObjectArray arrayWithObjects:&handle count:1 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v2);
 }
 
@@ -63,7 +62,6 @@ LABEL_7:
     v14 = 0;
     do
     {
-      v17 = *&v13[2 * v14 + 6];
       v15 = JreStrcat("$$", v6, v7, v8, v9, v10, v11, v12, self->segmentName_);
       IOSObjectArray_Set(v13, v14++, v15);
     }
@@ -91,13 +89,6 @@ LABEL_7:
   }
 
   return v6[2];
-}
-
-- (id)description
-{
-  directory = self->directory_;
-  segmentName = self->segmentName_;
-  return JreStrcat("$$$@C", a2, v2, v3, v4, v5, v6, v7, @"CompoundFileDirectory(segment=");
 }
 
 - (void)dealloc

@@ -28,45 +28,42 @@
 
 void __104__ICQDaemonPlanRecommendation_calculateExtraQuotaNeededToSyncForAccountWithID_isAccountFull_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 40);
   v5 = v4 - [v3 integerValue];
   v6 = _ICQGetLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [v3 integerValue];
-    v12 = *(a1 + 40);
-    v13 = 134218496;
-    v14 = v11;
-    v15 = 2048;
-    v16 = v12;
-    v17 = 2048;
-    v18 = v5;
-    _os_log_debug_impl(&dword_275572000, v6, OS_LOG_TYPE_DEBUG, "Found remote backup size %ld, local storage size: %ld, difference: %ld", &v13, 0x20u);
+    v10 = [v3 integerValue];
+    v11 = *(a1 + 40);
+    v12 = 134218496;
+    v13 = v10;
+    v14 = 2048;
+    v15 = v11;
+    v16 = 2048;
+    v17 = v5;
+    _os_log_debug_impl(&dword_275572000, v6, OS_LOG_TYPE_DEBUG, "Found remote backup size %ld, local storage size: %ld, difference: %ld", &v12, 0x20u);
   }
 
   v7 = [*(a1 + 48) calculateExtraQuotaNeededToSyncWithBackupSize:v5];
   v8 = *(a1 + 32);
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
   (*(v8 + 16))(v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)calculateExtraQuotaNeededToSyncWithBackupSize:(int64_t)size
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = size & ~(size >> 63);
   v4 = _ICQGetLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "Returning new total usage value: %ld", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "Returning new total usage value: %ld", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

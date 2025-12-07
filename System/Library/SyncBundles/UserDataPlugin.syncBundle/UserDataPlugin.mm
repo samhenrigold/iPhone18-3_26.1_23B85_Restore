@@ -1,6 +1,6 @@
-void sub_1160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -51,9 +51,10 @@ LABEL_5:
   ++*(*(*(a1 + 32) + 8) + 32);
 }
 
-void sub_1750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a29, 8);
   _Unwind_Resume(a1);
 }
@@ -129,53 +130,53 @@ LABEL_7:
 
 uint64_t sub_1A2C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_C6B0 = result;
   return result;
 }
 
-void sub_2194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_2194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63, ...)
 {
+  va_start(va, a63);
   _Block_object_dispose(&a50, 8);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a64, 8);
-  _Block_object_dispose((v64 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v63 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21E0(uint64_t a1)
+void sub_21E0(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _fileUsageMetrics];
-  v2 = *(*(a1 + 48) + 8);
-  *(v2 + 32) = v3;
-  *(v2 + 48) = v4;
+  objc_msgSend__fileUsageMetrics(*(a1 + 32), a2);
+  v3 = *(*(a1 + 48) + 8);
+  *(v3 + 32) = v4;
+  *(v3 + 48) = v5;
   dispatch_group_leave(*(a1 + 40));
 }
 
-void sub_2234(uint64_t a1)
+void sub_2234(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _iCloudUsageMetrics];
-  v2 = *(*(a1 + 48) + 8);
-  *(v2 + 32) = v3;
-  *(v2 + 48) = v4;
+  objc_msgSend__iCloudUsageMetrics(*(a1 + 32), a2);
+  v3 = *(*(a1 + 48) + 8);
+  *(v3 + 32) = v4;
+  *(v3 + 48) = v5;
   dispatch_group_leave(*(a1 + 40));
 }
 
-void sub_2288(uint64_t a1)
+void sub_2288(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _appUsageMetricsUsingCacheDeleteData:*(a1 + 40)];
-  v2 = *(*(a1 + 56) + 8);
-  *(v2 + 32) = v3;
-  *(v2 + 48) = v4;
+  objc_msgSend__appUsageMetricsUsingCacheDeleteData_(*(a1 + 32), a2, *(a1 + 40));
+  v3 = *(*(a1 + 56) + 8);
+  *(v3 + 32) = v4;
+  *(v3 + 48) = v5;
   dispatch_group_leave(*(a1 + 48));
 }
 
-void sub_22E0(uint64_t a1)
+void sub_22E0(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _cacheDeleteUsageMetricsUsingCacheDeleteData:*(a1 + 40)];
-  v2 = *(*(a1 + 56) + 8);
-  *(v2 + 32) = v3;
-  *(v2 + 48) = v4;
+  objc_msgSend__cacheDeleteUsageMetricsUsingCacheDeleteData_(*(a1 + 32), a2, *(a1 + 40));
+  v3 = *(*(a1 + 56) + 8);
+  *(v3 + 32) = v4;
+  *(v3 + 48) = v5;
   dispatch_group_leave(*(a1 + 48));
 }

@@ -4,6 +4,7 @@
 - (void)back;
 - (void)pushNextPane;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSPrivacyAdditionalActionsController
@@ -53,6 +54,12 @@
 {
   navigationController = [(DSPrivacyAdditionalActionsController *)self navigationController];
   v2 = [navigationController popViewControllerAnimated:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  boldButton = [(DSPrivacyAdditionalActionsController *)self boldButton];
+  [boldButton hidesBusyIndicator];
 }
 
 - (void)pushNextPane

@@ -147,7 +147,7 @@ uint64_t __54__CNPhotoPickerDataSource_uniqueEmojiSuggestionItems___block_invoke
   return v7;
 }
 
-uint64_t __38__CNPhotoPickerDataSource_removeItem___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__38__CNPhotoPickerDataSource_removeItem___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 removeProviderItem:a1[4]];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

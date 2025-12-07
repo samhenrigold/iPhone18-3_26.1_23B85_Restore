@@ -44,7 +44,7 @@
 
 - (BOOL)removeRecoveryKey:()Framework error:
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -54,7 +54,7 @@
     _os_log_impl(&dword_1C9430000, v7, OS_LOG_TYPE_DEFAULT, "Removing recovery key for context:%@", &buf, 0xCu);
   }
 
-  v29[1] = 0;
+  v28[1] = 0;
   v8 = SOSCCThisDeviceIsInCircle();
   v9 = SOSCCIsSOSTrustAndSyncingEnabled();
   if (v8)
@@ -69,16 +69,16 @@
 
   if (v10 == 1)
   {
-    v29[0] = 0;
-    [self removeRecoveryKeyFromSOSWhenInCircle:v6 error:v29];
-    v11 = v29;
+    v28[0] = 0;
+    [self removeRecoveryKeyFromSOSWhenInCircle:v6 error:v28];
+    v11 = v28;
   }
 
   else
   {
-    v28 = 0;
-    [self removeRecoveryKeyFromSOSWhenNOTInCircle:v6 error:&v28];
-    v11 = &v28;
+    v27 = 0;
+    [self removeRecoveryKeyFromSOSWhenNOTInCircle:v6 error:&v27];
+    v11 = &v27;
   }
 
   v12 = *v11;
@@ -116,22 +116,22 @@ LABEL_15:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
-  v36[0] = 0;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35[0] = 0;
   obj = 0;
   v17 = [v6 makeOTControl:&obj];
-  objc_storeStrong(v36, obj);
+  objc_storeStrong(v35, obj);
   if (v17)
   {
     v18 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v6];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __47__OTClique_Framework__removeRecoveryKey_error___block_invoke;
-    v26[3] = &unk_1E833E7B0;
-    v26[4] = &buf;
-    [v17 removeRecoveryKey:v18 reply:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __47__OTClique_Framework__removeRecoveryKey_error___block_invoke;
+    v25[3] = &unk_1E833E7B0;
+    v25[4] = &buf;
+    [v17 removeRecoveryKey:v18 reply:v25];
 
     v19 = *(&buf + 1);
     if (a4)
@@ -153,9 +153,9 @@ LABEL_15:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = *(*(&buf + 1) + 40);
-      *v30 = 138412290;
-      v31 = v23;
-      _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v30, 0xCu);
+      *v29 = 138412290;
+      v30 = v23;
+      _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v29, 0xCu);
     }
 
     v21 = 0;
@@ -166,13 +166,12 @@ LABEL_15:
   }
 
   _Block_object_dispose(&buf, 8);
-  v24 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (unint64_t)removeRecoveryKeyFromSOSWhenNOTInCircle:()Framework error:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -181,7 +180,7 @@ LABEL_15:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Removing recovery key when not in circle", buf, 2u);
   }
 
-  v22 = 0;
+  v21 = 0;
   if (SOSCCPushResetCircle())
   {
     v7 = secLogObjForScope();
@@ -206,9 +205,9 @@ LABEL_15:
 
     v14 = v11;
 
-    v21 = 0;
-    LODWORD(v10) = [v14 removeRecoveryKeyFromBackup:&v21];
-    v15 = v21;
+    v20 = 0;
+    LODWORD(v10) = [v14 removeRecoveryKeyFromBackup:&v20];
+    v15 = v20;
     if (v15)
     {
       v10 = 0;
@@ -235,7 +234,7 @@ LABEL_15:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = v15;
+        v23 = v15;
         _os_log_impl(&dword_1C9430000, v17, OS_LOG_TYPE_DEFAULT, "octagon-remove-recovery-key: failed to remove recovery key from the backup: %@", buf, 0xCu);
       }
 
@@ -253,24 +252,23 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v22;
+      v23 = v21;
       _os_log_impl(&dword_1C9430000, v12, OS_LOG_TYPE_DEFAULT, "octagon-remove-recovery-key: failed to push: %@", buf, 0xCu);
     }
 
     v10 = 0;
     if (a4)
     {
-      *a4 = v22;
+      *a4 = v21;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)removeRecoveryKeyFromSOSWhenInCircle:()Framework error:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -279,9 +277,9 @@ LABEL_15:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Removing recovery key when device is in circle", buf, 2u);
   }
 
-  v32 = 0;
-  v7 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v5 error:&v32];
-  v8 = v32;
+  v31 = 0;
+  v7 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v5 error:&v31];
+  v8 = v31;
   v9 = v8;
   if (v7)
   {
@@ -295,9 +293,9 @@ LABEL_15:
 
   if (v10)
   {
-    v31 = 0;
-    v14 = [MEMORY[0x1E697AA80] ensureBackupKeyExistsinSOS:&v31];
-    v15 = v31;
+    v30 = 0;
+    v14 = [MEMORY[0x1E697AA80] ensureBackupKeyExistsinSOS:&v30];
+    v15 = v30;
     v16 = v15;
     if (!v14 || v15)
     {
@@ -339,7 +337,7 @@ LABEL_34:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v34 = v25;
+            v33 = v25;
             _os_log_impl(&dword_1C9430000, v26, OS_LOG_TYPE_DEFAULT, "octagon-remove-recovery-key: failed to perform backup: %@", buf, 0xCu);
           }
 
@@ -367,7 +365,7 @@ LABEL_34:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v34 = 0;
+        v33 = 0;
         _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "octagon-remove-recovery-key: failed to remove recovery key from SOS: %@", buf, 0xCu);
       }
 
@@ -387,7 +385,7 @@ LABEL_34:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v9;
+    v33 = v9;
     _os_log_impl(&dword_1C9430000, v11, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, recovery key not registered in SOS: %@", buf, 0xCu);
   }
 
@@ -405,20 +403,19 @@ LABEL_34:
 
 LABEL_35:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (uint64_t)deliverAKDeviceListDelta:()Framework error:
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [self ctx];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Unimplemented deliverAKDeviceListDelta for context:%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Unimplemented deliverAKDeviceListDelta for context:%@", &v9, 0xCu);
   }
 
   if (a4)
@@ -426,13 +423,12 @@ LABEL_35:
     *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-4 userInfo:0];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)tlkRecoverabilityForEscrowRecord:()Framework error:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -445,10 +441,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy_;
-  v40 = __Block_byref_object_dispose_;
-  v41 = 0;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy_;
+  v39 = __Block_byref_object_dispose_;
+  v40 = 0;
   v9 = [self ctx];
   v10 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -457,25 +453,25 @@ LABEL_35:
 
   if (v11)
   {
-    *&v32 = 0;
-    *(&v32 + 1) = &v32;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy_;
-    v35 = __Block_byref_object_dispose_;
-    v36 = 0;
+    *&v31 = 0;
+    *(&v31 + 1) = &v31;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy_;
+    v34 = __Block_byref_object_dispose_;
+    v35 = 0;
     v12 = objc_alloc(MEMORY[0x1E697AA90]);
     v13 = [self ctx];
     v14 = [v12 initWithConfiguration:v13];
     data = [v6 data];
     v16 = [self ctx];
     escrowFetchSource = [v16 escrowFetchSource];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __62__OTClique_Framework__tlkRecoverabilityForEscrowRecord_error___block_invoke;
-    v26[3] = &unk_1E833E828;
-    v26[4] = &v32;
-    v26[5] = &buf;
-    [v11 tlkRecoverabilityForEscrowRecordData:v14 recordData:data source:escrowFetchSource reply:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __62__OTClique_Framework__tlkRecoverabilityForEscrowRecord_error___block_invoke;
+    v25[3] = &unk_1E833E828;
+    v25[4] = &v31;
+    v25[5] = &buf;
+    [v11 tlkRecoverabilityForEscrowRecordData:v14 recordData:data source:escrowFetchSource reply:v25];
 
     if (a4)
     {
@@ -489,16 +485,16 @@ LABEL_35:
     v19 = secLogObjForScope();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(*(&v32 + 1) + 40);
-      *v28 = 138412546;
-      v29 = v20;
-      v30 = 2112;
-      v31 = v6;
-      _os_log_impl(&dword_1C9430000, v19, OS_LOG_TYPE_DEFAULT, "views %@ supported for record %@", v28, 0x16u);
+      v20 = *(*(&v31 + 1) + 40);
+      *v27 = 138412546;
+      v28 = v20;
+      v29 = 2112;
+      v30 = v6;
+      _os_log_impl(&dword_1C9430000, v19, OS_LOG_TYPE_DEFAULT, "views %@ supported for record %@", v27, 0x16u);
     }
 
-    v21 = *(*(&v32 + 1) + 40);
-    _Block_object_dispose(&v32, 8);
+    v21 = *(*(&v31 + 1) + 40);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
@@ -507,9 +503,9 @@ LABEL_35:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = *(*(&buf + 1) + 40);
-      LODWORD(v32) = 138412290;
-      *(&v32 + 4) = v23;
-      _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v32, 0xCu);
+      LODWORD(v31) = 138412290;
+      *(&v31 + 4) = v23;
+      _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v31, 0xCu);
     }
 
     v21 = 0;
@@ -520,14 +516,13 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v24 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (BOOL)waitForPriorityViewKeychainDataRecovery:()Framework
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = secLogObjForScope();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -539,10 +534,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   v7 = [self ctx];
   v8 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -554,12 +549,12 @@ LABEL_35:
     v10 = objc_alloc(MEMORY[0x1E697AA90]);
     v11 = [self ctx];
     v12 = [v10 initWithConfiguration:v11];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __63__OTClique_Framework__waitForPriorityViewKeychainDataRecovery___block_invoke;
-    v20[3] = &unk_1E833E7B0;
-    v20[4] = &buf;
-    [v9 waitForPriorityViewKeychainDataRecovery:v12 reply:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __63__OTClique_Framework__waitForPriorityViewKeychainDataRecovery___block_invoke;
+    v19[3] = &unk_1E833E7B0;
+    v19[4] = &buf;
+    [v9 waitForPriorityViewKeychainDataRecovery:v12 reply:v19];
 
     v13 = *(&buf + 1);
     if (a3)
@@ -581,9 +576,9 @@ LABEL_35:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(*(&buf + 1) + 40);
-      *v22 = 138412290;
-      v23 = v17;
-      _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v22, 0xCu);
+      *v21 = 138412290;
+      v22 = v17;
+      _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v21, 0xCu);
     }
 
     v15 = 0;
@@ -594,13 +589,12 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)fetchAccountSettings:()Framework
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = secLogObjForScope();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -612,10 +606,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v7 = [self ctx];
   v8 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -624,22 +618,22 @@ LABEL_35:
 
   if (v9)
   {
-    *&v21 = 0;
-    *(&v21 + 1) = &v21;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy_;
-    v24 = __Block_byref_object_dispose_;
-    v25 = 0;
+    *&v20 = 0;
+    *(&v20 + 1) = &v20;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
     v10 = objc_alloc(MEMORY[0x1E697AA90]);
     v11 = [self ctx];
     v12 = [v10 initWithConfiguration:v11];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __44__OTClique_Framework__fetchAccountSettings___block_invoke;
-    v19[3] = &unk_1E833E760;
-    v19[4] = &v21;
-    v19[5] = &buf;
-    [v9 fetchAccountSettings:v12 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __44__OTClique_Framework__fetchAccountSettings___block_invoke;
+    v18[3] = &unk_1E833E760;
+    v18[4] = &v20;
+    v18[5] = &buf;
+    [v9 fetchAccountSettings:v12 reply:v18];
 
     if (a3)
     {
@@ -650,8 +644,8 @@ LABEL_35:
       }
     }
 
-    v14 = *(*(&v21 + 1) + 40);
-    _Block_object_dispose(&v21, 8);
+    v14 = *(*(&v20 + 1) + 40);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
@@ -660,9 +654,9 @@ LABEL_35:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(*(&buf + 1) + 40);
-      LODWORD(v21) = 138412290;
-      *(&v21 + 4) = v16;
-      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v21, 0xCu);
+      LODWORD(v20) = 138412290;
+      *(&v20 + 4) = v16;
+      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v20, 0xCu);
     }
 
     v14 = 0;
@@ -673,14 +667,13 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BOOL)setAccountSetting:()Framework error:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -693,10 +686,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v9 = [self ctx];
   v10 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -708,12 +701,12 @@ LABEL_35:
     v12 = objc_alloc(MEMORY[0x1E697AA90]);
     v13 = [self ctx];
     v14 = [v12 initWithConfiguration:v13];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __47__OTClique_Framework__setAccountSetting_error___block_invoke;
-    v22[3] = &unk_1E833E7B0;
-    v22[4] = &buf;
-    [v11 setAccountSetting:v14 setting:v6 reply:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __47__OTClique_Framework__setAccountSetting_error___block_invoke;
+    v21[3] = &unk_1E833E7B0;
+    v21[4] = &buf;
+    [v11 setAccountSetting:v14 setting:v6 reply:v21];
 
     v15 = *(&buf + 1);
     if (a4)
@@ -735,9 +728,9 @@ LABEL_35:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = *(*(&buf + 1) + 40);
-      *v24 = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v19;
+      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v23, 0xCu);
     }
 
     v17 = 0;
@@ -748,13 +741,12 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)fetchTrustedSecureElementIdentities:()Framework
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = secLogObjForScope();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -766,10 +758,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v7 = [self ctx];
   v8 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -778,22 +770,22 @@ LABEL_35:
 
   if (v9)
   {
-    *&v21 = 0;
-    *(&v21 + 1) = &v21;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy_;
-    v24 = __Block_byref_object_dispose_;
-    v25 = 0;
+    *&v20 = 0;
+    *(&v20 + 1) = &v20;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
     v10 = objc_alloc(MEMORY[0x1E697AA90]);
     v11 = [self ctx];
     v12 = [v10 initWithConfiguration:v11];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __59__OTClique_Framework__fetchTrustedSecureElementIdentities___block_invoke;
-    v19[3] = &unk_1E833E7D8;
-    v19[4] = &v21;
-    v19[5] = &buf;
-    [v9 fetchTrustedSecureElementIdentities:v12 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__OTClique_Framework__fetchTrustedSecureElementIdentities___block_invoke;
+    v18[3] = &unk_1E833E7D8;
+    v18[4] = &v20;
+    v18[5] = &buf;
+    [v9 fetchTrustedSecureElementIdentities:v12 reply:v18];
 
     if (a3)
     {
@@ -804,8 +796,8 @@ LABEL_35:
       }
     }
 
-    v14 = *(*(&v21 + 1) + 40);
-    _Block_object_dispose(&v21, 8);
+    v14 = *(*(&v20 + 1) + 40);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
@@ -814,9 +806,9 @@ LABEL_35:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(*(&buf + 1) + 40);
-      LODWORD(v21) = 138412290;
-      *(&v21 + 4) = v16;
-      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v21, 0xCu);
+      LODWORD(v20) = 138412290;
+      *(&v20 + 4) = v16;
+      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v20, 0xCu);
     }
 
     v14 = 0;
@@ -827,14 +819,13 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BOOL)removeLocalSecureElementIdentityPeerID:()Framework error:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -847,10 +838,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v9 = [self ctx];
   v10 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -862,12 +853,12 @@ LABEL_35:
     v12 = objc_alloc(MEMORY[0x1E697AA90]);
     v13 = [self ctx];
     v14 = [v12 initWithConfiguration:v13];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __68__OTClique_Framework__removeLocalSecureElementIdentityPeerID_error___block_invoke;
-    v22[3] = &unk_1E833E7B0;
-    v22[4] = &buf;
-    [v11 removeLocalSecureElementIdentityPeerID:v14 secureElementIdentityPeerID:v6 reply:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __68__OTClique_Framework__removeLocalSecureElementIdentityPeerID_error___block_invoke;
+    v21[3] = &unk_1E833E7B0;
+    v21[4] = &buf;
+    [v11 removeLocalSecureElementIdentityPeerID:v14 secureElementIdentityPeerID:v6 reply:v21];
 
     v15 = *(&buf + 1);
     if (a4)
@@ -889,9 +880,9 @@ LABEL_35:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = *(*(&buf + 1) + 40);
-      *v24 = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v19;
+      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v23, 0xCu);
     }
 
     v17 = 0;
@@ -902,13 +893,12 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)setLocalSecureElementIdentity:()Framework error:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -921,10 +911,10 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   v9 = [self ctx];
   v10 = (*(&buf + 1) + 40);
   obj = *(*(&buf + 1) + 40);
@@ -936,12 +926,12 @@ LABEL_35:
     v12 = objc_alloc(MEMORY[0x1E697AA90]);
     v13 = [self ctx];
     v14 = [v12 initWithConfiguration:v13];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __59__OTClique_Framework__setLocalSecureElementIdentity_error___block_invoke;
-    v22[3] = &unk_1E833E7B0;
-    v22[4] = &buf;
-    [v11 setLocalSecureElementIdentity:v14 secureElementIdentity:v6 reply:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __59__OTClique_Framework__setLocalSecureElementIdentity_error___block_invoke;
+    v21[3] = &unk_1E833E7B0;
+    v21[4] = &buf;
+    [v11 setLocalSecureElementIdentity:v14 secureElementIdentity:v6 reply:v21];
 
     v15 = *(&buf + 1);
     if (a4)
@@ -963,9 +953,9 @@ LABEL_35:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = *(*(&buf + 1) + 40);
-      *v24 = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v19;
+      _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v23, 0xCu);
     }
 
     v17 = 0;
@@ -976,13 +966,12 @@ LABEL_35:
   }
 
   _Block_object_dispose(&buf, 8);
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (id)escrowCheck:()Framework isBackgroundCheck:error:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = secLogObjForScope();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -993,31 +982,31 @@ LABEL_35:
     _os_log_impl(&dword_1C9430000, v8, OS_LOG_TYPE_DEFAULT, "escrowCheck invoked for context: %@", &buf, 0xCu);
   }
 
-  v26 = 0;
-  v10 = [v7 makeOTControl:&v26];
-  v11 = v26;
+  v25 = 0;
+  v10 = [v7 makeOTControl:&v25];
+  v11 = v25;
   if (v10)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy_;
-    v24 = __Block_byref_object_dispose_;
-    v25 = 0;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy_;
+    v29 = __Block_byref_object_dispose_;
+    v30 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
     v12 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __59__OTClique_Framework__escrowCheck_isBackgroundCheck_error___block_invoke;
-    v19[3] = &unk_1E833E8F0;
-    v19[4] = &buf;
-    v19[5] = &v20;
-    [v10 escrowCheck:v12 isBackgroundCheck:a4 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __59__OTClique_Framework__escrowCheck_isBackgroundCheck_error___block_invoke;
+    v18[3] = &unk_1E833E8F0;
+    v18[4] = &buf;
+    v18[5] = &v19;
+    [v10 escrowCheck:v12 isBackgroundCheck:a4 reply:v18];
 
     v13 = *(*(&buf + 1) + 40);
     if (v13)
@@ -1031,10 +1020,10 @@ LABEL_35:
 
     else
     {
-      v14 = v21[5];
+      v14 = v20[5];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -1062,14 +1051,12 @@ LABEL_35:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (uint64_t)areRecoveryKeysDistrusted:()Framework error:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1080,29 +1067,29 @@ LABEL_35:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "areRecoveryKeysDistrusted invoked for context: %@", &buf, 0xCu);
   }
 
-  v24 = 0;
-  v8 = [v5 makeOTControl:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [v5 makeOTControl:&v23];
+  v9 = v23;
   if (v8)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy_;
+    v29 = __Block_byref_object_dispose_;
+    v30 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
     v10 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v5];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __55__OTClique_Framework__areRecoveryKeysDistrusted_error___block_invoke;
-    v19[3] = &unk_1E833E850;
-    v19[4] = &buf;
-    v19[5] = &v20;
-    [v8 areRecoveryKeysDistrusted:v10 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __55__OTClique_Framework__areRecoveryKeysDistrusted_error___block_invoke;
+    v18[3] = &unk_1E833E850;
+    v18[4] = &buf;
+    v18[5] = &v19;
+    [v8 areRecoveryKeysDistrusted:v10 reply:v18];
 
     v11 = *(*(&buf + 1) + 40);
     if (v11)
@@ -1119,7 +1106,7 @@ LABEL_35:
       v15 = secLogObjForScope();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        if (*(v21 + 24))
+        if (*(v20 + 24))
         {
           v16 = @"contains";
         }
@@ -1129,15 +1116,15 @@ LABEL_35:
           v16 = @"does not contain";
         }
 
-        *v25 = 138412290;
-        v26 = v16;
-        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Octagon circle %@ distrusted recovery keys", v25, 0xCu);
+        *v24 = 138412290;
+        v25 = v16;
+        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Octagon circle %@ distrusted recovery keys", v24, 0xCu);
       }
 
-      v12 = *(v21 + 24);
+      v12 = *(v20 + 24);
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -1164,13 +1151,12 @@ LABEL_35:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
 + (id)trustedFullPeers:()Framework error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1181,31 +1167,31 @@ LABEL_35:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "trustedFullPeers invoked for context: %@", &buf, 0xCu);
   }
 
-  v26 = 0;
-  v8 = [v5 makeOTControl:&v26];
-  v9 = v26;
+  v25 = 0;
+  v8 = [v5 makeOTControl:&v25];
+  v9 = v25;
   if (v8)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy_;
-    v32 = __Block_byref_object_dispose_;
-    v33 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy_;
-    v24 = __Block_byref_object_dispose_;
-    v25 = 0;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy_;
+    v31 = __Block_byref_object_dispose_;
+    v32 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
     v10 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v5];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __46__OTClique_Framework__trustedFullPeers_error___block_invoke;
-    v19[3] = &unk_1E833E8C8;
-    v19[4] = &buf;
-    v19[5] = &v20;
-    [v8 trustedFullPeers:v10 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __46__OTClique_Framework__trustedFullPeers_error___block_invoke;
+    v18[3] = &unk_1E833E8C8;
+    v18[4] = &buf;
+    v18[5] = &v19;
+    [v8 trustedFullPeers:v10 reply:v18];
 
     v11 = *(*(&buf + 1) + 40);
     if (v11)
@@ -1222,16 +1208,16 @@ LABEL_35:
       v15 = secLogObjForScope();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v21[5];
-        *v27 = 138412290;
-        v28 = v16;
-        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Number of trusted Octagon full peers: %@", v27, 0xCu);
+        v16 = v20[5];
+        *v26 = 138412290;
+        v27 = v16;
+        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Number of trusted Octagon full peers: %@", v26, 0xCu);
       }
 
-      v12 = v21[5];
+      v12 = v20[5];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -1259,14 +1245,12 @@ LABEL_35:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)totalTrustedPeers:()Framework error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1277,31 +1261,31 @@ LABEL_35:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "totalTrustedPeers invoked for context: %@", &buf, 0xCu);
   }
 
-  v26 = 0;
-  v8 = [v5 makeOTControl:&v26];
-  v9 = v26;
+  v25 = 0;
+  v8 = [v5 makeOTControl:&v25];
+  v9 = v25;
   if (v8)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy_;
-    v32 = __Block_byref_object_dispose_;
-    v33 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy_;
-    v24 = __Block_byref_object_dispose_;
-    v25 = 0;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy_;
+    v31 = __Block_byref_object_dispose_;
+    v32 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
     v10 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v5];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __47__OTClique_Framework__totalTrustedPeers_error___block_invoke;
-    v19[3] = &unk_1E833E8C8;
-    v19[4] = &buf;
-    v19[5] = &v20;
-    [v8 totalTrustedPeers:v10 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __47__OTClique_Framework__totalTrustedPeers_error___block_invoke;
+    v18[3] = &unk_1E833E8C8;
+    v18[4] = &buf;
+    v18[5] = &v19;
+    [v8 totalTrustedPeers:v10 reply:v18];
 
     v11 = *(*(&buf + 1) + 40);
     if (v11)
@@ -1318,16 +1302,16 @@ LABEL_35:
       v15 = secLogObjForScope();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v21[5];
-        *v27 = 138412290;
-        v28 = v16;
-        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Number of trusted Octagon peers: %@", v27, 0xCu);
+        v16 = v20[5];
+        *v26 = 138412290;
+        v27 = v16;
+        _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "Number of trusted Octagon peers: %@", v26, 0xCu);
       }
 
-      v12 = v21[5];
+      v12 = v20[5];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -1355,14 +1339,12 @@ LABEL_35:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (uint64_t)preflightRecoverOctagonUsingRecoveryKey:()Framework recoveryKey:error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = secLogObjForScope();
@@ -1375,14 +1357,14 @@ LABEL_35:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   obj[1] = 0;
   if ((SecPasswordValidatePasswordFormat() & 1) == 0)
   {
@@ -1390,9 +1372,9 @@ LABEL_35:
     v15 = secLogObjForScope();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 138412290;
-      v28 = v11;
-      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "octagon-preflight-recovery-key: recovery failed validation with error:%@", v27, 0xCu);
+      *v26 = 138412290;
+      v27 = v11;
+      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "octagon-preflight-recovery-key: recovery failed validation with error:%@", v26, 0xCu);
     }
 
     if (a5)
@@ -1418,9 +1400,9 @@ LABEL_18:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = *(*(&buf + 1) + 40);
-      *v27 = 138412290;
-      v28 = v18;
-      _os_log_impl(&dword_1C9430000, v17, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v27, 0xCu);
+      *v26 = 138412290;
+      v27 = v18;
+      _os_log_impl(&dword_1C9430000, v17, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v26, 0xCu);
     }
 
     if (a5)
@@ -1436,13 +1418,13 @@ LABEL_18:
   }
 
   v12 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __81__OTClique_Framework__preflightRecoverOctagonUsingRecoveryKey_recoveryKey_error___block_invoke;
-  v21[3] = &unk_1E833E850;
-  v21[4] = &v23;
-  v21[5] = &buf;
-  [v11 preflightRecoverOctagonUsingRecoveryKey:v12 recoveryKey:v8 reply:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __81__OTClique_Framework__preflightRecoverOctagonUsingRecoveryKey_recoveryKey_error___block_invoke;
+  v20[3] = &unk_1E833E850;
+  v20[4] = &v22;
+  v20[5] = &buf;
+  [v11 preflightRecoverOctagonUsingRecoveryKey:v12 recoveryKey:v8 reply:v20];
 
   if (a5)
   {
@@ -1453,19 +1435,18 @@ LABEL_18:
     }
   }
 
-  v14 = *(v24 + 24);
+  v14 = *(v23 + 24);
 LABEL_19:
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   _Block_object_dispose(&buf, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
 + (BOOL)recoverWithRecoveryKey:()Framework recoveryKey:error:
 {
-  v86[2] = *MEMORY[0x1E69E9840];
+  v85[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = secLogObjForScope();
@@ -1476,28 +1457,28 @@ LABEL_19:
     _os_log_impl(&dword_1C9430000, v9, OS_LOG_TYPE_DEFAULT, "Recovering account trust using recovery key for context:%@", &buf, 0xCu);
   }
 
-  v76 = 0;
+  v75 = 0;
   if (SecPasswordValidatePasswordFormat())
   {
-    v75 = 0;
-    v10 = [MEMORY[0x1E697AA80] doesRecoveryKeyExistInSOSAndIsCorrect:v7 recoveryKey:v8 error:&v75];
-    v11 = v75;
     v74 = 0;
-    v12 = [MEMORY[0x1E697AA80] doesRecoveryKeyExistInOctagonAndIsCorrect:v7 recoveryKey:v8 error:&v74];
-    v62 = v74;
-    if (v62)
+    v10 = [MEMORY[0x1E697AA80] doesRecoveryKeyExistInSOSAndIsCorrect:v7 recoveryKey:v8 error:&v74];
+    v11 = v74;
+    v73 = 0;
+    v12 = [MEMORY[0x1E697AA80] doesRecoveryKeyExistInOctagonAndIsCorrect:v7 recoveryKey:v8 error:&v73];
+    v61 = v73;
+    if (v61)
     {
-      domain = [v62 domain];
+      domain = [v61 domain];
       if (![domain isEqualToString:*MEMORY[0x1E697AB20]])
       {
         goto LABEL_27;
       }
 
-      v14 = [v62 code] == 31;
+      v14 = [v61 code] == 31;
 
       if (v14)
       {
-        userInfo = [v62 userInfo];
+        userInfo = [v61 userInfo];
         v16 = *MEMORY[0x1E696AA08];
         domain = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
 
@@ -1592,11 +1573,11 @@ LABEL_98:
 
       if (v12 != 2 && v10 != 2)
       {
-        if (v62)
+        if (v61)
         {
-          v35 = v62;
+          v35 = v61;
           v28 = 0;
-          *a5 = v62;
+          *a5 = v61;
 LABEL_103:
 
           goto LABEL_104;
@@ -1651,18 +1632,18 @@ LABEL_102:
       v34 = v32;
       if (v32)
       {
-        v61 = v32;
+        v60 = v32;
       }
 
       else
       {
         gotLoadHelper_x8__OBJC_CLASS___SecureBackup(v33);
-        v61 = [objc_alloc(*(v39 + 3448)) initWithUserActivityLabel:@"octagon-trust-recover-with-recovery-key"];
+        v60 = [objc_alloc(*(v39 + 3448)) initWithUserActivityLabel:@"octagon-trust-recover-with-recovery-key"];
       }
 
-      v73 = 0;
-      v40 = [v61 restoreKeychainWithBackupPassword:v31 error:&v73];
-      v41 = v73;
+      v72 = 0;
+      v40 = [v60 restoreKeychainWithBackupPassword:v31 error:&v72];
+      v41 = v72;
       if (v40)
       {
         v42 = secLogObjForScope();
@@ -1737,40 +1718,40 @@ LABEL_72:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v83 = 0x3032000000;
-    v84 = __Block_byref_object_copy_;
-    v85 = __Block_byref_object_dispose_;
-    v86[0] = 0;
+    v82 = 0x3032000000;
+    v83 = __Block_byref_object_copy_;
+    v84 = __Block_byref_object_dispose_;
+    v85[0] = 0;
     obj = 0;
     v48 = [v7 makeOTControl:&obj];
-    objc_storeStrong(v86, obj);
+    objc_storeStrong(v85, obj);
     if (v48)
     {
       if (v47)
       {
         v49 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-        *&v77 = 0;
-        *(&v77 + 1) = &v77;
-        v78 = 0x3032000000;
-        v79 = __Block_byref_object_copy_;
-        v80 = __Block_byref_object_dispose_;
-        v81 = 0;
-        v70[0] = 0;
-        v70[1] = v70;
-        v70[2] = 0x3032000000;
-        v70[3] = __Block_byref_object_copy_;
-        v70[4] = __Block_byref_object_dispose_;
-        v71 = 0;
-        v69[0] = MEMORY[0x1E69E9820];
-        v69[1] = 3221225472;
-        v69[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke;
-        v69[3] = &unk_1E833E760;
-        v69[4] = &v77;
-        v69[5] = v70;
-        [v48 fetchAccountWideSettingsWithForceFetch:1 arguments:v49 reply:v69];
-        if ([*(*(&v77 + 1) + 40) hasWalrus])
+        *&v76 = 0;
+        *(&v76 + 1) = &v76;
+        v77 = 0x3032000000;
+        v78 = __Block_byref_object_copy_;
+        v79 = __Block_byref_object_dispose_;
+        v80 = 0;
+        v69[0] = 0;
+        v69[1] = v69;
+        v69[2] = 0x3032000000;
+        v69[3] = __Block_byref_object_copy_;
+        v69[4] = __Block_byref_object_dispose_;
+        v70 = 0;
+        v68[0] = MEMORY[0x1E69E9820];
+        v68[1] = 3221225472;
+        v68[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke;
+        v68[3] = &unk_1E833E760;
+        v68[4] = &v76;
+        v68[5] = v69;
+        [v48 fetchAccountWideSettingsWithForceFetch:1 arguments:v49 reply:v68];
+        if ([*(*(&v76 + 1) + 40) hasWalrus])
         {
-          walrus = [*(*(&v77 + 1) + 40) walrus];
+          walrus = [*(*(&v76 + 1) + 40) walrus];
           enabled = [walrus enabled];
         }
 
@@ -1780,20 +1761,20 @@ LABEL_72:
         }
 
         isGuitarfish = [v7 isGuitarfish];
-        v64[0] = MEMORY[0x1E69E9820];
-        v64[1] = 3221225472;
-        v64[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke_2;
-        v64[3] = &unk_1E833E8A0;
+        v63[0] = MEMORY[0x1E69E9820];
+        v63[1] = 3221225472;
+        v63[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke_2;
+        v63[3] = &unk_1E833E8A0;
         p_buf = &buf;
-        v65 = v48;
-        v66 = v7;
-        v67 = v8;
-        BYTE1(v60) = enabled;
-        LOBYTE(v60) = isGuitarfish;
-        [v65 resetAndEstablish:v49 resetReason:5 idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountSettings:0 isGuitarfish:v60 accountIsW:v64 reply:?];
+        v64 = v48;
+        v65 = v7;
+        v66 = v8;
+        BYTE1(v59) = enabled;
+        LOBYTE(v59) = isGuitarfish;
+        [v64 resetAndEstablish:v49 resetReason:5 idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountSettings:0 isGuitarfish:v59 accountIsW:v63 reply:?];
 
-        _Block_object_dispose(v70, 8);
-        _Block_object_dispose(&v77, 8);
+        _Block_object_dispose(v69, 8);
+        _Block_object_dispose(&v76, 8);
 
         goto LABEL_92;
       }
@@ -1801,12 +1782,12 @@ LABEL_72:
       if (v12 == 3)
       {
         v49 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke_151;
-        v63[3] = &unk_1E833E7B0;
-        v63[4] = &buf;
-        [v48 recoverWithRecoveryKey:v49 recoveryKey:v8 reply:v63];
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __64__OTClique_Framework__recoverWithRecoveryKey_recoveryKey_error___block_invoke_151;
+        v62[3] = &unk_1E833E7B0;
+        v62[4] = &buf;
+        [v48 recoverWithRecoveryKey:v49 recoveryKey:v8 reply:v62];
 LABEL_92:
 
         v57 = *(*(&buf + 1) + 40);
@@ -1823,8 +1804,8 @@ LABEL_92:
       v55 = secLogObjForScope();
       if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v77) = 0;
-        _os_log_impl(&dword_1C9430000, v55, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: joining with recovery key failed, recovery key is not correct in Octagon", &v77, 2u);
+        LOWORD(v76) = 0;
+        _os_log_impl(&dword_1C9430000, v55, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: joining with recovery key failed, recovery key is not correct in Octagon", &v76, 2u);
       }
 
       if (a5)
@@ -1840,9 +1821,9 @@ LABEL_92:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         v53 = *(*(&buf + 1) + 40);
-        LODWORD(v77) = 138412290;
-        *(&v77 + 4) = v53;
-        _os_log_impl(&dword_1C9430000, v52, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: unable to create otcontrol: %@", &v77, 0xCu);
+        LODWORD(v76) = 138412290;
+        *(&v76 + 4) = v53;
+        _os_log_impl(&dword_1C9430000, v52, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: unable to create otcontrol: %@", &v76, 0xCu);
       }
 
       if (a5)
@@ -1862,7 +1843,7 @@ LABEL_96:
     goto LABEL_96;
   }
 
-  v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E697AAE8] code:41 description:@"Malformed Recovery Key" underlying:v76];
+  v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E697AAE8] code:41 description:@"Malformed Recovery Key" underlying:v75];
 
   v26 = secLogObjForScope();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -1886,52 +1867,51 @@ LABEL_96:
 
 LABEL_104:
 
-  v58 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 + (uint64_t)doesRecoveryKeyExistInOctagonAndIsCorrect:()Framework recoveryKey:error:
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v27 = 0;
-  v9 = [v7 makeOTControl:&v27];
-  v10 = v27;
+  v26 = 0;
+  v9 = [v7 makeOTControl:&v26];
+  v10 = v26;
   if (v9)
   {
-    *&v31 = 0;
-    *(&v31 + 1) = &v31;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy_;
-    v34 = __Block_byref_object_dispose_;
-    v35[0] = 0;
+    *&v30 = 0;
+    *(&v30 + 1) = &v30;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy_;
+    v33 = __Block_byref_object_dispose_;
+    v34[0] = 0;
     obj = 0;
     v11 = [MEMORY[0x1E697AA80] isRecoveryKeySetInOctagon:v7 error:&obj];
-    objc_storeStrong(v35, obj);
-    if (v11 && !*(*(&v31 + 1) + 40))
+    objc_storeStrong(v34, obj);
+    if (v11 && !*(*(&v30 + 1) + 40))
     {
-      v21 = secLogObjForScope();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = secLogObjForScope();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_1C9430000, v21, OS_LOG_TYPE_DEFAULT, "recovery key is registered in Octagon, checking if it is correct", &buf, 2u);
+        _os_log_impl(&dword_1C9430000, v20, OS_LOG_TYPE_DEFAULT, "recovery key is registered in Octagon, checking if it is correct", &buf, 2u);
       }
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v29 = 0x2020000000;
-      v30 = 0;
-      v22 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __83__OTClique_Framework__doesRecoveryKeyExistInOctagonAndIsCorrect_recoveryKey_error___block_invoke;
-      v25[3] = &unk_1E833E850;
-      v25[4] = &v31;
-      v25[5] = &buf;
-      [v9 preflightRecoverOctagonUsingRecoveryKey:v22 recoveryKey:v8 reply:v25];
+      v28 = 0x2020000000;
+      v29 = 0;
+      v21 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __83__OTClique_Framework__doesRecoveryKeyExistInOctagonAndIsCorrect_recoveryKey_error___block_invoke;
+      v24[3] = &unk_1E833E850;
+      v24[4] = &v30;
+      v24[5] = &buf;
+      [v9 preflightRecoverOctagonUsingRecoveryKey:v21 recoveryKey:v8 reply:v24];
 
-      if (*(*(&buf + 1) + 24) && !*(*(&v31 + 1) + 40))
+      if (*(*(&buf + 1) + 24) && !*(*(&v30 + 1) + 40))
       {
         v18 = 3;
       }
@@ -1940,18 +1920,18 @@ LABEL_104:
       {
         if (a5)
         {
-          v23 = *(*(&v31 + 1) + 40);
-          if (v23)
+          v22 = *(*(&v30 + 1) + 40);
+          if (v22)
           {
-            v24 = v23;
+            v23 = v22;
           }
 
           else
           {
-            v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E697AAE8] code:67 description:@"Recovery key is incorrect"];
+            v23 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E697AAE8] code:67 description:@"Recovery key is incorrect"];
           }
 
-          *a5 = v24;
+          *a5 = v23;
         }
 
         v18 = 2;
@@ -1965,7 +1945,7 @@ LABEL_104:
       v12 = secLogObjForScope();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(*(&v31 + 1) + 40);
+        v13 = *(*(&v30 + 1) + 40);
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v13;
         _os_log_impl(&dword_1C9430000, v12, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: recovery key not registered in Octagon, error: %@", &buf, 0xCu);
@@ -1973,7 +1953,7 @@ LABEL_104:
 
       if (a5)
       {
-        v14 = *(*(&v31 + 1) + 40);
+        v14 = *(*(&v30 + 1) + 40);
         if (v14)
         {
           v15 = v14;
@@ -1990,7 +1970,7 @@ LABEL_104:
       v18 = 1;
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
@@ -1998,9 +1978,9 @@ LABEL_104:
     v16 = secLogObjForScope();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v31) = 138412290;
-      *(&v31 + 4) = v10;
-      _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: unable to create otcontrol: %@", &v31, 0xCu);
+      LODWORD(v30) = 138412290;
+      *(&v30 + 4) = v10;
+      _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: unable to create otcontrol: %@", &v30, 0xCu);
     }
 
     if (a5)
@@ -2016,18 +1996,17 @@ LABEL_104:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (uint64_t)doesRecoveryKeyExistInSOSAndIsCorrect:()Framework recoveryKey:error:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v30 = 0;
-  v9 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v7 error:&v30];
-  v10 = v30;
+  v29 = 0;
+  v9 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v7 error:&v29];
+  v10 = v29;
   if (v9)
   {
     v11 = v10 == 0;
@@ -2062,9 +2041,9 @@ LABEL_104:
 
     v21 = v19;
 
-    v29 = 0;
-    v22 = [v21 verifyRecoveryKey:v8 error:&v29];
-    v23 = v29;
+    v28 = 0;
+    v22 = [v21 verifyRecoveryKey:v8 error:&v28];
+    v23 = v28;
     v12 = v23;
     if (!v22 || v23)
     {
@@ -2106,7 +2085,7 @@ LABEL_104:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v12;
+      v31 = v12;
       _os_log_impl(&dword_1C9430000, v13, OS_LOG_TYPE_DEFAULT, "octagon-recover-with-rk: Recovery Key not registered in SOS: %@", buf, 0xCu);
     }
 
@@ -2127,28 +2106,27 @@ LABEL_104:
     v24 = 1;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 + (uint64_t)isRecoveryKeySet:()Framework error:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Checking recovery key status for context:%@", buf, 0xCu);
   }
 
-  v15 = 0;
-  v7 = [MEMORY[0x1E697AA80] isRecoveryKeySetInOctagon:v5 error:&v15];
-  v8 = v15;
   v14 = 0;
-  v9 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v5 error:&v14];
-  v10 = v14;
+  v7 = [MEMORY[0x1E697AA80] isRecoveryKeySetInOctagon:v5 error:&v14];
+  v8 = v14;
+  v13 = 0;
+  v9 = [MEMORY[0x1E697AA80] isRecoveryKeySetInSOS:v5 error:&v13];
+  v10 = v13;
   if (a4)
   {
     if ((v9 & 1) == 0 && (v7 & 1) == 0)
@@ -2161,19 +2139,18 @@ LABEL_104:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return (v7 | v9) & 1;
 }
 
 + (uint64_t)isRecoveryKeySetInSOS:()Framework error:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Checking SOS recovery key status for context:%@", buf, 0xCu);
   }
 
@@ -2192,16 +2169,16 @@ LABEL_104:
 
   v12 = v10;
 
-  v20 = 0;
-  v13 = [v12 isRecoveryKeySet:&v20];
-  v14 = v20;
+  v19 = 0;
+  v13 = [v12 isRecoveryKeySet:&v19];
+  v14 = v19;
   if (v14)
   {
     v15 = secLogObjForScope();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "octagon-is-recovery-key-set-in-sos: failed to check the recovery key in SOS: %@", buf, 0xCu);
     }
 
@@ -2218,18 +2195,17 @@ LABEL_104:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v22) = v13;
+      LODWORD(v21) = v13;
       _os_log_impl(&dword_1C9430000, v17, OS_LOG_TYPE_DEFAULT, "recovery key set in SOS: %{BOOL}d", buf, 8u);
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (uint64_t)isRecoveryKeySetInOctagon:()Framework error:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2239,29 +2215,29 @@ LABEL_104:
     _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "Checking Octagon recovery key status for context:%@", &buf, 0xCu);
   }
 
-  v21 = 0;
-  v7 = [v5 makeOTControl:&v21];
-  v8 = v21;
+  v20 = 0;
+  v7 = [v5 makeOTControl:&v20];
+  v8 = v20;
   if (v7)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy_;
-    v25 = __Block_byref_object_dispose_;
-    v26 = 0;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy_;
+    v24 = __Block_byref_object_dispose_;
+    v25 = 0;
     v9 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v5];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__OTClique_Framework__isRecoveryKeySetInOctagon_error___block_invoke;
-    v16[3] = &unk_1E833E850;
-    v16[4] = &buf;
-    v16[5] = &v17;
-    [v7 isRecoveryKeySet:v9 reply:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __55__OTClique_Framework__isRecoveryKeySetInOctagon_error___block_invoke;
+    v15[3] = &unk_1E833E850;
+    v15[4] = &buf;
+    v15[5] = &v16;
+    [v7 isRecoveryKeySet:v9 reply:v15];
 
     if (a4)
     {
@@ -2272,10 +2248,10 @@ LABEL_104:
       }
     }
 
-    v11 = *(v18 + 24);
+    v11 = *(v17 + 24);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
@@ -2301,13 +2277,12 @@ LABEL_104:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
 + (BOOL)setRecoveryKeyWithContext:()Framework recoveryKey:error:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = secLogObjForScope();
@@ -2319,24 +2294,24 @@ LABEL_104:
     _os_log_impl(&dword_1C9430000, v9, OS_LOG_TYPE_DEFAULT, "setRecoveryKeyWithContext invoked for context: %@", &buf, 0xCu);
   }
 
-  v21 = 0;
-  v11 = [v7 makeOTControl:&v21];
-  v12 = v21;
+  v20 = 0;
+  v11 = [v7 makeOTControl:&v20];
+  v12 = v20;
   if (v11)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy_;
-    v25 = __Block_byref_object_dispose_;
-    v26 = 0;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy_;
+    v24 = __Block_byref_object_dispose_;
+    v25 = 0;
     v13 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __67__OTClique_Framework__setRecoveryKeyWithContext_recoveryKey_error___block_invoke;
-    v20[3] = &unk_1E833E7B0;
-    v20[4] = &buf;
-    [v11 createRecoveryKey:v13 recoveryKey:v8 reply:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __67__OTClique_Framework__setRecoveryKeyWithContext_recoveryKey_error___block_invoke;
+    v19[3] = &unk_1E833E7B0;
+    v19[4] = &buf;
+    [v11 createRecoveryKey:v13 recoveryKey:v8 reply:v19];
 
     v14 = *(*(&buf + 1) + 40);
     v15 = v14 == 0;
@@ -2371,24 +2346,23 @@ LABEL_104:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (id)createAndSetRecoveryKeyWithContext:()Framework error:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = secLogObjForScope();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     context = [v6 context];
     *buf = 138412290;
-    v24 = context;
+    v23 = context;
     _os_log_impl(&dword_1C9430000, v7, OS_LOG_TYPE_DEFAULT, "createAndSetRecoveryKeyWithContext invoked for context: %@", buf, 0xCu);
   }
 
-  v22[1] = 0;
+  v21[1] = 0;
   v9 = SecRKCreateRecoveryKeyString();
   v10 = 0;
   v11 = v10;
@@ -2398,7 +2372,7 @@ LABEL_104:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v11;
+      v23 = v11;
       _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "octagon-create-recovery-key, failed to create recovery key error: %@", buf, 0xCu);
     }
 
@@ -2417,9 +2391,9 @@ LABEL_104:
 
   else
   {
-    v22[0] = 0;
-    v12 = [self registerRecoveryKeyWithContext:v6 recoveryKey:v9 error:v22];
-    v13 = v22[0];
+    v21[0] = 0;
+    v12 = [self registerRecoveryKeyWithContext:v6 recoveryKey:v9 error:v21];
+    v13 = v21[0];
     v14 = v13;
     if (!v12 || v13)
     {
@@ -2427,7 +2401,7 @@ LABEL_104:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = v14;
+        v23 = v14;
         _os_log_impl(&dword_1C9430000, v18, OS_LOG_TYPE_DEFAULT, "octagon-create-recovery-key, failed to register recovery key error: %@", buf, 0xCu);
       }
 
@@ -2446,14 +2420,12 @@ LABEL_104:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (uint64_t)registerRecoveryKeyWithContext:()Framework recoveryKey:error:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = secLogObjForScope();
@@ -2465,24 +2437,24 @@ LABEL_104:
     _os_log_impl(&dword_1C9430000, v9, OS_LOG_TYPE_DEFAULT, "registerRecoveryKeyWithContext invoked for context: %@", &buf, 0xCu);
   }
 
-  v32 = 0;
-  v11 = [v7 makeOTControl:&v32];
-  v12 = v32;
+  v31 = 0;
+  v11 = [v7 makeOTControl:&v31];
+  v12 = v31;
   if (v11)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy_;
-    v36 = __Block_byref_object_dispose_;
-    v37 = 0;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy_;
+    v35 = __Block_byref_object_dispose_;
+    v36 = 0;
     v13 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __72__OTClique_Framework__registerRecoveryKeyWithContext_recoveryKey_error___block_invoke;
-    v31[3] = &unk_1E833E7B0;
-    v31[4] = &buf;
-    [v11 createRecoveryKey:v13 recoveryKey:v8 reply:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __72__OTClique_Framework__registerRecoveryKeyWithContext_recoveryKey_error___block_invoke;
+    v30[3] = &unk_1E833E7B0;
+    v30[4] = &buf;
+    [v11 createRecoveryKey:v13 recoveryKey:v8 reply:v30];
 
     v14 = *(*(&buf + 1) + 40);
     if (v14)
@@ -2496,9 +2468,9 @@ LABEL_104:
 
     else
     {
-      v30 = 0;
-      LODWORD(v15) = [MEMORY[0x1E697AA80] registerRecoveryKeyInSOSAndBackup:v7 recoveryKey:v8 error:&v30];
-      v18 = v30;
+      v29 = 0;
+      LODWORD(v15) = [MEMORY[0x1E697AA80] registerRecoveryKeyInSOSAndBackup:v7 recoveryKey:v8 error:&v29];
+      v18 = v29;
       if (v18)
       {
         v15 = 0;
@@ -2511,30 +2483,30 @@ LABEL_104:
 
       if ((v15 & 1) == 0)
       {
-        v24 = 0;
-        v25 = &v24;
-        v26 = 0x3032000000;
-        v27 = __Block_byref_object_copy_;
-        v28 = __Block_byref_object_dispose_;
-        v29 = 0;
+        v23 = 0;
+        v24 = &v23;
+        v25 = 0x3032000000;
+        v26 = __Block_byref_object_copy_;
+        v27 = __Block_byref_object_dispose_;
+        v28 = 0;
         v19 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v7];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __72__OTClique_Framework__registerRecoveryKeyWithContext_recoveryKey_error___block_invoke_97;
-        v23[3] = &unk_1E833E7B0;
-        v23[4] = &v24;
-        [v11 removeRecoveryKey:v19 reply:v23];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __72__OTClique_Framework__registerRecoveryKeyWithContext_recoveryKey_error___block_invoke_97;
+        v22[3] = &unk_1E833E7B0;
+        v22[4] = &v23;
+        [v11 removeRecoveryKey:v19 reply:v22];
 
         if (a5)
         {
           v20 = v18;
-          if (v18 || (v20 = v25[5]) != 0)
+          if (v18 || (v20 = v24[5]) != 0)
           {
             *a5 = v20;
           }
         }
 
-        _Block_object_dispose(&v24, 8);
+        _Block_object_dispose(&v23, 8);
       }
     }
 
@@ -2564,16 +2536,15 @@ LABEL_104:
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (uint64_t)registerRecoveryKeyInSOSAndBackup:()Framework recoveryKey:error:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v43[1] = 0;
+  v42[1] = 0;
   v9 = SOSCCThisDeviceIsInCircle();
   if (!SOSCCIsSOSTrustAndSyncingEnabled() || v9)
   {
@@ -2589,9 +2560,9 @@ LABEL_14:
     goto LABEL_37;
   }
 
-  v43[0] = 0;
-  v10 = [MEMORY[0x1E697AA80] ensureBackupKeyExistsinSOS:v43];
-  v11 = v43[0];
+  v42[0] = 0;
+  v10 = [MEMORY[0x1E697AA80] ensureBackupKeyExistsinSOS:v42];
+  v11 = v42[0];
   v12 = v11;
   if (!v10 || v11)
   {
@@ -2620,7 +2591,7 @@ LABEL_36:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v45 = 0;
+          v44 = 0;
           _os_log_impl(&dword_1C9430000, v33, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SecRKRegisterBackupPublicKey() failed: %@", buf, 0xCu);
         }
 
@@ -2662,7 +2633,7 @@ LABEL_36:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v45 = v37;
+          v44 = v37;
           _os_log_impl(&dword_1C9430000, v38, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key: failed to perform backup: %@", buf, 0xCu);
         }
 
@@ -2675,11 +2646,11 @@ LABEL_36:
         goto LABEL_36;
       }
 
-      v42 = secLogObjForScope();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v41 = secLogObjForScope();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C9430000, v42, OS_LOG_TYPE_DEFAULT, "created iCloud Identity backup", buf, 2u);
+        _os_log_impl(&dword_1C9430000, v41, OS_LOG_TYPE_DEFAULT, "created iCloud Identity backup", buf, 2u);
       }
 
       goto LABEL_14;
@@ -2689,7 +2660,7 @@ LABEL_36:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = v14;
+      v44 = v14;
       _os_log_impl(&dword_1C9430000, v22, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SecRKCreateRecoveryKeyWithError() failed: %@", buf, 0xCu);
     }
 
@@ -2723,36 +2694,30 @@ LABEL_36:
 
 LABEL_37:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (uint64_t)ensureBackupKeyExistsinSOS:()Framework
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = SOSCCCopyMyPeerInfo();
-  if (!v4)
+  if (v4)
   {
-    v8 = secLogObjForScope();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v5 = SOSPeerInfoCopyBackupKey();
+    CFRelease(v4);
+    if (v5)
     {
-      *buf = 138412290;
-      v19 = 0;
-      _os_log_impl(&dword_1C9430000, v8, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SOSCCCopyMyPeerInfo() failed: %@", buf, 0xCu);
+      CFRelease(v5);
+      v6 = secLogObjForScope();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "backup key already registered", buf, 2u);
+      }
+
+      return 1;
     }
 
-    if (a3)
-    {
-      *a3 = 0;
-    }
-
-    goto LABEL_28;
-  }
-
-  v5 = SOSPeerInfoCopyBackupKey();
-  CFRelease(v4);
-  if (!v5)
-  {
     v9 = SecPasswordGenerate();
     v10 = v9;
     if (v9)
@@ -2770,14 +2735,14 @@ LABEL_37:
         }
 
         CFRelease(v13);
-        goto LABEL_6;
+        return 1;
       }
 
       v16 = secLogObjForScope();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = 0;
+        v18 = 0;
         _os_log_impl(&dword_1C9430000, v16, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SOSCCCopyMyPeerWithNewDeviceRecoverySecret() failed: %@", buf, 0xCu);
       }
 
@@ -2793,7 +2758,7 @@ LABEL_37:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = 0;
+        v18 = 0;
         _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SecPasswordGenerate() failed: %@", buf, 0xCu);
       }
 
@@ -2802,30 +2767,30 @@ LABEL_37:
         *a3 = 0;
       }
     }
-
-LABEL_28:
-    result = 0;
-    goto LABEL_29;
   }
 
-  CFRelease(v5);
-  v6 = secLogObjForScope();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    *buf = 0;
-    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "backup key already registered", buf, 2u);
+    v8 = secLogObjForScope();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v18 = 0;
+      _os_log_impl(&dword_1C9430000, v8, OS_LOG_TYPE_DEFAULT, "octagon-register-recovery-key, SOSCCCopyMyPeerInfo() failed: %@", buf, 0xCu);
+    }
+
+    if (a3)
+    {
+      *a3 = 0;
+    }
   }
 
-LABEL_6:
-  result = 1;
-LABEL_29:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (id)_fetchAccountWideSettingsDefaultWithForceFetch:()Framework useDefault:configuration:error:
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v9 = a5;
   v10 = secLogObjForScope();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -2840,29 +2805,29 @@ LABEL_29:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30[0] = 0;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29[0] = 0;
   obj = 0;
   v11 = [v9 makeOTControl:&obj];
-  objc_storeStrong(v30, obj);
+  objc_storeStrong(v29, obj);
   if (v11)
   {
-    *&v22 = 0;
-    *(&v22 + 1) = &v22;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy_;
-    v25 = __Block_byref_object_dispose_;
-    v26 = 0;
+    *&v21 = 0;
+    *(&v21 + 1) = &v21;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy_;
+    v24 = __Block_byref_object_dispose_;
+    v25 = 0;
     v12 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v9];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __101__OTClique_Framework___fetchAccountWideSettingsDefaultWithForceFetch_useDefault_configuration_error___block_invoke;
-    v19[3] = &unk_1E833E800;
-    v20 = a4;
-    v19[4] = &v22;
-    v19[5] = buf;
-    [v11 fetchAccountWideSettingsWithForceFetch:a3 arguments:v12 reply:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __101__OTClique_Framework___fetchAccountWideSettingsDefaultWithForceFetch_useDefault_configuration_error___block_invoke;
+    v18[3] = &unk_1E833E800;
+    v19 = a4;
+    v18[4] = &v21;
+    v18[5] = buf;
+    [v11 fetchAccountWideSettingsWithForceFetch:a3 arguments:v12 reply:v18];
 
     if (a6)
     {
@@ -2873,8 +2838,8 @@ LABEL_29:
       }
     }
 
-    v14 = *(*(&v22 + 1) + 40);
-    _Block_object_dispose(&v22, 8);
+    v14 = *(*(&v21 + 1) + 40);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -2883,9 +2848,9 @@ LABEL_29:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(*&buf[8] + 40);
-      LODWORD(v22) = 138412290;
-      *(&v22 + 4) = v16;
-      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v22, 0xCu);
+      LODWORD(v21) = 138412290;
+      *(&v21 + 4) = v16;
+      _os_log_impl(&dword_1C9430000, v15, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", &v21, 0xCu);
     }
 
     v14 = 0;
@@ -2896,14 +2861,13 @@ LABEL_29:
   }
 
   _Block_object_dispose(buf, 8);
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (uint64_t)invalidateEscrowCache:()Framework error:
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2920,26 +2884,26 @@ LABEL_29:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29[0] = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28[0] = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   obj = 0;
   v9 = [v5 makeOTControl:&obj];
-  objc_storeStrong(v29, obj);
+  objc_storeStrong(v28, obj);
   if (v9)
   {
     v10 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v5];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __51__OTClique_Framework__invalidateEscrowCache_error___block_invoke;
-    v18[3] = &unk_1E833E788;
-    v18[4] = &v20;
-    v18[5] = buf;
-    [v9 invalidateEscrowCache:v10 reply:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __51__OTClique_Framework__invalidateEscrowCache_error___block_invoke;
+    v17[3] = &unk_1E833E788;
+    v17[4] = &v19;
+    v17[5] = buf;
+    [v9 invalidateEscrowCache:v10 reply:v17];
 
     if (a4)
     {
@@ -2953,8 +2917,8 @@ LABEL_29:
     v12 = secLogObjForScope();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 0;
-      _os_log_impl(&dword_1C9430000, v12, OS_LOG_TYPE_DEFAULT, "invalidateEscrowCache complete", v24, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_1C9430000, v12, OS_LOG_TYPE_DEFAULT, "invalidateEscrowCache complete", v23, 2u);
     }
   }
 
@@ -2964,9 +2928,9 @@ LABEL_29:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(*&buf[8] + 40);
-      *v24 = 138412290;
-      v25 = v14;
-      _os_log_impl(&dword_1C9430000, v13, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v14;
+      _os_log_impl(&dword_1C9430000, v13, OS_LOG_TYPE_DEFAULT, "unable to create otcontrol: %@", v23, 0xCu);
     }
 
     if (a4)
@@ -2975,20 +2939,19 @@ LABEL_29:
     }
   }
 
-  v15 = *(v21 + 24);
+  v15 = *(v20 + 24);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   _Block_object_dispose(buf, 8);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
 + (id)performSilentEscrowRecovery:()Framework cdpContext:allRecords:error:
 {
-  v130 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   v9 = a3;
-  v120 = a4;
+  v119 = a4;
   v10 = a5;
   v11 = secLogObjForScope();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -2997,9 +2960,9 @@ LABEL_29:
     [v9 altDSID];
     v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138412546;
-    v125 = context;
-    v126 = 2112;
-    v127 = v13;
+    v124 = context;
+    v125 = 2112;
+    v126 = v13;
     _os_log_impl(&dword_1C9430000, v11, OS_LOG_TYPE_DEFAULT, "performSilentEscrowRecovery invoked for context:%@, altdsid:%@", buf, 0x16u);
   }
 
@@ -3010,8 +2973,8 @@ LABEL_29:
   v18 = *MEMORY[0x1E69ABC10];
   v19 = MetricsOverrideTestsAreEnabled();
   v20 = *MEMORY[0x1E69ABBF0];
-  LOBYTE(v110) = 1;
-  v21 = [v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v18 testsAreEnabled:v19 canSendMetrics:v110 category:*MEMORY[0x1E69ABBF0]];
+  LOBYTE(v109) = 1;
+  v21 = [v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v18 testsAreEnabled:v19 canSendMetrics:v109 category:*MEMORY[0x1E69ABBF0]];
 
   if ([self isCloudServicesAvailable])
   {
@@ -3020,7 +2983,7 @@ LABEL_29:
 
     v24 = _OctagonSignpostLogSystem();
     v25 = v24;
-    v113 = v23 - 1;
+    v112 = v23 - 1;
     if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
@@ -3031,13 +2994,13 @@ LABEL_29:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v125 = v23;
+      v124 = v23;
       _os_log_impl(&dword_1C9430000, v26, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformSilentEscrowRecovery  enableTelemetry=YES ", buf, 0xCu);
     }
 
     v27 = [v9 sbd];
     v29 = v27;
-    v116 = v10;
+    v115 = v10;
     if (v27)
     {
       v30 = v27;
@@ -3049,20 +3012,20 @@ LABEL_29:
       v30 = [objc_alloc(*(v34 + 3448)) initWithUserActivityLabel:@"octagon-trust-perform-silent-recovery"];
     }
 
-    v118 = v30;
+    v117 = v30;
 
-    v35 = [OTEscrowTranslation supportedRestorePath:v120];
+    v35 = [OTEscrowTranslation supportedRestorePath:v119];
     v36 = secLogObjForScope();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v125) = v35;
+      LODWORD(v124) = v35;
       _os_log_impl(&dword_1C9430000, v36, OS_LOG_TYPE_DEFAULT, "restore path is supported? %{BOOL}d", buf, 8u);
     }
 
-    v114 = v23;
+    v113 = v23;
 
-    v117 = v9;
+    v116 = v9;
     if (v35)
     {
       v37 = _OctagonSignpostLogSystem();
@@ -3083,27 +3046,27 @@ LABEL_29:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v125 = v38;
+        v124 = v38;
         _os_log_impl(&dword_1C9430000, v43, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverSilentWithCDPContext  enableTelemetry=YES ", buf, 0xCu);
       }
 
       v44 = objc_alloc(MEMORY[0x1E69ABBD8]);
-      altDSID2 = [v117 altDSID];
-      flowID2 = [v117 flowID];
-      deviceSessionID2 = [v117 deviceSessionID];
-      LOBYTE(v111) = 1;
-      v48 = [v44 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC18] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v111 category:v20];
+      altDSID2 = [v116 altDSID];
+      flowID2 = [v116 flowID];
+      deviceSessionID2 = [v116 deviceSessionID];
+      LOBYTE(v110) = 1;
+      v48 = [v44 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC18] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v110 category:v20];
 
-      altDSID3 = [v117 altDSID];
-      flowID3 = [v117 flowID];
-      deviceSessionID3 = [v117 deviceSessionID];
-      v123 = 0;
-      v115 = [v118 recoverSilentWithCDPContext:v120 allRecords:v116 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 error:&v123];
-      v52 = v123;
+      altDSID3 = [v116 altDSID];
+      flowID3 = [v116 flowID];
+      deviceSessionID3 = [v116 deviceSessionID];
+      v122 = 0;
+      v114 = [v117 recoverSilentWithCDPContext:v119 allRecords:v115 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 error:&v122];
+      v52 = v122;
 
       if (v52)
       {
-        v112 = v48;
+        v111 = v48;
         [v48 sendMetricWithResult:0 error:v52];
         v21 = v42;
         [v42 sendMetricWithResult:0 error:v52];
@@ -3113,43 +3076,43 @@ LABEL_29:
         if (v41 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
         {
           *buf = 67240192;
-          LODWORD(v125) = 0;
+          LODWORD(v124) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v55, OS_SIGNPOST_INTERVAL_END, v38, "RecoverSilentWithCDPContext", " OctagonSignpostNameRecoverSilentWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverSilentWithCDPContext}d ", buf, 8u);
         }
 
         v56 = _OctagonSignpostLogSystem();
-        v10 = v116;
+        v10 = v115;
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v125 = v38;
-          v126 = 2048;
-          v127 = Nanoseconds / 1000000000.0;
-          v128 = 1026;
-          v129 = 0;
+          v124 = v38;
+          v125 = 2048;
+          v126 = Nanoseconds / 1000000000.0;
+          v127 = 1026;
+          v128 = 0;
           _os_log_impl(&dword_1C9430000, v56, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RecoverSilentWithCDPContext  OctagonSignpostNameRecoverSilentWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverSilentWithCDPContext}d ", buf, 0x1Cu);
         }
 
         v57 = _OctagonSignpostGetNanoseconds();
         v58 = _OctagonSignpostLogSystem();
         v59 = v58;
-        if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+        if (v112 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
         {
           *buf = 67240192;
-          LODWORD(v125) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9430000, v59, OS_SIGNPOST_INTERVAL_END, v114, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
+          LODWORD(v124) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9430000, v59, OS_SIGNPOST_INTERVAL_END, v113, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
         }
 
         v60 = _OctagonSignpostLogSystem();
-        v9 = v117;
+        v9 = v116;
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v125 = v114;
-          v126 = 2048;
-          v127 = v57 / 1000000000.0;
-          v128 = 1026;
-          v129 = 0;
+          v124 = v113;
+          v125 = 2048;
+          v126 = v57 / 1000000000.0;
+          v127 = 1026;
+          v128 = 0;
           _os_log_impl(&dword_1C9430000, v60, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecovery  OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 0x1Cu);
         }
 
@@ -3166,8 +3129,8 @@ LABEL_29:
         }
 
 LABEL_85:
-        v31 = v118;
-        v95 = v112;
+        v31 = v117;
+        v95 = v111;
 LABEL_89:
 
         goto LABEL_90;
@@ -3180,21 +3143,21 @@ LABEL_89:
       if (v41 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v84))
       {
         *buf = 67240192;
-        LODWORD(v125) = 1;
+        LODWORD(v124) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v85, OS_SIGNPOST_INTERVAL_END, v38, "RecoverSilentWithCDPContext", " OctagonSignpostNameRecoverSilentWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverSilentWithCDPContext}d ", buf, 8u);
       }
 
       v86 = _OctagonSignpostLogSystem();
-      v10 = v116;
-      v87 = v114;
+      v10 = v115;
+      v87 = v113;
       if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v125 = v38;
-        v126 = 2048;
-        v127 = v83 / 1000000000.0;
-        v128 = 1026;
-        v129 = 1;
+        v124 = v38;
+        v125 = 2048;
+        v126 = v83 / 1000000000.0;
+        v127 = 1026;
+        v128 = 1;
         _os_log_impl(&dword_1C9430000, v86, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RecoverSilentWithCDPContext  OctagonSignpostNameRecoverSilentWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverSilentWithCDPContext}d ", buf, 0x1Cu);
       }
 
@@ -3203,7 +3166,7 @@ LABEL_89:
 
     else
     {
-      v112 = [OTEscrowTranslation CDPRecordContextToDictionary:v120];
+      v111 = [OTEscrowTranslation CDPRecordContextToDictionary:v119];
       v62 = _OctagonSignpostLogSystem();
       v63 = _OctagonSignpostCreate();
 
@@ -3222,7 +3185,7 @@ LABEL_89:
       if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v125 = v63;
+        v124 = v63;
         _os_log_impl(&dword_1C9430000, v68, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformRecoveryFromSBD  enableTelemetry=YES ", buf, 0xCu);
       }
 
@@ -3230,13 +3193,13 @@ LABEL_89:
       altDSID4 = [v9 altDSID];
       flowID4 = [v9 flowID];
       deviceSessionID4 = [v9 deviceSessionID];
-      LOBYTE(v111) = 1;
-      v73 = [v69 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC28] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v111 category:v20];
+      LOBYTE(v110) = 1;
+      v73 = [v69 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC28] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v110 category:v20];
 
-      v122 = 0;
-      v48 = v112;
-      v52 = [v118 recoverWithInfo:v112 results:&v122];
-      v115 = v122;
+      v121 = 0;
+      v48 = v111;
+      v52 = [v117 recoverWithInfo:v111 results:&v121];
+      v114 = v121;
       if (v52)
       {
         [v73 sendMetricWithResult:0 error:v52];
@@ -3245,11 +3208,11 @@ LABEL_89:
         v74 = _OctagonSignpostGetNanoseconds();
         v75 = _OctagonSignpostLogSystem();
         v76 = v75;
-        v10 = v116;
+        v10 = v115;
         if (v66 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
         {
           *buf = 67240192;
-          LODWORD(v125) = 0;
+          LODWORD(v124) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v76, OS_SIGNPOST_INTERVAL_END, v63, "PerformRecoveryFromSBD", " OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 8u);
         }
 
@@ -3257,33 +3220,33 @@ LABEL_89:
         if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v125 = v63;
-          v126 = 2048;
-          v127 = v74 / 1000000000.0;
-          v128 = 1026;
-          v129 = 0;
+          v124 = v63;
+          v125 = 2048;
+          v126 = v74 / 1000000000.0;
+          v127 = 1026;
+          v128 = 0;
           _os_log_impl(&dword_1C9430000, v77, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformRecoveryFromSBD  OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 0x1Cu);
         }
 
         v78 = _OctagonSignpostGetNanoseconds();
         v79 = _OctagonSignpostLogSystem();
         v80 = v79;
-        if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
+        if (v112 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
         {
           *buf = 67240192;
-          LODWORD(v125) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9430000, v80, OS_SIGNPOST_INTERVAL_END, v114, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
+          LODWORD(v124) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9430000, v80, OS_SIGNPOST_INTERVAL_END, v113, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
         }
 
         v81 = _OctagonSignpostLogSystem();
         if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v125 = v114;
-          v126 = 2048;
-          v127 = v78 / 1000000000.0;
-          v128 = 1026;
-          v129 = 0;
+          v124 = v113;
+          v125 = 2048;
+          v126 = v78 / 1000000000.0;
+          v127 = 1026;
+          v128 = 0;
           _os_log_impl(&dword_1C9430000, v81, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecovery  OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 0x1Cu);
         }
 
@@ -3294,32 +3257,32 @@ LABEL_89:
         }
 
         v33 = 0;
-        v9 = v117;
+        v9 = v116;
         goto LABEL_85;
       }
 
       v88 = _OctagonSignpostGetNanoseconds();
       v89 = _OctagonSignpostLogSystem();
       v90 = v89;
-      v10 = v116;
+      v10 = v115;
       v21 = v67;
       if (v66 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v89))
       {
         *buf = 67240192;
-        LODWORD(v125) = 1;
+        LODWORD(v124) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v90, OS_SIGNPOST_INTERVAL_END, v63, "PerformRecoveryFromSBD", " OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 8u);
       }
 
       v91 = _OctagonSignpostLogSystem();
-      v87 = v114;
+      v87 = v113;
       if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v125 = v63;
-        v126 = 2048;
-        v127 = v88 / 1000000000.0;
-        v128 = 1026;
-        v129 = 1;
+        v124 = v63;
+        v125 = 2048;
+        v126 = v88 / 1000000000.0;
+        v127 = 1026;
+        v128 = 1;
         _os_log_impl(&dword_1C9430000, v91, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformRecoveryFromSBD  OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 0x1Cu);
       }
 
@@ -3327,11 +3290,11 @@ LABEL_89:
     }
 
     Helper_x8__kSecureBackupRecordLabelKey = gotLoadHelper_x8__kSecureBackupRecordLabelKey(v92);
-    v52 = [v115 objectForKeyedSubscript:{**(v94 + 3880), Helper_x8__kSecureBackupRecordLabelKey}];
+    v52 = [v114 objectForKeyedSubscript:{**(v94 + 3880), Helper_x8__kSecureBackupRecordLabelKey}];
     v95 = [MEMORY[0x1E697AA80] recordMatchingLabel:v52 allRecords:v10];
-    v121 = 0;
-    v96 = [MEMORY[0x1E697AA80] handleRecoveryResults:v117 recoveredInformation:v115 record:v95 performedSilentBurn:1 error:&v121];
-    v97 = v121;
+    v120 = 0;
+    v96 = [MEMORY[0x1E697AA80] handleRecoveryResults:v116 recoveredInformation:v114 record:v95 performedSilentBurn:1 error:&v120];
+    v97 = v120;
     v98 = v97;
     if (!v96 || v97)
     {
@@ -3344,10 +3307,10 @@ LABEL_89:
       v103 = _OctagonSignpostGetNanoseconds();
       v104 = _OctagonSignpostLogSystem();
       v105 = v104;
-      if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v104))
+      if (v112 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v104))
       {
         *buf = 67240192;
-        LODWORD(v125) = 0;
+        LODWORD(v124) = 0;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v105, OS_SIGNPOST_INTERVAL_END, v87, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
       }
 
@@ -3355,11 +3318,11 @@ LABEL_89:
       if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v125 = v87;
-        v126 = 2048;
-        v127 = v103 / 1000000000.0;
-        v128 = 1026;
-        v129 = 0;
+        v124 = v87;
+        v125 = 2048;
+        v126 = v103 / 1000000000.0;
+        v127 = 1026;
+        v128 = 0;
         _os_log_impl(&dword_1C9430000, v106, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecovery  OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 0x1Cu);
       }
 
@@ -3375,7 +3338,7 @@ LABEL_89:
         v33 = 0;
       }
 
-      v9 = v117;
+      v9 = v116;
     }
 
     else
@@ -3384,10 +3347,10 @@ LABEL_89:
       v99 = _OctagonSignpostGetNanoseconds();
       v100 = _OctagonSignpostLogSystem();
       v101 = v100;
-      if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v100))
+      if (v112 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v100))
       {
         *buf = 67240192;
-        LODWORD(v125) = 1;
+        LODWORD(v124) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v101, OS_SIGNPOST_INTERVAL_END, v87, "PerformSilentEscrowRecovery", " OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 8u);
       }
 
@@ -3395,20 +3358,20 @@ LABEL_89:
       if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v125 = v87;
-        v126 = 2048;
-        v127 = v99 / 1000000000.0;
-        v128 = 1026;
-        v129 = 1;
+        v124 = v87;
+        v125 = 2048;
+        v126 = v99 / 1000000000.0;
+        v127 = 1026;
+        v128 = 1;
         _os_log_impl(&dword_1C9430000, v102, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecovery  OctagonSignpostNamePerformSilentEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformSilentEscrowRecovery}d ", buf, 0x1Cu);
       }
 
       v33 = v96;
       v98 = 0;
-      v9 = v117;
+      v9 = v116;
     }
 
-    v31 = v118;
+    v31 = v117;
     goto LABEL_89;
   }
 
@@ -3428,34 +3391,32 @@ LABEL_89:
 
 LABEL_90:
 
-  v108 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
 + (id)recordMatchingLabel:()Framework allRecords:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = a4;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         label = [v10 label];
         v12 = [label isEqualToString:v5];
 
@@ -3466,7 +3427,7 @@ LABEL_90:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -3478,16 +3439,14 @@ LABEL_90:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)performEscrowRecovery:()Framework cdpContext:escrowRecord:error:
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   v9 = a3;
-  v125 = a4;
+  v124 = a4;
   v10 = a5;
   v11 = secLogObjForScope();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -3496,9 +3455,9 @@ LABEL_11:
     [v9 altDSID];
     v13 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 138412546;
-    v130 = context;
-    v131 = 2112;
-    v132 = v13;
+    v129 = context;
+    v130 = 2112;
+    v131 = v13;
     _os_log_impl(&dword_1C9430000, v11, OS_LOG_TYPE_DEFAULT, "performEscrowRecovery invoked for context:%@, altdsid:%@", buf, 0x16u);
   }
 
@@ -3509,8 +3468,8 @@ LABEL_11:
   v18 = *MEMORY[0x1E69ABC08];
   v19 = MetricsOverrideTestsAreEnabled();
   v20 = *MEMORY[0x1E69ABBF0];
-  LOBYTE(v113) = 1;
-  v21 = [v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v18 testsAreEnabled:v19 canSendMetrics:v113 category:*MEMORY[0x1E69ABBF0]];
+  LOBYTE(v112) = 1;
+  v21 = [v14 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v18 testsAreEnabled:v19 canSendMetrics:v112 category:*MEMORY[0x1E69ABBF0]];
 
   if ([self isCloudServicesAvailable])
   {
@@ -3519,7 +3478,7 @@ LABEL_11:
 
     v24 = _OctagonSignpostLogSystem();
     v25 = v24;
-    v119 = v23 - 1;
+    v118 = v23 - 1;
     if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
@@ -3530,13 +3489,13 @@ LABEL_11:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v130 = v23;
+      v129 = v23;
       _os_log_impl(&dword_1C9430000, v26, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformEscrowRecovery  enableTelemetry=YES ", buf, 0xCu);
     }
 
     v27 = [v9 sbd];
     v29 = v27;
-    v123 = v10;
+    v122 = v10;
     if (v27)
     {
       v30 = v27;
@@ -3548,14 +3507,14 @@ LABEL_11:
       v30 = [objc_alloc(*(v35 + 3448)) initWithUserActivityLabel:@"octagon-trust-perform-recovery"];
     }
 
-    v121 = v30;
+    v120 = v30;
 
-    v36 = [OTEscrowTranslation supportedRestorePath:v125];
+    v36 = [OTEscrowTranslation supportedRestorePath:v124];
     v37 = secLogObjForScope();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v130) = v36;
+      LODWORD(v129) = v36;
       _os_log_impl(&dword_1C9430000, v37, OS_LOG_TYPE_DEFAULT, "restore path is supported? %{BOOL}d", buf, 8u);
     }
 
@@ -3575,13 +3534,13 @@ LABEL_11:
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v39, "RecoverWithCDPContext", " enableTelemetry=YES ", buf, 2u);
       }
 
-      v117 = v21;
+      v116 = v21;
 
       v43 = _OctagonSignpostLogSystem();
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v130 = v39;
+        v129 = v39;
         _os_log_impl(&dword_1C9430000, v43, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverWithCDPContext  enableTelemetry=YES ", buf, 0xCu);
       }
 
@@ -3589,42 +3548,42 @@ LABEL_11:
       altDSID2 = [v9 altDSID];
       flowID2 = [v9 flowID];
       deviceSessionID2 = [v9 deviceSessionID];
-      LOBYTE(v114) = 1;
-      v115 = [v44 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC20] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v114 category:v20];
+      LOBYTE(v113) = 1;
+      v114 = [v44 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC20] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v113 category:v20];
 
       altDSID3 = [v9 altDSID];
       flowID3 = [v9 flowID];
       deviceSessionID3 = [v9 deviceSessionID];
-      v128 = 0;
-      v32 = v121;
-      v51 = [v121 recoverWithCDPContext:v125 escrowRecord:v123 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 error:&v128];
-      v52 = v128;
+      v127 = 0;
+      v32 = v120;
+      v51 = [v120 recoverWithCDPContext:v124 escrowRecord:v122 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 error:&v127];
+      v52 = v127;
 
       v53 = _OctagonSignpostGetNanoseconds() / 1000000000.0;
       v54 = _OctagonSignpostLogSystem();
       v55 = v54;
-      v122 = v51;
+      v121 = v51;
       if (!v51 || v52)
       {
-        v21 = v117;
+        v21 = v116;
         if (v42 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
         {
           *buf = 67240192;
-          LODWORD(v130) = 0;
+          LODWORD(v129) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v55, OS_SIGNPOST_INTERVAL_END, v39, "RecoverWithCDPContext", " OctagonSignpostNameRecoverWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverWithCDPContext}d ", buf, 8u);
         }
 
         v91 = _OctagonSignpostLogSystem();
-        v10 = v123;
-        v59 = v115;
+        v10 = v122;
+        v59 = v114;
         if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v130 = v39;
-          v131 = 2048;
-          v132 = v53;
-          v133 = 1026;
-          v134 = 0;
+          v129 = v39;
+          v130 = 2048;
+          v131 = v53;
+          v132 = 1026;
+          v133 = 0;
           _os_log_impl(&dword_1C9430000, v91, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RecoverWithCDPContext  OctagonSignpostNameRecoverWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverWithCDPContext}d ", buf, 0x1Cu);
         }
 
@@ -3639,15 +3598,15 @@ LABEL_11:
           *a6 = v52;
         }
 
-        [v115 sendMetricWithResult:0 error:v52];
-        [v117 sendMetricWithResult:0 error:v52];
+        [v114 sendMetricWithResult:0 error:v52];
+        [v116 sendMetricWithResult:0 error:v52];
         Nanoseconds = _OctagonSignpostGetNanoseconds();
         v94 = _OctagonSignpostLogSystem();
         v95 = v94;
-        if (v119 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
+        if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
         {
           *buf = 67240192;
-          LODWORD(v130) = 0;
+          LODWORD(v129) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v95, OS_SIGNPOST_INTERVAL_END, spid, "PerformEscrowRecovery", " OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 8u);
         }
 
@@ -3655,57 +3614,57 @@ LABEL_11:
         if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v130 = spid;
-          v131 = 2048;
-          v132 = Nanoseconds / 1000000000.0;
-          v133 = 1026;
-          v134 = 0;
+          v129 = spid;
+          v130 = 2048;
+          v131 = Nanoseconds / 1000000000.0;
+          v132 = 1026;
+          v133 = 0;
           _os_log_impl(&dword_1C9430000, v96, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformEscrowRecovery  OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 0x1Cu);
         }
 
         goto LABEL_93;
       }
 
-      v21 = v117;
+      v21 = v116;
       v56 = a6;
       if (v42 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
       {
         *buf = 67240192;
-        LODWORD(v130) = 1;
+        LODWORD(v129) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v55, OS_SIGNPOST_INTERVAL_END, v39, "RecoverWithCDPContext", " OctagonSignpostNameRecoverWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverWithCDPContext}d ", buf, 8u);
       }
 
       v57 = _OctagonSignpostLogSystem();
-      v10 = v123;
+      v10 = v122;
       v58 = spid;
-      v59 = v115;
+      v59 = v114;
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v130 = v39;
-        v131 = 2048;
-        v132 = v53;
-        v133 = 1026;
-        v134 = 1;
+        v129 = v39;
+        v130 = 2048;
+        v131 = v53;
+        v132 = 1026;
+        v133 = 1;
         _os_log_impl(&dword_1C9430000, v57, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RecoverWithCDPContext  OctagonSignpostNameRecoverWithCDPContext=%{public,signpost.telemetry:number1,name=OctagonSignpostNameRecoverWithCDPContext}d ", buf, 0x1Cu);
       }
 
-      [v115 sendMetricWithResult:1 error:0];
+      [v114 sendMetricWithResult:1 error:0];
     }
 
     else
     {
       v60 = v21;
-      v61 = [OTEscrowTranslation CDPRecordContextToDictionary:v125];
+      v61 = [OTEscrowTranslation CDPRecordContextToDictionary:v124];
       v59 = [v61 mutableCopy];
 
       escrowInformationMetadata = [v10 escrowInformationMetadata];
       v63 = [OTEscrowTranslation metadataToDictionary:escrowInformationMetadata];
 
       Helper_x8__kSecureBackupMetadataKey = gotLoadHelper_x8__kSecureBackupMetadataKey(v64);
-      v118 = v63;
+      v117 = v63;
       [v59 setObject:v63 forKeyedSubscript:{**(v66 + 3816), Helper_x8__kSecureBackupMetadataKey}];
-      recordId = [v123 recordId];
+      recordId = [v122 recordId];
       Helper_x8__kSecureBackupRecordIDKey = gotLoadHelper_x8__kSecureBackupRecordIDKey(v68);
       [v59 setObject:recordId forKeyedSubscript:{**(v70 + 3872), Helper_x8__kSecureBackupRecordIDKey}];
 
@@ -3713,7 +3672,7 @@ LABEL_11:
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v130 = v59;
+        v129 = v59;
         _os_log_impl(&dword_1C9430000, v71, OS_LOG_TYPE_DEFAULT, "using sbdRecoveryArguments: %@", buf, 0xCu);
       }
 
@@ -3721,8 +3680,8 @@ LABEL_11:
       altDSID4 = [v9 altDSID];
       flowID4 = [v9 flowID];
       deviceSessionID4 = [v9 deviceSessionID];
-      LOBYTE(v114) = 1;
-      v116 = [v72 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC28] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v114 category:v20];
+      LOBYTE(v113) = 1;
+      v115 = [v72 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC28] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v113 category:v20];
 
       v76 = _OctagonSignpostLogSystem();
       v77 = _OctagonSignpostCreate();
@@ -3738,19 +3697,19 @@ LABEL_11:
 
       v81 = _OctagonSignpostLogSystem();
       v21 = v60;
-      v32 = v121;
+      v32 = v120;
       v56 = a6;
       if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v130 = v77;
+        v129 = v77;
         _os_log_impl(&dword_1C9430000, v81, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformRecoveryFromSBD  enableTelemetry=YES ", buf, 0xCu);
       }
 
-      v127 = 0;
-      v52 = [v121 recoverWithInfo:v59 results:&v127];
-      v122 = v127;
-      if (!v122 || v52)
+      v126 = 0;
+      v52 = [v120 recoverWithInfo:v59 results:&v126];
+      v121 = v126;
+      if (!v121 || v52)
       {
         if (!v52)
         {
@@ -3769,7 +3728,7 @@ LABEL_11:
         if (v80 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v99))
         {
           *buf = 67240192;
-          LODWORD(v130) = 0;
+          LODWORD(v129) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v100, OS_SIGNPOST_INTERVAL_END, v77, "PerformRecoveryFromSBD", " OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 8u);
         }
 
@@ -3777,11 +3736,11 @@ LABEL_11:
         if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v130 = v77;
-          v131 = 2048;
-          v132 = v98 / 1000000000.0;
-          v133 = 1026;
-          v134 = 0;
+          v129 = v77;
+          v130 = 2048;
+          v131 = v98 / 1000000000.0;
+          v132 = 1026;
+          v133 = 0;
           _os_log_impl(&dword_1C9430000, v101, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformRecoveryFromSBD  OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 0x1Cu);
         }
 
@@ -3789,31 +3748,31 @@ LABEL_11:
         v103 = _OctagonSignpostLogSystem();
         v104 = v103;
         v21 = v60;
-        if (v119 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v103))
+        if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v103))
         {
           *buf = 67240192;
-          LODWORD(v130) = 0;
+          LODWORD(v129) = 0;
           _os_signpost_emit_with_name_impl(&dword_1C9430000, v104, OS_SIGNPOST_INTERVAL_END, spid, "PerformEscrowRecovery", " OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 8u);
         }
 
         v105 = _OctagonSignpostLogSystem();
-        v32 = v121;
+        v32 = v120;
         if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v130 = spid;
-          v131 = 2048;
-          v132 = v102 / 1000000000.0;
-          v133 = 1026;
-          v134 = 0;
+          v129 = spid;
+          v130 = 2048;
+          v131 = v102 / 1000000000.0;
+          v132 = 1026;
+          v133 = 0;
           _os_log_impl(&dword_1C9430000, v105, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformEscrowRecovery  OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 0x1Cu);
         }
 
-        [v116 sendMetricWithResult:0 error:v52];
+        [v115 sendMetricWithResult:0 error:v52];
         [v60 sendMetricWithResult:0 error:v52];
 
         v34 = 0;
-        v10 = v123;
+        v10 = v122;
         goto LABEL_94;
       }
 
@@ -3823,40 +3782,40 @@ LABEL_11:
       if (v80 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v83))
       {
         *buf = 67240192;
-        LODWORD(v130) = 1;
+        LODWORD(v129) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v84, OS_SIGNPOST_INTERVAL_END, v77, "PerformRecoveryFromSBD", " OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 8u);
       }
 
       v85 = _OctagonSignpostLogSystem();
-      v10 = v123;
+      v10 = v122;
       v58 = spid;
       if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v130 = v77;
-        v131 = 2048;
-        v132 = v82 / 1000000000.0;
-        v133 = 1026;
-        v134 = 1;
+        v129 = v77;
+        v130 = 2048;
+        v131 = v82 / 1000000000.0;
+        v132 = 1026;
+        v133 = 1;
         _os_log_impl(&dword_1C9430000, v85, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformRecoveryFromSBD  OctagonSignpostNamePerformRecoveryFromSBD=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformRecoveryFromSBD}d ", buf, 0x1Cu);
       }
 
-      [v116 sendMetricWithResult:1 error:0];
+      [v115 sendMetricWithResult:1 error:0];
     }
 
-    v126 = 0;
-    v59 = [MEMORY[0x1E697AA80] handleRecoveryResults:v9 recoveredInformation:v122 record:v10 performedSilentBurn:0 error:&v126];
-    v86 = v126;
+    v125 = 0;
+    v59 = [MEMORY[0x1E697AA80] handleRecoveryResults:v9 recoveredInformation:v121 record:v10 performedSilentBurn:0 error:&v125];
+    v86 = v125;
     v52 = v86;
     if (v59 && !v86)
     {
       v87 = _OctagonSignpostGetNanoseconds();
       v88 = _OctagonSignpostLogSystem();
       v89 = v88;
-      if (v119 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v88))
+      if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v88))
       {
         *buf = 67240192;
-        LODWORD(v130) = 1;
+        LODWORD(v129) = 1;
         _os_signpost_emit_with_name_impl(&dword_1C9430000, v89, OS_SIGNPOST_INTERVAL_END, v58, "PerformEscrowRecovery", " OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 8u);
       }
 
@@ -3864,11 +3823,11 @@ LABEL_11:
       if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v130 = v58;
-        v131 = 2048;
-        v132 = v87 / 1000000000.0;
-        v133 = 1026;
-        v134 = 1;
+        v129 = v58;
+        v130 = 2048;
+        v131 = v87 / 1000000000.0;
+        v132 = 1026;
+        v133 = 1;
         _os_log_impl(&dword_1C9430000, v90, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformEscrowRecovery  OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 0x1Cu);
       }
 
@@ -3887,10 +3846,10 @@ LABEL_11:
     v106 = _OctagonSignpostGetNanoseconds();
     v107 = _OctagonSignpostLogSystem();
     v108 = v107;
-    if (v119 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v107))
+    if (v118 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v107))
     {
       *buf = 67240192;
-      LODWORD(v130) = 0;
+      LODWORD(v129) = 0;
       _os_signpost_emit_with_name_impl(&dword_1C9430000, v108, OS_SIGNPOST_INTERVAL_END, v58, "PerformEscrowRecovery", " OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 8u);
     }
 
@@ -3898,11 +3857,11 @@ LABEL_11:
     if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v130 = v58;
-      v131 = 2048;
-      v132 = v106 / 1000000000.0;
-      v133 = 1026;
-      v134 = 0;
+      v129 = v58;
+      v130 = 2048;
+      v131 = v106 / 1000000000.0;
+      v132 = 1026;
+      v133 = 0;
       _os_log_impl(&dword_1C9430000, v109, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformEscrowRecovery  OctagonSignpostNamePerformEscrowRecovery=%{public,signpost.telemetry:number1,name=OctagonSignpostNamePerformEscrowRecovery}d ", buf, 0x1Cu);
     }
 
@@ -3934,17 +3893,15 @@ LABEL_93:
   v34 = 0;
 LABEL_95:
 
-  v111 = *MEMORY[0x1E69E9840];
-
   return v34;
 }
 
 + (id)handleRecoveryResults:()Framework recoveredInformation:record:performedSilentBurn:error:
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   v12 = a3;
-  v124 = a4;
-  v123 = a5;
+  v123 = a4;
+  v122 = a5;
   v13 = objc_alloc(MEMORY[0x1E69ABBD8]);
   altDSID = [v12 altDSID];
   flowID = [v12 flowID];
@@ -3952,13 +3909,13 @@ LABEL_95:
   v17 = *MEMORY[0x1E69ABBF8];
   v18 = MetricsOverrideTestsAreEnabled();
   v19 = *MEMORY[0x1E69ABBF0];
-  LOBYTE(v107) = 1;
-  v20 = [v13 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v17 testsAreEnabled:v18 canSendMetrics:v107 category:*MEMORY[0x1E69ABBF0]];
+  LOBYTE(v106) = 1;
+  v20 = [v13 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:v17 testsAreEnabled:v18 canSendMetrics:v106 category:*MEMORY[0x1E69ABBF0]];
 
   if ([self isCloudServicesAvailable])
   {
-    v117 = v19;
-    v121 = [objc_alloc(MEMORY[0x1E697AA80]) initWithContextData:v12];
+    v116 = v19;
+    v120 = [objc_alloc(MEMORY[0x1E697AA80]) initWithContextData:v12];
     otControl = [v12 otControl];
 
     if (otControl)
@@ -3969,28 +3926,28 @@ LABEL_95:
 
     else
     {
-      v134 = 0;
-      otControl2 = [v12 makeOTControl:&v134];
-      v22 = v134;
+      v133 = 0;
+      otControl2 = [v12 makeOTControl:&v133];
+      v22 = v133;
     }
 
-    v120 = v22;
+    v119 = v22;
     if (!otControl2)
     {
       v48 = secLogObjForScope();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v120;
+        *(&buf + 4) = v119;
         _os_log_impl(&dword_1C9430000, v48, OS_LOG_TYPE_DEFAULT, "octagontrust-handleRecoveryResults: unable to create otcontrol: %@", &buf, 0xCu);
       }
 
-      v49 = v120;
+      v49 = v119;
       if (a7)
       {
-        v50 = v120;
-        v49 = v120;
-        *a7 = v120;
+        v50 = v119;
+        v49 = v119;
+        *a7 = v119;
       }
 
       [v20 sendMetricWithResult:0 error:v49];
@@ -3998,14 +3955,14 @@ LABEL_95:
       goto LABEL_85;
     }
 
-    v119 = [v124 objectForKeyedSubscript:@"bottleID"];
-    v116 = [v124 objectForKeyedSubscript:@"bottleValid"];
-    v27 = [v124 objectForKeyedSubscript:@"EscrowServiceEscrowData"];
-    v118 = [v27 objectForKeyedSubscript:@"BottledPeerEntropy"];
+    v118 = [v123 objectForKeyedSubscript:@"bottleID"];
+    v115 = [v123 objectForKeyedSubscript:@"bottleValid"];
+    v27 = [v123 objectForKeyedSubscript:@"EscrowServiceEscrowData"];
+    v117 = [v27 objectForKeyedSubscript:@"BottledPeerEntropy"];
 
-    if (v118)
+    if (v117)
     {
-      v28 = v119 == 0;
+      v28 = v118 == 0;
     }
 
     else
@@ -4014,14 +3971,14 @@ LABEL_95:
     }
 
     v29 = !v28;
-    v115 = v29;
-    if (v28 || ![v116 isEqualToString:@"valid"])
+    v114 = v29;
+    if (v28 || ![v115 isEqualToString:@"valid"])
     {
       v39 = secLogObjForScope();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v119;
+        *(&buf + 4) = v118;
         _os_log_impl(&dword_1C9430000, v39, OS_LOG_TYPE_DEFAULT, "bottle %@ is not valid, resetting octagon", &buf, 0xCu);
       }
 
@@ -4029,29 +3986,29 @@ LABEL_95:
       altDSID2 = [v12 altDSID];
       flowID2 = [v12 flowID];
       deviceSessionID2 = [v12 deviceSessionID];
-      LOBYTE(v108) = 1;
-      v44 = [v40 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC00] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v108 category:v19];
+      LOBYTE(v107) = 1;
+      v44 = [v40 initWithKeychainCircleMetrics:0 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:*MEMORY[0x1E69ABC00] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v107 category:v19];
 
       v45 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v12];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v149 = 0x3032000000;
-      v150 = __Block_byref_object_copy_;
-      v151 = __Block_byref_object_dispose_;
-      v152 = 0;
-      *&v143 = 0;
-      *(&v143 + 1) = &v143;
-      v144 = 0x3032000000;
-      v145 = __Block_byref_object_copy_;
-      v146 = __Block_byref_object_dispose_;
-      v147 = 0;
-      v127[0] = MEMORY[0x1E69E9820];
-      v127[1] = 3221225472;
-      v127[2] = __99__OTClique_Framework__handleRecoveryResults_recoveredInformation_record_performedSilentBurn_error___block_invoke_37;
-      v127[3] = &unk_1E833E760;
-      v127[4] = &buf;
-      v127[5] = &v143;
-      [otControl2 fetchAccountWideSettingsWithForceFetch:1 arguments:v45 reply:v127];
+      v148 = 0x3032000000;
+      v149 = __Block_byref_object_copy_;
+      v150 = __Block_byref_object_dispose_;
+      v151 = 0;
+      *&v142 = 0;
+      *(&v142 + 1) = &v142;
+      v143 = 0x3032000000;
+      v144 = __Block_byref_object_copy_;
+      v145 = __Block_byref_object_dispose_;
+      v146 = 0;
+      v126[0] = MEMORY[0x1E69E9820];
+      v126[1] = 3221225472;
+      v126[2] = __99__OTClique_Framework__handleRecoveryResults_recoveredInformation_record_performedSilentBurn_error___block_invoke_37;
+      v126[3] = &unk_1E833E760;
+      v126[4] = &buf;
+      v126[5] = &v142;
+      [otControl2 fetchAccountWideSettingsWithForceFetch:1 arguments:v45 reply:v126];
       if ([*(*(&buf + 1) + 40) hasWalrus])
       {
         walrus = [*(*(&buf + 1) + 40) walrus];
@@ -4067,20 +4024,20 @@ LABEL_95:
       altDSID3 = [v12 altDSID];
       flowID3 = [v12 flowID];
       deviceSessionID3 = [v12 deviceSessionID];
-      v126 = 0;
-      LOBYTE(v111) = 1;
-      LOBYTE(v109) = enabled;
-      [v121 resetAndEstablish:3 idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountSettings:0 isGuitarfish:isGuitarfish accountIsW:v109 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 canSendMetrics:v111 error:&v126];
-      v55 = v126;
+      v125 = 0;
+      LOBYTE(v110) = 1;
+      LOBYTE(v108) = enabled;
+      [v120 resetAndEstablish:3 idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountSettings:0 isGuitarfish:isGuitarfish accountIsW:v108 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 canSendMetrics:v110 error:&v125];
+      v55 = v125;
 
       if (v55)
       {
         v56 = secLogObjForScope();
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
-          *v141 = 138412290;
-          v142 = v55;
-          _os_log_impl(&dword_1C9430000, v56, OS_LOG_TYPE_DEFAULT, "octagontrust-handleRecoveryResults: failed to reset octagon: %@", v141, 0xCu);
+          *v140 = 138412290;
+          v141 = v55;
+          _os_log_impl(&dword_1C9430000, v56, OS_LOG_TYPE_DEFAULT, "octagontrust-handleRecoveryResults: failed to reset octagon: %@", v140, 0xCu);
         }
 
         if (a7)
@@ -4098,14 +4055,14 @@ LABEL_95:
         v58 = secLogObjForScope();
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          *v141 = 0;
-          _os_log_impl(&dword_1C9430000, v58, OS_LOG_TYPE_DEFAULT, "reset octagon succeeded", v141, 2u);
+          *v140 = 0;
+          _os_log_impl(&dword_1C9430000, v58, OS_LOG_TYPE_DEFAULT, "reset octagon succeeded", v140, 2u);
         }
 
         [v44 sendMetricWithResult:1 error:0];
       }
 
-      _Block_object_dispose(&v143, 8);
+      _Block_object_dispose(&v142, 8);
       _Block_object_dispose(&buf, 8);
 
       if (v55)
@@ -4113,7 +4070,7 @@ LABEL_95:
         goto LABEL_56;
       }
 
-      v112 = 1;
+      v111 = 1;
       goto LABEL_58;
     }
 
@@ -4121,29 +4078,29 @@ LABEL_95:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v119;
+      *(&buf + 4) = v118;
       _os_log_impl(&dword_1C9430000, v30, OS_LOG_TYPE_DEFAULT, "recovering from bottle: %@", &buf, 0xCu);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v149 = 0x3032000000;
-    v150 = __Block_byref_object_copy_;
-    v151 = __Block_byref_object_dispose_;
-    v152 = 0;
+    v148 = 0x3032000000;
+    v149 = __Block_byref_object_copy_;
+    v150 = __Block_byref_object_dispose_;
+    v151 = 0;
     if (a6)
     {
       v31 = _OctagonSignpostLogSystem();
       v32 = _OctagonSignpostCreate();
-      v113 = v33;
+      v112 = v33;
       v34 = v32;
 
       v35 = _OctagonSignpostLogSystem();
       v36 = v35;
       if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
-        LOWORD(v143) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9430000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PerformOctagonJoinForSilent", " enableTelemetry=YES ", &v143, 2u);
+        LOWORD(v142) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9430000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PerformOctagonJoinForSilent", " enableTelemetry=YES ", &v142, 2u);
       }
 
       v37 = _OctagonSignpostLogSystem();
@@ -4152,8 +4109,8 @@ LABEL_95:
         goto LABEL_52;
       }
 
-      LODWORD(v143) = 134217984;
-      *(&v143 + 4) = v34;
+      LODWORD(v142) = 134217984;
+      *(&v142 + 4) = v34;
       v38 = "BEGIN [%lld]: PerformOctagonJoinForSilent  enableTelemetry=YES ";
     }
 
@@ -4161,15 +4118,15 @@ LABEL_95:
     {
       v59 = _OctagonSignpostLogSystem();
       v60 = _OctagonSignpostCreate();
-      v113 = v61;
+      v112 = v61;
       v34 = v60;
 
       v62 = _OctagonSignpostLogSystem();
       v63 = v62;
       if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v62))
       {
-        LOWORD(v143) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9430000, v63, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PerformOctagonJoinForNonSilent", " enableTelemetry=YES ", &v143, 2u);
+        LOWORD(v142) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9430000, v63, OS_SIGNPOST_INTERVAL_BEGIN, v34, "PerformOctagonJoinForNonSilent", " enableTelemetry=YES ", &v142, 2u);
       }
 
       v37 = _OctagonSignpostLogSystem();
@@ -4178,33 +4135,33 @@ LABEL_95:
         goto LABEL_52;
       }
 
-      LODWORD(v143) = 134217984;
-      *(&v143 + 4) = v34;
+      LODWORD(v142) = 134217984;
+      *(&v142 + 4) = v34;
       v38 = "BEGIN [%lld]: PerformOctagonJoinForNonSilent  enableTelemetry=YES ";
     }
 
-    _os_log_impl(&dword_1C9430000, v37, OS_LOG_TYPE_DEFAULT, v38, &v143, 0xCu);
+    _os_log_impl(&dword_1C9430000, v37, OS_LOG_TYPE_DEFAULT, v38, &v142, 0xCu);
 LABEL_52:
 
     v64 = objc_alloc(MEMORY[0x1E69ABBD8]);
     altDSID4 = [v12 altDSID];
     flowID4 = [v12 flowID];
     deviceSessionID4 = [v12 deviceSessionID];
-    LOBYTE(v108) = 1;
-    v68 = [v64 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC30] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v108 category:v117];
+    LOBYTE(v107) = 1;
+    v68 = [v64 initWithKeychainCircleMetrics:0 altDSID:altDSID4 flowID:flowID4 deviceSessionID:deviceSessionID4 eventName:*MEMORY[0x1E69ABC30] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v107 category:v116];
 
     v69 = [objc_alloc(MEMORY[0x1E697AA90]) initWithConfiguration:v12];
-    v128[0] = MEMORY[0x1E69E9820];
-    v128[1] = 3221225472;
-    v128[2] = __99__OTClique_Framework__handleRecoveryResults_recoveredInformation_record_performedSilentBurn_error___block_invoke;
-    v128[3] = &unk_1E833E738;
+    v127[0] = MEMORY[0x1E69E9820];
+    v127[1] = 3221225472;
+    v127[2] = __99__OTClique_Framework__handleRecoveryResults_recoveredInformation_record_performedSilentBurn_error___block_invoke;
+    v127[3] = &unk_1E833E738;
     v70 = v68;
-    v129 = v70;
+    v128 = v70;
     p_buf = &buf;
-    v133 = a6;
-    v131 = v34;
-    v132 = v113;
-    [otControl2 restoreFromBottle:v69 entropy:v118 bottleID:v119 reply:v128];
+    v132 = a6;
+    v130 = v34;
+    v131 = v112;
+    [otControl2 restoreFromBottle:v69 entropy:v117 bottleID:v118 reply:v127];
 
     v71 = *(*(&buf + 1) + 40);
     if (v71)
@@ -4228,7 +4185,7 @@ LABEL_85:
     }
 
     _Block_object_dispose(&buf, 8);
-    v112 = 0;
+    v111 = 0;
 LABEL_58:
     v73 = [v12 sbd];
     v75 = v73;
@@ -4250,30 +4207,30 @@ LABEL_58:
     [v79 addObject:@"PCS-MasterKey"];
     [v79 addObject:@"KeychainV0"];
     Helper_x8__kEscrowServiceRecordDataKey = gotLoadHelper_x8__kEscrowServiceRecordDataKey(v80);
-    v83 = [v124 objectForKeyedSubscript:{**(v82 + 3512), Helper_x8__kEscrowServiceRecordDataKey}];
+    v83 = [v123 objectForKeyedSubscript:{**(v82 + 3512), Helper_x8__kEscrowServiceRecordDataKey}];
     if (v83)
     {
       Helper_x8__kSecureBackupKeybagDigestKey = gotLoadHelper_x8__kSecureBackupKeybagDigestKey(v84);
       v87 = [v83 objectForKeyedSubscript:{**(v86 + 3800), Helper_x8__kSecureBackupKeybagDigestKey}];
       Helper_x8__kSecureBackupBagPasswordKey = gotLoadHelper_x8__kSecureBackupBagPasswordKey(v88);
-      v114 = [v83 objectForKeyedSubscript:{**(v90 + 3632), Helper_x8__kSecureBackupBagPasswordKey}];
-      if (v87 && v114)
+      v113 = [v83 objectForKeyedSubscript:{**(v90 + 3632), Helper_x8__kSecureBackupBagPasswordKey}];
+      if (v87 && v113)
       {
-        if (v115 && ([v116 isEqualToString:@"valid"] & 1) != 0)
+        if (v114 && ([v115 isEqualToString:@"valid"] & 1) != 0)
         {
-          v112 = 1;
+          v111 = 1;
         }
 
         v91 = objc_alloc(MEMORY[0x1E69ABBD8]);
         altDSID5 = [v12 altDSID];
         flowID5 = [v12 flowID];
         deviceSessionID5 = [v12 deviceSessionID];
-        LOBYTE(v110) = 1;
-        v95 = [v91 initWithKeychainCircleMetrics:0 altDSID:altDSID5 flowID:flowID5 deviceSessionID:deviceSessionID5 eventName:*MEMORY[0x1E69ABC38] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v110 category:v117];
+        LOBYTE(v109) = 1;
+        v95 = [v91 initWithKeychainCircleMetrics:0 altDSID:altDSID5 flowID:flowID5 deviceSessionID:deviceSessionID5 eventName:*MEMORY[0x1E69ABC38] testsAreEnabled:MetricsOverrideTestsAreEnabled() canSendMetrics:v109 category:v116];
 
-        v125 = 0;
-        [v78 restoreKeychainAsyncWithPassword:v114 keybagDigest:v87 haveBottledPeer:v112 viewsNotToBeRestored:v79 error:&v125];
-        v96 = v125;
+        v124 = 0;
+        [v78 restoreKeychainAsyncWithPassword:v113 keybagDigest:v87 haveBottledPeer:v111 viewsNotToBeRestored:v79 error:&v124];
+        v96 = v124;
         if (v96)
         {
           v97 = secLogObjForScope();
@@ -4293,7 +4250,7 @@ LABEL_58:
         }
 
         [v20 sendMetricWithResult:1 error:0];
-        v104 = v121;
+        v104 = v120;
       }
 
       else
@@ -4307,22 +4264,22 @@ LABEL_58:
 
         if (v87)
         {
-          v135 = *MEMORY[0x1E69ABC48];
-          v136 = MEMORY[0x1E695E118];
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+          v134 = *MEMORY[0x1E69ABC48];
+          v135 = MEMORY[0x1E695E118];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
         }
 
         else
         {
-          v137 = *MEMORY[0x1E69ABC40];
-          v138 = MEMORY[0x1E695E118];
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+          v136 = *MEMORY[0x1E69ABC40];
+          v137 = MEMORY[0x1E695E118];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
         }
         v102 = ;
         [v20 addMetrics:v102];
 
         [v20 sendMetricWithResult:1 error:0];
-        v103 = v121;
+        v103 = v120;
       }
     }
 
@@ -4335,16 +4292,16 @@ LABEL_58:
         _os_log_impl(&dword_1C9430000, v98, OS_LOG_TYPE_DEFAULT, "unable to request keychain restore, record data missing", &buf, 2u);
       }
 
-      v139 = *MEMORY[0x1E69ABC50];
-      v140 = MEMORY[0x1E695E118];
-      v99 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+      v138 = *MEMORY[0x1E69ABC50];
+      v139 = MEMORY[0x1E695E118];
+      v99 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
       [v20 addMetrics:v99];
 
       [v20 sendMetricWithResult:1 error:0];
-      v100 = v121;
+      v100 = v120;
     }
 
-    v26 = v121;
+    v26 = v120;
     goto LABEL_84;
   }
 
@@ -4361,67 +4318,61 @@ LABEL_58:
   v26 = 0;
 LABEL_86:
 
-  v105 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 + (id)fetchEscrowRecords:()Framework error:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     context = [v5 context];
     altDSID = [v5 altDSID];
-    v12 = 138412546;
-    v13 = context;
-    v14 = 2112;
-    v15 = altDSID;
-    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "fetching filtered escrow records for context:%@, altdsid:%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = context;
+    v13 = 2112;
+    v14 = altDSID;
+    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "fetching filtered escrow records for context:%@, altdsid:%@", &v11, 0x16u);
   }
 
   v9 = [MEMORY[0x1E697AA80] fetchAndHandleEscrowRecords:v5 shouldFilter:1 error:a4];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)fetchAllEscrowRecords:()Framework error:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = secLogObjForScope();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     context = [v5 context];
     altDSID = [v5 altDSID];
-    v12 = 138412546;
-    v13 = context;
-    v14 = 2112;
-    v15 = altDSID;
-    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "fetching all escrow records for context :%@, altdsid:%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = context;
+    v13 = 2112;
+    v14 = altDSID;
+    _os_log_impl(&dword_1C9430000, v6, OS_LOG_TYPE_DEFAULT, "fetching all escrow records for context :%@, altdsid:%@", &v11, 0x16u);
   }
 
   v9 = [MEMORY[0x1E697AA80] fetchAndHandleEscrowRecords:v5 shouldFilter:0 error:a4];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (NSObject)fetchAndHandleEscrowRecords:()Framework shouldFilter:error:
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = _OctagonSignpostLogSystem();
   v8 = _OctagonSignpostCreate();
 
   v9 = _OctagonSignpostLogSystem();
   v10 = v9;
-  v74 = v8 - 1;
+  v73 = v8 - 1;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -4436,28 +4387,28 @@ LABEL_86:
     _os_log_impl(&dword_1C9430000, serialNumber2, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchEscrowRecords  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v85 = 0;
-  serialNumber5 = [MEMORY[0x1E697AA80] fetchEscrowRecordsInternal:v6 error:&v85];
-  v75 = v85;
-  if (v75)
+  v83 = 0;
+  serialNumber5 = [MEMORY[0x1E697AA80] fetchEscrowRecordsInternal:v6 error:&v83];
+  v74 = v83;
+  if (v74)
   {
     v13 = secLogObjForScope();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v75;
+      *&buf[4] = v74;
       _os_log_impl(&dword_1C9430000, v13, OS_LOG_TYPE_DEFAULT, "octagontrust-fetchAndHandleEscrowRecords: failed to fetch escrow records: %@", buf, 0xCu);
     }
 
     if (a5)
     {
-      *a5 = v75;
+      *a5 = v74;
     }
 
     Nanoseconds = _OctagonSignpostGetNanoseconds();
     v15 = _OctagonSignpostLogSystem();
     v16 = v15;
-    if (v74 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    if (v73 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 67240192;
       _os_signpost_emit_with_name_impl(&dword_1C9430000, v16, OS_SIGNPOST_INTERVAL_END, v8, "FetchEscrowRecords", " OctagonSignpostNameFetchEscrowRecords=%{public,signpost.telemetry:number1,name=OctagonSignpostNameFetchEscrowRecords}d ", buf, 8u);
@@ -4468,10 +4419,10 @@ LABEL_86:
     {
       *buf = 134218496;
       *&buf[4] = v8;
-      v88 = 2048;
-      v89 = Nanoseconds / 1000000000.0;
-      v90 = 1026;
-      v91 = 0;
+      v86 = 2048;
+      v87 = Nanoseconds / 1000000000.0;
+      v88 = 1026;
+      v89 = 0;
       _os_log_impl(&dword_1C9430000, array, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  OctagonSignpostNameFetchEscrowRecords=%{public,signpost.telemetry:number1,name=OctagonSignpostNameFetchEscrowRecords}d ", buf, 0x1Cu);
     }
 
@@ -4479,31 +4430,30 @@ LABEL_86:
     goto LABEL_68;
   }
 
-  v71 = v8;
-  v72 = v6;
+  v70 = v8;
+  v71 = v6;
   array = [MEMORY[0x1E695DF70] array];
+  v79 = 0u;
+  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v70 = serialNumber5;
+  v69 = serialNumber5;
   obj = serialNumber5;
-  v80 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
-  if (v80)
+  v78 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
+  if (v78)
   {
-    v79 = *v82;
-    v76 = *MEMORY[0x1E695E480];
-    v78 = array;
+    v77 = *v80;
+    v76 = array;
     do
     {
-      for (i = 0; i != v80; ++i)
+      for (i = 0; i != v78; ++i)
       {
-        if (*v82 != v79)
+        if (*v80 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = [[OTEscrowRecord alloc] initWithData:*(*(&v81 + 1) + 8 * i)];
+        v20 = [[OTEscrowRecord alloc] initWithData:*(*(&v79 + 1) + 8 * i)];
         escrowInformationMetadata = [(OTEscrowRecord *)v20 escrowInformationMetadata];
         bottleValidity = [escrowInformationMetadata bottleValidity];
         if (bottleValidity)
@@ -4575,7 +4525,7 @@ LABEL_39:
         {
         }
 
-        array = v78;
+        array = v76;
         if (v43)
         {
           escrowInformationMetadata6 = [(OTEscrowRecord *)v20 escrowInformationMetadata];
@@ -4644,7 +4594,7 @@ LABEL_49:
         {
         }
 
-        array = v78;
+        array = v76;
         if ((v53 & 1) == 0)
         {
           serialNumber4 = [(OTEscrowRecord *)v20 escrowInformationMetadata];
@@ -4658,36 +4608,36 @@ LABEL_57:
         [array addObject:v20];
       }
 
-      v80 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
+      v78 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
     }
 
-    while (v80);
+    while (v78);
   }
 
   v63 = _OctagonSignpostGetNanoseconds();
   v64 = _OctagonSignpostLogSystem();
   v65 = v64;
-  if (v74 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
+  if (v73 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
   {
     *buf = 67240192;
     *&buf[4] = 1;
-    _os_signpost_emit_with_name_impl(&dword_1C9430000, v65, OS_SIGNPOST_INTERVAL_END, v71, "FetchEscrowRecords", " OctagonSignpostNameFetchEscrowRecords=%{public,signpost.telemetry:number1,name=OctagonSignpostNameFetchEscrowRecords}d ", buf, 8u);
+    _os_signpost_emit_with_name_impl(&dword_1C9430000, v65, OS_SIGNPOST_INTERVAL_END, v70, "FetchEscrowRecords", " OctagonSignpostNameFetchEscrowRecords=%{public,signpost.telemetry:number1,name=OctagonSignpostNameFetchEscrowRecords}d ", buf, 8u);
   }
 
   v66 = _OctagonSignpostLogSystem();
   if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    *&buf[4] = v71;
-    v88 = 2048;
-    v89 = v63 / 1000000000.0;
-    v90 = 1026;
-    v91 = 1;
+    *&buf[4] = v70;
+    v86 = 2048;
+    v87 = v63 / 1000000000.0;
+    v88 = 1026;
+    v89 = 1;
     _os_log_impl(&dword_1C9430000, v66, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchEscrowRecords  OctagonSignpostNameFetchEscrowRecords=%{public,signpost.telemetry:number1,name=OctagonSignpostNameFetchEscrowRecords}d ", buf, 0x1Cu);
   }
 
-  v6 = v72;
-  serialNumber5 = v70;
+  v6 = v71;
+  serialNumber5 = v69;
   if (a4)
   {
     v67 = [MEMORY[0x1E697AA80] filterRecords:array];
@@ -4702,40 +4652,38 @@ LABEL_57:
   v18 = v67;
 LABEL_68:
 
-  v68 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (id)filterRecords:()Framework
 {
   selfCopy = self;
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v3 = a3;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v97 objects:v112 count:16];
+  v5 = [obj countByEnumeratingWithState:&v96 objects:v111 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v98;
+    v7 = *v97;
     do
     {
       v8 = 0;
       do
       {
-        if (*v98 != v7)
+        if (*v97 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v97 + 1) + 8 * v8);
+        v9 = *(*(&v96 + 1) + 8 * v8);
         if (![v9 recordViability])
         {
           escrowInformationMetadata = [v9 escrowInformationMetadata];
@@ -4789,35 +4737,35 @@ LABEL_16:
       }
 
       while (v6 != v8);
-      v23 = [obj countByEnumeratingWithState:&v97 objects:v112 count:16];
+      v23 = [obj countByEnumeratingWithState:&v96 objects:v111 count:16];
       v6 = v23;
     }
 
     while (v23);
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   v24 = array;
-  v25 = [v24 countByEnumeratingWithState:&v93 objects:v111 count:16];
-  v79 = v24;
+  v25 = [v24 countByEnumeratingWithState:&v92 objects:v110 count:16];
+  v78 = v24;
   if (v25)
   {
     v26 = v25;
-    v27 = *v94;
-    v81 = *v94;
+    v27 = *v93;
+    v80 = *v93;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v94 != v27)
+        if (*v93 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v93 + 1) + 8 * i);
+        v29 = *(*(&v92 + 1) + 8 * i);
         v30 = secLogObjForScope();
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
@@ -4828,47 +4776,47 @@ LABEL_16:
           bottleId5 = [escrowInformationMetadata6 bottleId];
           silentAttemptAllowed = [v29 silentAttemptAllowed];
           *buf = 138413058;
-          v104 = label;
-          v105 = 2112;
-          v106 = serial;
-          v107 = 2112;
-          v108 = bottleId5;
-          v109 = 1024;
-          v110 = silentAttemptAllowed;
+          v103 = label;
+          v104 = 2112;
+          v105 = serial;
+          v106 = 2112;
+          v107 = bottleId5;
+          v108 = 1024;
+          v109 = silentAttemptAllowed;
           _os_log_impl(&dword_1C9430000, v30, OS_LOG_TYPE_DEFAULT, "viable record: %@ serial:%@ bottleID:%@ silent allowed:%{BOOL}d", buf, 0x26u);
 
-          v24 = v79;
-          v27 = v81;
+          v24 = v78;
+          v27 = v80;
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v93 objects:v111 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v92 objects:v110 count:16];
     }
 
     while (v26);
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
-  v82 = array2;
-  v37 = [v82 countByEnumeratingWithState:&v89 objects:v102 count:16];
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v81 = array2;
+  v37 = [v81 countByEnumeratingWithState:&v88 objects:v101 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v90;
-    v77 = *v90;
+    v39 = *v89;
+    v76 = *v89;
     do
     {
       for (j = 0; j != v38; ++j)
       {
-        if (*v90 != v39)
+        if (*v89 != v39)
         {
-          objc_enumerationMutation(v82);
+          objc_enumerationMutation(v81);
         }
 
-        v41 = *(*(&v89 + 1) + 8 * j);
+        v41 = *(*(&v88 + 1) + 8 * j);
         v42 = secLogObjForScope();
         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
@@ -4879,46 +4827,46 @@ LABEL_16:
           bottleId6 = [escrowInformationMetadata8 bottleId];
           silentAttemptAllowed2 = [v41 silentAttemptAllowed];
           *buf = 138413058;
-          v104 = label2;
-          v105 = 2112;
-          v106 = serial2;
-          v107 = 2112;
-          v108 = bottleId6;
-          v109 = 1024;
-          v110 = silentAttemptAllowed2;
+          v103 = label2;
+          v104 = 2112;
+          v105 = serial2;
+          v106 = 2112;
+          v107 = bottleId6;
+          v108 = 1024;
+          v109 = silentAttemptAllowed2;
           _os_log_impl(&dword_1C9430000, v42, OS_LOG_TYPE_DEFAULT, "partially viable record: %@ serial:%@ bottleID:%@ silent allowed:%{BOOL}d", buf, 0x26u);
 
-          v39 = v77;
+          v39 = v76;
         }
       }
 
-      v38 = [v82 countByEnumeratingWithState:&v89 objects:v102 count:16];
+      v38 = [v81 countByEnumeratingWithState:&v88 objects:v101 count:16];
     }
 
     while (v38);
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
   v86 = 0u;
-  v84 = array3;
-  v49 = [v84 countByEnumeratingWithState:&v85 objects:v101 count:16];
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v83 = array3;
+  v49 = [v83 countByEnumeratingWithState:&v84 objects:v100 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v86;
-    v78 = *v86;
+    v51 = *v85;
+    v77 = *v85;
     do
     {
       for (k = 0; k != v50; ++k)
       {
-        if (*v86 != v51)
+        if (*v85 != v51)
         {
-          objc_enumerationMutation(v84);
+          objc_enumerationMutation(v83);
         }
 
-        v53 = *(*(&v85 + 1) + 8 * k);
+        v53 = *(*(&v84 + 1) + 8 * k);
         v54 = secLogObjForScope();
         if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
@@ -4929,38 +4877,38 @@ LABEL_16:
           bottleId7 = [escrowInformationMetadata10 bottleId];
           silentAttemptAllowed3 = [v53 silentAttemptAllowed];
           *buf = 138413058;
-          v104 = label3;
-          v105 = 2112;
-          v106 = serial3;
-          v107 = 2112;
-          v108 = bottleId7;
-          v109 = 1024;
-          v110 = silentAttemptAllowed3;
+          v103 = label3;
+          v104 = 2112;
+          v105 = serial3;
+          v106 = 2112;
+          v107 = bottleId7;
+          v108 = 1024;
+          v109 = silentAttemptAllowed3;
           _os_log_impl(&dword_1C9430000, v54, OS_LOG_TYPE_DEFAULT, "nonviable record: %@ serial:%@ bottleID:%@ silent allowed:%{BOOL}d", buf, 0x26u);
 
-          v51 = v78;
+          v51 = v77;
         }
       }
 
-      v50 = [v84 countByEnumeratingWithState:&v85 objects:v101 count:16];
+      v50 = [v83 countByEnumeratingWithState:&v84 objects:v100 count:16];
     }
 
     while (v50);
   }
 
-  if ([v79 count])
+  if ([v78 count])
   {
     v61 = secLogObjForScope();
     if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
-      v62 = [v79 count];
+      v62 = [v78 count];
       *buf = 67109120;
-      LODWORD(v104) = v62;
+      LODWORD(v103) = v62;
       _os_log_impl(&dword_1C9430000, v61, OS_LOG_TYPE_DEFAULT, "Returning %d viable records", buf, 8u);
     }
 
     v63 = selfCopy;
-    v64 = v79;
+    v64 = v78;
 LABEL_55:
     array4 = [v63 sortListPrioritizingiOSRecords:{v64, selfCopy}];
 LABEL_56:
@@ -4968,79 +4916,78 @@ LABEL_56:
     goto LABEL_57;
   }
 
-  if ([v82 count])
+  if ([v81 count])
   {
     v65 = secLogObjForScope();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
-      v66 = [v82 count];
+      v66 = [v81 count];
       *buf = 67109120;
-      LODWORD(v104) = v66;
+      LODWORD(v103) = v66;
       _os_log_impl(&dword_1C9430000, v65, OS_LOG_TYPE_DEFAULT, "Returning %d partially viable records", buf, 8u);
     }
 
     v63 = selfCopy;
-    v64 = v82;
+    v64 = v81;
     goto LABEL_55;
   }
 
   if (!SOSCCIsSOSTrustAndSyncingEnabled())
   {
-    v74 = secLogObjForScope();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+    v73 = secLogObjForScope();
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C9430000, v74, OS_LOG_TYPE_DEFAULT, "no viable records!", buf, 2u);
+      _os_log_impl(&dword_1C9430000, v73, OS_LOG_TYPE_DEFAULT, "no viable records!", buf, 2u);
     }
 
     array4 = [MEMORY[0x1E695DEC8] array];
     goto LABEL_56;
   }
 
-  v71 = [selfCopy filterViableSOSRecords:v84];
-  v72 = secLogObjForScope();
-  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+  v70 = [selfCopy filterViableSOSRecords:v83];
+  v71 = secLogObjForScope();
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
   {
-    v73 = [v71 count];
+    v72 = [v70 count];
     *buf = 67109120;
-    LODWORD(v104) = v73;
-    _os_log_impl(&dword_1C9430000, v72, OS_LOG_TYPE_DEFAULT, "Returning %d sos viable records", buf, 8u);
+    LODWORD(v103) = v72;
+    _os_log_impl(&dword_1C9430000, v71, OS_LOG_TYPE_DEFAULT, "Returning %d sos viable records", buf, 8u);
   }
 
-  v68 = [selfCopy sortListPrioritizingiOSRecords:v71];
+  v68 = [selfCopy sortListPrioritizingiOSRecords:v70];
 
 LABEL_57:
-  v69 = *MEMORY[0x1E69E9840];
 
   return v68;
 }
 
 + (id)sortListPrioritizingiOSRecords:()Framework
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a3;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         escrowInformationMetadata = [v9 escrowInformationMetadata];
         clientMetadata = [escrowInformationMetadata clientMetadata];
         if ([clientMetadata hasSecureBackupUsesNumericPassphrase])
@@ -5067,56 +5014,53 @@ LABEL_11:
         [v16 addObject:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
 
   [array addObjectsFromArray:array2];
-  v17 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (id)filterViableSOSRecords:()Framework
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a3;
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 viabilityStatus] == 1)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }

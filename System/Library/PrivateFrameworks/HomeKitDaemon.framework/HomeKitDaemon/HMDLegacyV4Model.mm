@@ -50,11 +50,11 @@
 
 - (id)encodeWithExistingRecord:(id)record cloudZone:(id)zone modelContainer:(id)container error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   zoneCopy = zone;
   containerCopy = container;
-  v36 = 0;
+  v35 = 0;
   if (error)
   {
     errorCopy = error;
@@ -62,7 +62,7 @@
 
   else
   {
-    errorCopy = &v36;
+    errorCopy = &v35;
   }
 
   v14 = zoneCopy;
@@ -106,10 +106,10 @@
         v29 = HMFGetLogIdentifier();
         v30 = *errorCopy;
         *buf = 138543618;
-        v38 = v29;
+        v37 = v29;
         v31 = v29;
-        v39 = 2112;
-        v40 = v30;
+        v38 = 2112;
+        v39 = v30;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to create CKRecord for encapsulated legacy record: %@", buf, 0x16u);
       }
 
@@ -128,9 +128,9 @@
       v25 = contexta = v22;
       v26 = *errorCopy;
       *buf = 138543618;
-      v38 = v25;
-      v39 = 2112;
-      v40 = v26;
+      v37 = v25;
+      v38 = 2112;
+      v39 = v26;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to encode model for cloud record: %@", buf, 0x16u);
 
       v22 = contexta;
@@ -139,8 +139,6 @@
     objc_autoreleasePoolPop(v22);
     v20 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -170,10 +168,10 @@
 
 + (id)createWithLegacyRecord:(id)record modelContainer:(id)container error:(id *)error
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   containerCopy = container;
-  v71 = 0;
+  v70 = 0;
   if (error)
   {
     errorCopy = error;
@@ -181,7 +179,7 @@
 
   else
   {
-    errorCopy = &v71;
+    errorCopy = &v70;
   }
 
   v11 = containerCopy;
@@ -230,7 +228,7 @@
           v22 = 0;
         }
 
-        v70 = v22;
+        v69 = v22;
 
         if (isKindOfClass)
         {
@@ -255,51 +253,51 @@
 
         v40 = v39;
 
-        v69 = v40;
+        v68 = v40;
         if ([v40 unsignedIntegerValue] == 1)
         {
           v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"k%02lu", 1];
-          v65 = [recordCopy objectForKey:v41];
+          v64 = [recordCopy objectForKey:v41];
           v42 = [v13 decryptData:? decompress:? error:?];
           v43 = 0;
-          v64 = v43;
+          v63 = v43;
           if (v43)
           {
             v44 = v43;
-            v63 = v41;
-            v67 = v19;
+            v62 = v41;
+            v66 = v19;
             v45 = objc_autoreleasePoolPush();
             selfCopy = self;
             v47 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
             {
-              v62 = HMFGetLogIdentifier();
+              v61 = HMFGetLogIdentifier();
               v48 = objc_opt_class();
               NSStringFromClass(v48);
-              v49 = v61 = v45;
+              v49 = v60 = v45;
               *buf = 138543874;
-              v73 = v62;
-              v74 = 2112;
-              v75 = v49;
-              v76 = 2112;
-              v77 = v44;
+              v72 = v61;
+              v73 = 2112;
+              v74 = v49;
+              v75 = 2112;
+              v76 = v44;
               _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@%@ unable to decrypt model data (will try decoding it unencrypted): %@", buf, 0x20u);
 
-              v45 = v61;
+              v45 = v60;
             }
 
             objc_autoreleasePoolPop(v45);
-            v50 = v65;
-            v51 = v65;
+            v50 = v64;
+            v51 = v64;
 
             v42 = v51;
-            v19 = v67;
-            v41 = v63;
+            v19 = v66;
+            v41 = v62;
           }
 
           else
           {
-            v50 = v65;
+            v50 = v64;
           }
 
           v58 = [HMDBackingStoreModelObject objectFromData:v42 encoding:1 error:errorCopy];
@@ -315,20 +313,20 @@
           if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v55 = v66 = v52;
+            v55 = v65 = v52;
             v56 = objc_opt_class();
             NSStringFromClass(v56);
-            v57 = v68 = v19;
+            v57 = v67 = v19;
             *buf = 138543874;
-            v73 = v55;
-            v74 = 2112;
-            v75 = v57;
-            v76 = 2112;
-            v77 = v20;
+            v72 = v55;
+            v73 = 2112;
+            v74 = v57;
+            v75 = 2112;
+            v76 = v20;
             _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@%@ Unexpected encoding: %@", buf, 0x20u);
 
-            v19 = v68;
-            v52 = v66;
+            v19 = v67;
+            v52 = v65;
           }
 
           objc_autoreleasePoolPop(v52);
@@ -347,11 +345,11 @@
           v37 = HMFGetLogIdentifier();
           v38 = *errorCopy;
           *buf = 138543874;
-          v73 = v37;
-          v74 = 2112;
-          v75 = v16;
-          v76 = 2112;
-          v77 = v38;
+          v72 = v37;
+          v73 = 2112;
+          v74 = v16;
+          v75 = 2112;
+          v76 = v38;
           _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@NSKeyedUnarchiver failed to unarchive metadata %@: %@", buf, 0x20u);
         }
 
@@ -378,7 +376,7 @@
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v73 = v33;
+        v72 = v33;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly nil recordMetadata.", buf, 0xCu);
       }
 
@@ -398,9 +396,9 @@
       v27 = HMFGetLogIdentifier();
       recordType2 = [recordCopy recordType];
       *buf = 138543618;
-      v73 = v27;
-      v74 = 2112;
-      v75 = recordType2;
+      v72 = v27;
+      v73 = 2112;
+      v74 = recordType2;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unexpected legacy record type: %@", buf, 0x16u);
     }
 
@@ -408,8 +406,6 @@
     [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     *errorCopy = convertToLegacyV4 = 0;
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 
   return convertToLegacyV4;
 }
@@ -439,7 +435,7 @@
 
 + (Class)hmbModelClassForHMDModelClass:(Class)class
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (hmbModelClassForHMDModelClass__onceToken != -1)
   {
     dispatch_once(&hmbModelClassForHMDModelClass__onceToken, &__block_literal_global_17468);
@@ -474,9 +470,9 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = ClassPair;
+      v19 = v15;
+      v20 = 2112;
+      v21 = ClassPair;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Created Legacy wrapper class: %@", buf, 0x16u);
     }
 
@@ -488,7 +484,6 @@
   }
 
   os_unfair_lock_unlock(&lock);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

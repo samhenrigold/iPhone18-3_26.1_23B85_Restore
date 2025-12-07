@@ -22,20 +22,20 @@ void __60___LSApplicationRecordEnumerator__prepareWithContext_error___block_invo
   }
 }
 
-uint64_t __96___LSApplicationRecordEnumerator_Private___applicationRecordWithContext_bundleIdentifierOrUnit___block_invoke(uint64_t a1, int a2, LaunchServices::AppRecordEnumeration *this, LSContext *a4)
+void __96___LSApplicationRecordEnumerator_Private___applicationRecordWithContext_bundleIdentifierOrUnit___block_invoke(uint64_t a1, uint64_t a2, LaunchServices::AppRecordEnumeration *this, LSContext *a4)
 {
   v5 = *(a1 + 32);
   if (*(v5 + 96))
   {
-    v9 = std::__throw_bad_variant_access[abi:nn200100]();
-    return LaunchServices::AppRecordEnumeration::findAppByIdentifierForEnumerator(v9);
+    v8 = std::__throw_bad_variant_access[abi:nn200100]();
+    LaunchServices::AppRecordEnumeration::findAppByIdentifierForEnumerator(v8, v9, v10, v11, v12, v13, v14, v15);
   }
 
   else
   {
     v7 = *(v5 + 104);
 
-    return LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(this, a4, v7, a4);
+    LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(this, a4, v7, a4);
   }
 }
 

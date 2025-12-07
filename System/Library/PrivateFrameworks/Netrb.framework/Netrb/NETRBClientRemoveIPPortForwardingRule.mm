@@ -7,8 +7,7 @@ void ___NETRBClientRemoveIPPortForwardingRule_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 48)))
   {
-    v10 = *(a1 + 48);
-    NETRBErrorLog();
+    NETRBErrorLog("invalid client %p", *(a1 + 48));
   }
 
   else
@@ -43,15 +42,15 @@ void ___NETRBClientRemoveIPPortForwardingRule_block_invoke(uint64_t a1)
 
     xpc_dictionary_set_value(v2, netrbXPCPortForwardingRule, v8);
     xpc_release(v8);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 0x40000000;
-    v11[2] = ___NETRBClientRemoveIPPortForwardingRule_block_invoke_2;
-    v11[3] = &unk_2799678F8;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 0x40000000;
+    v10[2] = ___NETRBClientRemoveIPPortForwardingRule_block_invoke_2;
+    v10[3] = &unk_2799678F8;
     v9 = *(a1 + 48);
-    v11[4] = *(a1 + 32);
-    v11[5] = v9;
-    NETRBInfoLog();
-    *(*(*(a1 + 40) + 8) + 24) = NETRBXPCSetupAndSend(*(a1 + 56), v2, v11);
+    v10[4] = *(a1 + 32);
+    v10[5] = v9;
+    NETRBInfoLog("client %p xpc send -> remove port forwarding rule", v9);
+    *(*(*(a1 + 40) + 8) + 24) = NETRBXPCSetupAndSend(*(a1 + 56), v2, v10);
     xpc_release(v2);
   }
 }

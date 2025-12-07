@@ -1,12 +1,28 @@
 @interface ULUpdateConfiguration
 - (BOOL)isEqual:(id)equal;
 - (ULUpdateConfiguration)initWithCoder:(id)coder;
+- (ULUpdateConfiguration)initWithIsLowLatency:(BOOL)latency;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation ULUpdateConfiguration
+
+- (ULUpdateConfiguration)initWithIsLowLatency:(BOOL)latency
+{
+  latencyCopy = latency;
+  v7.receiver = self;
+  v7.super_class = ULUpdateConfiguration;
+  v4 = [(ULUpdateConfiguration *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(ULUpdateConfiguration *)v4 setIsLowLatency:latencyCopy];
+  }
+
+  return v5;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

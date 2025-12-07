@@ -482,7 +482,7 @@ LABEL_10:
 
   if (!childModalViewController || ([UIViewControllerWrapperView existingWrapperViewForView:view], (v32 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v32 = [(UIViewControllerWrapperView *)v23 wrapperViewForView:v25 wrapperFrame:v27 viewFrame:v29, v14, v16, v18, v20, UIViewControllerWrapperView, view];
+    v32 = [UIViewControllerWrapperView wrapperViewForView:view wrapperFrame:v23 viewFrame:v25, v27, v29, v14, v16, v18, v20];
   }
 
   v33 = objc_loadWeakRetained(&self->_delegate);
@@ -506,7 +506,7 @@ LABEL_10:
     v52 = v51;
     v54 = v53;
 
-    v55 = [(UIViewControllerWrapperView *)v48 wrapperViewForView:v50 wrapperFrame:v52 viewFrame:v54, v39, v41, v43, v45, UIViewControllerWrapperView, view2];
+    v55 = [UIViewControllerWrapperView wrapperViewForView:view2 wrapperFrame:v48 viewFrame:v50, v52, v54, v39, v41, v43, v45];
 
     v32 = v55;
     view = view2;

@@ -24,35 +24,35 @@
       v11 = +[NSBundle mainBundle];
       bundleIdentifier = [v11 bundleIdentifier];
 
-      v12 = sub_10000C1BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_10000C1BC(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10000F558(bundleIdentifier, v12);
+        sub_10000F558(bundleIdentifier, v13);
       }
     }
 
-    v17.receiver = self;
-    v17.super_class = SSRemoteAlertMonitor;
-    v13 = [(SSRemoteAlertMonitor *)&v17 init];
-    if (v13)
+    v18.receiver = self;
+    v18.super_class = SSRemoteAlertMonitor;
+    v14 = [(SSRemoteAlertMonitor *)&v18 init];
+    if (v14)
     {
-      v14 = objc_retainBlock(handlerCopy);
-      dismissHandler = v13->_dismissHandler;
-      v13->_dismissHandler = v14;
+      v15 = objc_retainBlock(handlerCopy);
+      dismissHandler = v14->_dismissHandler;
+      v14->_dismissHandler = v15;
 
-      v13->_displayState = 0;
-      objc_storeStrong(&v13->_bundleID, bundleIdentifier);
-      [(SSRemoteAlertMonitor *)v13 _startObserving];
+      v14->_displayState = 0;
+      objc_storeStrong(&v14->_bundleID, bundleIdentifier);
+      [(SSRemoteAlertMonitor *)v14 _startObserving];
     }
 
-    self = v13;
+    self = v14;
     dCopy = bundleIdentifier;
     selfCopy = self;
   }
 
   else
   {
-    v9 = sub_10000C1BC();
+    v9 = sub_10000C1BC(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10000F5E4(v9);
@@ -76,7 +76,7 @@
 {
   if (!self->_monitor)
   {
-    v3 = sub_10000C1BC();
+    v3 = sub_10000C1BC(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       bundleID = self->_bundleID;
@@ -106,7 +106,7 @@
 
 - (void)_stopObserving
 {
-  v3 = sub_10000C1BC();
+  v3 = sub_10000C1BC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -130,56 +130,57 @@
 
     if (v7)
     {
-      v34 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
-      v33 = 0u;
+      v36 = 0u;
       elements2 = [v5 elements];
-      v9 = [elements2 countByEnumeratingWithState:&v32 objects:v42 count:16];
-      if (v9)
+      v10 = [elements2 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      if (v10)
       {
-        v11 = v9;
-        v12 = *v33;
-        *&v10 = 138412802;
-        v31 = v10;
+        v12 = v10;
+        v13 = *v36;
+        *&v11 = 138412802;
+        v34 = v11;
         while (2)
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v12; i = i + 1)
           {
-            if (*v33 != v12)
+            if (*v36 != v13)
             {
               objc_enumerationMutation(elements2);
             }
 
-            v14 = *(*(&v32 + 1) + 8 * i);
-            isUIApplicationElement = [v14 isUIApplicationElement];
-            v16 = sub_10000C1BC();
-            v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-            if (isUIApplicationElement)
+            v15 = *(*(&v35 + 1) + 8 * i);
+            isUIApplicationElement = [v15 isUIApplicationElement];
+            v17 = isUIApplicationElement;
+            v18 = sub_10000C1BC(isUIApplicationElement);
+            v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+            if (v17)
             {
-              if (v17)
+              if (v19)
               {
-                bundleIdentifier = [v14 bundleIdentifier];
-                level = [v14 level];
-                *buf = v31;
-                v37 = bundleIdentifier;
-                v38 = 2048;
-                v39 = level;
-                v40 = 2080;
-                v41 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
-                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ lvl:%ld @%s", buf, 0x20u);
+                bundleIdentifier = [v15 bundleIdentifier];
+                level = [v15 level];
+                *buf = v34;
+                v40 = bundleIdentifier;
+                v41 = 2048;
+                v42 = level;
+                v43 = 2080;
+                v44 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
+                _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ lvl:%ld @%s", buf, 0x20u);
               }
 
               bundleID = self->_bundleID;
-              bundleIdentifier2 = [v14 bundleIdentifier];
+              bundleIdentifier2 = [v15 bundleIdentifier];
               LOBYTE(bundleID) = [(NSString *)bundleID isEqualToString:bundleIdentifier2];
 
               if (bundleID)
               {
-                v29 = &__kCFBooleanTrue;
+                v32 = &__kCFBooleanTrue;
 LABEL_27:
                 isUIApplication = self->_isUIApplication;
-                self->_isUIApplication = v29;
+                self->_isUIApplication = v32;
 
                 self->_displayState = 1;
                 goto LABEL_28;
@@ -188,33 +189,33 @@ LABEL_27:
 
             else
             {
-              if (v17)
+              if (v19)
               {
-                identifier = [v14 identifier];
-                level2 = [v14 level];
-                *buf = v31;
-                v37 = identifier;
-                v38 = 2048;
-                v39 = level2;
-                v40 = 2080;
-                v41 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
-                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ lvl:%ld @%s", buf, 0x20u);
+                identifier = [v15 identifier];
+                level2 = [v15 level];
+                *buf = v34;
+                v40 = identifier;
+                v41 = 2048;
+                v42 = level2;
+                v43 = 2080;
+                v44 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
+                _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ lvl:%ld @%s", buf, 0x20u);
               }
 
-              v24 = self->_bundleID;
-              identifier2 = [v14 identifier];
-              LOBYTE(v24) = [(NSString *)v24 isEqualToString:identifier2];
+              v26 = self->_bundleID;
+              identifier2 = [v15 identifier];
+              LOBYTE(v26) = [(NSString *)v26 isEqualToString:identifier2];
 
-              if (v24)
+              if (v26)
               {
-                v29 = &__kCFBooleanFalse;
+                v32 = &__kCFBooleanFalse;
                 goto LABEL_27;
               }
             }
           }
 
-          v11 = [elements2 countByEnumeratingWithState:&v32 objects:v42 count:16];
-          if (v11)
+          v12 = [elements2 countByEnumeratingWithState:&v35 objects:v45 count:16];
+          if (v12)
           {
             continue;
           }
@@ -225,15 +226,15 @@ LABEL_27:
 
       if (self->_displayState == 1)
       {
-        v26 = sub_10000C1BC();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_10000C1BC(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = self->_bundleID;
+          v30 = self->_bundleID;
           *buf = 138412546;
-          v37 = v27;
-          v38 = 2080;
-          v39 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@ is dismissed @%s", buf, 0x16u);
+          v40 = v30;
+          v41 = 2080;
+          v42 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%@ is dismissed @%s", buf, 0x16u);
         }
 
         (*(self->_dismissHandler + 2))();
@@ -246,12 +247,12 @@ LABEL_27:
 
     else
     {
-      v28 = sub_10000C1BC();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_10000C1BC(v8);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v37 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "no elements @%s", buf, 0xCu);
+        v40 = "[SSRemoteAlertMonitor _handleLayoutUpdate:]";
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "no elements @%s", buf, 0xCu);
       }
     }
   }

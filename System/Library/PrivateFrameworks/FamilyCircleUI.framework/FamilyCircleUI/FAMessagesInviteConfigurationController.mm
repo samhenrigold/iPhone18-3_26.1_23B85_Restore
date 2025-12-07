@@ -98,7 +98,7 @@ void __74__FAMessagesInviteConfigurationController_presentWhenReadyWithCompletio
 
 - (id)_messageComposeViewController
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   messageComposeViewController = self->_messageComposeViewController;
   if (!messageComposeViewController)
   {
@@ -113,8 +113,8 @@ void __74__FAMessagesInviteConfigurationController_presentWhenReadyWithCompletio
     {
       v7 = [objc_alloc(MEMORY[0x277CD6908]) initWithLinkMetadata:self->_linkMetadata];
       v8 = [objc_alloc(MEMORY[0x277CD6900]) initWithAlternateLayout:v7];
-      v26[0] = *MEMORY[0x277D18888];
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+      v25[0] = *MEMORY[0x277D18888];
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
       [v8 setRequiredCapabilities:v9];
 
       v10 = objc_alloc(MEMORY[0x277CD68F8]);
@@ -170,36 +170,33 @@ LABEL_10:
   }
 
 LABEL_11:
-  v23 = *MEMORY[0x277D85DE8];
 
   return messageComposeViewController;
 }
 
 + (BOOL)isAvailable
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = _FALogSystem();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = _FALogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = [MEMORY[0x277CD6888] canSendText];
-    _os_log_impl(&dword_21BB35000, v2, OS_LOG_TYPE_DEFAULT, "can send text %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = [MEMORY[0x277CD6888] canSendText];
+    _os_log_impl(&dword_21BB35000, v2, OS_LOG_TYPE_DEFAULT, "can send text %d", v4, 8u);
   }
 
-  result = [MEMORY[0x277CD6888] isiMessageEnabled];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CD6888] isiMessageEnabled];
 }
 
 - (void)_presentInviteControllerWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v16 = +[FAMessagesInviteConfigurationController isAvailable];
+    v15 = +[FAMessagesInviteConfigurationController isAvailable];
     _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "_presentMessagesViewController - can send text: %d", buf, 8u);
   }
 
@@ -208,17 +205,17 @@ LABEL_11:
   {
     presentationContext = self->_presentationContext;
     _messageComposeViewController2 = [(FAMessagesInviteConfigurationController *)self _messageComposeViewController];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __82__FAMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
-    v13[3] = &unk_2782F2ED8;
-    v14 = completionCopy;
-    [(UIViewController *)presentationContext presentViewController:_messageComposeViewController2 animated:1 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __82__FAMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke;
+    v12[3] = &unk_2782F2ED8;
+    v13 = completionCopy;
+    [(UIViewController *)presentationContext presentViewController:_messageComposeViewController2 animated:1 completion:v12];
   }
 
   else
   {
-    v11 = _FALogSystem();
+    v11 = _FALogSystem(_messageComposeViewController);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -230,8 +227,6 @@ LABEL_11:
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__FAMessagesInviteConfigurationController__presentInviteControllerWithCompletion___block_invoke(uint64_t a1)
@@ -247,16 +242,16 @@ uint64_t __82__FAMessagesInviteConfigurationController__presentInviteControllerW
 
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     *buf = 138412546;
-    v22 = v9;
-    v23 = 2048;
+    v21 = v9;
+    v22 = 2048;
     resultCopy = result;
     _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "%@ MFMessageComposeVC delegate callback - didFinishWithResult:%ld", buf, 0x16u);
   }
@@ -282,26 +277,24 @@ uint64_t __82__FAMessagesInviteConfigurationController__presentInviteControllerW
       v12 = @"1";
     }
 
-    v19 = @"userCancelled";
-    v20 = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __92__FAMessagesInviteConfigurationController_messageComposeViewController_didFinishWithResult___block_invoke;
-    v16[3] = &unk_2782F2F00;
-    v17 = v13;
+    v18 = @"userCancelled";
+    v19 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __92__FAMessagesInviteConfigurationController_messageComposeViewController_didFinishWithResult___block_invoke;
+    v15[3] = &unk_2782F2F00;
+    v16 = v13;
     resultCopy2 = result;
-    v16[4] = self;
+    v15[4] = self;
     v14 = v13;
-    [controllerCopy dismissViewControllerAnimated:1 completion:v16];
+    [controllerCopy dismissViewControllerAnimated:1 completion:v15];
   }
 
   else
   {
     [controllerCopy dismissViewControllerAnimated:1 completion:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __92__FAMessagesInviteConfigurationController_messageComposeViewController_didFinishWithResult___block_invoke(void *a1)
@@ -312,17 +305,17 @@ void __92__FAMessagesInviteConfigurationController_messageComposeViewController_
 
 - (void)messageComposeViewController:(id)controller shouldSendMessage:(id)message toRecipients:(id)recipients completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recipientsCopy = recipients;
   completionCopy = completion;
-  v10 = _FALogSystem();
+  v10 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
-    v19 = 138412290;
-    v20 = v12;
-    _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "%@ MFMessageComposeVC delegate callback - shouldSendMessage", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v12;
+    _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "%@ MFMessageComposeVC delegate callback - shouldSendMessage", &v18, 0xCu);
   }
 
   recipientAddresses = self->_recipientAddresses;
@@ -333,8 +326,6 @@ void __92__FAMessagesInviteConfigurationController_messageComposeViewController_
   context = self->_context;
   visibleViewController = [(MFMessageComposeViewController *)self->_messageComposeViewController visibleViewController];
   [(FAInviteRecipientEvaluator *)inviteRecipientEvaluator validateRecipients:v14 inviteContext:context presenter:visibleViewController completion:completionCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (FAInviteControllerDelegate)delegate

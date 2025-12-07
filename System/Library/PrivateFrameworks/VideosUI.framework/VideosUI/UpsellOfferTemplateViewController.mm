@@ -19,7 +19,7 @@
 {
   selfCopy = self;
   v4 = OUTLINED_FUNCTION_10_0();
-  sub_1E38DE320(v4);
+  sub_1E38DE320(v4, v5);
 }
 
 - (void)vui_viewDidAppear:(BOOL)appear
@@ -33,13 +33,13 @@
 {
   selfCopy = self;
   v4 = OUTLINED_FUNCTION_10_0();
-  sub_1E38DE8EC(v4);
+  sub_1E38DE8EC(v4, v5);
 }
 
 - (void)vui_viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1E38DEA6C();
+  sub_1E38DEA6C(v2);
 }
 
 - (_TtC8VideosUI33UpsellOfferTemplateViewController)initWithNibName:(id)name bundle:(id)bundle

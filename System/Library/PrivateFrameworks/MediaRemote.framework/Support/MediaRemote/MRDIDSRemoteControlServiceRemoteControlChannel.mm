@@ -12,9 +12,8 @@
   connectionAttemptDate = self->_connectionAttemptDate;
   [(NSDate *)connectionAttemptDate timeIntervalSinceNow];
   [v3 appendFormat:@"  connectionAttemptDate = %@ (%lf seconds ago)\n", connectionAttemptDate, v5];
-  transport = self->_transport;
-  v7 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@"  transport = %@\n", v7];
+  v6 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@"  transport = %@\n", v6];
 
   [v3 appendString:@"}>"];
 

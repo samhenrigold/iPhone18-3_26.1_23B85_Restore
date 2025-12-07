@@ -47,11 +47,11 @@
 - (id)initWithSidebar:(id *)sidebar;
 - (id)preferredFocusEnvironments;
 - (id)resolvedPopoverPresentationControllerSourceItemForTab:(id)tab;
+- (id)setEditing:(uint64_t)editing animated:;
 - (int64_t)_hitRegionForDropSession:(id)session destinationIndexPath:(id)path;
 - (int64_t)_indentationLevelForItemIdentifier:(id)identifier indexPath:(id)path;
 - (uint64_t)makeFirstResponderForTab:(void *)tab;
 - (uint64_t)setAdditionalEditingInsets:(float64_t)insets;
-- (uint64_t)setEditing:(uint64_t)editing animated:;
 - (uint64_t)style;
 - (void)_activateNewSidebarTransaction;
 - (void)_adjustScrollViewForKeyboardInfo:(id)info;
@@ -294,7 +294,7 @@ LABEL_11:
   return sidebar;
 }
 
-- (uint64_t)setEditing:(uint64_t)editing animated:
+- (id)setEditing:(uint64_t)editing animated:
 {
   if (result)
   {
@@ -304,7 +304,7 @@ LABEL_11:
       *(result + 451) = a2;
       if (a2)
       {
-        WeakRetained = objc_loadWeakRetained((result + 464));
+        WeakRetained = objc_loadWeakRetained(result + 58);
         v4[416] = [WeakRetained outlineViewShouldShowCustomizationHeader:v4];
       }
 
@@ -374,7 +374,7 @@ LABEL_11:
   {
 LABEL_4:
 
-    return [(CACornerRadii *)self _intersectedSceneCornerRadii];
+    return objc_msgSend__intersectedSceneCornerRadii(self, a3);
   }
 
   height = self[6].maxXMinY.height;
@@ -392,7 +392,7 @@ LABEL_4:
   if (layer)
   {
     v6 = layer;
-    [layer cornerRadii];
+    objc_msgSend_cornerRadii(layer);
     layer = v6;
   }
 
@@ -1286,9 +1286,9 @@ LABEL_27:
     {
       if (v5 && navigationItem)
       {
-        v7 = [navigationItem isEqual:v5];
+        isEqual = objc_msgSend_isEqual_(navigationItem);
 
-        if (v7)
+        if (isEqual)
         {
           goto LABEL_12;
         }
@@ -2707,9 +2707,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v24 = [v21 isEqual:v22];
+      isEqual = objc_msgSend_isEqual_(v21);
 
-      if ((v24 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -3117,7 +3117,7 @@ LABEL_29:
       if (result)
       {
 
-        return [v5 layoutIfNeeded];
+        return [(float64x2_t *)v5 layoutIfNeeded];
       }
     }
   }
@@ -3420,9 +3420,9 @@ LABEL_7:
 
     if (v9 && v8)
     {
-      v11 = [(NSIndexPath *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (v11)
+      if (isEqual)
       {
         goto LABEL_10;
       }
@@ -3516,9 +3516,9 @@ LABEL_19:
 
   if (v12)
   {
-    v15 = [(NSIndexPath *)v12 isEqual:v13];
+    isEqual = objc_msgSend_isEqual_(v12);
 
-    if (v15)
+    if (isEqual)
     {
       if (!v11)
       {

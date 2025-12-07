@@ -11,9 +11,9 @@
     +[NSURLSession(GKAdditions) _gkForClientProcess];
   }
 
-  v1 = _gkForClientProcess_session;
+  v2 = _gkForClientProcess_session;
 
-  return v1;
+  return v2;
 }
 
 @end

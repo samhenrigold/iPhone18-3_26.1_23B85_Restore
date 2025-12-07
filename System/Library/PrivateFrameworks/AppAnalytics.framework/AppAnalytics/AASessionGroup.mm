@@ -22,14 +22,11 @@
 
 - (NSString)groupName
 {
-  v2 = (self + OBJC_IVAR___AASessionGroup_groupName);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1B6AB92B0();
+  v2 = sub_1B6AB92B0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setGroupName:(id)name
@@ -38,7 +35,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___AASessionGroup_groupName);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

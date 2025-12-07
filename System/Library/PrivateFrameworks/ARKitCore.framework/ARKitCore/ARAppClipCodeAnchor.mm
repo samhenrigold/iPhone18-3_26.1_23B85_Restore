@@ -48,7 +48,7 @@
   v7 = [(ARAppClipCodeAnchor *)self url];
   absoluteString = [v7 absoluteString];
   identifier = [(ARAnchor *)self identifier];
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v14 = ARMatrix4x4Description(0, v10, v11, v12, v13);
   v15 = [v3 stringWithFormat:@"<%@: %p instanceID=%@ url=%@ identifier=%@ transform=%@>", v5, self, instanceID, absoluteString, identifier, v14];
 

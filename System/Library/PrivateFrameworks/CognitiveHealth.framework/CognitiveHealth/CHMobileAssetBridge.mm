@@ -127,7 +127,7 @@ void __99__CHMobileAssetBridge_autoAssetEndLockContentForAssetType_assetSpecifie
 
 void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_lockReason_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v11 = a4;
   v12 = a5;
   v13 = a6;
@@ -150,9 +150,9 @@ void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_l
 
     v19 = [MEMORY[0x277CCAA00] defaultManager];
     v20 = [v11 path];
-    v47 = 0;
-    v21 = [v19 contentsOfDirectoryAtPath:v20 error:&v47];
-    v22 = v47;
+    v46 = 0;
+    v21 = [v19 contentsOfDirectoryAtPath:v20 error:&v46];
+    v22 = v46;
 
     if (v22)
     {
@@ -165,32 +165,32 @@ void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_l
 
     else
     {
-      v40 = a1;
-      v41 = v14;
-      v42 = v12;
+      v39 = a1;
+      v40 = v14;
+      v41 = v12;
       v24 = [MEMORY[0x277CBEB18] array];
       v25 = [MEMORY[0x277CBEB18] array];
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      v39 = v21;
+      v38 = v21;
       v26 = v21;
-      v27 = [v26 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v44;
+        v29 = *v43;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v44 != v29)
+            if (*v43 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v43 + 1) + 8 * i);
+            v31 = *(*(&v42 + 1) + 8 * i);
             v32 = [v11 path];
             v33 = [v32 stringByAppendingPathComponent:v31];
             [v24 addObject:v33];
@@ -198,7 +198,7 @@ void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_l
             [v25 addObject:v31];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
         while (v28);
@@ -208,14 +208,14 @@ void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_l
       v35 = [v11 path];
       NSLog(&cfstr_LockedAndFound.isa, v34, v35);
 
-      v36 = *(v40 + 32);
+      v36 = *(v39 + 32);
       v37 = [v11 path];
       (*(v36 + 16))(v36, v37, v24, 0);
 
-      v14 = v41;
-      v12 = v42;
+      v14 = v40;
+      v12 = v41;
       v22 = 0;
-      v21 = v39;
+      v21 = v38;
     }
   }
 
@@ -226,8 +226,6 @@ void __93__CHMobileAssetBridge_autoAssetLockContentForAssetType_assetSpecifier_l
     v18 = [MEMORY[0x277CBEA60] array];
     (*(v17 + 16))(v17, 0, v18, v14);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)autoAssetInterestInContentForAssetType:(id)type assetSpecifier:(id)specifier completion:(id)completion

@@ -1,13 +1,15 @@
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 void sub_23C1AD3FC(_Unwind_Exception *a1)
@@ -38,15 +40,16 @@ void sub_23C1AFA68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_1_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 2u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 id AECoreErrorUserInfo(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (AECoreErrorUserInfo_onceToken != -1)
   {
@@ -104,25 +107,25 @@ LABEL_15:
   if ([0 count])
   {
     v13 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v11];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v14 = [0 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v14 = [0 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(0);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * i);
+          v18 = *(*(&v23 + 1) + 8 * i);
           v19 = [v13 objectForKeyedSubscript:v18];
 
           if (!v19)
@@ -132,7 +135,7 @@ LABEL_15:
           }
         }
 
-        v15 = [0 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [0 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v15);
@@ -142,8 +145,6 @@ LABEL_15:
   }
 
   v21 = [MEMORY[0x277CCA9B8] errorWithDomain:AECoreErrorDomain code:a1 userInfo:v12];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -162,16 +163,16 @@ void sub_23C1B12F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id AECoreLog()
+id AECoreLog(uint64_t a1)
 {
   if (AECoreLog_onceToken != -1)
   {
     AECoreLog_cold_1();
   }
 
-  v1 = AECoreLog_log;
+  v2 = AECoreLog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AECoreLog_block_invoke()
@@ -208,16 +209,16 @@ void sub_23C1B3438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23C1B9B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23C1B9B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);

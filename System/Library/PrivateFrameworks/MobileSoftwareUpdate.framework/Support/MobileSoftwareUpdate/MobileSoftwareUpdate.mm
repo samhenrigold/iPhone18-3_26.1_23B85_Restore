@@ -76,11 +76,12 @@ uint64_t NRDGetUpdateBrainConnection(void *a1, void *a2, void (*a3)(uint64_t, ui
   return v13 & 1;
 }
 
-void sub_1000017D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1000017D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -156,9 +157,9 @@ id NRDAcquireActivityLock(void *a1, void (*a2)(uint64_t, uint64_t), uint64_t a3)
   return v11;
 }
 
-void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -295,12 +296,13 @@ uint64_t NRDQueryRecoveryOS(void *a1, void *a2, void *a3, void *a4, void *a5, vo
   return v26 & 1;
 }
 
-void sub_100001FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100001FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -522,10 +524,11 @@ uint64_t NRDDownloadRecoveryOS(void *a1, void *a2, void *a3, void *a4, void *a5,
   return v21 & 1;
 }
 
-void sub_10000277C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10000277C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -653,10 +656,11 @@ uint64_t NRDInstallRecoveryOS(void *a1, void *a2, void *a3, void *a4, void *a5, 
   return v22 & 1;
 }
 
-void sub_100002CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_100002CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -786,14 +790,14 @@ uint64_t NRDCancelRecoveryOSUpdate(void *a1, void *a2, void (*a3)(uint64_t, uint
   return v13 & 1;
 }
 
-void sub_100003250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100003250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -830,11 +834,11 @@ intptr_t __NRDCancelRecoveryOSUpdate_block_invoke(uint64_t a1, void *a2)
   return dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100004410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100004410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -845,9 +849,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100006024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -859,9 +863,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100006514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -888,7 +892,7 @@ CFTypeRef copy_nvram_variable_with_system_nvram_check(const __CFString *a1)
     v7 = @"Could not get options entry from the device tree\n";
   }
 
-  logfunction("", 1, v7, v2, v3, v4, v5, v6, v12);
+  logfunction("", 1, v7, v2, v3, v4, v5, v6);
   return 0;
 }
 
@@ -898,14 +902,14 @@ BOOL set_nvram_object_with_system_nvram_check(const __CFString *a1, _BOOL8 a2, u
   {
     v18 = @"Can't insert nil key into registry\n";
 LABEL_10:
-    logfunction("", 1, v18, a4, a5, a6, a7, a8, v20);
+    logfunction("", 1, v18, a4, a5, a6, a7, a8);
     return 0;
   }
 
   v8 = a2;
   if (!a2)
   {
-    logfunction("", 1, @"Can't insert nil object into registry\n", a4, a5, a6, a7, a8, v20);
+    logfunction("", 1, @"Can't insert nil object into registry\n", a4, a5, a6, a7, a8);
     return v8;
   }
 
@@ -921,7 +925,7 @@ LABEL_10:
   v8 = v12 == 0;
   if (v12)
   {
-    logfunction("", 1, @"Failed to set key %@ in IO registry: %d\n", v13, v14, v15, v16, v17, a1);
+    logfunction("", 1, @"Failed to set key %@ in IO registry: %d\n", v13, v14, v15, v16, v17, a1, v12);
   }
 
   IOObjectRelease(v11);
@@ -977,7 +981,7 @@ uint64_t msu_delete_nvram_variable_if_exists(const __CFString *a1, _BYTE *a2)
     v12 = @"%s: Deleted value %s\n\n";
 LABEL_5:
     v11 = 1;
-    logfunction("", 1, v12, v5, v6, v7, v8, v9, "msu_delete_nvram_variable_if_exists");
+    logfunction("", 1, v12, v5, v6, v7, v8, v9, "msu_delete_nvram_variable_if_exists", buffer);
   }
 
   *a2 = v4;
@@ -1011,7 +1015,7 @@ BOOL msu_sync_nvram(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
   return set_nvram_object_with_system_nvram_check(v8, v8, 0, a4, a5, a6, a7, a8);
 }
 
-uint64_t msuSharedLogger()
+uint64_t msuSharedLogger(uint64_t a1, uint64_t a2)
 {
   if (msuSharedLogger_pred != -1)
   {
@@ -1160,10 +1164,10 @@ LABEL_16:
   return v3;
 }
 
-void sub_100007164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100007164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  _Block_object_dispose((v14 - 104), 8);
+  va_start(va, a21);
+  _Block_object_dispose((v21 - 104), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1252,7 +1256,7 @@ void __retrieve_previous_update_all_tolerated_failures_block_invoke(uint64_t a1,
 
       else if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
       {
-        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_1(a1);
+        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_1();
       }
     }
 
@@ -1272,23 +1276,24 @@ void __retrieve_previous_update_all_tolerated_failures_block_invoke(uint64_t a1,
 
       else if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
       {
-        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_2(a1);
+        __retrieve_previous_update_all_tolerated_failures_block_invoke_cold_2();
       }
     }
   }
 }
 
-void sub_1000077E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000077E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000A230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10000A230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1299,47 +1304,46 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t trigger_cache_delete(uint64_t a1, const void *a2, int a3, void *a4)
+uint64_t trigger_cache_delete(uint64_t a1, const void *a2, uint64_t a3, void *a4)
 {
-  v6 = a1;
   valuePtr = a1;
-  v42 = a3;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2000000000;
-  v41 = 0;
+  v41 = a3;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2000000000;
+  v40 = 0;
   if (&_os_variant_uses_ephemeral_storage && os_variant_uses_ephemeral_storage())
   {
-    v12 = 1;
-    logfunction("", 1, @"Skipping CacheDelete for %lld bytes (urgencyLevel=%d), %s\n", v7, v8, v9, v10, v11, v6);
+    v13 = 1;
+    logfunction("", 1, @"Skipping CacheDelete for %lld bytes (urgencyLevel=%d), %s\n", v8, v9, v10, v11, v12, a1, a3, "because system uses ephemeral storage");
     goto LABEL_24;
   }
 
-  v18 = dispatch_semaphore_create(0);
-  if (v18)
+  v19 = dispatch_semaphore_create(0);
+  if (v19)
   {
-    logfunction("", 1, @"Triggering CacheDelete for %lld bytes (urgencyLevel=%d)\n", v13, v14, v15, v16, v17, v6);
-    v19 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
-    v20 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v42);
+    logfunction("", 1, @"Triggering CacheDelete for %lld bytes (urgencyLevel=%d)\n", v14, v15, v16, v17, v18, a1, a3);
+    v20 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
+    v21 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v41);
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v27 = Mutable;
+    v28 = Mutable;
     if (Mutable)
     {
       CFDictionarySetValue(Mutable, @"CACHE_DELETE_VOLUME", a2);
-      CFDictionarySetValue(v27, @"CACHE_DELETE_AMOUNT", v19);
-      CFDictionarySetValue(v27, @"CACHE_DELETE_URGENCY_LIMIT", v20);
+      CFDictionarySetValue(v28, @"CACHE_DELETE_AMOUNT", v20);
+      CFDictionarySetValue(v28, @"CACHE_DELETE_URGENCY_LIMIT", v21);
       if (_os_feature_enabled_impl())
       {
-        logfunction("", 1, @"[PAS] Reserved Auto-Update Space will be used.\n", v28, v29, v30, v31, v32, v37);
-        CFDictionarySetValue(v27, @"CACHE_DELETE_RELEASE_SPACE", kCFBooleanTrue);
+        logfunction("", 1, @"[PAS] Reserved Auto-Update Space will be used.\n", v29, v30, v31, v32, v33);
+        CFDictionarySetValue(v28, @"CACHE_DELETE_RELEASE_SPACE", kCFBooleanTrue);
       }
 
-      CFRetain(v27);
-      dispatch_retain(v18);
-      v33 = CacheDeletePurgeSpaceWithInfo();
-      v34 = dispatch_time(0, 300000000000);
-      dispatch_semaphore_wait(v18, v34);
-      v12 = 1;
+      CFRetain(v28);
+      dispatch_retain(v19);
+      v34 = CacheDeletePurgeSpaceWithInfo();
+      v35 = dispatch_time(0, 300000000000);
+      dispatch_semaphore_wait(v19, v35);
+      v13 = 1;
       if (!a4)
       {
         goto LABEL_14;
@@ -1348,45 +1352,40 @@ uint64_t trigger_cache_delete(uint64_t a1, const void *a2, int a3, void *a4)
       goto LABEL_13;
     }
 
-    logfunction("", 1, @"Failed to create info dictionary\n", v22, v23, v24, v25, v26, v37);
-    v33 = 0;
+    logfunction("", 1, @"Failed to create info dictionary\n", v23, v24, v25, v26, v27);
+    v34 = 0;
   }
 
   else
   {
-    logfunction("", 1, @"Failed to create semaphore for CacheDelete\n", v13, v14, v15, v16, v17, v36);
-    v27 = 0;
-    v33 = 0;
+    logfunction("", 1, @"Failed to create semaphore for CacheDelete\n", v14, v15, v16, v17, v18);
+    v28 = 0;
+    v34 = 0;
+    v21 = 0;
     v20 = 0;
-    v19 = 0;
   }
 
-  v12 = 0;
+  v13 = 0;
   if (a4)
   {
 LABEL_13:
-    *a4 = v39[3];
+    *a4 = v38[3];
   }
 
 LABEL_14:
-  if (v18)
-  {
-    dispatch_release(v18);
-  }
-
-  if (v33)
-  {
-    CFRelease(v33);
-  }
-
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
   if (v19)
   {
-    CFRelease(v19);
+    dispatch_release(v19);
+  }
+
+  if (v34)
+  {
+    CFRelease(v34);
+  }
+
+  if (v28)
+  {
+    CFRelease(v28);
   }
 
   if (v20)
@@ -1394,9 +1393,14 @@ LABEL_14:
     CFRelease(v20);
   }
 
+  if (v21)
+  {
+    CFRelease(v21);
+  }
+
 LABEL_24:
-  _Block_object_dispose(&v38, 8);
-  return v12;
+  _Block_object_dispose(&v37, 8);
+  return v13;
 }
 
 void __trigger_cache_delete_block_invoke(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1410,13 +1414,13 @@ void __trigger_cache_delete_block_invoke(uint64_t a1, const __CFDictionary *a2, 
       CFNumberGetValue(Value, kCFNumberLongLongType, &valuePtr);
       v12 = valuePtr;
       *(*(*(a1 + 32) + 8) + 24) = valuePtr;
-      logfunction("", 1, @"Purged %lld bytes (%lld MB)\n", v13, v14, v15, v16, v17, v12);
+      logfunction("", 1, @"Purged %lld bytes (%lld MB)\n", v13, v14, v15, v16, v17, v12, v12 >> 20);
     }
   }
 
   else
   {
-    logfunction("", 1, @"results dictionary is NULL\n", a4, a5, a6, a7, a8, v18);
+    logfunction("", 1, @"results dictionary is NULL\n", a4, a5, a6, a7, a8);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
@@ -1432,10 +1436,10 @@ BOOL is_user_volume()
   return getattrlist("/private/var/mobile", v1, v2, 0x40CuLL, 0) != -1 && !strncmp(v3 + v3[0], "User", 4uLL);
 }
 
-uint64_t purgeable_space(const void *a1, int a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t purgeable_space(const void *a1, int a2, __CFDictionary **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   valuePtr = a2;
-  v38 = -1;
+  v36 = -1;
   if (&_os_variant_uses_ephemeral_storage && (os_variant_uses_ephemeral_storage() & 1) != 0)
   {
     return 0;
@@ -1450,13 +1454,13 @@ uint64_t purgeable_space(const void *a1, int a2, CFErrorRef *a3, uint64_t a4, ui
       Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       if (!Mutable)
       {
-        error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"failed to allocate info dictionary for cache delete.", v14, v15, v16, v36);
+        error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"failed to allocate info dictionary for cache delete.", v14, v15, v16);
         if (a3)
         {
           *a3 = error_internal_cf;
 LABEL_30:
           CFRelease(v12);
-          return v38;
+          return v36;
         }
 
 LABEL_29:
@@ -1470,7 +1474,7 @@ LABEL_29:
       v18 = CacheDeleteCopyPurgeableSpaceWithInfo();
       if (!v18)
       {
-        v34 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"CacheDeleteCopyPurgeableSpaceWithInfo failed", v21, v22, v23, v36);
+        v34 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"CacheDeleteCopyPurgeableSpaceWithInfo failed", v21, v22, v23);
         if (a3)
         {
           *a3 = v34;
@@ -1489,7 +1493,7 @@ LABEL_27:
       Value = CFDictionaryGetValue(v24, @"CACHE_DELETE_TOTAL_AVAILABLE");
       if (Value || (Value = CFDictionaryGetValue(v24, @"CACHE_DELETE_AMOUNT")) != 0)
       {
-        if (CFNumberGetValue(Value, kCFNumberSInt64Type, &v38))
+        if (CFNumberGetValue(Value, kCFNumberSInt64Type, &v36))
         {
 LABEL_26:
           v34 = v24;
@@ -1504,7 +1508,7 @@ LABEL_26:
         v29 = @"CACHE_DELETE_TOTAL_AVAILABLE_KEY and CACHE_DELETE_AMOUNT_KEY are both NULL";
       }
 
-      v35 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v29, v26, v27, v28, v37);
+      v35 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v29, v26, v27, v28);
       if (a3)
       {
         *a3 = v35;
@@ -1528,7 +1532,7 @@ LABEL_26:
     v31 = 9;
   }
 
-  v32 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v31, 0, 0, v30, a6, a7, a8, v36);
+  v32 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v31, 0, 0, v30, a6, a7, a8);
   if (a3)
   {
     *a3 = v32;
@@ -1542,7 +1546,7 @@ LABEL_26:
   return -1;
 }
 
-uint64_t purgeable_data_space(int a1, CFErrorRef *a2)
+uint64_t purgeable_data_space(int a1, __CFDictionary **a2)
 {
   if (is_user_volume())
   {
@@ -1578,47 +1582,45 @@ uint64_t openRestoreLogFileWithPath(const char *a1, int a2)
       __error();
       v4 = __error();
       strerror(*v4);
-      v5 = @"Could not create path %s: %s\n";
+      logfunction("", 0, @"Could not create path %s: %s\n", v5, v6, v7, v8, v9, a1);
     }
 
     else
     {
-      v7 = open_dprotected_np(a1, 536871434, 4, 0, 420);
-      if ((v7 & 0x80000000) == 0)
+      v11 = open_dprotected_np(a1, 536871434, 4, 0, 420);
+      if ((v11 & 0x80000000) == 0)
       {
-        goto LABEL_10;
+        goto LABEL_9;
       }
 
       if (*__error() == 13 || *__error() == 1)
       {
         if (unlink(a1) == -1 && *__error() != 2)
         {
-          v9 = __error();
-          strerror(*v9);
-          v5 = @"Failed to unlink '%s': %s\n";
-          goto LABEL_6;
+          v18 = __error();
+          strerror(*v18);
+          logfunction("", 0, @"Failed to unlink '%s': %s\n", v19, v20, v21, v22, v23, a1);
+          return 0xFFFFFFFFLL;
         }
 
-        v7 = open_dprotected_np(a1, 536871434, 4, 0, 420);
-        if ((v7 & 0x80000000) == 0)
+        v11 = open_dprotected_np(a1, 536871434, 4, 0, 420);
+        if ((v11 & 0x80000000) == 0)
         {
-LABEL_10:
-          v2 = v7;
+LABEL_9:
+          v2 = v11;
           atomic_store(0, &_restoreLogGrowth);
-          _restoreLogFD = v7;
-          _rotateRestoreLogFD(v7);
+          _restoreLogFD = v11;
+          _rotateRestoreLogFD(v11);
           return v2;
         }
       }
 
       __error();
-      v8 = __error();
-      strerror(*v8);
-      v5 = @"Could not open '%s': %s\n";
+      v12 = __error();
+      strerror(*v12);
+      logfunction("", 0, @"Could not open '%s': %s\n", v13, v14, v15, v16, v17, a1);
     }
 
-LABEL_6:
-    logfunction("", 0, v5);
     return 0xFFFFFFFFLL;
   }
 
@@ -1722,7 +1724,7 @@ LABEL_21:
       v73 = 0u;
       *__str = 0u;
       v71 = 0u;
-      logfunction("", 0, @"restore log is suspiciously large - truncating\n", v15, v16, v17, v18, v19, v65);
+      logfunction("", 0, @"restore log is suspiciously large - truncating\n", v15, v16, v17, v18, v19);
       v20 = malloc_type_malloc(0x300000uLL, 0xE206B481uLL);
       if (v20)
       {
@@ -1855,10 +1857,10 @@ size_t writeToRestoreLogFile(void *__buf, size_t __nbyte)
   return v2;
 }
 
-uint64_t submitRestoreLogFileToLogDir(__CFError *a1, uint64_t a2, const char *a3, const char *a4, const __CFString *a5)
+uint64_t submitRestoreLogFileToLogDir(__CFError *a1, time_t a2, const char *a3, const char *a4, const __CFString *a5)
 {
-  v122 = 0;
-  bzero(v136, 0x400uLL);
+  v124 = 0;
+  bzero(v138, 0x400uLL);
   v10 = os_transaction_create();
   if (a3)
   {
@@ -1875,19 +1877,20 @@ uint64_t submitRestoreLogFileToLogDir(__CFError *a1, uint64_t a2, const char *a3
   if (v12 == -1)
   {
     v42 = __error();
-    strerror(*v42);
-    logfunction("", 1, @"unable to open restore log (%s): %s (%d)\n", v43, v44, v45, v46, v47, v11);
+    v43 = *v42;
+    v44 = strerror(*v42);
+    logfunction("", 1, @"unable to open restore log (%s): %s (%d)\n", v45, v46, v47, v48, v49, v11, v44, v43);
     v26 = 0;
 LABEL_16:
     v33 = 0;
     goto LABEL_40;
   }
 
-  v20 = checkForRestoreLogFD(v12, &v122, v13, v14, v15, v16, v17, v18);
-  v26 = v122;
-  if (v20 || !v122)
+  v20 = checkForRestoreLogFD(v12, &v124, v13, v14, v15, v16, v17, v18);
+  v26 = v124;
+  if (v20 || !v124)
   {
-    logfunction("", 1, @"unable to read from restore log file\n", v21, v22, v23, v24, v25, v112);
+    logfunction("", 1, @"unable to read from restore log file\n", v21, v22, v23, v24, v25);
     goto LABEL_16;
   }
 
@@ -1896,14 +1899,14 @@ LABEL_16:
   v33 = v27;
   if (!v27)
   {
-    v48 = @"failed to query device serial number\n";
+    v50 = @"failed to query device serial number\n";
 LABEL_39:
-    logfunction("", 1, v48, v28, v29, v30, v31, v32, v112);
+    logfunction("", 1, v50, v28, v29, v30, v31, v32);
 LABEL_40:
     free(v26);
-    v50 = 0;
-    v51 = 0;
-    v52 = 0xFFFFFFFFLL;
+    v52 = 0;
+    v53 = 0;
+    v54 = 0xFFFFFFFFLL;
     if (!v33)
     {
       goto LABEL_42;
@@ -1914,17 +1917,17 @@ LABEL_40:
 
   if (CFStringGetLength(v27) < 1)
   {
-    v49 = @"device has no serial number for scrubbing\n";
+    v51 = @"device has no serial number for scrubbing\n";
 LABEL_20:
-    logfunction("", 1, v49, v34, v35, v36, v37, v38, v112);
+    logfunction("", 1, v51, v34, v35, v36, v37, v38);
     goto LABEL_21;
   }
 
   *buffer = 0u;
-  v138 = 0u;
+  v140 = 0u;
   if (CFStringGetCString(v33, buffer, 32, 0x8000100u) != 1)
   {
-    v49 = @"unable to get c string for device serial number\n";
+    v51 = @"unable to get c string for device serial number\n";
     goto LABEL_20;
   }
 
@@ -1945,7 +1948,7 @@ LABEL_20:
 LABEL_21:
   if (_AMRRegexSubstitution(v26, "'[^\n]*' has been added", "'<<File name>>' has been added ") || _AMRRegexSubstitution(v26, "verify_callback: '[^\n]*' did not verify and is not on the exception list.", "verify_callback: '<<File name>>' did not verify and is not on the exception list.") || _AMRRegexSubstitution(v26, "'[^\n]*' is on the exception list", "'<<File name>>' is on the exception list") || _AMRRegexSubstitution(v26, "[:-][0-9a-fA-F]{8}", "XXXX") || _AMRRegexSubstitution(v26, "[:-] [0-9a-fA-F]{8}", "XXXX") || _AMRRegexSubstitution(v26, "[:-] [a-zA-Z0-9]{18}[[:>:]]", "XXXX") || _AMRRegexSubstitution(v26, "[:-][a-zA-Z0-9]{8}[:-][a-zA-Z0-9]{16}", "XXXX") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{40}", "<<<<<<<<<<<<<<<<<<UDID>>>>>>>>>>>>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{20}", "<<<<<<<<ICCID>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{19}", "<<<<<<<ICCID>>>>>>>") || _AMRRegexSubstitution(v26, "[0-9]{15}", "<<<<<IMEI>>>>>>") || _AMRRegexSubstitution(v26, "ecid=0x[0-9a-fA-F]*,", "ecid=0xXXXXXXXXXXX") || _AMRRegexSubstitution(v26, "ApECID[^\n]*value = [+-][0-9<>IMEI]*", "ApECID} = X {X") || _AMRRegexSubstitution(v26, "[0-9a-fA-F]{14}", "<<<<<MEID>>>>>") || _AMRRegexSubstitution(v26, "ChipSerialNo[^\n]*bytes = 0x[0-9a-fA-F]*}", "ChipSerialNo ") || _AMRRegexSubstitution(v26, "snum=0x[0-9a-fA-F]*,", "snum=0xXXXXXXXX") || _AMRRegexSubstitution(v26, "BbSNUM[^\n]*", "BbSNUM} = 0xXXXXXXXX }"))
   {
-    v48 = @"failed to scrub log\n";
+    v50 = @"failed to scrub log\n";
     goto LABEL_39;
   }
 
@@ -1953,30 +1956,30 @@ LABEL_21:
   theDict = strlen(v26);
   if (theDict)
   {
-    v54 = v26;
+    v56 = v26;
     do
     {
-      v55 = *v54;
-      if (v55 < 0)
+      v57 = *v56;
+      if (v57 < 0)
       {
-        if (!__maskrune(*v54, 0x40000uLL))
+        if (!__maskrune(*v56, 0x40000uLL))
         {
-          v56 = __maskrune(v55, 0x4000uLL);
+          v58 = __maskrune(v57, 0x4000uLL);
 LABEL_57:
-          if (!v56)
+          if (!v58)
           {
-            *v54 = 46;
+            *v56 = 46;
           }
         }
       }
 
-      else if ((_DefaultRuneLocale.__runetype[v55] & 0x40000) == 0)
+      else if ((_DefaultRuneLocale.__runetype[v57] & 0x40000) == 0)
       {
-        v56 = _DefaultRuneLocale.__runetype[v55] & 0x4000;
+        v58 = _DefaultRuneLocale.__runetype[v57] & 0x4000;
         goto LABEL_57;
       }
 
-      ++v54;
+      ++v56;
       theDict = (theDict - 1);
     }
 
@@ -1986,19 +1989,19 @@ LABEL_57:
   theDicta = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!theDicta)
   {
-    v48 = @"failed to create crashReporterDictionary\n";
+    v50 = @"failed to create crashReporterDictionary\n";
     goto LABEL_39;
   }
 
   if (err)
   {
-    v57 = CFErrorCopyUserInfo(err);
-    if (v57)
+    v59 = CFErrorCopyUserInfo(err);
+    if (v59)
     {
-      v58 = v57;
-      Value = CFDictionaryGetValue(v57, @"target_update");
+      v60 = v59;
+      Value = CFDictionaryGetValue(v59, @"target_update");
       Code = CFErrorGetCode(err);
-      CFRelease(v58);
+      CFRelease(v60);
     }
 
     else
@@ -2016,19 +2019,7 @@ LABEL_57:
 
   if (Value)
   {
-    v60 = Value;
-  }
-
-  else
-  {
-    v60 = @"Unknown";
-  }
-
-  erra = v60;
-  v61 = MGCopyAnswer();
-  if (v61)
-  {
-    v62 = v61;
+    v62 = Value;
   }
 
   else
@@ -2036,23 +2027,35 @@ LABEL_57:
     v62 = @"Unknown";
   }
 
-  CFDictionarySetValue(theDicta, @"itunes_version", v62);
+  erra = v62;
+  v63 = MGCopyAnswer();
+  if (v63)
+  {
+    v64 = v63;
+  }
+
+  else
+  {
+    v64 = @"Unknown";
+  }
+
+  CFDictionarySetValue(theDicta, @"itunes_version", v64);
   CFDictionarySetValue(theDicta, @"restore_payload_version", erra);
   CFDictionarySetValue(theDicta, @"restore_type", @"OTAUpdate");
   CFDictionarySetValue(theDicta, @"name", @"iPhoneRestore");
-  v114 = v62;
-  CFDictionarySetValue(theDicta, @"os_version", v62);
+  v116 = v64;
+  CFDictionarySetValue(theDicta, @"os_version", v64);
   CFDictionarySetValue(theDicta, @"bug_type", @"183");
-  errb = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%ld");
+  errb = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%ld", Code);
   if (!errb)
   {
-    logfunction("", 1, @"failed to create CFString from %ld\n", v63, v64, v65, v66, v67, Code);
+    logfunction("", 1, @"failed to create CFString from %ld\n", v65, v66, v67, v68, v69, Code);
 LABEL_94:
-    v76 = 0;
+    v78 = 0;
 LABEL_95:
-    v83 = 0;
+    v85 = 0;
 LABEL_100:
-    v98 = 0;
+    v100 = 0;
     goto LABEL_101;
   }
 
@@ -2060,50 +2063,52 @@ LABEL_100:
   if (!a4)
   {
     Default = CFAllocatorGetDefault();
-    v83 = CFURLCreateWithFileSystemPath(Default, @"/private/var/mobile/Library/Logs/CrashReporter", kCFURLPOSIXPathStyle, 0);
+    v85 = CFURLCreateWithFileSystemPath(Default, @"/private/var/mobile/Library/Logs/CrashReporter", kCFURLPOSIXPathStyle, 0);
     goto LABEL_84;
   }
 
-  v68 = CFStringCreateWithCString(0, a4, 0x8000100u);
-  if (!v68)
+  v70 = CFStringCreateWithCString(0, a4, 0x8000100u);
+  if (!v70)
   {
-    logfunction("", 1, @"failed to create dataPartitionMountPointStr\n", v69, v70, v71, v72, v73, Code);
+    logfunction("", 1, @"failed to create dataPartitionMountPointStr\n", v71, v72, v73, v74, v75, v114);
     goto LABEL_94;
   }
 
-  v74 = v68;
-  v75 = CFAllocatorGetDefault();
-  v76 = CFURLCreateWithFileSystemPath(v75, v74, kCFURLPOSIXPathStyle, 0);
-  CFRelease(v74);
-  if (!v76)
+  v76 = v70;
+  v77 = CFAllocatorGetDefault();
+  v78 = CFURLCreateWithFileSystemPath(v77, v76, kCFURLPOSIXPathStyle, 0);
+  CFRelease(v76);
+  if (!v78)
   {
-    logfunction("", 1, @"failed to create mountPointURL\n", v77, v78, v79, v80, v81, Code);
+    logfunction("", 1, @"failed to create mountPointURL\n", v79, v80, v81, v82, v83);
     goto LABEL_95;
   }
 
   if (a5)
   {
-    v82 = a5;
+    v84 = a5;
   }
 
   else
   {
-    v82 = @"/mobile/Library/Logs/CrashReporter";
+    v84 = @"/mobile/Library/Logs/CrashReporter";
   }
 
-  v83 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v76, v82, 1u);
-  CFRelease(v76);
-  if (!v83)
+  v85 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v78, v84, 1u);
+  CFRelease(v78);
+  if (!v85)
   {
-    v89 = @"mountPointURL CFURLCreateCopyAppendingPathComponent failed\n";
+    v91 = @"mountPointURL CFURLCreateCopyAppendingPathComponent failed\n";
 LABEL_99:
-    logfunction("", 1, v89, v84, v85, v86, v87, v88, Code);
-    v76 = 0;
+    logfunction("", 1, v91, v86, v87, v88, v89, v90);
+    v78 = 0;
     goto LABEL_100;
   }
 
 LABEL_84:
-  v135 = 0;
+  v137 = 0;
+  v135 = 0u;
+  v136 = 0u;
   v133 = 0u;
   v134 = 0u;
   v131 = 0u;
@@ -2112,51 +2117,48 @@ LABEL_84:
   v130 = 0u;
   v127 = 0u;
   v128 = 0u;
-  v125 = 0u;
+  *v125 = 0u;
   v126 = 0u;
-  *v123 = 0u;
-  v124 = 0u;
   if (a2 <= 0)
   {
     a2 = time(0);
   }
 
-  v121 = a2;
-  v91 = localtime(&v121);
-  if (!v91)
+  v123 = a2;
+  v93 = localtime(&v123);
+  if (!v93)
   {
-    v89 = @"localtime failed\n";
+    v91 = @"localtime failed\n";
     goto LABEL_99;
   }
 
-  if (!strftime(v123, 0xC8uLL, "%F-%H-%M-%S", v91))
+  if (!strftime(v125, 0xC8uLL, "%F-%H-%M-%S", v93))
   {
-    v89 = @"strftime failed\n";
+    v91 = @"strftime failed\n";
     goto LABEL_99;
   }
 
-  v92 = CFAllocatorGetDefault();
-  v113 = v123;
-  v98 = CFStringCreateWithFormat(v92, 0, @"OTAUpdate-%s.ips");
-  if (!v98)
+  v94 = CFAllocatorGetDefault();
+  v100 = CFStringCreateWithFormat(v94, 0, @"OTAUpdate-%s.ips", v125);
+  if (!v100)
   {
-    logfunction("", 1, @"failed to create crashReporterFileName\n", v93, v94, v95, v96, v97, v123);
-    v76 = 0;
+    logfunction("", 1, @"failed to create crashReporterFileName\n", v95, v96, v97, v98, v99);
+    v78 = 0;
     goto LABEL_101;
   }
 
-  v99 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v83, v98, 0);
-  v76 = v99;
-  if (!v99)
+  v101 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v85, v100, 0);
+  v78 = v101;
+  if (!v101)
   {
-    v110 = @"failed to create log file name\n";
+    v112 = @"failed to create log file name\n";
 LABEL_112:
-    logfunction("", 1, v110, v100, v101, v102, v103, v104, v113);
+    logfunction("", 1, v112, v102, v103, v104, v105, v106, v115);
 LABEL_101:
     free(v26);
     CFRelease(theDicta);
-    v52 = 0xFFFFFFFFLL;
-    if (!v76)
+    v54 = 0xFFFFFFFFLL;
+    if (!v78)
     {
       goto LABEL_103;
     }
@@ -2164,44 +2166,44 @@ LABEL_101:
     goto LABEL_102;
   }
 
-  if (!CFURLGetFileSystemRepresentation(v99, 1u, v136, 1024))
+  if (!CFURLGetFileSystemRepresentation(v101, 1u, v138, 1024))
   {
-    LOBYTE(v113) = v76;
-    v110 = @"Could not get file path from %@\n";
+    v115 = v78;
+    v112 = @"Could not get file path from %@\n";
     goto LABEL_112;
   }
 
-  logfunction("", 1, @"Trying to write crashreporter log file %s\n", v100, v101, v102, v103, v104, v136);
-  if (_storeIpsWithMode(theDicta, v26, v136))
+  logfunction("", 1, @"Trying to write crashreporter log file %s\n", v102, v103, v104, v105, v106, v138);
+  if (_storeIpsWithMode(theDicta, v26, v138))
   {
-    logfunction("", 1, @"failed to create %s\n", v105, v106, v107, v108, v109, v136);
+    logfunction("", 1, @"failed to create %s\n", v107, v108, v109, v110, v111, v138);
     goto LABEL_101;
   }
 
-  v111 = ftruncate(v19, 0);
-  if (a4 || v111)
+  v113 = ftruncate(v19, 0);
+  if (a4 || v113)
   {
     unlink(v11);
   }
 
   free(v26);
   CFRelease(theDicta);
-  v52 = 0;
+  v54 = 0;
 LABEL_102:
-  CFRelease(v76);
+  CFRelease(v78);
 LABEL_103:
-  if (v83)
+  if (v85)
   {
-    CFRelease(v83);
+    CFRelease(v85);
   }
 
-  if (v98)
+  if (v100)
   {
-    CFRelease(v98);
+    CFRelease(v100);
   }
 
-  v51 = v114;
-  v50 = errb;
+  v53 = v116;
+  v52 = errb;
   if (v33)
   {
 LABEL_41:
@@ -2209,14 +2211,14 @@ LABEL_41:
   }
 
 LABEL_42:
-  if (v51)
+  if (v53)
   {
-    CFRelease(v51);
+    CFRelease(v53);
   }
 
-  if (v50)
+  if (v52)
   {
-    CFRelease(v50);
+    CFRelease(v52);
   }
 
   os_release(v10);
@@ -2225,13 +2227,13 @@ LABEL_42:
     submitRestoreLogFileToLogDir_cold_1();
   }
 
-  return v52;
+  return v54;
 }
 
 uint64_t _storeIpsWithMode(const __CFDictionary *a1, const char *a2, const char *a3)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v7 = open(a3, 1537);
+  v7 = open(a3, 1537, 420);
   if (v7 != -1)
   {
     v13 = v7;
@@ -2269,8 +2271,8 @@ LABEL_18:
             }
 
             v30 = __error();
-            strerror(*v30);
-            logfunction("", 1, @"unable to chown file '%s': %s\n\n", v31, v32, v33, v34, v35, a3);
+            v41 = strerror(*v30);
+            logfunction("", 1, @"unable to chown file '%s': %s\n\n", v31, v32, v33, v34, v35, a3, v41);
             goto LABEL_16;
           }
 
@@ -2282,7 +2284,7 @@ LABEL_18:
           v38 = @"write payload\n";
         }
 
-        logfunction("", 1, v38, v24, v25, v26, v27, v28, 164);
+        logfunction("", 1, v38, v24, v25, v26, v27, v28, v40);
 LABEL_16:
         v20 = 0;
         goto LABEL_17;
@@ -2296,13 +2298,13 @@ LABEL_16:
       v37 = @"CFStringCreateExternalRepresentation\n";
     }
 
-    logfunction("", 1, v37, v15, v16, v17, v18, v19, 164);
+    logfunction("", 1, v37, v15, v16, v17, v18, v19);
 LABEL_17:
     v36 = 0xFFFFFFFFLL;
     goto LABEL_18;
   }
 
-  logfunction("", 1, @"open\n", v8, v9, v10, v11, v12, 164);
+  logfunction("", 1, @"open\n", v8, v9, v10, v11, v12);
   v20 = 0;
   v36 = 0xFFFFFFFFLL;
   if (Mutable)
@@ -2322,11 +2324,11 @@ LABEL_20:
 
 uint64_t _AMRRegexSubstitution(const char *a1, const char *a2, const char *a3)
 {
-  v4 = a2;
-  memset(&v24, 0, sizeof(v24));
-  if (regcomp(&v24, a2, 1))
+  memset(&v25, 0, sizeof(v25));
+  v6 = regcomp(&v25, a2, 1);
+  if (v6)
   {
-    logfunction("", 1, @"unable to compile regex '%s': %d\n", v6, v7, v8, v9, v10, v4);
+    logfunction("", 1, @"unable to compile regex '%s': %d\n", v7, v8, v9, v10, v11, a2, v6);
     return 0xFFFFFFFFLL;
   }
 
@@ -2335,47 +2337,47 @@ uint64_t _AMRRegexSubstitution(const char *a1, const char *a2, const char *a3)
     __pmatch.rm_so = 0;
     for (__pmatch.rm_eo = 0; ; a1 += __pmatch.rm_eo)
     {
-      v12 = regexec(&v24, a1, 1uLL, &__pmatch, 0);
-      if (v12)
+      v13 = regexec(&v25, a1, 1uLL, &__pmatch, 0);
+      if (v13)
       {
         break;
       }
 
-      v18 = __pmatch.rm_eo - __pmatch.rm_so;
-      v19 = strlen(a3);
-      v20 = LODWORD(__pmatch.rm_eo) - LODWORD(__pmatch.rm_so) - v19;
-      if (v19 < __pmatch.rm_eo - __pmatch.rm_so)
+      v19 = __pmatch.rm_eo - __pmatch.rm_so;
+      v20 = strlen(a3);
+      v21 = LODWORD(__pmatch.rm_eo) - LODWORD(__pmatch.rm_so) - v20;
+      if (v20 < __pmatch.rm_eo - __pmatch.rm_so)
       {
-        v18 = v19;
+        v19 = v20;
       }
 
-      memcpy(&a1[__pmatch.rm_so], a3, v18);
-      if (v20 >= 1)
+      memcpy(&a1[__pmatch.rm_so], a3, v19);
+      if (v21 >= 1)
       {
-        v21 = v20 & 0x7FFFFFFF;
-        memset(&a1[__pmatch.rm_so + v18], 62, v21);
-        a1 += v21;
+        v22 = v21 & 0x7FFFFFFF;
+        memset(&a1[__pmatch.rm_so + v19], 62, v22);
+        a1 += v22;
       }
     }
 
-    if (v12 == 1)
+    if (v13 == 1)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      logfunction("", 1, @"regex matching failed for '%s': %d\n", v13, v14, v15, v16, v17, v4);
-      v11 = 0xFFFFFFFFLL;
+      logfunction("", 1, @"regex matching failed for '%s': %d\n", v14, v15, v16, v17, v18, a2, v13);
+      v12 = 0xFFFFFFFFLL;
     }
 
-    regfree(&v24);
+    regfree(&v25);
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t msu_get_os_env()
+uint64_t msu_get_os_env(uint64_t a1, uint64_t a2)
 {
   if (msu_get_os_env_onceToken != -1)
   {
@@ -2391,8 +2393,8 @@ void __msu_get_os_env_block_invoke(id a1)
   if (sysctlbyname("hw.osenvironment", 0, &count, 0, 0) == -1)
   {
     v29 = __error();
-    strerror(*v29);
-    logfunction("", 1, @"Unable to determine size of %s variable(%s)\n", v30, v31, v32, v33, v34, "hw.osenvironment");
+    v42 = strerror(*v29);
+    logfunction("", 1, @"Unable to determine size of %s variable(%s)\n", v30, v31, v32, v33, v34, "hw.osenvironment", v42);
   }
 
   else
@@ -2404,24 +2406,24 @@ void __msu_get_os_env_block_invoke(id a1)
       if (sysctlbyname("hw.osenvironment", v1, &count, 0, 0) == -1)
       {
         v35 = __error();
-        strerror(*v35);
-        logfunction("", 1, @"Failed to read %s sysctl: %s\n", v36, v37, v38, v39, v40, "hw.osenvironment");
+        v36 = strerror(*v35);
+        logfunction("", 1, @"Failed to read %s sysctl: %s\n", v37, v38, v39, v40, v41, "hw.osenvironment", v36);
       }
 
       else
       {
-        logfunction("", 1, @"%s = '%s'\n", v8, v9, v10, v11, v12, "hw.osenvironment");
+        logfunction("", 1, @"%s = '%s'\n", v8, v9, v10, v11, v12, "hw.osenvironment", v7);
         if (*v7)
         {
           if (!strcmp(v7, "device-recovery"))
           {
-            logfunction("", 1, @"Detected DRE environment (%s=%s)\n", v18, v19, v20, v21, v22, "hw.osenvironment");
+            logfunction("", 1, @"Detected DRE environment (%s=%s)\n", v18, v19, v20, v21, v22, "hw.osenvironment", v7);
             v28 = 16;
           }
 
           else if (!strcmp(v7, "recovery"))
           {
-            logfunction("", 1, @"Detected NeRD environment (%s=%s)\n", v23, v24, v25, v26, v27, "hw.osenvironment");
+            logfunction("", 1, @"Detected NeRD environment (%s=%s)\n", v23, v24, v25, v26, v27, "hw.osenvironment", v7);
             v28 = 8;
           }
 
@@ -2474,7 +2476,7 @@ LABEL_40:
   v16 = CFProperty;
   if (!CFProperty || (v17 = CFGetTypeID(CFProperty), v17 != CFNumberGetTypeID()))
   {
-    logfunction("", 1, @"Invalid value '%@' for property key '%@'\n", v11, v12, v13, v14, v15, v16);
+    logfunction("", 1, @"Invalid value '%@' for property key '%@'\n", v11, v12, v13, v14, v15, v16, @"Size");
     v52 = 0;
     goto LABEL_37;
   }
@@ -2521,7 +2523,7 @@ LABEL_45:
   v45 = v39;
   if (!v38 || !v39)
   {
-    logfunction("", 1, @"Failed to allocate key/value buffers to fetch system padding value\n\n", v40, v41, v42, v43, v44, v62);
+    logfunction("", 1, @"Failed to allocate key/value buffers to fetch system padding value\n\n", v40, v41, v42, v43, v44);
     v52 = 0;
     if (v38)
     {
@@ -2532,7 +2534,7 @@ LABEL_45:
   }
 
   CFDictionaryGetKeysAndValues(v30, v38, v39);
-  v69 = 0;
+  v68 = 0;
   *buffer = 0;
   if (v37 < 1)
   {
@@ -2543,19 +2545,19 @@ LABEL_45:
   v51 = 0;
   v52 = 0;
   v53 = 0;
-  v63 = v23 >> 30;
-  v64 = 0;
+  v62 = v23 >> 30;
+  v63 = 0;
   do
   {
     v54 = v38[v51];
     v55 = v45[v51];
-    v66 = 0;
     v65 = 0;
+    v64 = 0;
     if (!v54)
     {
       v60 = @"Failed to get marketing size key from padding dict\n\n";
 LABEL_32:
-      logfunction("", 1, v60, v46, v47, v48, v49, v50, v62);
+      logfunction("", 1, v60, v46, v47, v48, v49, v50);
       goto LABEL_33;
     }
 
@@ -2565,7 +2567,7 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    v69 = 0;
+    v68 = 0;
     *buffer = 0;
     if (!CFStringGetCString(v54, buffer, 10, 0x8000100u))
     {
@@ -2573,41 +2575,41 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    if (!sscanf(buffer, "%d", &v65))
+    if (!sscanf(buffer, "%d", &v64))
     {
       v60 = @"Failed to parse out padding value from capacity string\n\n";
       goto LABEL_32;
     }
 
-    if (!CFNumberGetValue(v55, kCFNumberSInt64Type, &v66))
+    if (!CFNumberGetValue(v55, kCFNumberSInt64Type, &v65))
     {
       v60 = @"Failed to convert CFNumberRef value into int\n\n";
       goto LABEL_32;
     }
 
-    v56 = v63 - v65;
-    if (v63 - v65 < 0)
+    v56 = v62 - v64;
+    if ((v62 - v64) < 0)
     {
-      v56 = v65 - v63;
+      v56 = v64 - v62;
     }
 
     v57 = v51 != 0;
     v58 = v56 > v53;
     if (v57 && v58)
     {
-      v59 = v64;
+      v59 = v63;
     }
 
     else
     {
       v53 = v56;
-      v59 = v65;
+      v59 = v64;
     }
 
-    v64 = v59;
+    v63 = v59;
     if (!v57 || !v58)
     {
-      v52 = v66;
+      v52 = v65;
     }
 
 LABEL_33:
@@ -2617,7 +2619,7 @@ LABEL_33:
   while (v37 != v51);
   if (v53 >= 11)
   {
-    logfunction("", 1, @"Closest marketing capacity entry for padding was %dGB however this device is %dGB, this might not be optimal\n\n", v46, v47, v48, v49, v50, v64);
+    logfunction("", 1, @"Closest marketing capacity entry for padding was %dGB however this device is %dGB, this might not be optimal\n\n", v46, v47, v48, v49, v50, v63, v62);
   }
 
 LABEL_50:
@@ -2767,7 +2769,7 @@ CFErrorRef _vcreate_error_internal_with_userinfo_cf(const __CFString *a1, CFInde
     if (v17)
     {
       v23 = v17;
-      logfunction("", 1, @"%@ error %ld - %@\n", v18, v19, v20, v21, v22, a1);
+      logfunction("", 1, @"%@ error %ld - %@\n", v18, v19, v20, v21, v22, a1, a2, v17);
       CFDictionaryAddValue(v16, kCFErrorLocalizedDescriptionKey, v23);
       CFRelease(v23);
     }
@@ -2795,7 +2797,7 @@ CFErrorRef _vcreate_error_internal_with_userinfo_cf(const __CFString *a1, CFInde
   return v24;
 }
 
-__CFString *copy_underlying_error_description(__CFString *a1)
+CFMutableStringRef copy_underlying_error_description(__CFString *a1)
 {
   if (!a1)
   {
@@ -2819,7 +2821,7 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
   v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &valuePtr);
   if (!v6)
   {
-    logfunction("", 1, @"could not create cfnumber\n", v7, v8, v9, v10, v11, v29);
+    logfunction("", 1, @"could not create cfnumber\n", v7, v8, v9, v10, v11);
     v22 = 0;
     if (!v5)
     {
@@ -2831,11 +2833,11 @@ CFDictionaryRef cferror_to_dictionary_embedded(__CFError *a1, int a2)
 
   v12 = v6;
   *keys = *off_100049520;
-  v35 = *&off_100049530;
+  v34 = *&off_100049530;
   values[0] = v6;
   values[1] = Domain;
-  v32 = v5;
-  v33 = 0;
+  v31 = v5;
+  v32 = 0;
   if (v5)
   {
     Value = CFDictionaryGetValue(v5, kCFErrorUnderlyingErrorKey);
@@ -2862,7 +2864,7 @@ LABEL_17:
       if (MutableCopy)
       {
         CFDictionarySetValue(MutableCopy, kCFErrorUnderlyingErrorKey, v17);
-        v32 = v14;
+        v31 = v14;
       }
 
       CFRelease(v17);
@@ -2871,8 +2873,8 @@ LABEL_17:
     if (a2)
     {
 LABEL_10:
-      v19 = (&v35 + 8);
-      v20 = &v33;
+      v19 = (&v34 + 8);
+      v20 = &v32;
       v21 = 4;
 LABEL_15:
       *v19 = @"_MSU_Embedded_Error";
@@ -2886,8 +2888,8 @@ LABEL_15:
   v14 = 0;
   if (a2)
   {
-    v19 = &v35;
-    v20 = &v32;
+    v19 = &v34;
+    v20 = &v31;
     v21 = 3;
     goto LABEL_15;
   }
@@ -2897,7 +2899,7 @@ LABEL_19:
   v22 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, v21, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!v22)
   {
-    logfunction("", 1, @"could not create cfdictionary\n", v23, v24, v25, v26, v27, v29);
+    logfunction("", 1, @"could not create cfdictionary\n", v23, v24, v25, v26, v27);
   }
 
   if (v14)
@@ -2928,7 +2930,7 @@ const __CFString *copy_dictionary_to_cferror(const void *a1)
   {
     v21 = @"marshalled cferror is not a dictionary.\n";
 LABEL_17:
-    logfunction("", 1, v21, v3, v4, v5, v6, v7, v23);
+    logfunction("", 1, v21, v3, v4, v5, v6, v7);
     return 0;
   }
 
@@ -2948,7 +2950,7 @@ LABEL_17:
   v14 = CFDictionaryGetValue(a1, @"Domain");
   if (!v14)
   {
-    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13, v23);
+    logfunction("", 1, @"marshalled cferror is incomplete. missing domain.\n", v9, v10, v11, v12, v13);
     return v14;
   }
 
@@ -2981,7 +2983,7 @@ LABEL_17:
   return v14;
 }
 
-uint64_t performCryptegraftSemiSplat(const void *a1, const __CFString **a2)
+uint64_t performCryptegraftSemiSplat(const void *a1, CFErrorRef *a2)
 {
   v4 = copy_shared_cryptegraft_service_connection();
   if (v4)
@@ -3018,7 +3020,7 @@ uint64_t performCryptegraftSemiSplat(const void *a1, const __CFString **a2)
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cryptegraft connection", v5, v6, v7, v25);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cryptegraft connection", v5, v6, v7);
     if (a2)
     {
       v22 = 0;
@@ -3046,7 +3048,7 @@ uint64_t copy_shared_cryptegraft_service_connection()
   return copy_shared_cryptegraft_service_connection_service_connection;
 }
 
-uint64_t performCryptegraftDownlevel(const void *a1, const void *a2, const __CFString **a3)
+uint64_t performCryptegraftDownlevel(const void *a1, const void *a2, CFErrorRef *a3)
 {
   v6 = copy_shared_cryptegraft_service_connection();
   if (v6)
@@ -3092,7 +3094,7 @@ uint64_t performCryptegraftDownlevel(const void *a1, const void *a2, const __CFS
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cryptegraft connection", v7, v8, v9, v28);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cryptegraft connection", v7, v8, v9);
     if (a3)
     {
       v25 = 0;
@@ -3225,15 +3227,15 @@ int main(int argc, const char **argv, const char **envp)
   v16 = +[NSFileManager defaultManager];
   if (is_first_boot_after_update())
   {
-    *v49 = 0;
-    [(NSFileManager *)v16 removeItemAtPath:@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/updateDate" error:v49];
-    if (*v49)
+    *v51 = 0;
+    [(NSFileManager *)v16 removeItemAtPath:@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/updateDate" error:v51];
+    if (*v51)
     {
       v17 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *&buf[4] = *v49;
+        *&buf[4] = *v51;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MAIN] Unable to remove date file : %{public}@", buf, 0xCu);
       }
     }
@@ -3245,15 +3247,15 @@ int main(int argc, const char **argv, const char **envp)
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[MAIN] Creating new date file", buf, 2u);
     }
 
-    v48 = 0;
-    v19 = +[NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:error:](NSKeyedArchiver, "archivedDataWithRootObject:requiringSecureCoding:error:", +[NSDate date], 1, &v48);
-    if (!v19 || v48)
+    v50 = 0;
+    v19 = +[NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:error:](NSKeyedArchiver, "archivedDataWithRootObject:requiringSecureCoding:error:", +[NSDate date], 1, &v50);
+    if (!v19 || v50)
     {
       v27 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = v48;
-        if (!v48)
+        v28 = v50;
+        if (!v50)
         {
           v28 = @"Unknown Error";
         }
@@ -3273,15 +3275,15 @@ int main(int argc, const char **argv, const char **envp)
       v21 = [@"/var/MobileSoftwareUpdate/Controller/SUCoreAnalytics/updateDate" stringByDeletingLastPathComponent];
       if (![(NSFileManager *)v16 fileExistsAtPath:v21])
       {
-        v47 = 0;
-        [(NSFileManager *)v16 createDirectoryAtPath:v21 withIntermediateDirectories:1 attributes:0 error:&v47];
-        if (v47)
+        v49 = 0;
+        [(NSFileManager *)v16 createDirectoryAtPath:v21 withIntermediateDirectories:1 attributes:0 error:&v49];
+        if (v49)
         {
           v22 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *&buf[4] = v47;
+            *&buf[4] = v49;
             _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[MAIN] Unable to create controller folder for softwareupdated: %{public}@", buf, 0xCu);
           }
         }
@@ -3323,7 +3325,7 @@ LABEL_41:
 
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      main_cold_4(&cf);
+      main_cold_4();
     }
 
 LABEL_46:
@@ -3343,7 +3345,7 @@ LABEL_46:
   {
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      main_cold_3(&cf);
+      main_cold_3();
     }
 
     goto LABEL_46;
@@ -3370,10 +3372,11 @@ LABEL_48:
   v39 = v38;
   if (v37)
   {
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+    if (v40)
     {
-      *v49 = 0;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[MAIN] Successfully cleaned up RecoveryOS state files", v49, 2u);
+      *v51 = 0;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[MAIN] Successfully cleaned up RecoveryOS state files", v51, 2u);
     }
   }
 
@@ -3381,9 +3384,10 @@ LABEL_48:
   {
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      main_cold_5(buf);
+      main_cold_5();
     }
 
+    v40 = *buf;
     if (*buf)
     {
       CFRelease(*buf);
@@ -3391,22 +3395,22 @@ LABEL_48:
     }
   }
 
-  if (msu_should_save_env_info_for_recovery())
+  if (msu_should_save_env_info_for_recovery(v40, v41))
   {
-    v40 = copyAdditionalOptionsForBootedOSState();
-    v41 = saveCurrentBootedOSStateForRecoveryModes(v40);
-    v42 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
-    v43 = v42;
-    if (v41)
+    v42 = copyAdditionalOptionsForBootedOSState();
+    v43 = saveCurrentBootedOSStateForRecoveryModes(v42);
+    v44 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
+    v45 = v44;
+    if (v43)
     {
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        *v49 = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "[MAIN] Successfully wrote out bootedOS environment information", v49, 2u);
+        *v51 = 0;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[MAIN] Successfully wrote out bootedOS environment information", v51, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       main_cold_6();
     }
@@ -3418,11 +3422,11 @@ LABEL_48:
 LABEL_65:
   mach_service = xpc_connection_create_mach_service("com.apple.mobile.softwareupdated", 0, 1uLL);
   xpc_connection_set_event_handler(mach_service, &__block_literal_global_17);
-  v45 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+  v47 = [+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")];
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[MAIN] softwareupdated ready to handle client messages", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[MAIN] softwareupdated ready to handle client messages", buf, 2u);
   }
 
   xpc_connection_resume(mach_service);
@@ -3599,7 +3603,7 @@ LABEL_38:
   {
     if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      __main_block_invoke_11_cold_1(&cf);
+      __main_block_invoke_11_cold_1();
     }
 
     v18 = XPC_ACTIVITY_INTERVAL_1_DAY;
@@ -3779,7 +3783,7 @@ LABEL_22:
   handle_message(v17, object, &jump_table, 27, v12, v13, v14, v15, a9);
 }
 
-uint64_t get_peer_connections_queue()
+uint64_t get_peer_connections_queue(uint64_t a1, uint64_t a2)
 {
   if (get_peer_connections_queue_peer_connections_queue_once != -1)
   {
@@ -3839,7 +3843,7 @@ void handle_update_metrics()
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | BEGIN", buf, 0xCu);
   }
 
@@ -3856,11 +3860,11 @@ void handle_update_metrics()
     }
 
     *buf = 138412802;
-    v58 = @"handle_update_metrics";
-    v59 = 2112;
-    *v60 = @"TestInhibitPromptForTTR";
-    *&v60[8] = 2114;
-    *&v60[10] = @"msu-test-inhibit-ttr";
+    v57 = @"handle_update_metrics";
+    v58 = 2112;
+    *v59 = @"TestInhibitPromptForTTR";
+    *&v59[8] = 2114;
+    *&v59[10] = @"msu-test-inhibit-ttr";
     v5 = "[UPDATE_METRICS] %@ | softwareupdated supporting TTR prompt disable [preference %@, NVRAM %{public}@]";
     v6 = v3;
     v7 = 32;
@@ -3874,7 +3878,7 @@ void handle_update_metrics()
     }
 
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     v5 = "[UPDATE_METRICS] %@ | softwareupdated running on iOS";
     v6 = v3;
     v7 = 12;
@@ -3929,7 +3933,7 @@ LABEL_15:
       if (v24)
       {
         *buf = 138543362;
-        v58 = v22;
+        v57 = v22;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS]: | Asset audience %{public}@ found", buf, 0xCu);
       }
 
@@ -3983,17 +3987,17 @@ LABEL_31:
     if (v31)
     {
       *buf = 138412290;
-      v58 = @"handle_update_metrics";
+      v57 = @"handle_update_metrics";
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | record updateFinished (should prompt for TTR)", buf, 0xCu);
     }
 
     softwareupdated_add_additional_analytics_data_for_phase(v10);
-    v55[0] = _NSConcreteStackBlock;
-    v55[1] = 3221225472;
-    v55[2] = __handle_update_metrics_block_invoke;
-    v55[3] = &unk_1000499B0;
-    v55[4] = @"handle_update_metrics";
-    [v1 recordPostUpdateEvent:@"updateFinished" additionalInfo:v10 withCallback:v55];
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = __handle_update_metrics_block_invoke;
+    v54[3] = &unk_1000499B0;
+    v54[4] = @"handle_update_metrics";
+    [v1 recordPostUpdateEvent:@"updateFinished" additionalInfo:v10 withCallback:v54];
     if (!v10)
     {
       goto LABEL_44;
@@ -4007,7 +4011,7 @@ LABEL_43:
   if (v31)
   {
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | record updateFinished", buf, 0xCu);
   }
 
@@ -4025,11 +4029,11 @@ LABEL_44:
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v58 = @"report_logs_for_long_ramdisk_if_needed";
-    v59 = 1024;
-    *v60 = previous_update_state;
-    *&v60[4] = 2114;
-    *&v60[6] = previous_apply_date;
+    v57 = @"report_logs_for_long_ramdisk_if_needed";
+    v58 = 1024;
+    *v59 = previous_update_state;
+    *&v59[4] = 2114;
+    *&v59[6] = previous_apply_date;
     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | previous_update_state=%d lastApplyDate=%{public}@", buf, 0x1Cu);
   }
 
@@ -4041,7 +4045,7 @@ LABEL_44:
       handle_update_metrics_cold_2();
     }
 
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 78, 0, 0, @"Update finish took too long since apply finish event", v36, v37, v38, v54);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 78, 0, 0, @"Update finish took too long since apply finish event", v36, v37, v38);
     submitRestoreLogFile(error_internal_cf, 0, 0, 0);
     if (error_internal_cf)
     {
@@ -4053,7 +4057,7 @@ LABEL_44:
   if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | Clean up NVRAM", buf, 0xCu);
   }
 
@@ -4061,7 +4065,7 @@ LABEL_44:
   {
     if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      handle_update_metrics_cold_3(&cf);
+      handle_update_metrics_cold_3();
     }
 
     if (cf)
@@ -4075,7 +4079,7 @@ LABEL_44:
   if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | Submit any accumulated events", buf, 0xCu);
   }
 
@@ -4086,7 +4090,7 @@ LABEL_44:
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = @"handle_update_metrics";
+      v57 = @"handle_update_metrics";
       _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | Flushing RecoveryOS controller events", buf, 0xCu);
     }
 
@@ -4107,7 +4111,7 @@ LABEL_44:
   if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v58 = @"handle_update_metrics";
+    v57 = @"handle_update_metrics";
     _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "[UPDATE_METRICS] %@ | DONE", buf, 0xCu);
   }
 }
@@ -4522,7 +4526,7 @@ void handle_create_update_brain_connection(_xpc_connection_s *a1, void *a2, void
   {
     if (!cf)
     {
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No service connection", v8, v9, v10, v15[0]);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No service connection", v8, v9, v10);
       cf = error_internal_cf;
     }
 
@@ -4571,21 +4575,21 @@ void handle_purge_suspended_update(_xpc_connection_s *a1, void *a2, CFDictionary
 
 void handle_calculate_prepare_size(_xpc_connection_s *a1, void *a2, CFDictionaryRef theDict)
 {
-  v18 = 0;
+  v17 = 0;
   valuePtr = 0;
   error_internal_cf = 0;
   Value = CFDictionaryGetValue(theDict, @"AssetProperties");
   if (Value)
   {
     v10 = CFDictionaryGetValue(theDict, @"TargetUUID");
-    if (MSUAssetCalculatePrepareSizes_server(v10, Value, &valuePtr, &v18, &error_internal_cf))
+    if (MSUAssetCalculatePrepareSizes_server(v10, Value, &valuePtr, &v17, &error_internal_cf))
     {
       Value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
       if (Value)
       {
         v14 = +[NSMutableDictionary dictionary];
         [v14 setObject:Value forKeyedSubscript:@"Size"];
-        [v14 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v18), @"SnapshotSize"}];
+        [v14 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v17), @"SnapshotSize"}];
         msu_send_status(a1, a2, v14);
       }
 
@@ -4611,7 +4615,7 @@ void handle_calculate_prepare_size(_xpc_connection_s *a1, void *a2, CFDictionary
 
   else
   {
-    v15 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties in request", v6, v7, v8, v16);
+    v15 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties in request", v6, v7, v8);
     error_internal_cf = v15;
     msu_send_error(a1, a2, v15, 1);
     if (v15)
@@ -4630,20 +4634,20 @@ LABEL_10:
 
 void handle_calculate_apply_size(_xpc_connection_s *a1, void *a2, CFDictionaryRef theDict)
 {
-  v17 = 0;
+  v16 = 0;
   valuePtr = 0;
   error_internal_cf = 0;
   Value = CFDictionaryGetValue(theDict, @"AssetProperties");
   if (Value)
   {
-    if (MSUAssetCalculateApplySizes_server(Value, &valuePtr, &v17, &error_internal_cf))
+    if (MSUAssetCalculateApplySizes_server(Value, &valuePtr, &v16, &error_internal_cf))
     {
       v12 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
       if (v12)
       {
         v13 = +[NSMutableDictionary dictionary];
         [v13 setObject:v12 forKeyedSubscript:@"Size"];
-        [v13 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v17), @"SnapshotSize"}];
+        [v13 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v16), @"SnapshotSize"}];
         msu_send_status(a1, a2, v13);
       }
 
@@ -4669,7 +4673,7 @@ void handle_calculate_apply_size(_xpc_connection_s *a1, void *a2, CFDictionaryRe
 
   else
   {
-    v14 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties in request", v6, v7, v8, v15);
+    v14 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset properties in request", v6, v7, v8);
     error_internal_cf = v14;
     msu_send_error(a1, a2, v14, 1);
     v12 = 0;
@@ -4740,22 +4744,22 @@ void handle_cancel_load_brain(_xpc_connection_s *a1, void *a2, CFDictionaryRef t
   Value = CFDictionaryGetValue(theDict, @"AssetProperties");
   if (Value)
   {
-    v16 = 0;
-    if ([[MSUUpdateBrainLocator brainLocatorWithUpdateAttributes:?], "cancelInstall:", &v16])
+    v15 = 0;
+    if ([[MSUUpdateBrainLocator brainLocatorWithUpdateAttributes:?], "cancelInstall:", &v15])
     {
       msu_send_status(a1, a2, 0);
     }
 
     else
     {
-      logfunction("", 1, @"Failed to cancel update brain: %@\n", v9, v10, v11, v12, v13, v16);
-      msu_send_error(a1, a2, v16, 1);
+      logfunction("", 1, @"Failed to cancel update brain: %@\n", v9, v10, v11, v12, v13, v15);
+      msu_send_error(a1, a2, v15, 1);
     }
   }
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset attributes in request", v6, v7, v8, v15);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset attributes in request", v6, v7, v8);
     msu_send_error(a1, a2, error_internal_cf, 1);
 
     CFRelease(error_internal_cf);
@@ -4768,7 +4772,7 @@ void handle_adjust_load_brain_options(void *a1, void *a2, CFDictionaryRef theDic
   {
     xpc_retain(a1);
     xpc_retain(a2);
-    v10 = os_transaction_create();
+    v9 = os_transaction_create();
     msu_send_status(a1, a2, 0);
     xpc_release(a1);
     xpc_release(a2);
@@ -4776,7 +4780,7 @@ void handle_adjust_load_brain_options(void *a1, void *a2, CFDictionaryRef theDic
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset attributes in request", v5, v6, v7, v9);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No asset attributes in request", v5, v6, v7);
     msu_send_error(a1, a2, error_internal_cf, 1);
 
     CFRelease(error_internal_cf);
@@ -4785,7 +4789,7 @@ void handle_adjust_load_brain_options(void *a1, void *a2, CFDictionaryRef theDic
 
 void handle_ma_adjust_load_brain_options(void *a1, void *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"in handle_ma_adjust_load_brain_options\n", a4, a5, a6, a7, a8, v24);
+  logfunction("", 1, @"in handle_ma_adjust_load_brain_options\n", a4, a5, a6, a7, a8);
   Value = CFDictionaryGetValue(a3, @"AssetProperties");
   ObjectFromMessage = getObjectFromMessage(a2);
   if (ObjectFromMessage)
@@ -4803,14 +4807,14 @@ void handle_ma_adjust_load_brain_options(void *a1, void *a2, const __CFDictionar
           v21 = [MSUUpdateBrainLocator brainLocatorWithUpdateAttributes:Value];
           xpc_retain(a1);
           xpc_retain(a2);
-          v26[0] = _NSConcreteStackBlock;
-          v26[1] = 3221225472;
-          v26[2] = __handle_ma_adjust_load_brain_options_block_invoke;
-          v26[3] = &unk_100049AB0;
-          v26[4] = a1;
-          v26[5] = a2;
-          v26[6] = os_transaction_create();
-          [(MSUUpdateBrainLocator *)v21 adjustMADownloadOptions:v20 callback:v26];
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = __handle_ma_adjust_load_brain_options_block_invoke;
+          v24[3] = &unk_100049AB0;
+          v24[4] = a1;
+          v24[5] = a2;
+          v24[6] = os_transaction_create();
+          [(MSUUpdateBrainLocator *)v21 adjustMADownloadOptions:v20 callback:v24];
           return;
         }
       }
@@ -4824,7 +4828,7 @@ void handle_ma_adjust_load_brain_options(void *a1, void *a2, const __CFDictionar
     v22 = @"No secure encoded object in request";
   }
 
-  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, v22, v15, v16, v17, v25);
+  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, v22, v15, v16, v17);
   msu_send_error(a1, a2, error_internal_cf, 1);
 
   CFRelease(error_internal_cf);
@@ -4919,17 +4923,17 @@ void handle_reboot_to_nerd_call(_xpc_connection_s *a1, void *a2)
 void handle_check_preparation_size(_xpc_connection_s *a1, void *a2, CFDictionaryRef theDict)
 {
   valuePtr = 0;
-  v23 = 0;
+  v22 = 0;
   cf = 0;
   Value = CFDictionaryGetValue(theDict, @"ClientOptions");
   if (Value)
   {
     CFNumberGetValue(Value, kCFNumberSInt64Type, &valuePtr);
-    MSUCheckPreparationSize_server(valuePtr, &v23, &cf);
+    MSUCheckPreparationSize_server(valuePtr, &v22, &cf);
     Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (Mutable)
     {
-      v16 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v23);
+      v16 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v22);
       if (v16)
       {
         CFDictionarySetValue(Mutable, @"RequiredSize", v16);
@@ -4949,14 +4953,14 @@ void handle_check_preparation_size(_xpc_connection_s *a1, void *a2, CFDictionary
 
       else
       {
-        cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Could not create CFNumber from %llu", v13, v14, v15, v23);
+        cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Could not create CFNumber from %llu", v13, v14, v15, v22);
         msu_send_error(a1, a2, cf, 1);
       }
     }
 
     else
     {
-      cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Could not allocate CFMutableDictionary", v9, v10, v11, v20);
+      cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Could not allocate CFMutableDictionary", v9, v10, v11);
       msu_send_error(a1, a2, cf, 1);
       v16 = 0;
     }
@@ -4970,7 +4974,7 @@ void handle_check_preparation_size(_xpc_connection_s *a1, void *a2, CFDictionary
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No prep size in request", v6, v7, v8, v20);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"No prep size in request", v6, v7, v8);
     cf = error_internal_cf;
     msu_send_error(a1, a2, error_internal_cf, 1);
     v16 = 0;
@@ -5014,7 +5018,7 @@ void handle_check_installation_size(_xpc_connection_s *a1, void *a2, CFDictionar
     v12 = @"MSUCheckInstallationSize_server failed";
     v13 = 7;
 LABEL_5:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v13, v11, 0, v12, v8, v9, v10, v23);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v13, v11, 0, v12, v8, v9, v10);
     msu_send_error(a1, a2, error_internal_cf, 1);
     v15 = 0;
     Mutable = 0;
@@ -5041,7 +5045,7 @@ LABEL_5:
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Could not allocate CFMutableDictionary", v17, v18, v19, v23);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 14, 0, 0, @"Could not allocate CFMutableDictionary", v17, v18, v19);
     msu_send_error(a1, a2, error_internal_cf, 1);
     v15 = 0;
   }
@@ -5072,10 +5076,10 @@ LABEL_6:
 void handle_brain_is_loadable(_xpc_connection_s *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   cf = 0;
-  logfunction("", 1, @"Entering handle_brain_is_loadable\n", a4, a5, a6, a7, a8, v35);
+  logfunction("", 1, @"Entering handle_brain_is_loadable\n", a4, a5, a6, a7, a8);
   if (brain_is_loaded == 1)
   {
-    logfunction("", 1, @"brain has been loaded\n", v10, v11, v12, v13, v14, v36);
+    logfunction("", 1, @"brain has been loaded\n", v10, v11, v12, v13, v14);
     v15 = 0;
 LABEL_3:
     msu_send_status(a1, a2, 0);
@@ -5099,9 +5103,9 @@ LABEL_3:
 
       if ([objc_msgSend(objc_msgSend(cf "userInfo")])
       {
-        v38 = @"LoadTrustCachePurgedBrain";
-        v39 = &__kCFBooleanTrue;
-        v28 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v37 = @"LoadTrustCachePurgedBrain";
+        v38 = &__kCFBooleanTrue;
+        v28 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
       }
 
       else
@@ -5109,7 +5113,7 @@ LABEL_3:
         v28 = 0;
       }
 
-      error_internal_with_userinfo_cf = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 39, 0, 0, v28, @"Failed to load update brain trust cache", v26, v27, v36);
+      error_internal_with_userinfo_cf = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 39, 0, 0, v28, @"Failed to load update brain trust cache", v26, v27, v35);
     }
 
     else
@@ -5122,7 +5126,7 @@ LABEL_3:
 
       else
       {
-        error_internal_with_userinfo_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 28, 0, 0, @"No update brain is installed", v23, v24, v25, v36);
+        error_internal_with_userinfo_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 28, 0, 0, @"No update brain is installed", v23, v24, v25);
       }
 
       v15 = 0;
@@ -5131,7 +5135,7 @@ LABEL_3:
 
   else
   {
-    logfunction("", 1, @"failed to get update attributs\n", v16, v17, v18, v19, v20, v36);
+    logfunction("", 1, @"failed to get update attributs\n", v16, v17, v18, v19, v20);
     error_internal_with_userinfo_cf = 0;
   }
 
@@ -5369,7 +5373,7 @@ LABEL_18:
       {
         if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
         {
-          handle_get_stashed_connectivity_data_command_cold_3(buf);
+          handle_get_stashed_connectivity_data_command_cold_3();
         }
       }
     }
@@ -5470,7 +5474,7 @@ void handle_perform_report_and_cleanup_command(_xpc_connection_s *a1, void *a2)
     v5 = kCFBooleanFalse;
     if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
     {
-      handle_perform_report_and_cleanup_command_cold_1(&cf);
+      handle_perform_report_and_cleanup_command_cold_1();
     }
   }
 
@@ -5571,7 +5575,7 @@ void handle_perform_cryptegraft_semisplat(_xpc_connection_s *a1, void *a2, void 
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      handle_perform_cryptegraft_semisplat_cold_1(&cf);
+      handle_perform_cryptegraft_semisplat_cold_1();
     }
 
     msu_send_error(a1, a2, cf, 0);
@@ -5649,7 +5653,7 @@ void handle_perform_cryptegraft_downlevel(_xpc_connection_s *a1, void *a2, void 
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      handle_perform_cryptegraft_downlevel_cold_1(&cf);
+      handle_perform_cryptegraft_downlevel_cold_1();
     }
 
     msu_send_error(a1, a2, cf, 0);
@@ -5668,13 +5672,13 @@ void handle_perform_cryptegraft_downlevel(_xpc_connection_s *a1, void *a2, void 
 
 void handle_perform_rv_nerd_update(_xpc_connection_s *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  logfunction("", 1, @"[RV] Triggering forced NeRD OS update for Release Validation testing\n", a4, a5, a6, a7, a8, v22);
+  logfunction("", 1, @"[RV] Triggering forced NeRD OS update for Release Validation testing\n", a4, a5, a6, a7, a8);
   msu_send_status(a1, a2, kCFNull);
   v10 = +[MSUNRDUpdateBrainController sharedInstance];
   v11 = [(MSUNRDUpdateBrainController *)v10 status];
   logfunction("", 1, @"[RV] NeRD update status: %@\n", v12, v13, v14, v15, v16, v11);
   [(MSUNRDUpdateBrainController *)v10 startForMSUUpdate:&__NSDictionary0__struct withMSUBrainVersion:0 withOptions:&off_100053D38];
-  logfunction("", 1, @"[RV] NeRD update started\n", v17, v18, v19, v20, v21, v23);
+  logfunction("", 1, @"[RV] NeRD update started\n", v17, v18, v19, v20, v21);
   msu_send_status(a1, a2, kCFNull);
   if (kCFNull)
   {
@@ -5796,7 +5800,7 @@ void __copy_shared_update_brain_connection_block_invoke(uint64_t a1)
             if (v21)
             {
               v22 = v21;
-              v33 = v18;
+              v36 = v18;
               string = xpc_dictionary_get_string(v16, "MSUBrainVersion");
               v24 = xpc_dictionary_get_string(v16, "MSUBrainUUID");
               if (string)
@@ -5812,30 +5816,30 @@ void __copy_shared_update_brain_connection_block_invoke(uint64_t a1)
               [v22 _setEndpoint:v20];
               v25 = [[MSUBrainClientImpl alloc] init:v24 version:string endpoint:v22 delgate:+[MSUBrainDelegateImpl_softwareupdated sharedInstance]];
               v17 = &OBJC_METACLASS___MSUUpdateBrainLocator;
-              v18 = v33;
+              v18 = v36;
               goto LABEL_34;
             }
 
-            v41 = NSDebugDescriptionErrorKey;
+            v44 = NSDebugDescriptionErrorKey;
             *buf = @"Could not create NSXPCListenerEndpoint";
-            v28 = [NSDictionary dictionaryWithObjects:buf forKeys:&v41 count:1];
+            v28 = [NSDictionary dictionaryWithObjects:buf forKeys:&v44 count:1];
             v29 = 1363;
           }
 
           else
           {
-            v39 = NSDebugDescriptionErrorKey;
-            v40 = @"UpdateBrainService did not return MSUBrainInterface endpoint";
-            v28 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+            v42 = NSDebugDescriptionErrorKey;
+            v43 = @"UpdateBrainService did not return MSUBrainInterface endpoint";
+            v28 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
             v29 = 1301;
           }
         }
 
         else
         {
-          v37 = NSDebugDescriptionErrorKey;
-          v38 = @"reply message is nil";
-          v28 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v40 = NSDebugDescriptionErrorKey;
+          v41 = @"reply message is nil";
+          v28 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
           v29 = 1350;
         }
 
@@ -5843,8 +5847,8 @@ void __copy_shared_update_brain_connection_block_invoke(uint64_t a1)
         {
           msubrain = 0;
 
-          v30 = msuSharedLogger();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v32 = msuSharedLogger(v30, v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             __copy_shared_update_brain_connection_block_invoke_cold_1();
           }
@@ -5866,17 +5870,17 @@ LABEL_36:
 LABEL_34:
         v17[70].cache = v25;
 
-        v31 = msuSharedLogger();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v35 = msuSharedLogger(v33, v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Successfully copied MSUBrain endpoint from ping reply", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Successfully copied MSUBrain endpoint from ping reply", buf, 2u);
         }
 
         goto LABEL_36;
       }
 
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 39, cf, 0, @"Failed to load update brain trust cache", v8, v9, v10, v32);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 39, cf, 0, @"Failed to load update brain trust cache", v8, v9, v10);
       v27 = *(a1 + 64);
       if (!v27)
       {
@@ -5889,7 +5893,7 @@ LABEL_34:
     {
       if (os_log_type_enabled([+[SUCoreLog sharedLogger](SUCoreLog "sharedLogger")], OS_LOG_TYPE_ERROR))
       {
-        __copy_shared_update_brain_connection_block_invoke_cold_2(&cf);
+        __copy_shared_update_brain_connection_block_invoke_cold_2();
       }
 
       error_internal_cf = CFRetain(cf);
@@ -5899,7 +5903,7 @@ LABEL_34:
 
     else
     {
-      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 28, 0, 0, @"No update brain is installed", v5, v6, v7, v32);
+      error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 28, 0, 0, @"No update brain is installed", v5, v6, v7);
       v27 = *(a1 + 64);
       if (!v27)
       {
@@ -5922,16 +5926,16 @@ LABEL_25:
   free(v3);
 }
 
-uint64_t load_trust_cache(uint64_t a1, NSError **a2)
+uint64_t load_trust_cache(uint64_t a1, id *a2)
 {
   trust_cache_at_path = load_trust_cache_at_path([[[NSString stringWithUTF8String:?]fileSystemRepresentation:@".TrustCache"]], a2);
   if (a2)
   {
     if (*a2)
     {
-      if ([(NSDictionary *)[(NSError *)*a2 userInfo] objectForKeyedSubscript:@"ShouldPurgeBrain"])
+      if ([objc_msgSend(*a2 "userInfo")])
       {
-        if ([-[NSDictionary objectForKeyedSubscript:](-[NSError userInfo](*a2 "userInfo")])
+        if ([objc_msgSend(objc_msgSend(*a2 "userInfo")])
         {
           logfunction("", 1, @"Load TrustCache failed with: %@, attempting to purge update brains\n", v4, v5, v6, v7, v8, *a2);
           v15 = 0;
@@ -6021,8 +6025,8 @@ NSData *getObjectFromMessage(void *a1)
     goto LABEL_11;
   }
 
-  v30 = 0;
-  v14 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v13 error:&v30];
+  v29 = 0;
+  v14 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v13 error:&v29];
   v13 = [v14 decodeObjectOfClasses:_decodeClasses forKey:NSKeyedArchiveRootObjectKey];
   if ([v14 error])
   {
@@ -6036,7 +6040,7 @@ NSData *getObjectFromMessage(void *a1)
   {
     v21 = @"decoded object from xpc message\n";
 LABEL_11:
-    logfunction("", 1, v21, v8, v9, v10, v11, v12, v29);
+    logfunction("", 1, v21, v8, v9, v10, v11, v12);
   }
 
   return v13;
@@ -6070,7 +6074,7 @@ void __handle_ma_load_brain_block_invoke(uint64_t a1, void *a2, __CFString *a3, 
     msu_send_progress(*(a1 + 56), a2);
   }
 
-  logfunction("", 1, @"Sending load complete without error\n", a4, a5, a6, a7, a8, v18);
+  logfunction("", 1, @"Sending load complete without error\n", a4, a5, a6, a7, a8);
   msu_send_status(*(a1 + 56), 0, 0);
   xpc_release(*(a1 + 56));
   xpc_release(*(a1 + 64));
@@ -6087,7 +6091,7 @@ void __handle_ma_load_brain_block_invoke_2(id a1)
     block[7] = v3;
     block[8] = v4;
     v5 = dispatch_group_create();
-    peer_connections_queue = get_peer_connections_queue();
+    peer_connections_queue = get_peer_connections_queue(v5, v6);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __perform_self_destruct_block_invoke;
@@ -6188,17 +6192,11 @@ void __handle_required_disk_space_block_invoke(uint64_t a1, void *a2, __CFError 
   v10 = *(a1 + 48);
 }
 
-uint64_t *OUTLINED_FUNCTION_1_1@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 int *logfunctionv(const char *a1, int a2, const __CFString *a3, va_list a4)
@@ -6294,7 +6292,7 @@ void *CryptoBufferAllocate(size_t size)
   memptr = 0;
   if (malloc_type_posix_memalign(&memptr, 0x10uLL, size, 0x7D56A5FDuLL))
   {
-    logfunction("", 1, @"Failed to allocate aligned crypto buffer\n\n", v2, v3, v4, v5, v6, v8);
+    logfunction("", 1, @"Failed to allocate aligned crypto buffer\n\n", v2, v3, v4, v5, v6);
   }
 
   else
@@ -6305,15 +6303,15 @@ void *CryptoBufferAllocate(size_t size)
   return memptr;
 }
 
-void log_xpc_event(char a1, xpc_object_t object)
+void log_xpc_event(uint64_t a1, xpc_object_t object)
 {
-  v8 = xpc_copy_description(object);
-  logfunction("", 1, @"%s: %s\n", v3, v4, v5, v6, v7, a1);
+  v3 = xpc_copy_description(object);
+  logfunction("", 1, @"%s: %s\n", v4, v5, v6, v7, v8, a1, v3);
 
-  free(v8);
+  free(v3);
 }
 
-void msu_process_dictionary_values_for_xpc_serialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_for_xpc_serialization(const void *a1, void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_for_xpc_serialization(a2);
   if (v5)
@@ -6403,35 +6401,35 @@ void msu_serialize_cf_object_into_xpc_dict(void *a1, const char *a2, void *a3, u
     return;
   }
 
-  v10 = msu_process_cf_object_for_xpc_serialization(a3);
-  if (!v10)
+  v11 = msu_process_cf_object_for_xpc_serialization(a3);
+  if (!v11)
   {
-    v12 = _CFXPCCreateXPCObjectFromCFObject();
-    if (v12)
+    v13 = _CFXPCCreateXPCObjectFromCFObject();
+    if (v13)
     {
       goto LABEL_4;
     }
 
 LABEL_9:
-    logfunction("", 1, @"could not create object for key %s:%@\n", v13, v14, v15, v16, v17, a2);
+    logfunction("", 1, @"could not create object for key %s:%@\n", v14, v15, v16, v17, v18, a2, a3);
     return;
   }
 
-  v11 = v10;
-  v12 = _CFXPCCreateXPCObjectFromCFObject();
-  CFRelease(v11);
-  if (!v12)
+  v12 = v11;
+  v13 = _CFXPCCreateXPCObjectFromCFObject();
+  CFRelease(v12);
+  if (!v13)
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  xpc_dictionary_set_value(a1, a2, v12);
+  xpc_dictionary_set_value(a1, a2, v13);
 
-  xpc_release(v12);
+  xpc_release(v13);
 }
 
-void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, uint64_t a2, __CFDictionary **a3)
+void msu_process_dictionary_values_from_xpc_deserialization(const void *a1, const void *a2, __CFDictionary **a3)
 {
   v5 = msu_process_cf_object_from_xpc_deserialization(a2);
   if (v5)
@@ -6598,7 +6596,7 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  logfunction("", 1, @"No command in request\n", v14, v15, v16, v17, v18, a9);
+  logfunction("", 1, @"No command in request\n", v14, v15, v16, v17, v18);
 }
 
 uint64_t msu_client_is_entitled(_xpc_connection_s *a1, uint64_t a2)
@@ -6608,7 +6606,6 @@ uint64_t msu_client_is_entitled(_xpc_connection_s *a1, uint64_t a2)
     return 1;
   }
 
-  v2 = a2;
   v4 = xpc_connection_copy_entitlement_value();
   if (v4)
   {
@@ -6631,7 +6628,7 @@ LABEL_17:
       v11 = @"Entitlement '%s' is not a BOOLean\n";
     }
 
-    logfunction("", 1, v11, v6, v7, v8, v9, v10, v2);
+    logfunction("", 1, v11, v6, v7, v8, v9, v10, a2);
     v12 = 0;
     goto LABEL_17;
   }
@@ -6657,7 +6654,7 @@ LABEL_17:
     v14 = strrchr(buffer, 47);
     if (v14)
     {
-      LOBYTE(v20) = v14 + 1;
+      v20 = v14 + 1;
     }
 
     else
@@ -6666,7 +6663,7 @@ LABEL_17:
     }
   }
 
-  logfunction("", 1, @"Client %s[%d] does not have the '%s' entitlement\n", v15, v16, v17, v18, v19, v20);
+  logfunction("", 1, @"Client %s[%d] does not have the '%s' entitlement\n", v15, v16, v17, v18, v19, v20, pid, a2);
   return 0;
 }
 
@@ -6759,7 +6756,7 @@ uint64_t msu_demux_reply(void *a1, const __CFString **a2, __CFDictionary **a3, c
   {
     v18 = @"No reply from daemon";
 LABEL_9:
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v18, a6, a7, a8, v28);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, v18, a6, a7, a8);
 LABEL_10:
     v19 = error_internal_cf;
     if (a4)
@@ -6961,7 +6958,7 @@ uint64_t _perform_cleanup_command(int a1, int a2, int a3, char a4, const void *a
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v13, v14, v15, v36);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v13, v14, v15);
     if (a6)
     {
       v33 = 0;
@@ -7010,7 +7007,7 @@ uint64_t perform_cleanup_recoveryos_saved_state_command(const __CFString **a1)
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection to cleanup recoveryOS state", v3, v4, v5, v16);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection to cleanup recoveryOS state", v3, v4, v5);
     if (a1)
     {
       v13 = 0;
@@ -7048,7 +7045,7 @@ uint64_t perform_cleanup_NVRAM_command(const __CFString **a1)
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v3, v4, v5, v16);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v3, v4, v5);
     if (a1)
     {
       v13 = 0;
@@ -7086,7 +7083,7 @@ uint64_t perform_reboot_to_nerd_command(const __CFString **a1)
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v3, v4, v5, v16);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v3, v4, v5);
     if (a1)
     {
       v13 = 0;
@@ -7110,7 +7107,7 @@ uint64_t perform_logs_cleanup_command(uint64_t a1, void *a2, const __CFString **
   v5 = copy_shared_cleanup_service_connection();
   if (!v5)
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v6, v7, v8, v31);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v6, v7, v8);
     if (a3)
     {
       v23 = 0;
@@ -7147,9 +7144,9 @@ uint64_t perform_logs_cleanup_command(uint64_t a1, void *a2, const __CFString **
     {
       if (a2)
       {
-        v32 = 0;
-        CFNumberGetValue(cf, kCFNumberSInt64Type, &v32);
-        *a2 = v32;
+        v31 = 0;
+        CFNumberGetValue(cf, kCFNumberSInt64Type, &v31);
+        *a2 = v31;
         if (!v12)
         {
           goto LABEL_15;
@@ -7161,7 +7158,7 @@ uint64_t perform_logs_cleanup_command(uint64_t a1, void *a2, const __CFString **
 
     else
     {
-      v29 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"oldest is not a number", v25, v26, v27, v31);
+      v29 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"oldest is not a number", v25, v26, v27);
       if (!a3)
       {
         CFRelease(v29);
@@ -7240,7 +7237,7 @@ uint64_t perform_save_booted_os_state_command(const void *a1, const __CFString *
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v5, v6, v7, v25);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"No cleanup service connection", v5, v6, v7);
     if (a2)
     {
       v22 = 0;
@@ -7322,7 +7319,7 @@ void __get_cleanup_service_queue_block_invoke(id a1)
   get_cleanup_service_queue_queue = dispatch_queue_create(__str, 0);
 }
 
-uint64_t get_nonsnapshot_preparation_size(void *a1, void *a2, CFErrorRef *a3)
+uint64_t get_nonsnapshot_preparation_size(void *a1, unint64_t *a2, CFErrorRef *a3)
 {
   v6 = +[MSULogAnnotatedSum sum];
   v7 = [a1 objectForKey:@"InstallationSize"];
@@ -7347,8 +7344,8 @@ LABEL_7:
       v25 = [v13 longLongValue];
       [v6 add:v25 annotation:v15];
       v26 = 1;
-      logfunction("", 1, @"nonsnapshot preparation size : %lld (%lld MB)\n", v27, v28, v29, v30, v31, v25);
-      logfunction("", 1, @"\n%s():%@\n", v32, v33, v34, v35, v36, "get_nonsnapshot_preparation_size");
+      logfunction("", 1, @"nonsnapshot preparation size : %lld (%lld MB)\n", v27, v28, v29, v30, v31, v25, v25 >> 20);
+      logfunction("", 1, @"\n%s():%@\n", v32, v33, v34, v35, v36, "get_nonsnapshot_preparation_size", v6);
       if (!a2)
       {
         return v26;
@@ -7357,17 +7354,17 @@ LABEL_7:
       goto LABEL_12;
     }
 
-    logfunction("", 1, @"InstallationSize has invalid type in update attributes\n", v20, v21, v22, v23, v24, v39);
+    logfunction("", 1, @"InstallationSize has invalid type in update attributes\n", v20, v21, v22, v23, v24);
     v19 = @"Invalid update attributes: invalid type InstallationSize";
   }
 
   else
   {
-    logfunction("", 1, @"InstallationSize not present in update attributes\n", v8, v9, v10, v11, v12, v39);
+    logfunction("", 1, @"InstallationSize not present in update attributes\n", v8, v9, v10, v11, v12);
     v19 = @"Invalid update attributes: missing InstallationSize";
   }
 
-  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, v19, v16, v17, v18, v40);
+  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, v19, v16, v17, v18);
   if (!a3)
   {
     CFRelease(error_internal_cf);
@@ -7408,14 +7405,14 @@ uint64_t get_snapshot_preparation_size(void *a1, char **a2, CFErrorRef *a3)
       v13 = [v14 numberFromString:v13];
       v15 = @"update_attributes[InstallationSize-Snapshot] (string)";
 LABEL_10:
-      v46 = [v13 longLongValue];
-      [v6 add:v46 annotation:v15];
+      v45 = [v13 longLongValue];
+      [v6 add:v45 annotation:v15];
       updated = cryptex_size_requirement_for_update_type(0, a1);
-      v34 = &v46[updated];
+      v33 = &v45[updated];
       [v6 add:updated annotation:@"cryptex_size_requirement_for_update_type(msu_update_type_snapshot)"];
-      v35 = 1;
-      logfunction("", 1, @"snapshot preparation size (mastered) : %lld (%lld MB)\n", v48, v49, v50, v51, v52, v34);
-      logfunction("", 1, @"\n%s():%@\n", v53, v54, v55, v56, v57, "get_snapshot_preparation_size");
+      v34 = 1;
+      logfunction("", 1, @"snapshot preparation size (mastered) : %lld (%lld MB)\n", v47, v48, v49, v50, v51, v33, v33 >> 20);
+      logfunction("", 1, @"\n%s():%@\n", v52, v53, v54, v55, v56, "get_snapshot_preparation_size", v6);
       goto LABEL_11;
     }
 
@@ -7426,204 +7423,215 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    logfunction("", 1, @"InstallationSize-Snapshot has invalid type in update attributes\n", v41, v42, v43, v44, v45, v63);
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Invalid update attributes: invalid type InstallationSize-Snapshot", v59, v60, v61, v67);
+    logfunction("", 1, @"InstallationSize-Snapshot has invalid type in update attributes\n", v40, v41, v42, v43, v44);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Invalid update attributes: invalid type InstallationSize-Snapshot", v58, v59, v60);
     if (a3)
     {
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
       *a3 = error_internal_cf;
     }
 
     else
     {
       CFRelease(error_internal_cf);
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
     }
   }
 
   else
   {
-    logfunction("", 1, @"InstallationSize-Snapshot not present in update attributes\n", v8, v9, v10, v11, v12, v63);
+    logfunction("", 1, @"InstallationSize-Snapshot not present in update attributes\n", v8, v9, v10, v11, v12);
     v16 = [a1 objectForKey:@"ActualMinimumSystemPartition"];
     if (!v16)
     {
-      logfunction("", 1, @"ActualMinimumSystemPartition not present in update attributes\n", v17, v18, v19, v20, v21, v64);
+      logfunction("", 1, @"ActualMinimumSystemPartition not present in update attributes\n", v17, v18, v19, v20, v21);
       v16 = [a1 objectForKey:@"MinimumSystemPartition"];
       if (!v16)
       {
-        logfunction("", 1, @"MinimumSystemPartition not present in update attributes. Using the default.\n", v22, v23, v24, v25, v26, v65);
-        logfunction("", 1, @"*** Warning *** This is not a normal path *** Users shouldn't get here *** Engineers can\n", v27, v28, v29, v30, v31, v66);
+        logfunction("", 1, @"MinimumSystemPartition not present in update attributes. Using the default.\n", v22, v23, v24, v25, v26);
+        logfunction("", 1, @"*** Warning *** This is not a normal path *** Users shouldn't get here *** Engineers can\n", v27, v28, v29, v30, v31);
         v16 = [NSNumber numberWithInt:2500];
       }
     }
 
     v32 = calculate_snapshot_overhead([(NSNumber *)v16 longLongValue]<< 20);
-    v33 = cryptex_size_requirement_for_update_type(0, a1);
-    v34 = (v33 + v32);
-    v35 = 1;
-    logfunction("", 1, @"snapshot preparation size (worst case) : %lld (%lld MB)\n", v36, v37, v38, v39, v40, v33 + v32);
+    v33 = (cryptex_size_requirement_for_update_type(0, a1) + v32);
+    v34 = 1;
+    logfunction("", 1, @"snapshot preparation size (worst case) : %lld (%lld MB)\n", v35, v36, v37, v38, v39, v33, v33 >> 20);
   }
 
 LABEL_11:
   if (a2)
   {
-    *a2 = v34;
+    *a2 = v33;
   }
 
-  return v35;
+  return v34;
 }
 
 uint64_t cryptex_size_requirement_for_update_type(int a1, void *a2)
 {
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31[1] = 3221225472;
-  v31[0] = _NSConcreteStackBlock;
-  v32 = __cryptex_size_requirement_for_update_type_block_invoke;
-  v33 = &unk_100049CC0;
-  v34 = +[MSULogAnnotatedSum sum];
-  v35 = &v37;
-  v36 = a1;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v4 = +[MSULogAnnotatedSum sum];
+  v10 = v4;
+  v11 = "msu_update_type_snapshot";
+  v36[1] = 3221225472;
+  v36[0] = _NSConcreteStackBlock;
+  v37 = __cryptex_size_requirement_for_update_type_block_invoke;
+  v38 = &unk_100049CC0;
+  if (a1 == 1)
+  {
+    v11 = "msu_update_type_legacy";
+  }
+
+  v35 = v11;
+  v39 = v4;
+  v40 = &v42;
+  v41 = a1;
   if (a2)
   {
-    v9 = [a2 objectForKeyedSubscript:@"CryptexSizeInfo"];
-    if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v12 = [a2 objectForKeyedSubscript:@"CryptexSizeInfo"];
+    if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v10 = [a2 objectForKeyedSubscript:@"ComboAsset"];
-      if (!v10)
+      v13 = [a2 objectForKeyedSubscript:@"ComboAsset"];
+      if (!v13)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v11 = MGCopyAnswer();
-      v44 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v41 = 0u;
-      v12 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
-      if (!v12)
+      v14 = MGCopyAnswer();
+      v49 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
+      v15 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      if (!v15)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v13 = *v42;
-LABEL_7:
-      v14 = 0;
+      v16 = *v47;
+LABEL_9:
+      v17 = 0;
       while (1)
       {
-        if (*v42 != v13)
+        if (*v47 != v16)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v13);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * v14);
-        v16 = [v15 objectForKeyedSubscript:@"PrerequisiteBuild"];
-        if (v16)
+        v18 = *(*(&v46 + 1) + 8 * v17);
+        v19 = [v18 objectForKeyedSubscript:@"PrerequisiteBuild"];
+        if (v19)
         {
-          if ([v16 isEqualToString:v11])
+          if ([v19 isEqualToString:v14])
           {
             break;
           }
         }
 
-        if (v12 == ++v14)
+        if (v15 == ++v17)
         {
-          v12 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
-          if (v12)
+          v15 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          if (v15)
           {
-            goto LABEL_7;
+            goto LABEL_9;
           }
 
-          goto LABEL_31;
+          goto LABEL_33;
         }
       }
 
-      v9 = [v15 objectForKeyedSubscript:@"CryptexSizeInfo"];
-      if (!v9)
+      v12 = [v18 objectForKeyedSubscript:@"CryptexSizeInfo"];
+      if (!v12)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_31;
+        goto LABEL_33;
       }
     }
 
-    v17 = [[NSArray alloc] initWithObjects:{@"cryptex-system-arm64e", @"cryptex-app", 0}];
-    if (v17)
+    v20 = [[NSArray alloc] initWithObjects:{@"cryptex-system-arm64e", @"cryptex-app", 0}];
+    if (v20)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v44 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v41 = 0u;
-        v18 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
-        if (v18)
+        v49 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v46 = 0u;
+        v21 = [v12 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v34 = v10;
+        if (v21)
         {
-          v19 = *v42;
-          v20 = -1;
+          v22 = *v47;
+          v23 = -1;
           do
           {
-            for (i = 0; i != v18; i = i + 1)
+            for (i = 0; i != v21; i = i + 1)
             {
-              if (*v42 != v19)
+              if (*v47 != v22)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v12);
               }
 
-              v22 = *(*(&v41 + 1) + 8 * i);
+              v25 = *(*(&v46 + 1) + 8 * i);
               objc_opt_class();
-              ++v20;
+              ++v23;
               if (objc_opt_isKindOfClass())
               {
-                v23 = [v22 objectForKey:@"CryptexTag"];
-                if (v23)
+                v26 = [v25 objectForKey:@"CryptexTag"];
+                if (v26)
                 {
-                  if ([v17 containsObject:v23])
+                  if ([v20 containsObject:v26])
                   {
-                    v32(v31, v20, v23, v22);
+                    v37(v36, v23, v26, v25);
                   }
                 }
               }
             }
 
-            v18 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v21 = [v12 countByEnumeratingWithState:&v46 objects:v50 count:16];
           }
 
-          while (v18);
+          while (v21);
         }
+
+        v10 = v34;
       }
     }
   }
 
-LABEL_31:
-  logfunction("", 1, @"cryptex size requirement: %lld (%lld MB)\n", v4, v5, v6, v7, v8, v38[3]);
-  logfunction("", 1, @"\n%s(%s):%@\n", v24, v25, v26, v27, v28, "cryptex_size_requirement_for_update_type");
-  v29 = v38[3];
-  _Block_object_dispose(&v37, 8);
-  return v29;
+LABEL_33:
+  logfunction("", 1, @"cryptex size requirement: %lld (%lld MB)\n", v5, v6, v7, v8, v9, v43[3], v43[3] >> 20);
+  logfunction("", 1, @"\n%s(%s):%@\n", v27, v28, v29, v30, v31, "cryptex_size_requirement_for_update_type", v35, v10);
+  v32 = v43[3];
+  _Block_object_dispose(&v42, 8);
+  return v32;
 }
 
-void sub_100016F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100016F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t get_nonsnapshot_apply_and_reserve_sizes(const __CFDictionary *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, CFErrorRef *a5)
 {
-  v166 = 0;
-  bzero(&v170, 0x878uLL);
-  v165 = 0;
+  v159 = 0;
+  bzero(&v163, 0x878uLL);
+  v158 = 0;
   valuePtr = 2500;
   v9 = +[MSULogAnnotatedSum sum];
   [v9 add:314572800 annotation:@"UPDATE_PARTITION_SIZE * 2"];
@@ -7642,32 +7650,31 @@ uint64_t get_nonsnapshot_apply_and_reserve_sizes(const __CFDictionary *a1, unint
 
   else
   {
-    logfunction("", 1, @"Couldn't find ActualMinimumSystemPartition or MinimumSystemPartition in the asset properties\n", v15, v16, v17, v18, v19, v152);
+    logfunction("", 1, @"Couldn't find ActualMinimumSystemPartition or MinimumSystemPartition in the asset properties\n", v15, v16, v17, v18, v19);
     v14 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
   }
 
-  v163 = 0;
-  LOBYTE(v167.st_dev) = 0;
+  v156 = 0;
+  LOBYTE(v160.st_dev) = 0;
   APFSShouldSealSystemVolume();
-  if (v167.st_dev)
+  if (v160.st_dev)
   {
     v20 = CFDictionaryGetValue(a1, @"SystemVolumeSealingOverhead");
     if (v20)
     {
-      CFNumberGetValue(v20, kCFNumberSInt64Type, &v163);
-      logfunction("", 1, @"Sealing requires %d MiB overhead\n", v21, v22, v23, v24, v25, v163);
-      v26 = v163;
+      CFNumberGetValue(v20, kCFNumberSInt64Type, &v156);
+      logfunction("", 1, @"Sealing requires %d MiB overhead\n", v21, v22, v23, v24, v25, v156);
+      v26 = v156;
       v27 = a1;
       v28 = a4;
       v29 = system_partition_padding;
       v30 = a5;
       v31 = v14;
       v32 = a3;
-      v163 <<= 20;
-      v33 = v163;
+      v156 <<= 20;
+      v33 = v156;
       v12 += v26 << 20;
-      v152 = @"SystemVolumeSealingOverhead";
-      v34 = [NSString stringWithFormat:@"update_attributes[%@]"];
+      v34 = [NSString stringWithFormat:@"update_attributes[%@]", @"SystemVolumeSealingOverhead"];
       v35 = v33;
       a3 = v32;
       v14 = v31;
@@ -7679,26 +7686,26 @@ uint64_t get_nonsnapshot_apply_and_reserve_sizes(const __CFDictionary *a1, unint
     }
   }
 
-  if (RCGetSystemPartitionExtrasSizeForDevice(0, a1, &v165, 0))
+  if (RCGetSystemPartitionExtrasSizeForDevice(0, a1, &v158, 0))
   {
-    v159 = a3;
-    v160 = a4;
-    v41 = v165;
-    [v9 add:v165 annotation:@"RCGetSystemPartitionExtrasSizeForDevice()"];
-    CFNumberGetValue(v14, kCFNumberSInt64Type, &v166);
-    v42 = v166;
-    v166 <<= 20;
+    v152 = a3;
+    v153 = a4;
+    v41 = v158;
+    [v9 add:v158 annotation:@"RCGetSystemPartitionExtrasSizeForDevice()"];
+    CFNumberGetValue(v14, kCFNumberSInt64Type, &v159);
+    v42 = v159;
+    v159 <<= 20;
     [v9 add:? annotation:?];
-    logfunction("", 1, @"Minimum system partition is %llu (%llu MB)\n", v43, v44, v45, v46, v47, v166);
-    logfunction("", 1, @"System partition padding is %llu (%llu MB)\n", v48, v49, v50, v51, v52, system_partition_padding);
-    logfunction("", 1, @"System partition firmware is %llu (%llu MB)\n", v53, v54, v55, v56, v57, v165);
-    bzero(&v170, 0x878uLL);
-    if (statfs("/", &v170))
+    logfunction("", 1, @"Minimum system partition is %llu (%llu MB)\n", v43, v44, v45, v46, v47, v159, v159 >> 20);
+    logfunction("", 1, @"System partition padding is %llu (%llu MB)\n", v48, v49, v50, v51, v52, system_partition_padding, system_partition_padding >> 20);
+    logfunction("", 1, @"System partition firmware is %llu (%llu MB)\n", v53, v54, v55, v56, v57, v158, v158 >> 20);
+    bzero(&v163, 0x878uLL);
+    if (statfs("/", &v163))
     {
-      logfunction("", 1, @"Failed to statfs / to find free filesystem space\n", v58, v59, v60, v61, v62, v153);
+      logfunction("", 1, @"Failed to statfs / to find free filesystem space\n", v58, v59, v60, v61, v62);
       v63 = __error();
-      error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, *v63, 0, 0, @"statfs(/) failed", v64, v65, v66, v154);
-      a4 = v160;
+      error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, *v63, 0, 0, @"statfs(/) failed", v64, v65, v66);
+      a4 = v153;
       if (a5)
       {
         v68 = 0;
@@ -7718,7 +7725,7 @@ uint64_t get_nonsnapshot_apply_and_reserve_sizes(const __CFDictionary *a1, unint
       }
 
 LABEL_52:
-      a3 = v159;
+      a3 = v152;
       goto LABEL_53;
     }
 
@@ -7729,53 +7736,53 @@ LABEL_52:
 
     if (booted_from_recoveryos_booted_from_recoveryos == 1)
     {
-      *&v167.st_dev = 0;
-      get_main_container_space_info(&v167, 0, 0, 0, 0, v60, v61, v62);
-      logfunction("", 1, @"get_main_container_space_info: system volume is using %llu (%llu MB)\n", v76, v77, v78, v79, v80, v167.st_dev);
-      v86 = *&v167.st_dev;
+      *&v160.st_dev = 0;
+      get_main_container_space_info(&v160, 0, 0, 0, 0, v60, v61, v62);
+      logfunction("", 1, @"get_main_container_space_info: system volume is using %llu (%llu MB)\n", v76, v77, v78, v79, v80, *&v160.st_dev, *&v160.st_dev / 0x100000);
+      v86 = *&v160.st_dev;
       v87 = @"-currentSystemPartitionSize (get_main_container_space_info)";
     }
 
     else
     {
-      memset(v162, 0, 12);
-      *&v167.st_uid = 0;
-      *&v167.st_dev = 5;
-      v167.st_ino = 2155872256;
-      if (getattrlist("/", &v167, v162, 0xCuLL, 0))
+      memset(v155, 0, 12);
+      *&v160.st_uid = 0;
+      *&v160.st_dev = 5;
+      v160.st_ino = 2155872256;
+      if (getattrlist("/", &v160, v155, 0xCuLL, 0))
       {
         v88 = __error();
         logfunction("", 1, @"getattrlist(ATTR_VOL_SPACEUSED) to get filesystem used space failed: %d\n", v89, v90, v91, v92, v93, *v88);
-        v86 = (v170.f_blocks - v170.f_bfree) * v170.f_bsize;
+        v86 = (v163.f_blocks - v163.f_bfree) * v163.f_bsize;
         v87 = @"-currentSystemPartitionSize (statfs)";
       }
 
       else
       {
         v87 = @"-currentSystemPartitionSize (getattrlist)";
-        v86 = *(v162 + 4);
+        v86 = *(v155 + 4);
       }
     }
 
     v94 = v41 + v12;
-    logfunction("", 1, @"APFS system volume is using %llu (%llu MB)\n", v81, v82, v83, v84, v85, v86);
-    logfunction("", 1, @"Checking for overprovisioning volume\n", v95, v96, v97, v98, v99, v156);
+    logfunction("", 1, @"APFS system volume is using %llu (%llu MB)\n", v81, v82, v83, v84, v85, v86, v86 >> 20);
+    logfunction("", 1, @"Checking for overprovisioning volume\n", v95, v96, v97, v98, v99);
     v100 = [objc_msgSend(+[LPStaticMedia mediaForPath:](LPStaticMedia mediaForPath:{@"/", "container"), "devNodePath"}];
-    v162[0] = 0;
+    v155[0] = 0;
     v106 = v100 != 0;
     if (v100)
     {
       v107 = v100;
       logfunction("", 1, @"Attempting to check container %@ for overprovisioning volume\n", v101, v102, v103, v104, v105, v100);
       [v107 UTF8String];
-      if (APFSVolumeRoleFind() || ![v162[0] count])
+      if (APFSVolumeRoleFind() || ![v155[0] count])
       {
         v106 = 0;
 LABEL_30:
         v109 = v94 + (v42 << 20);
-        memset(&v167, 0, sizeof(v167));
-        logfunction("", 1, @"Checking for overprovisioning file\n", v101, v102, v103, v104, v105, v157);
-        if (lstat("/private/var/.overprovisioning_file", &v167) && *__error() == 2)
+        memset(&v160, 0, sizeof(v160));
+        logfunction("", 1, @"Checking for overprovisioning file\n", v101, v102, v103, v104, v105);
+        if (lstat("/private/var/.overprovisioning_file", &v160) && *__error() == 2)
         {
           if (!v106)
           {
@@ -7786,7 +7793,7 @@ LABEL_30:
 
         else
         {
-          logfunction("", 1, @"nand already over-provisioned(overprovisioning file present)\n", v110, v111, v112, v113, v114, v158);
+          logfunction("", 1, @"nand already over-provisioned(overprovisioning file present)\n", v110, v111, v112, v113, v114);
         }
 
         logfunction("", 1, @"nand is %@\n", v110, v111, v112, v113, v114, @"overprovisioned");
@@ -7795,10 +7802,10 @@ LABEL_30:
 LABEL_36:
         v70 = v109 - v86;
         [v9 add:-v86 annotation:v87];
-        v168 = @"PrebootMountpoint";
-        v169 = @"/private/preboot";
+        v161 = @"PrebootMountpoint";
+        v162 = @"/private/preboot";
         v115 = 1;
-        v116 = [NSDictionary dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+        v116 = [NSDictionary dictionaryWithObjects:&v162 forKeys:&v161 count:1];
         v117 = 0;
         do
         {
@@ -7808,11 +7815,11 @@ LABEL_36:
           v121 = [v120 fileSystemRepresentation];
           if (v121)
           {
-            memset(&v167, 0, sizeof(v167));
-            if (!stat(v121, &v167))
+            memset(&v160, 0, sizeof(v160));
+            if (!stat(v121, &v160))
             {
-              v70 -= v167.st_blocks << 9;
-              [v9 add:-512 * v167.st_blocks annotationFormat:@"-%@ (%s)", v120, v119];
+              v70 -= v160.st_blocks << 9;
+              [v9 add:-512 * v160.st_blocks annotationFormat:@"-%@ (%s)", v120, v119];
             }
           }
 
@@ -7823,26 +7830,26 @@ LABEL_36:
         while ((v118 & 1) != 0);
         if ((v70 & 0x8000000000000000) != 0)
         {
-          logfunction("", 1, @"\n%s():\nrequiredFreeSpace:%@\n", v122, v123, v124, v125, v126, "get_nonsnapshot_apply_and_reserve_sizes");
+          logfunction("", 1, @"\n%s():\nrequiredFreeSpace:%@\n", v122, v123, v124, v125, v126, "get_nonsnapshot_apply_and_reserve_sizes", v9);
           v133 = +[MSULogAnnotatedSum sum];
           v134 = 419430400;
           [v133 add:419430400 annotation:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"2*UPDATE_PARTITION_SIZE + UPDATE_APFS_RESERVE"}];
-          LOBYTE(v167.st_dev) = 0;
+          LOBYTE(v160.st_dev) = 0;
           APFSShouldSealSystemVolume();
-          if (v167.st_dev)
+          if (v160.st_dev)
           {
-            v140 = (v163 + v70) & ~((v163 + v70) >> 63);
+            v140 = (v156 + v70) & ~((v156 + v70) >> 63);
             v134 = v140 + 419430400;
-            [v133 add:v140 annotation:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"MAX(requiredFreeSpace + systemPartitionSealingOverhead, 0) == MAX(%lld + %lld, 0) == MAX(%lld, 0)", -(-v70 >> 20), v163 >> 20, (v163 >> 20) - (-v70 >> 20))}];
+            [v133 add:v140 annotation:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"MAX(requiredFreeSpace + systemPartitionSealingOverhead, 0) == MAX(%lld + %lld, 0) == MAX(%lld, 0)", -(-v70 >> 20), v156 >> 20, (v156 >> 20) - (-v70 >> 20))}];
           }
 
           v71 = 1;
           logfunction("", 1, @"%llu MB minimum free space required for personalization and Update volume\n", v135, v136, v137, v138, v139, v134 >> 20);
-          logfunction("", 1, @"\n%s():%@\n", v141, v142, v143, v144, v145, "get_nonsnapshot_apply_and_reserve_sizes");
+          logfunction("", 1, @"\n%s():%@\n", v141, v142, v143, v144, v145, "get_nonsnapshot_apply_and_reserve_sizes", v133);
           v68 = 0;
           v69 = 0;
           v70 = v134;
-          a4 = v160;
+          a4 = v153;
         }
 
         else
@@ -7850,7 +7857,7 @@ LABEL_36:
           if (get_apfs_preallocate_min_is_allowed(a1))
           {
             v69 = v70 - 419430400;
-            a4 = v160;
+            a4 = v153;
             if (v70 < 0x19000001 || (logfunction("", 1, @"%llu MB reserve file will be needed (non-snapshot)\n", v127, v128, v129, v130, v131, v69 >> 20), apfs_preallocate_min = get_apfs_preallocate_min(v70 - 419430400), v68 = apfs_preallocate_min - v69, apfs_preallocate_min <= v69))
             {
               v68 = 0;
@@ -7858,9 +7865,9 @@ LABEL_36:
 
             else
             {
-              logfunction("", 1, @"preallocating a %lld MB reserve file will require an additional %lld MB of free space\n", v127, v128, v129, v130, v131, v69 >> 20);
+              logfunction("", 1, @"preallocating a %lld MB reserve file will require an additional %lld MB of free space\n", v127, v128, v129, v130, v131, v69 >> 20, v68 >> 20);
               v70 += v68;
-              [v9 add:v68 annotation:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"get_apfs_preallocate_min(%lld MB)", v69 >> 20, v68 >> 20)}];
+              [v9 add:v68 annotation:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"get_apfs_preallocate_min(%lld MB)", v69 >> 20)}];
             }
           }
 
@@ -7868,12 +7875,12 @@ LABEL_36:
           {
             v68 = 0;
             v69 = 0;
-            a4 = v160;
+            a4 = v153;
           }
 
           v71 = 1;
-          logfunction("", 1, @"free space required is %lld (%lld MB)\n", v127, v128, v129, v130, v131, v70);
-          logfunction("", 1, @"\n%s():%@\n", v146, v147, v148, v149, v150, "get_nonsnapshot_apply_and_reserve_sizes");
+          logfunction("", 1, @"free space required is %lld (%lld MB)\n", v127, v128, v129, v130, v131, v70, v70 / 0x100000);
+          logfunction("", 1, @"\n%s():%@\n", v146, v147, v148, v149, v150, "get_nonsnapshot_apply_and_reserve_sizes", v9);
         }
 
         goto LABEL_52;
@@ -7887,12 +7894,12 @@ LABEL_36:
       v108 = @"Failed to get container path. Unable to check for overprovisioning volume\n";
     }
 
-    logfunction("", 1, v108, v101, v102, v103, v104, v105, v157);
+    logfunction("", 1, v108, v101, v102, v103, v104, v105);
     goto LABEL_30;
   }
 
-  logfunction("", 1, @"Failed to get the system partition extras size\n", v36, v37, v38, v39, v40, v152);
-  v75 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"failed to query partition sizes", v72, v73, v74, v155);
+  logfunction("", 1, @"Failed to get the system partition extras size\n", v36, v37, v38, v39, v40);
+  v75 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"failed to query partition sizes", v72, v73, v74);
   if (a5)
   {
     v68 = 0;
@@ -7962,7 +7969,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  logfunction("", 1, @"Use of APFSIOC_GET_PREALLOCATE_MIN_SPACE is disabled by asset attributes\n", v2, v3, v4, v5, v6, v11);
+  logfunction("", 1, @"Use of APFSIOC_GET_PREALLOCATE_MIN_SPACE is disabled by asset attributes\n", v2, v3, v4, v5, v6);
   return 0;
 }
 
@@ -7975,8 +7982,8 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
     if (*__error() != 1 && *__error() != 13 || (v2 = "/tmp/.reserved", v4 = open("/tmp/.reserved", 1538, 438), v4 == -1))
     {
       v13 = __error();
-      strerror(*v13);
-      logfunction("", 1, @"open(%s) failed: (%s)\n", v14, v15, v16, v17, v18, v2);
+      v14 = strerror(*v13);
+      logfunction("", 1, @"open(%s) failed: (%s)\n", v15, v16, v17, v18, v19, v2, v14);
       return a1;
     }
   }
@@ -7986,19 +7993,19 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
     v4 = v3;
   }
 
-  v19[0] = 0;
-  v19[1] = a1;
-  v20 = 0;
-  if (ffsctl(v4, 0xC0184A68uLL, v19, 0) == -1)
+  v20[0] = 0;
+  v20[1] = a1;
+  v21 = 0;
+  if (ffsctl(v4, 0xC0184A68uLL, v20, 0) == -1)
   {
     v5 = __error();
     v6 = strerror(*v5);
     logfunction("", 1, @"ffsctl() failed: (%s)\n", v7, v8, v9, v10, v11, v6);
   }
 
-  else if (v20 > a1)
+  else if (v21 > a1)
   {
-    a1 = v20;
+    a1 = v21;
   }
 
   close(v4);
@@ -8006,13 +8013,14 @@ unint64_t get_apfs_preallocate_min(unint64_t a1)
   return a1;
 }
 
-uint64_t get_snapshot_apply_and_reserve_sizes(void *a1, void *a2, void *a3, void *a4)
+uint64_t get_snapshot_apply_and_reserve_sizes(const __CFDictionary *a1, uint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
-  [+[MSULogAnnotatedSum sum](MSULogAnnotatedSum "sum")];
+  v8 = +[MSULogAnnotatedSum sum];
+  [v8 add:419430400 annotation:@"2*UPDATE_PARTITION_SIZE + UPDATE_APFS_RESERVE"];
   APFSShouldSealSystemVolume();
   get_apfs_preallocate_min_is_allowed(a1);
-  logfunction("", 1, @"snapshot application size : %lld (%lld MB)\n", v8, v9, v10, v11, v12, 0);
-  logfunction("", 1, @"\n%s():%@\n", v13, v14, v15, v16, v17, "get_snapshot_apply_and_reserve_sizes");
+  logfunction("", 1, @"snapshot application size : %lld (%lld MB)\n", v9, v10, v11, v12, v13, 419430400, 400);
+  logfunction("", 1, @"\n%s():%@\n", v14, v15, v16, v17, v18, "get_snapshot_apply_and_reserve_sizes", v8);
   if (a2)
   {
     *a2 = 419430400;
@@ -8080,17 +8088,17 @@ LABEL_7:
 
 BOOL saveCurrentBootedOSStateForRecoveryModes(const void *a1)
 {
-  v9 = 0;
-  perform_save_booted_os_state_command(a1, &v9);
-  v6 = v9;
-  if (v9)
+  v8 = 0;
+  perform_save_booted_os_state_command(a1, &v8);
+  v6 = v8;
+  if (v8)
   {
-    logfunction("", 1, @"Failed to save booted os state(%@)\n", v1, v2, v3, v4, v5, v9);
+    logfunction("", 1, @"Failed to save booted os state(%@)\n", v1, v2, v3, v4, v5, v8);
   }
 
   else
   {
-    logfunction("", 1, @"Successfully saved booted os state\n", v1, v2, v3, v4, v5, v8);
+    logfunction("", 1, @"Successfully saved booted os state\n", v1, v2, v3, v4, v5);
   }
 
   return v6 == 0;
@@ -8118,7 +8126,7 @@ uint64_t msu_running_in_limited_environment(uint64_t a1, uint64_t a2, uint64_t a
     v9 = @"MSU running in normal env(default)\n";
   }
 
-  logfunction("", 1, v9, a4, a5, a6, a7, a8, v11);
+  logfunction("", 1, v9, a4, a5, a6, a7, a8);
   return v8;
 }
 
@@ -8172,11 +8180,11 @@ void sub_100018690(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100018A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100018A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8209,11 +8217,11 @@ CFErrorRef MSURetrievePreviousUpdateResults_server()
     if (CFStringCompare(Value, @"success", 1uLL) == kCFCompareEqualTo)
     {
 LABEL_30:
-      v33 = 0;
+      v32 = 0;
       goto LABEL_37;
     }
 
-    v36 = v4;
+    v35 = v4;
     ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, Value, @";");
     if (CFArrayGetCount(ArrayBySeparatingStrings) < 1)
     {
@@ -8231,59 +8239,58 @@ LABEL_30:
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v12);
-        v15 = ValueAtIndex;
-        v16 = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, ValueAtIndex, @" ");
-        if (v16)
+        v15 = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, ValueAtIndex, @" ");
+        if (v15)
         {
-          v17 = v16;
-          if (CFArrayGetCount(v16) < 2)
+          v16 = v15;
+          if (CFArrayGetCount(v15) < 2)
           {
-            if (CFArrayGetCount(v17) == 1 && !v13)
+            if (CFArrayGetCount(v16) == 1 && !v13)
             {
-              v13 = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 1106, 0, 0, 0, @"%@", v27, v28, v15);
+              v13 = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 1106, 0, 0, 0, @"%@", v26, v27, ValueAtIndex);
             }
           }
 
           else
           {
-            v18 = CFArrayGetValueAtIndex(v17, 0);
-            v19 = CFArrayGetValueAtIndex(v17, 1);
-            IntValue = CFStringGetIntValue(v19);
-            v23 = CFStringCompare(v18, @"MSU", 1uLL);
-            v24 = @"MobileSoftwareUpdateErrorDomain";
-            if (v23)
+            v17 = CFArrayGetValueAtIndex(v16, 0);
+            v18 = CFArrayGetValueAtIndex(v16, 1);
+            IntValue = CFStringGetIntValue(v18);
+            v22 = CFStringCompare(v17, @"MSU", 1uLL);
+            v23 = @"MobileSoftwareUpdateErrorDomain";
+            if (v22)
             {
-              if (CFStringCompare(v18, @"RRD", 1uLL))
+              if (CFStringCompare(v17, @"RRD", 1uLL))
               {
-                v24 = v18;
+                v23 = v17;
               }
 
               else
               {
-                v24 = @"RamrodErrorDomain";
+                v23 = @"RamrodErrorDomain";
               }
             }
 
             if (IntValue)
             {
-              v25 = IntValue;
+              v24 = IntValue;
             }
 
             else
             {
-              v25 = 1106;
+              v24 = 1106;
             }
 
-            v26 = _create_error_internal_with_userinfo_cf(v24, v25, v13, 0, 0, @"%@", v21, v22, v15);
+            v25 = _create_error_internal_with_userinfo_cf(v23, v24, v13, 0, 0, @"%@", v20, v21, ValueAtIndex);
             if (v13)
             {
               CFRelease(v13);
             }
 
-            v13 = v26;
+            v13 = v25;
           }
 
-          CFRelease(v17);
+          CFRelease(v16);
         }
 
         ++v12;
@@ -8302,16 +8309,16 @@ LABEL_27:
     {
       Domain = CFErrorGetDomain(v13);
       Code = CFErrorGetCode(v13);
-      v33 = _create_error_internal_with_userinfo_cf(Domain, Code, v13, 0, v1, @"OTA failed. Preserved reason: %@", v31, v32, v36);
+      v32 = _create_error_internal_with_userinfo_cf(Domain, Code, v13, 0, v1, @"OTA failed. Preserved reason: %@", v30, v31, v35);
       CFRelease(v13);
 LABEL_37:
       CFRelease(v1);
-      return v33;
+      return v32;
     }
 
-    error_internal_with_userinfo_cf = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 1106, 0, 0, v1, @"OTA failed. Preserved reason: %@", v10, v11, v36);
+    error_internal_with_userinfo_cf = _create_error_internal_with_userinfo_cf(@"MobileSoftwareUpdateErrorDomain", 1106, 0, 0, v1, @"OTA failed. Preserved reason: %@", v10, v11, v35);
 LABEL_36:
-    v33 = error_internal_with_userinfo_cf;
+    v32 = error_internal_with_userinfo_cf;
     goto LABEL_37;
   }
 
@@ -8320,14 +8327,14 @@ LABEL_36:
 
 uint64_t MSUAssetCalculatePrepareSizes_server(uint64_t a1, const __CFDictionary *a2, void *a3, void *a4, CFErrorRef *a5)
 {
-  v61 = 0;
-  v62 = 0;
+  v59 = 0;
+  v60 = 0;
   msubrain = get_msubrain();
   if (msubrain)
   {
     v16 = msubrain;
-    v59 = 0;
-    v60 = 0;
+    v57 = 0;
+    v58 = 0;
     v17 = +[NSMutableDictionary dictionary];
     [v17 setObject:a1 forKeyedSubscript:@"TargetUUID"];
     if ([v17 count])
@@ -8340,23 +8347,23 @@ uint64_t MSUAssetCalculatePrepareSizes_server(uint64_t a1, const __CFDictionary 
       v18 = 0;
     }
 
-    if (![v16 calculateUpdateStorageRequirements:40 attributes:a2 options:v18 info:&v60 error:&v59])
+    if (![v16 calculateUpdateStorageRequirements:40 attributes:a2 options:v18 info:&v58 error:&v57])
     {
-      logfunction("", 1, @"Using OS prepare calculation because MSUBrain call failed: %@\n", v19, v20, v21, v22, v23, v59);
+      logfunction("", 1, @"Using OS prepare calculation because MSUBrain call failed: %@\n", v19, v20, v21, v22, v23, v57);
       goto LABEL_14;
     }
 
-    v24 = [v60 objectForKeyedSubscript:@"PrepareSize"];
+    v24 = [v58 objectForKeyedSubscript:@"PrepareSize"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      logfunction("", 1, @"Using MSUBrain prepare calculation\n", v25, v26, v27, v28, v29, v56);
-      v62 = [v24 unsignedLongLongValue];
-      v30 = [v60 objectForKeyedSubscript:@"SnapshotPrepareSize"];
+      logfunction("", 1, @"Using MSUBrain prepare calculation\n", v25, v26, v27, v28, v29);
+      v60 = [v24 unsignedLongLongValue];
+      v30 = [v58 objectForKeyedSubscript:@"SnapshotPrepareSize"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v61 = [v30 unsignedLongLongValue];
+        v59 = [v30 unsignedLongLongValue];
         v31 = 1;
         goto LABEL_28;
       }
@@ -8384,8 +8391,8 @@ LABEL_14:
     Value = CFDictionaryGetValue(a2, @"SplatOnly");
     if (Value && (v42 = Value, v43 = CFGetTypeID(Value), v43 == CFBooleanGetTypeID()) && CFBooleanGetValue(v42))
     {
-      logfunction("", 1, @"Returning snapshot preparation size for splat\n", v37, v38, v39, v40, v41, v57);
-      if ((get_snapshot_preparation_size(a2, &v62, a5) & 1) == 0)
+      logfunction("", 1, @"Returning snapshot preparation size for splat\n", v37, v38, v39, v40, v41);
+      if ((get_snapshot_preparation_size(a2, &v60, a5) & 1) == 0)
       {
         logfunction("", 1, @"Error determining snapshot preparation size: %@.\n", v44, v45, v46, v47, v48, *a5);
         goto LABEL_27;
@@ -8394,8 +8401,8 @@ LABEL_14:
 
     else
     {
-      logfunction("", 1, @"Returning non-snapshot preparation size\n", v37, v38, v39, v40, v41, v57);
-      if ((get_nonsnapshot_preparation_size(a2, &v62, a5) & 1) == 0)
+      logfunction("", 1, @"Returning non-snapshot preparation size\n", v37, v38, v39, v40, v41);
+      if ((get_nonsnapshot_preparation_size(a2, &v60, a5) & 1) == 0)
       {
         logfunction("", 1, @"Error determining the non-snapshot preparation size: %@.\n", v44, v45, v46, v47, v48, *a5);
         goto LABEL_27;
@@ -8403,8 +8410,8 @@ LABEL_14:
     }
 
     v31 = 1;
-    logfunction("", 1, @"Also returning snapshot prepare size\n", v44, v45, v46, v47, v48, v58);
-    if (get_snapshot_preparation_size(a2, &v61, a5))
+    logfunction("", 1, @"Also returning snapshot prepare size\n", v44, v45, v46, v47, v48);
+    if (get_snapshot_preparation_size(a2, &v59, a5))
     {
       goto LABEL_28;
     }
@@ -8413,7 +8420,7 @@ LABEL_14:
     goto LABEL_27;
   }
 
-  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Update attributes dictionary is NULL", v33, v34, v35, v57);
+  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Update attributes dictionary is NULL", v33, v34, v35);
   if (a5)
   {
     v31 = 0;
@@ -8427,45 +8434,45 @@ LABEL_27:
 LABEL_28:
   if (a3)
   {
-    *a3 = v62;
+    *a3 = v60;
   }
 
   if (a4)
   {
-    *a4 = v61;
+    *a4 = v59;
   }
 
   return v31;
 }
 
-uint64_t _MSUAssetCalculateApplyAndReserveSizes(void *a1, void *a2, void *a3, unint64_t *a4, unint64_t *a5, CFErrorRef *a6)
+uint64_t _MSUAssetCalculateApplyAndReserveSizes(const __CFDictionary *a1, void *a2, void *a3, unint64_t *a4, unint64_t *a5, CFErrorRef *a6)
 {
-  v68 = 0;
-  v69 = 0;
+  v65 = 0;
+  v66 = 0;
   msubrain = get_msubrain();
   if (msubrain)
   {
-    v66 = 0;
-    v67 = 0;
-    if (![msubrain calculateUpdateStorageRequirements:80 attributes:a1 options:0 info:&v67 error:&v66])
+    v63 = 0;
+    v64 = 0;
+    if (![msubrain calculateUpdateStorageRequirements:80 attributes:a1 options:0 info:&v64 error:&v63])
     {
-      logfunction("", 1, @"Using OS apply calculation because MSUBrain call failed: %@\n", v18, v19, v20, v21, v22, v66);
+      logfunction("", 1, @"Using OS apply calculation because MSUBrain call failed: %@\n", v18, v19, v20, v21, v22, v63);
       goto LABEL_11;
     }
 
-    v23 = [v67 objectForKeyedSubscript:@"ApplySize"];
+    v23 = [v64 objectForKeyedSubscript:@"ApplySize"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      logfunction("", 1, @"Using MSUBrain apply calculation\n", v24, v25, v26, v27, v28, v62);
-      v69 = [v23 unsignedLongLongValue];
-      v29 = [v67 objectForKeyedSubscript:@"SnapshotApplySize"];
+      logfunction("", 1, @"Using MSUBrain apply calculation\n", v24, v25, v26, v27, v28);
+      v66 = [v23 unsignedLongLongValue];
+      v29 = [v64 objectForKeyedSubscript:@"SnapshotApplySize"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         v35 = 1;
-        logfunction("", 1, @"Using MSUBrain apply calculation (snapshot)\n", v30, v31, v32, v33, v34, v63);
-        v68 = [v29 unsignedLongLongValue];
+        logfunction("", 1, @"Using MSUBrain apply calculation (snapshot)\n", v30, v31, v32, v33, v34);
+        v65 = [v29 unsignedLongLongValue];
         goto LABEL_24;
       }
 
@@ -8491,10 +8498,10 @@ LABEL_11:
   {
     if (snapshot_is_prepared(a1))
     {
-      logfunction("", 1, @"Returning snapshot apply size\n", v40, v41, v42, v43, v44, v64);
-      if (get_snapshot_apply_and_reserve_sizes(a1, &v69, a4, a5))
+      logfunction("", 1, @"Returning snapshot apply size\n", v40, v41, v42, v43, v44);
+      if (get_snapshot_apply_and_reserve_sizes(a1, &v66, a4, a5))
       {
-        v68 = v69;
+        v65 = v66;
         v35 = 1;
         goto LABEL_24;
       }
@@ -8504,12 +8511,12 @@ LABEL_11:
 
     else
     {
-      logfunction("", 1, @"Returning non-snapshot apply size\n", v40, v41, v42, v43, v44, v64);
-      if (get_nonsnapshot_apply_and_reserve_sizes(a1, &v69, a4, a5, a6))
+      logfunction("", 1, @"Returning non-snapshot apply size\n", v40, v41, v42, v43, v44);
+      if (get_nonsnapshot_apply_and_reserve_sizes(a1, &v66, a4, a5, a6))
       {
         v35 = 1;
-        logfunction("", 1, @"Also returning snapshot apply size\n", v51, v52, v53, v54, v55, v65);
-        if (get_snapshot_apply_and_reserve_sizes(a1, &v68, 0, 0))
+        logfunction("", 1, @"Also returning snapshot apply size\n", v51, v52, v53, v54, v55);
+        if (get_snapshot_apply_and_reserve_sizes(a1, &v65, 0, 0))
         {
           goto LABEL_24;
         }
@@ -8526,7 +8533,7 @@ LABEL_11:
 
   else
   {
-    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Update attributes dictionary is NULL", v37, v38, v39, v64);
+    error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 9, 0, 0, @"Update attributes dictionary is NULL", v37, v38, v39);
     if (a6)
     {
       v35 = 0;
@@ -8541,12 +8548,12 @@ LABEL_11:
 LABEL_24:
   if (a2)
   {
-    *a2 = v69;
+    *a2 = v66;
   }
 
   if (a3)
   {
-    *a3 = v68;
+    *a3 = v65;
   }
 
   return v35;
@@ -8568,61 +8575,60 @@ uint64_t check_available_size(unint64_t a1, void *a2, CFErrorRef *a3, uint64_t a
       goto LABEL_15;
     }
 
-    logfunction("", 1, @"sizeNeeded = (%lld - %lld) = %lld\n", v12, v13, v14, v15, v16, a1);
+    logfunction("", 1, @"sizeNeeded = (%lld - %lld) = %lld\n", v12, v13, v14, v15, v16, a1, available_space, a1 - available_space);
     if (trigger_cache_delete(v17, @"/private/var", 4, 0))
     {
-      v21 = get_available_space(a3);
+      available_space = get_available_space(a3);
       if (!*a3)
       {
-        if (a1 > v21)
+        if (a1 > available_space)
         {
-          *a2 = a1 - v21;
-          logfunction("", 1, @"prequiredsize = (%lld - %lld) = %lld\n", v12, v13, v14, v15, v16, a1);
-          error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 20, 0, 0, @"There is not enough space to proceed with the update. %lld is required", v22, v23, v24, *a2);
+          *a2 = a1 - available_space;
+          logfunction("", 1, @"prequiredsize = (%lld - %lld) = %lld\n", v12, v13, v14, v15, v16, a1, available_space, a1 - available_space);
+          error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 20, 0, 0, @"There is not enough space to proceed with the update. %lld is required", v21, v22, v23, *a2);
           *a3 = error_internal_cf;
-          v26 = CFGetTypeID(error_internal_cf);
+          v25 = CFGetTypeID(error_internal_cf);
           TypeID = CFErrorGetTypeID();
-          v33 = "not";
-          if (v26 == TypeID)
+          v32 = "not";
+          if (v25 == TypeID)
           {
-            v33 = "";
+            v32 = "";
           }
 
-          v43 = *a3;
-          logfunction("", 1, @"*perrorinfo (%s error)= %@\n", v28, v29, v30, v31, v32, v33);
+          logfunction("", 1, @"*perrorinfo (%s error)= %@\n", v27, v28, v29, v30, v31, v32, *a3);
           return 0;
         }
 
 LABEL_15:
-        v38 = 1;
-        logfunction("", 1, @"Required space (%lld) is available (%lld)\n", v12, v13, v14, v15, v16, a1);
+        v37 = 1;
+        logfunction("", 1, @"Required space (%lld) is available (%lld)\n", v12, v13, v14, v15, v16, a1, available_space);
         *a2 = 0;
-        return v38;
+        return v37;
       }
 
       return 0;
     }
 
-    v37 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Cache delete failed", v18, v19, v20, v41);
+    v36 = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", 7, 0, 0, @"Cache delete failed", v18, v19, v20);
   }
 
   else
   {
-    logfunction("", 1, @"No point in calculating needed size since out param is NULL\n", a4, a5, a6, a7, a8, v40);
-    v37 = _create_error_internal_cf(kCFErrorDomainPOSIX, 22, 0, 0, @"missing prequiredsize parameter", v34, v35, v36, v42);
+    logfunction("", 1, @"No point in calculating needed size since out param is NULL\n", a4, a5, a6, a7, a8);
+    v36 = _create_error_internal_cf(kCFErrorDomainPOSIX, 22, 0, 0, @"missing prequiredsize parameter", v33, v34, v35);
     if (!a3)
     {
-      CFRelease(v37);
+      CFRelease(v36);
       return 0;
     }
   }
 
-  v38 = 0;
-  *a3 = v37;
-  return v38;
+  v37 = 0;
+  *a3 = v36;
+  return v37;
 }
 
-uint64_t MSUCheckInstallationSize_server(void *a1, void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MSUCheckInstallationSize_server(const __CFDictionary *a1, void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   cf = 0;
   v19 = 0;
@@ -8646,7 +8652,7 @@ uint64_t MSUCheckInstallationSize_server(void *a1, void *a2, CFErrorRef *a3, uin
     v15 = 0;
   }
 
-  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v14, v15, 0, v13, a6, a7, a8, cf);
+  error_internal_cf = _create_error_internal_cf(@"MobileSoftwareUpdateErrorDomain", v14, v15, 0, v13, a6, a7, a8, cf, v19);
   if (a3)
   {
     v12 = 0;
@@ -8677,7 +8683,7 @@ uint64_t get_available_space(CFErrorRef *a1)
   }
 
   v2 = __error();
-  error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, *v2, 0, 0, @"Failed to get filesystem stats", v3, v4, v5, v8.f_bsize);
+  error_internal_cf = _create_error_internal_cf(kCFErrorDomainPOSIX, *v2, 0, 0, @"Failed to get filesystem stats", v3, v4, v5);
   if (a1)
   {
     *a1 = error_internal_cf;
@@ -9124,15 +9130,21 @@ LABEL_5:
   }
 
 LABEL_6:
-  logfunction("", 1, @"%s: found previous update state MSUPreviousUpdateState=%u\n", v1, v2, v3, v4, v5, "retrieve_previous_update_state");
+  logfunction("", 1, @"%s: found previous update state MSUPreviousUpdateState=%u\n", v1, v2, v3, v4, v5, "retrieve_previous_update_state", v6);
   return v6;
 }
 
 BOOL is_first_boot_after_update()
 {
-  v0 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", @"/var/run/FirstBootAfterUpdate"];
-  logfunction("", 1, @"%s: is first boot: %@\n", v1, v2, v3, v4, v5, "is_first_boot_after_update");
-  return v0;
+  v5 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", @"/var/run/FirstBootAfterUpdate"];
+  v6 = @"NO";
+  if (v5)
+  {
+    v6 = @"YES";
+  }
+
+  logfunction("", 1, @"%s: is first boot: %@\n", v0, v1, v2, v3, v4, "is_first_boot_after_update", v6);
+  return v5;
 }
 
 const void *retreive_date_object_from_state_file(uint64_t a1)
@@ -9187,9 +9199,9 @@ uint64_t get_previous_update_unresolved_tolerated_failures_count()
   return v1;
 }
 
-void sub_10001C688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001C688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9232,25 +9244,24 @@ id __get_previous_update_unresolved_tolerated_failures_count_block_invoke(uint64
 
 uint64_t load_trust_cache_at_path(const char *a1, NSError **a2)
 {
-  v3 = a1;
-  memset(&v66, 0, sizeof(v66));
+  memset(&v67, 0, sizeof(v67));
   connect = 0;
   v4 = open(a1, 0);
   if (v4 < 0)
   {
     v16 = *__error();
-    v78 = NSDebugDescriptionErrorKey;
+    v79 = NSDebugDescriptionErrorKey;
     v17 = __error();
-    v79 = [NSString stringWithFormat:@"open() failed: %s", strerror(*v17)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v16 userInfo:[NSDictionary dictionaryWithObjects:&v79 forKeys:&v78 count:1]];
+    v80 = [NSString stringWithFormat:@"open() failed: %s", strerror(*v17)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v16 userInfo:[NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1]];
     v18 = __error();
-    strerror(*v18);
-    logfunction("", 1, @"Could not open trust cache at path %s: %s.\n", v19, v20, v21, v22, v23, v3);
-    v24 = MGCopyAnswer();
-    if (v24 == kCFBooleanFalse && (bzero(__s1, 0x400uLL), v64 = 1024, !sysctlbyname("kern.bootargs", __s1, &v64, 0, 0)) && strstr(__s1, "msu_eng_brain=1"))
+    v19 = strerror(*v18);
+    logfunction("", 1, @"Could not open trust cache at path %s: %s.\n", v20, v21, v22, v23, v24, a1, v19);
+    v25 = MGCopyAnswer();
+    if (v25 == kCFBooleanFalse && (bzero(__s1, 0x400uLL), v65 = 1024, !sysctlbyname("kern.bootargs", __s1, &v65, 0, 0)) && strstr(__s1, "msu_eng_brain=1"))
     {
       v15 = 1;
-      logfunction("", 1, @"System policy for update brain is in effect.\n", v53, v54, v55, v56, v57, outputStructa);
+      logfunction("", 1, @"System policy for update brain is in effect.\n", v54, v55, v56, v57, v58);
       v8 = 0;
     }
 
@@ -9259,96 +9270,96 @@ uint64_t load_trust_cache_at_path(const char *a1, NSError **a2)
       v15 = 0;
     }
 
-    CFRelease(v24);
+    CFRelease(v25);
     goto LABEL_9;
   }
 
   v5 = v4;
-  if (fstat(v4, &v66))
+  if (fstat(v4, &v67))
   {
     v6 = *__error();
-    v75 = NSDebugDescriptionErrorKey;
+    v76 = NSDebugDescriptionErrorKey;
     v7 = __error();
-    v76 = [NSString stringWithFormat:@"fstat() failed: %s", strerror(*v7)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v6 userInfo:[NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1]];
+    v77 = [NSString stringWithFormat:@"fstat() failed: %s", strerror(*v7)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v6 userInfo:[NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1]];
     v9 = __error();
-    outputStructb = strerror(*v9);
-    logfunction("", 1, @"Could not fstat trust cache: %s\n", v10, v11, v12, v13, v14, outputStructb);
+    outputStructa = strerror(*v9);
+    logfunction("", 1, @"Could not fstat trust cache: %s\n", v10, v11, v12, v13, v14, outputStructa);
 LABEL_4:
     close(v5);
     v15 = 0;
     goto LABEL_9;
   }
 
-  v26 = mmap(0, v66.st_size, 1, 1026, v5, 0);
-  if (v26 == -1)
+  v27 = mmap(0, v67.st_size, 1, 1026, v5, 0);
+  if (v27 == -1)
   {
-    v39 = *__error();
-    v73 = NSDebugDescriptionErrorKey;
-    v40 = __error();
-    v74 = [NSString stringWithFormat:@"mmap() failed: %s", strerror(*v40)];
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v39 userInfo:[NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1]];
+    v40 = *__error();
+    v74 = NSDebugDescriptionErrorKey;
     v41 = __error();
-    strerror(*v41);
-    logfunction("", 1, @"Could not map file %s: %s\n", v42, v43, v44, v45, v46, v3);
+    v75 = [NSString stringWithFormat:@"mmap() failed: %s", strerror(*v41)];
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v40 userInfo:[NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1]];
+    v42 = __error();
+    v64 = strerror(*v42);
+    logfunction("", 1, @"Could not map file %s: %s\n", v43, v44, v45, v46, v47, a1, v64);
     goto LABEL_4;
   }
 
-  v27 = v26;
-  v28 = IOServiceMatching("AppleMobileFileIntegrity");
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v28);
-  v30 = MatchingService;
+  v28 = v27;
+  v29 = IOServiceMatching("AppleMobileFileIntegrity");
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v29);
+  v31 = MatchingService;
   if (!MatchingService)
   {
-    v71 = NSDebugDescriptionErrorKey;
-    v72 = @"Could not find AppleMobileFileIntegrity service";
-    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:3 userInfo:[NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1]];
-    v52 = @"Could not find AppleMobileFileIntegrity service\n";
+    v72 = NSDebugDescriptionErrorKey;
+    v73 = @"Could not find AppleMobileFileIntegrity service";
+    v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:3 userInfo:[NSDictionary dictionaryWithObjects:&v73 forKeys:&v72 count:1]];
+    v53 = @"Could not find AppleMobileFileIntegrity service\n";
 LABEL_22:
-    logfunction("", 1, v52, v47, v48, v49, v50, v51, outputStruct);
+    logfunction("", 1, v53, v48, v49, v50, v51, v52, outputStruct);
     goto LABEL_23;
   }
 
-  v31 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
-  if (!v31)
+  v32 = IOServiceOpen(MatchingService, mach_task_self_, 0, &connect);
+  if (!v32)
   {
-    v58 = IOConnectCallMethod(connect, 2u, 0, 0, v27, v66.st_size, 0, 0, 0, 0);
-    if (!v58)
+    v59 = IOConnectCallMethod(connect, 2u, 0, 0, v28, v67.st_size, 0, 0, 0, 0);
+    if (!v59)
     {
       v8 = 0;
       v15 = 1;
       goto LABEL_24;
     }
 
-    v59 = v58;
-    v60 = v58;
-    v67 = NSDebugDescriptionErrorKey;
-    v68 = [NSString stringWithFormat:@"IOConnectCallMethod() failed: 0x%x", v58];
-    v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v60 userInfo:[NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1]];
-    outputStruct = v59;
-    v52 = @"Unable to load trust cache: 0x%x\n";
+    v60 = v59;
+    v61 = v59;
+    v68 = NSDebugDescriptionErrorKey;
+    v69 = [NSString stringWithFormat:@"IOConnectCallMethod() failed: 0x%x", v59];
+    v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v61 userInfo:[NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1]];
+    outputStruct = v60;
+    v53 = @"Unable to load trust cache: 0x%x\n";
     goto LABEL_22;
   }
 
-  v32 = v31;
-  v33 = v31;
-  v69 = NSDebugDescriptionErrorKey;
-  v70 = [NSString stringWithFormat:@"IOServiceOpen() failed: 0x%x", v31];
-  v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v33 userInfo:[NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1]];
-  logfunction("", 1, @"Unable to open user client: 0x%x\n", v34, v35, v36, v37, v38, v32);
+  v33 = v32;
+  v34 = v32;
+  v70 = NSDebugDescriptionErrorKey;
+  v71 = [NSString stringWithFormat:@"IOServiceOpen() failed: 0x%x", v32];
+  v8 = [NSError errorWithDomain:@"IOKitErrorDomain" code:v34 userInfo:[NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1]];
+  logfunction("", 1, @"Unable to open user client: 0x%x\n", v35, v36, v37, v38, v39, v33);
 LABEL_23:
   v15 = 0;
 LABEL_24:
   close(v5);
-  munmap(v27, v66.st_size);
+  munmap(v28, v67.st_size);
   if (connect)
   {
     IOServiceClose(connect);
   }
 
-  if (v30)
+  if (v31)
   {
-    IOObjectRelease(v30);
+    IOObjectRelease(v31);
   }
 
 LABEL_9:
@@ -9360,9 +9371,9 @@ LABEL_9:
   return v15;
 }
 
-void sub_10001CFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001CFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9374,22 +9385,23 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id nrdSharedLogger()
+id nrdSharedLogger(uint64_t a1)
 {
   if (nrdSharedLogger_pred != -1)
   {
     nrdSharedLogger_cold_1();
   }
 
-  v1 = nrdSharedLogger___instance;
+  v2 = nrdSharedLogger___instance;
 
-  return v1;
+  return v2;
 }
 
 void __nrdSharedLogger_block_invoke(id a1)
@@ -9420,10 +9432,11 @@ void sub_10001E1B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10001E6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10001E6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -9432,6 +9445,20 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_10001EE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10001F860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id _longFromNVRAMVar(id a1)
@@ -9697,7 +9724,7 @@ uint64_t wait_for_io_service_matching_dict(CFTypeRef cf, unsigned int a2)
     v6 = a2 - v4 >= 3 ? 3 : a2 - v4;
     v7 = CFCopyDescription(cf);
     CStringPtr = CFStringGetCStringPtr(v7, 0);
-    ramrod_log_msg("waiting for matching IOKit service: %s\n", v9, v10, v11, v12, v13, v14, v15, CStringPtr);
+    ramrod_log_msg("waiting for matching IOKit service: %s\n", CStringPtr);
     sleep(v6);
     v4 += v6;
     CFRelease(v7);
@@ -9706,38 +9733,4 @@ uint64_t wait_for_io_service_matching_dict(CFTypeRef cf, unsigned int a2)
   while (v4 < a2);
   CFRelease(cf);
   return MatchingService;
-}
-
-__CFDictionary *create_embedded_storage_service_query_dict(char *cStr)
-{
-  v1 = CFStringCreateWithCString(kCFAllocatorDefault, cStr, 0x8000100u);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = v1;
-  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (Mutable)
-  {
-    v4 = Mutable;
-    CFDictionaryAddValue(Mutable, v2, kCFBooleanTrue);
-    v5 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v6 = v5;
-    if (v5)
-    {
-      CFDictionaryAddValue(v5, @"IOPropertyMatch", v4);
-    }
-
-    CFRelease(v2);
-  }
-
-  else
-  {
-    v6 = 0;
-    v4 = v2;
-  }
-
-  CFRelease(v4);
-  return v6;
 }

@@ -36,7 +36,7 @@
     return 0;
   }
 
-  Node = OZScene::getNode(scene, d);
+  Node = OZScene::getNode(scene, *&d);
   if (!Node)
   {
     return 0;
@@ -55,7 +55,7 @@
   result = self->_scene;
   if (result)
   {
-    result = OZScene::getNode(result, d);
+    result = OZScene::getNode(result, *&d);
     if (result)
     {
       if (result)

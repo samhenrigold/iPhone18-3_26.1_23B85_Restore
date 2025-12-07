@@ -7,13 +7,13 @@
 
 - (id)accountsWithAccountType:()AppleID appleID:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v23 = v6;
+  v22 = v6;
   v8 = [self accountsWithAccountType:v6];
   v9 = v8;
-  if (!v7 || (v27 = 0u, v28 = 0u, v25 = 0u, v26 = 0u, (v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16]) == 0))
+  if (!v7 || (v26 = 0u, v27 = 0u, v24 = 0u, v25 = 0u, (v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16]) == 0))
   {
     v12 = 0;
     goto LABEL_17;
@@ -21,18 +21,18 @@
 
   v11 = v10;
   v12 = 0;
-  v13 = *v26;
+  v13 = *v25;
   obj = v9;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v26 != v13)
+      if (*v25 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v25 + 1) + 8 * i);
+      v15 = *(*(&v24 + 1) + 8 * i);
       username = [v15 username];
       if ([v7 caseInsensitiveCompare:username])
       {
@@ -68,41 +68,39 @@ LABEL_10:
     }
 
     v9 = obj;
-    v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   }
 
   while (v11);
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)accountWithAppleID:()AppleID
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E69597F8]];
   [self accountsWithAccountType:v5];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = v17 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         username = [v10 username];
         v12 = [username isEqualToString:v4];
 
@@ -113,7 +111,7 @@ LABEL_17:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -124,8 +122,6 @@ LABEL_17:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

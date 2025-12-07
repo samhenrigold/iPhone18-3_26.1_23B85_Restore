@@ -17,33 +17,30 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendBodySectionWithName:0 block:v6];
+  [v5 appendBodySectionWithName:v6 block:{3221225472, __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) appendUInt64:*(*(a1 + 40) + 8) withName:@"contentsMask" format:1];
+  v2 = [*(a1 + 32) appendUInt64:? withName:? format:?];
   v3 = *(a1 + 40);
   if (v3[2])
   {
     v4 = *(a1 + 32);
     v5 = [MEMORY[0x1E698E690] collectionLineBreakNoneStyle];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_2;
-    v32[3] = &unk_1E6F47C78;
+    v33 = MEMORY[0x1E69E9820];
+    v34 = 3221225472;
+    v35 = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_2;
+    v36 = &unk_1E6F47C78;
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
-    v33 = v6;
-    v34 = v7;
-    [v4 overlayStyle:v5 block:v32];
+    v37 = v6;
+    v38 = v7;
+    [v4 overlayStyle:? block:?];
 
     v3 = *(a1 + 40);
   }
@@ -52,142 +49,129 @@ void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___
   {
     v8 = *(a1 + 32);
     v9 = [MEMORY[0x1E698E690] collectionLineBreakNoneStyle];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_4;
-    v29[3] = &unk_1E6F47C78;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_4;
+    v30 = &unk_1E6F47C78;
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v30 = v10;
-    v31 = v11;
-    [v8 overlayStyle:v9 block:v29];
+    v31 = v10;
+    v32 = v11;
+    [v8 overlayStyle:? block:?];
 
     v3 = *(a1 + 40);
   }
 
-  v12 = v3[4];
-  if (v12)
+  if (v3[4])
   {
-    v13 = [*(a1 + 32) appendObject:v12 withName:@"keyCommandDispatchingRules"];
+    v12 = [*(a1 + 32) appendObject:? withName:?];
     v3 = *(a1 + 40);
   }
 
   if (v3[5])
   {
-    v14 = *(a1 + 32);
-    v15 = [MEMORY[0x1E698E690] collectionLineBreakNoneStyle];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_6;
-    v26[3] = &unk_1E6F47C78;
-    v16 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    v27 = v16;
-    v28 = v17;
-    [v14 overlayStyle:v15 block:v26];
+    v13 = *(a1 + 32);
+    v14 = [MEMORY[0x1E698E690] collectionLineBreakNoneStyle];
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_6;
+    v24 = &unk_1E6F47C78;
+    v15 = *(a1 + 32);
+    v16 = *(a1 + 40);
+    v25 = v15;
+    v26 = v16;
+    [v13 overlayStyle:v21 block:{3221225472, __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_6, &unk_1E6F47C78}];
 
     v3 = *(a1 + 40);
   }
 
-  v18 = v3[6];
-  if (v18)
+  if (v3[6])
   {
-    v19 = [*(a1 + 32) appendObject:v18 withName:@"bufferingPredicates"];
+    v17 = [*(a1 + 32) appendObject:? withName:?];
     v3 = *(a1 + 40);
   }
 
-  v20 = v3[8];
-  if (v20)
+  if (v3[8])
   {
-    v21 = [*(a1 + 32) appendObject:v20 withName:@"modalityAssertions"];
+    v18 = [*(a1 + 32) appendObject:? withName:?];
     v3 = *(a1 + 40);
   }
 
-  v22 = v3[7];
-  if (v22)
+  if (v3[7])
   {
-    v23 = [*(a1 + 32) appendObject:v22 withName:@"constraintAssertions"];
+    v19 = [*(a1 + 32) appendObject:? withName:?];
     v3 = *(a1 + 40);
   }
 
-  v24 = v3[9];
-  if (v24)
+  if (v3[9])
   {
-    v25 = [*(a1 + 32) appendObject:v24 withName:@"selectionRequests"];
+    v20 = [*(a1 + 32) appendObject:? withName:?];
   }
 }
 
 void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_2(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v3 = [*(*(a1 + 40) + 16) bs_map:&__block_literal_global_2232];
-  v2 = [v1 appendObject:v3 withName:@"discreteDispatchingRules"];
+  v3 = [*(*(a1 + 40) + 16) bs_map:?];
+  v2 = [v1 appendObject:? withName:?];
 }
 
 void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___block_invoke_4(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v3 = [*(*(a1 + 40) + 24) bs_map:&__block_literal_global_174];
-  v2 = [v1 appendObject:v3 withName:@"deferringRules"];
+  v3 = [*(*(a1 + 40) + 24) bs_map:?];
+  v2 = [v1 appendObject:? withName:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeInteger:self->_contentsMask forKey:@"contentsMask"];
-  discreteDispatchingRules = self->_discreteDispatchingRules;
-  if (discreteDispatchingRules)
+  [coderCopy encodeInteger:? forKey:?];
+  if (self->_discreteDispatchingRules)
   {
-    [coderCopy encodeObject:discreteDispatchingRules forKey:@"discreteDispatchingRules"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  deferringRules = self->_deferringRules;
-  if (deferringRules)
+  if (self->_deferringRules)
   {
-    [coderCopy encodeObject:deferringRules forKey:@"deferringRules"];
+    [coderCopy encodeObject:? forKey:?];
   }
 
-  keyCommandDispatchingRules = self->_keyCommandDispatchingRules;
-  v7 = coderCopy;
-  if (keyCommandDispatchingRules)
+  v4 = coderCopy;
+  if (self->_keyCommandDispatchingRules)
   {
-    [coderCopy encodeObject:keyCommandDispatchingRules forKey:@"keyCommandDispatchingRules"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  keyCommandsRegistrations = self->_keyCommandsRegistrations;
-  if (keyCommandsRegistrations)
+  if (self->_keyCommandsRegistrations)
   {
-    [coderCopy encodeObject:keyCommandsRegistrations forKey:@"keyCommandsRegistrations"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  bufferingPredicates = self->_bufferingPredicates;
-  if (bufferingPredicates)
+  if (self->_bufferingPredicates)
   {
-    [coderCopy encodeObject:bufferingPredicates forKey:@"bufferingPredicates"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  modalityAssertions = self->_modalityAssertions;
-  if (modalityAssertions)
+  if (self->_modalityAssertions)
   {
-    [coderCopy encodeObject:modalityAssertions forKey:@"modalityAssertions"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  constraintAssertions = self->_constraintAssertions;
-  if (constraintAssertions)
+  if (self->_constraintAssertions)
   {
-    [coderCopy encodeObject:constraintAssertions forKey:@"constraintAssertions"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 
-  selectionRequests = self->_selectionRequests;
-  if (selectionRequests)
+  if (self->_selectionRequests)
   {
-    [coderCopy encodeObject:selectionRequests forKey:@"selectionRequests"];
-    v7 = coderCopy;
+    [coderCopy encodeObject:? forKey:?];
+    v4 = coderCopy;
   }
 }
 
@@ -197,7 +181,7 @@ void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___
   v5 = [(BKSHIDEventDeliveryRuleChangeTransaction *)self init];
   if (v5)
   {
-    v5->_contentsMask = [coderCopy decodeIntegerForKey:@"contentsMask"];
+    v5->_contentsMask = [coderCopy decodeIntegerForKey:?];
     v6 = objc_opt_class();
     v7 = _BKDecodeArrayOfClass(coderCopy, v6, @"discreteDispatchingRules");
     discreteDispatchingRules = v5->_discreteDispatchingRules;
@@ -337,56 +321,13 @@ void __70__BKSHIDEventDeliveryRuleChangeTransaction_appendDescriptionToStream___
 
     v9 = v7;
 
-    if (!v9)
+    if (v9 && self->_contentsMask == v9->_contentsMask && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects())
     {
-      goto LABEL_18;
-    }
-
-    if (self->_contentsMask != v9->_contentsMask)
-    {
-      goto LABEL_18;
-    }
-
-    discreteDispatchingRules = self->_discreteDispatchingRules;
-    v11 = v9->_discreteDispatchingRules;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_18;
-    }
-
-    deferringRules = self->_deferringRules;
-    v13 = v9->_deferringRules;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_18;
-    }
-
-    keyCommandDispatchingRules = self->_keyCommandDispatchingRules;
-    v15 = v9->_keyCommandDispatchingRules;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_18;
-    }
-
-    keyCommandsRegistrations = self->_keyCommandsRegistrations;
-    v17 = v9->_keyCommandsRegistrations;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_18;
-    }
-
-    bufferingPredicates = self->_bufferingPredicates;
-    v19 = v9->_bufferingPredicates;
-    if (BSEqualObjects() && (modalityAssertions = self->_modalityAssertions, v21 = v9->_modalityAssertions, BSEqualObjects()) && (constraintAssertions = self->_constraintAssertions, v23 = v9->_constraintAssertions, BSEqualObjects()))
-    {
-      selectionRequests = self->_selectionRequests;
-      v25 = v9->_selectionRequests;
       v8 = BSEqualObjects();
     }
 
     else
     {
-LABEL_18:
       v8 = 0;
     }
   }

@@ -111,7 +111,7 @@
 
 - (int64_t)authStatusAtIdentifierPath:(id)path
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   overridingStatus = self->_overridingStatus;
   if (overridingStatus)
@@ -121,16 +121,16 @@
 
   else
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v39 = pathCopy;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v38 = pathCopy;
     obj = pathCopy;
-    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v50, v55, 16);
-    if (v42)
+    v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v49, v54, 16);
+    if (v41)
     {
-      v43 = *v51;
+      v42 = *v50;
       v11 = @"__ROOT__";
       selfCopy = self;
       while (2)
@@ -139,42 +139,42 @@
         v13 = v11;
         do
         {
-          if (*v51 != v43)
+          if (*v50 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v44 = v12;
-          v45 = v13;
-          v14 = *(*(&v50 + 1) + 8 * v12);
+          v43 = v12;
+          v44 = v13;
+          v14 = *(*(&v49 + 1) + 8 * v12);
           v15 = objc_msgSend_objectForKeyedSubscript_(self->_graph, v10, v13);
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           v16 = v15;
-          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v46, v54, 16);
+          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v45, v53, 16);
           if (!v18)
           {
 LABEL_28:
 
             v8 = 2;
-            v11 = v45;
+            v11 = v44;
             goto LABEL_30;
           }
 
           v21 = v18;
-          v22 = *v47;
+          v22 = *v46;
 LABEL_10:
           v23 = 0;
           while (1)
           {
-            if (*v47 != v22)
+            if (*v46 != v22)
             {
               objc_enumerationMutation(v16);
             }
 
-            v24 = *(*(&v46 + 1) + 8 * v23);
+            v24 = *(*(&v45 + 1) + 8 * v23);
             v25 = objc_msgSend_identifier(v24, v19, v20);
             if (!(v25 | v14))
             {
@@ -211,7 +211,7 @@ LABEL_10:
 
             if (v21 == ++v23)
             {
-              v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v46, v54, 16);
+              v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v45, v53, 16);
               if (v21)
               {
                 goto LABEL_10;
@@ -229,14 +229,14 @@ LABEL_10:
             goto LABEL_30;
           }
 
-          v12 = v44 + 1;
+          v12 = v43 + 1;
           v13 = v11;
           self = selfCopy;
         }
 
-        while (v44 + 1 != v42);
-        v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v50, v55, 16);
-        if (v42)
+        while (v43 + 1 != v41);
+        v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v49, v54, 16);
+        if (v41)
         {
           continue;
         }
@@ -253,16 +253,15 @@ LABEL_10:
 
 LABEL_30:
 
-    pathCopy = v39;
+    pathCopy = v38;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (int64_t)authStatusFor:(id)for
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   forCopy = for;
   overridingStatus = self->_overridingStatus;
   if (overridingStatus)
@@ -273,26 +272,26 @@ LABEL_30:
   else
   {
     objc_msgSend_objectForKeyedSubscript_(self->_graph, v4, @"__ROOT__");
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v9 = v32 = 0u;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v29, v33, 16);
+    v9 = v31 = 0u;
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v28, v32, 16);
     if (v11)
     {
       v14 = v11;
-      v15 = *v30;
+      v15 = *v29;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(v9);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
-          v18 = objc_msgSend_identifier(v17, v12, v13, v29);
+          v17 = *(*(&v28 + 1) + 8 * i);
+          v18 = objc_msgSend_identifier(v17, v12, v13, v28);
           if (!(forCopy | v18))
           {
 LABEL_17:
@@ -319,7 +318,7 @@ LABEL_17:
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v29, v33, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v28, v32, 16);
         if (v14)
         {
           continue;
@@ -333,7 +332,6 @@ LABEL_17:
 LABEL_18:
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

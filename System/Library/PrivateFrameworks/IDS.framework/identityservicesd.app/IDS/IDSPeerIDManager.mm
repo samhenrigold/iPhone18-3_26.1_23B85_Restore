@@ -506,7 +506,7 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v164 doubleValue];
+            objc_msgSend_doubleValue(v164);
             v23 = [NSDate dateWithTimeIntervalSince1970:v22 / 1000.0];
 
             v162 = v23;
@@ -608,7 +608,7 @@
                 v216 = v34;
                 if (v34)
                 {
-                  [v34 doubleValue];
+                  objc_msgSend_doubleValue(v34);
                   v213 = [NSDate dateWithTimeIntervalSince1970:?];
                 }
 
@@ -934,7 +934,7 @@
                   _IDSLogV();
                 }
 
-                if (![serviceCopy isEqualToIgnoringCase:{@"com.apple.madrid", senderCorrelationIdentifier2}])
+                if (!objc_msgSend_isEqualToIgnoringCase_(serviceCopy, senderCorrelationIdentifier2))
                 {
 LABEL_155:
                   if (v225)
@@ -985,9 +985,9 @@ LABEL_155:
                       v207 = v1502;
                     }
 
-                    [v206 doubleValue];
+                    objc_msgSend_doubleValue(v206, senderCorrelationIdentifier2);
                     v201 = [NSDate dateWithTimeIntervalSinceNow:?];
-                    [v207 doubleValue];
+                    objc_msgSend_doubleValue(v207);
                     v200 = [NSDate dateWithTimeIntervalSinceNow:?];
                     v79 = OSLogHandleForIDSCategory();
                     if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))

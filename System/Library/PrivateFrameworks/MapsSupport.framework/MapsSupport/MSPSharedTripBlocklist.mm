@@ -48,52 +48,52 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
   v19.receiver = self;
   v19.super_class = MSPSharedTripBlocklist;
   v2 = [(MSPSharedTripBlocklist *)&v19 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = MSPGetSharedTripLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = MEMORY[0x277CCACA8];
-      v5 = v2;
-      v6 = [v4 stringWithFormat:@"%@<%p>", objc_opt_class(), v5];
+      v5 = MEMORY[0x277CCACA8];
+      v6 = v3;
+      v7 = [v5 stringWithFormat:@"%@<%p>", objc_opt_class(), v6];
 
       *buf = 138543362;
-      v22 = v6;
-      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing...", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing...", buf, 0xCu);
     }
 
-    v7 = dispatch_queue_create("com.apple.mapspushd.SharedTripBlocklist", 0);
-    isolationQueue = v2->_isolationQueue;
-    v2->_isolationQueue = v7;
+    v8 = dispatch_queue_create("com.apple.mapspushd.SharedTripBlocklist", 0);
+    isolationQueue = v3->_isolationQueue;
+    v3->_isolationQueue = v8;
 
-    v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    blockedIdentifiers = v2->_blockedIdentifiers;
-    v2->_blockedIdentifiers = v9;
+    v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    blockedIdentifiers = v3->_blockedIdentifiers;
+    v3->_blockedIdentifiers = v10;
 
     v20 = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-    storeSubscriptionTypes = v2->storeSubscriptionTypes;
-    v2->storeSubscriptionTypes = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    storeSubscriptionTypes = v3->storeSubscriptionTypes;
+    v3->storeSubscriptionTypes = v12;
 
     mEMORY[0x277D26670] = [MEMORY[0x277D26670] sharedStore];
-    [mEMORY[0x277D26670] subscribe:v2];
+    [mEMORY[0x277D26670] subscribe:v3];
 
-    v14 = v2->_isolationQueue;
+    v15 = v3->_isolationQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __30__MSPSharedTripBlocklist_init__block_invoke;
     block[3] = &unk_279866158;
-    v18 = v2;
-    dispatch_async(v14, block);
+    v18 = v3;
+    dispatch_async(v15, block);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (id)description
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   allObjects = [(NSMutableSet *)self->_blockedIdentifiers allObjects];
   v3 = allObjects;
   if (allObjects)
@@ -101,27 +101,27 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
     if ([allObjects count])
     {
       v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v24 = v3;
+      v23 = v3;
       v5 = v3;
-      v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v26;
+        v8 = *v25;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v26 != v8)
+            if (*v25 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v25 + 1) + 8 * i);
+            v10 = *(*(&v24 + 1) + 8 * i);
             if (v10)
             {
               v11 = MEMORY[0x277CCACA8];
@@ -137,7 +137,7 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
             [v4 addObject:v13];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v7);
@@ -150,7 +150,7 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
 
       v18 = [v15 stringWithFormat:@"%@ [%@]", v17, v14];
 
-      v3 = v24;
+      v3 = v23;
     }
 
     else
@@ -167,8 +167,6 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
   {
     v18 = @"<nil>";
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -192,40 +190,39 @@ uint64_t __40__MSPSharedTripBlocklist_sharedInstance__block_invoke(uint64_t a1)
   v7 = v5;
   v17 = v7;
   dispatch_sync(isolationQueue, block);
-  v8 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = MSPGetSharedTripLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     selfCopy = self;
     selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     if (*(v20 + 24))
     {
-      v11 = @"YES";
+      v12 = @"YES";
     }
 
     else
     {
-      v11 = @"NO";
+      v12 = @"NO";
     }
 
-    v12 = v11;
+    v13 = v12;
     *buf = 138543874;
     v24 = selfCopy;
     v25 = 2112;
     v26 = arrayCopy;
     v27 = 2112;
-    v28 = v12;
-    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] containsIdentifiers? %@ : %@", buf, 0x20u);
+    v28 = v13;
+    _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] containsIdentifiers? %@ : %@", buf, 0x20u);
   }
 
-  v13 = *(v20 + 24);
+  v14 = *(v20 + 24);
   _Block_object_dispose(&v19, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13 & 1;
+  return v14 & 1;
 }
 
-uint64_t __56__MSPSharedTripBlocklist_containsAnyIdentifiersInArray___block_invoke(void *a1)
+void *__56__MSPSharedTripBlocklist_containsAnyIdentifiersInArray___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) intersectsSet:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -250,40 +247,39 @@ uint64_t __56__MSPSharedTripBlocklist_containsAnyIdentifiersInArray___block_invo
   v6 = identifierCopy;
   v16 = v6;
   dispatch_sync(isolationQueue, block);
-  v7 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = MSPGetSharedTripLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     selfCopy = self;
     selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     if (*(v19 + 24))
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
     else
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
-    v11 = v10;
+    v12 = v11;
     *buf = 138543874;
     v23 = selfCopy;
     v24 = 2112;
     v25 = v6;
     v26 = 2112;
-    v27 = v11;
-    _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] containsIdentifier? %@ : %@", buf, 0x20u);
+    v27 = v12;
+    _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] containsIdentifier? %@ : %@", buf, 0x20u);
   }
 
-  v12 = *(v19 + 24);
+  v13 = *(v19 + 24);
   _Block_object_dispose(&v18, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12 & 1;
+  return v13 & 1;
 }
 
-uint64_t __45__MSPSharedTripBlocklist_containsIdentifier___block_invoke(void *a1)
+void *__45__MSPSharedTripBlocklist_containsIdentifier___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -292,7 +288,7 @@ uint64_t __45__MSPSharedTripBlocklist_containsIdentifier___block_invoke(void *a1
 
 - (void)blockIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (identifier)
   {
     identifierCopy = identifier;
@@ -300,15 +296,13 @@ uint64_t __45__MSPSharedTripBlocklist_containsIdentifier___block_invoke(void *a1
     identifierCopy2 = identifier;
     v6 = [v4 arrayWithObjects:&identifierCopy count:1];
 
-    [(MSPSharedTripBlocklist *)self blockIdentifiers:v6, identifierCopy, v9];
+    [(MSPSharedTripBlocklist *)self blockIdentifiers:v6, identifierCopy, v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blockIdentifiers:(id)identifiers
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if (identifiersCopy)
   {
@@ -319,155 +313,153 @@ uint64_t __45__MSPSharedTripBlocklist_containsIdentifier___block_invoke(void *a1
     block[2] = __43__MSPSharedTripBlocklist_blockIdentifiers___block_invoke;
     block[3] = &unk_279865EF8;
     v7 = v5;
-    v50 = v7;
+    v51 = v7;
     selfCopy = self;
     dispatch_sync(isolationQueue, block);
     if ([v7 count])
     {
       GEOConfigGetDouble();
       v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
-      [v8 timeIntervalSinceReferenceDate];
-      v10 = v9;
-      v11 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      timeIntervalSinceReferenceDate = [v8 timeIntervalSinceReferenceDate];
+      v11 = v10;
+      v12 = MSPGetSharedTripLog(timeIntervalSinceReferenceDate);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = MEMORY[0x277CCACA8];
+        v13 = MEMORY[0x277CCACA8];
         selfCopy2 = self;
-        selfCopy2 = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+        selfCopy2 = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
-        v15 = [v7 count];
+        v16 = [v7 count];
         *buf = 138544130;
-        v54 = selfCopy2;
-        v55 = 2048;
-        v56 = v15;
-        v57 = 2112;
-        v58 = v7;
-        v59 = 2112;
-        v60 = v8;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] blockIdentifiers | blocking %lu identifiers %@ (expires at %@)", buf, 0x2Au);
+        v55 = selfCopy2;
+        v56 = 2048;
+        v57 = v16;
+        v58 = 2112;
+        v59 = v7;
+        v60 = 2112;
+        v61 = v8;
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] blockIdentifiers | blocking %lu identifiers %@ (expires at %@)", buf, 0x2Au);
       }
 
-      v16 = [v7 count];
-      if (v16 < [identifiersCopy count])
+      v17 = [v7 count];
+      if (v17 < [identifiersCopy count])
       {
-        v17 = [identifiersCopy count];
-        v18 = [v7 count];
-        v19 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v18 = [identifiersCopy count];
+        v19 = [v7 count];
+        v20 = MSPGetSharedTripLog(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = v17 - v18;
-          v21 = MEMORY[0x277CCACA8];
+          v21 = v18 - v19;
+          v22 = MEMORY[0x277CCACA8];
           selfCopy3 = self;
-          selfCopy3 = [v21 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+          selfCopy3 = [v22 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
-          v24 = [identifiersCopy count];
+          v25 = [identifiersCopy count];
           *buf = 138543874;
-          v54 = selfCopy3;
-          v55 = 2048;
-          v56 = v20;
-          v57 = 2048;
-          v58 = v24;
-          _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] blockIdentifiers | %lu/%lu identifiers were already blocked", buf, 0x20u);
+          v55 = selfCopy3;
+          v56 = 2048;
+          v57 = v21;
+          v58 = 2048;
+          v59 = v25;
+          _os_log_impl(&dword_25813A000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] blockIdentifiers | %lu/%lu identifiers were already blocked", buf, 0x20u);
         }
       }
 
       selfCopy4 = self;
-      v43 = v8;
+      v44 = v8;
       selfCopy5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
-      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v26 = v7;
-      v27 = [v26 countByEnumeratingWithState:&v45 objects:v52 count:16];
-      if (v27)
+      v49 = 0u;
+      v27 = v7;
+      v28 = [v27 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      if (v28)
       {
-        v28 = v27;
-        v29 = *v46;
+        v29 = v28;
+        v30 = *v47;
         do
         {
-          for (i = 0; i != v28; ++i)
+          for (i = 0; i != v29; ++i)
           {
-            if (*v46 != v29)
+            if (*v47 != v30)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v27);
             }
 
-            v31 = [objc_alloc(MEMORY[0x277D26648]) initWithExpiryTime:v10 sharedTripIdentifier:*(*(&v45 + 1) + 8 * i)];
-            if (v31)
+            v32 = [objc_alloc(MEMORY[0x277D26648]) initWithExpiryTime:v11 sharedTripIdentifier:*(*(&v46 + 1) + 8 * i)];
+            if (v32)
             {
-              [(__CFString *)selfCopy5 addObject:v31];
+              [(__CFString *)selfCopy5 addObject:v32];
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v45 objects:v52 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v46 objects:v53 count:16];
         }
 
-        while (v28);
+        while (v29);
       }
 
       mEMORY[0x277D26670] = [MEMORY[0x277D26670] sharedStore];
-      v44 = 0;
-      [mEMORY[0x277D26670] saveWithObjects:selfCopy5 error:&v44];
-      v33 = v44;
+      v45 = 0;
+      [mEMORY[0x277D26670] saveWithObjects:selfCopy5 error:&v45];
+      v34 = v45;
 
-      v34 = v43;
-      if (v33)
+      v36 = v44;
+      if (v34)
       {
-        v35 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v37 = MSPGetSharedTripLog(v35);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           if (selfCopy4)
           {
-            v36 = MEMORY[0x277CCACA8];
-            v37 = selfCopy4;
-            v34 = v43;
-            v38 = [v36 stringWithFormat:@"%@<%p>", objc_opt_class(), v37];
+            v38 = MEMORY[0x277CCACA8];
+            v39 = selfCopy4;
+            v36 = v44;
+            v40 = [v38 stringWithFormat:@"%@<%p>", objc_opt_class(), v39];
           }
 
           else
           {
-            v38 = @"<nil>";
+            v40 = @"<nil>";
           }
 
           *buf = 138543874;
-          v54 = v38;
-          v55 = 2112;
-          v56 = v26;
-          v57 = 2112;
-          v58 = v33;
-          _os_log_impl(&dword_25813A000, v35, OS_LOG_TYPE_ERROR, "[%{public}@] block | failed to block identifiers %@: error: %@", buf, 0x20u);
+          v55 = v40;
+          v56 = 2112;
+          v57 = v27;
+          v58 = 2112;
+          v59 = v34;
+          _os_log_impl(&dword_25813A000, v37, OS_LOG_TYPE_ERROR, "[%{public}@] block | failed to block identifiers %@: error: %@", buf, 0x20u);
         }
       }
     }
 
     else
     {
-      v34 = MSPGetSharedTripLog();
-      if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = MSPGetSharedTripLog(0);
+      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
 LABEL_29:
 
         goto LABEL_30;
       }
 
-      v39 = MEMORY[0x277CCACA8];
+      v41 = MEMORY[0x277CCACA8];
       selfCopy5 = self;
-      selfCopy5 = [v39 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy5];
+      selfCopy5 = [v41 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy5];
 
       *buf = 138543618;
-      v54 = selfCopy5;
-      v55 = 2112;
-      v56 = identifiersCopy;
-      _os_log_impl(&dword_25813A000, v34, OS_LOG_TYPE_ERROR, "[%{public}@] block | already blocked: %@", buf, 0x16u);
+      v55 = selfCopy5;
+      v56 = 2112;
+      v57 = identifiersCopy;
+      _os_log_impl(&dword_25813A000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] block | already blocked: %@", buf, 0x16u);
     }
 
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__MSPSharedTripBlocklist_blockIdentifiers___block_invoke(uint64_t a1)
@@ -483,7 +475,7 @@ uint64_t __43__MSPSharedTripBlocklist_blockIdentifiers___block_invoke(uint64_t a
 {
   v49 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v5 = MSPGetSharedTripLog();
+  v5 = MSPGetSharedTripLog(identifiersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (self)
@@ -571,15 +563,15 @@ LABEL_32:
 
       if (v24)
       {
-        v25 = MSPGetSharedTripLog();
+        v26 = MSPGetSharedTripLog(v25);
         identifiersCopy = v34;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           if (self)
           {
-            v26 = MEMORY[0x277CCACA8];
+            v27 = MEMORY[0x277CCACA8];
             selfCopy2 = self;
-            selfCopy2 = [v26 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+            selfCopy2 = [v27 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
           }
 
           else
@@ -593,7 +585,7 @@ LABEL_32:
           v45 = v33;
           v46 = 2112;
           v47 = v24;
-          _os_log_impl(&dword_25813A000, v25, OS_LOG_TYPE_ERROR, "[%{public}@] unblock | failed to unblock identifiers %@: error: %@", buf, 0x20u);
+          _os_log_impl(&dword_25813A000, v26, OS_LOG_TYPE_ERROR, "[%{public}@] unblock | failed to unblock identifiers %@: error: %@", buf, 0x20u);
         }
 
         goto LABEL_31;
@@ -602,15 +594,15 @@ LABEL_32:
 
     else
     {
-      v24 = MSPGetSharedTripLog();
+      v24 = MSPGetSharedTripLog(0);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         identifiersCopy = v34;
         if (self)
         {
-          v29 = MEMORY[0x277CCACA8];
+          v30 = MEMORY[0x277CCACA8];
           selfCopy3 = self;
-          selfCopy3 = [v29 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+          selfCopy3 = [v30 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
         }
 
         else
@@ -635,8 +627,6 @@ LABEL_31:
   }
 
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
@@ -649,7 +639,7 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
 - (void)clearBlockedIdentifiers
 {
   v22 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (self)
@@ -686,29 +676,27 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
 
     if (v10)
     {
-      v11 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = MSPGetSharedTripLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v12 = MEMORY[0x277CCACA8];
+        v13 = MEMORY[0x277CCACA8];
         selfCopy2 = self;
-        selfCopy2 = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+        selfCopy2 = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
         *buf = 138543618;
         v19 = selfCopy2;
         v20 = 2112;
         v21 = v10;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] clear | failed to delete all identifiers with error: %@", buf, 0x16u);
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] clear | failed to delete all identifiers with error: %@", buf, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeExpiredIdentifiers
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (self)
@@ -724,7 +712,7 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     }
 
     *buf = 138543362;
-    v14 = selfCopy;
+    v13 = selfCopy;
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] purge | requested", buf, 0xCu);
   }
 
@@ -738,52 +726,50 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     block[2] = __49__MSPSharedTripBlocklist_purgeExpiredIdentifiers__block_invoke;
     block[3] = &unk_279865EF8;
     block[4] = self;
-    v12 = _fetchSyncedIdentifiers;
+    v11 = _fetchSyncedIdentifiers;
     dispatch_async(isolationQueue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeExpiredIdentifiersIn:(id)in
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   inCopy = in;
-  v64 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(inCopy, "count")}];
-  v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(inCopy, "count")}];
-  v66 = 0u;
+  v65 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(inCopy, "count")}];
+  v64 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(inCopy, "count")}];
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
   v4 = inCopy;
-  v5 = [v4 countByEnumeratingWithState:&v66 objects:v74 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v67 objects:v75 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v67;
+    v7 = *v68;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v67 != v7)
+        if (*v68 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v66 + 1) + 8 * i);
+        v9 = *(*(&v67 + 1) + 8 * i);
         v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:{objc_msgSend(v9, "expiryTime")}];
-        [v10 timeIntervalSinceNow];
-        if (v11 <= 0.0)
+        timeIntervalSinceNow = [v10 timeIntervalSinceNow];
+        if (v12 <= 0.0)
         {
-          v12 = v11;
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v13 = v12;
+          v14 = MSPGetSharedTripLog(timeIntervalSinceNow);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             if (self)
             {
-              v14 = MEMORY[0x277CCACA8];
+              v15 = MEMORY[0x277CCACA8];
               selfCopy = self;
-              selfCopy = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+              selfCopy = [v15 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
             }
 
             else
@@ -793,38 +779,38 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
 
             sharedTripIdentifier = [v9 sharedTripIdentifier];
             *buf = 138543874;
-            v76 = selfCopy;
-            v77 = 2112;
-            v78 = sharedTripIdentifier;
-            v79 = 2048;
-            v80 = fabs(v12);
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[%{public}@] purge | found %@ which expired %#.1lfs ago", buf, 0x20u);
+            v77 = selfCopy;
+            v78 = 2112;
+            v79 = sharedTripIdentifier;
+            v80 = 2048;
+            v81 = fabs(v13);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[%{public}@] purge | found %@ which expired %#.1lfs ago", buf, 0x20u);
           }
 
-          [v63 addObject:v9];
+          [v64 addObject:v9];
           sharedTripIdentifier2 = [v9 sharedTripIdentifier];
-          [v64 addObject:sharedTripIdentifier2];
+          [v65 addObject:sharedTripIdentifier2];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v67 objects:v75 count:16];
     }
 
     while (v6);
   }
 
-  v19 = [v64 count];
-  v20 = MSPGetSharedTripLog();
-  v21 = v20;
-  if (v19)
+  v20 = [v65 count];
+  v21 = MSPGetSharedTripLog(v20);
+  v22 = v21;
+  if (v20)
   {
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       if (self)
       {
-        v22 = MEMORY[0x277CCACA8];
+        v23 = MEMORY[0x277CCACA8];
         selfCopy2 = self;
-        selfCopy2 = [v22 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+        selfCopy2 = [v23 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
       }
 
       else
@@ -832,133 +818,133 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
         selfCopy2 = @"<nil>";
       }
 
-      v28 = selfCopy2;
-      v29 = [v64 count];
-      v30 = [v4 count];
-      allObjects = [v64 allObjects];
-      v32 = allObjects;
+      v29 = selfCopy2;
+      v30 = [v65 count];
+      v31 = [v4 count];
+      allObjects = [v65 allObjects];
+      v33 = allObjects;
       if (allObjects)
       {
         if ([allObjects count])
         {
-          v57 = v30;
-          v58 = v29;
-          v60 = v28;
-          v61 = v21;
-          v33 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v32, "count")}];
-          v70 = 0u;
+          v58 = v31;
+          v59 = v30;
+          v61 = v29;
+          v62 = v22;
+          v34 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v33, "count")}];
           v71 = 0u;
           v72 = 0u;
           v73 = 0u;
-          v59 = v32;
-          v34 = v32;
-          v35 = [v34 countByEnumeratingWithState:&v70 objects:buf count:16];
-          if (v35)
+          v74 = 0u;
+          v60 = v33;
+          v35 = v33;
+          v36 = [v35 countByEnumeratingWithState:&v71 objects:buf count:16];
+          if (v36)
           {
-            v36 = v35;
-            v37 = *v71;
+            v37 = v36;
+            v38 = *v72;
             do
             {
-              for (j = 0; j != v36; ++j)
+              for (j = 0; j != v37; ++j)
               {
-                if (*v71 != v37)
+                if (*v72 != v38)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v35);
                 }
 
-                v39 = *(*(&v70 + 1) + 8 * j);
-                if (v39)
+                v40 = *(*(&v71 + 1) + 8 * j);
+                if (v40)
                 {
-                  v40 = MEMORY[0x277CCACA8];
-                  v41 = v39;
-                  v42 = [v40 stringWithFormat:@"%@<%p>", objc_opt_class(), v41];
+                  v41 = MEMORY[0x277CCACA8];
+                  v42 = v40;
+                  v43 = [v41 stringWithFormat:@"%@<%p>", objc_opt_class(), v42];
                 }
 
                 else
                 {
-                  v42 = @"<nil>";
+                  v43 = @"<nil>";
                 }
 
-                [v33 addObject:v42];
+                [v34 addObject:v43];
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v70 objects:buf count:16];
+              v37 = [v35 countByEnumeratingWithState:&v71 objects:buf count:16];
             }
 
-            while (v36);
+            while (v37);
           }
 
-          v43 = [v34 componentsJoinedByString:{@", "}];
-          v44 = MEMORY[0x277CCACA8];
-          v45 = v34;
-          v46 = [v44 stringWithFormat:@"%@<%p>", objc_opt_class(), v45];
+          v44 = [v35 componentsJoinedByString:{@", "}];
+          v45 = MEMORY[0x277CCACA8];
+          v46 = v35;
+          v47 = [v45 stringWithFormat:@"%@<%p>", objc_opt_class(), v46];
 
-          v47 = [v44 stringWithFormat:@"%@ [%@]", v46, v43];
+          v48 = [v45 stringWithFormat:@"%@ [%@]", v47, v44];
 
-          v28 = v60;
-          v21 = v61;
-          v29 = v58;
-          v32 = v59;
-          v30 = v57;
+          v29 = v61;
+          v22 = v62;
+          v30 = v59;
+          v33 = v60;
+          v31 = v58;
         }
 
         else
         {
-          v48 = MEMORY[0x277CCACA8];
-          v49 = v32;
-          v33 = [v48 stringWithFormat:@"%@<%p>", objc_opt_class(), v49];
+          v49 = MEMORY[0x277CCACA8];
+          v50 = v33;
+          v34 = [v49 stringWithFormat:@"%@<%p>", objc_opt_class(), v50];
 
-          v47 = [v48 stringWithFormat:@"%@ (empty)", v33];
+          v48 = [v49 stringWithFormat:@"%@ (empty)", v34];
         }
       }
 
       else
       {
-        v47 = @"<nil>";
+        v48 = @"<nil>";
       }
 
       *buf = 138544130;
-      v76 = v28;
-      v77 = 2048;
-      v78 = v29;
-      v79 = 2048;
-      v80 = *&v30;
-      v81 = 2112;
-      v82 = v47;
-      _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] purge | will purge %lu/%lu blocked identifiers: %@", buf, 0x2Au);
+      v77 = v29;
+      v78 = 2048;
+      v79 = v30;
+      v80 = 2048;
+      v81 = *&v31;
+      v82 = 2112;
+      v83 = v48;
+      _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] purge | will purge %lu/%lu blocked identifiers: %@", buf, 0x2Au);
     }
 
-    [(NSMutableSet *)self->_blockedIdentifiers minusSet:v64];
+    [(NSMutableSet *)self->_blockedIdentifiers minusSet:v65];
     mEMORY[0x277D26670] = [MEMORY[0x277D26670] sharedStore];
-    v65 = 0;
-    [mEMORY[0x277D26670] deleteWithObjects:v63 error:&v65];
-    v21 = v65;
+    v66 = 0;
+    [mEMORY[0x277D26670] deleteWithObjects:v64 error:&v66];
+    v22 = v66;
 
-    if (v21)
+    if (v22)
     {
-      v51 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v53 = MSPGetSharedTripLog(v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        v52 = MEMORY[0x277CCACA8];
+        v54 = MEMORY[0x277CCACA8];
         selfCopy3 = self;
-        selfCopy3 = [v52 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+        selfCopy3 = [v54 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
         *buf = 138543618;
-        v76 = selfCopy3;
-        v77 = 2112;
-        v78 = v21;
-        _os_log_impl(&dword_25813A000, v51, OS_LOG_TYPE_ERROR, "[%{public}@] purge | failed to remove identifiers with error %@", buf, 0x16u);
+        v77 = selfCopy3;
+        v78 = 2112;
+        v79 = v22;
+        _os_log_impl(&dword_25813A000, v53, OS_LOG_TYPE_ERROR, "[%{public}@] purge | failed to remove identifiers with error %@", buf, 0x16u);
       }
     }
   }
 
-  else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     if (self)
     {
-      v25 = MEMORY[0x277CCACA8];
+      v26 = MEMORY[0x277CCACA8];
       selfCopy4 = self;
-      selfCopy4 = [v25 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
+      selfCopy4 = [v26 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
     }
 
     else
@@ -966,22 +952,20 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
       selfCopy4 = @"<nil>";
     }
 
-    v55 = [v4 count];
+    v57 = [v4 count];
     *buf = 138543618;
-    v76 = selfCopy4;
-    v77 = 2048;
-    v78 = v55;
-    _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_DEBUG, "[%{public}@] purge | found nothing to purge from %lu items", buf, 0x16u);
+    v77 = selfCopy4;
+    v78 = 2048;
+    v79 = v57;
+    _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@] purge | found nothing to purge from %lu items", buf, 0x16u);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reloadBlockedIdentifiersFromSync
 {
   v32 = *MEMORY[0x277D85DE8];
   _fetchSyncedIdentifiers = [(MSPSharedTripBlocklist *)self _fetchSyncedIdentifiers];
-  v4 = MSPGetSharedTripLog();
+  v4 = MSPGetSharedTripLog(_fetchSyncedIdentifiers);
   v5 = v4;
   if (_fetchSyncedIdentifiers)
   {
@@ -1042,18 +1026,18 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     }
 
     objc_storeStrong(&self->_blockedIdentifiers, v5);
-    v18 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = MSPGetSharedTripLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = MEMORY[0x277CCACA8];
+      v20 = MEMORY[0x277CCACA8];
       selfCopy2 = self;
-      v21 = [v19 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2, v23];
+      v22 = [v20 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2, v23];
 
       *buf = 138543618;
-      v29 = v21;
+      v29 = v22;
       v30 = 2112;
       v31 = v5;
-      _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] reload | set local copy of identifiers: %@", buf, 0x16u);
+      _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] reload | set local copy of identifiers: %@", buf, 0x16u);
     }
   }
 
@@ -1075,8 +1059,6 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     v29 = selfCopy3;
     _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] reload | could not load from sync", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchSyncedIdentifiers
@@ -1086,21 +1068,22 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
   v13 = 0;
   v4 = [v3 fetchSyncAndReturnError:&v13];
   v5 = v13;
+  v6 = v5;
   if (v4)
   {
-    v6 = v4;
+    v7 = v4;
   }
 
   else
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MSPGetSharedTripLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       if (self)
       {
-        v8 = MEMORY[0x277CCACA8];
+        v9 = MEMORY[0x277CCACA8];
         selfCopy = self;
-        selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+        selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
       }
 
       else
@@ -1111,20 +1094,18 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
       *buf = 138543618;
       v15 = selfCopy;
       v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] fetch | _fetchSyncedIdentifiers failed to fetch with error: %@", buf, 0x16u);
+      v17 = v6;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] fetch | _fetchSyncedIdentifiers failed to fetch with error: %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)storeDidChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = MSPGetSharedTripLog();
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (self)
@@ -1140,7 +1121,7 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     }
 
     *buf = 138543362;
-    v12 = selfCopy;
+    v11 = selfCopy;
     _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] store | data changed, schedule reload of blocked identifiers", buf, 0xCu);
   }
 
@@ -1151,15 +1132,14 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
   block[3] = &unk_279866158;
   block[4] = self;
   dispatch_async(isolationQueue, block);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)migrateFromiCloudKVSIfNeeded
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   BOOL = GEOConfigGetBOOL();
   v4 = [MSPMapsDefaultsAccessor get:@"ShareETABlocklistMigration2022"];
-  v5 = MSPGetSharedTripLog();
+  v5 = MSPGetSharedTripLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (self)
@@ -1182,11 +1162,11 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
 
     v10 = v9;
     *buf = 138543874;
-    v16 = selfCopy;
-    v17 = 2114;
-    v18 = v4;
-    v19 = 2114;
-    v20 = v10;
+    v15 = selfCopy;
+    v16 = 2114;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v10;
     _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | Last KVS blocklist migration performed: %{public}@, should always check: %{public}@", buf, 0x20u);
   }
 
@@ -1210,144 +1190,144 @@ void __45__MSPSharedTripBlocklist_unblockIdentifiers___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MSPSharedTripBlocklist_migrateFromiCloudKVSIfNeeded__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAD80] defaultStore];
   v3 = [v2 dictionaryForKey:@"com.apple.mapspushd.MSPSharedTripBlacklist"];
+  v4 = v3;
   if (v3)
   {
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MSPGetSharedTripLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      if (v5)
+      v6 = *(a1 + 32);
+      if (v6)
       {
-        v6 = MEMORY[0x277CCACA8];
-        v7 = v5;
-        v8 = [v6 stringWithFormat:@"%@<%p>", objc_opt_class(), v7];
+        v7 = MEMORY[0x277CCACA8];
+        v8 = v6;
+        v9 = [v7 stringWithFormat:@"%@<%p>", objc_opt_class(), v8];
       }
 
       else
       {
-        v8 = @"<nil>";
+        v9 = @"<nil>";
       }
 
       *buf = 138543362;
-      v35 = v8;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Found blocklist data in iCloud KVS, will migrate in background", buf, 0xCu);
+      v37 = v9;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Found blocklist data in iCloud KVS, will migrate in background", buf, 0xCu);
     }
 
-    v9 = [v3 objectForKeyedSubscript:@"tripIdentifiers"];
-    if ([v9 count])
+    v10 = [v4 objectForKeyedSubscript:@"tripIdentifiers"];
+    v11 = [v10 count];
+    if (v11)
     {
-      v10 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = MSPGetSharedTripLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
-        if (v11)
+        v13 = *(a1 + 32);
+        if (v13)
         {
-          v12 = MEMORY[0x277CCACA8];
-          v13 = v11;
-          v14 = [v12 stringWithFormat:@"%@<%p>", objc_opt_class(), v13];
+          v14 = MEMORY[0x277CCACA8];
+          v15 = v13;
+          v16 = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), v15];
         }
 
         else
         {
-          v14 = @"<nil>";
+          v16 = @"<nil>";
         }
 
-        v15 = [v9 count];
+        v17 = [v10 count];
         *buf = 138543618;
-        v35 = v14;
-        v36 = 2048;
-        v37 = v15;
-        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Migrating %lu blocked trip identifiers...", buf, 0x16u);
+        v37 = v16;
+        v38 = 2048;
+        v39 = v17;
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Migrating %lu blocked trip identifiers...", buf, 0x16u);
       }
 
-      v16 = [*(a1 + 32) sharedInstance];
-      [v16 blockIdentifiers:v9];
+      v18 = [*(a1 + 32) sharedInstance];
+      [v18 blockIdentifiers:v10];
     }
 
-    if (GEOConfigGetBOOL())
+    BOOL = GEOConfigGetBOOL();
+    if (BOOL)
     {
-      v17 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = MSPGetSharedTripLog(BOOL);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 32);
-        if (v18)
+        v21 = *(a1 + 32);
+        if (v21)
         {
-          v19 = MEMORY[0x277CCACA8];
-          v20 = v18;
-          v21 = [v19 stringWithFormat:@"%@<%p>", objc_opt_class(), v20];
+          v22 = MEMORY[0x277CCACA8];
+          v23 = v21;
+          v24 = [v22 stringWithFormat:@"%@<%p>", objc_opt_class(), v23];
         }
 
         else
         {
-          v21 = @"<nil>";
+          v24 = @"<nil>";
         }
 
         *buf = 138543362;
-        v35 = v21;
-        _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Clearing KVS blocklist post-migration...", buf, 0xCu);
+        v37 = v24;
+        _os_log_impl(&dword_25813A000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Clearing KVS blocklist post-migration...", buf, 0xCu);
       }
 
       [v2 removeObjectForKey:@"com.apple.mapspushd.MSPSharedTripBlacklist"];
-      [v2 synchronize];
+      BOOL = [v2 synchronize];
     }
 
-    v22 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = MSPGetSharedTripLog(BOOL);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 32);
-      if (v23)
+      v26 = *(a1 + 32);
+      if (v26)
       {
-        v24 = MEMORY[0x277CCACA8];
-        v25 = v23;
-        v26 = [v24 stringWithFormat:@"%@<%p>", objc_opt_class(), v25];
+        v27 = MEMORY[0x277CCACA8];
+        v28 = v26;
+        v29 = [v27 stringWithFormat:@"%@<%p>", objc_opt_class(), v28];
       }
 
       else
       {
-        v26 = @"<nil>";
+        v29 = @"<nil>";
       }
 
       *buf = 138543362;
-      v35 = v26;
-      _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Finished migrating blocked trip identifiers", buf, 0xCu);
+      v37 = v29;
+      _os_log_impl(&dword_25813A000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | - Finished migrating blocked trip identifiers", buf, 0xCu);
     }
   }
 
-  v27 = [MEMORY[0x277CBEAA8] date];
-  v28 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v30 = [MEMORY[0x277CBEAA8] date];
+  v31 = MSPGetSharedTripLog(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = *(a1 + 32);
-    if (v29)
+    v32 = *(a1 + 32);
+    if (v32)
     {
-      v30 = MEMORY[0x277CCACA8];
-      v31 = v29;
-      v32 = [v30 stringWithFormat:@"%@<%p>", objc_opt_class(), v31];
+      v33 = MEMORY[0x277CCACA8];
+      v34 = v32;
+      v35 = [v33 stringWithFormat:@"%@<%p>", objc_opt_class(), v34];
     }
 
     else
     {
-      v32 = @"<nil>";
+      v35 = @"<nil>";
     }
 
     *buf = 138543618;
-    v35 = v32;
-    v36 = 2114;
-    v37 = v27;
-    _os_log_impl(&dword_25813A000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | Recording KVS migration check at: %{public}@", buf, 0x16u);
+    v37 = v35;
+    v38 = 2114;
+    v39 = v30;
+    _os_log_impl(&dword_25813A000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] migration | Recording KVS migration check at: %{public}@", buf, 0x16u);
   }
 
-  [MSPMapsDefaultsAccessor set:@"ShareETABlocklistMigration2022" value:v27];
-  v33 = *MEMORY[0x277D85DE8];
+  [MSPMapsDefaultsAccessor set:@"ShareETABlocklistMigration2022" value:v30];
 }
 
 @end

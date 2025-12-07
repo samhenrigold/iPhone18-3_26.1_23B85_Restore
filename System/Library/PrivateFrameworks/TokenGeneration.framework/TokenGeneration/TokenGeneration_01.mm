@@ -1,427 +1,3 @@
-uint64_t sub_1AB839A14(uint64_t a1, uint64_t a2, int a3, int *a4)
-{
-  v8 = type metadata accessor for XPCDictionary();
-  v9 = *(v8 - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = v8;
-    v11 = *(v9 + 56);
-    v12 = a1;
-  }
-
-  else
-  {
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMd, &_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMR);
-    if (*(*(v13 - 8) + 84) == a3)
-    {
-      v10 = v13;
-      v14 = *(v13 - 8);
-      v15 = a4[6];
-    }
-
-    else
-    {
-      result = type metadata accessor for PromptTemplateInfoEnvelope(0);
-      if (*(*(result - 8) + 84) != a3)
-      {
-        *(a1 + a4[8] + 8) = (a2 - 1);
-        return result;
-      }
-
-      v10 = result;
-      v14 = *(result - 8);
-      v15 = a4[7];
-    }
-
-    v11 = *(v14 + 56);
-    v12 = a1 + v15;
-  }
-
-  return v11(v12, a2, a2, v10);
-}
-
-uint64_t sub_1AB839B74(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for XPCDictionary();
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = v6;
-    v9 = *(v7 + 48);
-    v10 = a1;
-LABEL_8:
-
-    return v9(v10, a2, v8);
-  }
-
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMd, &_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMR);
-  if (*(*(v11 - 8) + 84) == a2)
-  {
-    v8 = v11;
-    v12 = *(v11 - 8);
-    v13 = a3[6];
-LABEL_7:
-    v9 = *(v12 + 48);
-    v10 = a1 + v13;
-    goto LABEL_8;
-  }
-
-  v14 = type metadata accessor for PromptTemplateInfoEnvelope(0);
-  if (*(*(v14 - 8) + 84) == a2)
-  {
-    v8 = v14;
-    v12 = *(v14 - 8);
-    v13 = a3[7];
-    goto LABEL_7;
-  }
-
-  if (a2 == 0x7FFFFFFF)
-  {
-    v16 = *(a1 + a3[8] + 80);
-    if (v16 >= 0xFFFFFFFF)
-    {
-      LODWORD(v16) = -1;
-    }
-
-    return (v16 + 1);
-  }
-
-  else
-  {
-    v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration11ConstraintsOSgMd, &_s15TokenGeneration11ConstraintsOSgMR);
-    v18 = *(*(v17 - 8) + 48);
-    v19 = a1 + a3[12];
-
-    return v18(v19, a2, v17);
-  }
-}
-
-uint64_t sub_1AB839D4C(uint64_t a1, uint64_t a2, int a3, int *a4)
-{
-  v8 = type metadata accessor for XPCDictionary();
-  v9 = *(v8 - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = v8;
-    v11 = *(v9 + 56);
-    v12 = a1;
-LABEL_8:
-
-    return v11(v12, a2, a2, v10);
-  }
-
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMd, &_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMR);
-  if (*(*(v13 - 8) + 84) == a3)
-  {
-    v10 = v13;
-    v14 = *(v13 - 8);
-    v15 = a4[6];
-LABEL_7:
-    v11 = *(v14 + 56);
-    v12 = a1 + v15;
-    goto LABEL_8;
-  }
-
-  result = type metadata accessor for PromptTemplateInfoEnvelope(0);
-  if (*(*(result - 8) + 84) == a3)
-  {
-    v10 = result;
-    v14 = *(result - 8);
-    v15 = a4[7];
-    goto LABEL_7;
-  }
-
-  if (a3 == 0x7FFFFFFF)
-  {
-    *(a1 + a4[8] + 80) = (a2 - 1);
-  }
-
-  else
-  {
-    v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration11ConstraintsOSgMd, &_s15TokenGeneration11ConstraintsOSgMR);
-    v18 = *(*(v17 - 8) + 56);
-    v19 = a1 + a4[12];
-
-    return v18(v19, a2, a2, v17);
-  }
-
-  return result;
-}
-
-uint64_t sub_1AB839F24(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for XPCDictionary();
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = v6;
-    v9 = *(v7 + 48);
-    v10 = a1;
-LABEL_3:
-
-    return v9(v10, a2, v8);
-  }
-
-  if (a2 == 0x7FFFFFFF)
-  {
-    v12 = *(a1 + a3[5] + 8);
-    if (v12 >= 0xFFFFFFFF)
-    {
-      LODWORD(v12) = -1;
-    }
-
-    return (v12 + 1);
-  }
-
-  else
-  {
-    v13 = type metadata accessor for PromptVariantEnvelope(0);
-    v14 = *(v13 - 8);
-    if (*(v14 + 84) == a2)
-    {
-      v8 = v13;
-      v9 = *(v14 + 48);
-      v10 = a1 + a3[6];
-      goto LABEL_3;
-    }
-
-    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration11ConstraintsOSgMd, &_s15TokenGeneration11ConstraintsOSgMR);
-    v16 = *(*(v15 - 8) + 48);
-    v17 = a1 + a3[8];
-
-    return v16(v17, a2, v15);
-  }
-}
-
-uint64_t sub_1AB83A0A8(uint64_t a1, uint64_t a2, int a3, int *a4)
-{
-  result = type metadata accessor for XPCDictionary();
-  v9 = *(result - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = result;
-    v11 = *(v9 + 56);
-    v12 = a1;
-LABEL_3:
-
-    return v11(v12, a2, a2, v10);
-  }
-
-  if (a3 == 0x7FFFFFFF)
-  {
-    *(a1 + a4[5] + 8) = (a2 - 1);
-    return result;
-  }
-
-  v13 = type metadata accessor for PromptVariantEnvelope(0);
-  v14 = *(v13 - 8);
-  if (*(v14 + 84) == a3)
-  {
-    v10 = v13;
-    v11 = *(v14 + 56);
-    v12 = a1 + a4[6];
-    goto LABEL_3;
-  }
-
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration11ConstraintsOSgMd, &_s15TokenGeneration11ConstraintsOSgMR);
-  v16 = *(*(v15 - 8) + 56);
-  v17 = a1 + a4[8];
-
-  return v16(v17, a2, a2, v15);
-}
-
-uint64_t sub_1AB83A234(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for XPCDictionary();
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = v6;
-    v9 = *(v7 + 48);
-    v10 = a1;
-LABEL_8:
-
-    return v9(v10, a2, v8);
-  }
-
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMd, &_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMR);
-  if (*(*(v11 - 8) + 84) == a2)
-  {
-    v8 = v11;
-    v12 = *(v11 - 8);
-    v13 = a3[6];
-LABEL_7:
-    v9 = *(v12 + 48);
-    v10 = a1 + v13;
-    goto LABEL_8;
-  }
-
-  v14 = type metadata accessor for PromptTemplateInfoEnvelope(0);
-  if (*(*(v14 - 8) + 84) == a2)
-  {
-    v8 = v14;
-    v12 = *(v14 - 8);
-    v13 = a3[7];
-    goto LABEL_7;
-  }
-
-  v16 = *(a1 + a3[9] + 8);
-  if (v16 >= 0xFFFFFFFF)
-  {
-    LODWORD(v16) = -1;
-  }
-
-  return (v16 + 1);
-}
-
-uint64_t sub_1AB83A398(uint64_t a1, uint64_t a2, int a3, int *a4)
-{
-  v8 = type metadata accessor for XPCDictionary();
-  v9 = *(v8 - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = v8;
-    v11 = *(v9 + 56);
-    v12 = a1;
-  }
-
-  else
-  {
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMd, &_s15TokenGeneration21PromptVariantEnvelope33_FCE651B3B8F212418F5C81F0A4785E63LLOSgMR);
-    if (*(*(v13 - 8) + 84) == a3)
-    {
-      v10 = v13;
-      v14 = *(v13 - 8);
-      v15 = a4[6];
-    }
-
-    else
-    {
-      result = type metadata accessor for PromptTemplateInfoEnvelope(0);
-      if (*(*(result - 8) + 84) != a3)
-      {
-        *(a1 + a4[9] + 8) = (a2 - 1);
-        return result;
-      }
-
-      v10 = result;
-      v14 = *(result - 8);
-      v15 = a4[7];
-    }
-
-    v11 = *(v14 + 56);
-    v12 = a1 + v15;
-  }
-
-  return v11(v12, a2, a2, v10);
-}
-
-uint64_t sub_1AB83A4F8(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for XPCDictionary();
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = *(v7 + 48);
-
-    return v8(a1, a2, v6);
-  }
-
-  else
-  {
-    v10 = *(a1 + *(a3 + 20));
-    if (v10 >= 0xFFFFFFFF)
-    {
-      LODWORD(v10) = -1;
-    }
-
-    return (v10 + 1);
-  }
-}
-
-uint64_t sub_1AB83A5B4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  result = type metadata accessor for XPCDictionary();
-  v9 = *(result - 8);
-  if (*(v9 + 84) == a3)
-  {
-    v10 = *(v9 + 56);
-
-    return v10(a1, a2, a2, result);
-  }
-
-  else
-  {
-    *(a1 + *(a4 + 20)) = (a2 - 1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1AB83A6CC(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  if (a2 == 0x7FFFFFFF)
-  {
-    v4 = *a1;
-    if (*a1 >= 0xFFFFFFFF)
-    {
-      LODWORD(v4) = -1;
-    }
-
-    return (v4 + 1);
-  }
-
-  else
-  {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PromptKit25InferenceResponseEnvelopeVSgMd, &_s9PromptKit25InferenceResponseEnvelopeVSgMR);
-    v9 = *(*(v8 - 8) + 48);
-    v10 = a1 + *(a3 + 20);
-
-    return v9(v10, a2, v8);
-  }
-}
-
-void *sub_1AB83A788(void *result, uint64_t a2, int a3, uint64_t a4)
-{
-  v5 = result;
-  if (a3 == 0x7FFFFFFF)
-  {
-    *result = (a2 - 1);
-  }
-
-  else
-  {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PromptKit25InferenceResponseEnvelopeVSgMd, &_s9PromptKit25InferenceResponseEnvelopeVSgMR);
-    v8 = *(*(v7 - 8) + 56);
-    v9 = v5 + *(a4 + 20);
-
-    return v8(v9, a2, a2, v7);
-  }
-
-  return result;
-}
-
-uint64_t sub_1AB83A89C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for DocumentRegistrationStatusEnvelope(0);
-  v7 = *(v6 - 8);
-  if (*(v7 + 84) == a2)
-  {
-    v8 = *(v7 + 48);
-
-    return v8(a1, a2, v6);
-  }
-
-  else
-  {
-    v10 = type metadata accessor for URL();
-    v11 = *(*(v10 - 8) + 48);
-    v12 = a1 + *(a3 + 20);
-
-    return v11(v12, a2, v10);
-  }
-}
-
 uint64_t sub_1AB83A98C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   v8 = type metadata accessor for DocumentRegistrationStatusEnvelope(0);
@@ -546,7 +122,7 @@ uint64_t sub_1AB83AE88(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1AB83AF44(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1AB83AF44(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -591,25 +167,20 @@ void *sub_1AB83B000(void *result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_1AB83B188()
 {
-  v1 = v0[3];
 
-  outlined consume of Data._Representation(v0[4], v0[5]);
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
 
 uint64_t sub_1AB83B1C8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
 
 uint64_t sub_1AB83B200()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
 
   if (v0[7] >= 3uLL)
   {
@@ -622,20 +193,11 @@ uint64_t sub_1AB83B200()
 
 uint64_t sub_1AB83B25C()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
-
-  v3 = v0[7];
-
-  v4 = v0[9];
-
-  v5 = v0[11];
-
-  v6 = v0[13];
-  if (v6 >> 60 != 15)
+  v1 = *(v0 + 104);
+  if (v1 >> 60 != 15)
   {
-    outlined consume of Data._Representation(v0[12], v6);
+    outlined consume of Data._Representation(*(v0 + 96), v1);
   }
 
   return MEMORY[0x1EEE6BDD0](v0, 112, 7);
@@ -643,22 +205,12 @@ uint64_t sub_1AB83B25C()
 
 uint64_t sub_1AB83B2CC()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
 uint64_t sub_1AB83B314()
 {
-  v1 = v0[3];
-
-  v2 = v0[4];
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
@@ -706,10 +258,9 @@ uint64_t sub_1AB83B4BC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1AB83B5D4(uint64_t *a1, uint64_t a2)
+uint64_t sub_1AB83B5D4(void *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a2 + 16);
 
   *(a2 + 16) = v3;
   return result;
@@ -717,16 +268,13 @@ uint64_t sub_1AB83B5D4(uint64_t *a1, uint64_t a2)
 
 uint64_t sub_1AB83B618()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 48);
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
 uint64_t sub_1AB83B658()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
@@ -739,9 +287,7 @@ uint64_t sub_1AB83B854()
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v7 = *(v0 + 32);
 
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -750,12 +296,8 @@ uint64_t sub_1AB83B854()
 
 uint64_t sub_1AB83B920()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0(v0 + 4);
-  v2 = v0[9];
-
-  v3 = v0[10];
+  __swift_destroy_boxed_opaque_existential_0((v0 + 32));
 
   return MEMORY[0x1EEE6BDD0](v0, 88, 7);
 }
@@ -817,36 +359,25 @@ uint64_t sub_1AB83BB7C()
   v2 = *(*(v1 - 1) + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*(v1 - 1) + 64);
-  v5 = v0 + v3;
-  v6 = type metadata accessor for XPCDictionary();
-  (*(*(v6 - 8) + 8))(v0 + v3, v6);
-  v7 = (v0 + v3 + v1[5]);
-  v8 = v7[1];
+  v5 = type metadata accessor for XPCDictionary();
+  (*(*(v5 - 8) + 8))(v0 + v3, v5);
 
-  v9 = v7[2];
-
-  v10 = v7[3];
-
-  v11 = v1[6];
+  v6 = v1[6];
   type metadata accessor for PromptVariantEnvelope(0);
-  v12 = type metadata accessor for OverridableConfigurationStorage();
-  (*(*(v12 - 8) + 8))(v0 + v3 + v11, v12);
-  v13 = v0 + v3 + v1[7];
-  v14 = *(v13 + 80);
+  v7 = type metadata accessor for OverridableConfigurationStorage();
+  (*(*(v7 - 8) + 8))(v0 + v3 + v6, v7);
 
-  v15 = *(v13 + 144);
-
-  v16 = v0 + v3 + v1[8];
-  v17 = type metadata accessor for Constraints(0);
-  if (!(*(*(v17 - 8) + 48))(v16, 1, v17))
+  v8 = v0 + v3 + v1[8];
+  v9 = type metadata accessor for Constraints(0);
+  if (!(*(*(v9 - 8) + 48))(v8, 1, v9))
   {
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload <= 1)
     {
       if (!EnumCaseMultiPayload)
       {
-        v35 = type metadata accessor for GenerationSchema();
-        (*(*(v35 - 8) + 8))(v16, v35);
+        v11 = type metadata accessor for GenerationSchema();
+        (*(*(v11 - 8) + 8))(v8, v11);
         goto LABEL_10;
       }
 
@@ -860,41 +391,15 @@ uint64_t sub_1AB83BB7C()
     {
       goto LABEL_10;
     }
-
-    v19 = *(v16 + 8);
   }
 
 LABEL_10:
-  v20 = *(v5 + v1[9]);
 
-  if (*(v5 + v1[10] + 8) >= 4uLL)
+  if (*(v0 + v3 + v1[10] + 8) >= 4uLL)
   {
   }
 
-  v21 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v22 = (v21 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v23 = (v22 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v24 = (v23 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *(v5 + v1[11]);
-
-  v26 = (v5 + v1[12]);
-  v27 = v26[1];
-
-  v28 = v26[3];
-
-  v29 = v26[5];
-
-  v30 = v26[6];
-
-  v31 = *(v0 + v21);
-
-  v32 = *(v0 + v22 + 8);
-
-  v33 = *(v0 + v23);
-
-  v34 = *(v0 + v24);
-
-  return MEMORY[0x1EEE6BDD0](v0, v24 + 8, v2 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, ((((((((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8, v2 | 7);
 }
 
 uint64_t sub_1AB83BE4C()
@@ -909,7 +414,6 @@ uint64_t sub_1AB83BE4C()
 
 uint64_t sub_1AB83BE8C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -929,7 +433,6 @@ uint64_t sub_1AB83BF24()
 
 uint64_t sub_1AB83BF5C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -1017,10 +520,10 @@ uint64_t sub_1AB83C228(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ClassificationParameters.ThresholdConfiguration.DefaultCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ClassificationParameters.ThresholdConfiguration.DefaultCodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -3322,151 +2825,138 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1)
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedPromptRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_PromptRequestV1(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMd, &_s15TokenGeneration36Promptkit_Wireformat_PromptRequestV1VSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedPromptRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_PromptRequestV1(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_PromptRequestV1(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_PromptRequestVersionEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMd, &_s15TokenGeneration45Promptkit_Wireformat_PromptRequestVersionEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
-}
-
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest(uint64_t a1, uint64_t a2))()
-{
-  result = protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest;
-  v4 = v2 + *(a2 + 20);
-  return result;
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_VersionedPromptRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest, &protocol conformance descriptor for Promptkit_Wireformat_VersionedPromptRequest);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_VersionedPromptRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest, &protocol conformance descriptor for Promptkit_Wireformat_VersionedPromptRequest);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedPromptRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedPromptRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedPromptRequest and conformance Promptkit_Wireformat_VersionedPromptRequest, type metadata accessor for Promptkit_Wireformat_VersionedPromptRequest, &protocol conformance descriptor for Promptkit_Wireformat_VersionedPromptRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_VersionedPromptRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
+uint64_t Promptkit_Wireformat_VersionedPromptRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(void))
 {
   result = a4(v5, a1, a2, a3);
   if (!v6)
   {
-    v9 = v5 + *(a5(0) + 20);
+    a5(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -3475,263 +2965,252 @@ uint64_t Promptkit_Wireformat_VersionedPromptRequest.traverse<A>(visitor:)(uint6
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptRequestV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMd, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMd, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMd, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMd, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMd, &_s15TokenGeneration036Promptkit_Wireformat_PromptRequestV1E7VariantVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PromptRequestV1(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PromptRequestV1(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptRequestV1()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptRequestV1(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1 and conformance Promptkit_Wireformat_PromptRequestV1, type metadata accessor for Promptkit_Wireformat_PromptRequestV1, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1);
 
   return Message.hash(into:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptRequestV1PromptVariant.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+      v30 = v45;
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedCompletionPrompt);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMd, &_s15TokenGeneration46Promptkit_Wireformat_VersionedCompletionPromptVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #2 in Promptkit_Wireformat_PromptRequestV1PromptVariant.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_VariantEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatPrompt);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMd, &_s15TokenGeneration40Promptkit_Wireformat_VersionedChatPromptVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t Promptkit_Wireformat_PromptRequestV1PromptVariant.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v15 - v10;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v15 - v10, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v12 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) == 1)
+  v10 = &v13 - v9;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v13 - v9, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
   {
     goto LABEL_6;
   }
@@ -3746,11 +3225,11 @@ uint64_t Promptkit_Wireformat_PromptRequestV1PromptVariant.traverse<A>(visitor:)
     closure #1 in Promptkit_Wireformat_PromptRequestV1PromptVariant.traverse<A>(visitor:)(v3, a1, a2, a3);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_VariantEnum);
   if (!v4)
   {
 LABEL_6:
-    v14 = v3 + *(type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant(0) + 20);
+    type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -3759,85 +3238,81 @@ LABEL_6:
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptRequestV1PromptVariant.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() != 1)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedCompletionPrompt);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_VariantEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #2 in Promptkit_Wireformat_PromptRequestV1PromptVariant.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VariantEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMd, &_s15TokenGeneration32Promptkit_Wireformat_VariantEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatPrompt);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_VariantEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_VariantEnum);
   __break(1u);
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PromptRequestV1PromptVariant(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PromptRequestV1PromptVariant(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptRequestV1PromptVariant()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptRequestV1PromptVariant(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptRequestV1PromptVariant and conformance Promptkit_Wireformat_PromptRequestV1PromptVariant, type metadata accessor for Promptkit_Wireformat_PromptRequestV1PromptVariant, &protocol conformance descriptor for Promptkit_Wireformat_PromptRequestV1PromptVariant);
 
   return Message.hash(into:)();
 }
@@ -3864,172 +3339,164 @@ uint64_t Promptkit_Wireformat_VersionedPromptRequest.decodeMessage<A>(decoder:)(
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedCompletionPrompt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_CompletionPromptV1);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMd, &_s15TokenGeneration39Promptkit_Wireformat_CompletionPromptV1VSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedCompletionPrompt.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VersionedCompletionPromptEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMd, &_s15TokenGeneration50Promptkit_Wireformat_VersionedCompletionPromptEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_CompletionPromptV1);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_VersionedCompletionPrompt(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedCompletionPrompt);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_VersionedCompletionPrompt(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedCompletionPrompt);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedCompletionPrompt()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedCompletionPrompt(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedCompletionPrompt and conformance Promptkit_Wireformat_VersionedCompletionPrompt, type metadata accessor for Promptkit_Wireformat_VersionedCompletionPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedCompletionPrompt);
 
   return Message.hash(into:)();
 }
 
-uint64_t closure #1 in Promptkit_Wireformat_CompletionPromptV1.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in Promptkit_Wireformat_CompletionPromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
   type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_CompletionPromptV1.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in Promptkit_Wireformat_CompletionPromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
 uint64_t Promptkit_Wireformat_CompletionPromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = v3;
   result = closure #1 in Promptkit_Wireformat_CompletionPromptV1.traverse<A>(visitor:)(v3, a1, a2, a3);
   if (!v4)
   {
-    v7 = *v3;
-    if (*(*v5 + 16))
+    if (*(*v3 + 16))
     {
       type metadata accessor for ProtobufString();
       type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
       dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)();
     }
 
-    v8 = v5 + *(type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0) + 24);
+    type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -4038,222 +3505,207 @@ uint64_t Promptkit_Wireformat_CompletionPromptV1.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #1 in Promptkit_Wireformat_CompletionPromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 20), v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_CompletionPromptV1(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_Prompt);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_Prompt);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_Prompt);
 }
 
 unint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_CompletionPromptV1@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X8>)
 {
-  v4 = *(a1 + 20);
-  v5 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
-  v6 = a2 + *(a1 + 24);
+  v3 = *(a1 + 20);
+  v4 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
+  (*(*(v4 - 8) + 56))(a2 + v3, 1, 1, v4);
   UnknownStorage.init()();
   result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   *a2 = result;
   return result;
 }
 
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_CompletionPromptV1(uint64_t a1, uint64_t a2))()
-{
-  result = protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_CompletionPromptV1(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_CompletionPromptV1);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_CompletionPromptV1(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_CompletionPromptV1);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_CompletionPromptV1()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_CompletionPromptV1(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CompletionPromptV1 and conformance Promptkit_Wireformat_CompletionPromptV1, type metadata accessor for Promptkit_Wireformat_CompletionPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_CompletionPromptV1);
 
   return Message.hash(into:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedChatPrompt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedChatPrompt.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VersionedChatPromptEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMd, &_s15TokenGeneration44Promptkit_Wireformat_VersionedChatPromptEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_VersionedChatPrompt(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatPrompt);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_VersionedChatPrompt(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatPrompt);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedChatPrompt()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedChatPrompt(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatPrompt and conformance Promptkit_Wireformat_VersionedChatPrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatPrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatPrompt);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          closure #3 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)();
+          closure #3 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
         case 2:
-          closure #2 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)();
+          closure #2 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
         case 1:
           type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt(0);
-          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt);
+          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatMessagePrompt);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
           break;
       }
@@ -4265,49 +3717,49 @@ uint64_t Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in Promptkit_Wireformat_ChatPromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
-uint64_t Promptkit_Wireformat_ChatPromptV1.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_ChatPromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v1;
-  if (*(*v0 + 16))
+  v5 = v4;
+  if (*(*v3 + 16))
   {
     type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt(0);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatMessagePrompt);
     result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
 
-    v2 = 0;
+    v5 = 0;
   }
 
-  if (*(v0[1] + 16))
+  if (*(v3[1] + 16))
   {
     type metadata accessor for ProtobufString();
     type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
-    v4 = v2;
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
+    v7 = v5;
     result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)();
-    if (v2)
+    if (v5)
     {
       return result;
     }
@@ -4315,211 +3767,198 @@ uint64_t Promptkit_Wireformat_ChatPromptV1.traverse<A>(visitor:)()
 
   else
   {
-    v4 = v2;
+    v7 = v5;
   }
 
-  if (!*(v0[2] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v4))
+  if (!*(v3[2] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v7))
   {
-    v5 = v0 + *(type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0) + 28);
+    type metadata accessor for Promptkit_Wireformat_ChatPromptV1(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-unint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ChatPromptV1@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+unint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ChatPromptV1@<X0>(void *a2@<X8>)
 {
-  v3 = a2 + *(a1 + 28);
   UnknownStorage.init()();
-  v4 = MEMORY[0x1E69E7CC0];
+  v3 = MEMORY[0x1E69E7CC0];
   *a2 = MEMORY[0x1E69E7CC0];
-  a2[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VTt0g5Tf4g_n(v4);
-  result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVTt0g5Tf4g_n(v4);
+  a2[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15TokenGeneration33Promptkit_Wireformat_ChatPromptV1VTt0g5Tf4g_n(v3);
+  result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVTt0g5Tf4g_n(v3);
   a2[2] = result;
-  return result;
-}
-
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_ChatPromptV1(uint64_t a1, uint64_t a2))()
-{
-  result = protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest;
-  v4 = v2 + *(a2 + 28);
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ChatPromptV1(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ChatPromptV1(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ChatPromptV1()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ChatPromptV1(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatPromptV1 and conformance Promptkit_Wireformat_ChatPromptV1, type metadata accessor for Promptkit_Wireformat_ChatPromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatPromptV1);
 
   return Message.hash(into:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedChatMessagePrompt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessagePromptV1);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ChatMessagePromptV1VSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_VersionedChatMessagePrompt.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePromptEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMd, &_s15TokenGeneration51Promptkit_Wireformat_VersionedChatMessagePromptEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessagePromptV1);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_VersionedChatMessagePrompt(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatMessagePrompt);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_VersionedChatMessagePrompt(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatMessagePrompt);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedChatMessagePrompt()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_VersionedChatMessagePrompt(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_VersionedChatMessagePrompt and conformance Promptkit_Wireformat_VersionedChatMessagePrompt, type metadata accessor for Promptkit_Wireformat_VersionedChatMessagePrompt, &protocol conformance descriptor for Promptkit_Wireformat_VersionedChatMessagePrompt);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          v3 = *(type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0) + 24);
+          type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
           dispatch thunk of Decoder.decodeSingularStringField(value:)();
           break;
         case 2:
-          closure #2 in Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)();
+          closure #2 in Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
         case 1:
           type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt(0);
-          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessageRolePrompt and conformance Promptkit_Wireformat_ChatMessageRolePrompt, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
+          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessageRolePrompt and conformance Promptkit_Wireformat_ChatMessageRolePrompt, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessageRolePrompt);
           dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
           break;
       }
@@ -4531,118 +3970,111 @@ uint64_t Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in Promptkit_Wireformat_ChatMessagePromptV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
   type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ChatMessageRolePromptVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessageRolePrompt and conformance Promptkit_Wireformat_ChatMessageRolePrompt, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessageRolePrompt and conformance Promptkit_Wireformat_ChatMessageRolePrompt, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessageRolePrompt);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt);
 }
 
 uint64_t closure #2 in Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 20), v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_Prompt);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_Prompt);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_Prompt);
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1(0);
-  v3 = (a1 + *(result + 24));
-  if (v3[1])
+  if (*(a1 + *(result + 24) + 8))
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ChatMessagePromptV1@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ChatMessagePromptV1@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for Promptkit_Wireformat_ChatMessageRolePrompt(0);
   (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = a1[5];
+  v5 = *(a1 + 20);
   v6 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
   (*(*(v6 - 8) + 56))(a2 + v5, 1, 1, v6);
-  v7 = a1[7];
-  v8 = (a2 + a1[6]);
-  *v8 = 0;
-  v8[1] = 0;
+  v7 = (a2 + *(a1 + 24));
+  *v7 = 0;
+  v7[1] = 0;
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ChatMessagePromptV1(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessagePromptV1);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ChatMessagePromptV1(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessagePromptV1);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ChatMessagePromptV1()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ChatMessagePromptV1(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ChatMessagePromptV1 and conformance Promptkit_Wireformat_ChatMessagePromptV1, type metadata accessor for Promptkit_Wireformat_ChatMessagePromptV1, &protocol conformance descriptor for Promptkit_Wireformat_ChatMessagePromptV1);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_Prompt.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_Prompt.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Promptkit_Wireformat_PromptComponent(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_PromptComponent(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponent), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Promptkit_Wireformat_Prompt(0) + 20);
+    type metadata accessor for Promptkit_Wireformat_Prompt(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -4651,44 +4083,45 @@ uint64_t Promptkit_Wireformat_Prompt.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_Prompt(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_Prompt(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_Prompt()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_Prompt(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          closure #3 in Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)();
+          closure #3 in Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
         case 2:
-          v3 = *(type metadata accessor for Promptkit_Wireformat_PromptComponent(0) + 20);
+          type metadata accessor for Promptkit_Wireformat_PromptComponent(0);
           dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
           break;
         case 1:
           type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
-          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+          lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
           dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
           break;
       }
@@ -4700,21 +4133,21 @@ uint64_t Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in Promptkit_Wireformat_PromptComponent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_PromptComponent(0) + 24);
+  type metadata accessor for Promptkit_Wireformat_PromptComponent(0);
   lazy protocol witness table accessor for type Promptkit_Wireformat_PromptComponentPrivacy and conformance Promptkit_Wireformat_PromptComponentPrivacy();
   return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
 }
 
-uint64_t Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a6)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t (*a7)(void))
+uint64_t Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a6)(uint64_t, uint64_t, uint64_t, uint64_t), void (*a7)(void))
 {
   result = a4(v7, a1, a2, a3);
   if (!v8)
   {
     a5(v7, a1, a2, a3);
     a6(v7, a1, a2, a3);
-    v16 = v7 + *(a7(0) + 28);
+    a7(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -4723,48 +4156,43 @@ uint64_t Promptkit_Wireformat_ChatMessagePromptV1.traverse<A>(visitor:)(uint64_t
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMd, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMd, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMd, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMd, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMd, &_s15TokenGeneration41Promptkit_Wireformat_PromptComponentValueVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for Promptkit_Wireformat_PromptComponent(0);
-  v3 = (a1 + *(result + 20));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 20) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for Promptkit_Wireformat_PromptComponent(0);
   if (*(a1 + *(result + 24)) != 3)
   {
-    v3 = *(a1 + *(result + 24));
     lazy protocol witness table accessor for type Promptkit_Wireformat_PromptComponentPrivacy and conformance Promptkit_Wireformat_PromptComponentPrivacy();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -4772,36 +4200,35 @@ uint64_t closure #3 in Promptkit_Wireformat_PromptComponent.traverse<A>(visitor:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_PromptComponent@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_PromptComponent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
   (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = a1[6];
-  v6 = a2 + a1[5];
+  v5 = *(a1 + 24);
+  v6 = a2 + *(a1 + 20);
   *v6 = 0;
   *(v6 + 4) = 1;
   *(a2 + v5) = 3;
-  v7 = a2 + a1[7];
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PromptComponent(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponent);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PromptComponent(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponent);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponent()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponent(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponent and conformance Promptkit_Wireformat_PromptComponent, type metadata accessor for Promptkit_Wireformat_PromptComponent, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponent);
 
   return Message.hash(into:)();
 }
@@ -4823,13 +4250,13 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(ui
         closure #1 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(v5, a1, a2, a3);
         break;
       case 2:
-        closure #2 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5);
+        closure #2 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       case 3:
-        closure #3 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5);
+        closure #3 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       case 4:
-        closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5);
+        closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       case 5:
         closure #5 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(v5, a1, a2, a3);
@@ -4878,201 +4305,156 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(ui
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v41 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v40 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-      v35 = v43;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v43, type metadata accessor for Promptkit_Wireformat_Prompt);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_Prompt);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+      v32 = v40;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v40, type metadata accessor for Promptkit_Wireformat_Prompt);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_Prompt);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
   }
 
   else
   {
-    v39 = v44;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v44, type metadata accessor for Promptkit_Wireformat_Prompt);
-    if (v32 != 1)
+    v36 = v41;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v41, type metadata accessor for Promptkit_Wireformat_Prompt);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_Prompt);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_Prompt);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, void *a2)
+uint64_t closure #2 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  v15 = 0;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v14 - v7;
   v16 = 0;
+  v17 = 0;
   result = dispatch thunk of Decoder.decodeSingularStringField(value:)();
-  if (v2)
+  if (v4)
   {
   }
 
-  if (v16)
+  if (v17)
   {
-    v17 = v16;
-    v14 = v15;
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v9 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v7, 1, v9);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    if (v11 != 1)
-    {
-      dispatch thunk of Decoder.handleConflictingOneOf()();
-    }
-
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v12 = v17;
-    *a2 = v14;
-    a2[1] = v12;
-    swift_storeEnumTagMultiPayload();
-    return (*(v10 + 56))(a2, 0, 1, v9);
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, _DWORD *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  v15 = 0;
-  v16 = 1;
-  result = dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-  if (!v2 && (v16 & 1) == 0)
-  {
-    v14 = 0;
-    HIDWORD(v13) = v15;
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v9 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v7, 1, v9);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    if (v11 != 1)
-    {
-      v12 = v14;
-      result = dispatch thunk of Decoder.handleConflictingOneOf()();
-      if (v12)
-      {
-        return result;
-      }
-
-      v14 = 0;
-    }
-
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    *a2 = HIDWORD(v13);
-    swift_storeEnumTagMultiPayload();
-    return (*(v10 + 56))(a2, 0, 1, v9);
-  }
-
-  return result;
-}
-
-uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v14 - v6;
-  v16 = 0;
-  v17 = 1;
-  result = dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
-  if (!v2 && (v17 & 1) == 0)
-  {
-    v15 = 0;
-    v9 = v16;
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v18 = v17;
+    v15 = v16;
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     v10 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
     v11 = *(v10 - 8);
-    v12 = (*(v11 + 48))(v7, 1, v10);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v12 = (*(v11 + 48))(v8, 1, v10);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    if (v12 != 1)
+    {
+      dispatch thunk of Decoder.handleConflictingOneOf()();
+    }
+
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v13 = v18;
+    *a2 = v15;
+    a2[1] = v13;
+    swift_storeEnumTagMultiPayload();
+    return (*(v11 + 56))(a2, 0, 1, v10);
+  }
+
+  return result;
+}
+
+uint64_t closure #3 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v14 - v7;
+  v16 = 0;
+  v17 = 1;
+  result = dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+  if (!v4 && (v17 & 1) == 0)
+  {
+    v15 = 0;
+    HIDWORD(v14) = v16;
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v10 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+    v11 = *(v10 - 8);
+    v12 = (*(v11 + 48))(v8, 1, v10);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     if (v12 != 1)
     {
       v13 = v15;
@@ -5086,7 +4468,7 @@ uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A
     }
 
     outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    *a2 = v9;
+    *a2 = HIDWORD(v14);
     swift_storeEnumTagMultiPayload();
     return (*(v11 + 56))(a2, 0, 1, v10);
   }
@@ -5094,1343 +4476,1328 @@ uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A
   return result;
 }
 
+uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v15 - v7;
+  v17 = 0;
+  v18 = 1;
+  result = dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+  if (!v4 && (v18 & 1) == 0)
+  {
+    v16 = 0;
+    v10 = v17;
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+    v12 = *(v11 - 8);
+    v13 = (*(v12 + 48))(v8, 1, v11);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    if (v13 != 1)
+    {
+      v14 = v16;
+      result = dispatch thunk of Decoder.handleConflictingOneOf()();
+      if (v14)
+      {
+        return result;
+      }
+
+      v16 = 0;
+    }
+
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(a2, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    *a2 = v10;
+    swift_storeEnumTagMultiPayload();
+    return (*(v12 + 56))(a2, 0, 1, v11);
+  }
+
+  return result;
+}
+
 uint64_t closure #5 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v47 = a3;
-  v48 = a4;
-  v49 = a2;
-  v50 = a1;
+  v44 = a3;
+  v45 = a4;
+  v46 = a2;
+  v47 = a1;
   v4 = type metadata accessor for Google_Protobuf_Timestamp();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v43 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v40 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v41 = &v38 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v38 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v38 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v38 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v42 = &v38 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v38 - v26;
-  v44 = v5;
-  v28 = *(v5 + 56);
-  v46 = v4;
-  v28(&v38 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v50, v13, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v39 = v15;
-  v40 = (*(v15 + 48))(v13, 1, v14);
-  if (v40 == 1)
+  v38 = &v35 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v35 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v35 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v39 = &v35 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v35 - v23;
+  v41 = v5;
+  v25 = *(v5 + 56);
+  v43 = v4;
+  v25(&v35 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v47, v11, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v36 = v13;
+  v37 = (*(v13 + 48))(v11, 1, v12);
+  if (v37 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_ValueEnum);
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
-      v29 = *(v44 + 32);
-      v30 = v41;
-      v31 = v46;
-      v29(v41, v19, v46);
-      v29(v27, v30, v31);
-      v28(v27, 0, 1, v31);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+      v26 = *(v41 + 32);
+      v27 = v38;
+      v28 = v43;
+      v26(v38, v15, v43);
+      v26(v24, v27, v28);
+      (v25)(v24, 0, 1, v28);
       goto LABEL_7;
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v15, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   }
 
-  v31 = v46;
+  v28 = v43;
 LABEL_7:
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_Timestamp and conformance Google_Protobuf_Timestamp, MEMORY[0x1E69AA900]);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_Timestamp and conformance Google_Protobuf_Timestamp, MEMORY[0x1E69AA900], MEMORY[0x1E69AA8F8]);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v32)
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
   }
 
-  v34 = v42;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v42, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
-  v35 = v44;
-  if ((*(v44 + 48))(v34, 1, v31) == 1)
+  v31 = v39;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v39, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+  v32 = v41;
+  if ((*(v41 + 48))(v31, 1, v28) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v34, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v31, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
   }
 
   else
   {
-    v36 = *(v35 + 32);
-    v36(v43, v34, v31);
-    if (v40 != 1)
+    v33 = *(v32 + 32);
+    v33(v40, v31, v28);
+    if (v37 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
-    v37 = v50;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v50, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v36(v37, v43, v31);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMd, &_s21InternalSwiftProtobuf07Google_C10_TimestampVSgMR);
+    v34 = v47;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v47, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v33(v34, v40, v28);
     swift_storeEnumTagMultiPayload();
-    return (*(v39 + 56))(v37, 0, 1, v14);
+    return (*(v36 + 56))(v34, 0, 1, v12);
   }
 }
 
 uint64_t closure #6 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_SpecialToken(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_SpecialToken);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_SpecialToken);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken, &protocol conformance descriptor for Promptkit_Wireformat_SpecialToken);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_SpecialToken);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMd, &_s15TokenGeneration028Promptkit_Wireformat_SpecialA0VSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_SpecialToken);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #7 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_BindableVariable(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 6)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_BindableVariable);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_BindableVariable);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable, &protocol conformance descriptor for Promptkit_Wireformat_BindableVariable);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_BindableVariable);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_BindableVariableVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_BindableVariable);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #8 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_CustomData(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 7)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_CustomData);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_CustomData);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_CustomData);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_CustomData);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData, &protocol conformance descriptor for Promptkit_Wireformat_CustomData);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_CustomData);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_CustomData);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_CustomData);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMd, &_s15TokenGeneration31Promptkit_Wireformat_CustomDataVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_CustomData);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #9 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ToolResults(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 8)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ToolResults);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ToolResults);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ToolResults);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ToolResults);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults, &protocol conformance descriptor for Promptkit_Wireformat_ToolResults);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ToolResults);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ToolResults);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ToolResults);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ToolResultsVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ToolResults);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #10 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ToolCalls(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 9)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ToolCalls);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ToolCalls);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls, &protocol conformance descriptor for Promptkit_Wireformat_ToolCalls);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ToolCalls);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ToolCallsVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ToolCalls);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #11 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ImageData(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 10)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ImageData);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ImageData);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ImageData);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ImageData);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData, &protocol conformance descriptor for Promptkit_Wireformat_ImageData);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ImageData);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ImageData);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ImageData);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ImageDataVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ImageData);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #12 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ImageSurface(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 11)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ImageSurface);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ImageSurface);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface, &protocol conformance descriptor for Promptkit_Wireformat_ImageSurface);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ImageSurface);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMd, &_s15TokenGeneration33Promptkit_Wireformat_ImageSurfaceVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ImageSurface);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #13 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 12)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData, &protocol conformance descriptor for Promptkit_Wireformat_ImageEmbeddingData);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ImageEmbeddingDataVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #14 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_Prompts(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 13)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_Prompts);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_Prompts);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_Prompts);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_Prompts);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts, &protocol conformance descriptor for Promptkit_Wireformat_Prompts);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_Prompts);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_Prompts);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_Prompts);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMd, &_s15TokenGeneration28Promptkit_Wireformat_PromptsVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_Prompts);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #15 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_PreprocessedImageData(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 14)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData, &protocol conformance descriptor for Promptkit_Wireformat_PreprocessedImageData);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_PreprocessedImageDataVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #16 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 15)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder, &protocol conformance descriptor for Promptkit_Wireformat_AttachmentPlaceholder);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMd, &_s15TokenGeneration42Promptkit_Wireformat_AttachmentPlaceholderVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #17 in Promptkit_Wireformat_PromptComponentValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_SelfAttention(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 16)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_SelfAttention);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_SelfAttention);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention, type metadata accessor for Promptkit_Wireformat_SelfAttention);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention, type metadata accessor for Promptkit_Wireformat_SelfAttention, &protocol conformance descriptor for Promptkit_Wireformat_SelfAttention);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_SelfAttention);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMd, &_s15TokenGeneration34Promptkit_Wireformat_SelfAttentionVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_SelfAttention);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v15 - v10;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v15 - v10, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v12 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) != 1)
+  v10 = &v13 - v9;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v13 - v9, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) != 1)
   {
     switch(swift_getEnumCaseMultiPayload())
     {
       case 1u:
-        outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
-        result = closure #2 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3);
+        outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        result = closure #2 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
         {
           break;
@@ -6438,7 +5805,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
 
         return result;
       case 2u:
-        result = closure #3 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3);
+        result = closure #3 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
         {
           break;
@@ -6446,7 +5813,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
 
         return result;
       case 3u:
-        result = closure #4 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3);
+        result = closure #4 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
         {
           break;
@@ -6475,7 +5842,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xAu:
         closure #11 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6483,7 +5850,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xBu:
         closure #12 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6491,7 +5858,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xCu:
         closure #13 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6499,7 +5866,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xDu:
         closure #14 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6507,7 +5874,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xEu:
         closure #15 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6515,7 +5882,7 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0xFu:
         closure #16 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (!v4)
@@ -6523,21 +5890,21 @@ uint64_t Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_
           goto LABEL_9;
         }
 
-        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
       case 0x10u:
         closure #17 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
         if (v4)
         {
-          return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+          return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
         }
 
 LABEL_9:
-        outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
         break;
       default:
         closure #1 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(v3, a1, a2, a3);
 LABEL_33:
-        result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+        result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ValueEnum);
         if (!v4)
         {
           break;
@@ -6547,562 +5914,527 @@ LABEL_33:
     }
   }
 
-  v13 = v3 + *(type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_PromptComponentValue(0);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_Prompt);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_Prompt);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_Prompt);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_Prompt);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = (&v10 - v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v10 - v4, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v10 - v6;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v10 - v6, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v8 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v5, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v7 = *v5;
-    v8 = v5[1];
     dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v5, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = (&v9 - v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v9 - v4, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v10 - v6;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v10 - v6, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v8 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v5, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v7 = *v5;
     return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v5, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
-uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #4 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = (&v9 - v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v9 - v4, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v10 - v6;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, &v10 - v6, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v8 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v5, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 3)
   {
-    v7 = *v5;
     return dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v5, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #5 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
+  v14[3] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Google_Protobuf_Timestamp();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v14 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v14 - 8) + 48))(v8, 1, v14) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Google_Protobuf_Timestamp();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v12 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v12 - 8) + 48))(v7, 1, v12) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 4)
   {
-    (*(v10 + 32))(v13, v8, v9);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_Timestamp and conformance Google_Protobuf_Timestamp, MEMORY[0x1E69AA900]);
+    (*(v9 + 32))(v11, v7, v8);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_Timestamp and conformance Google_Protobuf_Timestamp, MEMORY[0x1E69AA900], MEMORY[0x1E69AA8F8]);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return (*(v10 + 8))(v13, v9);
+    return (*(v9 + 8))(v11, v8);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #6 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_SpecialToken(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_SpecialToken(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 5)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_SpecialToken);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken, &protocol conformance descriptor for Promptkit_Wireformat_SpecialToken);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_SpecialToken);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #7 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_BindableVariable(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_BindableVariable(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 6)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_BindableVariable);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable, &protocol conformance descriptor for Promptkit_Wireformat_BindableVariable);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_BindableVariable);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #8 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_CustomData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_CustomData(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 7)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_CustomData);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_CustomData);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData, &protocol conformance descriptor for Promptkit_Wireformat_CustomData);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_CustomData);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_CustomData);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #9 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolResults(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolResults(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 8)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ToolResults);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ToolResults);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults, &protocol conformance descriptor for Promptkit_Wireformat_ToolResults);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolResults);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolResults);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #10 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolCalls(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolCalls(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 9)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ToolCalls);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls, &protocol conformance descriptor for Promptkit_Wireformat_ToolCalls);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolCalls);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #11 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ImageData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ImageData(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 10)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ImageData);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ImageData);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData, &protocol conformance descriptor for Promptkit_Wireformat_ImageData);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ImageData);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ImageData);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #12 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ImageSurface(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ImageSurface(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 11)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ImageSurface);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface, &protocol conformance descriptor for Promptkit_Wireformat_ImageSurface);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ImageSurface);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #13 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 12)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData, &protocol conformance descriptor for Promptkit_Wireformat_ImageEmbeddingData);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #14 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_Prompts(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_Prompts(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 13)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_Prompts);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_Prompts);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts, &protocol conformance descriptor for Promptkit_Wireformat_Prompts);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_Prompts);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_Prompts);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #15 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_PreprocessedImageData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_PreprocessedImageData(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 14)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData, &protocol conformance descriptor for Promptkit_Wireformat_PreprocessedImageData);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #16 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 15)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder, &protocol conformance descriptor for Promptkit_Wireformat_AttachmentPlaceholder);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #17 in Promptkit_Wireformat_PromptComponentValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_SelfAttention(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_SelfAttention(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ValueEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMd, &_s15TokenGeneration30Promptkit_Wireformat_ValueEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 16)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_SelfAttention);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention, type metadata accessor for Promptkit_Wireformat_SelfAttention, &protocol conformance descriptor for Promptkit_Wireformat_SelfAttention);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_SelfAttention);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_SelfAttention);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ValueEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ValueEnum);
   __break(1u);
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PromptComponentValue(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PromptComponentValue(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponentValue()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponentValue(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentValue and conformance Promptkit_Wireformat_PromptComponentValue, type metadata accessor for Promptkit_Wireformat_PromptComponentValue, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentValue);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_Prompt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), unint64_t *a5, void (*a6)(uint64_t))
+uint64_t Promptkit_Wireformat_Prompt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v6 || (v11 & 1) != 0)
+    if (v7 || (v12 & 1) != 0)
     {
       break;
     }
@@ -7110,7 +6442,7 @@ uint64_t Promptkit_Wireformat_Prompt.decodeMessage<A>(decoder:)(uint64_t a1, uin
     if (result == 1)
     {
       a4(0);
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(a5, a6);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(a5, a6, a7);
       dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
     }
   }
@@ -7118,11 +6450,11 @@ uint64_t Promptkit_Wireformat_Prompt.decodeMessage<A>(decoder:)(uint64_t a1, uin
   return result;
 }
 
-uint64_t Promptkit_Wireformat_Prompts.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_Prompts.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Promptkit_Wireformat_Prompt(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_Prompt(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Promptkit_Wireformat_Prompts(0) + 20);
+    type metadata accessor for Promptkit_Wireformat_Prompts(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -7131,44 +6463,43 @@ uint64_t Promptkit_Wireformat_Prompts.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_Prompts(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts, &protocol conformance descriptor for Promptkit_Wireformat_Prompts);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_Prompts(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts, &protocol conformance descriptor for Promptkit_Wireformat_Prompts);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_Prompts()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_Prompts(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompts and conformance Promptkit_Wireformat_Prompts, type metadata accessor for Promptkit_Wireformat_Prompts, &protocol conformance descriptor for Promptkit_Wireformat_Prompts);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Promptkit_Wireformat_Prompt(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, void))
 {
-  if ((a5(*a1, *a2) & 1) == 0)
+  if (((a5)(*a1, *a2, a3, a4) & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(a3 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x1E69AAC08]);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
-uint64_t Promptkit_Wireformat_ImageEmbeddingData.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ImageEmbeddingData.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result > 2)
       {
@@ -7201,32 +6532,30 @@ uint64_t Promptkit_Wireformat_ImageEmbeddingData.decodeMessage<A>(decoder:)()
   return result;
 }
 
-_BYTE *Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)()
+unsigned __int8 *Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = closure #1 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(v0);
-  if (!v1)
+  result = closure #1 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(v3, a1, a2, a3);
+  if (!v4)
   {
-    closure #2 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(v0);
-    if ((*(v0 + 28) & 1) == 0)
+    closure #2 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(v3, a1, a2, a3);
+    if ((*(v3 + 28) & 1) == 0)
     {
-      v3 = *(v0 + 24);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if (*(v0 + 40))
+    if (*(v3 + 40))
     {
-      v4 = *(v0 + 32);
       dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
     }
 
-    v5 = v0 + *(type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData(0) + 32);
+    type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-_BYTE *closure #1 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(_BYTE *result)
+unsigned __int8 *closure #1 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(unsigned __int8 *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*result != 2)
   {
@@ -7237,21 +6566,21 @@ _BYTE *closure #1 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(uint64_t result)
+uint64_t closure #2 in Promptkit_Wireformat_ImageEmbeddingData.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(result + 16);
-  if (v1 >> 60 != 15)
+  v4 = *(result + 16);
+  if (v4 >> 60 != 15)
   {
-    v2 = *(result + 8);
-    outlined copy of Data._Representation(v2, v1);
+    v5 = *(result + 8);
+    outlined copy of Data._Representation(v5, v4);
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v2, v1);
+    return outlined consume of Data?(v5, v4);
   }
 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ImageEmbeddingData@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ImageEmbeddingData@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 2;
   *(a2 + 8) = xmmword_1ABA1D8C0;
@@ -7259,76 +6588,68 @@ uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat
   *(a2 + 28) = 1;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
-  v2 = a2 + *(a1 + 32);
   return UnknownStorage.init()();
-}
-
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_ImageEmbeddingData(uint64_t a1, uint64_t a2))()
-{
-  result = protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest;
-  v4 = v2 + *(a2 + 32);
-  return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ImageEmbeddingData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData, &protocol conformance descriptor for Promptkit_Wireformat_ImageEmbeddingData);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ImageEmbeddingData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData, &protocol conformance descriptor for Promptkit_Wireformat_ImageEmbeddingData);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageEmbeddingData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageEmbeddingData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageEmbeddingData and conformance Promptkit_Wireformat_ImageEmbeddingData, type metadata accessor for Promptkit_Wireformat_ImageEmbeddingData, &protocol conformance descriptor for Promptkit_Wireformat_ImageEmbeddingData);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PreprocessedImageData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData, &protocol conformance descriptor for Promptkit_Wireformat_PreprocessedImageData);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PreprocessedImageData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData, &protocol conformance descriptor for Promptkit_Wireformat_PreprocessedImageData);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PreprocessedImageData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PreprocessedImageData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PreprocessedImageData and conformance Promptkit_Wireformat_PreprocessedImageData, type metadata accessor for Promptkit_Wireformat_PreprocessedImageData, &protocol conformance descriptor for Promptkit_Wireformat_PreprocessedImageData);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ImageData.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ImageData.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
         type metadata accessor for Promptkit_Wireformat_ImageFormat(0);
-        lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+        lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat, &protocol conformance descriptor for Promptkit_Wireformat_ImageFormat);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
       else if (result == 2)
       {
-        v3 = *(type metadata accessor for Promptkit_Wireformat_ImageData(0) + 20);
+        type metadata accessor for Promptkit_Wireformat_ImageData(0);
         dispatch thunk of Decoder.decodeSingularBytesField(value:)();
       }
 
@@ -7344,8 +6665,8 @@ uint64_t Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(uint64_t a1, uint6
   result = closure #1 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(v3, a1, a2, a3);
   if (!v4)
   {
-    closure #2 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(v3);
-    v6 = v3 + *(type metadata accessor for Promptkit_Wireformat_ImageData(0) + 24);
+    closure #2 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(v3, a1, a2, a3);
+    type metadata accessor for Promptkit_Wireformat_ImageData(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -7354,40 +6675,38 @@ uint64_t Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(uint64_t a1, uint6
 
 uint64_t closure #1 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ImageFormat(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ImageFormat(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMd, &_s15TokenGeneration32Promptkit_Wireformat_ImageFormatVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_ImageFormat);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat, &protocol conformance descriptor for Promptkit_Wireformat_ImageFormat);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ImageFormat);
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in Promptkit_Wireformat_ImageData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for Promptkit_Wireformat_ImageData(0);
-  v3 = a1 + *(result + 20);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
+  v6 = a1 + *(result + 20);
+  v7 = *(v6 + 8);
+  if (v7 >> 60 != 15)
   {
-    v5 = *v3;
-    outlined copy of Data._Representation(*v3, *(v3 + 8));
+    v8 = *v6;
+    outlined copy of Data._Representation(*v6, *(v6 + 8));
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v5, v4);
+    return outlined consume of Data?(v8, v7);
   }
 
   return result;
@@ -7397,38 +6716,37 @@ uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat
 {
   v4 = type metadata accessor for Promptkit_Wireformat_ImageFormat(0);
   (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = *(a1 + 24);
   *(a2 + *(a1 + 20)) = xmmword_1ABA1D8C0;
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ImageData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData, &protocol conformance descriptor for Promptkit_Wireformat_ImageData);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ImageData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData, &protocol conformance descriptor for Promptkit_Wireformat_ImageData);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageData and conformance Promptkit_Wireformat_ImageData, type metadata accessor for Promptkit_Wireformat_ImageData, &protocol conformance descriptor for Promptkit_Wireformat_ImageData);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ImageSurface.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ImageSurface.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -7459,63 +6777,58 @@ LABEL_2:
   }
 }
 
-uint64_t *Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)()
+uint64_t *Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = closure #1 in Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)(v0);
-  if (!v1)
+  result = closure #1 in Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)(v3, a1, a2, a3);
+  if (!v4)
   {
-    if ((*(v0 + 20) & 1) == 0)
+    if ((*(v3 + 20) & 1) == 0)
     {
-      v3 = *(v0 + 16);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if ((*(v0 + 28) & 1) == 0)
+    if ((*(v3 + 28) & 1) == 0)
     {
-      v4 = *(v0 + 24);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if ((*(v0 + 36) & 1) == 0)
+    if ((*(v3 + 36) & 1) == 0)
     {
-      v5 = *(v0 + 32);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if ((*(v0 + 44) & 1) == 0)
+    if ((*(v3 + 44) & 1) == 0)
     {
-      v6 = *(v0 + 40);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if (*(v0 + 56))
+    if (*(v3 + 56))
     {
-      v7 = *(v0 + 48);
       dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
     }
 
-    v8 = v0 + *(type metadata accessor for Promptkit_Wireformat_ImageSurface(0) + 40);
+    type metadata accessor for Promptkit_Wireformat_ImageSurface(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t *closure #1 in Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)(uint64_t *result)
+uint64_t *closure #1 in Promptkit_Wireformat_ImageSurface.traverse<A>(visitor:)(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = result[1];
-  if (v1 >> 60 != 15)
+  v4 = result[1];
+  if (v4 >> 60 != 15)
   {
-    v2 = *result;
-    outlined copy of Data._Representation(*result, v1);
+    v5 = *result;
+    outlined copy of Data._Representation(*result, v4);
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v2, v1);
+    return outlined consume of Data?(v5, v4);
   }
 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ImageSurface@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ImageSurface@<X0>(uint64_t a2@<X8>)
 {
   *a2 = xmmword_1ABA1D8C0;
   *(a2 + 16) = 0;
@@ -7528,7 +6841,6 @@ uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat
   *(a2 + 44) = 1;
   *(a2 + 48) = 0;
   *(a2 + 56) = 0;
-  v2 = a2 + *(a1 + 40);
   return UnknownStorage.init()();
 }
 
@@ -7550,30 +6862,23 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance Prompt
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_ImageSurface(uint64_t a1, uint64_t a2))()
-{
-  result = protocol witness for Message.unknownFields.modify in conformance Promptkit_Wireformat_VersionedPromptRequest;
-  v4 = v2 + *(a2 + 40);
-  return result;
-}
-
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ImageSurface(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface, &protocol conformance descriptor for Promptkit_Wireformat_ImageSurface);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ImageSurface(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface, &protocol conformance descriptor for Promptkit_Wireformat_ImageSurface);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageSurface()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageSurface(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageSurface and conformance Promptkit_Wireformat_ImageSurface, type metadata accessor for Promptkit_Wireformat_ImageSurface, &protocol conformance descriptor for Promptkit_Wireformat_ImageSurface);
 
   return Message.hash(into:)();
 }
@@ -7605,84 +6910,80 @@ uint64_t Promptkit_Wireformat_ImageFormat.decodeMessage<A>(decoder:)(uint64_t a1
 
 uint64_t closure #1 in Promptkit_Wireformat_ImageFormat.decodeMessage<A>(decoder:)(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v22 = a5;
+  v21 = a5;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v20 - v12;
-  v14 = type metadata accessor for Google_Protobuf_NullValue();
-  v15 = *(v14 - 8);
-  (*(v15 + 56))(v13, 1, 1, v14);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v19 - v11;
+  v13 = type metadata accessor for Google_Protobuf_NullValue();
+  v14 = *(v13 - 8);
+  (*(v14 + 56))(v12, 1, 1, v13);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
   dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
   if (v5)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  v21 = a2;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, v11, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v16 = (*(v15 + 48))(v11, 1, v14);
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  if (v16 == 1)
+  v20 = a2;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, v9, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  v15 = (*(v14 + 48))(v9, 1, v13);
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v9, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  if (v15 == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  v17 = v21;
-  if (*v21 != 2)
+  v16 = v20;
+  if (*v20 != 2)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v18 = v22;
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  *v17 = v18;
+  v17 = v21;
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  *v16 = v17;
   return result;
 }
 
-uint64_t Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)()
+void Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
 {
-  v2 = *v0;
-  if (v2 == 2)
+  v6 = *v4;
+  if (v6 == 2)
   {
     goto LABEL_2;
   }
 
-  if (v2)
+  if (v6)
   {
-    result = closure #2 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(v0);
-    if (!v1)
+    closure #2 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(v4, a4, a1, a2, a3);
+    if (!v5)
     {
 LABEL_2:
-      v3 = &v0[*(type metadata accessor for Promptkit_Wireformat_ImageFormat(0) + 20)];
-      return UnknownStorage.traverse<A>(visitor:)();
+      type metadata accessor for Promptkit_Wireformat_ImageFormat(0);
+      UnknownStorage.traverse<A>(visitor:)();
     }
   }
 
   else
   {
-    result = closure #1 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(v0);
-    if (!v1)
+    closure #1 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(v4, a4, a1, a2, a3);
+    if (!v5)
     {
       goto LABEL_2;
     }
   }
-
-  return result;
 }
 
-uint64_t closure #1 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(unsigned __int8 *a1)
+void closure #1 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(unsigned __int8 *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = type metadata accessor for Google_Protobuf_NullValue();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  result = MEMORY[0x1EEE9AC00](v2);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *a1;
-  if (v8 == 2 || (v8 & 1) != 0)
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *a1;
+  if (v10 == 2 || (v10 & 1) != 0)
   {
     __break(1u);
   }
@@ -7690,23 +6991,20 @@ uint64_t closure #1 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(un
   else
   {
     Google_Protobuf_NullValue.init()();
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
     dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    return (*(v3 + 8))(v7, v2);
+    (*(v7 + 8))(v9, v6);
   }
-
-  return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(unsigned __int8 *a1)
+void closure #2 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(unsigned __int8 *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = type metadata accessor for Google_Protobuf_NullValue();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  result = MEMORY[0x1EEE9AC00](v2);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *a1;
-  if (v8 == 2 || (v8 & 1) == 0)
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *a1;
+  if (v10 == 2 || (v10 & 1) == 0)
   {
     __break(1u);
   }
@@ -7714,38 +7012,29 @@ uint64_t closure #2 in Promptkit_Wireformat_ImageFormat.traverse<A>(visitor:)(un
   else
   {
     Google_Protobuf_NullValue.init()();
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
     dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-    return (*(v3 + 8))(v7, v2);
+    (*(v7 + 8))(v9, v6);
   }
-
-  return result;
-}
-
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ImageFormat@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  *a2 = 2;
-  v2 = &a2[*(a1 + 20)];
-  return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ImageFormat(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat, &protocol conformance descriptor for Promptkit_Wireformat_ImageFormat);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ImageFormat(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat, &protocol conformance descriptor for Promptkit_Wireformat_ImageFormat);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageFormat()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ImageFormat(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageFormat and conformance Promptkit_Wireformat_ImageFormat, type metadata accessor for Promptkit_Wireformat_ImageFormat, &protocol conformance descriptor for Promptkit_Wireformat_ImageFormat);
 
   return Message.hash(into:)();
 }
@@ -7759,17 +7048,16 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pro
     if (v4 == 2)
     {
 LABEL_3:
-      v5 = *(a3 + 20);
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x1E69AAC08]);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
       return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
     }
   }
 
   else
   {
-    v7 = (v4 ^ v3) & 1;
-    if (v4 != 2 && v7 == 0)
+    v6 = (v4 ^ v3) & 1;
+    if (v4 != 2 && v6 == 0)
     {
       goto LABEL_3;
     }
@@ -7780,52 +7068,52 @@ LABEL_3:
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_CustomData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData, &protocol conformance descriptor for Promptkit_Wireformat_CustomData);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_CustomData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData, &protocol conformance descriptor for Promptkit_Wireformat_CustomData);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_CustomData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_CustomData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_CustomData and conformance Promptkit_Wireformat_CustomData, type metadata accessor for Promptkit_Wireformat_CustomData, &protocol conformance descriptor for Promptkit_Wireformat_CustomData);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3, void (*a4)(void))
 {
-  if (v4[1])
+  v9 = result;
+  if (*(v4 + 8))
   {
-    v7 = *v4;
     result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
   if (!v5)
   {
-    closure #2 in Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(v4);
-    v9 = v4 + *(a4(0) + 24);
+    closure #2 in Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(v4, v9, a2, a3);
+    a4(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(uint64_t result)
+uint64_t closure #2 in Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(result + 24);
-  if (v1 >> 60 != 15)
+  v4 = *(result + 24);
+  if (v4 >> 60 != 15)
   {
-    v2 = *(result + 16);
-    outlined copy of Data._Representation(v2, v1);
+    v5 = *(result + 16);
+    outlined copy of Data._Representation(v5, v4);
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v2, v1);
+    return outlined consume of Data?(v5, v4);
   }
 
   return result;
@@ -7833,31 +7121,31 @@ uint64_t closure #2 in Promptkit_Wireformat_CustomData.traverse<A>(visitor:)(uin
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_PromptComponentCustomData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentCustomData);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_PromptComponentCustomData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentCustomData);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponentCustomData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_PromptComponentCustomData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_PromptComponentCustomData and conformance Promptkit_Wireformat_PromptComponentCustomData, type metadata accessor for Promptkit_Wireformat_PromptComponentCustomData, &protocol conformance descriptor for Promptkit_Wireformat_PromptComponentCustomData);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_SpecialToken.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_SpecialToken.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -7877,36 +7165,33 @@ LABEL_8:
   }
 }
 
-uint64_t Promptkit_Wireformat_SpecialToken.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_SpecialToken.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (v0[1])
+  if (*(v3 + 8))
   {
-    v2 = *v0;
-    result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
+    v5 = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
-  if (!v1)
+  if (!v4)
   {
-    if ((*(v0 + 20) & 1) == 0)
+    if ((*(v3 + 20) & 1) == 0)
     {
-      v4 = *(v0 + 4);
       dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
     }
 
-    if (v0[4])
+    if (*(v3 + 32))
     {
-      v5 = v0[3];
       dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
     }
 
-    v6 = v0 + *(type metadata accessor for Promptkit_Wireformat_SpecialToken(0) + 28);
+    type metadata accessor for Promptkit_Wireformat_SpecialToken(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
-  return result;
+  return v5;
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_SpecialToken@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_SpecialToken@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
@@ -7914,78 +7199,77 @@ uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat
   *(a2 + 20) = 1;
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
-  v2 = a2 + *(a1 + 28);
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_SpecialToken(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken, &protocol conformance descriptor for Promptkit_Wireformat_SpecialToken);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_SpecialToken(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken, &protocol conformance descriptor for Promptkit_Wireformat_SpecialToken);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_SpecialToken()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_SpecialToken(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_SpecialToken and conformance Promptkit_Wireformat_SpecialToken, type metadata accessor for Promptkit_Wireformat_SpecialToken, &protocol conformance descriptor for Promptkit_Wireformat_SpecialToken);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_BindableVariable(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable, &protocol conformance descriptor for Promptkit_Wireformat_BindableVariable);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_BindableVariable(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable, &protocol conformance descriptor for Promptkit_Wireformat_BindableVariable);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_BindableVariable()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_BindableVariable(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_BindableVariable and conformance Promptkit_Wireformat_BindableVariable, type metadata accessor for Promptkit_Wireformat_BindableVariable, &protocol conformance descriptor for Promptkit_Wireformat_BindableVariable);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_AttachmentPlaceholder(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder, &protocol conformance descriptor for Promptkit_Wireformat_AttachmentPlaceholder);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_AttachmentPlaceholder(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder, &protocol conformance descriptor for Promptkit_Wireformat_AttachmentPlaceholder);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_AttachmentPlaceholder()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_AttachmentPlaceholder(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_AttachmentPlaceholder and conformance Promptkit_Wireformat_AttachmentPlaceholder, type metadata accessor for Promptkit_Wireformat_AttachmentPlaceholder, &protocol conformance descriptor for Promptkit_Wireformat_AttachmentPlaceholder);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ToolResults.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_ToolResults.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Promptkit_Wireformat_ToolResult(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_ToolResult(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult, &protocol conformance descriptor for Promptkit_Wireformat_ToolResult), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Promptkit_Wireformat_ToolResults(0) + 20);
+    type metadata accessor for Promptkit_Wireformat_ToolResults(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -7994,31 +7278,32 @@ uint64_t Promptkit_Wireformat_ToolResults.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolResults(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults, &protocol conformance descriptor for Promptkit_Wireformat_ToolResults);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolResults(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults, &protocol conformance descriptor for Promptkit_Wireformat_ToolResults);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResults()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResults(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResults and conformance Promptkit_Wireformat_ToolResults, type metadata accessor for Promptkit_Wireformat_ToolResults, &protocol conformance descriptor for Promptkit_Wireformat_ToolResults);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -8026,10 +7311,10 @@ uint64_t Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 3:
-        closure #3 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)();
+        closure #3 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       case 2:
-        closure #2 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)();
+        closure #2 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       case 1:
         dispatch thunk of Decoder.decodeSingularStringField(value:)();
@@ -8040,28 +7325,27 @@ uint64_t Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_ToolResult(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_ToolResult(0);
   type metadata accessor for Promptkit_Wireformat_ToolResultContent(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultContent);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in Promptkit_Wireformat_ToolResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_ToolResult(0) + 24);
+  type metadata accessor for Promptkit_Wireformat_ToolResult(0);
   type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
 uint64_t Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
 {
   v7 = result;
-  if (v3[1])
+  if (*(v3 + 8))
   {
-    v8 = *v3;
     result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -8069,7 +7353,7 @@ uint64_t Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(uint64_t result, 
   {
     closure #2 in Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(v3, v7, a2, a3);
     closure #3 in Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(v3, v7, a2, a3);
-    v9 = v3 + *(type metadata accessor for Promptkit_Wireformat_ToolResult(0) + 28);
+    type metadata accessor for Promptkit_Wireformat_ToolResult(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -8078,251 +7362,240 @@ uint64_t Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(uint64_t result, 
 
 uint64_t closure #2 in Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMd, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolResultContent(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolResult(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 20), v8, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMd, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolResultContent(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolResult(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMd, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMd, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMd, &_s15TokenGeneration38Promptkit_Wireformat_ToolResultContentVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultContent);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
 }
 
 uint64_t closure #3 in Promptkit_Wireformat_ToolResult.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolResult(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 24), v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolResult(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 24), v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMd, &_s15TokenGeneration27Promptkit_Wireformat_PromptVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_Prompt);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_Prompt);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_Prompt and conformance Promptkit_Wireformat_Prompt, type metadata accessor for Promptkit_Wireformat_Prompt, &protocol conformance descriptor for Promptkit_Wireformat_Prompt);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_Prompt);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_Prompt);
 }
 
-uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ToolResult@<X0>(int *a1@<X0>, char *a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ToolResult@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 1) = 0;
-  v4 = a1[5];
+  v4 = *(a1 + 20);
   v5 = type metadata accessor for Promptkit_Wireformat_ToolResultContent(0);
   (*(*(v5 - 8) + 56))(&a2[v4], 1, 1, v5);
-  v6 = a1[6];
+  v6 = *(a1 + 24);
   v7 = type metadata accessor for Promptkit_Wireformat_Prompt(0);
   (*(*(v7 - 8) + 56))(&a2[v6], 1, 1, v7);
-  v8 = &a2[a1[7]];
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolResult(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult, &protocol conformance descriptor for Promptkit_Wireformat_ToolResult);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolResult(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult, &protocol conformance descriptor for Promptkit_Wireformat_ToolResult);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResult()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResult(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResult and conformance Promptkit_Wireformat_ToolResult, type metadata accessor for Promptkit_Wireformat_ToolResult, &protocol conformance descriptor for Promptkit_Wireformat_ToolResult);
 
   return Message.hash(into:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolResultContent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_ToolResultText(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultText);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMd, &_s15TokenGeneration35Promptkit_Wireformat_ToolResultTextVSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolResultContent.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolResultText(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolResultText(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolResultContentEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMd, &_s15TokenGeneration42Promptkit_Wireformat_ToolResultContentEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ToolResultText);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultText);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolResultText);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolResultContent(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultContent);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolResultContent(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultContent);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResultContent()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResultContent(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultContent and conformance Promptkit_Wireformat_ToolResultContent, type metadata accessor for Promptkit_Wireformat_ToolResultContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultContent);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolResultText(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultText);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolResultText(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultText);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResultText()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolResultText(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolResultText and conformance Promptkit_Wireformat_ToolResultText, type metadata accessor for Promptkit_Wireformat_ToolResultText, &protocol conformance descriptor for Promptkit_Wireformat_ToolResultText);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ToolCalls.traverse<A>(visitor:)()
+uint64_t Promptkit_Wireformat_ToolCalls.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Promptkit_Wireformat_ToolCall(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_ToolCall(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall, &protocol conformance descriptor for Promptkit_Wireformat_ToolCall), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Promptkit_Wireformat_ToolCalls(0) + 20);
+    type metadata accessor for Promptkit_Wireformat_ToolCalls(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -8331,46 +7604,45 @@ uint64_t Promptkit_Wireformat_ToolCalls.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolCalls(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls, &protocol conformance descriptor for Promptkit_Wireformat_ToolCalls);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolCalls(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls, &protocol conformance descriptor for Promptkit_Wireformat_ToolCalls);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCalls()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCalls(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCalls and conformance Promptkit_Wireformat_ToolCalls, type metadata accessor for Promptkit_Wireformat_ToolCalls, &protocol conformance descriptor for Promptkit_Wireformat_ToolCalls);
 
   return Message.hash(into:)();
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ToolCall.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in Promptkit_Wireformat_ToolCall.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_ToolCall(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_ToolCall(0);
   type metadata accessor for Promptkit_Wireformat_ToolCallContent(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallContent);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t Promptkit_Wireformat_GenerationSchemaChoice.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3, void (*a4)(uint64_t *, uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
+uint64_t Promptkit_Wireformat_GenerationSchemaChoice.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3, void (*a4)(void *, uint64_t, uint64_t, uint64_t), void (*a5)(void))
 {
   v11 = result;
   if (v5[1])
   {
-    v12 = *v5;
     result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
   if (!v6)
   {
     a4(v5, v11, a2, a3);
-    v13 = v5 + *(a5(0) + 24);
+    a5(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -8379,217 +7651,209 @@ uint64_t Promptkit_Wireformat_GenerationSchemaChoice.traverse<A>(visitor:)(uint6
 
 uint64_t closure #2 in Promptkit_Wireformat_ToolCall.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolCallContent(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolCall(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 20), v8, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolCallContent(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolCall(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_ToolCallContentVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallContent);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolCall(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall, &protocol conformance descriptor for Promptkit_Wireformat_ToolCall);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolCall(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall, &protocol conformance descriptor for Promptkit_Wireformat_ToolCall);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCall()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCall(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCall and conformance Promptkit_Wireformat_ToolCall, type metadata accessor for Promptkit_Wireformat_ToolCall, &protocol conformance descriptor for Promptkit_Wireformat_ToolCall);
 
   return Message.hash(into:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolCallContent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = a2;
-  v47 = a3;
-  v48 = a4;
-  v49 = a1;
+  v43 = a2;
+  v44 = a3;
+  v45 = a4;
+  v46 = a1;
   v4 = type metadata accessor for Promptkit_Wireformat_ToolCallFunction(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v37 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v42 = &v37 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v37 - v12;
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v37 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x1EEE9AC00](v22 - 8);
-  v43 = &v37 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v37 - v26;
-  v41 = v5;
-  v28 = *(v5 + 56);
-  v44 = v4;
-  v28(&v37 - v26, 1, 1, v4);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, v13, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-  v38 = v15;
-  v39 = v14;
-  v29 = (*(v15 + 48))(v13, 1, v14);
-  if (v29 == 1)
+  v39 = &v34 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v34 - v10;
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v34 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v40 = &v34 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v34 - v23;
+  v38 = v5;
+  v25 = *(v5 + 56);
+  v41 = v4;
+  v25(&v34 - v23, 1, 1, v4, v22);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, v11, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+  v35 = v13;
+  v36 = v12;
+  v26 = (*(v13 + 48))(v11, 1, v12);
+  if (v26 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-    v30 = v44;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+    v27 = v41;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v21, type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v21, v19, type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
-    v31 = v42;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v42, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v31, v27, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-    v30 = v44;
-    v28(v27, 0, 1, v44);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v18, v15, type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+    v28 = v39;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v15, v39, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v28, v24, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+    v27 = v41;
+    (v25)(v24, 0, 1, v41);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-  v32 = v45;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallFunction);
+  v29 = v42;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  v33 = v43;
-  if (v32)
+  v30 = v40;
+  if (v29)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v43, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
-  if ((*(v41 + 48))(v33, 1, v30) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, v40, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+  if ((*(v38 + 48))(v30, 1, v27) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v30, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
   }
 
   else
   {
-    v35 = v40;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-    if (v29 != 1)
+    v32 = v37;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v30, v37, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+    if (v26 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
-    v36 = v49;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v49, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v36, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-    return (*(v38 + 56))(v36, 0, 1, v39);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v24, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_ToolCallFunctionVSgMR);
+    v33 = v46;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v46, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v33, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+    return (*(v35 + 56))(v33, 0, 1, v36);
   }
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolCallContent.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolCallFunction(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolCallFunction(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolCallContentEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMd, &_s15TokenGeneration40Promptkit_Wireformat_ToolCallContentEnumOSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallFunction);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolCallContent(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallContent);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolCallContent(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallContent);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCallContent()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCallContent(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallContent and conformance Promptkit_Wireformat_ToolCallContent, type metadata accessor for Promptkit_Wireformat_ToolCallContent, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallContent);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolCallFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallFunction);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolCallFunction(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallFunction);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCallFunction()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolCallFunction(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolCallFunction and conformance Promptkit_Wireformat_ToolCallFunction, type metadata accessor for Promptkit_Wireformat_ToolCallFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolCallFunction);
 
   return Message.hash(into:)();
 }
 
-uint64_t Promptkit_Wireformat_ToolDefinition.decodeMessage<A>(decoder:)()
+uint64_t Promptkit_Wireformat_ToolDefinition.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 3)
       {
         type metadata accessor for Promptkit_Wireformat_ToolDefinitionType(0);
-        lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+        lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionType);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
@@ -8602,46 +7866,44 @@ uint64_t Promptkit_Wireformat_ToolDefinition.decodeMessage<A>(decoder:)()
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolDefinition.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[3] = a4;
-  v15[1] = a3;
+  v13[3] = a4;
+  v13[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionType(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionType(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMd, &_s15TokenGeneration39Promptkit_Wireformat_ToolDefinitionTypeVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionType);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolDefinition(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinition);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolDefinition(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinition);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinition()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinition(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinition and conformance Promptkit_Wireformat_ToolDefinition, type metadata accessor for Promptkit_Wireformat_ToolDefinition, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinition);
 
   return Message.hash(into:)();
 }
@@ -8666,7 +7928,7 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint
 
       else if (result == 2)
       {
-        closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(a1, v5, a2, a3, 3);
+        closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(a1, v5, a2, a3, 3u);
       }
     }
 
@@ -8675,7 +7937,7 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint
       switch(result)
       {
         case 3:
-          closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(a1, v5, a2, a3, 4);
+          closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(a1, v5, a2, a3, 4u);
           break;
         case 4:
           closure #4 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(v5, a1, a2, a3);
@@ -8692,370 +7954,355 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v41 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v40 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+      v30 = v45;
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
-      v35 = v43;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v43, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+      v32 = v40;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v40, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionFunction);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
   }
 
   else
   {
-    v39 = v44;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v44, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
-    if (v32 != 1)
+    v36 = v41;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v41, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionFunctionVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t closure #2 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v28 = a5;
-  v29 = a2;
+  v26 = a5;
+  v27 = a2;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = v27 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v25 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v18 = v27 - v17;
-  v19 = type metadata accessor for Google_Protobuf_NullValue();
-  v20 = *(v19 - 8);
-  (*(v20 + 56))(v18, 1, 1, v19);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+  v16 = v25 - v15;
+  v17 = type metadata accessor for Google_Protobuf_NullValue();
+  v18 = *(v17 - 8);
+  (*(v18 + 56))(v16, 1, 1, v17);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
   dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
   if (v5)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  v27[1] = a3;
-  v27[2] = a4;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v21 = (*(v20 + 48))(v16, 1, v19);
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  if (v21 == 1)
+  v25[1] = a3;
+  v25[2] = a4;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  v19 = (*(v18 + 48))(v13, 1, v17);
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  if (v19 == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v29, v11, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v22 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  v23 = *(v22 - 8);
-  v24 = (*(v23 + 48))(v11, 1, v22);
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  if (v24 != 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, v10, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v20 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  v21 = *(v20 - 8);
+  v22 = (*(v21 + 48))(v10, 1, v20);
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v10, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  if (v22 != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v26 = v29;
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v29, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  v24 = v27;
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v27, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
   swift_storeEnumTagMultiPayload();
-  return (*(v23 + 56))(v26, 0, 1, v22);
+  return (*(v21 + 56))(v24, 0, 1, v20);
 }
 
 uint64_t closure #4 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageGenerationParameters and conformance Promptkit_Wireformat_ImageGenerationParameters, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageGenerationParameters and conformance Promptkit_Wireformat_ImageGenerationParameters, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters, &protocol conformance descriptor for Promptkit_Wireformat_ImageGenerationParameters);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMd, &_s15TokenGeneration026Promptkit_Wireformat_ImageB10ParametersVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t closure #5 in Promptkit_Wireformat_ToolDefinitionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v48 = a4;
+  v46 = a2;
+  v47 = a3;
   v5 = type metadata accessor for Promptkit_Wireformat_FileGenerationParameters(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v40 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v41 = &v38 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v38 - v11;
+  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v38 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v43 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v38 - v24;
+  v42 = v6;
+  v26 = *(v6 + 56);
+  v45 = v5;
+  v27 = v5;
+  v28 = v26;
+  (v26)(&v38 - v24, 1, 1, v27, v23);
+  v39 = a1;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v38 = v14;
+  v29 = (*(v14 + 48))(v12, 1, v13);
+  if (v29 == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v14, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    v30 = v45;
+    v31 = v13;
   }
 
   else
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v14, v22, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v22, v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-    v34 = v15;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v12, v19, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v19, v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    v31 = v13;
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
-      v35 = v44;
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v20, v44, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
-      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v35, v28, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+      v32 = v41;
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v41, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+      outlined init with take of Promptkit_Wireformat_PromptRequestV1(v32, v25, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+      v30 = v45;
+      v28(v25, 0, 1, v45);
     }
 
     else
     {
-      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
-      v33 = v48;
+      outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v16, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+      v30 = v45;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_FileGenerationParameters and conformance Promptkit_Wireformat_FileGenerationParameters, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
-  v37 = v47;
+  v33 = v43;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_FileGenerationParameters and conformance Promptkit_Wireformat_FileGenerationParameters, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters, &protocol conformance descriptor for Promptkit_Wireformat_FileGenerationParameters);
+  v34 = v44;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v34)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, v36, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, v33, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+  if ((*(v42 + 48))(v33, 1, v30) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v36, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v33, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v43, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
-    if (v32 != 1)
+    v36 = v40;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v33, v40, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+    if (v29 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v28, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
-    v40 = v42;
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v42, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v39, v40, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v25, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMd, &_s15TokenGeneration025Promptkit_Wireformat_FileB10ParametersVSgMR);
+    v37 = v39;
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v39, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v36, v37, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v38 + 56))(v37, 0, 1, v31);
   }
 }
 
 uint64_t Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v16 - v10;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v16 - v10, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v12 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) != 1)
+  v10 = &v15 - v9;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v3, &v15 - v9, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) != 1)
   {
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload <= 1)
@@ -9077,7 +8324,7 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t 
       {
         if (EnumCaseMultiPayload == 3)
         {
-          result = closure #2 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(v3, a1, a2, a3);
+          result = closure #2 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(v3, v13, a1, a2, a3);
           if (v4)
           {
             return result;
@@ -9086,7 +8333,7 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t 
 
         else
         {
-          result = closure #3 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(v3, a1, a2, a3);
+          result = closure #3 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(v3, v13, a1, a2, a3);
           if (v4)
           {
             return result;
@@ -9099,7 +8346,7 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t 
       closure #5 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(v3, a1, a2, a3);
     }
 
-    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
     if (v4)
     {
       return result;
@@ -9107,71 +8354,67 @@ uint64_t Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t 
   }
 
 LABEL_14:
-  v15 = v3 + *(type metadata accessor for Promptkit_Wireformat_ToolDefinitionType(0) + 20);
+  type metadata accessor for Promptkit_Wireformat_ToolDefinitionType(0);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t closure #1 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionFunction);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
   __break(1u);
   return result;
 }
 
-uint64_t closure #2 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #2 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v17[3] = a4;
-  v5 = type metadata accessor for Google_Protobuf_NullValue();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16[3] = a5;
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = v17 - v12;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v17 - v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v14 - 8) + 48))(v13, 1, v14) == 1)
+  v12 = v16 - v11;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v16 - v11, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v13 - 8) + 48))(v12, 1, v13) == 1)
   {
-    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
   }
 
   else
   {
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
     if (EnumCaseMultiPayload == 3)
     {
       Google_Protobuf_NullValue.init()();
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
       dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-      return (*(v6 + 8))(v9, v5);
+      return (*(v7 + 8))(v9, v6);
     }
   }
 
@@ -9179,35 +8422,33 @@ uint64_t closure #2 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visit
   return result;
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v17[3] = a4;
-  v5 = type metadata accessor for Google_Protobuf_NullValue();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16[3] = a5;
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = v17 - v12;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v17 - v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v14 - 8) + 48))(v13, 1, v14) == 1)
+  v12 = v16 - v11;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v16 - v11, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v13 - 8) + 48))(v12, 1, v13) == 1)
   {
-    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
   }
 
   else
   {
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+    result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
     if (EnumCaseMultiPayload == 4)
     {
       Google_Protobuf_NullValue.init()();
-      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
       dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-      return (*(v6 + 8))(v9, v5);
+      return (*(v7 + 8))(v9, v6);
     }
   }
 
@@ -9217,140 +8458,134 @@ uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visit
 
 uint64_t closure #4 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageGenerationParameters and conformance Promptkit_Wireformat_ImageGenerationParameters, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ImageGenerationParameters and conformance Promptkit_Wireformat_ImageGenerationParameters, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters, &protocol conformance descriptor for Promptkit_Wireformat_ImageGenerationParameters);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_ImageGenerationParameters);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
   __break(1u);
   return result;
 }
 
 uint64_t closure #5 in Promptkit_Wireformat_ToolDefinitionType.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_FileGenerationParameters(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
-  v13 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_FileGenerationParameters(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1, v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+  v11 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMd, &_s15TokenGeneration43Promptkit_Wireformat_ToolDefinitionTypeEnumOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v12, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
-    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_FileGenerationParameters and conformance Promptkit_Wireformat_FileGenerationParameters, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v10, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_FileGenerationParameters and conformance Promptkit_Wireformat_FileGenerationParameters, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters, &protocol conformance descriptor for Promptkit_Wireformat_FileGenerationParameters);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v12, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, type metadata accessor for Promptkit_Wireformat_FileGenerationParameters);
   }
 
-  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v8, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
+  result = outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_ToolDefinitionTypeEnum);
   __break(1u);
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolDefinitionType(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionType);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolDefinitionType(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionType);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinitionType()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinitionType(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionType and conformance Promptkit_Wireformat_ToolDefinitionType, type metadata accessor for Promptkit_Wireformat_ToolDefinitionType, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionType);
 
   return Message.hash(into:)();
 }
 
-uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionFunction.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionFunction.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0) + 24);
+  type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
   type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
 uint64_t closure #3 in Promptkit_Wireformat_ToolDefinitionFunction.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v14 + 24), v8, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 24), v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v8, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
   }
 
-  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v8, v13, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v13, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_ToolDefinitionFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionFunction);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_ToolDefinitionFunction(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionFunction);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinitionFunction()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_ToolDefinitionFunction(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_ToolDefinitionFunction and conformance Promptkit_Wireformat_ToolDefinitionFunction, type metadata accessor for Promptkit_Wireformat_ToolDefinitionFunction, &protocol conformance descriptor for Promptkit_Wireformat_ToolDefinitionFunction);
 
   return Message.hash(into:)();
 }
@@ -9391,7 +8626,7 @@ uint64_t Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(uint64
               closure #8 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(v5, a1, a2, a3);
               break;
             case 9:
-              closure #9 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(a1, v5);
+              closure #9 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
               break;
             case 10:
               closure #10 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(v5, a1, a2, a3);
@@ -9456,465 +8691,1191 @@ LABEL_6:
   return result;
 }
 
-unint64_t closure #1 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+uint64_t closure #1 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v23 = a5;
+  v22 = a5;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v21 - v12;
-  v14 = type metadata accessor for Google_Protobuf_NullValue();
-  v15 = *(v14 - 8);
-  (*(v15 + 56))(v13, 1, 1, v14);
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8]);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v20 - v11;
+  v13 = type metadata accessor for Google_Protobuf_NullValue();
+  v14 = *(v13 - 8);
+  (*(v14 + 56))(v12, 1, 1, v13);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
   dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
   if (v5)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  v22 = a2;
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, v11, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v16 = (*(v15 + 48))(v11, 1, v14);
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v11, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  if (v16 == 1)
+  v21 = a2;
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, v9, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  v15 = (*(v14 + 48))(v9, 1, v13);
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v9, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  if (v15 == 1)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
   }
 
-  v17 = v22;
-  if ((~*v22 & 0xF000000000000007) != 0)
+  v16 = v21;
+  if ((~*v21 & 0xF000000000000007) != 0)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v18 = v23;
-  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
-  v20 = *v17;
-  *v17 = v18;
-  return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
+  v17 = v22;
+  outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v12, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMd, &_s21InternalSwiftProtobuf07Google_C10_NullValueOSgMR);
+  v19 = *v16;
+  *v16 = v17;
+  return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
 }
 
-unint64_t closure #4 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #4 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaString(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v30 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v29 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v31 = v20 & 0xF000000000000007;
-  if (!(v20 >> 61) && v31 != 0xF000000000000007)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v30 = v19 & 0xF000000000000007;
+  if (!(v19 >> 61) && v30 != 0xF000000000000007)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaString);
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
   }
 
   else
   {
-    v24 = v30;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v30, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
-    if (v31 != 0xF000000000000007)
+    v23 = v29;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v29, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+    if (v30 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
-    v27 = *v29;
-    *v29 = v25;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaStringVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+    v26 = *v28;
+    *v28 = v24;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
 }
 
-unint64_t closure #5 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #5 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v31 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v30 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v30 = v20 & 0xF000000000000007;
-  if ((v20 & 0xF000000000000007) != 0xF000000000000007 && (v20 & 0xE000000000000000) == 0x2000000000000000)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v29 = v19 & 0xF000000000000007;
+  if ((v19 & 0xF000000000000007) != 0xF000000000000007 && (v19 & 0xE000000000000000) == 0x2000000000000000)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaObject);
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
   }
 
   else
   {
-    v24 = v31;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v31, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
-    if (v30 != 0xF000000000000007)
+    v23 = v30;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v30, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+    if (v29 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
-    v27 = *v29;
-    *v29 = v25 | 0x2000000000000000;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B12SchemaObjectVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+    v26 = *v28;
+    *v28 = v24 | 0x2000000000000000;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
 }
 
-unint64_t closure #6 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #6 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v31 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v30 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v30 = v20 & 0xF000000000000007;
-  if ((v20 & 0xF000000000000007) != 0xF000000000000007 && (v20 & 0xE000000000000000) == 0x4000000000000000)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v29 = v19 & 0xF000000000000007;
+  if ((v19 & 0xF000000000000007) != 0xF000000000000007 && (v19 & 0xE000000000000000) == 0x4000000000000000)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
   }
 
   else
   {
-    v24 = v31;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v31, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    if (v30 != 0xF000000000000007)
+    v23 = v30;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v30, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    if (v29 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    v27 = *v29;
-    *v29 = v25 | 0x4000000000000000;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    v26 = *v28;
+    *v28 = v24 | 0x4000000000000000;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
 }
 
-unint64_t closure #7 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #7 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v31 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v30 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v30 = v20 & 0xF000000000000007;
-  if ((v20 & 0xF000000000000007) != 0xF000000000000007 && (v20 & 0xE000000000000000) == 0x6000000000000000)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v29 = v19 & 0xF000000000000007;
+  if ((v19 & 0xF000000000000007) != 0xF000000000000007 && (v19 & 0xE000000000000000) == 0x6000000000000000)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
   }
 
   else
   {
-    v24 = v31;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v31, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    if (v30 != 0xF000000000000007)
+    v23 = v30;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v30, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    if (v29 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
-    v27 = *v29;
-    *v29 = v25 | 0x6000000000000000;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    v26 = *v28;
+    *v28 = v24 | 0x6000000000000000;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
 }
 
-unint64_t closure #8 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #8 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v31 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v30 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v30 = v20 & 0xF000000000000007;
-  if ((v20 & 0xF000000000000007) != 0xF000000000000007 && (v20 & 0xE000000000000000) == 0x8000000000000000)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v29 = v19 & 0xF000000000000007;
+  if ((v19 & 0xF000000000000007) != 0xF000000000000007 && (v19 & 0xE000000000000000) == 0x8000000000000000)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaOneOf);
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
   }
 
   else
   {
-    v24 = v31;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v31, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
-    if (v30 != 0xF000000000000007)
+    v23 = v30;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v30, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    if (v29 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
-    v27 = *v29;
-    *v29 = v25 | 0x8000000000000000;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B11SchemaOneOfVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    v26 = *v28;
+    *v28 = v24 | 0x8000000000000000;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
 }
 
-unint64_t closure #9 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(uint64_t a1, unint64_t *a2)
+uint64_t closure #9 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = dispatch thunk of Decoder.decodeSingularStringField(value:)();
-  if (v2)
+  if (v4)
   {
   }
 
-  if (v8)
+  if (v10)
   {
     if ((~*a2 & 0xF000000000000007) != 0)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    v5 = swift_allocObject();
-    *(v5 + 16) = 0;
-    *(v5 + 24) = v8;
-    v6 = v5 | 0xA000000000000000;
-    v7 = *a2;
-    *a2 = v6;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v7);
+    v7 = swift_allocObject();
+    *(v7 + 16) = 0;
+    *(v7 + 24) = v10;
+    v8 = v7 | 0xA000000000000000;
+    v9 = *a2;
+    *a2 = v8;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v9);
   }
 
   return result;
 }
 
-unint64_t closure #10 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t closure #10 in Promptkit_Wireformat_GenerationSchema.decodeMessage<A>(decoder:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = a3;
-  v34 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = type metadata accessor for Promptkit_Wireformat_RecursiveSchema(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v31 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v30 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v28 - v17;
-  v19 = *(v6 + 56);
-  v19(&v28 - v17, 1, 1, v5);
-  v29 = a1;
-  v20 = *a1;
-  v30 = v20 & 0xF000000000000007;
-  if ((v20 & 0xF000000000000007) != 0xF000000000000007 && (v20 & 0xE000000000000000) == 0xC000000000000000)
+  v10 = &v27 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(v6 + 56);
+  v18(&v27 - v16, 1, 1, v5, v15);
+  v28 = a1;
+  v19 = *a1;
+  v29 = v19 & 0xF000000000000007;
+  if ((v19 & 0xF000000000000007) != 0xF000000000000007 && (v19 & 0xE000000000000000) == 0xC000000000000000)
   {
-    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v20);
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
-    v21 = swift_projectBox();
-    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v21, v11, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
-    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v20);
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v11, v18, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
-    v19(v18, 0, 1, v5);
+    outlined copy of Promptkit_Wireformat_GenerationSchemaEnum(v19);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+    v20 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v20, v10, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+    outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v19);
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v10, v17, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+    (v18)(v17, 0, 1, v5);
   }
 
-  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_RecursiveSchema and conformance Promptkit_Wireformat_RecursiveSchema, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
-  v22 = v32;
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_RecursiveSchema and conformance Promptkit_Wireformat_RecursiveSchema, type metadata accessor for Promptkit_Wireformat_RecursiveSchema, "ݟFC");
+  v21 = v31;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v22)
+  if (v21)
   {
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
   }
 
-  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, v16, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, v13, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+  if ((*(v6 + 48))(v13, 1, v5) == 1)
   {
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
-    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v16, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v13, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
   }
 
   else
   {
-    v24 = v31;
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v16, v31, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
-    if (v30 != 0xF000000000000007)
+    v23 = v30;
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v13, v30, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+    if (v29 != 0xF000000000000007)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v18, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
-    v25 = swift_allocBox();
-    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v24, v26, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
-    v27 = *v29;
-    *v29 = v25 | 0xC000000000000000;
-    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v27);
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v17, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMd, &_s15TokenGeneration36Promptkit_Wireformat_RecursiveSchemaVSgMR);
+    v24 = swift_allocBox();
+    outlined init with take of Promptkit_Wireformat_PromptRequestV1(v23, v25, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+    v26 = *v28;
+    *v28 = v24 | 0xC000000000000000;
+    return outlined consume of Promptkit_Wireformat_GenerationSchemaEnum?(v26);
   }
+}
+
+void Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
+{
+  v6 = *v4;
+  if ((~*v4 & 0xF000000000000007) == 0)
+  {
+    goto LABEL_2;
+  }
+
+  v7 = v6 >> 61;
+  if ((v6 >> 61) > 3)
+  {
+    if (v7 > 5)
+    {
+      if (v7 == 6)
+      {
+        closure #10 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+        if (!v5)
+        {
+          goto LABEL_2;
+        }
+      }
+
+      else if (v6 == 0xE000000000000000)
+      {
+        closure #1 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a4, a1, a2, a3);
+        if (!v5)
+        {
+          goto LABEL_2;
+        }
+      }
+
+      else if (v6 == 0xE000000000000008)
+      {
+        closure #2 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a4, a1, a2, a3);
+        if (!v5)
+        {
+          goto LABEL_2;
+        }
+      }
+
+      else
+      {
+        closure #3 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a4, a1, a2, a3);
+        if (!v5)
+        {
+          goto LABEL_2;
+        }
+      }
+    }
+
+    else if (v7 == 4)
+    {
+      closure #8 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+      if (!v5)
+      {
+        goto LABEL_2;
+      }
+    }
+
+    else
+    {
+      closure #9 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+      if (!v5)
+      {
+        goto LABEL_2;
+      }
+    }
+  }
+
+  else if (v7 > 1)
+  {
+    if (v7 == 2)
+    {
+      closure #6 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+      if (!v5)
+      {
+        goto LABEL_2;
+      }
+    }
+
+    else
+    {
+      closure #7 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+      if (!v5)
+      {
+        goto LABEL_2;
+      }
+    }
+  }
+
+  else if (v7)
+  {
+    closure #5 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+    if (!v5)
+    {
+      goto LABEL_2;
+    }
+  }
+
+  else
+  {
+    closure #4 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(v4, a1, a2, a3);
+    if (!v5)
+    {
+LABEL_2:
+      type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+      UnknownStorage.traverse<A>(visitor:)();
+    }
+  }
+}
+
+void closure #1 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (*a1 == 0xE000000000000000)
+  {
+    Google_Protobuf_NullValue.init()();
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    (*(v7 + 8))(v9, v6);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #2 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (*a1 == 0xE000000000000008)
+  {
+    Google_Protobuf_NullValue.init()();
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    (*(v7 + 8))(v9, v6);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #3 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = type metadata accessor for Google_Protobuf_NullValue();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (*a1 == 0xE000000000000010)
+  {
+    Google_Protobuf_NullValue.init()();
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Google_Protobuf_NullValue and conformance Google_Protobuf_NullValue, MEMORY[0x1E69AA8E8], MEMORY[0x1E69AA8E0]);
+    dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
+    (*(v7 + 8))(v9, v6);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+uint64_t closure #4 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaString(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = *a1;
+  if (*a1 >> 61)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = (*a1 & 0xF000000000000007) == 0xF000000000000007;
+  }
+
+  if (v9)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v10 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v10, v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaString);
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString);
+  }
+
+  return result;
+}
+
+void closure #5 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ((~*a1 & 0xF000000000000007) != 0 && (*a1 & 0xE000000000000000) == 0x2000000000000000)
+  {
+    v9 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v9, v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaObject);
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #6 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ((~*a1 & 0xF000000000000007) != 0 && (*a1 & 0xE000000000000000) == 0x4000000000000000)
+  {
+    v9 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v9, v7, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #7 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ((~*a1 & 0xF000000000000007) != 0 && (*a1 & 0xE000000000000000) == 0x6000000000000000)
+  {
+    v9 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v9, v7, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #8 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ((~*a1 & 0xF000000000000007) != 0 && (*a1 & 0xE000000000000000) == 0x8000000000000000)
+  {
+    v9 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v9, v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaOneOf);
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void *closure #9 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if ((~*result & 0xF000000000000007) != 0 && (*result & 0xE000000000000000) == 0xA000000000000000)
+  {
+
+    dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+void closure #10 in Promptkit_Wireformat_GenerationSchema.traverse<A>(visitor:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = type metadata accessor for Promptkit_Wireformat_RecursiveSchema(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if ((~*a1 & 0xF000000000000007) != 0 && (*a1 & 0xE000000000000000) == 0xC000000000000000)
+  {
+    v9 = swift_projectBox();
+    outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum(v9, v7, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+    lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_RecursiveSchema and conformance Promptkit_Wireformat_RecursiveSchema, type metadata accessor for Promptkit_Wireformat_RecursiveSchema, "ݟFC");
+    dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+    outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v7, type metadata accessor for Promptkit_Wireformat_RecursiveSchema);
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchema(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchema(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchema(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaString.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v4 || (v10 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      dispatch thunk of Decoder.decodeRepeatedStringField(value:)();
+    }
+
+    else if (result == 2)
+    {
+      closure #2 in Promptkit_Wireformat_GenerationSchemaString.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in Promptkit_Wireformat_GenerationSchemaString.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Promptkit_Wireformat_GenerationSchemaString(0);
+  type metadata accessor for Promptkit_Wireformat_StringConstraint(0);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_StringConstraint and conformance Promptkit_Wireformat_StringConstraint, type metadata accessor for Promptkit_Wireformat_StringConstraint, &protocol conformance descriptor for Promptkit_Wireformat_StringConstraint);
+  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaString.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(*v3 + 16) || (result = dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)(), !v4))
+  {
+    result = closure #1 in Promptkit_Wireformat_GenerationSchemaString.traverse<A>(visitor:)(v3, a1, a2, a3);
+    if (!v4)
+    {
+      type metadata accessor for Promptkit_Wireformat_GenerationSchemaString(0);
+      return UnknownStorage.traverse<A>(visitor:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in Promptkit_Wireformat_GenerationSchemaString.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_StringConstraint(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaString(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMd, &_s15TokenGeneration37Promptkit_Wireformat_StringConstraintVSgMR);
+  }
+
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_StringConstraint);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_StringConstraint and conformance Promptkit_Wireformat_StringConstraint, type metadata accessor for Promptkit_Wireformat_StringConstraint, &protocol conformance descriptor for Promptkit_Wireformat_StringConstraint);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_StringConstraint);
+}
+
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_GenerationSchemaString@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  v3 = *(a1 + 20);
+  v4 = type metadata accessor for Promptkit_Wireformat_StringConstraint(0);
+  (*(*(v4 - 8) + 56))(&a2[v3], 1, 1, v4);
+  result = UnknownStorage.init()();
+  *a2 = MEMORY[0x1E69E7CC0];
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchemaString(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaString);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchemaString(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaString);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchemaString(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaString and conformance Promptkit_Wireformat_GenerationSchemaString, type metadata accessor for Promptkit_Wireformat_GenerationSchemaString, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaString);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaObject.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_GenerationSchemaField(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaField and conformance Promptkit_Wireformat_GenerationSchemaField, type metadata accessor for Promptkit_Wireformat_GenerationSchemaField, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaField), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
+  {
+    type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject(0);
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchemaObject(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaObject);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchemaObject(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaObject);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchemaObject(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaObject and conformance Promptkit_Wireformat_GenerationSchemaObject, type metadata accessor for Promptkit_Wireformat_GenerationSchemaObject, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaObject);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaField.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v4 || (v10 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result > 2)
+    {
+      if (result == 3)
+      {
+        closure #3 in Promptkit_Wireformat_GenerationSchemaField.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
+      }
+
+      else if (result == 4)
+      {
+        type metadata accessor for Promptkit_Wireformat_GenerationSchemaField(0);
+        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+      }
+    }
+
+    else if (result == 1 || result == 2)
+    {
+      dispatch thunk of Decoder.decodeSingularStringField(value:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #3 in Promptkit_Wireformat_GenerationSchemaField.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Promptkit_Wireformat_GenerationSchemaField(0);
+  type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaField.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v7 = result;
+  if (*(v3 + 8))
+  {
+    result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
+  }
+
+  if (!v4)
+  {
+    if (*(v3 + 24))
+    {
+      dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
+    }
+
+    closure #3 in Promptkit_Wireformat_GenerationSchemaField.traverse<A>(visitor:)(v3, v7, a2, a3);
+    closure #4 in Promptkit_Wireformat_GenerationSchemaField.traverse<A>(visitor:)(v3, v7, a2, a3, type metadata accessor for Promptkit_Wireformat_GenerationSchemaField);
+    type metadata accessor for Promptkit_Wireformat_GenerationSchemaField(0);
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
+}
+
+uint64_t closure #3 in Promptkit_Wireformat_GenerationSchemaField.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaField(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 24), v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  }
+
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+}
+
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_GenerationSchemaField@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  *a2 = 0u;
+  *(a2 + 1) = 0u;
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  (*(*(v5 - 8) + 56))(&a2[v4], 1, 1, v5);
+  a2[*(a1 + 28)] = 2;
+  return UnknownStorage.init()();
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchemaField(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaField and conformance Promptkit_Wireformat_GenerationSchemaField, type metadata accessor for Promptkit_Wireformat_GenerationSchemaField, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaField);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchemaField(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaField and conformance Promptkit_Wireformat_GenerationSchemaField, type metadata accessor for Promptkit_Wireformat_GenerationSchemaField, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaField);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchemaField(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaField and conformance Promptkit_Wireformat_GenerationSchemaField, type metadata accessor for Promptkit_Wireformat_GenerationSchemaField, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaField);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_GenerationSchemaOneOf.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(*v3 + 16) || (type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice(0), lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaChoice and conformance Promptkit_Wireformat_GenerationSchemaChoice, type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaChoice), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
+  {
+    type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf(0);
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchemaOneOf(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaOneOf);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchemaOneOf(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaOneOf);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchemaOneOf(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaOneOf and conformance Promptkit_Wireformat_GenerationSchemaOneOf, type metadata accessor for Promptkit_Wireformat_GenerationSchemaOneOf, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaOneOf);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_ToolCall.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t, uint64_t))
+{
+  v7 = v4;
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v5 || (v12 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      dispatch thunk of Decoder.decodeSingularStringField(value:)();
+    }
+
+    else if (result == 2)
+    {
+      a4(a1, v7, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in Promptkit_Wireformat_GenerationSchemaChoice.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice(0);
+  type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+}
+
+uint64_t closure #2 in Promptkit_Wireformat_GenerationSchemaChoice.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Promptkit_Wireformat_GenerationSchema(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice(0);
+  outlined init with copy of Promptkit_Wireformat_PromptRequestVersionEnum?(a1 + *(v12 + 20), v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum?(v7, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMd, &_s15TokenGeneration021Promptkit_Wireformat_B6SchemaVSgMR);
+  }
+
+  outlined init with take of Promptkit_Wireformat_PromptRequestV1(v7, v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchema and conformance Promptkit_Wireformat_GenerationSchema, type metadata accessor for Promptkit_Wireformat_GenerationSchema, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchema);
+  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
+  return outlined destroy of Promptkit_Wireformat_PromptRequestVersionEnum(v11, type metadata accessor for Promptkit_Wireformat_GenerationSchema);
+}
+
+uint64_t protocol witness for Message.init() in conformance Promptkit_Wireformat_ToolCall@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, char *a3@<X8>)
+{
+  *a3 = 0;
+  *(a3 + 1) = 0;
+  v4 = *(a1 + 20);
+  v5 = a2(0);
+  (*(*(v5 - 8) + 56))(&a3[v4], 1, 1, v5);
+  return UnknownStorage.init()();
+}
+
+uint64_t protocol witness for Message.isEqualTo(message:) in conformance Promptkit_Wireformat_GenerationSchemaChoice(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaChoice and conformance Promptkit_Wireformat_GenerationSchemaChoice, type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaChoice);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Promptkit_Wireformat_GenerationSchemaChoice(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaChoice and conformance Promptkit_Wireformat_GenerationSchemaChoice, type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaChoice);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance Promptkit_Wireformat_GenerationSchemaChoice(uint64_t a1, uint64_t a2)
+{
+  lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(&lazy protocol witness table cache variable for type Promptkit_Wireformat_GenerationSchemaChoice and conformance Promptkit_Wireformat_GenerationSchemaChoice, type metadata accessor for Promptkit_Wireformat_GenerationSchemaChoice, &protocol conformance descriptor for Promptkit_Wireformat_GenerationSchemaChoice);
+
+  return Message.hash(into:)();
+}
+
+uint64_t Promptkit_Wireformat_PromptRequestV1.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v7 || (v12 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      a4(0);
+      lazy protocol witness table accessor for type Promptkit_Wireformat_SelfAttention and conformance Promptkit_Wireformat_SelfAttention(a5, a6, a7);
+      dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+    }
+  }
+
+  return result;
 }

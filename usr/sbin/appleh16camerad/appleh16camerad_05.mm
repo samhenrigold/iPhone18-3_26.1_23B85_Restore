@@ -1,121 +1,121 @@
-uint64_t sub_10004D67C(uint64_t a1, unsigned int a2, uint64_t a3, _WORD *a4, _WORD *a5)
+uint64_t sub_10004D67C(uint64_t a1, unsigned int a2, uint64_t a3, _WORD *a4, _WORD *a5, __n128 a6)
 {
   if (!a2)
   {
     sub_1000806EC();
   }
 
-  v5 = 0;
-  v6 = *(a1 + 4);
-  v7 = *(a3 + 16);
-  v8 = *a3;
-  v9 = *(a3 + 40);
-  v10 = 1 << *a3;
+  v6 = 0;
+  v7 = *(a1 + 4);
+  v8 = *(a3 + 16);
+  v9 = *a3;
+  v10 = *(a3 + 40);
+  v11 = 1 << *a3;
   do
   {
-    v11 = v7;
-    v12 = v6;
-    v13 = a5;
-    v14 = a4;
-    v15 = v9;
-    if (v6)
+    v12 = v8;
+    v13 = v7;
+    v14 = a5;
+    v15 = a4;
+    v16 = v10;
+    if (v7)
     {
       do
       {
-        if (!v11)
+        if (!v12)
         {
-          v15 = *(a3 + 120);
-          v11 = *(a3 + 96);
+          v16 = *(a3 + 120);
+          v12 = *(a3 + 96);
         }
 
-        *v14++ += *(v15 + 6) >> 2;
-        *v13++ += *(v15 + 14) >> 2;
-        v15 += 16;
-        --v11;
+        *v15++ += *(v16 + 6) >> 2;
+        *v14++ += *(v16 + 14) >> 2;
+        v16 += 16;
         --v12;
+        --v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
-    if (v8 > 8)
+    if (v9 > 8)
     {
       sub_1000802CC();
     }
 
-    if ((v10 & 0xFA) != 0)
+    if ((v11 & 0xFA) != 0)
     {
-      v16 = *(a3 + 32);
-      if (v16)
+      v17 = *(a3 + 32);
+      if (v17)
       {
-        *(a3 + 32) = v16 - 1;
-        v9 += 2 * *(a3 + 8);
+        *(a3 + 32) = v17 - 1;
+        v10 += 2 * *(a3 + 8);
       }
 
       else
       {
-        v9 += 4 * *(a3 + 8);
+        v10 += 4 * *(a3 + 8);
       }
 
-      *(a3 + 40) = v9;
-      v19 = *(a3 + 20) + 2;
+      *(a3 + 40) = v10;
+      v20 = *(a3 + 20) + 2;
     }
 
     else
     {
-      if ((v10 & 0x101) != 0)
+      if ((v11 & 0x101) != 0)
       {
-        v9 += 2 * *(a3 + 8);
-        *(a3 + 40) = v9;
-        v17 = *(a3 + 20);
-        LODWORD(v18) = vadd_s32(v17, 0x100000001).u32[0];
-        HIDWORD(v18) = veor_s8(*&v17, 0x100000001).i32[1];
-        *(a3 + 20) = v18;
+        v10 += 2 * *(a3 + 8);
+        *(a3 + 40) = v10;
+        v18 = *(a3 + 20);
+        LODWORD(v19) = vadd_s32(v18, 0x100000001).u32[0];
+        HIDWORD(v19) = veor_s8(*&v18, 0x100000001).i32[1];
+        *(a3 + 20) = v19;
         goto LABEL_16;
       }
 
-      v9 += 2 * *(a3 + 8);
-      *(a3 + 40) = v9;
-      v19 = *(a3 + 20) + 1;
+      v10 += 2 * *(a3 + 8);
+      *(a3 + 40) = v10;
+      v20 = *(a3 + 20) + 1;
     }
 
-    *(a3 + 20) = v19;
+    *(a3 + 20) = v20;
 LABEL_16:
-    v20 = *(a3 + 80);
-    if (v20 > 8)
+    v21 = *(a3 + 80);
+    if (v21 > 8)
     {
       sub_1000802CC();
     }
 
-    v21 = 1 << v20;
-    if ((v21 & 0xFA) != 0)
+    v22 = 1 << v21;
+    if ((v22 & 0xFA) != 0)
     {
-      v22 = *(a3 + 112);
-      if (v22)
+      v23 = *(a3 + 112);
+      if (v23)
       {
-        *(a3 + 112) = v22 - 1;
-        v23 = *(a3 + 120) + 2 * *(a3 + 88);
+        *(a3 + 112) = v23 - 1;
+        v24 = *(a3 + 120) + 2 * *(a3 + 88);
       }
 
       else
       {
-        v23 = *(a3 + 120) + 4 * *(a3 + 88);
+        v24 = *(a3 + 120) + 4 * *(a3 + 88);
       }
 
-      *(a3 + 120) = v23;
+      *(a3 + 120) = v24;
       result = (*(a3 + 100) + 2);
     }
 
     else
     {
-      if ((v21 & 0x101) != 0)
+      if ((v22 & 0x101) != 0)
       {
         result = *(a3 + 120) + 2 * *(a3 + 88);
         *(a3 + 120) = result;
-        v25 = *(a3 + 100);
-        LODWORD(v26) = vadd_s32(v25, 0x100000001).u32[0];
-        HIDWORD(v26) = veor_s8(*&v25, 0x100000001).i32[1];
-        *(a3 + 100) = v26;
+        v26 = *(a3 + 100);
+        LODWORD(v27) = vadd_s32(v26, 0x100000001).u32[0];
+        HIDWORD(v27) = veor_s8(*&v26, 0x100000001).i32[1];
+        *(a3 + 100) = v27;
         goto LABEL_25;
       }
 
@@ -125,28 +125,28 @@ LABEL_16:
 
     *(a3 + 100) = result;
 LABEL_25:
-    if (v11)
+    if (v12)
     {
       sub_1000806C0();
     }
 
-    ++v5;
+    ++v6;
   }
 
-  while (v5 != a2);
-  if (v6)
+  while (v6 != a2);
+  if (v7)
   {
-    v27 = 0x80 / a2;
+    v28 = 0x80 / a2;
     do
     {
-      *a4 = (v27 * *a4) >> 5;
+      *a4 = (v28 * *a4) >> 5;
       ++a4;
-      *a5 = (v27 * *a5) >> 5;
+      *a5 = (v28 * *a5) >> 5;
       ++a5;
-      --v6;
+      --v7;
     }
 
-    while (v6);
+    while (v7);
   }
 
   return result;
@@ -1109,13 +1109,14 @@ uint64_t sub_10004E9D0(int a1, char *__s, unsigned int a3, char *a4)
   return result;
 }
 
-uint64_t sub_10004EABC(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004EABC(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   if (os_variant_allows_internal_security_policies() && (os_variant_has_internal_content() & 1) != 0)
   {
-    if (a3 == 1)
+    if (v3 == 1)
     {
-      if (*(a2 + 8) == 208)
+      if (a2[1] == 208)
       {
         operator new[]();
       }
@@ -1169,11 +1170,12 @@ uint64_t sub_10004EABC(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t sub_10004ED64(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004ED64(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (os_variant_allows_internal_security_policies() && (os_variant_has_internal_content() & 1) != 0)
   {
-    if (a3 == 2)
+    if (v3 == 2)
     {
       if (*(a2 + 8) == 208)
       {
@@ -1229,11 +1231,12 @@ uint64_t sub_10004ED64(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t sub_10004F1E0(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004F1E0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (os_variant_allows_internal_security_policies() && (os_variant_has_internal_content() & 1) != 0)
   {
-    if (a3 == 2)
+    if (v3 == 2)
     {
       if (*(a2 + 8) == 208)
       {
@@ -1289,20 +1292,21 @@ uint64_t sub_10004F1E0(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t sub_10004F66C(uint64_t a1)
+uint64_t sub_10004F66C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 208))
+  v5 = *(a1 + 208);
+  if (v5)
   {
     goto LABEL_2;
   }
 
-  v3 = *(a1 + 216);
-  if (!v3)
+  v8 = *(a1 + 216);
+  if (!v8)
   {
     goto LABEL_11;
   }
 
-  if (!sub_10005328C(v3))
+  if (!sub_10005328C(v8))
   {
     sub_100053074(*(a1 + 216));
   }
@@ -1312,24 +1316,25 @@ uint64_t sub_10004F66C(uint64_t a1)
     operator new();
   }
 
-  if (*(a1 + 208))
+  v5 = *(a1 + 208);
+  if (v5)
   {
 LABEL_2:
 
-    return sub_1000533B4();
+    return sub_1000533B4(v5, a2, a3);
   }
 
   else
   {
 LABEL_11:
-    v4 = off_10041DCC8;
+    v9 = off_10041DCC8;
     if (off_10041DCC8 == &_os_log_default)
     {
-      v4 = os_log_create("com.apple.isp", "general");
-      off_10041DCC8 = v4;
+      v9 = os_log_create("com.apple.isp", "general");
+      off_10041DCC8 = v9;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000816DC();
     }
@@ -1338,7 +1343,7 @@ LABEL_11:
   }
 }
 
-uint64_t sub_10004F7A4(uint64_t a1, uint64_t *a2, int a3)
+uint64_t sub_10004F7A4(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (a3 != 2)
   {
@@ -1378,7 +1383,7 @@ uint64_t sub_10004F7A4(uint64_t a1, uint64_t *a2, int a3)
   return 0;
 }
 
-uint64_t sub_10004F8B0(uint64_t a1, uint64_t *a2, int a3)
+uint64_t sub_10004F8B0(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (a3 != 3)
   {
@@ -1418,7 +1423,7 @@ uint64_t sub_10004F8B0(uint64_t a1, uint64_t *a2, int a3)
   return 0;
 }
 
-uint64_t sub_10004F9C0(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004F9C0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 == 4)
   {
@@ -1458,7 +1463,7 @@ uint64_t sub_10004F9C0(uint64_t a1, uint64_t a2, int a3)
   return 3;
 }
 
-uint64_t sub_10004FAD4(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004FAD4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 == 5)
   {
@@ -1498,7 +1503,7 @@ uint64_t sub_10004FAD4(uint64_t a1, uint64_t a2, int a3)
   return 3;
 }
 
-uint64_t sub_10004FBEC(uint64_t a1, uint64_t *a2, int a3)
+uint64_t sub_10004FBEC(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (a3 != 2)
   {
@@ -1538,7 +1543,7 @@ uint64_t sub_10004FBEC(uint64_t a1, uint64_t *a2, int a3)
   return 0;
 }
 
-uint64_t sub_10004FCF8(uint64_t a1, uint64_t *a2, int a3)
+uint64_t sub_10004FCF8(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (a3 != 3)
   {
@@ -1578,7 +1583,7 @@ uint64_t sub_10004FCF8(uint64_t a1, uint64_t *a2, int a3)
   return 0;
 }
 
-uint64_t sub_10004FE04(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10004FE04(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 == 4)
   {
@@ -1624,7 +1629,7 @@ uint64_t sub_10004FE04(uint64_t a1, uint64_t a2, int a3)
   return 3;
 }
 
-uint64_t sub_10004FF50(uint64_t a1, uint64_t *a2, int a3)
+uint64_t sub_10004FF50(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   __dst = 0;
   if (a3 != 2)
@@ -1713,22 +1718,24 @@ void *sub_1000501F8(void *a1)
     }
   }
 
-  if (a1[26])
-  {
-    sub_1000533B0();
-    operator delete();
-  }
-
-  if (a1[27])
-  {
-    sub_100053288();
-    operator delete();
-  }
-
-  v4 = a1[29];
+  v4 = a1[26];
   if (v4)
   {
-    sub_100035CE4(v4);
+    sub_1000533B0(v4);
+    operator delete();
+  }
+
+  v5 = a1[27];
+  if (v5)
+  {
+    sub_100053288(v5);
+    operator delete();
+  }
+
+  v6 = a1[29];
+  if (v6)
+  {
+    sub_100035CE4(v6);
   }
 
   return a1;
@@ -1843,7 +1850,7 @@ LABEL_31:
   return result;
 }
 
-unint64_t sub_10005041C(unsigned int a1, unsigned int *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void *a6)
+unint64_t sub_10005041C(unsigned int a1, unsigned int *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
   result = sub_100050328(a1, a2[8]);
   if (a1 > 8)
@@ -1930,7 +1937,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t sub_1000505B4(int a1, unsigned int *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1000505B4(unsigned int a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
   *a4 = a1;
   *(a4 + 20) = -1;
@@ -1999,7 +2006,7 @@ LABEL_24:
     }
 
     v18 = a2[7];
-    if ((v18 - 4) <= 0xFFFFFFFD)
+    if (v18 - 4 <= 0xFFFFFFFD)
     {
       sub_1000822BC();
     }
@@ -2202,10 +2209,10 @@ void sub_100050828(unsigned int *a1, uint64_t a2, int a3)
     v44 = v9;
     v21 = &v17[48 * v9 + 2 * v8];
     v22 = (2 * (v5 - v54 * v7)) & 0xFFFFFFFFFFFFFFFCLL;
-    v51 = &v19[12 * v8];
+    v51 = &v19[3 * v8];
     v23 = (v49 * v54);
     v48 = v19;
-    v50 = &v18[12 * v8];
+    v50 = &v18[3 * v8];
     v8 = v47;
     do
     {
@@ -3075,39 +3082,40 @@ LABEL_19:
   *(a1 + 8) = 1;
 }
 
-void sub_100051A58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_100051A58(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, uint64_t a5, int *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v6 = *(a1 + 20);
+  v11 = *(a1 + 20);
+  v26 = 0;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v21 = 0;
   v19 = 0u;
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v15 = 0uLL;
   v16 = 0;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0uLL;
-  v11 = 0;
-  sub_100016114(&v9, 3, v6);
-  v9 = &off_1000A1DE0;
-  sub_100016114(&v8, 3, v6);
-  v8 = &off_1000A1DE0;
-  sub_1000521F4(&v7, a5, 0, -1);
+  sub_100016114(&v14, 3, v11);
+  v14 = &off_1000A1DE0;
+  sub_100016114(&v13, 3, v11);
+  v13 = &off_1000A1DE0;
+  sub_1000521F4(&v12, a5, 0, -1);
 }
 
-void sub_10005215C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_10005215C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   sub_100025998(&a41);
   sub_100016068(&a45);
-  sub_100016068(&a49);
+  sub_100016068(va);
   _Unwind_Resume(a1);
 }
 
 void sub_1000521F4(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  *a1 = off_1000A2450;
+  *a1 = &off_1000A2450;
   v4 = *(a2 + 20);
   v5 = *(a2 + 16) - a3;
   if (a4 != -1)
@@ -3116,7 +3124,7 @@ void sub_1000521F4(uint64_t a1, uint64_t a2, int a3, int a4)
   }
 
   v6 = *(a2 + 8) + 4 * (v4 * a3);
-  v7 = off_1000A2450;
+  v7 = &off_1000A2450;
   v8 = v6;
   v9 = v5;
   v10 = v4;
@@ -3126,17 +3134,17 @@ void sub_1000521F4(uint64_t a1, uint64_t a2, int a3, int a4)
   operator new[]();
 }
 
-char *sub_1000522E0(char *a1, uint64_t a2)
+pthread_mutex_t *sub_1000522E0(pthread_mutex_t *a1, uint64_t a2)
 {
-  *(a1 + 7) = 0;
-  v3 = (a1 + 56);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
-  *a1 = a2;
-  *(a1 + 6) = 0;
-  *(a1 + 4) = 0;
-  *(a1 + 5) = 0;
-  a1[48] = 0;
+  *&a1->__opaque[48] = 0;
+  v3 = &a1->__opaque[48];
+  *a1->__opaque = 0;
+  *&a1->__opaque[8] = 0;
+  a1->__sig = a2;
+  *&a1->__opaque[16] = 0;
+  *&a1->__opaque[24] = 0;
+  *&a1->__opaque[32] = 0;
+  a1->__opaque[40] = 0;
   pthread_mutex_init(a1 + 1, 0);
   pthread_attr_init(&v5);
   pthread_attr_setdetachstate(&v5, 1);
@@ -3223,47 +3231,113 @@ uint64_t sub_100052544(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_100052600()
+uint64_t sub_100052600(dispatch_queue_t *a1, uint64_t a2, double a3, double a4, double a5, double a6, uint64_t a7, uint64_t a8)
 {
-  v3[0] = 0;
-  v3[1] = v3;
-  v3[2] = 0xE6002000000;
-  v3[3] = sub_1000054B0;
-  v3[4] = nullsub_10;
-  v0 = fopen("/var/mobile/Library/ISP/Pearl/IsfIRHistory.bin", "rb");
-  if (v0)
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0xE6002000000;
+  v31 = sub_1000054B0;
+  v32 = nullsub_10;
+  v15 = fopen("/var/mobile/Library/ISP/Pearl/IsfIRHistory.bin", "rb");
+  if (v15)
   {
-    fread(&v4, 0xE38uLL, 1uLL, v0);
-    fclose(v0);
+    fread(&v33, 0xE38uLL, 1uLL, v15);
+    fclose(v15);
   }
 
   else
   {
-    v4 = 1;
-    v5 = 1;
+    v33 = 1;
+    v34 = 1;
   }
 
-  v1 = off_10041DCD0;
+  v16 = off_10041DCD0;
   if (off_10041DCD0 == &_os_log_default)
   {
-    v1 = os_log_create("com.apple.isp", "general");
-    off_10041DCD0 = v1;
+    v16 = os_log_create("com.apple.isp", "general");
+    off_10041DCD0 = v16;
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "updatePCECalibWithISF";
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "%s - ISF\n", buf, 0xCu);
+    v44 = "updatePCECalibWithISF";
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - ISF\n", buf, 0xCu);
   }
 
   kdebug_trace();
-  sub_10004E410(&v2);
+  sub_10004E410(v27);
+  v17 = sub_10004E50C(v27, (v29 + 40), &v25, a3, a4, a5, a6);
+  kdebug_trace();
+  v18 = off_10041DCD0;
+  if (off_10041DCD0 == &_os_log_default)
+  {
+    v18 = os_log_create("com.apple.isp", "general");
+    off_10041DCD0 = v18;
+  }
+
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v44 = "updatePCECalibWithISF";
+    v45 = 1024;
+    v46 = v17;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s - ISF status: %d\n", buf, 0x12u);
+  }
+
+  sub_10002F9D4(v27, buf);
+  bzero((a2 + 116), 0x78uLL);
+  v19 = 0;
+  *(a2 + 112) = *buf > 0;
+  do
+  {
+    v20 = a2 + 116 + v19;
+    v21 = *&v47[v19];
+    *v20 = *(&v44 + v19 + 4);
+    *(v20 + 16) = v21;
+    *(v20 + 32) = *&v47[v19 + 16];
+    v19 += 40;
+  }
+
+  while (v19 != 120);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 0x40000000;
+  v24[2] = sub_100052A38;
+  v24[3] = &unk_1000A2C98;
+  v24[4] = &v28;
+  dispatch_async(*a1, v24);
+  if (!v17)
+  {
+    sub_10004E520(v27, v29 + 40, a8);
+    v22 = off_10041DCD0;
+    if (off_10041DCD0 == &_os_log_default)
+    {
+      v22 = os_log_create("com.apple.isp", "general");
+      off_10041DCD0 = v22;
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *v35 = 136315906;
+      v36 = "updatePCECalibWithISF";
+      v37 = 2048;
+      v38 = v25.i64[0];
+      v39 = 2048;
+      v40 = v25.i64[1];
+      v41 = 2048;
+      v42 = v26;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s - GMC post-ISF rotation angles, rotX: %.5lf, rotY: %.5lf, rotZ: %.5lf\n", v35, 0x2Au);
+    }
+  }
+
+  sub_10004E414(v27);
+  _Block_object_dispose(&v28, 8);
+  return v17;
 }
 
-void sub_100052A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100052A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3309,100 +3383,131 @@ void sub_100052A38(uint64_t a1)
   }
 }
 
-double sub_100052BD8(int a1, uint64_t a2, double *a3, int a4, void *__src, char *__dst, uint64_t a7, int a8)
+double sub_100052BD8(dispatch_queue_t *a1, __int128 *a2, double *a3, int a4, void *__src, char *__dst, uint64_t a7, int a8)
 {
   memcpy(__dst, __src, 0x3400uLL);
-  v27 = 0uLL;
-  v28 = 0;
-  sub_10001966C(a2, &v27);
-  *(a7 + 32) = v27;
-  *(a7 + 48) = v28;
+  v33 = 0uLL;
+  v34 = 0.0;
+  sub_10001966C(a2, &v33);
+  *(a7 + 32) = v33;
+  *(a7 + 48) = v34;
   *(a7 + 56) = 0;
-  v14 = off_10041DCD0;
+  v15 = off_10041DCD0;
   if (off_10041DCD0 == &_os_log_default)
   {
-    v14 = os_log_create("com.apple.isp", "general");
-    off_10041DCD0 = v14;
+    v15 = os_log_create("com.apple.isp", "general");
+    off_10041DCD0 = v15;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *a3;
+    v16 = *a3;
     *buf = 136316162;
-    v30 = "updatePCECalibWithGMCResults";
-    v31 = 2048;
-    v32 = v27;
-    v33 = 2048;
-    v34 = *(&v27 + 1);
-    v35 = 2048;
-    v36 = v28;
+    v36 = "updatePCECalibWithGMCResults";
     v37 = 2048;
-    v38 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s - GMC raw rotation angles, rotX: %.5lf, rotY: %.5lf, rotZ: %.5lf, spatial_coverage: %.3lf\n", buf, 0x34u);
+    v38 = v33;
+    v39 = 2048;
+    v40 = *(&v33 + 1);
+    v41 = 2048;
+    v42 = v34;
+    v43 = 2048;
+    v44 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s - GMC raw rotation angles, rotX: %.5lf, rotY: %.5lf, rotZ: %.5lf, spatial_coverage: %.3lf\n", buf, 0x34u);
   }
 
-  v16 = off_10041DCD0;
-  if (a3[47] >= 0.0 && (a4 & 1) != 0)
+  v17 = off_10041DCD0;
+  if (a3[47] < 0.0 || (a4 & 1) == 0)
   {
     if (off_10041DCD0 == &_os_log_default)
     {
-      v16 = os_log_create("com.apple.isp", "general");
-      off_10041DCD0 = v16;
+      v17 = os_log_create("com.apple.isp", "general");
+      off_10041DCD0 = v17;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136315138;
-      v30 = "updatePCECalibWithGMCResults";
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - GMC controller succeeded and front camera supports auto-focus, running ISF...\n", buf, 0xCu);
+      goto LABEL_21;
     }
 
-    mach_timebase_info(&info);
-    v26 = mach_absolute_time();
-    sub_100052600();
+    *buf = 136315394;
+    v36 = "updatePCECalibWithGMCResults";
+    v37 = 1024;
+    LODWORD(v38) = a4;
+    v21 = "%s - Front camera supports auto-focus: %d\n";
+    v22 = v17;
+    goto LABEL_20;
   }
 
   if (off_10041DCD0 == &_os_log_default)
   {
-    v16 = os_log_create("com.apple.isp", "general");
-    off_10041DCD0 = v16;
+    v17 = os_log_create("com.apple.isp", "general");
+    off_10041DCD0 = v17;
   }
 
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 136315394;
-    v30 = "updatePCECalibWithGMCResults";
-    v31 = 1024;
-    LODWORD(v32) = a4;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - Front camera supports auto-focus: %d\n", buf, 0x12u);
+    *buf = 136315138;
+    v36 = "updatePCECalibWithGMCResults";
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s - GMC controller succeeded and front camera supports auto-focus, running ISF...\n", buf, 0xCu);
   }
 
-  v17 = *(a2 + 16);
-  v18 = *(a2 + 32);
-  v19 = *(a2 + 48);
-  *(__dst + 1657) = *(a2 + 64);
-  v20 = *a2;
-  *(__dst + 13224) = v18;
-  *(__dst + 13240) = v19;
-  *(__dst + 13192) = v20;
-  *(__dst + 13208) = v17;
+  mach_timebase_info(&info);
+  v32 = mach_absolute_time();
+  v19 = sub_100052600(a1, a7, *&v33, *(&v33 + 1), v34, *a3, v18, __dst);
+  *a7 = ((mach_absolute_time() - v32) * info.numer / info.denom / 0x3E8) / 1000.0;
+  *(a7 + 56) = 1;
+  *(a7 + 16) = *a3;
+  if (v19)
+  {
+    v20 = off_10041DCD0;
+    if (off_10041DCD0 == &_os_log_default)
+    {
+      v20 = os_log_create("com.apple.isp", "general");
+      off_10041DCD0 = v20;
+    }
+
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_21;
+    }
+
+    *buf = 136315394;
+    v36 = "updatePCECalibWithGMCResults";
+    v37 = 1024;
+    LODWORD(v38) = v19;
+    v21 = "%s - ISF run failed, status: %d, using raw/unfiltered GMC results.\n";
+    v22 = v20;
+LABEL_20:
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, buf, 0x12u);
+LABEL_21:
+    v23 = a2[1];
+    v24 = a2[2];
+    v25 = a2[3];
+    *(__dst + 1657) = *(a2 + 8);
+    v26 = *a2;
+    *(__dst + 13224) = v24;
+    *(__dst + 13240) = v25;
+    *(__dst + 13192) = v26;
+    *(__dst + 13208) = v23;
+  }
+
   if ((a8 & 0xFFFFFFFE) == 0xA)
   {
-    *(__dst + 1658) = *(a2 + 80);
-    v21 = -*(a2 + 72);
+    *(__dst + 1658) = *(a2 + 10);
+    v27 = -*(a2 + 9);
   }
 
   else
   {
-    *(__dst + 1658) = *(a2 + 72);
-    v21 = *(a2 + 80);
+    *(__dst + 1658) = *(a2 + 9);
+    v27 = *(a2 + 10);
   }
 
-  *(__dst + 1659) = v21;
-  *(__dst + 1660) = *(a2 + 88);
-  v22 = *(a2 + 96) * *(__src + 1116);
-  *(__dst + 1117) = v22;
-  *(__dst + 1110) = v22;
+  *(__dst + 1659) = v27;
+  *(__dst + 1660) = *(a2 + 11);
+  v28 = *(a2 + 12) * *(__src + 1116);
+  *(__dst + 1117) = v28;
+  *(__dst + 1110) = v28;
   result = *(a7 + 64);
   *(__dst + 1112) = result;
   return result;
@@ -3415,7 +3520,8 @@ void sub_100052FD8(uint64_t a1, uint64_t a2)
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   sub_100053074(a1);
-  sub_1000540B8();
+  v3 = a1;
+  sub_1000540B8(&v4.__t_, sub_1000531C8, &v3);
 }
 
 uint64_t sub_100053074(uint64_t result)
@@ -3521,7 +3627,7 @@ uint64_t sub_100053248(uint64_t a1)
   return a1;
 }
 
-void sub_10005329C(uint64_t a1)
+void sub_10005329C(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 0xBFF0000000000000;
   *(a1 + 16) = -1;
@@ -3542,10 +3648,10 @@ void sub_10005329C(uint64_t a1)
   operator new();
 }
 
-dispatch_queue_t **sub_100053350(dispatch_queue_t **result)
+dispatch_queue_t **sub_100053350(dispatch_queue_t **a1)
 {
-  v1 = *result;
-  if (*result)
+  v1 = *a1;
+  if (*a1)
   {
     dispatch_sync(*v1, &stru_1000A2C70);
     dispatch_release(*v1);
@@ -3553,126 +3659,128 @@ dispatch_queue_t **sub_100053350(dispatch_queue_t **result)
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t sub_1000533B4()
+uint64_t sub_1000533B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = __chkstk_darwin();
-  v3 = v2;
-  v4 = v1[6];
-  if (v2 < 3 || *v4 == 5)
+  v3 = __chkstk_darwin(a1, a2, a3);
+  v6 = v5;
+  v7 = v3;
+  v8 = v4[6];
+  if (v5 < 3 || *v8 == 5)
   {
-    if (*(v4 + 17))
+    if (*(v8 + 68))
     {
-      v5 = off_10041DCD0;
+      v9 = off_10041DCD0;
       if (off_10041DCD0 == &_os_log_default)
       {
-        v5 = os_log_create("com.apple.isp", "general");
-        off_10041DCD0 = v5;
+        v9 = os_log_create("com.apple.isp", "general");
+        off_10041DCD0 = v9;
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(v4 + 17);
-        v31 = 136315394;
-        v32 = "run";
-        v33 = 1024;
-        v34 = v6;
-        v7 = "%s - Unexpected GMC type %d\n";
+        v10 = *(v8 + 68);
+        v36 = 136315394;
+        v37 = "run";
+        v38 = 1024;
+        v39 = v10;
+        v11 = "%s - Unexpected GMC type %d\n";
 LABEL_8:
-        v8 = v5;
-        v9 = 18;
+        v12 = v9;
+        v13 = 18;
 LABEL_21:
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, &v31, v9);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v36, v13);
       }
     }
 
-    else if (*(v0 + 244))
+    else if (*(v3 + 244))
     {
-      if (v2 == 6)
+      if (v5 == 6)
       {
         operator new[]();
       }
 
-      if (v2 == 3)
+      if (v5 == 3)
       {
-        v10 = *v1;
-        v11 = (*v1 + 32);
+        v14 = *v4;
+        v15 = (*v4 + 64);
+        v20 = v4[3];
         byte_10041DC90 = 0;
-        v16 = *(v4 + 26);
-        v17.i64[0] = v16;
-        v17.i64[1] = SHIDWORD(v16);
-        v18 = vcvtq_f64_s64(v17);
-        v19 = *(v4 + 30);
-        v17.i64[0] = v19;
-        v17.i64[1] = HIDWORD(v19);
-        v29 = v18;
-        v30 = vcvtq_f64_u64(v17);
-        if ((v4[24] & 1) == 0)
+        v21 = *(v8 + 52);
+        v22.i64[0] = v21;
+        v22.i64[1] = SHIDWORD(v21);
+        v23 = vcvtq_f64_s64(v22);
+        v24 = *(v8 + 60);
+        v22.i64[0] = v24;
+        v22.i64[1] = HIDWORD(v24);
+        v34 = v23;
+        v35 = vcvtq_f64_u64(v22);
+        if ((*(v8 + 48) & 1) == 0)
         {
           __asm { FMOV            V0.2D, #-1.0 }
 
-          v30 = _Q0;
-          v29 = _Q0;
+          v35 = _Q0;
+          v34 = _Q0;
         }
 
         mach_timebase_info(&info);
-        v25 = mach_absolute_time();
-        *(v4 + 19) = *(v4 + 10);
-        v28 = v25;
-        v26 = off_10041DCD0;
+        v30 = mach_absolute_time();
+        *(v8 + 76) = *(v8 + 40);
+        v33 = v30;
+        v31 = off_10041DCD0;
         if (off_10041DCD0 == &_os_log_default)
         {
-          v26 = os_log_create("com.apple.isp", "general");
-          off_10041DCD0 = v26;
+          v31 = os_log_create("com.apple.isp", "general");
+          off_10041DCD0 = v31;
         }
 
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = 136315138;
-          v32 = "run";
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s - Running GMC\n", &v31, 0xCu);
+          v36 = 136315138;
+          v37 = "run";
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%s - Running GMC\n", &v36, 0xCu);
         }
 
         kdebug_trace();
-        sub_10006C860(v11, *v10);
+        sub_10006C860(v15, *v14, v20, (v8 + 76), v8 + 8, &v34, (v8 + 116), *(v7 + 244));
       }
 
-      v5 = off_10041DCD0;
+      v9 = off_10041DCD0;
       if (off_10041DCD0 == &_os_log_default)
       {
-        v5 = os_log_create("com.apple.isp", "general");
-        off_10041DCD0 = v5;
+        v9 = os_log_create("com.apple.isp", "general");
+        off_10041DCD0 = v9;
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136315394;
-        v32 = "run";
-        v33 = 1024;
-        v34 = v3;
-        v7 = "%s - Number of buffers is not 3 or 6 (%d)\n";
+        v36 = 136315394;
+        v37 = "run";
+        v38 = 1024;
+        v39 = v6;
+        v11 = "%s - Number of buffers is not 3 or 6 (%d)\n";
         goto LABEL_8;
       }
     }
 
     else
     {
-      v14 = off_10041DCD0;
+      v18 = off_10041DCD0;
       if (off_10041DCD0 == &_os_log_default)
       {
-        v14 = os_log_create("com.apple.isp", "general");
-        off_10041DCD0 = v14;
+        v18 = os_log_create("com.apple.isp", "general");
+        off_10041DCD0 = v18;
       }
 
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136315138;
-        v32 = "run";
-        v7 = "%s - Couldn't understand which projector is on this device.\n";
-        v8 = v14;
-        v9 = 12;
+        v36 = 136315138;
+        v37 = "run";
+        v11 = "%s - Couldn't understand which projector is on this device.\n";
+        v12 = v18;
+        v13 = 12;
         goto LABEL_21;
       }
     }
@@ -3680,25 +3788,25 @@ LABEL_21:
 
   else
   {
-    v12 = off_10041DCD0;
+    v16 = off_10041DCD0;
     if (off_10041DCD0 == &_os_log_default)
     {
-      v12 = os_log_create("com.apple.isp", "general");
-      off_10041DCD0 = v12;
+      v16 = os_log_create("com.apple.isp", "general");
+      off_10041DCD0 = v16;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *v4;
-      v31 = 136315650;
-      v32 = "run";
-      v33 = 1024;
-      v34 = 5;
-      v35 = 1024;
-      v36 = v13;
-      v7 = "%s - expected GMC parameters buffer v%d, got v%d\n";
-      v8 = v12;
-      v9 = 24;
+      v17 = *v8;
+      v36 = 136315650;
+      v37 = "run";
+      v38 = 1024;
+      v39 = 5;
+      v40 = 1024;
+      v41 = v17;
+      v11 = "%s - expected GMC parameters buffer v%d, got v%d\n";
+      v12 = v16;
+      v13 = 24;
       goto LABEL_21;
     }
   }
@@ -3706,7 +3814,7 @@ LABEL_21:
   return 3;
 }
 
-uint64_t sub_100053DB4(uint64_t a1, unint64_t *a2, int a3, int a4, int a5, uint64_t a6, int a7, uint64_t a8, int a9, uint64_t a10, int a11, int a12)
+uint64_t sub_100053DB4(uint64_t a1, unint64_t *a2, int a3, int a4, unsigned int a5, uint64_t a6, int a7, uint64_t a8, int a9, uint64_t a10, int a11, int a12)
 {
   result = 0;
   if (a5 >= 1 && a3 >= 1)
@@ -3812,9 +3920,9 @@ void sub_100053E98(uint64_t a1)
   }
 }
 
-void sub_100054194(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100054194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100054280(va);
   _Unwind_Resume(a1);
 }
@@ -3831,9 +3939,9 @@ uint64_t sub_1000541CC(std::__thread_struct **a1)
   return 0;
 }
 
-void sub_100054224(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100054224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100054238(va);
   _Unwind_Resume(a1);
 }
@@ -3977,7 +4085,7 @@ uint64_t sub_10005456C(uint64_t a1, unsigned int a2, void *outputStruct)
   return IOConnectCallMethod(v3, 0xEu, &input, 1u, 0, 0, 0, 0, outputStruct, &v5);
 }
 
-uint64_t sub_100054600(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int *a5)
+uint64_t sub_100054600(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, unsigned int *a5)
 {
   v5 = 3758097090;
   if (*(a1 + 4))
@@ -4106,7 +4214,7 @@ NSObject *sub_100054898(uint64_t a1, unsigned int a2, unsigned int a3, unsigned 
   return 0;
 }
 
-uint64_t sub_1000549B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+uint64_t sub_1000549B4(uint64_t a1, int a2, int a3, void *a4, int a5, _DWORD *a6)
 {
   if (*a6)
   {
@@ -4792,30 +4900,30 @@ uint64_t sub_100055F24(uint64_t a1, void *outputStruct)
   }
 }
 
-void sub_100055F74(uint64_t a1, uint64_t a2, int a3)
+void sub_100055F74(_DWORD *a1, uint64_t a2, io_registry_entry_t a3)
 {
   *(a1 + 4) = 0;
   *a1 = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 72) = a2;
-  *(a1 + 144) = 0;
-  *(a1 + 4244) = 0u;
-  *(a1 + 4260) = 0u;
+  *(a1 + 5) = 0;
+  *(a1 + 6) = 0;
+  *(a1 + 9) = a2;
+  a1[36] = 0;
+  *(a1 + 1061) = 0u;
+  *(a1 + 1065) = 0u;
   *(a1 + 4288) = 0;
-  *(a1 + 4292) = 0;
-  *(a1 + 4328) = 0;
-  *(a1 + 4340) = 0;
+  a1[1073] = 0;
+  *(a1 + 541) = 0;
+  *(a1 + 1085) = 0;
   *(a1 + 4416) = 0;
-  *(a1 + 104) = 0u;
-  *(a1 + 120) = 0u;
-  *(a1 + 4716) = 0;
-  *(a1 + 4668) = 0u;
-  *(a1 + 4684) = 0u;
-  *(a1 + 4700) = 0u;
-  *(a1 + 4336) = a3;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
+  *(a1 + 26) = 0u;
+  *(a1 + 30) = 0u;
+  a1[1179] = 0;
+  *(a1 + 1167) = 0u;
+  *(a1 + 1171) = 0u;
+  *(a1 + 1175) = 0u;
+  a1[1084] = a3;
+  *(a1 + 7) = 0;
+  *(a1 + 8) = 0;
   v4 = &byte_10041DF41;
   byte_10041DF6C = sub_10002ECA4(@"LsInterpMode", @"com.apple.coremedia", 1);
   dword_10041DF70 = sub_10002ECA4(@"LsBypassVerify", @"com.apple.coremedia", 0);
@@ -4843,8 +4951,8 @@ void sub_100055F74(uint64_t a1, uint64_t a2, int a3)
   }
 
   while (v5 != 6);
-  *(a1 + 88) = 0;
-  sub_1000651CC((a1 + 88));
+  *(a1 + 11) = 0;
+  sub_1000651CC(a1 + 11);
 }
 
 uint64_t sub_10005641C(uint64_t refCon)
@@ -5124,8 +5232,8 @@ LABEL_17:
           sub_1000592E0(v0, v1, 0, &v66);
           bzero(v65, 0x211CuLL);
           sub_1000592E0(v0, v1, 1u, v65);
-          bzero(v64, 0x211CuLL);
-          sub_1000592E0(v0, v1, 2u, v64);
+          bzero(&v64, 0x211CuLL);
+          sub_1000592E0(v0, v1, 2u, &v64);
           bzero(v63, 0x211CuLL);
           sub_1000592E0(v0, v1, 3u, v63);
           if (v71[3] == 1 && (v71[11] & 1) == 0)
@@ -5556,7 +5664,7 @@ LABEL_95:
                       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Set sensor reg 0x%08x to val 0x%08X\n", v60, 0xEu);
                     }
 
-                    v64[v19] = v24;
+                    *(v65 + v19 + 4237) = v24;
                     v63[v19++] = v26;
                   }
                 }
@@ -5593,7 +5701,7 @@ LABEL_95:
           fclose(v20);
           if (v19)
           {
-            v38 = sub_1000557B0(v0, v18, v19, v64, v63);
+            v38 = sub_1000557B0(v0, v18, v19, &v64, v63);
             if (v38)
             {
               if (off_10041DCD8 == &_os_log_default)
@@ -5856,7 +5964,7 @@ uint64_t sub_10005981C(uint64_t a1)
     sub_10003EE30(a1);
     sub_10007F3F8(a1);
     sub_10003F1C4(a1);
-    sub_10005A58C(a1, "/System/Library/PrivateFrameworks/AppleCVHWA.framework/Firmware/lacc_VIO_ISP_IR.bin", 0, 0, 0, 8, 0, 0);
+    sub_10005A58C(a1, "/System/Library/PrivateFrameworks/AppleCVHWA.framework/Firmware/lacc_VIO_ISP_IR.bin", 0, 0, 0, 8u, 0, 0);
     strcpy(input, "/System/Library/PrivateFrameworks/AppleCVHWA.framework/Firmware/");
     *buf = 0;
     v5 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/arm-io");
@@ -6229,7 +6337,7 @@ uint64_t sub_10005A2A4(uint64_t a1)
   }
 }
 
-uint64_t sub_10005A58C(int a1, char *__filename, char *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, int a8)
+uint64_t sub_10005A58C(uint64_t a1, char *__filename, char *a3, const void *a4, off_t a5, unsigned int a6, unsigned int a7, int a8)
 {
   if (a3)
   {
@@ -6602,11 +6710,11 @@ void sub_10005B5E0(uint64_t a1)
     remove("/var/mobile/Library/ISP/CalData/DCNUPixbuf_0", v5);
   }
 
-  v65[1] = xmmword_1000AC568;
-  v65[2] = *&off_1000AC578;
-  v66 = 0x7265746C00000000;
-  v64 = off_1000AC548;
-  v65[0] = unk_1000AC558;
+  v63[1] = xmmword_1000AC568;
+  v63[2] = *&off_1000AC578;
+  v64 = 0x7265746C00000000;
+  v62 = off_1000AC548;
+  v63[0] = unk_1000AC558;
   v6 = IOServiceNameMatching("AppleH16CamIn");
   MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v6);
   v8 = 0;
@@ -6614,9 +6722,9 @@ void sub_10005B5E0(uint64_t a1)
   v46 = a1;
   do
   {
-    v10 = &v65[-1] + v9;
-    *(v10 + 4) = sub_10005E408(a1, *(v65 + v9 + 4), 1852793709);
-    v11 = *(&v65[-1] + v9);
+    v10 = &v63[-1] + v9;
+    *(v10 + 4) = sub_10005E408(a1, *(v63 + v9 + 4), 1852793709);
+    v11 = *(&v63[-1] + v9);
     v12 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", v11, kCFAllocatorDefault, 3u);
     *(v10 + 1) = v12;
     if (CFStringGetCStringPtr(v12, 0x8000100u))
@@ -6633,11 +6741,11 @@ void sub_10005B5E0(uint64_t a1)
         v15 = CFStringGetCStringPtr(v12, 0x8000100u);
         v16 = strlen(v15);
         *buf = 136315650;
-        *v59 = CStringPtr;
-        *&v59[8] = 2080;
-        *&v59[10] = v14;
-        v60 = 2048;
-        v61 = v16;
+        *v57 = CStringPtr;
+        *&v57[8] = 2080;
+        *&v57[10] = v14;
+        v58 = 2048;
+        v59 = v16;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s:%s exists, length of the string = %ld.\n\n", buf, 0x20u);
       }
 
@@ -6653,7 +6761,7 @@ void sub_10005B5E0(uint64_t a1)
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100083724(v62, v11, &v63);
+        sub_100083724(v60, v11, &v61);
       }
     }
 
@@ -6681,7 +6789,7 @@ LABEL_20:
     v48 = v20;
     ValueAtIndex = CFArrayGetValueAtIndex(v18, v20);
     v22 = 72;
-    v23 = v65;
+    v23 = v63;
     while (1)
     {
       v24 = *(v23 - 1);
@@ -6711,9 +6819,9 @@ LABEL_20:
     {
       v25 = CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
       *buf = 67109378;
-      *v59 = v19;
-      *&v59[4] = 2080;
-      *&v59[6] = v25;
+      *v57 = v19;
+      *&v57[4] = 2080;
+      *&v57[6] = v25;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "camChannel: %d, cmpmInstance: %s\n", buf, 0x12u);
     }
 
@@ -6775,13 +6883,13 @@ LABEL_35:
 
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            *v54 = 136315650;
-            v55 = "LoadFDRDataFileCMPM";
-            v56 = 1024;
-            *v57 = correction_model_from_fdr;
-            *&v57[4] = 2048;
-            *&v57[6] = 8;
-            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s - result = %d, outputPixelBufferRef = %lu\n", v54, 0x1Cu);
+            *v52 = 136315650;
+            v53 = "LoadFDRDataFileCMPM";
+            v54 = 1024;
+            *v55 = correction_model_from_fdr;
+            *&v55[4] = 2048;
+            *&v55[6] = 8;
+            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s - result = %d, outputPixelBufferRef = %lu\n", v52, 0x1Cu);
           }
 
           if (!correction_model_from_fdr)
@@ -6795,7 +6903,7 @@ LABEL_35:
 
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_100083844(v52, &v53);
+                sub_100083844(v51, &v51[4]);
               }
             }
 
@@ -6808,7 +6916,7 @@ LABEL_35:
 
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_100083898(v50, &v51);
+                sub_100083898(v50, &v50[4]);
               }
             }
 
@@ -6833,11 +6941,11 @@ LABEL_35:
 
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                 {
-                  *v54 = 136315394;
-                  v55 = "LoadFDRDataFileCMPM";
-                  v56 = 2080;
-                  *v57 = "/var/mobile/Library/ISP/CalData/DCNUMetadata_0";
-                  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s - Could not open %s file\n", v54, 0x16u);
+                  *v52 = 136315394;
+                  v53 = "LoadFDRDataFileCMPM";
+                  v54 = 2080;
+                  *v55 = "/var/mobile/Library/ISP/CalData/DCNUMetadata_0";
+                  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s - Could not open %s file\n", v52, 0x16u);
                 }
               }
             }
@@ -6892,11 +7000,11 @@ LABEL_40:
 LABEL_76:
   for (i = 8; i != 80; i += 24)
   {
-    v43 = *(&v65[-1] + i);
+    v43 = *(&v63[-1] + i);
     if (CFStringGetCStringPtr(v43, 0x8000100u))
     {
       CFRelease(v43);
-      *(&v65[-1] + i) = 0;
+      *(&v63[-1] + i) = 0;
     }
   }
 
@@ -7060,10 +7168,10 @@ LABEL_26:
   }
 }
 
-void sub_10005C8F0()
+void sub_10005C8F0(uint64_t a1)
 {
-  v0 = MGCopyAnswer();
-  if (!v0)
+  v1 = MGCopyAnswer();
+  if (!v1)
   {
     if (off_10041DCD8 == &_os_log_default)
     {
@@ -7078,61 +7186,61 @@ void sub_10005C8F0()
     return;
   }
 
-  v1 = v0;
-  Length = CFStringGetLength(v0);
-  if (CFStringHasSuffix(v1, @"AP"))
+  v2 = v1;
+  Length = CFStringGetLength(v1);
+  if (CFStringHasSuffix(v2, @"AP"))
   {
-    v3.length = Length - 2;
+    v4.length = Length - 2;
   }
 
   else
   {
-    if (!CFStringHasSuffix(v1, @"DEV"))
+    if (!CFStringHasSuffix(v2, @"DEV"))
     {
-      v4 = kCFAllocatorDefault;
+      v5 = kCFAllocatorDefault;
       goto LABEL_13;
     }
 
-    v3.length = Length - 3;
+    v4.length = Length - 3;
   }
 
-  v4 = kCFAllocatorDefault;
-  if (v3.length >= 1)
+  v5 = kCFAllocatorDefault;
+  if (v4.length >= 1)
   {
-    v3.location = 0;
-    v5 = CFStringCreateWithSubstring(kCFAllocatorDefault, v1, v3);
-    CFRelease(v1);
-    v1 = v5;
+    v4.location = 0;
+    v6 = CFStringCreateWithSubstring(kCFAllocatorDefault, v2, v4);
+    CFRelease(v2);
+    v2 = v6;
   }
 
 LABEL_13:
-  MutableCopy = CFStringCreateMutableCopy(v4, 0, v1);
+  MutableCopy = CFStringCreateMutableCopy(v5, 0, v2);
   CFStringLowercase(MutableCopy, 0);
   CFShow(MutableCopy);
-  CFRelease(v1);
+  CFRelease(v2);
   if (MutableCopy)
   {
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
+    v16 = 0u;
     memset(__s, 0, sizeof(__s));
     strcat(__s, "/System/Library/Isp/afpp/");
     CStringPtr = CFStringGetCStringPtr(MutableCopy, 0x8000100u);
     strcat(__s, CStringPtr);
     strcat(__s, "/ispane.afpp");
     CFRelease(MutableCopy);
-    v8 = fopen(__s, "rb");
+    v9 = fopen(__s, "rb");
     if (off_10041DCD8 == &_os_log_default)
     {
       off_10041DCD8 = os_log_create("com.apple.isp", "device");
@@ -7140,15 +7248,15 @@ LABEL_13:
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = __s;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Loading file for ISP-ANE networks - %s\n", &v11, 0xCu);
+      v12 = 136315138;
+      v13 = __s;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Loading file for ISP-ANE networks - %s\n", &v12, 0xCu);
     }
 
-    v9 = fopen("/usr/local/share/firmware/isp/ispane.afpp", "rb");
-    if (v9)
+    v10 = fopen("/usr/local/share/firmware/isp/ispane.afpp", "rb");
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
       if (off_10041DCD8 == &_os_log_default)
       {
         off_10041DCD8 = os_log_create("com.apple.isp", "device");
@@ -7156,24 +7264,24 @@ LABEL_13:
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Using override ISP-ANE AFPP file\n", &v11, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Using override ISP-ANE AFPP file\n", &v12, 2u);
       }
 
-      if (v8)
+      if (v9)
       {
-        fclose(v8);
+        fclose(v9);
       }
 
-      v8 = v10;
+      v9 = v11;
 LABEL_27:
-      fseeko(v8, 0, 2);
-      ftello(v8);
-      fseeko(v8, 0, 0);
+      fseeko(v9, 0, 2);
+      ftello(v9);
+      fseeko(v9, 0, 0);
       operator new[]();
     }
 
-    if (v8)
+    if (v9)
     {
       goto LABEL_27;
     }
@@ -7279,11 +7387,14 @@ uint64_t sub_10005D0F4(uint64_t a1, void *outputStruct)
   }
 }
 
-uint64_t sub_10005D144(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5)
+uint64_t sub_10005D144(uint64_t a1, uint64_t a2, uint64_t a3, off_t a4, uint64_t a5)
 {
   v5 = 3758097084;
   if (*(a1 + 4344))
   {
+    v6 = a5;
+    v7 = a4;
+    v9 = a2;
     v11 = fopen("/usr/local/share/firmware/isp/Yonkers/YonkersPatchOverride.DAT", "rb");
     if (v11)
     {
@@ -7305,12 +7416,12 @@ uint64_t sub_10005D144(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
       operator new[]();
     }
 
-    v16 = a2;
-    if (a3 && a4)
+    v16 = v9;
+    if (a3 && v7)
     {
       *buf = a3;
-      v15 = a4;
-      if (sub_10005D4E0(a1, a2, a3, a4, a5) != -536870212)
+      v15 = v7;
+      if (sub_10005D4E0(a1, v9, a3, v7, v6) != -536870212)
       {
         return IOConnectCallScalarMethod(*(a1 + 4344), 0x41u, buf, 3u, 0, 0);
       }
@@ -7333,7 +7444,7 @@ uint64_t sub_10005D144(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a
   return v5;
 }
 
-uint64_t sub_10005D4E0(uint64_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int a5)
+uint64_t sub_10005D4E0(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
   v7 = *(a1 + 4344);
   if (v7)
@@ -7361,7 +7472,7 @@ uint64_t sub_10005D4E0(uint64_t a1, int a2, uint64_t a3, unsigned int a4, unsign
     HIDWORD(v11) = a2 & 0x7FFFFFFF;
     v9 = "false";
     LOWORD(v12) = 1024;
-    if (a2 < 0)
+    if ((a2 & 0x80000000) != 0)
     {
       v9 = "true";
     }
@@ -9006,7 +9117,7 @@ uint64_t sub_1000601F0(uint64_t a1)
         v10[0] = a1 + 88;
         v10[1] = v8;
         v10[2] = 2;
-        sub_100035A20();
+        sub_100035A20(v10);
       }
     }
 
@@ -9116,7 +9227,7 @@ uint64_t sub_1000607AC(uint64_t a1)
   result = *(v1 + 920);
   if (result)
   {
-    sub_10000CCF8();
+    sub_10000CCF8(result);
     operator delete();
   }
 
@@ -9663,105 +9774,5 @@ uint64_t sub_100061688(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint6
   }
 
   *a2 = v9;
-  return result;
-}
-
-uint64_t sub_100061720(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, double a5, double a6)
-{
-  v6 = *(a4 + 14);
-  if (*(a4 + 14))
-  {
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    v10 = *(a4 + 12);
-    do
-    {
-      if (v10)
-      {
-        v11 = 0;
-        do
-        {
-          v12 = v11 + v7 * v10;
-          LOWORD(a6) = *(result + 2 * v12);
-          HIWORD(v13) = 17792;
-          LOWORD(v13) = *(a3 + 2 * v12);
-          a6 = fmin(((LODWORD(a6) * 4096.0) / v13), 65535.0);
-          v14 = llround(a6);
-          *(result + 2 * v12) = v14;
-          if (v9 <= v14)
-          {
-            v9 = v14;
-          }
-
-          v10 = *(a4 + 12);
-          ++v11;
-        }
-
-        while (v11 < v10);
-        v6 = *(a4 + 14);
-      }
-
-      ++v8;
-      ++v7;
-    }
-
-    while (v8 < v6);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  *a2 = v9;
-  return result;
-}
-
-uint64_t sub_1000617C0(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v5 = *(a4 + 14);
-  if (*(a4 + 14))
-  {
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-    v9 = *(a4 + 12);
-    do
-    {
-      if (v9)
-      {
-        v10 = 0;
-        do
-        {
-          v11 = v10 + v6 * v9;
-          v12 = llround(fmin(1.0 / *(a3 + 8 * v11) * (1 << a5), 65535.0));
-          *(result + 2 * v11) = v12;
-          if (v7 <= v12)
-          {
-            v7 = v12;
-          }
-
-          v9 = *(a4 + 12);
-          ++v10;
-        }
-
-        while (v10 < v9);
-        v5 = *(a4 + 14);
-      }
-
-      ++v8;
-      ++v6;
-    }
-
-    while (v8 < v5);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  *a2 = v7;
   return result;
 }

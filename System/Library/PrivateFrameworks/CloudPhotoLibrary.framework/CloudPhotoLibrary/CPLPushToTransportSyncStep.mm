@@ -1,6 +1,7 @@
 @interface CPLPushToTransportSyncStep
 - (CPLPushToTransportSyncStep)initWithSyncManager:(id)manager syncSession:(id)session highPriority:(BOOL)priority;
 - (id)newTask;
+- (void)cancelAllTasks:(BOOL)tasks;
 @end
 
 @implementation CPLPushToTransportSyncStep
@@ -12,6 +13,13 @@
   newTask = [(CPLSimpleTaskSyncStep *)&v5 newTask];
   [newTask setHighPriority:self->_highPriority];
   return newTask;
+}
+
+- (void)cancelAllTasks:(BOOL)tasks
+{
+  tasksCopy = tasks;
+  currentTask = [(CPLSimpleTaskSyncStep *)self currentTask];
+  [currentTask cancel:tasksCopy];
 }
 
 - (CPLPushToTransportSyncStep)initWithSyncManager:(id)manager syncSession:(id)session highPriority:(BOOL)priority

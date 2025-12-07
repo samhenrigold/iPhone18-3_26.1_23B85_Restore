@@ -157,18 +157,19 @@ LABEL_36:
 - (APDU)initWithData:(id)data
 {
   dataCopy = data;
-  v23.receiver = self;
-  v23.super_class = APDU;
-  v6 = [(APDU *)&v23 init];
-  v7 = v6;
-  if (!v6)
+  v24.receiver = self;
+  v24.super_class = APDU;
+  c6C7 = [(APDU *)&v24 init];
+  v7 = c6C7;
+  if (!c6C7)
   {
     goto LABEL_39;
   }
 
-  objc_storeStrong(&v6->_data, data);
+  objc_storeStrong(&c6C7->_data, data);
   *(v7 + 24) = 2;
-  if ([dataCopy length] == 4)
+  c6C7 = [dataCopy length];
+  if (c6C7 == 4)
   {
     *(v7 + 16) = 0;
     goto LABEL_39;
@@ -177,9 +178,11 @@ LABEL_36:
   if ([dataCopy length] == 5)
   {
     *(v7 + 16) = 1;
-    if ([v7 C5])
+    c6C7 = [v7 C5];
+    if (c6C7)
     {
-      v8 = [v7 C5] + 2;
+      c6C7 = [v7 C5];
+      v8 = c6C7 + 2;
     }
 
     else
@@ -189,20 +192,21 @@ LABEL_36:
 
     *(v7 + 24) = v8;
 LABEL_39:
-    v21 = sub_100008B80();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = sub_100008B80(c6C7);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000163B8(v7, v21);
+      sub_1000163B8(v7, v22);
     }
 
-    v17 = v7;
+    v18 = v7;
     goto LABEL_42;
   }
 
   if ([v7 C5])
   {
     v9 = [dataCopy length];
-    if (v9 == ([v7 C5] + 5))
+    c6C7 = [v7 C5];
+    if (v9 == (c6C7 + 5))
     {
       v10 = 3;
 LABEL_10:
@@ -232,9 +236,9 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v20 = 258;
+      v21 = 258;
 LABEL_37:
-      *(v7 + 24) = v20;
+      *(v7 + 24) = v21;
       goto LABEL_38;
     }
   }
@@ -251,7 +255,7 @@ LABEL_37:
     }
 
 LABEL_36:
-    v20 = 65538;
+    v21 = 65538;
     goto LABEL_37;
   }
 
@@ -259,8 +263,9 @@ LABEL_36:
   {
     if ([v7 C6C7])
     {
-      v18 = [dataCopy length];
-      if (v18 == ([v7 C6C7] + 7))
+      v19 = [dataCopy length];
+      c6C7 = [v7 C6C7];
+      if (v19 == (c6C7 + 7))
       {
         v10 = 4;
         goto LABEL_10;
@@ -268,12 +273,15 @@ LABEL_36:
     }
   }
 
-  if (![v7 C5])
+  c6C72 = [v7 C5];
+  if (!c6C72)
   {
-    if ([v7 C6C7])
+    c6C72 = [v7 C6C7];
+    if (c6C72)
     {
-      v19 = [dataCopy length];
-      if (v19 == ([v7 C6C7] + 9))
+      v20 = [dataCopy length];
+      c6C72 = [v7 C6C7];
+      if (v20 == (c6C72 + 9))
       {
         *(v7 + 16) = 6;
         v12 = [v7 Le];
@@ -289,16 +297,16 @@ LABEL_36:
     }
   }
 
-  v16 = sub_100008B80();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = sub_100008B80(c6C72);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    sub_100016340((v7 + 8));
+    sub_100016340();
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_42:
 
-  return v17;
+  return v18;
 }
 
 - (id)description

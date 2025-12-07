@@ -10,7 +10,7 @@
 
 - (_HKQuantityDistributionQuery)initWithQuantityType:(id)type startDate:(id)date endDate:(id)endDate contextStyle:(int64_t)style predicate:(id)predicate anchorDate:(id)anchorDate intervalComponents:(id)components histogramAnchor:(id)self0 histogramBucketSize:(id)self1 options:(unint64_t)self2 completionHandler:(id)self3
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   obj = date;
   dateCopy = date;
@@ -27,9 +27,9 @@
   if (predicateCopy)
   {
     v25 = MEMORY[0x1E696AB28];
-    v46[0] = v23;
-    v46[1] = predicateCopy;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:{2, obj, endDateCopy}];
+    v45[0] = v23;
+    v45[1] = predicateCopy;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:{2, obj, endDateCopy}];
     v26 = endDateCopy2;
     v27 = dateCopy;
     v29 = v28 = typeCopy;
@@ -41,9 +41,9 @@
     v24 = v30;
   }
 
-  v45.receiver = self;
-  v45.super_class = _HKQuantityDistributionQuery;
-  v31 = [(HKQuery *)&v45 _initWithObjectType:typeCopy predicate:v24, obj];
+  v44.receiver = self;
+  v44.super_class = _HKQuantityDistributionQuery;
+  v31 = [(HKQuery *)&v44 _initWithObjectType:typeCopy predicate:v24, obj];
   v32 = v31;
   if (v31)
   {
@@ -61,7 +61,6 @@
     v32->_options = options;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v32;
 }
 

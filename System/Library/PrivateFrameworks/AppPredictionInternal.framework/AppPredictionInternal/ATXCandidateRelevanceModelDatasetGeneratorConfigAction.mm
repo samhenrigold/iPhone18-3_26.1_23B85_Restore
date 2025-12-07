@@ -31,16 +31,14 @@
 
 + (id)candidatePublisherFromStartTime:(double)time
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = [objc_opt_class() activityPublisherFromStartTime:time];
   v5 = [v4 flatMapWithTransform:&__block_literal_global_76_1];
   v6 = [objc_opt_class() intentPublisherFromStartTime:time];
   v7 = [v6 flatMapWithTransform:&__block_literal_global_83_1];
-  v12[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [v7 orderedMergeWithOthers:v8 comparator:&__block_literal_global_88];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -90,7 +88,7 @@ id __90__ATXCandidateRelevanceModelDatasetGeneratorConfigAction_candidatePublish
 
 id __90__ATXCandidateRelevanceModelDatasetGeneratorConfigAction_candidatePublisherFromStartTime___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_new();
   v4 = [v2 eventBody];
@@ -99,25 +97,25 @@ id __90__ATXCandidateRelevanceModelDatasetGeneratorConfigAction_candidatePublish
   if (v5 && ([v5 hasActionTitle] & 1) != 0)
   {
     [_ATXActionUtils slotSetsForAction:v5];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    obj = v22 = 0u;
-    v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    obj = v21 = 0u;
+    v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = [*(*(&v19 + 1) + 8 * i) parameters];
+          v10 = [*(*(&v18 + 1) + 8 * i) parameters];
           v11 = [v5 copyWithParameterWhitelist:v10];
 
           v12 = [[ATXCandidateAction alloc] initWithBiomeStoreData:v11];
@@ -127,7 +125,7 @@ id __90__ATXCandidateRelevanceModelDatasetGeneratorConfigAction_candidatePublish
           [v3 addObject:v14];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -140,8 +138,6 @@ id __90__ATXCandidateRelevanceModelDatasetGeneratorConfigAction_candidatePublish
   {
     v15 = [v3 bpsPublisher];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

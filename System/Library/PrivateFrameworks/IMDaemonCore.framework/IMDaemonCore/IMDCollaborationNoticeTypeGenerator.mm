@@ -131,7 +131,7 @@ LABEL_26:
 
 - (int64_t)processMentionForPersonHandle:(id)handle
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (handleCopy)
   {
@@ -152,9 +152,9 @@ LABEL_26:
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v13 = 138412290;
-          v14 = handleCopy;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Received a mention for a handle not associated with local account: %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = handleCopy;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Received a mention for a handle not associated with local account: %@", &v12, 0xCu);
         }
       }
 
@@ -169,22 +169,21 @@ LABEL_26:
       v9 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = 0;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Received a mention for a handle not associated with local account: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Received a mention for a handle not associated with local account: %@", &v12, 0xCu);
       }
     }
 
     v8 = -1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (int64_t)processMentionForPersonIdentity:(id)identity highlightURL:(id)l
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   lCopy = l;
   highlightCenter = [(IMDCollaborationNoticeTypeGenerator *)self highlightCenter];
@@ -193,18 +192,18 @@ LABEL_26:
   if (v7)
   {
     highlightCenter2 = [(IMDCollaborationNoticeTypeGenerator *)self highlightCenter];
-    v45 = 0;
-    v33 = [highlightCenter2 collaborationHighlightForURL:lCopy error:&v45];
-    v32 = v45;
+    v44 = 0;
+    v32 = [highlightCenter2 collaborationHighlightForURL:lCopy error:&v44];
+    v31 = v44;
 
-    if (v32)
+    if (v31)
     {
       v9 = 1;
     }
 
     else
     {
-      v9 = v33 == 0;
+      v9 = v32 == 0;
     }
 
     v10 = !v9;
@@ -216,7 +215,7 @@ LABEL_26:
         v12 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          stringIdentifier = [v33 stringIdentifier];
+          stringIdentifier = [v32 stringIdentifier];
           LODWORD(buf) = 138412290;
           *(&buf + 4) = stringIdentifier;
           _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Received a mention with a person identity for highlight: %@. Attempting to find the handle for the mentioned identity.", &buf, 0xCu);
@@ -226,49 +225,49 @@ LABEL_26:
       v14 = MEMORY[0x277CBEB98];
       v15 = +[IMDAccountController sharedAccountController];
       activeAliases = [v15 activeAliases];
-      v35 = [v14 setWithArray:activeAliases];
+      v34 = [v14 setWithArray:activeAliases];
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v50 = 0x2020000000;
-      v51 = -1;
+      v49 = 0x2020000000;
+      v50 = -1;
       highlightCenter3 = [(IMDCollaborationNoticeTypeGenerator *)self highlightCenter];
-      v31 = [highlightCenter3 fetchAttributionsForHighlight:v33];
+      v30 = [highlightCenter3 fetchAttributionsForHighlight:v32];
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
-      attributions = [v31 attributions];
-      v19 = [attributions countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      attributions = [v30 attributions];
+      v19 = [attributions countByEnumeratingWithState:&v40 objects:v47 count:16];
       if (v19)
       {
-        v20 = *v42;
+        v20 = *v41;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v42 != v20)
+            if (*v41 != v20)
             {
               objc_enumerationMutation(attributions);
             }
 
-            collaborationMetadata = [*(*(&v41 + 1) + 8 * i) collaborationMetadata];
+            collaborationMetadata = [*(*(&v40 + 1) + 8 * i) collaborationMetadata];
             if (objc_opt_respondsToSelector())
             {
               handleToIdentityMap = [collaborationMetadata handleToIdentityMap];
-              v37[0] = MEMORY[0x277D85DD0];
-              v37[1] = 3221225472;
-              v37[2] = sub_22B50AF2C;
-              v37[3] = &unk_278703250;
-              v38 = identityCopy;
-              v39 = v35;
+              v36[0] = MEMORY[0x277D85DD0];
+              v36[1] = 3221225472;
+              v36[2] = sub_22B50AF2C;
+              v36[3] = &unk_278703250;
+              v37 = identityCopy;
+              v38 = v34;
               p_buf = &buf;
-              [handleToIdentityMap enumerateKeysAndObjectsUsingBlock:v37];
+              [handleToIdentityMap enumerateKeysAndObjectsUsingBlock:v36];
             }
           }
 
-          v19 = [attributions countByEnumeratingWithState:&v41 objects:v48 count:16];
+          v19 = [attributions countByEnumeratingWithState:&v40 objects:v47 count:16];
         }
 
         while (v19);
@@ -290,9 +289,9 @@ LABEL_26:
         v26 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          *v46 = 138412290;
-          v47 = v25;
-          _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "processMentionForPersonIdentity returning: %@", v46, 0xCu);
+          *v45 = 138412290;
+          v46 = v25;
+          _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "processMentionForPersonIdentity returning: %@", v45, 0xCu);
         }
       }
 
@@ -309,7 +308,7 @@ LABEL_26:
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v32;
+          *(&buf + 4) = v31;
           _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Received a notice for a URL without a tracked highlight, returning invalid for this notice. error: %@", &buf, 0xCu);
         }
       }
@@ -323,7 +322,6 @@ LABEL_26:
     v27 = -1;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

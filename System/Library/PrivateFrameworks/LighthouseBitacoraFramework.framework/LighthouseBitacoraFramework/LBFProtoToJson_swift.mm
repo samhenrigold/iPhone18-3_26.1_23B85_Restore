@@ -7,7 +7,7 @@
 - (_TtC27LighthouseBitacoraFramework20LBFProtoToJson_swift)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LBFProtoToJson_swift();
+  v3.super_class = type metadata accessor for LBFProtoToJson_swift(self, a2);
   return [(LBFProtoToJson_swift *)&v3 init];
 }
 

@@ -29,29 +29,29 @@
 
 - (id)floatMatrixWithEntities:(id)entities progressReporter:(id)reporter error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v8 = objc_alloc_init(MEMORY[0x277D22C60]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = entitiesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(PGFeatureExtractorAssetCollectionAverage *)self floatVectorWithEntity:*(*(&v19 + 1) + 8 * i) error:error, v19];
+        v14 = [(PGFeatureExtractorAssetCollectionAverage *)self floatVectorWithEntity:*(*(&v18 + 1) + 8 * i) error:error, v18];
         if (!v14)
         {
 
@@ -63,7 +63,7 @@
         [v8 appendRow:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         continue;
@@ -76,14 +76,12 @@
   v16 = v8;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   photoLibrary = [entityCopy photoLibrary];
@@ -101,32 +99,32 @@ LABEL_11:
   if ([v12 count])
   {
     errorCopy = error;
-    v26 = librarySpecificFetchOptions;
-    v27 = entityCopy;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v25 = librarySpecificFetchOptions;
+    v26 = entityCopy;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           assetFeatureExtractor = [(PGFeatureExtractorAssetCollectionAverage *)self assetFeatureExtractor];
-          v28 = 0;
-          v20 = [assetFeatureExtractor floatVectorWithEntity:v18 error:&v28];
-          v21 = v28;
+          v27 = 0;
+          v20 = [assetFeatureExtractor floatVectorWithEntity:v18 error:&v27];
+          v21 = v27;
 
           if (!v20)
           {
@@ -142,7 +140,7 @@ LABEL_11:
           [v7 addObject:v20];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v15)
         {
           continue;
@@ -154,8 +152,8 @@ LABEL_11:
 
     v22 = [MEMORY[0x277D22C40] meanVectorWithFloatVectors:v7];
 LABEL_16:
-    librarySpecificFetchOptions = v26;
-    entityCopy = v27;
+    librarySpecificFetchOptions = v25;
+    entityCopy = v26;
   }
 
   else if (error)
@@ -168,8 +166,6 @@ LABEL_16:
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

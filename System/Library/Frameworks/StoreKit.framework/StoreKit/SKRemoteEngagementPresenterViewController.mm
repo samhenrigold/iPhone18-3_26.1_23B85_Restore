@@ -249,4 +249,25 @@ void __70__SKRemoteEngagementPresenterViewController__loadRemoteViewController__
   return WeakRetained;
 }
 
+void __85__SKRemoteEngagementPresenterViewController_presentEngagementRequestData_completion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], a3, "View service not available to present engagement request due to error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __85__SKRemoteEngagementPresenterViewController_presentEngagementRequestData_completion___block_invoke_4_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], a3, "View service not available to present engagement request %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __85__SKRemoteEngagementPresenterViewController_presentEngagementRequestData_completion___block_invoke_6_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B23EF000, MEMORY[0x1E69E9C10], a3, "Error presenting engagement request with view service - %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

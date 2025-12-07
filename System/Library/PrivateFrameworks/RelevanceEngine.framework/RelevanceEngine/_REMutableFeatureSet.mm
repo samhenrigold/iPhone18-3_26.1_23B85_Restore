@@ -12,31 +12,31 @@
 
 - (_REMutableFeatureSet)initWithFeatures:(id)features
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(featuresCopy, "count")}];
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(featuresCopy, "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = featuresCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     v10 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if (([v5 containsObject:v12] & 1) == 0)
         {
           name = [v12 name];
@@ -53,15 +53,15 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  v25.receiver = self;
-  v25.super_class = _REMutableFeatureSet;
-  v20 = [(REMutableFeatureSet *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = _REMutableFeatureSet;
+  v20 = [(REMutableFeatureSet *)&v24 init];
   v21 = v20;
   if (v20)
   {
@@ -69,7 +69,6 @@
     objc_storeStrong(&v21->_names, v4);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -116,27 +115,27 @@
 
 - (id)featureWithName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_features;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:nameCopy];
 
@@ -147,7 +146,7 @@
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -158,8 +157,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

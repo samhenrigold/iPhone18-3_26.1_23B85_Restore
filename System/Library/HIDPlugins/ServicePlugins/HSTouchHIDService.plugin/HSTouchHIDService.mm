@@ -149,7 +149,7 @@ id HSUtil::DynamicCast<HSTTimestampSyncEvent>(void *a1)
   return v2;
 }
 
-uint64_t MTLoggingPlugin()
+uint64_t MTLoggingPlugin(uint64_t a1, uint64_t a2)
 {
   if (MTLoggingPlugin_onceToken != -1)
   {
@@ -159,27 +159,27 @@ uint64_t MTLoggingPlugin()
   return MTLoggingPlugin___logObj;
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostEvent]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostEvent]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostEvent]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostEvent]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
@@ -392,53 +392,53 @@ id HSUtil::DynamicCast<HSTExternalMessageEvent>(void *a1)
   return v2;
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
@@ -602,9 +602,9 @@ id std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](void *a1, id *a2)
   return result;
 }
 
-void sub_2B18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<HIDEvent * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -747,153 +747,153 @@ void configureGestureParser(MTPListGestureConfig_ *a1, PointerSettings *a2)
 
 void configureTrackpadGestureParser(MTPListGestureConfig_ *a1, TrackpadSettings *a2)
 {
-  v164 = a2;
-  v165 = gestureDictionary(@"Point", @"Translate", @"Tracking", @"Repetitive", 0, 0, 0);
-  v170 = objc_opt_new();
-  if ([(TrackpadSettings *)v164 tapClick])
+  v168 = a2;
+  v169 = gestureDictionary(@"Point", @"Translate", @"Tracking", @"Repetitive", 0, 0, 0);
+  v174 = objc_opt_new();
+  if ([(TrackpadSettings *)v168 tapClick])
   {
-    if (![(TrackpadSettings *)v164 showDefinition])
+    if (![(TrackpadSettings *)v168 showDefinition])
     {
       v2 = gestureDictionary(@"Click", @"Tap", 0, 0, 0, 0, 0);
-      [v170 addObject:v2];
+      [v174 addObject:v2];
     }
 
     v3 = gestureDictionary(@"Click", @"DroppedFingerTap", 0, 0, 0, 0, 0);
-    [v170 addObject:v3];
+    [v174 addObject:v3];
   }
 
-  if ([(TrackpadSettings *)v164 showDefinition])
+  if ([(TrackpadSettings *)v168 showDefinition])
   {
     v4 = gestureDictionary(@"Show Definition", @"Tap", 0, 0, 0, 0, 0);
-    [v170 addObject:v4];
+    [v174 addObject:v4];
   }
 
   v5 = gestureDictionary(@"Primary Down", @"Hold", 0, @"TimeHeld BeginSlide", 0, @"HoldTime", &off_111F48);
-  v243 = v5;
+  v247 = v5;
   v6 = gestureDictionary(@"Drag", @"Translate", @"Scrolling", @"Momentum", 0, 0, 0);
-  v244 = v6;
+  v248 = v6;
   v7 = gestureDictionary(@"Primary Up", @"Lift", 0, 0, 0, 0, 0);
-  v245 = v7;
-  v8 = [NSArray arrayWithObjects:&v243 count:3];
-  [v170 addObjectsFromArray:v8];
+  v249 = v7;
+  v8 = [NSArray arrayWithObjects:&v247 count:3];
+  [v174 addObjectsFromArray:v8];
 
-  v190 = @"None";
-  v231 = @"Gestures";
-  v232 = @"Transitions";
-  v237 = &__NSArray0__struct;
-  v238 = @"ToMoreFingers FromFewerFingers FromMoreFingers";
-  *buf = [NSDictionary dictionaryWithObjects:&v237 forKeys:&v231 count:2];
-  v191 = @"Point";
-  v219 = @"Gestures";
-  v189 = v165;
-  v167 = *buf;
-  v9 = [NSArray arrayWithObjects:&v189 count:1];
-  v220 = @"Transitions";
-  v161 = v9;
-  v225 = v9;
-  v226 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay AccelOnlyIfSomeResting";
-  v158 = [NSDictionary dictionaryWithObjects:&v225 forKeys:&v219 count:2];
-  *&buf[8] = v158;
-  v192 = @"Point & Click";
-  v207 = @"Gestures";
-  v271 = v165;
-  v155 = gestureDictionary(@"Click", @"Tap", 0, 0, 0, 0, 0);
-  v272 = v155;
-  v10 = [NSArray arrayWithObjects:&v271 count:2];
-  v208 = @"Transitions";
-  v152 = v10;
-  v213 = v10;
-  v214 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay AccelOnlyIfSomeResting";
-  v149 = [NSDictionary dictionaryWithObjects:&v213 forKeys:&v207 count:2];
-  *&buf[16] = v149;
-  v193 = @"Point, Click & Drag";
-  v284 = @"Gestures";
-  v281 = v165;
-  v146 = gestureDictionary(@"Primary Down", @"Tap", 0, 0, 0, 0, 0);
-  v282 = v146;
-  v11 = [NSArray arrayWithObjects:&v281 count:2];
-  v285 = @"Transitions";
-  v143 = v11;
-  v267 = v11;
-  v268 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay";
-  v140 = [NSDictionary dictionaryWithObjects:&v267 forKeys:&v284 count:2];
-  v201 = v140;
-  v194 = @"Drag & Click";
-  v275 = @"Gestures";
-  v276 = @"Transitions";
-  v278 = v170;
-  v279 = @"ToFewerFingers FromFewerIfPause MultiFingerDrag ";
-  v137 = [NSDictionary dictionaryWithObjects:&v278 forKeys:&v275 count:2];
-  *&v202 = v137;
-  v195 = @"Scroll";
-  v261 = @"Gestures";
-  v134 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", 0, 0, 0);
-  v188 = v134;
-  v12 = [NSArray arrayWithObjects:&v188 count:1];
-  v262 = @"Transitions";
-  v131 = v12;
-  v264 = v12;
-  v265 = @"ToFewerFingers FromFewerIfPause";
-  v128 = [NSDictionary dictionaryWithObjects:&v264 forKeys:&v261 count:2];
-  *(&v202 + 1) = v128;
-  v196 = @"Scroll & Secondary Click";
-  v255 = @"Gestures";
-  v125 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", 0, 0, 0);
-  v187[0] = v125;
-  v124 = gestureDictionary(@"Secondary Click", @"Tap", 0, 0, 0, 0, 0);
-  v187[1] = v124;
-  v13 = [NSArray arrayWithObjects:v187 count:2];
-  v256 = @"Transitions";
-  v123 = v13;
-  v258 = v13;
-  v259 = @"ToFewerFingers FromFewerIfPause";
-  v122 = [NSDictionary dictionaryWithObjects:&v258 forKeys:&v255 count:2];
-  v203 = v122;
-  v197 = @"Scroll, Zoom & Rotate";
-  v185[0] = @"Gestures";
-  v121 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", @"LockOnFirst", 0, 0);
-  v184[0] = v121;
-  v120 = gestureDictionary(@"Orientation", @"Scale+Rotate", @"Zooming", @"Repetitive", @"LockOnFirst", 0, 0);
-  v184[1] = v120;
-  v14 = [NSArray arrayWithObjects:v184 count:2];
-  v185[1] = @"Transitions";
-  v119 = v14;
-  v186[0] = v14;
-  v186[1] = @"ToFewerFingers FromFewerIfPause";
-  v118 = [NSDictionary dictionaryWithObjects:v186 forKeys:v185 count:2];
-  v204 = v118;
-  v198 = @"Zoom & Rotate";
-  v182[0] = @"Gestures";
+  v194 = @"None";
+  v235 = @"Gestures";
+  v236 = @"Transitions";
+  v241 = &__NSArray0__struct;
+  v242 = @"ToMoreFingers FromFewerFingers FromMoreFingers";
+  *buf = [NSDictionary dictionaryWithObjects:&v241 forKeys:&v235 count:2];
+  v195 = @"Point";
+  v223 = @"Gestures";
+  v193 = v169;
+  v171 = *buf;
+  v9 = [NSArray arrayWithObjects:&v193 count:1];
+  v224 = @"Transitions";
+  v165 = v9;
+  v229 = v9;
+  v230 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay AccelOnlyIfSomeResting";
+  v162 = [NSDictionary dictionaryWithObjects:&v229 forKeys:&v223 count:2];
+  *&buf[8] = v162;
+  v196 = @"Point & Click";
+  v211 = @"Gestures";
+  v275 = v169;
+  v159 = gestureDictionary(@"Click", @"Tap", 0, 0, 0, 0, 0);
+  v276 = v159;
+  v10 = [NSArray arrayWithObjects:&v275 count:2];
+  v212 = @"Transitions";
+  v156 = v10;
+  v217 = v10;
+  v218 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay AccelOnlyIfSomeResting";
+  v153 = [NSDictionary dictionaryWithObjects:&v217 forKeys:&v211 count:2];
+  *&buf[16] = v153;
+  v197 = @"Point, Click & Drag";
+  v288 = @"Gestures";
+  v285 = v169;
+  v150 = gestureDictionary(@"Primary Down", @"Tap", 0, 0, 0, 0, 0);
+  v286 = v150;
+  v11 = [NSArray arrayWithObjects:&v285 count:2];
+  v289 = @"Transitions";
+  v147 = v11;
+  v271 = v11;
+  v272 = @"ToMoreFingers FromMoreFingers FromMoreWithSlightIntegrationDelay";
+  v144 = [NSDictionary dictionaryWithObjects:&v271 forKeys:&v288 count:2];
+  v205 = v144;
+  v198 = @"Drag & Click";
+  v279 = @"Gestures";
+  v280 = @"Transitions";
+  v282 = v174;
+  v283 = @"ToFewerFingers FromFewerIfPause MultiFingerDrag ";
+  v141 = [NSDictionary dictionaryWithObjects:&v282 forKeys:&v279 count:2];
+  *&v206 = v141;
+  v199 = @"Scroll";
+  v265 = @"Gestures";
+  v138 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", 0, 0, 0);
+  v192 = v138;
+  v12 = [NSArray arrayWithObjects:&v192 count:1];
+  v266 = @"Transitions";
+  v135 = v12;
+  v268 = v12;
+  v269 = @"ToFewerFingers FromFewerIfPause";
+  v132 = [NSDictionary dictionaryWithObjects:&v268 forKeys:&v265 count:2];
+  *(&v206 + 1) = v132;
+  v200 = @"Scroll & Secondary Click";
+  v259 = @"Gestures";
+  v129 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", 0, 0, 0);
+  v191[0] = v129;
+  v128 = gestureDictionary(@"Secondary Click", @"Tap", 0, 0, 0, 0, 0);
+  v191[1] = v128;
+  v13 = [NSArray arrayWithObjects:v191 count:2];
+  v260 = @"Transitions";
+  v127 = v13;
+  v262 = v13;
+  v263 = @"ToFewerFingers FromFewerIfPause";
+  v126 = [NSDictionary dictionaryWithObjects:&v262 forKeys:&v259 count:2];
+  v207 = v126;
+  v201 = @"Scroll, Zoom & Rotate";
+  v189[0] = @"Gestures";
+  v125 = gestureDictionary(@"Scroll", @"Translate", @"Scrolling", @"Repetitive", @"LockOnFirst", 0, 0);
+  v188[0] = v125;
+  v124 = gestureDictionary(@"Orientation", @"Scale+Rotate", @"Zooming", @"Repetitive", @"LockOnFirst", 0, 0);
+  v188[1] = v124;
+  v14 = [NSArray arrayWithObjects:v188 count:2];
+  v189[1] = @"Transitions";
+  v123 = v14;
+  v190[0] = v14;
+  v190[1] = @"ToFewerFingers FromFewerIfPause";
+  v122 = [NSDictionary dictionaryWithObjects:v190 forKeys:v189 count:2];
+  v208 = v122;
+  v202 = @"Zoom & Rotate";
+  v186[0] = @"Gestures";
   v15 = gestureDictionary(@"Orientation", @"Scale+Rotate", @"Zooming", @"Repetitive", 0, 0, 0);
-  v181 = v15;
-  v16 = [NSArray arrayWithObjects:&v181 count:1];
-  v182[1] = @"Transitions";
-  v183[0] = v16;
-  v183[1] = @"ToFewerFingers FromFewerFingers";
-  v17 = [NSDictionary dictionaryWithObjects:v183 forKeys:v182 count:2];
-  v205 = v17;
-  v199 = @"Swipes";
-  v179[0] = @"Gestures";
+  v185 = v15;
+  v16 = [NSArray arrayWithObjects:&v185 count:1];
+  v186[1] = @"Transitions";
+  v187[0] = v16;
+  v187[1] = @"ToFewerFingers FromFewerFingers";
+  v17 = [NSDictionary dictionaryWithObjects:v187 forKeys:v186 count:2];
+  v209 = v17;
+  v203 = @"Swipes";
+  v183[0] = @"Gestures";
   v18 = gestureDictionary(@"Swipe Left", @"Left", @"Swipe", @"OncePerDirection OnlyIfAllMoving", 0, 0, 0);
-  v249 = v18;
+  v253 = v18;
   v19 = gestureDictionary(@"Swipe Right", @"Right", @"Swipe", @"OncePerDirection OnlyIfAllMoving", 0, 0, 0);
-  v250 = v19;
+  v254 = v19;
   v20 = gestureDictionary(@"Swipe Up", @"Up", @"Swipe", @"OncePerDirection OnlyIfAllMoving", 0, 0, 0);
-  v251 = v20;
+  v255 = v20;
   v21 = gestureDictionary(@"Swipe Down", @"Down", @"Swipe", @"OncePerDirection OnlyIfAllMoving", 0, 0, 0);
-  v252 = v21;
-  v22 = [NSArray arrayWithObjects:&v249 count:4];
-  v179[1] = @"Transitions";
-  v180[0] = v22;
-  v180[1] = @"FromMoreFingers ToMoreFingers ToFewerAfterSlightDelay FromFewerFingers FromMoreWithSlightIntegrationDelay";
-  v23 = [NSDictionary dictionaryWithObjects:v180 forKeys:v179 count:2];
-  v206 = v23;
-  v24 = [NSDictionary dictionaryWithObjects:buf forKeys:&v190 count:10];
+  v256 = v21;
+  v22 = [NSArray arrayWithObjects:&v253 count:4];
+  v183[1] = @"Transitions";
+  v184[0] = v22;
+  v184[1] = @"FromMoreFingers ToMoreFingers ToFewerAfterSlightDelay FromFewerFingers FromMoreWithSlightIntegrationDelay";
+  v23 = [NSDictionary dictionaryWithObjects:v184 forKeys:v183 count:2];
+  v210 = v23;
+  v24 = [NSDictionary dictionaryWithObjects:buf forKeys:&v194 count:10];
 
-  v168 = [v24 mutableCopy];
-  v171 = objc_opt_new();
-  v25 = v164;
-  v166 = v25;
+  v172 = [v24 mutableCopy];
+  v175 = objc_opt_new();
+  v25 = v168;
+  v170 = v25;
   v26 = objc_opt_new();
   v27 = [(TrackpadSettings *)v25 pointMomentum];
   v28 = @"AccelOnlyIfSomeResting";
@@ -935,23 +935,23 @@ LABEL_13:
     [v26 addObject:v33];
   }
 
-  v190 = @"Gestures";
-  v191 = @"Transitions";
+  v194 = @"Gestures";
+  v195 = @"Transitions";
   *buf = v26;
   *&buf[8] = @"ToMoreIfPause FromRestingPoint FromMoreFingers FromMoreWithSlightIntegrationDelay";
-  v34 = [NSDictionary dictionaryWithObjects:buf forKeys:&v190 count:2];
+  v34 = [NSDictionary dictionaryWithObjects:buf forKeys:&v194 count:2];
 
-  [v168 setObject:v34 forKeyedSubscript:{@"1F Point, Click & Drag"}];
+  [v172 setObject:v34 forKeyedSubscript:{@"1F Point, Click & Drag"}];
   v35 = chordMapping(@"1 Finger", @"1F Point, Click & Drag");
-  [v171 addObject:v35];
+  [v175 addObject:v35];
 
   if (![(PointerSettings *)v25 horizontalScrolling]&& ![(PointerSettings *)v25 verticalScrolling]&& ![(TrackpadSettings *)v25 zoom]&& ![(TrackpadSettings *)v25 rotate]&& ![(TrackpadSettings *)v25 gestureScrollingEnabled]&& (![(TrackpadSettings *)v25 tapClick]|| [(TrackpadSettings *)v25 secondaryClick]!= 1))
   {
-    v117 = createRestingSwipeOrDockCombo(1, [(TrackpadSettings *)v25 tapClick], 0, 0, 0, 0, [(PointerSettings *)v25 zoomToggle], 0);
-    [v168 setObject:v117 forKeyedSubscript:@"Resting 2F Point"];
+    v121 = createRestingSwipeOrDockCombo(1, [(TrackpadSettings *)v25 tapClick], 0, 0, 0, 0, [(PointerSettings *)v25 zoomToggle], 0);
+    [v172 setObject:v121 forKeyedSubscript:@"Resting 2F Point"];
 
     v53 = chordMapping(@"2 Fingers", @"Resting 2F Point");
-    [v171 addObject:v53];
+    [v175 addObject:v53];
     goto LABEL_59;
   }
 
@@ -1062,21 +1062,21 @@ LABEL_54:
     [v37 addObject:v51];
   }
 
-  v190 = @"Gestures";
-  v191 = @"Transitions";
+  v194 = @"Gestures";
+  v195 = @"Transitions";
   *buf = v37;
   *&buf[8] = @"ToMoreIfPause ToFewerAfterSlightDelay FromRestingPoint FromFewerFingers FromMoreFingers FromMoreWithSlightIntegrationDelay";
-  v52 = [NSDictionary dictionaryWithObjects:buf forKeys:&v190 count:2];
+  v52 = [NSDictionary dictionaryWithObjects:buf forKeys:&v194 count:2];
 
-  [v168 setObject:v52 forKeyedSubscript:{@"Scroll, Zoom & Rotate, Secondary Click"}];
+  [v172 setObject:v52 forKeyedSubscript:{@"Scroll, Zoom & Rotate, Secondary Click"}];
   v53 = chordMapping(@"2 Fingers", @"Scroll, Zoom & Rotate, Secondary Click");
-  [v171 addObject:v53];
+  [v175 addObject:v53];
 LABEL_59:
 
   if ([(TrackpadSettings *)v25 accessibilityDrag]== 1)
   {
     v54 = chordMapping(@"3 Fingers", @"Drag & Click");
-    [v171 addObject:v54];
+    [v175 addObject:v54];
   }
 
   else
@@ -1094,12 +1094,12 @@ LABEL_59:
       v56 = 1;
     }
 
-    v58 = createRestingSwipeOrDockCombo(v57, [(TrackpadSettings *)v166 tapClick], [(TrackpadSettings *)v166 restingScroll]& v55 & v56, [(TrackpadSettings *)v166 horizontalSwipe3F], [(TrackpadSettings *)v166 verticalSwipe3F], 0, 0, [(TrackpadSettings *)v166 showDefinition]);
-    [v168 setObject:v58 forKeyedSubscript:@"Resting 3F Swipe"];
+    v58 = createRestingSwipeOrDockCombo(v57, [(TrackpadSettings *)v170 tapClick], [(TrackpadSettings *)v170 restingScroll]& v55 & v56, [(TrackpadSettings *)v170 horizontalSwipe3F], [(TrackpadSettings *)v170 verticalSwipe3F], 0, 0, [(TrackpadSettings *)v170 showDefinition]);
+    [v172 setObject:v58 forKeyedSubscript:@"Resting 3F Swipe"];
 
     v54 = chordMapping(@"3 Fingers", @"Resting 3F Swipe");
-    [v171 addObject:v54];
-    v25 = v166;
+    [v175 addObject:v54];
+    v25 = v170;
   }
 
   if ([(TrackpadSettings *)v25 horizontalSwipe4F]== 2)
@@ -1118,430 +1118,433 @@ LABEL_59:
   }
 
   v60 = createRestingSwipeOrDockCombo(v59, [(TrackpadSettings *)v25 tapClick], [(TrackpadSettings *)v25 restingScroll], [(TrackpadSettings *)v25 horizontalSwipe4F], [(TrackpadSettings *)v25 verticalSwipe4F], [(TrackpadSettings *)v25 dockScale4F], 0, 0);
-  [v168 setObject:v60 forKeyedSubscript:@"Resting 4F Dock Operations"];
+  [v172 setObject:v60 forKeyedSubscript:@"Resting 4F Dock Operations"];
 
   v61 = chordMapping(@"4 Fingers", @"Resting 4F Dock Operations");
-  [v171 addObject:v61];
+  [v175 addObject:v61];
 
   v62 = createRestingSwipeOrDockCombo(v59, [(TrackpadSettings *)v25 tapClick], [(TrackpadSettings *)v25 restingScroll], [(TrackpadSettings *)v25 horizontalSwipe4F], [(TrackpadSettings *)v25 verticalSwipe4F], [(TrackpadSettings *)v25 dockScale5F], 0, 0);
-  [v168 setObject:v62 forKeyedSubscript:@"Resting T4F Dock Operations"];
+  [v172 setObject:v62 forKeyedSubscript:@"Resting T4F Dock Operations"];
 
   v63 = chordMapping(@"4 Fingers + Thumb", @"Resting T4F Dock Operations");
-  [v171 addObject:v63];
+  [v175 addObject:v63];
 
   MTGestureConfig_::clearAllChords(a1);
-  v190 = @"Resting Accel Tracking";
-  v281 = @"Resolution_dpi";
+  v194 = @"Resting Accel Tracking";
+  v285 = @"Resolution_dpi";
   LODWORD(v64) = 1137180672;
-  v284 = [NSNumber numberWithFloat:v64];
-  v282 = @"AccelThresh";
+  v288 = [NSNumber numberWithFloat:v64];
+  v286 = @"AccelThresh";
   LODWORD(v65) = 12.0;
-  v147 = v284;
+  v151 = v288;
   v66 = [NSNumber numberWithFloat:v65];
-  v283 = @"AccelPower";
-  v285 = v66;
-  v286 = &off_112568;
-  v144 = v66;
-  *buf = [NSDictionary dictionaryWithObjects:&v284 forKeys:&v281 count:3];
-  v191 = @"Tracking";
-  v275 = @"Resolution_dpi";
+  v287 = @"AccelPower";
+  v289 = v66;
+  v290 = &off_112568;
+  v148 = v66;
+  *buf = [NSDictionary dictionaryWithObjects:&v288 forKeys:&v285 count:3];
+  v195 = @"Tracking";
+  v279 = @"Resolution_dpi";
   LODWORD(v67) = 1137180672;
-  v141 = *buf;
-  v278 = [NSNumber numberWithFloat:v67];
-  v276 = @"AccelThresh";
+  v145 = *buf;
+  v282 = [NSNumber numberWithFloat:v67];
+  v280 = @"AccelThresh";
   LODWORD(v68) = 12.0;
-  v138 = v278;
+  v142 = v282;
   v69 = [NSNumber numberWithFloat:v68];
-  v277 = @"AccelPower";
-  v279 = v69;
-  v280 = &off_111F18;
-  v162 = v69;
-  *&buf[8] = [NSDictionary dictionaryWithObjects:&v278 forKeys:&v275 count:3];
-  v192 = @"Scrolling";
-  v267 = @"Resolution_dpi";
+  v281 = @"AccelPower";
+  v283 = v69;
+  v284 = &off_111F18;
+  v166 = v69;
+  *&buf[8] = [NSDictionary dictionaryWithObjects:&v282 forKeys:&v279 count:3];
+  v196 = @"Scrolling";
+  v271 = @"Resolution_dpi";
   LODWORD(v70) = 1137180672;
-  v159 = *&buf[8];
-  v271 = [NSNumber numberWithFloat:v70];
-  v268 = @"AccelThresh";
+  v163 = *&buf[8];
+  v275 = [NSNumber numberWithFloat:v70];
+  v272 = @"AccelThresh";
   LODWORD(v71) = 12.0;
-  v156 = v271;
-  v272 = [NSNumber numberWithFloat:v71];
-  v273 = &off_111F18;
-  v269 = @"AccelPower";
-  v270 = @"CommitMultiplier";
-  v274 = &off_112C10;
-  v153 = v272;
-  *&buf[16] = [NSDictionary dictionaryWithObjects:&v271 forKeys:&v267 count:4];
-  v193 = @"Zooming";
-  v261 = @"Resolution_dpi";
+  v160 = v275;
+  v276 = [NSNumber numberWithFloat:v71];
+  v277 = &off_111F18;
+  v273 = @"AccelPower";
+  v274 = @"CommitMultiplier";
+  v278 = &off_112C10;
+  v157 = v276;
+  *&buf[16] = [NSDictionary dictionaryWithObjects:&v275 forKeys:&v271 count:4];
+  v197 = @"Zooming";
+  v265 = @"Resolution_dpi";
   LODWORD(v72) = 1137180672;
-  v150 = *&buf[16];
-  v264 = [NSNumber numberWithFloat:v72];
-  v265 = &off_112C20;
-  v262 = @"CommitMultiplier";
-  v263 = @"Acceleration";
-  v266 = @"System";
-  v135 = v264;
-  v132 = [NSDictionary dictionaryWithObjects:&v264 forKeys:&v261 count:3];
-  v201 = v132;
-  v194 = @"Command";
-  v255 = @"Resolution_mm";
-  v256 = @"AccelThresh";
-  v258 = &off_111F60;
-  v259 = &off_111F00;
-  v257 = @"AccelPower";
-  v260 = &off_112578;
-  v129 = [NSDictionary dictionaryWithObjects:&v258 forKeys:&v255 count:3];
-  *&v202 = v129;
-  v195 = @"Swipe";
-  v243 = @"Resolution_mm";
-  v244 = @"AccelThresh";
-  v249 = &off_111F78;
-  v250 = &off_111F00;
-  v245 = @"AccelPower";
-  v246 = @"FluidAnimationStartThreshold_mm";
-  v251 = &off_112588;
-  v252 = &off_111F90;
-  v247 = @"FluidSwipeCompleteThreshold_mm";
-  v248 = @"FluidSwipeInertiaTime_s";
-  v253 = &off_111FA8;
-  v254 = &off_112538;
-  v126 = [NSDictionary dictionaryWithObjects:&v249 forKeys:&v243 count:6];
-  *(&v202 + 1) = v126;
-  v196 = @"Polar Swipe";
-  v231 = @"Resolution_mm";
-  v232 = @"AccelThresh";
-  v237 = &off_111FC0;
-  v238 = &off_111F00;
-  v233 = @"AccelPower";
-  v234 = @"FluidAnimationStartThreshold_mm";
-  v239 = &off_112588;
-  v240 = &off_111F60;
-  v235 = @"FluidSwipeCompleteThreshold_mm";
-  v236 = @"FluidSwipeInertiaTime_s";
-  v241 = &off_111FD8;
-  v242 = &off_112538;
-  v73 = [NSDictionary dictionaryWithObjects:&v237 forKeys:&v231 count:6];
-  v203 = v73;
-  v197 = @"Edge Swipe";
-  v219 = @"Resolution_mm";
-  v220 = @"AccelThresh";
-  v225 = &off_111F60;
-  v226 = &off_111F00;
-  v221 = @"AccelPower";
-  v222 = @"FluidAnimationStartThreshold_mm";
-  v227 = &off_112588;
-  v228 = &off_111F90;
-  v223 = @"FluidSwipeCompleteThreshold_mm";
-  v224 = @"FluidSwipeInertiaTime_s";
-  v229 = &off_111F30;
-  v230 = &off_112598;
-  v74 = [NSDictionary dictionaryWithObjects:&v225 forKeys:&v219 count:6];
-  v204 = v74;
-  v198 = @"Edge Scroll";
-  v207 = @"Resolution_mm";
-  v208 = @"AccelThresh";
-  v213 = &off_111F60;
-  v214 = &off_111F00;
-  v209 = @"AccelPower";
-  v210 = @"FluidAnimationStartThreshold_mm";
-  v215 = &off_112588;
-  v216 = &off_111F60;
-  v211 = @"FluidSwipeCompleteThreshold_mm";
-  v212 = @"FluidSwipeInertiaTime_s";
-  v217 = &off_111F30;
-  v218 = &off_112598;
-  v75 = [NSDictionary dictionaryWithObjects:&v213 forKeys:&v207 count:6];
-  v205 = v75;
-  v76 = [NSDictionary dictionaryWithObjects:buf forKeys:&v190 count:9];
+  v154 = *&buf[16];
+  v268 = [NSNumber numberWithFloat:v72];
+  v269 = &off_112C20;
+  v266 = @"CommitMultiplier";
+  v267 = @"Acceleration";
+  v270 = @"System";
+  v139 = v268;
+  v136 = [NSDictionary dictionaryWithObjects:&v268 forKeys:&v265 count:3];
+  v205 = v136;
+  v198 = @"Command";
+  v259 = @"Resolution_mm";
+  v260 = @"AccelThresh";
+  v262 = &off_111F60;
+  v263 = &off_111F00;
+  v261 = @"AccelPower";
+  v264 = &off_112578;
+  v133 = [NSDictionary dictionaryWithObjects:&v262 forKeys:&v259 count:3];
+  *&v206 = v133;
+  v199 = @"Swipe";
+  v247 = @"Resolution_mm";
+  v248 = @"AccelThresh";
+  v253 = &off_111F78;
+  v254 = &off_111F00;
+  v249 = @"AccelPower";
+  v250 = @"FluidAnimationStartThreshold_mm";
+  v255 = &off_112588;
+  v256 = &off_111F90;
+  v251 = @"FluidSwipeCompleteThreshold_mm";
+  v252 = @"FluidSwipeInertiaTime_s";
+  v257 = &off_111FA8;
+  v258 = &off_112538;
+  v130 = [NSDictionary dictionaryWithObjects:&v253 forKeys:&v247 count:6];
+  *(&v206 + 1) = v130;
+  v200 = @"Polar Swipe";
+  v235 = @"Resolution_mm";
+  v236 = @"AccelThresh";
+  v241 = &off_111FC0;
+  v242 = &off_111F00;
+  v237 = @"AccelPower";
+  v238 = @"FluidAnimationStartThreshold_mm";
+  v243 = &off_112588;
+  v244 = &off_111F60;
+  v239 = @"FluidSwipeCompleteThreshold_mm";
+  v240 = @"FluidSwipeInertiaTime_s";
+  v245 = &off_111FD8;
+  v246 = &off_112538;
+  v73 = [NSDictionary dictionaryWithObjects:&v241 forKeys:&v235 count:6];
+  v207 = v73;
+  v201 = @"Edge Swipe";
+  v223 = @"Resolution_mm";
+  v224 = @"AccelThresh";
+  v229 = &off_111F60;
+  v230 = &off_111F00;
+  v225 = @"AccelPower";
+  v226 = @"FluidAnimationStartThreshold_mm";
+  v231 = &off_112588;
+  v232 = &off_111F90;
+  v227 = @"FluidSwipeCompleteThreshold_mm";
+  v228 = @"FluidSwipeInertiaTime_s";
+  v233 = &off_111F30;
+  v234 = &off_112598;
+  v74 = [NSDictionary dictionaryWithObjects:&v229 forKeys:&v223 count:6];
+  v208 = v74;
+  v202 = @"Edge Scroll";
+  v211 = @"Resolution_mm";
+  v212 = @"AccelThresh";
+  v217 = &off_111F60;
+  v218 = &off_111F00;
+  v213 = @"AccelPower";
+  v214 = @"FluidAnimationStartThreshold_mm";
+  v219 = &off_112588;
+  v220 = &off_111F60;
+  v215 = @"FluidSwipeCompleteThreshold_mm";
+  v216 = @"FluidSwipeInertiaTime_s";
+  v221 = &off_111F30;
+  v222 = &off_112598;
+  v75 = [NSDictionary dictionaryWithObjects:&v217 forKeys:&v211 count:6];
+  v209 = v75;
+  v76 = [NSDictionary dictionaryWithObjects:buf forKeys:&v194 count:9];
 
   MTPListGestureConfig_::setMotionSensitivitiesDictionary(a1, v76);
-  v77 = [v168 copy];
+  v77 = [v172 copy];
   MTPListGestureConfig_::setGestureSetsDictionary(a1, v77);
 
-  v177[0] = @"Point";
-  v163 = actionEvent(@"Mouse Point", 0, v78);
-  v178[0] = v163;
-  v177[1] = @"Drag";
-  v160 = actionEvent(@"Mouse Drag", @"Button1", v79);
-  v178[1] = v160;
-  v177[2] = @"Click";
-  v157 = actionEvent(@"Mouse Click", @"Button1", v80);
-  v178[2] = v157;
-  v177[3] = @"Double Click";
-  v154 = actionEvent(@"Mouse Double Click", @"Button1", v81);
-  v178[3] = v154;
-  v177[4] = @"Primary Down";
-  v151 = actionEvent(@"Mouse Down", @"Button1", v82);
-  v178[4] = v151;
-  v177[5] = @"Primary Up";
-  v148 = actionEvent(@"Mouse Up", @"Button1", v83);
-  v178[5] = v148;
-  v177[6] = @"Secondary Click";
-  v145 = actionEvent(@"Mouse Click", @"Button2", v84);
-  v178[6] = v145;
-  v177[7] = @"Scroll";
-  v142 = actionEvent(@"Scroll", 0, v85);
-  v178[7] = v142;
-  v177[8] = @"Scroll To Edge";
-  v139 = actionEvent(@"Scroll To Edge", 0, v86);
-  v178[8] = v139;
-  v177[9] = @"Orientation";
-  v136 = actionEvent(@"Orientation", 0, v87);
-  v178[9] = v136;
-  v177[10] = @"Zoom Toggle";
-  v133 = actionEvent(@"Zoom Toggle", 0, v88);
-  v178[10] = v133;
-  v177[11] = @"Gesture Started";
-  v130 = actionEvent(@"Gesture Started", 0, v89);
-  v178[11] = v130;
-  v177[12] = @"Gesture Ended";
-  v127 = actionEvent(@"Gesture Ended", 0, v90);
-  v178[12] = v127;
-  v177[13] = @"Fluid Navigation";
+  v181[0] = @"Point";
+  v167 = actionEvent(@"Mouse Point", 0, v78);
+  v182[0] = v167;
+  v181[1] = @"Drag";
+  v164 = actionEvent(@"Mouse Drag", @"Button1", v79);
+  v182[1] = v164;
+  v181[2] = @"Click";
+  v161 = actionEvent(@"Mouse Click", @"Button1", v80);
+  v182[2] = v161;
+  v181[3] = @"Double Click";
+  v158 = actionEvent(@"Mouse Double Click", @"Button1", v81);
+  v182[3] = v158;
+  v181[4] = @"Primary Down";
+  v155 = actionEvent(@"Mouse Down", @"Button1", v82);
+  v182[4] = v155;
+  v181[5] = @"Primary Up";
+  v152 = actionEvent(@"Mouse Up", @"Button1", v83);
+  v182[5] = v152;
+  v181[6] = @"Secondary Click";
+  v149 = actionEvent(@"Mouse Click", @"Button2", v84);
+  v182[6] = v149;
+  v181[7] = @"Scroll";
+  v146 = actionEvent(@"Scroll", 0, v85);
+  v182[7] = v146;
+  v181[8] = @"Scroll To Edge";
+  v143 = actionEvent(@"Scroll To Edge", 0, v86);
+  v182[8] = v143;
+  v181[9] = @"Orientation";
+  v140 = actionEvent(@"Orientation", 0, v87);
+  v182[9] = v140;
+  v181[10] = @"Zoom Toggle";
+  v137 = actionEvent(@"Zoom Toggle", 0, v88);
+  v182[10] = v137;
+  v181[11] = @"Gesture Started";
+  v134 = actionEvent(@"Gesture Started", 0, v89);
+  v182[11] = v134;
+  v181[12] = @"Gesture Ended";
+  v131 = actionEvent(@"Gesture Ended", 0, v90);
+  v182[12] = v131;
+  v181[13] = @"Fluid Navigation";
   v92 = actionEvent(@"Fluid Navigation", 0, v91);
-  v178[13] = v92;
-  v177[14] = @"Fluid Notification";
+  v182[13] = v92;
+  v181[14] = @"Fluid Notification";
   v94 = actionEvent(@"Fluid Notification", 0, v93);
-  v178[14] = v94;
-  v177[15] = @"Fluid Notification Alt";
+  v182[14] = v94;
+  v181[15] = @"Fluid Notification Alt";
   v96 = actionEvent(@"Fluid Notification Alt", 0, v95);
-  v178[15] = v96;
-  v177[16] = @"Fluid Dock";
+  v182[15] = v96;
+  v181[16] = @"Fluid Dock";
   v98 = actionEvent(@"Fluid Dock", 0, v97);
-  v178[16] = v98;
-  v177[17] = @"Show Definition";
+  v182[16] = v98;
+  v181[17] = @"Show Definition";
   v100 = actionEvent(@"Show Definition", 0, v99);
-  v178[17] = v100;
-  v177[18] = @"Swipe Left";
+  v182[17] = v100;
+  v181[18] = @"Swipe Left";
   v102 = actionEvent(@"Swipe", 0, v101);
-  v178[18] = v102;
-  v177[19] = @"Swipe Right";
+  v182[18] = v102;
+  v181[19] = @"Swipe Right";
   v104 = actionEvent(@"Swipe", 0, v103);
-  v178[19] = v104;
-  v177[20] = @"Swipe Up";
+  v182[19] = v104;
+  v181[20] = @"Swipe Up";
   v106 = actionEvent(@"Swipe", 0, v105);
-  v178[20] = v106;
-  v177[21] = @"Swipe Down";
+  v182[20] = v106;
+  v181[21] = @"Swipe Down";
   v108 = actionEvent(@"Swipe", 0, v107);
-  v178[21] = v108;
-  v109 = [NSDictionary dictionaryWithObjects:v178 forKeys:v177 count:22];
+  v182[21] = v108;
+  v109 = [NSDictionary dictionaryWithObjects:v182 forKeys:v181 count:22];
   MTPListGestureConfig_::setActionEventsDictionary(a1, v109);
 
-  v173 = @"Chords";
-  v174 = v171;
-  v175 = @"Right";
-  v110 = [NSDictionary dictionaryWithObjects:&v174 forKeys:&v173 count:1];
-  v176 = v110;
-  v111 = [NSDictionary dictionaryWithObjects:&v176 forKeys:&v175 count:1];
+  v177 = @"Chords";
+  v178 = v175;
+  v179 = @"Right";
+  v110 = [NSDictionary dictionaryWithObjects:&v178 forKeys:&v177 count:1];
+  v180 = v110;
+  v111 = [NSDictionary dictionaryWithObjects:&v180 forKeys:&v179 count:1];
   MTPListGestureConfig_::setChordMappingsDictionary(a1, v111);
 
-  v172 = 0;
-  MTPListGestureConfig_::parseCreateGestureConfig(a1, &v172);
-  v112 = v172;
+  v176 = 0;
+  MTPListGestureConfig_::parseCreateGestureConfig(a1, &v176);
+  v112 = v176;
   ChordTableForHand = MTGestureConfig_::getChordTableForHand(a1, 1);
+  v115 = ChordTableForHand;
   if (ChordTableForHand)
   {
-    if ([(TrackpadSettings *)v166 notificationCenterEdgeSwipe2F]&& [(TrackpadSettings *)v166 notificationCenterActive])
+    v116 = [(TrackpadSettings *)v170 notificationCenterEdgeSwipe2F];
+    if (v116 && (v116 = [(TrackpadSettings *)v170 notificationCenterActive], v116))
     {
-      v114 = MTLoggingPlugin();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
+      v118 = MTLoggingPlugin(v116, v117);
+      if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
         *&buf[4] = "[Debug] ";
         *&buf[12] = 2080;
         *&buf[14] = "";
         *&buf[22] = 2080;
-        v201 = "configureTrackpadGestureParser";
-        v115 = 32;
-        _os_log_impl(&dword_0, v114, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Enablng NC gestures!", buf, 0x20u);
+        v205 = "configureTrackpadGestureParser";
+        v119 = 32;
+        _os_log_impl(&dword_0, v118, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Enablng NC gestures!", buf, 0x20u);
       }
 
       else
       {
-        v115 = 32;
+        v119 = 32;
       }
     }
 
     else
     {
-      v114 = MTLoggingPlugin();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
+      v118 = MTLoggingPlugin(v116, v117);
+      if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
         *&buf[4] = "[Debug] ";
         *&buf[12] = 2080;
         *&buf[14] = "";
         *&buf[22] = 2080;
-        v201 = "configureTrackpadGestureParser";
-        _os_log_impl(&dword_0, v114, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Disabling NC gestures!", buf, 0x20u);
+        v205 = "configureTrackpadGestureParser";
+        _os_log_impl(&dword_0, v118, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Disabling NC gestures!", buf, 0x20u);
       }
 
-      v115 = 128;
+      v119 = 128;
     }
 
-    *(ChordTableForHand + 24) = *(ChordTableForHand + 24) & 0xFFFFFF5F | v115;
+    *(v115 + 24) = *(v115 + 24) & 0xFFFFFF5F | v119;
   }
 
   if (v112)
   {
-    v116 = MTLoggingPlugin();
-    if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+    v120 = MTLoggingPlugin(ChordTableForHand, v114);
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
       *&buf[4] = "[Error] ";
       *&buf[12] = 2080;
       *&buf[14] = "";
       *&buf[22] = 2080;
-      v201 = "configureTrackpadGestureParser";
-      LOWORD(v202) = 2112;
-      *(&v202 + 2) = v112;
-      _os_log_impl(&dword_0, v116, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error when parsing gesture config: %@", buf, 0x2Au);
+      v205 = "configureTrackpadGestureParser";
+      LOWORD(v206) = 2112;
+      *(&v206 + 2) = v112;
+      _os_log_impl(&dword_0, v120, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error when parsing gesture config: %@", buf, 0x2Au);
     }
   }
 }
 
 void configureMouseGestureParser(MTPListGestureConfig_ *a1, MouseSettings *a2)
 {
-  v48 = a2;
+  v50 = a2;
   MTGestureConfig_::clearAllChords(a1);
-  v73[0] = @"Mouse Scrolling";
-  v71[0] = @"Resolution_dpi";
+  v75[0] = @"Mouse Scrolling";
+  v73[0] = @"Resolution_dpi";
+  v73[1] = @"AccelThresh";
+  v74[0] = &off_111EE8;
+  v74[1] = &off_111F00;
+  v73[2] = @"AccelPower";
+  v73[3] = @"FrameDecay_mm";
+  v74[2] = &off_111F18;
+  v74[3] = &off_1124E8;
+  v73[4] = @"CommitMultiplier";
+  v74[4] = &off_1124F8;
+  v47 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:5];
+  v76[0] = v47;
+  v75[1] = @"Mouse Vertical Swipe";
+  v71[0] = @"Resolution_mm";
   v71[1] = @"AccelThresh";
-  v72[0] = &off_111EE8;
+  v72[0] = &off_112508;
   v72[1] = &off_111F00;
   v71[2] = @"AccelPower";
-  v71[3] = @"FrameDecay_mm";
-  v72[2] = &off_111F18;
-  v72[3] = &off_1124E8;
-  v71[4] = @"CommitMultiplier";
-  v72[4] = &off_1124F8;
-  v45 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:5];
-  v74[0] = v45;
-  v73[1] = @"Mouse Vertical Swipe";
+  v71[3] = @"FluidAnimationStartThreshold_mm";
+  v72[2] = &off_112518;
+  v72[3] = &off_112528;
+  v71[4] = @"FluidSwipeCompleteThreshold_mm";
+  v71[5] = @"FluidSwipeInertiaTime_s";
+  v72[4] = &off_111F30;
+  v72[5] = &off_112538;
+  v2 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:6];
+  v76[1] = v2;
+  v75[2] = @"Mouse Horizontal Swipe";
   v69[0] = @"Resolution_mm";
   v69[1] = @"AccelThresh";
-  v70[0] = &off_112508;
+  v69[5] = @"FluidSwipeInertiaTime_s";
+  v70[0] = &off_112548;
   v70[1] = &off_111F00;
   v69[2] = @"AccelPower";
   v69[3] = @"FluidAnimationStartThreshold_mm";
-  v70[2] = &off_112518;
+  v70[2] = &off_112558;
   v70[3] = &off_112528;
   v69[4] = @"FluidSwipeCompleteThreshold_mm";
-  v69[5] = @"FluidSwipeInertiaTime_s";
   v70[4] = &off_111F30;
   v70[5] = &off_112538;
-  v2 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:6];
-  v74[1] = v2;
-  v73[2] = @"Mouse Horizontal Swipe";
-  v67[0] = @"Resolution_mm";
-  v67[1] = @"AccelThresh";
-  v67[5] = @"FluidSwipeInertiaTime_s";
-  v68[0] = &off_112548;
-  v68[1] = &off_111F00;
-  v67[2] = @"AccelPower";
-  v67[3] = @"FluidAnimationStartThreshold_mm";
-  v68[2] = &off_112558;
-  v68[3] = &off_112528;
-  v67[4] = @"FluidSwipeCompleteThreshold_mm";
-  v68[4] = &off_111F30;
-  v68[5] = &off_112538;
-  v3 = [NSDictionary dictionaryWithObjects:v68 forKeys:v67 count:6];
-  v74[2] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:3];
+  v3 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:6];
+  v76[2] = v3;
+  v4 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:3];
   MTPListGestureConfig_::setMotionSensitivitiesDictionary(a1, v4);
 
-  v65[0] = @"One Finger";
-  v5 = createMouseScrollSwipeTapCombo([(PointerSettings *)v48 horizontalScrolling], [(PointerSettings *)v48 verticalScrolling], [(PointerSettings *)v48 zoomToggle], 0, 0);
-  v66[0] = v5;
-  v65[1] = @"Two Fingers";
-  v6 = createMouseScrollSwipeTapCombo([(PointerSettings *)v48 horizontalScrolling], [(PointerSettings *)v48 verticalScrolling], 0, [(MouseSettings *)v48 missionControl], [(MouseSettings *)v48 horizontalSwipe2F]);
-  v66[1] = v6;
-  v65[2] = @"Three Fingers";
-  v7 = createMouseScrollSwipeTapCombo([(PointerSettings *)v48 horizontalScrolling], [(PointerSettings *)v48 verticalScrolling], 0, 0, 0);
-  v66[2] = v7;
-  v8 = [NSDictionary dictionaryWithObjects:v66 forKeys:v65 count:3];
+  v67[0] = @"One Finger";
+  v5 = createMouseScrollSwipeTapCombo([(PointerSettings *)v50 horizontalScrolling], [(PointerSettings *)v50 verticalScrolling], [(PointerSettings *)v50 zoomToggle], 0, 0);
+  v68[0] = v5;
+  v67[1] = @"Two Fingers";
+  v6 = createMouseScrollSwipeTapCombo([(PointerSettings *)v50 horizontalScrolling], [(PointerSettings *)v50 verticalScrolling], 0, [(MouseSettings *)v50 missionControl], [(MouseSettings *)v50 horizontalSwipe2F]);
+  v68[1] = v6;
+  v67[2] = @"Three Fingers";
+  v7 = createMouseScrollSwipeTapCombo([(PointerSettings *)v50 horizontalScrolling], [(PointerSettings *)v50 verticalScrolling], 0, 0, 0);
+  v68[2] = v7;
+  v8 = [NSDictionary dictionaryWithObjects:v68 forKeys:v67 count:3];
   MTPListGestureConfig_::setGestureSetsDictionary(a1, v8);
 
-  v63[0] = @"Secondary Click";
-  v46 = actionEvent(@"Mouse Click", @"Button2", v9);
-  v64[0] = v46;
-  v63[1] = @"Scroll";
-  v44 = actionEvent(@"Scroll", 0, v10);
-  v64[1] = v44;
-  v63[2] = @"Scroll To Edge";
-  v43 = actionEvent(@"Scroll To Edge", 0, v11);
-  v64[2] = v43;
-  v63[3] = @"Orientation";
-  v42 = actionEvent(@"Orientation", 0, v12);
-  v64[3] = v42;
-  v63[4] = @"Zoom Toggle";
-  v41 = actionEvent(@"Zoom Toggle", 0, v13);
-  v64[4] = v41;
-  v63[5] = @"Fluid Navigation";
+  v65[0] = @"Secondary Click";
+  v48 = actionEvent(@"Mouse Click", @"Button2", v9);
+  v66[0] = v48;
+  v65[1] = @"Scroll";
+  v46 = actionEvent(@"Scroll", 0, v10);
+  v66[1] = v46;
+  v65[2] = @"Scroll To Edge";
+  v45 = actionEvent(@"Scroll To Edge", 0, v11);
+  v66[2] = v45;
+  v65[3] = @"Orientation";
+  v44 = actionEvent(@"Orientation", 0, v12);
+  v66[3] = v44;
+  v65[4] = @"Zoom Toggle";
+  v43 = actionEvent(@"Zoom Toggle", 0, v13);
+  v66[4] = v43;
+  v65[5] = @"Fluid Navigation";
   v15 = actionEvent(@"Fluid Navigation", 0, v14);
-  v64[5] = v15;
-  v63[6] = @"Fluid Notification";
+  v66[5] = v15;
+  v65[6] = @"Fluid Notification";
   v17 = actionEvent(@"Fluid Notification", 0, v16);
-  v64[6] = v17;
-  v63[7] = @"Fluid Notification Alt";
+  v66[6] = v17;
+  v65[7] = @"Fluid Notification Alt";
   v19 = actionEvent(@"Fluid Notification Alt", 0, v18);
-  v64[7] = v19;
-  v63[8] = @"Fluid Dock";
+  v66[7] = v19;
+  v65[8] = @"Fluid Dock";
   v21 = actionEvent(@"Fluid Dock", 0, v20);
-  v64[8] = v21;
-  v63[9] = @"Show Definition";
+  v66[8] = v21;
+  v65[9] = @"Show Definition";
   v23 = actionEvent(@"Show Definition", 0, v22);
-  v64[9] = v23;
-  v63[10] = @"Swipe Left";
+  v66[9] = v23;
+  v65[10] = @"Swipe Left";
   v25 = actionEvent(@"Swipe", 0, v24);
-  v64[10] = v25;
-  v63[11] = @"Swipe Right";
+  v66[10] = v25;
+  v65[11] = @"Swipe Right";
   v27 = actionEvent(@"Swipe", 0, v26);
-  v64[11] = v27;
-  v63[12] = @"Swipe Up";
+  v66[11] = v27;
+  v65[12] = @"Swipe Up";
   v29 = actionEvent(@"Swipe", 0, v28);
-  v64[12] = v29;
-  v63[13] = @"Swipe Down";
+  v66[12] = v29;
+  v65[13] = @"Swipe Down";
   v31 = actionEvent(@"Swipe", 0, v30);
-  v64[13] = v31;
-  v32 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:14];
+  v66[13] = v31;
+  v32 = [NSDictionary dictionaryWithObjects:v66 forKeys:v65 count:14];
   MTPListGestureConfig_::setActionEventsDictionary(a1, v32);
 
-  v61 = @"Right";
-  v59[0] = @"LookupBySubset";
-  v59[1] = @"Chords";
-  v60[0] = @"TouchingFingers";
+  v63 = @"Right";
+  v61[0] = @"LookupBySubset";
+  v61[1] = @"Chords";
+  v62[0] = @"TouchingFingers";
   v33 = chordMapping(@"1 Finger", @"One Finger");
-  v58[0] = v33;
+  v60[0] = v33;
   v34 = chordMapping(@"2 Fingers", @"Two Fingers");
-  v58[1] = v34;
+  v60[1] = v34;
   v35 = chordMapping(@"3 Fingers", @"Three Fingers");
-  v58[2] = v35;
-  v36 = [NSArray arrayWithObjects:v58 count:3];
-  v60[1] = v36;
-  v37 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:2];
-  v62 = v37;
-  v38 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+  v60[2] = v35;
+  v36 = [NSArray arrayWithObjects:v60 count:3];
+  v62[1] = v36;
+  v37 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:2];
+  v64 = v37;
+  v38 = [NSDictionary dictionaryWithObjects:&v64 forKeys:&v63 count:1];
   MTPListGestureConfig_::setChordMappingsDictionary(a1, v38);
 
-  v49 = 0;
-  MTPListGestureConfig_::parseCreateGestureConfig(a1, &v49);
-  v39 = v49;
+  v51 = 0;
+  MTPListGestureConfig_::parseCreateGestureConfig(a1, &v51);
+  v39 = v51;
+  v41 = v39;
   if (v39)
   {
-    v40 = MTLoggingPlugin();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v42 = MTLoggingPlugin(v39, v40);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v51 = "[Error] ";
-      v52 = 2080;
-      v53 = "";
+      v53 = "[Error] ";
       v54 = 2080;
-      v55 = "configureMouseGestureParser";
-      v56 = 2112;
-      v57 = v39;
-      _os_log_impl(&dword_0, v40, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error when parsing gesture config: %@", buf, 0x2Au);
+      v55 = "";
+      v56 = 2080;
+      v57 = "configureMouseGestureParser";
+      v58 = 2112;
+      v59 = v41;
+      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error when parsing gesture config: %@", buf, 0x2Au);
     }
   }
 }
@@ -1940,49 +1943,49 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(void *a1, const char **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(float *a1, const char **a2, uint64_t a3, void **a4)
 {
-  v2 = 0xCBF29CE484222325;
-  v3 = *a2;
-  v4 = **a2;
-  if (v4)
+  v4 = 0xCBF29CE484222325;
+  v5 = *a2;
+  v6 = **a2;
+  if (v6)
   {
-    v5 = (v3 + 1);
+    v7 = (v5 + 1);
     do
     {
-      v2 = (0x100000001B3 * v2) ^ v4;
-      v6 = *v5++;
-      v4 = v6;
+      v4 = (0x100000001B3 * v4) ^ v6;
+      v8 = *v7++;
+      v6 = v8;
     }
 
-    while (v6);
+    while (v8);
   }
 
-  v7 = a1[1];
-  if (!*&v7)
+  v9 = *(a1 + 2);
+  if (!*&v9)
   {
     goto LABEL_21;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v2;
-    if (v2 >= *&v7)
+    v12 = v4;
+    if (v4 >= *&v9)
     {
-      v10 = v2 % *&v7;
+      v12 = v4 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v2;
+    v12 = (*&v9 - 1) & v4;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_21:
     operator new();
@@ -1990,47 +1993,47 @@ LABEL_21:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v2)
+    v15 = v14[1];
+    if (v15 == v4)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v11 > 1)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v10)
+    if (v15 != v12)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_21;
     }
   }
 
-  if (strcmp(v12[2], v3))
+  if (strcmp(v14[2], v5))
   {
     goto LABEL_20;
   }
 
-  return v12;
+  return v14;
 }
 
-void std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2046,7 +2049,7 @@ void std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2054,7 +2057,7 @@ void std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2078,7 +2081,7 @@ void std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2412,12 +2415,12 @@ HSUtil::Encoder *HSUtil::Encoder::encodeBool(HSUtil::Encoder *this, const HSUtil
   return this;
 }
 
-void HSUtil::Decoder::decodeHSCodable(unint64_t *a1, const HSUtil::CoderKey *a2, void *a3)
+void HSUtil::Decoder::decodeHSCodable(HSUtil::Decoder *a1, const HSUtil::CoderKey *a2, void *a3)
 {
   v5 = a3;
   if (*a1 <= 4)
   {
-    v6 = a1[9];
+    v6 = *(a1 + 9);
     HSUtil::Decoder::_findKey(a1, &v6, a2);
     if (!*a1)
     {
@@ -2429,7 +2432,7 @@ void HSUtil::Decoder::decodeHSCodable(unint64_t *a1, const HSUtil::CoderKey *a2,
 
       else
       {
-        a1[9] = v6;
+        *(a1 + 9) = v6;
       }
     }
   }
@@ -2466,43 +2469,43 @@ uint64_t HSUtil::Decoder::decodeBool(HSUtil::Decoder *this, const HSUtil::CoderK
   return result;
 }
 
-unint64_t *HSUtil::Decoder::decodeMap@<X0>(unint64_t *this@<X0>, uint64_t a2@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeMap@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v3 = this;
-    v10 = this[9];
+    v12 = *(this + 9);
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v10 = v4;
+    v11 = v4;
     v8 = v4;
     v9 = v4;
-    v6 = v4;
     v7 = v4;
-    v5 = v4;
-    HSUtil::Decoder::_readMap(this, &v10, &v5);
+    HSUtil::Decoder::_readMap(&v7, this, &v12);
     if (*v3)
     {
-      *a2 = 5;
-      *(a2 + 8) = a2;
-      *(a2 + 16) = 0u;
-      *(a2 + 32) = 0u;
-      *(a2 + 48) = 0u;
-      *(a2 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v3[9] = v10;
-      HSUtil::Decoder::Decoder(a2, &v5);
+      *(v3 + 9) = v12;
+      HSUtil::Decoder::Decoder(a1, &v7, v5, v6);
     }
 
-    if (v7)
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    this = v6;
-    *&v6 = 0;
+    this = v8;
+    *&v8 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -2512,26 +2515,26 @@ unint64_t *HSUtil::Decoder::decodeMap@<X0>(unint64_t *this@<X0>, uint64_t a2@<X8
 
   else
   {
-    *a2 = 5;
-    *(a2 + 8) = a2;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *(a2 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   return this;
 }
 
-void HSUtil::Decoder::~Decoder(HSUtil::Decoder *this)
+void HSUtil::Decoder::~Decoder(HSUtil::Decoder *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(this + 4);
-  if (v2)
+  v5 = *(this + 4);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0);
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0, a3, a4);
 }
 
 HSUtil::Encoder *HSUtil::Encoder::encodeInt(HSUtil::Encoder *this, const HSUtil::CoderKey *a2, unint64_t a3)
@@ -2833,20 +2836,20 @@ uint64_t (***HSUtil::Encoder::_writeTokenValue32(unint64_t *a1, unsigned __int8 
   return result;
 }
 
-void std::vector<HSUtil::Encoder::KeyState>::resize(void *a1, unint64_t a2)
+void std::vector<HSUtil::Encoder::KeyState>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<HSUtil::Encoder::KeyState>::__append(a1, a2 - v2);
+    std::vector<HSUtil::Encoder::KeyState>::__append(result, a2 - v2);
   }
 }
 
@@ -3047,7 +3050,7 @@ void HSUtil::Decoder::_readHSCodable(uint64_t a1, unint64_t *a2, void *a3)
 
 void sub_AB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  HSUtil::Decoder::~Decoder(&a9);
+  HSUtil::Decoder::~Decoder(&a9, a2, a3, a4);
 
   _Unwind_Resume(a1);
 }
@@ -3328,8 +3331,8 @@ void *HSUtil::Decoder::_read(void *this, unint64_t *a2, void *__dst, size_t __n)
     goto LABEL_10;
   }
 
-  v13 = *(v4 + 48);
-  v12 = *(v4 + 56);
+  v13 = v4[6];
+  v12 = v4[7];
   if (v13)
   {
     this = memcpy(__dst, (v13 + v12 + v5), __n);
@@ -3359,9 +3362,9 @@ LABEL_11:
   return this;
 }
 
-HSUtil::Decoder **HSUtil::Decoder::_loadKeyTableIfNeeded(HSUtil::Decoder **this, unint64_t *a2)
+HSUtil::Decoder *HSUtil::Decoder::_loadKeyTableIfNeeded(HSUtil::Decoder *this, unint64_t *a2)
 {
-  if (this[1] == this)
+  if (*(this + 1) == this)
   {
     v6[3] = v2;
     v6[4] = v3;
@@ -3396,7 +3399,7 @@ uint64_t HSUtil::Decoder::_loadKeyTable(HSUtil::Decoder **this, unint64_t *a2)
   v21 = v3;
   v22 = v3;
   v20 = v3;
-  HSUtil::Decoder::_readKeyTable(this, a2, &v20);
+  HSUtil::Decoder::_readKeyTable(&v20, this, a2);
   if (!*this)
   {
     while (1)
@@ -3457,7 +3460,7 @@ LABEL_19:
         v16 = v9;
         v14[0] = v9;
         v14[1] = v9;
-        HSUtil::Decoder::decodeString(&v20, v14);
+        HSUtil::Decoder::decodeString(v14, &v20);
         if (v20)
         {
           if (v20 == 3)
@@ -3506,22 +3509,22 @@ LABEL_22:
   return result;
 }
 
-void sub_B248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_B248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a20);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-double HSUtil::Decoder::_readKeyTable@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double HSUtil::Decoder::_readKeyTable@<D0>(HSUtil::Decoder *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  Token = HSUtil::Decoder::_readToken(this, a2);
+  Token = HSUtil::Decoder::_readToken(this, a3);
   if (!*this)
   {
     if (Token == 239)
     {
       __dst = 0;
-      HSUtil::Decoder::_read(this, a2, &__dst, 4uLL);
+      HSUtil::Decoder::_read(this, a3, &__dst, 4uLL);
       if (*this)
       {
         v7 = 0;
@@ -3537,17 +3540,17 @@ double HSUtil::Decoder::_readKeyTable@<D0>(HSUtil::Decoder *this@<X0>, unint64_t
         goto LABEL_11;
       }
 
-      v8 = *a2;
+      v8 = *a3;
       v9 = *(this + 8);
-      v10 = v9 >= *a2;
-      v11 = v9 - *a2;
+      v10 = v9 >= *a3;
+      v11 = v9 - *a3;
       if (v10)
       {
         if (v11 >= v7)
         {
-          *a2 = v8 + v7;
+          *a3 = v8 + v7;
           *this = 0;
-          *&result = HSUtil::Decoder::Decoder(a3, this, v8, v7).n128_u64[0];
+          *&result = HSUtil::Decoder::Decoder(a1, this, v8, v7).n128_u64[0];
           return result;
         }
 
@@ -3569,13 +3572,13 @@ double HSUtil::Decoder::_readKeyTable@<D0>(HSUtil::Decoder *this@<X0>, unint64_t
   }
 
 LABEL_11:
-  *a3 = 5;
-  *(a3 + 8) = a3;
+  *a1 = 5;
+  *(a1 + 1) = a1;
   result = 0.0;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *(a3 + 48) = 0u;
-  *(a3 + 64) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
   return result;
 }
 
@@ -3599,14 +3602,14 @@ unint64_t HSUtil::Decoder::decodeUInt(HSUtil::Decoder *this)
   return result;
 }
 
-void HSUtil::Decoder::_newKeys(void *a1@<X8>)
+void HSUtil::Decoder::_newKeys(void ***a3@<X8>)
 {
-  *a1 = 0xAAAAAAAAAAAAAAAALL;
-  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  *a3 = 0xAAAAAAAAAAAAAAAALL;
+  a3[1] = 0xAAAAAAAAAAAAAAAALL;
   std::allocate_shared[abi:ne200100]<std::vector<std::atomic<HSUtil::CoderKey const*>>,std::allocator<std::vector<std::atomic<HSUtil::CoderKey const*>>>,unsigned long &,0>();
 }
 
-void HSUtil::Decoder::decodeString(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeString(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
@@ -3621,21 +3624,21 @@ void HSUtil::Decoder::decodeString(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
     HSUtil::Decoder::_readString(this, &v7, v5);
     if (*this)
     {
-      *a2 = &off_108FA0;
-      *(a2 + 8) = &off_108FF8;
-      *(a2 + 16) = &off_109018;
-      *(a2 + 24) = &off_109030;
-      *(a2 + 32) = off_109048;
-      *(a2 + 40) = 0;
-      *(a2 + 48) = 0;
-      *(a2 + 56) = 0;
-      *(a2 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
       *(this + 9) = v7;
-      HSUtil::Buffer::Buffer(a2, v5);
+      HSUtil::Buffer::Buffer(a1, v5);
     }
 
     HSUtil::Buffer::~Buffer(v5);
@@ -3643,30 +3646,30 @@ void HSUtil::Decoder::decodeString(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    *a2 = &off_108FA0;
-    *(a2 + 8) = &off_108FF8;
-    *(a2 + 16) = &off_109018;
-    *(a2 + 24) = &off_109030;
-    *(a2 + 32) = off_109048;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    *(a2 + 56) = 0;
-    *(a2 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 }
 
-void *HSUtil::Decoder::skipElement(void *this)
+HSUtil::Decoder *HSUtil::Decoder::skipElement(HSUtil::Decoder *this)
 {
   if (*this <= 4)
   {
     v4[3] = v1;
     v4[4] = v2;
     v3 = this;
-    v4[0] = this[9];
+    v4[0] = *(this + 9);
     this = HSUtil::Decoder::_skipElement(this, v4);
     if (!*v3)
     {
-      v3[9] = v4[0];
+      *(v3 + 9) = v4[0];
     }
   }
 
@@ -3949,17 +3952,17 @@ void std::__shared_ptr_emplace<std::vector<std::atomic<HSUtil::CoderKey const*>>
   }
 }
 
-void *std::vector<std::atomic<HSUtil::CoderKey const*>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::atomic<HSUtil::CoderKey const*>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::atomic<HSUtil::CoderKey const*>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::atomic<HSUtil::CoderKey const*>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_BB0C(_Unwind_Exception *exception_object)
@@ -3974,7 +3977,7 @@ void sub_BB0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::atomic<HSUtil::CoderKey const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::atomic<HSUtil::CoderKey const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4702,14 +4705,14 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HSUtil::Encoder::Cont
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t (***HSUtil::Encoder::_encodeContainerStop(uint64_t (***this)(void)))(void)
+unint64_t *HSUtil::Encoder::_encodeContainerStop(unint64_t *this)
 {
   v1 = this;
   v2 = this[8];
-  v3 = *(v2 - 2);
+  v3 = *(v2 - 16);
   v16 = v3 + 1;
-  v4 = *(v2 - 2);
-  v5 = this[17] + ~v3 - v4;
+  v4 = *(v2 - 8);
+  v5 = ~v3 - v4 + this[17];
   if (v4 == 4)
   {
     if (v5 < 0xFFFFFFFF)
@@ -4752,18 +4755,18 @@ LABEL_11:
   this = HSUtil::Encoder::_write(this, &v16, &__src, v6);
   if (!*v1)
   {
-    v7 = *(v1 + 56);
-    v8 = *(v1 + 64) - 16;
-    *(v1 + 64) = v8;
+    v7 = v1[7];
+    v8 = v1[8] - 16;
+    v1[8] = v8;
     if (v8 == v7 && *(v1 + 112) == 1)
     {
-      *&__src = *(v1 + 136);
+      *&__src = v1[17];
       DWORD2(__src) = 4;
-      std::vector<HSUtil::Encoder::ContainerRecord>::push_back[abi:ne200100](v1 + 56, &__src);
+      std::vector<HSUtil::Encoder::ContainerRecord>::push_back[abi:ne200100]((v1 + 7), &__src);
       this = HSUtil::Encoder::_writeTokenValue32(v1, 0xEFu, 0);
       if (!*v1)
       {
-        v9 = *(v1 + 88) - *(v1 + 80);
+        v9 = v1[11] - v1[10];
         if (v9)
         {
           v10 = 0;
@@ -4771,7 +4774,7 @@ LABEL_11:
           v12 = v9 >> 4;
           while (1)
           {
-            v13 = (*(v1 + 80) + 16 * v10);
+            v13 = (v1[10] + 16 * v10);
             if (*v13 == 1)
             {
               *v13 = 2;
@@ -4933,9 +4936,9 @@ uint64_t (***HSUtil::Encoder::_writeTokenValue64(unint64_t *a1, unsigned __int8 
   return result;
 }
 
-double HSUtil::Decoder::_readMap@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double HSUtil::Decoder::_readMap@<D0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  Token = HSUtil::Decoder::_readToken(this, a2);
+  Token = HSUtil::Decoder::_readToken(this, a3);
   if (*this)
   {
     goto LABEL_22;
@@ -4944,7 +4947,7 @@ double HSUtil::Decoder::_readMap@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@
   if (Token == 235)
   {
     v18 = 0;
-    HSUtil::Decoder::_read(this, a2, &v18, 4uLL);
+    HSUtil::Decoder::_read(this, a3, &v18, 4uLL);
     if (*this)
     {
       v9 = 0;
@@ -4966,7 +4969,7 @@ double HSUtil::Decoder::_readMap@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@
     if (Token == 234)
     {
       v17 = 0;
-      HSUtil::Decoder::_read(this, a2, &v17, 2uLL);
+      HSUtil::Decoder::_read(this, a3, &v17, 2uLL);
       v7 = *this;
       v8 = v17;
     }
@@ -4980,7 +4983,7 @@ double HSUtil::Decoder::_readMap@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@
       }
 
       __dst = 0;
-      HSUtil::Decoder::_read(this, a2, &__dst, 1uLL);
+      HSUtil::Decoder::_read(this, a3, &__dst, 1uLL);
       v7 = *this;
       v8 = __dst;
     }
@@ -5001,23 +5004,23 @@ double HSUtil::Decoder::_readMap@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@
     }
   }
 
-  v10 = *a2;
+  v10 = *a3;
   v11 = *(this + 8);
-  v12 = v11 >= *a2;
-  v13 = v11 - *a2;
+  v12 = v11 >= *a3;
+  v13 = v11 - *a3;
   if (!v12)
   {
     v14 = 6;
 LABEL_21:
     *this = v14;
 LABEL_22:
-    *a3 = 5;
-    *(a3 + 8) = a3;
+    *a1 = 5;
+    a1[1] = a1;
     result = 0.0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
     return result;
   }
 
@@ -5027,19 +5030,19 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  *a2 = v10 + v9;
+  *a3 = v10 + v9;
   *this = 0;
-  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a2);
+  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a3);
   if (*this)
   {
     goto LABEL_22;
   }
 
-  *&result = HSUtil::Decoder::Decoder(a3, this, v10, v9).n128_u64[0];
+  *&result = HSUtil::Decoder::Decoder(a1, this, v10, v9).n128_u64[0];
   return result;
 }
 
-uint64_t HSUtil::Decoder::Decoder(uint64_t a1, uint64_t a2)
+uint64_t HSUtil::Decoder::Decoder(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *a1 = 0;
   *(a1 + 8) = a1;
@@ -5047,43 +5050,43 @@ uint64_t HSUtil::Decoder::Decoder(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0u;
-  HSUtil::Decoder::operator=(a1, a2);
+  HSUtil::Decoder::operator=(a1, a2, a3, a4);
   return a1;
 }
 
-void sub_D040(_Unwind_Exception *a1)
+void sub_D040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(v2 + 32);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](v1, 0);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HSUtil::Decoder::operator=(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  v5 = *(a2 + 8);
-  v4 = *(a2 + 16);
-  if (v5 == a2)
-  {
-    v5 = a1;
-  }
-
-  *(a1 + 8) = v5;
-  *(a2 + 16) = 0;
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100]((a1 + 16), v4);
-  v6 = *(a2 + 24);
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  v7 = *(a1 + 32);
-  *(a1 + 24) = v6;
+  v7 = *(v5 + 32);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](v4, 0, a3, a4);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HSUtil::Decoder::operator=(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  *a1 = *a2;
+  v7 = *(a2 + 8);
+  v6 = *(a2 + 16);
+  if (v7 == a2)
+  {
+    v7 = a1;
+  }
+
+  *(a1 + 8) = v7;
+  *(a2 + 16) = 0;
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100]((a1 + 16), v6, a3, a4);
+  v8 = *(a2 + 24);
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  v9 = *(a1 + 32);
+  *(a1 + 24) = v8;
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   *(a1 + 40) = *(a2 + 40);
@@ -5092,7 +5095,7 @@ uint64_t HSUtil::Decoder::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   *a1 = a2;
@@ -5617,10 +5620,11 @@ id HSUtil::Decoder::_readNSString(HSUtil::Decoder *this, unint64_t *a2)
   return v5;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 void __cxx_global_var_init_0()
@@ -5875,16 +5879,17 @@ void sub_F640(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10988(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TrackpadActuatorStage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6632,20 +6637,21 @@ void HSTPipeline::FirmwareUtil::SetReportWithData(HSTPipeline::FirmwareUtil *thi
   v4 = a2;
   if (!this)
   {
-    v8 = +[NSAssertionHandler currentHandler];
-    v9 = [NSString stringWithUTF8String:"void HSTPipeline::FirmwareUtil::SetReportWithData(MTDeviceRef _Nonnull, NSData * _Nonnull __strong)"];
-    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.mm" lineNumber:13 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v10 = +[NSAssertionHandler currentHandler];
+    v11 = [NSString stringWithUTF8String:"void HSTPipeline::FirmwareUtil::SetReportWithData(MTDeviceRef _Nonnull, NSData * _Nonnull __strong)"];
+    [v10 handleFailureInFunction:v11 file:@"FirmwareUtil.mm" lineNumber:13 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
   v5 = [(__MTDevice *)v4 bytes];
   [(__MTDevice *)v4 length];
   v6 = MTDeviceSetReport();
+  v8 = v6;
   if (v6)
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = MTLoggingPlugin(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      HSTPipeline::FirmwareUtil::SetReportWithData(v5, v6, v7);
+      HSTPipeline::FirmwareUtil::SetReportWithData(v5, v8, v9);
     }
   }
 }
@@ -7026,10 +7032,10 @@ id PeppyIUnknown::setOutputEvent(id **this, void *a2, __IOHIDEvent *a3)
   return v6;
 }
 
-void sub_1C17C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C17C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TrackpadAlgStage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7195,9 +7201,9 @@ void *std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](void *result, 
   return result;
 }
 
-void sub_1D06C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<HIDEvent * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7293,17 +7299,17 @@ void __cxx_global_var_init_23_0(uint64_t a1, const char *a2)
   }
 }
 
-void sub_22434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a6);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-void sub_23280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a6);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -7783,10 +7789,10 @@ void __cxx_global_var_init_563(uint64_t a1, const char *a2)
   }
 }
 
-void sub_248F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_248F8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TrackpadHIDEventProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7871,7 +7877,7 @@ void std::vector<HIDEvent * {__strong}>::__assign_with_size[abi:ne200100]<HIDEve
   }
 }
 
-void std::vector<HIDEvent * {__strong}>::__vdeallocate(void **a1)
+void std::vector<HIDEvent * {__strong}>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -7898,7 +7904,7 @@ void std::vector<HIDEvent * {__strong}>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<HIDEvent * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HIDEvent * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7982,87 +7988,87 @@ void __cxx_global_var_init_8_9(uint64_t a1, const char *a2)
   }
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::DataMode]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::DataMode]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::DataMode]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::DataMode]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
 }
 
-void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(uint64_t a1)
+void setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(uint64_t a1, unsigned __int8 *a2)
 {
   if (!a1)
   {
-    v4 = +[NSAssertionHandler currentHandler];
-    v5 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode]"];
-    [v4 handleFailureInFunction:v5 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v6 = +[NSAssertionHandler currentHandler];
-    v7 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode]"];
-    [v6 handleFailureInFunction:v7 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v7 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode]"];
+    [v6 handleFailureInFunction:v7 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v8 = +[NSAssertionHandler currentHandler];
+    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode]"];
+    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v1 = MTDeviceSetReport();
-  if (v1)
+  v2 = MTDeviceSetReport();
+  if (v2)
   {
-    v2 = v1;
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = MTLoggingPlugin(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      mach_error_string(v2);
+      mach_error_string(v4);
       setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
     }
   }
 }
 
-void sub_29010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   HSUtil::ObjectLock::~ObjectLock(va);
   _Unwind_Resume(a1);
@@ -8309,10 +8315,10 @@ uint64_t HSUtil::PortRight::port(HSUtil::PortRight *this)
   return result;
 }
 
-void sub_2D1D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2D1D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = HSTouchHIDService;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8334,7 +8340,7 @@ uint64_t HSUtil::SendRight::reset(uint64_t this)
   return this;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -8348,13 +8354,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -8385,7 +8391,7 @@ id HSPipeline::FindStage<HSTRecordingManager>(void *a1)
   return v1;
 }
 
-void sub_2EE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2EE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8394,14 +8400,12 @@ void sub_2EE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -8413,17 +8417,17 @@ void sub_30344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_30610(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+void sub_30610(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
 
   if (a2 == 1)
   {
-    v9 = __cxa_begin_catch(a1);
-    v10 = *(v4 + 24);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __cxa_begin_catch(a1);
+    v12 = *(v6 + 24);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(HSTouchHIDService *)v9 _handleSysdiagnoseStarted];
+      [(HSTouchHIDService *)v11 _handleSysdiagnoseStarted];
     }
 
     __cxa_end_catch();
@@ -8444,9 +8448,9 @@ HSUtil::File *HSUtil::File::File(HSUtil::File *this, int a2)
   return this;
 }
 
-void sub_3074C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_3074C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::FileDescriptor::~FileDescriptor(va);
   _Unwind_Resume(a1);
 }
@@ -8517,7 +8521,7 @@ void sub_311C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-id HSTouchHIDServiceFactory(uint64_t a1, const void *a2)
+const IOCFPlugInInterfaceStruct **HSTouchHIDServiceFactory(uint64_t a1, const void *a2)
 {
   v3 = CFUUIDGetConstantUUIDWithBytes(0, 5u, 0x16u, 0xB5u, 0x63u, 0xB1u, 0x5Bu, 0x11u, 0xDAu, 0x96u, 0xEBu, 0, 0x14u, 0x51u, 0x97u, 0x58u, 0xEFu);
   if (!CFEqual(a2, v3))
@@ -8860,10 +8864,11 @@ void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __cxx_global_var_init_12()
@@ -9249,10 +9254,10 @@ void __cxx_global_var_init_19_1(uint64_t a1, const char *a2)
   }
 }
 
-void sub_34C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_34C50(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PointerBridge;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

@@ -41,12 +41,13 @@
 void __63__AAUICustodianForActionHandler_doDestructiveAction_specifier___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AAUILogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __63__AAUICustodianForActionHandler_doDestructiveAction_specifier___block_invoke_cold_1(v3, v4);
+      __63__AAUICustodianForActionHandler_doDestructiveAction_specifier___block_invoke_cold_1(v4, v5);
     }
   }
 
@@ -56,9 +57,9 @@ void __63__AAUICustodianForActionHandler_doDestructiveAction_specifier___block_i
     block[1] = 3221225472;
     block[2] = __63__AAUICustodianForActionHandler_doDestructiveAction_specifier___block_invoke_34;
     block[3] = &unk_1E820B8F0;
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v4 = v6;
+    v5 = v7;
   }
 }
 
@@ -193,12 +194,12 @@ void __88__AAUICustodianForActionHandler__showHelpNowUnavailableAlertWithMessage
   [*(a1 + 48) presentViewController:v5 animated:1 completion:0];
 }
 
-void __88__AAUICustodianForActionHandler__showHelpNowUnavailableAlertWithMessage_viewController___block_invoke_2(uint64_t a1)
+void __88__AAUICustodianForActionHandler__showHelpNowUnavailableAlertWithMessage_viewController___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __88__AAUICustodianForActionHandler__showHelpNowUnavailableAlertWithMessage_viewController___block_invoke_2_cold_1(a1, v2);
+    __88__AAUICustodianForActionHandler__showHelpNowUnavailableAlertWithMessage_viewController___block_invoke_2_cold_1(a1, v3);
   }
 }
 

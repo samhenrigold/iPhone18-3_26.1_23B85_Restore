@@ -5,7 +5,7 @@
 + (double)rollAngleFromFaceAnchor:(id)anchor forInterfaceOrientation:(int64_t)orientation;
 + (id)JFX_faceAnchorWithFaceAnchor:(id)anchor forInterfaceOrientation:(int64_t)orientation;
 + (uint64_t)JFX_projectionMatrixWithFaceAnchor:(uint64_t)anchor bufferSize:(uint64_t)size;
-+ (void)adjustIntrinsics:(__n128)intrinsics forRenderSize:(double)size capturedSize:(double)capturedSize interfaceOrientation:(double)orientation;
++ (void)adjustIntrinsics:(__n128)intrinsics forRenderSize:(__n128)size capturedSize:(double)capturedSize interfaceOrientation:(double)orientation;
 @end
 
 @implementation JFXFaceTrackingUtilities
@@ -20,7 +20,7 @@
   [self JFX_projectionMatrixWithFaceAnchor:v10 bufferSize:?];
   [anchorCopy faceRect];
 
-  [v10 transform];
+  objc_msgSend_transform(v10);
   [v10 cameraTransform];
   v13 = pv_projected_screen_aligned_bounding_rect_around_point();
   v14 = vcvtq_f64_f32(0);
@@ -94,11 +94,11 @@
   return v4 > v8;
 }
 
-+ (void)adjustIntrinsics:(__n128)intrinsics forRenderSize:(double)size capturedSize:(double)capturedSize interfaceOrientation:(double)orientation
++ (void)adjustIntrinsics:(__n128)intrinsics forRenderSize:(__n128)size capturedSize:(double)capturedSize interfaceOrientation:(double)orientation
 {
-  *&v23[16] = a2;
-  *&v23[32] = intrinsics;
-  *v23 = self;
+  *&v23[16] = intrinsics;
+  *&v23[32] = size;
+  *v23 = a2;
   v14 = a10 - 3;
   v15 = JFXLog_DebugFaceAnchor();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
@@ -108,22 +108,22 @@
 
   if (v14 >= 0xFFFFFFFFFFFFFFFELL)
   {
-    capturedSizeCopy = size;
+    orientationCopy = capturedSize;
   }
 
   else
   {
-    capturedSizeCopy = capturedSize;
+    orientationCopy = orientation;
   }
 
   if (v14 >= 0xFFFFFFFFFFFFFFFELL)
   {
-    sizeCopy2 = capturedSize;
+    capturedSizeCopy2 = orientation;
   }
 
   else
   {
-    sizeCopy2 = size;
+    capturedSizeCopy2 = capturedSize;
   }
 
   v18 = JFXLog_DebugFaceAnchor();
@@ -132,14 +132,14 @@
     +[JFXFaceTrackingUtilities adjustIntrinsics:forRenderSize:capturedSize:interfaceOrientation:];
   }
 
-  if (orientation / a7 - sizeCopy2 / capturedSizeCopy <= 0.01)
+  if (a7 / a8 - capturedSizeCopy2 / orientationCopy <= 0.01)
   {
-    v19 = sizeCopy2 / orientation;
+    v19 = capturedSizeCopy2 / a7;
   }
 
   else
   {
-    v19 = capturedSizeCopy / a7;
+    v19 = orientationCopy / a8;
   }
 
   v20 = JFXLog_DebugFaceAnchor();
@@ -213,7 +213,7 @@
   {
     v9 = v8;
     v10 = [anchorCopy copy];
-    [v10 transform];
+    objc_msgSend_transform(v10);
     pv_simd_matrix_rotate();
     [v10 setTransform:?];
     if ((v9 & 0xFFFFFFFD) == 1)

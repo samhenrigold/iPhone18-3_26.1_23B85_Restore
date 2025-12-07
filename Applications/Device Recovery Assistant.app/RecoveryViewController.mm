@@ -2,6 +2,7 @@
 - (RecoveryViewController)init;
 - (RecoveryViewControllerDelegate)delegate;
 - (void)_notifyDelegateOnBegin;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -109,6 +110,17 @@
   v2.receiver = self;
   v2.super_class = RecoveryViewController;
   [(RecoveryViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = RecoveryViewController;
+  [(RecoveryViewController *)&v5 viewDidAppear:appear];
+  activityView = [(RecoveryViewController *)self activityView];
+  [activityView startAnimating];
+
+  [(RecoveryViewController *)self performSelector:"_notifyDelegateOnBegin" withObject:0 afterDelay:2.0];
 }
 
 - (void)_notifyDelegateOnBegin

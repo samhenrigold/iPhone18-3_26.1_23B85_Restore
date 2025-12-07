@@ -68,13 +68,10 @@ LABEL_5:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  pairingMode = self->_pairingMode;
-  v10 = toCopy;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
   {
-    phonePairingProtocolVersionMax = self->_phonePairingProtocolVersionMax;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -94,12 +91,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  watchPairingProtocolVersion = self->_watchPairingProtocolVersion;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    phonePairingProtocolVersionMin = self->_phonePairingProtocolVersionMin;
     PBDataWriterWriteInt32Field();
   }
 

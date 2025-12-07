@@ -19,7 +19,7 @@
 - (void)generateThemesMM:(id)m setGMSBackgroundTaskPriority:(BOOL)priority completion:(id)completion
 {
   v7 = _Block_copy(completion);
-  sub_1001C6338(0, &qword_1002B7FD8);
+  sub_1001C6338(0, &qword_1002B7FD8, NSData_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = swift_allocObject();
   *(v9 + 16) = v7;

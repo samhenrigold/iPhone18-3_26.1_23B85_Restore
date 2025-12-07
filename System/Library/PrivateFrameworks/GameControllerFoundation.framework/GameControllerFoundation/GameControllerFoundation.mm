@@ -17,10 +17,11 @@ uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_1D2C3F6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_1D2C3F6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose((v42 - 232), 8);
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v41 - 232), 8);
   _Unwind_Resume(a1);
 }
 
@@ -60,9 +61,9 @@ void sub_1D2C414C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1D2C41E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1D2C41E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -199,14 +200,14 @@ uint64_t IOGCFastPathInputQueueInterfacePrepareObjCVtbl(void *a1, uint64_t a2)
   return v9;
 }
 
-uint64_t __IOGCFastPathInputQueueInterfacePrepareObjCVtbl_block_invoke(uint64_t result, void *a2, uint64_t a3)
+uint64_t __IOGCFastPathInputQueueInterfacePrepareObjCVtbl_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*a2 != a3)
   {
-    return __IOGCFastPathInputQueueInterfacePrepareObjCVtbl_block_invoke_cold_1(a3, a2, result);
+    return __IOGCFastPathInputQueueInterfacePrepareObjCVtbl_block_invoke_cold_1(a3, a2, a1);
   }
 
-  return result;
+  return a1;
 }
 
 CFTypeRef __IOGCFastPathInputQueueInterfaceObjCThunk_CopyDescription(void **a1)
@@ -346,16 +347,16 @@ void sub_1D2C440B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-id _gc_log_devicedb()
+id _gc_log_devicedb(uint64_t a1)
 {
   if (_gc_log_devicedb_onceToken != -1)
   {
     _gc_log_devicedb_cold_1();
   }
 
-  v1 = _gc_log_devicedb_Log;
+  v2 = _gc_log_devicedb_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_devicedb_block_invoke()
@@ -365,10 +366,11 @@ uint64_t ___gc_log_devicedb_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1D2C45684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_1D2C45684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose((v42 - 232), 8);
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v41 - 232), 8);
   _Unwind_Resume(a1);
 }
 
@@ -481,15 +483,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_1D2C4A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2C4A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -501,9 +504,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2C4ABBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2C4ABBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -515,9 +518,9 @@ void sub_1D2C4B558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2C4B77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2C4B77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -531,8 +534,8 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
 
 void __HIDDevicesMatched(void *a1, io_iterator_t a2)
 {
-  v75 = *MEMORY[0x1E69E9840];
-  v41 = a1;
+  v84 = *MEMORY[0x1E69E9840];
+  v50 = a1;
   v2 = *MEMORY[0x1E695E480];
   while (1)
   {
@@ -549,106 +552,116 @@ void __HIDDevicesMatched(void *a1, io_iterator_t a2)
       state.opaque[1] = 0;
       os_activity_scope_enter(v4, &state);
       entryID = 0;
-      memset(v74, 0, sizeof(v74));
+      memset(v83, 0, sizeof(v83));
       IORegistryEntryGetRegistryEntryID(v3, &entryID);
-      MEMORY[0x1D38AAC10](v3, v74);
-      v5 = _gc_log_generic_device();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v5 = MEMORY[0x1D38AAC10](v3, v83);
+      v6 = _gc_log_generic_device(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v61 = v74;
-        v62 = 2048;
-        v63 = entryID;
-        _os_log_debug_impl(&dword_1D2C3B000, v5, OS_LOG_TYPE_DEBUG, "Matched kernel service <%s %#llx>.", buf, 0x16u);
+        v70 = v83;
+        v71 = 2048;
+        v72 = entryID;
+        _os_log_debug_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_DEBUG, "Matched kernel service <%s %#llx>.", buf, 0x16u);
       }
 
       CFProperty = IORegistryEntryCreateCFProperty(v3, @"Transport", v2, 0);
-      v7 = CFProperty;
-      if (!CFProperty || ![CFProperty isEqualToString:@"Rapport"])
+      v8 = CFProperty;
+      if (!CFProperty || (v9 = [CFProperty isEqualToString:@"Rapport"], !v9))
       {
-        v9 = IORegistryEntryCreateCFProperty(v3, @"GCSyntheticDevice", v2, 0);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 BOOLValue])
-        {
-          v10 = _gc_log_generic_device();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 136315394;
-            v61 = v74;
-            v62 = 2048;
-            v63 = entryID;
-            _os_log_debug_impl(&dword_1D2C3B000, v10, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Synthetic device.", buf, 0x16u);
-          }
-
-          IOObjectRelease(v3);
-          goto LABEL_56;
-        }
-
-        v11 = IORegistryEntryCreateCFProperty(v3, @"HIDVirtualDevice", v2, 0);
-        v55 = IORegistryEntryCreateCFProperty(v3, @"VendorID", v2, 0);
-        v54 = IORegistryEntryCreateCFProperty(v3, @"ProductID", v2, 0);
+        v11 = IORegistryEntryCreateCFProperty(v3, @"GCSyntheticDevice", v2, 0);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v11 BOOLValue])
+          v12 = [v11 BOOLValue];
+          if (v12)
+          {
+            v13 = _gc_log_generic_device(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315394;
+              v70 = v83;
+              v71 = 2048;
+              v72 = entryID;
+              _os_log_debug_impl(&dword_1D2C3B000, v13, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Synthetic device.", buf, 0x16u);
+            }
+
+            IOObjectRelease(v3);
+            goto LABEL_56;
+          }
+        }
+
+        v14 = IORegistryEntryCreateCFProperty(v3, @"HIDVirtualDevice", v2, 0);
+        v64 = IORegistryEntryCreateCFProperty(v3, @"VendorID", v2, 0);
+        v63 = IORegistryEntryCreateCFProperty(v3, @"ProductID", v2, 0);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          if ([v14 BOOLValue])
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && [v55 unsignedShortValue] == 1118)
+            if ((objc_opt_isKindOfClass() & 1) != 0 && [v64 unsignedShortValue] == 1118)
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v54 unsignedShortValue] == 654)
+              if (objc_opt_isKindOfClass())
               {
-                v12 = _gc_log_generic_device();
-                if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+                v15 = [v63 unsignedShortValue];
+                if (v15 == 654)
                 {
-                  *buf = 136315394;
-                  v61 = v74;
-                  v62 = 2048;
-                  v63 = entryID;
-                  _os_log_debug_impl(&dword_1D2C3B000, v12, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  3rd party synthetic device.", buf, 0x16u);
-                }
+                  v16 = _gc_log_generic_device(v15);
+                  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+                  {
+                    *buf = 136315394;
+                    v70 = v83;
+                    v71 = 2048;
+                    v72 = entryID;
+                    _os_log_debug_impl(&dword_1D2C3B000, v16, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  3rd party synthetic device.", buf, 0x16u);
+                  }
 
-                IOObjectRelease(v3);
-                goto LABEL_55;
+                  IOObjectRelease(v3);
+                  goto LABEL_55;
+                }
               }
             }
           }
         }
 
-        v13 = IORegistryEntryCreateCFProperty(v3, @"GameControllerSupportedHIDDevice", v2, 0);
-        if (v13)
+        v17 = IORegistryEntryCreateCFProperty(v3, @"GameControllerSupportedHIDDevice", v2, 0);
+        v18 = v17;
+        if (v17)
         {
-          v14 = _gc_log_generic_device();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v19 = _gc_log_generic_device(v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            v32 = entryID;
-            v33 = [v13 BOOLValue];
+            v41 = entryID;
+            v42 = [v18 BOOLValue];
             *buf = 136315650;
-            v61 = v74;
-            v62 = 2048;
-            v63 = v32;
-            v64 = 1024;
-            LODWORD(v65) = v33;
-            _os_log_debug_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Already determined game controller support: %{BOOL}d.", buf, 0x1Cu);
+            v70 = v83;
+            v71 = 2048;
+            v72 = v41;
+            v73 = 1024;
+            LODWORD(v74) = v42;
+            _os_log_debug_impl(&dword_1D2C3B000, v19, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Already determined game controller support: %{BOOL}d.", buf, 0x1Cu);
           }
 
           goto LABEL_29;
         }
 
         connect = 0;
-        v15 = IOServiceOpen(v3, *MEMORY[0x1E69E9A60], 0x484944u, &connect);
-        if (v15)
+        v20 = IOServiceOpen(v3, *MEMORY[0x1E69E9A60], 0x484944u, &connect);
+        v21 = v20;
+        if (v20)
         {
-          v14 = _gc_log_generic_device();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v19 = _gc_log_generic_device(v20);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v61 = v74;
-            v62 = 2048;
-            v63 = entryID;
-            v64 = 1024;
-            LODWORD(v65) = v15;
-            _os_log_error_impl(&dword_1D2C3B000, v14, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to open connection: %{mach.errno}d", buf, 0x1Cu);
+            v70 = v83;
+            v71 = 2048;
+            v72 = entryID;
+            v73 = 1024;
+            LODWORD(v74) = v21;
+            _os_log_error_impl(&dword_1D2C3B000, v19, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to open connection: %{mach.errno}d", buf, 0x1Cu);
           }
 
 LABEL_29:
@@ -662,108 +675,110 @@ LABEL_56:
           goto LABEL_57;
         }
 
-        v52 = GCLookupService(0, &unk_1F4E3BA08, 0, 0);
-        if (v52)
+        v61 = GCLookupService(0, &unk_1F4E3BA08, 0, 0);
+        if (v61)
         {
-          v51 = GCLookupService(0, &unk_1F4E420D0, 0, 0);
-          v53 = [[GCHIDDeviceSnapshot alloc] initWithService:v3];
-          v16 = _gc_log_generic_device();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v60 = GCLookupService(0, &unk_1F4E420D0, 0, 0);
+          v62 = [[GCHIDDeviceSnapshot alloc] initWithService:v3];
+          v22 = _gc_log_generic_device(v62);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v44 = entryID;
-            log = v16;
-            v49 = [(GCHIDDeviceSnapshot *)v53 vendorID];
-            v43 = [v49 unsignedIntegerValue];
-            v48 = [(GCHIDDeviceSnapshot *)v53 productID];
-            v42 = [v48 unsignedIntegerValue];
-            v47 = [(GCHIDDeviceSnapshot *)v53 versionNumber];
-            v17 = [v47 unsignedIntegerValue];
-            v46 = [(GCHIDDeviceSnapshot *)v53 manufacturer];
-            v18 = [(GCHIDDeviceSnapshot *)v53 product];
-            v19 = [(GCHIDDeviceSnapshot *)v53 transport];
+            v53 = entryID;
+            log = v22;
+            v58 = [(GCHIDDeviceSnapshot *)v62 vendorID];
+            v52 = [v58 unsignedIntegerValue];
+            v57 = [(GCHIDDeviceSnapshot *)v62 productID];
+            v51 = [v57 unsignedIntegerValue];
+            v56 = [(GCHIDDeviceSnapshot *)v62 versionNumber];
+            v23 = [v56 unsignedIntegerValue];
+            v55 = [(GCHIDDeviceSnapshot *)v62 manufacturer];
+            v24 = [(GCHIDDeviceSnapshot *)v62 product];
+            v25 = [(GCHIDDeviceSnapshot *)v62 transport];
             *buf = 134219522;
-            v61 = v44;
-            v62 = 2048;
-            v63 = v43;
-            v64 = 2048;
-            v65 = v42;
-            v66 = 2048;
-            v67 = v17;
-            v68 = 2114;
-            v69 = v46;
-            v70 = 2114;
-            v71 = v18;
-            v72 = 2114;
-            v73 = v19;
-            v16 = log;
+            v70 = v53;
+            v71 = 2048;
+            v72 = v52;
+            v73 = 2048;
+            v74 = v51;
+            v75 = 2048;
+            v76 = v23;
+            v77 = 2114;
+            v78 = v55;
+            v79 = 2114;
+            v80 = v24;
+            v81 = 2114;
+            v82 = v25;
+            v22 = log;
             _os_log_impl(&dword_1D2C3B000, log, OS_LOG_TYPE_DEFAULT, "Check <IOHIDDevice %#llx> is a supported game controller {\n\t vendorID = %zu,\n\t productID = %zu,\n\t version = %zu,\n\t manufacturer = '%{public}@',\n\t product = '%{public}@',\n\t transport = '%{public}@',\n}", buf, 0x48u);
           }
 
-          v20 = [v52 hasModelForDevice:v53];
-          v21 = [v20 waitUntilFinished];
-          if (v21 < 2)
+          v26 = [v61 hasModelForDevice:v62];
+          v27 = [v26 waitUntilFinished];
+          if (v27 < 2)
           {
-            v22 = _gc_log_generic_device();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v28 = _gc_log_generic_device(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              v34 = v20;
-              v35 = entryID;
-              v50 = v34;
-              v36 = [v34 error];
+              v43 = v26;
+              v44 = entryID;
+              v59 = v43;
+              v45 = [v43 error];
               *buf = 134218242;
-              v61 = v35;
-              v62 = 2112;
-              v63 = v36;
-              _os_log_error_impl(&dword_1D2C3B000, v22, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error checking game controller support: %@", buf, 0x16u);
+              v70 = v44;
+              v71 = 2112;
+              v72 = v45;
+              _os_log_error_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error checking game controller support: %@", buf, 0x16u);
 
-              v20 = v50;
+              v26 = v59;
             }
 
             goto LABEL_40;
           }
 
-          if (v21 == 2)
+          if (v27 == 2)
           {
-            v23 = [v20 result];
-            v24 = [v23 BOOLValue];
+            v29 = [v26 result];
+            v30 = [v29 BOOLValue];
 
-            if (v24)
+            if (v30)
             {
-              v25 = _gc_log_generic_device();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v32 = _gc_log_generic_device(v31);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134217984;
-                v61 = entryID;
-                _os_log_impl(&dword_1D2C3B000, v25, OS_LOG_TYPE_DEFAULT, "<IOHIDDevice %#llx> is a supported game controller.  Initiating rematching...", buf, 0xCu);
+                v70 = entryID;
+                _os_log_impl(&dword_1D2C3B000, v32, OS_LOG_TYPE_DEFAULT, "<IOHIDDevice %#llx> is a supported game controller.  Initiating rematching...", buf, 0xCu);
               }
 
-              v26 = IOConnectSetCFProperty(connect, @"GameControllerSupportedHIDDevice", MEMORY[0x1E695E118]);
-              if (v26)
+              v33 = IOConnectSetCFProperty(connect, @"GameControllerSupportedHIDDevice", MEMORY[0x1E695E118]);
+              v34 = v33;
+              if (v33)
               {
-                v27 = _gc_log_generic_device();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v35 = _gc_log_generic_device(v33);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218498;
-                  v61 = entryID;
-                  v62 = 2080;
-                  v63 = "GameControllerSupportedHIDDevice";
-                  v64 = 1024;
-                  LODWORD(v65) = v26;
-                  _os_log_error_impl(&dword_1D2C3B000, v27, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error applying '%s' attribute: %{mach.errno}d", buf, 0x1Cu);
+                  v70 = entryID;
+                  v71 = 2080;
+                  v72 = "GameControllerSupportedHIDDevice";
+                  v73 = 1024;
+                  LODWORD(v74) = v34;
+                  _os_log_error_impl(&dword_1D2C3B000, v35, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error applying '%s' attribute: %{mach.errno}d", buf, 0x1Cu);
                 }
               }
 
-              v28 = IOConnectSetCFProperty(connect, @"IOHIDDeviceForceInterfaceRematch", MEMORY[0x1E695E118]);
-              if (v28)
+              v36 = IOConnectSetCFProperty(connect, @"IOHIDDeviceForceInterfaceRematch", MEMORY[0x1E695E118]);
+              v37 = v36;
+              if (v36)
               {
-                v22 = _gc_log_generic_device();
-                if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                v28 = _gc_log_generic_device(v36);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218240;
-                  v61 = entryID;
-                  v62 = 1024;
-                  LODWORD(v63) = v28;
-                  _os_log_error_impl(&dword_1D2C3B000, v22, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error initiating rematching: %{mach.errno}d", buf, 0x12u);
+                  v70 = entryID;
+                  v71 = 1024;
+                  LODWORD(v72) = v37;
+                  _os_log_error_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_ERROR, "<IOHIDDevice %#llx> Error initiating rematching: %{mach.errno}d", buf, 0x12u);
                 }
 
                 goto LABEL_40;
@@ -772,58 +787,58 @@ LABEL_56:
 
             else
             {
-              v22 = _gc_log_generic_device();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+              v28 = _gc_log_generic_device(v31);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 134217984;
-                v61 = entryID;
-                _os_log_debug_impl(&dword_1D2C3B000, v22, OS_LOG_TYPE_DEBUG, "<IOHIDDevice %#llx> is NOT a supported game controller.", buf, 0xCu);
+                v70 = entryID;
+                _os_log_debug_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_DEBUG, "<IOHIDDevice %#llx> is NOT a supported game controller.", buf, 0xCu);
               }
 
 LABEL_40:
             }
           }
 
-          v29 = v53;
-          v30 = [v20 result];
-          GCAnalyticsSendCheckCompatibleHIDDeviceEvent(v51, v29, [v30 BOOLValue]);
+          v38 = v62;
+          v39 = [v26 result];
+          GCAnalyticsSendCheckCompatibleHIDDeviceEvent(v60, v38, [v39 BOOLValue]);
 
           IOServiceClose(connect);
           IOObjectRelease(v3);
 
-          v31 = v52;
+          v40 = v61;
         }
 
         else
         {
-          v37 = [MEMORY[0x1E696AAA8] currentHandler];
-          v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void __HIDDevicesMatched(_GCGenericDeviceManager *__strong, io_iterator_t)"}];
-          [v37 handleFailureInFunction:v38 file:@"_GCGenericDeviceManager.m" lineNumber:448 description:{@"In %s, but missing dbService.", "__HIDDevicesMatched"}];
+          v46 = [MEMORY[0x1E696AAA8] currentHandler];
+          v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void __HIDDevicesMatched(_GCGenericDeviceManager *__strong, io_iterator_t)"}];
+          [v46 handleFailureInFunction:v47 file:@"_GCGenericDeviceManager.m" lineNumber:448 description:{@"In %s, but missing dbService.", "__HIDDevicesMatched"}];
 
-          v39 = _gc_log_generic_device();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v49 = _gc_log_generic_device(v48);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            v61 = entryID;
-            _os_log_error_impl(&dword_1D2C3B000, v39, OS_LOG_TYPE_ERROR, "<IOHIDDevice %llx> Error checking game controller support: Internal error.", buf, 0xCu);
+            v70 = entryID;
+            _os_log_error_impl(&dword_1D2C3B000, v49, OS_LOG_TYPE_ERROR, "<IOHIDDevice %llx> Error checking game controller support: Internal error.", buf, 0xCu);
           }
 
           IOServiceClose(connect);
-          v31 = 0;
+          v40 = 0;
           IOObjectRelease(v3);
         }
 
         goto LABEL_54;
       }
 
-      v8 = _gc_log_generic_device();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _gc_log_generic_device(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v61 = v74;
-        v62 = 2048;
-        v63 = entryID;
-        _os_log_debug_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Rapport device.", buf, 0x16u);
+        v70 = v83;
+        v71 = 2048;
+        v72 = entryID;
+        _os_log_debug_impl(&dword_1D2C3B000, v10, OS_LOG_TYPE_DEBUG, "Skipping <%s %#llx>.  Rapport device.", buf, 0x16u);
       }
 
       IOObjectRelease(v3);
@@ -839,8 +854,6 @@ LABEL_57:
 
     MEMORY[0x1D38AAB40](a2);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -850,16 +863,16 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id gcfLocalizedStringCache()
+id gcfLocalizedStringCache(uint64_t a1)
 {
   if (gcfLocalizedStringCache_onceToken != -1)
   {
     gcfLocalizedStringCache_cold_1();
   }
 
-  v1 = _gcfLocalizedStringCache;
+  v2 = _gcfLocalizedStringCache;
 
-  return v1;
+  return v2;
 }
 
 void __gcfLocalizedStringCache_block_invoke()
@@ -875,8 +888,8 @@ void __gcfLocalizedStringCache_block_invoke()
 void __gcfLocalizedStringCache_block_invoke_2()
 {
   os_unfair_lock_lock(&gcfLocalizedStringCacheLock);
-  v0 = gcfLocalizedStringCache();
-  [v0 removeAllObjects];
+  v1 = gcfLocalizedStringCache(v0);
+  [v1 removeAllObjects];
 
   os_unfair_lock_unlock(&gcfLocalizedStringCacheLock);
 }
@@ -893,14 +906,14 @@ id _GCFConvertStringToLocalizedString(uint64_t a1, void *a2)
   else
   {
     os_unfair_lock_lock(&gcfLocalizedStringCacheLock);
-    v4 = gcfLocalizedStringCache();
-    v3 = [v4 objectForKey:v2];
+    v5 = gcfLocalizedStringCache(v4);
+    v3 = [v5 objectForKey:v2];
     if (!v3)
     {
-      v5 = [MEMORY[0x1E696AAE8] GameControllerFoundationBundle];
-      v3 = [v5 localizedStringForKey:v2 value:&stru_1F4E1BE30 table:@"Localizable"];
+      v6 = [MEMORY[0x1E696AAE8] GameControllerFoundationBundle];
+      v3 = [v6 localizedStringForKey:v2 value:&stru_1F4E1BE30 table:@"Localizable"];
 
-      [v4 setObject:v3 forKey:v2];
+      [v5 setObject:v3 forKey:v2];
     }
 
     os_unfair_lock_unlock(&gcfLocalizedStringCacheLock);
@@ -1033,29 +1046,32 @@ id OUTLINED_FUNCTION_6(void *a1, const char *a2)
   return objc_getProperty(a1, a2, 24, 1);
 }
 
-uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
+  va_start(va, a54);
 
-  return [v55 countByEnumeratingWithState:&a17 objects:&a55 count:16];
+  return [v54 countByEnumeratingWithState:&a17 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+uint64_t OUTLINED_FUNCTION_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a16);
+  va_start(va, a24);
 
-  return [v16 countByEnumeratingWithState:va objects:v17 - 224 count:16];
+  return [v24 countByEnumeratingWithState:va objects:v25 - 224 count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+uint64_t OUTLINED_FUNCTION_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
 
-  return [v39 countByEnumeratingWithState:&a9 objects:&a39 count:16];
+  return [v38 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-void sub_1D2C4F9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1D2C4F9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1204,7 +1220,7 @@ id __IOGCFastPathRoyaReplayInputQueueGetProperty(unsigned int ***a1, uint64_t a2
   return v4;
 }
 
-uint64_t OUTLINED_FUNCTION_4_0@<X0>(unsigned int ***a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_4_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(v5 - 32) = ____IOGCFastPathRoyaReplayInputQueueSampleModifyField_block_invoke;
   *(v5 - 24) = v4;
@@ -1214,7 +1230,7 @@ uint64_t OUTLINED_FUNCTION_4_0@<X0>(unsigned int ***a1@<X0>, uint64_t a2@<X1>, u
   return __IOGCFastPathRoyaReplayInputQueueSampleModify(a1, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_5_1@<X0>(unsigned int ***a1@<X0>, unsigned int ****a2@<X1>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_5_1@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   *(v5 - 32) = ____IOGCFastPathRoyaReplayInputQueueSampleReadField_block_invoke;
   *(v5 - 24) = v4;
@@ -1247,7 +1263,7 @@ void sub_1D2C54CA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _gc_log_localizedstring()
+uint64_t _gc_log_localizedstring(uint64_t a1, uint64_t a2)
 {
   if (qword_1EC72E4E8 != -1)
   {
@@ -1264,9 +1280,9 @@ os_log_t ___gc_log_localizedstring_block_invoke()
   return result;
 }
 
-void sub_1D2C57C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2C57C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1411,16 +1427,16 @@ uint64_t _IOObjectCFRetain(int a1, uint64_t object)
   }
 }
 
-id _gc_log_iokit()
+id _gc_log_iokit(uint64_t a1)
 {
   if (_gc_log_iokit_onceToken != -1)
   {
     _gc_log_iokit_cold_1();
   }
 
-  v1 = _gc_log_iokit_Log;
+  v2 = _gc_log_iokit_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_iokit_block_invoke()
@@ -1449,28 +1465,28 @@ __IOGCDeviceManager *IOGCDeviceManagerCreate(__CFAllocator *a1)
 
 void IOGCDeviceManagerSetDispatchQueue(uint64_t a1, dispatch_queue_t queue)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (atomic_load((a1 + 16)))
   {
     IOGCDeviceManagerSetDispatchQueue_cold_1();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *__str = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  *__str = 0u;
+  v10 = 0u;
   label = dispatch_queue_get_label(queue);
   v6 = "";
   if (label)
@@ -1482,39 +1498,35 @@ void IOGCDeviceManagerSetDispatchQueue(uint64_t a1, dispatch_queue_t queue)
   v7 = dispatch_queue_create_with_target_V2(__str, 0, queue);
   v8 = *(a1 + 40);
   *(a1 + 40) = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOGCDeviceManagerSetCancelHandler(uint64_t a1, void *aBlock)
 {
-  v3 = _Block_copy(aBlock);
-  v4 = *(a1 + 48);
-  *(a1 + 48) = v3;
+  *(a1 + 48) = _Block_copy(aBlock);
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t IOGCDeviceManagerActivate(uint64_t result)
+atomic_uchar *IOGCDeviceManagerActivate(atomic_uchar *result)
 {
-  if ((atomic_fetch_or((result + 16), 1u) & 1) == 0)
+  if ((atomic_fetch_or(result + 16, 1u) & 1) == 0)
   {
     v1 = result;
-    if (!*(result + 40))
+    if (!*(result + 5))
     {
       IOGCDeviceManagerActivate_cold_1();
     }
 
-    *(result + 56) = objc_alloc_init(GCIONotificationPort);
+    *(result + 7) = objc_alloc_init(GCIONotificationPort);
     __IOGCDeviceManagerStartMatching(v1);
-    [*(v1 + 56) setQueue:*(v1 + 40)];
-    v2 = *(v1 + 56);
+    [*(v1 + 7) setQueue:*(v1 + 5)];
+    v2 = *(v1 + 7);
     v3[0] = MEMORY[0x1E69E9820];
     v3[1] = 3221225472;
     v3[2] = __IOGCDeviceManagerActivate_block_invoke;
     v3[3] = &unk_1E8414908;
     v3[4] = v1;
-    return [v2 addCancellationHandler:v3 onQueue:*(v1 + 40)];
+    return [v2 addCancellationHandler:v3 onQueue:*(v1 + 5)];
   }
 
   return result;
@@ -1542,7 +1554,7 @@ void __IOGCDeviceManagerStartMatching(uint64_t a1)
       if (v6)
       {
         v7 = v6;
-        v8 = _gc_log_iokit();
+        v8 = _gc_log_iokit(v6);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           __IOGCDeviceManagerStartMatching_cold_1(a1, v7, v8);
@@ -1627,9 +1639,9 @@ void __IOGCDeviceManagerHandleDevices(uint64_t a1, uint64_t a2, int a3, int a4)
 
   else
   {
-    v19 = *(a1 + 8);
+    v20 = *(a1 + 8);
     Count = CFSetGetCount(Mutable);
-    *(a1 + 32) = CFSetCreateMutable(v19, Count, MEMORY[0x1E695E9F8]);
+    *(a1 + 32) = CFSetCreateMutable(v20, Count, MEMORY[0x1E695E9F8]);
     if (!a2)
     {
       goto LABEL_12;
@@ -1661,21 +1673,21 @@ void __IOGCDeviceManagerHandleDevices(uint64_t a1, uint64_t a2, int a3, int a4)
         entryID = 0;
         memset(v48, 0, sizeof(v48));
         IORegistryEntryGetRegistryEntryID(v14, &entryID);
-        MEMORY[0x1D38AAC10](v14, v48);
-        v16 = _gc_log_iokit();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v16 = MEMORY[0x1D38AAC10](v14, v48);
+        v17 = _gc_log_iokit(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v17 = entryID;
-          v18 = [0 code];
+          v18 = entryID;
+          v19 = [0 code];
           *buf = v31;
           v41 = a1;
           v42 = 2080;
           v43 = v48;
           v44 = 2048;
-          v45 = v17;
+          v45 = v18;
           v46 = 1024;
-          v47 = v18;
-          _os_log_error_impl(&dword_1D2C3B000, v16, OS_LOG_TYPE_ERROR, "%@ #ERROR Failed to create IOGCDevice for service <%s %#llx>: %{mach.errno}d.", buf, 0x26u);
+          v47 = v19;
+          _os_log_error_impl(&dword_1D2C3B000, v17, OS_LOG_TYPE_ERROR, "%@ #ERROR Failed to create IOGCDevice for service <%s %#llx>: %{mach.errno}d.", buf, 0x26u);
         }
       }
     }
@@ -1703,38 +1715,38 @@ LABEL_12:
     v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v21 = *(a1 + 32);
-    v22 = [v21 countByEnumeratingWithState:&v33 objects:v39 count:16];
-    if (v22)
+    v22 = *(a1 + 32);
+    v23 = [v22 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v34;
+      v24 = v23;
+      v25 = *v34;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v34 != v24)
+          if (*v34 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v33 + 1) + 8 * i);
-          if (!CFSetContainsValue(Mutable, v26))
+          v27 = *(*(&v33 + 1) + 8 * i);
+          if (!CFSetContainsValue(Mutable, v27))
           {
-            v27 = *(a1 + 72);
-            if (v27)
+            v28 = *(a1 + 72);
+            if (v28)
             {
-              CFDictionaryRemoveValue(v27, v26);
+              CFDictionaryRemoveValue(v28, v27);
             }
           }
 
-          CFSetAddValue(v10, v26);
+          CFSetAddValue(v10, v27);
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
   }
 
@@ -1742,10 +1754,10 @@ LABEL_12:
   [*(a1 + 32) unionSet:Mutable];
   if (a4)
   {
-    v28 = *(a1 + 80);
-    if (v28)
+    v29 = *(a1 + 80);
+    if (v29)
     {
-      v29 = *(a1 + 88);
+      v30 = *(a1 + 88);
       CFRetain(Mutable);
       CFRetain(v10);
       block[0] = MEMORY[0x1E69E9820];
@@ -1753,8 +1765,8 @@ LABEL_12:
       block[2] = ____IOGCDeviceManagerHandleDevices_block_invoke_36;
       block[3] = &__block_descriptor_64_e5_v8__0l;
       block[4] = v10;
-      block[5] = v28;
-      block[6] = v29;
+      block[5] = v29;
+      block[6] = v30;
       block[7] = Mutable;
       if (v12)
       {
@@ -1770,7 +1782,6 @@ LABEL_12:
 
   CFRelease(v10);
   CFRelease(Mutable);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOGCDeviceManagerSetDeviceMatchingCallback(uint64_t result, uint64_t a2, uint64_t a3)
@@ -2028,7 +2039,7 @@ LABEL_10:
       v23[4] = *(a1 + 32);
       v23[5] = v12;
       v23[6] = a7;
-      v19 = (*(a12 + 16))(a12, a6, v23);
+      v19 = (*(a12 + 16))(a12, a6, v23, a4, a5);
       if (v19 == -536870166)
       {
         return 3758097136;
@@ -2054,7 +2065,7 @@ LABEL_10:
       v24[5] = v12;
       v24[6] = a7;
       v24[7] = a9;
-      v17 = (*(a12 + 16))(a12, v12, v24);
+      v17 = (*(a12 + 16))(a12, v12, v24, a4, a5);
       if (v17 != -536870166 && v17 != -536870184)
       {
         return v17;
@@ -2072,22 +2083,20 @@ LABEL_10:
 
 uint64_t __IOGCCircularControlQueueReadBackwardsFromLatestEnqueued_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
   }
 
   result = 0;
-  v4 = *(a1 + 40);
-  **(a1 + 48) = v4;
-  atomic_store(v4 + 1, *(a1 + 56));
+  v3 = *(a1 + 40);
+  **(a1 + 48) = v3;
+  atomic_store(v3 + 1, *(a1 + 56));
   return result;
 }
 
 uint64_t __IOGCCircularControlQueueReadBackwardsFromLatestEnqueued_block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
@@ -2115,7 +2124,7 @@ uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke(uint64_
       v20[5] = v14;
       v20[6] = a7;
       v20[7] = a9;
-      result = (*(a12 + 16))(a12, v14, v20);
+      result = (*(a12 + 16))(a12, v14, v20, a4, a5);
       if (result != -536870166 && result != -536870184)
       {
         break;
@@ -2154,16 +2163,15 @@ uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke(uint64_
 
 uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
   }
 
   result = 0;
-  v4 = *(a1 + 40);
-  **(a1 + 48) = v4;
-  atomic_store(v4 + 1, *(a1 + 56));
+  v3 = *(a1 + 40);
+  **(a1 + 48) = v3;
+  atomic_store(v3 + 1, *(a1 + 56));
   return result;
 }
 
@@ -2187,14 +2195,6 @@ void OUTLINED_FUNCTION_2_4(uint64_t a1, uint64_t a2)
   atomic_load_explicit(v2 + 4, memory_order_acquire);
   atomic_load_explicit(v2 + 5, memory_order_acquire);
   atomic_load_explicit((a2 + 16), memory_order_acquire);
-}
-
-uint64_t OUTLINED_FUNCTION_7_1(uint64_t **a1)
-{
-  result = 3758097105;
-  v3 = a1[1];
-  v4 = **a1;
-  return result;
 }
 
 uint64_t addRef_0(void **a1)
@@ -2277,28 +2277,32 @@ void sub_1D2C621C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void OUTLINED_FUNCTION_3_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_debug_impl(a1, v15, OS_LOG_TYPE_DEBUG, a4, &buf, 0xCu);
+  _os_log_debug_impl(a1, v14, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_5_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_6_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_7_2()
@@ -2310,7 +2314,7 @@ BOOL OUTLINED_FUNCTION_7_2()
 
 void sub_1D2C64BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a72, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x218], 8);
   _Block_object_dispose(&STACK[0x238], 8);
   _Unwind_Resume(a1);
@@ -2329,6 +2333,13 @@ void OUTLINED_FUNCTION_2_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 2u);
 }
 
+void sub_1D2C67720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *__Block_byref_object_copy__6(uint64_t a1, uint64_t a2)
 {
   result = _Block_copy(*(a2 + 40));
@@ -2338,7 +2349,7 @@ void *__Block_byref_object_copy__6(uint64_t a1, uint64_t a2)
 
 void __ProcessHIDElements_block_invoke(uint64_t a1, IOHIDElementRef element)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   UsagePage = IOHIDElementGetUsagePage(element);
   Usage = IOHIDElementGetUsage(element);
   Type = IOHIDElementGetType(element);
@@ -2346,33 +2357,32 @@ void __ProcessHIDElements_block_invoke(uint64_t a1, IOHIDElementRef element)
   {
     if (Type != kIOHIDElementTypeCollection)
     {
-      goto LABEL_35;
+      return;
     }
 
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = IOHIDElementGetChildren(element);
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
           (*(*(*(*(a1 + 64) + 8) + 40) + 16))(*(*(*(a1 + 64) + 8) + 40));
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -2380,21 +2390,14 @@ void __ProcessHIDElements_block_invoke(uint64_t a1, IOHIDElementRef element)
 
 LABEL_34:
 
-    goto LABEL_35;
+    return;
   }
 
   if (UsagePage > 8)
   {
     if (UsagePage == 9 || UsagePage == 12)
     {
-LABEL_27:
-      if ([*(a1 + 32) containsObject:element])
-      {
-        goto LABEL_35;
-      }
-
-      v13 = 56;
-      goto LABEL_29;
+      goto LABEL_27;
     }
   }
 
@@ -2404,7 +2407,7 @@ LABEL_27:
     {
       if (UsagePage != 2 || (Usage - 186) > 0xB || ((1 << (Usage + 70)) & 0xC03) == 0)
       {
-        goto LABEL_35;
+        return;
       }
 
       goto LABEL_22;
@@ -2414,41 +2417,48 @@ LABEL_27:
     {
       if ((Usage - 48) >= 9)
       {
-        goto LABEL_35;
+        return;
       }
 
 LABEL_22:
       if ([*(a1 + 32) containsObject:element])
       {
-        goto LABEL_35;
+        return;
       }
 
-      v13 = 40;
+      v12 = 40;
       goto LABEL_29;
     }
 
     if ((Usage - 133) <= 0xE && ((1 << (Usage + 123)) & 0x7801) != 0 || (Usage - 61) < 2)
     {
-      goto LABEL_27;
+LABEL_27:
+      if ([*(a1 + 32) containsObject:element])
+      {
+        return;
+      }
+
+      v12 = 56;
+      goto LABEL_29;
     }
 
     if (Usage == 57 && ([*(a1 + 32) containsObject:element] & 1) == 0)
     {
-      v13 = 48;
+      v12 = 48;
 LABEL_29:
-      v7 = *(a1 + v13);
+      v7 = *(a1 + v12);
       [*(a1 + 32) addObject:element];
       if (!v7)
       {
-        goto LABEL_35;
+        return;
       }
 
       for (j = 0; j < [v7 count]; ++j)
       {
-        v15 = [v7 objectAtIndexedSubscript:j];
-        v16 = IOHIDElementGetUsage(v15);
+        v14 = [v7 objectAtIndexedSubscript:j];
+        v15 = IOHIDElementGetUsage(v14);
 
-        if (Usage < v16)
+        if (Usage < v15)
         {
           break;
         }
@@ -2458,9 +2468,6 @@ LABEL_29:
       goto LABEL_34;
     }
   }
-
-LABEL_35:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __ProcessHIDElements_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -2528,9 +2535,9 @@ id GCHIDDeviceAttributesPredicateFromMatchingDictionary(void *a1, void *a2)
   return v7;
 }
 
-void sub_1D2C68970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2C68970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2542,7 +2549,7 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __GCHIDDeviceAttributesPredicateFromMatchingDictionary_block_invoke(uint64_t a1, void (**a2)(void, void, void), void *a3, _BYTE *a4)
+void __GCHIDDeviceAttributesPredicateFromMatchingDictionary_block_invoke(uint64_t a1, uint64_t (**a2)(void, void, void), void *a3, _BYTE *a4)
 {
   v7 = a3;
   v8 = a2;
@@ -2691,16 +2698,16 @@ os_log_t gc_log_create_configuration(char *category)
   return v1;
 }
 
-id _gc_log_configuration()
+id _gc_log_configuration(uint64_t a1)
 {
   if (_gc_log_configuration_onceToken != -1)
   {
     _gc_log_configuration_cold_1();
   }
 
-  v1 = _gc_log_configuration_Log;
+  v2 = _gc_log_configuration_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_configuration_block_invoke()
@@ -2746,10 +2753,11 @@ void sub_1D2C6CA98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1D2C6D97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1D2C6D97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2760,16 +2768,16 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _gc_log_runtime_issue()
+id _gc_log_runtime_issue(uint64_t a1)
 {
   if (_gc_log_runtime_issue_onceToken != -1)
   {
     _gc_log_runtime_issue_cold_1();
   }
 
-  v1 = _gc_log_runtime_issue_Log;
+  v2 = _gc_log_runtime_issue_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_runtime_issue_block_invoke()
@@ -2779,16 +2787,16 @@ uint64_t ___gc_log_runtime_issue_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id _gc_log_signpost()
+id _gc_log_signpost(uint64_t a1)
 {
   if (_gc_log_signpost_onceToken != -1)
   {
     _gc_log_signpost_cold_1();
   }
 
-  v1 = _gc_log_signpost_Log;
+  v2 = _gc_log_signpost_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_signpost_block_invoke()
@@ -2805,16 +2813,16 @@ os_log_t gc_log_create_ipc(char *category)
   return v1;
 }
 
-id _gc_log_ipc()
+id _gc_log_ipc(uint64_t a1)
 {
   if (_gc_log_ipc_onceToken != -1)
   {
     _gc_log_ipc_cold_1();
   }
 
-  v1 = _gc_log_ipc_Log;
+  v2 = _gc_log_ipc_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_ipc_block_invoke()
@@ -2831,16 +2839,16 @@ os_log_t gc_log_create_hid(char *category)
   return v1;
 }
 
-id _gc_log_hid()
+id _gc_log_hid(uint64_t a1)
 {
   if (_gc_log_hid_onceToken != -1)
   {
     _gc_log_hid_cold_1();
   }
 
-  v1 = _gc_log_hid_Log;
+  v2 = _gc_log_hid_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_hid_block_invoke()
@@ -2850,16 +2858,16 @@ uint64_t ___gc_log_hid_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id _gc_log_hid_input()
+id _gc_log_hid_input(uint64_t a1)
 {
   if (_gc_log_hid_input_onceToken != -1)
   {
     _gc_log_hid_input_cold_1();
   }
 
-  v1 = _gc_log_hid_input_Log;
+  v2 = _gc_log_hid_input_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_hid_input_block_invoke()
@@ -2876,16 +2884,16 @@ os_log_t gc_log_create_device(char *category)
   return v1;
 }
 
-id _gc_log_device()
+id _gc_log_device(uint64_t a1)
 {
   if (_gc_log_device_onceToken != -1)
   {
     _gc_log_device_cold_1();
   }
 
-  v1 = _gc_log_device_Log;
+  v2 = _gc_log_device_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_device_block_invoke()
@@ -2895,16 +2903,16 @@ uint64_t ___gc_log_device_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id _gc_log_device_configuration()
+id _gc_log_device_configuration(uint64_t a1)
 {
   if (_gc_log_device_configuration_onceToken != -1)
   {
     _gc_log_device_configuration_cold_1();
   }
 
-  v1 = _gc_log_device_configuration_Log;
+  v2 = _gc_log_device_configuration_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_device_configuration_block_invoke()
@@ -2923,7 +2931,7 @@ void sub_1D2C6E9A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __USBDevicesMatched(void *a1, uint64_t a2)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v3 = a1;
   alloc = *MEMORY[0x1E695E4A8];
   while (2)
@@ -2941,16 +2949,16 @@ void __USBDevicesMatched(void *a1, uint64_t a2)
       state.opaque[1] = 0;
       os_activity_scope_enter(v5, &state);
       entryID = 0;
-      memset(v84, 0, 128);
+      memset(v83, 0, 128);
       IORegistryEntryGetRegistryEntryID(v4, &entryID);
-      MEMORY[0x1D38AAC10](v4, v84);
+      MEMORY[0x1D38AAC10](v4, v83);
       v6 = v3[1];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
         _os_log_debug_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_DEBUG, "Matched kernel service <%s %#llx>.", buf, 0x16u);
       }
 
@@ -2962,9 +2970,9 @@ void __USBDevicesMatched(void *a1, uint64_t a2)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
           _os_log_error_impl(&dword_1D2C3B000, v18, OS_LOG_TYPE_ERROR, "<%s %#llx> Unknown device.", buf, 0x16u);
         }
 
@@ -2982,11 +2990,11 @@ void __USBDevicesMatched(void *a1, uint64_t a2)
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v11;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v11;
           _os_log_error_impl(&dword_1D2C3B000, v19, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to load IOUSBDeviceUserClient plugin: %{mach.errno}d.", buf, 0x1Cu);
         }
 
@@ -2995,22 +3003,22 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v73 = 0;
+      v72 = 0;
       QueryInterface = (*theInterface)->QueryInterface;
       v14 = CFUUIDGetConstantUUIDWithBytes(0, 0x5Cu, 0x81u, 0x87u, 0xD0u, 0x9Eu, 0xF3u, 0x11u, 0xD4u, 0x8Bu, 0x45u, 0, 0xAu, 0x27u, 5u, 0x28u, 0x61u);
       v15 = CFUUIDGetUUIDBytes(v14);
-      v16 = (QueryInterface)(v12, *&v15.byte0, *&v15.byte8, &v73);
+      v16 = (QueryInterface)(v12, *&v15.byte0, *&v15.byte8, &v72);
       if (v16)
       {
         v17 = v3[1];
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v16;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v16;
           _os_log_error_impl(&dword_1D2C3B000, v17, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to obtain IOUSBDeviceInterface from IOUSBDeviceUserClient plugin: %i.", buf, 0x1Cu);
         }
 
@@ -3022,27 +3030,27 @@ LABEL_21:
       IOObjectRelease(v4);
       ((*theInterface)->Release)(theInterface);
       theInterface = 0;
-      v20 = (*(*v73 + 64))(v73);
+      v20 = (*(*v72 + 64))(v72);
       if (v20)
       {
         v21 = v3[1];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v20;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v20;
           _os_log_error_impl(&dword_1D2C3B000, v21, OS_LOG_TYPE_ERROR, "<%s %#llx> Device USBDeviceOpen failed: %{mach.errno}d.", buf, 0x1Cu);
         }
 
-        (*(*v73 + 24))(v73);
+        (*(*v72 + 24))(v72);
         goto LABEL_22;
       }
 
-      v72 = 0;
-      v22 = (*(*v73 + 152))(v73, &v72);
+      v71 = 0;
+      v22 = (*(*v72 + 152))(v72, &v71);
       if (v22)
       {
         v23 = v3[1];
@@ -3052,11 +3060,11 @@ LABEL_21:
         }
 
         *buf = 136315650;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
-        v82 = 1024;
-        v83 = v22;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
+        v81 = 1024;
+        v82 = v22;
         v30 = v23;
         v31 = "<%s %#llx> Device GetNumberOfConfigurations failed: %{mach.errno}d.";
         v32 = 28;
@@ -3065,7 +3073,7 @@ LABEL_46:
         goto LABEL_69;
       }
 
-      if (!v72)
+      if (!v71)
       {
         v29 = v3[1];
         if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -3074,18 +3082,18 @@ LABEL_46:
         }
 
         *buf = 136315394;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
         v30 = v29;
         v31 = "<%s %#llx> Device returned 0 configurations.";
         v32 = 22;
         goto LABEL_46;
       }
 
-      v71 = 0;
-      v24 = (*(*v73 + 168))(v73, 0, &v71);
-      if (v24 || !v71)
+      v70 = 0;
+      v24 = (*(*v72 + 168))(v72, 0, &v70);
+      if (v24 || !v70)
       {
         v33 = v3[1];
         if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
@@ -3094,17 +3102,17 @@ LABEL_46:
         }
 
         *buf = 136315650;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
-        v82 = 1024;
-        v83 = v24;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
+        v81 = 1024;
+        v82 = v24;
         v27 = v33;
         v28 = "<%s %#llx> Device GetConfigurationDescriptorPtr failed: %{mach.errno}d.";
         goto LABEL_60;
       }
 
-      v25 = (*(*v73 + 184))(v73, *(v71 + 5));
+      v25 = (*(*v72 + 184))(v72, *(v70 + 5));
       if (v25)
       {
         v26 = v3[1];
@@ -3114,35 +3122,35 @@ LABEL_46:
         }
 
         *buf = 136315650;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
-        v82 = 1024;
-        v83 = v25;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
+        v81 = 1024;
+        v82 = v25;
         v27 = v26;
         v28 = "<%s %#llx> Device SetConfiguration failed: %{mach.errno}d.";
 LABEL_60:
         _os_log_error_impl(&dword_1D2C3B000, v27, OS_LOG_TYPE_ERROR, v28, buf, 0x1Cu);
 LABEL_69:
-        (*(*v73 + 72))(v73);
-        (*(*v73 + 24))(v73);
+        (*(*v72 + 72))(v72);
+        (*(*v72 + 24))(v72);
         goto LABEL_22;
       }
 
-      v70 = -1;
+      v69 = -1;
       iterator = 0;
-      v34 = (*(*v73 + 224))(v73, &v70, &iterator);
+      v34 = (*(*v72 + 224))(v72, &v69, &iterator);
       if (v34 || !iterator)
       {
         v36 = v3[1];
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v34;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v34;
           _os_log_error_impl(&dword_1D2C3B000, v36, OS_LOG_TYPE_ERROR, "<%s %#llx> Device CreateInterfaceIterator failed: %{mach.errno}d.", buf, 0x1Cu);
         }
 
@@ -3167,9 +3175,9 @@ LABEL_69:
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
           _os_log_error_impl(&dword_1D2C3B000, v46, OS_LOG_TYPE_ERROR, "<%s %#llx> No device interfaces found.", buf, 0x16u);
         }
 
@@ -3185,11 +3193,11 @@ LABEL_69:
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v39;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v39;
           _os_log_error_impl(&dword_1D2C3B000, v47, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to load IOUSBInterfaceUserClient plugin: %{mach.errno}d.", buf, 0x1Cu);
         }
 
@@ -3197,22 +3205,22 @@ LABEL_69:
         goto LABEL_69;
       }
 
-      v68 = 0;
+      v67 = 0;
       v41 = (*theInterface)->QueryInterface;
       v42 = CFUUIDGetConstantUUIDWithBytes(alloc, 0x87u, 0x52u, 0x66u, 0x3Bu, 0xC0u, 0x7Bu, 0x4Bu, 0xAEu, 0x95u, 0x84u, 0x22u, 3u, 0x2Fu, 0xABu, 0x9Cu, 0x5Au);
       v43 = CFUUIDGetUUIDBytes(v42);
-      v44 = (v41)(v40, *&v43.byte0, *&v43.byte8, &v68);
+      v44 = (v41)(v40, *&v43.byte0, *&v43.byte8, &v67);
       if (v44)
       {
         v45 = v3[1];
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v44;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v44;
           _os_log_error_impl(&dword_1D2C3B000, v45, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to obtain IOUSBInterfaceInterface from IOUSBDeviceUserClient plugin: %i.", buf, 0x1Cu);
         }
 
@@ -3224,53 +3232,53 @@ LABEL_69:
       IOObjectRelease(v35);
       ((*theInterface)->Release)(theInterface);
       theInterface = 0;
-      v48 = (*(*v68 + 352))(v68);
+      v48 = (*(*v67 + 352))(v67);
       if (v48)
       {
         v49 = v3[1];
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v48;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v48;
           _os_log_error_impl(&dword_1D2C3B000, v49, OS_LOG_TYPE_ERROR, "<%s %#llx> Interface USBInterfaceOpenSeize failed: %{mach.errno}d.", buf, 0x1Cu);
         }
 
-        (*(*v68 + 24))(v68);
+        (*(*v67 + 24))(v67);
         goto LABEL_69;
       }
 
-      v67 = 0;
-      v50 = (*(*v68 + 152))(v68, &v67);
+      v66 = 0;
+      v50 = (*(*v67 + 152))(v67, &v66);
       if (v50)
       {
         v51 = v3[1];
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v50;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v50;
           _os_log_error_impl(&dword_1D2C3B000, v51, OS_LOG_TYPE_ERROR, "<%s %#llx> Interface GetNumEndpoints failed: %{mach.errno}d.", buf, 0x1Cu);
         }
 
         goto LABEL_86;
       }
 
-      if (!v67)
+      if (!v66)
       {
         v57 = v3[1];
         if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
           _os_log_error_impl(&dword_1D2C3B000, v57, OS_LOG_TYPE_ERROR, "<%s %#llx> Interface returned 0 endpoints.", buf, 0x16u);
         }
 
@@ -3280,70 +3288,70 @@ LABEL_69:
       v52 = 0;
       while (1)
       {
-        v66 = 0;
         v65 = 0;
         v64 = 0;
-        LOWORD(v62) = 0;
-        v53 = (*(*v68 + 208))(v68, v52, &v66, &v65 + 1, &v65, &v62, &v64);
+        v63 = 0;
+        LOWORD(v61) = 0;
+        v53 = (*(*v67 + 208))(v67, v52, &v65, &v64 + 1, &v64, &v61, &v63);
         if (v53)
         {
           v54 = v3[1];
           if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v79 = v84;
-            v80 = 2048;
-            v81 = entryID;
-            v82 = 1024;
-            v83 = v53;
+            v78 = v83;
+            v79 = 2048;
+            v80 = entryID;
+            v81 = 1024;
+            v82 = v53;
             _os_log_error_impl(&dword_1D2C3B000, v54, OS_LOG_TYPE_ERROR, "<%s %#llx> Interface GetPipeProperties failed: %{mach.errno}d.", buf, 0x1Cu);
           }
 
           goto LABEL_83;
         }
 
-        if (v65 == 3 || v66 == 0)
+        if (v64 == 3 || v65 == 0)
         {
           break;
         }
 
 LABEL_83:
-        if (v67 <= ++v52)
+        if (v66 <= ++v52)
         {
           goto LABEL_84;
         }
       }
 
-      if (HIBYTE(v65) == 255)
+      if (HIBYTE(v64) == 255)
       {
 LABEL_84:
         v56 = v3[1];
         if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
           _os_log_error_impl(&dword_1D2C3B000, v56, OS_LOG_TYPE_ERROR, "<%s %#llx> Interrupt pipe not found.", buf, 0x16u);
         }
 
         goto LABEL_86;
       }
 
-      v63 = 66;
-      v62 = 16842767;
-      v58 = (*(*v68 + 256))(v68);
+      v62 = 66;
+      v61 = 16842767;
+      v58 = (*(*v67 + 256))(v67);
       v59 = v3[1];
       if (v58)
       {
         if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v79 = v84;
-          v80 = 2048;
-          v81 = entryID;
-          v82 = 1024;
-          v83 = v58;
+          v78 = v83;
+          v79 = 2048;
+          v80 = entryID;
+          v81 = 1024;
+          v82 = v58;
           _os_log_error_impl(&dword_1D2C3B000, v59, OS_LOG_TYPE_ERROR, "<%s %#llx> Error issuing mode switch command: %{mach.errno}d", buf, 0x1Cu);
         }
       }
@@ -3351,17 +3359,17 @@ LABEL_84:
       else if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v79 = v84;
-        v80 = 2048;
-        v81 = entryID;
+        v78 = v83;
+        v79 = 2048;
+        v80 = entryID;
         _os_log_impl(&dword_1D2C3B000, v59, OS_LOG_TYPE_DEFAULT, "<%s %#llx> Issued mode switch command (G92x -> G92x/HID++).", buf, 0x16u);
       }
 
 LABEL_86:
-      (*(*v68 + 72))(v68);
-      (*(*v68 + 24))(v68);
-      (*(*v73 + 72))(v73);
-      (*(*v73 + 24))(v73);
+      (*(*v67 + 72))(v67);
+      (*(*v67 + 24))(v67);
+      (*(*v72 + 72))(v72);
+      (*(*v72 + 24))(v72);
 LABEL_22:
 
       os_activity_scope_leave(&state);
@@ -3375,17 +3383,15 @@ LABEL_22:
 
     break;
   }
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 void __HIDDevicesMatched_0(void *a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = *MEMORY[0x1E695E480];
   *&v5 = 136315650;
-  v30 = v5;
+  v29 = v5;
   while (1)
   {
     while (1)
@@ -3401,16 +3407,16 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
       state.opaque[1] = 0;
       os_activity_scope_enter(v7, &state);
       entryID = 0;
-      memset(v41, 0, sizeof(v41));
+      memset(v40, 0, sizeof(v40));
       IORegistryEntryGetRegistryEntryID(v6, &entryID);
-      MEMORY[0x1D38AAC10](v6, v41);
+      MEMORY[0x1D38AAC10](v6, v40);
       v8 = v3[1];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v36 = v41;
-        v37 = 2048;
-        v38 = entryID;
+        v35 = v40;
+        v36 = 2048;
+        v37 = entryID;
         _os_log_debug_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_DEBUG, "Matched kernel service <%s %#llx>.", buf, 0x16u);
       }
 
@@ -3424,12 +3430,12 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
           v11 = v3[1];
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            *buf = v30;
-            v36 = v41;
-            v37 = 2048;
-            v38 = entryID;
-            v39 = 1024;
-            v40 = v10;
+            *buf = v29;
+            v35 = v40;
+            v36 = 2048;
+            v37 = entryID;
+            v38 = 1024;
+            v39 = v10;
             _os_log_error_impl(&dword_1D2C3B000, v11, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to open device: %{mach.errno}d", buf, 0x1Cu);
           }
 
@@ -3448,12 +3454,12 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
             v16 = v3[1];
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              *buf = v30;
-              v36 = v41;
-              v37 = 2048;
-              v38 = entryID;
-              v39 = 1024;
-              v40 = v15;
+              *buf = v29;
+              v35 = v40;
+              v36 = 2048;
+              v37 = entryID;
+              v38 = 1024;
+              v39 = v15;
               _os_log_error_impl(&dword_1D2C3B000, v16, OS_LOG_TYPE_ERROR, "<%s %#llx> Error issuing mode switch command: %{mach.errno}d", buf, 0x1Cu);
             }
           }
@@ -3462,9 +3468,9 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v36 = v41;
-            v37 = 2048;
-            v38 = entryID;
+            v35 = v40;
+            v36 = 2048;
+            v37 = entryID;
             v18 = v17;
             v19 = "<%s %#llx> Issued mode switch command (G923/PS -> G923/Classic).";
             goto LABEL_39;
@@ -3473,7 +3479,7 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
           goto LABEL_42;
         }
 
-        if ([v13 isEqual:{&unk_1F4E369B8, v30}] && objc_msgSend(v14, "isEqual:", &unk_1F4E36A18))
+        if ([v13 isEqual:{&unk_1F4E369B8, v29}] && objc_msgSend(v14, "isEqual:", &unk_1F4E36A18))
         {
           report[4] = 1;
           *report = 84539440;
@@ -3483,12 +3489,12 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
             v21 = v3[1];
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              *buf = v30;
-              v36 = v41;
-              v37 = 2048;
-              v38 = entryID;
-              v39 = 1024;
-              v40 = v20;
+              *buf = v29;
+              v35 = v40;
+              v36 = 2048;
+              v37 = entryID;
+              v38 = 1024;
+              v39 = v20;
               _os_log_error_impl(&dword_1D2C3B000, v21, OS_LOG_TYPE_ERROR, "<%s %#llx> Error issuing mode switch command: %{mach.errno}d", buf, 0x1Cu);
             }
           }
@@ -3500,9 +3506,9 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
           }
 
           *buf = 136315394;
-          v36 = v41;
-          v37 = 2048;
-          v38 = entryID;
+          v35 = v40;
+          v36 = 2048;
+          v37 = entryID;
           v18 = v22;
           v19 = "<%s %#llx> Issued mode switch command (G29/PS4 -> G29/Classic).";
         }
@@ -3515,9 +3521,9 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v36 = v41;
-              v37 = 2048;
-              v38 = entryID;
+              v35 = v40;
+              v36 = 2048;
+              v37 = entryID;
               _os_log_error_impl(&dword_1D2C3B000, v28, OS_LOG_TYPE_ERROR, "<%s %#llx> Unknown device.", buf, 0x16u);
             }
 
@@ -3525,35 +3531,35 @@ void __HIDDevicesMatched_0(void *a1, uint64_t a2)
           }
 
           *report = 0x10000002000921;
-          *v31 = 17107448;
+          *v30 = 17107448;
           v23 = IOHIDDeviceSetReport(v9, kIOHIDReportTypeOutput, 33, report, 8);
           if (v23)
           {
             v24 = v3[1];
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              *buf = v30;
-              v36 = v41;
-              v37 = 2048;
-              v38 = entryID;
-              v39 = 1024;
-              v40 = v23;
+              *buf = v29;
+              v35 = v40;
+              v36 = 2048;
+              v37 = entryID;
+              v38 = 1024;
+              v39 = v23;
               _os_log_error_impl(&dword_1D2C3B000, v24, OS_LOG_TYPE_ERROR, "<%s %#llx> Error issuing mode switch command: %{mach.errno}d", buf, 0x1Cu);
             }
           }
 
-          v25 = IOHIDDeviceSetReport(v9, kIOHIDReportTypeOutput, v31[0], v31, 4);
+          v25 = IOHIDDeviceSetReport(v9, kIOHIDReportTypeOutput, v30[0], v30, 4);
           if (v25)
           {
             v26 = v3[1];
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              *buf = v30;
-              v36 = v41;
-              v37 = 2048;
-              v38 = entryID;
-              v39 = 1024;
-              v40 = v25;
+              *buf = v29;
+              v35 = v40;
+              v36 = 2048;
+              v37 = entryID;
+              v38 = 1024;
+              v39 = v25;
               _os_log_error_impl(&dword_1D2C3B000, v26, OS_LOG_TYPE_ERROR, "<%s %#llx> Error issuing mode switch command: %{mach.errno}d", buf, 0x1Cu);
             }
           }
@@ -3569,9 +3575,9 @@ LABEL_42:
           }
 
           *buf = 136315394;
-          v36 = v41;
-          v37 = 2048;
-          v38 = entryID;
+          v35 = v40;
+          v36 = 2048;
+          v37 = entryID;
           v18 = v27;
           v19 = "<%s %#llx> Issued mode switch command (G29/PS3 -> G29/Classic).";
         }
@@ -3585,9 +3591,9 @@ LABEL_39:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v36 = v41;
-        v37 = 2048;
-        v38 = entryID;
+        v35 = v40;
+        v36 = 2048;
+        v37 = entryID;
         _os_log_error_impl(&dword_1D2C3B000, v12, OS_LOG_TYPE_ERROR, "<%s %#llx> Failed to create IOHIDDevice.", buf, 0x16u);
       }
 
@@ -3603,14 +3609,13 @@ LABEL_43:
 
     MEMORY[0x1D38AAB40](a2);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
-void OUTLINED_FUNCTION_0_12(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_12(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 8u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 8u);
 }
 
 uint64_t IOGCDeviceInterfacePrepareObjCVtbl(void *a1, uint64_t a2)
@@ -3748,36 +3753,30 @@ void *IOGCFastPathInputQueueSetCancelHandler(uint64_t a1, void *aBlock)
   return result;
 }
 
-void __IOGCFastPathInputQueueActivate_block_invoke(uint64_t a1, uint64_t a2)
+void __IOGCFastPathInputQueueActivate_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 8)
   {
     dispatch_release(*(*(a1 + 32) + 72));
     *(*(a1 + 32) + 72) = 0;
-    v9 = *(*(a1 + 32) + 48);
-    if (v9)
+    v4 = *(*(a1 + 32) + 48);
+    if (v4)
     {
-      (*(v9 + 16))();
+      (*(v4 + 16))();
       _Block_release(*(*(a1 + 32) + 48));
       *(*(a1 + 32) + 48) = 0;
     }
 
-    v10 = *(a1 + 40);
+    v5 = *(a1 + 40);
 
-    CFRelease(v10);
+    CFRelease(v5);
   }
 
   else if (a2 == 2)
   {
     dispatch_mach_msg_get_msg();
-    v3 = *(a1 + 32);
-    v4 = *(*(v3 + 16) + 40);
-    v5 = *(v3 + 32);
     kdebug_trace();
     (*(*(a1 + 32) + 56))(*(*(a1 + 32) + 64));
-    v6 = *(a1 + 32);
-    v7 = *(*(v6 + 16) + 40);
-    v8 = *(v6 + 32);
     kdebug_trace();
   }
 }
@@ -3794,15 +3793,11 @@ uint64_t IOGCFastPathInputQueueCancel(uint64_t a1)
 
 uint64_t IOGCFastPathInputQueueGetSampleWithOptions(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = a1[3];
-  v9 = *(a1[2] + 40);
-  v10 = a1[4];
+  v7 = a1[3];
   kdebug_trace();
-  v11 = (*(*v8 + 80))(v8, a2, a3, a4);
-  v12 = *(a1[2] + 40);
-  v13 = a1[4];
+  v8 = (*(*v7 + 80))(v7, a2, a3, a4);
   kdebug_trace();
-  return v11;
+  return v8;
 }
 
 uint64_t IOGCFastPathReaderReset(uint64_t a1)
@@ -3824,88 +3819,70 @@ uint64_t IOGCFastPathReaderReset(uint64_t a1)
 
 uint64_t IOGCFastPathReaderReadCurrentSample(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 24);
+  v3 = *(a1 + 24);
   if (kdebug_is_enabled())
   {
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v7 = *(a1 + 16);
-    v8 = *(*(v7 + 16) + 40);
-    v9 = *(v7 + 32);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    v10 = (*(*v4 + 64))(v4, a2);
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v11 = *(a1 + 16);
-    v12 = *(*(v11 + 16) + 40);
-    v13 = *(v11 + 32);
+    v6 = (*(*v3 + 64))(v3, a2);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    return v10;
+    return v6;
   }
 
   else
   {
-    v5 = *(*v4 + 64);
+    v4 = *(*v3 + 64);
 
-    return v5(v4, a2);
+    return v4(v3, a2);
   }
 }
 
 uint64_t IOGCFastPathReaderReadNextSample(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 24);
+  v3 = *(a1 + 24);
   if (kdebug_is_enabled())
   {
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v7 = *(a1 + 16);
-    v8 = *(*(v7 + 16) + 40);
-    v9 = *(v7 + 32);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    v10 = (*(*v4 + 72))(v4, a2);
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v11 = *(a1 + 16);
-    v12 = *(*(v11 + 16) + 40);
-    v13 = *(v11 + 32);
+    v6 = (*(*v3 + 72))(v3, a2);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    return v10;
+    return v6;
   }
 
   else
   {
-    v5 = *(*v4 + 72);
+    v4 = *(*v3 + 72);
 
-    return v5(v4, a2);
+    return v4(v3, a2);
   }
 }
 
 uint64_t IOGCFastPathReaderReadPreviousSample(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 24);
+  v3 = *(a1 + 24);
   if (kdebug_is_enabled())
   {
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v7 = *(a1 + 16);
-    v8 = *(*(v7 + 16) + 40);
-    v9 = *(v7 + 32);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    v10 = (*(*v4 + 80))(v4, a2);
-    v14 = -1;
-    (*(*v4 + 56))(v4, &v14);
-    v11 = *(a1 + 16);
-    v12 = *(*(v11 + 16) + 40);
-    v13 = *(v11 + 32);
+    v6 = (*(*v3 + 80))(v3, a2);
+    v7 = -1;
+    (*(*v3 + 56))(v3, &v7);
     kdebug_trace();
-    return v10;
+    return v6;
   }
 
   else
   {
-    v5 = *(*v4 + 80);
+    v4 = *(*v3 + 80);
 
-    return v5(v4, a2);
+    return v4(v3, a2);
   }
 }
 
@@ -3934,19 +3911,18 @@ uint64_t IOGCFastPathSampleDestory(uint64_t *a1)
   }
 }
 
-uint64_t IOGCFastPathSampleGetSequenceID(uint64_t *a1, uint64_t *a2, uint64_t a3)
+uint64_t IOGCFastPathSampleGetSequenceID(uint64_t *a1, void *a2, uint64_t a3)
 {
   v6 = *a1;
   if (kdebug_is_enabled())
   {
-    v13 = 0;
-    v14 = 0;
     v12 = 0;
-    v11 = -1;
-    (*(*v6 + 224))(v6, a1, &v14, &v13, &v12, &v11);
+    v13 = 0;
+    v11 = 0;
+    v10 = -1;
+    (*(*v6 + 224))(v6, a1, &v13, &v12, &v11, &v10);
     kdebug_trace();
     v9 = (*(*v6 + 80))(v6, a1, a2, a3);
-    v10 = *a2;
     kdebug_trace();
     return v9;
   }
@@ -3964,14 +3940,13 @@ uint64_t IOGCFastPathSampleGetSubsampleCount(uint64_t *a1, unsigned int *a2)
   v4 = *a1;
   if (kdebug_is_enabled())
   {
-    v11 = 0;
-    v12 = 0;
     v10 = 0;
-    v9 = -1;
-    (*(*v4 + 224))(v4, a1, &v12, &v11, &v10, &v9);
+    v11 = 0;
+    v9 = 0;
+    v8 = -1;
+    (*(*v4 + 224))(v4, a1, &v11, &v10, &v9, &v8);
     kdebug_trace();
     v7 = (*(*v4 + 88))(v4, a1, a2);
-    v8 = *a2;
     kdebug_trace();
     return v7;
   }
@@ -3989,14 +3964,13 @@ uint64_t IOGCFastPathSampleGetFlags(uint64_t *a1, uint64_t a2, unsigned int *a3)
   v6 = *a1;
   if (kdebug_is_enabled())
   {
-    v13 = 0;
-    v14 = 0;
     v12 = 0;
-    v11 = -1;
-    (*(*v6 + 224))(v6, a1, &v14, &v13, &v12, &v11);
+    v13 = 0;
+    v11 = 0;
+    v10 = -1;
+    (*(*v6 + 224))(v6, a1, &v13, &v12, &v11, &v10);
     kdebug_trace();
     v9 = (*(*v6 + 96))(v6, a1, a2, a3);
-    v10 = *a3;
     kdebug_trace();
     return v9;
   }
@@ -4033,7 +4007,7 @@ uint64_t IOGCFastPathSampleSetFlags(uint64_t *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t IOGCFastPathSampleGetTimestamp(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8)
+uint64_t IOGCFastPathSampleGetTimestamp(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8)
 {
   v16 = *a1;
   if (!kdebug_is_enabled())
@@ -4041,14 +4015,13 @@ uint64_t IOGCFastPathSampleGetTimestamp(uint64_t *a1, uint64_t a2, uint64_t a3, 
     return (*(*v16 + 112))(v16, a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v22 = 0;
-  v23 = 0;
   v21 = 0;
-  v20 = -1;
-  (*(*v16 + 224))(v16, a1, &v23, &v22, &v21, &v20);
+  v22 = 0;
+  v20 = 0;
+  v19 = -1;
+  (*(*v16 + 224))(v16, a1, &v22, &v21, &v20, &v19);
   kdebug_trace();
   v18 = (*(*v16 + 112))(v16, a1, a2, a3, a4, a5, a6, a7, a8);
-  v19 = *a6;
   kdebug_trace();
   return v18;
 }
@@ -4072,19 +4045,18 @@ uint64_t IOGCFastPathSampleSetTimestamp(uint64_t *a1, uint64_t a2, uint64_t a3, 
   return v16;
 }
 
-uint64_t IOGCFastPathSampleGetInteger(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t IOGCFastPathSampleGetInteger(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v10 = *a1;
   if (kdebug_is_enabled())
   {
-    v17 = 0;
-    v18 = 0;
     v16 = 0;
-    v15 = -1;
-    (*(*v10 + 224))(v10, a1, &v18, &v17, &v16, &v15);
+    v17 = 0;
+    v15 = 0;
+    v14 = -1;
+    (*(*v10 + 224))(v10, a1, &v17, &v16, &v15, &v14);
     kdebug_trace();
     v13 = (*(*v10 + 128))(v10, a1, a2, a3, a4, a5);
-    v14 = *a5;
     kdebug_trace();
     return v13;
   }
@@ -4097,19 +4069,18 @@ uint64_t IOGCFastPathSampleGetInteger(uint64_t *a1, uint64_t a2, uint64_t a3, ui
   }
 }
 
-uint64_t IOGCFastPathSampleGetDouble(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t IOGCFastPathSampleGetDouble(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v10 = *a1;
   if (kdebug_is_enabled())
   {
-    v17 = 0;
-    v18 = 0;
     v16 = 0;
-    v15 = -1;
-    (*(*v10 + 224))(v10, a1, &v18, &v17, &v16, &v15);
+    v17 = 0;
+    v15 = 0;
+    v14 = -1;
+    (*(*v10 + 224))(v10, a1, &v17, &v16, &v15, &v14);
     kdebug_trace();
     v13 = (*(*v10 + 136))(v10, a1, a2, a3, a4, a5);
-    v14 = *a5;
     kdebug_trace();
     return v13;
   }
@@ -4171,19 +4142,18 @@ uint64_t IOGCFastPathSampleSetDouble(uint64_t *a1, uint64_t a2, uint64_t a3, uin
   }
 }
 
-uint64_t IOGCFastPathSampleGet2Integer(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t IOGCFastPathSampleGet2Integer(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v12 = *a1;
   if (kdebug_is_enabled())
   {
-    v19 = 0;
-    v20 = 0;
     v18 = 0;
-    v17 = -1;
-    (*(*v12 + 224))(v12, a1, &v20, &v19, &v18, &v17);
+    v19 = 0;
+    v17 = 0;
+    v16 = -1;
+    (*(*v12 + 224))(v12, a1, &v19, &v18, &v17, &v16);
     kdebug_trace();
     v15 = (*(*v12 + 160))(v12, a1, a2, a3, a4, a5, a6);
-    v16 = *a5;
     kdebug_trace();
     return v15;
   }
@@ -4196,19 +4166,18 @@ uint64_t IOGCFastPathSampleGet2Integer(uint64_t *a1, uint64_t a2, uint64_t a3, u
   }
 }
 
-uint64_t IOGCFastPathSampleGet2Double(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t IOGCFastPathSampleGet2Double(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v12 = *a1;
   if (kdebug_is_enabled())
   {
-    v19 = 0;
-    v20 = 0;
     v18 = 0;
-    v17 = -1;
-    (*(*v12 + 224))(v12, a1, &v20, &v19, &v18, &v17);
+    v19 = 0;
+    v17 = 0;
+    v16 = -1;
+    (*(*v12 + 224))(v12, a1, &v19, &v18, &v17, &v16);
     kdebug_trace();
     v15 = (*(*v12 + 168))(v12, a1, a2, a3, a4, a5, a6);
-    v16 = *a5;
     kdebug_trace();
     return v15;
   }
@@ -4271,19 +4240,18 @@ uint64_t IOGCFastPathSampleSetDouble2(uint64_t *a1, uint64_t a2, uint64_t a3, ui
   }
 }
 
-uint64_t IOGCFastPathSampleGet3Integer(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7)
+uint64_t IOGCFastPathSampleGet3Integer(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
   v14 = *a1;
   if (kdebug_is_enabled())
   {
-    v21 = 0;
-    v22 = 0;
     v20 = 0;
-    v19 = -1;
-    (*(*v14 + 224))(v14, a1, &v22, &v21, &v20, &v19);
+    v21 = 0;
+    v19 = 0;
+    v18 = -1;
+    (*(*v14 + 224))(v14, a1, &v21, &v20, &v19, &v18);
     kdebug_trace();
     v17 = (*(*v14 + 192))(v14, a1, a2, a3, a4, a5, a6, a7);
-    v18 = *a5;
     kdebug_trace();
     return v17;
   }
@@ -4296,19 +4264,18 @@ uint64_t IOGCFastPathSampleGet3Integer(uint64_t *a1, uint64_t a2, uint64_t a3, u
   }
 }
 
-uint64_t IOGCFastPathSampleGet3Double(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7)
+uint64_t IOGCFastPathSampleGet3Double(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
   v14 = *a1;
   if (kdebug_is_enabled())
   {
-    v21 = 0;
-    v22 = 0;
     v20 = 0;
-    v19 = -1;
-    (*(*v14 + 224))(v14, a1, &v22, &v21, &v20, &v19);
+    v21 = 0;
+    v19 = 0;
+    v18 = -1;
+    (*(*v14 + 224))(v14, a1, &v21, &v20, &v19, &v18);
     kdebug_trace();
     v17 = (*(*v14 + 200))(v14, a1, a2, a3, a4, a5, a6, a7);
-    v18 = *a5;
     kdebug_trace();
     return v17;
   }
@@ -4422,7 +4389,6 @@ uint64_t IOGCFastPathSampleRefresh(uint64_t *a1)
 
 CFUUIDRef OUTLINED_FUNCTION_2_8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, UInt8 byte7, int a10, __int16 byte15, char a12, UInt8 a13)
 {
-  v15 = *(*v13 + 8);
 
   return CFUUIDGetConstantUUIDWithBytes(0, 0xD2u, 0x4Au, 0x24u, 0x86u, 0x3Bu, 0xCDu, 0x4Eu, 0x96u, 0xB6u, 6u, 0x34u, 0xE1u, 0x5Fu, 0xD6u, 0x66u, 0x5Cu);
 }
@@ -4433,19 +4399,11 @@ CFUUIDRef OUTLINED_FUNCTION_3_4(int a1, int a2, int a3, int a4, int a5, int a6, 
   return CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu);
 }
 
-uint64_t OUTLINED_FUNCTION_7_3()
+double OUTLINED_FUNCTION_7_3()
 {
-  v2 = *(*(v0 + 16) + 40);
-  v3 = *(v0 + 32);
 
-  return kdebug_trace();
-}
-
-void OUTLINED_FUNCTION_11_0()
-{
-  v1 = *(v0 + 16);
-  v2 = *(*(v1 + 16) + 40);
-  v3 = *(v1 + 32);
+  kdebug_trace();
+  return result;
 }
 
 BOOL OUTLINED_FUNCTION_12_0(NSObject *a1)
@@ -4460,11 +4418,11 @@ BOOL OUTLINED_FUNCTION_13_0(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void sub_1D2C75268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1D2C75268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4524,6 +4482,13 @@ id GCLookupService(void *a1, objc_class *a2, uint64_t a3, int a4)
   }
 
   return v7;
+}
+
+void sub_1D2C75FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__10(uint64_t result, uint64_t a2)
@@ -4625,16 +4590,16 @@ void Observer::_CleanupInvocationAndFree(Observer *this, Observer *a2)
   this->pointers.tqe_next = 0;
 }
 
-id __immutablePlaceholderFuture(void)
+id __immutablePlaceholderFuture(uint64_t a1)
 {
   if (__immutablePlaceholderFuture(void)::onceToken != -1)
   {
     __immutablePlaceholderFuture();
   }
 
-  v1 = __immutablePlaceholderFuture(void)::placeholder;
+  v2 = __immutablePlaceholderFuture(void)::placeholder;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D2C7A228(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, objc_super a11)
@@ -4793,7 +4758,7 @@ void ContinuationList::drainContinuations_takesLock(ContinuationList *this, GCFu
   }
 }
 
-void sub_1D2C7EE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1D2C7EE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4808,7 +4773,7 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2C7F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1D2C7F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4816,10 +4781,10 @@ void sub_1D2C7F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D2C80094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, objc_super a11)
+void sub_1D2C80094(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, objc_super a11)
 {
   a11.super_class = GCPromise;
-  [(_Unwind_Exception *)&a11 dealloc];
+  [(_Unwind_Exception *)&a11 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4832,24 +4797,15 @@ uint64_t ___ZL28__immutablePlaceholderFuturev_block_invoke()
 
 void ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSErrorEPU28objcproto17OS_dispatch_queue8NSObjectj11qos_class_ti_block_invoke(uint64_t a1)
 {
-  if ((*(a1 + 49) & 1) == 0)
+  v2 = *(a1 + 49);
+  if ((v2 & 1) == 0)
   {
-    ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSErrorEPU28objcproto17OS_dispatch_queue8NSObjectj11qos_class_ti_block_invoke_cold_1();
+    ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSErrorEPU28objcproto17OS_dispatch_queue8NSObjectj11qos_class_ti_block_invoke_cold_1(v2);
   }
 
-  v2 = Continuation::future((a1 + 40));
-  v3 = v2;
-  if (*(v2 + 12) == 2)
-  {
-    v4 = v2[2];
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*(v3 + 12) == 1)
+  v3 = Continuation::future((a1 + 40));
+  v4 = v3;
+  if (*(v3 + 12) == 2)
   {
     v5 = v3[2];
   }
@@ -4859,11 +4815,21 @@ void ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSEr
     v5 = 0;
   }
 
+  if (*(v4 + 12) == 1)
+  {
+    v6 = v4[2];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
   __GCFUTURE_IS_CALLING_OUT_TO_AN_OBSERVER__(*(a1 + 32));
   if (*(a1 + 64))
   {
 
-    Observer::_CleanupInvocationAndFree((a1 + 40), v6);
+    Observer::_CleanupInvocationAndFree((a1 + 40), v7);
   }
 }
 
@@ -4885,8 +4851,8 @@ id __copy_helper_block_ea8_40c13_ZTS8Observer(uint64_t a1, uint64_t a2)
   if (*(a2 + 49))
   {
     _os_assert_log();
-    v4 = _os_crash();
-    __copy_helper_block_ea8_40c13_ZTS8Observer_cold_1(v4);
+    _os_crash();
+    __copy_helper_block_ea8_40c13_ZTS8Observer_cold_1();
   }
 
   *(a1 + 40) = *(a2 + 40);
@@ -4915,8 +4881,8 @@ void Continuation::~Continuation(Continuation *this)
   if (*(this + 9))
   {
     _os_assert_log();
-    v1 = _os_crash();
-    __copy_helper_block_ea8_40c13_ZTS8Observer_cold_1(v1);
+    _os_crash();
+    __copy_helper_block_ea8_40c13_ZTS8Observer_cold_1();
   }
 
   *this = 0;
@@ -5047,16 +5013,16 @@ LABEL_24:
 LABEL_29:
 }
 
-id _gc_log_generic_device()
+id _gc_log_generic_device(uint64_t a1)
 {
   if (_gc_log_generic_device_onceToken != -1)
   {
     _gc_log_generic_device_cold_1();
   }
 
-  v1 = _gc_log_generic_device_Log;
+  v2 = _gc_log_generic_device_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_generic_device_block_invoke()
@@ -5081,7 +5047,7 @@ void GCAnalyticsSendCheckCompatibleHIDDeviceEvent(void *a1, void *a2, char a3)
 
 xpc_object_t __GCAnalyticsSendCheckCompatibleHIDDeviceEvent_block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) vendorID];
   v4 = [v3 unsignedShortValue];
@@ -5093,7 +5059,7 @@ xpc_object_t __GCAnalyticsSendCheckCompatibleHIDDeviceEvent_block_invoke(uint64_
   v8 = [v7 unsignedShortValue];
 
   *keys = xmmword_1E8415358;
-  v34 = *off_1E8415368;
+  v33 = *off_1E8415368;
   v9 = [*v2 vendorID];
   values[0] = xpc_uint64_create([v9 unsignedIntegerValue]);
   v10 = [*v2 productID];
@@ -5170,7 +5136,6 @@ xpc_object_t __GCAnalyticsSendCheckCompatibleHIDDeviceEvent_block_invoke(uint64_
   {
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -5273,10 +5238,11 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D2C899F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_1D2C899F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   _Block_object_dispose(&a47, 8);
-  _Block_object_dispose(&a51, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5416,28 +5382,28 @@ uint64_t __IOHIDDeviceRemovedNotification(uint64_t result, uint64_t a2, int a3)
 
 void IOGCDeviceSetDispatchQueue(uint64_t a1, dispatch_queue_t queue)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (atomic_load((a1 + 92)))
   {
     IOGCDeviceSetDispatchQueue_cold_1();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *__str = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  *__str = 0u;
+  v10 = 0u;
   label = dispatch_queue_get_label(queue);
   v6 = "";
   if (label)
@@ -5449,8 +5415,6 @@ void IOGCDeviceSetDispatchQueue(uint64_t a1, dispatch_queue_t queue)
   v7 = dispatch_queue_create_with_target_V2(__str, 0, queue);
   v8 = *(a1 + 48);
   *(a1 + 48) = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void *IOGCDeviceSetCancelHandler(uint64_t a1, const void *a2)
@@ -5460,31 +5424,31 @@ void *IOGCDeviceSetCancelHandler(uint64_t a1, const void *a2)
   return result;
 }
 
-uint64_t IOGCDeviceActivate(uint64_t result)
+atomic_uchar *IOGCDeviceActivate(atomic_uchar *result)
 {
-  if ((atomic_fetch_or((result + 92), 1u) & 1) == 0)
+  if ((atomic_fetch_or(result + 92, 1u) & 1) == 0)
   {
     v1 = result;
-    if (!*(result + 48))
+    if (!*(result + 6))
     {
       IOGCDeviceActivate_cold_1();
     }
 
     v2 = objc_alloc_init(GCIONotificationPort);
-    *(v1 + 64) = v2;
-    [(GCIONotificationPort *)v2 setQueue:*(v1 + 48)];
-    v3 = *(v1 + 64);
+    *(v1 + 8) = v2;
+    [(GCIONotificationPort *)v2 setQueue:*(v1 + 6)];
+    v3 = *(v1 + 8);
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __IOGCDeviceActivate_block_invoke;
     v6[3] = &unk_1E8414908;
     v6[4] = v1;
-    result = [v3 addCancellationHandler:v6 onQueue:*(v1 + 48)];
-    if (*(v1 + 72))
+    result = [v3 addCancellationHandler:v6 onQueue:*(v1 + 6)];
+    if (*(v1 + 9))
     {
-      v4 = [*(v1 + 64) port];
+      v4 = [*(v1 + 8) port];
       v5 = [(GCIOObject *)v1 port];
-      return IOServiceAddInterestNotification(v4, v5, "IOGeneralInterest", __IOHIDDeviceRemovedNotification, v1, (v1 + 88));
+      return IOServiceAddInterestNotification(v4, v5, "IOGeneralInterest", __IOHIDDeviceRemovedNotification, v1, v1 + 22);
     }
   }
 
@@ -5530,13 +5494,14 @@ uint64_t IOGCDeviceSetRemovalCallback(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_1_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x1Cu);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_DEFAULT, a4, va, 0x1Cu);
 }
 
-uint64_t IOCircularDataQueueMemorySize(unsigned int a1, unsigned int a2)
+unint64_t IOCircularDataQueueMemorySize(unsigned int a1, unsigned int a2)
 {
   v2 = (a1 + 63) & 0x1FFFFFFF8;
   if ((v2 * a2 + 64) >> 32)
@@ -5560,22 +5525,25 @@ uint64_t IOCircularDataQueueMemorySize(unsigned int a1, unsigned int a2)
   }
 }
 
-void OUTLINED_FUNCTION_5_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_6_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_7_4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint8_t buf)
+void OUTLINED_FUNCTION_7_4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
 
-  _os_log_debug_impl(a1, v19, OS_LOG_TYPE_DEBUG, a4, &buf, 0x16u);
+  _os_log_debug_impl(a1, v18, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_1D2C92A20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, __CFString *a23, uint64_t a24)
@@ -5630,9 +5598,9 @@ uint64_t OUTLINED_FUNCTION_2_11(uint64_t result, uint64_t a2, uint64_t a3, float
   return result;
 }
 
-void sub_1D2C93FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D2C93FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5644,10 +5612,11 @@ uint64_t __Block_byref_object_copy__17(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 void sub_1D2C98620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -5657,9 +5626,9 @@ void sub_1D2C98620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D2C98DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1D2C98DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5721,7 +5690,6 @@ uint64_t __IOGCFastPathInputQueueInterfacePrepareObjCVtbl_block_invoke_cold_1(ui
   a2[9] = __IOGCFastPathInputQueueInterfaceObjCThunk_GetLatestSamplePosition;
   a2[10] = __IOGCFastPathInputQueueInterfaceObjCThunk_GetSampleWithOptions;
   a2[11] = 0;
-  v4 = *(a3 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -5865,31 +5833,31 @@ void *HIDEventObservationListRemoveObserver(char *a1, int a2, uint64_t a3)
   return v8;
 }
 
-uint64_t __IOGCFastPathRoyaReplayInputQueueGetLatestSamplePosition(unsigned int ***a1)
+uint64_t __IOGCFastPathRoyaReplayInputQueueGetLatestSamplePosition()
 {
-  v1 = OUTLINED_FUNCTION_12(a1);
-  v4 = v1 - v3;
-  v5 = v4 + 146;
-  LOWORD(v5) = atomic_load_explicit(v4 + 73, memory_order_acquire);
-  v6 = v4 + 144;
-  LOWORD(v6) = atomic_load_explicit(v4 + 72, memory_order_acquire);
-  if (v5)
+  OUTLINED_FUNCTION_12();
+  v3 = v1 - v2;
+  v4 = v3 + 146;
+  LOWORD(v4) = atomic_load_explicit((v3 + 146), memory_order_acquire);
+  v5 = v3 + 144;
+  LOWORD(v5) = atomic_load_explicit((v3 + 144), memory_order_acquire);
+  if (v4)
   {
-    v7 = v5 == v6;
+    v6 = v4 == v5;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  if (!v7)
+  if (!v6)
   {
     return 3758097112;
   }
 
   result = 0;
-  *v2 = atomic_load_explicit(v4 + 20, memory_order_acquire);
+  *v0 = atomic_load_explicit((v3 + 160), memory_order_acquire);
   return result;
 }
 
@@ -5961,82 +5929,82 @@ uint64_t IOGCFastPathRoyaReplayInputQueueGetMutableSample(uint64_t a1, unint64_t
   return v7;
 }
 
-uint64_t __IOGCFastPathRoyaReplayInputQueueGetSample(unsigned int ***a1)
+uint64_t __IOGCFastPathRoyaReplayInputQueueGetSample()
 {
-  v2 = 3758097112;
-  v3 = OUTLINED_FUNCTION_12(a1);
-  v7 = (v3 - v6);
-  LOWORD(v1) = atomic_load_explicit((v3 - v6 + 146), memory_order_acquire);
-  v8 = (v3 - v6 + 144);
-  LOWORD(v8) = atomic_load_explicit(v8, memory_order_acquire);
-  if (v1)
+  v1 = 3758097112;
+  OUTLINED_FUNCTION_12();
+  v6 = (v4 - v5);
+  LOWORD(v0) = atomic_load_explicit((v4 - v5 + 146), memory_order_acquire);
+  v7 = (v4 - v5 + 144);
+  LOWORD(v7) = atomic_load_explicit(v7, memory_order_acquire);
+  if (v0)
   {
-    v9 = v1 == v8;
+    v8 = v0 == v7;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (v9)
+  if (v8)
   {
-    v10 = v4;
-    explicit = atomic_load_explicit(v7 + 20, memory_order_acquire);
-    v12 = atomic_load_explicit(v7 + 19, memory_order_acquire);
-    if (explicit < v4)
+    v9 = v2;
+    explicit = atomic_load_explicit(v6 + 20, memory_order_acquire);
+    v11 = atomic_load_explicit(v6 + 19, memory_order_acquire);
+    if (explicit < v2)
     {
       return 3758097128;
     }
 
     else
     {
-      if (v12 > v4)
+      if (v11 > v2)
       {
         return 3758097127;
       }
 
-      v13 = v7[13];
-      if (v13 + v4 <= explicit)
+      v12 = v6[13];
+      if (v12 + v2 <= explicit)
       {
         return 3758097127;
       }
 
       else
       {
-        v14 = v5;
-        v15 = &v7[3 * (v4 % v13) + 21];
+        v13 = v3;
+        v14 = &v6[3 * (v2 % v12) + 21];
         os_unfair_lock_lock_with_options();
-        v16 = *(v15 + 8);
-        if (v16)
+        v15 = *(v14 + 8);
+        if (v15)
         {
-          v17 = *(v16 + 16);
-          v18 = *(v16 + 8);
-          v19 = *(v16 + 24);
+          v16 = *(v15 + 16);
+          v17 = *(v15 + 8);
+          v18 = *(v15 + 24);
         }
 
         else
         {
+          v16 = 0;
           v17 = 0;
-          v18 = 0;
-          v19 = -1;
+          v18 = -1;
         }
 
-        os_unfair_lock_unlock(v15);
-        if (v17 == v1 && v19 == v10)
+        os_unfair_lock_unlock(v14);
+        if (v16 == v0 && v18 == v9)
         {
-          v2 = 0;
-          *v14 = v7 + 12;
-          *(v14 + 8) = v10;
-          *(v14 + 16) = v18;
-          *(v14 + 24) = v1;
-          *(v14 + 26) &= 0xFCu;
+          v1 = 0;
+          *v13 = v6 + 12;
+          *(v13 + 8) = v9;
+          *(v13 + 16) = v17;
+          *(v13 + 24) = v0;
+          *(v13 + 26) &= 0xFCu;
         }
       }
     }
   }
 
-  return v2;
+  return v1;
 }
 
 uint64_t IOGCFastPathSampleGetClient4Roya(unsigned int ****a1)
@@ -6053,7 +6021,7 @@ uint64_t IOGCFastPathSampleGetClient4Roya(unsigned int ****a1)
   }
 }
 
-uint64_t __IOGCFastPathRoyaReplayInputQueueSampleRead(unsigned int ***a1, unsigned int ****a2, uint64_t a3)
+uint64_t __IOGCFastPathRoyaReplayInputQueueSampleRead(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = 3758097127;
   if (*a2 != a1)
@@ -6061,12 +6029,12 @@ uint64_t __IOGCFastPathRoyaReplayInputQueueSampleRead(unsigned int ***a1, unsign
     return 3758097090;
   }
 
-  v6 = OUTLINED_FUNCTION_12(a1);
+  OUTLINED_FUNCTION_12();
   v8 = v6 - v7;
-  v10 = &v6[3 * (*(v9 + 8) % *(v6 - v7 + 104)) + 21] - v7;
+  v10 = v6 - v7 + 168 + 24 * (*(v9 + 8) % *(v6 - v7 + 104));
   if ((*(v9 + 26) & 2) != 0)
   {
-    OUTLINED_FUNCTION_15(v8 + 72);
+    OUTLINED_FUNCTION_15((v8 + 144));
     if (!v11)
     {
       return 3758096385;
@@ -6079,7 +6047,7 @@ uint64_t __IOGCFastPathRoyaReplayInputQueueSampleRead(unsigned int ***a1, unsign
 
   else
   {
-    OUTLINED_FUNCTION_15(v8 + 73);
+    OUTLINED_FUNCTION_15((v8 + 146));
     if (!v11)
     {
       return 3758096385;
@@ -6106,12 +6074,12 @@ uint64_t __IOGCFastPathRoyaReplayInputQueueSampleReadField()
   return __IOGCFastPathRoyaReplayInputQueueSampleRead(v0, v1, v2);
 }
 
-uint64_t __IOGCFastPathRoyaReplayInputQueueSampleModify(unsigned int ***a1, uint64_t a2)
+uint64_t __IOGCFastPathRoyaReplayInputQueueSampleModify(uint64_t a1, uint64_t a2)
 {
   v2 = 3758097090;
   if (*a2 == a1 && (*(a2 + 26) & 2) != 0)
   {
-    v4 = OUTLINED_FUNCTION_12(a1);
+    OUTLINED_FUNCTION_12();
     v6 = v4 - v5;
     OUTLINED_FUNCTION_15((v4 - v5 + 144));
     if (v8)
@@ -6119,17 +6087,17 @@ uint64_t __IOGCFastPathRoyaReplayInputQueueSampleModify(unsigned int ***a1, uint
       v9 = v7;
       os_unfair_lock_lock_with_options();
       v10 = *(a2 + 8);
-      v11 = &v6[24 * (v10 % *(v6 + 13)) + 168];
+      v11 = v6 + 168 + 24 * (v10 % *(v6 + 104));
       v14 = *(v11 + 16);
       v12 = v11 + 16;
       v13 = v14;
       v2 = 3758097127;
       if (v14 && *(v13 + 24) == v10)
       {
-        v2 = (*(v9 + 16))(v9, &v6[24 * (v10 % *(v6 + 13)) + 168], v12);
+        v2 = (*(v9 + 16))(v9, v6 + 168 + 24 * (v10 % *(v6 + 104)), v12);
       }
 
-      os_unfair_lock_unlock(v6 + 35);
+      os_unfair_lock_unlock((v6 + 140));
     }
 
     else
@@ -6164,11 +6132,11 @@ uint64_t __IOGCFastPathRoyaReplayInputQueueSampleDestroy(uint64_t a1, uint64_t a
   return result;
 }
 
-uint64_t __IOGCFastPathRoyaReplayInputQueueSampleCommit(unsigned int ***a1)
+uint64_t __IOGCFastPathRoyaReplayInputQueueSampleCommit()
 {
-  OUTLINED_FUNCTION_12(a1);
+  OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_3_1();
-  return __IOGCFastPathRoyaReplayInputQueueSampleModify(v1, v2);
+  return __IOGCFastPathRoyaReplayInputQueueSampleModify(v0, v1);
 }
 
 uint64_t __IOGCFastPathRoyaReplayInputQueueSampleGetSequenceID()
@@ -6454,13 +6422,12 @@ void IOGCDeviceManagerActivate_cold_1()
 
 void __IOGCDeviceManagerStartMatching_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_1D2C3B000, log, OS_LOG_TYPE_ERROR, "%@ IOServiceAddMatchingNotification failed: %{mach.errno}d", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_1D2C3B000, log, OS_LOG_TYPE_ERROR, "%@ IOServiceAddMatchingNotification failed: %{mach.errno}d", &v3, 0x12u);
 }
 
 uint64_t GCPrepareIOCFPlugInVtbl_cold_1(uint64_t result, uint64_t a2)
@@ -6563,16 +6530,16 @@ uint64_t IOGCCircularControlQueueGetLastAppliedPosition(void *a1, void *a2)
 void IOGCCircularControlQueueReadBackwardsFromLatestEnqueued()
 {
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_5_2(v0);
-  if (v4 && *(v2 + 8) == *(v3 + 16) && *(v2 + 12) == *(v3 + 20))
+  OUTLINED_FUNCTION_5_2();
+  if (v3 && *(v1 + 8) == *(v2 + 16) && *(v1 + 12) == *(v2 + 20))
   {
-    OUTLINED_FUNCTION_2_4(v1, v2);
-    if (v4)
+    OUTLINED_FUNCTION_2_4(v0, v1);
+    if (v3)
     {
       OUTLINED_FUNCTION_6_0();
       OUTLINED_FUNCTION_0_7();
       OUTLINED_FUNCTION_3_2();
-      v5();
+      v4();
     }
   }
 }
@@ -6580,56 +6547,56 @@ void IOGCCircularControlQueueReadBackwardsFromLatestEnqueued()
 void IOGCCircularControlQueueReadForwardFromNextApply()
 {
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_5_2(v0);
-  if (v4 && *(v2 + 8) == *(v3 + 16) && *(v2 + 12) == *(v3 + 20))
+  OUTLINED_FUNCTION_5_2();
+  if (v3 && *(v1 + 8) == *(v2 + 16) && *(v1 + 12) == *(v2 + 20))
   {
-    OUTLINED_FUNCTION_2_4(v1, v2);
-    if (v4)
+    OUTLINED_FUNCTION_2_4(v0, v1);
+    if (v3)
     {
       OUTLINED_FUNCTION_6_0();
       OUTLINED_FUNCTION_0_7();
       OUTLINED_FUNCTION_3_2();
-      v5();
+      v4();
     }
   }
 }
 
-uint64_t IOGCCircularControlQueueReadNext(uint64_t **a1)
+uint64_t IOGCCircularControlQueueReadNext()
 {
-  result = OUTLINED_FUNCTION_7_1(a1);
-  if (v6)
+  result = OUTLINED_FUNCTION_7_1();
+  if (v5)
   {
-    v7 = *(v5 + 8);
-    if (v7 == *(v3 + 16))
+    v6 = *(v4 + 8);
+    if (v6 == *(v2 + 16))
     {
-      v8 = *(v5 + 12);
-      if (v8 == *(v3 + 20))
+      v7 = *(v4 + 12);
+      if (v7 == *(v2 + 20))
       {
-        explicit = atomic_load_explicit((v5 + 16), memory_order_acquire);
-        v10 = v5 + 24 * (explicit & 1);
-        v11 = atomic_load_explicit((v10 + 32), memory_order_acquire);
-        if (v11 == -1)
+        explicit = atomic_load_explicit((v4 + 16), memory_order_acquire);
+        v9 = v4 + 24 * (explicit & 1);
+        v10 = atomic_load_explicit((v9 + 32), memory_order_acquire);
+        if (v10 == -1)
         {
           return (result + 7);
         }
 
         else
         {
-          v12 = ((2 * v8 + 14) & 0xFFFFFFF0) + 64;
-          v13 = (v5 + v12 * (v11 % ((v7 - 72) / v12)) + 72);
-          if (v13 + v12 <= v5 + v7 && *v13 == v4)
+          v11 = ((2 * v7 + 14) & 0xFFFFFFF0) + 64;
+          v12 = (v4 + v11 * (v10 % ((v6 - 72) / v11)) + 72);
+          if (v12 + v11 <= v4 + v6 && *v12 == v3)
           {
-            v14 = atomic_load_explicit((v5 + v12 * (v11 % ((v7 - 72) / v12)) + 80), memory_order_acquire) & 1;
-            v15 = &v13[3 * v14];
+            v13 = atomic_load_explicit((v4 + v11 * (v10 % ((v6 - 72) / v11)) + 80), memory_order_acquire) & 1;
+            v14 = &v12[3 * v13];
             result = (result + 7);
-            if (v15[3] == explicit && v15[4] == v11)
+            if (v14[3] == explicit && v14[4] == v10)
             {
-              result = (*(v2 + 16))(v2, v11, v13 + v14 * ((v8 + 7) & 0xFFFFFFF8) + 64);
+              result = (*(v1 + 16))(v1, v10, v12 + v13 * ((v7 + 7) & 0xFFFFFFF8) + 64);
               if (result)
               {
                 result = 0;
-                *(v10 + 24) = v11;
-                atomic_store(v11 + 1, (v10 + 32));
+                *(v9 + 24) = v10;
+                atomic_store(v10 + 1, (v9 + 32));
               }
             }
           }
@@ -6641,7 +6608,7 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t **a1)
   return result;
 }
 
-uint64_t IOGCCircularControlQueueEntryModify(uint64_t **a1, uint64_t *a2, uint64_t a3)
+uint64_t IOGCCircularControlQueueEntryModify(uint64_t ***a1, unint64_t a2, uint64_t a3)
 {
   result = 3758097105;
   v5 = *a1;
@@ -6670,7 +6637,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t **a1, uint64_t *a2, uint64
             return 3758097128;
           }
 
-          else if (a2 + v12 <= v10)
+          else if (v12 + a2 <= v10)
           {
             return 3758097127;
           }
@@ -6698,7 +6665,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t **a1, uint64_t *a2, uint64
   return result;
 }
 
-uint64_t IOGCCircularControlQueueEntryCommitModifications(uint64_t **a1, unint64_t a2)
+uint64_t IOGCCircularControlQueueEntryCommitModifications(uint64_t ***a1, unint64_t a2)
 {
   result = 3758097105;
   v4 = *a1;
@@ -6770,18 +6737,18 @@ uint64_t IOGCCircularControlQueueEntryCommitModifications(uint64_t **a1, unint64
   return result;
 }
 
-uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t **a1)
+uint64_t IOGCCircularControlQueueEntryResetModifications()
 {
-  result = OUTLINED_FUNCTION_7_1(a1);
-  if (v6)
+  result = OUTLINED_FUNCTION_7_1();
+  if (v5)
   {
-    v7 = *(v5 + 8);
-    if (v7 == *(v3 + 16))
+    v6 = *(v4 + 8);
+    if (v6 == *(v2 + 16))
     {
-      v8 = *(v5 + 12);
-      if (v8 == *(v3 + 20))
+      v7 = *(v4 + 12);
+      if (v7 == *(v2 + 20))
       {
-        explicit = atomic_load_explicit((v5 + 24 * (atomic_load_explicit((v5 + 16), memory_order_acquire) & 1) + 32), memory_order_acquire);
+        explicit = atomic_load_explicit((v4 + 24 * (atomic_load_explicit((v4 + 16), memory_order_acquire) & 1) + 32), memory_order_acquire);
         if (explicit == -1)
         {
           return (result + 7);
@@ -6789,32 +6756,32 @@ uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t **a1)
 
         else
         {
-          v10 = (v8 + 7) & 0xFFFFFFF8;
-          v12 = ((v7 - 72) / (2 * v10 + 64)) >> 1;
-          if (explicit + v12 <= v2)
+          v9 = (v7 + 7) & 0xFFFFFFF8;
+          v11 = ((v6 - 72) / (2 * v9 + 64)) >> 1;
+          if (explicit + v11 <= v1)
           {
             return (result + 23);
           }
 
-          else if (v12 + v2 <= explicit)
+          else if (v11 + v1 <= explicit)
           {
             return (result + 22);
           }
 
           else
           {
-            v13 = ((2 * v8 + 14) & 0xFFFFFFF0) + 64;
-            v11 = v7 - 72;
-            v14 = (v5 + v13 * (v2 % ((v7 - 72) / v13)) + 72);
-            if (v14 + v13 <= v5 + v7 && *v14 == v4)
+            v12 = ((2 * v7 + 14) & 0xFFFFFFF0) + 64;
+            v10 = v6 - 72;
+            v13 = (v4 + v12 * (v1 % ((v6 - 72) / v12)) + 72);
+            if (v13 + v12 <= v4 + v6 && *v13 == v3)
             {
-              v15 = atomic_load_explicit((v5 + v13 * (v2 % (v11 / v13)) + 80), memory_order_acquire) & 1;
-              v16 = v5 + v13 * (v2 % (v11 / v13)) + 88 + 24 * v15;
-              v17 = v5 + v13 * (v2 % (v11 / v13)) + 88 + 24 * (v15 ^ 1);
-              memcpy(v14 + (v15 ^ 1) * v10 + 64, v14 + v15 * v10 + 64, v8);
+              v14 = atomic_load_explicit((v4 + v12 * (v1 % (v10 / v12)) + 80), memory_order_acquire) & 1;
+              v15 = v4 + v12 * (v1 % (v10 / v12)) + 88 + 24 * v14;
+              v16 = v4 + v12 * (v1 % (v10 / v12)) + 88 + 24 * (v14 ^ 1);
+              memcpy(v13 + (v14 ^ 1) * v9 + 64, v13 + v14 * v9 + 64, v7);
               result = 0;
-              *v17 = *v16;
-              *(v17 + 16) = *(v16 + 16);
+              *v16 = *v15;
+              *(v16 + 16) = *(v15 + 16);
             }
           }
         }
@@ -6842,7 +6809,6 @@ void __GCHIDDeviceAttributesPredicateFromMatchingDictionary_block_invoke_cold_1(
 
 void __IOHIDQueueInputElementValueCallback(void *a1, int a2, __IOHIDQueue *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = v5;
   if (!a2 && v5[1] == a3)
@@ -6853,19 +6819,19 @@ void __IOHIDQueueInputElementValueCallback(void *a1, int a2, __IOHIDQueue *a3)
       v9 = Value;
       v10 = 0;
       *&v8 = 138412802;
-      v29 = v8;
+      v28 = v8;
       while (1)
       {
         if (v10)
         {
           if (++v10 == 20)
           {
-            v11 = _gc_log_hid_input();
+            v11 = _gc_log_hid_input(Value);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
-              *v30 = 0;
-              v19 = OUTLINED_FUNCTION_1_7();
-              _os_log_debug_impl(v19, v20, v21, "#WARNING IOHIDQueue is full, events may have been dropped!", v22, 2u);
+              *v29 = 0;
+              v20 = OUTLINED_FUNCTION_1_7();
+              _os_log_debug_impl(v20, v21, v22, "#WARNING IOHIDQueue is full, events may have been dropped!", v23, 2u);
             }
 
             v10 = 20;
@@ -6874,9 +6840,8 @@ void __IOHIDQueueInputElementValueCallback(void *a1, int a2, __IOHIDQueue *a3)
 
         else
         {
-          v27 = v6[5];
           IOHIDValueGetTimeStamp(v9);
-          [(__IOHIDQueue *)v6[4] count];
+          [v6[4] count];
           kdebug_trace();
           v10 = 1;
         }
@@ -6896,44 +6861,46 @@ void __IOHIDQueueInputElementValueCallback(void *a1, int a2, __IOHIDQueue *a3)
           goto LABEL_19;
         }
 
-        [(__IOHIDQueue *)v6[4] addObject:v15];
+        [v6[4] addObject:v15];
 LABEL_17:
         CFRelease(v9);
 
-        v9 = IOHIDQueueCopyNextValue(a3);
-        if (!v9)
+        Value = IOHIDQueueCopyNextValue(a3);
+        v9 = Value;
+        if (!Value)
         {
           goto LABEL_23;
         }
       }
 
-      if (IOHIDElementGetType(Element) == kIOHIDElementTypeInput_NULL)
+      Type = IOHIDElementGetType(Element);
+      if (Type == 5)
       {
 LABEL_19:
-        v16 = [(GCHIDDeviceInput *)v6 batchInputElementHandler];
-        if (v16)
+        v17 = [(GCHIDDeviceInput *)v6 batchInputElementHandler];
+        if (v17)
         {
-          v17 = v6[4];
+          v18 = v6[4];
           TimeStamp = IOHIDValueGetTimeStamp(v9);
-          (*(v16 + 16))(v16, v17, TimeStamp);
+          (*(v17 + 16))(v17, v18, TimeStamp);
         }
 
-        [(__IOHIDQueue *)v6[4] removeAllObjects:v29];
+        [v6[4] removeAllObjects];
       }
 
       else
       {
-        v16 = _gc_log_hid_input();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v17 = _gc_log_hid_input(Type);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          *v30 = v29;
-          *&v30[4] = v6;
-          *&v30[12] = 1024;
-          *&v30[14] = IOHIDElementGetCookie(Element);
-          *&v30[18] = 2112;
-          *&v30[20] = Element;
-          v23 = OUTLINED_FUNCTION_1_7();
-          _os_log_debug_impl(v23, v24, v25, "%@: Element changed: <HIDElement cookie: %u %@>", v26, 0x1Cu);
+          *v29 = v28;
+          *&v29[4] = v6;
+          *&v29[12] = 1024;
+          *&v29[14] = IOHIDElementGetCookie(Element);
+          *&v29[18] = 2112;
+          *&v29[20] = Element;
+          v24 = OUTLINED_FUNCTION_1_7();
+          _os_log_debug_impl(v24, v25, v26, "%@: Element changed: <HIDElement cookie: %u %@>", v27, 0x1Cu);
         }
       }
 
@@ -6942,8 +6909,6 @@ LABEL_19:
   }
 
 LABEL_23:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 _DWORD *_gc_state_dictionary_builder(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -6997,9 +6962,9 @@ uint64_t IOGCDeviceInterfacePrepareObjCVtbl_cold_1(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t *IOGCFastPathClientCreateWithPlugInInterface(const void *a1, io_object_t a2, uint64_t a3)
+NSObject **IOGCFastPathClientCreateWithPlugInInterface(const void *a1, io_object_t a2, uint64_t a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v10 = [__IOGCFastPathClient alloc];
@@ -7017,7 +6982,7 @@ uint64_t *IOGCFastPathClientCreateWithPlugInInterface(const void *a1, io_object_
   v8 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 403179417, 0);
   if (!v8)
   {
-    goto LABEL_19;
+    return v8;
   }
 
   v9 = objc_opt_class();
@@ -7027,21 +6992,20 @@ uint64_t *IOGCFastPathClientCreateWithPlugInInterface(const void *a1, io_object_
   if (a2)
   {
 LABEL_6:
-    LODWORD(v10) = IOObjectRetain(a2);
+    v10 = IOObjectRetain(a2);
     if (v10)
     {
       v18 = v10;
-      v19 = _gc_log_iokit();
+      v19 = _gc_log_iokit(v10);
       if (!OUTLINED_FUNCTION_12_0(v19))
       {
 LABEL_8:
 
-        v8 = 0;
-        goto LABEL_19;
+        return 0;
       }
 
-      v58 = 67109120;
-      v59 = v18;
+      v59 = 67109120;
+      v60 = v18;
       goto LABEL_21;
     }
 
@@ -7050,7 +7014,7 @@ LABEL_8:
 
 LABEL_10:
   v20 = *(*a3 + 8);
-  v21 = OUTLINED_FUNCTION_3_4(v10, v11, v12, v13, v14, v15, v16, v17, v52, v54, v56, SBYTE2(v56), HIBYTE(v56));
+  v21 = OUTLINED_FUNCTION_3_4(v10, v11, v12, v13, v14, v15, v16, v17, v53, v55, v57, SBYTE2(v57), HIBYTE(v57));
   CFUUIDGetUUIDBytes(v21);
   OUTLINED_FUNCTION_8_1();
   v22 = OUTLINED_FUNCTION_17_0();
@@ -7058,87 +7022,86 @@ LABEL_10:
   v31 = v23;
   if ((v23 & 0x80000000) != 0 || (v20 = v8[3]) == 0)
   {
-    v47 = _gc_log_iokit();
-    if (!OUTLINED_FUNCTION_13_0(v47))
+    v48 = _gc_log_iokit(v23);
+    if (!OUTLINED_FUNCTION_13_0(v48))
     {
       goto LABEL_8;
     }
 
     OUTLINED_FUNCTION_14_0();
-    v60 = v31;
-    v41 = &dword_1D2C3B000;
-    v44 = "[IOGCFastPathClient] #Error obtaining 'kIOCFPlugInInterface' from %p: %d";
-    v45 = &v58;
-    v42 = v20;
+    v61 = v31;
+    v42 = &dword_1D2C3B000;
+    v45 = "[IOGCFastPathClient] #Error obtaining 'kIOCFPlugInInterface' from %p: %d";
+    v46 = &v59;
+    v43 = v20;
     goto LABEL_27;
   }
 
-  v32 = OUTLINED_FUNCTION_2_8(v23, v24, v25, v26, v27, v28, v29, v30, v53, v55, v57, SBYTE2(v57), HIBYTE(v57));
+  v32 = OUTLINED_FUNCTION_2_8(v23, v24, v25, v26, v27, v28, v29, v30, v54, v56, v58, SBYTE2(v58), HIBYTE(v58));
   CFUUIDGetUUIDBytes(v32);
   OUTLINED_FUNCTION_8_1();
   v33 = OUTLINED_FUNCTION_4_3();
   v34 = v31(v33);
-  if (v34 < 0 || !v8[4])
+  v35 = v34;
+  if ((v34 & 0x80000000) != 0 || !v8[4])
   {
-    v48 = _gc_log_iokit();
-    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v49 = _gc_log_iokit(v34);
+    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
     OUTLINED_FUNCTION_14_0();
-    v60 = v34;
-    v41 = &dword_1D2C3B000;
-    v44 = "[IOGCFastPathClient] #Error obtaining 'IOGFastPathClientInterface' from %p: %d";
-    v45 = &v58;
-    v42 = v48;
+    v61 = v35;
+    v42 = &dword_1D2C3B000;
+    v45 = "[IOGCFastPathClient] #Error obtaining 'IOGFastPathClientInterface' from %p: %d";
+    v46 = &v59;
+    v43 = v49;
 LABEL_27:
-    v43 = OS_LOG_TYPE_ERROR;
-    v46 = 18;
+    v44 = OS_LOG_TYPE_ERROR;
+    v47 = 18;
     goto LABEL_22;
   }
 
-  OUTLINED_FUNCTION_0_13(v8[3]);
-  if (!v35)
+  OUTLINED_FUNCTION_0_13();
+  if (!v37)
   {
-    v49 = _gc_log_iokit();
-    if (!OUTLINED_FUNCTION_12_0(v49))
+    v50 = _gc_log_iokit(v36);
+    if (!OUTLINED_FUNCTION_12_0(v50))
     {
       goto LABEL_8;
     }
 
     OUTLINED_FUNCTION_1_9();
-    v58 = 67109120;
-    v59 = v51;
+    v59 = 67109120;
+    v60 = v52;
 LABEL_21:
     OUTLINED_FUNCTION_9_1();
 LABEL_22:
-    _os_log_error_impl(v41, v42, v43, v44, v45, v46);
+    _os_log_error_impl(v42, v43, v44, v45, v46, v47);
     goto LABEL_8;
   }
 
   Property = IOGCFastPathClientGetProperty(v8, @"ProviderID");
   if (Property)
   {
-    v37 = Property;
-    v38 = CFGetTypeID(Property);
-    if (v38 == CFNumberGetTypeID())
+    v39 = Property;
+    v40 = CFGetTypeID(Property);
+    if (v40 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v37, kCFNumberSInt64Type, v8 + 5);
+      CFNumberGetValue(v39, kCFNumberSInt64Type, v8 + 5);
     }
   }
 
-LABEL_19:
-  v39 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 __IOGCFastPathClient *IOGCFastPathClientCreate(const void *a1, io_object_t a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   theScore[0] = 0;
@@ -7149,7 +7112,7 @@ __IOGCFastPathClient *IOGCFastPathClientCreate(const void *a1, io_object_t a2)
     v6 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 2744634659, 0);
     if (!v6)
     {
-      goto LABEL_10;
+      return v6;
     }
 
     v7 = objc_opt_class();
@@ -7166,14 +7129,12 @@ __IOGCFastPathClient *IOGCFastPathClientCreate(const void *a1, io_object_t a2)
   if (v8)
   {
     v9 = v8;
-    v10 = _gc_log_iokit();
+    v10 = _gc_log_iokit(v8);
     if (!OUTLINED_FUNCTION_12_0(v10))
     {
 LABEL_8:
 
-LABEL_9:
-      v6 = 0;
-      goto LABEL_10;
+      return 0;
     }
 
     theScore[1] = 67109120;
@@ -7181,21 +7142,21 @@ LABEL_9:
 LABEL_20:
     OUTLINED_FUNCTION_15_0();
     OUTLINED_FUNCTION_9_1();
-    _os_log_error_impl(v37, v38, v39, v40, v41, v42);
+    _os_log_error_impl(v36, v37, v38, v39, v40, v41);
     goto LABEL_8;
   }
 
   v6->service = a2;
-  v13 = OUTLINED_FUNCTION_5_4();
-  v14 = CFUUIDGetConstantUUIDWithBytes(v13, 0xF2u, 0x5Fu, 0xF3u, 0xC2u, 0x33u, 0xFu, 0x4Bu, v52, BYTE1(v52), BYTE2(v52), BYTE3(v52), BYTE4(v52), BYTE5(v52), BYTE6(v52), HIBYTE(v52), 0xCDu);
-  v22 = OUTLINED_FUNCTION_3_4(v14, v15, v16, v17, v18, v19, v20, v21, v53, v55, byte15a, v59, v60);
-  if (IOCreatePlugInInterfaceForService(a2, v14, v22, &v6->pluginInterface, theScore))
+  v12 = OUTLINED_FUNCTION_5_4();
+  v13 = CFUUIDGetConstantUUIDWithBytes(v12, 0xF2u, 0x5Fu, 0xF3u, 0xC2u, 0x33u, 0xFu, 0x4Bu, v53, BYTE1(v53), BYTE2(v53), BYTE3(v53), BYTE4(v53), BYTE5(v53), BYTE6(v53), HIBYTE(v53), 0xCDu);
+  v21 = OUTLINED_FUNCTION_3_4(v13, v14, v15, v16, v17, v18, v19, v20, v54, v56, byte15a, v60, v61);
+  if (IOCreatePlugInInterfaceForService(a2, v13, v21, &v6->pluginInterface, theScore))
   {
     entryID = 0;
-    v43 = IOObjectCopyClass(a2);
-    IORegistryEntryGetRegistryEntryID(a2, &entryID);
-    v45 = _gc_log_iokit();
-    if (OUTLINED_FUNCTION_12_0(v45))
+    v42 = IOObjectCopyClass(a2);
+    RegistryEntryID = IORegistryEntryGetRegistryEntryID(a2, &entryID);
+    v46 = _gc_log_iokit(RegistryEntryID);
+    if (OUTLINED_FUNCTION_12_0(v46))
     {
       goto LABEL_28;
     }
@@ -7203,24 +7164,23 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  pluginInterface = v6->pluginInterface;
-  v31 = OUTLINED_FUNCTION_2_8(0, v23, v24, v25, v26, v27, v28, v29, v54, v56, byte15, SBYTE2(byte15), HIBYTE(byte15));
-  CFUUIDGetUUIDBytes(v31);
+  v29 = OUTLINED_FUNCTION_2_8(0, v22, v23, v24, v25, v26, v27, v28, v55, v57, byte15, SBYTE2(byte15), HIBYTE(byte15));
+  CFUUIDGetUUIDBytes(v29);
   OUTLINED_FUNCTION_8_1();
-  v32 = OUTLINED_FUNCTION_4_3();
-  if (((&OBJC_METACLASS____GCFStaticLocalizedString.vtable)(v32) & 0x80000000) != 0 || !v6->clientInterface)
+  v30 = OUTLINED_FUNCTION_4_3();
+  if (((&OBJC_METACLASS____GCFStaticLocalizedString.vtable)(v30) & 0x80000000) != 0 || !v6->clientInterface)
   {
     entryID = 0;
-    v43 = IOObjectCopyClass(a2);
-    IORegistryEntryGetRegistryEntryID(a2, &entryID);
-    v44 = _gc_log_iokit();
+    v42 = IOObjectCopyClass(a2);
+    v43 = IORegistryEntryGetRegistryEntryID(a2, &entryID);
+    v44 = _gc_log_iokit(v43);
     if (OUTLINED_FUNCTION_12_0(v44))
     {
 LABEL_28:
       OUTLINED_FUNCTION_6_2();
       OUTLINED_FUNCTION_15_0();
-      _os_log_error_impl(v48, v49, OS_LOG_TYPE_ERROR, v50, v51, 0x1Cu);
-      if (!v43)
+      _os_log_error_impl(v49, v50, OS_LOG_TYPE_ERROR, v51, v52, 0x1Cu);
+      if (!v42)
       {
         goto LABEL_8;
       }
@@ -7229,21 +7189,21 @@ LABEL_28:
     }
 
 LABEL_24:
-    if (!v43)
+    if (!v42)
     {
       goto LABEL_8;
     }
 
 LABEL_25:
-    CFRelease(v43);
+    CFRelease(v42);
     goto LABEL_8;
   }
 
-  OUTLINED_FUNCTION_0_13(v6->pluginInterface);
-  if (!v33)
+  OUTLINED_FUNCTION_0_13();
+  if (!v32)
   {
-    v46 = _gc_log_iokit();
-    if (!OUTLINED_FUNCTION_12_0(v46))
+    v47 = _gc_log_iokit(v31);
+    if (!OUTLINED_FUNCTION_12_0(v47))
     {
       goto LABEL_8;
     }
@@ -7256,98 +7216,95 @@ LABEL_25:
   Property = IOGCFastPathClientGetProperty(v6, @"ProviderID");
   if (Property)
   {
-    v35 = Property;
-    v36 = CFGetTypeID(Property);
-    if (v36 == CFNumberGetTypeID())
+    v34 = Property;
+    v35 = CFGetTypeID(Property);
+    if (v35 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v35, kCFNumberSInt64Type, &v6->providerID);
+      CFNumberGetValue(v34, kCFNumberSInt64Type, &v6->providerID);
     }
   }
 
-LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 __IOGCFastPathControlQueue *IOGCFastPathControlQueueCreateWithOptions(const void *a1, void *a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   v5 = a2[4];
-  v33 = 0;
-  v6 = (*(*v5 + 80))(v5, a1, a3, &v33);
-  if (v6 < 0 || !v33)
+  v34 = 0;
+  v6 = (*(*v5 + 80))(v5, a1, a3, &v34);
+  v7 = v6;
+  if ((v6 & 0x80000000) != 0 || !v34)
   {
-    v25 = _gc_log_iokit();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v26 = _gc_log_iokit(v6);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v34 = 67109120;
-      v35 = v6;
+      v35 = 67109120;
+      v36 = v7;
       OUTLINED_FUNCTION_15_0();
-      _os_log_impl(v26, v27, OS_LOG_TYPE_INFO, v28, v29, 8u);
+      _os_log_impl(v27, v28, OS_LOG_TYPE_INFO, v29, v30, 8u);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   if (a1)
   {
-    v7 = objc_opt_class();
-    InstanceSize = class_getInstanceSize(v7);
-    v9 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 1641900405, 0);
-    if (!v9)
+    v8 = objc_opt_class();
+    InstanceSize = class_getInstanceSize(v8);
+    v10 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 1641900405, 0);
+    if (!v10)
     {
-      goto LABEL_12;
+      return v10;
     }
 
-    v10 = objc_opt_class();
-    v9 = objc_constructInstance(v10, v9);
-    v9->allocator = CFRetain(a1);
+    v11 = objc_opt_class();
+    v10 = objc_constructInstance(v11, v10);
+    v10->allocator = CFRetain(a1);
   }
 
   else
   {
-    v9 = [__IOGCFastPathControlQueue alloc];
+    v10 = [__IOGCFastPathControlQueue alloc];
   }
 
-  v9->client = a2;
-  v11 = *(*v33 + 8);
-  v12 = OUTLINED_FUNCTION_5_4();
-  v13 = CFUUIDGetConstantUUIDWithBytes(v12, 0x5Du, 0xF3u, 0x6Au, 0xD7u, 0xDDu, 0x2Bu, 0x49u, v32, BYTE1(v32), BYTE2(v32), BYTE3(v32), BYTE4(v32), BYTE5(v32), BYTE6(v32), HIBYTE(v32), 0x74u);
-  CFUUIDGetUUIDBytes(v13);
+  v10->client = a2;
+  v12 = *(*v34 + 8);
+  v13 = OUTLINED_FUNCTION_5_4();
+  v14 = CFUUIDGetConstantUUIDWithBytes(v13, 0x5Du, 0xF3u, 0x6Au, 0xD7u, 0xDDu, 0x2Bu, 0x49u, v33, BYTE1(v33), BYTE2(v33), BYTE3(v33), BYTE4(v33), BYTE5(v33), BYTE6(v33), HIBYTE(v33), 0x74u);
+  CFUUIDGetUUIDBytes(v14);
   OUTLINED_FUNCTION_8_1();
-  v14 = OUTLINED_FUNCTION_17_0();
-  v15 = v11(v14);
-  (*(*v33 + 24))(v33);
-  if (v15 < 0 || (queueInterface = v9->queueInterface) == 0)
+  v15 = OUTLINED_FUNCTION_17_0();
+  v16 = v12(v15);
+  v17 = (*(*v34 + 24))(v34);
+  if (v16 < 0 || !v10->queueInterface)
   {
-    v20 = _gc_log_iokit();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = _gc_log_iokit(v17);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
 LABEL_20:
 
-LABEL_21:
-      v9 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
-    v34 = 67109120;
-    v35 = v15;
+    v35 = 67109120;
+    v36 = v16;
     OUTLINED_FUNCTION_10_0();
 LABEL_19:
-    _os_log_impl(v21, v22, OS_LOG_TYPE_INFO, v23, v24, 8u);
+    _os_log_impl(v22, v23, OS_LOG_TYPE_INFO, v24, v25, 8u);
     goto LABEL_20;
   }
 
-  OUTLINED_FUNCTION_0_13(queueInterface);
-  if (!v17)
+  OUTLINED_FUNCTION_0_13();
+  if (!v19)
   {
-    v30 = _gc_log_iokit();
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v31 = _gc_log_iokit(v18);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       goto LABEL_20;
     }
@@ -7358,65 +7315,60 @@ LABEL_19:
     goto LABEL_19;
   }
 
-LABEL_12:
-  v18 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 __IOGCFastPathControlQueue *IOGCFastPathControlQueueCreate(const void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"QueueChannel";
-  v9[1] = @"QueueCapacity";
-  v10[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-  v10[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a4];
-  result = IOGCFastPathControlQueueCreateWithOptions(a1, a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2]);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"QueueChannel";
+  v8[1] = @"QueueCapacity";
+  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
+  v9[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a4];
+  return IOGCFastPathControlQueueCreateWithOptions(a1, a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2]);
 }
 
 __IOGCFastPathInputQueue *IOGCFastPathInputQueueCreateWithOptions(const void *a1, void *a2, CFDictionaryRef theDict)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    v14 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
-  v6 = a2[5];
   valuePtr = 0;
   if (theDict)
   {
     Value = CFDictionaryGetValue(theDict, @"QueueChannel");
     if (Value)
     {
-      v8 = Value;
-      v9 = CFGetTypeID(Value);
-      if (v9 == CFNumberGetTypeID())
+      v7 = Value;
+      v8 = CFGetTypeID(Value);
+      if (v8 == CFNumberGetTypeID())
       {
-        CFNumberGetValue(v8, kCFNumberSInt32Type, &valuePtr);
+        CFNumberGetValue(v7, kCFNumberSInt32Type, &valuePtr);
       }
     }
   }
 
   kdebug_trace();
-  v10 = a2[4];
-  v47 = 0;
-  v11 = (*(*v10 + 88))(v10, a1, theDict, &v47);
-  if (v11 < 0 || !v47)
+  v9 = a2[4];
+  v45 = 0;
+  v10 = (*(*v9 + 88))(v9, a1, theDict, &v45);
+  v11 = v10;
+  if ((v10 & 0x80000000) != 0 || !v45)
   {
-    v30 = _gc_log_iokit();
-    if (OUTLINED_FUNCTION_13_0(v30))
+    v29 = _gc_log_iokit(v10);
+    if (OUTLINED_FUNCTION_13_0(v29))
     {
-      v49 = 67109120;
-      v50 = v11;
+      v47 = 67109120;
+      v48 = v11;
       OUTLINED_FUNCTION_10_0();
       OUTLINED_FUNCTION_9_1();
-      _os_log_error_impl(v31, v32, v33, v34, v35, v36);
+      _os_log_error_impl(v30, v31, v32, v33, v34, v35);
     }
 
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   if (!a1)
@@ -7435,83 +7387,77 @@ __IOGCFastPathInputQueue *IOGCFastPathInputQueueCreateWithOptions(const void *a1
     v14->allocator = CFRetain(a1);
 LABEL_12:
     v14->client = a2;
-    v16 = *(*v47 + 8);
+    v16 = *(*v45 + 8);
     v17 = OUTLINED_FUNCTION_5_4();
-    v18 = CFUUIDGetConstantUUIDWithBytes(v17, 0x19u, 0x43u, 0x1Bu, 0xCFu, 0xBBu, 0xEFu, 0x43u, v46, BYTE1(v46), BYTE2(v46), BYTE3(v46), BYTE4(v46), BYTE5(v46), BYTE6(v46), HIBYTE(v46), 0x2Du);
+    v18 = CFUUIDGetConstantUUIDWithBytes(v17, 0x19u, 0x43u, 0x1Bu, 0xCFu, 0xBBu, 0xEFu, 0x43u, v44, BYTE1(v44), BYTE2(v44), BYTE3(v44), BYTE4(v44), BYTE5(v44), BYTE6(v44), HIBYTE(v44), 0x2Du);
     CFUUIDGetUUIDBytes(v18);
     OUTLINED_FUNCTION_8_1();
     v19 = OUTLINED_FUNCTION_4_3();
     v20 = v16(v19);
-    (*(*v47 + 24))(v47);
-    if (v20 < 0 || (queueInterface = v14->queueInterface) == 0)
+    v21 = (*(*v45 + 24))(v45);
+    if (v20 < 0 || !v14->queueInterface)
     {
-      v29 = _gc_log_iokit();
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = _gc_log_iokit(v21);
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-LABEL_28:
+LABEL_27:
 
-LABEL_29:
+LABEL_28:
         v14 = 0;
-        goto LABEL_20;
+        goto LABEL_19;
       }
 
-      v49 = 67109120;
-      v50 = v20;
+      v47 = 67109120;
+      v48 = v20;
     }
 
     else
     {
-      OUTLINED_FUNCTION_0_13(queueInterface);
-      if (v22)
+      OUTLINED_FUNCTION_0_13();
+      if (v23)
       {
         Property = IOGCFastPathInputQueueGetProperty(v14, @"QueueID");
         if (Property)
         {
-          v24 = Property;
-          v25 = CFGetTypeID(Property);
-          if (v25 == CFNumberGetTypeID())
+          v25 = Property;
+          v26 = CFGetTypeID(Property);
+          if (v26 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v24, kCFNumberSInt64Type, &v14->queueID);
+            CFNumberGetValue(v25, kCFNumberSInt64Type, &v14->queueID);
           }
         }
 
-        queueID = v14->queueID;
-        goto LABEL_20;
+        goto LABEL_19;
       }
 
-      v37 = _gc_log_iokit();
-      if (!OUTLINED_FUNCTION_13_0(v37))
+      v36 = _gc_log_iokit(v22);
+      if (!OUTLINED_FUNCTION_13_0(v36))
       {
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
-      var4 = (*v14->queueInterface)->var4;
       OUTLINED_FUNCTION_16_0();
       OUTLINED_FUNCTION_10_0();
     }
 
     OUTLINED_FUNCTION_9_1();
-    _os_log_error_impl(v40, v41, v42, v43, v44, v45);
-    goto LABEL_28;
+    _os_log_error_impl(v38, v39, v40, v41, v42, v43);
+    goto LABEL_27;
   }
 
-LABEL_20:
+LABEL_19:
   kdebug_trace();
-LABEL_21:
-  v27 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 __IOGCFastPathInputQueue *IOGCFastPathInputQueueCreateWithDuration(const void *a1, void *a2, double a3)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"QueueChannel";
-  v8[1] = @"QueueDuration";
-  v9[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-  v9[1] = [MEMORY[0x1E696AD98] numberWithDouble:a3];
-  result = IOGCFastPathInputQueueCreateWithOptions(a1, a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2]);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"QueueChannel";
+  v7[1] = @"QueueDuration";
+  v8[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v8[1] = [MEMORY[0x1E696AD98] numberWithDouble:a3];
+  return IOGCFastPathInputQueueCreateWithOptions(a1, a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2]);
 }
 
 uint64_t IOGCFastPathInputQueueActivate(uint64_t a1)
@@ -7523,12 +7469,12 @@ uint64_t IOGCFastPathInputQueueActivate(uint64_t a1)
 
   v2 = *(a1 + 24);
   v3 = 3758097112;
-  v9 = 0;
+  v7 = 0;
   if (*(a1 + 40))
   {
     if (*(a1 + 56))
     {
-      v4 = (*(*v2 + 64))(v2, &v9);
+      v4 = (*(*v2 + 64))(v2, &v7);
       if (v4)
       {
         v3 = v4;
@@ -7536,14 +7482,12 @@ uint64_t IOGCFastPathInputQueueActivate(uint64_t a1)
 
       else
       {
-        v5 = *(a1 + 40);
-        v6 = dispatch_mach_create();
-        *(a1 + 72) = v6;
-        if (v6)
+        v5 = dispatch_mach_create();
+        *(a1 + 72) = v5;
+        if (v5)
         {
-          dispatch_retain(v6);
+          dispatch_retain(v5);
           CFRetain(a1);
-          v7 = *(a1 + 72);
           dispatch_mach_connect();
           v3 = 0;
           *(a1 + 80) = 1;
@@ -7554,7 +7498,7 @@ uint64_t IOGCFastPathInputQueueActivate(uint64_t a1)
       }
     }
 
-    if (v9)
+    if (v7)
     {
       (*(*v2 + 64))(v2, 0);
     }
@@ -7565,31 +7509,30 @@ uint64_t IOGCFastPathInputQueueActivate(uint64_t a1)
 
 __IOGCFastPathReader *IOGCFastPathReaderCreate(void *a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_23;
+    return 0;
   }
 
   v4 = a2[3];
-  v5 = *(a2[2] + 40);
-  v6 = a2[4];
   kdebug_trace();
-  v7 = *(*v4 + 88);
-  if (v7)
+  v5 = *(*v4 + 88);
+  if (v5)
   {
-    v42 = 0;
-    v8 = v7(v4, a1, &v42);
-    if (v8 < 0 || !v42)
+    v40 = 0;
+    v6 = v5(v4, a1, &v40);
+    v7 = v6;
+    if ((v6 & 0x80000000) != 0 || !v40)
     {
-      v25 = _gc_log_iokit();
-      if (OUTLINED_FUNCTION_13_0(v25))
+      v24 = _gc_log_iokit(v6);
+      if (OUTLINED_FUNCTION_13_0(v24))
       {
-        v43 = 67109120;
-        v44 = v8;
+        v41 = 67109120;
+        v42 = v7;
         OUTLINED_FUNCTION_10_0();
         OUTLINED_FUNCTION_9_1();
-        _os_log_error_impl(v26, v27, v28, v29, v30, v31);
+        _os_log_error_impl(v25, v26, v27, v28, v29, v30);
       }
 
       goto LABEL_22;
@@ -7597,66 +7540,63 @@ __IOGCFastPathReader *IOGCFastPathReaderCreate(void *a1, void *a2)
 
     if (a1)
     {
-      v9 = objc_opt_class();
-      InstanceSize = class_getInstanceSize(v9);
-      v11 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 1470306734, 0);
-      if (!v11)
+      v8 = objc_opt_class();
+      InstanceSize = class_getInstanceSize(v8);
+      v10 = MEMORY[0x1D38AA5C0](a1, InstanceSize, 1470306734, 0);
+      if (!v10)
       {
 LABEL_22:
         OUTLINED_FUNCTION_7_3();
-LABEL_23:
-        v14 = 0;
-        goto LABEL_15;
+        return 0;
       }
 
-      v12 = v11;
-      v13 = objc_opt_class();
-      v14 = objc_constructInstance(v13, v12);
-      v14->allocator = CFRetain(a1);
+      v11 = v10;
+      v12 = objc_opt_class();
+      v13 = objc_constructInstance(v12, v11);
+      v13->allocator = CFRetain(a1);
     }
 
     else
     {
-      v14 = [__IOGCFastPathReader alloc];
+      v13 = [__IOGCFastPathReader alloc];
     }
 
-    v14->queue = a2;
-    v15 = *(*v42 + 8);
-    v16 = OUTLINED_FUNCTION_5_4();
-    v17 = CFUUIDGetConstantUUIDWithBytes(v16, 0x6Bu, 0x29u, 0x76u, 0xBCu, 0xFu, 0xD5u, 0x4Bu, v41, BYTE1(v41), BYTE2(v41), BYTE3(v41), BYTE4(v41), BYTE5(v41), BYTE6(v41), HIBYTE(v41), 0x4Bu);
-    CFUUIDGetUUIDBytes(v17);
+    v13->queue = a2;
+    v14 = *(*v40 + 8);
+    v15 = OUTLINED_FUNCTION_5_4();
+    v16 = CFUUIDGetConstantUUIDWithBytes(v15, 0x6Bu, 0x29u, 0x76u, 0xBCu, 0xFu, 0xD5u, 0x4Bu, v39, BYTE1(v39), BYTE2(v39), BYTE3(v39), BYTE4(v39), BYTE5(v39), BYTE6(v39), HIBYTE(v39), 0x4Bu);
+    CFUUIDGetUUIDBytes(v16);
     OUTLINED_FUNCTION_8_1();
-    v18 = OUTLINED_FUNCTION_4_3();
-    v19 = v15(v18);
-    (*(*v42 + 24))(v42);
-    if (v19 < 0 || (readerInterface = v14->readerInterface) == 0)
+    v17 = OUTLINED_FUNCTION_4_3();
+    v18 = v14(v17);
+    v19 = (*(*v40 + 24))(v40);
+    if (v18 < 0 || !v13->readerInterface)
     {
-      v24 = _gc_log_iokit();
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = _gc_log_iokit(v19);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      v43 = 67109120;
-      v44 = v19;
+      v41 = 67109120;
+      v42 = v18;
 LABEL_25:
       OUTLINED_FUNCTION_9_1();
-      _os_log_error_impl(v35, v36, v37, v38, v39, v40);
+      _os_log_error_impl(v33, v34, v35, v36, v37, v38);
       goto LABEL_21;
     }
 
-    OUTLINED_FUNCTION_0_13(readerInterface);
+    OUTLINED_FUNCTION_0_13();
     if (!v21)
     {
-      v32 = _gc_log_iokit();
-      if (!OUTLINED_FUNCTION_13_0(v32))
+      v31 = _gc_log_iokit(v20);
+      if (!OUTLINED_FUNCTION_13_0(v31))
       {
         goto LABEL_21;
       }
 
-      var4 = (*v14->readerInterface)->var4;
       OUTLINED_FUNCTION_16_0();
       OUTLINED_FUNCTION_10_0();
       goto LABEL_25;
@@ -7665,13 +7605,11 @@ LABEL_25:
 
   else
   {
-    v14 = IOGCFastPathSimpleReaderCreate(a1, a2);
+    v13 = IOGCFastPathSimpleReaderCreate(a1, a2);
   }
 
   OUTLINED_FUNCTION_7_3();
-LABEL_15:
-  v22 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v13;
 }
 
 uint64_t IOGCFastPathInputQueueCancel_cold_2(uint64_t result)
@@ -7679,7 +7617,6 @@ uint64_t IOGCFastPathInputQueueCancel_cold_2(uint64_t result)
   if ((*(result + 81) & 1) == 0)
   {
     v1 = result;
-    v2 = *(result + 72);
     result = dispatch_mach_cancel();
     *(v1 + 81) = 1;
   }
@@ -7687,7 +7624,7 @@ uint64_t IOGCFastPathInputQueueCancel_cold_2(uint64_t result)
   return result;
 }
 
-uint64_t IOGCFastPathReaderReset_cold_1(uint64_t a1, uint64_t a2, _DWORD *a3)
+double IOGCFastPathReaderReset_cold_1(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v6 = -1;
   (*(*a1 + 56))(a1, &v6);
@@ -7697,7 +7634,8 @@ uint64_t IOGCFastPathReaderReset_cold_1(uint64_t a1, uint64_t a2, _DWORD *a3)
   v6 = -1;
   (*(*a1 + 56))(a1, &v6);
   OUTLINED_FUNCTION_11_0();
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
 void ConnectToDriverService_cold_1(uint64_t a1)
@@ -7740,98 +7678,90 @@ void GCLookupService_cold_1(objc_class *a1, uint64_t a2)
   objc_exception_throw(v10);
 }
 
-void ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSErrorEPU28objcproto17OS_dispatch_queue8NSObjectj11qos_class_ti_block_invoke_cold_1()
+void ___ZN8Observer6CreateEU13block_pointerFv13GCFutureStateP11objc_objectP7NSErrorEPU28objcproto17OS_dispatch_queue8NSObjectj11qos_class_ti_block_invoke_cold_1(char a1)
 {
   _os_assert_log();
   _os_crash();
   __break(1u);
 }
 
-void *IOGCDeviceCreate(uint64_t a1, uint64_t a2)
+__IOGCDevice *IOGCDeviceCreate(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-LABEL_10:
-    v5 = 0;
-    goto LABEL_4;
+    return 0;
   }
 
-  v10 = 0;
+  v9 = 0;
   v3 = [__IOGCDevice alloc];
   v3->_allocator = *MEMORY[0x1E695E480];
-  v4 = [(__IOGCDevice *)v3 initWithPort:a2 error:&v10];
+  v4 = [(__IOGCDevice *)v3 initWithPort:a2 error:&v9];
   if (!v4)
   {
-    v8 = _gc_log_iokit();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = _gc_log_iokit(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v10;
-      _os_log_error_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_ERROR, "IOGCDevice creation failed: %@", buf, 0xCu);
+      v11 = v9;
+      _os_log_error_impl(&dword_1D2C3B000, v7, OS_LOG_TYPE_ERROR, "IOGCDevice creation failed: %@", buf, 0xCu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v5 = v4;
   if (!_IOGCDeviceGetPlugInInterface(v4))
   {
-    v9 = _gc_log_iokit();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _gc_log_iokit(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1D2C3B000, v9, OS_LOG_TYPE_ERROR, "IOGCDevice creation failed.", buf, 2u);
+      _os_log_error_impl(&dword_1D2C3B000, v8, OS_LOG_TYPE_ERROR, "IOGCDevice creation failed.", buf, 2u);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
-LABEL_4:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 void _IOGCDeviceGetPlugInInterface_cold_1(io_object_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  entryID = 0;
+  entryID[6] = *MEMORY[0x1E69E9840];
+  entryID[0] = 0;
   v2 = IOObjectCopyClass(a1);
-  IORegistryEntryGetRegistryEntryID(a1, &entryID);
-  v3 = _gc_log_iokit();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  RegistryEntryID = IORegistryEntryGetRegistryEntryID(a1, entryID);
+  v4 = _gc_log_iokit(RegistryEntryID);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0_15();
-    OUTLINED_FUNCTION_1_11(&dword_1D2C3B000, v4, v5, "#Error instantiating 'kIOGCDeviceTypeID' CFPlugIn for <%@ '%#010llx'>: %{mach.errno}d", v6, v7, v8, v9, v11, entryID, v13);
+    OUTLINED_FUNCTION_1_11(&dword_1D2C3B000, v5, v6, "#Error instantiating 'kIOGCDeviceTypeID' CFPlugIn for <%@ '%#010llx'>: %{mach.errno}d", v7, v8, v9, v10, v11, entryID[0]);
   }
 
   if (v2)
   {
     CFRelease(v2);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _IOGCDeviceGetPlugInInterface_cold_2(io_object_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  entryID = 0;
+  entryID[6] = *MEMORY[0x1E69E9840];
+  entryID[0] = 0;
   v2 = IOObjectCopyClass(a1);
-  IORegistryEntryGetRegistryEntryID(a1, &entryID);
-  v3 = _gc_log_iokit();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  RegistryEntryID = IORegistryEntryGetRegistryEntryID(a1, entryID);
+  v4 = _gc_log_iokit(RegistryEntryID);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0_15();
-    OUTLINED_FUNCTION_1_11(&dword_1D2C3B000, v4, v5, "#Error obtaining 'kIOGCDeviceInterfaceID' from 'kIOGCDeviceTypeID' CFPlugIn for <%@ '%#010llx'>: %d", v6, v7, v8, v9, v11, entryID, v13);
+    OUTLINED_FUNCTION_1_11(&dword_1D2C3B000, v5, v6, "#Error obtaining 'kIOGCDeviceInterfaceID' from 'kIOGCDeviceTypeID' CFPlugIn for <%@ '%#010llx'>: %d", v7, v8, v9, v10, v11, entryID[0]);
   }
 
   if (v2)
   {
     CFRelease(v2);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IOCircularDataQueueInitFixed(uint64_t a1, uint64_t a2, unint64_t a3, int a4, uint64_t a5)

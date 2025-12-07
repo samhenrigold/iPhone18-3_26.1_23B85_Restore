@@ -186,30 +186,29 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_session)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_socketUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_host)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    port = self->_port;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

@@ -36,57 +36,56 @@
     v8->_rpClient = v9;
 
     objc_storeStrong(&v8->_client, client);
-    v11 = DDUICorePrimaryQueue();
-    [(RPCompanionLinkClient *)v8->_client setDispatchQueue:v11];
+    v12 = DDUICorePrimaryQueue(v11);
+    [(RPCompanionLinkClient *)v8->_client setDispatchQueue:v12];
 
     if (mode)
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v12 = 4231174;
+      v13 = 4231174;
     }
 
     if (_os_feature_enabled_impl())
     {
-      v13 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_230EF9000, v13, OS_LOG_TYPE_DEFAULT, "Starting discovery with AWDL enabled", buf, 2u);
+        _os_log_impl(&dword_230EF9000, v14, OS_LOG_TYPE_DEFAULT, "Starting discovery with AWDL enabled", buf, 2u);
       }
     }
 
     else
     {
-      v12 |= 0x400000uLL;
+      v13 |= 0x400000uLL;
     }
 
-    [(RPCompanionLinkClient *)v8->_client setControlFlags:v12];
+    [(RPCompanionLinkClient *)v8->_client setControlFlags:v13];
     strongToWeakObjectsMapTable = [MEMORY[0x277CCAB00] strongToWeakObjectsMapTable];
     transportSessionByUUID = v8->_transportSessionByUUID;
     v8->_transportSessionByUUID = strongToWeakObjectsMapTable;
 
-    v16 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       v21 = v8;
-      _os_log_impl(&dword_230EF9000, v16, OS_LOG_TYPE_DEFAULT, "[_DDUIRapportPairingTransport init] {self: %p}", buf, 0xCu);
+      _os_log_impl(&dword_230EF9000, v17, OS_LOG_TYPE_DEFAULT, "[_DDUIRapportPairingTransport init] {self: %p}", buf, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (NSArray)availableDevices
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v85 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v84 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   activeDevices = [(RPCompanionLinkClient *)self->_client activeDevices];
@@ -94,31 +93,31 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v113 = activeDevices;
+    v112 = activeDevices;
     _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Finding available devices among %@", buf, 0xCu);
   }
 
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
   v105 = 0u;
+  v106 = 0u;
+  v103 = 0u;
+  v104 = 0u;
   obj = activeDevices;
-  v6 = [obj countByEnumeratingWithState:&v104 objects:v111 count:16];
+  v6 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v105;
+    v8 = *v104;
     do
     {
       v9 = 0;
       do
       {
-        if (*v105 != v8)
+        if (*v104 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v104 + 1) + 8 * v9);
+        v10 = *(*(&v103 + 1) + 8 * v9);
         model = [v10 model];
         v12 = selfCopy->_wantedDeviceTypes & DDUIDeviceTypeForModelString(model);
 
@@ -136,20 +135,20 @@
             }
 
             idsDeviceIdentifier = [v10 idsDeviceIdentifier];
-            idsDeviceIdentifier2 = v89;
+            idsDeviceIdentifier2 = v88;
             if (idsDeviceIdentifier)
             {
               idsDeviceIdentifier2 = [v10 idsDeviceIdentifier];
-              if ([v85 containsObject:idsDeviceIdentifier2])
+              if ([v84 containsObject:idsDeviceIdentifier2])
               {
-                v89 = idsDeviceIdentifier2;
+                v88 = idsDeviceIdentifier2;
 
                 goto LABEL_14;
               }
             }
 
             idsDeviceIdentifier3 = [v10 idsDeviceIdentifier];
-            v89 = idsDeviceIdentifier2;
+            v88 = idsDeviceIdentifier2;
             if (idsDeviceIdentifier3)
             {
 
@@ -169,7 +168,7 @@ LABEL_26:
 
               v30 = identifier;
               identifier2 = [v10 identifier];
-              v32 = [v85 containsObject:identifier2];
+              v32 = [v84 containsObject:identifier2];
 
               if (idsDeviceIdentifier)
               {
@@ -238,7 +237,7 @@ LABEL_28:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v113 = v10;
+              v112 = v10;
               _os_log_impl(&dword_230EF9000, v27, OS_LOG_TYPE_DEFAULT, "Found acceptable device %@", buf, 0xCu);
             }
 
@@ -246,13 +245,13 @@ LABEL_28:
             sourceVersion = [v10 idsDeviceIdentifier];
             if (sourceVersion)
             {
-              [v85 addObject:sourceVersion];
+              [v84 addObject:sourceVersion];
             }
 
             else
             {
               identifier4 = [v10 identifier];
-              [v85 addObject:identifier4];
+              [v84 addObject:identifier4];
             }
           }
         }
@@ -262,7 +261,7 @@ LABEL_34:
       }
 
       while (v9 != v7);
-      v33 = [obj countByEnumeratingWithState:&v104 objects:v111 count:16];
+      v33 = [obj countByEnumeratingWithState:&v103 objects:v110 count:16];
       v7 = v33;
     }
 
@@ -270,26 +269,26 @@ LABEL_34:
   }
 
   v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v99 = 0u;
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
   previousAvailableDevices = [(_DDUIRapportPairingTransport *)selfCopy previousAvailableDevices];
-  v36 = [previousAvailableDevices countByEnumeratingWithState:&v100 objects:v110 count:16];
+  v36 = [previousAvailableDevices countByEnumeratingWithState:&v99 objects:v109 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v101;
+    v38 = *v100;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v101 != v38)
+        if (*v100 != v38)
         {
           objc_enumerationMutation(previousAvailableDevices);
         }
 
-        v40 = *(*(&v100 + 1) + 8 * i);
+        v40 = *(*(&v99 + 1) + 8 * i);
         idsDeviceIdentifier6 = [v40 idsDeviceIdentifier];
         if (idsDeviceIdentifier6)
         {
@@ -303,19 +302,19 @@ LABEL_34:
         }
       }
 
-      v37 = [previousAvailableDevices countByEnumeratingWithState:&v100 objects:v110 count:16];
+      v37 = [previousAvailableDevices countByEnumeratingWithState:&v99 objects:v109 count:16];
     }
 
     while (v37);
   }
 
-  v90 = [v85 mutableCopy];
-  [v90 minusSet:v34];
+  v89 = [v84 mutableCopy];
+  [v89 minusSet:v34];
   v43 = [v34 mutableCopy];
-  [v43 minusSet:v85];
-  v83 = v34;
-  v86 = [v34 mutableCopy];
-  [v86 unionSet:v85];
+  [v43 minusSet:v84];
+  v82 = v34;
+  v85 = [v34 mutableCopy];
+  [v85 unionSet:v84];
   previousAvailableDevices2 = [(_DDUIRapportPairingTransport *)selfCopy previousAvailableDevices];
   v45 = [previousAvailableDevices2 mutableCopy];
   v46 = v45;
@@ -362,32 +361,32 @@ LABEL_34:
     while (v49 < [v48 count]);
   }
 
-  v82 = v43;
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
+  v81 = v43;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   subsystem = v3;
-  v55 = [subsystem countByEnumeratingWithState:&v96 objects:v109 count:16];
+  v55 = [subsystem countByEnumeratingWithState:&v95 objects:v108 count:16];
   if (v55)
   {
     v56 = v55;
-    v57 = *v97;
+    v57 = *v96;
     do
     {
       for (j = 0; j != v56; ++j)
       {
-        if (*v97 != v57)
+        if (*v96 != v57)
         {
           objc_enumerationMutation(subsystem);
         }
 
-        v59 = *(*(&v96 + 1) + 8 * j);
+        v59 = *(*(&v95 + 1) + 8 * j);
         idsDeviceIdentifier8 = [v59 idsDeviceIdentifier];
         if (idsDeviceIdentifier8)
         {
           v61 = idsDeviceIdentifier8;
-          v62 = [v90 containsObject:idsDeviceIdentifier8];
+          v62 = [v89 containsObject:idsDeviceIdentifier8];
 
           if (v62)
           {
@@ -398,7 +397,7 @@ LABEL_34:
         else
         {
           identifier7 = [v59 identifier];
-          v64 = [v90 containsObject:identifier7];
+          v64 = [v89 containsObject:identifier7];
 
           if (v64)
           {
@@ -409,7 +408,7 @@ LABEL_71:
         }
 
         idsDeviceIdentifier9 = [v59 idsDeviceIdentifier];
-        v66 = [v86 containsObject:idsDeviceIdentifier9];
+        v66 = [v85 containsObject:idsDeviceIdentifier9];
 
         if (v66 && [v48 count])
         {
@@ -439,7 +438,7 @@ LABEL_80:
         ;
       }
 
-      v56 = [subsystem countByEnumeratingWithState:&v96 objects:v109 count:16];
+      v56 = [subsystem countByEnumeratingWithState:&v95 objects:v108 count:16];
     }
 
     while (v56);
@@ -449,36 +448,34 @@ LABEL_80:
   objc_autoreleasePoolPop(context);
   [(_DDUIRapportPairingTransport *)selfCopy setPreviousAvailableDevices:v72];
   v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v91 = 0u;
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
-  v95 = 0u;
   v74 = v72;
-  v75 = [v74 countByEnumeratingWithState:&v92 objects:v108 count:16];
+  v75 = [v74 countByEnumeratingWithState:&v91 objects:v107 count:16];
   if (v75)
   {
     v76 = v75;
-    v77 = *v93;
+    v77 = *v92;
     do
     {
       for (k = 0; k != v76; ++k)
       {
-        if (*v93 != v77)
+        if (*v92 != v77)
         {
           objc_enumerationMutation(v74);
         }
 
-        v79 = [[_DDUIRapportDevice alloc] initWithRPCompanionLinkDevice:*(*(&v92 + 1) + 8 * k)];
+        v79 = [[_DDUIRapportDevice alloc] initWithRPCompanionLinkDevice:*(*(&v91 + 1) + 8 * k)];
         [v73 addObject:v79];
       }
 
-      v76 = [v74 countByEnumeratingWithState:&v92 objects:v108 count:16];
+      v76 = [v74 countByEnumeratingWithState:&v91 objects:v107 count:16];
     }
 
     while (v76);
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 
   return v73;
 }
@@ -492,7 +489,7 @@ LABEL_80:
 
 - (void)setAvailableDevicesChangedHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_availableDevicesChangedHandler != handlerCopy)
   {
@@ -502,8 +499,8 @@ LABEL_80:
       v6 = _Block_copy(handlerCopy);
       *buf = 134218242;
       selfCopy = self;
-      v19 = 2112;
-      v20 = v6;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport set devices changed handler {self: %p, availableDevicesChangedHandler: %@}", buf, 0x16u);
     }
 
@@ -512,28 +509,26 @@ LABEL_80:
     self->_availableDevicesChangedHandler = v7;
 
     objc_initWeak(buf, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __66___DDUIRapportPairingTransport_setAvailableDevicesChangedHandler___block_invoke;
-    v14[3] = &unk_2788F5958;
-    objc_copyWeak(&v16, buf);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __66___DDUIRapportPairingTransport_setAvailableDevicesChangedHandler___block_invoke;
+    v13[3] = &unk_2788F5958;
+    objc_copyWeak(&v15, buf);
     v9 = handlerCopy;
-    v15 = v9;
-    [(RPCompanionLinkClient *)self->_client setDeviceFoundHandler:v14];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __66___DDUIRapportPairingTransport_setAvailableDevicesChangedHandler___block_invoke_2;
-    v11[3] = &unk_2788F5958;
-    objc_copyWeak(&v13, buf);
-    v12 = v9;
-    [(RPCompanionLinkClient *)self->_client setDeviceLostHandler:v11];
+    v14 = v9;
+    [(RPCompanionLinkClient *)self->_client setDeviceFoundHandler:v13];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __66___DDUIRapportPairingTransport_setAvailableDevicesChangedHandler___block_invoke_2;
+    v10[3] = &unk_2788F5958;
+    objc_copyWeak(&v12, buf);
+    v11 = v9;
+    [(RPCompanionLinkClient *)self->_client setDeviceLostHandler:v10];
 
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sessionForDevice:(id)device bundleID:(id)d serviceIdentifier:(id)identifier error:(id *)error
@@ -562,9 +557,9 @@ LABEL_80:
   v16 = objc_alloc_init(MEMORY[0x277D44160]);
   [(_DDUIRapportOutgoingTransportSession *)v13 setClient:v16];
 
-  v17 = DDUICorePrimaryQueue();
+  v18 = DDUICorePrimaryQueue(v17);
   client = [(_DDUIRapportOutgoingTransportSession *)v13 client];
-  [client setDispatchQueue:v17];
+  [client setDispatchQueue:v18];
 
   client2 = [(_DDUIRapportOutgoingTransportSession *)v13 client];
   [client2 setServiceType:@"com.apple.devicediscoveryui.rapportwake"];
@@ -583,37 +578,36 @@ LABEL_80:
 
   if (_os_feature_enabled_impl())
   {
-    v24 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v31) = 0;
-      _os_log_impl(&dword_230EF9000, v24, OS_LOG_TYPE_DEFAULT, "Creating session with AWDL enabled", &v31, 2u);
+      _os_log_impl(&dword_230EF9000, v25, OS_LOG_TYPE_DEFAULT, "Creating session with AWDL enabled", &v31, 2u);
     }
 
-    v25 = 262;
+    v26 = 262;
   }
 
   else
   {
-    v25 = 4194566;
+    v26 = 4194566;
   }
 
   client7 = [(_DDUIRapportOutgoingTransportSession *)v13 client];
-  [client7 setControlFlags:{objc_msgSend(client7, "controlFlags") | v25}];
+  [client7 setControlFlags:{objc_msgSend(client7, "controlFlags") | v26}];
 
   transportSessionByUUID = self->_transportSessionByUUID;
   sessionID = [(_DDUIRapportOutgoingTransportSession *)v13 sessionID];
   [(NSMapTable *)transportSessionByUUID setObject:v13 forKey:sessionID];
 
   [(_DDUIRapportPairingTransport *)self _setupListeningForResponseMessagesIfNeeded];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)activateForDeviceTypes:(unsigned int)types withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -622,25 +616,23 @@ LABEL_80:
     v9 = _Block_copy(completionCopy);
     *buf = 134218498;
     selfCopy = self;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
+    v16 = 2112;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
     _os_log_impl(&dword_230EF9000, v7, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport activating {self: %p, deviceTypes: %@, completion: %@}", buf, 0x20u);
   }
 
   self->_wantedDeviceTypes = types;
   client = self->_client;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __70___DDUIRapportPairingTransport_activateForDeviceTypes_withCompletion___block_invoke;
-  v13[3] = &unk_2788F5980;
-  v13[4] = self;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __70___DDUIRapportPairingTransport_activateForDeviceTypes_withCompletion___block_invoke;
+  v12[3] = &unk_2788F5980;
+  v12[4] = self;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(RPCompanionLinkClient *)client activateWithCompletion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(RPCompanionLinkClient *)client activateWithCompletion:v12];
 }
 
 - (void)_setupListeningForResponseMessagesIfNeeded
@@ -663,7 +655,7 @@ LABEL_80:
 
 - (void)setupListeningForSessionsWithHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   objc_initWeak(&location, self);
   v5 = os_log_create("com.apple.DeviceDiscoveryUI", "rapport");
@@ -672,35 +664,33 @@ LABEL_80:
     v6 = _Block_copy(handlerCopy);
     *buf = 134218242;
     selfCopy = self;
-    v20 = 2112;
-    v21 = v6;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPairingTransport setup listening {self: %p, incomingSessionHandler: %@}", buf, 0x16u);
   }
 
   client = self->_client;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke;
-  v14[3] = &unk_2788F59D0;
-  objc_copyWeak(&v16, &location);
-  v14[4] = self;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke;
+  v13[3] = &unk_2788F59D0;
+  objc_copyWeak(&v15, &location);
+  v13[4] = self;
   v8 = handlerCopy;
-  v15 = v8;
-  [(RPCompanionLinkClient *)client registerRequestID:@"DDUI-pair-init" options:0 handler:v14];
+  v14 = v8;
+  [(RPCompanionLinkClient *)client registerRequestID:@"DDUI-pair-init" options:0 handler:v13];
   v9 = self->_client;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke_33;
-  v12[3] = &unk_2788F59F8;
-  v12[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __69___DDUIRapportPairingTransport_setupListeningForSessionsWithHandler___block_invoke_33;
+  v11[3] = &unk_2788F59F8;
+  v11[4] = self;
   v10 = v8;
-  v13 = v10;
-  [(RPCompanionLinkClient *)v9 registerRequestID:@"_ccConfirmStart" options:0 handler:v12];
+  v12 = v10;
+  [(RPCompanionLinkClient *)v9 registerRequestID:@"_ccConfirmStart" options:0 handler:v11];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldReauthenticateDevice:(id)device forServiceIdentifier:(id)identifier completion:(id)completion

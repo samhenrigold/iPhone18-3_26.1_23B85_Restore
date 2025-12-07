@@ -5,20 +5,20 @@
 
 uint64_t __24___MFDataCollector_done__block_invoke(void *a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v26 = a2;
-  v3 = [v26 preparedStatementForQueryString:@"SELECT 1 FROM messages WHERE ROWID = ?"];;
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = a2;
+  v3 = [v25 preparedStatementForQueryString:@"SELECT 1 FROM messages WHERE ROWID = ?"];;
   v4 = [v3 compiled];
 
   sqlite3_bind_int64(v4, 1, a1[7]);
   LODWORD(v3) = sqlite3_step(v4);
   sqlite3_reset(v4);
-  [v26 checkForConnectionErrorWithMessage:@"testing for message existence"];
+  [v25 checkForConnectionErrorWithMessage:@"testing for message existence"];
   if (v3 == 100)
   {
-    v27 = 0x7FFFFFFFFFFFFFFFLL;
-    [*(a1[4] + 8) messageDataExistsInDatabaseForMessageLibraryID:a1[7] part:*(a1[4] + 40) length:&v27];
-    if (v27 == 0x7FFFFFFFFFFFFFFFLL || (v5 = [a1[5] length], v5 > v27))
+    v26 = 0x7FFFFFFFFFFFFFFFLL;
+    [*(a1[4] + 8) messageDataExistsInDatabaseForMessageLibraryID:a1[7] part:*(a1[4] + 40) length:&v26];
+    if (v26 == 0x7FFFFFFFFFFFFFFFLL || (v5 = [a1[5] length], v5 > v26))
     {
       v6 = a1[4];
       v7 = *(v6 + 8);
@@ -31,7 +31,7 @@ uint64_t __24___MFDataCollector_done__block_invoke(void *a1, void *a2)
       v14 = *(v10 + 49);
       v15 = [*(v10 + 16) account];
       v16 = v7;
-      v17 = v26;
+      v17 = v25;
       v18 = v12;
       v19 = v15;
       v20 = [MEMORY[0x1E69AD6B8] dataHolderWithData:v11];
@@ -42,8 +42,8 @@ uint64_t __24___MFDataCollector_done__block_invoke(void *a1, void *a2)
 
     else
     {
-      v25 = MFPersistenceLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v24 = MFPersistenceLog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         __24___MFDataCollector_done__block_invoke_cold_1();
       }
@@ -62,7 +62,6 @@ uint64_t __24___MFDataCollector_done__block_invoke(void *a1, void *a2)
 
   v22 = *(*(a1[6] + 8) + 24);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22 & 1;
 }
 

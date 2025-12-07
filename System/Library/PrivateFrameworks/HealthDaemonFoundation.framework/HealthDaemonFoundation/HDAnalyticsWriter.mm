@@ -81,7 +81,7 @@
       if (!v20)
       {
 LABEL_13:
-        v39 = 0;
+        v40 = 0;
 LABEL_14:
 
         goto LABEL_10;
@@ -106,50 +106,50 @@ LABEL_14:
       v23 = v22;
       if (!v22)
       {
-        v39 = 0;
+        v40 = 0;
 LABEL_37:
 
         goto LABEL_14;
       }
 
       lastPathComponent = [v22 lastPathComponent];
-      v36 = v23;
+      v37 = v23;
       v25 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v23];
-      v35 = v25;
+      v36 = v25;
       if (typeCopy)
       {
-        v26 = v25;
-        v27 = MEMORY[0x277CBEBC0];
-        v34 = lastPathComponent;
-        v28 = [typeCopy stringByAppendingPathComponent:lastPathComponent];
-        v29 = [v27 fileURLWithPath:v28];
+        v27 = v25;
+        v28 = MEMORY[0x277CBEBC0];
+        v35 = lastPathComponent;
+        v29 = [typeCopy stringByAppendingPathComponent:lastPathComponent];
+        v30 = [v28 fileURLWithPath:v29];
 
-        v38 = 0;
-        LOBYTE(v28) = [v26 writeToURL:v29 options:805306369 error:&v38];
-        v30 = v38;
-        if (v28)
+        v39 = 0;
+        LOBYTE(v29) = [v27 writeToURL:v30 options:805306369 error:&v39];
+        v31 = v39;
+        if (v29)
         {
 LABEL_23:
 
-          lastPathComponent = v34;
+          lastPathComponent = v35;
 LABEL_27:
-          v31 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(self + 16)];
-          v29 = [v31 URLByAppendingPathComponent:lastPathComponent];
+          v32 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(self + 16)];
+          v30 = [v32 URLByAppendingPathComponent:lastPathComponent];
 
-          v39 = [v20 writeToURL:v29 options:805306369 error:configuration];
+          v40 = [v20 writeToURL:v30 options:805306369 error:configuration];
 LABEL_36:
-          v23 = v36;
+          v23 = v37;
 
           goto LABEL_37;
         }
 
-        v32 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Unable to write serialized unencrypted analytics data." underlyingError:v30];
-        if (v32)
+        v33 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Unable to write serialized unencrypted analytics data." underlyingError:v31];
+        if (v33)
         {
           if (configuration)
           {
-            v33 = v32;
-            *configuration = v32;
+            v34 = v33;
+            *configuration = v33;
           }
 
           else
@@ -158,39 +158,39 @@ LABEL_36:
           }
         }
 
-        v39 = 0;
+        v40 = 0;
       }
 
       else
       {
-        if (!dataCopy || (HDIsUnitTesting() & 1) != 0)
+        if (!dataCopy || (HDIsUnitTesting(v25, v26) & 1) != 0)
         {
           goto LABEL_27;
         }
 
-        v34 = lastPathComponent;
-        v29 = [lastPathComponent stringByAppendingString:@"X-"];
-        v37 = v23;
+        v35 = lastPathComponent;
+        v30 = [lastPathComponent stringByAppendingString:@"X-"];
+        v38 = v23;
         if (HKSubmitAnalyticsFile())
         {
-          v30 = v37;
+          v31 = v38;
           goto LABEL_23;
         }
 
         [MEMORY[0x277CCA9B8] hk_assignError:configuration code:100 format:@"Analytics submission failed for an unknown reason."];
-        v39 = 0;
+        v40 = 0;
       }
 
-      lastPathComponent = v34;
+      lastPathComponent = v35;
       goto LABEL_36;
     }
   }
 
 LABEL_9:
-  v39 = 0;
+  v40 = 0;
 LABEL_10:
 
-  return v39;
+  return v40;
 }
 
 - (id)URLForAnalyticsFileWithName:(id)name
@@ -298,46 +298,46 @@ void __90__HDAnalyticsWriter__submitJSONAnalyticsData_bugType_customDirectory_co
 
 - (BOOL)_cleanAnalyticsDirectory:(uint64_t)directory error:(void *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   directoryCopy = directory;
   if (directory)
   {
     v4 = objc_alloc_init(MEMORY[0x277CCAA00]);
     [MEMORY[0x277CBEAA8] date];
-    v46 = v45 = v4;
+    v45 = v44 = v4;
     v5 = [v4 enumeratorAtPath:errorCopy];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v48 objects:v55 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v47 objects:v54 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v49;
+      v9 = *v48;
       v10 = *MEMORY[0x277CCA108];
       *&v7 = 138543618;
-      v44 = v7;
-      *&v7 = 138543362;
       v43 = v7;
+      *&v7 = 138543362;
+      v42 = v7;
       do
       {
         v11 = 0;
         do
         {
-          if (*v49 != v9)
+          if (*v48 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v48 + 1) + 8 * v11);
+          v12 = *(*(&v47 + 1) + 8 * v11);
           fileAttributes = [v5 fileAttributes];
           v14 = [fileAttributes objectForKeyedSubscript:v10];
 
           v15 = errorCopy;
           v16 = [errorCopy stringByAppendingPathComponent:v12];
-          [v46 timeIntervalSinceDate:v14];
+          [v45 timeIntervalSinceDate:v14];
           v18 = v17;
           _HKInitializeLogging();
           v19 = *MEMORY[0x277CCC2C0];
@@ -346,14 +346,14 @@ void __90__HDAnalyticsWriter__submitJSONAnalyticsData_bugType_customDirectory_co
           {
             if (v20)
             {
-              *buf = v43;
-              v53 = v16;
+              *buf = v42;
+              v52 = v16;
               _os_log_debug_impl(&dword_25156C000, v19, OS_LOG_TYPE_DEBUG, "Removing analytics file '%{public}@'", buf, 0xCu);
             }
 
-            v47 = 0;
-            v28 = [v45 removeItemAtPath:v16 error:&v47];
-            v29 = v47;
+            v46 = 0;
+            v28 = [v44 removeItemAtPath:v16 error:&v46];
+            v29 = v46;
             if ((v28 & 1) == 0)
             {
               _HKInitializeLogging();
@@ -361,8 +361,8 @@ void __90__HDAnalyticsWriter__submitJSONAnalyticsData_bugType_customDirectory_co
               v31 = os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR);
               if (v31)
               {
-                OUTLINED_FUNCTION_0_6(v31, v32, v33, v34, v35, v36, v37, v38, v41, directoryCopy, v43, *(&v43 + 1), v44);
-                v54 = v29;
+                OUTLINED_FUNCTION_0_6(v31, v32, v33, v34, v35, v36, v37, v38, v40, directoryCopy, v42, *(&v42 + 1), v43);
+                v53 = v29;
                 _os_log_error_impl(&dword_25156C000, v30, OS_LOG_TYPE_ERROR, "Error removing analytics file at '%{public}@': %{public}@", buf, 0x16u);
               }
             }
@@ -370,8 +370,8 @@ void __90__HDAnalyticsWriter__submitJSONAnalyticsData_bugType_customDirectory_co
 
           else if (v20)
           {
-            OUTLINED_FUNCTION_0_6(v20, v21, v22, v23, v24, v25, v26, v27, v41, directoryCopy, v43, *(&v43 + 1), v44);
-            v54 = v14;
+            OUTLINED_FUNCTION_0_6(v20, v21, v22, v23, v24, v25, v26, v27, v40, directoryCopy, v42, *(&v42 + 1), v43);
+            v53 = v14;
             _os_log_debug_impl(&dword_25156C000, v19, OS_LOG_TYPE_DEBUG, "Do not remove analytics file '%{public}@' with modification date %{public}@", buf, 0x16u);
           }
 
@@ -380,14 +380,13 @@ void __90__HDAnalyticsWriter__submitJSONAnalyticsData_bugType_customDirectory_co
         }
 
         while (v8 != v11);
-        v8 = [v5 countByEnumeratingWithState:&v48 objects:v55 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v47 objects:v54 count:16];
       }
 
       while (v8);
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return directoryCopy != 0;
 }
 

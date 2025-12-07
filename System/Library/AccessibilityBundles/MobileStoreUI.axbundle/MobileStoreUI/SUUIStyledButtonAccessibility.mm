@@ -118,7 +118,7 @@ LABEL_21:
 
 - (BOOL)_axIsCloseButton
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   superview = [(SUUIStyledButtonAccessibility *)self superview];
   NSClassFromString(&cfstr_Suuihorizontal_1.isa);
   if ((objc_opt_isKindOfClass() & 1) != 0 && ([(SUUIStyledButtonAccessibility *)self _accessibilityAncestorIsKindOf:NSClassFromString(&cfstr_Suuicardviewel_0.isa)], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
@@ -129,26 +129,26 @@ LABEL_21:
       v8 = [subviews objectAtIndexedSubscript:0];
       subviews2 = [v8 subviews];
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v10 = subviews2;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             NSClassFromString(&cfstr_Suuiattributed.isa);
             if (objc_opt_isKindOfClass())
             {
@@ -163,7 +163,7 @@ LABEL_21:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v12)
           {
             continue;
@@ -188,7 +188,6 @@ LABEL_18:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v18;
 }
 

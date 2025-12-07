@@ -63,7 +63,7 @@
 
 - (void)_registerListenersAndSetEndpointTypeWithNotification:(id)notification
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
@@ -71,13 +71,13 @@
   v6 = MEMORY[0x1E69AE9B8];
   v7 = MEMORY[0x1E69AEAE8];
   v8 = *MEMORY[0x1E69AEAE8];
-  v22[0] = *MEMORY[0x1E69AE9B8];
-  v22[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = *MEMORY[0x1E69AE9B8];
+  v21[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v10 = *MEMORY[0x1E69AECE0];
-  v19 = 0;
-  v11 = [mEMORY[0x1E69AED08] setAttribute:v9 forKey:v10 error:&v19];
-  v12 = v19;
+  v18 = 0;
+  v11 = [mEMORY[0x1E69AED08] setAttribute:v9 forKey:v10 error:&v18];
+  v12 = v18;
   v13 = MEMORY[0x1E698D0A0];
   if ((v11 & 1) == 0 && os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
   {
@@ -98,11 +98,9 @@
   if (os_log_type_enabled(*v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[SASBluetoothEndpointUtility _registerListenersAndSetEndpointTypeWithNotification:]";
+    v20 = "[SASBluetoothEndpointUtility _registerListenersAndSetEndpointTypeWithNotification:]";
     _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_INFO, "%s Registered AVSystemController listeners", buf, 0xCu);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setEndpointTypeWithNotification:(id)notification
@@ -121,36 +119,36 @@
 
 void __64__SASBluetoothEndpointUtility__setEndpointTypeWithNotification___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = [MEMORY[0x1E69AED08] sharedAVSystemController];
     v3 = [v2 pickableRoutesForCategory:*MEMORY[0x1E698D298] andMode:@"SpeechRecognition"];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
     v6 = MEMORY[0x1E698D0A0];
     if (v5)
     {
       v7 = v5;
-      v8 = *v22;
+      v8 = *v21;
       v9 = MEMORY[0x1E69AEC80];
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
-        v12 = [v11 objectForKeyedSubscript:{*v9, v21}];
+        v11 = *(*(&v20 + 1) + 8 * v10);
+        v12 = [v11 objectForKeyedSubscript:{*v9, v20}];
         v13 = [v12 BOOLValue];
 
         if (v13)
@@ -160,7 +158,7 @@ LABEL_4:
 
         if (v7 == ++v10)
         {
-          v7 = [v4 countByEnumeratingWithState:&v21 objects:v31 count:16];
+          v7 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -201,46 +199,41 @@ LABEL_14:
         v18 = v17;
         v19 = [WeakRetained _endpointType];
         *buf = 136315650;
-        v26 = "[SASBluetoothEndpointUtility _setEndpointTypeWithNotification:]_block_invoke";
-        v27 = 2112;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v14;
+        v25 = "[SASBluetoothEndpointUtility _setEndpointTypeWithNotification:]_block_invoke";
+        v26 = 2112;
+        v27 = v19;
+        v28 = 2112;
+        v29 = v14;
         _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s Endpoint type changed, from %@ to %@.", buf, 0x20u);
       }
 
       [WeakRetained _setEndpointType:v14];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isConnectedToBluetoothVehicle
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SASBluetoothEndpointUtility isConnectedToBluetoothVehicle]";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s This should hopefully not happen, endpointType not initialized before called, returning as not Bluetooth.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SASBluetoothEndpointUtility isConnectedToBluetoothVehicle]";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s This should hopefully not happen, endpointType not initialized before called, returning as not Bluetooth.", &v1, 0xCu);
 }
 
 - (void)_registerListenersAndSetEndpointTypeWithNotification:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1C8137000, v0, OS_LOG_TYPE_ERROR, "%s Failed to subscribe to AVSystemController notifications due to error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8137000, v0, OS_LOG_TYPE_ERROR, "%s Failed to subscribe to AVSystemController notifications due to error: %@", v1, 0x16u);
 }
 
 void __64__SASBluetoothEndpointUtility__setEndpointTypeWithNotification___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1C8137000, v0, OS_LOG_TYPE_ERROR, "%s Endpoint type is not found from AVSystemController, setting it to %@.", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8137000, v0, OS_LOG_TYPE_ERROR, "%s Endpoint type is not found from AVSystemController, setting it to %@.", v1, 0x16u);
 }
 
 @end

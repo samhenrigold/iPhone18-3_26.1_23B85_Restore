@@ -59,53 +59,51 @@
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSInstallAttributionParamsRequest startWithCompletionBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -118,7 +116,7 @@ LABEL_16:
   v19[3] = &unk_1E84ABEF0;
   v19[4] = self;
   v20 = blockCopy;
-  v17 = blockCopy;
+  v18 = blockCopy;
   [(SSRequest *)self _startWithMessageID:200 messageBlock:v19];
 }
 
@@ -189,17 +187,17 @@ void __52__SSInstallAttributionParamsRequest_copyXPCEncoding__block_invoke(uint6
 
 - (SSInstallAttributionParamsRequest)initWithXPCEncoding:(id)encoding
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   encodingCopy = encoding;
   v5 = encodingCopy;
   if (!encodingCopy || MEMORY[0x1DA6E0380](encodingCopy) != MEMORY[0x1E69E9E80])
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
-  v42.receiver = self;
-  v42.super_class = SSInstallAttributionParamsRequest;
-  self = [(SSRequest *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = SSInstallAttributionParamsRequest;
+  self = [(SSRequest *)&v41 init];
   if (self)
   {
     v6 = objc_opt_class();
@@ -249,16 +247,21 @@ void __52__SSInstallAttributionParamsRequest_copyXPCEncoding__block_invoke(uint6
       shouldLog = [v27 shouldLog];
       if ([v27 shouldLogToDisk])
       {
-        v29 = shouldLog | 2;
+        LODWORD(v29) = shouldLog | 2;
       }
 
       else
       {
-        v29 = shouldLog;
+        LODWORD(v29) = shouldLog;
       }
 
       oSLogObject = [v27 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v29 = v29;
+      }
+
+      else
       {
         v29 &= 2u;
       }
@@ -266,31 +269,30 @@ void __52__SSInstallAttributionParamsRequest_copyXPCEncoding__block_invoke(uint6
       if (v29)
       {
         v31 = objc_opt_class();
-        v43 = 138543362;
-        v44 = v31;
+        v42 = 138543362;
+        v43 = v31;
         v32 = v31;
-        LODWORD(v41) = 12;
-        v33 = _os_log_send_and_compose_impl();
+        v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%{public}@]: Failed initializing from XPC", &v42, 12);
 
         if (!v33)
         {
-LABEL_21:
-
 LABEL_22:
+
+LABEL_23:
           self = 0;
-          goto LABEL_23;
+          goto LABEL_24;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:{4, &v43, v41}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
         free(v33);
         SSFileLog(v27, @"%@", v34, v35, v36, v37, v38, v39, oSLogObject);
       }
 
-      goto LABEL_21;
+      goto LABEL_22;
     }
   }
 
-LABEL_23:
+LABEL_24:
 
   return self;
 }

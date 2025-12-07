@@ -82,7 +82,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_10001C894(v7);
+  sub_10001C894(v7, v8);
 }
 
 - (APSMultiClientIdentityProvider)initWithPushTokenInKeychain:(id)keychain legacyIdentityProvider:(id)provider delegate:(id)delegate
@@ -90,7 +90,7 @@
   keychainCopy = keychain;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  sub_1000D4A7C(keychain, provider);
+  sub_1000D4A7C(keychain, provider, delegate);
   return result;
 }
 
@@ -129,14 +129,15 @@
   {
     v11 = 0;
     v10 = 0;
+    v9 = 0;
   }
 
   selfCopy = self;
   sub_1000D5488(reason, token, 1, v11, v8);
 
-  sub_10001C894(v10);
+  sub_10001C894(v10, v9);
 
-  sub_10001C894(v11);
+  sub_10001C894(v11, v8);
 }
 
 - (void)forceIdentityRefresh:(id)refresh
@@ -158,7 +159,7 @@
 
   selfCopy = self;
   sub_1000D77D0(v7, v6, &unk_10018AC38, &selRef_forceIdentityRefresh_);
-  sub_10001C894(v7);
+  sub_10001C894(v7, v6);
 }
 
 - (void)preloadIdentity:(id)identity
@@ -180,7 +181,7 @@
 
   selfCopy = self;
   sub_1000D628C(v7, v6);
-  sub_10001C894(v7);
+  sub_10001C894(v7, v6);
 }
 
 - (void)notePushTokenLost
@@ -359,7 +360,7 @@
 
   selfCopy = self;
   sub_1000D77D0(v7, v6, &unk_10018AC88, &selRef_debugForceDeleteIdentity_);
-  sub_10001C894(v7);
+  sub_10001C894(v7, v6);
 }
 
 @end

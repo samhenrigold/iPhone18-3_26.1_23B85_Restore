@@ -77,7 +77,7 @@ uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne20010
   return a1;
 }
 
-uint64_t scml::strJoin<std::vector<std::string>>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+uint64_t scml::strJoin<std::vector<std::string>>@<X0>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
   v9 = *a1;
@@ -136,9 +136,9 @@ uint64_t scml::strJoin<std::vector<std::string>>@<X0>(uint64_t *a1@<X0>, uint64_
   return MEMORY[0x1B8CC71A0](&v19);
 }
 
-void sub_1B8A3E9F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A3E9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -265,7 +265,7 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -279,13 +279,13 @@ const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -305,21 +305,18 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 id scml::strEscape(scml *this, NSString *a2)
 {
-  scml::strFromNSString(this, v12);
+  scml::strFromNSString(v12, this);
   if ((v13 & 0x80u) == 0)
   {
     v2 = v12;
@@ -389,41 +386,41 @@ void sub_1B8A3EF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void scml::strFromNSString(scml *this@<X0>, _BYTE *a2@<X8>)
+void scml::strFromNSString(uint64_t *__return_ptr a1@<X8>, scml *this@<X0>)
 {
-  v4 = this;
-  v8 = v4;
-  if (v4)
+  v3 = this;
+  v7 = v3;
+  if (v3)
   {
-    v5 = [(scml *)v4 UTF8String];
-    v6 = [(scml *)v8 lengthOfBytesUsingEncoding:4];
-    v7 = v6;
-    if (v6 >= 0x7FFFFFFFFFFFFFF8)
+    v4 = [(scml *)v3 UTF8String];
+    v5 = [(scml *)v7 lengthOfBytesUsingEncoding:4];
+    v6 = v5;
+    if (v5 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v6 >= 0x17)
+    if (v5 >= 0x17)
     {
       operator new();
     }
 
-    a2[23] = v6;
-    if (v6)
+    *(a1 + 23) = v5;
+    if (v5)
     {
-      memmove(a2, v5, v6);
+      memmove(a1, v4, v5);
     }
 
-    a2[v7] = 0;
+    *(a1 + v6) = 0;
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(a2, "(nil)");
+    std::string::basic_string[abi:ne200100]<0>(a1, "(nil)");
   }
 }
 
-uint64_t scml::strEscape@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strEscape@<X0>(char *a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   v10[0] = a1;
   v10[1] = a2;
@@ -444,20 +441,20 @@ uint64_t scml::strEscape@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>
   return MEMORY[0x1B8CC71A0](&v9);
 }
 
-void sub_1B8A3F1D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A3F1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void *scml::scml_impl::writeStream<std::string_view>(void *a1, uint64_t a2, int a3)
+void *scml::scml_impl::writeStream<std::string_view>(void *a1, char **a2, int a3)
 {
   v4 = a1;
   if (a3)
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
-    a1 = scml::scml_impl::escapeAndWriteStream(v4, *a2, *(a2 + 8));
+    a1 = scml::scml_impl::escapeAndWriteStream(v4, *a2, a2[1]);
     v5 = "";
     v6 = 1;
   }
@@ -465,7 +462,7 @@ void *scml::scml_impl::writeStream<std::string_view>(void *a1, uint64_t a2, int 
   else
   {
     v5 = *a2;
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v5, v6);
@@ -478,16 +475,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -510,9 +507,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1B8A3F39C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1B8A3F39C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1B8CC70A0](&a10);
+  MEMORY[0x1B8CC70A0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -604,15 +601,15 @@ void sub_1B8A3F5D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *scml::scml_impl::escapeAndWriteStream(void *a1, char *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   for (; a3; --a3)
   {
-    v15 = *a2;
-    v6 = std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::find<char>(scml::scml_impl::escapeAndWriteStream(std::ostream &,std::string_view)::replacements, &v15);
+    v14 = *a2;
+    v6 = std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::find<char>(scml::scml_impl::escapeAndWriteStream(std::ostream &,std::string_view)::replacements, &v14);
     if (v6)
     {
       v9 = v6[3];
@@ -644,14 +641,13 @@ void *scml::scml_impl::escapeAndWriteStream(void *a1, char *a2, uint64_t a3)
 
     else
     {
-      v16[0] = v15;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v16, 1);
+      v15[0] = v14;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v15, 1);
     }
 
     ++a2;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -676,7 +672,7 @@ void sub_1B8A3F7C8(_Unwind_Exception *a1)
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::find<char>(void *a1, char *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<char,std::string>,std::__unordered_map_hasher<char,std::__hash_value_type<char,std::string>,std::hash<char>,std::equal_to<char>,true>,std::__unordered_map_equal<char,std::__hash_value_type<char,std::string>,std::equal_to<char>,std::hash<char>,true>,std::allocator<std::__hash_value_type<char,std::string>>>::find<char>(void *a1, char *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -789,7 +785,7 @@ void *sub_1B8A3F974(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1B8A3F9FC(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+__n128 *sub_1B8A3F9FC(__n128 *result, uint64_t *a2, uint64_t a3, unint64_t a4, unint64_t a5)
 {
   v5 = result;
   v6 = HIBYTE(a5) & 0xF;
@@ -800,10 +796,10 @@ uint64_t sub_1B8A3F9FC(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, 
 
   v14 = a4;
   v15 = a5;
-  *&v16 = 0;
-  *(&v16 + 1) = v6;
-  *&v7 = 0;
-  *(&v7 + 1) = v6;
+  v16.n128_u64[0] = 0;
+  v16.n128_u64[1] = v6;
+  v7.n128_u64[0] = 0;
+  v7.n128_u64[1] = v6;
   if (!a2)
   {
 LABEL_12:
@@ -815,9 +811,9 @@ LABEL_12:
   if (!a3)
   {
 LABEL_16:
-    *v5 = a4;
-    *(v5 + 8) = a5;
-    *(v5 + 16) = v7;
+    v5->n128_u64[0] = a4;
+    v5->n128_u64[1] = a5;
+    v5[1] = v7;
     return v8;
   }
 
@@ -862,7 +858,7 @@ LABEL_15:
   return result;
 }
 
-char *sub_1B8A3FAC4(char *a1, int64_t a2, char a3)
+char *sub_1B8A3FAC4(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1B8A3FAE4(a1, a2, a3, *v3);
   *v3 = result;
@@ -948,14 +944,13 @@ char *sub_1B8A3FAE4(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1B8A3FC1C(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *, uint64_t, uint64_t), uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+uint64_t sub_1B8A3FC1C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, uint64_t), uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  v8 = *(v4 + 40);
   sub_1B8AF1018();
-  a3(v12, a1, a2);
-  v9 = sub_1B8AF1038();
+  a3(v10, a1, a2);
+  v7 = sub_1B8AF1038();
 
-  return a4(a1, a2, v9);
+  return a4(a1, a2, v7);
 }
 
 unint64_t sub_1B8A3FCB0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1012,7 +1007,7 @@ NSString *scml::MultiwordGazetteer::Impl::replaceMatches(std::mutex *this, NSStr
   v5 = a2;
   v6 = a3;
   std::mutex::lock(this);
-  scml::strGetWordRanges(v5, v18);
+  scml::strGetWordRanges(v18, v5);
   scml::MultiwordGazetteer::Impl::longestNonOverlappingGazetteerMatches(this, v5, v18, &__p);
   v8 = 126 - 2 * __clz((v17 - __p) >> 4);
   if (v17 == __p)
@@ -1081,9 +1076,9 @@ void sub_1B8A3FF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void scml::strGetWordRanges(scml *this@<X0>, void *a2@<X8>)
+void scml::strGetWordRanges(uint64_t *__return_ptr a1@<X8>, scml *this@<X0>)
 {
-  v4 = this;
+  v3 = this;
   {
     scml::strGetWordRanges(NSString *)::regex = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"\\b" options:64 error:0];
   }
@@ -1092,41 +1087,41 @@ void scml::strGetWordRanges(scml *this@<X0>, void *a2@<X8>)
     scml::strGetWordRanges(NSString *)::wordRegex = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^(\\w|')+$" options:0 error:0];
   }
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x4812000000;
-  v17 = __Block_byref_object_copy__8;
-  v18 = __Block_byref_object_dispose__9;
-  v19 = "";
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x4812000000;
+  v16 = __Block_byref_object_copy__8;
+  v17 = __Block_byref_object_dispose__9;
+  v18 = "";
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   __p = 0;
-  v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x2020000000;
-  v13[3] = 0;
-  v5 = scml::strGetWordRanges(NSString *)::regex;
-  v6 = [(scml *)v4 length];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = ___ZN4scml16strGetWordRangesEP8NSString_block_invoke;
-  v9[3] = &unk_1E7EB3CE8;
-  v11 = v13;
-  v7 = v4;
-  v10 = v7;
-  v12 = &v14;
-  [v5 enumerateMatchesInString:v7 options:0 range:0 usingBlock:{v6, v9}];
-  v8 = v15;
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(a2, v8[6], v8[7], (v8[7] - v8[6]) >> 4);
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v12[3] = 0;
+  v4 = scml::strGetWordRanges(NSString *)::regex;
+  v5 = [(scml *)v3 length];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = ___ZN4scml16strGetWordRangesEP8NSString_block_invoke;
+  v8[3] = &unk_1E7EB3CE8;
+  v10 = v12;
+  v6 = v3;
+  v9 = v6;
+  v11 = &v13;
+  [v4 enumerateMatchesInString:v6 options:0 range:0 usingBlock:{v5, v8}];
+  v7 = v14;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(a1, v7[6], v7[7], (v7[7] - v7[6]) >> 4);
 
-  _Block_object_dispose(v13, 8);
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (__p)
   {
-    v21 = __p;
+    v20 = __p;
     operator delete(__p);
   }
 }
@@ -1226,7 +1221,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<_NSRange>>(uint64_t a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange*,_NSRange*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1248,7 +1243,7 @@ void sub_1B8A4050C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<_NSRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<_NSRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1258,7 +1253,7 @@ void std::vector<_NSRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void scml::MultiwordGazetteer::Impl::longestNonOverlappingGazetteerMatches(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, const void **a4@<X8>)
+void scml::MultiwordGazetteer::Impl::longestNonOverlappingGazetteerMatches(scml::MultiwordGazetteer **a1@<X0>, void *a2@<X1>, void *a3@<X2>, const void **a4@<X8>)
 {
   v34 = a2;
   a4[1] = 0;
@@ -1323,7 +1318,7 @@ void scml::MultiwordGazetteer::Impl::longestNonOverlappingGazetteerMatches(uint6
           v31 = (16 * v26);
           *v31 = v11;
           v31[1] = v20;
-          v23 = 16 * v26 + 16;
+          v23 = (16 * v26 + 16);
           v32 = &v31[-2 * (v25 >> 4)];
           memcpy(v32, v24, v25);
           v33 = *a4;
@@ -1340,7 +1335,7 @@ void scml::MultiwordGazetteer::Impl::longestNonOverlappingGazetteerMatches(uint6
         {
           *v22 = v11;
           *(v22 + 1) = v20;
-          v23 = (v22 + 16);
+          v23 = v22 + 16;
         }
 
         a4[1] = v23;
@@ -1366,12 +1361,12 @@ void sub_1B8A40724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-unint64_t scml::MultiwordGazetteer::Impl::rangesStartForLongestGazetteerMatch(uint64_t a1, void *a2, void *a3, unint64_t a4)
+unint64_t scml::MultiwordGazetteer::Impl::rangesStartForLongestGazetteerMatch(scml::MultiwordGazetteer **a1, void *a2, void *a3, unint64_t a4)
 {
   v22 = a2;
   v6 = 0;
   v7 = &stru_1F374C020;
-  if (a4 && *(a1 + 64))
+  if (a4 && a1[8])
   {
     v6 = 0;
     v8 = 16 * a4;
@@ -1416,7 +1411,7 @@ unint64_t scml::MultiwordGazetteer::Impl::rangesStartForLongestGazetteerMatch(ui
       {
         v8 -= 16;
         v9 = v7;
-        if (v10++ <= *(a1 + 64))
+        if (v10++ <= a1[8])
         {
           continue;
         }
@@ -1449,12 +1444,12 @@ BOOL scml::strEndsWith(scml *this, NSString *a2, NSString *a3)
   return v8;
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,false>(unint64_t *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 1;
-  v10 = a2 - 2;
-  v11 = a2 - 3;
+  v9 = &a2[-1];
+  v10 = &a2[-2];
+  v11 = &a2[-3];
   v12 = a1;
 LABEL_2:
   v13 = 1 - a4;
@@ -1462,7 +1457,7 @@ LABEL_2:
   {
     a1 = v12;
     v14 = v13;
-    v15 = (a2 - v12) >> 4;
+    v15 = a2 - v12;
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -1472,17 +1467,17 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        v48 = a2[-1].n128_u64[0];
-        v46 = a2 - 1;
-        if (v48 <= *v12)
+        v47 = a2[-1].n128_u64[0];
+        v45 = &a2[-1];
+        if (v47 <= v12->n128_u64[0])
         {
           return result;
         }
 
 LABEL_77:
-        v77 = *v12;
-        *v12 = *v46;
-        result = v77;
+        v76 = *v12;
+        *v12 = *v45;
+        result = v76;
         goto LABEL_78;
       }
 
@@ -1491,42 +1486,42 @@ LABEL_77:
 
     if (v15 == 3)
     {
-      v43 = (v12 + 2);
-      v44 = v12[2];
-      v47 = a2[-1].n128_u64[0];
-      v46 = a2 - 1;
-      v45 = v47;
-      if (v44 > *v12)
+      v42 = v12 + 1;
+      v43 = v12[1].n128_u64[0];
+      v46 = a2[-1].n128_u64[0];
+      v45 = &a2[-1];
+      v44 = v46;
+      if (v43 > v12->n128_u64[0])
       {
-        if (v45 > v44)
+        if (v44 > v43)
         {
           goto LABEL_77;
         }
 
-        v76 = *v12;
-        *v12 = *v43;
-        result = v76;
-        *v43 = v76;
-        if (v46->n128_u64[0] <= v12[2])
+        v75 = *v12;
+        *v12 = *v42;
+        result = v75;
+        *v42 = v75;
+        if (*v45 <= v12[1].n128_u64[0])
         {
           return result;
         }
 
-        result = *v43;
-        *v43 = *v46;
+        result = *v42;
+        *v42 = *v45;
 LABEL_78:
-        *v46 = result;
+        *v45 = result;
         return result;
       }
 
-      if (v45 <= v44)
+      if (v44 <= v43)
       {
         return result;
       }
 
-      result = *v43;
-      *v43 = *v46;
-      *v46 = result;
+      result = *v42;
+      *v42 = *v45;
+      *v45 = result;
       goto LABEL_109;
     }
 
@@ -1538,7 +1533,7 @@ LABEL_78:
     if (v15 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,0>(v12, v12 + 1, v12 + 4, v12 + 3, a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,0>(v12, v12 + 1, v12[2].n128_u64, v12[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
@@ -1548,35 +1543,35 @@ LABEL_10:
       if (a5)
       {
 
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(v12, a2->n128_u64);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(v12->n128_u64, a2->n128_u64);
       }
 
       else if (v12 != a2)
       {
-        v52 = (v12 + 2);
-        while (v52 != a2)
+        v51 = &v12[1];
+        while (v51 != a2)
         {
-          v53 = v52;
-          v54 = a1[2];
-          if (v54 > *a1)
+          v52 = v51;
+          v53 = a1[1].n128_u64[0];
+          if (v53 > a1->n128_u64[0])
           {
-            v55 = a1[3];
-            v56 = v53;
+            v54 = a1[1].n128_u64[1];
+            v55 = v52;
             do
             {
-              result = v56[-1];
-              *v56 = result;
-              v57 = v56[-2].n128_u64[0];
-              --v56;
+              result = v55[-1];
+              *v55 = result;
+              v56 = v55[-2].n128_u64[0];
+              --v55;
             }
 
-            while (v54 > v57);
-            v56->n128_u64[0] = v54;
-            v56->n128_u64[1] = v55;
+            while (v53 > v56);
+            v55->n128_u64[0] = v53;
+            v55->n128_u64[1] = v54;
           }
 
-          v52 = v53 + 1;
-          a1 = v53;
+          v51 = &v52[1];
+          a1 = v52;
         }
       }
 
@@ -1588,30 +1583,30 @@ LABEL_10:
       if (v12 != a2)
       {
 
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,_NSRange*>(v12, a2->n128_u64, a2->n128_u64, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,_NSRange*>(v12, a2, a2, a3);
       }
 
       return result;
     }
 
-    v16 = &v12[2 * (v15 >> 1)];
+    v16 = &v12[v15 >> 1];
     v17 = v16;
-    v18 = v9->n128_u64[0];
+    v18 = *v9;
     if (v15 >= 0x81)
     {
-      v19 = *v16;
-      if (*v16 <= *v12)
+      v19 = v16->n128_u64[0];
+      if (v16->n128_u64[0] <= v12->n128_u64[0])
       {
         if (v18 > v19)
         {
-          v61 = *v16;
+          v60 = *v16;
           *v16 = *v9;
-          *v9 = v61;
-          if (*v16 > *v12)
+          *v9 = v60;
+          if (v16->n128_u64[0] > v12->n128_u64[0])
           {
-            v62 = *v12;
+            v61 = *v12;
             *v12 = *v16;
-            *v16 = v62;
+            *v16 = v61;
           }
         }
       }
@@ -1620,39 +1615,39 @@ LABEL_10:
       {
         if (v18 <= v19)
         {
-          v65 = *v12;
+          v64 = *v12;
           *v12 = *v16;
-          *v16 = v65;
-          if (v9->n128_u64[0] <= *v16)
+          *v16 = v64;
+          if (*v9 <= v16->n128_u64[0])
           {
             goto LABEL_28;
           }
 
-          v59 = *v16;
+          v58 = *v16;
           *v16 = *v9;
         }
 
         else
         {
-          v59 = *v12;
+          v58 = *v12;
           *v12 = *v9;
         }
 
-        *v9 = v59;
+        *v9 = v58;
       }
 
 LABEL_28:
-      v21 = (v12 + 2);
-      v22 = (v16 - 2);
-      v23 = *(v16 - 2);
-      v24 = v10->n128_u64[0];
-      if (v23 <= v12[2])
+      v21 = v12 + 1;
+      v22 = v16 - 1;
+      v23 = v16[-1].n128_u64[0];
+      v24 = *v10;
+      if (v23 <= v12[1].n128_u64[0])
       {
         if (v24 > v23)
         {
-          v66 = *v22;
+          v65 = *v22;
           *v22 = *v10;
-          *v10 = v66;
+          *v10 = v65;
           if (v22->n128_u64[0] > v21->n128_u64[0])
           {
             v26 = *v21;
@@ -1669,14 +1664,14 @@ LABEL_28:
           v27 = *v21;
           *v21 = *v22;
           *v22 = v27;
-          if (v10->n128_u64[0] <= v22->n128_u64[0])
+          if (*v10 <= v22->n128_u64[0])
           {
             goto LABEL_40;
           }
 
-          v68 = *v22;
+          v67 = *v22;
           *v22 = *v10;
-          v25 = v68;
+          v25 = v67;
         }
 
         else
@@ -1689,18 +1684,18 @@ LABEL_28:
       }
 
 LABEL_40:
-      v28 = (v12 + 4);
-      v31 = v16[2];
-      v29 = (v16 + 2);
+      v28 = v12 + 2;
+      v31 = v16[1].n128_u64[0];
+      v29 = v16 + 1;
       v30 = v31;
-      v32 = v11->n128_u64[0];
-      if (v31 <= v12[4])
+      v32 = *v11;
+      if (v31 <= v12[2].n128_u64[0])
       {
         if (v32 > v30)
         {
-          v69 = *v29;
+          v68 = *v29;
           *v29 = *v11;
-          *v11 = v69;
+          *v11 = v68;
           if (v29->n128_u64[0] > v28->n128_u64[0])
           {
             v34 = *v28;
@@ -1717,14 +1712,14 @@ LABEL_40:
           v35 = *v28;
           *v28 = *v29;
           *v29 = v35;
-          if (v11->n128_u64[0] <= v29->n128_u64[0])
+          if (*v11 <= v29->n128_u64[0])
           {
             goto LABEL_49;
           }
 
-          v70 = *v29;
+          v69 = *v29;
           *v29 = *v11;
-          v33 = v70;
+          v33 = v69;
         }
 
         else
@@ -1737,20 +1732,20 @@ LABEL_40:
       }
 
 LABEL_49:
-      v36 = *v17;
+      v36 = v17->n128_u64[0];
       v37 = v29->n128_u64[0];
-      if (*v17 <= v22->n128_u64[0])
+      if (v17->n128_u64[0] <= v22->n128_u64[0])
       {
         if (v37 > v36)
         {
-          v72 = *v17;
+          v71 = *v17;
           *v17 = *v29;
-          *v29 = v72;
-          if (*v17 > v22->n128_u64[0])
+          *v29 = v71;
+          if (v17->n128_u64[0] > v22->n128_u64[0])
           {
-            v73 = *v22;
+            v72 = *v22;
             *v22 = *v17;
-            *v17 = v73;
+            *v17 = v72;
           }
         }
 
@@ -1759,45 +1754,45 @@ LABEL_49:
 
       if (v37 <= v36)
       {
-        v74 = *v22;
+        v73 = *v22;
         *v22 = *v17;
-        *v17 = v74;
-        if (v29->n128_u64[0] <= *v17)
+        *v17 = v73;
+        if (v29->n128_u64[0] <= v17->n128_u64[0])
         {
 LABEL_58:
-          v75 = *v12;
+          v74 = *v12;
           *v12 = *v17;
-          *v17 = v75;
+          *v17 = v74;
           goto LABEL_59;
         }
 
-        v71 = *v17;
+        v70 = *v17;
         *v17 = *v29;
       }
 
       else
       {
-        v71 = *v22;
+        v70 = *v22;
         *v22 = *v29;
       }
 
-      *v29 = v71;
+      *v29 = v70;
       goto LABEL_58;
     }
 
-    v20 = *v12;
-    if (*v12 <= *v17)
+    v20 = v12->n128_u64[0];
+    if (v12->n128_u64[0] <= v17->n128_u64[0])
     {
       if (v18 > v20)
       {
-        v63 = *v12;
+        v62 = *v12;
         *v12 = *v9;
-        *v9 = v63;
-        if (*v12 > *v17)
+        *v9 = v62;
+        if (v12->n128_u64[0] > v17->n128_u64[0])
         {
-          v64 = *v17;
+          v63 = *v17;
           *v17 = *v12;
-          *v12 = v64;
+          *v12 = v63;
         }
       }
     }
@@ -1806,44 +1801,44 @@ LABEL_58:
     {
       if (v18 > v20)
       {
-        v60 = *v17;
+        v59 = *v17;
         *v17 = *v9;
 LABEL_36:
-        *v9 = v60;
+        *v9 = v59;
         goto LABEL_59;
       }
 
-      v67 = *v17;
+      v66 = *v17;
       *v17 = *v12;
-      *v12 = v67;
-      if (v9->n128_u64[0] > *v12)
+      *v12 = v66;
+      if (*v9 > v12->n128_u64[0])
       {
-        v60 = *v12;
+        v59 = *v12;
         *v12 = *v9;
         goto LABEL_36;
       }
     }
 
 LABEL_59:
-    if ((a5 & 1) == 0 && *(v12 - 2) <= *v12)
+    if ((a5 & 1) == 0 && v12[-1].n128_u64[0] <= v12->n128_u64[0])
     {
-      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,_NSRange *,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &>(v12, a2->n128_u64);
+      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,_NSRange *,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &>(v12->n128_u64, a2->n128_u64);
       goto LABEL_66;
     }
 
     v38 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,_NSRange *,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &>(v12, a2);
-    if ((v40 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(v12, v38, v39);
+    v40 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>(v12, v38, result);
     v12 = (v38 + 1);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>((v38 + 1), a2, v42))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*>((v38 + 1), a2, v41))
     {
       a4 = -v14;
       a2 = v38;
-      if (v41)
+      if (v40)
       {
         return result;
       }
@@ -1852,10 +1847,10 @@ LABEL_59:
     }
 
     v13 = v14 + 1;
-    if (!v41)
+    if (!v40)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,false>(a1, v38, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,scml::MultiwordGazetteer::Impl::replaceMatches(NSString *,NSString *)::{lambda(_NSRange const&,_NSRange const&)#1} &,_NSRange*,false>(a1, v38, a3, -v14, a5 & 1, result);
       v12 = (v38 + 1);
 LABEL_66:
       a5 = 0;
@@ -1864,73 +1859,73 @@ LABEL_66:
     }
   }
 
-  v43 = (v12 + 2);
-  v49 = v12[2];
-  v50 = (v12 + 4);
-  v51 = v12[4];
-  if (v49 <= *v12)
+  v42 = v12 + 1;
+  v48 = v12[1].n128_u64[0];
+  v49 = v12 + 2;
+  v50 = v12[2].n128_u64[0];
+  if (v48 <= v12->n128_u64[0])
   {
-    if (v51 > v49)
+    if (v50 > v48)
     {
-      result = *v43;
-      *v43 = *v50;
-      *v50 = result;
-      if (v12[2] > *v12)
+      result = *v42;
+      *v42 = *v49;
+      *v49 = result;
+      if (v12[1].n128_u64[0] > v12->n128_u64[0])
       {
-        v79 = *v12;
-        *v12 = *v43;
-        result = v79;
-        *v43 = v79;
+        v78 = *v12;
+        *v12 = *v42;
+        result = v78;
+        *v42 = v78;
       }
     }
   }
 
   else
   {
-    if (v51 > v49)
+    if (v50 > v48)
     {
-      v78 = *v12;
-      *v12 = *v50;
-      result = v78;
+      v77 = *v12;
+      *v12 = *v49;
+      result = v77;
       goto LABEL_105;
     }
 
-    v80 = *v12;
-    *v12 = *v43;
-    result = v80;
-    *v43 = v80;
-    if (v51 > v12[2])
+    v79 = *v12;
+    *v12 = *v42;
+    result = v79;
+    *v42 = v79;
+    if (v50 > v12[1].n128_u64[0])
     {
-      result = *v43;
-      *v43 = *v50;
+      result = *v42;
+      *v42 = *v49;
 LABEL_105:
-      *v50 = result;
+      *v49 = result;
     }
   }
 
-  if (v9->n128_u64[0] <= v50->n128_u64[0])
+  if (*v9 <= v49->n128_u64[0])
   {
     return result;
   }
 
-  result = *v50;
-  *v50 = *v9;
+  result = *v49;
+  *v49 = *v9;
   *v9 = result;
-  if (v50->n128_u64[0] <= v43->n128_u64[0])
+  if (v49->n128_u64[0] <= v42->n128_u64[0])
   {
     return result;
   }
 
-  result = *v43;
-  *v43 = *v50;
-  *v50 = result;
+  result = *v42;
+  *v42 = *v49;
+  *v49 = result;
 LABEL_109:
-  if (v12[2] > *v12)
+  if (v12[1].n128_u64[0] > v12->n128_u64[0])
   {
-    v81 = *v12;
-    *v12 = *v43;
-    result = v81;
-    *v43 = v81;
+    v80 = *v12;
+    *v12 = *v42;
+    result = v80;
+    *v42 = v80;
   }
 
   return result;
@@ -1944,7 +1939,7 @@ uint64_t scml::anonymous namespace::AsyncResponder::finish(scml::_anonymous_name
   {
     if (v2 == (*(this + 6) - *(this + 5)) >> 5 || *(this + 3))
     {
-      goto LABEL_23;
+      goto LABEL_6;
     }
 
     if (*(this + 8))
@@ -1954,31 +1949,26 @@ uint64_t scml::anonymous namespace::AsyncResponder::finish(scml::_anonymous_name
 
     if (![*(this + 2) safe])
     {
-LABEL_23:
-      if (!*(this + 3))
-      {
-        v6 = *(this + 2);
-      }
-
+LABEL_6:
       (*(*this + 16))();
       *(this + 32) = 1;
-      v7 = *(this + 5);
-      if (v7)
+      v6 = *(this + 5);
+      if (v6)
       {
-        v8 = *(this + 6);
-        v9 = *(this + 5);
-        if (v8 != v7)
+        v7 = *(this + 6);
+        v8 = *(this + 5);
+        if (v7 != v6)
         {
           do
           {
           }
 
-          while (v8 != v7);
-          v9 = *(this + 5);
+          while (v7 != v6);
+          v8 = *(this + 5);
         }
 
-        *(this + 6) = v7;
-        operator delete(v9);
+        *(this + 6) = v6;
+        operator delete(v8);
       }
 
       JUMPOUT(0x1B8CC7230);
@@ -1989,14 +1979,14 @@ LABEL_23:
 
 LABEL_2:
   v3 = *(this + 5);
-  v10 = this;
+  v9 = this;
   v4 = *(v3 + 32 * v2 + 24);
   if (!v4)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  return (*(*v4 + 48))(v4, &v10);
+  return (*(*v4 + 48))(v4, &v9);
 }
 
 void scml::SignpostInterval::~SignpostInterval(scml::SignpostInterval *this)
@@ -2065,7 +2055,6 @@ uint64_t sub_1B8A41D10()
 
 uint64_t sub_1B8A41D70()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 41, 7);
 }
@@ -2219,7 +2208,6 @@ uint64_t sub_1B8A425BC()
 
 uint64_t sub_1B8A42608()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -2241,10 +2229,10 @@ uint64_t sub_1B8A4270C(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1B8A42798@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1B8A42798@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -2289,21 +2277,13 @@ uint64_t storeEnumTagSinglePayload for TextImageAlignmentCalculator.EmbeddingSiz
   return result;
 }
 
-uint64_t sub_1B8A4282C()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 48);
-  return sub_1B8AD0514();
-}
-
-unint64_t SCML::extractLocalPeaks@<X0>(uint64_t *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *SCML::extractLocalPeaks@<X0>(uint64_t *a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
 {
   v6 = *(a1 + 2);
   v5 = *(a1 + 3);
   v7 = *(a1 + 4);
-  result = std::vector<float>::vector[abi:ne200100](a3, v7 * v6 * v5);
+  v31 = 0;
+  result = std::vector<float>::vector[abi:ne200100](a3, v7 * v6 * v5, &v31);
   v30 = v6;
   if (v6 >= 1)
   {
@@ -2414,7 +2394,7 @@ LABEL_22:
   return result;
 }
 
-void SCML::topDetections(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t *a4@<X8>)
+void SCML::topDetections(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, const void **a4@<X8>)
 {
   v4 = a3;
   v6 = *(a1 + 8);
@@ -2512,8 +2492,8 @@ void SCML::topDetections(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64
                 *(v35 + 16) = v26;
                 *(v35 + 24) = v27;
                 *(v35 + 32) = v28;
-                v10 = v35 + 40;
-                v36 = v35 - v31;
+                v10 = (v35 + 40);
+                v36 = (v35 - v31);
                 memcpy((v35 - v31), v30, v31);
                 v37 = *a4;
                 *a4 = v36;
@@ -2530,12 +2510,12 @@ void SCML::topDetections(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64
               else
               {
                 *v10 = v18;
-                *(v10 + 4) = v19;
-                *(v10 + 8) = v25;
-                *(v10 + 16) = v26;
-                *(v10 + 24) = v27;
-                *(v10 + 32) = v28;
-                v10 += 40;
+                *(v10 + 1) = v19;
+                *(v10 + 1) = v25;
+                *(v10 + 2) = v26;
+                *(v10 + 3) = v27;
+                *(v10 + 4) = v28;
+                v10 += 10;
               }
 
               a4[1] = v10;
@@ -2581,33 +2561,33 @@ void sub_1B8A42D3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<SCML::BoxInfo>::resize(void *a1, unint64_t a2)
+void std::vector<SCML::BoxInfo>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<SCML::BoxInfo>::__append(a1, v4);
+    std::vector<SCML::BoxInfo>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 40 * a2;
+    result[1] = *result + 40 * a2;
   }
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B8A42E94(_Unwind_Exception *exception_object)
@@ -2622,7 +2602,7 @@ void sub_1B8A42E94(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2673,14 +2653,14 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<SCML::BoxInfo>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,SCML::anonymous namespace::BoxDataDescendingScoreComparator &,SCML::BoxInfo *,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,SCML::anonymous namespace::BoxDataDescendingScoreComparator &,SCML::BoxInfo *,false>(unint64_t result, unint64_t a2, uint64_t a3, char a4)
 {
   while (2)
   {
     v7 = a2 - 40;
     v8 = a2 - 80;
     v9 = a2 - 120;
-    v10 = a1;
+    v10 = result;
     v307 = a2;
     while (1)
     {
@@ -2688,7 +2668,7 @@ void std::__introsort<std::_ClassicAlgPolicy,SCML::anonymous namespace::BoxDataD
       {
         while (1)
         {
-          a1 = v10;
+          result = v10;
           v11 = a2 - v10;
           v12 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - v10) >> 3);
           v13 = v12 - 2;
@@ -2925,12 +2905,12 @@ LABEL_130:
               v291 = v10 - 40;
               do
               {
-                v292 = a1;
-                a1 = v221;
+                v292 = result;
+                result = v221;
                 {
-                  v293 = *a1;
-                  v294 = *(a1 + 16);
-                  v313 = *(a1 + 32);
+                  v293 = *result;
+                  v294 = *(result + 16);
+                  v313 = *(result + 32);
                   v311 = v293;
                   v312 = v294;
                   v295 = v291;
@@ -2951,11 +2931,11 @@ LABEL_130:
                   *(v295 + 96) = v299;
                 }
 
-                v221 = a1 + 40;
+                v221 = result + 40;
                 v291 += 40;
               }
 
-              while (a1 + 40 != a2);
+              while (result + 40 != a2);
             }
 
             return;
@@ -2973,13 +2953,13 @@ LABEL_130:
                 if (v235 >= v236)
                 {
                   v238 = (2 * v236) | 1;
-                  v239 = a1 + 40 * v238;
+                  v239 = result + 40 * v238;
                   {
                     v239 += 40;
                     v238 = 2 * v237 + 2;
                   }
 
-                  v240 = a1 + 40 * v237;
+                  v240 = result + 40 * v237;
                   {
                     v241 = *v240;
                     v242 = *(v240 + 16);
@@ -3000,7 +2980,7 @@ LABEL_130:
                       }
 
                       v246 = (2 * v238) | 1;
-                      v239 = a1 + 40 * v246;
+                      v239 = result + 40 * v246;
                       v247 = 2 * v238 + 2;
                       {
                         v239 += 40;
@@ -3028,12 +3008,12 @@ LABEL_130:
               do
               {
                 v252 = 0;
-                v253 = *a1;
-                v254 = *(a1 + 16);
-                v310 = *(a1 + 32);
+                v253 = *result;
+                v254 = *(result + 16);
+                v310 = *(result + 32);
                 v308 = v253;
                 v309 = v254;
-                v255 = a1;
+                v255 = result;
                 do
                 {
                   v256 = v255 + 40 * v252;
@@ -3083,11 +3063,11 @@ LABEL_130:
                   *v263 = v266;
                   *(v263 + 16) = v267;
                   v268 = v263;
-                  v269 = v257 - a1 + 40;
+                  v269 = v257 - result + 40;
                   if (v269 >= 41)
                   {
                     v270 = (-2 - 0x3333333333333333 * (v269 >> 3)) >> 1;
-                    v271 = a1 + 40 * v270;
+                    v271 = result + 40 * v270;
                     {
                       v272 = *v257;
                       v273 = *(v257 + 16);
@@ -3108,7 +3088,7 @@ LABEL_130:
                         }
 
                         v270 = (v270 - 1) >> 1;
-                        v271 = a1 + 40 * v270;
+                        v271 = result + 40 * v270;
                         v257 = v274;
                       }
 
@@ -3139,30 +3119,30 @@ LABEL_130:
             {
               if (v17)
               {
-                v18 = *a1;
-                v19 = *(a1 + 16);
-                v313 = *(a1 + 32);
+                v18 = *result;
+                v19 = *(result + 16);
+                v313 = *(result + 32);
                 v311 = v18;
                 v312 = v19;
                 v20 = *v7;
                 v21 = *(v7 + 16);
-                *(a1 + 32) = *(v7 + 32);
-                *a1 = v20;
-                *(a1 + 16) = v21;
+                *(result + 32) = *(v7 + 32);
+                *result = v20;
+                *(result + 16) = v21;
               }
 
               else
               {
-                v52 = *a1;
-                v53 = *(a1 + 16);
-                v313 = *(a1 + 32);
+                v52 = *result;
+                v53 = *(result + 16);
+                v313 = *(result + 32);
                 v311 = v52;
                 v312 = v53;
                 v54 = *v15;
                 v55 = *(v15 + 16);
-                *(a1 + 32) = *(v15 + 32);
-                *a1 = v54;
-                *(a1 + 16) = v55;
+                *(result + 32) = *(v15 + 32);
+                *result = v54;
+                *(result + 16) = v55;
                 v56 = v311;
                 v57 = v312;
                 *(v15 + 32) = v313;
@@ -3209,16 +3189,16 @@ LABEL_130:
               *v7 = v32;
               *(v7 + 16) = v33;
               {
-                v34 = *a1;
-                v35 = *(a1 + 16);
-                v313 = *(a1 + 32);
+                v34 = *result;
+                v35 = *(result + 16);
+                v313 = *(result + 32);
                 v311 = v34;
                 v312 = v35;
                 v36 = *v15;
                 v37 = *(v15 + 16);
-                *(a1 + 32) = *(v15 + 32);
-                *a1 = v36;
-                *(a1 + 16) = v37;
+                *(result + 32) = *(v15 + 32);
+                *result = v36;
+                *(result + 16) = v37;
                 v38 = v311;
                 v39 = v312;
                 *(v15 + 32) = v313;
@@ -3228,54 +3208,54 @@ LABEL_130:
             }
 
 LABEL_27:
-            v64 = a1 + 40 * v14 - 40;
+            v64 = result + 40 * v14 - 40;
             if (v65)
             {
               if (v66)
               {
-                v67 = *(a1 + 40);
-                v68 = *(a1 + 56);
+                v67 = *(result + 40);
+                v68 = *(result + 56);
                 v311 = v67;
                 v312 = v68;
-                v69 = *(a1 + 72);
+                v69 = *(result + 72);
                 v313 = v69;
                 v71 = *v8;
                 v70 = *(v8 + 16);
-                *(a1 + 72) = *(v8 + 32);
-                *(a1 + 40) = v71;
-                *(a1 + 56) = v70;
+                *(result + 72) = *(v8 + 32);
+                *(result + 40) = v71;
+                *(result + 56) = v70;
               }
 
               else
               {
-                v96 = *(a1 + 56);
-                v311 = *(a1 + 40);
+                v96 = *(result + 56);
+                v311 = *(result + 40);
                 v95 = v311;
                 v312 = v96;
-                v313 = *(a1 + 72);
+                v313 = *(result + 72);
                 v97 = v313;
                 v99 = *v64;
-                v98 = *(a1 + 40 * v14 - 24);
-                *(a1 + 72) = *(a1 + 40 * v14 - 8);
-                *(a1 + 40) = v99;
-                *(a1 + 56) = v98;
-                *(a1 + 40 * v14 - 8) = v97;
+                v98 = *(result + 40 * v14 - 24);
+                *(result + 72) = *(result + 40 * v14 - 8);
+                *(result + 40) = v99;
+                *(result + 56) = v98;
+                *(result + 40 * v14 - 8) = v97;
                 *v64 = v95;
-                *(a1 + 40 * v14 - 24) = v96;
+                *(result + 40 * v14 - 24) = v96;
                 {
                   goto LABEL_39;
                 }
 
                 v100 = *v64;
-                v101 = *(a1 + 40 * v14 - 24);
-                v313 = *(a1 + 40 * v14 - 8);
+                v101 = *(result + 40 * v14 - 24);
+                v313 = *(result + 40 * v14 - 8);
                 v311 = v100;
                 v312 = v101;
                 v102 = *v8;
                 v103 = *(v8 + 16);
-                *(a1 + 40 * v14 - 8) = *(v8 + 32);
+                *(result + 40 * v14 - 8) = *(v8 + 32);
                 *v64 = v102;
-                *(a1 + 40 * v14 - 24) = v103;
+                *(result + 40 * v14 - 24) = v103;
                 v67 = v311;
                 v68 = v312;
                 v69 = v313;
@@ -3289,70 +3269,70 @@ LABEL_27:
             else if (v66)
             {
               v72 = *v64;
-              v73 = *(a1 + 40 * v14 - 24);
-              v313 = *(a1 + 40 * v14 - 8);
+              v73 = *(result + 40 * v14 - 24);
+              v313 = *(result + 40 * v14 - 8);
               v311 = v72;
               v312 = v73;
               v74 = *v8;
               v75 = *(v8 + 16);
-              *(a1 + 40 * v14 - 8) = *(v8 + 32);
+              *(result + 40 * v14 - 8) = *(v8 + 32);
               *v64 = v74;
-              *(a1 + 40 * v14 - 24) = v75;
+              *(result + 40 * v14 - 24) = v75;
               v76 = v311;
               v77 = v312;
               *(v8 + 32) = v313;
               *v8 = v76;
               *(v8 + 16) = v77;
               {
-                v79 = *(a1 + 56);
-                v311 = *(a1 + 40);
+                v79 = *(result + 56);
+                v311 = *(result + 40);
                 v78 = v311;
                 v312 = v79;
-                v313 = *(a1 + 72);
+                v313 = *(result + 72);
                 v80 = v313;
                 v82 = *v64;
-                v81 = *(a1 + 40 * v14 - 24);
-                *(a1 + 72) = *(a1 + 40 * v14 - 8);
-                *(a1 + 40) = v82;
-                *(a1 + 56) = v81;
-                *(a1 + 40 * v14 - 8) = v80;
+                v81 = *(result + 40 * v14 - 24);
+                *(result + 72) = *(result + 40 * v14 - 8);
+                *(result + 40) = v82;
+                *(result + 56) = v81;
+                *(result + 40 * v14 - 8) = v80;
                 *v64 = v78;
-                *(a1 + 40 * v14 - 24) = v79;
+                *(result + 40 * v14 - 24) = v79;
               }
             }
 
 LABEL_39:
-            v104 = a1 + 40 * v14;
+            v104 = result + 40 * v14;
             if (v105)
             {
               if (v106)
               {
-                v107 = *(a1 + 80);
-                v108 = *(a1 + 96);
+                v107 = *(result + 80);
+                v108 = *(result + 96);
                 v311 = v107;
                 v312 = v108;
-                v109 = *(a1 + 112);
+                v109 = *(result + 112);
                 v313 = v109;
                 v111 = *v9;
                 v110 = *(v9 + 16);
-                *(a1 + 112) = *(v9 + 32);
-                *(a1 + 80) = v111;
-                *(a1 + 96) = v110;
+                *(result + 112) = *(v9 + 32);
+                *(result + 80) = v111;
+                *(result + 96) = v110;
               }
 
               else
               {
-                v124 = *(a1 + 96);
-                v311 = *(a1 + 80);
+                v124 = *(result + 96);
+                v311 = *(result + 80);
                 v123 = v311;
                 v312 = v124;
-                v313 = *(a1 + 112);
+                v313 = *(result + 112);
                 v125 = v313;
                 v126 = *(v104 + 56);
                 v127 = *(v104 + 40);
-                *(a1 + 112) = *(v104 + 72);
-                *(a1 + 80) = v127;
-                *(a1 + 96) = v126;
+                *(result + 112) = *(v104 + 72);
+                *(result + 80) = v127;
+                *(result + 96) = v126;
                 *(v104 + 56) = v124;
                 *(v104 + 72) = v125;
                 *(v104 + 40) = v123;
@@ -3398,17 +3378,17 @@ LABEL_39:
               *v9 = v116;
               *(v9 + 16) = v117;
               {
-                v119 = *(a1 + 96);
-                v311 = *(a1 + 80);
+                v119 = *(result + 96);
+                v311 = *(result + 80);
                 v118 = v311;
                 v312 = v119;
-                v313 = *(a1 + 112);
+                v313 = *(result + 112);
                 v120 = v313;
                 v121 = *(v104 + 56);
                 v122 = *(v104 + 40);
-                *(a1 + 112) = *(v104 + 72);
-                *(a1 + 80) = v122;
-                *(a1 + 96) = v121;
+                *(result + 112) = *(v104 + 72);
+                *(result + 80) = v122;
+                *(result + 96) = v121;
                 *(v104 + 56) = v119;
                 *(v104 + 72) = v120;
                 *(v104 + 40) = v118;
@@ -3486,16 +3466,16 @@ LABEL_48:
               *(v15 + 16) = v151;
               {
 LABEL_57:
-                v157 = *a1;
-                v158 = *(a1 + 16);
-                v313 = *(a1 + 32);
+                v157 = *result;
+                v158 = *(result + 16);
+                v313 = *(result + 32);
                 v311 = v157;
                 v312 = v158;
                 v159 = *v15;
                 v160 = *(v15 + 16);
-                *(a1 + 32) = *(v15 + 32);
-                *a1 = v159;
-                *(a1 + 16) = v160;
+                *(result + 32) = *(v15 + 32);
+                *result = v159;
+                *(result + 16) = v160;
                 v161 = v311;
                 v162 = v312;
                 *(v15 + 32) = v313;
@@ -3551,43 +3531,43 @@ LABEL_35:
             v313 = *(v15 + 32);
             v311 = v83;
             v312 = v84;
-            v85 = *a1;
-            v86 = *(a1 + 16);
-            *(v15 + 32) = *(a1 + 32);
+            v85 = *result;
+            v86 = *(result + 16);
+            *(v15 + 32) = *(result + 32);
             *v15 = v85;
             *(v15 + 16) = v86;
             v87 = v311;
             v88 = v312;
-            *(a1 + 32) = v313;
-            *a1 = v87;
-            *(a1 + 16) = v88;
+            *(result + 32) = v313;
+            *result = v87;
+            *(result + 16) = v88;
             {
-              v89 = *a1;
-              v90 = *(a1 + 16);
-              v313 = *(a1 + 32);
+              v89 = *result;
+              v90 = *(result + 16);
+              v313 = *(result + 32);
               v311 = v89;
               v312 = v90;
               v91 = *v7;
               v92 = *(v7 + 16);
-              *(a1 + 32) = *(v7 + 32);
-              *a1 = v91;
-              *(a1 + 16) = v92;
+              *(result + 32) = *(v7 + 32);
+              *result = v91;
+              *(result + 16) = v92;
               goto LABEL_35;
             }
           }
 
           else if (v23)
           {
-            v40 = *a1;
-            v41 = *(a1 + 16);
-            v313 = *(a1 + 32);
+            v40 = *result;
+            v41 = *(result + 16);
+            v313 = *(result + 32);
             v311 = v40;
             v312 = v41;
             v42 = *v7;
             v43 = *(v7 + 16);
-            *(a1 + 32) = *(v7 + 32);
-            *a1 = v42;
-            *(a1 + 16) = v43;
+            *(result + 32) = *(v7 + 32);
+            *result = v42;
+            *(result + 16) = v43;
             v44 = v311;
             v45 = v312;
             *(v7 + 32) = v313;
@@ -3599,16 +3579,16 @@ LABEL_35:
               v313 = *(v15 + 32);
               v311 = v46;
               v312 = v47;
-              v48 = *a1;
-              v49 = *(a1 + 16);
-              *(v15 + 32) = *(a1 + 32);
+              v48 = *result;
+              v49 = *(result + 16);
+              *(v15 + 32) = *(result + 32);
               *v15 = v48;
               *(v15 + 16) = v49;
               v50 = v311;
               v51 = v312;
-              *(a1 + 32) = v313;
-              *a1 = v50;
-              *(a1 + 16) = v51;
+              *(result + 32) = v313;
+              *result = v50;
+              *(result + 16) = v51;
             }
           }
 
@@ -3618,13 +3598,13 @@ LABEL_58:
             break;
           }
 
-          v182 = *a1;
-          v183 = *(a1 + 16);
-          v310 = *(a1 + 32);
+          v182 = *result;
+          v183 = *(result + 16);
+          v310 = *(result + 32);
           v308 = v182;
           v309 = v183;
           {
-            v10 = a1;
+            v10 = result;
             a2 = v307;
             do
             {
@@ -3634,7 +3614,7 @@ LABEL_58:
 
           else
           {
-            v184 = a1 + 40;
+            v184 = result + 40;
             a2 = v307;
             do
             {
@@ -3689,13 +3669,13 @@ LABEL_58:
           }
 
           v193 = (v10 - 40);
-          if (v10 - 40 != a1)
+          if (v10 - 40 != result)
           {
             v194 = *v193;
             v195 = *(v10 - 24);
-            *(a1 + 32) = *(v10 - 8);
-            *a1 = v194;
-            *(a1 + 16) = v195;
+            *(result + 32) = *(v10 - 8);
+            *result = v194;
+            *(result + 16) = v195;
           }
 
           a4 = 0;
@@ -3707,9 +3687,9 @@ LABEL_58:
         }
 
         v163 = 0;
-        v164 = *a1;
-        v165 = *(a1 + 16);
-        v310 = *(a1 + 32);
+        v164 = *result;
+        v165 = *(result + 16);
+        v310 = *(result + 32);
         v308 = v164;
         v309 = v165;
         do
@@ -3717,7 +3697,7 @@ LABEL_58:
           v163 += 40;
         }
 
-        v166 = a1 + v163;
+        v166 = result + v163;
         v167 = v307;
         v222 = v163 == 40;
         a2 = v307;
@@ -3784,13 +3764,13 @@ LABEL_58:
           v176 = v168 - 40;
         }
 
-        if (v176 != a1)
+        if (v176 != result)
         {
           v177 = *v176;
           v178 = *(v176 + 16);
-          *(a1 + 32) = *(v176 + 32);
-          *a1 = v177;
-          *(a1 + 16) = v178;
+          *(result + 32) = *(v176 + 32);
+          *result = v177;
+          *(result + 16) = v178;
         }
 
         v179 = v308;
@@ -3872,47 +3852,47 @@ BOOL SCML::anonymous namespace::BoxDataDescendingScoreComparator::operator()(uin
   return v12 != v13 && v12 < v13;
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,SCML::anonymous namespace::BoxDataDescendingScoreComparator &,SCML::BoxInfo *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,SCML::anonymous namespace::BoxDataDescendingScoreComparator &,SCML::BoxInfo *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
   if (v8)
   {
     if (v9)
     {
       v10 = *a1;
-      v11 = *(a1 + 16);
-      v12 = *(a1 + 32);
-      v13 = *(a3 + 32);
-      v14 = *(a3 + 16);
+      v11 = a1[1];
+      v12 = a1[2].n128_u64[0];
+      v13 = a3[2].n128_i64[0];
+      v14 = a3[1];
       *a1 = *a3;
-      *(a1 + 16) = v14;
-      *(a1 + 32) = v13;
+      a1[1] = v14;
+      a1[2].n128_u64[0] = v13;
 LABEL_9:
-      *(a3 + 32) = v12;
+      a3[2].n128_u64[0] = v12;
       *a3 = v10;
-      *(a3 + 16) = v11;
+      a3[1] = v11;
       goto LABEL_10;
     }
 
     v25 = *a1;
-    v26 = *(a1 + 16);
-    v27 = *(a1 + 32);
-    v28 = *(a2 + 32);
-    v29 = *(a2 + 16);
+    v26 = a1[1];
+    v27 = a1[2].n128_i64[0];
+    v28 = a2[2].n128_i64[0];
+    v29 = a2[1];
     *a1 = *a2;
-    *(a1 + 16) = v29;
-    *(a1 + 32) = v28;
-    *(a2 + 32) = v27;
+    a1[1] = v29;
+    a1[2].n128_u64[0] = v28;
+    a2[2].n128_u64[0] = v27;
     *a2 = v25;
-    *(a2 + 16) = v26;
+    a2[1] = v26;
     {
       v10 = *a2;
-      v11 = *(a2 + 16);
-      v12 = *(a2 + 32);
-      v30 = *(a3 + 32);
-      v31 = *(a3 + 16);
+      v11 = a2[1];
+      v12 = a2[2].n128_u64[0];
+      v30 = a3[2].n128_i64[0];
+      v31 = a3[1];
       *a2 = *a3;
-      *(a2 + 16) = v31;
-      *(a2 + 32) = v30;
+      a2[1] = v31;
+      a2[2].n128_u64[0] = v30;
       goto LABEL_9;
     }
   }
@@ -3920,68 +3900,68 @@ LABEL_9:
   else if (v9)
   {
     v15 = *a2;
-    v16 = *(a2 + 16);
-    v17 = *(a2 + 32);
-    v18 = *(a3 + 32);
-    v19 = *(a3 + 16);
+    v16 = a2[1];
+    v17 = a2[2].n128_u64[0];
+    v18 = a3[2].n128_i64[0];
+    v19 = a3[1];
     *a2 = *a3;
-    *(a2 + 16) = v19;
-    *(a2 + 32) = v18;
-    *(a3 + 32) = v17;
+    a2[1] = v19;
+    a2[2].n128_u64[0] = v18;
+    a3[2].n128_u64[0] = v17;
     *a3 = v15;
-    *(a3 + 16) = v16;
+    a3[1] = v16;
     {
       v20 = *a1;
-      v21 = *(a1 + 16);
-      v22 = *(a1 + 32);
-      v23 = *(a2 + 32);
-      v24 = *(a2 + 16);
+      v21 = a1[1];
+      v22 = a1[2].n128_i64[0];
+      v23 = a2[2].n128_i64[0];
+      v24 = a2[1];
       *a1 = *a2;
-      *(a1 + 16) = v24;
-      *(a1 + 32) = v23;
-      *(a2 + 32) = v22;
+      a1[1] = v24;
+      a1[2].n128_u64[0] = v23;
+      a2[2].n128_u64[0] = v22;
       *a2 = v20;
-      *(a2 + 16) = v21;
+      a2[1] = v21;
     }
   }
 
 LABEL_10:
   {
     v33 = *a3;
-    v34 = *(a3 + 16);
-    v35 = *(a3 + 32);
-    v36 = *(a4 + 32);
-    v37 = *(a4 + 16);
+    v34 = a3[1];
+    v35 = a3[2].n128_i64[0];
+    v36 = a4[2].n128_u64[0];
+    v37 = a4[1];
     *a3 = *a4;
-    *(a3 + 16) = v37;
-    *(a3 + 32) = v36;
-    *(a4 + 32) = v35;
+    a3[1] = v37;
+    a3[2].n128_u64[0] = v36;
+    a4[2].n128_u64[0] = v35;
     *a4 = v33;
-    *(a4 + 16) = v34;
+    a4[1] = v34;
     {
       v38 = *a2;
-      v39 = *(a2 + 16);
-      v40 = *(a2 + 32);
-      v41 = *(a3 + 32);
-      v42 = *(a3 + 16);
+      v39 = a2[1];
+      v40 = a2[2].n128_u64[0];
+      v41 = a3[2].n128_i64[0];
+      v42 = a3[1];
       *a2 = *a3;
-      *(a2 + 16) = v42;
-      *(a2 + 32) = v41;
-      *(a3 + 32) = v40;
+      a2[1] = v42;
+      a2[2].n128_u64[0] = v41;
+      a3[2].n128_u64[0] = v40;
       *a3 = v38;
-      *(a3 + 16) = v39;
+      a3[1] = v39;
       {
         result = *a1;
-        v43 = *(a1 + 16);
-        v44 = *(a1 + 32);
-        v45 = *(a2 + 32);
-        v46 = *(a2 + 16);
+        v43 = a1[1];
+        v44 = a1[2].n128_i64[0];
+        v45 = a2[2].n128_i64[0];
+        v46 = a2[1];
         *a1 = *a2;
-        *(a1 + 16) = v46;
-        *(a1 + 32) = v45;
-        *(a2 + 32) = v44;
+        a1[1] = v46;
+        a1[2].n128_u64[0] = v45;
+        a2[2].n128_u64[0] = v44;
         *a2 = result;
-        *(a2 + 16) = v43;
+        a2[1] = v43;
       }
     }
   }
@@ -4349,10 +4329,10 @@ void sub_1B8A4506C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A4525C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1B8A4525C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SCMLImageAnalyzer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4447,10 +4427,10 @@ void sub_1B8A45BE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t scml::strCat<char const(&)[38],std::string>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<char const(&)[38],std::string>@<X0>(char *a1@<X0>, _BYTE *a2@<X8>, uint64_t **a3@<X1>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-  scml::scml_impl::strCat<char const(&)[38],std::string>(&v10, a1, a2);
+  scml::scml_impl::strCat<char const(&)[38],std::string>(&v10, a1, a3);
   if ((v17 & 0x10) != 0)
   {
     v7 = v16;
@@ -4468,7 +4448,7 @@ uint64_t scml::strCat<char const(&)[38],std::string>@<X0>(char *a1@<X0>, uint64_
     if ((v17 & 8) == 0)
     {
       v6 = 0;
-      a3[23] = 0;
+      a2[23] = 0;
       goto LABEL_14;
     }
 
@@ -4487,14 +4467,14 @@ uint64_t scml::strCat<char const(&)[38],std::string>@<X0>(char *a1@<X0>, uint64_
     operator new();
   }
 
-  a3[23] = v6;
+  a2[23] = v6;
   if (v6)
   {
-    memmove(a3, locale, v6);
+    memmove(a2, locale, v6);
   }
 
 LABEL_14:
-  a3[v6] = 0;
+  a2[v6] = 0;
   v10 = *MEMORY[0x1E69E54E8];
   *(&v10 + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v11 = MEMORY[0x1E69E5548] + 16;
@@ -4509,11 +4489,11 @@ LABEL_14:
   return MEMORY[0x1B8CC71A0](&v18);
 }
 
-void sub_1B8A45EAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A45EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
-  MEMORY[0x1B8CC71A0](v2 + 112);
+  MEMORY[0x1B8CC71A0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -4544,7 +4524,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4558,13 +4538,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4616,12 +4596,13 @@ void sub_1B8A47698(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B8A47B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31, char a32)
+void sub_1B8A47B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
 
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4750,7 +4731,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-uint64_t scml::scml_impl::strCat<char const(&)[38],std::string>(void *a1, char *__s, uint64_t a3)
+void scml::scml_impl::strCat<char const(&)[38],std::string>(void *a1, char *__s, uint64_t **a3)
 {
   v6 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v6);
@@ -4772,12 +4753,12 @@ uint64_t scml::scml_impl::strCat<char const(&)[38],std::string>(void *a1, char *
 
   else
   {
-    v9 = *(a3 + 8);
+    v9 = a3[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v8, v9);
 
-  return scml::scml_impl::strCat<>(a1);
+  scml::scml_impl::strCat<>();
 }
 
 uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
@@ -4848,28 +4829,28 @@ id anonymous namespace::checkedConvert<NSDictionary>(void *a1, void *a2)
 
 uint64_t anonymous namespace::checkDictKeys(void *a1, void *a2, char a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v10)
   {
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (([v8 containsObject:*(*(&v26 + 1) + 8 * i)] & 1) == 0)
+        if (([v8 containsObject:*(*(&v25 + 1) + 8 * i)] & 1) == 0)
         {
           v13 = 0;
           v14 = v9;
@@ -4877,7 +4858,7 @@ uint64_t anonymous namespace::checkDictKeys(void *a1, void *a2, char a3, void *a
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -4894,37 +4875,37 @@ uint64_t anonymous namespace::checkDictKeys(void *a1, void *a2, char a3, void *a
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v14 = v8;
-    v17 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
-    if (v17)
+    v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    if (v16)
     {
-      v18 = *v23;
+      v17 = *v22;
       while (2)
       {
-        for (j = 0; j != v17; ++j)
+        for (j = 0; j != v16; ++j)
         {
-          if (*v23 != v18)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = [v9 objectForKeyedSubscript:{*(*(&v22 + 1) + 8 * j), v22}];
-          v21 = v20 == 0;
+          v19 = [v9 objectForKeyedSubscript:{*(*(&v21 + 1) + 8 * j), v21}];
+          v20 = v19 == 0;
 
-          if (v21)
+          if (v20)
           {
             v13 = 0;
             goto LABEL_12;
           }
         }
 
-        v17 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
         v13 = 1;
-        if (v17)
+        if (v16)
         {
           continue;
         }
@@ -4941,26 +4922,23 @@ uint64_t anonymous namespace::checkDictKeys(void *a1, void *a2, char a3, void *a
 LABEL_12:
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 id anonymous namespace::GetThresholdModeStrings(_anonymous_namespace_ *this)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   {
-    v4[0] = &unk_1F3751930;
-    v4[1] = &unk_1F3751948;
-    v5[0] = @"super_high_precision";
-    v5[1] = @"high_precision";
-    v4[2] = &unk_1F3751960;
-    v4[3] = &unk_1F3751978;
-    v5[2] = @"balanced";
-    v5[3] = @"high_recall";
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
+    v3[0] = &unk_1F3751930;
+    v3[1] = &unk_1F3751948;
+    v4[0] = @"super_high_precision";
+    v4[1] = @"high_precision";
+    v3[2] = &unk_1F3751960;
+    v3[3] = &unk_1F3751978;
+    v4[2] = @"balanced";
+    v4[3] = @"high_recall";
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:4];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -4983,13 +4961,14 @@ void sub_1B8A4AAF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void scml::ClipEmbeddingClassifier::Impl::Impl(uint64_t a1, const void *a2, uint64_t a3)
+void scml::ClipEmbeddingClassifier::Impl::Impl(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -5016,7 +4995,7 @@ void scml::ClipEmbeddingClassifier::Impl::Impl(uint64_t a1, const void *a2, uint
   scml::ClipEmbeddingClassifier::Impl::loadConfig(a1, a2, a3);
 }
 
-void sub_1B8A4B518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, int a19, __int16 a20, char a21, unsigned __int8 a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, char a35)
+void sub_1B8A4B518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void ***a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, char a35)
 {
   if (v38)
   {
@@ -5027,8 +5006,8 @@ void sub_1B8A4B518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   {
     v42 = __cxa_begin_catch(a1);
     exception = __cxa_allocate_exception(0x18uLL);
-    scml::strCat<char const(&)[27],std::string_view &>("Failed to load model from ", &a10, &a17);
-    if ((a22 & 0x80u) == 0)
+    scml::strCat<char const(&)[27],std::string_view &>("Failed to load model from ", &a17, &a10);
+    if (a22 >= 0)
     {
       v44 = &a17;
     }
@@ -5038,7 +5017,7 @@ void sub_1B8A4B518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       v44 = a17;
     }
 
-    if ((a22 & 0x80u) == 0)
+    if (a22 >= 0)
     {
       v45 = a22;
     }
@@ -5165,11 +5144,11 @@ void scml::TensorSpec::~TensorSpec(void **this)
   }
 }
 
-uint64_t scml::strCat<char const(&)[27],std::string_view &>@<X0>(char *a1@<X0>, uint64_t *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<char const(&)[27],std::string_view &>@<X0>(char *a1@<X0>, void *a2@<X8>, uint64_t *a3@<X1>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
-  scml::scml_impl::strCat<char const(&)[27],std::string_view &>(&v7, a1, a2);
-  std::ostringstream::str[abi:ne200100](&v7, a3);
+  scml::scml_impl::strCat<char const(&)[27],std::string_view &>(&v7, a1, a3);
+  std::ostringstream::str[abi:ne200100](&v7, a2);
   v7 = *MEMORY[0x1E69E54E8];
   *(&v7 + *(v7 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v8 = MEMORY[0x1E69E5548] + 16;
@@ -5184,9 +5163,9 @@ uint64_t scml::strCat<char const(&)[27],std::string_view &>@<X0>(char *a1@<X0>, 
   return MEMORY[0x1B8CC71A0](&v11);
 }
 
-void sub_1B8A4C0BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A4C0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5495,20 +5474,20 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void scml::ClipEmbeddingClassifier::Impl::writeInputTensors(uint64_t a1, void *a2)
+void scml::ClipEmbeddingClassifier::Impl::writeInputTensors(uint64_t *a1, void *a2)
 {
-  v3 = (a1 + 232);
-  if (*(a1 + 232) != (a2[1] - *a2) >> 2)
+  v3 = (a1 + 29);
+  if (a1[29] != (a2[1] - *a2) >> 2)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     __p[0] = ((a2[1] - *a2) >> 2);
-    scml::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>("embedding size ", __p, ", expected ", v3, &v11);
+    scml::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>("embedding size ", &v11, __p, ", expected ", v3);
     std::runtime_error::runtime_error(exception, &v11);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v11.__r_.__value_.__r.__words[0] = a1 + 136;
-  v4 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 192), (a1 + 136));
+  v11.__r_.__value_.__r.__words[0] = (a1 + 17);
+  v4 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 24, a1 + 17, &std::piecewise_construct, &v11, __p);
   v5 = ik::Tensor::Data<float>((v4 + 5));
   (*(*v4[10] + 32))(__p);
   ik::ArrayView<float,-1>::ArrayView(&v11, v5, __p);
@@ -5565,11 +5544,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t scml::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>@<X0>(char *a1@<X0>, void *a2@<X1>, char *a3@<X2>, void *a4@<X3>, _BYTE *a5@<X8>)
+uint64_t scml::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>@<X0>(char *a1@<X0>, void *a2@<X8>, void *a3@<X1>, char *a4@<X2>, void *a5@<X3>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-  scml::scml_impl::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>(&v11, a1, a2, a3, a4);
-  std::ostringstream::str[abi:ne200100](&v11, a5);
+  scml::scml_impl::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned long &>(&v11, a1, a3, a4, a5);
+  std::ostringstream::str[abi:ne200100](&v11, a2);
   v11 = *MEMORY[0x1E69E54E8];
   *(&v11 + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v12 = MEMORY[0x1E69E5548] + 16;
@@ -5584,9 +5563,9 @@ uint64_t scml::strCat<char const(&)[16],unsigned long,char const(&)[12],unsigned
   return MEMORY[0x1B8CC71A0](&v15);
 }
 
-void sub_1B8A4CA9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A4CA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5619,8 +5598,8 @@ void scml::ClipEmbeddingClassifier::predict(std::mutex **a1@<X0>, void *a2@<X1>,
 {
   v6 = *a1;
   std::mutex::lock(*a1);
-  scml::ClipEmbeddingClassifier::Impl::writeInputTensors(*a1, a2);
-  ik::core::E5OpImpl::Run(**&(*a1)[2].__m_.__opaque[48], v35);
+  scml::ClipEmbeddingClassifier::Impl::writeInputTensors(&(*a1)->__m_.__sig, a2);
+  ik::core::E5OpImpl::Run(v35, **&(*a1)[2].__m_.__opaque[48]);
   v7 = std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::find<std::string>(v35, &(*a1)[2].__m_.__opaque[24]);
   v8 = v7;
   if (!v7)
@@ -5643,13 +5622,13 @@ void scml::ClipEmbeddingClassifier::predict(std::mutex **a1@<X0>, void *a2@<X1>,
   v10 = *a1;
   *(a3 + 2) = 0;
   *(a3 + 3) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a3 + 8), v10[1].__m_.__sig, *v10[1].__m_.__opaque, 0xAAAAAAAAAAAAAAABLL * ((*v10[1].__m_.__opaque - v10[1].__m_.__sig) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a3 + 1, v10[1].__m_.__sig, *v10[1].__m_.__opaque, 0xAAAAAAAAAAAAAAABLL * ((*v10[1].__m_.__opaque - v10[1].__m_.__sig) >> 3));
   v11 = 0xAAAAAAAAAAAAAAABLL * ((*(*a1)[1].__m_.__opaque - (*a1)[1].__m_.__sig) >> 3);
   LOBYTE(v30) = 1;
-  std::vector<BOOL>::vector(a3 + 4, v11);
+  std::vector<BOOL>::vector(a3 + 4, v11, &v30);
   v12 = 0xAAAAAAAAAAAAAAABLL * ((*(*a1)[1].__m_.__opaque - (*a1)[1].__m_.__sig) >> 3);
   LODWORD(v36[0]) = -1082130432;
-  std::vector<float>::vector[abi:ne200100](a3 + 7, v12);
+  std::vector<float>::vector[abi:ne200100](a3 + 7, v12, v36);
   LODWORD(v36[0]) = 0;
   if (*(v8[7] + 1))
   {
@@ -5713,27 +5692,28 @@ void scml::ClipEmbeddingClassifier::predict(std::mutex **a1@<X0>, void *a2@<X1>,
   std::mutex::unlock(v6);
 }
 
-void sub_1B8A4CE88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1B8A4CE88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  v22 = *(v18 + 32);
-  if (v22)
+  va_start(va, a16);
+  v21 = *(v17 + 32);
+  if (v21)
   {
-    operator delete(v22);
+    operator delete(v21);
   }
 
-  *(v20 - 88) = v19;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v20 - 88));
+  *(v19 - 88) = v18;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v19 - 88));
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::~__hash_table(&a17);
-  std::mutex::unlock(v17);
+  std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::~__hash_table(va);
+  std::mutex::unlock(v16);
   _Unwind_Resume(a1);
 }
 
-void scml::anonymous namespace::configPathForModel(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void scml::anonymous namespace::configPathForModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v6 = [v13 resourceURL];
@@ -5744,10 +5724,10 @@ void scml::anonymous namespace::configPathForModel(uint64_t a1@<X0>, uint64_t a2
   v10 = [v7 stringByAppendingPathComponent:@"Models"];
   v11 = [v10 stringByAppendingPathComponent:v8];
   v12 = [v11 stringByAppendingPathComponent:v9];
-  scml::strFromNSString(v12, a3);
+  scml::strFromNSString(a3, v12);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5759,14 +5739,14 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-uint64_t std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5788,7 +5768,7 @@ void sub_1B8A4D1E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<E5RT::ComputeDeviceType>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<E5RT::ComputeDeviceType>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5871,7 +5851,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne200100]<std::variant<int,std::string> const*,std::variant<int,std::string> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne200100]<std::variant<int,std::string> const*,std::variant<int,std::string> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5881,14 +5861,14 @@ uint64_t std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne2001
   return result;
 }
 
-void sub_1B8A4D47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B8A4D47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::variant<int,std::string>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::variant<int,std::string>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::variant<int,std::string>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -6031,7 +6011,7 @@ void std::vector<std::variant<int,std::string>>::__destroy_vector::operator()[ab
   }
 }
 
-uint64_t std::vector<scml::TensorSpec>::__init_with_size[abi:ne200100]<scml::TensorSpec const*,scml::TensorSpec const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<scml::TensorSpec>::__init_with_size[abi:ne200100]<scml::TensorSpec const*,scml::TensorSpec const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6041,14 +6021,14 @@ uint64_t std::vector<scml::TensorSpec>::__init_with_size[abi:ne200100]<scml::Ten
   return result;
 }
 
-void sub_1B8A4D7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B8A4D7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<scml::TensorSpec>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<scml::TensorSpec>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<scml::TensorSpec>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -6092,8 +6072,8 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<s
       v11 = a4 + v7;
       *(v11 + 24) = 0;
       *(v11 + 32) = 0;
-      v12 = a4 + v7 + 24;
-      *(v12 + 16) = 0;
+      v12 = (a4 + v7 + 24);
+      v12[2] = 0;
       std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne200100]<std::variant<int,std::string>*,std::variant<int,std::string>*>(v12, *(a2 + v7 + 24), *(a2 + v7 + 32), (*(a2 + v7 + 32) - *(a2 + v7 + 24)) >> 5);
       *(a4 + v7 + 48) = *(a2 + v7 + 48);
       v7 += 56;
@@ -6125,7 +6105,7 @@ void sub_1B8A4D96C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne200100]<std::variant<int,std::string>*,std::variant<int,std::string>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::variant<int,std::string>>::__init_with_size[abi:ne200100]<std::variant<int,std::string>*,std::variant<int,std::string>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6223,59 +6203,65 @@ void std::__throw_bad_variant_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x1E69E5410], std::bad_variant_access::~bad_variant_access);
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<ik::core::GenericTensorsFromE5Tensors(std::unordered_map<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>> const&)::{lambda(ik::Tensor const&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ik::E5BufferTensor,ik::PixelBufferTensor> const&>(void ***a1, uint64_t a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<ik::core::GenericTensorsFromE5Tensors(std::unordered_map<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>> const&)::{lambda(ik::Tensor const&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ik::E5BufferTensor,ik::PixelBufferTensor> const&>(uint64_t **a1, uint64_t a2)
 {
-  v3 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(**a1, (*a1)[1]);
-  v4 = v3;
-  *(v3 + 12) = *(a2 + 8);
-  if (v3 + 5 != a2)
+  v3 = *a1;
+  v4 = **a1;
+  v11 = v3[1];
+  v5 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, v11, &std::piecewise_construct, &v11, &v10);
+  v6 = v5;
+  *(v5 + 12) = *(a2 + 8);
+  if (v5 + 5 != a2)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v3 + 7, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v5 + 7, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
   }
 
-  v6 = *(a2 + 40);
-  v5 = *(a2 + 48);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = v4[11];
-  v4[10] = v6;
-  v4[11] = v5;
+  v8 = *(a2 + 40);
+  v7 = *(a2 + 48);
   if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  v9 = v6[11];
+  v6[10] = v8;
+  v6[11] = v7;
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 }
 
-void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<ik::core::GenericTensorsFromE5Tensors(std::unordered_map<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>> const&)::{lambda(ik::Tensor const&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ik::E5BufferTensor,ik::PixelBufferTensor> const&>(void ***a1, uint64_t a2)
+void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<ik::core::GenericTensorsFromE5Tensors(std::unordered_map<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>> const&)::{lambda(ik::Tensor const&)#1}> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,ik::E5BufferTensor,ik::PixelBufferTensor> const&>(uint64_t **a1, uint64_t a2)
 {
-  v3 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(**a1, (*a1)[1]);
-  v4 = v3;
-  *(v3 + 12) = *(a2 + 8);
-  if (v3 + 5 != a2)
+  v3 = *a1;
+  v4 = **a1;
+  v11 = v3[1];
+  v5 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, v11, &std::piecewise_construct, &v11, &v10);
+  v6 = v5;
+  *(v5 + 12) = *(a2 + 8);
+  if (v5 + 5 != a2)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v3 + 7, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v5 + 7, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
   }
 
-  v6 = *(a2 + 40);
-  v5 = *(a2 + 48);
-  if (v5)
-  {
-    atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = v4[11];
-  v4[10] = v6;
-  v4[11] = v5;
+  v8 = *(a2 + 40);
+  v7 = *(a2 + 48);
   if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  v9 = v6[11];
+  v6[10] = v8;
+  v6[11] = v7;
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6360,75 +6346,72 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t ik::core::E5OpImpl::CreateInputTensors@<X0>(E5RT::ExecutionStreamOperation **this@<X0>, uint64_t a2@<X8>)
+void ik::core::E5OpImpl::CreateInputTensors(uint64_t *__return_ptr a1@<X8>, E5RT::ExecutionStreamOperation **this@<X0>)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
-  result = E5RT::ExecutionStreamOperation::GetInputPorts(*this);
-  v3 = *(result + 16);
-  if (v3)
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  v2 = *(E5RT::ExecutionStreamOperation::GetInputPorts(*this) + 16);
+  if (v2)
   {
-    PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(v3 + 40));
+    PortDescriptorRef = E5RT::IOPort::GetPortDescriptorRef(*(v2 + 40));
     if (E5RT::OperandDescriptor::TryAsTensorDescriptor(PortDescriptorRef))
     {
-      ik::core::CreateBufferTensor(*(v3 + 40), v5);
+      ik::core::CreateBufferTensor(v9, *(v2 + 40));
     }
 
     if (E5RT::OperandDescriptor::TryAsSurfaceDescriptor(PortDescriptorRef))
     {
-      E5RT::IOPort::GetPortDescriptor(&SurfaceWidth, *(v3 + 40));
-      v6 = E5RT::OperandDescriptor::SurfaceDescriptor(SurfaceWidth);
+      E5RT::IOPort::GetPortDescriptor(&SurfaceWidth, *(v2 + 40));
+      v4 = E5RT::OperandDescriptor::SurfaceDescriptor(SurfaceWidth);
       if (SurfaceHeight)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](SurfaceHeight);
       }
 
-      SurfaceWidth = E5RT::SurfaceDescriptor::GetSurfaceWidth(v6);
-      SurfaceHeight = E5RT::SurfaceDescriptor::GetSurfaceHeight(v6);
-      SurfaceFormat = E5RT::SurfaceDescriptor::GetSurfaceFormat(v6);
-      v8 = SurfaceFormat;
+      SurfaceWidth = E5RT::SurfaceDescriptor::GetSurfaceWidth(v4);
+      SurfaceHeight = E5RT::SurfaceDescriptor::GetSurfaceHeight(v4);
+      SurfaceFormat = E5RT::SurfaceDescriptor::GetSurfaceFormat(v4);
+      v6 = SurfaceFormat;
       if (SurfaceFormat < 0x20 && ((0x80017FFF >> SurfaceFormat) & 1) != 0)
       {
-        v14 = *&aF024800largbab[4 * SurfaceFormat];
-        v15 = 1;
-        v16 = 0;
-        v17 = 0;
-        ik::PixelBufferTensor::PixelBufferTensor(&v11, &SurfaceWidth);
+        v12 = *&aF024800largbab[4 * SurfaceFormat];
+        v13 = 1;
+        v14 = 0;
+        v15 = 0;
+        ik::PixelBufferTensor::PixelBufferTensor(v9, &SurfaceWidth);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
-      std::to_string(&v18, v8);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Unsupported SurfaceFormat: ", &v18, &v19);
-      std::runtime_error::runtime_error(exception, &v19);
+      std::to_string(&v16, v6);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Unsupported SurfaceFormat: ", &v16, &v17);
+      std::runtime_error::runtime_error(exception, &v17);
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v10 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v10, "Unknown input port type.");
-    __cxa_throw(v10, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v8 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v8, "Unknown input port type.");
+    __cxa_throw(v8, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
-
-  return result;
 }
 
-void ik::core::CreateBufferTensor(ik::core *this, const E5RT::IOPort *a2)
+void ik::core::CreateBufferTensor(uint64_t *__return_ptr a1@<X8>, ik::core *this@<X0>)
 {
   E5RT::IOPort::GetPortDescriptor(&__p, this);
-  v2 = E5RT::OperandDescriptor::TensorDescriptor(__p);
-  if (v9)
+  v3 = E5RT::OperandDescriptor::TensorDescriptor(__p);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  E5RT::TensorDescriptor::GetTensorDataType(v11, v2);
-  ComponentSize = E5RT::TensorDataType::GetComponentSize(v11);
-  ComponentDataType = E5RT::TensorDataType::GetComponentDataType(v11);
+  E5RT::TensorDescriptor::GetTensorDataType(v12, v3);
+  ComponentSize = E5RT::TensorDataType::GetComponentSize(v12);
+  ComponentDataType = E5RT::TensorDataType::GetComponentDataType(v12);
   if (ComponentDataType == 4)
   {
     if (ComponentSize == 2)
     {
-      v5 = 3;
+      v6 = 3;
     }
 
     else
@@ -6440,7 +6423,7 @@ void ik::core::CreateBufferTensor(ik::core *this, const E5RT::IOPort *a2)
         goto LABEL_21;
       }
 
-      v5 = 4;
+      v6 = 4;
     }
   }
 
@@ -6458,7 +6441,7 @@ void ik::core::CreateBufferTensor(ik::core *this, const E5RT::IOPort *a2)
       {
         if (ComponentSize == 1)
         {
-          v5 = 0;
+          v6 = 0;
           goto LABEL_16;
         }
 
@@ -6472,7 +6455,7 @@ LABEL_21:
 
     if (ComponentSize == 2)
     {
-      v5 = 1;
+      v6 = 1;
     }
 
     else
@@ -6484,28 +6467,29 @@ LABEL_21:
         goto LABEL_21;
       }
 
-      v5 = 2;
+      v6 = 2;
     }
   }
 
 LABEL_16:
-  v12 = v5;
-  TensorShape = E5RT::TensorDescriptor::GetTensorShape(v2);
+  v13 = v6;
+  TensorShape = E5RT::TensorDescriptor::GetTensorShape(v3);
   __p = 0;
-  v9 = 0;
   v10 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *TensorShape, TensorShape[1], (TensorShape[1] - *TensorShape) >> 3);
-  ik::E5BufferTensor::E5BufferTensor();
+  v11 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *TensorShape, *(TensorShape + 8), (*(TensorShape + 8) - *TensorShape) >> 3);
+  ik::E5BufferTensor::E5BufferTensor(a1, &v13, &__p);
 }
 
-void sub_1B8A4E33C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
+void sub_1B8A4E33C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, ...)
 {
-  __cxa_free_exception(v12);
-  E5RT::TensorDataType::~TensorDataType(&a12);
+  va_start(va, a11);
+  __cxa_free_exception(v11);
+  E5RT::TensorDataType::~TensorDataType(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6542,14 +6526,14 @@ void sub_1B8A4E4CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ik::Tensor::Tensor(uint64_t a1, void *a2, _DWORD *a3, uint64_t *a4)
+uint64_t ik::Tensor::Tensor(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4)
 {
   *a1 = &unk_1F3745648;
   *(a1 + 8) = *a3;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 16) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1 + 16, *a4, a4[1], (a4[1] - *a4) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((a1 + 16), *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 3);
   v6 = a2[1];
   *(a1 + 40) = *a2;
   *(a1 + 48) = v6;
@@ -6624,33 +6608,31 @@ void *ik::core::E5BufferStorage::E5BufferStorage(void *a1, void *a2, unsigned in
 
   else
   {
-    v8 = *a3;
-    if (v8 >= 5)
+    if (*a3 >= 5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Unknown data type");
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v9 = qword_1B8AF4520[v8];
-    v10 = *a4;
-    v11 = a4[1];
-    if (*a4 != v11)
+    v8 = *a4;
+    v9 = a4[1];
+    if (*a4 != v9)
     {
-      v12 = 1;
+      v10 = 1;
       do
       {
-        v13 = *v10;
-        v10 += 2;
-        v12 *= v13;
+        v11 = *v8;
+        v8 += 8;
+        v10 *= v11;
       }
 
-      while (v10 != v11);
+      while (v8 != v9);
     }
 
     E5RT::BufferObject::AllocMemory();
-    a1[1] = v24;
-    if (v24)
+    a1[1] = v22;
+    if (v22)
     {
       operator new();
     }
@@ -6658,30 +6640,30 @@ void *ik::core::E5BufferStorage::E5BufferStorage(void *a1, void *a2, unsigned in
     a1[2] = 0;
   }
 
-  v14 = *a3;
-  if (v14 >= 5)
+  v12 = *a3;
+  if (v12 >= 5)
   {
-    v22 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v22, "Unknown data type");
-    __cxa_throw(v22, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    v20 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v20, "Unknown data type");
+    __cxa_throw(v20, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v15 = qword_1B8AF4520[v14];
-  v16 = (a4[1] - *a4) >> 3;
-  std::vector<unsigned long>::vector[abi:ne200100](a1 + 3, v16);
-  v17 = v16 - 1;
-  if (v16 >= 1)
+  v13 = qword_1B8AF4520[v12];
+  v14 = (a4[1] - *a4) >> 3;
+  std::vector<unsigned long>::vector[abi:ne200100](a1 + 3, v14);
+  v15 = v14 - 1;
+  if (v14 >= 1)
   {
-    v18 = a1[3];
-    v19 = *a4;
+    v16 = a1[3];
+    v17 = *a4;
     do
     {
-      *(v18 + 8 * v17) = v15;
-      v15 *= *&v19[2 * v17];
-      v20 = v17-- + 1;
+      *(v16 + 8 * v15) = v13;
+      v13 *= *&v17[8 * v15];
+      v18 = v15-- + 1;
     }
 
-    while (v20 > 1);
+    while (v18 > 1);
   }
 
   return a1;
@@ -6709,21 +6691,20 @@ void ik::core::E5BufferStorage::~E5BufferStorage(ik::core::E5BufferStorage *this
   }
 }
 
-uint64_t ik::core::E5BufferStorage::Bind(int a1, char **lpsrc)
+uint64_t ik::core::E5BufferStorage::Bind(int a1, void *lpsrc)
 {
-  v2 = **lpsrc;
-  if (!v3)
+  if (!v2)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     _ZN2ik14InferenceErrorCI1St13runtime_errorEPKc(exception, "This tensor type can only be used with E5RT.");
   }
 
-  v4 = *(*v3 + 40);
+  v3 = *(*v2 + 40);
 
-  return v4();
+  return v3();
 }
 
-uint64_t ik::core::E5BufferStorage::Strides@<X0>(ik::core::E5BufferStorage *this@<X0>, void *a2@<X8>)
+uint64_t *ik::core::E5BufferStorage::Strides@<X0>(ik::core::E5BufferStorage *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -6731,11 +6712,12 @@ uint64_t ik::core::E5BufferStorage::Strides@<X0>(ik::core::E5BufferStorage *this
   return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a2, *(this + 3), *(this + 4), (*(this + 4) - *(this + 3)) >> 3);
 }
 
-void ik::TensorStorage::CopyData(ik::TensorStorage *this)
+void ik::TensorStorage::CopyData(ik::TensorStorage *this@<X0>, void **a2@<X8>)
 {
-  (*(*this + 24))(this);
+  v4 = (*(*this + 24))(this);
+  v6 = v5;
   (*(*this + 32))(&__p, this);
-  ik::StridedArray::StridedArray();
+  ik::StridedArray::StridedArray(a2, v4, v6, &__p);
 }
 
 void sub_1B8A4EBA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -6795,17 +6777,17 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<E5RT::ComputeDeviceType>::__vallocate[abi:ne200100](result, a2);
+    std::vector<E5RT::ComputeDeviceType>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1B8A4ED1C(_Unwind_Exception *exception_object)
@@ -6908,35 +6890,35 @@ void ik::Tensor::~Tensor(ik::Tensor *this)
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = *(a1 + 2);
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -6944,54 +6926,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_1B8A4F2AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A4F2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -7008,9 +6990,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -7300,7 +7282,7 @@ void sub_1B8A4F9D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -7316,7 +7298,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5Buf
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -7324,7 +7306,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5Buf
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -7348,7 +7330,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5Buf
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -7386,27 +7368,27 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::variant<ik
   }
 }
 
-unsigned int *std::__variant_detail::__dtor<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](unsigned int *result)
+ik::Tensor *std::__variant_detail::__dtor<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](ik::Tensor *result)
 {
   v1 = result;
-  v2 = result[14];
+  v2 = *(result + 14);
   if (v2 != -1)
   {
     result = off_1F3745658[v2](&v3, result);
   }
 
-  v1[14] = -1;
+  *(v1 + 14) = -1;
   return result;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>>::__assign_alt[abi:ne200100]<0ul,ik::E5BufferTensor,ik::E5BufferTensor>(unsigned int *a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>>::__assign_alt[abi:ne200100]<0ul,ik::E5BufferTensor,ik::E5BufferTensor>(ik::Tensor *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[14])
+  if (*(a1 + 14))
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     ik::Tensor::Tensor(a1, a3);
     *a1 = &unk_1F3745408;
-    a1[14] = 0;
+    *(a1 + 14) = 0;
   }
 
   else
@@ -7442,7 +7424,7 @@ ik::Tensor *ik::Tensor::Tensor(ik::Tensor *this, const ik::Tensor *a2)
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 2) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 16, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(this + 2, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 3);
   v4 = *(a2 + 6);
   *(this + 5) = *(a2 + 5);
   *(this + 6) = v4;
@@ -7722,24 +7704,22 @@ void *ik::core::PixelBufferStorage::Data(CVPixelBufferRef *this)
   return v3;
 }
 
-uint64_t ik::core::PixelBufferStorage::Strides@<X0>(ik::core **this@<X0>, __CVBuffer *a2@<X1>, void *a3@<X8>)
+uint64_t *ik::core::PixelBufferStorage::Strides@<X0>(ik::core **this@<X0>, __CVBuffer *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = qword_1B8AF4520[ik::core::DataTypeFromPixelBuffer(this[1], a2)];
-  v9[0] = CVPixelBufferGetBytesPerRow(this[1]);
-  v9[1] = ik::core::ChannelCountFromPixelBuffer(this[1], v6) * v5;
-  v9[2] = v5;
+  v8[0] = CVPixelBufferGetBytesPerRow(this[1]);
+  v8[1] = ik::core::ChannelCountFromPixelBuffer(this[1], v6) * v5;
+  v8[2] = v5;
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  result = std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a3, v9, &v10, 3uLL);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a3, v8, &v9, 3uLL);
 }
 
-void sub_1B8A50954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A50954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ik::core::CorePixelBufferScopeLock::~CorePixelBufferScopeLock(va);
   _Unwind_Resume(a1);
 }
@@ -7830,7 +7810,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7884,13 +7864,13 @@ void ik::core::CorePixelBufferScopeLock::~CorePixelBufferScopeLock(ik::core::Cor
   }
 }
 
-uint64_t ik::TensorShape::TensorShape<unsigned long,unsigned long,unsigned long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+const void **ik::TensorShape::TensorShape<unsigned long,unsigned long,unsigned long>(const void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = a3;
   v8 = a2;
   v6 = a4;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = 0;
   std::vector<unsigned long>::push_back[abi:ne200100](a1, &v8);
   std::vector<unsigned long>::push_back[abi:ne200100](a1, &v7);
@@ -7910,7 +7890,7 @@ void sub_1B8A50D90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7959,15 +7939,15 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>>::__assign_alt[abi:ne200100]<1ul,ik::PixelBufferTensor,ik::PixelBufferTensor>(unsigned int *a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>>::__assign_alt[abi:ne200100]<1ul,ik::PixelBufferTensor,ik::PixelBufferTensor>(ik::Tensor *a1, uint64_t a2, uint64_t a3)
 {
-  if (a1[14] == 1)
+  if (*(a1 + 14) == 1)
   {
     *(a2 + 8) = *(a3 + 8);
     if (a2 != a3)
@@ -7997,21 +7977,21 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<ik::E5B
     std::__variant_detail::__dtor<std::__variant_detail::__traits<ik::E5BufferTensor,ik::PixelBufferTensor>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
     ik::Tensor::Tensor(a1, a3);
     *a1 = &unk_1F3745678;
-    a1[14] = 1;
+    *(a1 + 14) = 1;
   }
 }
 
 uint64_t ik::core::E5OpImpl::Bind<ik::Tensor>(uint64_t a1, void *a2, void *a3)
 {
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(*a1);
-  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v45, InputPorts);
-  for (i = v46; i; i = *i)
+  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v42, InputPorts);
+  for (i = v43; i; i = *i)
   {
     v9 = i[5];
     v8 = i[6];
-    v37 = &unk_1F3745788;
-    v38 = v9;
-    v39 = v8;
+    v34 = &unk_1F3745788;
+    v35 = v9;
+    v36 = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8023,141 +8003,139 @@ uint64_t ik::core::E5OpImpl::Bind<ik::Tensor>(uint64_t a1, void *a2, void *a3)
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
     }
 
-    (*(*v10[10] + 16))(v10[10], &v37);
-    if (v39)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-    }
-  }
-
-  OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
-  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v43, OutputPorts);
-  std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::clear(a1 + 24);
-  for (j = v44; j; j = *j)
-  {
-    ik::Tensor::Tensor(&v37);
-    v37 = &unk_1F3745408;
-    if (!std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(a3, j + 2))
-    {
-      ik::core::CreateBufferTensor(j[5], v14);
-    }
-
-    v15 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(a3, j + 2);
-    v16 = v15;
-    if (!v15)
-    {
-      std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-    }
-
-    LODWORD(v38) = *(v15 + 12);
-    if (&v37 != (v15 + 5))
-    {
-      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v39, v15[7], v15[8], (v15[8] - v15[7]) >> 3);
-    }
-
-    v18 = v16[10];
-    v17 = v16[11];
-    if (v17)
-    {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v19 = v42;
-    v41 = v18;
-    v42 = v17;
-    if (v19)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-    }
-
-    v21 = j[5];
-    v20 = j[6];
-    v35[0] = &unk_1F3745788;
-    v35[1] = v21;
-    v36 = v20;
-    if (v20)
-    {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    (*(*v41 + 16))(v41, v35);
-    v47 = (j + 2);
-    v22 = std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), j + 2);
-    v23 = v22;
-    *(v22 + 12) = v38;
-    if (v22 + 5 != &v37)
-    {
-      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v22 + 7, v39, v40, (v40 - v39) >> 3);
-    }
-
-    v25 = v41;
-    v24 = v42;
-    if (v42)
-    {
-      atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v26 = v23[11];
-    v23[10] = v25;
-    v23[11] = v24;
-    if (v26)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-    }
-
+    (*(*v10[10] + 16))(v10[10], &v34);
     if (v36)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
-
-    ik::Tensor::~Tensor(&v37);
   }
 
-  E5RT::ExecutionStream::CreateExecutionStream(&v37, v12);
-  v27 = v37;
-  v37 = 0;
-  v28 = *(a1 + 16);
-  *(a1 + 16) = v27;
-  if (v28)
+  OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(*a1);
+  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v40, OutputPorts);
+  std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::clear(a1 + 24);
+  for (j = v41; j; j = *j)
   {
-    (*(*v28 + 8))(v28);
-    v29 = v37;
-    v37 = 0;
-    if (v29)
+    ik::Tensor::Tensor(&v34);
+    v34 = &unk_1F3745408;
+    if (!std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(a3, j + 2))
     {
-      (*(*v29 + 8))(v29);
+      ik::core::CreateBufferTensor(v32, j[5]);
+    }
+
+    v14 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(a3, j + 2);
+    v15 = v14;
+    if (!v14)
+    {
+      std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+    }
+
+    LODWORD(v35) = *(v14 + 12);
+    if (&v34 != (v14 + 5))
+    {
+      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v36, v14[7], v14[8], (v14[8] - v14[7]) >> 3);
+    }
+
+    v17 = v15[10];
+    v16 = v15[11];
+    if (v16)
+    {
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v18 = v39;
+    v38 = v17;
+    v39 = v16;
+    if (v18)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    }
+
+    v20 = j[5];
+    v19 = j[6];
+    v32[0] = &unk_1F3745788;
+    v32[1] = v20;
+    v33 = v19;
+    if (v19)
+    {
+      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    (*(*v38 + 16))(v38, v32);
+    v45 = j + 2;
+    v21 = std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), j + 2, &std::piecewise_construct, &v45, &v44);
+    v22 = v21;
+    *(v21 + 12) = v35;
+    if (v21 + 5 != &v34)
+    {
+      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v21 + 7, v36, v37, (v37 - v36) >> 3);
+    }
+
+    v24 = v38;
+    v23 = v39;
+    if (v39)
+    {
+      atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v25 = v22[11];
+    v22[10] = v24;
+    v22[11] = v23;
+    if (v25)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    }
+
+    if (v33)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    }
+
+    ik::Tensor::~Tensor(&v34);
+  }
+
+  E5RT::ExecutionStream::CreateExecutionStream(&v34, v12);
+  v26 = v34;
+  v34 = 0;
+  v27 = *(a1 + 16);
+  *(a1 + 16) = v26;
+  if (v27)
+  {
+    (*(*v27 + 8))(v27);
+    v28 = v34;
+    v34 = 0;
+    if (v28)
+    {
+      (*(*v28 + 8))(v28);
     }
   }
 
-  v31 = *(a1 + 8);
-  v30 = *(a1 + 16);
-  v33 = *a1;
-  v34 = v31;
-  if (v31)
+  v29 = *(a1 + 8);
+  v31 = v29;
+  if (v29)
   {
-    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::ExecutionStream::EncodeOperation();
-  if (v34)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v43);
-  return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v45);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v40);
+  return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v42);
 }
 
-void sub_1B8A51328(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B8A51328(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  if (a3)
+  va_start(va, a24);
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v17 - 136);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v24 - 136);
   _Unwind_Resume(a1);
 }
 
@@ -8188,41 +8166,41 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordere
   std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>();
@@ -8230,54 +8208,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1B8A516A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A516A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -8380,10 +8358,9 @@ void ik::core::E5CoreBinder::Bind()
 
 uint64_t ik::core::E5CoreBinder::Bind(ik::core::E5CoreBinder *this, CVPixelBufferRef pixelBuffer)
 {
-  v2 = *(this + 1);
   CVPixelBufferGetIOSurface(pixelBuffer);
   E5RT::SurfaceObject::CreateSurfaceFromHandle<__IOSurface *>();
-  if (v4)
+  if (v3)
   {
     operator new();
   }
@@ -8392,11 +8369,11 @@ uint64_t ik::core::E5CoreBinder::Bind(ik::core::E5CoreBinder *this, CVPixelBuffe
   return 0;
 }
 
-void sub_1B8A51A44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1B8A51A44(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8404,19 +8381,17 @@ void sub_1B8A51A44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ik::core::E5CoreBinder::Bind(uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a1 + 8);
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
+  v2 = a2[1];
+  v3 = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   E5RT::IOPort::BindMemoryObject();
-  if (v5)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 }
 
@@ -8460,7 +8435,7 @@ uint64_t std::__shared_ptr_pointer<E5RT::SurfaceObject  *>::__get_deleter(uint64
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -8529,22 +8504,22 @@ const void **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,st
   return i;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -8576,35 +8551,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,ik::E5BufferTen
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -8612,49 +8587,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_1B8A52054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A52054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8706,11 +8681,11 @@ void sub_1B8A521B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::string::ends_with[abi:ne200100](uint64_t *a1, char *__s)
+BOOL std::string::ends_with[abi:ne200100](uint64_t **a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = *(a1 + 23);
-  if (v5 < 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     v6 = a1;
     a1 = *a1;
@@ -8722,7 +8697,7 @@ BOOL std::string::ends_with[abi:ne200100](uint64_t *a1, char *__s)
   return std::string_view::ends_with[abi:ne200100](v8, __s, v4);
 }
 
-uint64_t scml::strCat<char const(&)[47],std::string const&>@<X0>(char *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t scml::strCat<char const(&)[47],std::string const&>@<X0>(char *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
   scml::scml_impl::strCat<char const(&)[38],std::string>(&v7, a1, a2);
@@ -8741,27 +8716,26 @@ uint64_t scml::strCat<char const(&)[47],std::string const&>@<X0>(char *a1@<X0>, 
   return MEMORY[0x1B8CC71A0](&v11);
 }
 
-void sub_1B8A52380(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A52380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a1->__pn_ = *a3;
   }
 
-  return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
+  return std::__fs::filesystem::path::operator/=[abi:ne200100](a1, this);
 }
 
 void sub_1B8A523EC(_Unwind_Exception *exception_object)
@@ -8917,12 +8891,11 @@ std::__fs::filesystem::path *std::__fs::filesystem::path::operator/=[abi:ne20010
   return a1;
 }
 
-std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(std::string *a1, uint64_t a2)
+std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(std::string *a1, std::string **a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  std::string::append[abi:ne200100]<char const*,0>(a1, *a2, (*a2 + *(a2 + 8)));
+  std::string::append[abi:ne200100]<char const*,0>(a1, *a2, (a2[1] + *a2));
   return a1;
 }
 
@@ -9043,7 +9016,7 @@ void sub_1B8A528D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9056,14 +9029,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -9323,7 +9296,7 @@ uint64_t ik::Tensor::Data<float>(uint64_t a1)
   return (*(**(a1 + 40) + 24))(*(a1 + 40));
 }
 
-void *ik::ArrayView<float,-1>::ArrayView(void *a1, uint64_t a2, uint64_t *a3)
+void *ik::ArrayView<float,-1>::ArrayView(void *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = &unk_1F37458B8;
   a1[1] = a2;
@@ -9331,7 +9304,7 @@ void *ik::ArrayView<float,-1>::ArrayView(void *a1, uint64_t a2, uint64_t *a3)
   v4 = (a1 + 2);
   a1[3] = 0;
   a1[4] = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>((a1 + 2), *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1 + 2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   v5 = a1[3];
   v6 = *v4;
   v7 = v5 == *v4;
@@ -9407,7 +9380,7 @@ void ik::ArrayView<float,-1>::~ArrayView(void *a1)
   JUMPOUT(0x1B8CC7230);
 }
 
-uint64_t ik::core::E5OpImpl::Run@<X0>(ik::core::E5OpImpl *this@<X0>, uint64_t a2@<X8>)
+uint64_t *ik::core::E5OpImpl::Run@<X0>(uint64_t *__return_ptr a1@<X8>, ik::core::E5OpImpl *this@<X0>)
 {
   v3 = *(this + 2);
   if (!v3)
@@ -9419,7 +9392,7 @@ uint64_t ik::core::E5OpImpl::Run@<X0>(ik::core::E5OpImpl *this@<X0>, uint64_t a2
 
   E5RT::ExecutionStream::ExecuteStreamSync(v3);
 
-  return std::unordered_map<std::string,ik::E5BufferTensor>::unordered_map(a2, this + 24);
+  return std::unordered_map<std::string,ik::E5BufferTensor>::unordered_map(a1, this + 24);
 }
 
 uint64_t std::unordered_map<std::string,ik::E5BufferTensor>::unordered_map(uint64_t a1, uint64_t a2)
@@ -9430,41 +9403,41 @@ uint64_t std::unordered_map<std::string,ik::E5BufferTensor>::unordered_map(uint6
   std::__hash_table<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<ik::E5BufferTensor,ik::PixelBufferTensor>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::E5BufferTensor> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::E5BufferTensor> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::E5BufferTensor> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::E5BufferTensor> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::E5BufferTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::E5BufferTensor>>>::__construct_node_hash<std::pair<std::string const,ik::E5BufferTensor> const&>();
@@ -9472,49 +9445,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1B8A534BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B8A534BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::E5BufferTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9561,7 +9534,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,ik::E5BufferTensor
   return a1;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9578,7 +9551,7 @@ void sub_1B8A53684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -9652,20 +9625,20 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, a2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -9779,35 +9752,35 @@ void scml::ClipEmbeddingClassifier::PredictResult::~PredictResult(scml::ClipEmbe
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v4);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -9815,42 +9788,42 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }

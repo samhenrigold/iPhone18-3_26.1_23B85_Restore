@@ -50,42 +50,42 @@
 
 - (void)_noteCompletedURLRequest:(id)request withSchedulerInfo:(id)info
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   infoCopy = info;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v63 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v63, v64, a2, self, @"CKDFetchArchivedRecordsOperation.m", 49, &stru_28385ED00);
+    v62 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v62, v63, a2, self, @"CKDFetchArchivedRecordsOperation.m", 49, &stru_28385ED00);
   }
 
   v10 = requestCopy;
   v13 = objc_msgSend_recordZoneIDs(v10, v11, v12);
-  v65 = objc_msgSend_resultsByRecordZoneID(v10, v14, v15);
-  v67 = v10;
+  v64 = objc_msgSend_resultsByRecordZoneID(v10, v14, v15);
+  v66 = v10;
   v18 = objc_msgSend_zoneErrorsByZoneID(v10, v16, v17);
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   obj = v13;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v74, v82, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v73, v81, 16);
   if (v20)
   {
     v22 = v20;
-    v23 = *v75;
+    v23 = *v74;
     do
     {
       v24 = 0;
       do
       {
-        if (*v75 != v23)
+        if (*v74 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v74 + 1) + 8 * v24);
+        v25 = *(*(&v73 + 1) + 8 * v24);
         v26 = objc_msgSend_objectForKeyedSubscript_(v18, v21, v25);
         if (objc_msgSend_CKIsNotFoundError(v26, v27, v28))
         {
@@ -100,9 +100,9 @@
             v32 = v29;
             v35 = objc_msgSend_operationID(self, v33, v34);
             *buf = 138412546;
-            v79 = v25;
-            v80 = 2114;
-            v81 = v35;
+            v78 = v25;
+            v79 = 2114;
+            v80 = v35;
             _os_log_impl(&dword_22506F000, v32, OS_LOG_TYPE_INFO, "Warn: Zone %@ wasn't found on the server for fetch changes request %{public}@. Wiping caches for that zone", buf, 0x16u);
           }
 
@@ -120,7 +120,7 @@
       }
 
       while (v22 != v24);
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v74, v82, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v73, v81, 16);
     }
 
     while (v22);
@@ -136,17 +136,15 @@
   block[2] = sub_2251D70AC;
   block[3] = &unk_278548978;
   block[4] = self;
-  v70 = obj;
-  v71 = v65;
-  v72 = v18;
-  v73 = infoCopy;
+  v69 = obj;
+  v70 = v64;
+  v71 = v18;
+  v72 = infoCopy;
   v58 = infoCopy;
   v59 = v18;
-  v60 = v65;
+  v60 = v64;
   v61 = obj;
   dispatch_group_notify(v54, v57, block);
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_noteChangedRecordWithID:(id)d record:(id)record error:(id)error
@@ -208,7 +206,7 @@
 
 - (id)_createAndConfigureURLRequestForZoneIDs:(id)ds optionsByZoneID:(id)d
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   dCopy = d;
   if (*MEMORY[0x277CBC880] != -1)
@@ -221,9 +219,9 @@
   {
     v9 = v8;
     *buf = 134218242;
-    v44 = objc_msgSend_count(dsCopy, v10, v11);
-    v45 = 2112;
-    v46 = dCopy;
+    v43 = objc_msgSend_count(dsCopy, v10, v11);
+    v44 = 2112;
+    v45 = dCopy;
     _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Fetching archived records from the server for %lu zones with options:\n%@", buf, 0x16u);
   }
 
@@ -253,21 +251,19 @@
 
   if (v35)
   {
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = sub_2251D7BB8;
-    v39[3] = &unk_278549658;
-    objc_copyWeak(&v40, buf);
-    objc_copyWeak(&v41, &location);
-    objc_msgSend_setRecordFetchedBlock_(v14, v36, v39);
-    objc_destroyWeak(&v41);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = sub_2251D7BB8;
+    v38[3] = &unk_278549658;
+    objc_copyWeak(&v39, buf);
+    objc_copyWeak(&v40, &location);
+    objc_msgSend_setRecordFetchedBlock_(v14, v36, v38);
     objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
   }
 
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

@@ -45,16 +45,17 @@ void ___ef_log_EMGroupedSenderCollectionItemID_block_invoke()
   v11.receiver = self;
   v11.super_class = EMGroupedSenderCollectionItemID;
   v4 = [(EMGroupedSenderCollectionItemID *)&v11 init];
+  v5 = v4;
   if (v4)
   {
     if (!d)
     {
-      v5 = _ef_log_EMGroupedSenderCollectionItemID();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _ef_log_EMGroupedSenderCollectionItemID(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
-        [(EMGroupedSenderCollectionItemID *)v7 initWithBusinessID:v4, buf, v5];
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
+        [(EMGroupedSenderCollectionItemID *)v8 initWithBusinessID:v5, buf, v6];
       }
 
       memset(__b, 170, sizeof(__b));
@@ -69,12 +70,11 @@ void ___ef_log_EMGroupedSenderCollectionItemID_block_invoke()
       }
     }
 
-    v4->_businessID = d;
+    v5->_businessID = d;
   }
 
-  cachedSelf = [(EMGroupedSenderCollectionItemID *)v4 cachedSelf];
+  cachedSelf = [(EMGroupedSenderCollectionItemID *)v5 cachedSelf];
 
-  v9 = *MEMORY[0x1E69E9840];
   return cachedSelf;
 }
 

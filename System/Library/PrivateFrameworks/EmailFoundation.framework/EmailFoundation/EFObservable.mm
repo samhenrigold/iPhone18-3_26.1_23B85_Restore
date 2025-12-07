@@ -397,7 +397,7 @@ EFManualCancelationToken *__59__EFObservable_observableOnNotificationCenter_name
 
 EFManualCancelationToken *__48__EFObservable_observableOnNotifyTokenWithName___block_invoke(uint64_t a1, void *a2)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(EFManualCancelationToken);
   out_token = -1;
@@ -408,34 +408,32 @@ EFManualCancelationToken *__48__EFObservable_observableOnNotifyTokenWithName___b
   handler[2] = __48__EFObservable_observableOnNotifyTokenWithName___block_invoke_2;
   handler[3] = &unk_1E8249600;
   v7 = v3;
-  v20 = v7;
+  v19 = v7;
   LODWORD(v5) = notify_register_dispatch(v5, &out_token, v6, handler);
 
   if (v5)
   {
     v8 = MEMORY[0x1E696ABC0];
     v9 = *__error();
-    v22 = *MEMORY[0x1E696A578];
+    v21 = *MEMORY[0x1E696A578];
     v10 = MEMORY[0x1E696AEC0];
     v11 = __error();
     v12 = [v10 stringWithUTF8String:strerror(*v11)];
-    v23[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v14 = [v8 errorWithDomain:*MEMORY[0x1E696A798] code:v9 userInfo:v13];
     [v7 observerDidFailWithError:v14];
   }
 
   else
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __48__EFObservable_observableOnNotifyTokenWithName___block_invoke_3;
-    v17[3] = &__block_descriptor_36_e5_v8__0l;
-    v18 = out_token;
-    [(EFManualCancelationToken *)v4 addCancelationBlock:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __48__EFObservable_observableOnNotifyTokenWithName___block_invoke_3;
+    v16[3] = &__block_descriptor_36_e5_v8__0l;
+    v17 = out_token;
+    [(EFManualCancelationToken *)v4 addCancelationBlock:v16];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -662,7 +660,7 @@ void __26__EFObservable_observeOn___block_invoke_2(uint64_t a1, void *a2)
   [v4 performBlock:v6];
 }
 
-uint64_t __26__EFObservable_observeOn___block_invoke_3(uint64_t a1)
+void *__26__EFObservable_observeOn___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -688,7 +686,7 @@ void __26__EFObservable_observeOn___block_invoke_4(uint64_t a1)
   [v2 performBlock:v3];
 }
 
-uint64_t __26__EFObservable_observeOn___block_invoke_5(uint64_t a1)
+void *__26__EFObservable_observeOn___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -716,7 +714,7 @@ void __26__EFObservable_observeOn___block_invoke_6(uint64_t a1, void *a2)
   [v4 performBlock:v6];
 }
 
-uint64_t __26__EFObservable_observeOn___block_invoke_7(uint64_t a1)
+void *__26__EFObservable_observeOn___block_invoke_7(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -1270,7 +1268,7 @@ void __32__EFObservable_delay_scheduler___block_invoke_2(uint64_t a1, void *a2)
   v7 = [v5 afterDelay:v8 performBlock:v4];
 }
 
-uint64_t __32__EFObservable_delay_scheduler___block_invoke_3(uint64_t a1)
+void *__32__EFObservable_delay_scheduler___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -1297,7 +1295,7 @@ void __32__EFObservable_delay_scheduler___block_invoke_4(uint64_t a1)
   v4 = [v3 afterDelay:v5 performBlock:v2];
 }
 
-uint64_t __32__EFObservable_delay_scheduler___block_invoke_5(uint64_t a1)
+void *__32__EFObservable_delay_scheduler___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -1631,17 +1629,15 @@ void __20__EFObservable_map___block_invoke_2(uint64_t a1)
 
 - (id)startWith:(id)with scheduler:(id)scheduler
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   withCopy = with;
   schedulerCopy = scheduler;
   v8 = objc_opt_class();
   v9 = [objc_opt_class() observableWithResults:withCopy scheduler:schedulerCopy];
-  v14[0] = v9;
-  v14[1] = self;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[0] = v9;
+  v13[1] = self;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   v11 = [v8 concatenate:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

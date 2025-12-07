@@ -1,7 +1,7 @@
 void sub_10000108C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000597C(v2, v3);
@@ -19,16 +19,16 @@ uint64_t start(int a1, char **a2)
   return v7;
 }
 
-id sub_1000015E4()
+id sub_1000015E4(uint64_t a1)
 {
   if (qword_1000124A0 != -1)
   {
     sub_100005A14();
   }
 
-  v1 = qword_100012498;
+  v2 = qword_100012498;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001628(id a1)
@@ -38,16 +38,16 @@ void sub_100001628(id a1)
   _objc_release_x1();
 }
 
-id sub_10000166C()
+id sub_10000166C(uint64_t a1)
 {
   if (qword_1000124B0 != -1)
   {
     sub_100005A28();
   }
 
-  v1 = qword_1000124A8;
+  v2 = qword_1000124A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000016B0(id a1)
@@ -57,16 +57,16 @@ void sub_1000016B0(id a1)
   _objc_release_x1();
 }
 
-id sub_1000016F4()
+id sub_1000016F4(uint64_t a1)
 {
   if (qword_1000124C0 != -1)
   {
     sub_100005A3C();
   }
 
-  v1 = qword_1000124B8;
+  v2 = qword_1000124B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001738(id a1)
@@ -76,16 +76,16 @@ void sub_100001738(id a1)
   _objc_release_x1();
 }
 
-id sub_10000177C()
+id sub_10000177C(uint64_t a1)
 {
   if (qword_1000124D0 != -1)
   {
     sub_100005A50();
   }
 
-  v1 = qword_1000124C8;
+  v2 = qword_1000124C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000017C0(id a1)
@@ -119,9 +119,9 @@ void sub_1000018D4(id a1)
   _objc_release_x1();
 }
 
-void sub_100001E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -164,14 +164,14 @@ void sub_10000479C(uint64_t a1)
   v2 = +[MSDViewServiceModel sharedInstance];
   v3 = [v2 errorToReport];
 
-  v4 = sub_1000015E4();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = sub_1000015E4(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (v5)
+    if (v6)
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Operation failed...", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Operation failed...", v8, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -180,10 +180,10 @@ void sub_10000479C(uint64_t a1)
 
   else
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Operation completed...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Operation completed...", buf, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -234,7 +234,7 @@ void sub_100005008(id a1)
 
 id sub_10000585C(uint64_t a1, void *a2)
 {
-  v4 = sub_1000015E4();
+  v4 = sub_1000015E4(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *v7 = 0;

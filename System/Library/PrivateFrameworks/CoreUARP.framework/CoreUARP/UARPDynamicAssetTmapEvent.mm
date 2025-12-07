@@ -18,12 +18,12 @@
 
 - (UARPDynamicAssetTmapEvent)initWithEventFields:(id)fields eventID:(unsigned int)d endian:(id)endian
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   endianCopy = endian;
-  v58.receiver = self;
-  v58.super_class = UARPDynamicAssetTmapEvent;
-  v10 = [(UARPDynamicAssetTmapEvent *)&v58 init];
+  v57.receiver = self;
+  v57.super_class = UARPDynamicAssetTmapEvent;
+  v10 = [(UARPDynamicAssetTmapEvent *)&v57 init];
   if (!v10)
   {
 LABEL_17:
@@ -65,34 +65,34 @@ LABEL_17:
   }
 
   v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v53 = fieldsCopy;
+  v52 = fieldsCopy;
   v17 = [fieldsCopy objectForKeyedSubscript:@"EventFields"];
-  v18 = [v17 countByEnumeratingWithState:&v54 objects:v59 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v53 objects:v58 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v55;
+    v20 = *v54;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v55 != v20)
+        if (*v54 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v54 + 1) + 8 * i);
+        v22 = *(*(&v53 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v45 = v10->_log;
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v44 = v10->_log;
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            [(UARPDynamicAssetTmapEvent *)v45 initWithEventFields:v46 eventID:v47 endian:v48, v49, v50, v51, v52];
+            [(UARPDynamicAssetTmapEvent *)v44 initWithEventFields:v45 eventID:v46 endian:v47, v48, v49, v50, v51];
           }
 
           v26 = 0;
@@ -103,7 +103,7 @@ LABEL_17:
         [v16 addObject:v23];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v53 objects:v58 count:16];
       if (v19)
       {
         continue;
@@ -119,20 +119,19 @@ LABEL_17:
 
   v26 = v10;
 LABEL_22:
-  fieldsCopy = v53;
+  fieldsCopy = v52;
 
 LABEL_18:
-  v43 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (UARPDynamicAssetTmapEvent)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = UARPDynamicAssetTmapEvent;
-  v5 = [(UARPDynamicAssetTmapEvent *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = UARPDynamicAssetTmapEvent;
+  v5 = [(UARPDynamicAssetTmapEvent *)&v17 init];
   if (v5)
   {
     v5->_eventID = [coderCopy decodeIntForKey:@"EventID"];
@@ -141,9 +140,9 @@ LABEL_18:
     v5->_eventName = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"EventFields"];
     eventFields = v5->_eventFields;
@@ -156,7 +155,6 @@ LABEL_18:
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -171,44 +169,44 @@ LABEL_18:
 
 - (id)expandMticData:(id)data
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_opt_new();
   v6 = [(NSString *)self->_eventName copy];
   [v5 setObject:v6 forKeyedSubscript:@"EventName"];
 
   v7 = MGGetBoolAnswer();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = self->_eventFields;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
-        if (((v7 & 1) != 0 || ([*(*(&v20 + 1) + 8 * i) isFieldPrivacyRestricted] & 1) == 0) && !objc_msgSend(v14, "expandFieldData:withOffset:inCoreAnalytics:", dataCopy, v11, v5) || (v19 = 0, !objc_msgSend(v14, "getNextOffset:fromStart:", &v19, v11)))
+        v14 = *(*(&v19 + 1) + 8 * i);
+        if (((v7 & 1) != 0 || ([*(*(&v19 + 1) + 8 * i) isFieldPrivacyRestricted] & 1) == 0) && !objc_msgSend(v14, "expandFieldData:withOffset:inCoreAnalytics:", dataCopy, v11, v5) || (v18 = 0, !objc_msgSend(v14, "getNextOffset:fromStart:", &v18, v11)))
         {
 
           goto LABEL_19;
         }
 
-        v11 = v19;
+        v11 = v18;
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         continue;
@@ -240,14 +238,12 @@ LABEL_19:
     v15 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)description
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"Event ID %u\n", self->_eventID];
   if (self->_eventName)
@@ -257,35 +253,35 @@ LABEL_19:
 
   else
   {
-    [v3 appendFormat:@"No Event Name", v12];
+    [v3 appendFormat:@"No Event Name", v11];
   }
 
   eventFields = self->_eventFields;
   if (eventFields)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = eventFields;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v3 appendFormat:@"TMAP Event TLV %@\n", *(*(&v13 + 1) + 8 * i)];
+          [v3 appendFormat:@"TMAP Event TLV %@\n", *(*(&v12 + 1) + 8 * i)];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -297,43 +293,39 @@ LABEL_19:
     [v3 appendFormat:@"No TMAP Event TLVs"];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)initWithEventFields:(uint64_t)a3 eventID:(uint64_t)a4 endian:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Name is not type String", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPDynamicAssetTmapEvent initWithEventFields:eventID:endian:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Name is not type String", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithEventFields:(uint64_t)a3 eventID:(uint64_t)a4 endian:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Entry is not type Dictionary", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPDynamicAssetTmapEvent initWithEventFields:eventID:endian:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Entry is not type Dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithEventFields:(uint64_t)a3 eventID:(uint64_t)a4 endian:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Name doesn't exist in Tmap Event", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPDynamicAssetTmapEvent initWithEventFields:eventID:endian:]";
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a1, a3, "%s: Event Name doesn't exist in Tmap Event", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)expandMticData:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v7 = 134218240;
-  v8 = [a2 length];
-  v9 = 2048;
-  v10 = a3;
-  _os_log_error_impl(&dword_247AA7000, v5, OS_LOG_TYPE_ERROR, "Lengths of MTIC Data(%lu) and TMAP Data(%lu) do not match.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = [a2 length];
+  v8 = 2048;
+  v9 = a3;
+  _os_log_error_impl(&dword_247AA7000, v5, OS_LOG_TYPE_ERROR, "Lengths of MTIC Data(%lu) and TMAP Data(%lu) do not match.", &v6, 0x16u);
 }
 
 @end

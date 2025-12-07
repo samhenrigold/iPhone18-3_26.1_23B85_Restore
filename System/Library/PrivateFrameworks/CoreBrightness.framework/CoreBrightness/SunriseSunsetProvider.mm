@@ -82,8 +82,6 @@
     }
   }
 
-  v3[15] = v21;
-  *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -307,7 +305,6 @@ uint64_t __42__SunriseSunsetProvider_initWithCallback___block_invoke(uint64_t a1
   }
 
   [*(a1 + 32) updateSunriseSunsetInfo];
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -661,8 +658,8 @@ uint64_t __42__SunriseSunsetProvider_initWithCallback___block_invoke(uint64_t a1
 
 uint64_t __47__SunriseSunsetProvider_copySunriseSunsetInfo___block_invoke(uint64_t a1)
 {
-  v13 = a1;
   v12 = a1;
+  v11 = a1;
   *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) copySunsetSunriseInfoFromContext];
   dispatch_semaphore_signal(*(*(a1 + 32) + 48));
   obj = *(a1 + 32);
@@ -671,7 +668,7 @@ uint64_t __47__SunriseSunsetProvider_copySunriseSunsetInfo___block_invoke(uint64
   {
     if (*(*(a1 + 32) + 8))
     {
-      v6 = *(*(a1 + 32) + 8);
+      v5 = *(*(a1 + 32) + 8);
     }
 
     else
@@ -686,22 +683,21 @@ uint64_t __47__SunriseSunsetProvider_copySunriseSunsetInfo___block_invoke(uint64
         inited = init_default_corebrightness_log();
       }
 
-      v6 = inited;
+      v5 = inited;
     }
 
-    v11 = v6;
-    v10 = 2;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v10 = v5;
+    v9 = 2;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      log = v11;
-      type = v10;
-      __os_log_helper_16_0_0(v9);
-      _os_log_debug_impl(&dword_1DE8E5000, log, type, "timeout detected, calling back with an update", v9, 2u);
+      log = v10;
+      type = v9;
+      __os_log_helper_16_0_0(v8);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "timeout detected, calling back with an update", v8, 2u);
     }
 
     if (*(*(a1 + 32) + 64))
     {
-      v1 = *(*(*(a1 + 40) + 8) + 40);
       (*(*(*(a1 + 32) + 64) + 16))();
     }
 

@@ -38,35 +38,35 @@
     *a6 = v14;
   }
 
-  v18 = [v16 copy];
+  v18 = objc_msgSend_copy(v16, v20, v21, v22, v23);
 
   return v18;
 }
 
 - (id)hmd_deletedModelIDsForEntity:()HomeKitDaemon modelIDKey:duration:context:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v10 = a4;
   v11 = a5;
   v12 = a6;
   v13 = objc_autoreleasePoolPush();
-  v28 = 0;
-  v14 = [(NSPersistentStore *)self _deleteChangesWithDuration:v10 entity:v12 context:&v28 error:a2];
-  v15 = v28;
+  v27 = 0;
+  v14 = [(NSPersistentStore *)self _deleteChangesWithDuration:v10 entity:v12 context:&v27 error:a2];
+  v15 = v27;
   if (v14)
   {
     v16 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v14, "count")}];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __93__NSPersistentStore_HomeKitDaemon__hmd_deletedModelIDsForEntity_modelIDKey_duration_context___block_invoke;
-    v25[3] = &unk_2786829D0;
-    v26 = v11;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __93__NSPersistentStore_HomeKitDaemon__hmd_deletedModelIDsForEntity_modelIDKey_duration_context___block_invoke;
+    v24[3] = &unk_2786829D0;
+    v25 = v11;
     v17 = v16;
-    v27 = v17;
-    [v14 hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
+    v26 = v17;
+    [v14 hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
 
     objc_autoreleasePoolPop(v13);
-    v18 = [v17 copy];
+    v18 = objc_msgSend_copy(v17);
   }
 
   else
@@ -78,9 +78,9 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v15;
+      v29 = v22;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Deletion history request failed: %@", buf, 0x16u);
     }
 
@@ -89,36 +89,34 @@
     v18 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (uint64_t)hmd_modelWasDeletedWithID:()HomeKitDaemon modelIDKey:entity:duration:context:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v12 = a4;
   v13 = a5;
   v14 = a6;
   v15 = a7;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v16 = objc_autoreleasePoolPush();
   v32 = 0;
-  v17 = [(NSPersistentStore *)self _deleteChangesWithDuration:v14 entity:v15 context:&v32 error:a2];
-  v18 = v32;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v16 = objc_autoreleasePoolPush();
+  v31 = 0;
+  v17 = [(NSPersistentStore *)self _deleteChangesWithDuration:v14 entity:v15 context:&v31 error:a2];
+  v18 = v31;
   if (v17)
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __97__NSPersistentStore_HomeKitDaemon__hmd_modelWasDeletedWithID_modelIDKey_entity_duration_context___block_invoke;
-    v28[3] = &unk_2786749B0;
-    v29 = v13;
-    v30 = v12;
-    v31 = &v33;
-    [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __97__NSPersistentStore_HomeKitDaemon__hmd_modelWasDeletedWithID_modelIDKey_entity_duration_context___block_invoke;
+    v27[3] = &unk_2786749B0;
+    v28 = v13;
+    v29 = v12;
+    v30 = &v32;
+    [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v27];
   }
 
   else
@@ -128,20 +126,20 @@
     v20 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v26 = v16;
+      v25 = v16;
       v21 = HMFGetLogIdentifier();
       name = [v14 name];
       *buf = 138544130;
-      v38 = v21;
-      v39 = 2112;
-      v40 = name;
-      v41 = 2112;
-      v42 = v12;
-      v43 = 2112;
-      v44 = v18;
+      v37 = v21;
+      v38 = 2112;
+      v39 = name;
+      v40 = 2112;
+      v41 = v12;
+      v42 = 2112;
+      v43 = v18;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Couldn't determine if <%@: %@> was previously deleted: %@", buf, 0x2Au);
 
-      v16 = v26;
+      v16 = v25;
     }
 
     objc_autoreleasePoolPop(context);
@@ -150,7 +148,7 @@
   objc_autoreleasePoolPop(v16);
   if (v17)
   {
-    v23 = *(v34 + 24);
+    v23 = *(v33 + 24);
   }
 
   else
@@ -158,9 +156,8 @@
     v23 = 0;
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 

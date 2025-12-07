@@ -26,58 +26,55 @@
   dispatch_sync(prewarmQueue, block);
 }
 
-uint64_t __32__VSPrewarmService_unloadEngine__block_invoke(uint64_t a1)
+void *__32__VSPrewarmService_unloadEngine__block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) setCachedEngine:0];
+  [*(a1 + 32) setCachedEngine:?];
   v2 = *(a1 + 32);
 
-  return [v2 setLoadedResources:0];
+  return [v2 setLoadedResources:?];
 }
 
 - (void)_loadVoiceResources:(id)resources forEngine:(id)engine
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   engineCopy = engine;
   dispatch_assert_queue_V2(self->_prewarmQueue);
   searchPathURL = [resourcesCopy searchPathURL];
   path = [searchPathURL path];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v28 = resourcesCopy;
+  v27 = resourcesCopy;
   resourceList = [resourcesCopy resourceList];
-  v10 = [resourceList countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v10 = [resourceList countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     v12 = v10;
-    v13 = *v30;
+    v13 = MEMORY[0];
     *&v11 = 138412546;
-    v26 = v11;
+    v25 = v11;
     do
     {
-      for (i = 0; i != v12; ++i)
+      v14 = 0;
+      do
       {
-        if (*v30 != v13)
+        if (MEMORY[0] != v13)
         {
           objc_enumerationMutation(resourceList);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
-        v16 = [path stringByAppendingPathComponent:{v15, v26}];
+        v15 = *(8 * v14);
+        v16 = [path stringByAppendingPathComponent:v25];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v18 = [defaultManager fileExistsAtPath:v16];
+        v18 = [defaultManager fileExistsAtPath:?];
 
         if (v18)
         {
-          resourceMimeTypes = [v28 resourceMimeTypes];
-          v20 = [resourceMimeTypes objectForKeyedSubscript:v15];
+          resourceMimeTypes = [v27 resourceMimeTypes];
+          v20 = [resourceMimeTypes objectForKeyedSubscript:?];
 
-          if (([v20 isEqualToString:@"VoiceServices/config"]& 1) == 0 && ([v20 isEqualToString:@"gryphon_frontend"]& 1) == 0)
+          if (([v20 isEqualToString:?]& 1) == 0 && ([v20 isEqualToString:?]& 1) == 0)
           {
-            v21 = [engineCopy loadResourceAtPath:v16 mimeType:v20 error:0];
+            v21 = [engineCopy loadResourceAtPath:? mimeType:? error:?];
           }
         }
 
@@ -86,44 +83,45 @@ uint64_t __32__VSPrewarmService_unloadEngine__block_invoke(uint64_t a1)
           v20 = VSGetLogDefault();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *buf = v26;
-            v34 = v15;
-            v35 = 2112;
-            v36 = v16;
+            *buf = v25;
+            v29 = v15;
+            v30 = 2112;
+            v31 = v16;
             _os_log_error_impl(&dword_2727E4000, v20, OS_LOG_TYPE_ERROR, "Specified resource file '%@' does not exist at: '%@'", buf, 0x16u);
           }
         }
+
+        v14 = (v14 + 1);
       }
 
-      v12 = [resourceList countByEnumeratingWithState:&v29 objects:v37 count:16];
+      while (v12 != v14);
+      v12 = [resourceList countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v12);
   }
 
-  [v28 pitch];
+  [v27 pitch];
   if (v22 == 0.0)
   {
     [engineCopy pitch];
   }
 
   [engineCopy setPitch:?];
-  [v28 rate];
+  [v27 rate];
   if (v23 == 0.0)
   {
     [engineCopy rate];
   }
 
   [engineCopy setRate:?];
-  [v28 volume];
+  [v27 volume];
   if (v24 == 0.0)
   {
     [engineCopy volume];
   }
 
   [engineCopy setVolume:?];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unloadCachedEngineWithVoice:(id)voice
@@ -147,7 +145,7 @@ void __48__VSPrewarmService_unloadCachedEngineWithVoice___block_invoke(uint64_t 
   {
     v3 = [v2 voicePath];
     v4 = [*(a1 + 40) voicePath];
-    v5 = [v3 isEqualToString:v4];
+    v5 = [v3 isEqualToString:?];
 
     if (v5)
     {
@@ -197,7 +195,7 @@ void __49__VSPrewarmService_loadEngineForVoice_resources___block_invoke(uint64_t
   v3 = v2[2];
   if (v3)
   {
-    v4 = [v2 _cachedEngineForVoice:*(a1 + 40) resources:*(a1 + 48)];
+    v4 = [v2 _cachedEngineForVoice:? resources:?];
     v5 = *(*(a1 + 32) + 16);
 
     if (v4 == v5)
@@ -211,7 +209,7 @@ void __49__VSPrewarmService_loadEngineForVoice_resources___block_invoke(uint64_t
 
   v2[2] = 0;
 
-  v6 = [*(a1 + 32) _engineForVoice:*(a1 + 40) resources:*(a1 + 48)];
+  v6 = [*(a1 + 32) _engineForVoice:? resources:?];
   v7 = *(*(a1 + 56) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
@@ -241,45 +239,40 @@ void __49__VSPrewarmService_loadEngineForVoice_resources___block_invoke(uint64_t
 
 - (id)_engineForVoice:(id)voice resources:(id)resources
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   resourcesCopy = resources;
   dispatch_assert_queue_V2(self->_prewarmQueue);
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   resourceMimeTypes = [resourcesCopy resourceMimeTypes];
-  v9 = [resourceMimeTypes countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v9 = [resourceMimeTypes countByEnumeratingWithState:? objects:? count:?];
   if (v9)
   {
     v10 = v9;
     selfCopy = self;
-    v11 = *v43;
+    v11 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v43 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(resourceMimeTypes);
         }
 
-        v13 = *(*(&v42 + 1) + 8 * i);
         resourceMimeTypes2 = [resourcesCopy resourceMimeTypes];
-        v15 = [resourceMimeTypes2 objectForKeyedSubscript:v13];
+        v14 = [resourceMimeTypes2 objectForKeyedSubscript:?];
 
-        if ([v15 isEqualToString:@"gryphon_frontend"])
+        if ([v14 isEqualToString:?])
         {
           searchPathURL = [resourcesCopy searchPathURL];
           path = [searchPathURL path];
-          v16 = [path stringByAppendingPathComponent:v13];
+          v15 = [path stringByAppendingPathComponent:?];
 
           goto LABEL_11;
         }
       }
 
-      v10 = [resourceMimeTypes countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v10 = [resourceMimeTypes countByEnumeratingWithState:? objects:? count:?];
       if (v10)
       {
         continue;
@@ -288,78 +281,73 @@ void __49__VSPrewarmService_loadEngineForVoice_resources___block_invoke(uint64_t
       break;
     }
 
-    v16 = 0;
+    v15 = 0;
 LABEL_11:
     self = selfCopy;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v19 = objc_alloc(MEMORY[0x277D79990]);
+  v18 = objc_alloc(MEMORY[0x277D79990]);
   voicePath = [voiceCopy voicePath];
-  v21 = [v19 initWithVoicePath:voicePath resourcePath:v16];
+  v20 = [v18 initWithVoicePath:? resourcePath:?];
 
-  if (v21)
+  if (v20)
   {
     if (resourcesCopy)
     {
-      [(VSPrewarmService *)self _loadVoiceResources:resourcesCopy forEngine:v21];
+      [VSPrewarmService _loadVoiceResources:"_loadVoiceResources:forEngine:" forEngine:?];
     }
 
-    v22 = MEMORY[0x277CBEBC0];
+    v21 = MEMORY[0x277CBEBC0];
     voicePath2 = [voiceCopy voicePath];
-    v24 = *MEMORY[0x277D79A20];
-    v46[0] = voicePath2;
-    v46[1] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-    mEMORY[0x277D79950] = [v22 fileURLWithPathComponents:v25];
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    mEMORY[0x277D79950] = [v21 fileURLWithPathComponents:?];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     path2 = [mEMORY[0x277D79950] path];
-    v29 = [defaultManager fileExistsAtPath:path2];
+    v26 = [defaultManager fileExistsAtPath:?];
 
-    if (v29)
+    if (v26)
     {
-      v30 = VSGetLogDefault();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v27 = VSGetLogDefault();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_2727E4000, v30, OS_LOG_TYPE_DEBUG, "Voice specific resources found.", buf, 2u);
+        _os_log_debug_impl(&dword_2727E4000, v27, OS_LOG_TYPE_DEBUG, "Voice specific resources found.", buf, 2u);
       }
 
-      v31 = objc_alloc_init(MEMORY[0x277D799D8]);
-      v32 = MEMORY[0x277CBEBC0];
+      v28 = objc_alloc_init(MEMORY[0x277D799D8]);
+      v29 = MEMORY[0x277CBEBC0];
       voicePath3 = [voiceCopy voicePath];
-      v34 = [v32 fileURLWithPath:voicePath3];
-      [v31 setSearchPathURL:v34];
+      v31 = [v29 fileURLWithPath:?];
+      [v28 setSearchPathURL:?];
 
-      [(VSPrewarmService *)self _loadVoiceResources:v31 forEngine:v21];
+      [VSPrewarmService _loadVoiceResources:"_loadVoiceResources:forEngine:" forEngine:?];
     }
 
-    v35 = v21;
+    v32 = v20;
   }
 
   else
   {
-    v36 = VSGetLogDefault();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v33 = VSGetLogDefault();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       voicePath4 = [voiceCopy voicePath];
       *buf = 138412290;
-      v48 = voicePath4;
-      _os_log_error_impl(&dword_2727E4000, v36, OS_LOG_TYPE_ERROR, "Can't create engine with path '%@'", buf, 0xCu);
+      v40 = voicePath4;
+      _os_log_error_impl(&dword_2727E4000, v33, OS_LOG_TYPE_ERROR, "Can't create engine with path '%@'", buf, 0xCu);
     }
 
     mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
-    v37 = [mEMORY[0x277D79950] purgeAsset:voiceCopy];
+    v34 = [mEMORY[0x277D79950] purgeAsset:?];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (id)cachedEngineForVoice:(id)voice resources:(id)resources
@@ -393,10 +381,7 @@ LABEL_11:
 
 uint64_t __51__VSPrewarmService_cachedEngineForVoice_resources___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _cachedEngineForVoice:*(a1 + 40) resources:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _cachedEngineForVoice:? resources:?];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -410,11 +395,11 @@ uint64_t __51__VSPrewarmService_cachedEngineForVoice_resources___block_invoke(ui
   voicePath = [(VSSpeechEngine *)self->_cachedEngine voicePath];
   voicePath2 = [voiceCopy voicePath];
 
-  if ([voicePath isEqualToString:voicePath2])
+  if ([voicePath isEqualToString:?])
   {
     v11 = [(VSVoiceResourceAsset *)self->_loadedResources key];
     v12 = [resourcesCopy key];
-    v13 = [v11 isEqualToString:v12];
+    v13 = [v11 isEqualToString:?];
 
     if (v13)
     {
@@ -449,22 +434,22 @@ LABEL_6:
 
 void __39__VSPrewarmService_prewarmWithRequest___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = VSGetLogDefault();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v27 = *(a1 + 32);
-    v32 = 138412290;
-    v33 = v27;
-    _os_log_debug_impl(&dword_2727E4000, v2, OS_LOG_TYPE_DEBUG, "Prewarming: Invoked with request: '%@'", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v27;
+    _os_log_debug_impl(&dword_2727E4000, v2, OS_LOG_TYPE_DEBUG, "Prewarming: Invoked with request: '%@'", &v31, 0xCu);
   }
 
   kdebug_trace();
   mach_absolute_time();
   v3 = +[OspreyTTSService sharedInstance];
-  [v3 initializeDeviceAuthenticationSessionWithCompletion:&__block_literal_global_28];
+  [v3 initializeDeviceAuthenticationSessionWithCompletion:?];
 
-  v4 = [[VSSpeechSpeakTask alloc] initWithRequest:*(a1 + 32)];
+  v4 = [[VSSpeechSpeakTask alloc] initWithRequest:?];
   [(VSSpeechSpeakTask *)v4 fetchVoiceAsset];
   [(VSSpeechSpeakTask *)v4 fetchVoiceResource];
   v5 = [(VSSpeechSpeakTask *)v4 error];
@@ -475,9 +460,9 @@ void __39__VSPrewarmService_prewarmWithRequest___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [(VSSpeechSpeakTask *)v4 error];
-      v32 = 138412290;
-      v33 = v7;
-      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Unable to prewarm, error: %@", &v32, 0xCu);
+      v31 = 138412290;
+      v32 = v7;
+      _os_log_error_impl(&dword_2727E4000, v6, OS_LOG_TYPE_ERROR, "Unable to prewarm, error: %@", &v31, 0xCu);
 LABEL_19:
     }
   }
@@ -487,7 +472,7 @@ LABEL_19:
     v8 = *(a1 + 40);
     v9 = [(VSSpeechSpeakTask *)v4 voiceSelection];
     v10 = [(VSSpeechSpeakTask *)v4 voiceResource];
-    v6 = [v8 _cachedEngineForVoice:v9 resources:v10];
+    v6 = [v8 _cachedEngineForVoice:? resources:?];
 
     if (!v6)
     {
@@ -498,18 +483,18 @@ LABEL_19:
       v13 = *(a1 + 40);
       v14 = [(VSSpeechSpeakTask *)v4 voiceSelection];
       v15 = [(VSSpeechSpeakTask *)v4 voiceResource];
-      v6 = [v13 _engineForVoice:v14 resources:v15];
+      v6 = [v13 _engineForVoice:? resources:?];
 
       if (!v6)
       {
         v7 = VSGetLogDefault();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v30 = [(VSSpeechSpeakTask *)v4 voiceSelection];
-          v31 = [v30 voicePath];
-          v32 = 138412290;
-          v33 = v31;
-          _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Can't prewarm engine with path '%@'", &v32, 0xCu);
+          v29 = [(VSSpeechSpeakTask *)v4 voiceSelection];
+          v30 = [v29 voicePath];
+          v31 = 138412290;
+          v32 = v30;
+          _os_log_error_impl(&dword_2727E4000, v7, OS_LOG_TYPE_ERROR, "Can't prewarm engine with path '%@'", &v31, 0xCu);
         }
 
         v6 = 0;
@@ -523,7 +508,7 @@ LABEL_19:
       *(v17 + 24) = v16;
 
       v19 = [*(a1 + 32) languageCode];
-      v20 = [@"Prewarm textify emoji" vs_textifyEmojiWithLanguage:v19];
+      v20 = [@"Prewarm textify emoji" vs_textifyEmojiWithLanguage:?];
     }
 
     [v6 preheat];
@@ -532,18 +517,18 @@ LABEL_19:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       VSAbsoluteTimeToSecond();
-      v32 = 134217984;
-      v33 = v22;
-      _os_log_impl(&dword_2727E4000, v21, OS_LOG_TYPE_INFO, "Prewarm finished. Latency: %.3f", &v32, 0xCu);
+      v31 = 134217984;
+      v32 = v22;
+      _os_log_impl(&dword_2727E4000, v21, OS_LOG_TYPE_INFO, "Prewarm finished. Latency: %.3f", &v31, 0xCu);
     }
 
     v23 = VSGetLogDefault();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(a1 + 32);
-      v32 = 138412290;
-      v33 = v29;
-      _os_log_debug_impl(&dword_2727E4000, v23, OS_LOG_TYPE_DEBUG, "Prewarming: Completed with request: '%@'", &v32, 0xCu);
+      v28 = *(a1 + 32);
+      v31 = 138412290;
+      v32 = v28;
+      _os_log_debug_impl(&dword_2727E4000, v23, OS_LOG_TYPE_DEBUG, "Prewarming: Completed with request: '%@'", &v31, 0xCu);
     }
 
     kdebug_trace();
@@ -562,13 +547,11 @@ LABEL_19:
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __39__VSPrewarmService_prewarmWithRequest___block_invoke_25(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = VSGetLogDefault();
   v4 = v3;
@@ -576,19 +559,17 @@ void __39__VSPrewarmService_prewarmWithRequest___block_invoke_25(uint64_t a1, vo
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v2;
-      _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "Unable to initialize Device Authentication session: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v2;
+      _os_log_error_impl(&dword_2727E4000, v4, OS_LOG_TYPE_ERROR, "Unable to initialize Device Authentication session: %@", &v5, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_2727E4000, v4, OS_LOG_TYPE_INFO, "Device Authentication session is initialized", &v6, 2u);
+    LOWORD(v5) = 0;
+    _os_log_impl(&dword_2727E4000, v4, OS_LOG_TYPE_INFO, "Device Authentication session is initialized", &v5, 2u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveSessionCount:(int64_t)count
@@ -606,7 +587,7 @@ void __39__VSPrewarmService_prewarmWithRequest___block_invoke_25(uint64_t a1, vo
   voicePath = [object voicePath];
   cachedEngine = [(VSPrewarmService *)self cachedEngine];
   voicePath2 = [cachedEngine voicePath];
-  v7 = [voicePath isEqualToString:voicePath2];
+  v7 = [voicePath isEqualToString:?];
 
   if (v7)
   {
@@ -627,7 +608,7 @@ void __39__VSPrewarmService_prewarmWithRequest___block_invoke_25(uint64_t a1, vo
     v2->_prewarmQueue = v4;
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v2 selector:sel_handleVoiceSelectionPurge_ name:@"com.apple.voiceservices.notification.voice-purge" object:0];
+    [defaultCenter addObserver:? selector:? name:? object:?];
   }
 
   return v2;

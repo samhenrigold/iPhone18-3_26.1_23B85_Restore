@@ -71,32 +71,28 @@ LABEL_6:
 
 - (void)initWithNetworkReachability:queue:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
   *buf = 136315906;
-  v3 = "[NTNewsSourceAvailabilityEntry initWithNetworkReachability:queue:]";
-  v4 = 2080;
-  v5 = "NTNewsSourceAvailabilityEntry.m";
-  v6 = 1024;
+  v2 = "[NTNewsSourceAvailabilityEntry initWithNetworkReachability:queue:]";
+  v3 = 2080;
+  v4 = "NTNewsSourceAvailabilityEntry.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithNetworkReachability:queue:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
   *buf = 136315906;
-  v3 = "[NTNewsSourceAvailabilityEntry initWithNetworkReachability:queue:]";
-  v4 = 2080;
-  v5 = "NTNewsSourceAvailabilityEntry.m";
-  v6 = 1024;
+  v2 = "[NTNewsSourceAvailabilityEntry initWithNetworkReachability:queue:]";
+  v3 = 2080;
+  v4 = "NTNewsSourceAvailabilityEntry.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

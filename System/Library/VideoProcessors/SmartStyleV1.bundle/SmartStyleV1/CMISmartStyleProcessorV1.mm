@@ -23,6 +23,7 @@
 - (int)_configureOutputStyledThumbnailPixelBufferForPixelBufferRenderer:(__CVBuffer *)renderer unstyledThumbnailPixelBuffer:(__CVBuffer *)buffer;
 - (int)_configureStyleEngineTargetThumbnailPixelBuffer:(__CVBuffer *)buffer inputTargetThumbnailPixelBuffer:(__CVBuffer *)pixelBuffer;
 - (int)finishProcessing;
+- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)process;
 - (int)purgeResources;
@@ -35,6 +36,8 @@
 - (uint64_t)purgeResources;
 - (uint64_t)resetState;
 - (uint64_t)setup;
+- (unint64_t)_requestedMemSize:(unsigned int)size;
+- (unsigned)_pixelFormatCompatibleWithStyleProcessing:(unsigned int)processing;
 - (void)dealloc;
 - (void)setCameraInfoByPortType:(id)type;
 - (void)setConfiguration:(id)configuration;
@@ -117,6 +120,352 @@
   [(CMISmartStyleProcessorV1 *)&v5 dealloc];
 }
 
+- (int)prepareToProcess:(unsigned int)process
+{
+  v3 = *&process;
+  if (self->_processingType == process)
+  {
+    v13 = 0;
+    v14 = 0;
+    goto LABEL_41;
+  }
+
+  self->_processingType = process;
+  if (process >= 0x20)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+LABEL_48:
+    v14 = 0;
+    v13 = 0;
+    goto LABEL_61;
+  }
+
+  configuration = self->_configuration;
+  if (!configuration)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    goto LABEL_48;
+  }
+
+  if (self->_isSetupDone)
+  {
+    goto LABEL_11;
+  }
+
+  styleEngineConfiguration = [(CMISmartStyleProcessorBaseConfiguration *)configuration styleEngineConfiguration];
+  v7 = [styleEngineConfiguration copy];
+
+  [v7 setFastStyleApplication:{-[CMISmartStyleProcessorBaseConfiguration conformsToProtocol:](self->_configuration, "conformsToProtocol:", &OBJC_PROTOCOL___CMISmartStyleProcessorStreamingConfiguration)}];
+  [v7 setShouldFlushCVMTLTextureCacheAfterProcessing:self->_shouldFlushCVMTLTextureCacheAfterProcessing];
+  [v7 setShouldFlushCVMTLBufferCacheAfterProcessing:1];
+  styleEngineTuningParameters = [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration styleEngineTuningParameters];
+  v9 = [NSMutableDictionary dictionaryWithDictionary:styleEngineTuningParameters];
+
+  [v9 addEntriesFromDictionary:self->_tuningParameters];
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setTuningParameters:v9];
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setConfiguration:v7];
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setIspSMGProcessingSession:self->_ispSMGProcessingSession];
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setLabel:self->_instanceLabel];
+  if ([(CMIStyleEngineProcessor *)self->_styleEngineProcessor setup])
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    LODWORD(v19) = v66[0];
+    goto LABEL_53;
+  }
+
+  if ([(CMISmartStyleProcessorBaseConfiguration *)self->_configuration conformsToProtocol:&OBJC_PROTOCOL___CMISmartStyleProcessorStreamingConfiguration])
+  {
+    temporalFilterInputBufferSize = [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration temporalFilterInputBufferSize];
+  }
+
+  else
+  {
+    temporalFilterInputBufferSize = 0;
+  }
+
+  v11 = [[CMISmartStyleProcessorUtilitiesV1 alloc] initWithStyleEngine:self->_styleEngineProcessor temporalFilterBufferSize:temporalFilterInputBufferSize withMetalContext:self->_metalContext];
+  utilities = self->_utilities;
+  self->_utilities = v11;
+
+  if (!self->_utilities)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:];
+    LODWORD(v19) = 7;
+LABEL_53:
+
+    v14 = 0;
+    v13 = 0;
+    if (v19)
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_41;
+  }
+
+LABEL_11:
+  v13 = objc_opt_new();
+  if (!v13)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    v14 = 0;
+    goto LABEL_61;
+  }
+
+  [v13 setMemSize:{-[CMISmartStyleProcessorV1 _requestedMemSize:](self, "_requestedMemSize:", self->_processingType)}];
+  [v13 setWireMemory:1];
+  [v13 setLabel:@"FigMetalAllocator_SmartStyleMetalRenderer_"];
+  if ([(FigMetalAllocator *)self->_cmImagingAllocator memSize])
+  {
+    v14 = 0;
+    goto LABEL_21;
+  }
+
+  if (![(CMISmartStyleProcessorV1 *)self supportsExternalMemoryResource]|| (externalMemoryResource = self->_externalMemoryResource) == 0)
+  {
+    v19 = [(FigMetalAllocator *)self->_cmImagingAllocator setupWithDescriptor:v13];
+    v14 = objc_alloc_init(CMIExternalMemoryResource);
+    backendAllocator = [(FigMetalAllocator *)self->_cmImagingAllocator backendAllocator];
+    [(CMIExternalMemoryResource *)v14 setAllocatorBackend:backendAllocator];
+
+    if (v19)
+    {
+      [CMISmartStyleProcessorV1 prepareToProcess:v19];
+      goto LABEL_44;
+    }
+
+    goto LABEL_20;
+  }
+
+  v14 = externalMemoryResource;
+  allocatorBackend = [(CMIExternalMemoryResource *)self->_externalMemoryResource allocatorBackend];
+  v17 = allocatorBackend;
+  if (!allocatorBackend)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    LODWORD(v19) = v66[0];
+    goto LABEL_67;
+  }
+
+  [v13 setMemSize:{objc_msgSend(allocatorBackend, "memSize")}];
+  v18 = [(FigMetalAllocator *)self->_cmImagingAllocator setupWithDescriptor:v13 allocatorBackend:v17];
+  if (v18)
+  {
+    LODWORD(v19) = v18;
+    [CMISmartStyleProcessorV1 prepareToProcess:v18];
+LABEL_67:
+
+    if (v19)
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_41;
+  }
+
+LABEL_20:
+  objc_storeStrong(&self->_usedMemoryResource, v14);
+LABEL_21:
+  v21 = [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration conformsToProtocol:&OBJC_PROTOCOL___CMISmartStyleProcessorStillImageConfiguration];
+  v22 = self->_configuration;
+  if (v21)
+  {
+    v23 = v22;
+    [(CMISmartStyleProcessorBaseConfiguration *)v23 intermediateStyleRendererThumbnailSize];
+    if (v24 <= 0.0 || ([(CMISmartStyleProcessorBaseConfiguration *)v23 intermediateStyleRendererThumbnailSize], v25 <= 0.0))
+    {
+      [CMISmartStyleProcessorV1 prepareToProcess:v23];
+LABEL_56:
+      LODWORD(v19) = 1;
+      goto LABEL_44;
+    }
+
+LABEL_28:
+    [(CMISmartStyleProcessorBaseConfiguration *)v23 intermediateStyleRendererThumbnailSize];
+    self->_intermediateStyleRendererThumbnailSize.width = v30;
+    self->_intermediateStyleRendererThumbnailSize.height = v31;
+    styleEngineConfiguration2 = [(CMISmartStyleProcessorBaseConfiguration *)v23 styleEngineConfiguration];
+    [styleEngineConfiguration2 thumbnailSize];
+    self->_styleEngineTargetThumbnailSize.width = v33;
+    self->_styleEngineTargetThumbnailSize.height = v34;
+
+    goto LABEL_30;
+  }
+
+  v26 = [(CMISmartStyleProcessorBaseConfiguration *)v22 conformsToProtocol:&OBJC_PROTOCOL___CMISmartStyleProcessorStreamingConfiguration];
+  v27 = self->_configuration;
+  if (v26)
+  {
+    v23 = v27;
+    [(CMISmartStyleProcessorBaseConfiguration *)v23 intermediateStyleRendererThumbnailSize];
+    if (v28 <= 0.0 || ([(CMISmartStyleProcessorBaseConfiguration *)v23 intermediateStyleRendererThumbnailSize], v29 <= 0.0))
+    {
+      [CMISmartStyleProcessorV1 prepareToProcess:v23];
+      goto LABEL_56;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (v27)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    goto LABEL_61;
+  }
+
+LABEL_30:
+  self->_shouldGenerateTarget = (v3 & 8) != 0;
+  self->_shouldEncodeLinear = v3 > 0xF;
+  self->_shouldLearn = v3 & 1;
+  self->_shouldIntegrate = (v3 & 2) != 0;
+  self->_shouldApply = (v3 & 4) != 0;
+  if (!v3)
+  {
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+    goto LABEL_61;
+  }
+
+  if (self->_isSetupDone)
+  {
+    goto LABEL_37;
+  }
+
+  if ((v3 & 8) != 0)
+  {
+    v35 = [[CMISmartStylePixelBufferRendererV1 alloc] initWithOptionalMetalCommandQueue:self->_metalCommandQueue allocator:self->_cmImagingAllocator];
+    smartStylePixelBufferRenderer = self->_smartStylePixelBufferRenderer;
+    self->_smartStylePixelBufferRenderer = v35;
+
+    v37 = self->_smartStylePixelBufferRenderer;
+    if (!v37)
+    {
+      [CMISmartStyleProcessorV1 prepareToProcess:];
+      goto LABEL_64;
+    }
+
+    [(CMISmartStylePixelBufferRenderer *)v37 setInstanceLabel:self->_instanceLabel];
+    [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setUseLiveMetalAllocations:self->_useLiveMetalAllocations];
+    [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setUseSemanticSRLByDefault:self->_useSemanticSRLByDefault];
+    if (![(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setup])
+    {
+      v38 = [[CMISubjectRelightingStage alloc] initWithOptionalMetalCommandQueue:self->_metalCommandQueue];
+      subjectRelightingStage = self->_subjectRelightingStage;
+      self->_subjectRelightingStage = v38;
+
+      if (self->_subjectRelightingStage)
+      {
+        goto LABEL_36;
+      }
+
+      [CMISmartStyleProcessorV1 prepareToProcess:];
+LABEL_64:
+      LODWORD(v19) = 7;
+      goto LABEL_44;
+    }
+
+    [CMISmartStyleProcessorV1 prepareToProcess:v66];
+LABEL_61:
+    LODWORD(v19) = v66[0];
+    if (v66[0])
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_41;
+  }
+
+LABEL_36:
+  self->_isSetupDone = 1;
+LABEL_37:
+  v59 = v14;
+  v60 = v13;
+  v40 = kCVPixelBufferWidthKey;
+  v64[0] = kCVPixelBufferWidthKey;
+  v41 = [NSNumber numberWithDouble:self->_intermediateStyleRendererThumbnailSize.width];
+  v65[0] = v41;
+  v42 = kCVPixelBufferHeightKey;
+  v64[1] = kCVPixelBufferHeightKey;
+  v43 = [NSNumber numberWithDouble:self->_intermediateStyleRendererThumbnailSize.height];
+  v44 = kCVPixelBufferBytesPerRowAlignmentKey;
+  v65[1] = v43;
+  v65[2] = &off_20830;
+  v61 = v3;
+  v45 = kCVPixelBufferPlaneAlignmentKey;
+  v64[2] = kCVPixelBufferBytesPerRowAlignmentKey;
+  v64[3] = kCVPixelBufferPlaneAlignmentKey;
+  v46 = kCVPixelBufferMetalCompatibilityKey;
+  v65[3] = &off_20830;
+  v65[4] = &__kCFBooleanTrue;
+  v47 = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v64[4] = kCVPixelBufferMetalCompatibilityKey;
+  v64[5] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v48 = kCVPixelBufferIOSurfacePropertiesKey;
+  v64[6] = kCVPixelBufferIOSurfacePropertiesKey;
+  v65[5] = &__kCFBooleanTrue;
+  v65[6] = &__NSDictionary0__struct;
+  v49 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:7];
+  styleRendererPixelBufferAttributes = self->_styleRendererPixelBufferAttributes;
+  self->_styleRendererPixelBufferAttributes = v49;
+
+  v62[0] = v40;
+  v51 = [NSNumber numberWithDouble:self->_styleEngineTargetThumbnailSize.width];
+  v63[0] = v51;
+  v62[1] = v42;
+  v52 = [NSNumber numberWithDouble:self->_styleEngineTargetThumbnailSize.height];
+  v63[1] = v52;
+  v63[2] = &off_20830;
+  v62[2] = v44;
+  v62[3] = v45;
+  v3 = v61;
+  v63[3] = &off_20830;
+  v63[4] = &__kCFBooleanTrue;
+  v63[5] = &__kCFBooleanTrue;
+  v62[4] = v46;
+  v62[5] = v47;
+  v62[6] = v48;
+  v63[6] = &__NSDictionary0__struct;
+  v53 = [NSDictionary dictionaryWithObjects:v63 forKeys:v62 count:7];
+  styleEnginePixelBufferAttributes = self->_styleEnginePixelBufferAttributes;
+  self->_styleEnginePixelBufferAttributes = v53;
+
+  v55 = [(CMISmartStyleProcessorV1 *)self _rendererProcessingTypeForProcessingType:v61];
+  if (v55)
+  {
+    v14 = v59;
+    v13 = v60;
+    if ([(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer prepareToProcess:v55])
+    {
+      [CMISmartStyleProcessorV1 prepareToProcess:v66];
+      goto LABEL_61;
+    }
+  }
+
+  else
+  {
+    v14 = v59;
+    v13 = v60;
+  }
+
+LABEL_41:
+  v56 = [(CMISmartStyleProcessorV1 *)self _styleEngineProcessingTypeForProcessingType:v3];
+  if (v56)
+  {
+    v57 = v56;
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setExternalMemoryResource:self->_usedMemoryResource];
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setUseLiveMetalAllocations:self->_useLiveMetalAllocations];
+    LODWORD(v19) = [(CMIStyleEngineProcessor *)self->_styleEngineProcessor prepareToProcess:v57];
+  }
+
+  else
+  {
+    LODWORD(v19) = 0;
+  }
+
+LABEL_44:
+
+  return v19;
+}
+
 - (int)process
 {
   inputSmartStyle = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputSmartStyle];
@@ -138,7 +487,7 @@
   semanticStyleSceneType = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput semanticStyleSceneType];
   inputTuningType = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputTuningType];
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput personMasksValidHint];
-  v263 = v9;
+  v262 = v9;
   inputWeightPlanePixelBufferScaledForISPSMG = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputWeightPlanePixelBufferScaledForISPSMG];
   _isStreaming = [(CMISmartStyleProcessorV1 *)self _isStreaming];
   outputStyledPixelBuffer = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputStyledPixelBuffer];
@@ -147,7 +496,7 @@
   outputDeltaMapPixelBuffer = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputDeltaMapPixelBuffer];
   outputLearnedStyleCoefficientsPixelBuffer = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputLearnedStyleCoefficientsPixelBuffer];
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputUnstyledCropRect];
-  if (CGRectIsEmpty(v294))
+  if (CGRectIsEmpty(v293))
   {
     Width = CVPixelBufferGetWidth(inputUnstyledPixelBuffer);
     Height = CVPixelBufferGetHeight(inputUnstyledPixelBuffer);
@@ -165,10 +514,10 @@
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputUnstyledThumbnailCropRect];
-  if (CGRectIsEmpty(v295))
+  if (CGRectIsEmpty(v294))
   {
-    v281 = CVPixelBufferGetWidth(inputUnstyledThumbnailPixelBuffer);
-    v280 = CVPixelBufferGetHeight(inputUnstyledThumbnailPixelBuffer);
+    v280 = CVPixelBufferGetWidth(inputUnstyledThumbnailPixelBuffer);
+    v279 = CVPixelBufferGetHeight(inputUnstyledThumbnailPixelBuffer);
     v18 = 0.0;
     v19 = 0.0;
   }
@@ -178,149 +527,149 @@
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputUnstyledThumbnailCropRect];
     v18 = v20;
     v19 = v21;
-    v280 = v23;
-    v281 = v22;
+    v279 = v23;
+    v280 = v22;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputPersonMaskCropRect];
-  if (CGRectIsEmpty(v296))
+  if (CGRectIsEmpty(v295))
   {
-    v260 = CVPixelBufferGetWidth(inputPersonMaskPixelBuffer);
-    v258 = 0.0;
-    v259 = CVPixelBufferGetHeight(inputPersonMaskPixelBuffer);
+    v259 = CVPixelBufferGetWidth(inputPersonMaskPixelBuffer);
     v257 = 0.0;
+    v258 = CVPixelBufferGetHeight(inputPersonMaskPixelBuffer);
+    v256 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputPersonMaskCropRect];
-    v257 = v25;
-    v258 = v24;
-    v259 = v27;
-    v260 = v26;
+    v256 = v25;
+    v257 = v24;
+    v258 = v27;
+    v259 = v26;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputSkyMaskCropRect];
-  if (CGRectIsEmpty(v297))
+  if (CGRectIsEmpty(v296))
   {
-    v256 = CVPixelBufferGetWidth(inputSkyMaskPixelBuffer);
-    v254 = 0.0;
-    v255 = CVPixelBufferGetHeight(inputSkyMaskPixelBuffer);
+    v255 = CVPixelBufferGetWidth(inputSkyMaskPixelBuffer);
     v253 = 0.0;
+    v254 = CVPixelBufferGetHeight(inputSkyMaskPixelBuffer);
+    v252 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputSkyMaskCropRect];
-    v253 = v29;
-    v254 = v28;
-    v255 = v31;
-    v256 = v30;
+    v252 = v29;
+    v253 = v28;
+    v254 = v31;
+    v255 = v30;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputSkinMaskCropRect];
-  if (CGRectIsEmpty(v298))
+  if (CGRectIsEmpty(v297))
   {
-    v252 = CVPixelBufferGetWidth(inputSkinMaskPixelBuffer);
-    v250 = 0.0;
-    v251 = CVPixelBufferGetHeight(inputSkinMaskPixelBuffer);
+    v251 = CVPixelBufferGetWidth(inputSkinMaskPixelBuffer);
     v249 = 0.0;
+    v250 = CVPixelBufferGetHeight(inputSkinMaskPixelBuffer);
+    v248 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputSkinMaskCropRect];
-    v249 = v33;
-    v250 = v32;
-    v251 = v35;
-    v252 = v34;
+    v248 = v33;
+    v249 = v32;
+    v250 = v35;
+    v251 = v34;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputStyledCropRect];
-  if (CGRectIsEmpty(v299))
+  if (CGRectIsEmpty(v298))
   {
     rect = CVPixelBufferGetWidth(outputStyledPixelBuffer);
-    v246 = 0.0;
-    v244 = CVPixelBufferGetHeight(outputStyledPixelBuffer);
     v245 = 0.0;
+    v243 = CVPixelBufferGetHeight(outputStyledPixelBuffer);
+    v244 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputStyledCropRect];
-    v245 = v37;
-    v246 = v36;
+    v244 = v37;
+    v245 = v36;
     rect = v38;
-    v244 = v39;
+    v243 = v39;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputDeltaMapCropRect];
-  if (CGRectIsEmpty(v300))
+  if (CGRectIsEmpty(v299))
   {
     CVPixelBufferGetWidth(outputDeltaMapPixelBuffer);
     CVPixelBufferGetHeight(outputDeltaMapPixelBuffer);
+    v221 = 0.0;
     v222 = 0.0;
-    v223 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputDeltaMapCropRect];
-    v222 = v41;
-    v223 = v40;
+    v221 = v41;
+    v222 = v40;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputReferenceForDeltaMapComputationCropRect];
-  if (CGRectIsEmpty(v301))
+  if (CGRectIsEmpty(v300))
   {
     CVPixelBufferGetWidth(inputReferenceForDeltaMapComputationPixelBuffer);
     CVPixelBufferGetHeight(inputReferenceForDeltaMapComputationPixelBuffer);
+    v219 = 0.0;
     v220 = 0.0;
-    v221 = 0.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputReferenceForDeltaMapComputationCropRect];
-    v220 = v43;
-    v221 = v42;
+    v219 = v43;
+    v220 = v42;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput primaryCaptureRect];
   pixelBuffer = inputReferenceForDeltaMapComputationPixelBuffer;
-  if (CGRectIsEmpty(v302))
+  if (CGRectIsEmpty(v301))
   {
-    v230 = 0.0;
-    v238 = 0.0;
-    v236 = 1.0;
+    v229 = 0.0;
+    v237 = 0.0;
+    v235 = 1.0;
     v44 = 1.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput primaryCaptureRect];
-    v230 = v45;
-    v238 = v46;
-    v236 = v47;
+    v229 = v45;
+    v237 = v46;
+    v235 = v47;
     v44 = v48;
   }
 
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputCropRectWithinPrimaryCaptureRect];
-  v237 = v44;
-  if (CGRectIsEmpty(v303))
+  v236 = v44;
+  if (CGRectIsEmpty(v302))
   {
-    v241 = 0.0;
-    r1 = 1.0;
     v240 = 0.0;
-    v239 = 1.0;
+    r1 = 1.0;
+    v239 = 0.0;
+    v238 = 1.0;
   }
 
   else
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputCropRectWithinPrimaryCaptureRect];
-    v240 = v49;
-    v241 = v50;
-    v239 = v51;
+    v239 = v49;
+    v240 = v50;
+    v238 = v51;
     r1 = v52;
   }
 
@@ -330,54 +679,54 @@
   v56 = CGRectNull.size.width;
   v57 = CGRectNull.size.height;
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputRenderRect];
-  v291 = v57;
-  v278 = v56;
-  v277 = y;
-  v276 = CGRectNull.origin.x;
-  if (!CGRectIsEmpty(v304))
+  v290 = v57;
+  v277 = v56;
+  v276 = y;
+  v275 = CGRectNull.origin.x;
+  if (!CGRectIsEmpty(v303))
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputRenderRect];
-    v276 = v58;
-    v277 = v59;
-    v278 = v60;
+    v275 = v58;
+    v276 = v59;
+    v277 = v60;
     v57 = v61;
   }
 
   v62 = inputPersonMaskPixelBuffer;
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput deltaMapRegionToRenderRect];
-  IsEmpty = CGRectIsEmpty(v305);
-  v64 = v291;
+  IsEmpty = CGRectIsEmpty(v304);
+  v64 = v290;
   v65 = v56;
   v66 = y;
   v67 = CGRectNull.origin.x;
-  v248 = IsEmpty;
+  v247 = IsEmpty;
   if (!IsEmpty)
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput deltaMapRegionToRenderRect:CGRectNull.origin.x];
   }
 
-  v225 = v67;
-  v226 = v66;
-  v216 = v65;
-  v217 = v64;
+  v224 = v67;
+  v225 = v66;
+  v215 = v65;
+  v216 = v64;
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput spotlightAffineTransform];
-  v234 = v69;
-  v235 = v68;
-  v233 = v70;
+  v233 = v69;
+  v234 = v68;
+  v232 = v70;
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput globalLinearSystemMixFactor];
-  v231 = v71;
+  v230 = v71;
   residualsCalculationDisabled = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput residualsCalculationDisabled];
   applyDither = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput applyDither];
   metalSharedEvent = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput metalSharedEvent];
-  v279 = metalSharedEvent;
+  v278 = metalSharedEvent;
   if (metalSharedEvent)
   {
     v73 = metalSharedEvent;
     commandBuffer = [(FigMetalContext *)self->_metalContext commandBuffer];
     if (!commandBuffer)
     {
-      [(CMISmartStyleProcessorV1 *)v293 process];
-      v207 = v293[0];
+      [(CMISmartStyleProcessorV1 *)v292 process];
+      v206 = v292[0];
 LABEL_155:
       v116 = inputTuningType;
       v117 = v53;
@@ -389,8 +738,8 @@ LABEL_155:
     [(FigMetalContext *)self->_metalContext commit];
   }
 
-  v227 = outputStyledPixelBuffer;
-  v228 = outputDeltaMapPixelBuffer;
+  v226 = outputStyledPixelBuffer;
+  v227 = outputDeltaMapPixelBuffer;
   if (!self->_shouldGenerateTarget)
   {
     inputPixelBuffer = 0;
@@ -403,7 +752,7 @@ LABEL_155:
   {
     [CMISmartStyleProcessorV1 process];
 LABEL_154:
-    v207 = 1;
+    v206 = 1;
     goto LABEL_155;
   }
 
@@ -419,24 +768,24 @@ LABEL_154:
     goto LABEL_154;
   }
 
-  v219 = [inputMetadataDict objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
-  v76 = v291;
+  v218 = [inputMetadataDict objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
+  v76 = v290;
   v77 = v56;
   v78 = y;
   v79 = CGRectNull.origin.x;
-  v215 = inputSkyMaskPixelBuffer;
+  v214 = inputSkyMaskPixelBuffer;
   if (_isStreaming)
   {
-    v80 = [v219 isEqual:{kFigCapturePortType_FrontFacingSuperWideCamera, CGRectNull.origin.x, y, v56, v291}];
-    v76 = v291;
+    v80 = [v218 isEqual:{kFigCapturePortType_FrontFacingSuperWideCamera, CGRectNull.origin.x, y, v56, v290}];
+    v76 = v290;
     v77 = v56;
     v78 = y;
     v79 = CGRectNull.origin.x;
     if (v80)
     {
       [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration intermediateStyleRendererThumbnailSize:CGRectNull.origin.x];
-      v212 = v12;
-      v213 = v19;
+      v211 = v12;
+      v212 = v19;
       v81 = v13;
       v83 = v82;
       v85 = v84;
@@ -451,19 +800,19 @@ LABEL_154:
       x = CGRectNull.origin.x;
       FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect();
       FigCaptureMetadataUtilitiesRoundRectToMultipleOf();
-      v317.origin.x = v89;
-      v317.origin.y = v90;
-      v317.size.width = v91;
-      v317.size.height = v92;
-      v306.origin.x = 0.0;
-      v306.origin.y = 0.0;
-      v306.size.width = v83;
-      v306.size.height = v85;
-      CGRectIntersection(v306, v317);
+      v316.origin.x = v89;
+      v316.origin.y = v90;
+      v316.size.width = v91;
+      v316.size.height = v92;
+      v305.origin.x = 0.0;
+      v305.origin.y = 0.0;
+      v305.size.width = v83;
+      v305.size.height = v85;
+      CGRectIntersection(v305, v316);
       v13 = v87;
       v57 = v88;
-      v12 = v212;
-      v19 = v213;
+      v12 = v211;
+      v19 = v212;
       CMINormalizeCropRect();
     }
   }
@@ -474,13 +823,13 @@ LABEL_154:
   {
     if (!inputSRLPixelBuffer)
     {
-      [(CMISmartStyleProcessorV1 *)v293 process];
-      v207 = v293[0];
+      [(CMISmartStyleProcessorV1 *)v292 process];
+      v206 = v292[0];
       v117 = v53;
       goto LABEL_166;
     }
 
-    v214 = v19;
+    v213 = v19;
     v94 = v56;
     v95 = v18;
     v96 = y;
@@ -493,9 +842,9 @@ LABEL_154:
     [v101 floatValue];
     v103 = v102;
 
-    LODWORD(v211) = 0;
+    LODWORD(v210) = 0;
     LODWORD(v104) = v103;
-    [(CMISubjectRelightingStage *)self->_subjectRelightingStage runSRLForLivePhotosWithInputBuffer:inputSRLPixelBuffer skinMask:inputSkinMaskPixelBuffer personMask:v62 instanceMasks:0 instanceMaskConfidences:0 skinToneClassification:0 expBias:v104 exifOrientation:v211 srlV2Plist:0 faceDataFromANST:v100];
+    [(CMISubjectRelightingStage *)self->_subjectRelightingStage runSRLForLivePhotosWithInputBuffer:inputSRLPixelBuffer skinMask:inputSkinMaskPixelBuffer personMask:v62 instanceMasks:0 instanceMaskConfidences:0 skinToneClassification:0 expBias:v104 exifOrientation:v210 srlV2Plist:0 faceDataFromANST:v100];
     [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSRLCoefficientsBuf:0];
     previousSRLCurveParameter = self->_previousSRLCurveParameter;
     [(CMISubjectRelightingStage *)self->_subjectRelightingStage lastComputedCurveParameter];
@@ -552,7 +901,7 @@ LABEL_154:
     y = v96;
     v18 = v95;
     v56 = v94;
-    v19 = v214;
+    v19 = v213;
     v93 = v62;
   }
 
@@ -569,24 +918,24 @@ LABEL_154:
   v117 = v53;
   if (([(CMISmartStyleProcessorInputOutput *)self->_inputOutput computeOnlySubjectRelighting]& 1) != 0)
   {
-    v207 = 0;
+    v206 = 0;
 LABEL_166:
 
     v116 = inputTuningType;
     goto LABEL_142;
   }
 
-  v280 = [(CMISmartStyleProcessorV1 *)self _configureInputUnstyledPixelBufferForPixelBufferRenderer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:v12 withinputUnstyledThumbnailCropRect:v13, Width, Height, v18, v19, v281, v280];
-  if (v280)
+  v279 = [(CMISmartStyleProcessorV1 *)self _configureInputUnstyledPixelBufferForPixelBufferRenderer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:v12 withinputUnstyledThumbnailCropRect:v13, Width, Height, v18, v19, v280, v279];
+  if (v279)
   {
-    v207 = v280;
+    v206 = v279;
     [CMISmartStyleProcessorV1 process];
     goto LABEL_166;
   }
 
   inputPixelBuffer = [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer inputPixelBuffer];
   [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputLinearCropRect];
-  if (CGRectIsEmpty(v307))
+  if (CGRectIsEmpty(v306))
   {
     [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputLinearPixelBuffer:inputLinearPixelBuffer];
   }
@@ -597,7 +946,7 @@ LABEL_166:
     v121 = [(CMISmartStyleProcessorV1 *)self _configureInputLinearPixelBufferForPixelBufferRenderer:inputLinearPixelBuffer withinputLinearCropRect:?];
     if (v121)
     {
-      v207 = v121;
+      v206 = v121;
       [CMISmartStyleProcessorV1 process];
       goto LABEL_166;
     }
@@ -606,7 +955,7 @@ LABEL_166:
   v122 = [(CMISmartStyleProcessorV1 *)self _configureOutputStyledThumbnailPixelBufferForPixelBufferRenderer:inputUnstyledPixelBuffer unstyledThumbnailPixelBuffer:inputUnstyledThumbnailPixelBuffer];
   if (v122)
   {
-    v207 = v122;
+    v206 = v122;
     [CMISmartStyleProcessorV1 process];
     goto LABEL_166;
   }
@@ -616,16 +965,16 @@ LABEL_166:
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputLinearMetadataDict:inputLinearMetadataDict];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputGainMapPixelBuffer:inputGainMapPixelBuffer];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputPersonMaskPixelBuffer:v93];
-  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputPersonMaskCropRect:v258, v257, v260, v259];
+  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputPersonMaskCropRect:v257, v256, v259, v258];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkinMaskPixelBuffer:inputSkinMaskPixelBuffer];
-  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkinMaskCropRect:v250, v249, v252, v251];
-  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkyMaskPixelBuffer:v215];
-  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkyMaskCropRect:v254, v253, v256, v255];
+  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkinMaskCropRect:v249, v248, v251, v250];
+  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkyMaskPixelBuffer:v214];
+  [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputSkyMaskCropRect:v253, v252, v255, v254];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setSemanticStyleSceneType:semanticStyleSceneType];
   v116 = inputTuningType;
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setTuningParameterVariant:inputTuningType];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setIsStreaming:_isStreaming & ~self->_shouldFlushCVMTLTextureCacheAfterProcessing & 1];
-  LODWORD(v123) = v263;
+  LODWORD(v123) = v262;
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setPersonMasksValidHint:v123];
   outputImageStatistics = [(CMISmartStyleProcessorInputOutput *)self->_inputOutput outputImageStatistics];
   [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setOutputImageStatistics:outputImageStatistics];
@@ -640,7 +989,7 @@ LABEL_71:
   if (self->_shouldEncodeLinear)
   {
     [(CMISmartStyleProcessorInputOutput *)self->_inputOutput inputLinearCropRect];
-    if (CGRectIsEmpty(v308))
+    if (CGRectIsEmpty(v307))
     {
       [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setInputLinearPixelBuffer:inputLinearPixelBuffer];
     }
@@ -651,7 +1000,7 @@ LABEL_71:
       v126 = [(CMISmartStyleProcessorV1 *)self _configureInputLinearPixelBufferForPixelBufferRenderer:inputLinearPixelBuffer withinputLinearCropRect:?];
       if (v126)
       {
-        v207 = v126;
+        v206 = v126;
         [CMISmartStyleProcessorV1 process];
         goto LABEL_142;
       }
@@ -664,11 +1013,15 @@ LABEL_71:
     [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer setOutputCodedLinearMetadata:outputCodedLinearThumbnailMetadata];
   }
 
-  if ((self->_shouldGenerateTarget || self->_shouldEncodeLinear) && [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer process])
+  if (self->_shouldGenerateTarget || self->_shouldEncodeLinear)
   {
-    [(CMISmartStyleProcessorV1 *)v293 process];
-    v207 = v293[0];
-    goto LABEL_142;
+    metalSharedEvent = [(CMISmartStylePixelBufferRenderer *)self->_smartStylePixelBufferRenderer process];
+    if (metalSharedEvent)
+    {
+      [(CMISmartStyleProcessorV1 *)v292 process];
+      v206 = v292[0];
+      goto LABEL_142;
+    }
   }
 
   if (self->_shouldLearn)
@@ -677,10 +1030,10 @@ LABEL_71:
     {
       if (self->_shouldIntegrate || self->_shouldApply || outputLearnedStyleCoefficientsPixelBuffer)
       {
-        v128 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v281, v280, *&x, *&y, *&v56, *&v291];
+        v128 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v280, v279, *&x, *&y, *&v56, *&v290];
         if (v128)
         {
-          v207 = v128;
+          v206 = v128;
           [CMISmartStyleProcessorV1 process];
           goto LABEL_142;
         }
@@ -689,18 +1042,18 @@ LABEL_71:
         v130 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineTargetThumbnailPixelBuffer:inputLearningTargetPixelBuffer inputTargetThumbnailPixelBuffer:inputLearningTargetThumbnailPixelBuffer];
         if (v130)
         {
-          v207 = v130;
+          v206 = v130;
           [CMISmartStyleProcessorV1 process];
           goto LABEL_142;
         }
 
         v131 = inputUnstyledThumbnailPixelBuffer;
-        v283 = v56;
-        v218 = x;
+        v282 = v56;
+        v217 = x;
         v132 = v57;
         v133 = v19;
         v134 = v18;
-        v286 = v13;
+        v285 = v13;
         v135 = v12;
         [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputWeightPlanePixelBufferScaledForISPSMG:inputWeightPlanePixelBufferScaledForISPSMG];
         [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputLinearSystemCoefficientsPixelBuffer:outputLearnedStyleCoefficientsPixelBuffer];
@@ -739,27 +1092,11 @@ LABEL_91:
         p_previousStyle = &self->_previousStyle;
         castType = [(CMISmartStyle *)self->_previousStyle castType];
         castType2 = [v117 castType];
-        if (![castType isEqualToString:castType2])
+        if ([castType isEqualToString:castType2] && (-[CMISmartStyle toneBias](*p_previousStyle, "toneBias"), v150 = v149, objc_msgSend(v117, "toneBias"), vabds_f32(v150, v151) <= 0.00000011921) && (-[CMISmartStyle colorBias](*p_previousStyle, "colorBias"), v153 = v152, objc_msgSend(v117, "colorBias"), vabds_f32(v153, v154) <= 0.00000011921) && (-[CMISmartStyle castIntensity](*p_previousStyle, "castIntensity"), v156 = v155, objc_msgSend(v117, "castIntensity"), vabds_f32(v156, v157) <= 0.00000011921))
         {
-          goto LABEL_96;
-        }
+          v209 = vabds_f32(self->_previousPriorStrength, v140);
 
-        [(CMISmartStyle *)*p_previousStyle toneBias];
-        v150 = v149;
-        [v117 toneBias];
-        if (vabds_f32(v150, v151) > 0.00000011921)
-        {
-          goto LABEL_96;
-        }
-
-        [(CMISmartStyle *)*p_previousStyle colorBias];
-        v153 = v152;
-        [v117 colorBias];
-        if (vabds_f32(v153, v154) <= 0.00000011921 && (-[CMISmartStyle castIntensity](*p_previousStyle, "castIntensity"), v156 = v155, [v117 castIntensity], vabds_f32(v156, v157) <= 0.00000011921))
-        {
-          v210 = vabds_f32(self->_previousPriorStrength, v140);
-
-          if (v210 <= 0.00000011921)
+          if (v209 <= 0.00000011921)
           {
             goto LABEL_98;
           }
@@ -767,7 +1104,6 @@ LABEL_91:
 
         else
         {
-LABEL_96:
         }
 
         castType3 = [v117 castType];
@@ -781,11 +1117,11 @@ LABEL_96:
         LODWORD(v166) = v162;
         *&v167 = v140;
         [CMISmartStyleCCMPriorGenerator calculatePriorCCMforCast:castType3 tone:v165 color:v166 intensity:v164 priorStrength:v167];
-        v275 = v168;
-        v271 = v169;
-        v268 = v170;
+        v274 = v168;
+        v270 = v169;
+        v267 = v170;
         configuration = [(CMIStyleEngineProcessor *)self->_styleEngineProcessor configuration];
-        [configuration setLinearSystemPriorMatrix:{v275, v271, v268}];
+        [configuration setLinearSystemPriorMatrix:{v274, v270, v267}];
 
 LABEL_98:
         objc_storeStrong(&self->_previousStyle, v117);
@@ -793,12 +1129,12 @@ LABEL_98:
         v172 = inputThumbnailPixelBuffer == 0;
         v116 = inputTuningType;
         v12 = v135;
-        v13 = v286;
+        v13 = v285;
         v18 = v134;
         v19 = v133;
         v57 = v132;
-        x = v218;
-        v56 = v283;
+        x = v217;
+        v56 = v282;
         inputUnstyledThumbnailPixelBuffer = v131;
         goto LABEL_100;
       }
@@ -811,7 +1147,7 @@ LABEL_98:
       [CMISmartStyleProcessorV1 process];
     }
 
-    v207 = 1;
+    v206 = 1;
     goto LABEL_142;
   }
 
@@ -827,15 +1163,15 @@ LABEL_100:
         goto LABEL_169;
       }
 
-      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputLinearSystemCoefficientsPixelBuffer:?];
+      metalSharedEvent = [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputLinearSystemCoefficientsPixelBuffer:?];
     }
 
     if (v172)
     {
-      v173 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v281, v280, *&x, *&y, *&v56, *&v291];
-      if (v173)
+      metalSharedEvent = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v280, v279, *&x, *&y, *&v56, *&v290];
+      if (metalSharedEvent)
       {
-        v207 = v173;
+        v206 = metalSharedEvent;
         [CMISmartStyleProcessorV1 process];
         goto LABEL_142;
       }
@@ -856,143 +1192,143 @@ LABEL_100:
       goto LABEL_110;
     }
 
-    [CMISmartStyleProcessorV1 process];
+    [(CMISmartStyleProcessorV1 *)metalSharedEvent process];
 LABEL_169:
-    v207 = 7;
+    v206 = 7;
     goto LABEL_142;
   }
 
 LABEL_110:
   if (v172)
   {
-    v175 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v281, v280, *&x, *&y, *&v56, *&v291];
-    if (v175)
+    v174 = [(CMISmartStyleProcessorV1 *)self _configureStyleEngineInputUnstyledThumbnailPixelBuffer:inputUnstyledPixelBuffer withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer inputUnstyledThumbnailPixelBuffer:inputPixelBuffer withinputUnstyledThumbnailCropRect:v12 inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:v13 withInputUnstyledThumbnailUsedForTargetGenerationCropRect:Width, Height, v18, v19, v280, v279, *&x, *&y, *&v56, *&v290];
+    if (v174)
     {
-      v207 = v175;
+      v206 = v174;
       [CMISmartStyleProcessorV1 process];
       goto LABEL_142;
     }
   }
 
   configuration2 = [(CMIStyleEngineProcessor *)self->_styleEngineProcessor configuration];
-  LODWORD(v177) = v231;
-  [configuration2 setGlobalLinearSystemMixFactor:v177];
+  LODWORD(v176) = v230;
+  [configuration2 setGlobalLinearSystemMixFactor:v176];
 
-  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightAffineTransform:v235, v234, v233];
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightAffineTransform:v234, v233, v232];
   [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setApplyDither:applyDither];
-  v309.origin.x = v230;
-  v309.origin.y = v238;
-  v309.size.width = v236;
-  v309.size.height = v237;
-  if (!CGRectIsEmpty(v309))
+  v308.origin.x = v229;
+  v308.origin.y = v237;
+  v308.size.width = v235;
+  v308.size.height = v236;
+  if (!CGRectIsEmpty(v308))
   {
-    v178 = CVPixelBufferGetWidth([(CMIStyleEngineProcessor *)self->_styleEngineProcessor inputThumbnailPixelBuffer]);
-    v179 = CVPixelBufferGetHeight([(CMIStyleEngineProcessor *)self->_styleEngineProcessor inputThumbnailPixelBuffer]);
-    v287 = v13;
-    v180 = v230 * v178;
-    v181 = v236 * v178;
-    v182 = v12;
-    v183 = v238 * v179;
-    v184 = v237 * v179;
+    v177 = CVPixelBufferGetWidth([(CMIStyleEngineProcessor *)self->_styleEngineProcessor inputThumbnailPixelBuffer]);
+    v178 = CVPixelBufferGetHeight([(CMIStyleEngineProcessor *)self->_styleEngineProcessor inputThumbnailPixelBuffer]);
+    v286 = v13;
+    v179 = v229 * v177;
+    v180 = v235 * v177;
+    v181 = v12;
+    v182 = v237 * v178;
+    v183 = v236 * v178;
     styleEngineConfiguration = [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration styleEngineConfiguration];
     [styleEngineConfiguration thumbnailSize];
-    v187 = v186;
+    v186 = v185;
     styleEngineConfiguration2 = [(CMISmartStyleProcessorBaseConfiguration *)self->_configuration styleEngineConfiguration];
     [styleEngineConfiguration2 thumbnailSize];
-    v318.size.height = v189;
-    v318.origin.x = 0.0;
-    v318.origin.y = 0.0;
-    v310.origin.x = v180;
-    v13 = v287;
-    v310.origin.y = v183;
-    v12 = v182;
-    v310.size.width = v181;
-    v310.size.height = v184;
-    v318.size.width = v187;
-    v311 = CGRectIntersection(v310, v318);
-    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightIntegrationROI:v311.origin.x, v311.origin.y, v311.size.width, v311.size.height];
+    v317.size.height = v188;
+    v317.origin.x = 0.0;
+    v317.origin.y = 0.0;
+    v309.origin.x = v179;
+    v13 = v286;
+    v309.origin.y = v182;
+    v12 = v181;
+    v309.size.width = v180;
+    v309.size.height = v183;
+    v317.size.width = v186;
+    v310 = CGRectIntersection(v309, v317);
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightIntegrationROI:v310.origin.x, v310.origin.y, v310.size.width, v310.size.height];
   }
 
-  v319.origin.x = 0.0;
-  v319.origin.y = 0.0;
-  v319.size.width = 1.0;
-  v319.size.height = 1.0;
-  v312.origin.x = v240;
-  v312.origin.y = v241;
-  v312.size.width = v239;
-  v312.size.height = r1;
-  v313 = CGRectIntersection(v312, v319);
-  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightZoomROI:v313.origin.x, v313.origin.y, v313.size.width, v313.size.height];
+  v318.origin.x = 0.0;
+  v318.origin.y = 0.0;
+  v318.size.width = 1.0;
+  v318.size.height = 1.0;
+  v311.origin.x = v239;
+  v311.origin.y = v240;
+  v311.size.width = v238;
+  v311.size.height = r1;
+  v312 = CGRectIntersection(v311, v318);
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setSpotlightZoomROI:v312.origin.x, v312.origin.y, v312.size.width, v312.size.height];
   [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputPixelBuffer:inputUnstyledPixelBuffer];
-  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputPixelBuffer:v227];
-  v314.origin.x = v12;
-  v314.origin.y = v13;
-  v314.size.height = Height;
-  v314.size.width = Width;
-  if (!CGRectIsEmpty(v314))
+  [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputPixelBuffer:v226];
+  v313.origin.x = v12;
+  v313.origin.y = v13;
+  v313.size.height = Height;
+  v313.size.width = Width;
+  if (!CGRectIsEmpty(v313))
   {
-    v190 = -v13;
-    v191 = v13;
-    v192 = CVPixelBufferGetWidth(inputUnstyledPixelBuffer);
-    v193 = CVPixelBufferGetHeight(inputUnstyledPixelBuffer);
+    v189 = -v13;
+    v190 = v13;
+    v191 = CVPixelBufferGetWidth(inputUnstyledPixelBuffer);
+    v192 = CVPixelBufferGetHeight(inputUnstyledPixelBuffer);
     if (pixelBuffer)
     {
-      v194 = !v248;
+      v193 = !v247;
     }
 
     else
     {
-      v194 = 0;
+      v193 = 0;
     }
 
-    v195 = v225 - v12;
-    v196 = v226 - v191;
-    if (!v194 || v228 == 0)
+    v194 = v224 - v12;
+    v195 = v225 - v190;
+    if (!v193 || v227 == 0)
     {
-      v195 = -v12;
-      v196 = v190;
+      v194 = -v12;
+      v195 = v189;
     }
 
-    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputImageRect:v195, v196, v192, v193];
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputImageRect:v194, v195, v191, v192];
   }
 
-  v315.origin.x = v246;
-  v315.origin.y = v245;
-  v315.size.width = rect;
-  v315.size.height = v244;
-  if (!CGRectIsEmpty(v315))
+  v314.origin.x = v245;
+  v314.origin.y = v244;
+  v314.size.width = rect;
+  v314.size.height = v243;
+  if (!CGRectIsEmpty(v314))
   {
-    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setImageSize:rect, v244];
-    v197 = CVPixelBufferGetWidth(v227);
-    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputImageRect:-v246, -v245, v197, CVPixelBufferGetHeight(v227)];
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setImageSize:rect, v243];
+    v196 = CVPixelBufferGetWidth(v226);
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputImageRect:-v245, -v244, v196, CVPixelBufferGetHeight(v226)];
   }
 
   if (pixelBuffer)
   {
-    if (v228)
+    if (v227)
     {
-      v198 = CVPixelBufferGetWidth(pixelBuffer);
-      v199 = CVPixelBufferGetHeight(pixelBuffer);
+      v197 = CVPixelBufferGetWidth(pixelBuffer);
+      v198 = CVPixelBufferGetHeight(pixelBuffer);
       [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputOriginalPixelBuffer:pixelBuffer];
-      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputOriginalImageRect:-v221, -v220, v198, v199];
-      v200 = CVPixelBufferGetWidth(v228);
-      v201 = CVPixelBufferGetHeight(v228);
-      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputDeltaMapPixelBuffer:v228];
-      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputImageRect:-v223, -v222, v200, v201];
-      if (!v248)
+      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setInputOriginalImageRect:-v220, -v219, v197, v198];
+      v199 = CVPixelBufferGetWidth(v227);
+      v200 = CVPixelBufferGetHeight(v227);
+      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputDeltaMapPixelBuffer:v227];
+      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setOutputImageRect:-v222, -v221, v199, v200];
+      if (!v247)
       {
-        [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setRegionToRender:v225, v226, v216, v217];
+        [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setRegionToRender:v224, v225, v215, v216];
       }
     }
   }
 
-  v316.origin.x = v276;
-  v316.origin.y = v277;
-  v316.size.width = v278;
-  v316.size.height = v57;
-  if (!CGRectIsEmpty(v316))
+  v315.origin.x = v275;
+  v315.origin.y = v276;
+  v315.size.width = v277;
+  v315.size.height = v57;
+  if (!CGRectIsEmpty(v315))
   {
-    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setRegionToRender:v276, v277, v278, v57];
+    [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setRegionToRender:v275, v276, v277, v57];
   }
 
   if (inputDeltaMapPixelBuffer)
@@ -1005,7 +1341,7 @@ LABEL_110:
 LABEL_132:
   if (!shouldLearn && !self->_shouldIntegrate && !self->_shouldApply)
   {
-    v207 = 0;
+    v206 = 0;
     goto LABEL_142;
   }
 
@@ -1017,35 +1353,35 @@ LABEL_132:
     if (castType4)
     {
       castType5 = [v117 castType];
-      v205 = [CMISmartStyleCommonSettings styleEngineSpecificTuningForTuningVariant:v116 andCast:castType5];
-      v206 = [v205 cmi_dictionaryMergedWithDefaultDict:tuningParameters4];
-      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setTuningParameters:v206];
+      v204 = [CMISmartStyleCommonSettings styleEngineSpecificTuningForTuningVariant:v116 andCast:castType5];
+      v205 = [v204 cmi_dictionaryMergedWithDefaultDict:tuningParameters4];
+      [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setTuningParameters:v205];
     }
   }
 
   if ([(CMIStyleEngineProcessor *)self->_styleEngineProcessor process])
   {
-    [(CMISmartStyleProcessorV1 *)v293 process];
+    [(CMISmartStyleProcessorV1 *)v292 process];
 LABEL_148:
-    v207 = v293[0];
+    v206 = v292[0];
     goto LABEL_141;
   }
 
   if ([(CMIStyleEngineProcessor *)self->_styleEngineProcessor resetState])
   {
-    [(CMISmartStyleProcessorV1 *)v293 process];
+    [(CMISmartStyleProcessorV1 *)v292 process];
     goto LABEL_148;
   }
 
   [(CMIStyleEngineProcessor *)self->_styleEngineProcessor setTuningParameters:tuningParameters4];
-  v207 = 0;
+  v206 = 0;
 LABEL_141:
 
 LABEL_142:
   inputOutput = self->_inputOutput;
   self->_inputOutput = 0;
 
-  return v207;
+  return v206;
 }
 
 - (int)finishProcessing
@@ -1142,6 +1478,113 @@ LABEL_5:
 
   self->_previousSRLCurveParameter = -1.0;
   return v3;
+}
+
+- (unint64_t)_requestedMemSize:(unsigned int)size
+{
+  v3 = *&size;
+  v5 = [CMIExternalMemoryConfiguration alloc];
+  v6 = [NSNumber numberWithUnsignedInt:[(CMISmartStyleProcessorV1 *)self _styleEngineProcessingTypeForProcessingType:v3, @"ProcessingType"]];
+  v23 = v6;
+  v7 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v8 = [v5 initWithMaxInputDimensions:0 inputPixelFormat:0 maxOutputDimensions:0 cmiResourceEnabled:0 processorSpecificOptions:v7];
+
+  if (v8)
+  {
+    v9 = [(CMIStyleEngineProcessor *)self->_styleEngineProcessor externalMemoryDescriptorForConfiguration:v8];
+    memSize = [v9 memSize];
+    v11 = memSize;
+    if (self->_useLiveMetalAllocations)
+    {
+      v12 = 18253824;
+      if (memSize > 0x1168800)
+      {
+        v12 = memSize;
+      }
+
+      if ((v3 & 8) == 0)
+      {
+        v12 = memSize;
+      }
+
+      v13 = (v3 & 1) == 0;
+      if (v12 <= 0x2600000)
+      {
+        v14 = 39845888;
+      }
+
+      else
+      {
+        v14 = v12;
+      }
+
+      v15 = (v3 & 6) == 0;
+      if (v9)
+      {
+        v13 = 1;
+        v15 = 1;
+      }
+
+      if (!v13)
+      {
+        v12 = v14;
+      }
+
+      v16 = 0x800000;
+      if (v12 > 0x800000)
+      {
+        v16 = v12;
+      }
+
+      if (!v15)
+      {
+        v12 = v16;
+      }
+
+      if (v12 <= 0x2600000)
+      {
+        v17 = 39845888;
+      }
+
+      else
+      {
+        v17 = v12;
+      }
+
+      v18 = v3 == 0;
+    }
+
+    else
+    {
+      memSize2 = [v9 memSize];
+      v12 = memSize2 + v11 + 18253824;
+      if ((v3 & 8) == 0)
+      {
+        v12 = memSize2 + v11 + 428032;
+      }
+
+      v18 = v3 == 0;
+      v17 = 66488320;
+    }
+
+    if (v18)
+    {
+      v20 = v17;
+    }
+
+    else
+    {
+      v20 = v12;
+    }
+  }
+
+  else
+  {
+    [CMISmartStyleProcessorV1 _requestedMemSize:];
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 - (id)externalMemoryDescriptorForConfiguration:(id)configuration
@@ -2006,22 +2449,42 @@ LABEL_38:
 {
   if (a12)
   {
-    pixelBuffer = a9;
+    pixelBufferCopy = a9;
+  }
+
+  else
+  {
+    pixelBufferCopy = pixelBuffer;
   }
 
   if (a12)
   {
-    rect = generationCropRect;
+    rectCopy = generationCropRect;
+  }
+
+  else
+  {
+    rectCopy = rect;
   }
 
   if (a12)
   {
-    buffer = generationPixelBuffer;
+    bufferCopy = generationPixelBuffer;
+  }
+
+  else
+  {
+    bufferCopy = buffer;
   }
 
   if (a12)
   {
-    a2 = cropRect;
+    cropRectCopy = cropRect;
+  }
+
+  else
+  {
+    cropRectCopy = a2;
   }
 
   if (a12)
@@ -2029,88 +2492,145 @@ LABEL_38:
     a11 = a12;
   }
 
-  if (a13 && *(self + 168) < CVPixelBufferGetWidth(a13) && *(self + 176) < CVPixelBufferGetHeight(a13))
+  if (a13)
   {
-    rect = a16;
-    pixelBuffer = a17;
-    a11 = a13;
-    a2 = a14;
-    buffer = a15;
+    a2 = CVPixelBufferGetWidth(a13);
+    buffer = *(self + 168);
+    if (buffer < a2)
+    {
+      a2 = CVPixelBufferGetHeight(a13);
+      buffer = *(self + 176);
+      if (buffer < a2)
+      {
+        rectCopy = a16;
+        pixelBufferCopy = a17;
+        a11 = a13;
+        cropRectCopy = a14;
+        bufferCopy = a15;
+      }
+    }
   }
 
   _isStreaming = [self _isStreaming];
   if (a13)
   {
-    v28 = _isStreaming;
+    v25 = _isStreaming;
   }
 
   else
   {
-    v28 = 1;
+    v25 = 1;
   }
 
-  if (v28)
+  if (v25)
   {
-    v29 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v29 = 3;
+    v26 = 3;
   }
 
   if (*(self + 168) == CVPixelBufferGetWidth(a11))
   {
     Height = CVPixelBufferGetHeight(a11);
-    v31 = *(self + 176);
-    if (v31 == Height && rect == *(self + 168) && pixelBuffer == v31)
+    v28 = *(self + 176);
+    if (v28 == Height && rectCopy == *(self + 168) && pixelBufferCopy == v28)
     {
-      v38 = *(self + 48);
-      v37 = a11;
+      v35 = *(self + 48);
+      v34 = a11;
       goto LABEL_42;
     }
   }
 
-  v33 = *(self + 128);
-  if (!v33)
+  v30 = *(self + 128);
+  if (!v30)
   {
-    v34 = [self _pixelFormatCompatibleWithStyleProcessing:CVPixelBufferGetPixelFormatType(a11)];
-    if (CVPixelBufferCreate(kCFAllocatorDefault, *(self + 168), *(self + 176), v34, *(self + 144), (self + 128)))
+    v31 = [self _pixelFormatCompatibleWithStyleProcessing:CVPixelBufferGetPixelFormatType(a11)];
+    if (CVPixelBufferCreate(kCFAllocatorDefault, *(self + 168), *(self + 176), v31, *(self + 144), (self + 128)))
     {
       [CMISmartStyleProcessorV1 _configureStyleEngineInputUnstyledThumbnailPixelBuffer:? withinputUnstyledCropRect:? inputUnstyledThumbnailPixelBuffer:? withinputUnstyledThumbnailCropRect:? inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:? withInputUnstyledThumbnailUsedForTargetGenerationCropRect:?];
-      return v40;
+      return v37;
     }
 
-    v33 = *(self + 128);
+    v30 = *(self + 128);
   }
 
-  v35 = [*(self + 56) downScalePixelBuffer:a11 toPixelBuffer:v33 inputROI:v29 filterOption:{a2, buffer, rect, pixelBuffer}];
-  if (v35)
+  v32 = [*(self + 56) downScalePixelBuffer:a11 toPixelBuffer:v30 inputROI:v26 filterOption:{cropRectCopy, bufferCopy, rectCopy, pixelBufferCopy}];
+  if (v32)
   {
-    v36 = v28;
+    v33 = v25;
   }
 
   else
   {
-    v36 = 1;
+    v33 = 1;
   }
 
-  if ((v36 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
-    v35 = [*(self + 56) downScalePixelBuffer:a11 toPixelBuffer:*(self + 128) inputROI:0 filterOption:{a2, buffer, rect, pixelBuffer}];
+    v32 = [*(self + 56) downScalePixelBuffer:a11 toPixelBuffer:*(self + 128) inputROI:0 filterOption:{cropRectCopy, bufferCopy, rectCopy, pixelBufferCopy}];
   }
 
-  if (!v35)
+  if (!v32)
   {
-    v37 = *(self + 128);
-    v38 = *(self + 48);
+    v34 = *(self + 128);
+    v35 = *(self + 48);
 LABEL_42:
-    [v38 setInputThumbnailPixelBuffer:v37];
+    [v35 setInputThumbnailPixelBuffer:v34];
     return 0;
   }
 
   [CMISmartStyleProcessorV1 _configureStyleEngineInputUnstyledThumbnailPixelBuffer:? withinputUnstyledCropRect:? inputUnstyledThumbnailPixelBuffer:? withinputUnstyledThumbnailCropRect:? inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:? withInputUnstyledThumbnailUsedForTargetGenerationCropRect:?];
-  return v41;
+  return v38;
+}
+
+- (unsigned)_pixelFormatCompatibleWithStyleProcessing:(unsigned int)processing
+{
+  v3 = *&processing;
+  if ((FigCapturePixelFormatIsBGRA() & 1) == 0)
+  {
+    v4 = [NSNumber numberWithUnsignedInt:v3];
+    v5 = [&off_20A20 containsObject:v4];
+
+    if ((v5 & 1) == 0 && (FigCapturePixelFormatIs444() & 1) == 0)
+    {
+      FigCaptureUncompressedPixelFormatForPixelFormat();
+      v7 = FigCaptureUnPackedPixelFormatForPixelFormat();
+      LODWORD(v3) = v7;
+      if (v7 <= 2016686639)
+      {
+        switch(v7)
+        {
+          case 875704422:
+            LODWORD(v3) = 875836518;
+            break;
+          case 875704438:
+            LODWORD(v3) = 875836534;
+            break;
+          case 1751527984:
+            LODWORD(v3) = 1751528500;
+            break;
+        }
+      }
+
+      else if (v7 > 2019963439)
+      {
+        if (v7 == 2019963440 || v7 == 2019963442)
+        {
+          LODWORD(v3) = 2019963956;
+        }
+      }
+
+      else if (v7 == 2016686640 || v7 == 2016686642)
+      {
+        LODWORD(v3) = 2016687156;
+      }
+    }
+  }
+
+  return v3;
 }
 
 - (BOOL)requiresReconfigurationForConfiguration:(id)configuration
@@ -2183,8 +2703,8 @@ LABEL_42:
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -2192,53 +2712,51 @@ LABEL_42:
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)prepareToProcess:.cold.4()
+- (uint64_t)prepareToProcess:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v1, v6, v7, v8, v9, vars0, vars8);
+  v3 = qword_27AE0;
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, a1, "<<<< CMISmartStyleProcessor >>>>", 276, v1);
 }
 
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)prepareToProcess:.cold.6()
+- (uint64_t)prepareToProcess:(uint64_t)a1 .cold.6(uint64_t a1)
 {
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v1, v6, v7, v8, v9, vars0, vars8);
+  v3 = qword_27AE0;
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, a1, "<<<< CMISmartStyleProcessor >>>>", 285, v1);
 }
 
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-- (void)prepareToProcess:(void *)a1 .cold.8(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
 }
 
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.9(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -2246,8 +2764,8 @@ LABEL_42:
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.12(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -2255,24 +2773,18 @@ LABEL_42:
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.13(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-- (void)prepareToProcess:(void *)a1 .cold.14(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
 }
 
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.15(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -2280,15 +2792,15 @@ LABEL_42:
 - (uint64_t)prepareToProcess:(_DWORD *)a1 .cold.16(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)process
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *self = result;
   return result;
 }
@@ -2296,8 +2808,8 @@ LABEL_42:
 - (uint64_t)finishProcessing
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *self = result;
   return result;
 }
@@ -2305,8 +2817,8 @@ LABEL_42:
 - (uint64_t)purgeResources
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *self = result;
   return result;
 }
@@ -2314,9 +2826,9 @@ LABEL_42:
 - (uint64_t)setup
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *self = result;
   return result;
 }
@@ -2324,8 +2836,8 @@ LABEL_42:
 - (uint64_t)prewarm
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *self = result;
   return result;
 }
@@ -2333,85 +2845,85 @@ LABEL_42:
 - (uint64_t)resetState
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *self = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.6(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.7(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.8(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputUnstyledPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:.cold.9(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputLinearPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputLinearCropRect:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureInputLinearPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputLinearCropRect:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -2419,65 +2931,65 @@ LABEL_42:
 - (uint64_t)_configureInputLinearPixelBufferForPixelBufferRenderer:(_DWORD *)a1 withinputLinearCropRect:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_3();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureOutputStyledThumbnailPixelBufferForPixelBufferRenderer:(_DWORD *)a1 unstyledThumbnailPixelBuffer:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineTargetThumbnailPixelBuffer:(_DWORD *)a1 inputTargetThumbnailPixelBuffer:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineTargetThumbnailPixelBuffer:(_DWORD *)a1 inputTargetThumbnailPixelBuffer:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineTargetThumbnailPixelBuffer:(_DWORD *)a1 inputTargetThumbnailPixelBuffer:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineTargetThumbnailPixelBuffer:(_DWORD *)a1 inputTargetThumbnailPixelBuffer:.cold.4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineTargetThumbnailPixelBuffer:(_DWORD *)a1 inputTargetThumbnailPixelBuffer:.cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineInputUnstyledThumbnailPixelBuffer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:withInputUnstyledThumbnailUsedForTargetGenerationCropRect:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)_configureStyleEngineInputUnstyledThumbnailPixelBuffer:(_DWORD *)a1 withinputUnstyledCropRect:inputUnstyledThumbnailPixelBuffer:withinputUnstyledThumbnailCropRect:inputUnstyledThumbnailUsedForTargetGenerationPixelBuffer:withInputUnstyledThumbnailUsedForTargetGenerationCropRect:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

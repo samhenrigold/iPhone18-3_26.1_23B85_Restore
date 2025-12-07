@@ -8,7 +8,7 @@
 
 - (id)in_supportedIntents
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   applicationExtensionRecords = [self applicationExtensionRecords];
   allObjects = [applicationExtensionRecords allObjects];
   v4 = [allObjects if_objectsPassingTest:&__block_literal_global_104604];
@@ -39,28 +39,28 @@
   [v5 if_addObjectIfNonNil:v10];
 
 LABEL_6:
-  v29 = [MEMORY[0x1E695DFA8] set];
+  v28 = [MEMORY[0x1E695DFA8] set];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v12 = v5;
-  v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v31;
+    v15 = *v30;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v31 != v15)
+        if (*v30 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v30 + 1) + 8 * i);
+        v17 = *(*(&v29 + 1) + 8 * i);
         if_extensionAttributesDictionary = [v17 if_extensionAttributesDictionary];
         v19 = [if_extensionAttributesDictionary objectForKeyedSubscript:@"IntentsSupported"];
         if ([v19 count])
@@ -71,22 +71,21 @@ LABEL_6:
           v22 = [MEMORY[0x1E695DFD8] setWithArray:v19];
           [dictionary setObject:v22 forKeyedSubscript:identifier];
 
-          [v29 addObjectsFromArray:v19];
+          [v28 addObjectsFromArray:v19];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v14);
   }
 
   v23 = MEMORY[0x1E695DFA8];
-  supportedIntents = [v28 supportedIntents];
+  supportedIntents = [v27 supportedIntents];
   v25 = [v23 setWithArray:supportedIntents];
 
-  [v25 unionSet:v29];
-  v26 = *MEMORY[0x1E69E9840];
+  [v25 unionSet:v28];
 
   return v25;
 }
@@ -112,40 +111,39 @@ LABEL_6:
 
 - (id)in_documentTypes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v3 = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.maps.directionsrequest", @"com.appcubby.launchpro.lcpbackup", 0}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   claimRecords = [self claimRecords];
-  v5 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(claimRecords);
         }
 
-        typeIdentifiers = [*(*(&v12 + 1) + 8 * i) typeIdentifiers];
+        typeIdentifiers = [*(*(&v11 + 1) + 8 * i) typeIdentifiers];
         [v2 addObjectsFromArray:typeIdentifiers];
       }
 
-      v6 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   [v2 minusSet:v3];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

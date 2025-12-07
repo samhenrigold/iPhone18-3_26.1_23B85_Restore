@@ -400,73 +400,71 @@ LABEL_32:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_backupKeybagDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_clientMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    secureBackupUsesMultipleIcscs = self->_secureBackupUsesMultipleIcscs;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_bottleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    secureBackupTimestamp = self->_secureBackupTimestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_escrowedSpki)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_peerInfo)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_bottleValidity)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_serial)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_build)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_passcodeGeneration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFGearRecommendationObservable.gearRecommendationService(_:didUpdateGearShiftRecommendation:)();
+  CAFGearRecommendationObservable.gearRecommendationService(_:didUpdateGearShiftRecommendation:)(selfCopy, recommendation);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

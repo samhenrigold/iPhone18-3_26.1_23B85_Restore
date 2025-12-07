@@ -126,61 +126,54 @@
 
 - (void)_addChildFrame:(id *)location
 {
-  v26 = *MEMORY[0x1E69E9840];
-  if (!location || !obj)
+  v15 = *MEMORY[0x1E69E9840];
+  if (location && obj)
   {
-    goto LABEL_9;
-  }
-
-  v3 = location + 5;
-  if (!location[5])
-  {
-    objc_storeStrong(location + 5, obj);
-LABEL_9:
-    v8 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v5 = *v3;
-  if (isKindOfClass)
-  {
-    v6 = *MEMORY[0x1E69E9840];
-    v7 = *v3;
-
-    [v7 addObject:obj];
-  }
-
-  else
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v3 = location + 5;
+    if (location[5])
     {
-      v13 = *__error();
-      v14 = _sa_logt();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        ClassName = object_getClassName(*v3);
-        *buf = 136315138;
-        v25 = ClassName;
-        _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+        v4 = *v3;
+
+        [v4 addObject:obj];
       }
 
-      *__error() = v13;
-      v16 = object_getClassName(*v3);
-      _SASetCrashLogMessage(158, "child is %s", v17, v18, v19, v20, v21, v22, v16);
-      _os_crash();
-      __break(1u);
+      else
+      {
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v8 = *__error();
+          v9 = _sa_logt();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          {
+            ClassName = object_getClassName(*v3);
+            *buf = 136315138;
+            v14 = ClassName;
+            _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+          }
+
+          *__error() = v8;
+          v11 = object_getClassName(*v3);
+          _SASetCrashLogMessage(158, "child is %s", v11);
+          _os_crash();
+          __break(1u);
+        }
+
+        v5 = MEMORY[0x1E695DFA8];
+        v12 = *v3;
+        v6 = [[v5 alloc] initWithObjects:{v12, obj, 0}];
+        v7 = *v3;
+        *v3 = v6;
+      }
     }
 
-    v9 = MEMORY[0x1E695DFA8];
-    v23 = *v3;
-    v10 = [[v9 alloc] initWithObjects:{v23, obj, 0}];
-    v11 = *v3;
-    *v3 = v10;
-
-    v12 = *MEMORY[0x1E69E9840];
+    else
+    {
+      objc_storeStrong(location + 5, obj);
+    }
   }
 }
 
@@ -192,19 +185,19 @@ LABEL_9:
     if (style)
     {
       *buf = 0;
-      v27 = buf;
-      v28 = 0x3032000000;
-      v29 = __Block_byref_object_copy_;
-      v30 = __Block_byref_object_dispose_;
-      v31 = 0;
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __53__SAFrame_addStack_backtraceStyle_toSetOfRootFrames___block_invoke;
-      v25[3] = &unk_1E86F5058;
-      v25[4] = style;
-      v25[5] = buf;
-      [a2 iterateFramesWithBacktraceStyle:stack block:v25];
-      v7 = *(v27 + 5);
+      v15 = buf;
+      v16 = 0x3032000000;
+      v17 = __Block_byref_object_copy_;
+      v18 = __Block_byref_object_dispose_;
+      v19 = 0;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __53__SAFrame_addStack_backtraceStyle_toSetOfRootFrames___block_invoke;
+      v13[3] = &unk_1E86F5058;
+      v13[4] = style;
+      v13[5] = buf;
+      [a2 iterateFramesWithBacktraceStyle:stack block:v13];
+      v7 = *(v15 + 5);
       _Block_object_dispose(buf, 8);
 
       return v7;
@@ -222,21 +215,21 @@ LABEL_9:
     }
 
     *__error() = v9;
-    _SASetCrashLogMessage(168, "nil frameIterator", v11, v12, v13, v14, v15, v16, v25[0]);
+    _SASetCrashLogMessage(168, "nil frameIterator");
     _os_crash();
     __break(1u);
   }
 
-  v17 = *__error();
-  v18 = _sa_logt();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v11 = *__error();
+  v12 = _sa_logt();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "nil rootFrames", buf, 2u);
+    _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "nil rootFrames", buf, 2u);
   }
 
-  *__error() = v17;
-  _SASetCrashLogMessage(169, "nil rootFrames", v19, v20, v21, v22, v23, v24, v25[0]);
+  *__error() = v11;
+  _SASetCrashLogMessage(169, "nil rootFrames");
   result = _os_crash();
   __break(1u);
   return result;
@@ -244,7 +237,7 @@ LABEL_9:
 
 void __53__SAFrame_addStack_backtraceStyle_toSetOfRootFrames___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = *(*(*(a1 + 40) + 8) + 40);
   if (v4)
   {
@@ -267,18 +260,18 @@ void __53__SAFrame_addStack_backtraceStyle_toSetOfRootFrames___block_invoke(uint
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v13 = *__error();
-        v14 = _sa_logt();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v12 = *__error();
+        v13 = _sa_logt();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
           ClassName = object_getClassName(v5);
-          _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+          _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
         }
 
-        *__error() = v13;
-        v15 = object_getClassName(v5);
-        _SASetCrashLogMessage(183, "child is %s", v16, v17, v18, v19, v20, v21, v15);
+        *__error() = v12;
+        v14 = object_getClassName(v5);
+        _SASetCrashLogMessage(183, "child is %s", v14);
         _os_crash();
         __break(1u);
       }
@@ -328,7 +321,6 @@ LABEL_18:
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v8;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 int *__26__SAFrame_printFrameTree___block_invoke(uint64_t a1, void *a2, int a3)
@@ -346,11 +338,11 @@ int *__26__SAFrame_printFrameTree___block_invoke(uint64_t a1, void *a2, int a3)
 
 + (void)enumerateFrameTree:(uint64_t)tree block:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (![a2 count])
   {
-    goto LABEL_24;
+    return;
   }
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -381,7 +373,7 @@ int *__26__SAFrame_printFrameTree___block_invoke(uint64_t a1, void *a2, int a3)
       anyObject = [v8 anyObject];
       if (!anyObject)
       {
-        v18 = *__error();
+        v17 = *__error();
         v8 = _sa_logt();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
@@ -389,40 +381,40 @@ int *__26__SAFrame_printFrameTree___block_invoke(uint64_t a1, void *a2, int a3)
           _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "No frame in child frames", buf, 2u);
         }
 
-        *__error() = v18;
-        _SASetCrashLogMessage(291, "No frame in child frames", v19, v20, v21, v22, v23, v24, v45);
+        *__error() = v17;
+        _SASetCrashLogMessage(291, "No frame in child frames");
         _os_crash();
         __break(1u);
 LABEL_28:
-        v25 = *__error();
-        v26 = _sa_logt();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v18 = *__error();
+        v19 = _sa_logt();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           ClassName = object_getClassName(v8);
           *buf = 136315138;
-          v47 = ClassName;
-          _os_log_error_impl(&dword_1E0E2F000, v26, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+          v27 = ClassName;
+          _os_log_error_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
         }
 
-        *__error() = v25;
-        v28 = object_getClassName(v8);
-        _SASetCrashLogMessage(298, "child is %s", v29, v30, v31, v32, v33, v34, v28);
+        *__error() = v18;
+        v21 = object_getClassName(v8);
+        _SASetCrashLogMessage(298, "child is %s", v21);
         _os_crash();
         __break(1u);
 LABEL_31:
-        v35 = *__error();
-        v36 = _sa_logt();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v22 = *__error();
+        v23 = _sa_logt();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v37 = object_getClassName(isa);
+          v24 = object_getClassName(isa);
           *buf = 136315138;
-          v47 = v37;
-          _os_log_error_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+          v27 = v24;
+          _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
         }
 
-        *__error() = v35;
-        v38 = object_getClassName(isa);
-        _SASetCrashLogMessage(321, "child is %s", v39, v40, v41, v42, v43, v44, v38);
+        *__error() = v22;
+        v25 = object_getClassName(isa);
+        _SASetCrashLogMessage(321, "child is %s", v25);
         _os_crash();
         __break(1u);
       }
@@ -504,13 +496,11 @@ LABEL_21:
   while (lastObject2);
 
 LABEL_23:
-LABEL_24:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)releaseFrameTree:(uint64_t)tree
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = a2;
   if (v3)
@@ -526,29 +516,29 @@ LABEL_24:
         if (objc_opt_isKindOfClass())
         {
           v7 = uTF8String4;
-          v49 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v52 = 0u;
+          v37 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v40 = 0u;
           v8 = v7;
-          v9 = [v8 countByEnumeratingWithState:&v49 objects:v59 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v37 objects:v47 count:16];
           if (!v9)
           {
             goto LABEL_14;
           }
 
           v10 = v9;
-          v11 = *v50;
+          v11 = *v38;
 LABEL_7:
           v12 = 0;
           while (1)
           {
-            if (*v50 != v11)
+            if (*v38 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v49 + 1) + 8 * v12);
+            v13 = *(*(&v37 + 1) + 8 * v12);
             if (v13)
             {
               if (v13[5])
@@ -559,7 +549,7 @@ LABEL_7:
 
             if (v10 == ++v12)
             {
-              v10 = [v8 countByEnumeratingWithState:&v49 objects:v59 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v37 objects:v47 count:16];
               if (!v10)
               {
 LABEL_14:
@@ -590,52 +580,51 @@ LABEL_21:
 
           if (v4 != v15[4])
           {
-            v20 = *__error();
-            v21 = _sa_logt();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v19 = *__error();
+            v20 = _sa_logt();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              v22 = [v4 debugDescription];
-              uTF8String = [v22 UTF8String];
-              v24 = [v15 debugDescription];
-              uTF8String2 = [v24 UTF8String];
-              v26 = v15[4];
-              v27 = [v26 debugDescription];
-              uTF8String3 = [v27 UTF8String];
+              v21 = [v4 debugDescription];
+              uTF8String = [v21 UTF8String];
+              v23 = [v15 debugDescription];
+              uTF8String2 = [v23 UTF8String];
+              v25 = v15[4];
+              v26 = [v25 debugDescription];
+              uTF8String3 = [v26 UTF8String];
               *buf = 136315650;
-              v54 = uTF8String;
-              v55 = 2080;
-              v56 = uTF8String2;
-              v57 = 2080;
-              v58 = uTF8String3;
-              _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "Frame %s child %s has different parent %s", buf, 0x20u);
+              v42 = uTF8String;
+              v43 = 2080;
+              v44 = uTF8String2;
+              v45 = 2080;
+              v46 = uTF8String3;
+              _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "Frame %s child %s has different parent %s", buf, 0x20u);
             }
 
-            *__error() = v20;
-            v29 = [v4 debugDescription];
-            uTF8String4 = [v29 UTF8String];
-            v30 = [v15 debugDescription];
-            [v30 UTF8String];
+            *__error() = v19;
+            v28 = [v4 debugDescription];
+            uTF8String4 = [v28 UTF8String];
+            v29 = [v15 debugDescription];
+            uTF8String5 = [v29 UTF8String];
             v31 = v15[4];
             v32 = [v31 debugDescription];
-            [v32 UTF8String];
-            _SASetCrashLogMessage(252, "Frame %s child %s has different parent %s", v33, v34, v35, v36, v37, v38, uTF8String4);
+            _SASetCrashLogMessage(252, "Frame %s child %s has different parent %s", uTF8String4, uTF8String5, [v32 UTF8String]);
 
             _os_crash();
             __break(1u);
 LABEL_28:
-            v39 = *__error();
-            v40 = _sa_logt();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            v33 = *__error();
+            v34 = _sa_logt();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               ClassName = object_getClassName(uTF8String4);
               *buf = 136315138;
-              v54 = ClassName;
-              _os_log_error_impl(&dword_1E0E2F000, v40, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+              v42 = ClassName;
+              _os_log_error_impl(&dword_1E0E2F000, v34, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
             }
 
-            *__error() = v39;
-            v42 = object_getClassName(uTF8String4);
-            _SASetCrashLogMessage(243, "child is %s", v43, v44, v45, v46, v47, v48, v42);
+            *__error() = v33;
+            v36 = object_getClassName(uTF8String4);
+            _SASetCrashLogMessage(243, "child is %s", v36);
             _os_crash();
             __break(1u);
           }
@@ -662,8 +651,6 @@ LABEL_23:
 
     while (v17);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setChildFrameOrFrames:(uint64_t)frames
@@ -722,26 +709,8 @@ void __91__SAFrame_fixupLoadInfosInFrameTree_binaryLoadInfos_libraryCache_uuidsW
     {
       if (a1[6])
       {
-        if (!WeakRetained)
+        if (!WeakRetained || (v6 = [v5 loadAddress], v6 != objc_msgSend(WeakRetained, "loadAddress")) || (objc_msgSend(v5, "binary"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "uuid"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(WeakRetained, "binary"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uuid"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqual:", v10), v10, v9, v8, v7, (v11 & 1) == 0))
         {
-          goto LABEL_11;
-        }
-
-        v6 = [v5 loadAddress];
-        if (v6 != [WeakRetained loadAddress])
-        {
-          goto LABEL_11;
-        }
-
-        v7 = [v5 binary];
-        v8 = [v7 uuid];
-        v9 = [WeakRetained binary];
-        v10 = [v9 uuid];
-        v11 = [v8 isEqual:v10];
-
-        if ((v11 & 1) == 0)
-        {
-LABEL_11:
           v12 = a1[6];
           v13 = [v5 binary];
           v14 = [v13 uuid];
@@ -1005,28 +974,26 @@ void __65__SAFrame_JSONSerialization__writeJSONDictionaryEntriesToStream___block
 {
   lengthCopy = length;
   selfCopy = self;
-  v70 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if ([(SAFrame *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v20 = *__error();
-    v21 = _sa_logt();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = *__error();
+    v20 = _sa_logt();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = [selfCopy debugDescription];
+      v21 = [selfCopy debugDescription];
       *buf = 136315650;
-      uTF8String = [v22 UTF8String];
-      v68 = 2048;
-      *v69 = [selfCopy sizeInBytesForSerializedVersion];
-      *&v69[8] = 2048;
-      *&v69[10] = lengthCopy;
-      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      uTF8String = [v21 UTF8String];
+      v40 = 2048;
+      *v41 = [selfCopy sizeInBytesForSerializedVersion];
+      *&v41[8] = 2048;
+      *&v41[10] = lengthCopy;
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v20;
+    *__error() = v19;
     buffer = [selfCopy debugDescription];
-    uTF8String2 = [($165022A6B82873954AF8662177CFB640 *)buffer UTF8String];
-    [selfCopy sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(1278, "%s: size %lu != buffer length %lu", v24, v25, v26, v27, v28, v29, uTF8String2);
+    _SASetCrashLogMessage(1278, "%s: size %lu != buffer length %lu", -[$165022A6B82873954AF8662177CFB640 UTF8String](buffer, "UTF8String"), [selfCopy sizeInBytesForSerializedVersion], lengthCopy);
 
     _os_crash();
     __break(1u);
@@ -1070,53 +1037,51 @@ void __65__SAFrame_JSONSerialization__writeJSONDictionaryEntriesToStream___block
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      uTF8String6 = *(selfCopy + 40);
-      if ([uTF8String6 count] >= 0xFFFFFFFF)
+      uTF8String4 = *(selfCopy + 40);
+      if ([uTF8String4 count] >= 0xFFFFFFFF)
       {
 LABEL_24:
-        v44 = *__error();
-        v45 = _sa_logt();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v29 = *__error();
+        v30 = _sa_logt();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v46 = [selfCopy debugDescription];
-          uTF8String3 = [v46 UTF8String];
-          v48 = [uTF8String6 count];
+          v31 = [selfCopy debugDescription];
+          uTF8String2 = [v31 UTF8String];
+          v33 = [uTF8String4 count];
           *buf = 136315394;
-          uTF8String = uTF8String3;
-          v68 = 2048;
-          *v69 = v48;
-          _os_log_error_impl(&dword_1E0E2F000, v45, OS_LOG_TYPE_ERROR, "%s has %lu children", buf, 0x16u);
+          uTF8String = uTF8String2;
+          v40 = 2048;
+          *v41 = v33;
+          _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "%s has %lu children", buf, 0x16u);
         }
 
-        *__error() = v44;
+        *__error() = v29;
         selfCopy = [selfCopy debugDescription];
-        uTF8String4 = [selfCopy UTF8String];
-        [uTF8String6 count];
-        _SASetCrashLogMessage(1296, "%s has %lu children", v50, v51, v52, v53, v54, v55, uTF8String4);
+        _SASetCrashLogMessage(1296, "%s has %lu children", [selfCopy UTF8String], objc_msgSend(uTF8String4, "count"));
 
         _os_crash();
         __break(1u);
 LABEL_27:
-        v56 = *__error();
-        v57 = _sa_logt();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v34 = *__error();
+        v35 = _sa_logt();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           ClassName = object_getClassName(*(selfCopy + 40));
           *buf = 136315138;
           uTF8String = ClassName;
-          _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+          _os_log_error_impl(&dword_1E0E2F000, v35, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
         }
 
-        *__error() = v56;
-        v59 = object_getClassName(*(selfCopy + 40));
-        _SASetCrashLogMessage(1300, "child is %s", v60, v61, v62, v63, v64, v65, v59);
+        *__error() = v34;
+        v37 = object_getClassName(*(selfCopy + 40));
+        _SASetCrashLogMessage(1300, "child is %s", v37);
         _os_crash();
         __break(1u);
       }
 
-      v14 = [uTF8String6 count];
+      v14 = [uTF8String4 count];
       *(&buffer->var3 + 2) = v14;
-      SASerializableFillSerializedIndicesWithCollectionOfSerializableInstances(&buffer->var4 + 7, v14, uTF8String6, dictionary);
+      SASerializableFillSerializedIndicesWithCollectionOfSerializableInstances(&buffer->var4 + 7, v14, uTF8String4, dictionary);
     }
 
     else
@@ -1129,8 +1094,8 @@ LABEL_27:
 
       v15 = *(selfCopy + 40);
       *(&buffer->var3 + 2) = 1;
-      uTF8String6 = v15;
-      *(&buffer->var4 + 7) = SASerializableIndexForPointerFromSerializationDictionary(uTF8String6, dictionary);
+      uTF8String4 = v15;
+      *(&buffer->var4 + 7) = SASerializableIndexForPointerFromSerializationDictionary(uTF8String4, dictionary);
     }
   }
 
@@ -1146,50 +1111,47 @@ LABEL_27:
   if (v16 - buffer + 8 != [selfCopy sizeInBytesForSerializedVersion])
   {
 LABEL_21:
-    v30 = *__error();
-    v31 = _sa_logt();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v22 = *__error();
+    v23 = _sa_logt();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v32 = [selfCopy debugDescription];
-      uTF8String5 = [v32 UTF8String];
-      v34 = *(&buffer->var3 + 2);
+      v24 = [selfCopy debugDescription];
+      uTF8String3 = [v24 UTF8String];
+      v26 = *(&buffer->var3 + 2);
       sizeInBytesForSerializedVersion = [selfCopy sizeInBytesForSerializedVersion];
       *buf = 136315906;
-      uTF8String = uTF8String5;
-      v68 = 1024;
-      *v69 = v34;
-      *&v69[4] = 2048;
-      *&v69[6] = &lengthCopy[8 * v34] - buffer;
-      *&v69[14] = 2048;
-      *&v69[16] = sizeInBytesForSerializedVersion;
-      _os_log_error_impl(&dword_1E0E2F000, v31, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u children), ended with length %ld, should be %lu", buf, 0x26u);
+      uTF8String = uTF8String3;
+      v40 = 1024;
+      *v41 = v26;
+      *&v41[4] = 2048;
+      *&v41[6] = &lengthCopy[8 * v26] - buffer;
+      *&v41[14] = 2048;
+      *&v41[16] = sizeInBytesForSerializedVersion;
+      _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u children), ended with length %ld, should be %lu", buf, 0x26u);
     }
 
-    *__error() = v30;
-    v36 = [selfCopy debugDescription];
-    uTF8String6 = [v36 UTF8String];
-    v37 = *(&buffer->var3 + 2);
-    [selfCopy sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(1313, "%s: after serializing (with %u children), ended with length %ld, should be %lu", v38, v39, v40, v41, v42, v43, uTF8String6);
+    *__error() = v22;
+    v28 = [selfCopy debugDescription];
+    uTF8String4 = [v28 UTF8String];
+    _SASetCrashLogMessage(1313, "%s: after serializing (with %u children), ended with length %ld, should be %lu", uTF8String4, *(&buffer->var3 + 2), &lengthCopy[8 * *(&buffer->var3 + 2)] - buffer, [selfCopy sizeInBytesForSerializedVersion]);
 
     _os_crash();
     __break(1u);
     goto LABEL_24;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v24 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{self, 0}];
-  while ([v24 count])
+  v20 = *MEMORY[0x1E69E9840];
+  v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{self, 0}];
+  while ([v17 count])
   {
     v4 = objc_autoreleasePoolPush();
-    lastObject = [v24 lastObject];
-    [v24 removeLastObject];
+    lastObject = [v17 lastObject];
+    [v17 removeLastObject];
     classDictionaryKey = [objc_opt_class() classDictionaryKey];
     v7 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, lastObject, classDictionaryKey);
 
@@ -1202,7 +1164,7 @@ LABEL_21:
       {
         if (lastObject[4])
         {
-          [v24 addObject:?];
+          [v17 addObject:?];
         }
 
         WeakRetained = objc_loadWeakRetained(lastObject + 3);
@@ -1222,7 +1184,7 @@ LABEL_21:
         if (objc_opt_isKindOfClass())
         {
           allObjects = [exclave2 allObjects];
-          [v24 addObjectsFromArray:allObjects];
+          [v17 addObjectsFromArray:allObjects];
         }
 
         else
@@ -1230,23 +1192,23 @@ LABEL_21:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v15 = *__error();
-            v16 = _sa_logt();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v14 = *__error();
+            v15 = _sa_logt();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
               ClassName = object_getClassName(exclave2);
-              _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
+              _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "child is %s", buf, 0xCu);
             }
 
-            *__error() = v15;
-            v17 = object_getClassName(exclave2);
-            _SASetCrashLogMessage(1345, "child is %s", v18, v19, v20, v21, v22, v23, v17);
+            *__error() = v14;
+            v16 = object_getClassName(exclave2);
+            _SASetCrashLogMessage(1345, "child is %s", v16);
             _os_crash();
             __break(1u);
           }
 
-          [v24 addObject:exclave2];
+          [v17 addObject:exclave2];
         }
       }
 
@@ -1261,13 +1223,11 @@ LABEL_21:
 LABEL_12:
     objc_autoreleasePoolPop(v4);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  *&v40[13] = *MEMORY[0x1E69E9840];
+  *&v26[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 5u)
   {
     goto LABEL_27;
@@ -1281,13 +1241,13 @@ LABEL_12:
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v39 = 2048;
-      *v40 = 31;
+      v25 = 2048;
+      *v26 = 31;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct %lu", buf, 0x16u);
     }
 
     *__error() = v17;
-    _SASetCrashLogMessage(1360, "bufferLength %lu < serialized SAFrame struct %lu", v18, v19, v20, v21, v22, v23, length);
+    _SASetCrashLogMessage(1360, "bufferLength %lu < serialized SAFrame struct %lu", length, 31);
     _os_crash();
     __break(1u);
     goto LABEL_24;
@@ -1297,28 +1257,27 @@ LABEL_12:
   if (8 * *(buffer + 18) + 31 > length)
   {
 LABEL_24:
-    v24 = *__error();
-    v25 = _sa_logt();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v18 = *__error();
+    v19 = _sa_logt();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(bufferCopy + 18);
+      v20 = *(bufferCopy + 18);
       *buf = 134218496;
       lengthCopy2 = length;
-      v39 = 1024;
-      *v40 = v26;
-      v40[2] = 2048;
-      *&v40[3] = 8 * v26 + 31;
-      _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
+      v25 = 1024;
+      *v26 = v20;
+      v26[2] = 2048;
+      *&v26[3] = 8 * v20 + 31;
+      _os_log_error_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
     }
 
-    *__error() = v24;
-    v36 = *(bufferCopy + 18);
-    _SASetCrashLogMessage(1361, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", v27, v28, v29, v30, v31, v32, length);
+    *__error() = v18;
+    _SASetCrashLogMessage(1361, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", length, *(bufferCopy + 18), 8 * *(bufferCopy + 18) + 31);
     _os_crash();
     __break(1u);
 LABEL_27:
-    v33 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAFrame version" userInfo:0];
-    objc_exception_throw(v33);
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAFrame version" userInfo:0];
+    objc_exception_throw(v21);
   }
 
   if (*(buffer + 1) >= 4u && (*(buffer + 30) & 8) != 0)
@@ -1414,13 +1373,13 @@ LABEL_15:
       v16 = (*v9 >> 2) & 1;
 LABEL_42:
       p_BOOLs->bits = bits & 0xFE | v16;
-      goto LABEL_43;
+      return v6;
     }
   }
 
   else if (v12 > 2)
   {
-    goto LABEL_43;
+    return v6;
   }
 
   LOBYTE(v16) = ![(SAFrame *)v6 isSwiftAsync]&& *(bufferCopy + 18) != 0;
@@ -1431,18 +1390,16 @@ LABEL_42:
     goto LABEL_42;
   }
 
-LABEL_43:
-  v34 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v163 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   v10 = gFrameTreeBeingDecoded();
   if ((*v10 & 1) == 0)
   {
-    v153 = v10;
+    v89 = v10;
     *v10 = 1;
     if (*buffer > 4u)
     {
@@ -1462,129 +1419,126 @@ LABEL_13:
       if (length < 8 * *(buffer + 18) + 31)
       {
 LABEL_54:
-        v79 = *__error();
-        v80 = _sa_logt();
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+        v60 = *__error();
+        v61 = _sa_logt();
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          v81 = *(buffer + 18);
+          v62 = *(buffer + 18);
           *buf = 134218496;
-          *v162 = length;
-          *&v162[8] = 1024;
-          *&v162[10] = v81;
-          *&v162[14] = 2048;
-          *&v162[16] = 8 * v81 + 31;
-          _os_log_error_impl(&dword_1E0E2F000, v80, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
+          *v98 = length;
+          *&v98[8] = 1024;
+          *&v98[10] = v62;
+          *&v98[14] = 2048;
+          *&v98[16] = 8 * v62 + 31;
+          _os_log_error_impl(&dword_1E0E2F000, v61, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
         }
 
-        *__error() = v79;
-        v146 = *(buffer + 18);
-        _SASetCrashLogMessage(1417, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", v82, v83, v84, v85, v86, v87, length);
+        *__error() = v60;
+        _SASetCrashLogMessage(1417, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", length, *(buffer + 18), 8 * *(buffer + 18) + 31);
         _os_crash();
         __break(1u);
 LABEL_57:
-        v88 = *__error();
-        v89 = _sa_logt();
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+        v63 = *__error();
+        v64 = _sa_logt();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1E0E2F000, v89, OS_LOG_TYPE_ERROR, "bad parent frame buffer", buf, 2u);
+          _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "bad parent frame buffer", buf, 2u);
         }
 
-        *__error() = v88;
-        _SASetCrashLogMessage(1425, "bad parent frame buffer", v90, v91, v92, v93, v94, v95, v144);
+        *__error() = v63;
+        _SASetCrashLogMessage(1425, "bad parent frame buffer");
         _os_crash();
         __break(1u);
 LABEL_60:
-        v96 = *__error();
-        v97 = _sa_logt();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+        v65 = *__error();
+        v66 = _sa_logt();
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v162 = buffer;
-          *&v162[8] = 2048;
-          *&v162[10] = 31;
-          _os_log_error_impl(&dword_1E0E2F000, v97, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct %lu", buf, 0x16u);
+          *v98 = buffer;
+          *&v98[8] = 2048;
+          *&v98[10] = 31;
+          _os_log_error_impl(&dword_1E0E2F000, v66, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct %lu", buf, 0x16u);
         }
 
-        *__error() = v96;
-        _SASetCrashLogMessage(1470, "bufferLength %lu < serialized SAFrame struct %lu", v98, v99, v100, v101, v102, v103, buffer);
+        *__error() = v65;
+        _SASetCrashLogMessage(1470, "bufferLength %lu < serialized SAFrame struct %lu", buffer, 31);
         _os_crash();
         __break(1u);
 LABEL_63:
-        v104 = *__error();
-        v105 = _sa_logt();
-        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+        v67 = *__error();
+        v68 = _sa_logt();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
-          v106 = *(length + 18);
+          v69 = *(length + 18);
           *buf = 134218496;
-          *v162 = buffer;
-          *&v162[8] = 1024;
-          *&v162[10] = v106;
-          *&v162[14] = 2048;
-          *&v162[16] = 8 * v106 + 31;
-          _os_log_error_impl(&dword_1E0E2F000, v105, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
+          *v98 = buffer;
+          *&v98[8] = 1024;
+          *&v98[10] = v69;
+          *&v98[14] = 2048;
+          *&v98[16] = 8 * v69 + 31;
+          _os_log_error_impl(&dword_1E0E2F000, v68, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buf, 0x1Cu);
         }
 
-        *__error() = v104;
-        v147 = *(length + 18);
-        _SASetCrashLogMessage(1471, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", v107, v108, v109, v110, v111, v112, buffer);
+        *__error() = v67;
+        _SASetCrashLogMessage(1471, "bufferLength %lu < serialized SAFrame struct plus %u children %lu", buffer, *(length + 18), 8 * *(length + 18) + 31);
         _os_crash();
         __break(1u);
 LABEL_66:
-        v113 = *__error();
-        v114 = _sa_logt();
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+        v70 = *__error();
+        v71 = _sa_logt();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1E0E2F000, v114, OS_LOG_TYPE_ERROR, "empty child frames array", buf, 2u);
+          _os_log_error_impl(&dword_1E0E2F000, v71, OS_LOG_TYPE_ERROR, "empty child frames array", buf, 2u);
         }
 
-        *__error() = v113;
-        _SASetCrashLogMessage(1518, "empty child frames array", v115, v116, v117, v118, v119, v120, v145);
+        *__error() = v70;
+        _SASetCrashLogMessage(1518, "empty child frames array");
         _os_crash();
         __break(1u);
 LABEL_69:
-        v121 = *__error();
-        v122 = _sa_logt();
-        if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+        v72 = *__error();
+        v73 = _sa_logt();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
-          v123 = *(length + 18);
+          v74 = *(length + 18);
           *buf = 134218240;
-          *v162 = buffer;
-          *&v162[8] = 1024;
-          *&v162[10] = v123;
-          _os_log_error_impl(&dword_1E0E2F000, v122, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct v4 with %u children", buf, 0x12u);
+          *v98 = buffer;
+          *&v98[8] = 1024;
+          *&v98[10] = v74;
+          _os_log_error_impl(&dword_1E0E2F000, v73, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct v4 with %u children", buf, 0x12u);
         }
 
-        *__error() = v121;
-        v148 = *(length + 18);
-        _SASetCrashLogMessage(1485, "bufferLength %lu < serialized SAFrame struct v4 with %u children", v124, v125, v126, v127, v128, v129, buffer);
+        *__error() = v72;
+        _SASetCrashLogMessage(1485, "bufferLength %lu < serialized SAFrame struct v4 with %u children", buffer, *(length + 18));
         _os_crash();
         __break(1u);
 LABEL_72:
-        v130 = *__error();
-        v131 = _sa_logt();
-        if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+        v75 = *__error();
+        v76 = _sa_logt();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
-          v132 = (*(length + 30) >> 3) & 1;
-          v133 = [buffer debugDescription];
-          uTF8String = [v133 UTF8String];
+          v77 = (*(length + 30) >> 3) & 1;
+          v78 = [buffer debugDescription];
+          uTF8String = [v78 UTF8String];
           ClassName = object_getClassName(frame);
           *buf = 67109634;
-          *v162 = v132;
-          *&v162[4] = 2080;
-          *&v162[6] = uTF8String;
-          *&v162[14] = 2080;
-          *&v162[16] = ClassName;
-          _os_log_error_impl(&dword_1E0E2F000, v131, OS_LOG_TYPE_ERROR, "Frame exclave:%d has exclave %s, is class %s, not SAExclaveFrame", buf, 0x1Cu);
+          *v98 = v77;
+          *&v98[4] = 2080;
+          *&v98[6] = uTF8String;
+          *&v98[14] = 2080;
+          *&v98[16] = ClassName;
+          _os_log_error_impl(&dword_1E0E2F000, v76, OS_LOG_TYPE_ERROR, "Frame exclave:%d has exclave %s, is class %s, not SAExclaveFrame", buf, 0x1Cu);
         }
 
-        *__error() = v130;
-        v136 = (*(length + 30) >> 3) & 1;
-        v137 = [buffer debugDescription];
-        [v137 UTF8String];
-        object_getClassName(frame);
-        _SASetCrashLogMessage(1489, "Frame exclave:%d has exclave %s, is class %s, not SAExclaveFrame", v138, v139, v140, v141, v142, v143, v136);
+        *__error() = v75;
+        v81 = (*(length + 30) >> 3) & 1;
+        v82 = [buffer debugDescription];
+        uTF8String2 = [v82 UTF8String];
+        v84 = object_getClassName(frame);
+        _SASetCrashLogMessage(1489, "Frame exclave:%d has exclave %s, is class %s, not SAExclaveFrame", v81, uTF8String2, v84);
 
         _os_crash();
         __break(1u);
@@ -1626,43 +1580,42 @@ LABEL_72:
     {
       v18 = objc_opt_class();
       selfCopy = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v11, dictionary, bufferDictionary, v18, 0);
-      v20 = v153;
+      v20 = v89;
       if (selfCopy)
       {
 LABEL_20:
-        v151 = selfCopy;
-        v29 = [[SAFrameDeserializationHelper alloc] initWithFrame:selfCopy buffer:buffer bufferLength:length];
-        v30 = [SAFrameSiblingsDeserializationHelper alloc];
-        v150 = v29;
-        v160 = v29;
-        v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v160 count:1];
-        v32 = [(SAFrameSiblingsDeserializationHelper *)v30 initWithFrameHelpers:v31];
+        v87 = selfCopy;
+        v23 = [[SAFrameDeserializationHelper alloc] initWithFrame:selfCopy buffer:buffer bufferLength:length];
+        v24 = [SAFrameSiblingsDeserializationHelper alloc];
+        v86 = v23;
+        v96 = v23;
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
+        v26 = [(SAFrameSiblingsDeserializationHelper *)v24 initWithFrameHelpers:v25];
 
-        v145 = 0;
-        v149 = v32;
-        v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:v32];
-        if (![v33 count])
+        v85 = v26;
+        v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v26, 0}];
+        if (![v27 count])
         {
           goto LABEL_46;
         }
 
-        v152 = v33;
+        v88 = v27;
         while (1)
         {
-          v34 = objc_autoreleasePoolPush();
-          lastObject = [v33 lastObject];
+          v28 = objc_autoreleasePoolPush();
+          lastObject = [v27 lastObject];
           frameHelpers = [lastObject frameHelpers];
           index = [lastObject index];
           if (index >= [frameHelpers count])
           {
-            [v33 removeLastObject];
+            [v27 removeLastObject];
             goto LABEL_45;
           }
 
-          v38 = [frameHelpers objectAtIndexedSubscript:{objc_msgSend(lastObject, "index")}];
-          frame = [v38 frame];
-          length = [v38 buffer];
-          bufferLength = [v38 bufferLength];
+          v32 = [frameHelpers objectAtIndexedSubscript:{objc_msgSend(lastObject, "index")}];
+          frame = [v32 frame];
+          length = [v32 buffer];
+          bufferLength = [v32 bufferLength];
           if (*length >= 5u)
           {
             goto LABEL_13;
@@ -1679,24 +1632,24 @@ LABEL_20:
             goto LABEL_63;
           }
 
-          v155 = v38;
-          v156 = frameHelpers;
-          v40 = *(length + 10);
-          v41 = objc_opt_class();
-          v42 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v40, dictionary, bufferDictionary, v41, 0);
-          v43 = (length + 31);
-          v44 = *(length + 18);
+          v91 = v32;
+          v92 = frameHelpers;
+          v34 = *(length + 10);
+          v35 = objc_opt_class();
+          v36 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v34, dictionary, bufferDictionary, v35, 0);
+          v37 = (length + 31);
+          v38 = *(length + 18);
           if (*(length + 1) >= 4u)
           {
-            v45 = &v43[v44];
-            if (buffer + length < (v45 + 1))
+            v39 = &v37[v38];
+            if (buffer + length < (v39 + 1))
             {
               goto LABEL_69;
             }
 
-            v46 = *v45;
-            v47 = objc_opt_class();
-            buffer = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v46, dictionary, bufferDictionary, v47, 0);
+            v40 = *v39;
+            v41 = objc_opt_class();
+            buffer = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v40, dictionary, bufferDictionary, v41, 0);
             if (buffer)
             {
               objc_opt_class();
@@ -1713,104 +1666,104 @@ LABEL_20:
           }
 
           [lastObject setIndex:{objc_msgSend(lastObject, "index") + 1}];
-          if (!v44)
+          if (!v38)
           {
             [(SAFrame *)frame setChildFrameOrFrames:?];
-            v59 = v155;
+            v53 = v91;
             goto LABEL_44;
           }
 
-          v154 = v34;
-          v48 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v44];
-          v157 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v44];
+          v90 = v28;
+          v42 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v38];
+          v93 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v38];
           do
           {
-            v49 = *v43++;
+            v43 = *v37++;
             length = 0x1E86F4000uLL;
-            v50 = objc_opt_class();
+            v44 = objc_opt_class();
             buffer = dictionary;
-            v51 = SASerializableBufferForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v49, dictionary, bufferDictionary, v50);
-            v53 = v52;
-            v54 = objc_opt_class();
-            v55 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v49, dictionary, bufferDictionary, v54, 0);
-            if (!v55)
+            v45 = SASerializableBufferForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v43, dictionary, bufferDictionary, v44);
+            v47 = v46;
+            v48 = objc_opt_class();
+            v49 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v43, dictionary, bufferDictionary, v48, 0);
+            if (!v49)
             {
-              v63 = *__error();
-              v64 = _sa_logt();
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+              v56 = *__error();
+              v57 = _sa_logt();
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "can't decode child", buf, 2u);
+                _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "can't decode child", buf, 2u);
               }
 
-              *__error() = v63;
-              _SASetCrashLogMessage(1510, "can't decode child", v65, v66, v67, v68, v69, v70, 0);
+              *__error() = v56;
+              _SASetCrashLogMessage(1510, "can't decode child");
               _os_crash();
               __break(1u);
 LABEL_51:
-              v71 = *__error();
-              v72 = _sa_logt();
-              if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+              v58 = *__error();
+              v59 = _sa_logt();
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v162 = length;
-                *&v162[8] = 2048;
-                *&v162[10] = 31;
-                _os_log_error_impl(&dword_1E0E2F000, v72, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct %lu", buf, 0x16u);
+                *v98 = length;
+                *&v98[8] = 2048;
+                *&v98[10] = 31;
+                _os_log_error_impl(&dword_1E0E2F000, v59, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAFrame struct %lu", buf, 0x16u);
               }
 
-              *__error() = v71;
-              _SASetCrashLogMessage(1416, "bufferLength %lu < serialized SAFrame struct %lu", v73, v74, v75, v76, v77, v78, length);
+              *__error() = v58;
+              _SASetCrashLogMessage(1416, "bufferLength %lu < serialized SAFrame struct %lu", length, 31);
               _os_crash();
               __break(1u);
               goto LABEL_54;
             }
 
-            v56 = v55;
-            *(v55 + 32) = frame;
-            v57 = [[SAFrameDeserializationHelper alloc] initWithFrame:v55 buffer:v51 bufferLength:v53];
-            [v48 addObject:v56];
-            [v157 addObject:v57];
+            v50 = v49;
+            *(v49 + 32) = frame;
+            v51 = [[SAFrameDeserializationHelper alloc] initWithFrame:v49 buffer:v45 bufferLength:v47];
+            [v42 addObject:v50];
+            [v93 addObject:v51];
 
-            --v44;
+            --v38;
           }
 
-          while (v44);
-          if (![v48 count])
+          while (v38);
+          if (![v42 count])
           {
             goto LABEL_66;
           }
 
-          if ([v48 count] == 1)
+          if ([v42 count] == 1)
           {
-            anyObject = [v48 anyObject];
+            anyObject = [v42 anyObject];
             [(SAFrame *)frame setChildFrameOrFrames:anyObject];
           }
 
           else
           {
-            [(SAFrame *)frame setChildFrameOrFrames:v48];
+            [(SAFrame *)frame setChildFrameOrFrames:v42];
           }
 
-          v33 = v152;
-          v20 = v153;
-          v60 = v48;
-          v34 = v154;
-          v59 = v155;
-          v61 = [[SAFrameSiblingsDeserializationHelper alloc] initWithFrameHelpers:v157];
-          [v152 addObject:v61];
+          v27 = v88;
+          v20 = v89;
+          v54 = v42;
+          v28 = v90;
+          v53 = v91;
+          v55 = [[SAFrameSiblingsDeserializationHelper alloc] initWithFrameHelpers:v93];
+          [v88 addObject:v55];
 
 LABEL_44:
-          frameHelpers = v156;
+          frameHelpers = v92;
 LABEL_45:
 
-          objc_autoreleasePoolPop(v34);
-          if (![v33 count])
+          objc_autoreleasePoolPop(v28);
+          if (![v27 count])
           {
 LABEL_46:
             *v20 = 0;
 
-            goto LABEL_47;
+            return;
           }
         }
       }
@@ -1824,18 +1777,15 @@ LABEL_46:
       }
 
       *__error() = v21;
-      _SASetCrashLogMessage(1439, "can't decode root frame", v23, v24, v25, v26, v27, v28, v144);
+      _SASetCrashLogMessage(1439, "can't decode root frame");
       _os_crash();
       __break(1u);
     }
 
     selfCopy = self;
-    v20 = v153;
+    v20 = v89;
     goto LABEL_20;
   }
-
-LABEL_47:
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 + (SAFrame)frameWithPAStyleSerializedFrame:(uint64_t)frame
@@ -1884,7 +1834,7 @@ LABEL_8:
 
 - (void)populateReferencesUsingPAStyleSerializedFrame:(void *)frame andDeserializationDictionary:(void *)dictionary andDataBufferDictionary:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v8 = *(a2 + 26);
@@ -1931,26 +1881,26 @@ LABEL_8:
       v21 = *(self + 40);
       *(self + 40) = v20;
 
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v18 = v15;
-      v22 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v22 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v22)
       {
         v24 = v22;
-        v25 = *v33;
+        v25 = *v32;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v33 != v25)
+            if (*v32 != v25)
             {
               objc_enumerationMutation(v18);
             }
 
-            v27 = *(*(&v32 + 1) + 8 * i);
+            v27 = *(*(&v31 + 1) + 8 * i);
             v28 = *(self + 40);
             if (v27)
             {
@@ -1958,10 +1908,10 @@ LABEL_8:
             }
 
             v29 = v27;
-            [v28 addObject:{v29, v32}];
+            [v28 addObject:{v29, v31}];
           }
 
-          v24 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v24 = [v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
         while (v24);
@@ -1970,8 +1920,6 @@ LABEL_8:
 
 LABEL_20:
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 @end

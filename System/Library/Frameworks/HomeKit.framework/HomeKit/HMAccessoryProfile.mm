@@ -16,7 +16,7 @@
 
 - (void)refreshStateWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -26,30 +26,28 @@
   {
     if (v8)
     {
-      v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@nil completion handler", &v14, 0xCu);
+      v11 = HMFGetLogIdentifier();
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@nil completion handler", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
-    v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
-    objc_exception_throw(v13);
+    v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"You must provide a completion handler" userInfo:0];
+    objc_exception_throw(v12);
   }
 
   if (v8)
   {
     v9 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v9;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Refreshing state is not supported on this accessory profile", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v9;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Refreshing state is not supported on this accessory profile", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   v10 = [MEMORY[0x1E696ABC0] hmErrorWithCode:48];
   handlerCopy[2](handlerCopy, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assistantIdentifier

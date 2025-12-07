@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20C108A80();
+  sub_20C108A80(v2);
 }
 
 - (_TtC9SeymourUI34TVWorkoutPlanGalleryViewController)initWithNibName:(id)name bundle:(id)bundle

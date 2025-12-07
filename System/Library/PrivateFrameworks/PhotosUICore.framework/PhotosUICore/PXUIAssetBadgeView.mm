@@ -134,21 +134,21 @@ LABEL_13:
     topLeftPrimaryGroup = self->_topLeftPrimaryGroup;
     if (topLeftPrimaryGroup)
     {
-      [(_PXUIAssetBadgeTopGroup *)topLeftPrimaryGroup badgeInfo];
+      objc_msgSend_badgeInfo(topLeftPrimaryGroup, a2);
       PXAssetBadgeInfoIsNull();
     }
 
     topLeftSecondaryGroup = self->_topLeftSecondaryGroup;
     if (topLeftSecondaryGroup)
     {
-      [(_PXUIAssetBadgeTopGroup *)topLeftSecondaryGroup badgeInfo];
+      objc_msgSend_badgeInfo(topLeftSecondaryGroup, a2);
       PXAssetBadgeInfoIsNull();
     }
 
     topRightGroup = self->_topRightGroup;
     if (topRightGroup)
     {
-      [(_PXUIAssetBadgeTopGroup *)topRightGroup badgeInfo];
+      objc_msgSend_badgeInfo(topRightGroup, a2);
       PXAssetBadgeInfoIsNull();
     }
 
@@ -162,7 +162,7 @@ LABEL_13:
   if (self->_needsUpdateFlags.background)
   {
     self->_needsUpdateFlags.background = 0;
-    [(PXUIAssetBadgeView *)self badgeInfo];
+    objc_msgSend_badgeInfo(self, a2);
     style = [(PXUIAssetBadgeView *)self style];
     if (style == 7 || style == 1)
     {
@@ -203,7 +203,7 @@ LABEL_13:
         [(PXUIAssetBadgeView *)self addSubview:self->_bottomLabel];
       }
 
-      [(PXUIAssetBadgeView *)self badgeInfo];
+      objc_msgSend_badgeInfo(self);
       PXLocalizedVideoDuration();
     }
 
@@ -227,7 +227,7 @@ LABEL_13:
       goto LABEL_11;
     }
 
-    [(PXUIAssetBadgeView *)self badgeInfo];
+    objc_msgSend_badgeInfo(self);
     if ((v10 & 0x180) != 0)
     {
       v4 = +[PXAssetVariationsSettings sharedInstance];
@@ -288,7 +288,7 @@ LABEL_17:
   if (self->_needsUpdateFlags.bottomSpatialBadgeImage)
   {
     self->_needsUpdateFlags.bottomSpatialBadgeImage = 0;
-    [(PXUIAssetBadgeView *)self badgeInfo];
+    objc_msgSend_badgeInfo(self, a2);
     if ((v6 & 2) != 0 && [(PXUIAssetBadgeView *)self style]== 1)
     {
       spatialBadgeImage = [off_1E77214D8 spatialBadgeImage];
@@ -320,7 +320,7 @@ LABEL_17:
   if (self->_needsUpdateFlags.bottomLeadingImage)
   {
     self->_needsUpdateFlags.bottomLeadingImage = 0;
-    [(PXUIAssetBadgeView *)self badgeInfo];
+    objc_msgSend_badgeInfo(self, a2);
     if (v8)
     {
       style = [(PXUIAssetBadgeView *)self style];
@@ -390,38 +390,36 @@ LABEL_7:
 {
   if (self->_needsUpdateFlags.topRightElements)
   {
-    v19 = v5;
-    v20 = v4;
-    v21 = v2;
-    v22 = v3;
+    v18 = v5;
+    v19 = v4;
+    v20 = v2;
+    v21 = v3;
     self->_needsUpdateFlags.topRightElements = 0;
-    v17 = 0u;
-    v18 = 0u;
-    [(PXUIAssetBadgeView *)self badgeInfo];
-    v15 = 0u;
     v16 = 0u;
-    v13 = v17;
-    v14 = v18;
-    [off_1E77214D8 topRightBadgeInfoForBadgeInfo:&v13];
+    v17 = 0u;
+    objc_msgSend_badgeInfo(self, a2);
+    v14 = 0u;
+    v15 = 0u;
+    objc_msgSend_topRightBadgeInfoForBadgeInfo_(off_1E77214D8, v16, v17);
     topRightGroup = self->_topRightGroup;
-    v13 = v15;
-    v14 = v16;
-    v8 = [(PXUIAssetBadgeView *)self _updateTopGroup:topRightGroup withBadgeInfo:&v13];
+    v13[0] = v14;
+    v13[1] = v15;
+    v8 = [(PXUIAssetBadgeView *)self _updateTopGroup:topRightGroup withBadgeInfo:v13];
     contentWidth = self->_contentWidth;
     [(_PXUIAssetBadgeTopGroup *)v8 frame];
     v11 = contentWidth - v10;
     [(_PXUIAssetBadgeTopGroup *)v8 frame];
-    v24 = CGRectOffset(v23, v11, 0.0);
-    [(_PXUIAssetBadgeTopGroup *)v8 setFrame:v24.origin.x, v24.origin.y, v24.size.width, v24.size.height];
+    v23 = CGRectOffset(v22, v11, 0.0);
+    [(_PXUIAssetBadgeTopGroup *)v8 setFrame:v23.origin.x, v23.origin.y, v23.size.width, v23.size.height];
     [(_PXUIAssetBadgeTopGroup *)v8 imageFrame];
-    v26 = CGRectOffset(v25, v11, 0.0);
-    [(_PXUIAssetBadgeTopGroup *)v8 setImageFrame:v26.origin.x, v26.origin.y, v26.size.width, v26.size.height];
+    v25 = CGRectOffset(v24, v11, 0.0);
+    [(_PXUIAssetBadgeTopGroup *)v8 setImageFrame:v25.origin.x, v25.origin.y, v25.size.width, v25.size.height];
     [(_PXUIAssetBadgeTopGroup *)v8 labelFrame];
-    v28 = CGRectOffset(v27, v11, 0.0);
-    [(_PXUIAssetBadgeTopGroup *)v8 setLabelFrame:v28.origin.x, v28.origin.y, v28.size.width, v28.size.height];
+    v27 = CGRectOffset(v26, v11, 0.0);
+    [(_PXUIAssetBadgeTopGroup *)v8 setLabelFrame:v27.origin.x, v27.origin.y, v27.size.width, v27.size.height];
     [(_PXUIAssetBadgeTopGroup *)v8 chevronImageFrame];
-    v30 = CGRectOffset(v29, v11, 0.0);
-    [(_PXUIAssetBadgeTopGroup *)v8 setChevronImageFrame:v30.origin.x, v30.origin.y, v30.size.width, v30.size.height];
+    v29 = CGRectOffset(v28, v11, 0.0);
+    [(_PXUIAssetBadgeTopGroup *)v8 setChevronImageFrame:v29.origin.x, v29.origin.y, v29.size.width, v29.size.height];
     v12 = self->_topRightGroup;
     self->_topRightGroup = v8;
   }
@@ -438,17 +436,15 @@ LABEL_7:
     self->_needsUpdateFlags.topLeftElements = 0;
     v20 = 0u;
     v21 = 0u;
-    [(PXUIAssetBadgeView *)self badgeInfo];
+    objc_msgSend_badgeInfo(self, a2);
     v18 = 0u;
     v19 = 0u;
     v16 = v20;
     v17 = v21;
-    [off_1E77214D8 topLeftPrimaryBadgeInfoForBadgeInfo:&v16];
+    objc_msgSend_topLeftPrimaryBadgeInfoForBadgeInfo_(off_1E77214D8);
     v16 = 0u;
     v17 = 0u;
-    v14 = v20;
-    v15 = v21;
-    [off_1E77214D8 topLeftSecondaryBadgeInfoForBadgeInfo:&v14];
+    objc_msgSend_topLeftSecondaryBadgeInfoForBadgeInfo_(off_1E77214D8, v20, v21);
     topLeftPrimaryGroup = self->_topLeftPrimaryGroup;
     v14 = v18;
     v15 = v19;
@@ -535,7 +531,7 @@ LABEL_7:
     topLeftPrimaryGroup = self->_topLeftPrimaryGroup;
     if (topLeftPrimaryGroup)
     {
-      [(_PXUIAssetBadgeTopGroup *)topLeftPrimaryGroup badgeInfo];
+      objc_msgSend_badgeInfo(topLeftPrimaryGroup);
       v8 = v20;
     }
 
@@ -556,7 +552,7 @@ LABEL_7:
       topLeftSecondaryGroup = self->_topLeftSecondaryGroup;
       if (topLeftSecondaryGroup)
       {
-        [(_PXUIAssetBadgeTopGroup *)topLeftSecondaryGroup badgeInfo];
+        objc_msgSend_badgeInfo(topLeftSecondaryGroup);
         v8 = v18;
       }
 
@@ -577,7 +573,7 @@ LABEL_7:
         topRightGroup = self->_topRightGroup;
         if (topRightGroup)
         {
-          [(_PXUIAssetBadgeTopGroup *)topRightGroup badgeInfo];
+          objc_msgSend_badgeInfo(topRightGroup);
           v8 = v16;
         }
 
@@ -905,7 +901,7 @@ void __36__PXUIAssetBadgeView__handleButton___block_invoke(uint64_t a1)
 
     if ([(PXUIAssetBadgeView *)self style]== 4)
     {
-      [(PXUIAssetBadgeView *)self badgeInfo];
+      objc_msgSend_badgeInfo(self);
       PXAssetBadgeInfoIsLivePhotoToggleable();
     }
 

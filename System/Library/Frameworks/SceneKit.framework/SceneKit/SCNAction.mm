@@ -173,8 +173,7 @@
 
 - (void)updateWithTarget:(id)target forTime:(double)time
 {
-  SCNCAction::ratioForTime(self->_caction, time);
-  if (v7.n128_f64[0] >= 1.0)
+  if (SCNCAction::ratioForTime(self->_caction, time, a2) >= 1.0)
   {
     caction = self->_caction;
     v7.n128_f64[0] = time;

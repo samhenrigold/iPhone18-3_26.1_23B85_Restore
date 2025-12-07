@@ -65,7 +65,7 @@
     v10 = sourceConnection2;
     if (sourceConnection2)
     {
-      [sourceConnection2 auditToken];
+      objc_msgSend_auditToken(sourceConnection2);
     }
 
     else
@@ -112,7 +112,7 @@
     v10 = sourceConnection2;
     if (sourceConnection2)
     {
-      [sourceConnection2 auditToken];
+      objc_msgSend_auditToken(sourceConnection2);
     }
 
     else

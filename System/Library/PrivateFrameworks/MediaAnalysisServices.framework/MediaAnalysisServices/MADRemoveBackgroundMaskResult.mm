@@ -173,7 +173,7 @@
 
 - (id)maskPixelBuffersForInstances:(id)instances error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   instancesCopy = instances;
   array = [MEMORY[0x1E695DF70] array];
   firstIndex = [instancesCopy firstIndex];
@@ -205,7 +205,7 @@ LABEL_6:
         v17 = v12;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [(MADRemoveBackgroundMaskResult *)buf maskPixelBuffersForInstances:v17 error:&v28];
+          [(MADRemoveBackgroundMaskResult *)buf maskPixelBuffersForInstances:v17 error:&buf[4]];
         }
 
         if (error)
@@ -241,10 +241,10 @@ LABEL_6:
     if (error)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v29 = v23;
+      v28 = v23;
       v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid instance index %d", firstIndex];
-      v30[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+      v29[0] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
       *error = [v14 errorWithDomain:v22 code:-50 userInfo:v16];
     }
 
@@ -257,7 +257,7 @@ LABEL_16:
 
 - (id)maskImagesForInstances:(id)instances error:(id *)error
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   instancesCopy = instances;
   array = [MEMORY[0x1E695DF70] array];
   firstIndex = [instancesCopy firstIndex];
@@ -288,10 +288,10 @@ LABEL_16:
       }
 
       v17 = MEMORY[0x1E696ABC0];
-      v43 = v27;
+      v42 = v27;
       v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid instance index %d", firstIndex];
-      v44[0] = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v43[0] = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       v20 = [v17 errorWithDomain:v26 code:-50 userInfo:v19];
       goto LABEL_23;
     }
@@ -309,10 +309,10 @@ LABEL_16:
       }
 
       v21 = MEMORY[0x1E696ABC0];
-      v41 = v27;
+      v40 = v27;
       v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected pixel format"];
-      v42 = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v41 = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v20 = [v21 errorWithDomain:v26 code:-50 userInfo:v19];
 LABEL_23:
       *error = v20;
@@ -322,8 +322,8 @@ LABEL_24:
     }
 
     callbacks = *byte_1F49179B0;
-    v35 = CGDataProviderCreateDirect(v8, [v8 height] * objc_msgSend(v8, "bytesPerRow"), &callbacks);
-    if (!v35)
+    v34 = CGDataProviderCreateDirect(v8, [v8 height] * objc_msgSend(v8, "bytesPerRow"), &callbacks);
+    if (!v34)
     {
       break;
     }
@@ -333,8 +333,8 @@ LABEL_24:
     width = [v8 width];
     height = [v8 height];
     bytesPerRow = [v8 bytesPerRow];
-    v12 = CGImageCreate(width, height, 0x20uLL, 0x20uLL, bytesPerRow, DeviceGray, 0x2100u, v35, 0, 1, kCGRenderingIntentDefault);
-    v33 = v12;
+    v12 = CGImageCreate(width, height, 0x20uLL, 0x20uLL, bytesPerRow, DeviceGray, 0x2100u, v34, 0, 1, kCGRenderingIntentDefault);
+    v32 = v12;
     if (v12)
     {
       [array addObject:v12];
@@ -345,23 +345,23 @@ LABEL_24:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [MADRemoveBackgroundMaskResult maskImagesForInstances:v32 error:?];
+        [MADRemoveBackgroundMaskResult maskImagesForInstances:buf error:&buf[1]];
       }
 
       if (error)
       {
         v13 = MEMORY[0x1E696ABC0];
-        v37 = v27;
+        v36 = v27;
         v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create CGImage for IOSurface"];
-        v38 = v14;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v37 = v14;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
         *error = [v13 errorWithDomain:v26 code:-18 userInfo:v15];
       }
     }
 
-    CF<CGColorSpace *>::~CF(&v33);
+    CF<CGColorSpace *>::~CF(&v32);
     CF<CGColorSpace *>::~CF(&DeviceGray);
-    CF<CGColorSpace *>::~CF(&v35);
+    CF<CGColorSpace *>::~CF(&v34);
 
     if (!v12)
     {
@@ -377,14 +377,14 @@ LABEL_24:
   if (error)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v39 = v27;
+    v38 = v27;
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create CGDataProviderRef for IOSurface"];
-    v40 = v23;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     *error = [v22 errorWithDomain:v26 code:-18 userInfo:v24];
   }
 
-  CF<CGColorSpace *>::~CF(&v35);
+  CF<CGColorSpace *>::~CF(&v34);
 
 LABEL_30:
   v16 = 0;

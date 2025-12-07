@@ -92,20 +92,18 @@
 
 void __111__ICSDataclassSpecifierProvider_initWithAccountManager_presenter_homeViewModel_manageStorageAppsListViewModel___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = LogSubsystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = LogSubsystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = +[_TtC14iCloudSettings30ManageStorageAppsListViewModel ViewModelDidUpdateNotificationName];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "%@ notification received. Reloading specifiers.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "%@ notification received. Reloading specifiers.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained reloadSpecifiers];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -173,7 +171,8 @@ void __111__ICSDataclassSpecifierProvider_initWithAccountManager_presenter_homeV
   v14 = objc_loadWeakRetained(&self->_delegate);
   [(AAUISpecifierProvider *)self->_healthDataSpecifierProvider setDelegate:v14];
 
-  if (_os_feature_enabled_impl())
+  v15 = _os_feature_enabled_impl();
+  if (v15)
   {
     _loadCalendarSpecifierProvider = [(ICSDataclassSpecifierProvider *)self _loadCalendarSpecifierProvider];
     calendarSpecifierProvider = self->_calendarSpecifierProvider;
@@ -182,40 +181,40 @@ void __111__ICSDataclassSpecifierProvider_initWithAccountManager_presenter_homeV
 
   else
   {
-    v17 = LogSubsystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = LogSubsystem(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ICSDataclassSpecifierProvider _initiateSpecifiers];
     }
   }
 
-  v18 = [[ICSPhotoStreamSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
+  v19 = [[ICSPhotoStreamSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
   photoStreamSpecifierProvider = self->_photoStreamSpecifierProvider;
-  self->_photoStreamSpecifierProvider = v18;
+  self->_photoStreamSpecifierProvider = v19;
 
-  v20 = objc_loadWeakRetained(&self->_delegate);
-  [(AAUISpecifierProvider *)self->_photoStreamSpecifierProvider setDelegate:v20];
+  v21 = objc_loadWeakRetained(&self->_delegate);
+  [(AAUISpecifierProvider *)self->_photoStreamSpecifierProvider setDelegate:v21];
 
-  v21 = [[ICSKeychainSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
+  v22 = [[ICSKeychainSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
   keychainSpecifierProvider = self->_keychainSpecifierProvider;
-  self->_keychainSpecifierProvider = v21;
+  self->_keychainSpecifierProvider = v22;
 
-  v23 = objc_loadWeakRetained(&self->_delegate);
-  [(ICSKeychainSpecifierProvider *)self->_keychainSpecifierProvider setDelegate:v23];
+  v24 = objc_loadWeakRetained(&self->_delegate);
+  [(ICSKeychainSpecifierProvider *)self->_keychainSpecifierProvider setDelegate:v24];
 
-  v24 = [[ICSUbiquitySpecifierProvider alloc] initWithAccountManager:self->_accountManager];
+  v25 = [[ICSUbiquitySpecifierProvider alloc] initWithAccountManager:self->_accountManager];
   ubiquitySpecifierProvider = self->_ubiquitySpecifierProvider;
-  self->_ubiquitySpecifierProvider = v24;
+  self->_ubiquitySpecifierProvider = v25;
 
-  v26 = objc_loadWeakRetained(&self->_delegate);
-  [(ICSUbiquitySpecifierProvider *)self->_ubiquitySpecifierProvider setDelegate:v26];
+  v27 = objc_loadWeakRetained(&self->_delegate);
+  [(ICSUbiquitySpecifierProvider *)self->_ubiquitySpecifierProvider setDelegate:v27];
 
-  v27 = [[ICSOtherSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
+  v28 = [[ICSOtherSpecifierProvider alloc] initWithAccountManager:self->_accountManager];
   otherSpecifierProvider = self->_otherSpecifierProvider;
-  self->_otherSpecifierProvider = v27;
+  self->_otherSpecifierProvider = v28;
 
-  v29 = objc_loadWeakRetained(&self->_delegate);
-  [(AAUISpecifierProvider *)self->_otherSpecifierProvider setDelegate:v29];
+  v30 = objc_loadWeakRetained(&self->_delegate);
+  [(AAUISpecifierProvider *)self->_otherSpecifierProvider setDelegate:v30];
 }
 
 - (void)cleanupDataclassSpecifiers
@@ -838,24 +837,25 @@ LABEL_81:
   {
     account2 = [(ICSDataclassSpecifierProvider *)self account];
     provisionedDataclasses = [account2 provisionedDataclasses];
-    v7 = *MEMORY[0x277CB8980];
-    v8 = [provisionedDataclasses containsObject:*MEMORY[0x277CB8980]];
+    v8 = *MEMORY[0x277CB8980];
+    v9 = [provisionedDataclasses containsObject:*MEMORY[0x277CB8980]];
 
-    if (v8)
+    if (v9)
     {
       mEMORY[0x277CEC7A0] = [MEMORY[0x277CEC7A0] sharedManager];
       account3 = [(ICSDataclassSpecifierProvider *)self account];
-      v11 = [mEMORY[0x277CEC7A0] shouldShowDataclass:v7 forAccount:account3];
+      v13 = [mEMORY[0x277CEC7A0] shouldShowDataclass:v8 forAccount:account3];
 
-      if (v11)
+      if (v13)
       {
-        if (+[ICSDeviceEnrollmentSettings showDeviceEnrollmentDataclass])
+        v15 = +[ICSDeviceEnrollmentSettings showDeviceEnrollmentDataclass];
+        if (v15)
         {
           return 1;
         }
 
-        v13 = LogSubsystem();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v17 = LogSubsystem(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [ICSDataclassSpecifierProvider _shouldShowDeviceEnrollmentsSpecifier];
         }
@@ -863,8 +863,8 @@ LABEL_81:
 
       else
       {
-        v13 = LogSubsystem();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v17 = LogSubsystem(v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [ICSDataclassSpecifierProvider _shouldShowDeviceEnrollmentsSpecifier];
         }
@@ -873,8 +873,8 @@ LABEL_81:
 
     else
     {
-      v13 = LogSubsystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v17 = LogSubsystem(v10);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [ICSDataclassSpecifierProvider _shouldShowDeviceEnrollmentsSpecifier];
       }
@@ -883,8 +883,8 @@ LABEL_81:
 
   else
   {
-    v13 = LogSubsystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v17 = LogSubsystem(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [ICSDataclassSpecifierProvider _shouldShowDeviceEnrollmentsSpecifier];
     }
@@ -1025,7 +1025,7 @@ LABEL_12:
 
 - (id)_specifiersForAppListVC
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   appGroupSpecifiers = self->_appGroupSpecifiers;
   if (!appGroupSpecifiers)
   {
@@ -1042,12 +1042,12 @@ LABEL_12:
     if (v7)
     {
       specifiers2 = [(ICSUbiquitySpecifierProvider *)self->_ubiquitySpecifierProvider specifiers];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __56__ICSDataclassSpecifierProvider__specifiersForAppListVC__block_invoke;
-      v33[3] = &unk_27A666170;
-      v33[4] = self;
-      [specifiers2 enumerateObjectsUsingBlock:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __56__ICSDataclassSpecifierProvider__specifiersForAppListVC__block_invoke;
+      v32[3] = &unk_27A666170;
+      v32[4] = self;
+      [specifiers2 enumerateObjectsUsingBlock:v32];
 
       specifiers3 = [(ICSUbiquitySpecifierProvider *)self->_ubiquitySpecifierProvider specifiers];
       [v4 addObjectsFromArray:specifiers3];
@@ -1077,32 +1077,32 @@ LABEL_12:
       [v4 addObjectsFromArray:specifiers6];
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v17 = v4;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       v21 = *MEMORY[0x277D3FFB8];
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v29 + 1) + 8 * i);
-          v24 = [v23 objectForKeyedSubscript:{v21, v29}];
+          v23 = *(*(&v28 + 1) + 8 * i);
+          v24 = [v23 objectForKeyedSubscript:{v21, v28}];
           [(ICSDataclassSpecifierProvider *)self _performUpdateIfNeededOnSpecifier:v23 forDataclass:v24];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v19);
@@ -1114,8 +1114,6 @@ LABEL_12:
 
     appGroupSpecifiers = self->_appGroupSpecifiers;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return appGroupSpecifiers;
 }
@@ -1175,15 +1173,13 @@ void __56__ICSDataclassSpecifierProvider__specifiersForAppListVC__block_invoke(u
     while (v7);
   }
 
-  v15 = LogSubsystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = LogSubsystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v24 = v18;
-    _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Returning specifiers: %@", buf, 0xCu);
+    _os_log_impl(&dword_275819000, v16, OS_LOG_TYPE_DEFAULT, "Returning specifiers: %@", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1281,37 +1277,30 @@ LABEL_18:
 
   if (v8)
   {
-    cellType = [specifierCopy cellType];
-    v10 = 0x277D3FB00;
-    if (cellType != 2)
-    {
-      v10 = 0x277D3FB08;
-    }
-
-    v11 = *v10;
+    [specifierCopy cellType];
     [specifierCopy setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
     [specifierCopy setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = [v12 localizedStringForKey:@"MANAGED_BY_APPLE_ID" value:&stru_288487370 table:@"Localizable-AppleID"];
-    [specifierCopy setProperty:v13 forKey:*MEMORY[0x277D40160]];
+    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v10 = [v9 localizedStringForKey:@"MANAGED_BY_APPLE_ID" value:&stru_288487370 table:@"Localizable-AppleID"];
+    [specifierCopy setProperty:v10 forKey:*MEMORY[0x277D40160]];
   }
 
   name = [specifierCopy name];
-  v15 = [name isEqualToString:@"AppsUsingiCloudHeader"];
+  v12 = [name isEqualToString:@"AppsUsingiCloudHeader"];
 
-  if ((v15 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v16 = MEMORY[0x277CCABB0];
+    v13 = MEMORY[0x277CCABB0];
     preferredContentSizeCategory = [*MEMORY[0x277D76620] preferredContentSizeCategory];
     IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
-    v19 = *MEMORY[0x277D76F30];
+    v16 = *MEMORY[0x277D76F30];
     if (!IsAccessibilityCategory)
     {
-      v19 = 60.0;
+      v16 = 60.0;
     }
 
-    v20 = [v16 numberWithDouble:v19];
-    [specifierCopy setProperty:v20 forKey:*MEMORY[0x277D40140]];
+    v17 = [v13 numberWithDouble:v16];
+    [specifierCopy setProperty:v17 forKey:*MEMORY[0x277D40140]];
   }
 }
 
@@ -1367,7 +1356,7 @@ LABEL_18:
   if (([MEMORY[0x277CEC7B8] isMultiUserMode] & 1) != 0 || (-[ICSDataclassSpecifierProvider account](self, "account"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "aa_isAccountClass:", *MEMORY[0x277CEC688]), v5, !v6))
   {
 LABEL_8:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
@@ -1377,22 +1366,21 @@ LABEL_8:
 
   if ((v9 & 1) == 0)
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogSubsystem(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = typeCopy;
-      _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "Could not find a service owner for %@", &v14, 0xCu);
+      _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "Could not find a service owner for %@", &v14, 0xCu);
     }
 
     goto LABEL_8;
   }
 
-  v10 = 1;
+  v11 = 1;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (id)specifierForServiceType:(id)type
@@ -1493,29 +1481,30 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
 {
   v3 = [MEMORY[0x277CCA8D8] ics_loadBundle:@"icloudCalendarSettings.bundle" atPath:@"System/Library/PreferenceBundles/AccountSettings"];
   v4 = NSClassFromString(&cfstr_Calendarsettin.isa);
-  if ([(objc_class *)v4 conformsToProtocol:&unk_2884BC2B8])
+  v5 = [(objc_class *)v4 conformsToProtocol:&unk_2884BC2B8];
+  if (v5)
   {
-    v5 = [v4 alloc];
+    v6 = [v4 alloc];
     accountManager = self->_accountManager;
     WeakRetained = objc_loadWeakRetained(&self->_listController);
-    v8 = [v5 initWithAccountManager:accountManager presenter:WeakRetained];
+    v9 = [v6 initWithAccountManager:accountManager presenter:WeakRetained];
 
-    v9 = objc_loadWeakRetained(&self->_delegate);
-    [v8 setDelegate:v9];
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v9 setDelegate:v10];
   }
 
   else
   {
-    v10 = LogSubsystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = LogSubsystem(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(ICSDataclassSpecifierProvider *)self _loadCalendarSpecifierProvider];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)getICloudMailSpecifier
@@ -1530,7 +1519,7 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
 
   else
   {
-    v7 = LogSubsystem();
+    v7 = LogSubsystem(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ICSDataclassSpecifierProvider getICloudMailSpecifier];
@@ -1550,20 +1539,19 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
 
   v9 = [v8 stringByAppendingPathComponent:bundleCopy];
   v10 = [MEMORY[0x277CCA8D8] bundleWithPath:v9];
-  if (([v10 isLoaded] & 1) == 0)
+  isLoaded = [v10 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogSubsystem(isLoaded);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = bundleCopy;
-      _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "%@ not loaded. Loading...", &v14, 0xCu);
+      _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "%@ not loaded. Loading...", &v14, 0xCu);
     }
 
     [v10 load];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1574,18 +1562,19 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
   nameCopy = name;
   bundleCopy = bundle;
   v8 = NSClassFromString(nameCopy);
-  if ([(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8])
+  v9 = [(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8];
+  if (v9)
   {
-    v9 = [v8 alloc];
+    v10 = [v8 alloc];
     accountManager = self->_accountManager;
     WeakRetained = objc_loadWeakRetained(&self->_listController);
-    v12 = [v9 initWithAccountManager:accountManager presenter:WeakRetained];
+    v13 = [v10 initWithAccountManager:accountManager presenter:WeakRetained];
   }
 
   else
   {
-    v13 = LogSubsystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = LogSubsystem(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v16 = 138543874;
       selfCopy = self;
@@ -1593,15 +1582,13 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
       v19 = nameCopy;
       v20 = 2114;
       v21 = bundleCopy;
-      _os_log_error_impl(&dword_275819000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to load %{public}@ from bundle: %{public}@", &v16, 0x20u);
+      _os_log_error_impl(&dword_275819000, v14, OS_LOG_TYPE_ERROR, "%{public}@ Failed to load %{public}@ from bundle: %{public}@", &v16, 0x20u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 - (void)_showDeviceEnrollmentView:(id)view
@@ -1620,12 +1607,11 @@ void __62__ICSDataclassSpecifierProvider_setValue_forServiceSpecifier___block_in
 
 - (void)_loadCalendarSpecifierProvider
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
 }
 
 @end

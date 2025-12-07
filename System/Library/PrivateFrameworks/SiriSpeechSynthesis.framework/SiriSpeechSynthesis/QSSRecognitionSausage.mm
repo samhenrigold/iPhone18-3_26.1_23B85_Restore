@@ -38,51 +38,51 @@ flatbuffers::DetachedBuffer *__37__QSSRecognitionSausage_flatbuffData__block_inv
 
 - (Offset<siri::speech::schema_fb::RecognitionSausage>)addObjectToBuffer:(void *)buffer
 {
-  v26 = *MEMORY[0x277D85DE8];
-  memset(&v24, 0, sizeof(v24));
+  v25 = *MEMORY[0x277D85DE8];
+  memset(&v23, 0, sizeof(v23));
   positional_tok_phrase_alt = [(QSSRecognitionSausage *)self positional_tok_phrase_alt];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v24, [positional_tok_phrase_alt count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v23, [positional_tok_phrase_alt count]);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   positional_tok_phrase_alt2 = [(QSSRecognitionSausage *)self positional_tok_phrase_alt];
-  v7 = [positional_tok_phrase_alt2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v7 = [positional_tok_phrase_alt2 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(positional_tok_phrase_alt2);
         }
 
-        v19 = [*(*(&v20 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v24, &v19);
+        v18 = [*(*(&v19 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v23, &v18);
       }
 
-      v7 = [positional_tok_phrase_alt2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [positional_tok_phrase_alt2 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  begin = v24.__begin_;
-  if (v24.__end_ == v24.__begin_)
+  begin = v23.__begin_;
+  if (v23.__end_ == v23.__begin_)
   {
     v11 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokensAlternatives>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokensAlternatives>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokensAlternatives>> const&)::t;
   }
 
   else
   {
-    v11 = v24.__begin_;
+    v11 = v23.__begin_;
   }
 
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v11, v24.__end_ - v24.__begin_);
+  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v11, v23.__end_ - v23.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v13 = *(buffer + 5);
@@ -95,7 +95,6 @@ flatbuffers::DetachedBuffer *__37__QSSRecognitionSausage_flatbuffData__block_inv
     operator delete(begin);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

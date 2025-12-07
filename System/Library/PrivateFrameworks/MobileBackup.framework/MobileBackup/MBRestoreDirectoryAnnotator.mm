@@ -1,5 +1,6 @@
 @interface MBRestoreDirectoryAnnotator
 + (BOOL)isRestoredPath:(id)path;
++ (id)restoreDirectoryAnnotatorWithPersona:(id)persona engineType:(int)type backupPolicy:(int64_t)policy shouldRestoreSystemFiles:(BOOL)files encrypted:(BOOL)encrypted;
 - (id)_annotateDomain:(id)domain atDomainRoot:(id)root;
 - (id)_annotateNotBackedUpDomain:(id)domain domainRoot:(id)root relativePath:(id)path;
 - (id)_annotatePath:(id)path value:(id)value;
@@ -44,6 +45,17 @@
   }
 
   return v5;
+}
+
++ (id)restoreDirectoryAnnotatorWithPersona:(id)persona engineType:(int)type backupPolicy:(int64_t)policy shouldRestoreSystemFiles:(BOOL)files encrypted:(BOOL)encrypted
+{
+  encryptedCopy = encrypted;
+  filesCopy = files;
+  v10 = *&type;
+  personaCopy = persona;
+  v12 = [[MBRestoreDirectoryAnnotator alloc] _initWithPersona:personaCopy engineType:v10 backupPolicy:policy shouldRestoreSystemFiles:filesCopy encrypted:encryptedCopy];
+
+  return v12;
 }
 
 - (id)_initWithPersona:(id)persona engineType:(int)type backupPolicy:(int64_t)policy shouldRestoreSystemFiles:(BOOL)files encrypted:(BOOL)encrypted
@@ -153,14 +165,13 @@ LABEL_9:
     {
       name = [domainCopy name];
       *buf = 138543618;
-      v62 = name;
-      v63 = 2112;
-      v64 = rootCopy;
+      v61 = name;
+      v62 = 2112;
+      v63 = rootCopy;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Annotating domain: %{public}@ at %@", buf, 0x16u);
 
       name2 = [domainCopy name];
-      v50 = rootCopy;
-      _MBLog();
+      _MBLog(@"Df", "Annotating domain: %{public}@ at %@", name2, rootCopy);
     }
 
     isAppDomain = [domainCopy isAppDomain];
@@ -188,7 +199,7 @@ LABEL_9:
       {
         relativePathsNotToBackupToService = [domainCopy relativePathsNotToBackupToService];
 LABEL_20:
-        v21 = relativePathsNotToBackupToService;
+        v22 = relativePathsNotToBackupToService;
         [v8 unionSet:relativePathsNotToBackupToService];
 
         goto LABEL_21;
@@ -209,38 +220,38 @@ LABEL_21:
 
 LABEL_25:
         allObjects = [v8 allObjects];
-        v25 = [allObjects sortedArrayUsingComparator:&stru_1003C29C0];
+        v26 = [allObjects sortedArrayUsingComparator:&stru_1003C29C0];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        name4 = v25;
-        v26 = [name4 countByEnumeratingWithState:&v55 objects:v60 count:16];
-        if (v26)
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        name4 = v26;
+        v27 = [name4 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        if (v27)
         {
-          v27 = v26;
-          v28 = *v56;
+          v28 = v27;
+          v29 = *v55;
           while (2)
           {
-            for (i = 0; i != v27; i = i + 1)
+            for (i = 0; i != v28; i = i + 1)
             {
-              if (*v56 != v28)
+              if (*v55 != v29)
               {
                 objc_enumerationMutation(name4);
               }
 
-              v30 = [(MBRestoreDirectoryAnnotator *)self _annotateNotBackedUpDomain:domainCopy domainRoot:rootCopy relativePath:*(*(&v55 + 1) + 8 * i)];
-              if (v30)
+              v31 = [(MBRestoreDirectoryAnnotator *)self _annotateNotBackedUpDomain:domainCopy domainRoot:rootCopy relativePath:*(*(&v54 + 1) + 8 * i)];
+              if (v31)
               {
-                v11 = v30;
-                v31 = name4;
+                v11 = v31;
+                v32 = name4;
                 goto LABEL_50;
               }
             }
 
-            v27 = [name4 countByEnumeratingWithState:&v55 objects:v60 count:16];
-            if (v27)
+            v28 = [name4 countByEnumeratingWithState:&v54 objects:v59 count:16];
+            if (v28)
             {
               continue;
             }
@@ -249,19 +260,19 @@ LABEL_25:
           }
         }
 
-        v31 = +[NSMutableSet set];
+        v32 = +[NSMutableSet set];
         if ((self->_shouldRestoreSystemFiles | isAppDomain))
         {
           relativePathsToBackupAndRestore = [domainCopy relativePathsToBackupAndRestore];
-          [v31 unionSet:relativePathsToBackupAndRestore];
+          [v32 unionSet:relativePathsToBackupAndRestore];
 
           relativePathsToRestoreOnly = [domainCopy relativePathsToRestoreOnly];
-          [v31 unionSet:relativePathsToRestoreOnly];
+          [v32 unionSet:relativePathsToRestoreOnly];
 
           if ((self->_engineType & 0xFFFFFFFE) == 2)
           {
             relativePathsToRestoreOnlyFromService = [domainCopy relativePathsToRestoreOnlyFromService];
-            [v31 unionSet:relativePathsToRestoreOnlyFromService];
+            [v32 unionSet:relativePathsToRestoreOnlyFromService];
           }
 
           relativePathsToRemoveOnRestore2 = [domainCopy relativePathsToRemoveOnRestore];
@@ -270,53 +281,53 @@ LABEL_25:
         else
         {
           relativePathsOfSystemFilesToAlwaysRestore = [domainCopy relativePathsOfSystemFilesToAlwaysRestore];
-          [v31 unionSet:relativePathsOfSystemFilesToAlwaysRestore];
+          [v32 unionSet:relativePathsOfSystemFilesToAlwaysRestore];
 
           relativePathsToRemoveOnRestore2 = [domainCopy relativePathsOfSystemFilesToAlwaysRemoveOnRestore];
         }
 
-        v37 = relativePathsToRemoveOnRestore2;
-        [v31 unionSet:relativePathsToRemoveOnRestore2];
+        v38 = relativePathsToRemoveOnRestore2;
+        [v32 unionSet:relativePathsToRemoveOnRestore2];
 
         relativePathsNotToRemoveIfNotRestored = [domainCopy relativePathsNotToRemoveIfNotRestored];
-        [v31 unionSet:relativePathsNotToRemoveIfNotRestored];
+        [v32 unionSet:relativePathsNotToRemoveIfNotRestored];
 
         relativePathsToBackupToDriveAndStandardAccount = [domainCopy relativePathsToBackupToDriveAndStandardAccount];
-        [v31 unionSet:relativePathsToBackupToDriveAndStandardAccount];
+        [v32 unionSet:relativePathsToBackupToDriveAndStandardAccount];
 
-        [v31 mb_minusPathSet:v8];
-        allObjects2 = [v31 allObjects];
-        v41 = [allObjects2 sortedArrayUsingComparator:&stru_1003C29E0];
+        [v32 mb_minusPathSet:v8];
+        allObjects2 = [v32 allObjects];
+        v42 = [allObjects2 sortedArrayUsingComparator:&stru_1003C29E0];
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
-        v42 = v41;
-        v43 = [v42 countByEnumeratingWithState:&v51 objects:v59 count:16];
-        if (v43)
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v43 = v42;
+        v44 = [v43 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        if (v44)
         {
-          v44 = v43;
-          v45 = *v52;
+          v45 = v44;
+          v46 = *v51;
           while (2)
           {
-            for (j = 0; j != v44; j = j + 1)
+            for (j = 0; j != v45; j = j + 1)
             {
-              if (*v52 != v45)
+              if (*v51 != v46)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v43);
               }
 
-              v47 = [(MBRestoreDirectoryAnnotator *)self _annotateRestoredDomain:domainCopy domainRoot:rootCopy relativePath:*(*(&v51 + 1) + 8 * j)];
-              if (v47)
+              v48 = [(MBRestoreDirectoryAnnotator *)self _annotateRestoredDomain:domainCopy domainRoot:rootCopy relativePath:*(*(&v50 + 1) + 8 * j)];
+              if (v48)
               {
-                v11 = v47;
+                v11 = v48;
                 goto LABEL_49;
               }
             }
 
-            v44 = [v42 countByEnumeratingWithState:&v51 objects:v59 count:16];
-            if (v44)
+            v45 = [v43 countByEnumeratingWithState:&v50 objects:v58 count:16];
+            if (v45)
             {
               continue;
             }
@@ -335,7 +346,7 @@ LABEL_50:
       relativePathsNotToBackupInMegaBackup = [domainCopy relativePathsNotToBackupToDrive];
     }
 
-    v19 = relativePathsNotToBackupInMegaBackup;
+    v20 = relativePathsNotToBackupInMegaBackup;
     [v8 unionSet:relativePathsNotToBackupInMegaBackup];
 
     if (self->_engineType != 4)
@@ -356,11 +367,11 @@ LABEL_50:
 
   name3 = [domainCopy name];
   *buf = 138543362;
-  v62 = name3;
+  v61 = name3;
   _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Skipping annotating uninstalled app domain: %{public}@", buf, 0xCu);
 
   name4 = [domainCopy name];
-  _MBLog();
+  _MBLog(@"Df", "Skipping annotating uninstalled app domain: %{public}@", name4);
   v11 = 0;
 LABEL_51:
 
@@ -485,7 +496,7 @@ LABEL_16:
     v17 = 2112;
     v18 = pathCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Annotating with '%@': %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Annotating with '%@': %@", valueCopy, pathCopy);
   }
 
   fileSystemRepresentation = [pathCopy fileSystemRepresentation];
@@ -582,7 +593,7 @@ LABEL_10:
           v31 = 2112;
           v32 = pathCopy;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Not creating %@ empty annotation file at path since it already exists: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"I ", "Not creating %@ empty annotation file at path since it already exists: %@", valueCopy, pathCopy);
         }
 
         v8 = 0;

@@ -5,6 +5,7 @@
 - (id)_getValueForSetting:(id)setting;
 - (id)_getWelcomeBannerDismissedKey:(id)key;
 - (void)_setValueForSetting:(id)setting settingValue:(id)value;
+- (void)setWelcomeBannerDismissedLocalCachedValue:(BOOL)value home:(id)home;
 @end
 
 @implementation HFLocalSettingCachingUtility
@@ -52,6 +53,14 @@ void __46__HFLocalSettingCachingUtility_sharedInstance__block_invoke()
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setWelcomeBannerDismissedLocalCachedValue:(BOOL)value home:(id)home
+{
+  valueCopy = value;
+  v7 = [(HFLocalSettingCachingUtility *)self _getWelcomeBannerDismissedKey:home];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+  [(HFLocalSettingCachingUtility *)self _setValueForSetting:v7 settingValue:v6];
 }
 
 - (id)_getValueForSetting:(id)setting

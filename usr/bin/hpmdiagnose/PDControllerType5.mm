@@ -1,4 +1,6 @@
 @interface PDControllerType5
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client;
+- (PDControllerType5)initWithAddress:(unsigned __int8)address userClient:(id)client;
 - (id)readFullVersion;
 - (id)registerFormatter8ByteVersionWithBuffer:(void *)buffer andLength:(unint64_t)length;
 - (id)registerFormatterADCResultsWithBuffer:(void *)buffer andLength:(unint64_t)length;
@@ -33,6 +35,22 @@
 @end
 
 @implementation PDControllerType5
+
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  clientCopy = client;
+  v7 = [[self alloc] initWithAddress:addressCopy userClient:clientCopy];
+
+  return v7;
+}
+
+- (PDControllerType5)initWithAddress:(unsigned __int8)address userClient:(id)client
+{
+  v5.receiver = self;
+  v5.super_class = PDControllerType5;
+  return [(PDControllerType4 *)&v5 initWithAddress:address userClient:client];
+}
 
 - (id)registerFormatter8ByteVersionWithBuffer:(void *)buffer andLength:(unint64_t)length
 {

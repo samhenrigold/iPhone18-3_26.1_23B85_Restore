@@ -11,7 +11,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ClimateSeatFanServiceButton();
+  v3.super_class = type metadata accessor for ClimateSeatFanServiceButton(0);
   return [(ClimateButton *)&v3 isHighlighted];
 }
 
@@ -19,7 +19,7 @@
 {
   highlightedCopy = highlighted;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ClimateSeatFanServiceButton();
+  v7.super_class = type metadata accessor for ClimateSeatFanServiceButton(0);
   v4 = v7.receiver;
   [(ClimateButton *)&v7 setHighlighted:highlightedCopy];
   v5 = *&v4[OBJC_IVAR____TtC7Climate27ClimateSeatFanServiceButton_progressView];
@@ -40,13 +40,13 @@
 - (void)fanService:(void *)service didUpdateAutoMode:
 {
   serviceCopy = service;
-  sub_100059C30();
+  sub_100059C30(serviceCopy);
 }
 
 - (void)fanService:(id)service didUpdateFanLevel:(unsigned __int8)level
 {
   selfCopy = self;
-  sub_100059C30();
+  sub_100059C30(selfCopy);
 }
 
 @end

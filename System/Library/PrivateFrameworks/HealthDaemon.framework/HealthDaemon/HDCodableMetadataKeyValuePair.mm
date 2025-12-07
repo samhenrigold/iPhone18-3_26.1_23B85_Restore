@@ -125,25 +125,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    dateValue = self->_dateValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -162,28 +161,26 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  numberIntValue = self->_numberIntValue;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    numberDoubleValue = self->_numberDoubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_quantityValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -333,7 +330,6 @@ LABEL_5:
     }
   }
 
-  v7 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_dateValue != *(equalCopy + 1))
@@ -345,7 +341,7 @@ LABEL_5:
   else if (*(equalCopy + 64))
   {
 LABEL_25:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_26;
   }
 
@@ -384,17 +380,17 @@ LABEL_25:
   dataValue = self->_dataValue;
   if (dataValue | *(equalCopy + 4))
   {
-    v10 = [(NSData *)dataValue isEqual:?];
+    v9 = [(NSData *)dataValue isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_26:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -543,7 +539,7 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    [(HDCodableQuantity *)quantityValue mergeFrom:?];
+    quantityValue = [(HDCodableQuantity *)quantityValue mergeFrom:?];
   }
 
   else
@@ -553,17 +549,18 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    [(HDCodableMetadataKeyValuePair *)self setQuantityValue:?];
+    quantityValue = [(HDCodableMetadataKeyValuePair *)self setQuantityValue:?];
   }
 
   fromCopy = v8;
 LABEL_18:
   if (*(fromCopy + 4))
   {
-    [(HDCodableMetadataKeyValuePair *)self setDataValue:?];
+    quantityValue = [(HDCodableMetadataKeyValuePair *)self setDataValue:?];
+    fromCopy = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](quantityValue, fromCopy);
 }
 
 @end

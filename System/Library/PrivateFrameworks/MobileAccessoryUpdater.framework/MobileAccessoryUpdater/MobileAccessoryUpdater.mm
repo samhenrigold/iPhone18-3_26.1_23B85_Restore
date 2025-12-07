@@ -1,15 +1,16 @@
-void sub_259A55268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_259A55268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_259A57878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_259A57878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -73,14 +74,14 @@ _BYTE *parseSuperBinaryAndPayloadHeaders(char *a1, unint64_t a2)
         {
           v12 = &result[20 * v10 + 20];
           *v12 = *&a1[v11 - 4];
-          *(v12 + 4) = a1[v11] | (a1[v11 + 1] << 8) | (a1[v11 + 2] << 16) | (a1[v11 + 3] << 24);
-          *(v12 + 8) = a1[v11 + 4];
-          *(v12 + 9) = a1[v11 + 5];
-          *(v12 + 10) = a1[v11 + 6] | (a1[v11 + 7] << 8);
+          *(v12 + 1) = a1[v11] | (a1[v11 + 1] << 8) | (a1[v11 + 2] << 16) | (a1[v11 + 3] << 24);
+          v12[8] = a1[v11 + 4];
+          v12[9] = a1[v11 + 5];
+          *(v12 + 5) = a1[v11 + 6] | (a1[v11 + 7] << 8);
           v13 = a1[v11 + 8] | (a1[v11 + 9] << 8) | (a1[v11 + 10] << 16) | (a1[v11 + 11] << 24);
-          *(v12 + 12) = v13;
+          *(v12 + 3) = v13;
           v14 = a1[v11 + 12] | (a1[v11 + 13] << 8) | (a1[v11 + 14] << 16) | (a1[v11 + 15] << 24);
-          *(v12 + 16) = v14;
+          *(v12 + 4) = v14;
           LODWORD(v12) = *(result + 3);
           v15 = v12 >= v14;
           v16 = v12 - v14;
@@ -113,7 +114,7 @@ uint64_t printSuperBinaryHeader(FILE *a1, unsigned __int8 *a2)
   if (*(a2 + 8))
   {
     v5 = 0;
-    v6 = (a2 + 20);
+    v6 = a2 + 20;
     do
     {
       result = fprintf(a1, "\tPayloadHeader\n\t\tTag     = %c%c%c%c\n\t\tVersion = %d.%d.%d\n\t\tFlags   = %08x\n\t\tOff     = %08x\n\t\tLen     = %d\n", *v6, v6[1], v6[2], v6[3], v6[8], v6[9], *(v6 + 5), *(v6 + 1), *(v6 + 3), *(v6 + 4));
@@ -127,49 +128,48 @@ uint64_t printSuperBinaryHeader(FILE *a1, unsigned __int8 *a2)
   return result;
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1)
+uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1, const char *a2)
 {
   v5 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v1 = a1;
+    v2 = a1;
   }
 
   else
   {
-    v1 = MEMORY[0x277D86220];
+    v2 = MEMORY[0x277D86220];
   }
 
   bzero(v4, 0x400uLL);
-  if (_set_user_dir_suffix())
+  if ((_set_user_dir_suffix() & 1) == 0)
   {
-    if (confstr(65537, v4, 0x400uLL))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      result = 0;
-      goto LABEL_12;
+      AUSandboxPlatformInitWithBundleIdentifierHomeDirectory_cold_1();
     }
 
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    return 1;
+  }
+
+  if (!confstr(65537, v4, 0x400uLL))
+  {
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       AUSandboxPlatformInitWithBundleIdentifierHomeDirectory_cold_2();
     }
+
+    return 1;
   }
 
-  else if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-  {
-    AUSandboxPlatformInitWithBundleIdentifierHomeDirectory_cold_1();
-  }
-
-  result = 1;
-LABEL_12:
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t MAUError(int a1, uint64_t a2)
@@ -446,7 +446,7 @@ uint64_t clientHasEntitlement(const __CFString *a1, _OWORD *a2, uint64_t a3, uin
   return v27;
 }
 
-uint64_t FudLogger()
+uint64_t FudLogger(uint64_t a1, uint64_t a2)
 {
   if (FudLogger_onceToken != -1)
   {
@@ -465,7 +465,7 @@ os_log_t __FudLogger_block_invoke()
 
 void FudLogv(int a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:a2 arguments:a3), "cStringUsingEncoding:", 4];
   if (a1 <= 7 && __earlyBootMode)
   {
@@ -529,12 +529,10 @@ void FudLogv(int a1, uint64_t a2, uint64_t a3)
     if (os_log_type_enabled(__osl, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_259A54000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void *FudLogCopyMessages()
@@ -640,18 +638,16 @@ uint64_t metadataTLVGetNext(_DWORD *a1, unint64_t a2, _DWORD *a3, unsigned int *
 
 void AUSandboxPlatformInitWithBundleIdentifierHomeDirectory_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  OUTLINED_FUNCTION_0_0(&dword_259A54000, v1, v2, "failed to set temporary directory suffix: %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  OUTLINED_FUNCTION_0_0(&dword_259A54000, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
 }
 
 void AUSandboxPlatformInitWithBundleIdentifierHomeDirectory_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  OUTLINED_FUNCTION_0_0(&dword_259A54000, v1, v2, "failed to initialize temporary directory: %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  OUTLINED_FUNCTION_0_0(&dword_259A54000, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 FudProgressWeights *getProgressWeightsFromPluginInfo(FudProgressWeights *a1)
@@ -692,27 +688,24 @@ FudProgressWeights *getProgressWeightsFromPluginInfo(FudProgressWeights *a1)
 
 void FudLogv_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_fault_impl(&dword_259A54000, a2, OS_LOG_TYPE_FAULT, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_fault_impl(&dword_259A54000, a2, OS_LOG_TYPE_FAULT, "%s", &v2, 0xCu);
 }
 
 void FudLogv_cold_4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_259A54000, a2, OS_LOG_TYPE_ERROR, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_259A54000, a2, OS_LOG_TYPE_ERROR, "%s", &v2, 0xCu);
 }
 
 void FudLogv_cold_7(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_259A54000, a2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_259A54000, a2, OS_LOG_TYPE_DEBUG, "%s", &v2, 0xCu);
 }

@@ -55,22 +55,21 @@
   ObjectType = swift_getObjectType();
   v11 = sub_22892DF58();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](v11);
-  v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22892DF38();
   *(&self->super.super.isa + OBJC_IVAR____TtC19HealthBalanceDaemon30TrainingLoadSummaryQueryServer____lazy_storage___loadBaselineUnit) = 0;
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v18 = sub_22892DF18();
-  v21.receiver = self;
-  v21.super_class = ObjectType;
-  v19 = [(HDQueryServer *)&v21 initWithUUID:v18 configuration:configurationCopy client:clientCopy delegate:delegate];
+  v17 = sub_22892DF18();
+  v20.receiver = self;
+  v20.super_class = ObjectType;
+  v18 = [(HDQueryServer *)&v20 initWithUUID:v17 configuration:configurationCopy client:clientCopy delegate:delegate];
 
   swift_unknownObjectRelease();
-  (*(v12 + 8))(v15, v11);
-  return v19;
+  (*(v12 + 8))(v14, v11);
+  return v18;
 }
 
 @end

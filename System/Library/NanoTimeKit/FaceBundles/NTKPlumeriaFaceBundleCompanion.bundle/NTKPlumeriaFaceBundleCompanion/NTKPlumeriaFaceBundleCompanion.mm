@@ -642,7 +642,7 @@ uint64_t NTKPlumeriaSettingsLoadFromDictionary(void *a1, unsigned int *a2)
   *a2 = v6;
 
   v7 = 0;
-  v8 = (a2 + 644);
+  v8 = a2 + 644;
   v9 = -5;
   do
   {
@@ -653,7 +653,7 @@ uint64_t NTKPlumeriaSettingsLoadFromDictionary(void *a1, unsigned int *a2)
     {
       v12 = performParentingOverlays(v3, 0, v11);
 
-      parseColorway(v12, v8 - 2560);
+      parseColorway(v12, (v8 - 640));
       v7 = (v7 + 1);
     }
 
@@ -668,7 +668,7 @@ uint64_t NTKPlumeriaSettingsLoadFromDictionary(void *a1, unsigned int *a2)
       v7 = (v7 + 1);
     }
 
-    v8 += 512;
+    v8 += 128;
   }
 
   while (!__CFADD__(v9++, 1));
@@ -890,16 +890,16 @@ void sub_40C8(id a1)
   _objc_release_x1();
 }
 
-id sub_42B0()
+id sub_42B0(uint64_t a1)
 {
   if (qword_175A0 != -1)
   {
     sub_6ECC();
   }
 
-  v1 = qword_17598;
+  v2 = qword_17598;
 
-  return v1;
+  return v2;
 }
 
 float splineInterpolation(float result, float a2, float a3, float a4, float a5)
@@ -947,10 +947,11 @@ void sub_66DC(id a1)
   _objc_release_x1();
 }
 
-void sub_6738(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_6738(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 id sub_6D64(void *a1, int a2)

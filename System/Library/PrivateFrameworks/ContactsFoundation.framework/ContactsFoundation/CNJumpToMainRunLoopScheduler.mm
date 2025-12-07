@@ -16,7 +16,6 @@ void __73___CNJumpToMainRunLoopScheduler_performCancelableBlock_qualityOfService
   v2 = objc_autoreleasePoolPush();
   if (([*(a1 + 32) isCanceled] & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 

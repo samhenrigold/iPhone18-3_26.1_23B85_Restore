@@ -314,9 +314,10 @@ id PLLogDuetServiceDAS()
 
 uint64_t __PLLogDuetServiceDAS_block_invoke()
 {
-  qword_2811F7890 = os_log_create("com.apple.powerlog", "DuetServiceDAS");
+  v0 = os_log_create("com.apple.powerlog", "DuetServiceDAS");
+  qword_2811F7890 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 id PLLogDuetServiceLpmSource()
@@ -333,9 +334,10 @@ id PLLogDuetServiceLpmSource()
 
 uint64_t __PLLogDuetServiceLpmSource_block_invoke()
 {
-  _MergedGlobals_94 = os_log_create("com.apple.powerlog", "lpmsource");
+  v0 = os_log_create("com.apple.powerlog", "lpmsource");
+  _MergedGlobals_94 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 id PLLogContinuity()
@@ -352,9 +354,10 @@ id PLLogContinuity()
 
 uint64_t __PLLogContinuity_block_invoke()
 {
-  _MergedGlobals_95 = os_log_create("com.apple.powerlog", "continuity");
+  v0 = os_log_create("com.apple.powerlog", "continuity");
+  _MergedGlobals_95 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularPowerLogNRSub6RSRPHistReadFrom(uint64_t a1, void *a2)
@@ -668,16 +671,18 @@ id PLLogUsageTracking()
 
 uint64_t __PLLogUsageTracking_block_invoke()
 {
-  _MergedGlobals_96 = os_log_create("com.apple.powerlog", "UsageTracking");
+  v0 = os_log_create("com.apple.powerlog", "UsageTracking");
+  _MergedGlobals_96 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t __PLLogDisplay_block_invoke()
 {
-  qword_2811F4920 = os_log_create("com.apple.powerlog", "display");
+  v0 = os_log_create("com.apple.powerlog", "display");
+  qword_2811F4920 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void sub_21A7315D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -694,7 +699,7 @@ void sub_21A737C30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void __HIDTouchEventCallback(void *a1)
+void __HIDTouchEventCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (IOHIDEventGetType() != 11)
   {
@@ -707,20 +712,20 @@ void __HIDTouchEventCallback(void *a1)
     return;
   }
 
-  v3 = Children;
-  v9 = a1;
+  v6 = Children;
+  v12 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    Count = CFArrayGetCount(v3);
+    Count = CFArrayGetCount(v6);
     if (Count >= 1)
     {
-      v5 = Count;
-      v6 = 0;
-      v7 = 0;
+      v8 = Count;
+      v9 = 0;
+      v10 = 0;
       while (1)
       {
-        CFArrayGetValueAtIndex(v3, v6);
+        CFArrayGetValueAtIndex(v6, v9);
         if (IOHIDEventGetType() == 11)
         {
           if (IOHIDEventGetIntegerValue())
@@ -729,41 +734,42 @@ void __HIDTouchEventCallback(void *a1)
           }
         }
 
-        v6 = ++v7;
-        if (v5 <= v7)
+        v9 = ++v10;
+        if (v8 <= v10)
         {
           goto LABEL_9;
         }
       }
 
-      if ([v9 userTouch])
+      if ([v12 userTouch])
       {
         goto LABEL_15;
       }
 
-      v8 = 1;
+      v11 = 1;
       goto LABEL_14;
     }
 
 LABEL_9:
-    if ([v9 userTouch])
+    if ([v12 userTouch])
     {
-      v8 = 0;
+      v11 = 0;
 LABEL_14:
-      [v9 logEventBackwardUserTouch:v8];
+      [v12 logEventBackwardUserTouch:v11];
     }
   }
 
 LABEL_15:
 }
 
-void sub_21A738718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_21A738718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a22, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 200), 8);
-  _Block_object_dispose((v34 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 200), 8);
+  _Block_object_dispose((v33 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -861,33 +867,33 @@ LABEL_19:
   return v11;
 }
 
-void __updateDisplayIOReportAZLStats_block_invoke(uint64_t a1)
+void __updateDisplayIOReportAZLStats_block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = objc_autoreleasePoolPush();
-  v3 = IOReportChannelGetChannelName();
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:IOReportSimpleGetIntegerValue()];
-  v5 = v4;
-  v6 = &unk_282C116B8;
-  if (v4)
+  v3 = objc_autoreleasePoolPush();
+  v4 = IOReportChannelGetChannelName();
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:IOReportSimpleGetIntegerValue()];
+  v6 = v5;
+  v7 = &unk_282C116B8;
+  if (v5)
   {
-    v6 = v4;
+    v7 = v5;
   }
 
-  v7 = v6;
+  v8 = v7;
 
-  if ([v3 isEqualToString:@"power"])
+  if ([v4 isEqualToString:@"power"])
   {
-    [*(a1 + 32) setAvgPower:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAvgPower:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AZL power is equal to %@";
+      v13 = v10;
+      v11 = "AZL power is equal to %@";
 LABEL_18:
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, v10, &v12, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, v11, &v12, 0xCu);
 
       goto LABEL_19;
     }
@@ -895,16 +901,16 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if ([v3 isEqualToString:@"azl_accum"])
+  if ([v4 isEqualToString:@"azl_accum"])
   {
-    [*(a1 + 32) setAzlAccum:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAzlAccum:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AZL azl_accum is equal to %@";
+      v13 = v10;
+      v11 = "AZL azl_accum is equal to %@";
       goto LABEL_18;
     }
 
@@ -913,48 +919,48 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if ([v3 isEqualToString:@"nits_accum"])
+  if ([v4 isEqualToString:@"nits_accum"])
   {
-    [*(a1 + 32) setNitsAccum:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setNitsAccum:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AZL nits_accum is equal to %@";
+      v13 = v10;
+      v11 = "AZL nits_accum is equal to %@";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if ([v3 isEqualToString:@"bl_update_count"])
+  if ([v4 isEqualToString:@"bl_update_count"])
   {
-    [*(a1 + 32) setBlUpdateCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setBlUpdateCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AZL bl_update_count is equal to %@";
+      v13 = v10;
+      v11 = "AZL bl_update_count is equal to %@";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if ([v3 isEqualToString:@"bl_frame_count"])
+  if ([v4 isEqualToString:@"bl_frame_count"])
   {
-    [*(a1 + 32) setBlFrameCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setBlFrameCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AZL bl_frame_count is equal to %@";
+      v13 = v10;
+      v11 = "AZL bl_frame_count is equal to %@";
       goto LABEL_18;
     }
 
@@ -963,13 +969,12 @@ LABEL_19:
 
 LABEL_20:
 
-  objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v3);
 }
 
 uint64_t updateDisplayIOReportAODStats(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -995,7 +1000,7 @@ LABEL_25:
     if (v5)
     {
       *buf = 138412290;
-      v22 = v2;
+      v21 = v2;
       _os_log_debug_impl(&dword_21A4C6000, Samples, OS_LOG_TYPE_DEBUG, "Got callback for updateDisplayIOReportAODStat with ioReportAODStats %@", buf, 0xCu);
     }
 
@@ -1009,9 +1014,9 @@ LABEL_25:
       v8 = PLLogDisplay();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v19 = [v2 ioReportSample];
+        v18 = [v2 ioReportSample];
         *buf = 138412290;
-        v22 = v19;
+        v21 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Got callback for updateDisplayIOReportAODStat with ioReportAODStats.ioReportSample %@", buf, 0xCu);
       }
 
@@ -1027,8 +1032,8 @@ LABEL_25:
 
       if (SamplesDelta)
       {
-        v20 = objc_alloc_init(PLDisplayAODStats);
-        v12 = v20;
+        v19 = objc_alloc_init(PLDisplayAODStats);
+        v12 = v19;
         IOReportIterate();
         [v2 setDisplayAODStats:v12];
 
@@ -1077,37 +1082,36 @@ LABEL_15:
   v14 = 0;
 LABEL_23:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-void __updateDisplayIOReportAODStats_block_invoke(uint64_t a1)
+void __updateDisplayIOReportAODStats_block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = objc_autoreleasePoolPush();
-  v3 = IOReportChannelGetChannelName();
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:IOReportSimpleGetIntegerValue()];
-  v5 = v4;
-  v6 = &unk_282C116B8;
-  if (v4)
+  v3 = objc_autoreleasePoolPush();
+  v4 = IOReportChannelGetChannelName();
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:IOReportSimpleGetIntegerValue()];
+  v6 = v5;
+  v7 = &unk_282C116B8;
+  if (v5)
   {
-    v6 = v4;
+    v7 = v5;
   }
 
-  v7 = v6;
+  v8 = v7;
 
-  if ([v3 isEqualToString:@"awake_count"])
+  if ([v4 isEqualToString:@"awake_count"])
   {
-    [*(a1 + 32) setAwakeCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAwakeCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD awake_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD awake_count is equal to %@";
 LABEL_45:
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, v10, &v12, 0xCu);
+      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, v11, &v12, 0xCu);
 
       goto LABEL_46;
     }
@@ -1115,16 +1119,16 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"media_count"])
+  if ([v4 isEqualToString:@"media_count"])
   {
-    [*(a1 + 32) setMediaCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setMediaCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD media_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD media_count is equal to %@";
       goto LABEL_45;
     }
 
@@ -1133,192 +1137,192 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  if ([v3 isEqualToString:@"flipbook_count"])
+  if ([v4 isEqualToString:@"flipbook_count"])
   {
-    [*(a1 + 32) setFlipbookCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setFlipbookCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD flipbook_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD flipbook_count is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"flipbook_delay"])
+  if ([v4 isEqualToString:@"flipbook_delay"])
   {
-    [*(a1 + 32) setFlipbookDelay:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setFlipbookDelay:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD flipbook_delay is equal to %@";
+      v13 = v10;
+      v11 = "AOD flipbook_delay is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"media_scanout"])
+  if ([v4 isEqualToString:@"media_scanout"])
   {
-    [*(a1 + 32) setMediaScanout:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setMediaScanout:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD media_scanout is equal to %@";
+      v13 = v10;
+      v11 = "AOD media_scanout is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"ambient_count"])
+  if ([v4 isEqualToString:@"ambient_count"])
   {
-    [*(a1 + 32) setAmbientCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAmbientCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD ambient_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD ambient_count is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"prc_repeat_coun"])
+  if ([v4 isEqualToString:@"prc_repeat_coun"])
   {
-    [*(a1 + 32) setPrcRepeatCoun:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setPrcRepeatCoun:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD prc_repeat_coun is equal to %@";
+      v13 = v10;
+      v11 = "AOD prc_repeat_coun is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"pdc_repeat_coun"])
+  if ([v4 isEqualToString:@"pdc_repeat_coun"])
   {
-    [*(a1 + 32) setPdcRepeatCoun:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setPdcRepeatCoun:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD pdc_repeat_coun is equal to %@";
+      v13 = v10;
+      v11 = "AOD pdc_repeat_coun is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"llm_count"])
+  if ([v4 isEqualToString:@"llm_count"])
   {
-    [*(a1 + 32) setLlmCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setLlmCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD llm_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD llm_count is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"apl_sum"])
+  if ([v4 isEqualToString:@"apl_sum"])
   {
-    [*(a1 + 32) setAplSum:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAplSum:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD apl_sum is equal to %@";
+      v13 = v10;
+      v11 = "AOD apl_sum is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"apl_count"])
+  if ([v4 isEqualToString:@"apl_count"])
   {
-    [*(a1 + 32) setAplCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setAplCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD apl_count is equal to %@";
+      v13 = v10;
+      v11 = "AOD apl_count is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"1hz_flipbook_fr"])
+  if ([v4 isEqualToString:@"1hz_flipbook_fr"])
   {
-    [*(a1 + 32) setOneHzFlipbookFrameCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setOneHzFlipbookFrameCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD 1hz_flipbook_fr is equal to %@";
+      v13 = v10;
+      v11 = "AOD 1hz_flipbook_fr is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"1hz_frame_miss_"])
+  if ([v4 isEqualToString:@"1hz_frame_miss_"])
   {
-    [*(a1 + 32) setOneHzFrameMissCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setOneHzFrameMissCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD 1hz_frame_miss_ is equal to %@";
+      v13 = v10;
+      v11 = "AOD 1hz_frame_miss_ is equal to %@";
       goto LABEL_45;
     }
 
     goto LABEL_46;
   }
 
-  if ([v3 isEqualToString:@"1hz_bic_accum_c"])
+  if ([v4 isEqualToString:@"1hz_bic_accum_c"])
   {
-    [*(a1 + 32) setOneHzBicAccumCount:v7];
-    v8 = PLLogDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    [*(a1 + 32) setOneHzBicAccumCount:v8];
+    v9 = PLLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v7, "unsignedLongLongValue")}];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "unsignedLongLongValue")}];
       v12 = 138412290;
-      v13 = v9;
-      v10 = "AOD 1hz_bic_accum_c is equal to %@";
+      v13 = v10;
+      v11 = "AOD 1hz_bic_accum_c is equal to %@";
       goto LABEL_45;
     }
 
@@ -1327,15 +1331,14 @@ LABEL_46:
 
 LABEL_47:
 
-  objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v3);
 }
 
-void sub_21A73B518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21A73B518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2370,55 +2373,56 @@ void NotificationCallback_0(uint64_t a1, void *a2, uint64_t a3)
   _Block_object_dispose(v6, 8);
 }
 
-void sub_21A75F7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_21A75F7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 192), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 192), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21A7645CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21A7645CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __NotificationCallback_block_invoke_0(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = [v2 substringFromIndex:{objc_msgSend(@"com.apple.powerlogd.accounting.", "length")}];
   if ([v3 isEqualToString:@"testAll"])
   {
     v4 = [MEMORY[0x277CBEB18] array];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     v5 = [*(*(*(a1 + 32) + 8) + 40) testNames];
-    v6 = [v5 countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v52 objects:v61 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v54;
+      v8 = *v53;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v54 != v8)
+          if (*v53 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v53 + 1) + 8 * i);
+          v10 = *(*(&v52 + 1) + 8 * i);
           if ([v10 rangeOfString:@"Reload"] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "rangeOfString:", @"All") == 0x7FFFFFFFFFFFFFFFLL)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v52 objects:v61 count:16];
       }
 
       while (v7);
@@ -2428,33 +2432,33 @@ void __NotificationCallback_block_invoke_0(uint64_t a1)
   else if ([v3 isEqualToString:{@"testDistributionAll", v3, v2}])
   {
     v4 = [MEMORY[0x277CBEB18] array];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v5 = [*(*(*(a1 + 32) + 8) + 40) testNames];
-    v11 = [v5 countByEnumeratingWithState:&v49 objects:v61 count:16];
+    v11 = [v5 countByEnumeratingWithState:&v48 objects:v60 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v50;
+      v13 = *v49;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v50 != v13)
+          if (*v49 != v13)
           {
             objc_enumerationMutation(v5);
           }
 
-          v15 = *(*(&v49 + 1) + 8 * j);
+          v15 = *(*(&v48 + 1) + 8 * j);
           if ([v15 rangeOfString:@"testDistribution"] != 0x7FFFFFFFFFFFFFFFLL && (objc_msgSend(v15, "isEqualToString:", @"testDistributionAll") & 1) == 0)
           {
             [v4 addObject:v15];
           }
         }
 
-        v12 = [v5 countByEnumeratingWithState:&v49 objects:v61 count:16];
+        v12 = [v5 countByEnumeratingWithState:&v48 objects:v60 count:16];
       }
 
       while (v12);
@@ -2464,33 +2468,33 @@ void __NotificationCallback_block_invoke_0(uint64_t a1)
   else if ([v3 isEqualToString:@"testCorrectionAll"])
   {
     v4 = [MEMORY[0x277CBEB18] array];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v5 = [*(*(*(a1 + 32) + 8) + 40) testNames];
-    v16 = [v5 countByEnumeratingWithState:&v45 objects:v60 count:16];
+    v16 = [v5 countByEnumeratingWithState:&v44 objects:v59 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v46;
+      v18 = *v45;
       do
       {
         for (k = 0; k != v17; ++k)
         {
-          if (*v46 != v18)
+          if (*v45 != v18)
           {
             objc_enumerationMutation(v5);
           }
 
-          v20 = *(*(&v45 + 1) + 8 * k);
+          v20 = *(*(&v44 + 1) + 8 * k);
           if ([v20 rangeOfString:@"testCorrection"] != 0x7FFFFFFFFFFFFFFFLL && (objc_msgSend(v20, "isEqualToString:", @"testCorrectionAll") & 1) == 0)
           {
             [v4 addObject:v20];
           }
         }
 
-        v17 = [v5 countByEnumeratingWithState:&v45 objects:v60 count:16];
+        v17 = [v5 countByEnumeratingWithState:&v44 objects:v59 count:16];
       }
 
       while (v17);
@@ -2500,33 +2504,33 @@ void __NotificationCallback_block_invoke_0(uint64_t a1)
   else if ([v3 isEqualToString:@"testQualificationAll"])
   {
     v4 = [MEMORY[0x277CBEB18] array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v5 = [*(*(*(a1 + 32) + 8) + 40) testNames];
-    v21 = [v5 countByEnumeratingWithState:&v41 objects:v59 count:16];
+    v21 = [v5 countByEnumeratingWithState:&v40 objects:v58 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v42;
+      v23 = *v41;
       do
       {
         for (m = 0; m != v22; ++m)
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(v5);
           }
 
-          v25 = *(*(&v41 + 1) + 8 * m);
+          v25 = *(*(&v40 + 1) + 8 * m);
           if ([v25 rangeOfString:@"testQualification"] != 0x7FFFFFFFFFFFFFFFLL && (objc_msgSend(v25, "isEqualToString:", @"testQualificationAll") & 1) == 0)
           {
             [v4 addObject:v25];
           }
         }
 
-        v22 = [v5 countByEnumeratingWithState:&v41 objects:v59 count:16];
+        v22 = [v5 countByEnumeratingWithState:&v40 objects:v58 count:16];
       }
 
       while (v22);
@@ -2535,31 +2539,31 @@ void __NotificationCallback_block_invoke_0(uint64_t a1)
 
   else
   {
-    v58 = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+    v57 = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
     v4 = [v5 mutableCopy];
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v26 = v4;
-  v27 = [v26 countByEnumeratingWithState:&v37 objects:v57 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v36 objects:v56 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v38;
+    v29 = *v37;
     do
     {
       for (n = 0; n != v28; ++n)
       {
-        if (*v38 != v29)
+        if (*v37 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v37 + 1) + 8 * n);
+        v31 = *(*(&v36 + 1) + 8 * n);
         if (([v31 isEqualToString:@"testInit"] & 1) == 0 && objc_msgSend(v31, "rangeOfString:", @"ReloadAfter") == 0x7FFFFFFFFFFFFFFFLL)
         {
           v32 = [MEMORY[0x277D3F0C0] debugInstance];
@@ -2570,13 +2574,11 @@ void __NotificationCallback_block_invoke_0(uint64_t a1)
         ([*(*(*(a1 + 32) + 8) + 40) methodForSelector:v33])(*(*(*(a1 + 32) + 8) + 40), v33);
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v37 objects:v57 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v36 objects:v56 count:16];
     }
 
     while (v28);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t AWDMETRICSKCellularPowerLogPLMNSearchHistReadFrom(uint64_t a1, void *a2)
@@ -3122,16 +3124,18 @@ id PLLogUrsa()
 
 uint64_t __PLLogUrsa_block_invoke()
 {
-  qword_2811F4C40 = os_log_create("com.apple.powerlog", "Ursa");
+  v0 = os_log_create("com.apple.powerlog", "Ursa");
+  qword_2811F4C40 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-void sub_21A76A6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_21A76A6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 208), 8);
-  _Block_object_dispose((v35 - 160), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 208), 8);
+  _Block_object_dispose((v34 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3153,9 +3157,9 @@ void sub_21A76C2FC(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21A76DBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21A76DBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3185,9 +3189,10 @@ id PLLogComputeSafeguards()
 
 uint64_t __PLLogComputeSafeguards_block_invoke()
 {
-  qword_2811F4C68 = os_log_create("com.apple.powerlog", "ComputeSafeguards");
+  v0 = os_log_create("com.apple.powerlog", "ComputeSafeguards");
+  qword_2811F4C68 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularLteCdrxConfigReadFrom(uint64_t a1, void *a2)
@@ -3964,9 +3969,10 @@ id PLLogIOReportMetrics()
 
 uint64_t __PLLogIOReportMetrics_block_invoke()
 {
-  _MergedGlobals_1_32 = os_log_create("com.apple.PerfPowerServicesAgent", "ioreportmetrics");
+  v0 = os_log_create("com.apple.PerfPowerServicesAgent", "ioreportmetrics");
+  _MergedGlobals_1_32 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t StateHistReadFrom(uint64_t a1, void *a2)
@@ -4118,9 +4124,10 @@ id PLLogFSEvent()
 
 uint64_t __PLLogFSEvent_block_invoke()
 {
-  _MergedGlobals_101 = os_log_create("com.apple.powerlog", "FSEvent");
+  v0 = os_log_create("com.apple.powerlog", "FSEvent");
+  _MergedGlobals_101 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void fsEventsHandler(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
@@ -5662,9 +5669,10 @@ id PLLogAccessibility()
 
 uint64_t __PLLogAccessibility_block_invoke()
 {
-  _MergedGlobals_1_35 = os_log_create("com.apple.powerlog", "Accessibility");
+  v0 = os_log_create("com.apple.powerlog", "Accessibility");
+  _MergedGlobals_1_35 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 id PLLogVideo()
@@ -5681,16 +5689,18 @@ id PLLogVideo()
 
 uint64_t __PLLogVideo_block_invoke()
 {
-  _MergedGlobals_1_36 = os_log_create("com.apple.powerlog", "Video");
+  v0 = os_log_create("com.apple.powerlog", "Video");
+  _MergedGlobals_1_36 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t __PLLogAudio_block_invoke()
 {
-  qword_2811F4D78 = os_log_create("com.apple.powerlog", "audio");
+  v0 = os_log_create("com.apple.powerlog", "audio");
+  qword_2811F4D78 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t KCellularProtocolStackStateReadFrom(uint64_t a1, void *a2)

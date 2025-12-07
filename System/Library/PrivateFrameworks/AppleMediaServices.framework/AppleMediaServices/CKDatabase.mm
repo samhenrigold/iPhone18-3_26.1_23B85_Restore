@@ -9,6 +9,7 @@
 - (id)_subscribeWithIdentifier:(id)identifier attempt:(unint64_t)attempt;
 - (id)createRecordWithRecordName:(id)name recordType:(id)type recordZone:(id)zone;
 - (id)createRecordZoneWithRecordZoneName:(id)name;
+- (id)deleteRecordWithRecordIdentifier:(id)identifier missingEncryptionIdentity:(BOOL)identity;
 - (id)deleteRecordZonesWithRecordZoneIdentifiers:(id)identifiers;
 - (id)fetchChangedRecordZones;
 - (id)fetchChangedRecordsInRecordZonesWithRecordZoneIdentifiers:(id)identifiers;
@@ -71,6 +72,42 @@
   v4 = [[CKRecordZone alloc] initWithZoneName:nameCopy];
 
   return v4;
+}
+
+- (id)deleteRecordWithRecordIdentifier:(id)identifier missingEncryptionIdentity:(BOOL)identity
+{
+  identityCopy = identity;
+  identifierCopy = identifier;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = identifierCopy;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = objc_alloc_init(AMSMutablePromise);
+  v9 = [CKModifyRecordsOperation alloc];
+  v17 = v7;
+  v10 = [NSArray arrayWithObjects:&v17 count:1];
+  v11 = [v9 initWithRecordsToSave:0 recordIDsToDelete:v10];
+
+  [v11 setQualityOfService:17];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000954FC;
+  v15[3] = &unk_1002B2948;
+  v16 = v8;
+  v12 = v8;
+  [v11 setModifyRecordsCompletionBlock:v15];
+  [v11 setMarkAsParticipantNeedsNewInvitationToken:identityCopy];
+  [(CKDatabase *)self addOperation:v11];
+  v13 = [v12 catchWithBlock:&stru_1002B2988];
+
+  return v13;
 }
 
 - (id)deleteRecordZonesWithRecordZoneIdentifiers:(id)identifiers

@@ -296,7 +296,6 @@ LABEL_32:
 
   if (bookmarkData)
   {
-    bookmarkData = self->_bookmarkData;
     PBDataWriterWriteDataField();
   }
 
@@ -304,7 +303,6 @@ LABEL_32:
 
   if (data)
   {
-    data = self->_data;
     PBDataWriterWriteDataField();
   }
 
@@ -320,24 +318,21 @@ LABEL_32:
 
   if (filename)
   {
-    filename = self->_filename;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBFile *)self hasRemovedOnCompletion])
   {
-    removedOnCompletion = self->_removedOnCompletion;
     PBDataWriterWriteBOOLField();
   }
 
   typeIdentifier = [(_INPBFile *)self typeIdentifier];
 
-  v14 = toCopy;
+  v10 = toCopy;
   if (typeIdentifier)
   {
-    typeIdentifier = self->_typeIdentifier;
     PBDataWriterWriteStringField();
-    v14 = toCopy;
+    v10 = toCopy;
   }
 }
 

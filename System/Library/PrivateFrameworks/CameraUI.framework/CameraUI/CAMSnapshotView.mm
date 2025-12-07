@@ -83,7 +83,7 @@
     v33 = 0u;
     if (viewCopy)
     {
-      [viewCopy transform];
+      objc_msgSend_transform(viewCopy);
     }
 
     layer = [(CAMSnapshotView *)v9 layer];
@@ -329,7 +329,7 @@ LABEL_25:
   snapshotView = self->_snapshotView;
   if (snapshotView)
   {
-    [(UIView *)snapshotView transform];
+    objc_msgSend_transform(snapshotView);
   }
 
   else

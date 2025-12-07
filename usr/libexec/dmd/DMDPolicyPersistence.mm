@@ -1644,7 +1644,7 @@ LABEL_31:
         v29 = DMFPolicyLog();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          sub_10008662C(&v80, &v81);
+          sub_10008662C(v80, &v81);
         }
 
         [policiesCopy setObject:&off_1000D7A90 forKeyedSubscript:v16];

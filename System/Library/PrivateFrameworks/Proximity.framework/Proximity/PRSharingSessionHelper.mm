@@ -16,7 +16,7 @@
 
 + (id)NSDataMacToUUID:(id)d
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -24,19 +24,17 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PRSharingSessionHelper.mm" lineNumber:19 description:{@"Invalid parameter not satisfying: %@", @"mac"}];
   }
 
-  v10[0] = 0;
-  v10[1] = 0;
-  [dCopy getBytes:v10 length:{objc_msgSend(dCopy, "length")}];
-  v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = 0;
+  v9[1] = 0;
+  [dCopy getBytes:v9 length:{objc_msgSend(dCopy, "length")}];
+  v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v9];
 
   return v6;
 }
 
 + (id)UUIDToNSDataMac:(id)mac len:(unint64_t)len
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   macCopy = mac;
   if (!macCopy)
   {
@@ -46,18 +44,16 @@
 
   if (len <= 8)
   {
-    v12[0] = 0;
-    v12[1] = 0;
-    [macCopy getUUIDBytes:v12];
-    v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v12 length:len];
+    v11[0] = 0;
+    v11[1] = 0;
+    [macCopy getUUIDBytes:v11];
+    v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v11 length:len];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

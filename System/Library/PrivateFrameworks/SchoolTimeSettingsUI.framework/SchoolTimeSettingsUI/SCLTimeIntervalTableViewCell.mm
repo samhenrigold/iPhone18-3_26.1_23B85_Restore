@@ -11,6 +11,7 @@
 - (void)configureTimeCell:(id)cell forRow:(unint64_t)row;
 - (void)configureTimePickerCell:(id)cell forRow:(unint64_t)row;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)timePickerCell:(id)cell didUpdateDate:(id)date;
 @end
@@ -19,12 +20,12 @@
 
 - (SCLTimeIntervalTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
-  v45[4] = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = SCLTimeIntervalTableViewCell;
+  v44[4] = *MEMORY[0x277D85DE8];
+  v43.receiver = self;
+  v43.super_class = SCLTimeIntervalTableViewCell;
   identifierCopy = identifier;
   specifierCopy = specifier;
-  v7 = [(PSTableCell *)&v44 initWithStyle:style reuseIdentifier:identifierCopy specifier:?];
+  v7 = [(PSTableCell *)&v43 initWithStyle:style reuseIdentifier:identifierCopy specifier:?];
   if (v7)
   {
     v8 = [SCLSingleGroupTableView alloc];
@@ -39,12 +40,12 @@
     objc_initWeak(&location, v7);
     v12 = objc_alloc(MEMORY[0x277D75B60]);
     v13 = v7->_tableView;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __72__SCLTimeIntervalTableViewCell_initWithStyle_reuseIdentifier_specifier___block_invoke;
-    v41[3] = &unk_279B6F028;
-    objc_copyWeak(&v42, &location);
-    v14 = [v12 initWithTableView:v13 cellProvider:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __72__SCLTimeIntervalTableViewCell_initWithStyle_reuseIdentifier_specifier___block_invoke;
+    v40[3] = &unk_279B6F028;
+    objc_copyWeak(&v41, &location);
+    v14 = [v12 initWithTableView:v13 cellProvider:v40];
     dataSource = v7->_dataSource;
     v7->_dataSource = v14;
 
@@ -57,35 +58,34 @@
     contentView2 = [(SCLTimeIntervalTableViewCell *)v7 contentView];
     [contentView2 addSubview:v7->_tableView];
 
-    v30 = MEMORY[0x277CCAAD0];
+    v29 = MEMORY[0x277CCAAD0];
     contentView3 = [(SCLTimeIntervalTableViewCell *)v7 contentView];
     topAnchor = [contentView3 topAnchor];
     topAnchor2 = [(UITableView *)v7->_tableView topAnchor];
-    v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v45[0] = v35;
+    v34 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v44[0] = v34;
     contentView4 = [(SCLTimeIntervalTableViewCell *)v7 contentView];
     bottomAnchor = [contentView4 bottomAnchor];
     bottomAnchor2 = [(UITableView *)v7->_tableView bottomAnchor];
-    v31 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v45[1] = v31;
+    v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v44[1] = v30;
     contentView5 = [(SCLTimeIntervalTableViewCell *)v7 contentView];
     leadingAnchor = [contentView5 leadingAnchor];
     leadingAnchor2 = [(UITableView *)v7->_tableView leadingAnchor];
     v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v45[2] = v22;
+    v44[2] = v22;
     contentView6 = [(SCLTimeIntervalTableViewCell *)v7 contentView];
     trailingAnchor = [contentView6 trailingAnchor];
     trailingAnchor2 = [(UITableView *)v7->_tableView trailingAnchor];
     v26 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v45[3] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
-    [v30 activateConstraints:v27];
+    v44[3] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
+    [v29 activateConstraints:v27];
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -98,6 +98,18 @@ id __72__SCLTimeIntervalTableViewCell_initWithStyle_reuseIdentifier_specifier___
   v11 = [WeakRetained tableView:v9 cellForRowAtIndexPath:v8 itemIdentifier:v7];
 
   return v11;
+}
+
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  specifierCopy = specifier;
+  [(SCLTimeIntervalTableViewCell *)self setReloadingAnimated:animatedCopy];
+  v7.receiver = self;
+  v7.super_class = SCLTimeIntervalTableViewCell;
+  [(PSTableCell *)&v7 reloadWithSpecifier:specifierCopy animated:animatedCopy];
+
+  [(SCLTimeIntervalTableViewCell *)self setReloadingAnimated:0];
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier

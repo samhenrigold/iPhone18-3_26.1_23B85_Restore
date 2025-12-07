@@ -6,6 +6,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPathWithoutChangingDefaultFavorites:(id)favorites;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariFavoritesFolderPickerContoller
@@ -49,6 +50,28 @@
   v4.receiver = self;
   v4.super_class = SafariFavoritesFolderPickerContoller;
   [(SafariFavoritesFolderPickerContoller *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = SafariFavoritesFolderPickerContoller;
+  [(SafariFavoritesFolderPickerContoller *)&v12 viewWillAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/FAVORITES_FOLDER"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"Start Page Favorites" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v9 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v10 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v13[0] = v9;
+    v13[1] = v10;
+    v11 = [NSArray arrayWithObjects:v13 count:2];
+    [(SafariFavoritesFolderPickerContoller *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:v11 deepLink:v4];
+  }
 }
 
 - (id)specifiers

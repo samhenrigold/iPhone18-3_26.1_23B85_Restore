@@ -76,7 +76,7 @@
     v40 = decoder_description;
     if (decoder_description)
     {
-      [decoder_description audioStreamBasicDescription];
+      objc_msgSend_audioStreamBasicDescription(decoder_description);
     }
 
     else

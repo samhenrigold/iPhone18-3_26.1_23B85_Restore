@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)getQuotaResponseTypeAsString:(int)string;
 - (int)StringAsGetQuotaResponseType:(id)type;
 - (int)getQuotaResponseType;
 - (unint64_t)hash;
@@ -47,6 +48,21 @@
   {
     return 0;
   }
+}
+
+- (id)getQuotaResponseTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A30D98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsGetQuotaResponseType:(id)type
@@ -203,7 +219,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_getQuotaResponseType != *(equalCopy + 4))
@@ -215,7 +230,7 @@
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -228,17 +243,17 @@ LABEL_11:
   genericError = self->_genericError;
   if (genericError | *(equalCopy + 1))
   {
-    v8 = [(NSPPrivacyProxyErrorResponse *)genericError isEqual:?];
+    v7 = [(NSPPrivacyProxyErrorResponse *)genericError isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

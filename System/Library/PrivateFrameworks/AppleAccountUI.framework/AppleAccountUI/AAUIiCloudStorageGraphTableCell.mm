@@ -11,7 +11,7 @@
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(specifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -95,7 +95,7 @@ LABEL_7:
   v17 = *MEMORY[0x1E69E9840];
   specifierCopy = specifier;
   v5 = objc_alloc_init(MEMORY[0x1E69C56D8]);
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [specifierCopy propertyForKey:@"AAUIiCloudUsedBytes"];

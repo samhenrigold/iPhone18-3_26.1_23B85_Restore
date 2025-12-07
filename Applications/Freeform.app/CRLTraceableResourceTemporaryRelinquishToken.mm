@@ -31,18 +31,18 @@
       sub_10130DA10(v2);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Operation completion handler is getting deallocated before it was invoked.", v3, v4, v5, v6, v7, v8, v9, "[CRLTraceableResourceTemporaryRelinquishToken dealloc]");
-    v10 = [NSString stringWithUTF8String:"[CRLTraceableResourceTemporaryRelinquishToken dealloc]"];
-    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
-    [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:741 isFatal:1 description:"Operation completion handler is getting deallocated before it was invoked."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Operation completion handler is getting deallocated before it was invoked.", "[CRLTraceableResourceTemporaryRelinquishToken dealloc]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m", 741);
+    v3 = [NSString stringWithUTF8String:"[CRLTraceableResourceTemporaryRelinquishToken dealloc]"];
+    v4 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLTraceableResource.m"];
+    [CRLAssertionHandler handleFailureInFunction:v3 file:v4 lineNumber:741 isFatal:1 description:"Operation completion handler is getting deallocated before it was invoked."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v12, v13);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v5, v6);
     abort();
   }
 
-  v14.receiver = self;
-  v14.super_class = CRLTraceableResourceTemporaryRelinquishToken;
-  [(CRLTraceableResourceTemporaryRelinquishToken *)&v14 dealloc];
+  v7.receiver = self;
+  v7.super_class = CRLTraceableResourceTemporaryRelinquishToken;
+  [(CRLTraceableResourceTemporaryRelinquishToken *)&v7 dealloc];
 }
 
 @end

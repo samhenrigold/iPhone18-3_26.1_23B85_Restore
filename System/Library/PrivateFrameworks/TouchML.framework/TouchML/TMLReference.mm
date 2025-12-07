@@ -30,19 +30,17 @@
 + (id)referenceForTarget:(id)target
 {
   targetCopy = target;
-  v5 = [self alloc];
-  v8 = objc_msgSend_initWithTarget_block_(v5, v6, v7, targetCopy, 0);
+  v5 = [[self alloc] initWithTarget:targetCopy block:0];
 
-  return v8;
+  return v5;
 }
 
 + (id)referenceWithBlock:(id)block
 {
   blockCopy = block;
-  v5 = [self alloc];
-  v8 = objc_msgSend_initWithTarget_block_(v5, v6, v7, 0, blockCopy);
+  v5 = [[self alloc] initWithTarget:0 block:blockCopy];
 
-  return v8;
+  return v5;
 }
 
 - (id)value
@@ -60,28 +58,28 @@
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v10 = self->_target;
+  v8 = self->_target;
   if (isKindOfClass)
   {
-    v11 = objc_msgSend_object(v10, v7, v9);
+    object = [v8 object];
   }
 
   else
   {
-    v11 = v10;
+    object = v8;
   }
 
-  return v11;
+  return object;
 }
 
 - (NSString)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v7 = objc_msgSend_tmlIdentifier(self->_target, v5, v6);
-  v10 = objc_msgSend_stringWithFormat_(v3, v8, v9, @"%@:%@", v4, v7);
+  tmlIdentifier = [self->_target tmlIdentifier];
+  v6 = [v3 stringWithFormat:@"%@:%@", v4, tmlIdentifier];
 
-  return v10;
+  return v6;
 }
 
 @end

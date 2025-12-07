@@ -11,21 +11,20 @@
 
 void __45__HKSPAnalyticsManager_initWithUserDefaults___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = HKSPLogForCategory(0x11uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_INFO, "AnalyticsSendEvent(%{public}@, %{public}@)", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_INFO, "AnalyticsSendEvent(%{public}@, %{public}@)", &v7, 0x16u);
   }
 
   AnalyticsSendEvent();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HKSPAnalyticsManager)initWithUserDefaults:(id)defaults ihaOptInStatusProvider:(id)provider diagnosticsOptInStatusProvider:(id)statusProvider analyticsEventConsumer:(id)consumer
@@ -63,50 +62,49 @@ void __45__HKSPAnalyticsManager_initWithUserDefaults___block_invoke_3(uint64_t a
 
 - (void)trackEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = MEMORY[0x277CBEA60];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(HKSPAnalyticsManager *)self trackEvents:v6, eventCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(HKSPAnalyticsManager *)self trackEvents:v6, eventCopy, v8];
 }
 
 - (void)trackEvents:(id)events
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     v8 = "[%{public}@] Tracking event %{public}@";
     do
     {
       v9 = 0;
-      v29 = v6;
+      v28 = v6;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
+        v10 = *(*(&v31 + 1) + 8 * v9);
         v11 = HKSPLogForCategory(0x11uLL);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = objc_opt_class();
           *buf = 138543618;
-          v37 = v12;
-          v38 = 2114;
-          v39 = v10;
+          v36 = v12;
+          v37 = 2114;
+          v38 = v10;
           v13 = v12;
           _os_log_impl(&dword_269A84000, v11, OS_LOG_TYPE_INFO, v8, buf, 0x16u);
         }
@@ -126,26 +124,26 @@ void __45__HKSPAnalyticsManager_initWithUserDefaults___block_invoke_3(uint64_t a
           {
             v22 = objc_opt_class();
             *buf = 138543618;
-            v37 = v22;
-            v38 = 2114;
-            v39 = v20;
+            v36 = v22;
+            v37 = 2114;
+            v38 = v20;
             v23 = v22;
             _os_log_impl(&dword_269A84000, v21, OS_LOG_TYPE_INFO, "[%{public}@] Removing IHA gated keys %{public}@", buf, 0x16u);
           }
 
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __36__HKSPAnalyticsManager_trackEvents___block_invoke;
-          v30[3] = &unk_279C73E88;
-          v31 = v20;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __36__HKSPAnalyticsManager_trackEvents___block_invoke;
+          v29[3] = &unk_279C73E88;
+          v30 = v20;
           v24 = v20;
-          v25 = [eventPayload na_filter:v30];
+          v25 = [eventPayload na_filter:v29];
 
           eventPayload = v25;
           eventsCopy = v17;
           v8 = v16;
           v7 = v15;
-          v6 = v29;
+          v6 = v28;
         }
 
         if ([eventPayload count])
@@ -159,13 +157,11 @@ void __45__HKSPAnalyticsManager_initWithUserDefaults___block_invoke_3(uint64_t a
       }
 
       while (v6 != v9);
-      v6 = [eventsCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v6 = [eventsCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v6);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)defaultIsDiagnosticDataSubmissionAllowed

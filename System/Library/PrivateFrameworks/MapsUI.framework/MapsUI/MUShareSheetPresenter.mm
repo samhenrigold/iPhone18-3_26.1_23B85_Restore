@@ -2,6 +2,8 @@
 - (MUShareSheetPresenter)initWithPlaceItem:(id)item presentationOptions:(id)options;
 - (MUShareSheetPresenterDelegate)delegate;
 - (void)_present;
+- (void)mapkitActivityViewController:(id)controller postCompletedActivityOfType:(id)type completed:(BOOL)completed;
+- (void)mapkitActivityViewController:(id)controller preCompletedActivityOfType:(id)type completed:(BOOL)completed;
 - (void)present;
 @end
 
@@ -12,6 +14,22 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)mapkitActivityViewController:(id)controller postCompletedActivityOfType:(id)type completed:(BOOL)completed
+{
+  completedCopy = completed;
+  typeCopy = type;
+  delegate = [(MUShareSheetPresenter *)self delegate];
+  [delegate shareSheetPresenter:self postCompletedActivityOfType:typeCopy completed:completedCopy];
+}
+
+- (void)mapkitActivityViewController:(id)controller preCompletedActivityOfType:(id)type completed:(BOOL)completed
+{
+  completedCopy = completed;
+  typeCopy = type;
+  delegate = [(MUShareSheetPresenter *)self delegate];
+  [delegate shareSheetPresenter:self preCompletedActivityOfType:typeCopy completed:completedCopy];
 }
 
 - (void)_present

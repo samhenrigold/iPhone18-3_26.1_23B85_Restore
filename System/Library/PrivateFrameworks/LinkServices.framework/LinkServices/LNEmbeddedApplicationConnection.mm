@@ -1,7 +1,9 @@
 @interface LNEmbeddedApplicationConnection
 + (NSOperationQueue)sharedOpenApplicationOperationQueue;
 - (BOOL)refreshWithOptions:(id)options;
+- (LNEmbeddedApplicationConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error;
 - (id)linkConnectionActionWithOpenApplicationIdentifier:(id)identifier connectionAction:(id)action connectionOperation:(id)operation;
+- (id)optionsForAction:(id)action interactionMode:(int64_t)mode source:(unsigned __int16)source sourceOverride:(id)override assistantDismissalPolicy:(int64_t)policy;
 - (void)connectWithOptions:(id)options;
 - (void)enqueueOpenApplicationOperation:(id)operation;
 - (void)openApplicationWithOptions:(id)options connectionAction:(id)action completionHandler:(id)handler;
@@ -114,10 +116,10 @@ void __67__LNEmbeddedApplicationConnection_enqueueOpenApplicationOperation___blo
 
 void __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicationIdentifier_connectionAction_connectionOperation___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) activity];
-  os_activity_scope_enter(v4, &v9);
+  os_activity_scope_enter(v4, &v8);
 
   v5 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -125,23 +127,21 @@ void __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicat
     v6 = [*(a1 + 32) logPrefix];
     v7 = *(a1 + 40);
     *buf = 138543874;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v3;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v3;
     _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Received UILinkConnectionActionResponse callback on the response queue with action response: %{public}@", buf, 0x20u);
   }
 
   [*(a1 + 48) finishWithActionResponse:v3 error:0];
-  os_activity_scope_leave(&v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v8);
 }
 
 void __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicationIdentifier_connectionAction_connectionOperation___block_invoke_65(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -154,31 +154,30 @@ void __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicat
     v6 = [*(a1 + 32) logPrefix];
     v7 = *(a1 + 40);
     *buf = 138543874;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v7;
-    v19 = 2114;
-    v20 = v3;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v3;
     _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Received UILinkConnectionActionResponse callback with action response: %{public}@", buf, 0x20u);
   }
 
   v8 = [*(a1 + 32) queue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicationIdentifier_connectionAction_connectionOperation___block_invoke_66;
-  v11[3] = &unk_1E74B27A0;
-  v12 = *(a1 + 48);
-  v13 = v3;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicationIdentifier_connectionAction_connectionOperation___block_invoke_66;
+  v10[3] = &unk_1E74B27A0;
+  v11 = *(a1 + 48);
+  v12 = v3;
   v9 = v3;
-  dispatch_async(v8, v11);
+  dispatch_async(v8, v10);
 
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openApplicationWithOptions:(id)options connectionAction:(id)action completionHandler:(id)handler
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   actionCopy = action;
   handlerCopy = handler;
@@ -201,18 +200,18 @@ void __122__LNEmbeddedApplicationConnection_linkConnectionActionWithOpenApplicat
   aBlock[3] = &unk_1E74B0F18;
   aBlock[4] = self;
   v15 = v14;
-  v89 = v15;
+  v88 = v15;
   v16 = handlerCopy;
-  v90 = v16;
+  v89 = v16;
   v17 = _Block_copy(aBlock);
-  v76 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v75 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([optionsCopy sceneless])
   {
     v18 = objc_alloc(MEMORY[0x1E69635F8]);
     bundleIdentifier = [(LNConnection *)self bundleIdentifier];
-    v87 = 0;
-    allObjects = [v18 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v87];
-    v21 = v87;
+    v86 = 0;
+    allObjects = [v18 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v86];
+    v21 = v86;
 
     if (v21)
     {
@@ -235,7 +234,7 @@ LABEL_11:
     }
 
     v45 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(allObjects, "supportsMultiwindow")}];
-    [v76 setObject:v45 forKeyedSubscript:*MEMORY[0x1E69D4460]];
+    [v75 setObject:v45 forKeyedSubscript:*MEMORY[0x1E69D4460]];
 
     goto LABEL_29;
   }
@@ -256,39 +255,39 @@ LABEL_11:
     v23 = MEMORY[0x1E69D4428];
   }
 
-  [v76 setObject:*v23 forKeyedSubscript:*MEMORY[0x1E699F940]];
+  [v75 setObject:*v23 forKeyedSubscript:*MEMORY[0x1E699F940]];
 LABEL_14:
   if (([optionsCopy activateSuspended] & 1) == 0)
   {
-    v71 = v16;
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
+    v70 = v16;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     executors = [(LNConnection *)self executors];
     keyEnumerator = [executors keyEnumerator];
     allObjects = [keyEnumerator allObjects];
 
-    v30 = [allObjects countByEnumeratingWithState:&v83 objects:v98 count:16];
+    v30 = [allObjects countByEnumeratingWithState:&v82 objects:v97 count:16];
     if (v30)
     {
       v31 = v30;
-      v72 = v17;
+      v71 = v17;
       selfCopy = self;
-      v70 = v15;
-      v33 = *v84;
-      v75 = *MEMORY[0x1E69D4440];
-      v74 = *MEMORY[0x1E699F940];
+      v69 = v15;
+      v33 = *v83;
+      v74 = *MEMORY[0x1E69D4440];
+      v73 = *MEMORY[0x1E699F940];
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v84 != v33)
+          if (*v83 != v33)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v35 = *(*(&v83 + 1) + 8 * i);
+          v35 = *(*(&v82 + 1) + 8 * i);
           executors2 = [(LNConnection *)selfCopy executors];
           v37 = [executors2 objectForKey:v35];
 
@@ -302,7 +301,7 @@ LABEL_14:
 
             if (v41)
             {
-              [v76 setObject:v75 forKeyedSubscript:v74];
+              [v75 setObject:v74 forKeyedSubscript:v73];
             }
           }
 
@@ -316,13 +315,13 @@ LABEL_14:
           }
         }
 
-        v31 = [allObjects countByEnumeratingWithState:&v83 objects:v98 count:16];
+        v31 = [allObjects countByEnumeratingWithState:&v82 objects:v97 count:16];
       }
 
       while (v31);
-      v15 = v70;
-      v16 = v71;
-      v17 = v72;
+      v15 = v69;
+      v16 = v70;
+      v17 = v71;
       self = selfCopy;
     }
 
@@ -331,12 +330,12 @@ LABEL_29:
 
   if ([optionsCopy actionSource] != 8 && objc_msgSend(optionsCopy, "actionSource") != 6)
   {
-    [v76 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69D4450]];
+    [v75 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69D4450]];
   }
 
   if ([optionsCopy isCameraCaptureAction])
   {
-    [v76 setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E69D4450]];
+    [v75 setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E69D4450]];
   }
 
   assistantDismissalPolicy = [optionsCopy assistantDismissalPolicy];
@@ -350,15 +349,15 @@ LABEL_29:
   {
     v47 = MEMORY[0x1E695E110];
 LABEL_39:
-    [v76 setObject:v47 forKeyedSubscript:*MEMORY[0x1E69D4450]];
+    [v75 setObject:v47 forKeyedSubscript:*MEMORY[0x1E69D4450]];
   }
 
   v48 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(optionsCopy, "activateSuspended")}];
-  [v76 setObject:v48 forKeyedSubscript:*MEMORY[0x1E699F8E8]];
+  [v75 setObject:v48 forKeyedSubscript:*MEMORY[0x1E699F8E8]];
 
   v49 = MEMORY[0x1E695E118];
-  [v76 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E699F990]];
-  [v76 setObject:v49 forKeyedSubscript:*MEMORY[0x1E699F970]];
+  [v75 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E699F990]];
+  [v75 setObject:v49 forKeyedSubscript:*MEMORY[0x1E699F970]];
   if ([optionsCopy sceneless])
   {
     v50 = &unk_1F0BD7168;
@@ -369,29 +368,29 @@ LABEL_39:
     v50 = &unk_1F0BD7180;
   }
 
-  [v76 setObject:v50 forKeyedSubscript:*MEMORY[0x1E699F930]];
+  [v75 setObject:v50 forKeyedSubscript:*MEMORY[0x1E699F930]];
   if ([optionsCopy isCameraCaptureAction])
   {
-    [v76 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"__LaunchCameraCapture"];
+    [v75 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"__LaunchCameraCapture"];
   }
 
   v51 = [LNOpenApplicationConnectionOperation alloc];
   openApplicationPriority = [optionsCopy openApplicationPriority];
   queue2 = [(LNConnection *)self queue];
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3221225472;
-  v81[2] = __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_55;
-  v81[3] = &unk_1E74B0F40;
-  v81[4] = self;
-  v82 = v17;
-  v54 = [(LNOpenApplicationConnectionOperation *)v51 initWithPriority:openApplicationPriority queue:queue2 completionHandler:v81];
+  v80[0] = MEMORY[0x1E69E9820];
+  v80[1] = 3221225472;
+  v80[2] = __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_55;
+  v80[3] = &unk_1E74B0F40;
+  v80[4] = self;
+  v81 = v17;
+  v54 = [(LNOpenApplicationConnectionOperation *)v51 initWithPriority:openApplicationPriority queue:queue2 completionHandler:v80];
 
   if (actionCopy)
   {
     v55 = [(LNEmbeddedApplicationConnection *)self linkConnectionActionWithOpenApplicationIdentifier:v15 connectionAction:actionCopy connectionOperation:v54];
-    v97 = v55;
-    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v97 count:1];
-    [v76 setObject:v56 forKeyedSubscript:*MEMORY[0x1E699F8D0]];
+    v96 = v55;
+    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
+    [v75 setObject:v56 forKeyedSubscript:*MEMORY[0x1E699F8D0]];
   }
 
   actionSourceOverride = [optionsCopy actionSourceOverride];
@@ -404,53 +403,52 @@ LABEL_39:
       logPrefix = [(LNConnection *)self logPrefix];
       actionSourceOverride2 = [optionsCopy actionSourceOverride];
       *buf = 138543874;
-      v92 = logPrefix;
-      v93 = 2114;
+      v91 = logPrefix;
+      v92 = 2114;
       selfCopy2 = self;
-      v95 = 2114;
-      v96 = actionSourceOverride2;
+      v94 = 2114;
+      v95 = actionSourceOverride2;
       _os_log_impl(&dword_19763D000, v58, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Overriding launch origin: %{public}@", buf, 0x20u);
     }
 
     actionSourceOverride3 = [optionsCopy actionSourceOverride];
-    [v76 setObject:actionSourceOverride3 forKeyedSubscript:*MEMORY[0x1E699F940]];
+    [v75 setObject:actionSourceOverride3 forKeyedSubscript:*MEMORY[0x1E699F940]];
   }
 
-  v62 = [MEMORY[0x1E699FB70] optionsWithDictionary:v76];
+  v62 = [MEMORY[0x1E699FB70] optionsWithDictionary:v75];
   v63 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
   {
     logPrefix2 = [(LNConnection *)self logPrefix];
     *buf = 138543874;
-    v92 = logPrefix2;
-    v93 = 2114;
+    v91 = logPrefix2;
+    v92 = 2114;
     selfCopy2 = v15;
-    v95 = 2114;
-    v96 = v76;
+    v94 = 2114;
+    v95 = v75;
     _os_log_impl(&dword_19763D000, v63, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Opening app using FBSOpenApplicationService with options: %{public}@", buf, 0x20u);
   }
 
   openApplicationService = [(LNEmbeddedApplicationConnection *)self openApplicationService];
   bundleIdentifier2 = [(LNConnection *)self bundleIdentifier];
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_58;
-  v77[3] = &unk_1E74B0F90;
-  v77[4] = self;
-  v78 = v15;
-  v79 = v54;
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_58;
+  v76[3] = &unk_1E74B0F90;
+  v76[4] = self;
+  v77 = v15;
+  v78 = v54;
   v27 = actionCopy;
-  v80 = actionCopy;
+  v79 = actionCopy;
   v67 = v54;
-  [openApplicationService openApplication:bundleIdentifier2 withOptions:v62 completion:v77];
+  [openApplicationService openApplication:bundleIdentifier2 withOptions:v62 completion:v76];
 
 LABEL_54:
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 void __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -460,19 +458,19 @@ void __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connection
     {
       v8 = [*(a1 + 32) logPrefix];
       v9 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v5;
+      v18 = 138543874;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v5;
       v10 = "%{public}@ %{public}@ completed with response: %{public}@";
       v11 = v7;
       v12 = OS_LOG_TYPE_INFO;
 LABEL_7:
       v15 = 32;
 LABEL_8:
-      _os_log_impl(&dword_19763D000, v11, v12, v10, &v19, v15);
+      _os_log_impl(&dword_19763D000, v11, v12, v10, &v18, v15);
     }
   }
 
@@ -488,11 +486,11 @@ LABEL_8:
       }
 
       v8 = [*(a1 + 32) logPrefix];
-      v18 = *(a1 + 40);
-      v19 = 138543618;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v18;
+      v17 = *(a1 + 40);
+      v18 = 138543618;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v17;
       v10 = "%{public}@ %{public}@ completed with no response and no error";
       v11 = v7;
       v12 = OS_LOG_TYPE_INFO;
@@ -504,12 +502,12 @@ LABEL_8:
     {
       v8 = [*(a1 + 32) logPrefix];
       v14 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v14;
-      v23 = 2114;
-      v24 = v6;
+      v18 = 138543874;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v6;
       v10 = "%{public}@ %{public}@ completed with error: %{public}@";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
@@ -521,8 +519,6 @@ LABEL_9:
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v6, v16);
   [*(a1 + 32) resumeOpenApplicationOperationQueue];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_55(uint64_t a1, void *a2, void *a3)
@@ -594,7 +590,7 @@ void __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connection
 
 uint64_t __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connectionAction_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) || !*(a1 + 40))
   {
     v2 = getLNLogCategoryConnection();
@@ -614,45 +610,44 @@ uint64_t __97__LNEmbeddedApplicationConnection_openApplicationWithOptions_connec
 
     v6 = *(a1 + 64);
     v7 = *(a1 + 32);
-    goto LABEL_5;
+    return [v6 finishWithActionResponse:0 error:v7];
   }
 
-  v10 = getLNLogCategoryConnection();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = getLNLogCategoryConnection();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = [*(a1 + 48) logPrefix];
-    v12 = *(a1 + 56);
-    v13 = *(a1 + 40);
+    v10 = [*(a1 + 48) logPrefix];
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 40);
     *buf = 138543874;
-    *&buf[4] = v11;
+    *&buf[4] = v10;
     *&buf[12] = 2114;
-    *&buf[14] = v12;
+    *&buf[14] = v11;
     *&buf[22] = 2114;
-    *&buf[24] = v13;
-    _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Successfully opened app with process handle %{public}@", buf, 0x20u);
+    *&buf[24] = v12;
+    _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Successfully opened app with process handle %{public}@", buf, 0x20u);
   }
 
-  v14 = *(a1 + 72);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = getLNLogCategoryConnection();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v13 = getLNLogCategoryConnection();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v16 = [*(a1 + 48) logPrefix];
-      v17 = *(a1 + 56);
-      v18 = *(a1 + 64);
+      v14 = [*(a1 + 48) logPrefix];
+      v15 = *(a1 + 56);
+      v16 = *(a1 + 64);
       *buf = 138543874;
-      *&buf[4] = v16;
+      *&buf[4] = v14;
       *&buf[12] = 2114;
-      *&buf[14] = v17;
+      *&buf[14] = v15;
       *&buf[22] = 2114;
-      *&buf[24] = v18;
-      v19 = "%{public}@ [%{public}@]: OneShot actions don't need to wait for a response, finishing %{public}@";
-      v20 = v15;
-      v21 = 32;
+      *&buf[24] = v16;
+      v17 = "%{public}@ [%{public}@]: OneShot actions don't need to wait for a response, finishing %{public}@";
+      v18 = v13;
+      v19 = 32;
 LABEL_20:
-      _os_log_impl(&dword_19763D000, v20, OS_LOG_TYPE_INFO, v19, buf, v21);
+      _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, v17, buf, v19);
 
       goto LABEL_21;
     }
@@ -660,22 +655,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v22 = *(a1 + 72);
-  v15 = getLNLogCategoryConnection();
-  v23 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
-  if (!v22)
+  v20 = *(a1 + 72);
+  v13 = getLNLogCategoryConnection();
+  v21 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+  if (!v20)
   {
-    if (v23)
+    if (v21)
     {
-      v16 = [*(a1 + 48) logPrefix];
-      v29 = *(a1 + 56);
+      v14 = [*(a1 + 48) logPrefix];
+      v27 = *(a1 + 56);
       *buf = 138543618;
-      *&buf[4] = v16;
+      *&buf[4] = v14;
       *&buf[12] = 2114;
-      *&buf[14] = v29;
-      v19 = "%{public}@ [%{public}@]: Completing with nil response because connection action wasn't provided";
-      v20 = v15;
-      v21 = 22;
+      *&buf[14] = v27;
+      v17 = "%{public}@ [%{public}@]: Completing with nil response because connection action wasn't provided";
+      v18 = v13;
+      v19 = 22;
       goto LABEL_20;
     }
 
@@ -683,71 +678,166 @@ LABEL_21:
 
     v6 = *(a1 + 64);
     v7 = 0;
-LABEL_5:
-    result = [v6 finishWithActionResponse:0 error:v7];
-    goto LABEL_6;
+    return [v6 finishWithActionResponse:0 error:v7];
   }
 
-  if (v23)
+  if (v21)
   {
-    v24 = [*(a1 + 48) logPrefix];
-    v25 = *(a1 + 56);
-    v26 = *(a1 + 72);
+    v22 = [*(a1 + 48) logPrefix];
+    v23 = *(a1 + 56);
+    v24 = *(a1 + 72);
     *buf = 138543874;
-    *&buf[4] = v24;
+    *&buf[4] = v22;
     *&buf[12] = 2114;
-    *&buf[14] = v25;
+    *&buf[14] = v23;
     *&buf[22] = 2114;
-    *&buf[24] = v26;
-    _os_log_impl(&dword_19763D000, v15, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Completion will be handled by UILinkConnectionActionResponse to UILinkConnectionAction(%{public}@)", buf, 0x20u);
+    *&buf[24] = v24;
+    _os_log_impl(&dword_19763D000, v13, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Completion will be handled by UILinkConnectionActionResponse to UILinkConnectionAction(%{public}@)", buf, 0x20u);
   }
 
-  v27 = [*(a1 + 40) auditToken];
-  v28 = v27;
-  if (v27)
+  v25 = objc_msgSend_auditToken(*(a1 + 40));
+  v26 = v25;
+  if (v25)
   {
-    [v27 realToken];
+    objc_msgSend_realToken(v25);
   }
 
   else
   {
-    v35 = 0u;
-    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
   }
 
-  v30 = *(a1 + 48);
-  *buf = v35;
-  *&buf[16] = v36;
-  [v30 setAuditToken:{buf, v35, v36}];
+  v28 = *(a1 + 48);
+  *buf = v33;
+  *&buf[16] = v34;
+  [v28 setAuditToken:{buf, v33, v34}];
 
-  v31 = getLNLogCategoryConnection();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  v29 = getLNLogCategoryConnection();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v32 = [*(a1 + 48) logPrefix];
-    v33 = *(a1 + 56);
-    v34 = *(a1 + 64);
+    v30 = [*(a1 + 48) logPrefix];
+    v31 = *(a1 + 56);
+    v32 = *(a1 + 64);
     *buf = 138543874;
-    *&buf[4] = v32;
+    *&buf[4] = v30;
     *&buf[12] = 2114;
-    *&buf[14] = v33;
+    *&buf[14] = v31;
     *&buf[22] = 2114;
-    *&buf[24] = v34;
-    _os_log_impl(&dword_19763D000, v31, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Enqueuing %{public}@ in order to acquire an assertion", buf, 0x20u);
+    *&buf[24] = v32;
+    _os_log_impl(&dword_19763D000, v29, OS_LOG_TYPE_INFO, "%{public}@ [%{public}@]: Enqueuing %{public}@ in order to acquire an assertion", buf, 0x20u);
   }
 
-  result = [*(a1 + 48) enqueueConnectionOperation:*(a1 + 64)];
-LABEL_6:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) enqueueConnectionOperation:*(a1 + 64)];
+}
+
+- (id)optionsForAction:(id)action interactionMode:(int64_t)mode source:(unsigned __int16)source sourceOverride:(id)override assistantDismissalPolicy:(int64_t)policy
+{
+  sourceCopy = source;
+  v38 = *MEMORY[0x1E69E9840];
+  actionCopy = action;
+  v33.receiver = self;
+  v33.super_class = LNEmbeddedApplicationConnection;
+  overrideCopy = override;
+  v14 = [(LNConnection *)&v33 optionsForAction:actionCopy interactionMode:mode source:sourceCopy sourceOverride:overrideCopy assistantDismissalPolicy:policy];
+  presentationStyle = [actionCopy presentationStyle];
+  if ((presentationStyle - 1) < 2)
+  {
+    v16 = 2;
+LABEL_3:
+    [v14 setOpenApplicationPriority:v16];
+    goto LABEL_7;
+  }
+
+  if (!presentationStyle)
+  {
+    [v14 setOpenApplicationPriority:1];
+    systemProtocols = [actionCopy systemProtocols];
+    pushToTalkTransmissionProtocol = [MEMORY[0x1E69ACA48] pushToTalkTransmissionProtocol];
+    v19 = [systemProtocols containsObject:pushToTalkTransmissionProtocol];
+
+    if (v19)
+    {
+      v16 = 3;
+      goto LABEL_3;
+    }
+  }
+
+LABEL_7:
+  v20 = MEMORY[0x1E6963620];
+  bundleIdentifier = [(LNConnection *)self bundleIdentifier];
+  LODWORD(v20) = [v20 bundleLinkedOnOrAfter2025:bundleIdentifier];
+
+  if (v20)
+  {
+    v22 = getLNLogCategoryConnection();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      logPrefix = [(LNConnection *)self logPrefix];
+      *buf = 138543362;
+      v35 = logPrefix;
+      _os_log_impl(&dword_19763D000, v22, OS_LOG_TYPE_INFO, "%{public}@ App linked on-or-after 2025, always launching sceneless", buf, 0xCu);
+    }
+
+    [v14 setSceneless:1];
+  }
+
+  else
+  {
+    presentationStyle2 = [actionCopy presentationStyle];
+    if (presentationStyle2 <= 2)
+    {
+      [v14 setSceneless:1u >> (presentationStyle2 & 7)];
+    }
+
+    v25 = getLNLogCategoryConnection();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      logPrefix2 = [(LNConnection *)self logPrefix];
+      sceneless = [v14 sceneless];
+      v28 = @"NO";
+      if (sceneless)
+      {
+        v28 = @"YES";
+      }
+
+      *buf = 138543618;
+      v35 = logPrefix2;
+      v36 = 2114;
+      v37 = v28;
+      _os_log_impl(&dword_19763D000, v25, OS_LOG_TYPE_INFO, "%{public}@ App linked before 2025, sceneless = %{public}@", buf, 0x16u);
+    }
+  }
+
+  if (sourceCopy == 3)
+  {
+    [v14 setAllowsForegroundAppLaunchWhileInCarPlay:0];
+  }
+
+  systemProtocols2 = [actionCopy systemProtocols];
+  cameraCaptureProtocol = [MEMORY[0x1E69ACA48] cameraCaptureProtocol];
+  v31 = [systemProtocols2 containsObject:cameraCaptureProtocol];
+
+  if (v31)
+  {
+    [v14 setIsCameraCaptureAction:1];
+  }
+
+  [v14 setActionSource:sourceCopy];
+  [v14 setActionSourceOverride:overrideCopy];
+
+  [v14 setAssistantDismissalPolicy:policy];
+
+  return v14;
 }
 
 - (BOOL)refreshWithOptions:(id)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v17.receiver = self;
-  v17.super_class = LNEmbeddedApplicationConnection;
-  v5 = [(LNConnection *)&v17 refreshWithOptions:optionsCopy];
+  v16.receiver = self;
+  v16.super_class = LNEmbeddedApplicationConnection;
+  v5 = [(LNConnection *)&v16 refreshWithOptions:optionsCopy];
   if (v5)
   {
     queue = [(LNConnection *)self queue];
@@ -780,23 +870,22 @@ LABEL_6:
     {
       logPrefix = [(LNConnection *)self logPrefix];
       *buf = 138543618;
-      v19 = logPrefix;
-      v20 = 2114;
-      v21 = v9;
+      v18 = logPrefix;
+      v19 = 2114;
+      v20 = v9;
       _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_INFO, "%{public}@ refreshWithOptions: %{public}@", buf, 0x16u);
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke;
-    v15[3] = &unk_1E74B27A0;
-    v15[4] = self;
-    v16 = v9;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke;
+    v14[3] = &unk_1E74B27A0;
+    v14[4] = self;
+    v15 = v9;
     v12 = v9;
-    [(LNEmbeddedApplicationConnection *)self enqueueOpenApplicationOperation:v15];
+    [(LNEmbeddedApplicationConnection *)self enqueueOpenApplicationOperation:v14];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -814,7 +903,7 @@ uint64_t __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke
 
 void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) state] == 2)
@@ -828,15 +917,15 @@ void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_2(u
     {
       objc_initWeak(location, *(a1 + 32));
       v11 = *(a1 + 32);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14;
-      v14[3] = &unk_1E74B0EF0;
-      objc_copyWeak(&v16, location);
-      v15 = 0;
-      [v11 setUpConnectionContextWithCompletionHandler:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14;
+      v13[3] = &unk_1E74B0EF0;
+      objc_copyWeak(&v15, location);
+      v14 = 0;
+      [v11 setUpConnectionContextWithCompletionHandler:v13];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(location);
     }
   }
@@ -861,17 +950,15 @@ void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_2(u
       v12 = v10;
       *location = 138543618;
       *&location[4] = v8;
-      v18 = 2114;
-      v19 = v12;
+      v17 = 2114;
+      v18 = v12;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -880,9 +967,9 @@ void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14(
     v6 = getLNLogCategoryConnection();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Failed to set connection context: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_ERROR, "Failed to set connection context: %@", &v8, 0xCu);
     }
 
     v7 = [v5 xpcConnection];
@@ -895,17 +982,15 @@ void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14(
   {
     [WeakRetained setConnected];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectWithOptions:(id)options
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v14.receiver = self;
-  v14.super_class = LNEmbeddedApplicationConnection;
-  [(LNConnection *)&v14 connectWithOptions:optionsCopy];
+  v13.receiver = self;
+  v13.super_class = LNEmbeddedApplicationConnection;
+  [(LNConnection *)&v13 connectWithOptions:optionsCopy];
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -936,24 +1021,22 @@ void __54__LNEmbeddedApplicationConnection_refreshWithOptions___block_invoke_14(
   {
     logPrefix = [(LNConnection *)self logPrefix];
     *buf = 138543618;
-    v16 = logPrefix;
-    v17 = 2114;
-    v18 = v8;
+    v15 = logPrefix;
+    v16 = 2114;
+    v17 = v8;
     _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_INFO, "%{public}@ connectWithOptions: %{public}@", buf, 0x16u);
   }
 
   if (![(LNConnection *)self connectUsingProcessIdentifierWithOptions:v6])
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke;
-    v12[3] = &unk_1E74B27A0;
-    v12[4] = self;
-    v13 = v8;
-    [(LNEmbeddedApplicationConnection *)self enqueueOpenApplicationOperation:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke;
+    v11[3] = &unk_1E74B27A0;
+    v11[4] = self;
+    v12 = v8;
+    [(LNEmbeddedApplicationConnection *)self enqueueOpenApplicationOperation:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke(uint64_t a1)
@@ -971,7 +1054,7 @@ void __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke(uin
 
 void __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) state] == 1)
@@ -1006,14 +1089,70 @@ void __54__LNEmbeddedApplicationConnection_connectWithOptions___block_invoke_2(u
       }
 
       v12 = v11;
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v12;
+      v13 = 138543618;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v12;
     }
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (LNEmbeddedApplicationConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error
+{
+  onlyCopy = only;
+  v39 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  instanceIdentifierCopy = instanceIdentifier;
+  identityCopy = identity;
+  v30.receiver = self;
+  v30.super_class = LNEmbeddedApplicationConnection;
+  v18 = [(LNApplicationConnection *)&v30 initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:onlyCopy userIdentity:identityCopy error:error];
+  if (v18)
+  {
+    serviceWithDefaultShellEndpoint = [MEMORY[0x1E699FB78] serviceWithDefaultShellEndpoint];
+    openApplicationService = v18->_openApplicationService;
+    v18->_openApplicationService = serviceWithDefaultShellEndpoint;
+
+    if (!v18->_openApplicationService)
+    {
+      v21 = getLNLogCategoryConnection();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        logPrefix = [(LNConnection *)v18 logPrefix];
+        LODWORD(buf) = 138543362;
+        *(&buf + 4) = logPrefix;
+        _os_log_impl(&dword_19763D000, v21, OS_LOG_TYPE_ERROR, "%{public}@ openApplicationService failed to initialize", &buf, 0xCu);
+      }
+    }
+
+    v23 = dispatch_get_global_queue(17, 0);
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2050000000;
+    v24 = getPDCPreflightManagerClass_softClass;
+    v34 = getPDCPreflightManagerClass_softClass;
+    if (!getPDCPreflightManagerClass_softClass)
+    {
+      *&buf = MEMORY[0x1E69E9820];
+      *(&buf + 1) = 3221225472;
+      v36 = __getPDCPreflightManagerClass_block_invoke;
+      v37 = &unk_1E74B26D0;
+      v38 = &v31;
+      __getPDCPreflightManagerClass_block_invoke(&buf);
+      v24 = v32[3];
+    }
+
+    v25 = v24;
+    _Block_object_dispose(&v31, 8);
+    v26 = [[v24 alloc] initWithTargetQueue:v23];
+    preflightManager = v18->_preflightManager;
+    v18->_preflightManager = v26;
+
+    v28 = v18;
+  }
+
+  return v18;
 }
 
 uint64_t __70__LNEmbeddedApplicationConnection_sharedOpenApplicationOperationQueue__block_invoke()

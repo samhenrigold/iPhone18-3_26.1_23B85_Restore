@@ -90,7 +90,7 @@ LABEL_15:
 
 - (SMSessionEndRemoteControlMessage)initWithDictionary:(id)dictionary
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (!dictionaryCopy)
@@ -122,13 +122,13 @@ LABEL_16:
     v31 = NSStringFromClass(v30);
     v32 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v64 = v31;
-    v65 = 2112;
-    v66 = v32;
-    v67 = 1024;
+    v63 = v31;
+    v64 = 2112;
+    v65 = v32;
+    v66 = 1024;
     messageType = [objc_opt_class() messageType];
-    v69 = 1024;
-    v70 = intValue;
+    v68 = 1024;
+    v69 = intValue;
     v33 = "#RemoteControl,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v34 = v12;
     v35 = 34;
@@ -149,14 +149,14 @@ LABEL_31:
       goto LABEL_16;
     }
 
-    v39 = objc_opt_class();
-    v31 = NSStringFromClass(v39);
+    v38 = objc_opt_class();
+    v31 = NSStringFromClass(v38);
     v32 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v64 = v31;
-    v65 = 2112;
-    v66 = v32;
-    v67 = 1024;
+    v63 = v31;
+    v64 = 2112;
+    v65 = v32;
+    v66 = 1024;
     messageType = intValue2;
     v33 = "#RemoteControl,%@,%@,unrecognized interface version,%d";
     v34 = v12;
@@ -189,39 +189,39 @@ LABEL_31:
         if (v23)
         {
           v24 = [v6 valueForKey:@"idsDeviceType"];
-          v62 = v24;
+          v61 = v24;
           if (v24)
           {
-            v61 = v23;
+            v60 = v23;
             intValue4 = [v24 intValue];
             v26 = [v6 valueForKey:@"sourceDeviceId"];
             if (v26)
             {
               v27 = v26;
               v28 = intValue4;
-              v23 = v61;
-              self = [(SMSessionEndRemoteControlMessage *)self initWithDate:v14 messageID:v17 sessionEndReason:intValue3 sessionID:v61 sourceDeviceType:v28 sourceDeviceID:v26];
+              v23 = v60;
+              self = [(SMSessionEndRemoteControlMessage *)self initWithDate:v14 messageID:v17 sessionEndReason:intValue3 sessionID:v60 sourceDeviceType:v28 sourceDeviceID:v26];
               selfCopy = self;
             }
 
             else
             {
-              v40 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v39 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                v58 = objc_opt_class();
-                v59 = NSStringFromClass(v58);
-                v60 = NSStringFromSelector(a2);
+                v57 = objc_opt_class();
+                v58 = NSStringFromClass(v57);
+                v59 = NSStringFromSelector(a2);
                 *buf = 138412546;
-                v64 = v59;
-                v65 = 2112;
-                v66 = v60;
-                _os_log_error_impl(&dword_26455D000, v40, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sourceDeviceID", buf, 0x16u);
+                v63 = v58;
+                v64 = 2112;
+                v65 = v59;
+                _os_log_error_impl(&dword_26455D000, v39, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sourceDeviceID", buf, 0x16u);
               }
 
               v27 = 0;
               selfCopy = 0;
-              v23 = v61;
+              v23 = v60;
             }
           }
 
@@ -230,38 +230,38 @@ LABEL_31:
             v27 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
             if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              v54 = objc_opt_class();
-              NSStringFromClass(v54);
-              v56 = v55 = v23;
-              v57 = NSStringFromSelector(a2);
+              v53 = objc_opt_class();
+              NSStringFromClass(v53);
+              v55 = v54 = v23;
+              v56 = NSStringFromSelector(a2);
               *buf = 138412546;
-              v64 = v56;
-              v65 = 2112;
-              v66 = v57;
+              v63 = v55;
+              v64 = 2112;
+              v65 = v56;
               _os_log_error_impl(&dword_26455D000, v27, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing idsDeviceType", buf, 0x16u);
 
-              v23 = v55;
+              v23 = v54;
             }
 
             selfCopy = 0;
           }
 
-          v38 = v62;
+          v37 = v61;
         }
 
         else
         {
-          v38 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v37 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            v51 = objc_opt_class();
-            v52 = NSStringFromClass(v51);
-            v53 = NSStringFromSelector(a2);
+            v50 = objc_opt_class();
+            v51 = NSStringFromClass(v50);
+            v52 = NSStringFromSelector(a2);
             *buf = 138412546;
-            v64 = v52;
-            v65 = 2112;
-            v66 = v53;
-            _os_log_error_impl(&dword_26455D000, v38, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionID", buf, 0x16u);
+            v63 = v51;
+            v64 = 2112;
+            v65 = v52;
+            _os_log_error_impl(&dword_26455D000, v37, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionID", buf, 0x16u);
 
             v23 = 0;
           }
@@ -275,17 +275,17 @@ LABEL_31:
         v23 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v47 = objc_opt_class();
-          NSStringFromClass(v47);
-          v49 = v48 = v23;
-          v50 = NSStringFromSelector(a2);
+          v46 = objc_opt_class();
+          NSStringFromClass(v46);
+          v48 = v47 = v23;
+          v49 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v64 = v49;
-          v65 = 2112;
-          v66 = v50;
-          _os_log_error_impl(&dword_26455D000, v48, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionEndReason", buf, 0x16u);
+          v63 = v48;
+          v64 = 2112;
+          v65 = v49;
+          _os_log_error_impl(&dword_26455D000, v47, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionEndReason", buf, 0x16u);
 
-          v23 = v48;
+          v23 = v47;
         }
 
         selfCopy = 0;
@@ -297,13 +297,13 @@ LABEL_31:
       v19 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v44 = objc_opt_class();
-        v45 = NSStringFromClass(v44);
-        v46 = NSStringFromSelector(a2);
+        v43 = objc_opt_class();
+        v44 = NSStringFromClass(v43);
+        v45 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v64 = v45;
-        v65 = 2112;
-        v66 = v46;
+        v63 = v44;
+        v64 = 2112;
+        v65 = v45;
         _os_log_error_impl(&dword_26455D000, v19, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing messageID", buf, 0x16u);
       }
 
@@ -316,13 +316,13 @@ LABEL_31:
     v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v43 = NSStringFromSelector(a2);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
+      v42 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v64 = v42;
-      v65 = 2112;
-      v66 = v43;
+      v63 = v41;
+      v64 = 2112;
+      v65 = v42;
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -330,7 +330,6 @@ LABEL_31:
   }
 
 LABEL_17:
-  v36 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -353,7 +352,7 @@ LABEL_17:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (!coderCopy)
   {
@@ -361,27 +360,25 @@ LABEL_17:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[SMSessionEndRemoteControlMessage encodeWithCoder:]";
-      v11 = 1024;
-      v12 = 151;
+      v9 = "[SMSessionEndRemoteControlMessage encodeWithCoder:]";
+      v10 = 1024;
+      v11 = 151;
       _os_log_error_impl(&dword_26455D000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = SMSessionEndRemoteControlMessage;
-  [(SMMessage *)&v8 encodeWithCoder:coderCopy];
+  v7.receiver = self;
+  v7.super_class = SMSessionEndRemoteControlMessage;
+  [(SMMessage *)&v7 encodeWithCoder:coderCopy];
   [coderCopy encodeInteger:-[SMSessionEndRemoteControlMessage sessionEndReason](self forKey:{"sessionEndReason"), @"sessionEndReason"}];
   [coderCopy encodeInteger:-[SMSessionEndRemoteControlMessage sourceDeviceType](self forKey:{"sourceDeviceType"), @"idsDeviceType"}];
   sourceDeviceID = [(SMSessionEndRemoteControlMessage *)self sourceDeviceID];
   [coderCopy encodeObject:sourceDeviceID forKey:@"sourceDeviceId"];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (SMSessionEndRemoteControlMessage)initWithCoder:(id)coder
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = coderCopy;
   if (!coderCopy)
@@ -389,8 +386,8 @@ LABEL_17:
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v39) = 0;
-      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: decoder", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_log_error_impl(&dword_26455D000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: decoder", &v38, 2u);
     }
 
     goto LABEL_14;
@@ -408,19 +405,19 @@ LABEL_17:
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
     v18 = NSStringFromSelector(a2);
-    v39 = 138413058;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 1024;
+    v38 = 138413058;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 1024;
     messageType = [objc_opt_class() messageType];
-    v45 = 1024;
-    v46 = v7;
+    v44 = 1024;
+    v45 = v7;
     v19 = "#RemoteControl,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v20 = v9;
     v21 = 34;
 LABEL_32:
-    _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, v19, &v39, v21);
+    _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, v19, &v38, v21);
 
     goto LABEL_14;
   }
@@ -434,14 +431,14 @@ LABEL_32:
       v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v32 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v31;
-        v41 = 2112;
-        v42 = v32;
-        _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing messageID", &v39, 0x16u);
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
+        v31 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v30;
+        v40 = 2112;
+        v41 = v31;
+        _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing messageID", &v38, 0x16u);
       }
 
       selfCopy = 0;
@@ -454,14 +451,14 @@ LABEL_32:
       v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
-        v35 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v34;
-        v41 = 2112;
-        v42 = v35;
-        _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing date", &v39, 0x16u);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
+        v34 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v33;
+        v40 = 2112;
+        v41 = v34;
+        _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing date", &v38, 0x16u);
       }
 
       selfCopy = 0;
@@ -486,17 +483,17 @@ LABEL_30:
         goto LABEL_15;
       }
 
-      v28 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v38 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v37;
-        v41 = 2112;
-        v42 = v38;
-        _os_log_error_impl(&dword_26455D000, v28, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sourceDeviceID", &v39, 0x16u);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
+        v37 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v36;
+        v40 = 2112;
+        v41 = v37;
+        _os_log_error_impl(&dword_26455D000, v27, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sourceDeviceID", &v38, 0x16u);
       }
 
       v14 = 0;
@@ -507,14 +504,14 @@ LABEL_30:
       v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        v27 = NSStringFromSelector(a2);
-        v39 = 138412546;
-        v40 = v26;
-        v41 = 2112;
-        v42 = v27;
-        _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionID", &v39, 0x16u);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        v26 = NSStringFromSelector(a2);
+        v38 = 138412546;
+        v39 = v25;
+        v40 = 2112;
+        v41 = v26;
+        _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#RemoteControl,%@,%@,missing sessionID", &v38, 0x16u);
       }
     }
 
@@ -526,14 +523,14 @@ LABEL_30:
   v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v29 = objc_opt_class();
-    v17 = NSStringFromClass(v29);
+    v28 = objc_opt_class();
+    v17 = NSStringFromClass(v28);
     v18 = NSStringFromSelector(a2);
-    v39 = 138412802;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 1024;
+    v38 = 138412802;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 1024;
     messageType = v22;
     v19 = "#RemoteControl,%@,%@,unrecognized interface version,%d";
     v20 = v9;
@@ -545,7 +542,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

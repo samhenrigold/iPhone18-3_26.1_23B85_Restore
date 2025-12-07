@@ -60,11 +60,11 @@ LABEL_10:
 
 - (id)_accessibilityImageOverlayView
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   objc_opt_class();
   v3 = [(ParticipantVideoOverlayViewAccessibility *)self _accessibilityDescendantOfType:objc_opt_class()];
   v4 = __UIAccessibilityCastAsClass();
@@ -72,20 +72,20 @@ LABEL_10:
   contentView = [v4 contentView];
   subviews = [contentView subviews];
 
-  v7 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [subviews countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -94,7 +94,7 @@ LABEL_10:
         }
       }
 
-      v7 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [subviews countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -105,8 +105,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

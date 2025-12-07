@@ -41,12 +41,12 @@
 - (NSDictionary)dictionaryRepresentation
 {
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  clientIdentifier = [(IRSessionAnalyticsMetric *)self clientIdentifier];
+  v4 = objc_msgSend_clientIdentifier(self);
 
-  if (clientIdentifier)
+  if (v4)
   {
-    clientIdentifier2 = [(IRSessionAnalyticsMetric *)self clientIdentifier];
-    [dictionary setObject:clientIdentifier2 forKey:@"ClientIdentifier"];
+    v5 = objc_msgSend_clientIdentifier(self);
+    [dictionary setObject:v5 forKey:@"ClientIdentifier"];
   }
 
   internalAppName = [(IRSessionAnalyticsMetric *)self internalAppName];

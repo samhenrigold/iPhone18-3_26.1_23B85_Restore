@@ -17,11 +17,11 @@
 
 - (BOOL)applyToStore:(id)store error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storeCopy = store;
-  v17.receiver = self;
-  v17.super_class = CPLPullSessionUpdate;
-  if ([(CPLChangeSessionUpdate *)&v17 applyToStore:storeCopy error:error])
+  v16.receiver = self;
+  v16.super_class = CPLPullSessionUpdate;
+  if ([(CPLChangeSessionUpdate *)&v16 applyToStore:storeCopy error:error])
   {
     pullQueue = [storeCopy pullQueue];
     if (![pullQueue popNextBatchWithError:error])
@@ -36,7 +36,7 @@
       {
         clientBatch = self->_clientBatch;
         *buf = 138412290;
-        v19 = clientBatch;
+        v18 = clientBatch;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Applying to client cache %@", buf, 0xCu);
       }
     }
@@ -49,7 +49,7 @@
       {
         cloudBatch = self->_cloudBatch;
         *buf = 138412290;
-        v19 = cloudBatch;
+        v18 = cloudBatch;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEBUG, "Committing to cloud cache %@", buf, 0xCu);
       }
     }
@@ -74,7 +74,6 @@ LABEL_14:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

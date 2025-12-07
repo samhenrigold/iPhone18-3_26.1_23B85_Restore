@@ -5,10 +5,12 @@
 - (int)stateForDisplay:(id)display;
 - (unint64_t)displayCountIncludingDisconnectedDisplays:(BOOL)displays;
 - (void)_fillActiveBrailleDisplayQueue;
+- (void)addDisplay:(id)display withState:(int)state;
 - (void)dealloc;
 - (void)removeDisplay:(id)display;
 - (void)setActiveQueueMaximumSize:(unint64_t)size;
 - (void)setPrimaryDisplay:(id)display;
+- (void)setState:(int)state forDisplay:(id)display;
 @end
 
 @implementation SCROBrailleDisplayManagedQueue
@@ -84,6 +86,78 @@
   return v7;
 }
 
+- (void)addDisplay:(id)display withState:(int)state
+{
+  v4 = *&state;
+  key = display;
+  token = [key token];
+  if (key)
+  {
+    if (v4 <= 4)
+    {
+      v7 = token;
+      v8 = [(SCRCIndexMap *)self->_tokenDisplayMap objectForIndex:token];
+
+      if (!v8)
+      {
+        v9 = [(SCROBrailleDisplayManagedQueue *)self _queueForState:v4 createQueue:1];
+        if (v9)
+        {
+          [(SCRCIndexMap *)self->_tokenDisplayMap setObject:key forIndex:v7];
+          if (v4 == 1)
+          {
+            if ([v9 count] >= self->_maxActiveQueueSize)
+            {
+              v14 = [(SCROBrailleDisplayManagedQueue *)self _queueForState:2 createQueue:1];
+
+              [v14 addObject:key];
+              v9 = v14;
+            }
+
+            else
+            {
+              lastObject = [v9 lastObject];
+              v11 = lastObject;
+              if (lastObject && (v12 = [lastObject token], v12 == kSCROSystemVirtualBrailleDisplayToken))
+              {
+                [v9 insertObject:key atIndex:{objc_msgSend(v9, "count") - 1}];
+              }
+
+              else
+              {
+                [v9 addObject:key];
+              }
+            }
+
+            displayQueueDict = self->_displayQueueDict;
+            if (displayQueueDict)
+            {
+              CFDictionarySetValue(displayQueueDict, key, v9);
+            }
+          }
+
+          else
+          {
+            [v9 addObject:key];
+            v13 = self->_displayQueueDict;
+            if (v13)
+            {
+              CFDictionarySetValue(v13, key, v9);
+            }
+
+            if (v4 == 2)
+            {
+              [(SCROBrailleDisplayManagedQueue *)self _fillActiveBrailleDisplayQueue];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  MEMORY[0x2821F96F8](token);
+}
+
 - (void)removeDisplay:(id)display
 {
   displayCopy = display;
@@ -144,7 +218,7 @@
 
 - (void)_fillActiveBrailleDisplayQueue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [(SCROBrailleDisplayManagedQueue *)self _queueForState:2 createQueue:0];
   v4 = [v3 count];
   if (v4)
@@ -198,29 +272,29 @@
 
         if (self->_displayQueueDict)
         {
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
           v25 = 0u;
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
           v18 = v15;
-          v19 = [v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v25;
+            v21 = *v24;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v25 != v21)
+                if (*v24 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                CFDictionarySetValue(self->_displayQueueDict, *(*(&v24 + 1) + 8 * i), v7);
+                CFDictionarySetValue(self->_displayQueueDict, *(*(&v23 + 1) + 8 * i), v7);
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
             }
 
             while (v20);
@@ -229,8 +303,87 @@
       }
     }
   }
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (void)setState:(int)state forDisplay:(id)display
+{
+  v4 = *&state;
+  v22 = *MEMORY[0x277D85DE8];
+  displayCopy = display;
+  v7 = _SCROD_LOG(displayCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v19[0] = 67109378;
+    v19[1] = v4;
+    v20 = 2114;
+    v21 = displayCopy;
+    _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Set state: %d for display %{public}@", v19, 0x12u);
+  }
+
+  if (v4 <= 4 && displayCopy)
+  {
+    displayQueueDict = self->_displayQueueDict;
+    if (displayQueueDict)
+    {
+      v9 = CFDictionaryGetValue(displayQueueDict, displayCopy);
+      if (v9)
+      {
+        queueStateDict = self->_queueStateDict;
+        v11 = queueStateDict ? CFDictionaryGetValue(queueStateDict, v9) : 5;
+        if (v11 != v4)
+        {
+          v12 = [(SCROBrailleDisplayManagedQueue *)self _queueForState:v4 createQueue:1];
+          if (v12)
+          {
+            v13 = v12;
+            if (v4 == 1)
+            {
+              if ([v12 count] >= self->_maxActiveQueueSize)
+              {
+                v17 = [(SCROBrailleDisplayManagedQueue *)self _queueForState:2 createQueue:1];
+
+                [v17 addObject:displayCopy];
+                v13 = v17;
+              }
+
+              else
+              {
+                lastObject = [v13 lastObject];
+                v15 = lastObject;
+                if (lastObject && (v16 = [lastObject token], v16 == kSCROSystemVirtualBrailleDisplayToken))
+                {
+                  [v13 insertObject:displayCopy atIndex:{objc_msgSend(v13, "count") - 1}];
+                }
+
+                else
+                {
+                  [v13 addObject:displayCopy];
+                }
+              }
+            }
+
+            else
+            {
+              [v12 addObject:displayCopy];
+            }
+
+            v18 = self->_displayQueueDict;
+            if (v18)
+            {
+              CFDictionarySetValue(v18, displayCopy, v13);
+            }
+
+            [v9 removeObjectIdenticalTo:displayCopy];
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
 }
 
 - (int)stateForDisplay:(id)display

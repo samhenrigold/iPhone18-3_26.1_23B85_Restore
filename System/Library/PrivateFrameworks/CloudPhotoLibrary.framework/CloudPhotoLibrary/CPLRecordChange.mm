@@ -171,7 +171,7 @@
   return v6;
 }
 
-uint64_t __46__CPLRecordChange_CPLNSCoding__initWithCoder___block_invoke()
+uint64_t __46__CPLRecordChange_CPLNSCoding__initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   initWithCoder__stringClass = result;
@@ -213,35 +213,33 @@ uint64_t __46__CPLRecordChange_CPLNSCoding__initWithCoder___block_invoke()
   return v8;
 }
 
-void __70__CPLRecordChange_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke()
+void __70__CPLRecordChange_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11[7] = *MEMORY[0x1E69E9840];
-  v10[0] = @"resources";
-  v0 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[0] = v0;
-  v10[1] = @"expungeableResourceStates";
-  v1 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[1] = v1;
-  v10[2] = @"containerRelations";
+  v12[7] = *MEMORY[0x1E69E9840];
+  v11[0] = @"resources";
   v2 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[2] = v2;
-  v10[3] = @"keywords";
+  v12[0] = v2;
+  v11[1] = @"expungeableResourceStates";
   v3 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[3] = v3;
-  v10[4] = @"people";
+  v12[1] = v3;
+  v11[2] = @"containerRelations";
   v4 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[4] = v4;
-  v10[5] = @"sharingContributorUserIdentifiers";
+  v12[2] = v4;
+  v11[3] = @"keywords";
   v5 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[5] = v5;
-  v10[6] = @"updateSharingContributorUserIdentifiers";
+  v12[3] = v5;
+  v11[4] = @"people";
   v6 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v11[6] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:7];
-  v8 = cplAdditionalSecureClassesForProperty__additionalClasses;
-  cplAdditionalSecureClassesForProperty__additionalClasses = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12[4] = v6;
+  v11[5] = @"sharingContributorUserIdentifiers";
+  v7 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  v12[5] = v7;
+  v11[6] = @"updateSharingContributorUserIdentifiers";
+  v8 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  v12[6] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
+  v10 = cplAdditionalSecureClassesForProperty__additionalClasses;
+  cplAdditionalSecureClassesForProperty__additionalClasses = v9;
 }
 
 + (Class)classForStoredClassName:(id)name forCPLArchiver:(id)archiver
@@ -321,7 +319,7 @@ void __70__CPLRecordChange_CPLNSCoding__cplAdditionalSecureClassesForProperty___
   return v6;
 }
 
-uint64_t __52__CPLRecordChange_CPLArchiver__initWithCPLArchiver___block_invoke()
+uint64_t __52__CPLRecordChange_CPLArchiver__initWithCPLArchiver___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   initWithCPLArchiver__stringClass = result;
@@ -330,14 +328,14 @@ uint64_t __52__CPLRecordChange_CPLArchiver__initWithCPLArchiver___block_invoke()
 
 - (id)translateToClientChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   v7 = [(CPLRecordChange *)self copy];
-  v29 = 0;
+  v28 = 0;
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
   if (scopedIdentifier)
   {
-    v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v29];
+    v9 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier isFinal:&v28];
     if (v9)
     {
       proposedLocalScopedIdentifier = v9;
@@ -362,39 +360,39 @@ uint64_t __52__CPLRecordChange_CPLArchiver__initWithCPLArchiver___block_invoke()
 
     errorCopy = error;
     scopedIdentifier2 = [v7 scopedIdentifier];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     resources = [v7 resources];
-    v13 = [resources countByEnumeratingWithState:&v25 objects:v34 count:16];
+    v13 = [resources countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(resources);
           }
 
-          [*(*(&v25 + 1) + 8 * i) setItemScopedIdentifier:scopedIdentifier2];
+          [*(*(&v24 + 1) + 8 * i) setItemScopedIdentifier:scopedIdentifier2];
         }
 
-        v14 = [resources countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v14 = [resources countByEnumeratingWithState:&v24 objects:v33 count:16];
       }
 
       while (v14);
     }
 
-    v24 = 0;
+    v23 = 0;
     resourceCopyFromScopedIdentifier = [(CPLRecordChange *)self resourceCopyFromScopedIdentifier];
     if (resourceCopyFromScopedIdentifier)
     {
-      v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:resourceCopyFromScopedIdentifier isFinal:&v24];
+      v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:resourceCopyFromScopedIdentifier isFinal:&v23];
       if (v18)
       {
         [v7 setResourceCopyFromScopedIdentifier:v18];
@@ -414,8 +412,8 @@ uint64_t __52__CPLRecordChange_CPLArchiver__initWithCPLArchiver___block_invoke()
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v31 = resourceCopyFromScopedIdentifier;
-            v32 = 2112;
+            v30 = resourceCopyFromScopedIdentifier;
+            v31 = 2112;
             selfCopy = self;
             _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Can't map cloud resourceCopyFromScopedIdentifier (%@) of %@", buf, 0x16u);
           }
@@ -429,21 +427,19 @@ LABEL_28:
 LABEL_29:
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   v7 = [(CPLRecordChange *)self copy];
-  v27 = 0;
+  v26 = 0;
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
   if (scopedIdentifier)
   {
-    v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:scopedIdentifier isFinal:&v27];
+    v9 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:scopedIdentifier isFinal:&v26];
     if (v9)
     {
       [v7 setScopedIdentifier:v9];
@@ -480,29 +476,29 @@ LABEL_23:
     if ([v7 supportsResources] && objc_msgSend(v7, "hasChangeType:", 8))
     {
       scopedIdentifier2 = [v7 scopedIdentifier];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       resources = [v7 resources];
-      v14 = [resources countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v14 = [resources countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v24;
+        v16 = *v23;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(resources);
             }
 
-            [*(*(&v23 + 1) + 8 * i) setItemScopedIdentifier:scopedIdentifier2];
+            [*(*(&v22 + 1) + 8 * i) setItemScopedIdentifier:scopedIdentifier2];
           }
 
-          v15 = [resources countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v15 = [resources countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v15);
@@ -511,8 +507,8 @@ LABEL_23:
       resourceCopyFromScopedIdentifier = [(CPLRecordChange *)self resourceCopyFromScopedIdentifier];
       if (resourceCopyFromScopedIdentifier)
       {
-        v22 = 0;
-        v19 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:resourceCopyFromScopedIdentifier isFinal:&v22];
+        v21 = 0;
+        v19 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:resourceCopyFromScopedIdentifier isFinal:&v21];
         if (!v19)
         {
           v19 = [resourceCopyFromScopedIdentifier copy];
@@ -527,31 +523,27 @@ LABEL_23:
 
 LABEL_24:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)scopedIdentifiersForMapping
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if ([(CPLRecordChange *)self supportsResources]&& [(CPLRecordChange *)self hasChangeType:8]&& ([(CPLRecordChange *)self resourceCopyFromScopedIdentifier], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     scopedIdentifier2 = v3;
     scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
-    v10[0] = scopedIdentifier;
-    v10[1] = scopedIdentifier2;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v9[0] = scopedIdentifier;
+    v9[1] = scopedIdentifier2;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   }
 
   else
   {
     scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
-    v9 = scopedIdentifier2;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
+    v8 = scopedIdentifier2;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -866,25 +858,25 @@ void __46__CPLRecordChange_applyChangeType_fromChange___block_invoke(uint64_t a1
 
 - (void)applyChange:(id)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   changeType = [(CPLRecordChange *)self changeType];
   if (changeType == 1024)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't apply %@ to a delete", buf, 0xCu);
+        v15 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Can't apply %@ to a delete", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:1485 description:{@"Can't apply %@ to a delete", changeCopy}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:1485 description:{@"Can't apply %@ to a delete", changeCopy}];
 
     abort();
   }
@@ -917,7 +909,6 @@ LABEL_7:
   [(CPLRecordChange *)self setRecordModificationDate:recordModificationDate];
 
 LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearChangeType:(unint64_t)type
@@ -1102,58 +1093,64 @@ void __34__CPLRecordChange_copyChangeType___block_invoke(uint64_t a1, uint64_t a
 
 - (BOOL)allResourcesAreAvailable
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if ([(CPLRecordChange *)self supportsSharingScopedIdentifier]&& ([(CPLRecordChange *)self sharingScopeIdentifier], v3 = objc_claimAutoreleasedReturnValue(), v3, v3) || ![(CPLRecordChange *)self supportsResources]|| ![(CPLRecordChange *)self hasChangeType:8])
+  v18 = *MEMORY[0x1E69E9840];
+  if ([(CPLRecordChange *)self supportsSharingScopedIdentifier])
   {
-    v11 = 1;
-  }
+    sharingScopeIdentifier = [(CPLRecordChange *)self sharingScopeIdentifier];
 
-  else
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    resources = [(CPLRecordChange *)self resources];
-    v5 = [resources countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v5)
+    if (sharingScopeIdentifier)
     {
-      v6 = v5;
-      v7 = *v15;
-      while (2)
-      {
-        for (i = 0; i != v6; ++i)
-        {
-          if (*v15 != v7)
-          {
-            objc_enumerationMutation(resources);
-          }
-
-          identity = [*(*(&v14 + 1) + 8 * i) identity];
-          isAvailable = [identity isAvailable];
-
-          if (!isAvailable)
-          {
-            v11 = 0;
-            goto LABEL_17;
-          }
-        }
-
-        v6 = [resources countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v6)
-        {
-          continue;
-        }
-
-        break;
-      }
+      return 1;
     }
-
-    v11 = 1;
-LABEL_17:
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  if (![(CPLRecordChange *)self supportsResources]|| ![(CPLRecordChange *)self hasChangeType:8])
+  {
+    return 1;
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  resources = [(CPLRecordChange *)self resources];
+  v5 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(resources);
+        }
+
+        identity = [*(*(&v13 + 1) + 8 * i) identity];
+        isAvailable = [identity isAvailable];
+
+        if (!isAvailable)
+        {
+          v11 = 0;
+          goto LABEL_17;
+        }
+      }
+
+      v6 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v11 = 1;
+LABEL_17:
+
   return v11;
 }
 
@@ -1203,32 +1200,32 @@ LABEL_17:
 
 - (id)onlyAddedResources
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resources = [(CPLRecordChange *)self resources];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(resources, "count")}];
   resourceCopyFromScopedIdentifier = [(CPLRecordChange *)self resourceCopyFromScopedIdentifier];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = resources;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         identity = [v11 identity];
         fileURL = [identity fileURL];
         if (fileURL)
@@ -1258,14 +1255,12 @@ LABEL_9:
       }
 
       while (v8 != v10);
-      v15 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v15 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       v8 = v15;
     }
 
     while (v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1477,23 +1472,23 @@ uint64_t __70__CPLRecordChange_changeIsOnlyAddingResourcesToRecord_addedResource
 
 - (void)markToOnlyUploadNewResources
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (![(CPLRecordChange *)self allowsToOnlyUploadNewResources])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to mark as uploading only new resources for %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to mark as uploading only new resources for %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:1226 description:{@"Trying to mark as uploading only new resources for %@", self}];
+    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v6 lineNumber:1226 description:{@"Trying to mark as uploading only new resources for %@", self}];
 
     abort();
   }
@@ -1502,39 +1497,35 @@ uint64_t __70__CPLRecordChange_changeIsOnlyAddingResourcesToRecord_addedResource
   {
     self->_shouldOnlyUploadNewResources = 1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsSparseFullChange
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_isSparseFullChange)
   {
     if (![(CPLRecordChange *)self isFullRecord])
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v5 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v4 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           selfCopy = self;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to mark a non full record as sparse: %@", buf, 0xCu);
+          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to mark a non full record as sparse: %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:1220 description:{@"Trying to mark a non full record as sparse: %@", self}];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v6 lineNumber:1220 description:{@"Trying to mark a non full record as sparse: %@", self}];
 
       abort();
     }
 
     self->_isSparseFullChange = 1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)checkDefaultValueBlockForPropertyWithSelector:(SEL)selector
@@ -1611,48 +1602,45 @@ BOOL __65__CPLRecordChange_checkDefaultValueBlockForPropertyWithSelector___block
 
 - (unint64_t)largestResourceSize
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if ([(CPLRecordChange *)self supportsResources]&& [(CPLRecordChange *)self hasChangeType:8])
+  v17 = *MEMORY[0x1E69E9840];
+  if (![(CPLRecordChange *)self supportsResources]|| ![(CPLRecordChange *)self hasChangeType:8])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    resources = [(CPLRecordChange *)self resources];
-    v4 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
+    return 0;
+  }
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  resources = [(CPLRecordChange *)self resources];
+  v4 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v13;
+    do
     {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v14;
-      do
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(resources);
-          }
-
-          identity = [*(*(&v13 + 1) + 8 * i) identity];
-          fileSize = [identity fileSize];
-
-          if (v6 <= fileSize)
-          {
-            v6 = fileSize;
-          }
+          objc_enumerationMutation(resources);
         }
 
-        v5 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
+        identity = [*(*(&v12 + 1) + 8 * i) identity];
+        fileSize = [identity fileSize];
+
+        if (v6 <= fileSize)
+        {
+          v6 = fileSize;
+        }
       }
 
-      while (v5);
+      v5 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    else
-    {
-      v6 = 0;
-    }
+    while (v5);
   }
 
   else
@@ -1660,13 +1648,12 @@ BOOL __65__CPLRecordChange_checkDefaultValueBlockForPropertyWithSelector___block
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)resourcesDescription
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   changeType = [(CPLRecordChange *)self changeType];
   resources = [(CPLRecordChange *)self resources];
   resourceCopyFromScopedIdentifier = [(CPLRecordChange *)self resourceCopyFromScopedIdentifier];
@@ -1676,34 +1663,34 @@ LABEL_2:
     v6 = [resources count];
     if (resourceCopyFromScopedIdentifier)
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu resources (from %@)", v6, resourceCopyFromScopedIdentifier, v22];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu resources (from %@)", v6, resourceCopyFromScopedIdentifier, v21];
       v17 = LABEL_32:;
       goto LABEL_33;
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = resources;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v23 = v6;
+      v22 = v6;
       v10 = 0;
       v11 = 0;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v7);
           }
 
-          identity = [*(*(&v24 + 1) + 8 * i) identity];
+          identity = [*(*(&v23 + 1) + 8 * i) identity];
           fileURL = [identity fileURL];
 
           if (!fileURL)
@@ -1713,19 +1700,19 @@ LABEL_2:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v9);
 
       v16 = &stru_1F57BD298;
-      v6 = v23;
-      if (v23)
+      v6 = v22;
+      if (v22)
       {
         resourceCopyFromScopedIdentifier = 0;
         if (v10)
         {
-          if (v10 == v23)
+          if (v10 == v22)
           {
             v16 = @"sparse ";
             if (!v11)
@@ -1750,7 +1737,7 @@ LABEL_2:
           }
 
 LABEL_27:
-          [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@resources (%lu unav.)", v23, v16, v11];
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@resources (%lu unav.)", v22, v16, v11];
           goto LABEL_32;
         }
       }
@@ -1773,7 +1760,7 @@ LABEL_27:
     }
 
 LABEL_31:
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@resources", v6, v16, v22];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@resources", v6, v16, v21];
     goto LABEL_32;
   }
 
@@ -1798,8 +1785,6 @@ LABEL_23:
 LABEL_33:
   v18 = v17;
 LABEL_34:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1851,7 +1836,7 @@ LABEL_34:
 
 void __37__CPLRecordChange_cplFullDescription__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -1868,81 +1853,76 @@ void __37__CPLRecordChange_cplFullDescription__block_invoke(uint64_t a1, uint64_
     v5 = a1;
     [*(a1 + 32) appendString:@"  ----\n"];
     [*(v5 + 40) propertiesForChangeType:a2];
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v26 = v33 = 0u;
-    v6 = [v26 allObjects];
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v23 = v30 = 0u;
+    v6 = [v23 allObjects];
     v7 = [v6 sortedArrayUsingSelector:sel_compare_];
 
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = 0x1E695D000uLL;
-      v11 = *v31;
-      v12 = @"  %@: [%lu bytes]\n";
-      v27 = *v31;
-      v28 = v5;
+      v10 = *v28;
+      v11 = @"  %@: [%lu bytes]\n";
+      v24 = *v28;
+      v25 = v5;
       do
       {
-        v13 = 0;
-        v29 = v9;
+        v12 = 0;
+        v26 = v9;
         do
         {
-          if (*v31 != v11)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * v13);
-          v15 = [*(v5 + 40) valueForKey:v14];
-          v16 = *(v10 + 3824);
+          v13 = *(*(&v27 + 1) + 8 * v12);
+          v14 = [*(v5 + 40) valueForKey:v13];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [*(v5 + 32) appendFormat:v12, v14, objc_msgSend(v15, "length")];
+            [*(v5 + 32) appendFormat:v11, v13, objc_msgSend(v14, "length")];
           }
 
           else
           {
-            v17 = objc_autoreleasePoolPush();
-            v18 = [v15 cplFullDescription];
-            if ([v18 length] >= 0x2801)
+            v15 = objc_autoreleasePoolPush();
+            v16 = [v14 cplFullDescription];
+            if ([v16 length] >= 0x2801)
             {
-              v19 = MEMORY[0x1E696AEC0];
-              [v18 substringToIndex:1000];
-              v21 = v20 = v7;
-              [v18 substringFromIndex:{objc_msgSend(v18, "length") - 1000}];
-              v23 = v22 = v12;
-              v24 = [v19 stringWithFormat:@"%@...%@", v21, v23];
+              v17 = MEMORY[0x1E696AEC0];
+              [v16 substringToIndex:1000];
+              v19 = v18 = v7;
+              [v16 substringFromIndex:{objc_msgSend(v16, "length") - 1000}];
+              v21 = v20 = v11;
+              v22 = [v17 stringWithFormat:@"%@...%@", v19, v21];
 
-              v12 = v22;
-              v7 = v20;
-              v10 = 0x1E695D000;
-              v18 = v24;
-              v11 = v27;
-              v5 = v28;
+              v11 = v20;
+              v7 = v18;
+              v16 = v22;
+              v10 = v24;
+              v5 = v25;
             }
 
-            [*(v5 + 32) appendFormat:@"  %@: %@\n", v14, v18];
+            [*(v5 + 32) appendFormat:@"  %@: %@\n", v13, v16];
 
-            objc_autoreleasePoolPop(v17);
-            v9 = v29;
+            objc_autoreleasePoolPop(v15);
+            v9 = v26;
           }
 
-          ++v13;
+          ++v12;
         }
 
-        while (v9 != v13);
-        v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        while (v9 != v12);
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v9);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)dequeueOrder
@@ -1978,81 +1958,77 @@ void __37__CPLRecordChange_cplFullDescription__block_invoke(uint64_t a1, uint64_
 
 - (void)awakeFromStorage
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CPLRecordChange *)self supportsResources])
   {
     scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     resources = [(CPLRecordChange *)self resources];
-    v5 = [resources countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [resources countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(resources);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) setItemScopedIdentifier:scopedIdentifier];
+          [*(*(&v9 + 1) + 8 * v8++) setItemScopedIdentifier:scopedIdentifier];
         }
 
         while (v6 != v8);
-        v6 = [resources countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [resources countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareForStorage
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([(CPLRecordChange *)self supportsResources])
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     resources = [(CPLRecordChange *)self resources];
-    v4 = [resources countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [resources countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(resources);
           }
 
-          [*(*(&v9 + 1) + 8 * v7++) setItemScopedIdentifier:0];
+          [*(*(&v8 + 1) + 8 * v7++) setItemScopedIdentifier:0];
         }
 
         while (v5 != v7);
-        v5 = [resources countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [resources countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearIdentifiers
@@ -2227,9 +2203,8 @@ LABEL_16:
   return v3;
 }
 
-void __43__CPLRecordChange_propertiesForChangeType___block_invoke_159(uint64_t a1)
+void __43__CPLRecordChange_propertiesForChangeType___block_invoke_159(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = [propertiesForChangeType__classToProperties objectForKey:v3];
   v5 = *(*(a1 + 40) + 8);
@@ -2238,79 +2213,78 @@ void __43__CPLRecordChange_propertiesForChangeType___block_invoke_159(uint64_t a
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() cplAllPropertyNames];
-    v18 = [v8 mutableCopy];
+    v7 = [objc_opt_class() cplAllPropertyNames];
+    v17 = [v7 mutableCopy];
 
-    v9 = [*(a1 + 32) propertiesForChangeType:64];
-    if (v9)
+    v8 = [*(a1 + 32) propertiesForChangeType:64];
+    if (v8)
     {
-      [v18 minusSet:v9];
+      [v17 minusSet:v8];
     }
 
-    v10 = [*(a1 + 32) propertiesForChangeType:32];
+    v9 = [*(a1 + 32) propertiesForChangeType:32];
+
+    if (v9)
+    {
+      [v17 minusSet:v9];
+    }
+
+    v10 = [*(a1 + 32) propertiesForChangeType:16];
 
     if (v10)
     {
-      [v18 minusSet:v10];
+      [v17 minusSet:v10];
     }
 
-    v11 = [*(a1 + 32) propertiesForChangeType:16];
+    v11 = [*(a1 + 32) propertiesForChangeType:8];
 
     if (v11)
     {
-      [v18 minusSet:v11];
+      [v17 minusSet:v11];
     }
 
-    v12 = [*(a1 + 32) propertiesForChangeType:8];
+    v12 = [*(a1 + 32) propertiesForChangeType:256];
 
+    v13 = v17;
     if (v12)
     {
-      [v18 minusSet:v12];
+      [v17 minusSet:v12];
+      v13 = v17;
     }
 
-    v13 = [*(a1 + 32) propertiesForChangeType:256];
-
-    v14 = v18;
-    if (v13)
-    {
-      [v18 minusSet:v13];
-      v14 = v18;
-    }
-
-    [v14 removeObject:@"changeType"];
-    [v18 removeObject:@"recordChangeData"];
-    [v18 removeObject:@"sharingRecordChangeData"];
+    [v13 removeObject:@"changeType"];
+    [v17 removeObject:@"recordChangeData"];
+    [v17 removeObject:@"sharingRecordChangeData"];
     if (!+[CPLAssetChange serverSupportsSharedLibrarySharingState])
     {
-      [v18 removeObject:@"sharedLibrarySharingState"];
+      [v17 removeObject:@"sharedLibrarySharingState"];
     }
 
     if (!+[CPLAssetChange serverSupportsDeletedByUserIdentifier])
     {
-      [v18 removeObject:@"deletedByUserIdentifier"];
+      [v17 removeObject:@"deletedByUserIdentifier"];
     }
 
     if (!+[CPLAssetChange serverSupportsLastViewedDate])
     {
-      [v18 removeObject:@"lastViewedDate"];
+      [v17 removeObject:@"lastViewedDate"];
     }
 
     if (!+[CPLPersonChange serverSupportsDetectionType])
     {
-      [v18 removeObject:@"detectionType"];
+      [v17 removeObject:@"detectionType"];
     }
 
     if (!+[CPLPersonChange serverSupportsAssetSortOrder])
     {
-      [v18 removeObject:@"assetSortOrder"];
+      [v17 removeObject:@"assetSortOrder"];
     }
 
-    [v18 removeObject:@"serverRecordIsCorrupted"];
-    v15 = [v18 copy];
-    v16 = *(*(a1 + 40) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    [v17 removeObject:@"serverRecordIsCorrupted"];
+    v14 = [v17 copy];
+    v15 = *(*(a1 + 40) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
     [propertiesForChangeType__classToProperties setObject:*(*(*(a1 + 40) + 8) + 40) forKey:v3];
   }
@@ -2480,58 +2454,55 @@ void __66__CPLRecordChange_mergeRecordChangeWithNewRecordChange_direction___bloc
 {
   if ((*(a1 + 72) & a2) != 0)
   {
-    v5 = [*(a1 + 32) propertiesForChangeType:a2];
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v12 = v5;
+    v9 = [*(a1 + 32) propertiesForChangeType:a2];
     [*(a1 + 40) cplCopyProperties:? fromObject:? withCopyBlock:?];
     if (*(a1 + 80) == 1)
     {
-      v8 = *(*(a1 + 64) + 8);
-      v9 = *(v8 + 24);
-      if (v9)
+      v5 = *(*(a1 + 64) + 8);
+      v6 = *(v5 + 24);
+      if (v6)
       {
-        v10 = a2 == 0;
+        v7 = a2 == 0;
       }
 
       else
       {
-        v10 = 1;
+        v7 = 1;
       }
 
-      v11 = v9 | a2;
-      if (v10)
+      v8 = v6 | a2;
+      if (v7)
       {
-        v11 = 0;
+        v8 = 0;
       }
 
-      *(v8 + 24) = v11;
+      *(v5 + 24) = v8;
     }
   }
 }
 
 - (BOOL)resourceChangeWillOnlyChangeDerivatives:(id)derivatives
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   derivativesCopy = derivatives;
   if (!-[CPLRecordChange supportsResources](self, "supportsResources") || !-[CPLRecordChange isFullRecord](self, "isFullRecord") || ([derivativesCopy hasChangeType:8] & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v29 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v42 = derivativesCopy;
-        v43 = 2112;
+        v41 = derivativesCopy;
+        v42 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "Incorrectly trying to filter out derivatives change %@ from %@", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "Incorrectly trying to filter out derivatives change %@ from %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v31 lineNumber:748 description:{@"Incorrectly trying to filter out derivatives change %@ from %@", derivativesCopy, self}];
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v30 lineNumber:748 description:{@"Incorrectly trying to filter out derivatives change %@ from %@", derivativesCopy, self}];
 
     abort();
   }
@@ -2548,30 +2519,30 @@ void __66__CPLRecordChange_mergeRecordChangeWithNewRecordChange_direction___bloc
     if (v10 == [resources2 count])
     {
       objectEnumerator = [resources2 objectEnumerator];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       v12 = resources;
-      v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v13)
       {
         v14 = v13;
-        v32 = resources2;
-        v33 = resources;
-        v34 = v7;
-        v35 = derivativesCopy;
-        v15 = *v37;
+        v31 = resources2;
+        v32 = resources;
+        v33 = v7;
+        v34 = derivativesCopy;
+        v15 = *v36;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v37 != v15)
+            if (*v36 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v36 + 1) + 8 * i);
+            v17 = *(*(&v35 + 1) + 8 * i);
             nextObject = [objectEnumerator nextObject];
             if (!-[CPLRecordChange isResourceTypeAGeneratedDerivative:](self, "isResourceTypeAGeneratedDerivative:", [v17 resourceType]))
             {
@@ -2613,7 +2584,7 @@ LABEL_22:
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
           if (v14)
           {
             continue;
@@ -2624,10 +2595,10 @@ LABEL_22:
 
         v26 = 1;
 LABEL_23:
-        v7 = v34;
-        derivativesCopy = v35;
-        resources2 = v32;
-        resources = v33;
+        v7 = v33;
+        derivativesCopy = v34;
+        resources2 = v31;
+        resources = v32;
       }
 
       else
@@ -2647,7 +2618,6 @@ LABEL_23:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -2673,25 +2643,25 @@ LABEL_23:
 
 - (id)realRecordChangeFromRecordChange:(id)change direction:(unint64_t)direction newRecord:(id *)record changeType:(unint64_t)type diffTracker:(id)tracker
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   trackerCopy = tracker;
   if ((type & 0x400) != 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v31 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v31, OS_LOG_TYPE_ERROR, "Trying to compute changes for a delete change: %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Trying to compute changes for a delete change: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v33 lineNumber:669 description:{@"Trying to compute changes for a delete change: %@", changeCopy}];
+    v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v32 lineNumber:669 description:{@"Trying to compute changes for a delete change: %@", changeCopy}];
 
 LABEL_16:
     abort();
@@ -2706,8 +2676,8 @@ LABEL_16:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v34 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         scopedIdentifier3 = [changeCopy scopedIdentifier];
         scopedIdentifier4 = [(CPLRecordChange *)self scopedIdentifier];
@@ -2715,15 +2685,15 @@ LABEL_16:
         *&buf[4] = scopedIdentifier3;
         *&buf[12] = 2112;
         *&buf[14] = scopedIdentifier4;
-        _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_ERROR, "Mismatched identifier between change (%@) and record (%@)", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Mismatched identifier between change (%@) and record (%@)", buf, 0x16u);
       }
     }
 
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
     scopedIdentifier5 = [changeCopy scopedIdentifier];
     scopedIdentifier6 = [(CPLRecordChange *)self scopedIdentifier];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:v38 lineNumber:670 description:{@"Mismatched identifier between change (%@) and record (%@)", scopedIdentifier5, scopedIdentifier6}];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:v37 lineNumber:670 description:{@"Mismatched identifier between change (%@) and record (%@)", scopedIdentifier5, scopedIdentifier6}];
 
     goto LABEL_16;
   }
@@ -2737,31 +2707,31 @@ LABEL_16:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v56 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __95__CPLRecordChange_realRecordChangeFromRecordChange_direction_newRecord_changeType_diffTracker___block_invoke;
-  v42[3] = &unk_1E861E0F8;
+  v55 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __95__CPLRecordChange_realRecordChangeFromRecordChange_direction_newRecord_changeType_diffTracker___block_invoke;
+  v41[3] = &unk_1E861E0F8;
   typeCopy = type;
-  v41 = v15;
-  v43 = v41;
+  v40 = v15;
+  v42 = v40;
   v23 = v19;
-  v44 = v23;
+  v43 = v23;
   v24 = changeCopy;
-  v45 = v24;
+  v44 = v24;
   v25 = v22;
-  v46 = v25;
-  v47 = buf;
+  v45 = v25;
+  v46 = buf;
   directionCopy = direction;
-  v48 = &v51;
-  v26 = MEMORY[0x1E128EBA0](v42);
+  v47 = &v50;
+  v26 = MEMORY[0x1E128EBA0](v41);
   [(CPLRecordChange *)self enumerateChangeTypesForChangeType:0 block:v26];
   v26[2](v26, 256);
-  if (v52[3] == 256)
+  if (v51[3] == 256)
   {
     *(*&buf[8] + 24) = 0;
   }
@@ -2771,7 +2741,7 @@ LABEL_16:
     [v23 setChangeType:0];
     v27 = v23;
     *record = v23;
-    v52[3] &= ~0x100uLL;
+    v51[3] &= ~0x100uLL;
     [v25 setChangeType:?];
     goto LABEL_8;
   }
@@ -2780,10 +2750,8 @@ LABEL_16:
 LABEL_8:
   v28 = v25;
 
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v50, 8);
   _Block_object_dispose(buf, 8);
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -2864,7 +2832,7 @@ LABEL_14:
   }
 }
 
-uint64_t __95__CPLRecordChange_realRecordChangeFromRecordChange_direction_newRecord_changeType_diffTracker___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__95__CPLRecordChange_realRecordChangeFromRecordChange_direction_newRecord_changeType_diffTracker___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) applyChange:*(a1 + 40) copyPropertiesToFinalChange:*(a1 + 48) forChangeType:*(a1 + 64) direction:*(a1 + 72) diffTracker:a2];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -3159,27 +3127,27 @@ LABEL_28:
 
 - (unint64_t)originalResourceSize
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   resources = [(CPLRecordChange *)self resources];
-  v3 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(resources);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         if ([v7 resourceType] == 1 || objc_msgSend(v7, "resourceType") == 17 || objc_msgSend(v7, "resourceType") == 18 || objc_msgSend(v7, "resourceType") == 23 || objc_msgSend(v7, "resourceType") == 24)
         {
           identity = [v7 identity];
@@ -3194,7 +3162,7 @@ LABEL_28:
         }
       }
 
-      v4 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
       fileURL = 0;
       if (v4)
       {
@@ -3212,62 +3180,10 @@ LABEL_28:
 
 LABEL_18:
 
-  v10 = *MEMORY[0x1E69E9840];
   return fileURL;
 }
 
 - (unint64_t)realUploadResourceSize
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  resources = [(CPLRecordChange *)self resources];
-  v3 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = 0;
-    v6 = *v14;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v14 != v6)
-        {
-          objc_enumerationMutation(resources);
-        }
-
-        v8 = *(*(&v13 + 1) + 8 * i);
-        if ([v8 resourceType] <= 0x1D)
-        {
-          identity = [v8 identity];
-          fileURL = [identity fileURL];
-
-          if (fileURL)
-          {
-            v5 += [identity fileSize];
-          }
-        }
-      }
-
-      v4 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return v5;
-}
-
-- (unint64_t)realResourceSize
 {
   v17 = *MEMORY[0x1E69E9840];
   v12 = 0u;
@@ -3290,12 +3206,16 @@ LABEL_18:
           objc_enumerationMutation(resources);
         }
 
-        identity = [*(*(&v12 + 1) + 8 * i) identity];
-        fileURL = [identity fileURL];
-
-        if (fileURL)
+        v8 = *(*(&v12 + 1) + 8 * i);
+        if ([v8 resourceType] <= 0x1D)
         {
-          v5 += [identity fileSize];
+          identity = [v8 identity];
+          fileURL = [identity fileURL];
+
+          if (fileURL)
+          {
+            v5 += [identity fileSize];
+          }
         }
       }
 
@@ -3310,7 +3230,52 @@ LABEL_18:
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
+  return v5;
+}
+
+- (unint64_t)realResourceSize
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  resources = [(CPLRecordChange *)self resources];
+  v3 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = 0;
+    v6 = *v12;
+    do
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        if (*v12 != v6)
+        {
+          objc_enumerationMutation(resources);
+        }
+
+        identity = [*(*(&v11 + 1) + 8 * i) identity];
+        fileURL = [identity fileURL];
+
+        if (fileURL)
+        {
+          v5 += [identity fileSize];
+        }
+      }
+
+      v4 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v4);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
   return v5;
 }
 
@@ -3341,34 +3306,34 @@ LABEL_18:
 
 - (unint64_t)totalResourceSize
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   resources = [(CPLRecordChange *)self resources];
-  v3 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(resources);
         }
 
-        identity = [*(*(&v12 + 1) + 8 * i) identity];
+        identity = [*(*(&v11 + 1) + 8 * i) identity];
         fileSize = [identity fileSize];
 
         v5 += fileSize;
       }
 
-      v4 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -3379,33 +3344,32 @@ LABEL_18:
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)resourceForType:(unint64_t)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   resources = [(CPLRecordChange *)self resources];
-  v5 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(resources);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 resourceType] == type)
         {
           v10 = v9;
@@ -3413,7 +3377,7 @@ LABEL_18:
         }
       }
 
-      v6 = [resources countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -3425,8 +3389,6 @@ LABEL_18:
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -3505,24 +3467,24 @@ LABEL_11:
 
 - (BOOL)isSharedInScopeWithIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (![(CPLRecordChange *)self hasChangeType:64])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Trying to get sharing scope identifier for %@ while it does not contain the info", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to get sharing scope identifier for %@ while it does not contain the info", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:288 description:{@"Trying to get sharing scope identifier for %@ while it does not contain the info", self}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:288 description:{@"Trying to get sharing scope identifier for %@ while it does not contain the info", self}];
 
     abort();
   }
@@ -3538,7 +3500,6 @@ LABEL_11:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3685,25 +3646,25 @@ LABEL_11:
 
 - (BOOL)isInScopeWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopedIdentifier = self->_scopedIdentifier;
   if (!scopedIdentifier)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Missing scope identifier in %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Missing scope identifier in %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:164 description:{@"Missing scope identifier in %@", self}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordChange.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:164 description:{@"Missing scope identifier in %@", self}];
 
     abort();
   }
@@ -3711,7 +3672,6 @@ LABEL_11:
   scopeIdentifier = [(CPLScopedIdentifier *)scopedIdentifier scopeIdentifier];
   v8 = [scopeIdentifier isEqualToString:identifierCopy];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3735,45 +3695,43 @@ LABEL_11:
 
 - (void)setScopeIndex:(int64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(CPLScopedIdentifier *)self->_scopedIdentifier setScopeIndex:?];
   if ([(CPLRecordChange *)self supportsResources]&& [(CPLRecordChange *)self hasChangeType:8])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     resources = [(CPLRecordChange *)self resources];
-    v6 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(resources);
           }
 
-          itemScopedIdentifier = [*(*(&v12 + 1) + 8 * v9) itemScopedIdentifier];
+          itemScopedIdentifier = [*(*(&v11 + 1) + 8 * v9) itemScopedIdentifier];
           [itemScopedIdentifier setScopeIndex:index];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [resources countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [resources countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)asRecordView
@@ -3785,11 +3743,11 @@ LABEL_11:
 
 - (BOOL)validateRecordForTracker:(id)tracker
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   trackerCopy = tracker;
-  v30 = 0;
-  v5 = [(CPLRecordChange *)self validateChangeWithError:&v30];
-  v6 = v30;
+  v29 = 0;
+  v5 = [(CPLRecordChange *)self validateChangeWithError:&v29];
+  v6 = v29;
   if (!v5)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3841,41 +3799,41 @@ LABEL_24:
     goto LABEL_27;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   scopedIdentifier = [(CPLRecordChange *)self resources];
-  v10 = [scopedIdentifier countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [scopedIdentifier countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
-    v25 = v6;
-    v12 = *v27;
+    v24 = v6;
+    v12 = *v26;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(scopedIdentifier);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         scopedIdentifier3 = [(CPLRecordChange *)v14 identity];
         fileUTI = [scopedIdentifier3 fileUTI];
 
         if (!fileUTI)
         {
-          v6 = v25;
+          v6 = v24;
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v22 = __CPLSessionOSLogDomain_16325();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v21 = __CPLSessionOSLogDomain_16325();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               selfCopy = v14;
-              _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Client pushed a resource with no fileUTI: %@", buf, 0xCu);
+              _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Client pushed a resource with no fileUTI: %@", buf, 0xCu);
             }
           }
 
@@ -3887,7 +3845,7 @@ LABEL_24:
         }
       }
 
-      v11 = [scopedIdentifier countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [scopedIdentifier countByEnumeratingWithState:&v25 objects:v30 count:16];
       v17 = 1;
       if (v11)
       {
@@ -3897,7 +3855,7 @@ LABEL_24:
       break;
     }
 
-    v6 = v25;
+    v6 = v24;
   }
 
   else
@@ -3908,7 +3866,6 @@ LABEL_24:
 LABEL_26:
 
 LABEL_27:
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

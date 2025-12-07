@@ -42,7 +42,7 @@
 
 - (id)specifiers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!_os_feature_enabled_impl())
   {
     goto LABEL_4;
@@ -75,42 +75,42 @@ LABEL_15:
     v20 = [v19 localizedStringForKey:@"BUSINESS_CONNECT_CALLING_FOOTER_TEXT" value:&stru_282D54710 table:@"CallDirectorySettings"];
     [activeSubscriptions setProperty:v20 forKey:*MEMORY[0x277D3FF88]];
 
-    v27[0] = activeSubscriptions;
-    v27[1] = v18;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = activeSubscriptions;
+    v26[1] = v18;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   }
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     carrierBundleController = [(PHBusinessConnectCallingController *)self carrierBundleController];
     activeSubscriptions = [carrierBundleController activeSubscriptions];
 
-    v8 = [activeSubscriptions countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v8 = [activeSubscriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(activeSubscriptions);
           }
 
-          if ([(PHBusinessConnectCallingController *)self supportsBusinessConnectCallingForSubscriptionContext:*(*(&v23 + 1) + 8 * i)])
+          if ([(PHBusinessConnectCallingController *)self supportsBusinessConnectCallingForSubscriptionContext:*(*(&v22 + 1) + 8 * i)])
           {
 
             goto LABEL_15;
           }
         }
 
-        v9 = [activeSubscriptions countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v9 = [activeSubscriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
         if (v9)
         {
           continue;
@@ -124,7 +124,6 @@ LABEL_15:
   }
 
 LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -136,42 +135,41 @@ LABEL_17:
   v13 = 0;
   v5 = [(PHBusinessConnectCallingController *)self stringForKeyHierarchy:&unk_282D5D648 subscriptionContext:contextCopy error:&v13];
   v6 = v13;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v15 = v5;
       v16 = 2112;
       v17 = contextCopy;
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved verstat feature capability value '%@' for subscription %@", buf, 0x16u);
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Retrieved verstat feature capability value '%@' for subscription %@", buf, 0x16u);
     }
 
-    v9 = [v5 isEqualToIgnoringCase:@"Disabled"] ^ 1;
+    v10 = [v5 isEqualToIgnoringCase:@"Disabled"] ^ 1;
   }
 
   else
   {
     if (v6)
     {
-      v10 = TPSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = TPSLog(v6, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v15 = contextCopy;
         v16 = 2112;
-        v17 = v7;
-        _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Retrieving verstat feature capability value for subscription %@ failed with error %@", buf, 0x16u);
+        v17 = v8;
+        _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "Retrieving verstat feature capability value for subscription %@ failed with error %@", buf, 0x16u);
       }
     }
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (id)objectForKeyHierarchy:(id)hierarchy subscriptionContext:(id)context error:(id *)error
@@ -228,12 +226,12 @@ LABEL_17:
 {
   v11 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(enabledCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
     v10 = enabledCopy;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "User toggled business connect calling switch to %@", &v9, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "User toggled business connect calling switch to %@", &v9, 0xCu);
   }
 
   if ([(TUFeatureFlags *)self->_featureFlags deviceExpertMigrationEnabled])
@@ -248,8 +246,6 @@ LABEL_17:
     configurationProvider = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(enabledCopy, "BOOLValue") ^ 1}];
     [(PHBusinessConnectCallingController *)self setValueInUserDefaults:configurationProvider forKey:*MEMORY[0x277D6EFA8]];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getBooleanFromUserDefaults:(id)defaults default:(id)default

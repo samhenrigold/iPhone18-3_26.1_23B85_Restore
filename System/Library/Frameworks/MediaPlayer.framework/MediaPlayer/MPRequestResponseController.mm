@@ -1148,7 +1148,7 @@ void __58__MPRequestResponseController_endAutomaticResponseLoading__block_invoke
   }
 }
 
-uint64_t __43__MPRequestResponseController_setResponse___block_invoke(uint64_t a1)
+void *__43__MPRequestResponseController_setResponse___block_invoke(uint64_t a1)
 {
   v37 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 88))

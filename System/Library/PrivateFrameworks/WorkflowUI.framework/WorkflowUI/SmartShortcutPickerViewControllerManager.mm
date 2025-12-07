@@ -17,7 +17,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2747EA338();
+  sub_2747EA338(delegate);
 }
 
 - (id)makeViewControllerWith:(id)with

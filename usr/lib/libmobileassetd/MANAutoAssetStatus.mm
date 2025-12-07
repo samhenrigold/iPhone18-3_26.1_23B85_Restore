@@ -196,8 +196,8 @@
   availableForUseError = [(MANAutoAssetStatus *)self availableForUseError];
   [coderCopy encodeObject:availableForUseError forKey:@"availableForUseError"];
 
-  patchingAttemptError = [(MANAutoAssetStatus *)self patchingAttemptError];
-  [coderCopy encodeObject:patchingAttemptError forKey:@"patchingAttemptError"];
+  v14 = objc_msgSend_patchingAttemptError(self);
+  [coderCopy encodeObject:v14 forKey:@"patchingAttemptError"];
 
   newerVersionError = [(MANAutoAssetStatus *)self newerVersionError];
   [coderCopy encodeObject:newerVersionError forKey:@"newerVersionError"];
@@ -229,12 +229,12 @@
   currentLockUsage = [(MANAutoAssetStatus *)self currentLockUsage];
   v7 = [currentLockUsage copy];
   availableForUseError = [(MANAutoAssetStatus *)self availableForUseError];
-  patchingAttemptError = [(MANAutoAssetStatus *)self patchingAttemptError];
+  v9 = objc_msgSend_patchingAttemptError(self);
   newerVersionError = [(MANAutoAssetStatus *)self newerVersionError];
   BYTE1(v13) = stagedPriorToAvailable;
   LOBYTE(v13) = patchingAttempted;
   LOBYTE(v12) = downloadedAsPatch;
-  v28 = [(MANAutoAssetStatus *)v27 initWithAssetSelector:v26 withNotifications:v25 withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v32 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v12 withPatchedFromBaseSelector:v15 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v13 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:v7 withCurrentLockUsage:availableForUseError withAvailableForUseError:patchingAttemptError withPatchingAttemptError:newerVersionError withNewerVersionError:?];
+  v28 = [(MANAutoAssetStatus *)v27 initWithAssetSelector:v26 withNotifications:v25 withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:newerVersionAttributes withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:v32 withDownloadedNetworkBytes:downloadedNetworkBytes withDownloadedFilesystemBytes:downloadedFilesystemBytes withDownloadedAsPatch:v12 withPatchedFromBaseSelector:v15 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes withPatchingAttempted:v13 withStagedPriorToAvailable:stagedFromOSVersion withStagedFromOSVersion:stagedFromBuildVersion withStagedFromBuildVersion:v7 withCurrentLockUsage:availableForUseError withAvailableForUseError:v9 withPatchingAttemptError:newerVersionError withNewerVersionError:?];
 
   return v28;
 }
@@ -393,12 +393,12 @@
     checkedSummary = @"N";
   }
 
-  patchingAttemptError = [(MANAutoAssetStatus *)self patchingAttemptError];
+  v19 = objc_msgSend_patchingAttemptError(self);
   v55 = stagedFromOSVersion;
-  if (patchingAttemptError)
+  if (v19)
   {
-    patchingAttemptError2 = [(MANAutoAssetStatus *)self patchingAttemptError];
-    checkedSummary2 = [patchingAttemptError2 checkedSummary];
+    v39 = objc_msgSend_patchingAttemptError(self);
+    checkedSummary2 = [v39 checkedSummary];
   }
 
   else
@@ -432,7 +432,7 @@
     v58 = [NSMutableString stringWithFormat:@"                   assetSelector: %@\n                   notifications: %@\n       availableForUseAttributes: %@\n          newerVersionAttributes: %@\n                 neverBeenLocked: %@\n           downloadUserInitiated: %@\n                downloadProgress: %@\n          downloadedNetworkBytes: %ld\n       downloadedFilesystemBytes: %ld\n               downloadedAsPatch: %@\n         patchedFromBaseSelector: %@\n  patchedFromBaseFilesystemBytes: %ld\n               patchingAttempted: %@\n          stagedPriorToAvailable: %@\n             stagedFromOSVersion: %@\n          stagedFromBuildVersion: %@\n                currentLockUsage: %@\n            availableForUseError: %@\n            patchingAttemptError: %@\n               newerVersionError: %@\n", summary, summary2, v57, v56, v54, v53, summary3, downloadedNetworkBytes, downloadedFilesystemBytes, v49, summary4, patchedFromBaseFilesystemBytes, v46, v45, stagedFromOSVersion2, stagedFromBuildVersion2, v61, checkedSummary, checkedSummary2, @"N"];
   }
 
-  if (patchingAttemptError)
+  if (v19)
   {
   }
 
@@ -668,12 +668,12 @@
     checkedSummary = @"N";
   }
 
-  patchingAttemptError = [(MANAutoAssetStatus *)self patchingAttemptError];
+  v19 = objc_msgSend_patchingAttemptError(self);
   v52 = stagedFromBuildVersion;
-  if (patchingAttemptError)
+  if (v19)
   {
-    patchingAttemptError2 = [(MANAutoAssetStatus *)self patchingAttemptError];
-    checkedSummary2 = [patchingAttemptError2 checkedSummary];
+    v39 = objc_msgSend_patchingAttemptError(self);
+    checkedSummary2 = [v39 checkedSummary];
   }
 
   else
@@ -708,7 +708,7 @@
     v58 = [NSMutableString stringWithFormat:@"[assetSelector:%@|notifications:%@|availableForUseAttributes:%@|newerVersionAttributes:%@|neverBeenLocked:%@|downloadUserInitiated:%@|downloadProgress:%@|downloadedNetworkBytes:%ld|downloadedFilesystemBytes:%ld|downloadedAsPatch:%@|patchedFromBaseSelector:%@|patchedFromBaseBytes:%ld|patchingAttempted:%@|stagedPriorToAvailable:%@|stagedFromOSVersion:%@|stagedFromBuildVersion:%@|currentLockUsage:%@|availableForUseError:%@|patchingAttemptError:%@|newerVersionError:%@", summary, summary2, v57, v56, v54, v53, summary3, downloadedNetworkBytes, downloadedFilesystemBytes, v49, summary4, patchedFromBaseFilesystemBytes, v46, v45, stagedFromOSVersion2, stagedFromBuildVersion2, v61, checkedSummary, checkedSummary2, @"N"];
   }
 
-  if (patchingAttemptError)
+  if (v19)
   {
   }
 

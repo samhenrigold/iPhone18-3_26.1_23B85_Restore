@@ -141,7 +141,7 @@ void __63__GKTurnBasedMatchmakerHostViewController_extensionObjectProxy__block_i
 {
   extensionCopy = extension;
   v5 = MEMORY[0x277CCAAC8];
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(extensionCopy);
   v18 = 0;
   v7 = [v5 unarchivedObjectOfClasses:v6 fromData:extensionCopy error:&v18];
   v8 = v18;

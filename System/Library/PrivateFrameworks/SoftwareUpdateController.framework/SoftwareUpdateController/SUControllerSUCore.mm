@@ -9,7 +9,7 @@
 
 + (id)newDescriptorFromCoreDescriptor:(id)descriptor corePolicy:(id)policy
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   policyCopy = policy;
   v7 = policyCopy;
@@ -29,21 +29,21 @@
 
   if (documentation)
   {
-    v38 = [SUControllerDocumentation alloc];
+    v37 = [SUControllerDocumentation alloc];
     documentation2 = [descriptorCopy documentation];
     localBundleURL = [documentation2 localBundleURL];
     documentation3 = [descriptorCopy documentation];
     [documentation3 serverAssetURL];
-    v11 = v40 = v7;
+    v11 = v39 = v7;
     documentation4 = [descriptorCopy documentation];
     serverAssetMeasurement = [documentation4 serverAssetMeasurement];
     documentation5 = [descriptorCopy documentation];
     serverAssetAlgorithm = [documentation5 serverAssetAlgorithm];
     documentation6 = [descriptorCopy documentation];
-    v17 = -[SUControllerDocumentation initWithDocumentationBundleURL:serverAssetURL:serverAssetMeasurement:serverAssetAlgorithm:serverAssetChunkSize:](v38, "initWithDocumentationBundleURL:serverAssetURL:serverAssetMeasurement:serverAssetAlgorithm:serverAssetChunkSize:", localBundleURL, v11, serverAssetMeasurement, serverAssetAlgorithm, [documentation6 serverAssetChunkSize]);
+    v17 = -[SUControllerDocumentation initWithDocumentationBundleURL:serverAssetURL:serverAssetMeasurement:serverAssetAlgorithm:serverAssetChunkSize:](v37, "initWithDocumentationBundleURL:serverAssetURL:serverAssetMeasurement:serverAssetAlgorithm:serverAssetChunkSize:", localBundleURL, v11, serverAssetMeasurement, serverAssetAlgorithm, [documentation6 serverAssetChunkSize]);
     [(SUControllerDescriptor *)v8 setDocumentation:v17];
 
-    v7 = v40;
+    v7 = v39;
   }
 
   else
@@ -65,7 +65,7 @@
       mEMORY[0x277D64418] = [MEMORY[0x277D64418] sharedDevice];
       deviceClass = [mEMORY[0x277D64418] deviceClass];
       *buf = 138412290;
-      v42 = deviceClass;
+      v41 = deviceClass;
       _os_log_impl(&dword_26AB15000, oslog, OS_LOG_TYPE_DEFAULT, "[DESCRIPTOR_FROM_CORE] SUCore descriptor is missing documentation information, allowed for %@ devices", buf, 0xCu);
     }
   }
@@ -136,7 +136,6 @@ LABEL_13:
 
 LABEL_17:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

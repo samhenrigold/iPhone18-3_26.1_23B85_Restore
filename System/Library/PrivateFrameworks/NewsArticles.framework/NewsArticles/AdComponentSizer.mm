@@ -20,11 +20,11 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1D7CC4E0C();
-  v7 = v6;
+  sub_1D7CC4E0C(width);
+  v8 = v7;
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (_NSRange)overrideColumnLayoutForColumnRange:(_NSRange)range inColumnLayout:(id)layout
@@ -33,13 +33,14 @@
   location = range.location;
   layoutCopy = layout;
   selfCopy = self;
-  v9 = sub_1D7CC44DC(location, length, layoutCopy);
-  v11 = v10;
+  sub_1D7CC44DC(location, length, layoutCopy);
+  v10 = v9;
+  v12 = v11;
 
-  v12 = v9;
-  v13 = v11;
-  result.length = v13;
-  result.location = v12;
+  v13 = v10;
+  v14 = v12;
+  result.length = v14;
+  result.location = v13;
   return result;
 }
 

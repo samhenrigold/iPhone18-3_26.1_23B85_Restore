@@ -49,7 +49,7 @@
   }
 
   v10 = v9;
-  sub_100005744(0, &qword_100978360);
+  sub_100005744(0, &qword_100978360, NSObject_ptr);
   v11 = static NSObject.== infix(_:_:)();
 
   v7 = v10;

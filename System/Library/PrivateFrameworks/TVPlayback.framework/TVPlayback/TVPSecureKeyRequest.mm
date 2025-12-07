@@ -152,10 +152,9 @@ uint64_t __70__TVPSecureKeyRequest_loadKeyRequestDataAsynchronouslyWithCompletio
   result = *(a1 + 48);
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;

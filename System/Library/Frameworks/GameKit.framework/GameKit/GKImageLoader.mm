@@ -14,12 +14,10 @@
 
 + (id)getImageURLForURLTemplate:(id)template size:(int64_t)size scale:(double)scale
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"template";
-  v8[0] = template;
-  result = [MEMORY[0x277CBEBC0] URLWithString:{objc_msgSend(objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1), "_gkImageURLForSize:scale:", size, scale)}];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"template";
+  v7[0] = template;
+  return [MEMORY[0x277CBEBC0] URLWithString:{objc_msgSend(objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1), "_gkImageURLForSize:scale:", size, scale)}];
 }
 
 @end

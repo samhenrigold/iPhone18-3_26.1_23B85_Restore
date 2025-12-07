@@ -28,7 +28,7 @@
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000025);
   v4 = sub_1A524C634();
 
   return v4;
@@ -46,7 +46,7 @@
   v6 = _Block_copy(handler);
   sub_1A524C674();
   *(swift_allocObject() + 16) = v6;
-  sub_1A3C52C70(0, &qword_1EB126590);
+  sub_1A3C52C70(0, &qword_1EB126590, 0x1E69DC628);
   imageCopy = image;
   v8 = sub_1A524DC64();
 

@@ -72,48 +72,48 @@
       if (v13)
       {
         properties = [v13 properties];
-        v15 = [properties _pas_filteredArrayWithTest:&__block_literal_global_53_1];
+        v16 = [properties _pas_filteredArrayWithTest:&__block_literal_global_53_1];
 
-        firstObject2 = [v15 firstObject];
-        v17 = firstObject2;
+        firstObject2 = [v16 firstObject];
+        v18 = firstObject2;
         if (firstObject2)
         {
           value2 = [firstObject2 value];
-          v18Value = [value2 value];
-          v20 = NSClassFromString(&cfstr_Nsurl.isa);
-          v21 = v18Value;
-          if (v20)
+          v19Value = [value2 value];
+          v21 = NSClassFromString(&cfstr_Nsurl.isa);
+          v22 = v19Value;
+          if (v21)
           {
             if (objc_opt_isKindOfClass())
             {
-              v22 = v21;
+              v23 = v22;
             }
 
             else
             {
-              v22 = 0;
+              v23 = 0;
             }
           }
 
           else
           {
-            v22 = 0;
+            v23 = 0;
           }
 
-          v23 = v22;
+          v24 = v23;
 
-          if (v23)
+          if (v24)
           {
-            v23 = v23;
-            v3 = v23;
+            v24 = v24;
+            v3 = v24;
           }
 
           else
           {
-            v24 = __atxlog_handle_settings_actions();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v26 = __atxlog_handle_settings_actions(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
             {
-              [(ATXSettingsAction *)v17 navigationLink];
+              [(ATXSettingsAction *)v18 navigationLink];
             }
 
             v3 = 0;
@@ -122,8 +122,8 @@
 
         else
         {
-          v23 = __atxlog_handle_settings_actions();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+          v24 = __atxlog_handle_settings_actions(0);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
             [ATXSettingsAction navigationLink];
           }
@@ -134,8 +134,8 @@
 
       else
       {
-        v15 = __atxlog_handle_settings_actions();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        v16 = __atxlog_handle_settings_actions(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           [(ATXSettingsAction *)v7 navigationLink];
         }
@@ -146,7 +146,7 @@
 
     else
     {
-      v13 = __atxlog_handle_settings_actions();
+      v13 = __atxlog_handle_settings_actions(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         [ATXSettingsAction navigationLink];
@@ -459,27 +459,27 @@ uint64_t __35__ATXSettingsAction_navigationLink__block_invoke_51(uint64_t a1, vo
 
 - (BOOL)bundleIdentifierIsHiddenForSettingsAction
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   associatedBundleId = [(ATXSettingsAction *)self associatedBundleId];
   if (associatedBundleId && (v3 = objc_opt_new(), v4 = [v3 bundleIdIsHiddenByUserPreference:associatedBundleId], v3, v4))
   {
-    v5 = __atxlog_handle_settings_actions();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_settings_actions(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = associatedBundleId;
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Bundle identifier is hidden for Settings action: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = associatedBundleId;
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "Bundle identifier is hidden for Settings action: %@", &v9, 0xCu);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (NSString)associatedBundleId
@@ -518,48 +518,48 @@ uint64_t __35__ATXSettingsAction_navigationLink__block_invoke_51(uint64_t a1, vo
     if (v11)
     {
       properties = [v11 properties];
-      v14 = [properties _pas_filteredArrayWithTest:&__block_literal_global_84];
+      v15 = [properties _pas_filteredArrayWithTest:&__block_literal_global_84];
 
-      firstObject2 = [v14 firstObject];
-      v16 = firstObject2;
+      firstObject2 = [v15 firstObject];
+      v17 = firstObject2;
       if (firstObject2)
       {
         value2 = [firstObject2 value];
-        v17Value = [value2 value];
-        v19 = NSClassFromString(&cfstr_Nsstring.isa);
-        v20 = v17Value;
-        if (v19)
+        v18Value = [value2 value];
+        v20 = NSClassFromString(&cfstr_Nsstring.isa);
+        v21 = v18Value;
+        if (v20)
         {
           if (objc_opt_isKindOfClass())
           {
-            v21 = v20;
+            v22 = v21;
           }
 
           else
           {
-            v21 = 0;
+            v22 = 0;
           }
         }
 
         else
         {
-          v21 = 0;
+          v22 = 0;
         }
 
-        v22 = v21;
+        v23 = v22;
 
-        if (v22)
+        if (v23)
         {
-          v22 = v22;
-          v12 = v22;
+          v23 = v23;
+          v12 = v23;
         }
 
         else
         {
-          v23 = __atxlog_handle_settings_actions();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+          v25 = __atxlog_handle_settings_actions(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
-            [(ATXSettingsAction *)v16 associatedBundleId];
+            [(ATXSettingsAction *)v17 associatedBundleId];
           }
 
           v12 = 0;
@@ -568,8 +568,8 @@ uint64_t __35__ATXSettingsAction_navigationLink__block_invoke_51(uint64_t a1, vo
 
       else
       {
-        v22 = __atxlog_handle_settings_actions();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v23 = __atxlog_handle_settings_actions(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           [ATXSettingsAction associatedBundleId];
         }
@@ -580,8 +580,8 @@ uint64_t __35__ATXSettingsAction_navigationLink__block_invoke_51(uint64_t a1, vo
 
     else
     {
-      v14 = __atxlog_handle_settings_actions();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v15 = __atxlog_handle_settings_actions(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         [(ATXSettingsAction *)v5 navigationLink];
       }
@@ -592,7 +592,7 @@ uint64_t __35__ATXSettingsAction_navigationLink__block_invoke_51(uint64_t a1, vo
 
   else
   {
-    v11 = __atxlog_handle_settings_actions();
+    v11 = __atxlog_handle_settings_actions(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [ATXSettingsAction navigationLink];
@@ -632,7 +632,7 @@ uint64_t __39__ATXSettingsAction_associatedBundleId__block_invoke_82(uint64_t a1
   v1Value = [value value];
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_3_6(v3);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v5, v6, "Settings action does not have a target property containing an entity anymore; actual: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v5, v6, "Settings action does not have a target property containing an entity anymore; actual: %@", v7, v8, v9, v10);
 }
 
 - (void)associatedBundleId
@@ -641,7 +641,7 @@ uint64_t __39__ATXSettingsAction_associatedBundleId__block_invoke_82(uint64_t a1
   v1Value = [value value];
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_3_6(v3);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v5, v6, "Settings action does not have an associated bundle id containing a string anymore; actual: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v5, v6, "Settings action does not have an associated bundle id containing a string anymore; actual: %@", v7, v8, v9, v10);
 }
 
 @end

@@ -7,6 +7,8 @@
 - (void)_invalidate;
 - (void)_invalidated;
 - (void)_pairSetupTryPIN:(id)n;
+- (void)_pairSetupWithFlags:(unsigned int)flags completion:(id)completion;
+- (void)_pairVerifyWithFlags:(unsigned int)flags completion:(id)completion;
 - (void)_run;
 - (void)_sendQueuedMessages;
 - (void)_unpairWithCompletion:(id)completion;
@@ -77,12 +79,28 @@
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+  v25 = completionCopy;
+  if (gLogCategory_RPLegacySupport <= 30)
   {
-    [RPLegacySession _activateWithCompletion:];
+    if (gLogCategory_RPLegacySupport != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [(RPLegacySession *)completionCopy _activateWithCompletion:v5, v6];
+    }
   }
 
-  if (!self->_invalidateCalled && !self->_activateCalled)
+  if (self->_invalidateCalled)
+  {
+    v16 = "Activate after invalidate";
+    v17 = 4294960572;
+  }
+
+  else if (self->_activateCalled)
+  {
+    v16 = "Duplicate activate";
+    v17 = 4294960575;
+  }
+
+  else
   {
     serviceType = self->_serviceType;
     if (serviceType)
@@ -100,23 +118,23 @@
         {
           pairedPeer = [(RPDevice *)self->_peerDevice pairedPeer];
           info = [pairedPeer info];
-          v12 = [info objectForKeyedSubscript:@"udid"];
+          v22 = [info objectForKeyedSubscript:@"udid"];
 
-          if (!v12)
+          if (!v22)
           {
             goto LABEL_11;
           }
 
-          v13 = objc_alloc_init(MEMORY[0x1E69994C8]);
-          [v13 setUdid:v12];
-          [(RPDevice *)self->_peerDevice setMobileDevice:v13];
+          v23 = objc_alloc_init(MEMORY[0x1E69994C8]);
+          [v23 setUdid:v22];
+          [(RPDevice *)self->_peerDevice setMobileDevice:v23];
 
-          if (!v13)
+          if (!v23)
           {
             goto LABEL_12;
           }
 
-          pairedPeer = v13;
+          pairedPeer = v23;
         }
 
         self->_mdEnabled = 1;
@@ -124,41 +142,49 @@ LABEL_11:
 
 LABEL_12:
         [(RPLegacySession *)self _run];
-        v7 = 0;
+        v15 = 0;
 LABEL_20:
-        v8 = completionCopy;
+        v18 = v25;
         goto LABEL_21;
       }
 
-      v14 = self->_serviceType;
+      v24 = self->_serviceType;
+      v16 = "Unsupported service type '%@'";
+      v17 = 4294960561;
+    }
+
+    else
+    {
+      v16 = "No service type";
+      v17 = 4294896129;
     }
   }
 
-  v7 = RPErrorF();
-  v8 = completionCopy;
-  if (v7)
+  v15 = RPErrorF(v17, v16, v6, v7, v8, v9, v10, v11, v24);
+  v18 = v25;
+  if (v15)
   {
     if (gLogCategory_RPLegacySupport <= 60)
     {
-      if (gLogCategory_RPLegacySupport != -1 || (v9 = _LogCategory_Initialize(), v8 = completionCopy, v9))
+      if (gLogCategory_RPLegacySupport != -1 || (v19 = _LogCategory_Initialize(), v18 = v25, v19))
       {
-        [RPLegacySession _activateWithCompletion:];
-        v8 = completionCopy;
+        [RPLegacySession _activateWithCompletion:v15];
+        v18 = v25;
       }
     }
 
     errorHandler = self->_errorHandler;
     if (errorHandler)
     {
-      errorHandler[2](errorHandler, v7);
+      errorHandler[2](errorHandler, v15);
       goto LABEL_20;
     }
   }
 
 LABEL_21:
-  if (v8)
+  if (v18)
   {
-    completionCopy[2](completionCopy, v7);
+    v25[2](v25, v15);
   }
 }
 
@@ -186,9 +212,12 @@ LABEL_21:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_RPLegacySupport <= 60)
     {
-      [RPLegacySession _invalidated];
+      if (gLogCategory_RPLegacySupport != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPLegacySession *)v3 _invalidated];
+      }
     }
 
     if (!self->_mdSession)
@@ -199,11 +228,14 @@ LABEL_21:
         invalidationHandler[2]();
       }
 
-      [(RPLegacySession *)self _cleanup];
+      _cleanup = [(RPLegacySession *)self _cleanup];
       self->_invalidateDone = 1;
-      if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPLegacySupport <= 30)
       {
-        [RPLegacySession _invalidated];
+        if (gLogCategory_RPLegacySupport != -1 || (_cleanup = _LogCategory_Initialize(), _cleanup))
+        {
+          [(RPLegacySession *)_cleanup _invalidated];
+        }
       }
     }
   }
@@ -211,6 +243,7 @@ LABEL_21:
 
 - (int)_runMobileDeviceStart
 {
+  selfCopy = self;
   mdState = self->_mdState;
   if (mdState != 4 && mdState != 2)
   {
@@ -222,45 +255,48 @@ LABEL_21:
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_mdState;
+            return selfCopy->_mdState;
           }
 
-          v9 = self->_mdState;
+          mdState = selfCopy->_mdState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacySession _runMobileDeviceStart]", 30, "MobileDeviceSession hasn't succeeded yet (%d)\n", mdState);
       }
     }
 
     else
     {
-      if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPLegacySupport <= 30)
       {
-        [RPLegacySession _runMobileDeviceStart];
+        if (gLogCategory_RPLegacySupport != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(RPLegacySession *)self _runMobileDeviceStart];
+        }
       }
 
-      self->_mdState = 1;
-      v5 = objc_alloc_init(MEMORY[0x1E69994D8]);
-      mdSession = self->_mdSession;
-      self->_mdSession = v5;
+      selfCopy->_mdState = 1;
+      v6 = objc_alloc_init(MEMORY[0x1E69994D8]);
+      mdSession = selfCopy->_mdSession;
+      selfCopy->_mdSession = v6;
 
-      [(CUMobileDeviceSession *)self->_mdSession setDispatchQueue:self->_dispatchQueue];
-      mobileDevice = [(RPDevice *)self->_peerDevice mobileDevice];
-      [(CUMobileDeviceSession *)self->_mdSession setPeerDevice:mobileDevice];
+      [(CUMobileDeviceSession *)selfCopy->_mdSession setDispatchQueue:selfCopy->_dispatchQueue];
+      mobileDevice = [(RPDevice *)selfCopy->_peerDevice mobileDevice];
+      [(CUMobileDeviceSession *)selfCopy->_mdSession setPeerDevice:mobileDevice];
 
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __40__RPLegacySession__runMobileDeviceStart__block_invoke;
       v10[3] = &unk_1E7C92CE8;
-      v10[4] = self;
-      [(CUMobileDeviceSession *)self->_mdSession setInvalidationHandler:v10];
-      [(CUMobileDeviceSession *)self->_mdSession setPromptForPINHandler:self->_promptForPINHandler];
-      [(CUMobileDeviceSession *)self->_mdSession activate];
-      self->_mdState = 4;
+      v10[4] = selfCopy;
+      [(CUMobileDeviceSession *)selfCopy->_mdSession setInvalidationHandler:v10];
+      [(CUMobileDeviceSession *)selfCopy->_mdSession setPromptForPINHandler:selfCopy->_promptForPINHandler];
+      [(CUMobileDeviceSession *)selfCopy->_mdSession activate];
+      selfCopy->_mdState = 4;
     }
   }
 
-  return self->_mdState;
+  return selfCopy->_mdState;
 }
 
 _BYTE *__40__RPLegacySession__runMobileDeviceStart__block_invoke(uint64_t a1)
@@ -281,6 +317,7 @@ _BYTE *__40__RPLegacySession__runMobileDeviceStart__block_invoke(uint64_t a1)
 
 - (int)_runPairVerify
 {
+  selfCopy = self;
   pairVerifyState = self->_pairVerifyState;
   if (pairVerifyState != 4 && pairVerifyState != 2)
   {
@@ -292,45 +329,51 @@ _BYTE *__40__RPLegacySession__runMobileDeviceStart__block_invoke(uint64_t a1)
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_pairVerifyState;
+            return selfCopy->_pairVerifyState;
           }
 
-          v6 = self->_pairVerifyState;
+          pairVerifyState = selfCopy->_pairVerifyState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacySession _runPairVerify]", 30, "PairVerify hasn't succeeded yet (%d)\n", pairVerifyState);
       }
     }
 
     else
     {
-      if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPLegacySupport <= 30)
       {
-        [RPLegacySession _runPairVerify];
+        if (gLogCategory_RPLegacySupport != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(RPLegacySession *)self _runPairVerify];
+        }
       }
 
-      self->_pairVerifyState = 1;
+      selfCopy->_pairVerifyState = 1;
       v7[0] = MEMORY[0x1E69E9820];
       v7[1] = 3221225472;
       v7[2] = __33__RPLegacySession__runPairVerify__block_invoke;
       v7[3] = &unk_1E7C92D58;
-      v7[4] = self;
-      [(RPLegacySession *)self pairVerifyWithFlags:8 completion:v7];
+      v7[4] = selfCopy;
+      [(RPLegacySession *)selfCopy pairVerifyWithFlags:8 completion:v7];
     }
   }
 
-  return self->_pairVerifyState;
+  return selfCopy->_pairVerifyState;
 }
 
 void __33__RPLegacySession__runPairVerify__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v9 = v3;
   if (!v3)
   {
-    if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPLegacySupport <= 30)
     {
-      __33__RPLegacySession__runPairVerify__block_invoke_cold_2();
+      if (gLogCategory_RPLegacySupport != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __33__RPLegacySession__runPairVerify__block_invoke_cold_2(v3, v4, v5);
+      }
     }
 
     *(*(a1 + 32) + 28) = 4;
@@ -338,23 +381,23 @@ void __33__RPLegacySession__runPairVerify__block_invoke(uint64_t a1, void *a2)
     goto LABEL_11;
   }
 
-  v4 = v3;
+  v6 = v3;
   if (gLogCategory_RPLegacySupport <= 30)
   {
-    if (gLogCategory_RPLegacySupport != -1 || (v5 = _LogCategory_Initialize(), v4 = v7, v5))
+    if (gLogCategory_RPLegacySupport != -1 || (v7 = _LogCategory_Initialize(), v6 = v9, v7))
     {
-      __33__RPLegacySession__runPairVerify__block_invoke_cold_1();
-      v4 = v7;
+      __33__RPLegacySession__runPairVerify__block_invoke_cold_1(v6);
+      v6 = v9;
     }
   }
 
   *(*(a1 + 32) + 28) = 3;
-  v6 = *(*(a1 + 32) + 88);
-  if (v6)
+  v8 = *(*(a1 + 32) + 88);
+  if (v8)
   {
-    (*(v6 + 16))(v6, v7);
+    (*(v8 + 16))(v8, v9);
 LABEL_11:
-    v4 = v7;
+    v6 = v9;
   }
 }
 
@@ -371,6 +414,41 @@ LABEL_11:
   v10 = completionCopy;
   v8 = completionCopy;
   dispatch_async(dispatchQueue, block);
+}
+
+- (void)_pairSetupWithFlags:(unsigned int)flags completion:(id)completion
+{
+  v4 = *&flags;
+  completionCopy = completion;
+  v13 = completionCopy;
+  if (!self->_mdEnabled)
+  {
+    v15 = "PairSetup unsupported service";
+    v16 = 4294960561;
+LABEL_6:
+    v17 = RPErrorF(v16, v15, v7, v8, v9, v10, v11, v12, v18[0]);
+    (v13)[2](v13, v17);
+
+    goto LABEL_7;
+  }
+
+  mdSession = self->_mdSession;
+  if (!mdSession)
+  {
+    v15 = "No MobileDevice session";
+    v16 = 4294960551;
+    goto LABEL_6;
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __50__RPLegacySession__pairSetupWithFlags_completion___block_invoke;
+  v18[3] = &unk_1E7C93470;
+  v18[4] = self;
+  v19 = completionCopy;
+  [(CUMobileDeviceSession *)mdSession pairSetupWithFlags:v4 completion:v18];
+
+LABEL_7:
 }
 
 uint64_t __50__RPLegacySession__pairSetupWithFlags_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -420,6 +498,41 @@ uint64_t __50__RPLegacySession__pairSetupWithFlags_completion___block_invoke(uin
   dispatch_async(dispatchQueue, block);
 }
 
+- (void)_pairVerifyWithFlags:(unsigned int)flags completion:(id)completion
+{
+  v4 = *&flags;
+  completionCopy = completion;
+  v13 = completionCopy;
+  if (!self->_mdEnabled)
+  {
+    v15 = "PairVerify unsupported service";
+    v16 = 4294960561;
+LABEL_6:
+    v17 = RPErrorF(v16, v15, v7, v8, v9, v10, v11, v12, v18[0]);
+    (v13)[2](v13, v17);
+
+    goto LABEL_7;
+  }
+
+  mdSession = self->_mdSession;
+  if (!mdSession)
+  {
+    v15 = "No MobileDevice session";
+    v16 = 4294960551;
+    goto LABEL_6;
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __51__RPLegacySession__pairVerifyWithFlags_completion___block_invoke;
+  v18[3] = &unk_1E7C93470;
+  v18[4] = self;
+  v19 = completionCopy;
+  [(CUMobileDeviceSession *)mdSession pairVerifyWithFlags:v4 completion:v18];
+
+LABEL_7:
+}
+
 uint64_t __51__RPLegacySession__pairVerifyWithFlags_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!a2)
@@ -447,22 +560,34 @@ uint64_t __51__RPLegacySession__pairVerifyWithFlags_completion___block_invoke(ui
 - (void)_unpairWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = completionCopy;
-  if (self->_mdEnabled && (mdSession = self->_mdSession) != 0)
+  v11 = completionCopy;
+  if (!self->_mdEnabled)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __41__RPLegacySession__unpairWithCompletion___block_invoke;
-    v8[3] = &unk_1E7C92DA8;
-    v9 = completionCopy;
-    [(CUMobileDeviceSession *)mdSession unpairWithCompletion:v8];
+    v13 = "Unpair unsupported service";
+    v14 = 4294960561;
+LABEL_6:
+    v15 = RPErrorF(v14, v13, v5, v6, v7, v8, v9, v10, v16);
+    (v11)[2](v11, v15);
+
+    goto LABEL_7;
   }
 
-  else
+  mdSession = self->_mdSession;
+  if (!mdSession)
   {
-    v7 = RPErrorF();
-    (v5)[2](v5, v7);
+    v13 = "No MobileDevice session";
+    v14 = 4294960551;
+    goto LABEL_6;
   }
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __41__RPLegacySession__unpairWithCompletion___block_invoke;
+  v17[3] = &unk_1E7C92DA8;
+  v18 = completionCopy;
+  [(CUMobileDeviceSession *)mdSession unpairWithCompletion:v17];
+
+LABEL_7:
 }
 
 - (void)sendRequestID:(id)d options:(id)options request:(id)request responseHandler:(id)handler
@@ -554,7 +679,7 @@ void __65__RPLegacySession_sendRequestID_options_request_responseHandler___block
       {
         if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacySession _run]", 30, "Session ready\n");
         }
 
         self->_messagingReady = 1;

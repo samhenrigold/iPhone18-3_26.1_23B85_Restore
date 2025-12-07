@@ -126,7 +126,7 @@ void __24__SafeguardsClient_init__block_invoke_9(uint64_t a1)
 
 - (void)reportExcessiveCPUUseBy:(char)by[33] pid:(int)pid path:(char)path[1024] timestamp:(mach_timespec)timestamp observed_cpu_nsecs:(int64_t)observed_cpu_nsecs observation_nsecs:(int64_t)observation_nsecs cpu_nsecs_allowed:(int64_t)cpu_nsecs_allowed limit_window_nsecs:(int64_t)self0 flags:(unint64_t)self1
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (self->_featureEnabled)
   {
     logger = self->_logger;
@@ -139,40 +139,38 @@ void __24__SafeguardsClient_init__block_invoke_9(uint64_t a1)
       }
 
       *buf = 136317186;
-      v28 = v19;
-      v29 = 2080;
+      v27 = v19;
+      v28 = 2080;
       byCopy = by;
-      v33 = 2080;
-      v31 = 1024;
+      v32 = 2080;
+      v30 = 1024;
       pidCopy = pid;
       pathCopy = path;
-      v39 = 1024;
-      v35 = 2048;
-      v36 = observed_cpu_nsecs / 1000000000.0;
-      v37 = 2048;
-      v38 = observation_nsecs / 1000000000.0;
-      v40 = 100 * observed_cpu_nsecs / observation_nsecs;
-      v41 = 2048;
-      v42 = cpu_nsecs_allowed / 1000000000.0;
-      v43 = 2048;
-      v44 = limit_window_nsecs / 0x3B9ACA00uLL;
+      v38 = 1024;
+      v34 = 2048;
+      v35 = observed_cpu_nsecs / 1000000000.0;
+      v36 = 2048;
+      v37 = observation_nsecs / 1000000000.0;
+      v39 = 100 * observed_cpu_nsecs / observation_nsecs;
+      v40 = 2048;
+      v41 = cpu_nsecs_allowed / 1000000000.0;
+      v42 = 2048;
+      v43 = limit_window_nsecs / 0x3B9ACA00uLL;
       _os_log_impl(&dword_1BACB7000, logger, OS_LOG_TYPE_INFO, "Received %sCPU usage trigger: \n  %s[%d] (%s) used %.2fs of CPU over %.2f seconds (averaging %d%%), violating a CPU usage limit of %.2fs over %lld seconds.", buf, 0x54u);
     }
 
     connection = self->_connection;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __143__SafeguardsClient_reportExcessiveCPUUseBy_pid_path_timestamp_observed_cpu_nsecs_observation_nsecs_cpu_nsecs_allowed_limit_window_nsecs_flags___block_invoke;
-    v26[3] = &unk_1E7F18938;
-    v26[4] = self;
-    v21 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __143__SafeguardsClient_reportExcessiveCPUUseBy_pid_path_timestamp_observed_cpu_nsecs_observation_nsecs_cpu_nsecs_allowed_limit_window_nsecs_flags___block_invoke;
+    v25[3] = &unk_1E7F18938;
+    v25[4] = self;
+    v21 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v25];
     v22 = [MEMORY[0x1E696AEC0] stringWithCString:by];
     v23 = [MEMORY[0x1E696AEC0] stringWithCString:path];
-    LOBYTE(v25) = BYTE4(flags) & 1;
-    [v21 reportExcessiveCPUUseBy:v22 pid:pid path:v23 endTime:timestamp observedValue:observed_cpu_nsecs observationWindow:observation_nsecs limitValue:cpu_nsecs_allowed limitWindow:limit_window_nsecs fatal:v25];
+    LOBYTE(v24) = BYTE4(flags) & 1;
+    [v21 reportExcessiveCPUUseBy:v22 pid:pid path:v23 endTime:timestamp observedValue:observed_cpu_nsecs observationWindow:observation_nsecs limitValue:cpu_nsecs_allowed limitWindow:limit_window_nsecs fatal:v24];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __143__SafeguardsClient_reportExcessiveCPUUseBy_pid_path_timestamp_observed_cpu_nsecs_observation_nsecs_cpu_nsecs_allowed_limit_window_nsecs_flags___block_invoke(uint64_t a1, void *a2)
@@ -187,22 +185,10 @@ void __143__SafeguardsClient_reportExcessiveCPUUseBy_pid_path_timestamp_observed
 
 - (void)init
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *self;
-  v3 = a2;
+  v2 = a2;
   xpc_strerror();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_1BACB7000, v4, v5, "xpc_user_sessions_get_foreground_uid() failed with error %d - %s", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __143__SafeguardsClient_reportExcessiveCPUUseBy_pid_path_timestamp_observed_cpu_nsecs_observation_nsecs_cpu_nsecs_allowed_limit_window_nsecs_flags___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to report violation %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1BACB7000, v3, v4, "xpc_user_sessions_get_foreground_uid() failed with error %d - %s", v5, v6, v7, v8);
 }
 
 @end

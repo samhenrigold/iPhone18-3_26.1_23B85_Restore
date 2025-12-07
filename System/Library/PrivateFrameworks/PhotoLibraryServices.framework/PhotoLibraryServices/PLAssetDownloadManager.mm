@@ -97,7 +97,7 @@ void __40__PLAssetDownloadManager_cancelRequest___block_invoke(uint64_t a1)
   v30 = v38;
   v31 = &v32;
   [v14 performBlockAndWait:v27];
-  if ([v33[5] count])
+  if (objc_msgSend_count(v33[5]))
   {
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
@@ -326,7 +326,7 @@ void __102__PLAssetDownloadManager_requestRequiredResourcesForManagedAssetObject
     v9 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 80)];
     [v6 removeObject:v9];
 
-    if (![v6 count])
+    if (!objc_msgSend_count(v6))
     {
       [*(*(a1 + 48) + 16) removeObjectForKey:*(a1 + 56)];
       v10 = *(a1 + 64);
@@ -362,7 +362,7 @@ void __102__PLAssetDownloadManager_requestRequiredResourcesForManagedAssetObject
   v9[4] = &v10;
   [v2 enumerateKeysAndObjectsUsingBlock:v9];
   v5 = v11[3];
-  v6 = [v2 count];
+  v6 = objc_msgSend_count(v2);
   v11[3] = v5 / v6;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
   LOBYTE(v4) = objc_opt_respondsToSelector();

@@ -307,7 +307,7 @@ LABEL_29:
       v18 = v17;
       if (v17)
       {
-        [v17 transform];
+        objc_msgSend_transform(v17);
         v19 = *(MEMORY[0x1E695EFD0] + 16);
         *&t2.a = *MEMORY[0x1E695EFD0];
         *&t2.c = v19;
@@ -784,7 +784,7 @@ LABEL_18:
     v16 = _UIRectEquivalentToRectWithAccuracy(v5, v7, v9, v11, v12, v13, v14, v15, 0.1);
     _isHostedInAnotherProcess = [window _isHostedInAnotherProcess];
     _isSceneSized = _isHostedInAnotherProcess & v16;
-    if (_isHostedInAnotherProcess & 1) == 0 && (v16)
+    if ((_isHostedInAnotherProcess & 1) == 0 && v16)
     {
       _isSceneSized = [window _isSceneSized];
     }

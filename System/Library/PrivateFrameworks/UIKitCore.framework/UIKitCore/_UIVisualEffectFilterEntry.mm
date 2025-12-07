@@ -129,7 +129,7 @@
       v12 = 0;
       if (v5 && v6 && v7 && v9)
       {
-        if ([(NSString *)v5 isEqualToString:v6])
+        if (objc_msgSend_isEqualToString_(v5))
         {
           v12 = [(NSDictionary *)v7 isEqualToDictionary:v10];
         }

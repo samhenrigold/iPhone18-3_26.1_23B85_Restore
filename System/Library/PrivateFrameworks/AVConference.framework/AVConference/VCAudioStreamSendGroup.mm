@@ -944,7 +944,7 @@ LABEL_85:
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __56__VCAudioStreamSendGroup_setBasebandCongestionDetector___block_invoke(uint64_t a1)
+void *__56__VCAudioStreamSendGroup_setBasebandCongestionDetector___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
 
@@ -969,7 +969,8 @@ uint64_t __56__VCAudioStreamSendGroup_setBasebandCongestionDetector___block_invo
           objc_enumerationMutation(v2);
         }
 
-        [objc_msgSend(*(*(&v8 + 1) + 8 * v6++) "stream")];
+        [objc_msgSend(*(*(&v8 + 1) + 8 * v6) "stream")];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1192,7 +1193,7 @@ LABEL_15:
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __47__VCAudioStreamSendGroup_setCurrentDTXEnabled___block_invoke(uint64_t a1)
+void *__47__VCAudioStreamSendGroup_setCurrentDTXEnabled___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 745) = *(a1 + 40);
@@ -1216,7 +1217,8 @@ uint64_t __47__VCAudioStreamSendGroup_setCurrentDTXEnabled___block_invoke(uint64
           objc_enumerationMutation(v2);
         }
 
-        [objc_msgSend(*(*(&v8 + 1) + 8 * v6++) "stream")];
+        [objc_msgSend(*(*(&v8 + 1) + 8 * v6) "stream")];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1511,18 +1513,19 @@ LABEL_33:
   [(VCMediaStreamSendGroup *)&v28 dispatchedUpdateActiveMediaStreamIDs:ds withTargetBitrate:bitrate mediaBitrates:bitrates rateChangeCounter:v6];
 }
 
-void __113__VCAudioStreamSendGroup_dispatchedUpdateActiveMediaStreamIDs_withTargetBitrate_mediaBitrates_rateChangeCounter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4, int a5)
+void __113__VCAudioStreamSendGroup_dispatchedUpdateActiveMediaStreamIDs_withTargetBitrate_mediaBitrates_rateChangeCounter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5)
 {
   if (a3)
   {
     LODWORD(v7) = a5;
+    v8 = a4;
     v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (v7)
     {
       v7 = v7;
       do
       {
-        v10 = *a4++;
+        v10 = *v8++;
         [v9 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", v10)}];
         --v7;
       }
@@ -1537,7 +1540,7 @@ void __113__VCAudioStreamSendGroup_dispatchedUpdateActiveMediaStreamIDs_withTarg
   {
     v11 = *(a2 + 40);
 
-    [v11 setRtcpEnabled:a3];
+    [v11 setRtcpEnabled:{a3, a4, a5}];
   }
 }
 
@@ -1680,7 +1683,7 @@ LABEL_12:
   }
 
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 768) addSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v19, *&v19[16], v20, v21, *v22, *&v22[16], v23) != 0}];
+  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 768) addSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v19, *&v19[8], v20, v21, *v22, *&v22[8], v23) != 0}];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     if (*(*(a1 + 40) + 873) == 1 && ([*(a1 + 32) isSourceTimestampInfoAvailable] & 1) == 0)
@@ -1811,7 +1814,7 @@ void __48__VCAudioStreamSendGroup_removeSyncDestination___block_invoke(uint64_t 
 
   _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, v7, v15, v9);
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 768) removeSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v15, *&v15[16], v16, v17, *v18, *&v18[16], v19) != 0}];
+  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 768) removeSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v15, *&v15[8], v16, v17, *v18, *&v18[8], v19) != 0}];
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
     __48__VCAudioStreamSendGroup_removeSyncDestination___block_invoke_cold_2();
@@ -1832,37 +1835,37 @@ LABEL_13:
   dispatch_async(stateQueue, v5);
 }
 
-void __77__VCAudioStreamSendGroup_redundancyController_redundancyPercentageDidChange___block_invoke(uint64_t a1)
+void __77__VCAudioStreamSendGroup_redundancyController_redundancyPercentageDidChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v3 = (a1 + 40);
-  v2 = *(a1 + 40);
-  if (*(v3 - 1) == *(v2 + 488))
+  v51 = *MEMORY[0x1E69E9840];
+  v4 = (a1 + 40);
+  v3 = *(a1 + 40);
+  if (*(v4 - 1) == *(v3 + 488))
   {
-    v5 = VCMemoryPool_Alloc(*(v2 + 808));
-    *v5 = *(a1 + 48);
+    v6 = VCMemoryPool_Alloc(*(v3 + 808));
+    *v6 = *(a1 + 48);
     if (objc_opt_class() == *(a1 + 40))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v19 = VRTraceErrorLogLevelToCSTR();
-        v20 = *MEMORY[0x1E6986650];
+        v20 = VRTraceErrorLogLevelToCSTR();
+        v21 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v21 = *(a1 + 48);
-          v36 = 136315906;
-          v37 = v19;
-          v38 = 2080;
-          v39 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
-          v40 = 1024;
-          v41 = 563;
-          v42 = 1024;
-          LODWORD(v43) = v21;
-          v22 = " [%s] %s:%d Enqueue new audio redundancyPercentage=%d";
-          v23 = v20;
-          v24 = 34;
+          v22 = *(a1 + 48);
+          v37 = 136315906;
+          v38 = v20;
+          v39 = 2080;
+          v40 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
+          v41 = 1024;
+          v42 = 563;
+          v43 = 1024;
+          LODWORD(v44) = v22;
+          v23 = " [%s] %s:%d Enqueue new audio redundancyPercentage=%d";
+          v24 = v21;
+          v25 = 34;
 LABEL_23:
-          _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, v22, &v36, v24);
+          _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, v23, &v37, v25);
         }
       }
     }
@@ -1871,53 +1874,53 @@ LABEL_23:
     {
       if (objc_opt_respondsToSelector())
       {
-        v6 = [*v3 performSelector:sel_logPrefix];
+        v7 = [*v4 performSelector:sel_logPrefix];
       }
 
       else
       {
-        v6 = &stru_1F570E008;
+        v7 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v25 = VRTraceErrorLogLevelToCSTR();
-        v26 = *MEMORY[0x1E6986650];
+        v26 = VRTraceErrorLogLevelToCSTR();
+        v27 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v27 = *(a1 + 40);
-          v28 = *(a1 + 48);
-          v36 = 136316418;
-          v37 = v25;
-          v38 = 2080;
-          v39 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
-          v40 = 1024;
-          v41 = 563;
-          v42 = 2112;
-          v43 = v6;
-          v44 = 2048;
-          v45 = v27;
-          v46 = 1024;
-          LODWORD(v47) = v28;
-          v22 = " [%s] %s:%d %@(%p) Enqueue new audio redundancyPercentage=%d";
-          v23 = v26;
-          v24 = 54;
+          v28 = *(a1 + 40);
+          v29 = *(a1 + 48);
+          v37 = 136316418;
+          v38 = v26;
+          v39 = 2080;
+          v40 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
+          v41 = 1024;
+          v42 = 563;
+          v43 = 2112;
+          v44 = v7;
+          v45 = 2048;
+          v46 = v28;
+          v47 = 1024;
+          LODWORD(v48) = v29;
+          v23 = " [%s] %s:%d %@(%p) Enqueue new audio redundancyPercentage=%d";
+          v24 = v27;
+          v25 = 54;
           goto LABEL_23;
         }
       }
     }
 
-    if (CMSimpleQueueEnqueue(*(*v3 + 99), v5))
+    if (CMSimpleQueueEnqueue(*(*v4 + 99), v6))
     {
-      if (objc_opt_class() == *v3)
+      if (objc_opt_class() == *v4)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v30 = VRTraceErrorLogLevelToCSTR();
-          v31 = *MEMORY[0x1E6986650];
+          v31 = VRTraceErrorLogLevelToCSTR();
+          v32 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            __77__VCAudioStreamSendGroup_redundancyController_redundancyPercentageDidChange___block_invoke_cold_1(v30, v3, v31);
+            __77__VCAudioStreamSendGroup_redundancyController_redundancyPercentageDidChange___block_invoke_cold_1(v31, v4, v32);
           }
         }
       }
@@ -1926,70 +1929,70 @@ LABEL_23:
       {
         if (objc_opt_respondsToSelector())
         {
-          v29 = [*v3 performSelector:sel_logPrefix];
+          v30 = [*v4 performSelector:sel_logPrefix];
         }
 
         else
         {
-          v29 = &stru_1F570E008;
+          v30 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v32 = VRTraceErrorLogLevelToCSTR();
-          v33 = *MEMORY[0x1E6986650];
+          v33 = VRTraceErrorLogLevelToCSTR();
+          v34 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            v34 = *v3;
-            v35 = [objc_msgSend(*(*v3 + 96) "audioIO")];
-            v36 = 136316418;
-            v37 = v32;
-            v38 = 2080;
-            v39 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
-            v40 = 1024;
-            v41 = 566;
-            v42 = 2112;
-            v43 = v29;
-            v44 = 2048;
-            v45 = v34;
-            v46 = 1024;
-            LODWORD(v47) = v35;
-            _os_log_error_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) CMSimpleQueueEnqueue Full, audioIO.state=%d", &v36, 0x36u);
+            v35 = *v4;
+            v36 = [objc_msgSend(*(*v4 + 96) "audioIO")];
+            v37 = 136316418;
+            v38 = v33;
+            v39 = 2080;
+            v40 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
+            v41 = 1024;
+            v42 = 566;
+            v43 = 2112;
+            v44 = v30;
+            v45 = 2048;
+            v46 = v35;
+            v47 = 1024;
+            LODWORD(v48) = v36;
+            _os_log_error_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) CMSimpleQueueEnqueue Full, audioIO.state=%d", &v37, 0x36u);
           }
         }
       }
 
-      VCMemoryPool_Free(*(*v3 + 101), v5);
+      VCMemoryPool_Free(*(*v4 + 101), v6);
     }
 
     return;
   }
 
-  if (objc_opt_class() == *v3)
+  if (objc_opt_class() == *v4)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x1E6986650];
+      v8 = VRTraceErrorLogLevelToCSTR();
+      v9 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v10 = *(*(a1 + 40) + 488);
-        v36 = 136316162;
-        v37 = v7;
-        v38 = 2080;
-        v39 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
-        v40 = 1024;
-        v41 = 556;
-        v42 = 2112;
-        v43 = v9;
-        v44 = 2112;
-        v45 = v10;
-        v11 = " [%s] %s:%d Redundancy controller callback for inactive redundancy controller was ignored. Redundancy controller=%@ Current controller=%@";
-        v12 = v8;
-        v13 = 48;
+        v10 = *(a1 + 32);
+        v11 = *(*(a1 + 40) + 488);
+        v37 = 136316162;
+        v38 = v8;
+        v39 = 2080;
+        v40 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
+        v41 = 1024;
+        v42 = 556;
+        v43 = 2112;
+        v44 = v10;
+        v45 = 2112;
+        v46 = v11;
+        v12 = " [%s] %s:%d Redundancy controller callback for inactive redundancy controller was ignored. Redundancy controller=%@ Current controller=%@";
+        v13 = v9;
+        v14 = 48;
 LABEL_15:
-        _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, v11, &v36, v13);
+        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v12, &v37, v14);
       }
     }
   }
@@ -1998,40 +2001,40 @@ LABEL_15:
   {
     if (objc_opt_respondsToSelector())
     {
-      v4 = [*v3 performSelector:sel_logPrefix];
+      v5 = [*v4 performSelector:sel_logPrefix];
     }
 
     else
     {
-      v4 = &stru_1F570E008;
+      v5 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v14 = VRTraceErrorLogLevelToCSTR();
-      v15 = *MEMORY[0x1E6986650];
+      v15 = VRTraceErrorLogLevelToCSTR();
+      v16 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 32);
-        v16 = *(a1 + 40);
-        v18 = v16[61];
-        v36 = 136316674;
-        v37 = v14;
-        v38 = 2080;
-        v39 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
-        v40 = 1024;
-        v41 = 556;
-        v42 = 2112;
-        v43 = v4;
-        v44 = 2048;
-        v45 = v16;
-        v46 = 2112;
-        v47 = v17;
-        v48 = 2112;
-        v49 = v18;
-        v11 = " [%s] %s:%d %@(%p) Redundancy controller callback for inactive redundancy controller was ignored. Redundancy controller=%@ Current controller=%@";
-        v12 = v15;
-        v13 = 68;
+        v18 = *(a1 + 32);
+        v17 = *(a1 + 40);
+        v19 = v17[61];
+        v37 = 136316674;
+        v38 = v15;
+        v39 = 2080;
+        v40 = "[VCAudioStreamSendGroup redundancyController:redundancyPercentageDidChange:]_block_invoke";
+        v41 = 1024;
+        v42 = 556;
+        v43 = 2112;
+        v44 = v5;
+        v45 = 2048;
+        v46 = v17;
+        v47 = 2112;
+        v48 = v18;
+        v49 = 2112;
+        v50 = v19;
+        v12 = " [%s] %s:%d %@(%p) Redundancy controller callback for inactive redundancy controller was ignored. Redundancy controller=%@ Current controller=%@";
+        v13 = v16;
+        v14 = 68;
         goto LABEL_15;
       }
     }
@@ -2957,7 +2960,7 @@ void __VCAudioStreamSendGroup_UpdateAudioPriorityUplink_block_invoke(uint64_t a1
 
 - (BOOL)configureStreams
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = -[VCAudioStreamGroupCommon configureStreams:withRateControlConfig:](self->_common, "configureStreams:withRateControlConfig:", self->super.super._mediaStreamInfoArray, [objc_msgSend(objc_msgSend(-[NSArray firstObject](self->super.super._mediaStreamInfoArray "firstObject")]);
   if (v3)
   {
@@ -2972,27 +2975,27 @@ void __VCAudioStreamSendGroup_UpdateAudioPriorityUplink_block_invoke(uint64_t a1
       self->_mediaQueue = v3;
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     mediaStreamInfoArray = self->super.super._mediaStreamInfoArray;
-    v12 = OUTLINED_FUNCTION_20_5(v3, v4, v5, v6, v7, v8, v9, v10, v30.receiver, v30.super_class, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51);
+    v12 = OUTLINED_FUNCTION_20_5(v3, v4, v5, v6, v7, v8, v9, v10, v30.receiver, v30.super_class, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1));
     if (v12)
     {
       v13 = v12;
-      v14 = *v53;
+      v14 = *v52;
       do
       {
         v15 = 0;
         do
         {
-          if (*v53 != v14)
+          if (*v52 != v14)
           {
             objc_enumerationMutation(mediaStreamInfoArray);
           }
 
-          v16 = *(*(&v52 + 1) + 8 * v15);
+          v16 = *(*(&v51 + 1) + 8 * v15);
           v47 = 0u;
           v48 = 0u;
           v49 = 0u;
@@ -3028,7 +3031,7 @@ void __VCAudioStreamSendGroup_UpdateAudioPriorityUplink_block_invoke(uint64_t a1
         }
 
         while (v15 != v13);
-        v13 = OUTLINED_FUNCTION_20_5(v18, v19, v20, v21, v22, v23, v24, v25, v30.receiver, v30.super_class, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51);
+        v13 = OUTLINED_FUNCTION_20_5(v18, v19, v20, v21, v22, v23, v24, v25, v30.receiver, v30.super_class, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1));
       }
 
       while (v13);
@@ -3442,7 +3445,7 @@ LABEL_11:
   return [v2 registerStatistics:v3 redundancyControllerMode:v4];
 }
 
-- (uint64_t)setupRedundancyControllerForMode:(uint64_t *)a3 .cold.2(__CFString *a1, void *a2, uint64_t *a3)
+- (void)setupRedundancyControllerForMode:(void *)a3 .cold.2(__CFString *a1, void *a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == a2)
@@ -3508,7 +3511,7 @@ LABEL_12:
   }
 
 LABEL_10:
-  result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{a1, *v15, *&v15[16]}];
+  result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{a1, *v15, *&v15[8]}];
   *a3 = result;
   return result;
 }

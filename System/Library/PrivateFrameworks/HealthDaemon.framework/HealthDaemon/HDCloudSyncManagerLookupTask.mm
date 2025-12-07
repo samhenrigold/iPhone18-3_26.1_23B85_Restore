@@ -13,7 +13,7 @@
   v13 = [(HDCloudSyncManagerPipelineTask *)&v17 initWithManager:manager context:context accessibilityAssertion:assertion completion:completion];
   if (v13)
   {
-    v14 = [infoCopy copy];
+    v14 = objc_msgSend_copy(infoCopy);
     lookupInfo = v13->_lookupInfo;
     v13->_lookupInfo = v14;
   }

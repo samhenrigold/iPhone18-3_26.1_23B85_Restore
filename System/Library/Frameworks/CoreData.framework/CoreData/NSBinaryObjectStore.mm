@@ -13,11 +13,11 @@
   objc_opt_self();
   if (!_classesForPropertyValues_expectedClasses)
   {
-    v0 = [+[_PFRoutines attributeClassesForSecureCoding]() mutableCopy];
-    [v0 addObject:objc_opt_class()];
-    v1 = 0;
-    atomic_compare_exchange_strong(&_classesForPropertyValues_expectedClasses, &v1, v0);
-    if (v1)
+    v1 = [+[_PFRoutines attributeClassesForSecureCoding](_PFRoutines) mutableCopy];
+    [v1 addObject:objc_opt_class()];
+    v2 = 0;
+    atomic_compare_exchange_strong(&_classesForPropertyValues_expectedClasses, &v2, v1);
+    if (v2)
     {
     }
   }
@@ -27,55 +27,55 @@
 
 - (NSBinaryObjectStore)initWithPersistentStoreCoordinator:(id)coordinator configurationName:(id)name URL:(id)l options:(id)options
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (!l)
   {
 
-    v24 = MEMORY[0x1E695DF30];
-    v25 = *MEMORY[0x1E695D940];
-    v26 = @"Cannot create a binary store with a nil URL.";
+    v23 = MEMORY[0x1E695DF30];
+    v24 = *MEMORY[0x1E695D940];
+    v25 = @"Cannot create a binary store with a nil URL.";
     goto LABEL_36;
   }
 
   if (([l isFileURL] & 1) == 0)
   {
-    v27 = MEMORY[0x1E695DF30];
-    v28 = *MEMORY[0x1E695D940];
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CoreData binary stores only support file URLs (got %@).", l];
+    v26 = MEMORY[0x1E695DF30];
+    v27 = *MEMORY[0x1E695D940];
+    v25 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], l);
+    v23 = v26;
     v24 = v27;
-    v25 = v28;
 LABEL_36:
-    objc_exception_throw([v24 exceptionWithName:v25 reason:v26 userInfo:0]);
+    objc_exception_throw([v23 exceptionWithName:v24 reason:v25 userInfo:0]);
   }
 
-  v38 = 0;
-  v37 = 0;
-  if (![NSPersistentStore doURLStuff:l createdStubFile:&v37 + 1 readOnly:&v37 error:&v38 options:options])
+  v36 = 0;
+  v35 = 0;
+  if (![NSPersistentStore doURLStuff:l createdStubFile:&v35 + 1 readOnly:&v35 error:&v36 options:options])
   {
 
-    code = [v38 code];
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v38, @"NSUnderlyingException", 0}];
-    v31 = [_NSCoreDataException exceptionWithName:code code:@"Error validating url for store" reason:v30 userInfo:?];
-    objc_exception_throw(v31);
+    code = [v36 code];
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v36, @"NSUnderlyingException", 0}];
+    v30 = [_NSCoreDataException exceptionWithName:code code:@"Error validating url for store" reason:v29 userInfo:?];
+    objc_exception_throw(v30);
   }
 
-  if (v37 == 1 && ([objc_msgSend(options valueForKey:{@"NSReadOnlyPersistentStoreOption", "BOOLValue"}] & 1) == 0)
+  if (v35 == 1 && ([objc_msgSend_valueForKey_(options) BOOLValue] & 1) == 0)
   {
-    if ([options valueForKey:@"NSReadOnlyPersistentStoreOption"] && (z9dsptsiQ80etb9782fsrs98bfdle88 & 0x10000000000) != 0)
+    if (objc_msgSend_valueForKey_(options) && (z9dsptsiQ80etb9782fsrs98bfdle88 & 0x10000000000) != 0)
     {
-      if (v38)
+      if (v36)
       {
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObject:v38 forKey:*MEMORY[0x1E696AA08]];
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObject:v36 forKey:*MEMORY[0x1E696AA08]];
       }
 
       else
       {
-        v34 = 0;
+        v32 = 0;
       }
 
-      v35 = [_NSCoreDataException exceptionWithName:513 code:@"Attempt to add read-only store read-write" reason:v34 userInfo:?];
-      objc_exception_throw(v35);
+      v33 = [_NSCoreDataException exceptionWithName:513 code:@"Attempt to add read-only store read-write" reason:v32 userInfo:?];
+      objc_exception_throw(v33);
     }
 
     if (options)
@@ -130,13 +130,13 @@ LABEL_36:
     objc_autoreleasePoolPop(v11);
   }
 
-  v36.receiver = self;
-  v36.super_class = NSBinaryObjectStore;
-  v15 = [(NSMappedObjectStore *)&v36 initWithPersistentStoreCoordinator:coordinator configurationName:name URL:l options:options];
+  v34.receiver = self;
+  v34.super_class = NSBinaryObjectStore;
+  v15 = [(NSMappedObjectStore *)&v34 initWithPersistentStoreCoordinator:coordinator configurationName:name URL:l options:options];
   v16 = v15;
   if (v15)
   {
-    if (HIBYTE(v37) == 1)
+    if (HIBYTE(v35) == 1)
     {
       [(NSPersistentStore *)v15 _setMetadataDirty:1];
       [(NSPersistentStore *)v16 doFilesystemCleanupOnRemove:1];
@@ -145,9 +145,8 @@ LABEL_36:
     v17 = objc_alloc_init(MEMORY[0x1E696AAC8]);
     if (([l isFileURL] & 1) == 0)
     {
-      v32 = MEMORY[0x1E695DF30];
-      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSBinaryObjectStore only supports file URLs right now."];
-      objc_exception_throw([v32 exceptionWithName:*MEMORY[0x1E695D940] reason:v33 userInfo:0]);
+      v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]) userInfo:0];
+      objc_exception_throw(v31);
     }
 
     path = [l path];
@@ -173,7 +172,6 @@ LABEL_36:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -181,7 +179,8 @@ LABEL_36:
 {
   if ([(NSPersistentStore *)self isReadOnly])
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Can't save store to %@ (read-only store)", path), 0}]);
+    v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{path), 0}];
+    objc_exception_throw(v6);
   }
 
   if (self)

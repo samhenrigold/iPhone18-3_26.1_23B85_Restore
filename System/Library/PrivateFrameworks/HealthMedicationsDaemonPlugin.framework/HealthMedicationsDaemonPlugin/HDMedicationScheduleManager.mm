@@ -23,20 +23,22 @@
 - (BOOL)logUnloggedDoseEventsForScheduledItemIdentifier:(id)identifier status:(int64_t)status logDate:(id)date error:(id *)error;
 - (BOOL)medicationSchedule:(id *)schedule identifier:(id)identifier error:(id *)error;
 - (BOOL)medicationSchedule:(id *)schedule medicationIdentifier:(id)identifier error:(id *)error;
+- (BOOL)pruneAllScheduleItemsBeforeDate:(id)date createDoseEvents:(BOOL)events error:(id *)error;
 - (BOOL)rescheduleMedicationsWithError:(id *)error;
+- (BOOL)updateNotificationSent:(BOOL)sent scheduleItemIdentifier:(id)identifier error:(id *)error;
+- (BOOL)updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:(BOOL)times error:(id *)error;
 - (BOOL)updateTimeZoneExperienceAsDismissedWithError:(id *)error;
 - (HDMedicationScheduleManager)initWithProfile:(id)profile userDefaults:(id)defaults medicationNotificationManager:(id)manager;
 - (double)_rescheduleOperationDelayWithDefaultDelay:(uint64_t)delay;
 - (id)_deviceLocalKeyValueDomain;
+- (id)_notifyObserversForDidRescheduleMedications;
 - (id)_pendingSchedulesBySyncIdentity;
 - (id)medicationSchedulesWithPredicate:(id)predicate error:(id *)error;
 - (id)medicationSchedulesWithPredicate:(id)predicate transaction:(id)transaction error:(id *)error;
 - (id)orderingTermsForSortDescriptors:(id)descriptors error:(id *)error;
 - (uint64_t)_hasPersistedRescheduleRequiredOnNextUnlockFlag;
-- (uint64_t)_insertMedicationSchedules:(uint64_t)schedules syncProvenance:(uint64_t)provenance syncIdentity:(void *)identity transaction:(uint64_t)transaction error:;
+- (uint64_t)_insertMedicationSchedules:(uint64_t)schedules syncProvenance:(void *)provenance syncIdentity:(void *)identity transaction:(uint64_t)transaction error:;
 - (uint64_t)_isRescheduleRequiredOnNextUnlock;
-- (uint64_t)_notifyObserversForDidRescheduleMedications;
-- (uint64_t)_queue_runRescheduleOperationWithDelay:(uint64_t)result;
 - (uint64_t)_runRescheduleOperationIfListContainsActiveMedsListUDC:(uint64_t)c;
 - (void)_callTestHookdidRunRescheduleOperationWithSuccess:(void *)success error:;
 - (void)_handleBeforeCommitOfTransaction:(id *)transaction;
@@ -48,6 +50,7 @@
 - (void)_notifySynchronousObserversInTransaction:(void *)transaction willReschedule:;
 - (void)_queue_handleNotificationSettingsDidChangeNotification;
 - (void)_queue_rescheduleMedications;
+- (void)_queue_runRescheduleOperationWithDelay:(void *)result;
 - (void)_runRescheduleDelayedOperation;
 - (void)_setRescheduleRequiredOnNextUnlock:(uint64_t)unlock;
 - (void)_startObservingMedicationsNotificationSettingsDidChangeNotification;
@@ -394,7 +397,7 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
 
 - (BOOL)enumerateMedicationSchedulesWithPredicate:(id)predicate limit:(int64_t)limit orderingTerms:(id)terms error:(id *)error enumerationHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   termsCopy = terms;
   handlerCopy = handler;
@@ -407,43 +410,42 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
     v17 = HKLogMedication();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v26 = objc_opt_self();
-      v27 = [MEMORY[0x277CCABB0] numberWithInteger:limit];
+      v25 = objc_opt_self();
+      v26 = [MEMORY[0x277CCABB0] numberWithInteger:limit];
       *buf = 138544130;
       selfCopy = self;
-      v35 = 2114;
-      v36 = v26;
-      v37 = 2114;
-      v38 = v27;
-      v39 = 2114;
-      v40 = termsCopy;
+      v34 = 2114;
+      v35 = v25;
+      v36 = 2114;
+      v37 = v26;
+      v38 = 2114;
+      v39 = termsCopy;
       _os_log_debug_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@] Enumerating medication schedules with predicate: %{public}@, limit: %{public}@, orderingTerms: %{public}@", buf, 0x2Au);
     }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __118__HDMedicationScheduleManager_enumerateMedicationSchedulesWithPredicate_limit_orderingTerms_error_enumerationHandler___block_invoke;
-  v28[3] = &unk_2796CD748;
-  v28[4] = self;
-  v29 = predicateCopy;
-  v31 = handlerCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __118__HDMedicationScheduleManager_enumerateMedicationSchedulesWithPredicate_limit_orderingTerms_error_enumerationHandler___block_invoke;
+  v27[3] = &unk_2796CD748;
+  v27[4] = self;
+  v28 = predicateCopy;
+  v30 = handlerCopy;
   limitCopy = limit;
-  v30 = termsCopy;
+  v29 = termsCopy;
   v20 = handlerCopy;
   v21 = termsCopy;
   v22 = predicateCopy;
-  v23 = [(HDHealthEntity *)HDMedicationScheduleEntity performReadTransactionWithHealthDatabase:database error:error block:v28];
+  v23 = [(HDHealthEntity *)HDMedicationScheduleEntity performReadTransactionWithHealthDatabase:database error:error block:v27];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)insertMedicationSchedule:(id)schedule error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   _HKInitializeLogging();
   v7 = HKLogMedication();
@@ -458,11 +460,10 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
     }
   }
 
-  v14[0] = scheduleCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = scheduleCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v11 = [(HDMedicationScheduleManager *)self insertMedicationSchedules:v10 error:error];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -490,28 +491,27 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
 
 - (BOOL)insertMedicationSchedules:(id)schedules syncProvenance:(int64_t)provenance syncIdentity:(int64_t)identity error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   schedulesCopy = schedules;
   _HKInitializeLogging();
   v11 = HKLogMedication();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138544130;
+    v16 = 138544130;
     selfCopy = self;
-    v19 = 2048;
-    v20 = [schedulesCopy count];
-    v21 = 2048;
+    v18 = 2048;
+    v19 = [schedulesCopy count];
+    v20 = 2048;
     provenanceCopy = provenance;
-    v23 = 2048;
+    v22 = 2048;
     identityCopy = identity;
-    _os_log_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting %lld schedules provenance: %lld, syncIdentity: %lld", &v17, 0x2Au);
+    _os_log_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Inserting %lld schedules provenance: %lld, syncIdentity: %lld", &v16, 0x2Au);
   }
 
   v12 = [[HDMedicationScheduleInsertOperation alloc] initWithMedicationSchedules:schedulesCopy syncProvenance:provenance syncIdentity:identity];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v14 = [(HDJournalableOperation *)v12 performOrJournalWithProfile:WeakRetained error:error];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -551,7 +551,7 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
   if (v9)
   {
     [(HDMedicationScheduleManager *)self _setRescheduleRequiredOnNextUnlock:?];
-    [(HDMedicationScheduleManager *)self _notifyObserversForDidRescheduleMedications];
+    [(HDMedicationScheduleManager *)&self->super.isa _notifyObserversForDidRescheduleMedications];
   }
 
   else if ([v10 hk_isDatabaseAccessibilityError])
@@ -588,14 +588,13 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)rescheduleMedicationsSynchronously:(BOOL)synchronously
 {
   synchronouslyCopy = synchronously;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
@@ -613,9 +612,9 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
       }
     }
 
-    v12 = 0;
-    v8 = [(HDMedicationScheduleManager *)self rescheduleMedicationsWithError:&v12];
-    v9 = v12;
+    v11 = 0;
+    v8 = [(HDMedicationScheduleManager *)self rescheduleMedicationsWithError:&v11];
+    v9 = v11;
     if (!v8)
     {
       _HKInitializeLogging();
@@ -636,8 +635,30 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
 
     [(HDMedicationScheduleManager *)self _runRescheduleDelayedOperation];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (BOOL)updateNotificationSent:(BOOL)sent scheduleItemIdentifier:(id)identifier error:(id *)error
+{
+  sentCopy = sent;
+  identifierCopy = identifier;
+  _HKInitializeLogging();
+  v9 = HKLogMedication();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+
+  if (v10)
+  {
+    v11 = HKLogMedication();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [HDMedicationScheduleManager updateNotificationSent:scheduleItemIdentifier:error:];
+    }
+  }
+
+  v12 = [[HDMedicationScheduleItemUpdateNotificationSentOperation alloc] initWithScheduleItemIdentifier:identifierCopy notificationSent:sentCopy];
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v14 = [(HDJournalableOperation *)v12 performOrJournalWithProfile:WeakRetained error:error];
+
+  return v14;
 }
 
 + (uint64_t)_crossReferenceScheduledItemsAndDoseEventsAndLogUnloggedWithScheduledItemIdentifier:(uint64_t)identifier status:(void *)status logDate:(void *)date profile:(void *)profile transaction:(uint64_t)transaction error:
@@ -745,65 +766,65 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
 
 + (id)_filterScheduledItemsThatNeedCorrespondinDoseEventsDroppingOnesWithAlreadyLoggedDoses:(void *)doses existingDoseEvents:(void *)events scheduledItemIdentifier:(uint64_t)identifier status:(void *)status logDate:
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v9 = a2;
   dosesCopy = doses;
   eventsCopy = events;
   statusCopy = status;
   objc_opt_self();
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = v9;
-  v30 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v29)
   {
-    v29 = *v45;
+    v28 = *v44;
     v11 = &unk_2796CD880;
-    v32 = dosesCopy;
+    v31 = dosesCopy;
     do
     {
       v12 = 0;
       do
       {
-        if (*v45 != v29)
+        if (*v44 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = v12;
-        v13 = *(*(&v44 + 1) + 8 * v12);
+        v30 = v12;
+        v13 = *(*(&v43 + 1) + 8 * v12);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
         doses = [v13 doses];
-        v14 = [doses countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v14 = [doses countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v41;
+          v16 = *v40;
           do
           {
             v17 = 0;
-            v37 = v15;
+            v36 = v15;
             do
             {
-              if (*v41 != v16)
+              if (*v40 != v16)
               {
                 objc_enumerationMutation(doses);
               }
 
-              v18 = *(*(&v40 + 1) + 8 * v17);
-              v39[0] = MEMORY[0x277D85DD0];
-              v39[1] = 3221225472;
-              v39[2] = __175__HDMedicationScheduleManager__filterScheduledItemsThatNeedCorrespondinDoseEventsDroppingOnesWithAlreadyLoggedDoses_existingDoseEvents_scheduledItemIdentifier_status_logDate___block_invoke;
-              v39[3] = v11;
-              v39[4] = v13;
-              v39[5] = v18;
-              if (([dosesCopy hk_containsObjectPassingTest:v39] & 1) == 0)
+              v18 = *(*(&v39 + 1) + 8 * v17);
+              v38[0] = MEMORY[0x277D85DD0];
+              v38[1] = 3221225472;
+              v38[2] = __175__HDMedicationScheduleManager__filterScheduledItemsThatNeedCorrespondinDoseEventsDroppingOnesWithAlreadyLoggedDoses_existingDoseEvents_scheduledItemIdentifier_status_logDate___block_invoke;
+              v38[3] = v11;
+              v38[4] = v13;
+              v38[5] = v18;
+              if (([dosesCopy hk_containsObjectPassingTest:v38] & 1) == 0)
               {
                 medicationIdentifier = [v18 medicationIdentifier];
                 dose = [v18 dose];
@@ -815,35 +836,33 @@ BOOL __86__HDMedicationScheduleManager__runRescheduleOperationIfListContainsActi
 
                 v13 = v23;
                 v11 = v21;
-                v15 = v37;
+                v15 = v36;
 
-                dosesCopy = v32;
-                [v35 hk_addNonNilObject:v25];
+                dosesCopy = v31;
+                [v34 hk_addNonNilObject:v25];
               }
 
               ++v17;
             }
 
             while (v15 != v17);
-            v15 = [doses countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v15 = [doses countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
           while (v15);
         }
 
-        v12 = v31 + 1;
+        v12 = v30 + 1;
       }
 
-      while (v31 + 1 != v30);
-      v30 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      while (v30 + 1 != v29);
+      v29 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v34;
 }
 
 + (uint64_t)_insertDoseEvents:(void *)events profile:(uint64_t)profile error:
@@ -1013,7 +1032,7 @@ void __98__HDMedicationScheduleManager__startObservingMedicationsNotificationSet
 
 - (BOOL)updateTimeZoneExperienceAsDismissedWithError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1032,8 +1051,8 @@ void __98__HDMedicationScheduleManager__startObservingMedicationsNotificationSet
     v9 = *MEMORY[0x277D11470];
     v10 = objc_loadWeakRetained(&self->_profile);
     notificationManager = [v10 notificationManager];
-    v23 = v9;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = v9;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
     [notificationManager removeDeliveredNotificationsWithIdentifiers:v12];
 
     v13 = objc_loadWeakRetained(&self->_profile);
@@ -1053,13 +1072,34 @@ void __98__HDMedicationScheduleManager__startObservingMedicationsNotificationSet
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
+}
+
+- (BOOL)updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:(BOOL)times error:(id *)error
+{
+  timesCopy = times;
+  _HKInitializeLogging();
+  v7 = HKLogMedication();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+
+  if (v8)
+  {
+    v9 = HKLogMedication();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [HDMedicationScheduleManager updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:error:];
+    }
+  }
+
+  localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
+  v11 = [(HDMedicationScheduleManager *)self _updateSchedulesToTimeZone:localTimeZone maintainCalendarDatesAndTimes:timesCopy error:error];
+
+  return v11;
 }
 
 - (BOOL)_updateSchedulesToTimeZone:(id)zone maintainCalendarDatesAndTimes:(BOOL)times error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   _HKInitializeLogging();
   v9 = HKLogMedication();
@@ -1070,30 +1110,30 @@ void __98__HDMedicationScheduleManager__startObservingMedicationsNotificationSet
     v11 = HKLogMedication();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v25 = HKStringFromBool();
+      v24 = HKStringFromBool();
       *buf = 138543874;
       selfCopy3 = self;
-      v34 = 2114;
-      v35 = zoneCopy;
-      v36 = 2114;
-      v37 = v25;
+      v33 = 2114;
+      v34 = zoneCopy;
+      v35 = 2114;
+      v36 = v24;
       _os_log_debug_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEBUG, "[%{public}@] Updating schedules with time zone: %{public}@, maintainCalendarDatesAndTimes: %{public}@", buf, 0x20u);
     }
   }
 
   autoupdatingCurrentCalendar = [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
   v13 = [(HDMedicationScheduleManager *)self medicationSchedulesWithError:error];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __94__HDMedicationScheduleManager__updateSchedulesToTimeZone_maintainCalendarDatesAndTimes_error___block_invoke;
-  v27[3] = &unk_2796CD8D0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __94__HDMedicationScheduleManager__updateSchedulesToTimeZone_maintainCalendarDatesAndTimes_error___block_invoke;
+  v26[3] = &unk_2796CD8D0;
   v14 = zoneCopy;
-  v28 = v14;
+  v27 = v14;
   selfCopy2 = self;
   timesCopy = times;
   v15 = autoupdatingCurrentCalendar;
-  v30 = v15;
-  v16 = [v13 hk_map:v27];
+  v29 = v15;
+  v16 = [v13 hk_map:v26];
   _HKInitializeLogging();
   v17 = HKLogMedication();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -1105,27 +1145,26 @@ void __98__HDMedicationScheduleManager__startObservingMedicationsNotificationSet
     v21 = HKSensitiveLogItem();
     *buf = 138544386;
     selfCopy3 = self;
-    v34 = 2114;
-    v35 = v18;
-    v36 = 2114;
-    v37 = v19;
-    v38 = 2114;
-    v39 = v20;
-    v40 = 2114;
-    v41 = v21;
+    v33 = 2114;
+    v34 = v18;
+    v35 = 2114;
+    v36 = v19;
+    v37 = 2114;
+    v38 = v20;
+    v39 = 2114;
+    v40 = v21;
     _os_log_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Time zone is updated for %{public}@ old schedules: %{public}@, to %{public}@ new schedules: %{public}@", buf, 0x34u);
 
     error = errorCopy;
   }
 
   v22 = [(HDMedicationScheduleManager *)self insertMedicationSchedules:v16 error:error];
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 id __94__HDMedicationScheduleManager__updateSchedulesToTimeZone_maintainCalendarDatesAndTimes_error___block_invoke(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 createdUTCOffset];
   v5 = [v4 name];
@@ -1141,9 +1180,9 @@ id __94__HDMedicationScheduleManager__updateSchedulesToTimeZone_maintainCalendar
       v9 = *(a1 + 40);
       v10 = [*(a1 + 32) name];
       *buf = 138543618;
-      v52 = v9;
-      v53 = 2114;
-      v54 = v10;
+      v51 = v9;
+      v52 = 2114;
+      v53 = v10;
       _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Abort update to the same time zone: %{public}@.", buf, 0x16u);
     }
 
@@ -1160,7 +1199,7 @@ LABEL_7:
     {
       v11 = *(a1 + 40);
       *buf = 138543362;
-      v52 = v11;
+      v51 = v11;
       _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Abort update to unavailable schedule.", buf, 0xCu);
     }
 
@@ -1178,7 +1217,7 @@ LABEL_7:
   v20 = v19;
   if (*(a1 + 56) == 1)
   {
-    v44 = v19;
+    v43 = v19;
     v21 = [v3 startDateTime];
     v22 = -v16;
     v23 = [v21 dateByAddingTimeInterval:v22];
@@ -1186,44 +1225,44 @@ LABEL_7:
     v24 = [v3 endDateTime];
     v25 = [v24 dateByAddingTimeInterval:v22];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v8 = v13;
-    v26 = [v8 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v26 = [v8 countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v47;
+      v28 = *v46;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v47 != v28)
+          if (*v46 != v28)
           {
             objc_enumerationMutation(v8);
           }
 
           v30 = *(a1 + 32);
-          v31 = [*(*(&v46 + 1) + 8 * i) startTimeComponent];
+          v31 = [*(*(&v45 + 1) + 8 * i) startTimeComponent];
           [v31 setTimeZone:v30];
         }
 
-        v27 = [v8 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v27 = [v8 countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v27);
     }
 
     v17 = v23;
-    v45 = v25;
-    v32 = v44;
+    v44 = v25;
+    v32 = v43;
   }
 
   else
   {
-    v45 = v18;
+    v44 = v18;
     v33 = [v3 timeIntervals];
     v8 = [HDMedicationScheduleManager _makeIntervalsWithStartTimeFromIntervals:v33 byAddingTimeDifferenceDuration:v16 calendar:*(a1 + 48) timeZone:*(a1 + 32)];
 
@@ -1239,10 +1278,9 @@ LABEL_7:
   v39 = *(a1 + 32);
   v40 = [v3 scheduleType];
   v41 = [v3 note];
-  v12 = [v36 initWithUUID:v37 medicationIdentifier:v38 createdUTCOffset:v39 startDateTime:v17 endDateTime:v45 timeIntervals:v8 scheduleType:v40 cycleStartDateComponents:v32 note:v41];
+  v12 = [v36 initWithUUID:v37 medicationIdentifier:v38 createdUTCOffset:v39 startDateTime:v17 endDateTime:v44 timeIntervals:v8 scheduleType:v40 cycleStartDateComponents:v32 note:v41];
 
 LABEL_19:
-  v42 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1285,14 +1323,14 @@ LABEL_19:
   return v10;
 }
 
-id __121__HDMedicationScheduleManager__makeIntervalsWithStartTimeFromIntervals_byAddingTimeDifferenceDuration_calendar_timeZone___block_invoke(uint64_t a1, void *a2)
+id __121__HDMedicationScheduleManager__makeIntervalsWithStartTimeFromIntervals_byAddingTimeDifferenceDuration_calendar_timeZone___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 startTimeComponent];
   v5 = [HDMedicationScheduleManager _durationForDayHourMinuteSecondComponents:v4];
-  v6 = [HDMedicationScheduleManager _hrMinSecSinceMidnightWithDuration:*(a1 + 32) calendar:?];
+  v6 = [HDMedicationScheduleManager _hrMinSecSinceMidnightWithDuration:a1[4] calendar:?];
   v7 = v6;
-  if (*(a1 + 40))
+  if (a1[5])
   {
     [v6 setTimeZone:?];
   }
@@ -1381,6 +1419,84 @@ id __121__HDMedicationScheduleManager__makeIntervalsWithStartTimeFromIntervals_b
   return error;
 }
 
+- (BOOL)pruneAllScheduleItemsBeforeDate:(id)date createDoseEvents:(BOOL)events error:(id *)error
+{
+  eventsCopy = events;
+  v26 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  _HKInitializeLogging();
+  v9 = HKLogMedication();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+
+  if (v10)
+  {
+    v11 = HKLogMedication();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [HDMedicationScheduleManager pruneAllScheduleItemsBeforeDate:createDoseEvents:error:];
+    }
+  }
+
+  v12 = [(HDMedicationNotificationManager *)self->_notificationManager pruneAllScheduleItemsBeforeDate:dateCopy createDoseEvents:eventsCopy error:error];
+  v13 = v12;
+  if (!v12)
+  {
+    _HKInitializeLogging();
+    v14 = HKLogMedication();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    v18 = HKDiagnosticStringFromDate();
+    v16 = v18;
+    if (error)
+    {
+      v19 = *error;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    v20 = 138543874;
+    selfCopy2 = self;
+    v22 = 2114;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v19;
+    _os_log_error_impl(&dword_25181C000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to prune schedule items before date %{public}@ with error: %{public}@", &v20, 0x20u);
+    goto LABEL_10;
+  }
+
+  if ([v12 count])
+  {
+    [(HDMedicationScheduleManager *)self _notifyObserversDidPruneScheduleItems:v13];
+  }
+
+  _HKInitializeLogging();
+  v14 = HKLogMedication();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
+    v16 = HKDiagnosticStringFromDate();
+    v20 = 138543874;
+    selfCopy2 = self;
+    v22 = 2112;
+    v23 = v15;
+    v24 = 2114;
+    v25 = v16;
+    _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully pruned %@ schedule items before date %{public}@", &v20, 0x20u);
+
+LABEL_10:
+  }
+
+LABEL_12:
+
+  return v13 != 0;
+}
+
 - (void)batchNotifyObserversOnCommitOfTransaction:(id)transaction didAddOrModifySchedule:(id)schedule syncIdentity:(int64_t)identity
 {
   transactionCopy = transaction;
@@ -1412,47 +1528,46 @@ id __121__HDMedicationScheduleManager__makeIntervalsWithStartTimeFromIntervals_b
 
 void __63__HDMedicationScheduleManager__handleScheduleTransactionCommit__block_invoke(void *a1, void *a2)
 {
-  v3 = a1[7];
-  v6 = a2;
-  v4 = objc_opt_respondsToSelector();
-  v5 = a1[4];
-  if (v4)
+  v5 = a2;
+  v3 = objc_opt_respondsToSelector();
+  v4 = a1[4];
+  if (v3)
   {
-    [v6 scheduleManager:v5 didAddOrModifySchedulesBySyncIdentity:a1[5]];
+    [v5 scheduleManager:v4 didAddOrModifySchedulesBySyncIdentity:a1[5]];
   }
 
   else
   {
-    [v6 scheduleManager:v5 didAddOrModifySchedules:a1[6]];
+    [v5 scheduleManager:v4 didAddOrModifySchedules:a1[6]];
   }
 }
 
 - (id)orderingTermsForSortDescriptors:(id)descriptors error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = descriptorsCopy;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     v9 = *MEMORY[0x277D113F8];
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = [v11 key];
         v13 = [v12 isEqualToString:v9];
 
@@ -1471,7 +1586,7 @@ void __63__HDMedicationScheduleManager__handleScheduleTransactionCommit__block_i
         [v5 addObject:v14];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -1486,14 +1601,12 @@ void __63__HDMedicationScheduleManager__handleScheduleTransactionCommit__block_i
   v16 = v5;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)_queue_rescheduleMedications
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_8(self);
@@ -1519,11 +1632,10 @@ LABEL_11:
         v9 = HKLogMedication();
         if (OUTLINED_FUNCTION_13(v9))
         {
-          v10 = *(v1 + 88);
           OUTLINED_FUNCTION_6();
-          v34 = 2114;
-          v35 = v11;
-          OUTLINED_FUNCTION_11(&dword_25181C000, v12, v13, "[%{public}@] Adding accessibility assertion: %{public}@", v14, v15, v16, v17, v27, v28, v29, v30, v31, v32, buf[0]);
+          v32 = 2114;
+          v33 = v10;
+          OUTLINED_FUNCTION_11(&dword_25181C000, v11, v12, "[%{public}@] Adding accessibility assertion: %{public}@", v13, v14, v15, v16, v25, v26, v27, v28, v29, v30);
         }
       }
 
@@ -1532,37 +1644,35 @@ LABEL_11:
 
     WeakRetained = objc_loadWeakRetained((v1 + 8));
     database = [WeakRetained database];
-    v31 = v1;
-    v32 = 0;
+    v29 = v1;
+    v30 = 0;
     OUTLINED_FUNCTION_0_1();
-    v28 = 3221225472;
-    v29 = __59__HDMedicationScheduleManager__queue_rescheduleMedications__block_invoke;
-    v30 = &unk_2796CD798;
-    v21 = [v20 performWithTransactionContext:v6 error:&v32 block:&v27];
-    v22 = v32;
+    v26 = 3221225472;
+    v27 = __59__HDMedicationScheduleManager__queue_rescheduleMedications__block_invoke;
+    v28 = &unk_2796CD798;
+    v20 = [v19 performWithTransactionContext:v6 error:&v30 block:&v25];
+    v21 = v30;
 
     [(HDMedicationScheduleManager *)v1 queue_invalidateDBAccessAssertion];
     _HKInitializeLogging();
-    v23 = HKLogMedication();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = HKLogMedication();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_6();
-      v34 = 2114;
-      if (v21)
+      v32 = 2114;
+      if (v20)
       {
-        v24 = v25;
+        v23 = v24;
       }
 
-      v35 = v24;
-      v36 = 2114;
-      v37 = v22;
-      _os_log_impl(&dword_25181C000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reschedule medications for delayed operation completed with %{public}@, error: %{public}@", buf, 0x20u);
+      v33 = v23;
+      v34 = 2114;
+      v35 = v21;
+      _os_log_impl(&dword_25181C000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reschedule medications for delayed operation completed with %{public}@, error: %{public}@", buf, 0x20u);
     }
 
-    [(HDMedicationScheduleManager *)v1 _callTestHookdidRunRescheduleOperationWithSuccess:v21 error:v22];
+    [(HDMedicationScheduleManager *)v1 _callTestHookdidRunRescheduleOperationWithSuccess:v20 error:v21];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
@@ -1590,7 +1700,7 @@ LABEL_11:
 
 - (void)_runRescheduleDelayedOperation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 8));
@@ -1602,14 +1712,13 @@ LABEL_11:
     if (asyncMedicationReschedulesEnabled)
     {
       [(HDMedicationScheduleManager *)self _rescheduleOperationDelayWithDefaultDelay:?];
-      v11 = *(self + 16);
       OUTLINED_FUNCTION_0_1();
-      v14[1] = 3221225472;
-      v14[2] = __61__HDMedicationScheduleManager__runRescheduleDelayedOperation__block_invoke;
-      v14[3] = &unk_2796CD770;
-      v14[4] = self;
-      v14[5] = v12;
-      dispatch_async(v13, v14);
+      v12[1] = 3221225472;
+      v12[2] = __61__HDMedicationScheduleManager__runRescheduleDelayedOperation__block_invoke;
+      v12[3] = &unk_2796CD770;
+      v12[4] = self;
+      v12[5] = v10;
+      dispatch_async(v11, v12);
     }
 
     else
@@ -1619,12 +1728,10 @@ LABEL_11:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_7(&dword_25181C000, v8, v9, "[%{public}@] Async reschedule of meds is disabled by medications behavior", v15);
+        OUTLINED_FUNCTION_7(&dword_25181C000, v8, v9, "[%{public}@] Async reschedule of meds is disabled by medications behavior", v13);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_runRescheduleOperationIfListContainsActiveMedsListUDC:(uint64_t)c
@@ -1674,7 +1781,7 @@ LABEL_11:
 
 - (BOOL)_enumerateSchedulesInDescendingCreationOrderWithPredicate:(char)predicate includeDeleted:(void *)deleted transaction:(uint64_t)transaction error:(void *)error enumerationHandler:
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v11 = a2;
   deletedCopy = deleted;
   errorCopy = error;
@@ -1691,8 +1798,8 @@ LABEL_11:
     }
 
     v18 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"creation_date" entityClass:objc_opt_class() ascending:0];
-    v23[0] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     v20 = [HDMedicationScheduleEntity enumerateSchedulesWithPredicate:v14 limit:0 orderingTerms:v19 transaction:deletedCopy error:transaction enumerationHandler:errorCopy];
   }
 
@@ -1701,13 +1808,12 @@ LABEL_11:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)_setRescheduleRequiredOnNextUnlock:(uint64_t)unlock
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (unlock)
   {
     v4 = *(unlock + 72);
@@ -1718,66 +1824,62 @@ LABEL_11:
     if (v5 != v4)
     {
       _deviceLocalKeyValueDomain = [(HDMedicationScheduleManager *)unlock _deviceLocalKeyValueDomain];
-      v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-      v15 = 0;
-      v9 = [_deviceLocalKeyValueDomain setNumber:v8 forKey:@"rescheduleRequired" error:&v15];
-      v10 = v15;
+      v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
+      v14 = 0;
+      v8 = [_deviceLocalKeyValueDomain setNumber:v7 forKey:@"rescheduleRequired" error:&v14];
+      v9 = v14;
 
-      if ((v9 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
         _HKInitializeLogging();
-        v11 = HKLogMedication();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v10 = HKLogMedication();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v12 = HKStringFromBool();
+          v11 = HKStringFromBool();
           OUTLINED_FUNCTION_10();
+          v16 = v12;
           v17 = v13;
-          v18 = v14;
-          v19 = @"rescheduleRequired";
-          v20 = v14;
-          v21 = v10;
-          _os_log_error_impl(&dword_25181C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ Unable to set value %{public}@ for key %{public}@: %{public}@", buf, 0x2Au);
+          v18 = @"rescheduleRequired";
+          v19 = v13;
+          v20 = v9;
+          _os_log_error_impl(&dword_25181C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Unable to set value %{public}@ for key %{public}@: %{public}@", buf, 0x2Au);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_notifyObserversForDidRescheduleMedications
+- (id)_notifyObserversForDidRescheduleMedications
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    v2 = result;
+    v3 = result;
     _HKInitializeLogging();
-    v3 = HKLogMedication();
-    v4 = OUTLINED_FUNCTION_14(v3);
+    v4 = HKLogMedication();
+    v5 = OUTLINED_FUNCTION_14(v4);
 
-    if (v4)
+    if (v5)
     {
-      v5 = HKLogMedication();
-      if (OUTLINED_FUNCTION_14(v5))
+      v6 = HKLogMedication();
+      if (OUTLINED_FUNCTION_14(v6))
       {
-        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(v2 + 24), "count")}];
+        v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3[3], "count")}];
         OUTLINED_FUNCTION_6();
-        v16 = 2114;
-        v17 = v10;
-        _os_log_debug_impl(&dword_25181C000, v1, OS_LOG_TYPE_DEBUG, "[%{public}@] Notifying %{public}@ observers of reschedule items.", buf, 0x16u);
+        v15 = 2114;
+        v16 = v9;
+        _os_log_debug_impl(&dword_25181C000, v2, OS_LOG_TYPE_DEBUG, "[%{public}@] Notifying %{public}@ observers of reschedule items.", buf, 0x16u);
       }
     }
 
-    v6 = *(v2 + 24);
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_9();
-    v12 = __74__HDMedicationScheduleManager__notifyObserversForDidRescheduleMedications__block_invoke;
-    v13 = &unk_2796CD920;
-    v14 = v2;
-    result = [v7 notifyObservers:v11];
+    v11 = __74__HDMedicationScheduleManager__notifyObserversForDidRescheduleMedications__block_invoke;
+    v12 = &unk_2796CD920;
+    v13 = v3;
+    return [v7 notifyObservers:v10];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1798,7 +1900,7 @@ LABEL_11:
   return a2;
 }
 
-- (uint64_t)_queue_runRescheduleOperationWithDelay:(uint64_t)result
+- (void)_queue_runRescheduleOperationWithDelay:(void *)result
 {
   if (result)
   {
@@ -1814,7 +1916,7 @@ LABEL_11:
 
 - (void)queue_takeDBAccessAssertionIfRequired
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_8(self);
@@ -1829,9 +1931,9 @@ LABEL_11:
 
       WeakRetained = objc_loadWeakRetained((v1 + 8));
       database = [WeakRetained database];
-      v17 = 0;
-      v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:v7 timeout:&v17 error:300.0];
-      v11 = v17;
+      v16 = 0;
+      v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:v7 timeout:&v16 error:300.0];
+      v11 = v16;
       v12 = *(v1 + 88);
       *(v1 + 88) = v10;
 
@@ -1847,22 +1949,20 @@ LABEL_11:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v19 = v1;
-            v20 = 2114;
-            v21 = v11;
+            v18 = v1;
+            v19 = 2114;
+            v20 = v11;
             _os_log_impl(&dword_25181C000, v15, OS_LOG_TYPE_INFO, "[%{public}@] Unable to take accessibility assertion: %{public}@", buf, 0x16u);
           }
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_invalidateDBAccessAssertion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_8(self);
@@ -1879,14 +1979,12 @@ LABEL_11:
       v6 = HKLogMedication();
       if (OUTLINED_FUNCTION_14(v6))
       {
-        v8 = 138543362;
-        v9 = v1;
-        _os_log_debug_impl(&dword_25181C000, v2, OS_LOG_TYPE_DEBUG, "[%{public}@] Database accessibility assertion is invalidated", &v8, 0xCu);
+        v7 = 138543362;
+        v8 = v1;
+        _os_log_debug_impl(&dword_25181C000, v2, OS_LOG_TYPE_DEBUG, "[%{public}@] Database accessibility assertion is invalidated", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callTestHookdidRunRescheduleOperationWithSuccess:(void *)success error:
@@ -1905,46 +2003,42 @@ LABEL_11:
 
 - (uint64_t)_hasPersistedRescheduleRequiredOnNextUnlockFlag
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (self)
+  v16 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    _deviceLocalKeyValueDomain = [(HDMedicationScheduleManager *)self _deviceLocalKeyValueDomain];
-    v12 = 0;
-    v3 = [_deviceLocalKeyValueDomain numberForKey:@"rescheduleRequired" error:&v12];
-    v4 = v12;
-    v5 = v4;
-    if (!v3 && v4)
-    {
-      _HKInitializeLogging();
-      v6 = HKLogMedication();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        OUTLINED_FUNCTION_10();
-        v14 = @"rescheduleRequired";
-        v15 = v11;
-        v16 = v5;
-        _os_log_error_impl(&dword_25181C000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get value for key %{public}@: %{public}@", buf, 0x20u);
-      }
-    }
-
-    bOOLValue = [v3 BOOLValue];
-    os_unfair_lock_lock((self + 80));
-    v8 = 1;
-    if (!bOOLValue)
-    {
-      v8 = 2;
-    }
-
-    *(self + 72) = v8;
-    os_unfair_lock_unlock((self + 80));
+    return 0;
   }
 
-  else
+  _deviceLocalKeyValueDomain = [(HDMedicationScheduleManager *)self _deviceLocalKeyValueDomain];
+  v11 = 0;
+  v3 = [_deviceLocalKeyValueDomain numberForKey:@"rescheduleRequired" error:&v11];
+  v4 = v11;
+  v5 = v4;
+  if (!v3 && v4)
   {
-    bOOLValue = 0;
+    _HKInitializeLogging();
+    v6 = HKLogMedication();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_10();
+      v13 = @"rescheduleRequired";
+      v14 = v10;
+      v15 = v5;
+      _os_log_error_impl(&dword_25181C000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get value for key %{public}@: %{public}@", buf, 0x20u);
+    }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  bOOLValue = [v3 BOOLValue];
+  os_unfair_lock_lock((self + 80));
+  v8 = 1;
+  if (!bOOLValue)
+  {
+    v8 = 2;
+  }
+
+  *(self + 72) = v8;
+  os_unfair_lock_unlock((self + 80));
+
   return bOOLValue;
 }
 
@@ -1961,9 +2055,9 @@ LABEL_11:
   return selfCopy;
 }
 
-- (uint64_t)_insertMedicationSchedules:(uint64_t)schedules syncProvenance:(uint64_t)provenance syncIdentity:(void *)identity transaction:(uint64_t)transaction error:
+- (uint64_t)_insertMedicationSchedules:(uint64_t)schedules syncProvenance:(void *)provenance syncIdentity:(void *)identity transaction:(uint64_t)transaction error:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v10 = a2;
   identityCopy = identity;
   if (self)
@@ -1979,60 +2073,61 @@ LABEL_11:
         provenance = [entity persistentID];
       }
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       obj = v10;
-      v16 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v16 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v35;
-        v31 = v10;
+        v18 = *v34;
+        v30 = v10;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v35 != v18)
+            if (*v34 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v34 + 1) + 8 * i);
+            v20 = *(*(&v33 + 1) + 8 * i);
             v21 = objc_loadWeakRetained((self + 8));
             v22 = [HDMedicationScheduleEntity insertMedicationSchedule:v20 syncProvenance:schedules syncIdentity:provenance profile:v21 transaction:identityCopy error:transaction];
 
-            if (!v22)
+            if (v22)
             {
-              goto LABEL_16;
-            }
+              medicationIdentifier = [v20 medicationIdentifier];
 
-            medicationIdentifier = [v20 medicationIdentifier];
+              if (!medicationIdentifier)
+              {
+                continue;
+              }
 
-            if (medicationIdentifier)
-            {
               medicationIdentifier2 = [v20 medicationIdentifier];
-              v38 = medicationIdentifier2;
-              v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+              v37 = medicationIdentifier2;
+              v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
               v26 = HDDismissedRemoteScheduleUnavailableRecordsForMedicationSemanticIdentifiers(v25);
 
               database = [identityCopy database];
               LODWORD(medicationIdentifier2) = [(HDHealthEntity *)HDDismissedRemoteScheduleUnavailableRecordEntity deleteEntitiesWithPredicate:v26 healthDatabase:database error:transaction];
 
-              if (!medicationIdentifier2)
+              if (medicationIdentifier2)
               {
-LABEL_16:
-                v28 = 0;
-                v10 = v31;
-                goto LABEL_19;
+                continue;
               }
             }
+
+            v28 = 0;
+            v10 = v30;
+            goto LABEL_19;
           }
 
-          v17 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v17 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
           v28 = 1;
-          v10 = v31;
+          v10 = v30;
           if (v17)
           {
             continue;
@@ -2061,13 +2156,12 @@ LABEL_19:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (void)_queue_handleNotificationSettingsDidChangeNotification
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_8(self);
@@ -2075,14 +2169,12 @@ LABEL_19:
     v2 = HKLogMedication();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
-      v7 = v1;
+      v5 = 138543362;
+      v6 = v1;
     }
 
     [(HDMedicationScheduleManager *)v1 _queue_rescheduleMedications];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversDidPruneScheduleItems:(uint64_t)items
@@ -2101,23 +2193,22 @@ LABEL_19:
       if (OUTLINED_FUNCTION_13(v7))
       {
         [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(items + 24), "count")}];
-        HIDWORD(v22) = HIDWORD(items);
+        *buf = 138543618;
+        itemsCopy = items;
         v24 = v23 = 2114;
-        OUTLINED_FUNCTION_11(&dword_25181C000, v10, v11, "[%{public}@] Notifying %{public}@ observers of prune schedule items.", v12, v13, v14, v15, v16, v17, v18, v19, itemsCopy, v21, 2u);
+        OUTLINED_FUNCTION_11(&dword_25181C000, v9, v10, "[%{public}@] Notifying %{public}@ observers of prune schedule items.", v11, v12, v13, v14, v15, v16, v17, v18, itemsCopy2, v20);
       }
     }
 
     v8 = *(items + 24);
     OUTLINED_FUNCTION_0_1();
-    v17 = 3221225472;
-    v18 = __69__HDMedicationScheduleManager__notifyObserversDidPruneScheduleItems___block_invoke;
-    v19 = &unk_2796CD948;
-    itemsCopy = items;
-    v21 = v4;
-    [v8 notifyObservers:&v16];
+    v16 = 3221225472;
+    v17 = __69__HDMedicationScheduleManager__notifyObserversDidPruneScheduleItems___block_invoke;
+    v18 = &unk_2796CD948;
+    itemsCopy2 = items;
+    v20 = v4;
+    [v8 notifyObservers:&v15];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_addPendingSchedule:(uint64_t)schedule syncIdentity:
@@ -2183,7 +2274,7 @@ LABEL_19:
 
 - (void)_handleScheduleTransactionCommit
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 40));
@@ -2193,51 +2284,49 @@ LABEL_19:
 
     os_unfair_lock_unlock((self + 40));
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     allValues = [v2 allValues];
-    v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [v4 addObjectsFromArray:*(*(&v18 + 1) + 8 * v9++)];
+          [v4 addObjectsFromArray:*(*(&v17 + 1) + 8 * v9++)];
         }
 
         while (v7 != v9);
-        v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
     }
 
     v10 = *(self + 24);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __63__HDMedicationScheduleManager__handleScheduleTransactionCommit__block_invoke;
-    v14[3] = &unk_2796CDA10;
-    v14[4] = self;
-    v15 = v2;
-    v16 = v4;
-    v17 = sel_scheduleManager_didAddOrModifySchedulesBySyncIdentity_;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __63__HDMedicationScheduleManager__handleScheduleTransactionCommit__block_invoke;
+    v13[3] = &unk_2796CDA10;
+    v13[4] = self;
+    v14 = v2;
+    v15 = v4;
+    v16 = sel_scheduleManager_didAddOrModifySchedulesBySyncIdentity_;
     v11 = v4;
     v12 = v2;
-    [v10 notifyObservers:v14];
+    [v10 notifyObservers:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleScheduleTransactionRollback
@@ -2308,14 +2397,11 @@ LABEL_19:
 - (void)medicationSchedule:medicationIdentifier:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = HKSensitiveLogItem();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_fetchMedicationSchedule:(uint64_t)a1 predicate:(uint64_t *)a2 error:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t *a2, NSObject *a3)
@@ -2330,133 +2416,107 @@ LABEL_19:
     v3 = 0;
   }
 
-  *v5 = 138543618;
-  *&v5[4] = a1;
-  *&v5[12] = 2114;
-  *&v5[14] = v3;
-  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] Fetch medication schedule failed with error: %{public}@", *v5, *&v5[8], *&v5[16], *MEMORY[0x277D85DE8]);
-  v4 = *MEMORY[0x277D85DE8];
+  *v4 = 138543618;
+  *&v4[4] = a1;
+  *&v4[12] = 2114;
+  *&v4[14] = v3;
+  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@] Fetch medication schedule failed with error: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)medicationSchedule:identifier:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = HKSensitiveLogItem();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)medicationSchedulesWithPredicate:transaction:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = objc_opt_self();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = objc_opt_self();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)insertMedicationSchedule:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = HKSensitiveLogItem();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)insertMedicationSchedules:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
-  v9 = HKSensitiveLogItem();
+  v8 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rescheduleMedicationsWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25181C000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Rescheduling medications", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25181C000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Rescheduling medications", &v2, 0xCu);
 }
 
 - (void)rescheduleMedicationsSynchronously:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = HKLogMedication();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 138543362;
-    v5 = a1;
-    _os_log_impl(&dword_25181C000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Rescheduling medications with delayed operation", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = a1;
+    _os_log_impl(&dword_25181C000, v2, OS_LOG_TYPE_INFO, "[%{public}@] Rescheduling medications with delayed operation", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rescheduleMedicationsSynchronously:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@]: Failed to reschedule medications synchronously: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@]: Failed to reschedule medications synchronously: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)updateNotificationSent:scheduleItemIdentifier:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = HKSensitiveLogItem();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = HKSensitiveLogItem();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = HKStringFromBool();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneAllScheduleItemsBeforeDate:createDoseEvents:error:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(v1, v2);
-  v3 = HKDiagnosticStringFromDate();
+  OUTLINED_FUNCTION_5(v0, v1);
+  v2 = HKDiagnosticStringFromDate();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 @end

@@ -100,7 +100,7 @@ LABEL_14:
 
 - (id)jsonDictionary
 {
-  v25[5] = *MEMORY[0x1E69E9840];
+  v24[5] = *MEMORY[0x1E69E9840];
   identifier = [(BMPlaceInference *)self identifier];
   uUIDString = [identifier UUIDString];
 
@@ -110,48 +110,48 @@ LABEL_14:
   mapItem = [(BMPlaceInference *)self mapItem];
   jsonDictionary = [mapItem jsonDictionary];
 
-  v20 = @"identifier";
+  v19 = @"identifier";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v25[0] = null;
-  v21 = @"placeType";
+  v17 = null;
+  v24[0] = null;
+  v20 = @"placeType";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[1] = null2;
-  v22 = @"userSpecificPlaceType";
+  v24[1] = null2;
+  v21 = @"userSpecificPlaceType";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[2] = null3;
-  v23 = @"userSpecificPlaceTypeSource";
+  v24[2] = null3;
+  v22 = @"userSpecificPlaceTypeSource";
   null4 = v7;
   if (!v7)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[3] = null4;
-  v24 = @"mapItem";
+  v24[3] = null4;
+  v23 = @"mapItem";
   null5 = jsonDictionary;
   if (!jsonDictionary)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v20 count:{5, v18}];
+  v24[4] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v19 count:{5, v17}];
   if (jsonDictionary)
   {
     if (v7)
@@ -209,14 +209,13 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMPlaceInference)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -236,10 +235,10 @@ LABEL_16:
       {
         v29 = objc_alloc(MEMORY[0x1E696ABC0]);
         v30 = *MEMORY[0x1E698F240];
-        v62 = *MEMORY[0x1E696A578];
-        v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"identifier"];
-        v63[0] = v50;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+        v61 = *MEMORY[0x1E696A578];
+        v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"identifier"];
+        v62[0] = v49;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
         *error = [v29 initWithDomain:v30 code:2 userInfo:v31];
 
         selfCopy3 = 0;
@@ -274,21 +273,21 @@ LABEL_4:
         {
           if (!error)
           {
-            v47 = 0;
+            v46 = 0;
             selfCopy3 = 0;
 LABEL_58:
 
             goto LABEL_60;
           }
 
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
           v27 = *MEMORY[0x1E698F240];
-          v58 = *MEMORY[0x1E696A578];
-          v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeType"];
-          v59 = v45;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-          v28 = [v49 initWithDomain:v27 code:2 userInfo:v16];
-          v47 = 0;
+          v57 = *MEMORY[0x1E696A578];
+          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeType"];
+          v58 = v44;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v28 = [v48 initWithDomain:v27 code:2 userInfo:v16];
+          v46 = 0;
           selfCopy3 = 0;
           *errorCopy = v28;
 LABEL_57:
@@ -299,16 +298,16 @@ LABEL_57:
         v12 = [MEMORY[0x1E696AD98] numberWithInt:BMPlaceInferencePlaceTypeFromString(v9)];
       }
 
-      v47 = v12;
+      v46 = v12;
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"userSpecificPlaceType"];
-    v44 = v8;
+    v43 = v8;
     if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -324,19 +323,19 @@ LABEL_57:
         {
           if (!errorCopy)
           {
-            v45 = 0;
+            v44 = 0;
             selfCopy3 = 0;
             goto LABEL_57;
           }
 
-          v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v45 = objc_alloc(MEMORY[0x1E696ABC0]);
           v32 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v55 = *MEMORY[0x1E696A578];
           v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userSpecificPlaceType"];
-          v57 = v19;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v33 = [v46 initWithDomain:v32 code:2 userInfo:v18];
-          v45 = 0;
+          v56 = v19;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v33 = [v45 initWithDomain:v32 code:2 userInfo:v18];
+          v44 = 0;
           selfCopy3 = 0;
           *errorCopy = v33;
           goto LABEL_56;
@@ -345,16 +344,16 @@ LABEL_57:
         v17 = [MEMORY[0x1E696AD98] numberWithInt:BMPlaceInferenceUserSpecificPlaceTypeFromString(v16)];
       }
 
-      v45 = v17;
+      v44 = v17;
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"userSpecificPlaceTypeSource"];
-    v43 = v7;
+    v42 = v7;
     if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -375,18 +374,18 @@ LABEL_57:
             goto LABEL_56;
           }
 
-          v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v40 = objc_alloc(MEMORY[0x1E696ABC0]);
           selfCopy = self;
           v35 = *MEMORY[0x1E698F240];
-          v54 = *MEMORY[0x1E696A578];
+          v53 = *MEMORY[0x1E696A578];
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userSpecificPlaceTypeSource"];
-          v55 = v21;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+          v54 = v21;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
           v36 = v35;
           self = selfCopy;
           v19 = 0;
           selfCopy3 = 0;
-          *errorCopy = [v41 initWithDomain:v36 code:2 userInfo:v23];
+          *errorCopy = [v40 initWithDomain:v36 code:2 userInfo:v23];
           goto LABEL_54;
         }
 
@@ -407,15 +406,15 @@ LABEL_57:
     {
       v23 = 0;
 LABEL_36:
-      self = -[BMPlaceInference initWithIdentifier:placeType:userSpecificPlaceType:userSpecificPlaceTypeSource:mapItem:](selfCopy2, "initWithIdentifier:placeType:userSpecificPlaceType:userSpecificPlaceTypeSource:mapItem:", v44, [v47 intValue], objc_msgSend(v45, "intValue"), objc_msgSend(v19, "intValue"), v23);
+      self = -[BMPlaceInference initWithIdentifier:placeType:userSpecificPlaceType:userSpecificPlaceTypeSource:mapItem:](selfCopy2, "initWithIdentifier:placeType:userSpecificPlaceType:userSpecificPlaceTypeSource:mapItem:", v43, [v46 intValue], objc_msgSend(v44, "intValue"), objc_msgSend(v19, "intValue"), v23);
       selfCopy3 = self;
 LABEL_54:
 
 LABEL_55:
-      v7 = v43;
+      v7 = v42;
 
 LABEL_56:
-      v8 = v44;
+      v8 = v43;
       goto LABEL_57;
     }
 
@@ -423,9 +422,9 @@ LABEL_56:
     if (objc_opt_isKindOfClass())
     {
       v24 = v21;
-      v51 = 0;
-      v23 = [[BMPlaceInferenceMapItem alloc] initWithJSONDictionary:v24 error:&v51];
-      v25 = v51;
+      v50 = 0;
+      v23 = [[BMPlaceInferenceMapItem alloc] initWithJSONDictionary:v24 error:&v50];
+      v25 = v50;
       if (!v25)
       {
 
@@ -450,13 +449,13 @@ LABEL_56:
         goto LABEL_55;
       }
 
-      v40 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v39 = *MEMORY[0x1E698F240];
-      v52 = *MEMORY[0x1E696A578];
+      v39 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v38 = *MEMORY[0x1E698F240];
+      v51 = *MEMORY[0x1E696A578];
       v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"mapItem"];
-      v53 = v23;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-      *errorCopy = [v40 initWithDomain:v39 code:2 userInfo:v26];
+      v52 = v23;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      *errorCopy = [v39 initWithDomain:v38 code:2 userInfo:v26];
 
       selfCopy3 = 0;
     }
@@ -469,10 +468,10 @@ LABEL_56:
   {
     v13 = objc_alloc(MEMORY[0x1E696ABC0]);
     v14 = *MEMORY[0x1E698F240];
-    v60 = *MEMORY[0x1E696A578];
+    v59 = *MEMORY[0x1E696A578];
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
-    v61 = v8;
-    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+    v60 = v8;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
     selfCopy3 = 0;
     *error = [v13 initWithDomain:v14 code:2 userInfo:?];
 
@@ -483,7 +482,6 @@ LABEL_60:
   selfCopy3 = 0;
 LABEL_61:
 
-  v37 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -504,11 +502,8 @@ LABEL_61:
     PBDataWriterWriteStringField();
   }
 
-  placeType = self->_placeType;
   PBDataWriterWriteUint32Field();
-  userSpecificPlaceType = self->_userSpecificPlaceType;
   PBDataWriterWriteUint32Field();
-  userSpecificPlaceTypeSource = self->_userSpecificPlaceTypeSource;
   PBDataWriterWriteUint32Field();
   if (self->_mapItem)
   {
@@ -834,51 +829,47 @@ LABEL_73:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"placeType" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userSpecificPlaceType" number:3 type:4 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userSpecificPlaceTypeSource" number:4 type:4 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mapItem" number:5 type:14 subMessageClass:objc_opt_class()];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"placeType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userSpecificPlaceType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userSpecificPlaceTypeSource" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"mapItem_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_240_66409];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __27__BMPlaceInference_columns__block_invoke(uint64_t a1, void *a2)
+id __27__BMPlaceInference_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 mapItem];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 mapItem];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

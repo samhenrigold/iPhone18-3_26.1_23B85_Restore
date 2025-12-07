@@ -974,21 +974,21 @@ uint64_t __74__WBSQuickWebsiteSearchController__pruneUnusedQuickWebsiteSearchPro
 
 id __50__WBSQuickWebsiteSearchController__saveToDiskSoon__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = MEMORY[0x1E696AE40];
   v3 = [WeakRetained _dictionaryRepresentation];
-  v9 = 0;
-  v4 = [v2 dataWithPropertyList:v3 format:200 options:0 error:&v9];
-  v5 = v9;
+  v11 = 0;
+  v4 = [v2 dataWithPropertyList:v3 format:200 options:0 error:&v11];
+  v5 = v11;
 
   if (!v4)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = [v5 safari_privacyPreservingDescription];
-      __50__WBSQuickWebsiteSearchController__saveToDiskSoon__block_invoke_cold_1(v7, buf, v6);
+      v9 = [v5 safari_privacyPreservingDescription];
+      __50__WBSQuickWebsiteSearchController__saveToDiskSoon__block_invoke_cold_1(v9, buf, v8);
     }
   }
 

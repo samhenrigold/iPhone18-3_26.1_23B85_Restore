@@ -34,9 +34,9 @@
 
 - (MPSCNNCrossChannelNormalization)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v36.receiver = self;
-  v36.super_class = MPSCNNCrossChannelNormalization;
-  v5 = [(MPSCNNKernel *)&v36 initWithCoder:aDecoder device:device];
+  v40.receiver = self;
+  v40.super_class = MPSCNNCrossChannelNormalization;
+  v5 = [(MPSCNNKernel *)&v40 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -62,7 +62,7 @@
   {
     v35 = objc_opt_class();
     NSStringFromClass(v35);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNormalization.mm", 0x2A8, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v36, v37, v38, v39);
   }
 
   return 0;
@@ -117,7 +117,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNormalization.mm", 0x2E8, @"[%@ initWithDevice:] is not allowed. Please use initializers that are not marked NS_UNAVAILABLE.", v5, v6, v7, v8);
   }
 
   return 0;

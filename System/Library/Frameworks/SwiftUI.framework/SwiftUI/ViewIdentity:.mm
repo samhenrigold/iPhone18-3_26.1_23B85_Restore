@@ -10,10 +10,10 @@
   if (!lazy cache variable for type metadata for [ViewIdentity : ConfirmationDialog])
   {
     lazy protocol witness table accessor for type ViewIdentity and conformance ViewIdentity();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [ViewIdentity : ConfirmationDialog]);
+      atomic_store(v1, &lazy cache variable for type metadata for [ViewIdentity : ConfirmationDialog]);
     }
   }
 }
@@ -23,10 +23,10 @@
   if (!lazy cache variable for type metadata for [ViewIdentity : AlertStorage])
   {
     lazy protocol witness table accessor for type ViewIdentity and conformance ViewIdentity();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [ViewIdentity : AlertStorage]);
+      atomic_store(v1, &lazy cache variable for type metadata for [ViewIdentity : AlertStorage]);
     }
   }
 }

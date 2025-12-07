@@ -445,31 +445,29 @@ LABEL_54:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_containerName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    databaseType = self->_databaseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_databaseOwnerId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    containerType = self->_containerType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

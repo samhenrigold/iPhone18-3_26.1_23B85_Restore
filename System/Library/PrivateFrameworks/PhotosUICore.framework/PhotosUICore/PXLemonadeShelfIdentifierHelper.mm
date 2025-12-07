@@ -18,7 +18,7 @@
 
   else
   {
-    v6 = sub_1A3DD1E84(result);
+    v6 = sub_1A3DD1E84(result, 0xD000000000000016, 0x80000001A53B7500);
     MEMORY[0x1A5907AC0](v6);
 
     v7 = sub_1A524C634();
@@ -32,7 +32,7 @@
 - (PXLemonadeShelfIdentifierHelper)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LemonadeShelfIdentifierHelper();
+  v3.super_class = type metadata accessor for LemonadeShelfIdentifierHelper(self, a2);
   return [(PXLemonadeShelfIdentifierHelper *)&v3 init];
 }
 

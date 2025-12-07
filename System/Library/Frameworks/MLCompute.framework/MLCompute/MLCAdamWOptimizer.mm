@@ -1,5 +1,6 @@
 @interface MLCAdamWOptimizer
 + (MLCAdamWOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor;
++ (MLCAdamWOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor beta1:(float)beta1 beta2:(float)beta2 epsilon:(float)epsilon usesAMSGrad:(BOOL)usesAMSGrad timeStep:(NSUInteger)timeStep;
 - (BOOL)compileForDevice:(id)device;
 - (MLCAdamWOptimizer)initWithDescriptor:(id)descriptor beta1:(float)beta1 beta2:(float)beta2 epsilon:(float)epsilon usesAMSGrad:(BOOL)grad timeStep:(unint64_t)step;
 - (NSString)description;
@@ -18,6 +19,19 @@
   v9 = [v5 initWithDescriptor:v4 beta1:0 beta2:1 epsilon:v6 usesAMSGrad:v7 timeStep:v8];
 
   return v9;
+}
+
++ (MLCAdamWOptimizer)optimizerWithDescriptor:(MLCOptimizerDescriptor *)optimizerDescriptor beta1:(float)beta1 beta2:(float)beta2 epsilon:(float)epsilon usesAMSGrad:(BOOL)usesAMSGrad timeStep:(NSUInteger)timeStep
+{
+  v9 = usesAMSGrad;
+  v14 = optimizerDescriptor;
+  v15 = [self alloc];
+  *&v16 = beta1;
+  *&v17 = beta2;
+  *&v18 = epsilon;
+  v19 = [v15 initWithDescriptor:v14 beta1:v9 beta2:timeStep epsilon:v16 usesAMSGrad:v17 timeStep:v18];
+
+  return v19;
 }
 
 - (MLCAdamWOptimizer)initWithDescriptor:(id)descriptor beta1:(float)beta1 beta2:(float)beta2 epsilon:(float)epsilon usesAMSGrad:(BOOL)grad timeStep:(unint64_t)step

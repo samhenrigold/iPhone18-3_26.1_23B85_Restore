@@ -25,19 +25,20 @@
 
 - (id)safari_initWithEncodedRecordData:()SafariCoreExtras
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([v4 length])
   {
-    v11[0] = 0;
-    v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v4 error:v11];
-    v6 = v11[0];
+    v12[0] = 0;
+    v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v4 error:v12];
+    v6 = v12[0];
+    v8 = v6;
     if (v6)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(CKRecord(SafariCoreExtras) *)v7 safari_initWithEncodedRecordData:v6];
+        [(CKRecord(SafariCoreExtras) *)v9 safari_initWithEncodedRecordData:v8];
       }
     }
 
@@ -51,7 +52,6 @@
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -213,14 +213,12 @@
 
 - (void)safari_initWithEncodedRecordData:()SafariCoreExtras .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Failed to initialize reading from encoded record data: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Failed to initialize reading from encoded record data: %{public}@", &v5, 0xCu);
 }
 
 - (void)safari_initWithEncodedRecordData:()SafariCoreExtras .cold.2(void *a1, uint8_t *buf, os_log_t log)

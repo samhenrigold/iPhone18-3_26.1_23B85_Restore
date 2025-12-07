@@ -32,27 +32,26 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69A5270] xpc];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     target = self->_target;
     *buf = 138543618;
-    v8 = target;
-    v9 = 2048;
+    v7 = target;
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Dealloc'ing IDSXPCConnectionRemoteObjectPromise {target: %{public}@, pointer: %p}", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = IDSXPCConnectionRemoteObjectPromise;
-  [(IDSXPCConnectionRemoteObjectPromise *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = IDSXPCConnectionRemoteObjectPromise;
+  [(IDSXPCConnectionRemoteObjectPromise *)&v5 dealloc];
 }
 
 - (IDSXPCConnectionRemoteObjectPromise)initWithInterface:(id)interface queue:(id)queue
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   queueCopy = queue;
   v9 = [MEMORY[0x1E69A5270] xpc];
@@ -64,9 +63,9 @@
   }
 
   dispatch_assert_queue_V2(queueCopy);
-  v14.receiver = self;
-  v14.super_class = IDSXPCConnectionRemoteObjectPromise;
-  v10 = [(IDSXPCConnectionRemoteObjectPromise *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = IDSXPCConnectionRemoteObjectPromise;
+  v10 = [(IDSXPCConnectionRemoteObjectPromise *)&v13 init];
   v11 = v10;
   if (v10)
   {
@@ -74,13 +73,12 @@
     objc_storeStrong(&v11->_queue, queue);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)fulfillWithRemoteObject:(id)object
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   queue = [(IDSXPCConnectionRemoteObjectPromise *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -95,27 +93,27 @@
   [(IDSXPCConnectionRemoteObjectPromise *)self setTarget:objectCopy];
   if ([(NSMutableArray *)self->_pendingInvocations count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = self->_pendingInvocations;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * v12);
+          v13 = *(*(&v16 + 1) + 8 * v12);
           target2 = [(IDSXPCConnectionRemoteObjectPromise *)self target];
           [v13 invokeWithTarget:target2];
 
@@ -123,7 +121,7 @@
         }
 
         while (v10 != v12);
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -132,45 +130,43 @@
     pendingInvocations = self->_pendingInvocations;
     self->_pendingInvocations = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failWithError:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if ([(NSMutableArray *)self->_pendingInvocations count])
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_pendingInvocations, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = self->_pendingInvocations;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = NSStringFromSelector([*(*(&v16 + 1) + 8 * v10) selector]);
+          v11 = NSStringFromSelector([*(*(&v15 + 1) + 8 * v10) selector]);
           [v5 addObject:v11];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v8);
@@ -189,7 +185,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = errorCopy;
+      v20 = errorCopy;
       _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "Failing xpcRemoteObjectPromise with no pending invocations {error: %{public}@}", buf, 0xCu);
     }
   }
@@ -199,8 +195,6 @@
 
   pendingInvocations = self->_pendingInvocations;
   self->_pendingInvocations = 0;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)respondsToSelector:(SEL)selector

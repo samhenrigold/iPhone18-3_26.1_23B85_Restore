@@ -6,7 +6,7 @@
 
 - (void)environmentMonitorDidChangeNetworkReachability:(id)reachability
 {
-  sub_100009F78(0, &qword_101182960);
+  sub_100009F78(0, &qword_101182960, OS_dispatch_queue_ptr);
   v4 = swift_allocObject();
   *(v4 + 16) = self;
   selfCopy = self;

@@ -45,33 +45,33 @@
   {
     if (equalCopy == self)
     {
-      v18 = 1;
+      isEqual = 1;
     }
 
     else
     {
       v6 = equalCopy;
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && (-[_UIDiffableDataSourceSectionTransaction sectionIdentifier](v6, "sectionIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), -[_UIDiffableDataSourceSectionTransaction sectionIdentifier](self, "sectionIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqual:v8], v8, v7, v9) && (-[_UIDiffableDataSourceSectionTransaction difference](v6, "difference"), v10 = objc_claimAutoreleasedReturnValue(), -[_UIDiffableDataSourceSectionTransaction difference](self, "difference"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, v12) && (-[_UIDiffableDataSourceSectionTransaction initialSnapshot](v6, "initialSnapshot"), v13 = objc_claimAutoreleasedReturnValue(), -[_UIDiffableDataSourceSectionTransaction initialSnapshot](self, "initialSnapshot"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqual:", v14), v14, v13, v15))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([(_UIDiffableDataSourceSectionTransaction *)v6 sectionIdentifier], v7 = objc_claimAutoreleasedReturnValue(), [(_UIDiffableDataSourceSectionTransaction *)self sectionIdentifier], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_isEqual_(v7), v8, v7, v9) && ([(_UIDiffableDataSourceSectionTransaction *)v6 difference], v10 = objc_claimAutoreleasedReturnValue(), [(_UIDiffableDataSourceSectionTransaction *)self difference], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqual_(v10), v11, v10, v12) && ([(_UIDiffableDataSourceSectionTransaction *)v6 initialSnapshot], v13 = objc_claimAutoreleasedReturnValue(), [(_UIDiffableDataSourceSectionTransaction *)self initialSnapshot], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend_isEqual_(v13), v14, v13, v15))
       {
         finalSnapshot = [(_UIDiffableDataSourceSectionTransaction *)v6 finalSnapshot];
         finalSnapshot2 = [(_UIDiffableDataSourceSectionTransaction *)self finalSnapshot];
-        v18 = [finalSnapshot isEqual:finalSnapshot2];
+        isEqual = objc_msgSend_isEqual_(finalSnapshot);
       }
 
       else
       {
-        v18 = 0;
+        isEqual = 0;
       }
     }
   }
 
   else
   {
-    v18 = 0;
+    isEqual = 0;
   }
 
-  return v18;
+  return isEqual;
 }
 
 @end

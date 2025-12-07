@@ -191,20 +191,20 @@ LABEL_17:
         v27 = v26;
         if (v25 == v26)
         {
-          v28 = 1;
+          isEqual = 1;
         }
 
         else
         {
-          v28 = 0;
+          isEqual = 0;
           if (v25 && v26)
           {
-            v28 = [v25 isEqual:v26];
+            isEqual = objc_msgSend_isEqual_(v25);
           }
         }
 
         WeakRetained = v64;
-        if (v24 & v16) == 1 && (v28)
+        if (v24 & v16) == 1 && (isEqual)
         {
           v29 = *(provider + 40);
           *(provider + 40) = v65;

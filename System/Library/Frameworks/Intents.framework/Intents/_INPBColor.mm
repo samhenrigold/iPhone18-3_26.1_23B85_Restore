@@ -149,39 +149,31 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
+  v12 = 0;
+  if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    goto LABEL_11;
-  }
-
-  hasBlue = [(_INPBColor *)self hasBlue];
-  if (hasBlue != [equalCopy hasBlue])
-  {
-    goto LABEL_11;
-  }
-
-  if ([(_INPBColor *)self hasBlue])
-  {
-    if ([equalCopy hasBlue])
+    hasBlue = [(_INPBColor *)self hasBlue];
+    if (hasBlue == [equalCopy hasBlue])
     {
-      blue = self->_blue;
-      [equalCopy blue];
-      if (blue != v7)
+      if (!-[_INPBColor hasBlue](self, "hasBlue") || ![equalCopy hasBlue] || (blue = self->_blue, objc_msgSend(equalCopy, "blue"), blue == v7))
       {
-        goto LABEL_11;
+        hasGreen = [(_INPBColor *)self hasGreen];
+        if (hasGreen == [equalCopy hasGreen])
+        {
+          if (!-[_INPBColor hasGreen](self, "hasGreen") || ![equalCopy hasGreen] || (green = self->_green, objc_msgSend(equalCopy, "green"), green == v10))
+          {
+            hasRed = [(_INPBColor *)self hasRed];
+            if (hasRed == [equalCopy hasRed])
+            {
+              if (!-[_INPBColor hasRed](self, "hasRed") || ![equalCopy hasRed] || (red = self->_red, objc_msgSend(equalCopy, "red"), red == v15))
+              {
+                v12 = 1;
+              }
+            }
+          }
+        }
       }
     }
-  }
-
-  if ((v8 = -[_INPBColor hasGreen](self, "hasGreen"), v8 == [equalCopy hasGreen]) && (!-[_INPBColor hasGreen](self, "hasGreen") || !objc_msgSend(equalCopy, "hasGreen") || (green = self->_green, objc_msgSend(equalCopy, "green"), green == v10)) && (v11 = -[_INPBColor hasRed](self, "hasRed"), v11 == objc_msgSend(equalCopy, "hasRed")) && (!-[_INPBColor hasRed](self, "hasRed") || !objc_msgSend(equalCopy, "hasRed") || (red = self->_red, objc_msgSend(equalCopy, "red"), red == v15)))
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_11:
-    v12 = 0;
   }
 
   return v12;
@@ -240,19 +232,16 @@ LABEL_11:
   toCopy = to;
   if ([(_INPBColor *)self hasBlue])
   {
-    blue = self->_blue;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBColor *)self hasGreen])
   {
-    green = self->_green;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBColor *)self hasRed])
   {
-    red = self->_red;
     PBDataWriterWriteDoubleField();
   }
 }

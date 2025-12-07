@@ -6,6 +6,7 @@
 - (id)getStaleContextFromList;
 - (int)getMyClientType;
 - (void)addMobilityContextToList:(id)list;
+- (void)alertWRMClient:(BOOL)client :(id)a4 :(id)a5 :(BOOL)a6;
 - (void)deactivateMobilityContexts;
 - (void)dealloc;
 - (void)deleteMobilityContext:(unint64_t)context;
@@ -25,6 +26,7 @@
 - (void)handleLinkPreferenceNotificationCM:(BOOL)m;
 - (void)handleLinkPreferenceNotificationFaceTimeCalling:(BOOL)calling :(id)a4 :(id)a5;
 - (void)handleLinkPreferenceNotificationIDS:(BOOL)s;
+- (void)handleLinkPreferenceNotificationInternetDataVoiceVideo:(BOOL)video :(id)a4 :(id)a5;
 - (void)handleMessage:(id)message;
 - (void)handleMetricsReportFaceTimeCalling:(id)calling;
 - (void)handleMetricsReportIDS:(id)s;
@@ -35,10 +37,12 @@
 - (void)handleSubscribeStatusUpdateFaceTimeCalling:(id)calling;
 - (void)handleSubscribeStatusUpdateIDS:(id)s;
 - (void)handleSubscribeStatusUpdateTerminus:(id)terminus;
+- (void)notifyVoiceLqmUpdate:(int)update onSimSlot:(int64_t)slot;
 - (void)postiRATNotificationToEnableDisableCellData:(unint64_t)data :(BOOL)a4;
 - (void)purgeStaleMobilityContexts;
 - (void)removeAllMobilityContextsFromList;
 - (void)removeMobilityContextFromList:(id)list;
+- (void)sendPrivateNwVsMacroRecommendation:(int64_t)recommendation currentSlotQuality:(int)quality anyCallState:(int)state;
 - (void)setLowPowerModePeriodicWakeUpNotificationSubscribed:(BOOL)subscribed;
 - (void)setVoiceLqmSubscribed:(BOOL)subscribed;
 @end
@@ -997,6 +1001,20 @@ LABEL_3:
   +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 24, @"Client Type: %d(%s), Number of active sessions: %lu", getMyClientType, v4, [*(&self->mQueue + 4) count]);
 }
 
+- (void)sendPrivateNwVsMacroRecommendation:(int64_t)recommendation currentSlotQuality:(int)quality anyCallState:(int)state
+{
+  v5 = *&state;
+  v6 = *&quality;
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v9, "kWRMiWLANMetricsReport_SlotId", recommendation);
+  xpc_dictionary_set_uint64(v9, "kWRMCbrsCurrentDataSlotQuality", v6);
+  xpc_dictionary_set_uint64(v9, "kWRMAnyCallState", v5);
+  [(WCM_Controller *)self sendMessage:1350 withArgs:v9];
+  [WCM_Logging logLevel:24 message:@"send PrivateNwVsMacroRecommendation slot=%ld, quality=%u, state=%u", recommendation, v6, v5];
+
+  xpc_release(v9);
+}
+
 - (void)handleLinkPreferenceNotification:(BOOL)notification
 {
   notificationCopy = notification;
@@ -1367,6 +1385,24 @@ LABEL_25:
   xpc_release(v4);
 }
 
+- (void)handleLinkPreferenceNotificationInternetDataVoiceVideo:(BOOL)video :(id)a4 :(id)a5
+{
+  videoCopy = video;
+  getMyClientType = [(WRM_iRATClientController *)self getMyClientType];
+  [WCM_Logging logLevel:24 message:@"handleLinkPreferenceNotificationInternetDataVoiceVideo: ClientType: %d, Subscription type: %d", getMyClientType, videoCopy];
+  if (getMyClientType == 14 || getMyClientType == 7)
+  {
+
+    [(WRM_iRATClientController *)self handleLinkPreferenceNotificationFaceTimeCalling:videoCopy];
+  }
+
+  else
+  {
+
+    [(WRM_iRATClientController *)self handleLinkPreferenceNotificationIDS:videoCopy];
+  }
+}
+
 - (void)handleLinkPreferenceNotificationFaceTimeCalling:(BOOL)calling :(id)a4 :(id)a5
 {
   callingCopy = calling;
@@ -1532,6 +1568,58 @@ LABEL_30:
   xpc_release(v9);
 }
 
+- (void)alertWRMClient:(BOOL)client :(id)a4 :(id)a5 :(BOOL)a6
+{
+  v6 = a6;
+  clientCopy = client;
+  v11 = xpc_dictionary_create(0, 0, 0);
+  getServingCellType = [a4 getServingCellType];
+  getCurrentSignalBars = [a4 getCurrentSignalBars];
+  switch(getServingCellType)
+  {
+    case 9u:
+      [a4 getNrRSRP];
+      break;
+    case 2u:
+      [a4 getServingCellRSCP];
+      break;
+    case 1u:
+      [a4 getServingCellRSRP];
+      break;
+    default:
+      goto LABEL_8;
+  }
+
+  xpc_dictionary_set_int64(v11, "kcSigStrength", v14);
+LABEL_8:
+  xpc_dictionary_set_int64(v11, "kWRMLinkType", v6);
+  xpc_dictionary_set_int64(v11, "kcSignalBar", getCurrentSignalBars);
+  xpc_dictionary_set_int64(v11, "kcServingCellType", getServingCellType);
+  if (v6)
+  {
+    xpc_dictionary_set_int64(v11, "kwRSSI", [a5 getRSSI]);
+    xpc_dictionary_set_int64(v11, "kwSNR", [a5 getSNR]);
+    [a5 getTxPer];
+    xpc_dictionary_set_int64(v11, "kwPER", (v15 * 100.0));
+    xpc_dictionary_set_int64(v11, "kwCCA", [a5 getCCA]);
+  }
+
+  if (clientCopy)
+  {
+    v16 = 1306;
+  }
+
+  else
+  {
+    v16 = 1307;
+  }
+
+  [(WCM_Controller *)self sendMessage:v16 withArgs:v11];
+  [WCM_Logging logLevel:24 message:@"Sending FaceTimeAlert: %d", clientCopy];
+
+  xpc_release(v11);
+}
+
 - (void)postiRATNotificationToEnableDisableCellData:(unint64_t)data :(BOOL)a4
 {
   v4 = a4;
@@ -1621,6 +1709,18 @@ LABEL_30:
   subscribedCopy = subscribed;
   v4[4] = self;
   dispatch_async(v3, v4);
+}
+
+- (void)notifyVoiceLqmUpdate:(int)update onSimSlot:(int64_t)slot
+{
+  v5 = *&update;
+  v7 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v7, "kWRMVoiceLqm_SlotId", slot);
+  xpc_dictionary_set_int64(v7, "kWRMVoiceLqmValue", v5);
+  [(WCM_Controller *)self sendMessage:2200 withArgs:v7];
+  [WCM_Logging logLevel:24 message:@"send notifyVoiceLqmUpdate slot=%ld, voiceLQM=%d", slot, v5];
+
+  xpc_release(v7);
 }
 
 @end

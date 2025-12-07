@@ -22,13 +22,12 @@
 
 - (PSUICellularRoamingController)init
 {
-  v9.receiver = self;
-  v9.super_class = PSUICellularRoamingController;
-  v2 = [(PSUICellularRoamingController *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = PSUICellularRoamingController;
+  v2 = [(PSUICellularRoamingController *)&v8 init];
   if (v2)
   {
-    v3 = *MEMORY[0x277CBECE8];
-    v4 = [MEMORY[0x277D4D878] createCTClientSerialQueue:@"cellular_roaming_controller"];
+    v3 = [MEMORY[0x277D4D878] createCTClientSerialQueue:@"cellular_roaming_controller"];
     v2->_serverConnection = _CTServerConnectionCreateOnTargetQueue();
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -105,7 +104,7 @@
 
 - (id)specifiers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -131,7 +130,7 @@
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v29 = "[PSUICellularRoamingController specifiers]";
+        v28 = "[PSUICellularRoamingController specifiers]";
         _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%s voice roaming is available", buf, 0xCu);
       }
 
@@ -168,7 +167,7 @@
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v29 = "[PSUICellularRoamingController specifiers]";
+        v28 = "[PSUICellularRoamingController specifiers]";
         _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "%s voice roaming is enabled", buf, 0xCu);
       }
 
@@ -192,21 +191,19 @@
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)newCarrierNotification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICellularRoamingController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[PSUICellularRoamingController newCarrierNotification]";
-    v8 = 2112;
-    v9 = @"PSUICellularPlanChanged";
+    v6 = "[PSUICellularRoamingController newCarrierNotification]";
+    v7 = 2112;
+    v8 = @"PSUICellularPlanChanged";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", buf, 0x16u);
   }
 
@@ -216,19 +213,18 @@
   block[3] = &unk_279BA9D58;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cellularPlanChangedNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICellularRoamingController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[PSUICellularRoamingController cellularPlanChangedNotification:]";
-    v9 = 2112;
-    v10 = @"PSUICellularPlanChanged";
+    v7 = "[PSUICellularRoamingController cellularPlanChangedNotification:]";
+    v8 = 2112;
+    v9 = @"PSUICellularPlanChanged";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s received notification %@", buf, 0x16u);
   }
 
@@ -238,7 +234,6 @@
   block[3] = &unk_279BA9D58;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadRoamingStatus
@@ -283,7 +278,7 @@
 
 - (void)setVoiceRoamingEnabled:(id)enabled specifier:(id)specifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   getLogger = [(PSUICellularRoamingController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -295,11 +290,11 @@
       v8 = @"enabled";
     }
 
-    v29 = 136315394;
-    v30 = "[PSUICellularRoamingController setVoiceRoamingEnabled:specifier:]";
-    v31 = 2112;
-    v32 = v8;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting voice roaming = %@", &v29, 0x16u);
+    v28 = 136315394;
+    v29 = "[PSUICellularRoamingController setVoiceRoamingEnabled:specifier:]";
+    v30 = 2112;
+    v31 = v8;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting voice roaming = %@", &v28, 0x16u);
   }
 
   bOOLValue2 = [enabledCopy BOOLValue];
@@ -308,23 +303,23 @@
     getLogger2 = [(PSUICellularRoamingController *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEBUG))
     {
-      v29 = 67109120;
-      LODWORD(v30) = bOOLValue2;
-      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "Voice roaming is already set to: %d", &v29, 8u);
+      v28 = 67109120;
+      LODWORD(v29) = bOOLValue2;
+      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "Voice roaming is already set to: %d", &v28, 8u);
     }
   }
 
   else
   {
     [(PSUICellularRoamingController *)self beginUpdates];
-    PSSetVoiceRoamingEnabled();
+    PSSetVoiceRoamingEnabled(bOOLValue2);
     while (bOOLValue2 != PSIsVoiceRoamingEnabled())
     {
       getLogger3 = [(PSUICellularRoamingController *)self getLogger];
       if (os_log_type_enabled(getLogger3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v29) = 0;
-        _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "CoreTelephony has not saved the voice roaming state (see 12172800)", &v29, 2u);
+        LOWORD(v28) = 0;
+        _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "CoreTelephony has not saved the voice roaming state (see 12172800)", &v28, 2u);
       }
     }
 
@@ -339,8 +334,8 @@
     {
       if (v14)
       {
-        LOWORD(v29) = 0;
-        _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "Enabling voice roaming", &v29, 2u);
+        LOWORD(v28) = 0;
+        _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "Enabling voice roaming", &v28, 2u);
       }
 
       voiceRoamingSpecifier = self->_voiceRoamingSpecifier;
@@ -374,8 +369,8 @@
     {
       if (v14)
       {
-        LOWORD(v29) = 0;
-        _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "Disabling voice roaming", &v29, 2u);
+        LOWORD(v28) = 0;
+        _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "Disabling voice roaming", &v28, 2u);
       }
 
       v22 = +[PSUICoreTelephonyDataCache sharedInstance];
@@ -397,8 +392,6 @@
     [(PSUICellularRoamingController *)self endUpdates];
     [(PSUICellularRoamingController *)self roamingOptionsDidChange];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getVoiceRoamingStatus:(id)status
@@ -427,7 +420,7 @@
 
 - (void)setDataRoamingEnabled:(id)enabled specifier:(id)specifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   getLogger = [(PSUICellularRoamingController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -439,22 +432,20 @@
       v8 = @"enabled";
     }
 
-    v10 = 136315394;
-    v11 = "[PSUICellularRoamingController setDataRoamingEnabled:specifier:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting data roaming = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[PSUICellularRoamingController setDataRoamingEnabled:specifier:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting data roaming = %@", &v9, 0x16u);
   }
 
   PSSetDataRoamingEnabled([enabledCopy BOOLValue]);
   [(PSUICellularRoamingController *)self roamingOptionsDidChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCDMARoamingEnabled:(id)enabled specifier:(id)specifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   getLogger = [(PSUICellularRoamingController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -466,54 +457,48 @@
       v8 = @"enabled";
     }
 
-    v10 = 136315394;
-    v11 = "[PSUICellularRoamingController setCDMARoamingEnabled:specifier:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting CDMA roaming = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[PSUICellularRoamingController setCDMARoamingEnabled:specifier:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting CDMA roaming = %@", &v9, 0x16u);
   }
 
-  [enabledCopy BOOLValue];
-  PSSetCDMARoamingEnabled();
+  PSSetCDMARoamingEnabled([enabledCopy BOOLValue]);
   [(PSUICellularRoamingController *)self roamingOptionsDidChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCDMARoamingStatus:(id)status
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = +[PSUICellularPlanManagerCache sharedInstance];
   selectedPlanItem = [v4 selectedPlanItem];
   [selectedPlanItem isBackedByCellularPlan];
 
-  serverConnection = self->_serverConnection;
   CDMAInternationalRoaming = _CTServerConnectionGetCDMAInternationalRoaming();
-  v8 = HIDWORD(CDMAInternationalRoaming);
+  v7 = HIDWORD(CDMAInternationalRoaming);
   if (HIDWORD(CDMAInternationalRoaming))
   {
-    v10 = CDMAInternationalRoaming;
+    v9 = CDMAInternationalRoaming;
     getLogger = [(PSUICellularRoamingController *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v15 = v10;
-      v16 = 1024;
-      v17 = v8;
+      v13 = v9;
+      v14 = 1024;
+      v15 = v7;
       _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "Failed to get CDMAInternationalRoaming setting with error %i:%i", buf, 0xEu);
     }
 
-    v9 = MEMORY[0x277CBEC28];
+    v8 = MEMORY[0x277CBEC28];
   }
 
   else
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithInt:0];
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:0];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v8;
 }
 
 - (void)roamingOptionsDidChange

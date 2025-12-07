@@ -12,39 +12,39 @@
   pathCopy = path;
   guidCopy = guid;
   dateCopy = date;
-  v25.receiver = self;
-  v25.super_class = IMAttachment;
-  v17 = [(IMAttachment *)&v25 init];
-  if (v17)
+  v21.receiver = self;
+  v21.super_class = IMAttachment;
+  v15 = [(IMAttachment *)&v21 init];
+  if (v15)
   {
-    v18 = objc_msgSend_copy(pathCopy, v15, v16);
-    path = v17->_path;
-    v17->_path = v18;
+    v16 = [pathCopy copy];
+    path = v15->_path;
+    v15->_path = v16;
 
-    v22 = objc_msgSend_copy(guidCopy, v20, v21);
-    guid = v17->_guid;
-    v17->_guid = v22;
+    v18 = [guidCopy copy];
+    guid = v15->_guid;
+    v15->_guid = v18;
 
-    v17->_isSticker = sticker;
-    objc_storeStrong(&v17->_createdDate, date);
-    v17->_isTransferComplete = complete;
+    v15->_isSticker = sticker;
+    objc_storeStrong(&v15->_createdDate, date);
+    v15->_isTransferComplete = complete;
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = IMAttachment;
-  v4 = [(IMAttachment *)&v15 description];
+  v10.receiver = self;
+  v10.super_class = IMAttachment;
+  v4 = [(IMAttachment *)&v10 description];
   guid = self->_guid;
-  v8 = objc_msgSend_path(self, v6, v7);
-  v11 = objc_msgSend_fileTransfer(self, v9, v10);
-  v13 = objc_msgSend_stringWithFormat_(v3, v12, @"%@ - guid: %@ path: %@ fileTransfer: %@, createdDate = %@, isSticker = %d", v4, guid, v8, v11, self->_createdDate, self->_isSticker);
+  path = [(IMAttachment *)self path];
+  fileTransfer = [(IMAttachment *)self fileTransfer];
+  v8 = [v3 stringWithFormat:@"%@ - guid: %@ path: %@ fileTransfer: %@, createdDate = %@, isSticker = %d", v4, guid, path, fileTransfer, self->_createdDate, self->_isSticker];
 
-  return v13;
+  return v8;
 }
 
 - (NSString)path
@@ -52,24 +52,24 @@
   path = self->_path;
   if (path)
   {
-    v4 = path;
+    localPath = path;
   }
 
   else
   {
-    v5 = objc_msgSend_fileTransfer(self, a2, v2);
-    v4 = objc_msgSend_localPath(v5, v6, v7);
+    fileTransfer = [(IMAttachment *)self fileTransfer];
+    localPath = [fileTransfer localPath];
   }
 
-  return v4;
+  return localPath;
 }
 
 - (id)fileTransfer
 {
-  v4 = objc_msgSend_sharedInstance(IMFileTransferCenter, a2, v2);
-  v6 = objc_msgSend_transferForGUID_(v4, v5, self->_guid);
+  v3 = +[IMFileTransferCenter sharedInstance];
+  v4 = [v3 transferForGUID:self->_guid];
 
-  return v6;
+  return v4;
 }
 
 @end

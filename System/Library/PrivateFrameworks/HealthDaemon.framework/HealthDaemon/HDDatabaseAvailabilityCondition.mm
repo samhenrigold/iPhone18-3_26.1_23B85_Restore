@@ -63,7 +63,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_2289ACBE4(v8);
+  sub_2289ACBE4(v8, v9);
 }
 
 - (void)setWaitingStartTime:(id)time

@@ -63,7 +63,7 @@
 
 - (void)main
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (![(QLThumbnailCreationOperation *)selfCopy _finishIfCancelled])
@@ -84,7 +84,7 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v4;
+        v20 = v4;
         _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEFAULT, "_CFURLPromiseCopyPhysicalURL returned %@ #Thumbnail", buf, 0xCu);
       }
 
@@ -116,23 +116,21 @@
       selfCopy->_operationQueue = v11;
 
       [(NSOperationQueue *)selfCopy->_operationQueue setMaxConcurrentOperationCount:1];
-      v19 = v10;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v10;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       v14 = selfCopy->_operationQueue;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __36__QLThumbnailCreationOperation_main__block_invoke;
-      v17[3] = &unk_278B58120;
-      v17[4] = selfCopy;
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __36__QLThumbnailCreationOperation_main__block_invoke;
+      v16[3] = &unk_278B58120;
+      v16[4] = selfCopy;
       v15 = v10;
-      v18 = v15;
-      [documentURL2 coordinateAccessWithIntents:v13 queue:v14 byAccessor:v17];
+      v17 = v15;
+      [documentURL2 coordinateAccessWithIntents:v13 queue:v14 byAccessor:v16];
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __36__QLThumbnailCreationOperation_main__block_invoke(uint64_t a1)
@@ -179,7 +177,7 @@ void __74__QLThumbnailCreationOperation_updateLastHitDateOfAddition_onPhysicalUR
 
 - (void)retrieveThumbnailForTaggedLogicalURL:(id)l
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lCopy = l;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -216,9 +214,9 @@ void __74__QLThumbnailCreationOperation_updateLastHitDateOfAddition_onPhysicalUR
       _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_DEFAULT, "Got logical URL %@, physicalURL %@ #Thumbnail", buf, 0x16u);
     }
 
-    v31 = 0;
-    v12 = [objc_alloc(MEMORY[0x277CDAAC0]) initWithAdditionsPresentOnURL:v9 error:&v31];
-    v13 = v31;
+    v30 = 0;
+    v12 = [objc_alloc(MEMORY[0x277CDAAC0]) initWithAdditionsPresentOnURL:v9 error:&v30];
+    v13 = v30;
     v14 = v13;
     if (v12)
     {
@@ -264,13 +262,13 @@ void __74__QLThumbnailCreationOperation_updateLastHitDateOfAddition_onPhysicalUR
         v18 = MEMORY[0x277CDAAC0];
         if (!v17)
         {
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __69__QLThumbnailCreationOperation_retrieveThumbnailForTaggedLogicalURL___block_invoke;
-          v29[3] = &unk_278B58120;
-          v29[4] = selfCopy;
-          v30 = lCopy;
-          [v18 generateThumbnailIfPossibleAtLogicalURL:v30 completionHandler:v29];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __69__QLThumbnailCreationOperation_retrieveThumbnailForTaggedLogicalURL___block_invoke;
+          v28[3] = &unk_278B58120;
+          v28[4] = selfCopy;
+          v29 = lCopy;
+          [v18 generateThumbnailIfPossibleAtLogicalURL:v29 completionHandler:v28];
 
 LABEL_25:
           objc_sync_exit(selfCopy);
@@ -332,7 +330,6 @@ LABEL_25:
   objc_sync_exit(selfCopy);
 
 LABEL_35:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __69__QLThumbnailCreationOperation_retrieveThumbnailForTaggedLogicalURL___block_invoke(uint64_t a1, void *a2)

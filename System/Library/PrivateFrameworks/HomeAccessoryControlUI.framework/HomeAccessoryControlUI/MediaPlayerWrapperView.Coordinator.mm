@@ -51,8 +51,8 @@ LABEL_6:
   controllerCopy = controller;
   selfCopy = self;
   sub_252531F04(controllerCopy, v8, v11, v10, v12);
-  sub_25247CDCC(v10);
-  sub_25247CDCC(v8);
+  sub_25247CDCC(v10, v12);
+  sub_25247CDCC(v8, v11);
 }
 
 @end

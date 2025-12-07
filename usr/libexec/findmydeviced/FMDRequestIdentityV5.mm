@@ -218,9 +218,9 @@
   [(FMDRequestIdentityV5 *)self setBaaAttestationHeader:0];
   if (bodyCopy)
   {
-    v64 = 0;
-    v5 = [NSJSONSerialization dataWithJSONObject:bodyCopy options:0 error:&v64];
-    v6 = v64;
+    v66 = 0;
+    v5 = [NSJSONSerialization dataWithJSONObject:bodyCopy options:0 error:&v66];
+    v6 = v66;
     [(FMDRequestIdentityV5 *)self setRequestBodyDataForSignature:v5];
 
     requestBodyDataForSignature = [(FMDRequestIdentityV5 *)self requestBodyDataForSignature];
@@ -228,8 +228,8 @@
 
     if (v5)
     {
-      v8 = sub_100002880();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100002880(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10022A4BC(self);
       }
@@ -237,14 +237,14 @@
 
     if (v6)
     {
-      v9 = sub_100002880();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100002880(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10022A550(self);
       }
 
-      v10 = sub_10017D9A8();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_10017D9A8(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10022A5EC(self);
       }
@@ -252,139 +252,137 @@
   }
 
   requestBodyDataForSignature2 = [(FMDRequestIdentityV5 *)self requestBodyDataForSignature];
-  v12 = requestBodyDataForSignature2 == 0;
+  v14 = requestBodyDataForSignature2 == 0;
 
-  if (!v12)
+  if (!v14)
   {
-    v13 = +[NSMutableData data];
+    v15 = +[NSMutableData data];
     authHeaderValue = [(FMDRequest *)self authHeaderValue];
     if ([authHeaderValue length])
     {
-      v14 = [authHeaderValue dataUsingEncoding:4];
-      [v13 appendData:v14];
+      v16 = [authHeaderValue dataUsingEncoding:4];
+      [v15 appendData:v16];
     }
 
     requestBodyDataForSignature3 = [(FMDRequestIdentityV5 *)self requestBodyDataForSignature];
-    [v13 appendData:requestBodyDataForSignature3];
+    [v15 appendData:requestBodyDataForSignature3];
 
-    v16 = v13;
-    CC_SHA256([v13 bytes], objc_msgSend(v13, "length"), md);
-    v17 = [NSData dataWithBytes:md length:32];
-    v18 = +[FMDAbsintheV3SigningInterface sharedInterface];
-    v63 = 0;
-    v43 = [v18 signatureForData:v17 requestUUID:activationLockRequestUUID mode:0 error:&v63];
-    v19 = v63;
+    v18 = v15;
+    CC_SHA256([v15 bytes], objc_msgSend(v15, "length"), md);
+    v19 = [NSData dataWithBytes:md length:32];
+    v20 = +[FMDAbsintheV3SigningInterface sharedInterface];
+    v65 = 0;
+    v45 = [v20 signatureForData:v19 requestUUID:activationLockRequestUUID mode:0 error:&v65];
+    v21 = v65;
 
-    if (v19)
+    if (v21)
     {
-      code = [v19 code];
-      userInfo = [v19 userInfo];
+      code = [v21 code];
+      userInfo = [v21 userInfo];
       base64EncodedString = [userInfo objectForKeyedSubscript:@"kFMDUnderlyingErrorCodeKey"];
-      v23 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ld,%ld", code, [base64EncodedString integerValue]);
-      [(FMDRequestIdentityV5 *)self setSignatureError:v23];
+      v25 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ld,%ld", code, [base64EncodedString integerValue]);
+      [(FMDRequestIdentityV5 *)self setSignatureError:v25];
     }
 
     else
     {
-      if ([v43 count] != 2)
+      if ([v45 count] != 2)
       {
         goto LABEL_19;
       }
 
-      v40 = [v43 objectAtIndexedSubscript:0];
-      userInfo = [v40 base64EncodedString];
+      v42 = [v45 objectAtIndexedSubscript:0];
+      userInfo = [v42 base64EncodedString];
 
-      v41 = [v43 objectAtIndexedSubscript:1];
-      base64EncodedString = [v41 base64EncodedString];
+      v43 = [v45 objectAtIndexedSubscript:1];
+      base64EncodedString = [v43 base64EncodedString];
 
-      [(FMDRequestIdentityV5 *)self setSignatureHeader:userInfo];
-      v42 = sub_100002880();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v44 = sub_100002880([(FMDRequestIdentityV5 *)self setSignatureHeader:userInfo]);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v67) = 138412290;
-        *(&v67 + 4) = userInfo;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Signature header: %@", &v67, 0xCu);
+        LODWORD(v69) = 138412290;
+        *(&v69 + 4) = userInfo;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Signature header: %@", &v69, 0xCu);
       }
 
-      [(FMDRequestIdentityV5 *)self setSkAuthHeader:base64EncodedString];
-      v23 = sub_100002880();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100002880([(FMDRequestIdentityV5 *)self setSkAuthHeader:base64EncodedString]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v67) = 138412290;
-        *(&v67 + 4) = base64EncodedString;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "SkAuth header: %@", &v67, 0xCu);
+        LODWORD(v69) = 138412290;
+        *(&v69 + 4) = base64EncodedString;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "SkAuth header: %@", &v69, 0xCu);
       }
     }
 
 LABEL_19:
-    v24 = objc_alloc_init(FMDDeviceIdentityFactory);
-    *&v67 = 0;
-    *(&v67 + 1) = &v67;
-    v68 = 0x3032000000;
-    v69 = sub_10000AA44;
-    v70 = sub_100002AEC;
-    v71 = 0;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x3032000000;
-    v60 = sub_10000AA44;
-    v61 = sub_100002AEC;
-    v62 = 0;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x3032000000;
-    v54 = sub_10000AA44;
-    v55 = sub_100002AEC;
-    v56 = 0;
-    v25 = [[FMDIdentitySigningRequest alloc] initWithData:v17];
-    v26 = sub_100002880();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v26 = objc_alloc_init(FMDDeviceIdentityFactory);
+    *&v69 = 0;
+    *(&v69 + 1) = &v69;
+    v70 = 0x3032000000;
+    v71 = sub_10000AA44;
+    v72 = sub_100002AEC;
+    v73 = 0;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x3032000000;
+    v62 = sub_10000AA44;
+    v63 = sub_100002AEC;
+    v64 = 0;
+    v53 = 0;
+    v54 = &v53;
+    v55 = 0x3032000000;
+    v56 = sub_10000AA44;
+    v57 = sub_100002AEC;
+    v58 = 0;
+    v27 = [[FMDIdentitySigningRequest alloc] initWithData:v19];
+    v28 = sub_100002880(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       baaIdentityTimeoutIntervalInSec = [(FMDRequestIdentityV5 *)self baaIdentityTimeoutIntervalInSec];
       *buf = 134217984;
-      v66 = baaIdentityTimeoutIntervalInSec;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Sign Using BAA with timeout: %lu seconds", buf, 0xCu);
+      v68 = baaIdentityTimeoutIntervalInSec;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Sign Using BAA with timeout: %lu seconds", buf, 0xCu);
     }
 
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_1001780E4;
-    v46[3] = &unk_1002CF378;
-    v48 = &v51;
-    v49 = &v67;
-    v50 = &v57;
-    v28 = [[FMSynchronizer alloc] initWithDescription:@"FMDRequestIdentityV5.BAASigning" andTimeout:{-[FMDRequestIdentityV5 baaIdentityTimeoutIntervalInSec](self, "baaIdentityTimeoutIntervalInSec")}];
-    v47 = v28;
-    [v24 baaIdentityAttestationForSigningRequest:v25 completion:v46];
-    [v28 wait];
-    if ([v28 timeoutOccurred])
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_1001780E4;
+    v48[3] = &unk_1002CF378;
+    v50 = &v53;
+    v51 = &v69;
+    v52 = &v59;
+    v30 = [[FMSynchronizer alloc] initWithDescription:@"FMDRequestIdentityV5.BAASigning" andTimeout:{-[FMDRequestIdentityV5 baaIdentityTimeoutIntervalInSec](self, "baaIdentityTimeoutIntervalInSec")}];
+    v49 = v30;
+    [v26 baaIdentityAttestationForSigningRequest:v27 completion:v48];
+    [v30 wait];
+    if ([v30 timeoutOccurred])
     {
-      v29 = [NSError errorWithDomain:kFMDErrorDomain code:4 userInfo:0];
-      v30 = v52[5];
-      v52[5] = v29;
+      v31 = [NSError errorWithDomain:kFMDErrorDomain code:4 userInfo:0];
+      v32 = v54[5];
+      v54[5] = v31;
     }
 
-    base64EncodedString2 = [*(*(&v67 + 1) + 40) base64EncodedString];
+    base64EncodedString2 = [*(*(&v69 + 1) + 40) base64EncodedString];
     [(FMDRequestIdentityV5 *)self setBaaSignatureHeader:base64EncodedString2];
 
-    base64EncodedString3 = [v58[5] base64EncodedString];
+    base64EncodedString3 = [v60[5] base64EncodedString];
     [(FMDRequestIdentityV5 *)self setBaaAttestationHeader:base64EncodedString3];
 
-    v33 = v52[5];
-    if (v33)
+    v35 = v54[5];
+    if (v35)
     {
-      domain = [v33 domain];
-      v35 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@|%ld", domain, [v52[5] code]);
-      [(FMDRequestIdentityV5 *)self setBaaError:v35];
+      domain = [v35 domain];
+      v37 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@|%ld", domain, [v54[5] code]);
+      [(FMDRequestIdentityV5 *)self setBaaError:v37];
 
-      v36 = [v52[5] description];
-      [(FMDRequestIdentityV5 *)self setBaaErrorDescription:v36];
+      v38 = [v54[5] description];
+      [(FMDRequestIdentityV5 *)self setBaaErrorDescription:v38];
 
-      v37 = [FMDALFailureAnalyticsManager alloc];
+      v39 = [FMDALFailureAnalyticsManager alloc];
       WeakRetained = objc_loadWeakRetained(&self->_provider);
-      v39 = [(FMDALFailureAnalyticsManager *)v37 initWithProvider:WeakRetained context:@"IdentityV5"];
+      v41 = [(FMDALFailureAnalyticsManager *)v39 initWithProvider:WeakRetained context:@"IdentityV5"];
 
-      [(FMDALFailureAnalyticsManager *)v39 performAnalytics:v52[5]];
+      [(FMDALFailureAnalyticsManager *)v41 performAnalytics:v54[5]];
     }
 
     else
@@ -393,10 +391,10 @@ LABEL_19:
       [(FMDRequestIdentityV5 *)self setBaaErrorDescription:0];
     }
 
-    _Block_object_dispose(&v51, 8);
-    _Block_object_dispose(&v57, 8);
+    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v59, 8);
 
-    _Block_object_dispose(&v67, 8);
+    _Block_object_dispose(&v69, 8);
   }
 }
 

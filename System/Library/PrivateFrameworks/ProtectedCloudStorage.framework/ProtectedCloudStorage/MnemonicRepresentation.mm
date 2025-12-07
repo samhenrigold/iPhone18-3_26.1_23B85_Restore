@@ -29,14 +29,14 @@ void __42__MnemonicRepresentation_mnemonicWordList__block_invoke()
 
 + (id)mnemonicFrom:(id)from
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (([fromCopy length] & 3) != 0 || objc_msgSend(fromCopy, "length") < 0xC || objc_msgSend(fromCopy, "length") >= 0x21)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v35 = [fromCopy length];
+      v34 = [fromCopy length];
       _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "input entropy to mnemonic generation is of incorrect length, %lu", buf, 0xCu);
     }
 
@@ -46,165 +46,163 @@ void __42__MnemonicRepresentation_mnemonicWordList__block_invoke()
   else
   {
     CC_SHA256([fromCopy bytes], objc_msgSend(fromCopy, "length"), buf);
-    v8 = buf[0];
-    v9 = 8 * [fromCopy length];
-    v10 = ([fromCopy length] >> 2) + v9;
-    v11 = (390451573 * v10) >> 32;
-    v12 = &v29[-((2 * v11 + 15) & 0x7FFF0)];
+    v7 = buf[0];
+    v8 = 8 * [fromCopy length];
+    v9 = ([fromCopy length] >> 2) + v8;
+    v10 = (390451573 * v9) >> 32;
+    v11 = &v28[-((2 * v10 + 15) & 0x7FFF0)];
     bytes = [fromCopy bytes];
     if ([fromCopy length])
     {
-      v30 = v10;
-      v31 = (390451573 * v10) >> 32;
-      v32 = v8;
-      v33 = v29;
+      v29 = v9;
+      v30 = (390451573 * v9) >> 32;
+      v31 = v7;
+      v32 = v28;
+      v13 = 0;
       v14 = 0;
       v15 = 0;
       v16 = 0;
-      v17 = 0;
       do
       {
-        if (v17 > 0xA)
+        if (v16 > 0xA)
         {
-          v19 = v17;
-          v18 = v15;
+          v18 = v16;
+          v17 = v14;
         }
 
         else
         {
           do
           {
-            v18 = (v15 + 1);
-            v16 = *(bytes + v15) | (v16 << 8);
-            v19 = v17 + 8;
-            LODWORD(v15) = v15 + 1;
-            v20 = v17 >= 3;
-            v17 += 8;
+            v17 = (v14 + 1);
+            v15 = *(bytes + v14) | (v15 << 8);
+            v18 = v16 + 8;
+            LODWORD(v14) = v14 + 1;
+            v19 = v16 >= 3;
+            v16 += 8;
           }
 
-          while (!v20);
+          while (!v19);
         }
 
-        v21 = v19 - 11;
-        v22 = v14 + 1;
-        v12[v14] = v16 >> (v19 - 11);
-        v17 = (v19 - 11);
-        v16 &= ~(-1 << (v19 - 11));
-        v23 = [fromCopy length];
-        v14 = v22;
-        v15 = v18;
+        v20 = v18 - 11;
+        v21 = v13 + 1;
+        v11[v13] = v15 >> (v18 - 11);
+        v16 = (v18 - 11);
+        v15 &= ~(-1 << (v18 - 11));
+        v22 = [fromCopy length];
+        v13 = v21;
+        v14 = v17;
       }
 
-      while (v23 > v18);
-      v24 = v22;
-      v8 = v32;
-      v11 = v31;
+      while (v22 > v17);
+      v23 = v21;
+      v7 = v31;
       v10 = v30;
+      v9 = v29;
     }
 
     else
     {
-      v21 = 0;
-      LOWORD(v16) = 0;
-      v24 = 0;
+      v20 = 0;
+      LOWORD(v15) = 0;
+      v23 = 0;
     }
 
-    v12[v24] = (v16 << (11 - v21)) | (v8 >> (v21 - 3));
-    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:v11];
-    if (v10 >= 0xB)
+    v11[v23] = (v15 << (11 - v20)) | (v7 >> (v20 - 3));
+    v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:v10];
+    if (v9 >= 0xB)
     {
-      if (v11 <= 1)
+      if (v10 <= 1)
       {
-        v25 = 1;
+        v24 = 1;
       }
 
       else
       {
-        v25 = v11;
+        v24 = v10;
       }
 
       do
       {
         mnemonicWordList = [self mnemonicWordList];
-        v27 = *v12++;
-        v28 = [mnemonicWordList objectAtIndexedSubscript:v27];
-        [v5 addObject:v28];
+        v26 = *v11++;
+        v27 = [mnemonicWordList objectAtIndexedSubscript:v26];
+        [v5 addObject:v27];
 
-        --v25;
+        --v24;
       }
 
-      while (v25);
+      while (v24);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)entropyFromMnemonic:(id)mnemonic
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mnemonicCopy = mnemonic;
   if (0xAAAAAAAAAAAAAAABLL * [mnemonicCopy count] <= 0x5555555555555555 && objc_msgSend(mnemonicCopy, "count") >= 9 && objc_msgSend(mnemonicCopy, "count") < 0x19)
   {
-    v8 = [mnemonicCopy count];
-    v9 = 11 * v8 / 0x21uLL;
-    v10 = [MEMORY[0x1E695DF88] dataWithLength:(11 * v8 - v9) >> 3];
-    bytes = [v10 bytes];
+    v7 = [mnemonicCopy count];
+    v8 = 11 * v7 / 0x21uLL;
+    v9 = [MEMORY[0x1E695DF88] dataWithLength:(11 * v7 - v8) >> 3];
+    bytes = [v9 bytes];
     if ([mnemonicCopy count])
     {
+      v21 = v8;
       v22 = v9;
-      v23 = v10;
+      v11 = 0;
       v12 = 0;
       v13 = 0;
       v14 = 0;
-      v15 = 0;
       do
       {
-        if (v12 <= 7u)
+        if (v11 <= 7u)
         {
-          v16 = v14 + 1;
-          v17 = [mnemonicCopy objectAtIndexedSubscript:v14];
-          lowercaseString = [v17 lowercaseString];
+          v15 = v13 + 1;
+          v16 = [mnemonicCopy objectAtIndexedSubscript:v13];
+          lowercaseString = [v16 lowercaseString];
 
           mnemonicWordList = [self mnemonicWordList];
-          v20 = [mnemonicWordList indexOfObject:lowercaseString];
+          v19 = [mnemonicWordList indexOfObject:lowercaseString];
 
-          v13 = v20 | (v13 << 11);
-          v12 += 11;
-          v14 = v16;
+          v12 = v19 | (v12 << 11);
+          v11 += 11;
+          v13 = v15;
         }
 
-        v12 -= 8;
-        *(bytes + v15) = v13 >> v12;
-        v13 &= ~(-1 << v12);
-        ++v15;
+        v11 -= 8;
+        *(bytes + v14) = v12 >> v11;
+        v12 &= ~(-1 << v11);
+        ++v14;
       }
 
-      while ([mnemonicCopy count] > v14);
-      v21 = v13;
-      LOBYTE(v9) = v22;
-      v10 = v23;
+      while ([mnemonicCopy count] > v13);
+      v20 = v12;
+      LOBYTE(v8) = v21;
+      v9 = v22;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    CC_SHA256([v10 bytes], objc_msgSend(v10, "length"), buf);
-    if (buf[0] >> (8 - v9) == v21)
+    CC_SHA256([v9 bytes], objc_msgSend(v9, "length"), buf);
+    if (buf[0] >> (8 - v8) == v20)
     {
-      v5 = v10;
+      v5 = v9;
     }
 
     else
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "provided mnemonic has incorrect checksum", v24, 2u);
+        *v23 = 0;
+        _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "provided mnemonic has incorrect checksum", v23, 2u);
       }
 
       v5 = 0;
@@ -216,29 +214,25 @@ void __42__MnemonicRepresentation_mnemonicWordList__block_invoke()
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v26 = [mnemonicCopy count];
+      v25 = [mnemonicCopy count];
       _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "input mnemonic is of incorrect length, %lu", buf, 0xCu);
     }
 
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)seedFromMnemonic:(id)mnemonic
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = [mnemonic componentsJoinedByString:@" "];
   v4 = [v3 dataUsingEncoding:4];
 
   v5 = [@"mnemonic" dataUsingEncoding:4];
   CCKeyDerivationPBKDF(2u, [v4 bytes], objc_msgSend(v4, "length"), objc_msgSend(v5, "bytes"), objc_msgSend(v5, "length"), 5u, 0x800u, derivedKey, 0x40uLL);
   v6 = [MEMORY[0x1E695DEF0] dataWithBytes:derivedKey length:64];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

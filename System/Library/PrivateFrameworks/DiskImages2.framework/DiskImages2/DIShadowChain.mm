@@ -41,74 +41,73 @@
 
 - (BOOL)addShadowURLs:(id)ls error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(lsCopy, "count")}];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = lsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
+        v12 = *(*(&v17 + 1) + 8 * v11);
         v13 = [DIShadowNode alloc];
-        v14 = [(DIShadowNode *)v13 initWithURL:v12 isCache:0, v18];
+        v14 = [(DIShadowNode *)v13 initWithURL:v12 isCache:0, v17];
         [v7 addObject:v14];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v15 = [(DIShadowChain *)self addShadowNodes:v7 error:error];
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)verifyNodes:(id)nodes error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   nodesCopy = nodes;
-  v7 = [nodesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v7)
   {
     v15 = 1;
     goto LABEL_15;
   }
 
-  v8 = *v21;
+  v8 = *v20;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v21 != v8)
+      if (*v20 != v8)
       {
         objc_enumerationMutation(nodesCopy);
       }
 
-      v10 = *(*(&v20 + 1) + 8 * i);
+      v10 = *(*(&v19 + 1) + 8 * i);
       v11 = [v10 URL];
       isFileURL = [v11 isFileURL];
 
@@ -133,7 +132,7 @@ LABEL_14:
       }
     }
 
-    v7 = [nodesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [nodesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     v15 = 1;
     if (v7)
     {
@@ -145,44 +144,43 @@ LABEL_14:
 
 LABEL_15:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)addShadowNodes:(id)nodes wrapReadOnly:(BOOL)only error:(id *)error
 {
   onlyCopy = only;
-  v37 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
-  v26 = [DIShadowChain verifyNodes:"verifyNodes:error:" error:?];
-  if (v26)
+  v29 = [DIShadowChain verifyNodes:"verifyNodes:error:" error:?];
+  if (v29)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = nodesCopy;
-    v7 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+    v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
     if (v7)
     {
-      v8 = *v30;
+      v8 = *v34;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
+          v10 = *(*(&v33 + 1) + 8 * i);
           if (onlyCopy)
           {
-            fileBackend = [*(*(&v29 + 1) + 8 * i) fileBackend];
+            fileBackend = [*(*(&v33 + 1) + 8 * i) fileBackend];
             v12 = fileBackend;
             if (fileBackend)
             {
-              [fileBackend backend];
+              objc_msgSend_backend(fileBackend);
               v13 = *buf;
             }
 
@@ -202,47 +200,60 @@ LABEL_15:
             if (v14)
             {
               v15 = *__error();
-              if (DIForwardLogs())
+              v16 = DIForwardLogs();
+              if (v16)
               {
-                v16 = getDIOSLog();
-                os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-                v17 = [v10 URL];
+                *&v32 = 0;
+                v18 = getDIOSLog(v16, v17);
+                v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+                v20 = [v10 URL];
                 *buf = 68158211;
+                if (v19)
+                {
+                  v21 = 3;
+                }
+
+                else
+                {
+                  v21 = 2;
+                }
+
                 *&buf[4] = 51;
                 *&buf[8] = 2080;
                 *&buf[10] = "[DIShadowChain addShadowNodes:wrapReadOnly:error:]";
-                v34 = 2113;
-                v35 = v17;
-                v18 = _os_log_send_and_compose_impl();
+                v38 = 2113;
+                v39 = v20;
+                v22 = _os_log_send_and_compose_impl(v21, &v32, 0, 0, &dword_248DE0000, v18, 0, "%.*s: Using %{private}@ as read-only", buf, 28);
 
-                if (v18)
+                if (v22)
                 {
-                  fprintf(*MEMORY[0x277D85DF8], "%s\n", v18);
-                  free(v18);
+                  fprintf(*MEMORY[0x277D85DF8], "%s\n", v22);
+                  free(v22);
                 }
               }
 
               else
               {
-                v19 = getDIOSLog();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                v23 = getDIOSLog(v16, v17);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
-                  v20 = [v10 URL];
-                  *buf = 0x3304100303;
+                  v24 = [v10 URL];
+                  *buf = 68158211;
+                  *&buf[4] = 51;
                   *&buf[8] = 2080;
                   *&buf[10] = "[DIShadowChain addShadowNodes:wrapReadOnly:error:]";
-                  v34 = 2113;
-                  v35 = v20;
-                  _os_log_impl(&dword_248DE0000, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Using %{private}@ as read-only", buf, 0x1Cu);
+                  v38 = 2113;
+                  v39 = v24;
+                  _os_log_impl(&dword_248DE0000, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Using %{private}@ as read-only", buf, 0x1Cu);
                 }
               }
 
               *__error() = v15;
-              v21 = [FileLocalXPC alloc];
+              v25 = [FileLocalXPC alloc];
               fileBackend2 = [v10 fileBackend];
               if (fileBackend2)
               {
-                [fileBackend2 backend];
+                objc_msgSend_backend(fileBackend2);
               }
 
               std::allocate_shared[abi:ne200100]<ReadOnlyBackend,std::allocator<ReadOnlyBackend>,std::shared_ptr<Backend>,0>();
@@ -253,15 +264,14 @@ LABEL_15:
           [nodes addObject:v10];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+        v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
       }
 
       while (v7);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v29;
 }
 
 - (void)openWritable:(BOOL)writable createNonExisting:(BOOL)existing
@@ -277,9 +287,9 @@ LABEL_15:
   [nodes enumerateObjectsUsingBlock:v8];
 }
 
-void __48__DIShadowChain_openWritable_createNonExisting___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __48__DIShadowChain_openWritable_createNonExisting___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   v7 = 514;
@@ -300,176 +310,210 @@ void __48__DIShadowChain_openWritable_createNonExisting___block_invoke(uint64_t 
   {
     [v6 createBackendWithFlags:v7];
     v8 = *__error();
-    if (DIForwardLogs())
+    v9 = DIForwardLogs();
+    if (v9)
     {
-      v9 = getDIOSLog();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      v10 = [v6 URL];
-      [v10 path];
-      *buf = 68158211;
-      v30 = 61;
-      v31 = 2080;
-      v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-      v34 = v33 = 2113;
-      v11 = _os_log_send_and_compose_impl();
-
-      if (v11)
+      v40 = 0;
+      v11 = getDIOSLog(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
-        free(v11);
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v13 = [v6 URL];
+      v14 = [v13 path];
+      *buf = 68158211;
+      v42 = 61;
+      v43 = 2080;
+      v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+      v45 = 2113;
+      v46 = v14;
+      v15 = _os_log_send_and_compose_impl(v12, &v40, 0, 0, &dword_248DE0000, v11, 0, "%.*s: Cache file %{private}@ opened with RW access", buf, 28);
+
+      if (v15)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+        free(v15);
       }
     }
 
     else
     {
-      v17 = getDIOSLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v25 = getDIOSLog(v9, v10);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = [v6 URL];
-        v19 = [v18 path];
+        v26 = [v6 URL];
+        v27 = [v26 path];
         *buf = 68158211;
-        v30 = 61;
-        v31 = 2080;
-        v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-        v33 = 2113;
-        v34 = v19;
-        _os_log_impl(&dword_248DE0000, v17, OS_LOG_TYPE_DEFAULT, "%.*s: Cache file %{private}@ opened with RW access", buf, 0x1Cu);
+        v42 = 61;
+        v43 = 2080;
+        v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+        v45 = 2113;
+        v46 = v27;
+        _os_log_impl(&dword_248DE0000, v25, OS_LOG_TYPE_DEFAULT, "%.*s: Cache file %{private}@ opened with RW access", buf, 0x1Cu);
       }
     }
 
-    goto LABEL_33;
+    goto LABEL_42;
   }
 
   if (*(a1 + 40) == 1)
   {
-    v12 = [*(a1 + 32) nodes];
-    if ([v12 count] - 1 == a3)
+    v16 = [*(a1 + 32) nodes];
+    if (([v16 count] - 1) == a3)
     {
-      v13 = v7;
+      v17 = v7;
     }
 
     else
     {
-      v13 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v17 = 0;
   }
 
-  [v6 createBackendWithFlags:v13];
-  if ((v13 & 3) != 0)
+  [v6 createBackendWithFlags:v17];
+  if ((v17 & 3) != 0)
   {
     v8 = *__error();
-    if (DIForwardLogs())
+    v18 = DIForwardLogs();
+    if (v18)
     {
-      v14 = getDIOSLog();
-      os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-      v15 = [v6 URL];
-      [v15 path];
-      *buf = 68158211;
-      v30 = 61;
-      v31 = 2080;
-      v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-      v34 = v33 = 2113;
-      v16 = _os_log_send_and_compose_impl();
-
-      if (!v16)
+      v40 = 0;
+      v20 = getDIOSLog(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_33;
+        v21 = 3;
       }
 
-      goto LABEL_25;
+      else
+      {
+        v21 = 2;
+      }
+
+      v22 = [v6 URL];
+      v23 = [v22 path];
+      *buf = 68158211;
+      v42 = 61;
+      v43 = 2080;
+      v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+      v45 = 2113;
+      v46 = v23;
+      v24 = _os_log_send_and_compose_impl(v21, &v40, 0, 0, &dword_248DE0000, v20, 0, "%.*s: Shadow file %{private}@ opened with RW access", buf, 28);
+
+      if (!v24)
+      {
+        goto LABEL_42;
+      }
+
+      goto LABEL_34;
     }
 
-    v22 = getDIOSLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v34 = getDIOSLog(v18, v19);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [v6 URL];
-      v24 = [v23 path];
+      v35 = [v6 URL];
+      v36 = [v35 path];
       *buf = 68158211;
-      v30 = 61;
-      v31 = 2080;
-      v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-      v33 = 2113;
-      v34 = v24;
-      _os_log_impl(&dword_248DE0000, v22, OS_LOG_TYPE_DEFAULT, "%.*s: Shadow file %{private}@ opened with RW access", buf, 0x1Cu);
+      v42 = 61;
+      v43 = 2080;
+      v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+      v45 = 2113;
+      v46 = v36;
+      _os_log_impl(&dword_248DE0000, v34, OS_LOG_TYPE_DEFAULT, "%.*s: Shadow file %{private}@ opened with RW access", buf, 0x1Cu);
     }
   }
 
   else
   {
     v8 = *__error();
-    if (DIForwardLogs())
+    v28 = DIForwardLogs();
+    if (v28)
     {
-      v20 = getDIOSLog();
-      os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-      v21 = [v6 URL];
-      [v21 path];
-      *buf = 68158211;
-      v30 = 61;
-      v31 = 2080;
-      v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-      v34 = v33 = 2113;
-      v16 = _os_log_send_and_compose_impl();
-
-      if (!v16)
+      v40 = 0;
+      v30 = getDIOSLog(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_33;
+        v31 = 3;
       }
 
-LABEL_25:
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v16);
-      free(v16);
-      goto LABEL_33;
+      else
+      {
+        v31 = 2;
+      }
+
+      v32 = [v6 URL];
+      v33 = [v32 path];
+      *buf = 68158211;
+      v42 = 61;
+      v43 = 2080;
+      v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+      v45 = 2113;
+      v46 = v33;
+      v24 = _os_log_send_and_compose_impl(v31, &v40, 0, 0, &dword_248DE0000, v30, 0, "%.*s: Using an existing shadow file: %{private}@", buf, 28);
+
+      if (!v24)
+      {
+        goto LABEL_42;
+      }
+
+LABEL_34:
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v24);
+      free(v24);
+      goto LABEL_42;
     }
 
-    v25 = getDIOSLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v37 = getDIOSLog(v28, v29);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [v6 URL];
-      v27 = [v26 path];
+      v38 = [v6 URL];
+      v39 = [v38 path];
       *buf = 68158211;
-      v30 = 61;
-      v31 = 2080;
-      v32 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
-      v33 = 2113;
-      v34 = v27;
-      _os_log_impl(&dword_248DE0000, v25, OS_LOG_TYPE_DEFAULT, "%.*s: Using an existing shadow file: %{private}@", buf, 0x1Cu);
+      v42 = 61;
+      v43 = 2080;
+      v44 = "[DIShadowChain openWritable:createNonExisting:]_block_invoke";
+      v45 = 2113;
+      v46 = v39;
+      _os_log_impl(&dword_248DE0000, v37, OS_LOG_TYPE_DEFAULT, "%.*s: Using an existing shadow file: %{private}@", buf, 0x1Cu);
     }
   }
 
-LABEL_33:
+LABEL_42:
   *__error() = v8;
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)statWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   shadowStats = [MEMORY[0x277CBEB18] array];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   nodes = [(DIShadowChain *)self nodes];
-  v6 = [nodes countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [nodes countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
-    v7 = *v26;
+    v7 = *v25;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v26 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(nodes);
       }
 
-      v9 = *(*(&v25 + 1) + 8 * v8);
+      v9 = *(*(&v24 + 1) + 8 * v8);
       fileBackend = [v9 fileBackend];
       v11 = fileBackend == 0;
 
@@ -482,25 +526,25 @@ LABEL_3:
       v13 = fileBackend2;
       if (fileBackend2)
       {
-        [fileBackend2 backend];
+        objc_msgSend_backend(fileBackend2);
       }
 
       else
       {
+        v20 = 0;
         v21 = 0;
-        v22 = 0;
       }
 
-      get_sink_backend(&v21, &v23);
-      fd_from_backend = get_fd_from_backend(&v23);
-      if (v24)
+      get_sink_backend(&v20, &v22);
+      fd_from_backend = get_fd_from_backend(&v22);
+      if (v23)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
-      if (v22)
+      if (v21)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
       }
 
       if ((fd_from_backend & 0x80000000) != 0)
@@ -522,7 +566,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [nodes countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v6 = [nodes countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -546,44 +590,40 @@ LABEL_18:
   self->_shadowStats = v17;
 LABEL_23:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (NSArray)mountPoints
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   shadowStats = [(DIShadowChain *)self shadowStats];
-  v5 = [shadowStats countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [shadowStats countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(shadowStats);
         }
 
-        mountedOnURL = [*(*(&v11 + 1) + 8 * i) mountedOnURL];
+        mountedOnURL = [*(*(&v10 + 1) + 8 * i) mountedOnURL];
         [array addObject:mountedOnURL];
       }
 
-      v5 = [shadowStats countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [shadowStats countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -638,66 +678,77 @@ LABEL_23:
 
 - (int64_t)topDiskImageNumBlocks
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (![(DIShadowChain *)self isEmpty])
   {
     nodes = [(DIShadowChain *)self nodes];
     lastObject = [nodes lastObject];
 
     fileBackend = [lastObject fileBackend];
-    v9 = fileBackend;
+    v12 = fileBackend;
     if (fileBackend)
     {
-      [fileBackend backend];
-      v10 = *buf;
+      objc_msgSend_backend(fileBackend);
+      v13 = *buf;
     }
 
     else
     {
-      v10 = 0;
+      v13 = 0;
     }
 
     *buf = 0;
-    *v16 = 0;
+    *v21 = 0;
 
-    v12 = (*(*v10 + 192))(v10);
-    dup(v12);
-    diskimage_uio::diskimage_open_params::create();
+    v15 = (*(*v13 + 192))(v13);
+    v16 = dup(v15);
+    diskimage_uio::diskimage_open_params::create(v16, 0, 0);
   }
 
   v3 = *__error();
-  if (DIForwardLogs())
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v4 = getDIOSLog();
-    os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    *v19 = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
     *buf = 68157954;
     *&buf[4] = 38;
-    *v16 = 2080;
-    *&v16[2] = "[DIShadowChain topDiskImageNumBlocks]";
-    v5 = _os_log_send_and_compose_impl();
+    *v21 = 2080;
+    *&v21[2] = "[DIShadowChain topDiskImageNumBlocks]";
+    LODWORD(v18) = 18;
+    v8 = _os_log_send_and_compose_impl(v7, v19, 0, 0, &dword_248DE0000, v6, 16, "%.*s: numBlocks queried for an empty shadowChain.", buf, v18);
 
-    if (v5)
+    if (v8)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v5);
-      free(v5);
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
+      free(v8);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
       *&buf[4] = 38;
-      *v16 = 2080;
-      *&v16[2] = "[DIShadowChain topDiskImageNumBlocks]";
-      _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_ERROR, "%.*s: numBlocks queried for an empty shadowChain.", buf, 0x12u);
+      *v21 = 2080;
+      *&v21[2] = "[DIShadowChain topDiskImageNumBlocks]";
+      _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_ERROR, "%.*s: numBlocks queried for an empty shadowChain.", buf, 0x12u);
     }
   }
 
   *__error() = v3;
-  v13 = *MEMORY[0x277D85DE8];
   return -22;
 }
 

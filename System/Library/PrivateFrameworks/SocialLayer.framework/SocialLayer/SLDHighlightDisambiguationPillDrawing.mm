@@ -10,23 +10,24 @@
 {
   styleCopy = style;
   tagCopy = tag;
-  v16.receiver = self;
-  v16.super_class = SLDHighlightDisambiguationPillDrawing;
-  v11 = [(SLDHighlightDisambiguationPillDrawing *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = SLDHighlightDisambiguationPillDrawing;
+  v11 = [(SLDHighlightDisambiguationPillDrawing *)&v17 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_slotStyle, style);
-    if ([tagCopy isMemberOfClass:objc_opt_class()])
+    v13 = [tagCopy isMemberOfClass:objc_opt_class()];
+    if (v13)
     {
-      v13 = tagCopy;
+      v14 = tagCopy;
       p_super = &v12->_tag->super.super.super;
-      v12->_tag = v13;
+      v12->_tag = v14;
     }
 
     else
     {
-      p_super = SLDaemonLogHandle();
+      p_super = SLDaemonLogHandle(v13);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [SLDHighlightDisambiguationPillDrawing initWithStyle:v12 tag:tagCopy forRemote:p_super];
@@ -78,13 +79,12 @@
 
 - (void)initWithStyle:(uint64_t)a1 tag:(uint64_t)a2 forRemote:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "[SLDHighlightDisambiguationPillDrawing %p] Tried to initialize with a tag of the wrong type: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "[SLDHighlightDisambiguationPillDrawing %p] Tried to initialize with a tag of the wrong type: %@", &v3, 0x16u);
 }
 
 @end

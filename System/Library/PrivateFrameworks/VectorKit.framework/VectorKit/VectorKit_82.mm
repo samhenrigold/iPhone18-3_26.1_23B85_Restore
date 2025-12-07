@@ -1,3 +1,7167 @@
+void sub_1B2D842C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, std::locale a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15.__locale_);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unsigned __int8 *std::__format_spec::__parser<char>::__validate[abi:nn200100](unsigned __int8 *result, const char *a2)
+{
+  if ((*result & 0x18) != 0)
+  {
+    v2 = "sign";
+LABEL_11:
+    std::__format_spec::__throw_invalid_option_format_error[abi:nn200100](a2, v2);
+    goto LABEL_12;
+  }
+
+  if ((*result & 0x20) != 0)
+  {
+    v2 = "alternate form";
+    goto LABEL_11;
+  }
+
+  if ((*result & 7) == 4)
+  {
+    v2 = "zero-padding";
+    goto LABEL_11;
+  }
+
+  if (*(result + 2) != -1)
+  {
+    v2 = "precision";
+    goto LABEL_11;
+  }
+
+  if (result[1] >= 0x20u)
+  {
+LABEL_12:
+    v3 = std::__throw_format_error[abi:nn200100]("The type does not fit in the mask");
+    return std::__format_spec::__throw_invalid_option_format_error[abi:nn200100](v3, v4);
+  }
+
+  return result;
+}
+
+unsigned __int8 *std::__format_spec::__throw_invalid_option_format_error[abi:nn200100](const char *a1, const char *a2)
+{
+  std::string::basic_string[abi:nn200100]<0>(&v19, "The format specifier for ");
+  v4 = strlen(a1);
+  v5 = std::string::append(&v19, a1, v4);
+  v6 = v5->__r_.__value_.__r.__words[2];
+  *&v20.__r_.__value_.__l.__data_ = *&v5->__r_.__value_.__l.__data_;
+  v20.__r_.__value_.__r.__words[2] = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  v7 = std::string::append(&v20, " does not allow the ", 0x14uLL);
+  v8 = v7->__r_.__value_.__r.__words[2];
+  *&v21.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
+  v21.__r_.__value_.__r.__words[2] = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  v9 = strlen(a2);
+  v10 = std::string::append(&v21, a2, v9);
+  v11 = v10->__r_.__value_.__r.__words[2];
+  *&v22.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v22.__r_.__value_.__r.__words[2] = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v22, " option", 7uLL);
+  v13 = v12->__r_.__value_.__r.__words[2];
+  v23 = *&v12->__r_.__value_.__l.__data_;
+  v24 = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  if (v24 >= 0)
+  {
+    v14 = &v23;
+  }
+
+  else
+  {
+    v14 = v23;
+  }
+
+  v15 = std::__throw_format_error[abi:nn200100](v14);
+  return std::__format_spec::__parse_arg_id[abi:nn200100]<char const*,std::basic_format_parse_context<char>>(v15, v16, v17);
+}
+
+unsigned __int8 *std::__format_spec::__parse_arg_id[abi:nn200100]<char const*,std::basic_format_parse_context<char>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
+{
+  if (a1 != a2)
+  {
+    v4 = std::__format::__parse_arg_id[abi:nn200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
+    if (v4 != a2 && *v4 == 125)
+    {
+      return v4 + 1;
+    }
+
+    std::__throw_format_error[abi:nn200100]("The argument index is invalid");
+  }
+
+  v6 = std::__throw_format_error[abi:nn200100]("End of input while parsing an argument index");
+  return std::__format::__parse_number[abi:nn200100]<char const*>(v6, v7);
+}
+
+unsigned __int8 *std::__format::__parse_number[abi:nn200100]<char const*>(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = a1;
+  v3 = a1 + 9;
+  if (a2 - a1 <= 9)
+  {
+    v3 = a2;
+  }
+
+  v5 = *a1;
+  result = a1 + 1;
+  v6 = v5 - 48;
+  if (result != v3)
+  {
+    v2 = v3 - 1;
+    while (1)
+    {
+      v7 = *result;
+      if ((v7 - 58) < 0xFFFFFFF6)
+      {
+        return result;
+      }
+
+      v6 = v7 + 10 * v6 - 48;
+      if (++result == v3)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  v3 = result;
+LABEL_9:
+  if (v3 == a2)
+  {
+    return a2;
+  }
+
+  v8 = *v3;
+  if ((v8 - 48) > 9)
+  {
+    return v3;
+  }
+
+  if ((v8 + 10 * v6 - 48) >> 31 || (result = v2 + 2, v2 + 2 != a2) && *result - 48 <= 9)
+  {
+    std::__throw_format_error[abi:nn200100]("The numeric value of the format specifier is too large");
+    return a2;
+  }
+
+  return result;
+}
+
+void std::__format::__allocating_buffer<char>::__prepare_write[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = v2 * 1.6;
+  if (v2 + a2 <= v3)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v2 + a2;
+  }
+
+  if (v4 >= 0x100)
+  {
+    operator new();
+  }
+}
+
+uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RenderItemTypeID>(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>();
+  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>(void)::metadata;
+  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>(void)::metadata >= 0x200)
+  {
+    v3 = GEOGetGeoDisplayCoreDefaultLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      buf[0] = 136315650;
+      *&buf[1] = "componentMetadata.id < _pools.size()";
+      v6 = 2080;
+      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
+      v8 = 1024;
+      LODWORD(v9) = 177;
+      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
+    }
+  }
+
+  result = *(a1 + 4152 + 8 * v2);
+  if (!result)
+  {
+    operator new();
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls13ItemsPreparedEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ItemsPrepared>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ItemsPrepared>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ItemsPrepared>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ItemsPrepared>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A3F6C0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A3F6E0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A3F6C0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::ItemsPrepared,64ul>::~storage(a1);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>()
+{
+  {
+    {
+      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RenderItemTypeID>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
+    }
+
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RenderItemTypeID>(void)::localId;
+    *algn_1EB82D878 = 0xCC7861782DE34E23;
+    qword_1EB82D880 = "md::ls::RenderItemTypeID]";
+    qword_1EB82D888 = 24;
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16RenderItemTypeIDEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RenderItemTypeID>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 24 * (v13 & 0x3F);
+        v18 = *(v17 + 16);
+        v19 = *v17;
+        v20 = *(v16 + 16);
+        *v17 = *v16;
+        *(v17 + 16) = v20;
+        *v16 = v19;
+        *(v16 + 16) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemTypeID>(void)::metadata) = *(v3 + 4096);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16RenderItemTypeIDEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EE7__cloneEPNS0_6__baseISN_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A4FF58;
+  a2[1] = v2;
+  return result;
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FF18;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4FF38;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FF18;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RenderItemTypeID,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls12RenderItemIDEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RenderItemID>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 24 * (v13 & 0x3F);
+        v18 = *(v17 + 16);
+        v19 = *v17;
+        v20 = *(v16 + 16);
+        *v17 = *v16;
+        *(v17 + 16) = v20;
+        *v16 = v19;
+        *(v16 + 16) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderItemID>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RenderItemID>();
+    unk_1EB83DAB0 = 0xD68EA0DE832DEC03;
+    qword_1EB83DAB8 = "md::ls::RenderItemID]";
+    qword_1EB83DAC0 = 20;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FDC0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4FDE0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FDC0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RenderItemID,64ul>::~storage(a1);
+}
+
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(char ***a1, int a2)
+{
+  v47 = 0;
+  v48 = 0uLL;
+  if (a2 == 1)
+  {
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v47, (*a1)[2]);
+    v6 = (*a1 + 1);
+    v7 = **a1;
+    if (v7 != v6)
+    {
+      v8 = v48;
+      do
+      {
+        if (v8 >= *(&v48 + 1))
+        {
+          v9 = (v8 - v47) >> 4;
+          v10 = v9 + 1;
+          if ((v9 + 1) >> 60)
+          {
+LABEL_72:
+            std::__throw_bad_array_new_length[abi:nn200100]();
+          }
+
+          v11 = *(&v48 + 1) - v47;
+          if ((*(&v48 + 1) - v47) >> 3 > v10)
+          {
+            v10 = v11 >> 3;
+          }
+
+          if (v11 >= 0x7FFFFFFFFFFFFFF0)
+          {
+            v12 = 0xFFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v12 = v10;
+          }
+
+          v52 = &v47;
+          if (v12)
+          {
+            std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v12);
+          }
+
+          v13 = 16 * v9;
+          v49 = 0;
+          v50 = v13;
+          *(&v51 + 1) = 0;
+          *v13 = v7[56];
+          *(v13 + 8) = *(v7 + 8);
+          v7[56] = 0;
+          *(v7 + 8) = 0;
+          *&v51 = 16 * v9 + 16;
+          v14 = &v47[v50 - v48];
+          std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v47, v48, v14);
+          v15 = v47;
+          v16 = *(&v48 + 1);
+          v47 = v14;
+          v43 = v51;
+          v48 = v51;
+          *&v51 = v15;
+          *(&v51 + 1) = v16;
+          v49 = v15;
+          v50 = v15;
+          std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v49);
+          v8 = v43;
+        }
+
+        else
+        {
+          *v8 = v7[56];
+          *(v8 + 8) = *(v7 + 8);
+          v7[56] = 0;
+          *(v7 + 8) = 0;
+          v8 += 16;
+        }
+
+        *&v48 = v8;
+        v17 = *(v7 + 1);
+        if (v17)
+        {
+          do
+          {
+            v18 = v17;
+            v17 = *v17;
+          }
+
+          while (v17);
+        }
+
+        else
+        {
+          do
+          {
+            v18 = *(v7 + 2);
+            v19 = *v18 == v7;
+            v7 = v18;
+          }
+
+          while (!v19);
+        }
+
+        v7 = v18;
+      }
+
+      while (v18 != v6);
+    }
+  }
+
+  else if (a2 == 2)
+  {
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(&v47, ((*a1)[1] - **a1) >> 4);
+    v5 = **a1;
+    v4 = (*a1)[1];
+    while (v5 != v4)
+    {
+      std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](&v47, v5);
+      v5 += 16;
+    }
+  }
+
+  v42 = a1;
+  for (i = v48; v47 != v48; i = v48)
+  {
+    v21 = *(i - 16);
+    v45 = *(i - 16);
+    v22 = *(i - 8);
+    v46 = v22;
+    *(i - 16) = 0;
+    *(i - 8) = 0;
+    v23 = v48 - 16;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((v48 - 8), *(v48 - 16));
+    *&v48 = v23;
+    if (v21 == 1)
+    {
+      v28 = *v22;
+      if (*v22 == v22 + 1)
+      {
+        v21 = 1;
+      }
+
+      else
+      {
+        do
+        {
+          if (v23 >= *(&v48 + 1))
+          {
+            v29 = (v23 - v47) >> 4;
+            if ((v29 + 1) >> 60)
+            {
+              goto LABEL_72;
+            }
+
+            v30 = (*(&v48 + 1) - v47) >> 3;
+            if (v30 <= v29 + 1)
+            {
+              v30 = v29 + 1;
+            }
+
+            if (*(&v48 + 1) - v47 >= 0x7FFFFFFFFFFFFFF0uLL)
+            {
+              v31 = 0xFFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v31 = v30;
+            }
+
+            v52 = &v47;
+            if (v31)
+            {
+              std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v31);
+            }
+
+            v32 = 16 * v29;
+            v49 = 0;
+            v50 = v32;
+            *(&v51 + 1) = 0;
+            *v32 = *(v28 + 56);
+            *(v32 + 8) = v28[8];
+            *(v28 + 56) = 0;
+            v28[8] = 0;
+            *&v51 = 16 * v29 + 16;
+            v33 = &v47[v50 - v48];
+            std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v47, v48, v33);
+            v34 = v47;
+            v35 = *(&v48 + 1);
+            v47 = v33;
+            v44 = v51;
+            v48 = v51;
+            *&v51 = v34;
+            *(&v51 + 1) = v35;
+            v49 = v34;
+            v50 = v34;
+            std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v49);
+            v23 = v44;
+          }
+
+          else
+          {
+            *v23 = *(v28 + 56);
+            *(v23 + 8) = v28[8];
+            *(v28 + 56) = 0;
+            v28[8] = 0;
+            v23 += 16;
+          }
+
+          *&v48 = v23;
+          v36 = v28[1];
+          if (v36)
+          {
+            do
+            {
+              v37 = v36;
+              v36 = *v36;
+            }
+
+            while (v36);
+          }
+
+          else
+          {
+            do
+            {
+              v37 = v28[2];
+              v19 = *v37 == v28;
+              v28 = v37;
+            }
+
+            while (!v19);
+          }
+
+          v28 = v37;
+        }
+
+        while (v37 != v22 + 1);
+        v22 = v46;
+        v21 = v45;
+      }
+
+      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v22[1]);
+      *v22 = v22 + 1;
+      v22[2] = 0;
+      v22[1] = 0;
+    }
+
+    else if (v21 == 2)
+    {
+      v25 = *v22;
+      v24 = v22[1];
+      if (*v22 != v24)
+      {
+        do
+        {
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](&v47, v25);
+          v25 += 16;
+        }
+
+        while (v25 != v24);
+        v25 = *v22;
+        v24 = v22[1];
+      }
+
+      if (v24 != v25)
+      {
+        v26 = (v24 - 8);
+        do
+        {
+          v27 = v26 - 1;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v26, *(v26 - 8));
+          v26 -= 2;
+        }
+
+        while (v27 != v25);
+      }
+
+      v22[1] = v25;
+      v21 = 2;
+    }
+
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v46, v21);
+  }
+
+  if (a2 > 2)
+  {
+    v38 = v42;
+    if (a2 == 3)
+    {
+      v39 = *v42;
+      if (*(*v42 + 23) < 0)
+      {
+        v41 = *v39;
+        goto LABEL_68;
+      }
+    }
+
+    else
+    {
+      if (a2 != 8)
+      {
+        goto LABEL_71;
+      }
+
+      v39 = *v42;
+      v40 = **v42;
+      if (v40)
+      {
+        v39[1] = v40;
+        v41 = v40;
+LABEL_68:
+        operator delete(v41);
+        goto LABEL_69;
+      }
+    }
+
+LABEL_70:
+    operator delete(v39);
+    goto LABEL_71;
+  }
+
+  v38 = v42;
+  if (a2 == 1)
+  {
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(*v42 + 1));
+    goto LABEL_69;
+  }
+
+  if (a2 == 2)
+  {
+    v49 = *v42;
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:nn200100](&v49);
+LABEL_69:
+    v39 = *v38;
+    goto LABEL_70;
+  }
+
+LABEL_71:
+  v49 = &v47;
+  std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:nn200100](&v49);
+}
+
+void sub_1B2D859D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, char a15)
+{
+  a13 = &a15;
+  std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:nn200100](&a13);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[](unsigned __int8 *a1, void ***a2)
+{
+  if (!*a1)
+  {
+    *a1 = 1;
+    operator new();
+  }
+
+  if (*a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x20uLL);
+    v6 = *a1;
+    if (v6 > 9)
+    {
+      v7 = "number";
+    }
+
+    else
+    {
+      v7 = off_1E7B33C98[v6];
+    }
+
+    std::string::basic_string[abi:nn200100]<0>(&v10, v7);
+    v8 = std::string::insert(&v10, 0, "cannot use operator[] with a string argument with ", 0x32uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v12 = v8->__r_.__value_.__r.__words[2];
+    v11 = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    nlohmann::detail::type_error::create(exception, 305, &v11);
+  }
+
+  v3 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(*(a1 + 1), &v11, a2);
+  if (!v3)
+  {
+    operator new();
+  }
+
+  return v3 + 56;
+}
+
+uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(uint64_t a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  *a1 = v2;
+  *(a1 + 8) = 0;
+  if (v2 <= 4)
+  {
+    if (v2 <= 2)
+    {
+      if (v2 == 1)
+      {
+        operator new();
+      }
+
+      if (v2 == 2)
+      {
+        operator new();
+      }
+
+      return a1;
+    }
+
+    if (v2 == 3)
+    {
+      operator new();
+    }
+
+    v3 = a2[8];
+LABEL_12:
+    *(a1 + 8) = v3;
+    return a1;
+  }
+
+  if (v2 < 8)
+  {
+    v3 = *(a2 + 1);
+    goto LABEL_12;
+  }
+
+  if (v2 == 8)
+  {
+    operator new();
+  }
+
+  return a1;
+}
+
+uint64_t (****nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(uint64_t (****result)(void), unsigned __int8 *a2, unsigned int a3))(void)
+{
+  v5 = result;
+  v6 = *a2;
+  if (v6 > 4)
+  {
+    if (*a2 > 6u)
+    {
+      if (v6 != 7)
+      {
+        if (v6 != 8)
+        {
+          if (v6 != 9)
+          {
+            return result;
+          }
+
+          v7 = (**result)[1];
+          goto LABEL_226;
+        }
+
+        (**result)[1]();
+        v22 = a3 + 4;
+        v9 = v5 + 76;
+        v23 = *(v5 + 631);
+        if ((v23 & 0x80000000) != 0)
+        {
+          v32 = v5[77];
+          if (v32 >= v22)
+          {
+            v24 = *v5;
+LABEL_55:
+            v25 = *v9;
+            goto LABEL_56;
+          }
+        }
+
+        else
+        {
+          if (v22 <= v23)
+          {
+            v24 = *v5;
+            v25 = v5 + 76;
+LABEL_56:
+            ((*v24)[1])(v24, v25, a3 + 4);
+            ((**v5)[1])(*v5, "bytes: [", 10);
+            v33 = *(*(a2 + 1) + 8);
+            v34 = **(a2 + 1);
+            if (v34 != v33)
+            {
+              for (; v34 != v33 - 1; v33 = *(*(a2 + 1) + 8))
+              {
+                v35 = *v34++;
+                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(v5, v35);
+                ((**v5)[1])(*v5, ", ", 2);
+              }
+
+              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(v5, *(v33 - 1));
+            }
+
+            ((**v5)[1])(*v5, "],\n", 3);
+            v36 = v5 + 76;
+            if (*(v5 + 631) < 0)
+            {
+              v36 = *v9;
+            }
+
+            ((**v5)[1])(*v5, v36, a3 + 4);
+            ((**v5)[1])(*v5, "subtype: ", 11);
+            v37 = *(a2 + 1);
+            if (*(v37 + 25) == 1)
+            {
+              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(v5, *(v37 + 24));
+            }
+
+            else
+            {
+              ((**v5)[1])(*v5, "null", 4);
+            }
+
+            (***v5)(*v5, 10);
+            goto LABEL_81;
+          }
+
+          v32 = *(v5 + 631);
+        }
+
+        std::string::resize((v5 + 76), 2 * v32, 32);
+        v24 = *v5;
+        v25 = v5 + 76;
+        if ((*(v5 + 631) & 0x80000000) == 0)
+        {
+          goto LABEL_56;
+        }
+
+        goto LABEL_55;
+      }
+
+      v20 = *(a2 + 1);
+      if ((*&v20 & 0x8000000000000000) != 0)
+      {
+        v20 = -v20;
+        v21 = (result + 17);
+        *(result + 16) = 45;
+      }
+
+      else
+      {
+        v21 = result + 2;
+      }
+
+      if (v20 == 0.0)
+      {
+        *v21 = 11824;
+        *(v21 + 2) = 48;
+LABEL_225:
+        v7 = (**v5)[1];
+        goto LABEL_226;
+      }
+
+      v27 = *&v20 & 0xFFFFFFFFFFFFFLL;
+      if (*&v20 >> 52)
+      {
+        v31 = (*&v20 >> 52) + 4294966221;
+        v28 = 2 * (v27 | 0x10000000000000);
+        v29 = (2 * (*&v20 & 0xFFFFFFFFFFFFFLL | 0x10000000000000)) | 1;
+        LODWORD(v30) = (*&v20 >> 52) - 1076;
+        if (*&v20 >> 53 && !v27)
+        {
+          v54 = (*&v20 >> 52) - 53;
+          v55 = 0x3FFFFFFFFFFFFFLL;
+          v27 = 0x10000000000000;
+          goto LABEL_115;
+        }
+
+        v27 |= 0x10000000000000uLL;
+      }
+
+      else
+      {
+        v28 = 2 * *&v20;
+        v29 = (2 * (*&v20 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
+        LODWORD(v30) = -1075;
+        v31 = 4294966222;
+      }
+
+      v55 = v28 - 1;
+      v54 = v30;
+      do
+      {
+LABEL_115:
+        v56 = v30;
+        v29 *= 2;
+        v30 = (v30 - 1);
+      }
+
+      while ((v29 & 0x8000000000000000) == 0);
+      do
+      {
+        v27 *= 2;
+        v31 += 0xFFFFFFFFLL;
+      }
+
+      while ((v27 & 0x8000000000000000) == 0);
+      v57 = v55 << (v54 - v30);
+      if (-60 - v56 <= 0)
+      {
+        v58 = 78913 * (-60 - v56) / 0x40000;
+      }
+
+      else
+      {
+        v58 = 78913 * (-60 - v56) / 0x40000 + 1;
+      }
+
+      v59 = &nlohmann::detail::dtoa_impl::get_cached_power_for_binary_exponent(int)::kCachedPowers + 16 * (((v58 + 307 + (((v58 + 307) >> 28) & 7)) << 16) >> 19);
+      v60 = *v59;
+      v61 = *(v59 + 3);
+      v62 = nlohmann::detail::dtoa_impl::diyfp::mul(v27, v31, *v59);
+      v63 = nlohmann::detail::dtoa_impl::diyfp::mul(v57, v30, v60);
+      v64 = nlohmann::detail::dtoa_impl::diyfp::mul(v29, v30, v60);
+      v65 = -v61;
+      v66 = v64 - 1 + ~v63;
+      v67 = v64 - 1 - v62;
+      v69 = -v68;
+      v70 = 1 << -v68;
+      v71 = (v64 - 1) >> -v68;
+      v72 = (v70 - 1) & (v64 - 1);
+      if (v71 <= 0x3B9AC9FF)
+      {
+        if (v71 <= 0x5F5E0FF)
+        {
+          if (v71 <= 0x98967F)
+          {
+            if (v71 <= 0xF423F)
+            {
+              v78 = v71 >> 5;
+              v79 = v71 >> 4;
+              if (v71 <= 9)
+              {
+                v80 = 1;
+              }
+
+              else
+              {
+                v80 = 10;
+              }
+
+              if (v71 <= 9)
+              {
+                v81 = 1;
+              }
+
+              else
+              {
+                v81 = 2;
+              }
+
+              if (v71 <= 0x63)
+              {
+                v82 = v80;
+              }
+
+              else
+              {
+                v82 = 100;
+              }
+
+              if (v71 <= 0x63)
+              {
+                v83 = v81;
+              }
+
+              else
+              {
+                v83 = 3;
+              }
+
+              if (v71 <= 0x3E7)
+              {
+                v84 = v82;
+              }
+
+              else
+              {
+                v84 = 1000;
+              }
+
+              if (v71 <= 0x3E7)
+              {
+                v85 = v83;
+              }
+
+              else
+              {
+                v85 = 4;
+              }
+
+              if (v79 <= 0x270)
+              {
+                v86 = v84;
+              }
+
+              else
+              {
+                v86 = 10000;
+              }
+
+              if (v79 <= 0x270)
+              {
+                v87 = v85;
+              }
+
+              else
+              {
+                v87 = 5;
+              }
+
+              v88 = v78 > 0xC34;
+              if (v78 > 0xC34)
+              {
+                v73 = 100000;
+              }
+
+              else
+              {
+                v73 = v86;
+              }
+
+              if (v88)
+              {
+                v74 = 6;
+              }
+
+              else
+              {
+                v74 = v87;
+              }
+            }
+
+            else
+            {
+              v73 = 1000000;
+              v74 = 7;
+            }
+          }
+
+          else
+          {
+            v73 = 10000000;
+            v74 = 8;
+          }
+        }
+
+        else
+        {
+          v73 = 100000000;
+          v74 = 9;
+        }
+      }
+
+      else
+      {
+        v73 = 1000000000;
+        v74 = 10;
+      }
+
+      v89 = 0;
+      v90 = ~v62 + v64;
+      v91 = v64 - v63 - 2;
+      v92 = v62 - v64 + 1;
+      v93 = v21;
+      v94 = v74;
+      while (1)
+      {
+        v95 = v89;
+        if (v89 == v94)
+        {
+          break;
+        }
+
+        v96 = v71 / v73;
+        v71 = v71 % v73;
+        v97 = v96 + 48;
+        ++v89;
+        *(v21 + v95) = v96 + 48;
+        --v74;
+        v98 = (v71 << v69) + v72;
+        if (v66 >= v98)
+        {
+          v65 += v74;
+          v99 = v73 << v69;
+          v100 = v98 < v67 && v66 - v98 >= v99;
+          if (!v100)
+          {
+            goto LABEL_204;
+          }
+
+          v101 = v90 - v98;
+          v102 = v72 + (v71 << v69) + v99;
+          v103 = v91 - v102;
+          do
+          {
+            if (v102 >= v67 && v101 <= v92 + v102)
+            {
+              break;
+            }
+
+            *(v21 + v95) = --v97;
+            if (v102 >= v67)
+            {
+              break;
+            }
+
+            v101 -= v99;
+            v102 += v99;
+            v100 = v103 >= v99;
+            v103 -= v99;
+          }
+
+          while (v100);
+        }
+
+        else
+        {
+          v73 /= 0xAu;
+        }
+
+        ++v93;
+        if (v66 >= v98)
+        {
+          goto LABEL_204;
+        }
+      }
+
+      v104 = 0;
+      do
+      {
+        v105 = v67;
+        v106 = (10 * v72) >> v69;
+        v72 = (v70 - 1) & (10 * v72);
+        v107 = v106 + 48;
+        *v93++ = v107;
+        v66 *= 10;
+        v67 *= 10;
+        ++v104;
+      }
+
+      while (v66 < v72);
+      LODWORD(v89) = v89 + v104;
+      v65 -= v104;
+      v108 = v67 - v72;
+      if (v67 > v72 && v66 - v72 >= v70)
+      {
+        v109 = v70 + v72;
+        v110 = v66 - v109;
+        do
+        {
+          if (v109 >= v67 && v108 <= -10 * v105 + v109)
+          {
+            break;
+          }
+
+          *(v21 + v89 - 1) = --v107;
+          if (v109 >= v67)
+          {
+            break;
+          }
+
+          v108 -= v70;
+          v109 += v70;
+          v100 = v110 >= v70;
+          v110 -= v70;
+        }
+
+        while (v100);
+      }
+
+LABEL_204:
+      v111 = v65 + v89;
+      if (v65 < 0 || v111 > 15)
+      {
+        if ((v111 - 16) >= 0xFFFFFFF1)
+        {
+          v112 = v21 + v111;
+          memmove(v112 + 1, v112, v89 - v111);
+          *v112 = 46;
+        }
+
+        else if (v111 != 0 && v111 < 0xFFFFFFFD)
+        {
+          if (v89 != 1)
+          {
+            memmove(v21 + 2, v21 + 1, v89 - 1);
+            *(v21 + 1) = 46;
+            v21 = (v21 + v89);
+          }
+
+          v113 = v111 - 1;
+          if (v111 >= 1)
+          {
+            v114 = 43;
+          }
+
+          else
+          {
+            v114 = 45;
+          }
+
+          *(v21 + 2) = v114;
+          *(v21 + 1) = 101;
+          if (v111 - 1 < 0)
+          {
+            v113 = 1 - v111;
+          }
+
+          if (v113 > 9)
+          {
+            if (v113 > 0x63)
+            {
+              *(v21 + 3) = v113 / 0x64 + 48;
+              v113 += 156 * (v113 / 0x64);
+              v116 = v113 / 0xAu;
+              v115 = v21 + 5;
+              *(v21 + 4) = (v113 / 0xAu) | 0x30;
+            }
+
+            else
+            {
+              v115 = v21 + 4;
+              v116 = v113 / 0xAu;
+              *(v21 + 3) = (v113 / 0xAu) | 0x30;
+            }
+
+            LOBYTE(v113) = v113 - 10 * v116;
+          }
+
+          else
+          {
+            v115 = v21 + 4;
+            *(v21 + 3) = 48;
+          }
+
+          *v115 = v113 | 0x30;
+        }
+
+        else
+        {
+          memmove(v21 + -v111 + 2, v21, v89);
+          *v21 = 11824;
+          memset(v21 + 2, 48, -v111);
+        }
+      }
+
+      else
+      {
+        memset(v21 + v89, 48, v111 - v89);
+        *(v21 + v111) = 12334;
+      }
+
+      goto LABEL_225;
+    }
+
+    if (v6 == 5)
+    {
+      v12 = *(a2 + 1);
+      if (v12)
+      {
+        v15 = result + 2;
+        if ((v12 & 0x8000000000000000) != 0)
+        {
+          *v15 = 45;
+          v12 = -v12;
+          v47 = 1;
+          if (v12 >= 0xA)
+          {
+            v48 = v12;
+            while (1)
+            {
+              if (v48 <= 0x63)
+              {
+                ++v47;
+                goto LABEL_139;
+              }
+
+              if (v48 <= 0x3E7)
+              {
+                v47 += 2;
+                goto LABEL_139;
+              }
+
+              if (v48 >> 4 <= 0x270)
+              {
+                break;
+              }
+
+              v47 += 4;
+              v100 = v48 >= 0x186A0;
+              v48 /= 0x2710uLL;
+              if (!v100)
+              {
+                goto LABEL_139;
+              }
+            }
+
+            v47 += 3;
+          }
+        }
+
+        else
+        {
+          if (v12 < 0xA)
+          {
+            goto LABEL_31;
+          }
+
+          v47 = 1;
+          v53 = *(a2 + 1);
+          while (v53 > 0x63)
+          {
+            if (v53 <= 0x3E7)
+            {
+              v47 += 2;
+              goto LABEL_140;
+            }
+
+            if (v53 >> 4 <= 0x270)
+            {
+              v47 += 3;
+              goto LABEL_140;
+            }
+
+            v47 += 4;
+            v100 = v53 >= 0x186A0;
+            v53 /= 0x2710uLL;
+            if (!v100)
+            {
+              goto LABEL_140;
+            }
+          }
+        }
+
+LABEL_139:
+        ++v47;
+LABEL_140:
+        v16 = v15 + v47;
+        if (v12 >= 0x64)
+        {
+          do
+          {
+            v75 = v12 / 0x64;
+            *(v16 - 1) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v12 % 0x64];
+            v16 -= 2;
+            v77 = v12 >> 4;
+            v12 /= 0x64uLL;
+          }
+
+          while (v77 > 0x270);
+          goto LABEL_144;
+        }
+
+        goto LABEL_143;
+      }
+    }
+
+    else
+    {
+      if (v6 != 6)
+      {
+        return result;
+      }
+
+      v12 = *(a2 + 1);
+      if (v12)
+      {
+        if (v12 >= 0xA)
+        {
+          v13 = 1;
+          v14 = *(a2 + 1);
+          while (1)
+          {
+            if (v14 <= 0x63)
+            {
+              ++v13;
+              goto LABEL_129;
+            }
+
+            if (v14 <= 0x3E7)
+            {
+              v13 += 2;
+              goto LABEL_129;
+            }
+
+            if (v14 >> 4 <= 0x270)
+            {
+              break;
+            }
+
+            v13 += 4;
+            v100 = v14 >= 0x186A0;
+            v14 /= 0x2710uLL;
+            if (!v100)
+            {
+              goto LABEL_129;
+            }
+          }
+
+          v13 += 3;
+LABEL_129:
+          v16 = result + v13 + 16;
+          if (v12 >= 0x64)
+          {
+            do
+            {
+              v75 = v12 / 0x64;
+              *(v16 - 1) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v12 % 0x64];
+              v16 -= 2;
+              v76 = v12 >> 4;
+              v12 /= 0x64uLL;
+            }
+
+            while (v76 > 0x270);
+            goto LABEL_144;
+          }
+
+LABEL_143:
+          v75 = v12;
+LABEL_144:
+          if (v75 >= 0xA)
+          {
+            *(v16 - 1) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[v75];
+LABEL_148:
+            v7 = (**result)[1];
+            goto LABEL_226;
+          }
+
+          LOBYTE(v12) = v75;
+LABEL_147:
+          *(v16 - 1) = v12 | 0x30;
+          goto LABEL_148;
+        }
+
+LABEL_31:
+        v16 = result + 17;
+        goto LABEL_147;
+      }
+    }
+
+    v26 = ***result;
+
+    return v26();
+  }
+
+  if (*a2 <= 1u)
+  {
+    if (!*a2)
+    {
+      v7 = (**result)[1];
+      goto LABEL_226;
+    }
+
+    v7 = (**result)[1];
+    if (!*(*(a2 + 1) + 16))
+    {
+LABEL_226:
+
+      return v7();
+    }
+
+    v7();
+    v8 = a3 + 4;
+    v9 = v5 + 76;
+    v10 = *(v5 + 631);
+    if ((v10 & 0x80000000) != 0)
+    {
+      v11 = v5[77];
+      if (v11 < v8)
+      {
+        goto LABEL_229;
+      }
+    }
+
+    else if (v8 > v10)
+    {
+      v11 = *(v5 + 631);
+LABEL_229:
+      std::string::resize((v5 + 76), 2 * v11, 32);
+    }
+
+    v38 = *(a2 + 1);
+    v39 = *v38;
+    if (v38[2] == 1)
+    {
+      v40 = *v38;
+    }
+
+    else
+    {
+      v41 = 0;
+      do
+      {
+        v42 = v5 + 76;
+        if (*(v5 + 631) < 0)
+        {
+          v42 = *v9;
+        }
+
+        ((**v5)[1])(*v5, v42, a3 + 4);
+        (***v5)();
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(v5, v39 + 4);
+        ((**v5)[1])(*v5, ": ", 3);
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(v5, v39 + 56, a3 + 4);
+        ((**v5)[1])(*v5, ",\n", 2);
+        v43 = v39[1];
+        if (v43)
+        {
+          do
+          {
+            v40 = v43;
+            v43 = *v43;
+          }
+
+          while (v43);
+        }
+
+        else
+        {
+          do
+          {
+            v40 = v39[2];
+            v44 = *v40 == v39;
+            v39 = v40;
+          }
+
+          while (!v44);
+        }
+
+        ++v41;
+        v39 = v40;
+      }
+
+      while (v41 < *(*(a2 + 1) + 16) - 1);
+    }
+
+    v45 = v5 + 76;
+    if (*(v5 + 631) < 0)
+    {
+      v45 = *v9;
+    }
+
+    ((**v5)[1])(*v5, v45, a3 + 4);
+    (***v5)();
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(v5, v40 + 4);
+    ((**v5)[1])(*v5, ": ", 3);
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(v5, v40 + 56, a3 + 4);
+    (***v5)();
+LABEL_81:
+    v46 = *v5;
+    if (*(v5 + 631) < 0)
+    {
+      v9 = *v9;
+    }
+
+    goto LABEL_100;
+  }
+
+  switch(v6)
+  {
+    case 2u:
+      v7 = (**result)[1];
+      if (**(a2 + 1) != *(*(a2 + 1) + 8))
+      {
+        v7();
+        v17 = a3 + 4;
+        v9 = v5 + 76;
+        v18 = *(v5 + 631);
+        if ((v18 & 0x80000000) != 0)
+        {
+          v19 = v5[77];
+          if (v19 < v17)
+          {
+            goto LABEL_230;
+          }
+        }
+
+        else if (v17 > v18)
+        {
+          v19 = *(v5 + 631);
+LABEL_230:
+          std::string::resize((v5 + 76), 2 * v19, 32);
+        }
+
+        v49 = *(a2 + 1);
+        v50 = *v49;
+        if (*v49 != *(v49 + 8) - 16)
+        {
+          do
+          {
+            v51 = v5 + 76;
+            if (*(v5 + 631) < 0)
+            {
+              v51 = *v9;
+            }
+
+            ((**v5)[1])(*v5, v51, a3 + 4);
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(v5, v50, a3 + 4);
+            ((**v5)[1])(*v5, ",\n", 2);
+            v50 += 16;
+          }
+
+          while (v50 != (*(*(a2 + 1) + 8) - 16));
+        }
+
+        v52 = v5 + 76;
+        if (*(v5 + 631) < 0)
+        {
+          v52 = *v9;
+        }
+
+        ((**v5)[1])(*v5, v52, a3 + 4);
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(v5, (*(*(a2 + 1) + 8) - 16), a3 + 4);
+        (***v5)();
+        v46 = *v5;
+        if (*(v5 + 631) < 0)
+        {
+          v9 = *v9;
+        }
+
+LABEL_100:
+        ((*v46)[1])(v46, v9, a3);
+        v7 = ***v5;
+LABEL_101:
+
+        return v7();
+      }
+
+      goto LABEL_226;
+    case 3u:
+      (***result)();
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(v5, *(a2 + 1));
+      v7 = ***v5;
+      goto LABEL_101;
+    case 4u:
+      v7 = (**result)[1];
+      goto LABEL_226;
+  }
+
+  return result;
+}
+
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~serializer(uint64_t a1)
+{
+  if (*(a1 + 631) < 0)
+  {
+    operator delete(*(a1 + 608));
+  }
+
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
+  }
+
+  return a1;
+}
+
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t **a2)
+{
+  v2 = *(a2 + 23);
+  v3 = a2[1];
+  if ((v2 & 0x80000000) == 0)
+  {
+    v3 = *(a2 + 23);
+  }
+
+  if (!v3)
+  {
+    return result;
+  }
+
+  v5 = result;
+  v6 = 0;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  v12 = v2 >> 63;
+  v13 = result + 90;
+  do
+  {
+    v14 = *a2;
+    if ((v12 & 1) == 0)
+    {
+      v14 = a2;
+    }
+
+    v15 = *(v14 + v7);
+    if (v10)
+    {
+      v11 = v15 & 0x3F | (v11 << 6);
+    }
+
+    else
+    {
+      v11 = (0xFFu >> nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::decode(unsigned char &,unsigned int &,unsigned char)::utf8d[v15]) & v15;
+    }
+
+    v10 = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::decode(unsigned char &,unsigned int &,unsigned char)::utf8d[16 * v10 + 256 + nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::decode(unsigned char &,unsigned int &,unsigned char)::utf8d[v15]];
+    if (v10 != 1)
+    {
+      if (v10)
+      {
+        *(v13 + v6++) = v15;
+        ++v8;
+        goto LABEL_42;
+      }
+
+      if (v11 <= 11)
+      {
+        switch(v11)
+        {
+          case 8:
+            v16 = 25180;
+            goto LABEL_37;
+          case 9:
+            v16 = 29788;
+            goto LABEL_37;
+          case 10:
+            v16 = 28252;
+            goto LABEL_37;
+        }
+      }
+
+      else if (v11 > 33)
+      {
+        if (v11 == 34)
+        {
+          v16 = 8796;
+          goto LABEL_37;
+        }
+
+        if (v11 == 92)
+        {
+          v16 = 23644;
+          goto LABEL_37;
+        }
+      }
+
+      else
+      {
+        if (v11 == 12)
+        {
+          v16 = 26204;
+          goto LABEL_37;
+        }
+
+        if (v11 == 13)
+        {
+          v16 = 29276;
+LABEL_37:
+          *(v13 + v6) = v16;
+          v9 = v6 + 2;
+          goto LABEL_38;
+        }
+      }
+
+      if (v11 > 0x1F)
+      {
+        v9 = v6 + 1;
+        *(v13 + v6) = v15;
+      }
+
+      else
+      {
+        result = snprintf((v13 + v6), 7uLL, "\\u%04x", v11);
+        v9 = v6 + 6;
+      }
+
+LABEL_38:
+      if ((v9 - 500) <= 0xC)
+      {
+        v19 = *(**v5 + 8);
+LABEL_40:
+        result = v19();
+        v10 = 0;
+        v9 = 0;
+        v8 = 0;
+        v6 = 0;
+        goto LABEL_42;
+      }
+
+LABEL_41:
+      v10 = 0;
+      v8 = 0;
+      v6 = v9;
+      goto LABEL_42;
+    }
+
+    v17 = v5[158];
+    if ((v17 - 1) < 2)
+    {
+      v7 -= v8 != 0;
+      if (v17 == 1)
+      {
+        v18 = v13 + v9;
+        v6 = v9 + 3;
+        *v18 = -16401;
+        *(v18 + 2) = -67;
+        if ((v9 - 497) > 0xC)
+        {
+          v10 = 0;
+          v8 = 0;
+          v9 += 3;
+          goto LABEL_42;
+        }
+
+        v19 = *(**v5 + 8);
+        goto LABEL_40;
+      }
+
+      goto LABEL_41;
+    }
+
+    if (!v17)
+    {
+      v42 = 3;
+      *__str = 0;
+      snprintf(__str, 3uLL, "%.2X", v15);
+      exception = __cxa_allocate_exception(0x20uLL);
+      std::to_string(&v35, v7);
+      v25 = std::string::insert(&v35, 0, "invalid UTF-8 byte at index ", 0x1CuLL);
+      v26 = *&v25->__r_.__value_.__l.__data_;
+      v36.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
+      *&v36.__r_.__value_.__l.__data_ = v26;
+      v25->__r_.__value_.__l.__size_ = 0;
+      v25->__r_.__value_.__r.__words[2] = 0;
+      v25->__r_.__value_.__r.__words[0] = 0;
+      v27 = std::string::append(&v36, ": 0x", 4uLL);
+      v28 = v27->__r_.__value_.__r.__words[2];
+      *&v37.__r_.__value_.__l.__data_ = *&v27->__r_.__value_.__l.__data_;
+      v37.__r_.__value_.__r.__words[2] = v28;
+      v27->__r_.__value_.__l.__size_ = 0;
+      v27->__r_.__value_.__r.__words[2] = 0;
+      v27->__r_.__value_.__r.__words[0] = 0;
+      if (v42 >= 0)
+      {
+        v29 = __str;
+      }
+
+      else
+      {
+        v29 = *__str;
+      }
+
+      if (v42 >= 0)
+      {
+        v30 = v42;
+      }
+
+      else
+      {
+        v30 = v41;
+      }
+
+      v31 = std::string::append(&v37, v29, v30);
+      v32 = v31->__r_.__value_.__r.__words[2];
+      v38 = *&v31->__r_.__value_.__l.__data_;
+      v39 = v32;
+      v31->__r_.__value_.__l.__size_ = 0;
+      v31->__r_.__value_.__r.__words[2] = 0;
+      v31->__r_.__value_.__r.__words[0] = 0;
+      nlohmann::detail::type_error::create(exception, 316, &v38);
+    }
+
+    v10 = 1;
+LABEL_42:
+    ++v7;
+    v20 = *(a2 + 23);
+    v12 = v20 >> 63;
+    v21 = a2[1];
+    if ((v20 & 0x80000000) == 0)
+    {
+      v21 = *(a2 + 23);
+    }
+  }
+
+  while (v7 < v21);
+  if (v10)
+  {
+    v23 = v5[158];
+    switch(v23)
+    {
+      case 1:
+        (*(**v5 + 8))(*v5, v13, v9);
+        v22 = *(**v5 + 8);
+        break;
+      case 2:
+        v22 = *(**v5 + 8);
+        break;
+      case 0:
+        v42 = 3;
+        *__str = 0;
+        v33 = *a2;
+        if ((v20 & 0x80000000) == 0)
+        {
+          v33 = a2;
+        }
+
+        snprintf(__str, 3uLL, "%.2X", *(v33 + v21 - 1));
+        v34 = __cxa_allocate_exception(0x20uLL);
+        std::operator+<char>();
+        nlohmann::detail::type_error::create(v34, 316, &v38);
+      default:
+        return result;
+    }
+
+LABEL_51:
+
+    return v22();
+  }
+
+  if (v6)
+  {
+    v22 = *(**v5 + 8);
+    goto LABEL_51;
+  }
+
+  return result;
+}
+
+void sub_1B2D87898(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+{
+  if (a35 < 0)
+  {
+    operator delete(__p);
+    if ((v36 & 1) == 0)
+    {
+LABEL_6:
+      if (*(v37 - 81) < 0)
+      {
+        operator delete(*(v37 - 104));
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v36)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v35);
+  goto LABEL_6;
+}
+
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(void *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return (***a1)(*a1, 48);
+  }
+
+  if (a2 < 0xA)
+  {
+    v2 = 1;
+LABEL_8:
+    v5 = a2 | 0x30;
+    goto LABEL_9;
+  }
+
+  if (a2 >= 0x64)
+  {
+    *(a1 + 17) = nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[(a2 - 100 * ((41 * a2) >> 12))];
+    v2 = 3;
+    a2 = (41 * a2) >> 12;
+    goto LABEL_8;
+  }
+
+  v4 = &nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[a2];
+  *(a1 + 17) = v4[1];
+  v5 = *v4;
+  v2 = 2;
+LABEL_9:
+  *(a1 + 16) = v5;
+  return (*(**a1 + 8))(*a1, a1 + 2, v2);
+}
+
+void nlohmann::detail::type_error::create(uint64_t a1, int a2, uint64_t a3)
+{
+  std::string::basic_string[abi:nn200100]<0>(&__p, "type_error");
+  std::operator+<char>();
+  v6 = std::string::append(&v26, ".", 1uLL);
+  v7 = v6->__r_.__value_.__r.__words[2];
+  *&v27.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
+  v27.__r_.__value_.__r.__words[2] = v7;
+  v6->__r_.__value_.__l.__size_ = 0;
+  v6->__r_.__value_.__r.__words[2] = 0;
+  v6->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&v25, a2);
+  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v8 = &v25;
+  }
+
+  else
+  {
+    v8 = v25.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v25.__r_.__value_.__l.__size_;
+  }
+
+  v10 = std::string::append(&v27, v8, size);
+  v11 = v10->__r_.__value_.__r.__words[2];
+  *&v28.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v28.__r_.__value_.__r.__words[2] = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v28, "] ", 2uLL);
+  v13 = v12->__r_.__value_.__r.__words[2];
+  *&v22.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
+  v22.__r_.__value_.__r.__words[2] = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v28.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v25.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v27.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v26.__r_.__value_.__l.__data_);
+  }
+
+  v14 = *(a3 + 23);
+  if (v14 >= 0)
+  {
+    v15 = a3;
+  }
+
+  else
+  {
+    v15 = *a3;
+  }
+
+  if (v14 >= 0)
+  {
+    v16 = *(a3 + 23);
+  }
+
+  else
+  {
+    v16 = *(a3 + 8);
+  }
+
+  v17 = std::string::append(&v22, v15, v16);
+  v18 = v17->__r_.__value_.__r.__words[2];
+  *v23 = *&v17->__r_.__value_.__l.__data_;
+  v24 = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v22.__r_.__value_.__l.__data_);
+  }
+
+  if (v21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v24 >= 0)
+  {
+    v19 = v23;
+  }
+
+  else
+  {
+    v19 = v23[0];
+  }
+
+  *a1 = &unk_1F2A38610;
+  *(a1 + 8) = a2;
+  MEMORY[0x1B8C61A50](a1 + 16, v19);
+  *a1 = &unk_1F2A38650;
+  if (SHIBYTE(v24) < 0)
+  {
+    operator delete(v23[0]);
+  }
+}
+
+void sub_1B2D87C68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+{
+  std::exception::~exception(v35);
+  if (a25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void nlohmann::detail::type_error::~type_error(std::exception *this)
+{
+  this->__vftable = &unk_1F2A38610;
+  MEMORY[0x1B8C61A60](&this[2]);
+
+  std::exception::~exception(this);
+}
+
+{
+  this->__vftable = &unk_1F2A38610;
+  MEMORY[0x1B8C61A60](&this[2]);
+  std::exception::~exception(this);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void nlohmann::detail::exception::~exception(std::exception *this)
+{
+  this->__vftable = &unk_1F2A38610;
+  MEMORY[0x1B8C61A60](&this[2]);
+  std::exception::~exception(this);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+{
+  this->__vftable = &unk_1F2A38610;
+  MEMORY[0x1B8C61A60](&this[2]);
+
+  std::exception::~exception(this);
+}
+
+void std::__shared_ptr_emplace<nlohmann::detail::output_string_adapter<char,std::string>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F2A010B0;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(unint64_t a1)
+{
+  if (!(a1 >> 60))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+unsigned __int8 *std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(unsigned __int8 *result, unsigned __int8 *a2, uint64_t a3)
+{
+  if (result != a2)
+  {
+    v4 = result;
+    do
+    {
+      *a3 = *v4;
+      *(a3 + 8) = *(v4 + 1);
+      *v4 = 0;
+      *(v4 + 1) = 0;
+      v4 += 16;
+      a3 += 16;
+    }
+
+    while (v4 != a2);
+    v5 = result;
+    do
+    {
+      v6 = *v5;
+      v5 += 16;
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(result + 1, v6);
+      result = v5;
+    }
+
+    while (v5 != a2);
+  }
+
+  return result;
+}
+
+uint64_t std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    v5 = *(i - 16);
+    v4 = i - 16;
+    *(a1 + 16) = v4;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((v4 + 8), v5);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::vector<unsigned char>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
+{
+  if ((a2 & 0x8000000000000000) == 0)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 60))
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a2);
+  }
+
+  std::__throw_bad_array_new_length[abi:nn200100]();
+}
+
+void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(unsigned __int8 *a1)
+{
+  if (a1)
+  {
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1);
+    std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(a1 + 1));
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 8, a1[56]);
+    if (a1[55] < 0)
+    {
+      operator delete(*(a1 + 4));
+    }
+
+    operator delete(a1);
+  }
+}
+
+void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,void *>>>::operator()[abi:nn200100](char a1, uint64_t a2)
+{
+  if (a1)
+  {
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((a2 + 64), *(a2 + 56));
+    if (*(a2 + 55) < 0)
+    {
+      operator delete(*(a2 + 32));
+    }
+  }
+
+  else if (!a2)
+  {
+    return;
+  }
+
+  operator delete(a2);
+}
+
+unsigned __int8 **std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(unsigned __int8 **result, unint64_t a2)
+{
+  if (a2 > (result[2] - *result) >> 4)
+  {
+    if (!(a2 >> 60))
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a2);
+    }
+
+    std::__throw_bad_array_new_length[abi:nn200100]();
+  }
+
+  return result;
+}
+
+void sub_1B2D88224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(a1, a2);
+  }
+
+  else
+  {
+    *v3 = *a2;
+    *(v3 + 8) = *(a2 + 8);
+    *a2 = 0;
+    *(a2 + 8) = 0;
+    result = v3 + 16;
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:nn200100](void ****a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      v6 = v4 - 1;
+      do
+      {
+        v7 = v6 - 1;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6, *(v6 - 8));
+        v6 -= 2;
+      }
+
+      while (v7 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, uint64_t a2)
+{
+  v2 = (*(a1 + 8) - *a1) >> 4;
+  v3 = v2 + 1;
+  if ((v2 + 1) >> 60)
+  {
+    std::__throw_bad_array_new_length[abi:nn200100]();
+  }
+
+  v5 = *(a1 + 16) - *a1;
+  if (v5 >> 3 > v3)
+  {
+    v3 = v5 >> 3;
+  }
+
+  if (v5 >= 0x7FFFFFFFFFFFFFF0)
+  {
+    v6 = 0xFFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v17 = a1;
+  if (v6)
+  {
+    std::__allocate_at_least[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v6);
+  }
+
+  v7 = 16 * v2;
+  v14 = 0;
+  v15 = v7;
+  *(&v16 + 1) = 0;
+  *v7 = *a2;
+  *(v7 + 8) = *(a2 + 8);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *&v16 = 16 * v2 + 16;
+  v8 = *(a1 + 8);
+  v9 = 16 * v2 + *a1 - v8;
+  std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(*a1, v8, v9);
+  v10 = *a1;
+  *a1 = v9;
+  v11 = *(a1 + 16);
+  v13 = v16;
+  *(a1 + 8) = v16;
+  *&v16 = v10;
+  *(&v16 + 1) = v11;
+  v14 = v10;
+  v15 = v10;
+  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(&v14);
+  return v13;
+}
+
+void sub_1B2D88428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls12EnteringViewEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::EnteringView>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::EnteringView>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::EnteringView>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        LOBYTE(v16) = *(v19 + v18);
+        *(v19 + v18) = *(v17 + v15);
+        *(v17 + v15) = v16;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::EnteringView>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::EnteringView>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A53368;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A53388;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A53368;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::EnteringView,64ul>::~storage(a1);
+}
+
+uint64_t std::__function::__func<ecs2::ForwardToExecute<md::DetermineIfShouldRun_VLR_Rate>,std::allocator<ecs2::ForwardToExecute<md::DetermineIfShouldRun_VLR_Rate>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, void ***a2)
+{
+  *(a1 + 8) = a2;
+  v3 = *ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(**a2, (*a2)[1]);
+  v4 = (*v3)();
+  md::LayoutContext::frameState(v4);
+  v6 = *(v5 + 632);
+  updated = gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::getId<md::ita::UpdateProcessedStatusAtFrequencyRate>();
+  result = ecs2::UtilityTaskContext::toggleTask(*(*(a1 + 8) + 16), ~updated, v6);
+  *(a1 + 8) = 0;
+  return result;
+}
+
+uint64_t gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::getId<md::ita::UpdateProcessedStatusAtFrequencyRate>()
+{
+  v0 = &unk_1EB82B000;
+  {
+    v0 = &unk_1EB82B000;
+    if (v2)
+    {
+      gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::getId<md::ita::UpdateProcessedStatusAtFrequencyRate>(void)::localId = atomic_fetch_add(gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::Counter::nextId(void)::counter, 1u);
+      v0 = &unk_1EB82B000;
+    }
+  }
+
+  return v0[1372];
+}
+
+uint64_t std::__function::__func<ecs2::ForwardToExecute<md::DetermineIfShouldRun_VLR_Rate>,std::allocator<ecs2::ForwardToExecute<md::DetermineIfShouldRun_VLR_Rate>>,void ()(ecs2::Runtime &)>::__clone(uint64_t result, void *a2)
+{
+  *a2 = &unk_1F29FF2D0;
+  a2[1] = *(result + 8);
+  return result;
+}
+
+uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::UpdateProcessedStatusAtFrequencyRate>,std::allocator<ecs2::ForwardToExecute<md::ita::UpdateProcessedStatusAtFrequencyRate>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  *(a1 + 8) = a2;
+  v5[0] = &unk_1F2A19C20;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19C20;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19C68;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19C68;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19CB0;
+  v6 = v5;
+  v8 = v7;
+  v7[0] = &unk_1F2A19CB0;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19D60;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19D60;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19DA8;
+  v6 = v5;
+  v8 = v7;
+  v7[0] = &unk_1F2A19DA8;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19DF0;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19DF0;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19E38;
+  v6 = v5;
+  v8 = v7;
+  v7[0] = &unk_1F2A19E38;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19EE8;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19EE8;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19F98;
+  v6 = v5;
+  v8 = v7;
+  v7[0] = &unk_1F2A19F98;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  v5[0] = &unk_1F2A19FE0;
+  v8 = v7;
+  v6 = v5;
+  v7[0] = &unk_1F2A19FE0;
+  v9 = 4;
+  ecs2::Runtime::queueCommand();
+  if (v9 != -1)
+  {
+    (off_1F2A198D8[v9])(&v4, v7);
+  }
+
+  v9 = -1;
+  result = std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](v5);
+  *(a1 + 8) = 0;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::UpdateProcessedStatusAtFrequencyRate>,std::allocator<ecs2::ForwardToExecute<md::ita::UpdateProcessedStatusAtFrequencyRate>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FF120;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+char *ecs2::Runtime::_entities<md::ita::PushRenderItems,md::ls::RenderItemID const&,md::ls::ItemsPrepared const&>(uint64_t a1, uint64_t **a2)
+{
+  v3 = ecs2::BasicRegistry<void>::storage<md::ls::RenderItemID>(a1);
+  v4 = ecs2::BasicRegistry<void>::storage<md::ls::ItemsPrepared>(a1);
+  v5 = v4;
+  if (*(v4 + 40) - *(v4 + 32) >= *(v3 + 40) - *(v3 + 32))
+  {
+    v6 = v3;
+  }
+
+  else
+  {
+    v6 = v4;
+  }
+
+  v7 = *(v6 + 40);
+  ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v63, *(v6 + 32), v7, v3, v4);
+  ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v62, v7, v7, v3, v5);
+  v61 = v65;
+  v59 = v63;
+  v60 = v64;
+  v56 = v63;
+  v57 = v64;
+  v58 = v65;
+  v8 = v63;
+  v54 = v62;
+  if (v63 == v62)
+  {
+    _ZTWN4ecs27Runtime11_localStateE();
+    result = _ZTWN4ecs27Runtime11_stackIndexE();
+    v11 = 0;
+  }
+
+  else
+  {
+    v52 = *(&v57 + 1);
+    v53 = v57;
+    _ZTWN4ecs27Runtime11_localStateE();
+    result = _ZTWN4ecs27Runtime11_stackIndexE();
+    v11 = 0;
+    v12 = *(&v56 + 1);
+    v51 = result;
+    do
+    {
+      v13 = v8[1];
+      v14 = v13 & 0x3F;
+      v15 = (v13 >> 3) & 0x1FF8;
+      v16 = *(*(*(v53 + 8) + v15) + 4 * v14 + 2);
+      v17 = (*(*(v53 + 56) + ((v16 >> 3) & 0x1FF8)) + 24 * (v16 & 0x3F));
+      v18 = *(*(*(v52 + 8) + v15) + 4 * v14 + 2);
+      v19 = v18 & 0x3F;
+      v20 = *(*(v52 + 56) + ((v18 >> 3) & 0x1FF8));
+      v21 = v10;
+      *(v10 + 104 * *result + 24) = *v8;
+      v22 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a2);
+      v23 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a2);
+      RenderItem = md::VKMRenderResourcesStore::getRenderItem(v22, *v17, v17[1]);
+      v25 = (*(*v23 + 40))(v23, *(v20 + 8 * v19));
+      v26 = v25;
+      v28 = v25[10];
+      v27 = v25[11];
+      if (v28 >= v27)
+      {
+        v30 = v25[9];
+        v31 = (v28 - v30) >> 3;
+        if ((v31 + 1) >> 61)
+        {
+          std::__throw_bad_array_new_length[abi:nn200100]();
+        }
+
+        v32 = v27 - v30;
+        v33 = v32 >> 2;
+        if (v32 >> 2 <= (v31 + 1))
+        {
+          v33 = v31 + 1;
+        }
+
+        if (v32 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v34 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v34 = v33;
+        }
+
+        v65 = v25 + 12;
+        if (v34)
+        {
+          v35 = ggl::zone_mallocator::instance(v25);
+          v36 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<ggl::RenderItem *>(v35, v34);
+        }
+
+        else
+        {
+          v36 = 0;
+        }
+
+        v37 = &v36[8 * v34];
+        v38 = &v36[8 * v31];
+        *v38 = RenderItem;
+        v29 = v38 + 8;
+        v39 = v26[9];
+        v40 = v26[10] - v39;
+        v41 = &v36[8 * v31 - v40];
+        memcpy(v41, v39, v40);
+        v42 = v26[9];
+        v26[9] = v41;
+        v26[10] = v29;
+        v43 = v26[11];
+        v26[11] = v37;
+        *&v64 = v42;
+        *(&v64 + 1) = v43;
+        *&v63 = v42;
+        *(&v63 + 1) = v42;
+        std::__split_buffer<ggl::RenderItem *,geo::allocator_adapter<ggl::RenderItem *,ggl::zone_mallocator> &>::~__split_buffer(&v63);
+      }
+
+      else
+      {
+        *v28 = RenderItem;
+        v29 = v28 + 1;
+      }
+
+      v26[10] = v29;
+      ++v11;
+      v44 = v8 + 2;
+      do
+      {
+        v8 = v44;
+        *&v56 = v44;
+        if (v44 == v12)
+        {
+          break;
+        }
+
+        v45 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::RenderableMaterialData const>(&v56, *v44, v44[1]);
+        v44 = v8 + 2;
+      }
+
+      while (!v45);
+      v10 = v21;
+      result = v51;
+    }
+
+    while (v8 != v54);
+  }
+
+  *(v10 + 104 * *result + 24) = -65536;
+  v46 = v10 + 104 * *result;
+  v47 = *(v46 + 92);
+  *(v46 + 92) = v47 + 1;
+  *(v46 + 4 * v47 + 28) = v11;
+  v48 = v10 + 104 * *result;
+  v50 = *(v48 + 92);
+  v49 = (v48 + 92);
+  if (v50 > 0xF)
+  {
+    *v49 = 0;
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::PushRenderItems>,std::allocator<ecs2::ForwardToExecute<md::ita::PushRenderItems>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FEDC0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverNightTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignFlyoverNightTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FEC58;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverAtmosphereTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignFlyoverAtmosphereTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FEB80;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignFlyoverDiffuseTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignFlyoverDiffuseTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FEAA8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignDiffuseTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignDiffuseTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FE160;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignGradient2TextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignGradient2TextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FE088;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignGradient1TextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignGradient1TextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FDFB0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignTemperatureTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignTemperatureTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FDED8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignAridityTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignAridityTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FDE00;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignOverlayTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignOverlayTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FDB78;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignEmissiveTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignEmissiveTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FDAA0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignRouteMaskTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignRouteMaskTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD9C8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignOcclusionTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignOcclusionTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD8F0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignTexTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignTexTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD818;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignShadowTextureIndex>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignShadowTextureIndex>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD740;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignAmbientTextureIndexFiltered>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignAmbientTextureIndexFiltered>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD668;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignAmbientTextureIndexAll>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignAmbientTextureIndexAll>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FD590;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleShadowConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignStyleShadowConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FCED0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignRenderTargetSizeConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignRenderTargetSizeConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FCC48;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleSSAOConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignStyleSSAOConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FCB70;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleBlendConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignStyleBlendConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FCA98;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignGroundAtmosphereConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignGroundAtmosphereConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FC9C0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignLightingDebugOptionsConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignLightingDebugOptionsConstantData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FC588;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignLightingConfigurationVertexData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignLightingConfigurationVertexData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FC4B0;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleSunMatrixData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignStyleSunMatrixData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FC3D8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleTransitionToFlatData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignStyleTransitionToFlatData>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FC300;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignLightStylizedShadingSettings>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignLightStylizedShadingSettings>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FBD18;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignLightSpecularConfiguration>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignLightSpecularConfiguration>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FBC40;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void ecs2::Runtime::_entities<md::ita::DetermineIfShouldRender,md::ls::VisibilityGroupTest const&,md::ls::ShouldSkipRender const*,md::ls::DataForCommandBuffer const&>(uint64_t a1, uint64_t **a2)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  v3 = ecs2::BasicRegistry<void>::storage<md::ls::VisibilityGroupTest>(a1);
+  ShouldSkip = ecs2::BasicRegistry<void>::storage<md::ls::ShouldSkipRender>(a1);
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::DataForCommandBuffer>(a1);
+  v6 = v5;
+  if (*(v5 + 40) - *(v5 + 32) >= v3[5] - v3[4])
+  {
+    v7 = v3;
+  }
+
+  else
+  {
+    v7 = v5;
+  }
+
+  v9 = v7[4];
+  v8 = v7[5];
+  if (v9 != v8)
+  {
+    v10 = v3[1];
+    v11 = v3[2];
+    do
+    {
+      if (ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v10, v11, v6, *v9, v9[1]))
+      {
+        break;
+      }
+
+      v9 += 2;
+    }
+
+    while (v9 != v8);
+  }
+
+  if (v9 == v8)
+  {
+    v12 = _ZTWN4ecs27Runtime11_localStateE();
+    v13 = _ZTWN4ecs27Runtime11_stackIndexE();
+    v35 = 0;
+    goto LABEL_37;
+  }
+
+  v12 = _ZTWN4ecs27Runtime11_localStateE();
+  v13 = _ZTWN4ecs27Runtime11_stackIndexE();
+  v47 = 0;
+  v46 = ShouldSkip;
+LABEL_10:
+  v14 = v9[1];
+  v15 = v14 >> 6;
+  v16 = v14 & 0x3F;
+  v17 = ShouldSkip[1];
+  if (v15 >= (ShouldSkip[2] - v17) >> 3)
+  {
+    goto LABEL_14;
+  }
+
+  v18 = *(v17 + 8 * v15);
+  if (!v18)
+  {
+    goto LABEL_15;
+  }
+
+  if (*(v18 + 4 * v16) == *v9)
+  {
+    LOBYTE(v18) = ShouldSkip[4] + 4 * *(v18 + 4 * v16 + 2) != 0;
+  }
+
+  else
+  {
+LABEL_14:
+    LOBYTE(v18) = 0;
+  }
+
+LABEL_15:
+  v19 = *(*(v3[1] + 8 * v15) + 4 * v16 + 2);
+  v20 = *(v3[7] + ((v19 >> 3) & 0x1FF8));
+  v21 = *(*(*(v6 + 8) + 8 * v15) + 4 * v16 + 2);
+  v22 = *(*(v6 + 56) + ((v21 >> 3) & 0x1FF8));
+  *(v12 + 104 * *v13 + 24) = *v9;
+  if ((v18 & 1) == 0)
+  {
+    v23 = v20 + 16 * (v19 & 0x3F);
+    if (*(v23 + 12) == *(v23 + 8))
+    {
+      v45 = v22;
+      v24 = a2[1];
+      if (!v24)
+      {
+        v25 = **a2;
+        v26 = *v25;
+        v27 = *(v25 + 8);
+        while (1)
+        {
+          if (v26 == v27)
+          {
+            goto LABEL_35;
+          }
+
+          if (*v26 == 0x22D45F5AAD4BF408)
+          {
+            break;
+          }
+
+          v26 += 5;
+        }
+
+        if (v26 == v27)
+        {
+LABEL_35:
+          v24 = 0;
+          goto LABEL_25;
+        }
+
+        v24 = v26[3];
+        v28 = v26[4];
+        if (v28)
+        {
+          atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:nn200100](v28);
+        }
+
+LABEL_25:
+        a2[1] = v24;
+      }
+
+      v29 = (**v24)(v24);
+      md::LayoutContext::frameState(v29);
+      if (*(v30 + 624) == *(v23 + 8))
+      {
+        v31 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a2);
+        v32 = (*(*v31 + 24))(v31, *(v45 + 24 * (v21 & 0x3F) + 8), *(v45 + 24 * (v21 & 0x3F)), *(v45 + 24 * (v21 & 0x3F) + 16));
+        v33 = v32;
+        if (v32)
+        {
+          v34 = ecs2::ExecutionTaskContext::currentEntity(v32);
+          v50 = &unk_1F2A3F678;
+          *&v51 = v33;
+          *(&v51 + 1) = v34;
+          v52 = &v50;
+          v55 = &v53;
+          v53 = &unk_1F2A3F678;
+          v54 = v51;
+          HIDWORD(v54) = 0;
+          v56 = 0;
+          ecs2::Runtime::queueCommand();
+          if (v56 != -1)
+          {
+            (off_1F2A3F738[v56])(&v49, &v53);
+          }
+
+          v56 = -1;
+          std::__function::__value_func<void ()(ecs2::BasicRegistry<void> &)>::~__value_func[abi:nn200100](&v50);
+        }
+      }
+    }
+  }
+
+  v35 = v47 + 1;
+  v36 = v3[1];
+  v37 = v3[2];
+  v38 = v9 + 2;
+  while (v38 != v8)
+  {
+    v9 = v38;
+    v39 = ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v36, v37, v6, *v38, v38[1]);
+    v38 = v9 + 2;
+    if (v39)
+    {
+      ++v47;
+      ShouldSkip = v46;
+      goto LABEL_10;
+    }
+  }
+
+LABEL_37:
+  *(v12 + 104 * *v13 + 24) = -65536;
+  v40 = v12 + 104 * *v13;
+  v41 = *(v40 + 92);
+  *(v40 + 92) = v41 + 1;
+  *(v40 + 4 * v41 + 28) = v35;
+  v42 = v12 + 104 * *v13;
+  v44 = *(v42 + 92);
+  v43 = (v42 + 92);
+  if (v44 > 0xF)
+  {
+    *v43 = 0;
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20DataForCommandBufferEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataForCommandBuffer>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataForCommandBuffer>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::DataForCommandBuffer>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 24 * (v13 & 0x3F);
+        v18 = *(v17 + 16);
+        v19 = *v17;
+        v20 = *(v16 + 16);
+        *v17 = *v16;
+        *(v17 + 16) = v20;
+        *v16 = v19;
+        *(v16 + 16) = v18;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataForCommandBuffer>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::DataForCommandBuffer>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FFA0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4FFC0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FFA0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::DataForCommandBuffer,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16ShouldSkipRenderEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ShouldSkipRender>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ShouldSkipRender>(void)::metadata;
+  ShouldSkip = ecs2::BasicRegistry<void>::storage<md::ls::ShouldSkipRender>(v3);
+  v6 = ShouldSkip[1];
+  if (v2 >> 22 < (ShouldSkip[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = ShouldSkip;
+        v9 = ShouldSkip[25];
+        v10 = ShouldSkip[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ShouldSkipRender>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ShouldSkipRender>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ShouldSkipRender,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A35120;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ShouldSkipRender,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A35120;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls19VisibilityGroupTestEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::VisibilityGroupTest>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::VisibilityGroupTest>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::VisibilityGroupTest>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 16 * v18);
+        *(v19 + 16 * v18) = *(v17 + 16 * v15);
+        *(v17 + 16 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::VisibilityGroupTest>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::VisibilityGroupTest>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A500B0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A500D0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A500B0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::VisibilityGroupTest,64ul>::~storage(a1);
+}
+
+BOOL ecs2::ViewIterator<void,std::tuple<md::ls::PendingRenderItemSetup const&,md::ls::RenderItemID &,md::ls::RenderOrderToUse const*,md::ls::InstanceCount const*,md::ls::StencilRefValueToUse const*,md::ls::IndexRange const&,md::ls::HasMeshHandle const&>,std::tuple<>>::containsAll<md::ls::PendingRenderItemSetup const,md::ls::RenderItemID,md::ls::IndexRange const,md::ls::HasMeshHandle const>(void *a1, unsigned __int16 a2, unsigned __int16 a3)
+{
+  v3 = a3 >> 6;
+  v4 = *(a1[2] + 8);
+  if (v3 < (*(a1[2] + 16) - v4) >> 3 && (v5 = *(v4 + 8 * v3)) != 0 && *(v5 + 4 * (a3 & 0x3F)) == a2 && (v6 = *(a1[3] + 8), v3 < (*(a1[3] + 16) - v6) >> 3) && (v7 = *(v6 + 8 * v3)) != 0 && *(v7 + 4 * (a3 & 0x3F)) == a2 && (v8 = *(a1[7] + 8), v3 < (*(a1[7] + 16) - v8) >> 3) && (v9 = *(v8 + 8 * v3)) != 0 && *(v9 + 4 * (a3 & 0x3F)) == a2 && (v10 = *(a1[8] + 8), v3 < (*(a1[8] + 16) - v10) >> 3) && (v11 = *(v10 + 8 * v3)) != 0)
+  {
+    return *(v11 + 4 * (a3 & 0x3F)) == a2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls13HasMeshHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>(void)::metadata;
+  HasMesh = ecs2::BasicRegistry<void>::storage<md::ls::HasMeshHandle>(v3);
+  v6 = v2 >> 22;
+  v7 = HasMesh[1];
+  if (v2 >> 22 < (HasMesh[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = HasMesh;
+        v11 = HasMesh[31];
+        v12 = HasMesh[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMeshHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::HasMeshHandle>();
+    *algn_1EB83DA68 = 0xCD844FF303308290;
+    qword_1EB83DA70 = "md::ls::HasMeshHandle]";
+    qword_1EB83DA78 = 21;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50840;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50860;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50840;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::HasMeshHandle,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls10IndexRangeEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IndexRange>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 16 * v18);
+        *(v19 + 16 * v18) = *(v17 + 16 * v15);
+        *(v17 + 16 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IndexRange>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::IndexRange>();
+    unk_1EB83DCC0 = 0x71CBA64B1A9CA230;
+    qword_1EB83DCC8 = "md::ls::IndexRange]";
+    qword_1EB83DCD0 = 18;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50F90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50FB0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50F90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::IndexRange,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20StencilRefValueToUseEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StencilRefValueToUse>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StencilRefValueToUse>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StencilRefValueToUse>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        LOBYTE(v16) = *(v19 + v18);
+        *(v19 + v18) = *(v17 + v15);
+        *(v17 + v15) = v16;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StencilRefValueToUse>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StencilRefValueToUse>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A0E020;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A0E040;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A0E020;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::StencilRefValueToUse,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls13InstanceCountEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::InstanceCount>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::InstanceCount>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::InstanceCount>();
+    *algn_1EB83DA18 = 0xE53EF176130D7769;
+    qword_1EB83DA20 = "md::ls::InstanceCount]";
+    qword_1EB83DA28 = 21;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51680;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A516A0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51680;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::InstanceCount,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16RenderOrderToUseEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderOrderToUse>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderOrderToUse>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RenderOrderToUse>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderOrderToUse>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderOrderToUse>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50290;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A502B0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50290;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RenderOrderToUse,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22PendingRenderItemSetupEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingRenderItemSetup>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingRenderItemSetup>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PendingRenderItemSetup>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingRenderItemSetup>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingRenderItemSetup>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingRenderItemSetup,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FE48;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingRenderItemSetup,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FE48;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls15ColorDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ColorDataHandle>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ColorDataHandle>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::ColorDataHandle>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ColorDataHandle>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::ColorDataHandle>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50DF0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50E10;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50DF0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::ColorDataHandle,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::UpdateStyleColorConstantDataHandle>,std::allocator<ecs2::ForwardToExecute<md::ita::UpdateStyleColorConstantDataHandle>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FB658;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls17FunctionConstantsEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::FunctionConstants>();
+    unk_1EB83D2C0 = 0xC62D89929260CB56;
+    qword_1EB83D2C8 = "md::ls::FunctionConstants]";
+    qword_1EB83D2D0 = 25;
+  }
+
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FunctionConstants>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v12 = v5[31];
+        v11 = v5[32];
+        if (v12 != v11)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v12 + 24), v2);
+            v12 += 32;
+          }
+
+          while (v12 != v11);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 70 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 70 * (v13 & 0x3F);
+        v18 = *v17;
+        v19 = *(v17 + 16);
+        v20 = *(v17 + 32);
+        v21 = *(v17 + 33);
+        v22 = *(v17 + 34);
+        v23 = *(v17 + 50);
+        v24 = *(v17 + 66);
+        v25 = *(v17 + 67);
+        v26 = *(v17 + 68);
+        if (v17 != v16)
+        {
+          *v17 = *v16;
+          *(v17 + 16) = *(v16 + 16);
+          *(v17 + 32) = *(v16 + 32);
+          *(v17 + 34) = *(v16 + 34);
+          *(v17 + 50) = *(v16 + 50);
+          *(v17 + 66) = *(v16 + 66);
+        }
+
+        *(v17 + 68) = *(v16 + 68);
+        *v16 = v18;
+        *(v16 + 16) = v19;
+        *(v16 + 32) = v20;
+        *(v16 + 33) = v21;
+        *(v16 + 34) = v22;
+        *(v16 + 50) = v23;
+        *(v16 + 66) = v24;
+        *(v16 + 67) = v25;
+        *(v16 + 68) = v26;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::FunctionConstants>();
+    unk_1EB83D2C0 = 0xC62D89929260CB56;
+    qword_1EB83D2C8 = "md::ls::FunctionConstants]";
+    qword_1EB83D2D0 = 25;
+  }
+
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A501A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A501C0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A501A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::FunctionConstants,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22RequiredPipelinePoolIDEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RequiredPipelinePoolID>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        LOBYTE(v16) = *(v19 + v18);
+        *(v19 + v18) = *(v17 + v15);
+        *(v17 + v15) = v16;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiredPipelinePoolID>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RequiredPipelinePoolID>();
+    *algn_1EB83CAD8 = 0xE54E641F7C1F9B89;
+    qword_1EB83CAE0 = "md::ls::RequiredPipelinePoolID]";
+    qword_1EB83CAE8 = 30;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50028;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50048;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50028;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::RequiredPipelinePoolID,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20TextureHandleForTypeIN7Flyover12NightTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<Flyover::NightTexture>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<Flyover::NightTexture>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<Flyover::NightTexture>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 16 * v18);
+        *(v19 + 16 * v18) = *(v17 + 16 * v15);
+        *(v17 + 16 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<Flyover::NightTexture>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<Flyover::NightTexture>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A52680;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A526A0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A52680;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<Flyover::NightTexture>,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls15FlyoverInstanceEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::FlyoverInstance>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FlyoverInstance>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::FlyoverInstance>();
+    *algn_1EB83D708 = 0x69465F3BE0BF85FBLL;
+    qword_1EB83D710 = "md::ls::FlyoverInstance]";
+    qword_1EB83D718 = 23;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FlyoverInstance,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F730;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::FlyoverInstance,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F730;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls10IsMercatorEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsMercator>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMercator>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::IsMercator>();
+    *algn_1EB83DC58 = 0x237F9D3BCC905318;
+    qword_1EB83DC60 = "md::ls::IsMercator]";
+    qword_1EB83DC68 = 18;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsMercator,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FA30;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsMercator,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FA30;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls4IsS2EEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsS2>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsS2>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsS2>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        LOBYTE(v16) = *(v19 + v18);
+        *(v19 + v18) = *(v17 + v15);
+        *(v17 + v15) = v16;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsS2>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsS2>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FB90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4FBB0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FB90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::IsS2,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls7IsDecalEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsDecal>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsDecal>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::IsDecal>();
+    unk_1EB83B920 = 0x76B9BA390004E44ELL;
+    qword_1EB83B928 = "md::ls::IsDecal]";
+    qword_1EB83B930 = 15;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsDecal,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51750;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsDecal,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51750;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls12MainPassItemEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::MainPassItem>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::MainPassItem>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::MainPassItem>();
+    unk_1EB83DAF0 = 0xDB4F0ABC43345F6ALL;
+    qword_1EB83DAF8 = "md::ls::MainPassItem]";
+    qword_1EB83DB00 = 20;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::MainPassItem,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FEB0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::MainPassItem,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4FEB0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16NeedsRenderStateEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsRenderState>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsRenderState>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::NeedsRenderState>();
+    unk_1EB83D580 = 0x1E85A99FD528C623;
+    qword_1EB83D588 = "md::ls::NeedsRenderState]";
+    qword_1EB83D590 = 24;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsRenderState,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F980;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsRenderState,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F980;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls21PredefinedRenderStateEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PredefinedRenderState>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        LOBYTE(v16) = *(v19 + v18);
+        *(v19 + v18) = *(v17 + v15);
+        *(v17 + v15) = v16;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PredefinedRenderState>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PredefinedRenderState>();
+    *algn_1EB83CCA8 = 0xCB8AA7FBA6BCD25CLL;
+    qword_1EB83CCB0 = "md::ls::PredefinedRenderState]";
+    qword_1EB83CCB8 = 29;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F8B0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4F8D0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F8B0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::PredefinedRenderState,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls19NeedsNewRenderStateEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsNewRenderState>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsNewRenderState>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsNewRenderState>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = (*(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) - (v14 & 0x3F) + 8 * (v14 & 0x3F));
+        v17 = (*(v15 + ((v13 >> 3) & 0x1FF8)) - (v13 & 0x3F) + 8 * (v13 & 0x3F));
+        LODWORD(v19) = *v17;
+        *(&v19 + 3) = *(v17 + 3);
+        v18 = *(v16 + 3);
+        *v17 = *v16;
+        *(v17 + 3) = v18;
+        *(v16 + 3) = *(&v19 + 3);
+        *v16 = v19;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsNewRenderState>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsNewRenderState>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F29FAF10;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F29FAF30;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F29FAF10;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::NeedsNewRenderState,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls13IsTransparentEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsTransparent>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsTransparent>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsTransparent>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 4 * v18);
+        *(v19 + 4 * v18) = *(v17 + 4 * v15);
+        *(v17 + 4 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsTransparent>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsTransparent>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51450;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A51470;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51450;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::IsTransparent,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22IntendedSceneLayerTypeILNS6_10SceneLayerE3EEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESE_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISM_EEFvSL_EEclEOSL_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IntendedSceneLayerType<(md::SceneLayer)3>>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F520;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IntendedSceneLayerType<(md::SceneLayer)3>,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F520;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls17CustomRenderStateEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::CustomRenderState>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v10[7];
+        v16 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v14 & 0x3F);
+        v17 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 24 * (v13 & 0x3F);
+        v19 = *v17;
+        v18 = *(v17 + 8);
+        *v17 = 0;
+        *(v17 + 8) = 0;
+        v23 = *(v17 + 16);
+        v20 = *v16;
+        *v16 = 0;
+        *(v16 + 8) = 0;
+        v21 = *(v17 + 8);
+        *v17 = v20;
+        if (v21)
+        {
+          std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+        }
+
+        *(v17 + 16) = *(v16 + 16);
+        v22 = *(v16 + 8);
+        *v16 = v19;
+        *(v16 + 8) = v18;
+        if (v22)
+        {
+          std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+          v18 = *(v16 + 8);
+        }
+
+        *(v16 + 16) = v23;
+        if (v18)
+        {
+          std::__shared_weak_count::__release_shared[abi:nn200100](v18);
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::CustomRenderState>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::CustomRenderState>();
+    unk_1EB83D300 = 0xA0C97F52893883B7;
+    qword_1EB83D308 = "md::ls::CustomRenderState]";
+    qword_1EB83D310 = 25;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F7E0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4F800;
+  v2 = a1[4];
+  v3 = a1[5];
+  if (v3 != v2)
+  {
+    v4 = 0;
+    do
+    {
+      v5 = *(*(a1[7] + ((v4 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 24 * (v4 & 0x3F) + 8);
+      if (v5)
+      {
+        std::__shared_weak_count::__release_shared[abi:nn200100](v5);
+        v2 = a1[4];
+        v3 = a1[5];
+      }
+
+      ++v4;
+    }
+
+    while (v4 < (v3 - v2) >> 2);
+  }
+
+  if (v3 != v2)
+  {
+    do
+    {
+      v2 = ecs2::sparse_set<ecs2::Entity,64ul>::erase(a1, v2);
+    }
+
+    while (a1[5] != v2);
+  }
+
+  v6 = a1[7];
+  v7 = a1[8];
+  while (v6 != v7)
+  {
+    if (*v6)
+    {
+      operator delete(*v6);
+    }
+
+    ++v6;
+  }
+
+  v8 = a1[10];
+  if (v8)
+  {
+    a1[11] = v8;
+    operator delete(v8);
+  }
+
+  v9 = a1[7];
+  if (v9)
+  {
+    a1[8] = v9;
+    operator delete(v9);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F7E0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::CustomRenderState,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22IntendedSceneLayerTypeILNS6_10SceneLayerE4EEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESE_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISM_EEFvSL_EEclEOSL_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IntendedSceneLayerType<(md::SceneLayer)4>>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F5D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IntendedSceneLayerType<(md::SceneLayer)4>,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F5D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorBlendedWater>,std::allocator<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorBlendedWater>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FA9B8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorRoutelineMask>,std::allocator<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorRoutelineMask>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FA730;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls10NeedsZBiasEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsZBias>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::NeedsZBias>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::NeedsZBias>();
+    *algn_1EB83DC18 = 0x499CE17DBD9A1615;
+    qword_1EB83DC20 = "md::ls::NeedsZBias]";
+    qword_1EB83DC28 = 18;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsZBias,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51520;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::NeedsZBias,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51520;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20TextureHandleForTypeIN7DaVinci10TexTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::TexTexture>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 16 * v18);
+        *(v19 + 16 * v18) = *(v17 + 16 * v15);
+        *(v17 + 16 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::TexTexture>>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TextureHandleForType<DaVinci::TexTexture>>();
+    *algn_1EB83CE78 = 0x1D932F2BF291491;
+    qword_1EB83CE80 = "md::ls::TextureHandleForType<DaVinci::TexTexture>]";
+    qword_1EB83CE88 = 49;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50EC0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50EE0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50EC0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::TexTexture>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorTextureEnabled>,std::allocator<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorTextureEnabled>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FA580;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20TextureHandleForTypeIN7DaVinci15EmissiveTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 16 * v18);
+        *(v19 + 16 * v18) = *(v17 + 16 * v15);
+        *(v17 + 16 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>();
+    unk_1EB83CE10 = 0xCE03281732FA0019;
+    qword_1EB83CE18 = "md::ls::TextureHandleForType<DaVinci::EmissiveTexture>]";
+    qword_1EB83CE20 = 54;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51D90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A51DB0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51D90;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::EmissiveTexture>,64ul>::~storage(a1);
+}
+
+__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorEmissiveTextureEnabled>,std::allocator<ecs2::ForwardToExecute<md::ita::PrepareFunctionConstantDescriptorEmissiveTextureEnabled>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F29FA4A8;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls26StyleEmissiveDataKeyHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleEmissiveDataKeyHandle>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleEmissiveDataKeyHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::StyleEmissiveDataKeyHandle>();
+    unk_1EB83C540 = 0xA50DD2A5BD75DBD6;
+    qword_1EB83C548 = "md::ls::StyleEmissiveDataKeyHandle]";
+    qword_1EB83C550 = 34;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50C50;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A50C70;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A50C50;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::StyleEmissiveDataKeyHandle,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls14PreserveHeightEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PreserveHeight>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PreserveHeight>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PreserveHeight>();
+    unk_1EB83D820 = 0x98A9F01DBB8BCCCELL;
+    qword_1EB83D828 = "md::ls::PreserveHeight]";
+    qword_1EB83D830 = 22;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PreserveHeight,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A515D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PreserveHeight,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A515D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+double ecs2::View<void,md::ls::FunctionConstants,md::ls::HasMaterialRasterRenderItem const>::each<md::ls::FunctionConstants&,md::ls::HasMaterialRasterRenderItem const&>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a3 + 40) - *(a3 + 32) >= *(a2 + 40) - *(a2 + 32))
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = a3;
+  }
+
+  v7 = *(v6 + 40);
+  ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(v10, *(v6 + 32), v7, a2, a3);
+  ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator((a1 + 40), v7, v7, a2, a3);
+  result = *v10;
+  v9 = v10[1];
+  *a1 = v10[0];
+  *(a1 + 16) = v9;
+  *(a1 + 32) = v11;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls27HasMaterialRasterRenderItemEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>(void)::metadata;
+  HasMaterialRasterRender = ecs2::BasicRegistry<void>::storage<md::ls::HasMaterialRasterRenderItem>(v3);
+  v6 = v2 >> 22;
+  v7 = HasMaterialRasterRender[1];
+  if (v2 >> 22 < (HasMaterialRasterRender[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = HasMaterialRasterRender;
+        v11 = HasMaterialRasterRender[31];
+        v12 = HasMaterialRasterRender[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>(void)::metadata) = *(v3 + 4096);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>()
+{
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasMaterialRasterRenderItem>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::HasMaterialRasterRenderItem>();
+    unk_1EB83C470 = 0xD5B48B62BD07EF80;
+    qword_1EB83C478 = "md::ls::HasMaterialRasterRenderItem]";
+    qword_1EB83C480 = 35;
+  }
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F0A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A4F0C0;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A4F0A0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::HasMaterialRasterRenderItem,64ul>::~storage(a1);
+}
+
+void ecs2::Runtime::_entities<md::ita::PrepareFunctionConstantDescriptorPlanar,md::ls::FunctionConstants &,md::ls::PlanarParametersCacheKeyHandle const&,md::ls::TriPlanar const*>(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  v3 = ecs2::BasicRegistry<void>::storage<md::ls::FunctionConstants>(v2);
+  v4 = ecs2::BasicRegistry<void>::storage<md::ls::PlanarParametersCacheKeyHandle>(v2);
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TriPlanar>(v2);
+  if (*(v4 + 40) - *(v4 + 32) >= v3[5] - v3[4])
+  {
+    v6 = v3;
+  }
+
+  else
+  {
+    v6 = v4;
+  }
+
+  v7 = v6[4];
+  v8 = v6[5];
+  if (v7 != v8)
+  {
+    v9 = v3[1];
+    v10 = v3[2];
+    do
+    {
+      if (ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v9, v10, v4, *v7, v7[1]))
+      {
+        break;
+      }
+
+      v7 += 2;
+    }
+
+    while (v7 != v8);
+  }
+
+  if (v7 == v8)
+  {
+    v11 = _ZTWN4ecs27Runtime11_localStateE();
+    v12 = _ZTWN4ecs27Runtime11_stackIndexE();
+    v13 = 0;
+    goto LABEL_22;
+  }
+
+  v35 = a1;
+  v11 = _ZTWN4ecs27Runtime11_localStateE();
+  v12 = _ZTWN4ecs27Runtime11_stackIndexE();
+  v13 = 0;
+  v34 = v5;
+LABEL_10:
+  v14 = v7[1];
+  v15 = v14 >> 6;
+  v16 = v14 & 0x3F;
+  v17 = v5[1];
+  if (v15 >= (v5[2] - v17) >> 3)
+  {
+    goto LABEL_14;
+  }
+
+  v18 = *(v17 + 8 * v15);
+  if (!v18)
+  {
+    goto LABEL_15;
+  }
+
+  if (*(v18 + 4 * v16) == *v7)
+  {
+    LOBYTE(v18) = v5[4] + 4 * *(v18 + 4 * v16 + 2) != 0;
+  }
+
+  else
+  {
+LABEL_14:
+    LOBYTE(v18) = 0;
+  }
+
+LABEL_15:
+  v19 = *(*(v3[1] + 8 * v15) + 4 * v16 + 2);
+  v20 = *(v3[7] + ((v19 >> 3) & 0x1FF8)) + 70 * (v19 & 0x3F);
+  v22 = *v7;
+  v21 = v7 + 2;
+  *(v11 + 104 * *v12 + 24) = v22;
+  *(v20 + 2) = 1;
+  *(v20 + 3) = v18;
+  ++v13;
+  v23 = v3[1];
+  v24 = v3[2];
+  while (v21 != v8)
+  {
+    v25 = v21;
+    v26 = v21[1];
+    v27 = *v21;
+    v21 += 2;
+    if (ecs2::ViewIterator<void,std::tuple<md::ls::MaterialPendingProcessing const&,md::ls::UniqueStyleEmissiveDataKeyHandle *,md::ls::UniqueMaterialData const&>,std::tuple<>>::containsAll<md::ls::MaterialPendingProcessing const,md::ls::UniqueMaterialData const>(v23, v24, v4, v27, v26))
+    {
+      v7 = v25;
+      v5 = v34;
+      goto LABEL_10;
+    }
+  }
+
+  v28 = *(v35 + 8);
+  {
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::FunctionConstants>();
+    unk_1EB83D2C0 = 0xC62D89929260CB56;
+    qword_1EB83D2C8 = "md::ls::FunctionConstants]";
+    qword_1EB83D2D0 = 25;
+  }
+
+  *(v28 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FunctionConstants>(void)::metadata) = *(v28 + 4096);
+LABEL_22:
+  *(v11 + 104 * *v12 + 24) = -65536;
+  v29 = v11 + 104 * *v12;
+  v30 = *(v29 + 92);
+  *(v29 + 92) = v30 + 1;
+  *(v29 + 4 * v30 + 28) = v13;
+  v31 = v11 + 104 * *v12;
+  v33 = *(v31 + 92);
+  v32 = (v31 + 92);
+  if (v33 >= 0x10)
+  {
+    *v32 = 0;
+  }
+}
+
+uint64_t ecs2::BasicRegistry<void>::storage<md::ls::PlanarParametersCacheKeyHandle>(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>();
+  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>(void)::metadata;
+  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>(void)::metadata >= 0x200)
+  {
+    v3 = GEOGetGeoDisplayCoreDefaultLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      buf[0] = 136315650;
+      *&buf[1] = "componentMetadata.id < _pools.size()";
+      v6 = 2080;
+      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
+      v8 = 1024;
+      LODWORD(v9) = 177;
+      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
+    }
+  }
+
+  result = *(a1 + 4152 + 8 * v2);
+  if (!result)
+  {
+    operator new();
+  }
+
+  return result;
+}
+
+uint64_t ecs2::BasicRegistry<void>::storage<md::ls::TriPlanar>(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>();
+  v2 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>(void)::metadata;
+  if (ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>(void)::metadata >= 0x200)
+  {
+    v3 = GEOGetGeoDisplayCoreDefaultLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      buf[0] = 136315650;
+      *&buf[1] = "componentMetadata.id < _pools.size()";
+      v6 = 2080;
+      v7 = "/Library/Caches/com.apple.xbs/Sources/VectorKit/geo/GeoDisplayCore/GeoDisplayCore/ECSRegistry.hpp";
+      v8 = 1024;
+      LODWORD(v9) = 177;
+      _os_log_impl(&dword_1B2754000, v3, OS_LOG_TYPE_FAULT, "More components types that declared amount: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
+    }
+  }
+
+  result = *(a1 + 4152 + 8 * v2);
+  if (!result)
+  {
+    operator new();
+  }
+
+  return result;
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>()
+{
+  {
+    {
+      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TriPlanar>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
+    }
+
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TriPlanar>(void)::localId;
+    unk_1EB82B360 = 0x1223E23132DA4D6ALL;
+    qword_1EB82B368 = "md::ls::TriPlanar]";
+    qword_1EB82B370 = 17;
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls9TriPlanarEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TriPlanar>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TriPlanar>(void)::metadata) = *(v3 + 4096);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls9TriPlanarEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EE7__cloneEPNS0_6__baseISN_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A518F0;
+  a2[1] = v2;
+  return result;
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TriPlanar,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A518D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TriPlanar,0ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A518D0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>()
+{
+  {
+    {
+      gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PlanarParametersCacheKeyHandle>(void)::localId = atomic_fetch_add(&gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::Counter::nextId(void)::counter, 1uLL);
+    }
+
+    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PlanarParametersCacheKeyHandle>(void)::localId;
+    unk_1EB82B3D0 = 0xD02B5FD100F36AA2;
+    qword_1EB82B3D8 = "md::ls::PlanarParametersCacheKeyHandle]";
+    qword_1EB82B3E0 = 38;
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls30PlanarParametersCacheKeyHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PlanarParametersCacheKeyHandle>(v3);
+  v6 = v2 >> 22;
+  v7 = v5[1];
+  if (v2 >> 22 < (v5[2] - v7) >> 3)
+  {
+    v8 = *(v7 + 8 * v6);
+    if (v8)
+    {
+      v9 = (v2 >> 16) & 0x3F;
+      if (*(v8 + 4 * v9) == v2)
+      {
+        v10 = v5;
+        v11 = v5[31];
+        v12 = v5[32];
+        if (v11 != v12)
+        {
+          do
+          {
+            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
+            v11 += 32;
+          }
+
+          while (v11 != v12);
+          v8 = *(v10[1] + 8 * v6);
+        }
+
+        v13 = *(v8 + 4 * v9 + 2);
+        v14 = ((v10[5] - v10[4]) >> 2) - 1;
+        v15 = v14 & 0x3F;
+        v16 = v10[7];
+        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
+        v18 = v13 & 0x3F;
+        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
+        v20 = *(v19 + 8 * v18);
+        *(v19 + 8 * v18) = *(v17 + 8 * v15);
+        *(v17 + 8 * v15) = v20;
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
+      }
+    }
+  }
+
+  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PlanarParametersCacheKeyHandle>(void)::metadata) = *(v3 + 4096);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls30PlanarParametersCacheKeyHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EE7__cloneEPNS0_6__baseISN_EE(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F2A51C30;
+  a2[1] = v2;
+  return result;
+}
+
+void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51BF0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+  ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>::~storage(void *a1)
+{
+  *a1 = &unk_1F2A51C10;
+    ;
+  }
+
+  v3 = a1[7];
+  v4 = a1[8];
+  while (v3 != v4)
+  {
+    if (*v3)
+    {
+      operator delete(*v3);
+    }
+
+    ++v3;
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[11] = v5;
+    operator delete(v5);
+  }
+
+  v6 = a1[7];
+  if (v6)
+  {
+    a1[8] = v6;
+    operator delete(v6);
+  }
+
+  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
+}
+
+void ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>::~storage(void *a1)
+{
+  ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>::~storage(a1);
+
+  JUMPOUT(0x1B8C62190);
+}
+
+void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>>::~signal_mixin(void *a1)
+{
+  *a1 = &unk_1F2A51BF0;
+  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
+
+  return ecs2::storage<ecs2::Entity,md::ls::PlanarParametersCacheKeyHandle,64ul>::~storage(a1);
+}
+
+void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls30IntendedStandardPassSceneDepthEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 8);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedStandardPassSceneDepth>();
+  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedStandardPassSceneDepth>(void)::metadata;
+  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IntendedStandardPassSceneDepth>(v3);
+  v6 = v5[1];
+  if (v2 >> 22 < (v5[2] - v6) >> 3)
+  {
+    v7 = *(v6 + 8 * (v2 >> 22));
+    if (v7)
+    {
+      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
+      {
+        v8 = v5;
+        v9 = v5[25];
+        v10 = v5[26];
+        while (v9 != v10)
+        {
+          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
+          v9 += 32;
+        }
+
+        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
+      }
+    }
+  }
+
+  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
+  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
+  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedStandardPassSceneDepth>();
+  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedStandardPassSceneDepth>(void)::metadata) = *(v3 + 4096);
+}
+
 void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IntendedStandardPassSceneDepth>()
 {
   {
@@ -695,9 +7859,9 @@ LABEL_19:
   operator new();
 }
 
-void sub_1B2D9B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B2D9B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__function::__value_func<void ()(md::ls::FunctionConstants &,md::ls::IsMercator const&,md::ls::StyleSSAODataKeyHandle const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5480,5996 +12644,4 @@ LABEL_614:
 
 LABEL_613:
   a1[1] = v504;
-}
-
-void sub_1B2DA2D80(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void _ZN4ecs27Runtime9_entitiesIN2md3ita28CreateUnflattenedRenderItemsEJRKNS2_2ls16SliceAssignmentTILNS2_9SliceTypeE2EEERKNS5_26RenderableMeshVertexFormatERKNS5_8TileTypeERKNS5_18IntendedSceneLayerERKNS5_14MeshLayerTypeVEPNS5_17AssociationHandleEPKNS5_13HasMeshHandleEPKNS5_35PositionScaleInfoConstantDataHandleEPKNS5_22ViewConstantDataHandleEPKNS5_27TransformConstantDataHandleEPKNS5_18StyleDataKeyHandleEPKNS5_22StyleSSAODataKeyHandleEPKNS5_26StyleEmissiveDataKeyHandleEPKNS5_28ColorCorrectionDataKeyHandleEPKNS5_29StyleCameraConstantDataHandleEPKNS5_15ColorDataHandleEPKNS5_10IndexRangeEPKNS5_38StyleGroundOcclusionConstantDataHandleERKNS5_17PendingProcessingEPKNS5_13NormalsHandleEPKNS5_23InstanceTransformHandleEPKNS5_9UVsHandleEPKNS5_15ElevationHandleEPKNS5_20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEEPKNS5_35LandCoverSettingsConstantDataHandleEPKNS5_24ShadowConstantDataHandleEPKNS5_25PrepassConstantDataHandleEPKNS5_26ClippingConstantDataHandleEPKNS5_30PlanarParametersCacheKeyHandleEPKNS24_INS25_10TexTextureEEEPKNS24_INS25_15EmissiveTextureEEEPKNS24_INS25_14OverlayTextureEEEPKNS5_29BlendRasterConstantDataHandleEPKNS5_31RasterOverlayConstantDataHandleEPKNS5_26HasStyleAttributeRasterSetEPKNS5_17HasMaterialRasterEPKNS5_16NeedsClimateTintEPKNS5_17CustomRenderStateEPKNS5_19ColorRampDataHandleEPKNS5_14SharedUniqueIDEPKNS5_8IsOpaqueEPKNS5_13IsTransparentEPKNS5_10NeedsZBiasEPKNS5_14PreserveHeightEPKNS5_13InstanceCountEPKNS5_7IsDecalEPKNS5_10IsMaterialEPKNS5_9TriPlanarEPKNS5_10IsMercatorEPKNS5_23SupportsStylizedShadingEPKNS5_26SupportsSteepnessDarkeningEPKNS5_14RenderableHashEEJEEEvOT_NSt3__113type_identityINS4R_5tupleIJDpT0_EEEEERKNS_16ComponentFiltersIJDpT1_EEE(uint64_t a1, uint64_t **a2)
-{
-  v104 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
-  v92 = ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)2>>(v3);
-  v90 = ecs2::BasicRegistry<void>::storage<md::ls::RenderableMeshVertexFormat>(v3);
-  v88 = ecs2::BasicRegistry<void>::storage<md::ls::TileType>(v3);
-  v86 = ecs2::BasicRegistry<void>::storage<md::ls::IntendedSceneLayer>(v3);
-  v83 = ecs2::BasicRegistry<void>::storage<md::ls::MeshLayerTypeV>(v3);
-  v98 = ecs2::BasicRegistry<void>::storage<md::ls::AssociationHandle>(v3);
-  HasMesh = ecs2::BasicRegistry<void>::storage<md::ls::HasMeshHandle>(v3);
-  v96 = ecs2::BasicRegistry<void>::storage<md::ls::PositionScaleInfoConstantDataHandle>(v3);
-  v95 = ecs2::BasicRegistry<void>::storage<md::ls::ViewConstantDataHandle>(v3);
-  v94 = ecs2::BasicRegistry<void>::storage<md::ls::TransformConstantDataHandle>(v3);
-  v93 = ecs2::BasicRegistry<void>::storage<md::ls::StyleDataKeyHandle>(v3);
-  v91 = ecs2::BasicRegistry<void>::storage<md::ls::StyleSSAODataKeyHandle>(v3);
-  v89 = ecs2::BasicRegistry<void>::storage<md::ls::StyleEmissiveDataKeyHandle>(v3);
-  v87 = ecs2::BasicRegistry<void>::storage<md::ls::ColorCorrectionDataKeyHandle>(v3);
-  v85 = ecs2::BasicRegistry<void>::storage<md::ls::StyleCameraConstantDataHandle>(v3);
-  v84 = ecs2::BasicRegistry<void>::storage<md::ls::ColorDataHandle>(v3);
-  v82 = ecs2::BasicRegistry<void>::storage<md::ls::IndexRange>(v3);
-  v81 = ecs2::BasicRegistry<void>::storage<md::ls::StyleGroundOcclusionConstantDataHandle>(v3);
-  v66 = ecs2::BasicRegistry<void>::storage<md::ls::PendingProcessing>(v3);
-  v80 = ecs2::BasicRegistry<void>::storage<md::ls::NormalsHandle>(v3);
-  v79 = ecs2::BasicRegistry<void>::storage<md::ls::InstanceTransformHandle>(v3);
-  v78 = ecs2::BasicRegistry<void>::storage<md::ls::UVsHandle>(v3);
-  v77 = ecs2::BasicRegistry<void>::storage<md::ls::ElevationHandle>(v3);
-  v76 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>(v3);
-  v75 = ecs2::BasicRegistry<void>::storage<md::ls::LandCoverSettingsConstantDataHandle>(v3);
-  v74 = ecs2::BasicRegistry<void>::storage<md::ls::ShadowConstantDataHandle>(v3);
-  v73 = ecs2::BasicRegistry<void>::storage<md::ls::PrepassConstantDataHandle>(v3);
-  v72 = ecs2::BasicRegistry<void>::storage<md::ls::ClippingConstantDataHandle>(v3);
-  v71 = ecs2::BasicRegistry<void>::storage<md::ls::PlanarParametersCacheKeyHandle>(v3);
-  v70 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::TexTexture>>(v3);
-  v69 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::EmissiveTexture>>(v3);
-  v68 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::OverlayTexture>>(v3);
-  v67 = ecs2::BasicRegistry<void>::storage<md::ls::BlendRasterConstantDataHandle>(v3);
-  v65 = ecs2::BasicRegistry<void>::storage<md::ls::RasterOverlayConstantDataHandle>(v3);
-  HasStyleAttributeRaster = ecs2::BasicRegistry<void>::storage<md::ls::HasStyleAttributeRasterSet>(v3);
-  HasMaterial = ecs2::BasicRegistry<void>::storage<md::ls::HasMaterialRaster>(v3);
-  v62 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsClimateTint>(v3);
-  v61 = ecs2::BasicRegistry<void>::storage<md::ls::CustomRenderState>(v3);
-  v60 = ecs2::BasicRegistry<void>::storage<md::ls::ColorRampDataHandle>(v3);
-  v59 = ecs2::BasicRegistry<void>::storage<md::ls::SharedUniqueID>(v3);
-  v58 = ecs2::BasicRegistry<void>::storage<md::ls::IsOpaque>(v3);
-  v57 = ecs2::BasicRegistry<void>::storage<md::ls::IsTransparent>(v3);
-  v56 = ecs2::BasicRegistry<void>::storage<md::ls::NeedsZBias>(v3);
-  v4 = ecs2::BasicRegistry<void>::storage<md::ls::PreserveHeight>(v3);
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::InstanceCount>(v3);
-  v6 = ecs2::BasicRegistry<void>::storage<md::ls::IsDecal>(v3);
-  v7 = ecs2::BasicRegistry<void>::storage<md::ls::IsMaterial>(v3);
-  v8 = ecs2::BasicRegistry<void>::storage<md::ls::TriPlanar>(v3);
-  v9 = ecs2::BasicRegistry<void>::storage<md::ls::IsMercator>(v3);
-  v10 = ecs2::BasicRegistry<void>::storage<md::ls::SupportsStylizedShading>(v3);
-  v11 = ecs2::BasicRegistry<void>::storage<md::ls::SupportsSteepnessDarkening>(v3);
-  v12 = ecs2::BasicRegistry<void>::storage<md::ls::RenderableHash>(v3);
-  *__src = v92;
-  *&__src[8] = v90;
-  *&__src[16] = v88;
-  *&__src[24] = v86;
-  v13 = 8;
-  v14 = v92;
-  v15 = __src;
-  *&__src[32] = v83;
-  *&__src[40] = v66;
-  do
-  {
-    if (*(*&__src[v13] + 40) - *(*&__src[v13] + 32) < *(v14 + 40) - *(v14 + 32))
-    {
-      v14 = *&__src[v13];
-      v15 = &__src[v13];
-    }
-
-    v13 += 8;
-  }
-
-  while (v13 != 48);
-  v16 = *v15;
-  *&__src[16] = v92;
-  *&__src[24] = v90;
-  v17 = *(v16 + 32);
-  v18 = *(v16 + 40);
-  *&__src[32] = v88;
-  *&__src[40] = v86;
-  *&__src[48] = v83;
-  *&__src[56] = v98;
-  *&__src[64] = HasMesh;
-  *&__src[72] = v96;
-  *&__src[80] = v95;
-  *&__src[88] = v94;
-  *&__src[96] = v93;
-  *&__src[104] = v91;
-  *&__src[112] = v89;
-  *&__src[120] = v87;
-  *&__src[128] = v85;
-  *&__src[136] = v84;
-  *&__src[144] = v82;
-  *&__src[152] = v81;
-  *&__src[160] = v66;
-  *&__src[168] = v80;
-  *&__src[176] = v79;
-  *&__src[184] = v78;
-  *&__src[192] = v77;
-  *__src = v17;
-  *&__src[8] = v18;
-  *&__src[200] = v76;
-  *&__src[208] = v75;
-  *&__src[216] = v74;
-  *&__src[224] = v73;
-  *&__src[232] = v72;
-  *&__src[240] = v71;
-  *&__src[248] = v70;
-  *&__src[256] = v69;
-  *&__src[264] = v68;
-  *&__src[272] = v67;
-  *&__src[280] = v65;
-  *&__src[288] = HasStyleAttributeRaster;
-  *&__src[296] = HasMaterial;
-  *&__src[304] = v62;
-  *&__src[312] = v61;
-  *&__src[320] = v60;
-  *&__src[328] = v59;
-  *&__src[336] = v58;
-  *&__src[344] = v57;
-  *&__src[352] = v56;
-  *&__src[360] = v4;
-  *&__src[368] = v5;
-  *&__src[376] = v6;
-  *&__src[384] = v7;
-  *&__src[392] = v8;
-  *&__src[400] = v9;
-  *&__src[408] = v10;
-  *&__src[416] = v11;
-  *&__src[424] = v12;
-  v55 = v18;
-  if (v17 != v18)
-  {
-    v19 = *&__src[8];
-    v20 = *__src;
-    do
-    {
-      if (_ZNK4ecs212ViewIteratorIJvNSt3__15tupleIJRKN2md2ls16SliceAssignmentTILNS3_9SliceTypeE2EEERKNS4_26RenderableMeshVertexFormatERKNS4_8TileTypeERKNS4_18IntendedSceneLayerERKNS4_14MeshLayerTypeVEPNS4_17AssociationHandleEPKNS4_13HasMeshHandleEPKNS4_35PositionScaleInfoConstantDataHandleEPKNS4_22ViewConstantDataHandleEPKNS4_27TransformConstantDataHandleEPKNS4_18StyleDataKeyHandleEPKNS4_22StyleSSAODataKeyHandleEPKNS4_26StyleEmissiveDataKeyHandleEPKNS4_28ColorCorrectionDataKeyHandleEPKNS4_29StyleCameraConstantDataHandleEPKNS4_15ColorDataHandleEPKNS4_10IndexRangeEPKNS4_38StyleGroundOcclusionConstantDataHandleERKNS4_17PendingProcessingEPKNS4_13NormalsHandleEPKNS4_23InstanceTransformHandleEPKNS4_9UVsHandleEPKNS4_15ElevationHandleEPKNS4_20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEEPKNS4_35LandCoverSettingsConstantDataHandleEPKNS4_24ShadowConstantDataHandleEPKNS4_25PrepassConstantDataHandleEPKNS4_26ClippingConstantDataHandleEPKNS4_30PlanarParametersCacheKeyHandleEPKNS23_INS24_10TexTextureEEEPKNS23_INS24_15EmissiveTextureEEEPKNS23_INS24_14OverlayTextureEEEPKNS4_29BlendRasterConstantDataHandleEPKNS4_31RasterOverlayConstantDataHandleEPKNS4_26HasStyleAttributeRasterSetEPKNS4_17HasMaterialRasterEPKNS4_16NeedsClimateTintEPKNS4_17CustomRenderStateEPKNS4_19ColorRampDataHandleEPKNS4_14SharedUniqueIDEPKNS4_8IsOpaqueEPKNS4_13IsTransparentEPKNS4_10NeedsZBiasEPKNS4_14PreserveHeightEPKNS4_13InstanceCountEPKNS4_7IsDecalEPKNS4_10IsMaterialEPKNS4_9TriPlanarEPKNS4_10IsMercatorEPKNS4_23SupportsStylizedShadingEPKNS4_26SupportsSteepnessDarkeningEPKNS4_14RenderableHashEEEENS2_IJEEEEE11containsAllIJS8_SB_SE_SH_SK_S1P_EEEbRKNS_6EntityENS1_13type_identityINS2_IJDpT_EEEEE(__src, *v17, v17[1]))
-      {
-        break;
-      }
-
-      v20 += 2;
-      *__src = v20;
-      v17 = v20;
-    }
-
-    while (v20 != v19);
-  }
-
-  memcpy(__dst, __src, sizeof(__dst));
-  v21 = __dst[0];
-  if (__dst[0] != v55)
-  {
-    v22 = _ZTWN4ecs27Runtime11_localStateE();
-    v23 = _ZTWN4ecs27Runtime11_stackIndexE();
-    v24 = 0;
-    v53 = v22;
-    v54 = v23;
-    while (1)
-    {
-      v25 = v21[1];
-      v26 = v25 >> 6;
-      v27 = v25 & 0x3F;
-      v28 = *v21;
-      v29 = *(__dst[7] + 8);
-      if (v26 < (*(__dst[7] + 16) - v29) >> 3 && (v30 = *(v29 + 8 * v26)) != 0 && *(v30 + 4 * v27) == v28)
-      {
-        v31 = *(v30 + 4 * v27 + 2);
-        v32 = *(*(__dst[7] + 56) + ((v31 >> 3) & 0x1FF8)) + 24 * (v31 & 0x3F);
-      }
-
-      else
-      {
-        v32 = 0;
-      }
-
-      v33 = *(__dst[53] + 8);
-      v99 = v24;
-      if (v26 < (*(__dst[53] + 16) - v33) >> 3 && (v34 = *(v33 + 8 * v26)) != 0)
-      {
-        v35 = v22;
-        if (*(v34 + 4 * v27) == v28)
-        {
-          v36 = v32;
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        v35 = v22;
-      }
-
-      v36 = v32;
-LABEL_22:
-      *(v35 + 104 * *v23 + 24) = *v21;
-      ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a2);
-      v37 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a2);
-      v38 = *a2;
-      v39 = ecs2::ExecutionTaskContext::currentEntity(v37);
-      ecs2::addComponent<md::ls::FinishedProcessing>(v38, v39);
-      Entity = ecs2::ExecutionTaskContext::createEntity((*a2)[1]);
-      if (v36)
-      {
-        createRenderItemForEntity(&v101, Entity, v37, v36);
-        if (v102 != 1)
-        {
-          if (!v102)
-          {
-            *__src = v101;
-            *&__src[16] = 48;
-            ecs2::addComponent<md::ls::RenderItemID>(*a2, Entity, __src);
-          }
-
-          std::__throw_bad_variant_access[abi:nn200100]();
-        }
-      }
-
-      else
-      {
-        LOBYTE(v101) = 2;
-      }
-
-      if (GEOGetVectorKitVKDefaultLog_onceToken != -1)
-      {
-        dispatch_once(&GEOGetVectorKitVKDefaultLog_onceToken, &__block_literal_global_5_15525);
-      }
-
-      v41 = GEOGetVectorKitVKDefaultLog_log;
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-      {
-        v42 = "";
-        if (v101 <= 2uLL)
-        {
-          v42 = off_1E7B3D650[v101];
-        }
-
-        *__src = 136315906;
-        *&__src[4] = v42;
-        *&__src[12] = 2080;
-        *&__src[14] = "false";
-        *&__src[22] = 2080;
-        *&__src[24] = "/Library/Caches/com.apple.xbs/Sources/VectorKit/src/CreateRenderItems.mm";
-        *&__src[32] = 1024;
-        *&__src[34] = 568;
-        _os_log_impl(&dword_1B2754000, v41, OS_LOG_TYPE_ERROR, "Failed to create unflattened render item (%s): Assertion with expression - %s : Failed in file - %s line - %i", __src, 0x26u);
-      }
-
-      ecs2::ExecutionTaskContext::destroyEntity(*a2, Entity);
-      v24 = v99 + 1;
-      v43 = __dst[1];
-      v44 = (__dst[0] + 4);
-      v22 = v53;
-      v23 = v54;
-      while (1)
-      {
-        v21 = v44;
-        __dst[0] = v44;
-        if (v44 == v43)
-        {
-          break;
-        }
-
-        IsMercatorEPKNS4_23SupportsStylizedShadingEPKNS4_26SupportsSteepnessDarkeningEPKNS4_14RenderableHashEEEENS2_IJEEEEE11containsAllIJS8_SB_SE_SH_SK_S1P_EEEbRKNS_6EntityENS1_13type_identityINS2_IJDpT_EEEEE = _ZNK4ecs212ViewIteratorIJvNSt3__15tupleIJRKN2md2ls16SliceAssignmentTILNS3_9SliceTypeE2EEERKNS4_26RenderableMeshVertexFormatERKNS4_8TileTypeERKNS4_18IntendedSceneLayerERKNS4_14MeshLayerTypeVEPNS4_17AssociationHandleEPKNS4_13HasMeshHandleEPKNS4_35PositionScaleInfoConstantDataHandleEPKNS4_22ViewConstantDataHandleEPKNS4_27TransformConstantDataHandleEPKNS4_18StyleDataKeyHandleEPKNS4_22StyleSSAODataKeyHandleEPKNS4_26StyleEmissiveDataKeyHandleEPKNS4_28ColorCorrectionDataKeyHandleEPKNS4_29StyleCameraConstantDataHandleEPKNS4_15ColorDataHandleEPKNS4_10IndexRangeEPKNS4_38StyleGroundOcclusionConstantDataHandleERKNS4_17PendingProcessingEPKNS4_13NormalsHandleEPKNS4_23InstanceTransformHandleEPKNS4_9UVsHandleEPKNS4_15ElevationHandleEPKNS4_20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEEPKNS4_35LandCoverSettingsConstantDataHandleEPKNS4_24ShadowConstantDataHandleEPKNS4_25PrepassConstantDataHandleEPKNS4_26ClippingConstantDataHandleEPKNS4_30PlanarParametersCacheKeyHandleEPKNS23_INS24_10TexTextureEEEPKNS23_INS24_15EmissiveTextureEEEPKNS23_INS24_14OverlayTextureEEEPKNS4_29BlendRasterConstantDataHandleEPKNS4_31RasterOverlayConstantDataHandleEPKNS4_26HasStyleAttributeRasterSetEPKNS4_17HasMaterialRasterEPKNS4_16NeedsClimateTintEPKNS4_17CustomRenderStateEPKNS4_19ColorRampDataHandleEPKNS4_14SharedUniqueIDEPKNS4_8IsOpaqueEPKNS4_13IsTransparentEPKNS4_10NeedsZBiasEPKNS4_14PreserveHeightEPKNS4_13InstanceCountEPKNS4_7IsDecalEPKNS4_10IsMaterialEPKNS4_9TriPlanarEPKNS4_10IsMercatorEPKNS4_23SupportsStylizedShadingEPKNS4_26SupportsSteepnessDarkeningEPKNS4_14RenderableHashEEEENS2_IJEEEEE11containsAllIJS8_SB_SE_SH_SK_S1P_EEEbRKNS_6EntityENS1_13type_identityINS2_IJDpT_EEEEE(__dst, *v44, v44[1]);
-        v44 = v21 + 2;
-        if (IsMercatorEPKNS4_23SupportsStylizedShadingEPKNS4_26SupportsSteepnessDarkeningEPKNS4_14RenderableHashEEEENS2_IJEEEEE11containsAllIJS8_SB_SE_SH_SK_S1P_EEEbRKNS_6EntityENS1_13type_identityINS2_IJDpT_EEEEE)
-        {
-          v43 = v21;
-          break;
-        }
-      }
-
-      if (v43 == v55)
-      {
-        v46 = *(a1 + 8);
-        ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::AssociationHandle>();
-        *(v46 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::AssociationHandle>(void)::metadata) = *(v46 + 4096);
-        goto LABEL_40;
-      }
-    }
-  }
-
-  v22 = _ZTWN4ecs27Runtime11_localStateE();
-  v23 = _ZTWN4ecs27Runtime11_stackIndexE();
-  v24 = 0;
-LABEL_40:
-  *(v22 + 104 * *v23 + 24) = -65536;
-  v47 = v22 + 104 * *v23;
-  v48 = *(v47 + 92);
-  *(v47 + 92) = v48 + 1;
-  *(v47 + 4 * v48 + 28) = v24;
-  v49 = v22 + 104 * *v23;
-  v51 = *(v49 + 92);
-  v50 = (v49 + 92);
-  if (v51 >= 0x10)
-  {
-    *v50 = 0;
-  }
-}
-
-void sub_1B2DA4CD4(_Unwind_Exception *a1)
-{
-  if (STACK[0x3A8])
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](STACK[0x3A8]);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-BOOL _ZNK4ecs212ViewIteratorIJvNSt3__15tupleIJRKN2md2ls16SliceAssignmentTILNS3_9SliceTypeE2EEERKNS4_26RenderableMeshVertexFormatERKNS4_8TileTypeERKNS4_18IntendedSceneLayerERKNS4_14MeshLayerTypeVEPNS4_17AssociationHandleEPKNS4_13HasMeshHandleEPKNS4_35PositionScaleInfoConstantDataHandleEPKNS4_22ViewConstantDataHandleEPKNS4_27TransformConstantDataHandleEPKNS4_18StyleDataKeyHandleEPKNS4_22StyleSSAODataKeyHandleEPKNS4_26StyleEmissiveDataKeyHandleEPKNS4_28ColorCorrectionDataKeyHandleEPKNS4_29StyleCameraConstantDataHandleEPKNS4_15ColorDataHandleEPKNS4_10IndexRangeEPKNS4_38StyleGroundOcclusionConstantDataHandleERKNS4_17PendingProcessingEPKNS4_13NormalsHandleEPKNS4_23InstanceTransformHandleEPKNS4_9UVsHandleEPKNS4_15ElevationHandleEPKNS4_20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEEPKNS4_35LandCoverSettingsConstantDataHandleEPKNS4_24ShadowConstantDataHandleEPKNS4_25PrepassConstantDataHandleEPKNS4_26ClippingConstantDataHandleEPKNS4_30PlanarParametersCacheKeyHandleEPKNS23_INS24_10TexTextureEEEPKNS23_INS24_15EmissiveTextureEEEPKNS23_INS24_14OverlayTextureEEEPKNS4_29BlendRasterConstantDataHandleEPKNS4_31RasterOverlayConstantDataHandleEPKNS4_26HasStyleAttributeRasterSetEPKNS4_17HasMaterialRasterEPKNS4_16NeedsClimateTintEPKNS4_17CustomRenderStateEPKNS4_19ColorRampDataHandleEPKNS4_14SharedUniqueIDEPKNS4_8IsOpaqueEPKNS4_13IsTransparentEPKNS4_10NeedsZBiasEPKNS4_14PreserveHeightEPKNS4_13InstanceCountEPKNS4_7IsDecalEPKNS4_10IsMaterialEPKNS4_9TriPlanarEPKNS4_10IsMercatorEPKNS4_23SupportsStylizedShadingEPKNS4_26SupportsSteepnessDarkeningEPKNS4_14RenderableHashEEEENS2_IJEEEEE11containsAllIJS8_SB_SE_SH_SK_S1P_EEEbRKNS_6EntityENS1_13type_identityINS2_IJDpT_EEEEE(void *a1, unsigned __int16 a2, unsigned __int16 a3)
-{
-  v3 = a3 >> 6;
-  v4 = *(a1[2] + 8);
-  if (v3 < (*(a1[2] + 16) - v4) >> 3 && (v5 = *(v4 + 8 * v3)) != 0 && *(v5 + 4 * (a3 & 0x3F)) == a2 && (v6 = *(a1[3] + 8), v3 < (*(a1[3] + 16) - v6) >> 3) && (v7 = *(v6 + 8 * v3)) != 0 && *(v7 + 4 * (a3 & 0x3F)) == a2 && (v8 = *(a1[4] + 8), v3 < (*(a1[4] + 16) - v8) >> 3) && (v9 = *(v8 + 8 * v3)) != 0 && *(v9 + 4 * (a3 & 0x3F)) == a2 && (v10 = *(a1[5] + 8), v3 < (*(a1[5] + 16) - v10) >> 3) && (v11 = *(v10 + 8 * v3)) != 0 && *(v11 + 4 * (a3 & 0x3F)) == a2 && (v12 = *(a1[6] + 8), v3 < (*(a1[6] + 16) - v12) >> 3) && (v13 = *(v12 + 8 * v3)) != 0 && *(v13 + 4 * (a3 & 0x3F)) == a2 && (v14 = *(a1[20] + 8), v3 < (*(a1[20] + 16) - v14) >> 3) && (v15 = *(v14 + 8 * v3)) != 0)
-  {
-    return *(v15 + 4 * (a3 & 0x3F)) == a2;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls14RenderableHashEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RenderableHash>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RenderableHash>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RenderableHash>();
-    unk_1EB83D7E0 = 0x763953A644184BA9;
-    qword_1EB83D7E8 = "md::ls::RenderableHash]";
-    qword_1EB83D7F0 = 22;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A505D0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A505F0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A505D0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RenderableHash,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls26SupportsSteepnessDarkeningEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SupportsSteepnessDarkening>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SupportsSteepnessDarkening>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::SupportsSteepnessDarkening>(v3);
-  v6 = v5[1];
-  if (v2 >> 22 < (v5[2] - v6) >> 3)
-  {
-    v7 = *(v6 + 8 * (v2 >> 22));
-    if (v7)
-    {
-      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
-      {
-        v8 = v5;
-        v9 = v5[25];
-        v10 = v5[26];
-        while (v9 != v10)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
-          v9 += 32;
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SupportsSteepnessDarkening>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SupportsSteepnessDarkening>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SupportsSteepnessDarkening,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A4FD10;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SupportsSteepnessDarkening,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A4FD10;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls10IsMaterialEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsMaterial>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsMaterial>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::IsMaterial>();
-    *algn_1EB83DC78 = 0x3E8485C60908F920;
-    qword_1EB83DC80 = "md::ls::IsMaterial]";
-    qword_1EB83DC88 = 18;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51800;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A51820;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51800;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::IsMaterial,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls8IsOpaqueEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsOpaque>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsOpaque>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::IsOpaque>(v3);
-  v6 = v5[1];
-  if (v2 >> 22 < (v5[2] - v6) >> 3)
-  {
-    v7 = *(v6 + 8 * (v2 >> 22));
-    if (v7)
-    {
-      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
-      {
-        v8 = v5;
-        v9 = v5[25];
-        v10 = v5[26];
-        while (v9 != v10)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
-          v9 += 32;
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsOpaque>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::IsOpaque>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsOpaque,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A513A0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::IsOpaque,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A513A0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls26HasStyleAttributeRasterSetEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>(void)::metadata;
-  HasStyleAttributeRaster = ecs2::BasicRegistry<void>::storage<md::ls::HasStyleAttributeRasterSet>(v3);
-  v6 = v2 >> 22;
-  v7 = HasStyleAttributeRaster[1];
-  if (v2 >> 22 < (HasStyleAttributeRaster[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = HasStyleAttributeRaster;
-        v11 = HasStyleAttributeRaster[31];
-        v12 = HasStyleAttributeRaster[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::HasStyleAttributeRasterSet>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::HasStyleAttributeRasterSet>();
-    unk_1EB83C690 = 0x985FB09D9DF9959FLL;
-    qword_1EB83C698 = "md::ls::HasStyleAttributeRasterSet]";
-    qword_1EB83C6A0 = 34;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A52750;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A52770;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A52750;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::HasStyleAttributeRasterSet,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls31RasterOverlayConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::RasterOverlayConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v10[7];
-        v16 = *(v15 + ((v13 >> 3) & 0x1FF8)) + 40 * (v13 & 0x3F);
-        v17 = *v16;
-        v18 = *(v16 + 16);
-        v19 = *(v15 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) + 40 * (v14 & 0x3F);
-        v20 = *(v16 + 32);
-        v21 = *(v19 + 32);
-        v22 = *(v19 + 16);
-        *v16 = *v19;
-        *(v16 + 16) = v22;
-        *(v16 + 32) = v21;
-        *(v19 + 32) = v20;
-        *v19 = v17;
-        *(v19 + 16) = v18;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RasterOverlayConstantDataHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::RasterOverlayConstantDataHandle>();
-    *algn_1EB83BBB8 = 0xDC66BF6D06F6D0BALL;
-    qword_1EB83BBC0 = "md::ls::RasterOverlayConstantDataHandle]";
-    qword_1EB83BBC8 = 39;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A52000;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A52020;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A52000;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::RasterOverlayConstantDataHandle,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls29BlendRasterConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::BlendRasterConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::BlendRasterConstantDataHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::BlendRasterConstantDataHandle>();
-    unk_1EB83BDF0 = 0xDF0018B9242ADFDBLL;
-    qword_1EB83BDF8 = "md::ls::BlendRasterConstantDataHandle]";
-    qword_1EB83BE00 = 37;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51F30;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A51F50;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51F30;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::BlendRasterConstantDataHandle,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20TextureHandleForTypeIN7DaVinci14OverlayTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::OverlayTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 16 * v18);
-        *(v19 + 16 * v18) = *(v17 + 16 * v15);
-        *(v17 + 16 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::OverlayTexture>>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TextureHandleForType<DaVinci::OverlayTexture>>();
-    *algn_1EB83CE38 = 0xD2D99CA7D5B116C8;
-    qword_1EB83CE40 = "md::ls::TextureHandleForType<DaVinci::OverlayTexture>]";
-    qword_1EB83CE48 = 53;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51E60;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A51E80;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51E60;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::OverlayTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls35LandCoverSettingsConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::LandCoverSettingsConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::LandCoverSettingsConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::LandCoverSettingsConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::LandCoverSettingsConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::LandCoverSettingsConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A5BE78;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A5BE98;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A5BE78;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::LandCoverSettingsConstantDataHandle,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESF_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISN_EEFvSM_EEclEOSM_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 16 * v18);
-        *(v19 + 16 * v18) = *(v17 + 16 * v15);
-        *(v17 + 16 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::TextureHandleForType<DaVinci::DiffuseTexture>>();
-    *algn_1EB83CE58 = 0xDD9825BCFA7911B2;
-    qword_1EB83CE60 = "md::ls::TextureHandleForType<DaVinci::DiffuseTexture>]";
-    qword_1EB83CE68 = 53;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51980;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A519A0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A51980;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::TextureHandleForType<DaVinci::DiffuseTexture>,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls29StyleCameraConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleCameraConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleCameraConstantDataHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::StyleCameraConstantDataHandle>();
-    *algn_1EB83BD78 = 0x96F87A2692FE4013;
-    qword_1EB83BD80 = "md::ls::StyleCameraConstantDataHandle]";
-    qword_1EB83BD88 = 37;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50D20;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A50D40;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50D20;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::StyleCameraConstantDataHandle,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls22StyleSSAODataKeyHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleSSAODataKeyHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleSSAODataKeyHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleSSAODataKeyHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleSSAODataKeyHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleSSAODataKeyHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50B80;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A50BA0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50B80;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::StyleSSAODataKeyHandle,64ul>::~storage(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls18StyleDataKeyHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::StyleDataKeyHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::StyleDataKeyHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::StyleDataKeyHandle>();
-    unk_1EB83D110 = 0x1BB343378E1EE5BLL;
-    qword_1EB83D118 = "md::ls::StyleDataKeyHandle]";
-    qword_1EB83D120 = 26;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50AB0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A50AD0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A50AB0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::StyleDataKeyHandle,64ul>::~storage(a1);
-}
-
-__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::CreateUnflattenedRenderItems>,std::allocator<ecs2::ForwardToExecute<md::ita::CreateUnflattenedRenderItems>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F29F8C80;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-BOOL ecs2::ViewIterator<void,std::tuple<md::ls::SliceAssignmentT<(md::SliceType)5> const&,md::ls::RenderableMeshVertexFormat const&,md::ls::TileType const&,md::ls::PendingProcessingDepthPrePass const&,md::ls::AssociationHandle *,md::ls::HasMeshHandle const*,md::ls::PositionScaleInfoConstantDataHandle const*,md::ls::ViewConstantDataHandle const*,md::ls::TransformConstantDataHandle const*,md::ls::IndexRange const*,md::ls::NormalsHandle const*,md::ls::InstanceTransformHandle const*,md::ls::UVsHandle const*,md::ls::NeedsZBias const*,md::ls::ElevationHandle const*,md::ls::PrepassShadowConstantDataHandle const&,md::ls::PrepassConstantDataHandle const&,md::ls::PreserveHeight const*,md::ls::ClippingConstantDataHandle const*,md::ls::IsMercator const*,md::ls::InstanceCount const*>,std::tuple<>>::containsAll<md::ls::SliceAssignmentT<(md::SliceType)5> const,md::ls::RenderableMeshVertexFormat const,md::ls::TileType const,md::ls::PendingProcessingDepthPrePass const,md::ls::PrepassShadowConstantDataHandle const,md::ls::PrepassConstantDataHandle const>(void *a1, unsigned __int16 a2, unsigned __int16 a3)
-{
-  v3 = a3 >> 6;
-  v4 = *(a1[2] + 8);
-  if (v3 < (*(a1[2] + 16) - v4) >> 3 && (v5 = *(v4 + 8 * v3)) != 0 && *(v5 + 4 * (a3 & 0x3F)) == a2 && (v6 = *(a1[3] + 8), v3 < (*(a1[3] + 16) - v6) >> 3) && (v7 = *(v6 + 8 * v3)) != 0 && *(v7 + 4 * (a3 & 0x3F)) == a2 && (v8 = *(a1[4] + 8), v3 < (*(a1[4] + 16) - v8) >> 3) && (v9 = *(v8 + 8 * v3)) != 0 && *(v9 + 4 * (a3 & 0x3F)) == a2 && (v10 = *(a1[5] + 8), v3 < (*(a1[5] + 16) - v10) >> 3) && (v11 = *(v10 + 8 * v3)) != 0 && *(v11 + 4 * (a3 & 0x3F)) == a2 && (v12 = *(a1[17] + 8), v3 < (*(a1[17] + 16) - v12) >> 3) && (v13 = *(v12 + 8 * v3)) != 0 && *(v13 + 4 * (a3 & 0x3F)) == a2 && (v14 = *(a1[18] + 8), v3 < (*(a1[18] + 16) - v14) >> 3) && (v15 = *(v14 + 8 * v3)) != 0)
-  {
-    return *(v15 + 4 * (a3 & 0x3F)) == a2;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls31PrepassShadowConstantDataHandleEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESC_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISK_EEFvSJ_EEclEOSJ_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PrepassShadowConstantDataHandle>(v3);
-  v6 = v2 >> 22;
-  v7 = v5[1];
-  if (v2 >> 22 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      v9 = (v2 >> 16) & 0x3F;
-      if (*(v8 + 4 * v9) == v2)
-      {
-        v10 = v5;
-        v11 = v5[31];
-        v12 = v5[32];
-        if (v11 != v12)
-        {
-          do
-          {
-            std::function<void ()(ecs2::Entity)>::operator()(*(v11 + 24), v2);
-            v11 += 32;
-          }
-
-          while (v11 != v12);
-          v8 = *(v10[1] + 8 * v6);
-        }
-
-        v13 = *(v8 + 4 * v9 + 2);
-        v14 = ((v10[5] - v10[4]) >> 2) - 1;
-        v15 = v14 & 0x3F;
-        v16 = v10[7];
-        v17 = *(v16 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8));
-        v18 = v13 & 0x3F;
-        v19 = *(v16 + ((v13 >> 3) & 0x1FF8));
-        v20 = *(v19 + 8 * v18);
-        *(v19 + 8 * v18) = *(v17 + 8 * v15);
-        *(v17 + 8 * v15) = v20;
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v10, v2, WORD1(v2));
-      }
-    }
-  }
-
-  *(*(v3 + 41016) + (v2 >> 16 << 6) + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PrepassShadowConstantDataHandle>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PrepassShadowConstantDataHandle>();
-    *algn_1EB83BBD8 = 0x70E01531993BB945;
-    qword_1EB83BBE0 = "md::ls::PrepassShadowConstantDataHandle]";
-    qword_1EB83BBE8 = 39;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A530D0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-  ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>::~storage(void *a1)
-{
-  *a1 = &unk_1F2A530F0;
-    ;
-  }
-
-  v3 = a1[7];
-  v4 = a1[8];
-  while (v3 != v4)
-  {
-    if (*v3)
-    {
-      operator delete(*v3);
-    }
-
-    ++v3;
-  }
-
-  v5 = a1[10];
-  if (v5)
-  {
-    a1[11] = v5;
-    operator delete(v5);
-  }
-
-  v6 = a1[7];
-  if (v6)
-  {
-    a1[8] = v6;
-    operator delete(v6);
-  }
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>::~storage(void *a1)
-{
-  ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>::~storage(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A530D0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 13));
-
-  return ecs2::storage<ecs2::Entity,md::ls::PrepassShadowConstantDataHandle,64ul>::~storage(a1);
-}
-
-void ecs2::BasicRegistry<void>::remove<md::ls::PendingProcessingDepthPrePass>(uint64_t a1, unint64_t a2)
-{
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PendingProcessingDepthPrePass>(a1);
-  v6 = a2 >> 22;
-  v7 = v5[1];
-  if (v6 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      if (*(v8 + 4 * ((a2 >> 16) & 0x3F)) == a2)
-      {
-        v9 = v5;
-        v10 = v5[25];
-        for (i = v5[26]; v10 != i; v10 += 32)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v10 + 24), a2);
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v9, a2, WORD1(a2));
-      }
-    }
-  }
-
-  v12 = *(a1 + 41016) + (WORD1(a2) << 6);
-  *(v12 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>();
-  *(a1 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>(void)::metadata) = *(a1 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingDepthPrePass>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PendingProcessingDepthPrePass>();
-    unk_1EB83BDA0 = 0xB7D4B4C2109DE954;
-    qword_1EB83BDA8 = "md::ls::PendingProcessingDepthPrePass]";
-    qword_1EB83BDB0 = 37;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingProcessingDepthPrePass,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A41A80;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingProcessingDepthPrePass,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A41A80;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16SliceAssignmentTILNS6_9SliceTypeE5EEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESE_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISM_EEFvSL_EEclEOSL_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)5>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)5>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)5>>(v3);
-  v6 = v5[1];
-  if (v2 >> 22 < (v5[2] - v6) >> 3)
-  {
-    v7 = *(v6 + 8 * (v2 >> 22));
-    if (v7)
-    {
-      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
-      {
-        v8 = v5;
-        v9 = v5[25];
-        v10 = v5[26];
-        while (v9 != v10)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
-          v9 += 32;
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)5>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)5>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SliceAssignmentT<(md::SliceType)5>,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A33AA8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SliceAssignmentT<(md::SliceType)5>,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A33AA8;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::CreateDepthPrePassRenderItems>,std::allocator<ecs2::ForwardToExecute<md::ita::CreateDepthPrePassRenderItems>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F29F8BA8;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void ecs2::BasicRegistry<void>::remove<md::ls::PendingProcessingShadow>(uint64_t a1, unint64_t a2)
-{
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::PendingProcessingShadow>(a1);
-  v6 = a2 >> 22;
-  v7 = v5[1];
-  if (v6 < (v5[2] - v7) >> 3)
-  {
-    v8 = *(v7 + 8 * v6);
-    if (v8)
-    {
-      if (*(v8 + 4 * ((a2 >> 16) & 0x3F)) == a2)
-      {
-        v9 = v5;
-        v10 = v5[25];
-        for (i = v5[26]; v10 != i; v10 += 32)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v10 + 24), a2);
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v9, a2, WORD1(a2));
-      }
-    }
-  }
-
-  v12 = *(a1 + 41016) + (WORD1(a2) << 6);
-  *(v12 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>();
-  *(a1 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>(void)::metadata) = *(a1 + 4096);
-}
-
-void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>()
-{
-  {
-    ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PendingProcessingShadow>(void)::metadata = gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls::PendingProcessingShadow>();
-    *algn_1EB83CA08 = 0xEC85A518158AB507;
-    qword_1EB83CA10 = "md::ls::PendingProcessingShadow]";
-    qword_1EB83CA18 = 31;
-  }
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingProcessingShadow,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A41A18;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::PendingProcessingShadow,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A41A18;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls16SliceAssignmentTILNS6_9SliceTypeE4EEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESE_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISM_EEFvSL_EEclEOSL_(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = *(a1 + 8);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)4>>();
-  v4 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)4>>(void)::metadata;
-  v5 = ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)4>>(v3);
-  v6 = v5[1];
-  if (v2 >> 22 < (v5[2] - v6) >> 3)
-  {
-    v7 = *(v6 + 8 * (v2 >> 22));
-    if (v7)
-    {
-      if (*(v7 + 4 * ((v2 >> 16) & 0x3F)) == v2)
-      {
-        v8 = v5;
-        v9 = v5[25];
-        v10 = v5[26];
-        while (v9 != v10)
-        {
-          std::function<void ()(ecs2::Entity)>::operator()(*(v9 + 24), v2);
-          v9 += 32;
-        }
-
-        ecs2::sparse_set<ecs2::Entity,64ul>::erase(v8, v2, WORD1(v2));
-      }
-    }
-  }
-
-  v11 = *(v3 + 41016) + (v2 >> 16 << 6);
-  *(v11 + ((v4 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v4);
-  ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)4>>();
-  *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignmentT<(md::SliceType)4>>(void)::metadata) = *(v3 + 4096);
-}
-
-void ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SliceAssignmentT<(md::SliceType)4>,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A339B0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-  ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-
-  JUMPOUT(0x1B8C62190);
-}
-
-void *ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::SliceAssignmentT<(md::SliceType)4>,0ul>>::~signal_mixin(void *a1)
-{
-  *a1 = &unk_1F2A339B0;
-  ecs2::signal_mixin<ecs2::storage<ecs2::Entity,md::ls::BaseMapTileHandle,64ul>>::{unnamed type#1}::~signal_mixin((a1 + 7));
-
-  return ecs2::sparse_set<ecs2::Entity,64ul>::~sparse_set(a1);
-}
-
-__n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::CreateShadowPassRenderItems>,std::allocator<ecs2::ForwardToExecute<md::ita::CreateShadowPassRenderItems>>,void ()(ecs2::Runtime &)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F29F8AD0;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-void _ZZN3gdc16forEachInnerTypeINSt3__15tupleIJN2md2ls16MeshRenderableIDENS4_16SliceAssignmentTILNS3_9SliceTypeE7EEENS4_26RenderableMeshVertexFormatENS4_8TileTypeENS4_17PendingProcessingENS4_14MeshLayerTypeVENS4_18IntendedSceneLayerENS4_13HasMeshHandleENS4_35PositionScaleInfoConstantDataHandleENS4_22ViewConstantDataHandleENS4_27TransformConstantDataHandleENS4_18StyleDataKeyHandleENS4_22StyleSSAODataKeyHandleENS4_26StyleEmissiveDataKeyHandleENS4_28ColorCorrectionDataKeyHandleENS4_29StyleCameraConstantDataHandleENS4_15ColorDataHandleENS4_10IndexRangeENS4_38StyleGroundOcclusionConstantDataHandleENS4_26SharedMaterialZIndexHandleENS4_13NormalsHandleENS4_23InstanceTransformHandleENS4_9UVsHandleENS4_31StyleRouteLineMaskDataKeyHandleENS4_15ElevationHandleENS4_20TextureHandleForTypeIN7DaVinci14DiffuseTextureEEENS4_35LandCoverSettingsConstantDataHandleENS4_24ShadowConstantDataHandleENS4_25PrepassConstantDataHandleENS4_26ClippingConstantDataHandleENS4_30PlanarParametersCacheKeyHandleENSW_INSX_10TexTextureEEENSW_INSX_15EmissiveTextureEEENSW_INSX_14OverlayTextureEEENS4_29BlendRasterConstantDataHandleENS4_31RasterOverlayConstantDataHandleENS4_40FlyoverCommonTransformConstantDataHandleENS4_30FlyoverCommonS2TransformHandleENS4_28FlyoverCommonTexcoordsHandleENS4_27FlyoverCommonMaterialHandleENS4_29FlyoverClipConstantDataHandleENSW_IN7Flyover14DiffuseTextureEEENSW_INS1I_12NightTextureEEENS4_26HasStyleAttributeRasterSetENS4_17HasMaterialRasterENS4_16NeedsClimateTintENS4_17CustomRenderStateENS4_19ColorRampDataHandleENS4_14SharedUniqueIDENS4_8IsOpaqueENS4_13IsTransparentENS4_10NeedsZBiasENS4_14PreserveHeightENS4_13InstanceCountENS4_7IsDecalENS4_10IsMaterialENS4_9TriPlanarENS4_10IsMercatorENS4_23SupportsStylizedShadingENS4_26SupportsSteepnessDarkeningENS4_15FlyoverInstanceENS4_12CustomZIndexENS4_14RenderableHashENS4_21PredefinedRenderStateEEEEZNS_18typelist_as_vectorIS28_EENS1_6vectorINS_8TypeInfoENS1_9allocatorIS2B_EEEEvEUlTyvE_EEvOT0_ENKUlTpTnmNS1_16integer_sequenceImJXspT_EEEEE_clIJLm0ELm1ELm2ELm3ELm4ELm5ELm6ELm7ELm8ELm9ELm10ELm11ELm12ELm13ELm14ELm15ELm16ELm17ELm18ELm19ELm20ELm21ELm22ELm23ELm24ELm25ELm26ELm27ELm28ELm29ELm30ELm31ELm32ELm33ELm34ELm35ELm36ELm37ELm38ELm39ELm40ELm41ELm42ELm43ELm44ELm45ELm46ELm47ELm48ELm49ELm50ELm51ELm52ELm53ELm54ELm55ELm56ELm57ELm58ELm59ELm60ELm61ELm62ELm63EEEEDaS2J_(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 8);
-  v4 = *(*a1 + 16);
-  if (v3 >= v4)
-  {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *v2) >> 3);
-    v7 = v6 + 1;
-    if (v6 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *v2) >> 3);
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x555555555555555)
-    {
-      v9 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v9);
-    }
-
-    v10 = 24 * v6;
-    *v10 = 0x8DCCA4FD35258189;
-    *(v10 + 8) = "md::ls::MeshRenderableID]";
-    *(v10 + 16) = 24;
-    v5 = 24 * v6 + 24;
-    v11 = *(v2 + 8) - *v2;
-    v12 = 24 * v6 - v11;
-    memcpy((v10 - v11), *v2, v11);
-    v13 = *v2;
-    *v2 = v12;
-    *(v2 + 8) = v5;
-    *(v2 + 16) = 0;
-    if (v13)
-    {
-      operator delete(v13);
-    }
-  }
-
-  else
-  {
-    *v3 = 0x8DCCA4FD35258189;
-    v3[1] = "md::ls::MeshRenderableID]";
-    v3[2] = 24;
-    v5 = (v3 + 3);
-  }
-
-  *(v2 + 8) = v5;
-  v14 = *a1;
-  v15 = *(*a1 + 8);
-  v16 = *(*a1 + 16);
-  if (v15 >= v16)
-  {
-    v18 = 0xAAAAAAAAAAAAAAABLL * ((v15 - *v14) >> 3);
-    v19 = v18 + 1;
-    if (v18 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v20 = 0xAAAAAAAAAAAAAAABLL * ((v16 - *v14) >> 3);
-    if (2 * v20 > v19)
-    {
-      v19 = 2 * v20;
-    }
-
-    if (v20 >= 0x555555555555555)
-    {
-      v21 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v21 = v19;
-    }
-
-    if (v21)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v21);
-    }
-
-    v22 = 24 * v18;
-    *v22 = 0xAC1208F38C3ADC06;
-    *(v22 + 8) = "md::ls::SliceAssignmentT<md::SliceType::Main>]";
-    *(v22 + 16) = 45;
-    v17 = 24 * v18 + 24;
-    v23 = *(v14 + 8) - *v14;
-    v24 = 24 * v18 - v23;
-    memcpy((v22 - v23), *v14, v23);
-    v25 = *v14;
-    *v14 = v24;
-    *(v14 + 8) = v17;
-    *(v14 + 16) = 0;
-    if (v25)
-    {
-      operator delete(v25);
-    }
-  }
-
-  else
-  {
-    *v15 = 0xAC1208F38C3ADC06;
-    v15[1] = "md::ls::SliceAssignmentT<md::SliceType::Main>]";
-    v15[2] = 45;
-    v17 = (v15 + 3);
-  }
-
-  *(v14 + 8) = v17;
-  v26 = *a1;
-  v27 = *(*a1 + 8);
-  v28 = *(*a1 + 16);
-  if (v27 >= v28)
-  {
-    v30 = 0xAAAAAAAAAAAAAAABLL * ((v27 - *v26) >> 3);
-    v31 = v30 + 1;
-    if (v30 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v32 = 0xAAAAAAAAAAAAAAABLL * ((v28 - *v26) >> 3);
-    if (2 * v32 > v31)
-    {
-      v31 = 2 * v32;
-    }
-
-    if (v32 >= 0x555555555555555)
-    {
-      v33 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v33 = v31;
-    }
-
-    if (v33)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v33);
-    }
-
-    v34 = 24 * v30;
-    *v34 = 0xE8C803AC798645E1;
-    *(v34 + 8) = "md::ls::RenderableMeshVertexFormat]";
-    *(v34 + 16) = 34;
-    v29 = 24 * v30 + 24;
-    v35 = *(v26 + 8) - *v26;
-    v36 = 24 * v30 - v35;
-    memcpy((v34 - v35), *v26, v35);
-    v37 = *v26;
-    *v26 = v36;
-    *(v26 + 8) = v29;
-    *(v26 + 16) = 0;
-    if (v37)
-    {
-      operator delete(v37);
-    }
-  }
-
-  else
-  {
-    *v27 = 0xE8C803AC798645E1;
-    v27[1] = "md::ls::RenderableMeshVertexFormat]";
-    v27[2] = 34;
-    v29 = (v27 + 3);
-  }
-
-  *(v26 + 8) = v29;
-  v38 = *a1;
-  v39 = *(*a1 + 8);
-  v40 = *(*a1 + 16);
-  if (v39 >= v40)
-  {
-    v42 = 0xAAAAAAAAAAAAAAABLL * ((v39 - *v38) >> 3);
-    v43 = v42 + 1;
-    if (v42 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v44 = 0xAAAAAAAAAAAAAAABLL * ((v40 - *v38) >> 3);
-    if (2 * v44 > v43)
-    {
-      v43 = 2 * v44;
-    }
-
-    if (v44 >= 0x555555555555555)
-    {
-      v45 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v45 = v43;
-    }
-
-    if (v45)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v45);
-    }
-
-    v46 = 24 * v42;
-    *v46 = 0x751B872B282C3971;
-    *(v46 + 8) = "md::ls::TileType]";
-    *(v46 + 16) = 16;
-    v41 = 24 * v42 + 24;
-    v47 = *(v38 + 8) - *v38;
-    v48 = 24 * v42 - v47;
-    memcpy((v46 - v47), *v38, v47);
-    v49 = *v38;
-    *v38 = v48;
-    *(v38 + 8) = v41;
-    *(v38 + 16) = 0;
-    if (v49)
-    {
-      operator delete(v49);
-    }
-  }
-
-  else
-  {
-    *v39 = 0x751B872B282C3971;
-    v39[1] = "md::ls::TileType]";
-    v39[2] = 16;
-    v41 = (v39 + 3);
-  }
-
-  *(v38 + 8) = v41;
-  v50 = *a1;
-  v51 = *(*a1 + 8);
-  v52 = *(*a1 + 16);
-  if (v51 >= v52)
-  {
-    v54 = 0xAAAAAAAAAAAAAAABLL * ((v51 - *v50) >> 3);
-    v55 = v54 + 1;
-    if (v54 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v56 = 0xAAAAAAAAAAAAAAABLL * ((v52 - *v50) >> 3);
-    if (2 * v56 > v55)
-    {
-      v55 = 2 * v56;
-    }
-
-    if (v56 >= 0x555555555555555)
-    {
-      v57 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v57 = v55;
-    }
-
-    if (v57)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v57);
-    }
-
-    v58 = 24 * v54;
-    *v58 = 0x75DBD6381F1903FFLL;
-    *(v58 + 8) = "md::ls::PendingProcessing]";
-    *(v58 + 16) = 25;
-    v53 = 24 * v54 + 24;
-    v59 = *(v50 + 8) - *v50;
-    v60 = 24 * v54 - v59;
-    memcpy((v58 - v59), *v50, v59);
-    v61 = *v50;
-    *v50 = v60;
-    *(v50 + 8) = v53;
-    *(v50 + 16) = 0;
-    if (v61)
-    {
-      operator delete(v61);
-    }
-  }
-
-  else
-  {
-    *v51 = 0x75DBD6381F1903FFLL;
-    v51[1] = "md::ls::PendingProcessing]";
-    v51[2] = 25;
-    v53 = (v51 + 3);
-  }
-
-  *(v50 + 8) = v53;
-  v62 = *a1;
-  v63 = *(*a1 + 8);
-  v64 = *(*a1 + 16);
-  if (v63 >= v64)
-  {
-    v66 = 0xAAAAAAAAAAAAAAABLL * ((v63 - *v62) >> 3);
-    v67 = v66 + 1;
-    if (v66 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v68 = 0xAAAAAAAAAAAAAAABLL * ((v64 - *v62) >> 3);
-    if (2 * v68 > v67)
-    {
-      v67 = 2 * v68;
-    }
-
-    if (v68 >= 0x555555555555555)
-    {
-      v69 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v69 = v67;
-    }
-
-    if (v69)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v69);
-    }
-
-    v70 = 24 * v66;
-    *v70 = 0xECC498AF223943D5;
-    *(v70 + 8) = "md::ls::MeshLayerTypeV]";
-    *(v70 + 16) = 22;
-    v65 = 24 * v66 + 24;
-    v71 = *(v62 + 8) - *v62;
-    v72 = 24 * v66 - v71;
-    memcpy((v70 - v71), *v62, v71);
-    v73 = *v62;
-    *v62 = v72;
-    *(v62 + 8) = v65;
-    *(v62 + 16) = 0;
-    if (v73)
-    {
-      operator delete(v73);
-    }
-  }
-
-  else
-  {
-    *v63 = 0xECC498AF223943D5;
-    v63[1] = "md::ls::MeshLayerTypeV]";
-    v63[2] = 22;
-    v65 = (v63 + 3);
-  }
-
-  *(v62 + 8) = v65;
-  v74 = *a1;
-  v75 = *(*a1 + 8);
-  v76 = *(*a1 + 16);
-  if (v75 >= v76)
-  {
-    v78 = 0xAAAAAAAAAAAAAAABLL * ((v75 - *v74) >> 3);
-    v79 = v78 + 1;
-    if (v78 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v80 = 0xAAAAAAAAAAAAAAABLL * ((v76 - *v74) >> 3);
-    if (2 * v80 > v79)
-    {
-      v79 = 2 * v80;
-    }
-
-    if (v80 >= 0x555555555555555)
-    {
-      v81 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v81 = v79;
-    }
-
-    if (v81)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v81);
-    }
-
-    v82 = 24 * v78;
-    *v82 = 0xEC2A00DC914732D7;
-    *(v82 + 8) = "md::ls::IntendedSceneLayer]";
-    *(v82 + 16) = 26;
-    v77 = 24 * v78 + 24;
-    v83 = *(v74 + 8) - *v74;
-    v84 = 24 * v78 - v83;
-    memcpy((v82 - v83), *v74, v83);
-    v85 = *v74;
-    *v74 = v84;
-    *(v74 + 8) = v77;
-    *(v74 + 16) = 0;
-    if (v85)
-    {
-      operator delete(v85);
-    }
-  }
-
-  else
-  {
-    *v75 = 0xEC2A00DC914732D7;
-    v75[1] = "md::ls::IntendedSceneLayer]";
-    v75[2] = 26;
-    v77 = (v75 + 3);
-  }
-
-  *(v74 + 8) = v77;
-  v86 = *a1;
-  v87 = *(*a1 + 8);
-  v88 = *(*a1 + 16);
-  if (v87 >= v88)
-  {
-    v90 = 0xAAAAAAAAAAAAAAABLL * ((v87 - *v86) >> 3);
-    v91 = v90 + 1;
-    if (v90 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v92 = 0xAAAAAAAAAAAAAAABLL * ((v88 - *v86) >> 3);
-    if (2 * v92 > v91)
-    {
-      v91 = 2 * v92;
-    }
-
-    if (v92 >= 0x555555555555555)
-    {
-      v93 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v93 = v91;
-    }
-
-    if (v93)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v93);
-    }
-
-    v94 = 24 * v90;
-    *v94 = 0xCD844FF303308290;
-    *(v94 + 8) = "md::ls::HasMeshHandle]";
-    *(v94 + 16) = 21;
-    v89 = 24 * v90 + 24;
-    v95 = *(v86 + 8) - *v86;
-    v96 = 24 * v90 - v95;
-    memcpy((v94 - v95), *v86, v95);
-    v97 = *v86;
-    *v86 = v96;
-    *(v86 + 8) = v89;
-    *(v86 + 16) = 0;
-    if (v97)
-    {
-      operator delete(v97);
-    }
-  }
-
-  else
-  {
-    *v87 = 0xCD844FF303308290;
-    v87[1] = "md::ls::HasMeshHandle]";
-    v87[2] = 21;
-    v89 = (v87 + 3);
-  }
-
-  *(v86 + 8) = v89;
-  v98 = *a1;
-  v99 = *(*a1 + 8);
-  v100 = *(*a1 + 16);
-  if (v99 >= v100)
-  {
-    v102 = 0xAAAAAAAAAAAAAAABLL * ((v99 - *v98) >> 3);
-    v103 = v102 + 1;
-    if (v102 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v104 = 0xAAAAAAAAAAAAAAABLL * ((v100 - *v98) >> 3);
-    if (2 * v104 > v103)
-    {
-      v103 = 2 * v104;
-    }
-
-    if (v104 >= 0x555555555555555)
-    {
-      v105 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v105 = v103;
-    }
-
-    if (v105)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v105);
-    }
-
-    v106 = 24 * v102;
-    *v106 = 0x6C7EE74910D42096;
-    *(v106 + 8) = "md::ls::PositionScaleInfoConstantDataHandle]";
-    *(v106 + 16) = 43;
-    v101 = 24 * v102 + 24;
-    v107 = *(v98 + 8) - *v98;
-    v108 = 24 * v102 - v107;
-    memcpy((v106 - v107), *v98, v107);
-    v109 = *v98;
-    *v98 = v108;
-    *(v98 + 8) = v101;
-    *(v98 + 16) = 0;
-    if (v109)
-    {
-      operator delete(v109);
-    }
-  }
-
-  else
-  {
-    *v99 = 0x6C7EE74910D42096;
-    v99[1] = "md::ls::PositionScaleInfoConstantDataHandle]";
-    v99[2] = 43;
-    v101 = (v99 + 3);
-  }
-
-  *(v98 + 8) = v101;
-  v110 = *a1;
-  v111 = *(*a1 + 8);
-  v112 = *(*a1 + 16);
-  if (v111 >= v112)
-  {
-    v114 = 0xAAAAAAAAAAAAAAABLL * ((v111 - *v110) >> 3);
-    v115 = v114 + 1;
-    if (v114 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v116 = 0xAAAAAAAAAAAAAAABLL * ((v112 - *v110) >> 3);
-    if (2 * v116 > v115)
-    {
-      v115 = 2 * v116;
-    }
-
-    if (v116 >= 0x555555555555555)
-    {
-      v117 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v117 = v115;
-    }
-
-    if (v117)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v117);
-    }
-
-    v118 = 24 * v114;
-    *v118 = 0xCFE242268B958ADALL;
-    *(v118 + 8) = "md::ls::ViewConstantDataHandle]";
-    *(v118 + 16) = 30;
-    v113 = 24 * v114 + 24;
-    v119 = *(v110 + 8) - *v110;
-    v120 = 24 * v114 - v119;
-    memcpy((v118 - v119), *v110, v119);
-    v121 = *v110;
-    *v110 = v120;
-    *(v110 + 8) = v113;
-    *(v110 + 16) = 0;
-    if (v121)
-    {
-      operator delete(v121);
-    }
-  }
-
-  else
-  {
-    *v111 = 0xCFE242268B958ADALL;
-    v111[1] = "md::ls::ViewConstantDataHandle]";
-    v111[2] = 30;
-    v113 = (v111 + 3);
-  }
-
-  *(v110 + 8) = v113;
-  v122 = *a1;
-  v123 = *(*a1 + 8);
-  v124 = *(*a1 + 16);
-  if (v123 >= v124)
-  {
-    v126 = 0xAAAAAAAAAAAAAAABLL * ((v123 - *v122) >> 3);
-    v127 = v126 + 1;
-    if (v126 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v128 = 0xAAAAAAAAAAAAAAABLL * ((v124 - *v122) >> 3);
-    if (2 * v128 > v127)
-    {
-      v127 = 2 * v128;
-    }
-
-    if (v128 >= 0x555555555555555)
-    {
-      v129 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v129 = v127;
-    }
-
-    if (v129)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v129);
-    }
-
-    v130 = 24 * v126;
-    *v130 = 0x74DC502726E97929;
-    *(v130 + 8) = "md::ls::TransformConstantDataHandle]";
-    *(v130 + 16) = 35;
-    v125 = 24 * v126 + 24;
-    v131 = *(v122 + 8) - *v122;
-    v132 = 24 * v126 - v131;
-    memcpy((v130 - v131), *v122, v131);
-    v133 = *v122;
-    *v122 = v132;
-    *(v122 + 8) = v125;
-    *(v122 + 16) = 0;
-    if (v133)
-    {
-      operator delete(v133);
-    }
-  }
-
-  else
-  {
-    *v123 = 0x74DC502726E97929;
-    v123[1] = "md::ls::TransformConstantDataHandle]";
-    v123[2] = 35;
-    v125 = (v123 + 3);
-  }
-
-  *(v122 + 8) = v125;
-  v134 = *a1;
-  v135 = *(*a1 + 8);
-  v136 = *(*a1 + 16);
-  if (v135 >= v136)
-  {
-    v138 = 0xAAAAAAAAAAAAAAABLL * ((v135 - *v134) >> 3);
-    v139 = v138 + 1;
-    if (v138 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v140 = 0xAAAAAAAAAAAAAAABLL * ((v136 - *v134) >> 3);
-    if (2 * v140 > v139)
-    {
-      v139 = 2 * v140;
-    }
-
-    if (v140 >= 0x555555555555555)
-    {
-      v141 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v141 = v139;
-    }
-
-    if (v141)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v141);
-    }
-
-    v142 = 24 * v138;
-    *v142 = 0x1BB343378E1EE5BLL;
-    *(v142 + 8) = "md::ls::StyleDataKeyHandle]";
-    *(v142 + 16) = 26;
-    v137 = 24 * v138 + 24;
-    v143 = *(v134 + 8) - *v134;
-    v144 = 24 * v138 - v143;
-    memcpy((v142 - v143), *v134, v143);
-    v145 = *v134;
-    *v134 = v144;
-    *(v134 + 8) = v137;
-    *(v134 + 16) = 0;
-    if (v145)
-    {
-      operator delete(v145);
-    }
-  }
-
-  else
-  {
-    *v135 = 0x1BB343378E1EE5BLL;
-    v135[1] = "md::ls::StyleDataKeyHandle]";
-    v135[2] = 26;
-    v137 = (v135 + 3);
-  }
-
-  *(v134 + 8) = v137;
-  v146 = *a1;
-  v147 = *(*a1 + 8);
-  v148 = *(*a1 + 16);
-  if (v147 >= v148)
-  {
-    v150 = 0xAAAAAAAAAAAAAAABLL * ((v147 - *v146) >> 3);
-    v151 = v150 + 1;
-    if (v150 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v152 = 0xAAAAAAAAAAAAAAABLL * ((v148 - *v146) >> 3);
-    if (2 * v152 > v151)
-    {
-      v151 = 2 * v152;
-    }
-
-    if (v152 >= 0x555555555555555)
-    {
-      v153 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v153 = v151;
-    }
-
-    if (v153)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v153);
-    }
-
-    v154 = 24 * v150;
-    *v154 = 0x3AC919C8A5243F9;
-    *(v154 + 8) = "md::ls::StyleSSAODataKeyHandle]";
-    *(v154 + 16) = 30;
-    v149 = 24 * v150 + 24;
-    v155 = *(v146 + 8) - *v146;
-    v156 = 24 * v150 - v155;
-    memcpy((v154 - v155), *v146, v155);
-    v157 = *v146;
-    *v146 = v156;
-    *(v146 + 8) = v149;
-    *(v146 + 16) = 0;
-    if (v157)
-    {
-      operator delete(v157);
-    }
-  }
-
-  else
-  {
-    *v147 = 0x3AC919C8A5243F9;
-    v147[1] = "md::ls::StyleSSAODataKeyHandle]";
-    v147[2] = 30;
-    v149 = (v147 + 3);
-  }
-
-  *(v146 + 8) = v149;
-  v158 = *a1;
-  v159 = *(*a1 + 8);
-  v160 = *(*a1 + 16);
-  if (v159 >= v160)
-  {
-    v162 = 0xAAAAAAAAAAAAAAABLL * ((v159 - *v158) >> 3);
-    v163 = v162 + 1;
-    if (v162 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v164 = 0xAAAAAAAAAAAAAAABLL * ((v160 - *v158) >> 3);
-    if (2 * v164 > v163)
-    {
-      v163 = 2 * v164;
-    }
-
-    if (v164 >= 0x555555555555555)
-    {
-      v165 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v165 = v163;
-    }
-
-    if (v165)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v165);
-    }
-
-    v166 = 24 * v162;
-    *v166 = 0xA50DD2A5BD75DBD6;
-    *(v166 + 8) = "md::ls::StyleEmissiveDataKeyHandle]";
-    *(v166 + 16) = 34;
-    v161 = 24 * v162 + 24;
-    v167 = *(v158 + 8) - *v158;
-    v168 = 24 * v162 - v167;
-    memcpy((v166 - v167), *v158, v167);
-    v169 = *v158;
-    *v158 = v168;
-    *(v158 + 8) = v161;
-    *(v158 + 16) = 0;
-    if (v169)
-    {
-      operator delete(v169);
-    }
-  }
-
-  else
-  {
-    *v159 = 0xA50DD2A5BD75DBD6;
-    v159[1] = "md::ls::StyleEmissiveDataKeyHandle]";
-    v159[2] = 34;
-    v161 = (v159 + 3);
-  }
-
-  *(v158 + 8) = v161;
-  v170 = *a1;
-  v171 = *(*a1 + 8);
-  v172 = *(*a1 + 16);
-  if (v171 >= v172)
-  {
-    v174 = 0xAAAAAAAAAAAAAAABLL * ((v171 - *v170) >> 3);
-    v175 = v174 + 1;
-    if (v174 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v176 = 0xAAAAAAAAAAAAAAABLL * ((v172 - *v170) >> 3);
-    if (2 * v176 > v175)
-    {
-      v175 = 2 * v176;
-    }
-
-    if (v176 >= 0x555555555555555)
-    {
-      v177 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v177 = v175;
-    }
-
-    if (v177)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v177);
-    }
-
-    v178 = 24 * v174;
-    *v178 = 0xFA89E73840C3EC51;
-    *(v178 + 8) = "md::ls::ColorCorrectionDataKeyHandle]";
-    *(v178 + 16) = 36;
-    v173 = 24 * v174 + 24;
-    v179 = *(v170 + 8) - *v170;
-    v180 = 24 * v174 - v179;
-    memcpy((v178 - v179), *v170, v179);
-    v181 = *v170;
-    *v170 = v180;
-    *(v170 + 8) = v173;
-    *(v170 + 16) = 0;
-    if (v181)
-    {
-      operator delete(v181);
-    }
-  }
-
-  else
-  {
-    *v171 = 0xFA89E73840C3EC51;
-    v171[1] = "md::ls::ColorCorrectionDataKeyHandle]";
-    v171[2] = 36;
-    v173 = (v171 + 3);
-  }
-
-  *(v170 + 8) = v173;
-  v182 = *a1;
-  v183 = *(*a1 + 8);
-  v184 = *(*a1 + 16);
-  if (v183 >= v184)
-  {
-    v186 = 0xAAAAAAAAAAAAAAABLL * ((v183 - *v182) >> 3);
-    v187 = v186 + 1;
-    if (v186 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v188 = 0xAAAAAAAAAAAAAAABLL * ((v184 - *v182) >> 3);
-    if (2 * v188 > v187)
-    {
-      v187 = 2 * v188;
-    }
-
-    if (v188 >= 0x555555555555555)
-    {
-      v189 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v189 = v187;
-    }
-
-    if (v189)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v189);
-    }
-
-    v190 = 24 * v186;
-    *v190 = 0x96F87A2692FE4013;
-    *(v190 + 8) = "md::ls::StyleCameraConstantDataHandle]";
-    *(v190 + 16) = 37;
-    v185 = 24 * v186 + 24;
-    v191 = *(v182 + 8) - *v182;
-    v192 = 24 * v186 - v191;
-    memcpy((v190 - v191), *v182, v191);
-    v193 = *v182;
-    *v182 = v192;
-    *(v182 + 8) = v185;
-    *(v182 + 16) = 0;
-    if (v193)
-    {
-      operator delete(v193);
-    }
-  }
-
-  else
-  {
-    *v183 = 0x96F87A2692FE4013;
-    v183[1] = "md::ls::StyleCameraConstantDataHandle]";
-    v183[2] = 37;
-    v185 = (v183 + 3);
-  }
-
-  *(v182 + 8) = v185;
-  v194 = *a1;
-  v195 = *(*a1 + 8);
-  v196 = *(*a1 + 16);
-  if (v195 >= v196)
-  {
-    v198 = 0xAAAAAAAAAAAAAAABLL * ((v195 - *v194) >> 3);
-    v199 = v198 + 1;
-    if (v198 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v200 = 0xAAAAAAAAAAAAAAABLL * ((v196 - *v194) >> 3);
-    if (2 * v200 > v199)
-    {
-      v199 = 2 * v200;
-    }
-
-    if (v200 >= 0x555555555555555)
-    {
-      v201 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v201 = v199;
-    }
-
-    if (v201)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v201);
-    }
-
-    v202 = 24 * v198;
-    *v202 = 0xA3F884E4E2541296;
-    *(v202 + 8) = "md::ls::ColorDataHandle]";
-    *(v202 + 16) = 23;
-    v197 = 24 * v198 + 24;
-    v203 = *(v194 + 8) - *v194;
-    v204 = 24 * v198 - v203;
-    memcpy((v202 - v203), *v194, v203);
-    v205 = *v194;
-    *v194 = v204;
-    *(v194 + 8) = v197;
-    *(v194 + 16) = 0;
-    if (v205)
-    {
-      operator delete(v205);
-    }
-  }
-
-  else
-  {
-    *v195 = 0xA3F884E4E2541296;
-    v195[1] = "md::ls::ColorDataHandle]";
-    v195[2] = 23;
-    v197 = (v195 + 3);
-  }
-
-  *(v194 + 8) = v197;
-  v206 = *a1;
-  v207 = *(*a1 + 8);
-  v208 = *(*a1 + 16);
-  if (v207 >= v208)
-  {
-    v210 = 0xAAAAAAAAAAAAAAABLL * ((v207 - *v206) >> 3);
-    v211 = v210 + 1;
-    if (v210 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v212 = 0xAAAAAAAAAAAAAAABLL * ((v208 - *v206) >> 3);
-    if (2 * v212 > v211)
-    {
-      v211 = 2 * v212;
-    }
-
-    if (v212 >= 0x555555555555555)
-    {
-      v213 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v213 = v211;
-    }
-
-    if (v213)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v213);
-    }
-
-    v214 = 24 * v210;
-    *v214 = 0x71CBA64B1A9CA230;
-    *(v214 + 8) = "md::ls::IndexRange]";
-    *(v214 + 16) = 18;
-    v209 = 24 * v210 + 24;
-    v215 = *(v206 + 8) - *v206;
-    v216 = 24 * v210 - v215;
-    memcpy((v214 - v215), *v206, v215);
-    v217 = *v206;
-    *v206 = v216;
-    *(v206 + 8) = v209;
-    *(v206 + 16) = 0;
-    if (v217)
-    {
-      operator delete(v217);
-    }
-  }
-
-  else
-  {
-    *v207 = 0x71CBA64B1A9CA230;
-    v207[1] = "md::ls::IndexRange]";
-    v207[2] = 18;
-    v209 = (v207 + 3);
-  }
-
-  *(v206 + 8) = v209;
-  v218 = *a1;
-  v219 = *(*a1 + 8);
-  v220 = *(*a1 + 16);
-  if (v219 >= v220)
-  {
-    v222 = 0xAAAAAAAAAAAAAAABLL * ((v219 - *v218) >> 3);
-    v223 = v222 + 1;
-    if (v222 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v224 = 0xAAAAAAAAAAAAAAABLL * ((v220 - *v218) >> 3);
-    if (2 * v224 > v223)
-    {
-      v223 = 2 * v224;
-    }
-
-    if (v224 >= 0x555555555555555)
-    {
-      v225 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v225 = v223;
-    }
-
-    if (v225)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v225);
-    }
-
-    v226 = 24 * v222;
-    *v226 = 0xD5AD9B8C3FE62EE8;
-    *(v226 + 8) = "md::ls::StyleGroundOcclusionConstantDataHandle]";
-    *(v226 + 16) = 46;
-    v221 = 24 * v222 + 24;
-    v227 = *(v218 + 8) - *v218;
-    v228 = 24 * v222 - v227;
-    memcpy((v226 - v227), *v218, v227);
-    v229 = *v218;
-    *v218 = v228;
-    *(v218 + 8) = v221;
-    *(v218 + 16) = 0;
-    if (v229)
-    {
-      operator delete(v229);
-    }
-  }
-
-  else
-  {
-    *v219 = 0xD5AD9B8C3FE62EE8;
-    v219[1] = "md::ls::StyleGroundOcclusionConstantDataHandle]";
-    v219[2] = 46;
-    v221 = (v219 + 3);
-  }
-
-  *(v218 + 8) = v221;
-  v230 = *a1;
-  v231 = *(*a1 + 8);
-  v232 = *(*a1 + 16);
-  if (v231 >= v232)
-  {
-    v234 = 0xAAAAAAAAAAAAAAABLL * ((v231 - *v230) >> 3);
-    v235 = v234 + 1;
-    if (v234 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v236 = 0xAAAAAAAAAAAAAAABLL * ((v232 - *v230) >> 3);
-    if (2 * v236 > v235)
-    {
-      v235 = 2 * v236;
-    }
-
-    if (v236 >= 0x555555555555555)
-    {
-      v237 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v237 = v235;
-    }
-
-    if (v237)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v237);
-    }
-
-    v238 = 24 * v234;
-    *v238 = 0x9705908F280836EDLL;
-    *(v238 + 8) = "md::ls::SharedMaterialZIndexHandle]";
-    *(v238 + 16) = 34;
-    v233 = 24 * v234 + 24;
-    v239 = *(v230 + 8) - *v230;
-    v240 = 24 * v234 - v239;
-    memcpy((v238 - v239), *v230, v239);
-    v241 = *v230;
-    *v230 = v240;
-    *(v230 + 8) = v233;
-    *(v230 + 16) = 0;
-    if (v241)
-    {
-      operator delete(v241);
-    }
-  }
-
-  else
-  {
-    *v231 = 0x9705908F280836EDLL;
-    v231[1] = "md::ls::SharedMaterialZIndexHandle]";
-    v231[2] = 34;
-    v233 = (v231 + 3);
-  }
-
-  *(v230 + 8) = v233;
-  v242 = *a1;
-  v243 = *(*a1 + 8);
-  v244 = *(*a1 + 16);
-  if (v243 >= v244)
-  {
-    v246 = 0xAAAAAAAAAAAAAAABLL * ((v243 - *v242) >> 3);
-    v247 = v246 + 1;
-    if (v246 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v248 = 0xAAAAAAAAAAAAAAABLL * ((v244 - *v242) >> 3);
-    if (2 * v248 > v247)
-    {
-      v247 = 2 * v248;
-    }
-
-    if (v248 >= 0x555555555555555)
-    {
-      v249 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v249 = v247;
-    }
-
-    if (v249)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v249);
-    }
-
-    v250 = 24 * v246;
-    *v250 = 0x3218EFD67197A145;
-    *(v250 + 8) = "md::ls::NormalsHandle]";
-    *(v250 + 16) = 21;
-    v245 = 24 * v246 + 24;
-    v251 = *(v242 + 8) - *v242;
-    v252 = 24 * v246 - v251;
-    memcpy((v250 - v251), *v242, v251);
-    v253 = *v242;
-    *v242 = v252;
-    *(v242 + 8) = v245;
-    *(v242 + 16) = 0;
-    if (v253)
-    {
-      operator delete(v253);
-    }
-  }
-
-  else
-  {
-    *v243 = 0x3218EFD67197A145;
-    v243[1] = "md::ls::NormalsHandle]";
-    v243[2] = 21;
-    v245 = (v243 + 3);
-  }
-
-  *(v242 + 8) = v245;
-  v254 = *a1;
-  v255 = *(*a1 + 8);
-  v256 = *(*a1 + 16);
-  if (v255 >= v256)
-  {
-    v258 = 0xAAAAAAAAAAAAAAABLL * ((v255 - *v254) >> 3);
-    v259 = v258 + 1;
-    if (v258 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v260 = 0xAAAAAAAAAAAAAAABLL * ((v256 - *v254) >> 3);
-    if (2 * v260 > v259)
-    {
-      v259 = 2 * v260;
-    }
-
-    if (v260 >= 0x555555555555555)
-    {
-      v261 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v261 = v259;
-    }
-
-    if (v261)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v261);
-    }
-
-    v262 = 24 * v258;
-    *v262 = 0xAF179EFD8A4C83D4;
-    *(v262 + 8) = "md::ls::InstanceTransformHandle]";
-    *(v262 + 16) = 31;
-    v257 = 24 * v258 + 24;
-    v263 = *(v254 + 8) - *v254;
-    v264 = 24 * v258 - v263;
-    memcpy((v262 - v263), *v254, v263);
-    v265 = *v254;
-    *v254 = v264;
-    *(v254 + 8) = v257;
-    *(v254 + 16) = 0;
-    if (v265)
-    {
-      operator delete(v265);
-    }
-  }
-
-  else
-  {
-    *v255 = 0xAF179EFD8A4C83D4;
-    v255[1] = "md::ls::InstanceTransformHandle]";
-    v255[2] = 31;
-    v257 = (v255 + 3);
-  }
-
-  *(v254 + 8) = v257;
-  v266 = *a1;
-  v267 = *(*a1 + 8);
-  v268 = *(*a1 + 16);
-  if (v267 >= v268)
-  {
-    v270 = 0xAAAAAAAAAAAAAAABLL * ((v267 - *v266) >> 3);
-    v271 = v270 + 1;
-    if (v270 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v272 = 0xAAAAAAAAAAAAAAABLL * ((v268 - *v266) >> 3);
-    if (2 * v272 > v271)
-    {
-      v271 = 2 * v272;
-    }
-
-    if (v272 >= 0x555555555555555)
-    {
-      v273 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v273 = v271;
-    }
-
-    if (v273)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v273);
-    }
-
-    v274 = 24 * v270;
-    *v274 = 0xCBB77B1CBD05D7C5;
-    *(v274 + 8) = "md::ls::UVsHandle]";
-    *(v274 + 16) = 17;
-    v269 = 24 * v270 + 24;
-    v275 = *(v266 + 8) - *v266;
-    v276 = 24 * v270 - v275;
-    memcpy((v274 - v275), *v266, v275);
-    v277 = *v266;
-    *v266 = v276;
-    *(v266 + 8) = v269;
-    *(v266 + 16) = 0;
-    if (v277)
-    {
-      operator delete(v277);
-    }
-  }
-
-  else
-  {
-    *v267 = 0xCBB77B1CBD05D7C5;
-    v267[1] = "md::ls::UVsHandle]";
-    v267[2] = 17;
-    v269 = (v267 + 3);
-  }
-
-  *(v266 + 8) = v269;
-  v278 = *a1;
-  v279 = *(*a1 + 8);
-  v280 = *(*a1 + 16);
-  if (v279 >= v280)
-  {
-    v282 = 0xAAAAAAAAAAAAAAABLL * ((v279 - *v278) >> 3);
-    v283 = v282 + 1;
-    if (v282 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v284 = 0xAAAAAAAAAAAAAAABLL * ((v280 - *v278) >> 3);
-    if (2 * v284 > v283)
-    {
-      v283 = 2 * v284;
-    }
-
-    if (v284 >= 0x555555555555555)
-    {
-      v285 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v285 = v283;
-    }
-
-    if (v285)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v285);
-    }
-
-    v286 = 24 * v282;
-    *v286 = 0x8E45E81B6E5A8E0ELL;
-    *(v286 + 8) = "md::ls::StyleRouteLineMaskDataKeyHandle]";
-    *(v286 + 16) = 39;
-    v281 = 24 * v282 + 24;
-    v287 = *(v278 + 8) - *v278;
-    v288 = 24 * v282 - v287;
-    memcpy((v286 - v287), *v278, v287);
-    v289 = *v278;
-    *v278 = v288;
-    *(v278 + 8) = v281;
-    *(v278 + 16) = 0;
-    if (v289)
-    {
-      operator delete(v289);
-    }
-  }
-
-  else
-  {
-    *v279 = 0x8E45E81B6E5A8E0ELL;
-    v279[1] = "md::ls::StyleRouteLineMaskDataKeyHandle]";
-    v279[2] = 39;
-    v281 = (v279 + 3);
-  }
-
-  *(v278 + 8) = v281;
-  v290 = *a1;
-  v291 = *(*a1 + 8);
-  v292 = *(*a1 + 16);
-  if (v291 >= v292)
-  {
-    v294 = 0xAAAAAAAAAAAAAAABLL * ((v291 - *v290) >> 3);
-    v295 = v294 + 1;
-    if (v294 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v296 = 0xAAAAAAAAAAAAAAABLL * ((v292 - *v290) >> 3);
-    if (2 * v296 > v295)
-    {
-      v295 = 2 * v296;
-    }
-
-    if (v296 >= 0x555555555555555)
-    {
-      v297 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v297 = v295;
-    }
-
-    if (v297)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v297);
-    }
-
-    v298 = 24 * v294;
-    *v298 = 0xD443D3DCBB78491ALL;
-    *(v298 + 8) = "md::ls::ElevationHandle]";
-    *(v298 + 16) = 23;
-    v293 = 24 * v294 + 24;
-    v299 = *(v290 + 8) - *v290;
-    v300 = 24 * v294 - v299;
-    memcpy((v298 - v299), *v290, v299);
-    v301 = *v290;
-    *v290 = v300;
-    *(v290 + 8) = v293;
-    *(v290 + 16) = 0;
-    if (v301)
-    {
-      operator delete(v301);
-    }
-  }
-
-  else
-  {
-    *v291 = 0xD443D3DCBB78491ALL;
-    v291[1] = "md::ls::ElevationHandle]";
-    v291[2] = 23;
-    v293 = (v291 + 3);
-  }
-
-  *(v290 + 8) = v293;
-  v302 = *a1;
-  v303 = *(*a1 + 8);
-  v304 = *(*a1 + 16);
-  if (v303 >= v304)
-  {
-    v306 = 0xAAAAAAAAAAAAAAABLL * ((v303 - *v302) >> 3);
-    v307 = v306 + 1;
-    if (v306 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v308 = 0xAAAAAAAAAAAAAAABLL * ((v304 - *v302) >> 3);
-    if (2 * v308 > v307)
-    {
-      v307 = 2 * v308;
-    }
-
-    if (v308 >= 0x555555555555555)
-    {
-      v309 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v309 = v307;
-    }
-
-    if (v309)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v309);
-    }
-
-    v310 = 24 * v306;
-    *v310 = 0xDD9825BCFA7911B2;
-    *(v310 + 8) = "md::ls::TextureHandleForType<DaVinci::DiffuseTexture>]";
-    *(v310 + 16) = 53;
-    v305 = 24 * v306 + 24;
-    v311 = *(v302 + 8) - *v302;
-    v312 = 24 * v306 - v311;
-    memcpy((v310 - v311), *v302, v311);
-    v313 = *v302;
-    *v302 = v312;
-    *(v302 + 8) = v305;
-    *(v302 + 16) = 0;
-    if (v313)
-    {
-      operator delete(v313);
-    }
-  }
-
-  else
-  {
-    *v303 = 0xDD9825BCFA7911B2;
-    v303[1] = "md::ls::TextureHandleForType<DaVinci::DiffuseTexture>]";
-    v303[2] = 53;
-    v305 = (v303 + 3);
-  }
-
-  *(v302 + 8) = v305;
-  v314 = *a1;
-  v315 = *(*a1 + 8);
-  v316 = *(*a1 + 16);
-  if (v315 >= v316)
-  {
-    v318 = 0xAAAAAAAAAAAAAAABLL * ((v315 - *v314) >> 3);
-    v319 = v318 + 1;
-    if (v318 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v320 = 0xAAAAAAAAAAAAAAABLL * ((v316 - *v314) >> 3);
-    if (2 * v320 > v319)
-    {
-      v319 = 2 * v320;
-    }
-
-    if (v320 >= 0x555555555555555)
-    {
-      v321 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v321 = v319;
-    }
-
-    if (v321)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v321);
-    }
-
-    v322 = 24 * v318;
-    *v322 = 0xDC98991DB7473274;
-    *(v322 + 8) = "md::ls::LandCoverSettingsConstantDataHandle]";
-    *(v322 + 16) = 43;
-    v317 = 24 * v318 + 24;
-    v323 = *(v314 + 8) - *v314;
-    v324 = 24 * v318 - v323;
-    memcpy((v322 - v323), *v314, v323);
-    v325 = *v314;
-    *v314 = v324;
-    *(v314 + 8) = v317;
-    *(v314 + 16) = 0;
-    if (v325)
-    {
-      operator delete(v325);
-    }
-  }
-
-  else
-  {
-    *v315 = 0xDC98991DB7473274;
-    v315[1] = "md::ls::LandCoverSettingsConstantDataHandle]";
-    v315[2] = 43;
-    v317 = (v315 + 3);
-  }
-
-  *(v314 + 8) = v317;
-  v326 = *a1;
-  v327 = *(*a1 + 8);
-  v328 = *(*a1 + 16);
-  if (v327 >= v328)
-  {
-    v330 = 0xAAAAAAAAAAAAAAABLL * ((v327 - *v326) >> 3);
-    v331 = v330 + 1;
-    if (v330 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v332 = 0xAAAAAAAAAAAAAAABLL * ((v328 - *v326) >> 3);
-    if (2 * v332 > v331)
-    {
-      v331 = 2 * v332;
-    }
-
-    if (v332 >= 0x555555555555555)
-    {
-      v333 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v333 = v331;
-    }
-
-    if (v333)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v333);
-    }
-
-    v334 = 24 * v330;
-    *v334 = 0xEAA0B82FC49F7277;
-    *(v334 + 8) = "md::ls::ShadowConstantDataHandle]";
-    *(v334 + 16) = 32;
-    v329 = 24 * v330 + 24;
-    v335 = *(v326 + 8) - *v326;
-    v336 = 24 * v330 - v335;
-    memcpy((v334 - v335), *v326, v335);
-    v337 = *v326;
-    *v326 = v336;
-    *(v326 + 8) = v329;
-    *(v326 + 16) = 0;
-    if (v337)
-    {
-      operator delete(v337);
-    }
-  }
-
-  else
-  {
-    *v327 = 0xEAA0B82FC49F7277;
-    v327[1] = "md::ls::ShadowConstantDataHandle]";
-    v327[2] = 32;
-    v329 = (v327 + 3);
-  }
-
-  *(v326 + 8) = v329;
-  v338 = *a1;
-  v339 = *(*a1 + 8);
-  v340 = *(*a1 + 16);
-  if (v339 >= v340)
-  {
-    v342 = 0xAAAAAAAAAAAAAAABLL * ((v339 - *v338) >> 3);
-    v343 = v342 + 1;
-    if (v342 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v344 = 0xAAAAAAAAAAAAAAABLL * ((v340 - *v338) >> 3);
-    if (2 * v344 > v343)
-    {
-      v343 = 2 * v344;
-    }
-
-    if (v344 >= 0x555555555555555)
-    {
-      v345 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v345 = v343;
-    }
-
-    if (v345)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v345);
-    }
-
-    v346 = 24 * v342;
-    *v346 = 0x1EBB3E0519E8FF9DLL;
-    *(v346 + 8) = "md::ls::PrepassConstantDataHandle]";
-    *(v346 + 16) = 33;
-    v341 = 24 * v342 + 24;
-    v347 = *(v338 + 8) - *v338;
-    v348 = 24 * v342 - v347;
-    memcpy((v346 - v347), *v338, v347);
-    v349 = *v338;
-    *v338 = v348;
-    *(v338 + 8) = v341;
-    *(v338 + 16) = 0;
-    if (v349)
-    {
-      operator delete(v349);
-    }
-  }
-
-  else
-  {
-    *v339 = 0x1EBB3E0519E8FF9DLL;
-    v339[1] = "md::ls::PrepassConstantDataHandle]";
-    v339[2] = 33;
-    v341 = (v339 + 3);
-  }
-
-  *(v338 + 8) = v341;
-  v350 = *a1;
-  v351 = *(*a1 + 8);
-  v352 = *(*a1 + 16);
-  if (v351 >= v352)
-  {
-    v354 = 0xAAAAAAAAAAAAAAABLL * ((v351 - *v350) >> 3);
-    v355 = v354 + 1;
-    if (v354 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v356 = 0xAAAAAAAAAAAAAAABLL * ((v352 - *v350) >> 3);
-    if (2 * v356 > v355)
-    {
-      v355 = 2 * v356;
-    }
-
-    if (v356 >= 0x555555555555555)
-    {
-      v357 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v357 = v355;
-    }
-
-    if (v357)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v357);
-    }
-
-    v358 = 24 * v354;
-    *v358 = 0x9292F9031FE6DB5;
-    *(v358 + 8) = "md::ls::ClippingConstantDataHandle]";
-    *(v358 + 16) = 34;
-    v353 = 24 * v354 + 24;
-    v359 = *(v350 + 8) - *v350;
-    v360 = 24 * v354 - v359;
-    memcpy((v358 - v359), *v350, v359);
-    v361 = *v350;
-    *v350 = v360;
-    *(v350 + 8) = v353;
-    *(v350 + 16) = 0;
-    if (v361)
-    {
-      operator delete(v361);
-    }
-  }
-
-  else
-  {
-    *v351 = 0x9292F9031FE6DB5;
-    v351[1] = "md::ls::ClippingConstantDataHandle]";
-    v351[2] = 34;
-    v353 = (v351 + 3);
-  }
-
-  *(v350 + 8) = v353;
-  v362 = *a1;
-  v363 = *(*a1 + 8);
-  v364 = *(*a1 + 16);
-  if (v363 >= v364)
-  {
-    v366 = 0xAAAAAAAAAAAAAAABLL * ((v363 - *v362) >> 3);
-    v367 = v366 + 1;
-    if (v366 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v368 = 0xAAAAAAAAAAAAAAABLL * ((v364 - *v362) >> 3);
-    if (2 * v368 > v367)
-    {
-      v367 = 2 * v368;
-    }
-
-    if (v368 >= 0x555555555555555)
-    {
-      v369 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v369 = v367;
-    }
-
-    if (v369)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v369);
-    }
-
-    v370 = 24 * v366;
-    *v370 = 0xD02B5FD100F36AA2;
-    *(v370 + 8) = "md::ls::PlanarParametersCacheKeyHandle]";
-    *(v370 + 16) = 38;
-    v365 = 24 * v366 + 24;
-    v371 = *(v362 + 8) - *v362;
-    v372 = 24 * v366 - v371;
-    memcpy((v370 - v371), *v362, v371);
-    v373 = *v362;
-    *v362 = v372;
-    *(v362 + 8) = v365;
-    *(v362 + 16) = 0;
-    if (v373)
-    {
-      operator delete(v373);
-    }
-  }
-
-  else
-  {
-    *v363 = 0xD02B5FD100F36AA2;
-    v363[1] = "md::ls::PlanarParametersCacheKeyHandle]";
-    v363[2] = 38;
-    v365 = (v363 + 3);
-  }
-
-  *(v362 + 8) = v365;
-  v374 = *a1;
-  v375 = *(*a1 + 8);
-  v376 = *(*a1 + 16);
-  if (v375 >= v376)
-  {
-    v378 = 0xAAAAAAAAAAAAAAABLL * ((v375 - *v374) >> 3);
-    v379 = v378 + 1;
-    if (v378 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v380 = 0xAAAAAAAAAAAAAAABLL * ((v376 - *v374) >> 3);
-    if (2 * v380 > v379)
-    {
-      v379 = 2 * v380;
-    }
-
-    if (v380 >= 0x555555555555555)
-    {
-      v381 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v381 = v379;
-    }
-
-    if (v381)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v381);
-    }
-
-    v382 = 24 * v378;
-    *v382 = 0x1D932F2BF291491;
-    *(v382 + 8) = "md::ls::TextureHandleForType<DaVinci::TexTexture>]";
-    *(v382 + 16) = 49;
-    v377 = 24 * v378 + 24;
-    v383 = *(v374 + 8) - *v374;
-    v384 = 24 * v378 - v383;
-    memcpy((v382 - v383), *v374, v383);
-    v385 = *v374;
-    *v374 = v384;
-    *(v374 + 8) = v377;
-    *(v374 + 16) = 0;
-    if (v385)
-    {
-      operator delete(v385);
-    }
-  }
-
-  else
-  {
-    *v375 = 0x1D932F2BF291491;
-    v375[1] = "md::ls::TextureHandleForType<DaVinci::TexTexture>]";
-    v375[2] = 49;
-    v377 = (v375 + 3);
-  }
-
-  *(v374 + 8) = v377;
-  v386 = *a1;
-  v387 = *(*a1 + 8);
-  v388 = *(*a1 + 16);
-  if (v387 >= v388)
-  {
-    v390 = 0xAAAAAAAAAAAAAAABLL * ((v387 - *v386) >> 3);
-    v391 = v390 + 1;
-    if (v390 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v392 = 0xAAAAAAAAAAAAAAABLL * ((v388 - *v386) >> 3);
-    if (2 * v392 > v391)
-    {
-      v391 = 2 * v392;
-    }
-
-    if (v392 >= 0x555555555555555)
-    {
-      v393 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v393 = v391;
-    }
-
-    if (v393)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v393);
-    }
-
-    v394 = 24 * v390;
-    *v394 = 0xCE03281732FA0019;
-    *(v394 + 8) = "md::ls::TextureHandleForType<DaVinci::EmissiveTexture>]";
-    *(v394 + 16) = 54;
-    v389 = 24 * v390 + 24;
-    v395 = *(v386 + 8) - *v386;
-    v396 = 24 * v390 - v395;
-    memcpy((v394 - v395), *v386, v395);
-    v397 = *v386;
-    *v386 = v396;
-    *(v386 + 8) = v389;
-    *(v386 + 16) = 0;
-    if (v397)
-    {
-      operator delete(v397);
-    }
-  }
-
-  else
-  {
-    *v387 = 0xCE03281732FA0019;
-    v387[1] = "md::ls::TextureHandleForType<DaVinci::EmissiveTexture>]";
-    v387[2] = 54;
-    v389 = (v387 + 3);
-  }
-
-  *(v386 + 8) = v389;
-  v398 = *a1;
-  v399 = *(*a1 + 8);
-  v400 = *(*a1 + 16);
-  if (v399 >= v400)
-  {
-    v402 = 0xAAAAAAAAAAAAAAABLL * ((v399 - *v398) >> 3);
-    v403 = v402 + 1;
-    if (v402 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v404 = 0xAAAAAAAAAAAAAAABLL * ((v400 - *v398) >> 3);
-    if (2 * v404 > v403)
-    {
-      v403 = 2 * v404;
-    }
-
-    if (v404 >= 0x555555555555555)
-    {
-      v405 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v405 = v403;
-    }
-
-    if (v405)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v405);
-    }
-
-    v406 = 24 * v402;
-    *v406 = 0xD2D99CA7D5B116C8;
-    *(v406 + 8) = "md::ls::TextureHandleForType<DaVinci::OverlayTexture>]";
-    *(v406 + 16) = 53;
-    v401 = 24 * v402 + 24;
-    v407 = *(v398 + 8) - *v398;
-    v408 = 24 * v402 - v407;
-    memcpy((v406 - v407), *v398, v407);
-    v409 = *v398;
-    *v398 = v408;
-    *(v398 + 8) = v401;
-    *(v398 + 16) = 0;
-    if (v409)
-    {
-      operator delete(v409);
-    }
-  }
-
-  else
-  {
-    *v399 = 0xD2D99CA7D5B116C8;
-    v399[1] = "md::ls::TextureHandleForType<DaVinci::OverlayTexture>]";
-    v399[2] = 53;
-    v401 = (v399 + 3);
-  }
-
-  *(v398 + 8) = v401;
-  v410 = *a1;
-  v411 = *(*a1 + 8);
-  v412 = *(*a1 + 16);
-  if (v411 >= v412)
-  {
-    v414 = 0xAAAAAAAAAAAAAAABLL * ((v411 - *v410) >> 3);
-    v415 = v414 + 1;
-    if (v414 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v416 = 0xAAAAAAAAAAAAAAABLL * ((v412 - *v410) >> 3);
-    if (2 * v416 > v415)
-    {
-      v415 = 2 * v416;
-    }
-
-    if (v416 >= 0x555555555555555)
-    {
-      v417 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v417 = v415;
-    }
-
-    if (v417)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v417);
-    }
-
-    v418 = 24 * v414;
-    *v418 = 0xDF0018B9242ADFDBLL;
-    *(v418 + 8) = "md::ls::BlendRasterConstantDataHandle]";
-    *(v418 + 16) = 37;
-    v413 = 24 * v414 + 24;
-    v419 = *(v410 + 8) - *v410;
-    v420 = 24 * v414 - v419;
-    memcpy((v418 - v419), *v410, v419);
-    v421 = *v410;
-    *v410 = v420;
-    *(v410 + 8) = v413;
-    *(v410 + 16) = 0;
-    if (v421)
-    {
-      operator delete(v421);
-    }
-  }
-
-  else
-  {
-    *v411 = 0xDF0018B9242ADFDBLL;
-    v411[1] = "md::ls::BlendRasterConstantDataHandle]";
-    v411[2] = 37;
-    v413 = (v411 + 3);
-  }
-
-  *(v410 + 8) = v413;
-  v422 = *a1;
-  v423 = *(*a1 + 8);
-  v424 = *(*a1 + 16);
-  if (v423 >= v424)
-  {
-    v426 = 0xAAAAAAAAAAAAAAABLL * ((v423 - *v422) >> 3);
-    v427 = v426 + 1;
-    if (v426 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v428 = 0xAAAAAAAAAAAAAAABLL * ((v424 - *v422) >> 3);
-    if (2 * v428 > v427)
-    {
-      v427 = 2 * v428;
-    }
-
-    if (v428 >= 0x555555555555555)
-    {
-      v429 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v429 = v427;
-    }
-
-    if (v429)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v429);
-    }
-
-    v430 = 24 * v426;
-    *v430 = 0xDC66BF6D06F6D0BALL;
-    *(v430 + 8) = "md::ls::RasterOverlayConstantDataHandle]";
-    *(v430 + 16) = 39;
-    v425 = 24 * v426 + 24;
-    v431 = *(v422 + 8) - *v422;
-    v432 = 24 * v426 - v431;
-    memcpy((v430 - v431), *v422, v431);
-    v433 = *v422;
-    *v422 = v432;
-    *(v422 + 8) = v425;
-    *(v422 + 16) = 0;
-    if (v433)
-    {
-      operator delete(v433);
-    }
-  }
-
-  else
-  {
-    *v423 = 0xDC66BF6D06F6D0BALL;
-    v423[1] = "md::ls::RasterOverlayConstantDataHandle]";
-    v423[2] = 39;
-    v425 = (v423 + 3);
-  }
-
-  *(v422 + 8) = v425;
-  v434 = *a1;
-  v435 = *(*a1 + 8);
-  v436 = *(*a1 + 16);
-  if (v435 >= v436)
-  {
-    v438 = 0xAAAAAAAAAAAAAAABLL * ((v435 - *v434) >> 3);
-    v439 = v438 + 1;
-    if (v438 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v440 = 0xAAAAAAAAAAAAAAABLL * ((v436 - *v434) >> 3);
-    if (2 * v440 > v439)
-    {
-      v439 = 2 * v440;
-    }
-
-    if (v440 >= 0x555555555555555)
-    {
-      v441 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v441 = v439;
-    }
-
-    if (v441)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v441);
-    }
-
-    v442 = 24 * v438;
-    *v442 = 0x7D9191A7B57B7B35;
-    *(v442 + 8) = "md::ls::FlyoverCommonTransformConstantDataHandle]";
-    *(v442 + 16) = 48;
-    v437 = 24 * v438 + 24;
-    v443 = *(v434 + 8) - *v434;
-    v444 = 24 * v438 - v443;
-    memcpy((v442 - v443), *v434, v443);
-    v445 = *v434;
-    *v434 = v444;
-    *(v434 + 8) = v437;
-    *(v434 + 16) = 0;
-    if (v445)
-    {
-      operator delete(v445);
-    }
-  }
-
-  else
-  {
-    *v435 = 0x7D9191A7B57B7B35;
-    v435[1] = "md::ls::FlyoverCommonTransformConstantDataHandle]";
-    v435[2] = 48;
-    v437 = (v435 + 3);
-  }
-
-  *(v434 + 8) = v437;
-  v446 = *a1;
-  v447 = *(*a1 + 8);
-  v448 = *(*a1 + 16);
-  if (v447 >= v448)
-  {
-    v450 = 0xAAAAAAAAAAAAAAABLL * ((v447 - *v446) >> 3);
-    v451 = v450 + 1;
-    if (v450 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v452 = 0xAAAAAAAAAAAAAAABLL * ((v448 - *v446) >> 3);
-    if (2 * v452 > v451)
-    {
-      v451 = 2 * v452;
-    }
-
-    if (v452 >= 0x555555555555555)
-    {
-      v453 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v453 = v451;
-    }
-
-    if (v453)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v453);
-    }
-
-    v454 = 24 * v450;
-    *v454 = 0x81BF69EEE736436;
-    *(v454 + 8) = "md::ls::FlyoverCommonS2TransformHandle]";
-    *(v454 + 16) = 38;
-    v449 = 24 * v450 + 24;
-    v455 = *(v446 + 8) - *v446;
-    v456 = 24 * v450 - v455;
-    memcpy((v454 - v455), *v446, v455);
-    v457 = *v446;
-    *v446 = v456;
-    *(v446 + 8) = v449;
-    *(v446 + 16) = 0;
-    if (v457)
-    {
-      operator delete(v457);
-    }
-  }
-
-  else
-  {
-    *v447 = 0x81BF69EEE736436;
-    v447[1] = "md::ls::FlyoverCommonS2TransformHandle]";
-    v447[2] = 38;
-    v449 = (v447 + 3);
-  }
-
-  *(v446 + 8) = v449;
-  v458 = *a1;
-  v459 = *(*a1 + 8);
-  v460 = *(*a1 + 16);
-  if (v459 >= v460)
-  {
-    v462 = 0xAAAAAAAAAAAAAAABLL * ((v459 - *v458) >> 3);
-    v463 = v462 + 1;
-    if (v462 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v464 = 0xAAAAAAAAAAAAAAABLL * ((v460 - *v458) >> 3);
-    if (2 * v464 > v463)
-    {
-      v463 = 2 * v464;
-    }
-
-    if (v464 >= 0x555555555555555)
-    {
-      v465 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v465 = v463;
-    }
-
-    if (v465)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v465);
-    }
-
-    v466 = 24 * v462;
-    *v466 = 0x5B12559DCF20DC9ALL;
-    *(v466 + 8) = "md::ls::FlyoverCommonTexcoordsHandle]";
-    *(v466 + 16) = 36;
-    v461 = 24 * v462 + 24;
-    v467 = *(v458 + 8) - *v458;
-    v468 = 24 * v462 - v467;
-    memcpy((v466 - v467), *v458, v467);
-    v469 = *v458;
-    *v458 = v468;
-    *(v458 + 8) = v461;
-    *(v458 + 16) = 0;
-    if (v469)
-    {
-      operator delete(v469);
-    }
-  }
-
-  else
-  {
-    *v459 = 0x5B12559DCF20DC9ALL;
-    v459[1] = "md::ls::FlyoverCommonTexcoordsHandle]";
-    v459[2] = 36;
-    v461 = (v459 + 3);
-  }
-
-  *(v458 + 8) = v461;
-  v470 = *a1;
-  v471 = *(*a1 + 8);
-  v472 = *(*a1 + 16);
-  if (v471 >= v472)
-  {
-    v474 = 0xAAAAAAAAAAAAAAABLL * ((v471 - *v470) >> 3);
-    v475 = v474 + 1;
-    if (v474 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v476 = 0xAAAAAAAAAAAAAAABLL * ((v472 - *v470) >> 3);
-    if (2 * v476 > v475)
-    {
-      v475 = 2 * v476;
-    }
-
-    if (v476 >= 0x555555555555555)
-    {
-      v477 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v477 = v475;
-    }
-
-    if (v477)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v477);
-    }
-
-    v478 = 24 * v474;
-    *v478 = 0xB70B6DE024A5B9DALL;
-    *(v478 + 8) = "md::ls::FlyoverCommonMaterialHandle]";
-    *(v478 + 16) = 35;
-    v473 = 24 * v474 + 24;
-    v479 = *(v470 + 8) - *v470;
-    v480 = 24 * v474 - v479;
-    memcpy((v478 - v479), *v470, v479);
-    v481 = *v470;
-    *v470 = v480;
-    *(v470 + 8) = v473;
-    *(v470 + 16) = 0;
-    if (v481)
-    {
-      operator delete(v481);
-    }
-  }
-
-  else
-  {
-    *v471 = 0xB70B6DE024A5B9DALL;
-    v471[1] = "md::ls::FlyoverCommonMaterialHandle]";
-    v471[2] = 35;
-    v473 = (v471 + 3);
-  }
-
-  *(v470 + 8) = v473;
-  v482 = *a1;
-  v483 = *(*a1 + 8);
-  v484 = *(*a1 + 16);
-  if (v483 >= v484)
-  {
-    v486 = 0xAAAAAAAAAAAAAAABLL * ((v483 - *v482) >> 3);
-    v487 = v486 + 1;
-    if (v486 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v488 = 0xAAAAAAAAAAAAAAABLL * ((v484 - *v482) >> 3);
-    if (2 * v488 > v487)
-    {
-      v487 = 2 * v488;
-    }
-
-    if (v488 >= 0x555555555555555)
-    {
-      v489 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v489 = v487;
-    }
-
-    if (v489)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v489);
-    }
-
-    v490 = 24 * v486;
-    *v490 = 0x5E4DB6CB13CB5848;
-    *(v490 + 8) = "md::ls::FlyoverClipConstantDataHandle]";
-    *(v490 + 16) = 37;
-    v485 = 24 * v486 + 24;
-    v491 = *(v482 + 8) - *v482;
-    v492 = 24 * v486 - v491;
-    memcpy((v490 - v491), *v482, v491);
-    v493 = *v482;
-    *v482 = v492;
-    *(v482 + 8) = v485;
-    *(v482 + 16) = 0;
-    if (v493)
-    {
-      operator delete(v493);
-    }
-  }
-
-  else
-  {
-    *v483 = 0x5E4DB6CB13CB5848;
-    v483[1] = "md::ls::FlyoverClipConstantDataHandle]";
-    v483[2] = 37;
-    v485 = (v483 + 3);
-  }
-
-  *(v482 + 8) = v485;
-  v494 = *a1;
-  v495 = *(*a1 + 8);
-  v496 = *(*a1 + 16);
-  if (v495 >= v496)
-  {
-    v498 = 0xAAAAAAAAAAAAAAABLL * ((v495 - *v494) >> 3);
-    v499 = v498 + 1;
-    if (v498 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v500 = 0xAAAAAAAAAAAAAAABLL * ((v496 - *v494) >> 3);
-    if (2 * v500 > v499)
-    {
-      v499 = 2 * v500;
-    }
-
-    if (v500 >= 0x555555555555555)
-    {
-      v501 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v501 = v499;
-    }
-
-    if (v501)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v501);
-    }
-
-    v502 = 24 * v498;
-    *v502 = 0xBAA35DF429A7267FLL;
-    *(v502 + 8) = "md::ls::TextureHandleForType<Flyover::DiffuseTexture>]";
-    *(v502 + 16) = 53;
-    v497 = 24 * v498 + 24;
-    v503 = *(v494 + 8) - *v494;
-    v504 = 24 * v498 - v503;
-    memcpy((v502 - v503), *v494, v503);
-    v505 = *v494;
-    *v494 = v504;
-    *(v494 + 8) = v497;
-    *(v494 + 16) = 0;
-    if (v505)
-    {
-      operator delete(v505);
-    }
-  }
-
-  else
-  {
-    *v495 = 0xBAA35DF429A7267FLL;
-    v495[1] = "md::ls::TextureHandleForType<Flyover::DiffuseTexture>]";
-    v495[2] = 53;
-    v497 = (v495 + 3);
-  }
-
-  *(v494 + 8) = v497;
-  v506 = *a1;
-  v507 = *(*a1 + 8);
-  v508 = *(*a1 + 16);
-  if (v507 >= v508)
-  {
-    v510 = 0xAAAAAAAAAAAAAAABLL * ((v507 - *v506) >> 3);
-    v511 = v510 + 1;
-    if (v510 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v512 = 0xAAAAAAAAAAAAAAABLL * ((v508 - *v506) >> 3);
-    if (2 * v512 > v511)
-    {
-      v511 = 2 * v512;
-    }
-
-    if (v512 >= 0x555555555555555)
-    {
-      v513 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v513 = v511;
-    }
-
-    if (v513)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v513);
-    }
-
-    v514 = 24 * v510;
-    *v514 = 0xD49B968135FE1A73;
-    *(v514 + 8) = "md::ls::TextureHandleForType<Flyover::NightTexture>]";
-    *(v514 + 16) = 51;
-    v509 = 24 * v510 + 24;
-    v515 = *(v506 + 8) - *v506;
-    v516 = 24 * v510 - v515;
-    memcpy((v514 - v515), *v506, v515);
-    v517 = *v506;
-    *v506 = v516;
-    *(v506 + 8) = v509;
-    *(v506 + 16) = 0;
-    if (v517)
-    {
-      operator delete(v517);
-    }
-  }
-
-  else
-  {
-    *v507 = 0xD49B968135FE1A73;
-    v507[1] = "md::ls::TextureHandleForType<Flyover::NightTexture>]";
-    v507[2] = 51;
-    v509 = (v507 + 3);
-  }
-
-  *(v506 + 8) = v509;
-  v518 = *a1;
-  v519 = *(*a1 + 8);
-  v520 = *(*a1 + 16);
-  if (v519 >= v520)
-  {
-    v522 = 0xAAAAAAAAAAAAAAABLL * ((v519 - *v518) >> 3);
-    v523 = v522 + 1;
-    if (v522 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v524 = 0xAAAAAAAAAAAAAAABLL * ((v520 - *v518) >> 3);
-    if (2 * v524 > v523)
-    {
-      v523 = 2 * v524;
-    }
-
-    if (v524 >= 0x555555555555555)
-    {
-      v525 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v525 = v523;
-    }
-
-    if (v525)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v525);
-    }
-
-    v526 = 24 * v522;
-    *v526 = 0x985FB09D9DF9959FLL;
-    *(v526 + 8) = "md::ls::HasStyleAttributeRasterSet]";
-    *(v526 + 16) = 34;
-    v521 = 24 * v522 + 24;
-    v527 = *(v518 + 8) - *v518;
-    v528 = 24 * v522 - v527;
-    memcpy((v526 - v527), *v518, v527);
-    v529 = *v518;
-    *v518 = v528;
-    *(v518 + 8) = v521;
-    *(v518 + 16) = 0;
-    if (v529)
-    {
-      operator delete(v529);
-    }
-  }
-
-  else
-  {
-    *v519 = 0x985FB09D9DF9959FLL;
-    v519[1] = "md::ls::HasStyleAttributeRasterSet]";
-    v519[2] = 34;
-    v521 = (v519 + 3);
-  }
-
-  *(v518 + 8) = v521;
-  v530 = *a1;
-  v531 = *(*a1 + 8);
-  v532 = *(*a1 + 16);
-  if (v531 >= v532)
-  {
-    v534 = 0xAAAAAAAAAAAAAAABLL * ((v531 - *v530) >> 3);
-    v535 = v534 + 1;
-    if (v534 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v536 = 0xAAAAAAAAAAAAAAABLL * ((v532 - *v530) >> 3);
-    if (2 * v536 > v535)
-    {
-      v535 = 2 * v536;
-    }
-
-    if (v536 >= 0x555555555555555)
-    {
-      v537 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v537 = v535;
-    }
-
-    if (v537)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v537);
-    }
-
-    v538 = 24 * v534;
-    *v538 = 0x9D7520A01DC69D83;
-    *(v538 + 8) = "md::ls::HasMaterialRaster]";
-    *(v538 + 16) = 25;
-    v533 = 24 * v534 + 24;
-    v539 = *(v530 + 8) - *v530;
-    v540 = 24 * v534 - v539;
-    memcpy((v538 - v539), *v530, v539);
-    v541 = *v530;
-    *v530 = v540;
-    *(v530 + 8) = v533;
-    *(v530 + 16) = 0;
-    if (v541)
-    {
-      operator delete(v541);
-    }
-  }
-
-  else
-  {
-    *v531 = 0x9D7520A01DC69D83;
-    v531[1] = "md::ls::HasMaterialRaster]";
-    v531[2] = 25;
-    v533 = (v531 + 3);
-  }
-
-  *(v530 + 8) = v533;
-  v542 = *a1;
-  v543 = *(*a1 + 8);
-  v544 = *(*a1 + 16);
-  if (v543 >= v544)
-  {
-    v546 = 0xAAAAAAAAAAAAAAABLL * ((v543 - *v542) >> 3);
-    v547 = v546 + 1;
-    if (v546 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v548 = 0xAAAAAAAAAAAAAAABLL * ((v544 - *v542) >> 3);
-    if (2 * v548 > v547)
-    {
-      v547 = 2 * v548;
-    }
-
-    if (v548 >= 0x555555555555555)
-    {
-      v549 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v549 = v547;
-    }
-
-    if (v549)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v549);
-    }
-
-    v550 = 24 * v546;
-    *v550 = 0x11BB47B172EB0B40;
-    *(v550 + 8) = "md::ls::NeedsClimateTint]";
-    *(v550 + 16) = 24;
-    v545 = 24 * v546 + 24;
-    v551 = *(v542 + 8) - *v542;
-    v552 = 24 * v546 - v551;
-    memcpy((v550 - v551), *v542, v551);
-    v553 = *v542;
-    *v542 = v552;
-    *(v542 + 8) = v545;
-    *(v542 + 16) = 0;
-    if (v553)
-    {
-      operator delete(v553);
-    }
-  }
-
-  else
-  {
-    *v543 = 0x11BB47B172EB0B40;
-    v543[1] = "md::ls::NeedsClimateTint]";
-    v543[2] = 24;
-    v545 = (v543 + 3);
-  }
-
-  *(v542 + 8) = v545;
-  v554 = *a1;
-  v555 = *(*a1 + 8);
-  v556 = *(*a1 + 16);
-  if (v555 >= v556)
-  {
-    v558 = 0xAAAAAAAAAAAAAAABLL * ((v555 - *v554) >> 3);
-    v559 = v558 + 1;
-    if (v558 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v560 = 0xAAAAAAAAAAAAAAABLL * ((v556 - *v554) >> 3);
-    if (2 * v560 > v559)
-    {
-      v559 = 2 * v560;
-    }
-
-    if (v560 >= 0x555555555555555)
-    {
-      v561 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v561 = v559;
-    }
-
-    if (v561)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v561);
-    }
-
-    v562 = 24 * v558;
-    *v562 = 0xA0C97F52893883B7;
-    *(v562 + 8) = "md::ls::CustomRenderState]";
-    *(v562 + 16) = 25;
-    v557 = 24 * v558 + 24;
-    v563 = *(v554 + 8) - *v554;
-    v564 = 24 * v558 - v563;
-    memcpy((v562 - v563), *v554, v563);
-    v565 = *v554;
-    *v554 = v564;
-    *(v554 + 8) = v557;
-    *(v554 + 16) = 0;
-    if (v565)
-    {
-      operator delete(v565);
-    }
-  }
-
-  else
-  {
-    *v555 = 0xA0C97F52893883B7;
-    v555[1] = "md::ls::CustomRenderState]";
-    v555[2] = 25;
-    v557 = (v555 + 3);
-  }
-
-  *(v554 + 8) = v557;
-  v566 = *a1;
-  v567 = *(*a1 + 8);
-  v568 = *(*a1 + 16);
-  if (v567 >= v568)
-  {
-    v570 = 0xAAAAAAAAAAAAAAABLL * ((v567 - *v566) >> 3);
-    v571 = v570 + 1;
-    if (v570 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v572 = 0xAAAAAAAAAAAAAAABLL * ((v568 - *v566) >> 3);
-    if (2 * v572 > v571)
-    {
-      v571 = 2 * v572;
-    }
-
-    if (v572 >= 0x555555555555555)
-    {
-      v573 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v573 = v571;
-    }
-
-    if (v573)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v573);
-    }
-
-    v574 = 24 * v570;
-    *v574 = 0xE103B5C60804137ELL;
-    *(v574 + 8) = "md::ls::ColorRampDataHandle]";
-    *(v574 + 16) = 27;
-    v569 = 24 * v570 + 24;
-    v575 = *(v566 + 8) - *v566;
-    v576 = 24 * v570 - v575;
-    memcpy((v574 - v575), *v566, v575);
-    v577 = *v566;
-    *v566 = v576;
-    *(v566 + 8) = v569;
-    *(v566 + 16) = 0;
-    if (v577)
-    {
-      operator delete(v577);
-    }
-  }
-
-  else
-  {
-    *v567 = 0xE103B5C60804137ELL;
-    v567[1] = "md::ls::ColorRampDataHandle]";
-    v567[2] = 27;
-    v569 = (v567 + 3);
-  }
-
-  *(v566 + 8) = v569;
-  v578 = *a1;
-  v579 = *(*a1 + 8);
-  v580 = *(*a1 + 16);
-  if (v579 >= v580)
-  {
-    v582 = 0xAAAAAAAAAAAAAAABLL * ((v579 - *v578) >> 3);
-    v583 = v582 + 1;
-    if (v582 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v584 = 0xAAAAAAAAAAAAAAABLL * ((v580 - *v578) >> 3);
-    if (2 * v584 > v583)
-    {
-      v583 = 2 * v584;
-    }
-
-    if (v584 >= 0x555555555555555)
-    {
-      v585 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v585 = v583;
-    }
-
-    if (v585)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v585);
-    }
-
-    v586 = 24 * v582;
-    *v586 = 0x7931433C9A6EB2C6;
-    *(v586 + 8) = "md::ls::SharedUniqueID]";
-    *(v586 + 16) = 22;
-    v581 = 24 * v582 + 24;
-    v587 = *(v578 + 8) - *v578;
-    v588 = 24 * v582 - v587;
-    memcpy((v586 - v587), *v578, v587);
-    v589 = *v578;
-    *v578 = v588;
-    *(v578 + 8) = v581;
-    *(v578 + 16) = 0;
-    if (v589)
-    {
-      operator delete(v589);
-    }
-  }
-
-  else
-  {
-    *v579 = 0x7931433C9A6EB2C6;
-    v579[1] = "md::ls::SharedUniqueID]";
-    v579[2] = 22;
-    v581 = (v579 + 3);
-  }
-
-  *(v578 + 8) = v581;
-  v590 = *a1;
-  v591 = *(*a1 + 8);
-  v592 = *(*a1 + 16);
-  if (v591 >= v592)
-  {
-    v594 = 0xAAAAAAAAAAAAAAABLL * ((v591 - *v590) >> 3);
-    v595 = v594 + 1;
-    if (v594 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v596 = 0xAAAAAAAAAAAAAAABLL * ((v592 - *v590) >> 3);
-    if (2 * v596 > v595)
-    {
-      v595 = 2 * v596;
-    }
-
-    if (v596 >= 0x555555555555555)
-    {
-      v597 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v597 = v595;
-    }
-
-    if (v597)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v597);
-    }
-
-    v598 = 24 * v594;
-    *v598 = 0x7087983DEF28DBFELL;
-    *(v598 + 8) = "md::ls::IsOpaque]";
-    *(v598 + 16) = 16;
-    v593 = 24 * v594 + 24;
-    v599 = *(v590 + 8) - *v590;
-    v600 = 24 * v594 - v599;
-    memcpy((v598 - v599), *v590, v599);
-    v601 = *v590;
-    *v590 = v600;
-    *(v590 + 8) = v593;
-    *(v590 + 16) = 0;
-    if (v601)
-    {
-      operator delete(v601);
-    }
-  }
-
-  else
-  {
-    *v591 = 0x7087983DEF28DBFELL;
-    v591[1] = "md::ls::IsOpaque]";
-    v591[2] = 16;
-    v593 = (v591 + 3);
-  }
-
-  *(v590 + 8) = v593;
-  v602 = *a1;
-  v603 = *(*a1 + 8);
-  v604 = *(*a1 + 16);
-  if (v603 >= v604)
-  {
-    v606 = 0xAAAAAAAAAAAAAAABLL * ((v603 - *v602) >> 3);
-    v607 = v606 + 1;
-    if (v606 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v608 = 0xAAAAAAAAAAAAAAABLL * ((v604 - *v602) >> 3);
-    if (2 * v608 > v607)
-    {
-      v607 = 2 * v608;
-    }
-
-    if (v608 >= 0x555555555555555)
-    {
-      v609 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v609 = v607;
-    }
-
-    if (v609)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v609);
-    }
-
-    v610 = 24 * v606;
-    *v610 = 0x73F0259EC1934FB1;
-    *(v610 + 8) = "md::ls::IsTransparent]";
-    *(v610 + 16) = 21;
-    v605 = 24 * v606 + 24;
-    v611 = *(v602 + 8) - *v602;
-    v612 = 24 * v606 - v611;
-    memcpy((v610 - v611), *v602, v611);
-    v613 = *v602;
-    *v602 = v612;
-    *(v602 + 8) = v605;
-    *(v602 + 16) = 0;
-    if (v613)
-    {
-      operator delete(v613);
-    }
-  }
-
-  else
-  {
-    *v603 = 0x73F0259EC1934FB1;
-    v603[1] = "md::ls::IsTransparent]";
-    v603[2] = 21;
-    v605 = (v603 + 3);
-  }
-
-  *(v602 + 8) = v605;
-  v614 = *a1;
-  v615 = *(*a1 + 8);
-  v616 = *(*a1 + 16);
-  if (v615 >= v616)
-  {
-    v618 = 0xAAAAAAAAAAAAAAABLL * ((v615 - *v614) >> 3);
-    v619 = v618 + 1;
-    if (v618 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v620 = 0xAAAAAAAAAAAAAAABLL * ((v616 - *v614) >> 3);
-    if (2 * v620 > v619)
-    {
-      v619 = 2 * v620;
-    }
-
-    if (v620 >= 0x555555555555555)
-    {
-      v621 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v621 = v619;
-    }
-
-    if (v621)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v621);
-    }
-
-    v622 = 24 * v618;
-    *v622 = 0x499CE17DBD9A1615;
-    *(v622 + 8) = "md::ls::NeedsZBias]";
-    *(v622 + 16) = 18;
-    v617 = 24 * v618 + 24;
-    v623 = *(v614 + 8) - *v614;
-    v624 = 24 * v618 - v623;
-    memcpy((v622 - v623), *v614, v623);
-    v625 = *v614;
-    *v614 = v624;
-    *(v614 + 8) = v617;
-    *(v614 + 16) = 0;
-    if (v625)
-    {
-      operator delete(v625);
-    }
-  }
-
-  else
-  {
-    *v615 = 0x499CE17DBD9A1615;
-    v615[1] = "md::ls::NeedsZBias]";
-    v615[2] = 18;
-    v617 = (v615 + 3);
-  }
-
-  *(v614 + 8) = v617;
-  v626 = *a1;
-  v627 = *(*a1 + 8);
-  v628 = *(*a1 + 16);
-  if (v627 >= v628)
-  {
-    v630 = 0xAAAAAAAAAAAAAAABLL * ((v627 - *v626) >> 3);
-    v631 = v630 + 1;
-    if (v630 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v632 = 0xAAAAAAAAAAAAAAABLL * ((v628 - *v626) >> 3);
-    if (2 * v632 > v631)
-    {
-      v631 = 2 * v632;
-    }
-
-    if (v632 >= 0x555555555555555)
-    {
-      v633 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v633 = v631;
-    }
-
-    if (v633)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v633);
-    }
-
-    v634 = 24 * v630;
-    *v634 = 0x98A9F01DBB8BCCCELL;
-    *(v634 + 8) = "md::ls::PreserveHeight]";
-    *(v634 + 16) = 22;
-    v629 = 24 * v630 + 24;
-    v635 = *(v626 + 8) - *v626;
-    v636 = 24 * v630 - v635;
-    memcpy((v634 - v635), *v626, v635);
-    v637 = *v626;
-    *v626 = v636;
-    *(v626 + 8) = v629;
-    *(v626 + 16) = 0;
-    if (v637)
-    {
-      operator delete(v637);
-    }
-  }
-
-  else
-  {
-    *v627 = 0x98A9F01DBB8BCCCELL;
-    v627[1] = "md::ls::PreserveHeight]";
-    v627[2] = 22;
-    v629 = (v627 + 3);
-  }
-
-  *(v626 + 8) = v629;
-  v638 = *a1;
-  v639 = *(*a1 + 8);
-  v640 = *(*a1 + 16);
-  if (v639 >= v640)
-  {
-    v642 = 0xAAAAAAAAAAAAAAABLL * ((v639 - *v638) >> 3);
-    v643 = v642 + 1;
-    if (v642 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v644 = 0xAAAAAAAAAAAAAAABLL * ((v640 - *v638) >> 3);
-    if (2 * v644 > v643)
-    {
-      v643 = 2 * v644;
-    }
-
-    if (v644 >= 0x555555555555555)
-    {
-      v645 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v645 = v643;
-    }
-
-    if (v645)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v645);
-    }
-
-    v646 = 24 * v642;
-    *v646 = 0xE53EF176130D7769;
-    *(v646 + 8) = "md::ls::InstanceCount]";
-    *(v646 + 16) = 21;
-    v641 = 24 * v642 + 24;
-    v647 = *(v638 + 8) - *v638;
-    v648 = 24 * v642 - v647;
-    memcpy((v646 - v647), *v638, v647);
-    v649 = *v638;
-    *v638 = v648;
-    *(v638 + 8) = v641;
-    *(v638 + 16) = 0;
-    if (v649)
-    {
-      operator delete(v649);
-    }
-  }
-
-  else
-  {
-    *v639 = 0xE53EF176130D7769;
-    v639[1] = "md::ls::InstanceCount]";
-    v639[2] = 21;
-    v641 = (v639 + 3);
-  }
-
-  *(v638 + 8) = v641;
-  v650 = *a1;
-  v651 = *(*a1 + 8);
-  v652 = *(*a1 + 16);
-  if (v651 >= v652)
-  {
-    v654 = 0xAAAAAAAAAAAAAAABLL * ((v651 - *v650) >> 3);
-    v655 = v654 + 1;
-    if (v654 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v656 = 0xAAAAAAAAAAAAAAABLL * ((v652 - *v650) >> 3);
-    if (2 * v656 > v655)
-    {
-      v655 = 2 * v656;
-    }
-
-    if (v656 >= 0x555555555555555)
-    {
-      v657 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v657 = v655;
-    }
-
-    if (v657)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v657);
-    }
-
-    v658 = 24 * v654;
-    *v658 = 0x76B9BA390004E44ELL;
-    *(v658 + 8) = "md::ls::IsDecal]";
-    *(v658 + 16) = 15;
-    v653 = 24 * v654 + 24;
-    v659 = *(v650 + 8) - *v650;
-    v660 = 24 * v654 - v659;
-    memcpy((v658 - v659), *v650, v659);
-    v661 = *v650;
-    *v650 = v660;
-    *(v650 + 8) = v653;
-    *(v650 + 16) = 0;
-    if (v661)
-    {
-      operator delete(v661);
-    }
-  }
-
-  else
-  {
-    *v651 = 0x76B9BA390004E44ELL;
-    v651[1] = "md::ls::IsDecal]";
-    v651[2] = 15;
-    v653 = (v651 + 3);
-  }
-
-  *(v650 + 8) = v653;
-  v662 = *a1;
-  v663 = *(*a1 + 8);
-  v664 = *(*a1 + 16);
-  if (v663 >= v664)
-  {
-    v666 = 0xAAAAAAAAAAAAAAABLL * ((v663 - *v662) >> 3);
-    v667 = v666 + 1;
-    if (v666 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v668 = 0xAAAAAAAAAAAAAAABLL * ((v664 - *v662) >> 3);
-    if (2 * v668 > v667)
-    {
-      v667 = 2 * v668;
-    }
-
-    if (v668 >= 0x555555555555555)
-    {
-      v669 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v669 = v667;
-    }
-
-    if (v669)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v669);
-    }
-
-    v670 = 24 * v666;
-    *v670 = 0x3E8485C60908F920;
-    *(v670 + 8) = "md::ls::IsMaterial]";
-    *(v670 + 16) = 18;
-    v665 = 24 * v666 + 24;
-    v671 = *(v662 + 8) - *v662;
-    v672 = 24 * v666 - v671;
-    memcpy((v670 - v671), *v662, v671);
-    v673 = *v662;
-    *v662 = v672;
-    *(v662 + 8) = v665;
-    *(v662 + 16) = 0;
-    if (v673)
-    {
-      operator delete(v673);
-    }
-  }
-
-  else
-  {
-    *v663 = 0x3E8485C60908F920;
-    v663[1] = "md::ls::IsMaterial]";
-    v663[2] = 18;
-    v665 = (v663 + 3);
-  }
-
-  *(v662 + 8) = v665;
-  v674 = *a1;
-  v675 = *(*a1 + 8);
-  v676 = *(*a1 + 16);
-  if (v675 >= v676)
-  {
-    v678 = 0xAAAAAAAAAAAAAAABLL * ((v675 - *v674) >> 3);
-    v679 = v678 + 1;
-    if (v678 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v680 = 0xAAAAAAAAAAAAAAABLL * ((v676 - *v674) >> 3);
-    if (2 * v680 > v679)
-    {
-      v679 = 2 * v680;
-    }
-
-    if (v680 >= 0x555555555555555)
-    {
-      v681 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v681 = v679;
-    }
-
-    if (v681)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v681);
-    }
-
-    v682 = 24 * v678;
-    *v682 = 0x1223E23132DA4D6ALL;
-    *(v682 + 8) = "md::ls::TriPlanar]";
-    *(v682 + 16) = 17;
-    v677 = 24 * v678 + 24;
-    v683 = *(v674 + 8) - *v674;
-    v684 = 24 * v678 - v683;
-    memcpy((v682 - v683), *v674, v683);
-    v685 = *v674;
-    *v674 = v684;
-    *(v674 + 8) = v677;
-    *(v674 + 16) = 0;
-    if (v685)
-    {
-      operator delete(v685);
-    }
-  }
-
-  else
-  {
-    *v675 = 0x1223E23132DA4D6ALL;
-    v675[1] = "md::ls::TriPlanar]";
-    v675[2] = 17;
-    v677 = (v675 + 3);
-  }
-
-  *(v674 + 8) = v677;
-  v686 = *a1;
-  v687 = *(*a1 + 8);
-  v688 = *(*a1 + 16);
-  if (v687 >= v688)
-  {
-    v690 = 0xAAAAAAAAAAAAAAABLL * ((v687 - *v686) >> 3);
-    v691 = v690 + 1;
-    if (v690 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v692 = 0xAAAAAAAAAAAAAAABLL * ((v688 - *v686) >> 3);
-    if (2 * v692 > v691)
-    {
-      v691 = 2 * v692;
-    }
-
-    if (v692 >= 0x555555555555555)
-    {
-      v693 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v693 = v691;
-    }
-
-    if (v693)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v693);
-    }
-
-    v694 = 24 * v690;
-    *v694 = 0x237F9D3BCC905318;
-    *(v694 + 8) = "md::ls::IsMercator]";
-    *(v694 + 16) = 18;
-    v689 = 24 * v690 + 24;
-    v695 = *(v686 + 8) - *v686;
-    v696 = 24 * v690 - v695;
-    memcpy((v694 - v695), *v686, v695);
-    v697 = *v686;
-    *v686 = v696;
-    *(v686 + 8) = v689;
-    *(v686 + 16) = 0;
-    if (v697)
-    {
-      operator delete(v697);
-    }
-  }
-
-  else
-  {
-    *v687 = 0x237F9D3BCC905318;
-    v687[1] = "md::ls::IsMercator]";
-    v687[2] = 18;
-    v689 = (v687 + 3);
-  }
-
-  *(v686 + 8) = v689;
-  v698 = *a1;
-  v699 = *(*a1 + 8);
-  v700 = *(*a1 + 16);
-  if (v699 >= v700)
-  {
-    v702 = 0xAAAAAAAAAAAAAAABLL * ((v699 - *v698) >> 3);
-    v703 = v702 + 1;
-    if (v702 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v704 = 0xAAAAAAAAAAAAAAABLL * ((v700 - *v698) >> 3);
-    if (2 * v704 > v703)
-    {
-      v703 = 2 * v704;
-    }
-
-    if (v704 >= 0x555555555555555)
-    {
-      v705 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v705 = v703;
-    }
-
-    if (v705)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v705);
-    }
-
-    v706 = 24 * v702;
-    *v706 = 0x6E6C3F5AAEB152E5;
-    *(v706 + 8) = "md::ls::SupportsStylizedShading]";
-    *(v706 + 16) = 31;
-    v701 = 24 * v702 + 24;
-    v707 = *(v698 + 8) - *v698;
-    v708 = 24 * v702 - v707;
-    memcpy((v706 - v707), *v698, v707);
-    v709 = *v698;
-    *v698 = v708;
-    *(v698 + 8) = v701;
-    *(v698 + 16) = 0;
-    if (v709)
-    {
-      operator delete(v709);
-    }
-  }
-
-  else
-  {
-    *v699 = 0x6E6C3F5AAEB152E5;
-    v699[1] = "md::ls::SupportsStylizedShading]";
-    v699[2] = 31;
-    v701 = (v699 + 3);
-  }
-
-  *(v698 + 8) = v701;
-  v710 = *a1;
-  v711 = *(*a1 + 8);
-  v712 = *(*a1 + 16);
-  if (v711 >= v712)
-  {
-    v714 = 0xAAAAAAAAAAAAAAABLL * ((v711 - *v710) >> 3);
-    v715 = v714 + 1;
-    if (v714 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v716 = 0xAAAAAAAAAAAAAAABLL * ((v712 - *v710) >> 3);
-    if (2 * v716 > v715)
-    {
-      v715 = 2 * v716;
-    }
-
-    if (v716 >= 0x555555555555555)
-    {
-      v717 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v717 = v715;
-    }
-
-    if (v717)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v717);
-    }
-
-    v718 = 24 * v714;
-    *v718 = 0xC48764EACEE66A08;
-    *(v718 + 8) = "md::ls::SupportsSteepnessDarkening]";
-    *(v718 + 16) = 34;
-    v713 = 24 * v714 + 24;
-    v719 = *(v710 + 8) - *v710;
-    v720 = 24 * v714 - v719;
-    memcpy((v718 - v719), *v710, v719);
-    v721 = *v710;
-    *v710 = v720;
-    *(v710 + 8) = v713;
-    *(v710 + 16) = 0;
-    if (v721)
-    {
-      operator delete(v721);
-    }
-  }
-
-  else
-  {
-    *v711 = 0xC48764EACEE66A08;
-    v711[1] = "md::ls::SupportsSteepnessDarkening]";
-    v711[2] = 34;
-    v713 = (v711 + 3);
-  }
-
-  *(v710 + 8) = v713;
-  v722 = *a1;
-  v723 = *(*a1 + 8);
-  v724 = *(*a1 + 16);
-  if (v723 >= v724)
-  {
-    v726 = 0xAAAAAAAAAAAAAAABLL * ((v723 - *v722) >> 3);
-    v727 = v726 + 1;
-    if (v726 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v728 = 0xAAAAAAAAAAAAAAABLL * ((v724 - *v722) >> 3);
-    if (2 * v728 > v727)
-    {
-      v727 = 2 * v728;
-    }
-
-    if (v728 >= 0x555555555555555)
-    {
-      v729 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v729 = v727;
-    }
-
-    if (v729)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v729);
-    }
-
-    v730 = 24 * v726;
-    *v730 = 0x69465F3BE0BF85FBLL;
-    *(v730 + 8) = "md::ls::FlyoverInstance]";
-    *(v730 + 16) = 23;
-    v725 = 24 * v726 + 24;
-    v731 = *(v722 + 8) - *v722;
-    v732 = 24 * v726 - v731;
-    memcpy((v730 - v731), *v722, v731);
-    v733 = *v722;
-    *v722 = v732;
-    *(v722 + 8) = v725;
-    *(v722 + 16) = 0;
-    if (v733)
-    {
-      operator delete(v733);
-    }
-  }
-
-  else
-  {
-    *v723 = 0x69465F3BE0BF85FBLL;
-    v723[1] = "md::ls::FlyoverInstance]";
-    v723[2] = 23;
-    v725 = (v723 + 3);
-  }
-
-  *(v722 + 8) = v725;
-  v734 = *a1;
-  v735 = *(*a1 + 8);
-  v736 = *(*a1 + 16);
-  if (v735 >= v736)
-  {
-    v738 = 0xAAAAAAAAAAAAAAABLL * ((v735 - *v734) >> 3);
-    v739 = v738 + 1;
-    if (v738 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v740 = 0xAAAAAAAAAAAAAAABLL * ((v736 - *v734) >> 3);
-    if (2 * v740 > v739)
-    {
-      v739 = 2 * v740;
-    }
-
-    if (v740 >= 0x555555555555555)
-    {
-      v741 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v741 = v739;
-    }
-
-    if (v741)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v741);
-    }
-
-    v742 = 24 * v738;
-    *v742 = 0x3EAAB620EAA88EC8;
-    *(v742 + 8) = "md::ls::CustomZIndex]";
-    *(v742 + 16) = 20;
-    v737 = 24 * v738 + 24;
-    v743 = *(v734 + 8) - *v734;
-    v744 = 24 * v738 - v743;
-    memcpy((v742 - v743), *v734, v743);
-    v745 = *v734;
-    *v734 = v744;
-    *(v734 + 8) = v737;
-    *(v734 + 16) = 0;
-    if (v745)
-    {
-      operator delete(v745);
-    }
-  }
-
-  else
-  {
-    *v735 = 0x3EAAB620EAA88EC8;
-    v735[1] = "md::ls::CustomZIndex]";
-    v735[2] = 20;
-    v737 = (v735 + 3);
-  }
-
-  *(v734 + 8) = v737;
-  v746 = *a1;
-  v747 = *(*a1 + 8);
-  v748 = *(*a1 + 16);
-  if (v747 >= v748)
-  {
-    v750 = 0xAAAAAAAAAAAAAAABLL * ((v747 - *v746) >> 3);
-    v751 = v750 + 1;
-    if (v750 + 1 > 0xAAAAAAAAAAAAAAALL)
-    {
-      goto LABEL_770;
-    }
-
-    v752 = 0xAAAAAAAAAAAAAAABLL * ((v748 - *v746) >> 3);
-    if (2 * v752 > v751)
-    {
-      v751 = 2 * v752;
-    }
-
-    if (v752 >= 0x555555555555555)
-    {
-      v753 = 0xAAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v753 = v751;
-    }
-
-    if (v753)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v753);
-    }
-
-    v754 = 24 * v750;
-    *v754 = 0x763953A644184BA9;
-    *(v754 + 8) = "md::ls::RenderableHash]";
-    *(v754 + 16) = 22;
-    v749 = 24 * v750 + 24;
-    v755 = *(v746 + 8) - *v746;
-    v756 = 24 * v750 - v755;
-    memcpy((v754 - v755), *v746, v755);
-    v757 = *v746;
-    *v746 = v756;
-    *(v746 + 8) = v749;
-    *(v746 + 16) = 0;
-    if (v757)
-    {
-      operator delete(v757);
-    }
-  }
-
-  else
-  {
-    *v747 = 0x763953A644184BA9;
-    v747[1] = "md::ls::RenderableHash]";
-    v747[2] = 22;
-    v749 = (v747 + 3);
-  }
-
-  *(v746 + 8) = v749;
-  v758 = *a1;
-  v759 = *(*a1 + 8);
-  v760 = *(*a1 + 16);
-  if (v759 < v760)
-  {
-    *v759 = 0xCB8AA7FBA6BCD25CLL;
-    v759[1] = "md::ls::PredefinedRenderState]";
-    v759[2] = 29;
-    v761 = (v759 + 3);
-    goto LABEL_769;
-  }
-
-  v762 = 0xAAAAAAAAAAAAAAABLL * ((v759 - *v758) >> 3);
-  v763 = v762 + 1;
-  if (v762 + 1 > 0xAAAAAAAAAAAAAAALL)
-  {
-LABEL_770:
-    std::__throw_bad_array_new_length[abi:nn200100]();
-  }
-
-  v764 = 0xAAAAAAAAAAAAAAABLL * ((v760 - *v758) >> 3);
-  if (2 * v764 > v763)
-  {
-    v763 = 2 * v764;
-  }
-
-  if (v764 >= 0x555555555555555)
-  {
-    v765 = 0xAAAAAAAAAAAAAAALL;
-  }
-
-  else
-  {
-    v765 = v763;
-  }
-
-  if (v765)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(v765);
-  }
-
-  v766 = 24 * v762;
-  *v766 = 0xCB8AA7FBA6BCD25CLL;
-  *(v766 + 8) = "md::ls::PredefinedRenderState]";
-  *(v766 + 16) = 29;
-  v761 = 24 * v762 + 24;
-  v767 = *(v758 + 8) - *v758;
-  v768 = 24 * v762 - v767;
-  memcpy((v766 - v767), *v758, v767);
-  v769 = *v758;
-  *v758 = v768;
-  *(v758 + 8) = v761;
-  *(v758 + 16) = 0;
-  if (v769)
-  {
-    operator delete(v769);
-  }
-
-LABEL_769:
-  *(v758 + 8) = v761;
 }

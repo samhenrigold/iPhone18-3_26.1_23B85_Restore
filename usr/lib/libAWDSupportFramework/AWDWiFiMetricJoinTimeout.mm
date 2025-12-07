@@ -116,74 +116,68 @@
 {
   if (*&self->_has)
   {
-    sequence = self->_sequence;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_joinClassificationInfos.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_joinClassificationInfos.list[v5];
       PBDataWriterWriteUint32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_joinClassificationInfos.count);
+    while (v4 < self->_joinClassificationInfos.count);
   }
 
   if (self->_joinTargetClassificationInfos.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_joinTargetClassificationInfos.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_joinTargetClassificationInfos.count);
+    while (v5 < self->_joinTargetClassificationInfos.count);
   }
 
   if (self->_associationStates.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_associationStates.list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_associationStates.count);
+    while (v6 < self->_associationStates.count);
   }
 
   if (self->_channels.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_channels.list[v11];
       PBDataWriterWriteUint32Field();
-      ++v11;
+      ++v7;
     }
 
-    while (v11 < self->_channels.count);
+    while (v7 < self->_channels.count);
   }
 
   p_totalNumberOfJoinAttempts = &self->_totalNumberOfJoinAttempts;
   if (p_totalNumberOfJoinAttempts->count)
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = p_totalNumberOfJoinAttempts->list[v14];
       PBDataWriterWriteUint32Field();
-      ++v14;
+      ++v9;
     }
 
-    while (v14 < p_totalNumberOfJoinAttempts->count);
+    while (v9 < p_totalNumberOfJoinAttempts->count);
   }
 }
 
@@ -291,7 +285,6 @@
     return 0;
   }
 
-  v5 = *(equal + 132);
   if (*&self->_has)
   {
     if ((*(equal + 132) & 1) == 0 || self->_sequence != *(equal + 32))

@@ -9,8 +9,8 @@
 {
   optionsCopy = options;
   v4 = objc_alloc(objc_opt_class());
-  home = [optionsCopy home];
-  v6 = [v4 initWithHome:home nameType:{objc_msgSend(optionsCopy, "nameType")}];
+  v5 = objc_msgSend_home(optionsCopy);
+  v6 = [v4 initWithHome:v5 nameType:{objc_msgSend(optionsCopy, "nameType")}];
 
   [v6 _copyFromOptions:optionsCopy];
 

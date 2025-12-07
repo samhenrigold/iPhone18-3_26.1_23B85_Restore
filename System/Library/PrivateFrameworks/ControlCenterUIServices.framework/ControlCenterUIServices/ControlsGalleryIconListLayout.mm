@@ -49,19 +49,18 @@
   sharedApplication = [v3 sharedApplication];
   preferredContentSizeCategory = [sharedApplication preferredContentSizeCategory];
 
-  v7 = *MEMORY[0x277D767F8];
   if (sub_2442B4A78())
   {
-    v8 = sub_2442A69B8(sub_2442A59E4, 0);
+    v7 = sub_2442A69B8(sub_2442A59E4, 0);
   }
 
   else
   {
 
-    v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC23ControlCenterUIServices29ControlsGalleryIconListLayout_realIconGridSizeClassSizes);
+    v7 = *(&selfCopy->super.isa + OBJC_IVAR____TtC23ControlCenterUIServices29ControlsGalleryIconListLayout_realIconGridSizeClassSizes);
   }
 
-  return v8;
+  return v7;
 }
 
 - (SBHIconGridSizeClassSet)supportedIconGridSizeClasses

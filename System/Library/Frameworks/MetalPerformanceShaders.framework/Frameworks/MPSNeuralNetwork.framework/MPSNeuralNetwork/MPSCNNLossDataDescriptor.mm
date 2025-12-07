@@ -15,7 +15,7 @@
     {
       v15 = objc_opt_class();
       NSStringFromClass(v15);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0xB9, @"[%@ cnnLossDataDescriptorWithData:layout:size:...] invalid data layout type (%lu)", v16, v17, v18, v19);
     }
 
     return 0;

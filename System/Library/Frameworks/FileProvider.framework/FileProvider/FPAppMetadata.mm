@@ -307,7 +307,7 @@ LABEL_27:
 
 + (id)findBundleIDForCurrentPlatformInSet:(id)set
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   setCopy = set;
   if ([setCopy count])
   {
@@ -320,82 +320,73 @@ LABEL_27:
     {
       v5 = [MEMORY[0x1E695DFA8] set];
       v6 = [MEMORY[0x1E695DFA8] set];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v26 = setCopy;
+      v25 = setCopy;
       v7 = setCopy;
-      v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v28;
+        v10 = *v27;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v28 != v10)
+            if (*v27 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v27 + 1) + 8 * i);
+            v12 = *(*(&v26 + 1) + 8 * i);
             [v12 rangeOfString:@"mobile" options:1];
             v13 = v5;
-            if (v14)
+            if (!v14)
             {
-              goto LABEL_18;
-            }
-
-            [v12 rangeOfString:@"ios" options:1];
-            v13 = v5;
-            if (v15)
-            {
-              goto LABEL_18;
-            }
-
-            [v12 rangeOfString:@"ipad" options:1];
-            v13 = v5;
-            if (v16)
-            {
-              goto LABEL_18;
-            }
-
-            [v12 rangeOfString:@"touch" options:1];
-            v13 = v5;
-            if (v17)
-            {
-              goto LABEL_18;
-            }
-
-            v18 = [v12 containsString:@".iWork."];
-            v13 = v6;
-            if ((v18 & 1) == 0)
-            {
-              v19 = [v12 containsString:@".iMovieApp"];
-              v13 = v6;
-              if ((v19 & 1) == 0)
+              [v12 rangeOfString:@"ios" options:1];
+              v13 = v5;
+              if (!v15)
               {
-                [v12 rangeOfString:@"mac" options:1];
-                v13 = v6;
-                if (!v20)
+                [v12 rangeOfString:@"ipad" options:1];
+                v13 = v5;
+                if (!v16)
                 {
-                  [v12 rangeOfString:@"osx" options:1];
-                  v13 = v6;
-                  if (!v21)
+                  [v12 rangeOfString:@"touch" options:1];
+                  v13 = v5;
+                  if (!v17)
                   {
-                    continue;
+                    v18 = [v12 containsString:@".iWork."];
+                    v13 = v6;
+                    if ((v18 & 1) == 0)
+                    {
+                      v19 = [v12 containsString:@".iMovieApp"];
+                      v13 = v6;
+                      if ((v19 & 1) == 0)
+                      {
+                        [v12 rangeOfString:@"mac" options:1];
+                        v13 = v6;
+                        if (!v20)
+                        {
+                          [v12 rangeOfString:@"osx" options:1];
+                          v13 = v6;
+                          if (!v21)
+                          {
+                            continue;
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
 
-LABEL_18:
             [v13 addObject:v12];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v9);
@@ -423,7 +414,7 @@ LABEL_18:
         anyObject = [v23 anyObject];
       }
 
-      setCopy = v26;
+      setCopy = v25;
     }
   }
 
@@ -431,8 +422,6 @@ LABEL_18:
   {
     anyObject = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return anyObject;
 }
@@ -526,9 +515,11 @@ LABEL_6:
 
 uint64_t __41__FPAppMetadata__isContainerIDPermitted___block_invoke()
 {
-  _isContainerIDPermitted__prohibitedContainerIDs = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.CloudDocs", @"com.apple.Desktop", @"com.apple.Documents", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.CloudDocs", @"com.apple.Desktop", @"com.apple.Documents", 0}];
+  v1 = _isContainerIDPermitted__prohibitedContainerIDs;
+  _isContainerIDPermitted__prohibitedContainerIDs = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_entitledCloudDocsContainerIDForAppProxy:(id)proxy

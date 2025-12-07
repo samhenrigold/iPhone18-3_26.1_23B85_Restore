@@ -88,7 +88,7 @@
   _Block_object_dispose(&v8, 8);
 }
 
-unint64_t __75__NMSAlternatingMediaItemGroupIterator_markAllRemainingContainersAsSkipped__block_invoke(uint64_t a1)
+void *__75__NMSAlternatingMediaItemGroupIterator_markAllRemainingContainersAsSkipped__block_invoke(uint64_t a1)
 {
   for (i = *(a1 + 32); ; i = *(a1 + 32))
   {
@@ -124,30 +124,30 @@ unint64_t __75__NMSAlternatingMediaItemGroupIterator_markAllRemainingContainersA
 
 - (void)_resetMaxItemListSize
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   self->_maxItemListSize = 0;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   remainingItemLists = [(NMSMediaItemGroupIterator *)self remainingItemLists];
-  v4 = [remainingItemLists countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [remainingItemLists countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(remainingItemLists);
         }
 
         maxItemListSize = self->_maxItemListSize;
-        v9 = [*(*(&v12 + 1) + 8 * v7) count];
+        v9 = [*(*(&v11 + 1) + 8 * v7) count];
         if (maxItemListSize <= v9)
         {
           v10 = v9;
@@ -163,13 +163,11 @@ unint64_t __75__NMSAlternatingMediaItemGroupIterator_markAllRemainingContainersA
       }
 
       while (v5 != v7);
-      v5 = [remainingItemLists countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [remainingItemLists countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

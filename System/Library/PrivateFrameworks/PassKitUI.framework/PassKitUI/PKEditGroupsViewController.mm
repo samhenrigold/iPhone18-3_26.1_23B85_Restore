@@ -464,7 +464,7 @@ void *__41__PKEditGroupsViewController_viewDidLoad__block_invoke(void *result, d
   self->_deletingGroup = 0;
 }
 
-uint64_t __70__PKEditGroupsViewController_groupsController_didRemoveGroup_atIndex___block_invoke(uint64_t a1)
+void *__70__PKEditGroupsViewController_groupsController_didRemoveGroup_atIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) performanceTest];
   if (result == 3)
@@ -648,11 +648,11 @@ LABEL_8:
   }
 }
 
-uint64_t __66__PKEditGroupsViewController_configureCell_atIndexPath_withGroup___block_invoke(uint64_t result, uint64_t a2)
+id *__66__PKEditGroupsViewController_configureCell_atIndexPath_withGroup___block_invoke(id *result, uint64_t a2)
 {
-  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+  if ((*(*(result[6] + 1) + 24) & 1) == 0)
   {
-    return [*(result + 32) setImage:a2 forPass:*(result + 40)];
+    return [result[4] setImage:a2 forPass:result[5]];
   }
 
   return result;

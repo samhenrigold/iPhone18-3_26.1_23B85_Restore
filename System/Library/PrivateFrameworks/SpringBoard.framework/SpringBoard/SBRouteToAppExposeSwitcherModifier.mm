@@ -148,7 +148,7 @@ void __79__SBRouteToAppExposeSwitcherModifier_appExposeAccessoryButtonsBundleIde
   return v3;
 }
 
-uint64_t __89__SBRouteToAppExposeSwitcherModifier_appExposeAccessoryButtonsOverrideUserInterfaceStyle__block_invoke(uint64_t a1)
+void *__89__SBRouteToAppExposeSwitcherModifier_appExposeAccessoryButtonsOverrideUserInterfaceStyle__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) appExposeAccessoryButtonsOverrideUserInterfaceStyle];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -174,7 +174,7 @@ uint64_t __89__SBRouteToAppExposeSwitcherModifier_appExposeAccessoryButtonsOverr
   return v3;
 }
 
-uint64_t __53__SBRouteToAppExposeSwitcherModifier_plusButtonStyle__block_invoke(uint64_t a1)
+void *__53__SBRouteToAppExposeSwitcherModifier_plusButtonStyle__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) plusButtonStyle];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -205,7 +205,7 @@ uint64_t __53__SBRouteToAppExposeSwitcherModifier_plusButtonStyle__block_invoke(
   return v9;
 }
 
-uint64_t __77__SBRouteToAppExposeSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__77__SBRouteToAppExposeSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) snapshotScaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -236,7 +236,7 @@ uint64_t __77__SBRouteToAppExposeSwitcherModifier_snapshotScaleForLayoutRole_inA
   return v9;
 }
 
-uint64_t __81__SBRouteToAppExposeSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
+void *__81__SBRouteToAppExposeSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) contentPageViewScaleForAppLayout:*(a1 + 40) withScale:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -300,7 +300,7 @@ void __58__SBRouteToAppExposeSwitcherModifier_scrollViewAttributes__block_invoke
   return result;
 }
 
-uint64_t __70__SBRouteToAppExposeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
+void *__70__SBRouteToAppExposeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) contentOffsetForIndex:a1[6] alignment:a1[7]];
   v3 = *(a1[5] + 8);
@@ -336,7 +336,7 @@ uint64_t __70__SBRouteToAppExposeSwitcherModifier_contentOffsetForIndex_alignmen
   return result;
 }
 
-uint64_t __76__SBRouteToAppExposeSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
+void *__76__SBRouteToAppExposeSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 168) restingOffsetForScrollOffset:*(a1 + 48) velocity:{*(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   v3 = *(*(a1 + 40) + 8);

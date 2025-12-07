@@ -60,8 +60,8 @@ void __25__CPLNetworkWatcher_stop__block_invoke(uint64_t a1)
       v2 = __CPLNetworkOSLogDomain();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Stopping monitoring network path", v11, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Stopping monitoring network path", v10, 2u);
       }
     }
 
@@ -75,13 +75,12 @@ void __25__CPLNetworkWatcher_stop__block_invoke(uint64_t a1)
     v7 = *(v6 + 16);
     *(v6 + 16) = 0;
 
-    v8 = *(*(a1 + 32) + 24);
     network_usage_policy_destroy_client();
     *(*(a1 + 32) + 24) = 0;
     [*(*(a1 + 32) + 32) setDelegate:0];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 32);
-    *(v9 + 32) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 32);
+    *(v8 + 32) = 0;
   }
 }
 
@@ -164,10 +163,10 @@ void __26__CPLNetworkWatcher_start__block_invoke(uint64_t a1)
 {
   if (!*(*(a1 + 32) + 16))
   {
-    v22 = v4;
-    v23 = v3;
-    v24 = v1;
-    v25 = v2;
+    v21 = v4;
+    v22 = v3;
+    v23 = v1;
+    v24 = v2;
     v6 = nw_path_monitor_create();
     objc_storeStrong((*(a1 + 32) + 16), v6);
     v7 = *(a1 + 32);
@@ -178,7 +177,7 @@ void __26__CPLNetworkWatcher_start__block_invoke(uint64_t a1)
     update_handler[3] = &unk_1E861BDC0;
     update_handler[4] = v7;
     v9 = v6;
-    v21 = v9;
+    v20 = v9;
     nw_path_monitor_set_update_handler(v8, update_handler);
     nw_path_monitor_set_queue(*(*(a1 + 32) + 16), *(*(a1 + 32) + 8));
     if ((_CPLSilentLogging & 1) == 0)
@@ -193,17 +192,16 @@ void __26__CPLNetworkWatcher_start__block_invoke(uint64_t a1)
 
     nw_path_monitor_start(*(*(a1 + 32) + 16));
     client = network_usage_policy_create_client();
-    v12 = *(*(a1 + 32) + 8);
-    v17 = MEMORY[0x1E69E9820];
-    v18 = *(a1 + 32);
+    v16 = MEMORY[0x1E69E9820];
+    v17 = *(a1 + 32);
     network_usage_policy_set_changed_handler();
     *(*(a1 + 32) + 24) = client;
-    v13 = [objc_alloc(MEMORY[0x1E698B6B0]) initWithQueue:{*(*(a1 + 32) + 8), v17, 3221225472, __26__CPLNetworkWatcher_start__block_invoke_7, &unk_1E861BD98, v18, client}];
-    [v13 setDelegate:*(a1 + 32)];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 32);
-    *(v14 + 32) = v13;
-    v16 = v13;
+    v12 = [objc_alloc(MEMORY[0x1E698B6B0]) initWithQueue:{*(*(a1 + 32) + 8), v16, 3221225472, __26__CPLNetworkWatcher_start__block_invoke_7, &unk_1E861BD98, v17, client}];
+    [v12 setDelegate:*(a1 + 32)];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 32);
+    *(v13 + 32) = v12;
+    v15 = v12;
 
     [*(*(a1 + 32) + 32) refresh];
     [*(a1 + 32) _updateAirplaneMode];
@@ -224,7 +222,7 @@ void *__26__CPLNetworkWatcher_start__block_invoke_7(uint64_t a1, uint64_t a2)
 
 - (void)_updateAirplaneMode
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   airplaneMode = [(RadiosPreferences *)self->_radiosPreferences airplaneMode];
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -237,9 +235,9 @@ void *__26__CPLNetworkWatcher_start__block_invoke_7(uint64_t a1, uint64_t a2)
         v5 = "in airplane mode";
       }
 
-      v10 = 136315138;
-      v11 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Updated airplane mode: %s", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Updated airplane mode: %s", &v9, 0xCu);
     }
   }
 
@@ -248,7 +246,6 @@ void *__26__CPLNetworkWatcher_start__block_invoke_7(uint64_t a1, uint64_t a2)
   v8 = [(CPLNetworkState *)v6 initWithNetworkPath:networkPath cellularRestricted:[(CPLNetworkState *)self->_networkState isCellularRestricted] inAirplaneMode:airplaneMode];
 
   [(CPLNetworkWatcher *)self _updateNetworkState:v8];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getCellularPolicyWithClient:(network_usage_policy_client_s *)client
@@ -339,7 +336,7 @@ LABEL_3:
 
 - (void)_updateCellularPolicy:(id)policy
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   policyCopy = policy;
   bundle_from_policy = network_usage_policy_get_bundle_from_policy();
   cell_data_allowed_from_policy = network_usage_policy_get_cell_data_allowed_from_policy();
@@ -355,11 +352,11 @@ LABEL_3:
         v8 = "not restricted";
       }
 
-      v13 = 136315394;
-      v14 = bundle_from_policy;
-      v15 = 2080;
-      v16 = v8;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Updated cellular policy for %s: %s", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = bundle_from_policy;
+      v14 = 2080;
+      v15 = v8;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Updated cellular policy for %s: %s", &v12, 0x16u);
     }
   }
 
@@ -368,12 +365,11 @@ LABEL_3:
   v11 = [(CPLNetworkState *)v9 initWithNetworkPath:networkPath cellularRestricted:cell_data_allowed_from_policy ^ 1u inAirplaneMode:[(CPLNetworkState *)self->_networkState isInAirplaneMode]];
 
   [(CPLNetworkWatcher *)self _updateNetworkState:v11];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateNetworkState:(id)state
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v6 = [stateCopy isFunctionallyEqual:self->_networkState];
   objc_storeStrong(&self->_networkState, state);
@@ -385,17 +381,15 @@ LABEL_3:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         networkState = self->_networkState;
-        v11 = 138543362;
-        v12 = networkState;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Network path did change to '%{public}@'", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = networkState;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Network path did change to '%{public}@'", &v10, 0xCu);
       }
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained watcher:self stateDidChangeToNetworkState:self->_networkState];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isRestrictedPath:(id)path policies:(id)policies

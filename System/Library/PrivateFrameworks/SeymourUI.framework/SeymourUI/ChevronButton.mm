@@ -9,13 +9,13 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_20B823318();
+  sub_20B823318(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20B823454();
+  sub_20B823454(selfCopy);
 }
 
 - (void)contentSizeCategoryChanged

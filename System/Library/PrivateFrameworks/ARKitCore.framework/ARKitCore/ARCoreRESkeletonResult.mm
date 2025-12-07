@@ -24,7 +24,7 @@
   {
     v43 = 0uLL;
     v44 = 0;
-    std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v43, transforms, transforms + 64 * ofTransforms, ofTransforms);
+    std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v43, transforms, transforms + 4 * ofTransforms, ofTransforms);
     begin = v15->_modelTransforms.__begin_;
     if (begin)
     {
@@ -39,7 +39,7 @@
     v15->_modelTransforms.__cap_ = v44;
     v43 = 0uLL;
     v44 = 0;
-    std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&v43, t, t + 48 * ofTransforms, ofTransforms);
+    std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&v43, t, t + 3 * ofTransforms, ofTransforms);
     p_localTransformsSRT = &v15->_localTransformsSRT;
     v17 = v15->_localTransformsSRT.__begin_;
     if (v17)
@@ -163,7 +163,7 @@
       bytes = [v11 bytes];
       v25 = 0uLL;
       v26 = 0;
-      std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v25, bytes, bytes + ((v12 >> 6) << 6), (v12 >> 6));
+      std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v25, bytes, &bytes[4 * (v12 >> 6)], (v12 >> 6));
       begin = v5->_modelTransforms.__begin_;
       if (begin)
       {
@@ -186,7 +186,7 @@
       bytes2 = [v16 bytes];
       v25 = 0uLL;
       v26 = 0;
-      std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v25, bytes2, bytes2 + ((v17 >> 6) << 6), (v17 >> 6));
+      std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&v25, bytes2, &bytes2[4 * (v17 >> 6)], (v17 >> 6));
       v19 = v5->_localTransforms.__begin_;
       if (v19)
       {
@@ -208,7 +208,7 @@
       bytes3 = [v20 bytes];
       v25 = 0uLL;
       v26 = 0;
-      std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&v25, bytes3, bytes3 + 48 * (v21 / 0x30), (v21 / 0x30));
+      std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&v25, bytes3, &bytes3[3 * (v21 / 0x30)], (v21 / 0x30));
       v23 = v5->_localTransformsSRT.__begin_;
       if (v23)
       {
@@ -298,18 +298,18 @@ LABEL_15:
   v6 = v5;
   if (v5 != self)
   {
-    std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>(&v5->_modelTransforms.__begin_, self->_modelTransforms.__begin_, self->_modelTransforms.__end_, (self->_modelTransforms.__end_ - self->_modelTransforms.__begin_) >> 6);
-    std::vector<ARSRT>::__assign_with_size[abi:ne200100]<ARSRT*,ARSRT*>(&v6->_localTransformsSRT.__begin_, self->_localTransformsSRT.__begin_, self->_localTransformsSRT.__end_, 0xAAAAAAAAAAAAAAABLL * ((self->_localTransformsSRT.__end_ - self->_localTransformsSRT.__begin_) >> 4));
-    std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>(&v6->_localTransforms.__begin_, self->_localTransforms.__begin_, self->_localTransforms.__end_, (self->_localTransforms.__end_ - self->_localTransforms.__begin_) >> 6);
+    std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>((v5 + 8), self->_modelTransforms.__begin_, self->_modelTransforms.__end_, (self->_modelTransforms.__end_ - self->_modelTransforms.__begin_) >> 6);
+    std::vector<ARSRT>::__assign_with_size[abi:ne200100]<ARSRT*,ARSRT*>(v6 + 4, self->_localTransformsSRT.__begin_, self->_localTransformsSRT.__end_, 0xAAAAAAAAAAAAAAABLL * ((self->_localTransformsSRT.__end_ - self->_localTransformsSRT.__begin_) >> 4));
+    std::vector<simd_float4x4>::__assign_with_size[abi:ne200100]<simd_float4x4*,simd_float4x4*>(v6 + 7, self->_localTransforms.__begin_, self->_localTransforms.__end_, (self->_localTransforms.__end_ - self->_localTransforms.__begin_) >> 6);
   }
 
   v7 = [(AR3DSkeletonDetectionResult *)self->_liftingResult copyWithZone:zone];
-  liftingResult = v6->_liftingResult;
-  v6->_liftingResult = v7;
+  v8 = v6[10];
+  v6[10] = v7;
 
   v9 = [(NSUUID *)self->_identifier copyWithZone:zone];
-  identifier = v6->_identifier;
-  v6->_identifier = v9;
+  v10 = v6[11];
+  v6[11] = v9;
 
   return v6;
 }

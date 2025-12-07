@@ -530,22 +530,22 @@ uint64_t __76__PLLegacyChangeEvent_localChangeEventFromChangeHubEvent_withLibrar
   return 1;
 }
 
-uint64_t __76__PLLegacyChangeEvent_localChangeEventFromChangeHubEvent_withLibraryBundle___block_invoke_28(uint64_t a1, size_t a2)
+uint64_t __76__PLLegacyChangeEvent_localChangeEventFromChangeHubEvent_withLibraryBundle___block_invoke_28(uint64_t a1, size_t a2, uint64_t a3)
 {
-  v4 = PLManagedObjectIDFromXPCValue();
-  if (v4)
+  v5 = PLManagedObjectIDFromXPCValue();
+  if (v5)
   {
     (*(*(a1 + 72) + 16))();
-    if ([*(a1 + 40) isEqualToString:*MEMORY[0x1E695D4C8]])
+    if (objc_msgSend_isEqualToString_(*(a1 + 40)))
     {
-      v5 = *(a1 + 48);
-      if (v5)
+      v6 = *(a1 + 48);
+      if (v6)
       {
         if (*(a1 + 56))
         {
-          v6 = *(a1 + 64);
-          uint64 = xpc_array_get_uint64(v5, a2);
-          [v6 recordUpdatedAttributes:uint64 andRelationships:xpc_array_get_uint64(*(a1 + 56) forObjectID:{a2), v4}];
+          v7 = *(a1 + 64);
+          uint64 = xpc_array_get_uint64(v6, a2);
+          [v7 recordUpdatedAttributes:uint64 andRelationships:xpc_array_get_uint64(*(a1 + 56) forObjectID:{a2), v5}];
         }
       }
     }

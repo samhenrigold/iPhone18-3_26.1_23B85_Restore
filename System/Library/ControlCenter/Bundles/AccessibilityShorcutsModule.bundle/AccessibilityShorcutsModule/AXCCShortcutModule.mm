@@ -126,27 +126,27 @@
 
 - (BOOL)isSelected
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = objc_msgSend_visibleShortcuts(self->_contentViewController, a2, v2, 0);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v15, v19, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v14, v18, 16);
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
         v10 = MEMORY[0x29EDBDFB8];
-        v11 = objc_msgSend_intValue(*(*(&v15 + 1) + 8 * i), v5, v6);
+        v11 = objc_msgSend_intValue(*(*(&v14 + 1) + 8 * i), v5, v6);
         if (objc_msgSend_valueForTripleClickOption_(v10, v12, v11))
         {
           LOBYTE(v7) = 1;
@@ -154,7 +154,7 @@
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v15, v19, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v14, v18, 16);
       if (v7)
       {
         continue;
@@ -166,7 +166,6 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x29EDCA608];
   return v7;
 }
 

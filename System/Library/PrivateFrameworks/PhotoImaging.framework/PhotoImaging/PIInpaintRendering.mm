@@ -460,7 +460,7 @@ LABEL_31:
   [sourceOverCompositingFilter setInputImage:outputImage];
   [sourceOverCompositingFilter setBackgroundImage:v9];
   outputImage2 = [sourceOverCompositingFilter outputImage];
-  [v9 extent];
+  objc_msgSend_extent(v9);
   v16 = [outputImage2 imageByCroppingToRect:?];
 
   return v16;
@@ -522,9 +522,9 @@ LABEL_31:
     _NUAssertFailHandler();
   }
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v11 = v10;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   if (v11 >= v12)
   {
     v13 = v11;
@@ -580,7 +580,7 @@ LABEL_31:
 {
   maskImageCopy = maskImage;
   imageCopy = image;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   if (v7 >= v8)
   {
     v9 = v7;
@@ -592,7 +592,7 @@ LABEL_31:
   }
 
   v10 = round(v9 / 25.0);
-  [maskImageCopy extent];
+  objc_msgSend_extent(maskImageCopy);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -892,12 +892,12 @@ LABEL_10:
 {
   maskCopy = mask;
   fromMaskCopy = fromMask;
-  [maskCopy extent];
+  objc_msgSend_extent(maskCopy);
   v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  [fromMaskCopy extent];
+  objc_msgSend_extent(fromMaskCopy);
   v27.origin.x = v15;
   v27.origin.y = v16;
   v27.size.width = v17;
@@ -910,7 +910,7 @@ LABEL_10:
   {
     blackImage = [MEMORY[0x1E695F658] blackImage];
     v20 = [maskCopy imageByCompositingOverImage:blackImage];
-    [fromMaskCopy extent];
+    objc_msgSend_extent(fromMaskCopy);
     v21 = [v20 imageByCroppingToRect:?];
 
     maskCopy = [v21 imageByApplyingFilter:@"CIColorInvert"];
@@ -964,7 +964,7 @@ LABEL_10:
   v9 = [imageCopy imageByApplyingFilter:@"CIEdgePreserveUpsampleFilter" withInputParameters:v8];
 
   imageByClampingToExtent = [v9 imageByClampingToExtent];
-  [v9 extent];
+  objc_msgSend_extent(v9);
   v11 = [imageByClampingToExtent imageByCroppingToRect:?];
 
   return v11;
@@ -977,7 +977,7 @@ LABEL_10:
   y = extent.origin.y;
   x = extent.origin.x;
   maskCopy = mask;
-  [maskCopy extent];
+  objc_msgSend_extent(maskCopy);
   [self dilationAmountForMaskSize:v10 fullSize:{v11, width, height}];
   v13 = v12;
   morphologyMaximumFilter = [MEMORY[0x1E695F648] morphologyMaximumFilter];
@@ -986,7 +986,7 @@ LABEL_10:
   [morphologyMaximumFilter setInputImage:maskCopy];
 
   outputImage = [morphologyMaximumFilter outputImage];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   v21 = CGRectIntegral(v20);
   v23.origin.x = x;
   v23.origin.y = y;

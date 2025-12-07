@@ -58,32 +58,25 @@
 {
   dateCopy = date;
   family = [(NTKAnalogSecondsComplicationBundleDataSource *)self family];
-  v6 = off_10220;
-  if (family == &dword_C)
-  {
-    v6 = off_10228;
-  }
-
-  v7 = *v6;
-  v8 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
+  v6 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = NTKWorldClockGraphicCircularViewOverrideDateKey;
-    v14 = dateCopy;
-    v9 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    [v8 setMetadata:v9];
+    v11 = NTKWorldClockGraphicCircularViewOverrideDateKey;
+    v12 = dateCopy;
+    v7 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    [v6 setMetadata:v7];
   }
 
-  v10 = CLKComplicationTemplateGraphicExtraLargeCircularImage_ptr;
+  v8 = CLKComplicationTemplateGraphicExtraLargeCircularImage_ptr;
   if (family != &dword_C)
   {
-    v10 = CLKComplicationTemplateGraphicCircularImage_ptr;
+    v8 = CLKComplicationTemplateGraphicCircularImage_ptr;
   }
 
-  v11 = [objc_alloc(*v10) initWithImageProvider:v8];
+  v9 = [objc_alloc(*v8) initWithImageProvider:v6];
 
-  return v11;
+  return v9;
 }
 
 @end

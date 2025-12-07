@@ -15,7 +15,7 @@ Class __get_KSTextReplacementServerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "_KSTextReplacementServer");
     return __getMCKeyboardSettingsChangedNotificationSymbolLoc_block_invoke(v3);
   }
 

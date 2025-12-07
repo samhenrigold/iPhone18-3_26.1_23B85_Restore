@@ -44,49 +44,47 @@
 - (NSDate)dateOverride
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC75C4F0, &qword_1D328B580);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC10Navigation22MNRemainingTimeUpdater_dateOverride;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC10Navigation22MNRemainingTimeUpdater_dateOverride;
   swift_beginAccess();
-  sub_1D312601C(self + v7, v6, &qword_1EC75C4F0, &qword_1D328B580);
-  v8 = sub_1D3276D30();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1D312601C(self + v6, v5, &qword_1EC75C4F0, &qword_1D328B580);
+  v7 = sub_1D3276D30();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1D3276CD0();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1D3276CD0();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setDateOverride:(id)override
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC75C4F0, &qword_1D328B580);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (override)
   {
     sub_1D3276D00();
-    v9 = sub_1D3276D30();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1D3276D30();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1D3276D30();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1D3276D30();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC10Navigation22MNRemainingTimeUpdater_dateOverride;
+  v10 = OBJC_IVAR____TtC10Navigation22MNRemainingTimeUpdater_dateOverride;
   swift_beginAccess();
   selfCopy = self;
-  sub_1D3128E74(v8, self + v11);
+  sub_1D3128E74(v7, self + v10);
   swift_endAccess();
 }
 

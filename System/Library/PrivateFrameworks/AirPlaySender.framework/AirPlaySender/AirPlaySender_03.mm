@@ -1,95 +1,449 @@
+void __emp_copyAvailableEndpoints_block_invoke(uint64_t a1, int a2, int a3, void *value)
+{
+  if (!*(a1 + 40) || !APSGetFBOPropertyInt64())
+  {
+    v6 = *(a1 + 32);
+
+    CFArrayAppendValue(v6, value);
+  }
+}
+
+void __emp_setupCache_block_invoke(uint64_t a1, const __CFDictionary *a2)
+{
+  v3 = *(a1 + 32);
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  FigSimpleMutexLock();
+  v5 = APEndpointPlusUtils_CopyDeviceIDFromBonjourInfo(a2);
+  if (!v5)
+  {
+    __emp_setupCache_block_invoke_cold_6((DerivedStorage + 24));
+    return;
+  }
+
+  v6 = v5;
+  CFSetAddValue(*(DerivedStorage + 80), v5);
+  v7 = APEndpointPlusUtils_CopyClusterIDFromBonjourInfo(a2);
+  v8 = CMBaseObjectGetDerivedStorage();
+  v9 = *(v8 + 88);
+  if (v7)
+  {
+    CFDictionarySetValue(v9, v6, v7);
+    v13 = emp_removeCachedEndpointWithType(v3, a2, v6, 1);
+    if (v13)
+    {
+      __emp_setupCache_block_invoke_cold_1(v13);
+      goto LABEL_21;
+    }
+
+    v14 = emp_ensureCachedEndpointWithType(v3, a2, v7, 2);
+    if (v14)
+    {
+      __emp_setupCache_block_invoke_cold_2(v14);
+      goto LABEL_21;
+    }
+
+LABEL_10:
+    v15 = emp_ensureCachedEndpointWithType(v3, a2, v6, 3);
+    if (v15)
+    {
+      __emp_setupCache_block_invoke_cold_5(v15);
+    }
+
+    goto LABEL_12;
+  }
+
+  Value = CFDictionaryGetValue(v9, v6);
+  if (Value)
+  {
+    v11 = emp_removeCachedEndpointWithType(v3, a2, Value, 2);
+    if (v11)
+    {
+      __emp_setupCache_block_invoke_cold_3(v11);
+      goto LABEL_21;
+    }
+
+    CFDictionaryRemoveValue(*(v8 + 88), v6);
+  }
+
+  v12 = emp_ensureCachedEndpointWithType(v3, a2, v6, 1);
+  if (!v12)
+  {
+    goto LABEL_10;
+  }
+
+  __emp_setupCache_block_invoke_cold_4(v12);
+LABEL_21:
+  APSLogErrorAt();
+LABEL_12:
+  FigSimpleMutexUnlock();
+  CFRelease(v6);
+  if (v7)
+  {
+
+    CFRelease(v7);
+  }
+}
+
+const __CFString *APEndpointPlusUtils_CopyDeviceIDFromBonjourInfo(const __CFDictionary *a1)
+{
+  v2 = BonjourDevice_CopyCFString();
+  v3 = v2;
+  if (v2 && !CFStringHasPrefix(v2, @"00000000-0000-0000-0000"))
+  {
+    return v3;
+  }
+
+  Value = CFDictionaryGetValue(a1, @"deviceID");
+  v5 = Value;
+  if (Value)
+  {
+    CFRetain(Value);
+  }
+
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  return v5;
+}
+
+uint64_t APEndpointPlusUtils_CopyClusterIDFromBonjourInfo(uint64_t a1)
+{
+  result = BonjourDevice_CopyCFString();
+  if (!result)
+  {
+
+    return BonjourDevice_CopyCFString();
+  }
+
+  return result;
+}
+
+uint64_t emp_ensureCachedEndpointWithType(uint64_t a1, const __CFDictionary *a2, const void *a3, uint64_t a4)
+{
+  v4 = a4;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v9 = CMBaseObjectGetDerivedStorage();
+  v10 = 56;
+  if (v4 == 3)
+  {
+    v10 = 64;
+  }
+
+  if (v4 == 2)
+  {
+    v10 = 72;
+  }
+
+  v11 = *(v9 + v10);
+  v29 = 0;
+  if (!emp_shouldAllowCacheableType(v4))
+  {
+    return 0;
+  }
+
+  Value = CFDictionaryGetValue(v11, a3);
+  if (!Value)
+  {
+    v30 = 0;
+LABEL_26:
+    v25 = APEndpointPlusCreateWithBonjourInfo(v4, a2, *(DerivedStorage + 8), &v30);
+    if (v25)
+    {
+      v24 = v25;
+      APSLogErrorAt();
+    }
+
+    else
+    {
+      emp_addEndpoint(a1, a3, v30, v4);
+      if (v4 == 2)
+      {
+        v26 = APEndpointPlusUtils_CopyDeviceIDFromBonjourInfo(a2);
+        APEndpointPlusCopySubEndpoint(v30, v26, &v29);
+        if (dword_280FB1478 <= 50 && (dword_280FB1478 != -1 || _LogCategory_Initialize()))
+        {
+          OUTLINED_FUNCTION_2(&dword_280FB1478, "OSStatus emp_ensureCachedEndpointWithType(FigEndpointManagerRef, CFDictionaryRef, CFStringRef, APEndpointPlusType)", v27, "[%{ptr}] %s subEndpointPlus [%{ptr}] %@ for clusterPlus [%{ptr}] %@");
+        }
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      emp_restartCachePromotionDeadlineIfNecessary(a1);
+      emp_postDelayedAvailableEndpointsChanged(a1, &unk_2835843E0);
+      if (v26)
+      {
+        CFRelease(v26);
+      }
+
+      v24 = 0;
+    }
+
+LABEL_36:
+    v14 = v30;
+    if (!v30)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_37;
+  }
+
+  v13 = CFRetain(Value);
+  v30 = v13;
+  if (!v13)
+  {
+    goto LABEL_26;
+  }
+
+  v14 = v13;
+  if (v4 == 2)
+  {
+    v15 = CMBaseObjectGetDerivedStorage();
+    v32 = 0;
+    cf = 0;
+    v16 = APEndpointPlusUtils_CopyDeviceIDFromBonjourInfo(a2);
+    if (!v16)
+    {
+      v24 = 4294960591;
+      APSLogErrorAt();
+LABEL_24:
+      emp_postDelayedAvailableEndpointsChanged(a1, &unk_2835843E0);
+      goto LABEL_36;
+    }
+
+    v17 = v16;
+    v18 = APEndpointPlusCopySubEndpoint(v14, v16, &cf);
+    if (v18 == -6727)
+    {
+      v19 = APEndpointPlusCreateWithBonjourInfo(1, a2, *(v15 + 8), &cf);
+      if (v19)
+      {
+        v24 = v19;
+      }
+
+      else
+      {
+        v20 = APEndpointPlusAddSubEndpoint(v14, cf);
+        if (!v20)
+        {
+          CMBaseObject = FigEndpointGetCMBaseObject();
+          v23 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v23)
+          {
+            v23(CMBaseObject, *MEMORY[0x277CC1368], *MEMORY[0x277CBECE8], &v32);
+          }
+
+          if (dword_280FB1478 <= 50 && (dword_280FB1478 != -1 || _LogCategory_Initialize()))
+          {
+            OUTLINED_FUNCTION_2(&dword_280FB1478, "OSStatus emp_addCachedSubEndpoint(FigEndpointManagerRef, FigEndpointRef, CFDictionaryRef)", v22, "[%{ptr}] %s subEndpointPlus [%{ptr}] %@ for clusterPlus [%{ptr}] %@");
+          }
+
+          v24 = 0;
+          goto LABEL_20;
+        }
+
+        v24 = v20;
+      }
+
+      APSLogErrorAt();
+    }
+
+    else
+    {
+      v24 = v18;
+    }
+
+LABEL_20:
+    CFRelease(v17);
+    if (v32)
+    {
+      CFRelease(v32);
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    goto LABEL_24;
+  }
+
+  v24 = 0;
+LABEL_37:
+  CFRelease(v14);
+LABEL_38:
+  if (v29)
+  {
+    CFRelease(v29);
+  }
+
+  return v24;
+}
+
+void manager_removeEndpointForTransportDevice(void *a1, const __CFDictionary *a2, const void *a3)
+{
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  Value = CFDictionaryGetValue(a2, a3);
+  if (Value)
+  {
+    v8 = Value;
+    if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointManager)))
+    {
+      OUTLINED_FUNCTION_2_0();
+      LogPrintF(v9, v10, v11, v12, "void manager_removeEndpointForTransportDevice(FigEndpointManagerRef, CFMutableDictionaryRef, APTransportDeviceRef)", v8);
+    }
+
+    CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_2_10();
+    FigNotificationCenterRemoveWeakListener();
+    CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_1_12();
+    FigNotificationCenterRemoveWeakListener();
+    CMNotificationCenterGetDefaultLocalCenter();
+    OUTLINED_FUNCTION_6_4();
+    FigNotificationCenterRemoveWeakListener();
+    manager_updateEndpointClusterMembershipIfNeeded(a1, v8, 1, 0);
+    if (!APSGetFBOPropertyInt64())
+    {
+      manager_updateAggregatedInterruptingSessionStateIfNeeded(a1, v8, 0);
+    }
+
+    v13 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+    if (v13)
+    {
+      v13(v8);
+    }
+
+    if (APTransportDeviceIsAssistedDevice())
+    {
+      APBrowserControllerRemoveInjectedEndpoint(*(DerivedStorage + 312), a3);
+      if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointManager)))
+      {
+        OUTLINED_FUNCTION_2_0();
+        LogPrintF(v14, v15, v16, v17, a1, v8);
+      }
+    }
+
+    CFDictionaryRemoveValue(a2, a3);
+    if (!CFDictionaryContainsKey(*(DerivedStorage + 168), a3) && !CFDictionaryContainsKey(*(DerivedStorage + 176), a3))
+    {
+      CFSetRemoveValue(*(DerivedStorage + 184), a3);
+    }
+
+    manager_notifyAvailableEndpointsChangedWithThrottleIfNeeded(a1, 1);
+  }
+}
+
 uint64_t endpoint_Dissociate(void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  *v31 = 0u;
+  *v47 = 0u;
   *theDict = 0u;
-  if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4()))
+  if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpoint)))
   {
+    if (*(DerivedStorage + 48))
+    {
+      v3 = "RC";
+    }
+
+    else
+    {
+      v3 = "AP";
+    }
+
+    v43 = v3;
     OUTLINED_FUNCTION_2_0();
-    LogPrintF();
+    LogPrintF(v4, v5, v6, v7, a1, v43);
   }
 
   FigSimpleMutexLock();
-  v3 = *(DerivedStorage + 120);
+  v8 = *(DerivedStorage + 120);
   *(DerivedStorage + 120) = 1;
-  if (!v3)
+  if (!v8)
   {
     CFRetain(a1);
-    v4 = *(DerivedStorage + 440);
-    if (v4)
+    v9 = *(DerivedStorage + 440);
+    if (v9)
     {
-      CFRetain(v4);
+      CFRetain(v9);
     }
 
-    v5 = *(DerivedStorage + 216);
-    if (v5)
-    {
-      v5 = CFRetain(v5);
-    }
-
-    theDict[0] = v5;
-    v6 = *(DerivedStorage + 160);
-    if (v6)
-    {
-      v6 = CFRetain(v6);
-    }
-
-    theDict[1] = v6;
-    v7 = *(DerivedStorage + 184);
-    if (v7)
-    {
-      CFRetain(v7);
-    }
-
-    v8 = *(DerivedStorage + 304);
-    v9 = MEMORY[0x277CBECE8];
-    if (v8)
-    {
-      v31[0] = CFSetCreateCopy(*MEMORY[0x277CBECE8], v8);
-    }
-
-    v10 = *(DerivedStorage + 328);
+    v10 = *(DerivedStorage + 216);
     if (v10)
     {
-      v31[1] = CFDictionaryCreateCopy(*v9, v10);
+      v10 = CFRetain(v10);
     }
 
-    v11 = *(DerivedStorage + 40);
-    CFGetAllocator(a1);
-    APEndpointDescriptionGetCMBaseObject(v11);
-    if (*(*(CMBaseObjectGetVTable() + 8) + 48))
+    theDict[0] = v10;
+    v11 = *(DerivedStorage + 160);
+    if (v11)
     {
-      v12 = OUTLINED_FUNCTION_11_8();
-      v13(v12);
+      v11 = CFRetain(v11);
     }
 
-    v14 = *(DerivedStorage + 288);
-    if (v14)
+    theDict[1] = v11;
+    v12 = *(DerivedStorage + 184);
+    if (v12)
     {
-      CFRetain(v14);
+      CFRetain(v12);
     }
 
-    v15 = *(DerivedStorage + 296);
+    v13 = *(DerivedStorage + 304);
+    v14 = MEMORY[0x277CBECE8];
+    if (v13)
+    {
+      v47[0] = CFSetCreateCopy(*MEMORY[0x277CBECE8], v13);
+    }
+
+    v15 = *(DerivedStorage + 328);
     if (v15)
     {
-      CFRetain(v15);
+      v47[1] = CFDictionaryCreateCopy(*v14, v15);
+    }
+
+    CFGetAllocator(a1);
+    APEndpointDescriptionGetCMBaseObject();
+    if (*(*(CMBaseObjectGetVTable() + 8) + 48))
+    {
+      v16 = OUTLINED_FUNCTION_11_8();
+      v17(v16);
+    }
+
+    v18 = *(DerivedStorage + 288);
+    if (v18)
+    {
+      CFRetain(v18);
+    }
+
+    v19 = *(DerivedStorage + 296);
+    if (v19)
+    {
+      CFRetain(v19);
     }
   }
 
-  CMBaseObject = APEndpointDescriptionGetCMBaseObject(*(DerivedStorage + 40));
-  v17 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v17)
+  APEndpointDescriptionGetCMBaseObject();
+  v21 = v20;
+  v22 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v22)
   {
-    v17(CMBaseObject, @"uglServerInfo", 0);
+    v22(v21, @"uglServerInfo", 0);
   }
 
   endpoint_resetActivationState(DerivedStorage + 128);
   if (theDict[1] && CFDictionaryContainsKey(theDict[1], *MEMORY[0x277CC1968]))
   {
-    if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4()))
+    v23 = MEMORY[0x277CC0D10];
+    if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpoint)))
     {
+      v44 = *v23;
       OUTLINED_FUNCTION_2_0();
-      LogPrintF();
+      LogPrintF(v24, v25, v26, v27, a1, v44);
     }
 
     CMNotificationCenterGetDefaultLocalCenter();
@@ -97,33 +451,33 @@ uint64_t endpoint_Dissociate(void *a1)
   }
 
   FigSimpleMutexUnlock();
-  if (!v3)
+  if (!v8)
   {
-    endpoint_removeAPEndpointManagerNotificationsListenerIfNeeded();
-    endpoint_removeHDMILatencyNotificationListenerIfNeeded();
-    endpoint_stopListeningToSenderSessionAndStreamsNotifications(a1, theDict[0]);
-    v18 = *(CMBaseObjectGetDerivedStorage() + 40);
-    if (v18)
+    endpoint_removeAPEndpointManagerNotificationsListenerIfNeeded(a1);
+    endpoint_removeHDMILatencyNotificationListenerIfNeeded(a1);
+    endpoint_stopListeningToSenderSessionAndStreamsNotifications(a1, theDict[0], theDict[1]);
+    v28 = *(CMBaseObjectGetDerivedStorage() + 40);
+    if (v28)
     {
-      v19 = CFRetain(v18);
-      if (v19)
+      v29 = CFRetain(v28);
+      if (v29)
       {
-        v20 = v19;
+        v30 = v29;
         CMNotificationCenterGetDefaultLocalCenter();
         FigNotificationCenterRemoveWeakListener();
-        CFRelease(v20);
+        CFRelease(v30);
       }
     }
 
-    if (v31[1])
+    if (v47[1])
     {
-      CFDictionaryApplyFunction(v31[1], endpoint_unsubscribeRCS, a1);
+      CFDictionaryApplyFunction(v47[1], endpoint_unsubscribeRCS, a1);
     }
 
-    if (v31[0])
+    if (v47[0])
     {
       OUTLINED_FUNCTION_5_19();
-      CFSetApplyFunction(v21, v22, a1);
+      CFSetApplyFunction(v31, v32, a1);
     }
 
     if (theDict[0])
@@ -131,29 +485,40 @@ uint64_t endpoint_Dissociate(void *a1)
       if (*(*(CMBaseObjectGetVTable() + 16) + 96))
       {
         OUTLINED_FUNCTION_9_5();
-        v25(v23, v24);
+        v33();
       }
 
-      v26 = APSenderSessionGetCMBaseObject(theDict[0]);
-      if (v26)
+      APSenderSessionGetCMBaseObject();
+      if (v34)
       {
-        v27 = v26;
-        v28 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-        if (v28)
+        v35 = v34;
+        v36 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+        if (v36)
         {
-          v28(v27);
+          v36(v35);
         }
       }
 
-      if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4()))
+      if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpoint)))
       {
+        if (*(DerivedStorage + 48))
+        {
+          v37 = "RC";
+        }
+
+        else
+        {
+          v37 = "AP";
+        }
+
+        v45 = v37;
         OUTLINED_FUNCTION_2_0();
-        LogPrintF();
+        LogPrintF(v38, v39, v40, v41, a1, v45, theDict[0]);
       }
     }
 
     FigSimpleMutexLock();
-    endpoint_clearEndpointState();
+    endpoint_clearEndpointState(a1);
     APSDispatchAsyncFHelper();
     FigSimpleMutexUnlock();
   }
@@ -168,25 +533,25 @@ uint64_t OUTLINED_FUNCTION_11_5()
   return v0 - 160;
 }
 
-uint64_t OUTLINED_FUNCTION_11_6()
+uint64_t OUTLINED_FUNCTION_11_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return CFDictionarySetCString();
 }
 
-uint64_t endpoint_removeAPEndpointManagerNotificationsListenerIfNeeded()
+uint64_t endpoint_removeAPEndpointManagerNotificationsListenerIfNeeded(uint64_t a1)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (!*(result + 48))
   {
-    v1 = result;
+    v2 = result;
     if (*(result + 32))
     {
       CMNotificationCenterGetDefaultLocalCenter();
       FigNotificationCenterRemoveWeakListener();
       CMNotificationCenterGetDefaultLocalCenter();
       result = FigNotificationCenterRemoveWeakListener();
-      if (*(v1 + 96) == 7)
+      if (*(v2 + 96) == 7)
       {
         CMNotificationCenterGetDefaultLocalCenter();
 
@@ -198,9 +563,9 @@ uint64_t endpoint_removeAPEndpointManagerNotificationsListenerIfNeeded()
   return result;
 }
 
-uint64_t endpoint_removeHDMILatencyNotificationListenerIfNeeded()
+uint64_t endpoint_removeHDMILatencyNotificationListenerIfNeeded(uint64_t a1)
 {
-  result = endpoint_isInLocalClusterOfAppleTV();
+  result = endpoint_isInLocalClusterOfAppleTV(a1);
   if (result)
   {
     CMNotificationCenterGetDefaultLocalCenter();
@@ -212,11 +577,11 @@ uint64_t endpoint_removeHDMILatencyNotificationListenerIfNeeded()
   return result;
 }
 
-void endpoint_dissociateInternal(uint64_t a1)
+void endpoint_dissociateInternal(uint64_t *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v19 = 0;
-  v20 = 0;
+  v30 = 0;
+  v31 = 0;
   if (qword_280FB1BF8 != -1)
   {
     dispatch_once(&qword_280FB1BF8, &__block_literal_global_32);
@@ -235,62 +600,80 @@ void endpoint_dissociateInternal(uint64_t a1)
   }
 
   FigSimpleMutexLock();
-  CMBaseObject = APEndpointDescriptionGetCMBaseObject(DerivedStorage[5]);
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v5)
+  APEndpointDescriptionGetCMBaseObject();
+  v5 = v4;
+  v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v6)
   {
-    v5(CMBaseObject, @"DeviceID", *MEMORY[0x277CBECE8], &v19);
+    v6(v5, @"DeviceID", *MEMORY[0x277CBECE8], &v30);
   }
 
   FigSimpleMutexUnlock();
-  if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4()))
+  if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpoint)))
   {
-    CFGetHardwareAddress();
+    v7 = *a1;
+    v8 = a1[1];
+    if (*(DerivedStorage + 48))
+    {
+      v9 = "RC";
+    }
+
+    else
+    {
+      v9 = "AP";
+    }
+
+    v28 = CFGetHardwareAddress();
     OUTLINED_FUNCTION_2_0();
-    LogPrintF();
+    LogPrintF(v10, v11, v12, v13, v7, v8, v9, v28);
   }
 
-  if (DerivedStorage[3] && *(a1 + 48))
+  v14 = *(DerivedStorage + 24);
+  if (v14)
   {
-    APBrowserControllerDeregisterEndpoint();
+    v15 = a1[6];
+    if (v15)
+    {
+      APBrowserControllerDeregisterEndpoint(v14, v15, *(DerivedStorage + 48));
+    }
   }
 
-  v6 = *(a1 + 24);
-  if (v6)
+  v16 = a1[3];
+  if (v16)
   {
-    CFDictionaryApplyFunction(v6, endpoint_dissociateStreamsDictionaryEntry, 0);
+    CFDictionaryApplyFunction(v16, endpoint_dissociateStreamsDictionaryEntry, 0);
   }
 
-  v7 = *(a1 + 72);
-  if (v7)
+  v17 = a1[9];
+  if (v17)
   {
-    CFDictionaryApplyFunction(v7, endpoint_invalidateRCS, *a1);
+    CFDictionaryApplyFunction(v17, endpoint_invalidateRCS, *a1);
   }
 
-  if (*(a1 + 64))
+  if (a1[8])
   {
     CFSetApplyBlock();
   }
 
-  endpoint_stopMediaRemoteAndMetadataServices(*a1, *(a1 + 56));
+  endpoint_stopMediaRemoteAndMetadataServices(*a1, a1[7]);
   FigSimpleMutexLock();
-  endpoint_updateStatus(*a1, -16723, 1);
+  endpoint_updateStatus(*a1, 4294950573, 1);
   FigSimpleMutexUnlock();
   if (*DerivedStorage)
   {
-    v8 = CFGetAllocator(*a1);
-    APEndpointCreateEndpointActivationNotificationPayload(v8, *(a1 + 40), *(a1 + 32), &v20);
+    v18 = CFGetAllocator(*a1);
+    APEndpointCreateEndpointActivationNotificationPayload(v18, a1[5], a1[4], &v31);
     CMNotificationCenterGetDefaultLocalCenter();
     FigDispatchAsyncPostNotification();
-    if (v20)
+    if (v31)
     {
-      CFRelease(v20);
+      CFRelease(v31);
     }
   }
 
-  if (v19)
+  if (v30)
   {
-    CFRelease(v19);
+    CFRelease(v30);
   }
 
   if (*a1)
@@ -298,58 +681,58 @@ void endpoint_dissociateInternal(uint64_t a1)
     CFRelease(*a1);
   }
 
-  v9 = *(a1 + 8);
-  if (v9)
+  v19 = a1[1];
+  if (v19)
   {
-    CFRelease(v9);
+    CFRelease(v19);
   }
 
-  v10 = *(a1 + 48);
-  if (v10)
+  v20 = a1[6];
+  if (v20)
   {
-    CFRelease(v10);
+    CFRelease(v20);
   }
 
-  v11 = *(a1 + 24);
-  if (v11)
+  v21 = a1[3];
+  if (v21)
   {
-    CFRelease(v11);
+    CFRelease(v21);
   }
 
-  v12 = *(a1 + 16);
-  if (v12)
+  v22 = a1[2];
+  if (v22)
   {
-    CFRelease(v12);
+    CFRelease(v22);
   }
 
-  v13 = *(a1 + 56);
-  if (v13)
+  v23 = a1[7];
+  if (v23)
   {
-    CFRelease(v13);
+    CFRelease(v23);
   }
 
-  v14 = *(a1 + 64);
-  if (v14)
+  v24 = a1[8];
+  if (v24)
   {
-    CFRelease(v14);
+    CFRelease(v24);
   }
 
-  v15 = *(a1 + 72);
-  if (v15)
+  v25 = a1[9];
+  if (v25)
   {
-    CFRelease(v15);
+    CFRelease(v25);
   }
 
-  v16 = *(a1 + 80);
-  if (v16)
+  v26 = a1[10];
+  if (v26)
   {
-    CFRelease(v16);
+    CFRelease(v26);
   }
 
-  v17 = *(a1 + 88);
-  if (v17)
+  v27 = a1[11];
+  if (v27)
   {
-    CFRelease(v17);
+    CFRelease(v27);
   }
 }
 
@@ -380,7 +763,7 @@ uint64_t browserController_deregisterEndpoint(uint64_t *a1)
   if (v6)
   {
     v8 = v6;
-    browserController_deregisterEndpoint_cold_1();
+    browserController_deregisterEndpoint_cold_1(v6);
 LABEL_12:
     v7 = v10;
     if (!v10)
@@ -400,7 +783,7 @@ LABEL_11:
   }
 
   v7 = v10;
-  LogPrintF();
+  LogPrintF(&gLogCategory_APBrowserController, "OSStatus browserController_deregisterEndpoint(void *)", 33554472, "Deregister connection for endpoint %@ with ID: %@\n", v10, v5);
   v8 = 0;
   if (v7)
   {
@@ -420,16 +803,16 @@ LABEL_14:
 CFIndex manager_updateAggregatedInterruptingSessionStateIfNeeded(uint64_t a1, const void *a2, int a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = CMBaseObjectGetDerivedStorage();
-  Count = CFSetGetCount(*(v6 + 224));
-  v8 = CFSetContainsValue(*(DerivedStorage + 224), a2);
+  v7 = CMBaseObjectGetDerivedStorage();
+  Count = CFSetGetCount(*(v7 + 224));
+  v9 = CFSetContainsValue(*(DerivedStorage + 224), a2);
   if (a3)
   {
-    if (v8)
+    if (v9)
     {
       if (gLogCategory_APEndpointManager <= 90 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
       {
-        manager_updateAggregatedInterruptingSessionStateIfNeeded_cold_1();
+        manager_updateAggregatedInterruptingSessionStateIfNeeded_cold_1(a2, v10, v11);
       }
     }
 
@@ -439,32 +822,34 @@ CFIndex manager_updateAggregatedInterruptingSessionStateIfNeeded(uint64_t a1, co
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
     CFSetRemoveValue(*(DerivedStorage + 224), a2);
   }
 
   else if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
   {
-    manager_updateAggregatedInterruptingSessionStateIfNeeded_cold_2();
+    manager_updateAggregatedInterruptingSessionStateIfNeeded_cold_2(a2);
   }
 
-  v9 = CMBaseObjectGetDerivedStorage();
-  result = CFSetGetCount(*(v9 + 224));
-  if (Count > 0 != result > 0)
+  v12 = Count > 0;
+  v13 = CMBaseObjectGetDerivedStorage();
+  result = CFSetGetCount(*(v13 + 224));
+  v15 = result > 0;
+  if (v12 != v15)
   {
     if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointManager, "void manager_updateAggregatedInterruptingSessionStateIfNeeded(FigEndpointManagerRef, FigEndpointRef, Boolean)", 33554482, "*** Posting sender session state: %d -> %d\n", v12, v15);
     }
 
-    return manager_getAndPostSenderStateUpdate();
+    return manager_getAndPostSenderStateUpdate(a1);
   }
 
   return result;
 }
 
-uint64_t endpoint_stopListeningToSenderSessionAndStreamsNotifications(uint64_t a1, uint64_t a2)
+uint64_t endpoint_stopListeningToSenderSessionAndStreamsNotifications(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -493,27 +878,27 @@ void browserController_copyDeviceName(uint64_t a1, uint64_t *a2)
 void endpoint_stopMediaRemoteAndMetadataServices(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = DerivedStorage;
+  v5 = DerivedStorage;
   if (*(DerivedStorage + 584))
   {
     CMNotificationCenterGetDefaultLocalCenter();
     FigNotificationCenterRemoveWeakListener();
-    if (*(v4 + 592))
+    if (*(v5 + 592))
     {
       if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APEndpoint, "void endpoint_stopMediaRemoteAndMetadataServices(FigEndpointRef, APMetadataSourceRef)", 33554482, "[%{ptr}] Removing MediaRemote CommandReceiver [%{ptr}]\n", a1, *(v5 + 584));
       }
 
-      APMediaRemoteCommandReceiverRemoveClient();
+      APMediaRemoteCommandReceiverRemoveClient(*(v5 + 584), *(v5 + 592), v6);
     }
 
-    v5 = *(v4 + 584);
-    *(v4 + 592) = 0;
-    if (v5)
+    v7 = *(v5 + 584);
+    *(v5 + 592) = 0;
+    if (v7)
     {
-      CFRelease(v5);
-      *(v4 + 584) = 0;
+      CFRelease(v7);
+      *(v5 + 584) = 0;
     }
   }
 
@@ -522,24 +907,24 @@ void endpoint_stopMediaRemoteAndMetadataServices(uint64_t a1, uint64_t a2)
     *(DerivedStorage + 592) = 0;
   }
 
-  v6 = *(v4 + 600);
-  if (v6)
+  v8 = *(v5 + 600);
+  if (v8)
   {
     if (gLogCategory_APEndpoint <= 50)
     {
-      if (gLogCategory_APEndpoint != -1 || (v7 = _LogCategory_Initialize(), v6 = *(v4 + 600), v7))
+      if (gLogCategory_APEndpoint != -1 || (v9 = _LogCategory_Initialize(), v8 = *(v5 + 600), v9))
       {
-        LogPrintF();
-        v6 = *(v4 + 600);
+        LogPrintF(&gLogCategory_APEndpoint, "void endpoint_stopMediaRemoteAndMetadataServices(FigEndpointRef, APMetadataSourceRef)", 33554482, "[%{ptr}] Invalidating MetadataSender [%{ptr}]\n", a1, v8);
+        v8 = *(v5 + 600);
       }
     }
 
-    APMetadataSenderInvalidate(v6);
-    v8 = *(v4 + 600);
-    if (v8)
+    APMetadataSenderInvalidate(v8);
+    v10 = *(v5 + 600);
+    if (v10)
     {
-      CFRelease(v8);
-      *(v4 + 600) = 0;
+      CFRelease(v10);
+      *(v5 + 600) = 0;
     }
   }
 
@@ -547,14 +932,14 @@ void endpoint_stopMediaRemoteAndMetadataServices(uint64_t a1, uint64_t a2)
   {
     if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpoint, "void endpoint_stopMediaRemoteAndMetadataServices(FigEndpointRef, APMetadataSourceRef)", 33554482, "[%{ptr}] Stopping MetadataSource [%{ptr}]\n", a1, a2);
     }
 
     APMetadataSourceStop(a2);
   }
 }
 
-void endpoint_updateStatus(const void *a1, int a2, int a3)
+void endpoint_updateStatus(const void *a1, uint64_t a2, int a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   cf = 0;
@@ -582,9 +967,9 @@ void endpoint_updateStatus(const void *a1, int a2, int a3)
     CFDictionarySetInt64();
     if (a2 == 200470 || a2 == 200401)
     {
-      if (gLogCategory_APEndpoint <= 30 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_10()))
+      if (gLogCategory_APEndpoint <= 30 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_10(&gLogCategory_APEndpoint)))
       {
-        OUTLINED_FUNCTION_4_1();
+        OUTLINED_FUNCTION_4_1(&gLogCategory_APEndpoint, "void endpoint_updateStatus(FigEndpointRef, OSStatus, APEndpointSessionState)", v14, "[%{ptr}] Posting kFigEndpointNotification_AuthorizationRequired\n");
       }
 
       CMNotificationCenterGetDefaultLocalCenter();
@@ -594,30 +979,30 @@ void endpoint_updateStatus(const void *a1, int a2, int a3)
 
     CFDictionarySetInt64();
     CFDictionarySetInt64();
-    v15 = MEMORY[0x277CC0CA8];
-    v16 = a3 == 0;
+    v16 = MEMORY[0x277CC0CA8];
+    v17 = a3 == 0;
     if (a3)
     {
-      v15 = MEMORY[0x277CC0CA0];
+      v16 = MEMORY[0x277CC0CA0];
     }
 
-    v17 = *v15;
-    if (v16)
+    v18 = *v16;
+    if (v17)
     {
-      v18 = MEMORY[0x277CC0BD0];
+      v19 = MEMORY[0x277CC0BD0];
     }
 
     else
     {
-      v18 = MEMORY[0x277CC0BC8];
+      v19 = MEMORY[0x277CC0BC8];
     }
 
-    v19 = *v18;
-    CFDictionarySetValue(v10, *MEMORY[0x277CC0CC8], v17);
-    CFDictionarySetValue(v13, *MEMORY[0x277CC0BD8], v19);
+    v20 = *v19;
+    CFDictionarySetValue(v10, *MEMORY[0x277CC0CC8], v18);
+    CFDictionarySetValue(v13, *MEMORY[0x277CC0BD8], v20);
     if (v7[45])
     {
-      if (v7[52] && (v20 = FigCFWeakReferenceHolderCopyReferencedObject(), v7[52]) && !v20)
+      if (v7[52] && (v21 = FigCFWeakReferenceHolderCopyReferencedObject(), v7[52]) && !v21)
       {
         if (gLogCategory_APEndpoint > 90)
         {
@@ -627,24 +1012,24 @@ LABEL_39:
           FigDispatchAsyncPostNotification();
           if (a2 == -16613)
           {
-            v21 = v7[5];
-            v22 = CFGetAllocator(a1);
-            CMBaseObject = APEndpointDescriptionGetCMBaseObject(v21);
-            v24 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v24)
+            v23 = CFGetAllocator(a1);
+            APEndpointDescriptionGetCMBaseObject();
+            v25 = v24;
+            v26 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v26)
             {
-              v24(CMBaseObject, @"TransportDevice", v22, &cf);
-              v25 = cf;
-              v26 = v7[3];
-              if (v26 && cf)
+              v26(v25, @"TransportDevice", v23, &cf);
+              v27 = cf;
+              v28 = v7[3];
+              if (v28 && cf)
               {
-                APBrowserControllerReconfirmEndpoint(v26, cf);
-                v25 = cf;
+                APBrowserControllerReconfirmEndpoint(v28, cf);
+                v27 = cf;
               }
 
-              if (v25)
+              if (v27)
               {
-                CFRelease(v25);
+                CFRelease(v27);
               }
             }
           }
@@ -660,7 +1045,7 @@ LABEL_29:
 
         if (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize())
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APEndpoint, "void endpoint_updateStatus(FigEndpointRef, OSStatus, APEndpointSessionState)", 33554522, "%{ptr} %###s weakDelegateContextRouting is not NULL, but handleFailureCallbackContext is NULL.\n", a1, "void endpoint_updateStatus(FigEndpointRef, OSStatus, APEndpointSessionState)");
         }
       }
 
@@ -670,17 +1055,17 @@ LABEL_29:
         CFRetain(v13);
         if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APEndpoint, "void endpoint_updateStatus(FigEndpointRef, OSStatus, APEndpointSessionState)", 33554482, "[%{ptr}] Notifying about endpoint failure %#m (%@)...\n", a1, a2, v18);
         }
 
         APSDispatchAsyncFHelper();
       }
     }
 
-    if (gLogCategory_APEndpoint <= 30 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_10()))
+    if (gLogCategory_APEndpoint <= 30 && (gLogCategory_APEndpoint != -1 || OUTLINED_FUNCTION_10(&gLogCategory_APEndpoint)))
     {
       OUTLINED_FUNCTION_39_0();
-      OUTLINED_FUNCTION_4_1();
+      OUTLINED_FUNCTION_4_1(&gLogCategory_APEndpoint, "void endpoint_updateStatus(FigEndpointRef, OSStatus, APEndpointSessionState)", v22, "[%{ptr}] Posting %@\n");
     }
 
     goto LABEL_39;
@@ -721,20 +1106,20 @@ uint64_t APEndpointCreateEndpointActivationNotificationPayload(const __CFAllocat
   return result;
 }
 
-uint64_t manager_handleBrowserRemoveEvent()
+uint64_t manager_handleBrowserRemoveEvent(uint64_t a1, uint64_t a2)
 {
   CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  v0 = manager_areEndpointsPresent();
+  v3 = manager_areEndpointsPresent(a2);
   manager_removeAllEndpointsForTransportDeviceIfNeeded();
-  if (v0 != manager_areEndpointsPresent())
+  if (v3 != manager_areEndpointsPresent(a2))
   {
     if (gLogCategory_APEndpointManager <= 40 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
       manager_handleBrowserRemoveEvent_cold_1();
     }
 
-    manager_postEndpointPresentChangedNotification();
+    manager_postEndpointPresentChangedNotification(a2);
   }
 
   return FigSimpleMutexUnlock();
@@ -764,15 +1149,15 @@ uint64_t emp_removeEndpoint(uint64_t a1, const void *a2, int a3)
   }
 
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v9)
+  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v10)
   {
-    v9(CMBaseObject, *MEMORY[0x277CC1450], *MEMORY[0x277CBECE8], &cf);
+    v10(CMBaseObject, *MEMORY[0x277CC1450], *MEMORY[0x277CBECE8], &cf);
   }
 
   if (dword_280FB1478 <= 50 && (dword_280FB1478 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_2(&dword_280FB1478, "OSStatus emp_removeEndpoint(FigEndpointManagerRef, CFStringRef, APEndpointPlusType)", v9, "[%{ptr}] %s %s Plus [%{ptr}] %@ %'@");
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
@@ -799,19 +1184,19 @@ uint64_t __emp_handleNotification_block_invoke_cold_13(uint64_t a1, const void *
   return result;
 }
 
-void manager_updateEndpointPSGInfoIfNeeded()
+void manager_updateEndpointPSGInfoIfNeeded(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v27 = 0;
-  v1 = APSGetFBOPropertyInt64();
+  v41 = 0;
+  v4 = APSGetFBOPropertyInt64();
   if (!*(DerivedStorage + 320))
   {
     return;
   }
 
-  v2 = MEMORY[0x277CEA2E8];
-  v3 = MEMORY[0x277CBECE8];
-  if (v1)
+  v5 = MEMORY[0x277CEA2E8];
+  v6 = MEMORY[0x277CBECE8];
+  if (v4)
   {
     cf = 0;
     theDict = 0;
@@ -827,28 +1212,28 @@ LABEL_33:
     }
 
     CMBaseObject = APSPSGDataSourceGetCMBaseObject();
-    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v5)
+    v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v8)
     {
-      v6 = *v2;
-      v7 = *v3;
-      v8 = v5(CMBaseObject, *v2, *v3, &theDict);
+      v9 = *v5;
+      v10 = *v6;
+      v11 = v8(CMBaseObject, *v5, *v6, &theDict);
       if (theDict)
       {
-        if (!v8)
+        if (!v11)
         {
-          v9 = FigEndpointGetCMBaseObject();
-          v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v10)
+          v12 = FigEndpointGetCMBaseObject();
+          v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v13)
           {
-            v11 = v10(v9, *MEMORY[0x277CC1368], v7, &cf);
-            v12 = cf;
-            if (!cf || v11)
+            v14 = v13(v12, *MEMORY[0x277CC1368], v10, &cf);
+            v15 = cf;
+            if (!cf || v14)
             {
 LABEL_31:
-              if (v12)
+              if (v15)
               {
-                CFRelease(v12);
+                CFRelease(v15);
               }
 
               goto LABEL_33;
@@ -857,59 +1242,61 @@ LABEL_31:
             Value = FigCFDictionaryGetValue();
             if (Value)
             {
-              v14 = Value;
+              v17 = Value;
               if (CFDictionaryGetInt64())
               {
-                if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_10()))
+                if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_10(&gLogCategory_APEndpointManager)))
                 {
+                  v40 = cf;
                   OUTLINED_FUNCTION_3();
-                  LogPrintF();
+                  LogPrintF(v32, v33, v34, v35, a2, v40, v17);
                 }
               }
 
               else
               {
-                MutableCopy = CFDictionaryCreateMutableCopy(v7, 0, theDict);
+                MutableCopy = CFDictionaryCreateMutableCopy(v10, 0, theDict);
                 if (MutableCopy)
                 {
-                  v16 = MutableCopy;
-                  v17 = CFDictionaryCreateMutableCopy(v7, 0, v14);
-                  if (v17)
+                  v19 = MutableCopy;
+                  v20 = CFDictionaryCreateMutableCopy(v10, 0, v17);
+                  if (v20)
                   {
-                    v18 = v17;
+                    v21 = v20;
                     FigCFDictionarySetValue();
                     FigCFDictionarySetValue();
-                    v19 = FigEndpointGetCMBaseObject();
-                    v20 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                    if (v20)
+                    v22 = FigEndpointGetCMBaseObject();
+                    v23 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+                    if (v23)
                     {
-                      v20(v19, @"PermanentSpeakerGroupingInfo", v18);
+                      v23(v22, @"PermanentSpeakerGroupingInfo", v21);
                     }
 
-                    v21 = APSPSGDataSourceGetCMBaseObject();
-                    v22 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                    if (v22)
+                    v24 = APSPSGDataSourceGetCMBaseObject();
+                    v25 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+                    if (v25)
                     {
-                      v22(v21, v6, v16);
+                      v25(v24, v9, v19);
                     }
 
-                    v23 = APSPSGDataSourceGetCMBaseObject();
-                    v24 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                    if (v24)
+                    v26 = APSPSGDataSourceGetCMBaseObject();
+                    v27 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+                    if (v27)
                     {
-                      v24(v23, *MEMORY[0x277CEA2F0], v18);
+                      v27(v26, *MEMORY[0x277CEA2F0], v21);
                     }
 
-                    if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_10()))
+                    if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_10(&gLogCategory_APEndpointManager)))
                     {
+                      v39 = cf;
                       OUTLINED_FUNCTION_3();
-                      LogPrintF();
+                      LogPrintF(v28, v29, v30, v31, a2, v39, v21);
                     }
 
-                    CFRelease(v18);
+                    CFRelease(v21);
                   }
 
-                  CFRelease(v16);
+                  CFRelease(v19);
                 }
               }
             }
@@ -918,22 +1305,28 @@ LABEL_31:
       }
     }
 
-    v12 = cf;
+    v15 = cf;
     goto LABEL_31;
   }
 
 LABEL_35:
-  v25 = APSPSGDataSourceGetCMBaseObject();
-  v26 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v26)
+  v36 = APSPSGDataSourceGetCMBaseObject();
+  v37 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v37)
   {
-    v26(v25, *v2, *v3, &v27);
+    v37(v36, *v5, *v6, &v41);
+    v38 = v41;
   }
 
-  manager_updatePSGInfoOnEndpoint();
-  if (v27)
+  else
   {
-    CFRelease(v27);
+    v38 = 0;
+  }
+
+  manager_updatePSGInfoOnEndpoint(a2, v38);
+  if (v41)
+  {
+    CFRelease(v41);
   }
 }
 
@@ -962,31 +1355,32 @@ uint64_t APEndpointPlusCreateWithInnerEndpoint(const void *a1, const void *a2, C
 
   if (a3)
   {
-    EndpointType = APEndpointPlusUtils_GetEndpointType();
+    EndpointType = APEndpointPlusUtils_GetEndpointType(a1);
     v7 = APEndpointPlusCreate(EndpointType, a2, &cf);
     if (v7)
     {
-      v8 = v7;
-      APEndpointPlusCreateWithInnerEndpoint_cold_1();
+      v9 = v7;
+      APEndpointPlusCreateWithInnerEndpoint_cold_1(v7);
     }
 
     else
     {
       v8 = APEndpointPlusSetInner(cf, a1);
+      v9 = v8;
       if (!v8)
       {
         *a3 = cf;
-        return v8;
+        return v9;
       }
 
-      APEndpointPlusCreateWithInnerEndpoint_cold_2();
+      APEndpointPlusCreateWithInnerEndpoint_cold_2(v8);
     }
   }
 
   else
   {
     APEndpointPlusCreateWithInnerEndpoint_cold_3();
-    v8 = 4294954516;
+    v9 = 4294954516;
   }
 
   if (cf)
@@ -994,16 +1388,17 @@ uint64_t APEndpointPlusCreateWithInnerEndpoint(const void *a1, const void *a2, C
     CFRelease(cf);
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t APEndpointPlusCreate(int a1, const void *a2, void *a3)
+uint64_t APEndpointPlusCreate(int a1, const void *a2, CFTypeRef *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
+  cf = 0;
+  v21 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v20 = 0u;
   *label = 0u;
   if (a3)
   {
@@ -1012,8 +1407,8 @@ uint64_t APEndpointPlusCreate(int a1, const void *a2, void *a3)
     v7 = CMDerivedObjectCreate();
     if (v7)
     {
-      v13 = v7;
-      APEndpointPlusCreate_cold_1();
+      v15 = v7;
+      APEndpointPlusCreate_cold_1(v7);
     }
 
     else
@@ -1021,7 +1416,7 @@ uint64_t APEndpointPlusCreate(int a1, const void *a2, void *a3)
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       *DerivedStorage = a1;
       *(DerivedStorage + 32) = FigSimpleMutexCreate();
-      SNPrintF();
+      SNPrintF(label, 80, "AirPlayEndpointPlus.%{ptr}.activation", cf);
       v9 = dispatch_queue_create(label, 0);
       *(DerivedStorage + 8) = v9;
       if (v9)
@@ -1046,45 +1441,49 @@ uint64_t APEndpointPlusCreate(int a1, const void *a2, void *a3)
           *(DerivedStorage + 96) = CFArrayCreateMutable(v6, 0, 0);
         }
 
-        v11 = CMBaseObjectGetDerivedStorage();
-        v12 = FigSimpleMutexCreate();
-        v11[15] = epp_delegate_handleFailed;
-        v11[13] = 0;
-        v11[14] = epp_delegate_handleAuthRequired;
-        v11[17] = epp_delegate_handleStreamsChanged;
-        v11[18] = 0;
-        v11[16] = epp_delegate_handleConnectedStateChanged;
-        v11[21] = epp_delegate_handleDidCloseCommChannel;
-        v11[22] = 0;
-        v11[20] = epp_delegate_handleDidReceiveDataFromCommChannel;
-        v11[19] = epp_delegate_handleIncomingRemoteControlSessionCreated;
-        v11[24] = epp_delegate_handleSetProperty;
-        v11[25] = v12;
-        v11[23] = epp_delegate_handleCopyProperty;
+        v11 = cf;
+        v12 = CMBaseObjectGetDerivedStorage();
+        v13 = FigSimpleMutexCreate();
+        v12[15] = epp_delegate_handleFailed;
+        v12[13] = v11;
+        v12[14] = epp_delegate_handleAuthRequired;
+        v12[17] = epp_delegate_handleStreamsChanged;
+        v12[18] = v11;
+        v12[16] = epp_delegate_handleConnectedStateChanged;
+        v12[21] = epp_delegate_handleDidCloseCommChannel;
+        v12[22] = v11;
+        v12[20] = epp_delegate_handleDidReceiveDataFromCommChannel;
+        v12[19] = epp_delegate_handleIncomingRemoteControlSessionCreated;
+        v12[24] = epp_delegate_handleSetProperty;
+        v12[25] = v13;
+        v12[23] = epp_delegate_handleCopyProperty;
         if (gLogCategory_APEndpointPlus <= 50 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
         {
-          APEndpointPlusCreate_cold_2();
+          APEndpointPlusCreate_cold_2(&cf, DerivedStorage, v14);
         }
 
-        v13 = 0;
-        *a3 = 0;
+        v15 = 0;
+        *a3 = cf;
+        return v15;
       }
 
-      else
-      {
-        APEndpointPlusCreate_cold_3();
-        return 4294960568;
-      }
+      APEndpointPlusCreate_cold_3();
+      v15 = 4294960568;
     }
   }
 
   else
   {
     APEndpointPlusCreate_cold_4();
-    return 4294954516;
+    v15 = 4294954516;
   }
 
-  return v13;
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  return v15;
 }
 
 uint64_t APEndpointPlusSetInner(const void *a1, const void *a2)
@@ -1095,70 +1494,70 @@ uint64_t APEndpointPlusSetInner(const void *a1, const void *a2)
   if (*(DerivedStorage + 40) && APSGetFBOPropertyInt64() || a2 && APSGetFBOPropertyInt64())
   {
     APSLogErrorAt();
-    v11 = 4294950576;
+    v12 = 4294950576;
     APSLogErrorAt();
   }
 
   else
   {
-    v5 = *(DerivedStorage + 40);
-    if (v5 != a2)
+    v6 = *(DerivedStorage + 40);
+    if (v6 != a2)
     {
       if (gLogCategory_APEndpointPlus <= 50)
       {
-        if (gLogCategory_APEndpointPlus != -1 || (v6 = _LogCategory_Initialize(), v5 = *(DerivedStorage + 40), v6))
+        if (gLogCategory_APEndpointPlus != -1 || (v7 = _LogCategory_Initialize(), v6 = *(DerivedStorage + 40), v7))
         {
-          OUTLINED_FUNCTION_2();
-          v5 = *(DerivedStorage + 40);
+          OUTLINED_FUNCTION_2(&gLogCategory_APEndpointPlus, "OSStatus epp_setInner(FigEndpointRef, FigEndpointRef)", v4, "[%{ptr}] inner is updated [%{ptr}] -> [%{ptr}]");
+          v6 = *(DerivedStorage + 40);
         }
       }
 
-      epp_removeInnerListeners(a1, v5);
-      v7 = *(DerivedStorage + 40);
+      epp_removeInnerListeners(a1, v6);
+      v8 = *(DerivedStorage + 40);
       *(DerivedStorage + 40) = a2;
       if (a2)
       {
         CFRetain(a2);
       }
 
-      if (v7)
+      if (v8)
       {
-        CFRelease(v7);
+        CFRelease(v8);
       }
 
-      v8 = *(DerivedStorage + 40);
-      v9 = CMBaseObjectGetDerivedStorage();
+      v9 = *(DerivedStorage + 40);
+      v10 = CMBaseObjectGetDerivedStorage();
       CMNotificationCenterGetDefaultLocalCenter();
-      if (v8)
+      if (v9)
       {
         OUTLINED_FUNCTION_6_1();
         FigNotificationCenterAddWeakListener();
         if (!APSGetFBOPropertyInt64())
         {
-          v13 = *(*(CMBaseObjectGetVTable() + 16) + 48);
-          if (v13)
-          {
-            v13(v8, v9 + 104);
-          }
-
-          v14 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+          v14 = *(*(CMBaseObjectGetVTable() + 16) + 48);
           if (v14)
           {
-            v14(v8, v9 + 144);
+            v14(v9, v10 + 104);
           }
 
-          v15 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+          v15 = *(*(CMBaseObjectGetVTable() + 16) + 56);
           if (v15)
           {
-            v15(v8, v9 + 176);
+            v15(v9, v10 + 144);
+          }
+
+          v16 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+          if (v16)
+          {
+            v16(v9, v10 + 176);
           }
         }
       }
 
-      v10 = *(DerivedStorage + 64);
-      if (v10)
+      v11 = *(DerivedStorage + 64);
+      if (v11)
       {
-        dispatch_semaphore_signal(v10);
+        dispatch_semaphore_signal(v11);
       }
 
       if (a2)
@@ -1169,11 +1568,11 @@ uint64_t APEndpointPlusSetInner(const void *a1, const void *a2)
       epp_postNotificationAsync(a1, *MEMORY[0x277CC0D48], 0);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   FigSimpleMutexUnlock();
-  return v11;
+  return v12;
 }
 
 uint64_t endpoint_SetDelegateRouting(uint64_t a1, uint64_t a2)
@@ -1190,24 +1589,24 @@ uint64_t endpoint_SetDelegateRouting(uint64_t a1, uint64_t a2)
   {
     if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpoint, "OSStatus endpoint_SetDelegateRouting(FigEndpointRef, const FigEndpointDelegateRouting *)", 33554482, "[%{ptr}] Setting endpoint routing delegate %{ptr}.\n", a1, a2);
     }
 
-    v4 = *(DerivedStorage + 416);
-    if (v4)
+    v5 = *(DerivedStorage + 416);
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
       *(DerivedStorage + 416) = 0;
     }
 
-    v5 = (DerivedStorage + 344);
+    v6 = (DerivedStorage + 344);
     if (a2)
     {
-      v6 = *a2;
-      v7 = *(a2 + 16);
+      v7 = *a2;
+      v8 = *(a2 + 16);
       *(DerivedStorage + 376) = *(a2 + 32);
-      *v5 = v6;
-      *(DerivedStorage + 360) = v7;
+      *v6 = v7;
+      *(DerivedStorage + 360) = v8;
       a2 = 0;
       *(DerivedStorage + 416) = FigCFWeakReferenceHolderCreateWithReferencedObject();
     }
@@ -1215,7 +1614,7 @@ uint64_t endpoint_SetDelegateRouting(uint64_t a1, uint64_t a2)
     else
     {
       *(DerivedStorage + 376) = 0;
-      *v5 = 0u;
+      *v6 = 0u;
       *(DerivedStorage + 360) = 0u;
     }
   }
@@ -1238,21 +1637,21 @@ uint64_t endpoint_SetDelegateRemoteControl(uint64_t a1, uint64_t a2)
   {
     if (gLogCategory_APEndpoint <= 50 && (gLogCategory_APEndpoint != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpoint, "OSStatus endpoint_SetDelegateRemoteControl(FigEndpointRef, const FigEndpointDelegateRemoteControl *)", 33554482, "[%{ptr}] Setting endpoint remote control delegate %{ptr}.\n", a1, a2);
     }
 
-    v4 = *(DerivedStorage + 424);
-    if (v4)
+    v5 = *(DerivedStorage + 424);
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
       *(DerivedStorage + 424) = 0;
     }
 
     if (a2)
     {
-      v5 = *(a2 + 16);
+      v6 = *(a2 + 16);
       *(DerivedStorage + 384) = *a2;
-      *(DerivedStorage + 400) = v5;
+      *(DerivedStorage + 400) = v6;
       a2 = 0;
       *(DerivedStorage + 424) = FigCFWeakReferenceHolderCreateWithReferencedObject();
     }
@@ -1272,35 +1671,35 @@ void emp_addEndpoint(uint64_t a1, const void *a2, const void *a3, int a4)
 {
   CMBaseObjectGetDerivedStorage();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v8 = 56;
+  v9 = 56;
   if (a4 == 3)
   {
-    v8 = 64;
+    v9 = 64;
   }
 
   if (a4 == 2)
   {
-    v8 = 72;
+    v9 = 72;
   }
 
-  v9 = *(DerivedStorage + v8);
-  APEndpointPlusUtils_GetTypeString(a4);
+  v10 = *(DerivedStorage + v9);
+  TypeString = APEndpointPlusUtils_GetTypeString(a4);
   cf = 0;
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v11)
+  v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v13)
   {
-    v11(CMBaseObject, *MEMORY[0x277CC1450], *MEMORY[0x277CBECE8], &cf);
+    v13(CMBaseObject, *MEMORY[0x277CC1450], *MEMORY[0x277CBECE8], &cf);
   }
 
   if (dword_280FB1478 <= 50 && (dword_280FB1478 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_280FB1478, "OSStatus emp_addEndpoint(FigEndpointManagerRef, CFStringRef, FigEndpointRef, APEndpointPlusType)", 33554482, "[%{ptr}] %s %s Plus [%{ptr}] %@ %'@", a1, "ADD", TypeString, a3, a2, cf);
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
   FigNotificationCenterAddWeakListener();
-  CFDictionarySetValue(v9, a2, a3);
+  CFDictionarySetValue(v10, a2, a3);
   if (cf)
   {
     CFRelease(cf);
@@ -1338,46 +1737,47 @@ uint64_t endpoint_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFDiction
     v6 = kAPEndpointDescriptionProperty_AirPlayEndpointProperties;
   }
 
-  CMBaseObject = APEndpointDescriptionGetCMBaseObject(*(DerivedStorage + 40));
-  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v8)
+  APEndpointDescriptionGetCMBaseObject();
+  v8 = v7;
+  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v9)
   {
-    v13 = 4294954514;
+    v14 = 4294954514;
 LABEL_13:
     APSLogErrorAt();
     goto LABEL_14;
   }
 
-  v9 = v8(CMBaseObject, *v6, *MEMORY[0x277CBECE8], &cf);
-  if (v9)
+  v10 = v9(v8, *v6, *MEMORY[0x277CBECE8], &cf);
+  if (v10)
   {
-    v13 = v9;
+    v14 = v10;
     goto LABEL_13;
   }
 
   MutableCopy = FigCFDictionaryCreateMutableCopy();
   if (MutableCopy)
   {
-    v11 = MutableCopy;
+    v12 = MutableCopy;
     if (!a2)
     {
-      v12 = MEMORY[0x277CBED28];
+      v13 = MEMORY[0x277CBED28];
       if (!*(DerivedStorage + 49))
       {
-        v12 = MEMORY[0x277CBED10];
+        v13 = MEMORY[0x277CBED10];
       }
 
-      CFDictionarySetValue(MutableCopy, @"IsLocalDevice", *v12);
+      CFDictionarySetValue(MutableCopy, @"IsLocalDevice", *v13);
     }
 
-    v13 = 0;
-    *a3 = v11;
+    v14 = 0;
+    *a3 = v12;
   }
 
   else
   {
     endpoint_copyAirPlayEndpointProperties_cold_1();
-    v13 = 4294950575;
+    v14 = 4294950575;
   }
 
 LABEL_14:
@@ -1386,7 +1786,7 @@ LABEL_14:
     CFRelease(cf);
   }
 
-  return v13;
+  return v14;
 }
 
 BOOL endpointCluster_isSubEndpointOfType(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1401,16 +1801,27 @@ BOOL endpointCluster_isSubEndpointOfType(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a3)
   {
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v4 && !v4(CMBaseObject, *MEMORY[0x277CC14F0], *MEMORY[0x277CBECE8], &cf))
+    v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v6)
     {
-      v5 = FigCFEqual() != 0;
-      goto LABEL_11;
+      v7 = v6(CMBaseObject, *MEMORY[0x277CC14F0], *MEMORY[0x277CBECE8], &cf);
+      if (!v7)
+      {
+        v8 = FigCFEqual() != 0;
+        goto LABEL_12;
+      }
+
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = 4294954514;
     }
 
     if (gLogCategory_APEndpointCluster <= 90 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_isSubEndpointOfType(FigEndpointRef, FigEndpointRef, CFStringRef)", 33554522, "[%{ptr}] Obtaining subtype for SubEndpoint [%{ptr}] returned %#m", a1, a2, v9);
     }
   }
 
@@ -1419,14 +1830,14 @@ BOOL endpointCluster_isSubEndpointOfType(uint64_t a1, uint64_t a2, uint64_t a3)
     endpointCluster_isSubEndpointOfType_cold_1();
   }
 
-  v5 = 0;
-LABEL_11:
+  v8 = 0;
+LABEL_12:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v5;
+  return v8;
 }
 
 void OUTLINED_FUNCTION_22_2()
@@ -1446,7 +1857,7 @@ uint64_t OUTLINED_FUNCTION_22_3()
 
 CFTypeRef manager_copyPropertyInternal_cold_6(uint64_t a1, void *a2)
 {
-  v3 = manager_areEndpointsPresent();
+  v3 = manager_areEndpointsPresent(a1);
   v4 = MEMORY[0x277CBED28];
   if (!v3)
   {
@@ -1458,11 +1869,12 @@ CFTypeRef manager_copyPropertyInternal_cold_6(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t manager_handleDevicePresenceChanged(char a1, uint64_t a2)
+uint64_t manager_handleDevicePresenceChanged(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  manager_setAVDevicePresence(a2, a1);
+  manager_setAVDevicePresence(a2, v3);
   if (gLogCategory_APEndpointManager <= 30 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
   {
     manager_handleDevicePresenceChanged_cold_1();
@@ -1474,17 +1886,17 @@ uint64_t manager_handleDevicePresenceChanged(char a1, uint64_t a2)
 uint64_t manager_setAVDevicePresence(uint64_t a1, char a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = manager_areEndpointsPresent();
+  v5 = manager_areEndpointsPresent(a1);
   *(DerivedStorage + 96) = a2;
-  result = manager_areEndpointsPresent();
-  if (v4 != result)
+  result = manager_areEndpointsPresent(a1);
+  if (v5 != result)
   {
     if (gLogCategory_APEndpointManager <= 40 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
       manager_setAVDevicePresence_cold_1();
     }
 
-    return manager_postEndpointPresentChangedNotification();
+    return manager_postEndpointPresentChangedNotification(a1);
   }
 
   return result;
@@ -1496,15 +1908,23 @@ uint64_t OUTLINED_FUNCTION_61(const __CFAllocator *a1, void *a2, uint64_t a3, co
   return CMBlockBufferCreateWithMemoryBlock(a1, a2, 0xCuLL, a4, 0, 0, 0xCuLL, 0, a9);
 }
 
-uint64_t APAudioEngineBufferedCreate_cold_11(void *a1)
+uint64_t APAudioEngineBufferedCreate_cold_11(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
+  v5 = *a1;
   if (*a1)
   {
-    CMBaseObjectGetDerivedStorage();
+    v6 = (CMBaseObjectGetDerivedStorage() + 392);
   }
 
+  else
+  {
+    v6 = "";
+  }
+
+  v13 = *a2;
+  v12 = v6;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v7, v8, v9, v10, v5, v12, a3, v13);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_13()
@@ -1517,7 +1937,7 @@ uint64_t APAudioEngineBufferedCreate_cold_13()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_15()
@@ -1530,7 +1950,7 @@ uint64_t APAudioEngineBufferedCreate_cold_15()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_18()
@@ -1539,11 +1959,17 @@ uint64_t APAudioEngineBufferedCreate_cold_18()
   if (v0)
   {
     DerivedStorage = CMBaseObjectGetDerivedStorage();
+    v9 = (DerivedStorage + 392);
   }
 
-  OUTLINED_FUNCTION_5_11(DerivedStorage, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, v14, v15);
+  else
+  {
+    v9 = "";
+  }
+
+  v18 = OUTLINED_FUNCTION_5_11(DerivedStorage, v2, v3, v4, v5, v6, v7, v8, v15, v16, v17, v19, v20, v21);
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v10, v11, v12, v13, v0, v9, *&v18);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_19()
@@ -1556,10 +1982,10 @@ uint64_t APAudioEngineBufferedCreate_cold_19()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
-uint64_t carAudioStream_control(int a1, CFTypeRef cf1, const void *a3)
+uint64_t carAudioStream_control(uint64_t a1, CFTypeRef cf1, const void *a3)
 {
   if (!CFEqual(cf1, @"APCarPlayStreamAudioControl_SpeechEvent"))
   {
@@ -1607,8 +2033,8 @@ uint64_t epp_copyCachedDescriptionProperty(uint64_t a1, const void *a2, uint64_t
     epp_copyCachedDescriptionProperty_cold_1();
   }
 
-  v8 = epp_getDescriptionKeyMap_keyMap;
-  v26 = 0;
+  v9 = epp_getDescriptionKeyMap_keyMap;
+  v29 = 0;
   if (*DerivedStorage == 2)
   {
     epp_copyCachedDescriptionProperty_cold_8();
@@ -1623,81 +2049,87 @@ uint64_t epp_copyCachedDescriptionProperty(uint64_t a1, const void *a2, uint64_t
 
   if (CFEqual(a2, *MEMORY[0x277CC1368]))
   {
-    UInt64 = APEndpointPlusUtils_CopyDeviceIDFromEndpointDescription(*(DerivedStorage + 48));
+    UInt64 = APEndpointPlusUtils_CopyDeviceIDFromEndpointDescription();
     if (!UInt64)
     {
       epp_copyCachedDescriptionProperty_cold_2();
       return 4294954512;
     }
 
-    goto LABEL_47;
+    goto LABEL_48;
   }
 
   if (CFEqual(a2, *MEMORY[0x277CC14F8]))
   {
-    v10 = CMBaseObjectGetDerivedStorage();
+    v11 = CMBaseObjectGetDerivedStorage();
     DeviceClass = GestaltGetDeviceClass();
-    v27 = 0;
+    v30 = 0;
     cf = 0;
-    if (*v10 == 2)
+    if (*v11 == 2)
     {
       epp_copyCachedDescriptionProperty_cold_5();
+      goto LABEL_43;
     }
 
-    else
+    v13 = DeviceClass;
+    if (!*(v11 + 48))
     {
-      v12 = DeviceClass;
-      if (*(v10 + 48))
+      epp_copyCachedDescriptionProperty_cold_4();
+      goto LABEL_43;
+    }
+
+    if (*v11 == 1)
+    {
+      APSGetFBOPropertyInt64();
+      v14 = *(v11 + 48);
+      v15 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+      if (v15)
       {
-        if (*v10 == 1)
+        v16 = v15(v14, &cf);
+        if (!v16)
         {
-          APSGetFBOPropertyInt64();
-          v13 = *(v10 + 48);
-          v14 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-          if (!v14 || v14(v13, &cf))
+          APSFeaturesHasFeature();
+          APSFeaturesHasFeature();
+          if (v13 != 13 && v13 != 7)
           {
-            epp_copyCachedDescriptionProperty_cold_3();
-          }
-
-          else
-          {
-            APSFeaturesHasFeature();
-            APSFeaturesHasFeature();
-            if (v12 != 13 && v12 != 7)
+            if (v13 == 4)
             {
-              if (v12 == 4)
+              APEndpointDescriptionGetCMBaseObject();
+              v18 = v17;
+              v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+              if (v19 && !v19(v18, @"ClusterUUID", *MEMORY[0x277CBECE8], &v30) && v30 && APSHasSamePersistentGroupUUID())
               {
-                CMBaseObject = APEndpointDescriptionGetCMBaseObject(*(v10 + 48));
-                v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                if (v16 && !v16(CMBaseObject, @"ClusterUUID", *MEMORY[0x277CBECE8], &v27) && v27 && APSHasSamePersistentGroupUUID())
-                {
-                  APSGetFBOPropertyInt64();
-                }
-              }
-
-              else if (!APSFeaturesHasFeature())
-              {
-                APSFeaturesHasFeature();
+                APSGetFBOPropertyInt64();
               }
             }
+
+            else if (!APSFeaturesHasFeature())
+            {
+              APSFeaturesHasFeature();
+            }
           }
+
+          goto LABEL_43;
         }
       }
 
       else
       {
-        epp_copyCachedDescriptionProperty_cold_4();
+        v16 = 4294954514;
       }
+
+      epp_copyCachedDescriptionProperty_cold_3(v16);
     }
 
+LABEL_43:
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v27)
+    if (v30)
     {
-      CFRelease(v27);
+      CFRelease(v30);
     }
 
     UInt64 = FigCFNumberCreateUInt64();
@@ -1707,90 +2139,90 @@ uint64_t epp_copyCachedDescriptionProperty(uint64_t a1, const void *a2, uint64_t
       return 4294954512;
     }
 
-    goto LABEL_47;
+    goto LABEL_48;
   }
 
   if (CFEqual(a2, *MEMORY[0x277CC1258]))
   {
-    v17 = *(DerivedStorage + 48);
-    v18 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v18 && v18(v17, 86))
+    v20 = *(DerivedStorage + 48);
+    v21 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v21 && v21(v20, 86))
     {
-      v19 = MEMORY[0x277CBED28];
+      v22 = MEMORY[0x277CBED28];
     }
 
     else
     {
-      v19 = MEMORY[0x277CBED10];
+      v22 = MEMORY[0x277CBED10];
     }
 
-    UInt64 = *v19;
+    UInt64 = *v22;
 LABEL_29:
     UInt64 = CFRetain(UInt64);
-LABEL_47:
-    v24 = 0;
+LABEL_48:
+    v27 = 0;
     *a4 = UInt64;
-    return v24;
+    return v27;
   }
 
   if (CFEqual(a2, *MEMORY[0x277CC1558]))
   {
-    v20 = APSGetFBOPropertyInt64();
-    v21 = MEMORY[0x277CC1A08];
-    if (!v20)
+    v23 = APSGetFBOPropertyInt64();
+    v24 = MEMORY[0x277CC1A08];
+    if (!v23)
     {
-      v21 = MEMORY[0x277CC1A10];
+      v24 = MEMORY[0x277CC1A10];
     }
 
-    UInt64 = *v21;
-    if (!*v21)
+    UInt64 = *v24;
+    if (!*v24)
     {
-      goto LABEL_47;
+      goto LABEL_48;
     }
 
     goto LABEL_29;
   }
 
-  Value = CFDictionaryGetValue(v8, a2);
+  Value = CFDictionaryGetValue(v9, a2);
   if (!Value)
   {
     if (gLogCategory_APEndpointPlus <= 30 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointPlus, "OSStatus epp_copyCachedDescriptionProperty(FigEndpointRef, CFStringRef, CFAllocatorRef, void *)", 33554462, "[%{ptr}] Unhandled copy cached description property: %@", a1, a2);
     }
 
     return 4294954512;
   }
 
-  v23 = APEndpointDescriptionCopyProperty(*(DerivedStorage + 48), Value, a3, &v26);
-  if (!v23)
+  v26 = APEndpointDescriptionCopyProperty(*(DerivedStorage + 48), Value, a3, &v29);
+  if (!v26)
   {
-    UInt64 = v26;
-    goto LABEL_47;
+    UInt64 = v29;
+    goto LABEL_48;
   }
 
-  v24 = v23;
+  v27 = v26;
   APSLogErrorAt();
-  if (v26)
+  if (v29)
   {
-    CFRelease(v26);
+    CFRelease(v29);
   }
 
-  return v24;
+  return v27;
 }
 
-void jitterBuffer_Finalize()
+void jitterBuffer_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 8);
-  if (v1)
+  v2 = *(DerivedStorage + 8);
+  if (v2)
   {
-    CFRelease(v1);
+    CFRelease(v2);
     *(DerivedStorage + 8) = 0;
   }
 }
 
-uint64_t OUTLINED_FUNCTION_18()
+uint64_t OUTLINED_FUNCTION_18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return FigDispatchAsyncPostNotification();
@@ -1815,15 +2247,15 @@ uint64_t APAudioEngineBufferedCreate(const __CFAllocator *a1, const void *a2, ui
   if (!a2)
   {
     APAudioEngineBufferedCreate_cold_38();
-LABEL_122:
+LABEL_123:
     value_low = 4294951815;
-    goto LABEL_99;
+    goto LABEL_100;
   }
 
   if (!a3)
   {
     APAudioEngineBufferedCreate_cold_37();
-    goto LABEL_122;
+    goto LABEL_123;
   }
 
   if (gLogCategory_APAudioEngineBuffered <= 30 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
@@ -1836,8 +2268,8 @@ LABEL_122:
   if (v7)
   {
     value_low = v7;
-    APAudioEngineBufferedCreate_cold_2();
-    goto LABEL_99;
+    APAudioEngineBufferedCreate_cold_2(v7);
+    goto LABEL_100;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -1848,8 +2280,8 @@ LABEL_122:
   if (v9)
   {
     value_low = v9;
-    APAudioEngineBufferedCreate_cold_3();
-    goto LABEL_99;
+    APAudioEngineBufferedCreate_cold_3(v9);
+    goto LABEL_100;
   }
 
   *(DerivedStorage + 884) = 1;
@@ -1859,25 +2291,25 @@ LABEL_122:
   if (!v10)
   {
     APAudioEngineBufferedCreate_cold_36(&time);
-LABEL_130:
+LABEL_131:
     value_low = LODWORD(time.value);
-    goto LABEL_99;
+    goto LABEL_100;
   }
 
   v11 = APSPriorityDispatchQueuePoolCreate();
   if (v11)
   {
     value_low = v11;
-    APAudioEngineBufferedCreate_cold_4();
-    goto LABEL_99;
+    APAudioEngineBufferedCreate_cold_4(v11);
+    goto LABEL_100;
   }
 
   v12 = APSPriorityDispatcherCreate();
   if (v12)
   {
     value_low = v12;
-    APAudioEngineBufferedCreate_cold_5();
-    goto LABEL_99;
+    APAudioEngineBufferedCreate_cold_5(v12);
+    goto LABEL_100;
   }
 
   v13 = FigDispatchQueueCreateWithPriority();
@@ -1885,7 +2317,7 @@ LABEL_130:
   if (!v13)
   {
     APAudioEngineBufferedCreate_cold_35(&time);
-    goto LABEL_130;
+    goto LABEL_131;
   }
 
   v14 = FigDispatchQueueCreateWithPriority();
@@ -1893,25 +2325,25 @@ LABEL_130:
   if (!v14)
   {
     APAudioEngineBufferedCreate_cold_34(&time);
-    goto LABEL_130;
+    goto LABEL_131;
   }
 
   DefaultAirPlayMallocZoneCFAllocator = APSAllocatorGetDefaultAirPlayMallocZoneCFAllocator();
   if (!DefaultAirPlayMallocZoneCFAllocator)
   {
     *(DerivedStorage + 360) = 0;
-    goto LABEL_97;
+    goto LABEL_98;
   }
 
   v16 = CFRetain(DefaultAirPlayMallocZoneCFAllocator);
   *(DerivedStorage + 360) = v16;
   if (!v16)
   {
-LABEL_97:
-    APAudioEngineBufferedCreate_cold_33();
 LABEL_98:
+    APAudioEngineBufferedCreate_cold_33();
+LABEL_99:
     value_low = 4294951816;
-    goto LABEL_99;
+    goto LABEL_100;
   }
 
   *(DerivedStorage + 416) = CFDictionaryGetInt64() != 0;
@@ -1927,7 +2359,7 @@ LABEL_98:
   *(DerivedStorage + 1112) = 0;
   *(DerivedStorage + 1144) = 0u;
   v17 = MEMORY[0x277CC0898];
-  v45 = *MEMORY[0x277CC0898];
+  v50 = *MEMORY[0x277CC0898];
   *(DerivedStorage + 1116) = *MEMORY[0x277CC0898];
   v18 = *(v17 + 16);
   *(DerivedStorage + 1132) = v18;
@@ -1944,8 +2376,8 @@ LABEL_98:
     if (v20)
     {
       value_low = v20;
-      APAudioEngineBufferedCreate_cold_7();
-      goto LABEL_99;
+      APAudioEngineBufferedCreate_cold_7(v20);
+      goto LABEL_100;
     }
   }
 
@@ -1955,11 +2387,11 @@ LABEL_98:
     APAudioEngineBufferedCreate_cold_8();
   }
 
-  *(DerivedStorage + 160) = v45;
+  *(DerivedStorage + 160) = v50;
   *(DerivedStorage + 176) = v18;
-  *(DerivedStorage + 188) = v45;
+  *(DerivedStorage + 188) = v50;
   *(DerivedStorage + 204) = v18;
-  *(DerivedStorage + 212) = v45;
+  *(DerivedStorage + 212) = v50;
   *(DerivedStorage + 228) = v18;
   bufferedAudioEngine_updateStartupConfiguration(cf, 0);
   *(DerivedStorage + 184) = FigGetCFPreferenceNumberWithDefault();
@@ -1974,11 +2406,11 @@ LABEL_98:
     APAudioEngineBufferedCreate_cold_10();
   }
 
-  FigGetCFPreferenceNumberWithDefault();
+  v21 = FigGetCFPreferenceNumberWithDefault();
   *(DerivedStorage + 256) = MillisecondsToUpTicks();
   if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
   {
-    APAudioEngineBufferedCreate_cold_11(&cf);
+    APAudioEngineBufferedCreate_cold_11(&cf, (DerivedStorage + 256), v21);
   }
 
   *(DerivedStorage + 1800) = CFDictionaryGetInt64() != 0;
@@ -2009,32 +2441,38 @@ LABEL_98:
     APAudioEngineBufferedCreate_cold_15();
   }
 
-  v21 = FigGetCFPreferenceNumberWithDefault();
-  CMTimeMake(&time, v21, 1);
+  v22 = FigGetCFPreferenceNumberWithDefault();
+  CMTimeMake(&time, v22, 1);
   *(DerivedStorage + 128) = time;
   if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
   {
     APAudioEngineBufferedCreate_cold_16();
   }
 
-  v22 = FigGetCFPreferenceNumberWithDefault();
-  CMTimeMake(&time, v22, 1);
-  *(DerivedStorage + 68) = time;
   v23 = FigGetCFPreferenceNumberWithDefault();
   CMTimeMake(&time, v23, 1);
+  *(DerivedStorage + 68) = time;
+  v24 = FigGetCFPreferenceNumberWithDefault();
+  CMTimeMake(&time, v24, 1);
   *(DerivedStorage + 92) = time;
   if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
   {
+    v25 = cf;
     if (cf)
     {
-      CMBaseObjectGetDerivedStorage();
+      v26 = (CMBaseObjectGetDerivedStorage() + 392);
+    }
+
+    else
+    {
+      v26 = "";
     }
 
     time = *(DerivedStorage + 68);
-    CMTimeGetSeconds(&time);
+    Seconds = CMTimeGetSeconds(&time);
     time = *(DerivedStorage + 92);
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    v28 = CMTimeGetSeconds(&time);
+    LogPrintF(&gLogCategory_APAudioEngineBuffered, "OSStatus APAudioEngineBufferedCreate(CFAllocatorRef, APSNetworkClockRef, CFDictionaryRef, FigEndpointStreamAudioEngineRef *)", 33554482, "BAE [%{ptr}] %sMin audio to buffer (seconds):  %1.1f max over lowest stream:  %1.1f\n", v25, v26, *&Seconds, *&v28);
   }
 
   *(DerivedStorage + 704) = FigGetCFPreferenceNumberWithDefault();
@@ -2046,8 +2484,8 @@ LABEL_98:
   *(DerivedStorage + 24) = 300;
   if (APSSettingsIsFeatureEnabled())
   {
-    v24 = FigGetCFPreferenceNumberWithDefault();
-    CMTimeMake(&time, v24, 1000);
+    v29 = FigGetCFPreferenceNumberWithDefault();
+    CMTimeMake(&time, v29, 1000);
     *(DerivedStorage + 296) = time;
     if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
     {
@@ -2069,15 +2507,15 @@ LABEL_98:
   *(DerivedStorage + 321) = IsFeatureEnabled;
   if (IsFeatureEnabled)
   {
-    v26 = APSSettingsGetIntWithDefault() != 0;
+    v31 = APSSettingsGetIntWithDefault() != 0;
   }
 
   else
   {
-    v26 = 0;
+    v31 = 0;
   }
 
-  *(DerivedStorage + 322) = v26;
+  *(DerivedStorage + 322) = v31;
   if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
   {
     APAudioEngineBufferedCreate_cold_20();
@@ -2085,70 +2523,70 @@ LABEL_98:
 
   *(DerivedStorage + 880) = 0;
   *(DerivedStorage + 652) = 0;
-  *(DerivedStorage + 1080) = v45;
+  *(DerivedStorage + 1080) = v50;
   *(DerivedStorage + 1096) = v18;
-  v27 = *MEMORY[0x277CBECE8];
+  v32 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   *(DerivedStorage + 1104) = Mutable;
   if (!Mutable)
   {
     APAudioEngineBufferedCreate_cold_32();
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
-  v29 = CFArrayCreateMutable(v27, 0, MEMORY[0x277CBF128]);
-  *(DerivedStorage + 1248) = v29;
-  if (!v29)
+  v34 = CFArrayCreateMutable(v32, 0, MEMORY[0x277CBF128]);
+  *(DerivedStorage + 1248) = v34;
+  if (!v34)
   {
     APAudioEngineBufferedCreate_cold_31();
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
-  *(DerivedStorage + 1256) = v45;
+  *(DerivedStorage + 1256) = v50;
   *(DerivedStorage + 1272) = v18;
   *(DerivedStorage + 1160) = 0;
-  *(DerivedStorage + 1164) = v45;
+  *(DerivedStorage + 1164) = v50;
   *(DerivedStorage + 1180) = v18;
   *(DerivedStorage + 580) = 0;
   CallbacksForUnsortedSampleBuffers = CMBufferQueueGetCallbacksForUnsortedSampleBuffers();
-  v31 = CMBufferQueueCreate(a1, 0, CallbacksForUnsortedSampleBuffers, (DerivedStorage + 1192));
-  if (v31)
+  v36 = CMBufferQueueCreate(a1, 0, CallbacksForUnsortedSampleBuffers, (DerivedStorage + 1192));
+  if (v36)
   {
-    value_low = v31;
-    APAudioEngineBufferedCreate_cold_21();
-    goto LABEL_99;
+    value_low = v36;
+    APAudioEngineBufferedCreate_cold_21(v36);
+    goto LABEL_100;
   }
 
   CMTimeMake(&time, 10000, 1000);
-  CMTimeMake(&v46, 2000, 1000);
-  v32 = FigSampleBufferConsumerCreateForBufferQueue();
-  if (v32)
+  CMTimeMake(&v51, 2000, 1000);
+  v37 = FigSampleBufferConsumerCreateForBufferQueue();
+  if (v37)
   {
-    value_low = v32;
-    APAudioEngineBufferedCreate_cold_22();
-    goto LABEL_99;
+    value_low = v37;
+    APAudioEngineBufferedCreate_cold_22(v37);
+    goto LABEL_100;
   }
 
   *(DerivedStorage + 1224) = 0;
-  v33 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  *(DerivedStorage + 1216) = v33;
-  if (!v33)
+  v38 = CFDictionaryCreateMutable(v32, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  *(DerivedStorage + 1216) = v38;
+  if (!v38)
   {
     APAudioEngineBufferedCreate_cold_30();
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
   *(DerivedStorage + 1048) = 0;
-  v34 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  *(DerivedStorage + 1056) = v34;
-  if (!v34)
+  v39 = CFDictionaryCreateMutable(v32, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  *(DerivedStorage + 1056) = v39;
+  if (!v39)
   {
     APAudioEngineBufferedCreate_cold_29();
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
-  v35 = FigGetCFPreferenceNumberWithDefault();
-  CMTimeMake(&time, v35, 1);
+  v40 = FigGetCFPreferenceNumberWithDefault();
+  CMTimeMake(&time, v40, 1);
   *(DerivedStorage + 268) = time;
   if (gLogCategory_APAudioEngineBuffered <= 50)
   {
@@ -2163,11 +2601,11 @@ LABEL_98:
     }
   }
 
-  v36 = APSOasisCPUFloorRaiserCreate();
-  if (v36)
+  v41 = APSOasisCPUFloorRaiserCreate();
+  if (v41)
   {
-    value_low = v36;
-    APAudioEngineBufferedCreate_cold_25();
+    value_low = v41;
+    APAudioEngineBufferedCreate_cold_25(v41);
   }
 
   else
@@ -2178,28 +2616,28 @@ LABEL_98:
     }
 
     *(DerivedStorage + 328) = CFRetain(a2);
-    v37 = MEMORY[0x277CEA280];
+    v42 = MEMORY[0x277CEA280];
     *(DerivedStorage + 1536) = *MEMORY[0x277CEA280];
-    *(DerivedStorage + 1552) = *(v37 + 16);
-    *(DerivedStorage + 1560) = v45;
+    *(DerivedStorage + 1552) = *(v42 + 16);
+    *(DerivedStorage + 1560) = v50;
     *(DerivedStorage + 1576) = v18;
-    *(DerivedStorage + 1584) = v45;
+    *(DerivedStorage + 1584) = v50;
     *(DerivedStorage + 1600) = v18;
     HostTimeClock = CMClockGetHostTimeClock();
     CMClockGetTime(&time, HostTimeClock);
     *(DerivedStorage + 1608) = time;
-    v39 = MEMORY[0x277CC08A0];
-    v40 = *MEMORY[0x277CC08A0];
+    v44 = MEMORY[0x277CC08A0];
+    v45 = *MEMORY[0x277CC08A0];
     *(DerivedStorage + 1656) = *MEMORY[0x277CC08A0];
-    v41 = *(v39 + 16);
-    *(DerivedStorage + 1672) = v41;
-    *(DerivedStorage + 1632) = v40;
-    *(DerivedStorage + 1648) = v41;
-    *(DerivedStorage + 708) = v45;
+    v46 = *(v44 + 16);
+    *(DerivedStorage + 1672) = v46;
+    *(DerivedStorage + 1632) = v45;
+    *(DerivedStorage + 1648) = v46;
+    *(DerivedStorage + 708) = v50;
     *(DerivedStorage + 724) = v18;
     CMNotificationCenterGetDefaultLocalCenter();
-    v42 = FigNotificationCenterAddWeakListener();
-    if (!v42)
+    v47 = FigNotificationCenterAddWeakListener();
+    if (!v47)
     {
       if (gLogCategory_APAudioEngineBuffered <= 50 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
       {
@@ -2211,11 +2649,11 @@ LABEL_98:
       return value_low;
     }
 
-    value_low = v42;
-    APAudioEngineBufferedCreate_cold_27();
+    value_low = v47;
+    APAudioEngineBufferedCreate_cold_27(v47);
   }
 
-LABEL_99:
+LABEL_100:
   if (cf)
   {
     CFRelease(cf);
@@ -2234,10 +2672,10 @@ uint64_t APAudioEngineBufferedCreate_cold_8()
 
   OUTLINED_FUNCTION_18_5();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
-double OUTLINED_FUNCTION_62(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, __int128 a37, uint64_t a38)
+Float64 OUTLINED_FUNCTION_62(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, __int128 a37, uint64_t a38)
 {
   *(v38 - 240) = a37;
   *(v38 - 224) = a38;
@@ -2255,7 +2693,7 @@ uint64_t APAudioEngineBufferedCreate_cold_9()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_10()
@@ -2268,7 +2706,7 @@ uint64_t APAudioEngineBufferedCreate_cold_10()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_12()
@@ -2281,7 +2719,7 @@ uint64_t APAudioEngineBufferedCreate_cold_12()
 
   OUTLINED_FUNCTION_18_5();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_16()
@@ -2290,11 +2728,17 @@ uint64_t APAudioEngineBufferedCreate_cold_16()
   if (v0)
   {
     DerivedStorage = CMBaseObjectGetDerivedStorage();
+    v9 = (DerivedStorage + 392);
   }
 
-  OUTLINED_FUNCTION_5_11(DerivedStorage, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, v14, v15);
+  else
+  {
+    v9 = "";
+  }
+
+  v18 = OUTLINED_FUNCTION_5_11(DerivedStorage, v2, v3, v4, v5, v6, v7, v8, v15, v16, v17, v19, v20, v21);
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v10, v11, v12, v13, v0, v9, *&v18);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_17()
@@ -2307,7 +2751,7 @@ uint64_t APAudioEngineBufferedCreate_cold_17()
 
   OUTLINED_FUNCTION_13_6();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t APAudioEngineBufferedCreate_cold_20()
@@ -2320,7 +2764,7 @@ uint64_t APAudioEngineBufferedCreate_cold_20()
 
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 uint64_t bufferedAudioEngine_CopyProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2352,12 +2796,13 @@ LABEL_5:
   }
 
   v6 = APSPriorityDispatcherSyncTask();
+  v7 = v6;
   if (v6)
   {
-    bufferedAudioEngine_CopyProperty_cold_2();
+    bufferedAudioEngine_CopyProperty_cold_2(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
@@ -2366,9 +2811,9 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
   v2 = a1[1];
   v3 = a1[2];
   v4 = a1[3];
-  v19 = 0;
+  v20 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v18 = 0;
+  v19 = 0;
   if (!v2)
   {
     bufferedAudioEngine_copyPropertyDispatch_cold_12();
@@ -2403,7 +2848,7 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
     if (CFEqual(v2, @"currentRTPTime"))
     {
       time = **&MEMORY[0x277CC0898];
-      v16 = time;
+      v17 = time;
       if (APSAudioFormatDescriptionListSupports44kHz() && APSAudioFormatDescriptionListSupports48kHz())
       {
         if (gLogCategory_APAudioEngineBuffered <= 90 && (gLogCategory_APAudioEngineBuffered != -1 || _LogCategory_Initialize()))
@@ -2414,11 +2859,11 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
 
       else
       {
-        bufferedAudioEngine_getCurrentRemoteMediaTimeInternal(&v19, &time);
-        if (v19)
+        bufferedAudioEngine_getCurrentRemoteMediaTimeInternal(&v20, &time);
+        if (v20)
         {
-          bufferedAudioEngine_copyPropertyDispatch_cold_3();
-          return v19;
+          bufferedAudioEngine_copyPropertyDispatch_cold_3(v20);
+          return v20;
         }
 
         if (APSAudioFormatDescriptionListSupports44kHz())
@@ -2431,12 +2876,12 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
           v11 = 48000;
         }
 
-        v15 = time;
-        CMTimeConvertScale(&v16, &v15, v11, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+        v16 = time;
+        CMTimeConvertScale(&v17, &v16, v11, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
       }
 
-      v15 = v16;
-      v12 = CMTimeCopyAsDictionary(&v15, v3);
+      v16 = v17;
+      v12 = CMTimeCopyAsDictionary(&v16, v3);
       if (v12)
       {
         *v4 = v12;
@@ -2444,10 +2889,10 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
 
       else
       {
-        bufferedAudioEngine_copyPropertyDispatch_cold_4(&v19);
+        bufferedAudioEngine_copyPropertyDispatch_cold_4(&v20);
       }
 
-      return v19;
+      return v20;
     }
 
     if (CFEqual(v2, *MEMORY[0x277CD6268]))
@@ -2461,7 +2906,7 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
           return FigEndpointStreamAudioFormatDescriptionArray;
         }
 
-        value = v18;
+        value = v19;
         goto LABEL_35;
       }
 
@@ -2488,10 +2933,11 @@ uint64_t bufferedAudioEngine_copyPropertyDispatch(uint64_t *a1)
         time.value = 0;
         if (*(v6 + 1008))
         {
-          FigEndpointStreamAudioFormatDescriptionArray = APSAudioFormatDescriptionCopyFigEndpointStreamAudioFormatDescription();
-          if (FigEndpointStreamAudioFormatDescriptionArray)
+          v14 = APSAudioFormatDescriptionCopyFigEndpointStreamAudioFormatDescription();
+          FigEndpointStreamAudioFormatDescriptionArray = v14;
+          if (v14)
           {
-            bufferedAudioEngine_copyPropertyDispatch_cold_7();
+            bufferedAudioEngine_copyPropertyDispatch_cold_7(v14);
             return FigEndpointStreamAudioFormatDescriptionArray;
           }
 
@@ -2518,9 +2964,9 @@ LABEL_35:
 
       if (CFEqual(v2, @"currentPlaybackState"))
       {
-        v14 = CFNumberCreate(v3, kCFNumberSInt64Type, (v6 + 884));
-        *v4 = v14;
-        if (v14)
+        v15 = CFNumberCreate(v3, kCFNumberSInt64Type, (v6 + 884));
+        *v4 = v15;
+        if (v15)
         {
           return 0;
         }
@@ -2564,7 +3010,7 @@ LABEL_14:
   return FigEndpointStreamAudioFormatDescriptionArray;
 }
 
-uint64_t bufferedAudioEngine_SetProperty(uint64_t a1, uint64_t a2)
+uint64_t bufferedAudioEngine_SetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APAudioEngineBuffered > 30 || gLogCategory_APAudioEngineBuffered == -1 && !_LogCategory_Initialize())
@@ -2586,19 +3032,20 @@ LABEL_9:
   }
 
 LABEL_5:
-  v3 = APSPriorityDispatcherSyncTask();
-  if (v3)
+  v4 = APSPriorityDispatcherSyncTask();
+  v5 = v4;
+  if (v4)
   {
-    bufferedAudioEngine_SetProperty_cold_2();
+    bufferedAudioEngine_SetProperty_cold_2(v4);
   }
 
-  return v3;
+  return v5;
 }
 
-uint64_t bufferedAudioEngine_setPropertyDispatch(uint64_t a1)
+uint64_t bufferedAudioEngine_setPropertyDispatch(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   values = v2;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (CFEqual(v1, *MEMORY[0x277CD6230]))
@@ -2723,7 +3170,7 @@ uint64_t bufferedAudioEngine_setPropertyDispatch_cold_4()
   }
 
   OUTLINED_FUNCTION_42_0();
-  return OUTLINED_FUNCTION_6();
+  return OUTLINED_FUNCTION_6(&gLogCategory_APAudioEngineBuffered, "OSStatus bufferedAudioEngine_setPropertyInternal(FigEndpointStreamAudioEngineRef, CFStringRef, CFTypeRef)", v1, "BAE [%{ptr}] %sSetting clientAuditToken: %@\n");
 }
 
 CFTypeRef airPlayDescription_copyPasswordRequired(uint64_t a1, void *a2)
@@ -2775,26 +3222,29 @@ uint64_t APEndpointDescriptionHasFeature(uint64_t a1, uint64_t a2)
   return v4(a1, a2);
 }
 
-uint64_t airPlayDescription_HasFeature(uint64_t a1)
+uint64_t airPlayDescription_HasFeature(uint64_t a1, uint64_t a2)
 {
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APEndpointDescriptionAirPlay <= 30 && (gLogCategory_APEndpointDescriptionAirPlay != -1 || _LogCategory_Initialize()))
   {
-    airPlayDescription_HasFeature_cold_1();
+    airPlayDescription_HasFeature_cold_1(a1, v4, v5);
   }
 
   FigSimpleMutexLock();
-  hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1);
+  hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1, a2);
   FigSimpleMutexUnlock();
   return hasFeatureInternal;
 }
 
-uint64_t manager_postEndpointPresentChangedNotification()
+uint64_t manager_postEndpointPresentChangedNotification(uint64_t a1)
 {
-  CMBaseObjectGetDerivedStorage();
-  if (gLogCategory_APEndpointManager <= 40 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  if (gLogCategory_APEndpointManager <= 40)
   {
-    manager_postEndpointPresentChangedNotification_cold_1();
+    if (gLogCategory_APEndpointManager != -1 || (DerivedStorage = _LogCategory_Initialize(), DerivedStorage))
+    {
+      manager_postEndpointPresentChangedNotification_cold_1(DerivedStorage, v2, v3);
+    }
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
@@ -2809,63 +3259,96 @@ uint64_t manager_handleEndpointDescriptionChanged(uint64_t a1, void *a2, uint64_
   v9 = FigCFEqual();
   if (!a5 || !v9)
   {
-    if (a5)
+    if (!a5)
     {
-      if (CFDictionaryGetInt64())
+      goto LABEL_61;
+    }
+
+    if (!CFDictionaryGetInt64())
+    {
+      goto LABEL_61;
+    }
+
+    if (!APSGetFBOPropertyInt64())
+    {
+      goto LABEL_61;
+    }
+
+    CFDictionaryGetValue(a5, @"ChangeSource");
+    if (FigCFEqual())
+    {
+      goto LABEL_61;
+    }
+
+    v38 = 0;
+    cf = 0;
+    CMBaseObject = FigEndpointGetCMBaseObject();
+    v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v15)
+    {
+      v16 = *MEMORY[0x277CBECE8];
+      v17 = v15(CMBaseObject, @"EndpointDescription", *MEMORY[0x277CBECE8], &cf);
+      if (!v17)
       {
-        if (APSGetFBOPropertyInt64())
+        v18 = FigEndpointGetCMBaseObject();
+        v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v19)
         {
-          CFDictionaryGetValue(a5, @"ChangeSource");
-          if (!FigCFEqual())
+          v20 = v19(v18, @"TransportDevice", v16, &v38);
+          if (!v20)
           {
-            v33 = 0;
-            cf = 0;
-            CMBaseObject = FigEndpointGetCMBaseObject();
-            v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (!v15 || (v16 = *MEMORY[0x277CBECE8], v15(CMBaseObject, @"EndpointDescription", *MEMORY[0x277CBECE8], &cf)))
+            v21 = APSGetFBOPropertyInt64();
+            if (gLogCategory_APEndpointManager <= 50)
             {
-              manager_handleEndpointDescriptionChanged_cold_2();
-            }
-
-            else
-            {
-              v17 = FigEndpointGetCMBaseObject();
-              v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-              if (!v18 || v18(v17, @"TransportDevice", v16, &v33))
+              v22 = v21;
+              if (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize())
               {
-                manager_handleEndpointDescriptionChanged_cold_1();
-              }
-
-              else
-              {
-                APSGetFBOPropertyInt64();
-                if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
+                v23 = "yes";
+                if (!v22)
                 {
-                  LogPrintF();
+                  v23 = "no";
                 }
 
-                v27 = v33;
-                v28 = cf;
-                v29 = APSGetFBOPropertyInt64() != 0;
-                manager_handleShadowEndpointEvent(a2, v27, v28, a4, v29, 1);
+                LogPrintF(&gLogCategory_APEndpointManager, "void manager_handleEndpointUGLSessionActiveChange(FigEndpointManagerRef, FigEndpointRef)", 33554482, "<APUGL> Endpoint [%{ptr}] UGL Session active changed to %s", a4, v23);
               }
             }
 
-            if (cf)
-            {
-              CFRelease(cf);
-            }
-
-            if (v33)
-            {
-              CFRelease(v33);
-            }
+            v32 = v38;
+            v33 = cf;
+            v34 = APSGetFBOPropertyInt64() != 0;
+            manager_handleShadowEndpointEvent(a2, v32, v33, a4, v34, 1);
+            goto LABEL_57;
           }
         }
+
+        else
+        {
+          v20 = 4294954514;
+        }
+
+        manager_handleEndpointDescriptionChanged_cold_1(v20);
+LABEL_57:
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+
+        if (v38)
+        {
+          CFRelease(v38);
+        }
+
+        goto LABEL_61;
       }
     }
 
-    goto LABEL_59;
+    else
+    {
+      v17 = 4294954514;
+    }
+
+    manager_handleEndpointDescriptionChanged_cold_2(v17);
+    goto LABEL_57;
   }
 
   Int64 = CFDictionaryGetInt64();
@@ -2875,7 +3358,7 @@ uint64_t manager_handleEndpointDescriptionChanged(uint64_t a1, void *a2, uint64_
   {
     if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
-      manager_handleEndpointDescriptionChanged_cold_3();
+      manager_handleEndpointDescriptionChanged_cold_3(a2);
     }
 
     *(DerivedStorage + 160) = 1;
@@ -2888,91 +3371,91 @@ uint64_t manager_handleEndpointDescriptionChanged(uint64_t a1, void *a2, uint64_
     goto LABEL_6;
   }
 
-  v33 = 0;
+  v38 = 0;
   cf = 0;
-  v19 = *(DerivedStorage + 296);
-  if (*(DerivedStorage + 256) == v19)
+  v24 = *(DerivedStorage + 296);
+  if (*(DerivedStorage + 256) == v24)
   {
-    v20 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v20 = *(DerivedStorage + 256);
+    v25 = *(DerivedStorage + 256);
   }
 
-  manager_copyOrCreateClusterForEndpoint(a2, v19, &cf);
+  manager_copyOrCreateClusterForEndpoint(a2, v24, &cf);
   if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APEndpointManager, "void manager_handleEndpointDescriptionChanged(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "Cluster change: Old cluster endpoint [%{ptr}] vs. new [%{ptr}]\n", v25, cf);
   }
 
-  if (v20 && Int64)
+  if (v25 && Int64)
   {
     if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
-      manager_handleEndpointDescriptionChanged_cold_4();
+      manager_handleEndpointDescriptionChanged_cold_4(v25);
     }
 
-    v21 = a2;
-    v22 = v20;
-    v23 = 1;
+    v26 = a2;
+    v27 = v25;
+    v28 = 1;
   }
 
   else
   {
-    v24 = manager_determineLocalClusterAction(a2, cf);
-    if (v24 != 2)
+    v29 = manager_determineLocalClusterAction(a2, cf);
+    if (v29 != 2)
     {
-      if (v24 == 1)
+      if (v29 == 1)
       {
         manager_activateLocalCluster(a2, cf);
       }
 
-      goto LABEL_47;
+      goto LABEL_49;
     }
 
-    v22 = cf;
-    v21 = a2;
-    v23 = 0;
+    v27 = cf;
+    v26 = a2;
+    v28 = 0;
   }
 
-  manager_deactivateLocalCluster(v21, v22, v23);
-LABEL_47:
-  v25 = FigEndpointGetCMBaseObject();
-  v26 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v26)
+  manager_deactivateLocalCluster(v26, v27, v28);
+LABEL_49:
+  v30 = FigEndpointGetCMBaseObject();
+  v31 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v31)
   {
-    v26(v25, *MEMORY[0x277CC1490], *MEMORY[0x277CBECE8], &v33);
+    v31(v30, *MEMORY[0x277CC1490], *MEMORY[0x277CBECE8], &v38);
   }
 
   if (!FigCFEqual())
   {
     if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointManager, "void manager_handleEndpointDescriptionChanged(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "Local endpoint [%{ptr}] cluster ID changed: %@ -> %@ / cluster [%{ptr}] -> [%{ptr}]. Simulate system request to stop.\n", *(DerivedStorage + 296), *(DerivedStorage + 128), v38, v25, cf);
     }
 
-    v31 = *(DerivedStorage + 128);
-    v32 = v33;
-    *(DerivedStorage + 128) = v33;
-    if (v32)
+    v36 = *(DerivedStorage + 128);
+    v37 = v38;
+    *(DerivedStorage + 128) = v38;
+    if (v37)
     {
-      CFRetain(v32);
+      CFRetain(v37);
     }
 
-    if (v31)
+    if (v36)
     {
-      CFRelease(v31);
+      CFRelease(v36);
     }
 
     CMNotificationCenterGetDefaultLocalCenter();
     FigDispatchAsyncPostNotification();
   }
 
-  if (v33)
+  if (v38)
   {
-    CFRelease(v33);
+    CFRelease(v38);
   }
 
   if (cf)
@@ -2983,20 +3466,20 @@ LABEL_47:
 LABEL_6:
   if (!*(DerivedStorage + 161) || !v12)
   {
-LABEL_59:
+LABEL_61:
     v13 = APSGetFBOPropertyInt64() != 0;
-    goto LABEL_60;
+    goto LABEL_62;
   }
 
   *(DerivedStorage + 161) = 0;
   if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APEndpointManager, "void manager_handleEndpointDescriptionChanged(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] Local endpoint [%{ptr}] first complete update received.\n", a2, *(DerivedStorage + 296));
   }
 
-  manager_updateEndpointPSGInfoIfNeeded();
+  manager_updateEndpointPSGInfoIfNeeded(a2, *(DerivedStorage + 296));
   v13 = 1;
-LABEL_60:
+LABEL_62:
   manager_notifyAvailableEndpointsChangedWithThrottleIfNeeded(a2, v13);
   return FigSimpleMutexUnlock();
 }
@@ -3585,7 +4068,7 @@ CFTypeRef airPlayDescription_copyDeviceSupportsRelay(uint64_t a1, void *a2)
 CFTypeRef airplayDescription_copySupportsAirPlayFromCloud(uint64_t a1, void *a2)
 {
   CMBaseObjectGetDerivedStorage();
-  if (airPlayDescription_hasFeatureInternal(a1) && (CFObjectGetPropertyInt64Sync() & 0x40) != 0)
+  if (airPlayDescription_hasFeatureInternal(a1, 34) && (CFObjectGetPropertyInt64Sync() & 0x40) != 0)
   {
     v4 = MEMORY[0x277CBED28];
   }
@@ -3638,7 +4121,7 @@ CFTypeRef airPlayDescription_copyIsHKAccessControlEnabled(uint64_t a1, void *a2)
 {
   CMBaseObjectGetDerivedStorage();
   PropertyInt64Sync = CFObjectGetPropertyInt64Sync();
-  hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1);
+  hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1, 46);
   v6 = MEMORY[0x277CBED28];
   if (((hasFeatureInternal != 0) & (PropertyInt64Sync >> 10)) == 0)
   {
@@ -3653,27 +4136,33 @@ CFTypeRef airPlayDescription_copyIsHKAccessControlEnabled(uint64_t a1, void *a2)
 uint64_t airPlayDescription_copyHKAccessControlLevel(uint64_t a1, uint64_t *a2)
 {
   CMBaseObjectGetDerivedStorage();
-  if (airPlayDescription_getAccessControlType() == 1)
+  AccessControlType = airPlayDescription_getAccessControlType(a1);
+  if (AccessControlType == 1)
   {
-    CFObjectGetPropertyInt64Sync();
+    PropertyInt64Sync = CFObjectGetPropertyInt64Sync();
+  }
+
+  else
+  {
+    PropertyInt64Sync = 0;
   }
 
   if (APSAccessControlIsValidConfig())
   {
-    v3 = 0;
+    v6 = 0;
     *a2 = CFNumberCreateInt64();
   }
 
   else
   {
-    v3 = 4294895542;
+    v6 = 4294895542;
     if (gLogCategory_APEndpointDescriptionAirPlay <= 90 && (gLogCategory_APEndpointDescriptionAirPlay != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointDescriptionAirPlay, "OSStatus airPlayDescription_copyHKAccessControlLevel(APEndpointDescriptionRef, CFNumberRef *)", 33554522, "[%{ptr}] Invalid access control config: ACT=%d, ACL=%d.\n", a1, AccessControlType, PropertyInt64Sync);
     }
   }
 
-  return v3;
+  return v6;
 }
 
 void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFDictionary **a3)
@@ -3709,7 +4198,7 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
         cf = 0;
       }
 
-      hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1);
+      hasFeatureInternal = airPlayDescription_hasFeatureInternal(a1, 82);
       v14 = *MEMORY[0x277CBED28];
       v15 = *MEMORY[0x277CBED10];
       if (hasFeatureInternal)
@@ -3723,7 +4212,7 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
       }
 
       CFDictionarySetValue(v9, @"SupportsClusterEngageOnActivation", v16);
-      if (airPlayDescription_hasFeatureInternal(a1))
+      if (airPlayDescription_hasFeatureInternal(a1, 85))
       {
         v17 = v14;
       }
@@ -3747,7 +4236,7 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
         airplayDescription_copyStatusFlagsContainsFlag(a1, 0x100000, &cf);
         if (gLogCategory_APEndpointDescriptionAirPlay <= 30 && (gLogCategory_APEndpointDescriptionAirPlay != -1 || _LogCategory_Initialize()))
         {
-          airPlayDescription_copyAirPlayEndpointProperties_cold_1();
+          airPlayDescription_copyAirPlayEndpointProperties_cold_1(&cf, v18, v19);
         }
 
         FigCFDictionarySetValue();
@@ -3790,28 +4279,28 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
         v12 = *MEMORY[0x277CBED10];
         if (TransportsRequiringBroker)
         {
-          v19 = *MEMORY[0x277CBED28];
+          v21 = *MEMORY[0x277CBED28];
         }
 
         else
         {
-          v19 = *MEMORY[0x277CBED10];
+          v21 = *MEMORY[0x277CBED10];
         }
 
-        CFDictionarySetValue(v9, @"IsDiscoveredWithBroker", v19);
+        CFDictionarySetValue(v9, @"IsDiscoveredWithBroker", v21);
       }
 
       if (APTransportDeviceIsPresentOnInfra())
       {
-        v20 = v11;
+        v22 = v11;
       }
 
       else
       {
-        v20 = v12;
+        v22 = v12;
       }
 
-      CFDictionarySetValue(v9, @"IsDiscoveredOverInfra", v20);
+      CFDictionarySetValue(v9, @"IsDiscoveredOverInfra", v22);
     }
 
     airPlayDescription_copyPropertyInternal(a1, @"ParentGroupID", v7, &cf);
@@ -3875,7 +4364,7 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
     {
       if (APSIsProximitySenderEnabled())
       {
-        if (airPlayDescription_hasFeatureInternal(a1))
+        if (airPlayDescription_hasFeatureInternal(a1, 71))
         {
           CFDictionarySetValue(v9, @"SupportsNIRanging", *MEMORY[0x277CBED28]);
           if (*(DerivedStorage + 8))
@@ -3900,14 +4389,15 @@ void airPlayDescription_copyAirPlayEndpointProperties(uint64_t a1, int a2, __CFD
   }
 }
 
-void endpoint_setPropertyOnMXDescriptor(const void *a1, const void *a2)
+void endpoint_setPropertyOnMXDescriptor(const void *a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = 0;
+  v9 = 0;
   cf = 0;
   CMBaseObjectGetDerivedStorage();
-  if (endpoint_copyStaticProperty(a1, a2, &cf, &v6) || (v4 = *MEMORY[0x277CBECE8], endpoint_copyPropertyFromEndpointDescription(a1, a2, *MEMORY[0x277CBECE8], &cf, &v6)))
+  if (endpoint_copyStaticProperty(a1, a2, &cf, &v9) || (v6 = *MEMORY[0x277CBECE8], endpoint_copyPropertyFromEndpointDescription(a1, a2, *MEMORY[0x277CBECE8], &cf, &v9)))
   {
-    if (!v6)
+    v7 = v9;
+    if (!v9)
     {
 LABEL_4:
       FigCFDictionarySetValue();
@@ -3917,14 +4407,15 @@ LABEL_4:
 
   else
   {
-    v6 = endpoint_copyPropertyInternal(a1, a2, v4, &cf);
-    if (!v6)
+    v7 = endpoint_copyPropertyInternal(a1, a2, v6, &cf);
+    v9 = v7;
+    if (!v7)
     {
       goto LABEL_4;
     }
   }
 
-  endpoint_setPropertyOnMXDescriptor_cold_1();
+  endpoint_setPropertyOnMXDescriptor_cold_1(v7);
 LABEL_5:
   if (cf)
   {
@@ -3934,24 +4425,24 @@ LABEL_5:
 
 uint64_t endpoint_copyIsGroupable(uint64_t a1, CFTypeRef *a2)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
   cf = 0;
-  v4 = *(DerivedStorage + 56);
-  if (v4)
+  v3 = *(CMBaseObjectGetDerivedStorage() + 56);
+  if (v3)
   {
-    v5 = 0;
-    *a2 = CFRetain(v4);
+    v4 = 0;
+    *a2 = CFRetain(v3);
   }
 
   else
   {
-    CMBaseObject = APEndpointDescriptionGetCMBaseObject(*(DerivedStorage + 40));
+    APEndpointDescriptionGetCMBaseObject();
+    v6 = v5;
     v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v7)
     {
-      v5 = v7(CMBaseObject, @"TransportDevice", *MEMORY[0x277CBECE8], &cf);
+      v4 = v7(v6, @"TransportDevice", *MEMORY[0x277CBECE8], &cf);
       v8 = cf;
-      if (!v5)
+      if (!v4)
       {
         IsModernPresentOnInfra = APTransportDeviceIsModernPresentOnInfra();
         Int64 = APSSettingsGetInt64();
@@ -3986,13 +4477,13 @@ uint64_t endpoint_copyIsGroupable(uint64_t a1, CFTypeRef *a2)
     }
   }
 
-  return v5;
+  return v4;
 }
 
 CFTypeRef airplayDescription_copySupportsPTP(uint64_t a1, void *a2)
 {
   CMBaseObjectGetDerivedStorage();
-  if (airPlayDescription_isSourceVersionAtLeast(a1, 0x36193Eu) && airPlayDescription_hasFeatureInternal(a1))
+  if (airPlayDescription_isSourceVersionAtLeast(a1, 0x36193Eu) && airPlayDescription_hasFeatureInternal(a1, 41))
   {
     v4 = MEMORY[0x277CBED28];
   }
@@ -4007,13 +4498,13 @@ CFTypeRef airplayDescription_copySupportsPTP(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t endpoint_copyPropertyFromEndpointDescription_cold_5(uint64_t a1)
+uint64_t endpoint_copyPropertyFromEndpointDescription_cold_5()
 {
-  OUTLINED_FUNCTION_10_11(a1);
+  OUTLINED_FUNCTION_10_11();
   if (*(*(CMBaseObjectGetVTable() + 8) + 48))
   {
-    v2 = OUTLINED_FUNCTION_11_8();
-    result = v3(v2);
+    v1 = OUTLINED_FUNCTION_11_8();
+    result = v2(v1);
   }
 
   else
@@ -4021,11 +4512,11 @@ uint64_t endpoint_copyPropertyFromEndpointDescription_cold_5(uint64_t a1)
     result = 4294954514;
   }
 
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_13_0()
+uint64_t OUTLINED_FUNCTION_13_0(uint64_t a1)
 {
 
   return _LogCategory_Initialize();
@@ -4038,13 +4529,13 @@ void OUTLINED_FUNCTION_16_0(int a1@<W8>)
   carAudioStream_teardownTransportStreams(v1, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_16_3()
+uint64_t OUTLINED_FUNCTION_16_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35)
 {
 
   return CUObfuscatedPtr();
 }
 
-uint64_t OUTLINED_FUNCTION_16_4()
+uint64_t OUTLINED_FUNCTION_16_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
 
   return FigNotificationCenterAddWeakListener();
@@ -4072,21 +4563,21 @@ void __manager_updateEndpointClusterMembershipIfNeeded_block_invoke(uint64_t a1,
   }
 }
 
-uint64_t APEndpointClusterCreate(const __CFAllocator *a1, const void *a2, const void *a3, int a4, const void *a5, uint64_t a6, const void *a7, uint64_t a8, CFTypeRef *a9)
+uint64_t APEndpointClusterCreate(const __CFAllocator *a1, const void *a2, const void *a3, unsigned int a4, const void *a5, uint64_t a6, const void *a7, uint64_t a8, CFTypeRef *a9)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v35 = 0;
+  v40 = 0;
   if (!a4)
   {
     APEndpointClusterCreate_cold_14();
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
   if (!a7)
   {
     APEndpointClusterCreate_cold_13();
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
   FigEndpointExtendedGetClassID();
@@ -4094,8 +4585,8 @@ uint64_t APEndpointClusterCreate(const __CFAllocator *a1, const void *a2, const 
   if (v16)
   {
     v29 = v16;
-    APEndpointClusterCreate_cold_1();
-    goto LABEL_51;
+    APEndpointClusterCreate_cold_1(v16);
+    goto LABEL_54;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -4105,9 +4596,9 @@ uint64_t APEndpointClusterCreate(const __CFAllocator *a1, const void *a2, const 
   if (!v18)
   {
     APEndpointClusterCreate_cold_12();
-LABEL_50:
+LABEL_53:
     v29 = 4294950575;
-    goto LABEL_51;
+    goto LABEL_54;
   }
 
   *(DerivedStorage + 16) = CFRetain(a3);
@@ -4121,7 +4612,7 @@ LABEL_50:
   if (!Mutable)
   {
     APEndpointClusterCreate_cold_11();
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
   *(DerivedStorage + 440) = 1;
@@ -4142,7 +4633,7 @@ LABEL_50:
   if (!v22)
   {
     APEndpointClusterCreate_cold_10();
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
   v23 = CFDictionaryCreateMutable(v19, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -4150,7 +4641,7 @@ LABEL_50:
   if (!v23)
   {
     APEndpointClusterCreate_cold_9();
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
   v24 = CFArrayCreateMutable(v19, 0, MEMORY[0x277CBF128]);
@@ -4158,7 +4649,7 @@ LABEL_50:
   if (!v24)
   {
     APEndpointClusterCreate_cold_8();
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
   *(DerivedStorage + 112) = APSSettingsGetIntWithOverrideAndDefault();
@@ -4178,13 +4669,13 @@ LABEL_50:
 
   if (FigCFDictionaryGetIntIfPresent())
   {
-    *(DerivedStorage + 184) = v35;
+    *(DerivedStorage + 184) = v40;
     if (a2 && endpointCluster_getSubEndpointDeviceClass(cf, a2) != *(DerivedStorage + 184))
     {
       APEndpointClusterCreate_cold_2();
-LABEL_40:
+LABEL_43:
       v29 = 4294950576;
-      goto LABEL_51;
+      goto LABEL_54;
     }
   }
 
@@ -4201,17 +4692,17 @@ LABEL_40:
     if (!Copy)
     {
       APEndpointClusterCreate_cold_3();
-      goto LABEL_50;
+      goto LABEL_53;
     }
   }
 
-  SNPrintF();
+  SNPrintF(label, 128, "APEndpointCluster.%{ptr}.%@", cf, *(DerivedStorage + 16));
   v27 = dispatch_queue_create(label, 0);
   *(DerivedStorage + 40) = v27;
   if (!v27)
   {
     APEndpointClusterCreate_cold_7();
-    goto LABEL_50;
+    goto LABEL_53;
   }
 
   if (a2)
@@ -4221,7 +4712,7 @@ LABEL_40:
     CFArrayAppendValue(*(DerivedStorage + 336), v28);
     if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      APEndpointClusterCreate_cold_4();
+      APEndpointClusterCreate_cold_4(&cf);
     }
 
     CMNotificationCenterGetDefaultLocalCenter();
@@ -4237,8 +4728,8 @@ LABEL_40:
     FigSimpleMutexUnlock();
     if (v29)
     {
-      APEndpointClusterCreate_cold_5();
-LABEL_51:
+      APEndpointClusterCreate_cold_5(v29);
+LABEL_54:
       if (cf)
       {
         CFRelease(cf);
@@ -4255,9 +4746,10 @@ LABEL_51:
     *v30 = 0;
   }
 
-  if (APSEventRecorderCreate())
+  v31 = APSEventRecorderCreate();
+  if (v31)
   {
-    APEndpointClusterCreate_cold_6();
+    APEndpointClusterCreate_cold_6(v31);
   }
 
   else
@@ -4265,25 +4757,37 @@ LABEL_51:
     APSEventRecorderAddSignPostForEvent();
   }
 
-  v31 = cf;
-  v32 = CMBaseObjectGetDerivedStorage();
-  *(v32 + 248) = 0u;
-  v32 += 248;
-  *(v32 - 40) = 0u;
-  *(v32 - 24) = 0u;
-  *(v32 + 16) = 0u;
-  *(v32 - 8) = 0;
-  *v32 = v31;
-  *(v32 - 40) = v31;
-  *(v32 - 32) = endpointCluster_handleAuthRequiredInternal;
-  *(v32 - 24) = endpointCluster_handleFailedInternal;
-  *(v32 + 16) = endpointCluster_handleDidReceiveDataFromCommChannelInternal;
-  *(v32 + 24) = endpointCluster_handleDidCloseCommChannelInternal;
+  v32 = cf;
+  v33 = CMBaseObjectGetDerivedStorage();
+  *(v33 + 248) = 0u;
+  v33 += 248;
+  *(v33 - 40) = 0u;
+  *(v33 - 24) = 0u;
+  *(v33 + 16) = 0u;
+  *(v33 - 8) = 0;
+  *v33 = v32;
+  *(v33 - 40) = v32;
+  *(v33 - 32) = endpointCluster_handleAuthRequiredInternal;
+  *(v33 - 24) = endpointCluster_handleFailedInternal;
+  *(v33 + 16) = endpointCluster_handleDidReceiveDataFromCommChannelInternal;
+  *(v33 + 24) = endpointCluster_handleDidCloseCommChannelInternal;
   *(DerivedStorage + 200) = CFAbsoluteTimeGetCurrent();
   if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
   {
-    APSClusterTypeToDescriptionString();
-    LogPrintF();
+    v34 = cf;
+    v35 = *(DerivedStorage + 16);
+    if (*(DerivedStorage + 8))
+    {
+      v36 = "Local";
+    }
+
+    else
+    {
+      v36 = "Remote";
+    }
+
+    v37 = APSClusterTypeToDescriptionString();
+    LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus APEndpointClusterCreate(CFAllocatorRef, FigEndpointRef, CFStringRef, APSClusterType, CFStringRef, CFIndex, APSNetworkClockRef, CFDictionaryRef, FigEndpointRef *)", 33554482, "APEndpointCluster created: [%{ptr}], clusterUUID: %@, type: %s %@, initial name: %@, expected size: %u.\n", v34, v35, v36, v37, a5, *(DerivedStorage + 24));
   }
 
   v29 = 0;
@@ -4373,56 +4877,40 @@ uint64_t airPlayDescription_copyTightSyncClusterInfo(uint64_t a1, CFMutableDicti
 uint64_t endpointCluster_shouldActivateSubEndpoint(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = DerivedStorage;
-  if ((*(DerivedStorage + 376) - 4) <= 0xFFFFFFFD)
+  v5 = DerivedStorage;
+  v6 = *(DerivedStorage + 376);
+  if ((v6 - 4) <= 0xFFFFFFFD)
   {
     if (gLogCategory_APEndpointCluster > 30)
     {
       return 0;
     }
 
-    if (gLogCategory_APEndpointCluster == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APEndpointCluster == -1)
     {
-      goto LABEL_28;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_32;
+      }
+
+      v6 = *(v5 + 376);
     }
 
+    v18 = a2;
+    v19 = v6;
+    v17 = a1;
+    v15 = "[%{ptr}] Should activate subEndpoint [%{ptr}]: no - bad stage (%d)\n";
 LABEL_27:
-    LogPrintF();
-LABEL_28:
-    v9 = 0;
-    goto LABEL_11;
+    v16 = 33554462;
+LABEL_31:
+    LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_shouldActivateSubEndpoint(FigEndpointRef, FigEndpointRef)", v16, v15, v17, v18, v19);
+LABEL_32:
+    v12 = 0;
+    v13 = "no";
+    goto LABEL_13;
   }
 
-  if (*(DerivedStorage + 392))
-  {
-    if (gLogCategory_APEndpointCluster > 30)
-    {
-      return 0;
-    }
-
-    if (gLogCategory_APEndpointCluster == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_28;
-    }
-
-    goto LABEL_27;
-  }
-
-  CMBaseObjectGetDerivedStorage();
-  cf = 0;
-  CMBaseObject = FigEndpointGetCMBaseObject();
-  v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v6)
-  {
-    v6(CMBaseObject, *MEMORY[0x277CC14E8], *MEMORY[0x277CBECE8], &cf);
-  }
-
-  v7 = FigCFArrayContainsValue();
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
+  v7 = *(DerivedStorage + 392);
   if (v7)
   {
     if (gLogCategory_APEndpointCluster > 30)
@@ -4430,47 +4918,113 @@ LABEL_28:
       return 0;
     }
 
-    if (gLogCategory_APEndpointCluster == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APEndpointCluster == -1)
     {
-      goto LABEL_28;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_32;
+      }
+
+      v7 = *(v5 + 392);
     }
 
+    v18 = a2;
+    v19 = v7;
+    v17 = a1;
+    v15 = "[%{ptr}] Should activate subEndpoint [%{ptr}]: no - bad status (%#m)\n";
     goto LABEL_27;
   }
 
-  v8 = *(v4 + 432);
-  if (v8 && CFSetContainsValue(v8, a2))
+  CMBaseObjectGetDerivedStorage();
+  cf = 0;
+  CMBaseObject = FigEndpointGetCMBaseObject();
+  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v9)
+  {
+    v9(CMBaseObject, *MEMORY[0x277CC14E8], *MEMORY[0x277CBECE8], &cf);
+  }
+
+  v10 = FigCFArrayContainsValue();
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v10)
+  {
+    if (gLogCategory_APEndpointCluster > 30)
+    {
+      return 0;
+    }
+
+    if (gLogCategory_APEndpointCluster == -1 && !_LogCategory_Initialize())
+    {
+      goto LABEL_32;
+    }
+
+    v17 = a1;
+    v18 = a2;
+    v15 = "[%{ptr}] Should activate subEndpoint [%{ptr}]: no - already added to aggregate\n";
+    goto LABEL_27;
+  }
+
+  v11 = *(v5 + 432);
+  if (v11 && CFSetContainsValue(v11, a2))
   {
     if (gLogCategory_APEndpointCluster <= 50)
     {
       if (gLogCategory_APEndpointCluster == -1 && !_LogCategory_Initialize())
       {
-        goto LABEL_28;
+        goto LABEL_32;
       }
 
-      goto LABEL_27;
+      v17 = a1;
+      v18 = a2;
+      v15 = "[%{ptr}] Should activate subEndpoint [%{ptr}]: no - subEndpoint is in failed subEndpoint set\n";
+      v16 = 33554482;
+      goto LABEL_31;
     }
 
     return 0;
   }
 
-  v9 = endpointCluster_wantSubEndpointActivation();
-LABEL_11:
-  if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
+  v12 = endpointCluster_wantSubEndpointActivation();
+  if (v12)
   {
-    LogPrintF();
+    v13 = "yes";
   }
 
-  return v9;
+  else
+  {
+    v13 = "no";
+  }
+
+LABEL_13:
+  if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_shouldActivateSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554462, "[%{ptr}] Should activate subEndpoint [%{ptr}]: returning %s\n", a1, a2, v13);
+  }
+
+  return v12;
 }
 
-void endpointCluster_failDelayManageSubEndpoint(const void *a1, const void *a2, int a3)
+void endpointCluster_failDelayManageSubEndpoint(const void *a1, const void *a2, unsigned int a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v7 = *(DerivedStorage + 456);
   if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    if (a3 > 3)
+    {
+      v8 = "unknown";
+    }
+
+    else
+    {
+      v8 = off_27849FFE8[a3];
+    }
+
+    LogPrintF(&gLogCategory_APEndpointCluster, "void endpointCluster_failDelayManageSubEndpoint(FigEndpointRef, FigEndpointRef, FailureDelayAction)", 33554482, "[%{ptr}] Scheduling fail delay change for subEndpoint [%{ptr}] (action: %s) activationSeed: %llu\n", a1, a2, v8, v7);
   }
 
   if (a1)
@@ -4483,69 +5037,73 @@ void endpointCluster_failDelayManageSubEndpoint(const void *a1, const void *a2, 
     CFRetain(a2);
   }
 
-  v8 = *(DerivedStorage + 40);
+  v9 = *(DerivedStorage + 40);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = __endpointCluster_failDelayManageSubEndpoint_block_invoke;
   block[3] = &__block_descriptor_tmp_314;
-  v10 = a3;
+  v11 = a3;
   block[4] = DerivedStorage;
   block[5] = a1;
   block[6] = v7;
   block[7] = a2;
-  dispatch_async(v8, block);
+  dispatch_async(v9, block);
 }
 
 void endpointCluster_updateHealthState(const void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v3 = *(DerivedStorage + 420);
+  v3 = (DerivedStorage + 420);
+  v4 = *(DerivedStorage + 420);
   CMBaseObjectGetDerivedStorage();
-  v4 = CMBaseObjectGetDerivedStorage();
-  if (*(v4 + 376) && !*(v4 + 392) && *(v4 + 441))
+  cf = a1;
+  v5 = CMBaseObjectGetDerivedStorage();
+  if (*(v5 + 376) && !*(v5 + 392) && *(v5 + 441))
   {
-    if (endpointCluster_isComplete() && (v3 == 2 || endpointCluster_desiredSubEndpointsActivated(a1)))
+    if (endpointCluster_isComplete(a1) && (v4 == 2 || endpointCluster_desiredSubEndpointsActivated(a1)))
     {
-      v6 = 2;
-      v5 = 1;
+      v7 = 2;
+      v6 = 1;
     }
 
     else
     {
-      v5 = 0;
-      v6 = 1;
+      v6 = 0;
+      v7 = 1;
     }
   }
 
   else
   {
-    v5 = 0;
     v6 = 0;
+    v7 = 0;
   }
 
-  if (v6 != *(DerivedStorage + 420))
+  if (v7 != *v3)
   {
     CFRetain(a1);
-    if (v5)
+    if (v6)
     {
       endpointCluster_sendActivationMetrics(a1, 252);
     }
 
     if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      endpointCluster_updateHealthState_cold_1();
+      endpointCluster_updateHealthState_cold_1(v3, v7, a1);
     }
 
-    *(DerivedStorage + 420) = v6;
+    *(DerivedStorage + 420) = v7;
     APSDispatchAsyncFHelper();
   }
 
-  v7 = CMBaseObjectGetDerivedStorage();
-  v22 = 0;
-  v8 = *(v7 + 336);
-  if (v8)
+  v8 = CMBaseObjectGetDerivedStorage();
+  v31 = 0;
+  v30 = 0;
+  v9 = *(v8 + 24);
+  v10 = *(v8 + 336);
+  if (v10)
   {
-    Count = CFArrayGetCount(v8);
+    Count = CFArrayGetCount(v10);
   }
 
   else
@@ -4555,96 +5113,170 @@ void endpointCluster_updateHealthState(const void *a1)
 
   alloc = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  if (Mutable)
-  {
-    v19 = CFStringCreateF();
-    if (Count >= 1)
-    {
-      v11 = 0;
-      v20 = *MEMORY[0x277CC14F0];
-      v12 = *MEMORY[0x277CC19F0];
-      do
-      {
-        CFArrayGetValueAtIndex(*(v7 + 336), v11);
-        CMBaseObject = FigEndpointGetCMBaseObject();
-        v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (!v14 || v14(CMBaseObject, v20, alloc, &v22))
-        {
-          if (gLogCategory_APEndpointCluster <= 60 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF();
-          }
-
-          if (v12)
-          {
-            v15 = CFRetain(v12);
-          }
-
-          else
-          {
-            v15 = 0;
-          }
-
-          v22 = v15;
-        }
-
-        if (!FigCFEqual() && !FigCFEqual() && !FigCFEqual())
-        {
-          FigCFEqual();
-        }
-
-        v23 = 0;
-        APSGetFBOPropertyInt64();
-        if (v23)
-        {
-          endpointCluster_updateHealthState_cold_3();
-        }
-
-        v16 = CFStringCreateF();
-        CFArrayAppendValue(Mutable, v16);
-        if (v22)
-        {
-          CFRelease(v22);
-          v22 = 0;
-        }
-
-        if (v16)
-        {
-          CFRelease(v16);
-        }
-
-        ++v11;
-      }
-
-      while (Count != v11);
-    }
-
-    v17 = CFStringCreateByCombiningStrings(alloc, Mutable, @", ");
-    if (gLogCategory_APEndpointCluster > 50)
-    {
-      v18 = v19;
-    }
-
-    else
-    {
-      v18 = v19;
-      if (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize())
-      {
-        endpointCluster_updateHealthState_cold_5();
-      }
-    }
-  }
-
-  else
+  if (!Mutable)
   {
     endpointCluster_updateHealthState_cold_6();
-    v18 = 0;
-    v17 = 0;
+    v24 = 0;
+    v13 = 0;
+LABEL_77:
+    v25 = 0;
+    goto LABEL_59;
   }
 
-  if (v22)
+  v13 = CFStringCreateF(&v30, "[%{ptr}] %d / %d SubEndpoints present", cf, Count, v9);
+  if (v30)
   {
-    CFRelease(v22);
+    endpointCluster_updateHealthState_cold_2(v30);
+    v24 = 0;
+    goto LABEL_77;
+  }
+
+  v26 = v13;
+  if (Count >= 1)
+  {
+    v14 = 0;
+    v27 = *MEMORY[0x277CC14F0];
+    v15 = *MEMORY[0x277CC19F0];
+    do
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(*(v8 + 336), v14);
+      CMBaseObject = FigEndpointGetCMBaseObject();
+      v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v18)
+      {
+        v19 = v18(CMBaseObject, v27, alloc, &v31);
+        v30 = v19;
+        if (!v19)
+        {
+          goto LABEL_35;
+        }
+      }
+
+      else
+      {
+        v19 = 4294954514;
+        v30 = -12782;
+      }
+
+      if (gLogCategory_APEndpointCluster <= 60)
+      {
+        if (gLogCategory_APEndpointCluster == -1)
+        {
+          if (!_LogCategory_Initialize())
+          {
+            goto LABEL_31;
+          }
+
+          v19 = v30;
+        }
+
+        LogPrintF(&gLogCategory_APEndpointCluster, "void endpointCluster_logSubEndpoints(FigEndpointRef)", 33554492, "[%{ptr}] Error obtaining subtype for SubEndpoint [%{ptr}]: %#m)", cf, ValueAtIndex, v19);
+      }
+
+LABEL_31:
+      if (v15)
+      {
+        v20 = CFRetain(v15);
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v31 = v20;
+      v30 = 0;
+LABEL_35:
+      v21 = "ATV";
+      if (!FigCFEqual())
+      {
+        v21 = "Mac";
+        if (!FigCFEqual())
+        {
+          v21 = "HP";
+          if (!FigCFEqual())
+          {
+            if (FigCFEqual())
+            {
+              v21 = "3P_SPK";
+            }
+
+            else
+            {
+              v21 = "?";
+            }
+          }
+        }
+      }
+
+      v32 = 0;
+      v22 = APSGetFBOPropertyInt64();
+      if (v32)
+      {
+        endpointCluster_updateHealthState_cold_3(v32);
+        v23 = "?";
+      }
+
+      else
+      {
+        v23 = "N";
+        if (v22 <= 2)
+        {
+          v23 = off_27849FFD0[v22];
+        }
+      }
+
+      v24 = CFStringCreateF(&v30, "[%{ptr}] (%s, %s)", ValueAtIndex, v21, v23);
+      if (v30)
+      {
+        endpointCluster_updateHealthState_cold_4(v30);
+        v25 = 0;
+LABEL_58:
+        v13 = v26;
+        goto LABEL_59;
+      }
+
+      CFArrayAppendValue(Mutable, v24);
+      if (v31)
+      {
+        CFRelease(v31);
+        v31 = 0;
+      }
+
+      if (v24)
+      {
+        CFRelease(v24);
+      }
+
+      ++v14;
+    }
+
+    while (Count != v14);
+  }
+
+  v25 = CFStringCreateByCombiningStrings(alloc, Mutable, @", ");
+  if (gLogCategory_APEndpointCluster > 50)
+  {
+    v24 = 0;
+    goto LABEL_58;
+  }
+
+  v13 = v26;
+  if (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize())
+  {
+    endpointCluster_updateHealthState_cold_5();
+  }
+
+  v24 = 0;
+LABEL_59:
+  if (v31)
+  {
+    CFRelease(v31);
+  }
+
+  if (v24)
+  {
+    CFRelease(v24);
   }
 
   if (Mutable)
@@ -4652,14 +5284,14 @@ void endpointCluster_updateHealthState(const void *a1)
     CFRelease(Mutable);
   }
 
-  if (v17)
+  if (v25)
   {
-    CFRelease(v17);
+    CFRelease(v25);
   }
 
-  if (v18)
+  if (v13)
   {
-    CFRelease(v18);
+    CFRelease(v13);
   }
 }
 
@@ -4672,10 +5304,12 @@ void __endpointCluster_failDelayManageSubEndpoint_block_invoke(uint64_t a1)
     if (v3)
     {
       OUTLINED_FUNCTION_10_9();
-      if (v6 ^ v7 | v5 && (v4 != -1 || OUTLINED_FUNCTION_4()))
+      if (v6 ^ v7 | v5 && (v4 != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointCluster)))
       {
+        v48 = *(a1 + 48);
+        v46 = *(a1 + 40);
         OUTLINED_FUNCTION_2_0();
-        LogPrintF();
+        LogPrintF(v8, v9, v10, v11, v46, v3, v48);
       }
 
       usleep(1000 * v3);
@@ -4688,91 +5322,106 @@ void __endpointCluster_failDelayManageSubEndpoint_block_invoke(uint64_t a1)
     }
   }
 
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 40);
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 40);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
   OUTLINED_FUNCTION_10_9();
-  if (v6 ^ v7 | v5 && (v11 != -1 || OUTLINED_FUNCTION_4()))
+  if (v6 ^ v7 | v5 && (v16 != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointCluster)))
   {
-    OUTLINED_FUNCTION_2_0();
-    LogPrintF();
-  }
-
-  if ((v2 - 2) < 2)
-  {
-    if (!endpointCluster_isComplete())
+    if (v2 > 3)
     {
-      goto LABEL_38;
+      v17 = "unknown";
     }
 
-    goto LABEL_21;
+    else
+    {
+      v17 = off_27849FFE8[v2];
+    }
+
+    v50 = *(DerivedStorage + 456);
+    v51 = *(DerivedStorage + 376);
+    v49 = v17;
+    OUTLINED_FUNCTION_2_0();
+    LogPrintF(v18, v19, v20, v21, v14, v13, v49, v12, v50, v51);
+  }
+
+  if (v2 - 2 < 2)
+  {
+    if (!endpointCluster_isComplete(v14))
+    {
+      goto LABEL_42;
+    }
+
+    goto LABEL_25;
   }
 
   if (v2 != 1)
   {
     if (v2)
     {
-      goto LABEL_38;
+      goto LABEL_42;
     }
 
-    v12 = *(DerivedStorage + 72);
-    if (v12)
+    v22 = *(DerivedStorage + 72);
+    if (v22)
     {
       dispatch_source_cancel(*(DerivedStorage + 72));
-      dispatch_release(v12);
+      dispatch_release(v22);
       *(DerivedStorage + 72) = 0;
     }
 
-LABEL_21:
+LABEL_25:
     if (*(DerivedStorage + 424))
     {
       OUTLINED_FUNCTION_10_9();
-      if (v6 ^ v7 | v5 && (v13 != -1 || OUTLINED_FUNCTION_4()))
+      if (v6 ^ v7 | v5 && (v23 != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointCluster)))
       {
         OUTLINED_FUNCTION_2_0();
-        LogPrintF();
+        LogPrintF(v24, v25, v26, v27, v14);
       }
 
       *(DerivedStorage + 424) = 0;
     }
 
-    goto LABEL_38;
+    goto LABEL_42;
   }
 
   if (*(DerivedStorage + 376))
   {
-    if (*(DerivedStorage + 456) == v8)
+    if (*(DerivedStorage + 456) == v12)
     {
-      v14 = CMBaseObjectGetDerivedStorage();
-      if (!*(v14 + 72))
+      v28 = CMBaseObjectGetDerivedStorage();
+      if (!*(v28 + 72))
       {
-        v15 = v14;
-        v16 = *(v14 + 120);
+        v29 = v28;
+        v30 = *(v28 + 120);
         OUTLINED_FUNCTION_10_9();
-        if (v6 ^ v7 | v5 && (v17 != -1 || OUTLINED_FUNCTION_4()))
+        if (v6 ^ v7 | v5 && (v31 != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointCluster)))
         {
+          v47 = *(v29 + 456);
           OUTLINED_FUNCTION_2_0();
-          LogPrintF();
+          LogPrintF(v32, v33, v34, v35, v14, v47, v30);
         }
 
-        v18 = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040EDED9539uLL);
-        if (v18)
+        v36 = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040EDED9539uLL);
+        if (v36)
         {
-          v19 = v18;
-          v20 = CFRetain(v9);
-          v21 = *(v15 + 456);
-          *v19 = v20;
-          v19[1] = v21;
-          v22 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v15 + 40));
-          *(v15 + 72) = v22;
-          dispatch_set_context(v22, v19);
-          dispatch_source_set_event_handler_f(*(v15 + 72), endpointCluster_failureDelayTimerFired);
-          dispatch_source_set_cancel_handler_f(*(v15 + 72), endpointCluster_failureDelayTimerCancelled);
-          v23 = *(v15 + 72);
-          v24 = dispatch_time(0, 1000000000 * v16);
-          dispatch_source_set_timer(v23, v24, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-          dispatch_resume(*(v15 + 72));
+          v37 = v36;
+          v38 = CFRetain(v14);
+          v39 = *(v29 + 456);
+          *v37 = v38;
+          v37[1] = v39;
+          v40 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v29 + 40));
+          *(v29 + 72) = v40;
+          dispatch_set_context(v40, v37);
+          dispatch_source_set_event_handler_f(*(v29 + 72), endpointCluster_failureDelayTimerFired);
+          dispatch_source_set_cancel_handler_f(*(v29 + 72), endpointCluster_failureDelayTimerCancelled);
+          v41 = *(v29 + 72);
+          v42 = dispatch_time(0, 1000000000 * v30);
+          dispatch_source_set_timer(v41, v42, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+          dispatch_resume(*(v29 + 72));
         }
 
         else
@@ -4783,19 +5432,19 @@ LABEL_21:
     }
   }
 
-LABEL_38:
+LABEL_42:
   FigSimpleMutexUnlock();
-  v25 = *(a1 + 40);
-  if (v25)
+  v43 = *(a1 + 40);
+  if (v43)
   {
-    CFRelease(v25);
+    CFRelease(v43);
   }
 
   if (*(a1 + 56))
   {
     OUTLINED_FUNCTION_12();
 
-    CFRelease(v26);
+    CFRelease(v44);
   }
 
   else
@@ -4807,9 +5456,9 @@ LABEL_38:
 uint64_t endpointCluster_updateHealthState_cold_5()
 {
   OUTLINED_FUNCTION_3_7();
-  CFStringGetLength(v0);
+  v8 = CFStringGetLength(v2) == 0;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v3, v4, v5, v6, v0, v8, v1);
 }
 
 uint64_t endpointCluster_SetDelegateRouting(uint64_t a1, uint64_t a2)
@@ -4826,24 +5475,24 @@ uint64_t endpointCluster_SetDelegateRouting(uint64_t a1, uint64_t a2)
   {
     if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_SetDelegateRouting(FigEndpointRef, const FigEndpointDelegateRouting *)", 33554482, "[%{ptr}] Setting endpoint routing delegate %{ptr}.\n", a1, a2);
     }
 
-    v4 = *(DerivedStorage + 592);
-    if (v4)
+    v5 = *(DerivedStorage + 592);
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
       *(DerivedStorage + 592) = 0;
     }
 
-    v5 = (DerivedStorage + 520);
+    v6 = (DerivedStorage + 520);
     if (a2)
     {
-      v6 = *a2;
-      v7 = *(a2 + 16);
+      v7 = *a2;
+      v8 = *(a2 + 16);
       *(DerivedStorage + 552) = *(a2 + 32);
-      *v5 = v6;
-      *(DerivedStorage + 536) = v7;
+      *v6 = v7;
+      *(DerivedStorage + 536) = v8;
       a2 = 0;
       *(DerivedStorage + 592) = FigCFWeakReferenceHolderCreateWithReferencedObject();
     }
@@ -4851,7 +5500,7 @@ uint64_t endpointCluster_SetDelegateRouting(uint64_t a1, uint64_t a2)
     else
     {
       *(DerivedStorage + 552) = 0;
-      *v5 = 0u;
+      *v6 = 0u;
       *(DerivedStorage + 536) = 0u;
     }
   }
@@ -4874,21 +5523,21 @@ uint64_t endpointCluster_SetDelegateRemoteControl(uint64_t a1, uint64_t a2)
   {
     if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_SetDelegateRemoteControl(FigEndpointRef, const FigEndpointDelegateRemoteControl *)", 33554482, "[%{ptr}] Setting endpoint remote control delegate %{ptr}.\n", a1, a2);
     }
 
-    v4 = *(DerivedStorage + 600);
-    if (v4)
+    v5 = *(DerivedStorage + 600);
+    if (v5)
     {
-      CFRelease(v4);
+      CFRelease(v5);
       *(DerivedStorage + 600) = 0;
     }
 
     if (a2)
     {
-      v5 = *(a2 + 16);
+      v6 = *(a2 + 16);
       *(DerivedStorage + 560) = *a2;
-      *(DerivedStorage + 576) = v5;
+      *(DerivedStorage + 576) = v6;
       a2 = 0;
       *(DerivedStorage + 600) = FigCFWeakReferenceHolderCreateWithReferencedObject();
     }
@@ -4906,48 +5555,48 @@ uint64_t endpointCluster_SetDelegateRemoteControl(uint64_t a1, uint64_t a2)
 
 uint64_t endpointCluster_copyClusterHierarchyAsArray(uint64_t a1, CFTypeRef *a2)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2000000000;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2000000000;
+  v17 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 360);
-  if (v4)
+  v5 = *(DerivedStorage + 360);
+  if (v5)
   {
-    *a2 = CFRetain(v4);
+    *a2 = CFRetain(v5);
   }
 
   else
   {
-    v5 = *MEMORY[0x277CBECE8];
+    v6 = *MEMORY[0x277CBECE8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (Mutable)
     {
-      v7 = Mutable;
-      v8 = CFArrayCreateMutable(v5, 0, MEMORY[0x277CBF128]);
-      if (v8)
+      v8 = Mutable;
+      v9 = CFArrayCreateMutable(v6, 0, MEMORY[0x277CBF128]);
+      if (v9)
       {
-        v9 = v8;
+        v10 = v9;
         CFDictionaryApplyBlock();
         CFDictionaryApplyBlock();
         if (gLogCategory_APEndpointCluster <= 30)
         {
-          endpointCluster_copyClusterHierarchyAsArray_cold_1(gLogCategory_APEndpointCluster);
+          endpointCluster_copyClusterHierarchyAsArray_cold_1(gLogCategory_APEndpointCluster, a1, v10);
         }
 
-        if (!*(v14 + 6))
+        if (!*(v15 + 6))
         {
-          v10 = CFRetain(v9);
-          *(DerivedStorage + 360) = v10;
-          if (v10)
+          v11 = CFRetain(v10);
+          *(DerivedStorage + 360) = v11;
+          if (v11)
           {
-            v10 = CFRetain(v10);
+            v11 = CFRetain(v11);
           }
 
-          *a2 = v10;
+          *a2 = v11;
         }
 
-        CFRelease(v9);
+        CFRelease(v10);
       }
 
       else
@@ -4955,7 +5604,7 @@ uint64_t endpointCluster_copyClusterHierarchyAsArray(uint64_t a1, CFTypeRef *a2)
         endpointCluster_copyClusterHierarchyAsArray_cold_2();
       }
 
-      CFRelease(v7);
+      CFRelease(v8);
     }
 
     else
@@ -4964,9 +5613,9 @@ uint64_t endpointCluster_copyClusterHierarchyAsArray(uint64_t a1, CFTypeRef *a2)
     }
   }
 
-  v11 = *(v14 + 6);
-  _Block_object_dispose(&v13, 8);
-  return v11;
+  v12 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
+  return v12;
 }
 
 void __endpointCluster_copyClusterHierarchyAsArray_block_invoke(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
@@ -5010,7 +5659,7 @@ void __endpointCluster_copyClusterHierarchyAsArray_block_invoke(uint64_t a1, uin
 
       if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_copyClusterHierarchyAsArray(FigEndpointRef, CFArrayRef *)_block_invoke", 33554462, "[%{ptr}] <AirPlayClusterComp> Found pair dict %@.\n", *(a1 + 48), v10);
       }
 
 LABEL_21:
@@ -5047,7 +5696,7 @@ LABEL_22:
       FigCFDictionarySetValueFromKeyInDict();
       if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_copyClusterHierarchyAsArray(FigEndpointRef, CFArrayRef *)_block_invoke", 33554462, "[%{ptr}] <AirPlayClusterComp> Created pair dict %@.\n", *(a1 + 48), v10);
       }
 
       FigCFDictionarySetValue();
@@ -5073,7 +5722,7 @@ void __endpointCluster_copyClusterHierarchyAsArray_block_invoke_2(uint64_t a1, i
   if (!CFDictionaryContainsKey(theDict, *MEMORY[0x277CC0AB8]))
   {
     Value = CFDictionaryGetValue(theDict, *MEMORY[0x277CC0AE8]);
-    endpointCluster_getClusterModelBasedOnAnyMemberModels(1, Value);
+    endpointCluster_getClusterModelBasedOnAnyMemberModels(1, Value, &__block_literal_global_29);
     FigCFDictionarySetValue();
   }
 
@@ -5084,60 +5733,69 @@ void __endpointCluster_copyClusterHierarchyAsArray_block_invoke_2(uint64_t a1, i
 
 uint64_t endpointCluster_copyClusterCompositionAsArray(uint64_t a1, CFTypeRef *a2)
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2000000000;
   v15 = 0;
+  v16 = &v15;
+  v17 = 0x2000000000;
+  v18 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 352);
-  if (v4)
+  v5 = *(DerivedStorage + 352);
+  if (!v5)
   {
-    *a2 = CFRetain(v4);
-  }
-
-  else
-  {
-    v5 = *MEMORY[0x277CBECE8];
+    v6 = *MEMORY[0x277CBECE8];
     Count = CFDictionaryGetCount(*(DerivedStorage + 344));
-    Mutable = CFArrayCreateMutable(v5, Count, MEMORY[0x277CBF128]);
-    if (Mutable)
-    {
-      v8 = Mutable;
-      CFDictionaryApplyBlock();
-      if (!*(v13 + 6))
-      {
-        v9 = CFRetain(v8);
-        *(DerivedStorage + 352) = v9;
-        if (gLogCategory_APEndpointCluster <= 30)
-        {
-          if (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize())
-          {
-            LogPrintF();
-          }
-
-          v9 = *(DerivedStorage + 352);
-        }
-
-        if (v9)
-        {
-          v9 = CFRetain(v9);
-        }
-
-        *a2 = v9;
-      }
-
-      CFRelease(v8);
-    }
-
-    else
+    Mutable = CFArrayCreateMutable(v6, Count, MEMORY[0x277CBF128]);
+    if (!Mutable)
     {
       endpointCluster_copyClusterCompositionAsArray_cold_1();
+      goto LABEL_14;
     }
+
+    v9 = Mutable;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = Mutable;
+    CFDictionaryApplyBlock();
+    if (*(v16 + 6))
+    {
+      goto LABEL_13;
+    }
+
+    v10 = CFRetain(v9);
+    *(DerivedStorage + 352) = v10;
+    if (gLogCategory_APEndpointCluster > 30)
+    {
+LABEL_10:
+      if (v10)
+      {
+        v10 = CFRetain(v10);
+      }
+
+      *a2 = v10;
+LABEL_13:
+      CFRelease(v9);
+      goto LABEL_14;
+    }
+
+    if (gLogCategory_APEndpointCluster == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_9;
+      }
+
+      v10 = *(DerivedStorage + 352);
+    }
+
+    LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_copyClusterCompositionAsArray(FigEndpointRef, CFArrayRef *)", 33554462, "[%{ptr}] <AirPlayClusterComp> Composition results = %@.\n", a1, v10, v13, 0x40000000, __endpointCluster_copyClusterCompositionAsArray_block_invoke, &unk_27849FDB8, &v15, v14);
+LABEL_9:
+    v10 = *(DerivedStorage + 352);
+    goto LABEL_10;
   }
 
-  v10 = *(v13 + 6);
-  _Block_object_dispose(&v12, 8);
-  return v10;
+  *a2 = CFRetain(v5);
+LABEL_14:
+  v11 = *(v16 + 6);
+  _Block_object_dispose(&v15, 8);
+  return v11;
 }
 
 void __endpointCluster_copyClusterCompositionAsArray_block_invoke(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
@@ -5160,7 +5818,7 @@ void __endpointCluster_copyClusterCompositionAsArray_block_invoke(uint64_t a1, u
   }
 }
 
-const void *epp_getClusterLeaderOrAny()
+const void *epp_getClusterLeaderOrAny(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*DerivedStorage != 2)
@@ -5168,35 +5826,35 @@ const void *epp_getClusterLeaderOrAny()
     return 0;
   }
 
-  v8 = DerivedStorage;
-  v9 = *(DerivedStorage + 80);
-  v10 = OUTLINED_FUNCTION_12_1(DerivedStorage, v1, v2, v3, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, v31, v33);
-  if (!v10)
+  v9 = DerivedStorage;
+  v10 = *(DerivedStorage + 80);
+  v11 = OUTLINED_FUNCTION_12_1(DerivedStorage, v2, v3, v4, v5, v6, v7, v8, 0, 0, 0, 0, 0, 0, 0, 0, v32);
+  if (!v11)
   {
     return 0;
   }
 
-  v11 = v10;
-  v12 = *v25;
+  v12 = v11;
+  v13 = *v26;
 LABEL_4:
-  v13 = 0;
+  v14 = 0;
   while (1)
   {
-    if (*v25 != v12)
+    if (*v26 != v13)
     {
-      objc_enumerationMutation(v9);
+      objc_enumerationMutation(v10);
     }
 
-    Value = CFDictionaryGetValue(*(v8 + 80), *(v24 + 8 * v13));
+    Value = CFDictionaryGetValue(*(v9 + 80), *(v25 + 8 * v14));
     if (APSGetFBOPropertyInt64())
     {
       return Value;
     }
 
-    if (v11 == ++v13)
+    if (v12 == ++v14)
     {
-      v11 = OUTLINED_FUNCTION_12_1(0, v15, v16, v17, v18, v19, v20, v21, v23, v24, v25, v26, v27, v28, v29, v30, v32, v34);
-      if (v11)
+      v12 = OUTLINED_FUNCTION_12_1(0, v16, v17, v18, v19, v20, v21, v22, v24, v25, v26, v27, v28, v29, v30, v31, v33);
+      if (v12)
       {
         goto LABEL_4;
       }
@@ -5319,7 +5977,7 @@ uint64_t APEndpointPlusAddSubEndpoint(const void *a1, const void *a2)
   if (!a2)
   {
     APEndpointPlusAddSubEndpoint_cold_4();
-    updated = 4294950576;
+    v9 = 4294950576;
     goto LABEL_16;
   }
 
@@ -5336,21 +5994,22 @@ uint64_t APEndpointPlusAddSubEndpoint(const void *a1, const void *a2)
         if (CFDictionaryContainsKey(v5[10], key))
         {
           APEndpointPlusAddSubEndpoint_cold_2();
-          updated = 4294960587;
+          v9 = 4294960587;
         }
 
         else
         {
           if (gLogCategory_APEndpointPlus <= 50 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APEndpointPlus, "OSStatus epp_addSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554482, "[%{ptr}] Add subEndpointPlus [%{ptr}] %@", a1, a2, key);
           }
 
           CFDictionarySetValue(v5[10], key, a2);
           updated = epp_updateDescription(a1);
+          v9 = updated;
           if (updated)
           {
-            APEndpointPlusAddSubEndpoint_cold_3();
+            APEndpointPlusAddSubEndpoint_cold_3(updated);
           }
 
           else
@@ -5362,12 +6021,12 @@ uint64_t APEndpointPlusAddSubEndpoint(const void *a1, const void *a2)
         goto LABEL_14;
       }
 
-      updated = v8;
+      v9 = v8;
     }
 
     else
     {
-      updated = 4294954514;
+      v9 = 4294954514;
     }
 
     APSLogErrorAt();
@@ -5376,7 +6035,7 @@ uint64_t APEndpointPlusAddSubEndpoint(const void *a1, const void *a2)
   else
   {
     APEndpointPlusAddSubEndpoint_cold_1();
-    updated = 4294950576;
+    v9 = 4294950576;
   }
 
 LABEL_14:
@@ -5387,7 +6046,7 @@ LABEL_14:
 
 LABEL_16:
   FigSimpleMutexUnlock();
-  return updated;
+  return v9;
 }
 
 uint64_t epp_updateDescription(uint64_t a1)
@@ -5396,16 +6055,17 @@ uint64_t epp_updateDescription(uint64_t a1)
   if (*(DerivedStorage + 40))
   {
     updated = epp_updateDescriptionFromInner(a1);
+    v3 = updated;
     if (updated)
     {
-      epp_updateDescription_cold_1();
+      epp_updateDescription_cold_1(updated);
     }
   }
 
   else if (*DerivedStorage == 2)
   {
-    epp_updateDescription_cold_2(a1, &v5);
-    return v5;
+    epp_updateDescription_cold_2(a1, &v6);
+    return v6;
   }
 
   else
@@ -5413,10 +6073,10 @@ uint64_t epp_updateDescription(uint64_t a1)
     return 0;
   }
 
-  return updated;
+  return v3;
 }
 
-BOOL endpointCluster_isComplete()
+BOOL endpointCluster_isComplete(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   Count = *(DerivedStorage + 336);
@@ -5428,27 +6088,27 @@ BOOL endpointCluster_isComplete()
   return Count >= *(DerivedStorage + 24);
 }
 
-BOOL apsession_IsConnected()
+BOOL apsession_IsConnected(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSenderSessionAirPlay <= 30 && (gLogCategory_APSenderSessionAirPlay != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSenderSessionAirPlay, "Boolean apsession_IsConnected(APSenderSessionRef)", 33554462, "[%{ptr}] %###s %@.\n", a1, "Boolean apsession_IsConnected(APSenderSessionRef)", *(DerivedStorage + 8));
   }
 
   FigSimpleMutexLock();
   if (*(DerivedStorage + 304))
   {
-    v1 = *(DerivedStorage + 305) != 0;
+    v3 = *(DerivedStorage + 305) != 0;
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
   FigSimpleMutexUnlock();
-  return v1;
+  return v3;
 }
 
 uint64_t endpointCluster_copyAirPlayEndpointProperties()
@@ -5543,29 +6203,30 @@ LABEL_15:
 uint64_t endpoint_copyIsURLPlaybackEnabled(uint64_t a1, CFTypeRef *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v9 = 0;
+  v10 = 0;
   if (a2)
   {
     v5 = DerivedStorage;
-    SupportedFeatures = endpoint_getSupportedFeatures(a1, &v9);
+    SupportedFeatures = endpoint_getSupportedFeatures(a1, &v10);
+    v7 = SupportedFeatures;
     if (SupportedFeatures)
     {
-      endpoint_copyIsURLPlaybackEnabled_cold_1();
+      endpoint_copyIsURLPlaybackEnabled_cold_1(SupportedFeatures);
     }
 
     else
     {
-      if (((v9 >> 2) & 1 & (*(v5 + 136) >> 2)) != 0)
+      if (((v10 >> 2) & 1 & (*(v5 + 136) >> 2)) != 0)
       {
-        v7 = MEMORY[0x277CBED28];
+        v8 = MEMORY[0x277CBED28];
       }
 
       else
       {
-        v7 = MEMORY[0x277CBED10];
+        v8 = MEMORY[0x277CBED10];
       }
 
-      *a2 = CFRetain(*v7);
+      *a2 = CFRetain(*v8);
     }
   }
 
@@ -5575,7 +6236,7 @@ uint64_t endpoint_copyIsURLPlaybackEnabled(uint64_t a1, CFTypeRef *a2)
     return 4294950576;
   }
 
-  return SupportedFeatures;
+  return v7;
 }
 
 CFTypeRef endpointCluster_getClusterModelBasedOnClusterAdvertisementInfo(uint64_t a1)
@@ -5594,36 +6255,37 @@ CFTypeRef endpointCluster_getClusterModelBasedOnClusterAdvertisementInfo(uint64_
   return result;
 }
 
-uint64_t endpointCluster_copyPropertyFromSubEndpoint(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t endpointCluster_copyPropertyFromSubEndpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v8 = a2;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (CFArrayGetCount(*(DerivedStorage + 336)) < 1 || !endpointCluster_getSubEndpointWithPredicate(a1, a2))
+  if (CFArrayGetCount(*(DerivedStorage + 336)) < 1 || !endpointCluster_getSubEndpointWithPredicate(a1, v8))
   {
     return 4294949690;
   }
 
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v12)
+  v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v13)
   {
-    v13 = v12(CMBaseObject, a3, a4, a5);
-    if (!v13)
+    v14 = v13(CMBaseObject, a3, a4, a5);
+    if (!v14)
     {
-      return v13;
+      return v14;
     }
   }
 
   else
   {
-    v13 = 4294954514;
+    v14 = 4294954514;
   }
 
-  if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || OUTLINED_FUNCTION_10()))
+  if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || OUTLINED_FUNCTION_10(&gLogCategory_APEndpointCluster)))
   {
-    OUTLINED_FUNCTION_4_1();
+    OUTLINED_FUNCTION_4_1(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_copyPropertyFromSubEndpoint(FigEndpointRef, APEndpointClusterSubEndpointPredicate, CFStringRef, CFAllocatorRef, void *)", v12, "[%{ptr}] Failed to copy property '%@' from subEndpoint [%{ptr}] with error: %#m\n");
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t APEndpointAPSClusterTypeToFigEndpointClusterType(int a1)
@@ -5649,23 +6311,26 @@ void __manager_updateEndpointClusterMembershipIfNeeded_block_invoke_2(uint64_t a
   cf = 0;
   if (*(a1 + 48) && *(a1 + 32) == a2)
   {
-    if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4()))
+    if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointManager)))
     {
+      v19 = *(a1 + 40);
       OUTLINED_FUNCTION_2_0();
-      LogPrintF();
+      LogPrintF(v4, v5, v6, v7, v19, a2);
     }
   }
 
   else
   {
-    v3 = manager_copyOrCreateClusterForEndpoint(*(a1 + 40), a2, &cf);
-    if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4()))
+    v8 = manager_copyOrCreateClusterForEndpoint(*(a1 + 40), a2, &cf);
+    if (gLogCategory_APEndpointManager <= 50 && (gLogCategory_APEndpointManager != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointManager)))
     {
+      v21 = cf;
+      v20 = *(a1 + 40);
       OUTLINED_FUNCTION_2_0();
-      LogPrintF();
+      LogPrintF(v9, v10, v11, v12, v20, a2, v21);
     }
 
-    if (v3)
+    if (v8)
     {
       APSLogErrorAt();
     }
@@ -5681,22 +6346,22 @@ void __manager_updateEndpointClusterMembershipIfNeeded_block_invoke_2(uint64_t a
       value = 0;
       if (*(DerivedStorage + 2))
       {
-        v5 = DerivedStorage;
+        v14 = DerivedStorage;
         CMBaseObject = FigEndpointGetCMBaseObject();
-        v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v7 && (v7(CMBaseObject, *MEMORY[0x277CC1490], *MEMORY[0x277CBECE8], &value), value))
+        v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v16 && (v16(CMBaseObject, *MEMORY[0x277CC1490], *MEMORY[0x277CBECE8], &value), value))
         {
-          CFDictionarySetValue(*(v5 + 232), a2, value);
+          CFDictionarySetValue(*(v14 + 232), a2, value);
           if (!APSGetFBOPropertyInt64())
           {
-            DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-            OUTLINED_FUNCTION_2_10(DefaultLocalCenter);
+            CMNotificationCenterGetDefaultLocalCenter();
+            OUTLINED_FUNCTION_2_10();
             FigNotificationCenterRemoveWeakListener();
             CMNotificationCenterGetDefaultLocalCenter();
             OUTLINED_FUNCTION_1_12();
             FigNotificationCenterRemoveWeakListener();
-            v9 = OUTLINED_FUNCTION_12_4();
-            APEndpointClusterAddSubEndpoint(v9, v10);
+            v17 = OUTLINED_FUNCTION_12_4();
+            APEndpointClusterAddSubEndpoint(v17, v18);
           }
         }
 
@@ -5719,7 +6384,7 @@ void __manager_updateEndpointClusterMembershipIfNeeded_block_invoke_2(uint64_t a
   }
 }
 
-uint64_t manager_copyOrCreateClusterForEndpoint(const void *a1, uint64_t a2, void *a3)
+uint64_t manager_copyOrCreateClusterForEndpoint(const void *a1, const void *a2, void *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v18 = 0;
@@ -5824,56 +6489,56 @@ LABEL_17:
 uint64_t APEndpointClusterAddSubEndpoint(const void *a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || OUTLINED_FUNCTION_4()))
+  if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || OUTLINED_FUNCTION_4(&gLogCategory_APEndpointCluster)))
   {
     OUTLINED_FUNCTION_2_0();
-    LogPrintF();
+    LogPrintF(v5, v6, v7, v8, a2, a1);
   }
 
   FigSimpleMutexLock();
   if (!APSGetFBOPropertyInt64())
   {
-    v17.length = CFArrayGetCount(*(DerivedStorage + 336));
-    v17.location = 0;
-    if (CFArrayGetFirstIndexOfValue(*(DerivedStorage + 336), v17, a2) == -1)
+    v33.length = CFArrayGetCount(*(DerivedStorage + 336));
+    v33.location = 0;
+    if (CFArrayGetFirstIndexOfValue(*(DerivedStorage + 336), v33, a2) == -1)
     {
       CFArrayAppendValue(*(DerivedStorage + 336), a2);
-      v5 = *(DerivedStorage + 384);
-      if (v5)
+      v9 = *(DerivedStorage + 384);
+      if (v9)
       {
-        CompletionCallbackContextAddSubEndpoint(v5, a2);
+        CompletionCallbackContextAddSubEndpoint(v9, a2);
       }
 
-      CMNotificationCenterGetDefaultLocalCenter();
-      OUTLINED_FUNCTION_4_26();
-      CMNotificationCenterGetDefaultLocalCenter();
-      OUTLINED_FUNCTION_4_26();
-      CMNotificationCenterGetDefaultLocalCenter();
-      OUTLINED_FUNCTION_4_26();
+      DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
+      OUTLINED_FUNCTION_4_26(DefaultLocalCenter, v11, v12, *MEMORY[0x277CC0DC0]);
+      v13 = CMNotificationCenterGetDefaultLocalCenter();
+      OUTLINED_FUNCTION_4_26(v13, v14, v15, *MEMORY[0x277CC0D60]);
+      v16 = CMNotificationCenterGetDefaultLocalCenter();
+      OUTLINED_FUNCTION_4_26(v16, v17, v18, *MEMORY[0x277CC0D48]);
       if (*(DerivedStorage + 8) && *DerivedStorage == 2)
       {
-        CMNotificationCenterGetDefaultLocalCenter();
-        OUTLINED_FUNCTION_4_26();
+        v19 = CMNotificationCenterGetDefaultLocalCenter();
+        OUTLINED_FUNCTION_4_26(v19, v20, v21, @"HTSecondaryNonPersistentReceiverSessionStarted");
       }
 
-      v6 = OUTLINED_FUNCTION_17_4();
-      v8 = endpointCluster_updateFromSubEndpoint(v6, v7, 0, 1, 1, 1);
-      if (v8)
+      v22 = OUTLINED_FUNCTION_17_4();
+      v24 = endpointCluster_updateFromSubEndpoint(v22, v23, 0, 1, 1, 1);
+      if (v24)
       {
-        v15 = v8;
+        v31 = v24;
         APSLogErrorAt();
         goto LABEL_17;
       }
 
-      v9 = OUTLINED_FUNCTION_17_4();
-      if (endpointCluster_shouldActivateSubEndpoint(v9, v10))
+      v25 = OUTLINED_FUNCTION_17_4();
+      if (endpointCluster_shouldActivateSubEndpoint(v25, v26))
       {
-        v11 = OUTLINED_FUNCTION_17_4();
-        endpointCluster_activateSubEndpoint(v11, v12);
+        v27 = OUTLINED_FUNCTION_17_4();
+        endpointCluster_activateSubEndpoint(v27, v28);
       }
 
-      v13 = OUTLINED_FUNCTION_17_4();
-      endpointCluster_failDelayManageSubEndpoint(v13, v14, 3);
+      v29 = OUTLINED_FUNCTION_17_4();
+      endpointCluster_failDelayManageSubEndpoint(v29, v30, 3u);
       endpointCluster_updateHealthState(a1);
     }
 
@@ -5883,10 +6548,10 @@ uint64_t APEndpointClusterAddSubEndpoint(const void *a1, const void *a2)
     }
   }
 
-  v15 = 0;
+  v31 = 0;
 LABEL_17:
   FigSimpleMutexUnlock();
-  return v15;
+  return v31;
 }
 
 uint64_t endpointCluster_updateFromSubEndpoint(const void *a1, const void *a2, int a3, int a4, int a5, int a6)
@@ -5894,124 +6559,150 @@ uint64_t endpointCluster_updateFromSubEndpoint(const void *a1, const void *a2, i
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v11 = "yes";
+    if (a3)
+    {
+      v12 = "yes";
+    }
+
+    else
+    {
+      v12 = "no";
+    }
+
+    if (a4)
+    {
+      v13 = "yes";
+    }
+
+    else
+    {
+      v13 = "no";
+    }
+
+    if (!a5)
+    {
+      v11 = "no";
+    }
+
+    LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_updateFromSubEndpoint(FigEndpointRef, FigEndpointRef, Boolean, Boolean, Boolean, Boolean)", 33554482, "[%{ptr}] updateFromSubEndpoint([%{ptr}], rm=%s, comp=%s, grp=%s)\n", a1, a2, v12, v13, v11);
   }
 
-  v80 = a4;
+  v85 = a4;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v12 = 0;
-  v90 = 0;
+  v15 = 0;
+  v95 = 0;
   alloc = *MEMORY[0x277CBECE8];
   if (a2 && !a3)
   {
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v14)
+    v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v17)
     {
-      v14(CMBaseObject, @"GroupPublicName", alloc, &v90);
+      v17(CMBaseObject, @"GroupPublicName", alloc, &v95);
     }
 
-    v15 = FigCFEqual();
-    v12 = 0;
-    if (!v15 && v90)
+    v18 = FigCFEqual();
+    v15 = 0;
+    if (!v18 && v95)
     {
-      if (CFStringGetLength(v90) < 1)
+      if (CFStringGetLength(v95) < 1)
       {
-        v12 = 0;
+        v15 = 0;
       }
 
       else
       {
         if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_updateClusterNameFromSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554482, "[%{ptr}] Cluster endpoint group name changed: %'@ -> %'@\n", a1, *(DerivedStorage + 288), v95);
         }
 
-        v16 = *(DerivedStorage + 288);
-        v17 = v90;
-        *(DerivedStorage + 288) = v90;
-        if (v17)
-        {
-          CFRetain(v17);
-        }
-
-        if (v16)
-        {
-          CFRelease(v16);
-        }
-
-        v12 = 1;
-      }
-    }
-  }
-
-  v77 = a3;
-  v78 = v12;
-  v81 = a2;
-  v18 = CMBaseObjectGetDerivedStorage();
-  Mutable = CFStringCreateMutable(alloc, 0);
-  if (CFArrayGetCount(*(v18 + 336)) >= 1)
-  {
-    v20 = 0;
-    v21 = *MEMORY[0x277CC1450];
-    do
-    {
-      v91[0] = 0;
-      CFArrayGetValueAtIndex(*(v18 + 336), v20);
-      v22 = CFGetAllocator(a1);
-      v23 = FigEndpointGetCMBaseObject();
-      v24 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v24)
-      {
-        v24(v23, v21, v22, v91);
-      }
-
-      v25 = v91[0];
-      if (v91[0])
-      {
+        v19 = *(DerivedStorage + 288);
+        v20 = v95;
+        *(DerivedStorage + 288) = v95;
         if (v20)
         {
-          CFStringAppend(Mutable, @" + ");
-          v25 = v91[0];
+          CFRetain(v20);
         }
 
-        CFStringAppend(Mutable, v25);
-        if (v91[0])
+        if (v19)
         {
-          CFRelease(v91[0]);
+          CFRelease(v19);
+        }
+
+        v15 = 1;
+      }
+    }
+  }
+
+  v82 = a3;
+  v83 = v15;
+  v86 = a2;
+  v21 = CMBaseObjectGetDerivedStorage();
+  Mutable = CFStringCreateMutable(alloc, 0);
+  if (CFArrayGetCount(*(v21 + 336)) >= 1)
+  {
+    v23 = 0;
+    v24 = *MEMORY[0x277CC1450];
+    do
+    {
+      v96[0] = 0;
+      CFArrayGetValueAtIndex(*(v21 + 336), v23);
+      v25 = CFGetAllocator(a1);
+      v26 = FigEndpointGetCMBaseObject();
+      v27 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v27)
+      {
+        v27(v26, v24, v25, v96);
+      }
+
+      v28 = v96[0];
+      if (v96[0])
+      {
+        if (v23)
+        {
+          CFStringAppend(Mutable, @" + ");
+          v28 = v96[0];
+        }
+
+        CFStringAppend(Mutable, v28);
+        if (v96[0])
+        {
+          CFRelease(v96[0]);
         }
       }
 
-      ++v20;
+      ++v23;
     }
 
-    while (v20 < CFArrayGetCount(*(v18 + 336)));
+    while (v23 < CFArrayGetCount(*(v21 + 336)));
   }
 
-  v26 = CFEqual(Mutable, *(DerivedStorage + 296));
-  if (!v26)
+  v29 = CFEqual(Mutable, *(DerivedStorage + 296));
+  if (!v29)
   {
     if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_updateClusterNameFromSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554462, "[%{ptr}] Cluster endpoint full name changed: %'@ -> %'@\n", a1, *(DerivedStorage + 296), Mutable);
     }
 
-    v27 = *(DerivedStorage + 296);
+    v30 = *(DerivedStorage + 296);
     *(DerivedStorage + 296) = Mutable;
     if (Mutable)
     {
       CFRetain(Mutable);
     }
 
-    if (v27)
+    if (v30)
     {
-      CFRelease(v27);
+      CFRelease(v30);
     }
   }
 
-  if (v90)
+  if (v95)
   {
-    CFRelease(v90);
+    CFRelease(v95);
   }
 
   if (Mutable)
@@ -6019,40 +6710,40 @@ uint64_t endpointCluster_updateFromSubEndpoint(const void *a1, const void *a2, i
     CFRelease(Mutable);
   }
 
-  if (v26)
+  if (v29)
   {
-    v28 = v78;
+    v31 = v83;
   }
 
   else
   {
-    v28 = 1;
+    v31 = 1;
   }
 
   if (a5)
   {
-    v79 = v28;
-    v29 = CMBaseObjectGetDerivedStorage();
-    v30 = 0;
-    v91[0] = 0;
-    v31 = *MEMORY[0x277CC1340];
-    while (v30 < CFArrayGetCount(*(v29 + 336)))
+    v84 = v31;
+    v32 = CMBaseObjectGetDerivedStorage();
+    v33 = 0;
+    v96[0] = 0;
+    v34 = *MEMORY[0x277CC1340];
+    while (v33 < CFArrayGetCount(*(v32 + 336)))
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(v29 + 336), v30);
+      ValueAtIndex = CFArrayGetValueAtIndex(*(v32 + 336), v33);
       if (!APSGetFBOPropertyInt64())
       {
-        goto LABEL_57;
+        goto LABEL_65;
       }
 
-      v90 = 0;
-      v33 = FigEndpointGetCMBaseObject();
-      v34 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v34)
+      v95 = 0;
+      v36 = FigEndpointGetCMBaseObject();
+      v37 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v37)
       {
-        v34(v33, v31, alloc, &v90);
+        v37(v36, v34, alloc, &v95);
       }
 
-      if (v90)
+      if (v95)
       {
         if (FigCFEqual())
         {
@@ -6061,195 +6752,211 @@ uint64_t endpointCluster_updateFromSubEndpoint(const void *a1, const void *a2, i
 
         else if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_updateGroupConfiguration(FigEndpointRef)", 33554462, "[%{ptr}] Group change: Relevant sub endpoint [%{ptr}] found.\n", a1, ValueAtIndex);
         }
 
-        if (v90)
+        if (v95)
         {
-          CFRelease(v90);
+          CFRelease(v95);
         }
       }
 
       else
       {
-LABEL_57:
+LABEL_65:
         ValueAtIndex = 0;
       }
 
-      ++v30;
+      ++v33;
       if (ValueAtIndex)
       {
-        goto LABEL_65;
+        goto LABEL_73;
       }
     }
 
     SubEndpointWithPredicate = endpointCluster_getSubEndpointWithPredicate(a1, 0);
     if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_updateGroupConfiguration(FigEndpointRef)", 33554462, "[%{ptr}] Group change: Deriving group info from first sub endpoint [%{ptr}].\n", a1, SubEndpointWithPredicate);
     }
 
     if (!SubEndpointWithPredicate)
     {
-      v37 = 0;
-      goto LABEL_68;
+      v40 = 0;
+      goto LABEL_76;
     }
 
-LABEL_65:
-    v35 = FigEndpointGetCMBaseObject();
-    v36 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v36)
+LABEL_73:
+    v38 = FigEndpointGetCMBaseObject();
+    v39 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v39)
     {
-      v36(v35, v31, alloc, v91);
+      v39(v38, v34, alloc, v96);
     }
 
-    v37 = APSGetFBOPropertyInt64() != 0;
-LABEL_68:
-    v38 = v81;
-    v28 = v79;
-    if (FigCFEqual() && v37 == *(v29 + 312))
+    v40 = APSGetFBOPropertyInt64() != 0;
+LABEL_76:
+    v41 = v86;
+    v31 = v84;
+    if (FigCFEqual() && v40 == *(v32 + 312))
     {
-      v39 = 0;
+      v42 = 0;
     }
 
     else
     {
       if (gLogCategory_APEndpointCluster <= 50 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        v43 = "yes";
+        if (*(v32 + 312))
+        {
+          v44 = "yes";
+        }
+
+        else
+        {
+          v44 = "no";
+        }
+
+        if (!v40)
+        {
+          v43 = "no";
+        }
+
+        LogPrintF(&gLogCategory_APEndpointCluster, "Boolean endpointCluster_updateGroupConfiguration(FigEndpointRef)", 33554482, "[%{ptr}] Group change: groupID: %'@ --> %'@, groupContainsGroupLeader: '%s' --> '%s'\n", a1, *(v32 + 304), v96[0], v44, v43);
       }
 
-      v41 = *(v29 + 304);
-      v42 = v91[0];
-      *(v29 + 304) = v91[0];
-      if (v42)
+      v46 = *(v32 + 304);
+      v47 = v96[0];
+      *(v32 + 304) = v96[0];
+      if (v47)
       {
-        CFRetain(v42);
+        CFRetain(v47);
       }
 
-      if (v41)
+      if (v46)
       {
-        CFRelease(v41);
+        CFRelease(v46);
       }
 
-      *(v29 + 312) = v37;
-      v39 = 1;
+      *(v32 + 312) = v40;
+      v42 = 1;
     }
 
-    v40 = v80;
-    if (v91[0])
+    v45 = v85;
+    if (v96[0])
     {
-      CFRelease(v91[0]);
+      CFRelease(v96[0]);
     }
   }
 
   else
   {
-    v39 = 0;
-    v38 = v81;
-    v40 = v80;
+    v42 = 0;
+    v41 = v86;
+    v45 = v85;
   }
 
-  if (!v40)
+  if (!v45)
   {
-    v45 = 0;
+    v50 = 0;
     if (!a6)
     {
-      return v45;
+      return v50;
     }
 
-    goto LABEL_163;
+    goto LABEL_176;
   }
 
   CMBaseObjectGetDerivedStorage();
-  v43 = CMBaseObjectGetDerivedStorage();
-  if (!v77)
+  v48 = CMBaseObjectGetDerivedStorage();
+  if (!v82)
   {
-    v90 = 0;
-    v91[0] = 0;
-    v89 = 0;
-    v87 = 0;
+    v95 = 0;
+    v96[0] = 0;
+    v94 = 0;
+    v92 = 0;
     cf = 0;
-    v85 = 0;
-    v86 = 0;
-    v84 = 0;
-    v46 = CFDictionaryCreateMutable(alloc, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v46)
+    v90 = 0;
+    v91 = 0;
+    v89 = 0;
+    v51 = CFDictionaryCreateMutable(alloc, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (!v51)
     {
       endpointCluster_updateFromSubEndpoint_cold_1();
       Int64 = 0;
-      v45 = 4294950575;
-      goto LABEL_141;
+      v50 = 4294950575;
+      goto LABEL_154;
     }
 
-    v47 = FigEndpointGetCMBaseObject();
-    v48 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v48)
+    v52 = FigEndpointGetCMBaseObject();
+    v53 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v53)
     {
-      v49 = v48(v47, *MEMORY[0x277CC1368], alloc, v91);
-      if (!v49)
+      v54 = v53(v52, *MEMORY[0x277CC1368], alloc, v96);
+      if (!v54)
       {
-        CFDictionarySetValue(v46, *MEMORY[0x277CC0AD8], v91[0]);
-        v50 = *MEMORY[0x277CC1450];
-        v51 = FigEndpointGetCMBaseObject();
-        v52 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v52)
+        CFDictionarySetValue(v51, *MEMORY[0x277CC0AD8], v96[0]);
+        v55 = *MEMORY[0x277CC1450];
+        v56 = FigEndpointGetCMBaseObject();
+        v57 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v57)
         {
-          v52(v51, v50, alloc, &v90);
+          v57(v56, v55, alloc, &v95);
         }
 
         FigCFDictionarySetValue();
-        v53 = FigEndpointGetCMBaseObject();
-        v54 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v54)
+        v58 = FigEndpointGetCMBaseObject();
+        v59 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v59)
         {
-          v55 = v54(v53, *MEMORY[0x277CC14F0], alloc, &v89);
-          if (!v55)
+          v60 = v59(v58, *MEMORY[0x277CC14F0], alloc, &v94);
+          if (!v60)
           {
-            CFDictionarySetValue(v46, *MEMORY[0x277CC0AE0], v89);
-            v56 = FigEndpointGetCMBaseObject();
-            v57 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v57)
-            {
-              v57(v56, *MEMORY[0x277CC1390], alloc, &cf);
-            }
-
-            FigCFDictionarySetValue();
-            v58 = *MEMORY[0x277CC1440];
-            v59 = FigEndpointGetCMBaseObject();
-            v60 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v60)
-            {
-              v60(v59, v58, alloc, &v87);
-            }
-
-            FigCFDictionarySetValue();
+            CFDictionarySetValue(v51, *MEMORY[0x277CC0AE0], v94);
             v61 = FigEndpointGetCMBaseObject();
             v62 = *(*(CMBaseObjectGetVTable() + 8) + 48);
             if (v62)
             {
-              v62(v61, @"RoomUUID", alloc, &v86);
+              v62(v61, *MEMORY[0x277CC1390], alloc, &cf);
             }
 
             FigCFDictionarySetValue();
-            v63 = FigEndpointGetCMBaseObject();
-            v64 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v64)
+            v63 = *MEMORY[0x277CC1440];
+            v64 = FigEndpointGetCMBaseObject();
+            v65 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v65)
             {
-              v64(v63, @"RoomName", alloc, &v85);
+              v65(v64, v63, alloc, &v92);
             }
 
             FigCFDictionarySetValue();
-            if (*v43 != 1)
+            v66 = FigEndpointGetCMBaseObject();
+            v67 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v67)
             {
-              v65 = FigEndpointGetCMBaseObject();
-              v66 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-              if (v66)
+              v67(v66, @"RoomUUID", alloc, &v91);
+            }
+
+            FigCFDictionarySetValue();
+            v68 = FigEndpointGetCMBaseObject();
+            v69 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v69)
+            {
+              v69(v68, @"RoomName", alloc, &v90);
+            }
+
+            FigCFDictionarySetValue();
+            if (*v48 != 1)
+            {
+              v70 = FigEndpointGetCMBaseObject();
+              v71 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+              if (v71)
               {
-                v66(v65, @"TightSyncClusterInfo", alloc, &v84);
+                v71(v70, @"TightSyncClusterInfo", alloc, &v89);
               }
 
-              if (v84)
+              if (v89)
               {
                 FigCFDictionarySetValueFromKeyInDict();
                 FigCFDictionarySetValueFromKeyInDict();
@@ -6259,71 +6966,71 @@ LABEL_68:
 
             if (FigCFEqual())
             {
-              v67 = *(v43 + 368);
-              if (v67)
+              v72 = *(v48 + 368);
+              if (v72)
               {
-                CFRelease(v67);
-                *(v43 + 368) = 0;
+                CFRelease(v72);
+                *(v48 + 368) = 0;
               }
 
-              *(v43 + 368) = CFRetain(v91[0]);
+              *(v48 + 368) = CFRetain(v96[0]);
             }
 
-            CFHash(v38);
+            CFHash(v41);
             Int64 = CFNumberCreateInt64();
-            CFDictionarySetValue(*(v43 + 344), Int64, v46);
+            CFDictionarySetValue(*(v48 + 344), Int64, v51);
             if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_addOrUpdateClusterCompositionPropertiesForSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554462, "[%{ptr}] <AirPlayClusterComp> Adding description %@ for %@ with name %@, contents is now %@.\n", a1, v51, v96[0], v95, *(v48 + 344));
             }
 
-            v72 = *(v43 + 352);
-            if (v72)
+            v77 = *(v48 + 352);
+            if (v77)
             {
-              CFRelease(v72);
-              *(v43 + 352) = 0;
+              CFRelease(v77);
+              *(v48 + 352) = 0;
             }
 
-            v73 = *(v43 + 360);
-            if (v73)
+            v78 = *(v48 + 360);
+            if (v78)
             {
-              CFRelease(v73);
-              v45 = 0;
-              *(v43 + 360) = 0;
+              CFRelease(v78);
+              v50 = 0;
+              *(v48 + 360) = 0;
             }
 
             else
             {
-              v45 = 0;
+              v50 = 0;
             }
 
-            goto LABEL_141;
+            goto LABEL_154;
           }
 
-          v45 = v55;
+          v50 = v60;
         }
 
         else
         {
-          v45 = 4294954514;
+          v50 = 4294954514;
         }
 
         APSLogErrorAt();
         Int64 = 0;
-LABEL_141:
-        if (v91[0])
+LABEL_154:
+        if (v96[0])
         {
-          CFRelease(v91[0]);
+          CFRelease(v96[0]);
         }
 
-        if (v90)
+        if (v95)
         {
-          CFRelease(v90);
+          CFRelease(v95);
         }
 
-        if (v89)
+        if (v94)
         {
-          CFRelease(v89);
+          CFRelease(v94);
         }
 
         if (cf)
@@ -6331,24 +7038,24 @@ LABEL_141:
           CFRelease(cf);
         }
 
-        if (v87)
+        if (v92)
         {
-          CFRelease(v87);
+          CFRelease(v92);
         }
 
-        if (v86)
+        if (v91)
         {
-          CFRelease(v86);
+          CFRelease(v91);
         }
 
-        if (v85)
+        if (v90)
         {
-          CFRelease(v85);
+          CFRelease(v90);
         }
 
-        if (v46)
+        if (v51)
         {
-          CFRelease(v46);
+          CFRelease(v51);
         }
 
         if (Int64)
@@ -6356,98 +7063,98 @@ LABEL_141:
           CFRelease(Int64);
         }
 
-        if (v84)
+        if (v89)
         {
-          CFRelease(v84);
+          CFRelease(v89);
         }
 
-        goto LABEL_161;
+        goto LABEL_174;
       }
 
-      v45 = v49;
+      v50 = v54;
     }
 
     else
     {
-      v45 = 4294954514;
+      v50 = 4294954514;
     }
 
     APSLogErrorAt();
     Int64 = 0;
-    goto LABEL_141;
+    goto LABEL_154;
   }
 
-  CFHash(v38);
-  v44 = CFNumberCreateInt64();
-  CFDictionaryRemoveValue(*(v43 + 344), v44);
+  CFHash(v41);
+  v49 = CFNumberCreateInt64();
+  CFDictionaryRemoveValue(*(v48 + 344), v49);
   if (gLogCategory_APEndpointCluster <= 30 && (gLogCategory_APEndpointCluster != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APEndpointCluster, "OSStatus endpointCluster_removeClusterCompositionPropertiesForSubEndpoint(FigEndpointRef, FigEndpointRef)", 33554462, "[%{ptr}] <AirPlayClusterComp> Removing description for %@, contents is now %@.\n", a1, v49, *(v48 + 344));
   }
 
-  v69 = *(v43 + 352);
-  if (v69)
+  v74 = *(v48 + 352);
+  if (v74)
   {
-    CFRelease(v69);
-    *(v43 + 352) = 0;
+    CFRelease(v74);
+    *(v48 + 352) = 0;
   }
 
-  v70 = *(v43 + 360);
-  if (v70)
+  v75 = *(v48 + 360);
+  if (v75)
   {
-    CFRelease(v70);
-    *(v43 + 360) = 0;
+    CFRelease(v75);
+    *(v48 + 360) = 0;
   }
 
-  if (v44)
+  if (v49)
   {
-    CFRelease(v44);
+    CFRelease(v49);
   }
 
-  v45 = 0;
-LABEL_161:
+  v50 = 0;
+LABEL_174:
   if (!a6)
   {
-    return v45;
+    return v50;
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
   FigDispatchAsyncPostNotification();
-LABEL_163:
-  if ((v28 | v39) == 1)
+LABEL_176:
+  if ((v31 | v42) == 1)
   {
-    v74 = CFDictionaryCreateMutable(alloc, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v74)
+    v79 = CFDictionaryCreateMutable(alloc, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (!v79)
     {
       endpointCluster_updateFromSubEndpoint_cold_2();
       return 4294950575;
     }
 
-    v75 = v74;
-    if (v39)
+    v80 = v79;
+    if (v42)
     {
-      CFDictionarySetValue(v74, @"GroupInfoDidChange", *MEMORY[0x277CBED28]);
+      CFDictionarySetValue(v79, @"GroupInfoDidChange", *MEMORY[0x277CBED28]);
     }
 
-    if (v28)
+    if (v31)
     {
-      CFDictionarySetValue(v75, @"NameDidChange", *MEMORY[0x277CBED28]);
+      CFDictionarySetValue(v80, @"NameDidChange", *MEMORY[0x277CBED28]);
     }
   }
 
   else
   {
-    v75 = 0;
+    v80 = 0;
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
   FigDispatchAsyncPostNotification();
-  if (v75)
+  if (v80)
   {
-    CFRelease(v75);
+    CFRelease(v80);
   }
 
-  return v45;
+  return v50;
 }
 
 const void *endpointCluster_getSubEndpointWithPredicate(uint64_t a1, int a2)
@@ -6535,13 +7242,13 @@ LABEL_17:
   return endpointCluster_getSubEndpointVolumeLeader(a1);
 }
 
-uint64_t endpoint_copyPropertyFromEndpointDescription_cold_7(uint64_t a1)
+uint64_t endpoint_copyPropertyFromEndpointDescription_cold_7()
 {
-  OUTLINED_FUNCTION_10_11(a1);
+  OUTLINED_FUNCTION_10_11();
   if (*(*(CMBaseObjectGetVTable() + 8) + 48))
   {
-    v2 = OUTLINED_FUNCTION_11_8();
-    result = v3(v2);
+    v1 = OUTLINED_FUNCTION_11_8();
+    result = v2(v1);
   }
 
   else
@@ -6549,7 +7256,7 @@ uint64_t endpoint_copyPropertyFromEndpointDescription_cold_7(uint64_t a1)
     result = 4294954514;
   }
 
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
@@ -6595,7 +7302,7 @@ LABEL_4:
 
   else
   {
-    v8 = endpointCluster_copyPropertyInternal(a1, v7, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v7, v4, &cf);
     v81 = v8;
     if (!v8)
     {
@@ -6631,7 +7338,7 @@ LABEL_9:
 
   else
   {
-    v10 = endpointCluster_copyPropertyInternal(a1, v9, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v9, v4, &cf);
     v81 = v10;
     if (!v10)
     {
@@ -6667,7 +7374,7 @@ LABEL_14:
 
   else
   {
-    v12 = endpointCluster_copyPropertyInternal(a1, v11, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v11, v4, &cf);
     v81 = v12;
     if (!v12)
     {
@@ -6703,7 +7410,7 @@ LABEL_19:
 
   else
   {
-    v14 = endpointCluster_copyPropertyInternal(a1, v13, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v13, v4, &cf);
     v81 = v14;
     if (!v14)
     {
@@ -6739,7 +7446,7 @@ LABEL_24:
 
   else
   {
-    v16 = endpointCluster_copyPropertyInternal(a1, v15, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v15, v4, &cf);
     v81 = v16;
     if (!v16)
     {
@@ -6775,7 +7482,7 @@ LABEL_29:
 
   else
   {
-    v18 = endpointCluster_copyPropertyInternal(a1, v17, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v17, v4, &cf);
     v81 = v18;
     if (!v18)
     {
@@ -6811,7 +7518,7 @@ LABEL_34:
 
   else
   {
-    v20 = endpointCluster_copyPropertyInternal(a1, v19, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v19, v4, &cf);
     v81 = v20;
     if (!v20)
     {
@@ -6847,7 +7554,7 @@ LABEL_39:
 
   else
   {
-    v22 = endpointCluster_copyPropertyInternal(a1, v21, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v21, v4, &cf);
     v81 = v22;
     if (!v22)
     {
@@ -6883,7 +7590,7 @@ LABEL_44:
 
   else
   {
-    v24 = endpointCluster_copyPropertyInternal(a1, v23, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v23, v4, &cf);
     v81 = v24;
     if (!v24)
     {
@@ -6919,7 +7626,7 @@ LABEL_49:
 
   else
   {
-    v26 = endpointCluster_copyPropertyInternal(a1, v25, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v25, v4, &cf);
     v81 = v26;
     if (!v26)
     {
@@ -6955,7 +7662,7 @@ LABEL_54:
 
   else
   {
-    v28 = endpointCluster_copyPropertyInternal(a1, v27, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v27, v4, &cf);
     v81 = v28;
     if (!v28)
     {
@@ -6991,7 +7698,7 @@ LABEL_59:
 
   else
   {
-    v30 = endpointCluster_copyPropertyInternal(a1, v29, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v29, v4, &cf);
     v81 = v30;
     if (!v30)
     {
@@ -7027,7 +7734,7 @@ LABEL_64:
 
   else
   {
-    v32 = endpointCluster_copyPropertyInternal(a1, v31, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v31, v4, &cf);
     v81 = v32;
     if (!v32)
     {
@@ -7063,7 +7770,7 @@ LABEL_69:
 
   else
   {
-    v34 = endpointCluster_copyPropertyInternal(a1, v33, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v33, v4, &cf);
     v81 = v34;
     if (!v34)
     {
@@ -7099,7 +7806,7 @@ LABEL_74:
 
   else
   {
-    v36 = endpointCluster_copyPropertyInternal(a1, v35, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v35, v4, &cf);
     v81 = v36;
     if (!v36)
     {
@@ -7135,7 +7842,7 @@ LABEL_79:
 
   else
   {
-    v38 = endpointCluster_copyPropertyInternal(a1, v37, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v37, v4, &cf);
     v81 = v38;
     if (!v38)
     {
@@ -7171,7 +7878,7 @@ LABEL_84:
 
   else
   {
-    v40 = endpointCluster_copyPropertyInternal(a1, v39, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v39, v4, &cf);
     v81 = v40;
     if (!v40)
     {
@@ -7207,7 +7914,7 @@ LABEL_89:
 
   else
   {
-    v42 = endpointCluster_copyPropertyInternal(a1, v41, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v41, v4, &cf);
     v81 = v42;
     if (!v42)
     {
@@ -7243,7 +7950,7 @@ LABEL_94:
 
   else
   {
-    v44 = endpointCluster_copyPropertyInternal(a1, v43, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v43, v4, &cf);
     v81 = v44;
     if (!v44)
     {
@@ -7279,7 +7986,7 @@ LABEL_99:
 
   else
   {
-    v46 = endpointCluster_copyPropertyInternal(a1, v45, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v45, v4, &cf);
     v81 = v46;
     if (!v46)
     {
@@ -7315,7 +8022,7 @@ LABEL_104:
 
   else
   {
-    v48 = endpointCluster_copyPropertyInternal(a1, v47, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v47, v4, &cf);
     v81 = v48;
     if (!v48)
     {
@@ -7351,7 +8058,7 @@ LABEL_109:
 
   else
   {
-    v50 = endpointCluster_copyPropertyInternal(a1, v49, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v49, v4, &cf);
     v81 = v50;
     if (!v50)
     {
@@ -7387,7 +8094,7 @@ LABEL_114:
 
   else
   {
-    v52 = endpointCluster_copyPropertyInternal(a1, v51, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v51, v4, &cf);
     v81 = v52;
     if (!v52)
     {
@@ -7423,7 +8130,7 @@ LABEL_119:
 
   else
   {
-    v54 = endpointCluster_copyPropertyInternal(a1, v53, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v53, v4, &cf);
     v81 = v54;
     if (!v54)
     {
@@ -7459,7 +8166,7 @@ LABEL_124:
 
   else
   {
-    v56 = endpointCluster_copyPropertyInternal(a1, v55, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v55, v4, &cf);
     v81 = v56;
     if (!v56)
     {
@@ -7495,7 +8202,7 @@ LABEL_129:
 
   else
   {
-    v58 = endpointCluster_copyPropertyInternal(a1, v57, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v57, v4, &cf);
     v81 = v58;
     if (!v58)
     {
@@ -7531,7 +8238,7 @@ LABEL_134:
 
   else
   {
-    v60 = endpointCluster_copyPropertyInternal(a1, v59, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v59, v4, &cf);
     v81 = v60;
     if (!v60)
     {
@@ -7567,7 +8274,7 @@ LABEL_139:
 
   else
   {
-    v62 = endpointCluster_copyPropertyInternal(a1, v61, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v61, v4, &cf);
     v81 = v62;
     if (!v62)
     {
@@ -7603,7 +8310,7 @@ LABEL_144:
 
   else
   {
-    v64 = endpointCluster_copyPropertyInternal(a1, v63, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v63, v4, &cf);
     v81 = v64;
     if (!v64)
     {
@@ -7639,7 +8346,7 @@ LABEL_149:
 
   else
   {
-    v66 = endpointCluster_copyPropertyInternal(a1, v65, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v65, v4, &cf);
     v81 = v66;
     if (!v66)
     {
@@ -7675,7 +8382,7 @@ LABEL_154:
 
   else
   {
-    v68 = endpointCluster_copyPropertyInternal(a1, v67, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v67, v4, &cf);
     v81 = v68;
     if (!v68)
     {
@@ -7711,7 +8418,7 @@ LABEL_159:
 
   else
   {
-    v70 = endpointCluster_copyPropertyInternal(a1, v69, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v69, v4, &cf);
     v81 = v70;
     if (!v70)
     {
@@ -7747,7 +8454,7 @@ LABEL_164:
 
   else
   {
-    v72 = endpointCluster_copyPropertyInternal(a1, v71, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v71, v4, &cf);
     v81 = v72;
     if (!v72)
     {
@@ -7783,7 +8490,7 @@ LABEL_169:
 
   else
   {
-    v74 = endpointCluster_copyPropertyInternal(a1, v73, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v73, v4, &cf);
     v81 = v74;
     if (!v74)
     {
@@ -7819,7 +8526,7 @@ LABEL_174:
 
   else
   {
-    v76 = endpointCluster_copyPropertyInternal(a1, v75, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v75, v4, &cf);
     v81 = v76;
     if (!v76)
     {
@@ -7844,7 +8551,7 @@ LABEL_175:
   CMBaseObjectGetDerivedStorage();
   if (!endpointCluster_copyStaticProperty(a1, v77, &cf, &v81))
   {
-    v78 = endpointCluster_copyPropertyInternal(a1, v77, v4, &cf);
+    endpointCluster_copyPropertyInternal(a1, v77, v4, &cf);
     v81 = v78;
     if (!v78)
     {
@@ -7879,7 +8586,7 @@ LABEL_180:
   return result;
 }
 
-uint64_t endpointCluster_anySubEndpointReportsTrueForProperty()
+uint64_t endpointCluster_anySubEndpointReportsTrueForProperty(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   Count = CFArrayGetCount(*(DerivedStorage + 336));
@@ -7888,17 +8595,17 @@ uint64_t endpointCluster_anySubEndpointReportsTrueForProperty()
     return 0;
   }
 
-  v2 = Count;
-  v3 = 0;
+  v4 = Count;
+  v5 = 0;
   while (1)
   {
-    CFArrayGetValueAtIndex(*(DerivedStorage + 336), v3);
+    CFArrayGetValueAtIndex(*(DerivedStorage + 336), v5);
     if (APSGetFBOPropertyInt64())
     {
       break;
     }
 
-    if (v2 == ++v3)
+    if (v4 == ++v5)
     {
       return 0;
     }
@@ -7957,28 +8664,28 @@ CFStringRef carPlayAnalytics_createAnalyticsKeyForStreamType(int a1, CFStringRef
 
 uint64_t APCarPlay_AddAnalyticsValues(const void *a1, const __CFString *a2)
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = __Block_byref_object_copy__5;
-  v19 = __Block_byref_object_dispose__5;
-  v20 = 0;
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x2020000000;
-  v14[3] = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3052000000;
+  v16 = __Block_byref_object_copy__5;
+  v17 = __Block_byref_object_dispose__5;
+  v18 = 0;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v12[3] = 0;
   v4 = objc_alloc_init(getCRSAppHistoryControllerClass());
-  v16[5] = v4;
+  v14[5] = v4;
   if (!v4)
   {
     APSLogErrorAt();
     v10 = -6728;
 LABEL_24:
-    *(v22 + 6) = v10;
+    *(v20 + 6) = v10;
     goto LABEL_21;
   }
 
@@ -7999,9 +8706,7 @@ LABEL_24:
 LABEL_6:
   if (gLogCategory_APCarPlayCarServicesInterface <= 30 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
   {
-    v11 = a2;
-    v12 = a1;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_AddAnalyticsValues(CFDictionaryRef, CFStringRef)", 33554462, "Calling addAnalyticsValues, inAnalyticsEventName: %@, inAnalyticsValues:\n%@\n", a2, a1);
   }
 
   if (IsAppleInternalBuild())
@@ -8028,42 +8733,42 @@ LABEL_15:
     CFRetain(a2);
   }
 
-  v7 = v16[5];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __APCarPlay_AddAnalyticsValues_block_invoke;
-  v13[3] = &unk_27849FA00;
-  v13[4] = &v21;
-  v13[5] = v14;
-  v13[8] = a1;
-  v13[9] = v6;
-  v13[6] = &v15;
-  v13[7] = a2;
-  [v7 addAnalyticsValues:a1 toEvent:v5 completion:{v13, v11, v12}];
+  v7 = v14[5];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __APCarPlay_AddAnalyticsValues_block_invoke;
+  v11[3] = &unk_27849FA00;
+  v11[4] = &v19;
+  v11[5] = v12;
+  v11[8] = a1;
+  v11[9] = v6;
+  v11[6] = &v13;
+  v11[7] = a2;
+  [v7 addAnalyticsValues:a1 toEvent:v5 completion:v11];
   if (gLogCategory_APCarPlayCarServicesInterface <= 30 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_AddAnalyticsValues(CFDictionaryRef, CFStringRef)", 33554462, "Returned from addAnalyticsValues\n");
   }
 
 LABEL_21:
-  v8 = *(v22 + 6);
-  _Block_object_dispose(v14, 8);
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
+  v8 = *(v20 + 6);
+  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v19, 8);
   return v8;
 }
 
-void sub_22203BA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22203BA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8091,9 +8796,9 @@ uint64_t getCRSAppHistoryControllerClass()
   return v0;
 }
 
-void sub_22203BB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22203BB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8111,7 +8816,7 @@ uint64_t sub_22203C5B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v35 = v34 - 152;
   STACK[0xD28] = a17;
   *(v34 - 144) = (a20 + 2089148240) ^ (439532179 * ((v34 - 152) ^ 0xDEA63D82));
-  (*(a1 + 8 * (a20 + 1120)))(v34 - 152);
+  (*(a1 + 8 * (a20 + 1120)))(v34 - 152, a2, a3, a4, a5, a6, a7, a8);
   v36 = 2021301169 * ((217174587 - (v35 | 0xCF1D23B) + (v35 | 0xF30E2DC4)) ^ 0x78F87A64);
   STACK[0xD30] = a17;
   STACK[0xD28] = *(&off_2835705E0 + ((a20 + 519) ^ 0x3C7)) - 8;
@@ -8161,7 +8866,7 @@ uint64_t sub_22203C870(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a25 = -95 * v30[12] - 25;
   a26 = -95 * v30[13] - 25;
   a27 = -95 * v30[14] - 25;
-  v31 = (*(v29 + 8 * (v28 ^ 0x238)))();
+  v31 = (*(v29 + 8 * (v28 ^ 0x238)))(a1, a2, a3, a4, a5, a6, a7, a8);
   v32 = (*(v29 + 8 * (v28 + 509)))(0, &a13, v31);
   return (*(v29 + 8 * ((125 * (v32 == 0)) ^ v28)))(v32, v33, v34, v35, v36);
 }
@@ -8176,7 +8881,7 @@ uint64_t sub_22203C9A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v21 = *(v18 - 88);
   *(v18 - 1) = *(v18 - 104);
   *v18 = v21;
-  return (*(a3 + 8 * ((254 * (((16 * ((v19 | 0x100u) - 2)) ^ 0x37A0) != 32)) ^ ((v19 | 0x100) - 2))))();
+  return (*(a3 + 8 * ((254 * (((16 * ((v19 | 0x100u) - 2)) ^ 0x37A0) != 32)) ^ ((v19 | 0x100) - 2))))(a1, a2);
 }
 
 uint64_t sub_22203C9B0@<X0>(uint64_t a1@<X1>, unsigned int *a2@<X3>, int a3@<W8>, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, _DWORD *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -8206,7 +8911,7 @@ uint64_t sub_22203C9B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v30 - 152) = (v25 - 2038580755) ^ v28;
   *(v30 - 136) = v28 + v25 - 2038580541 - 75;
   *(v30 - 132) = v28 ^ 1;
-  v33 = (*(v29 + 8 * (v25 ^ 0xCB)))(v30 - 152);
+  v33 = (*(v29 + 8 * (v25 ^ 0xCB)))(v30 - 152, a2, a3, a4, a5, a6, a7, a8);
   return (*(v29 + 8 * *(v30 - 116)))(v33);
 }
 
@@ -8227,7 +8932,7 @@ uint64_t sub_22203CAB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v23 - 144) = a1;
   *(v23 - 120) = v22 + 144;
   *(v23 - 131) = 93 - -71 * ((v23 + 112) ^ 0xEA);
-  v24 = (*(v20 + 8 * (v21 + 902)))(v23 - 144);
+  v24 = (*(v20 + 8 * (v21 + 902)))(v23 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v20 + 8 * ((79 * (*(v23 - 128) != 95751194)) ^ v21)))(v24);
 }
 
@@ -8239,7 +8944,7 @@ uint64_t sub_22203CD9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a27[3] = a29[3];
   a27[4] = a29[4];
   a27[5] = a29[5];
-  return (*(v47 + 8 * (((v46 - 830) * (a46 < a45)) ^ v46)))();
+  return (*(v47 + 8 * (((v46 - 830) * (a46 < a45)) ^ v46)))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_22203CDF4@<X0>(int a1@<W8>)
@@ -8306,7 +9011,7 @@ uint64_t sub_22203D134(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
 uint64_t sub_22203D188(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
-  (*(a4 + 8 * ((v34 + 790) ^ 0x58085595)))(a13 + 0x4094302000004DLL, 0x100004077774924);
+  (*(a4 + 8 * ((v34 + 790) ^ 0x58085595)))(a13 + 0x4094302000004DLL, 0x100004077774924, a3);
   v35 = (*(a32 + 8 * ((v34 - 26) ^ 0x58085595)))();
   *v33 = v35;
   v33[1] = 1812433253 * ((v35 >> 30) ^ v35) + 1;
@@ -8372,7 +9077,7 @@ uint64_t sub_22203DA48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a14 = v17;
   a15 = v21 + v16;
   a13 = &a10;
-  v22 = (*(v18 + 8 * (v20 + 1283)))(&a12);
+  v22 = (*(v18 + 8 * (v20 + 1283)))(&a12, a2, a3, a4, a5, a6, a7, a8);
   return (*(v18 + 8 * ((891 * (a16 == ((v20 - 795101498) & 0x2F644D1D ^ v19))) ^ v20)))(v22);
 }
 
@@ -8394,7 +9099,7 @@ uint64_t sub_22203DC80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v15 = (v14 + v10 + 11);
   *v15 = (&a9 ^ 0xBA) * (&a9 + 17);
   *(v15 - 1) = (&a9 + ((((v13 - 118) ^ 0x61) - 109) & 0xFB) + 90) * (&a9 ^ 0xBB);
-  return (*(v9 + 8 * ((97 * (((v14 + 12) & (((v13 + 650) ^ 0x61u) + 0x1FFFFFCD5)) != 2)) ^ (v13 + 650) ^ 0x61)))();
+  return (*(v9 + 8 * ((97 * (((v14 + 12) & (((v13 + 650) ^ 0x61u) + 0x1FFFFFCD5)) != 2)) ^ (v13 + 650) ^ 0x61)))(a1);
 }
 
 uint64_t sub_222042D80(unint64_t a1, unsigned int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
@@ -8434,7 +9139,7 @@ uint64_t sub_222042EEC(__n128 a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   v18.n128_u64[0] = 0x9C9C9C9C9C9C9C9CLL;
   v18.n128_u64[1] = 0x9C9C9C9C9C9C9C9CLL;
-  return (*(v16 + 8 * ((228 * (a15 - ((((v15 + 350) ^ 0x369uLL) + v17) << ((6 * ((v15 + 94) ^ 0x43)) ^ 4u)) < 0x20)) ^ (v15 + 350))))(a1, a2, v18);
+  return (*(v16 + 8 * ((228 * (a15 - ((((v15 + 350) ^ 0x369uLL) + v17) << ((6 * ((v15 + 94) ^ 0x43)) ^ 4u)) < 0x20)) ^ (v15 + 350))))(a3, a4, a5, a6, a7, a8, a9, a10, a1, a2, v18);
 }
 
 uint64_t sub_222042F7C@<X0>(int a1@<W0>, uint64_t a2@<X1>, int a3@<W2>, int a4@<W6>, int a5@<W8>)
@@ -8457,7 +9162,7 @@ uint64_t sub_222042F7C@<X0>(int a1@<W0>, uint64_t a2@<X1>, int a3@<W2>, int a4@<
 uint64_t sub_222043448(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, _DWORD *a31, uint64_t a32)
 {
   v38 = v33 - v34 - 146;
-  v39 = (*(v32 + 8 * (v33 + 749)))(a31 + 4, 0);
+  v39 = (*(v32 + 8 * (v33 + 749)))(a31 + 4, 0, a3, a4, a5, a6, a7, a8);
   v40 = a31[4] + 1333457439 - ((2 * a31[4]) & 0x9EF5E43E);
   a31[1] = a31[6] + 1333457439 - ((v38 ^ 0xC6FDB1AB) & (2 * a31[6]));
   a31[2] = v40;
@@ -8508,7 +9213,7 @@ uint64_t sub_2220437E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a22 = (((&a19 - 2 * (&a19 & 0x3935C7BE) - 14402) ^ 0xFA3C) * v28) ^ 0xE4F;
   a21 = (a14 - 37) ^ (((&a19 - 2 * (&a19 & 0x3935C7BE) + 959825854) ^ 0xE793FA3C) * v28);
   a19 = v29 + 16;
-  v30 = (*(v26 + 8 * (a14 + 254)))(&a19);
+  v30 = (*(v26 + 8 * (a14 + 254)))(&a19, a2, a3, a4, a5, a6, a7, a8);
   *(v29 + 32) = bswap32(a13);
   return (*(v26 + 8 * ((221 * (v25 == (((a14 - 45) ^ 0xF650CCEE) & (2 * v25)))) ^ a14)))(v30);
 }
@@ -8525,7 +9230,7 @@ uint64_t sub_222043910(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v24 - 128) = (v23 + 702) ^ (344723623 * ((((v24 - 144) | 0x52A8889B) - (v24 - 144) + ((v24 - 144) & 0xAD577760)) ^ 0xA50BE552));
   *(v24 - 140) = (4263 * ((((v24 - 144) | 0x889B) - (v24 - 144) + ((v24 - 144) & 0x7760)) ^ 0xE552)) ^ 0x32D6;
   *(v24 - 136) = a1 + 14;
-  v26 = (*(v22 + 8 * (v23 + 1280)))(v24 - 144);
+  v26 = (*(v22 + 8 * (v23 + 1280)))(v24 - 144, a2, a3, a4, a5, a6, a7, a8);
   *(a1 + 14) = 256;
   v27 = a1 - a20 - 118 < ((v23 + 12) ^ 0x13DuLL);
   return (*(v22 + 8 * ((4 * v27) | (8 * v27) | v23)))(v26);
@@ -8593,7 +9298,7 @@ uint64_t sub_222043E8C()
   return (*(v5 + 8 * ((178 * (v7 != 0)) ^ v4)))(v7, v8, v9, v10, v11);
 }
 
-uint64_t sub_222043F14(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5, int a6, int a7, uint64_t a8)
+uint64_t sub_222043F14(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, int a5, int a6, int a7, uint64_t a8)
 {
   v18 = (v14 + 32 * a8);
   v19 = *(v11 + 9) * v12 % a2;
@@ -8608,7 +9313,7 @@ uint64_t sub_222043F14(uint64_t a1, unsigned int a2, uint64_t a3, int a4, int a5
   v22 = *(v11 + 9) * (v12 + 3) % a2;
   v18[3] = v8 + ((v16 + ((v22 + a5 - (v15 & (2 * v22))) << 10)) ^ a4);
   *v9 += 1024;
-  return (*(v10 + 8 * (((a8 + 1 == v13) * v17) | a7)))();
+  return (*(v10 + 8 * (((a8 + 1 == v13) * v17) | a7)))(a1);
 }
 
 uint64_t sub_222044130@<X0>(int a1@<W1>, uint64_t a2@<X8>)
@@ -8623,7 +9328,7 @@ uint64_t sub_222044198(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *a24 = v26 + 1 - ((((v26 ^ 0x13FF) & v26) >> (__clz(v26 ^ 0x13FF | 1) ^ (((v28 - 126) ^ 0x95) - 75))) & 1);
   v29 = ((v25 ^ (v25 >> 11)) << 7) & 0x9D2C5680 ^ v25 ^ (v25 >> 11);
   *(*a20 + a22) ^= (v29 << (((v28 - 126) ^ 0x95) - 91)) & v27 ^ v29 ^ (((v29 << (((v28 - 126) ^ 0x95) - 91)) & v27 ^ v29) >> 18);
-  return (*(v24 + 8 * ((v28 + 386) ^ 0x58085595 ^ (227 * (a22 < 0x1FC)))))();
+  return (*(v24 + 8 * ((v28 + 386) ^ 0x58085595 ^ (227 * (a22 < 0x1FC)))))(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 uint64_t sub_222044260()
@@ -8682,7 +9387,7 @@ uint64_t sub_222044510@<X0>(int a1@<W8>)
 
 uint64_t sub_222044564(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, int a13, uint64_t a14)
 {
-  v18 = (*(v14 + 8 * (v16 + 1047)))(a13 - *(v15 + 14), 0x100004077774924);
+  v18 = (*(v14 + 8 * (v16 + 1047)))(a13 - *(v15 + 14), 0x100004077774924, a3, a4, a5, a6, a7, a8);
   *v17 = v18;
   return (*(v14 + 8 * (((v18 != 0) * ((v16 + 368) ^ 0x34F)) ^ v16)))(a14);
 }
@@ -8698,7 +9403,7 @@ uint64_t sub_222044618(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v35 = v32 ^ v33;
   *v34 = (v32 ^ v33) + 670542443 + (((a15 - v32) | (v32 - a15)) >> 31);
-  (*(a3 + 8 * (v32 + 1533)))(a30);
+  (*(a3 + 8 * (v32 + 1533)))(a30, a2);
   v36 = vld1q_dup_f32(v34);
   v37.i64[0] = 0x8000000080000000;
   v37.i64[1] = 0x8000000080000000;
@@ -8750,7 +9455,7 @@ uint64_t sub_222044914(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   a11 = (v19 + 1104) ^ (1021229753 * ((2 * (&a10 & 0x5754798) - &a10 - 91572124) ^ 0x4467038E));
   a13 = 93 - -71 * ((2 * (&a10 & 0x98) - &a10 + 100) ^ 0x8E);
   a12 = ((v15 ^ 0x4D) + ((2 * v15) & 0xF3 ^ 0x60) - 17) ^ (-71 * ((2 * (&a10 & 0x98) - &a10 + 100) ^ 0x8E));
-  (*(v16 + 8 * (v19 ^ 0x69B)))(&a10);
+  (*(v16 + 8 * (v19 ^ 0x69B)))(&a10, a2, a3, a4, a5, a6, a7, a8);
   return (*(v16 + 8 * (((a14 != 95751194) * (((v19 - 614228675) & 0x249C627D) + 312)) ^ v19)))(a1);
 }
 
@@ -8885,7 +9590,7 @@ uint64_t sub_222044FDC(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
 uint64_t sub_222045044(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
   v37 = v35 + v33 + 112;
-  v38 = (*(v32 + 8 * (v33 | 0x146)))(&STACK[0x500], 0);
+  v38 = (*(v32 + 8 * (v33 | 0x146)))(&STACK[0x500], 0, a3, a4, a5, a6, a7, a8);
   v39 = LODWORD(STACK[0x508]) + 148739216 - ((2 * LODWORD(STACK[0x508])) & 0x11BB2920);
   LODWORD(STACK[0x4F8]) = LODWORD(STACK[0x500]) + (v37 ^ 0x50D5C105) - ((2 * LODWORD(STACK[0x500])) & 0x11BB2920);
   LODWORD(STACK[0x4F4]) = v39;
@@ -8912,7 +9617,7 @@ uint64_t sub_2220453F4(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   *(v29 - 136) = v30 + a14;
   *(v29 - 132) = v31;
   *(v29 - 128) = v27;
-  v32 = (*(v28 + 8 * (a3 + 1433)))(v29 - 136);
+  v32 = (*(v28 + 8 * (a3 + 1433)))(v29 - 136, a2);
   return (*(v28 + 8 * ((75 * ((*(v27 + 68) & ((a27 + 499) ^ 0x20Bu)) + 64 > 0x3F)) ^ (a27 + 874))))(v32, a13);
 }
 
@@ -8967,7 +9672,7 @@ uint64_t sub_2220456B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   *(v13 - 120) = v23 + v11 - 1083642136;
   *(v13 - 116) = v23 ^ a11 ^ (2 * v22) ^ 0x7BA0CF2;
   *(v13 - 112) = a7;
-  v24 = (*(v12 + 8 * (v11 + 1470)))(v13 - 120);
+  v24 = (*(v12 + 8 * (v11 + 1470)))(v13 - 120, a2, a3, a4);
   return (*(v12 + 8 * ((446 * ((*(a7 + 68) & ((2 * (v11 ^ 0x29E)) ^ 0x53Bu)) + 64 > 0x3F)) ^ v11 ^ 0x29E)))(v24);
 }
 
@@ -8976,7 +9681,7 @@ uint64_t sub_222045930(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v30 = v29 - 144;
   *(v29 - 144) = v26 + 2856;
   *(v29 - 136) = (v28 + 2089147696) ^ (439532179 * ((((v29 - 144) | 0x73FD012C) - (v29 - 144) + ((v29 - 144) & 0x8C02FED0)) ^ 0xAD5B3CAE));
-  (*(v27 + 8 * (v28 + 576)))(v29 - 144);
+  (*(v27 + 8 * (v28 + 576)))(v29 - 144, a2, a3, a4, a5, a6, a7, a8);
   v31 = 2021301169 * ((((2 * v30) | 0x292B9992) - v30 - 345361609) ^ 0x9F639B69);
   *(v29 - 128) = v31 + 469501837;
   *(v29 - 124) = (v28 - 317) ^ v31;
@@ -9008,7 +9713,7 @@ uint64_t sub_222045B60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v58 - 112) = &a54;
   *(v58 - 136) = a30;
   *(v58 - 128) = &a35;
-  (*(v55 + 8 * (v54 ^ 0x615)))(v58 - 144);
+  (*(v55 + 8 * (v54 ^ 0x615)))(v58 - 144, a2, a3, a4, a5, a6, a7, a8);
   return (*(v55 + 8 * (((*(v58 - 104) == v56) * (((2 * v54) ^ 0x4A4) - 31)) ^ v54)))(a32);
 }
 
@@ -9101,718 +9806,4 @@ uint64_t sub_222045C9C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   a8[14] = *(v47 - 1) ^ BYTE2(v52);
   a8[15] = *v47 ^ BYTE3(v52);
   return (*(v41 + 8 * ((116 * (v46 != 8)) ^ a31)))(a1, v68, v73, v70, v71, v69, v72);
-}
-
-uint64_t sub_222045CAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
-{
-  v34 = 15 * (v30 ^ 0x41);
-  if (((a17 - v30) | (v30 - a17)) > v34 - 976)
-  {
-    v35 = 0x80000000;
-  }
-
-  else
-  {
-    v35 = 0x7FFFFFFF;
-  }
-
-  *v31 = v35;
-  (*(v32 + 8 * (v30 + 1533)))(a30);
-  v36 = v31[1];
-  v37 = v31[412 * (v34 ^ 0x3CD) - 427] ^ 0x9461827D ^ ((v36 & 0x7FFFFFFE | *v31 & 0x80000000) >> 1) ^ *(v33 - 160 + 4 * (v36 & 1));
-  v38 = v31[398] ^ 0x9461827D ^ ((v31[2] & 0x7FFFFFFE | v36 & 0x80000000) >> 1) ^ *(v33 - 160 + 4 * (v31[2] & 1));
-  *v31 = v37;
-  v31[1] = v38;
-  return (*(v32 + 8 * (v34 - 514)))();
-}
-
-uint64_t sub_222045DD4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W4>, int a4@<W5>, int a5@<W8>)
-{
-  v8 = a1 < v5;
-  *(v6 + (a5 - 469902835)) = -31;
-  if (v8 == a5 + 228547249 < v5)
-  {
-    v8 = a5 + 228547249 < a1;
-  }
-
-  return (*(v7 + 8 * ((v8 * a3) ^ (a4 - 811))))(a1, a2, a5 + 228547249 < a1);
-}
-
-void sub_222045F4C(uint64_t a1)
-{
-  v1 = 1380645169 * ((a1 - 1692345465 - 2 * (a1 & 0x9B20DB87)) ^ 0x19E5D3D7);
-  if (*(a1 + 16))
-  {
-    v2 = (*a1 ^ v1) == 947247454;
-  }
-
-  else
-  {
-    v2 = 1;
-  }
-
-  v3 = v2;
-  __asm { BRAA            X10, X17 }
-}
-
-uint64_t sub_22204601C(uint64_t a1)
-{
-  v6 = *(v1 + a1 - 1);
-  v7 = v6 + (v5 ^ v2);
-  if ((v6 - 97) >= 0x1A)
-  {
-    v7 = *(v1 + a1 - 1);
-  }
-
-  v8 = (v7 + ((v5 - 116) ^ v4)) > 5u;
-  return (*(v3 + 8 * ((v8 | (4 * v8)) ^ v5)))();
-}
-
-uint64_t sub_222046024@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, char a6@<W8>)
-{
-  v15 = v6 & 0x78324094 ^ 0x97EDFF6F ^ (a1 ^ (((a2 - 665) | 0x406) - 384138301)) & (v6 ^ v12);
-  v16 = ((a3 ^ 0xE6997711) + 426150127) ^ ((a3 ^ 0x381E901) - 58845441) ^ ((a3 ^ 0x8BCFA68A) + 1949325686);
-  v17 = *(v7 + 4 * (*(v8 + a5 + v13) - 86));
-  v18 = v16 + *(v9 + 4 * (a5 + v13)) + ((v15 + v12 - ((2 * v15) & 0xDDAE7134)) ^ a4);
-  LOBYTE(v16) = *(v10 + a5 + v13);
-  v19 = (v16 - 38) ^ 0xF4;
-  v20 = (2 * ((v16 - 38) & 0x14)) & v19 ^ ((v16 - 38) & 0x14 | 0x60) ^ ((2 * ((v16 - 38) & 0x14)) & 0x67 | 0x80);
-  v21 = (2 * v19) & 0xE0 ^ 0x20 ^ ((2 * v19) ^ 0xC0) & v19;
-  v22 = (4 * v20) & 0xE0 ^ v20 ^ ((4 * v20) ^ 0x80) & v21;
-  v23 = v18 - 1890723000 + (((v17 ^ 0x83FDF6AB) + 2080508245) ^ ((v17 ^ 0x7DD0D859) - 2110838873) ^ ((v17 ^ 0x9F9FAC) - 10461100));
-  LOBYTE(v17) = v22 ^ (16 * v22) & 0xE0 ^ (16 * v22) & ((4 * v21) & 0xE0 ^ 0x60 ^ ((4 * v21) ^ 0x80) & v21) ^ 0x80;
-  v24 = v23 ^ ((v23 ^ 0xDD78F2D6) + 238702861) ^ ((v23 ^ 0x255D94C4) - 165726433) ^ ((v23 ^ 0x6FA7C5C0) - 1125816805) ^ ((v23 ^ 0xBB3FFFF7) + 1753046062) ^ 0x2CBD5C25;
-  v25 = (((a1 ^ 0x563503C1) - 1446314945) ^ ((a1 ^ 0x541EB64E) - 1411298894) ^ ((a1 ^ 0x6CFC8D15) - 1828490517)) - 827348262 + ((v24 << (((v16 - 38) ^ (2 * v17)) & 0x17 ^ 0x14) << (((v16 - 38) ^ (2 * v17)) & 8)) | (v24 >> (a6 - v16)));
-  return (*(v11 + 8 * ((14 * (a5 + 1 == v14 + 64)) | a2)))(v25 ^ ((v25 ^ 0x20CF39AC) - 2132233196) ^ ((v25 ^ 0x596AD46D) - 112371245) ^ ((v25 ^ 0x5882606E) - 123343406) ^ ((v25 ^ 0x7EFFFFEF) - 556240303) ^ 0x310F4ADAu);
-}
-
-uint64_t sub_222046474@<X0>(int8x8_t *a1@<X8>)
-{
-  v5 = veor_s8(v2[1], 0x9C9C9C9C9C9C9C9CLL);
-  *a1 = veor_s8(*v2, 0x9C9C9C9C9C9C9C9CLL);
-  a1[1] = v5;
-  return (*(v3 + 8 * ((281 * (((v1 + 1385846833) & 0xAD65A397) - 391 == (v4 & 0x70))) ^ (v1 - 418))))();
-}
-
-uint64_t sub_2220464DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
-{
-  v60 = (v54 - 34);
-  v61 = v55 + v56 + v59;
-  v62 = (v61 + v58 + 1);
-  *v62 = (&a54 ^ 0xBA) * (&a54 + 17);
-  *(v62 - 1) = (v60 ^ 0x35 ^ &a54 ^ 0x9D) * (&a54 + 18);
-  return (*(a37 + 8 * ((38 * (v61 != ((v60 - 530) & v57))) ^ v60)))();
-}
-
-void sub_2220465DC()
-{
-  *(v0 - 144) = (((*(v0 - 192) - 287) | 0x44) - 721458040) ^ *(v0 - 208);
-  *(v0 - 152) = *(v0 - 204) ^ 0x8E0A0EE4;
-  *(v0 - 156) = *(v0 - 200) ^ 0xA86E211A;
-  *(v0 - 148) = *(v0 - 196) ^ 0xE8E738F7;
-  JUMPOUT(0x222040DDCLL);
-}
-
-uint64_t sub_222046704(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, uint64_t a21, uint64_t a22, uint64_t a23, _DWORD *a24, uint64_t a25, _DWORD *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
-{
-  v41 = (-((v38 - 5120) ^ (v38 - 5120)) | (v38 - 5120)) >> 63;
-  *a24 = v38 + 1;
-  v42 = (((v37 >> (v41 + 10)) ^ v37) << 7) & 0x9D2C5680 ^ (v37 >> (v41 + 10)) ^ v37;
-  v43 = v40 & (v42 << 15) ^ v42 ^ ((v40 & (v42 << 15) ^ v42) >> 18);
-  v44 = &a37 + (a20 - 1);
-  v45 = 1999407021 * ((*(*v39 + (*a26 & 0x777AA3AC)) ^ v44) & 0x7FFFFFFF);
-  v46 = 1999407021 * (HIWORD(v45) ^ v45);
-  LODWORD(v46) = *(off_283570678 + (v46 >> 24) - 4) ^ *(off_283570980 + (v46 >> 24) - 12) ^ *(off_283570730 + (v46 >> 24) - 11) ^ v46 ^ (5 * (v46 >> 24));
-  *v44 = v46 ^ v43;
-  return (*(a1 + 8 * ((694 * (a20 == (v46 != v43))) ^ 0x12F)))();
-}
-
-uint64_t sub_2220469A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v12 = *(v9 + a7 + 16);
-  *(v8 + a6) = *(v9 + a7);
-  *(v8 + a6 + 16) = v12;
-  return (*(v11 + 8 * ((((v7 & 0xFFFFFFFFFFFFFFE0) == 32) * (((v10 - 1183528328) & 0x468B37FB) + 667)) ^ v10)))();
-}
-
-uint64_t sub_222046AE8@<X0>(uint64_t a1@<X1>, int a2@<W2>, int a3@<W8>, int8x16_t a4@<Q1>, int8x16_t a5@<Q4>, int8x16_t a6@<Q5>, int8x16_t a7@<Q6>, int32x4_t a8@<Q7>)
-{
-  v10 = (v9 + 908);
-  v11 = vld1q_dup_f32(v10);
-  v12 = (a3 - 1074291625) & 0xE8000FDF;
-  a4.i32[0] = *(v9 + 912);
-  a4.i32[1] = *(v9 + 4 * (v12 - 392) + 644);
-  a4.i32[2] = *(v9 + 920);
-  v13 = vextq_s8(v11, a4, 0xCuLL);
-  v14 = a4;
-  v14.i32[3] = *(v9 + 924);
-  v15 = veorq_s8(vshrq_n_u32(vorrq_s8(vandq_s8(v14, a6), vandq_s8(v13, a5)), 1uLL), *v9);
-  v13.i32[0] = *(v8 + 4 * (*(v9 + 912) & 1));
-  v13.i32[1] = *(v8 + 4 * (*(v9 + 4 * (v12 - 392) + 644) & 1));
-  v13.i32[2] = *(v8 + 4 * (*(v9 + 920) & 1));
-  v13.i32[3] = *(v8 + 4 * (v14.i8[12] & 1));
-  *(v9 + 908) = veorq_s8(vaddq_s32(vsubq_s32(v15, vandq_s8(vaddq_s32(v15, v15), a7)), a8), v13);
-  return (*(a1 + 8 * ((a2 + a3 - 243) ^ 0xFA)))();
-}
-
-uint64_t sub_222046C48@<X0>(uint64_t a1@<X8>)
-{
-  v6 = (v2 + 32);
-  v7 = *(v6 - 88);
-  *(v6 - 1) = *(v6 - 104);
-  *v6 = v7;
-  return (*(v3 + 8 * (((v1 + 32 == a1) * v4) ^ v5)))();
-}
-
-uint64_t sub_222046C54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
-{
-  v11 = (v7 - 986024607) & 0x3AC587F5;
-  *(a3 + (v11 ^ 0xFFFFFE9F) + v8) = a6;
-  return (*(v9 + 8 * (v11 ^ ((v6 == 1) * v10))))();
-}
-
-uint64_t sub_222046C80(uint64_t result, double a2)
-{
-  v3 = LOBYTE(a2) | BYTE4(a2) | ((LODWORD(a2) | HIDWORD(a2)) >> 16);
-  v4 = v3 | ((v3 & 0xF0) >> 4) | (((v3 | ((v3 & 0xF0) >> 4)) & 0xFC) >> 2);
-  *(result + 40) = -42084 * (((v2 + 53) ^ 0x70) & (v4 | ((v4 & 0xFE) >> 1))) + 95751194;
-  return result;
-}
-
-uint64_t sub_222046F08(uint64_t a1, uint64_t a2)
-{
-  v8 = v5 + 4 * (v3 + a2);
-  *(v5 + 4 * (v3 + a2 + 27 * (v2 ^ 0x74u)) - 648) = v6 ^ __ROR4__(*(v8 - 32) ^ *(v8 - 12) ^ *(v8 - 56) ^ *(v8 - 64), 31);
-  return (*(v7 + 8 * ((515 * (a2 + 1 == v4 + 80)) ^ v2)))(1772928543);
-}
-
-uint64_t sub_222046F80@<X0>(uint64_t a1@<X2>, unsigned int a2@<W8>)
-{
-  v7 = *(a1 + v3 + 16);
-  v8 = (v5 + a2);
-  *v8 = *(a1 + v3);
-  v8[1] = v7;
-  return (*(v6 + 8 * ((((v2 & 0xFFFFFFFFFFFFFFE0) == 32) * (v4 - 331)) ^ v4)))(a2 + 32, a1 + v3 + 48);
-}
-
-uint64_t sub_222046FC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, unsigned __int8 *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, _BYTE *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
-{
-  *a34 ^= *a40 ^ 0x3A;
-  a34[1] ^= (v46 + 93) ^ a40[1] ^ 0x95;
-  a34[2] ^= a40[2] ^ 0x3A;
-  a34[3] ^= a40[3] ^ 0x3A;
-  a34[4] ^= a40[4] ^ 0x3A;
-  a34[5] ^= a40[5] ^ 0x3A;
-  a34[6] ^= a40[6] ^ 0x3A;
-  a34[7] ^= a40[7] ^ 0x3A;
-  a34[8] ^= a40[8] ^ 0x3A;
-  a34[9] ^= a40[9] ^ 0x3A;
-  a34[10] ^= a40[10] ^ 0x3A;
-  a34[11] ^= a40[11] ^ 0x3A;
-  a34[12] ^= a40[12] ^ 0x3A;
-  a34[13] ^= a40[13] ^ 0x3A;
-  a34[14] ^= a40[14] ^ 0x3A;
-  v83 = a46 + 7;
-  a34[15] ^= a40[15] ^ 0x3A;
-  v87 = *(a45 + 18);
-  v48 = a34[4];
-  v49 = a34[8];
-  v50 = a34[12];
-  v51 = *(a45 + 19);
-  v88 = v46 + 319;
-  v86 = v51 != ((v46 + 63) ^ 0x90);
-  v85 = 2 % v51;
-  v52 = a34[1];
-  v53 = a34[5];
-  v54 = a34[9];
-  v55 = a34[13];
-  v84 = 3 % v51;
-  v56 = a34[2];
-  v57 = a34[10];
-  v58 = a34[6];
-  v59 = a34[14];
-  v60 = a34[15];
-  v61 = a34[11];
-  v62 = a34[7];
-  v63 = a34[3];
-  v64 = *(*(a45 + 24) + *a34);
-  *a34 = v64;
-  v65 = *(*(a45 + 56) + v48);
-  a34[4] = v65;
-  v66 = *(*(a45 + 88) + v49);
-  a34[8] = v66;
-  v67 = *(*(a45 + 120) + v50);
-  a34[12] = v67;
-  v68 = *(*(a45 + 64) + v53);
-  a34[1] = v68;
-  v69 = *(*(a45 + 96) + v54);
-  a34[5] = v69;
-  v70 = *(*(a45 + 128) + v55);
-  a34[9] = v70;
-  v71 = *(*(a45 + 32) + v52);
-  a34[13] = v71;
-  v72 = *(*(a45 + 104) + v57);
-  a34[2] = v72;
-  v73 = *(*(a45 + 40) + v56);
-  a34[10] = v73;
-  v74 = *(*(a45 + 136) + v59);
-  a34[6] = v74;
-  v75 = *(*(a45 + 72) + v58);
-  a34[14] = v75;
-  v76 = *(*(a45 + 112) + v61);
-  a34[15] = v76;
-  v77 = *(*(a45 + 80) + v62);
-  a34[11] = v77;
-  v78 = *(*(a45 + 48) + v63);
-  a34[7] = v78;
-  v79 = *(*(a45 + 144) + v60);
-  a34[3] = v79;
-  v80 = (a45 + ((0 % v87) << 7));
-  v81 = v80 + 147;
-  LODWORD(v80) = *(v80[148] + 4 * v68) ^ *(v80[147] + 4 * v64) ^ *(v80[149] + 4 * v72) ^ *(v80[150] + 4 * v79);
-  a34[3] = BYTE3(v80);
-  a34[2] = BYTE2(v80);
-  LODWORD(v72) = v80 >> ((v88 + 60) ^ 0xC5);
-  a34[1] = v72;
-  *a34 = v80;
-  LODWORD(v61) = *(v81[4 * v86 + 1] + 4 * v69) ^ *(v81[4 * v86] + 4 * v65) ^ *(v81[4 * v86 + 2] + 4 * v74) ^ *(v81[4 * v86 + 3] + 4 * v78);
-  LODWORD(v74) = BYTE3(v61);
-  a34[7] = BYTE3(v61);
-  LODWORD(v65) = WORD1(v61);
-  a34[6] = BYTE2(v61);
-  LODWORD(v64) = v61 >> 8;
-  *(a34 + 2) = v61;
-  LODWORD(v78) = *(v81[4 * v85 + 1] + 4 * v70) ^ *(v81[4 * v85] + 4 * v66) ^ *(v81[4 * v85 + 2] + 4 * v73) ^ *(v81[4 * v85 + 3] + 4 * v77);
-  a34[11] = BYTE3(v78);
-  a34[10] = BYTE2(v78);
-  *(a34 + 4) = v78;
-  LODWORD(v81) = *(v81[4 * v84 + 1] + 4 * v71) ^ *(v81[4 * v84] + 4 * v67) ^ *(v81[4 * v84 + 2] + 4 * v75) ^ *(v81[4 * v84 + 3] + 4 * v76);
-  a34[15] = BYTE3(v81);
-  a34[14] = BYTE2(v81);
-  *(a34 + 6) = v81;
-  *a34 = *(v83 - 7) ^ v80;
-  a34[1] = *(v83 - 6) ^ v72;
-  a34[2] = *(v83 - 5) ^ BYTE2(v80);
-  a34[3] = *(v83 - 4) ^ BYTE3(v80);
-  a34[4] = *(v83 - 3) ^ v61;
-  LOBYTE(v61) = *(v83 - 2) ^ BYTE1(v61);
-  a34[5] = *(v83 - 2) ^ v64;
-  a34[6] = *(v83 - 1) ^ v65;
-  a34[7] = *v83 ^ v74;
-  *(a34 + 4) = *(v83 + 1) ^ v78;
-  a34[10] = *(v83 + 3) ^ BYTE2(v78);
-  a34[11] = *(v83 + 4) ^ BYTE3(v78);
-  *(a34 + 6) = *(v83 + 5) ^ v81;
-  a34[14] = *(v83 + 7) ^ BYTE2(v81);
-  a34[15] = *(v83 + 8) ^ BYTE3(v81);
-  return (*(v47 + 8 * (v88 ^ 0x3E)))(v61);
-}
-
-uint64_t sub_222047140(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  a69 = ((((v69 - 49) & 0xEF) + 43) ^ &a33) * (&a33 + 17);
-  a68 = (&a33 ^ 0xBB) * (&a33 + 18);
-  return (*(v70 + 8 * (v69 + 53)))(a21, 95751194);
-}
-
-_DWORD *sub_2220471CC()
-{
-  v8 = 69 * v3[4] + 125;
-  v9 = 63 * v3[5];
-  v10 = v3[6];
-  v11 = 1380645169 * ((~(v7 - 144) & 0x6C16114D | (v7 - 144) & 0x93E9EEB2) ^ 0xEED3191D);
-  *(v7 - 136) = v5;
-  *(v7 - 128) = v6;
-  *(v7 - 116) = v11 + v0 + 1150;
-  *(v7 - 143) = v8 ^ (49 * ((~(v7 + 112) & 0x4D | (v7 + 112) & 0xB2) ^ 0x1D));
-  *(v7 - 140) = (v1 ^ ((v1 ^ 0xD48411AE) + 785310284) ^ ((v1 ^ 0x4AFDC6B3) - 1330170537) ^ ((v1 ^ 0x64376431) - 1635936299) ^ ((v1 ^ 0xFFFBBF36) + 95505620) ^ 0xC4CC7158) + v11;
-  *(v7 - 120) = (v10 + ((v0 + 41) ^ 0x56)) ^ (49 * ((~(v7 + 112) & 0x4D | (v7 + 112) & 0xB2) ^ 0x1D));
-  *(v7 - 144) = (v9 + 31) ^ (49 * ((~(v7 + 112) & 0x4D | (v7 + 112) & 0xB2) ^ 0x1D));
-  (*(v2 + 8 * (v0 | 0x4DD)))(v7 - 144);
-  result = v13;
-  *v4 = -1;
-  *v13 = v1;
-  return result;
-}
-
-uint64_t sub_222047358@<X0>(uint64_t a1@<X8>)
-{
-  v5 = v3 + a1;
-  v6.i64[0] = 0x9C9C9C9C9C9C9C9CLL;
-  v6.i64[1] = 0x9C9C9C9C9C9C9C9CLL;
-  v7 = veorq_s8(*(v2 + a1 + 16), v6);
-  *(v5 + 24) = veorq_s8(*(v2 + a1), v6);
-  *(v5 + 40) = v7;
-  return (*(v4 + 8 * ((336 * (a1 + 32 == 5 * (v1 ^ 0x471u) - 161)) ^ v1)))();
-}
-
-uint64_t sub_2220473E8()
-{
-  v6 = (v0 + 32);
-  v7 = (v3 + 32);
-  v8 = *v6;
-  *(v7 - 1) = *(v6 - 1);
-  *v7 = v8;
-  return (*(v5 + 8 * (((v2 == 32) * (3 * v4 - 989)) ^ v1)))();
-}
-
-uint64_t sub_2220473F8@<X0>(uint64_t a1@<X3>, uint64_t a2@<X8>)
-{
-  v7 = (v6 + 4 * a2);
-  v8 = v3 & 0x80000000;
-  v9 = a2 + 1;
-  v10 = *(v6 + 4 * v9);
-  v11 = v7[397] ^ ((v10 & 0x7FFFFFFE | v8) >> 1);
-  *v7 = (v11 + v4 - ((v2 - 428 + v5) & (2 * v11))) ^ *(&STACK[0x4E8] + (v10 & 1));
-  return (*(a1 + 8 * (((4 * (v9 != 227)) | (16 * (v9 != 227))) ^ v2)))();
-}
-
-uint64_t sub_222047460(uint64_t a1)
-{
-  if (*(a1 + 24))
-  {
-    v2 = *(a1 + 8) == 0;
-  }
-
-  else
-  {
-    v2 = 1;
-  }
-
-  v3 = !v2;
-  v1 = *a1 - 439532179 * ((-2 - ((a1 | 0xA1463DD2) + (~a1 | 0x5EB9C22D))) ^ 0x801FFFAF);
-  return (*(*(&off_2835705E0 + (v1 ^ 0x36F)) + ((v3 * (((v1 - 1788050105) & 0x6A9377FF) - 289)) ^ v1)))();
-}
-
-uint64_t sub_2220474FC()
-{
-  (*(v3 + 8 * ((v0 + 1006) ^ 0x600)))(*v2);
-  *v2 = 0;
-  *v1 = 0;
-  return (v4 - 95751194);
-}
-
-void U4HBs()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v0 = *(&off_2835705E0 + (*(off_283570610 + (*(off_283570828 + (-119 * (dword_27D0080E0 ^ 0x98 ^ dword_27CFFD0A0)) - 4) ^ 0xABu)) ^ (-119 * (dword_27D0080E0 ^ 0x98 ^ dword_27CFFD0A0))) - 119);
-  v1 = *(&off_2835705E0 + (*(off_283570688 + (*(off_283570950 + (-119 * ((dword_27CFFD0A0 - *v0) ^ 0x98))) ^ 0x40u) - 8) ^ (-119 * ((dword_27CFFD0A0 - *v0) ^ 0x98))) + 2);
-  v2 = *v0 - &v4 + *(v1 - 4);
-  *v0 = (1667229833 * v2) ^ 0xD89E539CF9C77798;
-  *(v1 - 4) = 1667229833 * (v2 ^ 0xD89E539CF9C77798);
-  v5[1] = 1159261966 - 439532179 * (((v5 | 0xD9D1186A) - (v5 & 0xD9D1186A)) ^ 0x77725E8);
-  LOBYTE(v1) = -119 * ((*(v1 - 4) - *v0) ^ 0x98);
-  v3 = *(&off_2835705E0 + ((-119 * ((dword_27CFFD0A0 + dword_27D0080E0) ^ 0x98)) ^ byte_22229D210[byte_2222A7FB0[(-119 * ((dword_27CFFD0A0 + dword_27D0080E0) ^ 0x98))] ^ 0x16]) - 65);
-  (*(v3 + 8 * ((*(off_283570700 + (*(off_2835709B8 + v1) ^ 0x4Au) - 12) ^ v1) + 1346)))(v5);
-  __asm { BRAA            X9, X17 }
-}
-
-uint64_t sub_222048558(uint64_t a1)
-{
-  v162 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = *(a1 + 8);
-  v146 = (*v2 ^ 0xFDDFFDB3) + 2134761312 + ((2 * *v2) & 0xFBBFFB66);
-  v147 = (v2[1] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[1]) & 0xFBBFFB66);
-  v148 = (v2[2] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[2]) & 0xFBBFFB66);
-  v149 = (v2[3] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[3]) & 0xFBBFFB66);
-  v150 = (v2[4] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[4]) & 0xFBBFFB66);
-  v151 = (v2[5] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[5]) & 0xFBBFFB66);
-  v152 = (v2[6] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[6]) & 0xFBBFFB66);
-  v153 = (v2[7] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[7]) & 0xFBBFFB66);
-  v154 = (v2[8] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[8]) & 0xFBBFFB66);
-  v155 = (v2[9] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[9]) & 0xFBBFFB66);
-  v156 = (v2[10] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[10]) & 0xFBBFFB66);
-  v157 = (v2[11] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[11]) & 0xFBBFFB66);
-  v158 = (v2[12] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[12]) & 0xFBBFFB66);
-  v159 = (v2[13] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[13]) & 0xFBBFFB66);
-  v160 = (v2[14] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[14]) & 0xFBBFFB66);
-  v161 = (v2[15] ^ 0xFDDFFDB3) + 2134761312 + ((2 * v2[15]) & 0xFBBFFB66);
-  v3 = v1[1];
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = *v1 + v146 - 1309286865 + ((((v4 & v3 | v5 & ~v3) ^ 0x4BDF2224) + 1089125756) ^ (((v4 & v3 | v5 & ~v3) ^ 0x5B9329B) + 244100549) ^ (((v4 & v3 | v5 & ~v3) ^ 0x4E6610BF) + 1163104225));
-  v7 = 2 * (v6 & 0x9D2149D6);
-  v8 = ((2 * (v6 ^ 0x680E95A0)) ^ 0xEA5FB8EC) & (v6 ^ 0x680E95A0) ^ (2 * (v6 ^ 0x680E95A0)) & 0xF52FDC76;
-  v9 = v8 ^ 0x15204412;
-  v10 = (v8 ^ 0xE00F0860) & (4 * (v7 & (v6 ^ 0x580C0584) ^ v6 & 0x9D2149D6)) ^ v7 & (v6 ^ 0x580C0584) ^ v6 & 0x9D2149D6;
-  v11 = ((4 * v9) ^ 0xD4BF71D8) & v9 ^ (4 * v9) & 0xF52FDC74;
-  v12 = (v11 ^ 0xD42F5040) & (16 * v10) ^ v10;
-  v13 = ((16 * (v11 ^ 0x21008C26)) ^ 0x52FDC760) & (v11 ^ 0x21008C26) ^ (16 * (v11 ^ 0x21008C26)) & 0xF52FDC70;
-  v14 = v12 ^ 0xF52FDC76 ^ (v13 ^ 0x502DC400) & (v12 << 8);
-  v15 = v7 & (v6 ^ 0x999D25C7) ^ v6 & 0x9D2149D6;
-  v16 = ((2 * (v6 ^ 0xA99D354F)) ^ 0x6978F932) & (v6 ^ 0xA99D354F) ^ (2 * (v6 ^ 0xA99D354F)) & 0x34BC7C98;
-  v17 = (v16 ^ 0x20086810) & (4 * v15) ^ v15;
-  v18 = ((4 * (v16 ^ 0x14840489)) ^ 0xD2F1F264) & (v16 ^ 0x14840489) ^ (4 * (v16 ^ 0x14840489)) & 0x34BC7C98;
-  v19 = (v18 ^ 0x10B07000) & (16 * v17) ^ v17;
-  v20 = ((16 * (v18 ^ 0x240C0C99)) ^ 0x4BC7C990) & (v18 ^ 0x240C0C99) ^ (16 * (v18 ^ 0x240C0C99)) & 0x34BC7C90;
-  v21 = v19 ^ 0x34BC7C99 ^ (v20 ^ 0x844800) & (v19 << 8);
-  v22 = ((((v14 << 16) & 0x2F0000 ^ v14 ^ ((v14 << 16) ^ 0x760000) & (((v13 ^ 0xA5021816) << 8) & 0x2F0000 ^ 0x230000 ^ (((v13 ^ 0xA5021816) << 8) ^ 0xDC0000) & (v13 ^ 0xA5021816))) << 8) ^ (v6 << 7)) & 0xFFFFFF80 | ((v6 ^ (2 * ((v21 << 16) & 0x34000000 ^ v21 ^ ((v21 << 16) ^ 0x7C000000) & ((((v20 ^ 0x34383409) << 8) ^ 0x3C7C0000) & (v20 ^ 0x34383409) ^ ((v20 ^ 0x34383409) << 8) & 0x34BC0000u)))) >> 25);
-  v23 = v3 - 678865755 + (((v22 ^ 0xC897FAC) + 424728472) ^ ((v22 ^ 0x3A0F16AB) + 802602641) ^ ((v22 ^ 0xAFFEF449) - 1171825549));
-  v24 = (1680509467 - v23) ^ v23 ^ ((v23 ^ 0xEBC216F2) + 1880580887) ^ ((v23 ^ 0x1916578E) - 2101140885) ^ ((v23 ^ 0x69013498) - 220970627);
-  v25 = v3 & (v24 ^ 0x642A8A1B) | v4 & ~(v24 ^ 0x642A8A1B);
-  v26 = v5 + v147 - 1283217695 + (((v25 ^ 0xD3AB766A) + 162832635) ^ ((v25 ^ 0x5760EEA6) - 1921042377) ^ ((v25 ^ 0x84CB98CC) + 1590971997));
-  v27 = 2 * (v26 & 0xDE065CD1);
-  v28 = ((2 * (v26 ^ 0x2E355D4C)) ^ 0xE066033A) & (v26 ^ 0x2E355D4C) ^ (2 * (v26 ^ 0x2E355D4C)) & 0xF033019C;
-  v29 = v28 ^ 0x10110085;
-  v30 = (v28 ^ 0xE0220108) & (4 * (v27 & (v26 ^ 0x9E355CCC) ^ v26 & 0xDE065CD1)) ^ v27 & (v26 ^ 0x9E355CCC) ^ v26 & 0xDE065CD1;
-  v31 = ((4 * v29) ^ 0xC0CC0674) & v29 ^ (4 * v29) & 0xF033019C;
-  v32 = (v31 ^ 0xC000001F) & (16 * v30) ^ v30;
-  v33 = ((16 * (v31 ^ 0x30330189)) ^ 0x33019D0) & (v31 ^ 0x30330189) ^ (16 * (v31 ^ 0x30330189)) & 0xF0330190;
-  v34 = v32 ^ 0xF033019D ^ (v33 ^ 0x300100) & (v32 << 8);
-  v35 = v27 & (v26 ^ 0xDFE45C81) ^ v26 & 0xDE065CD1;
-  v36 = ((2 * (v26 ^ 0xD7E04CA3)) ^ 0x13CC20E4) & (v26 ^ 0xD7E04CA3) ^ (2 * (v26 ^ 0xD7E04CA3)) & 0x9E61072;
-  v37 = (v36 ^ 0x40) & (4 * v35) ^ v35;
-  v38 = ((4 * (v36 ^ 0x8221012)) ^ 0x279841C8) & (v36 ^ 0x8221012) ^ (4 * (v36 ^ 0x8221012)) & 0x9E61070;
-  v39 = v37 ^ 0x9E61072 ^ (v38 ^ 0x1800040) & (16 * v37);
-  v40 = (16 * (v38 ^ 0x8661032)) & 0x9E61070 ^ 0x1861052 ^ ((16 * (v38 ^ 0x8661032)) ^ 0x9E610720) & (v38 ^ 0x8661032);
-  v41 = (v39 << 8) & 0x9E61000 ^ v39 ^ ((v39 << 8) ^ 0xE6107200) & v40;
-  v42 = ((((v34 << 16) & 0x30000 ^ v34 ^ ((v34 << 16) ^ 0x50000) & (((v33 ^ 0xF003000D) << 8) & 0xF0330000 ^ (((v33 ^ 0xF003000D) << 8) ^ 0x10000) & (v33 ^ 0xF003000D) ^ 0x20000)) << 13) ^ (v26 << 12)) & 0xFFFFF000 | ((v26 ^ (2 * ((v41 << 16) & 0x9E00000 ^ v41 ^ ((v41 << 16) ^ 0x700000) & ((v40 << 8) & 0x9E60000 ^ 0x9E00000 ^ ((v40 << 8) ^ 0x66100000) & v40)))) >> 20);
-  v43 = (((v42 ^ 0x398AF0D0) + 1815606255) ^ ((v42 ^ 0x31D74DF4) + 1684688587) ^ ((v42 ^ 0x2DA301F4) + 2015232715)) + (((v24 ^ 0x3161EA74) + 215291622) ^ ((v24 ^ 0x398D5492) + 70887428) ^ ((v24 ^ 0x6CC634FD) + 1366476909));
-  v44 = v43 + 907921798;
-  v45 = (v24 ^ 0x642A8A1B) & (v43 + 907921798) | v3 & ~(v43 + 907921798);
-  v46 = v4 + v148 + (((v45 ^ 0x1218AE47) + 690565390) ^ ((v45 ^ 0xC723FE38) - 65904269) ^ ((v45 ^ 0xD53B507F) - 301281482));
-  HIDWORD(v47) = (v46 - 358272268) ^ (1664355203 - v46) ^ (((v46 - 358272268) ^ 0x2A50) + 27609) ^ (((v46 - 358272268) ^ 0xFFFFFC03) + 15756) ^ (((v46 - 358272268) ^ 0x17DB) + 22100);
-  LODWORD(v47) = (((v46 - 358272268) ^ 0x480853F0) - 920415623) ^ (v46 - 358272268) ^ (((v46 - 358272268) ^ 0xCAA2574F) + 1267308232) ^ (((v46 - 358272268) ^ 0x385C500) - 2102524768) ^ (((v46 - 358272268) ^ 0xFFFBFFD8) + 2127576664);
-  v48 = v43 - 1080797068 + ((((v47 >> 15) ^ 0x67EAD28D) + 1837981237) ^ (((v47 >> 15) ^ 0x3D298C42) + 927858940) ^ (((v47 >> 15) ^ 0x262DA367) + 743059423));
-  v49 = v48 & (v24 ^ 0x642A8A1B ^ (v43 + 907921798)) ^ v24;
-  v50 = v3 + v149 + 564095445 + (((v49 ^ 0x329B7F46) + 1070110428) ^ ((v49 ^ 0x3EAF6F7F) + 872187619) ^ ((v49 ^ 0x681E9A22) + 1699574720));
-  v51 = 2 * (v50 & 0xB987247F);
-  v52 = ((2 * (v50 ^ 0xAF948783)) ^ 0x2C2747F8) & (v50 ^ 0xAF948783) ^ (2 * (v50 ^ 0xAF948783)) & 0x1613A3FC;
-  v53 = v52 ^ 0x1210A004;
-  v54 = (v52 ^ 0x40103F8) & (4 * (v51 & (v50 ^ 0xBD96877F) ^ v50 & 0xB987247F)) ^ v51 & (v50 ^ 0xBD96877F) ^ v50 & 0xB987247F;
-  v55 = ((4 * v53) ^ 0x584E8FF0) & v53 ^ (4 * v53) & 0x1613A3FC;
-  v56 = v54 ^ 0x1613A3FC ^ (v55 ^ 0x100283F0) & (16 * v54);
-  v57 = v51 & (v50 ^ 0xBD17857E) ^ v50 & 0xB987247F;
-  v58 = ((2 * (v50 ^ 0xBC1DCD92)) ^ 0xB35D3DA) & (v50 ^ 0xBC1DCD92) ^ (2 * (v50 ^ 0xBC1DCD92)) & 0x59AE9EC;
-  v59 = (v58 ^ 0x1081C8) & (4 * v57) ^ v57;
-  v60 = ((4 * (v58 ^ 0x48A2825)) ^ 0x166BA7B4) & (v58 ^ 0x48A2825) ^ (4 * (v58 ^ 0x48A2825)) & 0x59AE9EC;
-  v61 = (v60 ^ 0x40AA1A0) & (16 * v59) ^ v59;
-  v62 = ((16 * (v60 ^ 0x1904849)) ^ 0x59AE9ED0) & (v60 ^ 0x1904849) ^ (16 * (v60 ^ 0x1904849)) & 0x59AE9E0;
-  v63 = v61 ^ 0x59AE9ED ^ (v62 ^ 0x18A8800) & (v61 << 8);
-  v64 = ((((v56 << 8) ^ v56 ^ (v56 << 8) & (((16 * v55) ^ 0x100) & v55 ^ (16 * v55) & 0x100)) << 23) ^ (v50 << 22)) & 0xFFC00000 | ((v50 ^ (2 * ((v63 << 16) & 0x59A0000 ^ v63 ^ ((v63 << 16) ^ 0x69ED0000) & (((v62 ^ 0x410612D) << 8) & 0x59A0000 ^ 0x5120000 ^ (((v62 ^ 0x410612D) << 8) ^ 0x1AE90000) & (v62 ^ 0x410612Du))))) >> 10);
-  v65 = v48 + 313785323 + (((v64 ^ 0xE6F0197C) - 363825706) ^ ((v64 ^ 0xBB7B7EA3) - 1210379765) ^ ((v64 ^ 0xBC670F62) - 1329110068));
-  HIDWORD(v47) = v150 + (((v24 ^ 0x6DD2CC87) + 1348874263) ^ ((v24 ^ 0x3D743F6D) + 12633085) ^ ((v24 ^ 0x348C79F1) + 154699105)) + 515882001 + ((v43 - ((2 * (v43 + 907921798)) & 0xB228BF60) + 254945590) ^ 0xD9145FB0 ^ v65 & (v48 ^ (v43 + 907921798)));
-  LODWORD(v47) = HIDWORD(v47);
-  v66 = (v47 >> 25) + v65;
-  HIDWORD(v47) = v151 + v44 - 899028713 + ((v48 + 1517631221 + (~(2 * v48) | 0x4B159215) + 1) ^ 0x5A7536F5 ^ v66 & (v65 ^ v48));
-  LODWORD(v47) = HIDWORD(v47);
-  v67 = (v47 >> 20) + v66;
-  HIDWORD(v47) = v152 + v48 + 722626816 + ((v65 - ((2 * v65) & 0x602BFCE0) - 1340735888) ^ 0xB015FE70 ^ v67 & (v66 ^ v65));
-  LODWORD(v47) = HIDWORD(v47);
-  v68 = (v47 >> 15) + v67;
-  HIDWORD(v47) = v153 + v65 - 2144815122 + ((v66 - ((2 * v66) & 0xDE16E3E6) + 1863021043) ^ 0x6F0B71F3 ^ v68 & (v67 ^ v66));
-  LODWORD(v47) = HIDWORD(v47);
-  v69 = (v47 >> 10) + v68;
-  HIDWORD(v47) = v154 + v66 - 329073723 + ((v67 - ((2 * v67) & 0x41A3057A) - 1596882243) ^ 0xA0D182BD ^ v69 & (v68 ^ v67));
-  LODWORD(v47) = HIDWORD(v47);
-  v70 = (v47 >> 25) + v69;
-  HIDWORD(v47) = v155 + v67 + 237443740 + ((v68 - ((2 * v68) & 0xA2AFEABC) - 782764706) ^ 0xD157F55E ^ v70 & (v69 ^ v68));
-  LODWORD(v47) = HIDWORD(v47);
-  v71 = (v47 >> 20) + v70;
-  HIDWORD(v47) = v156 + v68 - 2099151202 + ((v69 - ((2 * v69) & 0x73533078) - 1180067780) ^ 0xB9A9983C ^ v71 & (v70 ^ v69));
-  LODWORD(v47) = HIDWORD(v47);
-  v72 = (v47 >> 15) + v71;
-  HIDWORD(v47) = v157 + v69 + 205453995 + (v71 & v72 | v70 & ~v72);
-  LODWORD(v47) = HIDWORD(v47);
-  v73 = (v47 >> 10) + v72;
-  HIDWORD(v47) = v158 + v70 - 294505457 + (v72 & v73 | v71 & ~v73);
-  LODWORD(v47) = HIDWORD(v47);
-  v74 = (v47 >> 25) + v73;
-  HIDWORD(v47) = v159 + v71 - 2139450240 + (v73 & v74 | v72 & ~v74);
-  LODWORD(v47) = HIDWORD(v47);
-  v75 = (v47 >> 20) + v74;
-  HIDWORD(v47) = v160 + v72 + 693855867 + (v74 & v75 | v73 & ~v75);
-  LODWORD(v47) = HIDWORD(v47);
-  v76 = (v47 >> 15) + v75;
-  HIDWORD(v47) = v161 + v73 - 862573810 + (v75 & v76 | v74 & ~v76);
-  LODWORD(v47) = HIDWORD(v47);
-  v77 = (v47 >> 10) + v76;
-  HIDWORD(v47) = v147 + v74 + 2030061647 + (v77 & v75 | v76 & ~v75);
-  LODWORD(v47) = HIDWORD(v47);
-  v78 = (v47 >> 27) + v77;
-  HIDWORD(v47) = v152 + v75 + 1126356525 + (v78 & v76 | v77 & ~v76);
-  LODWORD(v47) = HIDWORD(v47);
-  v79 = (v47 >> 23) + v78;
-  HIDWORD(v47) = v157 + v76 - 1455391426 + (v79 & v77 | v78 & ~v77);
-  LODWORD(v47) = HIDWORD(v47);
-  v80 = (v47 >> 18) + v79;
-  HIDWORD(v47) = v146 + v77 + 1821960855 + (v80 & v78 | v79 & ~v78);
-  LODWORD(v47) = HIDWORD(v47);
-  v81 = (v47 >> 12) + v80;
-  HIDWORD(v47) = v151 + v78 + 1494299466 + (v81 & v79 | v80 & ~v79);
-  LODWORD(v47) = HIDWORD(v47);
-  v82 = (v47 >> 27) + v81;
-  HIDWORD(v47) = v156 + v79 - 2061093056 + (v82 & v80 | v81 & ~v80);
-  LODWORD(v47) = HIDWORD(v47);
-  v83 = (v47 >> 23) + v82;
-  HIDWORD(v47) = v161 + v80 + 1535379822 + (v83 & v81 | v82 & ~v81);
-  LODWORD(v47) = HIDWORD(v47);
-  v84 = (v47 >> 18) + v83;
-  HIDWORD(v47) = v150 + v81 + 1790320309 + (v84 & v82 | v83 & ~v82);
-  LODWORD(v47) = HIDWORD(v47);
-  LODWORD(v2) = (v47 >> 12) + v84;
-  HIDWORD(v47) = v155 + v82 - 1530662701 + (v2 & v83 | v84 & ~v83);
-  LODWORD(v47) = HIDWORD(v47);
-  v85 = (v47 >> 27) + v2;
-  HIDWORD(v47) = v160 + v83 + 1176054467 + (v85 & v84 | v2 & ~v84);
-  LODWORD(v47) = HIDWORD(v47);
-  v86 = (v47 >> 23) + v85;
-  HIDWORD(v47) = v149 + v84 + 2008494196 + (v86 & v2 | v85 & ~v2);
-  LODWORD(v47) = HIDWORD(v47);
-  v87 = (v47 >> 18) + v86;
-  HIDWORD(v47) = v154 + v2 - 935577638 + (v87 & v85 | v86 & ~v85);
-  LODWORD(v47) = HIDWORD(v47);
-  v88 = (v47 >> 12) + v87;
-  HIDWORD(v47) = v159 + v85 + 751176690 + (v88 & v86 | v87 & ~v86);
-  LODWORD(v47) = HIDWORD(v47);
-  v89 = (v47 >> 27) + v88;
-  HIDWORD(v47) = v148 + v86 + 2144454373 + (v89 & v87 | v88 & ~v87);
-  LODWORD(v47) = HIDWORD(v47);
-  v90 = (v47 >> 23) + v89;
-  HIDWORD(v47) = v153 + v87 - 363780666 + (v90 & v88 | v89 & ~v88);
-  LODWORD(v47) = HIDWORD(v47);
-  v91 = (v47 >> 18) + v90;
-  HIDWORD(v47) = v158 + v88 + 269250423 + ((v91 ^ v90) & v89 ^ v90);
-  LODWORD(v47) = HIDWORD(v47);
-  LODWORD(v2) = *(&v146 + (v89 & 0xF));
-  v92 = (v47 >> 12) + v91;
-  *(&v146 + (v89 & 0xF)) = *(&v146 + (v92 & 0xF));
-  *(&v146 + (v92 & 0xF)) = v2;
-  v93 = *(&v146 + (v91 & 0xF));
-  *(&v146 + (v91 & 0xF)) = *(&v146 + (v90 & 0xF));
-  *(&v146 + (v90 & 0xF)) = v93;
-  v94 = *(&v146 + (v89 >> 4));
-  *(&v146 + (v89 >> 4)) = *(&v146 + (v92 >> 4));
-  *(&v146 + (v92 >> 4)) = v94;
-  v95 = (v89 >> 8) & 0xF;
-  v96 = *(&v146 + v95);
-  LODWORD(v2) = (v92 >> 8) & 0xF;
-  *(&v146 + v95) = *(&v146 + v2);
-  *(&v146 + v2) = v96;
-  v97 = *(&v146 + (v89 >> 12));
-  *(&v146 + (v89 >> 12)) = *(&v146 + (v92 >> 12));
-  *(&v146 + (v92 >> 12)) = v97;
-  HIDWORD(v47) = v151 + v89 - 2099487697 + (v92 ^ v91 ^ v90);
-  LODWORD(v47) = HIDWORD(v47);
-  LODWORD(v2) = (v47 >> 28) + v92;
-  HIDWORD(v47) = v154 + v90 + 173283694 + (v2 ^ v92 ^ v91);
-  LODWORD(v47) = HIDWORD(v47);
-  v98 = (v47 >> 21) + v2;
-  HIDWORD(v47) = v157 + v91 - 260078577 + (v2 ^ v92 ^ v98);
-  LODWORD(v47) = HIDWORD(v47);
-  v99 = (v47 >> 16) + v98;
-  HIDWORD(v47) = v160 + v92 - 2134418695 + (v98 ^ v2 ^ v99);
-  LODWORD(v47) = HIDWORD(v47);
-  v100 = (v47 >> 9) + v99;
-  HIDWORD(v47) = v147 + v2 + 664866097 + (v99 ^ v98 ^ v100);
-  LODWORD(v47) = HIDWORD(v47);
-  v101 = (v47 >> 28) + v100;
-  HIDWORD(v47) = v150 + v98 - 826215786 + (v100 ^ v99 ^ v101);
-  LODWORD(v47) = HIDWORD(v47);
-  v102 = (v47 >> 21) + v101;
-  HIDWORD(v47) = v153 + v99 + 2040360525 + (v101 ^ v100 ^ v102);
-  LODWORD(v47) = HIDWORD(v47);
-  v103 = (v47 >> 16) + v102;
-  HIDWORD(v47) = v156 + v100 + 1101127517 + (v102 ^ v101 ^ v103);
-  LODWORD(v47) = HIDWORD(v47);
-  v104 = (v47 >> 9) + v103;
-  HIDWORD(v47) = v159 + v101 - 1417829965 + (v103 ^ v102 ^ v104);
-  LODWORD(v47) = HIDWORD(v47);
-  v105 = (v47 >> 28) + v104;
-  HIDWORD(v47) = v146 + v102 + 1837320935 + (v104 ^ v103 ^ v105);
-  LODWORD(v47) = HIDWORD(v47);
-  v106 = (v47 >> 21) + v105;
-  HIDWORD(v47) = v149 + v103 + 1473336178 + (v105 ^ v104 ^ v106);
-  LODWORD(v47) = HIDWORD(v47);
-  v107 = (v47 >> 16) + v106;
-  HIDWORD(v47) = v152 + v104 - 2023079950 + (v106 ^ v105 ^ v107);
-  LODWORD(v47) = HIDWORD(v47);
-  v108 = (v47 >> 9) + v107;
-  HIDWORD(v47) = v155 + v105 + 1555493670 + (v107 ^ v106 ^ v108);
-  LODWORD(v47) = HIDWORD(v47);
-  v109 = (v47 >> 28) + v108;
-  HIDWORD(v47) = v158 + v106 + 1774042322 + (v108 ^ v107 ^ v109);
-  LODWORD(v47) = HIDWORD(v47);
-  v110 = (v47 >> 21) + v109;
-  HIDWORD(v47) = v161 + v107 - 1568366619 + (v109 ^ v108 ^ v110);
-  LODWORD(v47) = HIDWORD(v47);
-  v111 = (v47 >> 16) + v110;
-  HIDWORD(v47) = v148 + v108 + 1200519506 + (v110 ^ v109 ^ v111);
-  LODWORD(v47) = HIDWORD(v47);
-  v112 = (v47 >> 9) + v111;
-  HIDWORD(v47) = v146 + v109 + 1997227313 + ((v112 | ~v110) ^ v111);
-  LODWORD(v47) = HIDWORD(v47);
-  v113 = (v47 >> 26) + v112;
-  HIDWORD(v47) = v153 + v110 - 972217724 + ((v113 | ~v111) ^ v112);
-  LODWORD(v47) = HIDWORD(v47);
-  v114 = (v47 >> 22) + v113;
-  HIDWORD(v47) = v160 + v111 + 779503252 + ((v114 | ~v112) ^ v113);
-  LODWORD(v47) = HIDWORD(v47);
-  v115 = (v47 >> 17) + v114;
-  HIDWORD(v47) = v151 + v112 + 2138424102 + ((v115 | ~v113) ^ v114);
-  LODWORD(v47) = HIDWORD(v47);
-  v116 = (v47 >> 11) + v115;
-  HIDWORD(v47) = v158 + v113 - 398623568 + ((v116 | ~v114) ^ v115);
-  LODWORD(v47) = HIDWORD(v47);
-  v117 = (v47 >> 26) + v116;
-  HIDWORD(v47) = v149 + v114 + 300871551 + ((v117 | ~v115) ^ v116);
-  LODWORD(v47) = HIDWORD(v47);
-  v118 = (v47 >> 22) + v117;
-  HIDWORD(v47) = v156 + v115 - 2100160662 + ((v118 | ~v116) ^ v117);
-  LODWORD(v47) = HIDWORD(v47);
-  v119 = (v47 >> 17) + v118;
-  HIDWORD(v47) = v147 + v116 + 140935358 + ((v119 | ~v117) ^ v118);
-  LODWORD(v47) = HIDWORD(v47);
-  v120 = (v47 >> 11) + v119;
-  HIDWORD(v47) = v154 + v117 - 225795780 + ((v120 | ~v118) ^ v119);
-  LODWORD(v47) = HIDWORD(v47);
-  v121 = (v47 >> 26) + v120;
-  HIDWORD(v47) = v161 + v118 - 2129720883 + ((v121 | ~v119) ^ v120);
-  LODWORD(v47) = HIDWORD(v47);
-  v122 = (v47 >> 22) + v121;
-  HIDWORD(v47) = v152 + v119 + 635659777 + ((v122 | ~v120) ^ v121);
-  LODWORD(v47) = HIDWORD(v47);
-  v123 = (v47 >> 17) + v122;
-  HIDWORD(v47) = v159 + v120 - 789957490 + ((v123 | ~v121) ^ v122);
-  LODWORD(v47) = HIDWORD(v47);
-  v124 = (v47 >> 11) + v123;
-  HIDWORD(v47) = v150 + v121 + 2050335087 + ((v124 | ~v122) ^ v123);
-  LODWORD(v47) = HIDWORD(v47);
-  v125 = v124 + ((v47 >> 26) ^ 0xEFDFFFBD) + ((2 * (v47 >> 26)) & 0xDFBFFF7A) + 394209115;
-  v126 = ((v125 ^ 0xDDD3EDE) - 176298438) ^ v125 ^ ((v125 ^ 0x3A8C7D72) - 1037261418) ^ ((v125 ^ 0x4FF1B34B) - 1219400787) ^ ((v125 ^ 0x7FFFD7FF) - 2023813351);
-  HIDWORD(v47) = v157 + v122 + 1075647778 + ((v124 - ((2 * v124) & 0xAE8B69A4) - 683297582) ^ 0x28BA4B2D ^ (v126 ^ 0xF8A0D8E7) & v123);
-  LODWORD(v47) = HIDWORD(v47);
-  v127 = (((v126 ^ 0x93A148AA) - 1856856067) ^ ((v126 ^ 0x6E0762CD) + 1827976604) ^ ((v126 ^ 0xFAF90D7F) - 133506518)) + 1062947609 + (v47 >> 22);
-  v128 = (v127 ^ 0xBAF7C497 ^ ((v127 ^ 0x648542D4) - 562919868) ^ ((v127 ^ 0xA16FF4D4) + 462958660) ^ ((v127 ^ 0xFF1CF2D6) + 1173042754) ^ ((v127 ^ 0x7FFE7FBE) - 989218006)) & v124 ^ v126;
-  HIDWORD(v47) = v148 + v123 + 1733771745 + (((v128 ^ 0x38AFEF31) - 2039643119) ^ ((v128 ^ 0xF3398403) + 1308356387) ^ ((v128 ^ 0x3336B3D5) - 1913333515));
-  LODWORD(v47) = HIDWORD(v47);
-  v129 = v127 + 1912764822 + (v47 >> 17);
-  LODWORD(v2) = (v129 ^ 0x6F16BB3) & (2 * (v129 & 0x48F54B02)) ^ v129 & 0x48F54B02;
-  v130 = ((2 * (v129 ^ 0x773E9B7)) ^ 0x9F0D456A) & (v129 ^ 0x773E9B7) ^ (2 * (v129 ^ 0x773E9B7)) & 0x4F86A2B4;
-  v131 = v130 ^ 0x4082A295;
-  v132 = (v130 ^ 0x7040000) & (4 * v2) ^ v2;
-  LODWORD(v2) = ((4 * v131) ^ 0x3E1A8AD4) & v131 ^ (4 * v131) & 0x4F86A2B4;
-  v133 = (v2 ^ 0xE028280) & (16 * v132) ^ v132;
-  LODWORD(v2) = ((16 * (v2 ^ 0x41842021)) ^ 0xF86A2B50) & (v2 ^ 0x41842021) ^ (16 * (v2 ^ 0x41842021)) & 0x4F86A2B0;
-  v134 = v133 ^ 0x4F86A2B5 ^ (v2 ^ 0x48022200) & (v133 << 8);
-  LODWORD(v2) = v129 ^ (2 * ((v134 << 16) & 0x4F860000 ^ v134 ^ ((v134 << 16) ^ 0x22B50000) & (((v2 ^ 0x78480A5) << 8) & 0x4F860000 ^ 0x49040000 ^ (((v2 ^ 0x78480A5) << 8) ^ 0x6A20000) & (v2 ^ 0x78480A5))));
-  v135 = (v127 ^ 0xB2F794DC) & (2 * (v127 & 0xBAF7C498)) ^ v127 & 0xBAF7C498;
-  v136 = ((2 * (v127 ^ 0xD6B19DEC)) ^ 0xD88CB2E8) & (v127 ^ 0xD6B19DEC) ^ (2 * (v127 ^ 0xD6B19DEC)) & 0x6C465974;
-  v137 = v136 ^ 0x24424914;
-  v138 = (v136 ^ 0x48041060) & (4 * v135) ^ v135;
-  v139 = ((4 * v137) ^ 0xB11965D0) & v137 ^ (4 * v137) & 0x6C465974;
-  v140 = (v139 ^ 0x20004140) & (16 * v138) ^ v138;
-  v141 = ((16 * (v139 ^ 0x4C461824)) ^ 0xC4659740) & (v139 ^ 0x4C461824) ^ (16 * (v139 ^ 0x4C461824)) & 0x6C465970;
-  v142 = v140 ^ 0x6C465974 ^ (v141 ^ 0x44441100) & (v140 << 8);
-  v143 = v127 ^ (2 * ((v142 << 16) & 0x6C460000 ^ v142 ^ ((v142 << 16) ^ 0x59740000) & (((v141 ^ 0x28024834) << 8) & 0x6C460000 ^ 0x28060000 ^ (((v141 ^ 0x28024834) << 8) ^ 0x46590000) & (v141 ^ 0x28024834)))) ^ v2 & 0xA5A4908 ^ (v2 ^ 0x2D0FF197) & (v126 ^ 0xD056E10);
-  HIDWORD(v47) = v155 + v124 + 826461382 + (((v143 ^ 0xE08CC97B) - 659806140) ^ ((v143 ^ 0x28511951) + 275904618) ^ ((v143 ^ 0xCDDB18A5) - 168035938));
-  LODWORD(v47) = HIDWORD(v47);
-  result = v1[1];
-  *v1 = *v1 - 95219791 + (((v126 ^ 0x8BE4ABA9) - 1994949376) ^ ((v126 ^ 0x906F64A9) - 1835224064) ^ ((v126 ^ 0x1CD4E818) + 505888591));
-  v1[1] = result + v129 + ((v47 >> 11) ^ 0x75DBDDFF) + ((2 * (v47 >> 11)) & 0xEBB7BBFE) - 753308413;
-  v145 = v1[3] - 1158167400 + v127;
-  v1[2] += 1224035074 + v129;
-  v1[3] = v145;
-  return result;
 }

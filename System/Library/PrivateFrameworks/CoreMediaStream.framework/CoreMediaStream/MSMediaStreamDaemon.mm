@@ -39,48 +39,42 @@
 
 - (void)didExceedPublishQuotaForPersonID:(id)d retryDate:(id)date
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     dCopy = d;
-    v9 = 2114;
+    v8 = 2114;
     dateCopy = date;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Received quota excess failure for person ID %@. Next retry date: %{public}@", &v7, 0x16u);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Received quota excess failure for person ID %@. Next retry date: %{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveAuthenticationSuccessForPersonID:(id)d
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     dCopy = d;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Successfully authenticated person ID %@", &v5, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Successfully authenticated person ID %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveAuthenticationFailureForPersonID:(id)d
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     dCopy = d;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Received authentication failure for person ID %@", &v5, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Received authentication failure for person ID %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -90,26 +84,26 @@
   [(MSMediaStreamDaemon *)self stopAllActivities];
   context = objc_autoreleasePoolPush();
   v3 = +[MSPublisher _clearInstantiatedPublishersByPersonID];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       v7 = 0;
       do
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [v3 objectForKey:*(*(&v23 + 1) + 8 * v7)];
+        v8 = [v3 objectForKey:*(*(&v22 + 1) + 8 * v7)];
         delegate = [v8 delegate];
         if (delegate)
         {
@@ -128,33 +122,33 @@
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v5);
   }
 
   v10 = +[MSSubscriber _clearInstantiatedSubscribersByPersonID];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       v14 = 0;
       do
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [v10 objectForKey:*(*(&v19 + 1) + 8 * v14)];
+        v15 = [v10 objectForKey:*(*(&v18 + 1) + 8 * v14)];
         delegate2 = [v15 delegate];
         if (delegate2)
         {
@@ -173,14 +167,13 @@
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
     }
 
     while (v12);
   }
 
   objc_autoreleasePoolPop(context);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -229,20 +222,18 @@ void __28__MSMediaStreamDaemon_start__block_invoke(uint64_t a1)
 
 - (void)didReceiveNewServerSideConfigurationForPersonID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v9 = dCopy;
+    v8 = dCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Sending local notification about new server-side configuration for %@", buf, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{dCopy, @"personID", 0}];
   [defaultCenter postNotificationName:@"MSMSDServerSideConfigurationDidChangeNotification" object:self userInfo:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshServerSideConfigurationForPersonID:(id)d
@@ -338,16 +329,16 @@ LABEL_10:
 
 - (void)pollForSubscriptionUpdatesTriggeredByPushNotificationForPersonID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(MSDaemon *)self retainBusy];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy2 = self;
-    v12 = 2112;
-    v13 = dCopy;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Push notification received for My Photo Stream with targetPersonID %@.", &v10, 0x16u);
+    v11 = 2112;
+    v12 = dCopy;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Push notification received for My Photo Stream with targetPersonID %@.", &v9, 0x16u);
   }
 
   v5 = MSPlatform();
@@ -361,9 +352,9 @@ LABEL_10:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v10 = 138543362;
+        v9 = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Serving push notification", &v10, 0xCu);
+        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Serving push notification", &v9, 0xCu);
       }
 
       [(MSMediaStreamDaemon *)self didReceivePushNotificationForPersonID:personIDForPollingTriggeredByPushNotification];
@@ -373,13 +364,11 @@ LABEL_10:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The subscription plugin class does not support push notification refreshing.", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The subscription plugin class does not support push notification refreshing.", &v9, 2u);
   }
 
   [(MSDaemon *)self releaseBusy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pollForSubscriptionUpdatesForPersonID:(id)d
@@ -446,13 +435,13 @@ LABEL_10:
 
 - (void)forgetPersonID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = dCopy;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Forgetting everything about person ID %@...", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = dCopy;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Forgetting everything about person ID %@...", &v12, 0xCu);
   }
 
   [MSPublisher forgetPersonID:dCopy];
@@ -483,12 +472,10 @@ LABEL_10:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = dCopy;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Person ID %@ forgotten.", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = dCopy;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Person ID %@ forgotten.", &v12, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAllActivities
@@ -502,13 +489,13 @@ LABEL_10:
 
 - (void)abortAllActivityForPersonID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = dCopy;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Aborting all activities for person ID %@.", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = dCopy;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Aborting all activities for person ID %@.", &v8, 0xCu);
   }
 
   v4 = [MSPublisher existingPublisherForPersonID:dCopy];
@@ -522,92 +509,89 @@ LABEL_10:
 
   v7 = [MSServerSideConfigManager existingConfigManagerForPersonID:dCopy];
   [v7 abort];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reenqueueQuarantinedActivitiesWithReason:(id)reason
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   [(MSDaemon *)self retainBusy];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = reasonCopy;
+    v18 = 2114;
+    v19 = reasonCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Reenqueuing quarantined activities. Reason: %{public}@.", buf, 0x16u);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = +[MSPublisher personIDsWithOutstandingActivities];
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(MSMediaStreamDaemon *)self _boundPublisherForPersonID:*(*(&v12 + 1) + 8 * v9)];
+        v10 = [(MSMediaStreamDaemon *)self _boundPublisherForPersonID:*(*(&v11 + 1) + 8 * v9)];
         [v10 reenqueueQuarantinedAssetCollections];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(MSDaemon *)self releaseBusy];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retryOutstandingActivities
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   [(MSDaemon *)self retainBusy];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v3 = +[MSPublisher personIDsWithOutstandingActivities];
-  v4 = [v3 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v43;
+    v6 = *v42;
     v7 = MEMORY[0x277D85CD0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v43 != v6)
+        if (*v42 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [(MSMediaStreamDaemon *)self _boundPublisherForPersonID:*(*(&v42 + 1) + 8 * v8)];
+        v9 = [(MSMediaStreamDaemon *)self _boundPublisherForPersonID:*(*(&v41 + 1) + 8 * v8)];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __49__MSMediaStreamDaemon_retryOutstandingActivities__block_invoke;
         block[3] = &unk_278E926D8;
-        v41 = v9;
+        v40 = v9;
         v10 = v9;
         dispatch_async(v7, block);
 
@@ -615,94 +599,93 @@ LABEL_10:
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v5);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v11 = +[MSSubscriber personIDsWithOutstandingActivities];
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v35 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v37;
+    v14 = *v36;
     v15 = MEMORY[0x277D85CD0];
     do
     {
       v16 = 0;
       do
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = [(MSMediaStreamDaemon *)self _boundSubscriberForPersonID:*(*(&v36 + 1) + 8 * v16)];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __49__MSMediaStreamDaemon_retryOutstandingActivities__block_invoke_2;
-        v34[3] = &unk_278E926D8;
-        v35 = v17;
+        v17 = [(MSMediaStreamDaemon *)self _boundSubscriberForPersonID:*(*(&v35 + 1) + 8 * v16)];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __49__MSMediaStreamDaemon_retryOutstandingActivities__block_invoke_2;
+        v33[3] = &unk_278E926D8;
+        v34 = v17;
         v18 = v17;
-        dispatch_async(v15, v34);
+        dispatch_async(v15, v33);
 
         ++v16;
       }
 
       while (v13 != v16);
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v35 objects:v46 count:16];
     }
 
     while (v13);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v19 = +[MSDeleter personIDsWithOutstandingActivities];
-  v20 = [v19 countByEnumeratingWithState:&v30 objects:v46 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v29 objects:v45 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v31;
+    v22 = *v30;
     v23 = MEMORY[0x277D85CD0];
     do
     {
       v24 = 0;
       do
       {
-        if (*v31 != v22)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v25 = [(MSMediaStreamDaemon *)self _boundDeleterForPersonID:*(*(&v30 + 1) + 8 * v24)];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __49__MSMediaStreamDaemon_retryOutstandingActivities__block_invoke_3;
-        v28[3] = &unk_278E926D8;
-        v29 = v25;
+        v25 = [(MSMediaStreamDaemon *)self _boundDeleterForPersonID:*(*(&v29 + 1) + 8 * v24)];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __49__MSMediaStreamDaemon_retryOutstandingActivities__block_invoke_3;
+        v27[3] = &unk_278E926D8;
+        v28 = v25;
         v26 = v25;
-        dispatch_async(v23, v28);
+        dispatch_async(v23, v27);
 
         ++v24;
       }
 
       while (v21 != v24);
-      v21 = [v19 countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v29 objects:v45 count:16];
     }
 
     while (v21);
   }
 
   [(MSDaemon *)self releaseBusy];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_boundServerSideConfigManagerForPersonID:(id)d
@@ -715,7 +698,7 @@ LABEL_10:
 
 - (id)_boundDeleterForPersonID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [MSDeleter deleterForPersonID:dCopy];
   delegate = [v5 delegate];
@@ -753,25 +736,23 @@ LABEL_2:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v16 = 134218242;
-      v17 = dCopy;
-      v18 = 2114;
-      v19 = deletePluginClass;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get deleter plugin, person id %p, plugin class %{public}@", &v16, 0x16u);
+      v15 = 134218242;
+      v16 = dCopy;
+      v17 = 2114;
+      v18 = deletePluginClass;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get deleter plugin, person id %p, plugin class %{public}@", &v15, 0x16u);
     }
   }
 
   v7 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_boundSubscriberForPersonID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [MSSubscriber subscriberForPersonID:dCopy];
   delegate = [v5 delegate];
@@ -804,24 +785,22 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = 134218242;
-    v15 = dCopy;
-    v16 = 2114;
-    v17 = subscriberPluginClass;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get subscriber plugin, person id %p, plugin class %{public}@", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = dCopy;
+    v15 = 2114;
+    v16 = subscriberPluginClass;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get subscriber plugin, person id %p, plugin class %{public}@", &v13, 0x16u);
   }
 
   v11 = 0;
 LABEL_7:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_boundPublisherForPersonID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [MSPublisher publisherForPersonID:dCopy];
   delegate = [v5 delegate];
@@ -850,17 +829,15 @@ LABEL_4:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = 134218242;
-    v15 = dCopy;
-    v16 = 2114;
-    v17 = publisherPluginClass;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get publisher plugin, person id %p, plugin class %{public}@", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = dCopy;
+    v15 = 2114;
+    v16 = publisherPluginClass;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get publisher plugin, person id %p, plugin class %{public}@", &v13, 0x16u);
   }
 
   v11 = 0;
 LABEL_5:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

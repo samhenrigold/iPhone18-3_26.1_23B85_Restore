@@ -27,20 +27,20 @@
 
 - (HDHealthStoreClient)initWithXPCClient:(id)client configuration:(id)configuration profile:(id)profile databaseAccessibilityAssertions:(id)assertions
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   configurationCopy = configuration;
   profileCopy = profile;
   assertionsCopy = assertions;
-  v46.receiver = self;
-  v46.super_class = HDHealthStoreClient;
-  v15 = [(HDHealthStoreClient *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = HDHealthStoreClient;
+  v15 = [(HDHealthStoreClient *)&v45 init];
   v16 = v15;
   if (v15)
   {
     objc_storeStrong(&v15->_XPCClient, client);
     objc_storeWeak(&v16->_profile, profileCopy);
-    v17 = [configurationCopy copy];
+    v17 = objc_msgSend_copy(configurationCopy);
     configuration = v16->_configuration;
     v16->_configuration = v17;
 
@@ -62,7 +62,7 @@
     if (sourceBundleIdentifier)
     {
       sourceBundleIdentifier2 = [configurationCopy sourceBundleIdentifier];
-      v28 = [sourceBundleIdentifier2 copy];
+      v28 = objc_msgSend_copy(sourceBundleIdentifier2);
       sourceBundleIdentifier = v16->_sourceBundleIdentifier;
       v16->_sourceBundleIdentifier = v28;
     }
@@ -79,15 +79,15 @@
       WeakRetained = objc_loadWeakRetained(&v16->_profile);
       daemon = [WeakRetained daemon];
       behavior = [daemon behavior];
-      currentOSVersion = [behavior currentOSVersion];
+      v34 = objc_msgSend_currentOSVersion(behavior);
       sourceVersion = v16->_sourceVersion;
-      v16->_sourceVersion = currentOSVersion;
+      v16->_sourceVersion = v34;
     }
 
     else
     {
       WeakRetained = [configurationCopy sourceVersion];
-      v36 = [WeakRetained copy];
+      v36 = objc_msgSend_copy(WeakRetained);
       daemon = v36;
       v37 = &stru_283BF39C8;
       if (v36)
@@ -107,21 +107,20 @@
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         name = [process name];
-        auditToken = [process auditToken];
-        processIdentifier = [auditToken processIdentifier];
+        v44 = objc_msgSend_auditToken(process);
+        processIdentifier = [v44 processIdentifier];
         entitlements2 = [process entitlements];
         *buf = 138412802;
-        v48 = name;
-        v49 = 1024;
-        v50 = processIdentifier;
-        v51 = 2112;
-        v52 = entitlements2;
+        v47 = name;
+        v48 = 1024;
+        v49 = processIdentifier;
+        v50 = 2112;
+        v51 = entitlements2;
         _os_log_error_impl(&dword_228986000, v39, OS_LOG_TYPE_ERROR, "Process %@ (%d) has nil source bundle identifier without auth bypass. Client entitlements: %@", buf, 0x1Cu);
       }
     }
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -408,7 +407,7 @@
 
 - (id)baseDataEntityEncodingOptions
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if ([(HDHealthStoreClient *)self hasPrivateMetadataAccess])
   {
     v2 = 0;
@@ -416,12 +415,10 @@
 
   else
   {
-    v5 = @"ExcludePrivateMetadata";
-    v6[0] = MEMORY[0x277CBEC38];
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = @"ExcludePrivateMetadata";
+    v5[0] = MEMORY[0x277CBEC38];
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

@@ -15,7 +15,7 @@ id sub_1004(int a1, _BYTE *__src, void *a3)
   v10 = 0;
   if (gLogCategory_CoreRCInterface <= 10 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    sub_20A8(__src);
+    sub_20A8();
   }
 
   v5 = (__src[16] & 0xF) + 1;
@@ -49,30 +49,29 @@ id sub_10E8(uint64_t a1, char a2, char a3, __int128 *a4, void *a5)
 
 id sub_11A4(uint64_t a1)
 {
-  v9 = 0;
-  if (([*(a1 + 32) setHardwareAddressMask:objc_msgSend(*(a1 + 32) error:{"addressMask"), &v9}] & 1) == 0 && gLogCategory_CoreRCInterface <= 90 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
+  v8 = 0;
+  if (([*(a1 + 32) setHardwareAddressMask:objc_msgSend(*(a1 + 32) error:{"addressMask"), &v8}] & 1) == 0 && gLogCategory_CoreRCInterface <= 90 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    sub_2100(&v9);
+    sub_2100();
   }
 
-  v2 = *(*(a1 + 32) + 32);
   CECSnoopingEnabled = IOCECInterfaceGetCECSnoopingEnabled();
   if (CECSnoopingEnabled)
   {
     if (gLogCategory_CoreRCInterface <= 60)
     {
-      v4 = CECSnoopingEnabled;
+      v3 = CECSnoopingEnabled;
       if (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize())
       {
-        v7 = "[CECIOCECInterface _open]_block_invoke";
-        v8 = v4;
-        v6 = *(a1 + 32);
+        v6 = "[CECIOCECInterface _open]_block_invoke";
+        v7 = v3;
+        v5 = *(a1 + 32);
         LogPrintF();
       }
     }
   }
 
-  return [*(a1 + 32) setSnoopingMode:0 error:{0, v6, v7, v8}];
+  return [*(a1 + 32) setSnoopingMode:0 error:{0, v5, v6, v7}];
 }
 
 id sub_1914(uint64_t a1)
@@ -98,13 +97,6 @@ id sub_1B18(uint64_t a1, uint64_t a2, void *a3)
   }
 
   return [a3 addIOCECInterface:a2];
-}
-
-uint64_t sub_1FD4(uint64_t a1)
-{
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 16);
-  return LogPrintF();
 }
 
 void sub_2034()

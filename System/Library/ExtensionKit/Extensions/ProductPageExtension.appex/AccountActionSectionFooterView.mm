@@ -35,11 +35,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_buttonAction);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_buttonAction];
     selfCopy = self;
-    v4 = sub_10001CE50(v2);
-    v2(v4);
+    v5 = sub_10001CE50(v2, v3);
+    v2(v5);
 
-    sub_1000167E0(v2);
+    sub_1000167E0(v2, v3);
   }
 }
 
@@ -57,19 +58,20 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_text);
-  v5 = *&self->titleLabel[OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_text];
+  width = fits.width;
+  v5 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_text);
+  v6 = *&self->titleLabel[OBJC_IVAR____TtC20ProductPageExtension30AccountActionSectionFooterView_text];
 
   selfCopy = self;
   [(AccountActionSectionFooterView *)selfCopy layoutMargins];
-  sub_100701570(v4, v5);
-  v8 = v7;
-  v10 = v9;
+  sub_100701570(v5, v6, selfCopy, width, v8, v9, v10, v11);
+  v13 = v12;
+  v15 = v14;
 
-  v11 = v8;
-  v12 = v10;
-  result.height = v12;
-  result.width = v11;
+  v16 = v13;
+  v17 = v15;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 

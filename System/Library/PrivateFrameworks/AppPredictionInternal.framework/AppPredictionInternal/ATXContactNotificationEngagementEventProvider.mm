@@ -88,7 +88,7 @@
   v12 = *(v24[0] + 40);
   if (v12)
   {
-    v13 = __atxlog_handle_modes();
+    v13 = __atxlog_handle_modes(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(ATXContactNotificationEngagementEventProvider *)v24 successfullyCalculatedNotificationEvents:v13];
@@ -142,36 +142,36 @@ uint64_t __89__ATXContactNotificationEngagementEventProvider_successfullyCalcula
     goto LABEL_13;
   }
 
-  v15 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = __atxlog_handle_modes(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_cold_1(v5, v15, v16, v17, v18, v19, v20, v21);
+    __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_cold_1(v5, v16, v17, v18, v19, v20, v21, v22);
   }
 
   if (!v14)
   {
 LABEL_13:
-    v22 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_modes(v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_cold_1(v6, v22, v23, v24, v25, v26, v27, v28);
+      __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_cold_1(v6, v23, v24, v25, v26, v27, v28, v29);
     }
   }
 
 LABEL_16:
-  v29 = [v10 startDate];
-  [v29 timeIntervalSinceReferenceDate];
-  v31 = v30;
+  v30 = [v10 startDate];
+  [v30 timeIntervalSinceReferenceDate];
+  v32 = v31;
 
-  v32 = [v14 startDate];
-  [v32 timeIntervalSinceReferenceDate];
-  v34 = v33;
+  v33 = [v14 startDate];
+  [v33 timeIntervalSinceReferenceDate];
+  v35 = v34;
 
-  v35 = [MEMORY[0x277CCABB0] numberWithDouble:v31];
-  v36 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-  v37 = [v35 compare:v36];
+  v36 = [MEMORY[0x277CCABB0] numberWithDouble:v32];
+  v37 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
+  v38 = [v36 compare:v37];
 
-  return v37;
+  return v38;
 }
 
 uint64_t __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_20(uint64_t a1, void *a2)
@@ -186,36 +186,36 @@ uint64_t __89__ATXContactNotificationEngagementEventProvider_successfullyCalcula
 
 void __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 8) aggregationEventsFromEvent:v3];
   if ([v4 count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(a1 + 32) trackNewModeEvent:{*(*(&v13 + 1) + 8 * v9++), v13}];
+          [*(a1 + 32) trackNewModeEvent:{*(*(&v12 + 1) + 8 * v9++), v12}];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -231,7 +231,7 @@ void __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedN
     }
 
     v5 = v3;
-    v11 = [v5 eventBody];
+    v10 = [v5 eventBody];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
@@ -242,7 +242,6 @@ void __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedN
   }
 
 LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dateIntervalFromNotificationEvent:(id)event
@@ -281,7 +280,7 @@ LABEL_10:
 
 - (void)trackNewNotificationEvent:(id)event
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   eventBody = [event eventBody];
   if ([eventBody usageType] == 4)
   {
@@ -289,31 +288,31 @@ LABEL_10:
 
     if (contactIDs)
     {
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       contactIDs2 = [eventBody contactIDs];
-      v7 = [contactIDs2 countByEnumeratingWithState:&v40 objects:v47 count:16];
+      v7 = [contactIDs2 countByEnumeratingWithState:&v39 objects:v46 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v41;
+        v9 = *v40;
         do
         {
           v10 = 0;
           do
           {
-            if (*v41 != v9)
+            if (*v40 != v9)
             {
               objc_enumerationMutation(contactIDs2);
             }
 
-            [(NSCountedSet *)self->_globalCountOfNotificationsCleared addObject:*(*(&v40 + 1) + 8 * v10++)];
+            [(NSCountedSet *)self->_globalCountOfNotificationsCleared addObject:*(*(&v39 + 1) + 8 * v10++)];
           }
 
           while (v8 != v10);
-          v8 = [contactIDs2 countByEnumeratingWithState:&v40 objects:v47 count:16];
+          v8 = [contactIDs2 countByEnumeratingWithState:&v39 objects:v46 count:16];
         }
 
         while (v8);
@@ -321,31 +320,31 @@ LABEL_10:
 
       if ([(ATXContactNotificationEngagementEventProvider *)self notificationEventOccurredWhileInMode:eventBody modeTransitionEvent:self->_mostRecentModeEvent])
       {
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
         contactIDs3 = [eventBody contactIDs];
-        v12 = [contactIDs3 countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v12 = [contactIDs3 countByEnumeratingWithState:&v35 objects:v45 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v37;
+          v14 = *v36;
           do
           {
             v15 = 0;
             do
             {
-              if (*v37 != v14)
+              if (*v36 != v14)
               {
                 objc_enumerationMutation(contactIDs3);
               }
 
-              [(NSCountedSet *)self->_modeCountOfNotificationsCleared addObject:*(*(&v36 + 1) + 8 * v15++)];
+              [(NSCountedSet *)self->_modeCountOfNotificationsCleared addObject:*(*(&v35 + 1) + 8 * v15++)];
             }
 
             while (v13 != v15);
-            v13 = [contactIDs3 countByEnumeratingWithState:&v36 objects:v46 count:16];
+            v13 = [contactIDs3 countByEnumeratingWithState:&v35 objects:v45 count:16];
           }
 
           while (v13);
@@ -360,31 +359,31 @@ LABEL_10:
 
     if (contactIDs4)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       contactIDs5 = [eventBody contactIDs];
-      v18 = [contactIDs5 countByEnumeratingWithState:&v32 objects:v45 count:16];
+      v18 = [contactIDs5 countByEnumeratingWithState:&v31 objects:v44 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v33;
+        v20 = *v32;
         do
         {
           v21 = 0;
           do
           {
-            if (*v33 != v20)
+            if (*v32 != v20)
             {
               objc_enumerationMutation(contactIDs5);
             }
 
-            [(NSCountedSet *)self->_globalCountOfNotificationsReceived addObject:*(*(&v32 + 1) + 8 * v21++)];
+            [(NSCountedSet *)self->_globalCountOfNotificationsReceived addObject:*(*(&v31 + 1) + 8 * v21++)];
           }
 
           while (v19 != v21);
-          v19 = [contactIDs5 countByEnumeratingWithState:&v32 objects:v45 count:16];
+          v19 = [contactIDs5 countByEnumeratingWithState:&v31 objects:v44 count:16];
         }
 
         while (v19);
@@ -392,31 +391,31 @@ LABEL_10:
 
       if ([(ATXContactNotificationEngagementEventProvider *)self notificationEventOccurredWhileInMode:eventBody modeTransitionEvent:self->_mostRecentModeEvent])
       {
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
         contactIDs6 = [eventBody contactIDs];
-        v23 = [contactIDs6 countByEnumeratingWithState:&v28 objects:v44 count:16];
+        v23 = [contactIDs6 countByEnumeratingWithState:&v27 objects:v43 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v29;
+          v25 = *v28;
           do
           {
             v26 = 0;
             do
             {
-              if (*v29 != v25)
+              if (*v28 != v25)
               {
                 objc_enumerationMutation(contactIDs6);
               }
 
-              [(NSCountedSet *)self->_modeCountOfNotificationsReceived addObject:*(*(&v28 + 1) + 8 * v26++)];
+              [(NSCountedSet *)self->_modeCountOfNotificationsReceived addObject:*(*(&v27 + 1) + 8 * v26++)];
             }
 
             while (v24 != v26);
-            v24 = [contactIDs6 countByEnumeratingWithState:&v28 objects:v44 count:16];
+            v24 = [contactIDs6 countByEnumeratingWithState:&v27 objects:v43 count:16];
           }
 
           while (v24);
@@ -424,8 +423,6 @@ LABEL_10:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)notificationEventOccurredWhileInMode:(id)mode modeTransitionEvent:(id)event
@@ -457,31 +454,31 @@ LABEL_10:
 
 - (unint64_t)globalCountOfNotificationsCleared
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_globalCountOfNotificationsCleared;
-  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [(NSCountedSet *)self->_globalCountOfNotificationsCleared countForObject:*(*(&v11 + 1) + 8 * i), v11];
+        v6 += [(NSCountedSet *)self->_globalCountOfNotificationsCleared countForObject:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -492,37 +489,36 @@ LABEL_10:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unint64_t)modeCountOfNotificationsCleared
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_modeCountOfNotificationsCleared;
-  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [(NSCountedSet *)self->_modeCountOfNotificationsCleared countForObject:*(*(&v11 + 1) + 8 * i), v11];
+        v6 += [(NSCountedSet *)self->_modeCountOfNotificationsCleared countForObject:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -533,7 +529,6 @@ LABEL_10:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -606,31 +601,31 @@ LABEL_10:
 
 - (unint64_t)globalCountOfNotificationsReceived
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_globalCountOfNotificationsReceived;
-  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [(NSCountedSet *)self->_globalCountOfNotificationsReceived countForObject:*(*(&v11 + 1) + 8 * i), v11];
+        v6 += [(NSCountedSet *)self->_globalCountOfNotificationsReceived countForObject:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -641,37 +636,36 @@ LABEL_10:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unint64_t)modeCountOfNotificationsReceived
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_modeCountOfNotificationsReceived;
-  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [(NSCountedSet *)self->_modeCountOfNotificationsReceived countForObject:*(*(&v11 + 1) + 8 * i), v11];
+        v6 += [(NSCountedSet *)self->_modeCountOfNotificationsReceived countForObject:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSCountedSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -682,7 +676,6 @@ LABEL_10:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -755,17 +748,16 @@ LABEL_10:
 
 - (void)successfullyCalculatedNotificationEvents
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*self + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactNotificationEngagementEventProvider: Error from merged publishers: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*self + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactNotificationEngagementEventProvider: Error from merged publishers: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __89__ATXContactNotificationEngagementEventProvider_successfullyCalculatedNotificationEvents__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactNotificationEngagementEventProvider: During ordered merge, encountered unknown event: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactNotificationEngagementEventProvider: During ordered merge, encountered unknown event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

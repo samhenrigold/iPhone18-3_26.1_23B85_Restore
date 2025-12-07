@@ -43,10 +43,10 @@
 
 - (void)viewDidLoad
 {
-  v26[3] = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = TSTermsAndConditionsViewController;
-  [(SSUIViewController *)&v23 viewDidLoad];
+  v25[3] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = TSTermsAndConditionsViewController;
+  [(SSUIViewController *)&v22 viewDidLoad];
   [(TSTermsAndConditionsViewController *)self setModalInPresentation:1];
   v3 = objc_alloc(MEMORY[0x277D751E0]);
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -63,20 +63,20 @@
   v13 = [v12 localizedStringForKey:@"TERMS_AND_CONDITIONS_TITLE" value:&stru_28753DF48 table:@"Localizable"];
   [(TSTermsAndConditionsViewController *)self setTitle:v13];
 
-  v26[0] = v6;
-  v26[1] = v7;
-  v26[2] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+  v25[0] = v6;
+  v25[1] = v7;
+  v25[2] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
   [(TSTermsAndConditionsViewController *)self setToolbarItems:v14];
 
   navigationController = [(TSTermsAndConditionsViewController *)self navigationController];
   [navigationController setToolbarHidden:0 animated:0];
 
   [(UITextView *)self->_textView setEditable:0];
-  v24 = *MEMORY[0x277D740C0];
+  v23 = *MEMORY[0x277D740C0];
   labelColor = [MEMORY[0x277D75348] labelColor];
-  v25 = labelColor;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v24 = labelColor;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
 
   textView = self->_textView;
   v19 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:self->_mainText attributes:v17];
@@ -85,8 +85,6 @@
   v20 = self->_textView;
   v21 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
   [(UITextView *)v20 setFont:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_acceptClicked:(id)clicked
@@ -102,10 +100,11 @@
 void __53__TSTermsAndConditionsViewController__acceptClicked___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __53__TSTermsAndConditionsViewController__acceptClicked___block_invoke_cold_1();
     }
@@ -114,13 +113,13 @@ void __53__TSTermsAndConditionsViewController__acceptClicked___block_invoke(uint
 
 - (void)_cancelTransfer:(id)transfer
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = _TSLogDomain();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = _TSLogDomain(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[TSTermsAndConditionsViewController _cancelTransfer:]";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "T&C cancelled @%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[TSTermsAndConditionsViewController _cancelTransfer:]";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "T&C cancelled @%s", &v7, 0xCu);
   }
 
   [(TSTermsAndConditionsViewController *)self dismissViewControllerAnimated:1 completion:0];
@@ -130,17 +129,16 @@ void __53__TSTermsAndConditionsViewController__acceptClicked___block_invoke(uint
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"user.disagreed.terms.and.conditions" object:0 userInfo:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __54__TSTermsAndConditionsViewController__cancelTransfer___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __54__TSTermsAndConditionsViewController__cancelTransfer___block_invoke_cold_1();
     }
@@ -156,20 +154,18 @@ void __54__TSTermsAndConditionsViewController__cancelTransfer___block_invoke(uin
 
 void __53__TSTermsAndConditionsViewController__acceptClicked___block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTermsAndConditionsViewController _acceptClicked:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleTermsAndConditionsCompleted failed : %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTermsAndConditionsViewController _acceptClicked:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleTermsAndConditionsCompleted failed : %@ @%s", v1, 0x16u);
 }
 
 void __54__TSTermsAndConditionsViewController__cancelTransfer___block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTermsAndConditionsViewController _cancelTransfer:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleTermsAndConditionsCompleted failed : %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTermsAndConditionsViewController _cancelTransfer:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleTermsAndConditionsCompleted failed : %@ @%s", v1, 0x16u);
 }
 
 @end

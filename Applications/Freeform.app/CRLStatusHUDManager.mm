@@ -143,10 +143,10 @@
 
 - (void)showWithHudController:(id)controller
 {
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_101071284(controller, selfCopy);
+  sub_101071284(controller, selfCopy, ObjectType, v6);
   swift_unknownObjectRelease();
 }
 
@@ -165,7 +165,7 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_101070CEC(controller, hudController, selfCopy, ObjectType);
+  sub_101070CEC(controller, hudController, selfCopy, ObjectType, v8);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 }

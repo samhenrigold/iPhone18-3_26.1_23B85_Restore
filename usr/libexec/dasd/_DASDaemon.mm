@@ -14,10 +14,12 @@
 - (BOOL)shouldPreemptActivity:(id)activity forFastPassActivity:(id)passActivity;
 - (BOOL)shouldRunActivityNow:(id)now;
 - (BOOL)shouldRunActivityNow:(id)now withOtherActivities:(id)activities;
+- (BOOL)shouldSuspendLongRunningActivity:(id)activity withStartDate:(id)date whileBlockingOtherTasks:(BOOL)tasks atDate:(id)atDate;
 - (BOOL)testModeConstraintsApplyToActivity:(id)activity;
 - (BOOL)testModeConstraintsRequireOverridingDecisionWithScores:(id)scores ignoredPolicies:(id)policies honoredPolicies:(id)honoredPolicies;
 - (BOOL)validateConfigurationForActivity:(id)activity;
 - (NSString)description;
+- (id)activityAnalyticsWithActivity:(id)activity didComplete:(BOOL)complete;
 - (id)activityMatchingPredicate:(id)predicate;
 - (id)allActivityGroups;
 - (id)allPendingBackgroundTasks;
@@ -28,6 +30,7 @@
 - (id)allPrerunningTasks;
 - (id)allTasks;
 - (id)allTimewiseEligibleNetworkTasksAllowingCell:(BOOL)cell;
+- (id)assertionArbiter:(id)arbiter clientForPID:(int)d;
 - (id)candidateGroupActivityForPreemption:(id)preemption;
 - (id)clientForActivity:(id)activity;
 - (id)createTempBGSQLFile:(id)file;
@@ -109,6 +112,7 @@
 - (void)deleteLimitForActivity:(id)activity forLimiterWithName:(id)name handler:(id)handler;
 - (void)determineNextTimerFireDateAndSchedule;
 - (void)disableAppRefreshForApps:(id)apps;
+- (void)enableTaskRegistryMode:(BOOL)mode processes:(id)processes handler:(id)handler;
 - (void)endLaunchWithReason:(id)reason forApp:(id)app;
 - (void)enterTestModeWithParameters:(id)parameters reset:(BOOL)reset handler:(id)handler;
 - (void)establishConnectionFromClient:(id)client withCompletionHandler:(id)handler;
@@ -165,6 +169,7 @@
 - (void)registerForNetworkPathEvaluation;
 - (void)registerForTrial;
 - (void)registerTriggersWithContextStoreForPolicies:(id)policies;
+- (void)registerWithContextStoreForId:(id)id contextualPredicate:(id)predicate dismissalCondition:(id)condition deviceSet:(unint64_t)set mustWake:(BOOL)wake qualityOfService:(unsigned int)service;
 - (void)releaseAssertions:(id)assertions;
 - (void)releasePowerAssertion:(id)assertion;
 - (void)removeActivityFromGroupToPendingTasks:(id)tasks;
@@ -263,7 +268,7 @@
 {
   v3 = +[NSDate date];
   os_unfair_recursive_lock_lock_with_options();
-  v68 = [NSMutableArray arrayWithCapacity:[(NSMutableSet *)self->_pendingTasks count]];
+  v68 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(self->_pendingTasks)];
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
@@ -364,7 +369,7 @@ LABEL_22:
 LABEL_32:
 
   os_unfair_recursive_lock_unlock();
-  if ([v68 count])
+  if (objc_msgSend_count(v68))
   {
     schedulingPriority = [v69 schedulingPriority];
     v29 = _DASSchedulingPriorityUtility;
@@ -581,13 +586,13 @@ LABEL_56:
 {
   anonymousCopy = anonymous;
   contextCopy = context;
-  v176.receiver = self;
-  v176.super_class = _DASDaemon;
-  v7 = [(_DASDaemon *)&v176 init];
+  v175.receiver = self;
+  v175.super_class = _DASDaemon;
+  v7 = [(_DASDaemon *)&v175 init];
   v8 = v7;
   if (v7)
   {
-    v163 = anonymousCopy;
+    v162 = anonymousCopy;
     [(_DASDaemon *)v7 setupPrewarmSuspendListener];
     v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v10 = dispatch_queue_create("com.apple.dasscheduler.batchingqueue.taskevaluation", v9);
@@ -667,8 +672,8 @@ LABEL_56:
     v8->_powerAssertions = v44;
 
     [(_DASDaemon *)v8 loadTestingDefaults];
-    v164 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.duetactivityscheduler"];
-    v46 = [v164 integerForKey:@"enRelaunchInterval"];
+    v163 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.duetactivityscheduler"];
+    v46 = [v163 integerForKey:@"enRelaunchInterval"];
     if (v46 >= 1 && *&qword_10020A510 > v46)
     {
       *&qword_10020A510 = (v46 >> 2);
@@ -706,264 +711,263 @@ LABEL_56:
     v58 = v8->_launchTimeResetTimer;
     v59 = dispatch_walltime(0, 3600000000000);
     dispatch_source_set_timer(v58, v59, 0x34630B8A000uLL, 0xDF8475800uLL);
-    v60 = v8->_launchTimeResetTimer;
     dispatch_set_qos_class_fallback();
-    v61 = v8->_launchTimeResetTimer;
+    v60 = v8->_launchTimeResetTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000C8824;
     handler[3] = &unk_1001B5668;
-    v62 = v8;
-    v174 = v62;
-    dispatch_source_set_event_handler(v61, handler);
+    v61 = v8;
+    v173 = v61;
+    dispatch_source_set_event_handler(v60, handler);
     dispatch_resume(v8->_launchTimeResetTimer);
-    v63 = v8->_evaluationQueue;
-    v171[0] = _NSConcreteStackBlock;
-    v171[1] = 3221225472;
-    v171[2] = sub_1000C88A8;
-    v171[3] = &unk_1001B83E0;
-    v64 = v62;
-    v172 = v64;
-    v65 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.triggerbatchingqueue" maxBatchingDelay:10 maxQueueDepth:v63 queue:v171 workItemsHandler:2.0];
-    triggerBatchingQueue = v64->_triggerBatchingQueue;
-    v64->_triggerBatchingQueue = v65;
+    v62 = v8->_evaluationQueue;
+    v170[0] = _NSConcreteStackBlock;
+    v170[1] = 3221225472;
+    v170[2] = sub_1000C88A8;
+    v170[3] = &unk_1001B83E0;
+    v63 = v61;
+    v171 = v63;
+    v64 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.triggerbatchingqueue" maxBatchingDelay:10 maxQueueDepth:v62 queue:v170 workItemsHandler:2.0];
+    triggerBatchingQueue = v63->_triggerBatchingQueue;
+    v63->_triggerBatchingQueue = v64;
 
-    v67 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.triggerRecorder" maxBatchingDelay:30 maxQueueDepth:v8->_evaluationQueue queue:&stru_1001B8420 workItemsHandler:5.0];
-    triggerRecorderBatchingQueue = v64->_triggerRecorderBatchingQueue;
-    v64->_triggerRecorderBatchingQueue = v67;
+    v66 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.triggerRecorder" maxBatchingDelay:30 maxQueueDepth:v8->_evaluationQueue queue:&stru_1001B8420 workItemsHandler:5.0];
+    triggerRecorderBatchingQueue = v63->_triggerRecorderBatchingQueue;
+    v63->_triggerRecorderBatchingQueue = v66;
 
-    v69 = v8->_evaluationQueue;
-    v169[0] = _NSConcreteStackBlock;
-    v169[1] = 3221225472;
-    v169[2] = sub_1000C8918;
-    v169[3] = &unk_1001B83E0;
-    v70 = v64;
-    v170 = v70;
-    v71 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.activitycompletionbatchingqueue" maxBatchingDelay:15 maxQueueDepth:v69 queue:v169 workItemsHandler:15.0];
-    activityCompletedBatchingQueue = v70->_activityCompletedBatchingQueue;
-    v70->_activityCompletedBatchingQueue = v71;
+    v68 = v8->_evaluationQueue;
+    v168[0] = _NSConcreteStackBlock;
+    v168[1] = 3221225472;
+    v168[2] = sub_1000C8918;
+    v168[3] = &unk_1001B83E0;
+    v69 = v63;
+    v169 = v69;
+    v70 = [_DASBatchingQueue queueWithName:@"com.apple.dasscheduler.activitycompletionbatchingqueue" maxBatchingDelay:15 maxQueueDepth:v68 queue:v168 workItemsHandler:15.0];
+    activityCompletedBatchingQueue = v69->_activityCompletedBatchingQueue;
+    v69->_activityCompletedBatchingQueue = v70;
 
-    v73 = v8->_evaluationQueue;
-    v167[0] = _NSConcreteStackBlock;
-    v167[1] = 3221225472;
-    v167[2] = sub_1000C8924;
-    v167[3] = &unk_1001B83E0;
-    v74 = v70;
-    v168 = v74;
-    v75 = [_DASBatchingQueue queueWithName:@"com.apple.das.networkActivitiesQueue" maxBatchingDelay:256 maxQueueDepth:v73 queue:v167 workItemsHandler:1.0];
-    networkActivitiesQueue = v74->_networkActivitiesQueue;
-    v74->_networkActivitiesQueue = v75;
+    v72 = v8->_evaluationQueue;
+    v166[0] = _NSConcreteStackBlock;
+    v166[1] = 3221225472;
+    v166[2] = sub_1000C8924;
+    v166[3] = &unk_1001B83E0;
+    v73 = v69;
+    v167 = v73;
+    v74 = [_DASBatchingQueue queueWithName:@"com.apple.das.networkActivitiesQueue" maxBatchingDelay:256 maxQueueDepth:v72 queue:v166 workItemsHandler:1.0];
+    networkActivitiesQueue = v73->_networkActivitiesQueue;
+    v73->_networkActivitiesQueue = v74;
 
     if (contextCopy)
     {
-      v77 = contextCopy;
+      v76 = contextCopy;
     }
 
     else
     {
-      v77 = +[_CDClientContext userContext];
+      v76 = +[_CDClientContext userContext];
     }
 
-    context = v74->_context;
-    v74->_context = v77;
+    context = v73->_context;
+    v73->_context = v76;
 
-    v79 = +[_DASDaemonLogger defaultCategory];
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+    v78 = +[_DASDaemonLogger defaultCategory];
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "Initializing DASDaemon...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Initializing DASDaemon...", buf, 2u);
     }
 
-    v80 = [_DASUserRequestedBackupTaskManager managerWithContext:v74->_context];
-    backupTaskManager = v74->_backupTaskManager;
-    v74->_backupTaskManager = v80;
+    v79 = [_DASUserRequestedBackupTaskManager managerWithContext:v73->_context];
+    backupTaskManager = v73->_backupTaskManager;
+    v73->_backupTaskManager = v79;
 
-    v82 = +[_DASNetworkEvaluationMonitor sharedInstance];
-    networkEvaluationMonitor = v74->_networkEvaluationMonitor;
-    v74->_networkEvaluationMonitor = v82;
+    v81 = +[_DASNetworkEvaluationMonitor sharedInstance];
+    networkEvaluationMonitor = v73->_networkEvaluationMonitor;
+    v73->_networkEvaluationMonitor = v81;
 
-    v84 = [_DASSleepWakeMonitor sharedMonitorWithDaemon:v74];
-    sleepWakeMonitor = v74->_sleepWakeMonitor;
-    v74->_sleepWakeMonitor = v84;
+    v83 = [_DASSleepWakeMonitor sharedMonitorWithDaemon:v73];
+    sleepWakeMonitor = v73->_sleepWakeMonitor;
+    v73->_sleepWakeMonitor = v83;
 
-    [(_DASDaemon *)v74 registerForNetworkPathEvaluation];
-    v86 = +[_DASPolicyManager allPoliciesForPlatform];
-    [(_DASDaemon *)v74 registerTriggersWithContextStoreForPolicies:v86];
-    v87 = +[NSMutableDictionary dictionary];
-    triggerToActivitiesMap = v74->_triggerToActivitiesMap;
-    v74->_triggerToActivitiesMap = v87;
+    [(_DASDaemon *)v73 registerForNetworkPathEvaluation];
+    v85 = +[_DASPolicyManager allPoliciesForPlatform];
+    [(_DASDaemon *)v73 registerTriggersWithContextStoreForPolicies:v85];
+    v86 = +[NSMutableDictionary dictionary];
+    triggerToActivitiesMap = v73->_triggerToActivitiesMap;
+    v73->_triggerToActivitiesMap = v86;
 
-    v89 = +[NSMutableDictionary dictionary];
-    activityToIncompatibleActivitiesMap = v74->_activityToIncompatibleActivitiesMap;
-    v74->_activityToIncompatibleActivitiesMap = v89;
+    v88 = +[NSMutableDictionary dictionary];
+    activityToIncompatibleActivitiesMap = v73->_activityToIncompatibleActivitiesMap;
+    v73->_activityToIncompatibleActivitiesMap = v88;
 
-    v91 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v92 = dispatch_queue_create("com.apple.duetactivityscheduler.timeschedulingqueue", v91);
-    timerSchedulingQueue = v74->_timerSchedulingQueue;
-    v74->_timerSchedulingQueue = v92;
+    v90 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v91 = dispatch_queue_create("com.apple.duetactivityscheduler.timeschedulingqueue", v90);
+    timerSchedulingQueue = v73->_timerSchedulingQueue;
+    v73->_timerSchedulingQueue = v91;
 
-    v94 = +[NSDate distantPast];
-    timerEarliestFireDate = v74->_timerEarliestFireDate;
-    v74->_timerEarliestFireDate = v94;
+    v93 = +[NSDate distantPast];
+    timerEarliestFireDate = v73->_timerEarliestFireDate;
+    v73->_timerEarliestFireDate = v93;
 
-    v96 = +[NSDate distantFuture];
-    timerLatestFireDate = v74->_timerLatestFireDate;
-    v74->_timerLatestFireDate = v96;
+    v95 = +[NSDate distantFuture];
+    timerLatestFireDate = v73->_timerLatestFireDate;
+    v73->_timerLatestFireDate = v95;
 
-    v98 = +[_DASTrialManager sharedInstance];
-    trialManager = v74->_trialManager;
-    v74->_trialManager = v98;
+    v97 = +[_DASTrialManager sharedInstance];
+    trialManager = v73->_trialManager;
+    v73->_trialManager = v97;
 
-    v100 = [_DASTrialManager sharedInstanceForProject:364 withNamespace:@"COREOS_POWER_EXPERIENCE_POWER_TUNING"];
-    trialManagerForPowerExperience = v74->_trialManagerForPowerExperience;
-    v74->_trialManagerForPowerExperience = v100;
+    v99 = [_DASTrialManager sharedInstanceForProject:364 withNamespace:@"COREOS_POWER_EXPERIENCE_POWER_TUNING"];
+    trialManagerForPowerExperience = v73->_trialManagerForPowerExperience;
+    v73->_trialManagerForPowerExperience = v99;
 
-    [(_DASTrialManager *)v74->_trialManager addDelegate:v74];
-    v165[0] = _NSConcreteStackBlock;
-    v165[1] = 3221225472;
-    v165[2] = sub_1000C8A18;
-    v165[3] = &unk_1001B5668;
-    v102 = v74;
-    v166 = v102;
-    v103 = [_DASTimer timerWithCallback:v165];
-    v104 = v102[25];
-    v102[25] = v103;
+    [(_DASTrialManager *)v73->_trialManager addDelegate:v73];
+    v164[0] = _NSConcreteStackBlock;
+    v164[1] = 3221225472;
+    v164[2] = sub_1000C8A18;
+    v164[3] = &unk_1001B5668;
+    v101 = v73;
+    v165 = v101;
+    v102 = [_DASTimer timerWithCallback:v164];
+    v103 = v101[25];
+    v101[25] = v102;
 
-    [v102 setupTimers];
-    v105 = [_DASCoreDataStore storageWithDirectory:@"/var/mobile/Library/DuetActivityScheduler" readOnly:0];
-    v106 = v102[42];
-    v102[42] = v105;
+    [v101 setupTimers];
+    v104 = [_DASCoreDataStore storageWithDirectory:@"/var/mobile/Library/DuetActivityScheduler" readOnly:0];
+    v105 = v101[42];
+    v101[42] = v104;
 
-    if (v163)
+    if (v162)
     {
-      v107 = +[NSXPCListener anonymousListener];
+      v106 = +[NSXPCListener anonymousListener];
     }
 
     else
     {
-      v108 = [NSXPCListener alloc];
-      v107 = [v108 initWithMachServiceName:_DASDaemonServiceName];
+      v107 = [NSXPCListener alloc];
+      v106 = [v107 initWithMachServiceName:_DASDaemonServiceName];
     }
 
-    v109 = v102[22];
-    v102[22] = v107;
+    v108 = v101[22];
+    v101[22] = v106;
 
-    [v102[22] setDelegate:v102];
-    v110 = +[NSXPCListener anonymousListener];
-    v111 = v102[23];
-    v102[23] = v110;
+    [v101[22] setDelegate:v101];
+    v109 = +[NSXPCListener anonymousListener];
+    v110 = v101[23];
+    v101[23] = v109;
 
-    [v102[23] setDelegate:v102];
+    [v101[23] setDelegate:v101];
     [_DASMetricRecorder incrementOccurrencesForKey:@"com.apple.das.startup" byCount:1];
-    v112 = dispatch_queue_attr_make_with_autorelease_frequency(&_dispatch_queue_attr_concurrent, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v113 = dispatch_queue_create("com.apple.duetactivityscheduler.backgroundLaunchQueue", v112);
-    v114 = v102[62];
-    v102[62] = v113;
+    v111 = dispatch_queue_attr_make_with_autorelease_frequency(&_dispatch_queue_attr_concurrent, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v112 = dispatch_queue_create("com.apple.duetactivityscheduler.backgroundLaunchQueue", v111);
+    v113 = v101[62];
+    v101[62] = v112;
 
-    v115 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v116 = dispatch_queue_attr_make_with_qos_class(v115, QOS_CLASS_BACKGROUND, 0);
-    v117 = dispatch_queue_create("com.apple.duetactivityscheduler.telemetryQueue", v116);
-    v118 = v102[33];
-    v102[33] = v117;
+    v114 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v115 = dispatch_queue_attr_make_with_qos_class(v114, QOS_CLASS_BACKGROUND, 0);
+    v116 = dispatch_queue_create("com.apple.duetactivityscheduler.telemetryQueue", v115);
+    v117 = v101[33];
+    v101[33] = v116;
 
-    v119 = v74->_context;
-    v120 = +[_DASPhotosPolicy keyPathForPhotosIsBlocked];
-    v121 = [(_CDLocalContext *)v119 objectForKeyedSubscript:v120];
+    v118 = v73->_context;
+    v119 = +[_DASPhotosPolicy keyPathForPhotosIsBlocked];
+    v120 = [(_CDLocalContext *)v118 objectForKeyedSubscript:v119];
 
-    if (v121)
+    if (v120)
     {
-      v102[73] = [v121 unsignedIntegerValue];
+      v101[73] = [v120 unsignedIntegerValue];
     }
 
     else
     {
-      [v102 updateiCPLTasksBlocked:0];
+      [v101 updateiCPLTasksBlocked:0];
     }
 
-    *(v102 + 4) = 0;
-    v122 = [_CDContextualKeyPath keyPathWithKey:@"/das/utilityConstraints"];
-    v123 = v102[74];
-    v102[74] = v122;
+    *(v101 + 4) = 0;
+    v121 = [_CDContextualKeyPath keyPathWithKey:@"/das/utilityConstraints"];
+    v122 = v101[74];
+    v101[74] = v121;
 
-    v124 = [_CDContextualKeyPath keyPathWithKey:@"/das/maintenanceConstraints"];
-    v125 = v102[75];
-    v102[75] = v124;
+    v123 = [_CDContextualKeyPath keyPathWithKey:@"/das/maintenanceConstraints"];
+    v124 = v101[75];
+    v101[75] = v123;
 
-    v126 = [(_CDLocalContext *)v74->_context objectForKeyedSubscript:v102[74]];
-    v127 = v126;
-    if (v126)
+    v125 = [(_CDLocalContext *)v73->_context objectForKeyedSubscript:v101[74]];
+    v126 = v125;
+    if (v125)
     {
-      v102[76] = [v126 unsignedIntegerValue];
+      v101[76] = [v125 unsignedIntegerValue];
     }
 
-    v128 = [(_CDLocalContext *)v74->_context objectForKeyedSubscript:v102[75]];
-    v129 = v128;
-    if (v128)
+    v127 = [(_CDLocalContext *)v73->_context objectForKeyedSubscript:v101[75]];
+    v128 = v127;
+    if (v127)
     {
-      v102[77] = [v128 unsignedIntegerValue];
+      v101[77] = [v127 unsignedIntegerValue];
     }
 
-    v130 = +[_DASBudgetManager sharedInstance];
-    v131 = v102[69];
-    v102[69] = v130;
+    v129 = +[_DASBudgetManager sharedInstance];
+    v130 = v101[69];
+    v101[69] = v129;
 
-    v132 = +[_DASActivityDependencyManager sharedInstance];
-    v133 = v102[70];
-    v102[70] = v132;
+    v131 = +[_DASActivityDependencyManager sharedInstance];
+    v132 = v101[70];
+    v101[70] = v131;
 
-    v134 = [[_DASAssertionArbiter alloc] initWithDelegate:v102];
-    v135 = v102[71];
-    v102[71] = v134;
+    v133 = [[_DASAssertionArbiter alloc] initWithDelegate:v101];
+    v134 = v101[71];
+    v101[71] = v133;
 
-    v136 = +[_DASProgressReportingMonitor sharedMonitor];
-    v137 = v102[72];
-    v102[72] = v136;
+    v135 = +[_DASProgressReportingMonitor sharedMonitor];
+    v136 = v101[72];
+    v101[72] = v135;
 
-    v138 = objc_opt_new();
-    v139 = v102[51];
-    v102[51] = v138;
+    v137 = objc_opt_new();
+    v138 = v101[51];
+    v101[51] = v137;
 
-    v140 = +[_DASBatteryTemperatureRecorder sharedInstance];
-    v141 = +[_DASActivityProfiler sharedProfiler];
-    v142 = v102[88];
-    v102[88] = v141;
+    v139 = +[_DASBatteryTemperatureRecorder sharedInstance];
+    v140 = +[_DASActivityProfiler sharedProfiler];
+    v141 = v101[88];
+    v101[88] = v140;
 
-    v143 = +[_DASIntensityValidator sharedInstance];
-    v144 = v102[57];
-    v102[57] = v143;
+    v142 = +[_DASIntensityValidator sharedInstance];
+    v143 = v101[57];
+    v101[57] = v142;
 
-    v145 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v146 = dispatch_queue_create("com.apple.duetactivityscheduler.intensityValidatorQueue", v145);
-    v147 = v102[58];
-    v102[58] = v146;
+    v144 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v145 = dispatch_queue_create("com.apple.duetactivityscheduler.intensityValidatorQueue", v144);
+    v146 = v101[58];
+    v101[58] = v145;
 
-    v148 = +[NSMutableSet set];
-    v149 = v102[84];
-    v102[84] = v148;
+    v147 = +[NSMutableSet set];
+    v148 = v101[84];
+    v101[84] = v147;
 
-    v150 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v151 = dispatch_queue_create("com.apple.duetactivityscheduler.lifecycleObservationQueue", v150);
-    v152 = v102[85];
-    v102[85] = v151;
+    v149 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v150 = dispatch_queue_create("com.apple.duetactivityscheduler.lifecycleObservationQueue", v149);
+    v151 = v101[85];
+    v101[85] = v150;
 
-    v153 = +[_DASRuntimeLimiter sharedLimiter];
-    v154 = v102[53];
-    v102[53] = v153;
+    v152 = +[_DASRuntimeLimiter sharedLimiter];
+    v153 = v101[53];
+    v101[53] = v152;
 
-    v155 = +[_DASShadowPolicyEvaluator sharedShadowPolicyEvaluator];
-    v156 = v102[54];
-    v102[54] = v155;
+    v154 = +[_DASShadowPolicyEvaluator sharedShadowPolicyEvaluator];
+    v155 = v101[54];
+    v101[54] = v154;
 
-    v157 = +[_DASNotificationManager sharedManager];
-    v158 = v102[94];
-    v102[94] = v157;
+    v156 = +[_DASNotificationManager sharedManager];
+    v157 = v101[94];
+    v101[94] = v156;
 
-    v159 = +[_DASFeatureDurationTracker sharedInstance];
-    v160 = v102[56];
-    v102[56] = v159;
+    v158 = +[_DASFeatureDurationTracker sharedInstance];
+    v159 = v101[56];
+    v101[56] = v158;
 
-    v161 = +[_DASIssueDetector sharedInstance];
-    [v161 schedule];
+    v160 = +[_DASIssueDetector sharedInstance];
+    [v160 schedule];
   }
 
   return v8;
@@ -1158,6 +1162,21 @@ LABEL_43:
 
   [(_DASDaemon *)self createDefaultActivityGroups];
 LABEL_46:
+}
+
+- (id)assertionArbiter:(id)arbiter clientForPID:(int)d
+{
+  v4 = *&d;
+  arbiterCopy = arbiter;
+  connectedBGTaskClients = [(_DASDaemon *)self connectedBGTaskClients];
+  objc_sync_enter(connectedBGTaskClients);
+  connectedBGTaskClients2 = [(_DASDaemon *)self connectedBGTaskClients];
+  v9 = [NSNumber numberWithInt:v4];
+  v10 = [connectedBGTaskClients2 objectForKeyedSubscript:v9];
+
+  objc_sync_exit(connectedBGTaskClients);
+
+  return v10;
 }
 
 - (void)registerForActivityLifecycleObservation:(id)observation
@@ -1496,40 +1515,38 @@ LABEL_24:
   optimalScoringTimer = self->_optimalScoringTimer;
   self->_optimalScoringTimer = v3;
 
-  v5 = self->_optimalScoringTimer;
   dispatch_set_qos_class_fallback();
-  v6 = self->_optimalScoringTimer;
+  v5 = self->_optimalScoringTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000C9F58;
   handler[3] = &unk_1001B5668;
   handler[4] = self;
-  dispatch_source_set_event_handler(v6, handler);
-  v7 = self->_optimalScoringTimer;
-  v8 = dispatch_walltime(0, 21600000000000);
-  dispatch_source_set_timer(v7, v8, 0x13A52453C000uLL, 0x34630B8A000uLL);
+  dispatch_source_set_event_handler(v5, handler);
+  v6 = self->_optimalScoringTimer;
+  v7 = dispatch_walltime(0, 21600000000000);
+  dispatch_source_set_timer(v6, v7, 0x13A52453C000uLL, 0x34630B8A000uLL);
   dispatch_resume(self->_optimalScoringTimer);
   [(_DASDaemon *)self setupDatabaseMaintenance];
-  v9 = dispatch_queue_create("com.apple.dasd.groupsqueue", 0);
+  v8 = dispatch_queue_create("com.apple.dasd.groupsqueue", 0);
   groupMonitoringQueue = self->_groupMonitoringQueue;
-  self->_groupMonitoringQueue = v9;
+  self->_groupMonitoringQueue = v8;
 
-  v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_groupMonitoringQueue);
+  v10 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_groupMonitoringQueue);
   groupMonitoringTimer = self->_groupMonitoringTimer;
-  self->_groupMonitoringTimer = v11;
+  self->_groupMonitoringTimer = v10;
 
-  v13 = self->_groupMonitoringTimer;
   dispatch_set_qos_class_fallback();
+  v12 = self->_groupMonitoringTimer;
+  v13 = dispatch_walltime(0, 180000000000);
+  dispatch_source_set_timer(v12, v13, 0x29E8D60800uLL, 0x3B9ACA00uLL);
   v14 = self->_groupMonitoringTimer;
-  v15 = dispatch_walltime(0, 180000000000);
-  dispatch_source_set_timer(v14, v15, 0x29E8D60800uLL, 0x3B9ACA00uLL);
-  v16 = self->_groupMonitoringTimer;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10000A3BC;
-  v17[3] = &unk_1001B5668;
-  v17[4] = self;
-  dispatch_source_set_event_handler(v16, v17);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10000A3BC;
+  v15[3] = &unk_1001B5668;
+  v15[4] = self;
+  dispatch_source_set_event_handler(v14, v15);
   dispatch_activate(self->_groupMonitoringTimer);
 }
 
@@ -1573,18 +1590,17 @@ LABEL_24:
   databaseMaintenanceTimer = self->_databaseMaintenanceTimer;
   self->_databaseMaintenanceTimer = v4;
 
-  v6 = self->_databaseMaintenanceTimer;
   dispatch_set_qos_class_fallback();
-  v7 = self->_databaseMaintenanceTimer;
+  v6 = self->_databaseMaintenanceTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000CA4A8;
   handler[3] = &unk_1001B5668;
   handler[4] = self;
-  dispatch_source_set_event_handler(v7, handler);
-  v8 = self->_databaseMaintenanceTimer;
-  v9 = dispatch_walltime(0, 86400000000000);
-  dispatch_source_set_timer(v8, v9, 0x4E94914F0000uLL, 0x4E94914F0000uLL);
+  dispatch_source_set_event_handler(v6, handler);
+  v7 = self->_databaseMaintenanceTimer;
+  v8 = dispatch_walltime(0, 86400000000000);
+  dispatch_source_set_timer(v7, v8, 0x4E94914F0000uLL, 0x4E94914F0000uLL);
   dispatch_resume(self->_databaseMaintenanceTimer);
 }
 
@@ -2105,7 +2121,7 @@ LABEL_25:
       v11 = 0.0;
     }
 
-    v25 = [v7 count];
+    v25 = objc_msgSend_count(v7);
     v26 = ceil(v11);
     if (v26 > v25)
     {
@@ -2119,7 +2135,7 @@ LABEL_25:
 
   else
   {
-    v24 = [activitiesCopy count];
+    v24 = objc_msgSend_count(activitiesCopy);
   }
 
   return v24;
@@ -2190,7 +2206,7 @@ LABEL_25:
       v74 = 2048;
       v75 = v26;
       v76 = 2048;
-      v77 = [v18 count];
+      v77 = objc_msgSend_count(v18);
       _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%@: Current Load=%lld (Pre-running=%lld)", buf, 0x20u);
     }
 
@@ -2690,7 +2706,7 @@ LABEL_67:
 {
   requestCopy = request;
   relatedApplications = [requestCopy relatedApplications];
-  v6 = [relatedApplications count];
+  v6 = objc_msgSend_count(relatedApplications);
 
   if (v6)
   {
@@ -2878,7 +2894,7 @@ LABEL_45:
 {
   requestCopy = request;
   relatedApplications = [requestCopy relatedApplications];
-  v6 = [relatedApplications count];
+  v6 = objc_msgSend_count(relatedApplications);
 
   if (v6)
   {
@@ -2908,7 +2924,7 @@ LABEL_45:
     [v13 removeObject:requestCopy];
 
     v14 = [v11 objectForKeyedSubscript:firstObject];
-    v15 = [v14 count];
+    v15 = objc_msgSend_count(v14);
 
     if (!v15)
     {
@@ -2925,7 +2941,7 @@ LABEL_45:
   os_unfair_recursive_lock_lock_with_options();
   v5 = [(NSMutableDictionary *)self->_applicationLaunchRequests objectForKeyedSubscript:applicationCopy];
 
-  v6 = [v5 count];
+  v6 = objc_msgSend_count(v5);
   os_unfair_recursive_lock_unlock();
   return v6;
 }
@@ -3145,7 +3161,7 @@ LABEL_45:
     while (v7);
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     [(_DASDaemon *)self suspendActivities:v4];
   }
@@ -3156,7 +3172,7 @@ LABEL_45:
 - (unint64_t)submittedTaskCount
 {
   os_unfair_recursive_lock_lock_with_options();
-  v3 = [(NSMutableSet *)self->_pendingTasks count];
+  v3 = objc_msgSend_count(self->_pendingTasks);
   os_unfair_recursive_lock_unlock();
   return v3;
 }
@@ -3696,7 +3712,7 @@ LABEL_11:
     while (v6);
   }
 
-  if ([v40 count])
+  if (objc_msgSend_count(v40))
   {
     v58[0] = _NSConcreteStackBlock;
     v58[1] = 3221225472;
@@ -3824,7 +3840,7 @@ LABEL_34:
     }
   }
 
-  if ([v37 count])
+  if (objc_msgSend_count(v37))
   {
     v45[0] = _NSConcreteStackBlock;
     v45[1] = 3221225472;
@@ -4010,7 +4026,7 @@ LABEL_16:
       }
 
       [v6 removeObject:*(*(&v41 + 1) + 8 * v18)];
-      if (![v6 count])
+      if (!objc_msgSend_count(v6))
       {
         break;
       }
@@ -4061,7 +4077,7 @@ LABEL_16:
     while (v21);
   }
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v25 = [_DASDaemonLogger logForCategory:@"lifecycle"];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -4117,29 +4133,29 @@ LABEL_16:
   context = objc_autoreleasePoolPush();
   v3 = self->_recentlyLaunchedApps;
   objc_sync_enter(v3);
-  if ([(NSMutableDictionary *)self->_recentlyLaunchedApps count]>= 0x1A)
+  if (objc_msgSend_count(self->_recentlyLaunchedApps) >= 0x1A)
   {
     allKeys = [(NSMutableDictionary *)self->_recentlyLaunchedApps allKeys];
     v5 = +[NSDate date];
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
+    v31 = 0u;
     v6 = allKeys;
-    v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v7)
     {
-      v8 = *v30;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v30 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_recentlyLaunchedApps objectForKeyedSubscript:v10];
           [v5 timeIntervalSinceDate:v11];
           v13 = v12 > 450.0;
@@ -4151,35 +4167,35 @@ LABEL_16:
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v7);
     }
 
-    if ([(NSMutableDictionary *)self->_recentlyLaunchedApps count]>= 0x1A)
+    if (objc_msgSend_count(self->_recentlyLaunchedApps) >= 0x1A)
     {
       allKeys2 = [(NSMutableDictionary *)self->_recentlyLaunchedApps allKeys];
 
-      v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
+      v27 = 0u;
       v6 = allKeys2;
-      v15 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v15 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v15)
       {
-        v16 = *v26;
+        v16 = *v27;
         do
         {
           for (j = 0; j != v15; j = j + 1)
           {
-            if (*v26 != v16)
+            if (*v27 != v16)
             {
               objc_enumerationMutation(v6);
             }
 
-            v18 = *(*(&v25 + 1) + 8 * j);
+            v18 = *(*(&v26 + 1) + 8 * j);
             v19 = [(NSMutableDictionary *)self->_recentlyLaunchedApps objectForKeyedSubscript:v18];
             [v5 timeIntervalSinceDate:v19];
             v21 = v20 > 225.0;
@@ -4191,19 +4207,20 @@ LABEL_16:
             }
           }
 
-          v15 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v15 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v15);
       }
 
-      while ([(NSMutableDictionary *)self->_recentlyLaunchedApps count]>= 0x1A)
+      while (objc_msgSend_count(self->_recentlyLaunchedApps) >= 0x1A)
       {
         allKeys3 = [(NSMutableDictionary *)self->_recentlyLaunchedApps allKeys];
 
-        v23 = [allKeys3 objectAtIndex:{arc4random_uniform(objc_msgSend(allKeys3, "count"))}];
-        [(NSMutableDictionary *)self->_recentlyLaunchedApps removeObjectForKey:v23];
-        [(NSCountedSet *)self->_launchesPerApp removeObject:v23];
+        v23 = objc_msgSend_count(allKeys3);
+        v24 = [allKeys3 objectAtIndex:arc4random_uniform(v23)];
+        [(NSMutableDictionary *)self->_recentlyLaunchedApps removeObjectForKey:v24];
+        [(NSCountedSet *)self->_launchesPerApp removeObject:v24];
 
         v6 = allKeys3;
       }
@@ -4430,7 +4447,7 @@ LABEL_30:
         v19 = v68;
         completionCopy = v69;
         failureCopy = v72;
-        if ([v87 count])
+        if (objc_msgSend_count(v87))
         {
           activityLaunchQueue = self->_activityLaunchQueue;
           block[0] = _NSConcreteStackBlock;
@@ -4677,7 +4694,7 @@ LABEL_21:
     v21 = 2112;
     v22 = groupCopy;
     v23 = 2048;
-    v24 = [v14 count];
+    v24 = objc_msgSend_count(v14);
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "NO LONGER RUNNING %@ %{public}@ ...Tasks running in group [%@] are %ld!", &v17, 0x2Au);
   }
 
@@ -4701,7 +4718,7 @@ LABEL_21:
 {
   pendingCopy = pending;
   os_unfair_recursive_lock_lock_with_options();
-  v5 = [(NSMutableSet *)self->_runningTasks count];
+  v5 = objc_msgSend_count(self->_runningTasks);
   [(NSMutableSet *)self->_prerunningTasks removeObject:pendingCopy];
   [(NSMutableSet *)self->_runningTasks removeObject:pendingCopy];
   [(NSMutableSet *)self->_submittedTasks removeObject:pendingCopy];
@@ -4709,13 +4726,13 @@ LABEL_21:
 
   if (v5)
   {
-    [(NSMutableSet *)self->_runningTasks count];
+    objc_msgSend_count(self->_runningTasks);
   }
 
   v6 = [_DASDaemonLogger logForCategory:@"runningTasks"];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_10012A598(&self->_runningTasks);
+    sub_10012A598();
   }
 
   os_unfair_recursive_lock_unlock();
@@ -4898,7 +4915,7 @@ LABEL_41:
           while (v16);
         }
 
-        if ([v52 count])
+        if (objc_msgSend_count(v52))
         {
           [v43 minusSet:v52];
           v72[0] = _NSConcreteStackBlock;
@@ -4970,7 +4987,7 @@ LABEL_41:
         if (_os_feature_enabled_impl())
         {
           internalGroupNames = [v32 internalGroupNames];
-          v34 = [internalGroupNames count] == 0;
+          v34 = objc_msgSend_count(internalGroupNames) == 0;
 
           if (!v34)
           {
@@ -5112,7 +5129,7 @@ LABEL_41:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = [activitiesCopy count];
+    v26 = objc_msgSend_count(activitiesCopy);
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deferring %lu activities", buf, 0xCu);
   }
 
@@ -5163,7 +5180,7 @@ LABEL_41:
     while (v12);
   }
 
-  v18 = [v8 count] != 0;
+  v18 = objc_msgSend_count(v8) != 0;
   [(_DASDaemon *)self suspendActivities:v8];
   handlerCopy[2](handlerCopy, v18);
 }
@@ -5287,7 +5304,7 @@ LABEL_41:
 - (void)suspendActivities:(id)activities
 {
   activitiesCopy = activities;
-  if ([activitiesCopy count])
+  if (objc_msgSend_count(activitiesCopy))
   {
     v5 = [_DASDaemonLogger logForCategory:@"lifecycle"];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -5306,7 +5323,7 @@ LABEL_41:
     [(_DASDaemon *)self allClientsDo:v43];
     [(_DASDaemon *)self informObserversOfActivitiesSuspended:v6];
     connectedBGTaskClients = [(_DASDaemon *)self connectedBGTaskClients];
-    v8 = [connectedBGTaskClients count];
+    v8 = objc_msgSend_count(connectedBGTaskClients);
 
     if (v8)
     {
@@ -5412,7 +5429,7 @@ LABEL_41:
 - (void)cancelActivities:(id)activities
 {
   activitiesCopy = activities;
-  if ([activitiesCopy count])
+  if (objc_msgSend_count(activitiesCopy))
   {
     v5 = [_DASDaemonLogger logForCategory:@"lifecycle"];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -5579,7 +5596,7 @@ LABEL_41:
 - (void)cancelActivitiesWithReason:(id)reason cancellationReason:(int64_t)cancellationReason
 {
   reasonCopy = reason;
-  if ([reasonCopy count])
+  if (objc_msgSend_count(reasonCopy))
   {
     v7 = [_DASDaemonLogger logForCategory:@"lifecycle"];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -6331,9 +6348,9 @@ LABEL_78:
 LABEL_65:
 
   v43 = v57;
-  if (![v57 count])
+  if (!objc_msgSend_count(v57))
   {
-    v11 = [v32 count] != 0;
+    v11 = objc_msgSend_count(v32) != 0;
     goto LABEL_79;
   }
 
@@ -6607,7 +6624,7 @@ LABEL_27:
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Honored policies: %@", buf, 0xCu);
   }
 
-  v18 = [v15 count] == 0;
+  v18 = objc_msgSend_count(v15) == 0;
   return v18;
 }
 
@@ -6645,30 +6662,8 @@ LABEL_27:
           if ([(_DASDaemon *)self shouldPreemptActivity:v15 forFastPassActivity:passCopy])
           {
             [passCopy lastComputedScore];
-            if (v16 > 0.0)
+            if (v16 > 0.0 || ([v15 groupName], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(passCopy, "groupName"), v18 = self, v19 = v11, v20 = v12, v21 = v9, v22 = p_info, v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v17, "isEqualToString:", v23), v23, p_info = v22, v9 = v21, v12 = v20, v11 = v19, self = v18, passCopy = v29, v17, (v24 & 1) != 0))
             {
-              goto LABEL_10;
-            }
-
-            groupName = [v15 groupName];
-            [passCopy groupName];
-            selfCopy = self;
-            v19 = v11;
-            v20 = v12;
-            v21 = v9;
-            v23 = v22 = p_info;
-            v24 = [groupName isEqualToString:v23];
-
-            p_info = v22;
-            v9 = v21;
-            v12 = v20;
-            v11 = v19;
-            self = selfCopy;
-            passCopy = v29;
-
-            if (v24)
-            {
-LABEL_10:
               defaultCategory = [p_info + 1 defaultCategory];
               if (os_log_type_enabled(defaultCategory, OS_LOG_TYPE_DEFAULT))
               {
@@ -6722,22 +6717,9 @@ LABEL_10:
   if (fastPass && !v9)
   {
     v11 = [_DASConditionScore lastDenialResponses:nowCopy];
-    if (![v11 count])
+    if (!objc_msgSend_count(v11) || objc_msgSend_count(v11) == 1 && ([v11 objectAtIndexedSubscript:0], v12 = objc_claimAutoreleasedReturnValue(), +[_DASGroupSchedulingPolicy policyInstance](_DASGroupSchedulingPolicy, "policyInstance"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "policyName"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, v12 == v14))
     {
-      goto LABEL_6;
-    }
-
-    if ([v11 count] == 1)
-    {
-      v12 = [v11 objectAtIndexedSubscript:0];
-      v13 = +[_DASGroupSchedulingPolicy policyInstance];
-      policyName = [v13 policyName];
-
-      if (v12 == policyName)
-      {
-LABEL_6:
-        [(_DASDaemon *)self preemptCandidateActivities:activitiesCopy forFastPass:nowCopy];
-      }
+      [(_DASDaemon *)self preemptCandidateActivities:activitiesCopy forFastPass:nowCopy];
     }
   }
 
@@ -7166,7 +7148,7 @@ LABEL_7:
   if (_os_feature_enabled_impl())
   {
     internalGroupNames = [v6 internalGroupNames];
-    v8 = [internalGroupNames count];
+    v8 = objc_msgSend_count(internalGroupNames);
 
     if (v8)
     {
@@ -7273,7 +7255,7 @@ LABEL_16:
   }
 
   internalGroupNames = [v6 internalGroupNames];
-  v8 = [internalGroupNames count] == 0;
+  v8 = objc_msgSend_count(internalGroupNames) == 0;
 
   if (!v8)
   {
@@ -7334,12 +7316,12 @@ LABEL_17:
   [(NSMutableSet *)self->_prerunningTasks removeObject:runningCopy];
   [(NSMutableSet *)self->_submittedTasks removeObject:runningCopy];
   [(NSMutableSet *)self->_pendingTasks removeObject:runningCopy];
-  [(NSMutableSet *)self->_runningTasks count];
+  objc_msgSend_count(self->_runningTasks);
   [(NSMutableSet *)self->_runningTasks addObject:runningCopy];
   v5 = [_DASDaemonLogger logForCategory:@"runningTasks"];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_10012A598(&self->_runningTasks);
+    sub_10012A598();
   }
 
   os_unfair_recursive_lock_unlock();
@@ -7386,7 +7368,7 @@ LABEL_25:
   }
 
   internalGroupNames = [v12 internalGroupNames];
-  v14 = [internalGroupNames count];
+  v14 = objc_msgSend_count(internalGroupNames);
 
   if (v14)
   {
@@ -7510,7 +7492,7 @@ LABEL_35:
   name = [taskCopy name];
   v11 = [(NSMutableDictionary *)activityToIncompatibleActivitiesMap objectForKeyedSubscript:name];
 
-  v12 = [v11 count];
+  v12 = objc_msgSend_count(v11);
   objc_sync_exit(v8);
 
   if (v12)
@@ -7543,7 +7525,7 @@ LABEL_35:
   if ((bOOLValue & 1) == 0)
   {
     relatedApplications = [activityCopy relatedApplications];
-    if (![relatedApplications count] || (v9 = objc_msgSend(activityCopy, "schedulingPriority"), v9 > _DASSchedulingPriorityUtility))
+    if (!objc_msgSend_count(relatedApplications) || (v9 = [activityCopy schedulingPriority], v9 > _DASSchedulingPriorityUtility))
     {
 
       goto LABEL_30;
@@ -7694,7 +7676,7 @@ LABEL_30:
     v6 = +[_DASPlistParser sharedInstance];
     v7 = [v6 dictionaryForPlist:2];
 
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v20 = 0u;
       v21 = 0u;
@@ -7754,7 +7736,7 @@ LABEL_30:
   activityCopy = activity;
   v5 = [(_DASConfigurationLimiter *)self->_configurationLimiter shouldLimitActivityAtSubmission:activityCopy];
   v6 = v5;
-  if (v5 && [v5 count])
+  if (v5 && objc_msgSend_count(v5))
   {
     [(_DASConfigurationLimiter *)self->_configurationLimiter limitedActivity:activityCopy withLimitsResponses:v6];
     limitationResponse = [activityCopy limitationResponse];
@@ -7878,7 +7860,7 @@ LABEL_17:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Submitted activities: %{public}@", buf, 0xCu);
   }
 
-  v6 = [activitiesCopy count];
+  v6 = objc_msgSend_count(activitiesCopy);
   v7 = [NSMutableDictionary dictionaryWithCapacity:v6];
   v69 = [NSMutableSet setWithCapacity:v6];
   v73 = [NSMutableSet setWithCapacity:v6];
@@ -8091,7 +8073,7 @@ LABEL_31:
         if (_os_feature_enabled_impl())
         {
           internalGroupNames = [v9 internalGroupNames];
-          v46 = [internalGroupNames count] == 0;
+          v46 = objc_msgSend_count(internalGroupNames) == 0;
 
           if (v46)
           {
@@ -8205,7 +8187,7 @@ LABEL_77:
   }
 
   [(_DASDaemon *)selfCopy addPendingActivitiesToGroups:v7];
-  if ([v69 count])
+  if (objc_msgSend_count(v69))
   {
     v65 = objc_autoreleasePoolPush();
     [(_DASDataStore *)selfCopy->_store saveActivities:v69];
@@ -8279,7 +8261,7 @@ LABEL_77:
     v15 = 2112;
     v16 = fromCopy;
     v17 = 2048;
-    v18 = [v12 count];
+    v18 = objc_msgSend_count(v12);
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "NO LONGER RUNNING %{public}@ ...Tasks running in group [%@] are %ld!", &v13, 0x20u);
   }
 
@@ -8329,7 +8311,7 @@ LABEL_77:
   v14 = [_DASDaemonLogger logForCategory:@"runningTasks"];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_10012A598(&self->_runningTasks);
+    sub_10012A598();
   }
 
   os_unfair_recursive_lock_unlock();
@@ -8386,7 +8368,7 @@ LABEL_77:
   if (_os_feature_enabled_impl())
   {
     internalGroupNames = [v7 internalGroupNames];
-    v24 = [internalGroupNames count];
+    v24 = objc_msgSend_count(internalGroupNames);
 
     if (!v24)
     {
@@ -8707,7 +8689,7 @@ LABEL_78:
     v9 = startedCopy;
     v19 = v9;
     v10 = [(NSMutableSet *)prerunningTasks objectsPassingTest:v18];
-    if ([v10 count])
+    if (objc_msgSend_count(v10))
     {
       anyObject = [v10 anyObject];
       [v9 reconcileWithActivity:anyObject];
@@ -8769,7 +8751,7 @@ LABEL_78:
 
       v11 = limitationResponse;
       limitationResponse2 = [limitationsCopy limitationResponse];
-      v13 = [limitationResponse2 count];
+      v13 = objc_msgSend_count(limitationResponse2);
 
       if (!v13)
       {
@@ -8794,6 +8776,399 @@ LABEL_78:
   }
 
 LABEL_8:
+}
+
+- (id)activityAnalyticsWithActivity:(id)activity didComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  activityCopy = activity;
+  startDate = [activityCopy startDate];
+  v7 = +[NSDate date];
+  startBefore = [activityCopy startBefore];
+  startAfter = [activityCopy startAfter];
+  [startBefore timeIntervalSinceDate:startAfter];
+  v11 = v10;
+
+  startConditions = [activityCopy startConditions];
+  currentReportingConditions = [(_DASDaemon *)self currentReportingConditions];
+  name = [activityCopy name];
+  if (([(__CFString *)name hasPrefix:@"com.apple.CFNetwork-cc"]& 1) != 0)
+  {
+    v13 = @"com.apple.CFNetwork";
+  }
+
+  else
+  {
+    if (![(__CFString *)name containsString:@"x-coredata"])
+    {
+      v110 = name;
+      goto LABEL_7;
+    }
+
+    v13 = [(__CFString *)name substringWithRange:0, [(__CFString *)name rangeOfString:@".x-coredata"]];
+  }
+
+  v110 = v13;
+LABEL_7:
+  v14 = 0;
+  while (1)
+  {
+    [activityCopy interval];
+    v16 = qword_100158F90[v14];
+    if (v16 == v15)
+    {
+      break;
+    }
+
+    [activityCopy interval];
+    if (v17 < v16)
+    {
+      break;
+    }
+
+    if (++v14 == 120)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v18 = [NSNumber numberWithLong:?];
+  if (v18)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_13:
+  v18 = &off_1001CA510;
+LABEL_14:
+  v109 = v18;
+  v19 = 0;
+  while (1)
+  {
+    v20 = qword_100158F90[v19];
+    if (v20 == v11)
+    {
+      break;
+    }
+
+    if (v20 > v11)
+    {
+      v21 = v20 - 1;
+      goto LABEL_21;
+    }
+
+    if (++v19 == 120)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  v21 = v11;
+LABEL_21:
+  v22 = [NSNumber numberWithLong:v21];
+  if (v22)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  v22 = &off_1001CA510;
+LABEL_23:
+  startDate2 = [activityCopy startDate];
+  startBefore2 = [activityCopy startBefore];
+  [startDate2 timeIntervalSinceDate:startBefore2];
+  v26 = llround(v25);
+  v27 = v26;
+
+  if (v26 < 1)
+  {
+    v31 = 120;
+    v32 = v22;
+    while (1)
+    {
+      if (!v31)
+      {
+        v36 = 0;
+        goto LABEL_41;
+      }
+
+      if (!(v26 + qword_100158F90[v31 - 1]))
+      {
+        break;
+      }
+
+      v33 = qword_100158F90[v31--];
+      if (v33 < -v26)
+      {
+        v34 = 1 - v33;
+        goto LABEL_40;
+      }
+    }
+
+    v34 = -qword_100158F90[v31];
+LABEL_40:
+    v36 = [NSNumber numberWithLong:v34];
+LABEL_41:
+
+    v29 = &off_1001CA4E0;
+  }
+
+  else
+  {
+    v28 = 0;
+    v29 = v22;
+    while (1)
+    {
+      v30 = qword_100158F90[v28];
+      if (v30 == v27)
+      {
+        break;
+      }
+
+      if (v30 > v27)
+      {
+        v35 = v30 - 1;
+        goto LABEL_36;
+      }
+
+      if (++v28 == 120)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    v35 = v27;
+LABEL_36:
+    v36 = [NSNumber numberWithLong:v35];
+    if (v36)
+    {
+      goto LABEL_42;
+    }
+
+LABEL_37:
+    v36 = &off_1001CA510;
+  }
+
+LABEL_42:
+  startDate3 = [activityCopy startDate];
+  startAfter2 = [activityCopy startAfter];
+  [startDate3 timeIntervalSinceDate:startAfter2];
+  v40 = round(v39 / v11 * 5.0) * 20.0;
+
+  v41 = 1000.0;
+  if (v40 <= 1000.0)
+  {
+    v41 = v40;
+  }
+
+  v42 = fmax(v41, 0.0);
+  v43 = +[NSCalendar currentCalendar];
+  v44 = [v43 components:28 fromDate:v7];
+  v102 = v43;
+  v45 = [v43 dateFromComponents:v44];
+
+  v101 = v45;
+  [v7 timeIntervalSinceDate:v45];
+  v97 = (v46 / 3600.0) % 24;
+  v112[0] = v110;
+  v111[0] = @"Name";
+  v111[1] = @"Priority";
+  v100 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [activityCopy schedulingPriority]);
+  v112[1] = v100;
+  v111[2] = @"RuntimeMins";
+  startDate4 = [activityCopy startDate];
+  v107 = v7;
+  if (startDate4)
+  {
+    [v7 timeIntervalSinceDate:startDate];
+    v48 = [NSNumber numberWithDouble:round(v47 / 60.0)];
+  }
+
+  else
+  {
+    v48 = &stru_1001BA3C0;
+  }
+
+  v112[2] = v48;
+  v112[3] = v109;
+  v111[3] = @"Interval";
+  v111[4] = @"Completed";
+  v98 = [NSNumber numberWithBool:completeCopy, v48];
+  v112[4] = v98;
+  v111[5] = @"Backlogged";
+  v96 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy backlogged]);
+  v112[5] = v96;
+  v111[6] = @"AppLaunch";
+  v95 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy requestsApplicationLaunch]);
+  v112[6] = v95;
+  v111[7] = @"LaunchType";
+  launchReason = [activityCopy launchReason];
+  v94 = launchReason;
+  if (launchReason)
+  {
+    v50 = launchReason;
+  }
+
+  else
+  {
+    v50 = &stru_1001BA3C0;
+  }
+
+  v112[7] = v50;
+  v111[8] = @"SuspendRequested";
+  suspendRequestDate = [activityCopy suspendRequestDate];
+  v92 = [NSNumber numberWithInt:suspendRequestDate != 0];
+  v112[8] = v92;
+  v111[9] = @"RequiresInactivity";
+  v91 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy requiresDeviceInactivity]);
+  v112[9] = v91;
+  v111[10] = @"RequiresPlugin";
+  v90 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy requiresPlugin]);
+  v112[10] = v90;
+  v111[11] = @"RequiresInexpensive";
+  v51 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy requiresInexpensiveNetworking]);
+  v112[11] = v51;
+  v111[12] = @"RequiresNetworking";
+  v52 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy requiresNetwork]);
+  v112[12] = v52;
+  v111[13] = @"IsIntensive";
+  v53 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [activityCopy isIntensive]);
+  v112[13] = v53;
+  v112[14] = v29;
+  v103 = v36;
+  v104 = v29;
+  v111[14] = @"TimeWindow";
+  v111[15] = @"DeadlineDelta";
+  v112[15] = v36;
+  v111[16] = @"DeadlinePct";
+  v54 = [NSNumber numberWithDouble:v42];
+  v112[16] = v54;
+  v111[17] = @"DeadlinePctHist";
+  v55 = [NSNumber numberWithDouble:v42];
+  v112[17] = v55;
+  v111[18] = @"RecentlyUpdated";
+  v56 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", +[_DASConfig hasRecentlyUpdated]);
+  v112[18] = v56;
+  v111[19] = @"TimeSlot";
+  v57 = [NSNumber numberWithInt:v97];
+  v112[19] = v57;
+  v58 = [NSDictionary dictionaryWithObjects:v112 forKeys:v111 count:20];
+  v59 = [v58 mutableCopy];
+
+  if (startDate4)
+  {
+  }
+
+  if ([activityCopy lastDenialValue])
+  {
+    v60 = [_DASConditionScore lastDenialResponses:activityCopy];
+    if (objc_msgSend_count(v60))
+    {
+      v61 = [NSSet setWithArray:v60];
+      anyObject = [v61 anyObject];
+      [v59 setObject:anyObject forKeyedSubscript:@"SuspensionReason"];
+    }
+  }
+
+  v63 = [startConditions objectForKeyedSubscript:@"batteryLevel"];
+
+  if (v63)
+  {
+    v64 = [startConditions objectForKeyedSubscript:@"batteryLevel"];
+    [v59 setObject:v64 forKeyedSubscript:@"StartBatteryLevel"];
+  }
+
+  v65 = [startConditions objectForKeyedSubscript:@"nwInterface"];
+
+  if (v65)
+  {
+    v66 = [startConditions objectForKeyedSubscript:@"nwInterface"];
+    [v59 setObject:v66 forKeyedSubscript:@"StartNWInterface"];
+  }
+
+  v67 = [startConditions objectForKeyedSubscript:@"nwQuality"];
+
+  if (v67)
+  {
+    v68 = [startConditions objectForKeyedSubscript:@"nwQuality"];
+    [v59 setObject:v68 forKeyedSubscript:@"StartNWQuality"];
+  }
+
+  v69 = [startConditions objectForKeyedSubscript:@"onCharger"];
+
+  if (v69)
+  {
+    v70 = [startConditions objectForKeyedSubscript:@"onCharger"];
+    [v59 setObject:v70 forKeyedSubscript:@"StartedOnCharger"];
+  }
+
+  v71 = [startConditions objectForKeyedSubscript:@"idle"];
+
+  if (v71)
+  {
+    v72 = [startConditions objectForKeyedSubscript:@"idle"];
+    [v59 setObject:v72 forKeyedSubscript:@"StartIdle"];
+  }
+
+  v73 = [currentReportingConditions objectForKeyedSubscript:@"thermalLevel"];
+
+  if (v73)
+  {
+    v74 = [currentReportingConditions objectForKeyedSubscript:@"thermalLevel"];
+    [v59 setObject:v74 forKeyedSubscript:@"EndingThermalPressure"];
+  }
+
+  v75 = [currentReportingConditions objectForKeyedSubscript:@"batteryLevel"];
+
+  if (v75)
+  {
+    v76 = [currentReportingConditions objectForKeyedSubscript:@"batteryLevel"];
+    [v59 setObject:v76 forKeyedSubscript:@"EndBatteryLevel"];
+  }
+
+  v77 = [currentReportingConditions objectForKeyedSubscript:@"nwInterface"];
+
+  if (v77)
+  {
+    v78 = [currentReportingConditions objectForKeyedSubscript:@"nwInterface"];
+    [v59 setObject:v78 forKeyedSubscript:@"EndNWInterface"];
+  }
+
+  v79 = [currentReportingConditions objectForKeyedSubscript:@"nwQuality"];
+
+  if (v79)
+  {
+    v80 = [currentReportingConditions objectForKeyedSubscript:@"nwQuality"];
+    [v59 setObject:v80 forKeyedSubscript:@"EndNWQuality"];
+  }
+
+  v81 = [currentReportingConditions objectForKeyedSubscript:@"onCharger"];
+
+  if (v81)
+  {
+    v82 = [currentReportingConditions objectForKeyedSubscript:@"onCharger"];
+    [v59 setObject:v82 forKeyedSubscript:@"EndedOnCharger"];
+  }
+
+  v83 = [currentReportingConditions objectForKeyedSubscript:@"idle"];
+
+  if (v83)
+  {
+    v84 = [currentReportingConditions objectForKeyedSubscript:@"idle"];
+    [v59 setObject:v84 forKeyedSubscript:@"EndIdle"];
+  }
+
+  v85 = [currentReportingConditions objectForKeyedSubscript:@"thermalLevel"];
+
+  if (v85)
+  {
+    v86 = [currentReportingConditions objectForKeyedSubscript:@"thermalLevel"];
+    [v59 setObject:v86 forKeyedSubscript:@"EndingThermalPressure"];
+  }
+
+  v87 = [v59 copy];
+
+  return v87;
 }
 
 - (void)activityCompleted:(id)completed withSuccess:(BOOL)success
@@ -9522,7 +9897,7 @@ LABEL_7:
     v15 = 2112;
     v16 = nameCopy;
     v17 = 2048;
-    v18 = [v9 count];
+    v18 = objc_msgSend_count(v9);
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "With %@ ...Tasks pre-running in group [%@] are %ld!", &v13, 0x20u);
   }
 
@@ -9558,7 +9933,7 @@ LABEL_7:
     v16 = 2112;
     v17 = nameCopy;
     v18 = 2048;
-    v19 = [v10 count];
+    v19 = objc_msgSend_count(v10);
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "With %@ ...Tasks running in group [%@] are %ld!", &v14, 0x20u);
   }
 
@@ -9994,7 +10369,7 @@ LABEL_58:
           {
             [_DASMetricRecorder incrementOccurrencesForKey:@"com.apple.das.submitcount.launch" byCount:1];
             relatedApplications5 = [v45 relatedApplications];
-            v83 = [relatedApplications5 count];
+            v83 = objc_msgSend_count(relatedApplications5);
 
             if (v83)
             {
@@ -10044,7 +10419,7 @@ LABEL_58:
           if (_os_feature_enabled_impl())
           {
             internalGroupNames = [v45 internalGroupNames];
-            v91 = [internalGroupNames count] == 0;
+            v91 = objc_msgSend_count(internalGroupNames) == 0;
 
             if (v91)
             {
@@ -10464,7 +10839,7 @@ LABEL_78:
         v85 = 0;
 LABEL_84:
 
-        if ([v104 count])
+        if (objc_msgSend_count(v104))
         {
           v86 = [_DASDaemonLogger logForCategory:@"BackgroundTasks"];
           if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
@@ -10912,7 +11287,7 @@ LABEL_103:
   [activitiesWaitingForBGTaskClients2 removeObjectForKey:v18];
 
   objc_sync_exit(v9);
-  if ([v16 count])
+  if (objc_msgSend_count(v16))
   {
     v19 = [_DASDaemonLogger logForCategory:@"bar"];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -10965,7 +11340,7 @@ LABEL_103:
       while (v22);
     }
 
-    if ([v21 count])
+    if (objc_msgSend_count(v21))
     {
       v28 = [v21 copy];
       [clientCopy willExpireBGTaskActivities:v28];
@@ -11099,7 +11474,7 @@ LABEL_103:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = [activitiesCopy count];
+    v21 = objc_msgSend_count(activitiesCopy);
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Force Running %lu activities", buf, 0xCu);
   }
 
@@ -12301,7 +12676,7 @@ LABEL_17:
         [v13 setObject:v37 forKeyedSubscript:@"blockingPolicies"];
         [v13 setObject:&__kCFBooleanFalse forKeyedSubscript:@"foundActivity"];
         v35 = v13;
-        if ([v45[5] count] && (unsignedIntegerValue & 1) != 0)
+        if (objc_msgSend_count(v45[5]) && (unsignedIntegerValue & 1) != 0)
         {
           [v13 setObject:&__kCFBooleanTrue forKeyedSubscript:@"foundActivity"];
           v14 = [v45[5] objectForKeyedSubscript:@"policyEvaluations"];
@@ -12343,7 +12718,7 @@ LABEL_17:
             while (v18);
           }
 
-          if (![v37 count])
+          if (!objc_msgSend_count(v37))
           {
             v25 = +[_DASDaemonLogger defaultCategory];
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -12583,6 +12958,39 @@ LABEL_11:
   handlerCopy[2](handlerCopy, 1);
 }
 
+- (void)enableTaskRegistryMode:(BOOL)mode processes:(id)processes handler:(id)handler
+{
+  modeCopy = mode;
+  processesCopy = processes;
+  handlerCopy = handler;
+  v10 = +[_DASDaemonLogger defaultCategory];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 67109120;
+    LODWORD(v16) = modeCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting task registry mode to: %i", &v15, 8u);
+  }
+
+  v11 = +[_DASDaemonLogger defaultCategory];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138412290;
+    v16 = processesCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Setting processes to: %@", &v15, 0xCu);
+  }
+
+  self->_taskRegistryMode = modeCopy;
+  taskRegistryProcesses = self->_taskRegistryProcesses;
+  self->_taskRegistryProcesses = processesCopy;
+  v13 = processesCopy;
+
+  allObjects = [(NSSet *)v13 allObjects];
+  [(NSUserDefaults *)self->_testingDefaults setBool:modeCopy forKey:@"taskRegistryMode"];
+  [(NSUserDefaults *)self->_testingDefaults setObject:allObjects forKey:@"taskRegistryProcesses"];
+
+  handlerCopy[2](handlerCopy, 1);
+}
+
 - (void)submitRateLimitConfiguration:(id)configuration handler:(id)handler
 {
   handlerCopy = handler;
@@ -12605,7 +13013,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Pausing scheduling with parameters: %@", &v13, 0xCu);
   }
 
-  if ([parametersCopy count])
+  if (objc_msgSend_count(parametersCopy))
   {
     v9 = [parametersCopy mutableCopy];
     v10 = [NSDate dateWithTimeIntervalSinceNow:86400.0];
@@ -13216,7 +13624,7 @@ LABEL_11:
   v10 = +[_DASDaemon sharedInstance];
   v11 = [v10 sortCandidateActivities:v9];
 
-  v12 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
+  v12 = [NSMutableArray arrayWithCapacity:objc_msgSend_count(v9)];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
@@ -13598,7 +14006,7 @@ LABEL_65:
   v52 = [_DASDaemonLogger logForCategory:@"evaluation"];
   if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
-    v53 = [v75 count];
+    v53 = objc_msgSend_count(v75);
     *buf = 134217984;
     v105 = v53;
     _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Evaluating %llu activities based on triggers", buf, 0xCu);
@@ -13745,7 +14153,7 @@ LABEL_11:
         if (_os_feature_enabled_impl())
         {
           internalGroupNames = [v6 internalGroupNames];
-          v17 = [internalGroupNames count] == 0;
+          v17 = objc_msgSend_count(internalGroupNames) == 0;
 
           if (v17)
           {
@@ -13918,6 +14326,24 @@ LABEL_36:
   }
 
   [(_DASDaemon *)self unprotectedEvaluateScoreAndRunActivities:v5];
+}
+
+- (void)registerWithContextStoreForId:(id)id contextualPredicate:(id)predicate dismissalCondition:(id)condition deviceSet:(unint64_t)set mustWake:(BOOL)wake qualityOfService:(unsigned int)service
+{
+  wakeCopy = wake;
+  idCopy = id;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000EC054;
+  v19[3] = &unk_1001B8928;
+  predicateCopy = predicate;
+  selfCopy = self;
+  v22 = idCopy;
+  v15 = idCopy;
+  v16 = predicateCopy;
+  LODWORD(v18) = service;
+  v17 = [_CDContextualChangeRegistration registrationWithIdentifier:v15 contextualPredicate:v16 dismissalPolicy:condition deviceSet:set clientIdentifier:@"com.apple.dasd.trigger" mustWake:wakeCopy qualityOfService:v18 callback:v19];
+  [(_CDLocalContext *)self->_context registerCallback:v17];
 }
 
 - (void)registerTriggersWithContextStoreForPolicies:(id)policies
@@ -14158,7 +14584,7 @@ LABEL_25:
     while (v6);
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     [(_DASDaemon *)selfCopy associateActivity:activityCopy withTriggerKeys:v4];
   }
@@ -14300,7 +14726,7 @@ LABEL_10:
         }
 
         fastPass = [v10 internalGroupNames];
-        if ([fastPass count])
+        if (objc_msgSend_count(fastPass))
         {
           schedulingPriority = [v10 schedulingPriority];
           v13 = _DASSchedulingPriorityDefault;
@@ -14497,7 +14923,7 @@ LABEL_11:
     LOBYTE(v31) = 0;
   }
 
-  if ([v13 count])
+  if (objc_msgSend_count(v13))
   {
     v21 = [_DASDaemonLogger logForCategory:@"scoring"];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -14508,7 +14934,7 @@ LABEL_11:
     }
   }
 
-  if ([v33 count])
+  if (objc_msgSend_count(v33))
   {
     v22 = [_DASDaemonLogger logForCategory:@"scoring"];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
@@ -14772,10 +15198,10 @@ LABEL_9:
 {
   activitiesCopy = activities;
   v5 = objc_autoreleasePoolPush();
-  if ([activitiesCopy count])
+  if (objc_msgSend_count(activitiesCopy))
   {
     v47 = v5;
-    v55 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [activitiesCopy count]);
+    v55 = [NSMutableSet setWithCapacity:objc_msgSend_count(activitiesCopy)];
     v46 = +[NSMutableSet set];
     v45 = +[NSMutableSet set];
     v44 = +[NSMutableSet set];
@@ -14901,9 +15327,9 @@ LABEL_9:
     v31 = [_DASDaemonLogger logForCategory:@"evaluation"];
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v55 count]);
-      v33 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [obj count]);
-      v34 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v51 count]);
+      v32 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v55)];
+      v33 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(obj)];
+      v34 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v51)];
       *buf = 138412802;
       v74 = v32;
       v75 = 2112;
@@ -14913,7 +15339,7 @@ LABEL_9:
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Evaluating %@ activities (initial candidates: %@, passenger candidates: %@)", buf, 0x20u);
     }
 
-    +[_DASMetricRecorder incrementOccurrencesForKey:byCount:](_DASMetricRecorder, "incrementOccurrencesForKey:byCount:", @"com.apple.das.evaluationCount", [v55 count]);
+    [_DASMetricRecorder incrementOccurrencesForKey:@"com.apple.das.evaluationCount" byCount:objc_msgSend_count(v55)];
     v35 = +[NSMutableSet set];
     v56 = 0u;
     v57 = 0u;
@@ -14947,29 +15373,29 @@ LABEL_9:
       while (v38);
     }
 
-    if ([v35 count])
+    if (objc_msgSend_count(v35))
     {
       [(_DASDynamicRuntimeAllocator *)self->_runtimeAllocator reallocateRuntimeWithActivities:v35];
     }
 
     [(_DASDaemon *)self chooseActivitiesToRunFromCandidateActivities:v36 toBeRunActivities:v44 toLaunchApplications:v46 toLaunchExtension:v45];
     activitiesCopy = v48;
-    if ([v44 count])
+    if (objc_msgSend_count(v44))
     {
       [(_DASDaemon *)self runActivitiesAndRemoveUnknown:v44];
     }
 
-    if ([v46 count])
+    if (objc_msgSend_count(v46))
     {
       [(_DASDaemon *)self runApplicationLaunchActivities:v46];
     }
 
-    if ([v45 count])
+    if (objc_msgSend_count(v45))
     {
       [(_DASDaemon *)self runExtensionLaunchActivities:v45];
     }
 
-    if ([v52 count])
+    if (objc_msgSend_count(v52))
     {
       [(_DASDaemon *)self cancelActivities:v52];
     }
@@ -14997,35 +15423,52 @@ LABEL_9:
   dispatch_sync(evaluationQueue, block);
 }
 
+- (BOOL)shouldSuspendLongRunningActivity:(id)activity withStartDate:(id)date whileBlockingOtherTasks:(BOOL)tasks atDate:(id)atDate
+{
+  tasksCopy = tasks;
+  activityCopy = activity;
+  dateCopy = date;
+  atDateCopy = atDate;
+  if ([(_DASDaemon *)self isActivitySuspendable:activityCopy withStartDate:dateCopy])
+  {
+    if (![(_DASRuntimeLimiter *)self->_runtimeLimiter onlyPreemptiveSuspend]|| tasksCopy)
+    {
+      [(_DASShadowPolicyEvaluator *)self->_shadowPolicyEvaluator reportShadowEvaluationForPolicy:1 forActivity:activityCopy atDate:atDateCopy];
+      v13 = [(_DASRuntimeLimiter *)self->_runtimeLimiter shouldLimitActivityAtRuntime:activityCopy whileBlockingOtherTasks:tasksCopy withStartDate:dateCopy atDate:atDateCopy withContext:self->_context];
+      v14 = v13;
+      if (v13)
+      {
+        LOBYTE(tasksCopy) = [v13 decision] == 3;
+      }
+
+      else
+      {
+        LOBYTE(tasksCopy) = 0;
+      }
+    }
+  }
+
+  else
+  {
+    LOBYTE(tasksCopy) = 0;
+  }
+
+  return tasksCopy;
+}
+
 - (BOOL)shouldPreemptActivity:(id)activity forFastPassActivity:(id)passActivity
 {
   activityCopy = activity;
   passActivityCopy = passActivity;
   fastPass = [passActivityCopy fastPass];
-  if (!fastPass)
+  if (fastPass && (v9 = fastPass, [activityCopy fastPass], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10) && (objc_msgSend(activityCopy, "startDate"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[_DASDaemon isActivitySuspendable:withStartDate:](self, "isActivitySuspendable:withStartDate:", activityCopy, v11), v11, v12))
   {
-    goto LABEL_6;
-  }
-
-  v9 = fastPass;
-  fastPass2 = [activityCopy fastPass];
-
-  if (fastPass2)
-  {
-    goto LABEL_6;
-  }
-
-  startDate = [activityCopy startDate];
-  v12 = [(_DASDaemon *)self isActivitySuspendable:activityCopy withStartDate:startDate];
-
-  if (v12)
-  {
-    fastPass3 = [passActivityCopy fastPass];
-    processingTaskIdentifiers = [fastPass3 processingTaskIdentifiers];
+    fastPass2 = [passActivityCopy fastPass];
+    processingTaskIdentifiers = [fastPass2 processingTaskIdentifiers];
     if (processingTaskIdentifiers)
     {
-      fastPass4 = [passActivityCopy fastPass];
-      processingTaskIdentifiers2 = [fastPass4 processingTaskIdentifiers];
+      fastPass3 = [passActivityCopy fastPass];
+      processingTaskIdentifiers2 = [fastPass3 processingTaskIdentifiers];
       name = [activityCopy name];
       v18 = [processingTaskIdentifiers2 containsObject:name];
     }
@@ -15038,7 +15481,6 @@ LABEL_9:
 
   else
   {
-LABEL_6:
     v18 = 0;
   }
 
@@ -15396,7 +15838,7 @@ LABEL_58:
     while (v8);
   }
 
-  +[_DASMetricRecorder incrementOccurrencesForKey:byCount:](_DASMetricRecorder, "incrementOccurrencesForKey:byCount:", @"com.apple.das.suspensioncount", [v54 count]);
+  [_DASMetricRecorder incrementOccurrencesForKey:@"com.apple.das.suspensioncount" byCount:objc_msgSend_count(v54)];
 
   return v54;
 }
@@ -15842,7 +16284,7 @@ LABEL_58:
     v9 = [_DASDaemonLogger logForCategory:@"lifecycle"];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = [(NSMutableSet *)self->_prewarmInvalidationConnections count];
+      v10 = objc_msgSend_count(self->_prewarmInvalidationConnections);
       v12[0] = 67109120;
       v12[1] = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "setupPrewarmSuspendListener connection invalidated (outstanding connections: %d)", v12, 8u);

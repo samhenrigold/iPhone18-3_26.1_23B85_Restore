@@ -210,9 +210,9 @@ LABEL_26:
   [_newIPodLibraryItem setItemMetadata:storeMetadata];
 
   v9 = [[AddItemToIPodLibraryOperation alloc] initWithIPodLibraryItem:_newIPodLibraryItem];
-  v28 = 0;
-  v10 = [(InstallMediaDownloadOperation *)self runSubOperation:v9 returningError:&v28];
-  v11 = v28;
+  v27 = 0;
+  v10 = [(InstallMediaDownloadOperation *)self runSubOperation:v9 returningError:&v27];
+  v11 = v27;
   if (v10)
   {
     iPodLibraryItem = [(AddItemToIPodLibraryOperation *)v9 IPodLibraryItem];
@@ -245,16 +245,21 @@ LABEL_26:
     shouldLog = [newITunesMetadataDictionary shouldLog];
     if ([newITunesMetadataDictionary shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [newITunesMetadataDictionary OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -264,22 +269,21 @@ LABEL_26:
       v21 = objc_opt_class();
       v22 = v21;
       databaseID = [download databaseID];
-      v29 = 138412802;
-      v30 = v21;
-      v31 = 2048;
-      v32 = databaseID;
-      v33 = 2112;
-      v34 = v11;
-      LODWORD(v27) = 32;
-      v24 = _os_log_send_and_compose_impl();
+      v28 = 138412802;
+      v29 = v21;
+      v30 = 2048;
+      v31 = databaseID;
+      v32 = 2112;
+      v33 = v11;
+      v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not install media download: %lld, error: %@", &v28, 32);
 
       if (!v24)
       {
         insertedItemPersistentIdentifier = 0;
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v24 encoding:4, &v29, v27];
+      oSLogObject = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       SSFileLog();
     }
@@ -287,7 +291,7 @@ LABEL_26:
     insertedItemPersistentIdentifier = 0;
   }
 
-LABEL_17:
+LABEL_18:
   if (download && !insertedItemPersistentIdentifier)
   {
     v25 = v11;
@@ -334,9 +338,9 @@ LABEL_17:
 
     [(IPodLibraryItem *)v7 setItemArtworkData:v13];
     v21 = [[AddItemToIPodLibraryOperation alloc] initWithIPodLibraryItem:v7];
-    v26 = 0;
-    LOBYTE(selfCopy) = [selfCopy runSubOperation:v21 returningError:&v26];
-    v20 = v26;
+    v25 = 0;
+    LOBYTE(selfCopy) = [selfCopy runSubOperation:v21 returningError:&v25];
+    v20 = v25;
 
     download = downloadCopy;
   }
@@ -375,12 +379,11 @@ LABEL_17:
     {
       v18 = objc_opt_class();
       v19 = v18;
-      v27 = 138412546;
-      v28 = v18;
-      v29 = 2048;
+      v26 = 138412546;
+      v27 = v18;
+      v28 = 2048;
       databaseID = [download databaseID];
-      LODWORD(v24) = 22;
-      selfCopy = _os_log_send_and_compose_impl();
+      selfCopy = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Missing library ID for download: %lld", &v26, 22);
 
       if (!selfCopy)
       {
@@ -388,7 +391,7 @@ LABEL_17:
         goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:selfCopy encoding:4, &v27, v24];
+      oSLogObject = [NSString stringWithCString:selfCopy encoding:4];
       free(selfCopy);
       SSFileLog();
     }
@@ -535,7 +538,7 @@ LABEL_20:
     [v19 addObject:v9];
     if (![v7 writeToFile:v5 atomically:1])
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     v20 = +[SSLogConfig sharedDaemonConfig];
@@ -544,19 +547,24 @@ LABEL_20:
       v20 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v20 shouldLog];
+    LODWORD(v21) = [v20 shouldLog];
     if ([v20 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v21) = v21 | 2;
     }
 
     oSLogObject = [v20 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v21 = v21;
     }
 
-    if (shouldLog)
+    else
+    {
+      v21 &= 2u;
+    }
+
+    if (v21)
     {
       v32 = 138412546;
       v33 = objc_opt_class();
@@ -565,30 +573,30 @@ LABEL_20:
       v29 = v3;
       v23 = v33;
       LODWORD(v28) = 22;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Updated rental plist for %@", &v32, v28);
 
       v3 = v29;
       if (!v24)
       {
-LABEL_23:
+LABEL_24:
 
         v25 = +[DistributedNotificationCenter defaultCenter];
         [v25 postNotificationName:@"com.apple.itunesstored.RentalAdded"];
 
-LABEL_24:
+LABEL_25:
         v4 = v30;
-        goto LABEL_27;
+        goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v24 encoding:4, &v32, v28];
+      oSLogObject = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       SSFileLog();
     }
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
-LABEL_27:
+LABEL_28:
 }
 
 @end

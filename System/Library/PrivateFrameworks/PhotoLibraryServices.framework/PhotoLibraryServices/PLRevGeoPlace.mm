@@ -192,7 +192,7 @@
   v35 = _Block_copy(v51);
   v50 = 0;
   sortedPlaceInfos = [itemCopy sortedPlaceInfos];
-  v8 = [sortedPlaceInfos count] == 0;
+  v8 = objc_msgSend_count(sortedPlaceInfos) == 0;
 
   if (v8)
   {
@@ -200,8 +200,8 @@
     v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    backupPlaceInfos = [itemCopy backupPlaceInfos];
-    v20 = [backupPlaceInfos countByEnumeratingWithState:&v41 objects:v60 count:16];
+    v19 = objc_msgSend_backupPlaceInfos(itemCopy);
+    v20 = [v19 countByEnumeratingWithState:&v41 objects:v60 count:16];
     if (v20)
     {
       v21 = *v42;
@@ -211,7 +211,7 @@
         {
           if (*v42 != v21)
           {
-            objc_enumerationMutation(backupPlaceInfos);
+            objc_enumerationMutation(v19);
           }
 
           v23 = *(*(&v41 + 1) + 8 * i);
@@ -222,7 +222,7 @@
           }
         }
 
-        v20 = [backupPlaceInfos countByEnumeratingWithState:&v41 objects:v60 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v41 objects:v60 count:16];
       }
 
       while (v20);
@@ -435,7 +435,7 @@ void __50__PLRevGeoPlace_placeWithMapItem_placeAnnotation___block_invoke_2(uint6
 
   else
   {
-    v15 = [infosCopy count];
+    v15 = objc_msgSend_count(infosCopy);
     v16 = objc_alloc(MEMORY[0x1E695DEC8]);
     v17 = [infosCopy subarrayWithRange:{v13, v15 - v13}];
     v14 = [v16 initWithArray:v17];

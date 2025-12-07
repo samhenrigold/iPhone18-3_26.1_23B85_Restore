@@ -60,7 +60,7 @@
       else
       {
         v12 = objc_alloc(MEMORY[0x1E696AB90]);
-        [v10 decimalValue];
+        objc_msgSend_decimalValue(v10);
         v11 = [v12 initWithDecimal:v31];
       }
 

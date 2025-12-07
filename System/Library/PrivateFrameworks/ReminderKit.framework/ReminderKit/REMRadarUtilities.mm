@@ -7,7 +7,7 @@
 
 + (void)promptUserToFileBugWithAlertMessage:(id)message bugTitle:(id)title bugDescription:(id)description
 {
-  v25[5] = *MEMORY[0x1E69E9840];
+  v24[5] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   titleCopy = title;
   descriptionCopy = description;
@@ -28,43 +28,41 @@
     else
     {
       v14 = *MEMORY[0x1E695EE60];
-      v24[0] = *MEMORY[0x1E695EE58];
-      v24[1] = v14;
+      v23[0] = *MEMORY[0x1E695EE58];
+      v23[1] = v14;
       v15 = &stru_1F0D67F00;
       if (messageCopy)
       {
         v15 = messageCopy;
       }
 
-      v25[0] = @"Internal Reminders Bug";
-      v25[1] = v15;
+      v24[0] = @"Internal Reminders Bug";
+      v24[1] = v15;
       v16 = *MEMORY[0x1E695EE70];
-      v24[2] = *MEMORY[0x1E695EE78];
-      v24[3] = v16;
-      v25[2] = @"File Radar";
-      v25[3] = @"Stop Asking";
-      v24[4] = *MEMORY[0x1E695EE98];
-      v25[4] = @"Cancel";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:5];
+      v23[2] = *MEMORY[0x1E695EE78];
+      v23[3] = v16;
+      v24[2] = @"File Radar";
+      v24[3] = @"Stop Asking";
+      v23[4] = *MEMORY[0x1E695EE98];
+      v24[4] = @"Cancel";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:5];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __81__REMRadarUtilities_promptUserToFileBugWithAlertMessage_bugTitle_bugDescription___block_invoke;
       block[3] = &unk_1E7508FE0;
-      v20 = v17;
+      v19 = v17;
       selfCopy = self;
-      v21 = titleCopy;
-      v22 = descriptionCopy;
+      v20 = titleCopy;
+      v21 = descriptionCopy;
       v13 = v17;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __81__REMRadarUtilities_promptUserToFileBugWithAlertMessage_bugTitle_bugDescription___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   error = 0;
   v2 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, *(a1 + 32));
   if (v2)
@@ -106,13 +104,11 @@ void __81__REMRadarUtilities_promptUserToFileBugWithAlertMessage_bugTitle_bugDes
       v5 = *(a1 + 32);
       LODWORD(responseFlags) = 67109378;
       HIDWORD(responseFlags) = error;
-      v12 = 2112;
-      v13 = v5;
+      v11 = 2112;
+      v12 = v5;
       _os_log_impl(&dword_19A0DB000, v4, OS_LOG_TYPE_INFO, "Failed [%d] to create CFUserNotificationRef for alertOptions: %@", &responseFlags, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createRadarWithTitle:(id)title description:(id)description

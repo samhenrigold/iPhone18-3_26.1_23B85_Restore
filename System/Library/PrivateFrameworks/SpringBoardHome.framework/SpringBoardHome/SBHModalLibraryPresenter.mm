@@ -159,7 +159,7 @@
   {
     [v6 addChildViewController:libraryViewController];
     [view2 addSubview:view];
-    [view2 bounds];
+    objc_msgSend_bounds(view2);
     v14 = v13;
     v16 = v15;
     v18 = v17;
@@ -423,7 +423,7 @@ void __81__SBHModalLibraryPresenter_acquireUseSnapshotAsBackgroundViewAssertionF
   {
     if (!v4 && (isContentReplacedWithSnapshot & 1) != 0)
     {
-      v7 = SBLogLibrary();
+      v7 = SBLogLibrary(isContentReplacedWithSnapshot);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *v8 = 0;
@@ -437,7 +437,7 @@ void __81__SBHModalLibraryPresenter_acquireUseSnapshotAsBackgroundViewAssertionF
 
   else
   {
-    v6 = SBLogLibrary();
+    v6 = SBLogLibrary(isContentReplacedWithSnapshot);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -486,8 +486,8 @@ void __81__SBHModalLibraryPresenter_acquireUseSnapshotAsBackgroundViewAssertionF
 {
   libraryViewController = [(SBHModalLibraryPresenter *)self libraryViewController];
   folderController = [libraryViewController folderController];
-  iconListViews = [folderController iconListViews];
-  firstObject = [iconListViews firstObject];
+  v4 = objc_msgSend_iconListViews(folderController);
+  firstObject = [v4 firstObject];
 
   return firstObject;
 }
@@ -670,7 +670,7 @@ void __76__SBHModalLibraryPresenter_noteWillAnimateToEndpoint_withAnimationDurat
 
     v10 = MEMORY[0x1E69AE158];
     v11 = v9;
-    v12 = SBHBundle();
+    v12 = SBHBundle(v11);
     backgroundView = [v10 materialViewWithRecipeNamed:v11 inBundle:v12 options:0 initialWeighting:0 scaleAdjustment:0.0];
 
     [backgroundView setAutoresizingMask:18];

@@ -724,7 +724,7 @@ LABEL_17:
 
 - (void)_startNextPageNow
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (!self->_started)
   {
     if (!self->_currentTestIteration)
@@ -735,12 +735,12 @@ LABEL_17:
     self->_started = 1;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v3 = [(NSMutableArray *)self->_pageLoadArray objectAtIndexedSubscript:self->_currentTestIteration];
-  v4 = [v3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (!v4)
   {
 LABEL_16:
@@ -755,18 +755,18 @@ LABEL_35:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v35;
+  v7 = *v41;
 LABEL_7:
   v8 = 0;
   v9 = v6;
   while (1)
   {
-    if (*v35 != v7)
+    if (*v41 != v7)
     {
       objc_enumerationMutation(v3);
     }
 
-    v6 = *(*(&v34 + 1) + 8 * v8);
+    v6 = *(*(&v40 + 1) + 8 * v8);
 
     if (self->_failFast && [v6 status] == 6)
     {
@@ -782,7 +782,7 @@ LABEL_7:
     v9 = v6;
     if (v5 == v8)
     {
-      v5 = [v3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v40 objects:v46 count:16];
       if (v5)
       {
         goto LABEL_7;
@@ -826,46 +826,48 @@ LABEL_15:
     date = [MEMORY[0x277CBEAA8] date];
     [v6 setUiProcessStartDate:date];
 
-    v15 = WBS_LOG_CHANNEL_PREFIXPLT();
-    if (os_signpost_enabled(v15))
+    v17 = WBS_LOG_CHANNEL_PREFIXPLT(v15, v16);
+    v18 = os_signpost_enabled(v17);
+    if (v18)
     {
-      v16 = v15;
-      v17 = [v6 URL];
+      v20 = v17;
+      v21 = [v6 URL];
       *buf = 138543362;
-      v39 = v17;
-      _os_signpost_emit_with_name_impl(&dword_215819000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_FirstMeaningfulPaint", "%{public}@", buf, 0xCu);
+      v45 = v21;
+      _os_signpost_emit_with_name_impl(&dword_215819000, v20, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_FirstMeaningfulPaint", "%{public}@", buf, 0xCu);
     }
 
-    v18 = WBS_LOG_CHANNEL_PREFIXPLT();
-    if (os_signpost_enabled(v18))
+    v22 = WBS_LOG_CHANNEL_PREFIXPLT(v18, v19);
+    v23 = os_signpost_enabled(v22);
+    if (v23)
     {
-      v19 = v18;
-      v20 = [v6 URL];
+      v25 = v22;
+      v26 = [v6 URL];
       *buf = 138543362;
-      v39 = v20;
-      _os_signpost_emit_with_name_impl(&dword_215819000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_DOMContentLoaded", "%{public}@", buf, 0xCu);
+      v45 = v26;
+      _os_signpost_emit_with_name_impl(&dword_215819000, v25, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_DOMContentLoaded", "%{public}@", buf, 0xCu);
     }
 
-    v21 = WBS_LOG_CHANNEL_PREFIXPLT();
-    if (os_signpost_enabled(v21))
+    v27 = WBS_LOG_CHANNEL_PREFIXPLT(v23, v24);
+    if (os_signpost_enabled(v27))
     {
-      v22 = v21;
-      v23 = [v6 URL];
+      v28 = v27;
+      v29 = [v6 URL];
       *buf = 138543362;
-      v39 = v23;
-      _os_signpost_emit_with_name_impl(&dword_215819000, v22, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_AllSubresourcesLoaded", "%{public}@", buf, 0xCu);
+      v45 = v29;
+      _os_signpost_emit_with_name_impl(&dword_215819000, v28, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PLT_AllSubresourcesLoaded", "%{public}@", buf, 0xCu);
     }
   }
 
   [v6 setStatus:1];
   [(PageLoadTestRunner *)self startingTestPage:v6];
   activeTabDocument = [(BrowserController *)self->_browserController tabController];
-  v24ActiveTabDocument = [activeTabDocument activeTabDocument];
-  v26 = v24ActiveTabDocument;
-  if (self->_loadURLInNewTab && ![(TabDocument *)v24ActiveTabDocument isBlank])
+  v30ActiveTabDocument = [activeTabDocument activeTabDocument];
+  v32 = v30ActiveTabDocument;
+  if (self->_loadURLInNewTab && ![(TabDocument *)v30ActiveTabDocument isBlank])
   {
-    v27 = [[TabDocument alloc] initWithBrowserController:self->_browserController];
-    [activeTabDocument insertNewTabDocument:v27 forcingOrderAfterTabDocument:v26 inBackground:0 animated:0];
+    v33 = [[TabDocument alloc] initWithBrowserController:self->_browserController];
+    [activeTabDocument insertNewTabDocument:v33 forcingOrderAfterTabDocument:v32 inBackground:0 animated:0];
   }
 
   else
@@ -875,24 +877,24 @@ LABEL_15:
       goto LABEL_38;
     }
 
-    v27 = [[TabDocument alloc] initWithBrowserController:self->_browserController];
-    [activeTabDocument insertNewTabDocument:v27 forcingOrderAfterTabDocument:v26 inBackground:0 animated:0];
-    [activeTabDocument setActiveTabDocument:v27 animated:0];
-    [activeTabDocument closeTabDocument:v26 animated:1];
+    v33 = [[TabDocument alloc] initWithBrowserController:self->_browserController];
+    [activeTabDocument insertNewTabDocument:v33 forcingOrderAfterTabDocument:v32 inBackground:0 animated:0];
+    [activeTabDocument setActiveTabDocument:v33 animated:0];
+    [activeTabDocument closeTabDocument:v32 animated:1];
   }
 
-  v26 = v27;
+  v32 = v33;
 LABEL_38:
-  v29 = [v6 URL];
+  v35 = [v6 URL];
   useInjectedBundle = self->_useInjectedBundle;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __39__PageLoadTestRunner__startNextPageNow__block_invoke;
-  v32[3] = &unk_2781D8230;
-  v32[4] = self;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __39__PageLoadTestRunner__startNextPageNow__block_invoke;
+  v38[3] = &unk_2781D8230;
+  v38[4] = self;
   tabController = v6;
-  v33 = tabController;
-  [(TabDocument *)v26 loadTestURL:v29 withInjectedBundle:useInjectedBundle withCallback:v32 pagesNeedingMemoryWarningSent:self->_pagesNeedingMemoryWarningSent];
+  v39 = tabController;
+  [(TabDocument *)v32 loadTestURL:v35 withInjectedBundle:useInjectedBundle withCallback:v38 pagesNeedingMemoryWarningSent:self->_pagesNeedingMemoryWarningSent];
 
   if ([tabController status] == 1)
   {
@@ -1071,7 +1073,7 @@ LABEL_12:
 
 - (void)_updatePageLoad:(id)load stats:(id)stats
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   loadCopy = load;
   statsCopy = stats;
   v8 = statsCopy;
@@ -1106,13 +1108,13 @@ LABEL_12:
       [domContentLoadedDate timeIntervalSinceDate:uiProcessStartDate];
       v15 = v14;
 
-      v16 = WBS_LOG_CHANNEL_PREFIXPLT();
-      if (os_signpost_enabled(v16))
+      v18 = WBS_LOG_CHANNEL_PREFIXPLT(v16, v17);
+      if (os_signpost_enabled(v18))
       {
-        v17 = v16;
-        v34 = 134217984;
-        v35 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v15);
-        _os_signpost_emit_with_name_impl(&dword_215819000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_DOMContentLoaded", "%{signpost.description:end_time}llu", &v34, 0xCu);
+        v19 = v18;
+        v40 = 134217984;
+        v41 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v15);
+        _os_signpost_emit_with_name_impl(&dword_215819000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_DOMContentLoaded", "%{signpost.description:end_time}llu", &v40, 0xCu);
       }
     }
 
@@ -1123,16 +1125,16 @@ LABEL_12:
       [loadCopy setFirstMeaningfulPaintDate:firstMeaningfulPaintDate];
       uiProcessStartDate2 = [loadCopy uiProcessStartDate];
       [firstMeaningfulPaintDate timeIntervalSinceDate:uiProcessStartDate2];
-      v21 = v20;
+      v23 = v22;
 
-      v22 = WBS_LOG_CHANNEL_PREFIXPLT();
-      if (os_signpost_enabled(v22))
+      v26 = WBS_LOG_CHANNEL_PREFIXPLT(v24, v25);
+      if (os_signpost_enabled(v26))
       {
-        v23 = v22;
-        v24 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v21);
-        v34 = 134217984;
-        v35 = v24;
-        _os_signpost_emit_with_name_impl(&dword_215819000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_FirstMeaningfulPaint", "%{signpost.description:end_time}llu", &v34, 0xCu);
+        v27 = v26;
+        v28 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v23);
+        v40 = 134217984;
+        v41 = v28;
+        _os_signpost_emit_with_name_impl(&dword_215819000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_FirstMeaningfulPaint", "%{signpost.description:end_time}llu", &v40, 0xCu);
       }
     }
 
@@ -1143,16 +1145,16 @@ LABEL_12:
       [loadCopy setAllSubresourcesLoadedDate:allSubresourcesLoadedDate];
       uiProcessStartDate3 = [loadCopy uiProcessStartDate];
       [allSubresourcesLoadedDate timeIntervalSinceDate:uiProcessStartDate3];
-      v28 = v27;
+      v32 = v31;
 
-      v29 = WBS_LOG_CHANNEL_PREFIXPLT();
-      if (os_signpost_enabled(v29))
+      v35 = WBS_LOG_CHANNEL_PREFIXPLT(v33, v34);
+      if (os_signpost_enabled(v35))
       {
-        v30 = v29;
-        v31 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v28);
-        v34 = 134217984;
-        v35 = v31;
-        _os_signpost_emit_with_name_impl(&dword_215819000, v30, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_AllSubresourcesLoaded", "%{signpost.description:end_time}llu", &v34, 0xCu);
+        v36 = v35;
+        v37 = continuousTimeAddInterval([loadCopy uiProcessStartTime], v32);
+        v40 = 134217984;
+        v41 = v37;
+        _os_signpost_emit_with_name_impl(&dword_215819000, v36, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PLT_AllSubresourcesLoaded", "%{signpost.description:end_time}llu", &v40, 0xCu);
       }
     }
   }
@@ -1287,11 +1289,11 @@ LABEL_12:
 - (void)finishedTestPage:(id)page
 {
   pageCopy = page;
-  v5 = WBS_LOG_CHANNEL_PREFIXPLT();
-  if (os_signpost_enabled(v5))
+  v6 = WBS_LOG_CHANNEL_PREFIXPLT(pageCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_215819000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UIProcessPageLoad", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_215819000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UIProcessPageLoad", "", buf, 2u);
   }
 
   [(PageLoadTestRunner *)self log:@"%@", pageCopy];

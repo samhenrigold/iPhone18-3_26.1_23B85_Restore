@@ -356,7 +356,7 @@ LABEL_7:
 
   [(SBUILegibilitySettings *)self minFillHeight];
   v16 = [v4 appendInteger:v15 withName:@"minFillHeight"];
-  [(SBUILegibilitySettings *)self shadowSettings];
+  objc_msgSend_shadowSettings(self);
   v17 = NSDictionaryFromSBUILegibilityShadowSettings(&v21);
   v18 = [v4 appendObject:v17 withName:@"shadowSettings"];
 

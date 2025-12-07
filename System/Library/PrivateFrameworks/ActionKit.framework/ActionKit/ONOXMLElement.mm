@@ -195,20 +195,18 @@ LABEL_15:
 
 - (id)firstChildWithCSS:(id)s
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
   v3 = [(ONOXMLElement *)self CSS:s, 0];
-  if ([v3 countByEnumeratingWithState:v7 objects:v8 count:16])
+  if ([v3 countByEnumeratingWithState:v6 objects:v7 count:16])
   {
-    v4 = **(&v7[0] + 1);
+    v4 = **(&v6[0] + 1);
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

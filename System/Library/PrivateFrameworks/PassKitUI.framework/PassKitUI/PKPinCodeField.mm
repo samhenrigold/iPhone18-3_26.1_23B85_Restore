@@ -252,72 +252,92 @@ LABEL_15:
 
 - (void)layoutSubviews
 {
-  v24.receiver = self;
-  v24.super_class = PKPinCodeField;
-  [(PKPinCodeField *)&v24 layoutSubviews];
+  v45.receiver = self;
+  v45.super_class = PKPinCodeField;
+  [(PKPinCodeField *)&v45 layoutSubviews];
   [(PKPinCodeField *)self bounds];
-  x = v25.origin.x;
-  y = v25.origin.y;
-  width = v25.size.width;
-  height = v25.size.height;
-  v20 = *MEMORY[0x1E695F058];
-  v21 = *(MEMORY[0x1E695F058] + 16);
-  v22 = *(MEMORY[0x1E695F058] + 24);
-  v23 = *(MEMORY[0x1E695F058] + 8);
-  dashLength = self->_config.dashLength;
-  CGRectGetMidY(v25);
-  v26.origin.x = x;
-  v26.origin.y = y;
-  v26.size.width = width;
-  v26.size.height = height;
-  CGRectGetWidth(v26);
-  PKFloatRoundToPixel();
+  x = v46.origin.x;
+  y = v46.origin.y;
+  width = v46.size.width;
+  height = v46.size.height;
+  v41 = *MEMORY[0x1E695F058];
+  v42 = *(MEMORY[0x1E695F058] + 16);
+  fontHeight = *(MEMORY[0x1E695F058] + 24);
+  v44 = *(MEMORY[0x1E695F058] + 8);
+  v7 = *&self->_config.dashLength;
+  dashWidth = self->_config.dashWidth;
+  MidY = CGRectGetMidY(v46);
+  v47.origin.x = x;
+  v47.origin.y = y;
+  v47.size.width = width;
+  v47.size.height = height;
+  v10 = CGRectGetWidth(v47);
+  v11 = self->_pinCodeLength + self->_hyphenatePinCode;
+  v12.n128_f64[0] = (v11 - 1);
+  v13.n128_f64[0] = (v10 - v11 * *&v7) / v12.n128_f64[0];
+  PKFloatRoundToPixel(v13, v12);
   if (self->_pinCodeLength)
   {
-    v9 = 0;
-    v10 = dashLength + v8;
+    v16 = 0;
+    v17 = *MEMORY[0x1E69BB7F8];
+    v18 = *&v7 + v14.n128_f64[0];
     do
     {
-      PKFloatRoundToPixel();
-      v12 = v11;
-      fontHeight = self->_fontHeight;
-      v14 = [(NSArray *)self->_numberLabels objectAtIndexedSubscript:v9];
-      [v14 setFrame:{x, v12, dashLength, fontHeight}];
+      v14.n128_f64[0] = MidY + self->_fontHeight * -0.5;
+      PKFloatRoundToPixel(v14, v15);
+      v20 = v19;
+      v21 = *&self->_fontHeight;
+      v22 = [(NSArray *)self->_numberLabels objectAtIndexedSubscript:v16];
+      [v22 setFrame:{x, *&v20, *&v7, *&v21}];
 
-      v15 = [(NSArray *)self->_dashViews objectAtIndexedSubscript:v9];
-      PKSizeAlignedInRect();
-      [v15 setFrame:?];
+      v23 = [(NSArray *)self->_dashViews objectAtIndexedSubscript:v16];
+      v24.n128_u64[0] = v7;
+      v25.n128_f64[0] = dashWidth;
+      v26.n128_f64[0] = x;
+      v27.n128_u64[0] = v20;
+      v28.n128_u64[0] = v7;
+      v29.n128_u64[0] = v21;
+      PKSizeAlignedInRect(v17, v24, v25, v26, v27, v28, v29, v30);
+      [v23 setFrame:?];
 
-      v16 = [(NSArray *)self->_dotViews objectAtIndexedSubscript:v9];
-      PKSizeAlignedInRect();
-      [v16 setFrame:?];
+      v31 = [(NSArray *)self->_dotViews objectAtIndexedSubscript:v16];
+      v32.n128_u64[0] = v7;
+      v33.n128_u64[0] = v7;
+      v34.n128_f64[0] = x;
+      v35.n128_u64[0] = v20;
+      v36.n128_u64[0] = v7;
+      v37.n128_u64[0] = v21;
+      PKSizeAlignedInRect(v17, v32, v33, v34, v35, v36, v37, v38);
+      [v31 setFrame:?];
 
-      v17 = v10 + x;
+      v39 = v18 + x;
       pinCodeLength = self->_pinCodeLength;
-      ++v9;
-      if (self->_hyphenatePinCode && v9 == pinCodeLength >> 1)
+      ++v16;
+      if (self->_hyphenatePinCode && v16 == pinCodeLength >> 1)
       {
-        PKFloatRoundToPixel();
-        v23 = v19;
-        v21 = dashLength;
-        v22 = self->_fontHeight;
-        x = v10 + v17;
+        v15.n128_u64[0] = *&self->_config.hyphenOffset;
+        v14.n128_f64[0] = v15.n128_f64[0] + MidY + self->_fontHeight * -0.5;
+        PKFloatRoundToPixel(v14, v15);
+        v44 = v14.n128_f64[0];
+        v42 = *&v7;
+        fontHeight = self->_fontHeight;
+        x = v18 + v39;
         pinCodeLength = self->_pinCodeLength;
-        v20 = v17;
+        v41 = v39;
       }
 
       else
       {
-        x = v10 + x;
+        x = v18 + x;
       }
     }
 
-    while (v9 < pinCodeLength);
+    while (v16 < pinCodeLength);
   }
 
   if (self->_hyphenatePinCode)
   {
-    [(UILabel *)self->_hyphenLabel setFrame:v20, v23, v21, v22];
+    [(UILabel *)self->_hyphenLabel setFrame:v41, v44, v42, fontHeight];
   }
 }
 

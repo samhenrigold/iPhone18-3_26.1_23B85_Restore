@@ -310,19 +310,18 @@ LABEL_33:
 
   if (transactionNote)
   {
-    transactionNote = self->_transactionNote;
     PBDataWriterWriteStringField();
   }
 
   transactionScheduledDate = [(_INPBTransferMoneyIntent *)self transactionScheduledDate];
 
-  v15 = toCopy;
+  v14 = toCopy;
   if (transactionScheduledDate)
   {
     transactionScheduledDate2 = [(_INPBTransferMoneyIntent *)self transactionScheduledDate];
     PBDataWriterWriteSubmessage();
 
-    v15 = toCopy;
+    v14 = toCopy;
   }
 }
 

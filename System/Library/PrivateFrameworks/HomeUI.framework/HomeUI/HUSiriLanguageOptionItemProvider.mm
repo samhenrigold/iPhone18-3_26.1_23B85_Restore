@@ -266,7 +266,7 @@ id __67__HUSiriLanguageOptionItemProvider__createSiriLanguageOptionItems___block
   return v4;
 }
 
-id __67__HUSiriLanguageOptionItemProvider__createSiriLanguageOptionItems___block_invoke_3(uint64_t a1, void *a2)
+HUSiriLanguageOptionItem *__67__HUSiriLanguageOptionItemProvider__createSiriLanguageOptionItems___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;

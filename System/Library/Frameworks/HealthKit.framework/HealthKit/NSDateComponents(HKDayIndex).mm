@@ -2,7 +2,7 @@
 + (id)hk_componentsWithDayIndex:()HKDayIndex calendar:;
 - (id)hk_dayIndexByAddingYears:()HKDayIndex gregorianCalendar:;
 - (id)hk_dayIndexDateDescription;
-- (uint64_t)hk_dayIndex;
+- (unint64_t)hk_dayIndex;
 @end
 
 @implementation NSDateComponents(HKDayIndex)
@@ -32,7 +32,7 @@
   return v10;
 }
 
-- (uint64_t)hk_dayIndex
+- (unint64_t)hk_dayIndex
 {
   year = [self year];
   month = [self month];

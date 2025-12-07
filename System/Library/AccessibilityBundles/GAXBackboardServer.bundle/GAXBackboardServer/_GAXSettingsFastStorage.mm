@@ -6,6 +6,8 @@
 - (_GAXSettingsFastStorage)init;
 - (id)_loadSettings;
 - (void)_updateSetting:(id)setting withKey:(id)key;
+- (void)setActiveAppSelfLocked:(BOOL)locked;
+- (void)setSelfLockUnmanaged:(BOOL)unmanaged;
 @end
 
 @implementation _GAXSettingsFastStorage
@@ -58,6 +60,12 @@
   return bOOLValue;
 }
 
+- (void)setActiveAppSelfLocked:(BOOL)locked
+{
+  v4 = [NSNumber numberWithBool:locked];
+  [(_GAXSettingsFastStorage *)self _updateSetting:v4 withKey:@"ActiveAppSelfLocked"];
+}
+
 - (BOOL)selfLockUnmanaged
 {
   settingsStorage = [(_GAXSettingsFastStorage *)self settingsStorage];
@@ -65,6 +73,12 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSelfLockUnmanaged:(BOOL)unmanaged
+{
+  v4 = [NSNumber numberWithBool:unmanaged];
+  [(_GAXSettingsFastStorage *)self _updateSetting:v4 withKey:@"SelfLockUnmanaged"];
 }
 
 - (id)_loadSettings

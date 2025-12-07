@@ -10,9 +10,10 @@
 {
   v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjCClassMetadata();
-  v4 = sub_10072AC10(v3);
-
-  return v4;
+  sub_10072AC10(v3);
+  v5 = v4;
+  v3, v6, v7, v8, v9, v10, v11, v12;
+  return v5;
 }
 
 - (id)objc_toJSONString
@@ -24,6 +25,7 @@
   if (v4)
   {
     v5 = String._bridgeToObjectiveC()();
+    v4, v6, v7, v8, v9, v10, v11, v12;
   }
 
   else
@@ -36,11 +38,13 @@
 
 + (id)objc_newObjectFromJSONString:(id)string
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = v4;
   swift_getObjCClassMetadata();
-  v3 = sub_10072B05C();
+  v6 = sub_10072B05C(v3, v5);
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v3;
+  return v6;
 }
 
 @end

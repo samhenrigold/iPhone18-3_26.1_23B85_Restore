@@ -8,7 +8,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   activeConnection = [(WFSingleConnectionXPCListener *)self activeConnection];
@@ -20,7 +20,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]";
+      v22 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]";
       _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "%s Not accepting new connection since there is already an active one.", buf, 0xCu);
     }
   }
@@ -30,72 +30,69 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]";
-      v24 = 2112;
+      v22 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]";
+      v23 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_DEFAULT, "%s Received incoming XPC connection for listener: %@", buf, 0x16u);
     }
 
     [(WFSingleConnectionXPCListener *)self setActiveConnection:connectionCopy];
     objc_initWeak(buf, self);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke;
-    v20[3] = &unk_1E7B02828;
-    objc_copyWeak(&v21, buf);
-    [connectionCopy setInvalidationHandler:v20];
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke_63;
-    v18 = &unk_1E7B02828;
-    objc_copyWeak(&v19, buf);
-    [connectionCopy setInterruptionHandler:&v15];
-    v11 = [(WFSingleConnectionXPCListener *)self exportedInterface:v15];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke;
+    v19[3] = &unk_1E7B02828;
+    objc_copyWeak(&v20, buf);
+    [connectionCopy setInvalidationHandler:v19];
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke_63;
+    v17 = &unk_1E7B02828;
+    objc_copyWeak(&v18, buf);
+    [connectionCopy setInterruptionHandler:&v14];
+    v11 = [(WFSingleConnectionXPCListener *)self exportedInterface:v14];
     [connectionCopy setExportedInterface:v11];
 
     exportedObject = [(WFSingleConnectionXPCListener *)self exportedObject];
     [connectionCopy setExportedObject:exportedObject];
 
     [connectionCopy resume];
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return activeConnection == 0;
 }
 
 void __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was invalidated.", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]_block_invoke";
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was invalidated.", &v3, 0xCu);
   }
 
   [WeakRetained setActiveConnection:0];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __68__WFSingleConnectionXPCListener_listener_shouldAcceptNewConnection___block_invoke_63(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was interrupted", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[WFSingleConnectionXPCListener listener:shouldAcceptNewConnection:]_block_invoke";
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was interrupted", &v3, 0xCu);
   }
 
   [WeakRetained setActiveConnection:0];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (NSXPCListenerEndpoint)endpoint

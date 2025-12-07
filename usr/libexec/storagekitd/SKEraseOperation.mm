@@ -95,7 +95,7 @@
   {
     mountPoint = [(SKDisk *)self->_resultingDisk mountPoint];
     *buf = 138412290;
-    v16 = mountPoint;
+    v14 = mountPoint;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Erase Complete, Mount Point: %@", buf, 0xCu);
   }
 
@@ -113,16 +113,14 @@
   {
     mountPoint2 = [(SKDisk *)self->_resultingDisk mountPoint];
     *buf = 138412290;
-    v16 = mountPoint2;
+    v14 = mountPoint2;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Recache Complete, Mount Point: %@", buf, 0xCu);
   }
 
-  v12 = self->_resultingDisk;
-  v13 = self->_operationError;
   (*(self->_callbackBlock + 2))();
-  v14.receiver = self;
-  v14.super_class = SKEraseOperation;
-  [(SKManagerOperation *)&v14 finished];
+  v12.receiver = self;
+  v12.super_class = SKEraseOperation;
+  [(SKManagerOperation *)&v12 finished];
 }
 
 @end

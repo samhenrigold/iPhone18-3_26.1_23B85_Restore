@@ -27,17 +27,17 @@
   forCoordCopy = forCoord;
   if (forCoordCopy)
   {
-    v16 = forCoordCopy;
-    v13 = objc_msgSend_objectForKey_(self->_uidCoordsPerTuple, forCoordCopy, forCoordCopy, v9, v10);
-    if (!v13)
+    v13 = forCoordCopy;
+    v11 = objc_msgSend_objectForKey_(self->_uidCoordsPerTuple, forCoordCopy, forCoordCopy, v9);
+    if (!v11)
     {
-      v13 = objc_opt_new();
-      objc_msgSend_setObject_forKey_(self->_uidCoordsPerTuple, v14, v13, v16, v15);
+      v11 = objc_opt_new();
+      objc_msgSend_setObject_forKey_(self->_uidCoordsPerTuple, v12, v11, v13);
     }
 
-    objc_msgSend_addUidCoord_atRunningLevel_(v13, v11, coord, levelCopy, v12);
+    objc_msgSend_addUidCoord_atRunningLevel_(v11, v10, coord, levelCopy);
 
-    forCoordCopy = v16;
+    forCoordCopy = v13;
   }
 }
 
@@ -50,13 +50,13 @@
   TSKMakeInvalidUIDStructCoord();
   if (levelCopy)
   {
-    v12 = objc_msgSend_objectForKey_(self->_uidCoordsPerTuple, v9, levelCopy, v10, v11);
-    v16 = v12;
-    if (v12)
+    v11 = objc_msgSend_objectForKey_(self->_uidCoordsPerTuple, v9, levelCopy, v10);
+    v14 = v11;
+    if (v11)
     {
-      objc_msgSend_uuidCoordAtRunningLevel_(v12, v13, v5, v14, v15);
-      retstr->_column = v18;
-      retstr->_row = v19;
+      objc_msgSend_uuidCoordAtRunningLevel_(v11, v12, v5, v13);
+      retstr->_column = v16;
+      retstr->_row = v17;
     }
   }
 

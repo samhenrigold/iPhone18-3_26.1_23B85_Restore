@@ -40,14 +40,13 @@
 
 + (_LXLexicon)_createLexiconForLocale:(id)locale
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v7 = objc_msgSend_localeIdentifier(localeCopy, v4, v5, v6, 0, *MEMORY[0x1E69ABFE8]);
-  v14[0] = v7;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v14, &v13, 1);
+  v13[0] = v7;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v13, &v12, 1);
 
   v10 = LXLexiconCreate();
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

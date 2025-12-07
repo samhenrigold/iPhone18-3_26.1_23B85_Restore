@@ -32,100 +32,100 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphCallOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphCallOp.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphCallOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphCallOp.mm");
   v12 = nameCopy;
-  v54 = 260;
-  v53[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v53);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x47u, 0);
+  v53 = 260;
+  v52[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v52);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x47u, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v41) = v18;
-    if (v18)
+    *(&__dst.__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(&__dst, uTF8String, v18);
+      memmove(&__dst, uTF8String, v19);
     }
 
-    v20 = (&__dst + v19);
+    p_size = (&__dst + v20);
   }
 
   else
   {
-    HIBYTE(v41) = 8;
-    __dst = 0x6C6C61632E73706DLL;
-    v20 = &p_dst;
+    *(&__dst.__r_.__value_.__s + 23) = 8;
+    __dst.__r_.__value_.__r.__words[0] = 0x6C6C61632E73706DLL;
+    p_size = &__dst.__r_.__value_.__l.__size_;
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v14, &v57);
-  v21 = v57.__r_.__value_.__r.__words[0];
-  if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *p_size = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v56, v14, v15);
+  v22 = v56.__r_.__value_.__r.__words[0];
+  if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v57;
+    v22 = &v56;
   }
 
-  v22 = 1;
-  HIBYTE(v54) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  v23 = 1;
+  HIBYTE(v53) = 1;
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v53[0] = v21;
-    v22 = 3;
+    v52[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v54) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v53);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v53) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v52);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v41) & 0x80000000) == 0)
+    operator delete(v56.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((SHIBYTE(v41) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v49 < 0)
+  if (v48 < 0)
   {
     operator delete(__p[0]);
   }
 
-  __dst = 0;
-  p_dst = &__dst;
-  v41 = 0x4812000000;
-  v42 = __Block_byref_object_copy__3;
-  v43 = __Block_byref_object_dispose__3;
-  v44 = &unk_1E0AB8473;
-  v46 = 0;
-  v47 = 0;
+  __dst.__r_.__value_.__r.__words[0] = 0;
+  __dst.__r_.__value_.__l.__size_ = &__dst;
+  __dst.__r_.__value_.__r.__words[2] = 0x4812000000;
+  v41 = __Block_byref_object_copy__3;
+  v42 = __Block_byref_object_dispose__3;
+  v43 = &unk_1E0AB8473;
   v45 = 0;
-  v25 = [(NSArray *)self->_outputTypes count];
-  if (v25 > (v47 - v45) >> 3)
+  v46 = 0;
+  v44 = 0;
+  v26 = [(NSArray *)self->_outputTypes count];
+  if (v26 > (v46 - v44) >> 3)
   {
-    if (!(v25 >> 61))
+    if (!(v26 >> 61))
     {
       operator new();
     }
@@ -134,14 +134,14 @@ LABEL_16:
   }
 
   outputTypes = self->_outputTypes;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __86__MPSGraphCallOp_makeMLIROpWithBuilder_symbolTable_inputValues_opInitialization_name___block_invoke;
-  v38[3] = &unk_1E86D4D10;
-  v38[4] = &__dst;
-  v38[5] = builder;
-  [(NSArray *)outputTypes enumerateObjectsUsingBlock:v38];
-  v27 = p_dst;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __86__MPSGraphCallOp_makeMLIROpWithBuilder_symbolTable_inputValues_opInitialization_name___block_invoke;
+  v39[3] = &unk_1E86D4D10;
+  v39[4] = &__dst;
+  v39[5] = builder;
+  [(NSArray *)outputTypes enumerateObjectsUsingBlock:v39];
+  size = __dst.__r_.__value_.__l.__size_;
   uTF8String2 = [(NSString *)self->_symbolName UTF8String];
   inliningOption = self->_inliningOption;
   if (inliningOption >= 3)
@@ -154,54 +154,54 @@ LABEL_16:
     LODWORD(inliningOption) = 0;
   }
 
-  v50 = v24;
-  Context = mlir::Attribute::getContext(&v50);
-  v31 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id, Context);
-  if ((v32 & 1) == 0)
+  v49 = v25;
+  Context = mlir::Attribute::getContext(&v49);
+  v32 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id, Context);
+  if ((v33 & 1) == 0)
   {
-    v56 = 1283;
-    v55[2] = "mps.call";
-    v55[3] = 8;
-    v52 = 259;
-    llvm::operator+(v55, &v51, &v57);
-    llvm::report_fatal_error(&v57, 1);
+    v55 = 1283;
+    v54[2] = "mps.call";
+    v54[3] = 8;
+    v51 = 259;
+    llvm::operator+(v54, &v50, &v56);
+    llvm::report_fatal_error(&v56, 1);
   }
 
-  mlir::OperationState::OperationState(v53, v24, v31);
-  mlir::ValueRange::ValueRange(&v57, v27[6], (v27[7] - v27[6]) >> 3);
-  mlir::ValueRange::ValueRange(v55, *values, (*(values + 1) - *values) >> 3);
+  mlir::OperationState::OperationState(v52, v25, v32);
+  mlir::ValueRange::ValueRange(&v56, *(size + 48), (*(size + 56) - *(size + 48)) >> 3);
+  mlir::ValueRange::ValueRange(v54, *values, (*(values + 1) - *values) >> 3);
   if (uTF8String2)
   {
-    v33 = strlen(uTF8String2);
+    v34 = strlen(uTF8String2);
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  mlir::mps::CallOp::build(builder, v53, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_, v55[0], v55[1], uTF8String2, v33, inliningOption);
-  v34 = mlir::OpBuilder::create(builder, v53);
-  v35 = *(*(v34 + 48) + 16);
-  mlir::OperationState::~OperationState(v53);
+  mlir::mps::CallOp::build(builder, v52, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_, v54[0], v54[1], uTF8String2, v34, inliningOption);
+  v35 = mlir::OpBuilder::create(builder, v52);
+  v36 = *(*(v35 + 6) + 16);
+  mlir::OperationState::~OperationState(v52);
   _Block_object_dispose(&__dst, 8);
-  if (v45)
+  if (v44)
   {
-    v46 = v45;
-    operator delete(v45);
+    v45 = v44;
+    operator delete(v44);
   }
 
-  if (v35 == &mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id)
+  if (v36 == &mlir::detail::TypeIDResolver<mlir::mps::CallOp,void>::id)
   {
-    v36 = v34;
+    v37 = v35;
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
   }
 
-  return v36;
+  return v37;
 }
 
 void __86__MPSGraphCallOp_makeMLIROpWithBuilder_symbolTable_inputValues_opInitialization_name___block_invoke(uint64_t a1, void *a2)

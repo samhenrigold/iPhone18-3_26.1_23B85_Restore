@@ -70,34 +70,34 @@
 
 - (BOOL)widgetSuggestionIsPinned:(id)pinned homeScreenPage:(id)page excludingStackConfigId:(id)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pinnedCopy = pinned;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = self->_pinnedWidgetSuggestions;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([pinnedCopy isEqual:{*(*(&v13 + 1) + 8 * i), v13}])
+        if ([pinnedCopy isEqual:{*(*(&v12 + 1) + 8 * i), v12}])
         {
           LOBYTE(v8) = 1;
           goto LABEL_11;
         }
       }
 
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -109,7 +109,6 @@
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -16,7 +16,7 @@
 
 + (id)_beginPowerAssertionNamed:(id)named
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   MEMORY[0x1865FAAC0](self, a2);
   if (qword_1ED4BEB70)
   {
@@ -67,10 +67,10 @@
 
           *buf = 134218498;
           namedCopy4 = qword_1ED4BEB60;
-          v29 = 2048;
+          v28 = 2048;
           namedCopy2 = sharedApplication;
-          v31 = 2112;
-          v32 = v10;
+          v30 = 2112;
+          v31 = v10;
           v11 = "CoreData: error: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
 LABEL_57:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v11, buf, 0x20u);
@@ -84,20 +84,20 @@ LABEL_57:
         {
           if (v7)
           {
-            v23 = @"success";
+            v22 = @"success";
           }
 
           else
           {
-            v23 = @"failure";
+            v22 = @"failure";
           }
 
           *buf = 134218498;
           namedCopy4 = qword_1ED4BEB60;
-          v29 = 2048;
+          v28 = 2048;
           namedCopy2 = sharedApplication;
-          v31 = 2112;
-          v32 = v23;
+          v30 = 2112;
+          v31 = v22;
           v11 = "CoreData: warning: Registration for _beginPowerAssertionNamed completed with class %p on app %p and result %@\n";
           goto LABEL_57;
         }
@@ -138,11 +138,11 @@ LABEL_30:
   objc_initWeak(&location, v14);
   if (qword_1ED4BEB70)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __64___PFClassicBackgroundRuntimeVoucher__beginPowerAssertionNamed___block_invoke;
-    v24[3] = &unk_1E6EC23A0;
-    objc_copyWeak(&v25, &location);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __64___PFClassicBackgroundRuntimeVoucher__beginPowerAssertionNamed___block_invoke;
+    v23[3] = &unk_1E6EC23A0;
+    objc_copyWeak(&v24, &location);
     qword_1ED4BEB68 = [qword_1ED4BEB70 qword_1ED4BEB68];
     if (qword_1ED4BEB68)
     {
@@ -150,7 +150,7 @@ LABEL_30:
       if (!_MergedGlobals_88)
       {
 LABEL_51:
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         goto LABEL_52;
       }
 
@@ -168,7 +168,7 @@ LABEL_51:
         {
           *buf = 134218242;
           namedCopy4 = qword_1ED4BEB68;
-          v29 = 2112;
+          v28 = 2112;
           namedCopy2 = named;
           v18 = "CoreData: error: Successfully acquired background task assertion %ld for task '%@'.\n";
 LABEL_61:
@@ -183,7 +183,7 @@ LABEL_61:
         {
           *buf = 134218242;
           namedCopy4 = qword_1ED4BEB68;
-          v29 = 2112;
+          v28 = 2112;
           namedCopy2 = named;
           v18 = "CoreData: warning: Successfully acquired background task assertion %ld for task '%@'.\n";
           goto LABEL_61;
@@ -244,13 +244,12 @@ LABEL_50:
 LABEL_52:
   [(_PFBackgroundRuntimeVoucher *)v14 setSequenceID:qword_1ED4BEB68];
   objc_destroyWeak(&location);
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (void)_endPowerAssertionWithVoucher:(id)voucher
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (voucher)
   {
     MEMORY[0x1865FAAD0](self, a2);
@@ -282,7 +281,7 @@ LABEL_18:
       [voucher setEndTime:?];
       [(_PFBackgroundRuntimeVoucher *)voucher _notifyEndAssertion];
 
-      goto LABEL_19;
+      return;
     }
 
     v7 = objc_autoreleasePoolPush();
@@ -295,7 +294,7 @@ LABEL_18:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v13 = v4;
+          v12 = v4;
           v9 = "CoreData: error: Ended background task assertion %ld.\n";
 LABEL_21:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
@@ -308,7 +307,7 @@ LABEL_21:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v13 = v4;
+          v12 = v4;
           v9 = "CoreData: warning: Ended background task assertion %ld.\n";
           goto LABEL_21;
         }
@@ -329,9 +328,6 @@ LABEL_21:
     objc_autoreleasePoolPop(v7);
     goto LABEL_17;
   }
-
-LABEL_19:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

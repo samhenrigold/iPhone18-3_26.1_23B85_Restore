@@ -23,9 +23,9 @@
 
 - (CKTranscriptManagementNameField)initWithFrame:(CGRect)frame
 {
-  v35.receiver = self;
-  v35.super_class = CKTranscriptManagementNameField;
-  v3 = [(CKTranscriptManagementNameField *)&v35 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v37.receiver = self;
+  v37.super_class = CKTranscriptManagementNameField;
+  v3 = [(CKTranscriptManagementNameField *)&v37 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -49,46 +49,46 @@
     darkGrayColor = [MEMORY[0x1E69DC888] darkGrayColor];
     [v11 setTextColor:darkGrayColor];
 
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"GROUP_NAME_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v11 setText:v17];
+    v17 = CKFrameworkBundle(v16);
+    v18 = [v17 localizedStringForKey:@"GROUP_NAME_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v11 setText:v18];
 
     [(CKTranscriptManagementNameField *)v4 addSubview:v11];
     [(CKTranscriptManagementNameField *)v4 setFieldLabel:v11];
-    v18 = [objc_alloc(MEMORY[0x1E69DD0B0]) initWithFrame:{v7, v8, v9, v10}];
-    v19 = +[CKUIBehavior sharedBehaviors];
-    nameFieldFont2 = [v19 nameFieldFont];
-    [v18 setFont:nameFieldFont2];
+    v19 = [objc_alloc(MEMORY[0x1E69DD0B0]) initWithFrame:{v7, v8, v9, v10}];
+    v20 = +[CKUIBehavior sharedBehaviors];
+    nameFieldFont2 = [v20 nameFieldFont];
+    [v19 setFont:nameFieldFont2];
 
     clearColor2 = [MEMORY[0x1E69DC888] clearColor];
-    [v18 setBackgroundColor:clearColor2];
+    [v19 setBackgroundColor:clearColor2];
 
-    v22 = CKFrameworkBundle();
-    v23 = [v22 localizedStringForKey:@"GROUP_NAME_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v18 setPlaceholder:v23];
+    v24 = CKFrameworkBundle(v23);
+    v25 = [v24 localizedStringForKey:@"GROUP_NAME_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v19 setPlaceholder:v25];
 
-    [v18 setReturnKeyType:9];
-    [v18 setClearButtonMode:1];
-    [v18 setDelegate:v4];
-    [(CKTranscriptManagementNameField *)v4 addSubview:v18];
-    [(CKTranscriptManagementNameField *)v4 setTextField:v18];
-    v24 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v7, v8, v9, v10}];
-    v25 = +[CKUIBehavior sharedBehaviors];
-    theme = [v25 theme];
+    [v19 setReturnKeyType:9];
+    [v19 setClearButtonMode:1];
+    [v19 setDelegate:v4];
+    [(CKTranscriptManagementNameField *)v4 addSubview:v19];
+    [(CKTranscriptManagementNameField *)v4 setTextField:v19];
+    v26 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v7, v8, v9, v10}];
+    v27 = +[CKUIBehavior sharedBehaviors];
+    theme = [v27 theme];
     recipientsDividerColor = [theme recipientsDividerColor];
-    [v24 setBackgroundColor:recipientsDividerColor];
+    [v26 setBackgroundColor:recipientsDividerColor];
 
-    [(CKTranscriptManagementNameField *)v4 setTopSeparator:v24];
+    [(CKTranscriptManagementNameField *)v4 setTopSeparator:v26];
     topSeparator = [(CKTranscriptManagementNameField *)v4 topSeparator];
     [(CKTranscriptManagementNameField *)v4 addSubview:topSeparator];
 
-    v29 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v7, v8, v9, v10}];
-    v30 = +[CKUIBehavior sharedBehaviors];
-    theme2 = [v30 theme];
+    v31 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v7, v8, v9, v10}];
+    v32 = +[CKUIBehavior sharedBehaviors];
+    theme2 = [v32 theme];
     recipientsDividerColor2 = [theme2 recipientsDividerColor];
-    [v29 setBackgroundColor:recipientsDividerColor2];
+    [v31 setBackgroundColor:recipientsDividerColor2];
 
-    [(CKTranscriptManagementNameField *)v4 setBottomSeparator:v29];
+    [(CKTranscriptManagementNameField *)v4 setBottomSeparator:v31];
     bottomSeparator = [(CKTranscriptManagementNameField *)v4 bottomSeparator];
     [(CKTranscriptManagementNameField *)v4 addSubview:bottomSeparator];
 

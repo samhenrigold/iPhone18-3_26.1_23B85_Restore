@@ -27,7 +27,7 @@
 
 - (void)relayMessage:(id)message device:(id)device
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   deviceCopy = device;
   if ([messageCopy isRemote])
@@ -38,11 +38,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v11;
-      v27 = 2112;
-      v28 = messageCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot relay message that is already remote: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v11;
+      v26 = 2112;
+      v27 = messageCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot relay message that is already remote: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -56,7 +56,7 @@
 
   else
   {
-    v15 = [messageCopy copy];
+    v15 = objc_msgSend_copy(messageCopy);
     metricsDispatcher = [v15 mutableCopy];
 
     [metricsDispatcher setRemote:1];
@@ -73,24 +73,22 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v23;
-      v27 = 2112;
-      v28 = metricsDispatcher;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Relaying remote message: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v23;
+      v26 = 2112;
+      v27 = metricsDispatcher;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Relaying remote message: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     name = [(HMDPrimaryResidentMessageRouter *)selfCopy2 messageDispatcher];
     [name sendMessage:metricsDispatcher];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routeMessage:(id)message allowRemoteRelayFromPrimary:(BOOL)primary localHandler:(id)handler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   v9 = objc_autoreleasePoolPush();
@@ -100,11 +98,11 @@
   {
     v12 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v39 = 138543618;
-    v40 = v12;
-    v41 = 2112;
-    v42 = shortDescription;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Routing message: %@", &v39, 0x16u);
+    v38 = 138543618;
+    v39 = v12;
+    v40 = 2112;
+    v41 = shortDescription;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Routing message: %@", &v38, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -119,11 +117,11 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v39 = 138543618;
-      v40 = v21;
-      v41 = 2112;
-      v42 = v17;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source primary resident with error: %@", &v39, 0x16u);
+      v38 = 138543618;
+      v39 = v21;
+      v40 = 2112;
+      v41 = v17;
+      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source primary resident with error: %@", &v38, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -145,11 +143,11 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = HMFGetLogIdentifier();
-      v39 = 138543618;
-      v40 = v30;
-      v41 = 2112;
-      v42 = v17;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to get confirmed primary resident device with error: %@", &v39, 0x16u);
+      v38 = 138543618;
+      v39 = v30;
+      v40 = 2112;
+      v41 = v17;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to get confirmed primary resident device with error: %@", &v38, 0x16u);
     }
 
     objc_autoreleasePoolPop(v27);
@@ -182,23 +180,23 @@ LABEL_14:
 
   else
   {
-    v32 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2034];
-    v33 = objc_autoreleasePoolPush();
-    v34 = selfCopy;
-    v35 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v31 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2034];
+    v32 = objc_autoreleasePoolPush();
+    v33 = selfCopy;
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v36 = HMFGetLogIdentifier();
-      v39 = 138543618;
-      v40 = v36;
-      v41 = 2112;
-      v42 = v32;
-      _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination device from primary resident device with error: %@", &v39, 0x16u);
+      v35 = HMFGetLogIdentifier();
+      v38 = 138543618;
+      v39 = v35;
+      v40 = 2112;
+      v41 = v31;
+      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination device from primary resident device with error: %@", &v38, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v33);
-    [messageCopy respondWithError:v32];
-    metricsDispatcher2 = [(HMDPrimaryResidentMessageRouter *)v34 metricsDispatcher];
+    objc_autoreleasePoolPop(v32);
+    [messageCopy respondWithError:v31];
+    metricsDispatcher2 = [(HMDPrimaryResidentMessageRouter *)v33 metricsDispatcher];
     name2 = [messageCopy name];
     [metricsDispatcher2 submitFailureEventWithMessageName:name2 failureType:5];
 
@@ -206,13 +204,11 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataSourcePrimaryResidentDeviceWithMessage:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dataSource = [(HMDPrimaryResidentMessageRouter *)self dataSource];
   v6 = dataSource;
@@ -229,9 +225,9 @@ LABEL_15:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source primary resident device due to no data source", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source primary resident device due to no data source", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -241,8 +237,6 @@ LABEL_15:
 
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -294,10 +288,11 @@ LABEL_7:
 
 uint64_t __46__HMDPrimaryResidentMessageRouter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v8_11855 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_11855;
+  logCategory__hmf_once_v8_11855 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

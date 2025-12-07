@@ -196,7 +196,7 @@ uint64_t __28__ATXHistogramTable_intern___block_invoke(uint64_t result, __int16 
 
 - (id)allKeysFilteredBy:(id)by
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   byCopy = by;
   if (!byCopy)
   {
@@ -207,32 +207,32 @@ uint64_t __28__ATXHistogramTable_intern___block_invoke(uint64_t result, __int16 
   v6 = objc_opt_new();
   ptr = self->_guardedData.__ptr_;
   pthread_mutex_lock((ptr + 8));
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = **ptr;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if (byCopy[2](byCopy, v12))
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -240,8 +240,6 @@ uint64_t __28__ATXHistogramTable_intern___block_invoke(uint64_t result, __int16 
 
   v13 = v6;
   pthread_mutex_unlock((ptr + 8));
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -365,14 +363,6 @@ uint64_t __28__ATXHistogramTable_intern___block_invoke(uint64_t result, __int16 
   *(self + 3) = 0;
   *(self + 5) = 0;
   return self;
-}
-
-- (void)initWithDict:usedIds:datastore:blobType:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

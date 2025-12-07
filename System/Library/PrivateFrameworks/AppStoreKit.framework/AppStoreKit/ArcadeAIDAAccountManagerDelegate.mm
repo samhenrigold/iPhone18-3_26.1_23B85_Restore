@@ -12,7 +12,7 @@
   sub_1E1712F84(managerCopy);
 
   type metadata accessor for AIDAServiceType(0);
-  sub_1E13006E4(0, &unk_1ECEB8490);
+  sub_1E13006E4(0, &unk_1ECEB8490, 0x1E6959A28);
   sub_1E171307C();
   v6 = sub_1E1AF5C6C();
 

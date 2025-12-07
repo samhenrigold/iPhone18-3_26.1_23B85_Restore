@@ -31,7 +31,7 @@
         if ([v6 isEnabled])
         {
           formatDescriptions = [v6 formatDescriptions];
-          if ([formatDescriptions count])
+          if (objc_msgSend_count(formatDescriptions))
           {
             firstObject = [formatDescriptions firstObject];
 
@@ -95,7 +95,7 @@ LABEL_14:
         if ([v6 isEnabled])
         {
           formatDescriptions = [v6 formatDescriptions];
-          if ([formatDescriptions count])
+          if (objc_msgSend_count(formatDescriptions))
           {
             firstObject = [formatDescriptions firstObject];
 

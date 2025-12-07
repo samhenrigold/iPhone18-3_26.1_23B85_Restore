@@ -10,21 +10,23 @@
 
 - (T1ReadyBlock)initWithData:(id)data
 {
-  v8.receiver = self;
-  v8.super_class = T1ReadyBlock;
-  v3 = [(T1TPDUBlock *)&v8 initWithData:data needAck:0];
+  v10.receiver = self;
+  v10.super_class = T1ReadyBlock;
+  v3 = [(T1TPDUBlock *)&v10 initWithData:data needAck:0];
   v4 = v3;
   if (!v3)
   {
     goto LABEL_9;
   }
 
-  if ([(T1ReadyBlock *)v3 status]< 3)
+  status = [(T1ReadyBlock *)v3 status];
+  if (status < 3)
   {
-    if ([(T1TPDUBlock *)v4 lengthByte])
+    lengthByte = [(T1TPDUBlock *)v4 lengthByte];
+    if (lengthByte)
     {
-      v5 = sub_10000BF14();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sub_10000BF14(lengthByte);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100016BC4(v4);
       }
@@ -33,22 +35,22 @@
     }
 
 LABEL_9:
-    v6 = v4;
+    v8 = v4;
     goto LABEL_10;
   }
 
-  v5 = sub_10000BF14();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = sub_10000BF14(status);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100016C44(v4);
   }
 
 LABEL_8:
 
-  v6 = 0;
+  v8 = 0;
 LABEL_10:
 
-  return v6;
+  return v8;
 }
 
 - (id)statusStr

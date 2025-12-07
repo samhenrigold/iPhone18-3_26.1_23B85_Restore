@@ -39,81 +39,79 @@
 
 - (id)matchResultForServices:(id)services
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   v5 = [MEMORY[0x277CBEB58] set];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = servicesCopy;
-  v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v23)
   {
     selfCopy = self;
-    v23 = *v31;
+    v22 = *v30;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         predicate = [(HFServiceStateRecipe *)self predicate];
         v9 = [predicate matchingServicesForRootService:v7];
 
         if ([v9 count])
         {
-          v25 = v9;
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
+          v24 = v9;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           characteristicRecipes = [(HFServiceStateRecipe *)self characteristicRecipes];
-          v11 = [characteristicRecipes countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v11 = [characteristicRecipes countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v27;
+            v13 = *v26;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v27 != v13)
+                if (*v26 != v13)
                 {
                   objc_enumerationMutation(characteristicRecipes);
                 }
 
-                v15 = *(*(&v26 + 1) + 8 * j);
+                v15 = *(*(&v25 + 1) + 8 * j);
                 v16 = [MEMORY[0x277CBEB98] setWithObject:v7];
                 v17 = [v15 matchResultForServices:v16];
 
                 [v5 addObject:v17];
               }
 
-              v12 = [characteristicRecipes countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v12 = [characteristicRecipes countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v12);
           }
 
           self = selfCopy;
-          v9 = v25;
+          v9 = v24;
         }
       }
 
-      v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   v18 = [HFServiceStateCharacteristicMatchResult matchResultByMergingResults:v5];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

@@ -448,67 +448,66 @@ LABEL_36:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v19 = toCopy;
+  v7 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_productName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_systemVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_systemBuildVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_marketingVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_deviceColor)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_deviceEnclosureColor)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    bottomEnclosureMaterial = self->_bottomEnclosureMaterial;
     PBDataWriterWriteInt32Field();
-    toCopy = v19;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x200) == 0)
     {
@@ -527,9 +526,8 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  topEnclosureMaterial = self->_topEnclosureMaterial;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -543,9 +541,8 @@ LABEL_22:
   }
 
 LABEL_49:
-  fcmMaterial = self->_fcmMaterial;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -559,9 +556,8 @@ LABEL_23:
   }
 
 LABEL_50:
-  bcmWindowMaterial = self->_bcmWindowMaterial;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -575,9 +571,8 @@ LABEL_24:
   }
 
 LABEL_51:
-  coverGlassColor = self->_coverGlassColor;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -591,41 +586,38 @@ LABEL_25:
   }
 
 LABEL_52:
-  housingColor = self->_housingColor;
   PBDataWriterWriteInt32Field();
-  toCopy = v19;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_26:
-    backingColor = self->_backingColor;
     PBDataWriterWriteInt32Field();
-    toCopy = v19;
+    toCopy = v7;
   }
 
 LABEL_27:
   if (self->_watchFace)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_watchFaceColor)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x800) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x800) != 0)
   {
-    locationOptInEnabled = self->_locationOptInEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v19;
-    v7 = self->_has;
-    if ((v7 & 0x400) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x400) == 0)
     {
 LABEL_33:
-      if ((v7 & 1) == 0)
+      if ((v6 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -639,14 +631,13 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  diagnosticsOptInEnabled = self->_diagnosticsOptInEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
-  v7 = self->_has;
-  if ((v7 & 1) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 1) == 0)
   {
 LABEL_34:
-    if ((v7 & 2) == 0)
+    if ((v6 & 2) == 0)
     {
       goto LABEL_36;
     }
@@ -655,41 +646,38 @@ LABEL_34:
   }
 
 LABEL_56:
-  lastModificationDate = self->_lastModificationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v19;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_35:
-    sizeInBytes = self->_sizeInBytes;
     PBDataWriterWriteInt64Field();
-    toCopy = v19;
+    toCopy = v7;
   }
 
 LABEL_36:
   if (self->_activeWatchFaceFileContents)
   {
     PBDataWriterWriteDataField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    backupType = self->_backupType;
     PBDataWriterWriteInt32Field();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_deviceCSN)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_watchFaceData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v19;
+    toCopy = v7;
   }
 }
 
@@ -1344,7 +1332,6 @@ LABEL_14:
       goto LABEL_97;
     }
 
-    v20 = *(equalCopy + 177);
     if (self->_locationOptInEnabled)
     {
       if ((*(equalCopy + 177) & 1) == 0)
@@ -1371,7 +1358,6 @@ LABEL_14:
       goto LABEL_97;
     }
 
-    v21 = *(equalCopy + 176);
     if (self->_diagnosticsOptInEnabled)
     {
       if ((*(equalCopy + 176) & 1) == 0)
@@ -1427,21 +1413,21 @@ LABEL_14:
     }
 
 LABEL_97:
-    v26 = 0;
+    v24 = 0;
     goto LABEL_98;
   }
 
 LABEL_88:
-  v23 = *(equalCopy + 90);
+  v21 = *(equalCopy + 90);
   if ((v18 & 8) != 0)
   {
-    if ((v23 & 8) == 0 || self->_backupType != *(equalCopy + 9))
+    if ((v21 & 8) == 0 || self->_backupType != *(equalCopy + 9))
     {
       goto LABEL_97;
     }
   }
 
-  else if ((v23 & 8) != 0)
+  else if ((v21 & 8) != 0)
   {
     goto LABEL_97;
   }
@@ -1455,17 +1441,17 @@ LABEL_88:
   watchFaceData = self->_watchFaceData;
   if (watchFaceData | *(equalCopy + 21))
   {
-    v26 = [(NSData *)watchFaceData isEqual:?];
+    v24 = [(NSData *)watchFaceData isEqual:?];
   }
 
   else
   {
-    v26 = 1;
+    v24 = 1;
   }
 
 LABEL_98:
 
-  return v26;
+  return v24;
 }
 
 - (unint64_t)hash

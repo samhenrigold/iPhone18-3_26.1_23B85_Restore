@@ -159,9 +159,8 @@
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7, v10);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10026D814(&unk_1006A2A00, &unk_10057D710);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -169,7 +168,7 @@
   selfCopy = self;
   sub_1002C27B4();
 
-  (*(v8 + 8))(v12, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)reportingController:(id)controller receivedHandoffReport:(id)report forConversation:(id)conversation

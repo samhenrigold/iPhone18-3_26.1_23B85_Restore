@@ -362,9 +362,9 @@
     [(_UITextContainerView *)self _ensureLayoutCompleteForRect:?];
   }
 
-  [(UIView *)self transform];
-  v23 = 1.0 / v28;
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
+  v23 = 1.0 / v28[0];
+  objc_msgSend_transform(self);
   CGAffineTransformMakeScale(&v29, v23, 1.0 / v27);
   canvasView = self->_canvasView;
   rect_8 = v29;
@@ -635,9 +635,9 @@ LABEL_7:
 
   if (v11 && v6)
   {
-    v7 = [(NSDictionary *)v11 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v11);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_10;
     }
@@ -716,7 +716,7 @@ LABEL_10:
 
 - (id)textHighlightRenderingAttributesForAttributes:(id)attributes
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = [attributesCopy objectForKeyedSubscript:*off_1E70ECA80];
 
@@ -726,54 +726,53 @@ LABEL_10:
   }
 
   v6 = [attributesCopy objectForKeyedSubscript:*off_1E70ECA40];
-  v7 = *off_1E70ECA50;
   if (!v6)
   {
-    v6 = v7;
+    v6 = *off_1E70ECA50;
   }
 
-  if ([v6 isEqualToString:v7])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     textHighlightAttributes = [(_UITextContainerView *)self textHighlightAttributes];
 
     goto LABEL_24;
   }
 
-  v9 = objc_opt_class();
-  objc_sync_enter(v9);
-  v10 = [textHighlightRenderingAttributesForAttributes__colorSchemeTable objectForKeyedSubscript:v6];
-  if (!v10)
+  v8 = objc_opt_class();
+  objc_sync_enter(v8);
+  v9 = [textHighlightRenderingAttributesForAttributes__colorSchemeTable objectForKeyedSubscript:v6];
+  if (!v9)
   {
-    if ([v6 isEqualToString:*off_1E70ECA70])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v11 = +[UIColor systemPurpleColor];
+      v10 = +[UIColor systemPurpleColor];
       goto LABEL_17;
     }
 
-    if ([v6 isEqualToString:*off_1E70ECA68])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v11 = +[UIColor systemPinkColor];
+      v10 = +[UIColor systemPinkColor];
       goto LABEL_17;
     }
 
-    if ([v6 isEqualToString:*off_1E70ECA60])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v11 = +[UIColor systemOrangeColor];
+      v10 = +[UIColor systemOrangeColor];
       goto LABEL_17;
     }
 
-    if ([v6 isEqualToString:*off_1E70ECA58])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v11 = +[UIColor systemMintColor];
+      v10 = +[UIColor systemMintColor];
       goto LABEL_17;
     }
 
-    if ([v6 isEqualToString:*off_1E70ECA48])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v11 = +[UIColor systemBlueColor];
+      v10 = +[UIColor systemBlueColor];
 LABEL_17:
-      v10 = v11;
-      if (!v11)
+      v9 = v10;
+      if (!v10)
       {
         goto LABEL_21;
       }
@@ -781,59 +780,59 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v16 = [v6 rangeOfString:@"NSTextHighlightColorScheme" options:8];
-    if (v17)
+    v15 = [v6 rangeOfString:@"NSTextHighlightColorScheme" options:8];
+    if (v16)
     {
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = [v6 substringFromIndex:v16 + v17];
-      v20 = [v18 stringWithFormat:@"system%@Color", v19];
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = [v6 substringFromIndex:v15 + v16];
+      v19 = [v17 stringWithFormat:@"system%@Color", v18];
     }
 
     else
     {
-      v20 = v6;
+      v19 = v6;
     }
 
-    v10 = NSSelectorFromString(v20);
-    if (v10)
+    v9 = NSSelectorFromString(v19);
+    if (v9)
     {
       objc_opt_class();
       if (objc_opt_respondsToSelector())
       {
-        v10 = [objc_opt_class() performSelector:v10];
+        v9 = [objc_opt_class() performSelector:v9];
       }
 
       else
       {
-        v10 = 0;
+        v9 = 0;
       }
     }
 
-    if (v10)
+    if (v9)
     {
 LABEL_18:
-      v12 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
+      v11 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
       if (!textHighlightRenderingAttributesForAttributes__colorSchemeTable)
       {
-        v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v14 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
-        textHighlightRenderingAttributesForAttributes__colorSchemeTable = v13;
+        v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v13 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
+        textHighlightRenderingAttributesForAttributes__colorSchemeTable = v12;
 
-        v12 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
+        v11 = textHighlightRenderingAttributesForAttributes__colorSchemeTable;
       }
 
-      [v12 setObject:v10 forKeyedSubscript:v6];
+      [v11 setObject:v9 forKeyedSubscript:v6];
     }
   }
 
 LABEL_21:
-  objc_sync_exit(v9);
+  objc_sync_exit(v8);
 
-  if (v10)
+  if (v9)
   {
-    v21 = *off_1E70EC920;
-    v22[0] = v10;
-    textHighlightAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *off_1E70EC920;
+    v21[0] = v9;
+    textHighlightAttributes = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
     goto LABEL_24;
   }
@@ -1478,8 +1477,8 @@ LABEL_18:
 
 - (CGPoint)drawingScale
 {
-  [(UIView *)self transform];
-  [(UIView *)self transform];
+  objc_msgSend_transform(self, a2);
+  objc_msgSend_transform(self);
   v3 = v5;
   v4 = v6;
   result.y = v3;

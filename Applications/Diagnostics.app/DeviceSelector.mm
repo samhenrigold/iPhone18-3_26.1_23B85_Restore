@@ -14,22 +14,22 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000BDFB4();
+  sub_1000BDFB4(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
   selfCopy = self;
-  sub_1000BE490();
-  v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for DeviceSelector();
-  [(DeviceSelector *)&v7 viewWillAppear:appearCopy];
-  v5 = *&selfCopy->OBWelcomeController_opaque[OBJC_IVAR____TtC11Diagnostics14DeviceSelector_devicesTableView];
-  if (v5)
+  sub_1000BE490(v5);
+  v8.receiver = selfCopy;
+  v8.super_class = type metadata accessor for DeviceSelector();
+  [(DeviceSelector *)&v8 viewWillAppear:appearCopy];
+  v6 = *&selfCopy->OBWelcomeController_opaque[OBJC_IVAR____TtC11Diagnostics14DeviceSelector_devicesTableView];
+  if (v6)
   {
-    v6 = v5;
-    [v6 invalidateIntrinsicContentSize];
+    v7 = v6;
+    [v7 invalidateIntrinsicContentSize];
   }
 
   else
@@ -77,7 +77,7 @@
 {
   selfCopy = self;
   sub_1000C171C();
-  sub_1000BE490();
+  sub_1000BE490(v2);
 }
 
 - (_TtC11Diagnostics14DeviceSelector)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

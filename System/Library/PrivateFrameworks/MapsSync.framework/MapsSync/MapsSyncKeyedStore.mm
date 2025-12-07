@@ -14,6 +14,7 @@
 - (void)setDouble:(double)double key:(id)key;
 - (void)setInt64:(int64_t)int64 key:(id)key;
 - (void)setString:(id)string key:(id)key;
+- (void)setValue:(BOOL)value key:(id)key;
 @end
 
 @implementation MapsSyncKeyedStore
@@ -262,6 +263,16 @@
   v8 = *(&self->super.isa + OBJC_IVAR____TtC8MapsSync18MapsSyncKeyedStore_store);
   selfCopy = self;
   [v8 setDouble:key forKey:double];
+  [*(&self->super.isa + v7) synchronize];
+}
+
+- (void)setValue:(BOOL)value key:(id)key
+{
+  valueCopy = value;
+  v7 = OBJC_IVAR____TtC8MapsSync18MapsSyncKeyedStore_store;
+  v8 = *(&self->super.isa + OBJC_IVAR____TtC8MapsSync18MapsSyncKeyedStore_store);
+  selfCopy = self;
+  [v8 setBool:valueCopy forKey:key];
   [*(&self->super.isa + v7) synchronize];
 }
 

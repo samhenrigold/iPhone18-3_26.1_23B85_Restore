@@ -9,7 +9,7 @@
 
 - (void)_run
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->super._invalidateCalled)
   {
     while (1)
@@ -24,18 +24,18 @@
       {
         case 0xC:
           state = [(SKConnection *)self->super._skCnx state];
-          v5 = self->super._runState;
+          v4 = self->super._runState;
           if (state != 1)
           {
             break;
           }
 
 LABEL_15:
-          ++v5;
+          ++v4;
           goto LABEL_16;
         case 0xD:
           _runSteps = [(SKSetupBase *)self _runSteps];
-          v5 = self->super._runState;
+          v4 = self->super._runState;
           if (_runSteps)
           {
             goto LABEL_15;
@@ -44,16 +44,16 @@ LABEL_15:
           break;
         case 0xE:
           [(SKSetupBase *)self _completeWithError:0];
-          v5 = self->super._runState;
+          v4 = self->super._runState;
           break;
         default:
-          goto LABEL_2;
+          return;
       }
 
 LABEL_17:
-      if (v5 == runState)
+      if (v4 == runState)
       {
-        goto LABEL_2;
+        return;
       }
 
       if (sCUOSLogCreateOnce_logger_2331 != -1)
@@ -61,45 +61,45 @@ LABEL_17:
         dispatch_once(&sCUOSLogCreateOnce_logger_2331, &__block_literal_global_11);
       }
 
-      v8 = sCUOSLogHandle_logger_2332;
+      v7 = sCUOSLogHandle_logger_2332;
       if (os_log_type_enabled(sCUOSLogHandle_logger_2332, OS_LOG_TYPE_DEFAULT))
       {
         if ((0x78FFu >> runState))
         {
-          v9 = off_279BB8768[runState];
+          v8 = off_279BB8768[runState];
         }
 
         else if (runState <= 9)
         {
-          v9 = "?";
+          v8 = "?";
         }
 
         else
         {
-          v9 = "User";
+          v8 = "User";
         }
 
-        v10 = self->super._runState;
-        if (v10 < 0xF && ((0x78FFu >> v10) & 1) != 0)
+        v9 = self->super._runState;
+        if (v9 < 0xF && ((0x78FFu >> v9) & 1) != 0)
         {
-          v11 = off_279BB8768[v10];
+          v10 = off_279BB8768[v9];
         }
 
-        else if (v10 <= 9)
+        else if (v9 <= 9)
         {
-          v11 = "?";
+          v10 = "?";
         }
 
         else
         {
-          v11 = "User";
+          v10 = "User";
         }
 
         *buf = 136315394;
-        v13 = v9;
-        v14 = 2080;
-        v15 = v11;
-        _os_log_impl(&dword_265B01000, v8, OS_LOG_TYPE_DEFAULT, "State: %s -> %s", buf, 0x16u);
+        v12 = v8;
+        v13 = 2080;
+        v14 = v10;
+        _os_log_impl(&dword_265B01000, v7, OS_LOG_TYPE_DEFAULT, "State: %s -> %s", buf, 0x16u);
       }
     }
 
@@ -107,22 +107,19 @@ LABEL_17:
     {
       if (runState != 11)
       {
-        goto LABEL_2;
+        return;
       }
 
       [(SKSetupBase *)self _connectionStartWithSKConnection:0 clientMode:1 completeOnFailure:1 completion:&__block_literal_global_2330];
-      v5 = self->super._runState;
+      v4 = self->super._runState;
       goto LABEL_15;
     }
 
-    v5 = 11;
+    v4 = 11;
 LABEL_16:
-    self->super._runState = v5;
+    self->super._runState = v4;
     goto LABEL_17;
   }
-
-LABEL_2:
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareSteps

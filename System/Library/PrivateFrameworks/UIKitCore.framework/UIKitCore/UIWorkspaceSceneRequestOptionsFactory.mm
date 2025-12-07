@@ -40,7 +40,7 @@ void __98___UIWorkspaceSceneRequestOptionsFactory_buildWorkspaceRequestOptionsFo
     if (v9)
     {
       v11 = [v9 uiSceneSessionRole];
-      if (([a1[5] isEqualToString:v11] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(a1[5]) & 1) == 0)
       {
         v16 = __UILogGetCategoryCachedImpl("SceneRequestFactory", &qword_1ED49FEC8);
         if (*v16)

@@ -57,17 +57,17 @@
 - (BOOL)isNewForCurrentDevice
 {
   selfCopy = self;
-  v3 = VCCommandObjC.isNewForCurrentDevice.getter();
+  v4 = VCCommandObjC.isNewForCurrentDevice.getter(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)showCodingGuideInSettings
 {
   selfCopy = self;
-  v3 = VCCommandObjC.showCodingGuideInSettings.getter();
+  v4 = VCCommandObjC.showCodingGuideInSettings.getter(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (VCCommandObjC)init

@@ -35,24 +35,23 @@
   v5 = [requestCopy acl];
   if (v5 && (v6 = v5, [requestCopy acl], v7 = objc_claimAutoreleasedReturnValue(), v8 = +[LACAccessControl checkACLAllowsAll:](LACAccessControl, "checkACLAllowsAll:", v7), v7, v6, v8))
   {
-    v9 = LACLogSharedMode();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = LACLogSharedMode(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ not needed for this request type", &v13, 0xCu);
+      _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ not needed for this request type", &v13, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 - (void)processRequest:(id)request configuration:(id)configuration completion:(id)completion
@@ -61,14 +60,15 @@
   requestCopy = request;
   configurationCopy = configuration;
   completionCopy = completion;
-  if ([(LACSharedModeProcessor *)self canProcessRequest:requestCopy])
+  v11 = [(LACSharedModeProcessor *)self canProcessRequest:requestCopy];
+  if (v11)
   {
-    v11 = LACLogSharedMode();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LACLogSharedMode(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ will start", buf, 0xCu);
+      _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ will start", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
@@ -87,30 +87,26 @@
 
   else
   {
-    v12 = [LACEvaluationResult resultWithNext:requestCopy];
-    (*(completionCopy + 2))(completionCopy, v12);
+    v13 = [LACEvaluationResult resultWithNext:requestCopy];
+    (*(completionCopy + 2))(completionCopy, v13);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __66__LACSharedModeProcessor_processRequest_configuration_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = LACLogSharedMode();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = LACLogSharedMode(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v7 = 138543362;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish", &v6, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [LACEvaluationResult resultWithNext:*(a1 + 32)];
   (*(v4 + 16))(v4, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processRequest:(id)request completion:(id)completion
@@ -173,22 +169,21 @@ void __53__LACSharedModeProcessor__processRequest_completion___block_invoke_2(ui
 
 void __53__LACSharedModeProcessor__processRequest_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogSharedMode();
+  v4 = LACLogSharedMode(v3);
   v5 = 16 * (v3 != 0);
   if (os_log_type_enabled(v4, v5))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v8 = 138543618;
-    v9 = WeakRetained;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_impl(&dword_1B0233000, v4, v5, "%{public}@ Policy update for shared mode finished err=%{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = WeakRetained;
+    v9 = 2114;
+    v10 = v3;
+    _os_log_impl(&dword_1B0233000, v4, v5, "%{public}@ Policy update for shared mode finished err=%{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

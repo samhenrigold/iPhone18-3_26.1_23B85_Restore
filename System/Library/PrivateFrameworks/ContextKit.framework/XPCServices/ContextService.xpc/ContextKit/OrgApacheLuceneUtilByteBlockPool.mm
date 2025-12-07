@@ -1,13 +1,116 @@
 @interface OrgApacheLuceneUtilByteBlockPool
 + (void)initialize;
+- (int)allocSliceWithByteArray:(id)array withInt:(int)int;
 - (int)newSliceWithInt:(int)int;
 - (void)appendWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)dealloc;
 - (void)nextBuffer;
+- (void)readBytesWithLong:(int64_t)long withByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (void)resetWithBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean;
 - (void)setBytesRefWithOrgApacheLuceneUtilBytesRef:(id)ref withInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneUtilByteBlockPool
+
+- (void)resetWithBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean
+{
+  bufferUpto = self->bufferUpto_;
+  if (bufferUpto == -1)
+  {
+    return;
+  }
+
+  withBooleanCopy = withBoolean;
+  if (boolean)
+  {
+    if (bufferUpto >= 1)
+    {
+      v11 = 0;
+      do
+      {
+        buffers = self->buffers_;
+        if (!buffers)
+        {
+          goto LABEL_27;
+        }
+
+        size = buffers->super.size_;
+        if (v11 >= size)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(size, v11);
+        }
+
+        JavaUtilArrays_fillWithByteArray_withByte_((&buffers->elementType_)[v11++], 0);
+      }
+
+      while (v11 < self->bufferUpto_);
+      bufferUpto = self->bufferUpto_;
+    }
+
+    v14 = self->buffers_;
+    if (!v14)
+    {
+      goto LABEL_27;
+    }
+
+    v15 = v14->super.size_;
+    if ((bufferUpto & 0x80000000) != 0 || bufferUpto >= v15)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v15, bufferUpto);
+    }
+
+    JavaUtilArrays_fillWithByteArray_withInt_withInt_withByte_((&v14->elementType_)[bufferUpto], 0, self->byteUpto_, 0, v4, v5, v6, v7);
+    LODWORD(bufferUpto) = self->bufferUpto_;
+  }
+
+  if (bufferUpto <= 0 && withBooleanCopy)
+  {
+    if (withBooleanCopy)
+    {
+LABEL_18:
+      self->byteUpto_ = 0;
+      *&self->byteOffset_ = 0;
+      v16 = self->buffers_;
+      if (v16)
+      {
+        v17 = v16->super.size_;
+        if (v17 <= 0)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v17, 0);
+        }
+
+        elementType = v16->elementType_;
+        goto LABEL_24;
+      }
+
+LABEL_27:
+      JreThrowNullPointerException();
+    }
+  }
+
+  else
+  {
+    allocator = self->allocator_;
+    if (!allocator)
+    {
+      goto LABEL_27;
+    }
+
+    [(OrgApacheLuceneUtilByteBlockPool_Allocator *)allocator recycleByteBlocksWithByteArray2:self->buffers_ withInt:withBooleanCopy withInt:(bufferUpto + 1)];
+    JavaUtilArrays_fillWithNSObjectArray_withInt_withInt_withId_(self->buffers_, withBooleanCopy, (self->bufferUpto_ + 1), 0, v20, v21, v22, v23);
+    if (withBooleanCopy)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  elementType = 0;
+  self->byteUpto_ = 0x8000;
+  *&self->byteOffset_ = -32768;
+LABEL_24:
+
+  JreStrongAssign(&self->buffer_, elementType);
+}
 
 - (void)nextBuffer
 {
@@ -71,6 +174,154 @@ LABEL_8:
 
   *(&buffer->super.size_ + v9 + 4) = 16;
   return byteUpto;
+}
+
+- (int)allocSliceWithByteArray:(id)array withInt:(int)int
+{
+  if (!array)
+  {
+    goto LABEL_35;
+  }
+
+  v4 = *&int;
+  v7 = *(array + 2);
+  if (int < 0 || v7 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v7, *&int);
+  }
+
+  if (!OrgApacheLuceneUtilByteBlockPool_NEXT_LEVEL_ARRAY_)
+  {
+    goto LABEL_35;
+  }
+
+  v8 = *(array + int + 12) & 0xF;
+  v9 = *(OrgApacheLuceneUtilByteBlockPool_NEXT_LEVEL_ARRAY_ + 8);
+  if (v9 <= v8)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v9, *(array + int + 12) & 0xF);
+  }
+
+  if (!OrgApacheLuceneUtilByteBlockPool_LEVEL_SIZE_ARRAY_)
+  {
+    goto LABEL_35;
+  }
+
+  v10 = *(OrgApacheLuceneUtilByteBlockPool_NEXT_LEVEL_ARRAY_ + 12 + 4 * v8);
+  v11 = *(OrgApacheLuceneUtilByteBlockPool_LEVEL_SIZE_ARRAY_ + 8);
+  if ((v10 & 0x80000000) != 0 || v10 >= v11)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v11, *(OrgApacheLuceneUtilByteBlockPool_NEXT_LEVEL_ARRAY_ + 12 + 4 * v8));
+  }
+
+  v12 = *(OrgApacheLuceneUtilByteBlockPool_LEVEL_SIZE_ARRAY_ + 12 + 4 * v10);
+  byteUpto = self->byteUpto_;
+  if (byteUpto > 0x8000 - v12)
+  {
+    v14 = v10;
+    [(OrgApacheLuceneUtilByteBlockPool *)self nextBuffer];
+    LOBYTE(v10) = v14;
+    byteUpto = self->byteUpto_;
+  }
+
+  byteOffset = self->byteOffset_;
+  self->byteUpto_ = byteUpto + v12;
+  v16 = *(array + 2);
+  v17 = v4 - 3;
+  v18 = v4 - 3;
+  if (v4 - 3 < 0 || v17 >= v16)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v16, v17);
+  }
+
+  buffer = self->buffer_;
+  if (!buffer)
+  {
+LABEL_35:
+    JreThrowNullPointerException();
+  }
+
+  size = buffer->super.size_;
+  if ((byteUpto & 0x80000000) != 0 || byteUpto >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, byteUpto);
+  }
+
+  *(&buffer->super.size_ + byteUpto + 4) = *(array + v18 + 12);
+  v21 = *(array + 2);
+  v22 = v4 - 2;
+  v23 = v4 - 2;
+  if (v4 - 2 < 0 || v22 >= v21)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v21, v22);
+  }
+
+  v24 = self->buffer_;
+  v25 = v24->super.size_;
+  v26 = byteUpto + 1;
+  if (byteUpto + 1 < 0 || v26 >= v25)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v25, v26);
+  }
+
+  *(&v24->super.size_ + v26 + 4) = *(array + v23 + 12);
+  v27 = *(array + 2);
+  v28 = v4 - 1;
+  v29 = v4 - 1;
+  if (v4 - 1 < 0 || v28 >= v27)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v27, v28);
+  }
+
+  v30 = self->buffer_;
+  v31 = v30->super.size_;
+  v32 = byteUpto + 2;
+  if (byteUpto + 2 < 0 || v32 >= v31)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v31, v32);
+  }
+
+  v33 = byteOffset + byteUpto;
+  *(&v30->super.size_ + v32 + 4) = *(array + v29 + 12);
+  v34 = *(array + 2);
+  if ((v18 & 0x80000000) != 0 || v18 >= v34)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v34, v18);
+  }
+
+  *(array + v18 + 12) = HIBYTE(v33);
+  v35 = *(array + 2);
+  if ((v23 & 0x80000000) != 0 || v23 >= v35)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v35, v23);
+  }
+
+  *(array + v23 + 12) = BYTE2(v33);
+  v36 = *(array + 2);
+  if ((v29 & 0x80000000) != 0 || v29 >= v36)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v36, v29);
+  }
+
+  *(array + v29 + 12) = BYTE1(v33);
+  v37 = *(array + 2);
+  if ((v4 & 0x80000000) != 0 || v37 <= v4)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v37, v4);
+  }
+
+  *(array + v4 + 12) = v33;
+  v38 = self->buffer_;
+  v39 = self->byteUpto_;
+  v40 = v38->super.size_;
+  v41 = v39 - 1;
+  if (v39 - 1 < 0 || v41 >= v40)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v40, (v39 - 1));
+  }
+
+  *(&v38->super.size_ + v41 + 4) = v10 | 0x10;
+  return byteUpto + 3;
 }
 
 - (void)setBytesRefWithOrgApacheLuceneUtilBytesRef:(id)ref withInt:(int)int
@@ -169,6 +420,64 @@ LABEL_8:
 
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*(ref + 1), v6, self->buffer_, byteUpto, v4);
     self->byteUpto_ += v4;
+  }
+}
+
+- (void)readBytesWithLong:(int64_t)long withByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (withInt)
+  {
+    buffers = self->buffers_;
+    if (!buffers)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v8 = *&withInt;
+    v9 = *&int;
+    v11 = long >> 15;
+    size = buffers->super.size_;
+    if (((long >> 15) & 0x80000000) != 0 || size <= v11)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(size, long >> 15);
+    }
+
+    v13 = long & 0x7FFF;
+    v14 = (&buffers->elementType_)[v11];
+    if (v13 + withInt - 0x8000 < 1)
+    {
+      v20 = long & 0x7FFF;
+    }
+
+    else
+    {
+      v15 = withInt + v13;
+      v16 = (0x8000 - v13);
+      v17 = v11 + 1;
+      do
+      {
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v14, v13, array, v9, v16);
+        v18 = self->buffers_;
+        v19 = v18->super.size_;
+        if (v17 < 0 || v17 >= v19)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v19, v17);
+        }
+
+        v20 = 0;
+        v13 = 0;
+        v8 = (v8 - v16);
+        v9 = (v16 + v9);
+        v14 = (&v18->elementType_)[v17];
+        v15 -= 0x8000;
+        v16 = (v16 + 0x8000);
+        ++v17;
+      }
+
+      while (v15 > 0x8000);
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v14, v20, array, v9, v8);
   }
 }
 

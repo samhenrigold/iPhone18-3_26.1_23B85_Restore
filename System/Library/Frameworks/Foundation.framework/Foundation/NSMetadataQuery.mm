@@ -85,7 +85,7 @@ uint64_t __55__NSMetadataQuery_NSMetadataStitching___stitchingClass__block_invok
 {
   v8 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E695DFA8] set];
-  if (([key isEqualToString:@"resultCount"] & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"valueLists") & 1) != 0 || objc_msgSend(key, "isEqualToString:", @"groupedResults"))
+  if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     [v5 addObject:@"results"];
   }
@@ -1307,7 +1307,7 @@ uint64_t __28__NSMetadataQuery_stopQuery__block_invoke(uint64_t a1)
 {
   createCopy = create;
   v10 = *MEMORY[0x1E69E9840];
-  if ([key isEqualToString:@"results"] && -[NSMetadataQuery operationQueue](self, "operationQueue"))
+  if (objc_msgSend_isEqualToString_(key, a2, @"results") && [(NSMetadataQuery *)self operationQueue])
   {
     result = *(self->_reserved + 2);
     if (result)
@@ -1340,7 +1340,7 @@ uint64_t __28__NSMetadataQuery_stopQuery__block_invoke(uint64_t a1)
 - (void)removeObserver:(id)observer forKeyPath:(id)path
 {
   v11 = *MEMORY[0x1E69E9840];
-  if ([path isEqualToString:@"results"] && !-[NSMetadataQuery _canModifyQueryOrObserversInCurrentContext](self, "_canModifyQueryOrObserversInCurrentContext"))
+  if (objc_msgSend_isEqualToString_(path, a2, @"results") && ![(NSMetadataQuery *)self _canModifyQueryOrObserversInCurrentContext])
   {
     if ([(NSMetadataQuery *)self operationQueue])
     {

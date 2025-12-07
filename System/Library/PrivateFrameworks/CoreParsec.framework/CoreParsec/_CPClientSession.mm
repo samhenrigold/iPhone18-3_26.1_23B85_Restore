@@ -391,13 +391,12 @@ LABEL_66:
 
 - (void)writeTo:(id)to
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   toCopy = to;
   agent = [(_CPClientSession *)self agent];
 
   if (agent)
   {
-    agent = self->_agent;
     PBDataWriterWriteStringField();
   }
 
@@ -405,64 +404,60 @@ LABEL_66:
 
   if (userGuidString)
   {
-    userGuidString = self->_userGuidString;
     PBDataWriterWriteStringField();
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v9 = self->_resourceVersions;
-  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v59 objects:v65 count:16];
-  if (v10)
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v7 = self->_resourceVersions;
+  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v60;
+    v9 = v8;
+    v10 = *v43;
     do
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        if (*v60 != v12)
+        if (*v43 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v59 + 1) + 8 * v13);
-        v58 = 0;
+        v12 = *(*(&v42 + 1) + 8 * v11);
+        v41 = 0;
         PBDataWriterPlaceMark();
         PBDataWriterWriteStringField();
-        v15 = [(NSDictionary *)self->_resourceVersions objectForKeyedSubscript:v14];
+        v13 = [(NSDictionary *)self->_resourceVersions objectForKeyedSubscript:v12];
         PBDataWriterWriteStringField();
 
         PBDataWriterRecallMark();
-        ++v13;
+        ++v11;
       }
 
-      while (v11 != v13);
-      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v59 objects:v65 count:16];
+      while (v9 != v11);
+      v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 
   [(_CPClientSession *)self sessionStart];
-  if (v16 != 0.0)
+  if (v14 != 0.0)
   {
-    sessionStart = self->_sessionStart;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_CPClientSession *)self previousSessionEndReason])
   {
-    previousSessionEndReason = self->_previousSessionEndReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPClientSession *)self removeTimestamps])
   {
-    removeTimestamps = self->_removeTimestamps;
     PBDataWriterWriteBOOLField();
   }
 
@@ -470,13 +465,11 @@ LABEL_66:
 
   if (parsecDeveloperID)
   {
-    parsecDeveloperID = self->_parsecDeveloperID;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPClientSession *)self duEnabled])
   {
-    duEnabled = self->_duEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -484,7 +477,6 @@ LABEL_66:
 
   if (countryCode)
   {
-    countryCode = self->_countryCode;
     PBDataWriterWriteStringField();
   }
 
@@ -492,7 +484,6 @@ LABEL_66:
 
   if (locale)
   {
-    locale = self->_locale;
     PBDataWriterWriteStringField();
   }
 
@@ -514,57 +505,52 @@ LABEL_66:
 
   if ([(_CPClientSession *)self devicePersistentD20])
   {
-    devicePersistentD20 = self->_devicePersistentD20;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPClientSession *)self privateRelayStatus])
   {
-    privateRelayStatus = self->_privateRelayStatus;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPClientSession *)self isInternalCarry])
   {
-    isInternalCarry = self->_isInternalCarry;
     PBDataWriterWriteBOOLField();
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v34 = self->_experimentInfos;
-  v35 = [(NSArray *)v34 countByEnumeratingWithState:&v54 objects:v64 count:16];
-  if (v35)
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v22 = self->_experimentInfos;
+  v23 = [(NSArray *)v22 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  if (v23)
   {
-    v36 = v35;
-    v37 = *v55;
+    v24 = v23;
+    v25 = *v38;
     do
     {
-      v38 = 0;
+      v26 = 0;
       do
       {
-        if (*v55 != v37)
+        if (*v38 != v25)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v22);
         }
 
-        v39 = *(*(&v54 + 1) + 8 * v38);
         PBDataWriterWriteSubmessage();
-        ++v38;
+        ++v26;
       }
 
-      while (v36 != v38);
-      v36 = [(NSArray *)v34 countByEnumeratingWithState:&v54 objects:v64 count:16];
+      while (v24 != v26);
+      v24 = [(NSArray *)v22 countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
-    while (v36);
+    while (v24);
   }
 
   if ([(_CPClientSession *)self searchOptOut])
   {
-    searchOptOut = self->_searchOptOut;
     PBDataWriterWriteBOOLField();
   }
 
@@ -572,43 +558,39 @@ LABEL_66:
 
   if (jsonFeedback)
   {
-    jsonFeedback = self->_jsonFeedback;
     PBDataWriterWriteDataField();
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v43 = self->_feedbacks;
-  v44 = [(NSArray *)v43 countByEnumeratingWithState:&v50 objects:v63 count:16];
-  if (v44)
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v28 = self->_feedbacks;
+  v29 = [(NSArray *)v28 countByEnumeratingWithState:&v33 objects:v46 count:16];
+  if (v29)
   {
-    v45 = v44;
-    v46 = *v51;
+    v30 = v29;
+    v31 = *v34;
     do
     {
-      v47 = 0;
+      v32 = 0;
       do
       {
-        if (*v51 != v46)
+        if (*v34 != v31)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v28);
         }
 
-        v48 = *(*(&v50 + 1) + 8 * v47);
         PBDataWriterWriteSubmessage();
-        ++v47;
+        ++v32;
       }
 
-      while (v45 != v47);
-      v45 = [(NSArray *)v43 countByEnumeratingWithState:&v50 objects:v63 count:16];
+      while (v30 != v32);
+      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v33 objects:v46 count:16];
     }
 
-    while (v45);
+    while (v30);
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFeedback:(id)feedback
@@ -631,9 +613,7 @@ LABEL_66:
 
 - (void)setFeedback:(id)feedback
 {
-  v4 = [feedback mutableCopy];
-  feedbacks = self->_feedbacks;
-  self->_feedbacks = v4;
+  self->_feedbacks = [feedback mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -658,9 +638,7 @@ LABEL_66:
 
 - (void)setExperimentInfo:(id)info
 {
-  v4 = [info mutableCopy];
-  experimentInfos = self->_experimentInfos;
-  self->_experimentInfos = v4;
+  self->_experimentInfos = [info mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -705,9 +683,7 @@ LABEL_66:
 
 - (void)setResourceVersions:(id)versions
 {
-  v4 = [versions mutableCopy];
-  resourceVersions = self->_resourceVersions;
-  self->_resourceVersions = v4;
+  self->_resourceVersions = [versions mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }

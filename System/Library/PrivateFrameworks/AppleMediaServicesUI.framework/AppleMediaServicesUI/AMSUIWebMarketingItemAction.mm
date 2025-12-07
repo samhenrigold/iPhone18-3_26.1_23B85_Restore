@@ -124,10 +124,10 @@
 
 - (id)runAction
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v36.receiver = self;
-  v36.super_class = AMSUIWebMarketingItemAction;
-  runAction = [(AMSUIWebAction *)&v36 runAction];
+  v46 = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = AMSUIWebMarketingItemAction;
+  runAction = [(AMSUIWebAction *)&v35 runAction];
   v4 = objc_alloc_init(MEMORY[0x1E698CAD0]);
   v5 = AMSLogKey();
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -145,15 +145,15 @@
     clientVersion = [(AMSUIWebMarketingItemAction *)self clientVersion];
     account = [(AMSUIWebMarketingItemAction *)self account];
     *buf = 138544386;
-    v38 = v8;
-    v39 = 2114;
-    v40 = v9;
-    v41 = 2114;
-    v42 = clientIdentifier;
-    v43 = 2114;
-    v44 = clientVersion;
-    v45 = 2114;
-    v46 = account;
+    v37 = v8;
+    v38 = 2114;
+    v39 = v9;
+    v40 = 2114;
+    v41 = clientIdentifier;
+    v42 = 2114;
+    v43 = clientVersion;
+    v44 = 2114;
+    v45 = account;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running marketing item action with clientID: %{public}@ clientVersion: %{public}@ account: %{public}@", buf, 0x34u);
   }
 
@@ -178,53 +178,50 @@
 
   [v20 setLogKey:v5];
   perform = [v20 perform];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __40__AMSUIWebMarketingItemAction_runAction__block_invoke;
-  v32[3] = &unk_1E7F26750;
-  v33 = v5;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __40__AMSUIWebMarketingItemAction_runAction__block_invoke;
+  v31[3] = &unk_1E7F26750;
+  v32 = v5;
   selfCopy = self;
   v26 = v4;
-  v35 = v26;
+  v34 = v26;
   v27 = v5;
-  [perform addFinishBlock:v32];
+  [perform addFinishBlock:v31];
 
-  v28 = v35;
+  v28 = v34;
   v29 = v26;
 
-  v30 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 void __40__AMSUIWebMarketingItemAction_runAction__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = AMSSetLogKey();
-  v9 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  v10 = v9;
+  v7 = AMSSetLogKey();
+  v8 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  v9 = v8;
   if (v6)
   {
-    if (!v9)
+    if (!v8)
     {
-      v10 = [MEMORY[0x1E698C968] sharedConfig];
+      v9 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v11 = [v10 OSLogObject];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = [v9 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 40);
-      v13 = objc_opt_class();
-      v14 = AMSLogKey();
-      v22 = 138543874;
-      v23 = v13;
-      v24 = 2114;
-      v25 = v14;
-      v26 = 2114;
-      v27 = v6;
-      _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Marketing item task failed. %{public}@", &v22, 0x20u);
+      v11 = objc_opt_class();
+      v12 = AMSLogKey();
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v6;
+      _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Marketing item task failed. %{public}@", &v18, 0x20u);
     }
 
     [*(a1 + 48) finishWithError:v6];
@@ -232,30 +229,27 @@ void __40__AMSUIWebMarketingItemAction_runAction__block_invoke(uint64_t a1, void
 
   else
   {
-    if (!v9)
+    if (!v8)
     {
-      v10 = [MEMORY[0x1E698C968] sharedConfig];
+      v9 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v15 = [v10 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v13 = [v9 OSLogObject];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 40);
-      v17 = objc_opt_class();
-      v18 = AMSLogKey();
-      v22 = 138543618;
-      v23 = v17;
-      v24 = 2114;
-      v25 = v18;
-      _os_log_impl(&dword_1BB036000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Marketing item task completed successfully.", &v22, 0x16u);
+      v14 = objc_opt_class();
+      v15 = AMSLogKey();
+      v18 = 138543618;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v15;
+      _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Marketing item task completed successfully.", &v18, 0x16u);
     }
 
-    v19 = *(a1 + 48);
-    v20 = [v5 rawValues];
-    [v19 finishWithResult:v20];
+    v16 = *(a1 + 48);
+    v17 = [v5 rawValues];
+    [v16 finishWithResult:v17];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

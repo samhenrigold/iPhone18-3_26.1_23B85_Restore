@@ -67,7 +67,7 @@
   return v3;
 }
 
-uint64_t __27__AVRoutingOperation_error__block_invoke(uint64_t a1)
+void *__27__AVRoutingOperation_error__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 264) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -76,13 +76,13 @@ uint64_t __27__AVRoutingOperation_error__block_invoke(uint64_t a1)
 
 - (BOOL)evaluateDependenciesAndMarkAsExecuting
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  if (![(AVRoutingOperation *)self _setStatus:1 error:0 resultingStatus:&v26 failureReason:&v25])
+  if (![(AVRoutingOperation *)self _setStatus:1 error:0 resultingStatus:&v25 failureReason:&v24])
   {
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"%@", v4, v5, v6, v7, v8, v25), 0}];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"%@", v4, v5, v6, v7, v8, v24), 0}];
+    objc_exception_throw(v18);
   }
 
   if ([(AVRoutingOperation *)self isCancelled])
@@ -91,27 +91,27 @@ uint64_t __27__AVRoutingOperation_error__block_invoke(uint64_t a1)
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   dependencies = [(AVRoutingOperation *)self dependencies];
-  v11 = [dependencies countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v11 = [dependencies countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(dependencies);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -122,55 +122,52 @@ uint64_t __27__AVRoutingOperation_error__block_invoke(uint64_t a1)
       }
 
       while (v12 != v14);
-      v12 = [dependencies countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v12 = [dependencies countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v12);
   }
 
-  v20 = 0;
-  v16 = [AVRoutingOperation statusOfOperations:array error:&v20];
+  v19 = 0;
+  v16 = [AVRoutingOperation statusOfOperations:array error:&v19];
   if (v16 != 2)
   {
     if (v16 == 4)
     {
-      [(AVRoutingOperation *)self markAsFailedWithError:v20];
-      goto LABEL_16;
+      [(AVRoutingOperation *)self markAsFailedWithError:v19];
+      return [(AVRoutingOperation *)self status]== 1;
     }
 
 LABEL_15:
     [(AVRoutingOperation *)self markAsCancelled];
   }
 
-LABEL_16:
-  result = [(AVRoutingOperation *)self status]== 1;
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(AVRoutingOperation *)self status]== 1;
 }
 
 - (BOOL)isReady
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   dependencies = [(AVRoutingOperation *)self dependencies];
-  v3 = [dependencies countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [dependencies countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(dependencies);
       }
 
-      isFinished = [*(*(&v10 + 1) + 8 * v6) isFinished];
+      isFinished = [*(*(&v9 + 1) + 8 * v6) isFinished];
       if (!isFinished)
       {
         break;
@@ -178,7 +175,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [dependencies countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [dependencies countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -195,7 +192,6 @@ LABEL_9:
     LOBYTE(isFinished) = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return isFinished;
 }
 
@@ -386,31 +382,31 @@ LABEL_22:
 
 + (int64_t)statusOfOperations:(id)operations error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = [operations countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [operations countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
-    goto LABEL_28;
+    return 2;
   }
 
   v7 = v6;
   v8 = 0;
   v9 = 0;
-  v10 = *v18;
+  v10 = *v17;
 LABEL_3:
   v11 = 0;
   while (1)
   {
-    if (*v18 != v10)
+    if (*v17 != v10)
     {
       objc_enumerationMutation(operations);
     }
 
-    v12 = *(*(&v17 + 1) + 8 * v11);
+    v12 = *(*(&v16 + 1) + 8 * v11);
     result = [v12 status];
     if (result <= 1)
     {
@@ -432,7 +428,7 @@ LABEL_3:
 LABEL_11:
     if (v7 == ++v11)
     {
-      result = [operations countByEnumeratingWithState:&v17 objects:v21 count:16];
+      result = [operations countByEnumeratingWithState:&v16 objects:v20 count:16];
       v7 = result;
       if (result)
       {
@@ -452,10 +448,10 @@ LABEL_23:
 LABEL_25:
         if (v14)
         {
-          goto LABEL_29;
+          return v15;
         }
 
-        goto LABEL_30;
+        return result;
       }
 
       goto LABEL_27;
@@ -497,16 +493,10 @@ LABEL_14:
 LABEL_27:
   if (!v14)
   {
-    goto LABEL_30;
+    return result;
   }
 
-LABEL_28:
-  v15 = 2;
-LABEL_29:
-  result = v15;
-LABEL_30:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 2;
 }
 
 - (AVRoutingOperation)init

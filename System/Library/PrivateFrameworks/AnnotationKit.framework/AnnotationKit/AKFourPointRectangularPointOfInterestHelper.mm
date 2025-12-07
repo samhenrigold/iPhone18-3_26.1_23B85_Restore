@@ -19,7 +19,7 @@
   v21 = v20;
   v47 = 0.0;
   v22 = [AKGeometryHelper annotationHasRotation:annotationCopy outAngle:&v47];
-  [AKGeometryHelper rotationTransformForRect:v15 withAngle:v17, v19, v21, v47, 0, 0, 0, 0, 0, 0];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v15, v17, v19, v21, v47, 0, 0, 0, 0, 0, 0);
   [AKAnnotationRenderer draggingBoundsInsetsForAnnotation:annotationCopy];
   v24 = v23;
   v26 = v25;

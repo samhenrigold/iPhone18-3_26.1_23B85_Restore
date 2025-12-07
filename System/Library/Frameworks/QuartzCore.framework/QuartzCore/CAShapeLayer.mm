@@ -765,7 +765,7 @@ LABEL_39:
   if (!result)
   {
     [path rangeOfString:@"."];
-    if (!v6 && ((v7 = CAInternAtom(path, 0), v7 - 481 <= 0x28) && ((1 << (v7 + 31)) & 0x10000000005) != 0 || v7 - 689 < 3 || v7 == 246))
+    if (!v6 && ((v7 = CAInternAtom(path, 0), (v7 - 481) <= 0x28) && ((1 << (v7 + 31)) & 0x10000000005) != 0 || (v7 - 689) < 3 || v7 == 246))
     {
       return CALayerCreateImplicitAnimation(self, path, v7);
     }

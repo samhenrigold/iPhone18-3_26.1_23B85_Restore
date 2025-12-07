@@ -10,7 +10,7 @@
   engineCopy = engine;
   if (![engineCopy restoresPrimaryAccount])
   {
-    goto LABEL_35;
+    goto LABEL_34;
   }
 
   settingsContext = [engineCopy settingsContext];
@@ -18,7 +18,7 @@
 
   if (!shouldRestoreSystemFiles)
   {
-    goto LABEL_35;
+    goto LABEL_34;
   }
 
   v9 = MBGetDefaultLog();
@@ -26,7 +26,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Merging known Wi-Fi networks", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Merging known Wi-Fi networks");
   }
 
   persona = [engineCopy persona];
@@ -50,11 +50,11 @@
         *buf = 138543362;
         v31 = v12;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to read contents of %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to read contents of %{public}@", v12);
       }
 
       v23 = v12;
-      goto LABEL_26;
+      goto LABEL_25;
     }
 
     v19 = [v17 objectForKeyedSubscript:@"Version"];
@@ -67,8 +67,7 @@
         *buf = 138412290;
         v31 = v19;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Unexpected version key/value: %@", buf, 0xCu);
-LABEL_23:
-        _MBLog();
+        _MBLog(@"E ", "Unexpected version key/value: %@", v19);
       }
     }
 
@@ -91,7 +90,7 @@ LABEL_23:
           }
         }
 
-        goto LABEL_25;
+        goto LABEL_24;
       }
 
       v25 = MBGetDefaultLog();
@@ -100,20 +99,20 @@ LABEL_23:
         *buf = 138412290;
         v31 = v20;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Unexpected class C migration key/value: %@", buf, 0xCu);
-        goto LABEL_23;
+        _MBLog(@"E ", "Unexpected class C migration key/value: %@", v20);
       }
     }
 
     v22 = v12;
-LABEL_25:
+LABEL_24:
     v23 = v22;
 
-LABEL_26:
-    goto LABEL_27;
+LABEL_25:
+    goto LABEL_26;
   }
 
   v23 = v12;
-LABEL_27:
+LABEL_26:
   if (!v23)
   {
     __assert_rtn("[MBWiFiPlugin endingRestoreWithPolicy:engine:]", "MBWiFiPlugin.m", 66, "wifiPathToMerge");
@@ -126,7 +125,7 @@ LABEL_27:
     *buf = 138543362;
     v31 = v23;
     _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Merging known Wi-Fi networks with %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Merging known Wi-Fi networks with %{public}@", v23);
   }
 
   if (!WiFiManagerClientMergeKnownNetworks())
@@ -136,13 +135,13 @@ LABEL_27:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to merge known Wi-Fi networks", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to merge known Wi-Fi networks");
     }
   }
 
   CFRelease(v26);
 
-LABEL_35:
+LABEL_34:
   return 0;
 }
 

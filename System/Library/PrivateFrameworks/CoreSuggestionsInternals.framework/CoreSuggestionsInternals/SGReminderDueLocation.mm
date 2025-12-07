@@ -99,31 +99,31 @@
 
 + (id)mergeDueLocations:(id)locations
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allObjects = [locationsCopy allObjects];
-  v5 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         locationType = [v12 locationType];
         if (v7)
         {
@@ -171,7 +171,7 @@ LABEL_26:
         }
       }
 
-      v6 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -190,8 +190,6 @@ LABEL_26:
 
   v17 = [[SGReminderDueLocation alloc] initWithLocationType:v7 trigger:v8 name:v9];
 LABEL_27:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

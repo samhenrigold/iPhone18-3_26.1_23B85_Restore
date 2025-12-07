@@ -85,7 +85,7 @@
   [-[CLPredictedWalkDistanceServiceWatch universe](self universe];
   ptr = self->fBoutDetector.__ptr_;
 
-  sub_1005C8E44(ptr, data + 2);
+  sub_1005C8E44(ptr, (data + 8));
 }
 
 - (void)onStepCountNotification:(const int *)notification data:(const NotificationData *)data
@@ -173,6 +173,7 @@
 
 - (void)setUpAggregationOnTimer
 {
+  selfCopy = self;
   ptr = self->fBoutAggregator.__ptr_;
   v5 = ptr[1];
   v4 = ptr[2];
@@ -209,49 +210,49 @@
     v11 = 24 * v7;
     *v11 = xmmword_101C79F40;
     *(v11 + 16) = 0;
-    v6 = 24 * v7 + 24;
+    p_fUserInfoClient = 24 * v7 + 24;
     v12 = ptr[1] - *ptr;
     v13 = 24 * v7 - v12;
     memcpy((v11 - v12), *ptr, v12);
-    v14 = *ptr;
+    self = *ptr;
     *ptr = v13;
-    ptr[1] = v6;
+    ptr[1] = p_fUserInfoClient;
     ptr[2] = 0;
-    if (v14)
+    if (self)
     {
-      operator delete(v14);
+      operator delete(self);
     }
   }
 
   else
   {
-    *v5 = xmmword_101C79F40;
-    v5[16] = 0;
-    v6 = (v5 + 24);
+    *v5->CLIntersiloService_opaque = xmmword_101C79F40;
+    LOBYTE(v5->fStepCountClient.__ptr_) = 0;
+    p_fUserInfoClient = &v5->fUserInfoClient;
   }
 
-  ptr[1] = v6;
-  v22 = 86400;
-  v15 = sub_100011660();
-  sub_100185AC0(v15, &v20);
-  sub_10005BBE4(v20, "P6MWDAggregationTimeInterval", &v22);
-  if (v21)
+  ptr[1] = p_fUserInfoClient;
+  v21 = 86400;
+  v14 = sub_100011660(self, a2);
+  sub_100185AC0(v14, &v19);
+  sub_10005BBE4(v19, "P6MWDAggregationTimeInterval", &v21);
+  if (v20)
   {
-    sub_100008080(v21);
+    sub_100008080(v20);
   }
 
-  v16 = 1000000000 * v22;
-  v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[CLPredictedWalkDistanceServiceWatch universe](self "universe")]);
-  self->fAggregationTimer = v17;
-  dispatch_source_set_timer(v17, 0, v16, 0xDF8475800uLL);
-  fAggregationTimer = self->fAggregationTimer;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100822A28;
-  v19[3] = &unk_102447418;
-  v19[4] = self;
-  dispatch_source_set_event_handler(fAggregationTimer, v19);
-  dispatch_resume(self->fAggregationTimer);
+  v15 = 1000000000 * v21;
+  v16 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[dispatch_object_t universe](selfCopy "universe")]);
+  selfCopy[8] = v16;
+  dispatch_source_set_timer(v16, 0, v15, 0xDF8475800uLL);
+  v17 = selfCopy[8];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100822A28;
+  v18[3] = &unk_102447418;
+  v18[4] = selfCopy;
+  dispatch_source_set_event_handler(v17, v18);
+  dispatch_resume(selfCopy[8]);
 }
 
 - (id).cxx_construct

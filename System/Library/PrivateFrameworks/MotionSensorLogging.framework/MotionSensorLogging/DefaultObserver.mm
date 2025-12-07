@@ -6,7 +6,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   v10 = [objectCopy valueForKey:pathCopy];
@@ -18,11 +18,11 @@
   v11 = qword_27FA11598;
   if (os_log_type_enabled(qword_27FA11598, OS_LOG_TYPE_INFO))
   {
-    *v17 = 138543618;
-    *&v17[4] = pathCopy;
-    *&v17[12] = 2114;
-    *&v17[14] = v10;
-    _os_log_impl(&dword_25AAE5000, v11, OS_LOG_TYPE_INFO, "[CMMslDefaultObserver] Received KVO for key,%{public}@,value,%{public}@", v17, 0x16u);
+    *v16 = 138543618;
+    *&v16[4] = pathCopy;
+    *&v16[12] = 2114;
+    *&v16[14] = v10;
+    _os_log_impl(&dword_25AAE5000, v11, OS_LOG_TYPE_INFO, "[CMMslDefaultObserver] Received KVO for key,%{public}@,value,%{public}@", v16, 0x16u);
   }
 
   v12 = pathCopy;
@@ -39,15 +39,13 @@
     }
 
     v15 = qword_27FA11588;
-    *v17 = MEMORY[0x277D85DD0];
-    *&v17[8] = 3221225472;
-    *&v17[16] = sub_25AAE99B8;
-    v18 = &unk_279922EF8;
+    *v16 = MEMORY[0x277D85DD0];
+    *&v16[8] = 3221225472;
+    *&v16[16] = sub_25AAE99B8;
+    v17 = &unk_279922EF8;
     contextCopy = context;
-    dispatch_after(v14, v15, v17);
+    dispatch_after(v14, v15, v16);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

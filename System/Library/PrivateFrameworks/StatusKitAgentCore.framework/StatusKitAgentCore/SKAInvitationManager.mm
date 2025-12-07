@@ -30,8 +30,10 @@
 - (void)revokeInvitationFromPersonalChannelWithStatusTypeIdentifier:(id)identifier forHandles:(id)handles completion:(id)completion;
 - (void)revokeInvitationFromPresenceChannelWithPresenceIdentifier:(id)identifier forHandles:(id)handles completion:(id)completion;
 - (void)rollPersonalChannelWithStatusTypeIdentifier:(id)identifier completion:(id)completion;
+- (void)rollPresenceChannelWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal completion:(id)completion;
 - (void)sendInvitationForPersonalChannelWithStatusTypeIdentifier:(id)identifier toHandles:(id)handles fromSenderHandle:(id)handle withInvitationPayload:(id)payload completion:(id)completion;
 - (void)sendInvitationForPresenceChannelWithPresenceIdentifier:(id)identifier toHandles:(id)handles fromSenderHandle:(id)handle options:(id)options completion:(id)completion;
+- (void)sendSelfInvitationForPresenceChannelWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal completion:(id)completion;
 - (void)shouldAcceptInvitationMessageForPresenceIdentifier:(id)identifier fromHandle:(id)handle fromMergeID:(id)d inServiceFirewall:(id)firewall databaseContext:(id)context completion:(id)completion;
 @end
 
@@ -147,7 +149,7 @@
 
 void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
@@ -172,55 +174,55 @@ void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeI
     {
       v12 = *(a1 + 32);
       *buf = 138412546;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Adding invited handles %@ to database for channel: %@", buf, 0x16u);
     }
 
     v13 = [WeakRetained _addInvitedHandles:*(a1 + 32) senderHandle:*(a1 + 40) toDatabaseForPersonalChannel:v5 withInvitationPayload:*(a1 + 48) databaseContext:*(a1 + 56)];
-    v27 = 0;
-    v14 = *(a1 + 56);
     v26 = 0;
-    v9 = [WeakRetained _ratchetEncryptionKeyForwardOrKeyRollForPersonalChannel:v5 databaseContext:v14 invitationWasSentViaKeyRoll:&v27 error:&v26];
-    v15 = v26;
+    v14 = *(a1 + 56);
+    v25 = 0;
+    v9 = [WeakRetained _ratchetEncryptionKeyForwardOrKeyRollForPersonalChannel:v5 databaseContext:v14 invitationWasSentViaKeyRoll:&v26 error:&v25];
+    v15 = v25;
 
     if (v15)
     {
       v16 = +[SKAInvitationManager logger];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_2((a1 + 32));
+        __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_2();
       }
     }
 
     else
     {
-      if (v27 != 1)
+      if (v26 != 1)
       {
-        v19 = [v9 currentOutgoingRatchet];
-        v20 = [v19 currentSubscriptionKeys];
+        v18 = [v9 currentOutgoingRatchet];
+        v19 = [v18 currentSubscriptionKeys];
 
-        v25 = 0;
-        v21 = [WeakRetained _sendInvitationMessageForChannel:v9 toInvitedUsers:v13 subscriptionKeys:v20 error:&v25];
-        v22 = v25;
-        if (v21)
+        v24 = 0;
+        v20 = [WeakRetained _sendInvitationMessageForChannel:v9 toInvitedUsers:v13 subscriptionKeys:v19 error:&v24];
+        v21 = v24;
+        if (v20)
         {
-          v23 = *(*(a1 + 64) + 16);
+          v22 = *(*(a1 + 64) + 16);
         }
 
         else
         {
-          v24 = +[SKAInvitationManager logger];
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v23 = +[SKAInvitationManager logger];
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_3();
           }
 
-          v23 = *(*(a1 + 64) + 16);
+          v22 = *(*(a1 + 64) + 16);
         }
 
-        v23();
+        v22();
 
         goto LABEL_19;
       }
@@ -230,7 +232,7 @@ void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeI
       {
         v17 = *(a1 + 32);
         *buf = 138412290;
-        v29 = v17;
+        v28 = v17;
         _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Invitations for newly invited handles %@ was already sent during key roll, skipping individual message send.", buf, 0xCu);
       }
     }
@@ -249,8 +251,6 @@ LABEL_19:
   v9 = [SKAError errorWithCode:1101];
   (*(*(a1 + 64) + 16))();
 LABEL_20:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInvitationForPresenceChannelWithPresenceIdentifier:(id)identifier toHandles:(id)handles fromSenderHandle:(id)handle options:(id)options completion:(id)completion
@@ -350,7 +350,7 @@ LABEL_19:
 
 void __125__SKAInvitationManager_sendInvitationForPresenceChannelWithPresenceIdentifier_toHandles_fromSenderHandle_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -372,16 +372,16 @@ void __125__SKAInvitationManager_sendInvitationForPresenceChannelWithPresenceIde
     {
       v10 = *(a1 + 32);
       *buf = 138412546;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Adding invited handles %@ to database for channel: %@", buf, 0x16u);
     }
 
     v11 = [WeakRetained _addInvitedHandles:*(a1 + 32) senderHandle:*(a1 + 40) toDatabaseForPresenceChannel:v5 databaseContext:*(a1 + 48)];
-    v17 = 0;
-    v12 = [WeakRetained _sendInvitationMessageForPresenceChannel:v5 toInvitedUsers:v11 error:&v17];
-    v13 = v17;
+    v16 = 0;
+    v12 = [WeakRetained _sendInvitationMessageForPresenceChannel:v5 toInvitedUsers:v11 error:&v16];
+    v13 = v16;
     if (v12)
     {
       v14 = *(*(a1 + 56) + 16);
@@ -400,24 +400,54 @@ void __125__SKAInvitationManager_sendInvitationForPresenceChannelWithPresenceIde
 
     v14();
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)sendSelfInvitationForPresenceChannelWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal completion:(id)completion
+{
+  personalCopy = personal;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  if ([(SKAInvitationManager *)self presenceEnabledByServer])
+  {
+    newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
+    presenceManager = [(SKAInvitationManager *)self presenceManager];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke;
+    v13[3] = &unk_27843DCE8;
+    v14 = identifierCopy;
+    selfCopy = self;
+    v16 = completionCopy;
+    [presenceManager findPresenceChannelForPresenceIdentifier:v14 isPersonal:personalCopy databaseContext:newBackgroundContext completion:v13];
+  }
+
+  else
+  {
+    v12 = +[SKAInvitationManager logger];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [SKAInvitationManager sendInvitationForPresenceChannelWithPresenceIdentifier:toHandles:fromSenderHandle:options:completion:];
+    }
+
+    newBackgroundContext = [SKAError errorWithCode:100];
+    (*(completionCopy + 2))(completionCopy, 0, newBackgroundContext);
+  }
 }
 
 void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = [*(a1 + 40) invitationMessageForPresenceChannel:a2];
     v7 = [*(a1 + 40) messagingProvider];
     v8 = [v6 copy];
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
-    v9 = [v7 sendMessageToSelfDevices:v8 limitToPresenceCapable:1 identifier:&v17 error:&v16];
-    v10 = v17;
-    v11 = v16;
+    v9 = [v7 sendMessageToSelfDevices:v8 limitToPresenceCapable:1 identifier:&v16 error:&v15];
+    v10 = v16;
+    v11 = v15;
 
     v12 = +[SKAInvitationManager logger];
     v13 = v12;
@@ -426,7 +456,7 @@ void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenc
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = v10;
+        v18 = v10;
         _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Presence invitation sent successfully to self-account devices. ID:%@", buf, 0xCu);
       }
     }
@@ -434,11 +464,11 @@ void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenc
     else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v10;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v10;
       _os_log_error_impl(&dword_220099000, v13, OS_LOG_TYPE_ERROR, "Self presence invitation send failed with error: %@ message: %@, ID:%@.  Maybe no other device on account?", buf, 0x20u);
     }
 
@@ -450,18 +480,16 @@ void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenc
     v14 = +[SKAInvitationManager logger];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_1(a1);
+      __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeAllInvitationsFromPersonalChannelWithStatusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   databaseManager = self->_databaseManager;
   identifierCopy = identifier;
@@ -500,13 +528,13 @@ LABEL_13:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v10;
+    v22 = v10;
     _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Finished deleting all invited user database records for channel %@, initiating key roll", buf, 0xCu);
   }
 
-  v21 = 0;
-  v14 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v10 databaseContext:newBackgroundContext error:&v21];
-  v15 = v21;
+  v20 = 0;
+  v14 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v10 databaseContext:newBackgroundContext error:&v20];
+  v15 = v20;
   v16 = v15;
   if (v14)
   {
@@ -520,22 +548,20 @@ LABEL_13:
 
   else
   {
-    v20 = [SKAError errorWithCode:401];
-    completionCopy[2](completionCopy, v20);
+    v19 = [SKAError errorWithCode:401];
+    completionCopy[2](completionCopy, v19);
   }
 
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeInvitationFromPersonalChannelWithStatusTypeIdentifier:(id)identifier forHandles:(id)handles completion:(id)completion
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlesCopy = handles;
   completionCopy = completion;
-  v40 = identifierCopy;
+  v39 = identifierCopy;
   newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
   v12 = [(SKADatabaseManaging *)self->_databaseManager existingPersonalChannelForStatusTypeIdentifier:identifierCopy databaseContext:?];
   if (!v12)
@@ -550,20 +576,20 @@ LABEL_16:
     goto LABEL_27;
   }
 
-  v38 = completionCopy;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v37 = completionCopy;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v13 = handlesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v42 objects:v48 count:16];
   v15 = 0x27843D000uLL;
   if (!v14)
   {
 
 LABEL_24:
     logger = [*(v15 + 1024) logger];
-    completionCopy = v38;
+    completionCopy = v37;
     if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
     {
       [SKAInvitationManager revokeAllInvitationsFromPersonalChannelWithStatusTypeIdentifier:completion:];
@@ -578,21 +604,21 @@ LABEL_27:
 
   v16 = v14;
   obj = v13;
-  v37 = handlesCopy;
-  v39 = 0;
-  v17 = *v44;
+  v36 = handlesCopy;
+  v38 = 0;
+  v17 = *v43;
   do
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v44 != v17)
+      if (*v43 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v43 + 1) + 8 * i);
+      v19 = *(*(&v42 + 1) + 8 * i);
       v20 = v12;
-      v21 = [(SKADatabaseManaging *)self->_databaseManager deleteInvitedUserForHandle:v19 personalChannel:v12 databaseContext:newBackgroundContext, v37];
+      v21 = [(SKADatabaseManaging *)self->_databaseManager deleteInvitedUserForHandle:v19 personalChannel:v12 databaseContext:newBackgroundContext, v36];
       v22 = v15;
       logger2 = [*(v15 + 1024) logger];
       v24 = logger2;
@@ -601,20 +627,20 @@ LABEL_27:
         if (os_log_type_enabled(logger2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v48 = v19;
+          v47 = v19;
           _os_log_impl(&dword_220099000, v24, OS_LOG_TYPE_DEFAULT, "Successfully deleted database record for invited user: %@.  Adding to removed users", buf, 0xCu);
         }
 
         databaseManager = self->_databaseManager;
         v24 = [MEMORY[0x277CBEAA8] now];
-        v26 = [(SKADatabaseManaging *)databaseManager createRemovedUserWithHandle:v19 dateRemoved:v24 statusTypeIdentifier:v40 databaseContext:newBackgroundContext];
-        v39 = 1;
+        v26 = [(SKADatabaseManaging *)databaseManager createRemovedUserWithHandle:v19 dateRemoved:v24 statusTypeIdentifier:v39 databaseContext:newBackgroundContext];
+        v38 = 1;
       }
 
       else if (os_log_type_enabled(logger2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v48 = v19;
+        v47 = v19;
         _os_log_error_impl(&dword_220099000, v24, OS_LOG_TYPE_ERROR, "Unable to find database record for invited user attempted to delete: %@", buf, 0xCu);
       }
 
@@ -623,91 +649,89 @@ LABEL_27:
       v15 = v22;
     }
 
-    v16 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v16 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   }
 
   while (v16);
   v13 = obj;
 
-  handlesCopy = v37;
-  if ((v39 & 1) == 0)
+  handlesCopy = v36;
+  if ((v38 & 1) == 0)
   {
     goto LABEL_24;
   }
 
   logger3 = [*(v22 + 1024) logger];
-  completionCopy = v38;
+  completionCopy = v37;
   if (os_log_type_enabled(logger3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_220099000, logger3, OS_LOG_TYPE_DEFAULT, "Finished deleting database records for uninvited users, initiating key roll", buf, 2u);
   }
 
-  v42 = 0;
-  v28 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v12 databaseContext:newBackgroundContext error:&v42];
-  v29 = v42;
+  v41 = 0;
+  v28 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v12 databaseContext:newBackgroundContext error:&v41];
+  v29 = v41;
   v30 = v29;
   if (v28)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained invitationManager:self didRevokeInvitationOnChannel:v12];
 
-    v38[2](v38, 0);
+    v37[2](v37, 0);
   }
 
   else if (v29)
   {
-    v38[2](v38, v29);
+    v37[2](v37, v29);
   }
 
   else
   {
-    v36 = [SKAError errorWithCode:401];
-    v38[2](v38, v36);
+    v35 = [SKAError errorWithCode:401];
+    v37[2](v37, v35);
   }
 
 LABEL_28:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeInvitationFromPresenceChannelWithPresenceIdentifier:(id)identifier forHandles:(id)handles completion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlesCopy = handles;
   completionCopy = completion;
   if ([(SKAInvitationManager *)self presenceEnabledByServer])
   {
     newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
-    v33 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:identifierCopy isPersonal:0 databaseContext:newBackgroundContext];
-    if (v33)
+    v32 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:identifierCopy isPersonal:0 databaseContext:newBackgroundContext];
+    if (v32)
     {
-      v31 = completionCopy;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v30 = completionCopy;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v12 = handlesCopy;
-      v13 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v13)
       {
         v14 = v13;
-        v30 = handlesCopy;
-        v32 = identifierCopy;
+        v29 = handlesCopy;
+        v31 = identifierCopy;
         v15 = 0;
-        v16 = *v37;
+        v16 = *v36;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v37 != v16)
+            if (*v36 != v16)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v36 + 1) + 8 * i);
-            v19 = [(SKADatabaseManaging *)self->_databaseManager deleteInvitedUserForHandle:v18 personalChannel:v33 databaseContext:newBackgroundContext, v30];
+            v18 = *(*(&v35 + 1) + 8 * i);
+            v19 = [(SKADatabaseManaging *)self->_databaseManager deleteInvitedUserForHandle:v18 personalChannel:v32 databaseContext:newBackgroundContext, v29];
             v20 = +[SKAInvitationManager logger];
             v21 = v20;
             if (v19)
@@ -715,31 +739,31 @@ LABEL_28:
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v41 = v18;
+                v40 = v18;
                 _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Successfully deleted database record for invited user: %@.  Adding to removed users", buf, 0xCu);
               }
 
               databaseManager = self->_databaseManager;
               v21 = [MEMORY[0x277CBEAA8] now];
-              v23 = [(SKADatabaseManaging *)databaseManager createRemovedUserWithHandle:v18 dateRemoved:v21 presenceIdentifier:v32 databaseContext:newBackgroundContext];
+              v23 = [(SKADatabaseManaging *)databaseManager createRemovedUserWithHandle:v18 dateRemoved:v21 presenceIdentifier:v31 databaseContext:newBackgroundContext];
               v15 = 1;
             }
 
             else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v41 = v18;
+              v40 = v18;
               _os_log_error_impl(&dword_220099000, v21, OS_LOG_TYPE_ERROR, "Unable to find database record for invited user attempted to delete: %@", buf, 0xCu);
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
         }
 
         while (v14);
 
-        identifierCopy = v32;
-        handlesCopy = v30;
+        identifierCopy = v31;
+        handlesCopy = v29;
         if (v15)
         {
           v24 = +[SKAInvitationManager logger];
@@ -749,14 +773,14 @@ LABEL_28:
             _os_log_impl(&dword_220099000, v24, OS_LOG_TYPE_DEFAULT, "Finished deleting database records for uninvited users, initiating key roll", buf, 2u);
           }
 
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresenceIdentifier_forHandles_completion___block_invoke;
-          v34[3] = &unk_27843DD10;
-          completionCopy = v31;
-          v35 = v31;
-          [(SKAInvitationManager *)self rollPresenceChannelWithPresenceIdentifier:v32 isPersonal:0 completion:v34];
-          v25 = v35;
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresenceIdentifier_forHandles_completion___block_invoke;
+          v33[3] = &unk_27843DD10;
+          completionCopy = v30;
+          v34 = v30;
+          [(SKAInvitationManager *)self rollPresenceChannelWithPresenceIdentifier:v31 isPersonal:0 completion:v33];
+          v25 = v34;
           goto LABEL_31;
         }
       }
@@ -772,7 +796,7 @@ LABEL_28:
       }
 
       v25 = [SKAInvitationManager _unableToFindExistingInvitationForHandlesError:v12];
-      completionCopy = v31;
+      completionCopy = v30;
     }
 
     else
@@ -801,8 +825,6 @@ LABEL_31:
   newBackgroundContext = [SKAError errorWithCode:100];
   (*(completionCopy + 2))(completionCopy, newBackgroundContext);
 LABEL_32:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresenceIdentifier_forHandles_completion___block_invoke(uint64_t a1, int a2)
@@ -835,13 +857,13 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
 
 - (BOOL)rollEncryptionKeyForPersonalChannelWithStatusTypeIdentifier:(id)identifier error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = +[SKAInvitationManager logger];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = identifierCopy;
+    v17 = identifierCopy;
     _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Received request to roll encryption key for personal channel with statusTypeIdentifier: %@", buf, 0xCu);
   }
 
@@ -849,9 +871,9 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
   v9 = [(SKADatabaseManaging *)self->_databaseManager existingPersonalChannelForStatusTypeIdentifier:identifierCopy databaseContext:newBackgroundContext];
   if (v9)
   {
-    v16 = 0;
-    v10 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v9 databaseContext:newBackgroundContext error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:v9 databaseContext:newBackgroundContext error:&v15];
+    v11 = v15;
     if (!v10)
     {
       v12 = +[SKAInvitationManager logger];
@@ -879,23 +901,22 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)outgoingMessageWithIdentifier:(id)identifier fromHandle:(id)handle toHandle:(id)toHandle didSendWithSuccess:(BOOL)success
 {
   successCopy = success;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v10 = +[SKAInvitationManager logger];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = identifierCopy;
-    v25 = 1024;
-    v26 = successCopy;
-    _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Received callback for message with identifier: %@ did send with success: %d", &v23, 0x12u);
+    v22 = 138412546;
+    v23 = identifierCopy;
+    v24 = 1024;
+    v25 = successCopy;
+    _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Received callback for message with identifier: %@ did send with success: %d", &v22, 0x12u);
   }
 
   if (!successCopy)
@@ -949,20 +970,18 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
 
   outgoingInvitationMapping2 = [(SKAInvitationManager *)self outgoingInvitationMapping];
   [outgoingInvitationMapping2 removeObjectForKey:identifierCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rollPersonalChannelWithStatusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = +[SKAInvitationManager logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = identifierCopy;
+    v18 = identifierCopy;
     _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Received request to roll personal channel with statusTypeIdentifier: %@", buf, 0xCu);
   }
 
@@ -970,16 +989,16 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
   v10 = [(SKADatabaseManaging *)self->_databaseManager existingPersonalChannelForStatusTypeIdentifier:identifierCopy databaseContext:newBackgroundContext];
   if (v10)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __79__SKAInvitationManager_rollPersonalChannelWithStatusTypeIdentifier_completion___block_invoke;
-    v13[3] = &unk_27843DD38;
-    v17 = completionCopy;
-    v13[4] = self;
-    v14 = v10;
-    v15 = newBackgroundContext;
-    v16 = identifierCopy;
-    [(SKAInvitationManager *)self _createPersonalChannelForStatusTypeIdentifier:v16 databaseContext:v15 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __79__SKAInvitationManager_rollPersonalChannelWithStatusTypeIdentifier_completion___block_invoke;
+    v12[3] = &unk_27843DD38;
+    v16 = completionCopy;
+    v12[4] = self;
+    v13 = v10;
+    v14 = newBackgroundContext;
+    v15 = identifierCopy;
+    [(SKAInvitationManager *)self _createPersonalChannelForStatusTypeIdentifier:v15 databaseContext:v14 completion:v12];
   }
 
   else
@@ -992,13 +1011,11 @@ void __104__SKAInvitationManager_revokeInvitationFromPresenceChannelWithPresence
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __79__SKAInvitationManager_rollPersonalChannelWithStatusTypeIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1032,9 +1049,9 @@ LABEL_11:
 
   v10 = *(a1 + 32);
   v11 = *(a1 + 48);
-  v19 = 0;
-  [v10 _rollEncryptionKeyForChannel:v5 databaseContext:v11 error:&v19];
-  v12 = v19;
+  v18 = 0;
+  [v10 _rollEncryptionKeyForChannel:v5 databaseContext:v11 error:&v18];
+  v12 = v18;
   v13 = +[SKAInvitationManager logger];
   v14 = v13;
   if (v12)
@@ -1051,7 +1068,7 @@ LABEL_11:
     {
       v16 = *(a1 + 56);
       *buf = 138412290;
-      v21 = v16;
+      v20 = v16;
       _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Successfully rolled personal channel with statusTypeIdentifier: %@", buf, 0xCu);
     }
 
@@ -1062,13 +1079,60 @@ LABEL_11:
 
   (*(*(a1 + 64) + 16))();
 LABEL_16:
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)rollPresenceChannelWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal completion:(id)completion
+{
+  personalCopy = personal;
+  v26 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = +[SKAInvitationManager logger];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v25 = identifierCopy;
+    _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Received request to roll presence channel with presence identifier: %@", buf, 0xCu);
+  }
+
+  newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
+  v12 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:identifierCopy isPersonal:personalCopy databaseContext:newBackgroundContext];
+  if (v12)
+  {
+    v13 = objc_alloc(MEMORY[0x277D68100]);
+    serviceIdentifier = [v12 serviceIdentifier];
+    v15 = [v13 initWithServiceIdentifier:serviceIdentifier];
+
+    [v15 setIsPersonal:personalCopy];
+    presenceManager = [(SKAInvitationManager *)self presenceManager];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke;
+    v18[3] = &unk_27843DD60;
+    v22 = completionCopy;
+    v18[4] = self;
+    v19 = v12;
+    v20 = newBackgroundContext;
+    v21 = identifierCopy;
+    v23 = personalCopy;
+    [presenceManager createPresenceChannelForPresenceIdentifier:v21 options:v15 databaseContext:v20 completion:v18];
+  }
+
+  else
+  {
+    v17 = +[SKAInvitationManager logger];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [SKAInvitationManager rollPresenceChannelWithPresenceIdentifier:isPersonal:completion:];
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0);
+  }
 }
 
 void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1090,9 +1154,9 @@ void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPers
     {
       v10 = *(a1 + 32);
       v11 = [*(a1 + 40) invitedUsers];
-      v28 = 0;
-      v12 = [v10 _sendInvitationMessageForPresenceChannel:v5 toInvitedUsers:v11 error:&v28];
-      v13 = v28;
+      v27 = 0;
+      v12 = [v10 _sendInvitationMessageForPresenceChannel:v5 toInvitedUsers:v11 error:&v27];
+      v13 = v27;
 
       if (v13 || (v12 & 1) == 0)
       {
@@ -1115,7 +1179,7 @@ void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPers
         {
           v24 = *(a1 + 56);
           *buf = 138412290;
-          v30 = v24;
+          v29 = v24;
           _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Successfully rolled presence channel with presenceIdentifier: %@", buf, 0xCu);
         }
 
@@ -1149,7 +1213,7 @@ LABEL_23:
         {
           v15 = *(a1 + 56);
           *buf = 138412290;
-          v30 = v15;
+          v29 = v15;
           _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Successfully rolled presence channel with presenceIdentifier: %@", buf, 0xCu);
         }
 
@@ -1168,7 +1232,7 @@ LABEL_23:
         }
       }
 
-      __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_3((a1 + 56));
+      __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_3();
       goto LABEL_23;
     }
 
@@ -1181,13 +1245,11 @@ LABEL_23:
 
   (*(*(a1 + 64) + 16))();
 LABEL_28:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_rollEncryptionKeyForChannel:(id)channel databaseContext:(id)context error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   contextCopy = context;
   v10 = +[SKAInvitationManager logger];
@@ -1217,7 +1279,7 @@ LABEL_28:
     if (v18)
     {
       *buf = 138412290;
-      v30 = channelCopy;
+      v29 = channelCopy;
       _os_log_impl(&dword_220099000, currentSubscriptionKeys, OS_LOG_TYPE_DEFAULT, "Not sending any invitations following key roll as there are no invited users for channel %@", buf, 0xCu);
     }
 
@@ -1228,14 +1290,14 @@ LABEL_28:
   {
     v19 = [v15 count];
     *buf = 134217984;
-    v30 = v19;
+    v29 = v19;
     _os_log_impl(&dword_220099000, currentSubscriptionKeys, OS_LOG_TYPE_DEFAULT, "Messaging %ld existing invited users with the newly generated subscription keys", buf, 0xCu);
   }
 
   currentSubscriptionKeys = [v11 currentSubscriptionKeys];
-  v28 = 0;
-  v20 = [(SKAInvitationManager *)self _sendInvitationMessageForChannel:channelCopy toInvitedUsers:v15 subscriptionKeys:currentSubscriptionKeys error:&v28];
-  v21 = v28;
+  v27 = 0;
+  v20 = [(SKAInvitationManager *)self _sendInvitationMessageForChannel:channelCopy toInvitedUsers:v15 subscriptionKeys:currentSubscriptionKeys error:&v27];
+  v21 = v27;
   v22 = v21;
   if (v20)
   {
@@ -1260,62 +1322,61 @@ LABEL_12:
   v23 = 0;
 LABEL_18:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)_sendInvitationMessageForChannel:(id)channel toInvitedUsers:(id)users subscriptionKeys:(id)keys error:(id *)error
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   usersCopy = users;
   keysCopy = keys;
   if ([usersCopy count])
   {
     errorCopy = error;
-    v56 = usersCopy;
+    v55 = usersCopy;
     v12 = objc_alloc(MEMORY[0x277D28548]);
     index = [keysCopy index];
     chainKey = [keysCopy chainKey];
     v15 = keysCopy;
     v16 = chainKey;
-    v60 = v15;
+    v59 = v15;
     signingKey = [v15 signingKey];
-    v74 = 0;
-    v18 = [v12 initWithIndex:index chainKey:v16 signingKey:signingKey error:&v74];
-    v57 = v74;
+    v73 = 0;
+    v18 = [v12 initWithIndex:index chainKey:v16 signingKey:signingKey error:&v73];
+    v56 = v73;
 
     if (v18)
     {
       serializedData = [v18 serializedData];
       if ([serializedData length])
       {
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
-        usersCopy = v56;
-        obj = v56;
-        v19 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
+        usersCopy = v55;
+        obj = v55;
+        v19 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
         if (v19)
         {
           v20 = v19;
-          v58 = 0;
-          v21 = *v71;
-          v61 = *v71;
+          v57 = 0;
+          v21 = *v70;
+          v60 = *v70;
           selfCopy = self;
           do
           {
             v22 = 0;
-            v64 = v20;
+            v63 = v20;
             do
             {
-              if (*v71 != v21)
+              if (*v70 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v70 + 1) + 8 * v22);
+              v23 = *(*(&v69 + 1) + 8 * v22);
               invitedSKHandle = [v23 invitedSKHandle];
               if (invitedSKHandle)
               {
@@ -1328,17 +1389,17 @@ LABEL_18:
                 {
                   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                   {
-                    index2 = [v60 index];
+                    index2 = [v59 index];
                     handleString = [senderSKHandle handleString];
                     handleString2 = [invitedSKHandle handleString];
                     *buf = 134218754;
-                    v76 = index2;
-                    v77 = 2112;
-                    v78 = handleString;
-                    v79 = 2112;
-                    v80 = handleString2;
-                    v81 = 2112;
-                    v82 = invitationPayload;
+                    v75 = index2;
+                    v76 = 2112;
+                    v77 = handleString;
+                    v78 = 2112;
+                    v79 = handleString2;
+                    v80 = 2112;
+                    v81 = invitationPayload;
                     _os_log_impl(&dword_220099000, v29, OS_LOG_TYPE_DEFAULT, "Sending invitation message with new encryption key ratchet index %ld from handle %@ to %@ with invitation payload %@", buf, 0x2Au);
                   }
 
@@ -1358,7 +1419,7 @@ LABEL_18:
                   v38 = [v36 numberWithDouble:?];
                   [v29 setObject:v38 forKeyedSubscript:@"d"];
 
-                  v66 = invitationPayload;
+                  v65 = invitationPayload;
                   payloadData = [invitationPayload payloadData];
                   v40 = payloadData;
                   if (payloadData)
@@ -1369,11 +1430,11 @@ LABEL_18:
 
                   messagingProvider = self->_messagingProvider;
                   v43 = [v29 copy];
+                  v67 = 0;
                   v68 = 0;
-                  v69 = 0;
-                  v44 = [(SKAMessagingProviding *)messagingProvider sendMessage:v43 toHandle:invitedSKHandle fromHandle:senderSKHandle limitToPresenceCapable:0 identifier:&v69 error:&v68];
-                  v45 = v69;
-                  v46 = v68;
+                  v44 = [(SKAMessagingProviding *)messagingProvider sendMessage:v43 toHandle:invitedSKHandle fromHandle:senderSKHandle limitToPresenceCapable:0 identifier:&v68 error:&v67];
+                  v45 = v68;
+                  v46 = v67;
 
                   v47 = +[SKAPowerLogger shared];
                   [v47 logEvent:2 ofType:0 onDatabaseChannel:channelCopy];
@@ -1385,12 +1446,12 @@ LABEL_18:
                     if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v76 = v45;
+                      v75 = v45;
                       _os_log_impl(&dword_220099000, v49, OS_LOG_TYPE_DEFAULT, "Invitation sent successfully. ID: %@", buf, 0xCu);
                     }
 
-                    v58 = 1;
-                    invitationPayload = v66;
+                    v57 = 1;
+                    invitationPayload = v65;
                   }
 
                   else
@@ -1398,15 +1459,15 @@ LABEL_18:
                     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412802;
-                      v76 = v46;
-                      v77 = 2112;
-                      v78 = v29;
-                      v79 = 2112;
-                      v80 = v45;
+                      v75 = v46;
+                      v76 = 2112;
+                      v77 = v29;
+                      v78 = 2112;
+                      v79 = v45;
                       _os_log_error_impl(&dword_220099000, v49, OS_LOG_TYPE_ERROR, "Invitation send failed with error: %@ message: %@ ID: %@", buf, 0x20u);
                     }
 
-                    invitationPayload = v66;
+                    invitationPayload = v65;
                     if (errorCopy)
                     {
                       v50 = v46;
@@ -1414,15 +1475,15 @@ LABEL_18:
                     }
                   }
 
-                  v21 = v61;
+                  v21 = v60;
                   self = selfCopy;
-                  v20 = v64;
+                  v20 = v63;
                 }
 
                 else if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v76 = senderSKHandle;
+                  v75 = senderSKHandle;
                   _os_log_error_impl(&dword_220099000, v29, OS_LOG_TYPE_ERROR, "Database InvitedUser sender handle fails validation, not inviting from %@", buf, 0xCu);
                 }
               }
@@ -1433,7 +1494,7 @@ LABEL_18:
                 if (os_log_type_enabled(senderSKHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v76 = v23;
+                  v75 = v23;
                   _os_log_error_impl(&dword_220099000, senderSKHandle, OS_LOG_TYPE_ERROR, "Database InvitedUser does not have an invited SKHandle: %@", buf, 0xCu);
                 }
               }
@@ -1442,27 +1503,27 @@ LABEL_18:
             }
 
             while (v20 != v22);
-            v20 = [obj countByEnumeratingWithState:&v70 objects:v83 count:16];
+            v20 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
           }
 
           while (v20);
-          usersCopy = v56;
-          keysCopy = v60;
-          v51 = v58;
+          usersCopy = v55;
+          keysCopy = v59;
+          v51 = v57;
         }
 
         else
         {
           v51 = 0;
-          keysCopy = v60;
+          keysCopy = v59;
         }
       }
 
       else
       {
         obj = +[SKAInvitationManager logger];
-        usersCopy = v56;
-        keysCopy = v60;
+        usersCopy = v55;
+        keysCopy = v59;
         if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
         {
           [SKAInvitationManager _sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:];
@@ -1480,11 +1541,11 @@ LABEL_18:
         [SKAInvitationManager _sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:];
       }
 
-      usersCopy = v56;
-      keysCopy = v60;
+      usersCopy = v55;
+      keysCopy = v59;
       if (errorCopy)
       {
-        [SKAError errorWithCode:404 underlyingError:v57];
+        [SKAError errorWithCode:404 underlyingError:v56];
         *errorCopy = v51 = 0;
       }
 
@@ -1497,8 +1558,8 @@ LABEL_18:
 
   else
   {
-    v57 = +[SKAInvitationManager logger];
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    v56 = +[SKAInvitationManager logger];
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       [SKAInvitationManager _sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:];
     }
@@ -1506,13 +1567,12 @@ LABEL_18:
     v51 = 0;
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v51 & 1;
 }
 
 - (BOOL)_sendInvitationMessageForPresenceChannel:(id)channel toInvitedUsers:(id)users error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   usersCopy = users;
   if (![usersCopy count])
@@ -1526,13 +1586,13 @@ LABEL_18:
     goto LABEL_26;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = usersCopy;
-  v39 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
-  if (!v39)
+  v38 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+  if (!v38)
   {
 LABEL_26:
     v29 = 0;
@@ -1540,19 +1600,19 @@ LABEL_26:
   }
 
   errorCopy = error;
-  v32 = usersCopy;
-  v34 = 0;
-  v38 = *v43;
+  v31 = usersCopy;
+  v33 = 0;
+  v37 = *v42;
   do
   {
-    for (i = 0; i != v39; ++i)
+    for (i = 0; i != v38; ++i)
     {
-      if (*v43 != v38)
+      if (*v42 != v37)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v42 + 1) + 8 * i);
+      v9 = *(*(&v41 + 1) + 8 * i);
       invitedSKHandle = [v9 invitedSKHandle];
       if (invitedSKHandle)
       {
@@ -1562,18 +1622,18 @@ LABEL_26:
         {
           handleString = [invitedSKHandle handleString];
           *buf = 138412290;
-          v47 = handleString;
+          v46 = handleString;
           _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Sending presence invitation message to handle %@", buf, 0xCu);
         }
 
         v14 = [(SKAInvitationManager *)self invitationMessageForPresenceChannel:channelCopy];
         messagingProvider = self->_messagingProvider;
         v16 = [v14 copy];
+        v39 = 0;
         v40 = 0;
-        v41 = 0;
-        v17 = [(SKAMessagingProviding *)messagingProvider sendMessage:v16 toHandle:invitedSKHandle fromHandle:senderSKHandle limitToPresenceCapable:1 identifier:&v41 error:&v40];
-        v18 = v41;
-        v19 = v40;
+        v17 = [(SKAMessagingProviding *)messagingProvider sendMessage:v16 toHandle:invitedSKHandle fromHandle:senderSKHandle limitToPresenceCapable:1 identifier:&v40 error:&v39];
+        v18 = v40;
+        v19 = v39;
 
         v20 = +[SKAPowerLogger shared];
         [v20 logEvent:2 ofType:0 onDatabaseChannel:channelCopy];
@@ -1585,7 +1645,7 @@ LABEL_26:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v47 = v18;
+            v46 = v18;
             _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Presence invitation sent successfully. ID:%@", buf, 0xCu);
           }
 
@@ -1596,7 +1656,7 @@ LABEL_26:
           v27 = [(SKAOutgoingInvitationState *)v23 initWithToHandle:v24 fromHandle:v25 channelIdentifier:identifier];
 
           [(NSMutableDictionary *)self->_outgoingInvitationMapping setObject:v27 forKeyedSubscript:v18];
-          v34 = 1;
+          v33 = 1;
         }
 
         else
@@ -1604,11 +1664,11 @@ LABEL_26:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            v47 = v19;
-            v48 = 2112;
-            v49 = v14;
-            v50 = 2112;
-            v51 = v18;
+            v46 = v19;
+            v47 = 2112;
+            v48 = v14;
+            v49 = 2112;
+            v50 = v18;
             _os_log_error_impl(&dword_220099000, v22, OS_LOG_TYPE_ERROR, "Presence invitation send failed with error: %@ message: %@, ID:%@", buf, 0x20u);
           }
 
@@ -1626,21 +1686,20 @@ LABEL_26:
         if (os_log_type_enabled(senderSKHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v47 = v9;
+          v46 = v9;
           _os_log_error_impl(&dword_220099000, senderSKHandle, OS_LOG_TYPE_ERROR, "Database InvitedUser does not have an invited SKHandle: %@", buf, 0xCu);
         }
       }
     }
 
-    v39 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v38 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
   }
 
-  while (v39);
-  usersCopy = v32;
-  v29 = v34;
+  while (v38);
+  usersCopy = v31;
+  v29 = v33;
 LABEL_27:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29 & 1;
 }
 
@@ -1695,32 +1754,32 @@ LABEL_27:
 
 - (id)_validateInvitedHandles:(id)handles
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   v5 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = handlesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v21;
+    v10 = *v20;
     *&v8 = 138412290;
-    v19 = v8;
+    v18 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        if ([(SKAInvitationManager *)self _validateInvitedHandle:v12, v19, v20])
+        v12 = *(*(&v19 + 1) + 8 * i);
+        if ([(SKAInvitationManager *)self _validateInvitedHandle:v12, v18, v19])
         {
           [v5 addObject:v12];
         }
@@ -1730,14 +1789,14 @@ LABEL_27:
           v13 = +[SKAInvitationManager logger];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *buf = v19;
-            v25 = v12;
+            *buf = v18;
+            v24 = v12;
             _os_log_error_impl(&dword_220099000, v13, OS_LOG_TYPE_ERROR, "Invited handle failed validation, ignoring: %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v9);
@@ -1753,8 +1812,6 @@ LABEL_27:
       [SKAInvitationManager _validateInvitedHandles:];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1802,7 +1859,7 @@ LABEL_8:
 
 - (int64_t)handleIncomingInvitationMessage:(id)message fromHandle:(id)handle fromID:(id)d fromMergeID:(id)iD toHandle:(id)toHandle messageGuid:(id)guid
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handleCopy = handle;
   dCopy = d;
@@ -1813,14 +1870,14 @@ LABEL_8:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v74 = handleCopy;
+    v73 = handleCopy;
     _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Incoming invitation from handle: %@", buf, 0xCu);
   }
 
   v21 = [messageCopy ska_stringForKey:@"c"];
   if ([v21 length])
   {
-    v63 = toHandleCopy;
+    v62 = toHandleCopy;
     v22 = [messageCopy ska_dateFromUnixTimestampForKey:@"d"];
     v23 = v22;
     if (!v22)
@@ -1835,17 +1892,17 @@ LABEL_8:
       goto LABEL_79;
     }
 
-    v58 = v22;
+    v57 = v22;
     v24 = handleCopy;
     v25 = guidCopy;
-    v60 = dCopy;
+    v59 = dCopy;
     v26 = [messageCopy ska_stringForKey:@"s"];
     v27 = [messageCopy ska_stringForKey:@"pr"];
-    v59 = v21;
+    v58 = v21;
     newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
     v28 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForSubscriptionIdentifier:v21 databaseContext:?];
     v29 = +[SKAPowerLogger shared];
-    v61 = v28;
+    v60 = v28;
     [v29 logEvent:2 ofType:1 onDatabaseChannel:v28];
 
     if (-[NSObject length](v26, "length") && [v27 length])
@@ -1861,18 +1918,18 @@ LABEL_8:
       guidCopy = v25;
 LABEL_10:
       handleCopy = v24;
-      v23 = v58;
-      v21 = v59;
+      v23 = v57;
+      v21 = v58;
 LABEL_78:
 
-      dCopy = v60;
+      dCopy = v59;
 LABEL_79:
 
-      toHandleCopy = v63;
+      toHandleCopy = v62;
       goto LABEL_80;
     }
 
-    v57 = v27;
+    v56 = v27;
     if ([v26 length])
     {
       v33 = +[SKAInvitationManager logger];
@@ -1887,7 +1944,7 @@ LABEL_79:
       if (self->_trafficModeEnabled)
       {
         v30 = +[SKAInvitationManager logger];
-        v23 = v58;
+        v23 = v57;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
@@ -1895,16 +1952,16 @@ LABEL_79:
 
 LABEL_46:
         v31 = 0;
-        v32 = v57;
-        v21 = v59;
+        v32 = v56;
+        v21 = v58;
         goto LABEL_78;
       }
 
-      v23 = v58;
+      v23 = v57;
       if ([v26 isEqualToString:@"com.apple.availability"])
       {
         v30 = +[SKAInvitationManager logger];
-        v21 = v59;
+        v21 = v58;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
@@ -1913,16 +1970,16 @@ LABEL_46:
 
       else
       {
-        v21 = v59;
+        v21 = v58;
         if ([SKAServerBag statusEnabledByServerForStatusTypeIdentifier:v26])
         {
           v30 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"r"];
           if ([v30 length])
           {
-            [(SKAInvitationManager *)self acceptInvitationMessage:messageCopy fromHandle:handleCopy toHandle:v63 messageGuid:guidCopy existingChannel:v61 databaseContext:newBackgroundContext];
+            [(SKAInvitationManager *)self acceptInvitationMessage:messageCopy fromHandle:handleCopy toHandle:v62 messageGuid:guidCopy existingChannel:v60 databaseContext:newBackgroundContext];
             v31 = 1;
 LABEL_56:
-            v32 = v57;
+            v32 = v56;
             goto LABEL_78;
           }
 
@@ -1947,7 +2004,7 @@ LABEL_56:
       goto LABEL_56;
     }
 
-    v56 = iDCopy;
+    v55 = iDCopy;
     v34 = [v27 length];
     v35 = +[SKAInvitationManager logger];
     v30 = v35;
@@ -1960,8 +2017,8 @@ LABEL_56:
       }
 
       v31 = 0;
-      iDCopy = v56;
-      v32 = v57;
+      iDCopy = v55;
+      v32 = v56;
       goto LABEL_10;
     }
 
@@ -1971,12 +2028,12 @@ LABEL_56:
       _os_log_impl(&dword_220099000, v30, OS_LOG_TYPE_DEFAULT, "Treating invite as a presence invite", buf, 2u);
     }
 
-    iDCopy = v56;
+    iDCopy = v55;
     handleCopy = v24;
     if (![(SKAInvitationManager *)self presenceEnabledByServer])
     {
       v30 = +[SKAInvitationManager logger];
-      v23 = v58;
+      v23 = v57;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [SKAInvitationManager sendInvitationForPresenceChannelWithPresenceIdentifier:toHandles:fromSenderHandle:options:completion:];
@@ -1986,37 +2043,23 @@ LABEL_56:
     }
 
     v30 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"ct"];
-    v23 = v58;
+    v23 = v57;
     if (![v30 length])
     {
       +[SKAInvitationManager logger];
-      v55 = v21 = v59;
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
-      {
-        [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
-      }
-
-      v31 = 0;
-      v32 = v57;
-      goto LABEL_77;
-    }
-
-    v55 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"pk"];
-    v21 = v59;
-    if (![v55 length])
-    {
-      v54 = +[SKAInvitationManager logger];
+      v54 = v21 = v58;
       if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
       }
 
       v31 = 0;
-      v32 = v57;
-      goto LABEL_76;
+      v32 = v56;
+      goto LABEL_77;
     }
 
-    v54 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"sk"];
+    v54 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"pk"];
+    v21 = v58;
     if (![v54 length])
     {
       v53 = +[SKAInvitationManager logger];
@@ -2026,24 +2069,38 @@ LABEL_56:
       }
 
       v31 = 0;
-      v32 = v57;
+      v32 = v56;
+      goto LABEL_76;
+    }
+
+    v53 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"sk"];
+    if (![v53 length])
+    {
+      v52 = +[SKAInvitationManager logger];
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      {
+        [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
+      }
+
+      v31 = 0;
+      v32 = v56;
       goto LABEL_75;
     }
 
-    v53 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"mk"];
-    if ([v53 length])
+    v52 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"mk"];
+    if ([v52 length])
     {
       messagingProvider = [(SKAInvitationManager *)self messagingProvider];
-      v48 = [messagingProvider isFromIDFromSelfAccount:v60];
+      v47 = [messagingProvider isFromIDFromSelfAccount:v59];
 
       v37 = [messageCopy ska_numberForKey:@"ip"];
       bOOLValue = [v37 BOOLValue];
 
-      if (!bOOLValue || (v48 & 1) != 0)
+      if (!bOOLValue || (v47 & 1) != 0)
       {
-        clientIDFromPresenceIdentifier = [v57 clientIDFromPresenceIdentifier];
-        iDCopy = v56;
-        v51 = clientIDFromPresenceIdentifier;
+        clientIDFromPresenceIdentifier = [v56 clientIDFromPresenceIdentifier];
+        iDCopy = v55;
+        v50 = clientIDFromPresenceIdentifier;
         if (clientIDFromPresenceIdentifier)
         {
           v40 = clientIDFromPresenceIdentifier;
@@ -2054,7 +2111,7 @@ LABEL_56:
             v42 = @"com.apple.private.alloy.home";
           }
 
-          v47 = v42;
+          v46 = v42;
           if (([v40 isEqualToString:@"groupsessionservice"]& 1) != 0)
           {
             v43 = 1;
@@ -2065,32 +2122,32 @@ LABEL_56:
             v43 = [v40 isEqualToString:@"mediaremoted"];
           }
 
-          v32 = v57;
-          if ((v48 & 1) == 0)
+          v32 = v56;
+          if ((v47 & 1) == 0)
           {
-            v64[0] = MEMORY[0x277D85DD0];
-            v64[1] = 3221225472;
-            v64[2] = __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke;
-            v64[3] = &unk_27843DD88;
-            v64[4] = self;
-            v49 = v43;
-            v65 = messageCopy;
-            v66 = handleCopy;
-            v67 = v63;
-            v68 = guidCopy;
-            v69 = v61;
-            v70 = newBackgroundContext;
-            v72 = v49;
-            v52 = v51;
-            v71 = v52;
-            iDCopy = v56;
-            [(SKAInvitationManager *)self shouldAcceptInvitationMessageForPresenceIdentifier:v57 fromHandle:v66 fromMergeID:v56 inServiceFirewall:v47 databaseContext:v70 completion:v64];
+            v63[0] = MEMORY[0x277D85DD0];
+            v63[1] = 3221225472;
+            v63[2] = __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke;
+            v63[3] = &unk_27843DD88;
+            v63[4] = self;
+            v48 = v43;
+            v64 = messageCopy;
+            v65 = handleCopy;
+            v66 = v62;
+            v67 = guidCopy;
+            v68 = v60;
+            v69 = newBackgroundContext;
+            v71 = v48;
+            v51 = v50;
+            v70 = v51;
+            iDCopy = v55;
+            [(SKAInvitationManager *)self shouldAcceptInvitationMessageForPresenceIdentifier:v56 fromHandle:v65 fromMergeID:v55 inServiceFirewall:v46 databaseContext:v69 completion:v63];
 
             v31 = 2;
             goto LABEL_75;
           }
 
-          [(SKAInvitationManager *)self acceptInvitationMessage:messageCopy fromHandle:handleCopy toHandle:v63 messageGuid:guidCopy existingChannel:v61 databaseContext:newBackgroundContext];
+          [(SKAInvitationManager *)self acceptInvitationMessage:messageCopy fromHandle:handleCopy toHandle:v62 messageGuid:guidCopy existingChannel:v60 databaseContext:newBackgroundContext];
           v31 = 1;
 LABEL_74:
 
@@ -2111,8 +2168,8 @@ LABEL_77:
       else
       {
         +[SKAInvitationManager logger];
-        v51 = iDCopy = v56;
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v50 = iDCopy = v55;
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
         }
@@ -2121,15 +2178,15 @@ LABEL_77:
 
     else
     {
-      v51 = +[SKAInvitationManager logger];
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = +[SKAInvitationManager logger];
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         [SKAInvitationManager handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:];
       }
     }
 
     v31 = 0;
-    v32 = v57;
+    v32 = v56;
     goto LABEL_74;
   }
 
@@ -2142,7 +2199,6 @@ LABEL_77:
   v31 = 0;
 LABEL_80:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -2170,7 +2226,7 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
     {
       if (v12)
       {
-        __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_2(a1);
+        __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_2();
       }
 
       [*(a1 + 32) acceptInvitationMessage:*(a1 + 40) fromHandle:*(a1 + 48) toHandle:*(a1 + 56) messageGuid:*(a1 + 64) existingChannel:*(a1 + 72) databaseContext:*(a1 + 80)];
@@ -2180,7 +2236,7 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
     {
       if (v12)
       {
-        __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_1(a1);
+        __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_1();
       }
     }
   }
@@ -2188,14 +2244,14 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
 
 - (void)shouldAcceptInvitationMessageForPresenceIdentifier:(id)identifier fromHandle:(id)handle fromMergeID:(id)d inServiceFirewall:(id)firewall databaseContext:(id)context completion:(id)completion
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handleCopy = handle;
   dCopy = d;
   firewallCopy = firewall;
   contextCopy = context;
   completionCopy = completion;
-  v39 = contextCopy;
+  v38 = contextCopy;
   v16 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:identifierCopy isPersonal:0 databaseContext:contextCopy];
   if (v16)
   {
@@ -2206,72 +2262,72 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
       v19 = [v17 count];
       invitedUsers = [v16 invitedUsers];
       *buf = 134218498;
-      v58 = v19;
-      v59 = 2048;
-      v60 = [invitedUsers count];
-      v61 = 2112;
-      v62 = identifierCopy;
+      v57 = v19;
+      v58 = 2048;
+      v59 = [invitedUsers count];
+      v60 = 2112;
+      v61 = identifierCopy;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Found %lu old invitations and %lu previously invited users for presence identifier: %@", buf, 0x20u);
     }
 
     v21 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     invitedUsers2 = [v16 invitedUsers];
-    v23 = [invitedUsers2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v23 = [invitedUsers2 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v23)
     {
-      v24 = *v52;
+      v24 = *v51;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v52 != v24)
+          if (*v51 != v24)
           {
             objc_enumerationMutation(invitedUsers2);
           }
 
-          invitedSKHandle = [*(*(&v51 + 1) + 8 * i) invitedSKHandle];
+          invitedSKHandle = [*(*(&v50 + 1) + 8 * i) invitedSKHandle];
           if (invitedSKHandle)
           {
             [v21 addObject:invitedSKHandle];
           }
         }
 
-        v23 = [invitedUsers2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v23 = [invitedUsers2 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v23);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v27 = v17;
-    v28 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v28)
     {
-      v29 = *v48;
+      v29 = *v47;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v48 != v29)
+          if (*v47 != v29)
           {
             objc_enumerationMutation(v27);
           }
 
-          senderSKHandle = [*(*(&v47 + 1) + 8 * j) senderSKHandle];
+          senderSKHandle = [*(*(&v46 + 1) + 8 * j) senderSKHandle];
           if (senderSKHandle)
           {
             [v21 addObject:senderSKHandle];
           }
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v28);
@@ -2281,26 +2337,26 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v58 = handleCopy;
-      v59 = 2112;
-      v60 = v21;
+      v57 = handleCopy;
+      v58 = 2112;
+      v59 = v21;
       _os_log_impl(&dword_220099000, v32, OS_LOG_TYPE_DEFAULT, "Querying if sender %@ is in list of valid sender handles: %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     messagingProvider = self->_messagingProvider;
     v34 = [v21 copy];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke;
-    v42[3] = &unk_27843DDD8;
-    objc_copyWeak(&v46, buf);
-    v43 = handleCopy;
-    v45 = completionCopy;
-    v44 = firewallCopy;
-    [(SKAMessagingProviding *)messagingProvider listOfValidSenderHandles:v34 containsSenderMergeID:dCopy completion:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke;
+    v41[3] = &unk_27843DDD8;
+    objc_copyWeak(&v45, buf);
+    v42 = handleCopy;
+    v44 = completionCopy;
+    v43 = firewallCopy;
+    [(SKAMessagingProviding *)messagingProvider listOfValidSenderHandles:v34 containsSenderMergeID:dCopy completion:v41];
 
-    objc_destroyWeak(&v46);
+    objc_destroyWeak(&v45);
     objc_destroyWeak(buf);
   }
 
@@ -2315,13 +2371,11 @@ void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_from
 
     (*(completionCopy + 2))(completionCopy, 1);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (a2)
   {
@@ -2330,7 +2384,7 @@ void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentif
     {
       v6 = *(a1 + 32);
       *buf = 138412290;
-      v20 = v6;
+      v19 = v6;
       _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Sender %@ was in list of valid sender handles, accepting", buf, 0xCu);
     }
 
@@ -2347,7 +2401,7 @@ LABEL_12:
   {
     if (v10)
     {
-      __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_2(a1);
+      __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_2();
     }
 
     v7 = *(*(a1 + 48) + 16);
@@ -2356,28 +2410,27 @@ LABEL_12:
 
   if (v10)
   {
-    __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_1(a1, (a1 + 40));
+    __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_1();
   }
 
   v11 = [WeakRetained messagingProvider];
   v12 = *(a1 + 32);
   v13 = *(a1 + 40);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111;
-  v15[3] = &unk_27843DDB0;
-  v16 = v12;
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 48);
-  [v11 isHandle:v16 inFirewallForService:v13 completion:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111;
+  v14[3] = &unk_27843DDB0;
+  v15 = v12;
+  v16 = *(a1 + 40);
+  v17 = *(a1 + 48);
+  [v11 isHandle:v15 inFirewallForService:v13 completion:v14];
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111(void *a1, char a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = +[SKAInvitationManager logger];
   v5 = v4;
   if (a2)
@@ -2386,43 +2439,41 @@ uint64_t __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIde
     {
       v6 = a1[4];
       v7 = a1[5];
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Sender %@ was in the firewall for %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Sender %@ was in the firewall for %@", &v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111_cold_1(a1);
+    __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111_cold_1();
   }
 
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)acceptInvitationMessage:(id)message fromHandle:(id)handle toHandle:(id)toHandle messageGuid:(id)guid existingChannel:(id)channel databaseContext:(id)context
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handleCopy = handle;
   toHandleCopy = toHandle;
   guidCopy = guid;
   channelCopy = channel;
   contextCopy = context;
-  v49 = [messageCopy ska_stringForKey:@"c"];
-  v59 = [messageCopy ska_dateFromUnixTimestampForKey:@"d"];
-  v52 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"r"];
-  v51 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"p"];
-  v61 = [messageCopy ska_stringForKey:@"s"];
+  v48 = [messageCopy ska_stringForKey:@"c"];
+  v58 = [messageCopy ska_dateFromUnixTimestampForKey:@"d"];
+  v51 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"r"];
+  v50 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"p"];
+  v60 = [messageCopy ska_stringForKey:@"s"];
   v16 = [messageCopy ska_stringForKey:@"pr"];
-  v55 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"ct"];
-  v54 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"pk"];
-  v53 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"sk"];
-  v48 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"mk"];
+  v54 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"ct"];
+  v53 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"pk"];
+  v52 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"sk"];
+  v47 = [messageCopy ska_dataFrombase64EncodedStringForKey:@"mk"];
   serverTime = [messageCopy ska_dateFromUnixTimestampForKey:@"cd"];
   if (!serverTime)
   {
@@ -2436,12 +2487,12 @@ uint64_t __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIde
     serverTime = [channelManager serverTime];
   }
 
-  v47 = [messageCopy ska_stringForKey:@"si"];
+  v46 = [messageCopy ska_stringForKey:@"si"];
   v20 = [messageCopy ska_numberForKey:@"ip"];
   bOOLValue = [v20 BOOLValue];
 
-  v22 = [v61 length];
-  v46 = v22 == 0;
+  v22 = [v60 length];
+  v45 = v22 == 0;
   if (v22)
   {
     v23 = 0;
@@ -2452,12 +2503,12 @@ uint64_t __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIde
     v23 = bOOLValue;
   }
 
-  v56 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:v16 isPersonal:0 databaseContext:contextCopy];
+  v55 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:v16 isPersonal:0 databaseContext:contextCopy];
   if (channelCopy)
   {
     v24 = channelCopy;
 LABEL_25:
-    [(SKAInvitationManager *)self _sendReverseInvitationIfNeededForPresenceIdentifier:v16 incomingChannel:v24 senderHandle:handleCopy invitedHandle:toHandleCopy dateInvitationCreated:v59 databaseContext:contextCopy];
+    [(SKAInvitationManager *)self _sendReverseInvitationIfNeededForPresenceIdentifier:v16 incomingChannel:v24 senderHandle:handleCopy invitedHandle:toHandleCopy dateInvitationCreated:v58 databaseContext:contextCopy];
     if ((v23 & 1) == 0)
     {
       v32 = +[SKAInvitationManager logger];
@@ -2467,7 +2518,7 @@ LABEL_25:
         _os_log_impl(&dword_220099000, v32, OS_LOG_TYPE_DEFAULT, "Storing received invitation", buf, 2u);
       }
 
-      v33 = [(SKADatabaseManaging *)self->_databaseManager createReceivedInvitationForChannel:v24 senderHandle:handleCopy invitedHandle:toHandleCopy invitationIdentifier:guidCopy dateInvitationCreated:v59 incomingRatchetState:v52 presenceIdentifier:v16 channelToken:v55 serverKey:v53 peerKey:v54 invitationPayload:v51 databaseContext:contextCopy];
+      v33 = [(SKADatabaseManaging *)self->_databaseManager createReceivedInvitationForChannel:v24 senderHandle:handleCopy invitedHandle:toHandleCopy invitationIdentifier:guidCopy dateInvitationCreated:v58 incomingRatchetState:v51 presenceIdentifier:v16 channelToken:v54 serverKey:v52 peerKey:v53 invitationPayload:v50 databaseContext:contextCopy];
       objc_initWeak(buf, self);
       v34 = os_transaction_create();
       backgroundCleanupQueue = self->_backgroundCleanupQueue;
@@ -2475,24 +2526,24 @@ LABEL_25:
       block[1] = 3221225472;
       block[2] = __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke;
       block[3] = &unk_27843DE00;
-      objc_copyWeak(&v70, buf);
-      v63 = v24;
-      v64 = handleCopy;
-      v65 = v16;
-      v66 = contextCopy;
-      v67 = v61;
-      v68 = v33;
-      v69 = v34;
+      objc_copyWeak(&v69, buf);
+      v62 = v24;
+      v63 = handleCopy;
+      v64 = v16;
+      v65 = contextCopy;
+      v66 = v60;
+      v67 = v33;
+      v68 = v34;
       v36 = v34;
       v37 = v33;
       dispatch_async(backgroundCleanupQueue, block);
 
-      objc_destroyWeak(&v70);
+      objc_destroyWeak(&v69);
       objc_destroyWeak(buf);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained invitationManager:self didReceiveInvitationWithType:v46 forChannel:v24 withExistingChannel:v56];
+    [WeakRetained invitationManager:self didReceiveInvitationWithType:v45 forChannel:v24 withExistingChannel:v55];
 
     goto LABEL_30;
   }
@@ -2504,9 +2555,9 @@ LABEL_25:
     _os_log_impl(&dword_220099000, v25, OS_LOG_TYPE_DEFAULT, "No existing channel matches incoming invitation, creating new channel", buf, 2u);
   }
 
-  if ([v61 length])
+  if ([v60 length])
   {
-    v24 = [(SKADatabaseManaging *)self->_databaseManager createChannelForStatusTypeIdentifier:v61 channelIdentifier:v49 databaseContext:contextCopy];
+    v24 = [(SKADatabaseManaging *)self->_databaseManager createChannelForStatusTypeIdentifier:v60 channelIdentifier:v48 databaseContext:contextCopy];
   }
 
   else
@@ -2516,40 +2567,40 @@ LABEL_25:
       goto LABEL_31;
     }
 
-    v44 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:v16 isPersonal:0 databaseContext:contextCopy];
-    v45 = [objc_alloc(MEMORY[0x277D68100]) initWithServiceIdentifier:v47];
-    [v45 setIsPersonal:bOOLValue];
-    v24 = [(SKADatabaseManaging *)self->_databaseManager createPresenceChannelForPresenceIdentifier:v16 channelIdentifier:v49 channelToken:v55 peerKey:v54 serverKey:v53 membershipKey:v48 creationDate:serverTime options:v45 databaseContext:contextCopy];
     v43 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:v16 isPersonal:0 databaseContext:contextCopy];
-    if (v44)
+    v44 = [objc_alloc(MEMORY[0x277D68100]) initWithServiceIdentifier:v46];
+    [v44 setIsPersonal:bOOLValue];
+    v24 = [(SKADatabaseManaging *)self->_databaseManager createPresenceChannelForPresenceIdentifier:v16 channelIdentifier:v48 channelToken:v54 peerKey:v53 serverKey:v52 membershipKey:v47 creationDate:serverTime options:v44 databaseContext:contextCopy];
+    v42 = [(SKADatabaseManaging *)self->_databaseManager existingChannelForPresenceIdentifier:v16 isPersonal:0 databaseContext:contextCopy];
+    if (v43)
     {
       if (v24)
       {
         identifier = [v24 identifier];
-        identifier2 = [v43 identifier];
-        v41 = [identifier isEqualToString:identifier2];
+        identifier2 = [v42 identifier];
+        v40 = [identifier isEqualToString:identifier2];
 
-        if (v41)
+        if (v40)
         {
-          v42 = [(SKADatabaseManaging *)self->_databaseManager copyInvitedUsersFromChannel:v44 toChannel:v24 databaseContext:contextCopy];
+          v41 = [(SKADatabaseManaging *)self->_databaseManager copyInvitedUsersFromChannel:v43 toChannel:v24 databaseContext:contextCopy];
           v28 = +[SKAInvitationManager logger];
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            identifier3 = [v44 identifier];
+            identifier3 = [v43 identifier];
             identifier4 = [v24 identifier];
             v30 = identifier4;
             v31 = @"NO";
             *buf = 138412802;
-            v72 = identifier3;
-            v73 = 2112;
-            if (v42)
+            v71 = identifier3;
+            v72 = 2112;
+            if (v41)
             {
               v31 = @"YES";
             }
 
-            v74 = identifier4;
-            v75 = 2112;
-            v76 = v31;
+            v73 = identifier4;
+            v74 = 2112;
+            v75 = v31;
             _os_log_impl(&dword_220099000, v28, OS_LOG_TYPE_DEFAULT, "Did copy invited users from channel %@ to %@: %@", buf, 0x20u);
           }
         }
@@ -2570,13 +2621,11 @@ LABEL_31:
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -2595,7 +2644,7 @@ void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_mes
       v10 = +[SKAInvitationManager logger];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke_cold_1((a1 + 32));
+        __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke_cold_1();
       }
 
       v9 = 0;
@@ -2620,31 +2669,31 @@ LABEL_10:
   {
     v12 = *(a1 + 40);
     *buf = 138412290;
-    v33 = v12;
+    v31 = v12;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Cleaning up ReceivedInvitations from handle: %@", buf, 0xCu);
   }
 
-  v29 = 0u;
-  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v13 = v9;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v28;
+    v16 = *v26;
     do
     {
       v17 = 0;
       do
       {
-        if (*v28 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * v17);
+        v18 = *(*(&v25 + 1) + 8 * v17);
         v19 = [v3 databaseManager];
         v20 = [v18 identifier];
         [v19 cleanupOldReceivedInvitationsForChannelIdentifier:v20 excludingInvitation:*(a1 + 72) databaseContext:v5];
@@ -2653,7 +2702,7 @@ LABEL_10:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
@@ -2664,23 +2713,20 @@ LABEL_10:
   {
     v22 = *(a1 + 40);
     *buf = 138412290;
-    v33 = v22;
+    v31 = v22;
     _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Removing old channels for handle: %@", buf, 0xCu);
   }
 
   v23 = [v3 databaseManager];
   [v23 cleanupOldChannelsForHandle:*(a1 + 40) statusTypeIdentifier:*(a1 + 64) databaseContext:v5];
 
-  v24 = *(a1 + 80);
-  v25 = objc_opt_self();
-
+  v24 = objc_opt_self();
 LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendReverseInvitationIfNeededForPresenceIdentifier:(id)identifier incomingChannel:(id)channel senderHandle:(id)handle invitedHandle:(id)invitedHandle dateInvitationCreated:(id)created databaseContext:(id)context
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   channelCopy = channel;
   handleCopy = handle;
@@ -2698,9 +2744,9 @@ LABEL_22:
       v23 = v22 = v20;
       dateChannelCreated = [v22 dateChannelCreated];
       *buf = 138412546;
-      v44 = v23;
-      v45 = 2112;
-      v46 = dateChannelCreated;
+      v43 = v23;
+      v44 = 2112;
+      v45 = dateChannelCreated;
       _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "incoming channel creation date: %@ current channel creation date: %@", buf, 0x16u);
 
       v20 = v22;
@@ -2731,13 +2777,13 @@ LABEL_22:
           normalizedHandleString = [handleCopy normalizedHandleString];
           normalizedHandleString2 = [invitedHandleCopy normalizedHandleString];
           v33 = [(SKADatabaseInvitedUser *)v31 initWithInvitedHandle:normalizedHandleString senderHande:normalizedHandleString2 invitationPayloadData:0 dateInvitationPayloadCreated:createdCopy];
-          v42 = v33;
-          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+          v41 = v33;
+          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
 
-          v41 = 0;
+          v40 = 0;
           v20 = v27;
-          LOBYTE(v33) = [(SKAInvitationManager *)selfCopy _sendInvitationMessageForPresenceChannel:v27 toInvitedUsers:v34 error:&v41];
-          v35 = v41;
+          LOBYTE(v33) = [(SKAInvitationManager *)selfCopy _sendInvitationMessageForPresenceChannel:v27 toInvitedUsers:v34 error:&v40];
+          v35 = v40;
           if ((v33 & 1) == 0)
           {
             v36 = v35;
@@ -2763,13 +2809,11 @@ LABEL_22:
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isHandleInviteable:(id)inviteable fromHandle:(id)handle completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inviteableCopy = inviteable;
   handleCopy = handle;
   completionCopy = completion;
@@ -2791,41 +2835,37 @@ LABEL_22:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = handleCopy;
+      v20 = handleCopy;
       _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "fromHandle %@ is a valid sender handle for active iCloud account", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __65__SKAInvitationManager_isHandleInviteable_fromHandle_completion___block_invoke;
-    v17[3] = &unk_27843DE28;
-    v18 = inviteableCopy;
-    v19 = completionCopy;
-    [(SKAInvitationManager *)self _isHandleInviteable:v18 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __65__SKAInvitationManager_isHandleInviteable_fromHandle_completion___block_invoke;
+    v16[3] = &unk_27843DE28;
+    v17 = inviteableCopy;
+    v18 = completionCopy;
+    [(SKAInvitationManager *)self _isHandleInviteable:v17 completion:v16];
 
-    v14 = v18;
+    v14 = v17;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__SKAInvitationManager_isHandleInviteable_fromHandle_completion___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = +[SKAInvitationManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "toHandle %@ inviteability check completed with result: %d", &v8, 0x12u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "toHandle %@ inviteability check completed with result: %d", &v7, 0x12u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_isHandleInviteable:(id)inviteable completion:(id)completion
@@ -2857,7 +2897,7 @@ uint64_t __65__SKAInvitationManager_isHandleInviteable_fromHandle_completion___b
 
 - (void)isPresenceHandleInviteable:(id)inviteable fromHandle:(id)handle completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inviteableCopy = inviteable;
   handleCopy = handle;
   completionCopy = completion;
@@ -2879,41 +2919,37 @@ uint64_t __65__SKAInvitationManager_isHandleInviteable_fromHandle_completion___b
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = handleCopy;
+      v20 = handleCopy;
       _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "fromHandle %@ is a valid sender handle for active iCloud account", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __73__SKAInvitationManager_isPresenceHandleInviteable_fromHandle_completion___block_invoke;
-    v17[3] = &unk_27843DE28;
-    v18 = inviteableCopy;
-    v19 = completionCopy;
-    [(SKAInvitationManager *)self _isPresenceHandleInviteable:v18 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __73__SKAInvitationManager_isPresenceHandleInviteable_fromHandle_completion___block_invoke;
+    v16[3] = &unk_27843DE28;
+    v17 = inviteableCopy;
+    v18 = completionCopy;
+    [(SKAInvitationManager *)self _isPresenceHandleInviteable:v17 completion:v16];
 
-    v14 = v18;
+    v14 = v17;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__SKAInvitationManager_isPresenceHandleInviteable_fromHandle_completion___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = +[SKAInvitationManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "toHandle %@ inviteability check completed with result: %d", &v8, 0x12u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "toHandle %@ inviteability check completed with result: %d", &v7, 0x12u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_isPresenceHandleInviteable:(id)inviteable completion:(id)completion
@@ -2945,7 +2981,7 @@ uint64_t __73__SKAInvitationManager_isPresenceHandleInviteable_fromHandle_comple
 
 - (void)fetchHandleInvitability:(id)invitability fromHandle:(id)handle forStatusTypeIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   invitabilityCopy = invitability;
   handleCopy = handle;
   completionCopy = completion;
@@ -2961,21 +2997,19 @@ uint64_t __73__SKAInvitationManager_isPresenceHandleInviteable_fromHandle_comple
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = invitabilityCopy;
+      v24 = invitabilityCopy;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "handle %@ is present as a removed user", buf, 0xCu);
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __94__SKAInvitationManager_fetchHandleInvitability_fromHandle_forStatusTypeIdentifier_completion___block_invoke;
-  v21[3] = &unk_27843DE50;
-  v23 = v17 != 0;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __94__SKAInvitationManager_fetchHandleInvitability_fromHandle_forStatusTypeIdentifier_completion___block_invoke;
+  v20[3] = &unk_27843DE50;
+  v22 = v17 != 0;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [(SKAInvitationManager *)self isHandleInviteable:invitabilityCopy fromHandle:handleCopy completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(SKAInvitationManager *)self isHandleInviteable:invitabilityCopy fromHandle:handleCopy completion:v20];
 }
 
 void __94__SKAInvitationManager_fetchHandleInvitability_fromHandle_forStatusTypeIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2988,7 +3022,7 @@ void __94__SKAInvitationManager_fetchHandleInvitability_fromHandle_forStatusType
 
 - (void)fetchHandleInvitability:(id)invitability fromHandle:(id)handle forPresenceIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   invitabilityCopy = invitability;
   handleCopy = handle;
   completionCopy = completion;
@@ -3004,21 +3038,19 @@ void __94__SKAInvitationManager_fetchHandleInvitability_fromHandle_forStatusType
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = invitabilityCopy;
+      v24 = invitabilityCopy;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "handle %@ is present as a removed user", buf, 0xCu);
     }
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __92__SKAInvitationManager_fetchHandleInvitability_fromHandle_forPresenceIdentifier_completion___block_invoke;
-  v21[3] = &unk_27843DE50;
-  v23 = v17 != 0;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __92__SKAInvitationManager_fetchHandleInvitability_fromHandle_forPresenceIdentifier_completion___block_invoke;
+  v20[3] = &unk_27843DE50;
+  v22 = v17 != 0;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [(SKAInvitationManager *)self isPresenceHandleInviteable:invitabilityCopy fromHandle:handleCopy completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(SKAInvitationManager *)self isPresenceHandleInviteable:invitabilityCopy fromHandle:handleCopy completion:v20];
 }
 
 void __92__SKAInvitationManager_fetchHandleInvitability_fromHandle_forPresenceIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3031,7 +3063,7 @@ void __92__SKAInvitationManager_fetchHandleInvitability_fromHandle_forPresenceId
 
 - (id)_ratchetEncryptionKeyForwardOrKeyRollForPersonalChannel:(id)channel databaseContext:(id)context invitationWasSentViaKeyRoll:(BOOL *)roll error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   contextCopy = context;
   currentOutgoingRatchet = [channelCopy currentOutgoingRatchet];
@@ -3074,9 +3106,9 @@ LABEL_16:
       goto LABEL_22;
     }
 
-    v28 = 0;
-    v24 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:channelCopy databaseContext:contextCopy error:&v28];
-    serializedData = v28;
+    v27 = 0;
+    v24 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:channelCopy databaseContext:contextCopy error:&v27];
+    serializedData = v27;
     if (v24)
     {
 LABEL_15:
@@ -3105,9 +3137,9 @@ LABEL_15:
       _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Channel has no existing encryption key data, initiating key roll to generate first key", buf, 2u);
     }
 
-    v29 = 0;
-    v22 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:channelCopy databaseContext:contextCopy error:&v29];
-    serializedData = v29;
+    v28 = 0;
+    v22 = [(SKAInvitationManager *)self _rollEncryptionKeyForChannel:channelCopy databaseContext:contextCopy error:&v28];
+    serializedData = v28;
     if (v22)
     {
       goto LABEL_15;
@@ -3130,42 +3162,40 @@ LABEL_15:
   *roll = 0;
 LABEL_22:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)_addInvitedHandles:(id)handles senderHandle:(id)handle toDatabaseForPersonalChannel:(id)channel withInvitationPayload:(id)payload databaseContext:(id)context
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handleCopy = handle;
   channelCopy = channel;
   payloadCopy = payload;
   contextCopy = context;
-  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = handlesCopy;
-  v15 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v15 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v15)
   {
     v17 = v15;
-    v18 = *v39;
+    v18 = *v38;
     *&v16 = 138412290;
-    v33 = v16;
+    v32 = v16;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v39 != v18)
+        if (*v38 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v38 + 1) + 8 * i);
+        v20 = *(*(&v37 + 1) + 8 * i);
         handleString = [v20 handleString];
         v22 = [handleString length];
 
@@ -3174,7 +3204,7 @@ LABEL_22:
           v23 = [(SKAInvitationManager *)self _updateOrCreateInvitedUserWithHandle:v20 senderHandle:handleCopy onChannel:channelCopy withInvitationPayload:payloadCopy databaseContext:contextCopy];
           if ([v23 count])
           {
-            [v34 addObjectsFromArray:v23];
+            [v33 addObjectsFromArray:v23];
             databaseManager = self->_databaseManager;
             statusType = [channelCopy statusType];
             v26 = [(SKADatabaseManaging *)databaseManager existingRemovedUserWithHandle:v20 statusTypeIdentifier:statusType withDatabaseContext:contextCopy];
@@ -3187,8 +3217,8 @@ LABEL_22:
             v27 = +[SKAInvitationManager logger];
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v33;
-              v43 = v20;
+              *buf = v32;
+              v42 = v20;
               _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Removing handle %@ from removed users because of invite", buf, 0xCu);
             }
 
@@ -3202,8 +3232,8 @@ LABEL_22:
             statusType2 = +[SKAInvitationManager logger];
             if (os_log_type_enabled(statusType2, OS_LOG_TYPE_ERROR))
             {
-              *buf = v33;
-              v43 = v20;
+              *buf = v32;
+              v42 = v20;
               _os_log_error_impl(&dword_220099000, statusType2, OS_LOG_TYPE_ERROR, "Error fetching or update invited user for handle: %@", buf, 0xCu);
             }
           }
@@ -3214,8 +3244,8 @@ LABEL_22:
           v23 = +[SKAInvitationManager logger];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            *buf = v33;
-            v43 = v20;
+            *buf = v32;
+            v42 = v20;
             _os_log_error_impl(&dword_220099000, v23, OS_LOG_TYPE_ERROR, "Invited handle has a nil handle string: %@", buf, 0xCu);
           }
         }
@@ -3223,48 +3253,47 @@ LABEL_22:
 LABEL_17:
       }
 
-      v17 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v17 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v17);
   }
 
-  v30 = [v34 copy];
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = [v33 copy];
 
   return v30;
 }
 
 - (id)_addInvitedHandles:(id)handles senderHandle:(id)handle toDatabaseForPresenceChannel:(id)channel databaseContext:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handleCopy = handle;
   channelCopy = channel;
   contextCopy = context;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = handlesCopy;
-  v13 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v13 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v36;
+    v16 = *v35;
     *&v14 = 138412290;
-    v31 = v14;
+    v30 = v14;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v36 != v16)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v35 + 1) + 8 * i);
+        v18 = *(*(&v34 + 1) + 8 * i);
         handleString = [v18 handleString];
         v20 = [handleString length];
 
@@ -3273,7 +3302,7 @@ LABEL_17:
           v21 = [(SKAInvitationManager *)self _updateOrCreateInvitedUserWithHandle:v18 senderHandle:handleCopy onChannel:channelCopy withInvitationPayload:0 databaseContext:contextCopy];
           if ([v21 count])
           {
-            [v32 addObjectsFromArray:v21];
+            [v31 addObjectsFromArray:v21];
             databaseManager = self->_databaseManager;
             presenceIdentifier = [channelCopy presenceIdentifier];
             v24 = [(SKADatabaseManaging *)databaseManager existingRemovedUserWithHandle:v18 presenceIdentifier:presenceIdentifier withDatabaseContext:contextCopy];
@@ -3286,8 +3315,8 @@ LABEL_17:
             v25 = +[SKAInvitationManager logger];
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v31;
-              v40 = v18;
+              *buf = v30;
+              v39 = v18;
               _os_log_impl(&dword_220099000, v25, OS_LOG_TYPE_DEFAULT, "Removing handle %@ from removed users because of invite", buf, 0xCu);
             }
 
@@ -3301,8 +3330,8 @@ LABEL_17:
             presenceIdentifier2 = +[SKAInvitationManager logger];
             if (os_log_type_enabled(presenceIdentifier2, OS_LOG_TYPE_ERROR))
             {
-              *buf = v31;
-              v40 = v18;
+              *buf = v30;
+              v39 = v18;
               _os_log_error_impl(&dword_220099000, presenceIdentifier2, OS_LOG_TYPE_ERROR, "Error fetching or update invited user for handle: %@", buf, 0xCu);
             }
           }
@@ -3313,8 +3342,8 @@ LABEL_17:
           v21 = +[SKAInvitationManager logger];
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            *buf = v31;
-            v40 = v18;
+            *buf = v30;
+            v39 = v18;
             _os_log_error_impl(&dword_220099000, v21, OS_LOG_TYPE_ERROR, "Invited handle has a nil handle string: %@", buf, 0xCu);
           }
         }
@@ -3322,28 +3351,27 @@ LABEL_17:
 LABEL_17:
       }
 
-      v15 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v15 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v15);
   }
 
-  v28 = [v32 copy];
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = [v31 copy];
 
   return v28;
 }
 
 - (id)_updateOrCreateInvitedUserWithHandle:(id)handle senderHandle:(id)senderHandle onChannel:(id)channel withInvitationPayload:(id)payload databaseContext:(id)context
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   senderHandleCopy = senderHandle;
   channelCopy = channel;
   payloadCopy = payload;
   contextCopy = context;
-  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v50 = channelCopy;
+  v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v49 = channelCopy;
   v17 = [(SKADatabaseManaging *)self->_databaseManager existingInvitedUsersForInvitedHandle:handleCopy onChannel:channelCopy databaseContext:contextCopy];
   v18 = 0x27843D000uLL;
   if (![v17 count])
@@ -3355,19 +3383,19 @@ LABEL_17:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v61 = [v17 count];
-    v62 = 2112;
-    v63 = handleCopy;
+    v60 = [v17 count];
+    v61 = 2112;
+    v62 = handleCopy;
     _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Found %ld existing invited user for invitedHandle %@ (ignoring sender handle).", buf, 0x16u);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v20 = v17;
-  v52 = [v20 countByEnumeratingWithState:&v55 objects:v59 count:16];
-  if (!v52)
+  v51 = [v20 countByEnumeratingWithState:&v54 objects:v58 count:16];
+  if (!v51)
   {
 
 LABEL_30:
@@ -3375,16 +3403,16 @@ LABEL_30:
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v61 = handleCopy;
-      v62 = 2112;
-      v63 = senderHandleCopy;
+      v60 = handleCopy;
+      v61 = 2112;
+      v62 = senderHandleCopy;
       _os_log_impl(&dword_220099000, logger, OS_LOG_TYPE_DEFAULT, "Could not find an existing invited user matching handle: %@ and senderHandle %@, attempting to create a new one.", buf, 0x16u);
     }
 
-    v39 = [(SKADatabaseManaging *)self->_databaseManager createInvitedUserWithHandle:handleCopy senderHandle:senderHandleCopy invitationPayload:payloadCopy channel:v50 databaseContext:contextCopy];
+    v39 = [(SKADatabaseManaging *)self->_databaseManager createInvitedUserWithHandle:handleCopy senderHandle:senderHandleCopy invitationPayload:payloadCopy channel:v49 databaseContext:contextCopy];
     if (v39)
     {
-      [v47 addObject:v39];
+      [v46 addObject:v39];
     }
 
     else
@@ -3399,22 +3427,22 @@ LABEL_30:
     goto LABEL_38;
   }
 
-  v44 = v17;
-  v45 = handleCopy;
-  v48 = 0;
-  v51 = *v56;
+  v43 = v17;
+  v44 = handleCopy;
+  v47 = 0;
+  v50 = *v55;
   selfCopy = self;
   obj = v20;
   do
   {
-    for (i = 0; i != v52; ++i)
+    for (i = 0; i != v51; ++i)
     {
-      if (*v56 != v51)
+      if (*v55 != v50)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v55 + 1) + 8 * i);
+      v22 = *(*(&v54 + 1) + 8 * i);
       senderSKHandle = [v22 senderSKHandle];
       v24 = [senderSKHandle isNormalizedEqualToHandle:senderHandleCopy];
       v25 = v18;
@@ -3426,11 +3454,11 @@ LABEL_30:
         {
           handleString = [senderHandleCopy handleString];
           *buf = 138412290;
-          v61 = handleString;
+          v60 = handleString;
           _os_log_impl(&dword_220099000, logger3, OS_LOG_TYPE_DEFAULT, "Existing invited user was invited from the same handle: %@. Updating payload, and not creating a new InvitedUser record.", buf, 0xCu);
         }
 
-        v48 = 1;
+        v47 = 1;
       }
 
       else if (v27)
@@ -3441,9 +3469,9 @@ LABEL_30:
         v31 = payloadCopy;
         v33 = v32 = senderHandleCopy;
         *buf = 138412546;
-        v61 = handleString2;
-        v62 = 2112;
-        v63 = v33;
+        v60 = handleString2;
+        v61 = 2112;
+        v62 = v33;
         _os_log_impl(&dword_220099000, logger3, OS_LOG_TYPE_DEFAULT, "Existing invited user was invited from %@, but we are attempting to invite from %@. Will update this users payload, but may still need to create a new InvitedUser record", buf, 0x16u);
 
         senderHandleCopy = v32;
@@ -3469,14 +3497,14 @@ LABEL_30:
         if (v36)
         {
           *buf = 138412290;
-          v61 = v22;
+          v60 = v22;
           _os_log_impl(&dword_220099000, logger4, OS_LOG_TYPE_DEFAULT, "Updating invitation payload on invitedUser: %@", buf, 0xCu);
         }
 
-        logger4 = [(SKADatabaseManaging *)self->_databaseManager updateInvitationPayload:payloadCopy onExistingInvitedUser:v22 channel:v50 databaseContext:contextCopy];
+        logger4 = [(SKADatabaseManaging *)self->_databaseManager updateInvitationPayload:payloadCopy onExistingInvitedUser:v22 channel:v49 databaseContext:contextCopy];
         if (logger4)
         {
-          [v47 addObject:logger4];
+          [v46 addObject:logger4];
         }
 
         else
@@ -3484,7 +3512,7 @@ LABEL_30:
           logger5 = [*(v25 + 1024) logger];
           if (os_log_type_enabled(logger5, OS_LOG_TYPE_ERROR))
           {
-            [SKAInvitationManager _updateOrCreateInvitedUserWithHandle:v54 senderHandle:logger5 onChannel:? withInvitationPayload:? databaseContext:?];
+            [SKAInvitationManager _updateOrCreateInvitedUserWithHandle:v53 senderHandle:logger5 onChannel:? withInvitationPayload:? databaseContext:?];
           }
         }
       }
@@ -3492,22 +3520,20 @@ LABEL_30:
       v18 = v25;
     }
 
-    v52 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+    v51 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
   }
 
-  while (v52);
+  while (v51);
 
-  v17 = v44;
-  handleCopy = v45;
-  if ((v48 & 1) == 0)
+  v17 = v43;
+  handleCopy = v44;
+  if ((v47 & 1) == 0)
   {
     goto LABEL_30;
   }
 
 LABEL_38:
-  v41 = [v47 copy];
-
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = [v46 copy];
 
   return v41;
 }
@@ -3686,36 +3712,36 @@ void __97__SKAInvitationManager__createPersonalChannelForStatusTypeIdentifier_da
 
 + (id)_unableToFindExistingInvitationForHandlesError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = errorCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        handleString = [*(*(&v16 + 1) + 8 * i) handleString];
+        handleString = [*(*(&v15 + 1) + 8 * i) handleString];
         if (handleString)
         {
           [v4 addObject:handleString];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -3724,8 +3750,6 @@ void __97__SKAInvitationManager__createPersonalChannelForStatusTypeIdentifier_da
   v11 = [v4 componentsJoinedByString:{@", "}];
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not uninvite handle(s) %@ because we could not find an existing invitation for those handle(s)", v11];
   v13 = [SKAError errorWithCode:503 customDescription:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3758,46 +3782,37 @@ uint64_t __30__SKAInvitationManager_logger__block_invoke()
 
 - (void)sendInvitationForPersonalChannelWithStatusTypeIdentifier:toHandles:fromSenderHandle:withInvitationPayload:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInvitationForPersonalChannelWithStatusTypeIdentifier:toHandles:fromSenderHandle:withInvitationPayload:completion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_2(uint64_t *a1)
+void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Invitation was not sent for handles %@ due to key roll error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Invitation was not sent for handles %@ due to key roll error: %@");
 }
 
 void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeIdentifier_toHandles_fromSenderHandle_withInvitationPayload_completion___block_invoke_cold_4()
@@ -3816,31 +3831,23 @@ void __141__SKAInvitationManager_sendInvitationForPersonalChannelWithStatusTypeI
 
 - (void)sendInvitationForPresenceChannelWithPresenceIdentifier:(void *)a1 toHandles:fromSenderHandle:options:completion:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 serviceIdentifier];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_220099000, v2, v3, "Presence has been disabled by the server for identifier %@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_220099000, v2, v3, "Presence has been disabled by the server for identifier %@.", v4, v5, v6, v7);
 }
 
 void __125__SKAInvitationManager_sendInvitationForPresenceChannelWithPresenceIdentifier_toHandles_fromSenderHandle_options_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_1(uint64_t a1)
+void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)revokeAllInvitationsFromPersonalChannelWithStatusTypeIdentifier:completion:.cold.1()
@@ -3864,21 +3871,11 @@ void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenc
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)rollEncryptionKeyForPersonalChannelWithStatusTypeIdentifier:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Error encountered during key roll for statusTypeIdentifier: %@ error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)rollEncryptionKeyForPersonalChannelWithStatusTypeIdentifier:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)outgoingMessageWithIdentifier:fromHandle:toHandle:didSendWithSuccess:.cold.1()
@@ -3904,11 +3901,9 @@ void __105__SKAInvitationManager_sendSelfInvitationForPresenceChannelWithPresenc
 
 - (void)rollPersonalChannelWithStatusTypeIdentifier:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __79__SKAInvitationManager_rollPersonalChannelWithStatusTypeIdentifier_completion___block_invoke_cold_1()
@@ -3927,29 +3922,24 @@ void __79__SKAInvitationManager_rollPersonalChannelWithStatusTypeIdentifier_comp
 
 - (void)rollPresenceChannelWithPresenceIdentifier:isPersonal:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_3(uint64_t *a1)
+void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPersonal_completion___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_rollEncryptionKeyForChannel:databaseContext:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:.cold.1()
@@ -3961,11 +3951,9 @@ void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPers
 
 - (void)_sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendInvitationMessageForChannel:toInvitedUsers:subscriptionKeys:error:.cold.3()
@@ -3975,67 +3963,46 @@ void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPers
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_validateInvitedHandles:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Validated invited handle set does not match unvalidated handles. Unvalidated set may have contained duplicate or invalid handles. Validated: %@ Unvalidated: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_validateInvitedHandle:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 unprefixedURI];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_220099000, v2, v3, "Unprefixed uri for invited handle is nil: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_220099000, v2, v3, "Unprefixed uri for invited handle is nil: %@", v4, v5, v6, v7);
 }
 
 - (void)_validateInvitedHandle:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.5()
@@ -4047,134 +4014,94 @@ void __88__SKAInvitationManager_rollPresenceChannelWithPresenceIdentifier_isPers
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIncomingInvitationMessage:fromHandle:fromID:fromMergeID:toHandle:messageGuid:.cold.15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_1(uint64_t a1)
+void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_220099000, v2, OS_LOG_TYPE_FAULT, "Invitation was rejected for sender insecurity, dropping: %@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_220099000, v0, OS_LOG_TYPE_FAULT, "Invitation was rejected for sender insecurity, dropping: %@", v1, 0xCu);
 }
 
-void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_2(uint64_t a1)
+void __107__SKAInvitationManager_handleIncomingInvitationMessage_fromHandle_fromID_fromMergeID_toHandle_messageGuid___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 88);
-  v2 = *(a1 + 40);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v7 = v3;
-  _os_log_fault_impl(&dword_220099000, v4, OS_LOG_TYPE_FAULT, "Allowing invitation for allowlisted client %@: %@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_fault_impl(&dword_220099000, v1, OS_LOG_TYPE_FAULT, "Allowing invitation for allowlisted client %@: %@", v2, 0x16u);
 }
 
-void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = *a2;
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_220099000, v4, v5, "Sender %@ was not in list of valid sender handles, checking firewall for %@");
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111_cold_1(uint64_t a1)
+void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentifier_fromHandle_fromMergeID_inServiceFirewall_databaseContext_completion___block_invoke_111_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)acceptInvitationMessage:fromHandle:toHandle:messageGuid:existingChannel:databaseContext:.cold.1()
@@ -4191,13 +4118,12 @@ void __143__SKAInvitationManager_shouldAcceptInvitationMessageForPresenceIdentif
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke_cold_1(uint64_t *a1)
+void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_messageGuid_existingChannel_databaseContext___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_sendReverseInvitationIfNeededForPresenceIdentifier:incomingChannel:senderHandle:invitedHandle:dateInvitationCreated:databaseContext:.cold.1()
@@ -4209,47 +4135,37 @@ void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_mes
 
 - (void)_sendReverseInvitationIfNeededForPresenceIdentifier:incomingChannel:senderHandle:invitedHandle:dateInvitationCreated:databaseContext:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isHandleInviteable:fromHandle:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isHandleInviteable:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ratchetEncryptionKeyForwardOrKeyRollForPersonalChannel:databaseContext:invitationWasSentViaKeyRoll:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ratchetEncryptionKeyForwardOrKeyRollForPersonalChannel:databaseContext:invitationWasSentViaKeyRoll:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateOrCreateInvitedUserWithHandle:(os_log_t)log senderHandle:onChannel:withInvitationPayload:databaseContext:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4268,20 +4184,16 @@ void __112__SKAInvitationManager_acceptInvitationMessage_fromHandle_toHandle_mes
 
 void __97__SKAInvitationManager__createPersonalChannelForStatusTypeIdentifier_databaseContext_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __97__SKAInvitationManager__createPersonalChannelForStatusTypeIdentifier_databaseContext_completion___block_invoke_125_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

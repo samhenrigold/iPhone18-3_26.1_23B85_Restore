@@ -46,14 +46,14 @@
 
 id __29__XAMObserver_sharedInstance__block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = XAMAutomationModeReaderMachServiceName();
-  v1 = XAMLog();
+  v1 = XAMLog(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v0;
-    _os_log_impl(&dword_241927000, v1, OS_LOG_TYPE_DEFAULT, "XAM shared observer connecting to %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v0;
+    _os_log_impl(&dword_241927000, v1, OS_LOG_TYPE_DEFAULT, "XAM shared observer connecting to %{public}@", &v5, 0xCu);
   }
 
   v2 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:v0 options:0];
@@ -61,7 +61,6 @@ id __29__XAMObserver_sharedInstance__block_invoke()
   [v2 setRemoteObjectInterface:v3];
 
   [v2 resume];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -133,7 +132,7 @@ id __29__XAMObserver_sharedInstance__block_invoke()
 void __58__XAMObserver_currentAutomationModeEnabledStateFromDaemon__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = XAMLog();
+  v3 = XAMLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58__XAMObserver_currentAutomationModeEnabledStateFromDaemon__block_invoke_cold_1(v2, v3);
@@ -142,28 +141,26 @@ void __58__XAMObserver_currentAutomationModeEnabledStateFromDaemon__block_invoke
 
 - (void)_listenForAutomationModeChangeNotifications
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_fault_impl(&dword_241927000, a2, OS_LOG_TYPE_FAULT, "Failed to register for notifications of Automation Mode, status: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_fault_impl(&dword_241927000, a2, OS_LOG_TYPE_FAULT, "Failed to register for notifications of Automation Mode, status: %d", v2, 8u);
 }
 
 void __58__XAMObserver__listenForAutomationModeChangeNotifications__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = XAMLog();
+  v2 = XAMLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [WeakRetained changeNotificationName];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_241927000, v2, OS_LOG_TYPE_DEFAULT, "Handling posted change notification (%{public}@)", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_241927000, v2, OS_LOG_TYPE_DEFAULT, "Handling posted change notification (%{public}@)", &v4, 0xCu);
   }
 
   [WeakRetained _notifyHandlers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyHandlers
@@ -171,43 +168,44 @@ void __58__XAMObserver__listenForAutomationModeChangeNotifications__block_invoke
   v27 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   currentAutomationModeEnabledStateFromDaemon = [(XAMObserver *)self currentAutomationModeEnabledStateFromDaemon];
-  v4 = XAMLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = currentAutomationModeEnabledStateFromDaemon;
+  v5 = XAMLog(currentAutomationModeEnabledStateFromDaemon);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     isAutomationModeEnabled = self->_isAutomationModeEnabled;
     *buf = 67109376;
     v24 = isAutomationModeEnabled;
     v25 = 1024;
-    v26 = currentAutomationModeEnabledStateFromDaemon;
-    _os_log_impl(&dword_241927000, v4, OS_LOG_TYPE_DEFAULT, "Comparing previous enabled state (%d) to current enabled state (%d)", buf, 0xEu);
+    v26 = v4;
+    _os_log_impl(&dword_241927000, v5, OS_LOG_TYPE_DEFAULT, "Comparing previous enabled state (%d) to current enabled state (%d)", buf, 0xEu);
   }
 
-  if (!self->_hasReceivedAutomationModeEnabledState || self->_isAutomationModeEnabled != currentAutomationModeEnabledStateFromDaemon)
+  if (!self->_hasReceivedAutomationModeEnabledState || self->_isAutomationModeEnabled != v4)
   {
     v20 = 0u;
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
     allValues = [(NSMutableDictionary *)self->_handlers allValues];
-    v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v7)
+    v8 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v8)
     {
-      v9 = v7;
-      v10 = *v19;
+      v10 = v8;
+      v11 = *v19;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
-          if (v12)
+          v13 = *(*(&v18 + 1) + 8 * v12);
+          if (v13)
           {
-            Property = objc_getProperty(*(*(&v18 + 1) + 8 * v11), v8, 8, 1);
+            Property = objc_getProperty(*(*(&v18 + 1) + 8 * v12), v9, 8, 1);
           }
 
           else
@@ -219,24 +217,23 @@ void __58__XAMObserver__listenForAutomationModeChangeNotifications__block_invoke
           v16[1] = 3221225472;
           v16[2] = __30__XAMObserver__notifyHandlers__block_invoke;
           v16[3] = &unk_278CF94E0;
-          v16[4] = v12;
-          v17 = currentAutomationModeEnabledStateFromDaemon;
+          v16[4] = v13;
+          v17 = v4;
           dispatch_async(Property, v16);
-          ++v11;
+          ++v12;
         }
 
-        while (v9 != v11);
-        v14 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
-        v9 = v14;
+        while (v10 != v12);
+        v15 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = v15;
       }
 
-      while (v14);
+      while (v15);
     }
   }
 
-  self->_isAutomationModeEnabled = currentAutomationModeEnabledStateFromDaemon;
+  self->_isAutomationModeEnabled = v4;
   self->_hasReceivedAutomationModeEnabledState = 1;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)registerAutomationModeChangeHandlerOnQueue:(id)queue withBlock:(id)block
@@ -344,7 +341,7 @@ _BYTE *__38__XAMObserver_isAutomationModeEnabled__block_invoke(uint64_t a1)
 void __51__XAMObserver_automationModeRequiresAuthentication__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = XAMLog();
+  v3 = XAMLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58__XAMObserver_currentAutomationModeEnabledStateFromDaemon__block_invoke_cold_1(v2, v3);
@@ -359,19 +356,17 @@ uint64_t __30__XAMObserver__notifyHandlers__block_invoke(uint64_t a1, const char
     Property = objc_getProperty(Property, a2, 16, 1);
   }
 
-  v4 = *(a1 + 40);
-  v5 = Property[2];
+  v3 = Property[2];
 
-  return v5();
+  return v3();
 }
 
 void __58__XAMObserver_currentAutomationModeEnabledStateFromDaemon__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241927000, a2, OS_LOG_TYPE_ERROR, "XPC error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241927000, a2, OS_LOG_TYPE_ERROR, "XPC error: %@", &v2, 0xCu);
 }
 
 @end

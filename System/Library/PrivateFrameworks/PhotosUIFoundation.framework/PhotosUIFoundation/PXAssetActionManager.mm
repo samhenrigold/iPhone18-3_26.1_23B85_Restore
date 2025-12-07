@@ -57,17 +57,17 @@
     v6 = objectReference;
     dataSource = [selectionSnapshot dataSource];
     identifier = [dataSource identifier];
-    [v6 indexPath];
+    objc_msgSend_indexPath(v6);
     if (identifier == v15[4] || ([dataSource objectReferenceForObjectReference:v6], v9 = objc_claimAutoreleasedReturnValue(), v6, (v6 = v9) != 0))
     {
       selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-      [v6 indexPath];
+      objc_msgSend_indexPath(v6);
       v11 = [selectedIndexPaths containsIndexPath:v15];
 
       if ((v11 & 1) == 0)
       {
         v12 = [PXSelectionSnapshot alloc];
-        [v6 indexPath];
+        objc_msgSend_indexPath(v6);
         v13 = [(PXSelectionSnapshot *)v12 initWithDataSource:dataSource selectedIndexPath:v15];
 
         selectionSnapshot = v13;
@@ -105,7 +105,7 @@
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForObjectReference:referenceCopy];
+    objc_msgSend_indexPathForObjectReference_(dataSource);
   }
 
   else

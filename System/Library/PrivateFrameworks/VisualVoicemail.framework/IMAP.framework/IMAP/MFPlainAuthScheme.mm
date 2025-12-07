@@ -10,42 +10,29 @@
   accountCopy = account;
   connectionCopy = connection;
   saslProfileName = [objc_opt_class() saslProfileName];
-  if ([saslProfileName isEqualToString:@"imap"] & 1) != 0 || (objc_msgSend(saslProfileName, "isEqualToString:", @"pop"))
+  if (([saslProfileName isEqualToString:@"imap"] & 1) == 0 && (objc_msgSend(saslProfileName, "isEqualToString:", @"pop") & 1) == 0)
   {
-    goto LABEL_10;
-  }
-
-  authenticationMechanisms = [connectionCopy authenticationMechanisms];
-  if ([authenticationMechanisms indexOfObject:@"PLAIN"] == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    if ([authenticationMechanisms indexOfObject:@"LOGIN"] == 0x7FFFFFFFFFFFFFFFLL)
+    authenticationMechanisms = [connectionCopy authenticationMechanisms];
+    if ([authenticationMechanisms indexOfObject:@"PLAIN"] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(authenticationMechanisms, "indexOfObject:", @"LOGIN") == 0x7FFFFFFFFFFFFFFFLL)
     {
-
-      goto LABEL_10;
     }
 
-    v10 = off_279E32C18;
+    else
+    {
+      v10 = objc_opt_class();
+
+      if (v10)
+      {
+        v11 = [[v10 alloc] initWithAuthScheme:self account:accountCopy connection:connectionCopy];
+        goto LABEL_9;
+      }
+    }
   }
 
-  else
-  {
-    v10 = off_279E32C50;
-  }
+  v11 = 0;
+LABEL_9:
 
-  v11 = *v10;
-  v12 = objc_opt_class();
-
-  if (v12)
-  {
-    v13 = [[v12 alloc] initWithAuthScheme:self account:accountCopy connection:connectionCopy];
-    goto LABEL_11;
-  }
-
-LABEL_10:
-  v13 = 0;
-LABEL_11:
-
-  return v13;
+  return v11;
 }
 
 - (BOOL)canAuthenticateAccountClass:(Class)class connection:(id)connection

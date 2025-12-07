@@ -33,11 +33,9 @@
 
 - (id)description
 {
-  v3 = [NSString alloc];
-  concreteEndpoint = self->_concreteEndpoint;
-  v5 = [v3 initWithFormat:@"%@ - %@", concreteEndpoint, self->_externalDevice];
+  v2 = [[NSString alloc] initWithFormat:@"%@ - %@", self->_concreteEndpoint, self->_externalDevice];
 
-  return v5;
+  return v2;
 }
 
 @end

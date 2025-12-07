@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFUIAppearanceObservable.uiAppearanceService(_:didUpdateNightMode:)();
+  CAFUIAppearanceObservable.uiAppearanceService(_:didUpdateNightMode:)(selfCopy, mode);
 }
 
 - (void)uiAppearanceService:(id)service didUpdateAppearanceMode:(unsigned __int8)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFUIAppearanceObservable.uiAppearanceService(_:didUpdateAppearanceMode:)();
+  CAFUIAppearanceObservable.uiAppearanceService(_:didUpdateAppearanceMode:)(selfCopy, mode);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

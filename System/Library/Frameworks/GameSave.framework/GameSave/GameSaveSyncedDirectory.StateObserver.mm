@@ -13,11 +13,10 @@
 
   static Published.subscript.getter();
 
-  if (v4)
+  if (v2)
   {
-    v3 = *(&self->super.isa + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
 
-    GameSaveSyncedDirectory.resolveConflicts(with:)(v4);
+    GameSaveSyncedDirectory.resolveConflicts(with:)(v2);
   }
 }
 
@@ -29,13 +28,11 @@
 
 - (void)retryIfSignedIn
 {
-  v3 = objc_opt_self();
+  v2 = objc_opt_self();
 
-  standardUserDefaults = [v3 standardUserDefaults];
-  v5 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
-  [standardUserDefaults setBool:1 forKey:v5];
-
-  v6 = *(&self->super.isa + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
+  standardUserDefaults = [v2 standardUserDefaults];
+  v4 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
+  [standardUserDefaults setBool:1 forKey:v4];
 
   GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)(destructiveProjectEnumData for GameSaveFF, 0);
 }

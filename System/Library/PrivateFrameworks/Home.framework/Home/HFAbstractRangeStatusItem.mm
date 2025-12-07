@@ -145,18 +145,18 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controllableServiceTypes = [objc_opt_class() controllableServiceTypes];
   sensorServiceTypes = [objc_opt_class() sensorServiceTypes];
   v7 = [controllableServiceTypes setByAddingObjectsFromSet:sensorServiceTypes];
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke;
-  v39[3] = &unk_277DF2DD8;
-  v39[4] = self;
-  v8 = [v7 na_flatMap:v39];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke;
+  v38[3] = &unk_277DF2DD8;
+  v38[4] = self;
+  v8 = [v7 na_flatMap:v38];
   v9 = [v8 mutableCopy];
 
   currentValueCharacteristicType = [objc_opt_class() currentValueCharacteristicType];
@@ -180,52 +180,49 @@
   controllableServiceTypes2 = [objc_opt_class() controllableServiceTypes];
   allObjects = [controllableServiceTypes2 allObjects];
   currentValueCharacteristicType2 = [objc_opt_class() currentValueCharacteristicType];
-  v41[0] = currentValueCharacteristicType2;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+  v40[0] = currentValueCharacteristicType2;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
   v20 = [(HFStatusItem *)self filteredServicesOfTypes:allObjects containingCharacteristicTypes:v19];
 
   sensorServiceTypes2 = [objc_opt_class() sensorServiceTypes];
   allObjects2 = [sensorServiceTypes2 allObjects];
   currentValueCharacteristicType3 = [objc_opt_class() currentValueCharacteristicType];
-  v40 = currentValueCharacteristicType3;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  v39 = currentValueCharacteristicType3;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   v25 = [(HFStatusItem *)self filteredServicesOfTypes:allObjects2 containingCharacteristicTypes:v24];
 
   v26 = [v20 setByAddingObjectsFromSet:v25];
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v28 = [valueSource readValuesForCharacteristicTypes:v9 inServices:v26];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v34[3] = &unk_277DF7B80;
-  objc_copyWeak(&v37, &location);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v33[3] = &unk_277DF7B80;
+  objc_copyWeak(&v36, &location);
   v29 = v7;
-  v35 = v29;
+  v34 = v29;
   v30 = v26;
-  v36 = v30;
-  v31 = [v28 flatMap:v34];
+  v35 = v30;
+  v31 = [v28 flatMap:v33];
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
 
 id __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() characteristicTypesForServiceType:v3 includingAssociatedTypes:1];
+  v2 = a2;
+  v3 = [objc_opt_class() characteristicTypesForServiceType:v2 includingAssociatedTypes:1];
 
-  return v4;
+  return v3;
 }
 
 id __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -241,12 +238,12 @@ id __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2(
     if (!v9)
     {
       v13 = *(a1 + 40);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_3;
-      v35[3] = &unk_277DF7AF8;
-      v36 = v3;
-      v14 = [v13 na_map:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_3;
+      v34[3] = &unk_277DF7AF8;
+      v35 = v3;
+      v14 = [v13 na_map:v34];
       v15 = [v14 na_filter:&__block_literal_global_62];
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objc_opt_class(), "statusItemCategory")}];
       [v7 setObject:v16 forKeyedSubscript:@"statusItemCategory"];
@@ -271,15 +268,15 @@ id __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2(
 
       else
       {
-        v33 = v15;
+        v32 = v15;
         v26 = [v24 maximumValue];
         [v24 minimumValue];
-        v27 = v34 = v14;
+        v27 = v33 = v14;
         v28 = [HFNumberRange rangeWithMaxValue:v26 minValue:v27];
         [v7 setObject:v28 forKeyedSubscript:@"statusPossibleValues"];
 
-        v15 = v33;
-        v14 = v34;
+        v15 = v32;
+        v14 = v33;
       }
 
       [v7 setObject:*(a1 + 40) forKeyedSubscript:@"representedHomeKitObjects"];
@@ -296,16 +293,15 @@ id __57__HFAbstractRangeStatusItem__subclass_updateWithOptions___block_invoke_2(
   else
   {
     v10 = MEMORY[0x277D2C900];
-    v37 = @"hidden";
-    v38[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = @"hidden";
+    v37[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
   }
 
   v11 = [HFItemUpdateOutcome outcomeWithResults:v7];
   v12 = [v10 futureWithResult:v11];
 
 LABEL_10:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -10,6 +10,7 @@
 - (void)dealloc;
 - (void)handleBluetoothPowerChanged:(id)changed;
 - (void)handleWifiPowerChanged;
+- (void)setBluetoothPowered:(BOOL)powered;
 - (void)setPresentingController:(id)controller;
 - (void)setWiFiPowered:(BOOL)powered;
 @end
@@ -39,13 +40,13 @@
   self->_wifiManager = v3;
   if (v3)
   {
-    v6 = WiFiManagerClientCopyDevices();
-    if (v6 && [v6 count])
+    v5 = WiFiManagerClientCopyDevices();
+    if (v5 && [v5 count])
     {
       v4 = 0;
       do
       {
-        if ([v6 objectAtIndex:v4])
+        if ([v5 objectAtIndex:v4])
         {
           WiFiDeviceClientRegisterPowerCallback();
         }
@@ -53,10 +54,9 @@
         ++v4;
       }
 
-      while (v4 < [v6 count]);
+      while (v4 < [v5 count]);
     }
 
-    wifiManager = self->_wifiManager;
     CFRunLoopGetMain();
     WiFiManagerClientScheduleWithRunLoop();
   }
@@ -66,13 +66,13 @@
 {
   if (self->_wifiManager)
   {
-    v5 = WiFiManagerClientCopyDevices();
-    if (v5 && [v5 count])
+    v4 = WiFiManagerClientCopyDevices();
+    if (v4 && [v4 count])
     {
       v3 = 0;
       do
       {
-        if ([v5 objectAtIndex:v3])
+        if ([v4 objectAtIndex:v3])
         {
           WiFiDeviceClientRegisterPowerCallback();
         }
@@ -80,10 +80,9 @@
         ++v3;
       }
 
-      while (v3 < [v5 count]);
+      while (v3 < [v4 count]);
     }
 
-    wifiManager = self->_wifiManager;
     CFRunLoopGetMain();
     WiFiManagerClientUnscheduleFromRunLoop();
     CFRelease(self->_wifiManager);
@@ -125,6 +124,13 @@
   v5 = [v4 powerState] == 0;
 
   return v5;
+}
+
+- (void)setBluetoothPowered:(BOOL)powered
+{
+  poweredCopy = powered;
+  v4 = +[BluetoothManager sharedInstance];
+  [v4 setPowered:poweredCopy];
 }
 
 - (BOOL)shouldPromptWiFiPower

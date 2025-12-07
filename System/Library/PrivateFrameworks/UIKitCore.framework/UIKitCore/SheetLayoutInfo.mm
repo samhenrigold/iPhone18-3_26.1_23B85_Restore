@@ -155,7 +155,7 @@
   {
     *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_clean + 11) = 0;
     selfCopy = self;
-    sub_1890FBCCC();
+    sub_1890FBCCC(selfCopy);
     sub_188E0F52C();
   }
 }
@@ -194,7 +194,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_1890FF248(width, height);
+  sub_1890FF248(selfCopy, width, height);
 }
 
 - (UIEdgeInsets)_containerSafeAreaInsets
@@ -219,14 +219,14 @@
   selfCopy = self;
   v7.f64[0] = top;
   v8.f64[0] = bottom;
-  sub_1890FF344(v7, left, v8, right);
+  sub_1890FF344(selfCopy, v7, left, v8, right);
 }
 
 - (void)_setContainerTraitCollection:(id)collection
 {
   v5 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo___containerTraitCollection);
   *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo___containerTraitCollection) = collection;
-  sub_188A34624(0, &qword_1ED490410);
+  sub_188A34624(0, &qword_1ED490410, off_1E70EABD0);
   collectionCopy = collection;
   selfCopy = self;
   if ((sub_18A4A7C88() & 1) == 0)
@@ -275,7 +275,7 @@
   if (v4 != alignment)
   {
     selfCopy = self;
-    sub_1890FCDD4();
+    sub_1890FCDD4(selfCopy);
   }
 }
 
@@ -338,10 +338,10 @@
   {
     selfCopy = self;
     sub_1890FDB10();
-    sub_1890FD128();
+    sub_1890FD128(v5);
     sub_1890FD1DC();
     sub_1890FD354();
-    sub_1890FBCCC();
+    sub_1890FBCCC(v6);
   }
 }
 
@@ -359,22 +359,20 @@
 
 - (void)_setZooming:(BOOL)zooming
 {
-  zoomingCopy = zooming;
   selfCopy = self;
-  sub_189100FC4(zoomingCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_isZooming);
+  sub_189100FC4(zooming, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_isZooming);
 }
 
 - (void)_setPresentsWithGesture:(BOOL)gesture
 {
-  gestureCopy = gesture;
   selfCopy = self;
-  sub_189100FC4(gestureCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_presentsWithGesture);
+  sub_189100FC4(gesture, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_presentsWithGesture);
 }
 
 - (void)_setDismissible:(BOOL)dismissible
 {
   selfCopy = self;
-  sub_18910048C(dismissible);
+  sub_18910048C(dismissible, v4);
 }
 
 - (_UIViewMaterial)_largeBackground
@@ -393,7 +391,7 @@
 
 - (NSArray)_detents
 {
-  sub_188A34624(0, &unk_1ED490400);
+  sub_188A34624(0, &unk_1ED490400, off_1E70EA6B8);
 
   v2 = sub_18A4A7518();
 
@@ -402,7 +400,7 @@
 
 - (void)_setDetents:(id)detents
 {
-  sub_188A34624(0, &unk_1ED490400);
+  sub_188A34624(0, &unk_1ED490400, off_1E70EA6B8);
   v4 = sub_18A4A7548();
   selfCopy = self;
   sub_189100610(v4);
@@ -411,14 +409,14 @@
 - (void)_invalidateDetents
 {
   selfCopy = self;
-  sub_1890FC154();
+  sub_1890FC154(v2);
 }
 
 - (void)_setSelectedDetentIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   selfCopy = self;
-  sub_18910082C(identifier);
+  sub_18910082C(identifier, v6);
 }
 
 - (void)_setStandardAppearance:(id)appearance
@@ -430,37 +428,32 @@
 
 - (void)_setShouldDismissWhenTappedOutside:(BOOL)outside
 {
-  outsideCopy = outside;
   selfCopy = self;
-  sub_189100EC0(outsideCopy);
+  sub_189100EC0(outside);
 }
 
 - (void)_setAllowsInteractiveDismissWhenFullScreen:(BOOL)screen
 {
-  screenCopy = screen;
   selfCopy = self;
-  sub_189100FC4(screenCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_allowsInteractiveDismissWhenFullScreen);
+  sub_189100FC4(screen, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_allowsInteractiveDismissWhenFullScreen);
 }
 
 - (void)_setPrefersScrollingResizesWhenDetentDirectionIsDown:(BOOL)down
 {
-  downCopy = down;
   selfCopy = self;
-  sub_1891010BC(downCopy);
+  sub_1891010BC(down);
 }
 
 - (void)_setPrefersScrollingExpandsToLargerDetentWhenScrolledToEdge:(BOOL)edge
 {
-  edgeCopy = edge;
   selfCopy = self;
-  sub_189101438(edgeCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_prefersScrollingExpandsToLargerDetentWhenScrolledToEdge);
+  sub_189101438(edge, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_prefersScrollingExpandsToLargerDetentWhenScrolledToEdge);
 }
 
 - (void)_setWantsGrabber:(BOOL)grabber
 {
-  grabberCopy = grabber;
   selfCopy = self;
-  sub_189101254(grabberCopy);
+  sub_189101254(grabber);
 }
 
 - (void)_setGrabberSpacing:(double)spacing
@@ -471,16 +464,14 @@
 
 - (void)_setInsetsContentViewForGrabber:(BOOL)grabber
 {
-  grabberCopy = grabber;
   selfCopy = self;
-  sub_189101438(grabberCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_insetsContentViewForGrabber);
+  sub_189101438(grabber, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_insetsContentViewForGrabber);
 }
 
 - (void)_setGrabberBlurEnabled:(BOOL)enabled
 {
-  enabledCopy = enabled;
   selfCopy = self;
-  sub_189101438(enabledCopy, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_isGrabberBlurEnabled);
+  sub_189101438(enabled, &OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_isGrabberBlurEnabled);
 }
 
 - (void)_setDragging:(BOOL)dragging
@@ -591,10 +582,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_currentOffsetGetter);
   v8 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_currentOffsetGetter);
+  v9 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo_currentOffsetGetter + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)_invalidateCurrentOffset
@@ -639,10 +631,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__indexOfCurrentActiveOrDismissDetentWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__indexOfCurrentActiveOrDismissDetentWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__indexOfCurrentActiveOrDismissDetentWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)set_rubberBandExtentBeyondMinimumOffsetWasInvalidated:(id)invalidated
@@ -663,10 +656,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMinimumOffsetWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMinimumOffsetWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMinimumOffsetWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (void)set_rubberBandExtentBeyondMaximumOffsetWasInvalidated:(id)invalidated
@@ -687,10 +681,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMaximumOffsetWasInvalidated);
   v8 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMaximumOffsetWasInvalidated);
+  v9 = *(self + OBJC_IVAR____TtC5UIKit15SheetLayoutInfo__rubberBandExtentBeyondMaximumOffsetWasInvalidated + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v8, v9);
 }
 
 - (_UISheetLayoutInfoDelegate)_delegate
@@ -821,7 +816,7 @@
 
   swift_beginAccess();
 
-  sub_188A34624(0, &qword_1ED48FD80);
+  sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -849,7 +844,7 @@
   selfCopy = self;
   sub_189103BFC();
 
-  sub_188A34624(0, &unk_1ED48C6A0);
+  sub_188A34624(0, &unk_1ED48C6A0, off_1E70EC208);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -868,9 +863,10 @@
 - (int64_t)_indexOfActiveDetentForTappingGrabber
 {
   selfCopy = self;
-  v3 = sub_18910767C();
+  sub_18910767C();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)_grabberAction
@@ -884,9 +880,10 @@
 - (int64_t)_indexOfCurrentActiveOrDismissDetent
 {
   selfCopy = self;
-  v3 = sub_18910785C();
+  sub_18910785C();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (double)_rubberBandExtentBeyondMinimumOffset

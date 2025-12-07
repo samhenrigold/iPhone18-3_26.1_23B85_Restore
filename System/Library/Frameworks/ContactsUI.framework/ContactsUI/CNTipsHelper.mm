@@ -45,7 +45,7 @@
 - (void)tipKitStopObservation
 {
   selfCopy = self;
-  sub_199A90270(selfCopy, v2);
+  sub_199A90270();
 }
 
 - (void)setCurrentTipView:(id)view

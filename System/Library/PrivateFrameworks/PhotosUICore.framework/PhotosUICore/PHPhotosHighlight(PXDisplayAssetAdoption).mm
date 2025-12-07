@@ -1,6 +1,6 @@
 @interface PHPhotosHighlight(PXDisplayAssetAdoption)
 - (__CFString)px_symbolImageName;
-- (uint64_t)px_isTrip;
+- (void)px_isTrip;
 @end
 
 @implementation PHPhotosHighlight(PXDisplayAssetAdoption)
@@ -20,12 +20,12 @@
   return v1;
 }
 
-- (uint64_t)px_isTrip
+- (void)px_isTrip
 {
   result = [self type];
   if (result != 1)
   {
-    return [self type] == 2;
+    return ([self type] == 2);
   }
 
   return result;

@@ -38,7 +38,7 @@
   if (*(&self->super.super.super.super.super.super.super.isa + v3))
   {
     sub_20D5663C8();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81F040);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81F040, &qword_20D5C3BB0);
     v4 = sub_20D567A58();
   }
 
@@ -57,7 +57,7 @@
   if (*(v2 + 1))
   {
     sub_20D5663C8();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81F040);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81F040, &qword_20D5C3BB0);
     v3 = sub_20D567A58();
   }
 
@@ -98,7 +98,7 @@
 
 - (void)accessoryControlViewControllerFor:(HFAccessoryRepresentableItem *)for tileItem:(HFItem *)item completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

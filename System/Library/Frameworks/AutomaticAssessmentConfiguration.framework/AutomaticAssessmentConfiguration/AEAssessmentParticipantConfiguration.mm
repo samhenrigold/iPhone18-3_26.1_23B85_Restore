@@ -138,10 +138,10 @@ LABEL_6:
   v4 = v3;
   if (configuration)
   {
-    if (*(configuration + 8) == *(v3 + 8) && *(configuration + 9) == *(v3 + 9))
+    if (*(configuration + 8) == v3[8] && *(configuration + 9) == v3[9])
     {
       v5 = *(configuration + 16);
-      if (v5 | v4[2])
+      if (v5 | *(v4 + 2))
       {
         configuration = [v5 isEqual:?];
       }

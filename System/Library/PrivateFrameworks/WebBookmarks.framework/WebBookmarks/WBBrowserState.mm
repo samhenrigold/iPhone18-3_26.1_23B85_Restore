@@ -40,35 +40,35 @@
 
 - (WBBrowserState)initWithCoder:(id)coder
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"PinnedTabs"];
 
   v9 = MEMORY[0x277CBEB98];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"PrivatePinnedTabs"];
 
   v13 = MEMORY[0x277CBEB98];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v26[2] = objc_opt_class();
-  v26[3] = objc_opt_class();
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v25[2] = objc_opt_class();
+  v25[3] = objc_opt_class();
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"PinnedTabsByProfileUUID"];
 
   v17 = MEMORY[0x277CBEB98];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   v19 = [v17 setWithArray:v18];
   v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"WindowStatesKey"];
 
@@ -76,7 +76,6 @@
   pinnedTabsByProfileIdentifier = v21->_pinnedTabsByProfileIdentifier;
   v21->_pinnedTabsByProfileIdentifier = v16;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

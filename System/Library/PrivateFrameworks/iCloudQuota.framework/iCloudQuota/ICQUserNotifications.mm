@@ -6,7 +6,7 @@
 
 + (void)postUserNotificationWithIdentifier:(id)identifier title:(id)title subTitle:(id)subTitle bodyText:(id)text url:(id)url replaceExisting:(BOOL)existing offerID:(id)d completion:(id)self0
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   titleCopy = title;
   subTitleCopy = subTitle;
@@ -17,7 +17,7 @@
   if (!existing)
   {
     v19 = [_ICQHelperFunctions userDefaultsDictionaryForKey:@"ICQUserNotificationKey"];
-    v20 = [v19 objectForKeyedSubscript:dCopy];
+    v20 = objc_msgSend_objectForKeyedSubscript_(v19);
     v21 = _ICQGetLogSystem();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
@@ -26,7 +26,7 @@
       *&buf[12] = 2112;
       *&buf[14] = v20;
       *&buf[22] = 2112;
-      v39 = identifierCopy;
+      v38 = identifierCopy;
       _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "ICQUserNotification for offerID: %@, last notification ID was %@, new ID %@", buf, 0x20u);
     }
 
@@ -95,22 +95,20 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v39 = __Block_byref_object_copy__3;
-  v40 = __Block_byref_object_dispose__3;
-  v41 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.iCloud.FollowUp"];
+  v38 = __Block_byref_object_copy__3;
+  v39 = __Block_byref_object_dispose__3;
+  v40 = [objc_alloc(MEMORY[0x277CE2028]) initWithBundleIdentifier:@"com.apple.iCloud.FollowUp"];
   v30 = *(*&buf[8] + 40);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __122__ICQUserNotifications_postUserNotificationWithIdentifier_title_subTitle_bodyText_url_replaceExisting_offerID_completion___block_invoke;
-  v35[3] = &unk_27A651E20;
-  v36 = completionCopy;
-  v37 = buf;
-  [v30 addNotificationRequest:v29 withCompletionHandler:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __122__ICQUserNotifications_postUserNotificationWithIdentifier_title_subTitle_bodyText_url_replaceExisting_offerID_completion___block_invoke;
+  v34[3] = &unk_27A651E20;
+  v35 = completionCopy;
+  v36 = buf;
+  [v30 addNotificationRequest:v29 withCompletionHandler:v34];
 
   _Block_object_dispose(buf, 8);
 LABEL_20:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __122__ICQUserNotifications_postUserNotificationWithIdentifier_title_subTitle_bodyText_url_replaceExisting_offerID_completion___block_invoke(uint64_t a1)

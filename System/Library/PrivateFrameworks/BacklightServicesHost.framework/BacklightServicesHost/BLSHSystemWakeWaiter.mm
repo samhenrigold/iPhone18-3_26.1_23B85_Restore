@@ -61,7 +61,7 @@
 
 - (void)runWhenAwakeWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = self->_osInterfaceProvider;
   os_unfair_lock_lock(&self->_lock);
@@ -77,11 +77,11 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       identifier = self->_identifier;
-      v15 = 138412546;
+      v14 = 138412546;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = identifier;
-      _os_log_impl(&dword_21FD11000, v12, OS_LOG_TYPE_DEBUG, "%@:%@ asked to run block while system is awake, running now.", &v15, 0x16u);
+      v16 = 2112;
+      v17 = identifier;
+      _os_log_impl(&dword_21FD11000, v12, OS_LOG_TYPE_DEBUG, "%@:%@ asked to run block while system is awake, running now.", &v14, 0x16u);
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -94,11 +94,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = self->_identifier;
-      v15 = 138412546;
+      v14 = 138412546;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ asked to run block while system is asleep, waiting.", &v15, 0x16u);
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ asked to run block while system is asleep, waiting.", &v14, 0x16u);
     }
 
     self->_lock_waitStartTimestamp = mach_continuous_time();
@@ -110,40 +110,38 @@
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemSleepMonitorDidWakeFromSleep:(id)sleep
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_invalidated || !self->_lock_completion)
   {
-    v10 = bls_backlight_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v8 = bls_backlight_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       identifier = self->_identifier;
       if (self->_lock_invalidated)
       {
-        v12 = @"YES";
+        v10 = @"YES";
       }
 
       else
       {
-        v12 = @"NO";
+        v10 = @"NO";
       }
 
-      v13 = MEMORY[0x223D70730](self->_lock_completion);
-      v15 = 138413058;
+      v11 = MEMORY[0x223D70730](self->_lock_completion);
+      v12 = 138413058;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = identifier;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "%@:%@ system did wake but waiter was invalidated (%@) or completion is nil (%@)", &v15, 0x2Au);
+      v14 = 2112;
+      v15 = identifier;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%@:%@ system did wake but waiter was invalidated (%@) or completion is nil (%@)", &v12, 0x2Au);
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -156,27 +154,23 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = self->_identifier;
-      lock_waitStartTimestamp = self->_lock_waitStartTimestamp;
-      lock_didWakeTimestamp = self->_lock_didWakeTimestamp;
       BSTimeDifferenceFromMachTimeToMachTime();
-      v15 = 138412802;
+      v12 = 138412802;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2048;
-      v20 = v8;
-      _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ system awake, running pending block, waited:%.4lfs.", &v15, 0x20u);
+      v14 = 2112;
+      v15 = v5;
+      v16 = 2048;
+      v17 = v6;
+      _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ system awake, running pending block, waited:%.4lfs.", &v12, 0x20u);
     }
 
-    v9 = MEMORY[0x223D70730](self->_lock_completion);
+    v7 = MEMORY[0x223D70730](self->_lock_completion);
     os_unfair_lock_unlock(&self->_lock);
-    if (v9)
+    if (v7)
     {
-      v9[2](v9);
+      v7[2](v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate

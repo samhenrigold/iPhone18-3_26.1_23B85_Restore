@@ -6,7 +6,7 @@
 
 + (id)hdsp_categorySampleForSleepSessionInterval:()HDSPSleep metadata:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (v5)
@@ -47,11 +47,11 @@
     {
       interval4 = [v5 interval];
       [interval4 duration];
-      v27 = 134218240;
-      v28 = v15;
-      v29 = 2048;
-      v30 = v9;
-      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "Sleep interval: %f greater than allowed: %f. Will not be used", &v27, 0x16u);
+      v26 = 134218240;
+      v27 = v15;
+      v28 = 2048;
+      v29 = v9;
+      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "Sleep interval: %f greater than allowed: %f. Will not be used", &v26, 0x16u);
     }
   }
 
@@ -60,15 +60,13 @@
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v27) = 0;
-      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "sleepInterval is nil", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "sleepInterval is nil", &v26, 2u);
     }
   }
 
   v16 = 0;
 LABEL_13:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

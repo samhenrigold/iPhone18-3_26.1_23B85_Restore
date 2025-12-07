@@ -217,7 +217,6 @@ void __61__AKAbsintheSigner_signatureForURLRequest_completionHandler___block_inv
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_createSigningContextWithCompletionHandler:(id)handler
@@ -455,7 +454,6 @@ void __63__AKAbsintheSigner__createSigningContextWithCompletionHandler___block_i
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_sessionInfoFromCertificateData:(id)data
@@ -518,7 +516,6 @@ void __63__AKAbsintheSigner__createSigningContextWithCompletionHandler___block_i
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v5 = v25;
 
   return v5;
@@ -731,7 +728,6 @@ LABEL_33:
   objc_storeStrong(&v50, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_destroySigningContext

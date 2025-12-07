@@ -65,19 +65,18 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
 
 + (BOOL)isInternalAccessoryType:(id)type
 {
-  v8[6] = *MEMORY[0x277D85DE8];
-  v8[0] = @"HomePod";
-  v8[1] = @"HomePodMini";
-  v8[2] = @"MediaSystem-HomePod";
-  v8[3] = @"MediaSystem-HomePodMini";
-  v8[4] = @"AppleTV";
-  v8[5] = @"Generic";
+  v7[6] = *MEMORY[0x277D85DE8];
+  v7[0] = @"HomePod";
+  v7[1] = @"HomePodMini";
+  v7[2] = @"MediaSystem-HomePod";
+  v7[3] = @"MediaSystem-HomePodMini";
+  v7[4] = @"AppleTV";
+  v7[5] = @"Generic";
   v3 = MEMORY[0x277CBEA60];
   typeCopy = type;
-  v5 = [v3 arrayWithObjects:v8 count:6];
+  v5 = [v3 arrayWithObjects:v7 count:6];
   LOBYTE(v3) = [v5 containsObject:typeCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -143,7 +142,7 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
 
 - (id)accessories
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   demoAccessories = self->_demoAccessories;
   if (demoAccessories)
   {
@@ -157,39 +156,39 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
     {
       selfCopy = self;
       v6 = +[HFHomeKitDispatcher sharedDispatcher];
-      home = [v6 home];
+      v33 = objc_msgSend_home(v6);
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v30 = [MEMORY[0x277CBEB58] set];
-      v32 = +[HFDemoModeAccessoryManager demoModeDirectoryURL];
+      v29 = [MEMORY[0x277CBEB58] set];
+      v31 = +[HFDemoModeAccessoryManager demoModeDirectoryURL];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v28 = v5;
+      v27 = v5;
       obj = v5;
-      v7 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v7)
       {
         v8 = v7;
-        v31 = *v36;
+        v30 = *v35;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v36 != v31)
+            if (*v35 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v35 + 1) + 8 * i);
+            v10 = *(*(&v34 + 1) + 8 * i);
             v11 = [v10 objectForKeyedSubscript:@"name"];
             v12 = [v10 objectForKeyedSubscript:@"type"];
             v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@.plist", v11, v12];
             uRLPathAllowedCharacterSet = [MEMORY[0x277CCA900] URLPathAllowedCharacterSet];
             v15 = [v13 stringByAddingPercentEncodingWithAllowedCharacters:uRLPathAllowedCharacterSet];
 
-            v16 = [MEMORY[0x277CBEBC0] URLWithString:v15 relativeToURL:v32];
+            v16 = [MEMORY[0x277CBEBC0] URLWithString:v15 relativeToURL:v31];
             path = [v16 path];
             v18 = [defaultManager fileExistsAtPath:path];
 
@@ -204,27 +203,27 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
               [v19 setObject:v15 forKeyedSubscript:@"fileName"];
             }
 
-            v20 = [HFDemoModeAccessoryManager accessoryWithContentsOfDictionary:v19 forHome:home];
+            v20 = [HFDemoModeAccessoryManager accessoryWithContentsOfDictionary:v19 forHome:v33];
             if (v20)
             {
-              [v30 addObject:v20];
+              [v29 addObject:v20];
             }
           }
 
-          v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
         while (v8);
       }
 
       v21 = MEMORY[0x277CBEB18];
-      allObjects = [v30 allObjects];
+      allObjects = [v29 allObjects];
       v23 = [v21 arrayWithArray:allObjects];
       v24 = selfCopy->_demoAccessories;
       selfCopy->_demoAccessories = v23;
 
       v3 = [(NSArray *)selfCopy->_demoAccessories copy];
-      v5 = v28;
+      v5 = v27;
     }
 
     else
@@ -233,35 +232,33 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)saveAccessories
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[HFDemoModeAccessoryManager demoModeDirectoryURL];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [(HFDemoModeAccessoryManager *)self demoAccessories];
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         applicationData = [v8 applicationData];
         v10 = [applicationData objectForKeyedSubscript:@"fileName"];
 
@@ -271,13 +268,11 @@ void __43__HFDemoModeAccessoryManager_sharedManager__block_invoke()
         [dictionary writeToURL:v11 atomically:1];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)imageIconDescriptorFromDictionary:(id)dictionary
@@ -365,7 +360,7 @@ void __64__HFDemoModeAccessoryManager_dispatchUpdateMessageForAccessory___block_
 
 + (id)clipsForCameraProfile:(id)profile
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   array = [MEMORY[0x277CBEB18] array];
   accessory = [profileCopy accessory];
@@ -382,9 +377,9 @@ void __64__HFDemoModeAccessoryManager_dispatchUpdateMessageForAccessory___block_
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [v13 path];
-  v30 = 0;
-  v16 = [defaultManager contentsOfDirectoryAtPath:path error:&v30];
-  v17 = v30;
+  v29 = 0;
+  v16 = [defaultManager contentsOfDirectoryAtPath:path error:&v29];
+  v17 = v29;
 
   if (v17)
   {
@@ -392,7 +387,7 @@ void __64__HFDemoModeAccessoryManager_dispatchUpdateMessageForAccessory___block_
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v13;
+      v31 = v13;
       _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Failure getting contents of directory:%@", buf, 0xCu);
     }
 
@@ -401,21 +396,19 @@ void __64__HFDemoModeAccessoryManager_dispatchUpdateMessageForAccessory___block_
 
   else
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke;
-    v25[3] = &unk_277DF27E0;
-    v26 = v13;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke;
+    v24[3] = &unk_277DF27E0;
+    v25 = v13;
     selfCopy = self;
-    v27 = profileCopy;
+    v26 = profileCopy;
     v20 = array;
-    v28 = v20;
-    [v16 enumerateObjectsUsingBlock:v25];
+    v27 = v20;
+    [v16 enumerateObjectsUsingBlock:v24];
     [v20 sortUsingComparator:&__block_literal_global_67];
     v21 = v20;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -430,7 +423,7 @@ void __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke(uint6
   v7 = v6;
   if (v6)
   {
-    [v6 duration];
+    objc_msgSend_duration(v6);
   }
 
   else
@@ -460,7 +453,7 @@ uint64_t __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke_2
 
 + (id)_demoClipWithURL:(id)l duration:(double)duration cameraProfile:(id)profile
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
   profileCopy = profile;
   lastPathComponent = [lCopy lastPathComponent];
@@ -481,11 +474,11 @@ uint64_t __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke_2
       v20 = HFLogForCategory(0x21uLL);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
-        v24 = v14;
-        v25 = 2112;
-        v26 = lCopy;
-        _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Creating demo clip:%@ from path:%@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v14;
+        v24 = 2112;
+        v25 = lCopy;
+        _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Creating demo clip:%@ from path:%@", &v22, 0x16u);
       }
     }
 
@@ -494,11 +487,11 @@ uint64_t __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke_2
       v18 = HFLogForCategory(0x21uLL);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
-        v24 = v16;
-        v25 = 2112;
-        v26 = lCopy;
-        _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Invalid start date:%@ for url:%@. Unable to create demo clip.", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v16;
+        v24 = 2112;
+        v25 = lCopy;
+        _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Invalid start date:%@ for url:%@. Unable to create demo clip.", &v22, 0x16u);
       }
 
       v14 = 0;
@@ -510,15 +503,13 @@ uint64_t __52__HFDemoModeAccessoryManager_clipsForCameraProfile___block_invoke_2
     date = HFLogForCategory(0x21uLL);
     if (os_log_type_enabled(date, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = lCopy;
-      _os_log_impl(&dword_20D9BF000, date, OS_LOG_TYPE_DEFAULT, "Invalid url:%@. Unable to create demo clip.", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = lCopy;
+      _os_log_impl(&dword_20D9BF000, date, OS_LOG_TYPE_DEFAULT, "Invalid url:%@. Unable to create demo clip.", &v22, 0xCu);
     }
 
     v14 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

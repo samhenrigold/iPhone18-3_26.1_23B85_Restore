@@ -27,7 +27,7 @@
 - (void)setIsDisabled:(BOOL)disabled
 {
   selfCopy = self;
-  sub_1AC36C(disabled);
+  sub_1AC36C(disabled, v4);
 }
 
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes

@@ -164,7 +164,7 @@ id __59__HDDatabaseAssertionManager__dbFilesInDirectory_errorOut___block_invoke(
 
 - (void)_cancelTimerIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_1_5(self);
@@ -174,9 +174,9 @@ id __59__HDDatabaseAssertionManager__dbFilesInDirectory_errorOut___block_invoke(
       v3 = HKLogAssertions();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 138543362;
-        v7 = v1;
-        _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling timer", &v6, 0xCu);
+        v5 = 138543362;
+        v6 = v1;
+        _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Cancelling timer", &v5, 0xCu);
       }
 
       dispatch_source_cancel(*(v1 + 104));
@@ -186,138 +186,132 @@ id __59__HDDatabaseAssertionManager__dbFilesInDirectory_errorOut___block_invoke(
 
     os_unfair_lock_unlock((v1 + *(v2 + 3004)));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_lock_takeCoreOSAssertionWithError:(uint64_t)error
 {
-  v30 = *MEMORY[0x277D85DE8];
-  if (error)
+  v29 = *MEMORY[0x277D85DE8];
+  if (!error)
   {
-    os_unfair_lock_assert_owner((error + 120));
-    _HKInitializeLogging();
-    v4 = HKLogAssertions();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543362;
-      *&buf[4] = error;
-      _os_log_impl(&dword_25156C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Taking CoreOS assertion", buf, 0xCu);
-    }
+    return 0;
+  }
 
-    v5 = *(error + 88);
-    v6 = [(HDDatabaseAssertionManager *)error _dbFilesFromDirectoryPath:?];
-    [v5 addObjectsFromArray:v6];
+  os_unfair_lock_assert_owner((error + 120));
+  _HKInitializeLogging();
+  v4 = HKLogAssertions();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    *&buf[4] = error;
+    _os_log_impl(&dword_25156C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Taking CoreOS assertion", buf, 0xCu);
+  }
 
-    *buf = xmmword_2515C04A0;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v7 = *(error + 88);
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
-    if (v8)
+  v5 = *(error + 88);
+  v6 = [(HDDatabaseAssertionManager *)error _dbFilesFromDirectoryPath:?];
+  [v5 addObjectsFromArray:v6];
+
+  *buf = xmmword_2515C04A0;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = *(error + 88);
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v20 = a2;
+    v10 = *v22;
+    v11 = @"An assertion is already held on this file by a different process.";
+    v12 = MEMORY[0x277CCC2A0];
+    while (2)
     {
-      v9 = v8;
-      v21 = a2;
-      v10 = *v23;
-      v11 = @"An assertion is already held on this file by a different process.";
-      v12 = MEMORY[0x277CCC2A0];
-      while (2)
+      v13 = 0;
+      do
       {
-        v13 = 0;
-        do
+        if (*v22 != v10)
         {
-          if (*v23 != v10)
-          {
-            objc_enumerationMutation(v7);
-          }
+          objc_enumerationMutation(v7);
+        }
 
-          v14 = *(*(&v22 + 1) + 8 * v13);
-          if ((HKIsUnitTesting() & 1) == 0)
-          {
-            path = [v14 path];
-            v16 = open([path fileSystemRepresentation], 2);
+        v14 = *(*(&v21 + 1) + 8 * v13);
+        if ((HKIsUnitTesting() & 1) == 0)
+        {
+          path = [v14 path];
+          v16 = open([path fileSystemRepresentation], 2);
 
-            if (fcntl(v16, 108, buf) < 0)
+          if (fcntl(v16, 108, buf) < 0)
+          {
+            if (*__error() == 16)
             {
-              if (*__error() == 16)
-              {
-                goto LABEL_24;
-              }
+              goto LABEL_24;
+            }
 
-              if (*__error() == 1)
-              {
-                v11 = @"The device is locked, or your process doesn't have permission to request the assertion.";
+            if (*__error() == 1)
+            {
+              v11 = @"The device is locked, or your process doesn't have permission to request the assertion.";
 LABEL_24:
-                [MEMORY[0x277CCA9B8] hk_assignError:v21 code:102 description:v11];
-                v18 = 0;
-                goto LABEL_25;
-              }
-
-              if (*__error() == 22)
-              {
-                v11 = @"You may have exceeded the maximum time to live, the file handle may not be valid, the data protection class of the file is not A or B, descriptor is not for a regular file";
-                goto LABEL_24;
-              }
-
-              if (*__error() == 45)
-              {
-                v11 = @"The platform doesn't support background processing assertions or the file is not a snapshot.";
-                goto LABEL_24;
-              }
+              [MEMORY[0x277CCA9B8] hk_assignError:v20 code:102 description:v11];
+              v18 = 0;
+              goto LABEL_25;
             }
 
-            if (close(v16))
+            if (*__error() == 22)
             {
-              _HKInitializeLogging();
-              v17 = *v12;
-              if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
-              {
-                *v26 = 138543362;
-                errorCopy = error;
-                _os_log_error_impl(&dword_25156C000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Failed to close file descriptor", v26, 0xCu);
-              }
+              v11 = @"You may have exceeded the maximum time to live, the file handle may not be valid, the data protection class of the file is not A or B, descriptor is not for a regular file";
+              goto LABEL_24;
+            }
+
+            if (*__error() == 45)
+            {
+              v11 = @"The platform doesn't support background processing assertions or the file is not a snapshot.";
+              goto LABEL_24;
             }
           }
 
-          ++v13;
+          if (close(v16))
+          {
+            _HKInitializeLogging();
+            v17 = *v12;
+            if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
+            {
+              *v25 = 138543362;
+              errorCopy = error;
+              _os_log_error_impl(&dword_25156C000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Failed to close file descriptor", v25, 0xCu);
+            }
+          }
         }
 
-        while (v9 != v13);
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
-        if (v9)
-        {
-          continue;
-        }
-
-        break;
+        ++v13;
       }
+
+      while (v9 != v13);
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v18 = 1;
+  v18 = 1;
 LABEL_25:
-  }
 
-  else
-  {
-    v18 = 0;
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)_dbFilesFromDirectoryPath:(void *)path
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (path)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v10 = 0;
-    v5 = [(HDDatabaseAssertionManager *)path _dbFilesInDirectory:v3 errorOut:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [(HDDatabaseAssertionManager *)path _dbFilesInDirectory:v3 errorOut:&v9];
+    v6 = v9;
     if (v5)
     {
       [v4 addObjectsFromArray:v5];
@@ -331,10 +325,10 @@ LABEL_25:
       {
         *buf = 138543874;
         pathCopy = path;
-        v13 = 2114;
-        v14 = v3;
-        v15 = 2114;
-        v16 = v6;
+        v12 = 2114;
+        v13 = v3;
+        v14 = 2114;
+        v15 = v6;
         _os_log_error_impl(&dword_25156C000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch files in directory %{public}@ with error %{public}@", buf, 0x20u);
       }
     }
@@ -345,14 +339,12 @@ LABEL_25:
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_lock_releaseCoreOSAssertionIfNeeded:(uint64_t)needed
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (needed)
   {
     os_unfair_lock_assert_owner((needed + 120));
@@ -367,34 +359,34 @@ LABEL_25:
         _os_log_impl(&dword_25156C000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Releasing CoreOS assertion", buf, 0xCu);
       }
 
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
       v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       v5 = *(needed + 88);
-      v6 = [v5 countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v51;
-        v49 = 138543362;
+        v8 = *v50;
+        v48 = 138543362;
         do
         {
           v9 = 0;
           do
           {
-            if (*v51 != v8)
+            if (*v50 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v50 + 1) + 8 * v9);
+            v10 = *(*(&v49 + 1) + 8 * v9);
             if ((HKIsUnitTesting() & 1) == 0)
             {
               path = [v10 path];
               v12 = open([path fileSystemRepresentation], 2);
 
-              v47 = 0;
+              v46 = 0;
               if (fcntl(v12, 109) < 0)
               {
                 if (*__error() == 1)
@@ -404,7 +396,7 @@ LABEL_25:
                   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
                   if (v14)
                   {
-                    v22 = OUTLINED_FUNCTION_0_8(v14, v15, v16, v17, v18, v19, v20, v21, 0, v48, v49);
+                    v22 = OUTLINED_FUNCTION_0_8(v14, v15, v16, v17, v18, v19, v20, v21, 0, v47, v48);
                     v24 = v13;
                     v25 = "%{public}@: The assertion you're releasing doesn't belong to you.";
                     goto LABEL_26;
@@ -420,7 +412,7 @@ LABEL_25:
                   v26 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
                   if (v26)
                   {
-                    v22 = OUTLINED_FUNCTION_0_8(v26, v27, v28, v29, v30, v31, v32, v33, 0, v48, v49);
+                    v22 = OUTLINED_FUNCTION_0_8(v26, v27, v28, v29, v30, v31, v32, v33, 0, v47, v48);
                     v24 = v13;
                     v25 = "%{public}@: The platform doesn't support background processing assertions or the file is not a snapshot";
 LABEL_26:
@@ -438,7 +430,7 @@ LABEL_18:
                 v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
                 if (v35)
                 {
-                  v43 = OUTLINED_FUNCTION_0_8(v35, v36, v37, v38, v39, v40, v41, v42, v47, v48, v49);
+                  v43 = OUTLINED_FUNCTION_0_8(v35, v36, v37, v38, v39, v40, v41, v42, v46, v47, v48);
                   _os_log_error_impl(v43, v34, OS_LOG_TYPE_ERROR, "%{public}@: Failed to close file descriptor", v44, 0xCu);
                 }
               }
@@ -448,7 +440,7 @@ LABEL_18:
           }
 
           while (v7 != v9);
-          v45 = [v5 countByEnumeratingWithState:&v50 objects:v54 count:16];
+          v45 = [v5 countByEnumeratingWithState:&v49 objects:v53 count:16];
           v7 = v45;
         }
 
@@ -459,13 +451,11 @@ LABEL_18:
       *(needed + 96) = 0;
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timerFired
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self)
   {
     hasActiveOrPendingAssertions = [self hasActiveOrPendingAssertions];
@@ -475,11 +465,11 @@ LABEL_18:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(self + 96);
-      v8 = 138543618;
+      v7 = 138543618;
       selfCopy = self;
-      v10 = 1026;
-      v11 = v4;
-      _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Attempting to release assertion with assertion taken value %{public}d", &v8, 0x12u);
+      v9 = 1026;
+      v10 = v4;
+      _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Attempting to release assertion with assertion taken value %{public}d", &v7, 0x12u);
     }
 
     if (*(self + 96) == 1)
@@ -494,8 +484,6 @@ LABEL_18:
     os_unfair_lock_unlock((self + 120));
     [(HDDatabaseAssertionManager *)self _cancelTimerIfNeeded];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dbFilesInDirectory:(void *)directory errorOut:
@@ -559,13 +547,12 @@ LABEL_12:
 
 - (void)takeAssertion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to take CoreOS Assertion with error %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to take CoreOS Assertion with error %{public}@", &v3, 0x16u);
 }
 
 @end

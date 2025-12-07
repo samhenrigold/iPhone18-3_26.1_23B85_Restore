@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_726F80();
+  sub_726F80(selfCopy);
 }
 
 - (void)layoutDirectionDidChange

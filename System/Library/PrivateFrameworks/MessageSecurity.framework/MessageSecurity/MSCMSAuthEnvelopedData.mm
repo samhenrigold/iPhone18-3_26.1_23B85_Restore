@@ -102,14 +102,12 @@
 
 - (NSArray)originatorCertificates
 {
-  v3 = OBJC_IVAR___MSCMSAuthEnvelopedData_originatorCertificates;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for SecCertificate();
 
-  v5 = sub_258CBEB20();
+  v2 = sub_258CBEB20();
 
-  return v5;
+  return v2;
 }
 
 - (void)setOriginatorCertificates:(id)certificates
@@ -118,7 +116,6 @@
   v4 = sub_258CBEB30();
   v5 = OBJC_IVAR___MSCMSAuthEnvelopedData_originatorCertificates;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -140,19 +137,16 @@
 
 - (MSCMSMessage)embeddedContent
 {
-  v3 = OBJC_IVAR___MSCMSAuthEnvelopedData_embeddedContent;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setEmbeddedContent:(id)content
 {
   v5 = OBJC_IVAR___MSCMSAuthEnvelopedData_embeddedContent;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = content;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -196,13 +190,14 @@
   swift_unknownObjectRetain();
   recipientCopy = recipient;
   v8 = @"2.16.840.1.101.3.4.1.46";
-  sub_258CBEAE0();
-  v9 = objc_allocWithZone(MSOID);
-  v10 = sub_258CAEABC();
-  v11 = [(MSCMSAuthEnvelopedData *)self initWithEmbeddedContent:content recipient:recipientCopy encryptionAlgorithm:v10];
+  v9 = sub_258CBEAE0();
+  v11 = v10;
+  v12 = objc_allocWithZone(MSOID);
+  v13 = sub_258CAEABC(v9, v11);
+  v14 = [(MSCMSAuthEnvelopedData *)self initWithEmbeddedContent:content recipient:recipientCopy encryptionAlgorithm:v13];
   swift_unknownObjectRelease();
 
-  return v11;
+  return v14;
 }
 
 - (MSCMSAuthEnvelopedData)initWithEmbeddedContent:(id)content recipient:(id)recipient encryptionAlgorithm:(id)algorithm

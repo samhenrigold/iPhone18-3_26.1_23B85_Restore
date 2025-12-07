@@ -98,13 +98,12 @@
 
 uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v3 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
 
   return sqlite3_bind_int64(a2, 2, 1);
 }
 
-uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___block_invoke_2(uint64_t a1)
+uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 40) = HDSQLiteColumnAsInt64();
   *(*(*(a1 + 32) + 8) + 48) = HDSQLiteColumnAsInt64();
@@ -114,11 +113,11 @@ uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___b
 
 - (BOOL)deleteObjectWithPersistentID:(int64_t)d entityClass:(Class)class error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = NSStringFromClass(class);
   v10 = [(NSMutableDictionary *)self->_deleteStatementsByClassName objectForKeyedSubscript:v9];
   v11 = [(HDDatabaseTransaction *)self->_transaction databaseForEntityClass:class];
-  v29 = v9;
+  v28 = v9;
   if (!v10)
   {
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -139,8 +138,8 @@ uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___b
       while (([(objc_class *)classCopy isSubclassOfClass:baseDataEntityClass]& 1) != 0);
     }
 
-    v9 = v29;
-    [(NSMutableDictionary *)self->_deleteStatementsByClassName setObject:v10 forKeyedSubscript:v29];
+    v9 = v28;
+    [(NSMutableDictionary *)self->_deleteStatementsByClassName setObject:v10 forKeyedSubscript:v28];
   }
 
   if (self->_callWillDeleteWithProfileTransaction)
@@ -166,40 +165,40 @@ uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___b
     }
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v20 = v10;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v21)
   {
     v22 = v21;
-    v28 = v11;
-    v23 = *v32;
+    v27 = v11;
+    v23 = *v31;
     while (2)
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * i);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __78__HDDataEntityDeletionContext_deleteObjectWithPersistentID_entityClass_error___block_invoke;
-        v30[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-        v30[4] = d;
-        if (![v25 performStatementWithError:error bindingHandler:v30])
+        v25 = *(*(&v30 + 1) + 8 * i);
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __78__HDDataEntityDeletionContext_deleteObjectWithPersistentID_entityClass_error___block_invoke;
+        v29[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+        v29[4] = d;
+        if (![v25 performStatementWithError:error bindingHandler:v29])
         {
           v19 = 0;
           goto LABEL_22;
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v22)
       {
         continue;
@@ -210,8 +209,8 @@ uint64_t __65__HDDataEntityDeletionContext_deleteInfoForObjectWithUUID_error___b
 
     v19 = 1;
 LABEL_22:
-    v11 = v28;
-    v9 = v29;
+    v11 = v27;
+    v9 = v28;
   }
 
   else
@@ -220,7 +219,6 @@ LABEL_22:
   }
 
 LABEL_25:
-  v26 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -241,14 +239,14 @@ uint64_t __125__HDDataEntityDeletionContext__deleteAssociatedObjectsForPersisten
 
 - (BOOL)deleteObjectWithPersistentID:(int64_t)d objectUUID:(id)iD entityClass:(Class)class objectType:(id)type provenanceIdentifier:(id)identifier deletionDate:(id)date deletedSampleIntervals:(id)intervals error:(id *)self0
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   typeCopy = type;
   identifierCopy = identifier;
   dateCopy = date;
   intervalsCopy = intervals;
-  v103 = dateCopy;
-  v104 = intervalsCopy;
+  v102 = dateCopy;
+  v103 = intervalsCopy;
   if (!self)
   {
 
@@ -259,10 +257,10 @@ uint64_t __125__HDDataEntityDeletionContext__deleteAssociatedObjectsForPersisten
   v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v21 = 0;
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
-  v115 = 0;
+  v111 = 0;
+  v112 = &v111;
+  v113 = 0x2020000000;
+  v114 = 0;
   if (!self->_recursiveDeleteAuthorizationBlock)
   {
     v21 = HDAssociationEntityPredicateForAssociationEntityWithBehavior(1);
@@ -271,20 +269,20 @@ uint64_t __125__HDDataEntityDeletionContext__deleteAssociatedObjectsForPersisten
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __125__HDDataEntityDeletionContext__deleteAssociatedObjectsForPersistentID_entityClass_deletionDate_deletedSampleIntervals_error___block_invoke;
-  v126 = &unk_278621968;
-  v132 = &v112;
+  v125 = &unk_278621968;
+  v131 = &v111;
   v22 = v19;
-  v127 = v22;
+  v126 = v22;
   v23 = v20;
-  v128 = v23;
+  v127 = v23;
   selfCopy = self;
-  v24 = v103;
-  v130 = v24;
-  v25 = v104;
-  v131 = v25;
+  v24 = v102;
+  v129 = v24;
+  v25 = v103;
+  v130 = v25;
   if (([(objc_class *)class enumerateAssociatedObjectsForIdentifier:d inDatabase:v18 predicate:v21 error:error associatedObjectHandler:buf]& 1) != 0)
   {
-    if (!*(v113 + 24) || ((*(self->_recursiveDeleteAuthorizationBlock + 2))() & 1) != 0)
+    if (!*(v112 + 24) || ((*(self->_recursiveDeleteAuthorizationBlock + 2))() & 1) != 0)
     {
       v26 = 1;
       goto LABEL_10;
@@ -297,7 +295,7 @@ uint64_t __125__HDDataEntityDeletionContext__deleteAssociatedObjectsForPersisten
   v26 = 0;
 LABEL_10:
 
-  _Block_object_dispose(&v112, 8);
+  _Block_object_dispose(&v111, 8);
   if (!v26)
   {
 LABEL_90:
@@ -307,23 +305,23 @@ LABEL_90:
 
   v27 = objc_opt_class();
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v98 = [v27 attachmentObjectIdentifierForSampleWithUUID:iDCopy profile:WeakRetained transaction:self->_transaction error:error];
+  v97 = [v27 attachmentObjectIdentifierForSampleWithUUID:iDCopy profile:WeakRetained transaction:self->_transaction error:error];
 
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
-  v109 = 1;
-  v99 = [(HDDatabaseTransaction *)self->_transaction databaseForEntityClass:class];
+  v108 = 1;
+  v98 = [(HDDatabaseTransaction *)self->_transaction databaseForEntityClass:class];
+  v106 = 0;
   v107 = 0;
-  v108 = 0;
-  v29 = [HDDataExternalSyncIdentifierEntity populateSyncInfoForObjectID:d database:v99 localSourceIDOut:&v111 externalSyncObjectCodeOut:&v110 syncIdentifierOut:&v108 syncVersionOut:&v107 deletedOut:&v109 errorOut:error];
-  v30 = v108;
-  v97 = v107;
+  v29 = [HDDataExternalSyncIdentifierEntity populateSyncInfoForObjectID:d database:v98 localSourceIDOut:&v110 externalSyncObjectCodeOut:&v109 syncIdentifierOut:&v107 syncVersionOut:&v106 deletedOut:&v108 errorOut:error];
+  v30 = v107;
+  v96 = v106;
   v31 = v30;
   if (v29)
   {
     if (v30)
     {
-      if (v109 == 1)
+      if (v108 == 1)
       {
         _HKInitializeLogging();
         v32 = *MEMORY[0x277CCC2A0];
@@ -340,15 +338,15 @@ LABEL_90:
     v34 = 0.0;
     if (self->_insertDeletedObjects)
     {
-      v35 = v99;
-      v121 = 0;
-      v122 = &v121;
-      v123 = 0x2020000000;
-      v124 = 0;
-      v117 = 0;
-      v118 = &v117;
-      v119 = 0x2020000000;
+      v35 = v98;
       v120 = 0;
+      v121 = &v120;
+      v122 = 0x2020000000;
+      v123 = 0;
+      v116 = 0;
+      v117 = &v116;
+      v118 = 0x2020000000;
+      v119 = 0;
       startAndEndDatesSQL = self->_startAndEndDatesSQL;
       if (!startAndEndDatesSQL)
       {
@@ -361,26 +359,26 @@ LABEL_90:
         startAndEndDatesSQL = self->_startAndEndDatesSQL;
       }
 
-      v112 = MEMORY[0x277D85DD0];
-      v113 = 3221225472;
-      v114 = __123__HDDataEntityDeletionContext__startAndEndDatesForSampleWithPersistentID_startTimestampOut_endTimestampOut_database_error___block_invoke;
-      v115 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+      v111 = MEMORY[0x277D85DD0];
+      v112 = 3221225472;
+      v113 = __123__HDDataEntityDeletionContext__startAndEndDatesForSampleWithPersistentID_startTimestampOut_endTimestampOut_database_error___block_invoke;
+      v114 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
       dCopy = d;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __123__HDDataEntityDeletionContext__startAndEndDatesForSampleWithPersistentID_startTimestampOut_endTimestampOut_database_error___block_invoke_2;
-      v126 = &unk_278615C30;
-      v127 = &v121;
-      v128 = &v117;
-      v41 = [v35 executeSQL:startAndEndDatesSQL error:error bindingHandler:&v112 enumerationHandler:buf];
+      v125 = &unk_278615C30;
+      v126 = &v120;
+      v127 = &v116;
+      v41 = [v35 executeSQL:startAndEndDatesSQL error:error bindingHandler:&v111 enumerationHandler:buf];
       if (v41)
       {
-        v33 = v122[3];
-        v34 = v118[3];
+        v33 = v121[3];
+        v34 = v117[3];
       }
 
-      _Block_object_dispose(&v117, 8);
-      _Block_object_dispose(&v121, 8);
+      _Block_object_dispose(&v116, 8);
+      _Block_object_dispose(&v120, 8);
 
       if (!v41)
       {
@@ -403,7 +401,7 @@ LABEL_90:
       goto LABEL_70;
     }
 
-    v93 = [MEMORY[0x277CCD2E0] _deletedObjectWithUUID:iDCopy metadata:0];
+    v92 = [MEMORY[0x277CCD2E0] _deletedObjectWithUUID:iDCopy metadata:0];
     _deletedEntityClass = [(objc_class *)class _deletedEntityClass];
     if (!_deletedEntityClass)
     {
@@ -411,7 +409,7 @@ LABEL_90:
       [currentHandler handleFailureInMethod:a2 object:self file:@"HDDataEntityDeletionContext.m" lineNumber:295 description:{@"Invalid parameter not satisfying: %@", @"deletedEntityClass != Nil"}];
     }
 
-    v106 = 0;
+    v105 = 0;
     v42 = identifierCopy;
     deletedObjectProvenanceIDsByOriginalProvenanceID = self->_deletedObjectProvenanceIDsByOriginalProvenanceID;
     if (deletedObjectProvenanceIDsByOriginalProvenanceID)
@@ -434,7 +432,7 @@ LABEL_90:
     v48 = objc_loadWeakRetained(&self->_profile);
     dataProvenanceManager = [v48 dataProvenanceManager];
 
-    v49 = [dataProvenanceManager originProvenanceForPersistentID:v42 transaction:self->_transaction error:&v106];
+    v49 = [dataProvenanceManager originProvenanceForPersistentID:v42 transaction:self->_transaction error:&v105];
     v50 = v49;
     if (!v49)
     {
@@ -454,7 +452,7 @@ LABEL_90:
     }
 
     sourceID = [v50 sourceID];
-    v112 = 0;
+    v111 = 0;
     v55 = sourceID;
     localSourceIDsByOriginalSourceID = self->_localSourceIDsByOriginalSourceID;
     if (localSourceIDsByOriginalSourceID)
@@ -464,18 +462,18 @@ LABEL_90:
       {
 LABEL_45:
 
-        v63 = v112;
+        v63 = v111;
         if (v57 || !v63)
         {
           if (v57 | v63)
           {
-            v92 = [v50 copy];
-            [v92 setSyncProvenance:0];
-            [v92 setSourceID:v57];
+            v91 = objc_msgSend_copy(v50);
+            [v91 setSyncProvenance:0];
+            [v91 setSourceID:v57];
             v66 = objc_loadWeakRetained(&self->_profile);
-            [v92 setSyncIdentity:{objc_msgSend(v66, "currentSyncIdentityPersistentID")}];
+            [v91 setSyncIdentity:{objc_msgSend(v66, "currentSyncIdentityPersistentID")}];
 
-            v67 = [dataProvenanceManager provenanceEntityForProvenance:v92 error:&v106];
+            v67 = [dataProvenanceManager provenanceEntityForProvenance:v91 error:&v105];
             v68 = v67;
             if (v67)
             {
@@ -514,14 +512,14 @@ LABEL_58:
         }
 
         v64 = v63;
-        v106 = v63;
+        v105 = v63;
 
 LABEL_48:
         v45 = 0;
 LABEL_59:
 
 LABEL_60:
-        v69 = v106;
+        v69 = v105;
         if (!v45)
         {
           _HKInitializeLogging();
@@ -560,9 +558,9 @@ LABEL_60:
           v34 = (v34 / 86400 + 1) * 86400.0;
         }
 
-        v105 = 0;
-        v70 = [_deletedEntityClass insertDeletedObject:v93 dataType:typeCopy provenanceIdentifier:v45 deletionDate:v24 persistStartAndEndDates:1 startTimestamp:v99 endTimestamp:v33 inDatabase:v34 error:&v105];
-        v71 = v105;
+        v104 = 0;
+        v70 = [_deletedEntityClass insertDeletedObject:v92 dataType:typeCopy provenanceIdentifier:v45 deletionDate:v24 persistStartAndEndDates:1 startTimestamp:v98 endTimestamp:v33 inDatabase:v34 error:&v104];
+        v71 = v104;
         if (v70)
         {
           longLongValue = [v70 longLongValue];
@@ -572,14 +570,14 @@ LABEL_60:
             objc_storeStrong(&self->_lastInsertedDeletedObjectPersistentID, v70);
           }
 
-          if (!v31 || (v74 = objc_loadWeakRetained(&self->_profile), LOBYTE(v91) = 1, v75 = [HDDataExternalSyncIdentifierEntity insertSyncIdentifierWithProfile:v74 database:v99 objectID:longLongValue localSourceID:v111 externalSyncObjectCode:v110 syncIdentifier:v31 syncVersion:v97 deleted:v91 errorOut:error], v74, v75))
+          if (!v31 || (v74 = objc_loadWeakRetained(&self->_profile), LOBYTE(v90) = 1, v75 = [HDDataExternalSyncIdentifierEntity insertSyncIdentifierWithProfile:v74 database:v98 objectID:longLongValue localSourceID:v110 externalSyncObjectCode:v109 syncIdentifier:v31 syncVersion:v96 deleted:v90 errorOut:error], v74, v75))
           {
 
 LABEL_70:
             v76 = objc_loadWeakRetained(&self->_profile);
             attachmentManager = [v76 attachmentManager];
             attachmentSchemaIdentifier = [typeCopy attachmentSchemaIdentifier];
-            v79 = [attachmentManager removeAttachmentReferencesWithObjectIdentifier:v98 schemaIdentifier:attachmentSchemaIdentifier transaction:self->_transaction error:error];
+            v79 = [attachmentManager removeAttachmentReferencesWithObjectIdentifier:v97 schemaIdentifier:attachmentSchemaIdentifier transaction:self->_transaction error:error];
 
             if (v79)
             {
@@ -606,7 +604,7 @@ LABEL_87:
             *&buf[12] = 2114;
             *&buf[14] = class;
             *&buf[22] = 2114;
-            v126 = v71;
+            v125 = v71;
             _os_log_impl(&dword_228986000, v84, OS_LOG_TYPE_INFO, "Failed to insert deleted object with entity class %{public}@ after deleting an object of class %{public}@: %{public}@", buf, 0x20u);
           }
 
@@ -640,7 +638,7 @@ LABEL_87:
 
     v60 = objc_loadWeakRetained(&self->_profile);
     sourceManager = [v60 sourceManager];
-    v62 = [sourceManager localSourceForSourceID:v55 copyIfNecessary:1 error:&v112];
+    v62 = [sourceManager localSourceForSourceID:v55 copyIfNecessary:1 error:&v111];
 
     if (v62)
     {
@@ -659,7 +657,6 @@ LABEL_87:
 LABEL_88:
 
 LABEL_91:
-  v89 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -672,38 +669,36 @@ uint64_t __123__HDDataEntityDeletionContext__startAndEndDatesForSampleWithPersis
 
 void __37__HDDataEntityDeletionContext_finish__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a3;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) finish];
+        [*(*(&v8 + 1) + 8 * v7++) finish];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

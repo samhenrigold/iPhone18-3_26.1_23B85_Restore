@@ -9,7 +9,7 @@
 - (_TtC18ASMessagesProvider20ProductTapToRateView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC18ASMessagesProvider20ProductTapToRateView_rateAction;
-  v5 = sub_BD88(&qword_93FAE0);
+  v5 = sub_BD88(&qword_93FAE0, &qword_77ED78);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider20ProductTapToRateView_isSingleColumn) = 0;
   result = sub_76A840();
@@ -25,15 +25,16 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v5 = sub_330D8(width);
-  v7 = v6;
+  v6 = sub_330D8(width, height);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 

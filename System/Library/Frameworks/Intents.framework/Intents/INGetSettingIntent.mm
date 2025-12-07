@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"settingMetadata";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"settingMetadata";
   settingMetadata = [(INGetSettingIntent *)self settingMetadata];
   null = settingMetadata;
   if (!settingMetadata)
@@ -31,8 +31,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"confirmationValue";
-  v12[0] = null;
+  v10[1] = @"confirmationValue";
+  v11[0] = null;
   confirmationValue = [(INGetSettingIntent *)self confirmationValue];
   if ((confirmationValue - 1) > 2)
   {
@@ -45,14 +45,12 @@
   }
 
   v7 = v6;
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   if (!settingMetadata)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

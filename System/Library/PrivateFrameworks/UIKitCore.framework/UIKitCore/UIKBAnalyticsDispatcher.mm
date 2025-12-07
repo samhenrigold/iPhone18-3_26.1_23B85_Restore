@@ -120,7 +120,7 @@ void __41__UIKBAnalyticsDispatcher_sharedInstance__block_invoke()
 {
   v10[6] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  if ([nameCopy isEqualToString:@"Operation"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v10[0] = @"Undo";
     v10[1] = @"UndoCancel";
@@ -136,7 +136,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([nameCopy isEqualToString:@"TriggerType"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v9[0] = @"UndoHUDGesturePan";
     v9[1] = @"UndoHUDGestureDoubleTap";
@@ -259,26 +259,26 @@ LABEL_15:
   }
 }
 
-void __78__UIKBAnalyticsDispatcher_analyticsDispatchEventTextEditingOperation_trigger___block_invoke()
+void __78__UIKBAnalyticsDispatcher_analyticsDispatchEventTextEditingOperation_trigger___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E69D9548];
-  v1 = [objc_opt_class() allowedValuesForTextEditingPreferredFieldName:@"Operation"];
-  v2 = [v0 stringFieldSpecWithName:@"Operation" allowedValues:v1];
+  v12[2] = *MEMORY[0x1E69E9840];
+  v1 = MEMORY[0x1E69D9548];
+  v2 = [objc_opt_class() allowedValuesForTextEditingPreferredFieldName:@"Operation"];
+  v3 = [v1 stringFieldSpecWithName:@"Operation" allowedValues:v2];
 
-  v3 = MEMORY[0x1E69D9548];
-  v4 = [objc_opt_class() allowedValuesForTextEditingPreferredFieldName:@"TriggerType"];
-  v5 = [v3 stringFieldSpecWithName:@"TriggerType" allowedValues:v4];
+  v4 = MEMORY[0x1E69D9548];
+  v5 = [objc_opt_class() allowedValuesForTextEditingPreferredFieldName:@"TriggerType"];
+  v6 = [v4 stringFieldSpecWithName:@"TriggerType" allowedValues:v5];
 
-  v6 = MEMORY[0x1E69D9540];
-  v7 = [objc_opt_class() preferredEventName:@"TextEditing"];
-  v11[0] = v2;
-  v11[1] = v5;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-  v9 = [v6 eventSpecWithName:v7 inputModeRequired:1 fieldSpecs:v8];
+  v7 = MEMORY[0x1E69D9540];
+  v8 = [objc_opt_class() preferredEventName:@"TextEditing"];
+  v12[0] = v3;
+  v12[1] = v6;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v10 = [v7 eventSpecWithName:v8 inputModeRequired:1 fieldSpecs:v9];
 
-  v10 = [MEMORY[0x1E69D9550] sharedInstance];
-  [v10 registerEventSpec:v9];
+  v11 = [MEMORY[0x1E69D9550] sharedInstance];
+  [v11 registerEventSpec:v10];
 }
 
 id __78__UIKBAnalyticsDispatcher_analyticsDispatchEventTextEditingOperation_trigger___block_invoke_2(uint64_t a1)
@@ -329,7 +329,7 @@ LABEL_8:
 {
   v22 = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"eventType"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v19 = @"Untether";
     v20 = @"Tether";
@@ -342,7 +342,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([typeCopy isEqualToString:@"triggerType"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v14 = @"Interactive";
     v15 = @"NonInteractive";
@@ -356,7 +356,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([typeCopy isEqualToString:@"screenEdge"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v9 = @"NotOnEdge";
     v10 = @"LeftEdge";
@@ -390,7 +390,7 @@ LABEL_9:
   v7 = position.y;
   v8 = position.x;
   movedCopy = moved;
-  if ([movedCopy isEqualToString:@"BottomEdge"])
+  if (objc_msgSend_isEqualToString_(movedCopy))
   {
     v9 = objc_opt_class();
     v10 = @"Tether";
@@ -399,11 +399,11 @@ LABEL_9:
 
   else
   {
-    v12 = [movedCopy isEqualToString:@"NotOnEdge"];
+    isEqualToString = objc_msgSend_isEqualToString_(movedCopy);
     v9 = objc_opt_class();
     v10 = @"Move";
     v11 = UIKBAnalyticsFloatingKeyboardTriggerTypePositioned;
-    if (!v12)
+    if (!isEqualToString)
     {
       v11 = UIKBAnalyticsFloatingKeyboardTriggerTypeSnappedToEdge;
     }
@@ -1024,7 +1024,7 @@ void __49__UIKBAnalyticsDispatcher_sessionAnalyticsEnded___block_invoke_2(void *
   v6 = [v5 objectForKeyedSubscript:@"SessionAction"];
   v7 = [v5 objectForKeyedSubscript:@"InputSource"];
 
-  if (([v7 isEqualToString:@"Dictation"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"Insertion") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v7) & 1) != 0 || (objc_msgSend_isEqualToString_(v6) & 1) == 0)
   {
     v8 = MEMORY[0x1E69D9558];
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
@@ -1180,38 +1180,38 @@ void __61__UIKBAnalyticsDispatcher_emojiPopoverSummoned_appendsEmoji___block_inv
   [mEMORY[0x1E69D9550] dispatchEventWithName:v11 values:v13 inputMode:currentInputMode];
 }
 
-void __59__UIKBAnalyticsDispatcher_emojiInsertedByMethod_inputType___block_invoke()
+void __59__UIKBAnalyticsDispatcher_emojiInsertedByMethod_inputType___block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E69D9548];
-  v14[0] = @"ReturnKey";
-  v14[1] = @"SearchResult";
-  v14[2] = @"SpaceBar";
-  v14[3] = @"Touch";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:4];
-  v2 = [v0 stringFieldSpecWithName:@"selectionMethod" allowedValues:v1];
+  v15[4] = *MEMORY[0x1E69E9840];
+  v1 = MEMORY[0x1E69D9548];
+  v15[0] = @"ReturnKey";
+  v15[1] = @"SearchResult";
+  v15[2] = @"SpaceBar";
+  v15[3] = @"Touch";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:4];
+  v3 = [v1 stringFieldSpecWithName:@"selectionMethod" allowedValues:v2];
 
-  v3 = MEMORY[0x1E69D9548];
-  v13[0] = @"Keyboard";
-  v13[1] = @"Popover";
-  v13[2] = @"PopoverSearch";
-  v13[3] = @"PredictionBar";
-  v13[4] = @"Search";
-  v13[5] = @"SearchFavorites";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
-  v5 = [v3 stringFieldSpecWithName:@"inputType" allowedValues:v4];
+  v4 = MEMORY[0x1E69D9548];
+  v14[0] = @"Keyboard";
+  v14[1] = @"Popover";
+  v14[2] = @"PopoverSearch";
+  v14[3] = @"PredictionBar";
+  v14[4] = @"Search";
+  v14[5] = @"SearchFavorites";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:6];
+  v6 = [v4 stringFieldSpecWithName:@"inputType" allowedValues:v5];
 
-  v6 = [MEMORY[0x1E69D9548] BOOLeanFieldSpecWithName:@"hardwareKeyboardAttached"];
-  v7 = MEMORY[0x1E69D9540];
-  v8 = [objc_opt_class() preferredEventName:@"emojiInserted"];
-  v12[0] = v2;
-  v12[1] = v5;
-  v12[2] = v6;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
-  v10 = [v7 eventSpecWithName:v8 inputModeRequired:1 fieldSpecs:v9];
+  v7 = [MEMORY[0x1E69D9548] BOOLeanFieldSpecWithName:@"hardwareKeyboardAttached"];
+  v8 = MEMORY[0x1E69D9540];
+  v9 = [objc_opt_class() preferredEventName:@"emojiInserted"];
+  v13[0] = v3;
+  v13[1] = v6;
+  v13[2] = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+  v11 = [v8 eventSpecWithName:v9 inputModeRequired:1 fieldSpecs:v10];
 
-  v11 = [MEMORY[0x1E69D9550] sharedInstance];
-  [v11 registerEventSpec:v10];
+  v12 = [MEMORY[0x1E69D9550] sharedInstance];
+  [v12 registerEventSpec:v11];
 }
 
 + (void)keyboardShortcutInvokedWithKeyboardShortcutLeaf:(id)leaf keyEvent:(id)event keyboardProperties:(id)properties

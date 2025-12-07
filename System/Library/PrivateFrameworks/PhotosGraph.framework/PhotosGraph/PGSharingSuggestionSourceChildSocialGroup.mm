@@ -6,54 +6,54 @@
 
 - (id)suggestedResultsForInput:(id)input withOptions:(id)options
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   optionsCopy = options;
-  v32 = inputCopy;
+  v31 = inputCopy;
   momentNodes = [inputCopy momentNodes];
   graph = [inputCopy graph];
   v7 = objc_opt_new();
   meNode = [graph meNode];
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
-  v48 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v8 = momentNodes;
-  v9 = [v8 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v9)
   {
-    v10 = *v42;
+    v10 = *v41;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * i);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __82__PGSharingSuggestionSourceChildSocialGroup_suggestedResultsForInput_withOptions___block_invoke;
-        v38[3] = &unk_278889420;
-        v39 = v7;
-        v40 = &v45;
-        [v12 enumeratePersonNodesUsingBlock:v38];
-        if (*(v46 + 24) == 1)
+        v12 = *(*(&v40 + 1) + 8 * i);
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __82__PGSharingSuggestionSourceChildSocialGroup_suggestedResultsForInput_withOptions___block_invoke;
+        v37[3] = &unk_278889420;
+        v38 = v7;
+        v39 = &v44;
+        [v12 enumeratePersonNodesUsingBlock:v37];
+        if (*(v45 + 24) == 1)
         {
           v21 = [MEMORY[0x277CBEB98] set];
-          v15 = v39;
+          v15 = v38;
           v14 = v8;
           goto LABEL_24;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v40 objects:v49 count:16];
       if (v9)
       {
         continue;
@@ -77,24 +77,24 @@
 
     v14 = [MEMORY[0x277CBEB58] set];
     [graph socialGroupNodesSortedByImportance];
+    v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v15 = v35 = 0u;
-    v16 = [v15 countByEnumeratingWithState:&v34 objects:v49 count:16];
+    v33 = 0u;
+    v15 = v34 = 0u;
+    v16 = [v15 countByEnumeratingWithState:&v33 objects:v48 count:16];
     if (v16)
     {
-      v17 = *v35;
+      v17 = *v34;
 LABEL_16:
       v18 = 0;
       while (1)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        personNodes = [*(*(&v34 + 1) + 8 * v18) personNodes];
+        personNodes = [*(*(&v33 + 1) + 8 * v18) personNodes];
         v20 = [personNodes count];
         if (v20 != v13)
         {
@@ -105,7 +105,7 @@ LABEL_16:
 
         if (v16 == ++v18)
         {
-          v16 = [v15 countByEnumeratingWithState:&v34 objects:v49 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v33 objects:v48 count:16];
           if (v16)
           {
             goto LABEL_16;
@@ -123,14 +123,14 @@ LABEL_16:
 
       if (v20 >= 6)
       {
-        v24 = +[PGGraphPersonNode personScoreSortDescriptors];
-        v25 = [personNodes sortedArrayUsingDescriptors:v24];
+        v23 = +[PGGraphPersonNode personScoreSortDescriptors];
+        v24 = [personNodes sortedArrayUsingDescriptors:v23];
 
-        v26 = MEMORY[0x277CBEB98];
-        v27 = [v25 subarrayWithRange:{0, 5}];
-        v28 = [v26 setWithArray:v27];
+        v25 = MEMORY[0x277CBEB98];
+        v26 = [v24 subarrayWithRange:{0, 5}];
+        v27 = [v25 setWithArray:v26];
 
-        personNodes = v28;
+        personNodes = v27;
       }
 
       v21 = [(PGSharingSuggestionSource *)self suggestionResultsWithPersons:personNodes];
@@ -151,9 +151,7 @@ LABEL_24:
     v21 = [MEMORY[0x277CBEB98] set];
   }
 
-  _Block_object_dispose(&v45, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
 
   return v21;
 }

@@ -1,15 +1,15 @@
 @interface _WKRemoteObjectRegistry
+- (atomic_uint)_invokeMethod:()WTF::DestructionThread;
 - (id).cxx_construct;
 - (id)_initWithWebPage:(reference_wrapper<WebKit::WebPage>)page;
 - (id)_initWithWebPageProxy:(reference_wrapper<WebKit::WebPageProxy>)proxy;
 - (id)remoteObjectProxyWithInterface:(id)interface;
 - (uint64_t)_invokeMethod:()WTF::DestructionThread;
 - (uint64_t)_invokeMethod:(uint64_t)method;
-- (unsigned)_invokeMethod:()WTF::DestructionThread;
+- (uint64_t)_invokeMethod:(uint64_t)method@<X2>;
 - (void)_callReplyWithID:(unint64_t)d blockInvocation:(const void *)invocation;
 - (void)_invalidate;
 - (void)_invokeMethod:(const void *)method;
-- (void)_invokeMethod:(uint64_t)method;
 - (void)_invokeMethod:(void *)method;
 - (void)_releaseReplyWithID:(unint64_t)d;
 - (void)_sendInvocation:(id)invocation interface:(id)interface;
@@ -58,7 +58,7 @@
   }
 
   m_table = self->_exportedObjects.m_impl.m_table;
-  if (m_table || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&self->_exportedObjects), (m_table = self->_exportedObjects.m_impl.m_table) != 0))
+  if (m_table || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&self->_exportedObjects, 0), (m_table = self->_exportedObjects.m_impl.m_table) != 0))
   {
     v12 = *(m_table - 2);
   }
@@ -106,8 +106,8 @@
   if (v15)
   {
     *v15 = 0;
-    *(v15 + 1) = 0;
-    *(v15 + 2) = 0;
+    v15[1] = 0;
+    v15[2] = 0;
     --*(self->_exportedObjects.m_impl.m_table - 4);
     v18 = v15;
   }
@@ -125,14 +125,14 @@
   v23 = interfaceCopy2;
   objectCopy2 = 0;
   interfaceCopy2 = 0;
-  v24 = *(v18 + 1);
-  *(v18 + 1) = v22;
+  v24 = v18[1];
+  v18[1] = v22;
   if (v24)
   {
   }
 
-  v25 = *(v18 + 2);
-  *(v18 + 2) = v23;
+  v25 = v18[2];
+  v18[2] = v23;
   if (v25)
   {
   }
@@ -164,7 +164,7 @@
     goto LABEL_27;
   }
 
-  WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&self->_exportedObjects);
+  WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(&self->_exportedObjects, v18);
 LABEL_27:
   if (interfaceCopy2)
   {
@@ -547,15 +547,15 @@ LABEL_24:
   }
 
   CFRetain(v3[1]);
-  WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>(&v41, &self->_exportedObjects, method);
-  v6 = v42;
-  if (v42)
+  WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>(&v45, &self->_exportedObjects, method);
+  v6 = v46;
+  if (v46)
   {
-    v7 = v42;
-    v39[0] = v3;
-    v8 = [[WKRemoteObjectDecoder alloc] initWithInterface:v6 rootObjectDictionary:v39 replyToSelector:0];
-    v9 = v39[0];
-    v39[0] = 0;
+    v7 = v46;
+    v43[0] = v3;
+    v8 = [[WKRemoteObjectDecoder alloc] initWithInterface:v6 rootObjectDictionary:v43 replyToSelector:0];
+    v9 = v43[0];
+    v43[0] = 0;
     if (v9)
     {
       CFRelease(*(v9 + 1));
@@ -605,9 +605,9 @@ LABEL_24:
 
       v21 = MEMORY[0x1E695DF68];
       WTF::String::utf8();
-      if (v39[0])
+      if (v43[0])
       {
-        v22 = v39[0] + 16;
+        v22 = v43[0] + 16;
       }
 
       else
@@ -622,8 +622,8 @@ LABEL_24:
         v26 = v23;
       }
 
-      v27 = v39[0];
-      v39[0] = 0;
+      v27 = v43[0];
+      v43[0] = 0;
       if (v27)
       {
         if (*v27 == 1)
@@ -650,43 +650,44 @@ LABEL_24:
             selfCopy = self;
           }
 
-          v34 = **(method + 2);
-          [_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker::create(v39, self, v34);
-          v38 = v39[0];
+          v34 = *(method + 2);
+          v35 = *v34;
+          [_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker::create(v43, self, *v34, v34);
+          v42 = v43[0];
           [(WebKit *)v25 UTF8String];
-          v39[4] = MEMORY[0x1E69E9820];
-          v39[5] = 3321888768;
-          v39[6] = __41___WKRemoteObjectRegistry__invokeMethod___block_invoke;
-          v39[7] = &__block_descriptor_64_e8_32c54_ZTSKZ41___WKRemoteObjectRegistry__invokeMethod__E3__2_e22_v16__0__NSInvocation_8l;
-          v39[0] = v6;
-          v35 = v6;
-          v39[1] = self;
+          v43[4] = MEMORY[0x1E69E9820];
+          v43[5] = 3321888768;
+          v43[6] = __41___WKRemoteObjectRegistry__invokeMethod___block_invoke;
+          v43[7] = &__block_descriptor_64_e8_32c54_ZTSKZ41___WKRemoteObjectRegistry__invokeMethod__E3__2_e22_v16__0__NSInvocation_8l;
+          v43[0] = v6;
+          v36 = v6;
+          v43[1] = self;
           if (self)
           {
             selfCopy2 = self;
           }
 
-          v39[2] = v34;
-          if (v38)
+          v43[2] = v35;
+          if (v42)
           {
-            atomic_fetch_add(v38, 1u);
+            atomic_fetch_add(v42, 1u);
           }
 
-          v39[3] = v38;
-          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::$_2(v40, v39);
-          v37 = __NSMakeSpecialForwardingCaptureBlock();
-          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::~$_2(v39);
-          v39[0] = v37;
-          [v11 setArgument:v39 atIndex:v17];
-          objc_setAssociatedObject(v11, replyBlockKey, v37, 0x301);
-          if (v37)
+          v43[3] = v42;
+          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::$_2(v44, v43);
+          v38 = __NSMakeSpecialForwardingCaptureBlock();
+          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::~$_2(v43, v39);
+          v43[0] = v38;
+          [v11 setArgument:v43 atIndex:v17];
+          objc_setAssociatedObject(v11, replyBlockKey, v38, 0x301);
+          if (v38)
           {
           }
 
-          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::~$_2(v40);
-          if (v38)
+          [_WKRemoteObjectRegistry _invokeMethod:]::$_2::~$_2(v44, v40);
+          if (v42)
           {
-            WTF::ThreadSafeRefCounted<[_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker,(WTF::DestructionThread)2>::deref(v38);
+            WTF::ThreadSafeRefCounted<[_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker,(WTF::DestructionThread)2>::deref(v42, v41);
           }
 
           if (self)
@@ -717,7 +718,7 @@ LABEL_24:
     }
 
 LABEL_15:
-    [v11 setTarget:v41];
+    [v11 setTarget:v45];
     [v11 invoke];
 LABEL_16:
     if (v14)
@@ -732,26 +733,26 @@ LABEL_16:
     {
     }
 
-    std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>::~pair(&v41);
+    std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>::~pair(&v45);
     return;
   }
 
-  WTF::String::createNSString(method, v39);
-  NSLog(&cfstr_DidNotFindAReg.isa, v39[0]);
-  v20 = v39[0];
-  v39[0] = 0;
+  WTF::String::createNSString(v43, method);
+  NSLog(&cfstr_DidNotFindAReg.isa, v43[0]);
+  v20 = v43[0];
+  v43[0] = 0;
   if (v20)
   {
   }
 
-  std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>::~pair(&v41);
+  std::pair<WTF::RetainPtr<objc_object *>,WTF::RetainPtr<_WKRemoteObjectInterface>>::~pair(&v45);
   CFRelease(v3[1]);
 }
 
-- (void)_invokeMethod:(uint64_t)method
+- (uint64_t)_invokeMethod:(uint64_t)method@<X2>
 {
-  result = WTF::fastMalloc(0x20);
-  v7 = result;
+  result = WTF::fastMalloc(a4, 0x20);
+  v8 = result;
   *result = 1;
   result[1] = a2;
   if (a2)
@@ -759,9 +760,9 @@ LABEL_16:
     result = a2;
   }
 
-  v7[2] = method;
-  *(v7 + 24) = 0;
-  *self = v7;
+  v8[2] = method;
+  *(v8 + 24) = 0;
+  *self = v8;
   return result;
 }
 
@@ -794,22 +795,22 @@ LABEL_16:
 
 - (uint64_t)_invokeMethod:(uint64_t)method
 {
-  v2 = *(method + 24);
+  v3 = *(method + 24);
   *(method + 24) = 0;
-  if (v2)
-  {
-    WTF::ThreadSafeRefCounted<[_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker,(WTF::DestructionThread)2>::deref(v2);
-  }
-
-  v3 = *(method + 8);
-  *(method + 8) = 0;
   if (v3)
   {
+    WTF::ThreadSafeRefCounted<[_WKRemoteObjectRegistry _invokeMethod:]::ReplyBlockCallChecker,(WTF::DestructionThread)2>::deref(v3, a2);
   }
 
-  v4 = *method;
-  *method = 0;
+  v4 = *(method + 8);
+  *(method + 8) = 0;
   if (v4)
+  {
+  }
+
+  v5 = *method;
+  *method = 0;
+  if (v5)
   {
   }
 
@@ -837,7 +838,7 @@ LABEL_16:
   v11 = *p_pendingReplies;
   if (*p_pendingReplies)
   {
-    v11 += 32 * *(v11 - 4);
+    v11 += 4 * *(v11 - 1);
   }
 
   if (v11 == ShouldValidate)
@@ -860,7 +861,7 @@ LABEL_16:
 
   if (*p_pendingReplies)
   {
-    v17 = *p_pendingReplies + 32 * *(*p_pendingReplies - 4);
+    v17 = &(*p_pendingReplies)[4 * *(*p_pendingReplies - 1)];
     if (v17 == v10)
     {
       goto LABEL_17;
@@ -934,7 +935,7 @@ LABEL_30:
   ShouldValidate = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,PendingReply>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,PendingReply>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,PendingReply,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<PendingReply>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long long>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<unsigned long long,PendingReply,WTF::DefaultHash<unsigned long long>,WTF::HashTraits<unsigned long long>,WTF::HashTraits<PendingReply>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<unsigned long long>>,(WTF::ShouldValidateKey)1,unsigned long long>(self->_pendingReplies.m_impl.m_table, d);
   if (*p_pendingReplies)
   {
-    v5 = *p_pendingReplies + 32 * *(*p_pendingReplies - 4);
+    v5 = &(*p_pendingReplies)[4 * *(*p_pendingReplies - 1)];
     if (v5 == ShouldValidate)
     {
       return;
@@ -958,21 +959,22 @@ LABEL_30:
   }
 }
 
-- (unsigned)_invokeMethod:()WTF::DestructionThread
+- (atomic_uint)_invokeMethod:()WTF::DestructionThread
 {
-  if (atomic_fetch_add(result, 0xFFFFFFFF) == 1)
+  add = atomic_fetch_add(result, 0xFFFFFFFF);
+  if (add == 1)
   {
-    v1 = result;
+    v3 = result;
     atomic_store(1u, result);
-    v2 = WTF::fastMalloc(0x10);
-    *v2 = &unk_1F10EEE90;
-    *(v2 + 1) = v1;
-    v3 = v2;
+    v4 = WTF::fastMalloc(add, 0x10);
+    *v4 = &unk_1F10EEE90;
+    v4[1] = v3;
+    v5 = v4;
     WTF::ensureOnMainRunLoop();
-    result = v3;
-    if (v3)
+    result = v5;
+    if (v5)
     {
-      return (*(*v3 + 8))(v3);
+      return (*(*v5 + 8))(v5);
     }
   }
 
@@ -989,7 +991,7 @@ LABEL_30:
       v3 = *(*(v2 + 8) + 8);
       if (v3)
       {
-        (**v3)(v3);
+        (**v3)(v3, a2);
         v5 = *(v2 + 16);
         WebKit::RemoteObjectRegistry::send<Messages::RemoteObjectRegistry::ReleaseUnusedReplyBlock>(v3, &v5);
         (*(*v3 + 8))(v3);

@@ -254,44 +254,41 @@ LABEL_9:
 
   if (v5)
   {
-    v29 = 0u;
-    v30 = 0u;
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v25 = attributionCopy;
+    v24 = 0u;
+    v25 = 0u;
     changes2 = [attributionCopy changes];
-    v7 = [changes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v7 = [changes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (!v7)
     {
       goto LABEL_14;
     }
 
     v8 = v7;
-    v9 = *v28;
-    v10 = &cblas_sasum_NEWLAPACK_ptr;
+    v9 = *v25;
     while (1)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v28 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(changes2);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
-        libraryItem = [v12 libraryItem];
-        v14 = v10[269];
+        v11 = *(*(&v24 + 1) + 8 * i);
+        libraryItem = [v11 libraryItem];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          changeType = [v12 changeType];
+          changeType = [v11 changeType];
 
           if (changeType == 3)
           {
             continue;
           }
 
-          libraryItem = [v12 libraryItem];
+          libraryItem = [v11 libraryItem];
           providerIdentifier = [libraryItem providerIdentifier];
 
           if (!providerIdentifier)
@@ -302,7 +299,6 @@ LABEL_9:
             containingAppBundleIdentifier = [attribution containingAppBundleIdentifier];
             [libraryItem setProviderIdentifier:containingAppBundleIdentifier];
 
-            v10 = &cblas_sasum_NEWLAPACK_ptr;
             client2 = [(SHMediaLibrarySyncManager *)self client];
             credentials2 = [client2 credentials];
             attribution2 = [credentials2 attribution];
@@ -312,12 +308,11 @@ LABEL_9:
         }
       }
 
-      v8 = [changes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [changes2 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (!v8)
       {
 LABEL_14:
 
-        attributionCopy = v25;
         break;
       }
     }

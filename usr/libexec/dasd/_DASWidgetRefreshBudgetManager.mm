@@ -159,7 +159,7 @@
   managedBudgets = [(_DASWidgetRefreshBudgetManager *)self managedBudgets];
   v4 = [(_DASWidgetRefreshBudgetManager *)self locked_instantiateBudgetsInto:managedBudgets withRemovals:v5];
 
-  if ([v4 count] || objc_msgSend(v5, "count"))
+  if (objc_msgSend_count(v4) || objc_msgSend_count(v5))
   {
     [(_DASBudgetModulator *)self->_widgetBudgetModulator locked_updateBudgetsToBeModulatedAdditions:v4 removals:v5];
   }

@@ -35,9 +35,9 @@
   dispatch_async(workQueue, block);
 }
 
-uint64_t __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint64_t a1)
+void *__48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (![*(*(a1 + 32) + 120) count])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -45,9 +45,9 @@ uint64_t __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint6
       v2 = *(a1 + 32);
       v3 = [*(v2 + 136) count];
       *buf = 138543618;
-      v30 = v2;
-      v31 = 2048;
-      v32 = v3;
+      v29 = v2;
+      v30 = 2048;
+      v31 = v3;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Finished downloading %ld assets.", buf, 0x16u);
     }
 
@@ -60,32 +60,32 @@ uint64_t __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint6
 
       if (v7)
       {
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v8 = *(*(a1 + 32) + 136);
-        v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v9)
         {
           v10 = v9;
           v11 = 0;
-          v12 = *v25;
+          v12 = *v24;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v25 != v12)
+              if (*v24 != v12)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v14 = [*(*(&v24 + 1) + 8 * i) metadata];
+              v14 = [*(*(&v23 + 1) + 8 * i) metadata];
               v15 = [v14 objectForKey:@"MSAssetMetadataFileSize"];
               v11 += [v15 longLongValue];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
           }
 
           while (v10);
@@ -99,15 +99,15 @@ uint64_t __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint6
         v16 = [*(*(a1 + 32) + 136) count];
         v17 = +[MSPerformanceLogger sharedLogger];
         v18 = [*(a1 + 32) downloadBatchPerfGUID];
-        v23[0] = MEMORY[0x277D85DD0];
+        v22[0] = MEMORY[0x277D85DD0];
         v5 = &off_245C63000;
-        v23[1] = 3221225472;
-        v23[2] = __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_36;
-        v23[3] = &unk_278E91AC8;
-        v23[4] = *(a1 + 32);
-        v23[5] = v16;
-        v23[6] = v11;
-        [v17 summarizeOperation:@"MSASAssetDownloader.downloadRate" itemGUID:v18 formatBlock:v23];
+        v22[1] = 3221225472;
+        v22[2] = __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_36;
+        v22[3] = &unk_278E91AC8;
+        v22[4] = *(a1 + 32);
+        v22[5] = v16;
+        v22[6] = v11;
+        [v17 summarizeOperation:@"MSASAssetDownloader.downloadRate" itemGUID:v18 formatBlock:v22];
       }
     }
 
@@ -117,47 +117,44 @@ uint64_t __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke(uint6
 
     [*(*(a1 + 32) + 136) removeAllObjects];
     v19 = [*(a1 + 32) eventQueue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = *(v5 + 485);
-    v22[2] = __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_37;
-    v22[3] = &unk_278E926D8;
-    v22[4] = *(a1 + 32);
-    dispatch_async(v19, v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = *(v5 + 485);
+    v21[2] = __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_37;
+    v21[3] = &unk_278E926D8;
+    v21[4] = *(a1 + 32);
+    dispatch_async(v19, v21);
   }
 
   [*(a1 + 32) _workQueueGoIdle];
   result = [*(a1 + 32) didEncounterNetworkConditionError];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 32) workQueueRetryOutstandingActivities];
+    return [*(a1 + 32) workQueueRetryOutstandingActivities];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_36(void *a1, double a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = a1[4];
-    v6 = a1[5];
-    v7 = a1[6];
-    v8 = 138544386;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    v12 = 2048;
-    v13 = v7;
-    v14 = 2048;
-    v15 = a2;
-    v16 = 2048;
-    v17 = v7 * 8.0 / a2 / 1000.0;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished downloading batch of %lu files, for a total of %lld bytes, in %0.3f seconds. Effective download rate: %0.3f kbps.", &v8, 0x34u);
+    v4 = a1[4];
+    v5 = a1[5];
+    v6 = a1[6];
+    v7 = 138544386;
+    v8 = v4;
+    v9 = 2048;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v6 * 8.0 / a2 / 1000.0;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished downloading batch of %lu files, for a total of %lld bytes, in %0.3f seconds. Effective download rate: %0.3f kbps.", &v7, 0x34u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_37(uint64_t a1)
@@ -184,7 +181,7 @@ void __48__MSASAssetDownloader_didFinishGettingAllAssets__block_invoke_37(uint64
 
 void __67__MSASAssetDownloader_MMCSEngine_didMakeGetProgress_state_onAsset___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = MSPlatform();
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -215,15 +212,15 @@ LABEL_6:
     {
       if (v9)
       {
-        v17 = *(a1 + 32);
+        v16 = *(a1 + 32);
         v11 = [MMCSEngine logStringForGetItemState:*(a1 + 48)];
-        v18 = *(a1 + 40);
-        v19 = 138543874;
-        v20 = v17;
-        v21 = 2114;
-        v22 = *&v11;
-        v23 = 2048;
-        v24 = v18;
+        v17 = *(a1 + 40);
+        v18 = 138543874;
+        v19 = v16;
+        v20 = 2114;
+        v21 = *&v11;
+        v22 = 2048;
+        v23 = v17;
         v13 = MEMORY[0x277D86220];
         v14 = "%{public}@: Download progress state: %{public}@, on asset: %p";
         v15 = 32;
@@ -236,36 +233,32 @@ LABEL_6:
       v10 = *(a1 + 32);
       v11 = [MMCSEngine logStringForGetItemState:*(a1 + 48)];
       v12 = *(a1 + 40);
-      v19 = 138544130;
-      v20 = v10;
-      v21 = 2048;
-      v22 = v8;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2048;
-      v26 = v12;
+      v18 = 138544130;
+      v19 = v10;
+      v20 = 2048;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
+      v25 = v12;
       v13 = MEMORY[0x277D86220];
       v14 = "%{public}@: Download progress: %.2f, state: %{public}@, on asset: %p";
       v15 = 42;
 LABEL_14:
-      _os_log_debug_impl(&dword_245B99000, v13, OS_LOG_TYPE_DEBUG, v14, &v19, v15);
+      _os_log_debug_impl(&dword_245B99000, v13, OS_LOG_TYPE_DEBUG, v14, &v18, v15);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __67__MSASAssetDownloader_MMCSEngine_didMakeGetProgress_state_onAsset___block_invoke_2(double a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v3 = 134217984;
-    v4 = a1;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Download Latency: %0.3f seconds.", &v3, 0xCu);
+    v2 = 134217984;
+    v3 = a1;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Download Latency: %0.3f seconds.", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_orphanedAssetError
@@ -311,7 +304,7 @@ void __42__MSASAssetDownloader__orphanedAssetError__block_invoke()
 
 void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 128) objectForKey:*(a1 + 40)];
   v3 = *(a1 + 48);
   if (v3)
@@ -327,7 +320,7 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
         block[2] = __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_2;
         block[3] = &unk_278E927C8;
         block[4] = *(a1 + 32);
-        v35 = v4;
+        v34 = v4;
         dispatch_async(v5, block);
       }
 
@@ -337,7 +330,7 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
         {
           v6 = *(a1 + 32);
           *buf = 138543362;
-          v37 = v6;
+          v36 = v6;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Asset download was canceled. Ignoring.", buf, 0xCu);
         }
 
@@ -351,7 +344,7 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
         {
           v14 = *(a1 + 32);
           *buf = 138543362;
-          v37 = v14;
+          v36 = v14;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Encountered temporary network error while downloading asset. Will retry later.", buf, 0xCu);
         }
 
@@ -360,9 +353,9 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
           v15 = *(a1 + 32);
           v16 = [*(a1 + 48) MSVerboseDescription];
           *buf = 138543618;
-          v37 = v15;
-          v38 = 2114;
-          v39 = v16;
+          v36 = v15;
+          v37 = 2114;
+          v38 = v16;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Error: %{public}@", buf, 0x16u);
         }
 
@@ -375,15 +368,15 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v26 = *(a1 + 32);
-          v27 = *(a1 + 40);
-          v28 = *(a1 + 48);
+          v25 = *(a1 + 32);
+          v26 = *(a1 + 40);
+          v27 = *(a1 + 48);
           *buf = 138543874;
-          v37 = v26;
-          v38 = 2114;
-          v39 = v27;
-          v40 = 2114;
-          v41 = v28;
+          v36 = v25;
+          v37 = 2114;
+          v38 = v26;
+          v39 = 2114;
+          v40 = v27;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to download asset: %{public}@. Error: %{public}@. Giving up.", buf, 0x20u);
         }
       }
@@ -397,26 +390,26 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v29 = *(a1 + 32);
-            v30 = *(a1 + 40);
-            v31 = [*(a1 + 48) MSVerboseDescription];
+            v28 = *(a1 + 32);
+            v29 = *(a1 + 40);
+            v30 = [*(a1 + 48) MSVerboseDescription];
             *buf = 138543874;
-            v37 = v29;
-            v38 = 2114;
-            v39 = v30;
-            v40 = 2114;
-            v41 = v31;
+            v36 = v28;
+            v37 = 2114;
+            v38 = v29;
+            v39 = 2114;
+            v40 = v30;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to download asset: %{public}@. Error: %{public}@. Will retry later.", buf, 0x20u);
           }
 
           [*(a1 + 32) _workQueueStopTrackingItem:v2];
-          v25 = [*(a1 + 32) eventQueue];
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_26;
-          v33[3] = &unk_278E926D8;
-          v33[4] = *(a1 + 32);
-          dispatch_async(v25, v33);
+          v24 = [*(a1 + 32) eventQueue];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_26;
+          v32[3] = &unk_278E926D8;
+          v32[4] = *(a1 + 32);
+          dispatch_async(v24, v32);
 
           goto LABEL_32;
         }
@@ -427,11 +420,11 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
           v22 = *(a1 + 40);
           v23 = [*(a1 + 48) MSVerboseDescription];
           *buf = 138543874;
-          v37 = v21;
-          v38 = 2114;
-          v39 = v22;
-          v40 = 2114;
-          v41 = v23;
+          v36 = v21;
+          v37 = 2114;
+          v38 = v22;
+          v39 = 2114;
+          v40 = v23;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to download asset: %{public}@ due to MMCS auth error: %{public}@. Will reauthorize now.", buf, 0x20u);
         }
       }
@@ -451,9 +444,9 @@ LABEL_32:
       v12 = *(a1 + 32);
       v13 = *(a1 + 40);
       *buf = 138543618;
-      v37 = v12;
-      v38 = 2114;
-      v39 = v13;
+      v36 = v12;
+      v37 = 2114;
+      v38 = v13;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Already reported on asset %{public}@. Ignoring.", buf, 0x16u);
     }
   }
@@ -468,19 +461,19 @@ LABEL_32:
       {
         v7 = *(a1 + 32);
         *buf = 138543618;
-        v37 = v7;
-        v38 = 2114;
-        v39 = v4;
+        v36 = v7;
+        v37 = 2114;
+        v38 = v4;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Successfully downloaded asset %{public}@.", buf, 0x16u);
       }
 
       v8 = [*(a1 + 32) eventQueue];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_27;
-      v32[3] = &unk_278E926D8;
-      v32[4] = *(a1 + 32);
-      dispatch_async(v8, v32);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_27;
+      v31[3] = &unk_278E926D8;
+      v31[4] = *(a1 + 32);
+      dispatch_async(v8, v31);
 
       [*(*(a1 + 32) + 136) addObject:v4];
       v9 = *(a1 + 32);
@@ -494,16 +487,14 @@ LABEL_32:
       v17 = *(a1 + 32);
       v18 = *(a1 + 40);
       *buf = 138543618;
-      v37 = v17;
-      v38 = 2114;
-      v39 = v18;
+      v36 = v17;
+      v37 = 2114;
+      v38 = v18;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: We aren't expecting an event for asset %{public}@. Ignoring.", buf, 0x16u);
     }
   }
 
 LABEL_33:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___block_invoke_2(uint64_t a1)
@@ -530,54 +521,46 @@ void __67__MSASAssetDownloader_MMCSEngine_didFinishGettingAsset_path_error___blo
 
 - (void)didFinishPuttingAllAssets
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138543362;
+    v3 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didFinishPuttingAllAssetsContext:", &v4, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didFinishPuttingAllAssetsContext:", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didMakePutProgress:(float)progress state:(int)state onAsset:(id)asset
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didMakePutProgress:state:context:", &v8, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didMakePutProgress:state:context:", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didCreateRequestorContext:(id)context forAssets:(id)assets
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didCreateRequestorContext:context:error:", &v7, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didCreateRequestorContext:context:error:", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MMCSEngine:(id)engine didFinishPuttingAsset:(id)asset error:(id)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didFinishPuttingAsset:context:error:", &v7, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unexpected callback: MMCSEngine:didFinishPuttingAsset:context:error:", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workQueueDidFinishWithItem:(id)item error:(id)error
@@ -624,28 +607,28 @@ void __57__MSASAssetDownloader__workQueueDidFinishWithItem_error___block_invoke(
 
 - (void)workQueueUnregisterAssets:(id)assets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [assetsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         engine = [(MSASAssetTransferer *)self engine];
         [engine unregisterAsset:v9];
 
@@ -653,13 +636,11 @@ void __57__MSASAssetDownloader__workQueueDidFinishWithItem_error___block_invoke(
       }
 
       while (v6 != v8);
-      v6 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [assetsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAssets:(id)assets
@@ -678,49 +659,47 @@ void __57__MSASAssetDownloader__workQueueDidFinishWithItem_error___block_invoke(
 
 - (void)workQueueRegisterAssets:(id)assets completionBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   blockCopy = block;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [assetsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [assetsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        [*(*(&v17 + 1) + 8 * v11++) setMMCSItemID:{-[MSASAssetTransferer workQueueNextItemID](self, "workQueueNextItemID")}];
+        [*(*(&v16 + 1) + 8 * v11++) setMMCSItemID:{-[MSASAssetTransferer workQueueNextItemID](self, "workQueueNextItemID")}];
       }
 
       while (v9 != v11);
-      v9 = [assetsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [assetsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   engine = [(MSASAssetTransferer *)self engine];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__MSASAssetDownloader_workQueueRegisterAssets_completionBlock___block_invoke;
-  v15[3] = &unk_278E927A0;
-  v15[4] = self;
-  v16 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__MSASAssetDownloader_workQueueRegisterAssets_completionBlock___block_invoke;
+  v14[3] = &unk_278E927A0;
+  v14[4] = self;
+  v15 = blockCopy;
   v13 = blockCopy;
-  [engine registerAssets:assetsCopy forDownloadCompletionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [engine registerAssets:assetsCopy forDownloadCompletionBlock:v14];
 }
 
 void __63__MSASAssetDownloader_workQueueRegisterAssets_completionBlock___block_invoke(uint64_t a1)
@@ -774,7 +753,7 @@ void __54__MSASAssetDownloader_registerAssets_completionBlock___block_invoke_2(u
 
 - (void)workQueueDownloadNextBatch
 {
-  v217 = *MEMORY[0x277D85DE8];
+  v216 = *MEMORY[0x277D85DE8];
   if ([(MSASAssetTransferer *)self hasShutDown])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -784,7 +763,7 @@ void __54__MSASAssetDownloader_registerAssets_completionBlock___block_invoke_2(u
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Not downloading any more assets because we're shutting down.", buf, 0xCu);
     }
 
-    goto LABEL_127;
+    return;
   }
 
   [(MSASAssetDownloader *)self setDidEncounterNetworkConditionError:0];
@@ -942,7 +921,7 @@ LABEL_28:
   }
 
   self->_state = 1;
-  v157 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+  v156 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
   if (!self->_itemsInFlight)
   {
     v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
@@ -967,31 +946,31 @@ LABEL_28:
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+  v197 = 0u;
   v198 = 0u;
   v199 = 0u;
   v200 = 0u;
-  v201 = 0u;
   v37 = v9;
-  v38 = [v37 countByEnumeratingWithState:&v198 objects:v216 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v197 objects:v215 count:16];
   if (!v38)
   {
-    v163 = 0;
+    v162 = 0;
     goto LABEL_51;
   }
 
   v39 = v38;
-  v163 = 0;
-  v40 = *v199;
+  v162 = 0;
+  v40 = *v198;
   do
   {
     for (i = 0; i != v39; ++i)
     {
-      if (*v199 != v40)
+      if (*v198 != v40)
       {
         objc_enumerationMutation(v37);
       }
 
-      v42 = *(*(&v198 + 1) + 8 * i);
+      v42 = *(*(&v197 + 1) + 8 * i);
       object = [v42 object];
       mMCSURL = [object MMCSURL];
 
@@ -1007,15 +986,15 @@ LABEL_28:
       }
 
       mMCSURL2 = [object MMCSURL];
-      if (!v163)
+      if (!v162)
       {
-        v163 = mMCSURL2;
+        v162 = mMCSURL2;
 LABEL_46:
         [v36 addObject:v42];
         goto LABEL_47;
       }
 
-      v46 = [v163 isEqual:mMCSURL2];
+      v46 = [v162 isEqual:mMCSURL2];
 
       if (v46)
       {
@@ -1025,37 +1004,37 @@ LABEL_46:
 LABEL_47:
     }
 
-    v39 = [v37 countByEnumeratingWithState:&v198 objects:v216 count:16];
+    v39 = [v37 countByEnumeratingWithState:&v197 objects:v215 count:16];
   }
 
   while (v39);
 LABEL_51:
-  v155 = v37;
+  v154 = v37;
 
-  v196 = 0u;
-  v197 = 0u;
-  v194 = 0u;
   v195 = 0u;
+  v196 = 0u;
+  v193 = 0u;
+  v194 = 0u;
   obj = v36;
-  v51 = [obj countByEnumeratingWithState:&v194 objects:v215 count:16];
+  v51 = [obj countByEnumeratingWithState:&v193 objects:v214 count:16];
   if (!v51)
   {
     goto LABEL_65;
   }
 
   v52 = v51;
-  v53 = *v195;
+  v53 = *v194;
   while (2)
   {
     v54 = 0;
     while (2)
     {
-      if (*v195 != v53)
+      if (*v194 != v53)
       {
         objc_enumerationMutation(obj);
       }
 
-      v55 = *(*(&v194 + 1) + 8 * v54);
+      v55 = *(*(&v193 + 1) + 8 * v54);
       object2 = [v55 object];
       mMCSAccessHeader = [object2 MMCSAccessHeader];
 
@@ -1084,7 +1063,7 @@ LABEL_51:
           }
         }
 
-        [v157 addObject:v55];
+        [v156 addObject:v55];
       }
 
       else
@@ -1107,7 +1086,7 @@ LABEL_62:
       break;
     }
 
-    v52 = [obj countByEnumeratingWithState:&v194 objects:v215 count:16];
+    v52 = [obj countByEnumeratingWithState:&v193 objects:v214 count:16];
     if (v52)
     {
       continue;
@@ -1123,36 +1102,36 @@ LABEL_65:
   if (v75)
   {
     eventQueue2 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-    v193[0] = MEMORY[0x277D85DD0];
-    v193[1] = 3221225472;
-    v193[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_18;
-    v193[3] = &unk_278E92750;
-    v193[4] = selfCopy2;
-    v193[5] = v75;
-    dispatch_async(eventQueue2, v193);
+    v192[0] = MEMORY[0x277D85DD0];
+    v192[1] = 3221225472;
+    v192[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_18;
+    v192[3] = &unk_278E92750;
+    v192[4] = selfCopy2;
+    v192[5] = v75;
+    dispatch_async(eventQueue2, v192);
 
-    v191 = 0u;
-    v192 = 0u;
-    v189 = 0u;
     v190 = 0u;
-    v162 = dictionary;
-    v77 = [v162 countByEnumeratingWithState:&v189 objects:v214 count:16];
+    v191 = 0u;
+    v188 = 0u;
+    v189 = 0u;
+    v161 = dictionary;
+    v77 = [v161 countByEnumeratingWithState:&v188 objects:v213 count:16];
     if (v77)
     {
       v78 = v77;
-      v160 = *v190;
+      v159 = *v189;
       v79 = MEMORY[0x277D86220];
       do
       {
         for (j = 0; j != v78; ++j)
         {
-          if (*v190 != v160)
+          if (*v189 != v159)
           {
-            objc_enumerationMutation(v162);
+            objc_enumerationMutation(v161);
           }
 
-          v81 = *(*(&v189 + 1) + 8 * j);
-          v82 = [v162 objectForKey:v81];
+          v81 = *(*(&v188 + 1) + 8 * j);
+          v82 = [v161 objectForKey:v81];
           v83 = [v82 objectForKey:@"error"];
           v84 = [v82 objectForKey:@"albumGUID"];
           v85 = v79;
@@ -1160,30 +1139,30 @@ LABEL_65:
           {
             *buf = 138544130;
             selfCopy3 = selfCopy2;
-            v208 = 2114;
-            v209 = v81;
-            v210 = 2114;
-            v211 = v84;
-            v212 = 2114;
-            v213 = v83;
+            v207 = 2114;
+            v208 = v81;
+            v209 = 2114;
+            v210 = v84;
+            v211 = 2114;
+            v212 = v83;
             _os_log_error_impl(&dword_245B99000, v79, OS_LOG_TYPE_ERROR, "%{public}@: Rejecting asset %{public}@ from albumGUID %{public}@. Error: %{public}@", buf, 0x2Au);
           }
 
           eventQueue3 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-          v186[0] = MEMORY[0x277D85DD0];
-          v186[1] = 3221225472;
-          v186[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_19;
-          v186[3] = &unk_278E92660;
-          v186[4] = selfCopy2;
-          v186[5] = v81;
+          v185[0] = MEMORY[0x277D85DD0];
+          v185[1] = 3221225472;
+          v185[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_19;
+          v185[3] = &unk_278E92660;
+          v185[4] = selfCopy2;
+          v185[5] = v81;
           v87 = v84;
-          v187 = v87;
+          v186 = v87;
           v88 = v83;
-          v188 = v88;
-          dispatch_async(eventQueue3, v186);
+          v187 = v88;
+          dispatch_async(eventQueue3, v185);
         }
 
-        v78 = [v162 countByEnumeratingWithState:&v189 objects:v214 count:16];
+        v78 = [v161 countByEnumeratingWithState:&v188 objects:v213 count:16];
       }
 
       while (v78);
@@ -1199,49 +1178,49 @@ LABEL_65:
         v92 = [dictionary2 count];
         *buf = 138543618;
         selfCopy3 = selfCopy2;
-        v208 = 2048;
-        v209 = v92;
+        v207 = 2048;
+        v208 = v92;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Needing to get auth token for %lu assets", buf, 0x16u);
       }
 
-      v184 = 0u;
-      v185 = 0u;
-      v182 = 0u;
       v183 = 0u;
+      v184 = 0u;
+      v181 = 0u;
+      v182 = 0u;
       v93 = dictionary2;
-      v94 = [v93 countByEnumeratingWithState:&v182 objects:v205 count:16];
+      v94 = [v93 countByEnumeratingWithState:&v181 objects:v204 count:16];
       if (v94)
       {
         v95 = v94;
-        v161 = *v183;
+        v160 = *v182;
         do
         {
           for (k = 0; k != v95; ++k)
           {
-            if (*v183 != v161)
+            if (*v182 != v160)
             {
               objc_enumerationMutation(v93);
             }
 
-            v97 = *(*(&v182 + 1) + 8 * k);
+            v97 = *(*(&v181 + 1) + 8 * k);
             v98 = [v93 objectForKey:v97];
             v99 = [v98 objectForKey:@"error"];
             v100 = [v98 objectForKey:@"albumGUID"];
             eventQueue4 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-            v179[0] = MEMORY[0x277D85DD0];
-            v179[1] = 3221225472;
-            v179[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_20;
-            v179[3] = &unk_278E92660;
-            v179[4] = selfCopy2;
-            v179[5] = v97;
+            v178[0] = MEMORY[0x277D85DD0];
+            v178[1] = 3221225472;
+            v178[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_20;
+            v178[3] = &unk_278E92660;
+            v178[4] = selfCopy2;
+            v178[5] = v97;
             v102 = v100;
-            v180 = v102;
+            v179 = v102;
             v103 = v99;
-            v181 = v103;
-            dispatch_async(eventQueue4, v179);
+            v180 = v103;
+            dispatch_async(eventQueue4, v178);
           }
 
-          v95 = [v93 countByEnumeratingWithState:&v182 objects:v205 count:16];
+          v95 = [v93 countByEnumeratingWithState:&v181 objects:v204 count:16];
         }
 
         while (v95);
@@ -1251,7 +1230,7 @@ LABEL_65:
     }
 
     model9 = [(MSASAssetTransferer *)v89 model];
-    allKeys = [v162 allKeys];
+    allKeys = [v161 allKeys];
     [model9 removeAssetsFromDownloadQueue:allKeys];
 
     model10 = [(MSASAssetTransferer *)v89 model];
@@ -1259,38 +1238,38 @@ LABEL_65:
     [model10 removeAssetsFromDownloadQueue:allKeys2];
 
     eventQueue5 = [(MSASAssetTransferer *)v89 eventQueue];
-    v178[0] = MEMORY[0x277D85DD0];
-    v178[1] = 3221225472;
-    v178[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_2;
-    v178[3] = &unk_278E926D8;
-    v178[4] = v89;
-    dispatch_async(eventQueue5, v178);
+    v177[0] = MEMORY[0x277D85DD0];
+    v177[1] = 3221225472;
+    v177[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_2;
+    v177[3] = &unk_278E926D8;
+    v177[4] = v89;
+    dispatch_async(eventQueue5, v177);
   }
 
-  v109 = v157;
-  if ([v157 count])
+  v109 = v156;
+  if ([v156 count])
   {
-    v110 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v157, "count")}];
+    v110 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v156, "count")}];
+    v173 = 0u;
     v174 = 0u;
     v175 = 0u;
     v176 = 0u;
-    v177 = 0u;
-    v111 = v157;
-    v112 = [v111 countByEnumeratingWithState:&v174 objects:v204 count:16];
+    v111 = v156;
+    v112 = [v111 countByEnumeratingWithState:&v173 objects:v203 count:16];
     if (v112)
     {
       v113 = v112;
-      v114 = *v175;
+      v114 = *v174;
       do
       {
         for (m = 0; m != v113; ++m)
         {
-          if (*v175 != v114)
+          if (*v174 != v114)
           {
             objc_enumerationMutation(v111);
           }
 
-          v116 = *(*(&v174 + 1) + 8 * m);
+          v116 = *(*(&v173 + 1) + 8 * m);
           object3 = [v116 object];
           [v110 addObject:object3];
           [(NSMutableArray *)selfCopy2->_itemsInFlight addObject:v116];
@@ -1299,7 +1278,7 @@ LABEL_65:
           [engine reregisterAssetForDownload:object3];
         }
 
-        v113 = [v111 countByEnumeratingWithState:&v174 objects:v204 count:16];
+        v113 = [v111 countByEnumeratingWithState:&v173 objects:v203 count:16];
       }
 
       while (v113);
@@ -1310,23 +1289,23 @@ LABEL_65:
     v121 = selfCopy2;
     if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
     {
-      v154 = [v110 count];
+      v153 = [v110 count];
       *buf = 138543618;
       selfCopy3 = selfCopy2;
-      v208 = 2048;
-      v209 = v154;
+      v207 = 2048;
+      v208 = v153;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Downloading %ld assets.", buf, 0x16u);
     }
 
     eventQueue6 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-    v172[0] = MEMORY[0x277D85DD0];
-    v172[1] = 3221225472;
-    v172[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_21;
-    v172[3] = &unk_278E927C8;
-    v172[4] = selfCopy2;
+    v171[0] = MEMORY[0x277D85DD0];
+    v171[1] = 3221225472;
+    v171[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_21;
+    v171[3] = &unk_278E927C8;
+    v171[4] = selfCopy2;
     v123 = v110;
-    v173 = v123;
-    dispatch_async(eventQueue6, v172);
+    v172 = v123;
+    dispatch_async(eventQueue6, v171);
 
     v124 = MSPlatform();
     if (objc_opt_respondsToSelector())
@@ -1384,48 +1363,48 @@ LABEL_100:
     }
 
     v137 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
+    v167 = 0u;
     v168 = 0u;
     v169 = 0u;
     v170 = 0u;
-    v171 = 0u;
     v138 = v123;
-    v139 = [v138 countByEnumeratingWithState:&v168 objects:v203 count:16];
+    v139 = [v138 countByEnumeratingWithState:&v167 objects:v202 count:16];
     if (v139)
     {
       v140 = v139;
       v141 = 0;
-      v142 = *v169;
+      v142 = *v168;
       do
       {
         for (n = 0; n != v140; ++n)
         {
-          if (*v169 != v142)
+          if (*v168 != v142)
           {
             objc_enumerationMutation(v138);
           }
 
-          [v137 addObject:*(*(&v168 + 1) + 8 * n)];
+          [v137 addObject:*(*(&v167 + 1) + 8 * n)];
           if (++v141 == [(MSASAssetTransferer *)selfCopy2 maxBatchCount])
           {
             eventQueue7 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-            v167[0] = MEMORY[0x277D85DD0];
-            v167[1] = 3221225472;
-            v167[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_2_24;
-            v167[3] = &unk_278E926D8;
-            v167[4] = selfCopy2;
-            dispatch_async(eventQueue7, v167);
+            v166[0] = MEMORY[0x277D85DD0];
+            v166[1] = 3221225472;
+            v166[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_2_24;
+            v166[3] = &unk_278E926D8;
+            v166[4] = selfCopy2;
+            dispatch_async(eventQueue7, v166);
 
             engine2 = [(MSASAssetTransferer *)selfCopy2 engine];
             v146 = [v137 copy];
             personID2 = [(MSASAssetTransferer *)selfCopy2 personID];
-            [engine2 getAssets:v146 requestURL:v163 DSID:personID2 options:v136];
+            [engine2 getAssets:v146 requestURL:v162 DSID:personID2 options:v136];
 
             [v137 removeAllObjects];
             v141 = 0;
           }
         }
 
-        v140 = [v138 countByEnumeratingWithState:&v168 objects:v203 count:16];
+        v140 = [v138 countByEnumeratingWithState:&v167 objects:v202 count:16];
       }
 
       while (v140);
@@ -1434,31 +1413,31 @@ LABEL_100:
     if ([v137 count])
     {
       eventQueue8 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-      v166[0] = MEMORY[0x277D85DD0];
-      v166[1] = 3221225472;
-      v166[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_3;
-      v166[3] = &unk_278E926D8;
-      v166[4] = selfCopy2;
-      dispatch_async(eventQueue8, v166);
+      v165[0] = MEMORY[0x277D85DD0];
+      v165[1] = 3221225472;
+      v165[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_3;
+      v165[3] = &unk_278E926D8;
+      v165[4] = selfCopy2;
+      dispatch_async(eventQueue8, v165);
 
       engine3 = [(MSASAssetTransferer *)selfCopy2 engine];
       personID3 = [(MSASAssetTransferer *)selfCopy2 personID];
-      [engine3 getAssets:v137 requestURL:v163 DSID:personID3 options:v136];
+      [engine3 getAssets:v137 requestURL:v162 DSID:personID3 options:v136];
     }
 
     model11 = [(MSASAssetTransferer *)selfCopy2 model];
     [model11 setInFlightAssets:v138];
 
     eventQueue9 = [(MSASAssetTransferer *)selfCopy2 eventQueue];
-    v165[0] = MEMORY[0x277D85DD0];
-    v165[1] = 3221225472;
-    v165[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_4;
-    v165[3] = &unk_278E926D8;
-    v165[4] = selfCopy2;
-    dispatch_async(eventQueue9, v165);
+    v164[0] = MEMORY[0x277D85DD0];
+    v164[1] = 3221225472;
+    v164[2] = __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_4;
+    v164[3] = &unk_278E926D8;
+    v164[4] = selfCopy2;
+    dispatch_async(eventQueue9, v164);
 
-    v9 = v155;
-    v109 = v157;
+    v9 = v154;
+    v109 = v156;
   }
 
   else
@@ -1471,12 +1450,10 @@ LABEL_100:
     }
 
     [(MSASAssetDownloader *)selfCopy2 _workQueueGoIdle];
-    v9 = v155;
+    v9 = v154;
   }
 
 LABEL_126:
-LABEL_127:
-  v153 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke(uint64_t a1)
@@ -1535,7 +1512,7 @@ void __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_4(uint64
 
 - (void)_workQueueGoIdle
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
@@ -1572,8 +1549,6 @@ void __49__MSASAssetDownloader_workQueueDownloadNextBatch__block_invoke_4(uint64
     self->_state = 0;
     [(MSASAssetTransferer *)self _sendDidIdleNotification];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__MSASAssetDownloader__workQueueGoIdle__block_invoke(uint64_t a1)
@@ -1584,7 +1559,7 @@ void __39__MSASAssetDownloader__workQueueGoIdle__block_invoke(uint64_t a1)
 
 - (void)workQueueCancel
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (self->_state == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1627,26 +1602,26 @@ LABEL_8:
   {
     context = objc_autoreleasePoolPush();
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           object = [v18 object];
           eventQueue = [(MSASAssetTransferer *)self eventQueue];
           block[0] = MEMORY[0x277D85DD0];
@@ -1654,15 +1629,15 @@ LABEL_8:
           block[2] = __38__MSASAssetDownloader_workQueueCancel__block_invoke;
           block[3] = &unk_278E92638;
           block[4] = self;
-          v27 = object;
-          v28 = v18;
+          v26 = object;
+          v27 = v18;
           v21 = object;
           dispatch_async(eventQueue, block);
 
           [v12 addObject:v21];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
@@ -1676,8 +1651,6 @@ LABEL_8:
 
     objc_autoreleasePoolPop(context);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __38__MSASAssetDownloader_workQueueCancel__block_invoke(uint64_t a1)
@@ -1701,14 +1674,14 @@ void __38__MSASAssetDownloader_workQueueCancel__block_invoke(uint64_t a1)
 
 - (void)workQueueStop
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_state == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping all downloads.", &v11, 0xCu);
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping all downloads.", &v10, 0xCu);
     }
 
     engine = [(MSASAssetTransferer *)self engine];
@@ -1716,16 +1689,16 @@ void __38__MSASAssetDownloader_workQueueCancel__block_invoke(uint64_t a1)
 
     [(MSASAssetDownloader *)self _workQueueGoIdle];
     v4 = MSPlatform();
-    if ((objc_opt_respondsToSelector() & 1) == 0)
+    if (objc_opt_respondsToSelector())
     {
-      goto LABEL_7;
-    }
+      v5 = MSPlatform();
+      isPerformanceLoggingEnabled = [v5 isPerformanceLoggingEnabled];
 
-    v5 = MSPlatform();
-    isPerformanceLoggingEnabled = [v5 isPerformanceLoggingEnabled];
+      if (!isPerformanceLoggingEnabled)
+      {
+        return;
+      }
 
-    if (isPerformanceLoggingEnabled)
-    {
       [(MSASAssetDownloader *)self setIsWaitingForFirstDownloadEvent:0];
       v7 = +[MSPerformanceLogger sharedLogger];
       workQueueObjectGUID = [(MSASAssetDownloader *)self workQueueObjectGUID];
@@ -1734,12 +1707,8 @@ void __38__MSASAssetDownloader_workQueueCancel__block_invoke(uint64_t a1)
       v4 = +[MSPerformanceLogger sharedLogger];
       downloadBatchPerfGUID = [(MSASAssetDownloader *)self downloadBatchPerfGUID];
       [v4 stopOperation:@"MSASAssetDownloader.downloadRate" itemGUID:downloadBatchPerfGUID];
-
-LABEL_7:
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)workQueueObjectGUID
@@ -1759,46 +1728,42 @@ LABEL_7:
 
 - (void)workQueueRetryOutstandingActivities
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   state = self->_state;
   if (state > 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543618;
+      v8 = 138543618;
       selfCopy2 = self;
-      v12 = 1024;
-      v13 = state;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unknown state: %d", &v10, 0x12u);
+      v10 = 1024;
+      v11 = state;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Unknown state: %d", &v8, 0x12u);
     }
 
-    v8 = MSPlatform();
-    [v8 didDetectUnrecoverableCondition];
-
-    goto LABEL_9;
+    v7 = MSPlatform();
+    [v7 didDetectUnrecoverableCondition];
   }
 
-  v4 = MSASPlatform();
-  personID = [(MSASAssetTransferer *)self personID];
-  v6 = [v4 MSASPersonIDIsAllowedToDownloadAssets:personID];
-
-  if (!v6)
+  else
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    v4 = MSASPlatform();
+    personID = [(MSASAssetTransferer *)self personID];
+    v6 = [v4 MSASPersonIDIsAllowedToDownloadAssets:personID];
+
+    if (v6)
     {
-      v10 = 138543362;
-      selfCopy2 = self;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Not allowed to download assets at this time.", &v10, 0xCu);
+
+      [(MSASAssetDownloader *)self workQueueDownloadNextBatch];
     }
 
-LABEL_9:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
+    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 138543362;
+      selfCopy2 = self;
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Not allowed to download assets at this time.", &v8, 0xCu);
+    }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-
-  [(MSASAssetDownloader *)self workQueueDownloadNextBatch];
 }
 
 @end

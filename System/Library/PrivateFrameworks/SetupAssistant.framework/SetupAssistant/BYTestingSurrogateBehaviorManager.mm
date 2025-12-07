@@ -84,20 +84,21 @@
           v10 = objc_alloc(MEMORY[0x1E695DF20]);
           v21 = 0;
           v11 = [v10 initWithContentsOfURL:v9 error:&v21];
-          v18 = v21;
+          v12 = v21;
+          v18 = v12;
           if (v11)
           {
-            v12 = _BYLoggingFacility();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = _BYLoggingFacility(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = MEMORY[0x1E696AD98];
+              v14 = MEMORY[0x1E696AD98];
               allKeys = [v11 allKeys];
-              v15 = [v13 numberWithUnsignedInteger:{objc_msgSend(allKeys, "count")}];
+              v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(allKeys, "count")}];
               *buf = 138412546;
               v27 = v6;
               v28 = 2112;
-              v29 = v15;
-              _os_log_impl(&dword_1B862F000, v12, OS_LOG_TYPE_DEFAULT, "Enabling testing surrogate functionality for domain %@ with %@ behavior names", buf, 0x16u);
+              v29 = v16;
+              _os_log_impl(&dword_1B862F000, v13, OS_LOG_TYPE_DEFAULT, "Enabling testing surrogate functionality for domain %@ with %@ behavior names", buf, 0x16u);
 
               selfCopy = v17;
             }
@@ -114,19 +115,16 @@
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_allDomains
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   domainSoftwareUpdate = [(BYTestingSurrogateBehaviorManager *)self domainSoftwareUpdate];
-  v8[0] = domainSoftwareUpdate;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = domainSoftwareUpdate;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -186,43 +184,41 @@
 
 - (void)_setNamedBehaviorsFromDictionary:(id)dictionary forDomain:(id)domain
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   domainCopy = domain;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [dictionaryCopy allKeys];
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     v11 = *MEMORY[0x1E695E8B8];
     v12 = *MEMORY[0x1E695E8B0];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         v15 = [(BYTestingSurrogateBehaviorManager *)self _preferenceKeyForDomain:domainCopy behaviorName:v14];
         v16 = [dictionaryCopy objectForKeyedSubscript:v14];
         CFPreferencesSetValue(v15, v16, @"com.apple.purplebuddy.notbackedup", v11, v12);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)enabledForDomain:(id)domain
@@ -252,31 +248,8 @@
     if (v7)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      if ((objc_opt_isKindOfClass() & 1) == 0 || ([v7 objectForKeyedSubscript:@"domain"], (v8 = objc_claimAutoreleasedReturnValue()) == 0) || (v9 = v8, objc_msgSend(v7, "objectForKeyedSubscript:", @"domain"), v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v10, v9, (isKindOfClass & 1) == 0) || (objc_msgSend(v7, "objectForKeyedSubscript:", @"code"), (v12 = objc_claimAutoreleasedReturnValue()) == 0) || (v13 = v12, objc_msgSend(v7, "objectForKeyedSubscript:", @"code"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v15 = objc_opt_isKindOfClass(), v14, v13, (v15 & 1) == 0))
       {
-        goto LABEL_13;
-      }
-
-      v8 = [v7 objectForKeyedSubscript:@"domain"];
-      if (!v8)
-      {
-        goto LABEL_13;
-      }
-
-      v9 = v8;
-      v10 = [v7 objectForKeyedSubscript:@"domain"];
-      objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-
-      if ((isKindOfClass & 1) == 0)
-      {
-        goto LABEL_13;
-      }
-
-      v12 = [v7 objectForKeyedSubscript:@"code"];
-      if (!v12 || (v13 = v12, [v7 objectForKeyedSubscript:@"code"], v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v15 = objc_opt_isKindOfClass(), v14, v13, (v15 & 1) == 0))
-      {
-LABEL_13:
         v20 = 0;
 LABEL_26:
 
@@ -358,7 +331,7 @@ LABEL_28:
 
 - (id)_behaviorDictionaryFromBehavior:(id)behavior count:(unint64_t)count
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   behaviorCopy = behavior;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v7 = MEMORY[0x1E696AD98];
@@ -370,16 +343,16 @@ LABEL_28:
 
   if (error)
   {
-    v22[0] = @"domain";
+    v21[0] = @"domain";
     error2 = [behaviorCopy error];
     domain = [error2 domain];
-    v22[1] = @"code";
-    v23[0] = domain;
+    v21[1] = @"code";
+    v22[0] = domain;
     v12 = MEMORY[0x1E696AD98];
     error3 = [behaviorCopy error];
     v14 = [v12 numberWithInteger:{objc_msgSend(error3, "code")}];
-    v23[1] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v22[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
     [v6 setObject:v15 forKeyedSubscript:@"error"];
   }
 
@@ -395,7 +368,6 @@ LABEL_28:
   [v6 setObject:v18 forKeyedSubscript:@"count"];
 
   v19 = [v6 copy];
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -407,12 +379,12 @@ LABEL_28:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v9 = [(BYTestingSurrogateBehaviorManager *)selfCopy _behaviorsForDomain:domainCopy behaviorName:nameCopy];
-  v23 = 0;
-  v10 = [(BYTestingSurrogateBehaviorManager *)selfCopy _behaviorFromBehaviorsArray:v9 returningCount:&v23];
+  v24 = 0;
+  v10 = [(BYTestingSurrogateBehaviorManager *)selfCopy _behaviorFromBehaviorsArray:v9 returningCount:&v24];
   if (v10)
   {
-    v11 = v23;
-    if (v23)
+    v11 = v24;
+    if (v24)
     {
       v12 = [v9 mutableCopy];
       v13 = v12;
@@ -443,10 +415,10 @@ LABEL_28:
     v20 = v19 = MEMORY[0x1E695DF30];
     v21 = [v19 exceptionWithName:@"Unspecified or malformed testing behavior" reason:v20 userInfo:0];
 
-    v22 = _BYLoggingFacility();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _BYLoggingFacility(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [BYTestingSurrogateBehaviorManager acquireNextBehaviorWithName:v21 domain:v22];
+      [BYTestingSurrogateBehaviorManager acquireNextBehaviorWithName:v21 domain:v23];
     }
 
     objc_exception_throw(v21);
@@ -482,11 +454,10 @@ LABEL_28:
 
 - (void)acquireNextBehaviorWithName:(uint64_t)a1 domain:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Throwing %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Throwing %@", &v2, 0xCu);
 }
 
 @end

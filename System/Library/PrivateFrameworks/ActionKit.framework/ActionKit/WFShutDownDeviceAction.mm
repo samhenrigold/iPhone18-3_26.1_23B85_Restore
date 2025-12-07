@@ -35,13 +35,14 @@
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
 {
-  sub_23E1FDC1C();
+  v6 = sub_23E1FDC1C();
+  v8 = v7;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_23DF0F6D4(state);
+  LOBYTE(v6) = sub_23DF0F6D4(state, v6, v8);
   swift_unknownObjectRelease();
 
-  return v7 & 1;
+  return v6 & 1;
 }
 
 - (WFShutDownDeviceAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters

@@ -205,16 +205,16 @@
 - (void)initializeInitializationStateMachine
 {
   v3 = objc_alloc_init(_GKStateMachine);
-  v8[0] = @"GKAppInitInProgress";
-  v7[0] = @"GKAppInitUnknown";
-  v7[1] = @"GKAppInitInProgress";
+  v6[5] = @"GKAppInitInProgress";
+  v6[2] = @"GKAppInitUnknown";
+  v6[3] = @"GKAppInitInProgress";
   v6[0] = @"GKAppInitialized";
   v6[1] = @"GKAppInitUnknown";
   v4 = [NSArray arrayWithObjects:v6 count:2];
-  v7[2] = @"GKAppInitialized";
-  v8[1] = v4;
-  v8[2] = @"GKAppInitUnknown";
-  v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v6[4] = @"GKAppInitialized";
+  v6[6] = v4;
+  v6[7] = @"GKAppInitUnknown";
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   [v3 setValidTransitions:v5];
 
   [v3 setCurrentState:@"GKAppInitUnknown"];
@@ -1121,7 +1121,7 @@ LABEL_15:
   v5 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -1680,7 +1680,7 @@ LABEL_45:
   v41 = 0u;
   v42 = 0u;
   v12 = tokensCopy;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (v13)
   {
     v14 = *v42;
@@ -1695,31 +1695,31 @@ LABEL_45:
         }
 
         v16 = *(*(&v41 + 1) + 8 * v15);
-        v47[0] = @"id";
-        v47[1] = @"push-token";
-        v48[0] = dCopy;
-        v48[1] = v16;
-        v17 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:2];
+        v51 = @"id";
+        v52 = @"push-token";
+        v53 = dCopy;
+        v54 = v16;
+        v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
         [v11 addObject:v17];
 
         v15 = v15 + 1;
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v41 objects:v55 count:16];
     }
 
     while (v13);
   }
 
-  v45[0] = @"session-token";
-  v45[1] = @"peers";
-  v46[0] = sessionCopy;
-  v46[1] = v11;
-  v45[2] = @"reason";
+  v45 = @"session-token";
+  v46 = @"peers";
+  v48 = sessionCopy;
+  v49 = v11;
+  v47 = @"reason";
   v18 = [NSNumber numberWithInteger:0];
-  v46[2] = v18;
-  v30 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:3];
+  v50 = v18;
+  v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v19 = +[GKDataRequestManager sharedManager];
   v20 = dispatch_group_create();
@@ -3263,7 +3263,7 @@ LABEL_8:
   v17 = sub_100143448;
   v18 = sub_100143458;
   v19 = @"GKAppInitUnknown";
-  v6 = GKSavedAuthentiactionStateQueue();
+  v6 = GKSavedAuthentiactionStateQueue(dCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10014AA3C;
@@ -3284,7 +3284,7 @@ LABEL_8:
 {
   stateCopy = state;
   dCopy = d;
-  v9 = GKSavedAuthentiactionStateQueue();
+  v9 = GKSavedAuthentiactionStateQueue(dCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10014AD38;
@@ -3885,19 +3885,13 @@ LABEL_8:
 
 - (id)appTerminateRequestWithBackgroundFlag:(BOOL)flag
 {
-  v9[0] = @"background";
-  v3 = [NSNumber numberWithBool:flag];
-  v10[0] = v3;
-  v9[1] = @"timestamp";
-  v4 = +[NSDate _gkServerTimestamp];
-  v10[1] = v4;
-  v9[2] = @"udid";
-  v5 = +[GKDevice currentDevice];
-  udid = [v5 udid];
-  v10[2] = udid;
-  v7 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v6 = [NSNumber numberWithBool:flag];
+  v7 = +[NSDate _gkServerTimestamp];
+  v3 = +[GKDevice currentDevice];
+  udid = [v3 udid];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  return v7;
+  return v4;
 }
 
 - (void)terminateWithCompletionHandler:(id)handler
@@ -4010,17 +4004,17 @@ LABEL_8:
   v8 = [NSString stringWithFormat:@"%s:%d %s", "GKClientProxy.m", 2712, "[GKClientProxy(GKClientInterface) initializeWithCredential:completionHandler:]"];
   v9 = [GKDispatchGroup dispatchGroupWithName:v8];
 
-  v28[0] = @"background";
+  v28 = @"background";
   v10 = [NSNumber numberWithBool:[(GKClientProxy *)self wasAppBackgrounded]];
-  v29[0] = v10;
-  v28[1] = @"timestamp";
+  v31 = v10;
+  v29 = @"timestamp";
   v11 = +[NSDate _gkServerTimestamp];
-  v29[1] = v11;
-  v28[2] = @"udid";
+  v32 = v11;
+  v30 = @"udid";
   v12 = +[GKDevice currentDevice];
   udid = [v12 udid];
-  v29[2] = udid;
-  v14 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
+  v33 = udid;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v24[0] = _NSConcreteStackBlock;
   v24[1] = 3221225472;
@@ -4057,7 +4051,7 @@ LABEL_8:
   v23 = @"timestamp";
   v10 = +[NSDate _gkServerTimestamp];
   v24 = v10;
-  v11 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v19[0] = _NSConcreteStackBlock;
   v19[1] = 3221225472;

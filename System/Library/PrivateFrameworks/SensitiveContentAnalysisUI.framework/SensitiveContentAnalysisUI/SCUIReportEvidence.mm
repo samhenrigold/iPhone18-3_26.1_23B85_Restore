@@ -7,32 +7,32 @@
 
 - (SCUIReportEvidence)initWithVictimHandle:(id)handle media:(id)media selectedMediaObject:(id)object chat:(id)chat
 {
-  v227 = *MEMORY[0x1E69E9840];
+  v226 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   mediaCopy = media;
   objectCopy = object;
   chatCopy = chat;
-  v191 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v189 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v190 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v188 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v207 = 0u;
   v208 = 0u;
   v209 = 0u;
   v210 = 0u;
-  v211 = 0u;
   obj = mediaCopy;
-  v10 = [obj countByEnumeratingWithState:&v208 objects:v222 count:16];
+  v10 = [obj countByEnumeratingWithState:&v207 objects:v221 count:16];
   if (v10)
   {
-    v184 = *v209;
+    v183 = *v208;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v209 != v184)
+        if (*v208 != v183)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v208 + 1) + 8 * i);
+        v12 = *(*(&v207 + 1) + 8 * i);
         fileURL = [v12 fileURL];
         v14 = fileURL == 0;
 
@@ -65,16 +65,16 @@
 
           clientUI = v18;
 
-          v21 = [v191 objectForKeyedSubscript:clientUI];
+          v21 = [v190 objectForKeyedSubscript:clientUI];
           v22 = v21 == 0;
 
           if (v22)
           {
             v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            [v191 setObject:v23 forKeyedSubscript:clientUI];
+            [v190 setObject:v23 forKeyedSubscript:clientUI];
           }
 
-          v24 = [v189 objectForKeyedSubscript:clientUI];
+          v24 = [v188 objectForKeyedSubscript:clientUI];
           v25 = v24 == 0;
 
           if (v25)
@@ -91,7 +91,7 @@
               v28 = handleCopy;
             }
 
-            [v189 setObject:v28 forKeyedSubscript:clientUI];
+            [v188 setObject:v28 forKeyedSubscript:clientUI];
           }
 
           date = [MEMORY[0x1E695DF00] date];
@@ -121,64 +121,64 @@
           time = [v12 time];
           v42 = [(SCUIReportSensitiveMedia *)v37 initWithURL:fileURL2 UTIType:uTIType identifier:transferGUID4 dateReceived:time isSensitive:v36 wasImpetusOfReport:v32];
 
-          v43 = [v191 objectForKeyedSubscript:clientUI];
+          v43 = [v190 objectForKeyedSubscript:clientUI];
           [v43 addObject:v42];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v208 objects:v222 count:16];
+      v10 = [obj countByEnumeratingWithState:&v207 objects:v221 count:16];
     }
 
     while (v10);
   }
 
-  v174 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v206 = 0u;
-  v207 = 0u;
-  v204 = 0u;
+  v173 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v205 = 0u;
-  allKeys = [v191 allKeys];
-  v44 = [allKeys countByEnumeratingWithState:&v204 objects:v221 count:16];
+  v206 = 0u;
+  v203 = 0u;
+  v204 = 0u;
+  allKeys = [v190 allKeys];
+  v44 = [allKeys countByEnumeratingWithState:&v203 objects:v220 count:16];
   if (v44)
   {
-    v45 = *v205;
-    v180 = *MEMORY[0x1E695C360];
-    v176 = *MEMORY[0x1E695C330];
-    v171 = *MEMORY[0x1E695C240];
-    v168 = *MEMORY[0x1E695C230];
-    v165 = *MEMORY[0x1E695C208];
-    v162 = *MEMORY[0x1E695C2F0];
+    v45 = *v204;
+    v179 = *MEMORY[0x1E695C360];
+    v175 = *MEMORY[0x1E695C330];
+    v170 = *MEMORY[0x1E695C240];
+    v167 = *MEMORY[0x1E695C230];
+    v164 = *MEMORY[0x1E695C208];
+    v161 = *MEMORY[0x1E695C2F0];
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v205 != v45)
+        if (*v204 != v45)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v47 = *(*(&v204 + 1) + 8 * j);
+        v47 = *(*(&v203 + 1) + 8 * j);
         v48 = [handleCopy ID];
         v49 = [v47 isEqual:v48];
 
         if ((v49 & 1) == 0)
         {
-          v50 = [v189 objectForKeyedSubscript:v47];
+          v50 = [v188 objectForKeyedSubscript:v47];
           if (v50)
           {
-            v220[0] = v180;
-            v220[1] = v176;
-            v220[2] = v171;
-            v220[3] = v168;
-            v220[4] = v165;
-            v220[5] = v162;
-            v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v220 count:6];
+            v219[0] = v179;
+            v219[1] = v175;
+            v219[2] = v170;
+            v219[3] = v167;
+            v219[4] = v164;
+            v219[5] = v161;
+            v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v219 count:6];
             v52 = [v50 cnContactWithKeys:v51];
 
             v53 = [v50 displayNameForChat:chatCopy];
             v54 = [SCUIReportSuspect alloc];
             v55 = [v50 ID];
-            v56 = [v191 objectForKeyedSubscript:v47];
+            v56 = [v190 objectForKeyedSubscript:v47];
             v57 = [(SCUIReportSuspect *)v54 initWithDisplayName:v53 accountID:v55 sensitiveMediaFiles:v56];
 
             emailAddresses = [v52 emailAddresses];
@@ -199,72 +199,72 @@
               [(SCUIReportSuspect *)v57 setPhoneNumber:formattedInternationalStringValue];
             }
 
-            [v174 addObject:v57];
+            [v173 addObject:v57];
           }
         }
       }
 
-      v44 = [allKeys countByEnumeratingWithState:&v204 objects:v221 count:16];
+      v44 = [allKeys countByEnumeratingWithState:&v203 objects:v220 count:16];
     }
 
     while (v44);
   }
 
-  v159 = objc_opt_new();
   v158 = objc_opt_new();
-  v202 = 0u;
-  v203 = 0u;
-  v200 = 0u;
+  v157 = objc_opt_new();
   v201 = 0u;
+  v202 = 0u;
+  v199 = 0u;
+  v200 = 0u;
   chatItems = [chatCopy chatItems];
   reverseObjectEnumerator = [chatItems reverseObjectEnumerator];
 
-  v166 = [reverseObjectEnumerator countByEnumeratingWithState:&v200 objects:v219 count:16];
-  if (v166)
+  v165 = [reverseObjectEnumerator countByEnumeratingWithState:&v199 objects:v218 count:16];
+  if (v165)
   {
-    v161 = *v201;
+    v160 = *v200;
     do
     {
-      for (k = 0; k != v166; ++k)
+      for (k = 0; k != v165; ++k)
       {
-        if (*v201 != v161)
+        if (*v200 != v160)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v67 = *(*(&v200 + 1) + 8 * k);
-        v212 = 0;
-        v213 = &v212;
-        v214 = 0x2050000000;
+        v67 = *(*(&v199 + 1) + 8 * k);
+        v211 = 0;
+        v212 = &v211;
+        v213 = 0x2050000000;
         v68 = getIMMessagePartChatItemClass_softClass;
-        v215 = getIMMessagePartChatItemClass_softClass;
+        v214 = getIMMessagePartChatItemClass_softClass;
         if (!getIMMessagePartChatItemClass_softClass)
         {
           *&buf = MEMORY[0x1E69E9820];
           *(&buf + 1) = 3221225472;
-          v224 = __getIMMessagePartChatItemClass_block_invoke;
-          v225 = &unk_1E7FF2370;
-          v226 = &v212;
+          v223 = __getIMMessagePartChatItemClass_block_invoke;
+          v224 = &unk_1E7FF2370;
+          v225 = &v211;
           __getIMMessagePartChatItemClass_block_invoke(&buf);
-          v68 = v213[3];
+          v68 = v212[3];
         }
 
         v69 = v68;
-        _Block_object_dispose(&v212, 8);
+        _Block_object_dispose(&v211, 8);
         if (objc_opt_isKindOfClass())
         {
-          v163 = v67;
-          message = [v163 message];
+          v162 = v67;
+          message = [v162 message];
           guid = [message guid];
           if (guid)
           {
             guid2 = [message guid];
-            v72 = [v159 containsObject:guid2];
+            v72 = [v158 containsObject:guid2];
 
             if ((v72 & 1) == 0)
             {
               guid3 = [message guid];
-              [v159 addObject:guid3];
+              [v158 addObject:guid3];
 
               v74 = MEMORY[0x1E695DF70];
               fileTransferGUIDs = [message fileTransferGUIDs];
@@ -281,43 +281,43 @@
 
               v78 = [v74 arrayWithArray:v77];
 
-              v198 = 0u;
-              v199 = 0u;
-              v196 = 0u;
               v197 = 0u;
-              visibleAssociatedMessageChatItems = [v163 visibleAssociatedMessageChatItems];
-              v79 = [visibleAssociatedMessageChatItems countByEnumeratingWithState:&v196 objects:v218 count:16];
+              v198 = 0u;
+              v195 = 0u;
+              v196 = 0u;
+              visibleAssociatedMessageChatItems = [v162 visibleAssociatedMessageChatItems];
+              v79 = [visibleAssociatedMessageChatItems countByEnumeratingWithState:&v195 objects:v217 count:16];
               if (v79)
               {
-                v186 = *v197;
+                v185 = *v196;
                 do
                 {
                   for (m = 0; m != v79; ++m)
                   {
-                    if (*v197 != v186)
+                    if (*v196 != v185)
                     {
                       objc_enumerationMutation(visibleAssociatedMessageChatItems);
                     }
 
-                    v81 = *(*(&v196 + 1) + 8 * m);
-                    v212 = 0;
-                    v213 = &v212;
-                    v214 = 0x2050000000;
+                    v81 = *(*(&v195 + 1) + 8 * m);
+                    v211 = 0;
+                    v212 = &v211;
+                    v213 = 0x2050000000;
                     v82 = getIMAssociatedStickerChatItemClass_softClass;
-                    v215 = getIMAssociatedStickerChatItemClass_softClass;
+                    v214 = getIMAssociatedStickerChatItemClass_softClass;
                     if (!getIMAssociatedStickerChatItemClass_softClass)
                     {
                       *&buf = MEMORY[0x1E69E9820];
                       *(&buf + 1) = 3221225472;
-                      v224 = __getIMAssociatedStickerChatItemClass_block_invoke;
-                      v225 = &unk_1E7FF2370;
-                      v226 = &v212;
+                      v223 = __getIMAssociatedStickerChatItemClass_block_invoke;
+                      v224 = &unk_1E7FF2370;
+                      v225 = &v211;
                       __getIMAssociatedStickerChatItemClass_block_invoke(&buf);
-                      v82 = v213[3];
+                      v82 = v212[3];
                     }
 
                     v83 = v82;
-                    _Block_object_dispose(&v212, 8);
+                    _Block_object_dispose(&v211, 8);
                     if (objc_opt_isKindOfClass())
                     {
                       v84 = v81;
@@ -331,46 +331,46 @@
                       }
                     }
 
-                    v212 = 0;
-                    v213 = &v212;
-                    v214 = 0x2050000000;
+                    v211 = 0;
+                    v212 = &v211;
+                    v213 = 0x2050000000;
                     v88 = getIMAggregateAcknowledgmentChatItemClass_softClass;
-                    v215 = getIMAggregateAcknowledgmentChatItemClass_softClass;
+                    v214 = getIMAggregateAcknowledgmentChatItemClass_softClass;
                     if (!getIMAggregateAcknowledgmentChatItemClass_softClass)
                     {
                       *&buf = MEMORY[0x1E69E9820];
                       *(&buf + 1) = 3221225472;
-                      v224 = __getIMAggregateAcknowledgmentChatItemClass_block_invoke;
-                      v225 = &unk_1E7FF2370;
-                      v226 = &v212;
+                      v223 = __getIMAggregateAcknowledgmentChatItemClass_block_invoke;
+                      v224 = &unk_1E7FF2370;
+                      v225 = &v211;
                       __getIMAggregateAcknowledgmentChatItemClass_block_invoke(&buf);
-                      v88 = v213[3];
+                      v88 = v212[3];
                     }
 
                     v89 = v88;
-                    _Block_object_dispose(&v212, 8);
+                    _Block_object_dispose(&v211, 8);
                     if (objc_opt_isKindOfClass())
                     {
                       v90 = v81;
+                      v191 = 0u;
                       v192 = 0u;
                       v193 = 0u;
                       v194 = 0u;
-                      v195 = 0u;
                       acknowledgments = [v90 acknowledgments];
-                      v92 = [acknowledgments countByEnumeratingWithState:&v192 objects:v217 count:16];
+                      v92 = [acknowledgments countByEnumeratingWithState:&v191 objects:v216 count:16];
                       if (v92)
                       {
-                        v93 = *v193;
+                        v93 = *v192;
                         do
                         {
                           for (n = 0; n != v92; ++n)
                           {
-                            if (*v193 != v93)
+                            if (*v192 != v93)
                             {
                               objc_enumerationMutation(acknowledgments);
                             }
 
-                            v95 = *(*(&v192 + 1) + 8 * n);
+                            v95 = *(*(&v191 + 1) + 8 * n);
                             fileTransferGUIDs2 = [v95 fileTransferGUIDs];
                             v97 = fileTransferGUIDs2 == 0;
 
@@ -381,7 +381,7 @@
                             }
                           }
 
-                          v92 = [acknowledgments countByEnumeratingWithState:&v192 objects:v217 count:16];
+                          v92 = [acknowledgments countByEnumeratingWithState:&v191 objects:v216 count:16];
                         }
 
                         while (v92);
@@ -389,13 +389,13 @@
                     }
                   }
 
-                  v79 = [visibleAssociatedMessageChatItems countByEnumeratingWithState:&v196 objects:v218 count:16];
+                  v79 = [visibleAssociatedMessageChatItems countByEnumeratingWithState:&v195 objects:v217 count:16];
                 }
 
                 while (v79);
               }
 
-              v187 = [SCUIReportMessage alloc];
+              v186 = [SCUIReportMessage alloc];
               time2 = [message time];
               v100 = time2;
               if (!time2)
@@ -442,26 +442,26 @@
                 v111 = &stru_1F3B30210;
               }
 
-              v112 = [(SCUIReportMessage *)v187 initWithDate:v100 senderAccountID:v104 senderDisplayName:v108 body:v111 attachmentIdentifiers:v78];
+              v112 = [(SCUIReportMessage *)v186 initWithDate:v100 senderAccountID:v104 senderDisplayName:v108 body:v111 attachmentIdentifiers:v78];
 
               if (!time2)
               {
               }
 
-              [v158 addObject:v112];
+              [v157 addObject:v112];
             }
           }
         }
       }
 
-      v166 = [reverseObjectEnumerator countByEnumeratingWithState:&v200 objects:v219 count:16];
+      v165 = [reverseObjectEnumerator countByEnumeratingWithState:&v199 objects:v218 count:16];
     }
 
-    while (v166);
+    while (v165);
   }
 
   v113 = +[SCUIAccountHelper bestiMessageServiceHandle];
-  v173 = v113;
+  v172 = v113;
   v114 = handleCopy;
   if (v113)
   {
@@ -469,23 +469,23 @@
   }
 
   v115 = *MEMORY[0x1E695C330];
-  v216[0] = *MEMORY[0x1E695C360];
-  v216[1] = v115;
+  v215[0] = *MEMORY[0x1E695C360];
+  v215[1] = v115;
   v116 = *MEMORY[0x1E695C230];
-  v216[2] = *MEMORY[0x1E695C240];
-  v216[3] = v116;
+  v215[2] = *MEMORY[0x1E695C240];
+  v215[3] = v116;
   v117 = *MEMORY[0x1E695C2F0];
-  v216[4] = *MEMORY[0x1E695C208];
-  v216[5] = v117;
-  v216[6] = *MEMORY[0x1E695C1D0];
+  v215[4] = *MEMORY[0x1E695C208];
+  v215[5] = v117;
+  v215[6] = *MEMORY[0x1E695C1D0];
   v118 = MEMORY[0x1E695DEC8];
   v119 = v114;
-  v120 = [v118 arrayWithObjects:v216 count:7];
-  v181 = [v119 cnContactWithKeys:v120];
+  v120 = [v118 arrayWithObjects:v215 count:7];
+  v180 = [v119 cnContactWithKeys:v120];
 
-  v170 = [v119 displayNameForChat:chatCopy];
+  v169 = [v119 displayNameForChat:chatCopy];
   v121 = [handleCopy ID];
-  v122 = [v191 objectForKeyedSubscript:v121];
+  v122 = [v190 objectForKeyedSubscript:v121];
   v123 = v122;
   v124 = MEMORY[0x1E695E0F0];
   if (v122)
@@ -499,21 +499,21 @@
 
   v127 = [SCUIReportVictim alloc];
   scui_prependingAccountIDPrefix = [v126 scui_prependingAccountIDPrefix];
-  v188 = [(SCUIReportVictim *)v127 initWithDisplayName:v170 accountID:scui_prependingAccountIDPrefix mediaFiles:v125];
+  v187 = [(SCUIReportVictim *)v127 initWithDisplayName:v169 accountID:scui_prependingAccountIDPrefix mediaFiles:v125];
 
-  v129 = [MEMORY[0x1E695CD80] stringFromContact:v181 style:0];
-  [(SCUIReportVictim *)v188 setFullName:v129];
+  v129 = [MEMORY[0x1E695CD80] stringFromContact:v180 style:0];
+  [(SCUIReportVictim *)v187 setFullName:v129];
 
-  emailAddresses2 = [v181 emailAddresses];
+  emailAddresses2 = [v180 emailAddresses];
   firstObject3 = [emailAddresses2 firstObject];
   value3 = [firstObject3 value];
-  [(SCUIReportVictim *)v188 setEmailAddress:value3];
+  [(SCUIReportVictim *)v187 setEmailAddress:value3];
 
-  birthday = [v181 birthday];
+  birthday = [v180 birthday];
   date2 = [birthday date];
-  [(SCUIReportVictim *)v188 setDateOfBirth:date2];
+  [(SCUIReportVictim *)v187 setDateOfBirth:date2];
 
-  postalAddresses = [v181 postalAddresses];
+  postalAddresses = [v180 postalAddresses];
   firstObject4 = [postalAddresses firstObject];
 
   v136 = [SCUIReportAddress alloc];
@@ -528,20 +528,20 @@
   value8 = [firstObject4 value];
   postalCode = [value8 postalCode];
   v145 = [(SCUIReportAddress *)v136 initWithAddress:street city:city state:state country:country postCode:postalCode];
-  [(SCUIReportVictim *)v188 setAddress:v145];
+  [(SCUIReportVictim *)v187 setAddress:v145];
 
-  phoneNumbers2 = [v181 phoneNumbers];
+  phoneNumbers2 = [v180 phoneNumbers];
   firstObject5 = [phoneNumbers2 firstObject];
   value9 = [firstObject5 value];
 
   if (value9)
   {
     formattedInternationalStringValue2 = [value9 formattedInternationalStringValue];
-    [(SCUIReportVictim *)v188 setPhoneNumber:formattedInternationalStringValue2];
+    [(SCUIReportVictim *)v187 setPhoneNumber:formattedInternationalStringValue2];
   }
 
-  v150 = [(SCUIReportEvidence *)self initWithVictim:v188 suspects:v174 application:0];
-  [(SCUIReportEvidence *)v150 setUnsortedChatTranscript:v158];
+  v150 = [(SCUIReportEvidence *)self initWithVictim:v187 suspects:v173 application:0];
+  [(SCUIReportEvidence *)v150 setUnsortedChatTranscript:v157];
   if ([chatCopy isSMS])
   {
     [(SCUIReportEvidence *)v150 setFlags:[(SCUIReportEvidence *)v150 flags]| 1];
@@ -565,7 +565,6 @@ LABEL_106:
     [(SCUIReportEvidence *)v150 setFlags:[(SCUIReportEvidence *)v150 flags]| v154];
   }
 
-  v155 = *MEMORY[0x1E69E9840];
   return v150;
 }
 

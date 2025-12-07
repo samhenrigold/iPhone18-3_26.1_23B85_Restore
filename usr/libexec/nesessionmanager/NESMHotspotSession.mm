@@ -2,6 +2,7 @@
 - (void)dealloc;
 - (void)didProviderExit:(id)exit;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)install;
 - (void)installPended;
 - (void)plugin:(id)plugin didInitializeWithUUIDs:(id)ds;
@@ -793,6 +794,106 @@ LABEL_15:
 
       v7 = &OBJC_IVAR___NESMHotspotSession__authenticationPlugin;
       goto LABEL_15;
+    }
+  }
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412290;
+    selfCopy5 = self;
+    _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%@ received request to handle stop message for hotspot session", buf, 0xCu);
+  }
+
+  if (!self->_active)
+  {
+    remotePluginObject = ne_log_obj();
+    if (os_log_type_enabled(remotePluginObject, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      selfCopy5 = self;
+      _os_log_impl(&_mh_execute_header, remotePluginObject, OS_LOG_TYPE_INFO, "%@ hotspot session is not active, unable to process stop message request", buf, 0xCu);
+    }
+
+LABEL_25:
+
+    return;
+  }
+
+  v17.receiver = self;
+  v17.super_class = NESMHotspotSession;
+  [(NESMSession *)&v17 handleStopMessageWithReason:v3];
+  if (self->_sessionType == 12)
+  {
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      configuration = [(NESMSession *)self configuration];
+      hotspot = [configuration hotspot];
+      authenticationProviderBundleIdentifier = [hotspot authenticationProviderBundleIdentifier];
+      *buf = 138412546;
+      selfCopy5 = self;
+      v20 = 2112;
+      v21 = authenticationProviderBundleIdentifier;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@ uninstalling policies for [%@]", buf, 0x16u);
+    }
+
+    sub_10005BDFC(&self->super.super.isa);
+  }
+
+  if (self->_active)
+  {
+    sessionType = self->_sessionType;
+    if (sessionType == 11)
+    {
+      if (objc_getProperty(self, v6, 360, 1))
+      {
+        v12 = ne_log_obj();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          selfCopy5 = self;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%@ sending stop message to hotspot evaluation provider", buf, 0xCu);
+        }
+
+        v13 = &OBJC_IVAR___NESMHotspotSession__evaluationPlugin;
+LABEL_23:
+
+        Property = objc_getProperty(self, v15, *v13, 1);
+        if (!Property)
+        {
+          return;
+        }
+
+        remotePluginObject = [Property remotePluginObject];
+        [remotePluginObject stopWithReason:v3];
+        goto LABEL_25;
+      }
+
+      if (!self->_active)
+      {
+        return;
+      }
+
+      sessionType = self->_sessionType;
+    }
+
+    if (sessionType == 12 && objc_getProperty(self, v6, 368, 1))
+    {
+      v12 = ne_log_obj();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        selfCopy5 = self;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%@ sending stop message to hotspot authentication provider", buf, 0xCu);
+      }
+
+      v13 = &OBJC_IVAR___NESMHotspotSession__authenticationPlugin;
+      goto LABEL_23;
     }
   }
 }

@@ -13,34 +13,42 @@
 
 - (void)requestRemoveAll
 {
-  if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1009708B0 <= 30)
   {
-    sub_100008BC8();
+    if (dword_1009708B0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008BC8(self, a2, v2);
+    }
   }
 
-  v3 = +[SDNotificationManager sharedManager];
-  [v3 homePodHandoffRemoveAll];
+  v4 = +[SDNotificationManager sharedManager];
+  [v4 homePodHandoffRemoveAll];
 
-  [(SFNotificationProxy *)self reset];
+  [(SFNotificationProxy *)selfCopy reset];
 }
 
 - (void)reset
 {
-  if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1009708B0 <= 30)
   {
-    sub_100008BAC();
+    if (dword_1009708B0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008BAC(self, a2, v2);
+    }
   }
 
-  [(NSMutableArray *)self->_internalIDs removeAllObjects];
-  internalIDs = self->_internalIDs;
-  self->_internalIDs = 0;
+  [(NSMutableArray *)selfCopy->_internalIDs removeAllObjects];
+  internalIDs = selfCopy->_internalIDs;
+  selfCopy->_internalIDs = 0;
 
-  externalID = self->_externalID;
-  self->_externalID = 0;
+  externalID = selfCopy->_externalID;
+  selfCopy->_externalID = 0;
 
-  self->_showingMedium = 0;
-  triggeredID = self->_triggeredID;
-  self->_triggeredID = 0;
+  selfCopy->_showingMedium = 0;
+  triggeredID = selfCopy->_triggeredID;
+  selfCopy->_triggeredID = 0;
 }
 
 - (SFNotificationProxy)init
@@ -68,19 +76,22 @@
   externalID = self->_externalID;
   if (externalID)
   {
-    v13 = !variantCopy;
+    v16 = !variantCopy;
   }
 
   else
   {
-    v13 = 1;
+    v16 = 1;
   }
 
-  if (!v13)
+  if (!v16)
   {
-    if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
+    if (dword_1009708B0 <= 30)
     {
-      sub_1000F5EE0();
+      if (dword_1009708B0 != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        sub_1000F5EE0(v12, v13, v14);
+      }
     }
 
     goto LABEL_29;
@@ -91,9 +102,9 @@
     internalIDs = self->_internalIDs;
     if (!internalIDs)
     {
-      v15 = objc_alloc_init(NSMutableArray);
-      v16 = self->_internalIDs;
-      self->_internalIDs = v15;
+      v18 = objc_alloc_init(NSMutableArray);
+      v19 = self->_internalIDs;
+      self->_internalIDs = v18;
 
       internalIDs = self->_internalIDs;
     }
@@ -106,14 +117,14 @@
     externalID = [(SFNotificationProxy *)self externalID];
     if (externalID)
     {
-      v18 = externalID;
+      v21 = externalID;
       if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000F5EA0();
+        sub_1000F5EA0(v21);
       }
 
-      v19 = +[SDNotificationManager sharedManager];
-      [v19 homePodHandoffUpdateIfNeeded:v18 info:infoCopy];
+      v22 = +[SDNotificationManager sharedManager];
+      [v22 homePodHandoffUpdateIfNeeded:v21 info:infoCopy];
 LABEL_28:
 
       self->_showingMedium = variantCopy;
@@ -123,35 +134,35 @@ LABEL_28:
 
   else if (postCopy)
   {
-    v20 = self->_internalIDs;
-    if (!v20)
+    v23 = self->_internalIDs;
+    if (!v23)
     {
-      v21 = objc_alloc_init(NSMutableArray);
-      v22 = self->_internalIDs;
-      self->_internalIDs = v21;
+      v24 = objc_alloc_init(NSMutableArray);
+      v25 = self->_internalIDs;
+      self->_internalIDs = v24;
 
-      v20 = self->_internalIDs;
+      v23 = self->_internalIDs;
     }
 
-    [(NSMutableArray *)v20 addObject:updateCopy];
+    [(NSMutableArray *)v23 addObject:updateCopy];
     externalID2 = [(SFNotificationProxy *)self externalID];
     if (externalID2)
     {
-      v18 = externalID2;
+      v21 = externalID2;
       if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000F5E60();
+        sub_1000F5E60(v21);
       }
 
-      v19 = +[SDNotificationManager sharedManager];
-      [v19 homePodHandoffPostIfNeeded:v18 info:infoCopy];
+      v22 = +[SDNotificationManager sharedManager];
+      [v22 homePodHandoffPostIfNeeded:v21 info:infoCopy];
       goto LABEL_28;
     }
   }
 
   else if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1009708B0, "[SFNotificationProxy _requestPostOrUpdate:info:mediumVariant:canPost:]", 30, "NotifProx: Not handling %@: %@\n", updateCopy, infoCopy);
   }
 
 LABEL_29:
@@ -164,11 +175,15 @@ LABEL_29:
   if (([(NSMutableArray *)self->_internalIDs containsObject:removeCopy]& 1) != 0)
   {
     v6 = self->_externalID;
+    v9 = v6;
     if (!v6)
     {
-      if (dword_1009708B0 <= 90 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
+      if (dword_1009708B0 <= 90)
       {
-        sub_1000F5F98();
+        if (dword_1009708B0 != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          sub_1000F5F98(v6, v7, v8);
+        }
       }
 
       goto LABEL_46;
@@ -177,37 +192,37 @@ LABEL_29:
     if (!self->_showingMedium)
     {
       triggeredID = self->_triggeredID;
-      v8 = removeCopy;
-      v9 = triggeredID;
-      v10 = v9;
-      if (v9 == v8)
+      v11 = removeCopy;
+      v12 = triggeredID;
+      v13 = v12;
+      if (v12 == v11)
       {
       }
 
       else
       {
-        if ((v8 != 0) == (v9 == 0))
+        if ((v11 != 0) == (v12 == 0))
         {
 
           goto LABEL_23;
         }
 
-        v11 = [(NSString *)v8 isEqual:v9];
+        v14 = [(NSString *)v11 isEqual:v12];
 
-        if ((v11 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
 LABEL_23:
           if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000F5F3C();
+            sub_1000F5F3C(v11);
           }
 
-          [(NSMutableArray *)self->_internalIDs removeObject:v8];
-          v17 = objc_retainBlock(self->_dismissedHandler);
-          v18 = v17;
-          if (v17)
+          [(NSMutableArray *)self->_internalIDs removeObject:v11];
+          v23 = objc_retainBlock(self->_dismissedHandler);
+          v24 = v23;
+          if (v23)
           {
-            (*(v17 + 2))(v17, v8, reason);
+            (*(v23 + 2))(v23, v11, reason);
           }
 
           goto LABEL_45;
@@ -217,29 +232,38 @@ LABEL_23:
 
     if (!self->_showingMedium)
     {
-      v12 = self->_triggeredID;
-      v13 = removeCopy;
-      v14 = v12;
-      v15 = v14;
-      if (v14 == v13)
+      v15 = self->_triggeredID;
+      v16 = removeCopy;
+      v17 = v15;
+      v18 = v17;
+      if (v17 == v16)
       {
 
         goto LABEL_29;
       }
 
-      if ((v13 != 0) != (v14 == 0))
+      if ((v16 != 0) != (v17 == 0))
       {
-        v16 = [(NSString *)v13 isEqual:v14];
+        v19 = [(NSString *)v16 isEqual:v17];
 
-        if (!v16)
+        if (!v19)
         {
           goto LABEL_34;
         }
 
 LABEL_29:
-        if (dword_1009708B0 > 30 || dword_1009708B0 == -1 && !_LogCategory_Initialize())
+        if (dword_1009708B0 > 30)
         {
           goto LABEL_44;
+        }
+
+        if (dword_1009708B0 == -1)
+        {
+          v20 = _LogCategory_Initialize();
+          if (!v20)
+          {
+            goto LABEL_44;
+          }
         }
 
         goto LABEL_32;
@@ -252,47 +276,57 @@ LABEL_34:
       goto LABEL_46;
     }
 
-    v19 = self->_triggeredID;
-    v20 = removeCopy;
-    v21 = v19;
-    v22 = v21;
-    if (v21 == v20)
+    v25 = self->_triggeredID;
+    v26 = removeCopy;
+    v27 = v25;
+    v28 = v27;
+    if (v27 == v26)
     {
     }
 
     else
     {
-      if ((v20 != 0) == (v21 == 0))
+      if ((v26 != 0) == (v27 == 0))
       {
 
         goto LABEL_46;
       }
 
-      v23 = [(NSString *)v20 isEqual:v21];
+      v29 = [(NSString *)v26 isEqual:v27];
 
-      if (!v23)
+      if (!v29)
       {
         goto LABEL_46;
       }
     }
 
-    if ([(NSMutableArray *)self->_internalIDs count]!= 1)
+    v20 = [(NSMutableArray *)self->_internalIDs count];
+    if (v20 != 1)
     {
 LABEL_46:
 
       goto LABEL_47;
     }
 
-    if (dword_1009708B0 > 30 || dword_1009708B0 == -1 && !_LogCategory_Initialize())
+    if (dword_1009708B0 > 30)
     {
       goto LABEL_44;
     }
 
+    if (dword_1009708B0 == -1)
+    {
+      v20 = _LogCategory_Initialize();
+      if (!v20)
+      {
+        goto LABEL_44;
+      }
+    }
+
 LABEL_32:
-    sub_1000F5F7C();
+    sub_1000F5F7C(v20, v21, v22);
 LABEL_44:
-    v18 = +[SDNotificationManager sharedManager];
-    [v18 homePodHandoffRemove:v6 reason:reason];
+    v24 = +[SDNotificationManager sharedManager];
+    [v24 homePodHandoffRemove:v9 reason:reason];
 LABEL_45:
 
     goto LABEL_46;
@@ -300,7 +334,7 @@ LABEL_45:
 
   if (dword_1009708B0 <= 90 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000F5EFC();
+    sub_1000F5EFC(removeCopy);
   }
 
 LABEL_47:
@@ -336,7 +370,7 @@ LABEL_47:
 LABEL_7:
       if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1000F5FB4();
+        sub_1000F5FB4(v7);
       }
 
       v11 = objc_retainBlock(self->_tappedHandler);
@@ -358,7 +392,7 @@ LABEL_15:
   {
     if (dword_1009708B0 != -1 || (v13 = _LogCategory_Initialize(), v5 = v14, v13))
     {
-      sub_1000F5FF4();
+      sub_1000F5FF4(v5);
 LABEL_13:
       v5 = v14;
     }
@@ -370,7 +404,7 @@ LABEL_13:
   dismissedCopy = dismissed;
   if (dword_1009708B0 <= 30 && (dword_1009708B0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000F6034(reason);
+    sub_1000F6034(reason, dismissedCopy);
   }
 
   v7 = objc_retainBlock(self->_dismissedHandler);

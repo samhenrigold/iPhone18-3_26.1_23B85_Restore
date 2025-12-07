@@ -362,31 +362,31 @@ void __46__SBSceneHandle__noteDidMoveFromSceneManager___block_invoke(uint64_t a1
 
 - (void)_enumerateObserversWithBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v6 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v10);
+        v12 = *(*(&v13 + 1) + 8 * v10);
         v8 = [(NSMapTable *)self->_observersToObserverBehaviors objectForKey:v12];
 
         if (v8)
@@ -399,13 +399,11 @@ void __46__SBSceneHandle__noteDidMoveFromSceneManager___block_invoke(uint64_t a1
       }
 
       while (v7 != v10);
-      v7 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didCreateScene:(id)scene
@@ -591,35 +589,35 @@ void __46__SBSceneHandle__noteReplacedWithSceneHandle___block_invoke(uint64_t a1
 
 - (BOOL)_handleSceneAction:(id)action
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   [(NSHashTable *)self->_actionConsumers allObjects];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = v15 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) sceneHandle:self didReceiveAction:{actionCopy, v13}])
+        if ([*(*(&v12 + 1) + 8 * i) sceneHandle:self didReceiveAction:{actionCopy, v12}])
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -632,7 +630,6 @@ void __46__SBSceneHandle__noteReplacedWithSceneHandle___block_invoke(uint64_t a1
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -795,14 +792,13 @@ LABEL_11:
 
 - (void)_noteSceneDestroyed:(os_log_t)log .cold.2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_21E74E000, log, OS_LOG_TYPE_ERROR, "*** _noteSceneDestroyed will assert: _scene %{public}@ does not match scene being destroyed %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_21E74E000, log, OS_LOG_TYPE_ERROR, "*** _noteSceneDestroyed will assert: _scene %{public}@ does not match scene being destroyed %{public}@", &v4, 0x16u);
 }
 
 - (void)_noteSceneDestroyed:.cold.3()

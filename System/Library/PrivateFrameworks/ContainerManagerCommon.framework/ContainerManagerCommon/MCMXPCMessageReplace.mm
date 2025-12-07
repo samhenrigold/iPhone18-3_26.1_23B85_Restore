@@ -1,58 +1,39 @@
 @interface MCMXPCMessageReplace
-- (MCMConcreteContainerIdentity)containerIdentityNew;
-- (MCMConcreteContainerIdentity)containerIdentityOld;
 - (MCMXPCMessageReplace)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
 - (unsigned)disposition;
 @end
 
 @implementation MCMXPCMessageReplace
 
-- (MCMConcreteContainerIdentity)containerIdentityNew
-{
-  result = self->_containerIdentityNew;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMConcreteContainerIdentity)containerIdentityOld
-{
-  result = self->_containerIdentityOld;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unsigned)disposition
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MCMXPCMessageReplace;
-  disposition = [(MCMXPCMessageBase *)&v7 disposition];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MCMXPCMessageReplace;
+  disposition = [(MCMXPCMessageBase *)&v6 disposition];
   if (disposition == 1)
   {
     containerIdentityNew = [(MCMXPCMessageReplace *)self containerIdentityNew];
     disposition = [containerIdentityNew disposition];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return disposition;
 }
 
 - (MCMXPCMessageReplace)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
-  v40.receiver = self;
-  v40.super_class = MCMXPCMessageReplace;
-  v10 = [(MCMXPCMessageBase *)&v40 initWithXPCObject:objectCopy context:contextCopy error:error];
+  v39.receiver = self;
+  v39.super_class = MCMXPCMessageReplace;
+  v10 = [(MCMXPCMessageBase *)&v39 initWithXPCObject:objectCopy context:contextCopy error:error];
   if (!v10)
   {
     goto LABEL_21;
   }
 
-  v39 = 1;
+  v38 = 1;
   v11 = xpc_dictionary_get_dictionary(objectCopy, "OldContainer");
   if (v11)
   {
@@ -64,9 +45,9 @@
       {
         error_description = container_get_error_description();
         *buf = 134218242;
-        v42 = v39;
-        v43 = 2080;
-        v44 = error_description;
+        v41 = v38;
+        v42 = 2080;
+        v43 = error_description;
         _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Failed to decode old container; error = (%llu) %s", buf, 0x16u);
       }
 
@@ -81,7 +62,7 @@
     clientIdentity = [contextCopy clientIdentity];
     userIdentity = [clientIdentity userIdentity];
     userIdentityCache = [contextCopy userIdentityCache];
-    v18 = [(MCMConcreteContainerIdentityForLibsystem *)v14 initWithLibsystemContainer:v13 defaultUserIdentity:userIdentity userIdentityCache:userIdentityCache error:&v39];
+    v18 = [(MCMConcreteContainerIdentityForLibsystem *)v14 initWithLibsystemContainer:v13 defaultUserIdentity:userIdentity userIdentityCache:userIdentityCache error:&v38];
     containerIdentityOld = v10->_containerIdentityOld;
     v10->_containerIdentityOld = v18;
   }
@@ -101,15 +82,15 @@
       v23 = [MCMConcreteContainerIdentityForLibsystem alloc];
       clientIdentity2 = [contextCopy clientIdentity];
       [clientIdentity2 userIdentity];
-      v25 = v38 = error;
+      v25 = v37 = error;
       [contextCopy userIdentityCache];
-      v26 = v37 = v11;
-      v27 = [(MCMConcreteContainerIdentityForLibsystem *)v23 initWithLibsystemContainer:v22 defaultUserIdentity:v25 userIdentityCache:v26 error:&v39];
+      v26 = v36 = v11;
+      v27 = [(MCMConcreteContainerIdentityForLibsystem *)v23 initWithLibsystemContainer:v22 defaultUserIdentity:v25 userIdentityCache:v26 error:&v38];
       containerIdentityNew = v10->_containerIdentityNew;
       v10->_containerIdentityNew = v27;
 
-      v11 = v37;
-      error = v38;
+      v11 = v36;
+      error = v37;
     }
 
     else
@@ -117,14 +98,14 @@
       v30 = container_log_handle_for_category();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v34 = v11;
-        v35 = v39;
-        v36 = container_get_error_description();
+        v33 = v11;
+        v34 = v38;
+        v35 = container_get_error_description();
         *buf = 134218242;
-        v42 = v35;
-        v11 = v34;
-        v43 = 2080;
-        v44 = v36;
+        v41 = v34;
+        v11 = v33;
+        v42 = 2080;
+        v43 = v35;
         _os_log_error_impl(&dword_1DF2C3000, v30, OS_LOG_TYPE_ERROR, "Failed to decode new container; error = (%llu) %s", buf, 0x16u);
       }
 
@@ -135,24 +116,23 @@
   else
   {
     v22 = 0;
-    v39 = 38;
+    v38 = 38;
   }
 
 LABEL_16:
   MEMORY[0x1E12D3190](v13);
   MEMORY[0x1E12D3190](v22);
-  if (v39 != 1)
+  if (v38 != 1)
   {
     if (error)
     {
-      *error = v39;
+      *error = v38;
     }
 
     v10 = 0;
   }
 
 LABEL_21:
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

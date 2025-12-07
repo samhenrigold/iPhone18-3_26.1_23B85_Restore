@@ -9,7 +9,7 @@
 
 - (id)_newRemoteBoost
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   connection = [(EMDaemonBooster *)self connection];
   remoteObjectProxy = [connection remoteObjectProxy];
 
@@ -19,23 +19,22 @@
   {
     *buf = 134218242;
     selfCopy = self;
-    v18 = 2114;
-    v19 = loggingDescription;
+    v17 = 2114;
+    v18 = loggingDescription;
     _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "%ld: Acquired Daemon Boost for: %{public}@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __34__EMDaemonBooster__newRemoteBoost__block_invoke;
-  v12[3] = &unk_1E826CB80;
-  v13 = v6;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __34__EMDaemonBooster__newRemoteBoost__block_invoke;
+  v11[3] = &unk_1E826CB80;
+  v12 = v6;
   selfCopy2 = self;
   v7 = loggingDescription;
-  v14 = v7;
+  v13 = v7;
   v8 = v6;
-  v9 = [remoteObjectProxy giveBoostWithCompletionBlock:v12];
+  v9 = [remoteObjectProxy giveBoostWithCompletionBlock:v11];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -124,20 +123,18 @@ void __50__EMDaemonBooster_initWithConnection_description___block_invoke_2(uint6
 
 void __34__EMDaemonBooster__newRemoteBoost__block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = a1[5];
     v3 = a1[6];
-    v6 = 134218242;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "%ld: Released Daemon Boost for: %{public}@", &v6, 0x16u);
+    v5 = 134218242;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "%ld: Released Daemon Boost for: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

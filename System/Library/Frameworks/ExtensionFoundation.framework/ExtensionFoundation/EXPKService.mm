@@ -17,6 +17,7 @@
 - (id)embeddedPrincipalForPlugInNamed:(id)named;
 - (id)hostPrincipalForPlugInNamed:(id)named;
 - (id)personalityNamed:(id)named;
+- (id)personalityNamed:(id)named forHostPid:(int)pid;
 - (id)plugInPrincipalForPlugInNamed:(id)named;
 - (void)_prepareToRun;
 - (void)beganUsingServicePersonality:(id)personality;
@@ -83,7 +84,7 @@ void __44__EXPKService_beganUsingServicePersonality___block_invoke_2(uint64_t a1
 
 + (void)main
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = pklog_handle_for_category();
   if (os_signpost_enabled(v2))
   {
@@ -99,12 +100,13 @@ void __44__EXPKService_beganUsingServicePersonality___block_invoke_2(uint64_t a1
   }
 
   current_persona = voucher_get_current_persona();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0;
+  v39 = 0;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
@@ -120,29 +122,26 @@ void __44__EXPKService_beganUsingServicePersonality___block_invoke_2(uint64_t a1
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   *buf = 1;
   pklog_get_persona_type_and_name();
   v5 = pklog_handle_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 67110146;
-    v9 = geteuid();
-    v10 = 1024;
-    v11 = getuid();
-    v12 = 1024;
-    v13 = current_persona;
-    v14 = 2080;
-    v15 = 0;
-    v16 = 2080;
-    v17 = 0;
-    _os_log_impl(&dword_1847D1000, v5, OS_LOG_TYPE_DEFAULT, "Hello, I'm launching as euid = %d, uid = %d, personaid = %d, type = %s, name = %s", v8, 0x28u);
+    *v7 = 67110146;
+    v8 = geteuid();
+    v9 = 1024;
+    v10 = getuid();
+    v11 = 1024;
+    v12 = current_persona;
+    v13 = 2080;
+    v14 = 0;
+    v15 = 2080;
+    v16 = 0;
+    _os_log_impl(&dword_1847D1000, v5, OS_LOG_TYPE_DEFAULT, "Hello, I'm launching as euid = %d, uid = %d, personaid = %d, type = %s, name = %s", v7, 0x28u);
   }
 
   defaultService = [objc_opt_class() defaultService];
   [defaultService run];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (EXPKService)init
@@ -162,11 +161,11 @@ void __44__EXPKService_beganUsingServicePersonality___block_invoke_2(uint64_t a1
 
 - (EXPKService)initWithProxyFactory:(id)factory
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   factoryCopy = factory;
-  v15.receiver = self;
-  v15.super_class = EXPKService;
-  v6 = [(EXPKService *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = EXPKService;
+  v6 = [(EXPKService *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -184,14 +183,13 @@ void __44__EXPKService_beganUsingServicePersonality___block_invoke_2(uint64_t a1
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v17 = active_platform;
+      v16 = active_platform;
       _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_INFO, "setting extensionPointPlatform: %u", buf, 8u);
     }
 
     [(EXPKService *)v7 setExtensionPointPlatform:active_platform];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -284,10 +282,64 @@ void __18__EXPKService_run__block_invoke_2()
 
 - (void)_prepareToRun
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Bootstrapping; unable to instantiate service delegate class %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  [(EXPKService *)self checkEnvironment:0];
+  serviceListener = [MEMORY[0x1E696B0D8] serviceListener];
+  [(EXPKService *)self setServiceListener:serviceListener];
+
+  serviceListener2 = [(EXPKService *)self serviceListener];
+  [serviceListener2 setDelegate:self];
+
+  [(EXPKService *)self discoverSubsystems];
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  infoDictionary = [mainBundle infoDictionary];
+
+  v7 = [infoDictionary objectForKeyedSubscript:*MEMORY[0x1E69C4AE0]];
+  if (!v7)
+  {
+    v7 = [infoDictionary objectForKeyedSubscript:*MEMORY[0x1E69C4AE8]];
+  }
+
+  v8 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69C4AB8]];
+  v9 = v8;
+  if (v8)
+  {
+    v10 = objc_lookUpClass([v8 UTF8String]);
+    if (v10)
+    {
+      v11 = v10;
+      if (([(objc_class *)v10 conformsToProtocol:&unk_1EF2AC0B8]& 1) != 0)
+      {
+        v12 = objc_alloc_init(v11);
+        if (v12)
+        {
+          v13 = v12;
+          [(EXPKService *)self setDelegate:v12];
+LABEL_13:
+
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        v14 = pklog_handle_for_category();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          [EXPKService _prepareToRun];
+        }
+      }
+    }
+
+    v13 = pklog_handle_for_category();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [EXPKService _prepareToRun];
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_14:
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -351,7 +403,7 @@ void __18__EXPKService_run__block_invoke_2()
 
 - (void)discoverSubsystems
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   configuredSubsystemList = [(EXPKService *)self configuredSubsystemList];
   if ([(EXPKService *)self isSystemService])
   {
@@ -394,39 +446,39 @@ LABEL_12:
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     preferredLocalizations = [mainBundle preferredLocalizations];
     *buf = 138412290;
-    v31 = preferredLocalizations;
+    v30 = preferredLocalizations;
     _os_log_impl(&dword_1847D1000, v9, OS_LOG_TYPE_INFO, "Bootstrapping; Preferred localizations: %@", buf, 0xCu);
   }
 
 LABEL_15:
   array = [MEMORY[0x1E695DF70] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v13 = configuredSubsystemList;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v26;
+    v16 = *v25;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(EXPKService *)self discoverSubsystemNamed:*(*(&v25 + 1) + 8 * i) options:v4 required:1, v25];
+        v18 = [(EXPKService *)self discoverSubsystemNamed:*(*(&v24 + 1) + 8 * i) options:v4 required:1, v24];
         if (v18)
         {
           [array addObject:v18];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v15);
@@ -436,7 +488,7 @@ LABEL_15:
   v20 = &off_1E6E4E788;
   do
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v19, v25}];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v19, v24}];
     if ((!v13 || ([v13 containsObject:v21] & 1) == 0) && -[EXPKService _processDefaultSubsystemName:](self, "_processDefaultSubsystemName:", v21))
     {
       v22 = [(EXPKService *)self discoverSubsystemNamed:v21 options:v4 required:0];
@@ -452,8 +504,6 @@ LABEL_15:
 
   while (v23);
   [(EXPKService *)self setSubsystems:array];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)configuredSubsystemList
@@ -497,51 +547,49 @@ LABEL_15:
 
 - (void)mergeSubsystemList:(id)list from:(id)from
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   listCopy = list;
   fromCopy = from;
   v7 = fromCopy;
   if (fromCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v8 = [fromCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v8 = [fromCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * i);
+          v12 = *(*(&v13 + 1) + 8 * i);
           if (([listCopy containsObject:v12] & 1) == 0)
           {
             [listCopy addObject:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)discoverSubsystemNamed:(id)named options:(id)options required:(BOOL)required
 {
   requiredCopy = required;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   optionsCopy = options;
   v9 = objc_lookUpClass([namedCopy UTF8String]);
@@ -551,28 +599,28 @@ LABEL_15:
   {
     if (os_signpost_enabled(v10))
     {
-      v17 = 138543362;
-      v18 = namedCopy;
-      _os_signpost_emit_with_name_impl(&dword_1847D1000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ExtensionSubsystemInit", " name=%{public, signpost.description:attribute}@ ", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = namedCopy;
+      _os_signpost_emit_with_name_impl(&dword_1847D1000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ExtensionSubsystemInit", " name=%{public, signpost.description:attribute}@ ", &v16, 0xCu);
     }
 
     v12 = pklog_handle_for_category();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v17 = 138543362;
-      v18 = namedCopy;
-      _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_INFO, "Bootstrapping; external subsystem [%{public}@] initializing", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = namedCopy;
+      _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_INFO, "Bootstrapping; external subsystem [%{public}@] initializing", &v16, 0xCu);
     }
 
     v13 = __PLUGINKIT_CALLING_OUT_TO_CLIENT_SUBSYSTEM_FOR_INIT__();
     v14 = pklog_handle_for_category();
     if (os_signpost_enabled(v14))
     {
-      v17 = 138543618;
-      v18 = namedCopy;
-      v19 = 1026;
-      v20 = v13 != 0;
-      _os_signpost_emit_with_name_impl(&dword_1847D1000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ExtensionSubsystemInit", " name=%{public, signpost.description:attribute}@  success=%{public, signpost.description:attribute}d ", &v17, 0x12u);
+      v16 = 138543618;
+      v17 = namedCopy;
+      v18 = 1026;
+      v19 = v13 != 0;
+      _os_signpost_emit_with_name_impl(&dword_1847D1000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ExtensionSubsystemInit", " name=%{public, signpost.description:attribute}@  success=%{public, signpost.description:attribute}d ", &v16, 0x12u);
     }
 
     if (v13)
@@ -609,15 +657,13 @@ LABEL_15:
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543362;
-    v18 = namedCopy;
-    _os_log_impl(&dword_1847D1000, v11, OS_LOG_TYPE_INFO, "Bootstrapping; external subsystem [%{public}@] not present, skipping", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = namedCopy;
+    _os_log_impl(&dword_1847D1000, v11, OS_LOG_TYPE_INFO, "Bootstrapping; external subsystem [%{public}@] not present, skipping", &v16, 0xCu);
   }
 
   v13 = 0;
 LABEL_20:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -729,9 +775,25 @@ LABEL_20:
   return v8;
 }
 
+- (id)personalityNamed:(id)named forHostPid:(int)pid
+{
+  v4 = *&pid;
+  namedCopy = named;
+  os_unfair_lock_lock(&self->_personalityLock);
+  personalities = [(EXPKService *)self personalities];
+  v8 = [personalities objectForKeyedSubscript:namedCopy];
+
+  v9 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v10 = [v8 objectForKeyedSubscript:v9];
+
+  os_unfair_lock_unlock(&self->_personalityLock);
+
+  return v10;
+}
+
 - (void)registerPersonality:(id)personality
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   personalityCopy = personality;
   os_unfair_lock_lock(&self->_personalityLock);
   personalities = [(EXPKService *)self personalities];
@@ -764,13 +826,13 @@ LABEL_20:
         uuid = [personalityCopy uuid];
         identifier3 = [personalityCopy identifier];
         version = [personalityCopy version];
-        v23 = 138543874;
-        v24 = uuid;
-        v25 = 2112;
-        v26 = identifier3;
-        v27 = 2112;
-        v28 = version;
-        _os_log_impl(&dword_1847D1000, v15, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Set sole personality.", &v23, 0x20u);
+        v22 = 138543874;
+        v23 = uuid;
+        v24 = 2112;
+        v25 = identifier3;
+        v26 = 2112;
+        v27 = version;
+        _os_log_impl(&dword_1847D1000, v15, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Set sole personality.", &v22, 0x20u);
       }
 
       v19 = personalityCopy;
@@ -795,12 +857,11 @@ LABEL_20:
 LABEL_12:
 
   os_unfair_lock_unlock(&self->_personalityLock);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)unregisterPersonality:(id)personality
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   personalityCopy = personality;
   os_unfair_lock_lock(&self->_personalityLock);
   personalities = [(EXPKService *)self personalities];
@@ -830,13 +891,13 @@ LABEL_12:
           uuid = [(PKServicePersonality *)personalityCopy uuid];
           identifier2 = [(PKServicePersonality *)personalityCopy identifier];
           version = [(PKServicePersonality *)personalityCopy version];
-          v20 = 138543874;
-          v21 = uuid;
-          v22 = 2112;
-          v23 = identifier2;
-          v24 = 2112;
-          v25 = version;
-          _os_log_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Removed sole personality.", &v20, 0x20u);
+          v19 = 138543874;
+          v20 = uuid;
+          v21 = 2112;
+          v22 = identifier2;
+          v23 = 2112;
+          v24 = version;
+          _os_log_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Removed sole personality.", &v19, 0x20u);
         }
 
         solePersonality = self->_solePersonality;
@@ -847,14 +908,13 @@ LABEL_12:
 
   os_unfair_lock_unlock(&self->_personalityLock);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)checkEnvironment:(id)environment
 {
-  *&v8[1023] = *MEMORY[0x1E69E9840];
-  bzero(v8, 0x3FFuLL);
+  *&v7[1023] = *MEMORY[0x1E69E9840];
+  bzero(v7, 0x3FFuLL);
   __s = 63;
   getpid();
   if (sandbox_container_path_for_pid())
@@ -868,7 +928,7 @@ LABEL_12:
 
   else if (strlen(&__s) > 1)
   {
-    goto LABEL_9;
+    return;
   }
 
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"plugin has invalid sandbox or container: error %d path %s", *__error(), &__s];
@@ -879,8 +939,6 @@ LABEL_12:
   }
 
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"%@", v4}];
-LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleTermination:(double)termination
@@ -965,86 +1023,49 @@ void __32__EXPKService_cancelTermination__block_invoke(uint64_t a1)
 
 void __18__EXPKService_run__block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8(&dword_1847D1000, a1, a3, "WARNING: Did not receive handshake message from the host after waiting ~%0.0f seconds. THIS MAY BE A SPURIOUS LAUNCH OF THE PLUGIN due to a message to an XPC endpoint other than the main service endpoint, or the CPU is highly contended and this extension or its host is not getting enough CPU time.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Bootstrapping; PlugInKit listener %{public}@ unexpected (rejecting)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)discoverSubsystemNamed:options:required:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Bootstrapping; external subsystem initializer %{public}@ does not conform to PKModularService", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)discoverSubsystemNamed:options:required:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "Bootstrapping; external subsystem %{public}@ refused setup", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = 0x4000000000000000;
+  OUTLINED_FUNCTION_8(&dword_1847D1000, a1, a3, "WARNING: Did not receive handshake message from the host after waiting ~%0.0f seconds. THIS MAY BE A SPURIOUS LAUNCH OF THE PLUGIN due to a message to an XPC endpoint other than the main service endpoint, or the CPU is highly contended and this extension or its host is not getting enough CPU time.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)discoverSubsystemNamed:options:required:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "Bootstrapping; misconfigured plugin; external subsystem [%{public}@] not present; possible missing linkage", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1847D1000, v0, OS_LOG_TYPE_FAULT, "Bootstrapping; misconfigured plugin; external subsystem [%{public}@] not present; possible missing linkage", v1, 0xCu);
 }
 
 - (void)launchContainingApplicationForPlugInNamed:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8(&dword_1847D1000, a1, a3, "%s unsupported", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[EXPKService launchContainingApplicationForPlugInNamed:]";
+  OUTLINED_FUNCTION_8(&dword_1847D1000, a1, a3, "%s unsupported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)solePersonality
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   personalities = [self personalities];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "WARNING! Sole personality requested when nil; THIS MAY BE A SPURIOUS LAUNCH OF THE PLUGIN due to a message to an XPC endpoint other than the main service endpoint; personalities: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "WARNING! Sole personality requested when nil; THIS MAY BE A SPURIOUS LAUNCH OF THE PLUGIN due to a message to an XPC endpoint other than the main service endpoint; personalities: %@", v4, 0xCu);
 }
 
 - (void)registerPersonality:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = [a1 uuid];
   v7 = [a1 identifier];
   v8 = [a1 version];
   v9 = [a2 personalities];
-  v11 = 138544130;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  v15 = 2112;
-  v16 = v8;
-  v17 = 2112;
-  v18 = v9;
-  _os_log_error_impl(&dword_1847D1000, a3, OS_LOG_TYPE_ERROR, "[u %{public}@] [%@(%@)] WARNING! Sole personality is ambiguous; this may lead to erratic behavior; personalities: %@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)checkEnvironment:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_8(&dword_1847D1000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = 138544130;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  v14 = 2112;
+  v15 = v8;
+  v16 = 2112;
+  v17 = v9;
+  _os_log_error_impl(&dword_1847D1000, a3, OS_LOG_TYPE_ERROR, "[u %{public}@] [%@(%@)] WARNING! Sole personality is ambiguous; this may lead to erratic behavior; personalities: %@", &v10, 0x2Au);
 }
 
 @end

@@ -419,11 +419,11 @@ void __40__HUICCFooterView__openSettingsWithURL___block_invoke_cold_1(uint64_t a
   _os_log_error_impl(&dword_252166000, a2, OS_LOG_TYPE_ERROR, "[HearingCC] Failed to open URL for %@", &v4, 0xCu);
 }
 
-uint64_t __40__HUICCFooterView__openSettingsWithURL___block_invoke_cold_2()
+void __40__HUICCFooterView__openSettingsWithURL___block_invoke_cold_2()
 {
-  dlerror();
-  abort_report_np();
-  return __getLSApplicationWorkspaceClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getLSApplicationWorkspaceClass_block_invoke_cold_1();
 }
 
 @end

@@ -24,7 +24,7 @@
 
 - (BOOL)preserveContinuityPairingRecord
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -37,14 +37,14 @@
   if (v4)
   {
     v5 = +[NSFileManager defaultManager];
-    v21 = 0;
-    v6 = [v5 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain" error:&v21];
-    v7 = v21;
+    v25 = 0;
+    v6 = [v5 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain" error:&v25];
+    v7 = v25;
 
     if ((v6 & 1) == 0)
     {
-      v13 = sub_100063A54();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1000CAAB0(v7);
       }
@@ -52,137 +52,139 @@
       goto LABEL_22;
     }
 
-    v8 = v7;
+    v9 = v7;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = +[NSFileManager defaultManager];
-  v10 = [v9 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
+  v10 = +[NSFileManager defaultManager];
+  v11 = [v10 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
 
-  if (v10)
+  if (v11)
   {
-    v11 = +[NSFileManager defaultManager];
-    v20 = v8;
-    v12 = [v11 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain" error:&v20];
-    v7 = v20;
+    v12 = +[NSFileManager defaultManager];
+    v24 = v9;
+    v13 = [v12 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain" error:&v24];
+    v7 = v24;
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v13 = sub_100063A54();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1000CAAB0(v7);
       }
 
 LABEL_22:
 
-      v18 = 0;
+      v22 = 0;
       goto LABEL_15;
     }
   }
 
   else
   {
-    v7 = v8;
-  }
-
-  v14 = +[MSDCryptoHandler sharedInstance];
-  v15 = [v14 preserveAndEncryptKeychainItemsForKey:@"com.apple.rapport" toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain"];
-
-  if ((v15 & 1) == 0)
-  {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      sub_1000CAB40(v13);
-    }
-
-    goto LABEL_22;
+    v7 = v9;
   }
 
   v16 = +[MSDCryptoHandler sharedInstance];
-  v17 = [v16 preserveAndEncryptKeychainItemsForKey:@"com.apple.continuity.encryption" toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
+  v17 = [v16 preserveAndEncryptKeychainItemsForKey:@"com.apple.rapport" toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain"];
 
   if ((v17 & 1) == 0)
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(v18);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CAB84(v13);
+      sub_1000CAB40(v15);
     }
 
     goto LABEL_22;
   }
 
-  v18 = 1;
+  v19 = +[MSDCryptoHandler sharedInstance];
+  v20 = [v19 preserveAndEncryptKeychainItemsForKey:@"com.apple.continuity.encryption" toFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
+
+  if ((v20 & 1) == 0)
+  {
+    v15 = sub_100063A54(v21);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000CAB84(v15);
+    }
+
+    goto LABEL_22;
+  }
+
+  v22 = 1;
 LABEL_15:
 
-  return v18;
+  return v22;
 }
 
 - (void)restoreContinuityPairingRecordIfNeeded
 {
   shouldRestoreRapportPairingRecord = [(MSDContinuityHelper *)self shouldRestoreRapportPairingRecord];
-  v4 = sub_100063A54();
-  v5 = v4;
-  if (shouldRestoreRapportPairingRecord)
+  v4 = shouldRestoreRapportPairingRecord;
+  v5 = sub_100063A54(shouldRestoreRapportPairingRecord);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Restoring rapport pairing information to keychain.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Restoring rapport pairing information to keychain.", buf, 2u);
     }
 
-    v6 = +[MSDCryptoHandler sharedInstance];
-    v7 = [v6 restoreAndDecryptKeychainItemsForKey:@"com.apple.rapport" fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain"];
+    v7 = +[MSDCryptoHandler sharedInstance];
+    v8 = [v7 restoreAndDecryptKeychainItemsForKey:@"com.apple.rapport" fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.rapportkeychain"];
 
-    if (v7)
+    if (v8)
     {
       [(MSDContinuityHelper *)self removeRapportPairingIfNeeded];
       shouldRestoreUCBPairingRecord = [(MSDContinuityHelper *)self shouldRestoreUCBPairingRecord];
-      v9 = sub_100063A54();
-      v10 = v9;
-      if (shouldRestoreUCBPairingRecord)
+      v11 = shouldRestoreUCBPairingRecord;
+      v12 = sub_100063A54(shouldRestoreUCBPairingRecord);
+      v13 = v12;
+      if (v11)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v13 = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Restoring UCB pairing information to keychain.", v13, 2u);
+          *v17 = 0;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Restoring UCB pairing information to keychain.", v17, 2u);
         }
 
-        v11 = +[MSDCryptoHandler sharedInstance];
-        v12 = [v11 restoreAndDecryptKeychainItemsForKey:@"com.apple.continuity.encryption" fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
+        v14 = +[MSDCryptoHandler sharedInstance];
+        v15 = [v14 restoreAndDecryptKeychainItemsForKey:@"com.apple.continuity.encryption" fromFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/com.apple.MobileStoreDemo.ucbkeychain"];
 
-        if (v12)
+        if (v15)
         {
           [(MSDContinuityHelper *)self removeUCBPairingIfNeeded];
         }
 
         else
         {
-          sub_1000CAC1C();
+          sub_1000CAC1C(v16);
         }
       }
 
       else
       {
-        sub_1000CAC78(v9);
+        sub_1000CAC78(v12);
       }
     }
 
     else
     {
-      sub_1000CAC1C();
+      sub_1000CAC1C(v9);
     }
   }
 
   else
   {
-    sub_1000CABC8(v4);
+    sub_1000CABC8(v5);
   }
 }
 

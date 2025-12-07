@@ -7,6 +7,7 @@
 - (void)downloadTranslationAssetsForLanguageCodes:(id)codes messageItemsToTranslateLocally:(id)locally chatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)invitePersonInfo:(id)info withMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)joinChatID:(id)d handleInfo:(id)info identifier:(id)identifier style:(unsigned __int8)style groupID:(id)iD lastAddressedHandle:(id)handle lastAddressedSIMID:(id)mID joinProperties:(id)self0 account:(id)self1;
+- (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)removePersonInfo:(id)info chatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)retryGroupPhotoUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)retryTranscriptBackgroundUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style transferID:(id)iD account:(id)account;
@@ -15,8 +16,13 @@
 - (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage retractingPartIndexes:(id)indexes toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
+- (void)sendHQAttachmentsForMessage:(id)message toChatID:(id)d style:(unsigned __int8)style account:(id)account;
+- (void)sendLazuliSpamReport:(id)report isBot:(BOOL)bot spamType:(unint64_t)type account:(id)account;
 - (void)sendMappingPacket:(id)packet toHandle:(id)handle account:(id)account;
+- (void)sendMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
+- (void)sendReportJunkMessageGUID:(id)d account:(id)account shouldRelay:(BOOL)relay;
 - (void)sendReportNotJunkMessageGUID:(id)d account:(id)account;
+- (void)sendRepositionStickerMessage:(id)message chatIdentifier:(id)identifier accountID:(id)d style:(unsigned __int8)style;
 - (void)setTranscriptBackgroundAndSendToChat:(id)chat toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style transferID:(id)iD account:(id)account completion:(id)completion;
 @end
 
@@ -418,6 +424,71 @@ LABEL_20:
   }
 }
 
+- (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  accountCopy = account;
+  v9 = +[IMFeatureFlags sharedFeatureFlags];
+  isTranscriptBackgroundsEnabled = [v9 isTranscriptBackgroundsEnabled];
+
+  if (isTranscriptBackgroundsEnabled)
+  {
+    v11 = +[IMDAccountController sharedAccountController];
+    v12 = [v11 sessionForAccount:accountCopy];
+
+    if (v12)
+    {
+      goto LABEL_20;
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        v21 = 138412290;
+        v22 = accountCopy;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v21, 0xCu);
+      }
+    }
+
+    v14 = +[IMDAccountController sharedAccountController];
+    v15 = +[IMDAccountController sharedAccountController];
+    v16 = [v15 accountForAccountID:accountCopy];
+    service = [v16 service];
+    internalName = [service internalName];
+    v12 = [v14 anySessionForServiceName:internalName];
+
+    if (v12)
+    {
+LABEL_20:
+      if (IMOSLoggingEnabled())
+      {
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        {
+          LOWORD(v21) = 0;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Received refetchLocalTranscriptBackgroundAssetIfNecessaryForChatID: request", &v21, 2u);
+        }
+      }
+
+      [v12 refetchChatBackgroundIfNeededForChatIdentifier:identifierCopy chatStyle:styleCopy];
+    }
+
+    else if (IMOSLoggingEnabled())
+    {
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        v21 = 138412290;
+        v22 = accountCopy;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v21, 0xCu);
+      }
+    }
+  }
+}
+
 - (void)removePersonInfo:(id)info chatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account
 {
   styleCopy = style;
@@ -524,6 +595,141 @@ LABEL_7:
   }
 }
 
+- (void)sendMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  messageCopy = message;
+  dCopy = d;
+  identifierCopy = identifier;
+  accountCopy = account;
+  v14 = +[IMDAccountController sharedAccountController];
+  v15 = [v14 sessionForAccount:accountCopy];
+
+  if (v15)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v39 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", buf, 0xCu);
+    }
+  }
+
+  v17 = +[IMDAccountController sharedAccountController];
+  v18 = +[IMDAccountController sharedAccountController];
+  v19 = [v18 accountForAccountID:accountCopy];
+  service = [v19 service];
+  internalName = [service internalName];
+  v15 = [v17 anySessionForServiceName:internalName];
+
+  if (v15)
+  {
+LABEL_7:
+    v22 = +[IMDCKSyncController sharedInstance];
+    [v22 recordMetricIsCloudKitEnabled];
+
+    v23 = [v15 chatForChatIdentifier:identifierCopy style:styleCopy updatingAccount:1];
+    v42 = messageCopy;
+    v24 = [NSArray arrayWithObjects:&v42 count:1];
+    if (+[IMDMessageTranslator shouldTranslateMessagesForChat:](IMDMessageTranslator, "shouldTranslateMessagesForChat:", v23) && +[IMDMessageTranslator shouldTranslateMessageItems:](IMDMessageTranslator, "shouldTranslateMessageItems:", v24) && ([messageCopy translationsForMessagePart:0], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "count") == 0, v25, v26))
+    {
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_10001C8E8;
+      v32[3] = &unk_100081B48;
+      v33 = messageCopy;
+      v34 = v15;
+      v35 = dCopy;
+      v36 = identifierCopy;
+      v37 = styleCopy;
+      [IMDMessageTranslator translateMessageItems:v24 forChat:v23 incoming:0 completion:v32];
+    }
+
+    else
+    {
+      v27 = IMDaemonLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        guid = [messageCopy guid];
+        displayName = [v15 displayName];
+        *buf = 138412546;
+        v39 = guid;
+        v40 = 2112;
+        v41 = displayName;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Sending message: %@ outside of main queue with session: %@", buf, 0x16u);
+      }
+
+      [v15 sendMessage:messageCopy toChatID:dCopy identifier:identifierCopy style:styleCopy];
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v30 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v39 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", buf, 0xCu);
+    }
+  }
+}
+
+- (void)sendReportJunkMessageGUID:(id)d account:(id)account shouldRelay:(BOOL)relay
+{
+  relayCopy = relay;
+  dCopy = d;
+  accountCopy = account;
+  v9 = +[IMDAccountController sharedAccountController];
+  v10 = [v9 sessionForAccount:accountCopy];
+
+  if (v10)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v18 = 138412290;
+      v19 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v18, 0xCu);
+    }
+  }
+
+  v12 = +[IMDAccountController sharedAccountController];
+  v13 = +[IMDAccountController sharedAccountController];
+  v14 = [v13 accountForAccountID:accountCopy];
+  service = [v14 service];
+  internalName = [service internalName];
+  v10 = [v12 anySessionForServiceName:internalName];
+
+  if (v10)
+  {
+LABEL_7:
+    [v10 sendReportJunkMessageGUID:dCopy shouldRelay:relayCopy];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v17 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      v18 = 138412290;
+      v19 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v18, 0xCu);
+    }
+  }
+}
+
 - (void)sendReportNotJunkMessageGUID:(id)d account:(id)account
 {
   dCopy = d;
@@ -568,6 +774,55 @@ LABEL_7:
       v16 = 138412290;
       v17 = accountCopy;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v16, 0xCu);
+    }
+  }
+}
+
+- (void)sendLazuliSpamReport:(id)report isBot:(BOOL)bot spamType:(unint64_t)type account:(id)account
+{
+  botCopy = bot;
+  reportCopy = report;
+  accountCopy = account;
+  v11 = +[IMDAccountController sharedAccountController];
+  v12 = [v11 sessionForAccount:accountCopy];
+
+  if (v12)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v20 = 138412290;
+      v21 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v20, 0xCu);
+    }
+  }
+
+  v14 = +[IMDAccountController sharedAccountController];
+  v15 = +[IMDAccountController sharedAccountController];
+  v16 = [v15 accountForAccountID:accountCopy];
+  service = [v16 service];
+  internalName = [service internalName];
+  v12 = [v14 anySessionForServiceName:internalName];
+
+  if (v12)
+  {
+LABEL_7:
+    [v12 sendLazuliSpamReport:reportCopy isBot:botCopy spamType:type];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      v20 = 138412290;
+      v21 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v20, 0xCu);
     }
   }
 }
@@ -752,6 +1007,66 @@ LABEL_11:
       *buf = 138412290;
       v26 = accountCopy;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", buf, 0xCu);
+    }
+  }
+}
+
+- (void)sendRepositionStickerMessage:(id)message chatIdentifier:(id)identifier accountID:(id)d style:(unsigned __int8)style
+{
+  styleCopy = style;
+  messageCopy = message;
+  identifierCopy = identifier;
+  dCopy = d;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Received sendRepositionStickerMessage request", &v22, 2u);
+    }
+  }
+
+  v13 = +[IMDAccountController sharedAccountController];
+  v14 = [v13 sessionForAccount:dCopy];
+
+  if (v14)
+  {
+    goto LABEL_11;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v22 = 138412290;
+      v23 = dCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v22, 0xCu);
+    }
+  }
+
+  v16 = +[IMDAccountController sharedAccountController];
+  v17 = +[IMDAccountController sharedAccountController];
+  v18 = [v17 accountForAccountID:dCopy];
+  service = [v18 service];
+  internalName = [service internalName];
+  v14 = [v16 anySessionForServiceName:internalName];
+
+  if (v14)
+  {
+LABEL_11:
+    [v14 sendRepositionStickerMessage:messageCopy chatIdentifier:identifierCopy accountID:dCopy style:styleCopy];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v21 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      v22 = 138412290;
+      v23 = dCopy;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v22, 0xCu);
     }
   }
 }
@@ -1213,6 +1528,66 @@ LABEL_12:
         v33 = accountCopy;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", buf, 0xCu);
       }
+    }
+  }
+}
+
+- (void)sendHQAttachmentsForMessage:(id)message toChatID:(id)d style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  messageCopy = message;
+  dCopy = d;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Received sendHQAttachmentsForMessage request", &v22, 2u);
+    }
+  }
+
+  v13 = +[IMDAccountController sharedAccountController];
+  v14 = [v13 sessionForAccount:accountCopy];
+
+  if (v14)
+  {
+    goto LABEL_11;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v22 = 138412290;
+      v23 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v22, 0xCu);
+    }
+  }
+
+  v16 = +[IMDAccountController sharedAccountController];
+  v17 = +[IMDAccountController sharedAccountController];
+  v18 = [v17 accountForAccountID:accountCopy];
+  service = [v18 service];
+  internalName = [service internalName];
+  v14 = [v16 anySessionForServiceName:internalName];
+
+  if (v14)
+  {
+LABEL_11:
+    [v14 sendHQAttachmentsForMessage:messageCopy toChatID:dCopy style:styleCopy];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v21 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      v22 = 138412290;
+      v23 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v22, 0xCu);
     }
   }
 }

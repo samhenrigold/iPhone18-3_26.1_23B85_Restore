@@ -42,32 +42,32 @@
   return v3;
 }
 
-void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
+void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = VUISignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = VUISignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Init", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Init", "", buf, 2u);
   }
 
-  v1 = objc_opt_new();
-  v2 = sharedInstance_defaultConfig;
-  sharedInstance_defaultConfig = v1;
+  v2 = objc_opt_new();
+  v3 = sharedInstance_defaultConfig;
+  sharedInstance_defaultConfig = v2;
 
-  v3 = VUISignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Init", "", v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.Init", "", v6, 2u);
   }
 }
 
 - (VUIFeaturesConfiguration)init
 {
-  v52.receiver = self;
-  v52.super_class = VUIFeaturesConfiguration;
-  v2 = [(VUIFeaturesConfiguration *)&v52 init];
+  v54.receiver = self;
+  v54.super_class = VUIFeaturesConfiguration;
+  v2 = [(VUIFeaturesConfiguration *)&v54 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -158,22 +158,23 @@ void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
     tipKitConfig = v2->_tipKitConfig;
     v2->_tipKitConfig = v45;
 
-    v47 = VUISignpostLogObject();
-    if (os_signpost_enabled(v47))
+    v48 = VUISignpostLogObject(v47);
+    if (os_signpost_enabled(v48))
     {
-      *v51 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v47, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.ReadCache", "", v51, 2u);
+      *v53 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.ReadCache", "", v53, 2u);
     }
 
     _updateFromCache = [(VUIFeaturesConfiguration *)v2 _updateFromCache];
-    v49 = VUISignpostLogObject();
-    if (os_signpost_enabled(v49))
+    v50 = _updateFromCache;
+    v51 = VUISignpostLogObject(_updateFromCache);
+    if (os_signpost_enabled(v51))
     {
-      *v51 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1E323F000, v49, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.ReadCache", "", v51, 2u);
+      *v53 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1E323F000, v51, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.ReadCache", "", v53, 2u);
     }
 
-    if (!_updateFromCache)
+    if ((v50 & 1) == 0)
     {
       [(VUIFeaturesConfiguration *)v2 _populateRootControllerConfig:0];
       [(VUIFeaturesConfiguration *)v2 _populateLaunchConfig:0];
@@ -195,7 +196,7 @@ void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
       v11 = 0;
       v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v11];
       v6 = v11;
-      v7 = VUIDefaultLogObject();
+      v7 = VUIDefaultLogObject(v6);
       v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       if (v6 || !v5)
       {
@@ -223,7 +224,7 @@ void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
 
     else
     {
-      v6 = VUIDefaultLogObject();
+      v6 = VUIDefaultLogObject(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -249,22 +250,22 @@ void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
 
   if (firstObject)
   {
-    v4 = [firstObject stringByAppendingPathComponent:@"features_config"];
+    v5 = [firstObject stringByAppendingPathComponent:@"features_config"];
   }
 
   else
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: Unable to find cache path", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: Unable to find cache path", v8, 2u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)updateWithDictionary:(id)dictionary
@@ -337,7 +338,7 @@ void __42__VUIFeaturesConfiguration_sharedInstance__block_invoke()
 
 void __49__VUIFeaturesConfiguration_updateWithDictionary___block_invoke(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -347,11 +348,11 @@ void __49__VUIFeaturesConfiguration_updateWithDictionary___block_invoke(uint64_t
   v3 = +[VUIFeaturesConfiguration sharedInstance];
   [v3 _cacheFeatureConfiguration:*(a1 + 32)];
 
-  v4 = VUISignpostLogObject();
-  if (os_signpost_enabled(v4))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.WriteCache", "", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "FeaturesConfiguration.WriteCache", "", v6, 2u);
   }
 }
 
@@ -835,44 +836,46 @@ LABEL_48:
 
 - (void)_cacheFeatureConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:configuration options:0 error:&v11];
-  v5 = v11;
+  v16 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v4 = [MEMORY[0x1E696ACB0] dataWithJSONObject:configuration options:0 error:&v13];
+  v5 = v13;
+  v6 = v5;
   if (v5)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = v4 == 0;
+    v7 = v4 == 0;
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: cache feature configs error: %@", buf, 0xCu);
+      v15 = v6;
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: cache feature configs error: %@", buf, 0xCu);
     }
   }
 
   else
   {
     _cachePath = [(VUIFeaturesConfiguration *)self _cachePath];
-    v7 = _cachePath;
+    v8 = _cachePath;
     if (_cachePath)
     {
-      v9 = [v4 writeToFile:_cachePath atomically:1];
-      v10 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v10 = [v4 writeToFile:_cachePath atomically:1];
+      v11 = v10;
+      v12 = VUIDefaultLogObject(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v13) = v9;
-        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: cache features config, result: %d", buf, 8u);
+        LODWORD(v15) = v11;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIFeaturesConfiguration:: cache features config, result: %d", buf, 8u);
       }
     }
   }
@@ -1566,22 +1569,22 @@ LABEL_9:
 
 - (void)_populateMultiviewConfig:(id)config
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   configCopy = config;
   v5 = [configCopy vui_numberForKey:@"isEnabled"];
   v6 = [configCopy vui_numberForKey:@"useExperienceController"];
   v7 = [configCopy vui_numberForKey:@"maximumPlayerCount"];
 
-  v8 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = VUIDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412802;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: _populateMultiviewConfig isEnabled = %@, maximumPlayerCount = %@, useExperienceController: %@", &v9, 0x20u);
+    v10 = 138412802;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: _populateMultiviewConfig isEnabled = %@, maximumPlayerCount = %@, useExperienceController: %@", &v10, 0x20u);
   }
 
   if (v5)
@@ -1598,35 +1601,35 @@ LABEL_9:
 - (void)_updateTVSettingsIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v12 = 67109120;
-    v13 = neededCopy;
-    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: _updateTVSettingsIfNeeded autoPlayVideoSound = %d", &v12, 8u);
+    v13 = 67109120;
+    v14 = neededCopy;
+    _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: _updateTVSettingsIfNeeded autoPlayVideoSound = %d", &v13, 8u);
   }
 
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v6 = [standardUserDefaults valueForKey:@"AutoPlayBgVideoSoundUserHasChanged"];
   v7 = v6;
-  if (v6 && [v6 BOOLValue])
+  if (v6 && (v8 = [v6 BOOLValue], v8))
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: Ignore updating AutoPlayBgVideoSound because user has changed the value", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: Ignore updating AutoPlayBgVideoSound because user has changed the value", &v13, 2u);
     }
   }
 
   else
   {
-    v9 = [standardUserDefaults valueForKey:@"AutoPlayBgVideoSound"];
-    v8 = v9;
-    if (v9)
+    v10 = [standardUserDefaults valueForKey:@"AutoPlayBgVideoSound"];
+    v9 = v10;
+    if (v10)
     {
-      bOOLValue = [v9 BOOLValue];
+      bOOLValue = [v10 BOOLValue];
     }
 
     else
@@ -1636,12 +1639,12 @@ LABEL_9:
 
     if (bOOLValue != neededCopy)
     {
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = VUIDefaultLogObject(bOOLValue);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = 67109120;
-        v13 = neededCopy;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: Update AutoPlayBgVideoSound to %d", &v12, 8u);
+        v13 = 67109120;
+        v14 = neededCopy;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: Update AutoPlayBgVideoSound to %d", &v13, 8u);
       }
 
       [standardUserDefaults setBool:neededCopy forKey:@"AutoPlayBgVideoSound"];
@@ -1664,7 +1667,7 @@ LABEL_9:
 {
   v74 = *MEMORY[0x1E69E9840];
   configCopy = config;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(configCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1781,8 +1784,7 @@ LABEL_9:
   v36 = v28;
   if (v34)
   {
-    -[VUILaunchConfig setCollectionUseIdForReuseIdEnabled:](self->_launchConfig, "setCollectionUseIdForReuseIdEnabled:", [v34 BOOLValue]);
-    v37 = VUIDefaultLogObject();
+    v37 = VUIDefaultLogObject(-[VUILaunchConfig setCollectionUseIdForReuseIdEnabled:](self->_launchConfig, "setCollectionUseIdForReuseIdEnabled:", [v34 BOOLValue]));
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1795,8 +1797,7 @@ LABEL_9:
   v39 = v38;
   if (v38)
   {
-    -[VUILaunchConfig setGridViewUseItemIdAsReuseId:](self->_launchConfig, "setGridViewUseItemIdAsReuseId:", [v38 BOOLValue]);
-    v40 = VUIDefaultLogObject();
+    v40 = VUIDefaultLogObject(-[VUILaunchConfig setGridViewUseItemIdAsReuseId:](self->_launchConfig, "setGridViewUseItemIdAsReuseId:", [v38 BOOLValue]));
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1810,8 +1811,7 @@ LABEL_9:
   v42 = v41;
   if (v41)
   {
-    -[VUILaunchConfig setMemoryImageCacheEnabled:](self->_launchConfig, "setMemoryImageCacheEnabled:", [v41 BOOLValue]);
-    v43 = VUIDefaultLogObject();
+    v43 = VUIDefaultLogObject(-[VUILaunchConfig setMemoryImageCacheEnabled:](self->_launchConfig, "setMemoryImageCacheEnabled:", [v41 BOOLValue]));
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1824,8 +1824,7 @@ LABEL_9:
   v44 = [VUIFeaturesConfiguration numberValueForKey:@"imageInMemoryCacheSizeLimitInBytes" fromDictionary:configCopy];
   if (v35)
   {
-    -[VUILaunchConfig setImageInMemoryCacheSizeLimitInBytes:](self->_launchConfig, "setImageInMemoryCacheSizeLimitInBytes:", [v35 integerValue]);
-    v45 = VUIDefaultLogObject();
+    v45 = VUIDefaultLogObject(-[VUILaunchConfig setImageInMemoryCacheSizeLimitInBytes:](self->_launchConfig, "setImageInMemoryCacheSizeLimitInBytes:", [v35 integerValue]));
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1839,8 +1838,7 @@ LABEL_9:
   v47 = v46;
   if (v46)
   {
-    -[VUILaunchConfig setDeferRichTextViewUpdate:](self->_launchConfig, "setDeferRichTextViewUpdate:", [v46 BOOLValue]);
-    v48 = VUIDefaultLogObject();
+    v48 = VUIDefaultLogObject(-[VUILaunchConfig setDeferRichTextViewUpdate:](self->_launchConfig, "setDeferRichTextViewUpdate:", [v46 BOOLValue]));
     if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1854,8 +1852,7 @@ LABEL_9:
   v50 = v49;
   if (v49)
   {
-    -[VUILaunchConfig setCheckRemoteServerReachability:](self->_launchConfig, "setCheckRemoteServerReachability:", [v49 BOOLValue]);
-    v51 = VUIDefaultLogObject();
+    v51 = VUIDefaultLogObject(-[VUILaunchConfig setCheckRemoteServerReachability:](self->_launchConfig, "setCheckRemoteServerReachability:", [v49 BOOLValue]));
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1872,8 +1869,7 @@ LABEL_9:
   {
     v56 = self->_launchConfig;
     [v54 doubleValue];
-    [(VUILaunchConfig *)v56 setRemoteServerReachabilityTimeoutDuration:?];
-    v57 = VUIDefaultLogObject();
+    v57 = VUIDefaultLogObject([(VUILaunchConfig *)v56 setRemoteServerReachabilityTimeoutDuration:?]);
     if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1891,7 +1887,7 @@ LABEL_9:
 
 - (void)_populateLibConfig:(id)config
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   configCopy = config;
   if (configCopy)
   {
@@ -1900,34 +1896,35 @@ LABEL_9:
     if (v5)
     {
       -[VUILibConfig setCollectionItemLimit:](self->_libConfig, "setCollectionItemLimit:", [v5 integerValue]);
-      if ([v6 intValue] <= 1000)
+      intValue = [v6 intValue];
+      if (intValue <= 1000)
       {
-        v7 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v8 = VUIDefaultLogObject(intValue);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v16[0] = 67109120;
-          v16[1] = [v6 intValue];
-          _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: collectionItemLimit is not allowed to set to %d", v16, 8u);
+          v17[0] = 67109120;
+          v17[1] = [v6 intValue];
+          _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "FeaturesConfiguration:: collectionItemLimit is not allowed to set to %d", v17, 8u);
         }
       }
     }
 
-    v8 = [VUIFeaturesConfiguration numberValueForKey:@"focusDebounceInterval" fromDictionary:configCopy];
-    v9 = v8;
-    if (v8)
+    v9 = [VUIFeaturesConfiguration numberValueForKey:@"focusDebounceInterval" fromDictionary:configCopy];
+    v10 = v9;
+    if (v9)
     {
       libConfig = self->_libConfig;
-      [v8 floatValue];
-      [(VUILibConfig *)libConfig setFocusDebounceInterval:v11];
+      [v9 floatValue];
+      [(VUILibConfig *)libConfig setFocusDebounceInterval:v12];
     }
 
-    v12 = [VUIFeaturesConfiguration numberValueForKey:@"focusVelocityThreshold" fromDictionary:configCopy];
-    v13 = v12;
-    if (v12)
+    v13 = [VUIFeaturesConfiguration numberValueForKey:@"focusVelocityThreshold" fromDictionary:configCopy];
+    v14 = v13;
+    if (v13)
     {
-      v14 = self->_libConfig;
-      [v12 floatValue];
-      [(VUILibConfig *)v14 setFocusVelocityThreshold:v15];
+      v15 = self->_libConfig;
+      [v13 floatValue];
+      [(VUILibConfig *)v15 setFocusVelocityThreshold:v16];
     }
   }
 }

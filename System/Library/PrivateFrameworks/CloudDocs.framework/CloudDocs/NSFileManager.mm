@@ -45,7 +45,7 @@ void __67__NSFileManager_BRAdditions__br_trashItemAtURL_resultingURL_error___blo
 
 void __76__NSFileManager_BRAdditions__br_putBackTrashedItemAtURL_resultingURL_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
@@ -65,42 +65,40 @@ void __76__NSFileManager_BRAdditions__br_putBackTrashedItemAtURL_resultingURL_er
     {
       v13 = [*(a1 + 32) path];
       v14 = [v13 fp_obfuscatedPath];
-      v18 = 138412802;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_1AE2A9000, v12, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to untrash item at %@ - %@%@", &v18, 0x20u);
+      v17 = 138412802;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v11;
+      _os_log_impl(&dword_1AE2A9000, v12, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to untrash item at %@ - %@%@", &v17, 0x20u);
     }
   }
 
   v15 = *(*(a1 + 48) + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = v6;
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 id __61__NSFileManager_BRAdditions__br_setLastOpenDate_onItemAtURL___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) timeIntervalSince1970];
   v3 = v2;
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
   v4 = [*(a1 + 40) br_physicalURL];
   v5 = [v4 path];
   v6 = [v5 br_fileSystemRepresentation];
 
-  if (BRGetLastUsedDate(0xFFFFFFFFLL, v6, &v20))
+  if (BRGetLastUsedDate(0xFFFFFFFFLL, v6, &v19))
   {
     v7 = 1;
   }
 
   else
   {
-    v7 = v20 <= v3;
+    v7 = v19 <= v3;
   }
 
   if (!v7)
@@ -115,22 +113,22 @@ id __61__NSFileManager_BRAdditions__br_setLastOpenDate_onItemAtURL___block_invok
     v12 = [*(a1 + 40) path];
     v13 = [v12 fp_obfuscatedPath];
     *buf = 138413058;
-    v23 = v13;
-    v24 = 2048;
-    v25 = v20;
-    v26 = 2048;
-    v27 = v3;
-    v28 = 2112;
-    v29 = v14;
+    v22 = v13;
+    v23 = 2048;
+    v24 = v19;
+    v25 = 2048;
+    v26 = v3;
+    v27 = 2112;
+    v28 = v14;
     _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Ignoring setting last open date on %@ because it's going back in time from %ld to %ld%@", buf, 0x2Au);
     goto LABEL_11;
   }
 
-  v20 = v3;
-  v21 = 0;
+  v19 = v3;
+  v20 = 0;
   v8 = [*(a1 + 40) br_physicalURL];
   v9 = [v8 path];
-  UsedDate = BRSetLastUsedDate(0xFFFFFFFFLL, [v9 br_fileSystemRepresentation], &v20);
+  UsedDate = BRSetLastUsedDate(0xFFFFFFFFLL, [v9 br_fileSystemRepresentation], &v19);
 
   if ((UsedDate & 0x80000000) == 0)
   {
@@ -147,11 +145,11 @@ LABEL_12:
     v12 = [*(a1 + 40) path];
     v13 = [v12 fp_obfuscatedPath];
     *buf = 138412802;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2112;
-    v27 = v14;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2112;
+    v26 = v14;
     _os_log_debug_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] Set last used date %@ on %@%@", buf, 0x20u);
 LABEL_11:
 
@@ -167,8 +165,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -193,29 +189,27 @@ id __61__NSFileManager_BRAdditions__br_setFavoriteRank_onItemAtURL___block_invok
 
 void __59__NSFileManager_BRAdditions__br_setPutBackInfoOnItemAtURL___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v6 = 138412802;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] setting put back info path:%@ item:%@%@", &v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412802;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_debug_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] setting put back info path:%@ item:%@%@", &v5, 0x20u);
 }
 
 void __61__NSFileManager_BRAdditions__br_setLastOpenDate_onItemAtURL___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = *__error();
-  v6[0] = 67109378;
-  v6[1] = v4;
-  v7 = 2112;
-  v8 = a1;
-  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] can't to set Spotlight last-used date xattrs %{errno}d%@", v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = 67109378;
+  v5[1] = v4;
+  v6 = 2112;
+  v7 = a1;
+  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] can't to set Spotlight last-used date xattrs %{errno}d%@", v5, 0x12u);
 }
 
 @end

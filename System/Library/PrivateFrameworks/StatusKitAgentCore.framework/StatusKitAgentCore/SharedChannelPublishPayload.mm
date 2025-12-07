@@ -45,18 +45,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_publishPayloadContent)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    notificationDisplayEpochSeconds = self->_notificationDisplayEpochSeconds;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

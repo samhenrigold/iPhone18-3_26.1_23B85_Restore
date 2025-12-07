@@ -122,7 +122,7 @@
     selfCopy2 = self;
   }
 
-  sub_24DF8C95C(v10, &qword_27F1E0370);
+  sub_24DF8C95C(v10, &qword_27F1E0370, &unk_24E369A10);
 }
 
 - (id)readPreferenceValue:(id)value
@@ -159,19 +159,21 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
-    v7 = sub_24DFA0D08;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_24DFA0D08;
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
   }
 
   selfCopy = self;
-  v9._rawValue = l;
-  SettingsContainerViewController.handleURL(_:withCompletion:)(v9, v7);
-  sub_24DE73FA0(v7);
+  v10._rawValue = l;
+  SettingsContainerViewController.handleURL(_:withCompletion:)(v10, v8, v7);
+  sub_24DE73FA0(v8, v7);
 }
 
 - (void)signInController:(id)controller didCompleteWithSuccess:(BOOL)success error:(id)error
@@ -234,7 +236,7 @@
 - (void)onboardingFlowFinishedWithAction:(unint64_t)action
 {
   selfCopy = self;
-  SettingsContainerViewController.onboardingFlowFinished(with:)();
+  SettingsContainerViewController.onboardingFlowFinished(with:)(action);
 }
 
 @end

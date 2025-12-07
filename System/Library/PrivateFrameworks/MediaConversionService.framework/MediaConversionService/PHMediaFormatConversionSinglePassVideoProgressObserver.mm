@@ -30,7 +30,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (context == &PHMediaFormatConversionSinglePassVideoProgressObserverContext)
   {
     WeakRetained = objc_loadWeakRetained(&self->_request);
@@ -40,7 +40,7 @@
       {
         observedFileURL = self->_observedFileURL;
         *buf = 138412290;
-        v23 = observedFileURL;
+        v22 = observedFileURL;
         _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring progress update for deallocated request for URL %@", buf, 0xCu);
       }
 
@@ -61,7 +61,7 @@
         {
           path2 = [(NSURL *)self->_observedFileURL path];
           *buf = 138412290;
-          v23 = path2;
+          v22 = path2;
           _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring progress update for output file %@ that doesn't exist", buf, 0xCu);
         }
 
@@ -69,18 +69,18 @@
       }
 
       v14 = self->_observedFileURL;
-      v21 = 0;
-      v15 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v14 error:&v21];
-      v16 = v21;
+      v20 = 0;
+      v15 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v14 error:&v20];
+      v16 = v20;
       if (!v15)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           path3 = [(NSURL *)self->_observedFileURL path];
           *buf = 138412546;
-          v23 = path3;
-          v24 = 2112;
-          v25 = v16;
+          v22 = path3;
+          v23 = 2112;
+          v24 = v16;
           _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to open file handle for output file %@: %@", buf, 0x16u);
         }
 
@@ -104,8 +104,6 @@ LABEL_17:
 
 LABEL_18:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObservingProgress:(id)progress forRequest:(id)request

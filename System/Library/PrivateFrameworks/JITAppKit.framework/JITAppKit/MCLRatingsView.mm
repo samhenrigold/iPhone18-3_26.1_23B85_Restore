@@ -119,36 +119,35 @@
   {
     CurrentContext = UIGraphicsGetCurrentContext();
     [(MCLRatingsView *)self bounds];
-    v13.origin.x = v3;
-    v13.origin.y = v4;
-    v13.size.height = v5;
-    v13.size.width = v5 * self->_imageaspect;
+    v12.origin.x = v3;
+    v12.origin.y = v4;
+    v12.size.height = v5;
+    v12.size.width = v5 * self->_imageaspect;
     for (i = 1; i <= 5; ++i)
     {
       if (self->_value < i)
       {
-        [(UIImage *)self->_emptyImage drawInRect:v13.origin.x, v13.origin.y, v13.size.width, v13.size.height];
+        [(UIImage *)self->_emptyImage drawInRect:v12.origin.x, v12.origin.y, v12.size.width, v12.size.height];
         if (self->_value > (i - 1))
         {
-          v6 = v13.size.width * (self->_value - (i - 1));
           CGRectMake_0();
-          rect.origin.x = v7;
-          rect.origin.y = v8;
-          rect.size.width = v9;
-          rect.size.height = v10;
+          rect.origin.x = v6;
+          rect.origin.y = v7;
+          rect.size.width = v8;
+          rect.size.height = v9;
           CGContextSaveGState(CurrentContext);
           UIRectClip(rect);
-          [(UIImage *)self->_fullImage drawInRect:v13.origin.x, v13.origin.y, v13.size.width, v13.size.height];
+          [(UIImage *)self->_fullImage drawInRect:v12.origin.x, v12.origin.y, v12.size.width, v12.size.height];
           CGContextRestoreGState(CurrentContext);
         }
       }
 
       else
       {
-        [(UIImage *)self->_fullImage drawInRect:v13.origin.x, v13.origin.y, v13.size.width, v13.size.height];
+        [(UIImage *)self->_fullImage drawInRect:v12.origin.x, v12.origin.y, v12.size.width, v12.size.height];
       }
 
-      v13.origin.x = CGRectGetMaxX(v13) + self->_spacing;
+      v12.origin.x = CGRectGetMaxX(v12) + self->_spacing;
     }
   }
 }

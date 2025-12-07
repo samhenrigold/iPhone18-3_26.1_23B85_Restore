@@ -24,7 +24,7 @@
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -61,8 +61,8 @@
         block[2] = __29__HMRoom_mergeFromNewObject___block_invoke;
         block[3] = &unk_1E754E5E8;
         block[4] = self;
-        v27 = delegate;
-        v28 = home;
+        v26 = delegate;
+        v27 = home;
         dispatch_async(queue, block);
       }
     }
@@ -85,7 +85,7 @@
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v22;
+        v29 = v22;
         _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@Updating room application data via merge", buf, 0xCu);
       }
 
@@ -103,7 +103,6 @@
     v18 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -148,29 +147,29 @@ void __29__HMRoom_mergeFromNewObject___block_invoke(id *a1)
 
 - (void)updateApplicationData:(id)data completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
   context = [(HMRoom *)self context];
   if (!handlerCopy)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRoom updateApplicationData:completionHandler:]", @"completion"];
-    v22 = objc_autoreleasePoolPush();
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRoom updateApplicationData:completionHandler:]", @"completion"];
+    v21 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v25;
-      v29 = 2112;
-      v30 = v21;
-      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v27 = v24;
+      v28 = 2112;
+      v29 = v20;
+      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v22);
-    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
-    objc_exception_throw(v26);
+    objc_autoreleasePoolPop(v21);
+    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
+    objc_exception_throw(v25);
   }
 
   v9 = context;
@@ -201,9 +200,9 @@ void __29__HMRoom_mergeFromNewObject___block_invoke(id *a1)
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v15;
-      v29 = 2080;
-      v30 = "[HMRoom updateApplicationData:completionHandler:]";
+      v27 = v15;
+      v28 = 2080;
+      v29 = "[HMRoom updateApplicationData:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -211,13 +210,11 @@ void __29__HMRoom_mergeFromNewObject___block_invoke(id *a1)
     v16 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v16);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateName:(id)name completionHandler:(id)handler
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   context = [(HMRoom *)self context];
@@ -248,7 +245,7 @@ void __29__HMRoom_mergeFromNewObject___block_invoke(id *a1)
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v62 = v13;
+        v61 = v13;
         _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@New name is longer than the pre-defined max length", buf, 0xCu);
       }
 
@@ -272,51 +269,51 @@ void __29__HMRoom_mergeFromNewObject___block_invoke(id *a1)
       if (!v28)
       {
         name = [(HMRoom *)self name];
-        v35 = [name isEqualToString:v23];
+        v34 = [name isEqualToString:v23];
 
-        if (!v35)
+        if (!v34)
         {
-          v36 = objc_alloc(MEMORY[0x1E69A2A00]);
+          v35 = objc_alloc(MEMORY[0x1E69A2A00]);
           uuid3 = [(HMRoom *)self uuid];
-          v50 = [v36 initWithTarget:uuid3];
+          v49 = [v35 initWithTarget:uuid3];
 
-          v38 = MEMORY[0x1E69A2A10];
-          v59 = @"kRoomName";
-          v60 = v23;
-          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-          v40 = [v38 messageWithName:@"kRenameRoomRequestKey" destination:v50 payload:v39];
+          v37 = MEMORY[0x1E69A2A10];
+          v58 = @"kRoomName";
+          v59 = v23;
+          v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v39 = [v37 messageWithName:@"kRenameRoomRequestKey" destination:v49 payload:v38];
 
           objc_initWeak(buf, self);
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __40__HMRoom__updateName_completionHandler___block_invoke;
           aBlock[3] = &unk_1E754D988;
-          objc_copyWeak(&v58, buf);
-          v56 = v23;
-          v57 = handlerCopy;
-          v41 = _Block_copy(aBlock);
+          objc_copyWeak(&v57, buf);
+          v55 = v23;
+          v56 = handlerCopy;
+          v40 = _Block_copy(aBlock);
           context3 = [(HMRoom *)self context];
           pendingRequests = [context3 pendingRequests];
 
-          identifier = [v40 identifier];
-          v45 = _Block_copy(v41);
-          [pendingRequests addCompletionBlock:v45 forIdentifier:identifier];
+          identifier = [v39 identifier];
+          v44 = _Block_copy(v40);
+          [pendingRequests addCompletionBlock:v44 forIdentifier:identifier];
 
-          v51[0] = MEMORY[0x1E69E9820];
-          v51[1] = 3221225472;
-          v51[2] = __40__HMRoom__updateName_completionHandler___block_invoke_2;
-          v51[3] = &unk_1E754E480;
-          v46 = pendingRequests;
+          v50[0] = MEMORY[0x1E69E9820];
+          v50[1] = 3221225472;
+          v50[2] = __40__HMRoom__updateName_completionHandler___block_invoke_2;
+          v50[3] = &unk_1E754E480;
+          v45 = pendingRequests;
+          v51 = v45;
+          v46 = identifier;
           v52 = v46;
-          v47 = identifier;
+          v47 = v40;
           v53 = v47;
-          v48 = v41;
-          v54 = v48;
-          [v40 setResponseHandler:v51];
+          [v39 setResponseHandler:v50];
           messageDispatcher = [context messageDispatcher];
-          [messageDispatcher sendMessage:v40 completionHandler:0];
+          [messageDispatcher sendMessage:v39 completionHandler:0];
 
-          objc_destroyWeak(&v58);
+          objc_destroyWeak(&v57);
           objc_destroyWeak(buf);
 
           goto LABEL_19;
@@ -356,16 +353,14 @@ LABEL_19:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v62 = v19;
-    v63 = 2080;
-    v64 = "[HMRoom _updateName:completionHandler:]";
+    v61 = v19;
+    v62 = 2080;
+    v63 = "[HMRoom _updateName:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
 LABEL_20:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __40__HMRoom__updateName_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -396,29 +391,29 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
 
 - (void)updateName:(NSString *)name completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = name;
   v7 = completion;
   context = [(HMRoom *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRoom updateName:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMRoom updateName:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -430,8 +425,8 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
     block[2] = __39__HMRoom_updateName_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -444,9 +439,9 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMRoom updateName:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMRoom updateName:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -454,8 +449,6 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assistantIdentifier
@@ -543,30 +536,30 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
 
 - (NSArray)accessories
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   home = [(HMRoom *)self home];
   accessories = [home accessories];
 
-  v5 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         uuid = [(HMRoom *)self uuid];
         room = [v9 room];
         uuid2 = [room uuid];
@@ -578,13 +571,11 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
         }
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -643,7 +634,7 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
 
 - (void)_unconfigure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -654,9 +645,9 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring room", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring room", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -671,15 +662,13 @@ void __40__HMRoom__updateName_completionHandler___block_invoke_2(uint64_t a1, vo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

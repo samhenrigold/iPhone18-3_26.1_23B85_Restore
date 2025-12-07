@@ -112,7 +112,7 @@
 
 + (id)getLoadResultFromMessage:(id)message
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   length = 0;
   data = xpc_dictionary_get_data(messageCopy, [@"xmlData" UTF8String], &length);
@@ -187,32 +187,32 @@ LABEL_23:
   v9 = [v8 objectForKey:@"assetsToFrameWork"];
   if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v25;
+      v14 = *v24;
       while (2)
       {
         v15 = 0;
         v16 = v13;
         do
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v15);
+          v13 = *(*(&v23 + 1) + 8 * v15);
 
           v17 = [MAAsset alloc];
-          v18 = [(MAAsset *)v17 initWithAttributes:v13, v24];
+          v18 = [(MAAsset *)v17 initWithAttributes:v13, v23];
           if (v18)
           {
             v19 = v18;
@@ -224,7 +224,7 @@ LABEL_23:
         }
 
         while (v12 != v15);
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
         if (v12)
         {
           continue;
@@ -256,14 +256,13 @@ LABEL_37:
 LABEL_24:
 
   v21 = v19;
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 + (id)loadSync:(id)sync allowingDifferences:(id)differences withPurpose:(id)purpose error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   differencesCopy = differences;
   purposeCopy = purpose;
@@ -271,7 +270,7 @@ LABEL_24:
   assetType = [syncCopy assetType];
   xpc_dictionary_set_string(v13, "AssetType", [assetType UTF8String]);
 
-  v51 = purposeCopy;
+  v50 = purposeCopy;
   if (!syncCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v30 = _MAClientLog(@"V2");
@@ -281,11 +280,11 @@ LABEL_24:
       _os_log_impl(&dword_197AD5000, v30, OS_LOG_TYPE_DEFAULT, "Asset load failed due to nil or invalid type", buf, 2u);
     }
 
-    v52 = differencesCopy;
+    v51 = differencesCopy;
 
     if (error)
     {
-      v29 = MAError(@"com.apple.MobileAssetError.Query", 8, @"Asset load failed due to the absoluteId being nil or the wrong type", v31, v32, v33, v34, v35, v49);
+      v29 = MAError(@"com.apple.MobileAssetError.Query", 8, @"Asset load failed due to the absoluteId being nil or the wrong type", v31, v32, v33, v34, v35, v48);
       encodeAsPlist2 = 0;
       encodeAsPlist = 0;
       v21 = 0;
@@ -307,7 +306,7 @@ LABEL_18:
   addObjectToMessage(encodeAsPlist, v13, "loadAssetIdLength", "loadAssetId");
   xpc_dictionary_set_uint64(v13, "messageAction", 0x1BuLL);
   v16 = *MEMORY[0x1E695E480];
-  v50 = getprogname();
+  v49 = getprogname();
   v17 = CFStringCreateWithFormat(v16, 0, @"%s");
   xpc_dictionary_set_string(v13, "clientName", [(__CFString *)v17 UTF8String]);
   if (purposeCopy)
@@ -320,16 +319,16 @@ LABEL_18:
     differencesCopy = +[MAAssetDiff defaultAllowedDifferences];
   }
 
-  v52 = differencesCopy;
+  v51 = differencesCopy;
   encodeAsPlist2 = [differencesCopy encodeAsPlist];
   addObjectToMessage(encodeAsPlist2, v13, "allowedDifferencesLength", "allowedDifferences");
-  v53 = 12;
+  v52 = 12;
   v19 = _getCommsManager();
   v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[MAAsset loadSync:allowingDifferences:withPurpose:error:]"];
-  v21 = [v19 sendSync:v13 gettingResponseCode:&v53 codeForXpcError:1 loggingName:v20];
+  v21 = [v19 sendSync:v13 gettingResponseCode:&v52 codeForXpcError:1 loggingName:v20];
 
-  v22 = v53;
-  if (v53 == 1)
+  v22 = v52;
+  if (v52 == 1)
   {
     v23 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
@@ -340,7 +339,7 @@ LABEL_18:
 
     if (error)
     {
-      v29 = MAError(@"com.apple.MobileAssetError.Query", 1, @"Asset load failed due to an XPC error", v24, v25, v26, v27, v28, v50);
+      v29 = MAError(@"com.apple.MobileAssetError.Query", 1, @"Asset load failed due to an XPC error", v24, v25, v26, v27, v28, v49);
 LABEL_16:
       v36 = 0;
       v37 = 0;
@@ -373,15 +372,15 @@ LABEL_16:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544386;
-      v55 = syncCopy;
-      v56 = 2048;
-      v57 = 14;
-      v58 = 2114;
-      v59 = v36;
-      v60 = 2114;
-      v61 = v52;
-      v62 = 2114;
-      v63 = v40;
+      v54 = syncCopy;
+      v55 = 2048;
+      v56 = 14;
+      v57 = 2114;
+      v58 = v36;
+      v59 = 2114;
+      v60 = v51;
+      v61 = 2114;
+      v62 = v40;
       _os_log_impl(&dword_197AD5000, v42, OS_LOG_TYPE_DEFAULT, "Asset load result for %{public}@: %ld (MAQueryHasAllowedDifferences). Found match %{public}@ within allowed differences %{public}@ (actual differences were %{public}@)", buf, 0x34u);
     }
 
@@ -394,11 +393,11 @@ LABEL_16:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v55 = syncCopy;
-      v56 = 2048;
-      v57 = 0;
-      v58 = 2114;
-      v59 = v36;
+      v54 = syncCopy;
+      v55 = 2048;
+      v56 = 0;
+      v57 = 2114;
+      v58 = v36;
       _os_log_impl(&dword_197AD5000, v40, OS_LOG_TYPE_DEFAULT, "Asset load result for %{public}@: %ld (MAQuerySuccessful). Found %{public}@.", buf, 0x20u);
     }
 
@@ -412,11 +411,11 @@ LABEL_29:
   {
     v44 = stringForMAQueryResult(v22);
     *buf = 138543874;
-    v55 = syncCopy;
-    v56 = 2048;
-    v57 = v22;
-    v58 = 2114;
-    v59 = v44;
+    v54 = syncCopy;
+    v55 = 2048;
+    v56 = v22;
+    v57 = 2114;
+    v58 = v44;
     v45 = v44;
     _os_log_impl(&dword_197AD5000, v43, OS_LOG_TYPE_DEFAULT, "Asset load result for %{public}@: %ld (%{public}@)", buf, 0x20u);
   }
@@ -424,7 +423,6 @@ LABEL_29:
 LABEL_33:
   v46 = v37;
 
-  v47 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
@@ -463,7 +461,7 @@ LABEL_6:
 
 - (void)logAsset
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -471,15 +469,15 @@ LABEL_6:
     state = self->_state;
     attributes = self->_attributes;
     v7 = purposeDirectoryName(self->_purpose);
-    v11 = 138544130;
-    v12 = assetId;
-    v13 = 2048;
-    v14 = state;
-    v15 = 2114;
-    v16 = attributes;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "assetId: %{public}@ State: %ld attributes: %{public}@ purpose: %{public}@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = assetId;
+    v12 = 2048;
+    v13 = state;
+    v14 = 2114;
+    v15 = attributes;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "assetId: %{public}@ State: %ld attributes: %{public}@ purpose: %{public}@", &v10, 0x2Au);
   }
 
   if ([(MAAsset *)self wasLocal])
@@ -488,13 +486,11 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       getLocalUrl = [(MAAsset *)self getLocalUrl];
-      v11 = 138543362;
-      v12 = getLocalUrl;
-      _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "The asset is installed at: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = getLocalUrl;
+      _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_DEFAULT, "The asset is installed at: %{public}@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)absoluteAssetId
@@ -571,7 +567,7 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
 {
   assetCopy = asset;
   errorCopy = error;
-  v8 = _getClientCallbackQueue();
+  v8 = _getClientCallbackQueue(errorCopy);
   dispatch_assert_queue_V2(v8);
 
   if (isDownloadResultFailure(queue))
@@ -594,7 +590,7 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
 {
   assetCopy = asset;
   errorCopy = error;
-  v10 = _getClientCallbackQueue();
+  v10 = _getClientCallbackQueue(errorCopy);
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __73__MAAsset_invokeClientDownloadCompletion_asset_completionBlockWithError___block_invoke;
@@ -610,7 +606,7 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
 
 - (void)commonAssetDownload:(id)download options:(id)options then:(id)then
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   downloadCopy = download;
   optionsCopy = options;
   thenCopy = then;
@@ -634,7 +630,7 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
       {
         if (state != 5)
         {
-          v40 = longLongValue;
+          v39 = longLongValue;
           if (optionsCopy)
           {
             v20 = optionsCopy;
@@ -646,7 +642,7 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
           }
 
           v21 = v20;
-          v22 = suAssetTypes();
+          v22 = suAssetTypes(v20);
           v23 = [v22 containsObject:self->_assetType];
 
           if (v23)
@@ -664,9 +660,9 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
               assetType = self->_assetType;
               assetId = self->_assetId;
               *buf = 138543618;
-              v44 = assetType;
-              v45 = 2114;
-              v46 = assetId;
+              v43 = assetType;
+              v44 = 2114;
+              v45 = assetId;
               _os_log_impl(&dword_197AD5000, v34, OS_LOG_TYPE_DEFAULT, "Cannot download %{public}@ %{public}@ unless the download is user-initiated (non-discretionary) as the user has turned off background system file updates (check first if nonUserInitiatedDownloadsAllowed).", buf, 0x16u);
             }
 
@@ -680,8 +676,8 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
               [v21 setTimeoutIntervalForResource:{-[MAAsset calculateTimeout](self, "calculateTimeout")}];
             }
 
-            v38 = v12;
-            v39 = v11;
+            v37 = v12;
+            v38 = v11;
             v24 = [(NSDictionary *)self->_attributes objectForKey:@"__CanUseLocalCacheServer"];
             v25 = objc_opt_respondsToSelector();
             if (optionsCopy && (v25 & 1) != 0)
@@ -693,10 +689,10 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
                 v28 = self->_assetType;
                 v27 = self->_assetId;
                 *buf = 138543874;
-                v44 = v28;
-                v45 = 2114;
-                v46 = v27;
-                v47 = 1024;
+                v43 = v28;
+                v44 = 2114;
+                v45 = v27;
+                v46 = 1024;
                 canUseLocalCacheServer = [v21 canUseLocalCacheServer];
                 _os_log_impl(&dword_197AD5000, v26, OS_LOG_TYPE_DEFAULT, "Using caching server for %{public}@ %{public}@ is enabled: %d", buf, 0x1Cu);
               }
@@ -707,13 +703,13 @@ uint64_t __30__MAAsset_startDownload_then___block_invoke(uint64_t a1)
             v31 = v24;
             v11 = v21;
             purpose = self->_purpose;
-            v41[0] = MEMORY[0x1E69E9820];
-            v41[1] = 3221225472;
-            v41[2] = __44__MAAsset_commonAssetDownload_options_then___block_invoke;
-            v41[3] = &unk_1E74CA4F0;
-            v41[4] = self;
-            v42 = thenCopy;
-            _MAsendDownloadAsset(v11, v30, v29, v40, v39, v38, 0, downloadCopy, purpose, v41);
+            v40[0] = MEMORY[0x1E69E9820];
+            v40[1] = 3221225472;
+            v40[2] = __44__MAAsset_commonAssetDownload_options_then___block_invoke;
+            v40[3] = &unk_1E74CA4F0;
+            v40[4] = self;
+            v41 = thenCopy;
+            _MAsendDownloadAsset(v11, v30, v29, v39, v38, v37, 0, downloadCopy, purpose, v40);
           }
 
           goto LABEL_31;
@@ -741,13 +737,11 @@ LABEL_31:
 
   [(MAAsset *)selfCopy4 invokeClientDownloadCompletion:v19 asset:self completionBlockWithError:thenCopy];
 LABEL_32:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MAAsset_commonAssetDownload_options_then___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -758,12 +752,12 @@ void __44__MAAsset_commonAssetDownload_options_then___block_invoke(uint64_t a1, 
       v10 = *(*(a1 + 32) + 16);
       int64 = 1;
       v8 = stringForMADownloadResult(1uLL);
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2048;
-      v16 = 1;
-      v17 = 2114;
-      v18 = v8;
+      v12 = 138543874;
+      v13 = v10;
+      v14 = 2048;
+      v15 = 1;
+      v16 = 2114;
+      v17 = v8;
       v9 = "Error on the download asset reply for %{public}@, response: %ld (%{public}@) due to no xpc message";
       goto LABEL_9;
     }
@@ -781,12 +775,12 @@ LABEL_10:
       v11 = *(*(a1 + 32) + 16);
       int64 = 1;
       v8 = stringForMADownloadResult(1uLL);
-      v13 = 138543874;
-      v14 = v11;
-      v15 = 2048;
-      v16 = 1;
-      v17 = 2114;
-      v18 = v8;
+      v12 = 138543874;
+      v13 = v11;
+      v14 = 2048;
+      v15 = 1;
+      v16 = 2114;
+      v17 = v8;
       v9 = "Error on the download asset reply for %{public}@, response: %ld (%{public}@)";
       goto LABEL_9;
     }
@@ -800,21 +794,20 @@ LABEL_10:
   {
     v7 = *(*(a1 + 32) + 16);
     v8 = stringForMADownloadResult(int64);
-    v13 = 138543874;
-    v14 = v7;
-    v15 = 2048;
-    v16 = int64;
-    v17 = 2114;
-    v18 = v8;
+    v12 = 138543874;
+    v13 = v7;
+    v14 = 2048;
+    v15 = int64;
+    v16 = 2114;
+    v17 = v8;
     v9 = "Got the download asset reply for %{public}@, response: %ld (%{public}@)";
 LABEL_9:
-    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, v9, &v13, 0x20u);
+    _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, v9, &v12, 0x20u);
   }
 
 LABEL_11:
 
   [*(a1 + 32) _invokeClientDownloadCompletionAlreadyOnQueue:int64 asset:*(a1 + 32) completionBlockWithError:*(a1 + 40)];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)startCatalogDownload:(id)download options:(id)options then:(id)then
@@ -885,7 +878,7 @@ uint64_t __45__MAAsset_startCatalogDownload_options_then___block_invoke(uint64_t
 
 void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -903,11 +896,11 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
       v13 = *(*(*(a1 + 56) + 8) + 24);
       v8 = stringForMADownloadResult(v13);
       *buf = 138543874;
-      v37 = v12;
-      v38 = 2048;
-      v39 = v13;
-      v40 = 2114;
-      v41 = v8;
+      v34 = v12;
+      v35 = 2048;
+      v36 = v13;
+      v37 = 2114;
+      v38 = v8;
       v9 = "Error on the download meta data reply for %{public}@, response: %ld (%{public}@)";
     }
 
@@ -924,11 +917,11 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
       v7 = *(*(*(a1 + 56) + 8) + 24);
       v8 = stringForMADownloadResult(v7);
       *buf = 138543874;
-      v37 = v6;
-      v38 = 2048;
-      v39 = v7;
-      v40 = 2114;
-      v41 = v8;
+      v34 = v6;
+      v35 = 2048;
+      v36 = v7;
+      v37 = 2114;
+      v38 = v8;
       v9 = "Got the download meta data reply for %{public}@, response: %ld (%{public}@)";
     }
   }
@@ -945,11 +938,11 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
     v11 = *(*(*(a1 + 56) + 8) + 24);
     v8 = stringForMADownloadResult(v11);
     *buf = 138543874;
-    v37 = v10;
-    v38 = 2048;
-    v39 = v11;
-    v40 = 2114;
-    v41 = v8;
+    v34 = v10;
+    v35 = 2048;
+    v36 = v11;
+    v37 = 2114;
+    v38 = v8;
     v9 = "Error on the download meta data reply for %{public}@, response: %ld (%{public}@) due to not having an xpc message";
   }
 
@@ -964,9 +957,9 @@ LABEL_10:
     {
       v16 = *(a1 + 32);
       *buf = 138543618;
-      v37 = v16;
-      v38 = 2048;
-      v39 = 2;
+      v34 = v16;
+      v35 = 2048;
+      v36 = 2;
       _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_DEFAULT, "Will retry download meta data for %{public}@, after %ld seconds", buf, 0x16u);
     }
 
@@ -981,14 +974,14 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = __60__MAAsset_startCatalogDownload_options_completionWithError___block_invoke_1153;
     block[3] = &unk_1E74CA540;
-    v33 = *(a1 + 32);
-    v34 = *(a1 + 40);
-    v31 = *(a1 + 48);
-    v19 = v31;
-    v35 = v31;
+    v30 = *(a1 + 32);
+    v31 = *(a1 + 40);
+    v28 = *(a1 + 48);
+    v19 = v28;
+    v32 = v28;
     dispatch_after(v17, v18, block);
 
-    v20 = v33;
+    v20 = v30;
     goto LABEL_21;
   }
 
@@ -998,7 +991,6 @@ LABEL_10:
     {
       v21 = *(*(*(a1 + 56) + 8) + 24);
       v22 = errorStringForMADownloadResult(v21);
-      v30 = *(a1 + 32);
       v20 = MAErrorForDownloadResultWithUnderlying(v21, 0, @"%@ (Catalog download for %@)", v23, v24, v25, v26, v27, v22);
     }
 
@@ -1007,12 +999,9 @@ LABEL_10:
       v20 = 0;
     }
 
-    v28 = *(*(*(a1 + 56) + 8) + 24);
     (*(*(a1 + 48) + 16))();
 LABEL_21:
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invoke_1153(uint64_t a1)
@@ -1031,7 +1020,7 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
 
 void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invoke_2(void *a1, void *a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   *(*(a1[6] + 8) + 24) = 1;
@@ -1040,7 +1029,6 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
     *(*(a1[6] + 8) + 24) = 24;
     v14 = *(*(a1[6] + 8) + 24);
     v15 = errorStringForMADownloadResult(v14);
-    v40 = a1[4];
     v12 = MAErrorForDownloadResultWithUnderlying(v14, 0, @"%@ (Catalog download for %@)", v16, v17, v18, v19, v20, v15);
 
     v13 = _MAClientLog(@"V2");
@@ -1053,11 +1041,11 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
     v22 = *(*(a1[6] + 8) + 24);
     v23 = stringForMADownloadResult(v22);
     *buf = 138543874;
-    v43 = v21;
-    v44 = 2048;
-    v45 = v22;
-    v46 = 2114;
-    v47 = v23;
+    v39 = v21;
+    v40 = 2048;
+    v41 = v22;
+    v42 = 2114;
+    v43 = v23;
     v24 = "Error on the retry download meta data reply for %{public}@, response: %ld (%{public}@) due to not having an xpc message";
     goto LABEL_10;
   }
@@ -1067,7 +1055,6 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
     *(*(a1[6] + 8) + 24) = 1;
     v25 = *(*(a1[6] + 8) + 24);
     v26 = errorStringForMADownloadResult(v25);
-    v41 = a1[4];
     v12 = MAErrorForDownloadResultWithUnderlying(v25, 0, @"%@ (Catalog download for %@)", v27, v28, v29, v30, v31, v26);
 
     v13 = _MAClientLog(@"V2");
@@ -1084,7 +1071,6 @@ void __60__MAAsset_startCatalogDownload_options_completionWithError___block_invo
   {
     v5 = *(*(a1[6] + 8) + 24);
     v6 = errorStringForMADownloadResult(v5);
-    v39 = a1[4];
     v12 = MAErrorForDownloadResultWithUnderlying(v5, 0, @"%@ (Catalog download for %@)", v7, v8, v9, v10, v11, v6);
 
     v13 = _MAClientLog(@"V2");
@@ -1098,11 +1084,11 @@ LABEL_9:
     v33 = *(*(a1[6] + 8) + 24);
     v23 = stringForMADownloadResult(v33);
     *buf = 138543874;
-    v43 = v32;
-    v44 = 2048;
-    v45 = v33;
-    v46 = 2114;
-    v47 = v23;
+    v39 = v32;
+    v40 = 2048;
+    v41 = v33;
+    v42 = 2114;
+    v43 = v23;
     v24 = "Error on the retry download meta data reply for %{public}@, response: %ld (%{public}@)";
 LABEL_10:
     _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, v24, buf, 0x20u);
@@ -1117,11 +1103,11 @@ LABEL_10:
     v35 = *(*(a1[6] + 8) + 24);
     v36 = stringForMADownloadResult(v35);
     *buf = 138543874;
-    v43 = v34;
-    v44 = 2048;
-    v45 = v35;
-    v46 = 2114;
-    v47 = v36;
+    v39 = v34;
+    v40 = 2048;
+    v41 = v35;
+    v42 = 2114;
+    v43 = v36;
     _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "Got the retry download meta data reply for %{public}@, response: %ld (%{public}@)", buf, 0x20u);
   }
 
@@ -1133,8 +1119,6 @@ LABEL_14:
   {
     (*(v37 + 16))(v37, *(*(a1[6] + 8) + 24), v12);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)purge:(id)purge
@@ -1164,37 +1148,38 @@ uint64_t __17__MAAsset_purge___block_invoke(uint64_t a1)
 {
   errorCopy = error;
   v5 = objc_autoreleasePoolPush();
+  v6 = v5;
   state = self->_state;
   if (state != 5)
   {
     assetType = self->_assetType;
     assetId = self->_assetId;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __26__MAAsset_purgeWithError___block_invoke_2;
-    v11[3] = &unk_1E74CA4F0;
-    v11[4] = self;
-    v12 = errorCopy;
-    _MAsendPurgeAsset(assetType, assetId, state, v11);
-    v8 = v12;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __26__MAAsset_purgeWithError___block_invoke_2;
+    v12[3] = &unk_1E74CA4F0;
+    v12[4] = self;
+    v13 = errorCopy;
+    _MAsendPurgeAsset(assetType, assetId, state, v12);
+    v9 = v13;
     goto LABEL_5;
   }
 
   if (errorCopy)
   {
-    v7 = _getClientCallbackQueue();
+    v8 = _getClientCallbackQueue(v5);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __26__MAAsset_purgeWithError___block_invoke;
     block[3] = &unk_1E74CA590;
-    v14 = errorCopy;
-    dispatch_async(v7, block);
+    v15 = errorCopy;
+    dispatch_async(v8, block);
 
-    v8 = v14;
+    v9 = v15;
 LABEL_5:
   }
 
-  objc_autoreleasePoolPop(v5);
+  objc_autoreleasePoolPop(v6);
 }
 
 void __26__MAAsset_purgeWithError___block_invoke(uint64_t a1)
@@ -1207,7 +1192,7 @@ void __26__MAAsset_purgeWithError___block_invoke(uint64_t a1)
 
 void __26__MAAsset_purgeWithError___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x19A8EC930]() == MEMORY[0x1E69E9E98])
   {
@@ -1217,11 +1202,11 @@ void __26__MAAsset_purgeWithError___block_invoke_2(uint64_t a1, void *a2)
       v10 = *(*(a1 + 32) + 16);
       v11 = stringForMAPurgeResult(5uLL);
       *buf = 138543874;
-      v21 = v10;
-      v22 = 2048;
-      v23 = 5;
-      v24 = 2114;
-      v25 = v11;
+      v20 = v10;
+      v21 = 2048;
+      v22 = 5;
+      v23 = 2114;
+      v24 = v11;
       _os_log_impl(&dword_197AD5000, v9, OS_LOG_TYPE_DEFAULT, "Error on the purge asset reply for %{public}@, response: %ld (%{public}@) due to XPC_TYPE_ERROR", buf, 0x20u);
     }
 
@@ -1237,11 +1222,11 @@ void __26__MAAsset_purgeWithError___block_invoke_2(uint64_t a1, void *a2)
       v6 = *(*(a1 + 32) + 16);
       v7 = stringForMAPurgeResult(int64);
       *buf = 138543874;
-      v21 = v6;
-      v22 = 2048;
-      v23 = int64;
-      v24 = 2114;
-      v25 = v7;
+      v20 = v6;
+      v21 = 2048;
+      v22 = int64;
+      v23 = 2114;
+      v24 = v7;
       _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Got the purge asset reply for %{public}@, response: %ld (%{public}@)", buf, 0x20u);
     }
 
@@ -1261,62 +1246,56 @@ LABEL_10:
   {
     (*(v18 + 16))(v18, int64, v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)purgeSync
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->_state == 5)
   {
-    v2 = 7;
+    return 7;
   }
 
-  else
+  v4 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v4, "AssetType", [(NSString *)self->_assetType UTF8String]);
+  xpc_dictionary_set_string(v4, "AssetId", [(NSString *)self->_assetId UTF8String]);
+  purpose = self->_purpose;
+  if (purpose)
   {
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v4, "AssetType", [(NSString *)self->_assetType UTF8String]);
-    xpc_dictionary_set_string(v4, "AssetId", [(NSString *)self->_assetId UTF8String]);
-    purpose = self->_purpose;
-    if (purpose)
-    {
-      xpc_dictionary_set_string(v4, "Purpose", [(NSString *)purpose UTF8String]);
-    }
+    xpc_dictionary_set_string(v4, "Purpose", [(NSString *)purpose UTF8String]);
+  }
 
-    xpc_dictionary_set_uint64(v4, "messageAction", 5uLL);
-    xpc_dictionary_set_uint64(v4, "assetState", self->_state);
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", getprogname()];
-    xpc_dictionary_set_string(v4, "clientName", [v6 UTF8String]);
-    v15 = 5;
-    v7 = _getCommsManager();
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset purgeSync]"];
-    v9 = [v7 sendSync:v4 gettingResponseCode:&v15 codeForXpcError:5 loggingName:v8];
+  xpc_dictionary_set_uint64(v4, "messageAction", 5uLL);
+  xpc_dictionary_set_uint64(v4, "assetState", self->_state);
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", getprogname()];
+  xpc_dictionary_set_string(v4, "clientName", [v6 UTF8String]);
+  v14 = 5;
+  v7 = _getCommsManager();
+  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset purgeSync]"];
+  v9 = [v7 sendSync:v4 gettingResponseCode:&v14 codeForXpcError:5 loggingName:v8];
 
-    v2 = v15;
-    v10 = _MAClientLog(@"V2");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = stringForMAPurgeResult(v2);
-      *buf = 134218242;
-      v17 = v2;
-      v18 = 2114;
-      v19 = v11;
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Result from purge sync: %ld (%{public}@)", buf, 0x16u);
-    }
+  v2 = v14;
+  v10 = _MAClientLog(@"V2");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = stringForMAPurgeResult(v2);
+    *buf = 134218242;
+    v16 = v2;
+    v17 = 2114;
+    v18 = v11;
+    _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Result from purge sync: %ld (%{public}@)", buf, 0x16u);
+  }
 
-    if (v2)
+  if (v2)
+  {
+    v12 = _MAClientLog(@"V2");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = _MAClientLog(@"V2");
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Purge sync check failure server side", buf, 2u);
-      }
+      *buf = 0;
+      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Purge sync check failure server side", buf, 2u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -1341,15 +1320,15 @@ LABEL_10:
 
 void __50__MAAsset_cancelCatalogDownload_withPurpose_then___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x19A8EC930]() == MEMORY[0x1E69E9E98])
   {
     v5 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Error on the cancel catalog asset reply", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Error on the cancel catalog asset reply", &v7, 2u);
     }
   }
 
@@ -1360,16 +1339,15 @@ void __50__MAAsset_cancelCatalogDownload_withPurpose_then___block_invoke(uint64_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138543618;
-      v9 = v6;
-      v10 = 2048;
-      v11 = int64;
-      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Got the cancel catalog reply for %{public}@, response: %ld", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v6;
+      v9 = 2048;
+      v10 = int64;
+      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Got the cancel catalog reply for %{public}@, response: %ld", &v7, 0x16u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelDownload:(id)download
@@ -1398,25 +1376,24 @@ void __50__MAAsset_cancelCatalogDownload_withPurpose_then___block_invoke(uint64_
     v14[4] = self;
     v15 = downloadCopy;
     _MAsendCancelDownload(assetType, assetId, purpose, v14);
-    v9 = v15;
+    v10 = v15;
   }
 
   else
   {
-    v8 = _getClientCallbackQueue();
+    v9 = _getClientCallbackQueue(v8);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __26__MAAsset_cancelDownload___block_invoke;
     block[3] = &unk_1E74C9888;
     block[4] = self;
     v17 = downloadCopy;
-    dispatch_async(v8, block);
+    dispatch_async(v9, block);
 
-    v9 = v17;
+    v10 = v17;
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __26__MAAsset_cancelDownload___block_invoke(uint64_t a1)
@@ -1436,7 +1413,7 @@ uint64_t __26__MAAsset_cancelDownload___block_invoke(uint64_t a1)
 
 void __26__MAAsset_cancelDownload___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x19A8EC930]() == MEMORY[0x1E69E9E98])
   {
@@ -1450,12 +1427,12 @@ void __26__MAAsset_cancelDownload___block_invoke_2(uint64_t a1, void *a2)
     v9 = *(*(a1 + 32) + 16);
     int64 = 4;
     v7 = stringForMACancelDownloadResult(4uLL);
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2048;
-    v16 = 4;
-    v17 = 2114;
-    v18 = v7;
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2048;
+    v15 = 4;
+    v16 = 2114;
+    v17 = v7;
     v8 = "Error on the cancel download asset reply for %{public}@, response: %ld (%{public}@)";
     goto LABEL_6;
   }
@@ -1466,21 +1443,20 @@ void __26__MAAsset_cancelDownload___block_invoke_2(uint64_t a1, void *a2)
   {
     v6 = *(*(a1 + 32) + 16);
     v7 = stringForMACancelDownloadResult(int64);
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2048;
-    v16 = int64;
-    v17 = 2114;
-    v18 = v7;
+    v12 = 138543874;
+    v13 = v6;
+    v14 = 2048;
+    v15 = int64;
+    v16 = 2114;
+    v17 = v7;
     v8 = "Got the cancel download asset reply for %{public}@, response: %ld (%{public}@)";
 LABEL_6:
-    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, v8, &v13, 0x20u);
+    _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, v8, &v12, 0x20u);
   }
 
 LABEL_8:
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), int64, v10, v11);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)cancelDownloadSync
@@ -1546,16 +1522,16 @@ LABEL_8:
 
 void __37__MAAsset_configDownload_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (MEMORY[0x19A8EC930]() == MEMORY[0x1E69E9E98])
   {
     v5 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       int64 = 2;
-      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Error on the cancel download asset reply", &v10, 2u);
+      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Error on the cancel download asset reply", &v9, 2u);
     }
 
     else
@@ -1572,13 +1548,13 @@ void __37__MAAsset_configDownload_completion___block_invoke(uint64_t a1, void *a
     {
       v6 = *(*(a1 + 32) + 16);
       v7 = stringForMAOperationResult(int64);
-      v10 = 138543874;
-      v11 = v6;
-      v12 = 2048;
-      v13 = int64;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Got the config download reply for %{public}@, response: %ld (%{public}@)", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v6;
+      v11 = 2048;
+      v12 = int64;
+      v13 = 2114;
+      v14 = v7;
+      _os_log_impl(&dword_197AD5000, v5, OS_LOG_TYPE_DEFAULT, "Got the config download reply for %{public}@, response: %ld (%{public}@)", &v9, 0x20u);
     }
   }
 
@@ -1587,13 +1563,11 @@ void __37__MAAsset_configDownload_completion___block_invoke(uint64_t a1, void *a
   {
     (*(v8 + 16))(v8, int64);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)configDownloadSync:(id)sync
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   v5 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v5, "AssetType", [(NSString *)self->_assetType UTF8String]);
@@ -1633,22 +1607,22 @@ LABEL_10:
   xpc_dictionary_set_string(v5, "clientName", [v7 UTF8String]);
   encodeAsPlist = [syncCopy encodeAsPlist];
   addObjectToMessage(encodeAsPlist, v5, "downloadConfigLength", "downloadConfig");
-  v17 = 4;
+  v16 = 4;
   v9 = _getCommsManager();
   v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset configDownloadSync:]"];
-  v11 = [v9 sendSync:v5 gettingResponseCode:&v17 codeForXpcError:1 loggingName:v10];
+  v11 = [v9 sendSync:v5 gettingResponseCode:&v16 codeForXpcError:1 loggingName:v10];
 
-  v12 = v17;
-  if (v17)
+  v12 = v16;
+  if (v16)
   {
     v13 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = stringForMAOperationResult(v12);
       *buf = 134218242;
-      v19 = v12;
-      v20 = 2114;
-      v21 = v14;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "Config download sync check failure server side: %lld (%{public}@)", buf, 0x16u);
     }
 
@@ -1657,32 +1631,31 @@ LABEL_10:
 
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)overrideGarbageCollectionThreshold:(unint64_t)threshold
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v5, "AssetType", [(NSString *)self->_assetType UTF8String]);
   xpc_dictionary_set_string(v5, "AssetId", [(NSString *)self->_assetId UTF8String]);
   xpc_dictionary_set_uint64(v5, "GCOverrideDays", threshold);
   xpc_dictionary_set_uint64(v5, "messageAction", 0x19uLL);
-  v15 = 4;
+  v14 = 4;
   v6 = _getCommsManager();
   v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset overrideGarbageCollectionThreshold:]"];
-  v8 = [v6 sendSync:v5 gettingResponseCode:&v15 codeForXpcError:1 loggingName:v7];
+  v8 = [v6 sendSync:v5 gettingResponseCode:&v14 codeForXpcError:1 loggingName:v7];
 
-  v9 = v15;
+  v9 = v14;
   v10 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = stringForMAOperationResult(v9);
     *buf = 134218242;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v11;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v11;
     _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "Result from overrideGarbageCollectionThreshold: %ld (%{public}@)", buf, 0x16u);
   }
 
@@ -1696,7 +1669,6 @@ LABEL_11:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 
@@ -1719,30 +1691,30 @@ LABEL_11:
 
 - (BOOL)spaceCheck:(int64_t *)check
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = xpc_dictionary_create(0, 0, 0);
-  v20 = 0;
-  if (determineUnarchiveSizeFromAttributes(self->_attributes, &v20))
+  v19 = 0;
+  if (determineUnarchiveSizeFromAttributes(self->_attributes, &v19))
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", v20];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", v19];
     xpc_dictionary_set_string(v5, [@"_UnarchivedSize" UTF8String], objc_msgSend(v6, "UTF8String"));
     xpc_dictionary_set_uint64(v5, "messageAction", 0x11uLL);
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", getprogname()];
     xpc_dictionary_set_string(v5, "clientName", [v7 UTF8String]);
-    v19 = 4;
+    v18 = 4;
     v8 = _getCommsManager();
     v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset spaceCheck:]"];
-    v10 = [v8 sendSync:v5 gettingResponseCode:&v19 codeForXpcError:1 loggingName:v9];
+    v10 = [v8 sendSync:v5 gettingResponseCode:&v18 codeForXpcError:1 loggingName:v9];
 
-    v11 = v19;
+    v11 = v18;
     v12 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = stringForMAOperationResult(v11);
       *buf = 134218242;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v13;
+      v21 = v11;
+      v22 = 2114;
+      v23 = v13;
       _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Result from space check: %ld (%{public}@)", buf, 0x16u);
     }
 
@@ -1772,16 +1744,16 @@ LABEL_11:
     }
 
 LABEL_12:
-    *check = v20;
+    *check = v19;
     goto LABEL_13;
   }
 
-  v20 = 1000000;
+  v19 = 1000000;
   v16 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v22 = v20;
+    v21 = v19;
     _os_log_impl(&dword_197AD5000, v16, OS_LOG_TYPE_DEFAULT, "Unable to get unarchived size for asset. Using default of %lld for non-local asset.", buf, 0xCu);
   }
 
@@ -1795,13 +1767,12 @@ LABEL_12:
 
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
   return wasLocal;
 }
 
 - (BOOL)refreshState
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v3, "AssetType", [(NSString *)self->_assetType UTF8String]);
   xpc_dictionary_set_string(v3, "AssetId", [(NSString *)self->_assetId UTF8String]);
@@ -1819,28 +1790,28 @@ LABEL_13:
       {
         v7 = self->_purpose;
         *buf = 138412290;
-        v28 = v7;
+        v27 = v7;
         _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEBUG, "Refreshing with purpose: %@", buf, 0xCu);
       }
     }
   }
 
-  v26 = 4;
+  v25 = 4;
   v8 = _getCommsManager();
   v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAsset refreshState]"];
-  v10 = [v8 sendSync:v3 gettingResponseCode:&v26 codeForXpcError:1 loggingName:v9];
+  v10 = [v8 sendSync:v3 gettingResponseCode:&v25 codeForXpcError:1 loggingName:v9];
 
-  v11 = v26;
-  if (v26)
+  v11 = v25;
+  if (v25)
   {
     v12 = _MAClientLog(@"V2");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = stringForMAOperationResult(v11);
       *buf = 134218242;
-      v28 = v11;
-      v29 = 2114;
-      v30 = v13;
+      v27 = v11;
+      v28 = 2114;
+      v29 = v13;
       _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "State refresh failure server side: %ld (%{public}@)", buf, 0x16u);
     }
 
@@ -1859,15 +1830,15 @@ LABEL_9:
       assetType = self->_assetType;
       assetId = self->_assetId;
       state = self->_state;
-      v25 = stringForMAAssetState(state);
+      v24 = stringForMAAssetState(state);
       *buf = 138544130;
-      v28 = assetType;
-      v29 = 2114;
-      v30 = assetId;
-      v31 = 2048;
-      v32 = state;
-      v33 = 2114;
-      v34 = v25;
+      v27 = assetType;
+      v28 = 2114;
+      v29 = assetId;
+      v30 = 2048;
+      v31 = state;
+      v32 = 2114;
+      v33 = v24;
       _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Could not determine state for %{public}@ asset %{public}@; leaving state the same %ld (%{public}@).", buf, 0x2Au);
     }
 
@@ -1880,13 +1851,13 @@ LABEL_9:
     v18 = stringForMAAssetState(v17);
     v19 = stringForMAAssetState(int64);
     *buf = 134218754;
-    v28 = v17;
-    v29 = 2114;
-    v30 = v18;
-    v31 = 2048;
-    v32 = int64;
-    v33 = 2114;
-    v34 = v19;
+    v27 = v17;
+    v28 = 2114;
+    v29 = v18;
+    v30 = 2048;
+    v31 = int64;
+    v32 = 2114;
+    v33 = v19;
     _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Old state: %ld (%{public}@) --> new state: %lld (%{public}@)", buf, 0x2Au);
   }
 
@@ -1895,16 +1866,15 @@ LABEL_9:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v28 = 0;
-    v29 = 2112;
-    v30 = @"YES";
+    v27 = 0;
+    v28 = 2112;
+    v29 = @"YES";
     _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "Refresh state completed with result:%ld success:%@", buf, 0x16u);
   }
 
   v14 = 1;
 LABEL_16:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

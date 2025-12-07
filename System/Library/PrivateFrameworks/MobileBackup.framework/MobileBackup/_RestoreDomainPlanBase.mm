@@ -1,9 +1,11 @@
 @interface _RestoreDomainPlanBase
 - (BOOL)_enumerateAndMarkNotStartedDirectoriesTopDown:(id)down absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_enumerateAndMarkPlacedDirectoriesBottomUp:(id)up absolutePath:(id)path error:(id *)error enumerator:(id)enumerator;
+- (BOOL)_enumerateAndMarkRestorablesMatchingType:(unsigned __int16)type state:(unint64_t)state readOnlyDB:(id)b absolutePath:(id)path descending:(BOOL)descending error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_enumerateAndMarkUnfinishedAssets:(id)assets absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_enumerateAndMarkUnfinishedSymlinks:(id)symlinks absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_enumerateAndMarkUnfinishedZeroByteFiles:(id)files absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator;
+- (BOOL)_enumerateAssetsFromResultSet:(id)set columnIndex:(unsigned int)index error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_enumerateAssetsToDownload:(id)download absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator;
 - (BOOL)_setAssetState:(unint64_t)state asset:(id)asset withFailure:(id)failure error:(id *)error;
 - (BOOL)wasSkipped;
@@ -36,9 +38,9 @@
 {
   parentPlan = self->_parentPlan;
   domainID = self->_domainID;
-  v12 = 0;
-  v5 = [(MBRestorePlanDB *)parentPlan _verificationStateForDomainID:domainID error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [(MBRestorePlanDB *)parentPlan _verificationStateForDomainID:domainID error:&v11];
+  v6 = v11;
   if (v5)
   {
     v7 = v5 == 4;
@@ -51,12 +53,11 @@
     {
       domain = self->_domain;
       *buf = 138412546;
-      v14 = domain;
-      v15 = 2112;
-      v16 = v6;
+      v13 = domain;
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=plan= Failed to get verification state for %@: %@", buf, 0x16u);
-      v11 = self->_domain;
-      _MBLog();
+      _MBLog(@"E ", "=plan= Failed to get verification state for %@: %@", self->_domain, v6);
     }
 
     v7 = 0;
@@ -134,6 +135,56 @@
   return v20;
 }
 
+- (BOOL)_enumerateAndMarkRestorablesMatchingType:(unsigned __int16)type state:(unint64_t)state readOnlyDB:(id)b absolutePath:(id)path descending:(BOOL)descending error:(id *)error enumerator:(id)enumerator
+{
+  descendingCopy = descending;
+  typeCopy = type;
+  bCopy = b;
+  pathCopy = path;
+  enumeratorCopy = enumerator;
+  if (!error)
+  {
+    __assert_rtn("[_RestoreDomainPlanBase _enumerateAndMarkRestorablesMatchingType:state:readOnlyDB:absolutePath:descending:error:enumerator:]", "MBRestorePlanDB.m", 1644, "error");
+  }
+
+  v18 = enumeratorCopy;
+  if (!enumeratorCopy)
+  {
+    __assert_rtn("[_RestoreDomainPlanBase _enumerateAndMarkRestorablesMatchingType:state:readOnlyDB:absolutePath:descending:error:enumerator:]", "MBRestorePlanDB.m", 1645, "enumerator");
+  }
+
+  if (pathCopy)
+  {
+    [bCopy fetchSQL:{@"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \npriority, \nrestorableID\n FROM   Restorables\n WHERE  absolutePath IS %@\n  AND   domainID = %llu\n  AND  (restoreState = %u OR restoreState = %u)\n LIMIT 1", pathCopy, self->_domainID, state, 6}];
+  }
+
+  else
+  {
+    if (descendingCopy)
+    {
+      v19 = @"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \npriority, \nrestorableID\n FROM   Restorables\n WHERE  domainID = %llu\n  AND  (restoreState = %u OR restoreState = %u)\n  AND   type = %u\n ORDER BY restorableID DESC";
+    }
+
+    else
+    {
+      v19 = @"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \npriority, \nrestorableID\n FROM   Restorables\n WHERE  domainID = %llu\n  AND  (restoreState = %u OR restoreState = %u)\n  AND   type = %u\n ORDER BY restorableID ASC";
+    }
+
+    [bCopy fetchSQL:{v19, self->_domainID, state, 6, typeCopy}];
+  }
+  v20 = ;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10026F734;
+  v24[3] = &unk_1003C1808;
+  v24[4] = self;
+  v25 = v18;
+  v21 = v18;
+  v22 = [v20 enumerateWithError:error block:v24];
+
+  return v22;
+}
+
 - (BOOL)_enumerateAndMarkNotStartedDirectoriesTopDown:(id)down absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator
 {
   downCopy = down;
@@ -202,7 +253,6 @@
     __assert_rtn("[_RestoreDomainPlanBase _enumerateAndMarkUnfinishedSymlinks:absolutePath:matchingState:error:enumerator:]", "MBRestorePlanDB.m", 1748, "enumerator");
   }
 
-  domainID = self->_domainID;
   if (pathCopy)
   {
     [symlinksCopy fetchSQL:{@"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \nRestorableSymlinkTargets.targetPath, \nRestorableSymlinkTargets.linkCount, \nRestorables.restorableID\n  FROM  Restorables\n   JOIN RestorableSymlinkTargets ON\n       (RestorableSymlinkTargets.inode = Restorables.inode\n    AND RestorableSymlinkTargets.domainID = Restorables.domainID\n      )\n  WHERE absolutePath IS %@\n   AND  (restoreState = %u OR restoreState = %u)\n   AND  Restorables.domainID = %llu\n   AND  type = %u LIMIT 1", pathCopy, state, 6, self->_domainID, 40960}];
@@ -210,19 +260,19 @@
 
   else
   {
-    [symlinksCopy fetchSQL:{@"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \nRestorableSymlinkTargets.targetPath, \nRestorableSymlinkTargets.linkCount, \nRestorables.restorableID\n  FROM  Restorables\n   JOIN RestorableSymlinkTargets ON\n       (RestorableSymlinkTargets.inode = Restorables.inode\n    AND RestorableSymlinkTargets.domainID = Restorables.domainID\n      )\n  WHERE (restoreState = %u OR restoreState = %u)\n   AND  Restorables.domainID = %llu\n   AND  type = %u", state, 6, self->_domainID, 40960, v21}];
+    [symlinksCopy fetchSQL:{@"\n SELECT Restorables.inode, Restorables.size, Restorables.birth, Restorables.modified, Restorables.statusChanged, Restorables.userID, Restorables.groupID, Restorables.mode, Restorables.flags, Restorables.protectionClass, Restorables.xattrs, Restorables.relativePath, \nRestorableSymlinkTargets.targetPath, \nRestorableSymlinkTargets.linkCount, \nRestorables.restorableID\n  FROM  Restorables\n   JOIN RestorableSymlinkTargets ON\n       (RestorableSymlinkTargets.inode = Restorables.inode\n    AND RestorableSymlinkTargets.domainID = Restorables.domainID\n      )\n  WHERE (restoreState = %u OR restoreState = %u)\n   AND  Restorables.domainID = %llu\n   AND  type = %u", state, 6, self->_domainID, 40960, v20}];
   }
-  v17 = ;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10026FFA0;
-  v22[3] = &unk_1003C1808;
-  v22[4] = self;
-  v23 = v15;
-  v18 = v15;
-  v19 = [v17 enumerateWithError:error block:v22];
+  v16 = ;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10026FFA0;
+  v21[3] = &unk_1003C1808;
+  v21[4] = self;
+  v22 = v15;
+  v17 = v15;
+  v18 = [v16 enumerateWithError:error block:v21];
 
-  return v19;
+  return v18;
 }
 
 - (BOOL)_enumerateAndMarkUnfinishedZeroByteFiles:(id)files absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator
@@ -299,6 +349,78 @@
   v18 = [v16 enumerateWithError:error block:v21];
 
   return v18;
+}
+
+- (BOOL)_enumerateAssetsFromResultSet:(id)set columnIndex:(unsigned int)index error:(id *)error enumerator:(id)enumerator
+{
+  v8 = *&index;
+  setCopy = set;
+  enumeratorCopy = enumerator;
+  if (!setCopy)
+  {
+    __assert_rtn("[_RestoreDomainPlanBase _enumerateAssetsFromResultSet:columnIndex:error:enumerator:]", "MBRestorePlanDB.m", 1901, "rs");
+  }
+
+  if (!error)
+  {
+    __assert_rtn("[_RestoreDomainPlanBase _enumerateAssetsFromResultSet:columnIndex:error:enumerator:]", "MBRestorePlanDB.m", 1902, "error");
+  }
+
+  v12 = enumeratorCopy;
+  if (!enumeratorCopy)
+  {
+    __assert_rtn("[_RestoreDomainPlanBase _enumerateAssetsFromResultSet:columnIndex:error:enumerator:]", "MBRestorePlanDB.m", 1903, "enumerator");
+  }
+
+  v37 = v8 + 1;
+  v13 = [setCopy unsignedLongLongAtIndex:v8];
+  v14 = [setCopy fileWithDomain:self->_domain fromIndex:&v37];
+  ++v37;
+  v15 = [setCopy unsignedIntAtIndex:?];
+  v16 = [setCopy assetMetadataFromIndex:&v37];
+  if ([v16 assetType] - 1 >= 3)
+  {
+    v17 = MBGetDefaultLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    {
+      v36 = MBStringForAssetType([v16 assetType]);
+      *buf = 138412546;
+      v39 = v36;
+      v40 = 2112;
+      v41 = v14;
+      _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Invalid asset type (%@) for %@ when enumerating unfinished asset files", buf, 0x16u);
+    }
+
+    v18 = MBStringForAssetType([v16 assetType]);
+    sub_10012F400(0, error, @"Invalid asset type (%@) for %@ when enumerating unfinished asset files", v19, v20, v21, v22, v23, v18);
+  }
+
+  v24 = (v12)[2](v12, v14, v15 > 1, v16, error);
+  if (v24 > 4 || ((1 << v24) & 0x19) == 0)
+  {
+    v33 = -[MBRestorePlanDB _recordRestorableState:restorableID:domainID:inode:restoreType:error:](self->_parentPlan, "_recordRestorableState:restorableID:domainID:inode:restoreType:error:", v24, v13, self->_domainID, [v14 inodeNumber], self->_restoreType, error);
+  }
+
+  else
+  {
+    v26 = MBGetDefaultLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    {
+      v35 = MBRestorableStateToString(v24);
+      *buf = 138412546;
+      v39 = v35;
+      v40 = 2112;
+      v41 = v14;
+      _os_log_fault_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, "Invalid restorable state (%@) for %@ when enumerating unfinished asset files", buf, 0x16u);
+    }
+
+    v27 = MBRestorableStateToString(v24);
+    sub_10012F400(0, error, @"Invalid restorable state (%@) for %@ when enumerating unfinished asset files", v28, v29, v30, v31, v32, v27);
+
+    v33 = 0;
+  }
+
+  return v33;
 }
 
 - (BOOL)_enumerateAssetsToDownload:(id)download absolutePath:(id)path matchingState:(unint64_t)state error:(id *)error enumerator:(id)enumerator

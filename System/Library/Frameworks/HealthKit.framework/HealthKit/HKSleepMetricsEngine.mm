@@ -57,12 +57,11 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
 {
   v6 = a3;
   v7 = a1[5];
-  v10 = v6;
+  v9 = v6;
   if (v6)
   {
-    v8 = a1[4];
-    v9 = [objc_opt_class() sleepMetricsForDaySummaries:v10 inMorningIndexRange:{a1[6], a1[7]}];
-    (*(v7 + 16))(v7, v9, 0);
+    v8 = [objc_opt_class() sleepMetricsForDaySummaries:v6 inMorningIndexRange:{a1[6], a1[7]}];
+    (*(v7 + 16))(v7, v8, 0);
   }
 
   else
@@ -75,76 +74,76 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
 {
   var1 = range.var1;
   var0 = range.var0;
-  v247 = *MEMORY[0x1E69E9840];
+  v246 = *MEMORY[0x1E69E9840];
   summariesCopy = summaries;
-  v164 = objc_alloc_init(MEMORY[0x1E696AD50]);
-  v172 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v166 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v163 = objc_alloc_init(MEMORY[0x1E696AD50]);
+  v171 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v165 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v164 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
-  v184 = var0;
-  v185 = var1;
-  v208 = [self _generateConsiderationIntervalFromDaySummaries:summariesCopy morningIndexRange:{var0, var1}];
-  v243 = 0u;
-  v244 = 0u;
-  v241 = 0u;
+  v183 = var0;
+  v184 = var1;
+  v207 = [self _generateConsiderationIntervalFromDaySummaries:summariesCopy morningIndexRange:{var0, var1}];
   v242 = 0u;
+  v243 = 0u;
+  v240 = 0u;
+  v241 = 0u;
   obj = summariesCopy;
-  v214 = [obj countByEnumeratingWithState:&v241 objects:v246 count:16];
-  if (!v214)
+  v213 = [obj countByEnumeratingWithState:&v240 objects:v245 count:16];
+  if (!v213)
   {
-    v213 = 0;
-    v215 = 0;
+    v212 = 0;
+    v214 = 0;
+    v179 = 0;
     v180 = 0;
     v181 = 0;
     v182 = 0;
-    v183 = 0;
-    v169 = 0;
-    v187 = 0;
-    v204 = 0;
-    v206 = 0;
-    v200 = 0;
-    v202 = 0;
-    v198 = 0;
-    v209 = 0;
+    v168 = 0;
+    v186 = 0;
+    v203 = 0;
+    v205 = 0;
+    v199 = 0;
+    v201 = 0;
+    v197 = 0;
+    v208 = 0;
+    v172 = 0.0;
     v173 = 0.0;
     v174 = 0.0;
     v175 = 0.0;
     v176 = 0.0;
     v177 = 0.0;
-    v178 = 0.0;
-    v194 = 0.0;
-    v196 = 0.0;
-    v171 = obj;
-    v190 = 0.0;
-    v192 = 0.0;
-    v188 = 0.0;
+    v193 = 0.0;
+    v195 = 0.0;
+    v170 = obj;
+    v189 = 0.0;
+    v191 = 0.0;
+    v187 = 0.0;
     v10 = 0.0;
-    v179 = 0.0;
+    v178 = 0.0;
     goto LABEL_106;
   }
 
+  v179 = 0;
   v180 = 0;
   v181 = 0;
   v182 = 0;
-  v183 = 0;
-  v171 = 0;
+  v170 = 0;
+  v167 = 0;
   v168 = 0;
-  v169 = 0;
-  v187 = 0;
-  v204 = 0;
-  v206 = 0;
-  v200 = 0;
-  v202 = 0;
-  v198 = 0;
-  v209 = 0;
-  v212 = *v242;
+  v186 = 0;
+  v203 = 0;
+  v205 = 0;
+  v199 = 0;
+  v201 = 0;
+  v197 = 0;
+  v208 = 0;
+  v211 = *v241;
+  v172 = 0.0;
   v173 = 0.0;
   v174 = 0.0;
   v175 = 0.0;
   v176 = 0.0;
   v177 = 0.0;
-  v178 = 0.0;
   if (var0)
   {
     v8 = 0;
@@ -155,33 +154,33 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
     v8 = var1 == 0;
   }
 
-  v170 = 0.0;
-  v167 = 0.0;
-  v194 = 0.0;
-  v196 = 0.0;
+  v169 = 0.0;
+  v166 = 0.0;
+  v193 = 0.0;
+  v195 = 0.0;
   v9 = v8;
-  v210 = v9;
-  v190 = 0.0;
-  v192 = 0.0;
-  v188 = 0.0;
+  v209 = v9;
+  v189 = 0.0;
+  v191 = 0.0;
+  v187 = 0.0;
   v10 = 0.0;
-  v179 = 0.0;
+  v178 = 0.0;
   do
   {
-    for (i = 0; i != v214; ++i)
+    for (i = 0; i != v213; ++i)
     {
-      if (*v242 != v212)
+      if (*v241 != v211)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v241 + 1) + 8 * i);
-      v230 = v11;
-      if ((v210 & 1) == 0)
+      v11 = *(*(&v240 + 1) + 8 * i);
+      v229 = v11;
+      if ((v209 & 1) == 0)
       {
         morningIndex = [v11 morningIndex];
-        v13 = morningIndex >= v184 && morningIndex - v184 < v185;
-        v11 = v230;
+        v13 = morningIndex >= v183 && morningIndex - v183 < v184;
+        v11 = v229;
         if (!v13)
         {
           continue;
@@ -189,22 +188,22 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
       }
 
       dateInterval = [v11 dateInterval];
-      v220 = [selfCopy _generateStrategyWithSleepDayInterval:dateInterval considerationInterval:v208];
+      v219 = [selfCopy _generateStrategyWithSleepDayInterval:dateInterval considerationInterval:v207];
 
-      v228 = [v230 durationsForStrategy:v220];
-      [v228 sleepDuration];
+      v227 = [v229 durationsForStrategy:v219];
+      [v227 sleepDuration];
       v16 = v15;
-      [v228 inBedDuration];
+      [v227 inBedDuration];
       v18 = v17;
-      [v228 remSleepDuration];
+      [v227 remSleepDuration];
       v20 = v19;
-      [v228 coreSleepDuration];
+      [v227 coreSleepDuration];
       v22 = v21;
-      [v228 deepSleepDuration];
+      [v227 deepSleepDuration];
       v24 = v23;
-      [v228 unspecifiedSleepDuration];
+      [v227 unspecifiedSleepDuration];
       v26 = v25;
-      [v228 awakeDuration];
+      [v227 awakeDuration];
       v28 = v27;
       if (v16 >= 2.22044605e-16 || v18 >= 2.22044605e-16)
       {
@@ -213,10 +212,10 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
           v30 = MEMORY[0x1E696AD98];
           v31 = __exp10(HKSleepStandardDeviationDecimalPrecision);
           v32 = [v30 numberWithDouble:round(v16 * v31) / v31];
-          [v172 addObject:v32];
+          [v171 addObject:v32];
 
-          ++v183;
-          v179 = v179 + v16;
+          ++v182;
+          v178 = v178 + v16;
         }
 
         if (v18 > 2.22044605e-16)
@@ -224,130 +223,130 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
           v10 = v10 + v18;
         }
 
-        v33 = v209;
+        v33 = v208;
         if (v18 > 2.22044605e-16)
         {
-          v33 = v209 + 1;
+          v33 = v208 + 1;
         }
 
-        v209 = v33;
+        v208 = v33;
         if (v20 <= 2.22044605e-16)
         {
-          v34 = v188;
+          v34 = v187;
         }
 
         else
         {
-          v34 = v188 + v20;
+          v34 = v187 + v20;
         }
 
         if (v20 <= 2.22044605e-16)
         {
-          v35 = v198;
+          v35 = v197;
         }
 
         else
         {
-          v35 = v198 + 1;
+          v35 = v197 + 1;
         }
 
-        v36 = v190;
+        v36 = v189;
         if (v22 > 2.22044605e-16)
         {
-          v36 = v190 + v22;
+          v36 = v189 + v22;
         }
 
-        v188 = v34;
-        v190 = v36;
-        v37 = v200;
+        v187 = v34;
+        v189 = v36;
+        v37 = v199;
         if (v22 > 2.22044605e-16)
         {
-          v37 = v200 + 1;
+          v37 = v199 + 1;
         }
 
-        v198 = v35;
-        v200 = v37;
+        v197 = v35;
+        v199 = v37;
         if (v24 <= 2.22044605e-16)
         {
-          v38 = v192;
+          v38 = v191;
         }
 
         else
         {
-          v38 = v192 + v24;
+          v38 = v191 + v24;
         }
 
         if (v24 <= 2.22044605e-16)
         {
-          v39 = v202;
+          v39 = v201;
         }
 
         else
         {
-          v39 = v202 + 1;
+          v39 = v201 + 1;
         }
 
-        v40 = v194;
+        v40 = v193;
         if (v26 > 2.22044605e-16)
         {
-          v40 = v194 + v26;
+          v40 = v193 + v26;
         }
 
-        v192 = v38;
-        v194 = v40;
-        v41 = v204;
+        v191 = v38;
+        v193 = v40;
+        v41 = v203;
         if (v26 > 2.22044605e-16)
         {
-          v41 = v204 + 1;
+          v41 = v203 + 1;
         }
 
-        v202 = v39;
-        v204 = v41;
-        v42 = v196;
+        v201 = v39;
+        v203 = v41;
+        v42 = v195;
         if (v28 > 2.22044605e-16)
         {
-          v42 = v196 + v28;
+          v42 = v195 + v28;
         }
 
-        v196 = v42;
-        v43 = v206;
+        v195 = v42;
+        v43 = v205;
         if (v28 > 2.22044605e-16)
         {
-          v43 = v206 + 1;
+          v43 = v205 + 1;
         }
 
-        v206 = v43;
-        primarySchedule = [v230 primarySchedule];
+        v205 = v43;
+        primarySchedule = [v229 primarySchedule];
         if (primarySchedule)
         {
-          morningIndex2 = [v230 morningIndex];
-          calendar = [v230 calendar];
-          v216 = [primarySchedule bedtimeDateIntervalForMorningIndex:morningIndex2 calendar:calendar];
+          morningIndex2 = [v229 morningIndex];
+          calendar = [v229 calendar];
+          v215 = [primarySchedule bedtimeDateIntervalForMorningIndex:morningIndex2 calendar:calendar];
 
-          startDate = [v216 startDate];
+          startDate = [v215 startDate];
           if (startDate)
           {
             v46 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:startDate duration:900.0];
-            v240 = 0u;
-            v238 = 0u;
             v239 = 0u;
             v237 = 0u;
-            periods = [v230 periods];
-            v48 = [periods countByEnumeratingWithState:&v237 objects:v245 count:16];
+            v238 = 0u;
+            v236 = 0u;
+            periods = [v229 periods];
+            v48 = [periods countByEnumeratingWithState:&v236 objects:v244 count:16];
             if (v48)
             {
               v49 = 0;
-              v50 = *v238;
+              v50 = *v237;
               while (2)
               {
                 for (j = 0; j != v48; ++j)
                 {
-                  if (*v238 != v50)
+                  if (*v237 != v50)
                   {
                     objc_enumerationMutation(periods);
                   }
 
-                  v52 = *(*(&v237 + 1) + 8 * j);
+                  v52 = *(*(&v236 + 1) + 8 * j);
                   dateInterval2 = [v52 dateInterval];
                   v54 = [dateInterval2 intersectsDateInterval:v46];
 
@@ -355,7 +354,7 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
                   {
                     v59 = v52;
 
-                    ++v169;
+                    ++v168;
                     v49 = v59;
                     goto LABEL_69;
                   }
@@ -379,7 +378,7 @@ void __73__HKSleepMetricsEngine_fetchSleepMetricsForMorningIndexRange_completion
                   }
                 }
 
-                v48 = [periods countByEnumeratingWithState:&v237 objects:v245 count:16];
+                v48 = [periods countByEnumeratingWithState:&v236 objects:v244 count:16];
                 if (v48)
                 {
                   continue;
@@ -397,8 +396,8 @@ LABEL_69:
                 [startDate3 timeIntervalSinceDate:startDate];
                 v63 = v62;
 
-                ++v168;
-                v167 = v167 + v63;
+                ++v167;
+                v166 = v166 + v63;
                 goto LABEL_72;
               }
             }
@@ -410,12 +409,12 @@ LABEL_72:
             }
           }
 
-          if (v216)
+          if (v215)
           {
-            [v216 duration];
+            [v215 duration];
             if (v64 > 2.22044605e-16)
             {
-              [v216 duration];
+              [v215 duration];
               v66 = v65;
               v67 = __exp10(HKSleepStandardDeviationDecimalPrecision);
               v68 = round(v66 * v67) / v67;
@@ -431,20 +430,20 @@ LABEL_72:
               }
 
               v71 = [MEMORY[0x1E696AD98] numberWithDouble:v68];
-              [v166 addObject:v71];
+              [v165 addObject:v71];
 
               v72 = [MEMORY[0x1E696AD98] numberWithDouble:round(v67 * (v70 - v68)) / v67];
-              [v165 addObject:v72];
+              [v164 addObject:v72];
             }
           }
         }
 
-        v73 = v230;
+        v73 = v229;
         if (v16 > 2.22044605e-16)
         {
-          if ([v230 hasNonZeroSleepDurationGoal])
+          if ([v229 hasNonZeroSleepDurationGoal])
           {
-            sleepDurationGoal = [v230 sleepDurationGoal];
+            sleepDurationGoal = [v229 sleepDurationGoal];
             v75 = +[HKUnit secondUnit];
             [sleepDurationGoal doubleValueForUnit:v75];
             v77 = v76;
@@ -452,167 +451,167 @@ LABEL_72:
             v78 = v77 - v16;
             if (v78 < 900.0)
             {
-              [v164 hk_addDayIndex:{objc_msgSend(v230, "morningIndex")}];
+              [v163 hk_addDayIndex:{objc_msgSend(v229, "morningIndex")}];
             }
 
-            ++v171;
-            v170 = v170 + v78;
+            ++v170;
+            v169 = v169 + v78;
           }
 
-          v73 = v230;
+          v73 = v229;
         }
 
         periods2 = [v73 periods];
         firstObject = [periods2 firstObject];
 
-        periods3 = [v230 periods];
+        periods3 = [v229 periods];
         lastObject = [periods3 lastObject];
 
         if (firstObject && lastObject)
         {
           dateInterval5 = [firstObject dateInterval];
           startDate4 = [dateInterval5 startDate];
-          dateInterval6 = [v230 dateInterval];
+          dateInterval6 = [v229 dateInterval];
           startDate5 = [dateInterval6 startDate];
-          calendar2 = [v230 calendar];
+          calendar2 = [v229 calendar];
           [selfCopy _timeIntervalForDate:startDate4 sinceDate:startDate5 calendar:calendar2];
           v89 = v88;
 
           dateInterval7 = [lastObject dateInterval];
           endDate = [dateInterval7 endDate];
-          dateInterval8 = [v230 dateInterval];
+          dateInterval8 = [v229 dateInterval];
           startDate6 = [dateInterval8 startDate];
-          calendar3 = [v230 calendar];
+          calendar3 = [v229 calendar];
           [selfCopy _timeIntervalForDate:endDate sinceDate:startDate6 calendar:calendar3];
           v96 = v95;
 
-          v177 = v177 + v96;
-          v178 = v178 + v89;
-          ++v182;
+          v176 = v176 + v96;
+          v177 = v177 + v89;
+          ++v181;
         }
 
-        periods4 = [v230 periods];
-        v226 = [selfCopy _firstInBedSegment:periods4];
+        periods4 = [v229 periods];
+        v225 = [selfCopy _firstInBedSegment:periods4];
 
-        periods5 = [v230 periods];
+        periods5 = [v229 periods];
         v99 = [selfCopy _lastInBedSegment:periods5];
 
-        if (v226 && v99)
+        if (v225 && v99)
         {
-          dateInterval9 = [v226 dateInterval];
+          dateInterval9 = [v225 dateInterval];
           startDate7 = [dateInterval9 startDate];
-          dateInterval10 = [v230 dateInterval];
+          dateInterval10 = [v229 dateInterval];
           startDate8 = [dateInterval10 startDate];
-          calendar4 = [v230 calendar];
+          calendar4 = [v229 calendar];
           [selfCopy _timeIntervalForDate:startDate7 sinceDate:startDate8 calendar:calendar4];
           v106 = v105;
 
           dateInterval11 = [v99 dateInterval];
           endDate2 = [dateInterval11 endDate];
-          dateInterval12 = [v230 dateInterval];
+          dateInterval12 = [v229 dateInterval];
           startDate9 = [dateInterval12 startDate];
-          calendar5 = [v230 calendar];
+          calendar5 = [v229 calendar];
           [selfCopy _timeIntervalForDate:endDate2 sinceDate:startDate9 calendar:calendar5];
           v113 = v112;
 
-          v175 = v175 + v106;
-          v176 = v176 + v113;
-          ++v181;
+          v174 = v174 + v106;
+          v175 = v175 + v113;
+          ++v180;
         }
 
-        periods6 = [v230 periods];
+        periods6 = [v229 periods];
         v115 = [selfCopy _firstAsleepSegment:periods6];
 
-        periods7 = [v230 periods];
+        periods7 = [v229 periods];
         v117 = [selfCopy _lastAsleepSegment:periods7];
 
         if (v115 && v117)
         {
           dateInterval13 = [v115 dateInterval];
           startDate10 = [dateInterval13 startDate];
-          dateInterval14 = [v230 dateInterval];
+          dateInterval14 = [v229 dateInterval];
           startDate11 = [dateInterval14 startDate];
-          calendar6 = [v230 calendar];
+          calendar6 = [v229 calendar];
           [selfCopy _timeIntervalForDate:startDate10 sinceDate:startDate11 calendar:calendar6];
           v124 = v123;
 
           dateInterval15 = [v117 dateInterval];
           endDate3 = [dateInterval15 endDate];
-          dateInterval16 = [v230 dateInterval];
+          dateInterval16 = [v229 dateInterval];
           startDate12 = [dateInterval16 startDate];
-          calendar7 = [v230 calendar];
+          calendar7 = [v229 calendar];
           [selfCopy _timeIntervalForDate:endDate3 sinceDate:startDate12 calendar:calendar7];
           v131 = v130;
 
-          v173 = v173 + v124;
-          v174 = v174 + v131;
-          ++v180;
+          v172 = v172 + v124;
+          v173 = v173 + v131;
+          ++v179;
         }
 
-        ++v187;
+        ++v186;
       }
 
       continue;
     }
 
-    v214 = [obj countByEnumeratingWithState:&v241 objects:v246 count:16];
+    v213 = [obj countByEnumeratingWithState:&v240 objects:v245 count:16];
   }
 
-  while (v214);
+  while (v213);
 
-  if (v168 < 1)
+  if (v167 < 1)
   {
-    v215 = 0;
-  }
-
-  else
-  {
-    v168 = [MEMORY[0x1E696AD98] numberWithDouble:v167 / v168];
-    v215 = [HKQuantity hk_quantityWithSeconds:v168];
-  }
-
-  if (v171 < 1)
-  {
-    v213 = 0;
+    v214 = 0;
   }
 
   else
   {
-    v171 = [MEMORY[0x1E696AD98] numberWithDouble:v170 / v171];
-    v213 = [HKQuantity hk_quantityWithSeconds:v171];
+    v167 = [MEMORY[0x1E696AD98] numberWithDouble:v166 / v167];
+    v214 = [HKQuantity hk_quantityWithSeconds:v167];
+  }
+
+  if (v170 < 1)
+  {
+    v212 = 0;
+  }
+
+  else
+  {
+    v170 = [MEMORY[0x1E696AD98] numberWithDouble:v169 / v170];
+    v212 = [HKQuantity hk_quantityWithSeconds:v170];
 LABEL_106:
   }
 
-  v231 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v183, v179);
-  v229 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v209, v10);
-  v227 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v198, v188);
-  v223 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v200, v190);
-  v221 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v202, v192);
-  v219 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v204, v194);
-  v217 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v206, v196);
-  v205 = [HKQuantity hk_quantityWithSeconds:v231];
-  v203 = [HKQuantity hk_quantityWithSeconds:v229];
-  v211 = [HKQuantity hk_quantityWithSeconds:v227];
-  v207 = [HKQuantity hk_quantityWithSeconds:v223];
-  v201 = [HKQuantity hk_quantityWithSeconds:v221];
-  v199 = [HKQuantity hk_quantityWithSeconds:v219];
-  v197 = [HKQuantity hk_quantityWithSeconds:v217];
-  v233 = 0;
-  v234 = &v233;
-  v235 = 0x2020000000;
-  v236 = 0;
-  v232[0] = MEMORY[0x1E69E9820];
-  v232[1] = 3221225472;
-  v232[2] = __72__HKSleepMetricsEngine_sleepMetricsForDaySummaries_inMorningIndexRange___block_invoke;
-  v232[3] = &unk_1E73818A8;
-  v232[6] = v185;
-  v232[5] = v184;
-  v232[4] = &v233;
-  [v164 hk_enumerateDayIndexRangesWithOptions:2 usingBlock:v232];
-  if (v182 < 1)
+  v230 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v182, v178);
+  v228 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v208, v10);
+  v226 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v197, v187);
+  v222 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v199, v189);
+  v220 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v201, v191);
+  v218 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v203, v193);
+  v216 = _HKSleepSafeAverageDurationRoundedToNearestMinute(v205, v195);
+  v204 = [HKQuantity hk_quantityWithSeconds:v230];
+  v202 = [HKQuantity hk_quantityWithSeconds:v228];
+  v210 = [HKQuantity hk_quantityWithSeconds:v226];
+  v206 = [HKQuantity hk_quantityWithSeconds:v222];
+  v200 = [HKQuantity hk_quantityWithSeconds:v220];
+  v198 = [HKQuantity hk_quantityWithSeconds:v218];
+  v196 = [HKQuantity hk_quantityWithSeconds:v216];
+  v232 = 0;
+  v233 = &v232;
+  v234 = 0x2020000000;
+  v235 = 0;
+  v231[0] = MEMORY[0x1E69E9820];
+  v231[1] = 3221225472;
+  v231[2] = __72__HKSleepMetricsEngine_sleepMetricsForDaySummaries_inMorningIndexRange___block_invoke;
+  v231[3] = &unk_1E73818A8;
+  v231[6] = v184;
+  v231[5] = v183;
+  v231[4] = &v232;
+  [v163 hk_enumerateDayIndexRangesWithOptions:2 usingBlock:v231];
+  if (v181 < 1)
   {
-    v182 = 0;
-    v1822 = 0;
+    v181 = 0;
+    v1812 = 0;
   }
 
   else
@@ -624,14 +623,14 @@ LABEL_106:
     dateInterval17 = [lastObject3 dateInterval];
     startDate13 = [dateInterval17 startDate];
 
-    v182 = [selfCopy _dateComponentsForInterval:startDate13 sinceDate:calendar8 calendar:v178 / v182];
-    v1822 = [selfCopy _dateComponentsForInterval:startDate13 sinceDate:calendar8 calendar:v177 / v182];
+    v181 = [selfCopy _dateComponentsForInterval:startDate13 sinceDate:calendar8 calendar:v177 / v181];
+    v1812 = [selfCopy _dateComponentsForInterval:startDate13 sinceDate:calendar8 calendar:v176 / v181];
   }
 
-  if (v181 < 1)
+  if (v180 < 1)
   {
-    v1812 = 0;
-    v181 = 0;
+    v1802 = 0;
+    v180 = 0;
     v146 = 0;
     v145 = 0;
   }
@@ -645,18 +644,18 @@ LABEL_106:
     dateInterval18 = [lastObject5 dateInterval];
     startDate14 = [dateInterval18 startDate];
 
-    v181 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v175 / v181];
-    v144 = v176 / v181;
+    v180 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v174 / v180];
+    v144 = v175 / v180;
     v145 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v144];
-    v1812 = [selfCopy _dateComponentsForInterval:startDate14 sinceDate:calendar9 calendar:v175 / v181];
+    v1802 = [selfCopy _dateComponentsForInterval:startDate14 sinceDate:calendar9 calendar:v174 / v180];
     v146 = [selfCopy _dateComponentsForInterval:startDate14 sinceDate:calendar9 calendar:v144];
   }
 
-  if (v180 < 1)
+  if (v179 < 1)
   {
-    v1802 = 0;
+    v1792 = 0;
     v156 = 0;
-    v180 = 0;
+    v179 = 0;
     v154 = 0;
   }
 
@@ -669,21 +668,20 @@ LABEL_106:
     dateInterval19 = [lastObject7 dateInterval];
     startDate15 = [dateInterval19 startDate];
 
-    v180 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v173 / v180];
-    v153 = v174 / v180;
+    v179 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v172 / v179];
+    v153 = v173 / v179;
     v154 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:v153];
-    v1802 = [selfCopy _dateComponentsForInterval:startDate15 sinceDate:calendar10 calendar:v173 / v180];
+    v1792 = [selfCopy _dateComponentsForInterval:startDate15 sinceDate:calendar10 calendar:v172 / v179];
     v156 = [selfCopy _dateComponentsForInterval:startDate15 sinceDate:calendar10 calendar:v153];
   }
 
-  v157 = [selfCopy _computeStandardDeviationFor:v172];
-  v158 = [selfCopy _computeStandardDeviationFor:v166];
-  v159 = [selfCopy _computeStandardDeviationFor:v165];
-  v160 = [v164 count];
-  v145 = [HKSleepMetrics sleepMetricsWithMorningIndexRange:v184 sleepAnalysisAsleepCount:v185 sleepAnalysisInBedCount:v183 sleepAnalysisCount:v209 averageSleepDuration:v187 averageInBedDuration:v205 averageREMSleepDuration:v203 averageCoreSleepDuration:v211 averageDeepSleepDuration:v207 averageUnspecifiedSleepDuration:v201 averageAwakeDuration:v199 bedtimeAchievedCount:v197 sleepDurationGoalAchievedCount:v169 sleepDurationGoalStreakCount:v160 averageBedtimeMiss:v234[3] averageSleepDurationGoalMiss:v215 averageBedtime:v213 averageWakeTime:v182 averageInBedStartTime:v1822 averageInBedEndTime:v1812 averageSleepStartTime:v146 averageSleepEndTime:v1802 standardDeviationActualTimeAsleep:v156 standardDeviationScheduledTimeAsleep:v157 standardDeviationActualVsScheduledTimeAsleep:v158 averageSleepStartOffset:v159 averageSleepEndOffset:v180 averageInBedStartOffset:v154 averageInBedEndOffset:v181, v145];
+  v157 = [selfCopy _computeStandardDeviationFor:v171];
+  v158 = [selfCopy _computeStandardDeviationFor:v165];
+  v159 = [selfCopy _computeStandardDeviationFor:v164];
+  v160 = [v163 count];
+  v145 = [HKSleepMetrics sleepMetricsWithMorningIndexRange:v183 sleepAnalysisAsleepCount:v184 sleepAnalysisInBedCount:v182 sleepAnalysisCount:v208 averageSleepDuration:v186 averageInBedDuration:v204 averageREMSleepDuration:v202 averageCoreSleepDuration:v210 averageDeepSleepDuration:v206 averageUnspecifiedSleepDuration:v200 averageAwakeDuration:v198 bedtimeAchievedCount:v196 sleepDurationGoalAchievedCount:v168 sleepDurationGoalStreakCount:v160 averageBedtimeMiss:v233[3] averageSleepDurationGoalMiss:v214 averageBedtime:v212 averageWakeTime:v181 averageInBedStartTime:v1812 averageInBedEndTime:v1802 averageSleepStartTime:v146 averageSleepEndTime:v1792 standardDeviationActualTimeAsleep:v156 standardDeviationScheduledTimeAsleep:v157 standardDeviationActualVsScheduledTimeAsleep:v158 averageSleepStartOffset:v159 averageSleepEndOffset:v179 averageInBedStartOffset:v154 averageInBedEndOffset:v180, v145];
 
-  _Block_object_dispose(&v233, 8);
-  v162 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v232, 8);
 
   return v145;
 }
@@ -729,7 +727,7 @@ LABEL_11:
 {
   var1 = range.var1;
   var0 = range.var0;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   summariesCopy = summaries;
   v7 = summariesCopy;
   if (var0)
@@ -761,27 +759,27 @@ LABEL_11:
     goto LABEL_29;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v13 = [summariesCopy countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v13 = [summariesCopy countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v35;
+    v17 = *v34;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(v7);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         dateInterval = [v19 dateInterval];
         startDate = [dateInterval startDate];
 
@@ -803,7 +801,7 @@ LABEL_11:
         }
       }
 
-      v14 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
@@ -852,7 +850,6 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -898,49 +895,49 @@ LABEL_29:
 
 + (id)_firstSegmentMatchingSleepValues:(id)values inPeriods:(id)periods
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   periodsCopy = periods;
-  v22 = [periodsCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v22)
+  v21 = [periodsCopy countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v21)
   {
-    v7 = *v29;
-    v23 = periodsCopy;
-    v21 = *v29;
+    v7 = *v28;
+    v22 = periodsCopy;
+    v20 = *v28;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(periodsCopy);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         segments = [v9 segments];
-        v11 = [segments countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v11 = [segments countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v25;
+          v13 = *v24;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v25 != v13)
+              if (*v24 != v13)
               {
                 objc_enumerationMutation(segments);
               }
 
-              v15 = *(*(&v24 + 1) + 8 * j);
+              v15 = *(*(&v23 + 1) + 8 * j);
               v16 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v15, "category")}];
               v17 = [valuesCopy containsObject:v16];
 
@@ -948,12 +945,12 @@ LABEL_29:
               {
                 v18 = v15;
 
-                periodsCopy = v23;
+                periodsCopy = v22;
                 goto LABEL_19;
               }
             }
 
-            v12 = [segments countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v12 = [segments countByEnumeratingWithState:&v23 objects:v31 count:16];
             if (v12)
             {
               continue;
@@ -963,15 +960,15 @@ LABEL_29:
           }
         }
 
-        periodsCopy = v23;
-        v7 = v21;
+        periodsCopy = v22;
+        v7 = v20;
       }
 
       v18 = 0;
-      v22 = [v23 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v21 = [v22 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -981,57 +978,55 @@ LABEL_29:
 
 LABEL_19:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (id)_lastSegmentMatchingSleepValues:(id)values inPeriods:(id)periods
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = periods;
-  v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   v6 = 0;
-  if (v22)
+  if (v21)
   {
-    v21 = *v29;
+    v20 = *v28;
     do
     {
       v7 = 0;
       do
       {
-        if (*v29 != v21)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = v7;
-        v8 = *(*(&v28 + 1) + 8 * v7);
+        v22 = v7;
+        v8 = *(*(&v27 + 1) + 8 * v7);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         segments = [v8 segments];
-        v10 = [segments countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [segments countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v25;
+          v12 = *v24;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v25 != v12)
+              if (*v24 != v12)
               {
                 objc_enumerationMutation(segments);
               }
 
-              v14 = *(*(&v24 + 1) + 8 * i);
+              v14 = *(*(&v23 + 1) + 8 * i);
               v15 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v14, "category")}];
               v16 = [valuesCopy containsObject:v15];
 
@@ -1043,60 +1038,58 @@ LABEL_19:
               }
             }
 
-            v11 = [segments countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v11 = [segments countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v11);
         }
 
-        v7 = v23 + 1;
+        v7 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      while (v22 + 1 != v21);
+      v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)_computeStandardDeviationFor:(id)for
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   forCopy = for;
   if ([forCopy count])
   {
     v4 = [forCopy count];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v5 = forCopy;
-    v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     v7 = 0.0;
     v8 = 0.0;
     if (v6)
     {
       v9 = v6;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v28 + 1) + 8 * i) doubleValue];
+          [*(*(&v27 + 1) + 8 * i) doubleValue];
           v8 = v8 + v12;
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
@@ -1104,32 +1097,32 @@ LABEL_19:
 
     v13 = v4;
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v14 = v5;
-    v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       v7 = 0.0;
       v18 = v8 / v13;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [*(*(&v24 + 1) + 8 * j) doubleValue];
+          [*(*(&v23 + 1) + 8 * j) doubleValue];
           v7 = v7 + (v18 - v20) * (v18 - v20);
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v16);
@@ -1142,8 +1135,6 @@ LABEL_19:
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

@@ -1,29 +1,26 @@
 uint64_t SiriSystemCommandsUIPlugin.snippet(for:mode:idiom:)(uint64_t a1)
 {
-  restarted = type metadata accessor for RestartConfirmView();
-  v3 = OUTLINED_FUNCTION_0(restarted);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = (v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8 - 8);
-  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = v21 - v13;
-  v15 = type metadata accessor for SiriSystemCommandsModels(0);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v18 = v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_2691EF820(a1, v18, type metadata accessor for SiriSystemCommandsModels);
-  sub_2691EF7BC(v18, v14);
-  sub_2691EF820(v14, v12, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
-  RestartConfirmView.init(model:)(v12, v7);
-  sub_2691EF938(&qword_2802FBA60, type metadata accessor for RestartConfirmView);
-  v19 = sub_2691F3120();
-  sub_2691EF880(v7, type metadata accessor for RestartConfirmView);
-  sub_2691EF880(v14, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
-  return v19;
+  type metadata accessor for RestartConfirmView(0);
+  OUTLINED_FUNCTION_0();
+  MEMORY[0x28223BE20](v2);
+  v4 = (v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  restarted = type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
+  v6 = MEMORY[0x28223BE20](restarted - 8);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = v16 - v9;
+  v11 = type metadata accessor for SiriSystemCommandsModels(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_2691EF820(a1, v13, type metadata accessor for SiriSystemCommandsModels);
+  sub_2691EF7BC(v13, v10);
+  sub_2691EF820(v10, v8, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
+  RestartConfirmView.init(model:)(v8, v4);
+  sub_2691EF938(&qword_2802FBA60, type metadata accessor for RestartConfirmView, &protocol conformance descriptor for RestartConfirmView);
+  v14 = sub_2691F3120();
+  sub_2691EF880(v4, type metadata accessor for RestartConfirmView);
+  sub_2691EF880(v10, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
+  return v14;
 }
 
 uint64_t sub_2691EF7BC(uint64_t a1, uint64_t a2)
@@ -33,23 +30,23 @@ uint64_t sub_2691EF7BC(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_2691EF820(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_2691EF820(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
 uint64_t sub_2691EF880(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_0(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_0();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t sub_2691EF938(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2691EF938(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -73,19 +70,19 @@ uint64_t sub_2691EFA20()
 {
   sub_2691F31D0();
   OUTLINED_FUNCTION_0_0();
-  sub_2691F02B8(v0, v1);
+  sub_2691F02B8(v0, v1, MEMORY[0x277D63F50]);
 
   return sub_2691F30F0();
 }
 
 uint64_t sub_2691EFA84@<X0>(uint64_t a1@<X8>)
 {
-  restarted = type metadata accessor for RestartConfirmView();
-  OUTLINED_FUNCTION_1(restarted);
-  return sub_2691F0088(v1 + v4, a1, v5);
+  type metadata accessor for RestartConfirmView(0);
+  OUTLINED_FUNCTION_1();
+  return sub_2691F0088(v1 + v3, a1, v4);
 }
 
-uint64_t type metadata accessor for RestartConfirmView()
+uint64_t type metadata accessor for RestartConfirmView(uint64_t a1)
 {
   result = qword_2802FBC30;
   if (!qword_2802FBC30)
@@ -100,67 +97,65 @@ uint64_t RestartConfirmView.init(model:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8
 {
   sub_2691F31D0();
   OUTLINED_FUNCTION_0_0();
-  sub_2691F02B8(v4, v5);
+  sub_2691F02B8(v4, v5, MEMORY[0x277D63F50]);
   *a2 = sub_2691F30F0();
   a2[1] = v6;
-  restarted = type metadata accessor for RestartConfirmView();
-  OUTLINED_FUNCTION_1(restarted);
-  return sub_2691F0134(a1, a2 + v8, v9);
+  type metadata accessor for RestartConfirmView(0);
+  OUTLINED_FUNCTION_1();
+  return sub_2691F0134(a1, a2 + v7, v8);
 }
 
 uint64_t sub_2691EFB8C(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
-  v42 = a3;
-  v43 = a4;
-  v40 = a2;
-  v36 = a1;
-  v41 = sub_2691F3180();
-  v5 = OUTLINED_FUNCTION_2(v41);
-  v39 = v6;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v5);
-  v10 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  restarted = type metadata accessor for RestartConfirmView();
-  v12 = *(restarted - 8);
-  v13 = *(v12 + 64);
+  v36 = a3;
+  v37 = a4;
+  v34 = a2;
+  v30 = a1;
+  v35 = sub_2691F3180();
+  OUTLINED_FUNCTION_2();
+  v33 = v5;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  restarted = type metadata accessor for RestartConfirmView(0);
+  v10 = *(restarted - 8);
+  v11 = *(v10 + 64);
   MEMORY[0x28223BE20](restarted - 8);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAA0, &qword_2691F3870);
-  v15 = OUTLINED_FUNCTION_2(v14);
-  v17 = v16;
-  v19 = *(v18 + 64);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAA0, &qword_2691F3870);
+  OUTLINED_FUNCTION_2();
+  v14 = v13;
   MEMORY[0x28223BE20](v15);
-  v21 = &v36 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAA8, &unk_2691F3878);
-  v37 = OUTLINED_FUNCTION_2(v22);
-  v38 = v23;
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v37);
-  v27 = &v36 - v26;
-  sub_2691F0088(v4, &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for RestartConfirmView);
-  v28 = (*(v12 + 80) + 16) & ~*(v12 + 80);
-  v29 = swift_allocObject();
-  sub_2691F0134(&v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v29 + v28, type metadata accessor for RestartConfirmView);
-  v44 = v4;
+  v17 = &v30 - v16;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAA8, &unk_2691F3878);
+  OUTLINED_FUNCTION_2();
+  v31 = v18;
+  v32 = v19;
+  MEMORY[0x28223BE20](v18);
+  v21 = &v30 - v20;
+  sub_2691F0088(v4, &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for RestartConfirmView);
+  v22 = (*(v10 + 80) + 16) & ~*(v10 + 80);
+  v23 = swift_allocObject();
+  sub_2691F0134(&v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v23 + v22, type metadata accessor for RestartConfirmView);
+  v38 = v4;
   sub_2691F3170();
-  v30 = v39;
-  v31 = v41;
-  (*(v39 + 104))(v10, *v43, v41);
-  v32 = sub_2691F06A4(&qword_2802FBAB0, &qword_2802FBAA0, &qword_2691F3870);
+  v24 = v33;
+  v25 = v35;
+  (*(v33 + 104))(v8, *v37, v35);
+  v26 = sub_2691F06A4(&qword_2802FBAB0, &qword_2802FBAA0, &qword_2691F3870, MEMORY[0x277CDF028]);
   sub_2691F3130();
-  (*(v30 + 8))(v10, v31);
-  (*(v17 + 8))(v21, v14);
-  v45 = v14;
-  v46 = v32;
+  (*(v24 + 8))(v8, v25);
+  (*(v14 + 8))(v17, v12);
+  v39 = v12;
+  v40 = v26;
   swift_getOpaqueTypeConformance2();
-  v33 = v37;
-  v34 = sub_2691F3120();
-  (*(v38 + 8))(v27, v33);
-  return v34;
+  v27 = v31;
+  v28 = sub_2691F3120();
+  (*(v32 + 8))(v21, v27);
+  return v28;
 }
 
 uint64_t RestartConfirmView.body.getter()
 {
-  restarted = type metadata accessor for RestartConfirmView();
+  restarted = type metadata accessor for RestartConfirmView(0);
   v2 = *(restarted - 8);
   v3 = *(v2 + 64);
   MEMORY[0x28223BE20](restarted - 8);
@@ -169,15 +164,15 @@ uint64_t RestartConfirmView.body.getter()
   v5 = swift_allocObject();
   sub_2691F0134(&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v5 + v4, type metadata accessor for RestartConfirmView);
   sub_2691F31B0();
-  sub_2691F02B8(&qword_2802FBA80, MEMORY[0x277D63C38]);
+  sub_2691F02B8(&qword_2802FBA80, MEMORY[0x277D63C38], MEMORY[0x277D63C18]);
   return sub_2691F3190();
 }
 
-uint64_t sub_2691F0088(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_2691F0088(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
@@ -186,7 +181,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -194,24 +188,23 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t sub_2691F0134(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_2691F0134(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0(v5);
-  (*(v6 + 32))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0();
+  (*(v5 + 32))(a2, a1);
   return a2;
 }
 
 uint64_t sub_2691F0194()
 {
-  v0 = *(type metadata accessor for RestartConfirmView() - 8);
-  v1 = (*(v0 + 80) + 16) & ~*(v0 + 80);
+  type metadata accessor for RestartConfirmView(0);
   sub_2691EFB8C(&unk_2879D7C60, sub_2691F085C, sub_2691F09DC, MEMORY[0x277D63A78]);
   sub_2691EFB8C(&unk_2879D7C38, sub_2691F0674, sub_2691F068C, MEMORY[0x277D63A88]);
   return sub_2691F31A0();
 }
 
-uint64_t sub_2691F02B8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2691F02B8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -224,7 +217,7 @@ uint64_t sub_2691F02B8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_2691F0358(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_2691F0358(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2147483646)
   {
@@ -271,29 +264,29 @@ void *sub_2691F0428(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_2691F04D0()
+void sub_2691F04D0(uint64_t a1)
 {
-  sub_2691F0554();
-  if (v0 <= 0x3F)
+  sub_2691F0554(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_2691F0554()
+void sub_2691F0554(uint64_t a1)
 {
   if (!qword_2802FBA88)
   {
     sub_2691F31D0();
-    sub_2691F02B8(&qword_2802FBA70, MEMORY[0x277D63F60]);
-    v0 = sub_2691F3100();
-    if (!v1)
+    sub_2691F02B8(&qword_2802FBA70, MEMORY[0x277D63F60], MEMORY[0x277D63F50]);
+    v1 = sub_2691F3100();
+    if (!v2)
     {
-      atomic_store(v0, &qword_2802FBA88);
+      atomic_store(v1, &qword_2802FBA88);
     }
   }
 }
@@ -303,7 +296,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -311,7 +303,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t sub_2691F06A4(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_2691F06A4(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -338,14 +330,14 @@ unint64_t sub_2691F06EC()
 
 uint64_t objectdestroyTm()
 {
-  v1 = (type metadata accessor for RestartConfirmView() - 8);
+  v1 = (type metadata accessor for RestartConfirmView(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
 
   v5 = v0 + v3 + v1[7];
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
-  OUTLINED_FUNCTION_0(v6);
+  OUTLINED_FUNCTION_0();
   v8 = *(v7 + 8);
   v8(v5, v6);
   restarted = type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
@@ -356,11 +348,11 @@ uint64_t objectdestroyTm()
 
 void sub_2691F0874(uint64_t (*a1)(void))
 {
-  v3 = *(type metadata accessor for RestartConfirmView() - 8);
-  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
-  if (*v4)
+  v3 = *(type metadata accessor for RestartConfirmView(0) - 8);
+  v4 = *(v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80)));
+  if (v4)
   {
-    v10 = *v4;
+    v9 = v4;
     v5 = a1();
     v6 = [v5 identifier];
 
@@ -371,26 +363,24 @@ void sub_2691F0874(uint64_t (*a1)(void))
 
   else
   {
-    v7 = *(v4 + 8);
     sub_2691F31D0();
     OUTLINED_FUNCTION_0_0();
-    sub_2691F02B8(v8, v9);
+    sub_2691F02B8(v7, v8, MEMORY[0x277D63F50]);
     sub_2691F30E0();
     __break(1u);
   }
 }
 
-uint64_t sub_2691F09F4@<X0>(void (*a1)(void)@<X0>, uint64_t a2@<X8>)
+uint64_t sub_2691F09F4@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(v2 + 16);
-  v6 = *(type metadata accessor for RestartConfirmView() + 20);
+  type metadata accessor for RestartConfirmView(0);
   a1();
   sub_2691F06EC();
   result = sub_2691F3110();
   *a2 = result;
-  *(a2 + 8) = v8;
-  *(a2 + 16) = v9 & 1;
-  *(a2 + 24) = v10;
+  *(a2 + 8) = v5;
+  *(a2 + 16) = v6 & 1;
+  *(a2 + 24) = v7;
   return result;
 }
 
@@ -414,10 +404,10 @@ uint64_t sub_2691F0B50(uint64_t *a1)
   v1 = *a1;
   v2 = a1[1];
 
-  return SiriSystemCommandsModels.RestartConfirmationModel.confirmText.setter();
+  return SiriSystemCommandsModels.RestartConfirmationModel.confirmText.setter(v1, v2);
 }
 
-uint64_t (*SiriSystemCommandsModels.RestartConfirmationModel.confirmText.modify(void *a1))()
+uint64_t (*SiriSystemCommandsModels.RestartConfirmationModel.confirmText.modify(uint64_t *a1))()
 {
   v2 = __swift_coroFrameAllocStub(0x28uLL);
   *a1 = v2;
@@ -438,10 +428,10 @@ void *__swift_coroFrameAllocStub(size_t a1)
 
 uint64_t SiriSystemCommandsModels.RestartConfirmationModel.rejectText.getter()
 {
-  v0 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
+  type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
   sub_2691F30B0();
-  return v2;
+  return v1;
 }
 
 uint64_t sub_2691F0D20@<X0>(uint64_t *a1@<X8>)
@@ -457,12 +447,12 @@ uint64_t sub_2691F0D4C(uint64_t *a1)
   v1 = *a1;
   v2 = a1[1];
 
-  return SiriSystemCommandsModels.RestartConfirmationModel.rejectText.setter();
+  return SiriSystemCommandsModels.RestartConfirmationModel.rejectText.setter(v1, v2);
 }
 
-uint64_t SiriSystemCommandsModels.RestartConfirmationModel.rejectText.setter()
+uint64_t SiriSystemCommandsModels.RestartConfirmationModel.rejectText.setter(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
+  type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
   return sub_2691F30C0();
 }
@@ -471,7 +461,7 @@ uint64_t (*SiriSystemCommandsModels.RestartConfirmationModel.rejectText.modify(v
 {
   v2 = __swift_coroFrameAllocStub(0x28uLL);
   *a1 = v2;
-  v3 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
+  type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
   v2[4] = sub_2691F30A0();
   return sub_2691F0E6C;
@@ -536,11 +526,11 @@ uint64_t sub_2691F1000(char a1)
   }
 }
 
-uint64_t sub_2691F1060()
+uint64_t sub_2691F1060(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2691F3290();
-  MEMORY[0x26D633870](v1);
+  MEMORY[0x26D633870](v2);
   return sub_2691F32B0();
 }
 
@@ -569,29 +559,28 @@ uint64_t sub_2691F111C()
 
 uint64_t SiriSystemCommandsModels.RestartConfirmationModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAC0, &qword_2691F3888);
-  OUTLINED_FUNCTION_2(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAC0, &qword_2691F3888);
+  OUTLINED_FUNCTION_2();
+  v7 = v6;
   OUTLINED_FUNCTION_4();
   MEMORY[0x28223BE20](v8);
-  v10 = &v14[-v9];
-  v11 = a1[4];
+  v10 = &v13[-v9];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2691F131C();
   sub_2691F32D0();
-  v14[15] = 0;
+  v13[15] = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
-  sub_2691F177C(&qword_2802FBAC8);
-  OUTLINED_FUNCTION_9();
-  if (!v1)
+  sub_2691F177C(&qword_2802FBAC8, MEMORY[0x277D637D0]);
+  OUTLINED_FUNCTION_9(v3);
+  if (!v2)
   {
-    v12 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
-    v14[14] = 1;
-    OUTLINED_FUNCTION_9();
+    v11 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
+    v13[14] = 1;
+    OUTLINED_FUNCTION_9(v3 + v11);
   }
 
-  return (*(v5 + 8))(v10, v3);
+  return (*(v7 + 8))(v10, v5);
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -616,38 +605,34 @@ unint64_t sub_2691F131C()
   return result;
 }
 
-uint64_t sub_2691F1370()
+uint64_t sub_2691F1370(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   sub_2691F3090();
-  v0 = *(type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0) + 20);
+  type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
   return sub_2691F3090();
 }
 
 uint64_t SiriSystemCommandsModels.RestartConfirmationModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v36 = a2;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
-  v4 = OUTLINED_FUNCTION_2(v41);
-  v38 = v5;
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v4);
-  v10 = v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v40 = v33 - v11;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAD0, &qword_2691F3890);
-  OUTLINED_FUNCTION_2(v39);
-  v37 = v12;
-  v14 = *(v13 + 64);
+  v29 = a2;
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBA78, &qword_2691F37D0);
+  OUTLINED_FUNCTION_2();
+  v31 = v4;
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v33 = v26 - v9;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAD0, &qword_2691F3890);
+  OUTLINED_FUNCTION_2();
+  v30 = v10;
   OUTLINED_FUNCTION_4();
-  MEMORY[0x28223BE20](v15);
-  v17 = v33 - v16;
+  MEMORY[0x28223BE20](v11);
+  v13 = v26 - v12;
   restarted = type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
-  v19 = OUTLINED_FUNCTION_0(restarted);
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_0();
+  MEMORY[0x28223BE20](v15);
   OUTLINED_FUNCTION_7();
-  v24 = v23 - v22;
-  v25 = a1[4];
+  v18 = v17 - v16;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2691F131C();
   sub_2691F32C0();
@@ -656,26 +641,26 @@ uint64_t SiriSystemCommandsModels.RestartConfirmationModel.init(from:)@<X0>(void
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v34 = restarted;
-  v35 = v24;
-  v27 = v37;
-  v26 = v38;
-  v43 = 0;
-  v28 = sub_2691F177C(&qword_2802FBAD8);
-  v29 = v39;
+  v27 = restarted;
+  v28 = v18;
+  v20 = v30;
+  v19 = v31;
+  v36 = 0;
+  v21 = sub_2691F177C(&qword_2802FBAD8, MEMORY[0x277D637E0]);
+  v22 = v32;
   sub_2691F3240();
-  v33[1] = v28;
-  v30 = v40;
-  v40 = *(v26 + 32);
-  (v40)(v35, v30, v41);
-  v42 = 1;
+  v26[1] = v21;
+  v23 = v33;
+  v33 = *(v19 + 32);
+  (v33)(v28, v23, v34);
+  v35 = 1;
   sub_2691F3240();
-  (*(v27 + 8))(v17, v29);
-  v31 = v35;
-  (v40)(v35 + *(v34 + 20), v10, v41);
-  sub_2691F1ED8(v31, v36, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
+  (*(v20 + 8))(v13, v22);
+  v24 = v28;
+  (v33)(v28 + *(v27 + 20), v8, v34);
+  sub_2691F1ED8(v24, v29, type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  return sub_2691F17EC(v31);
+  return sub_2691F17EC(v24);
 }
 
 uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
@@ -692,7 +677,7 @@ uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
   }
 }
 
-uint64_t sub_2691F177C(unint64_t *a1)
+uint64_t sub_2691F177C(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -778,7 +763,7 @@ uint64_t sub_2691F1A94()
   return MEMORY[0x2821FE720](v0);
 }
 
-uint64_t sub_2691F1ACC()
+uint64_t sub_2691F1ACC(uint64_t a1)
 {
   sub_2691F3290();
   MEMORY[0x26D633870](0);
@@ -810,43 +795,39 @@ uint64_t sub_2691F1B7C()
 
 uint64_t SiriSystemCommandsModels.encode(to:)(void *a1)
 {
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAE0, &qword_2691F3898);
-  OUTLINED_FUNCTION_2(v28);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAE0, &qword_2691F3898);
+  OUTLINED_FUNCTION_2();
   v3 = v2;
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_4();
-  MEMORY[0x28223BE20](v6);
-  v8 = &v27 - v7;
-  v9 = type metadata accessor for SiriSystemCommandsModels(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
+  MEMORY[0x28223BE20](v4);
+  v6 = &v21 - v5;
+  v7 = type metadata accessor for SiriSystemCommandsModels(0);
+  MEMORY[0x28223BE20](v7 - 8);
   OUTLINED_FUNCTION_7();
-  v13 = v12 - v11;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAE8, &qword_2691F38A0);
-  OUTLINED_FUNCTION_2(v14);
-  v16 = v15;
-  v18 = *(v17 + 64);
+  v10 = v9 - v8;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAE8, &qword_2691F38A0);
+  OUTLINED_FUNCTION_2();
+  v13 = v12;
   OUTLINED_FUNCTION_4();
-  MEMORY[0x28223BE20](v19);
-  v21 = &v27 - v20;
-  v22 = a1[4];
+  MEMORY[0x28223BE20](v14);
+  v16 = &v21 - v15;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2691F1E84();
   sub_2691F32D0();
-  sub_2691F1ED8(v27, v13, type metadata accessor for SiriSystemCommandsModels);
+  sub_2691F1ED8(v21, v10, type metadata accessor for SiriSystemCommandsModels);
   sub_2691F1F38();
   sub_2691F3260();
   type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
   OUTLINED_FUNCTION_0_1();
-  sub_2691F2504(v23, v24);
-  v25 = v28;
+  sub_2691F2504(v17, v18, &protocol conformance descriptor for SiriSystemCommandsModels.RestartConfirmationModel);
+  v19 = v22;
   sub_2691F3270();
-  sub_2691F17EC(v13);
-  (*(v3 + 8))(v8, v25);
-  return (*(v16 + 8))(v21, v14);
+  sub_2691F17EC(v10);
+  (*(v3 + 8))(v6, v19);
+  return (*(v13 + 8))(v16, v11);
 }
 
-uint64_t sub_2691F1E4C(uint64_t a1, uint64_t *a2)
+uint64_t sub_2691F1E4C(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -869,11 +850,11 @@ unint64_t sub_2691F1E84()
   return result;
 }
 
-uint64_t sub_2691F1ED8(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t sub_2691F1ED8(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
@@ -891,84 +872,80 @@ unint64_t sub_2691F1F38()
 
 uint64_t SiriSystemCommandsModels.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v47 = a2;
-  v49 = type metadata accessor for SiriSystemCommandsModels(0);
-  v3 = OUTLINED_FUNCTION_0(v49);
-  v5 = *(v4 + 64);
+  v38 = a2;
+  v40 = type metadata accessor for SiriSystemCommandsModels(0);
+  OUTLINED_FUNCTION_0();
   MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_7();
-  v8 = v7 - v6;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAF8, &qword_2691F38A8);
-  OUTLINED_FUNCTION_2(v9);
-  v48 = v10;
-  v12 = *(v11 + 64);
+  v6 = v5 - v4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBAF8, &qword_2691F38A8);
+  OUTLINED_FUNCTION_2();
+  v39 = v7;
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v8);
+  v10 = &v36 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBB00, &qword_2691F38B0);
+  OUTLINED_FUNCTION_2();
+  v41 = v12;
   OUTLINED_FUNCTION_4();
   MEMORY[0x28223BE20](v13);
-  v15 = &v45 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBB00, &qword_2691F38B0);
-  OUTLINED_FUNCTION_2(v16);
-  v50 = v17;
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_4();
-  MEMORY[0x28223BE20](v20);
-  v22 = &v45 - v21;
-  v23 = a1[4];
+  v15 = &v36 - v14;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2691F1E84();
-  v24 = v51;
+  v16 = v42;
   sub_2691F32C0();
-  if (v24)
+  if (v16)
   {
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v51 = v15;
-  v46 = v8;
-  v25 = sub_2691F3250();
-  result = sub_2691F2440(v25, 0);
-  if (v28 == v29 >> 1)
+  v42 = v10;
+  v37 = v6;
+  v17 = sub_2691F3250();
+  result = sub_2691F2440(v17, 0);
+  if (v20 == v21 >> 1)
   {
-    v30 = v16;
+    v22 = v11;
     goto LABEL_8;
   }
 
-  if (v28 < (v29 >> 1))
+  if (v20 < (v21 >> 1))
   {
-    sub_2691F2488(v28 + 1, v29 >> 1, result, v27, v28, v29);
-    v32 = v31;
-    v34 = v33;
+    sub_2691F2488(v20 + 1, v21 >> 1, result, v19, v20, v21);
+    v24 = v23;
+    v26 = v25;
     swift_unknownObjectRelease();
-    if (v32 == v34 >> 1)
+    if (v24 == v26 >> 1)
     {
       sub_2691F1F38();
       sub_2691F3220();
       type metadata accessor for SiriSystemCommandsModels.RestartConfirmationModel(0);
       OUTLINED_FUNCTION_0_1();
-      sub_2691F2504(v39, v40);
-      v41 = v46;
+      sub_2691F2504(v30, v31, &protocol conformance descriptor for SiriSystemCommandsModels.RestartConfirmationModel);
+      v32 = v37;
       sub_2691F3240();
-      v42 = v50;
+      v33 = v41;
       swift_unknownObjectRelease();
-      v43 = OUTLINED_FUNCTION_10();
-      v44(v43);
-      (*(v42 + 8))(v22, v16);
-      sub_2691F254C(v41, v47);
+      v34 = OUTLINED_FUNCTION_10();
+      v35(v34);
+      (*(v33 + 8))(v15, v11);
+      sub_2691F254C(v32, v38);
       return __swift_destroy_boxed_opaque_existential_1(a1);
     }
 
-    v30 = v16;
+    v22 = v11;
 LABEL_8:
-    v35 = sub_2691F3210();
+    v27 = sub_2691F3210();
     swift_allocError();
-    v37 = v36;
-    v38 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBB08, &qword_2691F38B8) + 48);
-    *v37 = v49;
+    v29 = v28;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802FBB08, &qword_2691F38B8);
+    *v29 = v40;
     sub_2691F3230();
     sub_2691F3200();
-    (*(*(v35 - 8) + 104))(v37, *MEMORY[0x277D84160], v35);
+    (*(*(v27 - 8) + 104))(v29, *MEMORY[0x277D84160], v27);
     swift_willThrow();
     swift_unknownObjectRelease();
-    (*(v50 + 8))(v22, v30);
+    (*(v41 + 8))(v15, v22);
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
@@ -1042,7 +1019,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_2691F2504(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2691F2504(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1103,10 +1080,10 @@ uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2)
   return __swift_storeEnumTagSinglePayload(a1, a2, a2, v4);
 }
 
-void sub_2691F28DC()
+void sub_2691F28DC(uint64_t a1)
 {
   sub_2691F2948();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -1515,7 +1492,7 @@ unint64_t sub_2691F2F48()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+uint64_t OUTLINED_FUNCTION_9(uint64_t a1)
 {
 
   return sub_2691F3270();

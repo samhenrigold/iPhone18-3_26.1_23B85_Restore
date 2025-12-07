@@ -4,6 +4,7 @@
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index;
 - (BOOL)syncgetBiasFit:(id *)fit;
 - (BOOL)syncgetDoSync:(id)sync;
+- (BOOL)syncgetGyroStatsWithBias:(id *)bias slope:(id *)slope l2Error:(id *)error isDynamic:(BOOL)dynamic deltaBias:(id *)deltaBias deltaSlope:(id *)deltaSlope deltaError:(id *)deltaError isDeltaDynamic:(BOOL)self0;
 - (BOOL)syncgetInsertWithBias:(id *)bias variance:(id *)variance temperature:(float)temperature timestamp:(double)timestamp;
 - (BOOL)syncgetSupportsMiniCalibration;
 - (BOOL)syncgetWipeDatabase;
@@ -53,7 +54,7 @@
 
 - (void)beginService
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_universe(self, a2, v2);
   v5 = sub_19B651C54(v4);
   objc_msgSend_setAdaptedNotifier_(self, v6, v5);
@@ -64,18 +65,36 @@
       dispatch_once(&qword_1EAFE27F8, &unk_1F0E3B518);
     }
 
-    v10 = qword_1EAFE2820;
+    v9 = qword_1EAFE2820;
     if (os_log_type_enabled(qword_1EAFE2820, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2082;
-      v18 = "assert";
-      v19 = 2081;
-      v20 = "__null != self.notifier";
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "assert";
+      v18 = 2081;
+      v19 = "__null != self.notifier";
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1EAFE27F8 != -1)
+      {
+        dispatch_once(&qword_1EAFE27F8, &unk_1F0E3B518);
+      }
+    }
+
+    v10 = qword_1EAFE2820;
+    if (os_signpost_enabled(qword_1EAFE2820))
+    {
+      *buf = 68289539;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "assert";
+      v18 = 2081;
+      v19 = "__null != self.notifier";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1EAFE27F8 != -1)
       {
         dispatch_once(&qword_1EAFE27F8, &unk_1F0E3B518);
@@ -83,41 +102,21 @@
     }
 
     v11 = qword_1EAFE2820;
-    if (os_signpost_enabled(qword_1EAFE2820))
-    {
-      *buf = 68289539;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2082;
-      v18 = "assert";
-      v19 = 2081;
-      v20 = "__null != self.notifier";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1EAFE27F8 != -1)
-      {
-        dispatch_once(&qword_1EAFE27F8, &unk_1F0E3B518);
-      }
-    }
-
-    v12 = qword_1EAFE2820;
     if (os_log_type_enabled(qword_1EAFE2820, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v14 = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2082;
-      v18 = "assert";
-      v19 = 2081;
-      v20 = "__null != self.notifier";
-      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "assert";
+      v18 = 2081;
+      v19 = "__null != self.notifier";
+      _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/SensorCalibration/CLGyroCalibrationDatabase.mm", 23, "[CLGyroCalibrationDatabaseAdapter beginService]");
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endService
@@ -132,7 +131,6 @@
   result = objc_msgSend_notifier(self, a2, v2);
   if (result)
   {
-    v4 = **result;
 
     return __dynamic_cast(result, &unk_1F0E37D70, &unk_1F0E37848, 0);
   }
@@ -174,6 +172,21 @@
   return byte_1ED71D6E8;
 }
 
+- (BOOL)syncgetGyroStatsWithBias:(id *)bias slope:(id *)slope l2Error:(id *)error isDynamic:(BOOL)dynamic deltaBias:(id *)deltaBias deltaSlope:(id *)deltaSlope deltaError:(id *)deltaError isDeltaDynamic:(BOOL)self0
+{
+  dynamicCopy = dynamic;
+  v15 = objc_msgSend_adaptee(self, a2, bias);
+  v16 = (*(*v15 + 256))(v15, bias, slope, error, dynamicCopy);
+  if (v16)
+  {
+    v19 = *(*objc_msgSend_adaptee(self, v17, v18) + 256);
+
+    LOBYTE(v16) = v19();
+  }
+
+  return v16;
+}
+
 - (int)syncgetMaxDynamicTemperature
 {
   v3 = *(*objc_msgSend_adaptee(self, a2, v2) + 264);
@@ -197,13 +210,12 @@
 
 - (void)getBiasFitWithReply:(id)reply
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   memset(__src, 0, sizeof(__src));
   v4 = objc_msgSend_adaptee(self, a2, reply);
   v5 = (*(*v4 + 216))(v4, __src);
-  memcpy(v7, __src, sizeof(v7));
-  (*(reply + 2))(reply, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  memcpy(v6, __src, sizeof(v6));
+  (*(reply + 2))(reply, v5, v6);
 }
 
 - (int)syncgetNonFactoryRoundCount

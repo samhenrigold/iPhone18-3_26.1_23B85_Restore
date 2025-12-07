@@ -38,7 +38,7 @@
   xdict = xpc_dictionary_create(0, 0, 0);
   v5 = time(0);
   xpc_dictionary_set_date(xdict, "Date", 1000000000 * (ceil(seconds) + v5));
-  if (MTIsHorseman())
+  if (MTIsHorseman(v6, v7))
   {
     xpc_dictionary_set_BOOL(xdict, "UserVisible", 1);
   }

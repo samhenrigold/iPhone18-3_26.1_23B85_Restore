@@ -1,4 +1,5 @@
 @interface SBCrossfadeView
++ (id)crossfadeViewWithStartView:(id)view endView:(id)endView translucent:(BOOL)translucent;
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key;
 - (id)_initWithStartView:(id)view endView:(id)endView translucent:(BOOL)translucent;
 - (void)crossfadeWithCompletion:(id)completion;
@@ -18,6 +19,16 @@
   endView = self->_endView;
   [(SBCrossfadeView *)self bounds];
   [(UIView *)endView setFrame:?];
+}
+
++ (id)crossfadeViewWithStartView:(id)view endView:(id)endView translucent:(BOOL)translucent
+{
+  translucentCopy = translucent;
+  endViewCopy = endView;
+  viewCopy = view;
+  v10 = [[self alloc] _initWithStartView:viewCopy endView:endViewCopy translucent:translucentCopy];
+
+  return v10;
 }
 
 - (id)_initWithStartView:(id)view endView:(id)endView translucent:(BOOL)translucent

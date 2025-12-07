@@ -60,7 +60,7 @@
 
 - (_PRPosterEnvironmentSnapshot)initWithEnvironment:(id)environment layoutController:(id)controller
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   controllerCopy = controller;
   v9 = controllerCopy;
@@ -83,9 +83,9 @@
 
   [_PRPosterEnvironmentSnapshot initWithEnvironment:a2 layoutController:self];
 LABEL_3:
-  v87.receiver = self;
-  v87.super_class = _PRPosterEnvironmentSnapshot;
-  v10 = [(_PRPosterEnvironmentSnapshot *)&v87 init];
+  v88.receiver = self;
+  v88.super_class = _PRPosterEnvironmentSnapshot;
+  v10 = [(_PRPosterEnvironmentSnapshot *)&v88 init];
   if (v10)
   {
     bundleURL = [environmentCopy bundleURL];
@@ -175,64 +175,64 @@ LABEL_3:
     v10->_deviceRoll = v52;
     [environmentCopy devicePitch];
     v10->_devicePitch = v53;
-    [environmentCopy deviceYaw];
-    v10->_deviceYaw = v54;
-    v55 = 0uLL;
-    v85 = 0u;
+    deviceYaw = [environmentCopy deviceYaw];
+    v10->_deviceYaw = v55;
+    v56 = 0uLL;
     v86 = 0u;
+    v87 = 0u;
     if (environmentCopy)
     {
-      [environmentCopy deviceMotionRotation];
-      v55 = 0u;
+      deviceYaw = objc_msgSend_deviceMotionRotation(environmentCopy);
       v56 = 0u;
+      v57 = 0u;
     }
 
     else
     {
-      v56 = 0uLL;
+      v57 = 0uLL;
     }
 
-    v57.f64[0] = NAN;
-    v57.f64[1] = NAN;
-    v58 = vnegq_f64(v57);
-    v59 = vandq_s8(v55, v58);
-    v60 = vandq_s8(v56, v58);
-    v61 = vdupq_n_s64(0x7FF0000000000000uLL);
-    v62 = vandq_s8(vcgtq_s64(v61, v59), vcgtq_s64(v61, v60));
-    if ((vandq_s8(v62, vdupq_laneq_s64(v62, 1)).u64[0] & 0x8000000000000000) == 0)
+    v58.f64[0] = NAN;
+    v58.f64[1] = NAN;
+    v59 = vnegq_f64(v58);
+    v60 = vandq_s8(v56, v59);
+    v61 = vandq_s8(v57, v59);
+    v62 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v63 = vandq_s8(vcgtq_s64(v62, v60), vcgtq_s64(v62, v61));
+    if ((vandq_s8(v63, vdupq_laneq_s64(v63, 1)).u64[0] & 0x8000000000000000) == 0)
     {
-      v63 = PRLogCommon();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+      v64 = PRLogCommon(deviceYaw);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
       {
         *buf = 0u;
-        v89 = 0u;
-        v64 = [MEMORY[0x1E69C5110] descriptionForRotation:buf];
+        v90 = 0u;
+        v65 = [MEMORY[0x1E69C5110] descriptionForRotation:buf];
         *buf = 138543362;
-        *&buf[4] = v64;
-        _os_log_impl(&dword_1A8AA7000, v63, OS_LOG_TYPE_INFO, "Invalid SPRotation3D detected: %{public}@. Falling back to identity.", buf, 0xCu);
+        *&buf[4] = v65;
+        _os_log_impl(&dword_1A8AA7000, v64, OS_LOG_TYPE_INFO, "Invalid SPRotation3D detected: %{public}@. Falling back to identity.", buf, 0xCu);
       }
 
-      v85 = SPRotation3DIdentity_0;
-      v86 = unk_1A8BF7D30;
+      v86 = SPRotation3DIdentity_0;
+      v87 = unk_1A8BF7D30;
     }
 
-    *v10->_anon_1b0 = v85;
-    *&v10->_anon_1b0[16] = v86;
+    *v10->_anon_1b0 = v86;
+    *&v10->_anon_1b0[16] = v87;
     [environmentCopy deviceMotionUpdateInterval];
-    v10->_deviceMotionUpdateInterval = v65;
+    v10->_deviceMotionUpdateInterval = v66;
     sourceContents = [environmentCopy sourceContents];
     sourceContents = v10->_sourceContents;
     v10->_sourceContents = sourceContents;
 
     context2 = [environmentCopy context];
-    v69 = v10->_context;
+    v70 = v10->_context;
     v10->_context = context2;
 
     [environmentCopy screenBounds];
-    v10->_screenBounds.origin.x = v70;
-    v10->_screenBounds.origin.y = v71;
-    v10->_screenBounds.size.width = v72;
-    v10->_screenBounds.size.height = v73;
+    v10->_screenBounds.origin.x = v71;
+    v10->_screenBounds.origin.y = v72;
+    v10->_screenBounds.size.width = v73;
+    v10->_screenBounds.size.height = v74;
     objc_storeStrong(&v10->_layoutController, controller);
     targetConfiguredProperties = [environmentCopy targetConfiguredProperties];
     targetConfiguredProperties = v10->_targetConfiguredProperties;
@@ -243,7 +243,7 @@ LABEL_3:
     v10->_sourceConfigurableOptions = sourceConfigurableOptions;
 
     sourceTimeFontConfiguration2 = [environmentCopy sourceTimeFontConfiguration];
-    v79 = v10->_sourceTimeFontConfiguration;
+    v80 = v10->_sourceTimeFontConfiguration;
     v10->_sourceTimeFontConfiguration = sourceTimeFontConfiguration2;
 
     targetConfiguration = [environmentCopy targetConfiguration];
@@ -255,8 +255,8 @@ LABEL_3:
     v10->_showsComplications = [environmentCopy showsComplications];
     v10->_showsHeaderElements = [environmentCopy showsHeaderElements];
     [environmentCopy userTapLocation];
-    v10->_userTapLocation.x = v82;
-    v10->_userTapLocation.y = v83;
+    v10->_userTapLocation.x = v83;
+    v10->_userTapLocation.y = v84;
     v10->_userTapEventsCounter = [environmentCopy userTapEventsCounter];
     v10->_wallpaperObscured = [environmentCopy isWallpaperObscured];
     v10->_adaptiveTimeDisabled = [environmentCopy isAdaptiveTimeDisabled];

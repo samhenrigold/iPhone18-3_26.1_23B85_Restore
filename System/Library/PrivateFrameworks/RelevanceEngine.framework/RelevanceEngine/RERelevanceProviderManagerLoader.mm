@@ -63,35 +63,35 @@ uint64_t __74__RERelevanceProviderManagerLoader_disabledRelevanceProviderManager
 
 + (id)aggregateRelevanceProviderManagerLoaderWithrelevanceProviderManagerLoaders:(id)loaders
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   loadersCopy = loaders;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = loadersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (*(*(*(&v15 + 1) + 8 * i) + 8))
+        if (*(*(*(&v14 + 1) + 8 * i) + 8))
         {
-          [orderedSet addObject:v15];
+          [orderedSet addObject:v14];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -101,8 +101,6 @@ uint64_t __74__RERelevanceProviderManagerLoader_disabledRelevanceProviderManager
   v11 = [REClassLoader groupLoaderWithLoaders:orderedSet];
   v12 = v10[1];
   v10[1] = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

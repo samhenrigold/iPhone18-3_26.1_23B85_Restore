@@ -68,7 +68,7 @@ void __29__PFClientUtil_isPodcastsApp__block_invoke(uint64_t a1)
   return 0;
 }
 
-uint64_t __34__PFClientUtil_supportsImageStore__block_invoke(uint64_t a1)
+void *__34__PFClientUtil_supportsImageStore__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRunningOnHomepod];
   if ((result & 1) == 0)
@@ -200,15 +200,16 @@ void __35__PFClientUtil_isAppRemovalService__block_invoke(uint64_t a1)
 
 uint64_t __33__PFClientUtil_supportsDownloads__block_invoke(uint64_t a1)
 {
-  supportsDownloads_supportsDownloads = [*(a1 + 32) isPodcastsApp];
-  if (supportsDownloads_supportsDownloads)
+  v1 = [*(a1 + 32) isPodcastsApp];
+  supportsDownloads_supportsDownloads = v1;
+  if (v1)
   {
     result = 1;
   }
 
   else
   {
-    result = isRunningUnitTests();
+    result = isRunningUnitTests(v1, v2);
   }
 
   supportsDownloads_supportsDownloads = result;
@@ -292,7 +293,7 @@ uint64_t __35__PFClientUtil_isRunningOnVisionOS__block_invoke()
   return supportsGUI_supportsGUI;
 }
 
-uint64_t __27__PFClientUtil_supportsGUI__block_invoke(uint64_t a1)
+void *__27__PFClientUtil_supportsGUI__block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isRunningOnHomepod])
   {

@@ -1,7 +1,6 @@
 @interface CHCompanionWidgetSchedulingManager
 - (CHCompanionWidgetSchedulingManager)initWithProfile:(id)profile;
 - (int64_t)_currentWheelchairUse;
-- (void)_currentWheelchairUse;
 - (void)_donateRelevance;
 - (void)_reloadWidgetTimelines;
 - (void)_startObservingEffort;
@@ -168,7 +167,7 @@ void __79__CHCompanionWidgetSchedulingManager__startObservingStandalonePhoneFitn
 
 - (void)associationsUpdatedForObject:(id)object subObject:(id)subObject type:(unint64_t)type behavior:(unint64_t)behavior objects:(id)objects anchor:(id)anchor
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   subObjectCopy = subObject;
   _HKInitializeLogging();
@@ -176,8 +175,8 @@ void __79__CHCompanionWidgetSchedulingManager__startObservingStandalonePhoneFitn
   v13 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&dword_243CCD000, v13, OS_LOG_TYPE_DEFAULT, "CHCompanionWidgetSchedulingManager associations updated", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_243CCD000, v13, OS_LOG_TYPE_DEFAULT, "CHCompanionWidgetSchedulingManager associations updated", &v24, 2u);
   }
 
   objc_opt_class();
@@ -207,15 +206,15 @@ void __79__CHCompanionWidgetSchedulingManager__startObservingStandalonePhoneFitn
         v21 = *v12;
         if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
         {
-          v23 = v21;
+          v22 = v21;
           endDate2 = [v14 endDate];
-          v25 = 138543874;
+          v24 = 138543874;
           selfCopy = self;
-          v27 = 2114;
-          v28 = endDate2;
-          v29 = 2114;
-          v30 = v16;
-          _os_log_error_impl(&dword_243CCD000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Associations Updated, workout's end date %{public}@ is older than lower bound of query range %{public}@", &v25, 0x20u);
+          v26 = 2114;
+          v27 = endDate2;
+          v28 = 2114;
+          v29 = v16;
+          _os_log_error_impl(&dword_243CCD000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Associations Updated, workout's end date %{public}@ is older than lower bound of query range %{public}@", &v24, 0x20u);
         }
       }
 
@@ -243,8 +242,6 @@ void __79__CHCompanionWidgetSchedulingManager__startObservingStandalonePhoneFitn
       [CHCompanionWidgetSchedulingManager associationsUpdatedForObject:subObject:type:behavior:objects:anchor:];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userCharacteristicsManager:(id)manager didUpdateUserProfile:(id)profile
@@ -289,30 +286,34 @@ void __79__CHCompanionWidgetSchedulingManager__startObservingStandalonePhoneFitn
 
 - (void)_reloadWidgetTimelines
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Failed to update Fitness widget with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = [objc_alloc(MEMORY[0x277CFA320]) initWithExtensionBundleIdentifier:@"com.apple.Fitness.FitnessWidget" kind:@"com.apple.Fitness"];
+  v3 = [v2 reloadTimelineWithReason:@"CHCompanionWidgetSchedulingManager request reload timeline"];
+  if (v3)
+  {
+    _HKInitializeLogging();
+    if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_ERROR))
+    {
+      [CHCompanionWidgetSchedulingManager _reloadWidgetTimelines];
+    }
+  }
 }
 
 - (void)_donateRelevance
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CD3F38]);
   [v2 setWidgetKind:@"com.apple.Fitness"];
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1800.0];
   v5 = [objc_alloc(MEMORY[0x277CD3B88]) initWithStartDate:date endDate:v4];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v2 setRelevanceProviders:v6];
 
   defaultStore = [MEMORY[0x277CD3F40] defaultStore];
-  v10 = v2;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9 = v2;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [defaultStore setRelevantShortcuts:v8 completionHandler:&__block_literal_global];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__CHCompanionWidgetSchedulingManager__donateRelevance__block_invoke(uint64_t a1, void *a2)
@@ -323,46 +324,6 @@ void __54__CHCompanionWidgetSchedulingManager__donateRelevance__block_invoke(uin
   {
     __54__CHCompanionWidgetSchedulingManager__donateRelevance__block_invoke_cold_1();
   }
-}
-
-- (void)associationsUpdatedForObject:subObject:type:behavior:objects:anchor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_243CCD000, v0, v1, "%{public}@: Object is not a Workout: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)associationsUpdatedForObject:subObject:type:behavior:objects:anchor:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_243CCD000, v0, v1, "%{public}@: SubObject is not a WorkoutActivity: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)associationsUpdatedForObject:subObject:type:behavior:objects:anchor:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "CHCompanionWidgetSchedulingManager failed to reload timeline for training load: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_currentWheelchairUse
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Error getting user wheelchair use: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__CHCompanionWidgetSchedulingManager__donateRelevance__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Failed to set relevant shortcuts in store with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

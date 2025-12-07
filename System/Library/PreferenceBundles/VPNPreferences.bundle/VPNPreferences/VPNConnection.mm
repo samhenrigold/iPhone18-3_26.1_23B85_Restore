@@ -29,114 +29,108 @@
 {
   dCopy = d;
   optionsCopy = options;
-  v43.receiver = self;
-  v43.super_class = VPNConnection;
-  v9 = [(VPNConnection *)&v43 init];
+  v41.receiver = self;
+  v41.super_class = VPNConnection;
+  v9 = [(VPNConnection *)&v41 init];
+  v10 = v9;
   if (v9)
   {
     objc_initWeak(&location, v9);
-    v10 = [optionsCopy objectForKey:@"VPNEnabled"];
-    v9->_enabled = [v10 BOOLValue];
+    v11 = [optionsCopy objectForKey:@"VPNEnabled"];
+    v10->_enabled = [v11 BOOLValue];
 
-    objc_storeStrong(&v9->_serviceID, d);
-    v11 = [optionsCopy objectForKey:@"dispName"];
-    displayName = v9->_displayName;
-    v9->_displayName = v11;
+    objc_storeStrong(&v10->_serviceID, d);
+    v12 = [optionsCopy objectForKey:@"dispName"];
+    displayName = v10->_displayName;
+    v10->_displayName = v12;
 
-    v13 = [optionsCopy objectForKey:@"VPNApplicationBundleID"];
-    bundleID = v9->_bundleID;
-    v9->_bundleID = v13;
+    v14 = [optionsCopy objectForKey:@"VPNApplicationBundleID"];
+    bundleID = v10->_bundleID;
+    v10->_bundleID = v14;
 
-    v15 = dispatch_queue_create("VPNConnection", 0);
-    queue = v9->_queue;
-    v9->_queue = v15;
+    v16 = dispatch_queue_create("VPNConnection", 0);
+    queue = v10->_queue;
+    v10->_queue = v16;
 
-    v17 = [optionsCopy objectForKey:@"VPNGrade"];
-    v9->_grade = [v17 unsignedIntegerValue];
+    v18 = [optionsCopy objectForKey:@"VPNGrade"];
+    v10->_grade = [v18 unsignedIntegerValue];
 
-    if (v9->_grade == 3)
+    if (v10->_grade == 3)
     {
-      v18 = objc_alloc_init(NSMutableArray);
-      subConnections = v9->_subConnections;
-      v9->_subConnections = v18;
+      v19 = objc_alloc_init(NSMutableArray);
+      subConnections = v10->_subConnections;
+      v10->_subConnections = v19;
     }
 
-    if (v9->_queue)
+    if (v10->_queue)
     {
       *buf = 0;
       *&buf[8] = 0;
-      [(NSUUID *)v9->_serviceID getUUIDBytes:buf];
-      v20 = v9->_grade - 2;
-      if (v20 < 8)
-      {
-        v21 = dword_3C2F8[v20];
-      }
+      [(NSUUID *)v10->_serviceID getUUIDBytes:buf];
+      v21 = ne_session_create();
+      v10->_session = v21;
+      v10->_session_status = 1;
+      v22 = objc_loadWeakRetained(&location);
+      sub_4760(v22);
 
-      v22 = ne_session_create();
-      v9->_session = v22;
-      v9->_session_status = 1;
-      v23 = objc_loadWeakRetained(&location);
-      sub_4760(v23);
-
-      if (v9->_session)
+      if (v10->_session)
       {
-        v24 = v9->_queue;
-        objc_copyWeak(v41, &location);
-        v41[1] = v22;
+        objc_copyWeak(v39, &location);
+        v39[1] = v21;
         ne_session_set_event_handler();
-        objc_destroyWeak(v41);
+        objc_destroyWeak(v39);
       }
     }
 
-    v25 = [optionsCopy objectForKey:@"VPNType"];
-    v9->_vpnConnectionType = [v25 unsignedIntegerValue];
+    v23 = [optionsCopy objectForKey:@"VPNType"];
+    v10->_vpnConnectionType = [v23 unsignedIntegerValue];
 
-    v26 = [optionsCopy objectForKey:@"authorization"];
-    accountName = v9->_accountName;
-    v9->_accountName = v26;
+    v24 = [optionsCopy objectForKey:@"authorization"];
+    accountName = v10->_accountName;
+    v10->_accountName = v24;
 
-    v28 = [optionsCopy objectForKey:@"server"];
-    server = v9->_server;
-    v9->_server = v28;
+    v26 = [optionsCopy objectForKey:@"server"];
+    server = v10->_server;
+    v10->_server = v26;
 
-    v30 = [optionsCopy objectForKey:@"securID"];
-    v9->_useRSASecurID = [v30 BOOLValue];
+    v28 = [optionsCopy objectForKey:@"securID"];
+    v10->_useRSASecurID = [v28 BOOLValue];
 
-    v31 = [optionsCopy objectForKey:@"secret"];
-    sharedSecret = v9->_sharedSecret;
-    v9->_sharedSecret = v31;
+    v29 = [optionsCopy objectForKey:@"secret"];
+    sharedSecret = v10->_sharedSecret;
+    v10->_sharedSecret = v29;
 
-    v33 = [optionsCopy objectForKey:@"password"];
-    password = v9->_password;
-    v9->_password = v33;
+    v31 = [optionsCopy objectForKey:@"password"];
+    password = v10->_password;
+    v10->_password = v31;
 
-    v35 = [optionsCopy objectForKey:@"VPNCertificate"];
-    certificate = v9->_certificate;
-    v9->_certificate = v35;
+    v33 = [optionsCopy objectForKey:@"VPNCertificate"];
+    certificate = v10->_certificate;
+    v10->_certificate = v33;
 
-    v9->_isProviderAvailable = 1;
-    v37 = [optionsCopy objectForKey:@"VPNOnDemandUserOverrideDisabled"];
-    v9->_onDemandUserOverrideDisabled = [v37 BOOLValue];
+    v10->_isProviderAvailable = 1;
+    v35 = [optionsCopy objectForKey:@"VPNOnDemandUserOverrideDisabled"];
+    v10->_onDemandUserOverrideDisabled = [v35 BOOLValue];
 
-    v38 = [optionsCopy objectForKey:@"VPNIsPerApp"];
-    v9->_isPerApp = [v38 BOOLValue];
+    v36 = [optionsCopy objectForKey:@"VPNIsPerApp"];
+    v10->_isPerApp = [v36 BOOLValue];
 
     objc_destroyWeak(&location);
   }
 
-  v39 = sub_46D8();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v37 = sub_46D8(v9);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 2112;
     *&buf[14] = dCopy;
-    v45 = 2112;
-    v46 = optionsCopy;
-    _os_log_debug_impl(&dword_0, v39, OS_LOG_TYPE_DEBUG, "New VPN service %@ for service %@, options %@", buf, 0x20u);
+    v43 = 2112;
+    v44 = optionsCopy;
+    _os_log_debug_impl(&dword_0, v37, OS_LOG_TYPE_DEBUG, "New VPN service %@ for service %@, options %@", buf, 0x20u);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)updateWithOptions:(id)options

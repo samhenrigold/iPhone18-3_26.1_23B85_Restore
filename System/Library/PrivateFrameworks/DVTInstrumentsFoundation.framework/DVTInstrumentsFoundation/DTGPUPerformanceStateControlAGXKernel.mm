@@ -82,7 +82,7 @@ LABEL_4:
 
 - (id)currentState
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   if (self->_connection)
   {
     v3 = objc_opt_new();
@@ -90,21 +90,21 @@ LABEL_4:
     connection = self->_connection;
     if (connection && (outputStructCnt = 8, !IOConnectCallStructMethod(connection, 0x41u, &outputStruct, 8uLL, &outputStruct, &outputStructCnt)) && outputStructCnt == 8)
     {
-      v17[0] = @"accelerator-id";
+      v16[0] = @"accelerator-id";
       v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_acceleratorId];
-      v18[0] = v5;
-      v18[1] = MEMORY[0x277CBEC38];
-      v17[1] = @"available";
-      v17[2] = @"enabled";
+      v17[0] = v5;
+      v17[1] = MEMORY[0x277CBEC38];
+      v16[1] = @"available";
+      v16[2] = @"enabled";
       v6 = [MEMORY[0x277CCABB0] numberWithBool:BYTE2(outputStruct) == 1];
-      v18[2] = v6;
-      v17[3] = @"sustained";
+      v17[2] = v6;
+      v16[3] = @"sustained";
       v7 = [MEMORY[0x277CCABB0] numberWithBool:BYTE3(outputStruct) == 1];
-      v18[3] = v7;
-      v17[4] = @"level";
+      v17[3] = v7;
+      v16[4] = @"level";
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:BYTE4(outputStruct)];
-      v18[4] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+      v17[4] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
       [v3 addEntriesFromDictionary:v9];
 
       outputStruct = 259;
@@ -133,8 +133,6 @@ LABEL_4:
   {
     v12 = &unk_285A36EF8;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

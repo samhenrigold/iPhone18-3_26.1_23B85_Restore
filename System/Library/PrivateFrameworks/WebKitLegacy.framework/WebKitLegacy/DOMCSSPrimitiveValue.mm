@@ -21,30 +21,33 @@
 
 - (void)setFloatValue:(unsigned __int16)unitType floatValue:(float)floatValue
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v4);
-  v4[80] = 4;
-  v5 = 0;
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(&v4);
+  v5[0] = 4;
+  v6 = 0;
   raiseDOMErrorException();
 }
 
 - (float)getFloatValue:(unsigned __int16)unitType
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v10);
-  FloatValue = WebCore::DeprecatedCSSOMPrimitiveValue::getFloatValue(self->super.super._internal);
-  if (v9)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
+  FloatValue = WebCore::DeprecatedCSSOMPrimitiveValue::getFloatValue(&v9, self->super.super._internal);
+  if (v11)
   {
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      v10[80] = LOBYTE(v7);
-      v11 = v8;
+      v12[80] = v9;
+      v8 = v10;
+      v10 = 0;
+      v13 = v8;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(FloatValue);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v10, v5);
-  return v7;
+  v6 = *&v9;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v5);
+  return v6;
 }
 
 - (void)setStringValue:(unsigned __int16)stringType stringValue:(NSString *)stringValue

@@ -45,50 +45,50 @@
   return v6;
 }
 
-uint64_t __45__VMUVMRegionTracker_initWithStackLogReader___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __45__VMUVMRegionTracker_initWithStackLogReader___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   uniquing_table_index = msl_payload_get_uniquing_table_index();
-  v9 = *(a1 + 32);
+  v10 = *(a1 + 32);
 
-  return [v9 handleStackLogType:a2 address:a3 size:a4 stackID:uniquing_table_index];
+  return [v10 handleStackLogType:a2 address:a3 size:a4 stackID:uniquing_table_index];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
   [coderCopy encodeObject:v5 forKey:@"classVersion"];
 
   v6 = objc_opt_new();
   [v6 serialize32:{-[VMUVMRegionTracker regionCount](self, "regionCount")}];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_regionInfoArray;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
-        [v6 serialize64:{objc_msgSend(v12, "address", v15)}];
+        v12 = *(*(&v14 + 1) + 8 * i);
+        [v6 serialize64:{objc_msgSend(v12, "address", v14)}];
         [v6 serialize64:{objc_msgSend(v12, "size")}];
         [v6 serialize32:{objc_msgSend(v12, "stackIdentifier")}];
         [v6 serialize32:{objc_msgSend(v12, "userTag")}];
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -96,8 +96,6 @@ uint64_t __45__VMUVMRegionTracker_initWithStackLogReader___block_invoke(uint64_t
 
   copyContiguousData = [v6 copyContiguousData];
   [coderCopy encodeObject:copyContiguousData forKey:@"simpleSerializerData"];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (VMUVMRegionTracker)initWithCoder:(id)coder
@@ -349,40 +347,38 @@ LABEL_18:
 
 - (void)convertStackIDs:(id)ds
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_regionInfoArray;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9) setStackIdentifier:{dsCopy[2](dsCopy, objc_msgSend(*(*(&v11 + 1) + 8 * v9), "stackIdentifier", v11))}];
+        [*(*(&v10 + 1) + 8 * v9) setStackIdentifier:{dsCopy[2](dsCopy, objc_msgSend(*(*(&v10 + 1) + 8 * v9), "stackIdentifier", v10))}];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)vmRegionRangeInfoForRange:(_VMURange)range

@@ -503,132 +503,132 @@ void __55__CKMessageTypeQueryController_createFoundItemsHandler__block_invoke(ui
 
 - (id)queryResultsForItems:(id)items
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v5 = CKSearchSignpostLogHandle();
+  v5 = CKSearchSignpostLogHandle(itemsCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = CKSearchSignpostLogHandle();
-  v8 = v7;
+  v8 = CKSearchSignpostLogHandle(v7);
+  v9 = v8;
   spid = v6;
-  v39 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v41 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "queryResultsForItems", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "queryResultsForItems", "", buf, 2u);
   }
 
-  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v51 = 0u;
+  v52 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v10 = itemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v47 objects:v60 count:16];
-  if (v11)
+  v11 = itemsCopy;
+  v12 = [v11 countByEnumeratingWithState:&v49 objects:v62 count:16];
+  if (v12)
   {
-    v12 = *v48;
+    v13 = *v50;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v48 != v12)
+        if (*v50 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * i);
-        spid = [(CKMessageTypeQueryController *)self chatGUIDForSearchableItem:v14, spid];
-        v16 = spid;
+        v15 = *(*(&v49 + 1) + 8 * i);
+        spid = [(CKMessageTypeQueryController *)self chatGUIDForSearchableItem:v15, spid];
+        v17 = spid;
         if (spid && [spid length])
         {
-          [v9 addObject:v14];
+          [v10 addObject:v15];
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v49 objects:v62 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v40 = [(CKMessageTypeQueryController *)self maxResultsForMode:[(CKQueryController *)self mode]];
-  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+  v42 = [(CKMessageTypeQueryController *)self maxResultsForMode:[(CKQueryController *)self mode]];
+  v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v11, "count")}];
   if (IMOSLoggingEnabled())
   {
-    v17 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v19 = [v9 count];
+      v19 = objc_opt_class();
+      v20 = [v10 count];
       *buf = 138412802;
-      v52 = v18;
-      v53 = 2048;
       v54 = v19;
       v55 = 2048;
-      v56 = v40;
-      _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "%@ got %lu items with valid chat GUIDs, checking chat existence up to max results %lu", buf, 0x20u);
+      v56 = v20;
+      v57 = 2048;
+      v58 = v42;
+      _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "%@ got %lu items with valid chat GUIDs, checking chat existence up to max results %lu", buf, 0x20u);
     }
   }
 
+  v47 = 0u;
+  v48 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  obj = v9;
-  v20 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
-  if (v20)
+  obj = v10;
+  v21 = [obj countByEnumeratingWithState:&v45 objects:v61 count:16];
+  if (v21)
   {
-    v21 = *v44;
+    v22 = *v46;
     while (2)
     {
-      for (j = 0; j != v20; ++j)
+      for (j = 0; j != v21; ++j)
       {
-        if (*v44 != v21)
+        if (*v46 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v43 + 1) + 8 * j);
-        spid2 = [(CKMessageTypeQueryController *)self chatGUIDForSearchableItem:v23, spid];
+        v24 = *(*(&v45 + 1) + 8 * j);
+        spid2 = [(CKMessageTypeQueryController *)self chatGUIDForSearchableItem:v24, spid];
         delegate = [(CKQueryController *)self delegate];
-        v26 = [delegate queryController:self conversationForChatGUID:spid2];
+        v27 = [delegate queryController:self conversationForChatGUID:spid2];
 
         if (IMOSLoggingEnabled())
         {
-          v27 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v28 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            v28 = objc_opt_class();
-            isBlockedByCommunicationLimits = [v26 isBlockedByCommunicationLimits];
+            v29 = objc_opt_class();
+            isBlockedByCommunicationLimits = [v27 isBlockedByCommunicationLimits];
             *buf = 138413058;
-            v30 = @"NO";
+            v31 = @"NO";
             if (isBlockedByCommunicationLimits)
             {
-              v30 = @"YES";
+              v31 = @"YES";
             }
 
-            v52 = v28;
-            v53 = 2112;
-            v54 = spid2;
-            v55 = 2048;
-            v56 = v26;
-            v57 = 2112;
-            v58 = v30;
-            _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "%@ chat guid %@ got conversation %p commLimit state %@", buf, 0x2Au);
+            v54 = v29;
+            v55 = 2112;
+            v56 = spid2;
+            v57 = 2048;
+            v58 = v27;
+            v59 = 2112;
+            v60 = v31;
+            _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "%@ chat guid %@ got conversation %p commLimit state %@", buf, 0x2Au);
           }
         }
 
-        if (v26)
+        if (v27)
         {
-          if (([v26 isBlockedByCommunicationLimits] & 1) == 0)
+          if (([v27 isBlockedByCommunicationLimits] & 1) == 0)
           {
-            v31 = [CKSpotlightQueryResult alloc];
+            v32 = [CKSpotlightQueryResult alloc];
             queryTypeIdentifier = [(CKQueryController *)self queryTypeIdentifier];
-            v33 = [(CKSpotlightQueryResult *)v31 initWithSearchableItem:v23 queryType:queryTypeIdentifier withConversation:v26];
+            v34 = [(CKSpotlightQueryResult *)v32 initWithSearchableItem:v24 queryType:queryTypeIdentifier withConversation:v27];
 
-            [v42 addObject:v33];
-            LODWORD(queryTypeIdentifier) = [v42 count] < v40;
+            [v44 addObject:v34];
+            LODWORD(queryTypeIdentifier) = [v44 count] < v42;
 
             if (!queryTypeIdentifier)
             {
@@ -639,8 +639,8 @@ void __55__CKMessageTypeQueryController_createFoundItemsHandler__block_invoke(ui
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v43 objects:v59 count:16];
-      if (v20)
+      v21 = [obj countByEnumeratingWithState:&v45 objects:v61 count:16];
+      if (v21)
       {
         continue;
       }
@@ -651,17 +651,17 @@ void __55__CKMessageTypeQueryController_createFoundItemsHandler__block_invoke(ui
 
 LABEL_36:
 
-  v34 = CKSearchSignpostLogHandle();
-  v35 = v34;
-  if (v39 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v34))
+  v36 = CKSearchSignpostLogHandle(v35);
+  v37 = v36;
+  if (v41 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v36))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19020E000, v35, OS_SIGNPOST_INTERVAL_END, spid, "queryResultsForItems", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19020E000, v37, OS_SIGNPOST_INTERVAL_END, spid, "queryResultsForItems", "", buf, 2u);
   }
 
-  v36 = [v42 copy];
+  v38 = [v44 copy];
 
-  return v36;
+  return v38;
 }
 
 - (void)checkIfResultsExistOnDiskAndNotify:(id)notify

@@ -145,7 +145,7 @@ void __74__MPCModelRadioGetTracksPrepareIdentityStep_performWithCompletionHandle
   (*(v2 + 16))(v2);
 }
 
-uint64_t __74__MPCModelRadioGetTracksPrepareIdentityStep_performWithCompletionHandler___block_invoke_4(uint64_t a1)
+void *__74__MPCModelRadioGetTracksPrepareIdentityStep_performWithCompletionHandler___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) isDelegated];
   v3 = *(a1 + 32);

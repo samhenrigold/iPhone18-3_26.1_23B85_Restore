@@ -92,7 +92,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = dictionary;
   stringValue = self->_stringValue;
@@ -104,8 +104,8 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    v23 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_int64Value];
-    [v5 setObject:v23 forKey:@"int64Value"];
+    v22 = [MEMORY[0x1E696AD98] numberWithLongLong:self->_int64Value];
+    [v5 setObject:v22 forKey:@"int64Value"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -126,8 +126,8 @@ LABEL_5:
   }
 
   *&v4 = self->_floatValue;
-  v24 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  [v5 setObject:v24 forKey:@"floatValue"];
+  v23 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
+  [v5 setObject:v23 forKey:@"floatValue"];
 
   if (*&self->_has)
   {
@@ -158,30 +158,30 @@ LABEL_7:
   if ([(NSMutableArray *)self->_arrayValues count])
   {
     v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_arrayValues, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v13 = self->_arrayValues;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v15);
@@ -197,14 +197,12 @@ LABEL_7:
     [v5 setObject:dictionaryRepresentation2 forKey:@"dictionaryValue"];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_stringValue)
   {
@@ -214,7 +212,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    int64Value = self->_int64Value;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -234,12 +231,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  floatValue = self->_floatValue;
   PBDataWriterWriteFloatField();
   if (*&self->_has)
   {
 LABEL_6:
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
   }
 
@@ -251,7 +246,6 @@ LABEL_7:
 
   if ((*&self->_has & 8) != 0)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
   }
 
@@ -260,41 +254,38 @@ LABEL_7:
     PBDataWriterWriteStringField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v8 = self->_arrayValues;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_arrayValues;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_dictionaryValue)
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -380,7 +371,7 @@ LABEL_7:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_stringValue copyWithZone:zone];
   v7 = *(v5 + 64);
@@ -433,30 +424,30 @@ LABEL_5:
   v12 = *(v5 + 40);
   *(v5 + 40) = v11;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = self->_arrayValues;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v23 + 1) + 8 * i) copyWithZone:{zone, v23}];
+        v18 = [*(*(&v22 + 1) + 8 * i) copyWithZone:{zone, v22}];
         [v5 addArrayValue:v18];
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -466,7 +457,6 @@ LABEL_5:
   v20 = *(v5 + 48);
   *(v5 + 48) = v19;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -488,7 +478,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 76);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_int64Value != *(equalCopy + 2))
@@ -539,7 +528,6 @@ LABEL_5:
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 76);
   if ((has & 8) == 0)
   {
     if ((*(equalCopy + 76) & 8) == 0)
@@ -548,7 +536,7 @@ LABEL_5:
     }
 
 LABEL_31:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_32;
   }
 
@@ -557,7 +545,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v15 = *(equalCopy + 72);
   if (self->_BOOLValue)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -590,17 +577,17 @@ LABEL_24:
   dictionaryValue = self->_dictionaryValue;
   if (dictionaryValue | *(equalCopy + 6))
   {
-    v13 = [(_MRDictionaryProtobuf *)dictionaryValue isEqual:?];
+    v11 = [(_MRDictionaryProtobuf *)dictionaryValue isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_32:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -705,7 +692,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 8))
   {
@@ -761,29 +748,29 @@ LABEL_7:
     [(_MRValueProtobuf *)self setDateValue:?];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = *(fromCopy + 3);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(_MRValueProtobuf *)self addArrayValue:*(*(&v14 + 1) + 8 * i), v14];
+        [(_MRValueProtobuf *)self addArrayValue:*(*(&v13 + 1) + 8 * i), v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -803,8 +790,6 @@ LABEL_7:
   {
     [(_MRValueProtobuf *)self setDictionaryValue:?];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

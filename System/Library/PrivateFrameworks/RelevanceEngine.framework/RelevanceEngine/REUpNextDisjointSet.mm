@@ -31,28 +31,28 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_nodes;
-  v4 = [(NSMapTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMapTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMapTable *)self->_nodes objectForKey:*(*(&v12 + 1) + 8 * v7)];
+        v8 = [(NSMapTable *)self->_nodes objectForKey:*(*(&v11 + 1) + 8 * v7)];
         [v8 setParent:0];
         children = [v8 children];
         [children removeAllObjects];
@@ -61,57 +61,56 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMapTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMapTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v11.receiver = self;
-  v11.super_class = REUpNextDisjointSet;
-  [(REUpNextDisjointSet *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = REUpNextDisjointSet;
+  [(REUpNextDisjointSet *)&v10 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = [[REUpNextDisjointSet allocWithZone:?]];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3042000000;
-  v29 = __Block_byref_object_copy__9;
-  v30 = __Block_byref_object_dispose__9;
-  v31 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __36__REUpNextDisjointSet_copyWithZone___block_invoke;
-  v23[3] = &unk_2785FB930;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3042000000;
+  v28 = __Block_byref_object_copy__9;
+  v29 = __Block_byref_object_dispose__9;
+  v30 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __36__REUpNextDisjointSet_copyWithZone___block_invoke;
+  v22[3] = &unk_2785FB930;
   v5 = v4;
-  v24 = v5;
-  v25 = &v26;
-  v6 = MEMORY[0x22AABC5E0](v23);
-  objc_storeWeak(v27 + 5, v6);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v23 = v5;
+  v24 = &v25;
+  v6 = MEMORY[0x22AABC5E0](v22);
+  objc_storeWeak(v26 + 5, v6);
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = self->_nodes;
-  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
+  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v18 objects:v31 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = [v5[1] objectForKey:{v11, v19}];
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [v5[1] objectForKey:{v11, v18}];
         v13 = v12 == 0;
 
         if (v13)
@@ -122,22 +121,21 @@
         }
       }
 
-      v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
+      v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v18 objects:v31 count:16];
     }
 
     while (v8);
   }
 
   v16 = v5;
-  _Block_object_dispose(&v26, 8);
-  objc_destroyWeak(&v31);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  objc_destroyWeak(&v30);
   return v16;
 }
 
 void __36__REUpNextDisjointSet_copyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 32) + 8);
@@ -159,27 +157,27 @@ void __36__REUpNextDisjointSet_copyWithZone___block_invoke(uint64_t a1, void *a2
       [(REUpNextSetNode *)v12 join:v6];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v15 = [v5 children];
-    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         v19 = 0;
         do
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v23 + 1) + 8 * v19);
+          v20 = *(*(&v22 + 1) + 8 * v19);
           WeakRetained = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
           WeakRetained[2](WeakRetained, v20, v12);
 
@@ -187,14 +185,12 @@ void __36__REUpNextDisjointSet_copyWithZone___block_invoke(uint64_t a1, void *a2
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v17);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addItemDidTriggerException:(id)exception
@@ -320,7 +316,7 @@ LABEL_3:
 
 void __47__REUpNextDisjointSet_allItemsConnectedToItem___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (a1[4] != v3)
@@ -330,27 +326,27 @@ void __47__REUpNextDisjointSet_allItemsConnectedToItem___block_invoke(void *a1, 
     [v5 addObject:v6];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = [v4 children];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         WeakRetained = objc_loadWeakRetained((*(a1[6] + 8) + 40));
         WeakRetained[2](WeakRetained, v12);
 
@@ -358,13 +354,11 @@ void __47__REUpNextDisjointSet_allItemsConnectedToItem___block_invoke(void *a1, 
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isItem:(id)item connectedToItem:(id)toItem
@@ -413,13 +407,12 @@ LABEL_3:
 
 - (void)addItemDidTriggerException:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Item %@ already in disjoint set %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_22859F000, log, OS_LOG_TYPE_ERROR, "Item %@ already in disjoint set %@", &v3, 0x16u);
 }
 
 @end

@@ -76,10 +76,10 @@
 - (HFMatterCommandActionBuilder)initWithExistingObject:(id)object inHome:(id)home
 {
   objectCopy = object;
-  home = [(HFItemBuilder *)self home];
+  v6 = objc_msgSend_home(self);
   v16.receiver = self;
   v16.super_class = HFMatterCommandActionBuilder;
-  v7 = [(HFItemBuilder *)&v16 initWithExistingObject:objectCopy inHome:home];
+  v7 = [(HFItemBuilder *)&v16 initWithExistingObject:objectCopy inHome:v6];
 
   if (v7)
   {
@@ -103,8 +103,8 @@
 - (id)copyForCreatingNewAction
 {
   v3 = objc_alloc(objc_opt_class());
-  home = [(HFItemBuilder *)self home];
-  v5 = [v3 initWithHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [v3 initWithHome:v4];
 
   commands = [(HFMatterCommandActionBuilder *)self commands];
   [v5 setCommands:commands];

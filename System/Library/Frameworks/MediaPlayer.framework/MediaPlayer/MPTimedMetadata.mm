@@ -120,7 +120,7 @@
   metadataItem = self->_metadataItem;
   if (metadataItem)
   {
-    [(AVMetadataItem *)metadataItem time];
+    objc_msgSend_time(metadataItem, a2);
   }
 
   v4[0] = v4[1];
